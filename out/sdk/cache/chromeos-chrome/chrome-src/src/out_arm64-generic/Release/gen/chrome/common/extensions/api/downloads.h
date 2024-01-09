@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct HeaderNameValuePair {
   ~HeaderNameValuePair();
   HeaderNameValuePair(const HeaderNameValuePair&) = delete;
   HeaderNameValuePair& operator=(const HeaderNameValuePair&) = delete;
-  HeaderNameValuePair(HeaderNameValuePair&& rhs);
-  HeaderNameValuePair& operator=(HeaderNameValuePair&& rhs);
+  HeaderNameValuePair(HeaderNameValuePair&& rhs) noexcept;
+  HeaderNameValuePair& operator=(HeaderNameValuePair&& rhs) noexcept;
 
   // Populates a HeaderNameValuePair object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -48,17 +49,13 @@ struct HeaderNameValuePair {
   // Creates a deep copy of HeaderNameValuePair.
   HeaderNameValuePair Clone() const;
 
-  // Creates a HeaderNameValuePair object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<HeaderNameValuePair> FromValueDeprecated(const base::Value& value);
-
   // Creates a HeaderNameValuePair object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<HeaderNameValuePair> FromValue(const base::Value::Dict& value);
+  static std::optional<HeaderNameValuePair> FromValue(const base::Value::Dict& value);
 
   // Creates a HeaderNameValuePair object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HeaderNameValuePair> FromValue(const base::Value& value);
+  static std::optional<HeaderNameValuePair> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHeaderNameValuePair object.
@@ -77,12 +74,12 @@ struct HeaderNameValuePair {
 // <dt>overwrite</dt>     <dd>The existing file will be overwritten with the new
 // file.</dd>     <dt>prompt</dt>     <dd>The user will be prompted with a file
 // chooser dialog.</dd> </dl>
-enum  FilenameConflictAction {
-  FILENAME_CONFLICT_ACTION_NONE = 0,
-  FILENAME_CONFLICT_ACTION_UNIQUIFY,
-  FILENAME_CONFLICT_ACTION_OVERWRITE,
-  FILENAME_CONFLICT_ACTION_PROMPT,
-  FILENAME_CONFLICT_ACTION_LAST = FILENAME_CONFLICT_ACTION_PROMPT,
+enum class FilenameConflictAction {
+  kNone = 0,
+  kUniquify,
+  kOverwrite,
+  kPrompt,
+  kMaxValue = kPrompt,
 };
 
 
@@ -95,8 +92,8 @@ struct FilenameSuggestion {
   ~FilenameSuggestion();
   FilenameSuggestion(const FilenameSuggestion&) = delete;
   FilenameSuggestion& operator=(const FilenameSuggestion&) = delete;
-  FilenameSuggestion(FilenameSuggestion&& rhs);
-  FilenameSuggestion& operator=(FilenameSuggestion&& rhs);
+  FilenameSuggestion(FilenameSuggestion&& rhs) noexcept;
+  FilenameSuggestion& operator=(FilenameSuggestion&& rhs) noexcept;
 
   // Populates a FilenameSuggestion object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -109,16 +106,13 @@ struct FilenameSuggestion {
   // Creates a deep copy of FilenameSuggestion.
   FilenameSuggestion Clone() const;
 
-  // Creates a FilenameSuggestion object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FilenameSuggestion> FromValueDeprecated(const base::Value& value);
-
   // Creates a FilenameSuggestion object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FilenameSuggestion> FromValue(const base::Value::Dict& value);
+  static std::optional<FilenameSuggestion> FromValue(const base::Value::Dict& value);
 
   // Creates a FilenameSuggestion object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FilenameSuggestion> FromValue(const base::Value& value);
+  static std::optional<FilenameSuggestion> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFilenameSuggestion object.
@@ -137,11 +131,11 @@ struct FilenameSuggestion {
 
 };
 
-enum  HttpMethod {
-  HTTP_METHOD_NONE = 0,
-  HTTP_METHOD_GET,
-  HTTP_METHOD_POST,
-  HTTP_METHOD_LAST = HTTP_METHOD_POST,
+enum class HttpMethod {
+  kNone = 0,
+  kGet,
+  kPost,
+  kMaxValue = kPost,
 };
 
 
@@ -149,38 +143,38 @@ const char* ToString(HttpMethod as_enum);
 HttpMethod ParseHttpMethod(base::StringPiece as_string);
 std::u16string GetHttpMethodParseError(base::StringPiece as_string);
 
-enum  InterruptReason {
-  INTERRUPT_REASON_NONE = 0,
-  INTERRUPT_REASON_FILE_FAILED,
-  INTERRUPT_REASON_FILE_ACCESS_DENIED,
-  INTERRUPT_REASON_FILE_NO_SPACE,
-  INTERRUPT_REASON_FILE_NAME_TOO_LONG,
-  INTERRUPT_REASON_FILE_TOO_LARGE,
-  INTERRUPT_REASON_FILE_VIRUS_INFECTED,
-  INTERRUPT_REASON_FILE_TRANSIENT_ERROR,
-  INTERRUPT_REASON_FILE_BLOCKED,
-  INTERRUPT_REASON_FILE_SECURITY_CHECK_FAILED,
-  INTERRUPT_REASON_FILE_TOO_SHORT,
-  INTERRUPT_REASON_FILE_HASH_MISMATCH,
-  INTERRUPT_REASON_FILE_SAME_AS_SOURCE,
-  INTERRUPT_REASON_NETWORK_FAILED,
-  INTERRUPT_REASON_NETWORK_TIMEOUT,
-  INTERRUPT_REASON_NETWORK_DISCONNECTED,
-  INTERRUPT_REASON_NETWORK_SERVER_DOWN,
-  INTERRUPT_REASON_NETWORK_INVALID_REQUEST,
-  INTERRUPT_REASON_SERVER_FAILED,
-  INTERRUPT_REASON_SERVER_NO_RANGE,
-  INTERRUPT_REASON_SERVER_BAD_CONTENT,
-  INTERRUPT_REASON_SERVER_UNAUTHORIZED,
-  INTERRUPT_REASON_SERVER_CERT_PROBLEM,
-  INTERRUPT_REASON_SERVER_FORBIDDEN,
-  INTERRUPT_REASON_SERVER_UNREACHABLE,
-  INTERRUPT_REASON_SERVER_CONTENT_LENGTH_MISMATCH,
-  INTERRUPT_REASON_SERVER_CROSS_ORIGIN_REDIRECT,
-  INTERRUPT_REASON_USER_CANCELED,
-  INTERRUPT_REASON_USER_SHUTDOWN,
-  INTERRUPT_REASON_CRASH,
-  INTERRUPT_REASON_LAST = INTERRUPT_REASON_CRASH,
+enum class InterruptReason {
+  kNone = 0,
+  kFileFailed,
+  kFileAccessDenied,
+  kFileNoSpace,
+  kFileNameTooLong,
+  kFileTooLarge,
+  kFileVirusInfected,
+  kFileTransientError,
+  kFileBlocked,
+  kFileSecurityCheckFailed,
+  kFileTooShort,
+  kFileHashMismatch,
+  kFileSameAsSource,
+  kNetworkFailed,
+  kNetworkTimeout,
+  kNetworkDisconnected,
+  kNetworkServerDown,
+  kNetworkInvalidRequest,
+  kServerFailed,
+  kServerNoRange,
+  kServerBadContent,
+  kServerUnauthorized,
+  kServerCertProblem,
+  kServerForbidden,
+  kServerUnreachable,
+  kServerContentLengthMismatch,
+  kServerCrossOriginRedirect,
+  kUserCanceled,
+  kUserShutdown,
+  kCrash,
+  kMaxValue = kCrash,
 };
 
 
@@ -193,8 +187,8 @@ struct DownloadOptions {
   ~DownloadOptions();
   DownloadOptions(const DownloadOptions&) = delete;
   DownloadOptions& operator=(const DownloadOptions&) = delete;
-  DownloadOptions(DownloadOptions&& rhs);
-  DownloadOptions& operator=(DownloadOptions&& rhs);
+  DownloadOptions(DownloadOptions&& rhs) noexcept;
+  DownloadOptions& operator=(DownloadOptions&& rhs) noexcept;
 
   // Populates a DownloadOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -207,15 +201,12 @@ struct DownloadOptions {
   // Creates a deep copy of DownloadOptions.
   DownloadOptions Clone() const;
 
-  // Creates a DownloadOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DownloadOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a DownloadOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DownloadOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<DownloadOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a DownloadOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<DownloadOptions> FromValue(const base::Value& value);
+  static std::optional<DownloadOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDownloadOptions object.
@@ -229,14 +220,14 @@ struct DownloadOptions {
   // paths containing back-references ".." will cause an error.
   // $(ref:onDeterminingFilename) allows suggesting a filename after the file's
   // MIME type and a tentative filename have been determined.
-  absl::optional<std::string> filename;
+  std::optional<std::string> filename;
 
   // The action to take if <code>filename</code> already exists.
   FilenameConflictAction conflict_action;
 
   // Use a file-chooser to allow the user to select a filename regardless of
   // whether <code>filename</code> is set or already exists.
-  absl::optional<bool> save_as;
+  std::optional<bool> save_as;
 
   // The HTTP method to use if the URL uses the HTTP[S] protocol.
   HttpMethod method;
@@ -245,10 +236,10 @@ struct DownloadOptions {
   // protocol. Each header is represented as a dictionary containing the keys
   // <code>name</code> and either <code>value</code> or <code>binaryValue</code>,
   // restricted to those allowed by XMLHttpRequest.
-  absl::optional<std::vector<HeaderNameValuePair>> headers;
+  std::optional<std::vector<HeaderNameValuePair>> headers;
 
   // Post body.
-  absl::optional<std::string> body;
+  std::optional<std::string> body;
 
 };
 
@@ -263,30 +254,31 @@ struct DownloadOptions {
 // settings.</dd>     <dt>safe</dt>     <dd>The download presents no known
 // danger to the user's computer.</dd>     <dt>accepted</dt>     <dd>The user
 // has accepted the dangerous download.</dd> </dl>
-enum  DangerType {
-  DANGER_TYPE_NONE = 0,
-  DANGER_TYPE_FILE,
-  DANGER_TYPE_URL,
-  DANGER_TYPE_CONTENT,
-  DANGER_TYPE_UNCOMMON,
-  DANGER_TYPE_HOST,
-  DANGER_TYPE_UNWANTED,
-  DANGER_TYPE_SAFE,
-  DANGER_TYPE_ACCEPTED,
-  DANGER_TYPE_ALLOWLISTEDBYPOLICY,
-  DANGER_TYPE_ASYNCSCANNING,
-  DANGER_TYPE_PASSWORDPROTECTED,
-  DANGER_TYPE_BLOCKEDTOOLARGE,
-  DANGER_TYPE_SENSITIVECONTENTWARNING,
-  DANGER_TYPE_SENSITIVECONTENTBLOCK,
-  DANGER_TYPE_UNSUPPORTEDFILETYPE,
-  DANGER_TYPE_DEEPSCANNEDFAILED,
-  DANGER_TYPE_DEEPSCANNEDSAFE,
-  DANGER_TYPE_DEEPSCANNEDOPENEDDANGEROUS,
-  DANGER_TYPE_PROMPTFORSCANNING,
-  DANGER_TYPE_PROMPTFORLOCALPASSWORDSCANNING,
-  DANGER_TYPE_ACCOUNTCOMPROMISE,
-  DANGER_TYPE_LAST = DANGER_TYPE_ACCOUNTCOMPROMISE,
+enum class DangerType {
+  kNone = 0,
+  kFile,
+  kUrl,
+  kContent,
+  kUncommon,
+  kHost,
+  kUnwanted,
+  kSafe,
+  kAccepted,
+  kAllowlistedByPolicy,
+  kAsyncScanning,
+  kAsyncLocalPasswordScanning,
+  kPasswordProtected,
+  kBlockedTooLarge,
+  kSensitiveContentWarning,
+  kSensitiveContentBlock,
+  kUnsupportedFileType,
+  kDeepScannedFailed,
+  kDeepScannedSafe,
+  kDeepScannedOpenedDangerous,
+  kPromptForScanning,
+  kPromptForLocalPasswordScanning,
+  kAccountCompromise,
+  kMaxValue = kAccountCompromise,
 };
 
 
@@ -298,12 +290,12 @@ std::u16string GetDangerTypeParseError(base::StringPiece as_string);
 // from the server.</dd>     <dt>interrupted</dt>     <dd>An error broke the
 // connection with the file host.</dd>     <dt>complete</dt>     <dd>The
 // download completed successfully.</dd> </dl>
-enum  State {
-  STATE_NONE = 0,
-  STATE_IN_PROGRESS,
-  STATE_INTERRUPTED,
-  STATE_COMPLETE,
-  STATE_LAST = STATE_COMPLETE,
+enum class State {
+  kNone = 0,
+  kInProgress,
+  kInterrupted,
+  kComplete,
+  kMaxValue = kComplete,
 };
 
 
@@ -316,8 +308,8 @@ struct DownloadItem {
   ~DownloadItem();
   DownloadItem(const DownloadItem&) = delete;
   DownloadItem& operator=(const DownloadItem&) = delete;
-  DownloadItem(DownloadItem&& rhs);
-  DownloadItem& operator=(DownloadItem&& rhs);
+  DownloadItem(DownloadItem&& rhs) noexcept;
+  DownloadItem& operator=(DownloadItem&& rhs) noexcept;
 
   // Populates a DownloadItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -330,15 +322,12 @@ struct DownloadItem {
   // Creates a deep copy of DownloadItem.
   DownloadItem Clone() const;
 
-  // Creates a DownloadItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DownloadItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a DownloadItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DownloadItem> FromValue(const base::Value::Dict& value);
+  static std::optional<DownloadItem> FromValue(const base::Value::Dict& value);
 
   // Creates a DownloadItem object from a base::Value, or nullopt on failure.
-  static absl::optional<DownloadItem> FromValue(const base::Value& value);
+  static std::optional<DownloadItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDownloadItem object.
@@ -380,13 +369,13 @@ struct DownloadItem {
   // to the Date constructor: <code>chrome.downloads.search({},
   // function(items){items.forEach(function(item){if (item.endTime)
   // console.log(new Date(item.endTime))})})</code>
-  absl::optional<std::string> end_time;
+  std::optional<std::string> end_time;
 
   // Estimated time when the download will complete in ISO 8601 format. May be
   // passed directly to the Date constructor: <code>chrome.downloads.search({},
   // function(items){items.forEach(function(item){if (item.estimatedEndTime)
   // console.log(new Date(item.estimatedEndTime))})})</code>
-  absl::optional<std::string> estimated_end_time;
+  std::optional<std::string> estimated_end_time;
 
   // Indicates whether the download is progressing, interrupted, or complete.
   State state;
@@ -430,12 +419,12 @@ struct DownloadItem {
 
   // The identifier for the extension that initiated this download if this
   // download was initiated by an extension. Does not change once it is set.
-  absl::optional<std::string> by_extension_id;
+  std::optional<std::string> by_extension_id;
 
   // The localized name of the extension that initiated this download if this
   // download was initiated by an extension. May change if the extension changes
   // its name or if the user changes their locale.
-  absl::optional<std::string> by_extension_name;
+  std::optional<std::string> by_extension_name;
 
 };
 
@@ -444,8 +433,8 @@ struct DownloadQuery {
   ~DownloadQuery();
   DownloadQuery(const DownloadQuery&) = delete;
   DownloadQuery& operator=(const DownloadQuery&) = delete;
-  DownloadQuery(DownloadQuery&& rhs);
-  DownloadQuery& operator=(DownloadQuery&& rhs);
+  DownloadQuery(DownloadQuery&& rhs) noexcept;
+  DownloadQuery& operator=(DownloadQuery&& rhs) noexcept;
 
   // Populates a DownloadQuery object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -458,15 +447,12 @@ struct DownloadQuery {
   // Creates a deep copy of DownloadQuery.
   DownloadQuery Clone() const;
 
-  // Creates a DownloadQuery object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DownloadQuery> FromValueDeprecated(const base::Value& value);
-
   // Creates a DownloadQuery object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DownloadQuery> FromValue(const base::Value::Dict& value);
+  static std::optional<DownloadQuery> FromValue(const base::Value::Dict& value);
 
   // Creates a DownloadQuery object from a base::Value, or nullopt on failure.
-  static absl::optional<DownloadQuery> FromValue(const base::Value& value);
+  static std::optional<DownloadQuery> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDownloadQuery object.
@@ -476,103 +462,103 @@ struct DownloadQuery {
   // <code>filename</code> or <code>url</code> or <code>finalUrl</code> contain
   // all of the search terms that do not begin with a dash '-' and none of the
   // search terms that do begin with a dash.
-  absl::optional<std::vector<std::string>> query;
+  std::optional<std::vector<std::string>> query;
 
   // Limits results to $(ref:DownloadItem) that started before the given ms since
   // the epoch.
-  absl::optional<std::string> started_before;
+  std::optional<std::string> started_before;
 
   // Limits results to $(ref:DownloadItem) that started after the given ms since
   // the epoch.
-  absl::optional<std::string> started_after;
+  std::optional<std::string> started_after;
 
   // Limits results to $(ref:DownloadItem) that ended before the given ms since
   // the epoch.
-  absl::optional<std::string> ended_before;
+  std::optional<std::string> ended_before;
 
   // Limits results to $(ref:DownloadItem) that ended after the given ms since the
   // epoch.
-  absl::optional<std::string> ended_after;
+  std::optional<std::string> ended_after;
 
   // Limits results to $(ref:DownloadItem) whose <code>totalBytes</code> is
   // greater than the given integer.
-  absl::optional<double> total_bytes_greater;
+  std::optional<double> total_bytes_greater;
 
   // Limits results to $(ref:DownloadItem) whose <code>totalBytes</code> is less
   // than the given integer.
-  absl::optional<double> total_bytes_less;
+  std::optional<double> total_bytes_less;
 
   // Limits results to $(ref:DownloadItem) whose <code>filename</code> matches the
   // given regular expression.
-  absl::optional<std::string> filename_regex;
+  std::optional<std::string> filename_regex;
 
   // Limits results to $(ref:DownloadItem) whose <code>url</code> matches the
   // given regular expression.
-  absl::optional<std::string> url_regex;
+  std::optional<std::string> url_regex;
 
   // Limits results to $(ref:DownloadItem) whose <code>finalUrl</code> matches the
   // given regular expression.
-  absl::optional<std::string> final_url_regex;
+  std::optional<std::string> final_url_regex;
 
   // The maximum number of matching $(ref:DownloadItem) returned. Defaults to
   // 1000. Set to 0 in order to return all matching $(ref:DownloadItem). See
   // $(ref:search) for how to page through results.
-  absl::optional<int> limit;
+  std::optional<int> limit;
 
   // Set elements of this array to $(ref:DownloadItem) properties in order to sort
   // search results. For example, setting <code>orderBy=['startTime']</code> sorts
   // the $(ref:DownloadItem) by their start time in ascending order. To specify
   // descending order, prefix with a hyphen: '-startTime'.
-  absl::optional<std::vector<std::string>> order_by;
+  std::optional<std::vector<std::string>> order_by;
 
   // The <code>id</code> of the $(ref:DownloadItem) to query.
-  absl::optional<int> id;
+  std::optional<int> id;
 
   // The absolute URL that this download initiated from, before any redirects.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The absolute URL that this download is being made from, after all redirects.
-  absl::optional<std::string> final_url;
+  std::optional<std::string> final_url;
 
   // Absolute local path.
-  absl::optional<std::string> filename;
+  std::optional<std::string> filename;
 
   // Indication of whether this download is thought to be safe or known to be
   // suspicious.
   DangerType danger;
 
   // The file's MIME type.
-  absl::optional<std::string> mime;
+  std::optional<std::string> mime;
 
   // The time when the download began in ISO 8601 format.
-  absl::optional<std::string> start_time;
+  std::optional<std::string> start_time;
 
   // The time when the download ended in ISO 8601 format.
-  absl::optional<std::string> end_time;
+  std::optional<std::string> end_time;
 
   // Indicates whether the download is progressing, interrupted, or complete.
   State state;
 
   // True if the download has stopped reading data from the host, but kept the
   // connection open.
-  absl::optional<bool> paused;
+  std::optional<bool> paused;
 
   // Why a download was interrupted.
   InterruptReason error;
 
   // Number of bytes received so far from the host, without considering file
   // compression.
-  absl::optional<double> bytes_received;
+  std::optional<double> bytes_received;
 
   // Number of bytes in the whole file, without considering file compression, or
   // -1 if unknown.
-  absl::optional<double> total_bytes;
+  std::optional<double> total_bytes;
 
   // Number of bytes in the whole file post-decompression, or -1 if unknown.
-  absl::optional<double> file_size;
+  std::optional<double> file_size;
 
   // Whether the downloaded file exists;
-  absl::optional<bool> exists;
+  std::optional<bool> exists;
 
 };
 
@@ -581,8 +567,8 @@ struct StringDelta {
   ~StringDelta();
   StringDelta(const StringDelta&) = delete;
   StringDelta& operator=(const StringDelta&) = delete;
-  StringDelta(StringDelta&& rhs);
-  StringDelta& operator=(StringDelta&& rhs);
+  StringDelta(StringDelta&& rhs) noexcept;
+  StringDelta& operator=(StringDelta&& rhs) noexcept;
 
   // Populates a StringDelta object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -595,23 +581,20 @@ struct StringDelta {
   // Creates a deep copy of StringDelta.
   StringDelta Clone() const;
 
-  // Creates a StringDelta object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StringDelta> FromValueDeprecated(const base::Value& value);
-
   // Creates a StringDelta object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StringDelta> FromValue(const base::Value::Dict& value);
+  static std::optional<StringDelta> FromValue(const base::Value::Dict& value);
 
   // Creates a StringDelta object from a base::Value, or nullopt on failure.
-  static absl::optional<StringDelta> FromValue(const base::Value& value);
+  static std::optional<StringDelta> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStringDelta object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> previous;
+  std::optional<std::string> previous;
 
-  absl::optional<std::string> current;
+  std::optional<std::string> current;
 
 };
 
@@ -620,8 +603,8 @@ struct DoubleDelta {
   ~DoubleDelta();
   DoubleDelta(const DoubleDelta&) = delete;
   DoubleDelta& operator=(const DoubleDelta&) = delete;
-  DoubleDelta(DoubleDelta&& rhs);
-  DoubleDelta& operator=(DoubleDelta&& rhs);
+  DoubleDelta(DoubleDelta&& rhs) noexcept;
+  DoubleDelta& operator=(DoubleDelta&& rhs) noexcept;
 
   // Populates a DoubleDelta object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -634,23 +617,20 @@ struct DoubleDelta {
   // Creates a deep copy of DoubleDelta.
   DoubleDelta Clone() const;
 
-  // Creates a DoubleDelta object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DoubleDelta> FromValueDeprecated(const base::Value& value);
-
   // Creates a DoubleDelta object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DoubleDelta> FromValue(const base::Value::Dict& value);
+  static std::optional<DoubleDelta> FromValue(const base::Value::Dict& value);
 
   // Creates a DoubleDelta object from a base::Value, or nullopt on failure.
-  static absl::optional<DoubleDelta> FromValue(const base::Value& value);
+  static std::optional<DoubleDelta> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDoubleDelta object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<double> previous;
+  std::optional<double> previous;
 
-  absl::optional<double> current;
+  std::optional<double> current;
 
 };
 
@@ -659,8 +639,8 @@ struct BooleanDelta {
   ~BooleanDelta();
   BooleanDelta(const BooleanDelta&) = delete;
   BooleanDelta& operator=(const BooleanDelta&) = delete;
-  BooleanDelta(BooleanDelta&& rhs);
-  BooleanDelta& operator=(BooleanDelta&& rhs);
+  BooleanDelta(BooleanDelta&& rhs) noexcept;
+  BooleanDelta& operator=(BooleanDelta&& rhs) noexcept;
 
   // Populates a BooleanDelta object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -673,23 +653,20 @@ struct BooleanDelta {
   // Creates a deep copy of BooleanDelta.
   BooleanDelta Clone() const;
 
-  // Creates a BooleanDelta object from a base::Value, or NULL on failure.
-  static std::unique_ptr<BooleanDelta> FromValueDeprecated(const base::Value& value);
-
   // Creates a BooleanDelta object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<BooleanDelta> FromValue(const base::Value::Dict& value);
+  static std::optional<BooleanDelta> FromValue(const base::Value::Dict& value);
 
   // Creates a BooleanDelta object from a base::Value, or nullopt on failure.
-  static absl::optional<BooleanDelta> FromValue(const base::Value& value);
+  static std::optional<BooleanDelta> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBooleanDelta object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> previous;
+  std::optional<bool> previous;
 
-  absl::optional<bool> current;
+  std::optional<bool> current;
 
 };
 
@@ -698,8 +675,8 @@ struct DownloadDelta {
   ~DownloadDelta();
   DownloadDelta(const DownloadDelta&) = delete;
   DownloadDelta& operator=(const DownloadDelta&) = delete;
-  DownloadDelta(DownloadDelta&& rhs);
-  DownloadDelta& operator=(DownloadDelta&& rhs);
+  DownloadDelta(DownloadDelta&& rhs) noexcept;
+  DownloadDelta& operator=(DownloadDelta&& rhs) noexcept;
 
   // Populates a DownloadDelta object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -712,15 +689,12 @@ struct DownloadDelta {
   // Creates a deep copy of DownloadDelta.
   DownloadDelta Clone() const;
 
-  // Creates a DownloadDelta object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DownloadDelta> FromValueDeprecated(const base::Value& value);
-
   // Creates a DownloadDelta object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DownloadDelta> FromValue(const base::Value::Dict& value);
+  static std::optional<DownloadDelta> FromValue(const base::Value::Dict& value);
 
   // Creates a DownloadDelta object from a base::Value, or nullopt on failure.
-  static absl::optional<DownloadDelta> FromValue(const base::Value& value);
+  static std::optional<DownloadDelta> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDownloadDelta object.
@@ -730,46 +704,46 @@ struct DownloadDelta {
   int id;
 
   // The change in <code>url</code>, if any.
-  absl::optional<StringDelta> url;
+  std::optional<StringDelta> url;
 
   // The change in <code>finalUrl</code>, if any.
-  absl::optional<StringDelta> final_url;
+  std::optional<StringDelta> final_url;
 
   // The change in <code>filename</code>, if any.
-  absl::optional<StringDelta> filename;
+  std::optional<StringDelta> filename;
 
   // The change in <code>danger</code>, if any.
-  absl::optional<StringDelta> danger;
+  std::optional<StringDelta> danger;
 
   // The change in <code>mime</code>, if any.
-  absl::optional<StringDelta> mime;
+  std::optional<StringDelta> mime;
 
   // The change in <code>startTime</code>, if any.
-  absl::optional<StringDelta> start_time;
+  std::optional<StringDelta> start_time;
 
   // The change in <code>endTime</code>, if any.
-  absl::optional<StringDelta> end_time;
+  std::optional<StringDelta> end_time;
 
   // The change in <code>state</code>, if any.
-  absl::optional<StringDelta> state;
+  std::optional<StringDelta> state;
 
   // The change in <code>canResume</code>, if any.
-  absl::optional<BooleanDelta> can_resume;
+  std::optional<BooleanDelta> can_resume;
 
   // The change in <code>paused</code>, if any.
-  absl::optional<BooleanDelta> paused;
+  std::optional<BooleanDelta> paused;
 
   // The change in <code>error</code>, if any.
-  absl::optional<StringDelta> error;
+  std::optional<StringDelta> error;
 
   // The change in <code>totalBytes</code>, if any.
-  absl::optional<DoubleDelta> total_bytes;
+  std::optional<DoubleDelta> total_bytes;
 
   // The change in <code>fileSize</code>, if any.
-  absl::optional<DoubleDelta> file_size;
+  std::optional<DoubleDelta> file_size;
 
   // The change in <code>exists</code>, if any.
-  absl::optional<BooleanDelta> exists;
+  std::optional<BooleanDelta> exists;
 
 };
 
@@ -778,8 +752,8 @@ struct GetFileIconOptions {
   ~GetFileIconOptions();
   GetFileIconOptions(const GetFileIconOptions&) = delete;
   GetFileIconOptions& operator=(const GetFileIconOptions&) = delete;
-  GetFileIconOptions(GetFileIconOptions&& rhs);
-  GetFileIconOptions& operator=(GetFileIconOptions&& rhs);
+  GetFileIconOptions(GetFileIconOptions&& rhs) noexcept;
+  GetFileIconOptions& operator=(GetFileIconOptions&& rhs) noexcept;
 
   // Populates a GetFileIconOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -792,16 +766,13 @@ struct GetFileIconOptions {
   // Creates a deep copy of GetFileIconOptions.
   GetFileIconOptions Clone() const;
 
-  // Creates a GetFileIconOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetFileIconOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetFileIconOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetFileIconOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetFileIconOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetFileIconOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetFileIconOptions> FromValue(const base::Value& value);
+  static std::optional<GetFileIconOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetFileIconOptions object.
@@ -810,7 +781,7 @@ struct GetFileIconOptions {
   // The size of the returned icon. The icon will be square with dimensions size *
   // size pixels. The default and largest size for the icon is 32x32 pixels. The
   // only supported sizes are 16 and 32. It is an error to specify any other size.
-  absl::optional<int> size;
+  std::optional<int> size;
 
 };
 
@@ -819,8 +790,8 @@ struct UiOptions {
   ~UiOptions();
   UiOptions(const UiOptions&) = delete;
   UiOptions& operator=(const UiOptions&) = delete;
-  UiOptions(UiOptions&& rhs);
-  UiOptions& operator=(UiOptions&& rhs);
+  UiOptions(UiOptions&& rhs) noexcept;
+  UiOptions& operator=(UiOptions&& rhs) noexcept;
 
   // Populates a UiOptions object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -833,14 +804,11 @@ struct UiOptions {
   // Creates a deep copy of UiOptions.
   UiOptions Clone() const;
 
-  // Creates a UiOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UiOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UiOptions object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<UiOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UiOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UiOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<UiOptions> FromValue(const base::Value& value);
+  static std::optional<UiOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUiOptions object.
@@ -859,11 +827,11 @@ struct UiOptions {
 namespace Download {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // What to download and how.
@@ -884,11 +852,11 @@ base::Value::List Create(int download_id);
 namespace Search {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   DownloadQuery query;
@@ -908,11 +876,11 @@ base::Value::List Create(const std::vector<DownloadItem>& results);
 namespace Pause {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the download to pause.
@@ -933,11 +901,11 @@ base::Value::List Create();
 namespace Resume {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the download to resume.
@@ -958,11 +926,11 @@ base::Value::List Create();
 namespace Cancel {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the download to cancel.
@@ -983,17 +951,17 @@ base::Value::List Create();
 namespace GetFileIcon {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier for the download.
   int download_id;
 
-  absl::optional<GetFileIconOptions> options;
+  std::optional<GetFileIconOptions> options;
 
 
  private:
@@ -1010,11 +978,11 @@ base::Value::List Create(const std::string& icon_url);
 namespace Open {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier for the downloaded file.
@@ -1030,11 +998,11 @@ struct Params {
 namespace Show {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier for the downloaded file.
@@ -1054,11 +1022,11 @@ namespace ShowDefaultFolder {
 namespace Erase {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   DownloadQuery query;
@@ -1078,11 +1046,11 @@ base::Value::List Create(const std::vector<int>& erased_ids);
 namespace RemoveFile {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int download_id;
@@ -1102,11 +1070,11 @@ base::Value::List Create();
 namespace AcceptDanger {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier for the $(ref:DownloadItem).
@@ -1127,11 +1095,11 @@ base::Value::List Create();
 namespace SetShelfEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool enabled;
@@ -1146,11 +1114,11 @@ struct Params {
 namespace SetUiOptions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Encapsulate a change to the download UI.

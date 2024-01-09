@@ -36,6 +36,16 @@ static FenceEvent* Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, E
 explicit  FenceEvent();
 explicit  FenceEvent(v8::Isolate* isolate);
 
+bool hasCrossOriginExposed() const {
+  return true;
+}
+bool crossOriginExposed() const {
+  return member_cross_origin_exposed_;
+}
+void setCrossOriginExposed(bool value) {
+  member_cross_origin_exposed_ = value;
+}
+
 bool hasDestination() const {
   return has_destination_;
 }
@@ -114,6 +124,7 @@ bool has_destination_url_ = false;
 bool has_event_data_ = false;
 bool has_event_type_ = false;
 
+bool member_cross_origin_exposed_{false};
 Vector<V8FenceReportingDestination> member_destination_;
 String member_destination_url_;
 String member_event_data_;

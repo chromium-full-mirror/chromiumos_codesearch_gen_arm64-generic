@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct DataItemInfo {
   ~DataItemInfo();
   DataItemInfo(const DataItemInfo&) = delete;
   DataItemInfo& operator=(const DataItemInfo&) = delete;
-  DataItemInfo(DataItemInfo&& rhs);
-  DataItemInfo& operator=(DataItemInfo&& rhs);
+  DataItemInfo(DataItemInfo&& rhs) noexcept;
+  DataItemInfo& operator=(DataItemInfo&& rhs) noexcept;
 
   // Populates a DataItemInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct DataItemInfo {
   // Creates a deep copy of DataItemInfo.
   DataItemInfo Clone() const;
 
-  // Creates a DataItemInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DataItemInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DataItemInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DataItemInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DataItemInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DataItemInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DataItemInfo> FromValue(const base::Value& value);
+  static std::optional<DataItemInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDataItemInfo object.
@@ -71,8 +69,8 @@ struct DataItemsAvailableEvent {
   ~DataItemsAvailableEvent();
   DataItemsAvailableEvent(const DataItemsAvailableEvent&) = delete;
   DataItemsAvailableEvent& operator=(const DataItemsAvailableEvent&) = delete;
-  DataItemsAvailableEvent(DataItemsAvailableEvent&& rhs);
-  DataItemsAvailableEvent& operator=(DataItemsAvailableEvent&& rhs);
+  DataItemsAvailableEvent(DataItemsAvailableEvent&& rhs) noexcept;
+  DataItemsAvailableEvent& operator=(DataItemsAvailableEvent&& rhs) noexcept;
 
   // Populates a DataItemsAvailableEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -85,17 +83,13 @@ struct DataItemsAvailableEvent {
   // Creates a deep copy of DataItemsAvailableEvent.
   DataItemsAvailableEvent Clone() const;
 
-  // Creates a DataItemsAvailableEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DataItemsAvailableEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a DataItemsAvailableEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DataItemsAvailableEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<DataItemsAvailableEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a DataItemsAvailableEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DataItemsAvailableEvent> FromValue(const base::Value& value);
+  static std::optional<DataItemsAvailableEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDataItemsAvailableEvent object.
@@ -140,11 +134,11 @@ base::Value::List Create(const std::vector<DataItemInfo>& items);
 namespace GetContent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -164,11 +158,11 @@ base::Value::List Create(const std::vector<uint8_t>& data);
 namespace SetContent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -190,11 +184,11 @@ base::Value::List Create();
 namespace Delete {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;

@@ -733,6 +733,47 @@ std::unique_ptr<TrustTokenParams> TrustTokenParams::Clone() const {
 }
 
 
+std::unique_ptr<ServiceWorkerRouterInfo> ServiceWorkerRouterInfo::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("ServiceWorkerRouterInfo");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<ServiceWorkerRouterInfo> result(new ServiceWorkerRouterInfo());
+  errors->Push();
+  errors->SetName("ServiceWorkerRouterInfo");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* rule_id_matched_value = dict.Find("ruleIdMatched");
+  if (rule_id_matched_value) {
+    errors->SetName("ruleIdMatched");
+    result->rule_id_matched_ = internal::FromValue<int>::Parse(*rule_id_matched_value, errors);
+  } else {
+    errors->AddError("required property missing: ruleIdMatched");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value ServiceWorkerRouterInfo::Serialize() const {
+  base::Value::Dict result;
+  result.Set("ruleIdMatched", internal::ToValue(rule_id_matched_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<ServiceWorkerRouterInfo> ServiceWorkerRouterInfo::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<ServiceWorkerRouterInfo> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<Response> Response::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("Response");
@@ -835,6 +876,11 @@ std::unique_ptr<Response> Response::Parse(const base::Value& value, ErrorReporte
     errors->SetName("fromPrefetchCache");
     result->from_prefetch_cache_ = internal::FromValue<bool>::Parse(*from_prefetch_cache_value, errors);
   }
+  const base::Value* service_worker_router_info_value = dict.Find("serviceWorkerRouterInfo");
+  if (service_worker_router_info_value) {
+    errors->SetName("serviceWorkerRouterInfo");
+    result->service_worker_router_info_ = internal::FromValue<::headless::network::ServiceWorkerRouterInfo>::Parse(*service_worker_router_info_value, errors);
+  }
   const base::Value* encoded_data_length_value = dict.Find("encodedDataLength");
   if (encoded_data_length_value) {
     errors->SetName("encodedDataLength");
@@ -916,6 +962,8 @@ base::Value Response::Serialize() const {
     result.Set("fromServiceWorker", internal::ToValue(from_service_worker_.value()));
   if (from_prefetch_cache_)
     result.Set("fromPrefetchCache", internal::ToValue(from_prefetch_cache_.value()));
+  if (service_worker_router_info_)
+    result.Set("serviceWorkerRouterInfo", internal::ToValue(*service_worker_router_info_.value()));
   result.Set("encodedDataLength", internal::ToValue(encoded_data_length_));
   if (timing_)
     result.Set("timing", internal::ToValue(*timing_.value()));
@@ -5224,6 +5272,88 @@ std::unique_ptr<SetUserAgentOverrideResult> SetUserAgentOverrideResult::Clone() 
 }
 
 
+std::unique_ptr<StreamResourceContentParams> StreamResourceContentParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("StreamResourceContentParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<StreamResourceContentParams> result(new StreamResourceContentParams());
+  errors->Push();
+  errors->SetName("StreamResourceContentParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* request_id_value = dict.Find("requestId");
+  if (request_id_value) {
+    errors->SetName("requestId");
+    result->request_id_ = internal::FromValue<std::string>::Parse(*request_id_value, errors);
+  } else {
+    errors->AddError("required property missing: requestId");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value StreamResourceContentParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("requestId", internal::ToValue(request_id_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<StreamResourceContentParams> StreamResourceContentParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<StreamResourceContentParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<StreamResourceContentResult> StreamResourceContentResult::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("StreamResourceContentResult");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<StreamResourceContentResult> result(new StreamResourceContentResult());
+  errors->Push();
+  errors->SetName("StreamResourceContentResult");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* buffered_data_value = dict.Find("bufferedData");
+  if (buffered_data_value) {
+    errors->SetName("bufferedData");
+    result->buffered_data_ = internal::FromValue<protocol::Binary>::Parse(*buffered_data_value, errors);
+  } else {
+    errors->AddError("required property missing: bufferedData");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value StreamResourceContentResult::Serialize() const {
+  base::Value::Dict result;
+  result.Set("bufferedData", internal::ToValue(buffered_data_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<StreamResourceContentResult> StreamResourceContentResult::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<StreamResourceContentResult> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<GetSecurityIsolationStatusParams> GetSecurityIsolationStatusParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("GetSecurityIsolationStatusParams");
@@ -5516,6 +5646,11 @@ std::unique_ptr<DataReceivedParams> DataReceivedParams::Parse(const base::Value&
   } else {
     errors->AddError("required property missing: encodedDataLength");
   }
+  const base::Value* data_value = dict.Find("data");
+  if (data_value) {
+    errors->SetName("data");
+    result->data_ = internal::FromValue<protocol::Binary>::Parse(*data_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -5529,6 +5664,8 @@ base::Value DataReceivedParams::Serialize() const {
   result.Set("timestamp", internal::ToValue(timestamp_));
   result.Set("dataLength", internal::ToValue(data_length_));
   result.Set("encodedDataLength", internal::ToValue(encoded_data_length_));
+  if (data_)
+    result.Set("data", internal::ToValue(data_.value()));
   return base::Value(std::move(result));
 }
 

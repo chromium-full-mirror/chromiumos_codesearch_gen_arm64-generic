@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MutationObserver>::value,
     "MutationObserver does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MutationObserver::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MutationObserver is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -131,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationObserver.disconnect");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(v8_receiver);
+MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -158,7 +154,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(v8_receiver);
+MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -195,7 +191,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MutationObserver* blink_receiver = V8MutationObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->takeRecords();
 if (!ToV8Traits<IDLSequence<MutationRecord>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

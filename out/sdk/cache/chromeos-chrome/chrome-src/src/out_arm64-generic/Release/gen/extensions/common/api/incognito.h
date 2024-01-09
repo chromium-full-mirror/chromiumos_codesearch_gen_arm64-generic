@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -52,8 +53,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kIncognito[] = "incognito";

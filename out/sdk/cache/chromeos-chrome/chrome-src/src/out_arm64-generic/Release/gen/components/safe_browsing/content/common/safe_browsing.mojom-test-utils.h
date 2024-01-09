@@ -15,7 +15,7 @@ namespace safe_browsing::mojom {
 
 class  SafeBrowsingInterceptorForTesting : public SafeBrowsing {
   virtual SafeBrowsing* GetForwardingInterface() = 0;
-  void CreateCheckerAndCheck(int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) override;
+  void CreateCheckerAndCheck(const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) override;
   void Clone(::mojo::PendingReceiver<SafeBrowsing> receiver) override;
 };
 class  SafeBrowsingAsyncWaiter {
@@ -27,7 +27,7 @@ class  SafeBrowsingAsyncWaiter {
 
   ~SafeBrowsingAsyncWaiter();
   void CreateCheckerAndCheck(
-      int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>* out_slow_check_notifier, bool* out_proceed, bool* out_showed_interstitial);
+      const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>* out_slow_check_notifier, bool* out_proceed, bool* out_showed_interstitial);
   
 
  private:
@@ -143,7 +143,7 @@ class  PhishingImageEmbedderDetectorAsyncWaiter {
 
 class  ExtensionWebRequestReporterInterceptorForTesting : public ExtensionWebRequestReporter {
   virtual ExtensionWebRequestReporter* GetForwardingInterface() = 0;
-  void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type) override;
+  void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type, WebRequestContactInitiatorType contact_initiator_type) override;
   void Clone(::mojo::PendingReceiver<ExtensionWebRequestReporter> receiver) override;
 };
 class  ExtensionWebRequestReporterAsyncWaiter {

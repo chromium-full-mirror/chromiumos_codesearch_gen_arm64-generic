@@ -130,12 +130,19 @@ enum class ScrollRestorationType : int32_t {
   kManual = 1,
   kMinValue = 0,
   kMaxValue = 1,
+  kDefaultValue = 0
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, ScrollRestorationType value);
 inline bool IsKnownEnumValue(ScrollRestorationType value) {
   return internal::ScrollRestorationType_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline ScrollRestorationType ToKnownEnumValue(ScrollRestorationType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ScrollRestorationType::kDefaultValue;
 }
 
 

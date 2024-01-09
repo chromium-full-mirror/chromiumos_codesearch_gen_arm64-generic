@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/history_clusters/public/mojom/history_cluster_types.mojom-features.h"
 #include "components/history_clusters/public/mojom/history_cluster_types.mojom-shared.h"
 #include "components/history_clusters/public/mojom/history_cluster_types.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -688,12 +689,12 @@ class  Cluster {
       int64_t id,
       std::vector<URLVisitPtr> visits,
       const std::string& label,
-      const absl::optional<std::string>& tab_group_name,
+      const std::optional<std::string>& tab_group_name,
       std::vector<MatchPositionPtr> label_match_positions,
       std::vector<SearchQueryPtr> related_searches,
-      const absl::optional<::GURL>& image_url,
+      const std::optional<::GURL>& image_url,
       bool from_persistence,
-      const absl::optional<std::string>& debug_info);
+      const std::optional<std::string>& debug_info);
 
 Cluster(const Cluster&) = delete;
 Cluster& operator=(const Cluster&) = delete;
@@ -779,17 +780,17 @@ Cluster& operator=(const Cluster&) = delete;
   
   std::string label;
   
-  absl::optional<std::string> tab_group_name;
+  std::optional<std::string> tab_group_name;
   
   std::vector<MatchPositionPtr> label_match_positions;
   
   std::vector<SearchQueryPtr> related_searches;
   
-  absl::optional<::GURL> image_url;
+  std::optional<::GURL> image_url;
   
   bool from_persistence;
   
-  absl::optional<std::string> debug_info;
+  std::optional<std::string> debug_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

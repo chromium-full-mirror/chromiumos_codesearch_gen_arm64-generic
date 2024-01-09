@@ -30,7 +30,6 @@ build croslog$:_croslog-install_config: phony obj/croslog/_croslog-install_confi
 build croslog$:_log-metrics-collector-install_config: phony obj/croslog/_log-metrics-collector-install_config.stamp
 build croslog$:all: phony obj/croslog/all.stamp
 build croslog$:croslog: phony ./croslog
-build croslog$:croslog_testrunner: phony ./croslog_testrunner
 build croslog$:libcroslog_static: phony ./libcroslog_static.a
 build croslog$:log-metrics-collector: phony ./log-metrics-collector
 build croslog$:log_constants: phony obj/croslog/log_constants.stamp
@@ -39,7 +38,6 @@ build croslog/log_rotator$:all: phony obj/croslog/log_rotator/all.stamp
 build croslog/log_rotator$:log_rotator: phony ./log_rotator
 build croslog/log_rotator: phony ./log_rotator
 build croslog/log_rotator$:log_rotator_static: phony ./liblog_rotator_static.a
-build croslog/log_rotator$:log_rotator_testrunner: phony ./log_rotator_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
@@ -47,14 +45,12 @@ build all: phony $
     obj/croslog/_log-metrics-collector-install_config.stamp $
     obj/croslog/all.stamp $
     ./croslog $
-    ./croslog_testrunner $
     ./libcroslog_static.a $
     ./log-metrics-collector $
     obj/croslog/log_constants.stamp $
     obj/croslog/log_rotator/_log_rotator-install_config.stamp $
     obj/croslog/log_rotator/all.stamp $
     ./log_rotator $
-    ./liblog_rotator_static.a $
-    ./log_rotator_testrunner
+    ./liblog_rotator_static.a
 
 default all

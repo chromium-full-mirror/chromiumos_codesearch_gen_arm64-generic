@@ -33,14 +33,6 @@ rule copy
   command = cp -af ${in} ${out}
   description = COPY ${in} ${out}
 
-rule __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env /build/arm64-generic/usr/share/policy_tools/generate_policy_source.py --cloud-policy-protobuf=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login/out/Default/gen/common-mk/external_dependencies/proto/cloud_policy.proto --chrome-version-file=/build/arm64-generic/usr/share/policy_resources/VERSION --target-platform=chromeos --policy-templates-file=/build/arm64-generic/usr/share/policy_resources/generated_policy_templates.json
-  description = ACTION //common-mk/external_dependencies:cloud_policy_proto_generator(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build gen/common-mk/external_dependencies/proto/cloud_policy.proto: __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule | ../../../../../../../usr/share/policy_tools/generate_policy_source.py ../../../../../../../usr/share/policy_resources/VERSION ../../../../../../../usr/share/policy_resources/generated_policy_templates.json
-
-build obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp: stamp gen/common-mk/external_dependencies/proto/cloud_policy.proto
 rule __common-mk_external_dependencies_dbus-proxies___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py dbusxx-xml2cpp ${in} --proxy=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login/out/Default/gen/include/dbus_proxies/${source_name_part}.h --sync --async
   description = ACTION //common-mk/external_dependencies:dbus-proxies(//common-mk/toolchain:toolchain)
@@ -163,16 +155,15 @@ build gen/go/src/chromiumos/policy/serialization.pb.go: __common-mk_external_dep
 build obj/common-mk/external_dependencies/rlwe_goprotos.stamp: stamp gen/go/src/chromiumos/policy/serialization.pb.go
 subninja obj/common-mk/external_dependencies/user_policy-protos.ninja
 rule __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc cloud_policy.proto --proto_path /build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login/out/Default/gen/common-mk/external_dependencies/proto --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login/out/Default/gen/include/bindings
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc cloud_policy.proto --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login/out/Default/gen/include/bindings
   description = ACTION //common-mk/external_dependencies:user_policy-protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h: __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py gen/common-mk/external_dependencies/proto/cloud_policy.proto obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp ./libpolicy_common_definitions-protos.a
+build gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h: __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/cloud_policy.proto ./libpolicy_common_definitions-protos.a
 
 build obj/common-mk/external_dependencies/user_policy-protos_gen.stamp: stamp gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h
 build obj/common-mk/gn_root/root.stamp: stamp obj/login_manager/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/login_manager/all.stamp: stamp ./keygen ./libsession_manager.a ./session_manager obj/login_manager/session_manager-adaptors.stamp ./session_manager_test
+build obj/login_manager/all.stamp: stamp ./keygen ./libsession_manager.a ./session_manager obj/login_manager/session_manager-adaptors.stamp
 subninja obj/login_manager/keygen.ninja
 subninja obj/login_manager/libsession_manager.ninja
 subninja obj/login_manager/login_manager-login_screen_storage-protos.ninja
@@ -194,4 +185,3 @@ build gen/include/login_manager/dbus_adaptors/org.chromium.SessionManagerInterfa
   source_name_part = org.chromium.SessionManagerInterface
 
 build obj/login_manager/session_manager-adaptors.stamp: stamp gen/include/login_manager/dbus_adaptors/org.chromium.SessionManagerInterface.h
-subninja obj/login_manager/session_manager_test.ninja

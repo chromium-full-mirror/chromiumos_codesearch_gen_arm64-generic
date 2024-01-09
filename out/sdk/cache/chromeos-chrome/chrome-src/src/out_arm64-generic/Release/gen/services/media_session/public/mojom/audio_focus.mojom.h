@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/audio_focus.mojom-features.h"
 #include "services/media_session/public/mojom/audio_focus.mojom-shared.h"
 #include "services/media_session/public/mojom/audio_focus.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -640,20 +641,20 @@ class  AudioFocusRequestState {
   AudioFocusRequestState(
       ::media_session::mojom::MediaSessionInfoPtr session_info,
       AudioFocusType audio_focus_type,
-      const absl::optional<std::string>& source_name);
+      const std::optional<std::string>& source_name);
 
   AudioFocusRequestState(
       ::media_session::mojom::MediaSessionInfoPtr session_info,
       AudioFocusType audio_focus_type,
-      const absl::optional<std::string>& source_name,
-      const absl::optional<::base::UnguessableToken>& request_id);
+      const std::optional<std::string>& source_name,
+      const std::optional<::base::UnguessableToken>& request_id);
 
   AudioFocusRequestState(
       ::media_session::mojom::MediaSessionInfoPtr session_info,
       AudioFocusType audio_focus_type,
-      const absl::optional<std::string>& source_name,
-      const absl::optional<::base::UnguessableToken>& request_id,
-      const absl::optional<::base::UnguessableToken>& source_id);
+      const std::optional<std::string>& source_name,
+      const std::optional<::base::UnguessableToken>& request_id,
+      const std::optional<::base::UnguessableToken>& source_id);
 
 AudioFocusRequestState(const AudioFocusRequestState&) = delete;
 AudioFocusRequestState& operator=(const AudioFocusRequestState&) = delete;
@@ -737,11 +738,11 @@ AudioFocusRequestState& operator=(const AudioFocusRequestState&) = delete;
   
   AudioFocusType audio_focus_type;
   
-  absl::optional<std::string> source_name;
+  std::optional<std::string> source_name;
   
-  absl::optional<::base::UnguessableToken> request_id;
+  std::optional<::base::UnguessableToken> request_id;
   
-  absl::optional<::base::UnguessableToken> source_id;
+  std::optional<::base::UnguessableToken> source_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

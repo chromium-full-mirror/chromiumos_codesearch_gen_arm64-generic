@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGGraphicsElement>::value,
     "SVGGraphicsElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGGraphicsElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGGraphicsElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -103,7 +98,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGGraphicsElement_T
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transform();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,7 +117,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGLocatableNearestVie
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nearestViewportElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -141,7 +136,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGLocatableFarthestVi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->farthestViewportElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -162,7 +157,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->requiredExtensions();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]
@@ -185,7 +180,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->systemLanguage();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]
@@ -204,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.getBBox");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getBBoxFromJavascript();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -221,8 +217,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.getCTM");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCTM();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -238,8 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.getScreenCTM");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(v8_receiver);
+SVGGraphicsElement* blink_receiver = V8SVGGraphicsElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getScreenCTM();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRWebGLSubImage>::value,
     "XRWebGLSubImage inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRWebGLSubImage::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRWebGLSubImage is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.colorTexture.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorTexture();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.depthStencilTexture.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthStencilTexture();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.motionVectorTexture.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->motionVectorTexture();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.imageIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->imageIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -144,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.colorTextureWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorTextureWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -158,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.colorTextureHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorTextureHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -172,8 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.depthStencilTextureWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthStencilTextureWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -186,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.depthStencilTextureHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthStencilTextureHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -200,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.motionVectorTextureWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->motionVectorTextureWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -214,8 +218,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLSubImage.motionVectorTextureHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(v8_receiver);
+XRWebGLSubImage* blink_receiver = V8XRWebGLSubImage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->motionVectorTextureHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FederatedCredential>::value,
     "FederatedCredential inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FederatedCredential::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FederatedCredential is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("FederatedCredential.provider.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->provider();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->provider();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("FederatedCredential.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -118,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("FederatedCredential.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -133,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("FederatedCredential.iconURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->iconURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FederatedCredential* blink_receiver = V8FederatedCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->iconURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

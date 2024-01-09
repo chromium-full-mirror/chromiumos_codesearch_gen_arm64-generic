@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom.h"
@@ -207,7 +208,7 @@ class BLINK_COMMON_EXPORT PaymentHandlerMethodData {
 
   PaymentHandlerMethodData(
       const std::string& method_name,
-      const absl::optional<std::string>& stringified_data);
+      const std::optional<std::string>& stringified_data);
 
 
   ~PaymentHandlerMethodData();
@@ -287,7 +288,7 @@ class BLINK_COMMON_EXPORT PaymentHandlerMethodData {
   
   std::string method_name;
   
-  absl::optional<std::string> stringified_data;
+  std::optional<std::string> stringified_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -500,10 +501,10 @@ class BLINK_COMMON_EXPORT PaymentRequestDetailsUpdate {
 
   PaymentRequestDetailsUpdate(
       ::payments::mojom::PaymentCurrencyAmountPtr total,
-      absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options,
-      absl::optional<std::vector<PaymentHandlerModifierPtr>> modifiers,
+      std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options,
+      std::optional<std::vector<PaymentHandlerModifierPtr>> modifiers,
       const std::string& error,
-      const absl::optional<std::string>& stringified_payment_method_errors,
+      const std::optional<std::string>& stringified_payment_method_errors,
       ::payments::mojom::AddressErrorsPtr shipping_address_errors);
 
 PaymentRequestDetailsUpdate(const PaymentRequestDetailsUpdate&) = delete;
@@ -586,13 +587,13 @@ PaymentRequestDetailsUpdate& operator=(const PaymentRequestDetailsUpdate&) = del
   
   ::payments::mojom::PaymentCurrencyAmountPtr total;
   
-  absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options;
+  std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options;
   
-  absl::optional<std::vector<PaymentHandlerModifierPtr>> modifiers;
+  std::optional<std::vector<PaymentHandlerModifierPtr>> modifiers;
   
   std::string error;
   
-  absl::optional<std::string> stringified_payment_method_errors;
+  std::optional<std::string> stringified_payment_method_errors;
   
   ::payments::mojom::AddressErrorsPtr shipping_address_errors;
 

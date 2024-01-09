@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/cache_storage/cache_storage.mojom-features.h"
 #include "third_party/blink/public/mojom/cache_storage/cache_storage.mojom-shared.h"
 #include "third_party/blink/public/mojom/cache_storage/cache_storage.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -404,7 +405,7 @@ class BLINK_COMMON_EXPORT CacheStorageVerboseError {
 
   CacheStorageVerboseError(
       CacheStorageError value,
-      const absl::optional<std::string>& message);
+      const std::optional<std::string>& message);
 
 
   ~CacheStorageVerboseError();
@@ -484,7 +485,7 @@ class BLINK_COMMON_EXPORT CacheStorageVerboseError {
   
   CacheStorageError value;
   
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -689,17 +690,17 @@ class BLINK_COMMON_EXPORT OpenResult {
   // Construct an instance holding |status|.
   static OpenResultPtr
   NewStatus(
-      CacheStorageError status) {
+      CacheStorageError value) {
     auto result = OpenResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |cache|.
   static OpenResultPtr
   NewCache(
-      ::mojo::PendingAssociatedRemote<CacheStorageCache> cache) {
+      ::mojo::PendingAssociatedRemote<CacheStorageCache> value) {
     auto result = OpenResultPtr(absl::in_place);
-    result->set_cache(std::move(cache));
+    result->set_cache(std::move(value));
     return result;
   }
 
@@ -819,25 +820,25 @@ class BLINK_COMMON_EXPORT MatchResult {
   // Construct an instance holding |status|.
   static MatchResultPtr
   NewStatus(
-      CacheStorageError status) {
+      CacheStorageError value) {
     auto result = MatchResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |response|.
   static MatchResultPtr
   NewResponse(
-      ::blink::mojom::FetchAPIResponsePtr response) {
+      ::blink::mojom::FetchAPIResponsePtr value) {
     auto result = MatchResultPtr(absl::in_place);
-    result->set_response(std::move(response));
+    result->set_response(std::move(value));
     return result;
   }
   // Construct an instance holding |eager_response|.
   static MatchResultPtr
   NewEagerResponse(
-      EagerResponsePtr eager_response) {
+      EagerResponsePtr value) {
     auto result = MatchResultPtr(absl::in_place);
-    result->set_eager_response(std::move(eager_response));
+    result->set_eager_response(std::move(value));
     return result;
   }
 
@@ -970,17 +971,17 @@ class BLINK_COMMON_EXPORT MatchAllResult {
   // Construct an instance holding |status|.
   static MatchAllResultPtr
   NewStatus(
-      CacheStorageError status) {
+      CacheStorageError value) {
     auto result = MatchAllResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |responses|.
   static MatchAllResultPtr
   NewResponses(
-      std::vector<::blink::mojom::FetchAPIResponsePtr> responses) {
+      std::vector<::blink::mojom::FetchAPIResponsePtr> value) {
     auto result = MatchAllResultPtr(absl::in_place);
-    result->set_responses(std::move(responses));
+    result->set_responses(std::move(value));
     return result;
   }
 
@@ -1100,17 +1101,17 @@ class BLINK_COMMON_EXPORT GetAllMatchedEntriesResult {
   // Construct an instance holding |status|.
   static GetAllMatchedEntriesResultPtr
   NewStatus(
-      CacheStorageError status) {
+      CacheStorageError value) {
     auto result = GetAllMatchedEntriesResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |entries|.
   static GetAllMatchedEntriesResultPtr
   NewEntries(
-      std::vector<CacheEntryPtr> entries) {
+      std::vector<CacheEntryPtr> value) {
     auto result = GetAllMatchedEntriesResultPtr(absl::in_place);
-    result->set_entries(std::move(entries));
+    result->set_entries(std::move(value));
     return result;
   }
 
@@ -1230,17 +1231,17 @@ class BLINK_COMMON_EXPORT CacheKeysResult {
   // Construct an instance holding |status|.
   static CacheKeysResultPtr
   NewStatus(
-      CacheStorageError status) {
+      CacheStorageError value) {
     auto result = CacheKeysResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |keys|.
   static CacheKeysResultPtr
   NewKeys(
-      std::vector<::blink::mojom::FetchAPIRequestPtr> keys) {
+      std::vector<::blink::mojom::FetchAPIRequestPtr> value) {
     auto result = CacheKeysResultPtr(absl::in_place);
-    result->set_keys(std::move(keys));
+    result->set_keys(std::move(value));
     return result;
   }
 
@@ -1373,7 +1374,7 @@ class BLINK_COMMON_EXPORT MultiCacheQueryOptions {
 
   MultiCacheQueryOptions(
       CacheQueryOptionsPtr query_options,
-      const absl::optional<::std::u16string>& cache_name);
+      const std::optional<::std::u16string>& cache_name);
 
 MultiCacheQueryOptions(const MultiCacheQueryOptions&) = delete;
 MultiCacheQueryOptions& operator=(const MultiCacheQueryOptions&) = delete;
@@ -1455,7 +1456,7 @@ MultiCacheQueryOptions& operator=(const MultiCacheQueryOptions&) = delete;
   
   CacheQueryOptionsPtr query_options;
   
-  absl::optional<::std::u16string> cache_name;
+  std::optional<::std::u16string> cache_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

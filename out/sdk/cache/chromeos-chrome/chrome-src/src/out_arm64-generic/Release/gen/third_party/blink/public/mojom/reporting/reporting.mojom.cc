@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -183,7 +184,7 @@ ReportingServiceProxyProxy::ReportingServiceProxyProxy(mojo::MessageReceiverWith
 }
 
 void ReportingServiceProxyProxy::QueueInterventionReport(
-    const ::GURL& in_url, const std::string& in_id, const std::string& in_message, const absl::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
+    const ::GURL& in_url, const std::string& in_id, const std::string& in_message, const std::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueueInterventionReport", "input_parameters",
@@ -200,7 +201,7 @@ void ReportingServiceProxyProxy::QueueInterventionReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_file"), in_source_file,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_number"), in_line_number,
                         "<value of type int32_t>");
@@ -209,14 +210,17 @@ void ReportingServiceProxyProxy::QueueInterventionReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueInterventionReport_Name, kFlags, 0, 0, nullptr);
@@ -277,7 +281,7 @@ void ReportingServiceProxyProxy::QueueInterventionReport(
 }
 
 void ReportingServiceProxyProxy::QueueDeprecationReport(
-    const ::GURL& in_url, const std::string& in_id, absl::optional<::base::Time> in_anticipatedRemoval, const std::string& in_message, const absl::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
+    const ::GURL& in_url, const std::string& in_id, std::optional<::base::Time> in_anticipatedRemoval, const std::string& in_message, const std::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueueDeprecationReport", "input_parameters",
@@ -291,13 +295,13 @@ void ReportingServiceProxyProxy::QueueDeprecationReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("anticipatedRemoval"), in_anticipatedRemoval,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_file"), in_source_file,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_number"), in_line_number,
                         "<value of type int32_t>");
@@ -306,14 +310,17 @@ void ReportingServiceProxyProxy::QueueDeprecationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueDeprecationReport_Name, kFlags, 0, 0, nullptr);
@@ -381,7 +388,7 @@ void ReportingServiceProxyProxy::QueueDeprecationReport(
 }
 
 void ReportingServiceProxyProxy::QueueCspViolationReport(
-    const ::GURL& in_url, const std::string& in_group, const std::string& in_document_url, const absl::optional<std::string>& in_referrer, const absl::optional<std::string>& in_blocked_url, const std::string& in_effective_directive, const std::string& in_original_policy, const absl::optional<std::string>& in_source_file, const absl::optional<std::string>& in_script_sample, const std::string& in_disposition, uint16_t in_status_code, int32_t in_line_number, int32_t in_column_number) {
+    const ::GURL& in_url, const std::string& in_group, const std::string& in_document_url, const std::optional<std::string>& in_referrer, const std::optional<std::string>& in_blocked_url, const std::string& in_effective_directive, const std::string& in_original_policy, const std::optional<std::string>& in_source_file, const std::optional<std::string>& in_script_sample, const std::string& in_disposition, uint16_t in_status_code, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueueCspViolationReport", "input_parameters",
@@ -398,10 +405,10 @@ void ReportingServiceProxyProxy::QueueCspViolationReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("referrer"), in_referrer,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("blocked_url"), in_blocked_url,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("effective_directive"), in_effective_directive,
                         "<value of type const std::string&>");
@@ -410,10 +417,10 @@ void ReportingServiceProxyProxy::QueueCspViolationReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_file"), in_source_file,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("script_sample"), in_script_sample,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("disposition"), in_disposition,
                         "<value of type const std::string&>");
@@ -428,14 +435,17 @@ void ReportingServiceProxyProxy::QueueCspViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueCspViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -551,7 +561,7 @@ void ReportingServiceProxyProxy::QueueCspViolationReport(
 }
 
 void ReportingServiceProxyProxy::QueuePermissionsPolicyViolationReport(
-    const ::GURL& in_url, const std::string& in_endpoint, const std::string& in_policy_id, const std::string& in_disposition, const absl::optional<std::string>& in_message, const absl::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
+    const ::GURL& in_url, const std::string& in_endpoint, const std::string& in_policy_id, const std::string& in_disposition, const std::optional<std::string>& in_message, const std::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueuePermissionsPolicyViolationReport", "input_parameters",
@@ -571,10 +581,10 @@ void ReportingServiceProxyProxy::QueuePermissionsPolicyViolationReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_file"), in_source_file,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_number"), in_line_number,
                         "<value of type int32_t>");
@@ -583,14 +593,17 @@ void ReportingServiceProxyProxy::QueuePermissionsPolicyViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueuePermissionsPolicyViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -669,7 +682,7 @@ void ReportingServiceProxyProxy::QueuePermissionsPolicyViolationReport(
 }
 
 void ReportingServiceProxyProxy::QueueDocumentPolicyViolationReport(
-    const ::GURL& in_url, const std::string& in_group, const std::string& in_policy_id, const std::string& in_disposition, const absl::optional<std::string>& in_message, const absl::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
+    const ::GURL& in_url, const std::string& in_group, const std::string& in_policy_id, const std::string& in_disposition, const std::optional<std::string>& in_message, const std::optional<std::string>& in_source_file, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueueDocumentPolicyViolationReport", "input_parameters",
@@ -689,10 +702,10 @@ void ReportingServiceProxyProxy::QueueDocumentPolicyViolationReport(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_file"), in_source_file,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_number"), in_line_number,
                         "<value of type int32_t>");
@@ -701,14 +714,17 @@ void ReportingServiceProxyProxy::QueueDocumentPolicyViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueDocumentPolicyViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -802,7 +818,7 @@ bool ReportingServiceProxyStubDispatch::Accept(
       ::GURL p_url{};
       std::string p_id{};
       std::string p_message{};
-      absl::optional<std::string> p_source_file{};
+      std::optional<std::string> p_source_file{};
       int32_t p_line_number{};
       int32_t p_column_number{};
       ReportingServiceProxy_QueueInterventionReport_ParamsDataView input_data_view(params, message);
@@ -847,9 +863,9 @@ std::move(p_column_number));
       bool success = true;
       ::GURL p_url{};
       std::string p_id{};
-      absl::optional<::base::Time> p_anticipatedRemoval{};
+      std::optional<::base::Time> p_anticipatedRemoval{};
       std::string p_message{};
-      absl::optional<std::string> p_source_file{};
+      std::optional<std::string> p_source_file{};
       int32_t p_line_number{};
       int32_t p_column_number{};
       ReportingServiceProxy_QueueDeprecationReport_ParamsDataView input_data_view(params, message);
@@ -898,12 +914,12 @@ std::move(p_column_number));
       ::GURL p_url{};
       std::string p_group{};
       std::string p_document_url{};
-      absl::optional<std::string> p_referrer{};
-      absl::optional<std::string> p_blocked_url{};
+      std::optional<std::string> p_referrer{};
+      std::optional<std::string> p_blocked_url{};
       std::string p_effective_directive{};
       std::string p_original_policy{};
-      absl::optional<std::string> p_source_file{};
-      absl::optional<std::string> p_script_sample{};
+      std::optional<std::string> p_source_file{};
+      std::optional<std::string> p_script_sample{};
       std::string p_disposition{};
       uint16_t p_status_code{};
       int32_t p_line_number{};
@@ -973,8 +989,8 @@ std::move(p_column_number));
       std::string p_endpoint{};
       std::string p_policy_id{};
       std::string p_disposition{};
-      absl::optional<std::string> p_message{};
-      absl::optional<std::string> p_source_file{};
+      std::optional<std::string> p_message{};
+      std::optional<std::string> p_source_file{};
       int32_t p_line_number{};
       int32_t p_column_number{};
       ReportingServiceProxy_QueuePermissionsPolicyViolationReport_ParamsDataView input_data_view(params, message);
@@ -1027,8 +1043,8 @@ std::move(p_column_number));
       std::string p_group{};
       std::string p_policy_id{};
       std::string p_disposition{};
-      absl::optional<std::string> p_message{};
-      absl::optional<std::string> p_source_file{};
+      std::optional<std::string> p_message{};
+      std::optional<std::string> p_source_file{};
       int32_t p_line_number{};
       int32_t p_column_number{};
       ReportingServiceProxy_QueueDocumentPolicyViolationReport_ParamsDataView input_data_view(params, message);
@@ -1100,18 +1116,18 @@ bool ReportingServiceProxyStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kReportingServiceProxyValidationInfo[] = {
-    {&internal::ReportingServiceProxy_QueueInterventionReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueInterventionReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueDeprecationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueDeprecationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueCspViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueCspViolationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueuePermissionsPolicyViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueuePermissionsPolicyViolationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueDocumentPolicyViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueDocumentPolicyViolationReport_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1137,19 +1153,19 @@ namespace mojo {
 namespace blink::mojom {
 
 
-void ReportingServiceProxyInterceptorForTesting::QueueInterventionReport(const ::GURL& url, const std::string& id, const std::string& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueueInterventionReport(const ::GURL& url, const std::string& id, const std::string& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueInterventionReport(std::move(url), std::move(id), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
-void ReportingServiceProxyInterceptorForTesting::QueueDeprecationReport(const ::GURL& url, const std::string& id, absl::optional<::base::Time> anticipatedRemoval, const std::string& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueueDeprecationReport(const ::GURL& url, const std::string& id, std::optional<::base::Time> anticipatedRemoval, const std::string& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueDeprecationReport(std::move(url), std::move(id), std::move(anticipatedRemoval), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
-void ReportingServiceProxyInterceptorForTesting::QueueCspViolationReport(const ::GURL& url, const std::string& group, const std::string& document_url, const absl::optional<std::string>& referrer, const absl::optional<std::string>& blocked_url, const std::string& effective_directive, const std::string& original_policy, const absl::optional<std::string>& source_file, const absl::optional<std::string>& script_sample, const std::string& disposition, uint16_t status_code, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueueCspViolationReport(const ::GURL& url, const std::string& group, const std::string& document_url, const std::optional<std::string>& referrer, const std::optional<std::string>& blocked_url, const std::string& effective_directive, const std::string& original_policy, const std::optional<std::string>& source_file, const std::optional<std::string>& script_sample, const std::string& disposition, uint16_t status_code, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueCspViolationReport(std::move(url), std::move(group), std::move(document_url), std::move(referrer), std::move(blocked_url), std::move(effective_directive), std::move(original_policy), std::move(source_file), std::move(script_sample), std::move(disposition), std::move(status_code), std::move(line_number), std::move(column_number));
 }
-void ReportingServiceProxyInterceptorForTesting::QueuePermissionsPolicyViolationReport(const ::GURL& url, const std::string& endpoint, const std::string& policy_id, const std::string& disposition, const absl::optional<std::string>& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueuePermissionsPolicyViolationReport(const ::GURL& url, const std::string& endpoint, const std::string& policy_id, const std::string& disposition, const std::optional<std::string>& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueuePermissionsPolicyViolationReport(std::move(url), std::move(endpoint), std::move(policy_id), std::move(disposition), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
-void ReportingServiceProxyInterceptorForTesting::QueueDocumentPolicyViolationReport(const ::GURL& url, const std::string& group, const std::string& policy_id, const std::string& disposition, const absl::optional<std::string>& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueueDocumentPolicyViolationReport(const ::GURL& url, const std::string& group, const std::string& policy_id, const std::string& disposition, const std::optional<std::string>& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueDocumentPolicyViolationReport(std::move(url), std::move(group), std::move(policy_id), std::move(disposition), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
 ReportingServiceProxyAsyncWaiter::ReportingServiceProxyAsyncWaiter(

@@ -100,6 +100,14 @@ goog.provide('network.mojom.ProxyServerSpec');
 network.mojom.ProxyServerSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('network.mojom.ProxyChainSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.ProxyChainSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('network.mojom.ResolveErrorInfoSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -391,6 +399,45 @@ network.mojom.ProxyServer = class {
     this.scheme;
     /** @export { (network.mojom.HostPortPair|undefined) } */
     this.hostAndPort;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.ProxyChainSpec.$,
+    'ProxyChain',
+    [
+      mojo.internal.StructField(
+        'proxyServers', 0,
+        0,
+        mojo.internal.Array(network.mojom.ProxyServerSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'isForIpProtection', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('network.mojom.ProxyChain');
+
+/** @record */
+network.mojom.ProxyChain = class {
+  constructor() {
+    /** @export { (Array<!network.mojom.ProxyServer>|undefined) } */
+    this.proxyServers;
+    /** @export { !boolean } */
+    this.isForIpProtection;
   }
 };
 

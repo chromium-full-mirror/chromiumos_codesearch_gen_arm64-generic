@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/media_router/common/mojom/media_status.mojom-features.h"
 #include "components/media_router/common/mojom/media_status.mojom-shared.h"
 #include "components/media_router/common/mojom/media_status.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -182,7 +183,7 @@ class  MediaImage {
 
   MediaImage(
       const ::GURL& url,
-      const absl::optional<::gfx::Size>& size);
+      const std::optional<::gfx::Size>& size);
 
 
   ~MediaImage();
@@ -262,7 +263,7 @@ class  MediaImage {
   
   ::GURL url;
   
-  absl::optional<::gfx::Size> size;
+  std::optional<::gfx::Size> size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

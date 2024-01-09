@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r891/work/spaced-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -33,10 +33,7 @@ build libspaced_pc: phony obj/spaced/libspaced_pc.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build spaced_adaptor: phony obj/spaced/spaced_adaptor.stamp
 build spaced_proxy: phony obj/spaced/spaced_proxy.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build spaced$:_libspaced-install_config: phony obj/spaced/_libspaced-install_config.stamp
 build spaced$:_libspaced-test_pc-install_config: phony obj/spaced/_libspaced-test_pc-install_config.stamp
 build spaced$:_libspaced_pc-install_config: phony obj/spaced/_libspaced_pc-install_config.stamp
@@ -50,7 +47,6 @@ build spaced$:install_minijail_conf: phony obj/spaced/install_minijail_conf.stam
 build spaced$:libspaced: phony ./lib/libspaced.so
 build spaced$:libspaced-test_pc: phony obj/spaced/libspaced-test_pc.stamp
 build spaced$:libspaced_pc: phony obj/spaced/libspaced_pc.stamp
-build spaced$:libspaced_unittests: phony ./libspaced_unittests
 build spaced$:spaced: phony ./spaced
 build spaced$:spaced_adaptor: phony obj/spaced/spaced_adaptor.stamp
 build spaced$:spaced_cli: phony ./spaced_cli
@@ -58,7 +54,6 @@ build spaced$:spaced_proxy: phony obj/spaced/spaced_proxy.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/spaced/_libspaced-install_config.stamp $
     obj/spaced/_libspaced-test_pc-install_config.stamp $
     obj/spaced/_libspaced_pc-install_config.stamp $
@@ -72,7 +67,6 @@ build all: phony $
     ./lib/libspaced.so $
     obj/spaced/libspaced-test_pc.stamp $
     obj/spaced/libspaced_pc.stamp $
-    ./libspaced_unittests $
     ./spaced $
     obj/spaced/spaced_adaptor.stamp $
     ./spaced_cli $

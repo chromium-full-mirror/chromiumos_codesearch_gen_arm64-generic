@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -127,14 +128,17 @@ void AudioHostProxy::ShowVolumeControls(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::AudioHost::ShowVolumeControls");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioHost_ShowVolumeControls_Name, kFlags, 0, 0, nullptr);
@@ -164,14 +168,17 @@ void AudioHostProxy::OnSystemVolumeUpdateRequest(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioHost_OnSystemVolumeUpdateRequest_Name, kFlags, 0, 0, nullptr);
@@ -265,12 +272,12 @@ bool AudioHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioHostValidationInfo[] = {
-    {&internal::AudioHost_ShowVolumeControls_Params_Data::Validate,
+    { &internal::AudioHost_ShowVolumeControls_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioHost_OnSystemVolumeUpdateRequest_Params_Data::Validate,
+    { &internal::AudioHost_OnSystemVolumeUpdateRequest_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -406,14 +413,17 @@ void AudioInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<AudioHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +460,17 @@ void AudioInstanceProxy::NotifySwitchState(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInstance_NotifySwitchState_Name, kFlags, 0, 0, nullptr);
@@ -491,14 +504,17 @@ void AudioInstanceProxy::NotifyVolumeState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInstance_NotifyVolumeState_Name, kFlags, 0, 0, nullptr);
@@ -598,7 +614,8 @@ void AudioInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -741,15 +758,15 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioInstanceValidationInfo[] = {
-    {&internal::AudioInstance_NotifySwitchState_Params_Data::Validate,
+    { &internal::AudioInstance_NotifySwitchState_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AudioInstance_NotifyVolumeState_Params_Data::Validate,
+    { &internal::AudioInstance_NotifyVolumeState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInstance_Init_Params_Data::Validate,
+    { &internal::AudioInstance_Init_Params_Data::Validate,
      &internal::AudioInstance_Init_ResponseParams_Data::Validate},
 };
 

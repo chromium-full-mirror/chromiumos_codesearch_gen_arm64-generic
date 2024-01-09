@@ -98,15 +98,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'operatedByGoogle', 24,
-        0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'disqualifiedAt', 32,
+        'disqualifiedAt', 24,
         0,
         mojoBase_mojom_TimeSpec.$,
         null,
@@ -114,7 +106,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'mmd', 40,
+        'mmd', 32,
         0,
         mojoBase_mojom_TimeDeltaSpec.$,
         null,
@@ -122,7 +114,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'currentOperator', 48,
+        'currentOperator', 40,
         0,
         mojo.internal.String,
         null,
@@ -130,7 +122,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'previousOperators', 56,
+        'previousOperators', 48,
         0,
         mojo.internal.Array(PreviousOperatorEntrySpec.$, false),
         null,
@@ -138,7 +130,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 72],]);
+    [[0, 64],]);
 
 
 
@@ -153,8 +145,6 @@ export class CTLogInfo {
     this.publicKey;
     /** @type { !string } */
     this.name;
-    /** @type { !boolean } */
-    this.operatedByGoogle;
     /** @type { (mojoBase_mojom_Time|undefined) } */
     this.disqualifiedAt;
     /** @type { !mojoBase_mojom_TimeDelta } */

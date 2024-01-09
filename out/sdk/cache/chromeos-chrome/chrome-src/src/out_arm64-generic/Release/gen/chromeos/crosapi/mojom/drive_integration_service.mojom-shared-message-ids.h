@@ -16,7 +16,7 @@ namespace internal {
 
 constexpr uint32_t kDriveIntegrationServiceObserver_OnMountPointPathChanged_Name = 0;
 constexpr uint32_t kDriveFsNativeMessageHostBridge_ConnectToExtension_Name = 0;
-constexpr uint32_t kDriveIntegrationService_GetMountPointPath_Name = 0;
+constexpr uint32_t kDriveIntegrationService_DeprecatedGetMountPointPath_Name = 0;
 constexpr uint32_t kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name = 1;
 constexpr uint32_t kDriveIntegrationService_CreateNativeHostSession_Name = 2;
 constexpr uint32_t kDriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Name = 3;

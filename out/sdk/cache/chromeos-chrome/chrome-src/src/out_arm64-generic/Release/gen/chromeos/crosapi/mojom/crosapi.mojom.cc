@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,7 +55,7 @@ BrowserInfo::BrowserInfo(
 
 BrowserInfo::BrowserInfo(
     const std::string& browser_version_in,
-    absl::optional<std::vector<std::string>> lacros_workarounds_in)
+    std::optional<std::vector<std::string>> lacros_workarounds_in)
     : browser_version(std::move(browser_version_in)),
       lacros_workarounds(std::move(lacros_workarounds_in)) {}
 
@@ -76,7 +77,7 @@ void BrowserInfo::WriteIntoTrace(
     dict.AddItem(
       "lacros_workarounds"), this->lacros_workarounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -119,7 +120,7 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in)
+    const std::optional<::base::FilePath>& drivefs_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -135,8 +136,8 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in,
-    const absl::optional<::base::FilePath>& user_nss_database_in)
+    const std::optional<::base::FilePath>& drivefs_in,
+    const std::optional<::base::FilePath>& user_nss_database_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -152,11 +153,11 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in,
-    const absl::optional<::base::FilePath>& user_nss_database_in,
-    const absl::optional<::base::FilePath>& removable_media_in,
-    const absl::optional<::base::FilePath>& android_files_in,
-    const absl::optional<::base::FilePath>& linux_files_in)
+    const std::optional<::base::FilePath>& drivefs_in,
+    const std::optional<::base::FilePath>& user_nss_database_in,
+    const std::optional<::base::FilePath>& removable_media_in,
+    const std::optional<::base::FilePath>& android_files_in,
+    const std::optional<::base::FilePath>& linux_files_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -172,12 +173,12 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in,
-    const absl::optional<::base::FilePath>& user_nss_database_in,
-    const absl::optional<::base::FilePath>& removable_media_in,
-    const absl::optional<::base::FilePath>& android_files_in,
-    const absl::optional<::base::FilePath>& linux_files_in,
-    const absl::optional<::base::FilePath>& ash_resources_in)
+    const std::optional<::base::FilePath>& drivefs_in,
+    const std::optional<::base::FilePath>& user_nss_database_in,
+    const std::optional<::base::FilePath>& removable_media_in,
+    const std::optional<::base::FilePath>& android_files_in,
+    const std::optional<::base::FilePath>& linux_files_in,
+    const std::optional<::base::FilePath>& ash_resources_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -193,13 +194,13 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in,
-    const absl::optional<::base::FilePath>& user_nss_database_in,
-    const absl::optional<::base::FilePath>& removable_media_in,
-    const absl::optional<::base::FilePath>& android_files_in,
-    const absl::optional<::base::FilePath>& linux_files_in,
-    const absl::optional<::base::FilePath>& ash_resources_in,
-    const absl::optional<::base::FilePath>& share_cache_in)
+    const std::optional<::base::FilePath>& drivefs_in,
+    const std::optional<::base::FilePath>& user_nss_database_in,
+    const std::optional<::base::FilePath>& removable_media_in,
+    const std::optional<::base::FilePath>& android_files_in,
+    const std::optional<::base::FilePath>& linux_files_in,
+    const std::optional<::base::FilePath>& ash_resources_in,
+    const std::optional<::base::FilePath>& share_cache_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -215,15 +216,15 @@ DefaultPaths::DefaultPaths(
 DefaultPaths::DefaultPaths(
     const ::base::FilePath& documents_in,
     const ::base::FilePath& downloads_in,
-    const absl::optional<::base::FilePath>& drivefs_in,
-    const absl::optional<::base::FilePath>& user_nss_database_in,
-    const absl::optional<::base::FilePath>& removable_media_in,
-    const absl::optional<::base::FilePath>& android_files_in,
-    const absl::optional<::base::FilePath>& linux_files_in,
-    const absl::optional<::base::FilePath>& ash_resources_in,
-    const absl::optional<::base::FilePath>& share_cache_in,
-    const absl::optional<::base::FilePath>& preinstalled_web_app_config_in,
-    const absl::optional<::base::FilePath>& preinstalled_web_app_extra_config_in)
+    const std::optional<::base::FilePath>& drivefs_in,
+    const std::optional<::base::FilePath>& user_nss_database_in,
+    const std::optional<::base::FilePath>& removable_media_in,
+    const std::optional<::base::FilePath>& android_files_in,
+    const std::optional<::base::FilePath>& linux_files_in,
+    const std::optional<::base::FilePath>& ash_resources_in,
+    const std::optional<::base::FilePath>& share_cache_in,
+    const std::optional<::base::FilePath>& preinstalled_web_app_config_in,
+    const std::optional<::base::FilePath>& preinstalled_web_app_extra_config_in)
     : documents(std::move(documents_in)),
       downloads(std::move(downloads_in)),
       drivefs(std::move(drivefs_in)),
@@ -263,7 +264,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "drivefs"), this->drivefs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -272,7 +273,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "user_nss_database"), this->user_nss_database,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -281,7 +282,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "removable_media"), this->removable_media,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -290,7 +291,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "android_files"), this->android_files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -299,7 +300,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "linux_files"), this->linux_files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -308,7 +309,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "ash_resources"), this->ash_resources,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -317,7 +318,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "share_cache"), this->share_cache,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -326,7 +327,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "preinstalled_web_app_config"), this->preinstalled_web_app_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -335,7 +336,7 @@ void DefaultPaths::WriteIntoTrace(
     dict.AddItem(
       "preinstalled_web_app_extra_config"), this->preinstalled_web_app_extra_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -374,7 +375,7 @@ DeviceProperties::DeviceProperties(
 
 DeviceProperties::DeviceProperties(
     const std::string& device_dm_token_in,
-    absl::optional<std::vector<std::string>> device_affiliation_ids_in)
+    std::optional<std::vector<std::string>> device_affiliation_ids_in)
     : device_dm_token(std::move(device_dm_token_in)),
       device_affiliation_ids(std::move(device_affiliation_ids_in)),
       is_arc_available(),
@@ -388,7 +389,7 @@ DeviceProperties::DeviceProperties(
 
 DeviceProperties::DeviceProperties(
     const std::string& device_dm_token_in,
-    absl::optional<std::vector<std::string>> device_affiliation_ids_in,
+    std::optional<std::vector<std::string>> device_affiliation_ids_in,
     bool is_arc_available_in,
     bool is_tablet_form_factor_in)
     : device_dm_token(std::move(device_dm_token_in)),
@@ -404,14 +405,14 @@ DeviceProperties::DeviceProperties(
 
 DeviceProperties::DeviceProperties(
     const std::string& device_dm_token_in,
-    absl::optional<std::vector<std::string>> device_affiliation_ids_in,
+    std::optional<std::vector<std::string>> device_affiliation_ids_in,
     bool is_arc_available_in,
     bool is_tablet_form_factor_in,
-    const absl::optional<std::string>& directory_device_id_in,
-    const absl::optional<std::string>& serial_number_in,
-    const absl::optional<std::string>& annotated_asset_id_in,
-    const absl::optional<std::string>& annotated_location_in,
-    const absl::optional<std::string>& hostname_in)
+    const std::optional<std::string>& directory_device_id_in,
+    const std::optional<std::string>& serial_number_in,
+    const std::optional<std::string>& annotated_asset_id_in,
+    const std::optional<std::string>& annotated_location_in,
+    const std::optional<std::string>& hostname_in)
     : device_dm_token(std::move(device_dm_token_in)),
       device_affiliation_ids(std::move(device_affiliation_ids_in)),
       is_arc_available(std::move(is_arc_available_in)),
@@ -425,15 +426,15 @@ DeviceProperties::DeviceProperties(
 
 DeviceProperties::DeviceProperties(
     const std::string& device_dm_token_in,
-    absl::optional<std::vector<std::string>> device_affiliation_ids_in,
+    std::optional<std::vector<std::string>> device_affiliation_ids_in,
     bool is_arc_available_in,
     bool is_tablet_form_factor_in,
-    const absl::optional<std::string>& directory_device_id_in,
-    const absl::optional<std::string>& serial_number_in,
-    const absl::optional<std::string>& annotated_asset_id_in,
-    const absl::optional<std::string>& annotated_location_in,
-    const absl::optional<std::string>& hostname_in,
-    absl::optional<bool> has_stylus_enabled_touchscreen_in)
+    const std::optional<std::string>& directory_device_id_in,
+    const std::optional<std::string>& serial_number_in,
+    const std::optional<std::string>& annotated_asset_id_in,
+    const std::optional<std::string>& annotated_location_in,
+    const std::optional<std::string>& hostname_in,
+    std::optional<bool> has_stylus_enabled_touchscreen_in)
     : device_dm_token(std::move(device_dm_token_in)),
       device_affiliation_ids(std::move(device_affiliation_ids_in)),
       is_arc_available(std::move(is_arc_available_in)),
@@ -463,7 +464,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "device_affiliation_ids"), this->device_affiliation_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -490,7 +491,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "directory_device_id"), this->directory_device_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -499,7 +500,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -508,7 +509,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "annotated_asset_id"), this->annotated_asset_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -517,7 +518,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "annotated_location"), this->annotated_location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -526,7 +527,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "hostname"), this->hostname,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -535,7 +536,7 @@ void DeviceProperties::WriteIntoTrace(
     dict.AddItem(
       "has_stylus_enabled_touchscreen"), this->has_stylus_enabled_touchscreen,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -543,6 +544,64 @@ void DeviceProperties::WriteIntoTrace(
 }
 
 bool DeviceProperties::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+EntropySource::EntropySource()
+    : low_entropy(),
+      old_low_entropy(),
+      pseudo_low_entropy() {}
+
+EntropySource::EntropySource(
+    int32_t low_entropy_in,
+    int32_t old_low_entropy_in,
+    int32_t pseudo_low_entropy_in)
+    : low_entropy(std::move(low_entropy_in)),
+      old_low_entropy(std::move(old_low_entropy_in)),
+      pseudo_low_entropy(std::move(pseudo_low_entropy_in)) {}
+
+EntropySource::~EntropySource() = default;
+size_t EntropySource::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->low_entropy);
+  seed = mojo::internal::Hash(seed, this->old_low_entropy);
+  seed = mojo::internal::Hash(seed, this->pseudo_low_entropy);
+  return seed;
+}
+
+void EntropySource::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "low_entropy"), this->low_entropy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "old_low_entropy"), this->old_low_entropy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pseudo_low_entropy"), this->pseudo_low_entropy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool EntropySource::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -566,9 +625,9 @@ BrowserInitParams::BrowserInitParams()
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -578,7 +637,7 @@ BrowserInitParams::BrowserInitParams()
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -599,11 +658,11 @@ BrowserInitParams::BrowserInitParams()
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -620,7 +679,10 @@ BrowserInitParams::BrowserInitParams()
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in)
@@ -642,9 +704,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -654,7 +716,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -675,11 +737,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -696,7 +758,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -720,9 +785,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -732,7 +797,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -753,11 +818,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -774,7 +839,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -799,9 +867,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -811,7 +879,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -832,11 +900,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -853,7 +921,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -879,9 +950,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -891,7 +962,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -912,11 +983,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -933,7 +1004,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -941,7 +1015,7 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in)
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -960,9 +1034,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -972,7 +1046,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -993,11 +1067,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1014,7 +1088,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1022,7 +1099,7 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -1042,9 +1119,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1054,7 +1131,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1075,11 +1152,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1096,7 +1173,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1104,9 +1184,9 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in)
+    const std::optional<std::string>& REMOVED_7_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -1125,9 +1205,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1137,7 +1217,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1158,11 +1238,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1179,7 +1259,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1187,9 +1270,9 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -1209,9 +1292,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1221,7 +1304,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1242,11 +1325,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1263,7 +1346,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1271,9 +1357,9 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -1294,9 +1380,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1306,7 +1392,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1327,11 +1413,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1348,7 +1434,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1356,12 +1445,12 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in)
+    const std::optional<std::string>& cros_user_id_hash_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -1380,9 +1469,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1392,7 +1481,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1413,11 +1502,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1434,7 +1523,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1442,13 +1534,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in)
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -1467,9 +1559,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1479,7 +1571,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1500,11 +1592,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1521,7 +1613,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1529,13 +1624,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -1555,9 +1650,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1567,7 +1662,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1588,11 +1683,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1609,7 +1704,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1617,13 +1715,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -1644,9 +1742,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1656,7 +1754,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1677,11 +1775,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1698,7 +1796,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1706,13 +1807,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in)
@@ -1734,9 +1835,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1746,7 +1847,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1767,11 +1868,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1788,7 +1889,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1796,13 +1900,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
@@ -1825,9 +1929,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1837,7 +1941,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1858,11 +1962,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1879,7 +1983,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1887,13 +1994,13 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
@@ -1917,9 +2024,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(),
+      REMOVED_17(),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -1929,7 +2036,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -1950,11 +2057,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -1971,7 +2078,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1979,19 +2089,19 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in)
+    bool REMOVED_17_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2010,9 +2120,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -2022,7 +2132,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2043,11 +2153,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2064,7 +2174,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2072,19 +2185,19 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -2104,9 +2217,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(),
+      REMOVED_19(),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -2116,7 +2229,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2137,11 +2250,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2158,7 +2271,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2166,21 +2282,21 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in)
+    bool REMOVED_19_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2199,9 +2315,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(),
       device_properties(),
       ondevice_handwriting_support(),
@@ -2211,7 +2327,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2232,11 +2348,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2253,7 +2369,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2261,21 +2380,21 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -2295,9 +2414,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(),
       ondevice_handwriting_support(),
@@ -2307,7 +2426,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2328,11 +2447,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2349,7 +2468,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2357,21 +2479,21 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -2392,9 +2514,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(),
@@ -2404,7 +2526,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2425,11 +2547,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2446,7 +2568,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2454,21 +2579,21 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in)
@@ -2490,9 +2615,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -2502,7 +2627,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2523,11 +2648,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2544,7 +2669,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2552,25 +2680,25 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in)
+    std::optional<std::vector<BuildFlag>> build_flags_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2589,9 +2717,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -2601,7 +2729,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2622,11 +2750,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2643,7 +2771,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2651,26 +2782,26 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in)
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2689,9 +2820,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -2701,7 +2832,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2722,11 +2853,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2743,7 +2874,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2751,26 +2885,26 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -2790,9 +2924,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -2802,7 +2936,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2823,11 +2957,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2844,7 +2978,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2852,28 +2989,28 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in)
+    const std::optional<std::string>& metrics_service_client_id_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2892,9 +3029,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -2904,7 +3041,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(),
+      REMOVED_27(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -2925,11 +3062,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -2946,7 +3083,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2954,29 +3094,29 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in)
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -2995,9 +3135,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3007,7 +3147,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -3028,11 +3168,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3049,7 +3189,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3057,29 +3200,29 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -3099,9 +3242,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3111,7 +3254,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(),
@@ -3132,11 +3275,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3153,7 +3296,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3161,29 +3307,29 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -3204,9 +3350,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3216,7 +3362,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3237,11 +3383,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3258,7 +3404,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3266,29 +3415,29 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in)
@@ -3310,9 +3459,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3322,7 +3471,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3343,11 +3492,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3364,7 +3513,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3372,33 +3524,33 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in)
+    std::optional<std::vector<std::string>> ash_capabilities_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -3417,9 +3569,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3429,7 +3581,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3450,11 +3602,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3471,7 +3623,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3479,34 +3634,34 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in)
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -3525,9 +3680,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3537,7 +3692,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3558,11 +3713,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3579,7 +3734,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3587,34 +3745,34 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -3635,9 +3793,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3647,7 +3805,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3668,11 +3826,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3689,7 +3847,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3697,34 +3858,34 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in)
@@ -3746,9 +3907,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3758,7 +3919,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3779,11 +3940,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3800,7 +3961,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3808,35 +3972,35 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in)
@@ -3858,9 +4022,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3870,7 +4034,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -3891,11 +4055,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -3912,7 +4076,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3920,35 +4087,35 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
@@ -3971,9 +4138,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -3983,7 +4150,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4004,11 +4171,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4025,7 +4192,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4033,36 +4203,36 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
@@ -4085,9 +4255,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4097,7 +4267,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4118,11 +4288,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4139,7 +4309,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4147,37 +4320,37 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
@@ -4200,9 +4373,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4212,7 +4385,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4233,11 +4406,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4254,7 +4427,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4262,37 +4438,37 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
@@ -4316,9 +4492,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4328,7 +4504,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4349,11 +4525,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4370,7 +4546,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4378,43 +4557,43 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in)
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -4433,9 +4612,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4445,7 +4624,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4466,11 +4645,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4487,7 +4666,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4495,44 +4677,44 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in)
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -4551,9 +4733,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4563,7 +4745,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4584,11 +4766,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4605,7 +4787,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4613,45 +4798,45 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in)
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -4670,9 +4855,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4682,7 +4867,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4703,11 +4888,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4724,7 +4909,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4732,46 +4920,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in)
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -4790,9 +4978,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4802,7 +4990,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4823,11 +5011,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4844,7 +5032,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4852,46 +5043,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -4911,9 +5102,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -4923,7 +5114,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -4944,11 +5135,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -4965,7 +5156,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4973,46 +5167,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -5033,9 +5227,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5045,7 +5239,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5066,11 +5260,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5087,7 +5281,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5095,46 +5292,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in)
@@ -5156,9 +5353,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5168,7 +5365,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5189,11 +5386,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5210,7 +5407,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5218,46 +5418,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
@@ -5280,9 +5480,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5292,7 +5492,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5313,11 +5513,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5334,7 +5534,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5342,46 +5545,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
@@ -5405,9 +5608,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5417,7 +5620,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5438,11 +5641,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5459,7 +5662,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5467,46 +5673,46 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
@@ -5531,9 +5737,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5543,7 +5749,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5564,11 +5770,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(),
+      REMOVED_51(),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5585,7 +5791,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5593,53 +5802,53 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in)
+    bool REMOVED_51_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -5658,9 +5867,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5670,7 +5879,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5691,11 +5900,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5712,7 +5921,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5720,53 +5932,53 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -5786,9 +5998,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5798,7 +6010,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5819,11 +6031,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5840,7 +6052,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5848,53 +6063,53 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -5915,9 +6130,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -5927,7 +6142,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -5948,11 +6163,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -5969,7 +6184,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5977,53 +6195,53 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in)
@@ -6045,9 +6263,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6057,7 +6275,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6078,11 +6296,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(),
+      REMOVED_55(),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -6099,7 +6317,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6107,57 +6328,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in)
+    bool REMOVED_55_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
       ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
@@ -6176,9 +6397,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6188,7 +6409,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6209,11 +6430,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -6230,7 +6451,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6238,57 +6462,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in)
     : crosapi_version(std::move(crosapi_version_in)),
       deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
@@ -6308,9 +6532,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6320,7 +6544,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6341,11 +6565,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -6362,7 +6586,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6370,57 +6597,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in)
     : crosapi_version(std::move(crosapi_version_in)),
@@ -6441,9 +6668,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6453,7 +6680,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6474,11 +6701,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(),
@@ -6495,7 +6722,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6503,57 +6733,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in)
@@ -6575,9 +6805,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6587,7 +6817,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6608,11 +6838,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -6629,7 +6859,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6637,57 +6870,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -6710,9 +6943,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6722,7 +6955,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6743,11 +6976,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -6764,7 +6997,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6772,57 +7008,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -6846,9 +7082,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6858,7 +7094,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -6879,11 +7115,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -6900,7 +7136,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6908,57 +7147,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -6983,9 +7222,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -6995,7 +7234,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7016,11 +7255,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7037,7 +7276,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7045,57 +7287,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7121,9 +7363,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7133,7 +7375,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7154,11 +7396,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7175,7 +7417,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7183,57 +7428,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7260,9 +7505,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7272,7 +7517,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7293,11 +7538,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7314,7 +7559,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7322,57 +7570,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7400,9 +7648,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7412,7 +7660,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7433,11 +7681,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7454,7 +7702,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7462,57 +7713,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7541,9 +7792,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7553,7 +7804,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7574,11 +7825,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7595,7 +7846,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7603,57 +7857,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7683,9 +7937,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7695,7 +7949,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7716,11 +7970,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7737,7 +7991,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7745,57 +8002,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7826,9 +8083,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7838,7 +8095,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -7859,11 +8116,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -7880,7 +8137,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7888,57 +8148,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -7970,9 +8230,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -7982,7 +8242,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -8003,11 +8263,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -8024,7 +8284,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8032,57 +8295,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -8115,9 +8378,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -8127,7 +8390,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -8148,11 +8411,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -8169,7 +8432,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8177,57 +8443,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -8261,9 +8527,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -8273,7 +8539,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -8294,11 +8560,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -8315,7 +8581,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
       is_desk_profiles_enabled(),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8323,57 +8592,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -8408,9 +8677,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -8420,7 +8689,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -8441,11 +8710,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -8462,7 +8731,10 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
       is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
-      is_cros_web_app_shortcut_ui_update_enabled() {}
+      is_cros_web_app_shortcut_ui_update_enabled(),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8470,57 +8742,57 @@ BrowserInitParams::BrowserInitParams(
     bool ash_metrics_enabled_in,
     SessionType session_type_in,
     DeviceMode device_mode_in,
-    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_7_in,
+    const std::optional<std::string>& REMOVED_7_in,
     MetricsReportingManaged ash_metrics_managed_in,
     ExoImeSupport exo_ime_support_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     ::crosapi::mojom::IdleInfoPtr idle_info_in,
     bool REMOVED_13_in,
     bool REMOVED_14_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
+    bool REMOVED_17_in,
     bool REMOVED_18_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_19_in,
     ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
     DevicePropertiesPtr device_properties_in,
     OndeviceHandwritingSupport ondevice_handwriting_support_in,
-    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
     ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
-    const absl::optional<std::string>& metrics_service_client_id_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
     uint64_t ukm_client_id_in,
-    bool standalone_browser_is_only_browser_in,
+    bool REMOVED_27_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
     BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
     bool is_unfiltered_bluetooth_device_enabled_in,
-    absl::optional<std::vector<std::string>> ash_capabilities_in,
-    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
     bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
     bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
     bool is_device_enterprised_managed_in,
     BrowserInitParams::DeviceType device_type_in,
     bool is_ondevice_speech_supported_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
-    const absl::optional<std::string>& ash_chrome_version_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
     bool use_cups_for_printing_in,
     bool use_floss_bluetooth_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_48_in,
     bool enable_lacros_tts_support_in,
     BrowserInitParams::LacrosSelection lacros_selection_in,
-    bool enable_window_layout_menu_in,
+    bool REMOVED_51_in,
     bool is_cloud_gaming_device_in,
     BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
     ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
-    bool enable_partial_split_deprecated_in,
+    bool REMOVED_55_in,
     bool vc_controls_ui_enabled_in,
     ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
     bool enable_cpu_mappable_native_gpu_memory_buffers_in,
@@ -8556,9 +8828,9 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_14(std::move(REMOVED_14_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
       REMOVED_18(std::move(REMOVED_18_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
       native_theme_info(std::move(native_theme_info_in)),
       device_properties(std::move(device_properties_in)),
       ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
@@ -8568,7 +8840,7 @@ BrowserInitParams::BrowserInitParams(
       device_settings(std::move(device_settings_in)),
       metrics_service_client_id(std::move(metrics_service_client_id_in)),
       ukm_client_id(std::move(ukm_client_id_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       initial_keep_alive(std::move(initial_keep_alive_in)),
@@ -8589,11 +8861,11 @@ BrowserInitParams::BrowserInitParams(
       REMOVED_48(std::move(REMOVED_48_in)),
       enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
       lacros_selection(std::move(lacros_selection_in)),
-      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
       is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
       gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
       extension_keep_list(std::move(extension_keep_list_in)),
-      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
       vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
       standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
       enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
@@ -8610,7 +8882,469 @@ BrowserInitParams::BrowserInitParams(
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
       is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
-      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)) {}
+      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)),
+      entropy_source(),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
+
+BrowserInitParams::BrowserInitParams(
+    uint32_t crosapi_version_in,
+    bool deprecated_ash_metrics_enabled_has_value_in,
+    bool ash_metrics_enabled_in,
+    SessionType session_type_in,
+    DeviceMode device_mode_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    DefaultPathsPtr default_paths_in,
+    const std::optional<std::string>& REMOVED_7_in,
+    MetricsReportingManaged ash_metrics_managed_in,
+    ExoImeSupport exo_ime_support_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
+    uint64_t last_policy_fetch_attempt_timestamp_in,
+    ::crosapi::mojom::IdleInfoPtr idle_info_in,
+    bool REMOVED_13_in,
+    bool REMOVED_14_in,
+    InitialBrowserAction initial_browser_action_in,
+    ::crosapi::mojom::AccountPtr device_account_in,
+    bool REMOVED_17_in,
+    bool REMOVED_18_in,
+    bool REMOVED_19_in,
+    ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
+    DevicePropertiesPtr device_properties_in,
+    OndeviceHandwritingSupport ondevice_handwriting_support_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    OpenUrlFrom startup_urls_from_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
+    ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    uint64_t ukm_client_id_in,
+    bool REMOVED_27_in,
+    bool publish_chrome_apps_in,
+    bool publish_hosted_apps_in,
+    BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
+    bool is_unfiltered_bluetooth_device_enabled_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
+    bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
+    bool is_device_enterprised_managed_in,
+    BrowserInitParams::DeviceType device_type_in,
+    bool is_ondevice_speech_supported_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
+    bool use_cups_for_printing_in,
+    bool use_floss_bluetooth_in,
+    bool is_current_user_device_owner_in,
+    bool REMOVED_48_in,
+    bool enable_lacros_tts_support_in,
+    BrowserInitParams::LacrosSelection lacros_selection_in,
+    bool REMOVED_51_in,
+    bool is_cloud_gaming_device_in,
+    BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
+    ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
+    bool REMOVED_55_in,
+    bool vc_controls_ui_enabled_in,
+    ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
+    bool enable_cpu_mappable_native_gpu_memory_buffers_in,
+    bool oop_video_decoding_enabled_in,
+    bool is_upload_office_to_cloud_enabled_in,
+    bool enable_clipboard_history_refresh_in,
+    bool is_variable_refresh_rate_always_on_in,
+    bool is_current_user_ephemeral_in,
+    bool is_pdf_ocr_enabled_in,
+    bool is_drivefs_bulk_pinning_available_in,
+    bool is_floss_available_in,
+    bool is_sys_ui_downloads_integration_v2_enabled_in,
+    bool is_cros_battery_saver_available_in,
+    bool is_floss_availability_check_needed_in,
+    bool is_app_install_service_uri_enabled_in,
+    bool is_desk_profiles_enabled_in,
+    bool is_cros_web_app_shortcut_ui_update_enabled_in,
+    EntropySourcePtr entropy_source_in)
+    : crosapi_version(std::move(crosapi_version_in)),
+      deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
+      ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
+      session_type(std::move(session_type_in)),
+      device_mode(std::move(device_mode_in)),
+      interface_versions(std::move(interface_versions_in)),
+      default_paths(std::move(default_paths_in)),
+      REMOVED_7(std::move(REMOVED_7_in)),
+      ash_metrics_managed(std::move(ash_metrics_managed_in)),
+      exo_ime_support(std::move(exo_ime_support_in)),
+      cros_user_id_hash(std::move(cros_user_id_hash_in)),
+      device_account_policy(std::move(device_account_policy_in)),
+      last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
+      idle_info(std::move(idle_info_in)),
+      REMOVED_13(std::move(REMOVED_13_in)),
+      REMOVED_14(std::move(REMOVED_14_in)),
+      initial_browser_action(std::move(initial_browser_action_in)),
+      device_account(std::move(device_account_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
+      REMOVED_18(std::move(REMOVED_18_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
+      native_theme_info(std::move(native_theme_info_in)),
+      device_properties(std::move(device_properties_in)),
+      ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
+      build_flags(std::move(build_flags_in)),
+      startup_urls_from(std::move(startup_urls_from_in)),
+      REMOVED_24(std::move(REMOVED_24_in)),
+      device_settings(std::move(device_settings_in)),
+      metrics_service_client_id(std::move(metrics_service_client_id_in)),
+      ukm_client_id(std::move(ukm_client_id_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
+      publish_chrome_apps(std::move(publish_chrome_apps_in)),
+      publish_hosted_apps(std::move(publish_hosted_apps_in)),
+      initial_keep_alive(std::move(initial_keep_alive_in)),
+      is_unfiltered_bluetooth_device_enabled(std::move(is_unfiltered_bluetooth_device_enabled_in)),
+      ash_capabilities(std::move(ash_capabilities_in)),
+      accepted_internal_ash_urls(std::move(accepted_internal_ash_urls_in)),
+      is_holding_space_incognito_profile_integration_enabled_deprecated(std::move(is_holding_space_incognito_profile_integration_enabled_deprecated_in)),
+      is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated(std::move(is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in)),
+      is_device_enterprised_managed(std::move(is_device_enterprised_managed_in)),
+      device_type(std::move(device_type_in)),
+      is_ondevice_speech_supported(std::move(is_ondevice_speech_supported_in)),
+      REMOVED_41(std::move(REMOVED_41_in)),
+      device_account_component_policy(std::move(device_account_component_policy_in)),
+      ash_chrome_version(std::move(ash_chrome_version_in)),
+      use_cups_for_printing(std::move(use_cups_for_printing_in)),
+      use_floss_bluetooth(std::move(use_floss_bluetooth_in)),
+      is_current_user_device_owner(std::move(is_current_user_device_owner_in)),
+      REMOVED_48(std::move(REMOVED_48_in)),
+      enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
+      lacros_selection(std::move(lacros_selection_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
+      is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
+      gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
+      extension_keep_list(std::move(extension_keep_list_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
+      vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
+      standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
+      enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
+      oop_video_decoding_enabled(std::move(oop_video_decoding_enabled_in)),
+      is_upload_office_to_cloud_enabled(std::move(is_upload_office_to_cloud_enabled_in)),
+      enable_clipboard_history_refresh(std::move(enable_clipboard_history_refresh_in)),
+      is_variable_refresh_rate_always_on(std::move(is_variable_refresh_rate_always_on_in)),
+      is_current_user_ephemeral(std::move(is_current_user_ephemeral_in)),
+      is_pdf_ocr_enabled(std::move(is_pdf_ocr_enabled_in)),
+      is_drivefs_bulk_pinning_available(std::move(is_drivefs_bulk_pinning_available_in)),
+      is_floss_available(std::move(is_floss_available_in)),
+      is_sys_ui_downloads_integration_v2_enabled(std::move(is_sys_ui_downloads_integration_v2_enabled_in)),
+      is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
+      is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
+      is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
+      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
+      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)),
+      entropy_source(std::move(entropy_source_in)),
+      is_cros_shortstand_enabled(),
+      should_disable_chrome_compose_on_chromeos() {}
+
+BrowserInitParams::BrowserInitParams(
+    uint32_t crosapi_version_in,
+    bool deprecated_ash_metrics_enabled_has_value_in,
+    bool ash_metrics_enabled_in,
+    SessionType session_type_in,
+    DeviceMode device_mode_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    DefaultPathsPtr default_paths_in,
+    const std::optional<std::string>& REMOVED_7_in,
+    MetricsReportingManaged ash_metrics_managed_in,
+    ExoImeSupport exo_ime_support_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
+    uint64_t last_policy_fetch_attempt_timestamp_in,
+    ::crosapi::mojom::IdleInfoPtr idle_info_in,
+    bool REMOVED_13_in,
+    bool REMOVED_14_in,
+    InitialBrowserAction initial_browser_action_in,
+    ::crosapi::mojom::AccountPtr device_account_in,
+    bool REMOVED_17_in,
+    bool REMOVED_18_in,
+    bool REMOVED_19_in,
+    ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
+    DevicePropertiesPtr device_properties_in,
+    OndeviceHandwritingSupport ondevice_handwriting_support_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    OpenUrlFrom startup_urls_from_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
+    ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    uint64_t ukm_client_id_in,
+    bool REMOVED_27_in,
+    bool publish_chrome_apps_in,
+    bool publish_hosted_apps_in,
+    BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
+    bool is_unfiltered_bluetooth_device_enabled_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
+    bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
+    bool is_device_enterprised_managed_in,
+    BrowserInitParams::DeviceType device_type_in,
+    bool is_ondevice_speech_supported_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
+    bool use_cups_for_printing_in,
+    bool use_floss_bluetooth_in,
+    bool is_current_user_device_owner_in,
+    bool REMOVED_48_in,
+    bool enable_lacros_tts_support_in,
+    BrowserInitParams::LacrosSelection lacros_selection_in,
+    bool REMOVED_51_in,
+    bool is_cloud_gaming_device_in,
+    BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
+    ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
+    bool REMOVED_55_in,
+    bool vc_controls_ui_enabled_in,
+    ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
+    bool enable_cpu_mappable_native_gpu_memory_buffers_in,
+    bool oop_video_decoding_enabled_in,
+    bool is_upload_office_to_cloud_enabled_in,
+    bool enable_clipboard_history_refresh_in,
+    bool is_variable_refresh_rate_always_on_in,
+    bool is_current_user_ephemeral_in,
+    bool is_pdf_ocr_enabled_in,
+    bool is_drivefs_bulk_pinning_available_in,
+    bool is_floss_available_in,
+    bool is_sys_ui_downloads_integration_v2_enabled_in,
+    bool is_cros_battery_saver_available_in,
+    bool is_floss_availability_check_needed_in,
+    bool is_app_install_service_uri_enabled_in,
+    bool is_desk_profiles_enabled_in,
+    bool is_cros_web_app_shortcut_ui_update_enabled_in,
+    EntropySourcePtr entropy_source_in,
+    bool is_cros_shortstand_enabled_in)
+    : crosapi_version(std::move(crosapi_version_in)),
+      deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
+      ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
+      session_type(std::move(session_type_in)),
+      device_mode(std::move(device_mode_in)),
+      interface_versions(std::move(interface_versions_in)),
+      default_paths(std::move(default_paths_in)),
+      REMOVED_7(std::move(REMOVED_7_in)),
+      ash_metrics_managed(std::move(ash_metrics_managed_in)),
+      exo_ime_support(std::move(exo_ime_support_in)),
+      cros_user_id_hash(std::move(cros_user_id_hash_in)),
+      device_account_policy(std::move(device_account_policy_in)),
+      last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
+      idle_info(std::move(idle_info_in)),
+      REMOVED_13(std::move(REMOVED_13_in)),
+      REMOVED_14(std::move(REMOVED_14_in)),
+      initial_browser_action(std::move(initial_browser_action_in)),
+      device_account(std::move(device_account_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
+      REMOVED_18(std::move(REMOVED_18_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
+      native_theme_info(std::move(native_theme_info_in)),
+      device_properties(std::move(device_properties_in)),
+      ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
+      build_flags(std::move(build_flags_in)),
+      startup_urls_from(std::move(startup_urls_from_in)),
+      REMOVED_24(std::move(REMOVED_24_in)),
+      device_settings(std::move(device_settings_in)),
+      metrics_service_client_id(std::move(metrics_service_client_id_in)),
+      ukm_client_id(std::move(ukm_client_id_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
+      publish_chrome_apps(std::move(publish_chrome_apps_in)),
+      publish_hosted_apps(std::move(publish_hosted_apps_in)),
+      initial_keep_alive(std::move(initial_keep_alive_in)),
+      is_unfiltered_bluetooth_device_enabled(std::move(is_unfiltered_bluetooth_device_enabled_in)),
+      ash_capabilities(std::move(ash_capabilities_in)),
+      accepted_internal_ash_urls(std::move(accepted_internal_ash_urls_in)),
+      is_holding_space_incognito_profile_integration_enabled_deprecated(std::move(is_holding_space_incognito_profile_integration_enabled_deprecated_in)),
+      is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated(std::move(is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in)),
+      is_device_enterprised_managed(std::move(is_device_enterprised_managed_in)),
+      device_type(std::move(device_type_in)),
+      is_ondevice_speech_supported(std::move(is_ondevice_speech_supported_in)),
+      REMOVED_41(std::move(REMOVED_41_in)),
+      device_account_component_policy(std::move(device_account_component_policy_in)),
+      ash_chrome_version(std::move(ash_chrome_version_in)),
+      use_cups_for_printing(std::move(use_cups_for_printing_in)),
+      use_floss_bluetooth(std::move(use_floss_bluetooth_in)),
+      is_current_user_device_owner(std::move(is_current_user_device_owner_in)),
+      REMOVED_48(std::move(REMOVED_48_in)),
+      enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
+      lacros_selection(std::move(lacros_selection_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
+      is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
+      gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
+      extension_keep_list(std::move(extension_keep_list_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
+      vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
+      standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
+      enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
+      oop_video_decoding_enabled(std::move(oop_video_decoding_enabled_in)),
+      is_upload_office_to_cloud_enabled(std::move(is_upload_office_to_cloud_enabled_in)),
+      enable_clipboard_history_refresh(std::move(enable_clipboard_history_refresh_in)),
+      is_variable_refresh_rate_always_on(std::move(is_variable_refresh_rate_always_on_in)),
+      is_current_user_ephemeral(std::move(is_current_user_ephemeral_in)),
+      is_pdf_ocr_enabled(std::move(is_pdf_ocr_enabled_in)),
+      is_drivefs_bulk_pinning_available(std::move(is_drivefs_bulk_pinning_available_in)),
+      is_floss_available(std::move(is_floss_available_in)),
+      is_sys_ui_downloads_integration_v2_enabled(std::move(is_sys_ui_downloads_integration_v2_enabled_in)),
+      is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
+      is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
+      is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
+      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
+      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)),
+      entropy_source(std::move(entropy_source_in)),
+      is_cros_shortstand_enabled(std::move(is_cros_shortstand_enabled_in)),
+      should_disable_chrome_compose_on_chromeos() {}
+
+BrowserInitParams::BrowserInitParams(
+    uint32_t crosapi_version_in,
+    bool deprecated_ash_metrics_enabled_has_value_in,
+    bool ash_metrics_enabled_in,
+    SessionType session_type_in,
+    DeviceMode device_mode_in,
+    const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    DefaultPathsPtr default_paths_in,
+    const std::optional<std::string>& REMOVED_7_in,
+    MetricsReportingManaged ash_metrics_managed_in,
+    ExoImeSupport exo_ime_support_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
+    uint64_t last_policy_fetch_attempt_timestamp_in,
+    ::crosapi::mojom::IdleInfoPtr idle_info_in,
+    bool REMOVED_13_in,
+    bool REMOVED_14_in,
+    InitialBrowserAction initial_browser_action_in,
+    ::crosapi::mojom::AccountPtr device_account_in,
+    bool REMOVED_17_in,
+    bool REMOVED_18_in,
+    bool REMOVED_19_in,
+    ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
+    DevicePropertiesPtr device_properties_in,
+    OndeviceHandwritingSupport ondevice_handwriting_support_in,
+    std::optional<std::vector<BuildFlag>> build_flags_in,
+    OpenUrlFrom startup_urls_from_in,
+    std::optional<std::vector<::GURL>> REMOVED_24_in,
+    ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
+    const std::optional<std::string>& metrics_service_client_id_in,
+    uint64_t ukm_client_id_in,
+    bool REMOVED_27_in,
+    bool publish_chrome_apps_in,
+    bool publish_hosted_apps_in,
+    BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
+    bool is_unfiltered_bluetooth_device_enabled_in,
+    std::optional<std::vector<std::string>> ash_capabilities_in,
+    std::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
+    bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
+    bool is_device_enterprised_managed_in,
+    BrowserInitParams::DeviceType device_type_in,
+    bool is_ondevice_speech_supported_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const std::optional<std::string>& ash_chrome_version_in,
+    bool use_cups_for_printing_in,
+    bool use_floss_bluetooth_in,
+    bool is_current_user_device_owner_in,
+    bool REMOVED_48_in,
+    bool enable_lacros_tts_support_in,
+    BrowserInitParams::LacrosSelection lacros_selection_in,
+    bool REMOVED_51_in,
+    bool is_cloud_gaming_device_in,
+    BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
+    ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
+    bool REMOVED_55_in,
+    bool vc_controls_ui_enabled_in,
+    ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
+    bool enable_cpu_mappable_native_gpu_memory_buffers_in,
+    bool oop_video_decoding_enabled_in,
+    bool is_upload_office_to_cloud_enabled_in,
+    bool enable_clipboard_history_refresh_in,
+    bool is_variable_refresh_rate_always_on_in,
+    bool is_current_user_ephemeral_in,
+    bool is_pdf_ocr_enabled_in,
+    bool is_drivefs_bulk_pinning_available_in,
+    bool is_floss_available_in,
+    bool is_sys_ui_downloads_integration_v2_enabled_in,
+    bool is_cros_battery_saver_available_in,
+    bool is_floss_availability_check_needed_in,
+    bool is_app_install_service_uri_enabled_in,
+    bool is_desk_profiles_enabled_in,
+    bool is_cros_web_app_shortcut_ui_update_enabled_in,
+    EntropySourcePtr entropy_source_in,
+    bool is_cros_shortstand_enabled_in,
+    bool should_disable_chrome_compose_on_chromeos_in)
+    : crosapi_version(std::move(crosapi_version_in)),
+      deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
+      ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
+      session_type(std::move(session_type_in)),
+      device_mode(std::move(device_mode_in)),
+      interface_versions(std::move(interface_versions_in)),
+      default_paths(std::move(default_paths_in)),
+      REMOVED_7(std::move(REMOVED_7_in)),
+      ash_metrics_managed(std::move(ash_metrics_managed_in)),
+      exo_ime_support(std::move(exo_ime_support_in)),
+      cros_user_id_hash(std::move(cros_user_id_hash_in)),
+      device_account_policy(std::move(device_account_policy_in)),
+      last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
+      idle_info(std::move(idle_info_in)),
+      REMOVED_13(std::move(REMOVED_13_in)),
+      REMOVED_14(std::move(REMOVED_14_in)),
+      initial_browser_action(std::move(initial_browser_action_in)),
+      device_account(std::move(device_account_in)),
+      REMOVED_17(std::move(REMOVED_17_in)),
+      REMOVED_18(std::move(REMOVED_18_in)),
+      REMOVED_19(std::move(REMOVED_19_in)),
+      native_theme_info(std::move(native_theme_info_in)),
+      device_properties(std::move(device_properties_in)),
+      ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
+      build_flags(std::move(build_flags_in)),
+      startup_urls_from(std::move(startup_urls_from_in)),
+      REMOVED_24(std::move(REMOVED_24_in)),
+      device_settings(std::move(device_settings_in)),
+      metrics_service_client_id(std::move(metrics_service_client_id_in)),
+      ukm_client_id(std::move(ukm_client_id_in)),
+      REMOVED_27(std::move(REMOVED_27_in)),
+      publish_chrome_apps(std::move(publish_chrome_apps_in)),
+      publish_hosted_apps(std::move(publish_hosted_apps_in)),
+      initial_keep_alive(std::move(initial_keep_alive_in)),
+      is_unfiltered_bluetooth_device_enabled(std::move(is_unfiltered_bluetooth_device_enabled_in)),
+      ash_capabilities(std::move(ash_capabilities_in)),
+      accepted_internal_ash_urls(std::move(accepted_internal_ash_urls_in)),
+      is_holding_space_incognito_profile_integration_enabled_deprecated(std::move(is_holding_space_incognito_profile_integration_enabled_deprecated_in)),
+      is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated(std::move(is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in)),
+      is_device_enterprised_managed(std::move(is_device_enterprised_managed_in)),
+      device_type(std::move(device_type_in)),
+      is_ondevice_speech_supported(std::move(is_ondevice_speech_supported_in)),
+      REMOVED_41(std::move(REMOVED_41_in)),
+      device_account_component_policy(std::move(device_account_component_policy_in)),
+      ash_chrome_version(std::move(ash_chrome_version_in)),
+      use_cups_for_printing(std::move(use_cups_for_printing_in)),
+      use_floss_bluetooth(std::move(use_floss_bluetooth_in)),
+      is_current_user_device_owner(std::move(is_current_user_device_owner_in)),
+      REMOVED_48(std::move(REMOVED_48_in)),
+      enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
+      lacros_selection(std::move(lacros_selection_in)),
+      REMOVED_51(std::move(REMOVED_51_in)),
+      is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
+      gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
+      extension_keep_list(std::move(extension_keep_list_in)),
+      REMOVED_55(std::move(REMOVED_55_in)),
+      vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
+      standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
+      enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
+      oop_video_decoding_enabled(std::move(oop_video_decoding_enabled_in)),
+      is_upload_office_to_cloud_enabled(std::move(is_upload_office_to_cloud_enabled_in)),
+      enable_clipboard_history_refresh(std::move(enable_clipboard_history_refresh_in)),
+      is_variable_refresh_rate_always_on(std::move(is_variable_refresh_rate_always_on_in)),
+      is_current_user_ephemeral(std::move(is_current_user_ephemeral_in)),
+      is_pdf_ocr_enabled(std::move(is_pdf_ocr_enabled_in)),
+      is_drivefs_bulk_pinning_available(std::move(is_drivefs_bulk_pinning_available_in)),
+      is_floss_available(std::move(is_floss_available_in)),
+      is_sys_ui_downloads_integration_v2_enabled(std::move(is_sys_ui_downloads_integration_v2_enabled_in)),
+      is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
+      is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
+      is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
+      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
+      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)),
+      entropy_source(std::move(entropy_source_in)),
+      is_cros_shortstand_enabled(std::move(is_cros_shortstand_enabled_in)),
+      should_disable_chrome_compose_on_chromeos(std::move(should_disable_chrome_compose_on_chromeos_in)) {}
 
 BrowserInitParams::~BrowserInitParams() = default;
 
@@ -8666,7 +9400,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "interface_versions"), this->interface_versions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<::base::Token, uint32_t>>&>"
+      "<value of type const std::optional<base::flat_map<::base::Token, uint32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8684,7 +9418,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "REMOVED_7"), this->REMOVED_7,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8711,7 +9445,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "cros_user_id_hash"), this->cros_user_id_hash,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8720,7 +9454,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "device_account_policy"), this->device_account_policy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8781,7 +9515,7 @@ void BrowserInitParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "web_apps_enabled"), this->web_apps_enabled,
+      "REMOVED_17"), this->REMOVED_17,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -8799,7 +9533,7 @@ void BrowserInitParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "standalone_browser_is_primary"), this->standalone_browser_is_primary,
+      "REMOVED_19"), this->REMOVED_19,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -8837,7 +9571,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "build_flags"), this->build_flags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<BuildFlag>>&>"
+      "<value of type const std::optional<std::vector<BuildFlag>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8855,7 +9589,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "REMOVED_24"), this->REMOVED_24,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::GURL>>&>"
+      "<value of type const std::optional<std::vector<::GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8873,7 +9607,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "metrics_service_client_id"), this->metrics_service_client_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8889,7 +9623,7 @@ void BrowserInitParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "standalone_browser_is_only_browser"), this->standalone_browser_is_only_browser,
+      "REMOVED_27"), this->REMOVED_27,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -8936,7 +9670,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "ash_capabilities"), this->ash_capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8945,7 +9679,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "accepted_internal_ash_urls"), this->accepted_internal_ash_urls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::GURL>>&>"
+      "<value of type const std::optional<std::vector<::GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8999,7 +9733,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "REMOVED_41"), this->REMOVED_41,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>>>"
+      "<value of type std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9008,7 +9742,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "device_account_component_policy"), this->device_account_component_policy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>>>"
+      "<value of type std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9017,7 +9751,7 @@ void BrowserInitParams::WriteIntoTrace(
     dict.AddItem(
       "ash_chrome_version"), this->ash_chrome_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9078,7 +9812,7 @@ void BrowserInitParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "enable_window_layout_menu"), this->enable_window_layout_menu,
+      "REMOVED_51"), this->REMOVED_51,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -9114,7 +9848,7 @@ void BrowserInitParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "enable_partial_split_deprecated"), this->enable_partial_split_deprecated,
+      "REMOVED_55"), this->REMOVED_55,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -9274,6 +10008,33 @@ void BrowserInitParams::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "entropy_source"), this->entropy_source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type EntropySourcePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_cros_shortstand_enabled"), this->is_cros_shortstand_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "should_disable_chrome_compose_on_chromeos"), this->should_disable_chrome_compose_on_chromeos,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool BrowserInitParams::Validate(
@@ -9290,11 +10051,11 @@ BrowserPostLoginParams::BrowserPostLoginParams()
       last_policy_fetch_attempt_timestamp(),
       initial_browser_action(),
       device_account(),
-      web_apps_enabled(),
-      standalone_browser_is_primary(),
+      REMOVED_8(),
+      REMOVED_9(),
       startup_urls_from(),
       REMOVED_11(),
-      standalone_browser_is_only_browser(),
+      REMOVED_12(),
       publish_chrome_apps(),
       publish_hosted_apps(),
       device_account_component_policy(),
@@ -9306,20 +10067,20 @@ BrowserPostLoginParams::BrowserPostLoginParams()
 BrowserPostLoginParams::BrowserPostLoginParams(
     SessionType session_type_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_2_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& REMOVED_2_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_8_in,
+    bool REMOVED_9_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_11_in,
-    bool standalone_browser_is_only_browser_in,
+    std::optional<std::vector<::GURL>> REMOVED_11_in,
+    bool REMOVED_12_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_17_in,
     bool enable_lacros_tts_support_in)
@@ -9331,11 +10092,11 @@ BrowserPostLoginParams::BrowserPostLoginParams(
       last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_8(std::move(REMOVED_8_in)),
+      REMOVED_9(std::move(REMOVED_9_in)),
       startup_urls_from(std::move(startup_urls_from_in)),
       REMOVED_11(std::move(REMOVED_11_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_12(std::move(REMOVED_12_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       device_account_component_policy(std::move(device_account_component_policy_in)),
@@ -9347,20 +10108,20 @@ BrowserPostLoginParams::BrowserPostLoginParams(
 BrowserPostLoginParams::BrowserPostLoginParams(
     SessionType session_type_in,
     DefaultPathsPtr default_paths_in,
-    const absl::optional<std::string>& REMOVED_2_in,
-    const absl::optional<std::string>& cros_user_id_hash_in,
-    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    const std::optional<std::string>& REMOVED_2_in,
+    const std::optional<std::string>& cros_user_id_hash_in,
+    std::optional<std::vector<uint8_t>> device_account_policy_in,
     uint64_t last_policy_fetch_attempt_timestamp_in,
     InitialBrowserAction initial_browser_action_in,
     ::crosapi::mojom::AccountPtr device_account_in,
-    bool web_apps_enabled_in,
-    bool standalone_browser_is_primary_in,
+    bool REMOVED_8_in,
+    bool REMOVED_9_in,
     OpenUrlFrom startup_urls_from_in,
-    absl::optional<std::vector<::GURL>> REMOVED_11_in,
-    bool standalone_browser_is_only_browser_in,
+    std::optional<std::vector<::GURL>> REMOVED_11_in,
+    bool REMOVED_12_in,
     bool publish_chrome_apps_in,
     bool publish_hosted_apps_in,
-    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
     bool is_current_user_device_owner_in,
     bool REMOVED_17_in,
     bool enable_lacros_tts_support_in,
@@ -9373,11 +10134,11 @@ BrowserPostLoginParams::BrowserPostLoginParams(
       last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
       initial_browser_action(std::move(initial_browser_action_in)),
       device_account(std::move(device_account_in)),
-      web_apps_enabled(std::move(web_apps_enabled_in)),
-      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      REMOVED_8(std::move(REMOVED_8_in)),
+      REMOVED_9(std::move(REMOVED_9_in)),
       startup_urls_from(std::move(startup_urls_from_in)),
       REMOVED_11(std::move(REMOVED_11_in)),
-      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      REMOVED_12(std::move(REMOVED_12_in)),
       publish_chrome_apps(std::move(publish_chrome_apps_in)),
       publish_hosted_apps(std::move(publish_hosted_apps_in)),
       device_account_component_policy(std::move(device_account_component_policy_in)),
@@ -9413,7 +10174,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     dict.AddItem(
       "REMOVED_2"), this->REMOVED_2,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9422,7 +10183,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     dict.AddItem(
       "cros_user_id_hash"), this->cros_user_id_hash,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9431,7 +10192,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     dict.AddItem(
       "device_account_policy"), this->device_account_policy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9465,7 +10226,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "web_apps_enabled"), this->web_apps_enabled,
+      "REMOVED_8"), this->REMOVED_8,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -9474,7 +10235,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "standalone_browser_is_primary"), this->standalone_browser_is_primary,
+      "REMOVED_9"), this->REMOVED_9,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -9494,14 +10255,14 @@ void BrowserPostLoginParams::WriteIntoTrace(
     dict.AddItem(
       "REMOVED_11"), this->REMOVED_11,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::GURL>>&>"
+      "<value of type const std::optional<std::vector<::GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "standalone_browser_is_only_browser"), this->standalone_browser_is_only_browser,
+      "REMOVED_12"), this->REMOVED_12,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -9530,7 +10291,7 @@ void BrowserPostLoginParams::WriteIntoTrace(
     dict.AddItem(
       "device_account_component_policy"), this->device_account_component_policy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>>>"
+      "<value of type std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9685,6 +10446,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     case internal::kCrosapi_BindBrowserServiceHost_Name: {
       return &Crosapi::BindBrowserServiceHost_Sym::IPCStableHash;
     }
+    case internal::kCrosapi_BindBrowserShortcutPublisher_Name: {
+      return &Crosapi::BindBrowserShortcutPublisher_Sym::IPCStableHash;
+    }
     case internal::kCrosapi_BindBrowserCdmFactory_Name: {
       return &Crosapi::BindBrowserCdmFactory_Sym::IPCStableHash;
     }
@@ -9693,6 +10457,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindCertProvisioning_Name: {
       return &Crosapi::BindCertProvisioning_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindChapsService_Name: {
+      return &Crosapi::BindChapsService_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindChromeAppPublisher_Name: {
       return &Crosapi::BindChromeAppPublisher_Sym::IPCStableHash;
@@ -9714,6 +10481,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindDesk_Name: {
       return &Crosapi::BindDesk_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindDeskProfileObserver_Name: {
+      return &Crosapi::BindDeskProfileObserver_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindDeskTemplate_Name: {
       return &Crosapi::BindDeskTemplate_Sym::IPCStableHash;
@@ -9814,6 +10584,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     case internal::kCrosapi_BindKeystoreService_Name: {
       return &Crosapi::BindKeystoreService_Sym::IPCStableHash;
     }
+    case internal::kCrosapi_BindLacrosShelfItemTracker_Name: {
+      return &Crosapi::BindLacrosShelfItemTracker_Sym::IPCStableHash;
+    }
     case internal::kCrosapi_BindLacrosAppPublisher_Name: {
       return &Crosapi::BindLacrosAppPublisher_Sym::IPCStableHash;
     }
@@ -9858,6 +10631,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindParentAccess_Name: {
       return &Crosapi::BindParentAccess_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindPasskeyAuthenticator_Name: {
+      return &Crosapi::BindPasskeyAuthenticator_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindPaymentAppInstance_Name: {
       return &Crosapi::BindPaymentAppInstance_Sym::IPCStableHash;
@@ -9951,6 +10727,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindTelemetryEventService_Name: {
       return &Crosapi::BindTelemetryEventService_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindTelemetryManagementService_Name: {
+      return &Crosapi::BindTelemetryManagementService_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindTelemetryProbeService_Name: {
       return &Crosapi::BindTelemetryProbeService_Sym::IPCStableHash;
@@ -10046,12 +10825,16 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindBrowserVersionService";
       case internal::kCrosapi_BindBrowserServiceHost_Name:
             return "Receive crosapi::mojom::Crosapi::BindBrowserServiceHost";
+      case internal::kCrosapi_BindBrowserShortcutPublisher_Name:
+            return "Receive crosapi::mojom::Crosapi::BindBrowserShortcutPublisher";
       case internal::kCrosapi_BindBrowserCdmFactory_Name:
             return "Receive crosapi::mojom::Crosapi::BindBrowserCdmFactory";
       case internal::kCrosapi_BindCertDatabase_Name:
             return "Receive crosapi::mojom::Crosapi::BindCertDatabase";
       case internal::kCrosapi_BindCertProvisioning_Name:
             return "Receive crosapi::mojom::Crosapi::BindCertProvisioning";
+      case internal::kCrosapi_BindChapsService_Name:
+            return "Receive crosapi::mojom::Crosapi::BindChapsService";
       case internal::kCrosapi_BindChromeAppPublisher_Name:
             return "Receive crosapi::mojom::Crosapi::BindChromeAppPublisher";
       case internal::kCrosapi_BindChromeAppWindowTracker_Name:
@@ -10066,6 +10849,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindCrosDisplayConfigController";
       case internal::kCrosapi_BindDesk_Name:
             return "Receive crosapi::mojom::Crosapi::BindDesk";
+      case internal::kCrosapi_BindDeskProfileObserver_Name:
+            return "Receive crosapi::mojom::Crosapi::BindDeskProfileObserver";
       case internal::kCrosapi_BindDeskTemplate_Name:
             return "Receive crosapi::mojom::Crosapi::BindDeskTemplate";
       case internal::kCrosapi_BindDeviceAttributes_Name:
@@ -10132,6 +10917,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindKerberosInBrowser";
       case internal::kCrosapi_BindKeystoreService_Name:
             return "Receive crosapi::mojom::Crosapi::BindKeystoreService";
+      case internal::kCrosapi_BindLacrosShelfItemTracker_Name:
+            return "Receive crosapi::mojom::Crosapi::BindLacrosShelfItemTracker";
       case internal::kCrosapi_BindLacrosAppPublisher_Name:
             return "Receive crosapi::mojom::Crosapi::BindLacrosAppPublisher";
       case internal::kCrosapi_BindLocalPrinter_Name:
@@ -10162,6 +10949,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindNetworkingAttributes";
       case internal::kCrosapi_BindParentAccess_Name:
             return "Receive crosapi::mojom::Crosapi::BindParentAccess";
+      case internal::kCrosapi_BindPasskeyAuthenticator_Name:
+            return "Receive crosapi::mojom::Crosapi::BindPasskeyAuthenticator";
       case internal::kCrosapi_BindPaymentAppInstance_Name:
             return "Receive crosapi::mojom::Crosapi::BindPaymentAppInstance";
       case internal::kCrosapi_BindPolicyService_Name:
@@ -10224,6 +11013,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindTelemetryDiagnosticRoutinesService";
       case internal::kCrosapi_BindTelemetryEventService_Name:
             return "Receive crosapi::mojom::Crosapi::BindTelemetryEventService";
+      case internal::kCrosapi_BindTelemetryManagementService_Name:
+            return "Receive crosapi::mojom::Crosapi::BindTelemetryManagementService";
       case internal::kCrosapi_BindTelemetryProbeService_Name:
             return "Receive crosapi::mojom::Crosapi::BindTelemetryProbeService";
       case internal::kCrosapi_BindTestController_Name:
@@ -10289,12 +11080,16 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindBrowserVersionService";
       case internal::kCrosapi_BindBrowserServiceHost_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindBrowserServiceHost";
+      case internal::kCrosapi_BindBrowserShortcutPublisher_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindBrowserShortcutPublisher";
       case internal::kCrosapi_BindBrowserCdmFactory_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindBrowserCdmFactory";
       case internal::kCrosapi_BindCertDatabase_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindCertDatabase";
       case internal::kCrosapi_BindCertProvisioning_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindCertProvisioning";
+      case internal::kCrosapi_BindChapsService_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindChapsService";
       case internal::kCrosapi_BindChromeAppPublisher_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindChromeAppPublisher";
       case internal::kCrosapi_BindChromeAppWindowTracker_Name:
@@ -10309,6 +11104,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindCrosDisplayConfigController";
       case internal::kCrosapi_BindDesk_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindDesk";
+      case internal::kCrosapi_BindDeskProfileObserver_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindDeskProfileObserver";
       case internal::kCrosapi_BindDeskTemplate_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindDeskTemplate";
       case internal::kCrosapi_BindDeviceAttributes_Name:
@@ -10375,6 +11172,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindKerberosInBrowser";
       case internal::kCrosapi_BindKeystoreService_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindKeystoreService";
+      case internal::kCrosapi_BindLacrosShelfItemTracker_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindLacrosShelfItemTracker";
       case internal::kCrosapi_BindLacrosAppPublisher_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindLacrosAppPublisher";
       case internal::kCrosapi_BindLocalPrinter_Name:
@@ -10405,6 +11204,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindNetworkingAttributes";
       case internal::kCrosapi_BindParentAccess_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindParentAccess";
+      case internal::kCrosapi_BindPasskeyAuthenticator_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindPasskeyAuthenticator";
       case internal::kCrosapi_BindPaymentAppInstance_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindPaymentAppInstance";
       case internal::kCrosapi_BindPolicyService_Name:
@@ -10467,6 +11268,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindTelemetryDiagnosticRoutinesService";
       case internal::kCrosapi_BindTelemetryEventService_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindTelemetryEventService";
+      case internal::kCrosapi_BindTelemetryManagementService_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindTelemetryManagementService";
       case internal::kCrosapi_BindTelemetryProbeService_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindTelemetryProbeService";
       case internal::kCrosapi_BindTestController_Name:
@@ -10653,6 +11456,19 @@ uint32_t Crosapi::BindBrowserServiceHost_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Crosapi::BindBrowserShortcutPublisher_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindBrowserShortcutPublisher");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Crosapi::BindBrowserCdmFactory_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -10688,6 +11504,19 @@ uint32_t Crosapi::BindCertProvisioning_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::Crosapi::BindCertProvisioning");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Crosapi::BindChapsService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindChapsService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -10779,6 +11608,19 @@ uint32_t Crosapi::BindDesk_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::Crosapi::BindDesk");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Crosapi::BindDeskProfileObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindDeskProfileObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11212,6 +12054,19 @@ uint32_t Crosapi::BindKeystoreService_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Crosapi::BindLacrosShelfItemTracker_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindLacrosShelfItemTracker");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Crosapi::BindLacrosAppPublisher_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -11403,6 +12258,19 @@ uint32_t Crosapi::BindParentAccess_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::Crosapi::BindParentAccess");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Crosapi::BindPasskeyAuthenticator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindPasskeyAuthenticator");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11810,6 +12678,19 @@ uint32_t Crosapi::BindTelemetryEventService_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Crosapi::BindTelemetryManagementService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindTelemetryManagementService");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Crosapi::BindTelemetryProbeService_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -12101,14 +12982,17 @@ void CrosapiProxy::BindAutomationDeprecated(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Automation>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindAutomationDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -12144,14 +13028,17 @@ void CrosapiProxy::BindAudioService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AudioService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindAudioService_Name, kFlags, 0, 0, nullptr);
@@ -12187,14 +13074,17 @@ void CrosapiProxy::REMOVED_62(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_REMOVED_62_Name, kFlags, 0, 0, nullptr);
@@ -12230,14 +13120,17 @@ void CrosapiProxy::BindAutomationFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindAutomationFactory_Name, kFlags, 0, 0, nullptr);
@@ -12273,14 +13166,17 @@ void CrosapiProxy::BindAccountManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AccountManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindAccountManager_Name, kFlags, 0, 0, nullptr);
@@ -12316,14 +13212,17 @@ void CrosapiProxy::BindAppServiceProxy(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppServiceProxy>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindAppServiceProxy_Name, kFlags, 0, 0, nullptr);
@@ -12359,14 +13258,17 @@ void CrosapiProxy::BindArc(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Arc>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindArc_Name, kFlags, 0, 0, nullptr);
@@ -12402,14 +13304,17 @@ void CrosapiProxy::BindBrowserAppInstanceRegistry(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::BrowserAppInstanceRegistry>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindBrowserAppInstanceRegistry_Name, kFlags, 0, 0, nullptr);
@@ -12445,14 +13350,17 @@ void CrosapiProxy::BindBrowserVersionService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::BrowserVersionService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindBrowserVersionService_Name, kFlags, 0, 0, nullptr);
@@ -12488,14 +13396,17 @@ void CrosapiProxy::BindBrowserServiceHost(
                         "<value of type ::mojo::PendingReceiver<BrowserServiceHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindBrowserServiceHost_Name, kFlags, 0, 0, nullptr);
@@ -12519,6 +13430,52 @@ void CrosapiProxy::BindBrowserServiceHost(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindBrowserShortcutPublisher(
+    ::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindBrowserShortcutPublisher", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindBrowserShortcutPublisher_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindBrowserShortcutPublisher_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AppShortcutPublisherInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindBrowserShortcutPublisher request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindBrowserShortcutPublisher");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindBrowserCdmFactory(
     ::mojo::GenericPendingReceiver in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -12531,14 +13488,17 @@ void CrosapiProxy::BindBrowserCdmFactory(
                         "<value of type ::mojo::GenericPendingReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindBrowserCdmFactory_Name, kFlags, 0, 0, nullptr);
@@ -12579,14 +13539,17 @@ void CrosapiProxy::BindCertDatabase(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::CertDatabase>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindCertDatabase_Name, kFlags, 0, 0, nullptr);
@@ -12622,14 +13585,17 @@ void CrosapiProxy::BindCertProvisioning(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindCertProvisioning_Name, kFlags, 0, 0, nullptr);
@@ -12653,6 +13619,52 @@ void CrosapiProxy::BindCertProvisioning(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindChapsService(
+    ::mojo::PendingReceiver<::crosapi::mojom::ChapsService> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindChapsService", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ChapsService>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindChapsService_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindChapsService_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::ChapsServiceInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindChapsService request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindChapsService");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindChromeAppPublisher(
     ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -12665,14 +13677,17 @@ void CrosapiProxy::BindChromeAppPublisher(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindChromeAppPublisher_Name, kFlags, 0, 0, nullptr);
@@ -12708,14 +13723,17 @@ void CrosapiProxy::BindChromeAppWindowTracker(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppWindowTracker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindChromeAppWindowTracker_Name, kFlags, 0, 0, nullptr);
@@ -12751,14 +13769,17 @@ void CrosapiProxy::BindClipboard(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Clipboard>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindClipboard_Name, kFlags, 0, 0, nullptr);
@@ -12794,14 +13815,17 @@ void CrosapiProxy::BindClipboardHistory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ClipboardHistory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindClipboardHistory_Name, kFlags, 0, 0, nullptr);
@@ -12837,14 +13861,17 @@ void CrosapiProxy::BindContentProtection(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ContentProtection>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindContentProtection_Name, kFlags, 0, 0, nullptr);
@@ -12880,14 +13907,17 @@ void CrosapiProxy::BindCrosDisplayConfigController(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindCrosDisplayConfigController_Name, kFlags, 0, 0, nullptr);
@@ -12923,14 +13953,17 @@ void CrosapiProxy::BindDesk(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Desk>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDesk_Name, kFlags, 0, 0, nullptr);
@@ -12954,6 +13987,52 @@ void CrosapiProxy::BindDesk(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindDeskProfileObserver(
+    ::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindDeskProfileObserver", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindDeskProfileObserver_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindDeskProfileObserver_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::DeskProfileObserverInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindDeskProfileObserver request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindDeskProfileObserver");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindDeskTemplate(
     ::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -12966,14 +14045,17 @@ void CrosapiProxy::BindDeskTemplate(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDeskTemplate_Name, kFlags, 0, 0, nullptr);
@@ -13009,14 +14091,17 @@ void CrosapiProxy::BindDeviceAttributes(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeviceAttributes>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDeviceAttributes_Name, kFlags, 0, 0, nullptr);
@@ -13052,14 +14137,17 @@ void CrosapiProxy::BindDeviceOAuth2TokenService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeviceOAuth2TokenService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDeviceOAuth2TokenService_Name, kFlags, 0, 0, nullptr);
@@ -13095,14 +14183,17 @@ void CrosapiProxy::BindDeviceSettingsService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeviceSettingsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDeviceSettingsService_Name, kFlags, 0, 0, nullptr);
@@ -13138,14 +14229,17 @@ void CrosapiProxy::BindDiagnosticsService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DiagnosticsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDiagnosticsService_Name, kFlags, 0, 0, nullptr);
@@ -13181,14 +14275,17 @@ void CrosapiProxy::BindDigitalGoodsFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DigitalGoodsFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDigitalGoodsFactory_Name, kFlags, 0, 0, nullptr);
@@ -13224,14 +14321,17 @@ void CrosapiProxy::BindDlp(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Dlp>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDlp_Name, kFlags, 0, 0, nullptr);
@@ -13267,14 +14367,17 @@ void CrosapiProxy::BindDocumentScan(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DocumentScan>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDocumentScan_Name, kFlags, 0, 0, nullptr);
@@ -13310,14 +14413,17 @@ void CrosapiProxy::BindDownloadController(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DownloadController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDownloadController_Name, kFlags, 0, 0, nullptr);
@@ -13353,14 +14459,17 @@ void CrosapiProxy::BindDownloadStatusUpdater(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DownloadStatusUpdater>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDownloadStatusUpdater_Name, kFlags, 0, 0, nullptr);
@@ -13396,14 +14505,17 @@ void CrosapiProxy::BindDriveIntegrationService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DriveIntegrationService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDriveIntegrationService_Name, kFlags, 0, 0, nullptr);
@@ -13439,14 +14551,17 @@ void CrosapiProxy::BindEchoPrivate(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::EchoPrivate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindEchoPrivate_Name, kFlags, 0, 0, nullptr);
@@ -13482,14 +14597,17 @@ void CrosapiProxy::BindEditorPanelManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::EditorPanelManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindEditorPanelManager_Name, kFlags, 0, 0, nullptr);
@@ -13525,14 +14643,17 @@ void CrosapiProxy::BindEmbeddedAccessibilityHelperClientFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::EmbeddedAccessibilityHelperClientFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindEmbeddedAccessibilityHelperClientFactory_Name, kFlags, 0, 0, nullptr);
@@ -13568,14 +14689,17 @@ void CrosapiProxy::BindEmojiPicker(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::EmojiPicker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindEmojiPicker_Name, kFlags, 0, 0, nullptr);
@@ -13611,14 +14735,17 @@ void CrosapiProxy::BindExtensionInfoPrivate(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ExtensionInfoPrivate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindExtensionInfoPrivate_Name, kFlags, 0, 0, nullptr);
@@ -13654,14 +14781,17 @@ void CrosapiProxy::REMOVED_105(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FirewallHoleServiceDeprecated>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_REMOVED_105_Name, kFlags, 0, 0, nullptr);
@@ -13697,14 +14827,17 @@ void CrosapiProxy::BindNetworkingPrivate(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NetworkingPrivate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindNetworkingPrivate_Name, kFlags, 0, 0, nullptr);
@@ -13740,14 +14873,17 @@ void CrosapiProxy::BindExtensionPublisher(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindExtensionPublisher_Name, kFlags, 0, 0, nullptr);
@@ -13783,14 +14919,17 @@ void CrosapiProxy::BindFileManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FileManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFileManager_Name, kFlags, 0, 0, nullptr);
@@ -13826,14 +14965,17 @@ void CrosapiProxy::BindFileSystemAccessCloudIdentifierProvider(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FileSystemAccessCloudIdentifierProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFileSystemAccessCloudIdentifierProvider_Name, kFlags, 0, 0, nullptr);
@@ -13869,14 +15011,17 @@ void CrosapiProxy::BindFileSystemProviderService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FileSystemProviderService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFileSystemProviderService_Name, kFlags, 0, 0, nullptr);
@@ -13912,14 +15057,17 @@ void CrosapiProxy::BindForceInstalledTracker(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ForceInstalledTracker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindForceInstalledTracker_Name, kFlags, 0, 0, nullptr);
@@ -13955,14 +15103,17 @@ void CrosapiProxy::BindFullscreenController(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FullscreenController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFullscreenController_Name, kFlags, 0, 0, nullptr);
@@ -13998,14 +15149,17 @@ void CrosapiProxy::BindGeolocationService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::GeolocationService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindGeolocationService_Name, kFlags, 0, 0, nullptr);
@@ -14041,14 +15195,17 @@ void CrosapiProxy::BindHoldingSpaceService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::HoldingSpaceService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindHoldingSpaceService_Name, kFlags, 0, 0, nullptr);
@@ -14084,14 +15241,17 @@ void CrosapiProxy::BindIdentityManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::IdentityManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindIdentityManager_Name, kFlags, 0, 0, nullptr);
@@ -14127,14 +15287,17 @@ void CrosapiProxy::BindIdleService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::IdleService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindIdleService_Name, kFlags, 0, 0, nullptr);
@@ -14170,14 +15333,17 @@ void CrosapiProxy::BindImageWriter(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ImageWriter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindImageWriter_Name, kFlags, 0, 0, nullptr);
@@ -14202,7 +15368,7 @@ void CrosapiProxy::BindImageWriter(
 }
 
 void CrosapiProxy::BindInSessionAuth(
-    ::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> in_receiver) {
+    ::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::Crosapi::BindInSessionAuth", "input_parameters",
@@ -14210,17 +15376,20 @@ void CrosapiProxy::BindInSessionAuth(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
-                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth>>");
+                        "<value of type ::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindInSessionAuth_Name, kFlags, 0, 0, nullptr);
@@ -14228,7 +15397,7 @@ void CrosapiProxy::BindInSessionAuth(
       ::crosapi::mojom::internal::Crosapi_BindInSessionAuth_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::InSessionAuthInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::auth::mojom::InSessionAuthInterfaceBase>>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
@@ -14256,14 +15425,17 @@ void CrosapiProxy::BindNetworkSettingsService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindNetworkSettingsService_Name, kFlags, 0, 0, nullptr);
@@ -14299,14 +15471,17 @@ void CrosapiProxy::BindKerberosInBrowser(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::KerberosInBrowser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindKerberosInBrowser_Name, kFlags, 0, 0, nullptr);
@@ -14342,14 +15517,17 @@ void CrosapiProxy::BindKeystoreService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::KeystoreService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindKeystoreService_Name, kFlags, 0, 0, nullptr);
@@ -14373,6 +15551,52 @@ void CrosapiProxy::BindKeystoreService(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindLacrosShelfItemTracker(
+    ::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindLacrosShelfItemTracker", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindLacrosShelfItemTracker_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindLacrosShelfItemTracker_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::LacrosShelfItemTrackerInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindLacrosShelfItemTracker request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindLacrosShelfItemTracker");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindLacrosAppPublisher(
     ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -14385,14 +15609,17 @@ void CrosapiProxy::BindLacrosAppPublisher(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindLacrosAppPublisher_Name, kFlags, 0, 0, nullptr);
@@ -14428,14 +15655,17 @@ void CrosapiProxy::BindLocalPrinter(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::LocalPrinter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindLocalPrinter_Name, kFlags, 0, 0, nullptr);
@@ -14471,14 +15701,17 @@ void CrosapiProxy::BindLogin(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Login>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindLogin_Name, kFlags, 0, 0, nullptr);
@@ -14514,14 +15747,17 @@ void CrosapiProxy::BindLoginScreenStorage(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::LoginScreenStorage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindLoginScreenStorage_Name, kFlags, 0, 0, nullptr);
@@ -14557,14 +15793,17 @@ void CrosapiProxy::BindLoginState(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::LoginState>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindLoginState_Name, kFlags, 0, 0, nullptr);
@@ -14600,14 +15839,17 @@ void CrosapiProxy::BindMachineLearningService(
                         "<value of type ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::MachineLearningService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMachineLearningService_Name, kFlags, 0, 0, nullptr);
@@ -14643,14 +15885,17 @@ void CrosapiProxy::BindMediaUI(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::MediaUI>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMediaUI_Name, kFlags, 0, 0, nullptr);
@@ -14686,14 +15931,17 @@ void CrosapiProxy::BindMessageCenter(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::MessageCenter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMessageCenter_Name, kFlags, 0, 0, nullptr);
@@ -14729,14 +15977,17 @@ void CrosapiProxy::BindNativeThemeService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NativeThemeService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindNativeThemeService_Name, kFlags, 0, 0, nullptr);
@@ -14772,14 +16023,17 @@ void CrosapiProxy::BindMetrics(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Metrics>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMetrics_Name, kFlags, 0, 0, nullptr);
@@ -14815,14 +16069,17 @@ void CrosapiProxy::BindMetricsReporting(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::MetricsReporting>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMetricsReporting_Name, kFlags, 0, 0, nullptr);
@@ -14858,14 +16115,17 @@ void CrosapiProxy::BindMultiCaptureService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::MultiCaptureService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMultiCaptureService_Name, kFlags, 0, 0, nullptr);
@@ -14901,14 +16161,17 @@ void CrosapiProxy::BindNetworkChange(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NetworkChange>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindNetworkChange_Name, kFlags, 0, 0, nullptr);
@@ -14944,14 +16207,17 @@ void CrosapiProxy::BindNetworkingAttributes(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindNetworkingAttributes_Name, kFlags, 0, 0, nullptr);
@@ -14987,14 +16253,17 @@ void CrosapiProxy::BindParentAccess(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ParentAccess>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindParentAccess_Name, kFlags, 0, 0, nullptr);
@@ -15018,6 +16287,52 @@ void CrosapiProxy::BindParentAccess(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindPasskeyAuthenticator(
+    ::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindPasskeyAuthenticator", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindPasskeyAuthenticator_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindPasskeyAuthenticator_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::PasskeyAuthenticatorInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindPasskeyAuthenticator request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindPasskeyAuthenticator");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindPaymentAppInstance(
     ::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -15030,14 +16345,17 @@ void CrosapiProxy::BindPaymentAppInstance(
                         "<value of type ::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindPaymentAppInstance_Name, kFlags, 0, 0, nullptr);
@@ -15073,14 +16391,17 @@ void CrosapiProxy::BindPolicyService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::PolicyService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindPolicyService_Name, kFlags, 0, 0, nullptr);
@@ -15116,14 +16437,17 @@ void CrosapiProxy::BindPrefs(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Prefs>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindPrefs_Name, kFlags, 0, 0, nullptr);
@@ -15159,14 +16483,17 @@ void CrosapiProxy::BindRemoteAppsLacrosBridge(
                         "<value of type ::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindRemoteAppsLacrosBridge_Name, kFlags, 0, 0, nullptr);
@@ -15202,14 +16529,17 @@ void CrosapiProxy::BindRemoting(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Remoting>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindRemoting_Name, kFlags, 0, 0, nullptr);
@@ -15245,14 +16575,17 @@ void CrosapiProxy::BindScreenAIDownloader(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ScreenAIDownloader>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindScreenAIDownloader_Name, kFlags, 0, 0, nullptr);
@@ -15288,14 +16621,17 @@ void CrosapiProxy::BindScreenManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ScreenManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindScreenManager_Name, kFlags, 0, 0, nullptr);
@@ -15331,14 +16667,17 @@ void CrosapiProxy::BindSelectFile(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SelectFile>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSelectFile_Name, kFlags, 0, 0, nullptr);
@@ -15374,14 +16713,17 @@ void CrosapiProxy::BindSensorHalClient(
                         "<value of type ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSensorHalClient_Name, kFlags, 0, 0, nullptr);
@@ -15417,14 +16759,17 @@ void CrosapiProxy::BindSharesheet(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Sharesheet>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSharesheet_Name, kFlags, 0, 0, nullptr);
@@ -15460,14 +16805,17 @@ void CrosapiProxy::BindSmartReaderClient(
                         "<value of type ::mojo::PendingRemote<::crosapi::mojom::SmartReaderClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSmartReaderClient_Name, kFlags, 0, 0, nullptr);
@@ -15503,14 +16851,17 @@ void CrosapiProxy::BindSpeechRecognition(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SpeechRecognition>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSpeechRecognition_Name, kFlags, 0, 0, nullptr);
@@ -15546,14 +16897,17 @@ void CrosapiProxy::BindStableVideoDecoderFactory(
                         "<value of type ::mojo::GenericPendingReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindStableVideoDecoderFactory_Name, kFlags, 0, 0, nullptr);
@@ -15594,14 +16948,17 @@ void CrosapiProxy::BindStructuredMetricsService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::StructuredMetricsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindStructuredMetricsService_Name, kFlags, 0, 0, nullptr);
@@ -15637,14 +16994,17 @@ void CrosapiProxy::BindTrustedVaultBackend(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TrustedVaultBackend>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTrustedVaultBackend_Name, kFlags, 0, 0, nullptr);
@@ -15680,14 +17040,17 @@ void CrosapiProxy::BindHidManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::HidManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindHidManager_Name, kFlags, 0, 0, nullptr);
@@ -15723,14 +17086,17 @@ void CrosapiProxy::BindEyeDropper(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::EyeDropper>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindEyeDropper_Name, kFlags, 0, 0, nullptr);
@@ -15766,14 +17132,17 @@ void CrosapiProxy::BindFeedback(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Feedback>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFeedback_Name, kFlags, 0, 0, nullptr);
@@ -15809,14 +17178,17 @@ void CrosapiProxy::BindFieldTrialService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FieldTrialService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindFieldTrialService_Name, kFlags, 0, 0, nullptr);
@@ -15852,14 +17224,17 @@ void CrosapiProxy::BindMediaSessionController(
                         "<value of type ::mojo::PendingReceiver<::media_session::mojom::MediaControllerManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMediaSessionController_Name, kFlags, 0, 0, nullptr);
@@ -15895,14 +17270,17 @@ void CrosapiProxy::BindMediaSessionAudioFocus(
                         "<value of type ::mojo::PendingReceiver<::media_session::mojom::AudioFocusManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMediaSessionAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -15938,14 +17316,17 @@ void CrosapiProxy::BindMediaSessionAudioFocusDebug(
                         "<value of type ::mojo::PendingReceiver<::media_session::mojom::AudioFocusManagerDebug>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindMediaSessionAudioFocusDebug_Name, kFlags, 0, 0, nullptr);
@@ -15981,14 +17362,17 @@ void CrosapiProxy::BindPower(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Power>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindPower_Name, kFlags, 0, 0, nullptr);
@@ -16024,14 +17408,17 @@ void CrosapiProxy::BindPrintingMetrics(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::PrintingMetrics>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindPrintingMetrics_Name, kFlags, 0, 0, nullptr);
@@ -16067,14 +17454,17 @@ void CrosapiProxy::BindResourceManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ResourceManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindResourceManager_Name, kFlags, 0, 0, nullptr);
@@ -16110,14 +17500,17 @@ void CrosapiProxy::BindSearchControllerRegistry(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SearchControllerRegistry>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSearchControllerRegistry_Name, kFlags, 0, 0, nullptr);
@@ -16153,14 +17546,17 @@ void CrosapiProxy::BindSyncService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SyncService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindSyncService_Name, kFlags, 0, 0, nullptr);
@@ -16196,14 +17592,17 @@ void CrosapiProxy::REMOVED_29(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SystemDisplayDeprecated>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_REMOVED_29_Name, kFlags, 0, 0, nullptr);
@@ -16239,14 +17638,17 @@ void CrosapiProxy::BindTaskManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TaskManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTaskManager_Name, kFlags, 0, 0, nullptr);
@@ -16282,14 +17684,17 @@ void CrosapiProxy::BindTelemetryDiagnosticRoutinesService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TelemetryDiagnosticRoutinesService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTelemetryDiagnosticRoutinesService_Name, kFlags, 0, 0, nullptr);
@@ -16325,14 +17730,17 @@ void CrosapiProxy::BindTelemetryEventService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTelemetryEventService_Name, kFlags, 0, 0, nullptr);
@@ -16356,6 +17764,52 @@ void CrosapiProxy::BindTelemetryEventService(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindTelemetryManagementService(
+    ::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindTelemetryManagementService", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindTelemetryManagementService_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindTelemetryManagementService_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::TelemetryManagementServiceInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindTelemetryManagementService request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindTelemetryManagementService");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindTelemetryProbeService(
     ::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -16368,14 +17822,17 @@ void CrosapiProxy::BindTelemetryProbeService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTelemetryProbeService_Name, kFlags, 0, 0, nullptr);
@@ -16411,14 +17868,17 @@ void CrosapiProxy::BindTestController(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TestController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTestController_Name, kFlags, 0, 0, nullptr);
@@ -16454,14 +17914,17 @@ void CrosapiProxy::BindTimeZoneService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::TimeZoneService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTimeZoneService_Name, kFlags, 0, 0, nullptr);
@@ -16497,14 +17960,17 @@ void CrosapiProxy::BindTts(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Tts>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindTts_Name, kFlags, 0, 0, nullptr);
@@ -16540,14 +18006,17 @@ void CrosapiProxy::BindUrlHandler(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::UrlHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindUrlHandler_Name, kFlags, 0, 0, nullptr);
@@ -16583,14 +18052,17 @@ void CrosapiProxy::BindVideoCaptureDeviceFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDeviceFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVideoCaptureDeviceFactory_Name, kFlags, 0, 0, nullptr);
@@ -16626,14 +18098,17 @@ void CrosapiProxy::BindVideoConferenceManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VideoConferenceManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVideoConferenceManager_Name, kFlags, 0, 0, nullptr);
@@ -16669,14 +18144,17 @@ void CrosapiProxy::BindVirtualKeyboard(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VirtualKeyboard>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVirtualKeyboard_Name, kFlags, 0, 0, nullptr);
@@ -16712,14 +18190,17 @@ void CrosapiProxy::BindVpnExtensionObserver(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VpnExtensionObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVpnExtensionObserver_Name, kFlags, 0, 0, nullptr);
@@ -16755,14 +18236,17 @@ void CrosapiProxy::BindKioskSessionService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::KioskSessionService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindKioskSessionService_Name, kFlags, 0, 0, nullptr);
@@ -16798,14 +18282,17 @@ void CrosapiProxy::BindChromeAppKioskService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::ChromeAppKioskService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindChromeAppKioskService_Name, kFlags, 0, 0, nullptr);
@@ -16841,14 +18328,17 @@ void CrosapiProxy::BindWebKioskService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::WebKioskService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindWebKioskService_Name, kFlags, 0, 0, nullptr);
@@ -16884,14 +18374,17 @@ void CrosapiProxy::BindDeviceLocalAccountExtensionService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DeviceLocalAccountExtensionService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindDeviceLocalAccountExtensionService_Name, kFlags, 0, 0, nullptr);
@@ -16927,14 +18420,17 @@ void CrosapiProxy::BindVolumeManager(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VolumeManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVolumeManager_Name, kFlags, 0, 0, nullptr);
@@ -16970,14 +18466,17 @@ void CrosapiProxy::BindVpnService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VpnService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindVpnService_Name, kFlags, 0, 0, nullptr);
@@ -17013,14 +18512,17 @@ void CrosapiProxy::BindWebPageInfoFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::WebPageInfoFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindWebPageInfoFactory_Name, kFlags, 0, 0, nullptr);
@@ -17056,14 +18558,17 @@ void CrosapiProxy::BindWebAppPublisher(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindWebAppPublisher_Name, kFlags, 0, 0, nullptr);
@@ -17099,14 +18604,17 @@ void CrosapiProxy::BindWebAppService(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::WebAppService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindWebAppService_Name, kFlags, 0, 0, nullptr);
@@ -17142,14 +18650,17 @@ void CrosapiProxy::BindWallpaper(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Wallpaper>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -17185,14 +18696,17 @@ void CrosapiProxy::BindGuestOsSkForwarderFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::GuestOsSkForwarderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_BindGuestOsSkForwarderFactory_Name, kFlags, 0, 0, nullptr);
@@ -17228,14 +18742,17 @@ void CrosapiProxy::OnBrowserStartup(
                         "<value of type BrowserInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosapi_OnBrowserStartup_Name, kFlags, 0, 0, nullptr);
@@ -17549,6 +19066,34 @@ std::move(p_receiver));
 std::move(p_receiver));
       return true;
     }
+    case internal::kCrosapi_BindBrowserShortcutPublisher_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindBrowserShortcutPublisher_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindBrowserShortcutPublisher_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> p_receiver{};
+      Crosapi_BindBrowserShortcutPublisher_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 125, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindBrowserShortcutPublisher(
+std::move(p_receiver));
+      return true;
+    }
     case internal::kCrosapi_BindBrowserCdmFactory_Name: {
 
       DCHECK(message->is_serialized());
@@ -17628,6 +19173,34 @@ std::move(p_receiver));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindCertProvisioning(
+std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindChapsService_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindChapsService_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindChapsService_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::ChapsService> p_receiver{};
+      Crosapi_BindChapsService_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 127, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindChapsService(
 std::move(p_receiver));
       return true;
     }
@@ -17824,6 +19397,34 @@ std::move(p_receiver));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindDesk(
+std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindDeskProfileObserver_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindDeskProfileObserver_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindDeskProfileObserver_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> p_receiver{};
+      Crosapi_BindDeskProfileObserver_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 124, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindDeskProfileObserver(
 std::move(p_receiver));
       return true;
     }
@@ -18647,7 +20248,7 @@ std::move(p_receiver));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> p_receiver{};
+      ::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> p_receiver{};
       Crosapi_BindInSessionAuth_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -18748,6 +20349,34 @@ std::move(p_receiver));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindKeystoreService(
+std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindLacrosShelfItemTracker_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindLacrosShelfItemTracker_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindLacrosShelfItemTracker_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> p_receiver{};
+      Crosapi_BindLacrosShelfItemTracker_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 128, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindLacrosShelfItemTracker(
 std::move(p_receiver));
       return true;
     }
@@ -19168,6 +20797,34 @@ std::move(p_receiver));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindParentAccess(
+std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindPasskeyAuthenticator_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindPasskeyAuthenticator_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindPasskeyAuthenticator_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> p_receiver{};
+      Crosapi_BindPasskeyAuthenticator_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 126, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindPasskeyAuthenticator(
 std::move(p_receiver));
       return true;
     }
@@ -20037,6 +21694,34 @@ std::move(p_receiver));
 std::move(p_receiver));
       return true;
     }
+    case internal::kCrosapi_BindTelemetryManagementService_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindTelemetryManagementService_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindTelemetryManagementService_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> p_receiver{};
+      Crosapi_BindTelemetryManagementService_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 129, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindTelemetryManagementService(
+std::move(p_receiver));
+      return true;
+    }
     case internal::kCrosapi_BindTelemetryProbeService_Name: {
 
       DCHECK(message->is_serialized());
@@ -20666,6 +22351,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindBrowserServiceHost_Name: {
       break;
     }
+    case internal::kCrosapi_BindBrowserShortcutPublisher_Name: {
+      break;
+    }
     case internal::kCrosapi_BindBrowserCdmFactory_Name: {
       break;
     }
@@ -20673,6 +22361,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosapi_BindCertProvisioning_Name: {
+      break;
+    }
+    case internal::kCrosapi_BindChapsService_Name: {
       break;
     }
     case internal::kCrosapi_BindChromeAppPublisher_Name: {
@@ -20694,6 +22385,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosapi_BindDesk_Name: {
+      break;
+    }
+    case internal::kCrosapi_BindDeskProfileObserver_Name: {
       break;
     }
     case internal::kCrosapi_BindDeskTemplate_Name: {
@@ -20795,6 +22489,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindKeystoreService_Name: {
       break;
     }
+    case internal::kCrosapi_BindLacrosShelfItemTracker_Name: {
+      break;
+    }
     case internal::kCrosapi_BindLacrosAppPublisher_Name: {
       break;
     }
@@ -20838,6 +22535,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosapi_BindParentAccess_Name: {
+      break;
+    }
+    case internal::kCrosapi_BindPasskeyAuthenticator_Name: {
       break;
     }
     case internal::kCrosapi_BindPaymentAppInstance_Name: {
@@ -20933,6 +22633,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindTelemetryEventService_Name: {
       break;
     }
+    case internal::kCrosapi_BindTelemetryManagementService_Name: {
+      break;
+    }
     case internal::kCrosapi_BindTelemetryProbeService_Name: {
       break;
     }
@@ -20999,252 +22702,264 @@ bool CrosapiStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosapiValidationInfo[] = {
-    {&internal::Crosapi_BindSelectFile_Params_Data::Validate,
+    { &internal::Crosapi_BindSelectFile_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindScreenManager_Params_Data::Validate,
+    { &internal::Crosapi_BindScreenManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindKeystoreService_Params_Data::Validate,
+    { &internal::Crosapi_BindKeystoreService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMessageCenter_Params_Data::Validate,
+    { &internal::Crosapi_BindMessageCenter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindHidManager_Params_Data::Validate,
+    { &internal::Crosapi_BindHidManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFeedback_Params_Data::Validate,
+    { &internal::Crosapi_BindFeedback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_OnBrowserStartup_Params_Data::Validate,
+    { &internal::Crosapi_OnBrowserStartup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAccountManager_Params_Data::Validate,
+    { &internal::Crosapi_BindAccountManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFileManager_Params_Data::Validate,
+    { &internal::Crosapi_BindFileManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMediaSessionController_Params_Data::Validate,
+    { &internal::Crosapi_BindMediaSessionController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMediaSessionAudioFocus_Params_Data::Validate,
+    { &internal::Crosapi_BindMediaSessionAudioFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMediaSessionAudioFocusDebug_Params_Data::Validate,
+    { &internal::Crosapi_BindMediaSessionAudioFocusDebug_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindCertDatabase_Params_Data::Validate,
+    { &internal::Crosapi_BindCertDatabase_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMetricsReporting_Params_Data::Validate,
+    { &internal::Crosapi_BindMetricsReporting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTestController_Params_Data::Validate,
+    { &internal::Crosapi_BindTestController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindClipboard_Params_Data::Validate,
+    { &internal::Crosapi_BindClipboard_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindPrefs_Params_Data::Validate,
+    { &internal::Crosapi_BindPrefs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDeviceAttributes_Params_Data::Validate,
+    { &internal::Crosapi_BindDeviceAttributes_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindUrlHandler_Params_Data::Validate,
+    { &internal::Crosapi_BindUrlHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSensorHalClient_Params_Data::Validate,
+    { &internal::Crosapi_BindSensorHalClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindBrowserServiceHost_Params_Data::Validate,
+    { &internal::Crosapi_BindBrowserServiceHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindIdleService_Params_Data::Validate,
+    { &internal::Crosapi_BindIdleService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMachineLearningService_Params_Data::Validate,
+    { &internal::Crosapi_BindMachineLearningService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAutomationDeprecated_Params_Data::Validate,
+    { &internal::Crosapi_BindAutomationDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTaskManager_Params_Data::Validate,
+    { &internal::Crosapi_BindTaskManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVideoCaptureDeviceFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindVideoCaptureDeviceFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAutomationFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindAutomationFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindWebAppPublisher_Params_Data::Validate,
+    { &internal::Crosapi_BindWebAppPublisher_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindClipboardHistory_Params_Data::Validate,
+    { &internal::Crosapi_BindClipboardHistory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_REMOVED_29_Params_Data::Validate,
+    { &internal::Crosapi_REMOVED_29_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindLocalPrinter_Params_Data::Validate,
+    { &internal::Crosapi_BindLocalPrinter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindContentProtection_Params_Data::Validate,
+    { &internal::Crosapi_BindContentProtection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindHoldingSpaceService_Params_Data::Validate,
+    { &internal::Crosapi_BindHoldingSpaceService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDownloadController_Params_Data::Validate,
+    { &internal::Crosapi_BindDownloadController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDriveIntegrationService_Params_Data::Validate,
+    { &internal::Crosapi_BindDriveIntegrationService_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::Crosapi_BindRemoting_Params_Data::Validate,
+    { &internal::Crosapi_BindRemoting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindNativeThemeService_Params_Data::Validate,
+    { &internal::Crosapi_BindNativeThemeService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindWebPageInfoFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindWebPageInfoFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindPower_Params_Data::Validate,
+    { &internal::Crosapi_BindPower_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindResourceManager_Params_Data::Validate,
+    { &internal::Crosapi_BindResourceManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindImageWriter_Params_Data::Validate,
+    { &internal::Crosapi_BindImageWriter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindChromeAppPublisher_Params_Data::Validate,
+    { &internal::Crosapi_BindChromeAppPublisher_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindNetworkingAttributes_Params_Data::Validate,
+    { &internal::Crosapi_BindNetworkingAttributes_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAppServiceProxy_Params_Data::Validate,
+    { &internal::Crosapi_BindAppServiceProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindNetworkSettingsService_Params_Data::Validate,
+    { &internal::Crosapi_BindNetworkSettingsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindBrowserCdmFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindBrowserCdmFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindGeolocationService_Params_Data::Validate,
+    { &internal::Crosapi_BindGeolocationService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindChromeAppWindowTracker_Params_Data::Validate,
+    { &internal::Crosapi_BindChromeAppWindowTracker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindBrowserVersionService_Params_Data::Validate,
+    { &internal::Crosapi_BindBrowserVersionService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFieldTrialService_Params_Data::Validate,
+    { &internal::Crosapi_BindFieldTrialService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindStructuredMetricsService_Params_Data::Validate,
+    { &internal::Crosapi_BindStructuredMetricsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindKioskSessionService_Params_Data::Validate,
+    { &internal::Crosapi_BindKioskSessionService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindBrowserAppInstanceRegistry_Params_Data::Validate,
+    { &internal::Crosapi_BindBrowserAppInstanceRegistry_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindIdentityManager_Params_Data::Validate,
+    { &internal::Crosapi_BindIdentityManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindStableVideoDecoderFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindStableVideoDecoderFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindForceInstalledTracker_Params_Data::Validate,
+    { &internal::Crosapi_BindForceInstalledTracker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTts_Params_Data::Validate,
+    { &internal::Crosapi_BindTts_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDeviceSettingsService_Params_Data::Validate,
+    { &internal::Crosapi_BindDeviceSettingsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindPolicyService_Params_Data::Validate,
+    { &internal::Crosapi_BindPolicyService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindLoginState_Params_Data::Validate,
+    { &internal::Crosapi_BindLoginState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_REMOVED_62_Params_Data::Validate,
+    { &internal::Crosapi_REMOVED_62_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindArc_Params_Data::Validate,
+    { &internal::Crosapi_BindArc_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDlp_Params_Data::Validate,
+    { &internal::Crosapi_BindDlp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTimeZoneService_Params_Data::Validate,
+    { &internal::Crosapi_BindTimeZoneService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSearchControllerRegistry_Params_Data::Validate,
+    { &internal::Crosapi_BindSearchControllerRegistry_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindLogin_Params_Data::Validate,
+    { &internal::Crosapi_BindLogin_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindLoginScreenStorage_Params_Data::Validate,
+    { &internal::Crosapi_BindLoginScreenStorage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSyncService_Params_Data::Validate,
+    { &internal::Crosapi_BindSyncService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSharesheet_Params_Data::Validate,
+    { &internal::Crosapi_BindSharesheet_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDeskTemplate_Params_Data::Validate,
+    { &internal::Crosapi_BindDeskTemplate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindWebAppService_Params_Data::Validate,
+    { &internal::Crosapi_BindWebAppService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindExtensionPublisher_Params_Data::Validate,
+    { &internal::Crosapi_BindExtensionPublisher_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindEchoPrivate_Params_Data::Validate,
+    { &internal::Crosapi_BindEchoPrivate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindExtensionInfoPrivate_Params_Data::Validate,
+    { &internal::Crosapi_BindExtensionInfoPrivate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindChromeAppKioskService_Params_Data::Validate,
+    { &internal::Crosapi_BindChromeAppKioskService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindRemoteAppsLacrosBridge_Params_Data::Validate,
+    { &internal::Crosapi_BindRemoteAppsLacrosBridge_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVpnExtensionObserver_Params_Data::Validate,
+    { &internal::Crosapi_BindVpnExtensionObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDigitalGoodsFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindDigitalGoodsFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDocumentScan_Params_Data::Validate,
+    { &internal::Crosapi_BindDocumentScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFileSystemProviderService_Params_Data::Validate,
+    { &internal::Crosapi_BindFileSystemProviderService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVpnService_Params_Data::Validate,
+    { &internal::Crosapi_BindVpnService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindNetworkingPrivate_Params_Data::Validate,
+    { &internal::Crosapi_BindNetworkingPrivate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSpeechRecognition_Params_Data::Validate,
+    { &internal::Crosapi_BindSpeechRecognition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAudioService_Params_Data::Validate,
+    { &internal::Crosapi_BindAudioService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindCertProvisioning_Params_Data::Validate,
+    { &internal::Crosapi_BindCertProvisioning_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindWallpaper_Params_Data::Validate,
+    { &internal::Crosapi_BindWallpaper_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::Crosapi_BindEmojiPicker_Params_Data::Validate,
+    { &internal::Crosapi_BindEmojiPicker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindPrintingMetrics_Params_Data::Validate,
+    { &internal::Crosapi_BindPrintingMetrics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVirtualKeyboard_Params_Data::Validate,
+    { &internal::Crosapi_BindVirtualKeyboard_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindNetworkChange_Params_Data::Validate,
+    { &internal::Crosapi_BindNetworkChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindCrosDisplayConfigController_Params_Data::Validate,
+    { &internal::Crosapi_BindCrosDisplayConfigController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVolumeManager_Params_Data::Validate,
+    { &internal::Crosapi_BindVolumeManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDeviceOAuth2TokenService_Params_Data::Validate,
+    { &internal::Crosapi_BindDeviceOAuth2TokenService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindInSessionAuth_Params_Data::Validate,
+    { &internal::Crosapi_BindInSessionAuth_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTelemetryProbeService_Params_Data::Validate,
+    { &internal::Crosapi_BindTelemetryProbeService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFullscreenController_Params_Data::Validate,
+    { &internal::Crosapi_BindFullscreenController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDiagnosticsService_Params_Data::Validate,
+    { &internal::Crosapi_BindDiagnosticsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDeviceLocalAccountExtensionService_Params_Data::Validate,
+    { &internal::Crosapi_BindDeviceLocalAccountExtensionService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindParentAccess_Params_Data::Validate,
+    { &internal::Crosapi_BindParentAccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindVideoConferenceManager_Params_Data::Validate,
+    { &internal::Crosapi_BindVideoConferenceManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDesk_Params_Data::Validate,
+    { &internal::Crosapi_BindDesk_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMultiCaptureService_Params_Data::Validate,
+    { &internal::Crosapi_BindMultiCaptureService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_REMOVED_105_Params_Data::Validate,
+    { &internal::Crosapi_REMOVED_105_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMetrics_Params_Data::Validate,
+    { &internal::Crosapi_BindMetrics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindSmartReaderClient_Params_Data::Validate,
+    { &internal::Crosapi_BindSmartReaderClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindMediaUI_Params_Data::Validate,
+    { &internal::Crosapi_BindMediaUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTelemetryEventService_Params_Data::Validate,
+    { &internal::Crosapi_BindTelemetryEventService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindDownloadStatusUpdater_Params_Data::Validate,
+    { &internal::Crosapi_BindDownloadStatusUpdater_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindKerberosInBrowser_Params_Data::Validate,
+    { &internal::Crosapi_BindKerberosInBrowser_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::Crosapi_BindScreenAIDownloader_Params_Data::Validate,
+    { &internal::Crosapi_BindScreenAIDownloader_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindWebKioskService_Params_Data::Validate,
+    { &internal::Crosapi_BindWebKioskService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTelemetryDiagnosticRoutinesService_Params_Data::Validate,
+    { &internal::Crosapi_BindTelemetryDiagnosticRoutinesService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindPaymentAppInstance_Params_Data::Validate,
+    { &internal::Crosapi_BindPaymentAppInstance_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindFileSystemAccessCloudIdentifierProvider_Params_Data::Validate,
+    { &internal::Crosapi_BindFileSystemAccessCloudIdentifierProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindEmbeddedAccessibilityHelperClientFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindEmbeddedAccessibilityHelperClientFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindLacrosAppPublisher_Params_Data::Validate,
+    { &internal::Crosapi_BindLacrosAppPublisher_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindEditorPanelManager_Params_Data::Validate,
+    { &internal::Crosapi_BindEditorPanelManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindTrustedVaultBackend_Params_Data::Validate,
+    { &internal::Crosapi_BindTrustedVaultBackend_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindEyeDropper_Params_Data::Validate,
+    { &internal::Crosapi_BindEyeDropper_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindGuestOsSkForwarderFactory_Params_Data::Validate,
+    { &internal::Crosapi_BindGuestOsSkForwarderFactory_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindDeskProfileObserver_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindBrowserShortcutPublisher_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindPasskeyAuthenticator_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindChapsService_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindLacrosShelfItemTracker_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindTelemetryManagementService_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -21322,6 +23037,9 @@ BrowserService::IPCStableHashFunction BrowserService::MessageToMethodInfo_(mojo:
     case internal::kBrowserService_Launch_Name: {
       return &BrowserService::Launch_Sym::IPCStableHash;
     }
+    case internal::kBrowserService_OpenProfileManager_Name: {
+      return &BrowserService::OpenProfileManager_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -21375,6 +23093,8 @@ const char* BrowserService::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::BrowserService::UpdateComponentPolicy";
       case internal::kBrowserService_Launch_Name:
             return "Receive crosapi::mojom::BrowserService::Launch";
+      case internal::kBrowserService_OpenProfileManager_Name:
+            return "Receive crosapi::mojom::BrowserService::OpenProfileManager";
     }
   } else {
     switch (message.name()) {
@@ -21420,6 +23140,8 @@ const char* BrowserService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::BrowserService::UpdateComponentPolicy";
       case internal::kBrowserService_Launch_Name:
             return "Receive reply crosapi::mojom::BrowserService::Launch";
+      case internal::kBrowserService_OpenProfileManager_Name:
+            return "Receive reply crosapi::mojom::BrowserService::OpenProfileManager";
     }
   }
   return "Receive unknown mojo message";
@@ -21707,6 +23429,19 @@ uint32_t BrowserService::Launch_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t BrowserService::OpenProfileManager_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::BrowserService::OpenProfileManager");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class BrowserService_REMOVED_0_ForwardToCallback
@@ -21926,14 +23661,17 @@ void BrowserServiceProxy::REMOVED_0(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::REMOVED_0");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_0_Name, kFlags, 0, 0, nullptr);
@@ -21964,14 +23702,17 @@ void BrowserServiceProxy::REMOVED_2(
                         "<value of type BrowserInitParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_2_Name, kFlags, 0, 0, nullptr);
@@ -22001,7 +23742,7 @@ void BrowserServiceProxy::REMOVED_2(
 }
 
 void BrowserServiceProxy::NewWindow(
-    bool in_incognito, bool in_should_trigger_session_restore, int64_t in_target_display_id, NewWindowCallback callback) {
+    bool in_incognito, bool in_should_trigger_session_restore, int64_t in_target_display_id, std::optional<uint64_t> in_profile_id, NewWindowCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::BrowserService::NewWindow", "input_parameters",
@@ -22016,16 +23757,22 @@ void BrowserServiceProxy::NewWindow(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("target_display_id"), in_target_display_id,
                         "<value of type int64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("profile_id"), in_profile_id,
+                        "<value of type std::optional<uint64_t>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewWindow_Name, kFlags, 0, 0, nullptr);
@@ -22036,6 +23783,10 @@ void BrowserServiceProxy::NewWindow(
   params->incognito = in_incognito;
   params->should_trigger_session_restore = in_should_trigger_session_restore;
   params->target_display_id = in_target_display_id;
+  params->profile_id_$flag = in_profile_id.has_value();
+  if (in_profile_id.has_value()) {
+    params->profile_id_$value = in_profile_id.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(BrowserService::Name_);
@@ -22062,14 +23813,17 @@ void BrowserServiceProxy::NewFullscreenWindow(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewFullscreenWindow_Name, kFlags, 0, 0, nullptr);
@@ -22115,14 +23869,17 @@ void BrowserServiceProxy::NewWindowForDetachingTab(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewWindowForDetachingTab_Name, kFlags, 0, 0, nullptr);
@@ -22175,14 +23932,17 @@ void BrowserServiceProxy::NewGuestWindow(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewGuestWindow_Name, kFlags, 0, 0, nullptr);
@@ -22207,14 +23967,17 @@ void BrowserServiceProxy::NewTab(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::NewTab");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewTab_Name, kFlags, 0, 0, nullptr);
@@ -22245,14 +24008,17 @@ void BrowserServiceProxy::REMOVED_7(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_7_Name, kFlags, 0, 0, nullptr);
@@ -22287,14 +24053,17 @@ void BrowserServiceProxy::OpenUrl(
                         "<value of type OpenUrlParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_OpenUrl_Name, kFlags, 0, 0, nullptr);
@@ -22336,14 +24105,17 @@ void BrowserServiceProxy::RestoreTab(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::RestoreTab");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_RestoreTab_Name, kFlags, 0, 0, nullptr);
@@ -22377,14 +24149,17 @@ void BrowserServiceProxy::HandleTabScrubbing(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_HandleTabScrubbing_Name, kFlags, 0, 0, nullptr);
@@ -22409,14 +24184,17 @@ void BrowserServiceProxy::GetFeedbackData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::GetFeedbackData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetFeedbackData_Name, kFlags, 0, 0, nullptr);
@@ -22440,14 +24218,17 @@ void BrowserServiceProxy::GetHistograms(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::GetHistograms");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetHistograms_Name, kFlags, 0, 0, nullptr);
@@ -22471,14 +24252,17 @@ void BrowserServiceProxy::GetActiveTabUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::GetActiveTabUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetActiveTabUrl_Name, kFlags, 0, 0, nullptr);
@@ -22509,14 +24293,17 @@ void BrowserServiceProxy::UpdateDeviceAccountPolicy(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_UpdateDeviceAccountPolicy_Name, kFlags, 0, 0, nullptr);
@@ -22552,14 +24339,17 @@ void BrowserServiceProxy::NotifyPolicyFetchAttempt(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::NotifyPolicyFetchAttempt");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NotifyPolicyFetchAttempt_Name, kFlags, 0, 0, nullptr);
@@ -22589,14 +24379,17 @@ void BrowserServiceProxy::UpdateKeepAlive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_UpdateKeepAlive_Name, kFlags, 0, 0, nullptr);
@@ -22627,14 +24420,17 @@ void BrowserServiceProxy::OpenForFullRestore(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_OpenForFullRestore_Name, kFlags, 0, 0, nullptr);
@@ -22665,14 +24461,17 @@ void BrowserServiceProxy::REMOVED_16(
                         "<value of type base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_16_Name, kFlags, 0, 0, nullptr);
@@ -22715,14 +24514,17 @@ void BrowserServiceProxy::UpdateComponentPolicy(
                         "<value of type base::flat_map<::policy::PolicyNamespace, ::base::Value>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_UpdateComponentPolicy_Name, kFlags, 0, 0, nullptr);
@@ -22754,7 +24556,7 @@ void BrowserServiceProxy::UpdateComponentPolicy(
 }
 
 void BrowserServiceProxy::Launch(
-    int64_t in_target_display_id, LaunchCallback callback) {
+    int64_t in_target_display_id, std::optional<uint64_t> in_profile_id, LaunchCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::BrowserService::Launch", "input_parameters",
@@ -22763,16 +24565,22 @@ void BrowserServiceProxy::Launch(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("target_display_id"), in_target_display_id,
                         "<value of type int64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("profile_id"), in_profile_id,
+                        "<value of type std::optional<uint64_t>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_Launch_Name, kFlags, 0, 0, nullptr);
@@ -22781,6 +24589,10 @@ void BrowserServiceProxy::Launch(
           message);
   params.Allocate();
   params->target_display_id = in_target_display_id;
+  params->profile_id_$flag = in_profile_id.has_value();
+  if (in_profile_id.has_value()) {
+    params->profile_id_$value = in_profile_id.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(BrowserService::Name_);
@@ -22790,6 +24602,39 @@ void BrowserServiceProxy::Launch(
       new BrowserService_Launch_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void BrowserServiceProxy::OpenProfileManager(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::OpenProfileManager");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kBrowserService_OpenProfileManager_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::BrowserService_OpenProfileManager_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(BrowserService::Name_);
+  message.set_method_name("OpenProfileManager");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class BrowserService_REMOVED_0_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -22885,7 +24730,8 @@ void BrowserService_REMOVED_0_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_0_Name, kFlags, 0, 0, nullptr);
@@ -23008,7 +24854,8 @@ void BrowserService_NewWindow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewWindow_Name, kFlags, 0, 0, nullptr);
@@ -23127,7 +24974,8 @@ void BrowserService_NewFullscreenWindow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewFullscreenWindow_Name, kFlags, 0, 0, nullptr);
@@ -23253,7 +25101,8 @@ void BrowserService_NewWindowForDetachingTab_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewWindowForDetachingTab_Name, kFlags, 0, 0, nullptr);
@@ -23383,7 +25232,8 @@ void BrowserService_NewGuestWindow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewGuestWindow_Name, kFlags, 0, 0, nullptr);
@@ -23502,7 +25352,8 @@ void BrowserService_NewTab_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_NewTab_Name, kFlags, 0, 0, nullptr);
@@ -23610,7 +25461,8 @@ void BrowserService_REMOVED_7_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_REMOVED_7_Name, kFlags, 0, 0, nullptr);
@@ -23727,7 +25579,8 @@ void BrowserService_OpenUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_OpenUrl_Name, kFlags, 0, 0, nullptr);
@@ -23846,7 +25699,8 @@ void BrowserService_RestoreTab_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_RestoreTab_Name, kFlags, 0, 0, nullptr);
@@ -23965,7 +25819,8 @@ void BrowserService_GetFeedbackData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetFeedbackData_Name, kFlags, 0, 0, nullptr);
@@ -24093,7 +25948,8 @@ void BrowserService_GetHistograms_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetHistograms_Name, kFlags, 0, 0, nullptr);
@@ -24175,7 +26031,7 @@ class BrowserService_GetActiveTabUrl_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      const absl::optional<::GURL>& in_url);
+      const std::optional<::GURL>& in_url);
 };
 
 bool BrowserService_GetActiveTabUrl_ForwardToCallback::Accept(
@@ -24188,7 +26044,7 @@ bool BrowserService_GetActiveTabUrl_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::GURL> p_url{};
+  std::optional<::GURL> p_url{};
   BrowserService_GetActiveTabUrl_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadUrl(&p_url))
@@ -24207,7 +26063,7 @@ std::move(p_url));
 }
 
 void BrowserService_GetActiveTabUrl_ProxyToResponder::Run(
-    const absl::optional<::GURL>& in_url) {
+    const std::optional<::GURL>& in_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::BrowserService::GetActiveTabUrl", "async_response_parameters",
@@ -24215,13 +26071,14 @@ void BrowserService_GetActiveTabUrl_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url"), in_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_GetActiveTabUrl_Name, kFlags, 0, 0, nullptr);
@@ -24345,7 +26202,8 @@ void BrowserService_Launch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserService_Launch_Name, kFlags, 0, 0, nullptr);
@@ -24625,6 +26483,28 @@ std::move(p_component_policy));
     case internal::kBrowserService_Launch_Name: {
       break;
     }
+    case internal::kBrowserService_OpenProfileManager_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::BrowserService_OpenProfileManager_Params_Data* params =
+          reinterpret_cast<internal::BrowserService_OpenProfileManager_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      BrowserService_OpenProfileManager_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            BrowserService::Name_, 21, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenProfileManager();
+      return true;
+    }
   }
   return false;
 }
@@ -24677,6 +26557,7 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
       bool p_incognito{};
       bool p_should_trigger_session_restore{};
       int64_t p_target_display_id{};
+      std::optional<uint64_t> p_profile_id{};
       BrowserService_NewWindow_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -24685,6 +26566,9 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
         p_should_trigger_session_restore = input_data_view.should_trigger_session_restore();
       if (success)
         p_target_display_id = input_data_view.target_display_id();
+      if (success) {
+        p_profile_id = input_data_view.profile_id();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -24700,7 +26584,8 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
       impl->NewWindow(
 std::move(p_incognito), 
 std::move(p_should_trigger_session_restore), 
-std::move(p_target_display_id), std::move(callback));
+std::move(p_target_display_id), 
+std::move(p_profile_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_NewFullscreenWindow_Name: {
@@ -25015,10 +26900,14 @@ std::move(p_params), std::move(callback));
       
       bool success = true;
       int64_t p_target_display_id{};
+      std::optional<uint64_t> p_profile_id{};
       BrowserService_Launch_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_target_display_id = input_data_view.target_display_id();
+      if (success) {
+        p_profile_id = input_data_view.profile_id();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -25032,57 +26921,63 @@ std::move(p_params), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->Launch(
-std::move(p_target_display_id), std::move(callback));
+std::move(p_target_display_id), 
+std::move(p_profile_id), std::move(callback));
       return true;
+    }
+    case internal::kBrowserService_OpenProfileManager_Name: {
+      break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBrowserServiceValidationInfo[] = {
-    {&internal::BrowserService_REMOVED_0_Params_Data::Validate,
+    { &internal::BrowserService_REMOVED_0_Params_Data::Validate,
      &internal::BrowserService_REMOVED_0_ResponseParams_Data::Validate},
-    {&internal::BrowserService_NewWindow_Params_Data::Validate,
+    { &internal::BrowserService_NewWindow_Params_Data::Validate,
      &internal::BrowserService_NewWindow_ResponseParams_Data::Validate},
-    {&internal::BrowserService_REMOVED_2_Params_Data::Validate,
+    { &internal::BrowserService_REMOVED_2_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_GetFeedbackData_Params_Data::Validate,
+    { &internal::BrowserService_GetFeedbackData_Params_Data::Validate,
      &internal::BrowserService_GetFeedbackData_ResponseParams_Data::Validate},
-    {&internal::BrowserService_GetHistograms_Params_Data::Validate,
+    { &internal::BrowserService_GetHistograms_Params_Data::Validate,
      &internal::BrowserService_GetHistograms_ResponseParams_Data::Validate},
-    {&internal::BrowserService_GetActiveTabUrl_Params_Data::Validate,
+    { &internal::BrowserService_GetActiveTabUrl_Params_Data::Validate,
      &internal::BrowserService_GetActiveTabUrl_ResponseParams_Data::Validate},
-    {&internal::BrowserService_UpdateDeviceAccountPolicy_Params_Data::Validate,
+    { &internal::BrowserService_UpdateDeviceAccountPolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_REMOVED_7_Params_Data::Validate,
+    { &internal::BrowserService_REMOVED_7_Params_Data::Validate,
      &internal::BrowserService_REMOVED_7_ResponseParams_Data::Validate},
-    {&internal::BrowserService_RestoreTab_Params_Data::Validate,
+    { &internal::BrowserService_RestoreTab_Params_Data::Validate,
      &internal::BrowserService_RestoreTab_ResponseParams_Data::Validate},
-    {&internal::BrowserService_NewFullscreenWindow_Params_Data::Validate,
+    { &internal::BrowserService_NewFullscreenWindow_Params_Data::Validate,
      &internal::BrowserService_NewFullscreenWindow_ResponseParams_Data::Validate},
-    {&internal::BrowserService_OpenUrl_Params_Data::Validate,
+    { &internal::BrowserService_OpenUrl_Params_Data::Validate,
      &internal::BrowserService_OpenUrl_ResponseParams_Data::Validate},
-    {&internal::BrowserService_NewWindowForDetachingTab_Params_Data::Validate,
+    { &internal::BrowserService_NewWindowForDetachingTab_Params_Data::Validate,
      &internal::BrowserService_NewWindowForDetachingTab_ResponseParams_Data::Validate},
-    {&internal::BrowserService_UpdateKeepAlive_Params_Data::Validate,
+    { &internal::BrowserService_UpdateKeepAlive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_HandleTabScrubbing_Params_Data::Validate,
+    { &internal::BrowserService_HandleTabScrubbing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_NewGuestWindow_Params_Data::Validate,
+    { &internal::BrowserService_NewGuestWindow_Params_Data::Validate,
      &internal::BrowserService_NewGuestWindow_ResponseParams_Data::Validate},
-    {&internal::BrowserService_OpenForFullRestore_Params_Data::Validate,
+    { &internal::BrowserService_OpenForFullRestore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_REMOVED_16_Params_Data::Validate,
+    { &internal::BrowserService_REMOVED_16_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_NotifyPolicyFetchAttempt_Params_Data::Validate,
+    { &internal::BrowserService_NotifyPolicyFetchAttempt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_UpdateComponentPolicy_Params_Data::Validate,
+    { &internal::BrowserService_UpdateComponentPolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserService_Launch_Params_Data::Validate,
+    { &internal::BrowserService_Launch_Params_Data::Validate,
      &internal::BrowserService_Launch_ResponseParams_Data::Validate},
-    {&internal::BrowserService_NewTab_Params_Data::Validate,
+    { &internal::BrowserService_NewTab_Params_Data::Validate,
      &internal::BrowserService_NewTab_ResponseParams_Data::Validate},
+    { &internal::BrowserService_OpenProfileManager_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool BrowserServiceRequestValidator::Accept(mojo::Message* message) {
@@ -25186,14 +27081,17 @@ void BrowserServiceHostProxy::AddBrowserService(
                         "<value of type ::mojo::PendingRemote<BrowserService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserServiceHost_AddBrowserService_Name, kFlags, 0, 0, nullptr);
@@ -25222,14 +27120,17 @@ void BrowserServiceHostProxy::RequestRelaunch(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserServiceHost::RequestRelaunch");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserServiceHost_RequestRelaunch_Name, kFlags, 0, 0, nullptr);
@@ -25324,12 +27225,12 @@ bool BrowserServiceHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBrowserServiceHostValidationInfo[] = {
-    {&internal::BrowserServiceHost_AddBrowserService_Params_Data::Validate,
+    { &internal::BrowserServiceHost_AddBrowserService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserServiceHost_RequestRelaunch_Params_Data::Validate,
+    { &internal::BrowserServiceHost_RequestRelaunch_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -25430,6 +27331,24 @@ bool StructTraits<::crosapi::mojom::DeviceProperties::DataView, ::crosapi::mojom
 
 
 // static
+bool StructTraits<::crosapi::mojom::EntropySource::DataView, ::crosapi::mojom::EntropySourcePtr>::Read(
+    ::crosapi::mojom::EntropySource::DataView input,
+    ::crosapi::mojom::EntropySourcePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::EntropySourcePtr result(::crosapi::mojom::EntropySource::New());
+  
+      if (success)
+        result->low_entropy = input.low_entropy();
+      if (success)
+        result->old_low_entropy = input.old_low_entropy();
+      if (success)
+        result->pseudo_low_entropy = input.pseudo_low_entropy();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojom::BrowserInitParamsPtr>::Read(
     ::crosapi::mojom::BrowserInitParams::DataView input,
     ::crosapi::mojom::BrowserInitParamsPtr* output) {
@@ -25471,11 +27390,11 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
       if (success && !input.ReadDeviceAccount(&result->device_account))
         success = false;
       if (success)
-        result->web_apps_enabled = input.web_apps_enabled();
+        result->REMOVED_17 = input.REMOVED_17();
       if (success)
         result->REMOVED_18 = input.REMOVED_18();
       if (success)
-        result->standalone_browser_is_primary = input.standalone_browser_is_primary();
+        result->REMOVED_19 = input.REMOVED_19();
       if (success && !input.ReadNativeThemeInfo(&result->native_theme_info))
         success = false;
       if (success && !input.ReadDeviceProperties(&result->device_properties))
@@ -25491,7 +27410,7 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
       if (success && !input.ReadMetricsServiceClientId(&result->metrics_service_client_id))
         success = false;
       if (success)
-        result->standalone_browser_is_only_browser = input.standalone_browser_is_only_browser();
+        result->REMOVED_27 = input.REMOVED_27();
       if (success)
         result->publish_chrome_apps = input.publish_chrome_apps();
       if (success && !input.ReadInitialKeepAlive(&result->initial_keep_alive))
@@ -25539,7 +27458,7 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
       if (success && !input.ReadLacrosSelection(&result->lacros_selection))
         success = false;
       if (success)
-        result->enable_window_layout_menu = input.enable_window_layout_menu();
+        result->REMOVED_51 = input.REMOVED_51();
       if (success)
         result->is_cloud_gaming_device = input.is_cloud_gaming_device();
       if (success && !input.ReadGpuSandboxStartMode(&result->gpu_sandbox_start_mode))
@@ -25547,7 +27466,7 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
       if (success && !input.ReadExtensionKeepList(&result->extension_keep_list))
         success = false;
       if (success)
-        result->enable_partial_split_deprecated = input.enable_partial_split_deprecated();
+        result->REMOVED_55 = input.REMOVED_55();
       if (success)
         result->vc_controls_ui_enabled = input.vc_controls_ui_enabled();
       if (success && !input.ReadStandaloneBrowserAppServiceBlocklist(&result->standalone_browser_app_service_blocklist))
@@ -25582,6 +27501,12 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
         result->is_desk_profiles_enabled = input.is_desk_profiles_enabled();
       if (success)
         result->is_cros_web_app_shortcut_ui_update_enabled = input.is_cros_web_app_shortcut_ui_update_enabled();
+      if (success && !input.ReadEntropySource(&result->entropy_source))
+        success = false;
+      if (success)
+        result->is_cros_shortstand_enabled = input.is_cros_shortstand_enabled();
+      if (success)
+        result->should_disable_chrome_compose_on_chromeos = input.should_disable_chrome_compose_on_chromeos();
   *output = std::move(result);
   return success;
 }
@@ -25611,15 +27536,15 @@ bool StructTraits<::crosapi::mojom::BrowserPostLoginParams::DataView, ::crosapi:
       if (success && !input.ReadDeviceAccount(&result->device_account))
         success = false;
       if (success)
-        result->web_apps_enabled = input.web_apps_enabled();
+        result->REMOVED_8 = input.REMOVED_8();
       if (success)
-        result->standalone_browser_is_primary = input.standalone_browser_is_primary();
+        result->REMOVED_9 = input.REMOVED_9();
       if (success && !input.ReadStartupUrlsFrom(&result->startup_urls_from))
         success = false;
       if (success && !input.ReadRemoved11(&result->REMOVED_11))
         success = false;
       if (success)
-        result->standalone_browser_is_only_browser = input.standalone_browser_is_only_browser();
+        result->REMOVED_12 = input.REMOVED_12();
       if (success)
         result->publish_chrome_apps = input.publish_chrome_apps();
       if (success)
@@ -25696,6 +27621,9 @@ void CrosapiInterceptorForTesting::BindBrowserVersionService(::mojo::PendingRece
 void CrosapiInterceptorForTesting::BindBrowserServiceHost(::mojo::PendingReceiver<BrowserServiceHost> receiver) {
   GetForwardingInterface()->BindBrowserServiceHost(std::move(receiver));
 }
+void CrosapiInterceptorForTesting::BindBrowserShortcutPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> receiver) {
+  GetForwardingInterface()->BindBrowserShortcutPublisher(std::move(receiver));
+}
 void CrosapiInterceptorForTesting::BindBrowserCdmFactory(::mojo::GenericPendingReceiver receiver) {
   GetForwardingInterface()->BindBrowserCdmFactory(std::move(receiver));
 }
@@ -25704,6 +27632,9 @@ void CrosapiInterceptorForTesting::BindCertDatabase(::mojo::PendingReceiver<::cr
 }
 void CrosapiInterceptorForTesting::BindCertProvisioning(::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning> receiver) {
   GetForwardingInterface()->BindCertProvisioning(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindChapsService(::mojo::PendingReceiver<::crosapi::mojom::ChapsService> receiver) {
+  GetForwardingInterface()->BindChapsService(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindChromeAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) {
   GetForwardingInterface()->BindChromeAppPublisher(std::move(receiver));
@@ -25725,6 +27656,9 @@ void CrosapiInterceptorForTesting::BindCrosDisplayConfigController(::mojo::Pendi
 }
 void CrosapiInterceptorForTesting::BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) {
   GetForwardingInterface()->BindDesk(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) {
+  GetForwardingInterface()->BindDeskProfileObserver(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindDeskTemplate(::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> receiver) {
   GetForwardingInterface()->BindDeskTemplate(std::move(receiver));
@@ -25813,7 +27747,7 @@ void CrosapiInterceptorForTesting::BindIdleService(::mojo::PendingReceiver<::cro
 void CrosapiInterceptorForTesting::BindImageWriter(::mojo::PendingReceiver<::crosapi::mojom::ImageWriter> receiver) {
   GetForwardingInterface()->BindImageWriter(std::move(receiver));
 }
-void CrosapiInterceptorForTesting::BindInSessionAuth(::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> receiver) {
+void CrosapiInterceptorForTesting::BindInSessionAuth(::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> receiver) {
   GetForwardingInterface()->BindInSessionAuth(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindNetworkSettingsService(::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService> receiver) {
@@ -25824,6 +27758,9 @@ void CrosapiInterceptorForTesting::BindKerberosInBrowser(::mojo::PendingReceiver
 }
 void CrosapiInterceptorForTesting::BindKeystoreService(::mojo::PendingReceiver<::crosapi::mojom::KeystoreService> receiver) {
   GetForwardingInterface()->BindKeystoreService(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindLacrosShelfItemTracker(::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> receiver) {
+  GetForwardingInterface()->BindLacrosShelfItemTracker(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindLacrosAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) {
   GetForwardingInterface()->BindLacrosAppPublisher(std::move(receiver));
@@ -25869,6 +27806,9 @@ void CrosapiInterceptorForTesting::BindNetworkingAttributes(::mojo::PendingRecei
 }
 void CrosapiInterceptorForTesting::BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) {
   GetForwardingInterface()->BindParentAccess(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) {
+  GetForwardingInterface()->BindPasskeyAuthenticator(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindPaymentAppInstance(::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> receiver) {
   GetForwardingInterface()->BindPaymentAppInstance(std::move(receiver));
@@ -25963,6 +27903,9 @@ void CrosapiInterceptorForTesting::BindTelemetryDiagnosticRoutinesService(::mojo
 void CrosapiInterceptorForTesting::BindTelemetryEventService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService> receiver) {
   GetForwardingInterface()->BindTelemetryEventService(std::move(receiver));
 }
+void CrosapiInterceptorForTesting::BindTelemetryManagementService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> receiver) {
+  GetForwardingInterface()->BindTelemetryManagementService(std::move(receiver));
+}
 void CrosapiInterceptorForTesting::BindTelemetryProbeService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> receiver) {
   GetForwardingInterface()->BindTelemetryProbeService(std::move(receiver));
 }
@@ -26040,8 +27983,8 @@ void BrowserServiceInterceptorForTesting::REMOVED_0(REMOVED_0Callback callback) 
 void BrowserServiceInterceptorForTesting::REMOVED_2(BrowserInitParamsPtr params) {
   GetForwardingInterface()->REMOVED_2(std::move(params));
 }
-void BrowserServiceInterceptorForTesting::NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, NewWindowCallback callback) {
-  GetForwardingInterface()->NewWindow(std::move(incognito), std::move(should_trigger_session_restore), std::move(target_display_id), std::move(callback));
+void BrowserServiceInterceptorForTesting::NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, NewWindowCallback callback) {
+  GetForwardingInterface()->NewWindow(std::move(incognito), std::move(should_trigger_session_restore), std::move(target_display_id), std::move(profile_id), std::move(callback));
 }
 void BrowserServiceInterceptorForTesting::NewFullscreenWindow(const ::GURL& url, int64_t target_display_id, NewFullscreenWindowCallback callback) {
   GetForwardingInterface()->NewFullscreenWindow(std::move(url), std::move(target_display_id), std::move(callback));
@@ -26094,8 +28037,11 @@ void BrowserServiceInterceptorForTesting::REMOVED_16(base::flat_map<::policy::Po
 void BrowserServiceInterceptorForTesting::UpdateComponentPolicy(base::flat_map<::policy::PolicyNamespace, ::base::Value> component_policy) {
   GetForwardingInterface()->UpdateComponentPolicy(std::move(component_policy));
 }
-void BrowserServiceInterceptorForTesting::Launch(int64_t target_display_id, LaunchCallback callback) {
-  GetForwardingInterface()->Launch(std::move(target_display_id), std::move(callback));
+void BrowserServiceInterceptorForTesting::Launch(int64_t target_display_id, std::optional<uint64_t> profile_id, LaunchCallback callback) {
+  GetForwardingInterface()->Launch(std::move(target_display_id), std::move(profile_id), std::move(callback));
+}
+void BrowserServiceInterceptorForTesting::OpenProfileManager() {
+  GetForwardingInterface()->OpenProfileManager();
 }
 BrowserServiceAsyncWaiter::BrowserServiceAsyncWaiter(
     BrowserService* proxy) : proxy_(proxy) {}
@@ -26126,9 +28072,9 @@ void BrowserServiceAsyncWaiter::REMOVED_0(
 }
 
 void BrowserServiceAsyncWaiter::NewWindow(
-    bool incognito, bool should_trigger_session_restore, int64_t target_display_id, CreationResult* out_result) {
+    bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, CreationResult* out_result) {
   base::RunLoop loop;
-  proxy_->NewWindow(std::move(incognito),std::move(should_trigger_session_restore),std::move(target_display_id),
+  proxy_->NewWindow(std::move(incognito),std::move(should_trigger_session_restore),std::move(target_display_id),std::move(profile_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              CreationResult* out_result
@@ -26142,9 +28088,9 @@ void BrowserServiceAsyncWaiter::NewWindow(
 }
 
 CreationResult BrowserServiceAsyncWaiter::NewWindow(
-    bool incognito, bool should_trigger_session_restore, int64_t target_display_id) {
+    bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id) {
   CreationResult async_wait_result;
-  NewWindow(std::move(incognito),std::move(should_trigger_session_restore),std::move(target_display_id),&async_wait_result);
+  NewWindow(std::move(incognito),std::move(should_trigger_session_restore),std::move(target_display_id),std::move(profile_id),&async_wait_result);
   return async_wait_result;
 }
 
@@ -26346,14 +28292,14 @@ void BrowserServiceAsyncWaiter::GetHistograms(
 }
 
 void BrowserServiceAsyncWaiter::GetActiveTabUrl(
-    absl::optional<::GURL>* out_url) {
+    std::optional<::GURL>* out_url) {
   base::RunLoop loop;
   proxy_->GetActiveTabUrl(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::GURL>* out_url
+             std::optional<::GURL>* out_url
 ,
-             const absl::optional<::GURL>& url) {*out_url = std::move(url);
+             const std::optional<::GURL>& url) {*out_url = std::move(url);
             loop->Quit();
           },
           &loop,
@@ -26361,17 +28307,17 @@ void BrowserServiceAsyncWaiter::GetActiveTabUrl(
   loop.Run();
 }
 
-absl::optional<::GURL> BrowserServiceAsyncWaiter::GetActiveTabUrl(
+std::optional<::GURL> BrowserServiceAsyncWaiter::GetActiveTabUrl(
     ) {
-  absl::optional<::GURL> async_wait_result;
+  std::optional<::GURL> async_wait_result;
   GetActiveTabUrl(&async_wait_result);
   return async_wait_result;
 }
 
 void BrowserServiceAsyncWaiter::Launch(
-    int64_t target_display_id, CreationResult* out_result) {
+    int64_t target_display_id, std::optional<uint64_t> profile_id, CreationResult* out_result) {
   base::RunLoop loop;
-  proxy_->Launch(std::move(target_display_id),
+  proxy_->Launch(std::move(target_display_id),std::move(profile_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              CreationResult* out_result
@@ -26385,9 +28331,9 @@ void BrowserServiceAsyncWaiter::Launch(
 }
 
 CreationResult BrowserServiceAsyncWaiter::Launch(
-    int64_t target_display_id) {
+    int64_t target_display_id, std::optional<uint64_t> profile_id) {
   CreationResult async_wait_result;
-  Launch(std::move(target_display_id),&async_wait_result);
+  Launch(std::move(target_display_id),std::move(profile_id),&async_wait_result);
   return async_wait_result;
 }
 

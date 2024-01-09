@@ -16,6 +16,7 @@ import 'chrome://resources/polymer/v3_0/paper-ripple/paper-ripple.js';
 import '../settings_vars.css.js';
 import '../icons.html.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { RouteObserverMixin, Router } from '../router.js';
 import { getTemplate } from './settings_menu.html.js';
@@ -33,11 +34,19 @@ export class SettingsMenuElement extends SettingsMenuElementBase {
              * Dictionary defining page visibility.
              */
             pageVisibility: Object,
+            showAdvancedFeaturesMainControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showAdvancedFeaturesMainControl'),
+            },
         };
     }
     ready() {
         super.ready();
         this.routes_ = Router.getInstance().getRoutes();
+    }
+    showExperimentalMenuItem_() {
+        return this.showAdvancedFeaturesMainControl_ &&
+            (!this.pageVisibility || this.pageVisibility.ai !== false);
     }
     currentRouteChanged(newRoute) {
         // 

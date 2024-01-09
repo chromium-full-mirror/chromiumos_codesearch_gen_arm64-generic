@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/crash_report_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ ErrorInfo::ErrorInfo()
  {}
 
 ErrorInfo::~ErrorInfo() = default;
-ErrorInfo::ErrorInfo(ErrorInfo&& rhs) = default;
-ErrorInfo& ErrorInfo::operator=(ErrorInfo&& rhs) = default;
+ErrorInfo::ErrorInfo(ErrorInfo&& rhs) noexcept = default;
+ErrorInfo& ErrorInfo::operator=(ErrorInfo&& rhs) noexcept = default;
 ErrorInfo ErrorInfo::Clone() const {
   ErrorInfo out;
   out.message = message;
@@ -83,7 +84,7 @@ bool ErrorInfo::Populate(
     {
       auto* temp = (*product_value).GetIfString();
       if (!temp) {
-        out.product = absl::nullopt;
+        out.product = std::nullopt;
         return false;
       }
       out.product = *temp;
@@ -95,7 +96,7 @@ bool ErrorInfo::Populate(
     {
       auto* temp = (*version_value).GetIfString();
       if (!temp) {
-        out.version = absl::nullopt;
+        out.version = std::nullopt;
         return false;
       }
       out.version = *temp;
@@ -107,7 +108,7 @@ bool ErrorInfo::Populate(
     {
       auto temp = (*line_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.line_number = absl::nullopt;
+        out.line_number = std::nullopt;
         return false;
       }
       out.line_number = *temp;
@@ -119,7 +120,7 @@ bool ErrorInfo::Populate(
     {
       auto temp = (*column_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.column_number = absl::nullopt;
+        out.column_number = std::nullopt;
         return false;
       }
       out.column_number = *temp;
@@ -131,7 +132,7 @@ bool ErrorInfo::Populate(
     {
       auto* temp = (*debug_id_value).GetIfString();
       if (!temp) {
-        out.debug_id = absl::nullopt;
+        out.debug_id = std::nullopt;
         return false;
       }
       out.debug_id = *temp;
@@ -143,7 +144,7 @@ bool ErrorInfo::Populate(
     {
       auto* temp = (*stack_trace_value).GetIfString();
       if (!temp) {
-        out.stack_trace = absl::nullopt;
+        out.stack_trace = std::nullopt;
         return false;
       }
       out.stack_trace = *temp;
@@ -163,34 +164,21 @@ bool ErrorInfo::Populate(
 }
 
 // static
-std::unique_ptr<ErrorInfo> ErrorInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ErrorInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ErrorInfo> ErrorInfo::FromValue(const base::Value::Dict& value) {
+  ErrorInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ErrorInfo> ErrorInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ErrorInfo> ErrorInfo::FromValue(const base::Value& value) {
   ErrorInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ErrorInfo> ErrorInfo::FromValue(const base::Value& value) {
-  ErrorInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -240,13 +228,13 @@ namespace ReportError {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -255,15 +243,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& info_value = args[0];
     {
       if (!info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ErrorInfo::Populate(info_value.GetDict(), params.info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

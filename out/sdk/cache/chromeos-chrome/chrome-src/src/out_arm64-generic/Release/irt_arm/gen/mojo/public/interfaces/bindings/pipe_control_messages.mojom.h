@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "mojo/public/interfaces/bindings/pipe_control_messages.mojom-features.h"
 #include "mojo/public/interfaces/bindings/pipe_control_messages.mojom-shared.h"
 #include "mojo/public/interfaces/bindings/pipe_control_messages.mojom-forward.h"
 #include <string>
@@ -209,25 +210,25 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   // Construct an instance holding |peer_associated_endpoint_closed_event|.
   static RunOrClosePipeInputPtr
   NewPeerAssociatedEndpointClosedEvent(
-      PeerAssociatedEndpointClosedEventPtr peer_associated_endpoint_closed_event) {
+      PeerAssociatedEndpointClosedEventPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_peer_associated_endpoint_closed_event(std::move(peer_associated_endpoint_closed_event));
+    result->set_peer_associated_endpoint_closed_event(std::move(value));
     return result;
   }
   // Construct an instance holding |pause_until_flush_completes|.
   static RunOrClosePipeInputPtr
   NewPauseUntilFlushCompletes(
-      PauseUntilFlushCompletesPtr pause_until_flush_completes) {
+      PauseUntilFlushCompletesPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_pause_until_flush_completes(std::move(pause_until_flush_completes));
+    result->set_pause_until_flush_completes(std::move(value));
     return result;
   }
   // Construct an instance holding |flush_async|.
   static RunOrClosePipeInputPtr
   NewFlushAsync(
-      FlushAsyncPtr flush_async) {
+      FlushAsyncPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_flush_async(std::move(flush_async));
+    result->set_flush_async(std::move(value));
     return result;
   }
 

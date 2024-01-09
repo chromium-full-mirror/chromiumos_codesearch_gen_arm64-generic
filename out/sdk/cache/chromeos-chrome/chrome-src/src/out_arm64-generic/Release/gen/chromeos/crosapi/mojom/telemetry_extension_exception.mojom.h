@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-features.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-forward.h"
 #include <string>
@@ -342,33 +343,33 @@ class  TelemetryExtensionSupportStatus {
   // Construct an instance holding |unmapped_union_field|.
   static TelemetryExtensionSupportStatusPtr
   NewUnmappedUnionField(
-      int8_t unmapped_union_field) {
+      int8_t value) {
     auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
-    result->set_unmapped_union_field(std::move(unmapped_union_field));
+    result->set_unmapped_union_field(std::move(value));
     return result;
   }
   // Construct an instance holding |exception|.
   static TelemetryExtensionSupportStatusPtr
   NewException(
-      TelemetryExtensionExceptionPtr exception) {
+      TelemetryExtensionExceptionPtr value) {
     auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
-    result->set_exception(std::move(exception));
+    result->set_exception(std::move(value));
     return result;
   }
   // Construct an instance holding |supported|.
   static TelemetryExtensionSupportStatusPtr
   NewSupported(
-      TelemetryExtensionSupportedPtr supported) {
+      TelemetryExtensionSupportedPtr value) {
     auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
-    result->set_supported(std::move(supported));
+    result->set_supported(std::move(value));
     return result;
   }
   // Construct an instance holding |unsupported|.
   static TelemetryExtensionSupportStatusPtr
   NewUnsupported(
-      TelemetryExtensionUnsupportedPtr unsupported) {
+      TelemetryExtensionUnsupportedPtr value) {
     auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
-    result->set_unsupported(std::move(unsupported));
+    result->set_unsupported(std::move(value));
     return result;
   }
 
@@ -514,9 +515,9 @@ class  TelemetryExtensionUnsupportedReason {
   // Construct an instance holding |unmapped_union_field|.
   static TelemetryExtensionUnsupportedReasonPtr
   NewUnmappedUnionField(
-      int8_t unmapped_union_field) {
+      int8_t value) {
     auto result = TelemetryExtensionUnsupportedReasonPtr(absl::in_place);
-    result->set_unmapped_union_field(std::move(unmapped_union_field));
+    result->set_unmapped_union_field(std::move(value));
     return result;
   }
 

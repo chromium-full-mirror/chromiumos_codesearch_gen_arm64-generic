@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/devtools_observer.mojom-features.h"
 #include "services/network/public/mojom/devtools_observer.mojom-shared.h"
 #include "services/network/public/mojom/devtools_observer.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -39,6 +40,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-blink-forward.h"
 #include "services/network/public/mojom/referrer_policy.mojom-blink.h"
 #include "services/network/public/mojom/request_priority.mojom-blink.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink.h"
 #include "services/network/public/mojom/trust_tokens.mojom-blink.h"
 #include "services/network/public/mojom/ip_endpoint.mojom-blink.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-blink.h"
@@ -636,6 +638,7 @@ class BLINK_PLATFORM_EXPORT URLResponseHeadDevToolsInfo {
       ::net::AlternateProtocolUsage alternate_protocol_usage,
       bool was_fetched_via_spdy,
       ::network::mojom::blink::FetchResponseSource service_worker_response_source,
+      ::network::mojom::blink::ServiceWorkerRouterInfoPtr service_worker_router_info,
       ::network::mojom::blink::SSLInfoPtr ssl_info,
       const ::net::IPEndPoint& remote_endpoint,
       bool emitted_extra_info);
@@ -743,6 +746,8 @@ URLResponseHeadDevToolsInfo& operator=(const URLResponseHeadDevToolsInfo&) = del
   bool was_fetched_via_spdy;
   
   ::network::mojom::blink::FetchResponseSource service_worker_response_source;
+  
+  ::network::mojom::blink::ServiceWorkerRouterInfoPtr service_worker_router_info;
   
   ::network::mojom::blink::SSLInfoPtr ssl_info;
   
@@ -860,6 +865,7 @@ URLResponseHeadDevToolsInfoPtr URLResponseHeadDevToolsInfo::Clone() const {
       mojo::Clone(alternate_protocol_usage),
       mojo::Clone(was_fetched_via_spdy),
       mojo::Clone(service_worker_response_source),
+      mojo::Clone(service_worker_router_info),
       mojo::Clone(ssl_info),
       mojo::Clone(remote_endpoint),
       mojo::Clone(emitted_extra_info)
@@ -893,6 +899,8 @@ bool URLResponseHeadDevToolsInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->was_fetched_via_spdy, other_struct.was_fetched_via_spdy))
     return false;
   if (!mojo::Equals(this->service_worker_response_source, other_struct.service_worker_response_source))
+    return false;
+  if (!mojo::Equals(this->service_worker_router_info, other_struct.service_worker_router_info))
     return false;
   if (!mojo::Equals(this->ssl_info, other_struct.ssl_info))
     return false;
@@ -956,6 +964,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.service_worker_response_source < rhs.service_worker_response_source)
     return true;
   if (rhs.service_worker_response_source < lhs.service_worker_response_source)
+    return false;
+  if (lhs.service_worker_router_info < rhs.service_worker_router_info)
+    return true;
+  if (rhs.service_worker_router_info < lhs.service_worker_router_info)
     return false;
   if (lhs.ssl_info < rhs.ssl_info)
     return true;
@@ -1114,6 +1126,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::service_worker_response_source) service_worker_response_source(
       const ::network::mojom::blink::URLResponseHeadDevToolsInfoPtr& input) {
     return input->service_worker_response_source;
+  }
+
+  static const decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::service_worker_router_info)& service_worker_router_info(
+      const ::network::mojom::blink::URLResponseHeadDevToolsInfoPtr& input) {
+    return input->service_worker_router_info;
   }
 
   static const decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::ssl_info)& ssl_info(

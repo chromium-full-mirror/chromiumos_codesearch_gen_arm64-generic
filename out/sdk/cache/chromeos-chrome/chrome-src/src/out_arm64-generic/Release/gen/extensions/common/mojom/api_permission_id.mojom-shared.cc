@@ -534,6 +534,12 @@ NOINLINE static const char* APIPermissionIDToStringHelper(APIPermissionID value)
       return "kUserScripts";
     case APIPermissionID::kChromeOSBluetoothPeripheralsInfo:
       return "kChromeOSBluetoothPeripheralsInfo";
+    case APIPermissionID::kEnterpriseKioskInput:
+      return "kEnterpriseKioskInput";
+    case APIPermissionID::kOdfsConfigPrivate:
+      return "kOdfsConfigPrivate";
+    case APIPermissionID::kChromeOSManagementAudio:
+      return "kChromeOSManagementAudio";
     default:
       return nullptr;
   }

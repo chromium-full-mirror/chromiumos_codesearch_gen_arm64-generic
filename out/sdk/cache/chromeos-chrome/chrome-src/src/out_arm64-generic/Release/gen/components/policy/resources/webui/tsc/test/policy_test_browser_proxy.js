@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// 
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 /**
  * Must be kept in sync with the C++ enums of the same names (see
@@ -54,8 +55,8 @@ export const LevelNamesToValues = {
 };
 let instance = null;
 export class PolicyTestBrowserProxy {
-    applyTestPolicies(jsonString) {
-        return sendWithPromise('setLocalTestPolicies', jsonString);
+    applyTestPolicies(policies, profileSeparationResponse) {
+        return sendWithPromise('setLocalTestPolicies', policies, profileSeparationResponse);
     }
     revertTestPolicies() {
         return sendWithPromise('revertLocalTestPolicies');
@@ -65,6 +66,13 @@ export class PolicyTestBrowserProxy {
     }
     setUserAffiliation(affiliation) {
         return sendWithPromise('setUserAffiliation', affiliation);
+    }
+    async getAppliedTestPolicies() {
+        const policies = await sendWithPromise('getAppliedTestPolicies');
+        if (!policies.length) {
+            return [];
+        }
+        return JSON.parse(policies);
     }
     static getInstance() {
         return instance || (instance = new PolicyTestBrowserProxy());

@@ -39,6 +39,18 @@ void CheckSetRecordHasJSMapMethods_0(compiler::CodeAssemblerState* state_, Torqu
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=361&c=1
 TNode<OrderedHashSet> ShrinkOrderedHashSetIfNeeded_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Smi> p_numberOfElements, TNode<OrderedHashSet> p_resultSetData);
 
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=420&c=1
+TorqueStructStableJSSetBackingTableWitness_0 NewStableBackingTableWitness_0(compiler::CodeAssemblerState* state_, TNode<JSSet> p_o);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=428&c=1
+TorqueStructStableJSMapBackingTableWitness_0 NewStableBackingTableWitness_1(compiler::CodeAssemblerState* state_, TNode<JSMap> p_o);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=424&c=15
+TNode<OrderedHashSet> Cast_StableOrderedHashSet_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=432&c=15
+TNode<OrderedHashMap> Cast_StableOrderedHashMap_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError);
+
 } // namespace internal
 } // namespace v8
 

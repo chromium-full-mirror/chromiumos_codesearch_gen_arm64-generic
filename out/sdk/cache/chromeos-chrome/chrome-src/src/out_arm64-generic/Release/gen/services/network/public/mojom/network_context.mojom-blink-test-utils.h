@@ -16,8 +16,8 @@ namespace network::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverInterceptorForTesting : public CustomProxyConnectionObserver {
   virtual CustomProxyConnectionObserver* GetForwardingInterface() = 0;
-  void OnFallback(::network::mojom::blink::ProxyServerPtr bad_proxy, int32_t net_error) override;
-  void OnTunnelHeadersReceived(::network::mojom::blink::ProxyServerPtr proxy_server, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) override;
+  void OnFallback(::network::mojom::blink::ProxyChainPtr bad_chain, int32_t net_error) override;
+  void OnTunnelHeadersReceived(::network::mojom::blink::ProxyChainPtr proxy_chain, uint64_t chain_index, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) override;
 };
 class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverAsyncWaiter {
  public:
@@ -73,10 +73,10 @@ class BLINK_PLATFORM_EXPORT TrustedHeaderClientAsyncWaiter {
 
   ~TrustedHeaderClientAsyncWaiter();
   void OnBeforeSendHeaders(
-      const ::net::HttpRequestHeaders& headers, int32_t* out_result, absl::optional<::net::HttpRequestHeaders>* out_headers);
+      const ::net::HttpRequestHeaders& headers, int32_t* out_result, std::optional<::net::HttpRequestHeaders>* out_headers);
   
   void OnHeadersReceived(
-      const WTF::String& headers, const ::net::IPEndPoint& remote_endpoint, int32_t* out_result, WTF::String* out_headers, absl::optional<::blink::KURL>* out_preserve_fragment_on_redirect_url);
+      const WTF::String& headers, const ::net::IPEndPoint& remote_endpoint, int32_t* out_result, WTF::String* out_headers, std::optional<::blink::KURL>* out_preserve_fragment_on_redirect_url);
   
 
  private:
@@ -152,11 +152,11 @@ class BLINK_PLATFORM_EXPORT IpProtectionConfigGetterAsyncWaiter {
 
   ~IpProtectionConfigGetterAsyncWaiter();
   void TryGetAuthTokens(
-      uint32_t batch_size, IpProtectionProxyLayer proxy_layer, absl::optional<WTF::Vector<BlindSignedAuthTokenPtr>>* out_bsa_tokens, absl::optional<::base::Time>* out_try_again_after);
+      uint32_t batch_size, IpProtectionProxyLayer proxy_layer, std::optional<WTF::Vector<BlindSignedAuthTokenPtr>>* out_bsa_tokens, std::optional<::base::Time>* out_try_again_after);
   
   void GetProxyList(
-      absl::optional<WTF::Vector<WTF::String>>* out_proxy_list);
-  absl::optional<WTF::Vector<WTF::String>> GetProxyList();
+      std::optional<WTF::Vector<WTF::Vector<WTF::String>>>* out_proxy_list);
+  std::optional<WTF::Vector<WTF::Vector<WTF::String>>> GetProxyList();
 
  private:
   IpProtectionConfigGetter* const proxy_;
@@ -192,25 +192,24 @@ class BLINK_PLATFORM_EXPORT NetworkContextInterceptorForTesting : public Network
   void ClearSharedDictionaryCacheForIsolationKey(::network::mojom::blink::SharedDictionaryIsolationKeyPtr isolation_key, ClearSharedDictionaryCacheForIsolationKeyCallback callback) override;
   void SetDocumentReportingEndpoints(const ::base::UnguessableToken& reporting_source, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, const ::net::IsolationInfo& isolation_info, const WTF::HashMap<WTF::String, WTF::String>& endpoints) override;
   void SendReportsAndRemoveSource(const ::base::UnguessableToken& reporting_source) override;
-  void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const absl::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) override;
+  void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const std::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) override;
   void QueueSignedExchangeReport(SignedExchangeReportPtr report, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key) override;
   void CloseAllConnections(CloseAllConnectionsCallback callback) override;
   void CloseIdleConnections(CloseIdleConnectionsCallback callback) override;
   void SetNetworkConditions(const ::base::UnguessableToken& throttling_profile_id, NetworkConditionsPtr conditions) override;
   void SetAcceptLanguage(const WTF::String& new_accept_language) override;
   void SetEnableReferrers(bool enable_referrers) override;
-  void UpdateAdditionalCertificates(AdditionalCertificatesPtr additional_certificates) override;
   void SetCTPolicy(CTPolicyPtr ct_policy) override;
   void CreateUDPSocket(::mojo::PendingReceiver<::network::mojom::blink::UDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener) override;
   void CreateRestrictedUDPSocket(const ::net::IPEndPoint& addr, ::network::mojom::blink::RestrictedUDPSocketMode mode, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::network::mojom::blink::RestrictedUDPSocketParamsPtr params, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, CreateRestrictedUDPSocketCallback callback) override;
   void CreateTCPServerSocket(const ::net::IPEndPoint& local_addr, ::network::mojom::blink::TCPServerSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) override;
-  void CreateTCPConnectedSocket(const absl::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) override;
+  void CreateTCPConnectedSocket(const std::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) override;
   void CreateTCPBoundSocket(const ::net::IPEndPoint& local_addr, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPBoundSocket> socket, CreateTCPBoundSocketCallback callback) override;
   void CreateProxyResolvingSocketFactory(::mojo::PendingReceiver<::network::mojom::blink::ProxyResolvingSocketFactory> factory) override;
   void LookUpProxyForURL(const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, ::mojo::PendingRemote<::network::mojom::blink::ProxyLookupClient> proxy_lookup_client) override;
   void ForceReloadProxyConfig(ForceReloadProxyConfigCallback callback) override;
   void ClearBadProxiesCache(ClearBadProxiesCacheCallback callback) override;
-  void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) override;
+  void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, bool has_storage_access, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) override;
   void CreateWebTransport(const ::blink::KURL& url, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, WTF::Vector<::network::mojom::blink::WebTransportCertificateFingerprintPtr> fingerprints, ::mojo::PendingRemote<::network::mojom::blink::WebTransportHandshakeClient> handshake_client) override;
   void CreateNetLogExporter(::mojo::PendingReceiver<::network::mojom::blink::NetLogExporter> receiver) override;
   void PreconnectSockets(uint32_t num_streams, const ::blink::KURL& url, bool allow_credentials, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key) override;
@@ -218,7 +217,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextInterceptorForTesting : public Network
   void CreateMdnsResponder(::mojo::PendingReceiver<::network::mojom::blink::MdnsResponder> responder_receiver) override;
   void ResolveHost(::network::mojom::blink::HostResolverHostPtr host, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, ::network::mojom::blink::ResolveHostParametersPtr optional_parameters, ::mojo::PendingRemote<::network::mojom::blink::ResolveHostClient> response_client) override;
   void CreateHostResolver(::network::mojom::blink::DnsConfigOverridesPtr config_overrides, ::mojo::PendingReceiver<::network::mojom::blink::HostResolver> host_resolver) override;
-  void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) override;
+  void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) override;
   void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
   void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
   void AddHSTS(const WTF::String& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) override;
@@ -237,7 +236,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextInterceptorForTesting : public Network
   void VerifyCertificateForTesting(::network::mojom::blink::X509CertificatePtr certificate, const WTF::String& hostname, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertificateForTestingCallback callback) override;
   void AddDomainReliabilityContextForTesting(const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, const ::blink::KURL& upload_url, AddDomainReliabilityContextForTestingCallback callback) override;
   void ForceDomainReliabilityUploadsForTesting(ForceDomainReliabilityUploadsForTestingCallback callback) override;
-  void SetCTLogListAlwaysTimelyForTesting() override;
   void SetSCTAuditingMode(SCTAuditingMode mode) override;
   void AddReportingApiObserver(::mojo::PendingRemote<::network::mojom::blink::ReportingApiObserver> observer) override;
   void GetSharedDictionaryUsageInfo(GetSharedDictionaryUsageInfoCallback callback) override;
@@ -311,16 +309,16 @@ class BLINK_PLATFORM_EXPORT NetworkContextAsyncWaiter {
       );
   
   void CreateRestrictedUDPSocket(
-      const ::net::IPEndPoint& addr, ::network::mojom::blink::RestrictedUDPSocketMode mode, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::network::mojom::blink::RestrictedUDPSocketParamsPtr params, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out);
+      const ::net::IPEndPoint& addr, ::network::mojom::blink::RestrictedUDPSocketMode mode, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::network::mojom::blink::RestrictedUDPSocketParamsPtr params, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out);
   
   void CreateTCPServerSocket(
-      const ::net::IPEndPoint& local_addr, ::network::mojom::blink::TCPServerSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> socket, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out);
+      const ::net::IPEndPoint& local_addr, ::network::mojom::blink::TCPServerSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> socket, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out);
   
   void CreateTCPConnectedSocket(
-      const absl::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
+      const std::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
   
   void CreateTCPBoundSocket(
-      const ::net::IPEndPoint& local_addr, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPBoundSocket> socket, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr);
+      const ::net::IPEndPoint& local_addr, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPBoundSocket> socket, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr);
   
   void ForceReloadProxyConfig(
       );
@@ -329,10 +327,10 @@ class BLINK_PLATFORM_EXPORT NetworkContextAsyncWaiter {
       );
   
   void VerifyCertForSignedExchange(
-      ::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& ocsp_response, const WTF::String& sct_list, int32_t* out_error_code, ::network::mojom::blink::CertVerifyResultPtr* out_cv_result, bool* out_pkp_bypassed, WTF::String* out_pinning_failure_log);
+      ::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, int32_t* out_error_code, ::network::mojom::blink::CertVerifyResultPtr* out_cv_result, bool* out_pkp_bypassed);
   
   void VerifyIpProtectionConfigGetterForTesting(
-      BlindSignedAuthTokenPtr* out_bsa_token, absl::optional<::base::Time>* out_try_again_after);
+      BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
   
   void AddHSTS(
       const WTF::String& host, ::base::Time expiry, bool include_subdomains);

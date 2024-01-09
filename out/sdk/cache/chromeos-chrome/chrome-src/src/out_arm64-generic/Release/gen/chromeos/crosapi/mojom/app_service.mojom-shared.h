@@ -88,6 +88,26 @@ using AppServiceSubscriberAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<AppServiceSubscriberInterfaceBase>;
 using AppServiceSubscriberAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<AppServiceSubscriberInterfaceBase>;
+class AppShortcutPublisherInterfaceBase {};
+
+using AppShortcutPublisherPtrDataView =
+    mojo::InterfacePtrDataView<AppShortcutPublisherInterfaceBase>;
+using AppShortcutPublisherRequestDataView =
+    mojo::InterfaceRequestDataView<AppShortcutPublisherInterfaceBase>;
+using AppShortcutPublisherAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<AppShortcutPublisherInterfaceBase>;
+using AppShortcutPublisherAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<AppShortcutPublisherInterfaceBase>;
+class AppShortcutControllerInterfaceBase {};
+
+using AppShortcutControllerPtrDataView =
+    mojo::InterfacePtrDataView<AppShortcutControllerInterfaceBase>;
+using AppShortcutControllerRequestDataView =
+    mojo::InterfaceRequestDataView<AppShortcutControllerInterfaceBase>;
+using AppShortcutControllerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<AppShortcutControllerInterfaceBase>;
+using AppShortcutControllerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<AppShortcutControllerInterfaceBase>;
 
 
 }  // crosapi::mojom

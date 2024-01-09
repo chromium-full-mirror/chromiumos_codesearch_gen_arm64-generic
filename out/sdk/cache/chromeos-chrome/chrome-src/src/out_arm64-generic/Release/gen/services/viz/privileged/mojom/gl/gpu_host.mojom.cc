@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -359,7 +360,7 @@ GpuHostProxy::GpuHostProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void GpuHostProxy::DidInitialize(
-    const ::gpu::GPUInfo& in_gpu_info, const ::gpu::GpuFeatureInfo& in_gpu_feature_info, const absl::optional<::gpu::GPUInfo>& in_gpu_info_for_hardware_gpu, const absl::optional<::gpu::GpuFeatureInfo>& in_gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& in_gpu_extra_info) {
+    const ::gpu::GPUInfo& in_gpu_info, const ::gpu::GpuFeatureInfo& in_gpu_feature_info, const std::optional<::gpu::GPUInfo>& in_gpu_info_for_hardware_gpu, const std::optional<::gpu::GpuFeatureInfo>& in_gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& in_gpu_extra_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::GpuHost::DidInitialize", "input_parameters",
@@ -373,23 +374,26 @@ void GpuHostProxy::DidInitialize(
                         "<value of type const ::gpu::GpuFeatureInfo&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("gpu_info_for_hardware_gpu"), in_gpu_info_for_hardware_gpu,
-                        "<value of type const absl::optional<::gpu::GPUInfo>&>");
+                        "<value of type const std::optional<::gpu::GPUInfo>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("gpu_feature_info_for_hardware_gpu"), in_gpu_feature_info_for_hardware_gpu,
-                        "<value of type const absl::optional<::gpu::GpuFeatureInfo>&>");
+                        "<value of type const std::optional<::gpu::GpuFeatureInfo>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("gpu_extra_info"), in_gpu_extra_info,
                         "<value of type const ::gfx::GpuExtraInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidInitialize_Name, kFlags, 0, 0, nullptr);
@@ -459,14 +463,17 @@ void GpuHostProxy::DidFailInitialize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuHost::DidFailInitialize");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidFailInitialize_Name, kFlags, 0, 0, nullptr);
@@ -489,14 +496,17 @@ void GpuHostProxy::DidCreateContextSuccessfully(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuHost::DidCreateContextSuccessfully");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidCreateContextSuccessfully_Name, kFlags, 0, 0, nullptr);
@@ -526,14 +536,17 @@ void GpuHostProxy::DidCreateOffscreenContext(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidCreateOffscreenContext_Name, kFlags, 0, 0, nullptr);
@@ -574,14 +587,17 @@ void GpuHostProxy::DidDestroyOffscreenContext(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidDestroyOffscreenContext_Name, kFlags, 0, 0, nullptr);
@@ -622,14 +638,17 @@ void GpuHostProxy::DidDestroyChannel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidDestroyChannel_Name, kFlags, 0, 0, nullptr);
@@ -653,14 +672,17 @@ void GpuHostProxy::DidDestroyAllChannels(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuHost::DidDestroyAllChannels");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidDestroyAllChannels_Name, kFlags, 0, 0, nullptr);
@@ -679,15 +701,12 @@ void GpuHostProxy::DidDestroyAllChannels(
 }
 
 void GpuHostProxy::DidLoseContext(
-    bool in_offscreen, ::gpu::error::ContextLostReason in_reason, const ::GURL& in_active_url) {
+    ::gpu::error::ContextLostReason in_reason, const ::GURL& in_active_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::GpuHost::DidLoseContext", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("offscreen"), in_offscreen,
-                        "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("reason"), in_reason,
                         "<value of type ::gpu::error::ContextLostReason>");
@@ -696,14 +715,17 @@ void GpuHostProxy::DidLoseContext(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidLoseContext_Name, kFlags, 0, 0, nullptr);
@@ -711,7 +733,6 @@ void GpuHostProxy::DidLoseContext(
       ::viz::mojom::internal::GpuHost_DidLoseContext_Params_Data> params(
           message);
   params.Allocate();
-  params->offscreen = in_offscreen;
   mojo::internal::Serialize<::viz::mojom::ContextLostReason>(
       in_reason, &params->reason);
   mojo::internal::MessageFragment<
@@ -747,14 +768,17 @@ void GpuHostProxy::DidUpdateGPUInfo(
                         "<value of type const ::gpu::GPUInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DidUpdateGPUInfo_Name, kFlags, 0, 0, nullptr);
@@ -788,14 +812,17 @@ void GpuHostProxy::DisableGpuCompositing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuHost::DisableGpuCompositing");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_DisableGpuCompositing_Name, kFlags, 0, 0, nullptr);
@@ -828,14 +855,17 @@ void GpuHostProxy::GetIsolationKey(
                         "<value of type const ::blink::WebGPUExecutionContextToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_GetIsolationKey_Name, kFlags, 0, 0, nullptr);
@@ -882,14 +912,17 @@ void GpuHostProxy::StoreBlobToDisk(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_StoreBlobToDisk_Name, kFlags, 0, 0, nullptr);
@@ -956,14 +989,17 @@ void GpuHostProxy::RecordLogMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_RecordLogMessage_Name, kFlags, 0, 0, nullptr);
@@ -1095,7 +1131,8 @@ void GpuHost_GetIsolationKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuHost_GetIsolationKey_Name, kFlags, 0, 0, nullptr);
@@ -1147,8 +1184,8 @@ bool GpuHostStubDispatch::Accept(
       bool success = true;
       ::gpu::GPUInfo p_gpu_info{};
       ::gpu::GpuFeatureInfo p_gpu_feature_info{};
-      absl::optional<::gpu::GPUInfo> p_gpu_info_for_hardware_gpu{};
-      absl::optional<::gpu::GpuFeatureInfo> p_gpu_feature_info_for_hardware_gpu{};
+      std::optional<::gpu::GPUInfo> p_gpu_info_for_hardware_gpu{};
+      std::optional<::gpu::GpuFeatureInfo> p_gpu_feature_info_for_hardware_gpu{};
       ::gfx::GpuExtraInfo p_gpu_extra_info{};
       GpuHost_DidInitialize_ParamsDataView input_data_view(params, message);
       
@@ -1331,13 +1368,10 @@ std::move(p_client_id));
               message->mutable_payload());
       
       bool success = true;
-      bool p_offscreen{};
       ::gpu::error::ContextLostReason p_reason{};
       ::GURL p_active_url{};
       GpuHost_DidLoseContext_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_offscreen = input_data_view.offscreen();
       if (success && !input_data_view.ReadReason(&p_reason))
         success = false;
       if (success && !input_data_view.ReadActiveUrl(&p_active_url))
@@ -1352,7 +1386,6 @@ std::move(p_client_id));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->DidLoseContext(
-std::move(p_offscreen), 
 std::move(p_reason), 
 std::move(p_active_url));
       return true;
@@ -1561,34 +1594,34 @@ std::move(p_wgpu_context_token), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGpuHostValidationInfo[] = {
-    {&internal::GpuHost_DidInitialize_Params_Data::Validate,
+    { &internal::GpuHost_DidInitialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidFailInitialize_Params_Data::Validate,
+    { &internal::GpuHost_DidFailInitialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidCreateContextSuccessfully_Params_Data::Validate,
+    { &internal::GpuHost_DidCreateContextSuccessfully_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidCreateOffscreenContext_Params_Data::Validate,
+    { &internal::GpuHost_DidCreateOffscreenContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidDestroyOffscreenContext_Params_Data::Validate,
+    { &internal::GpuHost_DidDestroyOffscreenContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidDestroyChannel_Params_Data::Validate,
+    { &internal::GpuHost_DidDestroyChannel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidDestroyAllChannels_Params_Data::Validate,
+    { &internal::GpuHost_DidDestroyAllChannels_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidLoseContext_Params_Data::Validate,
+    { &internal::GpuHost_DidLoseContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DidUpdateGPUInfo_Params_Data::Validate,
+    { &internal::GpuHost_DidUpdateGPUInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_DisableGpuCompositing_Params_Data::Validate,
+    { &internal::GpuHost_DisableGpuCompositing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_GetIsolationKey_Params_Data::Validate,
+    { &internal::GpuHost_GetIsolationKey_Params_Data::Validate,
      &internal::GpuHost_GetIsolationKey_ResponseParams_Data::Validate},
-    {&internal::GpuHost_StoreBlobToDisk_Params_Data::Validate,
+    { &internal::GpuHost_StoreBlobToDisk_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuHost_RecordLogMessage_Params_Data::Validate,
+    { &internal::GpuHost_RecordLogMessage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1618,7 +1651,7 @@ namespace mojo {
 namespace viz::mojom {
 
 
-void GpuHostInterceptorForTesting::DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const absl::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const absl::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) {
+void GpuHostInterceptorForTesting::DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const std::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const std::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) {
   GetForwardingInterface()->DidInitialize(std::move(gpu_info), std::move(gpu_feature_info), std::move(gpu_info_for_hardware_gpu), std::move(gpu_feature_info_for_hardware_gpu), std::move(gpu_extra_info));
 }
 void GpuHostInterceptorForTesting::DidFailInitialize() {
@@ -1639,8 +1672,8 @@ void GpuHostInterceptorForTesting::DidDestroyChannel(int32_t client_id) {
 void GpuHostInterceptorForTesting::DidDestroyAllChannels() {
   GetForwardingInterface()->DidDestroyAllChannels();
 }
-void GpuHostInterceptorForTesting::DidLoseContext(bool offscreen, ::gpu::error::ContextLostReason reason, const ::GURL& active_url) {
-  GetForwardingInterface()->DidLoseContext(std::move(offscreen), std::move(reason), std::move(active_url));
+void GpuHostInterceptorForTesting::DidLoseContext(::gpu::error::ContextLostReason reason, const ::GURL& active_url) {
+  GetForwardingInterface()->DidLoseContext(std::move(reason), std::move(active_url));
 }
 void GpuHostInterceptorForTesting::DidUpdateGPUInfo(const ::gpu::GPUInfo& gpu_info) {
   GetForwardingInterface()->DidUpdateGPUInfo(std::move(gpu_info));

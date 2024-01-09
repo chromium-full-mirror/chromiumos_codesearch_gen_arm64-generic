@@ -197,6 +197,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'supportsFrameSizeChange', 9,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'fpsAllocation', 24,
         0,
         mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
@@ -246,6 +254,8 @@ media.mojom.VideoEncoderInfo = class {
     this.requestedResolutionAlignment;
     /** @export { !boolean } */
     this.applyAlignmentToAllSimulcastLayers;
+    /** @export { !boolean } */
+    this.supportsFrameSizeChange;
     /** @export { !Array<!Array<!number>> } */
     this.fpsAllocation;
     /** @export { !Array<!media.mojom.ResolutionBitrateLimit> } */

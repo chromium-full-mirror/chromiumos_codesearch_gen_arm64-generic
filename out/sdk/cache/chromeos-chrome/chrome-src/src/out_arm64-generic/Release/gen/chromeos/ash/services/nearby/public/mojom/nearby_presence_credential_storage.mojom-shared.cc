@@ -224,6 +224,64 @@ bool NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data::
 NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data::NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data* object =
+      static_cast<const NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_credential, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->local_credential, validation_context))
+    return false;
+
+  return true;
+}
+
+NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data* object =
+      static_cast<const NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data*>(data);
+
+
+  if (!::mojo_base::mojom::internal::AbslStatusCode_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace presence

@@ -21,8 +21,8 @@ namespace remoting {
 namespace protocol {
 PROTOBUF_CONSTEXPR ClientResolution::ClientResolution(
     ::_pbi::ConstantInitialized)
-  : dips_width_(0)
-  , dips_height_(0)
+  : width_pixels_(0)
+  , height_pixels_(0)
   , width_deprecated_(0)
   , height_deprecated_(0)
   , x_dpi_(0)
@@ -295,10 +295,10 @@ namespace protocol {
 class ClientResolution::_Internal {
  public:
   using HasBits = decltype(std::declval<ClientResolution>()._has_bits_);
-  static void set_has_dips_width(HasBits* has_bits) {
+  static void set_has_width_pixels(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static void set_has_dips_height(HasBits* has_bits) {
+  static void set_has_height_pixels(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_width_deprecated(HasBits* has_bits) {
@@ -328,17 +328,17 @@ ClientResolution::ClientResolution(const ClientResolution& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&dips_width_, &from.dips_width_,
+  ::memcpy(&width_pixels_, &from.width_pixels_,
     static_cast<size_t>(reinterpret_cast<char*>(&screen_id_) -
-    reinterpret_cast<char*>(&dips_width_)) + sizeof(screen_id_));
+    reinterpret_cast<char*>(&width_pixels_)) + sizeof(screen_id_));
   // @@protoc_insertion_point(copy_constructor:remoting.protocol.ClientResolution)
 }
 
 inline void ClientResolution::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&dips_width_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&width_pixels_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&screen_id_) -
-    reinterpret_cast<char*>(&dips_width_)) + sizeof(screen_id_));
+    reinterpret_cast<char*>(&width_pixels_)) + sizeof(screen_id_));
 }
 
 ClientResolution::~ClientResolution() {
@@ -366,9 +366,9 @@ void ClientResolution::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    ::memset(&dips_width_, 0, static_cast<size_t>(
+    ::memset(&width_pixels_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&screen_id_) -
-        reinterpret_cast<char*>(&dips_width_)) + sizeof(screen_id_));
+        reinterpret_cast<char*>(&width_pixels_)) + sizeof(screen_id_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -381,20 +381,20 @@ const char* ClientResolution::_InternalParse(const char* ptr, ::_pbi::ParseConte
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional int32 dips_width = 1;
+      // optional int32 width_pixels = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_dips_width(&has_bits);
-          dips_width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _Internal::set_has_width_pixels(&has_bits);
+          width_pixels_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional int32 dips_height = 2;
+      // optional int32 height_pixels = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_dips_height(&has_bits);
-          dips_height_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _Internal::set_has_height_pixels(&has_bits);
+          height_pixels_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -475,16 +475,16 @@ uint8_t* ClientResolution::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional int32 dips_width = 1;
+  // optional int32 width_pixels = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_dips_width(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_width_pixels(), target);
   }
 
-  // optional int32 dips_height = 2;
+  // optional int32 height_pixels = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_dips_height(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_height_pixels(), target);
   }
 
   // optional int32 width_deprecated = 3;
@@ -535,14 +535,14 @@ size_t ClientResolution::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    // optional int32 dips_width = 1;
+    // optional int32 width_pixels = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_dips_width());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_width_pixels());
     }
 
-    // optional int32 dips_height = 2;
+    // optional int32 height_pixels = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_dips_height());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_height_pixels());
     }
 
     // optional int32 width_deprecated = 3;
@@ -594,10 +594,10 @@ void ClientResolution::MergeFrom(const ClientResolution& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      dips_width_ = from.dips_width_;
+      width_pixels_ = from.width_pixels_;
     }
     if (cached_has_bits & 0x00000002u) {
-      dips_height_ = from.dips_height_;
+      height_pixels_ = from.height_pixels_;
     }
     if (cached_has_bits & 0x00000004u) {
       width_deprecated_ = from.width_deprecated_;
@@ -637,9 +637,9 @@ void ClientResolution::InternalSwap(ClientResolution* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ClientResolution, screen_id_)
       + sizeof(ClientResolution::screen_id_)
-      - PROTOBUF_FIELD_OFFSET(ClientResolution, dips_width_)>(
-          reinterpret_cast<char*>(&dips_width_),
-          reinterpret_cast<char*>(&other->dips_width_));
+      - PROTOBUF_FIELD_OFFSET(ClientResolution, width_pixels_)>(
+          reinterpret_cast<char*>(&width_pixels_),
+          reinterpret_cast<char*>(&other->width_pixels_));
 }
 
 std::string ClientResolution::GetTypeName() const {

@@ -64,14 +64,6 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'allowAutoDark', 0,
-        4,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
     [[0, 16],]);
 
@@ -90,8 +82,6 @@ blink.mojom.RendererContentSettings = class {
     this.allowPopup;
     /** @export { !boolean } */
     this.allowMixedContent;
-    /** @export { !boolean } */
-    this.allowAutoDark;
   }
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/compositor_frame_metadata.mojom-features.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_metadata.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_metadata.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -106,7 +107,7 @@ class  CompositorFrameMetadata {
       bool top_controls_visible_height_set,
       float top_controls_visible_height,
       float min_page_scale_factor,
-      absl::optional<::base::TimeDelta> preferred_frame_interval,
+      std::optional<::base::TimeDelta> preferred_frame_interval,
       ::gfx::OverlayTransform display_transform_hint,
       ::std::unique_ptr<::gfx::DelegatedInkMetadata> delegated_ink_metadata,
       std::vector<::viz::CompositorFrameTransitionDirective> transition_directives,
@@ -231,7 +232,7 @@ CompositorFrameMetadata& operator=(const CompositorFrameMetadata&) = delete;
   
   float min_page_scale_factor;
   
-  absl::optional<::base::TimeDelta> preferred_frame_interval;
+  std::optional<::base::TimeDelta> preferred_frame_interval;
   
   ::gfx::OverlayTransform display_transform_hint;
   

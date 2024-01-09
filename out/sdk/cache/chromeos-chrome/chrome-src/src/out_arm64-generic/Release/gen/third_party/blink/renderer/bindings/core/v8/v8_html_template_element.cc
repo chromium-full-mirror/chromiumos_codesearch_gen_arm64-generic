@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLTemplateElement>::value,
     "HTMLTemplateElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLTemplateElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLTemplateElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.content.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->content();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.shadowRoot.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->OpenShadowRoot();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -121,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.shadowRootMode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kShadowrootmodeAttr);
 
 // [ReflectOnly]
@@ -134,7 +132,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = g_null_atom;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -155,7 +152,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -172,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.parseparts.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kParsepartsAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -185,9 +183,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.parseparts.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLTemplateElement";

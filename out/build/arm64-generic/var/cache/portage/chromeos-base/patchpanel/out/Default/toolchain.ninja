@@ -34,24 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/patchpanel/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/net-base/_libnet-base-install_config.stamp: stamp
-build obj/net-base/_libnet-base_pc-install_config.stamp: stamp
-build obj/net-base/all.stamp: stamp ./lib/libnet-base.so obj/net-base/libnet-base_pc.stamp ./libnet-base-testrunner
-subninja obj/net-base/libnet-base.ninja
-subninja obj/net-base/libnet-base-testrunner.ninja
-rule __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=9999 --requires=libchrome --libs=-lnet-base
-  description = ACTION //net-base:libnet-base_pc(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
-
-build obj/net-base/libnet-base_pc.stamp: stamp obj/net-base/libnet-base.pc
-subninja obj/net-base/net_base_test_support.ninja
 build obj/patchpanel/_libpatchpanel-util-install_config.stamp: stamp
 build obj/patchpanel/_patchpaneld-install_config.stamp: stamp
-build obj/patchpanel/all.stamp: stamp obj/patchpanel/install_dbus_config.stamp obj/patchpanel/install_init_config.stamp obj/patchpanel/install_seccomp_policy.stamp ./libpatchpanel.a ./lib/libpatchpanel-util.so ./patchpaneld ./patchpanel_testrunner
+build obj/patchpanel/all.stamp: stamp obj/patchpanel/install_dbus_config.stamp obj/patchpanel/install_init_config.stamp obj/patchpanel/install_seccomp_policy.stamp ./libpatchpanel.a ./lib/libpatchpanel-util.so ./patchpaneld obj/patchpanel/bpf/patchpanel_ebpf.stamp
 build obj/patchpanel/install_dbus_config.stamp: stamp
 build obj/patchpanel/install_init_config.stamp: stamp
 build obj/patchpanel/install_seccomp_policy.stamp: stamp
@@ -75,20 +60,25 @@ rule __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rul
 build gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h: __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/ipc.proto
 
 build obj/patchpanel/patchpanel_ipc_protos_gen.stamp: stamp gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h
-subninja obj/patchpanel/patchpanel_testrunner.ninja
 subninja obj/patchpanel/patchpaneld.ninja
 subninja obj/patchpanel/util_sources.ninja
-build obj/shill/net/_libshill-net-install_config.stamp: stamp
-build obj/shill/net/all.stamp: stamp obj/shill/net/install_headers.stamp ./lib/libshill-net.so ./shill_net_test
-build obj/shill/net/install_headers.stamp: stamp
-subninja obj/shill/net/libshill-net.ninja
-rule __shill_net_libshill-net_deps___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/libshill-net-deps.txt --
-  description = ACTION //shill/net:libshill-net_deps(//common-mk/toolchain:toolchain)
+build obj/patchpanel/bpf/_patchpanel_bpf_loader-install_config.stamp: stamp
+rule __patchpanel_bpf_ebpf_webrtc_detection___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py compile_bpf --out-obj=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.o --source=${in} --arch=arm64 --sysroot=/build/arm64-generic --include /mnt/host/source/src/platform2 /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen --defines USE_MIN_CORE_BTF=1 --out-min-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.min.btf --vmlinux-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
+  description = ACTION //patchpanel/bpf:ebpf_webrtc_detection(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/libshill-net-deps.txt: __shill_net_libshill-net_deps___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py
+build gen/bpf/webrtc_detection.o gen/bpf/webrtc_detection.min.btf: __patchpanel_bpf_ebpf_webrtc_detection___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/bpf/webrtc_detection.c | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py obj/patchpanel/bpf/vmlinux_h.stamp
+  source_name_part = webrtc_detection
 
-build obj/shill/net/libshill-net_deps.stamp: stamp gen/libshill-net-deps.txt
-subninja obj/shill/net/net_test_support.ninja
-subninja obj/shill/net/shill_net_test.ninja
+build obj/patchpanel/bpf/ebpf_webrtc_detection.stamp: stamp gen/bpf/webrtc_detection.o gen/bpf/webrtc_detection.min.btf
+subninja obj/patchpanel/bpf/patchpanel_bpf_loader.ninja
+build obj/patchpanel/bpf/patchpanel_ebpf.stamp: stamp obj/patchpanel/bpf/ebpf_webrtc_detection.stamp ./patchpanel_bpf_loader
+rule __patchpanel_bpf_vmlinux_h___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py gen_vmlinux --sysroot=/build/arm64-generic --out-header=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/vmlinux/vmlinux.h --out-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
+  description = ACTION //patchpanel/bpf:vmlinux_h(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/patchpanel/vmlinux/vmlinux.h: __patchpanel_bpf_vmlinux_h___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py
+
+build obj/patchpanel/bpf/vmlinux_h.stamp: stamp gen/include/patchpanel/vmlinux/vmlinux.h

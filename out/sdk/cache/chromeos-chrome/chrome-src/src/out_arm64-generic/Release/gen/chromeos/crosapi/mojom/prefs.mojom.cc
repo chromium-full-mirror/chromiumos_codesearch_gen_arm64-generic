@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -115,14 +116,17 @@ void PrefObserverProxy::OnPrefChanged(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefObserver_OnPrefChanged_Name, kFlags, 0, 0, nullptr);
@@ -199,10 +203,10 @@ bool PrefObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrefObserverValidationInfo[] = {
-    {&internal::PrefObserver_OnPrefChanged_Params_Data::Validate,
+    { &internal::PrefObserver_OnPrefChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -427,14 +431,17 @@ void PrefsProxy::GetPref(
                         "<value of type PrefPath>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_GetPref_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +474,17 @@ void PrefsProxy::GetExtensionPrefWithControl(
                         "<value of type PrefPath>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_GetExtensionPrefWithControl_Name, kFlags, 0, 0, nullptr);
@@ -510,14 +520,17 @@ void PrefsProxy::SetPref(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_SetPref_Name, kFlags, 0, 0, nullptr);
@@ -559,14 +572,17 @@ void PrefsProxy::ClearExtensionControlledPref(
                         "<value of type PrefPath>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_ClearExtensionControlledPref_Name, kFlags, 0, 0, nullptr);
@@ -602,14 +618,17 @@ void PrefsProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<PrefObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -680,7 +699,7 @@ class Prefs_GetPref_ProxyToResponder : public ::mojo::internal::ProxyToResponder
 #endif
 
   void Run(
-      absl::optional<::base::Value> in_value);
+      std::optional<::base::Value> in_value);
 };
 
 bool Prefs_GetPref_ForwardToCallback::Accept(
@@ -693,7 +712,7 @@ bool Prefs_GetPref_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Value> p_value{};
+  std::optional<::base::Value> p_value{};
   Prefs_GetPref_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValue(&p_value))
@@ -712,7 +731,7 @@ std::move(p_value));
 }
 
 void Prefs_GetPref_ProxyToResponder::Run(
-    absl::optional<::base::Value> in_value) {
+    std::optional<::base::Value> in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Prefs::GetPref", "async_response_parameters",
@@ -720,13 +739,14 @@ void Prefs_GetPref_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type absl::optional<::base::Value>>");
+                        "<value of type std::optional<::base::Value>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_GetPref_Name, kFlags, 0, 0, nullptr);
@@ -802,7 +822,7 @@ class Prefs_GetExtensionPrefWithControl_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      absl::optional<::base::Value> in_value, PrefControlState in_control);
+      std::optional<::base::Value> in_value, PrefControlState in_control);
 };
 
 bool Prefs_GetExtensionPrefWithControl_ForwardToCallback::Accept(
@@ -815,7 +835,7 @@ bool Prefs_GetExtensionPrefWithControl_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Value> p_value{};
+  std::optional<::base::Value> p_value{};
   PrefControlState p_control{};
   Prefs_GetExtensionPrefWithControl_ResponseParamsDataView input_data_view(params, message);
   
@@ -838,7 +858,7 @@ std::move(p_control));
 }
 
 void Prefs_GetExtensionPrefWithControl_ProxyToResponder::Run(
-    absl::optional<::base::Value> in_value, PrefControlState in_control) {
+    std::optional<::base::Value> in_value, PrefControlState in_control) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Prefs::GetExtensionPrefWithControl", "async_response_parameters",
@@ -846,7 +866,7 @@ void Prefs_GetExtensionPrefWithControl_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type absl::optional<::base::Value>>");
+                        "<value of type std::optional<::base::Value>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("control"), in_control,
                         "<value of type PrefControlState>");
@@ -855,7 +875,8 @@ void Prefs_GetExtensionPrefWithControl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_GetExtensionPrefWithControl_Name, kFlags, 0, 0, nullptr);
@@ -968,7 +989,8 @@ void Prefs_SetPref_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_SetPref_Name, kFlags, 0, 0, nullptr);
@@ -1074,7 +1096,8 @@ void Prefs_ClearExtensionControlledPref_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrefs_ClearExtensionControlledPref_Name, kFlags, 0, 0, nullptr);
@@ -1288,18 +1311,18 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrefsValidationInfo[] = {
-    {&internal::Prefs_GetPref_Params_Data::Validate,
+    { &internal::Prefs_GetPref_Params_Data::Validate,
      &internal::Prefs_GetPref_ResponseParams_Data::Validate},
-    {&internal::Prefs_SetPref_Params_Data::Validate,
+    { &internal::Prefs_SetPref_Params_Data::Validate,
      &internal::Prefs_SetPref_ResponseParams_Data::Validate},
-    {&internal::Prefs_AddObserver_Params_Data::Validate,
+    { &internal::Prefs_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Prefs_GetExtensionPrefWithControl_Params_Data::Validate,
+    { &internal::Prefs_GetExtensionPrefWithControl_Params_Data::Validate,
      &internal::Prefs_GetExtensionPrefWithControl_ResponseParams_Data::Validate},
-    {&internal::Prefs_ClearExtensionControlledPref_Params_Data::Validate,
+    { &internal::Prefs_ClearExtensionControlledPref_Params_Data::Validate,
      &internal::Prefs_ClearExtensionControlledPref_ResponseParams_Data::Validate},
 };
 
@@ -1361,14 +1384,14 @@ PrefsAsyncWaiter::PrefsAsyncWaiter(
 PrefsAsyncWaiter::~PrefsAsyncWaiter() = default;
 
 void PrefsAsyncWaiter::GetPref(
-    PrefPath path, absl::optional<::base::Value>* out_value) {
+    PrefPath path, std::optional<::base::Value>* out_value) {
   base::RunLoop loop;
   proxy_->GetPref(std::move(path),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Value>* out_value
+             std::optional<::base::Value>* out_value
 ,
-             absl::optional<::base::Value> value) {*out_value = std::move(value);
+             std::optional<::base::Value> value) {*out_value = std::move(value);
             loop->Quit();
           },
           &loop,
@@ -1376,24 +1399,24 @@ void PrefsAsyncWaiter::GetPref(
   loop.Run();
 }
 
-absl::optional<::base::Value> PrefsAsyncWaiter::GetPref(
+std::optional<::base::Value> PrefsAsyncWaiter::GetPref(
     PrefPath path) {
-  absl::optional<::base::Value> async_wait_result;
+  std::optional<::base::Value> async_wait_result;
   GetPref(std::move(path),&async_wait_result);
   return async_wait_result;
 }
 
 void PrefsAsyncWaiter::GetExtensionPrefWithControl(
-    PrefPath path, absl::optional<::base::Value>* out_value, PrefControlState* out_control) {
+    PrefPath path, std::optional<::base::Value>* out_value, PrefControlState* out_control) {
   base::RunLoop loop;
   proxy_->GetExtensionPrefWithControl(std::move(path),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Value>* out_value
+             std::optional<::base::Value>* out_value
 ,
              PrefControlState* out_control
 ,
-             absl::optional<::base::Value> value,
+             std::optional<::base::Value> value,
              PrefControlState control) {*out_value = std::move(value);*out_control = std::move(control);
             loop->Quit();
           },

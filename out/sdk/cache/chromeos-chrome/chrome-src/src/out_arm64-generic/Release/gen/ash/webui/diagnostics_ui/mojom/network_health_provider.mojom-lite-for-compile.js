@@ -120,8 +120,9 @@ ash.diagnostics.mojom.LockType = {
   kNone: 0,
   kSimPin: 1,
   kSimPuk: 2,
+  kNetworkPin: 3,
   MIN_VALUE: 0,
-  MAX_VALUE: 2,
+  MAX_VALUE: 3,
 };
 
 goog.provide('ash.diagnostics.mojom.SecurityType');

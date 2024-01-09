@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/print_compositor/public/mojom/print_compositor.mojom-features.h"
 #include "components/services/print_compositor/public/mojom/print_compositor.mojom-shared.h"
 #include "components/services/print_compositor/public/mojom/print_compositor.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -76,10 +77,10 @@ class PrintCompositor
     kNotifyUnavailableSubframeMinVersion = 0,
     kAddSubframeContentMinVersion = 0,
     kSetAccessibilityTreeMinVersion = 0,
-    kCompositePageToPdfMinVersion = 0,
-    kCompositeDocumentToPdfMinVersion = 0,
-    kPrepareForDocumentToPdfMinVersion = 0,
-    kCompleteDocumentToPdfMinVersion = 0,
+    kCompositePageMinVersion = 0,
+    kCompositeDocumentMinVersion = 0,
+    kPrepareToCompositeDocumentMinVersion = 0,
+    kFinishDocumentCompositionMinVersion = 0,
     kSetWebContentsURLMinVersion = 0,
     kSetUserAgentMinVersion = 0,
   };
@@ -96,16 +97,16 @@ class PrintCompositor
   struct SetAccessibilityTree_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct CompositePageToPdf_Sym {
+  struct CompositePage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct CompositeDocumentToPdf_Sym {
+  struct CompositeDocument_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct PrepareForDocumentToPdf_Sym {
+  struct PrepareToCompositeDocument_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct CompleteDocumentToPdf_Sym {
+  struct FinishDocumentComposition_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetWebContentsURL_Sym {
@@ -117,6 +118,8 @@ class PrintCompositor
 #endif // !BUILDFLAG(IS_FUCHSIA)
   
   using Status = PrintCompositor_Status;
+  
+  using DocumentType = PrintCompositor_DocumentType;
   virtual ~PrintCompositor() = default;
 
   
@@ -129,24 +132,24 @@ class PrintCompositor
   virtual void SetAccessibilityTree(const ::ui::AXTreeUpdate& accessibility_tree) = 0;
 
 
-  using CompositePageToPdfCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
+  using CompositePageCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
   
-  virtual void CompositePageToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageToPdfCallback callback) = 0;
+  virtual void CompositePage(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageCallback callback) = 0;
 
 
-  using CompositeDocumentToPdfCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
+  using CompositeDocumentCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
   
-  virtual void CompositeDocumentToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositeDocumentToPdfCallback callback) = 0;
+  virtual void CompositeDocument(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, CompositeDocumentCallback callback) = 0;
 
 
-  using PrepareForDocumentToPdfCallback = base::OnceCallback<void(PrintCompositor::Status)>;
+  using PrepareToCompositeDocumentCallback = base::OnceCallback<void(PrintCompositor::Status)>;
   
-  virtual void PrepareForDocumentToPdf(PrepareForDocumentToPdfCallback callback) = 0;
+  virtual void PrepareToCompositeDocument(PrintCompositor::DocumentType document_type, PrepareToCompositeDocumentCallback callback) = 0;
 
 
-  using CompleteDocumentToPdfCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
+  using FinishDocumentCompositionCallback = base::OnceCallback<void(PrintCompositor::Status, ::base::ReadOnlySharedMemoryRegion)>;
   
-  virtual void CompleteDocumentToPdf(uint32_t pages_count, CompleteDocumentToPdfCallback callback) = 0;
+  virtual void FinishDocumentComposition(uint32_t pages_count, FinishDocumentCompositionCallback callback) = 0;
 
   
   virtual void SetWebContentsURL(const ::GURL& url) = 0;
@@ -170,13 +173,13 @@ class  PrintCompositorProxy
   
   void SetAccessibilityTree(const ::ui::AXTreeUpdate& accessibility_tree) final;
   
-  void CompositePageToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageToPdfCallback callback) final;
+  void CompositePage(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageCallback callback) final;
   
-  void CompositeDocumentToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositeDocumentToPdfCallback callback) final;
+  void CompositeDocument(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, CompositeDocumentCallback callback) final;
   
-  void PrepareForDocumentToPdf(PrepareForDocumentToPdfCallback callback) final;
+  void PrepareToCompositeDocument(PrintCompositor::DocumentType document_type, PrepareToCompositeDocumentCallback callback) final;
   
-  void CompleteDocumentToPdf(uint32_t pages_count, CompleteDocumentToPdfCallback callback) final;
+  void FinishDocumentComposition(uint32_t pages_count, FinishDocumentCompositionCallback callback) final;
   
   void SetWebContentsURL(const ::GURL& url) final;
   

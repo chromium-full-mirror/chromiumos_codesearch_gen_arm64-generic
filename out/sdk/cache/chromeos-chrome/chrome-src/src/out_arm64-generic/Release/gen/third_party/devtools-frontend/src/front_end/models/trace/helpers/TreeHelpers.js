@@ -5,15 +5,14 @@ import * as Types from '../types/types.js';
 let nodeIdCount = 0;
 export const makeTraceEntryNodeId = () => (++nodeIdCount);
 export const makeEmptyTraceEntryTree = () => ({
-    nodes: new Map(),
     roots: new Set(),
     maxDepth: 0,
 });
 export const makeEmptyTraceEntryNode = (entry, id) => ({
     entry,
     id,
-    parentId: null,
-    children: new Set(),
+    parent: null,
+    children: [],
     depth: 0,
 });
 class TraceEntryNodeIdTag {
@@ -58,7 +57,6 @@ export function treify(entries, options) {
         // If the parent stack is empty, then the current event is a root. Create a
         // node for it, mark it as a root, then proceed with the next event.
         if (stack.length === 0) {
-            tree.nodes.set(nodeId, node);
             tree.roots.add(node);
             event.selfTime = Types.Timing.MicroSeconds(duration);
             stack.push(node);
@@ -111,10 +109,9 @@ export function treify(entries, options) {
         //    contained within the parent event. Create a node for the current
         //    event, establish the parent/child relationship, then proceed with the
         //    next event.
-        tree.nodes.set(nodeId, node);
         node.depth = stack.length;
-        node.parentId = parentNode.id;
-        parentNode.children.add(node);
+        node.parent = parentNode;
+        parentNode.children.push(node);
         event.selfTime = Types.Timing.MicroSeconds(duration);
         if (parentEvent.selfTime !== undefined) {
             parentEvent.selfTime = Types.Timing.MicroSeconds(parentEvent.selfTime - (event.dur || 0));
@@ -176,16 +173,50 @@ export function walkTreeFromEntry(entryToNode, rootEntry, onEntryStart, onEntryE
  * 11. End E
  *
  */
-export function walkEntireTree(entryToNode, tree, onEntryStart, onEntryEnd) {
+export function walkEntireTree(entryToNode, tree, onEntryStart, onEntryEnd, traceWindowToInclude, minDuration) {
     for (const rootNode of tree.roots) {
-        walkTreeByNode(entryToNode, rootNode, onEntryStart, onEntryEnd);
+        walkTreeByNode(entryToNode, rootNode, onEntryStart, onEntryEnd, traceWindowToInclude, minDuration);
     }
 }
-function walkTreeByNode(entryToNode, rootNode, onEntryStart, onEntryEnd) {
+function walkTreeByNode(entryToNode, rootNode, onEntryStart, onEntryEnd, traceWindowToInclude, minDuration) {
+    if (traceWindowToInclude && !treeNodeIsInWindow(rootNode, traceWindowToInclude)) {
+        // If this node is not within the provided window, we can skip it. We also
+        // can skip all its children too, as we know they won't be in the window if
+        // their parent is not.
+        return;
+    }
+    if (typeof minDuration !== 'undefined') {
+        const duration = Types.Timing.MicroSeconds(rootNode.entry.ts + Types.Timing.MicroSeconds(rootNode.entry.dur || 0));
+        if (duration < minDuration) {
+            return;
+        }
+    }
     onEntryStart(rootNode.entry);
     for (const child of rootNode.children) {
-        walkTreeByNode(entryToNode, child, onEntryStart, onEntryEnd);
+        walkTreeByNode(entryToNode, child, onEntryStart, onEntryEnd, traceWindowToInclude, minDuration);
     }
     onEntryEnd(rootNode.entry);
+}
+/**
+ * Returns true if the provided node is partially or fully within the trace
+ * window. The entire node does not have to fit inside the window, but it does
+ * have to partially intersect it.
+ */
+function treeNodeIsInWindow(node, traceWindow) {
+    const startTime = node.entry.ts;
+    const endTime = node.entry.ts + (node.entry.dur || 0);
+    // Min ======= startTime ========= Max => node is within window
+    if (startTime >= traceWindow.min && startTime < traceWindow.max) {
+        return true;
+    }
+    // Min ======= endTime ========= Max => node is within window
+    if (endTime > traceWindow.min && endTime <= traceWindow.max) {
+        return true;
+    }
+    // startTime ==== Min ======== Max === endTime => node spans greater than the window so is in it.
+    if (startTime <= traceWindow.min && endTime >= traceWindow.max) {
+        return true;
+    }
+    return false;
 }
 //# sourceMappingURL=TreeHelpers.js.map

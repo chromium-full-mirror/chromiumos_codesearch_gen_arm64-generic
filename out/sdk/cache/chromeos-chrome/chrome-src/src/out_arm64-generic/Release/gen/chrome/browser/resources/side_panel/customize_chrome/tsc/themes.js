@@ -14,6 +14,7 @@ import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/he
 import { assert } from 'chrome://resources/js/assert.js';
 import { FocusOutlineManager } from 'chrome://resources/js/focus_outline_manager.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { CustomizeChromeAction, recordCustomizeChromeAction } from './common.js';
 import { CustomizeChromeApiProxy } from './customize_chrome_api_proxy.js';
 import { getTemplate } from './themes.html.js';
 import { WindowProxy } from './window_proxy.js';
@@ -84,7 +85,7 @@ export class ThemesElement extends ThemesElementBase {
             metricName: 'NewTabPage.Images.ShownTime.ThemePreviewImage',
             type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LOG,
             min: 1,
-            max: 60000,
+            max: 60000, // 60 seconds.
             buckets: 100,
         }, Math.floor(WindowProxy.getInstance().now() -
             this.previewImageLoadStartEpoch_));
@@ -105,6 +106,7 @@ export class ThemesElement extends ThemesElementBase {
         this.dispatchEvent(new Event('back-click'));
     }
     onSelectTheme_(e) {
+        recordCustomizeChromeAction(CustomizeChromeAction.FIRST_PARTY_COLLECTION_THEME_SELECTED);
         const { attribution1, attribution2, attributionUrl, imageUrl, previewImageUrl, collectionId, } = e.model.item;
         this.pageHandler_.setBackgroundImage(attribution1, attribution2, attributionUrl, imageUrl, previewImageUrl, collectionId);
     }

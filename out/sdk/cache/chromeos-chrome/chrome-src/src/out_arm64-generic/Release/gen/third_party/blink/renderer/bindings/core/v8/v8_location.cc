@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Location>::value,
     "Location inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Location::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Location is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.ancestorOrigins.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ancestorOrigins();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,9 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.href.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -150,7 +146,7 @@ UseCounter::Count(current_execution_context, WebFeature::kLocationOrigin);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->origin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -163,10 +159,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -177,9 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.protocol.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -203,10 +199,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.host.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->host();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->host();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -217,9 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.host.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -243,10 +239,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.hostname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hostname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hostname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -257,9 +253,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.hostname.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -283,10 +279,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.port.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->port();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -297,9 +293,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.port.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -323,10 +319,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.pathname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pathname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pathname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -337,9 +333,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.pathname.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -363,10 +359,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.search.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->search();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->search();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -377,9 +373,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.search.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -403,10 +399,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.hash.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hash();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hash();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -417,9 +413,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.hash.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
@@ -457,7 +453,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -480,8 +476,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.reload");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->reload();
 
 }
@@ -507,7 +504,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -530,10 +527,10 @@ BLINK_BINDINGS_TRACE_EVENT("Location.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -544,9 +541,9 @@ BLINK_BINDINGS_TRACE_EVENT("Location.href.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-Location* blink_receiver = V8Location::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+Location* blink_receiver = V8Location::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Location";
 const char* const property_name = "href";
@@ -579,7 +576,8 @@ void CrossOriginNamedGetterCallback(v8::Local<v8::Name> v8_property_name, const 
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Location_CrossOriginProperty_NamedPropertyGetter");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 for (const auto& attribute : kCrossOriginAttributeTable) {
   if (blink_property_name != attribute.name) {
   continue;
@@ -588,8 +586,7 @@ if (UNLIKELY(!attribute.get_value)) {
   // if(true) is used as part of a hint to the bindings generator. See
 // _make_throw_security_error for details.
 if (true) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
 const char* const class_like_name = "Location";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
@@ -605,7 +602,6 @@ for (const auto& operation : kCrossOriginOperationTable) {
   continue;
 }
 v8::Local<v8::Function> function;
-v8::Isolate* isolate = info.GetIsolate();
 if (bindings::GetCrossOriginFunction(isolate, operation.callback, operation.func_length,V8Location::GetWrapperTypeInfo()).ToLocal(&function)) {
   bindings::V8SetReturnValue(info, function);
 }
@@ -627,7 +623,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
 const char* const class_like_name = "Location";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -637,7 +633,8 @@ void CrossOriginNamedSetterCallback(v8::Local<v8::Name> v8_property_name, v8::Lo
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Location_CrossOriginProperty_NamedPropertySetter");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 for (const auto& attribute : kCrossOriginAttributeTable) {
   if (blink_property_name == attribute.name && attribute.set_value) {
     attribute.set_value(v8_property_name, v8_property_value, info);
@@ -653,7 +650,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "Location";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -668,7 +665,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "Location";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -683,7 +680,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "Location";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -693,7 +690,8 @@ void CrossOriginNamedDescriptorCallback(v8::Local<v8::Name> v8_property_name, co
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Location_CrossOriginProperty_NamedPropertyDescriptor");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 // 7.2.3.4 CrossOriginGetOwnPropertyHelper ( O, P )
 // https://html.spec.whatwg.org/C/#crossorigingetownpropertyhelper-(-o,-p-)
 for (const auto& attribute : kCrossOriginAttributeTable) {
@@ -754,7 +752,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDescriptor;
 const char* const class_like_name = "Location";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Location::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -764,7 +762,8 @@ void CrossOriginNamedQueryCallback(v8::Local<v8::Name> v8_property_name, const v
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Location_CrossOriginProperty_NamedPropertyQuery");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 // 7.2.3.4 CrossOriginGetOwnPropertyHelper ( O, P )
 // https://html.spec.whatwg.org/C/#crossorigingetownpropertyhelper-(-o,-p-)
 for (const auto& attribute : kCrossOriginAttributeTable) {

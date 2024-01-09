@@ -6,7 +6,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=30&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=31&c=1
 bool IsStrongDescriptorArray_NonInline(Tagged<HeapObject> o) {
   return IsStrongDescriptorArray(o);
 }
@@ -174,7 +174,7 @@ void TorqueGeneratedSortState<SortState, HeapObject>::SortStateVerify(Isolate* i
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=228&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=230&c=1
 bool IsWasmStringViewIter_NonInline(Tagged<HeapObject> o) {
   return IsWasmStringViewIter(o);
 }

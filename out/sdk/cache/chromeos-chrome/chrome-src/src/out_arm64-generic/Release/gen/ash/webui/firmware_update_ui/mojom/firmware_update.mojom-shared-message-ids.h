@@ -15,12 +15,14 @@ namespace internal {
 
 
 constexpr uint32_t kUpdateObserver_OnUpdateListChanged_Name = 0;
+constexpr uint32_t kDeviceRequestObserver_OnDeviceRequest_Name = 0;
 constexpr uint32_t kUpdateProgressObserver_OnStatusChanged_Name = 0;
 constexpr uint32_t kUpdateProvider_ObservePeripheralUpdates_Name = 0;
 constexpr uint32_t kUpdateProvider_PrepareForUpdate_Name = 1;
 constexpr uint32_t kUpdateProvider_FetchInProgressUpdate_Name = 2;
 constexpr uint32_t kInstallController_BeginUpdate_Name = 0;
-constexpr uint32_t kInstallController_AddObserver_Name = 1;
+constexpr uint32_t kInstallController_AddDeviceRequestObserver_Name = 1;
+constexpr uint32_t kInstallController_AddUpdateProgressObserver_Name = 2;
 
 }  // namespace internal
 

@@ -36,6 +36,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceDescriptor : public ::protozero::CppMe
     kWillNotifyOnStopFieldNumber = 2,
     kWillNotifyOnStartFieldNumber = 3,
     kHandlesIncrementalStateClearFieldNumber = 4,
+    kNoFlushFieldNumber = 9,
     kGpuCounterDescriptorFieldNumber = 5,
     kTrackEventDescriptorFieldNumber = 6,
     kFtraceDescriptorFieldNumber = 8,
@@ -75,6 +76,10 @@ class PERFETTO_EXPORT_COMPONENT DataSourceDescriptor : public ::protozero::CppMe
   bool handles_incremental_state_clear() const { return handles_incremental_state_clear_; }
   void set_handles_incremental_state_clear(bool value) { handles_incremental_state_clear_ = value; _has_field_.set(4); }
 
+  bool has_no_flush() const { return _has_field_[9]; }
+  bool no_flush() const { return no_flush_; }
+  void set_no_flush(bool value) { no_flush_ = value; _has_field_.set(9); }
+
   const std::string& gpu_counter_descriptor_raw() const { return gpu_counter_descriptor_; }
   void set_gpu_counter_descriptor_raw(const std::string& raw) { gpu_counter_descriptor_ = raw; _has_field_.set(5); }
 
@@ -90,6 +95,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceDescriptor : public ::protozero::CppMe
   bool will_notify_on_stop_{};
   bool will_notify_on_start_{};
   bool handles_incremental_state_clear_{};
+  bool no_flush_{};
   std::string gpu_counter_descriptor_;  // [lazy=true]
   std::string track_event_descriptor_;  // [lazy=true]
   std::string ftrace_descriptor_;  // [lazy=true]
@@ -98,7 +104,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceDescriptor : public ::protozero::CppMe
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 }  // namespace perfetto

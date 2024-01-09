@@ -1,11 +1,11 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-icons sp-shared-style">#container{box-sizing:border-box;color:var(--cr-primary-text-color);height:100%;overflow:auto;position:relative}:host-context([chrome-refresh-2023]) #container{display:block;padding:var(--sp-body-padding) 0}.section{display:block}sp-heading{margin:8px 16px}.sp-cards-separator{background-color:var(--google-grey-300);border:none;height:2px;margin:0;width:100%}@media (prefers-color-scheme:dark){.sp-cards-separator{background-color:var(--google-grey-700)}}:host-context([chrome-refresh-2023]) .sp-cards-separator{background:0 0}:host-context([chrome-refresh-2023]) .sp-card{font-size:12px;font-weight:500;line-height:16px;max-width:calc(320px - 2 * var(--sp-body-padding))}customize-chrome-appearance{margin-bottom:16px}customize-chrome-appearance,customize-chrome-cards,customize-chrome-categories,customize-chrome-chrome-colors,customize-chrome-shortcuts,customize-chrome-themes,customize-chrome-wallpaper-search{display:block;max-width:320px;width:100%}:host-context([chrome-refresh-2023]) customize-chrome-appearance{margin-bottom:0}#extensions .description{color:var(--cr-secondary-text-color);font-weight:400;padding:0 16px 4px}.description a{color:var(--cr-link-color);text-decoration:none}#buttonContainer{display:flex;flex-wrap:wrap;gap:8px;padding:8px 16px}#couponsButton .cr-icon{--cr-icon-image:url(icons/coupons.svg)}#writingButton .cr-icon{--cr-icon-image:url(icons/writing.svg)}#productivityButton .cr-icon{--cr-icon-image:url(icons/productivity.svg)}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-icons sp-shared-style">#container{box-sizing:border-box;color:var(--cr-primary-text-color);height:100%;overflow:auto;position:relative}:host-context([chrome-refresh-2023]) #container{display:block;padding:var(--sp-body-padding) 0}.section{display:block}sp-heading{margin:8px 16px}.sp-cards-separator{background-color:var(--google-grey-300);border:none;height:2px;margin:0;width:100%}@media (prefers-color-scheme:dark){.sp-cards-separator{background-color:var(--google-grey-700)}}:host-context([chrome-refresh-2023]) .sp-cards-separator{background:0 0}:host-context([chrome-refresh-2023]) .sp-card{font-size:12px;font-weight:500;line-height:16px;max-width:calc(360px - 2 * var(--sp-body-padding))}customize-chrome-appearance{margin-bottom:16px}customize-chrome-appearance,customize-chrome-cards,customize-chrome-categories,customize-chrome-chrome-colors,customize-chrome-shortcuts,customize-chrome-themes,customize-chrome-wallpaper-search{display:block;max-width:360px;width:100%}:host-context([chrome-refresh-2023]) customize-chrome-appearance{margin-bottom:0}#extensions .description{color:var(--cr-secondary-text-color);font-weight:400;padding:0 16px 4px}.description a{color:var(--cr-link-color);text-decoration:none}#buttonContainer{display:flex;flex-wrap:wrap;gap:8px;padding:8px 16px}#couponsButton .cr-icon{--cr-icon-image:url(icons/coupons.svg)}#writingButton .cr-icon{--cr-icon-image:url(icons/writing.svg)}#productivityButton .cr-icon{--cr-icon-image:url(icons/productivity.svg)}</style>
 <iron-pages id="container" class="sp-scroller sp-scroller-top-of-page sp-scroller-bottom-of-page" selected="[[page_]]" attr-for-selected="page-name">
   <div page-name="overview" id="overviewPage">
     <div id="appearance" class="section sp-card">
       <sp-heading hide-back-button>
         <h2 slot="heading">$i18n{appearanceHeader}</h2>
       </sp-heading>
-      <customize-chrome-appearance on-edit-theme-click="onEditThemeClick_" id="appearanceElement">
+      <customize-chrome-appearance on-edit-theme-click="onEditThemeClick_" on-wallpaper-search-click="onWallpaperSearchSelect_" id="appearanceElement">
       </customize-chrome-appearance>
     </div>
     <hr class="sp-cards-separator">
@@ -56,7 +56,9 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   </customize-chrome-themes>
   <customize-chrome-chrome-colors on-back-click="onBackClick_" page-name="chrome-colors" id="chromeColorsPage">
   </customize-chrome-chrome-colors>
-  <customize-chrome-wallpaper-search on-back-click="onBackClick_" page-name="wallpaper-search" id="wallpaperSearchPage">
-  </customize-chrome-wallpaper-search>
+  <template is="dom-if" if="[[wallpaperSearchEnabled_]]">
+    <customize-chrome-wallpaper-search on-back-click="onBackClick_" page-name="wallpaper-search" id="wallpaperSearchPage">
+    </customize-chrome-wallpaper-search>
+  </template>
 </iron-pages>
 <!--_html_template_end_-->`}

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,8 +49,8 @@ IframeAttributionData::IframeAttributionData()
       src() {}
 
 IframeAttributionData::IframeAttributionData(
-    const absl::optional<std::string>& id_in,
-    const absl::optional<std::string>& src_in)
+    const std::optional<std::string>& id_in,
+    const std::optional<std::string>& src_in)
     : id(std::move(id_in)),
       src(std::move(src_in)) {}
 
@@ -62,7 +63,7 @@ void IframeAttributionData::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -71,7 +72,7 @@ void IframeAttributionData::WriteIntoTrace(
     dict.AddItem(
       "src"), this->src,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -92,8 +93,8 @@ V8ContextDescription::V8ContextDescription()
 V8ContextDescription::V8ContextDescription(
     const ::blink::V8ContextToken& token_in,
     V8ContextWorldType world_type_in,
-    const absl::optional<std::string>& world_name_in,
-    const absl::optional<::blink::ExecutionContextToken>& execution_context_token_in)
+    const std::optional<std::string>& world_name_in,
+    const std::optional<::blink::ExecutionContextToken>& execution_context_token_in)
     : token(std::move(token_in)),
       world_type(std::move(world_type_in)),
       world_name(std::move(world_name_in)),
@@ -126,7 +127,7 @@ void V8ContextDescription::WriteIntoTrace(
     dict.AddItem(
       "world_name"), this->world_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -135,7 +136,7 @@ void V8ContextDescription::WriteIntoTrace(
     dict.AddItem(
       "execution_context_token"), this->execution_context_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ExecutionContextToken>&>"
+      "<value of type const std::optional<::blink::ExecutionContextToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

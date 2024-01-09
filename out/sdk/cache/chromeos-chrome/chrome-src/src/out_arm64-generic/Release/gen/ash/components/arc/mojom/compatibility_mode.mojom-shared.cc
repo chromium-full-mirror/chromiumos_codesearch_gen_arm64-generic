@@ -94,7 +94,7 @@ CompatibilityModeInstance_SetResizeLockState_Params_Data::CompatibilityModeInsta
 
 
 // static
-bool CompatibilityModeInstance_IsGioApplicable_Params_Data::Validate(
+bool CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -106,8 +106,8 @@ bool CompatibilityModeInstance_IsGioApplicable_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CompatibilityModeInstance_IsGioApplicable_Params_Data* object =
-      static_cast<const CompatibilityModeInstance_IsGioApplicable_Params_Data*>(data);
+  [[maybe_unused]] const CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data* object =
+      static_cast<const CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->package_name, 1, validation_context)) {
@@ -123,12 +123,12 @@ bool CompatibilityModeInstance_IsGioApplicable_Params_Data::Validate(
   return true;
 }
 
-CompatibilityModeInstance_IsGioApplicable_Params_Data::CompatibilityModeInstance_IsGioApplicable_Params_Data()
+CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data::Validate(
+bool CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -140,13 +140,13 @@ bool CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data* object =
-      static_cast<const CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data* object =
+      static_cast<const CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data*>(data);
 
   return true;
 }
 
-CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data()
+CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

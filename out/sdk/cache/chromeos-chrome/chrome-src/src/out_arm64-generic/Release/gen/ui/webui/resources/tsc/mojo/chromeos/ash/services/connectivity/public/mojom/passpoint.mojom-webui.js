@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 export class PasspointEventsListenerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -12,6 +13,9 @@ export class PasspointEventsListenerPendingReceiver {
     }
 }
 export class PasspointEventsListenerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PasspointEventsListenerPendingReceiver, handle);
@@ -36,6 +40,9 @@ export class PasspointEventsListenerRemote {
  * interface.
  */
 export class PasspointEventsListenerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasspointEventsListenerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -66,6 +73,12 @@ export class PasspointEventsListener {
  * receiver can have any number of listeners added to it.
  */
 export class PasspointEventsListenerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onPasspointSubscriptionAdded;
+    onPasspointSubscriptionRemoved;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasspointEventsListenerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -87,6 +100,7 @@ export class PasspointEventsListenerCallbackRouter {
     }
 }
 export class PasspointServicePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -95,6 +109,9 @@ export class PasspointServicePendingReceiver {
     }
 }
 export class PasspointServiceRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PasspointServicePendingReceiver, handle);
@@ -127,6 +144,9 @@ export class PasspointServiceRemote {
  * interface.
  */
 export class PasspointServiceReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasspointServiceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -159,6 +179,14 @@ export class PasspointService {
  * receiver can have any number of listeners added to it.
  */
 export class PasspointServiceCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getPasspointSubscription;
+    listPasspointSubscriptions;
+    deletePasspointSubscription;
+    registerPasspointListener;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasspointServiceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

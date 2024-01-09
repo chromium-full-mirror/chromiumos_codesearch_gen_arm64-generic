@@ -33,9 +33,7 @@ rule copy
   command = cp -af ${in} ${out}
   description = COPY ${in} ${out}
 
-build obj/chromeos-config/all.stamp: stamp ./cros_config ./cros_config_functional_test ./fake_cros_config_test
+build obj/chromeos-config/all.stamp: stamp ./cros_config
 subninja obj/chromeos-config/cros_config.ninja
-subninja obj/chromeos-config/cros_config_functional_test.ninja
-subninja obj/chromeos-config/fake_cros_config_test.ninja
 subninja obj/chromeos-config/libcros_config.ninja
 build obj/common-mk/gn_root/root.stamp: stamp obj/chromeos-config/all.stamp

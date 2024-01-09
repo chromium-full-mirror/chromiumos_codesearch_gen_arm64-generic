@@ -30,6 +30,7 @@ const char kBluetoothPolicyName[] = "bluetooth";
 const char kBrowsingTopicsPolicyName[] = "browsing-topics";
 const char kBrowsingTopicsBackwardCompatiblePolicyName[] = "interest-cohort";
 const char kCameraPolicyName[] = "camera";
+const char kCapturedSurfaceControlPolicyName[] = "captured-surface-control";
 const char kClientHintDPRPolicyName[] = "ch-dpr";
 const char kClientHintDeviceMemoryPolicyName[] = "ch-device-memory";
 const char kClientHintDownlinkPolicyName[] = "ch-downlink";
@@ -82,6 +83,7 @@ const char kPaymentPolicyName[] = "payment";
 const char kPictureInPicturePolicyName[] = "picture-in-picture";
 const char kPrivateAggregationPolicyName[] = "private-aggregation";
 const char kPrivateStateTokenIssuancePolicyName[] = "private-state-token-issuance";
+const char kPublicKeyCredentialsCreatePolicyName[] = "publickey-credentials-create";
 const char kPublicKeyCredentialsGetPolicyName[] = "publickey-credentials-get";
 const char kRunAdAuctionPolicyName[] = "run-ad-auction";
 const char kScreenWakeLockPolicyName[] = "screen-wake-lock";
@@ -91,11 +93,14 @@ const char kSharedStoragePolicyName[] = "shared-storage";
 const char kSharedStorageSelectUrlPolicyName[] = "shared-storage-select-url";
 const char kSmartCardPolicyName[] = "smart-card";
 const char kStorageAccessAPIPolicyName[] = "storage-access";
+const char kSubAppsPolicyName[] = "sub-apps";
 const char kSyncXHRPolicyName[] = "sync-xhr";
 const char kTrustTokenRedemptionPolicyName[] = "private-state-token-redemption";
 const char kUsbPolicyName[] = "usb";
+const char kUsbUnrestrictedPolicyName[] = "usb-unrestricted";
 const char kUnloadPolicyName[] = "unload";
 const char kVerticalScrollPolicyName[] = "vertical-scroll";
+const char kWebPrintingPolicyName[] = "web-printing";
 const char kWebSharePolicyName[] = "web-share";
 const char kWebXrPolicyName[] = "xr-spatial-tracking";
 const char kWindowManagementPolicyName[] = "window-management";
@@ -194,6 +199,8 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
                                  mojom::PermissionsPolicyFeature::kGyroscope);
     default_feature_name_map.Set(kIdentityCredentialsGetPolicyName,
                                  mojom::PermissionsPolicyFeature::kIdentityCredentialsGet);
+    default_feature_name_map.Set(kIdleDetectionPolicyName,
+                                 mojom::PermissionsPolicyFeature::kIdleDetection);
     default_feature_name_map.Set(kJoinAdInterestGroupPolicyName,
                                  mojom::PermissionsPolicyFeature::kJoinAdInterestGroup);
     default_feature_name_map.Set(kKeyboardMapPolicyName,
@@ -218,6 +225,8 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
                                  mojom::PermissionsPolicyFeature::kSharedStorage);
     default_feature_name_map.Set(kSharedStorageSelectUrlPolicyName,
                                  mojom::PermissionsPolicyFeature::kSharedStorageSelectUrl);
+    default_feature_name_map.Set(kStorageAccessAPIPolicyName,
+                                 mojom::PermissionsPolicyFeature::kStorageAccessAPI);
     default_feature_name_map.Set(kSyncXHRPolicyName,
                                  mojom::PermissionsPolicyFeature::kSyncXHR);
     default_feature_name_map.Set(kTrustTokenRedemptionPolicyName,
@@ -229,6 +238,14 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
     if (RuntimeEnabledFeatures::BlockingFocusWithoutUserActivationEnabled()) {
       default_feature_name_map.Set(kFocusWithoutUserActivationPolicyName,
                                    mojom::PermissionsPolicyFeature::kFocusWithoutUserActivation);
+    }
+    if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
+      default_feature_name_map.Set(kCapturedSurfaceControlPolicyName,
+                                   mojom::PermissionsPolicyFeature::kCapturedSurfaceControl);
+    }
+    if (RuntimeEnabledFeatures::DesktopPWAsSubAppsEnabled()) {
+      default_feature_name_map.Set(kSubAppsPolicyName,
+                                   mojom::PermissionsPolicyFeature::kSubApps);
     }
     if (RuntimeEnabledFeatures::DirectSocketsEnabled()) {
       default_feature_name_map.Set(kDirectSocketsPolicyName,
@@ -247,10 +264,6 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
                                    mojom::PermissionsPolicyFeature::kExecutionWhileOutOfViewport);
       default_feature_name_map.Set(kExecutionWhileNotRenderedPolicyName,
                                    mojom::PermissionsPolicyFeature::kExecutionWhileNotRendered);
-    }
-    if (RuntimeEnabledFeatures::IdleDetectionEnabled()) {
-      default_feature_name_map.Set(kIdleDetectionPolicyName,
-                                   mojom::PermissionsPolicyFeature::kIdleDetection);
     }
     if (RuntimeEnabledFeatures::PaymentRequestEnabled()) {
       default_feature_name_map.Set(kPaymentPolicyName,
@@ -272,9 +285,9 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
       default_feature_name_map.Set(kSmartCardPolicyName,
                                    mojom::PermissionsPolicyFeature::kSmartCard);
     }
-    if (RuntimeEnabledFeatures::StorageAccessAPIEnabled()) {
-      default_feature_name_map.Set(kStorageAccessAPIPolicyName,
-                                   mojom::PermissionsPolicyFeature::kStorageAccessAPI);
+    if (RuntimeEnabledFeatures::UnrestrictedUsbEnabled()) {
+      default_feature_name_map.Set(kUsbUnrestrictedPolicyName,
+                                   mojom::PermissionsPolicyFeature::kUsbUnrestricted);
     }
     if (RuntimeEnabledFeatures::ViewportHeightClientHintHeaderEnabled()) {
       default_feature_name_map.Set(kClientHintViewportHeightPolicyName,
@@ -283,6 +296,10 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
     if (RuntimeEnabledFeatures::WakeLockEnabled()) {
       default_feature_name_map.Set(kScreenWakeLockPolicyName,
                                    mojom::PermissionsPolicyFeature::kScreenWakeLock);
+    }
+    if (RuntimeEnabledFeatures::WebAuthAllowCreateInCrossOriginFrameEnabled()) {
+      default_feature_name_map.Set(kPublicKeyCredentialsCreatePolicyName,
+                                   mojom::PermissionsPolicyFeature::kPublicKeyCredentialsCreate);
     }
     if (RuntimeEnabledFeatures::WebBluetoothEnabled()) {
       default_feature_name_map.Set(kBluetoothPolicyName,
@@ -295,6 +312,10 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
     if (RuntimeEnabledFeatures::WebOTPAssertionFeaturePolicyEnabled()) {
       default_feature_name_map.Set(kOTPCredentialsPolicyName,
                                    mojom::PermissionsPolicyFeature::kOTPCredentials);
+    }
+    if (RuntimeEnabledFeatures::WebPrintingEnabled()) {
+      default_feature_name_map.Set(kWebPrintingPolicyName,
+                                   mojom::PermissionsPolicyFeature::kWebPrinting);
     }
     if (RuntimeEnabledFeatures::WebShareEnabled()) {
       default_feature_name_map.Set(kWebSharePolicyName,
@@ -414,6 +435,8 @@ String PermissionsPolicyFeatureToProtocol(mojom::blink::PermissionsPolicyFeature
       return protocol::Page::PermissionsPolicyFeatureEnum::InterestCohort;
     case mojom::blink::PermissionsPolicyFeature::kCamera:
       return protocol::Page::PermissionsPolicyFeatureEnum::Camera;
+    case mojom::blink::PermissionsPolicyFeature::kCapturedSurfaceControl:
+      return protocol::Page::PermissionsPolicyFeatureEnum::CapturedSurfaceControl;
     case mojom::blink::PermissionsPolicyFeature::kClientHintDPR:
       return protocol::Page::PermissionsPolicyFeatureEnum::ChDpr;
     case mojom::blink::PermissionsPolicyFeature::kClientHintDeviceMemory:
@@ -518,6 +541,8 @@ String PermissionsPolicyFeatureToProtocol(mojom::blink::PermissionsPolicyFeature
       return protocol::Page::PermissionsPolicyFeatureEnum::PrivateAggregation;
     case mojom::blink::PermissionsPolicyFeature::kPrivateStateTokenIssuance:
       return protocol::Page::PermissionsPolicyFeatureEnum::PrivateStateTokenIssuance;
+    case mojom::blink::PermissionsPolicyFeature::kPublicKeyCredentialsCreate:
+      return protocol::Page::PermissionsPolicyFeatureEnum::PublickeyCredentialsCreate;
     case mojom::blink::PermissionsPolicyFeature::kPublicKeyCredentialsGet:
       return protocol::Page::PermissionsPolicyFeatureEnum::PublickeyCredentialsGet;
     case mojom::blink::PermissionsPolicyFeature::kRunAdAuction:
@@ -536,16 +561,22 @@ String PermissionsPolicyFeatureToProtocol(mojom::blink::PermissionsPolicyFeature
       return protocol::Page::PermissionsPolicyFeatureEnum::SmartCard;
     case mojom::blink::PermissionsPolicyFeature::kStorageAccessAPI:
       return protocol::Page::PermissionsPolicyFeatureEnum::StorageAccess;
+    case mojom::blink::PermissionsPolicyFeature::kSubApps:
+      return protocol::Page::PermissionsPolicyFeatureEnum::SubApps;
     case mojom::blink::PermissionsPolicyFeature::kSyncXHR:
       return protocol::Page::PermissionsPolicyFeatureEnum::SyncXhr;
     case mojom::blink::PermissionsPolicyFeature::kTrustTokenRedemption:
       return protocol::Page::PermissionsPolicyFeatureEnum::PrivateStateTokenRedemption;
     case mojom::blink::PermissionsPolicyFeature::kUsb:
       return protocol::Page::PermissionsPolicyFeatureEnum::Usb;
+    case mojom::blink::PermissionsPolicyFeature::kUsbUnrestricted:
+      return protocol::Page::PermissionsPolicyFeatureEnum::UsbUnrestricted;
     case mojom::blink::PermissionsPolicyFeature::kUnload:
       return protocol::Page::PermissionsPolicyFeatureEnum::Unload;
     case mojom::blink::PermissionsPolicyFeature::kVerticalScroll:
       return protocol::Page::PermissionsPolicyFeatureEnum::VerticalScroll;
+    case mojom::blink::PermissionsPolicyFeature::kWebPrinting:
+      return protocol::Page::PermissionsPolicyFeatureEnum::WebPrinting;
     case mojom::blink::PermissionsPolicyFeature::kWebShare:
       return protocol::Page::PermissionsPolicyFeatureEnum::WebShare;
     case mojom::blink::PermissionsPolicyFeature::kWebXr:

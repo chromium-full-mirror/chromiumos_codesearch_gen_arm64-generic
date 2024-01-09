@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -150,21 +151,25 @@ bool LineBox::Validate(
 WordBox::WordBox()
     : word(),
       dictionary_word(),
-      language() {}
+      language(),
+      has_space_after() {}
 
 WordBox::WordBox(
     const std::string& word_in,
     bool dictionary_word_in,
-    const std::string& language_in)
+    const std::string& language_in,
+    bool has_space_after_in)
     : word(std::move(word_in)),
       dictionary_word(std::move(dictionary_word_in)),
-      language(std::move(language_in)) {}
+      language(std::move(language_in)),
+      has_space_after(std::move(has_space_after_in)) {}
 
 WordBox::~WordBox() = default;
 size_t WordBox::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->word);
   seed = mojo::internal::Hash(seed, this->dictionary_word);
   seed = mojo::internal::Hash(seed, this->language);
+  seed = mojo::internal::Hash(seed, this->has_space_after);
   return seed;
 }
 
@@ -194,6 +199,15 @@ void WordBox::WriteIntoTrace(
       "language"), this->language,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_space_after"), this->has_space_after,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -367,14 +381,17 @@ void ScreenAIAnnotatorProxy::ExtractSemanticLayout(
                         "<value of type const ::ui::AXTreeID&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_ExtractSemanticLayout_Name, kFlags, 0, 0, nullptr);
@@ -425,14 +442,17 @@ void ScreenAIAnnotatorProxy::PerformOcrAndReturnAXTreeUpdate(
                         "<value of type const ::SkBitmap&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Name, kFlags, 0, 0, nullptr);
@@ -474,14 +494,17 @@ void ScreenAIAnnotatorProxy::PerformOcrAndReturnAnnotation(
                         "<value of type const ::SkBitmap&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_PerformOcrAndReturnAnnotation_Name, kFlags, 0, 0, nullptr);
@@ -602,7 +625,8 @@ void ScreenAIAnnotator_ExtractSemanticLayout_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_ExtractSemanticLayout_Name, kFlags, 0, 0, nullptr);
@@ -728,7 +752,8 @@ void ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Name, kFlags, 0, 0, nullptr);
@@ -856,7 +881,8 @@ void ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotator_PerformOcrAndReturnAnnotation_Name, kFlags, 0, 0, nullptr);
@@ -1014,14 +1040,14 @@ std::move(p_image), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenAIAnnotatorValidationInfo[] = {
-    {&internal::ScreenAIAnnotator_ExtractSemanticLayout_Params_Data::Validate,
+    { &internal::ScreenAIAnnotator_ExtractSemanticLayout_Params_Data::Validate,
      &internal::ScreenAIAnnotator_ExtractSemanticLayout_ResponseParams_Data::Validate},
-    {&internal::ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Params_Data::Validate,
+    { &internal::ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Params_Data::Validate,
      &internal::ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ResponseParams_Data::Validate},
-    {&internal::ScreenAIAnnotator_PerformOcrAndReturnAnnotation_Params_Data::Validate,
+    { &internal::ScreenAIAnnotator_PerformOcrAndReturnAnnotation_Params_Data::Validate,
      &internal::ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ResponseParams_Data::Validate},
 };
 
@@ -1105,14 +1131,17 @@ void ScreenAIAnnotatorClientProxy::HandleAXTreeUpdate(
                         "<value of type const ::ui::AXTreeUpdate&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIAnnotatorClient_HandleAXTreeUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1191,10 +1220,10 @@ bool ScreenAIAnnotatorClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenAIAnnotatorClientValidationInfo[] = {
-    {&internal::ScreenAIAnnotatorClient_HandleAXTreeUpdate_Params_Data::Validate,
+    { &internal::ScreenAIAnnotatorClient_HandleAXTreeUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1293,14 +1322,17 @@ void Screen2xMainContentExtractorProxy::ExtractMainContent(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreen2xMainContentExtractor_ExtractMainContent_Name, kFlags, 0, 0, nullptr);
@@ -1422,7 +1454,8 @@ void Screen2xMainContentExtractor_ExtractMainContent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreen2xMainContentExtractor_ExtractMainContent_Name, kFlags, 0, 0, nullptr);
@@ -1518,10 +1551,10 @@ std::move(p_ukm_source_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreen2xMainContentExtractorValidationInfo[] = {
-    {&internal::Screen2xMainContentExtractor_ExtractMainContent_Params_Data::Validate,
+    { &internal::Screen2xMainContentExtractor_ExtractMainContent_Params_Data::Validate,
      &internal::Screen2xMainContentExtractor_ExtractMainContent_ResponseParams_Data::Validate},
 };
 
@@ -1625,14 +1658,17 @@ void OCRServiceProxy::BindAnnotator(
                         "<value of type ::mojo::PendingReceiver<ScreenAIAnnotator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOCRService_BindAnnotator_Name, kFlags, 0, 0, nullptr);
@@ -1668,14 +1704,17 @@ void OCRServiceProxy::BindAnnotatorClient(
                         "<value of type ::mojo::PendingRemote<ScreenAIAnnotatorClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOCRService_BindAnnotatorClient_Name, kFlags, 0, 0, nullptr);
@@ -1782,12 +1821,12 @@ bool OCRServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOCRServiceValidationInfo[] = {
-    {&internal::OCRService_BindAnnotator_Params_Data::Validate,
+    { &internal::OCRService_BindAnnotator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OCRService_BindAnnotatorClient_Params_Data::Validate,
+    { &internal::OCRService_BindAnnotatorClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1867,14 +1906,17 @@ void MainContentExtractionServiceProxy::BindMainContentExtractor(
                         "<value of type ::mojo::PendingReceiver<Screen2xMainContentExtractor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMainContentExtractionService_BindMainContentExtractor_Name, kFlags, 0, 0, nullptr);
@@ -1950,10 +1992,10 @@ bool MainContentExtractionServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMainContentExtractionServiceValidationInfo[] = {
-    {&internal::MainContentExtractionService_BindMainContentExtractor_Params_Data::Validate,
+    { &internal::MainContentExtractionService_BindMainContentExtractor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1962,604 +2004,6 @@ bool MainContentExtractionServiceRequestValidator::Accept(mojo::Message* message
   return mojo::internal::ValidateRequestGenericPacked(message, name, kMainContentExtractionServiceValidationInfo);
 }
 
-const char ScreenAIServiceFactory::Name_[] = "screen_ai.mojom.ScreenAIServiceFactory";
-
-ScreenAIServiceFactory::IPCStableHashFunction ScreenAIServiceFactory::MessageToMethodInfo_(mojo::Message& message) {
-#if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kScreenAIServiceFactory_InitializeOCR_Name: {
-      return &ScreenAIServiceFactory::InitializeOCR_Sym::IPCStableHash;
-    }
-    case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name: {
-      return &ScreenAIServiceFactory::InitializeMainContentExtraction_Sym::IPCStableHash;
-    }
-  }
-#endif  // !BUILDFLAG(IS_FUCHSIA)
-  return nullptr;
-}
-
-
-const char* ScreenAIServiceFactory::MessageToMethodName_(mojo::Message& message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (!is_response) {
-    switch (message.name()) {
-      case internal::kScreenAIServiceFactory_InitializeOCR_Name:
-            return "Receive screen_ai::mojom::ScreenAIServiceFactory::InitializeOCR";
-      case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name:
-            return "Receive screen_ai::mojom::ScreenAIServiceFactory::InitializeMainContentExtraction";
-    }
-  } else {
-    switch (message.name()) {
-      case internal::kScreenAIServiceFactory_InitializeOCR_Name:
-            return "Receive reply screen_ai::mojom::ScreenAIServiceFactory::InitializeOCR";
-      case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name:
-            return "Receive reply screen_ai::mojom::ScreenAIServiceFactory::InitializeMainContentExtraction";
-    }
-  }
-  return "Receive unknown mojo message";
-#else
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (is_response) {
-    return "Receive mojo reply";
-  } else {
-    return "Receive mojo message";
-  }
-#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
-}
-
-#if !BUILDFLAG(IS_FUCHSIA)
-uint32_t ScreenAIServiceFactory::InitializeOCR_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)screen_ai::mojom::ScreenAIServiceFactory::InitializeOCR");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t ScreenAIServiceFactory::InitializeMainContentExtraction_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)screen_ai::mojom::ScreenAIServiceFactory::InitializeMainContentExtraction");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-# endif // !BUILDFLAG(IS_FUCHSIA)
-
-class ScreenAIServiceFactory_InitializeOCR_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  ScreenAIServiceFactory_InitializeOCR_ForwardToCallback(
-      ScreenAIServiceFactory::InitializeOCRCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  ScreenAIServiceFactory_InitializeOCR_ForwardToCallback(const ScreenAIServiceFactory_InitializeOCR_ForwardToCallback&) = delete;
-  ScreenAIServiceFactory_InitializeOCR_ForwardToCallback& operator=(const ScreenAIServiceFactory_InitializeOCR_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  ScreenAIServiceFactory::InitializeOCRCallback callback_;
-};
-
-class ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback(
-      ScreenAIServiceFactory::InitializeMainContentExtractionCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback(const ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback&) = delete;
-  ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback& operator=(const ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  ScreenAIServiceFactory::InitializeMainContentExtractionCallback callback_;
-};
-
-ScreenAIServiceFactoryProxy::ScreenAIServiceFactoryProxy(mojo::MessageReceiverWithResponder* receiver)
-    : receiver_(receiver) {
-}
-
-void ScreenAIServiceFactoryProxy::InitializeOCR(
-    const ::base::FilePath& in_library_path, ::mojo::PendingReceiver<OCRService> in_ocr_service_receiver, InitializeOCRCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send screen_ai::mojom::ScreenAIServiceFactory::InitializeOCR", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("library_path"), in_library_path,
-                        "<value of type const ::base::FilePath&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("ocr_service_receiver"), in_ocr_service_receiver,
-                        "<value of type ::mojo::PendingReceiver<OCRService>>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kScreenAIServiceFactory_InitializeOCR_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::screen_ai::mojom::internal::ScreenAIServiceFactory_InitializeOCR_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->library_path)::BaseType> library_path_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::FilePathDataView>(
-      in_library_path, library_path_fragment);
-  params->library_path.Set(
-      library_path_fragment.is_null() ? nullptr : library_path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->library_path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null library_path in ScreenAIServiceFactory.InitializeOCR request");
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::OCRServiceInterfaceBase>>(
-      in_ocr_service_receiver, &params->ocr_service_receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->ocr_service_receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid ocr_service_receiver in ScreenAIServiceFactory.InitializeOCR request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(ScreenAIServiceFactory::Name_);
-  message.set_method_name("InitializeOCR");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new ScreenAIServiceFactory_InitializeOCR_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void ScreenAIServiceFactoryProxy::InitializeMainContentExtraction(
-    const ::base::FilePath& in_library_path, base::flat_map<std::string, ::base::File> in_model_files, ::mojo::PendingReceiver<MainContentExtractionService> in_main_content_extractor_service, InitializeMainContentExtractionCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send screen_ai::mojom::ScreenAIServiceFactory::InitializeMainContentExtraction", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("library_path"), in_library_path,
-                        "<value of type const ::base::FilePath&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("model_files"), in_model_files,
-                        "<value of type base::flat_map<std::string, ::base::File>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("main_content_extractor_service"), in_main_content_extractor_service,
-                        "<value of type ::mojo::PendingReceiver<MainContentExtractionService>>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::screen_ai::mojom::internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->library_path)::BaseType> library_path_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::FilePathDataView>(
-      in_library_path, library_path_fragment);
-  params->library_path.Set(
-      library_path_fragment.is_null() ? nullptr : library_path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->library_path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null library_path in ScreenAIServiceFactory.InitializeMainContentExtraction request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->model_files)::BaseType>
-      model_files_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& model_files_validate_params =
-      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-  mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::ReadOnlyFileDataView>>(
-      in_model_files, model_files_fragment, &model_files_validate_params);
-  params->model_files.Set(
-      model_files_fragment.is_null() ? nullptr : model_files_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->model_files.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null model_files in ScreenAIServiceFactory.InitializeMainContentExtraction request");
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::MainContentExtractionServiceInterfaceBase>>(
-      in_main_content_extractor_service, &params->main_content_extractor_service, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->main_content_extractor_service),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid main_content_extractor_service in ScreenAIServiceFactory.InitializeMainContentExtraction request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(ScreenAIServiceFactory::Name_);
-  message.set_method_name("InitializeMainContentExtraction");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class ScreenAIServiceFactory_InitializeOCR_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static ScreenAIServiceFactory::InitializeOCRCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<ScreenAIServiceFactory_InitializeOCR_ProxyToResponder> proxy(
-        new ScreenAIServiceFactory_InitializeOCR_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&ScreenAIServiceFactory_InitializeOCR_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~ScreenAIServiceFactory_InitializeOCR_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  ScreenAIServiceFactory_InitializeOCR_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "ScreenAIServiceFactory::InitializeOCRCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_initialized);
-};
-
-bool ScreenAIServiceFactory_InitializeOCR_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_initialized{};
-  ScreenAIServiceFactory_InitializeOCR_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_initialized = input_data_view.initialized();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ScreenAIServiceFactory::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_initialized));
-  return true;
-}
-
-void ScreenAIServiceFactory_InitializeOCR_ProxyToResponder::Run(
-    bool in_initialized) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply screen_ai::mojom::ScreenAIServiceFactory::InitializeOCR", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("initialized"), in_initialized,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kScreenAIServiceFactory_InitializeOCR_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::screen_ai::mojom::internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->initialized = in_initialized;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(ScreenAIServiceFactory::Name_);
-  message.set_method_name("InitializeOCR");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static ScreenAIServiceFactory::InitializeMainContentExtractionCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder> proxy(
-        new ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "ScreenAIServiceFactory::InitializeMainContentExtractionCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_initialized);
-};
-
-bool ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_initialized{};
-  ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_initialized = input_data_view.initialized();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ScreenAIServiceFactory::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_initialized));
-  return true;
-}
-
-void ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder::Run(
-    bool in_initialized) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply screen_ai::mojom::ScreenAIServiceFactory::InitializeMainContentExtraction", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("initialized"), in_initialized,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::screen_ai::mojom::internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->initialized = in_initialized;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(ScreenAIServiceFactory::Name_);
-  message.set_method_name("InitializeMainContentExtraction");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-
-// static
-bool ScreenAIServiceFactoryStubDispatch::Accept(
-    ScreenAIServiceFactory* impl,
-    mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kScreenAIServiceFactory_InitializeOCR_Name: {
-      break;
-    }
-    case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name: {
-      break;
-    }
-  }
-  return false;
-}
-
-// static
-bool ScreenAIServiceFactoryStubDispatch::AcceptWithResponder(
-    ScreenAIServiceFactory* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kScreenAIServiceFactory_InitializeOCR_Name: {
-
-      internal::ScreenAIServiceFactory_InitializeOCR_Params_Data* params =
-          reinterpret_cast<
-              internal::ScreenAIServiceFactory_InitializeOCR_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::FilePath p_library_path{};
-      ::mojo::PendingReceiver<OCRService> p_ocr_service_receiver{};
-      ScreenAIServiceFactory_InitializeOCR_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadLibraryPath(&p_library_path))
-        success = false;
-      if (success) {
-        p_ocr_service_receiver =
-            input_data_view.TakeOcrServiceReceiver<decltype(p_ocr_service_receiver)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ScreenAIServiceFactory::Name_, 0, false);
-        return false;
-      }
-      ScreenAIServiceFactory::InitializeOCRCallback callback =
-          ScreenAIServiceFactory_InitializeOCR_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->InitializeOCR(
-std::move(p_library_path), 
-std::move(p_ocr_service_receiver), std::move(callback));
-      return true;
-    }
-    case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name: {
-
-      internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data* params =
-          reinterpret_cast<
-              internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::FilePath p_library_path{};
-      base::flat_map<std::string, ::base::File> p_model_files{};
-      ::mojo::PendingReceiver<MainContentExtractionService> p_main_content_extractor_service{};
-      ScreenAIServiceFactory_InitializeMainContentExtraction_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadLibraryPath(&p_library_path))
-        success = false;
-      if (success && !input_data_view.ReadModelFiles(&p_model_files))
-        success = false;
-      if (success) {
-        p_main_content_extractor_service =
-            input_data_view.TakeMainContentExtractorService<decltype(p_main_content_extractor_service)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ScreenAIServiceFactory::Name_, 1, false);
-        return false;
-      }
-      ScreenAIServiceFactory::InitializeMainContentExtractionCallback callback =
-          ScreenAIServiceFactory_InitializeMainContentExtraction_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->InitializeMainContentExtraction(
-std::move(p_library_path), 
-std::move(p_model_files), 
-std::move(p_main_content_extractor_service), std::move(callback));
-      return true;
-    }
-  }
-  return false;
-}
-
-
-static const mojo::internal::GenericValidationInfo kScreenAIServiceFactoryValidationInfo[] = {
-    {&internal::ScreenAIServiceFactory_InitializeOCR_Params_Data::Validate,
-     &internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data::Validate},
-    {&internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data::Validate,
-     &internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data::Validate},
-};
-
-bool ScreenAIServiceFactoryRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::screen_ai::mojom::ScreenAIServiceFactory::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kScreenAIServiceFactoryValidationInfo);
-}
-
-bool ScreenAIServiceFactoryResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::screen_ai::mojom::ScreenAIServiceFactory::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kScreenAIServiceFactoryValidationInfo);
-}
 
 
 }  // screen_ai::mojom
@@ -2617,6 +2061,8 @@ bool StructTraits<::screen_ai::mojom::WordBox::DataView, ::screen_ai::mojom::Wor
         result->dictionary_word = input.dictionary_word();
       if (success && !input.ReadLanguage(&result->language))
         success = false;
+      if (success)
+        result->has_space_after = input.has_space_after();
   *output = std::move(result);
   return success;
 }
@@ -2783,66 +2229,6 @@ MainContentExtractionServiceAsyncWaiter::MainContentExtractionServiceAsyncWaiter
     MainContentExtractionService* proxy) : proxy_(proxy) {}
 
 MainContentExtractionServiceAsyncWaiter::~MainContentExtractionServiceAsyncWaiter() = default;
-
-
-
-
-void ScreenAIServiceFactoryInterceptorForTesting::InitializeOCR(const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, InitializeOCRCallback callback) {
-  GetForwardingInterface()->InitializeOCR(std::move(library_path), std::move(ocr_service_receiver), std::move(callback));
-}
-void ScreenAIServiceFactoryInterceptorForTesting::InitializeMainContentExtraction(const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, InitializeMainContentExtractionCallback callback) {
-  GetForwardingInterface()->InitializeMainContentExtraction(std::move(library_path), std::move(model_files), std::move(main_content_extractor_service), std::move(callback));
-}
-ScreenAIServiceFactoryAsyncWaiter::ScreenAIServiceFactoryAsyncWaiter(
-    ScreenAIServiceFactory* proxy) : proxy_(proxy) {}
-
-ScreenAIServiceFactoryAsyncWaiter::~ScreenAIServiceFactoryAsyncWaiter() = default;
-
-void ScreenAIServiceFactoryAsyncWaiter::InitializeOCR(
-    const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, bool* out_initialized) {
-  base::RunLoop loop;
-  proxy_->InitializeOCR(std::move(library_path),std::move(ocr_service_receiver),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_initialized
-,
-             bool initialized) {*out_initialized = std::move(initialized);
-            loop->Quit();
-          },
-          &loop,
-          out_initialized));
-  loop.Run();
-}
-
-bool ScreenAIServiceFactoryAsyncWaiter::InitializeOCR(
-    const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver) {
-  bool async_wait_result;
-  InitializeOCR(std::move(library_path),std::move(ocr_service_receiver),&async_wait_result);
-  return async_wait_result;
-}
-
-void ScreenAIServiceFactoryAsyncWaiter::InitializeMainContentExtraction(
-    const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, bool* out_initialized) {
-  base::RunLoop loop;
-  proxy_->InitializeMainContentExtraction(std::move(library_path),std::move(model_files),std::move(main_content_extractor_service),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_initialized
-,
-             bool initialized) {*out_initialized = std::move(initialized);
-            loop->Quit();
-          },
-          &loop,
-          out_initialized));
-  loop.Run();
-}
-
-bool ScreenAIServiceFactoryAsyncWaiter::InitializeMainContentExtraction(
-    const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service) {
-  bool async_wait_result;
-  InitializeMainContentExtraction(std::move(library_path),std::move(model_files),std::move(main_content_extractor_service),&async_wait_result);
-  return async_wait_result;
-}
 
 
 

@@ -25,6 +25,7 @@ EtwTraceEvent& EtwTraceEvent::operator=(EtwTraceEvent&&) = default;
 bool EtwTraceEvent::operator==(const EtwTraceEvent& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(timestamp_, other.timestamp_)
+   && ::protozero::internal::gen_helpers::EqualsField(cpu_, other.cpu_)
    && ::protozero::internal::gen_helpers::EqualsField(c_switch_, other.c_switch_)
    && ::protozero::internal::gen_helpers::EqualsField(ready_thread_, other.ready_thread_);
 }
@@ -41,6 +42,9 @@ bool EtwTraceEvent::ParseFromArray(const void* raw, size_t size) {
     switch (field.id()) {
       case 1 /* timestamp */:
         field.get(&timestamp_);
+        break;
+      case 4 /* cpu */:
+        field.get(&cpu_);
         break;
       case 2 /* c_switch */:
         (*c_switch_).ParseFromArray(field.data(), field.size());
@@ -72,6 +76,11 @@ void EtwTraceEvent::Serialize(::protozero::Message* msg) const {
   // Field 1: timestamp
   if (_has_field_[1]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(1, timestamp_, msg);
+  }
+
+  // Field 4: cpu
+  if (_has_field_[4]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(4, cpu_, msg);
   }
 
   // Field 2: c_switch

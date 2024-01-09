@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAnimationElement>::value,
     "SVGAnimationElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAnimationElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAnimationElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimationElement.targetElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->targetElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -106,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimationElement.onbegin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbegin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbegin();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -122,8 +118,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbegin(event_handler);
 }
 
@@ -134,10 +131,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimationElement.onend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -150,8 +147,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnend(event_handler);
 }
 
@@ -162,10 +160,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimationElement.onrepeat.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onrepeat();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onrepeat();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -178,8 +176,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnrepeat(event_handler);
 }
 
@@ -198,7 +197,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->requiredExtensions();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]
@@ -221,7 +220,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->systemLanguage();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]
@@ -246,7 +245,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILBeginEndAnimati
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->beginElement();
 
 }
@@ -276,7 +275,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -302,7 +301,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILBeginEndAnimati
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->endElement();
 
 }
@@ -332,7 +331,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -358,7 +357,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILAnimationElemen
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCurrentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -380,7 +379,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILAnimationElemen
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGAnimationElement";
 const char* const property_name = "getSimpleDuration";
@@ -409,7 +408,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILAnimationElemen
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(v8_receiver);
+SVGAnimationElement* blink_receiver = V8SVGAnimationElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGAnimationElement";
 const char* const property_name = "getStartTime";

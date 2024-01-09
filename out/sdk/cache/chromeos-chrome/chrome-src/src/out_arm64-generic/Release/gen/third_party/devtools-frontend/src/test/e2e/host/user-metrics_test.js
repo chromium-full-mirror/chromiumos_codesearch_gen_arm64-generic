@@ -268,7 +268,7 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
         await assertHistogramEventsInclude([
             {
                 actionName: 'DevTools.ExperimentEnabledAtLaunch',
-                actionCode: 52, // Enabled by default: cssTypeComponentLength
+                actionCode: 74, // Enabled by default: setAllBreakpointsEagerly
             },
             {
                 actionName: 'DevTools.ExperimentDisabledAtLaunch',
@@ -303,7 +303,7 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
             }]);
     });
 });
-(0, mocha_extensions_js_1.describe)('User Metrics for CSS Overview', () => {
+(0, mocha_extensions_js_1.describe)('User metrics for CSS overview', () => {
     (0, mocha_extensions_js_1.it)('dispatch events when capture overview button hit', async () => {
         await (0, helper_js_1.goToResource)('css_overview/default.html');
         await (0, css_overview_helpers_js_1.navigateToCssOverviewTab)();
@@ -395,7 +395,6 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
     });
     (0, mocha_extensions_js_1.it)('dispatch events when a link to an element is clicked', async () => {
         await (0, helper_js_1.goToResource)('elements/element-reveal-inline-issue.html');
-        await (0, helper_js_1.waitFor)('.issue');
         await (0, helper_js_1.click)('.issue');
         await (0, helper_js_1.waitFor)('.element-reveal-icon');
         await (0, helper_js_1.scrollElementIntoView)('.element-reveal-icon');
@@ -422,7 +421,6 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
     (0, mocha_extensions_js_1.it)('dispatch events when a "Learn More" link is clicked', async () => {
         const { browser } = (0, helper_js_1.getBrowserAndPages)();
         await (0, helper_js_1.goToResource)('elements/element-reveal-inline-issue.html');
-        await (0, helper_js_1.waitFor)('.issue');
         await (0, helper_js_1.click)('.issue');
         await (0, helper_js_1.waitFor)('.link-list x-link');
         await (0, helper_js_1.scrollElementIntoView)('.link-list x-link');

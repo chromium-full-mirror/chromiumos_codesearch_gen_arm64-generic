@@ -836,62 +836,6 @@
     encoder.skip(1);
     encoder.encodeStructPointer(time$.TimeDelta, val.totalDuration);
   };
-  function WatchTimeRecorder_OnCurrentTimestampChanged_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.prototype.initDefaults_ = function() {
-    this.lastTimestamp = null;
-  };
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate WatchTimeRecorder_OnCurrentTimestampChanged_Params.lastTimestamp
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, time$.TimeDelta, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.decode = function(decoder) {
-    var packed;
-    var val = new WatchTimeRecorder_OnCurrentTimestampChanged_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.lastTimestamp =
-        decoder.decodeStructPointer(time$.TimeDelta);
-    return val;
-  };
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(WatchTimeRecorder_OnCurrentTimestampChanged_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(time$.TimeDelta, val.lastTimestamp);
-  };
   var kWatchTimeRecorder_RecordWatchTime_Name = 0;
   var kWatchTimeRecorder_FinalizeWatchTime_Name = 1;
   var kWatchTimeRecorder_OnError_Name = 2;
@@ -901,7 +845,6 @@
   var kWatchTimeRecorder_UpdateVideoDecodeStats_Name = 6;
   var kWatchTimeRecorder_UpdateUnderflowCount_Name = 7;
   var kWatchTimeRecorder_UpdateUnderflowDuration_Name = 8;
-  var kWatchTimeRecorder_OnCurrentTimestampChanged_Name = 9;
 
   function WatchTimeRecorderPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(WatchTimeRecorder,
@@ -1059,21 +1002,6 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  WatchTimeRecorderPtr.prototype.onCurrentTimestampChanged = function() {
-    return WatchTimeRecorderProxy.prototype.onCurrentTimestampChanged
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  WatchTimeRecorderProxy.prototype.onCurrentTimestampChanged = function(lastTimestamp) {
-    var params_ = new WatchTimeRecorder_OnCurrentTimestampChanged_Params();
-    params_.lastTimestamp = lastTimestamp;
-    var builder = new codec.MessageV0Builder(
-        kWatchTimeRecorder_OnCurrentTimestampChanged_Name,
-        codec.align(WatchTimeRecorder_OnCurrentTimestampChanged_Params.encodedSize));
-    builder.encodeStruct(WatchTimeRecorder_OnCurrentTimestampChanged_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
 
   function WatchTimeRecorderStub(delegate) {
     this.delegate_ = delegate;
@@ -1104,9 +1032,6 @@
   }
   WatchTimeRecorderStub.prototype.updateUnderflowDuration = function(totalCompletedCount, totalDuration) {
     return this.delegate_ && this.delegate_.updateUnderflowDuration && this.delegate_.updateUnderflowDuration(totalCompletedCount, totalDuration);
-  }
-  WatchTimeRecorderStub.prototype.onCurrentTimestampChanged = function(lastTimestamp) {
-    return this.delegate_ && this.delegate_.onCurrentTimestampChanged && this.delegate_.onCurrentTimestampChanged(lastTimestamp);
   }
 
   WatchTimeRecorderStub.prototype.accept = function(message) {
@@ -1147,10 +1072,6 @@
     case kWatchTimeRecorder_UpdateUnderflowDuration_Name:
       var params = reader.decodeStruct(WatchTimeRecorder_UpdateUnderflowDuration_Params);
       this.updateUnderflowDuration(params.totalCompletedCount, params.totalDuration);
-      return true;
-    case kWatchTimeRecorder_OnCurrentTimestampChanged_Name:
-      var params = reader.decodeStruct(WatchTimeRecorder_OnCurrentTimestampChanged_Params);
-      this.onCurrentTimestampChanged(params.lastTimestamp);
       return true;
     default:
       return false;
@@ -1205,10 +1126,6 @@
       case kWatchTimeRecorder_UpdateUnderflowDuration_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = WatchTimeRecorder_UpdateUnderflowDuration_Params;
-      break;
-      case kWatchTimeRecorder_OnCurrentTimestampChanged_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = WatchTimeRecorder_OnCurrentTimestampChanged_Params;
       break;
     }
     if (paramsClass === null)

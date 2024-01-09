@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -188,6 +189,51 @@ bool InstallationProgress::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+DeviceRequest::DeviceRequest()
+    : id(),
+      kind() {}
+
+DeviceRequest::DeviceRequest(
+    DeviceRequestId id_in,
+    DeviceRequestKind kind_in)
+    : id(std::move(id_in)),
+      kind(std::move(kind_in)) {}
+
+DeviceRequest::~DeviceRequest() = default;
+size_t DeviceRequest::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->id);
+  seed = mojo::internal::Hash(seed, this->kind);
+  return seed;
+}
+
+void DeviceRequest::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DeviceRequestId>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kind"), this->kind,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DeviceRequestKind>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DeviceRequest::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char UpdateObserver::Name_[] = "ash.firmware_update.mojom.UpdateObserver";
 
 UpdateObserver::IPCStableHashFunction UpdateObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -259,14 +305,17 @@ void UpdateObserverProxy::OnUpdateListChanged(
                         "<value of type std::vector<FirmwareUpdatePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateObserver_OnUpdateListChanged_Name, kFlags, 0, 0, nullptr);
@@ -347,16 +396,188 @@ bool UpdateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUpdateObserverValidationInfo[] = {
-    {&internal::UpdateObserver_OnUpdateListChanged_Params_Data::Validate,
+    { &internal::UpdateObserver_OnUpdateListChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
 bool UpdateObserverRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::firmware_update::mojom::UpdateObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kUpdateObserverValidationInfo);
+}
+
+const char DeviceRequestObserver::Name_[] = "ash.firmware_update.mojom.DeviceRequestObserver";
+
+DeviceRequestObserver::IPCStableHashFunction DeviceRequestObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kDeviceRequestObserver_OnDeviceRequest_Name: {
+      return &DeviceRequestObserver::OnDeviceRequest_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* DeviceRequestObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kDeviceRequestObserver_OnDeviceRequest_Name:
+            return "Receive ash::firmware_update::mojom::DeviceRequestObserver::OnDeviceRequest";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kDeviceRequestObserver_OnDeviceRequest_Name:
+            return "Receive reply ash::firmware_update::mojom::DeviceRequestObserver::OnDeviceRequest";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t DeviceRequestObserver::OnDeviceRequest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::firmware_update::mojom::DeviceRequestObserver::OnDeviceRequest");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+DeviceRequestObserverProxy::DeviceRequestObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void DeviceRequestObserverProxy::OnDeviceRequest(
+    DeviceRequestPtr in_request) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::firmware_update::mojom::DeviceRequestObserver::OnDeviceRequest", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("request"), in_request,
+                        "<value of type DeviceRequestPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDeviceRequestObserver_OnDeviceRequest_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::firmware_update::mojom::internal::DeviceRequestObserver_OnDeviceRequest_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->request)::BaseType> request_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::firmware_update::mojom::DeviceRequestDataView>(
+      in_request, request_fragment);
+  params->request.Set(
+      request_fragment.is_null() ? nullptr : request_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->request.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null request in DeviceRequestObserver.OnDeviceRequest request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DeviceRequestObserver::Name_);
+  message.set_method_name("OnDeviceRequest");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool DeviceRequestObserverStubDispatch::Accept(
+    DeviceRequestObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kDeviceRequestObserver_OnDeviceRequest_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DeviceRequestObserver_OnDeviceRequest_Params_Data* params =
+          reinterpret_cast<internal::DeviceRequestObserver_OnDeviceRequest_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DeviceRequestPtr p_request{};
+      DeviceRequestObserver_OnDeviceRequest_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRequest(&p_request))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DeviceRequestObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnDeviceRequest(
+std::move(p_request));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool DeviceRequestObserverStubDispatch::AcceptWithResponder(
+    DeviceRequestObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kDeviceRequestObserver_OnDeviceRequest_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kDeviceRequestObserverValidationInfo[] = {
+    { &internal::DeviceRequestObserver_OnDeviceRequest_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool DeviceRequestObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::firmware_update::mojom::DeviceRequestObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kDeviceRequestObserverValidationInfo);
 }
 
 const char UpdateProgressObserver::Name_[] = "ash.firmware_update.mojom.UpdateProgressObserver";
@@ -430,14 +651,17 @@ void UpdateProgressObserverProxy::OnStatusChanged(
                         "<value of type InstallationProgressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProgressObserver_OnStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -516,10 +740,10 @@ bool UpdateProgressObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUpdateProgressObserverValidationInfo[] = {
-    {&internal::UpdateProgressObserver_OnStatusChanged_Params_Data::Validate,
+    { &internal::UpdateProgressObserver_OnStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -671,14 +895,17 @@ void UpdateProviderProxy::ObservePeripheralUpdates(
                         "<value of type ::mojo::PendingRemote<UpdateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProvider_ObservePeripheralUpdates_Name, kFlags, 0, 0, nullptr);
@@ -714,14 +941,17 @@ void UpdateProviderProxy::PrepareForUpdate(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProvider_PrepareForUpdate_Name, kFlags, 0, 0, nullptr);
@@ -756,14 +986,17 @@ void UpdateProviderProxy::FetchInProgressUpdate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::firmware_update::mojom::UpdateProvider::FetchInProgressUpdate");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProvider_FetchInProgressUpdate_Name, kFlags, 0, 0, nullptr);
@@ -875,7 +1108,8 @@ void UpdateProvider_PrepareForUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProvider_PrepareForUpdate_Name, kFlags, 0, 0, nullptr);
@@ -994,7 +1228,8 @@ void UpdateProvider_FetchInProgressUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateProvider_FetchInProgressUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1139,14 +1374,14 @@ std::move(p_device_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUpdateProviderValidationInfo[] = {
-    {&internal::UpdateProvider_ObservePeripheralUpdates_Params_Data::Validate,
+    { &internal::UpdateProvider_ObservePeripheralUpdates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UpdateProvider_PrepareForUpdate_Params_Data::Validate,
+    { &internal::UpdateProvider_PrepareForUpdate_Params_Data::Validate,
      &internal::UpdateProvider_PrepareForUpdate_ResponseParams_Data::Validate},
-    {&internal::UpdateProvider_FetchInProgressUpdate_Params_Data::Validate,
+    { &internal::UpdateProvider_FetchInProgressUpdate_Params_Data::Validate,
      &internal::UpdateProvider_FetchInProgressUpdate_ResponseParams_Data::Validate},
 };
 
@@ -1167,8 +1402,11 @@ InstallController::IPCStableHashFunction InstallController::MessageToMethodInfo_
     case internal::kInstallController_BeginUpdate_Name: {
       return &InstallController::BeginUpdate_Sym::IPCStableHash;
     }
-    case internal::kInstallController_AddObserver_Name: {
-      return &InstallController::AddObserver_Sym::IPCStableHash;
+    case internal::kInstallController_AddDeviceRequestObserver_Name: {
+      return &InstallController::AddDeviceRequestObserver_Sym::IPCStableHash;
+    }
+    case internal::kInstallController_AddUpdateProgressObserver_Name: {
+      return &InstallController::AddUpdateProgressObserver_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -1183,15 +1421,19 @@ const char* InstallController::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kInstallController_BeginUpdate_Name:
             return "Receive ash::firmware_update::mojom::InstallController::BeginUpdate";
-      case internal::kInstallController_AddObserver_Name:
-            return "Receive ash::firmware_update::mojom::InstallController::AddObserver";
+      case internal::kInstallController_AddDeviceRequestObserver_Name:
+            return "Receive ash::firmware_update::mojom::InstallController::AddDeviceRequestObserver";
+      case internal::kInstallController_AddUpdateProgressObserver_Name:
+            return "Receive ash::firmware_update::mojom::InstallController::AddUpdateProgressObserver";
     }
   } else {
     switch (message.name()) {
       case internal::kInstallController_BeginUpdate_Name:
             return "Receive reply ash::firmware_update::mojom::InstallController::BeginUpdate";
-      case internal::kInstallController_AddObserver_Name:
-            return "Receive reply ash::firmware_update::mojom::InstallController::AddObserver";
+      case internal::kInstallController_AddDeviceRequestObserver_Name:
+            return "Receive reply ash::firmware_update::mojom::InstallController::AddDeviceRequestObserver";
+      case internal::kInstallController_AddUpdateProgressObserver_Name:
+            return "Receive reply ash::firmware_update::mojom::InstallController::AddUpdateProgressObserver";
     }
   }
   return "Receive unknown mojo message";
@@ -1219,7 +1461,7 @@ uint32_t InstallController::BeginUpdate_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t InstallController::AddObserver_Sym::IPCStableHash() {
+uint32_t InstallController::AddDeviceRequestObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1227,7 +1469,20 @@ uint32_t InstallController::AddObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::firmware_update::mojom::InstallController::AddObserver");
+          "(Impl)ash::firmware_update::mojom::InstallController::AddDeviceRequestObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t InstallController::AddUpdateProgressObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::firmware_update::mojom::InstallController::AddUpdateProgressObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1253,14 +1508,17 @@ void InstallControllerProxy::BeginUpdate(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInstallController_BeginUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1300,11 +1558,57 @@ void InstallControllerProxy::BeginUpdate(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void InstallControllerProxy::AddObserver(
+void InstallControllerProxy::AddDeviceRequestObserver(
+    ::mojo::PendingRemote<DeviceRequestObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::firmware_update::mojom::InstallController::AddDeviceRequestObserver", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<DeviceRequestObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kInstallController_AddDeviceRequestObserver_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::firmware_update::mojom::internal::InstallController_AddDeviceRequestObserver_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::firmware_update::mojom::DeviceRequestObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in InstallController.AddDeviceRequestObserver request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(InstallController::Name_);
+  message.set_method_name("AddDeviceRequestObserver");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void InstallControllerProxy::AddUpdateProgressObserver(
     ::mojo::PendingRemote<UpdateProgressObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::firmware_update::mojom::InstallController::AddObserver", "input_parameters",
+    "mojom", "Send ash::firmware_update::mojom::InstallController::AddUpdateProgressObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1312,19 +1616,22 @@ void InstallControllerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<UpdateProgressObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kInstallController_AddObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kInstallController_AddUpdateProgressObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::firmware_update::mojom::internal::InstallController_AddObserver_Params_Data> params(
+      ::ash::firmware_update::mojom::internal::InstallController_AddUpdateProgressObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::firmware_update::mojom::UpdateProgressObserverInterfaceBase>>(
@@ -1332,11 +1639,11 @@ void InstallControllerProxy::AddObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in InstallController.AddObserver request");
+      "invalid observer in InstallController.AddUpdateProgressObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(InstallController::Name_);
-  message.set_method_name("AddObserver");
+  message.set_method_name("AddUpdateProgressObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1378,16 +1685,16 @@ std::move(p_device_id),
 std::move(p_filepath));
       return true;
     }
-    case internal::kInstallController_AddObserver_Name: {
+    case internal::kInstallController_AddDeviceRequestObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::InstallController_AddObserver_Params_Data* params =
-          reinterpret_cast<internal::InstallController_AddObserver_Params_Data*>(
+      internal::InstallController_AddDeviceRequestObserver_Params_Data* params =
+          reinterpret_cast<internal::InstallController_AddDeviceRequestObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<UpdateProgressObserver> p_observer{};
-      InstallController_AddObserver_ParamsDataView input_data_view(params, message);
+      ::mojo::PendingRemote<DeviceRequestObserver> p_observer{};
+      InstallController_AddDeviceRequestObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -1402,7 +1709,35 @@ std::move(p_filepath));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
+      impl->AddDeviceRequestObserver(
+std::move(p_observer));
+      return true;
+    }
+    case internal::kInstallController_AddUpdateProgressObserver_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::InstallController_AddUpdateProgressObserver_Params_Data* params =
+          reinterpret_cast<internal::InstallController_AddUpdateProgressObserver_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<UpdateProgressObserver> p_observer{};
+      InstallController_AddUpdateProgressObserver_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            InstallController::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AddUpdateProgressObserver(
 std::move(p_observer));
       return true;
     }
@@ -1422,18 +1757,23 @@ bool InstallControllerStubDispatch::AcceptWithResponder(
     case internal::kInstallController_BeginUpdate_Name: {
       break;
     }
-    case internal::kInstallController_AddObserver_Name: {
+    case internal::kInstallController_AddDeviceRequestObserver_Name: {
+      break;
+    }
+    case internal::kInstallController_AddUpdateProgressObserver_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInstallControllerValidationInfo[] = {
-    {&internal::InstallController_BeginUpdate_Params_Data::Validate,
+    { &internal::InstallController_BeginUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InstallController_AddObserver_Params_Data::Validate,
+    { &internal::InstallController_AddDeviceRequestObserver_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::InstallController_AddUpdateProgressObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1491,6 +1831,22 @@ bool StructTraits<::ash::firmware_update::mojom::InstallationProgress::DataView,
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::firmware_update::mojom::DeviceRequest::DataView, ::ash::firmware_update::mojom::DeviceRequestPtr>::Read(
+    ::ash::firmware_update::mojom::DeviceRequest::DataView input,
+    ::ash::firmware_update::mojom::DeviceRequestPtr* output) {
+  bool success = true;
+  ::ash::firmware_update::mojom::DeviceRequestPtr result(::ash::firmware_update::mojom::DeviceRequest::New());
+  
+      if (success && !input.ReadId(&result->id))
+        success = false;
+      if (success && !input.ReadKind(&result->kind))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -1508,6 +1864,17 @@ UpdateObserverAsyncWaiter::UpdateObserverAsyncWaiter(
     UpdateObserver* proxy) : proxy_(proxy) {}
 
 UpdateObserverAsyncWaiter::~UpdateObserverAsyncWaiter() = default;
+
+
+
+
+void DeviceRequestObserverInterceptorForTesting::OnDeviceRequest(DeviceRequestPtr request) {
+  GetForwardingInterface()->OnDeviceRequest(std::move(request));
+}
+DeviceRequestObserverAsyncWaiter::DeviceRequestObserverAsyncWaiter(
+    DeviceRequestObserver* proxy) : proxy_(proxy) {}
+
+DeviceRequestObserverAsyncWaiter::~DeviceRequestObserverAsyncWaiter() = default;
 
 
 
@@ -1589,8 +1956,11 @@ FirmwareUpdatePtr UpdateProviderAsyncWaiter::FetchInProgressUpdate(
 void InstallControllerInterceptorForTesting::BeginUpdate(const std::string& device_id, const ::base::FilePath& filepath) {
   GetForwardingInterface()->BeginUpdate(std::move(device_id), std::move(filepath));
 }
-void InstallControllerInterceptorForTesting::AddObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) {
-  GetForwardingInterface()->AddObserver(std::move(observer));
+void InstallControllerInterceptorForTesting::AddDeviceRequestObserver(::mojo::PendingRemote<DeviceRequestObserver> observer) {
+  GetForwardingInterface()->AddDeviceRequestObserver(std::move(observer));
+}
+void InstallControllerInterceptorForTesting::AddUpdateProgressObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) {
+  GetForwardingInterface()->AddUpdateProgressObserver(std::move(observer));
 }
 InstallControllerAsyncWaiter::InstallControllerAsyncWaiter(
     InstallController* proxy) : proxy_(proxy) {}

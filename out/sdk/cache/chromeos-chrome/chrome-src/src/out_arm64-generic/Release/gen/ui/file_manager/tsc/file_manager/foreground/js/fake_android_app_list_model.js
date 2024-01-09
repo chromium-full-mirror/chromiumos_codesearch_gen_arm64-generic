@@ -4,8 +4,8 @@
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 import { AndroidAppListModel } from './android_app_list_model.js';
 /**
- * @param {!Array<string>} appNames List app names to be added.
- * @returns {!AndroidAppListModel} fake for unittests.
+ * @param appNames List app names to be added.
+ * @return fake for unittests.
  */
 export function createFakeAndroidAppListModel(appNames) {
     /**
@@ -13,37 +13,34 @@ export function createFakeAndroidAppListModel(appNames) {
      */
     class FakeAndroidAppListModel extends EventTarget {
         /**
-         * @param {!Array<string>} appNames List app names to be added.
+         * @param appNames List app names to be added.
          */
         constructor(appNames) {
             super();
             this.apps_ = [];
-            for (let i = 0; i < appNames.length; i++) {
+            for (const appName of appNames) {
                 this.apps_.push({
-                    name: appNames[i],
+                    name: appName,
                     packageName: '',
                     activityName: '',
                 });
             }
         }
         /**
-         * @return {number} Number of picker apps.
+         * @return Number of picker apps.
          */
         length() {
             return this.apps_.length;
         }
         /**
-         * @param {number} index Index of the picker app to be retrieved.
-         * @return {chrome.fileManagerPrivate.AndroidApp} The value of the
+         * @param index Index of the picker app to be retrieved.
+         * @return The value of the
          *     |index|-th picker app.
          */
         item(index) {
-            // @ts-ignore: error TS2322: Type '{ name: string | undefined;
-            // packageName: string; activityName: string; } | undefined' is not
-            // assignable to type 'AndroidApp'.
             return this.apps_[index];
         }
     }
-    const model = /** @type {!Object} */ (new FakeAndroidAppListModel(appNames));
-    return /** @type {!AndroidAppListModel} */ (model);
+    const model = new FakeAndroidAppListModel(appNames);
+    return model;
 }

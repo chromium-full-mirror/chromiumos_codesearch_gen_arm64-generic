@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -648,14 +649,17 @@ void BatteryChargeStatusObserverProxy::OnBatteryChargeStatusUpdated(
                         "<value of type BatteryChargeStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBatteryChargeStatusObserver_OnBatteryChargeStatusUpdated_Name, kFlags, 0, 0, nullptr);
@@ -734,10 +738,10 @@ bool BatteryChargeStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBatteryChargeStatusObserverValidationInfo[] = {
-    {&internal::BatteryChargeStatusObserver_OnBatteryChargeStatusUpdated_Params_Data::Validate,
+    { &internal::BatteryChargeStatusObserver_OnBatteryChargeStatusUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -817,14 +821,17 @@ void BatteryHealthObserverProxy::OnBatteryHealthUpdated(
                         "<value of type BatteryHealthPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBatteryHealthObserver_OnBatteryHealthUpdated_Name, kFlags, 0, 0, nullptr);
@@ -903,10 +910,10 @@ bool BatteryHealthObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBatteryHealthObserverValidationInfo[] = {
-    {&internal::BatteryHealthObserver_OnBatteryHealthUpdated_Params_Data::Validate,
+    { &internal::BatteryHealthObserver_OnBatteryHealthUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -986,14 +993,17 @@ void MemoryUsageObserverProxy::OnMemoryUsageUpdated(
                         "<value of type MemoryUsagePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMemoryUsageObserver_OnMemoryUsageUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1072,10 +1082,10 @@ bool MemoryUsageObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMemoryUsageObserverValidationInfo[] = {
-    {&internal::MemoryUsageObserver_OnMemoryUsageUpdated_Params_Data::Validate,
+    { &internal::MemoryUsageObserver_OnMemoryUsageUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1155,14 +1165,17 @@ void CpuUsageObserverProxy::OnCpuUsageUpdated(
                         "<value of type CpuUsagePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCpuUsageObserver_OnCpuUsageUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1241,10 +1254,10 @@ bool CpuUsageObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCpuUsageObserverValidationInfo[] = {
-    {&internal::CpuUsageObserver_OnCpuUsageUpdated_Params_Data::Validate,
+    { &internal::CpuUsageObserver_OnCpuUsageUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1449,14 +1462,17 @@ void SystemDataProviderProxy::GetSystemInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::SystemDataProvider::GetSystemInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_GetSystemInfo_Name, kFlags, 0, 0, nullptr);
@@ -1480,14 +1496,17 @@ void SystemDataProviderProxy::GetBatteryInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::SystemDataProvider::GetBatteryInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_GetBatteryInfo_Name, kFlags, 0, 0, nullptr);
@@ -1518,14 +1537,17 @@ void SystemDataProviderProxy::ObserveBatteryChargeStatus(
                         "<value of type ::mojo::PendingRemote<BatteryChargeStatusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_ObserveBatteryChargeStatus_Name, kFlags, 0, 0, nullptr);
@@ -1561,14 +1583,17 @@ void SystemDataProviderProxy::ObserveBatteryHealth(
                         "<value of type ::mojo::PendingRemote<BatteryHealthObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_ObserveBatteryHealth_Name, kFlags, 0, 0, nullptr);
@@ -1604,14 +1629,17 @@ void SystemDataProviderProxy::ObserveMemoryUsage(
                         "<value of type ::mojo::PendingRemote<MemoryUsageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_ObserveMemoryUsage_Name, kFlags, 0, 0, nullptr);
@@ -1647,14 +1675,17 @@ void SystemDataProviderProxy::ObserveCpuUsage(
                         "<value of type ::mojo::PendingRemote<CpuUsageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_ObserveCpuUsage_Name, kFlags, 0, 0, nullptr);
@@ -1769,7 +1800,8 @@ void SystemDataProvider_GetSystemInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_GetSystemInfo_Name, kFlags, 0, 0, nullptr);
@@ -1897,7 +1929,8 @@ void SystemDataProvider_GetBatteryInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemDataProvider_GetBatteryInfo_Name, kFlags, 0, 0, nullptr);
@@ -2135,20 +2168,20 @@ bool SystemDataProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSystemDataProviderValidationInfo[] = {
-    {&internal::SystemDataProvider_GetSystemInfo_Params_Data::Validate,
+    { &internal::SystemDataProvider_GetSystemInfo_Params_Data::Validate,
      &internal::SystemDataProvider_GetSystemInfo_ResponseParams_Data::Validate},
-    {&internal::SystemDataProvider_GetBatteryInfo_Params_Data::Validate,
+    { &internal::SystemDataProvider_GetBatteryInfo_Params_Data::Validate,
      &internal::SystemDataProvider_GetBatteryInfo_ResponseParams_Data::Validate},
-    {&internal::SystemDataProvider_ObserveBatteryChargeStatus_Params_Data::Validate,
+    { &internal::SystemDataProvider_ObserveBatteryChargeStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SystemDataProvider_ObserveBatteryHealth_Params_Data::Validate,
+    { &internal::SystemDataProvider_ObserveBatteryHealth_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SystemDataProvider_ObserveMemoryUsage_Params_Data::Validate,
+    { &internal::SystemDataProvider_ObserveMemoryUsage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SystemDataProvider_ObserveCpuUsage_Params_Data::Validate,
+    { &internal::SystemDataProvider_ObserveCpuUsage_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/isolation_info.mojom-features.h"
 #include "services/network/public/mojom/isolation_info.mojom-shared.h"
 #include "services/network/public/mojom/isolation_info.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -42,18 +43,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::IsolationInfoRequestType>
-    : EnumHashTraits<::network::mojom::IsolationInfoRequestType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -95,7 +84,7 @@ class BLINK_PLATFORM_EXPORT IsolationInfo {
       IsolationInfoRequestType request_type,
       const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin,
       const ::scoped_refptr<const ::blink::SecurityOrigin>& frame_origin,
-      const absl::optional<::base::UnguessableToken>& nonce,
+      const std::optional<::base::UnguessableToken>& nonce,
       const ::net::SiteForCookies& site_for_cookies);
 
 
@@ -180,7 +169,7 @@ class BLINK_PLATFORM_EXPORT IsolationInfo {
   
   ::scoped_refptr<const ::blink::SecurityOrigin> frame_origin;
   
-  absl::optional<::base::UnguessableToken> nonce;
+  std::optional<::base::UnguessableToken> nonce;
   
   ::net::SiteForCookies site_for_cookies;
 

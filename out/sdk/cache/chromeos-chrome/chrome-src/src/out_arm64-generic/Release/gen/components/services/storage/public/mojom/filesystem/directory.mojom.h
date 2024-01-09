@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/public/mojom/filesystem/directory.mojom-features.h"
 #include "components/services/storage/public/mojom/filesystem/directory.mojom-shared.h"
 #include "components/services/storage/public/mojom/filesystem/directory.mojom-forward.h"
-#include "mojo/public/mojom/base/big_string.mojom.h"
+#include "mojo/public/mojom/base/big_string.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/file_error.mojom.h"
 #include "mojo/public/mojom/base/file_info.mojom.h"
@@ -129,10 +130,7 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
     7, 
     8, 
     9, 
-    10, 
-    11, 
-    12, 
-    13
+    10
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -149,13 +147,10 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
     kPathExistsMinVersion = 0,
     kGetEntriesMinVersion = 0,
     kOpenFileMinVersion = 0,
-    kWriteFileAtomicallyMinVersion = 0,
     kCreateDirectoryMinVersion = 0,
     kDeleteFileMinVersion = 0,
-    kDeletePathRecursivelyMinVersion = 0,
     kGetFileInfoMinVersion = 0,
     kGetPathAccessMinVersion = 0,
-    kGetMaximumPathComponentLengthMinVersion = 0,
     kRenameFileMinVersion = 0,
     kLockFileMinVersion = 0,
     kSetOpenedFileLengthMinVersion = 0,
@@ -176,25 +171,16 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
   struct OpenFile_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct WriteFileAtomically_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct CreateDirectory_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct DeleteFile_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct DeletePathRecursively_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct GetFileInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetPathAccess_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetMaximumPathComponentLength_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RenameFile_Sym {
@@ -242,15 +228,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, bool* out_success);
-
-  using WriteFileAtomicallyCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, WriteFileAtomicallyCallback callback) = 0;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
   virtual bool CreateDirectory(const ::base::FilePath& path, ::base::File::Error* out_error);
 
   using CreateDirectoryCallback = base::OnceCallback<void(::base::File::Error)>;
@@ -269,18 +246,9 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool DeletePathRecursively(const ::base::FilePath& path, bool* out_success);
+  virtual bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info);
 
-  using DeletePathRecursivelyCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void DeletePathRecursively(const ::base::FilePath& path, DeletePathRecursivelyCallback callback) = 0;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info);
-
-  using GetFileInfoCallback = base::OnceCallback<void(const absl::optional<::base::File::Info>&)>;
+  using GetFileInfoCallback = base::OnceCallback<void(const std::optional<::base::File::Info>&)>;
   
   virtual void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) = 0;
 
@@ -292,15 +260,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) Directory
   using GetPathAccessCallback = base::OnceCallback<void(PathAccessInfoPtr)>;
   
   virtual void GetPathAccess(const ::base::FilePath& path, GetPathAccessCallback callback) = 0;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool GetMaximumPathComponentLength(const ::base::FilePath& path, bool* out_success, int32_t* out_length);
-
-  using GetMaximumPathComponentLengthCallback = base::OnceCallback<void(bool, int32_t)>;
-  
-  virtual void GetMaximumPathComponentLength(const ::base::FilePath& path, GetMaximumPathComponentLengthCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -370,10 +329,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) DirectoryProxy
   
   void OpenFile(const ::base::FilePath& path, FileOpenMode mode, FileReadAccess read_access, FileWriteAccess write_access, OpenFileCallback callback) final;
   
-  bool WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, bool* out_success) final;
-  
-  void WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, WriteFileAtomicallyCallback callback) final;
-  
   bool CreateDirectory(const ::base::FilePath& path, ::base::File::Error* out_error) final;
   
   void CreateDirectory(const ::base::FilePath& path, CreateDirectoryCallback callback) final;
@@ -382,21 +337,13 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) DirectoryProxy
   
   void DeleteFile(const ::base::FilePath& path, DeleteFileCallback callback) final;
   
-  bool DeletePathRecursively(const ::base::FilePath& path, bool* out_success) final;
-  
-  void DeletePathRecursively(const ::base::FilePath& path, DeletePathRecursivelyCallback callback) final;
-  
-  bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) final;
+  bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) final;
   
   void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) final;
   
   bool GetPathAccess(const ::base::FilePath& path, PathAccessInfoPtr* out_info) final;
   
   void GetPathAccess(const ::base::FilePath& path, GetPathAccessCallback callback) final;
-  
-  bool GetMaximumPathComponentLength(const ::base::FilePath& path, bool* out_success, int32_t* out_length) final;
-  
-  void GetMaximumPathComponentLength(const ::base::FilePath& path, GetMaximumPathComponentLengthCallback callback) final;
   
   bool RenameFile(const ::base::FilePath& old_path, const ::base::FilePath& new_path, ::base::File::Error* out_error) final;
   

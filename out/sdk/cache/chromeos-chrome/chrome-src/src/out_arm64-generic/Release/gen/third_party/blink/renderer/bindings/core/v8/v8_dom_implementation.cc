@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMImplementation>::value,
     "DOMImplementation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMImplementation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMImplementation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -104,7 +99,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(v8_receiver);
+DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -148,7 +143,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(v8_receiver);
+DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_qualified_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -180,8 +175,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMImplementation.createHTMLDocument");
 
 
 Document* return_value;
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(v8_receiver);
+DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 if (non_undefined_argument_length <= 0) {
@@ -190,10 +186,9 @@ break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_title;
 if (LIKELY(info[0]->IsString())) {
-  arg1_title.Init(info[0].As<v8::String>());
+  arg1_title.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMImplementation";
 const char* const property_name = "createHTMLDocument";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -218,8 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMImplementation.hasFeature");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(v8_receiver);
+DOMImplementation* blink_receiver = V8DOMImplementation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasFeature();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

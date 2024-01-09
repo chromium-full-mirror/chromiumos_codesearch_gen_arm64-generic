@@ -64,57 +64,6 @@
 
 
 
-  function DebugKey(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  DebugKey.prototype.initDefaults_ = function() {
-    this.value = 0;
-  };
-  DebugKey.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  DebugKey.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  DebugKey.encodedSize = codec.kStructHeaderSize + 8;
-
-  DebugKey.decode = function(decoder) {
-    var packed;
-    var val = new DebugKey();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.value =
-        decoder.decodeStruct(codec.Uint64);
-    return val;
-  };
-
-  DebugKey.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(DebugKey.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Uint64, val.value);
-  };
   function SuitableOrigin(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -613,23 +562,23 @@
     encoder.encodeStructPointer(time$.TimeDelta, val.startTime);
     encoder.encodeArrayPointer(new codec.PointerTo(time$.TimeDelta), val.endTimes);
   };
-  function TriggerConfig(values) {
+  function TriggerSpec(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TriggerConfig.prototype.initDefaults_ = function() {
-    this.triggerDataMatching = 0;
+  TriggerSpec.prototype.initDefaults_ = function() {
+    this.eventReportWindows = null;
   };
-  TriggerConfig.prototype.initFields_ = function(fields) {
+  TriggerSpec.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TriggerConfig.validate = function(messageValidator, offset) {
+  TriggerSpec.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -643,39 +592,97 @@
         return err;
 
 
-    // validate TriggerConfig.triggerDataMatching
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, trigger_data_matching$.TriggerDataMatching);
+    // validate TriggerSpec.eventReportWindows
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, EventReportWindows, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  TriggerConfig.encodedSize = codec.kStructHeaderSize + 8;
+  TriggerSpec.encodedSize = codec.kStructHeaderSize + 8;
 
-  TriggerConfig.decode = function(decoder) {
+  TriggerSpec.decode = function(decoder) {
     var packed;
-    var val = new TriggerConfig();
+    var val = new TriggerSpec();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.triggerDataMatching =
-        decoder.decodeStruct(new codec.Enum(trigger_data_matching$.TriggerDataMatching));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.eventReportWindows =
+        decoder.decodeStructPointer(EventReportWindows);
     return val;
   };
 
-  TriggerConfig.encode = function(encoder, val) {
+  TriggerSpec.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TriggerConfig.encodedSize);
+    encoder.writeUint32(TriggerSpec.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.triggerDataMatching);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStructPointer(EventReportWindows, val.eventReportWindows);
+  };
+  function TriggerSpecs(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  TriggerSpecs.prototype.initDefaults_ = function() {
+    this.specs = null;
+    this.triggerDataIndices = null;
+  };
+  TriggerSpecs.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  TriggerSpecs.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TriggerSpecs.specs
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(TriggerSpec), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TriggerSpecs.triggerDataIndices
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 8, false, codec.Uint32, codec.Uint8, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  TriggerSpecs.encodedSize = codec.kStructHeaderSize + 16;
+
+  TriggerSpecs.decode = function(decoder) {
+    var packed;
+    var val = new TriggerSpecs();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.specs =
+        decoder.decodeArrayPointer(new codec.PointerTo(TriggerSpec));
+    val.triggerDataIndices =
+        decoder.decodeMapPointer(codec.Uint32, codec.Uint8);
+    return val;
+  };
+
+  TriggerSpecs.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(TriggerSpecs.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(TriggerSpec), val.specs);
+    encoder.encodeMapPointer(codec.Uint32, codec.Uint8, val.triggerDataIndices);
   };
   function SourceRegistration(values) {
     this.initDefaults_();
@@ -690,12 +697,14 @@
     this.eventReportWindows = null;
     this.aggregatableReportWindow = null;
     this.maxEventLevelReports = 0;
+    this.debug_key_$flag = false;
     this.debugReporting = false;
     this.priority = 0;
-    this.debugKey = null;
+    this.debug_key_$value = 0;
     this.filterData = null;
     this.aggregationKeys = null;
-    this.triggerConfig = null;
+    this.triggerDataMatching = 0;
+    this.eventLevelEpsilon = 0;
   };
   SourceRegistration.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -711,7 +720,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 96}
+      {version: 0, numBytes: 104}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -745,10 +754,6 @@
 
 
 
-    // validate SourceRegistration.debugKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, DebugKey, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
     // validate SourceRegistration.filterData
@@ -764,15 +769,16 @@
 
 
 
-    // validate SourceRegistration.triggerConfig
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, TriggerConfig, false);
+    // validate SourceRegistration.triggerDataMatching
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 80, trigger_data_matching$.TriggerDataMatching);
     if (err !== validator.validationError.NONE)
         return err;
+
 
     return validator.validationError.NONE;
   };
 
-  SourceRegistration.encodedSize = codec.kStructHeaderSize + 88;
+  SourceRegistration.encodedSize = codec.kStructHeaderSize + 96;
 
   SourceRegistration.decode = function(decoder) {
     var packed;
@@ -792,20 +798,27 @@
     val.maxEventLevelReports =
         decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
-    val.debugReporting = (packed >> 0) & 1 ? true : false;
+    val.debug_key_$flag = (packed >> 0) & 1 ? true : false;
+    val.debugReporting = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     val.priority =
         decoder.decodeStruct(codec.Int64);
-    val.debugKey =
-        decoder.decodeStructPointer(DebugKey);
+    val.debug_key_$value =
+        decoder.decodeStruct(codec.Uint64);
     val.filterData =
         decoder.decodeStructPointer(FilterData);
     val.aggregationKeys =
         decoder.decodeStructPointer(AggregationKeys);
-    val.triggerConfig =
-        decoder.decodeStructPointer(TriggerConfig);
+    val.triggerDataMatching =
+        decoder.decodeStruct(new codec.Enum(trigger_data_matching$.TriggerDataMatching));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.eventLevelEpsilon =
+        decoder.decodeStruct(codec.Double);
     return val;
   };
 
@@ -820,67 +833,22 @@
     encoder.encodeStructPointer(time$.TimeDelta, val.aggregatableReportWindow);
     encoder.encodeStruct(codec.Int32, val.maxEventLevelReports);
     packed = 0;
-    packed |= (val.debugReporting & 1) << 0
+    packed |= (val.debug_key_$flag & 1) << 0
+    packed |= (val.debugReporting & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int64, val.priority);
-    encoder.encodeStructPointer(DebugKey, val.debugKey);
+    encoder.encodeStruct(codec.Uint64, val.debug_key_$value);
     encoder.encodeStructPointer(FilterData, val.filterData);
     encoder.encodeStructPointer(AggregationKeys, val.aggregationKeys);
-    encoder.encodeStructPointer(TriggerConfig, val.triggerConfig);
-  };
-  function TriggerDedupKey(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  TriggerDedupKey.prototype.initDefaults_ = function() {
-    this.value = 0;
-  };
-  TriggerDedupKey.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  TriggerDedupKey.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  TriggerDedupKey.encodedSize = codec.kStructHeaderSize + 8;
-
-  TriggerDedupKey.decode = function(decoder) {
-    var packed;
-    var val = new TriggerDedupKey();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.value =
-        decoder.decodeStruct(codec.Uint64);
-    return val;
-  };
-
-  TriggerDedupKey.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(TriggerDedupKey.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Uint64, val.value);
+    encoder.encodeStruct(codec.Int32, val.triggerDataMatching);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Double, val.eventLevelEpsilon);
   };
   function EventTriggerData(values) {
     this.initDefaults_();
@@ -891,7 +859,8 @@
   EventTriggerData.prototype.initDefaults_ = function() {
     this.data = 0;
     this.priority = 0;
-    this.dedupKey = null;
+    this.dedup_key_$flag = false;
+    this.dedup_key_$value = 0;
     this.filters = null;
   };
   EventTriggerData.prototype.initFields_ = function(fields) {
@@ -908,7 +877,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -917,21 +886,17 @@
 
 
 
-    // validate EventTriggerData.dedupKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, TriggerDedupKey, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
     // validate EventTriggerData.filters
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, FilterPair, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, FilterPair, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  EventTriggerData.encodedSize = codec.kStructHeaderSize + 32;
+  EventTriggerData.encodedSize = codec.kStructHeaderSize + 40;
 
   EventTriggerData.decode = function(decoder) {
     var packed;
@@ -942,8 +907,17 @@
         decoder.decodeStruct(codec.Uint64);
     val.priority =
         decoder.decodeStruct(codec.Int64);
-    val.dedupKey =
-        decoder.decodeStructPointer(TriggerDedupKey);
+    packed = decoder.readUint8();
+    val.dedup_key_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.dedup_key_$value =
+        decoder.decodeStruct(codec.Uint64);
     val.filters =
         decoder.decodeStructPointer(FilterPair);
     return val;
@@ -955,7 +929,17 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Uint64, val.data);
     encoder.encodeStruct(codec.Int64, val.priority);
-    encoder.encodeStructPointer(TriggerDedupKey, val.dedupKey);
+    packed = 0;
+    packed |= (val.dedup_key_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Uint64, val.dedup_key_$value);
     encoder.encodeStructPointer(FilterPair, val.filters);
   };
   function AggregatableDedupKey(values) {
@@ -965,7 +949,8 @@
 
 
   AggregatableDedupKey.prototype.initDefaults_ = function() {
-    this.dedupKey = null;
+    this.dedup_key_$flag = false;
+    this.dedup_key_$value = 0;
     this.filters = null;
   };
   AggregatableDedupKey.prototype.initFields_ = function(fields) {
@@ -982,36 +967,41 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate AggregatableDedupKey.dedupKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, TriggerDedupKey, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
     // validate AggregatableDedupKey.filters
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, FilterPair, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, FilterPair, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  AggregatableDedupKey.encodedSize = codec.kStructHeaderSize + 16;
+  AggregatableDedupKey.encodedSize = codec.kStructHeaderSize + 24;
 
   AggregatableDedupKey.decode = function(decoder) {
     var packed;
     var val = new AggregatableDedupKey();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.dedupKey =
-        decoder.decodeStructPointer(TriggerDedupKey);
+    packed = decoder.readUint8();
+    val.dedup_key_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.dedup_key_$value =
+        decoder.decodeStruct(codec.Uint64);
     val.filters =
         decoder.decodeStructPointer(FilterPair);
     return val;
@@ -1021,7 +1011,17 @@
     var packed;
     encoder.writeUint32(AggregatableDedupKey.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(TriggerDedupKey, val.dedupKey);
+    packed = 0;
+    packed |= (val.dedup_key_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Uint64, val.dedup_key_$value);
     encoder.encodeStructPointer(FilterPair, val.filters);
   };
   function TriggerRegistration(values) {
@@ -1035,11 +1035,13 @@
     this.filters = null;
     this.aggregatableTriggerData = null;
     this.aggregatableValues = null;
-    this.debugKey = null;
-    this.aggregatableDedupKeys = null;
+    this.debug_key_$flag = false;
     this.debugReporting = false;
     this.sourceRegistrationTimeConfig = 0;
+    this.debug_key_$value = 0;
+    this.aggregatableDedupKeys = null;
     this.aggregationCoordinatorOrigin = null;
+    this.triggerContextId = null;
   };
   TriggerRegistration.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1055,7 +1057,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 80}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1086,14 +1088,10 @@
         return err;
 
 
-    // validate TriggerRegistration.debugKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, DebugKey, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
     // validate TriggerRegistration.aggregatableDedupKeys
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, new codec.PointerTo(AggregatableDedupKey), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 8, new codec.PointerTo(AggregatableDedupKey), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1106,14 +1104,20 @@
 
 
     // validate TriggerRegistration.sourceRegistrationTimeConfig
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 52, source_registration_time_config$.SourceRegistrationTimeConfig);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 36, source_registration_time_config$.SourceRegistrationTimeConfig);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TriggerRegistration.triggerContextId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 64, true)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  TriggerRegistration.encodedSize = codec.kStructHeaderSize + 64;
+  TriggerRegistration.encodedSize = codec.kStructHeaderSize + 72;
 
   TriggerRegistration.decode = function(decoder) {
     var packed;
@@ -1128,19 +1132,22 @@
         decoder.decodeArrayPointer(new codec.PointerTo(AggregatableTriggerData));
     val.aggregatableValues =
         decoder.decodeMapPointer(codec.String, codec.Uint32);
-    val.debugKey =
-        decoder.decodeStructPointer(DebugKey);
-    val.aggregatableDedupKeys =
-        decoder.decodeArrayPointer(new codec.PointerTo(AggregatableDedupKey));
     packed = decoder.readUint8();
-    val.debugReporting = (packed >> 0) & 1 ? true : false;
+    val.debug_key_$flag = (packed >> 0) & 1 ? true : false;
+    val.debugReporting = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     val.sourceRegistrationTimeConfig =
         decoder.decodeStruct(new codec.Enum(source_registration_time_config$.SourceRegistrationTimeConfig));
+    val.debug_key_$value =
+        decoder.decodeStruct(codec.Uint64);
+    val.aggregatableDedupKeys =
+        decoder.decodeArrayPointer(new codec.PointerTo(AggregatableDedupKey));
     val.aggregationCoordinatorOrigin =
         decoder.decodeStructPointer(SuitableOrigin);
+    val.triggerContextId =
+        decoder.decodeStruct(codec.NullableString);
     return val;
   };
 
@@ -1152,16 +1159,18 @@
     encoder.encodeStructPointer(FilterPair, val.filters);
     encoder.encodeArrayPointer(new codec.PointerTo(AggregatableTriggerData), val.aggregatableTriggerData);
     encoder.encodeMapPointer(codec.String, codec.Uint32, val.aggregatableValues);
-    encoder.encodeStructPointer(DebugKey, val.debugKey);
-    encoder.encodeArrayPointer(new codec.PointerTo(AggregatableDedupKey), val.aggregatableDedupKeys);
     packed = 0;
-    packed |= (val.debugReporting & 1) << 0
+    packed |= (val.debug_key_$flag & 1) << 0
+    packed |= (val.debugReporting & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.sourceRegistrationTimeConfig);
+    encoder.encodeStruct(codec.Uint64, val.debug_key_$value);
+    encoder.encodeArrayPointer(new codec.PointerTo(AggregatableDedupKey), val.aggregatableDedupKeys);
     encoder.encodeStructPointer(SuitableOrigin, val.aggregationCoordinatorOrigin);
+    encoder.encodeStruct(codec.NullableString, val.triggerContextId);
   };
   function OsRegistrationItem(values) {
     this.initDefaults_();
@@ -1296,7 +1305,6 @@
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(OsRegistrationItem), val.items);
   };
-  exports.DebugKey = DebugKey;
   exports.SuitableOrigin = SuitableOrigin;
   exports.FilterData = FilterData;
   exports.FilterConfig = FilterConfig;
@@ -1305,9 +1313,9 @@
   exports.AggregatableTriggerData = AggregatableTriggerData;
   exports.DestinationSet = DestinationSet;
   exports.EventReportWindows = EventReportWindows;
-  exports.TriggerConfig = TriggerConfig;
+  exports.TriggerSpec = TriggerSpec;
+  exports.TriggerSpecs = TriggerSpecs;
   exports.SourceRegistration = SourceRegistration;
-  exports.TriggerDedupKey = TriggerDedupKey;
   exports.EventTriggerData = EventTriggerData;
   exports.AggregatableDedupKey = AggregatableDedupKey;
   exports.TriggerRegistration = TriggerRegistration;

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/desktop_capture.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,15 +38,15 @@ namespace desktop_capture {
 
 const char* ToString(DesktopCaptureSourceType enum_param) {
   switch (enum_param) {
-    case DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN:
+    case DesktopCaptureSourceType::kScreen:
       return "screen";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW:
+    case DesktopCaptureSourceType::kWindow:
       return "window";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_TAB:
+    case DesktopCaptureSourceType::kTab:
       return "tab";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_AUDIO:
+    case DesktopCaptureSourceType::kAudio:
       return "audio";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_NONE:
+    case DesktopCaptureSourceType::kNone:
       return "";
   }
   NOTREACHED();
@@ -54,14 +55,14 @@ const char* ToString(DesktopCaptureSourceType enum_param) {
 
 DesktopCaptureSourceType ParseDesktopCaptureSourceType(base::StringPiece enum_string) {
   if (enum_string == "screen")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN;
+    return DesktopCaptureSourceType::kScreen;
   if (enum_string == "window")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW;
+    return DesktopCaptureSourceType::kWindow;
   if (enum_string == "tab")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_TAB;
+    return DesktopCaptureSourceType::kTab;
   if (enum_string == "audio")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_AUDIO;
-  return DESKTOP_CAPTURE_SOURCE_TYPE_NONE;
+    return DesktopCaptureSourceType::kAudio;
+  return DesktopCaptureSourceType::kNone;
 }
 
 std::u16string GetDesktopCaptureSourceTypeParseError(base::StringPiece enum_string) {
@@ -71,11 +72,11 @@ std::u16string GetDesktopCaptureSourceTypeParseError(base::StringPiece enum_stri
 
 const char* ToString(SystemAudioPreferenceEnum enum_param) {
   switch (enum_param) {
-    case SYSTEM_AUDIO_PREFERENCE_ENUM_INCLUDE:
+    case SystemAudioPreferenceEnum::kInclude:
       return "include";
-    case SYSTEM_AUDIO_PREFERENCE_ENUM_EXCLUDE:
+    case SystemAudioPreferenceEnum::kExclude:
       return "exclude";
-    case SYSTEM_AUDIO_PREFERENCE_ENUM_NONE:
+    case SystemAudioPreferenceEnum::kNone:
       return "";
   }
   NOTREACHED();
@@ -84,10 +85,10 @@ const char* ToString(SystemAudioPreferenceEnum enum_param) {
 
 SystemAudioPreferenceEnum ParseSystemAudioPreferenceEnum(base::StringPiece enum_string) {
   if (enum_string == "include")
-    return SYSTEM_AUDIO_PREFERENCE_ENUM_INCLUDE;
+    return SystemAudioPreferenceEnum::kInclude;
   if (enum_string == "exclude")
-    return SYSTEM_AUDIO_PREFERENCE_ENUM_EXCLUDE;
-  return SYSTEM_AUDIO_PREFERENCE_ENUM_NONE;
+    return SystemAudioPreferenceEnum::kExclude;
+  return SystemAudioPreferenceEnum::kNone;
 }
 
 std::u16string GetSystemAudioPreferenceEnumParseError(base::StringPiece enum_string) {
@@ -97,11 +98,11 @@ std::u16string GetSystemAudioPreferenceEnumParseError(base::StringPiece enum_str
 
 const char* ToString(SelfCapturePreferenceEnum enum_param) {
   switch (enum_param) {
-    case SELF_CAPTURE_PREFERENCE_ENUM_INCLUDE:
+    case SelfCapturePreferenceEnum::kInclude:
       return "include";
-    case SELF_CAPTURE_PREFERENCE_ENUM_EXCLUDE:
+    case SelfCapturePreferenceEnum::kExclude:
       return "exclude";
-    case SELF_CAPTURE_PREFERENCE_ENUM_NONE:
+    case SelfCapturePreferenceEnum::kNone:
       return "";
   }
   NOTREACHED();
@@ -110,10 +111,10 @@ const char* ToString(SelfCapturePreferenceEnum enum_param) {
 
 SelfCapturePreferenceEnum ParseSelfCapturePreferenceEnum(base::StringPiece enum_string) {
   if (enum_string == "include")
-    return SELF_CAPTURE_PREFERENCE_ENUM_INCLUDE;
+    return SelfCapturePreferenceEnum::kInclude;
   if (enum_string == "exclude")
-    return SELF_CAPTURE_PREFERENCE_ENUM_EXCLUDE;
-  return SELF_CAPTURE_PREFERENCE_ENUM_NONE;
+    return SelfCapturePreferenceEnum::kExclude;
+  return SelfCapturePreferenceEnum::kNone;
 }
 
 std::u16string GetSelfCapturePreferenceEnumParseError(base::StringPiece enum_string) {
@@ -133,8 +134,8 @@ Params::Options::Options()
 self_browser_surface() {}
 
 Params::Options::~Options() = default;
-Params::Options::Options(Options&& rhs) = default;
-Params::Options& Params::Options::operator=(Options&& rhs) = default;
+Params::Options::Options(Options&& rhs) noexcept = default;
+Params::Options& Params::Options::operator=(Options&& rhs) noexcept = default;
 Params::Options Params::Options::Clone() const {
   Options out;
   out.system_audio = system_audio;
@@ -185,7 +186,7 @@ bool Params::Options::Populate(
     {
       auto temp = (*suppress_local_audio_playback_intended_value).GetIfBool();
       if (!temp.has_value()) {
-        out.suppress_local_audio_playback_intended = absl::nullopt;
+        out.suppress_local_audio_playback_intended = std::nullopt;
         return false;
       }
       out.suppress_local_audio_playback_intended = *temp;
@@ -205,21 +206,21 @@ bool Params::Options::Populate(
 }
 
 // static
-absl::optional<Params::Options> Params::Options::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Options> Params::Options::FromValue(const base::Value::Dict& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Options> Params::Options::FromValue(const base::Value& value) {
+std::optional<Params::Options> Params::Options::FromValue(const base::Value& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -227,13 +228,13 @@ absl::optional<Params::Options> Params::Options::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -242,18 +243,18 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& sources_value = args[0];
     {
       if (!sources_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         for (const auto& it : (sources_value).GetList()) {
           DesktopCaptureSourceType tmp;
           const std::string* desktop_capture_source_type_as_string = (it).GetIfString();
           if (!desktop_capture_source_type_as_string) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           tmp = ParseDesktopCaptureSourceType(*desktop_capture_source_type_as_string);
           if (tmp == DesktopCaptureSourceType()) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           params.sources.push_back(tmp);
         }
@@ -261,7 +262,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -269,12 +270,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_tab_value = args[1];
     {
       if (!target_tab_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         extensions::api::tabs::Tab temp;
         if (!extensions::api::tabs::Tab::Populate(target_tab_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.target_tab = std::move(temp);
       }
     }
@@ -285,12 +286,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[2];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Options temp;
         if (!Options::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -304,8 +305,8 @@ Results::Options::Options()
 : can_request_audio_track(false) {}
 
 Results::Options::~Options() = default;
-Results::Options::Options(Options&& rhs) = default;
-Results::Options& Results::Options::operator=(Options&& rhs) = default;
+Results::Options::Options(Options&& rhs) noexcept = default;
+Results::Options& Results::Options::operator=(Options&& rhs) noexcept = default;
 base::Value::Dict Results::Options::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -331,13 +332,13 @@ namespace CancelChooseDesktopMedia {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -347,13 +348,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = desktop_media_request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.desktop_media_request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

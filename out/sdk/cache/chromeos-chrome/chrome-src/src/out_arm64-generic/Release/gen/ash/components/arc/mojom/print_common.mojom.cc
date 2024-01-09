@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -299,7 +300,7 @@ PrintAttributes::PrintAttributes()
 
 PrintAttributes::PrintAttributes(
     PrintMediaSizePtr media_size_in,
-    const absl::optional<::gfx::Size>& resolution_in,
+    const std::optional<::gfx::Size>& resolution_in,
     PrintMarginsPtr min_margins_in,
     PrintColorMode color_mode_in,
     PrintDuplexMode duplex_mode_in)
@@ -327,7 +328,7 @@ void PrintAttributes::WriteIntoTrace(
     dict.AddItem(
       "resolution"), this->resolution,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -423,7 +424,7 @@ PrintJobRequest::PrintJobRequest()
 PrintJobRequest::PrintJobRequest(
     std::vector<int8_t> id_in,
     const std::string& label_in,
-    const absl::optional<std::string>& printer_id_in,
+    const std::optional<std::string>& printer_id_in,
     int64_t creation_time_in,
     int32_t copies_in,
     std::vector<::printing::PageRange> pages_in,
@@ -473,7 +474,7 @@ void PrintJobRequest::WriteIntoTrace(
     dict.AddItem(
       "printer_id"), this->printer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -666,9 +667,9 @@ PrinterInfo::PrinterInfo(
     const std::string& id_in,
     const std::string& name_in,
     PrinterStatus status_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& info_intent_in,
-    const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in)
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& info_intent_in,
+    const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in)
     : id(std::move(id_in)),
       name(std::move(name_in)),
       status(std::move(status_in)),
@@ -712,7 +713,7 @@ void PrinterInfo::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -721,7 +722,7 @@ void PrinterInfo::WriteIntoTrace(
     dict.AddItem(
       "info_intent"), this->info_intent,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -730,7 +731,7 @@ void PrinterInfo::WriteIntoTrace(
     dict.AddItem(
       "capabilities"), this->capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::printing::PrinterSemanticCapsAndDefaults>&>"
+      "<value of type const std::optional<::printing::PrinterSemanticCapsAndDefaults>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

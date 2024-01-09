@@ -60,11 +60,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Screen>::value,
     "Screen inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Screen::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Screen is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8Screen::InstallInterfaceTemplateFuncType V8Screen::install_interface_template_func_ = nullptr;

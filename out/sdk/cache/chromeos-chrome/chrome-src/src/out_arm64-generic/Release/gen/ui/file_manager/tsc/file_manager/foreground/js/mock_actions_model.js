@@ -4,15 +4,11 @@
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 export class MockActionModel extends EventTarget {
-    /**
-     * @param {string} title
-     * @param {Array<!Entry>} entries
-     */
-    constructor(title, entries) {
+    constructor(title, entries = [], actionsModel = null) {
         super();
         this.title = title;
         this.entries = entries;
-        this.actionsModel = null;
+        this.actionsModel = actionsModel;
     }
     getTitle() {
         return this.title;
@@ -23,14 +19,13 @@ export class MockActionModel extends EventTarget {
     }
 }
 export class MockActionsModel extends EventTarget {
-    // @ts-ignore: error TS7006: Parameter 'actions' implicitly has an 'any' type.
-    constructor(actions) {
+    constructor(actions_ = {}) {
         super();
-        this.actions_ = actions;
-        Object.keys(actions).forEach(function (key) {
-            // @ts-ignore: error TS2683: 'this' implicitly has type 'any' because it
-            // does not have a type annotation.
-            actions[key].actionsModel = this;
+        this.actions_ = actions_;
+        Object.keys(this.actions_).forEach((key) => {
+            if (this.actions_[key]) {
+                this.actions_[key].actionsModel = this;
+            }
         });
     }
     initialize() {

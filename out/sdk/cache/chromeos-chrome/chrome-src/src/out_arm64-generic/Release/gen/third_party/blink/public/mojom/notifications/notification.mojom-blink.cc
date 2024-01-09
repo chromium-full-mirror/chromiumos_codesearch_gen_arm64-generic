@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -149,14 +150,14 @@ NotificationData::NotificationData(
     const ::blink::KURL& image_in,
     const ::blink::KURL& icon_in,
     const ::blink::KURL& badge_in,
-    absl::optional<WTF::Vector<int32_t>> vibration_pattern_in,
+    std::optional<WTF::Vector<int32_t>> vibration_pattern_in,
     double timestamp_in,
     bool renotify_in,
     bool silent_in,
     bool require_interaction_in,
-    absl::optional<WTF::Vector<uint8_t>> data_in,
-    absl::optional<WTF::Vector<NotificationActionPtr>> actions_in,
-    absl::optional<::base::Time> show_trigger_timestamp_in,
+    std::optional<WTF::Vector<uint8_t>> data_in,
+    std::optional<WTF::Vector<NotificationActionPtr>> actions_in,
+    std::optional<::base::Time> show_trigger_timestamp_in,
     NotificationScenario scenario_in)
     : title(std::move(title_in)),
       direction(std::move(direction_in)),
@@ -257,7 +258,7 @@ void NotificationData::WriteIntoTrace(
     dict.AddItem(
       "vibration_pattern"), this->vibration_pattern,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<int32_t>>&>"
+      "<value of type const std::optional<WTF::Vector<int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -302,7 +303,7 @@ void NotificationData::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<uint8_t>>&>"
+      "<value of type const std::optional<WTF::Vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -311,7 +312,7 @@ void NotificationData::WriteIntoTrace(
     dict.AddItem(
       "actions"), this->actions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<WTF::Vector<NotificationActionPtr>>>"
+      "<value of type std::optional<WTF::Vector<NotificationActionPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -320,7 +321,7 @@ void NotificationData::WriteIntoTrace(
     dict.AddItem(
       "show_trigger_timestamp"), this->show_trigger_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -351,7 +352,7 @@ NotificationResources::NotificationResources(
     const ::SkBitmap& image_in,
     const ::SkBitmap& icon_in,
     const ::SkBitmap& badge_in,
-    absl::optional<WTF::Vector<::SkBitmap>> action_icons_in)
+    std::optional<WTF::Vector<::SkBitmap>> action_icons_in)
     : image(std::move(image_in)),
       icon(std::move(icon_in)),
       badge(std::move(badge_in)),
@@ -393,7 +394,7 @@ void NotificationResources::WriteIntoTrace(
     dict.AddItem(
       "action_icons"), this->action_icons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<::SkBitmap>>&>"
+      "<value of type const std::optional<WTF::Vector<::SkBitmap>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

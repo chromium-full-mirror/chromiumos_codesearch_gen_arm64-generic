@@ -1,18 +1,22 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared">#headers{display:flex;padding:10px 0}#headers .name{flex:3}#headers .shortcut,#headers .url,#headers .url-padded{flex:4}settings-search-engine-entry{border-top:var(--cr-separator-line)}:host([fixed-height]) #container{max-height:calc((var(--cr-section-min-height) + var(--cr-separator-height)) * 6)}.icon-placeholder{margin-inline-end:0;margin-inline-start:var(--cr-icon-button-margin-start);width:var(--cr-icon-ripple-size)}.cr-row{padding-inline-end:7px;padding-inline-start:0}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared">#headers{display:flex;padding:10px 0}#headers .additional-info-column-group{align-items:center;display:flex;flex:6}#headers .controls-group{flex:auto;margin-left:auto;display:flex;justify-content:end;align-items:center}#headers .name{flex:3}#headers .shortcut,#headers .url{flex:auto;margin-inline-end:40px}settings-search-engine-entry{border-top:var(--cr-separator-line)}:host([fixed-height]) #container{max-height:calc((var(--cr-section-min-height) + var(--cr-separator-height)) * 6)}.icon-placeholder{margin-inline-end:0;margin-inline-start:var(--cr-icon-button-margin-start);width:var(--cr-icon-ripple-size)}.cr-row{padding-inline-end:7px;padding-inline-start:0}</style>
     <div id="outer" class="list-frame" role="table">
       <div role="rowgroup">
         <div role="row" id="headers" class="column-header">
           <span class="name" role="columnheader">[[nameColumnHeader]]</span>
-          <span class="shortcut" role="columnheader" hidden="[[!showShortcut]]">
-            $i18n{searchEnginesShortcut}
+          <span class="additional-info-column-group">
+            <span class="shortcut" role="columnheader" hidden="[[!showShortcut]]">
+              $i18n{searchEnginesShortcut}
+            </span>
+            <span class="url" role="columnheader" hidden="[[!showQueryUrl]]">
+              $i18n{searchEnginesQueryURL}
+            </span>
+            <span class="controls-group">
+              <span class="icon-placeholder"></span>
+              <span class="icon-placeholder"></span>
+            </span>
           </span>
-          <span class="url-padded" role="columnheader" hidden="[[!showQueryUrl]]">
-            $i18n{searchEnginesQueryURL}
-          </span>
-          <span class="icon-placeholder"></span>
-          <span class="icon-placeholder"></span>
         </div>
       </div>
       <template is="dom-if" if="[[!collapseList]]">

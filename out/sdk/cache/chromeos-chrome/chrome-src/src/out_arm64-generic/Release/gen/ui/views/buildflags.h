@@ -7,5 +7,6 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_ENABLE_DESKTOP_AURA() (0)
+#define BUILDFLAG_INTERNAL_SUPPORTS_AX_TEXT_OFFSETS() (0)
 
 #endif  // UI_VIEWS_BUILDFLAGS_H_

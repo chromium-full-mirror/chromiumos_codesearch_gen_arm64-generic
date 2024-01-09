@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/first_party_sets.mojom-features.h"
 #include "services/network/public/mojom/first_party_sets.mojom-shared.h"
 #include "services/network/public/mojom/first_party_sets.mojom-forward.h"
 #include "mojo/public/mojom/base/version.mojom.h"
@@ -222,7 +223,7 @@ class  FirstPartySetEntry {
   FirstPartySetEntry(
       const ::net::SchemefulSite& primary,
       ::net::SiteType site_type,
-      const absl::optional<::net::FirstPartySetEntry::SiteIndex>& site_index);
+      const std::optional<::net::FirstPartySetEntry::SiteIndex>& site_index);
 
 
   ~FirstPartySetEntry();
@@ -304,7 +305,7 @@ class  FirstPartySetEntry {
   
   ::net::SiteType site_type;
   
-  absl::optional<::net::FirstPartySetEntry::SiteIndex> site_index;
+  std::optional<::net::FirstPartySetEntry::SiteIndex> site_index;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -366,8 +367,8 @@ class  FirstPartySetMetadata {
   FirstPartySetMetadata();
 
   FirstPartySetMetadata(
-      const absl::optional<::net::FirstPartySetEntry>& frame_entry,
-      const absl::optional<::net::FirstPartySetEntry>& top_frame_entry);
+      const std::optional<::net::FirstPartySetEntry>& frame_entry,
+      const std::optional<::net::FirstPartySetEntry>& top_frame_entry);
 
 
   ~FirstPartySetMetadata();
@@ -445,9 +446,9 @@ class  FirstPartySetMetadata {
   }
 
   
-  absl::optional<::net::FirstPartySetEntry> frame_entry;
+  std::optional<::net::FirstPartySetEntry> frame_entry;
   
-  absl::optional<::net::FirstPartySetEntry> top_frame_entry;
+  std::optional<::net::FirstPartySetEntry> top_frame_entry;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -509,7 +510,7 @@ class  FirstPartySetEntryOverride {
   FirstPartySetEntryOverride();
 
   explicit FirstPartySetEntryOverride(
-      const absl::optional<::net::FirstPartySetEntry>& entry);
+      const std::optional<::net::FirstPartySetEntry>& entry);
 
 
   ~FirstPartySetEntryOverride();
@@ -587,7 +588,7 @@ class  FirstPartySetEntryOverride {
   }
 
   
-  absl::optional<::net::FirstPartySetEntry> entry;
+  std::optional<::net::FirstPartySetEntry> entry;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -935,7 +936,8 @@ class  GlobalFirstPartySets {
       const ::base::Version& public_sets_version,
       const base::flat_map<::net::SchemefulSite, ::net::FirstPartySetEntry>& sets,
       const base::flat_map<::net::SchemefulSite, ::net::SchemefulSite>& aliases,
-      ::net::FirstPartySetsContextConfig manual_config);
+      ::net::FirstPartySetsContextConfig manual_config,
+      const base::flat_map<::net::SchemefulSite, ::net::SchemefulSite>& manual_aliases);
 
 GlobalFirstPartySets(const GlobalFirstPartySets&) = delete;
 GlobalFirstPartySets& operator=(const GlobalFirstPartySets&) = delete;
@@ -1022,6 +1024,8 @@ GlobalFirstPartySets& operator=(const GlobalFirstPartySets&) = delete;
   base::flat_map<::net::SchemefulSite, ::net::SchemefulSite> aliases;
   
   ::net::FirstPartySetsContextConfig manual_config;
+  
+  base::flat_map<::net::SchemefulSite, ::net::SchemefulSite> manual_aliases;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1218,7 +1222,8 @@ GlobalFirstPartySetsPtr GlobalFirstPartySets::Clone() const {
       mojo::Clone(public_sets_version),
       mojo::Clone(sets),
       mojo::Clone(aliases),
-      mojo::Clone(manual_config)
+      mojo::Clone(manual_config),
+      mojo::Clone(manual_aliases)
   );
 }
 
@@ -1231,6 +1236,8 @@ bool GlobalFirstPartySets::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->aliases, other_struct.aliases))
     return false;
   if (!mojo::Equals(this->manual_config, other_struct.manual_config))
+    return false;
+  if (!mojo::Equals(this->manual_aliases, other_struct.manual_aliases))
     return false;
   return true;
 }
@@ -1252,6 +1259,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.manual_config < rhs.manual_config)
     return true;
   if (rhs.manual_config < lhs.manual_config)
+    return false;
+  if (lhs.manual_aliases < rhs.manual_aliases)
+    return true;
+  if (rhs.manual_aliases < lhs.manual_aliases)
     return false;
   return false;
 }
@@ -1396,6 +1407,11 @@ struct  StructTraits<::network::mojom::GlobalFirstPartySets::DataView,
   static const decltype(::network::mojom::GlobalFirstPartySets::manual_config)& manual_config(
       const ::network::mojom::GlobalFirstPartySetsPtr& input) {
     return input->manual_config;
+  }
+
+  static const decltype(::network::mojom::GlobalFirstPartySets::manual_aliases)& manual_aliases(
+      const ::network::mojom::GlobalFirstPartySetsPtr& input) {
+    return input->manual_aliases;
   }
 
   static bool Read(::network::mojom::GlobalFirstPartySets::DataView input, ::network::mojom::GlobalFirstPartySetsPtr* output);

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,7 +55,9 @@ VirtualAuthenticatorOptions::VirtualAuthenticatorOptions()
       has_large_blob(),
       has_cred_blob(),
       has_min_pin_length(),
-      has_prf() {}
+      has_prf(),
+      default_backup_eligibility(),
+      default_backup_state() {}
 
 VirtualAuthenticatorOptions::VirtualAuthenticatorOptions(
     ::device::ProtocolVersion protocol_in,
@@ -67,7 +70,9 @@ VirtualAuthenticatorOptions::VirtualAuthenticatorOptions(
     bool has_large_blob_in,
     bool has_cred_blob_in,
     bool has_min_pin_length_in,
-    bool has_prf_in)
+    bool has_prf_in,
+    bool default_backup_eligibility_in,
+    bool default_backup_state_in)
     : protocol(std::move(protocol_in)),
       ctap2_version(std::move(ctap2_version_in)),
       transport(std::move(transport_in)),
@@ -78,7 +83,9 @@ VirtualAuthenticatorOptions::VirtualAuthenticatorOptions(
       has_large_blob(std::move(has_large_blob_in)),
       has_cred_blob(std::move(has_cred_blob_in)),
       has_min_pin_length(std::move(has_min_pin_length_in)),
-      has_prf(std::move(has_prf_in)) {}
+      has_prf(std::move(has_prf_in)),
+      default_backup_eligibility(std::move(default_backup_eligibility_in)),
+      default_backup_state(std::move(default_backup_state_in)) {}
 
 VirtualAuthenticatorOptions::~VirtualAuthenticatorOptions() = default;
 
@@ -178,6 +185,24 @@ void VirtualAuthenticatorOptions::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_prf"), this->has_prf,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "default_backup_eligibility"), this->default_backup_eligibility,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "default_backup_state"), this->default_backup_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -587,14 +612,17 @@ void VirtualAuthenticatorProxy::GetUniqueId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::VirtualAuthenticator::GetUniqueId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetUniqueId_Name, kFlags, 0, 0, nullptr);
@@ -625,14 +653,17 @@ void VirtualAuthenticatorProxy::AddRegistration(
                         "<value of type RegisteredKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_AddRegistration_Name, kFlags, 0, 0, nullptr);
@@ -667,14 +698,17 @@ void VirtualAuthenticatorProxy::GetRegistrations(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::VirtualAuthenticator::GetRegistrations");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -705,14 +739,17 @@ void VirtualAuthenticatorProxy::RemoveRegistration(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_RemoveRegistration_Name, kFlags, 0, 0, nullptr);
@@ -749,14 +786,17 @@ void VirtualAuthenticatorProxy::ClearRegistrations(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::VirtualAuthenticator::ClearRegistrations");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_ClearRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -787,14 +827,17 @@ void VirtualAuthenticatorProxy::GetLargeBlob(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetLargeBlob_Name, kFlags, 0, 0, nullptr);
@@ -841,14 +884,17 @@ void VirtualAuthenticatorProxy::SetLargeBlob(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_SetLargeBlob_Name, kFlags, 0, 0, nullptr);
@@ -905,14 +951,17 @@ void VirtualAuthenticatorProxy::SetUserVerified(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_SetUserVerified_Name, kFlags, 0, 0, nullptr);
@@ -1023,7 +1072,8 @@ void VirtualAuthenticator_GetUniqueId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetUniqueId_Name, kFlags, 0, 0, nullptr);
@@ -1151,7 +1201,8 @@ void VirtualAuthenticator_AddRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_AddRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1269,7 +1320,8 @@ void VirtualAuthenticator_GetRegistrations_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -1399,7 +1451,8 @@ void VirtualAuthenticator_RemoveRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_RemoveRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1506,7 +1559,8 @@ void VirtualAuthenticator_ClearRegistrations_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_ClearRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -1577,7 +1631,7 @@ class VirtualAuthenticator_GetLargeBlob_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<std::vector<uint8_t>>& in_blob);
+      const std::optional<std::vector<uint8_t>>& in_blob);
 };
 
 bool VirtualAuthenticator_GetLargeBlob_ForwardToCallback::Accept(
@@ -1590,7 +1644,7 @@ bool VirtualAuthenticator_GetLargeBlob_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<uint8_t>> p_blob{};
+  std::optional<std::vector<uint8_t>> p_blob{};
   VirtualAuthenticator_GetLargeBlob_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadBlob(&p_blob))
@@ -1609,7 +1663,7 @@ std::move(p_blob));
 }
 
 void VirtualAuthenticator_GetLargeBlob_ProxyToResponder::Run(
-    const absl::optional<std::vector<uint8_t>>& in_blob) {
+    const std::optional<std::vector<uint8_t>>& in_blob) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::test::mojom::VirtualAuthenticator::GetLargeBlob", "async_response_parameters",
@@ -1617,13 +1671,14 @@ void VirtualAuthenticator_GetLargeBlob_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("blob"), in_blob,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_GetLargeBlob_Name, kFlags, 0, 0, nullptr);
@@ -1749,7 +1804,8 @@ void VirtualAuthenticator_SetLargeBlob_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_SetLargeBlob_Name, kFlags, 0, 0, nullptr);
@@ -1856,7 +1912,8 @@ void VirtualAuthenticator_SetUserVerified_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticator_SetUserVerified_Name, kFlags, 0, 0, nullptr);
@@ -2151,24 +2208,24 @@ std::move(p_verified), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVirtualAuthenticatorValidationInfo[] = {
-    {&internal::VirtualAuthenticator_GetUniqueId_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_GetUniqueId_Params_Data::Validate,
      &internal::VirtualAuthenticator_GetUniqueId_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_AddRegistration_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_AddRegistration_Params_Data::Validate,
      &internal::VirtualAuthenticator_AddRegistration_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_GetRegistrations_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_GetRegistrations_Params_Data::Validate,
      &internal::VirtualAuthenticator_GetRegistrations_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_RemoveRegistration_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_RemoveRegistration_Params_Data::Validate,
      &internal::VirtualAuthenticator_RemoveRegistration_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_ClearRegistrations_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_ClearRegistrations_Params_Data::Validate,
      &internal::VirtualAuthenticator_ClearRegistrations_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_GetLargeBlob_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_GetLargeBlob_Params_Data::Validate,
      &internal::VirtualAuthenticator_GetLargeBlob_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_SetLargeBlob_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_SetLargeBlob_Params_Data::Validate,
      &internal::VirtualAuthenticator_SetLargeBlob_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticator_SetUserVerified_Params_Data::Validate,
+    { &internal::VirtualAuthenticator_SetUserVerified_Params_Data::Validate,
      &internal::VirtualAuthenticator_SetUserVerified_ResponseParams_Data::Validate},
 };
 
@@ -2376,14 +2433,17 @@ void VirtualAuthenticatorManagerProxy::CreateAuthenticator(
                         "<value of type VirtualAuthenticatorOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_CreateAuthenticator_Name, kFlags, 0, 0, nullptr);
@@ -2418,14 +2478,17 @@ void VirtualAuthenticatorManagerProxy::GetAuthenticators(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::VirtualAuthenticatorManager::GetAuthenticators");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_GetAuthenticators_Name, kFlags, 0, 0, nullptr);
@@ -2456,14 +2519,17 @@ void VirtualAuthenticatorManagerProxy::RemoveAuthenticator(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_RemoveAuthenticator_Name, kFlags, 0, 0, nullptr);
@@ -2498,14 +2564,17 @@ void VirtualAuthenticatorManagerProxy::ClearAuthenticators(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::VirtualAuthenticatorManager::ClearAuthenticators");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_ClearAuthenticators_Name, kFlags, 0, 0, nullptr);
@@ -2617,7 +2686,8 @@ void VirtualAuthenticatorManager_CreateAuthenticator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_CreateAuthenticator_Name, kFlags, 0, 0, nullptr);
@@ -2740,7 +2810,8 @@ void VirtualAuthenticatorManager_GetAuthenticators_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_GetAuthenticators_Name, kFlags, 0, 0, nullptr);
@@ -2870,7 +2941,8 @@ void VirtualAuthenticatorManager_RemoveAuthenticator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_RemoveAuthenticator_Name, kFlags, 0, 0, nullptr);
@@ -2977,7 +3049,8 @@ void VirtualAuthenticatorManager_ClearAuthenticators_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVirtualAuthenticatorManager_ClearAuthenticators_Name, kFlags, 0, 0, nullptr);
@@ -3144,16 +3217,16 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVirtualAuthenticatorManagerValidationInfo[] = {
-    {&internal::VirtualAuthenticatorManager_CreateAuthenticator_Params_Data::Validate,
+    { &internal::VirtualAuthenticatorManager_CreateAuthenticator_Params_Data::Validate,
      &internal::VirtualAuthenticatorManager_CreateAuthenticator_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticatorManager_GetAuthenticators_Params_Data::Validate,
+    { &internal::VirtualAuthenticatorManager_GetAuthenticators_Params_Data::Validate,
      &internal::VirtualAuthenticatorManager_GetAuthenticators_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticatorManager_RemoveAuthenticator_Params_Data::Validate,
+    { &internal::VirtualAuthenticatorManager_RemoveAuthenticator_Params_Data::Validate,
      &internal::VirtualAuthenticatorManager_RemoveAuthenticator_ResponseParams_Data::Validate},
-    {&internal::VirtualAuthenticatorManager_ClearAuthenticators_Params_Data::Validate,
+    { &internal::VirtualAuthenticatorManager_ClearAuthenticators_Params_Data::Validate,
      &internal::VirtualAuthenticatorManager_ClearAuthenticators_ResponseParams_Data::Validate},
 };
 
@@ -3203,6 +3276,10 @@ bool StructTraits<::blink::test::mojom::VirtualAuthenticatorOptions::DataView, :
         result->has_min_pin_length = input.has_min_pin_length();
       if (success)
         result->has_prf = input.has_prf();
+      if (success)
+        result->default_backup_eligibility = input.default_backup_eligibility();
+      if (success)
+        result->default_backup_state = input.default_backup_state();
   *output = std::move(result);
   return success;
 }
@@ -3373,14 +3450,14 @@ void VirtualAuthenticatorAsyncWaiter::ClearRegistrations(
 
 
 void VirtualAuthenticatorAsyncWaiter::GetLargeBlob(
-    const std::vector<uint8_t>& key_handle, absl::optional<std::vector<uint8_t>>* out_blob) {
+    const std::vector<uint8_t>& key_handle, std::optional<std::vector<uint8_t>>* out_blob) {
   base::RunLoop loop;
   proxy_->GetLargeBlob(std::move(key_handle),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<uint8_t>>* out_blob
+             std::optional<std::vector<uint8_t>>* out_blob
 ,
-             const absl::optional<std::vector<uint8_t>>& blob) {*out_blob = std::move(blob);
+             const std::optional<std::vector<uint8_t>>& blob) {*out_blob = std::move(blob);
             loop->Quit();
           },
           &loop,
@@ -3388,9 +3465,9 @@ void VirtualAuthenticatorAsyncWaiter::GetLargeBlob(
   loop.Run();
 }
 
-absl::optional<std::vector<uint8_t>> VirtualAuthenticatorAsyncWaiter::GetLargeBlob(
+std::optional<std::vector<uint8_t>> VirtualAuthenticatorAsyncWaiter::GetLargeBlob(
     const std::vector<uint8_t>& key_handle) {
-  absl::optional<std::vector<uint8_t>> async_wait_result;
+  std::optional<std::vector<uint8_t>> async_wait_result;
   GetLargeBlob(std::move(key_handle),&async_wait_result);
   return async_wait_result;
 }

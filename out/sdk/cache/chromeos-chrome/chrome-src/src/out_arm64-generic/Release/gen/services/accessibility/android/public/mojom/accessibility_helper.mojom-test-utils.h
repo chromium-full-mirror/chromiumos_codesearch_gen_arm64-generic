@@ -58,8 +58,8 @@ class  AccessibilityHelperInstanceAsyncWaiter {
       AccessibilityActionDataPtr action_data, bool* out_result);
   bool PerformAction(AccessibilityActionDataPtr action_data);
   void RefreshWithExtraData(
-      AccessibilityActionDataPtr refresh_data, absl::optional<::gfx::Rect>* out_text_location);
-  absl::optional<::gfx::Rect> RefreshWithExtraData(AccessibilityActionDataPtr refresh_data);
+      AccessibilityActionDataPtr refresh_data, std::optional<::gfx::Rect>* out_text_location);
+  std::optional<::gfx::Rect> RefreshWithExtraData(AccessibilityActionDataPtr refresh_data);
   void SetNativeChromeVoxArcSupportForFocusedWindow(
       bool enabled, SetNativeChromeVoxResponse* out_response);
   SetNativeChromeVoxResponse SetNativeChromeVoxArcSupportForFocusedWindow(bool enabled);

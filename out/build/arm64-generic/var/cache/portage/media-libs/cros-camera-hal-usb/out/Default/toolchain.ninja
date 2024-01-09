@@ -33,8 +33,7 @@ rule copy
   command = cp -af ${in} ${out}
   description = COPY ${in} ${out}
 
-build obj/camera/hal/usb/all.stamp: stamp obj/camera/hal/usb/install_usb_so.stamp ./lib/libcamera_hal.so ./image_processor_test
-subninja obj/camera/hal/usb/image_processor_test.ninja
+build obj/camera/hal/usb/all.stamp: stamp obj/camera/hal/usb/install_usb_so.stamp ./lib/libcamera_hal.so
 build obj/camera/hal/usb/install_usb_so.stamp: stamp ./lib/libcamera_hal.so
 subninja obj/camera/hal/usb/libcamera_hal.ninja
 build obj/common-mk/gn_root/root.stamp: stamp obj/camera/hal/usb/all.stamp

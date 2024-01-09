@@ -16,36 +16,36 @@ export var BatterySaverModeState;
 })(BatterySaverModeState || (BatterySaverModeState = {}));
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
-export var HighEfficiencyModeExceptionListAction;
-(function (HighEfficiencyModeExceptionListAction) {
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["ADD_MANUAL"] = 0] = "ADD_MANUAL";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["EDIT"] = 1] = "EDIT";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["REMOVE"] = 2] = "REMOVE";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["ADD_FROM_CURRENT"] = 3] = "ADD_FROM_CURRENT";
+export var MemorySaverModeExceptionListAction;
+(function (MemorySaverModeExceptionListAction) {
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["ADD_MANUAL"] = 0] = "ADD_MANUAL";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["EDIT"] = 1] = "EDIT";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["REMOVE"] = 2] = "REMOVE";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["ADD_FROM_CURRENT"] = 3] = "ADD_FROM_CURRENT";
     // Must be last.
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["COUNT"] = 4] = "COUNT";
-})(HighEfficiencyModeExceptionListAction || (HighEfficiencyModeExceptionListAction = {}));
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["COUNT"] = 4] = "COUNT";
+})(MemorySaverModeExceptionListAction || (MemorySaverModeExceptionListAction = {}));
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
-// This must be kept in sync with HighEfficiencyModeState in
+// This must be kept in sync with MemorySaverModeState in
 // components/performance_manager/public/user_tuning/prefs.h
-export var HighEfficiencyModeState;
-(function (HighEfficiencyModeState) {
-    HighEfficiencyModeState[HighEfficiencyModeState["DISABLED"] = 0] = "DISABLED";
-    HighEfficiencyModeState[HighEfficiencyModeState["ENABLED"] = 1] = "ENABLED";
-    HighEfficiencyModeState[HighEfficiencyModeState["ENABLED_ON_TIMER"] = 2] = "ENABLED_ON_TIMER";
+export var MemorySaverModeState;
+(function (MemorySaverModeState) {
+    MemorySaverModeState[MemorySaverModeState["DISABLED"] = 0] = "DISABLED";
+    MemorySaverModeState[MemorySaverModeState["ENABLED"] = 1] = "ENABLED";
+    MemorySaverModeState[MemorySaverModeState["ENABLED_ON_TIMER"] = 2] = "ENABLED_ON_TIMER";
     // Must be last.
-    HighEfficiencyModeState[HighEfficiencyModeState["COUNT"] = 3] = "COUNT";
-})(HighEfficiencyModeState || (HighEfficiencyModeState = {}));
+    MemorySaverModeState[MemorySaverModeState["COUNT"] = 3] = "COUNT";
+})(MemorySaverModeState || (MemorySaverModeState = {}));
 export class PerformanceMetricsProxyImpl {
     recordBatterySaverModeChanged(state) {
         chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.BatterySaver.SettingsChangeMode', state, BatterySaverModeState.COUNT);
     }
-    recordHighEfficiencyModeChanged(state) {
-        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.HighEfficiency.SettingsChangeMode2', state, HighEfficiencyModeState.COUNT);
+    recordMemorySaverModeChanged(state) {
+        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.MemorySaver.SettingsChangeMode', state, MemorySaverModeState.COUNT);
     }
     recordExceptionListAction(action) {
-        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.HighEfficiency.SettingsChangeExceptionList', action, HighEfficiencyModeExceptionListAction.COUNT);
+        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.MemorySaver.SettingsChangeExceptionList', action, MemorySaverModeExceptionListAction.COUNT);
     }
     static getInstance() {
         return instance || (instance = new PerformanceMetricsProxyImpl());

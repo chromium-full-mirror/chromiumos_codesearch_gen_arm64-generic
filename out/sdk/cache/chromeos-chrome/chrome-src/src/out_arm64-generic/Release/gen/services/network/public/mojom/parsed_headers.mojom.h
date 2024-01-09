@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/parsed_headers.mojom-features.h"
 #include "services/network/public/mojom/parsed_headers.mojom-shared.h"
 #include "services/network/public/mojom/parsed_headers.mojom-forward.h"
 #include "services/network/public/mojom/content_security_policy.mojom.h"
@@ -86,16 +87,16 @@ class  ParsedHeaders {
       const ::network::CrossOriginEmbedderPolicy& cross_origin_embedder_policy,
       const ::network::CrossOriginOpenerPolicy& cross_origin_opener_policy,
       OriginAgentClusterValue origin_agent_cluster,
-      absl::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch,
-      absl::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch,
+      std::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch,
+      std::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch,
       bool client_hints_ignored_due_to_clear_site_data_header,
       ::network::mojom::XFrameOptionsValue xfo,
       std::vector<::network::mojom::LinkHeaderPtr> link_headers,
       ::network::mojom::TimingAllowOriginPtr timing_allow_origin,
       std::vector<::network::mojom::LoadingMode> supports_loading_mode,
-      const absl::optional<base::flat_map<std::string, std::string>>& reporting_endpoints,
-      absl::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers,
-      absl::optional<std::vector<std::string>> content_language,
+      const std::optional<base::flat_map<std::string, std::string>>& reporting_endpoints,
+      std::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers,
+      std::optional<std::vector<std::string>> content_language,
       ::network::mojom::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error,
       bool observe_browsing_topics);
 
@@ -187,9 +188,9 @@ ParsedHeaders& operator=(const ParsedHeaders&) = delete;
   
   OriginAgentClusterValue origin_agent_cluster;
   
-  absl::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch;
+  std::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch;
   
-  absl::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch;
+  std::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch;
   
   bool client_hints_ignored_due_to_clear_site_data_header;
   
@@ -201,11 +202,11 @@ ParsedHeaders& operator=(const ParsedHeaders&) = delete;
   
   std::vector<::network::mojom::LoadingMode> supports_loading_mode;
   
-  absl::optional<base::flat_map<std::string, std::string>> reporting_endpoints;
+  std::optional<base::flat_map<std::string, std::string>> reporting_endpoints;
   
-  absl::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers;
+  std::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers;
   
-  absl::optional<std::vector<std::string>> content_language;
+  std::optional<std::vector<std::string>> content_language;
   
   ::network::mojom::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error;
   

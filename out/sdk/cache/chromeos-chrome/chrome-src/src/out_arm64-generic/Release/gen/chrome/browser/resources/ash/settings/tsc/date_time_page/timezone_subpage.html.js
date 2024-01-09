@@ -1,13 +1,17 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.block{display:block}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">.block{display:block}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
 <div class="settings-box block first">
   <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
     <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
     </controlled-radio-button>
     <settings-dropdown-menu id="timeZoneResolveMethodDropdown" pref="{{prefs.generated.resolve_timezone_by_geolocation_method_short}}" label="$i18n{selectTimeZoneResolveMethod}" disabled="[[!prefs.generated.resolve_timezone_by_geolocation_on_off.value]]" menu-options="[[getTimeZoneResolveMethodsList_(
-            prefs.generated.resolve_timezone_by_geolocation_method_short)]]" on-settings-control-change="onTimeZoneSelectionChanged_">
+            prefs.generated.resolve_timezone_by_geolocation_method_short)]]">
     </settings-dropdown-menu>
+    <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
+      <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="$i18n{timeZoneGeolocationWarningText}" on-link-clicked="openGeolocationDialog_">
+      </settings-privacy-hub-geolocation-warning-text>
+    </template>
     <controlled-radio-button id="timeZoneAutoDetectOff" name="false" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOff}" no-extension-indicator>
     </controlled-radio-button>
     <timezone-selector id="timezoneSelector" prefs="{{prefs}}" active-time-zone-display-name="{{activeTimeZoneDisplayName}}">
@@ -16,8 +20,8 @@ export function getTemplate() {
 </div>
 
 <template is="dom-if" if="[[showEnableSystemGeolocationDialog_]]" restamp>
-  <settings-system-geolocation-dialog id="geolocationDialog" on-close="onEnableSystemGeolocationDialogClosed_" prefs="{{prefs}}">
-  </settings-system-geolocation-dialog>
+  <settings-privacy-hub-geolocation-dialog id="geolocationDialog" on-close="onGeolocationDialogClose_" prefs="{{prefs}}">
+  </settings-privacy-hub-geolocation-dialog>
 </template>
 <!--_html_template_end_-->`;
 }

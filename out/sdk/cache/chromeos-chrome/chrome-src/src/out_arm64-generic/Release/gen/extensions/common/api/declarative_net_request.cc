@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/declarative_net_request.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -328,8 +329,8 @@ Ruleset::Ruleset()
 : enabled(false) {}
 
 Ruleset::~Ruleset() = default;
-Ruleset::Ruleset(Ruleset&& rhs) = default;
-Ruleset& Ruleset::operator=(Ruleset&& rhs) = default;
+Ruleset::Ruleset(Ruleset&& rhs) noexcept = default;
+Ruleset& Ruleset::operator=(Ruleset&& rhs) noexcept = default;
 Ruleset Ruleset::Clone() const {
   Ruleset out;
   out.id = id;
@@ -404,24 +405,6 @@ bool Ruleset::Populate(
 }
 
 // static
-std::unique_ptr<Ruleset> Ruleset::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Ruleset>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<Ruleset, std::u16string> Ruleset::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   Ruleset out;
@@ -463,8 +446,8 @@ QueryKeyValue::QueryKeyValue()
  {}
 
 QueryKeyValue::~QueryKeyValue() = default;
-QueryKeyValue::QueryKeyValue(QueryKeyValue&& rhs) = default;
-QueryKeyValue& QueryKeyValue::operator=(QueryKeyValue&& rhs) = default;
+QueryKeyValue::QueryKeyValue(QueryKeyValue&& rhs) noexcept = default;
+QueryKeyValue& QueryKeyValue::operator=(QueryKeyValue&& rhs) noexcept = default;
 QueryKeyValue QueryKeyValue::Clone() const {
   QueryKeyValue out;
   out.key = key;
@@ -515,7 +498,7 @@ bool QueryKeyValue::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'replaceOnly': expected replaceOnly, got " + UTF8ToUTF16(base::Value::GetTypeName((*replace_only_value).type()));
-        out.replace_only = absl::nullopt;
+        out.replace_only = std::nullopt;
         return false;
       }
       out.replace_only = *temp;
@@ -534,24 +517,6 @@ bool QueryKeyValue::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<QueryKeyValue> QueryKeyValue::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<QueryKeyValue>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -598,8 +563,8 @@ QueryTransform::QueryTransform()
  {}
 
 QueryTransform::~QueryTransform() = default;
-QueryTransform::QueryTransform(QueryTransform&& rhs) = default;
-QueryTransform& QueryTransform::operator=(QueryTransform&& rhs) = default;
+QueryTransform::QueryTransform(QueryTransform&& rhs) noexcept = default;
+QueryTransform& QueryTransform::operator=(QueryTransform&& rhs) noexcept = default;
 QueryTransform QueryTransform::Clone() const {
   QueryTransform out;
   out.remove_params = remove_params;
@@ -671,24 +636,6 @@ bool QueryTransform::Populate(
 }
 
 // static
-std::unique_ptr<QueryTransform> QueryTransform::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<QueryTransform>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<QueryTransform, std::u16string> QueryTransform::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   QueryTransform out;
@@ -732,8 +679,8 @@ URLTransform::URLTransform()
  {}
 
 URLTransform::~URLTransform() = default;
-URLTransform::URLTransform(URLTransform&& rhs) = default;
-URLTransform& URLTransform::operator=(URLTransform&& rhs) = default;
+URLTransform::URLTransform(URLTransform&& rhs) noexcept = default;
+URLTransform& URLTransform::operator=(URLTransform&& rhs) noexcept = default;
 URLTransform URLTransform::Clone() const {
   URLTransform out;
   out.scheme = scheme;
@@ -760,7 +707,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'scheme': expected scheme, got " + UTF8ToUTF16(base::Value::GetTypeName((*scheme_value).type()));
-        out.scheme = absl::nullopt;
+        out.scheme = std::nullopt;
         return false;
       }
       out.scheme = *temp;
@@ -774,7 +721,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'host': expected host, got " + UTF8ToUTF16(base::Value::GetTypeName((*host_value).type()));
-        out.host = absl::nullopt;
+        out.host = std::nullopt;
         return false;
       }
       out.host = *temp;
@@ -788,7 +735,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'port': expected port, got " + UTF8ToUTF16(base::Value::GetTypeName((*port_value).type()));
-        out.port = absl::nullopt;
+        out.port = std::nullopt;
         return false;
       }
       out.port = *temp;
@@ -802,7 +749,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'path': expected path, got " + UTF8ToUTF16(base::Value::GetTypeName((*path_value).type()));
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -816,7 +763,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'query': expected query, got " + UTF8ToUTF16(base::Value::GetTypeName((*query_value).type()));
-        out.query = absl::nullopt;
+        out.query = std::nullopt;
         return false;
       }
       out.query = *temp;
@@ -847,7 +794,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'fragment': expected fragment, got " + UTF8ToUTF16(base::Value::GetTypeName((*fragment_value).type()));
-        out.fragment = absl::nullopt;
+        out.fragment = std::nullopt;
         return false;
       }
       out.fragment = *temp;
@@ -861,7 +808,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'username': expected username, got " + UTF8ToUTF16(base::Value::GetTypeName((*username_value).type()));
-        out.username = absl::nullopt;
+        out.username = std::nullopt;
         return false;
       }
       out.username = *temp;
@@ -875,7 +822,7 @@ bool URLTransform::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'password': expected password, got " + UTF8ToUTF16(base::Value::GetTypeName((*password_value).type()));
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -894,24 +841,6 @@ bool URLTransform::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<URLTransform> URLTransform::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<URLTransform>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -986,8 +915,8 @@ Redirect::Redirect()
  {}
 
 Redirect::~Redirect() = default;
-Redirect::Redirect(Redirect&& rhs) = default;
-Redirect& Redirect::operator=(Redirect&& rhs) = default;
+Redirect::Redirect(Redirect&& rhs) noexcept = default;
+Redirect& Redirect::operator=(Redirect&& rhs) noexcept = default;
 Redirect Redirect::Clone() const {
   Redirect out;
   out.extension_path = extension_path;
@@ -1009,7 +938,7 @@ bool Redirect::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'extensionPath': expected extensionPath, got " + UTF8ToUTF16(base::Value::GetTypeName((*extension_path_value).type()));
-        out.extension_path = absl::nullopt;
+        out.extension_path = std::nullopt;
         return false;
       }
       out.extension_path = *temp;
@@ -1040,7 +969,7 @@ bool Redirect::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'url': expected url, got " + UTF8ToUTF16(base::Value::GetTypeName((*url_value).type()));
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -1054,7 +983,7 @@ bool Redirect::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'regexSubstitution': expected regexSubstitution, got " + UTF8ToUTF16(base::Value::GetTypeName((*regex_substitution_value).type()));
-        out.regex_substitution = absl::nullopt;
+        out.regex_substitution = std::nullopt;
         return false;
       }
       out.regex_substitution = *temp;
@@ -1073,24 +1002,6 @@ bool Redirect::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<Redirect> Redirect::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Redirect>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -1141,12 +1052,141 @@ base::Value::Dict Redirect::ToValue() const {
 }
 
 
+HeaderInfo::HeaderInfo()
+ {}
+
+HeaderInfo::~HeaderInfo() = default;
+HeaderInfo::HeaderInfo(HeaderInfo&& rhs) noexcept = default;
+HeaderInfo& HeaderInfo::operator=(HeaderInfo&& rhs) noexcept = default;
+HeaderInfo HeaderInfo::Clone() const {
+  HeaderInfo out;
+  out.header = header;
+  out.values = values;
+  out.excluded_values = excluded_values;
+  return out;
+}
+
+// static
+bool HeaderInfo::Populate(
+    const base::Value::Dict& dict, HeaderInfo& out, std::u16string& error) {
+  const base::Value* header_value = dict.Find("header");
+  if (!header_value) {
+    DCHECK(error.empty());
+    error = u"'header' is required";
+    return false;
+  }
+  {
+    auto* temp = (*header_value).GetIfString();
+    if (!temp) {
+      DCHECK(error.empty());
+      error = u"'header': expected header, got " + UTF8ToUTF16(base::Value::GetTypeName((*header_value).type()));
+      return false;
+    }
+    out.header = *temp;
+  }
+
+  const base::Value* values_value = dict.Find("values");
+  if (values_value) {
+    {
+      if (!(*values_value).is_list()) {
+        DCHECK(error.empty());
+        error = u"'values': expected list, got " + UTF8ToUTF16(base::Value::GetTypeName((*values_value).type()));
+        return false;
+      }
+      else {
+        std::u16string array_parse_error;
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*values_value).GetList(), out.values, array_parse_error)) {
+          array_parse_error = u"Error at key 'values': " + array_parse_error;
+          DCHECK(error.empty());
+          error = array_parse_error;
+          return false;
+        }
+      }
+    }
+  }
+
+  const base::Value* excluded_values_value = dict.Find("excludedValues");
+  if (excluded_values_value) {
+    {
+      if (!(*excluded_values_value).is_list()) {
+        DCHECK(error.empty());
+        error = u"'excludedValues': expected list, got " + UTF8ToUTF16(base::Value::GetTypeName((*excluded_values_value).type()));
+        return false;
+      }
+      else {
+        std::u16string array_parse_error;
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*excluded_values_value).GetList(), out.excluded_values, array_parse_error)) {
+          array_parse_error = u"Error at key 'excludedValues': " + array_parse_error;
+          DCHECK(error.empty());
+          error = array_parse_error;
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+// static
+bool HeaderInfo::Populate(
+    const base::Value& value, HeaderInfo& out, std::u16string& error) {
+  if (!value.is_dict()) {
+    DCHECK(error.empty());
+    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
+    return false;
+  }
+  return Populate(value.GetDict(), out, error);
+}
+
+// static
+base::expected<HeaderInfo, std::u16string> HeaderInfo::FromValue(const base::Value::Dict& value) {
+  std::u16string error;
+  HeaderInfo out;
+  bool result = Populate(value, out, error);
+  if (!result) {
+    DCHECK(!error.empty());
+    return base::unexpected(std::move(error));
+  }
+  return out;
+}
+
+// static
+base::expected<HeaderInfo, std::u16string> HeaderInfo::FromValue(const base::Value& value) {
+  std::u16string error;
+  HeaderInfo out;
+  bool result = Populate(value, out, error);
+  if (!result) {
+    DCHECK(!error.empty());
+    return base::unexpected(std::move(error));
+  }
+  return out;
+}
+
+base::Value::Dict HeaderInfo::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("header", this->header);
+
+  if (this->values) {
+    to_value_result.Set("values", json_schema_compiler::util::CreateValueFromArray(*this->values));
+
+  }
+  if (this->excluded_values) {
+    to_value_result.Set("excludedValues", json_schema_compiler::util::CreateValueFromArray(*this->excluded_values));
+
+  }
+
+  return to_value_result;
+}
+
+
 RuleCondition::RuleCondition()
 : domain_type() {}
 
 RuleCondition::~RuleCondition() = default;
-RuleCondition::RuleCondition(RuleCondition&& rhs) = default;
-RuleCondition& RuleCondition::operator=(RuleCondition&& rhs) = default;
+RuleCondition::RuleCondition(RuleCondition&& rhs) noexcept = default;
+RuleCondition& RuleCondition::operator=(RuleCondition&& rhs) noexcept = default;
 RuleCondition RuleCondition::Clone() const {
   RuleCondition out;
   out.url_filter = url_filter;
@@ -1165,6 +1205,14 @@ RuleCondition RuleCondition::Clone() const {
   out.domain_type = domain_type;
   out.tab_ids = tab_ids;
   out.excluded_tab_ids = excluded_tab_ids;
+  if (response_headers) {
+    out.response_headers.emplace();
+    out.response_headers->reserve(response_headers->size());
+    for (const auto& element : *response_headers) {
+      json_schema_compiler::util::AppendToContainer(*out.response_headers, element.Clone());
+    }
+  }
+  out.excluded_response_headers = excluded_response_headers;
   return out;
 }
 
@@ -1179,7 +1227,7 @@ bool RuleCondition::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'urlFilter': expected urlFilter, got " + UTF8ToUTF16(base::Value::GetTypeName((*url_filter_value).type()));
-        out.url_filter = absl::nullopt;
+        out.url_filter = std::nullopt;
         return false;
       }
       out.url_filter = *temp;
@@ -1193,7 +1241,7 @@ bool RuleCondition::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'regexFilter': expected regexFilter, got " + UTF8ToUTF16(base::Value::GetTypeName((*regex_filter_value).type()));
-        out.regex_filter = absl::nullopt;
+        out.regex_filter = std::nullopt;
         return false;
       }
       out.regex_filter = *temp;
@@ -1207,7 +1255,7 @@ bool RuleCondition::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'isUrlFilterCaseSensitive': expected isUrlFilterCaseSensitive, got " + UTF8ToUTF16(base::Value::GetTypeName((*is_url_filter_case_sensitive_value).type()));
-        out.is_url_filter_case_sensitive = absl::nullopt;
+        out.is_url_filter_case_sensitive = std::nullopt;
         return false;
       }
       out.is_url_filter_case_sensitive = *temp;
@@ -1514,6 +1562,46 @@ bool RuleCondition::Populate(
     }
   }
 
+  const base::Value* response_headers_value = dict.Find("responseHeaders");
+  if (response_headers_value) {
+    {
+      if (!(*response_headers_value).is_list()) {
+        DCHECK(error.empty());
+        error = u"'responseHeaders': expected list, got " + UTF8ToUTF16(base::Value::GetTypeName((*response_headers_value).type()));
+        return false;
+      }
+      else {
+        std::u16string array_parse_error;
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*response_headers_value).GetList(), out.response_headers, array_parse_error)) {
+          array_parse_error = u"Error at key 'responseHeaders': " + array_parse_error;
+          DCHECK(error.empty());
+          error = array_parse_error;
+          return false;
+        }
+      }
+    }
+  }
+
+  const base::Value* excluded_response_headers_value = dict.Find("excludedResponseHeaders");
+  if (excluded_response_headers_value) {
+    {
+      if (!(*excluded_response_headers_value).is_list()) {
+        DCHECK(error.empty());
+        error = u"'excludedResponseHeaders': expected list, got " + UTF8ToUTF16(base::Value::GetTypeName((*excluded_response_headers_value).type()));
+        return false;
+      }
+      else {
+        std::u16string array_parse_error;
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*excluded_response_headers_value).GetList(), out.excluded_response_headers, array_parse_error)) {
+          array_parse_error = u"Error at key 'excludedResponseHeaders': " + array_parse_error;
+          DCHECK(error.empty());
+          error = array_parse_error;
+          return false;
+        }
+      }
+    }
+  }
+
   return true;
 }
 
@@ -1526,24 +1614,6 @@ bool RuleCondition::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<RuleCondition> RuleCondition::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<RuleCondition>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -1661,6 +1731,14 @@ base::Value::Dict RuleCondition::ToValue() const {
     to_value_result.Set("excludedTabIds", json_schema_compiler::util::CreateValueFromArray(*this->excluded_tab_ids));
 
   }
+  if (this->response_headers) {
+    to_value_result.Set("responseHeaders", json_schema_compiler::util::CreateValueFromArray(*this->response_headers));
+
+  }
+  if (this->excluded_response_headers) {
+    to_value_result.Set("excludedResponseHeaders", json_schema_compiler::util::CreateValueFromArray(*this->excluded_response_headers));
+
+  }
 
   return to_value_result;
 }
@@ -1670,8 +1748,8 @@ ModifyHeaderInfo::ModifyHeaderInfo()
 : operation() {}
 
 ModifyHeaderInfo::~ModifyHeaderInfo() = default;
-ModifyHeaderInfo::ModifyHeaderInfo(ModifyHeaderInfo&& rhs) = default;
-ModifyHeaderInfo& ModifyHeaderInfo::operator=(ModifyHeaderInfo&& rhs) = default;
+ModifyHeaderInfo::ModifyHeaderInfo(ModifyHeaderInfo&& rhs) noexcept = default;
+ModifyHeaderInfo& ModifyHeaderInfo::operator=(ModifyHeaderInfo&& rhs) noexcept = default;
 ModifyHeaderInfo ModifyHeaderInfo::Clone() const {
   ModifyHeaderInfo out;
   out.header = header;
@@ -1727,7 +1805,7 @@ bool ModifyHeaderInfo::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'value': expected value, got " + UTF8ToUTF16(base::Value::GetTypeName((*value_value).type()));
-        out.value = absl::nullopt;
+        out.value = std::nullopt;
         return false;
       }
       out.value = *temp;
@@ -1746,24 +1824,6 @@ bool ModifyHeaderInfo::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<ModifyHeaderInfo> ModifyHeaderInfo::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ModifyHeaderInfo>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -1810,8 +1870,8 @@ RuleAction::RuleAction()
 : type() {}
 
 RuleAction::~RuleAction() = default;
-RuleAction::RuleAction(RuleAction&& rhs) = default;
-RuleAction& RuleAction::operator=(RuleAction&& rhs) = default;
+RuleAction::RuleAction(RuleAction&& rhs) noexcept = default;
+RuleAction& RuleAction::operator=(RuleAction&& rhs) noexcept = default;
 RuleAction RuleAction::Clone() const {
   RuleAction out;
   out.type = type;
@@ -1931,24 +1991,6 @@ bool RuleAction::Populate(
 }
 
 // static
-std::unique_ptr<RuleAction> RuleAction::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<RuleAction>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<RuleAction, std::u16string> RuleAction::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   RuleAction out;
@@ -1998,8 +2040,8 @@ Rule::Rule()
 : id(0) {}
 
 Rule::~Rule() = default;
-Rule::Rule(Rule&& rhs) = default;
-Rule& Rule::operator=(Rule&& rhs) = default;
+Rule::Rule(Rule&& rhs) noexcept = default;
+Rule& Rule::operator=(Rule&& rhs) noexcept = default;
 Rule Rule::Clone() const {
   Rule out;
   out.id = id;
@@ -2035,7 +2077,7 @@ bool Rule::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'priority': expected priority, got " + UTF8ToUTF16(base::Value::GetTypeName((*priority_value).type()));
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -2091,24 +2133,6 @@ bool Rule::Populate(
 }
 
 // static
-std::unique_ptr<Rule> Rule::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Rule>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<Rule, std::u16string> Rule::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   Rule out;
@@ -2154,8 +2178,8 @@ MatchedRule::MatchedRule()
 : rule_id(0) {}
 
 MatchedRule::~MatchedRule() = default;
-MatchedRule::MatchedRule(MatchedRule&& rhs) = default;
-MatchedRule& MatchedRule::operator=(MatchedRule&& rhs) = default;
+MatchedRule::MatchedRule(MatchedRule&& rhs) noexcept = default;
+MatchedRule& MatchedRule::operator=(MatchedRule&& rhs) noexcept = default;
 MatchedRule MatchedRule::Clone() const {
   MatchedRule out;
   out.rule_id = rule_id;
@@ -2213,24 +2237,6 @@ bool MatchedRule::Populate(
 }
 
 // static
-std::unique_ptr<MatchedRule> MatchedRule::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<MatchedRule>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<MatchedRule, std::u16string> MatchedRule::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   MatchedRule out;
@@ -2270,8 +2276,8 @@ GetRulesFilter::GetRulesFilter()
  {}
 
 GetRulesFilter::~GetRulesFilter() = default;
-GetRulesFilter::GetRulesFilter(GetRulesFilter&& rhs) = default;
-GetRulesFilter& GetRulesFilter::operator=(GetRulesFilter&& rhs) = default;
+GetRulesFilter::GetRulesFilter(GetRulesFilter&& rhs) noexcept = default;
+GetRulesFilter& GetRulesFilter::operator=(GetRulesFilter&& rhs) noexcept = default;
 GetRulesFilter GetRulesFilter::Clone() const {
   GetRulesFilter out;
   out.rule_ids = rule_ids;
@@ -2316,24 +2322,6 @@ bool GetRulesFilter::Populate(
 }
 
 // static
-std::unique_ptr<GetRulesFilter> GetRulesFilter::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<GetRulesFilter>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<GetRulesFilter, std::u16string> GetRulesFilter::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   GetRulesFilter out;
@@ -2374,8 +2362,8 @@ MatchedRuleInfo::MatchedRuleInfo()
 tab_id(0) {}
 
 MatchedRuleInfo::~MatchedRuleInfo() = default;
-MatchedRuleInfo::MatchedRuleInfo(MatchedRuleInfo&& rhs) = default;
-MatchedRuleInfo& MatchedRuleInfo::operator=(MatchedRuleInfo&& rhs) = default;
+MatchedRuleInfo::MatchedRuleInfo(MatchedRuleInfo&& rhs) noexcept = default;
+MatchedRuleInfo& MatchedRuleInfo::operator=(MatchedRuleInfo&& rhs) noexcept = default;
 MatchedRuleInfo MatchedRuleInfo::Clone() const {
   MatchedRuleInfo out;
   out.rule = rule.Clone();
@@ -2451,24 +2439,6 @@ bool MatchedRuleInfo::Populate(
 }
 
 // static
-std::unique_ptr<MatchedRuleInfo> MatchedRuleInfo::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<MatchedRuleInfo>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<MatchedRuleInfo, std::u16string> MatchedRuleInfo::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   MatchedRuleInfo out;
@@ -2510,8 +2480,8 @@ MatchedRulesFilter::MatchedRulesFilter()
  {}
 
 MatchedRulesFilter::~MatchedRulesFilter() = default;
-MatchedRulesFilter::MatchedRulesFilter(MatchedRulesFilter&& rhs) = default;
-MatchedRulesFilter& MatchedRulesFilter::operator=(MatchedRulesFilter&& rhs) = default;
+MatchedRulesFilter::MatchedRulesFilter(MatchedRulesFilter&& rhs) noexcept = default;
+MatchedRulesFilter& MatchedRulesFilter::operator=(MatchedRulesFilter&& rhs) noexcept = default;
 MatchedRulesFilter MatchedRulesFilter::Clone() const {
   MatchedRulesFilter out;
   out.tab_id = tab_id;
@@ -2529,7 +2499,7 @@ bool MatchedRulesFilter::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'tabId': expected tabId, got " + UTF8ToUTF16(base::Value::GetTypeName((*tab_id_value).type()));
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -2543,7 +2513,7 @@ bool MatchedRulesFilter::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'minTimeStamp': expected minTimeStamp, got " + UTF8ToUTF16(base::Value::GetTypeName((*min_time_stamp_value).type()));
-        out.min_time_stamp = absl::nullopt;
+        out.min_time_stamp = std::nullopt;
         return false;
       }
       out.min_time_stamp = *temp;
@@ -2562,24 +2532,6 @@ bool MatchedRulesFilter::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<MatchedRulesFilter> MatchedRulesFilter::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<MatchedRulesFilter>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -2626,8 +2578,8 @@ RulesMatchedDetails::RulesMatchedDetails()
  {}
 
 RulesMatchedDetails::~RulesMatchedDetails() = default;
-RulesMatchedDetails::RulesMatchedDetails(RulesMatchedDetails&& rhs) = default;
-RulesMatchedDetails& RulesMatchedDetails::operator=(RulesMatchedDetails&& rhs) = default;
+RulesMatchedDetails::RulesMatchedDetails(RulesMatchedDetails&& rhs) noexcept = default;
+RulesMatchedDetails& RulesMatchedDetails::operator=(RulesMatchedDetails&& rhs) noexcept = default;
 RulesMatchedDetails RulesMatchedDetails::Clone() const {
   RulesMatchedDetails out;
   out.rules_matched_info.reserve(rules_matched_info.size());
@@ -2678,24 +2630,6 @@ bool RulesMatchedDetails::Populate(
 }
 
 // static
-std::unique_ptr<RulesMatchedDetails> RulesMatchedDetails::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<RulesMatchedDetails>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<RulesMatchedDetails, std::u16string> RulesMatchedDetails::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   RulesMatchedDetails out;
@@ -2738,8 +2672,8 @@ tab_id(0),
 type() {}
 
 RequestDetails::~RequestDetails() = default;
-RequestDetails::RequestDetails(RequestDetails&& rhs) = default;
-RequestDetails& RequestDetails::operator=(RequestDetails&& rhs) = default;
+RequestDetails::RequestDetails(RequestDetails&& rhs) noexcept = default;
+RequestDetails& RequestDetails::operator=(RequestDetails&& rhs) noexcept = default;
 RequestDetails RequestDetails::Clone() const {
   RequestDetails out;
   out.request_id = request_id;
@@ -2801,7 +2735,7 @@ bool RequestDetails::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'initiator': expected initiator, got " + UTF8ToUTF16(base::Value::GetTypeName((*initiator_value).type()));
-        out.initiator = absl::nullopt;
+        out.initiator = std::nullopt;
         return false;
       }
       out.initiator = *temp;
@@ -2847,7 +2781,7 @@ bool RequestDetails::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'documentId': expected documentId, got " + UTF8ToUTF16(base::Value::GetTypeName((*document_id_value).type()));
-        out.document_id = absl::nullopt;
+        out.document_id = std::nullopt;
         return false;
       }
       out.document_id = *temp;
@@ -2917,7 +2851,7 @@ bool RequestDetails::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'parentDocumentId': expected parentDocumentId, got " + UTF8ToUTF16(base::Value::GetTypeName((*parent_document_id_value).type()));
-        out.parent_document_id = absl::nullopt;
+        out.parent_document_id = std::nullopt;
         return false;
       }
       out.parent_document_id = *temp;
@@ -2973,24 +2907,6 @@ bool RequestDetails::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<RequestDetails> RequestDetails::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<RequestDetails>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -3064,8 +2980,8 @@ TestMatchRequestDetails::TestMatchRequestDetails()
 type() {}
 
 TestMatchRequestDetails::~TestMatchRequestDetails() = default;
-TestMatchRequestDetails::TestMatchRequestDetails(TestMatchRequestDetails&& rhs) = default;
-TestMatchRequestDetails& TestMatchRequestDetails::operator=(TestMatchRequestDetails&& rhs) = default;
+TestMatchRequestDetails::TestMatchRequestDetails(TestMatchRequestDetails&& rhs) noexcept = default;
+TestMatchRequestDetails& TestMatchRequestDetails::operator=(TestMatchRequestDetails&& rhs) noexcept = default;
 TestMatchRequestDetails TestMatchRequestDetails::Clone() const {
   TestMatchRequestDetails out;
   out.url = url;
@@ -3103,7 +3019,7 @@ bool TestMatchRequestDetails::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'initiator': expected initiator, got " + UTF8ToUTF16(base::Value::GetTypeName((*initiator_value).type()));
-        out.initiator = absl::nullopt;
+        out.initiator = std::nullopt;
         return false;
       }
       out.initiator = *temp;
@@ -3158,7 +3074,7 @@ bool TestMatchRequestDetails::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'tabId': expected tabId, got " + UTF8ToUTF16(base::Value::GetTypeName((*tab_id_value).type()));
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -3177,24 +3093,6 @@ bool TestMatchRequestDetails::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<TestMatchRequestDetails> TestMatchRequestDetails::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<TestMatchRequestDetails>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -3249,8 +3147,8 @@ MatchedRuleInfoDebug::MatchedRuleInfoDebug()
  {}
 
 MatchedRuleInfoDebug::~MatchedRuleInfoDebug() = default;
-MatchedRuleInfoDebug::MatchedRuleInfoDebug(MatchedRuleInfoDebug&& rhs) = default;
-MatchedRuleInfoDebug& MatchedRuleInfoDebug::operator=(MatchedRuleInfoDebug&& rhs) = default;
+MatchedRuleInfoDebug::MatchedRuleInfoDebug(MatchedRuleInfoDebug&& rhs) noexcept = default;
+MatchedRuleInfoDebug& MatchedRuleInfoDebug::operator=(MatchedRuleInfoDebug&& rhs) noexcept = default;
 MatchedRuleInfoDebug MatchedRuleInfoDebug::Clone() const {
   MatchedRuleInfoDebug out;
   out.rule = rule.Clone();
@@ -3310,24 +3208,6 @@ bool MatchedRuleInfoDebug::Populate(
 }
 
 // static
-std::unique_ptr<MatchedRuleInfoDebug> MatchedRuleInfoDebug::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<MatchedRuleInfoDebug>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<MatchedRuleInfoDebug, std::u16string> MatchedRuleInfoDebug::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   MatchedRuleInfoDebug out;
@@ -3367,8 +3247,8 @@ DNRInfo::DNRInfo()
  {}
 
 DNRInfo::~DNRInfo() = default;
-DNRInfo::DNRInfo(DNRInfo&& rhs) = default;
-DNRInfo& DNRInfo::operator=(DNRInfo&& rhs) = default;
+DNRInfo::DNRInfo(DNRInfo&& rhs) noexcept = default;
+DNRInfo& DNRInfo::operator=(DNRInfo&& rhs) noexcept = default;
 // static
 constexpr char DNRInfo::kRuleResources[];
 
@@ -3419,24 +3299,6 @@ bool DNRInfo::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<DNRInfo> DNRInfo::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<DNRInfo>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -3493,8 +3355,8 @@ RegexOptions::RegexOptions()
  {}
 
 RegexOptions::~RegexOptions() = default;
-RegexOptions::RegexOptions(RegexOptions&& rhs) = default;
-RegexOptions& RegexOptions::operator=(RegexOptions&& rhs) = default;
+RegexOptions::RegexOptions(RegexOptions&& rhs) noexcept = default;
+RegexOptions& RegexOptions::operator=(RegexOptions&& rhs) noexcept = default;
 RegexOptions RegexOptions::Clone() const {
   RegexOptions out;
   out.regex = regex;
@@ -3529,7 +3391,7 @@ bool RegexOptions::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'isCaseSensitive': expected isCaseSensitive, got " + UTF8ToUTF16(base::Value::GetTypeName((*is_case_sensitive_value).type()));
-        out.is_case_sensitive = absl::nullopt;
+        out.is_case_sensitive = std::nullopt;
         return false;
       }
       out.is_case_sensitive = *temp;
@@ -3543,7 +3405,7 @@ bool RegexOptions::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'requireCapturing': expected requireCapturing, got " + UTF8ToUTF16(base::Value::GetTypeName((*require_capturing_value).type()));
-        out.require_capturing = absl::nullopt;
+        out.require_capturing = std::nullopt;
         return false;
       }
       out.require_capturing = *temp;
@@ -3562,24 +3424,6 @@ bool RegexOptions::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<RegexOptions> RegexOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<RegexOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -3629,8 +3473,8 @@ IsRegexSupportedResult::IsRegexSupportedResult()
 reason() {}
 
 IsRegexSupportedResult::~IsRegexSupportedResult() = default;
-IsRegexSupportedResult::IsRegexSupportedResult(IsRegexSupportedResult&& rhs) = default;
-IsRegexSupportedResult& IsRegexSupportedResult::operator=(IsRegexSupportedResult&& rhs) = default;
+IsRegexSupportedResult::IsRegexSupportedResult(IsRegexSupportedResult&& rhs) noexcept = default;
+IsRegexSupportedResult& IsRegexSupportedResult::operator=(IsRegexSupportedResult&& rhs) noexcept = default;
 IsRegexSupportedResult IsRegexSupportedResult::Clone() const {
   IsRegexSupportedResult out;
   out.is_supported = is_supported;
@@ -3693,24 +3537,6 @@ bool IsRegexSupportedResult::Populate(
 }
 
 // static
-std::unique_ptr<IsRegexSupportedResult> IsRegexSupportedResult::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<IsRegexSupportedResult>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<IsRegexSupportedResult, std::u16string> IsRegexSupportedResult::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   IsRegexSupportedResult out;
@@ -3752,8 +3578,8 @@ TestMatchOutcomeResult::TestMatchOutcomeResult()
  {}
 
 TestMatchOutcomeResult::~TestMatchOutcomeResult() = default;
-TestMatchOutcomeResult::TestMatchOutcomeResult(TestMatchOutcomeResult&& rhs) = default;
-TestMatchOutcomeResult& TestMatchOutcomeResult::operator=(TestMatchOutcomeResult&& rhs) = default;
+TestMatchOutcomeResult::TestMatchOutcomeResult(TestMatchOutcomeResult&& rhs) noexcept = default;
+TestMatchOutcomeResult& TestMatchOutcomeResult::operator=(TestMatchOutcomeResult&& rhs) noexcept = default;
 TestMatchOutcomeResult TestMatchOutcomeResult::Clone() const {
   TestMatchOutcomeResult out;
   out.matched_rules.reserve(matched_rules.size());
@@ -3804,24 +3630,6 @@ bool TestMatchOutcomeResult::Populate(
 }
 
 // static
-std::unique_ptr<TestMatchOutcomeResult> TestMatchOutcomeResult::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<TestMatchOutcomeResult>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<TestMatchOutcomeResult, std::u16string> TestMatchOutcomeResult::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   TestMatchOutcomeResult out;
@@ -3859,8 +3667,8 @@ UpdateRuleOptions::UpdateRuleOptions()
  {}
 
 UpdateRuleOptions::~UpdateRuleOptions() = default;
-UpdateRuleOptions::UpdateRuleOptions(UpdateRuleOptions&& rhs) = default;
-UpdateRuleOptions& UpdateRuleOptions::operator=(UpdateRuleOptions&& rhs) = default;
+UpdateRuleOptions::UpdateRuleOptions(UpdateRuleOptions&& rhs) noexcept = default;
+UpdateRuleOptions& UpdateRuleOptions::operator=(UpdateRuleOptions&& rhs) noexcept = default;
 UpdateRuleOptions UpdateRuleOptions::Clone() const {
   UpdateRuleOptions out;
   out.remove_rule_ids = remove_rule_ids;
@@ -3932,24 +3740,6 @@ bool UpdateRuleOptions::Populate(
 }
 
 // static
-std::unique_ptr<UpdateRuleOptions> UpdateRuleOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<UpdateRuleOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<UpdateRuleOptions, std::u16string> UpdateRuleOptions::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   UpdateRuleOptions out;
@@ -3993,8 +3783,8 @@ UpdateRulesetOptions::UpdateRulesetOptions()
  {}
 
 UpdateRulesetOptions::~UpdateRulesetOptions() = default;
-UpdateRulesetOptions::UpdateRulesetOptions(UpdateRulesetOptions&& rhs) = default;
-UpdateRulesetOptions& UpdateRulesetOptions::operator=(UpdateRulesetOptions&& rhs) = default;
+UpdateRulesetOptions::UpdateRulesetOptions(UpdateRulesetOptions&& rhs) noexcept = default;
+UpdateRulesetOptions& UpdateRulesetOptions::operator=(UpdateRulesetOptions&& rhs) noexcept = default;
 UpdateRulesetOptions UpdateRulesetOptions::Clone() const {
   UpdateRulesetOptions out;
   out.disable_ruleset_ids = disable_ruleset_ids;
@@ -4060,24 +3850,6 @@ bool UpdateRulesetOptions::Populate(
 }
 
 // static
-std::unique_ptr<UpdateRulesetOptions> UpdateRulesetOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<UpdateRulesetOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<UpdateRulesetOptions, std::u16string> UpdateRulesetOptions::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   UpdateRulesetOptions out;
@@ -4121,8 +3893,8 @@ UpdateStaticRulesOptions::UpdateStaticRulesOptions()
  {}
 
 UpdateStaticRulesOptions::~UpdateStaticRulesOptions() = default;
-UpdateStaticRulesOptions::UpdateStaticRulesOptions(UpdateStaticRulesOptions&& rhs) = default;
-UpdateStaticRulesOptions& UpdateStaticRulesOptions::operator=(UpdateStaticRulesOptions&& rhs) = default;
+UpdateStaticRulesOptions::UpdateStaticRulesOptions(UpdateStaticRulesOptions&& rhs) noexcept = default;
+UpdateStaticRulesOptions& UpdateStaticRulesOptions::operator=(UpdateStaticRulesOptions&& rhs) noexcept = default;
 UpdateStaticRulesOptions UpdateStaticRulesOptions::Clone() const {
   UpdateStaticRulesOptions out;
   out.ruleset_id = ruleset_id;
@@ -4205,24 +3977,6 @@ bool UpdateStaticRulesOptions::Populate(
 }
 
 // static
-std::unique_ptr<UpdateStaticRulesOptions> UpdateStaticRulesOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<UpdateStaticRulesOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<UpdateStaticRulesOptions, std::u16string> UpdateStaticRulesOptions::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   UpdateStaticRulesOptions out;
@@ -4268,8 +4022,8 @@ GetDisabledRuleIdsOptions::GetDisabledRuleIdsOptions()
  {}
 
 GetDisabledRuleIdsOptions::~GetDisabledRuleIdsOptions() = default;
-GetDisabledRuleIdsOptions::GetDisabledRuleIdsOptions(GetDisabledRuleIdsOptions&& rhs) = default;
-GetDisabledRuleIdsOptions& GetDisabledRuleIdsOptions::operator=(GetDisabledRuleIdsOptions&& rhs) = default;
+GetDisabledRuleIdsOptions::GetDisabledRuleIdsOptions(GetDisabledRuleIdsOptions&& rhs) noexcept = default;
+GetDisabledRuleIdsOptions& GetDisabledRuleIdsOptions::operator=(GetDisabledRuleIdsOptions&& rhs) noexcept = default;
 GetDisabledRuleIdsOptions GetDisabledRuleIdsOptions::Clone() const {
   GetDisabledRuleIdsOptions out;
   out.ruleset_id = ruleset_id;
@@ -4307,24 +4061,6 @@ bool GetDisabledRuleIdsOptions::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<GetDisabledRuleIdsOptions> GetDisabledRuleIdsOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<GetDisabledRuleIdsOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -4366,8 +4102,8 @@ TabActionCountUpdate::TabActionCountUpdate()
 increment(0) {}
 
 TabActionCountUpdate::~TabActionCountUpdate() = default;
-TabActionCountUpdate::TabActionCountUpdate(TabActionCountUpdate&& rhs) = default;
-TabActionCountUpdate& TabActionCountUpdate::operator=(TabActionCountUpdate&& rhs) = default;
+TabActionCountUpdate::TabActionCountUpdate(TabActionCountUpdate&& rhs) noexcept = default;
+TabActionCountUpdate& TabActionCountUpdate::operator=(TabActionCountUpdate&& rhs) noexcept = default;
 TabActionCountUpdate TabActionCountUpdate::Clone() const {
   TabActionCountUpdate out;
   out.tab_id = tab_id;
@@ -4425,24 +4161,6 @@ bool TabActionCountUpdate::Populate(
 }
 
 // static
-std::unique_ptr<TabActionCountUpdate> TabActionCountUpdate::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<TabActionCountUpdate>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<TabActionCountUpdate, std::u16string> TabActionCountUpdate::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   TabActionCountUpdate out;
@@ -4482,8 +4200,8 @@ ExtensionActionOptions::ExtensionActionOptions()
  {}
 
 ExtensionActionOptions::~ExtensionActionOptions() = default;
-ExtensionActionOptions::ExtensionActionOptions(ExtensionActionOptions&& rhs) = default;
-ExtensionActionOptions& ExtensionActionOptions::operator=(ExtensionActionOptions&& rhs) = default;
+ExtensionActionOptions::ExtensionActionOptions(ExtensionActionOptions&& rhs) noexcept = default;
+ExtensionActionOptions& ExtensionActionOptions::operator=(ExtensionActionOptions&& rhs) noexcept = default;
 ExtensionActionOptions ExtensionActionOptions::Clone() const {
   ExtensionActionOptions out;
   out.display_action_count_as_badge_text = display_action_count_as_badge_text;
@@ -4503,7 +4221,7 @@ bool ExtensionActionOptions::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'displayActionCountAsBadgeText': expected displayActionCountAsBadgeText, got " + UTF8ToUTF16(base::Value::GetTypeName((*display_action_count_as_badge_text_value).type()));
-        out.display_action_count_as_badge_text = absl::nullopt;
+        out.display_action_count_as_badge_text = std::nullopt;
         return false;
       }
       out.display_action_count_as_badge_text = *temp;
@@ -4539,24 +4257,6 @@ bool ExtensionActionOptions::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<ExtensionActionOptions> ExtensionActionOptions::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ExtensionActionOptions>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -4608,8 +4308,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kDeclarativeNetRequest[];
 
@@ -4636,15 +4336,15 @@ namespace UpdateDynamicRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4655,17 +4355,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateRuleOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4695,15 +4395,15 @@ namespace GetDynamicRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() > 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4714,12 +4414,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!filter_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'filter': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(filter_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetRulesFilter temp;
         if (!GetRulesFilter::Populate(filter_value.GetDict(), temp, error))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -4754,15 +4454,15 @@ namespace UpdateSessionRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4773,17 +4473,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateRuleOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4813,15 +4513,15 @@ namespace GetSessionRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() > 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4832,12 +4532,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!filter_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'filter': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(filter_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetRulesFilter temp;
         if (!GetRulesFilter::Populate(filter_value.GetDict(), temp, error))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -4872,15 +4572,15 @@ namespace UpdateEnabledRulesets {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4891,17 +4591,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateRulesetOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4942,15 +4642,15 @@ namespace UpdateStaticRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4961,17 +4661,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateStaticRulesOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -5001,15 +4701,15 @@ namespace GetDisabledRuleIds {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -5020,17 +4720,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetDisabledRuleIdsOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -5062,15 +4762,15 @@ namespace GetMatchedRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() > 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -5081,12 +4781,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!filter_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'filter': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(filter_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         MatchedRulesFilter temp;
         if (!MatchedRulesFilter::Populate(filter_value.GetDict(), temp, error))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -5121,15 +4821,15 @@ namespace SetExtensionActionOptions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -5140,17 +4840,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'options': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ExtensionActionOptions::Populate(options_value.GetDict(), params.options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'options' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -5180,15 +4880,15 @@ namespace IsRegexSupported {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -5199,17 +4899,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!regex_options_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'regexOptions': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(regex_options_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RegexOptions::Populate(regex_options_value.GetDict(), params.regex_options, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'regexOptions' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -5252,15 +4952,15 @@ namespace TestMatchOutcome {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
+std::optional<Params> Params::Create(const base::Value::List& args, std::u16string& error) {
   if (args.size() != 1) {
     DCHECK(error.empty());
     error = u"expected 1 arguments, got " + base::NumberToString16(args.size());
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -5271,17 +4971,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args, std::u16str
       if (!request_value.is_dict()) {
         DCHECK(error.empty());
         error = u"'request': expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(request_value.type()));
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!TestMatchRequestDetails::Populate(request_value.GetDict(), params.request, error)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
     DCHECK(error.empty());
     error = u"'request' is required";
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

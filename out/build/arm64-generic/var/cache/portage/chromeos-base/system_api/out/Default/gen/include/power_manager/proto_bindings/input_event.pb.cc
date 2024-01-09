@@ -4,35 +4,37 @@
 #include "input_event.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace power_manager {
+template <typename>
 PROTOBUF_CONSTEXPR InputEvent::InputEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.timestamp_)*/int64_t{0}
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.timestamp_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct InputEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InputEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InputEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InputEventDefaultTypeInternal() {}
   union {
     InputEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InputEventDefaultTypeInternal _InputEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InputEventDefaultTypeInternal _InputEvent_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool InputEvent_Type_IsValid(int value) {
@@ -49,55 +51,55 @@ bool InputEvent_Type_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    InputEvent_Type_strings[7] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> InputEvent_Type_strings[7] = {};
+static const char InputEvent_Type_names[] = {
+    "DOUBLE_TAP"
+    "LID_CLOSED"
+    "LID_OPEN"
+    "POWER_BUTTON_DOWN"
+    "POWER_BUTTON_UP"
+    "TABLET_MODE_OFF"
+    "TABLET_MODE_ON"
+};
 
-static const char InputEvent_Type_names[] =
-  "DOUBLE_TAP"
-  "LID_CLOSED"
-  "LID_OPEN"
-  "POWER_BUTTON_DOWN"
-  "POWER_BUTTON_UP"
-  "TABLET_MODE_OFF"
-  "TABLET_MODE_ON";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InputEvent_Type_entries[] = {
-  { {InputEvent_Type_names + 0, 10}, 6 },
-  { {InputEvent_Type_names + 10, 10}, 3 },
-  { {InputEvent_Type_names + 20, 8}, 2 },
-  { {InputEvent_Type_names + 28, 17}, 0 },
-  { {InputEvent_Type_names + 45, 15}, 1 },
-  { {InputEvent_Type_names + 60, 15}, 5 },
-  { {InputEvent_Type_names + 75, 14}, 4 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InputEvent_Type_entries[] =
+    {
+        {{&InputEvent_Type_names[0], 10}, 6},
+        {{&InputEvent_Type_names[10], 10}, 3},
+        {{&InputEvent_Type_names[20], 8}, 2},
+        {{&InputEvent_Type_names[28], 17}, 0},
+        {{&InputEvent_Type_names[45], 15}, 1},
+        {{&InputEvent_Type_names[60], 15}, 5},
+        {{&InputEvent_Type_names[75], 14}, 4},
 };
 
 static const int InputEvent_Type_entries_by_number[] = {
-  3, // 0 -> POWER_BUTTON_DOWN
-  4, // 1 -> POWER_BUTTON_UP
-  2, // 2 -> LID_OPEN
-  1, // 3 -> LID_CLOSED
-  6, // 4 -> TABLET_MODE_ON
-  5, // 5 -> TABLET_MODE_OFF
-  0, // 6 -> DOUBLE_TAP
+    3,  // 0 -> POWER_BUTTON_DOWN
+    4,  // 1 -> POWER_BUTTON_UP
+    2,  // 2 -> LID_OPEN
+    1,  // 3 -> LID_CLOSED
+    6,  // 4 -> TABLET_MODE_ON
+    5,  // 5 -> TABLET_MODE_OFF
+    0,  // 6 -> DOUBLE_TAP
 };
 
-const std::string& InputEvent_Type_Name(
-    InputEvent_Type value) {
-  static const bool dummy =
+const std::string& InputEvent_Type_Name(InputEvent_Type value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          InputEvent_Type_entries,
-          InputEvent_Type_entries_by_number,
+          InputEvent_Type_entries, InputEvent_Type_entries_by_number,
           7, InputEvent_Type_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      InputEvent_Type_entries,
-      InputEvent_Type_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     InputEvent_Type_strings[idx].get();
+      InputEvent_Type_entries, InputEvent_Type_entries_by_number, 7,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : InputEvent_Type_strings[idx].get();
 }
-bool InputEvent_Type_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, InputEvent_Type* value) {
+
+bool InputEvent_Type_Parse(absl::string_view name, InputEvent_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       InputEvent_Type_entries, 7, name, &int_value);
@@ -106,7 +108,9 @@ bool InputEvent_Type_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr InputEvent_Type InputEvent::POWER_BUTTON_DOWN;
 constexpr InputEvent_Type InputEvent::POWER_BUTTON_UP;
 constexpr InputEvent_Type InputEvent::LID_OPEN;
@@ -117,13 +121,16 @@ constexpr InputEvent_Type InputEvent::DOUBLE_TAP;
 constexpr InputEvent_Type InputEvent::Type_MIN;
 constexpr InputEvent_Type InputEvent::Type_MAX;
 constexpr int InputEvent::Type_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class InputEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<InputEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(InputEvent, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -132,37 +139,27 @@ class InputEvent::_Internal {
   }
 };
 
-InputEvent::InputEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InputEvent::InputEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.InputEvent)
 }
 InputEvent::InputEvent(const InputEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InputEvent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.timestamp_){}
-    , decltype(_impl_.type_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
-    reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.InputEvent)
 }
 
-inline void InputEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InputEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.timestamp_){int64_t{0}}
-    , decltype(_impl_.type_){0}
+    , decltype(_impl_.timestamp_) { ::int64_t{0} }
+
+    , decltype(_impl_.type_) { 0 }
+
   };
 }
 
@@ -176,7 +173,7 @@ InputEvent::~InputEvent() {
 }
 
 inline void InputEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InputEvent::SetCachedSize(int size) const {
@@ -185,13 +182,13 @@ void InputEvent::SetCachedSize(int size) const {
 
 void InputEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.InputEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
+    ::memset(&_impl_.timestamp_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.type_) -
         reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
   }
@@ -203,30 +200,32 @@ const char* InputEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .power_manager.InputEvent.Type type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::InputEvent_Type_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::InputEvent_Type_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::power_manager::InputEvent_Type>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 timestamp = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_timestamp(&has_bits);
           _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -252,10 +251,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InputEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InputEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.InputEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -263,13 +262,14 @@ uint8_t* InputEvent::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // optional int64 timestamp = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_timestamp(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -280,11 +280,11 @@ uint8_t* InputEvent::_InternalSerialize(
   return target;
 }
 
-size_t InputEvent::ByteSizeLong() const {
+::size_t InputEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.InputEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -292,13 +292,14 @@ size_t InputEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional int64 timestamp = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_timestamp());
     }
 
     // optional .power_manager.InputEvent.Type type = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
   }
@@ -319,8 +320,8 @@ void InputEvent::CheckTypeAndMergeFrom(
 void InputEvent::MergeFrom(const InputEvent& from) {
   InputEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.InputEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -363,7 +364,6 @@ std::string InputEvent::GetTypeName() const {
   return "power_manager.InputEvent";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
@@ -372,6 +372,5 @@ Arena::CreateMaybeMessage< ::power_manager::InputEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::InputEvent >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

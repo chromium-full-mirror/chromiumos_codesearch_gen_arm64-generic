@@ -25,7 +25,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void LoadMoreClusters(const std::string& query) override;
   void HideVisits(std::vector<::history_clusters::mojom::URLVisitPtr> visits, HideVisitsCallback callback) override;
   void RemoveVisits(std::vector<::history_clusters::mojom::URLVisitPtr> visits, RemoveVisitsCallback callback) override;
-  void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const absl::optional<std::string>& tab_group_name) override;
+  void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const std::optional<std::string>& tab_group_name) override;
   void RecordVisitAction(VisitAction visit_action, uint32_t visit_index, VisitType visit_type) override;
   void RecordRelatedSearchAction(RelatedSearchAction action, uint32_t visit_index) override;
   void RecordClusterAction(ClusterAction cluster_action, uint32_t cluster_index) override;

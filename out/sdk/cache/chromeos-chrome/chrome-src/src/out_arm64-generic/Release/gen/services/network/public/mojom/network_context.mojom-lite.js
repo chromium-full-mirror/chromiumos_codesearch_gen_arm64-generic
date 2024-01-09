@@ -157,38 +157,41 @@ network.mojom.CustomProxyConnectionObserverRemote = class {
 
   
   /**
-   * @param { !network.mojom.ProxyServer } badProxy
+   * @param { !network.mojom.ProxyChain } badChain
    * @param { !number } netError
    */
 
   onFallback(
-      badProxy,
+      badChain,
       netError) {
     this.proxy.sendMessage(
         0,
         network.mojom.CustomProxyConnectionObserver_OnFallback_ParamsSpec.$,
         null,
         [
-          badProxy,
+          badChain,
           netError
         ]);
   }
 
   
   /**
-   * @param { !network.mojom.ProxyServer } proxyServer
+   * @param { !network.mojom.ProxyChain } proxyChain
+   * @param { !bigint } chainIndex
    * @param { !network.mojom.HttpResponseHeaders } responseHeaders
    */
 
   onTunnelHeadersReceived(
-      proxyServer,
+      proxyChain,
+      chainIndex,
       responseHeaders) {
     this.proxy.sendMessage(
         1,
         network.mojom.CustomProxyConnectionObserver_OnTunnelHeadersReceived_ParamsSpec.$,
         null,
         [
-          proxyServer,
+          proxyChain,
+          chainIndex,
           responseHeaders
         ]);
   }
@@ -1415,7 +1418,7 @@ network.mojom.IpProtectionConfigGetterRemote = class {
   
   /**
    * @return {!Promise<{
-        proxyList: ?Array<!string>,
+        proxyList: ?Array<!Array<!string>>,
    *  }>}
    */
 
@@ -2256,29 +2259,13 @@ network.mojom.NetworkContextRemote = class {
 
   
   /**
-   * @param { ?network.mojom.AdditionalCertificates } additionalCertificates
-   */
-
-  updateAdditionalCertificates(
-      additionalCertificates) {
-    this.proxy.sendMessage(
-        34,
-        network.mojom.NetworkContext_UpdateAdditionalCertificates_ParamsSpec.$,
-        null,
-        [
-          additionalCertificates
-        ]);
-  }
-
-  
-  /**
    * @param { !network.mojom.CTPolicy } ctPolicy
    */
 
   setCTPolicy(
       ctPolicy) {
     this.proxy.sendMessage(
-        35,
+        34,
         network.mojom.NetworkContext_SetCTPolicy_ParamsSpec.$,
         null,
         [
@@ -2296,7 +2283,7 @@ network.mojom.NetworkContextRemote = class {
       receiver,
       listener) {
     this.proxy.sendMessage(
-        36,
+        35,
         network.mojom.NetworkContext_CreateUDPSocket_ParamsSpec.$,
         null,
         [
@@ -2327,7 +2314,7 @@ network.mojom.NetworkContextRemote = class {
       receiver,
       listener) {
     return this.proxy.sendMessage(
-        37,
+        36,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ResponseParamsSpec.$,
         [
@@ -2358,7 +2345,7 @@ network.mojom.NetworkContextRemote = class {
       trafficAnnotation,
       socket) {
     return this.proxy.sendMessage(
-        38,
+        37,
         network.mojom.NetworkContext_CreateTCPServerSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPServerSocket_ResponseParamsSpec.$,
         [
@@ -2394,7 +2381,7 @@ network.mojom.NetworkContextRemote = class {
       socket,
       observer) {
     return this.proxy.sendMessage(
-        39,
+        38,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ResponseParamsSpec.$,
         [
@@ -2423,7 +2410,7 @@ network.mojom.NetworkContextRemote = class {
       trafficAnnotation,
       socket) {
     return this.proxy.sendMessage(
-        40,
+        39,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ResponseParamsSpec.$,
         [
@@ -2441,7 +2428,7 @@ network.mojom.NetworkContextRemote = class {
   createProxyResolvingSocketFactory(
       factory) {
     this.proxy.sendMessage(
-        41,
+        40,
         network.mojom.NetworkContext_CreateProxyResolvingSocketFactory_ParamsSpec.$,
         null,
         [
@@ -2461,7 +2448,7 @@ network.mojom.NetworkContextRemote = class {
       networkAnonymizationKey,
       proxyLookupClient) {
     this.proxy.sendMessage(
-        42,
+        41,
         network.mojom.NetworkContext_LookUpProxyForURL_ParamsSpec.$,
         null,
         [
@@ -2478,7 +2465,7 @@ network.mojom.NetworkContextRemote = class {
 
   forceReloadProxyConfig() {
     return this.proxy.sendMessage(
-        43,
+        42,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ParamsSpec.$,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ResponseParamsSpec.$,
         [
@@ -2492,7 +2479,7 @@ network.mojom.NetworkContextRemote = class {
 
   clearBadProxiesCache() {
     return this.proxy.sendMessage(
-        44,
+        43,
         network.mojom.NetworkContext_ClearBadProxiesCache_ParamsSpec.$,
         network.mojom.NetworkContext_ClearBadProxiesCache_ResponseParamsSpec.$,
         [
@@ -2504,6 +2491,7 @@ network.mojom.NetworkContextRemote = class {
    * @param { !url.mojom.Url } url
    * @param { !Array<!string> } requestedProtocols
    * @param { !network.mojom.SiteForCookies } siteForCookies
+   * @param { !boolean } hasStorageAccess
    * @param { !network.mojom.IsolationInfo } isolationInfo
    * @param { !Array<!network.mojom.HttpHeader> } additionalHeaders
    * @param { !number } processId
@@ -2521,6 +2509,7 @@ network.mojom.NetworkContextRemote = class {
       url,
       requestedProtocols,
       siteForCookies,
+      hasStorageAccess,
       isolationInfo,
       additionalHeaders,
       processId,
@@ -2533,13 +2522,14 @@ network.mojom.NetworkContextRemote = class {
       headerClient,
       throttlingProfileId) {
     this.proxy.sendMessage(
-        45,
+        44,
         network.mojom.NetworkContext_CreateWebSocket_ParamsSpec.$,
         null,
         [
           url,
           requestedProtocols,
           siteForCookies,
+          hasStorageAccess,
           isolationInfo,
           additionalHeaders,
           processId,
@@ -2570,7 +2560,7 @@ network.mojom.NetworkContextRemote = class {
       fingerprints,
       handshakeClient) {
     this.proxy.sendMessage(
-        46,
+        45,
         network.mojom.NetworkContext_CreateWebTransport_ParamsSpec.$,
         null,
         [
@@ -2590,7 +2580,7 @@ network.mojom.NetworkContextRemote = class {
   createNetLogExporter(
       receiver) {
     this.proxy.sendMessage(
-        47,
+        46,
         network.mojom.NetworkContext_CreateNetLogExporter_ParamsSpec.$,
         null,
         [
@@ -2612,7 +2602,7 @@ network.mojom.NetworkContextRemote = class {
       allowCredentials,
       networkAnonymizationKey) {
     this.proxy.sendMessage(
-        48,
+        47,
         network.mojom.NetworkContext_PreconnectSockets_ParamsSpec.$,
         null,
         [
@@ -2637,7 +2627,7 @@ network.mojom.NetworkContextRemote = class {
       trustedSocketManager,
       socketManager) {
     this.proxy.sendMessage(
-        49,
+        48,
         network.mojom.NetworkContext_CreateP2PSocketManager_ParamsSpec.$,
         null,
         [
@@ -2656,7 +2646,7 @@ network.mojom.NetworkContextRemote = class {
   createMdnsResponder(
       responderReceiver) {
     this.proxy.sendMessage(
-        50,
+        49,
         network.mojom.NetworkContext_CreateMdnsResponder_ParamsSpec.$,
         null,
         [
@@ -2678,7 +2668,7 @@ network.mojom.NetworkContextRemote = class {
       optionalParameters,
       responseClient) {
     this.proxy.sendMessage(
-        51,
+        50,
         network.mojom.NetworkContext_ResolveHost_ParamsSpec.$,
         null,
         [
@@ -2699,7 +2689,7 @@ network.mojom.NetworkContextRemote = class {
       configOverrides,
       hostResolver) {
     this.proxy.sendMessage(
-        52,
+        51,
         network.mojom.NetworkContext_CreateHostResolver_ParamsSpec.$,
         null,
         [
@@ -2712,31 +2702,27 @@ network.mojom.NetworkContextRemote = class {
   /**
    * @param { !network.mojom.X509Certificate } certificate
    * @param { !url.mojom.Url } url
-   * @param { !network.mojom.NetworkAnonymizationKey } networkAnonymizationKey
    * @param { !string } ocspResponse
    * @param { !string } sctList
    * @return {!Promise<{
         errorCode: !number,
         cvResult: !network.mojom.CertVerifyResult,
         pkpBypassed: !boolean,
-        pinningFailureLog: !string,
    *  }>}
    */
 
   verifyCertForSignedExchange(
       certificate,
       url,
-      networkAnonymizationKey,
       ocspResponse,
       sctList) {
     return this.proxy.sendMessage(
-        53,
+        52,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ResponseParamsSpec.$,
         [
           certificate,
           url,
-          networkAnonymizationKey,
           ocspResponse,
           sctList
         ]);
@@ -2752,7 +2738,7 @@ network.mojom.NetworkContextRemote = class {
 
   verifyIpProtectionConfigGetterForTesting() {
     return this.proxy.sendMessage(
-        54,
+        53,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsSpec.$,
         [
@@ -2765,7 +2751,7 @@ network.mojom.NetworkContextRemote = class {
 
   invalidateIpProtectionConfigCacheTryAgainAfterTime() {
     this.proxy.sendMessage(
-        55,
+        54,
         network.mojom.NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsSpec.$,
         null,
         [
@@ -2785,7 +2771,7 @@ network.mojom.NetworkContextRemote = class {
       expiry,
       includeSubdomains) {
     return this.proxy.sendMessage(
-        56,
+        55,
         network.mojom.NetworkContext_AddHSTS_ParamsSpec.$,
         network.mojom.NetworkContext_AddHSTS_ResponseParamsSpec.$,
         [
@@ -2806,7 +2792,7 @@ network.mojom.NetworkContextRemote = class {
   isHSTSActiveForHost(
       host) {
     return this.proxy.sendMessage(
-        57,
+        56,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ParamsSpec.$,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ResponseParamsSpec.$,
         [
@@ -2825,7 +2811,7 @@ network.mojom.NetworkContextRemote = class {
   getHSTSState(
       domain) {
     return this.proxy.sendMessage(
-        58,
+        57,
         network.mojom.NetworkContext_GetHSTSState_ParamsSpec.$,
         network.mojom.NetworkContext_GetHSTSState_ResponseParamsSpec.$,
         [
@@ -2846,7 +2832,7 @@ network.mojom.NetworkContextRemote = class {
       allowPatterns,
       blockPatterns) {
     return this.proxy.sendMessage(
-        59,
+        58,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ParamsSpec.$,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ResponseParamsSpec.$,
         [
@@ -2867,7 +2853,7 @@ network.mojom.NetworkContextRemote = class {
   deleteDynamicDataForHost(
       host) {
     return this.proxy.sendMessage(
-        60,
+        59,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ParamsSpec.$,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ResponseParamsSpec.$,
         [
@@ -2883,7 +2869,7 @@ network.mojom.NetworkContextRemote = class {
   setSplitAuthCacheByNetworkAnonymizationKey(
       splitAuthCacheByNetworkAnonymizationKey) {
     this.proxy.sendMessage(
-        61,
+        60,
         network.mojom.NetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_ParamsSpec.$,
         null,
         [
@@ -2900,7 +2886,7 @@ network.mojom.NetworkContextRemote = class {
 
   saveHttpAuthCacheProxyEntries() {
     return this.proxy.sendMessage(
-        62,
+        61,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         [
@@ -2916,7 +2902,7 @@ network.mojom.NetworkContextRemote = class {
   loadHttpAuthCacheProxyEntries(
       cacheKey) {
     return this.proxy.sendMessage(
-        63,
+        62,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         [
@@ -2937,7 +2923,7 @@ network.mojom.NetworkContextRemote = class {
       networkAnonymizationKey,
       credentials) {
     return this.proxy.sendMessage(
-        64,
+        63,
         network.mojom.NetworkContext_AddAuthCacheEntry_ParamsSpec.$,
         network.mojom.NetworkContext_AddAuthCacheEntry_ResponseParamsSpec.$,
         [
@@ -2955,7 +2941,7 @@ network.mojom.NetworkContextRemote = class {
   setCorsNonWildcardRequestHeadersSupport(
       value) {
     this.proxy.sendMessage(
-        65,
+        64,
         network.mojom.NetworkContext_SetCorsNonWildcardRequestHeadersSupport_ParamsSpec.$,
         null,
         [
@@ -2976,7 +2962,7 @@ network.mojom.NetworkContextRemote = class {
       url,
       networkAnonymizationKey) {
     return this.proxy.sendMessage(
-        66,
+        65,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ResponseParamsSpec.$,
         [
@@ -3000,7 +2986,7 @@ network.mojom.NetworkContextRemote = class {
       authScheme,
       realm) {
     return this.proxy.sendMessage(
-        67,
+        66,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ResponseParamsSpec.$,
         [
@@ -3017,7 +3003,7 @@ network.mojom.NetworkContextRemote = class {
 
   enableStaticKeyPinningForTesting() {
     return this.proxy.sendMessage(
-        68,
+        67,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ResponseParamsSpec.$,
         [
@@ -3041,7 +3027,7 @@ network.mojom.NetworkContextRemote = class {
       ocspResponse,
       sctList) {
     return this.proxy.sendMessage(
-        69,
+        68,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ResponseParamsSpec.$,
         [
@@ -3063,7 +3049,7 @@ network.mojom.NetworkContextRemote = class {
       origin,
       uploadUrl) {
     return this.proxy.sendMessage(
-        70,
+        69,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ResponseParamsSpec.$,
         [
@@ -3079,22 +3065,9 @@ network.mojom.NetworkContextRemote = class {
 
   forceDomainReliabilityUploadsForTesting() {
     return this.proxy.sendMessage(
-        71,
+        70,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsSpec.$,
-        [
-        ]);
-  }
-
-  
-  /**
-   */
-
-  setCTLogListAlwaysTimelyForTesting() {
-    this.proxy.sendMessage(
-        72,
-        network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsSpec.$,
-        null,
         [
         ]);
   }
@@ -3107,7 +3080,7 @@ network.mojom.NetworkContextRemote = class {
   setSCTAuditingMode(
       mode) {
     this.proxy.sendMessage(
-        73,
+        71,
         network.mojom.NetworkContext_SetSCTAuditingMode_ParamsSpec.$,
         null,
         [
@@ -3123,7 +3096,7 @@ network.mojom.NetworkContextRemote = class {
   addReportingApiObserver(
       observer) {
     this.proxy.sendMessage(
-        74,
+        72,
         network.mojom.NetworkContext_AddReportingApiObserver_ParamsSpec.$,
         null,
         [
@@ -3140,7 +3113,7 @@ network.mojom.NetworkContextRemote = class {
 
   getSharedDictionaryUsageInfo() {
     return this.proxy.sendMessage(
-        75,
+        73,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ResponseParamsSpec.$,
         [
@@ -3158,7 +3131,7 @@ network.mojom.NetworkContextRemote = class {
   getSharedDictionaryInfo(
       isolationKey) {
     return this.proxy.sendMessage(
-        76,
+        74,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ResponseParamsSpec.$,
         [
@@ -3179,7 +3152,7 @@ network.mojom.NetworkContextRemote = class {
       startTime,
       endTime) {
     return this.proxy.sendMessage(
-        77,
+        75,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ResponseParamsSpec.$,
         [
@@ -3196,7 +3169,7 @@ network.mojom.NetworkContextRemote = class {
   setSharedDictionaryCacheMaxSize(
       cacheMaxSize) {
     this.proxy.sendMessage(
-        78,
+        76,
         network.mojom.NetworkContext_SetSharedDictionaryCacheMaxSize_ParamsSpec.$,
         null,
         [
@@ -3214,7 +3187,7 @@ network.mojom.NetworkContextRemote = class {
       clientToken,
       visible) {
     this.proxy.sendMessage(
-        79,
+        77,
         network.mojom.NetworkContext_ResourceSchedulerClientVisibilityChanged_ParamsSpec.$,
         null,
         [
@@ -3233,7 +3206,7 @@ network.mojom.NetworkContextRemote = class {
       host,
       certificate) {
     this.proxy.sendMessage(
-        80,
+        78,
         network.mojom.NetworkContext_FlushCachedClientCertIfNeeded_ParamsSpec.$,
         null,
         [
@@ -3250,7 +3223,7 @@ network.mojom.NetworkContextRemote = class {
   setCookieDeprecationLabel(
       label) {
     this.proxy.sendMessage(
-        81,
+        79,
         network.mojom.NetworkContext_SetCookieDeprecationLabel_ParamsSpec.$,
         null,
         [
@@ -3453,241 +3426,231 @@ network.mojom.NetworkContextReceiver = class {
         impl.setEnableReferrers.bind(impl));
     this.helper_internal_.registerHandler(
         34,
-        network.mojom.NetworkContext_UpdateAdditionalCertificates_ParamsSpec.$,
-        null,
-        impl.updateAdditionalCertificates.bind(impl));
-    this.helper_internal_.registerHandler(
-        35,
         network.mojom.NetworkContext_SetCTPolicy_ParamsSpec.$,
         null,
         impl.setCTPolicy.bind(impl));
     this.helper_internal_.registerHandler(
-        36,
+        35,
         network.mojom.NetworkContext_CreateUDPSocket_ParamsSpec.$,
         null,
         impl.createUDPSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        37,
+        36,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ResponseParamsSpec.$,
         impl.createRestrictedUDPSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        38,
+        37,
         network.mojom.NetworkContext_CreateTCPServerSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPServerSocket_ResponseParamsSpec.$,
         impl.createTCPServerSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        39,
+        38,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ResponseParamsSpec.$,
         impl.createTCPConnectedSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        40,
+        39,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ResponseParamsSpec.$,
         impl.createTCPBoundSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        41,
+        40,
         network.mojom.NetworkContext_CreateProxyResolvingSocketFactory_ParamsSpec.$,
         null,
         impl.createProxyResolvingSocketFactory.bind(impl));
     this.helper_internal_.registerHandler(
-        42,
+        41,
         network.mojom.NetworkContext_LookUpProxyForURL_ParamsSpec.$,
         null,
         impl.lookUpProxyForURL.bind(impl));
     this.helper_internal_.registerHandler(
-        43,
+        42,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ParamsSpec.$,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ResponseParamsSpec.$,
         impl.forceReloadProxyConfig.bind(impl));
     this.helper_internal_.registerHandler(
-        44,
+        43,
         network.mojom.NetworkContext_ClearBadProxiesCache_ParamsSpec.$,
         network.mojom.NetworkContext_ClearBadProxiesCache_ResponseParamsSpec.$,
         impl.clearBadProxiesCache.bind(impl));
     this.helper_internal_.registerHandler(
-        45,
+        44,
         network.mojom.NetworkContext_CreateWebSocket_ParamsSpec.$,
         null,
         impl.createWebSocket.bind(impl));
     this.helper_internal_.registerHandler(
-        46,
+        45,
         network.mojom.NetworkContext_CreateWebTransport_ParamsSpec.$,
         null,
         impl.createWebTransport.bind(impl));
     this.helper_internal_.registerHandler(
-        47,
+        46,
         network.mojom.NetworkContext_CreateNetLogExporter_ParamsSpec.$,
         null,
         impl.createNetLogExporter.bind(impl));
     this.helper_internal_.registerHandler(
-        48,
+        47,
         network.mojom.NetworkContext_PreconnectSockets_ParamsSpec.$,
         null,
         impl.preconnectSockets.bind(impl));
     this.helper_internal_.registerHandler(
-        49,
+        48,
         network.mojom.NetworkContext_CreateP2PSocketManager_ParamsSpec.$,
         null,
         impl.createP2PSocketManager.bind(impl));
     this.helper_internal_.registerHandler(
-        50,
+        49,
         network.mojom.NetworkContext_CreateMdnsResponder_ParamsSpec.$,
         null,
         impl.createMdnsResponder.bind(impl));
     this.helper_internal_.registerHandler(
-        51,
+        50,
         network.mojom.NetworkContext_ResolveHost_ParamsSpec.$,
         null,
         impl.resolveHost.bind(impl));
     this.helper_internal_.registerHandler(
-        52,
+        51,
         network.mojom.NetworkContext_CreateHostResolver_ParamsSpec.$,
         null,
         impl.createHostResolver.bind(impl));
     this.helper_internal_.registerHandler(
-        53,
+        52,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ResponseParamsSpec.$,
         impl.verifyCertForSignedExchange.bind(impl));
     this.helper_internal_.registerHandler(
-        54,
+        53,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsSpec.$,
         impl.verifyIpProtectionConfigGetterForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        55,
+        54,
         network.mojom.NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsSpec.$,
         null,
         impl.invalidateIpProtectionConfigCacheTryAgainAfterTime.bind(impl));
     this.helper_internal_.registerHandler(
-        56,
+        55,
         network.mojom.NetworkContext_AddHSTS_ParamsSpec.$,
         network.mojom.NetworkContext_AddHSTS_ResponseParamsSpec.$,
         impl.addHSTS.bind(impl));
     this.helper_internal_.registerHandler(
-        57,
+        56,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ParamsSpec.$,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ResponseParamsSpec.$,
         impl.isHSTSActiveForHost.bind(impl));
     this.helper_internal_.registerHandler(
-        58,
+        57,
         network.mojom.NetworkContext_GetHSTSState_ParamsSpec.$,
         network.mojom.NetworkContext_GetHSTSState_ResponseParamsSpec.$,
         impl.getHSTSState.bind(impl));
     this.helper_internal_.registerHandler(
-        59,
+        58,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ParamsSpec.$,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ResponseParamsSpec.$,
         impl.setCorsOriginAccessListsForOrigin.bind(impl));
     this.helper_internal_.registerHandler(
-        60,
+        59,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ParamsSpec.$,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ResponseParamsSpec.$,
         impl.deleteDynamicDataForHost.bind(impl));
     this.helper_internal_.registerHandler(
-        61,
+        60,
         network.mojom.NetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_ParamsSpec.$,
         null,
         impl.setSplitAuthCacheByNetworkAnonymizationKey.bind(impl));
     this.helper_internal_.registerHandler(
-        62,
+        61,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         impl.saveHttpAuthCacheProxyEntries.bind(impl));
     this.helper_internal_.registerHandler(
-        63,
+        62,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         impl.loadHttpAuthCacheProxyEntries.bind(impl));
     this.helper_internal_.registerHandler(
-        64,
+        63,
         network.mojom.NetworkContext_AddAuthCacheEntry_ParamsSpec.$,
         network.mojom.NetworkContext_AddAuthCacheEntry_ResponseParamsSpec.$,
         impl.addAuthCacheEntry.bind(impl));
     this.helper_internal_.registerHandler(
-        65,
+        64,
         network.mojom.NetworkContext_SetCorsNonWildcardRequestHeadersSupport_ParamsSpec.$,
         null,
         impl.setCorsNonWildcardRequestHeadersSupport.bind(impl));
     this.helper_internal_.registerHandler(
-        66,
+        65,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ResponseParamsSpec.$,
         impl.lookupServerBasicAuthCredentials.bind(impl));
     this.helper_internal_.registerHandler(
-        67,
+        66,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ResponseParamsSpec.$,
         impl.lookupProxyAuthCredentials.bind(impl));
     this.helper_internal_.registerHandler(
-        68,
+        67,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ResponseParamsSpec.$,
         impl.enableStaticKeyPinningForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        69,
+        68,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ResponseParamsSpec.$,
         impl.verifyCertificateForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        70,
+        69,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ResponseParamsSpec.$,
         impl.addDomainReliabilityContextForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        71,
+        70,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsSpec.$,
         impl.forceDomainReliabilityUploadsForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        72,
-        network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsSpec.$,
-        null,
-        impl.setCTLogListAlwaysTimelyForTesting.bind(impl));
-    this.helper_internal_.registerHandler(
-        73,
+        71,
         network.mojom.NetworkContext_SetSCTAuditingMode_ParamsSpec.$,
         null,
         impl.setSCTAuditingMode.bind(impl));
     this.helper_internal_.registerHandler(
-        74,
+        72,
         network.mojom.NetworkContext_AddReportingApiObserver_ParamsSpec.$,
         null,
         impl.addReportingApiObserver.bind(impl));
     this.helper_internal_.registerHandler(
-        75,
+        73,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ResponseParamsSpec.$,
         impl.getSharedDictionaryUsageInfo.bind(impl));
     this.helper_internal_.registerHandler(
-        76,
+        74,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ResponseParamsSpec.$,
         impl.getSharedDictionaryInfo.bind(impl));
     this.helper_internal_.registerHandler(
-        77,
+        75,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ResponseParamsSpec.$,
         impl.getSharedDictionaryOriginsBetween.bind(impl));
     this.helper_internal_.registerHandler(
-        78,
+        76,
         network.mojom.NetworkContext_SetSharedDictionaryCacheMaxSize_ParamsSpec.$,
         null,
         impl.setSharedDictionaryCacheMaxSize.bind(impl));
     this.helper_internal_.registerHandler(
-        79,
+        77,
         network.mojom.NetworkContext_ResourceSchedulerClientVisibilityChanged_ParamsSpec.$,
         null,
         impl.resourceSchedulerClientVisibilityChanged.bind(impl));
     this.helper_internal_.registerHandler(
-        80,
+        78,
         network.mojom.NetworkContext_FlushCachedClientCertIfNeeded_ParamsSpec.$,
         null,
         impl.flushCachedClientCertIfNeeded.bind(impl));
     this.helper_internal_.registerHandler(
-        81,
+        79,
         network.mojom.NetworkContext_SetCookieDeprecationLabel_ParamsSpec.$,
         null,
         impl.setCookieDeprecationLabel.bind(impl));
@@ -4172,24 +4135,12 @@ network.mojom.NetworkContextCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.updateAdditionalCertificates =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        34,
-        network.mojom.NetworkContext_UpdateAdditionalCertificates_ParamsSpec.$,
-        null,
-        this.updateAdditionalCertificates.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setCTPolicy =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        35,
+        34,
         network.mojom.NetworkContext_SetCTPolicy_ParamsSpec.$,
         null,
         this.setCTPolicy.createReceiverHandler(false /* expectsResponse */));
@@ -4201,7 +4152,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        36,
+        35,
         network.mojom.NetworkContext_CreateUDPSocket_ParamsSpec.$,
         null,
         this.createUDPSocket.createReceiverHandler(false /* expectsResponse */));
@@ -4213,7 +4164,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        37,
+        36,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateRestrictedUDPSocket_ResponseParamsSpec.$,
         this.createRestrictedUDPSocket.createReceiverHandler(true /* expectsResponse */));
@@ -4225,7 +4176,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        38,
+        37,
         network.mojom.NetworkContext_CreateTCPServerSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPServerSocket_ResponseParamsSpec.$,
         this.createTCPServerSocket.createReceiverHandler(true /* expectsResponse */));
@@ -4237,7 +4188,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        39,
+        38,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPConnectedSocket_ResponseParamsSpec.$,
         this.createTCPConnectedSocket.createReceiverHandler(true /* expectsResponse */));
@@ -4249,7 +4200,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        40,
+        39,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ParamsSpec.$,
         network.mojom.NetworkContext_CreateTCPBoundSocket_ResponseParamsSpec.$,
         this.createTCPBoundSocket.createReceiverHandler(true /* expectsResponse */));
@@ -4261,7 +4212,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        41,
+        40,
         network.mojom.NetworkContext_CreateProxyResolvingSocketFactory_ParamsSpec.$,
         null,
         this.createProxyResolvingSocketFactory.createReceiverHandler(false /* expectsResponse */));
@@ -4273,7 +4224,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        42,
+        41,
         network.mojom.NetworkContext_LookUpProxyForURL_ParamsSpec.$,
         null,
         this.lookUpProxyForURL.createReceiverHandler(false /* expectsResponse */));
@@ -4285,7 +4236,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        43,
+        42,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ParamsSpec.$,
         network.mojom.NetworkContext_ForceReloadProxyConfig_ResponseParamsSpec.$,
         this.forceReloadProxyConfig.createReceiverHandler(true /* expectsResponse */));
@@ -4297,7 +4248,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        44,
+        43,
         network.mojom.NetworkContext_ClearBadProxiesCache_ParamsSpec.$,
         network.mojom.NetworkContext_ClearBadProxiesCache_ResponseParamsSpec.$,
         this.clearBadProxiesCache.createReceiverHandler(true /* expectsResponse */));
@@ -4309,7 +4260,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        45,
+        44,
         network.mojom.NetworkContext_CreateWebSocket_ParamsSpec.$,
         null,
         this.createWebSocket.createReceiverHandler(false /* expectsResponse */));
@@ -4321,7 +4272,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        46,
+        45,
         network.mojom.NetworkContext_CreateWebTransport_ParamsSpec.$,
         null,
         this.createWebTransport.createReceiverHandler(false /* expectsResponse */));
@@ -4333,7 +4284,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        47,
+        46,
         network.mojom.NetworkContext_CreateNetLogExporter_ParamsSpec.$,
         null,
         this.createNetLogExporter.createReceiverHandler(false /* expectsResponse */));
@@ -4345,7 +4296,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        48,
+        47,
         network.mojom.NetworkContext_PreconnectSockets_ParamsSpec.$,
         null,
         this.preconnectSockets.createReceiverHandler(false /* expectsResponse */));
@@ -4357,7 +4308,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        49,
+        48,
         network.mojom.NetworkContext_CreateP2PSocketManager_ParamsSpec.$,
         null,
         this.createP2PSocketManager.createReceiverHandler(false /* expectsResponse */));
@@ -4369,7 +4320,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        50,
+        49,
         network.mojom.NetworkContext_CreateMdnsResponder_ParamsSpec.$,
         null,
         this.createMdnsResponder.createReceiverHandler(false /* expectsResponse */));
@@ -4381,7 +4332,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        51,
+        50,
         network.mojom.NetworkContext_ResolveHost_ParamsSpec.$,
         null,
         this.resolveHost.createReceiverHandler(false /* expectsResponse */));
@@ -4393,7 +4344,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        52,
+        51,
         network.mojom.NetworkContext_CreateHostResolver_ParamsSpec.$,
         null,
         this.createHostResolver.createReceiverHandler(false /* expectsResponse */));
@@ -4405,7 +4356,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        53,
+        52,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertForSignedExchange_ResponseParamsSpec.$,
         this.verifyCertForSignedExchange.createReceiverHandler(true /* expectsResponse */));
@@ -4417,7 +4368,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        54,
+        53,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsSpec.$,
         this.verifyIpProtectionConfigGetterForTesting.createReceiverHandler(true /* expectsResponse */));
@@ -4429,7 +4380,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        55,
+        54,
         network.mojom.NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsSpec.$,
         null,
         this.invalidateIpProtectionConfigCacheTryAgainAfterTime.createReceiverHandler(false /* expectsResponse */));
@@ -4441,7 +4392,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        56,
+        55,
         network.mojom.NetworkContext_AddHSTS_ParamsSpec.$,
         network.mojom.NetworkContext_AddHSTS_ResponseParamsSpec.$,
         this.addHSTS.createReceiverHandler(true /* expectsResponse */));
@@ -4453,7 +4404,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        57,
+        56,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ParamsSpec.$,
         network.mojom.NetworkContext_IsHSTSActiveForHost_ResponseParamsSpec.$,
         this.isHSTSActiveForHost.createReceiverHandler(true /* expectsResponse */));
@@ -4465,7 +4416,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        58,
+        57,
         network.mojom.NetworkContext_GetHSTSState_ParamsSpec.$,
         network.mojom.NetworkContext_GetHSTSState_ResponseParamsSpec.$,
         this.getHSTSState.createReceiverHandler(true /* expectsResponse */));
@@ -4477,7 +4428,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        59,
+        58,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ParamsSpec.$,
         network.mojom.NetworkContext_SetCorsOriginAccessListsForOrigin_ResponseParamsSpec.$,
         this.setCorsOriginAccessListsForOrigin.createReceiverHandler(true /* expectsResponse */));
@@ -4489,7 +4440,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        60,
+        59,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ParamsSpec.$,
         network.mojom.NetworkContext_DeleteDynamicDataForHost_ResponseParamsSpec.$,
         this.deleteDynamicDataForHost.createReceiverHandler(true /* expectsResponse */));
@@ -4501,7 +4452,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        61,
+        60,
         network.mojom.NetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_ParamsSpec.$,
         null,
         this.setSplitAuthCacheByNetworkAnonymizationKey.createReceiverHandler(false /* expectsResponse */));
@@ -4513,7 +4464,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        62,
+        61,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_SaveHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         this.saveHttpAuthCacheProxyEntries.createReceiverHandler(true /* expectsResponse */));
@@ -4525,7 +4476,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        63,
+        62,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ParamsSpec.$,
         network.mojom.NetworkContext_LoadHttpAuthCacheProxyEntries_ResponseParamsSpec.$,
         this.loadHttpAuthCacheProxyEntries.createReceiverHandler(true /* expectsResponse */));
@@ -4537,7 +4488,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        64,
+        63,
         network.mojom.NetworkContext_AddAuthCacheEntry_ParamsSpec.$,
         network.mojom.NetworkContext_AddAuthCacheEntry_ResponseParamsSpec.$,
         this.addAuthCacheEntry.createReceiverHandler(true /* expectsResponse */));
@@ -4549,7 +4500,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        65,
+        64,
         network.mojom.NetworkContext_SetCorsNonWildcardRequestHeadersSupport_ParamsSpec.$,
         null,
         this.setCorsNonWildcardRequestHeadersSupport.createReceiverHandler(false /* expectsResponse */));
@@ -4561,7 +4512,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        66,
+        65,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupServerBasicAuthCredentials_ResponseParamsSpec.$,
         this.lookupServerBasicAuthCredentials.createReceiverHandler(true /* expectsResponse */));
@@ -4573,7 +4524,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        67,
+        66,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ParamsSpec.$,
         network.mojom.NetworkContext_LookupProxyAuthCredentials_ResponseParamsSpec.$,
         this.lookupProxyAuthCredentials.createReceiverHandler(true /* expectsResponse */));
@@ -4585,7 +4536,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        68,
+        67,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_EnableStaticKeyPinningForTesting_ResponseParamsSpec.$,
         this.enableStaticKeyPinningForTesting.createReceiverHandler(true /* expectsResponse */));
@@ -4597,7 +4548,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        69,
+        68,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_VerifyCertificateForTesting_ResponseParamsSpec.$,
         this.verifyCertificateForTesting.createReceiverHandler(true /* expectsResponse */));
@@ -4609,7 +4560,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        70,
+        69,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_AddDomainReliabilityContextForTesting_ResponseParamsSpec.$,
         this.addDomainReliabilityContextForTesting.createReceiverHandler(true /* expectsResponse */));
@@ -4621,22 +4572,10 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        71,
+        70,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ParamsSpec.$,
         network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsSpec.$,
         this.forceDomainReliabilityUploadsForTesting.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.setCTLogListAlwaysTimelyForTesting =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        72,
-        network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsSpec.$,
-        null,
-        this.setCTLogListAlwaysTimelyForTesting.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -4645,7 +4584,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        73,
+        71,
         network.mojom.NetworkContext_SetSCTAuditingMode_ParamsSpec.$,
         null,
         this.setSCTAuditingMode.createReceiverHandler(false /* expectsResponse */));
@@ -4657,7 +4596,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        74,
+        72,
         network.mojom.NetworkContext_AddReportingApiObserver_ParamsSpec.$,
         null,
         this.addReportingApiObserver.createReceiverHandler(false /* expectsResponse */));
@@ -4669,7 +4608,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        75,
+        73,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryUsageInfo_ResponseParamsSpec.$,
         this.getSharedDictionaryUsageInfo.createReceiverHandler(true /* expectsResponse */));
@@ -4681,7 +4620,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        76,
+        74,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryInfo_ResponseParamsSpec.$,
         this.getSharedDictionaryInfo.createReceiverHandler(true /* expectsResponse */));
@@ -4693,7 +4632,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        77,
+        75,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ParamsSpec.$,
         network.mojom.NetworkContext_GetSharedDictionaryOriginsBetween_ResponseParamsSpec.$,
         this.getSharedDictionaryOriginsBetween.createReceiverHandler(true /* expectsResponse */));
@@ -4705,7 +4644,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        78,
+        76,
         network.mojom.NetworkContext_SetSharedDictionaryCacheMaxSize_ParamsSpec.$,
         null,
         this.setSharedDictionaryCacheMaxSize.createReceiverHandler(false /* expectsResponse */));
@@ -4717,7 +4656,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        79,
+        77,
         network.mojom.NetworkContext_ResourceSchedulerClientVisibilityChanged_ParamsSpec.$,
         null,
         this.resourceSchedulerClientVisibilityChanged.createReceiverHandler(false /* expectsResponse */));
@@ -4729,7 +4668,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        80,
+        78,
         network.mojom.NetworkContext_FlushCachedClientCertIfNeeded_ParamsSpec.$,
         null,
         this.flushCachedClientCertIfNeeded.createReceiverHandler(false /* expectsResponse */));
@@ -4741,7 +4680,7 @@ network.mojom.NetworkContextCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        81,
+        79,
         network.mojom.NetworkContext_SetCookieDeprecationLabel_ParamsSpec.$,
         null,
         this.setCookieDeprecationLabel.createReceiverHandler(false /* expectsResponse */));
@@ -4774,14 +4713,6 @@ network.mojom.CustomProxyConfigSpec =
  * @export
  */
 network.mojom.CertVerifierServiceRemoteParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-network.mojom.AdditionalCertificatesSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -5501,14 +5432,6 @@ network.mojom.NetworkContext_SetEnableReferrers_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-network.mojom.NetworkContext_UpdateAdditionalCertificates_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 network.mojom.NetworkContext_SetCTPolicy_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -5981,14 +5904,6 @@ network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponsePar
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 network.mojom.NetworkContext_SetSCTAuditingMode_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -6186,45 +6101,6 @@ network.mojom.CertVerifierServiceRemoteParams = class {
     this.certVerifierService;
     /** @export { (certVerifier.mojom.CertVerifierServiceClientPendingReceiver|undefined) } */
     this.certVerifierServiceClientReceiver;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    network.mojom.AdditionalCertificatesSpec.$,
-    'AdditionalCertificates',
-    [
-      mojo.internal.StructField(
-        'allCertificates', 0,
-        0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'trustAnchors', 8,
-        0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-network.mojom.AdditionalCertificates = class {
-  constructor() {
-    /** @export { !Array<!network.mojom.X509Certificate> } */
-    this.allCertificates;
-    /** @export { !Array<!network.mojom.X509Certificate> } */
-    this.trustAnchors;
   }
 };
 
@@ -6690,15 +6566,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'initialAdditionalCertificates', 136,
-        0,
-        network.mojom.AdditionalCertificatesSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'cookieManagerParams', 144,
+        'cookieManagerParams', 136,
         0,
         network.mojom.CookieManagerParamsSpec.$,
         null,
@@ -6714,7 +6582,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'domainReliabilityUploadReporter', 152,
+        'domainReliabilityUploadReporter', 144,
         0,
         mojo.internal.String,
         null,
@@ -6730,7 +6598,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'reportingDeliveryInterval', 160,
+        'reportingDeliveryInterval', 152,
         0,
         mojoBase.mojom.TimeDeltaSpec.$,
         null,
@@ -6746,7 +6614,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'corsOriginAccessList', 168,
+        'corsOriginAccessList', 160,
         0,
         mojo.internal.Array(network.mojom.CorsOriginAccessPatternsSpec.$, false),
         null,
@@ -6754,7 +6622,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'corsExemptHeaderList', 176,
+        'corsExemptHeaderList', 168,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -6770,7 +6638,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hstsPolicyBypassList', 184,
+        'hstsPolicyBypassList', 176,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -6778,7 +6646,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'httpAuthStaticNetworkContextParams', 192,
+        'httpAuthStaticNetworkContextParams', 184,
         0,
         network.mojom.HttpAuthStaticNetworkContextParamsSpec.$,
         null,
@@ -6810,7 +6678,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'filePaths', 200,
+        'filePaths', 192,
         0,
         network.mojom.NetworkContextFilePathsSpec.$,
         null,
@@ -6834,7 +6702,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sharedDictionaryCacheMaxSize', 208,
+        'sharedDictionaryCacheMaxSize', 200,
         0,
         mojo.internal.Uint64,
         BigInt('0'),
@@ -6842,7 +6710,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'firstPartySetsAccessDelegateParams', 216,
+        'firstPartySetsAccessDelegateParams', 208,
         0,
         network.mojom.FirstPartySetsAccessDelegateParamsSpec.$,
         null,
@@ -6850,7 +6718,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'firstPartySetsAccessDelegateReceiver', 224,
+        'firstPartySetsAccessDelegateReceiver', 216,
         0,
         mojo.internal.InterfaceRequest(network.mojom.FirstPartySetsAccessDelegatePendingReceiver),
         null,
@@ -6866,7 +6734,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'cookieDeprecationLabel', 232,
+        'cookieDeprecationLabel', 224,
         0,
         mojo.internal.String,
         null,
@@ -6882,7 +6750,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 248],]);
+    [[0, 240],]);
 
 
 
@@ -6953,8 +6821,6 @@ network.mojom.NetworkContextParams = class {
     this.ctPolicy;
     /** @export { !network.mojom.CertVerifierServiceRemoteParams } */
     this.certVerifierParams;
-    /** @export { (network.mojom.AdditionalCertificates|undefined) } */
-    this.initialAdditionalCertificates;
     /** @export { (network.mojom.CookieManagerParams|undefined) } */
     this.cookieManagerParams;
     /** @export { !boolean } */
@@ -7645,9 +7511,9 @@ mojo.internal.Struct(
     'CustomProxyConnectionObserver_OnFallback_Params',
     [
       mojo.internal.StructField(
-        'badProxy', 0,
+        'badChain', 0,
         0,
-        network.mojom.ProxyServerSpec.$,
+        network.mojom.ProxyChainSpec.$,
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -7670,8 +7536,8 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.CustomProxyConnectionObserver_OnFallback_Params = class {
   constructor() {
-    /** @export { !network.mojom.ProxyServer } */
-    this.badProxy;
+    /** @export { !network.mojom.ProxyChain } */
+    this.badChain;
     /** @export { !number } */
     this.netError;
   }
@@ -7684,15 +7550,23 @@ mojo.internal.Struct(
     'CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params',
     [
       mojo.internal.StructField(
-        'proxyServer', 0,
+        'proxyChain', 0,
         0,
-        network.mojom.ProxyServerSpec.$,
+        network.mojom.ProxyChainSpec.$,
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'responseHeaders', 8,
+        'chainIndex', 8,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'responseHeaders', 16,
         0,
         network.mojom.HttpResponseHeadersSpec.$,
         null,
@@ -7700,7 +7574,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -7709,8 +7583,10 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params = class {
   constructor() {
-    /** @export { !network.mojom.ProxyServer } */
-    this.proxyServer;
+    /** @export { !network.mojom.ProxyChain } */
+    this.proxyChain;
+    /** @export { !bigint } */
+    this.chainIndex;
     /** @export { !network.mojom.HttpResponseHeaders } */
     this.responseHeaders;
   }
@@ -8481,7 +8357,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'proxyList', 0,
         0,
-        mojo.internal.Array(mojo.internal.String, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.String, false), false),
         null,
         true, /* nullable */
         0 /* minVersion */,
@@ -8496,7 +8372,7 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.IpProtectionConfigGetter_GetProxyList_ResponseParams = class {
   constructor() {
-    /** @export { (Array<!string>|undefined) } */
+    /** @export { (Array<!Array<!string>>|undefined) } */
     this.proxyList;
   }
 };
@@ -10152,35 +10028,6 @@ network.mojom.NetworkContext_SetEnableReferrers_Params = class {
 
 
 mojo.internal.Struct(
-    network.mojom.NetworkContext_UpdateAdditionalCertificates_ParamsSpec.$,
-    'NetworkContext_UpdateAdditionalCertificates_Params',
-    [
-      mojo.internal.StructField(
-        'additionalCertificates', 0,
-        0,
-        network.mojom.AdditionalCertificatesSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-network.mojom.NetworkContext_UpdateAdditionalCertificates_Params = class {
-  constructor() {
-    /** @export { (network.mojom.AdditionalCertificates|undefined) } */
-    this.additionalCertificates;
-  }
-};
-
-
-
-mojo.internal.Struct(
     network.mojom.NetworkContext_SetCTPolicy_ParamsSpec.$,
     'NetworkContext_SetCTPolicy_Params',
     [
@@ -10883,7 +10730,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isolationInfo', 24,
+        'hasStorageAccess', 24,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'isolationInfo', 32,
         0,
         network.mojom.IsolationInfoSpec.$,
         null,
@@ -10891,7 +10746,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'additionalHeaders', 32,
+        'additionalHeaders', 40,
         0,
         mojo.internal.Array(network.mojom.HttpHeaderSpec.$, false),
         null,
@@ -10899,7 +10754,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'processId', 40,
+        'processId', 28,
         0,
         mojo.internal.Int32,
         0,
@@ -10915,7 +10770,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'options', 44,
+        'options', 56,
         0,
         mojo.internal.Uint32,
         0,
@@ -10923,7 +10778,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'trafficAnnotation', 56,
+        'trafficAnnotation', 64,
         0,
         network.mojom.MutableNetworkTrafficAnnotationTagSpec.$,
         null,
@@ -10931,7 +10786,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'handshakeClient', 64,
+        'handshakeClient', 72,
         0,
         mojo.internal.InterfaceProxy(network.mojom.WebSocketHandshakeClientRemote),
         null,
@@ -10939,7 +10794,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'urlLoaderNetworkObserver', 72,
+        'urlLoaderNetworkObserver', 80,
         0,
         mojo.internal.InterfaceProxy(network.mojom.URLLoaderNetworkServiceObserverRemote),
         null,
@@ -10947,7 +10802,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'authHandler', 80,
+        'authHandler', 88,
         0,
         mojo.internal.InterfaceProxy(network.mojom.WebSocketAuthenticationHandlerRemote),
         null,
@@ -10955,7 +10810,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'headerClient', 88,
+        'headerClient', 96,
         0,
         mojo.internal.InterfaceProxy(network.mojom.TrustedHeaderClientRemote),
         null,
@@ -10963,7 +10818,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'throttlingProfileId', 96,
+        'throttlingProfileId', 104,
         0,
         mojoBase.mojom.UnguessableTokenSpec.$,
         null,
@@ -10971,7 +10826,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 112],]);
+    [[0, 120],]);
 
 
 
@@ -10986,6 +10841,8 @@ network.mojom.NetworkContext_CreateWebSocket_Params = class {
     this.requestedProtocols;
     /** @export { !network.mojom.SiteForCookies } */
     this.siteForCookies;
+    /** @export { !boolean } */
+    this.hasStorageAccess;
     /** @export { !network.mojom.IsolationInfo } */
     this.isolationInfo;
     /** @export { !Array<!network.mojom.HttpHeader> } */
@@ -11377,15 +11234,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'networkAnonymizationKey', 16,
-        0,
-        network.mojom.NetworkAnonymizationKeySpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'ocspResponse', 32,
+        'ocspResponse', 16,
         0,
         mojo.internal.String,
         null,
@@ -11393,7 +11242,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sctList', 40,
+        'sctList', 24,
         0,
         mojo.internal.String,
         null,
@@ -11401,7 +11250,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 56],]);
+    [[0, 40],]);
 
 
 
@@ -11414,8 +11263,6 @@ network.mojom.NetworkContext_VerifyCertForSignedExchange_Params = class {
     this.certificate;
     /** @export { !url.mojom.Url } */
     this.url;
-    /** @export { !network.mojom.NetworkAnonymizationKey } */
-    this.networkAnonymizationKey;
     /** @export { !string } */
     this.ocspResponse;
     /** @export { !string } */
@@ -11453,16 +11300,8 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'pinningFailureLog', 16,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
-    [[0, 32],]);
+    [[0, 24],]);
 
 
 
@@ -11477,8 +11316,6 @@ network.mojom.NetworkContext_VerifyCertForSignedExchange_ResponseParams = class 
     this.cvResult;
     /** @export { !boolean } */
     this.pkpBypassed;
-    /** @export { !string } */
-    this.pinningFailureLog;
   }
 };
 
@@ -12455,25 +12292,6 @@ mojo.internal.Struct(
 
 /** @record */
 network.mojom.NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams = class {
-  constructor() {
-  }
-};
-
-
-
-mojo.internal.Struct(
-    network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsSpec.$,
-    'NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params',
-    [
-    ],
-    [[0, 8],]);
-
-
-
-
-
-/** @record */
-network.mojom.NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params = class {
   constructor() {
   }
 };

@@ -4,6 +4,7 @@
         "outDir": "."
     },
     "files": [
-        "./components/consoleInsight.css.js"
+        "./components/consoleInsight.css.js",
+        "./components/consoleInsightSourcesList.css.js"
     ]
 }

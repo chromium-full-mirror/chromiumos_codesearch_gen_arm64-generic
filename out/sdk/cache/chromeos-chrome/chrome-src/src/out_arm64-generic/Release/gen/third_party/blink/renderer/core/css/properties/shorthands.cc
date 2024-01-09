@@ -115,6 +115,32 @@ const char* AlternativeAnimationWithTimeline::GetJSPropertyName() const {
 
 
 
+ // -alternative-mask
+
+
+CSSExposure AlternativeMask::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* AlternativeMask::GetPropertyName() const {
+  return "mask";
+}
+
+const WTF::AtomicString& AlternativeMask::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("mask"));
+  return name;
+}
+
+const char* AlternativeMask::GetJSPropertyName() const {
+  return "mask";
+}
+
+
+
+
  // -alternative-view-timeline-with-inset
 
 
@@ -1298,6 +1324,32 @@ const char* Marker::GetJSPropertyName() const {
 
 
 
+ // mask-position
+
+
+CSSExposure MaskPosition::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* MaskPosition::GetPropertyName() const {
+  return "mask-position";
+}
+
+const WTF::AtomicString& MaskPosition::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("mask-position"));
+  return name;
+}
+
+const char* MaskPosition::GetJSPropertyName() const {
+  return "maskPosition";
+}
+
+
+
+
  // offset
 
 
@@ -1822,32 +1874,6 @@ const char* TextSpacing::GetJSPropertyName() const {
 
 
 
- // toggle
-
-
-CSSExposure Toggle::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* Toggle::GetPropertyName() const {
-  return "toggle";
-}
-
-const WTF::AtomicString& Toggle::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("toggle"));
-  return name;
-}
-
-const char* Toggle::GetJSPropertyName() const {
-  return "toggle";
-}
-
-
-
-
  // transition
 
 
@@ -1893,32 +1919,6 @@ const WTF::AtomicString& ViewTimeline::GetPropertyNameAtomicString() const {
 
 const char* ViewTimeline::GetJSPropertyName() const {
   return "viewTimeline";
-}
-
-
-
-
- // -webkit-alternative-mask
-
-
-CSSExposure WebkitAlternativeMask::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* WebkitAlternativeMask::GetPropertyName() const {
-  return "-webkit-mask";
-}
-
-const WTF::AtomicString& WebkitAlternativeMask::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-mask"));
-  return name;
-}
-
-const char* WebkitAlternativeMask::GetJSPropertyName() const {
-  return "webkitMask";
 }
 
 
@@ -2034,6 +2034,13 @@ const char* WebkitMaskBoxImage::GetJSPropertyName() const {
  // -webkit-mask-position
 
 
+CSSExposure WebkitMaskPosition::Exposure(const ExecutionContext* execution_context) const {
+  if (RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    // -webkit-alternative-mask-position
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
 
 const char* WebkitMaskPosition::GetPropertyName() const {
   return "-webkit-mask-position";
@@ -2157,6 +2164,52 @@ const WTF::AtomicString& WebkitBorderStart::GetPropertyNameAtomicString() const 
 
 const char* WebkitBorderStart::GetJSPropertyName() const {
   return "webkitBorderStart";
+}
+
+ // -webkit-alternative-mask
+
+
+CSSExposure WebkitAlternativeMask::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* WebkitAlternativeMask::GetPropertyName() const {
+  return "-webkit-mask";
+}
+
+const WTF::AtomicString& WebkitAlternativeMask::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-mask"));
+  return name;
+}
+
+const char* WebkitAlternativeMask::GetJSPropertyName() const {
+  return "webkitMask";
+}
+
+ // -webkit-alternative-mask-position
+
+
+CSSExposure WebkitAlternativeMaskPosition::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* WebkitAlternativeMaskPosition::GetPropertyName() const {
+  return "-webkit-mask-position";
+}
+
+const WTF::AtomicString& WebkitAlternativeMaskPosition::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-mask-position"));
+  return name;
+}
+
+const char* WebkitAlternativeMaskPosition::GetJSPropertyName() const {
+  return "webkitMaskPosition";
 }
 
  // -epub-text-emphasis

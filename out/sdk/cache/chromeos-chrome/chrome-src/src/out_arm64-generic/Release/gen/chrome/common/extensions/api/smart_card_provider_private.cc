@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/smart_card_provider_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,71 +37,71 @@ namespace smart_card_provider_private {
 
 const char* ToString(ResultCode enum_param) {
   switch (enum_param) {
-    case RESULT_CODE_SUCCESS:
+    case ResultCode::kSuccess:
       return "SUCCESS";
-    case RESULT_CODE_REMOVED_CARD:
+    case ResultCode::kRemovedCard:
       return "REMOVED_CARD";
-    case RESULT_CODE_RESET_CARD:
+    case ResultCode::kResetCard:
       return "RESET_CARD";
-    case RESULT_CODE_UNPOWERED_CARD:
+    case ResultCode::kUnpoweredCard:
       return "UNPOWERED_CARD";
-    case RESULT_CODE_UNRESPONSIVE_CARD:
+    case ResultCode::kUnresponsiveCard:
       return "UNRESPONSIVE_CARD";
-    case RESULT_CODE_UNSUPPORTED_CARD:
+    case ResultCode::kUnsupportedCard:
       return "UNSUPPORTED_CARD";
-    case RESULT_CODE_READER_UNAVAILABLE:
+    case ResultCode::kReaderUnavailable:
       return "READER_UNAVAILABLE";
-    case RESULT_CODE_SHARING_VIOLATION:
+    case ResultCode::kSharingViolation:
       return "SHARING_VIOLATION";
-    case RESULT_CODE_NOT_TRANSACTED:
+    case ResultCode::kNotTransacted:
       return "NOT_TRANSACTED";
-    case RESULT_CODE_NO_SMARTCARD:
+    case ResultCode::kNoSmartcard:
       return "NO_SMARTCARD";
-    case RESULT_CODE_PROTO_MISMATCH:
+    case ResultCode::kProtoMismatch:
       return "PROTO_MISMATCH";
-    case RESULT_CODE_SYSTEM_CANCELLED:
+    case ResultCode::kSystemCancelled:
       return "SYSTEM_CANCELLED";
-    case RESULT_CODE_NOT_READY:
+    case ResultCode::kNotReady:
       return "NOT_READY";
-    case RESULT_CODE_CANCELLED:
+    case ResultCode::kCancelled:
       return "CANCELLED";
-    case RESULT_CODE_INSUFFICIENT_BUFFER:
+    case ResultCode::kInsufficientBuffer:
       return "INSUFFICIENT_BUFFER";
-    case RESULT_CODE_INVALID_HANDLE:
+    case ResultCode::kInvalidHandle:
       return "INVALID_HANDLE";
-    case RESULT_CODE_INVALID_PARAMETER:
+    case ResultCode::kInvalidParameter:
       return "INVALID_PARAMETER";
-    case RESULT_CODE_INVALID_VALUE:
+    case ResultCode::kInvalidValue:
       return "INVALID_VALUE";
-    case RESULT_CODE_NO_MEMORY:
+    case ResultCode::kNoMemory:
       return "NO_MEMORY";
-    case RESULT_CODE_TIMEOUT:
+    case ResultCode::kTimeout:
       return "TIMEOUT";
-    case RESULT_CODE_UNKNOWN_READER:
+    case ResultCode::kUnknownReader:
       return "UNKNOWN_READER";
-    case RESULT_CODE_UNSUPPORTED_FEATURE:
+    case ResultCode::kUnsupportedFeature:
       return "UNSUPPORTED_FEATURE";
-    case RESULT_CODE_NO_READERS_AVAILABLE:
+    case ResultCode::kNoReadersAvailable:
       return "NO_READERS_AVAILABLE";
-    case RESULT_CODE_SERVICE_STOPPED:
+    case ResultCode::kServiceStopped:
       return "SERVICE_STOPPED";
-    case RESULT_CODE_NO_SERVICE:
+    case ResultCode::kNoService:
       return "NO_SERVICE";
-    case RESULT_CODE_COMM_ERROR:
+    case ResultCode::kCommError:
       return "COMM_ERROR";
-    case RESULT_CODE_INTERNAL_ERROR:
+    case ResultCode::kInternalError:
       return "INTERNAL_ERROR";
-    case RESULT_CODE_UNKNOWN_ERROR:
+    case ResultCode::kUnknownError:
       return "UNKNOWN_ERROR";
-    case RESULT_CODE_SERVER_TOO_BUSY:
+    case ResultCode::kServerTooBusy:
       return "SERVER_TOO_BUSY";
-    case RESULT_CODE_UNEXPECTED:
+    case ResultCode::kUnexpected:
       return "UNEXPECTED";
-    case RESULT_CODE_SHUTDOWN:
+    case ResultCode::kShutdown:
       return "SHUTDOWN";
-    case RESULT_CODE_UNKNOWN:
+    case ResultCode::kUnknown:
       return "UNKNOWN";
-    case RESULT_CODE_NONE:
+    case ResultCode::kNone:
       return "";
   }
   NOTREACHED();
@@ -109,70 +110,70 @@ const char* ToString(ResultCode enum_param) {
 
 ResultCode ParseResultCode(base::StringPiece enum_string) {
   if (enum_string == "SUCCESS")
-    return RESULT_CODE_SUCCESS;
+    return ResultCode::kSuccess;
   if (enum_string == "REMOVED_CARD")
-    return RESULT_CODE_REMOVED_CARD;
+    return ResultCode::kRemovedCard;
   if (enum_string == "RESET_CARD")
-    return RESULT_CODE_RESET_CARD;
+    return ResultCode::kResetCard;
   if (enum_string == "UNPOWERED_CARD")
-    return RESULT_CODE_UNPOWERED_CARD;
+    return ResultCode::kUnpoweredCard;
   if (enum_string == "UNRESPONSIVE_CARD")
-    return RESULT_CODE_UNRESPONSIVE_CARD;
+    return ResultCode::kUnresponsiveCard;
   if (enum_string == "UNSUPPORTED_CARD")
-    return RESULT_CODE_UNSUPPORTED_CARD;
+    return ResultCode::kUnsupportedCard;
   if (enum_string == "READER_UNAVAILABLE")
-    return RESULT_CODE_READER_UNAVAILABLE;
+    return ResultCode::kReaderUnavailable;
   if (enum_string == "SHARING_VIOLATION")
-    return RESULT_CODE_SHARING_VIOLATION;
+    return ResultCode::kSharingViolation;
   if (enum_string == "NOT_TRANSACTED")
-    return RESULT_CODE_NOT_TRANSACTED;
+    return ResultCode::kNotTransacted;
   if (enum_string == "NO_SMARTCARD")
-    return RESULT_CODE_NO_SMARTCARD;
+    return ResultCode::kNoSmartcard;
   if (enum_string == "PROTO_MISMATCH")
-    return RESULT_CODE_PROTO_MISMATCH;
+    return ResultCode::kProtoMismatch;
   if (enum_string == "SYSTEM_CANCELLED")
-    return RESULT_CODE_SYSTEM_CANCELLED;
+    return ResultCode::kSystemCancelled;
   if (enum_string == "NOT_READY")
-    return RESULT_CODE_NOT_READY;
+    return ResultCode::kNotReady;
   if (enum_string == "CANCELLED")
-    return RESULT_CODE_CANCELLED;
+    return ResultCode::kCancelled;
   if (enum_string == "INSUFFICIENT_BUFFER")
-    return RESULT_CODE_INSUFFICIENT_BUFFER;
+    return ResultCode::kInsufficientBuffer;
   if (enum_string == "INVALID_HANDLE")
-    return RESULT_CODE_INVALID_HANDLE;
+    return ResultCode::kInvalidHandle;
   if (enum_string == "INVALID_PARAMETER")
-    return RESULT_CODE_INVALID_PARAMETER;
+    return ResultCode::kInvalidParameter;
   if (enum_string == "INVALID_VALUE")
-    return RESULT_CODE_INVALID_VALUE;
+    return ResultCode::kInvalidValue;
   if (enum_string == "NO_MEMORY")
-    return RESULT_CODE_NO_MEMORY;
+    return ResultCode::kNoMemory;
   if (enum_string == "TIMEOUT")
-    return RESULT_CODE_TIMEOUT;
+    return ResultCode::kTimeout;
   if (enum_string == "UNKNOWN_READER")
-    return RESULT_CODE_UNKNOWN_READER;
+    return ResultCode::kUnknownReader;
   if (enum_string == "UNSUPPORTED_FEATURE")
-    return RESULT_CODE_UNSUPPORTED_FEATURE;
+    return ResultCode::kUnsupportedFeature;
   if (enum_string == "NO_READERS_AVAILABLE")
-    return RESULT_CODE_NO_READERS_AVAILABLE;
+    return ResultCode::kNoReadersAvailable;
   if (enum_string == "SERVICE_STOPPED")
-    return RESULT_CODE_SERVICE_STOPPED;
+    return ResultCode::kServiceStopped;
   if (enum_string == "NO_SERVICE")
-    return RESULT_CODE_NO_SERVICE;
+    return ResultCode::kNoService;
   if (enum_string == "COMM_ERROR")
-    return RESULT_CODE_COMM_ERROR;
+    return ResultCode::kCommError;
   if (enum_string == "INTERNAL_ERROR")
-    return RESULT_CODE_INTERNAL_ERROR;
+    return ResultCode::kInternalError;
   if (enum_string == "UNKNOWN_ERROR")
-    return RESULT_CODE_UNKNOWN_ERROR;
+    return ResultCode::kUnknownError;
   if (enum_string == "SERVER_TOO_BUSY")
-    return RESULT_CODE_SERVER_TOO_BUSY;
+    return ResultCode::kServerTooBusy;
   if (enum_string == "UNEXPECTED")
-    return RESULT_CODE_UNEXPECTED;
+    return ResultCode::kUnexpected;
   if (enum_string == "SHUTDOWN")
-    return RESULT_CODE_SHUTDOWN;
+    return ResultCode::kShutdown;
   if (enum_string == "UNKNOWN")
-    return RESULT_CODE_UNKNOWN;
-  return RESULT_CODE_NONE;
+    return ResultCode::kUnknown;
+  return ResultCode::kNone;
 }
 
 std::u16string GetResultCodeParseError(base::StringPiece enum_string) {
@@ -182,13 +183,13 @@ std::u16string GetResultCodeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ShareMode enum_param) {
   switch (enum_param) {
-    case SHARE_MODE_SHARED:
+    case ShareMode::kShared:
       return "SHARED";
-    case SHARE_MODE_EXCLUSIVE:
+    case ShareMode::kExclusive:
       return "EXCLUSIVE";
-    case SHARE_MODE_DIRECT:
+    case ShareMode::kDirect:
       return "DIRECT";
-    case SHARE_MODE_NONE:
+    case ShareMode::kNone:
       return "";
   }
   NOTREACHED();
@@ -197,12 +198,12 @@ const char* ToString(ShareMode enum_param) {
 
 ShareMode ParseShareMode(base::StringPiece enum_string) {
   if (enum_string == "SHARED")
-    return SHARE_MODE_SHARED;
+    return ShareMode::kShared;
   if (enum_string == "EXCLUSIVE")
-    return SHARE_MODE_EXCLUSIVE;
+    return ShareMode::kExclusive;
   if (enum_string == "DIRECT")
-    return SHARE_MODE_DIRECT;
-  return SHARE_MODE_NONE;
+    return ShareMode::kDirect;
+  return ShareMode::kNone;
 }
 
 std::u16string GetShareModeParseError(base::StringPiece enum_string) {
@@ -212,15 +213,15 @@ std::u16string GetShareModeParseError(base::StringPiece enum_string) {
 
 const char* ToString(Disposition enum_param) {
   switch (enum_param) {
-    case DISPOSITION_LEAVE_CARD:
+    case Disposition::kLeaveCard:
       return "LEAVE_CARD";
-    case DISPOSITION_RESET_CARD:
+    case Disposition::kResetCard:
       return "RESET_CARD";
-    case DISPOSITION_UNPOWER_CARD:
+    case Disposition::kUnpowerCard:
       return "UNPOWER_CARD";
-    case DISPOSITION_EJECT_CARD:
+    case Disposition::kEjectCard:
       return "EJECT_CARD";
-    case DISPOSITION_NONE:
+    case Disposition::kNone:
       return "";
   }
   NOTREACHED();
@@ -229,14 +230,14 @@ const char* ToString(Disposition enum_param) {
 
 Disposition ParseDisposition(base::StringPiece enum_string) {
   if (enum_string == "LEAVE_CARD")
-    return DISPOSITION_LEAVE_CARD;
+    return Disposition::kLeaveCard;
   if (enum_string == "RESET_CARD")
-    return DISPOSITION_RESET_CARD;
+    return Disposition::kResetCard;
   if (enum_string == "UNPOWER_CARD")
-    return DISPOSITION_UNPOWER_CARD;
+    return Disposition::kUnpowerCard;
   if (enum_string == "EJECT_CARD")
-    return DISPOSITION_EJECT_CARD;
-  return DISPOSITION_NONE;
+    return Disposition::kEjectCard;
+  return Disposition::kNone;
 }
 
 std::u16string GetDispositionParseError(base::StringPiece enum_string) {
@@ -246,19 +247,19 @@ std::u16string GetDispositionParseError(base::StringPiece enum_string) {
 
 const char* ToString(ConnectionState enum_param) {
   switch (enum_param) {
-    case CONNECTION_STATE_ABSENT:
+    case ConnectionState::kAbsent:
       return "ABSENT";
-    case CONNECTION_STATE_PRESENT:
+    case ConnectionState::kPresent:
       return "PRESENT";
-    case CONNECTION_STATE_SWALLOWED:
+    case ConnectionState::kSwallowed:
       return "SWALLOWED";
-    case CONNECTION_STATE_POWERED:
+    case ConnectionState::kPowered:
       return "POWERED";
-    case CONNECTION_STATE_NEGOTIABLE:
+    case ConnectionState::kNegotiable:
       return "NEGOTIABLE";
-    case CONNECTION_STATE_SPECIFIC:
+    case ConnectionState::kSpecific:
       return "SPECIFIC";
-    case CONNECTION_STATE_NONE:
+    case ConnectionState::kNone:
       return "";
   }
   NOTREACHED();
@@ -267,18 +268,18 @@ const char* ToString(ConnectionState enum_param) {
 
 ConnectionState ParseConnectionState(base::StringPiece enum_string) {
   if (enum_string == "ABSENT")
-    return CONNECTION_STATE_ABSENT;
+    return ConnectionState::kAbsent;
   if (enum_string == "PRESENT")
-    return CONNECTION_STATE_PRESENT;
+    return ConnectionState::kPresent;
   if (enum_string == "SWALLOWED")
-    return CONNECTION_STATE_SWALLOWED;
+    return ConnectionState::kSwallowed;
   if (enum_string == "POWERED")
-    return CONNECTION_STATE_POWERED;
+    return ConnectionState::kPowered;
   if (enum_string == "NEGOTIABLE")
-    return CONNECTION_STATE_NEGOTIABLE;
+    return ConnectionState::kNegotiable;
   if (enum_string == "SPECIFIC")
-    return CONNECTION_STATE_SPECIFIC;
-  return CONNECTION_STATE_NONE;
+    return ConnectionState::kSpecific;
+  return ConnectionState::kNone;
 }
 
 std::u16string GetConnectionStateParseError(base::StringPiece enum_string) {
@@ -290,8 +291,8 @@ ReaderStateFlags::ReaderStateFlags()
  {}
 
 ReaderStateFlags::~ReaderStateFlags() = default;
-ReaderStateFlags::ReaderStateFlags(ReaderStateFlags&& rhs) = default;
-ReaderStateFlags& ReaderStateFlags::operator=(ReaderStateFlags&& rhs) = default;
+ReaderStateFlags::ReaderStateFlags(ReaderStateFlags&& rhs) noexcept = default;
+ReaderStateFlags& ReaderStateFlags::operator=(ReaderStateFlags&& rhs) noexcept = default;
 ReaderStateFlags ReaderStateFlags::Clone() const {
   ReaderStateFlags out;
   out.unaware = unaware;
@@ -316,7 +317,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*unaware_value).GetIfBool();
       if (!temp.has_value()) {
-        out.unaware = absl::nullopt;
+        out.unaware = std::nullopt;
         return false;
       }
       out.unaware = *temp;
@@ -328,7 +329,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*ignore_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ignore = absl::nullopt;
+        out.ignore = std::nullopt;
         return false;
       }
       out.ignore = *temp;
@@ -340,7 +341,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*changed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.changed = absl::nullopt;
+        out.changed = std::nullopt;
         return false;
       }
       out.changed = *temp;
@@ -352,7 +353,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*unknown_value).GetIfBool();
       if (!temp.has_value()) {
-        out.unknown = absl::nullopt;
+        out.unknown = std::nullopt;
         return false;
       }
       out.unknown = *temp;
@@ -364,7 +365,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*unavailable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.unavailable = absl::nullopt;
+        out.unavailable = std::nullopt;
         return false;
       }
       out.unavailable = *temp;
@@ -376,7 +377,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*empty_value).GetIfBool();
       if (!temp.has_value()) {
-        out.empty = absl::nullopt;
+        out.empty = std::nullopt;
         return false;
       }
       out.empty = *temp;
@@ -388,7 +389,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.present = absl::nullopt;
+        out.present = std::nullopt;
         return false;
       }
       out.present = *temp;
@@ -400,7 +401,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*exclusive_value).GetIfBool();
       if (!temp.has_value()) {
-        out.exclusive = absl::nullopt;
+        out.exclusive = std::nullopt;
         return false;
       }
       out.exclusive = *temp;
@@ -412,7 +413,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*inuse_value).GetIfBool();
       if (!temp.has_value()) {
-        out.inuse = absl::nullopt;
+        out.inuse = std::nullopt;
         return false;
       }
       out.inuse = *temp;
@@ -424,7 +425,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*mute_value).GetIfBool();
       if (!temp.has_value()) {
-        out.mute = absl::nullopt;
+        out.mute = std::nullopt;
         return false;
       }
       out.mute = *temp;
@@ -436,7 +437,7 @@ bool ReaderStateFlags::Populate(
     {
       auto temp = (*unpowered_value).GetIfBool();
       if (!temp.has_value()) {
-        out.unpowered = absl::nullopt;
+        out.unpowered = std::nullopt;
         return false;
       }
       out.unpowered = *temp;
@@ -456,34 +457,21 @@ bool ReaderStateFlags::Populate(
 }
 
 // static
-std::unique_ptr<ReaderStateFlags> ReaderStateFlags::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReaderStateFlags>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReaderStateFlags> ReaderStateFlags::FromValue(const base::Value::Dict& value) {
+  ReaderStateFlags out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReaderStateFlags> ReaderStateFlags::FromValue(const base::Value::Dict& value) {
+std::optional<ReaderStateFlags> ReaderStateFlags::FromValue(const base::Value& value) {
   ReaderStateFlags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReaderStateFlags> ReaderStateFlags::FromValue(const base::Value& value) {
-  ReaderStateFlags out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -544,8 +532,8 @@ Protocols::Protocols()
  {}
 
 Protocols::~Protocols() = default;
-Protocols::Protocols(Protocols&& rhs) = default;
-Protocols& Protocols::operator=(Protocols&& rhs) = default;
+Protocols::Protocols(Protocols&& rhs) noexcept = default;
+Protocols& Protocols::operator=(Protocols&& rhs) noexcept = default;
 Protocols Protocols::Clone() const {
   Protocols out;
   out.t0 = t0;
@@ -562,7 +550,7 @@ bool Protocols::Populate(
     {
       auto temp = (*t0_value).GetIfBool();
       if (!temp.has_value()) {
-        out.t0 = absl::nullopt;
+        out.t0 = std::nullopt;
         return false;
       }
       out.t0 = *temp;
@@ -574,7 +562,7 @@ bool Protocols::Populate(
     {
       auto temp = (*t1_value).GetIfBool();
       if (!temp.has_value()) {
-        out.t1 = absl::nullopt;
+        out.t1 = std::nullopt;
         return false;
       }
       out.t1 = *temp;
@@ -586,7 +574,7 @@ bool Protocols::Populate(
     {
       auto temp = (*raw_value).GetIfBool();
       if (!temp.has_value()) {
-        out.raw = absl::nullopt;
+        out.raw = std::nullopt;
         return false;
       }
       out.raw = *temp;
@@ -606,34 +594,21 @@ bool Protocols::Populate(
 }
 
 // static
-std::unique_ptr<Protocols> Protocols::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Protocols>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Protocols> Protocols::FromValue(const base::Value::Dict& value) {
+  Protocols out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Protocols> Protocols::FromValue(const base::Value::Dict& value) {
+std::optional<Protocols> Protocols::FromValue(const base::Value& value) {
   Protocols out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Protocols> Protocols::FromValue(const base::Value& value) {
-  Protocols out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -660,15 +635,15 @@ base::Value::Dict Protocols::ToValue() const {
 
 const char* ToString(Protocol enum_param) {
   switch (enum_param) {
-    case PROTOCOL_UNDEFINED:
+    case Protocol::kUndefined:
       return "UNDEFINED";
-    case PROTOCOL_T0:
+    case Protocol::kT0:
       return "T0";
-    case PROTOCOL_T1:
+    case Protocol::kT1:
       return "T1";
-    case PROTOCOL_RAW:
+    case Protocol::kRaw:
       return "RAW";
-    case PROTOCOL_NONE:
+    case Protocol::kNone:
       return "";
   }
   NOTREACHED();
@@ -677,14 +652,14 @@ const char* ToString(Protocol enum_param) {
 
 Protocol ParseProtocol(base::StringPiece enum_string) {
   if (enum_string == "UNDEFINED")
-    return PROTOCOL_UNDEFINED;
+    return Protocol::kUndefined;
   if (enum_string == "T0")
-    return PROTOCOL_T0;
+    return Protocol::kT0;
   if (enum_string == "T1")
-    return PROTOCOL_T1;
+    return Protocol::kT1;
   if (enum_string == "RAW")
-    return PROTOCOL_RAW;
-  return PROTOCOL_NONE;
+    return Protocol::kRaw;
+  return Protocol::kNone;
 }
 
 std::u16string GetProtocolParseError(base::StringPiece enum_string) {
@@ -696,8 +671,8 @@ ReaderStateIn::ReaderStateIn()
 : current_count(0) {}
 
 ReaderStateIn::~ReaderStateIn() = default;
-ReaderStateIn::ReaderStateIn(ReaderStateIn&& rhs) = default;
-ReaderStateIn& ReaderStateIn::operator=(ReaderStateIn&& rhs) = default;
+ReaderStateIn::ReaderStateIn(ReaderStateIn&& rhs) noexcept = default;
+ReaderStateIn& ReaderStateIn::operator=(ReaderStateIn&& rhs) noexcept = default;
 ReaderStateIn ReaderStateIn::Clone() const {
   ReaderStateIn out;
   out.reader = reader;
@@ -759,34 +734,21 @@ bool ReaderStateIn::Populate(
 }
 
 // static
-std::unique_ptr<ReaderStateIn> ReaderStateIn::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReaderStateIn>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReaderStateIn> ReaderStateIn::FromValue(const base::Value::Dict& value) {
+  ReaderStateIn out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReaderStateIn> ReaderStateIn::FromValue(const base::Value::Dict& value) {
+std::optional<ReaderStateIn> ReaderStateIn::FromValue(const base::Value& value) {
   ReaderStateIn out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReaderStateIn> ReaderStateIn::FromValue(const base::Value& value) {
-  ReaderStateIn out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -809,8 +771,8 @@ ReaderStateOut::ReaderStateOut()
 : event_count(0) {}
 
 ReaderStateOut::~ReaderStateOut() = default;
-ReaderStateOut::ReaderStateOut(ReaderStateOut&& rhs) = default;
-ReaderStateOut& ReaderStateOut::operator=(ReaderStateOut&& rhs) = default;
+ReaderStateOut::ReaderStateOut(ReaderStateOut&& rhs) noexcept = default;
+ReaderStateOut& ReaderStateOut::operator=(ReaderStateOut&& rhs) noexcept = default;
 ReaderStateOut ReaderStateOut::Clone() const {
   ReaderStateOut out;
   out.reader = reader;
@@ -886,34 +848,21 @@ bool ReaderStateOut::Populate(
 }
 
 // static
-std::unique_ptr<ReaderStateOut> ReaderStateOut::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReaderStateOut>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReaderStateOut> ReaderStateOut::FromValue(const base::Value::Dict& value) {
+  ReaderStateOut out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReaderStateOut> ReaderStateOut::FromValue(const base::Value::Dict& value) {
+std::optional<ReaderStateOut> ReaderStateOut::FromValue(const base::Value& value) {
   ReaderStateOut out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReaderStateOut> ReaderStateOut::FromValue(const base::Value& value) {
-  ReaderStateOut out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -938,8 +887,8 @@ Timeout::Timeout()
  {}
 
 Timeout::~Timeout() = default;
-Timeout::Timeout(Timeout&& rhs) = default;
-Timeout& Timeout::operator=(Timeout&& rhs) = default;
+Timeout::Timeout(Timeout&& rhs) noexcept = default;
+Timeout& Timeout::operator=(Timeout&& rhs) noexcept = default;
 Timeout Timeout::Clone() const {
   Timeout out;
   out.milliseconds = milliseconds;
@@ -954,7 +903,7 @@ bool Timeout::Populate(
     {
       auto temp = (*milliseconds_value).GetIfInt();
       if (!temp.has_value()) {
-        out.milliseconds = absl::nullopt;
+        out.milliseconds = std::nullopt;
         return false;
       }
       out.milliseconds = *temp;
@@ -974,34 +923,21 @@ bool Timeout::Populate(
 }
 
 // static
-std::unique_ptr<Timeout> Timeout::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Timeout>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Timeout> Timeout::FromValue(const base::Value::Dict& value) {
+  Timeout out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Timeout> Timeout::FromValue(const base::Value::Dict& value) {
+std::optional<Timeout> Timeout::FromValue(const base::Value& value) {
   Timeout out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Timeout> Timeout::FromValue(const base::Value& value) {
-  Timeout out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1027,13 +963,13 @@ namespace ReportEstablishContextResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1043,13 +979,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1058,13 +994,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = scard_context_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.scard_context = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1073,16 +1009,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1095,13 +1031,13 @@ namespace ReportReleaseContextResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1111,13 +1047,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1126,16 +1062,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1148,13 +1084,13 @@ namespace ReportListReadersResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1164,13 +1100,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1178,17 +1114,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& readers_value = args[1];
     {
       if (!readers_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(readers_value.GetList(), params.readers)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1197,16 +1133,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1219,13 +1155,13 @@ namespace ReportGetStatusChangeResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1235,13 +1171,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1249,17 +1185,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& reader_states_value = args[1];
     {
       if (!reader_states_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(reader_states_value.GetList(), params.reader_states)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1268,16 +1204,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1290,13 +1226,13 @@ namespace ReportPlainResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1306,13 +1242,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1321,16 +1257,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1343,13 +1279,13 @@ namespace ReportConnectResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1359,13 +1295,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1374,13 +1310,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = scard_handle_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.scard_handle = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1389,16 +1325,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* protocol_as_string = active_protocol_value.GetIfString();
       if (!protocol_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.active_protocol = ParseProtocol(*protocol_as_string);
       if (params.active_protocol == Protocol()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -1407,16 +1343,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1429,13 +1365,13 @@ namespace ReportDataResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1445,13 +1381,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1459,7 +1395,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[1];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -1467,7 +1403,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1476,16 +1412,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1498,13 +1434,13 @@ namespace ReportStatusResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 6) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1514,13 +1450,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1529,13 +1465,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = reader_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.reader_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1544,16 +1480,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* connection_state_as_string = state_value.GetIfString();
       if (!connection_state_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.state = ParseConnectionState(*connection_state_as_string);
       if (params.state == ConnectionState()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -1562,16 +1498,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* protocol_as_string = protocol_value.GetIfString();
       if (!protocol_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.protocol = ParseProtocol(*protocol_as_string);
       if (params.protocol == Protocol()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (4 < args.size() &&
@@ -1579,7 +1515,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& atr_value = args[4];
     {
       if (!atr_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.atr = atr_value.GetBlob();
@@ -1587,7 +1523,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (5 < args.size() &&
@@ -1596,16 +1532,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* result_code_as_string = result_code_value.GetIfString();
       if (!result_code_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result_code = ParseResultCode(*result_code_as_string);
       if (params.result_code == ResultCode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

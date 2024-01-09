@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -159,14 +160,17 @@ void ManagedConfigurationObserverProxy::OnConfigurationChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ManagedConfigurationObserver::OnConfigurationChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kManagedConfigurationObserver_OnConfigurationChanged_Name, kFlags, 0, 0, nullptr);
@@ -230,10 +234,10 @@ bool ManagedConfigurationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kManagedConfigurationObserverValidationInfo[] = {
-    {&internal::ManagedConfigurationObserver_OnConfigurationChanged_Params_Data::Validate,
+    { &internal::ManagedConfigurationObserver_OnConfigurationChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -466,14 +470,17 @@ void DeviceAPIServiceProxy::GetDirectoryId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DeviceAPIService::GetDirectoryId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetDirectoryId_Name, kFlags, 0, 0, nullptr);
@@ -497,14 +504,17 @@ void DeviceAPIServiceProxy::GetHostname(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DeviceAPIService::GetHostname");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetHostname_Name, kFlags, 0, 0, nullptr);
@@ -528,14 +538,17 @@ void DeviceAPIServiceProxy::GetSerialNumber(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DeviceAPIService::GetSerialNumber");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetSerialNumber_Name, kFlags, 0, 0, nullptr);
@@ -559,14 +572,17 @@ void DeviceAPIServiceProxy::GetAnnotatedAssetId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DeviceAPIService::GetAnnotatedAssetId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetAnnotatedAssetId_Name, kFlags, 0, 0, nullptr);
@@ -590,14 +606,17 @@ void DeviceAPIServiceProxy::GetAnnotatedLocation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DeviceAPIService::GetAnnotatedLocation");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetAnnotatedLocation_Name, kFlags, 0, 0, nullptr);
@@ -707,7 +726,8 @@ void DeviceAPIService_GetDirectoryId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetDirectoryId_Name, kFlags, 0, 0, nullptr);
@@ -833,7 +853,8 @@ void DeviceAPIService_GetHostname_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetHostname_Name, kFlags, 0, 0, nullptr);
@@ -959,7 +980,8 @@ void DeviceAPIService_GetSerialNumber_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetSerialNumber_Name, kFlags, 0, 0, nullptr);
@@ -1085,7 +1107,8 @@ void DeviceAPIService_GetAnnotatedAssetId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetAnnotatedAssetId_Name, kFlags, 0, 0, nullptr);
@@ -1211,7 +1234,8 @@ void DeviceAPIService_GetAnnotatedLocation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceAPIService_GetAnnotatedLocation_Name, kFlags, 0, 0, nullptr);
@@ -1407,18 +1431,18 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceAPIServiceValidationInfo[] = {
-    {&internal::DeviceAPIService_GetDirectoryId_Params_Data::Validate,
+    { &internal::DeviceAPIService_GetDirectoryId_Params_Data::Validate,
      &internal::DeviceAPIService_GetDirectoryId_ResponseParams_Data::Validate},
-    {&internal::DeviceAPIService_GetHostname_Params_Data::Validate,
+    { &internal::DeviceAPIService_GetHostname_Params_Data::Validate,
      &internal::DeviceAPIService_GetHostname_ResponseParams_Data::Validate},
-    {&internal::DeviceAPIService_GetSerialNumber_Params_Data::Validate,
+    { &internal::DeviceAPIService_GetSerialNumber_Params_Data::Validate,
      &internal::DeviceAPIService_GetSerialNumber_ResponseParams_Data::Validate},
-    {&internal::DeviceAPIService_GetAnnotatedAssetId_Params_Data::Validate,
+    { &internal::DeviceAPIService_GetAnnotatedAssetId_Params_Data::Validate,
      &internal::DeviceAPIService_GetAnnotatedAssetId_ResponseParams_Data::Validate},
-    {&internal::DeviceAPIService_GetAnnotatedLocation_Params_Data::Validate,
+    { &internal::DeviceAPIService_GetAnnotatedLocation_Params_Data::Validate,
      &internal::DeviceAPIService_GetAnnotatedLocation_ResponseParams_Data::Validate},
 };
 
@@ -1538,14 +1562,17 @@ void ManagedConfigurationServiceProxy::GetManagedConfiguration(
                         "<value of type const WTF::Vector<WTF::String>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kManagedConfigurationService_GetManagedConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1589,14 +1616,17 @@ void ManagedConfigurationServiceProxy::SubscribeToManagedConfiguration(
                         "<value of type ::mojo::PendingRemote<ManagedConfigurationObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kManagedConfigurationService_SubscribeToManagedConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1665,7 +1695,7 @@ class ManagedConfigurationService_GetManagedConfiguration_ProxyToResponder : pub
 #endif
 
   void Run(
-      const absl::optional<WTF::HashMap<WTF::String, WTF::String>>& in_configurations);
+      const std::optional<WTF::HashMap<WTF::String, WTF::String>>& in_configurations);
 };
 
 bool ManagedConfigurationService_GetManagedConfiguration_ForwardToCallback::Accept(
@@ -1678,7 +1708,7 @@ bool ManagedConfigurationService_GetManagedConfiguration_ForwardToCallback::Acce
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<WTF::HashMap<WTF::String, WTF::String>> p_configurations{};
+  std::optional<WTF::HashMap<WTF::String, WTF::String>> p_configurations{};
   ManagedConfigurationService_GetManagedConfiguration_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadConfigurations(&p_configurations))
@@ -1697,7 +1727,7 @@ std::move(p_configurations));
 }
 
 void ManagedConfigurationService_GetManagedConfiguration_ProxyToResponder::Run(
-    const absl::optional<WTF::HashMap<WTF::String, WTF::String>>& in_configurations) {
+    const std::optional<WTF::HashMap<WTF::String, WTF::String>>& in_configurations) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ManagedConfigurationService::GetManagedConfiguration", "async_response_parameters",
@@ -1705,13 +1735,14 @@ void ManagedConfigurationService_GetManagedConfiguration_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("configurations"), in_configurations,
-                        "<value of type const absl::optional<WTF::HashMap<WTF::String, WTF::String>>&>");
+                        "<value of type const std::optional<WTF::HashMap<WTF::String, WTF::String>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kManagedConfigurationService_GetManagedConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1830,12 +1861,12 @@ std::move(p_keys), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kManagedConfigurationServiceValidationInfo[] = {
-    {&internal::ManagedConfigurationService_GetManagedConfiguration_Params_Data::Validate,
+    { &internal::ManagedConfigurationService_GetManagedConfiguration_Params_Data::Validate,
      &internal::ManagedConfigurationService_GetManagedConfiguration_ResponseParams_Data::Validate},
-    {&internal::ManagedConfigurationService_SubscribeToManagedConfiguration_Params_Data::Validate,
+    { &internal::ManagedConfigurationService_SubscribeToManagedConfiguration_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2059,14 +2090,14 @@ ManagedConfigurationServiceAsyncWaiter::ManagedConfigurationServiceAsyncWaiter(
 ManagedConfigurationServiceAsyncWaiter::~ManagedConfigurationServiceAsyncWaiter() = default;
 
 void ManagedConfigurationServiceAsyncWaiter::GetManagedConfiguration(
-    const WTF::Vector<WTF::String>& keys, absl::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations) {
+    const WTF::Vector<WTF::String>& keys, std::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations) {
   base::RunLoop loop;
   proxy_->GetManagedConfiguration(std::move(keys),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations
+             std::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations
 ,
-             const absl::optional<WTF::HashMap<WTF::String, WTF::String>>& configurations) {*out_configurations = std::move(configurations);
+             const std::optional<WTF::HashMap<WTF::String, WTF::String>>& configurations) {*out_configurations = std::move(configurations);
             loop->Quit();
           },
           &loop,
@@ -2074,9 +2105,9 @@ void ManagedConfigurationServiceAsyncWaiter::GetManagedConfiguration(
   loop.Run();
 }
 
-absl::optional<WTF::HashMap<WTF::String, WTF::String>> ManagedConfigurationServiceAsyncWaiter::GetManagedConfiguration(
+std::optional<WTF::HashMap<WTF::String, WTF::String>> ManagedConfigurationServiceAsyncWaiter::GetManagedConfiguration(
     const WTF::Vector<WTF::String>& keys) {
-  absl::optional<WTF::HashMap<WTF::String, WTF::String>> async_wait_result;
+  std::optional<WTF::HashMap<WTF::String, WTF::String>> async_wait_result;
   GetManagedConfiguration(std::move(keys),&async_wait_result);
   return async_wait_result;
 }

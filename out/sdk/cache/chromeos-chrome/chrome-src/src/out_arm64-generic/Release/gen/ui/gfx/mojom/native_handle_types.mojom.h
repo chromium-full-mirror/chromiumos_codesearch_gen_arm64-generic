@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/native_handle_types.mojom-features.h"
 #include "ui/gfx/mojom/native_handle_types.mojom-shared.h"
 #include "ui/gfx/mojom/native_handle_types.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -66,17 +67,17 @@ class  GpuMemoryBufferPlatformHandle {
   // Construct an instance holding |shared_memory_handle|.
   static GpuMemoryBufferPlatformHandlePtr
   NewSharedMemoryHandle(
-      ::base::UnsafeSharedMemoryRegion shared_memory_handle) {
+      ::base::UnsafeSharedMemoryRegion value) {
     auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
-    result->set_shared_memory_handle(std::move(shared_memory_handle));
+    result->set_shared_memory_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |native_pixmap_handle|.
   static GpuMemoryBufferPlatformHandlePtr
   NewNativePixmapHandle(
-      ::gfx::NativePixmapHandle native_pixmap_handle) {
+      ::gfx::NativePixmapHandle value) {
     auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
-    result->set_native_pixmap_handle(std::move(native_pixmap_handle));
+    result->set_native_pixmap_handle(std::move(value));
     return result;
   }
 

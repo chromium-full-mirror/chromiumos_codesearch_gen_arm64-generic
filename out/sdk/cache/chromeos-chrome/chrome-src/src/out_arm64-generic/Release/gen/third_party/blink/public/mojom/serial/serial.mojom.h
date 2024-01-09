@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/serial/serial.mojom-features.h"
 #include "third_party/blink/public/mojom/serial/serial.mojom-shared.h"
 #include "third_party/blink/public/mojom/serial/serial.mojom-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom.h"
@@ -350,7 +351,7 @@ class BLINK_COMMON_EXPORT SerialPortInfo {
       bool has_usb_vendor_id,
       uint16_t usb_product_id,
       bool has_usb_product_id,
-      const absl::optional<::device::BluetoothUUID>& bluetooth_service_class_id);
+      const std::optional<::device::BluetoothUUID>& bluetooth_service_class_id);
 
 
   ~SerialPortInfo();
@@ -438,7 +439,7 @@ class BLINK_COMMON_EXPORT SerialPortInfo {
   
   bool has_usb_product_id;
   
-  absl::optional<::device::BluetoothUUID> bluetooth_service_class_id;
+  std::optional<::device::BluetoothUUID> bluetooth_service_class_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -504,7 +505,7 @@ class BLINK_COMMON_EXPORT SerialPortFilter {
       bool has_vendor_id,
       uint16_t product_id,
       bool has_product_id,
-      const absl::optional<::device::BluetoothUUID>& bluetooth_service_class_id);
+      const std::optional<::device::BluetoothUUID>& bluetooth_service_class_id);
 
 
   ~SerialPortFilter();
@@ -590,7 +591,7 @@ class BLINK_COMMON_EXPORT SerialPortFilter {
   
   bool has_product_id;
   
-  absl::optional<::device::BluetoothUUID> bluetooth_service_class_id;
+  std::optional<::device::BluetoothUUID> bluetooth_service_class_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

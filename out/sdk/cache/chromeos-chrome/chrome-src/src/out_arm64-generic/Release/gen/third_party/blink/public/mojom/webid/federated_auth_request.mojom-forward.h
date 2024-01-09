@@ -22,8 +22,6 @@
 
 
 namespace blink::mojom {
-class LogoutRpsRequestDataView;
-
 class DigitalCredentialProviderDataView;
 
 class DigitalCredentialSelectorDataView;
@@ -31,6 +29,10 @@ class DigitalCredentialSelectorDataView;
 class DigitalCredentialFieldRequirementDataView;
 
 class IdentityProviderConfigDataView;
+
+class IdentityProviderRequestOptionsDataView;
+
+class IdentityCredentialDisconnectOptionsDataView;
 
 class IdentityUserInfoDataView;
 
@@ -44,16 +46,13 @@ enum class RequestTokenStatus : int32_t;
 
 enum class RequestUserInfoStatus : int32_t;
 
-enum class LogoutRpsStatus : int32_t;
+enum class DisconnectStatus : int32_t;
 
 enum class IdpSigninStatus : int32_t;
 
 enum class RpContext : int32_t;
 
 enum class RpMode : int32_t;
-class LogoutRpsRequest;
-using LogoutRpsRequestPtr = mojo::StructPtr<LogoutRpsRequest>;
-
 class DigitalCredentialProvider;
 using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
 
@@ -65,6 +64,12 @@ using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCrede
 
 class IdentityProviderConfig;
 using IdentityProviderConfigPtr = mojo::StructPtr<IdentityProviderConfig>;
+
+class IdentityProviderRequestOptions;
+using IdentityProviderRequestOptionsPtr = mojo::StructPtr<IdentityProviderRequestOptions>;
+
+class IdentityCredentialDisconnectOptions;
+using IdentityCredentialDisconnectOptionsPtr = mojo::StructPtr<IdentityCredentialDisconnectOptions>;
 
 class IdentityUserInfo;
 using IdentityUserInfoPtr = mojo::InlinedStructPtr<IdentityUserInfo>;

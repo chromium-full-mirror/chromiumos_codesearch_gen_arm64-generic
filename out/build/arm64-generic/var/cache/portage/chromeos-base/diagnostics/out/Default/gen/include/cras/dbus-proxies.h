@@ -763,6 +763,35 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Set the force HFP SWB enabled state to `enabled`.
+  // Caution: This method is for testing purpose.
+  virtual bool SetForceHFPSwbEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Set the force HFP SWB enabled state to `enabled`.
+  // Caution: This method is for testing purpose.
+  virtual void SetForceHFPSwbEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the state of the force HFP SWB enabled.
+  // Caution: This method is for testing purpose.
+  virtual bool GetForceHFPSwbEnabled(
+      bool* out_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the state of the force HFP SWB enabled.
+  // Caution: This method is for testing purpose.
+  virtual void GetForceHFPSwbEnabledAsync(
+      base::OnceCallback<void(bool /*enabled*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Set the force sr bt enabled state to `enabled`.
   // Caution: This method is for testing purpose.
   virtual bool SetForceSrBtEnabled(
@@ -924,6 +953,30 @@ class ControlProxyInterface {
   virtual void SetForceBtHfpOffloadOnSupportAsync(
       bool in_enabled,
       base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns true if BT HFP offload is supported.
+  // Caution: This method is for testing purpose.
+  virtual bool GetBtHfpOffloadSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns true if BT HFP offload is supported.
+  // Caution: This method is for testing purpose.
+  virtual void GetBtHfpOffloadSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool DumpS2AsJSON(
+      std::string* out_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void DumpS2AsJSONAsync(
+      base::OnceCallback<void(const std::string& /*data*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -2753,6 +2806,71 @@ class ControlProxy final : public ControlProxyInterface {
         std::move(error_callback));
   }
 
+  // Set the force HFP SWB enabled state to `enabled`.
+  // Caution: This method is for testing purpose.
+  bool SetForceHFPSwbEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetForceHFPSwbEnabled",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Set the force HFP SWB enabled state to `enabled`.
+  // Caution: This method is for testing purpose.
+  void SetForceHFPSwbEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetForceHFPSwbEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
+  }
+
+  // Returns the state of the force HFP SWB enabled.
+  // Caution: This method is for testing purpose.
+  bool GetForceHFPSwbEnabled(
+      bool* out_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetForceHFPSwbEnabled",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_enabled);
+  }
+
+  // Returns the state of the force HFP SWB enabled.
+  // Caution: This method is for testing purpose.
+  void GetForceHFPSwbEnabledAsync(
+      base::OnceCallback<void(bool /*enabled*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetForceHFPSwbEnabled",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
   // Set the force sr bt enabled state to `enabled`.
   // Caution: This method is for testing purpose.
   bool SetForceSrBtEnabled(
@@ -3152,6 +3270,64 @@ class ControlProxy final : public ControlProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_enabled);
+  }
+
+  // Returns true if BT HFP offload is supported.
+  // Caution: This method is for testing purpose.
+  bool GetBtHfpOffloadSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetBtHfpOffloadSupported",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_supported);
+  }
+
+  // Returns true if BT HFP offload is supported.
+  // Caution: This method is for testing purpose.
+  void GetBtHfpOffloadSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetBtHfpOffloadSupported",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool DumpS2AsJSON(
+      std::string* out_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "DumpS2AsJSON",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_data);
+  }
+
+  void DumpS2AsJSONAsync(
+      base::OnceCallback<void(const std::string& /*data*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "DumpS2AsJSON",
+        std::move(success_callback),
+        std::move(error_callback));
   }
 
  private:

@@ -26,7 +26,7 @@ enum class RequestTokenStatus : int32_t;
 
 enum class RequestUserInfoStatus : int32_t;
 
-enum class LogoutRpsStatus : int32_t;
+enum class DisconnectStatus : int32_t;
 
 enum class IdpSigninStatus : int32_t;
 
@@ -43,14 +43,11 @@ namespace blink::mojom::blink {
 // Aliases for definition in the parent namespace.
 using RequestTokenStatus = RequestTokenStatus;
 using RequestUserInfoStatus = RequestUserInfoStatus;
-using LogoutRpsStatus = LogoutRpsStatus;
+using DisconnectStatus = DisconnectStatus;
 using IdpSigninStatus = IdpSigninStatus;
 using RpContext = RpContext;
 using RpMode = RpMode;
 using FederatedAuthRequestInterfaceBase = FederatedAuthRequestInterfaceBase;
-class LogoutRpsRequest;
-using LogoutRpsRequestPtr = mojo::StructPtr<LogoutRpsRequest>;
-
 class DigitalCredentialProvider;
 using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
 
@@ -62,6 +59,12 @@ using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCrede
 
 class IdentityProviderConfig;
 using IdentityProviderConfigPtr = mojo::StructPtr<IdentityProviderConfig>;
+
+class IdentityProviderRequestOptions;
+using IdentityProviderRequestOptionsPtr = mojo::StructPtr<IdentityProviderRequestOptions>;
+
+class IdentityCredentialDisconnectOptions;
+using IdentityCredentialDisconnectOptionsPtr = mojo::StructPtr<IdentityCredentialDisconnectOptions>;
 
 class IdentityUserInfo;
 using IdentityUserInfoPtr = mojo::InlinedStructPtr<IdentityUserInfo>;

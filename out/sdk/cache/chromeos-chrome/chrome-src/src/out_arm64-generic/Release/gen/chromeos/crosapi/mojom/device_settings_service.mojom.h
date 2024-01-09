@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/device_settings_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/device_settings_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/device_settings_service.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -810,7 +811,7 @@ class  DeviceSettings {
       DeviceSettings::OptionalBool report_device_network_status,
       NullableInt64Ptr report_upload_frequency,
       NullableInt64Ptr report_device_network_telemetry_collection_rate_ms,
-      const absl::optional<std::string>& device_variations_restrict_parameter);
+      const std::optional<std::string>& device_variations_restrict_parameter);
 
   DeviceSettings(
       DeviceSettings::OptionalBool attestation_for_content_protection_enabled,
@@ -821,8 +822,8 @@ class  DeviceSettings {
       DeviceSettings::OptionalBool report_device_network_status,
       NullableInt64Ptr report_upload_frequency,
       NullableInt64Ptr report_device_network_telemetry_collection_rate_ms,
-      const absl::optional<std::string>& device_variations_restrict_parameter,
-      absl::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled);
+      const std::optional<std::string>& device_variations_restrict_parameter,
+      std::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled);
 
 DeviceSettings(const DeviceSettings&) = delete;
 DeviceSettings& operator=(const DeviceSettings&) = delete;
@@ -918,9 +919,9 @@ DeviceSettings& operator=(const DeviceSettings&) = delete;
   
   NullableInt64Ptr report_device_network_telemetry_collection_rate_ms;
   
-  absl::optional<std::string> device_variations_restrict_parameter;
+  std::optional<std::string> device_variations_restrict_parameter;
   
-  absl::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled;
+  std::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

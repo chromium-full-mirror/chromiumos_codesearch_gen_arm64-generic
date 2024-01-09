@@ -130,20 +130,6 @@ struct MojomTypeTraits<::network::mojom::StoredTrustTokensForIssuerDataView> {
 namespace network::mojom {
 
 
-enum class TrustTokenMajorVersion : int32_t {
-  
-  kPrivateStateTokenV1 = 0,
-  kMinValue = 0,
-  kMaxValue = 0,
-};
-
- std::ostream& operator<<(std::ostream& os, TrustTokenMajorVersion value);
-inline bool IsKnownEnumValue(TrustTokenMajorVersion value) {
-  return internal::TrustTokenMajorVersion_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
 enum class TrustTokenProtocolVersion : int32_t {
   
   kTrustTokenV3Pmb = 0,
@@ -341,16 +327,6 @@ class TrustTokenParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadVersion(UserType* output) const {
-    auto data_value = data_->version;
-    return mojo::internal::Deserialize<::network::mojom::TrustTokenMajorVersion>(
-        data_value, output);
-  }
-  TrustTokenMajorVersion version() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::network::mojom::TrustTokenMajorVersion>(data_->version));
-  }
   template <typename UserType>
   [[nodiscard]] bool ReadOperation(UserType* output) const {
     auto data_value = data_->operation;
@@ -572,16 +548,6 @@ class TrustTokenKeyCommitmentResultDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadVersion(UserType* output) const {
-    auto data_value = data_->version;
-    return mojo::internal::Deserialize<::network::mojom::TrustTokenMajorVersion>(
-        data_value, output);
-  }
-  TrustTokenMajorVersion version() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::network::mojom::TrustTokenMajorVersion>(data_->version));
-  }
   template <typename UserType>
   [[nodiscard]] bool ReadProtocolVersion(UserType* output) const {
     auto data_value = data_->protocol_version;
@@ -819,10 +785,6 @@ class StoredTrustTokensForIssuerDataView {
 namespace std {
 
 template <>
-struct hash<::network::mojom::TrustTokenMajorVersion>
-    : public mojo::internal::EnumHashImpl<::network::mojom::TrustTokenMajorVersion> {};
-
-template <>
 struct hash<::network::mojom::TrustTokenProtocolVersion>
     : public mojo::internal::EnumHashImpl<::network::mojom::TrustTokenProtocolVersion> {};
 
@@ -861,26 +823,6 @@ struct hash<::network::mojom::FulfillTrustTokenIssuanceAnswer_Status>
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::network::mojom::TrustTokenMajorVersion, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::network::mojom::TrustTokenMajorVersion, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::network::mojom::TrustTokenMajorVersion>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -1076,8 +1018,6 @@ struct Serializer<::network::mojom::TrustTokenParamsDataView, MaybeConstUserType
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::network::mojom::TrustTokenMajorVersion>(
-        Traits::version(input), &fragment->version);
     mojo::internal::Serialize<::network::mojom::TrustTokenOperationType>(
         Traits::operation(input), &fragment->operation);
     mojo::internal::Serialize<::network::mojom::TrustTokenRefreshPolicy>(
@@ -1283,8 +1223,6 @@ struct Serializer<::network::mojom::TrustTokenKeyCommitmentResultDataView, Maybe
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::network::mojom::TrustTokenMajorVersion>(
-        Traits::version(input), &fragment->version);
     mojo::internal::Serialize<::network::mojom::TrustTokenProtocolVersion>(
         Traits::protocol_version(input), &fragment->protocol_version);
     fragment->id = Traits::id(input);
@@ -1625,15 +1563,6 @@ inline void StoredTrustTokensForIssuerDataView::GetIssuerDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::network::mojom::TrustTokenMajorVersion> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::network::mojom::TrustTokenMajorVersion value);
-};
-
-} // namespace perfetto
 
 namespace perfetto {
 

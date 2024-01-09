@@ -1,36 +1,35 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { isOneDriveId, isSameEntry, isVolumeEntry, sortEntries } from '../../common/js/entry_utils.js';
-import { VolumeEntry } from '../../common/js/files_app_entry_types.js';
+import { isOneDriveId, isSameEntry, sortEntries } from '../../common/js/entry_utils.js';
+import { EntryList, VolumeEntry } from '../../common/js/files_app_entry_types.js';
 import { isGuestOsEnabled, isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/files_app_entry_interfaces.js';
-import { PropStatus } from '../../externs/ts/state.js';
+import { str } from '../../common/js/translations.js';
+import { RootType, Source, VolumeType } from '../../common/js/volume_manager_types.js';
+import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { FileKey, PropStatus, State, Volume, VolumeId } from '../../externs/ts/state.js';
+import { ICON_TYPES } from '../../foreground/js/constants.js';
 import { Slice } from '../../lib/base_store.js';
-import { cacheEntries, getMyFiles, updateFileData, volumeNestingEntries } from '../ducks/all_entries.js';
 import { getEntry, getFileData } from '../store.js';
+import { cacheEntries, getMyFiles, updateFileDataInPlace } from './all_entries.js';
 import { updateDeviceConnectionState } from './device.js';
 /**
  * @fileoverview Volumes slice of the store.
- * @suppress {checkTypes}
  */
 const slice = new Slice('volumes');
 export { slice as volumesSlice };
-const VolumeType = VolumeManagerCommon.VolumeType;
-export const myFilesEntryListKey = `entry-list://${VolumeManagerCommon.RootType.MY_FILES}`;
-export const crostiniPlaceHolderKey = `fake-entry://${VolumeManagerCommon.RootType.CROSTINI}`;
-export const drivePlaceHolderKey = `fake-entry://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-export const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
-export const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
-export const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
+export const myFilesEntryListKey = `entry-list://${RootType.MY_FILES}`;
+export const crostiniPlaceHolderKey = `fake-entry://${RootType.CROSTINI}`;
+export const drivePlaceHolderKey = `fake-entry://${RootType.DRIVE_FAKE_ROOT}`;
+export const recentRootKey = `fake-entry://${RootType.RECENT}/all`;
+export const trashRootKey = `fake-entry://${RootType.TRASH}`;
+export const driveRootEntryListKey = `entry-list://${RootType.DRIVE_FAKE_ROOT}`;
 export const makeRemovableParentKey = (volume) => {
     // Should be consistent with EntryList's toURL() method.
     if (volume.devicePath) {
-        return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+        return `entry-list://${RootType.REMOVABLE}/${volume.devicePath}`;
     }
-    return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}`;
+    return `entry-list://${RootType.REMOVABLE}`;
 };
 export const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
 export function getVolumeTypesNestedInMyFiles() {
@@ -83,156 +82,319 @@ export function convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata)
  * Updates a volume from the store.
  */
 export function updateVolume(state, volumeId, changes) {
-    if (!state.volumes[volumeId]) {
+    const volume = state.volumes[volumeId];
+    if (!volume) {
         console.warn(`Volume not found in the store: ${volumeId}`);
         return;
     }
     return {
-        ...state.volumes[volumeId],
+        ...volume,
         ...changes,
     };
 }
 /** Create action to add a volume. */
 export const addVolume = slice.addReducer('add', addVolumeReducer);
 function addVolumeReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [new VolumeEntry(payload.volumeInfo)]);
-    volumeNestingEntries(currentState, payload.volumeInfo, payload.volumeMetadata);
-    const volumeMetadata = payload.volumeMetadata;
-    const volumeInfo = payload.volumeInfo;
+    const { volumeMetadata, volumeInfo } = payload;
     if (!volumeInfo.fileSystem) {
         console.error('Only add to the store volumes that have successfully resolved.');
         return currentState;
     }
-    const volumes = {
-        ...currentState.volumes,
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    const newVolumeEntry = new VolumeEntry(payload.volumeInfo);
+    cacheEntries(currentState, [newVolumeEntry]);
+    const volumeRootKey = newVolumeEntry.toURL();
+    // Update isEjectable fields in the FileData.
+    currentState.allEntries[volumeRootKey] = {
+        ...currentState.allEntries[volumeRootKey],
+        isEjectable: (volumeInfo.source === Source.DEVICE &&
+            volumeInfo.volumeType !== VolumeType.MTP) ||
+            volumeInfo.source === Source.FILE,
     };
     const volume = convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata);
-    const volumeEntry = getEntry(currentState, volume.rootKey);
     // Use volume entry's disabled property because that one is derived from
     // volume manager.
-    if (volumeEntry) {
-        volume.isDisabled = !!volumeEntry.disabled;
-    }
-    // Nested in MyFiles.
+    volume.isDisabled = !!newVolumeEntry.disabled;
+    // Handles volumes nested inside MyFiles.
+    // It creates a placeholder for MyFiles if MyFiles volume isn't mounted yet.
     const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    // When mounting MyFiles replace the temporary placeholder in nested volumes.
+    const { myFilesEntry } = getMyFiles(currentState);
+    // For volumes which are supposed to be nested inside MyFiles (e.g. Android,
+    // Crostini, GuestOS), we need to nest them into MyFiles and remove the
+    // placeholder fake entry if existed.
+    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
+        volume.prefixKey = myFilesEntry.toURL();
+        const myFilesEntryKey = myFilesEntry.toURL();
+        // Shallow copy here because we will update this object directly below, and
+        // the same object might be referenced in the UI.
+        const myFilesFileData = { ...getFileData(currentState, myFilesEntryKey) };
+        // Nest the entry for the new volume info in MyFiles.
+        const uiEntryPlaceholder = myFilesEntry.getUiChildren().find(childEntry => childEntry.name === newVolumeEntry.name);
+        // Remove a placeholder for the currently mounting volume.
+        if (uiEntryPlaceholder) {
+            myFilesEntry.removeChildEntry(uiEntryPlaceholder);
+            // Also remove it from the children field.
+            myFilesFileData.children = myFilesFileData.children.filter(childKey => childKey !== uiEntryPlaceholder.toURL());
+            // Do not remove the placeholder ui entry from the store. Removing it from
+            // the MyFiles is sufficient to prevent it from showing in the directory
+            // tree. We keep it in the store (`currentState["uiEntries"]`) because
+            // when the corresponding volume unmounts, we need to use its existence to
+            // decide if we need to re-add the placeholder back to MyFiles.
+        }
+        appendChildIfNotExisted(myFilesEntry, newVolumeEntry);
+        // Push the new entry to the children of FileData and sort them.
+        if (!myFilesFileData.children.find(childKey => childKey === volumeRootKey)) {
+            const newChildren = [...myFilesFileData.children, volumeRootKey];
+            const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+            myFilesFileData.children =
+                sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[myFilesEntryKey] = myFilesFileData;
+    }
+    // When we manipulate the children below, we need to update both
+    // `entry.children_` (usually via `appendChildIfNotExisted/removeChildEntry`)
+    // and also `FileData.children`. This is specific for the purpose of Directory
+    // tree rendering, the tree item only fetch its sub directories on the first
+    // render or when it's being expanded, if a volume mount introduces new
+    // children (e.g. Drive volume and its children), the Tree UI doesn't know it
+    // needs to be re-fetch sub directories because no file watcher event is
+    // triggered for certain cases, hence updating the `FileData.children` here.
+    // Handles MyFiles volume.
+    // It nests the Android, Crostini & GuestOSes inside MyFiles.
     if (volume.volumeType === VolumeType.DOWNLOADS) {
-        for (const v of Object.values(volumes)) {
+        for (const v of Object.values(currentState.volumes)) {
             if (myFilesNestedVolumeTypes.has(v.volumeType)) {
-                v.prefixKey = volume.rootKey;
+                v.prefixKey = volumeRootKey;
             }
         }
-    }
-    // When mounting a nested volume, set the prefixKey.
-    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        volume.prefixKey = myFilesEntry.toURL();
-    }
-    // When mounting Drive.
-    if (volume.volumeType === VolumeType.DRIVE) {
-        const drive = getEntry(currentState, driveRootEntryListKey);
-        assert(drive);
-        volume.prefixKey = drive.toURL();
-    }
-    // When mounting Removable.
-    if (volume.volumeType === VolumeType.REMOVABLE) {
-        // Should it it be nested or not?
-        const groupingKey = removableGroupKey(volume);
-        const parentKey = makeRemovableParentKey(volume);
-        const groupParentEntry = getEntry(currentState, parentKey);
-        if (groupParentEntry) {
-            const volumesInSameGroup = Object.values(volumes).filter(v => {
-                if (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey) {
-                    v.prefixKey = parentKey;
-                    return true;
-                }
-                return false;
-            });
-            // At this point the current `volume` is not in the above `volumes`, we
-            // need to update the prefixKey separately.
-            volume.prefixKey =
-                volumesInSameGroup.length > 0 ? groupParentEntry.toURL() : undefined;
+        // Do not use myFilesEntry above, because at this moment both fake MyFiles
+        // and real MyFiles are in the store.
+        const myFilesEntryList = getEntry(currentState, myFilesEntryListKey);
+        if (myFilesEntryList) {
+            // We need to copy the children of the entry list to the real volume
+            // entry.
+            const uiChildren = [...myFilesEntryList.getUiChildren()];
+            for (const childEntry of uiChildren) {
+                appendChildIfNotExisted(newVolumeEntry, childEntry);
+                myFilesEntryList.removeChildEntry(childEntry);
+            }
+            // Also copy the FileData children of the entry list to the real volume
+            // entry.
+            const myFilesEntryListFileData = getFileData(currentState, myFilesEntryListKey);
+            const myFilesVolumeEntryFileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...myFilesVolumeEntryFileData,
+                children: [...myFilesEntryListFileData.children],
+            };
+            // Remove MyFiles entry list from the uiEntries.
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== myFilesEntryListKey);
         }
-        if (isSinglePartitionFormatEnabled()) {
-            // If the flag is on, we always group removable volume even if there is
-            // only one, hence always adding the prefixKey here.
-            volume.prefixKey = parentKey;
+    }
+    // Handles Drive volume.
+    // It nests the Drive root (aka MyDrive) inside a EntryList for "Google
+    // Drive", and also the fake entries for "Offline" and "Shared with me".
+    if (volume.volumeType === VolumeType.DRIVE) {
+        let driveFakeRoot = getEntry(currentState, driveRootEntryListKey);
+        if (!driveFakeRoot) {
+            driveFakeRoot =
+                new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
+            cacheEntries(currentState, [driveFakeRoot]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, driveFakeRoot.toURL()];
+        }
+        const driveRootFileDataChildren = [];
+        appendChildIfNotExisted(driveFakeRoot, newVolumeEntry);
+        driveRootFileDataChildren.push(volumeRootKey);
+        // We want the order to be
+        // - My Drive
+        // - Shared Drives (if the user has any)
+        // - Computers (if the user has any)
+        // - Shared with me
+        // - Offline
+        const { sharedDriveDisplayRoot, computersDisplayRoot, fakeEntries } = volumeInfo;
+        // Add "Shared drives" (team drives) grand root into Drive. It's guaranteed
+        // to be resolved at this moment because ADD_VOLUME action will only be
+        // triggered after resolving all roots.
+        if (sharedDriveDisplayRoot) {
+            cacheEntries(currentState, [sharedDriveDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, sharedDriveDisplayRoot);
+            // Do not add Shared drives to the FileData children, as we should only
+            // show it in the navigation when it has children inside.
+        }
+        // Add "Computer" grand root into Drive. It's guaranteed to be resolved at
+        // this moment because ADD_VOLUME action will only be triggered after
+        // resolving all roots.
+        if (computersDisplayRoot) {
+            cacheEntries(currentState, [computersDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, computersDisplayRoot);
+            // Do not add Computers to the FileData children, as we should only show
+            // it in the navigation when it has children inside.
+        }
+        // Add "Shared with me" into Drive.
+        const fakeSharedWithMe = fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+        if (fakeSharedWithMe) {
+            cacheEntries(currentState, [fakeSharedWithMe]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, fakeSharedWithMe.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeSharedWithMe);
+            driveRootFileDataChildren.push(fakeSharedWithMe.toURL());
+        }
+        // Add "Offline" into Drive.
+        const fakeOffline = fakeEntries[RootType.DRIVE_OFFLINE];
+        if (fakeOffline) {
+            cacheEntries(currentState, [fakeOffline]);
+            currentState.uiEntries = [...currentState.uiEntries, fakeOffline.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeOffline);
+            driveRootFileDataChildren.push(fakeOffline.toURL());
+        }
+        currentState.allEntries[driveRootEntryListKey] = {
+            ...getFileData(currentState, driveRootEntryListKey),
+            children: driveRootFileDataChildren,
+        };
+        volume.prefixKey = driveFakeRoot.toURL();
+    }
+    // Handles Removable volume.
+    // It may nest in a EntryList if one device has multiple partitions.
+    if (volume.volumeType === VolumeType.REMOVABLE) {
+        const groupingKey = removableGroupKey(volumeMetadata);
+        // When the flag is on, we always group removable volume even there's only 1
+        // partition, otherwise the group only happens when there are more than 1
+        // partition in the same device.
+        const shouldGroup = isSinglePartitionFormatEnabled() ?
+            true :
+            Object.values(currentState.volumes).some(v => {
+                return (v.volumeType === VolumeType.REMOVABLE &&
+                    removableGroupKey(v) === groupingKey &&
+                    v.volumeId != volumeInfo.volumeId);
+            });
+        if (shouldGroup) {
+            const parentKey = makeRemovableParentKey(volumeMetadata);
+            let parentEntry = getEntry(currentState, parentKey);
+            if (!parentEntry) {
+                parentEntry = new EntryList(volumeMetadata.driveLabel || '', RootType.REMOVABLE, volumeMetadata.devicePath);
+                cacheEntries(currentState, [parentEntry]);
+                currentState.uiEntries =
+                    [...currentState.uiEntries, parentEntry.toURL()];
+            }
+            const partitionChildEntries = [];
+            // Update the siblings too.
+            Object.values(currentState.volumes)
+                .filter(v => v.volumeType === VolumeType.REMOVABLE &&
+                removableGroupKey(v) === groupingKey)
+                .forEach(v => {
+                const fileData = getFileData(currentState, v.rootKey);
+                if (!fileData) {
+                    return;
+                }
+                // Volume with `prefixKey` has already been processed, however,
+                // regardless of processed or not we always need to put it in
+                // `partitionChildEntries` because we are trying to construct the
+                // full children array here, at the end we will use
+                // `partitionChildEntries` to replace the current
+                // `FileData.children`.
+                partitionChildEntries.push(fileData.entry);
+                if (!v.prefixKey) {
+                    v.prefixKey = parentEntry.toURL();
+                    appendChildIfNotExisted(parentEntry, fileData.entry);
+                    // For sub-partition from a removable volume, its children icon
+                    // should be UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+                    currentState.allEntries[v.rootKey] = {
+                        ...fileData,
+                        icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                        isEjectable: false,
+                    };
+                }
+            });
+            // At this point the current `newVolumeEntry` is not in `parentEntry`, we
+            // need to add that to that group.
+            appendChildIfNotExisted(parentEntry, newVolumeEntry);
+            partitionChildEntries.push(newVolumeEntry);
+            volume.prefixKey = parentEntry.toURL();
+            // For sub-partition from a removable volume, its children icon should be
+            // UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+            const fileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...fileData,
+                icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                isEjectable: false,
+            };
+            currentState.allEntries[parentKey] = {
+                ...getFileData(currentState, parentKey),
+                // Removable devices with group, its parent should always be ejectable.
+                isEjectable: true,
+                children: sortEntries(parentEntry, partitionChildEntries)
+                    .map(entry => entry.toURL()),
+            };
         }
     }
     return {
         ...currentState,
         volumes: {
-            ...volumes,
+            ...currentState.volumes,
             [volume.volumeId]: volume,
         },
     };
+}
+function appendChildIfNotExisted(parentEntry, childEntry) {
+    if (!parentEntry.getUiChildren().find((entry) => isSameEntry(entry, childEntry))) {
+        parentEntry.addEntry(childEntry);
+        return true;
+    }
+    return false;
 }
 /** Create action to remove a volume. */
 export const removeVolume = slice.addReducer('remove', removeVolumeReducer);
 function removeVolumeReducer(currentState, payload) {
     const volumeToRemove = currentState.volumes[payload.volumeId];
+    if (!volumeToRemove) {
+        // Somehow the volume is already removed from the store, do nothing.
+        return currentState;
+    }
     const volumeEntry = getEntry(currentState, volumeToRemove.rootKey);
     delete currentState.volumes[payload.volumeId];
     currentState.volumes = {
         ...currentState.volumes,
     };
-    // We also need to check if the removed volume is a child of My files and if
-    // the volume is a grouped removable device.
-    const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
-    const isGroupedRemovable = volumeToRemove.volumeType === VolumeManagerCommon.VolumeType.REMOVABLE &&
-        volumeToRemove.prefixKey;
-    if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
-        if (volumeEntryExistsInMyFiles) {
-            // Remove it from the MyFiles UI children.
-            myFilesEntry.removeChildEntry(volumeEntry);
-            // Re-add the corresponding placeholder ui entry to the UI children.
-            const uiEntryKey = currentState.uiEntries.find(entryKey => {
-                const uiEntry = getEntry(currentState, entryKey);
-                return uiEntry.name === volumeEntry.name;
-            });
-            if (uiEntryKey) {
-                const uiEntry = getEntry(currentState, uiEntryKey);
-                myFilesEntry.addEntry(uiEntry);
-            }
-            // Remove it from the MyFiles file data.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                let newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-                // Re-add the corresponding placeholder ui entry to the file data.
-                if (uiEntryKey) {
-                    newChildren = newChildren.concat(uiEntryKey);
-                    const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
-                    newChildren = sortEntries(myFilesEntry, childEntries)
-                        .map(entry => entry.toURL());
-                }
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: newChildren,
-                };
-            }
-        }
+    if (!volumeToRemove.prefixKey) {
+        return { ...currentState };
     }
-    else if (isGroupedRemovable) {
-        const fileData = getFileData(currentState, volumeToRemove.prefixKey);
-        if (fileData) {
-            // Remove it from the parent UI entry's UI children.
-            fileData.entry.removeChildEntry(volumeEntry);
-            // Remove it from the parent UI entry's file data.
-            const newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-            currentState.allEntries[volumeToRemove.prefixKey] = {
-                ...fileData,
-                children: newChildren,
-            };
-            // If this is the last child, remove the parent UI entry.
-            if (newChildren.length === 0) {
-                currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
-            }
+    // We also need to remove it from its prefix entry if there is one.
+    const prefixEntryFileData = getFileData(currentState, volumeToRemove.prefixKey);
+    if (prefixEntryFileData) {
+        const prefixEntry = prefixEntryFileData.entry;
+        // Remove it from the prefix entry's UI children.
+        prefixEntry.removeChildEntry(volumeEntry);
+        // Remove it from the prefix entry's file data.
+        let newChildren = prefixEntryFileData.children.filter(child => child !== volumeEntry.toURL());
+        // If the prefix entry is an entry list for removable partitions, and this
+        // is the last child, remove the prefix entry.
+        if (prefixEntry.rootType === RootType.REMOVABLE &&
+            newChildren.length === 0) {
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
         }
+        // If the volume entry is under MyFiles, we need to add the placeholder
+        // entry back after the corresponding volume is removed (e.g. Crostini/Play
+        // files).
+        const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
+        const uiEntryKey = currentState.uiEntries.find(entryKey => {
+            const uiEntry = getEntry(currentState, entryKey);
+            return uiEntry.name === volumeEntry.name;
+        });
+        if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType) &&
+            uiEntryKey) {
+            // Re-add the corresponding placeholder ui entry to the UI children.
+            const uiEntry = getEntry(currentState, uiEntryKey);
+            prefixEntry.addEntry(uiEntry);
+            // Re-add the corresponding placeholder ui entry to the file data.
+            newChildren = newChildren.concat(uiEntryKey);
+            const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+            newChildren =
+                sortEntries(prefixEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[volumeToRemove.prefixKey] = {
+            ...prefixEntryFileData,
+            children: newChildren,
+        };
     }
     return {
         ...currentState,
@@ -280,7 +442,7 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
         }
         // Make the ODFS FileData/VolumeEntry consistent with its volume in the
         // store.
-        updateFileData(currentState, volume.rootKey, { disabled: disableODFS });
+        updateFileDataInPlace(currentState, volume.rootKey, { disabled: disableODFS });
         const odfsVolumeEntry = getEntry(currentState, volume.rootKey);
         if (odfsVolumeEntry) {
             odfsVolumeEntry.disabled = disableODFS;

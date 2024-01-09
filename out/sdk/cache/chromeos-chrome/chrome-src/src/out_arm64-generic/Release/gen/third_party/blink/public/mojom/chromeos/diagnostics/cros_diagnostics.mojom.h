@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/chromeos/diagnostics/cros_diagnostics.mojom-features.h"
 #include "third_party/blink/public/mojom/chromeos/diagnostics/cros_diagnostics.mojom-shared.h"
 #include "third_party/blink/public/mojom/chromeos/diagnostics/cros_diagnostics.mojom-forward.h"
 #include <string>
@@ -334,17 +335,17 @@ class BLINK_COMMON_EXPORT GetCpuInfoResult {
   // Construct an instance holding |cpu_info|.
   static GetCpuInfoResultPtr
   NewCpuInfo(
-      CrosCpuInfoPtr cpu_info) {
+      CrosCpuInfoPtr value) {
     auto result = GetCpuInfoResultPtr(absl::in_place);
-    result->set_cpu_info(std::move(cpu_info));
+    result->set_cpu_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GetCpuInfoResultPtr
   NewError(
-      GetCpuInfoError error) {
+      GetCpuInfoError value) {
     auto result = GetCpuInfoResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -464,17 +465,17 @@ class BLINK_COMMON_EXPORT GetNetworkInterfacesResult {
   // Construct an instance holding |network_interfaces|.
   static GetNetworkInterfacesResultPtr
   NewNetworkInterfaces(
-      std::vector<CrosNetworkInterfacePtr> network_interfaces) {
+      std::vector<CrosNetworkInterfacePtr> value) {
     auto result = GetNetworkInterfacesResultPtr(absl::in_place);
-    result->set_network_interfaces(std::move(network_interfaces));
+    result->set_network_interfaces(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GetNetworkInterfacesResultPtr
   NewError(
-      GetNetworkInterfacesError error) {
+      GetNetworkInterfacesError value) {
     auto result = GetNetworkInterfacesResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -752,11 +753,11 @@ class BLINK_COMMON_EXPORT CrosLogicalCpuInfo {
   CrosLogicalCpuInfo();
 
   CrosLogicalCpuInfo(
-      absl::optional<uint32_t> core_id,
-      absl::optional<uint64_t> idle_time_ms,
-      absl::optional<uint32_t> max_clock_speed_khz,
-      absl::optional<uint32_t> scaling_current_frequency_khz,
-      absl::optional<uint32_t> scaling_max_frequency_khz);
+      std::optional<uint32_t> core_id,
+      std::optional<uint64_t> idle_time_ms,
+      std::optional<uint32_t> max_clock_speed_khz,
+      std::optional<uint32_t> scaling_current_frequency_khz,
+      std::optional<uint32_t> scaling_max_frequency_khz);
 
 
   ~CrosLogicalCpuInfo();
@@ -834,15 +835,15 @@ class BLINK_COMMON_EXPORT CrosLogicalCpuInfo {
   }
 
   
-  absl::optional<uint32_t> core_id;
+  std::optional<uint32_t> core_id;
   
-  absl::optional<uint64_t> idle_time_ms;
+  std::optional<uint64_t> idle_time_ms;
   
-  absl::optional<uint32_t> max_clock_speed_khz;
+  std::optional<uint32_t> max_clock_speed_khz;
   
-  absl::optional<uint32_t> scaling_current_frequency_khz;
+  std::optional<uint32_t> scaling_current_frequency_khz;
   
-  absl::optional<uint32_t> scaling_max_frequency_khz;
+  std::optional<uint32_t> scaling_max_frequency_khz;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

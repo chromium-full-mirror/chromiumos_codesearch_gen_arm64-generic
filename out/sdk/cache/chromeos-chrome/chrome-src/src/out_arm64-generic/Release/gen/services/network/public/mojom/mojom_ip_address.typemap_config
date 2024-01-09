@@ -114,7 +114,7 @@
     ],
     "types": [
       {
-        "cpp": "::net::HttpResponseInfo::ConnectionInfo",
+        "cpp": "::net::HttpConnectionInfo",
         "mojom": "network.mojom.ConnectionInfo"
       }
     ]

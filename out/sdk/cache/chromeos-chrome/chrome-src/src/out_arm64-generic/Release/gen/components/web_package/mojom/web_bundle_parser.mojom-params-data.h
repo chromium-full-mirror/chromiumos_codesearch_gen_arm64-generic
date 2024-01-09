@@ -490,7 +490,7 @@ class WebBundleParser_ParseMetadata_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint64_t> offset() const {
+  std::optional<uint64_t> offset() const {
 
     return data_->offset_$flag
         ? absl::make_optional(data_->offset_$value)

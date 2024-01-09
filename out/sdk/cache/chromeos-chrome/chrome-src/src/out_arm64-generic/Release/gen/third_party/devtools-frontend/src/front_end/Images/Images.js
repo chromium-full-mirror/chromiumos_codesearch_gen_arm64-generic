@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors. All rights reserved.
+// Copyright 2024 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const sheet = new CSSStyleSheet();
@@ -99,6 +99,7 @@ style.setProperty('--image-file-dock-left', 'url(\"' + new URL(new URL('dock-lef
 style.setProperty('--image-file-dock-right', 'url(\"' + new URL(new URL('dock-right.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dock-window', 'url(\"' + new URL(new URL('dock-window.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-document', 'url(\"' + new URL(new URL('document.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-dog-paw', 'url(\"' + new URL(new URL('dog-paw.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dots-horizontal', 'url(\"' + new URL(new URL('dots-horizontal.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dots-vertical', 'url(\"' + new URL(new URL('dots-vertical.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-download', 'url(\"' + new URL(new URL('download.svg', import.meta.url).href, import.meta.url).toString() + '\")');
@@ -108,6 +109,7 @@ style.setProperty('--image-file-errorWave', 'url(\"' + new URL(new URL('errorWav
 style.setProperty('--image-file-exclamation', 'url(\"' + new URL(new URL('exclamation.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-experiment-check', 'url(\"' + new URL(new URL('experiment-check.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-experiment', 'url(\"' + new URL(new URL('experiment.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-extension', 'url(\"' + new URL(new URL('extension.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-eye', 'url(\"' + new URL(new URL('eye.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-file-document', 'url(\"' + new URL(new URL('file-document.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-file-fetch-xhr', 'url(\"' + new URL(new URL('file-fetch-xhr.svg', import.meta.url).href, import.meta.url).toString() + '\")');
@@ -168,10 +170,12 @@ style.setProperty('--image-file-left-panel-close', 'url(\"' + new URL(new URL('l
 style.setProperty('--image-file-left-panel-open', 'url(\"' + new URL(new URL('left-panel-open.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-lighthouse_logo', 'url(\"' + new URL(new URL('lighthouse_logo.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-list', 'url(\"' + new URL(new URL('list.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-match-whole-word', 'url(\"' + new URL(new URL('match-whole-word.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-mediumIcons', 'url(\"' + new URL(new URL('mediumIcons.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-memory', 'url(\"' + new URL(new URL('memory.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-minus', 'url(\"' + new URL(new URL('minus.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-minus_icon', 'url(\"' + new URL(new URL('minus_icon.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-mop', 'url(\"' + new URL(new URL('mop.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-mouse', 'url(\"' + new URL(new URL('mouse.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-network-settings', 'url(\"' + new URL(new URL('network-settings.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-node_search_icon', 'url(\"' + new URL(new URL('node_search_icon.svg', import.meta.url).href, import.meta.url).toString() + '\")');
@@ -207,6 +211,8 @@ style.setProperty('--image-file-shadow', 'url(\"' + new URL(new URL('shadow.svg'
 style.setProperty('--image-file-small-status-dot', 'url(\"' + new URL(new URL('small-status-dot.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-smallIcons', 'url(\"' + new URL(new URL('smallIcons.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-snippet', 'url(\"' + new URL(new URL('snippet.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-spark-info', 'url(\"' + new URL(new URL('spark-info.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-spark', 'url(\"' + new URL(new URL('spark.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-star', 'url(\"' + new URL(new URL('star.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-step-into', 'url(\"' + new URL(new URL('step-into.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-step-out', 'url(\"' + new URL(new URL('step-out.svg', import.meta.url).href, import.meta.url).toString() + '\")');
@@ -229,7 +235,6 @@ style.setProperty('--image-file-triangle-up', 'url(\"' + new URL(new URL('triang
 style.setProperty('--image-file-undo', 'url(\"' + new URL(new URL('undo.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-warning-filled', 'url(\"' + new URL(new URL('warning-filled.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-warning', 'url(\"' + new URL(new URL('warning.svg', import.meta.url).href, import.meta.url).toString() + '\")');
-style.setProperty('--image-file-warning_icon', 'url(\"' + new URL(new URL('warning_icon.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-watch', 'url(\"' + new URL(new URL('watch.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-width', 'url(\"' + new URL(new URL('width.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-zoom-in', 'url(\"' + new URL(new URL('zoom-in.svg', import.meta.url).href, import.meta.url).toString() + '\")');

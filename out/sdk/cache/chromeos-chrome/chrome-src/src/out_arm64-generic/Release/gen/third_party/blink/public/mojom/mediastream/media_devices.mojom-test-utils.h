@@ -24,7 +24,7 @@ class BLINK_COMMON_EXPORT MediaDevicesDispatcherHostInterceptorForTesting : publ
   void AddMediaDevicesListener(bool subscribe_audio_input, bool subscribe_video_input, bool subscribe_audio_output, ::mojo::PendingRemote<MediaDevicesListener> listener) override;
   void SetCaptureHandleConfig(::blink::mojom::CaptureHandleConfigPtr config) override;
   void CloseFocusWindowOfOpportunity(const std::string& label) override;
-  void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) override;
+  void ProduceSubCaptureTargetId(::media::mojom::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) override;
 };
 class BLINK_COMMON_EXPORT MediaDevicesDispatcherHostAsyncWaiter {
  public:
@@ -50,8 +50,8 @@ class BLINK_COMMON_EXPORT MediaDevicesDispatcherHostAsyncWaiter {
       std::vector<AudioInputDeviceCapabilitiesPtr>* out_audio_input_device_capabilities);
   std::vector<AudioInputDeviceCapabilitiesPtr> GetAudioInputCapabilities();
   void ProduceSubCaptureTargetId(
-      SubCaptureTargetType type, std::string* out_id);
-  std::string ProduceSubCaptureTargetId(SubCaptureTargetType type);
+      ::media::mojom::SubCaptureTargetType type, std::string* out_id);
+  std::string ProduceSubCaptureTargetId(::media::mojom::SubCaptureTargetType type);
 
  private:
   MediaDevicesDispatcherHost* const proxy_;

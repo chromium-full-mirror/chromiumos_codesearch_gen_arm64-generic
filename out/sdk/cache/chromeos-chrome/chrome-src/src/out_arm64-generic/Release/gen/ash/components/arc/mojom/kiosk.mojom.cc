@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void KioskHostProxy::OnMaintenanceSessionCreated(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKioskHost_OnMaintenanceSessionCreated_Name, kFlags, 0, 0, nullptr);
@@ -175,14 +179,17 @@ void KioskHostProxy::OnMaintenanceSessionFinished(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKioskHost_OnMaintenanceSessionFinished_Name, kFlags, 0, 0, nullptr);
@@ -285,12 +292,12 @@ bool KioskHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKioskHostValidationInfo[] = {
-    {&internal::KioskHost_OnMaintenanceSessionCreated_Params_Data::Validate,
+    { &internal::KioskHost_OnMaintenanceSessionCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KioskHost_OnMaintenanceSessionFinished_Params_Data::Validate,
+    { &internal::KioskHost_OnMaintenanceSessionFinished_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -386,14 +393,17 @@ void KioskInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<KioskHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKioskInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -498,7 +508,8 @@ void KioskInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKioskInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -579,11 +590,11 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKioskInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::KioskInstance_Init_Params_Data::Validate,
+    { &internal::KioskInstance_Init_Params_Data::Validate,
      &internal::KioskInstance_Init_ResponseParams_Data::Validate},
 };
 

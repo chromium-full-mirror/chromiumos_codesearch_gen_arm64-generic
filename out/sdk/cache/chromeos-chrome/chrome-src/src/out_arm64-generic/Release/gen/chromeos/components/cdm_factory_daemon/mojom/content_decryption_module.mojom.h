@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/components/cdm_factory_daemon/mojom/content_decryption_module.mojom-features.h"
 #include "chromeos/components/cdm_factory_daemon/mojom/content_decryption_module.mojom-shared.h"
 #include "chromeos/components/cdm_factory_daemon/mojom/content_decryption_module.mojom-forward.h"
 #include <string>
@@ -1013,7 +1014,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) DecryptConfig {
       const std::string& key_id,
       const std::string& iv,
       std::vector<::media::SubsampleEntry> subsamples,
-      const absl::optional<::media::EncryptionPattern>& encryption_pattern);
+      const std::optional<::media::EncryptionPattern>& encryption_pattern);
 
 
   ~DecryptConfig();
@@ -1099,7 +1100,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) DecryptConfig {
   
   std::vector<::media::SubsampleEntry> subsamples;
   
-  absl::optional<::media::EncryptionPattern> encryption_pattern;
+  std::optional<::media::EncryptionPattern> encryption_pattern;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

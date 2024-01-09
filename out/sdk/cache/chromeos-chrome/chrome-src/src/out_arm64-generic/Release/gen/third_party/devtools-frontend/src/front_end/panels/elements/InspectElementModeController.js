@@ -38,7 +38,7 @@ export class InspectElementModeController {
     mode;
     showDetailedInspectTooltipSetting;
     constructor() {
-        this.toggleSearchAction = UI.ActionRegistry.ActionRegistry.instance().action('elements.toggle-element-search');
+        this.toggleSearchAction = UI.ActionRegistry.ActionRegistry.instance().getAction('elements.toggle-element-search');
         this.mode = "none" /* Protocol.Overlay.InspectMode.None */;
         SDK.TargetManager.TargetManager.instance().addEventListener(SDK.TargetManager.Events.SuspendStateChanged, this.suspendStateChanged, this);
         SDK.TargetManager.TargetManager.instance().addModelListener(SDK.OverlayModel.OverlayModel, SDK.OverlayModel.Events.ExitedInspectMode, () => this.setMode("none" /* Protocol.Overlay.InspectMode.None */), undefined, { scoped: true });
@@ -100,18 +100,14 @@ export class InspectElementModeController {
         for (const overlayModel of SDK.TargetManager.TargetManager.instance().models(SDK.OverlayModel.OverlayModel, { scoped: true })) {
             void overlayModel.setInspectMode(mode, this.showDetailedInspectTooltipSetting.get());
         }
-        if (this.toggleSearchAction) {
-            this.toggleSearchAction.setToggled(this.isInInspectElementMode());
-        }
+        this.toggleSearchAction.setToggled(this.isInInspectElementMode());
     }
     suspendStateChanged() {
         if (!SDK.TargetManager.TargetManager.instance().allTargetsSuspended()) {
             return;
         }
         this.mode = "none" /* Protocol.Overlay.InspectMode.None */;
-        if (this.toggleSearchAction) {
-            this.toggleSearchAction.setToggled(false);
-        }
+        this.toggleSearchAction.setToggled(false);
     }
     inspectNode(node) {
         void ElementsPanel.instance().revealAndSelectNode(node, true, true);
@@ -120,9 +116,8 @@ export class InspectElementModeController {
         this.setMode(this.mode);
     }
 }
-let toggleSearchActionDelegateInstance;
 export class ToggleSearchActionDelegate {
-    handleAction(context, actionId) {
+    handleAction(_context, actionId) {
         if (Root.Runtime.Runtime.queryParam('isSharedWorker')) {
             return false;
         }
@@ -137,13 +132,6 @@ export class ToggleSearchActionDelegate {
             inspectElementModeController.captureScreenshotMode();
         }
         return true;
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!toggleSearchActionDelegateInstance || forceNew) {
-            toggleSearchActionDelegateInstance = new ToggleSearchActionDelegate();
-        }
-        return toggleSearchActionDelegateInstance;
     }
 }
 //# sourceMappingURL=InspectElementModeController.js.map

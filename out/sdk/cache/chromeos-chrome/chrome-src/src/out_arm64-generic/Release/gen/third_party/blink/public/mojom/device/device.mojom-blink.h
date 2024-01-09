@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/device/device.mojom-features.h"
 #include "third_party/blink/public/mojom/device/device.mojom-shared.h"
 #include "third_party/blink/public/mojom/device/device.mojom-blink-forward.h"
 
@@ -218,7 +219,7 @@ class PLATFORM_EXPORT ManagedConfigurationService
   virtual ~ManagedConfigurationService() = default;
 
 
-  using GetManagedConfigurationCallback = base::OnceCallback<void(const absl::optional<WTF::HashMap<WTF::String, WTF::String>>&)>;
+  using GetManagedConfigurationCallback = base::OnceCallback<void(const std::optional<WTF::HashMap<WTF::String, WTF::String>>&)>;
   
   virtual void GetManagedConfiguration(const WTF::Vector<WTF::String>& keys, GetManagedConfigurationCallback callback) = 0;
 
@@ -447,17 +448,17 @@ class PLATFORM_EXPORT DeviceAttributeResult {
   // Construct an instance holding |error_message|.
   static DeviceAttributeResultPtr
   NewErrorMessage(
-      const WTF::String& error_message) {
+      const WTF::String& value) {
     auto result = DeviceAttributeResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |attribute|.
   static DeviceAttributeResultPtr
   NewAttribute(
-      const WTF::String& attribute) {
+      const WTF::String& value) {
     auto result = DeviceAttributeResultPtr(absl::in_place);
-    result->set_attribute(std::move(attribute));
+    result->set_attribute(std::move(value));
     return result;
   }
 

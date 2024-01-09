@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Cache>::value,
     "Cache inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Cache::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Cache is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -117,7 +112,7 @@ return;
 
 
 
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -163,7 +158,7 @@ return;
 
 
 
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -209,7 +204,7 @@ return;
 
 
 
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -263,7 +258,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCacheStorageRead);
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -323,7 +318,7 @@ return;
 
 
 
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -377,7 +372,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCacheStorageRead);
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -437,7 +432,7 @@ return;
 
 
 
-Cache* blink_receiver = V8Cache::ToWrappableUnsafe(v8_receiver);
+Cache* blink_receiver = V8Cache::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

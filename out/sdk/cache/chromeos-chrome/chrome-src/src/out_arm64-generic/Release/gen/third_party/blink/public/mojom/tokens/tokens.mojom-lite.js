@@ -134,14 +134,6 @@ blink.mojom.ClipboardSequenceNumberTokenSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.PortalTokenSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 blink.mojom.V8ContextTokenSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -586,35 +578,6 @@ mojo.internal.Struct(
 
 /** @record */
 blink.mojom.ClipboardSequenceNumberToken = class {
-  constructor() {
-    /** @export { !mojoBase.mojom.UnguessableToken } */
-    this.value;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.PortalTokenSpec.$,
-    'PortalToken',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojoBase.mojom.UnguessableTokenSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.PortalToken = class {
   constructor() {
     /** @export { !mojoBase.mojom.UnguessableToken } */
     this.value;

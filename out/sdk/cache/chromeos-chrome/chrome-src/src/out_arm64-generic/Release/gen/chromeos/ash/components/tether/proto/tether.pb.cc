@@ -301,17 +301,23 @@ bool ConnectTetheringResponse_ResponseCode_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
+    case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConnectTetheringResponse_ResponseCode_strings[8] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConnectTetheringResponse_ResponseCode_strings[11] = {};
 
 static const char ConnectTetheringResponse_ResponseCode_names[] =
   "ENABLING_HOTSPOT_FAILED"
   "ENABLING_HOTSPOT_TIMEOUT"
+  "INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG"
+  "INVALID_NEW_SOFT_AP_CONFIG"
+  "INVALID_WIFI_AP_CONFIG"
   "NO_CELL_DATA"
   "PROVISIONING_FAILED"
   "SUCCESS"
@@ -322,23 +328,29 @@ static const char ConnectTetheringResponse_ResponseCode_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ConnectTetheringResponse_ResponseCode_entries[] = {
   { {ConnectTetheringResponse_ResponseCode_names + 0, 23}, 6 },
   { {ConnectTetheringResponse_ResponseCode_names + 23, 24}, 7 },
-  { {ConnectTetheringResponse_ResponseCode_names + 47, 12}, 5 },
-  { {ConnectTetheringResponse_ResponseCode_names + 59, 19}, 2 },
-  { {ConnectTetheringResponse_ResponseCode_names + 78, 7}, 1 },
-  { {ConnectTetheringResponse_ResponseCode_names + 85, 17}, 3 },
-  { {ConnectTetheringResponse_ResponseCode_names + 102, 21}, 4 },
-  { {ConnectTetheringResponse_ResponseCode_names + 123, 13}, 0 },
+  { {ConnectTetheringResponse_ResponseCode_names + 47, 38}, 8 },
+  { {ConnectTetheringResponse_ResponseCode_names + 85, 26}, 9 },
+  { {ConnectTetheringResponse_ResponseCode_names + 111, 22}, 10 },
+  { {ConnectTetheringResponse_ResponseCode_names + 133, 12}, 5 },
+  { {ConnectTetheringResponse_ResponseCode_names + 145, 19}, 2 },
+  { {ConnectTetheringResponse_ResponseCode_names + 164, 7}, 1 },
+  { {ConnectTetheringResponse_ResponseCode_names + 171, 17}, 3 },
+  { {ConnectTetheringResponse_ResponseCode_names + 188, 21}, 4 },
+  { {ConnectTetheringResponse_ResponseCode_names + 209, 13}, 0 },
 };
 
 static const int ConnectTetheringResponse_ResponseCode_entries_by_number[] = {
-  7, // 0 -> UNKNOWN_ERROR
-  4, // 1 -> SUCCESS
-  3, // 2 -> PROVISIONING_FAILED
-  5, // 3 -> TETHERING_TIMEOUT
-  6, // 4 -> TETHERING_UNSUPPORTED
-  2, // 5 -> NO_CELL_DATA
+  10, // 0 -> UNKNOWN_ERROR
+  7, // 1 -> SUCCESS
+  6, // 2 -> PROVISIONING_FAILED
+  8, // 3 -> TETHERING_TIMEOUT
+  9, // 4 -> TETHERING_UNSUPPORTED
+  5, // 5 -> NO_CELL_DATA
   0, // 6 -> ENABLING_HOTSPOT_FAILED
   1, // 7 -> ENABLING_HOTSPOT_TIMEOUT
+  2, // 8 -> INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG
+  3, // 9 -> INVALID_NEW_SOFT_AP_CONFIG
+  4, // 10 -> INVALID_WIFI_AP_CONFIG
 };
 
 const std::string& ConnectTetheringResponse_ResponseCode_Name(
@@ -347,12 +359,12 @@ const std::string& ConnectTetheringResponse_ResponseCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ConnectTetheringResponse_ResponseCode_entries,
           ConnectTetheringResponse_ResponseCode_entries_by_number,
-          8, ConnectTetheringResponse_ResponseCode_strings);
+          11, ConnectTetheringResponse_ResponseCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ConnectTetheringResponse_ResponseCode_entries,
       ConnectTetheringResponse_ResponseCode_entries_by_number,
-      8, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ConnectTetheringResponse_ResponseCode_strings[idx].get();
 }
@@ -360,7 +372,7 @@ bool ConnectTetheringResponse_ResponseCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ConnectTetheringResponse_ResponseCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ConnectTetheringResponse_ResponseCode_entries, 8, name, &int_value);
+      ConnectTetheringResponse_ResponseCode_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<ConnectTetheringResponse_ResponseCode>(int_value);
   }
@@ -375,6 +387,9 @@ constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::TETHER
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::NO_CELL_DATA;
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::ENABLING_HOTSPOT_FAILED;
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::ENABLING_HOTSPOT_TIMEOUT;
+constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG;
+constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::INVALID_NEW_SOFT_AP_CONFIG;
+constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::INVALID_WIFI_AP_CONFIG;
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::ResponseCode_MIN;
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse::ResponseCode_MAX;
 constexpr int ConnectTetheringResponse::ResponseCode_ARRAYSIZE;

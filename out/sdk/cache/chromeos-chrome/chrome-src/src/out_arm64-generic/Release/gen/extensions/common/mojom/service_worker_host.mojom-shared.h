@@ -30,6 +30,7 @@
 #include "extensions/common/mojom/extra_response_data.mojom-shared.h"
 #include "extensions/common/mojom/frame.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
+#include "extensions/common/mojom/message_port.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

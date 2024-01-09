@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 import { PageCallbackRouter, PageHandlerFactory } from './launcher_internals.mojom-webui.js';
 export class BrowserProxy {
+    callbackRouter = new PageCallbackRouter();
     constructor() {
-        this.callbackRouter = new PageCallbackRouter();
         const factory = PageHandlerFactory.getRemote();
         factory.createPageHandler(this.callbackRouter.$.bindNewPipeAndPassRemote());
     }

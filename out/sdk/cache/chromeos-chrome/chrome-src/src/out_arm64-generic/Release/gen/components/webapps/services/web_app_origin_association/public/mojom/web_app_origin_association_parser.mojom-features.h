@@ -8,6 +8,7 @@
 #define COMPONENTS_WEBAPPS_SERVICES_WEB_APP_ORIGIN_ASSOCIATION_PUBLIC_MOJOM_WEB_APP_ORIGIN_ASSOCIATION_PARSER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

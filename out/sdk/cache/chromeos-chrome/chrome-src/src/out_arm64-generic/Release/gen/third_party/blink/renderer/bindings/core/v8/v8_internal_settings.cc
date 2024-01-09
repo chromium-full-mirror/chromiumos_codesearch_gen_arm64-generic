@@ -66,11 +66,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, InternalSettings>::value,
     "InternalSettings inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&InternalSettings::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "InternalSettings is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_policy = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -130,7 +125,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_types = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -163,7 +158,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pointers = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -183,9 +178,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setCursiveFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setCursiveFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -196,13 +191,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setCursiveFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -213,10 +207,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setCursiveFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -250,7 +243,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_display_mode_override = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -283,7 +276,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_behavior = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -303,9 +296,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setFantasyFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFantasyFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -316,13 +309,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFantasyFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -333,10 +325,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFantasyFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -357,9 +348,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setFixedFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFixedFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -370,13 +361,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFixedFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -387,10 +377,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setFixedFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -424,7 +413,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_policy = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -444,9 +433,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setMathFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setMathFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -457,13 +446,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setMathFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -474,10 +462,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setMathFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -511,7 +498,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -541,7 +528,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -574,7 +561,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pointer = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -594,9 +581,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setSansSerifFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSansSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -607,13 +594,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSansSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -624,10 +610,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSansSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -648,9 +633,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setSerifFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -661,13 +646,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -678,10 +662,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setSerifFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -702,9 +685,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettings.setStandardFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setStandardFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -715,13 +698,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_family.Init(info[0].As<v8::String>());
+  arg1_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setStandardFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -732,10 +714,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_script;
 if (LIKELY(info[1]->IsString())) {
-  arg2_script.Init(info[1].As<v8::String>());
+  arg2_script.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettings";
 const char* const property_name = "setStandardFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -769,7 +750,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_width = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -803,7 +784,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_preference = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -836,7 +817,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(v8_receiver);
+InternalSettings* blink_receiver = V8InternalSettings::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_style = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

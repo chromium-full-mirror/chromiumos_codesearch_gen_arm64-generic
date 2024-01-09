@@ -40,6 +40,9 @@ class UserDataAuthInterfaceInterface {
   virtual void GetWebAuthnSecretHash(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetWebAuthnSecretHashReply>> response,
       const user_data_auth::GetWebAuthnSecretHashRequest& in_request) = 0;
+  virtual void GetRecoverableKeyStores(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRecoverableKeyStoresReply>> response,
+      const user_data_auth::GetRecoverableKeyStoresRequest& in_request) = 0;
   virtual void GetHibernateSecret(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetHibernateSecretReply>> response,
       const user_data_auth::GetHibernateSecretRequest& in_request) = 0;
@@ -169,6 +172,10 @@ class UserDataAuthInterfaceAdaptor {
         "GetWebAuthnSecretHash",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::GetWebAuthnSecretHash);
+    itf->AddMethodHandler(
+        "GetRecoverableKeyStores",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::GetRecoverableKeyStores);
     itf->AddMethodHandler(
         "GetHibernateSecret",
         base::Unretained(interface_),
@@ -304,6 +311,11 @@ class UserDataAuthInterfaceAdaptor {
     signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
     signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
     signal_AuthenticateAuthFactorCompleted_ = itf->RegisterSignalOfType<SignalAuthenticateAuthFactorCompletedType>("AuthenticateAuthFactorCompleted");
+    signal_AuthFactorAdded_ = itf->RegisterSignalOfType<SignalAuthFactorAddedType>("AuthFactorAdded");
+    signal_AuthFactorRemoved_ = itf->RegisterSignalOfType<SignalAuthFactorRemovedType>("AuthFactorRemoved");
+    signal_AuthFactorUpdated_ = itf->RegisterSignalOfType<SignalAuthFactorUpdatedType>("AuthFactorUpdated");
+    signal_AuthSessionExpiring_ = itf->RegisterSignalOfType<SignalAuthSessionExpiringType>("AuthSessionExpiring");
+    signal_EvictedKeyRestored_ = itf->RegisterSignalOfType<SignalEvictedKeyRestoredType>("EvictedKeyRestored");
   }
 
   void SendDircryptoMigrationProgressSignal(
@@ -342,6 +354,36 @@ class UserDataAuthInterfaceAdaptor {
     if (signal)
       signal->Send(in_status);
   }
+  void SendAuthFactorAddedSignal(
+      const user_data_auth::AuthFactorAdded& in_status) {
+    auto signal = signal_AuthFactorAdded_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthFactorRemovedSignal(
+      const user_data_auth::AuthFactorRemoved& in_status) {
+    auto signal = signal_AuthFactorRemoved_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthFactorUpdatedSignal(
+      const user_data_auth::AuthFactorUpdated& in_status) {
+    auto signal = signal_AuthFactorUpdated_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthSessionExpiringSignal(
+      const user_data_auth::AuthSessionExpiring& in_status) {
+    auto signal = signal_AuthSessionExpiring_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendEvictedKeyRestoredSignal(
+      const user_data_auth::EvictedKeyRestored& in_status) {
+    auto signal = signal_EvictedKeyRestored_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
 
   static dbus::ObjectPath GetObjectPath() {
     return dbus::ObjectPath{"/org/chromium/UserDataAuth"};
@@ -367,6 +409,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetWebAuthnSecretHash\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetRecoverableKeyStores\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
@@ -516,6 +562,21 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"AuthenticateAuthFactorCompleted\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"AuthFactorAdded\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "    <signal name=\"AuthFactorRemoved\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "    <signal name=\"AuthFactorUpdated\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "    <signal name=\"AuthSessionExpiring\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "    <signal name=\"EvictedKeyRestored\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
@@ -543,6 +604,26 @@ class UserDataAuthInterfaceAdaptor {
   using SignalAuthenticateAuthFactorCompletedType = brillo::dbus_utils::DBusSignal<
       user_data_auth::AuthenticateAuthFactorCompleted /*status*/>;
   std::weak_ptr<SignalAuthenticateAuthFactorCompletedType> signal_AuthenticateAuthFactorCompleted_;
+
+  using SignalAuthFactorAddedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthFactorAdded /*status*/>;
+  std::weak_ptr<SignalAuthFactorAddedType> signal_AuthFactorAdded_;
+
+  using SignalAuthFactorRemovedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthFactorRemoved /*status*/>;
+  std::weak_ptr<SignalAuthFactorRemovedType> signal_AuthFactorRemoved_;
+
+  using SignalAuthFactorUpdatedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthFactorUpdated /*status*/>;
+  std::weak_ptr<SignalAuthFactorUpdatedType> signal_AuthFactorUpdated_;
+
+  using SignalAuthSessionExpiringType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthSessionExpiring /*status*/>;
+  std::weak_ptr<SignalAuthSessionExpiringType> signal_AuthSessionExpiring_;
+
+  using SignalEvictedKeyRestoredType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::EvictedKeyRestored /*status*/>;
+  std::weak_ptr<SignalEvictedKeyRestoredType> signal_EvictedKeyRestored_;
 
   UserDataAuthInterfaceInterface* interface_;  // Owned by container of this adapter.
 };

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -184,7 +185,7 @@ CreateRemoteChildParams::CreateRemoteChildParams()
 
 CreateRemoteChildParams::CreateRemoteChildParams(
     const ::blink::RemoteFrameToken& token_in,
-    const absl::optional<::blink::FrameToken>& opener_frame_token_in,
+    const std::optional<::blink::FrameToken>& opener_frame_token_in,
     ::blink::mojom::TreeScopeType tree_scope_type_in,
     ::blink::mojom::FrameReplicationStatePtr replication_state_in,
     ::blink::mojom::FrameOwnerPropertiesPtr owner_properties_in,
@@ -220,7 +221,7 @@ void CreateRemoteChildParams::WriteIntoTrace(
     dict.AddItem(
       "opener_frame_token"), this->opener_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -321,8 +322,8 @@ OpenURLParams::OpenURLParams()
 OpenURLParams::OpenURLParams(
     const ::GURL& url_in,
     const ::url::Origin& initiator_origin_in,
-    const absl::optional<::GURL>& initiator_base_url_in,
-    const absl::optional<::blink::LocalFrameToken>& initiator_frame_token_in,
+    const std::optional<::GURL>& initiator_base_url_in,
+    const std::optional<::blink::LocalFrameToken>& initiator_frame_token_in,
     ::scoped_refptr<::network::ResourceRequestBody> post_body_in,
     const std::string& extra_headers_in,
     ::blink::mojom::ReferrerPtr referrer_in,
@@ -334,7 +335,7 @@ OpenURLParams::OpenURLParams(
     ::blink::mojom::TriggeringEventInfo triggering_event_info_in,
     ::mojo::PendingRemote<::blink::mojom::BlobURLToken> blob_url_token_in,
     const std::string& href_translate_in,
-    const absl::optional<::blink::Impression>& impression_in,
+    const std::optional<::blink::Impression>& impression_in,
     const ::blink::NavigationDownloadPolicy& download_policy_in,
     ::network::mojom::SourceLocationPtr source_location_in,
     ::mojo::PendingRemote<::blink::mojom::PolicyContainerHostKeepAliveHandle> initiator_policy_container_keep_alive_handle_in,
@@ -389,7 +390,7 @@ void OpenURLParams::WriteIntoTrace(
     dict.AddItem(
       "initiator_base_url"), this->initiator_base_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -398,7 +399,7 @@ void OpenURLParams::WriteIntoTrace(
     dict.AddItem(
       "initiator_frame_token"), this->initiator_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::LocalFrameToken>&>"
+      "<value of type const std::optional<::blink::LocalFrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -506,7 +507,7 @@ void OpenURLParams::WriteIntoTrace(
     dict.AddItem(
       "impression"), this->impression,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Impression>&>"
+      "<value of type const std::optional<::blink::Impression>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -914,14 +915,17 @@ void RemoteFrameHostProxy::SetInheritedEffectiveTouchAction(
                         "<value of type ::cc::TouchAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_SetInheritedEffectiveTouchAction_Name, kFlags, 0, 0, nullptr);
@@ -959,14 +963,17 @@ void RemoteFrameHostProxy::UpdateRenderThrottlingStatus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_UpdateRenderThrottlingStatus_Name, kFlags, 0, 0, nullptr);
@@ -999,14 +1006,17 @@ void RemoteFrameHostProxy::VisibilityChanged(
                         "<value of type ::blink::mojom::FrameVisibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_VisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -1031,14 +1041,17 @@ void RemoteFrameHostProxy::DidFocusFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrameHost::DidFocusFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_DidFocusFrame_Name, kFlags, 0, 0, nullptr);
@@ -1061,14 +1074,17 @@ void RemoteFrameHostProxy::CheckCompleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrameHost::CheckCompleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_CheckCompleted_Name, kFlags, 0, 0, nullptr);
@@ -1101,14 +1117,17 @@ void RemoteFrameHostProxy::CapturePaintPreviewOfCrossProcessSubframe(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_CapturePaintPreviewOfCrossProcessSubframe_Name, kFlags, 0, 0, nullptr);
@@ -1160,14 +1179,17 @@ void RemoteFrameHostProxy::SetIsInert(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_SetIsInert_Name, kFlags, 0, 0, nullptr);
@@ -1187,7 +1209,7 @@ void RemoteFrameHostProxy::SetIsInert(
 }
 
 void RemoteFrameHostProxy::DidChangeOpener(
-    const absl::optional<::blink::LocalFrameToken>& in_opener_frame) {
+    const std::optional<::blink::LocalFrameToken>& in_opener_frame) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RemoteFrameHost::DidChangeOpener", "input_parameters",
@@ -1195,17 +1217,20 @@ void RemoteFrameHostProxy::DidChangeOpener(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame"), in_opener_frame,
-                        "<value of type const absl::optional<::blink::LocalFrameToken>&>");
+                        "<value of type const std::optional<::blink::LocalFrameToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_DidChangeOpener_Name, kFlags, 0, 0, nullptr);
@@ -1245,14 +1270,17 @@ void RemoteFrameHostProxy::AdvanceFocus(
                         "<value of type const ::blink::LocalFrameToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_AdvanceFocus_Name, kFlags, 0, 0, nullptr);
@@ -1284,7 +1312,7 @@ void RemoteFrameHostProxy::AdvanceFocus(
 }
 
 void RemoteFrameHostProxy::RouteMessageEvent(
-    const absl::optional<::blink::LocalFrameToken>& in_source_frame_token, const ::std::u16string& in_source_origin, const ::std::u16string& in_target_origin, ::blink::TransferableMessage in_message) {
+    const std::optional<::blink::LocalFrameToken>& in_source_frame_token, const ::std::u16string& in_source_origin, const ::std::u16string& in_target_origin, ::blink::TransferableMessage in_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RemoteFrameHost::RouteMessageEvent", "input_parameters",
@@ -1292,7 +1320,7 @@ void RemoteFrameHostProxy::RouteMessageEvent(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_frame_token"), in_source_frame_token,
-                        "<value of type const absl::optional<::blink::LocalFrameToken>&>");
+                        "<value of type const std::optional<::blink::LocalFrameToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_origin"), in_source_origin,
                         "<value of type const ::std::u16string&>");
@@ -1304,14 +1332,17 @@ void RemoteFrameHostProxy::RouteMessageEvent(
                         "<value of type ::blink::TransferableMessage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_RouteMessageEvent_Name, kFlags, 0, 0, nullptr);
@@ -1384,14 +1415,17 @@ void RemoteFrameHostProxy::PrintCrossProcessSubframe(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_PrintCrossProcessSubframe_Name, kFlags, 0, 0, nullptr);
@@ -1426,14 +1460,17 @@ void RemoteFrameHostProxy::Detach(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrameHost::Detach");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_Detach_Name, kFlags, 0, 0, nullptr);
@@ -1452,7 +1489,7 @@ void RemoteFrameHostProxy::Detach(
 }
 
 void RemoteFrameHostProxy::UpdateViewportIntersection(
-    ::blink::mojom::ViewportIntersectionStatePtr in_intersection_state, const absl::optional<::blink::FrameVisualProperties>& in_visual_properties) {
+    ::blink::mojom::ViewportIntersectionStatePtr in_intersection_state, const std::optional<::blink::FrameVisualProperties>& in_visual_properties) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RemoteFrameHost::UpdateViewportIntersection", "input_parameters",
@@ -1463,17 +1500,20 @@ void RemoteFrameHostProxy::UpdateViewportIntersection(
                         "<value of type ::blink::mojom::ViewportIntersectionStatePtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("visual_properties"), in_visual_properties,
-                        "<value of type const absl::optional<::blink::FrameVisualProperties>&>");
+                        "<value of type const std::optional<::blink::FrameVisualProperties>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_UpdateViewportIntersection_Name, kFlags, 0, 0, nullptr);
@@ -1521,14 +1561,17 @@ void RemoteFrameHostProxy::SynchronizeVisualProperties(
                         "<value of type const ::blink::FrameVisualProperties&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_SynchronizeVisualProperties_Name, kFlags, 0, 0, nullptr);
@@ -1569,14 +1612,17 @@ void RemoteFrameHostProxy::OpenURL(
                         "<value of type OpenURLParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrameHost_OpenURL_Name, kFlags, 0, 0, nullptr);
@@ -1804,7 +1850,7 @@ std::move(p_inert));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::LocalFrameToken> p_opener_frame{};
+      std::optional<::blink::LocalFrameToken> p_opener_frame{};
       RemoteFrameHost_DidChangeOpener_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOpenerFrame(&p_opener_frame))
@@ -1860,7 +1906,7 @@ std::move(p_source_frame_token));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::LocalFrameToken> p_source_frame_token{};
+      std::optional<::blink::LocalFrameToken> p_source_frame_token{};
       ::std::u16string p_source_origin{};
       ::std::u16string p_target_origin{};
       ::blink::TransferableMessage p_message{};
@@ -1951,7 +1997,7 @@ std::move(p_document_cookie));
       
       bool success = true;
       ::blink::mojom::ViewportIntersectionStatePtr p_intersection_state{};
-      absl::optional<::blink::FrameVisualProperties> p_visual_properties{};
+      std::optional<::blink::FrameVisualProperties> p_visual_properties{};
       RemoteFrameHost_UpdateViewportIntersection_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIntersectionState(&p_intersection_state))
@@ -2085,38 +2131,38 @@ bool RemoteFrameHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteFrameHostValidationInfo[] = {
-    {&internal::RemoteFrameHost_SetInheritedEffectiveTouchAction_Params_Data::Validate,
+    { &internal::RemoteFrameHost_SetInheritedEffectiveTouchAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_UpdateRenderThrottlingStatus_Params_Data::Validate,
+    { &internal::RemoteFrameHost_UpdateRenderThrottlingStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_VisibilityChanged_Params_Data::Validate,
+    { &internal::RemoteFrameHost_VisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_DidFocusFrame_Params_Data::Validate,
+    { &internal::RemoteFrameHost_DidFocusFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_CheckCompleted_Params_Data::Validate,
+    { &internal::RemoteFrameHost_CheckCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_CapturePaintPreviewOfCrossProcessSubframe_Params_Data::Validate,
+    { &internal::RemoteFrameHost_CapturePaintPreviewOfCrossProcessSubframe_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_SetIsInert_Params_Data::Validate,
+    { &internal::RemoteFrameHost_SetIsInert_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_DidChangeOpener_Params_Data::Validate,
+    { &internal::RemoteFrameHost_DidChangeOpener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_AdvanceFocus_Params_Data::Validate,
+    { &internal::RemoteFrameHost_AdvanceFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_RouteMessageEvent_Params_Data::Validate,
+    { &internal::RemoteFrameHost_RouteMessageEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_PrintCrossProcessSubframe_Params_Data::Validate,
+    { &internal::RemoteFrameHost_PrintCrossProcessSubframe_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_Detach_Params_Data::Validate,
+    { &internal::RemoteFrameHost_Detach_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_UpdateViewportIntersection_Params_Data::Validate,
+    { &internal::RemoteFrameHost_UpdateViewportIntersection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_SynchronizeVisualProperties_Params_Data::Validate,
+    { &internal::RemoteFrameHost_SynchronizeVisualProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrameHost_OpenURL_Params_Data::Validate,
+    { &internal::RemoteFrameHost_OpenURL_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2836,14 +2882,17 @@ void RemoteFrameProxy::WillEnterFullscreen(
                         "<value of type ::blink::mojom::FullscreenOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_WillEnterFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -2884,14 +2933,17 @@ void RemoteFrameProxy::EnforceInsecureNavigationsSet(
                         "<value of type const std::vector<uint32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_EnforceInsecureNavigationsSet_Name, kFlags, 0, 0, nullptr);
@@ -2934,14 +2986,17 @@ void RemoteFrameProxy::SetFrameOwnerProperties(
                         "<value of type ::blink::mojom::FrameOwnerPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetFrameOwnerProperties_Name, kFlags, 0, 0, nullptr);
@@ -2982,14 +3037,17 @@ void RemoteFrameProxy::EnforceInsecureRequestPolicy(
                         "<value of type ::blink::mojom::InsecureRequestPolicy>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_EnforceInsecureRequestPolicy_Name, kFlags, 0, 0, nullptr);
@@ -3024,14 +3082,17 @@ void RemoteFrameProxy::SetReplicatedOrigin(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetReplicatedOrigin_Name, kFlags, 0, 0, nullptr);
@@ -3073,14 +3134,17 @@ void RemoteFrameProxy::SetReplicatedIsAdFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetReplicatedIsAdFrame_Name, kFlags, 0, 0, nullptr);
@@ -3114,14 +3178,17 @@ void RemoteFrameProxy::SetReplicatedName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetReplicatedName_Name, kFlags, 0, 0, nullptr);
@@ -3166,14 +3233,17 @@ void RemoteFrameProxy::DispatchLoadEventForFrameOwner(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::DispatchLoadEventForFrameOwner");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DispatchLoadEventForFrameOwner_Name, kFlags, 0, 0, nullptr);
@@ -3203,14 +3273,17 @@ void RemoteFrameProxy::SetNeedsOcclusionTracking(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetNeedsOcclusionTracking_Name, kFlags, 0, 0, nullptr);
@@ -3241,14 +3314,17 @@ void RemoteFrameProxy::Collapse(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_Collapse_Name, kFlags, 0, 0, nullptr);
@@ -3272,14 +3348,17 @@ void RemoteFrameProxy::Focus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::Focus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_Focus_Name, kFlags, 0, 0, nullptr);
@@ -3309,14 +3388,17 @@ void RemoteFrameProxy::SetHadStickyUserActivationBeforeNavigation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetHadStickyUserActivationBeforeNavigation_Name, kFlags, 0, 0, nullptr);
@@ -3350,14 +3432,17 @@ void RemoteFrameProxy::BubbleLogicalScroll(
                         "<value of type ::ui::ScrollGranularity>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_BubbleLogicalScroll_Name, kFlags, 0, 0, nullptr);
@@ -3394,14 +3479,17 @@ void RemoteFrameProxy::UpdateUserActivationState(
                         "<value of type ::blink::mojom::UserActivationNotificationType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_UpdateUserActivationState_Name, kFlags, 0, 0, nullptr);
@@ -3435,14 +3523,17 @@ void RemoteFrameProxy::SetEmbeddingToken(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetEmbeddingToken_Name, kFlags, 0, 0, nullptr);
@@ -3483,14 +3574,17 @@ void RemoteFrameProxy::SetPageFocus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetPageFocus_Name, kFlags, 0, 0, nullptr);
@@ -3514,14 +3608,17 @@ void RemoteFrameProxy::RenderFallbackContent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::RenderFallbackContent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_RenderFallbackContent_Name, kFlags, 0, 0, nullptr);
@@ -3551,14 +3648,17 @@ void RemoteFrameProxy::AddResourceTimingFromChild(
                         "<value of type ::blink::mojom::ResourceTimingInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_AddResourceTimingFromChild_Name, kFlags, 0, 0, nullptr);
@@ -3602,14 +3702,17 @@ void RemoteFrameProxy::ScrollRectToVisible(
                         "<value of type ::blink::mojom::ScrollIntoViewParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_ScrollRectToVisible_Name, kFlags, 0, 0, nullptr);
@@ -3654,14 +3757,17 @@ void RemoteFrameProxy::DidStartLoading(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::DidStartLoading");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DidStartLoading_Name, kFlags, 0, 0, nullptr);
@@ -3684,14 +3790,17 @@ void RemoteFrameProxy::DidStopLoading(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::DidStopLoading");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DidStopLoading_Name, kFlags, 0, 0, nullptr);
@@ -3721,14 +3830,17 @@ void RemoteFrameProxy::IntrinsicSizingInfoOfChildChanged(
                         "<value of type ::blink::mojom::IntrinsicSizingInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_IntrinsicSizingInfoOfChildChanged_Name, kFlags, 0, 0, nullptr);
@@ -3772,14 +3884,17 @@ void RemoteFrameProxy::DidSetFramePolicyHeaders(
                         "<value of type const std::vector<::blink::ParsedPermissionsPolicyDeclaration>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DidSetFramePolicyHeaders_Name, kFlags, 0, 0, nullptr);
@@ -3824,14 +3939,17 @@ void RemoteFrameProxy::DidUpdateFramePolicy(
                         "<value of type const ::blink::FramePolicy&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DidUpdateFramePolicy_Name, kFlags, 0, 0, nullptr);
@@ -3861,7 +3979,7 @@ void RemoteFrameProxy::DidUpdateFramePolicy(
 }
 
 void RemoteFrameProxy::UpdateOpener(
-    const absl::optional<::blink::FrameToken>& in_opener_frame_token) {
+    const std::optional<::blink::FrameToken>& in_opener_frame_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RemoteFrame::UpdateOpener", "input_parameters",
@@ -3869,17 +3987,20 @@ void RemoteFrameProxy::UpdateOpener(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame_token"), in_opener_frame_token,
-                        "<value of type const absl::optional<::blink::FrameToken>&>");
+                        "<value of type const std::optional<::blink::FrameToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_UpdateOpener_Name, kFlags, 0, 0, nullptr);
@@ -3907,14 +4028,17 @@ void RemoteFrameProxy::DetachAndDispose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::DetachAndDispose");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DetachAndDispose_Name, kFlags, 0, 0, nullptr);
@@ -3947,14 +4071,17 @@ void RemoteFrameProxy::EnableAutoResize(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_EnableAutoResize_Name, kFlags, 0, 0, nullptr);
@@ -3999,14 +4126,17 @@ void RemoteFrameProxy::DisableAutoResize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::DisableAutoResize");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DisableAutoResize_Name, kFlags, 0, 0, nullptr);
@@ -4036,14 +4166,17 @@ void RemoteFrameProxy::DidUpdateVisualProperties(
                         "<value of type const ::cc::RenderFrameMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_DidUpdateVisualProperties_Name, kFlags, 0, 0, nullptr);
@@ -4084,14 +4217,17 @@ void RemoteFrameProxy::SetFrameSinkId(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_SetFrameSinkId_Name, kFlags, 0, 0, nullptr);
@@ -4125,14 +4261,17 @@ void RemoteFrameProxy::ChildProcessGone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteFrame::ChildProcessGone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_ChildProcessGone_Name, kFlags, 0, 0, nullptr);
@@ -4151,7 +4290,7 @@ void RemoteFrameProxy::ChildProcessGone(
 }
 
 void RemoteFrameProxy::CreateRemoteChild(
-    const ::blink::RemoteFrameToken& in_token, const absl::optional<::blink::FrameToken>& in_opener_frame_token, ::blink::mojom::TreeScopeType in_tree_scope_type, ::blink::mojom::FrameReplicationStatePtr in_replication_state, ::blink::mojom::FrameOwnerPropertiesPtr in_owner_properties, bool in_is_loading, const ::base::UnguessableToken& in_devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr in_remote_frame_interfaces) {
+    const ::blink::RemoteFrameToken& in_token, const std::optional<::blink::FrameToken>& in_opener_frame_token, ::blink::mojom::TreeScopeType in_tree_scope_type, ::blink::mojom::FrameReplicationStatePtr in_replication_state, ::blink::mojom::FrameOwnerPropertiesPtr in_owner_properties, bool in_is_loading, const ::base::UnguessableToken& in_devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr in_remote_frame_interfaces) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RemoteFrame::CreateRemoteChild", "input_parameters",
@@ -4162,7 +4301,7 @@ void RemoteFrameProxy::CreateRemoteChild(
                         "<value of type const ::blink::RemoteFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame_token"), in_opener_frame_token,
-                        "<value of type const absl::optional<::blink::FrameToken>&>");
+                        "<value of type const std::optional<::blink::FrameToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("tree_scope_type"), in_tree_scope_type,
                         "<value of type ::blink::mojom::TreeScopeType>");
@@ -4183,14 +4322,17 @@ void RemoteFrameProxy::CreateRemoteChild(
                         "<value of type RemoteFrameInterfacesFromBrowserPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_CreateRemoteChild_Name, kFlags, 0, 0, nullptr);
@@ -4283,14 +4425,17 @@ void RemoteFrameProxy::CreateRemoteChildren(
                         "<value of type std::vector<CreateRemoteChildParamsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteFrame_CreateRemoteChildren_Name, kFlags, 0, 0, nullptr);
@@ -4962,7 +5107,7 @@ std::move(p_frame_policy));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::FrameToken> p_opener_frame_token{};
+      std::optional<::blink::FrameToken> p_opener_frame_token{};
       RemoteFrame_UpdateOpener_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOpenerFrameToken(&p_opener_frame_token))
@@ -5137,7 +5282,7 @@ std::move(p_frame_sink_id));
       
       bool success = true;
       ::blink::RemoteFrameToken p_token{};
-      absl::optional<::blink::FrameToken> p_opener_frame_token{};
+      std::optional<::blink::FrameToken> p_opener_frame_token{};
       ::blink::mojom::TreeScopeType p_tree_scope_type{};
       ::blink::mojom::FrameReplicationStatePtr p_replication_state{};
       ::blink::mojom::FrameOwnerPropertiesPtr p_owner_properties{};
@@ -5323,74 +5468,74 @@ bool RemoteFrameStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteFrameValidationInfo[] = {
-    {&internal::RemoteFrame_WillEnterFullscreen_Params_Data::Validate,
+    { &internal::RemoteFrame_WillEnterFullscreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_EnforceInsecureNavigationsSet_Params_Data::Validate,
+    { &internal::RemoteFrame_EnforceInsecureNavigationsSet_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetFrameOwnerProperties_Params_Data::Validate,
+    { &internal::RemoteFrame_SetFrameOwnerProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_EnforceInsecureRequestPolicy_Params_Data::Validate,
+    { &internal::RemoteFrame_EnforceInsecureRequestPolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetReplicatedOrigin_Params_Data::Validate,
+    { &internal::RemoteFrame_SetReplicatedOrigin_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetReplicatedIsAdFrame_Params_Data::Validate,
+    { &internal::RemoteFrame_SetReplicatedIsAdFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetReplicatedName_Params_Data::Validate,
+    { &internal::RemoteFrame_SetReplicatedName_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DispatchLoadEventForFrameOwner_Params_Data::Validate,
+    { &internal::RemoteFrame_DispatchLoadEventForFrameOwner_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetNeedsOcclusionTracking_Params_Data::Validate,
+    { &internal::RemoteFrame_SetNeedsOcclusionTracking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_Collapse_Params_Data::Validate,
+    { &internal::RemoteFrame_Collapse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_Focus_Params_Data::Validate,
+    { &internal::RemoteFrame_Focus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetHadStickyUserActivationBeforeNavigation_Params_Data::Validate,
+    { &internal::RemoteFrame_SetHadStickyUserActivationBeforeNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_BubbleLogicalScroll_Params_Data::Validate,
+    { &internal::RemoteFrame_BubbleLogicalScroll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_UpdateUserActivationState_Params_Data::Validate,
+    { &internal::RemoteFrame_UpdateUserActivationState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetEmbeddingToken_Params_Data::Validate,
+    { &internal::RemoteFrame_SetEmbeddingToken_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetPageFocus_Params_Data::Validate,
+    { &internal::RemoteFrame_SetPageFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_RenderFallbackContent_Params_Data::Validate,
+    { &internal::RemoteFrame_RenderFallbackContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_AddResourceTimingFromChild_Params_Data::Validate,
+    { &internal::RemoteFrame_AddResourceTimingFromChild_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_ScrollRectToVisible_Params_Data::Validate,
+    { &internal::RemoteFrame_ScrollRectToVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DidStartLoading_Params_Data::Validate,
+    { &internal::RemoteFrame_DidStartLoading_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DidStopLoading_Params_Data::Validate,
+    { &internal::RemoteFrame_DidStopLoading_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_IntrinsicSizingInfoOfChildChanged_Params_Data::Validate,
+    { &internal::RemoteFrame_IntrinsicSizingInfoOfChildChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DidSetFramePolicyHeaders_Params_Data::Validate,
+    { &internal::RemoteFrame_DidSetFramePolicyHeaders_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DidUpdateFramePolicy_Params_Data::Validate,
+    { &internal::RemoteFrame_DidUpdateFramePolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_UpdateOpener_Params_Data::Validate,
+    { &internal::RemoteFrame_UpdateOpener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DetachAndDispose_Params_Data::Validate,
+    { &internal::RemoteFrame_DetachAndDispose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_EnableAutoResize_Params_Data::Validate,
+    { &internal::RemoteFrame_EnableAutoResize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DisableAutoResize_Params_Data::Validate,
+    { &internal::RemoteFrame_DisableAutoResize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_DidUpdateVisualProperties_Params_Data::Validate,
+    { &internal::RemoteFrame_DidUpdateVisualProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_SetFrameSinkId_Params_Data::Validate,
+    { &internal::RemoteFrame_SetFrameSinkId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_ChildProcessGone_Params_Data::Validate,
+    { &internal::RemoteFrame_ChildProcessGone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_CreateRemoteChild_Params_Data::Validate,
+    { &internal::RemoteFrame_CreateRemoteChild_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteFrame_CreateRemoteChildren_Params_Data::Validate,
+    { &internal::RemoteFrame_CreateRemoteChildren_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5470,14 +5615,17 @@ void RemoteMainFrameProxy::UpdateTextAutosizerPageInfo(
                         "<value of type ::blink::mojom::TextAutosizerPageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrame_UpdateTextAutosizerPageInfo_Name, kFlags, 0, 0, nullptr);
@@ -5556,10 +5704,10 @@ bool RemoteMainFrameStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteMainFrameValidationInfo[] = {
-    {&internal::RemoteMainFrame_UpdateTextAutosizerPageInfo_Params_Data::Validate,
+    { &internal::RemoteMainFrame_UpdateTextAutosizerPageInfo_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5708,14 +5856,17 @@ void RemoteMainFrameHostProxy::FocusPage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteMainFrameHost::FocusPage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrameHost_FocusPage_Name, kFlags, 0, 0, nullptr);
@@ -5745,14 +5896,17 @@ void RemoteMainFrameHostProxy::TakeFocus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrameHost_TakeFocus_Name, kFlags, 0, 0, nullptr);
@@ -5783,14 +5937,17 @@ void RemoteMainFrameHostProxy::UpdateTargetURL(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrameHost_UpdateTargetURL_Name, kFlags, 0, 0, nullptr);
@@ -5825,14 +5982,17 @@ void RemoteMainFrameHostProxy::RouteCloseEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::RemoteMainFrameHost::RouteCloseEvent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrameHost_RouteCloseEvent_Name, kFlags, 0, 0, nullptr);
@@ -5930,7 +6090,8 @@ void RemoteMainFrameHost_UpdateTargetURL_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteMainFrameHost_UpdateTargetURL_Name, kFlags, 0, 0, nullptr);
@@ -6088,16 +6249,16 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteMainFrameHostValidationInfo[] = {
-    {&internal::RemoteMainFrameHost_FocusPage_Params_Data::Validate,
+    { &internal::RemoteMainFrameHost_FocusPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteMainFrameHost_TakeFocus_Params_Data::Validate,
+    { &internal::RemoteMainFrameHost_TakeFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemoteMainFrameHost_UpdateTargetURL_Params_Data::Validate,
+    { &internal::RemoteMainFrameHost_UpdateTargetURL_Params_Data::Validate,
      &internal::RemoteMainFrameHost_UpdateTargetURL_ResponseParams_Data::Validate},
-    {&internal::RemoteMainFrameHost_RouteCloseEvent_Params_Data::Validate,
+    { &internal::RemoteMainFrameHost_RouteCloseEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6296,13 +6457,13 @@ void RemoteFrameHostInterceptorForTesting::CapturePaintPreviewOfCrossProcessSubf
 void RemoteFrameHostInterceptorForTesting::SetIsInert(bool inert) {
   GetForwardingInterface()->SetIsInert(std::move(inert));
 }
-void RemoteFrameHostInterceptorForTesting::DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) {
+void RemoteFrameHostInterceptorForTesting::DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) {
   GetForwardingInterface()->DidChangeOpener(std::move(opener_frame));
 }
 void RemoteFrameHostInterceptorForTesting::AdvanceFocus(::blink::mojom::FocusType focus_type, const ::blink::LocalFrameToken& source_frame_token) {
   GetForwardingInterface()->AdvanceFocus(std::move(focus_type), std::move(source_frame_token));
 }
-void RemoteFrameHostInterceptorForTesting::RouteMessageEvent(const absl::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) {
+void RemoteFrameHostInterceptorForTesting::RouteMessageEvent(const std::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) {
   GetForwardingInterface()->RouteMessageEvent(std::move(source_frame_token), std::move(source_origin), std::move(target_origin), std::move(message));
 }
 void RemoteFrameHostInterceptorForTesting::PrintCrossProcessSubframe(const ::gfx::Rect& frame_content_rect, int32_t document_cookie) {
@@ -6311,7 +6472,7 @@ void RemoteFrameHostInterceptorForTesting::PrintCrossProcessSubframe(const ::gfx
 void RemoteFrameHostInterceptorForTesting::Detach() {
   GetForwardingInterface()->Detach();
 }
-void RemoteFrameHostInterceptorForTesting::UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::FrameVisualProperties>& visual_properties) {
+void RemoteFrameHostInterceptorForTesting::UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::FrameVisualProperties>& visual_properties) {
   GetForwardingInterface()->UpdateViewportIntersection(std::move(intersection_state), std::move(visual_properties));
 }
 void RemoteFrameHostInterceptorForTesting::SynchronizeVisualProperties(const ::blink::FrameVisualProperties& properties) {
@@ -6400,7 +6561,7 @@ void RemoteFrameInterceptorForTesting::DidSetFramePolicyHeaders(::network::mojom
 void RemoteFrameInterceptorForTesting::DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) {
   GetForwardingInterface()->DidUpdateFramePolicy(std::move(frame_policy));
 }
-void RemoteFrameInterceptorForTesting::UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) {
+void RemoteFrameInterceptorForTesting::UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) {
   GetForwardingInterface()->UpdateOpener(std::move(opener_frame_token));
 }
 void RemoteFrameInterceptorForTesting::DetachAndDispose() {
@@ -6421,7 +6582,7 @@ void RemoteFrameInterceptorForTesting::SetFrameSinkId(const ::viz::FrameSinkId& 
 void RemoteFrameInterceptorForTesting::ChildProcessGone() {
   GetForwardingInterface()->ChildProcessGone();
 }
-void RemoteFrameInterceptorForTesting::CreateRemoteChild(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) {
+void RemoteFrameInterceptorForTesting::CreateRemoteChild(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) {
   GetForwardingInterface()->CreateRemoteChild(std::move(token), std::move(opener_frame_token), std::move(tree_scope_type), std::move(replication_state), std::move(owner_properties), std::move(is_loading), std::move(devtools_frame_token), std::move(remote_frame_interfaces));
 }
 void RemoteFrameInterceptorForTesting::CreateRemoteChildren(std::vector<CreateRemoteChildParamsPtr> params) {

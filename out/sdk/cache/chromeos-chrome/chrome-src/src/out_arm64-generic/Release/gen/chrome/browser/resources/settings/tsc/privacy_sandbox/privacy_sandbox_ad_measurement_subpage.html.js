@@ -5,7 +5,7 @@ export function getTemplate() {
 </settings-toggle-button>
 <div class="settings-columned-section">
   <div class="column">
-    <div class="description-header">$i18n{adMeasurementPageEnabledHeading}</div>
+    <h2 class="description-header">$i18n{adMeasurementPageEnabledHeading}</h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:bar-chart" aria-hidden="true"></iron-icon>
@@ -23,9 +23,7 @@ export function getTemplate() {
     </ul>
   </div>
   <div class="column">
-    <div class="description-header">
-      $i18n{adMeasurementPageConsiderHeading}
-    </div>
+    <h2 class="description-header">$i18n{adMeasurementPageConsiderHeading}</h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:delete" aria-hidden="true"></iron-icon>

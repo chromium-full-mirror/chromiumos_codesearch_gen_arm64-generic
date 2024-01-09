@@ -1702,6 +1702,12 @@ class Storage_Fields final :
     kAtaModelFieldNumber = 14,
     kUfsVendorFieldNumber = 16,
     kUfsModelFieldNumber = 17,
+    kMmcHostBusTypeFieldNumber = 18,
+    kMmcHostPciVendorIdFieldNumber = 19,
+    kMmcHostPciDeviceIdFieldNumber = 20,
+    kMmcHostPciRevisionFieldNumber = 21,
+    kMmcHostPciSubsystemFieldNumber = 22,
+    kMmcHostPciClassFieldNumber = 23,
     kSectorsFieldNumber = 2,
     kSizeFieldNumber = 3,
     kMmcManfidFieldNumber = 5,
@@ -1811,6 +1817,90 @@ class Storage_Fields final :
   std::string* _internal_mutable_ufs_model();
   public:
 
+  // string mmc_host_bus_type = 18;
+  void clear_mmc_host_bus_type();
+  const std::string& mmc_host_bus_type() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_bus_type(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_bus_type();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_bus_type();
+  void set_allocated_mmc_host_bus_type(std::string* mmc_host_bus_type);
+  private:
+  const std::string& _internal_mmc_host_bus_type() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_bus_type(const std::string& value);
+  std::string* _internal_mutable_mmc_host_bus_type();
+  public:
+
+  // string mmc_host_pci_vendor_id = 19;
+  void clear_mmc_host_pci_vendor_id();
+  const std::string& mmc_host_pci_vendor_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_pci_vendor_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_pci_vendor_id();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_pci_vendor_id();
+  void set_allocated_mmc_host_pci_vendor_id(std::string* mmc_host_pci_vendor_id);
+  private:
+  const std::string& _internal_mmc_host_pci_vendor_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_pci_vendor_id(const std::string& value);
+  std::string* _internal_mutable_mmc_host_pci_vendor_id();
+  public:
+
+  // string mmc_host_pci_device_id = 20;
+  void clear_mmc_host_pci_device_id();
+  const std::string& mmc_host_pci_device_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_pci_device_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_pci_device_id();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_pci_device_id();
+  void set_allocated_mmc_host_pci_device_id(std::string* mmc_host_pci_device_id);
+  private:
+  const std::string& _internal_mmc_host_pci_device_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_pci_device_id(const std::string& value);
+  std::string* _internal_mutable_mmc_host_pci_device_id();
+  public:
+
+  // string mmc_host_pci_revision = 21;
+  void clear_mmc_host_pci_revision();
+  const std::string& mmc_host_pci_revision() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_pci_revision(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_pci_revision();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_pci_revision();
+  void set_allocated_mmc_host_pci_revision(std::string* mmc_host_pci_revision);
+  private:
+  const std::string& _internal_mmc_host_pci_revision() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_pci_revision(const std::string& value);
+  std::string* _internal_mutable_mmc_host_pci_revision();
+  public:
+
+  // string mmc_host_pci_subsystem = 22;
+  void clear_mmc_host_pci_subsystem();
+  const std::string& mmc_host_pci_subsystem() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_pci_subsystem(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_pci_subsystem();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_pci_subsystem();
+  void set_allocated_mmc_host_pci_subsystem(std::string* mmc_host_pci_subsystem);
+  private:
+  const std::string& _internal_mmc_host_pci_subsystem() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_pci_subsystem(const std::string& value);
+  std::string* _internal_mutable_mmc_host_pci_subsystem();
+  public:
+
+  // string mmc_host_pci_class = 23;
+  void clear_mmc_host_pci_class();
+  const std::string& mmc_host_pci_class() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mmc_host_pci_class(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mmc_host_pci_class();
+  PROTOBUF_NODISCARD std::string* release_mmc_host_pci_class();
+  void set_allocated_mmc_host_pci_class(std::string* mmc_host_pci_class);
+  private:
+  const std::string& _internal_mmc_host_pci_class() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mmc_host_pci_class(const std::string& value);
+  std::string* _internal_mutable_mmc_host_pci_class();
+  public:
+
   // int64 sectors = 2;
   void clear_sectors();
   int64_t sectors() const;
@@ -1915,6 +2005,12 @@ class Storage_Fields final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ata_model_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ufs_vendor_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ufs_model_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_bus_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_pci_vendor_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_pci_device_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_pci_revision_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_pci_subsystem_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mmc_host_pci_class_;
   int64_t sectors_;
   int64_t size_;
   uint32_t mmc_manfid_;
@@ -9077,6 +9173,306 @@ inline void Storage_Fields::set_allocated_ufs_model(std::string* ufs_model) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.ufs_model)
+}
+
+// string mmc_host_bus_type = 18;
+inline void Storage_Fields::clear_mmc_host_bus_type() {
+  mmc_host_bus_type_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_bus_type() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_bus_type)
+  return _internal_mmc_host_bus_type();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_bus_type(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_bus_type_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_bus_type)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_bus_type() {
+  std::string* _s = _internal_mutable_mmc_host_bus_type();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_bus_type)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_bus_type() const {
+  return mmc_host_bus_type_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_bus_type(const std::string& value) {
+  
+  mmc_host_bus_type_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_bus_type() {
+  
+  return mmc_host_bus_type_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_bus_type() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_bus_type)
+  return mmc_host_bus_type_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_bus_type(std::string* mmc_host_bus_type) {
+  if (mmc_host_bus_type != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_bus_type_.SetAllocated(mmc_host_bus_type, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_bus_type_.IsDefault()) {
+    mmc_host_bus_type_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_bus_type)
+}
+
+// string mmc_host_pci_vendor_id = 19;
+inline void Storage_Fields::clear_mmc_host_pci_vendor_id() {
+  mmc_host_pci_vendor_id_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_pci_vendor_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_pci_vendor_id)
+  return _internal_mmc_host_pci_vendor_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_pci_vendor_id(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_pci_vendor_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_pci_vendor_id)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_pci_vendor_id() {
+  std::string* _s = _internal_mutable_mmc_host_pci_vendor_id();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_pci_vendor_id)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_pci_vendor_id() const {
+  return mmc_host_pci_vendor_id_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_pci_vendor_id(const std::string& value) {
+  
+  mmc_host_pci_vendor_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_pci_vendor_id() {
+  
+  return mmc_host_pci_vendor_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_pci_vendor_id() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_pci_vendor_id)
+  return mmc_host_pci_vendor_id_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_pci_vendor_id(std::string* mmc_host_pci_vendor_id) {
+  if (mmc_host_pci_vendor_id != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_pci_vendor_id_.SetAllocated(mmc_host_pci_vendor_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_pci_vendor_id_.IsDefault()) {
+    mmc_host_pci_vendor_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_pci_vendor_id)
+}
+
+// string mmc_host_pci_device_id = 20;
+inline void Storage_Fields::clear_mmc_host_pci_device_id() {
+  mmc_host_pci_device_id_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_pci_device_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_pci_device_id)
+  return _internal_mmc_host_pci_device_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_pci_device_id(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_pci_device_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_pci_device_id)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_pci_device_id() {
+  std::string* _s = _internal_mutable_mmc_host_pci_device_id();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_pci_device_id)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_pci_device_id() const {
+  return mmc_host_pci_device_id_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_pci_device_id(const std::string& value) {
+  
+  mmc_host_pci_device_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_pci_device_id() {
+  
+  return mmc_host_pci_device_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_pci_device_id() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_pci_device_id)
+  return mmc_host_pci_device_id_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_pci_device_id(std::string* mmc_host_pci_device_id) {
+  if (mmc_host_pci_device_id != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_pci_device_id_.SetAllocated(mmc_host_pci_device_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_pci_device_id_.IsDefault()) {
+    mmc_host_pci_device_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_pci_device_id)
+}
+
+// string mmc_host_pci_revision = 21;
+inline void Storage_Fields::clear_mmc_host_pci_revision() {
+  mmc_host_pci_revision_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_pci_revision() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_pci_revision)
+  return _internal_mmc_host_pci_revision();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_pci_revision(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_pci_revision_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_pci_revision)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_pci_revision() {
+  std::string* _s = _internal_mutable_mmc_host_pci_revision();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_pci_revision)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_pci_revision() const {
+  return mmc_host_pci_revision_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_pci_revision(const std::string& value) {
+  
+  mmc_host_pci_revision_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_pci_revision() {
+  
+  return mmc_host_pci_revision_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_pci_revision() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_pci_revision)
+  return mmc_host_pci_revision_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_pci_revision(std::string* mmc_host_pci_revision) {
+  if (mmc_host_pci_revision != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_pci_revision_.SetAllocated(mmc_host_pci_revision, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_pci_revision_.IsDefault()) {
+    mmc_host_pci_revision_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_pci_revision)
+}
+
+// string mmc_host_pci_subsystem = 22;
+inline void Storage_Fields::clear_mmc_host_pci_subsystem() {
+  mmc_host_pci_subsystem_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_pci_subsystem() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_pci_subsystem)
+  return _internal_mmc_host_pci_subsystem();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_pci_subsystem(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_pci_subsystem_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_pci_subsystem)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_pci_subsystem() {
+  std::string* _s = _internal_mutable_mmc_host_pci_subsystem();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_pci_subsystem)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_pci_subsystem() const {
+  return mmc_host_pci_subsystem_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_pci_subsystem(const std::string& value) {
+  
+  mmc_host_pci_subsystem_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_pci_subsystem() {
+  
+  return mmc_host_pci_subsystem_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_pci_subsystem() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_pci_subsystem)
+  return mmc_host_pci_subsystem_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_pci_subsystem(std::string* mmc_host_pci_subsystem) {
+  if (mmc_host_pci_subsystem != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_pci_subsystem_.SetAllocated(mmc_host_pci_subsystem, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_pci_subsystem_.IsDefault()) {
+    mmc_host_pci_subsystem_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_pci_subsystem)
+}
+
+// string mmc_host_pci_class = 23;
+inline void Storage_Fields::clear_mmc_host_pci_class() {
+  mmc_host_pci_class_.ClearToEmpty();
+}
+inline const std::string& Storage_Fields::mmc_host_pci_class() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Storage.Fields.mmc_host_pci_class)
+  return _internal_mmc_host_pci_class();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Storage_Fields::set_mmc_host_pci_class(ArgT0&& arg0, ArgT... args) {
+ 
+ mmc_host_pci_class_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Storage.Fields.mmc_host_pci_class)
+}
+inline std::string* Storage_Fields::mutable_mmc_host_pci_class() {
+  std::string* _s = _internal_mutable_mmc_host_pci_class();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Storage.Fields.mmc_host_pci_class)
+  return _s;
+}
+inline const std::string& Storage_Fields::_internal_mmc_host_pci_class() const {
+  return mmc_host_pci_class_.Get();
+}
+inline void Storage_Fields::_internal_set_mmc_host_pci_class(const std::string& value) {
+  
+  mmc_host_pci_class_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::_internal_mutable_mmc_host_pci_class() {
+  
+  return mmc_host_pci_class_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Storage_Fields::release_mmc_host_pci_class() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Storage.Fields.mmc_host_pci_class)
+  return mmc_host_pci_class_.Release();
+}
+inline void Storage_Fields::set_allocated_mmc_host_pci_class(std::string* mmc_host_pci_class) {
+  if (mmc_host_pci_class != nullptr) {
+    
+  } else {
+    
+  }
+  mmc_host_pci_class_.SetAllocated(mmc_host_pci_class, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mmc_host_pci_class_.IsDefault()) {
+    mmc_host_pci_class_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Storage.Fields.mmc_host_pci_class)
 }
 
 // -------------------------------------------------------------------

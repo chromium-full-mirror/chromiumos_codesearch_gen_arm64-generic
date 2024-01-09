@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/mojom/video_capture_buffer.mojom-features.h"
 #include "media/capture/mojom/video_capture_buffer.mojom-shared.h"
 #include "media/capture/mojom/video_capture_buffer.mojom-blink-forward.h"
 #include "gpu/ipc/common/mailbox_holder.mojom-blink.h"
@@ -76,33 +77,33 @@ class BLINK_PLATFORM_EXPORT VideoBufferHandle {
   // Construct an instance holding |unsafe_shmem_region|.
   static VideoBufferHandlePtr
   NewUnsafeShmemRegion(
-      ::base::UnsafeSharedMemoryRegion unsafe_shmem_region) {
+      ::base::UnsafeSharedMemoryRegion value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_unsafe_shmem_region(std::move(unsafe_shmem_region));
+    result->set_unsafe_shmem_region(std::move(value));
     return result;
   }
   // Construct an instance holding |read_only_shmem_region|.
   static VideoBufferHandlePtr
   NewReadOnlyShmemRegion(
-      ::base::ReadOnlySharedMemoryRegion read_only_shmem_region) {
+      ::base::ReadOnlySharedMemoryRegion value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_read_only_shmem_region(std::move(read_only_shmem_region));
+    result->set_read_only_shmem_region(std::move(value));
     return result;
   }
   // Construct an instance holding |mailbox_handles|.
   static VideoBufferHandlePtr
   NewMailboxHandles(
-      MailboxBufferHandleSetPtr mailbox_handles) {
+      MailboxBufferHandleSetPtr value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_mailbox_handles(std::move(mailbox_handles));
+    result->set_mailbox_handles(std::move(value));
     return result;
   }
   // Construct an instance holding |gpu_memory_buffer_handle|.
   static VideoBufferHandlePtr
   NewGpuMemoryBufferHandle(
-      ::gfx::GpuMemoryBufferHandle gpu_memory_buffer_handle) {
+      ::gfx::GpuMemoryBufferHandle value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_gpu_memory_buffer_handle(std::move(gpu_memory_buffer_handle));
+    result->set_gpu_memory_buffer_handle(std::move(value));
     return result;
   }
 

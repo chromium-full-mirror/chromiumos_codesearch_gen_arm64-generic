@@ -16,6 +16,7 @@ namespace crosapi::mojom {
 class  NetworkSettingsObserverInterceptorForTesting : public NetworkSettingsObserver {
   virtual NetworkSettingsObserver* GetForwardingInterface() = 0;
   void OnProxyChanged(ProxyConfigPtr proxy_config) override;
+  void OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(bool enfoced) override;
 };
 class  NetworkSettingsObserverAsyncWaiter {
  public:
@@ -38,6 +39,7 @@ class  NetworkSettingsServiceInterceptorForTesting : public NetworkSettingsServi
   void ClearExtensionProxy() override;
   void SetExtensionControllingProxyMetadata(ExtensionControllingProxyPtr extension) override;
   void ClearExtensionControllingProxyMetadata() override;
+  void IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback) override;
 };
 class  NetworkSettingsServiceAsyncWaiter {
  public:
@@ -47,6 +49,9 @@ class  NetworkSettingsServiceAsyncWaiter {
   NetworkSettingsServiceAsyncWaiter& operator=(const NetworkSettingsServiceAsyncWaiter&) = delete;
 
   ~NetworkSettingsServiceAsyncWaiter();
+  void IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(
+      bool* out_enabled);
+  bool IsAlwaysOnVpnPreConnectUrlAllowlistEnforced();
 
  private:
   NetworkSettingsService* const proxy_;

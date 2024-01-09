@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/new_tab_page/modules/recipes/recipes.mojom-features.h"
 #include "chrome/browser/new_tab_page/modules/recipes/recipes.mojom-shared.h"
 #include "chrome/browser/new_tab_page/modules/recipes/recipes.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -226,7 +227,7 @@ class  Recipe {
       const std::string& name,
       const ::GURL& image_url,
       const std::string& info,
-      const absl::optional<std::string>& site_name,
+      const std::optional<std::string>& site_name,
       const ::GURL& target_url);
 
 
@@ -311,7 +312,7 @@ class  Recipe {
   
   std::string info;
   
-  absl::optional<std::string> site_name;
+  std::optional<std::string> site_name;
   
   ::GURL target_url;
 

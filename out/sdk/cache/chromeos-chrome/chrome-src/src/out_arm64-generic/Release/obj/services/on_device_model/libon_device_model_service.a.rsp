@@ -1,1 +1,1 @@
-obj/services/on_device_model/on_device_model_service/on_device_model_service.o obj/services/on_device_model/on_device_model_service/on_device_model.o
+obj/services/on_device_model/on_device_model_service/on_device_model_service.o obj/services/on_device_model/on_device_model_service/pre_sandbox_init.o obj/services/on_device_model/on_device_model_service/on_device_model.o

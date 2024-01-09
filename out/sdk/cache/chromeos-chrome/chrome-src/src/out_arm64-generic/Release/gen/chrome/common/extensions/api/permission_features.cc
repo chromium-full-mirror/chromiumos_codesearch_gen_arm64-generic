@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,9 @@
 #include "extensions/common/features/feature_provider.h"
 #include "extensions/common/features/manifest_feature.h"
 #include "extensions/common/features/permission_feature.h"
+#include "extensions/common/mojom/context_type.mojom.h"
 #include "extensions/common/mojom/feature_session_type.mojom.h"
+#include "printing/buildflags/buildflags.h"
 
 namespace extensions {
 
@@ -216,7 +218,7 @@ void AddChromePermissionFeatures(FeatureProvider* provider) {
   {
     PermissionFeature* feature = new PermissionFeature();
     feature->set_name("crashReportPrivate");
-    feature->set_allowlist({"0EA6B717932AD64C469C1CCB6911457733295907","58B0C2968C335964D5433E89CA4D86628A0E3D4B","3BC1ED0B3E6EFDC7BD4D3D1D75D44B52DEE0A226","38C361D4A0726CE45D3572D65071B6BDB3092371","06BE211D5F014BAB34BC22D9DDA09C63A81D828E"});
+    feature->set_allowlist({"0EA6B717932AD64C469C1CCB6911457733295907","58B0C2968C335964D5433E89CA4D86628A0E3D4B","3BC1ED0B3E6EFDC7BD4D3D1D75D44B52DEE0A226","38C361D4A0726CE45D3572D65071B6BDB3092371","06BE211D5F014BAB34BC22D9DDA09C63A81D828E","1B1388598AC9A5608F43DE38316D6FB5FAD3574A"});
     feature->set_channel(version_info::Channel::DEV);
     feature->set_extension_types({Manifest::TYPE_EXTENSION,Manifest::TYPE_LEGACY_PACKAGED_APP,Manifest::TYPE_PLATFORM_APP});
     provider->AddFeature("crashReportPrivate", feature);
@@ -348,6 +350,18 @@ void AddChromePermissionFeatures(FeatureProvider* provider) {
     feature->set_extension_types({Manifest::TYPE_EXTENSION});
     feature->set_location(SimpleFeature::POLICY_LOCATION);
     provider->AddFeature("enterprise.hardwarePlatform", feature);
+  }
+  {
+    PermissionFeature* feature = new PermissionFeature();
+    feature->set_name("enterprise.kioskInput");
+    feature->set_allowlist({"E62CAB6E5341E96208DA8E0E6896770907FFA00C","36139D0E820CE4B911D38D10D8C23448431D098B","51DC616F82F8E8B3FA5185A83699F0E5CDACFF41"});
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_extension_types({Manifest::TYPE_EXTENSION});
+    feature->set_feature_flag("ApiEnterpriseKioskInput");
+    feature->set_location(SimpleFeature::POLICY_LOCATION);
+    feature->set_platforms({Feature::CHROMEOS_PLATFORM});
+    feature->set_session_types({mojom::FeatureSessionType::kKiosk});
+    provider->AddFeature("enterprise.kioskInput", feature);
   }
   {
     std::vector<Feature*> features;
@@ -1001,7 +1015,7 @@ void AddChromePermissionFeatures(FeatureProvider* provider) {
   {
     PermissionFeature* feature = new PermissionFeature();
     feature->set_name("readingList");
-    feature->set_channel(version_info::Channel::UNKNOWN);
+    feature->set_channel(version_info::Channel::STABLE);
     feature->set_extension_types({Manifest::TYPE_EXTENSION});
     feature->set_min_manifest_version(3);
     provider->AddFeature("readingList", feature);

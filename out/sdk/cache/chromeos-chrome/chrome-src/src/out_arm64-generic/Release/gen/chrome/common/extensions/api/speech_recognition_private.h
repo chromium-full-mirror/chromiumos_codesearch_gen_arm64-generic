@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,11 +31,11 @@ namespace speech_recognition_private {
 //
 
 // Possible types of speech recognition.
-enum  SpeechRecognitionType {
-  SPEECH_RECOGNITION_TYPE_NONE = 0,
-  SPEECH_RECOGNITION_TYPE_ONDEVICE,
-  SPEECH_RECOGNITION_TYPE_NETWORK,
-  SPEECH_RECOGNITION_TYPE_LAST = SPEECH_RECOGNITION_TYPE_NETWORK,
+enum class SpeechRecognitionType {
+  kNone = 0,
+  kOnDevice,
+  kNetwork,
+  kMaxValue = kNetwork,
 };
 
 
@@ -47,8 +48,8 @@ struct SpeechRecognitionStopEvent {
   ~SpeechRecognitionStopEvent();
   SpeechRecognitionStopEvent(const SpeechRecognitionStopEvent&) = delete;
   SpeechRecognitionStopEvent& operator=(const SpeechRecognitionStopEvent&) = delete;
-  SpeechRecognitionStopEvent(SpeechRecognitionStopEvent&& rhs);
-  SpeechRecognitionStopEvent& operator=(SpeechRecognitionStopEvent&& rhs);
+  SpeechRecognitionStopEvent(SpeechRecognitionStopEvent&& rhs) noexcept;
+  SpeechRecognitionStopEvent& operator=(SpeechRecognitionStopEvent&& rhs) noexcept;
 
   // Populates a SpeechRecognitionStopEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -61,24 +62,20 @@ struct SpeechRecognitionStopEvent {
   // Creates a deep copy of SpeechRecognitionStopEvent.
   SpeechRecognitionStopEvent Clone() const;
 
-  // Creates a SpeechRecognitionStopEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SpeechRecognitionStopEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a SpeechRecognitionStopEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SpeechRecognitionStopEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<SpeechRecognitionStopEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a SpeechRecognitionStopEvent object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SpeechRecognitionStopEvent> FromValue(const base::Value& value);
+  static std::optional<SpeechRecognitionStopEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSpeechRecognitionStopEvent object.
   base::Value::Dict ToValue() const;
 
   // Optional client ID.
-  absl::optional<int> client_id;
+  std::optional<int> client_id;
 
 };
 
@@ -87,8 +84,8 @@ struct SpeechRecognitionResultEvent {
   ~SpeechRecognitionResultEvent();
   SpeechRecognitionResultEvent(const SpeechRecognitionResultEvent&) = delete;
   SpeechRecognitionResultEvent& operator=(const SpeechRecognitionResultEvent&) = delete;
-  SpeechRecognitionResultEvent(SpeechRecognitionResultEvent&& rhs);
-  SpeechRecognitionResultEvent& operator=(SpeechRecognitionResultEvent&& rhs);
+  SpeechRecognitionResultEvent(SpeechRecognitionResultEvent&& rhs) noexcept;
+  SpeechRecognitionResultEvent& operator=(SpeechRecognitionResultEvent&& rhs) noexcept;
 
   // Populates a SpeechRecognitionResultEvent object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -101,24 +98,20 @@ struct SpeechRecognitionResultEvent {
   // Creates a deep copy of SpeechRecognitionResultEvent.
   SpeechRecognitionResultEvent Clone() const;
 
-  // Creates a SpeechRecognitionResultEvent object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<SpeechRecognitionResultEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a SpeechRecognitionResultEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SpeechRecognitionResultEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<SpeechRecognitionResultEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a SpeechRecognitionResultEvent object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<SpeechRecognitionResultEvent> FromValue(const base::Value& value);
+  static std::optional<SpeechRecognitionResultEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSpeechRecognitionResultEvent object.
   base::Value::Dict ToValue() const;
 
   // Optional client ID.
-  absl::optional<int> client_id;
+  std::optional<int> client_id;
 
   // The recognized phrase or sentence.
   std::string transcript;
@@ -133,8 +126,8 @@ struct SpeechRecognitionErrorEvent {
   ~SpeechRecognitionErrorEvent();
   SpeechRecognitionErrorEvent(const SpeechRecognitionErrorEvent&) = delete;
   SpeechRecognitionErrorEvent& operator=(const SpeechRecognitionErrorEvent&) = delete;
-  SpeechRecognitionErrorEvent(SpeechRecognitionErrorEvent&& rhs);
-  SpeechRecognitionErrorEvent& operator=(SpeechRecognitionErrorEvent&& rhs);
+  SpeechRecognitionErrorEvent(SpeechRecognitionErrorEvent&& rhs) noexcept;
+  SpeechRecognitionErrorEvent& operator=(SpeechRecognitionErrorEvent&& rhs) noexcept;
 
   // Populates a SpeechRecognitionErrorEvent object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -147,24 +140,20 @@ struct SpeechRecognitionErrorEvent {
   // Creates a deep copy of SpeechRecognitionErrorEvent.
   SpeechRecognitionErrorEvent Clone() const;
 
-  // Creates a SpeechRecognitionErrorEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SpeechRecognitionErrorEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a SpeechRecognitionErrorEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SpeechRecognitionErrorEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<SpeechRecognitionErrorEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a SpeechRecognitionErrorEvent object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SpeechRecognitionErrorEvent> FromValue(const base::Value& value);
+  static std::optional<SpeechRecognitionErrorEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSpeechRecognitionErrorEvent object.
   base::Value::Dict ToValue() const;
 
   // Optional client ID.
-  absl::optional<int> client_id;
+  std::optional<int> client_id;
 
   // A message describing the error.
   std::string message;
@@ -176,8 +165,8 @@ struct StartOptions {
   ~StartOptions();
   StartOptions(const StartOptions&) = delete;
   StartOptions& operator=(const StartOptions&) = delete;
-  StartOptions(StartOptions&& rhs);
-  StartOptions& operator=(StartOptions&& rhs);
+  StartOptions(StartOptions&& rhs) noexcept;
+  StartOptions& operator=(StartOptions&& rhs) noexcept;
 
   // Populates a StartOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -190,28 +179,25 @@ struct StartOptions {
   // Creates a deep copy of StartOptions.
   StartOptions Clone() const;
 
-  // Creates a StartOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StartOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a StartOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StartOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<StartOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a StartOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<StartOptions> FromValue(const base::Value& value);
+  static std::optional<StartOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStartOptions object.
   base::Value::Dict ToValue() const;
 
   // An optional ID to specify the client.
-  absl::optional<int> client_id;
+  std::optional<int> client_id;
 
   // The locale, in BCP-47 format e.g. "en-US", to use for speech recognition.
-  absl::optional<std::string> locale;
+  std::optional<std::string> locale;
 
   // Whether interim speech results should be returned.
-  absl::optional<bool> interim_results;
+  std::optional<bool> interim_results;
 
 };
 
@@ -220,8 +206,8 @@ struct StopOptions {
   ~StopOptions();
   StopOptions(const StopOptions&) = delete;
   StopOptions& operator=(const StopOptions&) = delete;
-  StopOptions(StopOptions&& rhs);
-  StopOptions& operator=(StopOptions&& rhs);
+  StopOptions(StopOptions&& rhs) noexcept;
+  StopOptions& operator=(StopOptions&& rhs) noexcept;
 
   // Populates a StopOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -234,15 +220,12 @@ struct StopOptions {
   // Creates a deep copy of StopOptions.
   StopOptions Clone() const;
 
-  // Creates a StopOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StopOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a StopOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StopOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<StopOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a StopOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<StopOptions> FromValue(const base::Value& value);
+  static std::optional<StopOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStopOptions object.
@@ -250,7 +233,7 @@ struct StopOptions {
 
   // An optional ID to specify the client. This must match the clientId used when
   // starting speech recognition to work as intended.
-  absl::optional<int> client_id;
+  std::optional<int> client_id;
 
 };
 
@@ -262,11 +245,11 @@ struct StopOptions {
 namespace Start {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   StartOptions options;
@@ -286,11 +269,11 @@ base::Value::List Create(const SpeechRecognitionType& type);
 namespace Stop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   StopOptions options;

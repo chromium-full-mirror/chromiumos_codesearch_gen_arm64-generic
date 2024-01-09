@@ -8,6 +8,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "base/no_destructor.h"
 #include "base/strings/string_piece.h"
 #include "components/metrics/structured/project_validator.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
@@ -27,11 +28,19 @@ public:
   void Initialize();
 
   absl::optional<const ProjectValidator*>
-    GetProjectValidator(const std::string& project_name);
+    GetProjectValidator(base::StringPiece project_name) const;
+
+  absl::optional<base::StringPiece>
+    GetProjectName(uint64_t project_name_hash) const;
+
+  static Validators* Get();
 
 private:
+  friend class base::NoDestructor<Validators>;
+
   std::unordered_map<base::StringPiece, std::unique_ptr<ProjectValidator>>
       validators_;
+  std::unordered_map<uint64_t, base::StringPiece> project_name_map_;
 };
 
 }  // namespace validator

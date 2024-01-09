@@ -15,6 +15,7 @@
 #include <libimageloader/manifest.h>
 
 #include "dlcservice/metadata/metadata_interface.h"
+#include "dlcservice/types.h"
 #include "dlcservice/utils/utils_interface.h"
 
 namespace dlcservice {
@@ -56,6 +57,12 @@ class BRILLO_EXPORT Utils : public UtilsInterface {
 
   std::shared_ptr<imageloader::Manifest> GetDlcManifest(
       const std::string& id, const base::FilePath& dlc_manifest_path) override;
+
+  DlcIdList GetSupportedDlcIds(const base::FilePath& metadata_path) override;
+
+  base::FilePath MakeAbsoluteFilePath(const base::FilePath& path) override;
+
+  bool WaitForGid(const base::FilePath& target_path, int target_gid) override;
 
  private:
   bool InitializeDlcMetadata(const base::FilePath& path);

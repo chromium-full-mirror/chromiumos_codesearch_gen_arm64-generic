@@ -1,13 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { str } from '../../../../common/js/util.js';
-import { VolumeManagerCommon } from '../../../../common/js/volume_manager_types.js';
+import { str } from '../../../../common/js/translations.js';
+import { RootType, VolumeError } from '../../../../common/js/volume_manager_types.js';
 import { getTemplate } from './invalid_usb_filesystem_banner.html.js';
 import { StateBanner } from './state_banner.js';
 /**
@@ -35,7 +30,7 @@ export class InvalidUsbFileSystemBanner extends StateBanner {
      * roots with errors are shown the banner.
      */
     allowedVolumes() {
-        return [{ root: VolumeManagerCommon.RootType.REMOVABLE }];
+        return [{ root: RootType.REMOVABLE }];
     }
     /**
      * When the custom filter shows this banner in the controller, it passes the
@@ -48,8 +43,7 @@ export class InvalidUsbFileSystemBanner extends StateBanner {
             return;
         }
         const text = this.shadowRoot.querySelector('span[slot="text"]');
-        if (context.error ===
-            VolumeManagerCommon.VolumeError.UNSUPPORTED_FILESYSTEM) {
+        if (context.error === VolumeError.UNSUPPORTED_FILESYSTEM) {
             text.innerText = str('UNSUPPORTED_FILESYSTEM_WARNING');
             return;
         }

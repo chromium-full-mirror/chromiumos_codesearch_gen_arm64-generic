@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -215,6 +216,293 @@ bool InputMethod::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+IsolatedWebAppLocation::IsolatedWebAppLocation() : tag_(Tag::kProxyOrigin) {
+  data_.proxy_origin = new ::GURL;
+}
+
+IsolatedWebAppLocation::~IsolatedWebAppLocation() {
+  DestroyActive();
+}
+
+
+void IsolatedWebAppLocation::set_proxy_origin(
+    const ::GURL& proxy_origin) {
+  if (tag_ == Tag::kProxyOrigin) {
+    *(data_.proxy_origin) = std::move(proxy_origin);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kProxyOrigin;
+    data_.proxy_origin = new ::GURL(
+        std::move(proxy_origin));
+  }
+}
+void IsolatedWebAppLocation::set_bundle_path(
+    const ::base::FilePath& bundle_path) {
+  if (tag_ == Tag::kBundlePath) {
+    *(data_.bundle_path) = std::move(bundle_path);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBundlePath;
+    data_.bundle_path = new ::base::FilePath(
+        std::move(bundle_path));
+  }
+}
+
+void IsolatedWebAppLocation::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kProxyOrigin:
+
+      delete data_.proxy_origin;
+      break;
+    case Tag::kBundlePath:
+
+      delete data_.bundle_path;
+      break;
+  }
+}
+
+bool IsolatedWebAppLocation::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+InstallWebAppResult::InstallWebAppResult() : tag_(Tag::kAppId) {
+  data_.app_id = new std::string;
+}
+
+InstallWebAppResult::~InstallWebAppResult() {
+  DestroyActive();
+}
+
+
+void InstallWebAppResult::set_app_id(
+    const std::string& app_id) {
+  if (tag_ == Tag::kAppId) {
+    *(data_.app_id) = std::move(app_id);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAppId;
+    data_.app_id = new std::string(
+        std::move(app_id));
+  }
+}
+void InstallWebAppResult::set_error_message(
+    const std::string& error_message) {
+  if (tag_ == Tag::kErrorMessage) {
+    *(data_.error_message) = std::move(error_message);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kErrorMessage;
+    data_.error_message = new std::string(
+        std::move(error_message));
+  }
+}
+
+void InstallWebAppResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kAppId:
+
+      delete data_.app_id;
+      break;
+    case Tag::kErrorMessage:
+
+      delete data_.error_message;
+      break;
+  }
+}
+size_t InstallWebAppResult::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kAppId:
+      return mojo::internal::Hash(seed, data_.app_id);
+    case Tag::kErrorMessage:
+      return mojo::internal::Hash(seed, data_.error_message);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool InstallWebAppResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+const char DomMessageObserver::Name_[] = "crosapi.mojom.DomMessageObserver";
+
+DomMessageObserver::IPCStableHashFunction DomMessageObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kDomMessageObserver_OnMessage_Name: {
+      return &DomMessageObserver::OnMessage_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* DomMessageObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kDomMessageObserver_OnMessage_Name:
+            return "Receive crosapi::mojom::DomMessageObserver::OnMessage";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kDomMessageObserver_OnMessage_Name:
+            return "Receive reply crosapi::mojom::DomMessageObserver::OnMessage";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t DomMessageObserver::OnMessage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DomMessageObserver::OnMessage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+DomMessageObserverProxy::DomMessageObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void DomMessageObserverProxy::OnMessage(
+    const std::string& in_message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DomMessageObserver::OnMessage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("message"), in_message,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDomMessageObserver_OnMessage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DomMessageObserver_OnMessage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->message)::BaseType> message_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_message, message_fragment);
+  params->message.Set(
+      message_fragment.is_null() ? nullptr : message_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->message.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null message in DomMessageObserver.OnMessage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DomMessageObserver::Name_);
+  message.set_method_name("OnMessage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool DomMessageObserverStubDispatch::Accept(
+    DomMessageObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kDomMessageObserver_OnMessage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DomMessageObserver_OnMessage_Params_Data* params =
+          reinterpret_cast<internal::DomMessageObserver_OnMessage_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_message{};
+      DomMessageObserver_OnMessage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMessage(&p_message))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DomMessageObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnMessage(
+std::move(p_message));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool DomMessageObserverStubDispatch::AcceptWithResponder(
+    DomMessageObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kDomMessageObserver_OnMessage_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kDomMessageObserverValidationInfo[] = {
+    { &internal::DomMessageObserver_OnMessage_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool DomMessageObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::DomMessageObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kDomMessageObserverValidationInfo);
+}
+
 const char StandaloneBrowserTestController::Name_[] = "crosapi.mojom.StandaloneBrowserTestController";
 constexpr base::Token StandaloneBrowserTestController::Uuid_;
 
@@ -239,6 +527,24 @@ StandaloneBrowserTestController::IPCStableHashFunction StandaloneBrowserTestCont
     case internal::kStandaloneBrowserTestController_InstallSubApp_Name: {
       return &StandaloneBrowserTestController::InstallSubApp_Sym::IPCStableHash;
     }
+    case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name: {
+      return &StandaloneBrowserTestController::InstallIsolatedWebApp_Sym::IPCStableHash;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name: {
+      return &StandaloneBrowserTestController::SetWebAppSettingsPref_Sym::IPCStableHash;
+    }
+    case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name: {
+      return &StandaloneBrowserTestController::InstallUnpackedExtension_Sym::IPCStableHash;
+    }
+    case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name: {
+      return &StandaloneBrowserTestController::RemoveComponentExtension_Sym::IPCStableHash;
+    }
+    case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name: {
+      return &StandaloneBrowserTestController::ObserveDomMessages_Sym::IPCStableHash;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name: {
+      return &StandaloneBrowserTestController::SetWebAppInstallForceListPref_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -262,6 +568,18 @@ const char* StandaloneBrowserTestController::MessageToMethodName_(mojo::Message&
             return "Receive crosapi::mojom::StandaloneBrowserTestController::TtsSpeak";
       case internal::kStandaloneBrowserTestController_InstallSubApp_Name:
             return "Receive crosapi::mojom::StandaloneBrowserTestController::InstallSubApp";
+      case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::InstallIsolatedWebApp";
+      case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::SetWebAppSettingsPref";
+      case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::InstallUnpackedExtension";
+      case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::RemoveComponentExtension";
+      case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::ObserveDomMessages";
+      case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name:
+            return "Receive crosapi::mojom::StandaloneBrowserTestController::SetWebAppInstallForceListPref";
     }
   } else {
     switch (message.name()) {
@@ -277,6 +595,18 @@ const char* StandaloneBrowserTestController::MessageToMethodName_(mojo::Message&
             return "Receive reply crosapi::mojom::StandaloneBrowserTestController::TtsSpeak";
       case internal::kStandaloneBrowserTestController_InstallSubApp_Name:
             return "Receive reply crosapi::mojom::StandaloneBrowserTestController::InstallSubApp";
+      case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::InstallIsolatedWebApp";
+      case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::SetWebAppSettingsPref";
+      case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::InstallUnpackedExtension";
+      case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::RemoveComponentExtension";
+      case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::ObserveDomMessages";
+      case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name:
+            return "Receive reply crosapi::mojom::StandaloneBrowserTestController::SetWebAppInstallForceListPref";
     }
   }
   return "Receive unknown mojo message";
@@ -369,6 +699,84 @@ uint32_t StandaloneBrowserTestController::InstallSubApp_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t StandaloneBrowserTestController::InstallIsolatedWebApp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::InstallIsolatedWebApp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StandaloneBrowserTestController::SetWebAppSettingsPref_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::SetWebAppSettingsPref");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StandaloneBrowserTestController::InstallUnpackedExtension_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::InstallUnpackedExtension");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StandaloneBrowserTestController::RemoveComponentExtension_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::RemoveComponentExtension");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StandaloneBrowserTestController::ObserveDomMessages_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::ObserveDomMessages");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StandaloneBrowserTestController::SetWebAppInstallForceListPref_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::StandaloneBrowserTestController::SetWebAppInstallForceListPref");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class StandaloneBrowserTestController_InstallWebApp_ForwardToCallback
@@ -451,6 +859,102 @@ class StandaloneBrowserTestController_InstallSubApp_ForwardToCallback
   StandaloneBrowserTestController::InstallSubAppCallback callback_;
 };
 
+class StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback(
+      StandaloneBrowserTestController::InstallIsolatedWebAppCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback(const StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback& operator=(const StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::InstallIsolatedWebAppCallback callback_;
+};
+
+class StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback(
+      StandaloneBrowserTestController::SetWebAppSettingsPrefCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback(const StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback& operator=(const StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::SetWebAppSettingsPrefCallback callback_;
+};
+
+class StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback(
+      StandaloneBrowserTestController::InstallUnpackedExtensionCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback(const StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback& operator=(const StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::InstallUnpackedExtensionCallback callback_;
+};
+
+class StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback(
+      StandaloneBrowserTestController::RemoveComponentExtensionCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback(const StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback& operator=(const StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::RemoveComponentExtensionCallback callback_;
+};
+
+class StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback(
+      StandaloneBrowserTestController::ObserveDomMessagesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback(const StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback& operator=(const StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::ObserveDomMessagesCallback callback_;
+};
+
+class StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback(
+      StandaloneBrowserTestController::SetWebAppInstallForceListPrefCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback(const StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback&) = delete;
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback& operator=(const StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StandaloneBrowserTestController::SetWebAppInstallForceListPrefCallback callback_;
+};
+
 StandaloneBrowserTestControllerProxy::StandaloneBrowserTestControllerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -470,14 +974,17 @@ void StandaloneBrowserTestControllerProxy::InstallWebApp(
                         "<value of type ::apps::WindowMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_InstallWebApp_Name, kFlags, 0, 0, nullptr);
@@ -521,14 +1028,17 @@ void StandaloneBrowserTestControllerProxy::LoadVpnExtension(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_LoadVpnExtension_Name, kFlags, 0, 0, nullptr);
@@ -563,14 +1073,17 @@ void StandaloneBrowserTestControllerProxy::GetTtsVoices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::StandaloneBrowserTestController::GetTtsVoices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_GetTtsVoices_Name, kFlags, 0, 0, nullptr);
@@ -594,14 +1107,17 @@ void StandaloneBrowserTestControllerProxy::GetExtensionKeeplist(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::StandaloneBrowserTestController::GetExtensionKeeplist");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_GetExtensionKeeplist_Name, kFlags, 0, 0, nullptr);
@@ -635,14 +1151,17 @@ void StandaloneBrowserTestControllerProxy::TtsSpeak(
                         "<value of type ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_TtsSpeak_Name, kFlags, 0, 0, nullptr);
@@ -678,7 +1197,7 @@ void StandaloneBrowserTestControllerProxy::TtsSpeak(
 }
 
 void StandaloneBrowserTestControllerProxy::InstallSubApp(
-    const std::string& in_parent_app_id, const std::string& in_sub_app_start_url, InstallSubAppCallback callback) {
+    const std::string& in_parent_app_id, const std::string& in_sub_app_path, InstallSubAppCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::InstallSubApp", "input_parameters",
@@ -688,18 +1207,21 @@ void StandaloneBrowserTestControllerProxy::InstallSubApp(
            dict.AddItem("parent_app_id"), in_parent_app_id,
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("sub_app_start_url"), in_sub_app_start_url,
+           dict.AddItem("sub_app_path"), in_sub_app_path,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_InstallSubApp_Name, kFlags, 0, 0, nullptr);
@@ -719,16 +1241,16 @@ void StandaloneBrowserTestControllerProxy::InstallSubApp(
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null parent_app_id in StandaloneBrowserTestController.InstallSubApp request");
   mojo::internal::MessageFragment<
-      typename decltype(params->sub_app_start_url)::BaseType> sub_app_start_url_fragment(
+      typename decltype(params->sub_app_path)::BaseType> sub_app_path_fragment(
           params.message());
   mojo::internal::Serialize<mojo::StringDataView>(
-      in_sub_app_start_url, sub_app_start_url_fragment);
-  params->sub_app_start_url.Set(
-      sub_app_start_url_fragment.is_null() ? nullptr : sub_app_start_url_fragment.data());
+      in_sub_app_path, sub_app_path_fragment);
+  params->sub_app_path.Set(
+      sub_app_path_fragment.is_null() ? nullptr : sub_app_path_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->sub_app_start_url.is_null(),
+      params->sub_app_path.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null sub_app_start_url in StandaloneBrowserTestController.InstallSubApp request");
+      "null sub_app_path in StandaloneBrowserTestController.InstallSubApp request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(StandaloneBrowserTestController::Name_);
@@ -736,6 +1258,315 @@ void StandaloneBrowserTestControllerProxy::InstallSubApp(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new StandaloneBrowserTestController_InstallSubApp_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::InstallIsolatedWebApp(
+    IsolatedWebAppLocationPtr in_location, bool in_dev_mode, InstallIsolatedWebAppCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::InstallIsolatedWebApp", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("location"), in_location,
+                        "<value of type IsolatedWebAppLocationPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("dev_mode"), in_dev_mode,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->location)>
+      location_fragment(params.message());
+  location_fragment.Claim(&params->location);
+  mojo::internal::Serialize<::crosapi::mojom::IsolatedWebAppLocationDataView>(
+      in_location, location_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->location.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null location in StandaloneBrowserTestController.InstallIsolatedWebApp request");
+  params->dev_mode = in_dev_mode;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("InstallIsolatedWebApp");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::SetWebAppSettingsPref(
+    const std::string& in_policy, SetWebAppSettingsPrefCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::SetWebAppSettingsPref", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("policy"), in_policy,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->policy)::BaseType> policy_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_policy, policy_fragment);
+  params->policy.Set(
+      policy_fragment.is_null() ? nullptr : policy_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->policy.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null policy in StandaloneBrowserTestController.SetWebAppSettingsPref request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("SetWebAppSettingsPref");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::InstallUnpackedExtension(
+    const std::string& in_path, InstallUnpackedExtensionCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::InstallUnpackedExtension", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("path"), in_path,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->path)::BaseType> path_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_path, path_fragment);
+  params->path.Set(
+      path_fragment.is_null() ? nullptr : path_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->path.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null path in StandaloneBrowserTestController.InstallUnpackedExtension request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("InstallUnpackedExtension");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::RemoveComponentExtension(
+    const std::string& in_extension_id, RemoveComponentExtensionCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::RemoveComponentExtension", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("extension_id"), in_extension_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->extension_id)::BaseType> extension_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_extension_id, extension_id_fragment);
+  params->extension_id.Set(
+      extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->extension_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null extension_id in StandaloneBrowserTestController.RemoveComponentExtension request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("RemoveComponentExtension");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::ObserveDomMessages(
+    ::mojo::PendingRemote<DomMessageObserver> in_observer, ObserveDomMessagesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::ObserveDomMessages", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<DomMessageObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_ObserveDomMessages_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::crosapi::mojom::DomMessageObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in StandaloneBrowserTestController.ObserveDomMessages request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("ObserveDomMessages");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void StandaloneBrowserTestControllerProxy::SetWebAppInstallForceListPref(
+    const std::string& in_policy, SetWebAppInstallForceListPrefCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::StandaloneBrowserTestController::SetWebAppInstallForceListPref", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("policy"), in_policy,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->policy)::BaseType> policy_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_policy, policy_fragment);
+  params->policy.Set(
+      policy_fragment.is_null() ? nullptr : policy_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->policy.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null policy in StandaloneBrowserTestController.SetWebAppInstallForceListPref request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("SetWebAppInstallForceListPref");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -831,7 +1662,8 @@ void StandaloneBrowserTestController_InstallWebApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_InstallWebApp_Name, kFlags, 0, 0, nullptr);
@@ -959,7 +1791,8 @@ void StandaloneBrowserTestController_LoadVpnExtension_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_LoadVpnExtension_Name, kFlags, 0, 0, nullptr);
@@ -1087,7 +1920,8 @@ void StandaloneBrowserTestController_GetTtsVoices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_GetTtsVoices_Name, kFlags, 0, 0, nullptr);
@@ -1217,7 +2051,8 @@ void StandaloneBrowserTestController_GetExtensionKeeplist_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_GetExtensionKeeplist_Name, kFlags, 0, 0, nullptr);
@@ -1345,7 +2180,8 @@ void StandaloneBrowserTestController_InstallSubApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStandaloneBrowserTestController_InstallSubApp_Name, kFlags, 0, 0, nullptr);
@@ -1368,6 +2204,714 @@ void StandaloneBrowserTestController_InstallSubApp_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(StandaloneBrowserTestController::Name_);
   message.set_method_name("InstallSubApp");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::InstallIsolatedWebAppCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::InstallIsolatedWebAppCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      InstallWebAppResultPtr in_result);
+};
+
+bool StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  InstallWebAppResultPtr p_result{};
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder::Run(
+    InstallWebAppResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::InstallIsolatedWebApp", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type InstallWebAppResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::crosapi::mojom::InstallWebAppResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("InstallIsolatedWebApp");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::SetWebAppSettingsPrefCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::SetWebAppSettingsPrefCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success{};
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 7, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::SetWebAppSettingsPref", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("SetWebAppSettingsPref");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::InstallUnpackedExtensionCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::InstallUnpackedExtensionCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_extension_id);
+};
+
+bool StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::string p_extension_id{};
+  StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadExtensionId(&p_extension_id))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 8, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_extension_id));
+  return true;
+}
+
+void StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder::Run(
+    const std::string& in_extension_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::InstallUnpackedExtension", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("extension_id"), in_extension_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->extension_id)::BaseType> extension_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_extension_id, extension_id_fragment);
+  params->extension_id.Set(
+      extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->extension_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null extension_id in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("InstallUnpackedExtension");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::RemoveComponentExtensionCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::RemoveComponentExtensionCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  StandaloneBrowserTestController_RemoveComponentExtension_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::RemoveComponentExtension");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("RemoveComponentExtension");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::ObserveDomMessagesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::ObserveDomMessagesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  StandaloneBrowserTestController_ObserveDomMessages_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::ObserveDomMessages");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_ObserveDomMessages_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("ObserveDomMessages");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StandaloneBrowserTestController::SetWebAppInstallForceListPrefCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder> proxy(
+        new StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StandaloneBrowserTestController::SetWebAppInstallForceListPrefCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success{};
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StandaloneBrowserTestController::Name_, 11, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::StandaloneBrowserTestController::SetWebAppInstallForceListPref", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StandaloneBrowserTestController::Name_);
+  message.set_method_name("SetWebAppInstallForceListPref");
 #endif
 
   message.set_request_id(request_id_);
@@ -1432,6 +2976,24 @@ std::move(p_utterance_client));
       return true;
     }
     case internal::kStandaloneBrowserTestController_InstallSubApp_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name: {
+      break;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name: {
       break;
     }
   }
@@ -1571,12 +3133,12 @@ std::move(p_extension_name), std::move(callback));
       
       bool success = true;
       std::string p_parent_app_id{};
-      std::string p_sub_app_start_url{};
+      std::string p_sub_app_path{};
       StandaloneBrowserTestController_InstallSubApp_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadParentAppId(&p_parent_app_id))
         success = false;
-      if (success && !input_data_view.ReadSubAppStartUrl(&p_sub_app_start_url))
+      if (success && !input_data_view.ReadSubAppPath(&p_sub_app_path))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1592,27 +3154,219 @@ std::move(p_extension_name), std::move(callback));
       DCHECK(impl);
       impl->InstallSubApp(
 std::move(p_parent_app_id), 
-std::move(p_sub_app_start_url), std::move(callback));
+std::move(p_sub_app_path), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name: {
+
+      internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      IsolatedWebAppLocationPtr p_location{};
+      bool p_dev_mode{};
+      StandaloneBrowserTestController_InstallIsolatedWebApp_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLocation(&p_location))
+        success = false;
+      if (success)
+        p_dev_mode = input_data_view.dev_mode();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 6, false);
+        return false;
+      }
+      StandaloneBrowserTestController::InstallIsolatedWebAppCallback callback =
+          StandaloneBrowserTestController_InstallIsolatedWebApp_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->InstallIsolatedWebApp(
+std::move(p_location), 
+std::move(p_dev_mode), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name: {
+
+      internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_policy{};
+      StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPolicy(&p_policy))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 7, false);
+        return false;
+      }
+      StandaloneBrowserTestController::SetWebAppSettingsPrefCallback callback =
+          StandaloneBrowserTestController_SetWebAppSettingsPref_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetWebAppSettingsPref(
+std::move(p_policy), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name: {
+
+      internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_path{};
+      StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPath(&p_path))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 8, false);
+        return false;
+      }
+      StandaloneBrowserTestController::InstallUnpackedExtensionCallback callback =
+          StandaloneBrowserTestController_InstallUnpackedExtension_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->InstallUnpackedExtension(
+std::move(p_path), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name: {
+
+      internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_extension_id{};
+      StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadExtensionId(&p_extension_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 9, false);
+        return false;
+      }
+      StandaloneBrowserTestController::RemoveComponentExtensionCallback callback =
+          StandaloneBrowserTestController_RemoveComponentExtension_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RemoveComponentExtension(
+std::move(p_extension_id), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name: {
+
+      internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<DomMessageObserver> p_observer{};
+      StandaloneBrowserTestController_ObserveDomMessages_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 10, false);
+        return false;
+      }
+      StandaloneBrowserTestController::ObserveDomMessagesCallback callback =
+          StandaloneBrowserTestController_ObserveDomMessages_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ObserveDomMessages(
+std::move(p_observer), std::move(callback));
+      return true;
+    }
+    case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name: {
+
+      internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data* params =
+          reinterpret_cast<
+              internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_policy{};
+      StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPolicy(&p_policy))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StandaloneBrowserTestController::Name_, 11, false);
+        return false;
+      }
+      StandaloneBrowserTestController::SetWebAppInstallForceListPrefCallback callback =
+          StandaloneBrowserTestController_SetWebAppInstallForceListPref_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetWebAppInstallForceListPref(
+std::move(p_policy), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStandaloneBrowserTestControllerValidationInfo[] = {
-    {&internal::StandaloneBrowserTestController_InstallWebApp_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_InstallWebApp_Params_Data::Validate,
      &internal::StandaloneBrowserTestController_InstallWebApp_ResponseParams_Data::Validate},
-    {&internal::StandaloneBrowserTestController_LoadVpnExtension_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_LoadVpnExtension_Params_Data::Validate,
      &internal::StandaloneBrowserTestController_LoadVpnExtension_ResponseParams_Data::Validate},
-    {&internal::StandaloneBrowserTestController_GetTtsVoices_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_GetTtsVoices_Params_Data::Validate,
      &internal::StandaloneBrowserTestController_GetTtsVoices_ResponseParams_Data::Validate},
-    {&internal::StandaloneBrowserTestController_GetExtensionKeeplist_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_GetExtensionKeeplist_Params_Data::Validate,
      &internal::StandaloneBrowserTestController_GetExtensionKeeplist_ResponseParams_Data::Validate},
-    {&internal::StandaloneBrowserTestController_TtsSpeak_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_TtsSpeak_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StandaloneBrowserTestController_InstallSubApp_Params_Data::Validate,
+    { &internal::StandaloneBrowserTestController_InstallSubApp_Params_Data::Validate,
      &internal::StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data::Validate},
+    { &internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data::Validate,
+     &internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data::Validate},
 };
 
 bool StandaloneBrowserTestControllerRequestValidator::Accept(mojo::Message* message) {
@@ -1722,14 +3476,17 @@ void TestShillControllerProxy::OnPacketReceived(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestShillController_OnPacketReceived_Name, kFlags, 0, 0, nullptr);
@@ -1800,14 +3557,17 @@ void TestShillControllerProxy::OnPlatformMessage(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestShillController_OnPlatformMessage_Name, kFlags, 0, 0, nullptr);
@@ -1943,12 +3703,12 @@ bool TestShillControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTestShillControllerValidationInfo[] = {
-    {&internal::TestShillController_OnPacketReceived_Params_Data::Validate,
+    { &internal::TestShillController_OnPacketReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestShillController_OnPlatformMessage_Params_Data::Validate,
+    { &internal::TestShillController_OnPlatformMessage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2375,14 +4135,17 @@ void ShillClientTestInterfaceProxy::AddDevice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddDevice_Name, kFlags, 0, 0, nullptr);
@@ -2439,14 +4202,17 @@ void ShillClientTestInterfaceProxy::ClearDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ShillClientTestInterface::ClearDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_ClearDevices_Name, kFlags, 0, 0, nullptr);
@@ -2486,14 +4252,17 @@ void ShillClientTestInterfaceProxy::SetDeviceProperty(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetDeviceProperty_Name, kFlags, 0, 0, nullptr);
@@ -2559,14 +4328,17 @@ void ShillClientTestInterfaceProxy::SetSimLocked(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetSimLocked_Name, kFlags, 0, 0, nullptr);
@@ -2624,14 +4396,17 @@ void ShillClientTestInterfaceProxy::AddService(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddService_Name, kFlags, 0, 0, nullptr);
@@ -2711,14 +4486,17 @@ void ShillClientTestInterfaceProxy::ClearServices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ShillClientTestInterface::ClearServices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_ClearServices_Name, kFlags, 0, 0, nullptr);
@@ -2755,14 +4533,17 @@ void ShillClientTestInterfaceProxy::SetServiceProperty(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetServiceProperty_Name, kFlags, 0, 0, nullptr);
@@ -2827,14 +4608,17 @@ void ShillClientTestInterfaceProxy::AddProfile(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddProfile_Name, kFlags, 0, 0, nullptr);
@@ -2890,14 +4674,17 @@ void ShillClientTestInterfaceProxy::AddServiceToProfile(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddServiceToProfile_Name, kFlags, 0, 0, nullptr);
@@ -2953,14 +4740,17 @@ void ShillClientTestInterfaceProxy::AddIPConfig(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddIPConfig_Name, kFlags, 0, 0, nullptr);
@@ -3079,7 +4869,8 @@ void ShillClientTestInterface_AddDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddDevice_Name, kFlags, 0, 0, nullptr);
@@ -3185,7 +4976,8 @@ void ShillClientTestInterface_ClearDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_ClearDevices_Name, kFlags, 0, 0, nullptr);
@@ -3291,7 +5083,8 @@ void ShillClientTestInterface_SetDeviceProperty_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetDeviceProperty_Name, kFlags, 0, 0, nullptr);
@@ -3397,7 +5190,8 @@ void ShillClientTestInterface_SetSimLocked_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetSimLocked_Name, kFlags, 0, 0, nullptr);
@@ -3503,7 +5297,8 @@ void ShillClientTestInterface_AddService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddService_Name, kFlags, 0, 0, nullptr);
@@ -3609,7 +5404,8 @@ void ShillClientTestInterface_ClearServices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_ClearServices_Name, kFlags, 0, 0, nullptr);
@@ -3715,7 +5511,8 @@ void ShillClientTestInterface_SetServiceProperty_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_SetServiceProperty_Name, kFlags, 0, 0, nullptr);
@@ -3821,7 +5618,8 @@ void ShillClientTestInterface_AddProfile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddProfile_Name, kFlags, 0, 0, nullptr);
@@ -3927,7 +5725,8 @@ void ShillClientTestInterface_AddServiceToProfile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddServiceToProfile_Name, kFlags, 0, 0, nullptr);
@@ -4033,7 +5832,8 @@ void ShillClientTestInterface_AddIPConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShillClientTestInterface_AddIPConfig_Name, kFlags, 0, 0, nullptr);
@@ -4456,28 +6256,28 @@ std::move(p_properties), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kShillClientTestInterfaceValidationInfo[] = {
-    {&internal::ShillClientTestInterface_AddDevice_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_AddDevice_Params_Data::Validate,
      &internal::ShillClientTestInterface_AddDevice_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_ClearDevices_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_ClearDevices_Params_Data::Validate,
      &internal::ShillClientTestInterface_ClearDevices_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_SetDeviceProperty_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_SetDeviceProperty_Params_Data::Validate,
      &internal::ShillClientTestInterface_SetDeviceProperty_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_SetSimLocked_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_SetSimLocked_Params_Data::Validate,
      &internal::ShillClientTestInterface_SetSimLocked_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_AddService_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_AddService_Params_Data::Validate,
      &internal::ShillClientTestInterface_AddService_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_ClearServices_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_ClearServices_Params_Data::Validate,
      &internal::ShillClientTestInterface_ClearServices_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_SetServiceProperty_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_SetServiceProperty_Params_Data::Validate,
      &internal::ShillClientTestInterface_SetServiceProperty_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_AddProfile_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_AddProfile_Params_Data::Validate,
      &internal::ShillClientTestInterface_AddProfile_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_AddServiceToProfile_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_AddServiceToProfile_Params_Data::Validate,
      &internal::ShillClientTestInterface_AddServiceToProfile_ResponseParams_Data::Validate},
-    {&internal::ShillClientTestInterface_AddIPConfig_Params_Data::Validate,
+    { &internal::ShillClientTestInterface_AddIPConfig_Params_Data::Validate,
      &internal::ShillClientTestInterface_AddIPConfig_ResponseParams_Data::Validate},
 };
 
@@ -4895,14 +6695,17 @@ void InputMethodTestInterfaceProxy::WaitForFocus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::InputMethodTestInterface::WaitForFocus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_WaitForFocus_Name, kFlags, 0, 0, nullptr);
@@ -4933,14 +6736,17 @@ void InputMethodTestInterfaceProxy::CommitText(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_CommitText_Name, kFlags, 0, 0, nullptr);
@@ -4985,14 +6791,17 @@ void InputMethodTestInterfaceProxy::SetComposition(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_SetComposition_Name, kFlags, 0, 0, nullptr);
@@ -5035,14 +6844,17 @@ void InputMethodTestInterfaceProxy::SendKeyEvent(
                         "<value of type KeyEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_SendKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -5087,14 +6899,17 @@ void InputMethodTestInterfaceProxy::KeyEventHandled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_KeyEventHandled_Name, kFlags, 0, 0, nullptr);
@@ -5120,14 +6935,17 @@ void InputMethodTestInterfaceProxy::WaitForNextSurroundingTextChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::InputMethodTestInterface::WaitForNextSurroundingTextChange");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_WaitForNextSurroundingTextChange_Name, kFlags, 0, 0, nullptr);
@@ -5158,14 +6976,17 @@ void InputMethodTestInterfaceProxy::HasCapabilities(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_HasCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -5202,14 +7023,17 @@ void InputMethodTestInterfaceProxy::ConfirmComposition(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::InputMethodTestInterface::ConfirmComposition");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_ConfirmComposition_Name, kFlags, 0, 0, nullptr);
@@ -5243,14 +7067,17 @@ void InputMethodTestInterfaceProxy::DeleteSurroundingText(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_DeleteSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -5283,14 +7110,17 @@ void InputMethodTestInterfaceProxy::InstallAndSwitchToInputMethod(
                         "<value of type InputMethodPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_InstallAndSwitchToInputMethod_Name, kFlags, 0, 0, nullptr);
@@ -5400,7 +7230,8 @@ void InputMethodTestInterface_WaitForFocus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_WaitForFocus_Name, kFlags, 0, 0, nullptr);
@@ -5506,7 +7337,8 @@ void InputMethodTestInterface_CommitText_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_CommitText_Name, kFlags, 0, 0, nullptr);
@@ -5612,7 +7444,8 @@ void InputMethodTestInterface_SetComposition_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_SetComposition_Name, kFlags, 0, 0, nullptr);
@@ -5729,7 +7562,8 @@ void InputMethodTestInterface_SendKeyEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_SendKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -5836,7 +7670,8 @@ void InputMethodTestInterface_KeyEventHandled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_KeyEventHandled_Name, kFlags, 0, 0, nullptr);
@@ -5960,7 +7795,8 @@ void InputMethodTestInterface_WaitForNextSurroundingTextChange_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_WaitForNextSurroundingTextChange_Name, kFlags, 0, 0, nullptr);
@@ -6099,7 +7935,8 @@ void InputMethodTestInterface_HasCapabilities_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_HasCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -6206,7 +8043,8 @@ void InputMethodTestInterface_ConfirmComposition_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_ConfirmComposition_Name, kFlags, 0, 0, nullptr);
@@ -6312,7 +8150,8 @@ void InputMethodTestInterface_DeleteSurroundingText_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_DeleteSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -6418,7 +8257,8 @@ void InputMethodTestInterface_InstallAndSwitchToInputMethod_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodTestInterface_InstallAndSwitchToInputMethod_Name, kFlags, 0, 0, nullptr);
@@ -6785,28 +8625,28 @@ std::move(p_input_method), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputMethodTestInterfaceValidationInfo[] = {
-    {&internal::InputMethodTestInterface_WaitForFocus_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_WaitForFocus_Params_Data::Validate,
      &internal::InputMethodTestInterface_WaitForFocus_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_CommitText_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_CommitText_Params_Data::Validate,
      &internal::InputMethodTestInterface_CommitText_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_SetComposition_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_SetComposition_Params_Data::Validate,
      &internal::InputMethodTestInterface_SetComposition_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_SendKeyEvent_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_SendKeyEvent_Params_Data::Validate,
      &internal::InputMethodTestInterface_SendKeyEvent_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_KeyEventHandled_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_KeyEventHandled_Params_Data::Validate,
      &internal::InputMethodTestInterface_KeyEventHandled_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_WaitForNextSurroundingTextChange_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_WaitForNextSurroundingTextChange_Params_Data::Validate,
      &internal::InputMethodTestInterface_WaitForNextSurroundingTextChange_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_HasCapabilities_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_HasCapabilities_Params_Data::Validate,
      &internal::InputMethodTestInterface_HasCapabilities_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_ConfirmComposition_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_ConfirmComposition_Params_Data::Validate,
      &internal::InputMethodTestInterface_ConfirmComposition_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_DeleteSurroundingText_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_DeleteSurroundingText_Params_Data::Validate,
      &internal::InputMethodTestInterface_DeleteSurroundingText_ResponseParams_Data::Validate},
-    {&internal::InputMethodTestInterface_InstallAndSwitchToInputMethod_Params_Data::Validate,
+    { &internal::InputMethodTestInterface_InstallAndSwitchToInputMethod_Params_Data::Validate,
      &internal::InputMethodTestInterface_InstallAndSwitchToInputMethod_ResponseParams_Data::Validate},
 };
 
@@ -6951,6 +8791,12 @@ TestController::IPCStableHashFunction TestController::MessageToMethodInfo_(mojo:
     case internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name: {
       return &TestController::CheckAtLeastOneAshBrowserWindowOpen_Sym::IPCStableHash;
     }
+    case internal::kTestController_GetAllOpenTabURLs_Name: {
+      return &TestController::GetAllOpenTabURLs_Sym::IPCStableHash;
+    }
+    case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name: {
+      return &TestController::SetAlmanacEndpointUrlForTesting_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -7046,6 +8892,10 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::TestController::CloseAllAshBrowserWindowsAndConfirm";
       case internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name:
             return "Receive crosapi::mojom::TestController::CheckAtLeastOneAshBrowserWindowOpen";
+      case internal::kTestController_GetAllOpenTabURLs_Name:
+            return "Receive crosapi::mojom::TestController::GetAllOpenTabURLs";
+      case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name:
+            return "Receive crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
     }
   } else {
     switch (message.name()) {
@@ -7133,6 +8983,10 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::TestController::CloseAllAshBrowserWindowsAndConfirm";
       case internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name:
             return "Receive reply crosapi::mojom::TestController::CheckAtLeastOneAshBrowserWindowOpen";
+      case internal::kTestController_GetAllOpenTabURLs_Name:
+            return "Receive reply crosapi::mojom::TestController::GetAllOpenTabURLs";
+      case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name:
+            return "Receive reply crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
     }
   }
   return "Receive unknown mojo message";
@@ -7689,6 +9543,32 @@ uint32_t TestController::CheckAtLeastOneAshBrowserWindowOpen_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::TestController::CheckAtLeastOneAshBrowserWindowOpen");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TestController::GetAllOpenTabURLs_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TestController::GetAllOpenTabURLs");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TestController::SetAlmanacEndpointUrlForTesting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8255,6 +10135,38 @@ class TestController_CheckAtLeastOneAshBrowserWindowOpen_ForwardToCallback
   TestController::CheckAtLeastOneAshBrowserWindowOpenCallback callback_;
 };
 
+class TestController_GetAllOpenTabURLs_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TestController_GetAllOpenTabURLs_ForwardToCallback(
+      TestController::GetAllOpenTabURLsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TestController_GetAllOpenTabURLs_ForwardToCallback(const TestController_GetAllOpenTabURLs_ForwardToCallback&) = delete;
+  TestController_GetAllOpenTabURLs_ForwardToCallback& operator=(const TestController_GetAllOpenTabURLs_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TestController::GetAllOpenTabURLsCallback callback_;
+};
+
+class TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback(
+      TestController::SetAlmanacEndpointUrlForTestingCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback(const TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback&) = delete;
+  TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback& operator=(const TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TestController::SetAlmanacEndpointUrlForTestingCallback callback_;
+};
+
 TestControllerProxy::TestControllerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -8271,14 +10183,17 @@ void TestControllerProxy::ClickElement(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ClickElement_Name, kFlags, 0, 0, nullptr);
@@ -8320,14 +10235,17 @@ void TestControllerProxy::ClickWindow(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ClickWindow_Name, kFlags, 0, 0, nullptr);
@@ -8368,14 +10286,17 @@ void TestControllerProxy::DoesItemExistInShelf(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesItemExistInShelf_Name, kFlags, 0, 0, nullptr);
@@ -8417,14 +10338,17 @@ void TestControllerProxy::DoesElementExist(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesElementExist_Name, kFlags, 0, 0, nullptr);
@@ -8466,14 +10390,17 @@ void TestControllerProxy::DoesWindowExist(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesWindowExist_Name, kFlags, 0, 0, nullptr);
@@ -8508,14 +10435,17 @@ void TestControllerProxy::EnterOverviewMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::EnterOverviewMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_EnterOverviewMode_Name, kFlags, 0, 0, nullptr);
@@ -8539,14 +10469,17 @@ void TestControllerProxy::ExitOverviewMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::ExitOverviewMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ExitOverviewMode_Name, kFlags, 0, 0, nullptr);
@@ -8570,14 +10503,17 @@ void TestControllerProxy::EnterTabletMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::EnterTabletMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_EnterTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -8601,14 +10537,17 @@ void TestControllerProxy::ExitTabletMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::ExitTabletMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ExitTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -8639,14 +10578,17 @@ void TestControllerProxy::GetContextMenuForShelfItem(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetContextMenuForShelfItem_Name, kFlags, 0, 0, nullptr);
@@ -8688,14 +10630,17 @@ void TestControllerProxy::GetMinimizeOnBackKeyWindowProperty(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetMinimizeOnBackKeyWindowProperty_Name, kFlags, 0, 0, nullptr);
@@ -8737,14 +10682,17 @@ void TestControllerProxy::GetWindowPositionInScreen(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetWindowPositionInScreen_Name, kFlags, 0, 0, nullptr);
@@ -8789,14 +10737,17 @@ void TestControllerProxy::PinOrUnpinItemInShelf(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_PinOrUnpinItemInShelf_Name, kFlags, 0, 0, nullptr);
@@ -8842,14 +10793,17 @@ void TestControllerProxy::SelectContextMenuForShelfItem(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SelectContextMenuForShelfItem_Name, kFlags, 0, 0, nullptr);
@@ -8892,14 +10846,17 @@ void TestControllerProxy::SelectItemInShelf(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SelectItemInShelf_Name, kFlags, 0, 0, nullptr);
@@ -8950,14 +10907,17 @@ void TestControllerProxy::SendTouchEvent(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SendTouchEvent_Name, kFlags, 0, 0, nullptr);
@@ -9006,14 +10966,17 @@ void TestControllerProxy::GetOpenAshBrowserWindows(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetOpenAshBrowserWindows");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetOpenAshBrowserWindows_Name, kFlags, 0, 0, nullptr);
@@ -9037,14 +11000,17 @@ void TestControllerProxy::CloseAllBrowserWindows(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::CloseAllBrowserWindows");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CloseAllBrowserWindows_Name, kFlags, 0, 0, nullptr);
@@ -9075,14 +11041,17 @@ void TestControllerProxy::RegisterStandaloneBrowserTestController(
                         "<value of type ::mojo::PendingRemote<StandaloneBrowserTestController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_RegisterStandaloneBrowserTestController_Name, kFlags, 0, 0, nullptr);
@@ -9118,14 +11087,17 @@ void TestControllerProxy::TriggerTabScrubbing(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_TriggerTabScrubbing_Name, kFlags, 0, 0, nullptr);
@@ -9157,14 +11129,17 @@ void TestControllerProxy::SetSelectedSharesheetApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SetSelectedSharesheetApp_Name, kFlags, 0, 0, nullptr);
@@ -9199,14 +11174,17 @@ void TestControllerProxy::GetAshVersion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetAshVersion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetAshVersion_Name, kFlags, 0, 0, nullptr);
@@ -9237,14 +11215,17 @@ void TestControllerProxy::BindTestShillController(
                         "<value of type ::mojo::PendingReceiver<TestShillController>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindTestShillController_Name, kFlags, 0, 0, nullptr);
@@ -9281,14 +11262,17 @@ void TestControllerProxy::CreateAndCancelPrintJob(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CreateAndCancelPrintJob_Name, kFlags, 0, 0, nullptr);
@@ -9330,14 +11314,17 @@ void TestControllerProxy::BindShillClientTestInterface(
                         "<value of type ::mojo::PendingReceiver<ShillClientTestInterface>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindShillClientTestInterface_Name, kFlags, 0, 0, nullptr);
@@ -9367,14 +11354,17 @@ void TestControllerProxy::GetSanitizedActiveUsername(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetSanitizedActiveUsername");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetSanitizedActiveUsername_Name, kFlags, 0, 0, nullptr);
@@ -9405,14 +11395,17 @@ void TestControllerProxy::BindInputMethodTestInterface(
                         "<value of type ::mojo::PendingReceiver<InputMethodTestInterface>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindInputMethodTestInterface_Name, kFlags, 0, 0, nullptr);
@@ -9449,14 +11442,17 @@ void TestControllerProxy::ConnectToNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ConnectToNetwork_Name, kFlags, 0, 0, nullptr);
@@ -9497,14 +11493,17 @@ void TestControllerProxy::DisconnectFromNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DisconnectFromNetwork_Name, kFlags, 0, 0, nullptr);
@@ -9545,14 +11544,17 @@ void TestControllerProxy::LaunchAppFromAppList(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_LaunchAppFromAppList_Name, kFlags, 0, 0, nullptr);
@@ -9586,14 +11588,17 @@ void TestControllerProxy::ReinitializeAppService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::ReinitializeAppService");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ReinitializeAppService_Name, kFlags, 0, 0, nullptr);
@@ -9624,14 +11629,17 @@ void TestControllerProxy::GetShelfItemState(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetShelfItemState_Name, kFlags, 0, 0, nullptr);
@@ -9666,14 +11674,17 @@ void TestControllerProxy::GetTtsUtteranceQueueSize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetTtsUtteranceQueueSize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetTtsUtteranceQueueSize_Name, kFlags, 0, 0, nullptr);
@@ -9697,14 +11708,17 @@ void TestControllerProxy::AreDesksBeingModified(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::AreDesksBeingModified");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_AreDesksBeingModified_Name, kFlags, 0, 0, nullptr);
@@ -9728,14 +11742,17 @@ void TestControllerProxy::GetTtsVoices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetTtsVoices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetTtsVoices_Name, kFlags, 0, 0, nullptr);
@@ -9769,14 +11786,17 @@ void TestControllerProxy::TtsSpeak(
                         "<value of type ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_TtsSpeak_Name, kFlags, 0, 0, nullptr);
@@ -9816,14 +11836,17 @@ void TestControllerProxy::IsSavedDeskStorageReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::IsSavedDeskStorageReady");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_IsSavedDeskStorageReady_Name, kFlags, 0, 0, nullptr);
@@ -9857,14 +11880,17 @@ void TestControllerProxy::SetAssistiveTechnologyEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SetAssistiveTechnologyEnabled_Name, kFlags, 0, 0, nullptr);
@@ -9897,14 +11923,17 @@ void TestControllerProxy::GetAppListItemAttributes(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetAppListItemAttributes_Name, kFlags, 0, 0, nullptr);
@@ -9949,14 +11978,17 @@ void TestControllerProxy::SetAppListItemAttributes(
                         "<value of type AppListItemAttributesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SetAppListItemAttributes_Name, kFlags, 0, 0, nullptr);
@@ -10002,14 +12034,17 @@ void TestControllerProxy::CloseAllAshBrowserWindowsAndConfirm(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::CloseAllAshBrowserWindowsAndConfirm");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CloseAllAshBrowserWindowsAndConfirm_Name, kFlags, 0, 0, nullptr);
@@ -10033,14 +12068,17 @@ void TestControllerProxy::CheckAtLeastOneAshBrowserWindowOpen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::CheckAtLeastOneAshBrowserWindowOpen");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name, kFlags, 0, 0, nullptr);
@@ -10055,6 +12093,88 @@ void TestControllerProxy::CheckAtLeastOneAshBrowserWindowOpen(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new TestController_CheckAtLeastOneAshBrowserWindowOpen_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void TestControllerProxy::GetAllOpenTabURLs(
+    GetAllOpenTabURLsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send crosapi::mojom::TestController::GetAllOpenTabURLs");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_GetAllOpenTabURLs_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_GetAllOpenTabURLs_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("GetAllOpenTabURLs");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TestController_GetAllOpenTabURLs_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void TestControllerProxy::SetAlmanacEndpointUrlForTesting(
+    const std::optional<std::string>& in_override, SetAlmanacEndpointUrlForTestingCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("override"), in_override,
+                        "<value of type const std::optional<std::string>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_SetAlmanacEndpointUrlForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->override)::BaseType> override_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_override, override_fragment);
+  params->override.Set(
+      override_fragment.is_null() ? nullptr : override_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("SetAlmanacEndpointUrlForTesting");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -10150,7 +12270,8 @@ void TestController_ClickElement_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ClickElement_Name, kFlags, 0, 0, nullptr);
@@ -10268,7 +12389,8 @@ void TestController_DoesItemExistInShelf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesItemExistInShelf_Name, kFlags, 0, 0, nullptr);
@@ -10386,7 +12508,8 @@ void TestController_DoesElementExist_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesElementExist_Name, kFlags, 0, 0, nullptr);
@@ -10504,7 +12627,8 @@ void TestController_DoesWindowExist_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_DoesWindowExist_Name, kFlags, 0, 0, nullptr);
@@ -10611,7 +12735,8 @@ void TestController_EnterOverviewMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_EnterOverviewMode_Name, kFlags, 0, 0, nullptr);
@@ -10717,7 +12842,8 @@ void TestController_ExitOverviewMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ExitOverviewMode_Name, kFlags, 0, 0, nullptr);
@@ -10823,7 +12949,8 @@ void TestController_EnterTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_EnterTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -10929,7 +13056,8 @@ void TestController_ExitTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ExitTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -11046,7 +13174,8 @@ void TestController_GetContextMenuForShelfItem_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetContextMenuForShelfItem_Name, kFlags, 0, 0, nullptr);
@@ -11176,7 +13305,8 @@ void TestController_GetMinimizeOnBackKeyWindowProperty_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetMinimizeOnBackKeyWindowProperty_Name, kFlags, 0, 0, nullptr);
@@ -11249,7 +13379,7 @@ class TestController_GetWindowPositionInScreen_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      const absl::optional<::gfx::Point>& in_position);
+      const std::optional<::gfx::Point>& in_position);
 };
 
 bool TestController_GetWindowPositionInScreen_ForwardToCallback::Accept(
@@ -11262,7 +13392,7 @@ bool TestController_GetWindowPositionInScreen_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::gfx::Point> p_position{};
+  std::optional<::gfx::Point> p_position{};
   TestController_GetWindowPositionInScreen_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadPosition(&p_position))
@@ -11281,7 +13411,7 @@ std::move(p_position));
 }
 
 void TestController_GetWindowPositionInScreen_ProxyToResponder::Run(
-    const absl::optional<::gfx::Point>& in_position) {
+    const std::optional<::gfx::Point>& in_position) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::TestController::GetWindowPositionInScreen", "async_response_parameters",
@@ -11289,13 +13419,14 @@ void TestController_GetWindowPositionInScreen_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("position"), in_position,
-                        "<value of type const absl::optional<::gfx::Point>&>");
+                        "<value of type const std::optional<::gfx::Point>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetWindowPositionInScreen_Name, kFlags, 0, 0, nullptr);
@@ -11419,7 +13550,8 @@ void TestController_PinOrUnpinItemInShelf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_PinOrUnpinItemInShelf_Name, kFlags, 0, 0, nullptr);
@@ -11537,7 +13669,8 @@ void TestController_SelectContextMenuForShelfItem_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SelectContextMenuForShelfItem_Name, kFlags, 0, 0, nullptr);
@@ -11655,7 +13788,8 @@ void TestController_SelectItemInShelf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SelectItemInShelf_Name, kFlags, 0, 0, nullptr);
@@ -11762,7 +13896,8 @@ void TestController_SendTouchEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SendTouchEvent_Name, kFlags, 0, 0, nullptr);
@@ -11879,7 +14014,8 @@ void TestController_GetOpenAshBrowserWindows_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetOpenAshBrowserWindows_Name, kFlags, 0, 0, nullptr);
@@ -11997,7 +14133,8 @@ void TestController_CloseAllBrowserWindows_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CloseAllBrowserWindows_Name, kFlags, 0, 0, nullptr);
@@ -12115,7 +14252,8 @@ void TestController_TriggerTabScrubbing_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_TriggerTabScrubbing_Name, kFlags, 0, 0, nullptr);
@@ -12222,7 +14360,8 @@ void TestController_SetSelectedSharesheetApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SetSelectedSharesheetApp_Name, kFlags, 0, 0, nullptr);
@@ -12339,7 +14478,8 @@ void TestController_GetAshVersion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetAshVersion_Name, kFlags, 0, 0, nullptr);
@@ -12456,7 +14596,8 @@ void TestController_BindTestShillController_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindTestShillController_Name, kFlags, 0, 0, nullptr);
@@ -12562,7 +14703,8 @@ void TestController_CreateAndCancelPrintJob_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CreateAndCancelPrintJob_Name, kFlags, 0, 0, nullptr);
@@ -12668,7 +14810,8 @@ void TestController_BindShillClientTestInterface_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindShillClientTestInterface_Name, kFlags, 0, 0, nullptr);
@@ -12785,7 +14928,8 @@ void TestController_GetSanitizedActiveUsername_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetSanitizedActiveUsername_Name, kFlags, 0, 0, nullptr);
@@ -12902,7 +15046,8 @@ void TestController_BindInputMethodTestInterface_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_BindInputMethodTestInterface_Name, kFlags, 0, 0, nullptr);
@@ -13008,7 +15153,8 @@ void TestController_ReinitializeAppService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_ReinitializeAppService_Name, kFlags, 0, 0, nullptr);
@@ -13125,7 +15271,8 @@ void TestController_GetShelfItemState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetShelfItemState_Name, kFlags, 0, 0, nullptr);
@@ -13243,7 +15390,8 @@ void TestController_GetTtsUtteranceQueueSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetTtsUtteranceQueueSize_Name, kFlags, 0, 0, nullptr);
@@ -13361,7 +15509,8 @@ void TestController_AreDesksBeingModified_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_AreDesksBeingModified_Name, kFlags, 0, 0, nullptr);
@@ -13479,7 +15628,8 @@ void TestController_GetTtsVoices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetTtsVoices_Name, kFlags, 0, 0, nullptr);
@@ -13609,7 +15759,8 @@ void TestController_IsSavedDeskStorageReady_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_IsSavedDeskStorageReady_Name, kFlags, 0, 0, nullptr);
@@ -13727,7 +15878,8 @@ void TestController_GetAppListItemAttributes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_GetAppListItemAttributes_Name, kFlags, 0, 0, nullptr);
@@ -13844,7 +15996,8 @@ void TestController_SetAppListItemAttributes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_SetAppListItemAttributes_Name, kFlags, 0, 0, nullptr);
@@ -13961,7 +16114,8 @@ void TestController_CloseAllAshBrowserWindowsAndConfirm_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CloseAllAshBrowserWindowsAndConfirm_Name, kFlags, 0, 0, nullptr);
@@ -14079,7 +16233,8 @@ void TestController_CheckAtLeastOneAshBrowserWindowOpen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name, kFlags, 0, 0, nullptr);
@@ -14092,6 +16247,244 @@ void TestController_CheckAtLeastOneAshBrowserWindowOpen_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(TestController::Name_);
   message.set_method_name("CheckAtLeastOneAshBrowserWindowOpen");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class TestController_GetAllOpenTabURLs_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TestController::GetAllOpenTabURLsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TestController_GetAllOpenTabURLs_ProxyToResponder> proxy(
+        new TestController_GetAllOpenTabURLs_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TestController_GetAllOpenTabURLs_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TestController_GetAllOpenTabURLs_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TestController_GetAllOpenTabURLs_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TestController::GetAllOpenTabURLsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::vector<::GURL>& in_urls);
+};
+
+bool TestController_GetAllOpenTabURLs_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TestController_GetAllOpenTabURLs_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TestController_GetAllOpenTabURLs_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<::GURL> p_urls{};
+  TestController_GetAllOpenTabURLs_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadUrls(&p_urls))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TestController::Name_, 43, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_urls));
+  return true;
+}
+
+void TestController_GetAllOpenTabURLs_ProxyToResponder::Run(
+    const std::vector<::GURL>& in_urls) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::TestController::GetAllOpenTabURLs", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("urls"), in_urls,
+                        "<value of type const std::vector<::GURL>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_GetAllOpenTabURLs_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_GetAllOpenTabURLs_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->urls)::BaseType>
+      urls_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& urls_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+      in_urls, urls_fragment, &urls_validate_params);
+  params->urls.Set(
+      urls_fragment.is_null() ? nullptr : urls_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->urls.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null urls in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("GetAllOpenTabURLs");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TestController::SetAlmanacEndpointUrlForTestingCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder> proxy(
+        new TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TestController::SetAlmanacEndpointUrlForTestingCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TestController::Name_, 44, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_SetAlmanacEndpointUrlForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("SetAlmanacEndpointUrlForTesting");
 #endif
 
   message.set_request_id(request_id_);
@@ -14408,6 +16801,12 @@ std::move(p_enabled));
       break;
     }
     case internal::kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name: {
+      break;
+    }
+    case internal::kTestController_GetAllOpenTabURLs_Name: {
+      break;
+    }
+    case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name: {
       break;
     }
   }
@@ -15429,97 +17828,155 @@ std::move(p_attributes), std::move(callback));
       impl->CheckAtLeastOneAshBrowserWindowOpen(std::move(callback));
       return true;
     }
+    case internal::kTestController_GetAllOpenTabURLs_Name: {
+
+      internal::TestController_GetAllOpenTabURLs_Params_Data* params =
+          reinterpret_cast<
+              internal::TestController_GetAllOpenTabURLs_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      TestController_GetAllOpenTabURLs_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TestController::Name_, 43, false);
+        return false;
+      }
+      TestController::GetAllOpenTabURLsCallback callback =
+          TestController_GetAllOpenTabURLs_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetAllOpenTabURLs(std::move(callback));
+      return true;
+    }
+    case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name: {
+
+      internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data* params =
+          reinterpret_cast<
+              internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::optional<std::string> p_override{};
+      TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadOverride(&p_override))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TestController::Name_, 44, false);
+        return false;
+      }
+      TestController::SetAlmanacEndpointUrlForTestingCallback callback =
+          TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAlmanacEndpointUrlForTesting(
+std::move(p_override), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTestControllerValidationInfo[] = {
-    {&internal::TestController_DoesWindowExist_Params_Data::Validate,
+    { &internal::TestController_DoesWindowExist_Params_Data::Validate,
      &internal::TestController_DoesWindowExist_ResponseParams_Data::Validate},
-    {&internal::TestController_ClickWindow_Params_Data::Validate,
+    { &internal::TestController_ClickWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_EnterOverviewMode_Params_Data::Validate,
+    { &internal::TestController_EnterOverviewMode_Params_Data::Validate,
      &internal::TestController_EnterOverviewMode_ResponseParams_Data::Validate},
-    {&internal::TestController_ExitOverviewMode_Params_Data::Validate,
+    { &internal::TestController_ExitOverviewMode_Params_Data::Validate,
      &internal::TestController_ExitOverviewMode_ResponseParams_Data::Validate},
-    {&internal::TestController_EnterTabletMode_Params_Data::Validate,
+    { &internal::TestController_EnterTabletMode_Params_Data::Validate,
      &internal::TestController_EnterTabletMode_ResponseParams_Data::Validate},
-    {&internal::TestController_ExitTabletMode_Params_Data::Validate,
+    { &internal::TestController_ExitTabletMode_Params_Data::Validate,
      &internal::TestController_ExitTabletMode_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::TestController_SendTouchEvent_Params_Data::Validate,
+    { &internal::TestController_SendTouchEvent_Params_Data::Validate,
      &internal::TestController_SendTouchEvent_ResponseParams_Data::Validate},
-    {&internal::TestController_GetWindowPositionInScreen_Params_Data::Validate,
+    { &internal::TestController_GetWindowPositionInScreen_Params_Data::Validate,
      &internal::TestController_GetWindowPositionInScreen_ResponseParams_Data::Validate},
-    {&internal::TestController_DoesItemExistInShelf_Params_Data::Validate,
+    { &internal::TestController_DoesItemExistInShelf_Params_Data::Validate,
      &internal::TestController_DoesItemExistInShelf_ResponseParams_Data::Validate},
-    {&internal::TestController_GetMinimizeOnBackKeyWindowProperty_Params_Data::Validate,
+    { &internal::TestController_GetMinimizeOnBackKeyWindowProperty_Params_Data::Validate,
      &internal::TestController_GetMinimizeOnBackKeyWindowProperty_ResponseParams_Data::Validate},
-    {&internal::TestController_PinOrUnpinItemInShelf_Params_Data::Validate,
+    { &internal::TestController_PinOrUnpinItemInShelf_Params_Data::Validate,
      &internal::TestController_PinOrUnpinItemInShelf_ResponseParams_Data::Validate},
-    {&internal::TestController_SelectItemInShelf_Params_Data::Validate,
+    { &internal::TestController_SelectItemInShelf_Params_Data::Validate,
      &internal::TestController_SelectItemInShelf_ResponseParams_Data::Validate},
-    {&internal::TestController_GetContextMenuForShelfItem_Params_Data::Validate,
+    { &internal::TestController_GetContextMenuForShelfItem_Params_Data::Validate,
      &internal::TestController_GetContextMenuForShelfItem_ResponseParams_Data::Validate},
-    {&internal::TestController_GetOpenAshBrowserWindows_Params_Data::Validate,
+    { &internal::TestController_GetOpenAshBrowserWindows_Params_Data::Validate,
      &internal::TestController_GetOpenAshBrowserWindows_ResponseParams_Data::Validate},
-    {&internal::TestController_CloseAllBrowserWindows_Params_Data::Validate,
+    { &internal::TestController_CloseAllBrowserWindows_Params_Data::Validate,
      &internal::TestController_CloseAllBrowserWindows_ResponseParams_Data::Validate},
-    {&internal::TestController_RegisterStandaloneBrowserTestController_Params_Data::Validate,
+    { &internal::TestController_RegisterStandaloneBrowserTestController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_TriggerTabScrubbing_Params_Data::Validate,
+    { &internal::TestController_TriggerTabScrubbing_Params_Data::Validate,
      &internal::TestController_TriggerTabScrubbing_ResponseParams_Data::Validate},
-    {&internal::TestController_SelectContextMenuForShelfItem_Params_Data::Validate,
+    { &internal::TestController_SelectContextMenuForShelfItem_Params_Data::Validate,
      &internal::TestController_SelectContextMenuForShelfItem_ResponseParams_Data::Validate},
-    {&internal::TestController_DoesElementExist_Params_Data::Validate,
+    { &internal::TestController_DoesElementExist_Params_Data::Validate,
      &internal::TestController_DoesElementExist_ResponseParams_Data::Validate},
-    {&internal::TestController_ClickElement_Params_Data::Validate,
+    { &internal::TestController_ClickElement_Params_Data::Validate,
      &internal::TestController_ClickElement_ResponseParams_Data::Validate},
-    {&internal::TestController_SetSelectedSharesheetApp_Params_Data::Validate,
+    { &internal::TestController_SetSelectedSharesheetApp_Params_Data::Validate,
      &internal::TestController_SetSelectedSharesheetApp_ResponseParams_Data::Validate},
-    {&internal::TestController_GetAshVersion_Params_Data::Validate,
+    { &internal::TestController_GetAshVersion_Params_Data::Validate,
      &internal::TestController_GetAshVersion_ResponseParams_Data::Validate},
-    {&internal::TestController_BindTestShillController_Params_Data::Validate,
+    { &internal::TestController_BindTestShillController_Params_Data::Validate,
      &internal::TestController_BindTestShillController_ResponseParams_Data::Validate},
-    {&internal::TestController_CreateAndCancelPrintJob_Params_Data::Validate,
+    { &internal::TestController_CreateAndCancelPrintJob_Params_Data::Validate,
      &internal::TestController_CreateAndCancelPrintJob_ResponseParams_Data::Validate},
-    {&internal::TestController_BindShillClientTestInterface_Params_Data::Validate,
+    { &internal::TestController_BindShillClientTestInterface_Params_Data::Validate,
      &internal::TestController_BindShillClientTestInterface_ResponseParams_Data::Validate},
-    {&internal::TestController_GetSanitizedActiveUsername_Params_Data::Validate,
+    { &internal::TestController_GetSanitizedActiveUsername_Params_Data::Validate,
      &internal::TestController_GetSanitizedActiveUsername_ResponseParams_Data::Validate},
-    {&internal::TestController_BindInputMethodTestInterface_Params_Data::Validate,
+    { &internal::TestController_BindInputMethodTestInterface_Params_Data::Validate,
      &internal::TestController_BindInputMethodTestInterface_ResponseParams_Data::Validate},
-    {&internal::TestController_ConnectToNetwork_Params_Data::Validate,
+    { &internal::TestController_ConnectToNetwork_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_DisconnectFromNetwork_Params_Data::Validate,
+    { &internal::TestController_DisconnectFromNetwork_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_LaunchAppFromAppList_Params_Data::Validate,
+    { &internal::TestController_LaunchAppFromAppList_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_ReinitializeAppService_Params_Data::Validate,
+    { &internal::TestController_ReinitializeAppService_Params_Data::Validate,
      &internal::TestController_ReinitializeAppService_ResponseParams_Data::Validate},
-    {&internal::TestController_GetShelfItemState_Params_Data::Validate,
+    { &internal::TestController_GetShelfItemState_Params_Data::Validate,
      &internal::TestController_GetShelfItemState_ResponseParams_Data::Validate},
-    {&internal::TestController_GetTtsUtteranceQueueSize_Params_Data::Validate,
+    { &internal::TestController_GetTtsUtteranceQueueSize_Params_Data::Validate,
      &internal::TestController_GetTtsUtteranceQueueSize_ResponseParams_Data::Validate},
-    {&internal::TestController_AreDesksBeingModified_Params_Data::Validate,
+    { &internal::TestController_AreDesksBeingModified_Params_Data::Validate,
      &internal::TestController_AreDesksBeingModified_ResponseParams_Data::Validate},
-    {&internal::TestController_GetTtsVoices_Params_Data::Validate,
+    { &internal::TestController_GetTtsVoices_Params_Data::Validate,
      &internal::TestController_GetTtsVoices_ResponseParams_Data::Validate},
-    {&internal::TestController_TtsSpeak_Params_Data::Validate,
+    { &internal::TestController_TtsSpeak_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_IsSavedDeskStorageReady_Params_Data::Validate,
+    { &internal::TestController_IsSavedDeskStorageReady_Params_Data::Validate,
      &internal::TestController_IsSavedDeskStorageReady_ResponseParams_Data::Validate},
-    {&internal::TestController_SetAssistiveTechnologyEnabled_Params_Data::Validate,
+    { &internal::TestController_SetAssistiveTechnologyEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TestController_GetAppListItemAttributes_Params_Data::Validate,
+    { &internal::TestController_GetAppListItemAttributes_Params_Data::Validate,
      &internal::TestController_GetAppListItemAttributes_ResponseParams_Data::Validate},
-    {&internal::TestController_SetAppListItemAttributes_Params_Data::Validate,
+    { &internal::TestController_SetAppListItemAttributes_Params_Data::Validate,
      &internal::TestController_SetAppListItemAttributes_ResponseParams_Data::Validate},
-    {&internal::TestController_CloseAllAshBrowserWindowsAndConfirm_Params_Data::Validate,
+    { &internal::TestController_CloseAllAshBrowserWindowsAndConfirm_Params_Data::Validate,
      &internal::TestController_CloseAllAshBrowserWindowsAndConfirm_ResponseParams_Data::Validate},
-    {&internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_Params_Data::Validate,
+    { &internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_Params_Data::Validate,
      &internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data::Validate},
+    { &internal::TestController_GetAllOpenTabURLs_Params_Data::Validate,
+     &internal::TestController_GetAllOpenTabURLs_ResponseParams_Data::Validate},
+    { &internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data::Validate,
+     &internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::Validate},
 };
 
 bool TestControllerRequestValidator::Accept(mojo::Message* message) {
@@ -15590,6 +18047,72 @@ bool StructTraits<::crosapi::mojom::InputMethod::DataView, ::crosapi::mojom::Inp
   return success;
 }
 
+// static
+bool UnionTraits<::crosapi::mojom::IsolatedWebAppLocation::DataView, ::crosapi::mojom::IsolatedWebAppLocationPtr>::Read(
+    ::crosapi::mojom::IsolatedWebAppLocation::DataView input,
+    ::crosapi::mojom::IsolatedWebAppLocationPtr* output) {
+  using UnionType = ::crosapi::mojom::IsolatedWebAppLocation;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kProxyOrigin: {
+      ::GURL result_proxy_origin;
+      if (!input.ReadProxyOrigin(&result_proxy_origin))
+        return false;
+
+      *output = UnionType::NewProxyOrigin(
+          std::move(result_proxy_origin));
+      break;
+    }
+    case Tag::kBundlePath: {
+      ::base::FilePath result_bundle_path;
+      if (!input.ReadBundlePath(&result_bundle_path))
+        return false;
+
+      *output = UnionType::NewBundlePath(
+          std::move(result_bundle_path));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::crosapi::mojom::InstallWebAppResult::DataView, ::crosapi::mojom::InstallWebAppResultPtr>::Read(
+    ::crosapi::mojom::InstallWebAppResult::DataView input,
+    ::crosapi::mojom::InstallWebAppResultPtr* output) {
+  using UnionType = ::crosapi::mojom::InstallWebAppResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kAppId: {
+      std::string result_app_id;
+      if (!input.ReadAppId(&result_app_id))
+        return false;
+
+      *output = UnionType::NewAppId(
+          std::move(result_app_id));
+      break;
+    }
+    case Tag::kErrorMessage: {
+      std::string result_error_message;
+      if (!input.ReadErrorMessage(&result_error_message))
+        return false;
+
+      *output = UnionType::NewErrorMessage(
+          std::move(result_error_message));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
 }  // namespace mojo
 
 
@@ -15598,6 +18121,17 @@ bool StructTraits<::crosapi::mojom::InputMethod::DataView, ::crosapi::mojom::Inp
 
 
 namespace crosapi::mojom {
+
+
+void DomMessageObserverInterceptorForTesting::OnMessage(const std::string& message) {
+  GetForwardingInterface()->OnMessage(std::move(message));
+}
+DomMessageObserverAsyncWaiter::DomMessageObserverAsyncWaiter(
+    DomMessageObserver* proxy) : proxy_(proxy) {}
+
+DomMessageObserverAsyncWaiter::~DomMessageObserverAsyncWaiter() = default;
+
+
 
 
 void StandaloneBrowserTestControllerInterceptorForTesting::InstallWebApp(const std::string& start_url, ::apps::WindowMode mode, InstallWebAppCallback callback) {
@@ -15615,8 +18149,26 @@ void StandaloneBrowserTestControllerInterceptorForTesting::GetExtensionKeeplist(
 void StandaloneBrowserTestControllerInterceptorForTesting::TtsSpeak(::crosapi::mojom::TtsUtterancePtr utterance, ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient> utterance_client) {
   GetForwardingInterface()->TtsSpeak(std::move(utterance), std::move(utterance_client));
 }
-void StandaloneBrowserTestControllerInterceptorForTesting::InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_start_url, InstallSubAppCallback callback) {
-  GetForwardingInterface()->InstallSubApp(std::move(parent_app_id), std::move(sub_app_start_url), std::move(callback));
+void StandaloneBrowserTestControllerInterceptorForTesting::InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_path, InstallSubAppCallback callback) {
+  GetForwardingInterface()->InstallSubApp(std::move(parent_app_id), std::move(sub_app_path), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::InstallIsolatedWebApp(IsolatedWebAppLocationPtr location, bool dev_mode, InstallIsolatedWebAppCallback callback) {
+  GetForwardingInterface()->InstallIsolatedWebApp(std::move(location), std::move(dev_mode), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::SetWebAppSettingsPref(const std::string& policy, SetWebAppSettingsPrefCallback callback) {
+  GetForwardingInterface()->SetWebAppSettingsPref(std::move(policy), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::InstallUnpackedExtension(const std::string& path, InstallUnpackedExtensionCallback callback) {
+  GetForwardingInterface()->InstallUnpackedExtension(std::move(path), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::RemoveComponentExtension(const std::string& extension_id, RemoveComponentExtensionCallback callback) {
+  GetForwardingInterface()->RemoveComponentExtension(std::move(extension_id), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::ObserveDomMessages(::mojo::PendingRemote<DomMessageObserver> observer, ObserveDomMessagesCallback callback) {
+  GetForwardingInterface()->ObserveDomMessages(std::move(observer), std::move(callback));
+}
+void StandaloneBrowserTestControllerInterceptorForTesting::SetWebAppInstallForceListPref(const std::string& policy, SetWebAppInstallForceListPrefCallback callback) {
+  GetForwardingInterface()->SetWebAppInstallForceListPref(std::move(policy), std::move(callback));
 }
 StandaloneBrowserTestControllerAsyncWaiter::StandaloneBrowserTestControllerAsyncWaiter(
     StandaloneBrowserTestController* proxy) : proxy_(proxy) {}
@@ -15716,9 +18268,9 @@ void StandaloneBrowserTestControllerAsyncWaiter::GetExtensionKeeplist(
 }
 
 void StandaloneBrowserTestControllerAsyncWaiter::InstallSubApp(
-    const std::string& parent_app_id, const std::string& sub_app_start_url, std::string* out_sub_app_id) {
+    const std::string& parent_app_id, const std::string& sub_app_path, std::string* out_sub_app_id) {
   base::RunLoop loop;
-  proxy_->InstallSubApp(std::move(parent_app_id),std::move(sub_app_start_url),
+  proxy_->InstallSubApp(std::move(parent_app_id),std::move(sub_app_path),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::string* out_sub_app_id
@@ -15732,9 +18284,129 @@ void StandaloneBrowserTestControllerAsyncWaiter::InstallSubApp(
 }
 
 std::string StandaloneBrowserTestControllerAsyncWaiter::InstallSubApp(
-    const std::string& parent_app_id, const std::string& sub_app_start_url) {
+    const std::string& parent_app_id, const std::string& sub_app_path) {
   std::string async_wait_result;
-  InstallSubApp(std::move(parent_app_id),std::move(sub_app_start_url),&async_wait_result);
+  InstallSubApp(std::move(parent_app_id),std::move(sub_app_path),&async_wait_result);
+  return async_wait_result;
+}
+
+void StandaloneBrowserTestControllerAsyncWaiter::InstallIsolatedWebApp(
+    IsolatedWebAppLocationPtr location, bool dev_mode, InstallWebAppResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->InstallIsolatedWebApp(std::move(location),std::move(dev_mode),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             InstallWebAppResultPtr* out_result
+,
+             InstallWebAppResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+InstallWebAppResultPtr StandaloneBrowserTestControllerAsyncWaiter::InstallIsolatedWebApp(
+    IsolatedWebAppLocationPtr location, bool dev_mode) {
+  InstallWebAppResultPtr async_wait_result;
+  InstallIsolatedWebApp(std::move(location),std::move(dev_mode),&async_wait_result);
+  return async_wait_result;
+}
+
+void StandaloneBrowserTestControllerAsyncWaiter::SetWebAppSettingsPref(
+    const std::string& policy, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->SetWebAppSettingsPref(std::move(policy),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool StandaloneBrowserTestControllerAsyncWaiter::SetWebAppSettingsPref(
+    const std::string& policy) {
+  bool async_wait_result;
+  SetWebAppSettingsPref(std::move(policy),&async_wait_result);
+  return async_wait_result;
+}
+
+void StandaloneBrowserTestControllerAsyncWaiter::InstallUnpackedExtension(
+    const std::string& path, std::string* out_extension_id) {
+  base::RunLoop loop;
+  proxy_->InstallUnpackedExtension(std::move(path),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_extension_id
+,
+             const std::string& extension_id) {*out_extension_id = std::move(extension_id);
+            loop->Quit();
+          },
+          &loop,
+          out_extension_id));
+  loop.Run();
+}
+
+std::string StandaloneBrowserTestControllerAsyncWaiter::InstallUnpackedExtension(
+    const std::string& path) {
+  std::string async_wait_result;
+  InstallUnpackedExtension(std::move(path),&async_wait_result);
+  return async_wait_result;
+}
+
+void StandaloneBrowserTestControllerAsyncWaiter::RemoveComponentExtension(
+    const std::string& extension_id) {
+  base::RunLoop loop;
+  proxy_->RemoveComponentExtension(std::move(extension_id),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void StandaloneBrowserTestControllerAsyncWaiter::ObserveDomMessages(
+    ::mojo::PendingRemote<DomMessageObserver> observer) {
+  base::RunLoop loop;
+  proxy_->ObserveDomMessages(std::move(observer),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void StandaloneBrowserTestControllerAsyncWaiter::SetWebAppInstallForceListPref(
+    const std::string& policy, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->SetWebAppInstallForceListPref(std::move(policy),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool StandaloneBrowserTestControllerAsyncWaiter::SetWebAppInstallForceListPref(
+    const std::string& policy) {
+  bool async_wait_result;
+  SetWebAppInstallForceListPref(std::move(policy),&async_wait_result);
   return async_wait_result;
 }
 
@@ -16263,6 +18935,12 @@ void TestControllerInterceptorForTesting::CloseAllAshBrowserWindowsAndConfirm(Cl
 void TestControllerInterceptorForTesting::CheckAtLeastOneAshBrowserWindowOpen(CheckAtLeastOneAshBrowserWindowOpenCallback callback) {
   GetForwardingInterface()->CheckAtLeastOneAshBrowserWindowOpen(std::move(callback));
 }
+void TestControllerInterceptorForTesting::GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) {
+  GetForwardingInterface()->GetAllOpenTabURLs(std::move(callback));
+}
+void TestControllerInterceptorForTesting::SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) {
+  GetForwardingInterface()->SetAlmanacEndpointUrlForTesting(std::move(override), std::move(callback));
+}
 TestControllerAsyncWaiter::TestControllerAsyncWaiter(
     TestController* proxy) : proxy_(proxy) {}
 
@@ -16463,14 +19141,14 @@ OptionalBoolean TestControllerAsyncWaiter::GetMinimizeOnBackKeyWindowProperty(
 }
 
 void TestControllerAsyncWaiter::GetWindowPositionInScreen(
-    const std::string& window_id, absl::optional<::gfx::Point>* out_position) {
+    const std::string& window_id, std::optional<::gfx::Point>* out_position) {
   base::RunLoop loop;
   proxy_->GetWindowPositionInScreen(std::move(window_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::gfx::Point>* out_position
+             std::optional<::gfx::Point>* out_position
 ,
-             const absl::optional<::gfx::Point>& position) {*out_position = std::move(position);
+             const std::optional<::gfx::Point>& position) {*out_position = std::move(position);
             loop->Quit();
           },
           &loop,
@@ -16478,9 +19156,9 @@ void TestControllerAsyncWaiter::GetWindowPositionInScreen(
   loop.Run();
 }
 
-absl::optional<::gfx::Point> TestControllerAsyncWaiter::GetWindowPositionInScreen(
+std::optional<::gfx::Point> TestControllerAsyncWaiter::GetWindowPositionInScreen(
     const std::string& window_id) {
-  absl::optional<::gfx::Point> async_wait_result;
+  std::optional<::gfx::Point> async_wait_result;
   GetWindowPositionInScreen(std::move(window_id),&async_wait_result);
   return async_wait_result;
 }
@@ -16964,6 +19642,43 @@ bool TestControllerAsyncWaiter::CheckAtLeastOneAshBrowserWindowOpen(
   CheckAtLeastOneAshBrowserWindowOpen(&async_wait_result);
   return async_wait_result;
 }
+
+void TestControllerAsyncWaiter::GetAllOpenTabURLs(
+    std::vector<::GURL>* out_urls) {
+  base::RunLoop loop;
+  proxy_->GetAllOpenTabURLs(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::GURL>* out_urls
+,
+             const std::vector<::GURL>& urls) {*out_urls = std::move(urls);
+            loop->Quit();
+          },
+          &loop,
+          out_urls));
+  loop.Run();
+}
+
+std::vector<::GURL> TestControllerAsyncWaiter::GetAllOpenTabURLs(
+    ) {
+  std::vector<::GURL> async_wait_result;
+  GetAllOpenTabURLs(&async_wait_result);
+  return async_wait_result;
+}
+
+void TestControllerAsyncWaiter::SetAlmanacEndpointUrlForTesting(
+    const std::optional<std::string>& override) {
+  base::RunLoop loop;
+  proxy_->SetAlmanacEndpointUrlForTesting(std::move(override),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
 
 
 

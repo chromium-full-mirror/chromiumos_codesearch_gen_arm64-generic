@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioData>::value,
     "AudioData inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioData::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioData is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.format.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->format();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->format();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -104,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.sampleRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sampleRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -118,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.numberOfFrames.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfFrames();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -132,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.numberOfChannels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfChannels();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -146,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -160,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -227,7 +227,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_options = NativeValueTraits<AudioDataCopyToOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -250,9 +250,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.clone");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AudioData";
 const char* const property_name = "clone";
@@ -275,8 +275,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioData.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -302,7 +303,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(v8_receiver);
+AudioData* blink_receiver = V8AudioData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

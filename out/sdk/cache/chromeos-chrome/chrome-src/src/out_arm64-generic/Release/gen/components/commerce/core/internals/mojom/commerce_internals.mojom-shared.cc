@@ -54,7 +54,7 @@ bool ShoppingListEligibleDetail_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -106,14 +106,7 @@ bool ShoppingListEligibleDetail_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->is_web_and_app_activity_enabled, 7, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->is_web_and_app_activity_enabled, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->is_subject_to_parental_controls, 8, validation_context)) {
+          object->is_subject_to_parental_controls, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->is_subject_to_parental_controls, validation_context))

@@ -3,9 +3,10 @@
 // found in the LICENSE file.
 import { startIOTask } from '../../common/js/api.js';
 import { PolicyErrorType, ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../common/js/progress_center_common.js';
-import { str, strf, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/background/progress_center.js';
+import { getFileErrorString, str, strf } from '../../common/js/translations.js';
+import { checkAPIError, visitURL } from '../../common/js/util.js';
+import { VolumeType } from '../../common/js/volume_manager_types.js';
+import { ProgressCenter } from '../../externs/background/progress_center.js';
 import { getStore } from '../../state/store.js';
 /**
  * An event handler of the background page for file operations.
@@ -30,8 +31,7 @@ export class FileOperationHandler {
             item.itemCount = event.itemCount;
             const state = getStore().getState();
             const volume = state.volumes[event.destinationVolumeId];
-            item.isDestinationDrive =
-                volume?.volumeType === VolumeManagerCommon.VolumeType.DRIVE;
+            item.isDestinationDrive = volume?.volumeType === VolumeType.DRIVE;
             item.cancelCallback = () => {
                 chrome.fileManagerPrivate.cancelIOTask(event.taskId);
             };
@@ -75,7 +75,7 @@ export class FileOperationHandler {
                     else {
                         item.setExtraButton(ProgressItemState.PAUSED, extraButtonText, () => {
                             // Show the dialog to proceed/cancel.
-                            chrome.fileManagerPrivate.showPolicyDialog(event.taskId, chrome.fileManagerPrivate.PolicyDialogType.WARNING, util.checkAPIError);
+                            chrome.fileManagerPrivate.showPolicyDialog(event.taskId, chrome.fileManagerPrivate.PolicyDialogType.WARNING, checkAPIError);
                         });
                     }
                     break;
@@ -112,6 +112,7 @@ export class FileOperationHandler {
                 }
                 else { // ERROR
                     item.state = ProgressItemState.ERROR;
+                    item.skippedEncryptedFiles = event.skippedEncryptedFiles;
                     // Check if there was a policy error.
                     if (event.policyError) {
                         item.policyError =
@@ -122,7 +123,7 @@ export class FileOperationHandler {
                             // For policy errors, we keep track of the task's info since it
                             // might be required to review the details. Notify when dismissed
                             // that this can be cleared.
-                            chrome.fileManagerPrivate.dismissIOTask(event.taskId, util.checkAPIError);
+                            chrome.fileManagerPrivate.dismissIOTask(event.taskId, checkAPIError);
                         };
                         const extraButtonText = getPolicyExtraButtonText(event);
                         if (event.policyError.type !==
@@ -130,12 +131,15 @@ export class FileOperationHandler {
                             (event.policyError.policyFileCount > 1 ||
                                 event.policyError.alwaysShowReview)) {
                             item.setExtraButton(ProgressItemState.ERROR, extraButtonText, () => {
-                                chrome.fileManagerPrivate.showPolicyDialog(event.taskId, chrome.fileManagerPrivate.PolicyDialogType.ERROR, util.checkAPIError);
+                                chrome.fileManagerPrivate.showPolicyDialog(event.taskId, chrome.fileManagerPrivate.PolicyDialogType.ERROR, checkAPIError);
                             });
                         }
-                        else {
+                        else if (event.policyError.type !==
+                            PolicyErrorType.ENTERPRISE_CONNECTORS) {
+                            // There is not a default learn more URL for EC, and when a custom
+                            // one is set we show the review button defined above instead.
                             item.setExtraButton(ProgressItemState.ERROR, extraButtonText, () => {
-                                util.visitURL(str('DLP_HELP_URL'));
+                                visitURL(str('DLP_HELP_URL'));
                             });
                         }
                     }
@@ -203,7 +207,7 @@ function getMessageFromProgressEvent(event) {
                 return str('DELETE_IN_USE_ERROR');
         }
     }
-    const detail = util.getFileErrorString(event.errorName);
+    const detail = getFileErrorString(event.errorName);
     switch (event.type) {
         case chrome.fileManagerPrivate.IOTaskType.COPY:
             return strf('COPY_FILESYSTEM_ERROR', detail);

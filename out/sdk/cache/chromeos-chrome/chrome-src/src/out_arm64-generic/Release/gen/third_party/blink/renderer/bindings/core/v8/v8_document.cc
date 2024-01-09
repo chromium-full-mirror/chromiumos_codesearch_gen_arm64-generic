@@ -60,11 +60,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Document>::value,
     "Document inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Document::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Document is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8Document::InstallInterfaceTemplateFuncType V8Document::install_interface_template_func_ = nullptr;

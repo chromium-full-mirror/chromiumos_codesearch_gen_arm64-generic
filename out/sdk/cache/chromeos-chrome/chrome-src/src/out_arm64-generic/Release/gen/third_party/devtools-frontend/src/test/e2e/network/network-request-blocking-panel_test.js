@@ -7,9 +7,6 @@ const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
-async function navigateToNetworkRequestBlockingTab() {
-    await (0, settings_helpers_js_1.openPanelViaMoreTools)('Network request blocking');
-}
 async function checkboxIsChecked(element) {
     return await element.evaluate(node => node.checked);
 }
@@ -19,27 +16,23 @@ async function isVisible(element, container) {
     return elementBox.top <= containerBox.top ? containerBox.top - elementBox.top <= elementBox.height :
         elementBox.bottom - containerBox.bottom <= elementBox.height;
 }
-async function disableNetworkRequestBlocking() {
-    const networkRequestBlockingCheckbox = await (await (0, helper_js_1.waitForAria)('Enable network request blocking')).toElement('input');
-    (0, chai_1.expect)(await checkboxIsChecked(networkRequestBlockingCheckbox)).to.equal(true);
-    await networkRequestBlockingCheckbox.click();
-    (0, chai_1.expect)(await checkboxIsChecked(networkRequestBlockingCheckbox)).to.equal(false);
-}
-(0, mocha_extensions_js_1.describe)('Network request blocking panel', async () => {
-    async function setup() {
-        await navigateToNetworkRequestBlockingTab();
+(0, mocha_extensions_js_1.describe)('The Network request blocking panel', () => {
+    beforeEach(async () => {
+        await (0, settings_helpers_js_1.openPanelViaMoreTools)('Network request blocking');
         for (let i = 0; i < 20; i++) {
-            const plusButton = await (0, helper_js_1.waitForAria)('Add pattern');
+            const plusButton = await (0, helper_js_1.waitForAria)('Add network request blocking pattern');
             await plusButton.click();
             const inputField = await (0, helper_js_1.waitFor)('.blocked-url-edit-value > input');
             await inputField.type(i.toString());
             const addButton = await (0, helper_js_1.waitForAria)('Add');
             await addButton.click();
         }
-    }
-    (0, mocha_extensions_js_1.it)('pattern list inactive when blocking disabled', async () => {
-        await setup();
-        await disableNetworkRequestBlocking();
+        const networkRequestBlockingCheckbox = await (await (0, helper_js_1.waitForAria)('Enable network request blocking')).toElement('input');
+        (0, chai_1.expect)(await checkboxIsChecked(networkRequestBlockingCheckbox)).to.equal(true);
+        await networkRequestBlockingCheckbox.click();
+        (0, chai_1.expect)(await checkboxIsChecked(networkRequestBlockingCheckbox)).to.equal(false);
+    });
+    (0, mocha_extensions_js_1.it)('prohibits unchecking patterns when blocking is disabled', async () => {
         await (0, helper_js_1.waitForAriaNone)('Edit');
         await (0, helper_js_1.waitForAriaNone)('Remove');
         const firstListItem = await (0, helper_js_1.waitFor)('.blocked-url');
@@ -48,9 +41,7 @@ async function disableNetworkRequestBlocking() {
         await firstListItem.click();
         (0, chai_1.expect)(await checkboxIsChecked(firstCheckbox)).to.equal(true);
     });
-    (0, mocha_extensions_js_1.it)('pattern scrollable when blocking disabled', async () => {
-        await setup();
-        await disableNetworkRequestBlocking();
+    (0, mocha_extensions_js_1.it)('allows scrolling the pattern list when blocking is disabled', async () => {
         const list = await (0, helper_js_1.waitFor)('.list');
         const lastListItem = await (0, helper_js_1.waitForElementWithTextContent)('19');
         // TODO: this is not completely fair way to scroll but mouseWheel does not

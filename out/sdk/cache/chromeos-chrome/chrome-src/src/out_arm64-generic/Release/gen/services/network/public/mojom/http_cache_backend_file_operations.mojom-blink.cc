@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -218,15 +219,18 @@ bool FileEnumeratorProxy::GetNext(
 #else
   TRACE_EVENT0("mojom", "FileEnumerator::GetNext");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileEnumerator_GetNext_Name, kFlags, 0, 0, nullptr);
@@ -277,14 +281,17 @@ void FileEnumeratorProxy::GetNext(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileEnumerator_GetNext_Name, kFlags, 0, 0, nullptr);
@@ -409,7 +416,8 @@ void FileEnumerator_GetNext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileEnumerator_GetNext_Name, kFlags, 0, 0, nullptr);
@@ -536,10 +544,10 @@ std::move(p_num_entries), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileEnumeratorValidationInfo[] = {
-    {&internal::FileEnumerator_GetNext_Params_Data::Validate,
+    { &internal::FileEnumerator_GetNext_Params_Data::Validate,
      &internal::FileEnumerator_GetNext_ResponseParams_Data::Validate},
 };
 
@@ -790,7 +798,7 @@ bool HttpCacheBackendFileOperations::RenameFile(const ::base::FilePath& from_pat
   NOTREACHED();
   return false;
 }
-bool HttpCacheBackendFileOperations::GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) {
+bool HttpCacheBackendFileOperations::GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) {
   NOTREACHED();
   return false;
 }
@@ -991,7 +999,7 @@ class HttpCacheBackendFileOperations_GetFileInfo_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   HttpCacheBackendFileOperations_GetFileInfo_HandleSyncResponse(
-      bool* result, absl::optional<::base::File::Info>* out_info)
+      bool* result, std::optional<::base::File::Info>* out_info)
       : result_(result), out_info_(out_info) {
     DCHECK(!*result_);
   }
@@ -1002,7 +1010,7 @@ class HttpCacheBackendFileOperations_GetFileInfo_HandleSyncResponse
   bool Accept(mojo::Message* message) override;
  private:
   bool* result_;
-  absl::optional<::base::File::Info>* out_info_;};
+  std::optional<::base::File::Info>* out_info_;};
 
 class HttpCacheBackendFileOperations_GetFileInfo_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1053,15 +1061,18 @@ bool HttpCacheBackendFileOperationsProxy::CreateDirectory(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::CreateDirectory");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1116,14 +1127,17 @@ void HttpCacheBackendFileOperationsProxy::CreateDirectory(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1166,15 +1180,18 @@ bool HttpCacheBackendFileOperationsProxy::PathExists(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::PathExists");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -1229,14 +1246,17 @@ void HttpCacheBackendFileOperationsProxy::PathExists(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -1279,15 +1299,18 @@ bool HttpCacheBackendFileOperationsProxy::DirectoryExists(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::DirectoryExists");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DirectoryExists_Name, kFlags, 0, 0, nullptr);
@@ -1342,14 +1365,17 @@ void HttpCacheBackendFileOperationsProxy::DirectoryExists(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DirectoryExists_Name, kFlags, 0, 0, nullptr);
@@ -1395,15 +1421,18 @@ bool HttpCacheBackendFileOperationsProxy::OpenFile(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::OpenFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -1466,14 +1495,17 @@ void HttpCacheBackendFileOperationsProxy::OpenFile(
                         "<value of type HttpCacheBackendOpenFileFlags>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -1521,15 +1553,18 @@ bool HttpCacheBackendFileOperationsProxy::DeleteFile(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::DeleteFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -1589,14 +1624,17 @@ void HttpCacheBackendFileOperationsProxy::DeleteFile(
                         "<value of type HttpCacheBackendDeleteFileMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -1644,15 +1682,18 @@ bool HttpCacheBackendFileOperationsProxy::RenameFile(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::RenameFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -1721,14 +1762,17 @@ void HttpCacheBackendFileOperationsProxy::RenameFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -1769,7 +1813,7 @@ void HttpCacheBackendFileOperationsProxy::RenameFile(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 bool HttpCacheBackendFileOperationsProxy::GetFileInfo(
-    const ::base::FilePath& param_path, absl::optional<::base::File::Info>* out_param_info) {
+    const ::base::FilePath& param_path, std::optional<::base::File::Info>* out_param_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call network::mojom::HttpCacheBackendFileOperations::GetFileInfo (sync)", "input_parameters",
@@ -1782,15 +1826,18 @@ bool HttpCacheBackendFileOperationsProxy::GetFileInfo(
 #else
   TRACE_EVENT0("mojom", "HttpCacheBackendFileOperations::GetFileInfo");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -1827,7 +1874,7 @@ bool HttpCacheBackendFileOperationsProxy::GetFileInfo(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), out_param_info,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   return result;
@@ -1845,14 +1892,17 @@ void HttpCacheBackendFileOperationsProxy::GetFileInfo(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -1897,14 +1947,17 @@ void HttpCacheBackendFileOperationsProxy::EnumerateFiles(
                         "<value of type ::mojo::PendingReceiver<FileEnumerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_EnumerateFiles_Name, kFlags, 0, 0, nullptr);
@@ -1951,14 +2004,17 @@ void HttpCacheBackendFileOperationsProxy::CleanupDirectory(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_CleanupDirectory_Name, kFlags, 0, 0, nullptr);
@@ -2079,7 +2135,8 @@ void HttpCacheBackendFileOperations_CreateDirectory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -2222,7 +2279,8 @@ void HttpCacheBackendFileOperations_PathExists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -2365,7 +2423,8 @@ void HttpCacheBackendFileOperations_DirectoryExists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DirectoryExists_Name, kFlags, 0, 0, nullptr);
@@ -2515,7 +2574,8 @@ void HttpCacheBackendFileOperations_OpenFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -2670,7 +2730,8 @@ void HttpCacheBackendFileOperations_DeleteFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -2813,7 +2874,8 @@ void HttpCacheBackendFileOperations_RenameFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -2911,7 +2973,7 @@ class HttpCacheBackendFileOperations_GetFileInfo_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      const absl::optional<::base::File::Info>& in_info);
+      const std::optional<::base::File::Info>& in_info);
 };
 
 bool HttpCacheBackendFileOperations_GetFileInfo_ForwardToCallback::Accept(
@@ -2924,7 +2986,7 @@ bool HttpCacheBackendFileOperations_GetFileInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_info{};
+  std::optional<::base::File::Info> p_info{};
   HttpCacheBackendFileOperations_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInfo(&p_info))
@@ -2943,7 +3005,7 @@ std::move(p_info));
 }
 
 void HttpCacheBackendFileOperations_GetFileInfo_ProxyToResponder::Run(
-    const absl::optional<::base::File::Info>& in_info) {
+    const std::optional<::base::File::Info>& in_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::HttpCacheBackendFileOperations::GetFileInfo", "async_response_parameters",
@@ -2951,13 +3013,14 @@ void HttpCacheBackendFileOperations_GetFileInfo_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), in_info,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -2998,7 +3061,7 @@ bool HttpCacheBackendFileOperations_GetFileInfo_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_info{};
+  std::optional<::base::File::Info> p_info{};
   HttpCacheBackendFileOperations_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInfo(&p_info))
@@ -3106,7 +3169,8 @@ void HttpCacheBackendFileOperations_CleanupDirectory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperations_CleanupDirectory_Name, kFlags, 0, 0, nullptr);
@@ -3457,26 +3521,26 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHttpCacheBackendFileOperationsValidationInfo[] = {
-    {&internal::HttpCacheBackendFileOperations_CreateDirectory_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_CreateDirectory_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_CreateDirectory_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_PathExists_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_PathExists_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_PathExists_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_DirectoryExists_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_DirectoryExists_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_DirectoryExists_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_OpenFile_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_OpenFile_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_OpenFile_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_DeleteFile_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_DeleteFile_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_DeleteFile_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_RenameFile_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_RenameFile_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_RenameFile_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_GetFileInfo_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_GetFileInfo_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_GetFileInfo_ResponseParams_Data::Validate},
-    {&internal::HttpCacheBackendFileOperations_EnumerateFiles_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_EnumerateFiles_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HttpCacheBackendFileOperations_CleanupDirectory_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperations_CleanupDirectory_Params_Data::Validate,
      &internal::HttpCacheBackendFileOperations_CleanupDirectory_ResponseParams_Data::Validate},
 };
 
@@ -3560,14 +3624,17 @@ void HttpCacheBackendFileOperationsFactoryProxy::Create(
                         "<value of type ::mojo::PendingReceiver<HttpCacheBackendFileOperations>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpCacheBackendFileOperationsFactory_Create_Name, kFlags, 0, 0, nullptr);
@@ -3643,10 +3710,10 @@ bool HttpCacheBackendFileOperationsFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHttpCacheBackendFileOperationsFactoryValidationInfo[] = {
-    {&internal::HttpCacheBackendFileOperationsFactory_Create_Params_Data::Validate,
+    { &internal::HttpCacheBackendFileOperationsFactory_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3899,14 +3966,14 @@ void HttpCacheBackendFileOperationsAsyncWaiter::RenameFile(
 }
 
 void HttpCacheBackendFileOperationsAsyncWaiter::GetFileInfo(
-    const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) {
+    const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) {
   base::RunLoop loop;
   proxy_->GetFileInfo(std::move(path),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::File::Info>* out_info
+             std::optional<::base::File::Info>* out_info
 ,
-             const absl::optional<::base::File::Info>& info) {*out_info = std::move(info);
+             const std::optional<::base::File::Info>& info) {*out_info = std::move(info);
             loop->Quit();
           },
           &loop,
@@ -3914,9 +3981,9 @@ void HttpCacheBackendFileOperationsAsyncWaiter::GetFileInfo(
   loop.Run();
 }
 
-absl::optional<::base::File::Info> HttpCacheBackendFileOperationsAsyncWaiter::GetFileInfo(
+std::optional<::base::File::Info> HttpCacheBackendFileOperationsAsyncWaiter::GetFileInfo(
     const ::base::FilePath& path) {
-  absl::optional<::base::File::Info> async_wait_result;
+  std::optional<::base::File::Info> async_wait_result;
   GetFileInfo(std::move(path),&async_wait_result);
   return async_wait_result;
 }

@@ -30,7 +30,7 @@ export class SettingsToggleButtonElement extends SettingsToggleButtonElementBase
         return {
             ariaLabel: {
                 type: String,
-                reflectToAttribute: false,
+                reflectToAttribute: false, // Handled by #control.
                 observer: 'onAriaLabelSet_',
                 value: '',
             },

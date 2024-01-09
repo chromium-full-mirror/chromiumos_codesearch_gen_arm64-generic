@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -177,14 +178,17 @@ void NetLogExporterProxy::Start(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogExporter_Start_Name, kFlags, 0, 0, nullptr);
@@ -240,14 +244,17 @@ void NetLogExporterProxy::Stop(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogExporter_Stop_Name, kFlags, 0, 0, nullptr);
@@ -368,7 +375,8 @@ void NetLogExporter_Start_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogExporter_Start_Name, kFlags, 0, 0, nullptr);
@@ -486,7 +494,8 @@ void NetLogExporter_Stop_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogExporter_Stop_Name, kFlags, 0, 0, nullptr);
@@ -610,12 +619,12 @@ std::move(p_polled_values), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetLogExporterValidationInfo[] = {
-    {&internal::NetLogExporter_Start_Params_Data::Validate,
+    { &internal::NetLogExporter_Start_Params_Data::Validate,
      &internal::NetLogExporter_Start_ResponseParams_Data::Validate},
-    {&internal::NetLogExporter_Stop_Params_Data::Validate,
+    { &internal::NetLogExporter_Stop_Params_Data::Validate,
      &internal::NetLogExporter_Stop_ResponseParams_Data::Validate},
 };
 
@@ -699,14 +708,17 @@ void NetLogProxySourceProxy::UpdateCaptureModes(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogProxySource_UpdateCaptureModes_Name, kFlags, 0, 0, nullptr);
@@ -775,10 +787,10 @@ bool NetLogProxySourceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetLogProxySourceValidationInfo[] = {
-    {&internal::NetLogProxySource_UpdateCaptureModes_Params_Data::Validate,
+    { &internal::NetLogProxySource_UpdateCaptureModes_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -870,14 +882,17 @@ void NetLogProxySinkProxy::AddEntry(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetLogProxySink_AddEntry_Name, kFlags, 0, 0, nullptr);
@@ -997,10 +1012,10 @@ bool NetLogProxySinkStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetLogProxySinkValidationInfo[] = {
-    {&internal::NetLogProxySink_AddEntry_Params_Data::Validate,
+    { &internal::NetLogProxySink_AddEntry_Params_Data::Validate,
      nullptr /* no response */},
 };
 

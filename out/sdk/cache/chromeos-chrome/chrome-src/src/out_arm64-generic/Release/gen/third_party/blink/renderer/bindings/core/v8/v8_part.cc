@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Part>::value,
     "Part inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Part::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Part is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Part* blink_receiver = V8Part::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Part* blink_receiver = V8Part::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rootForBindings();
 if (!ToV8Traits<V8UnionChildNodePartOrDocumentPartRoot>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -115,7 +111,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Part* blink_receiver = V8Part::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Part* blink_receiver = V8Part::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->metadata();
 if (!ToV8Traits<IDLArray<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -135,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("Part.disconnect");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Part* blink_receiver = V8Part::ToWrappableUnsafe(v8_receiver);
+Part* blink_receiver = V8Part::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }

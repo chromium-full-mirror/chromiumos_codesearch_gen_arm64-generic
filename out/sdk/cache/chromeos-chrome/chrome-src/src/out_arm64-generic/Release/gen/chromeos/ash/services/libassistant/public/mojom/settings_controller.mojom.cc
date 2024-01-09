@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -331,14 +332,17 @@ void SettingsControllerProxy::SetAuthenticationTokens(
                         "<value of type std::vector<AuthenticationTokenPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetAuthenticationTokens_Name, kFlags, 0, 0, nullptr);
@@ -381,14 +385,17 @@ void SettingsControllerProxy::SetListeningEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetListeningEnabled_Name, kFlags, 0, 0, nullptr);
@@ -419,14 +426,17 @@ void SettingsControllerProxy::SetLocale(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetLocale_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +477,17 @@ void SettingsControllerProxy::SetSpokenFeedbackEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetSpokenFeedbackEnabled_Name, kFlags, 0, 0, nullptr);
@@ -505,14 +518,17 @@ void SettingsControllerProxy::SetDarkModeEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetDarkModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -543,14 +559,17 @@ void SettingsControllerProxy::SetHotwordEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_SetHotwordEnabled_Name, kFlags, 0, 0, nullptr);
@@ -584,14 +603,17 @@ void SettingsControllerProxy::GetSettings(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_GetSettings_Name, kFlags, 0, 0, nullptr);
@@ -634,14 +656,17 @@ void SettingsControllerProxy::UpdateSettings(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_UpdateSettings_Name, kFlags, 0, 0, nullptr);
@@ -762,7 +787,8 @@ void SettingsController_GetSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_GetSettings_Name, kFlags, 0, 0, nullptr);
@@ -890,7 +916,8 @@ void SettingsController_UpdateSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSettingsController_UpdateSettings_Name, kFlags, 0, 0, nullptr);
@@ -1190,24 +1217,24 @@ std::move(p_settings), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSettingsControllerValidationInfo[] = {
-    {&internal::SettingsController_SetAuthenticationTokens_Params_Data::Validate,
+    { &internal::SettingsController_SetAuthenticationTokens_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_SetListeningEnabled_Params_Data::Validate,
+    { &internal::SettingsController_SetListeningEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_SetLocale_Params_Data::Validate,
+    { &internal::SettingsController_SetLocale_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_SetSpokenFeedbackEnabled_Params_Data::Validate,
+    { &internal::SettingsController_SetSpokenFeedbackEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_SetDarkModeEnabled_Params_Data::Validate,
+    { &internal::SettingsController_SetDarkModeEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_SetHotwordEnabled_Params_Data::Validate,
+    { &internal::SettingsController_SetHotwordEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SettingsController_GetSettings_Params_Data::Validate,
+    { &internal::SettingsController_GetSettings_Params_Data::Validate,
      &internal::SettingsController_GetSettings_ResponseParams_Data::Validate},
-    {&internal::SettingsController_UpdateSettings_Params_Data::Validate,
+    { &internal::SettingsController_UpdateSettings_Params_Data::Validate,
      &internal::SettingsController_UpdateSettings_ResponseParams_Data::Validate},
 };
 

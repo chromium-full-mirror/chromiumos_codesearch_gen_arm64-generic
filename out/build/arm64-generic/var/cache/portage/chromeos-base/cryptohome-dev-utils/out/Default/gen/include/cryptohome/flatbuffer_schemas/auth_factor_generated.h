@@ -18,6 +18,9 @@ static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
 namespace cryptohome {
 namespace _serialized_ {
 
+struct SerializedKnowledgeFactorHashInfo;
+struct SerializedKnowledgeFactorHashInfoBuilder;
+
 struct CommonMetadata;
 struct CommonMetadataBuilder;
 
@@ -76,6 +79,36 @@ inline const char *EnumNameSerializedLockoutPolicy(SerializedLockoutPolicy e) {
   if (::flatbuffers::IsOutRange(e, SerializedLockoutPolicy::UNKNOWN, SerializedLockoutPolicy::TIME_LIMITED)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSerializedLockoutPolicy()[index];
+}
+
+enum class SerializedKnowledgeFactorHashAlgorithm : int32_t {
+  PBKDF2_AES256_1234 = 1,
+  SHA256_TOP_HALF = 2,
+  MIN = PBKDF2_AES256_1234,
+  MAX = SHA256_TOP_HALF
+};
+
+inline const SerializedKnowledgeFactorHashAlgorithm (&EnumValuesSerializedKnowledgeFactorHashAlgorithm())[2] {
+  static const SerializedKnowledgeFactorHashAlgorithm values[] = {
+    SerializedKnowledgeFactorHashAlgorithm::PBKDF2_AES256_1234,
+    SerializedKnowledgeFactorHashAlgorithm::SHA256_TOP_HALF
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesSerializedKnowledgeFactorHashAlgorithm() {
+  static const char * const names[3] = {
+    "PBKDF2_AES256_1234",
+    "SHA256_TOP_HALF",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameSerializedKnowledgeFactorHashAlgorithm(SerializedKnowledgeFactorHashAlgorithm e) {
+  if (::flatbuffers::IsOutRange(e, SerializedKnowledgeFactorHashAlgorithm::PBKDF2_AES256_1234, SerializedKnowledgeFactorHashAlgorithm::SHA256_TOP_HALF)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(SerializedKnowledgeFactorHashAlgorithm::PBKDF2_AES256_1234);
+  return EnumNamesSerializedKnowledgeFactorHashAlgorithm()[index];
 }
 
 enum class TypeSpecificMetadata : uint8_t {
@@ -153,6 +186,69 @@ template<> struct TypeSpecificMetadataTraits<cryptohome::_serialized_::Fingerpri
 
 bool VerifyTypeSpecificMetadata(::flatbuffers::Verifier &verifier, const void *obj, TypeSpecificMetadata type);
 bool VerifyTypeSpecificMetadataVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<TypeSpecificMetadata> *types);
+
+struct SerializedKnowledgeFactorHashInfo FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef SerializedKnowledgeFactorHashInfoBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ALGORITHM = 4,
+    VT_SALT = 6
+  };
+  ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm() const {
+    return GetOptional<int32_t, cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm>(VT_ALGORITHM);
+  }
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_ALGORITHM, 4) &&
+           VerifyOffset(verifier, VT_SALT) &&
+           verifier.VerifyVector(salt()) &&
+           verifier.EndTable();
+  }
+};
+
+struct SerializedKnowledgeFactorHashInfoBuilder {
+  typedef SerializedKnowledgeFactorHashInfo Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_algorithm(cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm algorithm) {
+    fbb_.AddElement<int32_t>(SerializedKnowledgeFactorHashInfo::VT_ALGORITHM, static_cast<int32_t>(algorithm));
+  }
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
+    fbb_.AddOffset(SerializedKnowledgeFactorHashInfo::VT_SALT, salt);
+  }
+  explicit SerializedKnowledgeFactorHashInfoBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo> CreateSerializedKnowledgeFactorHashInfo(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0) {
+  SerializedKnowledgeFactorHashInfoBuilder builder_(_fbb);
+  builder_.add_salt(salt);
+  if(algorithm) { builder_.add_algorithm(*algorithm); }
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo> CreateSerializedKnowledgeFactorHashInfoDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm = ::flatbuffers::nullopt,
+    const std::vector<uint8_t> *salt = nullptr) {
+  auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
+  return cryptohome::_serialized_::CreateSerializedKnowledgeFactorHashInfo(
+      _fbb,
+      algorithm,
+      salt__);
+}
 
 struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CommonMetadataBuilder Builder;
@@ -247,8 +343,16 @@ inline ::flatbuffers::Offset<CommonMetadata> CreateCommonMetadataDirect(
 
 struct PasswordMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PasswordMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_HASH_INFO = 4
+  };
+  const cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo *hash_info() const {
+    return GetPointer<const cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo *>(VT_HASH_INFO);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_HASH_INFO) &&
+           verifier.VerifyTable(hash_info()) &&
            verifier.EndTable();
   }
 };
@@ -257,6 +361,9 @@ struct PasswordMetadataBuilder {
   typedef PasswordMetadata Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
+  void add_hash_info(::flatbuffers::Offset<cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo> hash_info) {
+    fbb_.AddOffset(PasswordMetadata::VT_HASH_INFO, hash_info);
+  }
   explicit PasswordMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -269,15 +376,25 @@ struct PasswordMetadataBuilder {
 };
 
 inline ::flatbuffers::Offset<PasswordMetadata> CreatePasswordMetadata(
-    ::flatbuffers::FlatBufferBuilder &_fbb) {
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo> hash_info = 0) {
   PasswordMetadataBuilder builder_(_fbb);
+  builder_.add_hash_info(hash_info);
   return builder_.Finish();
 }
 
 struct PinMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PinMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_HASH_INFO = 4
+  };
+  const cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo *hash_info() const {
+    return GetPointer<const cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo *>(VT_HASH_INFO);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_HASH_INFO) &&
+           verifier.VerifyTable(hash_info()) &&
            verifier.EndTable();
   }
 };
@@ -286,6 +403,9 @@ struct PinMetadataBuilder {
   typedef PinMetadata Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
+  void add_hash_info(::flatbuffers::Offset<cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo> hash_info) {
+    fbb_.AddOffset(PinMetadata::VT_HASH_INFO, hash_info);
+  }
   explicit PinMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -298,8 +418,10 @@ struct PinMetadataBuilder {
 };
 
 inline ::flatbuffers::Offset<PinMetadata> CreatePinMetadata(
-    ::flatbuffers::FlatBufferBuilder &_fbb) {
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo> hash_info = 0) {
   PinMetadataBuilder builder_(_fbb);
+  builder_.add_hash_info(hash_info);
   return builder_.Finish();
 }
 

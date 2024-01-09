@@ -32,12 +32,12 @@ NOINLINE static const char* OverlayTransformToStringHelper(OverlayTransform valu
       return "OVERLAY_TRANSFORM_FLIP_HORIZONTAL";
     case OverlayTransform::OVERLAY_TRANSFORM_FLIP_VERTICAL:
       return "OVERLAY_TRANSFORM_FLIP_VERTICAL";
-    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_90:
-      return "OVERLAY_TRANSFORM_ROTATE_90";
-    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_180:
-      return "OVERLAY_TRANSFORM_ROTATE_180";
-    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_270:
-      return "{OVERLAY_TRANSFORM_ROTATE_270, OVERLAY_TRANSFORM_LAST}";
+    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_90:
+      return "OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_90";
+    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_180:
+      return "OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_180";
+    case OverlayTransform::OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_270:
+      return "{OVERLAY_TRANSFORM_ROTATE_CLOCKWISE_270, OVERLAY_TRANSFORM_LAST}";
     default:
       return nullptr;
   }

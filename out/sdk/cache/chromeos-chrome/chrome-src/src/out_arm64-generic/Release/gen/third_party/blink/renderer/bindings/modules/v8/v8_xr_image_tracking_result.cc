@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRImageTrackingResult>::value,
     "XRImageTrackingResult inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRImageTrackingResult::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRImageTrackingResult is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRImageTrackingResult.imageSpace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(v8_receiver);
+XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->imageSpace();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRImageTrackingResult.index.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(v8_receiver);
+XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->index();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -116,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRImageTrackingResult.trackingState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->trackingState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->trackingState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRImageTrackingResult.measuredWidthInMeters.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(v8_receiver);
+XRImageTrackingResult* blink_receiver = V8XRImageTrackingResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->measuredWidthInMeters();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

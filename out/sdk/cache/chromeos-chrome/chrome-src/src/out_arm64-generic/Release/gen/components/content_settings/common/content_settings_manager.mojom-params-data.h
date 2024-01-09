@@ -45,8 +45,9 @@ class  ContentSettingsManager_AllowStorageAccess_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t render_frame_id;
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
   int32_t storage_type;
+  uint8_t pad1_[4];
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> origin;
   mojo::internal::Pointer<::network::mojom::internal::SiteForCookies_Data> site_for_cookies;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> top_frame_origin;
@@ -57,7 +58,7 @@ class  ContentSettingsManager_AllowStorageAccess_Params_Data {
   ContentSettingsManager_AllowStorageAccess_Params_Data();
   ~ContentSettingsManager_AllowStorageAccess_Params_Data() = delete;
 };
-static_assert(sizeof(ContentSettingsManager_AllowStorageAccess_Params_Data) == 40,
+static_assert(sizeof(ContentSettingsManager_AllowStorageAccess_Params_Data) == 48,
               "Bad sizeof(ContentSettingsManager_AllowStorageAccess_Params_Data)");
 class  ContentSettingsManager_AllowStorageAccess_ResponseParams_Data {
  public:
@@ -82,8 +83,9 @@ class  ContentSettingsManager_OnContentBlocked_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t render_frame_id;
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
   int32_t type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ContentSettingsManager_OnContentBlocked_Params_Data>;
@@ -91,7 +93,7 @@ class  ContentSettingsManager_OnContentBlocked_Params_Data {
   ContentSettingsManager_OnContentBlocked_Params_Data();
   ~ContentSettingsManager_OnContentBlocked_Params_Data() = delete;
 };
-static_assert(sizeof(ContentSettingsManager_OnContentBlocked_Params_Data) == 16,
+static_assert(sizeof(ContentSettingsManager_OnContentBlocked_Params_Data) == 24,
               "Bad sizeof(ContentSettingsManager_OnContentBlocked_Params_Data)");
 
 }  // namespace internal
@@ -132,8 +134,15 @@ class ContentSettingsManager_AllowStorageAccess_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t render_frame_id() const {
-    return data_->render_frame_id;
+  inline void GetFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+    
+    auto* pointer = data_->frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   [[nodiscard]] bool ReadStorageType(UserType* output) const {
@@ -206,11 +215,18 @@ class ContentSettingsManager_OnContentBlocked_ParamsDataView {
   ContentSettingsManager_OnContentBlocked_ParamsDataView(
       internal::ContentSettingsManager_OnContentBlocked_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t render_frame_id() const {
-    return data_->render_frame_id;
+  inline void GetFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+    
+    auto* pointer = data_->frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
@@ -224,10 +240,16 @@ class ContentSettingsManager_OnContentBlocked_ParamsDataView {
   }
  private:
   internal::ContentSettingsManager_OnContentBlocked_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
 
+inline void ContentSettingsManager_AllowStorageAccess_ParamsDataView::GetFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 inline void ContentSettingsManager_AllowStorageAccess_ParamsDataView::GetOriginDataView(
     ::url::mojom::OriginDataView* output) {
   auto pointer = data_->origin.Get();
@@ -247,6 +269,11 @@ inline void ContentSettingsManager_AllowStorageAccess_ParamsDataView::GetTopFram
 
 
 
+inline void ContentSettingsManager_OnContentBlocked_ParamsDataView::GetFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 
 
 

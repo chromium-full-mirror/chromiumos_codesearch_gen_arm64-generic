@@ -27,7 +27,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetPsr(GetPsrCallback callback) override;
-  void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) override;
+  void GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
@@ -37,6 +37,11 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
   void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) override;
   void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) override;
+  void GetEcThermalSensors(GetEcThermalSensorsCallback callback) override;
+  void GetTouchpadDevices(GetTouchpadDevicesCallback callback) override;
+  void GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) override;
+  void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) override;
+  void RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -47,31 +52,31 @@ class  DelegateAsyncWaiter {
 
   ~DelegateAsyncWaiter();
   void GetFingerprintFrame(
-      ::ash::cros_healthd::mojom::FingerprintCaptureType type, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err);
+      ::ash::cros_healthd::mojom::FingerprintCaptureType type, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result, std::optional<std::string>* out_err);
   
   void GetFingerprintInfo(
-      ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
+      ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, std::optional<std::string>* out_err);
   
   void SetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
+      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, std::optional<std::string>* out_err);
+  std::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
   void ResetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
-  absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
+      ::ash::cros_healthd::mojom::LedName name, std::optional<std::string>* out_err);
+  std::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
   void FetchBootPerformance(
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
   void GetLidAngle(
-      absl::optional<uint16_t>* out_lid_angle);
-  absl::optional<uint16_t> GetLidAngle();
+      std::optional<uint16_t>* out_lid_angle);
+  std::optional<uint16_t> GetLidAngle();
   void GetPsr(
-      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
+      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err);
   
   void GetConnectedExternalDisplayConnectors(
-      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
+      const std::optional<std::vector<uint32_t>>& last_known_connectors, base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, std::optional<std::string>* out_err);
   
   void GetPrivacyScreenInfo(
-      bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err);
+      bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, std::optional<std::string>* out_err);
   
   void FetchDisplayInfo(
       ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
@@ -83,14 +88,29 @@ class  DelegateAsyncWaiter {
       base::TimeDelta exec_duration, bool* out_passed);
   bool RunFloatingPoint(base::TimeDelta exec_duration);
   void GetAllFanSpeed(
-      std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+      std::vector<uint16_t>* out_fan_rpms, std::optional<std::string>* out_err);
   
   void SetFanSpeed(
-      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
+      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, std::optional<std::string>* out_err);
+  std::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
   void SetAllFanAutoControl(
-      absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetAllFanAutoControl();
+      std::optional<std::string>* out_err);
+  std::optional<std::string> SetAllFanAutoControl();
+  void GetEcThermalSensors(
+      std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>* out_thermal_sensors, std::optional<std::string>* out_err);
+  
+  void GetTouchpadDevices(
+      std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>* out_devices, std::optional<std::string>* out_err);
+  
+  void GetSmartBatteryManufactureDate(
+      uint8_t i2c_port, std::optional<uint32_t>* out_manufacture_date);
+  std::optional<uint32_t> GetSmartBatteryManufactureDate(uint8_t i2c_port);
+  void GetSmartBatteryTemperature(
+      uint8_t i2c_port, std::optional<uint32_t>* out_temperature);
+  std::optional<uint32_t> GetSmartBatteryTemperature(uint8_t i2c_port);
+  void RunUrandom(
+      base::TimeDelta exec_duration, bool* out_passed);
+  bool RunUrandom(base::TimeDelta exec_duration);
 
  private:
   Delegate* const proxy_;

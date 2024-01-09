@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMParser>::value,
     "DOMParser inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMParser::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMParser is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -131,7 +126,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMParser* blink_receiver = V8DOMParser::ToWrappableUnsafe(v8_receiver);
+DOMParser* blink_receiver = V8DOMParser::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_str = NativeValueTraits<IDLStringStringContextTrustedHTML>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
 if (UNLIKELY(exception_state.HadException())) {

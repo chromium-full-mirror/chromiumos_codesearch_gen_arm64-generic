@@ -7,6 +7,7 @@ const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const console_helpers_js_1 = require("../helpers/console-helpers.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const elements_helpers_js_1 = require("../helpers/elements-helpers.js");
 const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
@@ -135,9 +136,8 @@ const INFOBAR_TEXT = '.infobar-info-text';
         });
         await (0, helper_js_1.step)('Check local variable is eventually un-minified', async () => {
             const unminifiedVariable = 'element: div';
-            await (0, sources_helpers_js_1.clickOnContextMenu)('.cm-line', 'Add source map…');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('.cm-line', 'Add source map…');
             // Enter the source map URL into the appropriate input box.
-            await (0, helper_js_1.waitFor)('.add-source-map');
             await (0, helper_js_1.click)('.add-source-map');
             await (0, helper_js_1.typeText)('sourcemap-minified.map');
             await frontend.keyboard.press('Enter');
@@ -226,7 +226,7 @@ const INFOBAR_TEXT = '.infobar-info-text';
             chai_1.assert.match(scriptLocation, breakLocationOuterRegExp);
         });
         await (0, helper_js_1.step)('Add source map', async () => {
-            await (0, sources_helpers_js_1.clickOnContextMenu)('.cm-line', 'Add source map…');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('.cm-line', 'Add source map…');
             // Enter the source map URL into the appropriate input box.
             await (0, helper_js_1.click)('.add-source-map');
             await (0, helper_js_1.typeText)('sourcemap-minified-function-name-compiled.map');
@@ -336,7 +336,7 @@ const INFOBAR_TEXT = '.infobar-info-text';
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, sources_helpers_js_1.openSourceCodeEditorForFile)('sourcemap-minified.js', 'sourcemap-minified.html');
         await (0, helper_js_1.step)('Attach source map', async () => {
-            await (0, sources_helpers_js_1.clickOnContextMenu)('.cm-line', 'Add source map…');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('.cm-line', 'Add source map…');
             // Enter the source map URL into the appropriate input box.
             await (0, helper_js_1.click)('.add-source-map');
             await (0, helper_js_1.typeText)('sourcemap-minified.map');
@@ -362,7 +362,7 @@ const INFOBAR_TEXT = '.infobar-info-text';
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, sources_helpers_js_1.openSourceCodeEditorForFile)('sourcemap-minified.js', 'sourcemap-minified.html');
         await (0, helper_js_1.step)('Attach source map', async () => {
-            await (0, sources_helpers_js_1.clickOnContextMenu)('.cm-line', 'Add source map…');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('.cm-line', 'Add source map…');
             // Enter the source map URL into the appropriate input box.
             await (0, helper_js_1.click)('.add-source-map');
             await (0, helper_js_1.typeText)('sourcemap-invalid.map');

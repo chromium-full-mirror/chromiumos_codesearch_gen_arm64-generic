@@ -34,6 +34,18 @@ NOINLINE static const char* PhishingDetectorResultToStringHelper(PhishingDetecto
       return "FORWARD_BACK_TRANSITION";
     case PhishingDetectorResult::INVALID_SCORE:
       return "INVALID_SCORE";
+    case PhishingDetectorResult::INVALID_URL_FORMAT_REQUEST:
+      return "INVALID_URL_FORMAT_REQUEST";
+    case PhishingDetectorResult::INVALID_DOCUMENT_LOADER:
+      return "INVALID_DOCUMENT_LOADER";
+    case PhishingDetectorResult::URL_FEATURE_EXTRACTION_FAILED:
+      return "URL_FEATURE_EXTRACTION_FAILED";
+    case PhishingDetectorResult::DOM_EXTRACTION_FAILED:
+      return "DOM_EXTRACTION_FAILED";
+    case PhishingDetectorResult::TERM_EXTRACTION_FAILED:
+      return "TERM_EXTRACTION_FAILED";
+    case PhishingDetectorResult::VISUAL_EXTRACTION_FAILED:
+      return "VISUAL_EXTRACTION_FAILED";
     default:
       return nullptr;
   }
@@ -103,6 +115,30 @@ std::string WebRequestProtocolTypeToString(WebRequestProtocolType value) {
 
 std::ostream& operator<<(std::ostream& os, WebRequestProtocolType value) {
   return os << WebRequestProtocolTypeToString(value);
+}
+
+NOINLINE static const char* WebRequestContactInitiatorTypeToStringHelper(WebRequestContactInitiatorType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WebRequestContactInitiatorType::kExtension:
+      return "kExtension";
+    case WebRequestContactInitiatorType::kContentScript:
+      return "kContentScript";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WebRequestContactInitiatorTypeToString(WebRequestContactInitiatorType value) {
+  const char *str = WebRequestContactInitiatorTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WebRequestContactInitiatorType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WebRequestContactInitiatorType value) {
+  return os << WebRequestContactInitiatorTypeToString(value);
 }
 
 namespace internal {
@@ -263,6 +299,9 @@ bool SafeBrowsing_CreateCheckerAndCheck_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const SafeBrowsing_CreateCheckerAndCheck_Params_Data* object =
       static_cast<const SafeBrowsing_CreateCheckerAndCheck_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
+    return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->receiver, 2, validation_context)) {
@@ -792,6 +831,11 @@ bool ExtensionWebRequestReporter_SendWebRequestData_Params_Data::Validate(
         ::Validate(object->protocol_type, validation_context))
     return false;
 
+
+  if (!::safe_browsing::mojom::internal::WebRequestContactInitiatorType_Data
+        ::Validate(object->contact_initiator_type, validation_context))
+    return false;
+
   return true;
 }
 
@@ -860,6 +904,16 @@ namespace perfetto {
 void TraceFormatTraits<::safe_browsing::mojom::WebRequestProtocolType>::WriteIntoTrace(
    perfetto::TracedValue context, ::safe_browsing::mojom::WebRequestProtocolType value) {
   return std::move(context).WriteString(::safe_browsing::mojom::WebRequestProtocolTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::safe_browsing::mojom::WebRequestContactInitiatorType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::safe_browsing::mojom::WebRequestContactInitiatorType value) {
+  return std::move(context).WriteString(::safe_browsing::mojom::WebRequestContactInitiatorTypeToString(value));
 }
 
 } // namespace perfetto

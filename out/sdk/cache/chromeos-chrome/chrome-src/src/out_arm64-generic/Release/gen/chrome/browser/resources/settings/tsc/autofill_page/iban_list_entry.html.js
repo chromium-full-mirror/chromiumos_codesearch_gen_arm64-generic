@@ -1,12 +1,18 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared passwords-shared">.second-column{align-items:center;display:flex;flex:1;justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#ibanImage{margin-inline-end:16px;vertical-align:middle}</style>
-
+    return html `<!--_html_template_start_--><style include="settings-shared passwords-shared cr-screen-reader-only">.second-column{align-items:center;display:flex;flex:1;justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#ibanImage{margin-inline-end:16px;vertical-align:middle}</style>
 <div class="list-item type-column" role="row">
   <img id="ibanImage" src="chrome://settings/images/iban.svg" alt="">
-  <div class="summary-column" role="cell">
-    <div id="value" class="ellipses">[[iban.metadata.summaryLabel]]</div>
-    <div id="nickname" class="ellipses sub-label">[[iban.nickname]]</div>
+  <div class="summary-column cr-screen-reader-only-host-node" role="cell">
+    <div class="cr-screen-reader-only">
+      [[getA11yIbanDescription_(iban)]], [[iban.nickname]]
+    </div>
+    <div id="value" class="ellipses" aria-hidden="true">
+      [[iban.metadata.summaryLabel]]
+    </div>
+    <div id="nickname" class="ellipses sub-label" aria-hidden="true">
+      [[iban.nickname]]
+    </div>
   </div>
   <div role="cell" class="second-column">
     <div id="paymentsIndicator" hidden$="[[!shouldShowGooglePaymentsIndicator_(iban.metadata)]]">

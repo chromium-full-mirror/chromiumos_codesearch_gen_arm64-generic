@@ -55,6 +55,32 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var IpProtectionProxyBypassPolicy = {};
+  IpProtectionProxyBypassPolicy.kNone = 0;
+  IpProtectionProxyBypassPolicy.kFirstPartyToTopLevelFrame = 1;
+  IpProtectionProxyBypassPolicy.MIN_VALUE = 0;
+  IpProtectionProxyBypassPolicy.MAX_VALUE = 1;
+
+  IpProtectionProxyBypassPolicy.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  IpProtectionProxyBypassPolicy.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  IpProtectionProxyBypassPolicy.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   function ProxyBypassRules(values) {
     this.initDefaults_();
@@ -143,7 +169,7 @@
 
 
     // validate ProxyList.proxies
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.String), false, [0, 0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -158,7 +184,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.proxies =
-        decoder.decodeArrayPointer(codec.String);
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.String));
     return val;
   };
 
@@ -166,7 +192,7 @@
     var packed;
     encoder.writeUint32(ProxyList.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(codec.String, val.proxies);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.String), val.proxies);
   };
   function ProxyRules(values) {
     this.initDefaults_();
@@ -397,6 +423,7 @@
     encoder.encodeStructPointer(ProxyRules, val.proxyRules);
   };
   exports.ProxyRulesType = ProxyRulesType;
+  exports.IpProtectionProxyBypassPolicy = IpProtectionProxyBypassPolicy;
   exports.ProxyBypassRules = ProxyBypassRules;
   exports.ProxyList = ProxyList;
   exports.ProxyRules = ProxyRules;

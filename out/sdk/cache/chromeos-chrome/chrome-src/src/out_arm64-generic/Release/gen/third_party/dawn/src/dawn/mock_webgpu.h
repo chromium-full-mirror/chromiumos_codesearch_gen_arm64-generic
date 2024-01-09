@@ -78,6 +78,7 @@ class ProcTableAsClass {
         virtual void * BufferGetMappedRange(WGPUBuffer buffer, size_t offset, size_t size) = 0;
         virtual uint64_t BufferGetSize(WGPUBuffer buffer) = 0;
         virtual WGPUBufferUsage BufferGetUsage(WGPUBuffer buffer) = 0;
+        virtual WGPUFuture BufferMapAsyncF(WGPUBuffer buffer, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallbackInfo callbackInfo) = 0;
         virtual void BufferSetLabel(WGPUBuffer buffer, char const * label) = 0;
         virtual void BufferUnmap(WGPUBuffer buffer) = 0;
 
@@ -203,7 +204,10 @@ class ProcTableAsClass {
         virtual void ExternalTextureRelease(WGPUExternalTexture self) = 0;
 
         virtual WGPUSurface InstanceCreateSurface(WGPUInstance instance, WGPUSurfaceDescriptor const * descriptor) = 0;
+        virtual size_t InstanceEnumerateWGSLLanguageFeatures(WGPUInstance instance, WGPUWGSLFeatureName * features) = 0;
+        virtual WGPUBool InstanceHasWGSLLanguageFeature(WGPUInstance instance, WGPUWGSLFeatureName feature) = 0;
         virtual void InstanceProcessEvents(WGPUInstance instance) = 0;
+        virtual WGPUFuture InstanceRequestAdapterF(WGPUInstance instance, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallbackInfo callbackInfo) = 0;
         virtual WGPUWaitStatus InstanceWaitAny(WGPUInstance instance, size_t futureCount, WGPUFutureWaitInfo * futures, uint64_t timeoutNS) = 0;
 
         virtual void InstanceReference(WGPUInstance self) = 0;
@@ -318,6 +322,7 @@ class ProcTableAsClass {
         virtual WGPUTexture SharedTextureMemoryCreateTexture(WGPUSharedTextureMemory sharedTextureMemory, WGPUTextureDescriptor const * descriptor) = 0;
         virtual WGPUBool SharedTextureMemoryEndAccess(WGPUSharedTextureMemory sharedTextureMemory, WGPUTexture texture, WGPUSharedTextureMemoryEndAccessState * descriptor) = 0;
         virtual void SharedTextureMemoryGetProperties(WGPUSharedTextureMemory sharedTextureMemory, WGPUSharedTextureMemoryProperties * properties) = 0;
+        virtual WGPUBool SharedTextureMemoryIsDeviceLost(WGPUSharedTextureMemory sharedTextureMemory) = 0;
         virtual void SharedTextureMemorySetLabel(WGPUSharedTextureMemory sharedTextureMemory, char const * label) = 0;
 
         virtual void SharedTextureMemoryReference(WGPUSharedTextureMemory self) = 0;
@@ -410,6 +415,7 @@ class MockProcTable : public ProcTableAsClass {
         MOCK_METHOD(void *, BufferGetMappedRange, (WGPUBuffer buffer, size_t offset, size_t size), (override));
         MOCK_METHOD(uint64_t, BufferGetSize, (WGPUBuffer buffer), (override));
         MOCK_METHOD(WGPUBufferUsage, BufferGetUsage, (WGPUBuffer buffer), (override));
+        MOCK_METHOD(WGPUFuture, BufferMapAsyncF, (WGPUBuffer buffer, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallbackInfo callbackInfo), (override));
         MOCK_METHOD(void, BufferSetLabel, (WGPUBuffer buffer, char const * label), (override));
         MOCK_METHOD(void, BufferUnmap, (WGPUBuffer buffer), (override));
 
@@ -514,7 +520,10 @@ class MockProcTable : public ProcTableAsClass {
         MOCK_METHOD(void, ExternalTextureRelease, (WGPUExternalTexture self), (override));
 
         MOCK_METHOD(WGPUSurface, InstanceCreateSurface, (WGPUInstance instance, WGPUSurfaceDescriptor const * descriptor), (override));
+        MOCK_METHOD(size_t, InstanceEnumerateWGSLLanguageFeatures, (WGPUInstance instance, WGPUWGSLFeatureName * features), (override));
+        MOCK_METHOD(WGPUBool, InstanceHasWGSLLanguageFeature, (WGPUInstance instance, WGPUWGSLFeatureName feature), (override));
         MOCK_METHOD(void, InstanceProcessEvents, (WGPUInstance instance), (override));
+        MOCK_METHOD(WGPUFuture, InstanceRequestAdapterF, (WGPUInstance instance, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallbackInfo callbackInfo), (override));
         MOCK_METHOD(WGPUWaitStatus, InstanceWaitAny, (WGPUInstance instance, size_t futureCount, WGPUFutureWaitInfo * futures, uint64_t timeoutNS), (override));
 
         MOCK_METHOD(void, InstanceReference, (WGPUInstance self), (override));
@@ -620,6 +629,7 @@ class MockProcTable : public ProcTableAsClass {
         MOCK_METHOD(WGPUTexture, SharedTextureMemoryCreateTexture, (WGPUSharedTextureMemory sharedTextureMemory, WGPUTextureDescriptor const * descriptor), (override));
         MOCK_METHOD(WGPUBool, SharedTextureMemoryEndAccess, (WGPUSharedTextureMemory sharedTextureMemory, WGPUTexture texture, WGPUSharedTextureMemoryEndAccessState * descriptor), (override));
         MOCK_METHOD(void, SharedTextureMemoryGetProperties, (WGPUSharedTextureMemory sharedTextureMemory, WGPUSharedTextureMemoryProperties * properties), (override));
+        MOCK_METHOD(WGPUBool, SharedTextureMemoryIsDeviceLost, (WGPUSharedTextureMemory sharedTextureMemory), (override));
         MOCK_METHOD(void, SharedTextureMemorySetLabel, (WGPUSharedTextureMemory sharedTextureMemory, char const * label), (override));
 
         MOCK_METHOD(void, SharedTextureMemoryReference, (WGPUSharedTextureMemory self), (override));

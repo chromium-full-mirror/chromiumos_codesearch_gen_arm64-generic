@@ -2069,6 +2069,10 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
       return AttributeCommonInfo::AT_ArcWeakrefUnavailable;	 // "objc_arc_weak_reference_unavailable"
     }
     break;
+  case 37:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "available_only_in_default_eval_method", 37) != 0)
+      break;
+    return AttributeCommonInfo::AT_AvailableOnlyInDefaultEvalMethod;	 // "available_only_in_default_eval_method"
   case 46:	 // 1 string to match.
     if (memcmp(Name.data()+0, "objc_protocol_requires_explicit_implementation", 46) != 0)
       break;
@@ -4300,12 +4304,16 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
       return AttributeCommonInfo::AT_ArcWeakrefUnavailable;	 // "clang::objc_arc_weak_reference_unavailable"
     }
     break;
+  case 44:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "clang::available_only_in_default_eval_method", 44) != 0)
+      break;
+    return AttributeCommonInfo::AT_AvailableOnlyInDefaultEvalMethod;	 // "clang::available_only_in_default_eval_method"
   case 53:	 // 1 string to match.
     if (memcmp(Name.data()+0, "clang::objc_protocol_requires_explicit_implementation", 53) != 0)
       break;
     return AttributeCommonInfo::AT_ObjCExplicitProtocolImpl;	 // "clang::objc_protocol_requires_explicit_implementation"
   }
-  } else if (AttributeCommonInfo::AS_C2x == Syntax) {
+  } else if (AttributeCommonInfo::AS_C23 == Syntax) {
   switch (Name.size()) {
   default: break;
   case 8:	 // 4 strings to match.
@@ -5962,6 +5970,10 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
       return AttributeCommonInfo::AT_ArcWeakrefUnavailable;	 // "clang::objc_arc_weak_reference_unavailable"
     }
     break;
+  case 44:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "clang::available_only_in_default_eval_method", 44) != 0)
+      break;
+    return AttributeCommonInfo::AT_AvailableOnlyInDefaultEvalMethod;	 // "clang::available_only_in_default_eval_method"
   case 53:	 // 1 string to match.
     if (memcmp(Name.data()+0, "clang::objc_protocol_requires_explicit_implementation", 53) != 0)
       break;
@@ -6233,11 +6245,15 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
       return AttributeCommonInfo::AT_HLSLGroupSharedAddressSpace;	 // "groupshared"
     }
     break;
-  case 12:	 // 4 strings to match.
+  case 12:	 // 5 strings to match.
     if (memcmp(Name.data()+0, "__", 2) != 0)
       break;
     switch (Name[2]) {
     default: break;
+    case 'a':	 // 1 string to match.
+      if (memcmp(Name.data()+3, "rm_new_za", 9) != 0)
+        break;
+      return AttributeCommonInfo::AT_ArmNewZA;	 // "__arm_new_za"
     case 'n':	 // 1 string to match.
       if (memcmp(Name.data()+3, "oinline__", 9) != 0)
         break;
@@ -6260,6 +6276,21 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
     if (memcmp(Name.data()+0, "__forceinline", 13) != 0)
       break;
     return AttributeCommonInfo::AT_AlwaysInline;	 // "__forceinline"
+  case 15:	 // 2 strings to match.
+    if (memcmp(Name.data()+0, "__arm_s", 7) != 0)
+      break;
+    switch (Name[7]) {
+    default: break;
+    case 'h':	 // 1 string to match.
+      if (memcmp(Name.data()+8, "ared_za", 7) != 0)
+        break;
+      return AttributeCommonInfo::AT_ArmSharedZA;	 // "__arm_shared_za"
+    case 't':	 // 1 string to match.
+      if (memcmp(Name.data()+8, "reaming", 7) != 0)
+        break;
+      return AttributeCommonInfo::AT_ArmStreaming;	 // "__arm_streaming"
+    }
+    break;
   case 16:	 // 1 string to match.
     if (memcmp(Name.data()+0, "_Nullable_result", 16) != 0)
       break;
@@ -6268,6 +6299,10 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
     if (memcmp(Name.data()+0, "_Null_unspecified", 17) != 0)
       break;
     return AttributeCommonInfo::AT_TypeNullUnspecified;	 // "_Null_unspecified"
+  case 18:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "__arm_preserves_za", 18) != 0)
+      break;
+    return AttributeCommonInfo::AT_ArmPreservesZA;	 // "__arm_preserves_za"
   case 19:	 // 1 string to match.
     if (memcmp(Name.data()+0, "__unsafe_unretained", 19) != 0)
       break;
@@ -6284,10 +6319,18 @@ static AttributeCommonInfo::Kind getAttrKind(StringRef Name, AttributeCommonInfo
     if (memcmp(Name.data()+0, "__multiple_inheritance", 22) != 0)
       break;
     return AttributeCommonInfo::AT_MSInheritance;	 // "__multiple_inheritance"
+  case 23:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "__arm_locally_streaming", 23) != 0)
+      break;
+    return AttributeCommonInfo::AT_ArmLocallyStreaming;	 // "__arm_locally_streaming"
   case 25:	 // 1 string to match.
     if (memcmp(Name.data()+0, "__unspecified_inheritance", 25) != 0)
       break;
     return AttributeCommonInfo::AT_MSInheritance;	 // "__unspecified_inheritance"
+  case 26:	 // 1 string to match.
+    if (memcmp(Name.data()+0, "__arm_streaming_compatible", 26) != 0)
+      break;
+    return AttributeCommonInfo::AT_ArmStreamingCompatible;	 // "__arm_streaming_compatible"
   }
   } else if (AttributeCommonInfo::AS_Pragma == Syntax) {
   switch (Name.size()) {

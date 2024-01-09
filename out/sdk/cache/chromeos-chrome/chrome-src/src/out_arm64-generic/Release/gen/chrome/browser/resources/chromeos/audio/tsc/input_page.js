@@ -1,10 +1,18 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { AudioBroker } from './audio_broker.js';
 import { Page, PageNavigator } from './page.js';
 export class InputPage extends Page {
+    testInputFeedback;
+    analyserLeft;
+    analyserRight;
+    animationRequestId;
+    recordClicked;
+    audioContext;
+    mediaRecorder;
+    intervalId;
     constructor() {
         super('input');
         this.audioContext = null;

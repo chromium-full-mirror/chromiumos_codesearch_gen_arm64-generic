@@ -482,6 +482,23 @@ class  CookieManager_SetMitigationsEnabledFor3pcd_Params_Data {
 };
 static_assert(sizeof(CookieManager_SetMitigationsEnabledFor3pcd_Params_Data) == 16,
               "Bad sizeof(CookieManager_SetMitigationsEnabledFor3pcd_Params_Data)");
+class  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enable : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data>;
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data();
+  ~CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data() = delete;
+};
+static_assert(sizeof(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data) == 16,
+              "Bad sizeof(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data)");
 
 }  // namespace internal
 
@@ -1169,6 +1186,24 @@ class CookieManager_SetMitigationsEnabledFor3pcd_ParamsDataView {
   internal::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data* data_ = nullptr;
 };
 
+
+class CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView {
+ public:
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView() = default;
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView(
+      internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enable() const {
+    return data_->enable;
+  }
+ private:
+  internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data* data_ = nullptr;
+};
+
 inline void CookieChangeListener_OnCookieChange_ParamsDataView::GetChangeDataView(
     CookieChangeInfoDataView* output) {
   auto pointer = data_->change.Get();
@@ -1303,6 +1338,8 @@ inline void CookieManager_SetContentSettings_ParamsDataView::GetSettingsDataView
   auto pointer = data_->settings.Get();
   *output = mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>(pointer, message_);
 }
+
+
 
 
 

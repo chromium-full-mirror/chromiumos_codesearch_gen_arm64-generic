@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/speech_recognition.mojom-features.h"
 #include "media/mojo/mojom/speech_recognition.mojom-shared.h"
 #include "media/mojo/mojom/speech_recognition.mojom-blink-forward.h"
 #include "media/mojo/mojom/audio_data.mojom-blink-forward.h"
@@ -41,54 +42,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::ConfidenceLevel>
-    : EnumHashTraits<::media::mojom::ConfidenceLevel, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::AsrSwitchResult>
-    : EnumHashTraits<::media::mojom::AsrSwitchResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::SpeechRecognitionMode>
-    : EnumHashTraits<::media::mojom::SpeechRecognitionMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::RecognizerClientType>
-    : EnumHashTraits<::media::mojom::RecognizerClientType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -385,7 +338,7 @@ class SpeechRecognitionSurface
   virtual void Activate() = 0;
 
 
-  using GetBoundsCallback = base::OnceCallback<void(const absl::optional<::gfx::Rect>&)>;
+  using GetBoundsCallback = base::OnceCallback<void(const std::optional<::gfx::Rect>&)>;
   
   virtual void GetBounds(GetBoundsCallback callback) = 0;
 };
@@ -988,7 +941,7 @@ class  LanguageIdentificationEvent {
   LanguageIdentificationEvent(
       const WTF::String& language,
       ConfidenceLevel confidence_level,
-      absl::optional<AsrSwitchResult> asr_switch_result);
+      std::optional<AsrSwitchResult> asr_switch_result);
 
 
   ~LanguageIdentificationEvent();
@@ -1070,7 +1023,7 @@ class  LanguageIdentificationEvent {
   
   ConfidenceLevel confidence_level;
   
-  absl::optional<AsrSwitchResult> asr_switch_result;
+  std::optional<AsrSwitchResult> asr_switch_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1281,7 +1234,7 @@ class  TimingInformation {
   TimingInformation(
       ::base::TimeDelta audio_start_time,
       ::base::TimeDelta audio_end_time,
-      absl::optional<WTF::Vector<HypothesisPartsPtr>> hypothesis_parts);
+      std::optional<WTF::Vector<HypothesisPartsPtr>> hypothesis_parts);
 
 TimingInformation(const TimingInformation&) = delete;
 TimingInformation& operator=(const TimingInformation&) = delete;
@@ -1365,7 +1318,7 @@ TimingInformation& operator=(const TimingInformation&) = delete;
   
   ::base::TimeDelta audio_end_time;
   
-  absl::optional<WTF::Vector<HypothesisPartsPtr>> hypothesis_parts;
+  std::optional<WTF::Vector<HypothesisPartsPtr>> hypothesis_parts;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

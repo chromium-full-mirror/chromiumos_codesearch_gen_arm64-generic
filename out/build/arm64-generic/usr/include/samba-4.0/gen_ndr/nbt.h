@@ -126,7 +126,8 @@ enum nbt_qtype
 	NBT_QTYPE_NAMESERVICE=(int)(0x0002),
 	NBT_QTYPE_NULL=(int)(0x000A),
 	NBT_QTYPE_NETBIOS=(int)(0x0020),
-	NBT_QTYPE_STATUS=(int)(0x0021)
+	NBT_QTYPE_STATUS=(int)(0x0021),
+	NBT_QTYPE_WACK=(int)(-1)
 }
 #else
  { __do_not_use_enum_nbt_qtype=0x7FFFFFFF}
@@ -135,6 +136,7 @@ enum nbt_qtype
 #define NBT_QTYPE_NULL ( 0x000A )
 #define NBT_QTYPE_NETBIOS ( 0x0020 )
 #define NBT_QTYPE_STATUS ( 0x0021 )
+#define NBT_QTYPE_WACK ( -1 )
 #endif
 ;
 
@@ -232,7 +234,7 @@ struct nbt_res_rec {
 	enum nbt_qclass rr_class;
 	uint32_t ttl;
 	union nbt_rdata rdata;/* [switch_is(rr_type)] */
-}/* [flag(LIBNDR_PRINT_ARRAY_HEX),nopush] */;
+}/* [flag(LIBNDR_PRINT_ARRAY_HEX)] */;
 
 struct nbt_name_packet {
 	uint16_t name_trn_id;
@@ -414,6 +416,8 @@ struct nbt_sockaddr {
 #define NBT_SERVER_FULL_SECRET_DOMAIN_6 ( 0x00001000 )
 #define NBT_SERVER_ADS_WEB_SERVICE ( 0x00002000 )
 #define NBT_SERVER_DS_8 ( 0x00004000 )
+#define NBT_SERVER_DS_9 ( 0x00008000 )
+#define NBT_SERVER_DS_10 ( 0x00010000 )
 #define NBT_SERVER_HAS_DNS_NAME ( 0x20000000 )
 #define NBT_SERVER_IS_DEFAULT_NC ( 0x40000000 )
 #define NBT_SERVER_FOREST_ROOT ( 0x80000000 )

@@ -39,6 +39,8 @@
 namespace media_session::mojom {
 class MediaImageDataView;
 
+class ChapterInformationDataView;
+
 class MediaMetadataDataView;
 
 class MediaImageBitmapDataView;
@@ -61,6 +63,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::media_session::mojom::MediaImageDataView> {
   using Data = ::media_session::mojom::internal::MediaImage_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::media_session::mojom::ChapterInformationDataView> {
+  using Data = ::media_session::mojom::internal::ChapterInformation_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -389,6 +398,52 @@ class MediaImageDataView {
   }
  private:
   internal::MediaImage_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ChapterInformationDataView {
+ public:
+  ChapterInformationDataView() = default;
+
+  ChapterInformationDataView(
+      internal::ChapterInformation_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTitleDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTitle(UserType* output) {
+    
+    auto* pointer = data_->title.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
+        pointer, output, message_);
+  }
+  inline void GetStartTimeDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStartTime(UserType* output) {
+    
+    auto* pointer = data_->startTime.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+  inline void GetArtworkDataView(
+      mojo::ArrayDataView<MediaImageDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadArtwork(UserType* output) {
+    
+    auto* pointer = data_->artwork.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::media_session::mojom::MediaImageDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ChapterInformation_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1170,6 +1225,73 @@ struct Serializer<::media_session::mojom::MediaImageDataView, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::media_session::mojom::ChapterInformationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::media_session::mojom::ChapterInformationDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::media_session::mojom::internal::ChapterInformation_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::title(input)) in_title = Traits::title(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->title)::BaseType> title_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+        in_title, title_fragment);
+    fragment->title.Set(
+        title_fragment.is_null() ? nullptr : title_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->title.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null title in ChapterInformation struct");
+    decltype(Traits::startTime(input)) in_startTime = Traits::startTime(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->startTime)::BaseType> startTime_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_startTime, startTime_fragment);
+    fragment->startTime.Set(
+        startTime_fragment.is_null() ? nullptr : startTime_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->startTime.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null startTime in ChapterInformation struct");
+    decltype(Traits::artwork(input)) in_artwork = Traits::artwork(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->artwork)::BaseType>
+        artwork_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& artwork_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::media_session::mojom::MediaImageDataView>>(
+        in_artwork, artwork_fragment, &artwork_validate_params);
+    fragment->artwork.Set(
+        artwork_fragment.is_null() ? nullptr : artwork_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->artwork.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null artwork in ChapterInformation struct");
+  }
+
+  static bool Deserialize(::media_session::mojom::internal::ChapterInformation_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::media_session::mojom::ChapterInformationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::media_session::mojom::MediaMetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::media_session::mojom::MediaMetadataDataView, UserType>;
@@ -1579,6 +1701,23 @@ inline void MediaImageDataView::GetSizesDataView(
     mojo::ArrayDataView<::gfx::mojom::SizeDataView>* output) {
   auto pointer = data_->sizes.Get();
   *output = mojo::ArrayDataView<::gfx::mojom::SizeDataView>(pointer, message_);
+}
+
+
+inline void ChapterInformationDataView::GetTitleDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->title.Get();
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+inline void ChapterInformationDataView::GetStartTimeDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->startTime.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+inline void ChapterInformationDataView::GetArtworkDataView(
+    mojo::ArrayDataView<MediaImageDataView>* output) {
+  auto pointer = data_->artwork.Get();
+  *output = mojo::ArrayDataView<MediaImageDataView>(pointer, message_);
 }
 
 

@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUPipelineError>::value,
     "GPUPipelineError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUPipelineError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUPipelineError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUPipelineError.reason.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUPipelineError* blink_receiver = V8GPUPipelineError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->reason();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUPipelineError* blink_receiver = V8GPUPipelineError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->reason();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

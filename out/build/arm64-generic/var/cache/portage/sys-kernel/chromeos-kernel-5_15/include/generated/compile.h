@@ -1,7 +1,7 @@
 /* This file is auto generated, version 1 */
 /* SMP PREEMPT */
 #define UTS_MACHINE "aarch64"
-#define UTS_VERSION "#1 SMP PREEMPT Thu Oct 26 07:05:43 PDT 2023"
-#define LINUX_COMPILE_BY "chrome-bot"
-#define LINUX_COMPILE_HOST "chromeos-ci-codesearch-us-central1-b-x32-1-mmff"
-#define LINUX_COMPILER "Chromium OS 17.0_pre498229-r23 clang version 17.0.0 (/mnt/host/source/src/third_party/llvm-project 14f0776550b5a49e1c42f49a00213f7f3fa047bf), LLD 17.0.0"
+#define UTS_VERSION "#1 SMP PREEMPT Mon, 8 Jan 2024 22:43:26 +0000"
+#define LINUX_COMPILE_BY "cros-kernel"
+#define LINUX_COMPILE_HOST "chromium.org"
+#define LINUX_COMPILER "Chromium OS 18.0_pre510928-r43 clang version 18.0.0 (/mnt/host/source/src/third_party/llvm-project 82e851a407c52d65ce65e7aa58453127e67d42a0), LLD 18.0.0"

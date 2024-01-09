@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMMimeType>::value,
     "DOMMimeType inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMMimeType::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMMimeType is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("MimeType.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("MimeType.suffixes.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->suffixes();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->suffixes();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("MimeType.description.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->description();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->description();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("MimeType.enabledPlugin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(v8_receiver);
+DOMMimeType* blink_receiver = V8MimeType::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->enabledPlugin();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

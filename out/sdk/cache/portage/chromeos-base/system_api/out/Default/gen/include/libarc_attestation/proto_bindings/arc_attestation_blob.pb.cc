@@ -4,52 +4,74 @@
 #include "arc_attestation_blob.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace arc_attestation {
+template <typename>
 PROTOBUF_CONSTEXPR CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.tpm_certifying_key_cert_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.kernel_cmdline_quote_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.kernel_cmdline_quote_signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.kernel_cmdline_content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.lsb_release_content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.kernel_antirollback_quote_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/0
+    /*decltype(_impl_.tpm_certifying_key_cert_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.kernel_cmdline_quote_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.kernel_cmdline_quote_signature_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.kernel_cmdline_content_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.lsb_release_content_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.kernel_antirollback_quote_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.version_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CrOSVersionAttestationBlobDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CrOSVersionAttestationBlobDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CrOSVersionAttestationBlobDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CrOSVersionAttestationBlobDefaultTypeInternal() {}
   union {
     CrOSVersionAttestationBlob _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrOSVersionAttestationBlobDefaultTypeInternal _CrOSVersionAttestationBlob_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrOSVersionAttestationBlobDefaultTypeInternal _CrOSVersionAttestationBlob_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CrOSSpecificBlob::CrOSSpecificBlob(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.version_attestation_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.version_attestation_)*/nullptr} {}
 struct CrOSSpecificBlobDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CrOSSpecificBlobDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CrOSSpecificBlobDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CrOSSpecificBlobDefaultTypeInternal() {}
   union {
     CrOSSpecificBlob _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrOSSpecificBlobDefaultTypeInternal _CrOSSpecificBlob_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrOSSpecificBlobDefaultTypeInternal _CrOSSpecificBlob_default_instance_;
 }  // namespace arc_attestation
 namespace arc_attestation {
 bool CrOSVersionAttestationVersion_IsValid(int value) {
@@ -61,40 +83,40 @@ bool CrOSVersionAttestationVersion_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    CrOSVersionAttestationVersion_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CrOSVersionAttestationVersion_strings[2] = {};
+static const char CrOSVersionAttestationVersion_names[] = {
+    "CROS_BLOB_VERSION_TPM2_FORMAT_1"
+    "CROS_BLOB_VERSION_UNSET"
+};
 
-static const char CrOSVersionAttestationVersion_names[] =
-  "CROS_BLOB_VERSION_TPM2_FORMAT_1"
-  "CROS_BLOB_VERSION_UNSET";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CrOSVersionAttestationVersion_entries[] = {
-  { {CrOSVersionAttestationVersion_names + 0, 31}, 1 },
-  { {CrOSVersionAttestationVersion_names + 31, 23}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CrOSVersionAttestationVersion_entries[] =
+    {
+        {{&CrOSVersionAttestationVersion_names[0], 31}, 1},
+        {{&CrOSVersionAttestationVersion_names[31], 23}, 0},
 };
 
 static const int CrOSVersionAttestationVersion_entries_by_number[] = {
-  1, // 0 -> CROS_BLOB_VERSION_UNSET
-  0, // 1 -> CROS_BLOB_VERSION_TPM2_FORMAT_1
+    1,  // 0 -> CROS_BLOB_VERSION_UNSET
+    0,  // 1 -> CROS_BLOB_VERSION_TPM2_FORMAT_1
 };
 
-const std::string& CrOSVersionAttestationVersion_Name(
-    CrOSVersionAttestationVersion value) {
-  static const bool dummy =
+const std::string& CrOSVersionAttestationVersion_Name(CrOSVersionAttestationVersion value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          CrOSVersionAttestationVersion_entries,
-          CrOSVersionAttestationVersion_entries_by_number,
+          CrOSVersionAttestationVersion_entries, CrOSVersionAttestationVersion_entries_by_number,
           2, CrOSVersionAttestationVersion_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      CrOSVersionAttestationVersion_entries,
-      CrOSVersionAttestationVersion_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     CrOSVersionAttestationVersion_strings[idx].get();
+      CrOSVersionAttestationVersion_entries, CrOSVersionAttestationVersion_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : CrOSVersionAttestationVersion_strings[idx].get();
 }
-bool CrOSVersionAttestationVersion_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrOSVersionAttestationVersion* value) {
+
+bool CrOSVersionAttestationVersion_Parse(absl::string_view name, CrOSVersionAttestationVersion* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       CrOSVersionAttestationVersion_entries, 2, name, &int_value);
@@ -103,123 +125,127 @@ bool CrOSVersionAttestationVersion_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class CrOSVersionAttestationBlob::_Internal {
  public:
 };
 
-CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc_attestation.CrOSVersionAttestationBlob)
 }
 CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(const CrOSVersionAttestationBlob& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CrOSVersionAttestationBlob* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.tpm_certifying_key_cert_){}
-    , decltype(_impl_.kernel_cmdline_quote_){}
-    , decltype(_impl_.kernel_cmdline_quote_signature_){}
-    , decltype(_impl_.kernel_cmdline_content_){}
-    , decltype(_impl_.lsb_release_content_){}
-    , decltype(_impl_.kernel_antirollback_quote_){}
-    , decltype(_impl_.version_){}
+      decltype(_impl_.tpm_certifying_key_cert_) {}
+
+    , decltype(_impl_.kernel_cmdline_quote_) {}
+
+    , decltype(_impl_.kernel_cmdline_quote_signature_) {}
+
+    , decltype(_impl_.kernel_cmdline_content_) {}
+
+    , decltype(_impl_.lsb_release_content_) {}
+
+    , decltype(_impl_.kernel_antirollback_quote_) {}
+
+    , decltype(_impl_.version_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.tpm_certifying_key_cert_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tpm_certifying_key_cert_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.tpm_certifying_key_cert_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_tpm_certifying_key_cert().empty()) {
-    _this->_impl_.tpm_certifying_key_cert_.Set(from._internal_tpm_certifying_key_cert(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.tpm_certifying_key_cert_.Set(from._internal_tpm_certifying_key_cert(), _this->GetArenaForAllocation());
   }
   _impl_.kernel_cmdline_quote_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_quote_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_quote_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_kernel_cmdline_quote().empty()) {
-    _this->_impl_.kernel_cmdline_quote_.Set(from._internal_kernel_cmdline_quote(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.kernel_cmdline_quote_.Set(from._internal_kernel_cmdline_quote(), _this->GetArenaForAllocation());
   }
   _impl_.kernel_cmdline_quote_signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_kernel_cmdline_quote_signature().empty()) {
-    _this->_impl_.kernel_cmdline_quote_signature_.Set(from._internal_kernel_cmdline_quote_signature(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.kernel_cmdline_quote_signature_.Set(from._internal_kernel_cmdline_quote_signature(), _this->GetArenaForAllocation());
   }
   _impl_.kernel_cmdline_content_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_content_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_content_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_kernel_cmdline_content().empty()) {
-    _this->_impl_.kernel_cmdline_content_.Set(from._internal_kernel_cmdline_content(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.kernel_cmdline_content_.Set(from._internal_kernel_cmdline_content(), _this->GetArenaForAllocation());
   }
   _impl_.lsb_release_content_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.lsb_release_content_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.lsb_release_content_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_lsb_release_content().empty()) {
-    _this->_impl_.lsb_release_content_.Set(from._internal_lsb_release_content(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.lsb_release_content_.Set(from._internal_lsb_release_content(), _this->GetArenaForAllocation());
   }
   _impl_.kernel_antirollback_quote_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_antirollback_quote_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_antirollback_quote_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_kernel_antirollback_quote().empty()) {
-    _this->_impl_.kernel_antirollback_quote_.Set(from._internal_kernel_antirollback_quote(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.kernel_antirollback_quote_.Set(from._internal_kernel_antirollback_quote(), _this->GetArenaForAllocation());
   }
   _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:arc_attestation.CrOSVersionAttestationBlob)
 }
 
-inline void CrOSVersionAttestationBlob::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CrOSVersionAttestationBlob::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.tpm_certifying_key_cert_){}
-    , decltype(_impl_.kernel_cmdline_quote_){}
-    , decltype(_impl_.kernel_cmdline_quote_signature_){}
-    , decltype(_impl_.kernel_cmdline_content_){}
-    , decltype(_impl_.lsb_release_content_){}
-    , decltype(_impl_.kernel_antirollback_quote_){}
-    , decltype(_impl_.version_){0}
+      decltype(_impl_.tpm_certifying_key_cert_) {}
+
+    , decltype(_impl_.kernel_cmdline_quote_) {}
+
+    , decltype(_impl_.kernel_cmdline_quote_signature_) {}
+
+    , decltype(_impl_.kernel_cmdline_content_) {}
+
+    , decltype(_impl_.lsb_release_content_) {}
+
+    , decltype(_impl_.kernel_antirollback_quote_) {}
+
+    , decltype(_impl_.version_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.tpm_certifying_key_cert_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tpm_certifying_key_cert_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.tpm_certifying_key_cert_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.kernel_cmdline_quote_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_quote_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_quote_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.kernel_cmdline_quote_signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.kernel_cmdline_content_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_cmdline_content_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_cmdline_content_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.lsb_release_content_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.lsb_release_content_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.lsb_release_content_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.kernel_antirollback_quote_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.kernel_antirollback_quote_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.kernel_antirollback_quote_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CrOSVersionAttestationBlob::~CrOSVersionAttestationBlob() {
@@ -232,7 +258,7 @@ CrOSVersionAttestationBlob::~CrOSVersionAttestationBlob() {
 }
 
 inline void CrOSVersionAttestationBlob::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.tpm_certifying_key_cert_.Destroy();
   _impl_.kernel_cmdline_quote_.Destroy();
   _impl_.kernel_cmdline_quote_signature_.Destroy();
@@ -247,7 +273,7 @@ void CrOSVersionAttestationBlob::SetCachedSize(int size) const {
 
 void CrOSVersionAttestationBlob::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc_attestation.CrOSVersionAttestationBlob)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -264,71 +290,78 @@ void CrOSVersionAttestationBlob::Clear() {
 const char* CrOSVersionAttestationBlob::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .arc_attestation.CrOSVersionAttestationVersion version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_version(static_cast<::arc_attestation::CrOSVersionAttestationVersion>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes tpm_certifying_key_cert = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_tpm_certifying_key_cert();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes kernel_cmdline_quote = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_kernel_cmdline_quote();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes kernel_cmdline_quote_signature = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_kernel_cmdline_quote_signature();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes kernel_cmdline_content = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_kernel_cmdline_content();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes lsb_release_content = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_lsb_release_content();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes kernel_antirollback_quote = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_kernel_antirollback_quote();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -353,53 +386,53 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CrOSVersionAttestationBlob::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CrOSVersionAttestationBlob::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc_attestation.CrOSVersionAttestationBlob)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .arc_attestation.CrOSVersionAttestationVersion version = 1;
   if (this->_internal_version() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_version(), target);
+        1, this->_internal_version(), target);
   }
 
   // bytes tpm_certifying_key_cert = 2;
   if (!this->_internal_tpm_certifying_key_cert().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_tpm_certifying_key_cert(), target);
+    const std::string& _s = this->_internal_tpm_certifying_key_cert();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // bytes kernel_cmdline_quote = 3;
   if (!this->_internal_kernel_cmdline_quote().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_kernel_cmdline_quote(), target);
+    const std::string& _s = this->_internal_kernel_cmdline_quote();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // bytes kernel_cmdline_quote_signature = 4;
   if (!this->_internal_kernel_cmdline_quote_signature().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_kernel_cmdline_quote_signature(), target);
+    const std::string& _s = this->_internal_kernel_cmdline_quote_signature();
+    target = stream->WriteBytesMaybeAliased(4, _s, target);
   }
 
   // bytes kernel_cmdline_content = 5;
   if (!this->_internal_kernel_cmdline_content().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        5, this->_internal_kernel_cmdline_content(), target);
+    const std::string& _s = this->_internal_kernel_cmdline_content();
+    target = stream->WriteBytesMaybeAliased(5, _s, target);
   }
 
   // bytes lsb_release_content = 6;
   if (!this->_internal_lsb_release_content().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        6, this->_internal_lsb_release_content(), target);
+    const std::string& _s = this->_internal_lsb_release_content();
+    target = stream->WriteBytesMaybeAliased(6, _s, target);
   }
 
   // bytes kernel_antirollback_quote = 7;
   if (!this->_internal_kernel_antirollback_quote().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        7, this->_internal_kernel_antirollback_quote(), target);
+    const std::string& _s = this->_internal_kernel_antirollback_quote();
+    target = stream->WriteBytesMaybeAliased(7, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -410,60 +443,54 @@ uint8_t* CrOSVersionAttestationBlob::_InternalSerialize(
   return target;
 }
 
-size_t CrOSVersionAttestationBlob::ByteSizeLong() const {
+::size_t CrOSVersionAttestationBlob::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc_attestation.CrOSVersionAttestationBlob)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes tpm_certifying_key_cert = 2;
   if (!this->_internal_tpm_certifying_key_cert().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_tpm_certifying_key_cert());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_tpm_certifying_key_cert());
   }
 
   // bytes kernel_cmdline_quote = 3;
   if (!this->_internal_kernel_cmdline_quote().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_kernel_cmdline_quote());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_kernel_cmdline_quote());
   }
 
   // bytes kernel_cmdline_quote_signature = 4;
   if (!this->_internal_kernel_cmdline_quote_signature().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_kernel_cmdline_quote_signature());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_kernel_cmdline_quote_signature());
   }
 
   // bytes kernel_cmdline_content = 5;
   if (!this->_internal_kernel_cmdline_content().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_kernel_cmdline_content());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_kernel_cmdline_content());
   }
 
   // bytes lsb_release_content = 6;
   if (!this->_internal_lsb_release_content().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_lsb_release_content());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_lsb_release_content());
   }
 
   // bytes kernel_antirollback_quote = 7;
   if (!this->_internal_kernel_antirollback_quote().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_kernel_antirollback_quote());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_kernel_antirollback_quote());
   }
 
   // .arc_attestation.CrOSVersionAttestationVersion version = 1;
   if (this->_internal_version() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_version());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -483,8 +510,8 @@ void CrOSVersionAttestationBlob::CheckTypeAndMergeFrom(
 void CrOSVersionAttestationBlob::MergeFrom(const CrOSVersionAttestationBlob& from) {
   CrOSVersionAttestationBlob* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc_attestation.CrOSVersionAttestationBlob)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_tpm_certifying_key_cert().empty()) {
@@ -527,30 +554,18 @@ void CrOSVersionAttestationBlob::InternalSwap(CrOSVersionAttestationBlob* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.tpm_certifying_key_cert_, lhs_arena,
-      &other->_impl_.tpm_certifying_key_cert_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.kernel_cmdline_quote_, lhs_arena,
-      &other->_impl_.kernel_cmdline_quote_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.kernel_cmdline_quote_signature_, lhs_arena,
-      &other->_impl_.kernel_cmdline_quote_signature_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.kernel_cmdline_content_, lhs_arena,
-      &other->_impl_.kernel_cmdline_content_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.lsb_release_content_, lhs_arena,
-      &other->_impl_.lsb_release_content_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.kernel_antirollback_quote_, lhs_arena,
-      &other->_impl_.kernel_antirollback_quote_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.tpm_certifying_key_cert_, lhs_arena,
+                                       &other->_impl_.tpm_certifying_key_cert_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.kernel_cmdline_quote_, lhs_arena,
+                                       &other->_impl_.kernel_cmdline_quote_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.kernel_cmdline_quote_signature_, lhs_arena,
+                                       &other->_impl_.kernel_cmdline_quote_signature_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.kernel_cmdline_content_, lhs_arena,
+                                       &other->_impl_.kernel_cmdline_content_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.lsb_release_content_, lhs_arena,
+                                       &other->_impl_.lsb_release_content_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.kernel_antirollback_quote_, lhs_arena,
+                                       &other->_impl_.kernel_antirollback_quote_, rhs_arena);
   swap(_impl_.version_, other->_impl_.version_);
 }
 
@@ -558,45 +573,49 @@ std::string CrOSVersionAttestationBlob::GetTypeName() const {
   return "arc_attestation.CrOSVersionAttestationBlob";
 }
 
-
 // ===================================================================
 
 class CrOSSpecificBlob::_Internal {
  public:
+  using HasBits = decltype(std::declval<CrOSSpecificBlob>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CrOSSpecificBlob, _impl_._has_bits_);
   static const ::arc_attestation::CrOSVersionAttestationBlob& version_attestation(const CrOSSpecificBlob* msg);
+  static void set_has_version_attestation(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::arc_attestation::CrOSVersionAttestationBlob&
 CrOSSpecificBlob::_Internal::version_attestation(const CrOSSpecificBlob* msg) {
   return *msg->_impl_.version_attestation_;
 }
-CrOSSpecificBlob::CrOSSpecificBlob(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CrOSSpecificBlob::CrOSSpecificBlob(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc_attestation.CrOSSpecificBlob)
 }
 CrOSSpecificBlob::CrOSSpecificBlob(const CrOSSpecificBlob& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CrOSSpecificBlob* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.version_attestation_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.version_attestation_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_version_attestation()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.version_attestation_ = new ::arc_attestation::CrOSVersionAttestationBlob(*from._impl_.version_attestation_);
   }
   // @@protoc_insertion_point(copy_constructor:arc_attestation.CrOSSpecificBlob)
 }
 
-inline void CrOSSpecificBlob::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CrOSSpecificBlob::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.version_attestation_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.version_attestation_){nullptr}
   };
 }
 
@@ -610,7 +629,7 @@ CrOSSpecificBlob::~CrOSSpecificBlob() {
 }
 
 inline void CrOSSpecificBlob::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.version_attestation_;
 }
 
@@ -620,30 +639,34 @@ void CrOSSpecificBlob::SetCachedSize(int size) const {
 
 void CrOSSpecificBlob::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc_attestation.CrOSSpecificBlob)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.version_attestation_ != nullptr) {
-    delete _impl_.version_attestation_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.version_attestation_ != nullptr);
+    _impl_.version_attestation_->Clear();
   }
-  _impl_.version_attestation_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* CrOSSpecificBlob::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .arc_attestation.CrOSVersionAttestationBlob version_attestation = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_version_attestation(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -661,6 +684,7 @@ const char* CrOSSpecificBlob::_InternalParse(const char* ptr, ::_pbi::ParseConte
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -668,14 +692,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CrOSSpecificBlob::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CrOSSpecificBlob::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc_attestation.CrOSSpecificBlob)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .arc_attestation.CrOSVersionAttestationBlob version_attestation = 1;
-  if (this->_internal_has_version_attestation()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::version_attestation(this),
         _Internal::version_attestation(this).GetCachedSize(), target, stream);
@@ -689,16 +714,17 @@ uint8_t* CrOSSpecificBlob::_InternalSerialize(
   return target;
 }
 
-size_t CrOSSpecificBlob::ByteSizeLong() const {
+::size_t CrOSSpecificBlob::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc_attestation.CrOSSpecificBlob)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .arc_attestation.CrOSVersionAttestationBlob version_attestation = 1;
-  if (this->_internal_has_version_attestation()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.version_attestation_);
@@ -721,11 +747,11 @@ void CrOSSpecificBlob::CheckTypeAndMergeFrom(
 void CrOSSpecificBlob::MergeFrom(const CrOSSpecificBlob& from) {
   CrOSSpecificBlob* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc_attestation.CrOSSpecificBlob)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_version_attestation()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_version_attestation()->::arc_attestation::CrOSVersionAttestationBlob::MergeFrom(
         from._internal_version_attestation());
   }
@@ -746,13 +772,13 @@ bool CrOSSpecificBlob::IsInitialized() const {
 void CrOSSpecificBlob::InternalSwap(CrOSSpecificBlob* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.version_attestation_, other->_impl_.version_attestation_);
 }
 
 std::string CrOSSpecificBlob::GetTypeName() const {
   return "arc_attestation.CrOSSpecificBlob";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace arc_attestation
@@ -766,6 +792,5 @@ Arena::CreateMaybeMessage< ::arc_attestation::CrOSSpecificBlob >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc_attestation::CrOSSpecificBlob >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

@@ -141,6 +141,8 @@ NOINLINE static const char* LockTypeToStringHelper(LockType value) {
       return "kSimPin";
     case LockType::kSimPuk:
       return "kSimPuk";
+    case LockType::kNetworkPin:
+      return "kNetworkPin";
     default:
       return nullptr;
   }

@@ -521,6 +521,31 @@ struct ApnType_Data {
   }
 };
 
+struct SuppressionType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct TrafficCounterSource_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -1206,7 +1231,8 @@ class  DeviceStateProperties_Data {
   uint8_t scanning : 1;
   uint8_t sim_absent : 1;
   uint8_t managed_network_available : 1;
-  uint8_t pad6_[3];
+  uint8_t is_carrier_locked : 1;
+  uint8_t pad7_[3];
   int32_t inhibit_reason;
   mojo::internal::Pointer<internal::SIMLockStatus_Data> sim_lock_status;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::SIMInfo_Data>>> sim_infos;
@@ -4231,7 +4257,8 @@ class  GlobalPolicy_Data {
   uint8_t report_xdr_events_enabled : 1;
   uint8_t recommended_values_are_ephemeral : 1;
   uint8_t user_created_network_configurations_are_ephemeral : 1;
-  uint8_t pad9_[6];
+  uint8_t pad9_[2];
+  int32_t allow_text_messages;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> blocked_hex_ssids;
 
  private:

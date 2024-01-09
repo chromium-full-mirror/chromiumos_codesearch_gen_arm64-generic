@@ -204,7 +204,9 @@ export class CrSliderElement extends CrSliderElementBase {
         if (this.noink) {
             return;
         }
-        this.getRipple().showAndHoldDown();
+        if (!this.getRipple().holdDown) {
+            this.getRipple().showAndHoldDown();
+        }
         this.showLabel_ = true;
     }
     onDisabledChanged_() {

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -624,14 +625,17 @@ void FileSystemAccessManagerProxy::GetSandboxedFileSystem(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessManager::GetSandboxedFileSystem");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetSandboxedFileSystem_Name, kFlags, 0, 0, nullptr);
@@ -662,14 +666,17 @@ void FileSystemAccessManagerProxy::ChooseEntries(
                         "<value of type FilePickerOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_ChooseEntries_Name, kFlags, 0, 0, nullptr);
@@ -714,14 +721,17 @@ void FileSystemAccessManagerProxy::GetFileHandleFromToken(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::FileSystemAccessFileHandle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetFileHandleFromToken_Name, kFlags, 0, 0, nullptr);
@@ -766,14 +776,17 @@ void FileSystemAccessManagerProxy::GetDirectoryHandleFromToken(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::FileSystemAccessDirectoryHandle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetDirectoryHandleFromToken_Name, kFlags, 0, 0, nullptr);
@@ -815,14 +828,17 @@ void FileSystemAccessManagerProxy::GetEntryFromDataTransferToken(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::FileSystemAccessDataTransferToken>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetEntryFromDataTransferToken_Name, kFlags, 0, 0, nullptr);
@@ -859,14 +875,17 @@ void FileSystemAccessManagerProxy::BindObserverHost(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::FileSystemAccessObserverHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_BindObserverHost_Name, kFlags, 0, 0, nullptr);
@@ -990,7 +1009,8 @@ void FileSystemAccessManager_GetSandboxedFileSystem_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetSandboxedFileSystem_Name, kFlags, 0, 0, nullptr);
@@ -1127,7 +1147,8 @@ void FileSystemAccessManager_ChooseEntries_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_ChooseEntries_Name, kFlags, 0, 0, nullptr);
@@ -1275,7 +1296,8 @@ void FileSystemAccessManager_GetEntryFromDataTransferToken_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessManager_GetEntryFromDataTransferToken_Name, kFlags, 0, 0, nullptr);
@@ -1539,20 +1561,20 @@ std::move(p_token), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemAccessManagerValidationInfo[] = {
-    {&internal::FileSystemAccessManager_GetSandboxedFileSystem_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_GetSandboxedFileSystem_Params_Data::Validate,
      &internal::FileSystemAccessManager_GetSandboxedFileSystem_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessManager_ChooseEntries_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_ChooseEntries_Params_Data::Validate,
      &internal::FileSystemAccessManager_ChooseEntries_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessManager_GetFileHandleFromToken_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_GetFileHandleFromToken_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemAccessManager_GetDirectoryHandleFromToken_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_GetDirectoryHandleFromToken_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemAccessManager_GetEntryFromDataTransferToken_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_GetEntryFromDataTransferToken_Params_Data::Validate,
      &internal::FileSystemAccessManager_GetEntryFromDataTransferToken_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessManager_BindObserverHost_Params_Data::Validate,
+    { &internal::FileSystemAccessManager_BindObserverHost_Params_Data::Validate,
      nullptr /* no response */},
 };
 

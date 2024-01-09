@@ -81,11 +81,6 @@ export function getTemplate() {
         <iron-icon id="successIcon" icon="cr:check-circle"></iron-icon>
         <div id="description">[[successDescription_]]</div>
       </div>
-      <div id="tipBox" class="flex" hidden="[[shouldHideTipBox_(results_)]]">
-         <iron-icon id="infoIcon" icon="cr:info-outline"></iron-icon>
-        <div id="successTip" inner-h-t-m-l="[[getSuccessTipHtml_(results_)]]">
-        </div>
-      </div>
       <cr-checkbox id="deleteFileOption" hidden="[[shouldHideDeleteFileOption_(results_)]]" inner-h-t-m-l="[[getCheckboxLabelHtml_(results_)]]">
       </cr-checkbox>
       <div hidden="[[shouldHideFailuresSummary_(results_)]]">

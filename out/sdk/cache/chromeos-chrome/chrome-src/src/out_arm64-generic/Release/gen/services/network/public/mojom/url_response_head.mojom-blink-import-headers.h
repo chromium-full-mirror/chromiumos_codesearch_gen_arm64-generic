@@ -32,6 +32,8 @@
 #include "services/network/public/mojom/network_types.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/parsed_headers.mojom-blink.h"
 #include "services/network/public/mojom/parsed_headers.mojom-blink-import-headers.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink-import-headers.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-blink.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-blink-import-headers.h"
 #include "url/mojom/url.mojom-blink.h"

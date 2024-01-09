@@ -6,12 +6,12 @@
  * 'settings-site-settings-page' is the settings page containing privacy and
  * security site settings.
  */
+import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
 import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
 import '/shared/settings/controls/settings_toggle_button.js';
-import '../icons.html.js';
 import '../settings_shared.css.js';
 import './recent_site_permissions.js';
 import './unused_site_permissions.js';
@@ -21,8 +21,9 @@ import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
+import { MetricsBrowserProxyImpl, SafetyHubEntryPoint } from '../metrics_browser_proxy.js';
 import { routes } from '../route.js';
-import { Router } from '../router.js';
+import { RouteObserverMixin, Router } from '../router.js';
 import { SafetyHubBrowserProxyImpl, SafetyHubEvent } from '../safety_hub/safety_hub_browser_proxy.js';
 import { ContentSettingsTypes } from '../site_settings/constants.js';
 import { getTemplate } from './site_settings_page.html.js';
@@ -278,7 +279,6 @@ function getCategoryItemMap() {
             id: Id.SITE_DATA,
             label: 'siteDataPageTitle',
             icon: 'settings:database',
-            shouldShow: () => loadTimeData.getBoolean('isPrivacySandboxSettings4'),
         },
         {
             route: routes.SITE_SETTINGS_SOUND,
@@ -327,6 +327,14 @@ function getCategoryItemMap() {
             label: 'siteSettingsZoomLevels',
             icon: 'settings:zoom-in',
         },
+        {
+            route: routes.PERFORMANCE,
+            id: Id.PERFORMANCE,
+            label: 'siteSettingsPerformance',
+            icon: 'settings:performance',
+            enabledLabel: 'siteSettingsPerformanceSublabel',
+            disabledLabel: 'siteSettingsPerformanceSublabel',
+        },
     ];
     if (loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')) {
         categoryList.push({
@@ -336,16 +344,13 @@ function getCategoryItemMap() {
             icon: 'settings:visibility-off',
             enabledLabel: 'siteSettingsCookiesAllowed',
             disabledLabel: 'siteSettingsBlocked',
-            otherLabel: 'cookiePageClearOnExit',
         });
     }
     else {
         categoryList.push({
             route: routes.COOKIES,
             id: Id.COOKIES,
-            label: (loadTimeData.getBoolean('isPrivacySandboxSettings4') ?
-                'thirdPartyCookiesLinkRowLabel' :
-                'siteSettingsCookies'),
+            label: 'thirdPartyCookiesLinkRowLabel',
             icon: 'settings:cookie',
             enabledLabel: 'trackingProtectionLinkRowSubLabel',
             disabledLabel: 'trackingProtectionLinkRowSubLabel',
@@ -365,11 +370,12 @@ function buildItemListFromIds(orderedIdList) {
     }
     return orderedList;
 }
-const SettingsSiteSettingsPageElementBase = WebUiListenerMixin(PolymerElement);
+const SettingsSiteSettingsPageElementBase = RouteObserverMixin(WebUiListenerMixin(PolymerElement));
 export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBase {
     constructor() {
         super(...arguments);
         this.safetyHubBrowserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-site-settings-page';
@@ -441,6 +447,7 @@ export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageEle
                             Id.FEDERATED_IDENTITY_API,
                             Id.ANTI_ABUSE,
                             Id.SITE_DATA,
+                            Id.PERFORMANCE,
                         ]),
                     };
                 },
@@ -477,6 +484,16 @@ export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageEle
         this.addWebUiListener(SafetyHubEvent.UNUSED_PERMISSIONS_MAYBE_CHANGED, (sites) => this.onUnusedSitePermissionListChanged_(sites));
         this.safetyHubBrowserProxy_.getRevokedUnusedSitePermissionsList().then((sites) => this.onUnusedSitePermissionListChanged_(sites));
     }
+    currentRouteChanged() {
+        if (Router.getInstance().getCurrentRoute() !== routes.SITE_SETTINGS) {
+            return;
+        }
+        // Only record the metrics when the user navigates to the privacy page
+        // that shows the entry point.
+        if (this.showUnusedSitePermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointShown(SafetyHubEntryPoint.SITE_SETTINGS);
+        }
+    }
     focusConfigChanged_(_newConfig, oldConfig) {
         // focusConfig is set only once on the parent, so this observer should
         // only fire once.
@@ -509,6 +526,7 @@ export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageEle
         return this.noRecentSitePermissions_ ? '' : 'hr';
     }
     onSafetyHubButtonClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.SITE_SETTINGS);
         Router.getInstance().navigateTo(routes.SAFETY_HUB);
     }
 }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -169,7 +170,7 @@ WebUIReportAggregatableAttributionData::WebUIReportAggregatableAttributionData()
 
 WebUIReportAggregatableAttributionData::WebUIReportAggregatableAttributionData(
     std::vector<AggregatableHistogramContributionPtr> contributions_in,
-    const absl::optional<std::string>& verification_token_in,
+    const std::optional<std::string>& verification_token_in,
     const std::string& aggregation_coordinator_in,
     bool is_null_report_in)
     : contributions(std::move(contributions_in)),
@@ -195,7 +196,7 @@ void WebUIReportAggregatableAttributionData::WriteIntoTrace(
     dict.AddItem(
       "verification_token"), this->verification_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -413,7 +414,7 @@ WebUISource::WebUISource()
       reporting_origin(),
       source_time(),
       expiry_time(),
-      event_report_windows(),
+      trigger_specs_json(),
       aggregatable_report_window_time(),
       max_event_level_reports(),
       source_type(),
@@ -424,7 +425,9 @@ WebUISource::WebUISource()
       aggregation_keys(),
       aggregatable_budget_consumed(),
       aggregatable_dedup_keys(),
-      trigger_config(),
+      trigger_data_matching(),
+      event_level_epsilon(),
+      debug_cookie_set(),
       attributability() {}
 
 WebUISource::WebUISource(
@@ -434,18 +437,20 @@ WebUISource::WebUISource(
     const ::url::Origin& reporting_origin_in,
     double source_time_in,
     double expiry_time_in,
-    const ::attribution_reporting::EventReportWindows& event_report_windows_in,
+    const std::string& trigger_specs_json_in,
     double aggregatable_report_window_time_in,
     int32_t max_event_level_reports_in,
     ::attribution_reporting::mojom::SourceType source_type_in,
     int64_t priority_in,
-    const absl::optional<uint64_t>& debug_key_in,
+    std::optional<uint64_t> debug_key_in,
     std::vector<uint64_t> dedup_keys_in,
-    const base::flat_map<std::string, std::vector<std::string>>& filter_data_in,
+    const ::attribution_reporting::FilterData& filter_data_in,
     const base::flat_map<std::string, std::string>& aggregation_keys_in,
     uint64_t aggregatable_budget_consumed_in,
     std::vector<uint64_t> aggregatable_dedup_keys_in,
-    const ::attribution_reporting::TriggerConfig& trigger_config_in,
+    ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching_in,
+    double event_level_epsilon_in,
+    bool debug_cookie_set_in,
     WebUISource::Attributability attributability_in)
     : source_event_id(std::move(source_event_id_in)),
       source_origin(std::move(source_origin_in)),
@@ -453,7 +458,7 @@ WebUISource::WebUISource(
       reporting_origin(std::move(reporting_origin_in)),
       source_time(std::move(source_time_in)),
       expiry_time(std::move(expiry_time_in)),
-      event_report_windows(std::move(event_report_windows_in)),
+      trigger_specs_json(std::move(trigger_specs_json_in)),
       aggregatable_report_window_time(std::move(aggregatable_report_window_time_in)),
       max_event_level_reports(std::move(max_event_level_reports_in)),
       source_type(std::move(source_type_in)),
@@ -464,7 +469,9 @@ WebUISource::WebUISource(
       aggregation_keys(std::move(aggregation_keys_in)),
       aggregatable_budget_consumed(std::move(aggregatable_budget_consumed_in)),
       aggregatable_dedup_keys(std::move(aggregatable_dedup_keys_in)),
-      trigger_config(std::move(trigger_config_in)),
+      trigger_data_matching(std::move(trigger_data_matching_in)),
+      event_level_epsilon(std::move(event_level_epsilon_in)),
+      debug_cookie_set(std::move(debug_cookie_set_in)),
       attributability(std::move(attributability_in)) {}
 
 WebUISource::~WebUISource() = default;
@@ -528,9 +535,9 @@ void WebUISource::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "event_report_windows"), this->event_report_windows,
+      "trigger_specs_json"), this->trigger_specs_json,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::attribution_reporting::EventReportWindows&>"
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -575,7 +582,7 @@ void WebUISource::WriteIntoTrace(
     dict.AddItem(
       "debug_key"), this->debug_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -593,7 +600,7 @@ void WebUISource::WriteIntoTrace(
     dict.AddItem(
       "filter_data"), this->filter_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const base::flat_map<std::string, std::vector<std::string>>&>"
+      "<value of type const ::attribution_reporting::FilterData&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -627,9 +634,27 @@ void WebUISource::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "trigger_config"), this->trigger_config,
+      "trigger_data_matching"), this->trigger_data_matching,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::attribution_reporting::TriggerConfig&>"
+      "<value of type ::attribution_reporting::mojom::TriggerDataMatching>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "event_level_epsilon"), this->event_level_epsilon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "debug_cookie_set"), this->debug_cookie_set,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -662,7 +687,7 @@ WebUIRegistration::WebUIRegistration(
     const ::url::Origin& context_origin_in,
     const ::url::Origin& reporting_origin_in,
     const std::string& registration_json_in,
-    const absl::optional<uint64_t>& cleared_debug_key_in)
+    std::optional<uint64_t> cleared_debug_key_in)
     : time(std::move(time_in)),
       context_origin(std::move(context_origin_in)),
       reporting_origin(std::move(reporting_origin_in)),
@@ -714,7 +739,7 @@ void WebUIRegistration::WriteIntoTrace(
     dict.AddItem(
       "cleared_debug_key"), this->cleared_debug_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1385,14 +1410,17 @@ void ObserverProxy::OnSourcesChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Observer::OnSourcesChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnSourcesChanged_Name, kFlags, 0, 0, nullptr);
@@ -1415,14 +1443,17 @@ void ObserverProxy::OnReportsChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Observer::OnReportsChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnReportsChanged_Name, kFlags, 0, 0, nullptr);
@@ -1452,14 +1483,17 @@ void ObserverProxy::OnSourceHandled(
                         "<value of type WebUISourceRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnSourceHandled_Name, kFlags, 0, 0, nullptr);
@@ -1500,14 +1534,17 @@ void ObserverProxy::OnReportSent(
                         "<value of type WebUIReportPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnReportSent_Name, kFlags, 0, 0, nullptr);
@@ -1548,14 +1585,17 @@ void ObserverProxy::OnDebugReportSent(
                         "<value of type WebUIDebugReportPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnDebugReportSent_Name, kFlags, 0, 0, nullptr);
@@ -1596,14 +1636,17 @@ void ObserverProxy::OnReportDropped(
                         "<value of type WebUIReportPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnReportDropped_Name, kFlags, 0, 0, nullptr);
@@ -1644,14 +1687,17 @@ void ObserverProxy::OnTriggerHandled(
                         "<value of type WebUITriggerPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnTriggerHandled_Name, kFlags, 0, 0, nullptr);
@@ -1692,14 +1738,17 @@ void ObserverProxy::OnOsRegistration(
                         "<value of type WebUIOsRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kObserver_OnOsRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1973,24 +2022,24 @@ bool ObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kObserverValidationInfo[] = {
-    {&internal::Observer_OnSourcesChanged_Params_Data::Validate,
+    { &internal::Observer_OnSourcesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnReportsChanged_Params_Data::Validate,
+    { &internal::Observer_OnReportsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnSourceHandled_Params_Data::Validate,
+    { &internal::Observer_OnSourceHandled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnReportSent_Params_Data::Validate,
+    { &internal::Observer_OnReportSent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnDebugReportSent_Params_Data::Validate,
+    { &internal::Observer_OnDebugReportSent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnReportDropped_Params_Data::Validate,
+    { &internal::Observer_OnReportDropped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnTriggerHandled_Params_Data::Validate,
+    { &internal::Observer_OnTriggerHandled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Observer_OnOsRegistration_Params_Data::Validate,
+    { &internal::Observer_OnOsRegistration_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2223,14 +2272,17 @@ void HandlerProxy::IsAttributionReportingEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Handler::IsAttributionReportingEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_IsAttributionReportingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2254,14 +2306,17 @@ void HandlerProxy::GetActiveSources(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Handler::GetActiveSources");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_GetActiveSources_Name, kFlags, 0, 0, nullptr);
@@ -2285,14 +2340,17 @@ void HandlerProxy::GetReports(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Handler::GetReports");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_GetReports_Name, kFlags, 0, 0, nullptr);
@@ -2323,14 +2381,17 @@ void HandlerProxy::SendReports(
                         "<value of type const std::vector<::content::AttributionReport::Id>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_SendReports_Name, kFlags, 0, 0, nullptr);
@@ -2367,14 +2428,17 @@ void HandlerProxy::ClearStorage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send attribution_internals::mojom::Handler::ClearStorage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_ClearStorage_Name, kFlags, 0, 0, nullptr);
@@ -2498,7 +2562,8 @@ void Handler_IsAttributionReportingEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_IsAttributionReportingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2619,7 +2684,8 @@ void Handler_GetActiveSources_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_GetActiveSources_Name, kFlags, 0, 0, nullptr);
@@ -2749,7 +2815,8 @@ void Handler_GetReports_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_GetReports_Name, kFlags, 0, 0, nullptr);
@@ -2868,7 +2935,8 @@ void Handler_SendReports_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_SendReports_Name, kFlags, 0, 0, nullptr);
@@ -2974,7 +3042,8 @@ void Handler_ClearStorage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandler_ClearStorage_Name, kFlags, 0, 0, nullptr);
@@ -3165,18 +3234,18 @@ std::move(p_ids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHandlerValidationInfo[] = {
-    {&internal::Handler_IsAttributionReportingEnabled_Params_Data::Validate,
+    { &internal::Handler_IsAttributionReportingEnabled_Params_Data::Validate,
      &internal::Handler_IsAttributionReportingEnabled_ResponseParams_Data::Validate},
-    {&internal::Handler_GetActiveSources_Params_Data::Validate,
+    { &internal::Handler_GetActiveSources_Params_Data::Validate,
      &internal::Handler_GetActiveSources_ResponseParams_Data::Validate},
-    {&internal::Handler_GetReports_Params_Data::Validate,
+    { &internal::Handler_GetReports_Params_Data::Validate,
      &internal::Handler_GetReports_ResponseParams_Data::Validate},
-    {&internal::Handler_SendReports_Params_Data::Validate,
+    { &internal::Handler_SendReports_Params_Data::Validate,
      &internal::Handler_SendReports_ResponseParams_Data::Validate},
-    {&internal::Handler_ClearStorage_Params_Data::Validate,
+    { &internal::Handler_ClearStorage_Params_Data::Validate,
      &internal::Handler_ClearStorage_ResponseParams_Data::Validate},
 };
 
@@ -3263,14 +3332,17 @@ void FactoryProxy::Create(
                         "<value of type ::mojo::PendingReceiver<Handler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFactory_Create_Name, kFlags, 0, 0, nullptr);
@@ -3358,10 +3430,10 @@ bool FactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFactoryValidationInfo[] = {
-    {&internal::Factory_Create_Params_Data::Validate,
+    { &internal::Factory_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3521,7 +3593,7 @@ bool StructTraits<::attribution_internals::mojom::WebUISource::DataView, ::attri
         result->source_time = input.source_time();
       if (success)
         result->expiry_time = input.expiry_time();
-      if (success && !input.ReadEventReportWindows(&result->event_report_windows))
+      if (success && !input.ReadTriggerSpecsJson(&result->trigger_specs_json))
         success = false;
       if (success)
         result->aggregatable_report_window_time = input.aggregatable_report_window_time();
@@ -3531,8 +3603,9 @@ bool StructTraits<::attribution_internals::mojom::WebUISource::DataView, ::attri
         success = false;
       if (success)
         result->priority = input.priority();
-      if (success && !input.ReadDebugKey(&result->debug_key))
-        success = false;
+      if (success) {
+        result->debug_key = input.debug_key();
+      }
       if (success && !input.ReadDedupKeys(&result->dedup_keys))
         success = false;
       if (success && !input.ReadFilterData(&result->filter_data))
@@ -3543,8 +3616,12 @@ bool StructTraits<::attribution_internals::mojom::WebUISource::DataView, ::attri
         result->aggregatable_budget_consumed = input.aggregatable_budget_consumed();
       if (success && !input.ReadAggregatableDedupKeys(&result->aggregatable_dedup_keys))
         success = false;
-      if (success && !input.ReadTriggerConfig(&result->trigger_config))
+      if (success && !input.ReadTriggerDataMatching(&result->trigger_data_matching))
         success = false;
+      if (success)
+        result->event_level_epsilon = input.event_level_epsilon();
+      if (success)
+        result->debug_cookie_set = input.debug_cookie_set();
       if (success && !input.ReadAttributability(&result->attributability))
         success = false;
   *output = std::move(result);
@@ -3567,8 +3644,9 @@ bool StructTraits<::attribution_internals::mojom::WebUIRegistration::DataView, :
         success = false;
       if (success && !input.ReadRegistrationJson(&result->registration_json))
         success = false;
-      if (success && !input.ReadClearedDebugKey(&result->cleared_debug_key))
-        success = false;
+      if (success) {
+        result->cleared_debug_key = input.cleared_debug_key();
+      }
   *output = std::move(result);
   return success;
 }

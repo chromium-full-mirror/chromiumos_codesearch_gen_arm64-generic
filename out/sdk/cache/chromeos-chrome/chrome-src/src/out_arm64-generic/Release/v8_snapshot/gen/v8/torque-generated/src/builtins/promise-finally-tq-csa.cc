@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-finally-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -355,7 +356,7 @@ TF_BUILTIN(PromiseCatchFinally, CodeStubAssembler) {
     tmp7 = kConstructorSlot_0(state_);
     std::tie(tmp8, tmp9) = ContextSlot_PromiseFinallyContext_PromiseFinallyContext_Constructor_0(state_, TNode<Context>{tmp0}, TNode<IntPtrT>{tmp7}).Flatten();
     tmp10 = CodeStubAssembler(state_).LoadReference<JSReceiver>(CodeStubAssembler::Reference{tmp8, tmp9});
-    tmp11 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseResolve), tmp0, tmp10, tmp6);
+    tmp11 = ca_.CallBuiltin<Object>(Builtin::kPromiseResolve, tmp0, tmp10, tmp6);
     tmp12 = CodeStubAssembler(state_).LoadNativeContext(TNode<Context>{tmp0});
     tmp13 = CreateThrowerFunction_0(state_, TNode<Context>{tmp0}, TNode<NativeContext>{tmp12}, TNode<Object>{parameter2});
     tmp14 = InvokeThen_0(state_, TNode<Context>{tmp0}, TNode<NativeContext>{tmp12}, TNode<Object>{tmp11}, TNode<Object>{tmp13});
@@ -439,7 +440,7 @@ TF_BUILTIN(PromiseThenFinally, CodeStubAssembler) {
     tmp7 = kConstructorSlot_0(state_);
     std::tie(tmp8, tmp9) = ContextSlot_PromiseFinallyContext_PromiseFinallyContext_Constructor_0(state_, TNode<Context>{tmp0}, TNode<IntPtrT>{tmp7}).Flatten();
     tmp10 = CodeStubAssembler(state_).LoadReference<JSReceiver>(CodeStubAssembler::Reference{tmp8, tmp9});
-    tmp11 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseResolve), tmp0, tmp10, tmp6);
+    tmp11 = ca_.CallBuiltin<Object>(Builtin::kPromiseResolve, tmp0, tmp10, tmp6);
     tmp12 = CodeStubAssembler(state_).LoadNativeContext(TNode<Context>{tmp0});
     tmp13 = CreateValueThunkFunction_0(state_, TNode<Context>{tmp0}, TNode<NativeContext>{tmp12}, TNode<Object>{parameter2});
     tmp14 = InvokeThen_0(state_, TNode<Context>{tmp0}, TNode<NativeContext>{tmp12}, TNode<Object>{tmp11}, TNode<Object>{tmp13});

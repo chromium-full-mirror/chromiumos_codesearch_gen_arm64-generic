@@ -165,7 +165,6 @@ async function getStructuredConsoleMessages() {
 }
 exports.getStructuredConsoleMessages = getStructuredConsoleMessages;
 async function focusConsolePrompt() {
-    await (0, helper_js_1.waitFor)(exports.CONSOLE_PROMPT_SELECTOR);
     await (0, helper_js_1.click)(exports.CONSOLE_PROMPT_SELECTOR);
     await (0, helper_js_1.waitFor)('[aria-label="Console prompt"]');
     // FIXME(crbug/1112692): Refactor test to remove the timeout.
@@ -245,27 +244,21 @@ async function waitForConsoleInfoMessageAndClickOnLink() {
 exports.waitForConsoleInfoMessageAndClickOnLink = waitForConsoleInfoMessageAndClickOnLink;
 async function navigateToIssuesPanelViaInfoBar() {
     // Navigate to Issues panel
-    await (0, helper_js_1.waitFor)('#console-issues-counter');
     await (0, helper_js_1.click)('#console-issues-counter');
     await (0, helper_js_1.waitFor)('.issues-pane');
 }
 exports.navigateToIssuesPanelViaInfoBar = navigateToIssuesPanelViaInfoBar;
 async function turnOffHistoryAutocomplete() {
     await (0, helper_js_1.click)(exports.CONSOLE_SETTINGS_SELECTOR);
-    await (0, helper_js_1.waitFor)(exports.AUTOCOMPLETE_FROM_HISTORY_SELECTOR);
     await (0, helper_js_1.click)(exports.AUTOCOMPLETE_FROM_HISTORY_SELECTOR);
 }
 exports.turnOffHistoryAutocomplete = turnOffHistoryAutocomplete;
 async function toggleShowCorsErrors() {
-    await (0, helper_js_1.click)(exports.CONSOLE_SETTINGS_SELECTOR);
-    await (0, helper_js_1.waitFor)(exports.SHOW_CORS_ERRORS_SELECTOR);
-    await (0, helper_js_1.click)(exports.SHOW_CORS_ERRORS_SELECTOR);
-    await (0, helper_js_1.click)(exports.CONSOLE_SETTINGS_SELECTOR);
+    await toggleConsoleSetting(exports.SHOW_CORS_ERRORS_SELECTOR);
 }
 exports.toggleShowCorsErrors = toggleShowCorsErrors;
 async function toggleConsoleSetting(settingSelector) {
     await (0, helper_js_1.click)(exports.CONSOLE_SETTINGS_SELECTOR);
-    await (0, helper_js_1.waitFor)(settingSelector);
     await (0, helper_js_1.click)(settingSelector);
     await (0, helper_js_1.click)(exports.CONSOLE_SETTINGS_SELECTOR);
 }

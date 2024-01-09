@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder_types.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder_types.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder_types.mojom-forward.h"
 #include <string>
@@ -67,8 +68,10 @@ class  BootstrapConfigurations {
 
   BootstrapConfigurations();
 
-  explicit BootstrapConfigurations(
-      const std::string& instance_id);
+  BootstrapConfigurations(
+      const std::string& instance_id,
+      bool is_supervised_account,
+      const std::string& email);
 
 
   ~BootstrapConfigurations();
@@ -148,6 +151,10 @@ class  BootstrapConfigurations {
 
   
   std::string instance_id;
+  
+  bool is_supervised_account;
+  
+  std::string email;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -638,7 +645,7 @@ class  WifiCredentials {
       const std::string& ssid,
       WifiSecurityType security_type,
       bool is_hidden,
-      const absl::optional<std::string>& password);
+      const std::optional<std::string>& password);
 
 
   ~WifiCredentials();
@@ -722,7 +729,7 @@ class  WifiCredentials {
   
   bool is_hidden;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -918,57 +925,57 @@ class  QuickStartMessage {
   // Construct an instance holding |bootstrap_configurations|.
   static QuickStartMessagePtr
   NewBootstrapConfigurations(
-      BootstrapConfigurationsPtr bootstrap_configurations) {
+      BootstrapConfigurationsPtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_bootstrap_configurations(std::move(bootstrap_configurations));
+    result->set_bootstrap_configurations(std::move(value));
     return result;
   }
   // Construct an instance holding |wifi_credentials|.
   static QuickStartMessagePtr
   NewWifiCredentials(
-      WifiCredentialsPtr wifi_credentials) {
+      WifiCredentialsPtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_wifi_credentials(std::move(wifi_credentials));
+    result->set_wifi_credentials(std::move(value));
     return result;
   }
   // Construct an instance holding |notify_source_of_update_response|.
   static QuickStartMessagePtr
   NewNotifySourceOfUpdateResponse(
-      NotifySourceOfUpdateResponsePtr notify_source_of_update_response) {
+      NotifySourceOfUpdateResponsePtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_notify_source_of_update_response(std::move(notify_source_of_update_response));
+    result->set_notify_source_of_update_response(std::move(value));
     return result;
   }
   // Construct an instance holding |fido_assertion_response|.
   static QuickStartMessagePtr
   NewFidoAssertionResponse(
-      FidoAssertionResponsePtr fido_assertion_response) {
+      FidoAssertionResponsePtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_fido_assertion_response(std::move(fido_assertion_response));
+    result->set_fido_assertion_response(std::move(value));
     return result;
   }
   // Construct an instance holding |user_verification_requested|.
   static QuickStartMessagePtr
   NewUserVerificationRequested(
-      UserVerificationRequestedPtr user_verification_requested) {
+      UserVerificationRequestedPtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_user_verification_requested(std::move(user_verification_requested));
+    result->set_user_verification_requested(std::move(value));
     return result;
   }
   // Construct an instance holding |user_verification_response|.
   static QuickStartMessagePtr
   NewUserVerificationResponse(
-      UserVerificationResponsePtr user_verification_response) {
+      UserVerificationResponsePtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_user_verification_response(std::move(user_verification_response));
+    result->set_user_verification_response(std::move(value));
     return result;
   }
   // Construct an instance holding |user_verification_method|.
   static QuickStartMessagePtr
   NewUserVerificationMethod(
-      UserVerificationMethodPtr user_verification_method) {
+      UserVerificationMethodPtr value) {
     auto result = QuickStartMessagePtr(absl::in_place);
-    result->set_user_verification_method(std::move(user_verification_method));
+    result->set_user_verification_method(std::move(value));
     return result;
   }
 
@@ -1344,13 +1351,19 @@ bool QuickStartMessage::Equals(const T& other) const {
 template <typename StructPtrType>
 BootstrapConfigurationsPtr BootstrapConfigurations::Clone() const {
   return New(
-      mojo::Clone(instance_id)
+      mojo::Clone(instance_id),
+      mojo::Clone(is_supervised_account),
+      mojo::Clone(email)
   );
 }
 
 template <typename T, BootstrapConfigurations::EnableIfSame<T>*>
 bool BootstrapConfigurations::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->instance_id, other_struct.instance_id))
+    return false;
+  if (!mojo::Equals(this->is_supervised_account, other_struct.is_supervised_account))
+    return false;
+  if (!mojo::Equals(this->email, other_struct.email))
     return false;
   return true;
 }
@@ -1360,6 +1373,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.instance_id < rhs.instance_id)
     return true;
   if (rhs.instance_id < lhs.instance_id)
+    return false;
+  if (lhs.is_supervised_account < rhs.is_supervised_account)
+    return true;
+  if (rhs.is_supervised_account < lhs.is_supervised_account)
+    return false;
+  if (lhs.email < rhs.email)
+    return true;
+  if (rhs.email < lhs.email)
     return false;
   return false;
 }
@@ -1560,6 +1581,16 @@ struct  StructTraits<::ash::quick_start::mojom::BootstrapConfigurations::DataVie
   static const decltype(::ash::quick_start::mojom::BootstrapConfigurations::instance_id)& instance_id(
       const ::ash::quick_start::mojom::BootstrapConfigurationsPtr& input) {
     return input->instance_id;
+  }
+
+  static decltype(::ash::quick_start::mojom::BootstrapConfigurations::is_supervised_account) is_supervised_account(
+      const ::ash::quick_start::mojom::BootstrapConfigurationsPtr& input) {
+    return input->is_supervised_account;
+  }
+
+  static const decltype(::ash::quick_start::mojom::BootstrapConfigurations::email)& email(
+      const ::ash::quick_start::mojom::BootstrapConfigurationsPtr& input) {
+    return input->email;
   }
 
   static bool Read(::ash::quick_start::mojom::BootstrapConfigurations::DataView input, ::ash::quick_start::mojom::BootstrapConfigurationsPtr* output);

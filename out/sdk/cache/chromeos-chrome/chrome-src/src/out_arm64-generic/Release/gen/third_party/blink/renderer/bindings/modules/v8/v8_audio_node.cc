@@ -78,11 +78,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioNode>::value,
     "AudioNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.context.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->context();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -109,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.numberOfInputs.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfInputs();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -123,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.numberOfOutputs.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfOutputs();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -137,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->channelCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -150,9 +149,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelCount.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioNode";
@@ -176,10 +175,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelCountMode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->channelCountMode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->channelCountMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -190,9 +189,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelCountMode.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioNode";
@@ -229,10 +228,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelInterpretation.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->channelInterpretation();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->channelInterpretation();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -243,9 +242,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioNode.channelInterpretation.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioNode";
@@ -299,7 +298,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioNode>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -349,7 +348,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioParam>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -420,8 +419,9 @@ void DisconnectOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -448,7 +448,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_output = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -482,7 +482,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioNode>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -516,7 +516,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioNode>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -554,7 +554,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioNode>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -596,7 +596,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioParam>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -630,7 +630,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(v8_receiver);
+AudioNode* blink_receiver = V8AudioNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<AudioParam>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

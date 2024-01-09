@@ -5,6 +5,7 @@ import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+// 
 import '/shared/settings/controls/password_prompt_dialog.js';
 import '../settings_shared.css.js';
 import '../nearby_share_page/nearby_share_subpage.js';
@@ -22,14 +23,15 @@ import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/pref
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { Visibility } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { beforeNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists } from '../assert_extras.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { MultiDeviceBrowserProxyImpl } from './multidevice_browser_proxy.js';
 import { MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, PhoneHubFeatureAccessStatus } from './multidevice_constants.js';
@@ -103,6 +105,7 @@ export class SettingsMultidevicePageElement extends SettingsMultidevicePageEleme
                     Setting.kSetUpMultiDevice,
                     Setting.kVerifyMultiDeviceSetup,
                     Setting.kMultiDeviceOnOff,
+                    Setting.kNearbyShareDeviceVisibility,
                     Setting.kNearbyShareOnOff,
                 ]),
             },
@@ -136,6 +139,12 @@ export class SettingsMultidevicePageElement extends SettingsMultidevicePageEleme
                 type: Boolean,
                 value: () => {
                     return isRevampWayfindingEnabled();
+                },
+            },
+            isNameEnabled_: {
+                type: Boolean,
+                value: () => {
+                    return loadTimeData.getBoolean('isNameEnabled');
                 },
             },
             shouldShowForgetDeviceDialog_: {
@@ -183,9 +192,7 @@ export class SettingsMultidevicePageElement extends SettingsMultidevicePageEleme
         this.attemptDeepLink();
     }
     getLabelText_() {
-        if (this.isRevampWayfindingEnabled_ &&
-            this.pageContentData.mode ===
-                MultiDeviceSettingsMode.HOST_SET_VERIFIED) {
+        if (this.isRevampWayfindingEnabled_) {
             return this.i18n('multideviceSetupItemHeading');
         }
         return this.pageContentData.hostDeviceName ||
@@ -439,6 +446,27 @@ export class SettingsMultidevicePageElement extends SettingsMultidevicePageEleme
         }
         return this.pageContentData.isNearbyShareDisallowedByPolicy;
     }
+    getNearbyShareDescription_(state, visibility) {
+        if (!state) {
+            return this.i18n('nearbyShareDescriptionOff');
+        }
+        if (visibility === undefined) {
+            return this.i18n('nearbyShareDescriptionHidden');
+        }
+        switch (visibility) {
+            case Visibility.kAllContacts:
+                return this.i18n('nearbyShareDescriptionVisibleToAllContacts');
+            case Visibility.kSelectedContacts:
+                return this.i18n('nearbyShareDescriptionVisibleToSelectedContacts');
+            case Visibility.kYourDevices:
+                return this.i18n('nearbyShareDescriptionVisibleToYourDevices');
+            case Visibility.kNoOne:
+            case Visibility.kUnknown:
+                return this.i18n('nearbyShareDescriptionHidden');
+            default:
+                assertNotReached();
+        }
+    }
     getOnOffString_(state, onstr, offstr) {
         return state ? onstr : offstr;
     }
@@ -451,7 +479,7 @@ export class SettingsMultidevicePageElement extends SettingsMultidevicePageEleme
     showNearbyShareOnOffString_(isOnboardingComplete) {
         return isOnboardingComplete && !this.isNearbyShareDisallowedByPolicy_();
     }
-    showNearbyShareDescription_(isOnboardingComplete) {
+    showNearbyShareSetUpDescription_(isOnboardingComplete) {
         return !isOnboardingComplete || this.isNearbyShareDisallowedByPolicy_();
     }
     nearbyShareClick_() {

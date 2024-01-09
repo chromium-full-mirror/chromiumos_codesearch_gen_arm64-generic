@@ -36,6 +36,8 @@ class  App_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
+  int32_t type;
+  uint8_t pad2_[4];
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::app_management::mojom::internal::Permission_Data>>> permissions;
 
  private:
@@ -44,7 +46,7 @@ class  App_Data {
   App_Data();
   ~App_Data() = delete;
 };
-static_assert(sizeof(App_Data) == 32,
+static_assert(sizeof(App_Data) == 40,
               "Bad sizeof(App_Data)");
 // Used by App::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -51,8 +52,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kRequirements[] = "requirements";
@@ -68,8 +69,8 @@ struct ManifestKeys {
     ~Requirements();
     Requirements(const Requirements&) = delete;
     Requirements& operator=(const Requirements&) = delete;
-    Requirements(Requirements&& rhs);
-    Requirements& operator=(Requirements&& rhs);
+    Requirements(Requirements&& rhs) noexcept;
+    Requirements& operator=(Requirements&& rhs) noexcept;
 
     // Manifest key constants.
     static constexpr char kPlugins[] = "plugins";
@@ -87,8 +88,8 @@ struct ManifestKeys {
       ~Plugins();
       Plugins(const Plugins&) = delete;
       Plugins& operator=(const Plugins&) = delete;
-      Plugins(Plugins&& rhs);
-      Plugins& operator=(Plugins&& rhs);
+      Plugins(Plugins&& rhs) noexcept;
+      Plugins& operator=(Plugins&& rhs) noexcept;
 
       // Manifest key constants.
       static constexpr char kNpapi[] = "npapi";
@@ -99,7 +100,7 @@ struct ManifestKeys {
       static bool ParseFromDictionary(const base::Value::Dict& root_dict, base::StringPiece key, Plugins& out, std::u16string& error, std::vector<base::StringPiece>& error_path_reversed);
 
 
-      absl::optional<bool> npapi;
+      std::optional<bool> npapi;
 
     };
 
@@ -108,8 +109,8 @@ struct ManifestKeys {
       ~_3D();
       _3D(const _3D&) = delete;
       _3D& operator=(const _3D&) = delete;
-      _3D(_3D&& rhs);
-      _3D& operator=(_3D&& rhs);
+      _3D(_3D&& rhs) noexcept;
+      _3D& operator=(_3D&& rhs) noexcept;
 
       // Manifest key constants.
       static constexpr char kFeatures[] = "features";
@@ -129,8 +130,8 @@ struct ManifestKeys {
       ~Window();
       Window(const Window&) = delete;
       Window& operator=(const Window&) = delete;
-      Window(Window&& rhs);
-      Window& operator=(Window&& rhs);
+      Window(Window&& rhs) noexcept;
+      Window& operator=(Window&& rhs) noexcept;
 
       // Manifest key constants.
       static constexpr char kShape[] = "shape";
@@ -141,21 +142,21 @@ struct ManifestKeys {
       static bool ParseFromDictionary(const base::Value::Dict& root_dict, base::StringPiece key, Window& out, std::u16string& error, std::vector<base::StringPiece>& error_path_reversed);
 
 
-      absl::optional<bool> shape;
+      std::optional<bool> shape;
 
     };
 
 
-    absl::optional<Plugins> plugins;
+    std::optional<Plugins> plugins;
 
-    absl::optional<_3D> _3d;
+    std::optional<_3D> _3d;
 
-    absl::optional<Window> window;
+    std::optional<Window> window;
 
   };
 
 
-  absl::optional<Requirements> requirements;
+  std::optional<Requirements> requirements;
 
 };
 

@@ -61,11 +61,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Mojo>::value,
     "Mojo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Mojo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Mojo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8Mojo::InstallInterfaceTemplateFuncType V8Mojo::install_interface_template_func_ = nullptr;

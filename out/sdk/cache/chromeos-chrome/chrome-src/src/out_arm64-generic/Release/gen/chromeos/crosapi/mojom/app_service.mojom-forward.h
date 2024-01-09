@@ -29,6 +29,10 @@ class AppServiceProxy;
 
 class AppServiceSubscriber;
 
+class AppShortcutPublisher;
+
+class AppShortcutController;
+
 
 
 

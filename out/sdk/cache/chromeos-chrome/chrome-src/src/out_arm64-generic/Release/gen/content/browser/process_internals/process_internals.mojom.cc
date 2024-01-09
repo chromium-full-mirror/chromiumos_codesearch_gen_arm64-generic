@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -119,13 +120,13 @@ SiteInstanceInfo::SiteInstanceInfo(
     int32_t site_instance_group_id_in,
     int32_t browsing_instance_id_in,
     bool locked_in,
-    const absl::optional<::GURL>& site_url_in,
-    const absl::optional<::GURL>& process_lock_url_in,
+    const std::optional<::GURL>& site_url_in,
+    const std::optional<::GURL>& process_lock_url_in,
     bool requires_origin_keyed_process_in,
     bool is_sandbox_for_iframes_in,
     bool is_guest_in,
     bool is_pdf_in,
-    const absl::optional<std::string>& storage_partition_in)
+    const std::optional<std::string>& storage_partition_in)
     : id(std::move(id_in)),
       site_instance_group_id(std::move(site_instance_group_id_in)),
       browsing_instance_id(std::move(browsing_instance_id_in)),
@@ -183,7 +184,7 @@ void SiteInstanceInfo::WriteIntoTrace(
     dict.AddItem(
       "site_url"), this->site_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -192,7 +193,7 @@ void SiteInstanceInfo::WriteIntoTrace(
     dict.AddItem(
       "process_lock_url"), this->process_lock_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -237,7 +238,7 @@ void SiteInstanceInfo::WriteIntoTrace(
     dict.AddItem(
       "storage_partition"), this->storage_partition,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,7 +264,7 @@ FrameInfo::FrameInfo(
     int32_t agent_scheduling_group_id_in,
     int32_t process_id_in,
     SiteInstanceInfoPtr site_instance_in,
-    const absl::optional<::GURL>& last_committed_url_in,
+    const std::optional<::GURL>& last_committed_url_in,
     std::vector<FrameInfoPtr> subframes_in,
     FrameInfo::Type type_in)
     : routing_id(std::move(routing_id_in)),
@@ -319,7 +320,7 @@ void FrameInfo::WriteIntoTrace(
     dict.AddItem(
       "last_committed_url"), this->last_committed_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -718,14 +719,17 @@ void ProcessInternalsHandlerProxy::GetProcessCountInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetProcessCountInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetProcessCountInfo_Name, kFlags, 0, 0, nullptr);
@@ -749,14 +753,17 @@ void ProcessInternalsHandlerProxy::GetIsolationMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetIsolationMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetIsolationMode_Name, kFlags, 0, 0, nullptr);
@@ -780,14 +787,17 @@ void ProcessInternalsHandlerProxy::GetUserTriggeredIsolatedOrigins(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetUserTriggeredIsolatedOrigins");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -811,14 +821,17 @@ void ProcessInternalsHandlerProxy::GetWebTriggeredIsolatedOrigins(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetWebTriggeredIsolatedOrigins");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -842,14 +855,17 @@ void ProcessInternalsHandlerProxy::GetGloballyIsolatedOrigins(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetGloballyIsolatedOrigins");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetGloballyIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -873,14 +889,17 @@ void ProcessInternalsHandlerProxy::GetAllWebContentsInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::ProcessInternalsHandler::GetAllWebContentsInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetAllWebContentsInfo_Name, kFlags, 0, 0, nullptr);
@@ -990,7 +1009,8 @@ void ProcessInternalsHandler_GetProcessCountInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetProcessCountInfo_Name, kFlags, 0, 0, nullptr);
@@ -1118,7 +1138,8 @@ void ProcessInternalsHandler_GetIsolationMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetIsolationMode_Name, kFlags, 0, 0, nullptr);
@@ -1246,7 +1267,8 @@ void ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -1376,7 +1398,8 @@ void ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -1506,7 +1529,8 @@ void ProcessInternalsHandler_GetGloballyIsolatedOrigins_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetGloballyIsolatedOrigins_Name, kFlags, 0, 0, nullptr);
@@ -1636,7 +1660,8 @@ void ProcessInternalsHandler_GetAllWebContentsInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInternalsHandler_GetAllWebContentsInfo_Name, kFlags, 0, 0, nullptr);
@@ -1864,20 +1889,20 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProcessInternalsHandlerValidationInfo[] = {
-    {&internal::ProcessInternalsHandler_GetProcessCountInfo_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetProcessCountInfo_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetProcessCountInfo_ResponseParams_Data::Validate},
-    {&internal::ProcessInternalsHandler_GetIsolationMode_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetIsolationMode_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetIsolationMode_ResponseParams_Data::Validate},
-    {&internal::ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ResponseParams_Data::Validate},
-    {&internal::ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ResponseParams_Data::Validate},
-    {&internal::ProcessInternalsHandler_GetGloballyIsolatedOrigins_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetGloballyIsolatedOrigins_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetGloballyIsolatedOrigins_ResponseParams_Data::Validate},
-    {&internal::ProcessInternalsHandler_GetAllWebContentsInfo_Params_Data::Validate,
+    { &internal::ProcessInternalsHandler_GetAllWebContentsInfo_Params_Data::Validate,
      &internal::ProcessInternalsHandler_GetAllWebContentsInfo_ResponseParams_Data::Validate},
 };
 

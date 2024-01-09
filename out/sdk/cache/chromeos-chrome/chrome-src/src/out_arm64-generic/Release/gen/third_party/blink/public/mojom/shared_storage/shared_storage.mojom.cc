@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -252,7 +253,7 @@ SharedStorageWorkletHostProxy::SharedStorageWorkletHostProxy(mojo::MessageReceiv
 }
 
 void SharedStorageWorkletHostProxy::SelectURL(
-    const std::string& in_name, std::vector<SharedStorageUrlWithMetadataPtr> in_urls_with_metadata, ::blink::CloneableMessage in_serialized_data, bool in_keep_alive_after_operation, const absl::optional<std::string>& in_context_id, SelectURLCallback callback) {
+    const std::string& in_name, std::vector<SharedStorageUrlWithMetadataPtr> in_urls_with_metadata, ::blink::CloneableMessage in_serialized_data, bool in_keep_alive_after_operation, const std::optional<std::string>& in_context_id, const std::optional<::url::Origin>& in_aggregation_coordinator_origin, SelectURLCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::SharedStorageWorkletHost::SelectURL", "input_parameters",
@@ -272,17 +273,23 @@ void SharedStorageWorkletHostProxy::SelectURL(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("context_id"), in_context_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("aggregation_coordinator_origin"), in_aggregation_coordinator_origin,
+                        "<value of type const std::optional<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletHost_SelectURL_Name, kFlags, 0, 0, nullptr);
@@ -333,6 +340,13 @@ void SharedStorageWorkletHostProxy::SelectURL(
       in_context_id, context_id_fragment);
   params->context_id.Set(
       context_id_fragment.is_null() ? nullptr : context_id_fragment.data());
+  mojo::internal::MessageFragment<
+      typename decltype(params->aggregation_coordinator_origin)::BaseType> aggregation_coordinator_origin_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::OriginDataView>(
+      in_aggregation_coordinator_origin, aggregation_coordinator_origin_fragment);
+  params->aggregation_coordinator_origin.Set(
+      aggregation_coordinator_origin_fragment.is_null() ? nullptr : aggregation_coordinator_origin_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SharedStorageWorkletHost::Name_);
@@ -345,7 +359,7 @@ void SharedStorageWorkletHostProxy::SelectURL(
 }
 
 void SharedStorageWorkletHostProxy::Run(
-    const std::string& in_name, ::blink::CloneableMessage in_serialized_data, bool in_keep_alive_after_operation, const absl::optional<std::string>& in_context_id, RunCallback callback) {
+    const std::string& in_name, ::blink::CloneableMessage in_serialized_data, bool in_keep_alive_after_operation, const std::optional<std::string>& in_context_id, const std::optional<::url::Origin>& in_aggregation_coordinator_origin, RunCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::SharedStorageWorkletHost::Run", "input_parameters",
@@ -362,17 +376,23 @@ void SharedStorageWorkletHostProxy::Run(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("context_id"), in_context_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("aggregation_coordinator_origin"), in_aggregation_coordinator_origin,
+                        "<value of type const std::optional<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletHost_Run_Name, kFlags, 0, 0, nullptr);
@@ -410,6 +430,13 @@ void SharedStorageWorkletHostProxy::Run(
       in_context_id, context_id_fragment);
   params->context_id.Set(
       context_id_fragment.is_null() ? nullptr : context_id_fragment.data());
+  mojo::internal::MessageFragment<
+      typename decltype(params->aggregation_coordinator_origin)::BaseType> aggregation_coordinator_origin_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::OriginDataView>(
+      in_aggregation_coordinator_origin, aggregation_coordinator_origin_fragment);
+  params->aggregation_coordinator_origin.Set(
+      aggregation_coordinator_origin_fragment.is_null() ? nullptr : aggregation_coordinator_origin_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SharedStorageWorkletHost::Name_);
@@ -466,7 +493,7 @@ class SharedStorageWorkletHost_SelectURL_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      bool in_success, const std::string& in_error_message, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config);
+      bool in_success, const std::string& in_error_message, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config);
 };
 
 bool SharedStorageWorkletHost_SelectURL_ForwardToCallback::Accept(
@@ -481,7 +508,7 @@ bool SharedStorageWorkletHost_SelectURL_ForwardToCallback::Accept(
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig> p_config{};
+  std::optional<::blink::FencedFrame::RedactedFencedFrameConfig> p_config{};
   SharedStorageWorkletHost_SelectURL_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -506,7 +533,7 @@ std::move(p_config));
 }
 
 void SharedStorageWorkletHost_SelectURL_ProxyToResponder::Run(
-    bool in_success, const std::string& in_error_message, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config) {
+    bool in_success, const std::string& in_error_message, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::SharedStorageWorkletHost::SelectURL", "async_response_parameters",
@@ -520,13 +547,14 @@ void SharedStorageWorkletHost_SelectURL_ProxyToResponder::Run(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("config"), in_config,
-                        "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&>");
+                        "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletHost_SelectURL_Name, kFlags, 0, 0, nullptr);
@@ -669,7 +697,8 @@ void SharedStorageWorkletHost_Run_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletHost_Run_Name, kFlags, 0, 0, nullptr);
@@ -743,7 +772,8 @@ bool SharedStorageWorkletHostStubDispatch::AcceptWithResponder(
       std::vector<SharedStorageUrlWithMetadataPtr> p_urls_with_metadata{};
       ::blink::CloneableMessage p_serialized_data{};
       bool p_keep_alive_after_operation{};
-      absl::optional<std::string> p_context_id{};
+      std::optional<std::string> p_context_id{};
+      std::optional<::url::Origin> p_aggregation_coordinator_origin{};
       SharedStorageWorkletHost_SelectURL_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -755,6 +785,8 @@ bool SharedStorageWorkletHostStubDispatch::AcceptWithResponder(
       if (success)
         p_keep_alive_after_operation = input_data_view.keep_alive_after_operation();
       if (success && !input_data_view.ReadContextId(&p_context_id))
+        success = false;
+      if (success && !input_data_view.ReadAggregationCoordinatorOrigin(&p_aggregation_coordinator_origin))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -773,7 +805,8 @@ std::move(p_name),
 std::move(p_urls_with_metadata), 
 std::move(p_serialized_data), 
 std::move(p_keep_alive_after_operation), 
-std::move(p_context_id), std::move(callback));
+std::move(p_context_id), 
+std::move(p_aggregation_coordinator_origin), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletHost_Run_Name: {
@@ -787,7 +820,8 @@ std::move(p_context_id), std::move(callback));
       std::string p_name{};
       ::blink::CloneableMessage p_serialized_data{};
       bool p_keep_alive_after_operation{};
-      absl::optional<std::string> p_context_id{};
+      std::optional<std::string> p_context_id{};
+      std::optional<::url::Origin> p_aggregation_coordinator_origin{};
       SharedStorageWorkletHost_Run_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -797,6 +831,8 @@ std::move(p_context_id), std::move(callback));
       if (success)
         p_keep_alive_after_operation = input_data_view.keep_alive_after_operation();
       if (success && !input_data_view.ReadContextId(&p_context_id))
+        success = false;
+      if (success && !input_data_view.ReadAggregationCoordinatorOrigin(&p_aggregation_coordinator_origin))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -814,18 +850,19 @@ std::move(p_context_id), std::move(callback));
 std::move(p_name), 
 std::move(p_serialized_data), 
 std::move(p_keep_alive_after_operation), 
-std::move(p_context_id), std::move(callback));
+std::move(p_context_id), 
+std::move(p_aggregation_coordinator_origin), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedStorageWorkletHostValidationInfo[] = {
-    {&internal::SharedStorageWorkletHost_SelectURL_Params_Data::Validate,
+    { &internal::SharedStorageWorkletHost_SelectURL_Params_Data::Validate,
      &internal::SharedStorageWorkletHost_SelectURL_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletHost_Run_Params_Data::Validate,
+    { &internal::SharedStorageWorkletHost_Run_Params_Data::Validate,
      &internal::SharedStorageWorkletHost_Run_ResponseParams_Data::Validate},
 };
 
@@ -1075,14 +1112,17 @@ void SharedStorageDocumentServiceProxy::CreateWorklet(
                         "<value of type ::mojo::PendingAssociatedReceiver<SharedStorageWorkletHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_CreateWorklet_Name, kFlags, 0, 0, nullptr);
@@ -1149,14 +1189,17 @@ void SharedStorageDocumentServiceProxy::SharedStorageSet(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageSet_Name, kFlags, 0, 0, nullptr);
@@ -1213,14 +1256,17 @@ void SharedStorageDocumentServiceProxy::SharedStorageAppend(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageAppend_Name, kFlags, 0, 0, nullptr);
@@ -1273,14 +1319,17 @@ void SharedStorageDocumentServiceProxy::SharedStorageDelete(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageDelete_Name, kFlags, 0, 0, nullptr);
@@ -1315,14 +1364,17 @@ void SharedStorageDocumentServiceProxy::SharedStorageClear(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SharedStorageDocumentService::SharedStorageClear");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageClear_Name, kFlags, 0, 0, nullptr);
@@ -1439,7 +1491,8 @@ void SharedStorageDocumentService_CreateWorklet_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_CreateWorklet_Name, kFlags, 0, 0, nullptr);
@@ -1575,7 +1628,8 @@ void SharedStorageDocumentService_SharedStorageSet_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageSet_Name, kFlags, 0, 0, nullptr);
@@ -1711,7 +1765,8 @@ void SharedStorageDocumentService_SharedStorageAppend_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageAppend_Name, kFlags, 0, 0, nullptr);
@@ -1847,7 +1902,8 @@ void SharedStorageDocumentService_SharedStorageDelete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageDelete_Name, kFlags, 0, 0, nullptr);
@@ -1983,7 +2039,8 @@ void SharedStorageDocumentService_SharedStorageClear_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageDocumentService_SharedStorageClear_Name, kFlags, 0, 0, nullptr);
@@ -2220,18 +2277,18 @@ std::move(p_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedStorageDocumentServiceValidationInfo[] = {
-    {&internal::SharedStorageDocumentService_CreateWorklet_Params_Data::Validate,
+    { &internal::SharedStorageDocumentService_CreateWorklet_Params_Data::Validate,
      &internal::SharedStorageDocumentService_CreateWorklet_ResponseParams_Data::Validate},
-    {&internal::SharedStorageDocumentService_SharedStorageSet_Params_Data::Validate,
+    { &internal::SharedStorageDocumentService_SharedStorageSet_Params_Data::Validate,
      &internal::SharedStorageDocumentService_SharedStorageSet_ResponseParams_Data::Validate},
-    {&internal::SharedStorageDocumentService_SharedStorageAppend_Params_Data::Validate,
+    { &internal::SharedStorageDocumentService_SharedStorageAppend_Params_Data::Validate,
      &internal::SharedStorageDocumentService_SharedStorageAppend_ResponseParams_Data::Validate},
-    {&internal::SharedStorageDocumentService_SharedStorageDelete_Params_Data::Validate,
+    { &internal::SharedStorageDocumentService_SharedStorageDelete_Params_Data::Validate,
      &internal::SharedStorageDocumentService_SharedStorageDelete_ResponseParams_Data::Validate},
-    {&internal::SharedStorageDocumentService_SharedStorageClear_Params_Data::Validate,
+    { &internal::SharedStorageDocumentService_SharedStorageClear_Params_Data::Validate,
      &internal::SharedStorageDocumentService_SharedStorageClear_ResponseParams_Data::Validate},
 };
 
@@ -2305,11 +2362,11 @@ bool StructTraits<::blink::mojom::SharedStorageUrlWithMetadata::DataView, ::blin
 namespace blink::mojom {
 
 
-void SharedStorageWorkletHostInterceptorForTesting::SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, SelectURLCallback callback) {
-  GetForwardingInterface()->SelectURL(std::move(name), std::move(urls_with_metadata), std::move(serialized_data), std::move(keep_alive_after_operation), std::move(context_id), std::move(callback));
+void SharedStorageWorkletHostInterceptorForTesting::SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, SelectURLCallback callback) {
+  GetForwardingInterface()->SelectURL(std::move(name), std::move(urls_with_metadata), std::move(serialized_data), std::move(keep_alive_after_operation), std::move(context_id), std::move(aggregation_coordinator_origin), std::move(callback));
 }
-void SharedStorageWorkletHostInterceptorForTesting::Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, RunCallback callback) {
-  GetForwardingInterface()->Run(std::move(name), std::move(serialized_data), std::move(keep_alive_after_operation), std::move(context_id), std::move(callback));
+void SharedStorageWorkletHostInterceptorForTesting::Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, RunCallback callback) {
+  GetForwardingInterface()->Run(std::move(name), std::move(serialized_data), std::move(keep_alive_after_operation), std::move(context_id), std::move(aggregation_coordinator_origin), std::move(callback));
 }
 SharedStorageWorkletHostAsyncWaiter::SharedStorageWorkletHostAsyncWaiter(
     SharedStorageWorkletHost* proxy) : proxy_(proxy) {}
@@ -2317,20 +2374,20 @@ SharedStorageWorkletHostAsyncWaiter::SharedStorageWorkletHostAsyncWaiter(
 SharedStorageWorkletHostAsyncWaiter::~SharedStorageWorkletHostAsyncWaiter() = default;
 
 void SharedStorageWorkletHostAsyncWaiter::SelectURL(
-    const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, bool* out_success, std::string* out_error_message, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config) {
+    const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, bool* out_success, std::string* out_error_message, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config) {
   base::RunLoop loop;
-  proxy_->SelectURL(std::move(name),std::move(urls_with_metadata),std::move(serialized_data),std::move(keep_alive_after_operation),std::move(context_id),
+  proxy_->SelectURL(std::move(name),std::move(urls_with_metadata),std::move(serialized_data),std::move(keep_alive_after_operation),std::move(context_id),std::move(aggregation_coordinator_origin),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_success
 ,
              std::string* out_error_message
 ,
-             absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config
+             std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config
 ,
              bool success,
              const std::string& error_message,
-             const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& config) {*out_success = std::move(success);*out_error_message = std::move(error_message);*out_config = std::move(config);
+             const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& config) {*out_success = std::move(success);*out_error_message = std::move(error_message);*out_config = std::move(config);
             loop->Quit();
           },
           &loop,
@@ -2343,9 +2400,9 @@ void SharedStorageWorkletHostAsyncWaiter::SelectURL(
 
 
 void SharedStorageWorkletHostAsyncWaiter::Run(
-    const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, bool* out_success, std::string* out_error_message) {
+    const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, bool* out_success, std::string* out_error_message) {
   base::RunLoop loop;
-  proxy_->Run(std::move(name),std::move(serialized_data),std::move(keep_alive_after_operation),std::move(context_id),
+  proxy_->Run(std::move(name),std::move(serialized_data),std::move(keep_alive_after_operation),std::move(context_id),std::move(aggregation_coordinator_origin),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_success

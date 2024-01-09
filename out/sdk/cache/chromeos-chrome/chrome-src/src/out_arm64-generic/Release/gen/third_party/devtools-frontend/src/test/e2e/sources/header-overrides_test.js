@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const network_helpers_js_1 = require("../helpers/network-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
 const ENABLE_OVERRIDES_SELECTOR = '[aria-label="Select folder for overrides"]';
@@ -17,7 +18,7 @@ const ACTIVE_HEADERS_TAB_SELECTOR = '[aria-label=Headers][role=tab][aria-selecte
 const RESPONSE_HEADERS_SELECTOR = '[aria-label="Response Headers"]';
 const HEADER_ROW_SELECTOR = '.row';
 async function createHeaderOverride() {
-    await (0, sources_helpers_js_1.clickOnContextMenu)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
+    await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
     await (0, helper_js_1.waitFor)('.being-edited');
     await (0, helper_js_1.typeText)('.headers\n');
     await (0, helper_js_1.click)('.add-block');
@@ -70,7 +71,6 @@ async function editHeaderItem(newValue, previousValue) {
     });
     // Skip until flake is fixed
     mocha_extensions_js_1.it.skip('[crbug.com/1432925]: can create header overrides', async () => {
-        await (0, helper_js_1.enableExperiment)('headerOverrides');
         await (0, helper_js_1.goToResource)('empty.html');
         await (0, sources_helpers_js_1.openSourcesPanel)();
         await (0, sources_helpers_js_1.enableLocalOverrides)();
@@ -87,7 +87,6 @@ async function editHeaderItem(newValue, previousValue) {
     });
     // Skip until flake is fixed
     mocha_extensions_js_1.it.skip('[crbug.com/1432925]: can override headers via network panel', async () => {
-        await (0, helper_js_1.enableExperiment)('headerOverrides');
         await (0, network_helpers_js_1.navigateToNetworkTab)('hello.html');
         await (0, network_helpers_js_1.waitForSomeRequestsToAppear)(1);
         await (0, network_helpers_js_1.selectRequestByName)('hello.html');

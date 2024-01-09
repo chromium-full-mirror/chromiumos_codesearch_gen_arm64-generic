@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/shared_image_capabilities.mojom-features.h"
 #include "gpu/ipc/common/shared_image_capabilities.mojom-shared.h"
 #include "gpu/ipc/common/shared_image_capabilities.mojom-forward.h"
 #include <string>
@@ -77,6 +78,7 @@ class GPU_EXPORT SharedImageCapabilities {
       bool supports_luminance_shared_images,
       bool supports_r16_shared_images,
       bool disable_r8_shared_images,
+      bool disable_webgpu_shared_images,
       bool shared_image_d3d,
       bool shared_image_swap_chain);
 
@@ -164,6 +166,8 @@ class GPU_EXPORT SharedImageCapabilities {
   
   bool disable_r8_shared_images;
   
+  bool disable_webgpu_shared_images;
+  
   bool shared_image_d3d;
   
   bool shared_image_swap_chain;
@@ -204,6 +208,7 @@ SharedImageCapabilitiesPtr SharedImageCapabilities::Clone() const {
       mojo::Clone(supports_luminance_shared_images),
       mojo::Clone(supports_r16_shared_images),
       mojo::Clone(disable_r8_shared_images),
+      mojo::Clone(disable_webgpu_shared_images),
       mojo::Clone(shared_image_d3d),
       mojo::Clone(shared_image_swap_chain)
   );
@@ -218,6 +223,8 @@ bool SharedImageCapabilities::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->supports_r16_shared_images, other_struct.supports_r16_shared_images))
     return false;
   if (!mojo::Equals(this->disable_r8_shared_images, other_struct.disable_r8_shared_images))
+    return false;
+  if (!mojo::Equals(this->disable_webgpu_shared_images, other_struct.disable_webgpu_shared_images))
     return false;
   if (!mojo::Equals(this->shared_image_d3d, other_struct.shared_image_d3d))
     return false;
@@ -243,6 +250,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.disable_r8_shared_images < rhs.disable_r8_shared_images)
     return true;
   if (rhs.disable_r8_shared_images < lhs.disable_r8_shared_images)
+    return false;
+  if (lhs.disable_webgpu_shared_images < rhs.disable_webgpu_shared_images)
+    return true;
+  if (rhs.disable_webgpu_shared_images < lhs.disable_webgpu_shared_images)
     return false;
   if (lhs.shared_image_d3d < rhs.shared_image_d3d)
     return true;
@@ -285,6 +296,11 @@ struct GPU_EXPORT StructTraits<::gpu::mojom::SharedImageCapabilities::DataView,
   static decltype(::gpu::mojom::SharedImageCapabilities::disable_r8_shared_images) disable_r8_shared_images(
       const ::gpu::mojom::SharedImageCapabilitiesPtr& input) {
     return input->disable_r8_shared_images;
+  }
+
+  static decltype(::gpu::mojom::SharedImageCapabilities::disable_webgpu_shared_images) disable_webgpu_shared_images(
+      const ::gpu::mojom::SharedImageCapabilitiesPtr& input) {
+    return input->disable_webgpu_shared_images;
   }
 
   static decltype(::gpu::mojom::SharedImageCapabilities::shared_image_d3d) shared_image_d3d(

@@ -203,6 +203,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ResourceLoadInfo_Data {
   int64_t raw_body_bytes;
   int64_t total_received_bytes;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::RedirectInfo_Data>>> redirect_info_chain;
+  int32_t http_status_code;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ResourceLoadInfo_Data>;
@@ -210,7 +212,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ResourceLoadInfo_Data {
   ResourceLoadInfo_Data();
   ~ResourceLoadInfo_Data() = delete;
 };
-static_assert(sizeof(ResourceLoadInfo_Data) == 112,
+static_assert(sizeof(ResourceLoadInfo_Data) == 120,
               "Bad sizeof(ResourceLoadInfo_Data)");
 // Used by ResourceLoadInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

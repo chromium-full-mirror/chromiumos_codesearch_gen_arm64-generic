@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/objects/js-collection-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -113,7 +114,7 @@ TNode<JSCollection> Cast_JSCollection_0(compiler::CodeAssemblerState* state_, TN
   return TNode<JSCollection>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=12&c=1
 TNode<JSSet> Cast_JSSet_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -149,7 +150,7 @@ TNode<JSSet> Cast_JSSet_0(compiler::CodeAssemblerState* state_, TNode<HeapObject
   return TNode<JSSet>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=11&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
 TNode<JSMap> Cast_JSMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -185,7 +186,7 @@ TNode<JSMap> Cast_JSMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject
   return TNode<JSMap>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=15&c=1
 TNode<JSWeakCollection> Cast_JSWeakCollection_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -221,7 +222,7 @@ TNode<JSWeakCollection> Cast_JSWeakCollection_0(compiler::CodeAssemblerState* st
   return TNode<JSWeakCollection>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=20&c=1
 TNode<JSWeakSet> Cast_JSWeakSet_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -257,7 +258,7 @@ TNode<JSWeakSet> Cast_JSWeakSet_0(compiler::CodeAssemblerState* state_, TNode<He
   return TNode<JSWeakSet>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=19&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
 TNode<JSWeakMap> Cast_JSWeakMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -293,7 +294,7 @@ TNode<JSWeakMap> Cast_JSWeakMap_0(compiler::CodeAssemblerState* state_, TNode<He
   return TNode<JSWeakMap>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=23&c=1
 TNode<JSMapIterator> Cast_JSMapIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -329,7 +330,7 @@ TNode<JSMapIterator> Cast_JSMapIterator_0(compiler::CodeAssemblerState* state_, 
   return TNode<JSMapIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=22&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=24&c=1
 TNode<JSMapIterator> Cast_JSMapKeyIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -365,7 +366,7 @@ TNode<JSMapIterator> Cast_JSMapKeyIterator_0(compiler::CodeAssemblerState* state
   return TNode<JSMapIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=24&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=26&c=1
 TNode<JSMapIterator> Cast_JSMapKeyValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -401,7 +402,7 @@ TNode<JSMapIterator> Cast_JSMapKeyValueIterator_0(compiler::CodeAssemblerState* 
   return TNode<JSMapIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=26&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=28&c=1
 TNode<JSMapIterator> Cast_JSMapValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -437,7 +438,7 @@ TNode<JSMapIterator> Cast_JSMapValueIterator_0(compiler::CodeAssemblerState* sta
   return TNode<JSMapIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=29&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=31&c=1
 TNode<JSSetIterator> Cast_JSSetIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -473,7 +474,7 @@ TNode<JSSetIterator> Cast_JSSetIterator_0(compiler::CodeAssemblerState* state_, 
   return TNode<JSSetIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=30&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=32&c=1
 TNode<JSSetIterator> Cast_JSSetKeyValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -509,7 +510,7 @@ TNode<JSSetIterator> Cast_JSSetKeyValueIterator_0(compiler::CodeAssemblerState* 
   return TNode<JSSetIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=32&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=34&c=1
 TNode<JSSetIterator> Cast_JSSetValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -545,7 +546,7 @@ TNode<JSSetIterator> Cast_JSSetValueIterator_0(compiler::CodeAssemblerState* sta
   return TNode<JSSetIterator>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
 TNode<Object> LoadJSCollectionTable_0(compiler::CodeAssemblerState* state_, TNode<JSCollection> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -566,7 +567,7 @@ TNode<Object> LoadJSCollectionTable_0(compiler::CodeAssemblerState* state_, TNod
   return TNode<Object>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
 void StoreJSCollectionTable_0(compiler::CodeAssemblerState* state_, TNode<JSCollection> p_o, TNode<Object> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -585,7 +586,7 @@ void StoreJSCollectionTable_0(compiler::CodeAssemblerState* state_, TNode<JSColl
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
 TNode<Object> LoadJSWeakCollectionTable_0(compiler::CodeAssemblerState* state_, TNode<JSWeakCollection> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -606,7 +607,7 @@ TNode<Object> LoadJSWeakCollectionTable_0(compiler::CodeAssemblerState* state_, 
   return TNode<Object>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
 void StoreJSWeakCollectionTable_0(compiler::CodeAssemblerState* state_, TNode<JSWeakCollection> p_o, TNode<Object> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -770,7 +771,7 @@ TNode<JSCollection> DownCastForTorqueClass_JSCollection_0(compiler::CodeAssemble
   return TNode<JSCollection>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=12&c=1
 TNode<JSSet> DownCastForTorqueClass_JSSet_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -915,7 +916,7 @@ TNode<JSSet> DownCastForTorqueClass_JSSet_0(compiler::CodeAssemblerState* state_
   return TNode<JSSet>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=11&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
 TNode<JSMap> DownCastForTorqueClass_JSMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1060,7 +1061,7 @@ TNode<JSMap> DownCastForTorqueClass_JSMap_0(compiler::CodeAssemblerState* state_
   return TNode<JSMap>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=15&c=1
 TNode<JSWeakCollection> DownCastForTorqueClass_JSWeakCollection_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1205,7 +1206,7 @@ TNode<JSWeakCollection> DownCastForTorqueClass_JSWeakCollection_0(compiler::Code
   return TNode<JSWeakCollection>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=20&c=1
 TNode<JSWeakSet> DownCastForTorqueClass_JSWeakSet_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1350,7 +1351,7 @@ TNode<JSWeakSet> DownCastForTorqueClass_JSWeakSet_0(compiler::CodeAssemblerState
   return TNode<JSWeakSet>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=19&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
 TNode<JSWeakMap> DownCastForTorqueClass_JSWeakMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1495,7 +1496,7 @@ TNode<JSWeakMap> DownCastForTorqueClass_JSWeakMap_0(compiler::CodeAssemblerState
   return TNode<JSWeakMap>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=23&c=1
 TNode<JSMapIterator> DownCastForTorqueClass_JSMapIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1640,7 +1641,7 @@ TNode<JSMapIterator> DownCastForTorqueClass_JSMapIterator_0(compiler::CodeAssemb
   return TNode<JSMapIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=22&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=24&c=1
 TNode<JSMapIterator> DownCastForTorqueClass_JSMapKeyIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1785,7 +1786,7 @@ TNode<JSMapIterator> DownCastForTorqueClass_JSMapKeyIterator_0(compiler::CodeAss
   return TNode<JSMapIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=24&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=26&c=1
 TNode<JSMapIterator> DownCastForTorqueClass_JSMapKeyValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1930,7 +1931,7 @@ TNode<JSMapIterator> DownCastForTorqueClass_JSMapKeyValueIterator_0(compiler::Co
   return TNode<JSMapIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=26&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=28&c=1
 TNode<JSMapIterator> DownCastForTorqueClass_JSMapValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2075,7 +2076,7 @@ TNode<JSMapIterator> DownCastForTorqueClass_JSMapValueIterator_0(compiler::CodeA
   return TNode<JSMapIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=29&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=31&c=1
 TNode<JSSetIterator> DownCastForTorqueClass_JSSetIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2220,7 +2221,7 @@ TNode<JSSetIterator> DownCastForTorqueClass_JSSetIterator_0(compiler::CodeAssemb
   return TNode<JSSetIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=30&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=32&c=1
 TNode<JSSetIterator> DownCastForTorqueClass_JSSetKeyValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2365,7 +2366,7 @@ TNode<JSSetIterator> DownCastForTorqueClass_JSSetKeyValueIterator_0(compiler::Co
   return TNode<JSSetIterator>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=32&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=34&c=1
 TNode<JSSetIterator> DownCastForTorqueClass_JSSetValueIterator_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

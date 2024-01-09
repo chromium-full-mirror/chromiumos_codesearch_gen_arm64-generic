@@ -33,12 +33,15 @@ export class HistoryClustersHeaderElementV2 extends ElementBase {
         e.stopPropagation();
         this.dispatchEvent(new CustomEvent('show-all-button-click', { bubbles: true, composed: true }));
     }
+    onDoneClick_(e) {
+        e.stopPropagation();
+        this.dispatchEvent(new CustomEvent('done-button-click', { bubbles: true, composed: true }));
+    }
     onSuggestClick_(e) {
         e.stopPropagation();
         this.dispatchEvent(new CustomEvent('suggest-click', { bubbles: true, composed: true }));
     }
     onMenuButtonClick_(e) {
-        e.stopPropagation();
         const moduleHeader = this.shadowRoot.querySelector('ntp-module-header-v2');
         moduleHeader.showAt(e);
     }
@@ -48,7 +51,7 @@ export class HistoryClustersHeaderElementV2 extends ElementBase {
                 {
                     action: 'done',
                     icon: 'modules:done',
-                    text: this.i18n('modulesJourneysDoneButton'),
+                    text: this.i18n('modulesHistoryDoneButton'),
                 },
                 {
                     action: 'dismiss',

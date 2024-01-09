@@ -34,7 +34,6 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/debugd/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/debugd/_audit_log_filter-install_config.stamp: stamp
 build obj/debugd/_bt_usb_disconnect_helper-install_config.stamp: stamp
 build obj/debugd/_capture_packets-install_config.stamp: stamp
@@ -54,7 +53,7 @@ build obj/debugd/_network_status-install_config.stamp: stamp
 build obj/debugd/_scheduler_configuration_helper-install_config.stamp: stamp
 build obj/debugd/_typec_connector_class_helper-install_config.stamp: stamp
 build obj/debugd/_usb4_devinfo_helper-install_config.stamp: stamp
-build obj/debugd/all.stamp: stamp ./audit_log_filter ./bt_usb_disconnect_helper ./capture_packets ./libcryptohome-proto.a ./cups_uri_helper ./debugd obj/debugd/debugd-adaptors.stamp ./libdebugd_dbus_utils.a ./dev_features_chrome_remote_debugging ./dev_features_password ./dev_features_rootfs_verification ./dev_features_ssh ./dev_features_usb_boot ./folder_size_dump ./generate_logs ./icmp obj/debugd/install_helper_scripts.stamp obj/debugd/install_tmpfilesd.stamp obj/debugd/install_tmpfilesd_dev.stamp ./libdebugd.a ./modetest_helper ./netif ./network_status ./libpower_manager-proto.a ./typec_connector_class_helper ./usb4_devinfo_helper ./debugd_testrunner
+build obj/debugd/all.stamp: stamp ./audit_log_filter ./bt_usb_disconnect_helper ./capture_packets ./libcryptohome-proto.a ./cups_uri_helper ./debugd obj/debugd/debugd-adaptors.stamp ./libdebugd_dbus_utils.a ./dev_features_chrome_remote_debugging ./dev_features_password ./dev_features_rootfs_verification ./dev_features_ssh ./dev_features_usb_boot ./folder_size_dump ./generate_logs ./icmp obj/debugd/install_helper_scripts.stamp obj/debugd/install_tmpfilesd.stamp obj/debugd/install_tmpfilesd_dev.stamp ./libdebugd.a ./modetest_helper ./netif ./network_status ./libpower_manager-proto.a ./typec_connector_class_helper ./usb4_devinfo_helper
 subninja obj/debugd/audit_log_filter.ninja
 subninja obj/debugd/bt_usb_disconnect_helper.ninja
 subninja obj/debugd/capture_packets.ninja
@@ -80,7 +79,6 @@ build gen/include/debugd/dbus_adaptors/org.chromium.debugd.h: __debugd_debugd-ad
 build obj/debugd/debugd-adaptors.stamp: stamp gen/include/debugd/dbus_adaptors/org.chromium.debugd.h
 subninja obj/debugd/debugd_dbus_utils.ninja
 build obj/debugd/debugd_share_config.stamp: stamp
-subninja obj/debugd/debugd_testrunner.ninja
 subninja obj/debugd/dev_features_chrome_remote_debugging.ninja
 subninja obj/debugd/dev_features_password.ninja
 subninja obj/debugd/dev_features_rootfs_verification.ninja

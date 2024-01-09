@@ -1,8 +1,10 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 export class Page {
+    pageName;
+    visible;
     constructor(pageName) {
         this.pageName = pageName;
         this.visible = false;
@@ -17,6 +19,8 @@ export class Page {
     }
 }
 export class PageNavigator {
+    storedPages;
+    activePage;
     constructor() {
         this.storedPages = new Map();
         this.activePage = null;

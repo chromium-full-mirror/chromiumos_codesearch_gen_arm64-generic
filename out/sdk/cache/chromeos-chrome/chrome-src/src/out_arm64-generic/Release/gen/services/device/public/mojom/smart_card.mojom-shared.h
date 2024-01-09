@@ -243,8 +243,10 @@ enum class SmartCardError : int32_t {
   kShutdown = 29,
   
   kUnknown = 30,
+  
+  kPermissionDenied = 31,
   kMinValue = 0,
-  kMaxValue = 30,
+  kMaxValue = 31,
 };
 
  std::ostream& operator<<(std::ostream& os, SmartCardError value);

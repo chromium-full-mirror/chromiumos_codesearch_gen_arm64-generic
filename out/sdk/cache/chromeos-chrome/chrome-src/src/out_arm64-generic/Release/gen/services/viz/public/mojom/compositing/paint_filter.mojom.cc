@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,7 +48,7 @@ PaintFilter::PaintFilter()
     : data() {}
 
 PaintFilter::PaintFilter(
-    absl::optional<std::vector<uint8_t>> data_in)
+    std::optional<std::vector<uint8_t>> data_in)
     : data(std::move(data_in)) {}
 
 PaintFilter::~PaintFilter() = default;
@@ -59,7 +60,7 @@ void PaintFilter::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

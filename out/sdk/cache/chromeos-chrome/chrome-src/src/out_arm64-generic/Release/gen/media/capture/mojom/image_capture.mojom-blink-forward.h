@@ -24,6 +24,8 @@ namespace media::mojom {
 
 enum class BackgroundBlurMode : int32_t;
 
+enum class EyeGazeCorrectionMode : int32_t;
+
 enum class MeteringMode : int32_t;
 
 enum class RedEyeReduction : int32_t;
@@ -38,6 +40,7 @@ class ImageCaptureInterfaceBase;
 namespace media::mojom::blink {
 // Aliases for definition in the parent namespace.
 using BackgroundBlurMode = BackgroundBlurMode;
+using EyeGazeCorrectionMode = EyeGazeCorrectionMode;
 using MeteringMode = MeteringMode;
 using RedEyeReduction = RedEyeReduction;
 using FillLightMode = FillLightMode;

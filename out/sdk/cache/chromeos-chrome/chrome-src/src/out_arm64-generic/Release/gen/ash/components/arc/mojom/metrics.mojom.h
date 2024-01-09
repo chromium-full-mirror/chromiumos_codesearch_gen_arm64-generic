@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/metrics.mojom-features.h"
 #include "ash/components/arc/mojom/metrics.mojom-shared.h"
 #include "ash/components/arc/mojom/metrics.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -56,7 +57,7 @@ class MetricsHost
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 30;
+  static constexpr uint32_t Version_ = 31;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -102,6 +103,7 @@ class MetricsHost
     kReportVpnServiceBuilderCompatApiUsageMinVersion = 29,
     kReportNewQosSocketCountMinVersion = 30,
     kReportQosSocketPercentageMinVersion = 30,
+    kReportArcKeyMintErrorMinVersion = 31,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -206,6 +208,9 @@ class MetricsHost
   struct ReportQosSocketPercentage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct ReportArcKeyMintError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~MetricsHost() = default;
 
@@ -307,6 +312,9 @@ class MetricsHost
 
   
   virtual void ReportQosSocketPercentage(int32_t perc) = 0;
+
+  
+  virtual void ReportArcKeyMintError(ArcKeyMintError error) = 0;
 };
 
 class MetricsInstanceProxy;
@@ -440,6 +448,8 @@ class  MetricsHostProxy
   void ReportNewQosSocketCount(int32_t count) final;
   
   void ReportQosSocketPercentage(int32_t perc) final;
+  
+  void ReportArcKeyMintError(ArcKeyMintError error) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

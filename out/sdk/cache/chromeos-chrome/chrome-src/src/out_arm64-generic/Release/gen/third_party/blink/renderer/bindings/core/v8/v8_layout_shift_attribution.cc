@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, LayoutShiftAttribution>::value,
     "LayoutShiftAttribution inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&LayoutShiftAttribution::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "LayoutShiftAttribution is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutShiftAttribution.node.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(v8_receiver);
+LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->node();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutShiftAttribution.previousRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(v8_receiver);
+LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutShiftAttribution.currentRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(v8_receiver);
+LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -134,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutShiftAttribution.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(v8_receiver);
+LayoutShiftAttribution* blink_receiver = V8LayoutShiftAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

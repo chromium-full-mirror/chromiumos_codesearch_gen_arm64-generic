@@ -81,11 +81,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaSource>::value,
     "MediaSource does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaSource::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaSource is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,8 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.sourceBuffers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sourceBuffers();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -112,8 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.activeSourceBuffers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activeSourceBuffers();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -126,8 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -139,9 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.duration.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaSource";
@@ -165,10 +163,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.onsourceopen.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsourceopen();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsourceopen();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -181,8 +179,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsourceopen(event_handler);
 }
 
@@ -193,10 +192,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.onsourceended.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsourceended();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsourceended();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -209,8 +208,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsourceended(event_handler);
 }
 
@@ -221,10 +221,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.onsourceclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsourceclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsourceclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -237,8 +237,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsourceclose(event_handler);
 }
 
@@ -249,10 +250,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.readyState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->readyState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -270,7 +271,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaSourceGetHandle);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->handle();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -338,7 +339,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -372,7 +373,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -436,9 +437,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.clearLiveSeekableRange");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaSource";
 const char* const property_name = "clearLiveSeekableRange";
@@ -469,7 +470,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->endOfStream(exception_state);
 break;
@@ -507,7 +508,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<SourceBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -540,7 +541,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(v8_receiver);
+MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_start = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -581,7 +582,7 @@ ExecutionContext* current_execution_context = ExecutionContext::From(current_con
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (LIKELY(info[0]->IsString())) {
-  arg1_type.Init(info[0].As<v8::String>());
+  arg1_type.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaSource";

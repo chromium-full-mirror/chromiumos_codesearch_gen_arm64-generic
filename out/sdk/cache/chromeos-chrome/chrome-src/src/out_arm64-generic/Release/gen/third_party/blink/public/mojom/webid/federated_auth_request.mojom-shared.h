@@ -37,8 +37,6 @@
 
 
 namespace blink::mojom {
-class LogoutRpsRequestDataView;
-
 class DigitalCredentialProviderDataView;
 
 class DigitalCredentialSelectorDataView;
@@ -46,6 +44,10 @@ class DigitalCredentialSelectorDataView;
 class DigitalCredentialFieldRequirementDataView;
 
 class IdentityProviderConfigDataView;
+
+class IdentityProviderRequestOptionsDataView;
+
+class IdentityCredentialDisconnectOptionsDataView;
 
 class IdentityUserInfoDataView;
 
@@ -60,13 +62,6 @@ class IdentityProviderDataView;
 
 namespace mojo {
 namespace internal {
-
-template <>
-struct MojomTypeTraits<::blink::mojom::LogoutRpsRequestDataView> {
-  using Data = ::blink::mojom::internal::LogoutRpsRequest_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
 
 template <>
 struct MojomTypeTraits<::blink::mojom::DigitalCredentialProviderDataView> {
@@ -92,6 +87,20 @@ struct MojomTypeTraits<::blink::mojom::DigitalCredentialFieldRequirementDataView
 template <>
 struct MojomTypeTraits<::blink::mojom::IdentityProviderConfigDataView> {
   using Data = ::blink::mojom::internal::IdentityProviderConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::IdentityProviderRequestOptionsDataView> {
+  using Data = ::blink::mojom::internal::IdentityProviderRequestOptions_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::IdentityCredentialDisconnectOptionsDataView> {
+  using Data = ::blink::mojom::internal::IdentityCredentialDisconnectOptions_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -169,7 +178,7 @@ inline bool IsKnownEnumValue(RequestUserInfoStatus value) {
 }
 
 
-enum class LogoutRpsStatus : int32_t {
+enum class DisconnectStatus : int32_t {
   
   kSuccess = 0,
   
@@ -180,9 +189,9 @@ enum class LogoutRpsStatus : int32_t {
   kMaxValue = 2,
 };
 
-COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, LogoutRpsStatus value);
-inline bool IsKnownEnumValue(LogoutRpsStatus value) {
-  return internal::LogoutRpsStatus_Data::IsKnownValue(
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, DisconnectStatus value);
+inline bool IsKnownEnumValue(DisconnectStatus value) {
+  return internal::DisconnectStatus_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -250,42 +259,6 @@ using FederatedAuthRequestAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<FederatedAuthRequestInterfaceBase>;
 
 
-class LogoutRpsRequestDataView {
- public:
-  LogoutRpsRequestDataView() = default;
-
-  LogoutRpsRequestDataView(
-      internal::LogoutRpsRequest_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetUrlDataView(
-      ::url::mojom::UrlDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadUrl(UserType* output) {
-    
-    auto* pointer = data_->url.Get();
-    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
-        pointer, output, message_);
-  }
-  inline void GetAccountIdDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAccountId(UserType* output) {
-    
-    auto* pointer = data_->account_id.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LogoutRpsRequest_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class DigitalCredentialProviderDataView {
  public:
   DigitalCredentialProviderDataView() = default;
@@ -302,6 +275,16 @@ class DigitalCredentialProviderDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadParams(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>, UserType>(),
+    "Attempting to read the optional `params` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadParams` instead "
+    "of `ReadParams if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->params.Get();
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
         pointer, output, message_);
@@ -312,8 +295,78 @@ class DigitalCredentialProviderDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadSelector(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::DigitalCredentialSelectorDataView, UserType>(),
+    "Attempting to read the optional `selector` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSelector` instead "
+    "of `ReadSelector if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->selector.Get();
     return mojo::internal::Deserialize<::blink::mojom::DigitalCredentialSelectorDataView>(
+        pointer, output, message_);
+  }
+  inline void GetProtocolDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProtocol(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `protocol` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadProtocol` instead "
+    "of `ReadProtocol if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->protocol.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRequestDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequest(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `request` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadRequest` instead "
+    "of `ReadRequest if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->request.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPublicKeyDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPublicKey(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `publicKey` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPublicKey` instead "
+    "of `ReadPublicKey if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->publicKey.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
  private:
@@ -444,6 +497,9 @@ class IdentityProviderConfigDataView {
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
+  bool use_registered_config_urls() const {
+    return data_->use_registered_config_urls;
+  }
   inline void GetClientIdDataView(
       mojo::StringDataView* output);
 
@@ -452,6 +508,32 @@ class IdentityProviderConfigDataView {
     
     auto* pointer = data_->client_id.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::IdentityProviderConfig_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class IdentityProviderRequestOptionsDataView {
+ public:
+  IdentityProviderRequestOptionsDataView() = default;
+
+  IdentityProviderRequestOptionsDataView(
+      internal::IdentityProviderRequestOptions_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      IdentityProviderConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::blink::mojom::IdentityProviderConfigDataView>(
         pointer, output, message_);
   }
   inline void GetNonceDataView(
@@ -474,13 +556,13 @@ class IdentityProviderConfigDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  inline void GetHostedDomainDataView(
+  inline void GetDomainHintDataView(
       mojo::StringDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadHostedDomain(UserType* output) {
+  [[nodiscard]] bool ReadDomainHint(UserType* output) {
     
-    auto* pointer = data_->hosted_domain.Get();
+    auto* pointer = data_->domain_hint.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -515,7 +597,43 @@ class IdentityProviderConfigDataView {
         pointer, output, message_);
   }
  private:
-  internal::IdentityProviderConfig_Data* data_ = nullptr;
+  internal::IdentityProviderRequestOptions_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class IdentityCredentialDisconnectOptionsDataView {
+ public:
+  IdentityCredentialDisconnectOptionsDataView() = default;
+
+  IdentityCredentialDisconnectOptionsDataView(
+      internal::IdentityCredentialDisconnectOptions_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      IdentityProviderConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::blink::mojom::IdentityProviderConfigDataView>(
+        pointer, output, message_);
+  }
+  inline void GetAccountHintDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAccountHint(UserType* output) {
+    
+    auto* pointer = data_->account_hint.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::IdentityCredentialDisconnectOptions_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -698,13 +816,13 @@ class IdentityProviderDataView {
   Tag tag() const { return data_->tag; }
   bool is_federated() const { return data_->tag == Tag::kFederated; }
   inline void GetFederatedDataView(
-      IdentityProviderConfigDataView* output) const;
+      IdentityProviderRequestOptionsDataView* output) const;
 
   template <typename UserType>
   [[nodiscard]] bool ReadFederated(UserType* output) const {
     
     CHECK(is_federated());
-    return mojo::internal::Deserialize<::blink::mojom::IdentityProviderConfigDataView>(
+    return mojo::internal::Deserialize<::blink::mojom::IdentityProviderRequestOptionsDataView>(
         data_->data.f_federated.Get(), output, message_);
   }
   bool is_holder() const { return data_->tag == Tag::kHolder; }
@@ -739,8 +857,8 @@ struct hash<::blink::mojom::RequestUserInfoStatus>
     : public mojo::internal::EnumHashImpl<::blink::mojom::RequestUserInfoStatus> {};
 
 template <>
-struct hash<::blink::mojom::LogoutRpsStatus>
-    : public mojo::internal::EnumHashImpl<::blink::mojom::LogoutRpsStatus> {};
+struct hash<::blink::mojom::DisconnectStatus>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::DisconnectStatus> {};
 
 template <>
 struct hash<::blink::mojom::IdpSigninStatus>
@@ -802,9 +920,9 @@ struct Serializer<::blink::mojom::RequestUserInfoStatus, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::LogoutRpsStatus, MaybeConstUserType> {
+struct Serializer<::blink::mojom::DisconnectStatus, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::blink::mojom::LogoutRpsStatus, UserType>;
+  using Traits = EnumTraits<::blink::mojom::DisconnectStatus, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -812,7 +930,7 @@ struct Serializer<::blink::mojom::LogoutRpsStatus, MaybeConstUserType> {
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::blink::mojom::LogoutRpsStatus>(input)), output);
+        static_cast<::blink::mojom::DisconnectStatus>(input)), output);
   }
 };
 
@@ -882,59 +1000,6 @@ struct Serializer<::blink::mojom::RpMode, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::LogoutRpsRequestDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::LogoutRpsRequestDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::LogoutRpsRequest_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::url(input)) in_url = Traits::url(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->url)::BaseType> url_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::url::mojom::UrlDataView>(
-        in_url, url_fragment);
-    fragment->url.Set(
-        url_fragment.is_null() ? nullptr : url_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->url.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null url in LogoutRpsRequest struct");
-    decltype(Traits::account_id(input)) in_account_id = Traits::account_id(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->account_id)::BaseType> account_id_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_account_id, account_id_fragment);
-    fragment->account_id.Set(
-        account_id_fragment.is_null() ? nullptr : account_id_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->account_id.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null account_id in LogoutRpsRequest struct");
-  }
-
-  static bool Deserialize(::blink::mojom::internal::LogoutRpsRequest_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::blink::mojom::LogoutRpsRequestDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::DigitalCredentialProviderDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::DigitalCredentialProviderDataView, UserType>;
@@ -955,10 +1020,6 @@ struct Serializer<::blink::mojom::DigitalCredentialProviderDataView, MaybeConstU
         in_params, params_fragment, &params_validate_params);
     fragment->params.Set(
         params_fragment.is_null() ? nullptr : params_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->params.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null params in DigitalCredentialProvider struct");
     decltype(Traits::selector(input)) in_selector = Traits::selector(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->selector)::BaseType> selector_fragment(
@@ -967,10 +1028,30 @@ struct Serializer<::blink::mojom::DigitalCredentialProviderDataView, MaybeConstU
         in_selector, selector_fragment);
     fragment->selector.Set(
         selector_fragment.is_null() ? nullptr : selector_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->selector.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null selector in DigitalCredentialProvider struct");
+    decltype(Traits::protocol(input)) in_protocol = Traits::protocol(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->protocol)::BaseType> protocol_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_protocol, protocol_fragment);
+    fragment->protocol.Set(
+        protocol_fragment.is_null() ? nullptr : protocol_fragment.data());
+    decltype(Traits::request(input)) in_request = Traits::request(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->request)::BaseType> request_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_request, request_fragment);
+    fragment->request.Set(
+        request_fragment.is_null() ? nullptr : request_fragment.data());
+    decltype(Traits::publicKey(input)) in_publicKey = Traits::publicKey(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->publicKey)::BaseType> publicKey_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_publicKey, publicKey_fragment);
+    fragment->publicKey.Set(
+        publicKey_fragment.is_null() ? nullptr : publicKey_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::DigitalCredentialProvider_Data* input,
@@ -1126,6 +1207,7 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
         fragment->config_url.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null config_url in IdentityProviderConfig struct");
+    fragment->use_registered_config_urls = Traits::use_registered_config_urls(input);
     decltype(Traits::client_id(input)) in_client_id = Traits::client_id(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->client_id)::BaseType> client_id_fragment(
@@ -1138,6 +1220,47 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
         fragment->client_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null client_id in IdentityProviderConfig struct");
+  }
+
+  static bool Deserialize(::blink::mojom::internal::IdentityProviderConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::IdentityProviderConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::IdentityProviderRequestOptionsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::IdentityProviderRequestOptionsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::IdentityProviderRequestOptions_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::config(input)) in_config = Traits::config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->config)::BaseType> config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::IdentityProviderConfigDataView>(
+        in_config, config_fragment);
+    fragment->config.Set(
+        config_fragment.is_null() ? nullptr : config_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->config.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null config in IdentityProviderRequestOptions struct");
     decltype(Traits::nonce(input)) in_nonce = Traits::nonce(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->nonce)::BaseType> nonce_fragment(
@@ -1149,7 +1272,7 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->nonce.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null nonce in IdentityProviderConfig struct");
+        "null nonce in IdentityProviderRequestOptions struct");
     decltype(Traits::login_hint(input)) in_login_hint = Traits::login_hint(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->login_hint)::BaseType> login_hint_fragment(
@@ -1161,19 +1284,19 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->login_hint.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null login_hint in IdentityProviderConfig struct");
-    decltype(Traits::hosted_domain(input)) in_hosted_domain = Traits::hosted_domain(input);
+        "null login_hint in IdentityProviderRequestOptions struct");
+    decltype(Traits::domain_hint(input)) in_domain_hint = Traits::domain_hint(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->hosted_domain)::BaseType> hosted_domain_fragment(
+        typename decltype(fragment->domain_hint)::BaseType> domain_hint_fragment(
             fragment.message());
     mojo::internal::Serialize<mojo::StringDataView>(
-        in_hosted_domain, hosted_domain_fragment);
-    fragment->hosted_domain.Set(
-        hosted_domain_fragment.is_null() ? nullptr : hosted_domain_fragment.data());
+        in_domain_hint, domain_hint_fragment);
+    fragment->domain_hint.Set(
+        domain_hint_fragment.is_null() ? nullptr : domain_hint_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->hosted_domain.is_null(),
+        fragment->domain_hint.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null hosted_domain in IdentityProviderConfig struct");
+        "null domain_hint in IdentityProviderRequestOptions struct");
     decltype(Traits::scope(input)) in_scope = Traits::scope(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->scope)::BaseType>
@@ -1187,7 +1310,7 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->scope.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null scope in IdentityProviderConfig struct");
+        "null scope in IdentityProviderRequestOptions struct");
     decltype(Traits::responseType(input)) in_responseType = Traits::responseType(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->responseType)::BaseType>
@@ -1201,7 +1324,7 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->responseType.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null responseType in IdentityProviderConfig struct");
+        "null responseType in IdentityProviderRequestOptions struct");
     decltype(Traits::params(input)) in_params = Traits::params(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->params)::BaseType>
@@ -1215,16 +1338,69 @@ struct Serializer<::blink::mojom::IdentityProviderConfigDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->params.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null params in IdentityProviderConfig struct");
+        "null params in IdentityProviderRequestOptions struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::IdentityProviderConfig_Data* input,
+  static bool Deserialize(::blink::mojom::internal::IdentityProviderRequestOptions_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::IdentityProviderConfigDataView data_view(input, message);
+    ::blink::mojom::IdentityProviderRequestOptionsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::IdentityCredentialDisconnectOptionsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::IdentityCredentialDisconnectOptionsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::IdentityCredentialDisconnectOptions_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::config(input)) in_config = Traits::config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->config)::BaseType> config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::IdentityProviderConfigDataView>(
+        in_config, config_fragment);
+    fragment->config.Set(
+        config_fragment.is_null() ? nullptr : config_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->config.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null config in IdentityCredentialDisconnectOptions struct");
+    decltype(Traits::account_hint(input)) in_account_hint = Traits::account_hint(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->account_hint)::BaseType> account_hint_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_account_hint, account_hint_fragment);
+    fragment->account_hint.Set(
+        account_hint_fragment.is_null() ? nullptr : account_hint_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->account_hint.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null account_hint in IdentityCredentialDisconnectOptions struct");
+  }
+
+  static bool Deserialize(::blink::mojom::internal::IdentityCredentialDisconnectOptions_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::IdentityCredentialDisconnectOptionsDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1431,7 +1607,7 @@ struct Serializer<::blink::mojom::IdentityProviderDataView, MaybeConstUserType> 
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_federated)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::IdentityProviderConfigDataView>(
+        mojo::internal::Serialize<::blink::mojom::IdentityProviderRequestOptionsDataView>(
             in_federated, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -1478,18 +1654,6 @@ struct Serializer<::blink::mojom::IdentityProviderDataView, MaybeConstUserType> 
 
 namespace blink::mojom {
 
-inline void LogoutRpsRequestDataView::GetUrlDataView(
-    ::url::mojom::UrlDataView* output) {
-  auto pointer = data_->url.Get();
-  *output = ::url::mojom::UrlDataView(pointer, message_);
-}
-inline void LogoutRpsRequestDataView::GetAccountIdDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->account_id.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
 inline void DigitalCredentialProviderDataView::GetParamsDataView(
     mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
   auto pointer = data_->params.Get();
@@ -1499,6 +1663,21 @@ inline void DigitalCredentialProviderDataView::GetSelectorDataView(
     DigitalCredentialSelectorDataView* output) {
   auto pointer = data_->selector.Get();
   *output = DigitalCredentialSelectorDataView(pointer, message_);
+}
+inline void DigitalCredentialProviderDataView::GetProtocolDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->protocol.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DigitalCredentialProviderDataView::GetRequestDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->request.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DigitalCredentialProviderDataView::GetPublicKeyDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->publicKey.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 
@@ -1541,35 +1720,54 @@ inline void IdentityProviderConfigDataView::GetClientIdDataView(
   auto pointer = data_->client_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetNonceDataView(
+
+
+inline void IdentityProviderRequestOptionsDataView::GetConfigDataView(
+    IdentityProviderConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = IdentityProviderConfigDataView(pointer, message_);
+}
+inline void IdentityProviderRequestOptionsDataView::GetNonceDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->nonce.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetLoginHintDataView(
+inline void IdentityProviderRequestOptionsDataView::GetLoginHintDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->login_hint.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetHostedDomainDataView(
+inline void IdentityProviderRequestOptionsDataView::GetDomainHintDataView(
     mojo::StringDataView* output) {
-  auto pointer = data_->hosted_domain.Get();
+  auto pointer = data_->domain_hint.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetScopeDataView(
+inline void IdentityProviderRequestOptionsDataView::GetScopeDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->scope.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetResponseTypeDataView(
+inline void IdentityProviderRequestOptionsDataView::GetResponseTypeDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->responseType.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
-inline void IdentityProviderConfigDataView::GetParamsDataView(
+inline void IdentityProviderRequestOptionsDataView::GetParamsDataView(
     mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
   auto pointer = data_->params.Get();
   *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
+}
+
+
+inline void IdentityCredentialDisconnectOptionsDataView::GetConfigDataView(
+    IdentityProviderConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = IdentityProviderConfigDataView(pointer, message_);
+}
+inline void IdentityCredentialDisconnectOptionsDataView::GetAccountHintDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->account_hint.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 
@@ -1615,9 +1813,9 @@ inline void TokenErrorDataView::GetUrlDataView(
 
 
 inline void IdentityProviderDataView::GetFederatedDataView(
-    IdentityProviderConfigDataView* output) const {
+    IdentityProviderRequestOptionsDataView* output) const {
   CHECK(is_federated());
-  *output = IdentityProviderConfigDataView(data_->data.f_federated.Get(), message_);
+  *output = IdentityProviderRequestOptionsDataView(data_->data.f_federated.Get(), message_);
 }
 inline void IdentityProviderDataView::GetHolderDataView(
     DigitalCredentialProviderDataView* output) const {
@@ -1652,8 +1850,8 @@ struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::bl
 namespace perfetto {
 
 template <>
-struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::LogoutRpsStatus> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::LogoutRpsStatus value);
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::DisconnectStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::DisconnectStatus value);
 };
 
 } // namespace perfetto

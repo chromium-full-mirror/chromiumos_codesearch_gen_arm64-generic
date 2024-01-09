@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSFontPaletteValuesRule>::value,
     "CSSFontPaletteValuesRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSFontPaletteValuesRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSFontPaletteValuesRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontPaletteValuesRule.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontPaletteValuesRule.fontFamily.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fontFamily();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fontFamily();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -115,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontPaletteValuesRule.basePalette.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->basePalette();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->basePalette();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -130,10 +125,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontPaletteValuesRule.overrideColors.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->overrideColors();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontPaletteValuesRule* blink_receiver = V8CSSFontPaletteValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->overrideColors();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

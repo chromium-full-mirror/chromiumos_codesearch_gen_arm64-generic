@@ -47,11 +47,11 @@ class  PageHandlerAsyncWaiter {
 
   ~PageHandlerAsyncWaiter();
   void GetActiveOutputDeviceName(
-      absl::optional<std::string>* out_device_name);
-  absl::optional<std::string> GetActiveOutputDeviceName();
+      std::optional<std::string>* out_device_name);
+  std::optional<std::string> GetActiveOutputDeviceName();
   void GetActiveInputDeviceName(
-      absl::optional<std::string>* out_device_name);
-  absl::optional<std::string> GetActiveInputDeviceName();
+      std::optional<std::string>* out_device_name);
+  std::optional<std::string> GetActiveInputDeviceName();
 
  private:
   PageHandler* const proxy_;

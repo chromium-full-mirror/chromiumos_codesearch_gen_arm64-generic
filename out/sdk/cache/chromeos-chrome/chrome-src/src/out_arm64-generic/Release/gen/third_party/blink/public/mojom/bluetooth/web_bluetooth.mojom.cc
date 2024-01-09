@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,10 +51,10 @@ WebBluetoothLeScanFilter::WebBluetoothLeScanFilter()
       manufacturer_data() {}
 
 WebBluetoothLeScanFilter::WebBluetoothLeScanFilter(
-    absl::optional<std::vector<::device::BluetoothUUID>> services_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& name_prefix_in,
-    absl::optional<base::flat_map<WebBluetoothCompanyPtr, std::vector<WebBluetoothDataFilterPtr>>> manufacturer_data_in)
+    std::optional<std::vector<::device::BluetoothUUID>> services_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& name_prefix_in,
+    std::optional<base::flat_map<WebBluetoothCompanyPtr, std::vector<WebBluetoothDataFilterPtr>>> manufacturer_data_in)
     : services(std::move(services_in)),
       name(std::move(name_in)),
       name_prefix(std::move(name_prefix_in)),
@@ -68,7 +69,7 @@ void WebBluetoothLeScanFilter::WriteIntoTrace(
     dict.AddItem(
       "services"), this->services,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::device::BluetoothUUID>>&>"
+      "<value of type const std::optional<std::vector<::device::BluetoothUUID>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -77,7 +78,7 @@ void WebBluetoothLeScanFilter::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void WebBluetoothLeScanFilter::WriteIntoTrace(
     dict.AddItem(
       "name_prefix"), this->name_prefix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -95,7 +96,7 @@ void WebBluetoothLeScanFilter::WriteIntoTrace(
     dict.AddItem(
       "manufacturer_data"), this->manufacturer_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<WebBluetoothCompanyPtr, std::vector<WebBluetoothDataFilterPtr>>>>"
+      "<value of type std::optional<base::flat_map<WebBluetoothCompanyPtr, std::vector<WebBluetoothDataFilterPtr>>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -192,8 +193,8 @@ WebBluetoothRequestDeviceOptions::WebBluetoothRequestDeviceOptions()
       accept_all_devices() {}
 
 WebBluetoothRequestDeviceOptions::WebBluetoothRequestDeviceOptions(
-    absl::optional<std::vector<WebBluetoothLeScanFilterPtr>> filters_in,
-    absl::optional<std::vector<WebBluetoothLeScanFilterPtr>> exclusion_filters_in,
+    std::optional<std::vector<WebBluetoothLeScanFilterPtr>> filters_in,
+    std::optional<std::vector<WebBluetoothLeScanFilterPtr>> exclusion_filters_in,
     std::vector<::device::BluetoothUUID> optional_services_in,
     std::vector<uint16_t> optional_manufacturer_data_in,
     bool accept_all_devices_in)
@@ -212,7 +213,7 @@ void WebBluetoothRequestDeviceOptions::WriteIntoTrace(
     dict.AddItem(
       "filters"), this->filters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
+      "<value of type std::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -221,7 +222,7 @@ void WebBluetoothRequestDeviceOptions::WriteIntoTrace(
     dict.AddItem(
       "exclusion_filters"), this->exclusion_filters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
+      "<value of type std::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -266,7 +267,7 @@ WebBluetoothRequestLEScanOptions::WebBluetoothRequestLEScanOptions()
       accept_all_advertisements() {}
 
 WebBluetoothRequestLEScanOptions::WebBluetoothRequestLEScanOptions(
-    absl::optional<std::vector<WebBluetoothLeScanFilterPtr>> filters_in,
+    std::optional<std::vector<WebBluetoothLeScanFilterPtr>> filters_in,
     bool keep_repeated_devices_in,
     bool accept_all_advertisements_in)
     : filters(std::move(filters_in)),
@@ -282,7 +283,7 @@ void WebBluetoothRequestLEScanOptions::WriteIntoTrace(
     dict.AddItem(
       "filters"), this->filters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
+      "<value of type std::optional<std::vector<WebBluetoothLeScanFilterPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -346,7 +347,7 @@ WebBluetoothDevice::WebBluetoothDevice()
 
 WebBluetoothDevice::WebBluetoothDevice(
     const ::blink::WebBluetoothDeviceId& id_in,
-    const absl::optional<std::string>& name_in)
+    const std::optional<std::string>& name_in)
     : id(std::move(id_in)),
       name(std::move(name_in)) {}
 
@@ -368,7 +369,7 @@ void WebBluetoothDevice::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -487,7 +488,7 @@ WebBluetoothAdvertisingEvent::WebBluetoothAdvertisingEvent()
 
 WebBluetoothAdvertisingEvent::WebBluetoothAdvertisingEvent(
     WebBluetoothDevicePtr device_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     std::vector<::device::BluetoothUUID> uuids_in,
     bool appearance_is_set_in,
     uint16_t appearance_in,
@@ -527,7 +528,7 @@ void WebBluetoothAdvertisingEvent::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1300,14 +1301,17 @@ void WebBluetoothServiceProxy::GetAvailability(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WebBluetoothService::GetAvailability");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_GetAvailability_Name, kFlags, 0, 0, nullptr);
@@ -1338,14 +1342,17 @@ void WebBluetoothServiceProxy::RequestDevice(
                         "<value of type WebBluetoothRequestDeviceOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RequestDevice_Name, kFlags, 0, 0, nullptr);
@@ -1380,14 +1387,17 @@ void WebBluetoothServiceProxy::GetDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WebBluetoothService::GetDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1418,14 +1428,17 @@ void WebBluetoothServiceProxy::ForgetDevice(
                         "<value of type const ::blink::WebBluetoothDeviceId&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_ForgetDevice_Name, kFlags, 0, 0, nullptr);
@@ -1470,14 +1483,17 @@ void WebBluetoothServiceProxy::RemoteServerConnect(
                         "<value of type ::mojo::PendingAssociatedRemote<WebBluetoothServerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServerConnect_Name, kFlags, 0, 0, nullptr);
@@ -1525,14 +1541,17 @@ void WebBluetoothServiceProxy::RemoteServerDisconnect(
                         "<value of type const ::blink::WebBluetoothDeviceId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServerDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -1562,7 +1581,7 @@ void WebBluetoothServiceProxy::RemoteServerDisconnect(
 }
 
 void WebBluetoothServiceProxy::RemoteServerGetPrimaryServices(
-    const ::blink::WebBluetoothDeviceId& in_device_id, WebBluetoothGATTQueryQuantity in_quantity, const absl::optional<::device::BluetoothUUID>& in_services_uuid, RemoteServerGetPrimaryServicesCallback callback) {
+    const ::blink::WebBluetoothDeviceId& in_device_id, WebBluetoothGATTQueryQuantity in_quantity, const std::optional<::device::BluetoothUUID>& in_services_uuid, RemoteServerGetPrimaryServicesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::WebBluetoothService::RemoteServerGetPrimaryServices", "input_parameters",
@@ -1576,17 +1595,20 @@ void WebBluetoothServiceProxy::RemoteServerGetPrimaryServices(
                         "<value of type WebBluetoothGATTQueryQuantity>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("services_uuid"), in_services_uuid,
-                        "<value of type const absl::optional<::device::BluetoothUUID>&>");
+                        "<value of type const std::optional<::device::BluetoothUUID>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServerGetPrimaryServices_Name, kFlags, 0, 0, nullptr);
@@ -1626,7 +1648,7 @@ void WebBluetoothServiceProxy::RemoteServerGetPrimaryServices(
 }
 
 void WebBluetoothServiceProxy::RemoteServiceGetCharacteristics(
-    const std::string& in_service_instance_id, WebBluetoothGATTQueryQuantity in_quantity, const absl::optional<::device::BluetoothUUID>& in_characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) {
+    const std::string& in_service_instance_id, WebBluetoothGATTQueryQuantity in_quantity, const std::optional<::device::BluetoothUUID>& in_characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::WebBluetoothService::RemoteServiceGetCharacteristics", "input_parameters",
@@ -1640,17 +1662,20 @@ void WebBluetoothServiceProxy::RemoteServiceGetCharacteristics(
                         "<value of type WebBluetoothGATTQueryQuantity>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("characteristics_uuid"), in_characteristics_uuid,
-                        "<value of type const absl::optional<::device::BluetoothUUID>&>");
+                        "<value of type const std::optional<::device::BluetoothUUID>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServiceGetCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -1701,14 +1726,17 @@ void WebBluetoothServiceProxy::RemoteCharacteristicReadValue(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicReadValue_Name, kFlags, 0, 0, nullptr);
@@ -1756,14 +1784,17 @@ void WebBluetoothServiceProxy::RemoteCharacteristicWriteValue(
                         "<value of type WebBluetoothWriteType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicWriteValue_Name, kFlags, 0, 0, nullptr);
@@ -1823,14 +1854,17 @@ void WebBluetoothServiceProxy::RemoteCharacteristicStartNotifications(
                         "<value of type ::mojo::PendingAssociatedRemote<WebBluetoothCharacteristicClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicStartNotifications_Name, kFlags, 0, 0, nullptr);
@@ -1878,14 +1912,17 @@ void WebBluetoothServiceProxy::RemoteCharacteristicStopNotifications(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicStopNotifications_Name, kFlags, 0, 0, nullptr);
@@ -1916,7 +1953,7 @@ void WebBluetoothServiceProxy::RemoteCharacteristicStopNotifications(
 }
 
 void WebBluetoothServiceProxy::RemoteCharacteristicGetDescriptors(
-    const std::string& in_characteristics_instance_id, WebBluetoothGATTQueryQuantity in_quantity, const absl::optional<::device::BluetoothUUID>& in_descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) {
+    const std::string& in_characteristics_instance_id, WebBluetoothGATTQueryQuantity in_quantity, const std::optional<::device::BluetoothUUID>& in_descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::WebBluetoothService::RemoteCharacteristicGetDescriptors", "input_parameters",
@@ -1930,17 +1967,20 @@ void WebBluetoothServiceProxy::RemoteCharacteristicGetDescriptors(
                         "<value of type WebBluetoothGATTQueryQuantity>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("descriptor_uuid"), in_descriptor_uuid,
-                        "<value of type const absl::optional<::device::BluetoothUUID>&>");
+                        "<value of type const std::optional<::device::BluetoothUUID>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicGetDescriptors_Name, kFlags, 0, 0, nullptr);
@@ -1991,14 +2031,17 @@ void WebBluetoothServiceProxy::RemoteDescriptorReadValue(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteDescriptorReadValue_Name, kFlags, 0, 0, nullptr);
@@ -2043,14 +2086,17 @@ void WebBluetoothServiceProxy::RemoteDescriptorWriteValue(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteDescriptorWriteValue_Name, kFlags, 0, 0, nullptr);
@@ -2108,14 +2154,17 @@ void WebBluetoothServiceProxy::RequestScanningStart(
                         "<value of type WebBluetoothRequestLEScanOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RequestScanningStart_Name, kFlags, 0, 0, nullptr);
@@ -2166,14 +2215,17 @@ void WebBluetoothServiceProxy::WatchAdvertisementsForDevice(
                         "<value of type ::mojo::PendingAssociatedRemote<WebBluetoothAdvertisementClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_WatchAdvertisementsForDevice_Name, kFlags, 0, 0, nullptr);
@@ -2300,7 +2352,8 @@ void WebBluetoothService_GetAvailability_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_GetAvailability_Name, kFlags, 0, 0, nullptr);
@@ -2425,7 +2478,8 @@ void WebBluetoothService_RequestDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RequestDevice_Name, kFlags, 0, 0, nullptr);
@@ -2551,7 +2605,8 @@ void WebBluetoothService_GetDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -2670,7 +2725,8 @@ void WebBluetoothService_ForgetDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_ForgetDevice_Name, kFlags, 0, 0, nullptr);
@@ -2787,7 +2843,8 @@ void WebBluetoothService_RemoteServerConnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServerConnect_Name, kFlags, 0, 0, nullptr);
@@ -2860,7 +2917,7 @@ class WebBluetoothService_RemoteServerGetPrimaryServices_ProxyToResponder : publ
 #endif
 
   void Run(
-      WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> in_services);
+      WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> in_services);
 };
 
 bool WebBluetoothService_RemoteServerGetPrimaryServices_ForwardToCallback::Accept(
@@ -2874,7 +2931,7 @@ bool WebBluetoothService_RemoteServerGetPrimaryServices_ForwardToCallback::Accep
   
   bool success = true;
   WebBluetoothResult p_result{};
-  absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> p_services{};
+  std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> p_services{};
   WebBluetoothService_RemoteServerGetPrimaryServices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2896,7 +2953,7 @@ std::move(p_services));
 }
 
 void WebBluetoothService_RemoteServerGetPrimaryServices_ProxyToResponder::Run(
-    WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> in_services) {
+    WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> in_services) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebBluetoothService::RemoteServerGetPrimaryServices", "async_response_parameters",
@@ -2907,13 +2964,14 @@ void WebBluetoothService_RemoteServerGetPrimaryServices_ProxyToResponder::Run(
                         "<value of type WebBluetoothResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("services"), in_services,
-                        "<value of type absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>>");
+                        "<value of type std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServerGetPrimaryServices_Name, kFlags, 0, 0, nullptr);
@@ -2995,7 +3053,7 @@ class WebBluetoothService_RemoteServiceGetCharacteristics_ProxyToResponder : pub
 #endif
 
   void Run(
-      WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> in_characteristics);
+      WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> in_characteristics);
 };
 
 bool WebBluetoothService_RemoteServiceGetCharacteristics_ForwardToCallback::Accept(
@@ -3009,7 +3067,7 @@ bool WebBluetoothService_RemoteServiceGetCharacteristics_ForwardToCallback::Acce
   
   bool success = true;
   WebBluetoothResult p_result{};
-  absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> p_characteristics{};
+  std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> p_characteristics{};
   WebBluetoothService_RemoteServiceGetCharacteristics_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3031,7 +3089,7 @@ std::move(p_characteristics));
 }
 
 void WebBluetoothService_RemoteServiceGetCharacteristics_ProxyToResponder::Run(
-    WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> in_characteristics) {
+    WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> in_characteristics) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebBluetoothService::RemoteServiceGetCharacteristics", "async_response_parameters",
@@ -3042,13 +3100,14 @@ void WebBluetoothService_RemoteServiceGetCharacteristics_ProxyToResponder::Run(
                         "<value of type WebBluetoothResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("characteristics"), in_characteristics,
-                        "<value of type absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>>");
+                        "<value of type std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteServiceGetCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -3130,7 +3189,7 @@ class WebBluetoothService_RemoteCharacteristicReadValue_ProxyToResponder : publi
 #endif
 
   void Run(
-      WebBluetoothResult in_result, const absl::optional<std::vector<uint8_t>>& in_value);
+      WebBluetoothResult in_result, const std::optional<std::vector<uint8_t>>& in_value);
 };
 
 bool WebBluetoothService_RemoteCharacteristicReadValue_ForwardToCallback::Accept(
@@ -3144,7 +3203,7 @@ bool WebBluetoothService_RemoteCharacteristicReadValue_ForwardToCallback::Accept
   
   bool success = true;
   WebBluetoothResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_value{};
+  std::optional<std::vector<uint8_t>> p_value{};
   WebBluetoothService_RemoteCharacteristicReadValue_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3166,7 +3225,7 @@ std::move(p_value));
 }
 
 void WebBluetoothService_RemoteCharacteristicReadValue_ProxyToResponder::Run(
-    WebBluetoothResult in_result, const absl::optional<std::vector<uint8_t>>& in_value) {
+    WebBluetoothResult in_result, const std::optional<std::vector<uint8_t>>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebBluetoothService::RemoteCharacteristicReadValue", "async_response_parameters",
@@ -3177,13 +3236,14 @@ void WebBluetoothService_RemoteCharacteristicReadValue_ProxyToResponder::Run(
                         "<value of type WebBluetoothResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicReadValue_Name, kFlags, 0, 0, nullptr);
@@ -3311,7 +3371,8 @@ void WebBluetoothService_RemoteCharacteristicWriteValue_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicWriteValue_Name, kFlags, 0, 0, nullptr);
@@ -3430,7 +3491,8 @@ void WebBluetoothService_RemoteCharacteristicStartNotifications_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicStartNotifications_Name, kFlags, 0, 0, nullptr);
@@ -3538,7 +3600,8 @@ void WebBluetoothService_RemoteCharacteristicStopNotifications_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicStopNotifications_Name, kFlags, 0, 0, nullptr);
@@ -3609,7 +3672,7 @@ class WebBluetoothService_RemoteCharacteristicGetDescriptors_ProxyToResponder : 
 #endif
 
   void Run(
-      WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> in_descriptors);
+      WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> in_descriptors);
 };
 
 bool WebBluetoothService_RemoteCharacteristicGetDescriptors_ForwardToCallback::Accept(
@@ -3623,7 +3686,7 @@ bool WebBluetoothService_RemoteCharacteristicGetDescriptors_ForwardToCallback::A
   
   bool success = true;
   WebBluetoothResult p_result{};
-  absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> p_descriptors{};
+  std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> p_descriptors{};
   WebBluetoothService_RemoteCharacteristicGetDescriptors_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3645,7 +3708,7 @@ std::move(p_descriptors));
 }
 
 void WebBluetoothService_RemoteCharacteristicGetDescriptors_ProxyToResponder::Run(
-    WebBluetoothResult in_result, absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> in_descriptors) {
+    WebBluetoothResult in_result, std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> in_descriptors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebBluetoothService::RemoteCharacteristicGetDescriptors", "async_response_parameters",
@@ -3656,13 +3719,14 @@ void WebBluetoothService_RemoteCharacteristicGetDescriptors_ProxyToResponder::Ru
                         "<value of type WebBluetoothResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("descriptors"), in_descriptors,
-                        "<value of type absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>>");
+                        "<value of type std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteCharacteristicGetDescriptors_Name, kFlags, 0, 0, nullptr);
@@ -3744,7 +3808,7 @@ class WebBluetoothService_RemoteDescriptorReadValue_ProxyToResponder : public ::
 #endif
 
   void Run(
-      WebBluetoothResult in_result, const absl::optional<std::vector<uint8_t>>& in_value);
+      WebBluetoothResult in_result, const std::optional<std::vector<uint8_t>>& in_value);
 };
 
 bool WebBluetoothService_RemoteDescriptorReadValue_ForwardToCallback::Accept(
@@ -3758,7 +3822,7 @@ bool WebBluetoothService_RemoteDescriptorReadValue_ForwardToCallback::Accept(
   
   bool success = true;
   WebBluetoothResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_value{};
+  std::optional<std::vector<uint8_t>> p_value{};
   WebBluetoothService_RemoteDescriptorReadValue_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3780,7 +3844,7 @@ std::move(p_value));
 }
 
 void WebBluetoothService_RemoteDescriptorReadValue_ProxyToResponder::Run(
-    WebBluetoothResult in_result, const absl::optional<std::vector<uint8_t>>& in_value) {
+    WebBluetoothResult in_result, const std::optional<std::vector<uint8_t>>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebBluetoothService::RemoteDescriptorReadValue", "async_response_parameters",
@@ -3791,13 +3855,14 @@ void WebBluetoothService_RemoteDescriptorReadValue_ProxyToResponder::Run(
                         "<value of type WebBluetoothResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteDescriptorReadValue_Name, kFlags, 0, 0, nullptr);
@@ -3925,7 +3990,8 @@ void WebBluetoothService_RemoteDescriptorWriteValue_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RemoteDescriptorWriteValue_Name, kFlags, 0, 0, nullptr);
@@ -4044,7 +4110,8 @@ void WebBluetoothService_RequestScanningStart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_RequestScanningStart_Name, kFlags, 0, 0, nullptr);
@@ -4163,7 +4230,8 @@ void WebBluetoothService_WatchAdvertisementsForDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothService_WatchAdvertisementsForDevice_Name, kFlags, 0, 0, nullptr);
@@ -4439,7 +4507,7 @@ std::move(p_client), std::move(callback));
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
-      absl::optional<::device::BluetoothUUID> p_services_uuid{};
+      std::optional<::device::BluetoothUUID> p_services_uuid{};
       WebBluetoothService_RemoteServerGetPrimaryServices_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceId(&p_device_id))
@@ -4476,7 +4544,7 @@ std::move(p_services_uuid), std::move(callback));
       bool success = true;
       std::string p_service_instance_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
-      absl::optional<::device::BluetoothUUID> p_characteristics_uuid{};
+      std::optional<::device::BluetoothUUID> p_characteristics_uuid{};
       WebBluetoothService_RemoteServiceGetCharacteristics_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadServiceInstanceId(&p_service_instance_id))
@@ -4643,7 +4711,7 @@ std::move(p_characteristic_instance_id), std::move(callback));
       bool success = true;
       std::string p_characteristics_instance_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
-      absl::optional<::device::BluetoothUUID> p_descriptor_uuid{};
+      std::optional<::device::BluetoothUUID> p_descriptor_uuid{};
       WebBluetoothService_RemoteCharacteristicGetDescriptors_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCharacteristicsInstanceId(&p_characteristics_instance_id))
@@ -4805,42 +4873,42 @@ std::move(p_client), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBluetoothServiceValidationInfo[] = {
-    {&internal::WebBluetoothService_GetAvailability_Params_Data::Validate,
+    { &internal::WebBluetoothService_GetAvailability_Params_Data::Validate,
      &internal::WebBluetoothService_GetAvailability_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RequestDevice_Params_Data::Validate,
+    { &internal::WebBluetoothService_RequestDevice_Params_Data::Validate,
      &internal::WebBluetoothService_RequestDevice_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_GetDevices_Params_Data::Validate,
+    { &internal::WebBluetoothService_GetDevices_Params_Data::Validate,
      &internal::WebBluetoothService_GetDevices_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_ForgetDevice_Params_Data::Validate,
+    { &internal::WebBluetoothService_ForgetDevice_Params_Data::Validate,
      &internal::WebBluetoothService_ForgetDevice_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteServerConnect_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteServerConnect_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteServerConnect_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteServerDisconnect_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteServerDisconnect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebBluetoothService_RemoteServerGetPrimaryServices_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteServerGetPrimaryServices_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteServerGetPrimaryServices_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteServiceGetCharacteristics_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteServiceGetCharacteristics_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteServiceGetCharacteristics_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteCharacteristicReadValue_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteCharacteristicReadValue_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteCharacteristicReadValue_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteCharacteristicWriteValue_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteCharacteristicWriteValue_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteCharacteristicWriteValue_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteCharacteristicStartNotifications_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteCharacteristicStartNotifications_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteCharacteristicStartNotifications_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteCharacteristicStopNotifications_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteCharacteristicStopNotifications_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteCharacteristicStopNotifications_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteCharacteristicGetDescriptors_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteCharacteristicGetDescriptors_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteCharacteristicGetDescriptors_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteDescriptorReadValue_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteDescriptorReadValue_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteDescriptorReadValue_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RemoteDescriptorWriteValue_Params_Data::Validate,
+    { &internal::WebBluetoothService_RemoteDescriptorWriteValue_Params_Data::Validate,
      &internal::WebBluetoothService_RemoteDescriptorWriteValue_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_RequestScanningStart_Params_Data::Validate,
+    { &internal::WebBluetoothService_RequestScanningStart_Params_Data::Validate,
      &internal::WebBluetoothService_RequestScanningStart_ResponseParams_Data::Validate},
-    {&internal::WebBluetoothService_WatchAdvertisementsForDevice_Params_Data::Validate,
+    { &internal::WebBluetoothService_WatchAdvertisementsForDevice_Params_Data::Validate,
      &internal::WebBluetoothService_WatchAdvertisementsForDevice_ResponseParams_Data::Validate},
 };
 
@@ -4917,14 +4985,17 @@ void WebBluetoothServerClientProxy::GATTServerDisconnected(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WebBluetoothServerClient::GATTServerDisconnected");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothServerClient_GATTServerDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -4988,10 +5059,10 @@ bool WebBluetoothServerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBluetoothServerClientValidationInfo[] = {
-    {&internal::WebBluetoothServerClient_GATTServerDisconnected_Params_Data::Validate,
+    { &internal::WebBluetoothServerClient_GATTServerDisconnected_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5071,14 +5142,17 @@ void WebBluetoothCharacteristicClientProxy::RemoteCharacteristicValueChanged(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothCharacteristicClient_RemoteCharacteristicValueChanged_Name, kFlags, 0, 0, nullptr);
@@ -5159,10 +5233,10 @@ bool WebBluetoothCharacteristicClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBluetoothCharacteristicClientValidationInfo[] = {
-    {&internal::WebBluetoothCharacteristicClient_RemoteCharacteristicValueChanged_Params_Data::Validate,
+    { &internal::WebBluetoothCharacteristicClient_RemoteCharacteristicValueChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5242,14 +5316,17 @@ void WebBluetoothAdvertisementClientProxy::AdvertisingEvent(
                         "<value of type WebBluetoothAdvertisingEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBluetoothAdvertisementClient_AdvertisingEvent_Name, kFlags, 0, 0, nullptr);
@@ -5328,10 +5405,10 @@ bool WebBluetoothAdvertisementClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBluetoothAdvertisementClientValidationInfo[] = {
-    {&internal::WebBluetoothAdvertisementClient_AdvertisingEvent_Params_Data::Validate,
+    { &internal::WebBluetoothAdvertisementClient_AdvertisingEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5579,10 +5656,10 @@ void WebBluetoothServiceInterceptorForTesting::RemoteServerConnect(const ::blink
 void WebBluetoothServiceInterceptorForTesting::RemoteServerDisconnect(const ::blink::WebBluetoothDeviceId& device_id) {
   GetForwardingInterface()->RemoteServerDisconnect(std::move(device_id));
 }
-void WebBluetoothServiceInterceptorForTesting::RemoteServerGetPrimaryServices(const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& services_uuid, RemoteServerGetPrimaryServicesCallback callback) {
+void WebBluetoothServiceInterceptorForTesting::RemoteServerGetPrimaryServices(const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& services_uuid, RemoteServerGetPrimaryServicesCallback callback) {
   GetForwardingInterface()->RemoteServerGetPrimaryServices(std::move(device_id), std::move(quantity), std::move(services_uuid), std::move(callback));
 }
-void WebBluetoothServiceInterceptorForTesting::RemoteServiceGetCharacteristics(const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) {
+void WebBluetoothServiceInterceptorForTesting::RemoteServiceGetCharacteristics(const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) {
   GetForwardingInterface()->RemoteServiceGetCharacteristics(std::move(service_instance_id), std::move(quantity), std::move(characteristics_uuid), std::move(callback));
 }
 void WebBluetoothServiceInterceptorForTesting::RemoteCharacteristicReadValue(const std::string& characteristic_instance_id, RemoteCharacteristicReadValueCallback callback) {
@@ -5597,7 +5674,7 @@ void WebBluetoothServiceInterceptorForTesting::RemoteCharacteristicStartNotifica
 void WebBluetoothServiceInterceptorForTesting::RemoteCharacteristicStopNotifications(const std::string& characteristic_instance_id, RemoteCharacteristicStopNotificationsCallback callback) {
   GetForwardingInterface()->RemoteCharacteristicStopNotifications(std::move(characteristic_instance_id), std::move(callback));
 }
-void WebBluetoothServiceInterceptorForTesting::RemoteCharacteristicGetDescriptors(const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) {
+void WebBluetoothServiceInterceptorForTesting::RemoteCharacteristicGetDescriptors(const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) {
   GetForwardingInterface()->RemoteCharacteristicGetDescriptors(std::move(characteristics_instance_id), std::move(quantity), std::move(descriptor_uuid), std::move(callback));
 }
 void WebBluetoothServiceInterceptorForTesting::RemoteDescriptorReadValue(const std::string& descriptor_instance_id, RemoteDescriptorReadValueCallback callback) {
@@ -5723,17 +5800,17 @@ WebBluetoothResult WebBluetoothServiceAsyncWaiter::RemoteServerConnect(
 }
 
 void WebBluetoothServiceAsyncWaiter::RemoteServerGetPrimaryServices(
-    const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& services_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services) {
+    const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& services_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services) {
   base::RunLoop loop;
   proxy_->RemoteServerGetPrimaryServices(std::move(device_id),std::move(quantity),std::move(services_uuid),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebBluetoothResult* out_result
 ,
-             absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services
+             std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services
 ,
              WebBluetoothResult result,
-             absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> services) {*out_result = std::move(result);*out_services = std::move(services);
+             std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> services) {*out_result = std::move(result);*out_services = std::move(services);
             loop->Quit();
           },
           &loop,
@@ -5745,17 +5822,17 @@ void WebBluetoothServiceAsyncWaiter::RemoteServerGetPrimaryServices(
 
 
 void WebBluetoothServiceAsyncWaiter::RemoteServiceGetCharacteristics(
-    const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& characteristics_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics) {
+    const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& characteristics_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics) {
   base::RunLoop loop;
   proxy_->RemoteServiceGetCharacteristics(std::move(service_instance_id),std::move(quantity),std::move(characteristics_uuid),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebBluetoothResult* out_result
 ,
-             absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics
+             std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics
 ,
              WebBluetoothResult result,
-             absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> characteristics) {*out_result = std::move(result);*out_characteristics = std::move(characteristics);
+             std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> characteristics) {*out_result = std::move(result);*out_characteristics = std::move(characteristics);
             loop->Quit();
           },
           &loop,
@@ -5767,17 +5844,17 @@ void WebBluetoothServiceAsyncWaiter::RemoteServiceGetCharacteristics(
 
 
 void WebBluetoothServiceAsyncWaiter::RemoteCharacteristicReadValue(
-    const std::string& characteristic_instance_id, WebBluetoothResult* out_result, absl::optional<std::vector<uint8_t>>* out_value) {
+    const std::string& characteristic_instance_id, WebBluetoothResult* out_result, std::optional<std::vector<uint8_t>>* out_value) {
   base::RunLoop loop;
   proxy_->RemoteCharacteristicReadValue(std::move(characteristic_instance_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebBluetoothResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_value
+             std::optional<std::vector<uint8_t>>* out_value
 ,
              WebBluetoothResult result,
-             const absl::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
+             const std::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
             loop->Quit();
           },
           &loop,
@@ -5849,17 +5926,17 @@ void WebBluetoothServiceAsyncWaiter::RemoteCharacteristicStopNotifications(
 
 
 void WebBluetoothServiceAsyncWaiter::RemoteCharacteristicGetDescriptors(
-    const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& descriptor_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors) {
+    const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& descriptor_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors) {
   base::RunLoop loop;
   proxy_->RemoteCharacteristicGetDescriptors(std::move(characteristics_instance_id),std::move(quantity),std::move(descriptor_uuid),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebBluetoothResult* out_result
 ,
-             absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors
+             std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors
 ,
              WebBluetoothResult result,
-             absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> descriptors) {*out_result = std::move(result);*out_descriptors = std::move(descriptors);
+             std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> descriptors) {*out_result = std::move(result);*out_descriptors = std::move(descriptors);
             loop->Quit();
           },
           &loop,
@@ -5871,17 +5948,17 @@ void WebBluetoothServiceAsyncWaiter::RemoteCharacteristicGetDescriptors(
 
 
 void WebBluetoothServiceAsyncWaiter::RemoteDescriptorReadValue(
-    const std::string& descriptor_instance_id, WebBluetoothResult* out_result, absl::optional<std::vector<uint8_t>>* out_value) {
+    const std::string& descriptor_instance_id, WebBluetoothResult* out_result, std::optional<std::vector<uint8_t>>* out_value) {
   base::RunLoop loop;
   proxy_->RemoteDescriptorReadValue(std::move(descriptor_instance_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebBluetoothResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_value
+             std::optional<std::vector<uint8_t>>* out_value
 ,
              WebBluetoothResult result,
-             const absl::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
+             const std::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
             loop->Quit();
           },
           &loop,

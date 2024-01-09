@@ -26,6 +26,8 @@ namespace blink::mojom {
 class ExtendableMessageEventDataView;
 
 
+enum class RouterRegistrationMethod : int32_t;
+
 enum class FetchHandlerExistence : int32_t;
 
 constexpr int32_t kPushEventTimeoutSeconds = 90;

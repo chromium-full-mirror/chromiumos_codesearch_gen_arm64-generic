@@ -36,7 +36,8 @@ namespace blink {
 
 
 bool V8SpeechSynthesis::IsExposed(ExecutionContext* execution_context) {
-  return false;
+  
+return execution_context->IsWindow() && RuntimeEnabledFeatures::ScriptedSpeechSynthesisEnabled();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -52,7 +53,7 @@ bool V8SpeechSynthesis::IsExposed(ExecutionContext* execution_context) {
 const WrapperTypeInfo V8SpeechSynthesis::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8SpeechSynthesis::InstallInterfaceTemplate,
-    V8SpeechSynthesis::InstallContextDependentProperties,
+    nullptr,
     "SpeechSynthesis",
     V8EventTarget::GetWrapperTypeInfo(),
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -74,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SpeechSynthesis>::value,
     "SpeechSynthesis inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SpeechSynthesis::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechSynthesis is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.pending.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pending();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -105,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.speaking.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->speaking();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -119,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.paused.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->paused();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -133,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.onvoiceschanged.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onvoiceschanged();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onvoiceschanged();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -149,8 +148,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnvoiceschanged(event_handler);
 }
 
@@ -165,8 +165,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.cancel");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->cancel();
 
 }
@@ -187,7 +188,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getVoices();
 if (!ToV8Traits<IDLSequence<SpeechSynthesisVoice>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -206,8 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.pause");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->pause();
 
 }
@@ -223,8 +226,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesis.resume");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->resume();
 
 }
@@ -254,7 +258,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesis* blink_receiver = V8SpeechSynthesis::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -326,30 +330,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 }
 
 
-void V8SpeechSynthesis::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
-  using bindings::IDLMemberInstaller;
-
-if (feature_selector.IsAll()) {
-  v8::Isolate* isolate = context->GetIsolate();
-// [LegacyNoInterfaceObject]
-// 3.7.3. Interface prototype object
-// https://webidl.spec.whatwg.org/#interface-prototype-object
-// step 13. If the [LegacyNoInterfaceObject] extended attribute was not
-//   specified on interface, then:
-//
-// V8 defines "constructor" property on the prototype object by default.
-prototype_object->Delete(
-    context, V8AtomicString(isolate, "constructor")).ToChecked();
-
-}
-
-
-
-
-
-
-
-}
 
 
 }  // namespace blink

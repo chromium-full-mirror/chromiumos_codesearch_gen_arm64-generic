@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TrackDefault>::value,
     "TrackDefault inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TrackDefault::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TrackDefault is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrackDefault.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrackDefault.byteStreamTrackID.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->byteStreamTrackID();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->byteStreamTrackID();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrackDefault.language.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->language();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->language();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,10 +126,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrackDefault.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -146,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("TrackDefault.kinds.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(v8_receiver);
+TrackDefault* blink_receiver = V8TrackDefault::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

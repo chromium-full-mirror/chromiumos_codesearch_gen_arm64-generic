@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -286,7 +287,7 @@ UntrustworthyContextMenuParams::UntrustworthyContextMenuParams(
     int32_t y_in,
     const ::GURL& link_url_in,
     const ::std::u16string& link_text_in,
-    const absl::optional<::blink::Impression>& impression_in,
+    const std::optional<::blink::Impression>& impression_in,
     const ::GURL& unfiltered_link_url_in,
     const ::GURL& src_url_in,
     bool has_image_contents_in,
@@ -311,7 +312,7 @@ UntrustworthyContextMenuParams::UntrustworthyContextMenuParams(
     const ::gfx::Rect& selection_rect_in,
     int32_t selection_start_offset_in,
     bool opened_from_highlight_in,
-    absl::optional<::blink::mojom::FormControlType> form_control_type_in,
+    std::optional<::blink::mojom::FormControlType> form_control_type_in,
     bool is_content_editable_for_autofill_in,
     FieldRendererIdPtr field_renderer_id_in,
     FormRendererIdPtr form_renderer_id_in,
@@ -406,7 +407,7 @@ void UntrustworthyContextMenuParams::WriteIntoTrace(
     dict.AddItem(
       "impression"), this->impression,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Impression>&>"
+      "<value of type const std::optional<::blink::Impression>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -631,7 +632,7 @@ void UntrustworthyContextMenuParams::WriteIntoTrace(
     dict.AddItem(
       "form_control_type"), this->form_control_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::blink::mojom::FormControlType>>"
+      "<value of type std::optional<::blink::mojom::FormControlType>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -770,14 +771,17 @@ void ContextMenuClientProxy::CustomContextMenuAction(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContextMenuClient_CustomContextMenuAction_Name, kFlags, 0, 0, nullptr);
@@ -808,14 +812,17 @@ void ContextMenuClientProxy::ContextMenuClosed(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContextMenuClient_ContextMenuClosed_Name, kFlags, 0, 0, nullptr);
@@ -923,12 +930,12 @@ bool ContextMenuClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContextMenuClientValidationInfo[] = {
-    {&internal::ContextMenuClient_CustomContextMenuAction_Params_Data::Validate,
+    { &internal::ContextMenuClient_CustomContextMenuAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContextMenuClient_ContextMenuClosed_Params_Data::Validate,
+    { &internal::ContextMenuClient_ContextMenuClosed_Params_Data::Validate,
      nullptr /* no response */},
 };
 

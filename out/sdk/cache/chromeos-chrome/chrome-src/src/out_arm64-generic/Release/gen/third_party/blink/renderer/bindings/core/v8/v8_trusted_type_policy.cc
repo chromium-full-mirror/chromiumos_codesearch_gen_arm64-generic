@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TrustedTypePolicy>::value,
     "TrustedTypePolicy inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TrustedTypePolicy::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TrustedTypePolicy is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicy.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -119,7 +114,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -159,7 +154,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -199,7 +194,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicy* blink_receiver = V8TrustedTypePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

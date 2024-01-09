@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/transferable_directory.mojom-features.h"
 #include "services/network/public/mojom/transferable_directory.mojom-shared.h"
 #include "services/network/public/mojom/transferable_directory.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
@@ -66,17 +67,17 @@ class BLINK_PLATFORM_EXPORT TransferableDirectory {
   // Construct an instance holding |handle_for_ipc|.
   static TransferableDirectoryPtr
   NewHandleForIpc(
-      ::mojo::PlatformHandle handle_for_ipc) {
+      ::mojo::PlatformHandle value) {
     auto result = TransferableDirectoryPtr(absl::in_place);
-    result->set_handle_for_ipc(std::move(handle_for_ipc));
+    result->set_handle_for_ipc(std::move(value));
     return result;
   }
   // Construct an instance holding |path|.
   static TransferableDirectoryPtr
   NewPath(
-      const ::base::FilePath& path) {
+      const ::base::FilePath& value) {
     auto result = TransferableDirectoryPtr(absl::in_place);
-    result->set_path(std::move(path));
+    result->set_path(std::move(value));
     return result;
   }
 

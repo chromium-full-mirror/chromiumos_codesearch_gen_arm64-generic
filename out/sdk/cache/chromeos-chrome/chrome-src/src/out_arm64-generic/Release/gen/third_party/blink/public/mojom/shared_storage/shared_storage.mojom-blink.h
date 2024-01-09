@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,12 +23,14 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-features.h"
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-shared.h"
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-blink.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-blink-forward.h"
+#include "url/mojom/origin.mojom-blink.h"
 #include "url/mojom/url.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
@@ -95,14 +97,14 @@ class MODULES_EXPORT SharedStorageWorkletHost
   virtual ~SharedStorageWorkletHost() = default;
 
 
-  using SelectURLCallback = base::OnceCallback<void(bool, const WTF::String&, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
+  using SelectURLCallback = base::OnceCallback<void(bool, const WTF::String&, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
   
-  virtual void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, SelectURLCallback callback) = 0;
+  virtual void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, SelectURLCallback callback) = 0;
 
 
   using RunCallback = base::OnceCallback<void(bool, const WTF::String&)>;
   
-  virtual void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, RunCallback callback) = 0;
+  virtual void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, RunCallback callback) = 0;
 };
 
 class SharedStorageDocumentServiceProxy;
@@ -198,9 +200,9 @@ class MODULES_EXPORT SharedStorageWorkletHostProxy
 
   explicit SharedStorageWorkletHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, SelectURLCallback callback) final;
+  void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, SelectURLCallback callback) final;
   
-  void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, RunCallback callback) final;
+  void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, RunCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

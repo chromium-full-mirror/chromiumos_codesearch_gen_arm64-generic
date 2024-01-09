@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/background_fetch/background_fetch.mojom-features.h"
 #include "third_party/blink/public/mojom/background_fetch/background_fetch.mojom-shared.h"
 #include "third_party/blink/public/mojom/background_fetch/background_fetch.mojom-forward.h"
 #include "skia/public/mojom/bitmap.mojom.h"
@@ -238,7 +239,7 @@ class BLINK_COMMON_EXPORT BackgroundFetchRegistrationService
 
   using UpdateUICallback = base::OnceCallback<void(BackgroundFetchError)>;
   
-  virtual void UpdateUI(const absl::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) = 0;
+  virtual void UpdateUI(const std::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) = 0;
 
 
   using AbortCallback = base::OnceCallback<void(BackgroundFetchError)>;
@@ -303,7 +304,7 @@ class BLINK_COMMON_EXPORT BackgroundFetchRegistrationServiceProxy
 
   explicit BackgroundFetchRegistrationServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void UpdateUI(const absl::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) final;
+  void UpdateUI(const std::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) final;
   
   void Abort(AbortCallback callback) final;
   

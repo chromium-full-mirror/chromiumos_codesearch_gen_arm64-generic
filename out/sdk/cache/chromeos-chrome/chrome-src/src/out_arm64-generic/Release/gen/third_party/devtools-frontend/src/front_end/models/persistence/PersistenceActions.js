@@ -44,17 +44,8 @@ const UIStrings = {
 };
 const str_ = i18n.i18n.registerUIStrings('models/persistence/PersistenceActions.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
-let contextMenuProviderInstance;
 export class ContextMenuProvider {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!contextMenuProviderInstance || forceNew) {
-            contextMenuProviderInstance = new ContextMenuProvider();
-        }
-        return contextMenuProviderInstance;
-    }
-    appendApplicableItems(event, contextMenu, target) {
-        const contentProvider = target;
+    appendApplicableItems(_event, contextMenu, contentProvider) {
         async function saveAs() {
             if (contentProvider instanceof Workspace.UISourceCode.UISourceCode) {
                 contentProvider.commitWorkingCopy();
@@ -65,7 +56,7 @@ export class ContextMenuProvider {
                 decodedContent = window.atob(decodedContent);
             }
             const url = contentProvider.contentURL();
-            void Workspace.FileManager.FileManager.instance().save(url, decodedContent, true);
+            await Workspace.FileManager.FileManager.instance().save(url, decodedContent, true);
             Workspace.FileManager.FileManager.instance().close(url);
         }
         async function saveImage() {
@@ -87,7 +78,7 @@ export class ContextMenuProvider {
         const networkPersistenceManager = NetworkPersistenceManager.instance();
         const binding = uiSourceCode && PersistenceImpl.instance().binding(uiSourceCode);
         const fileURL = binding ? binding.fileSystem.contentURL() : contentProvider.contentURL();
-        if (fileURL.startsWith('file://')) {
+        if (Common.ParsedURL.schemeIs(fileURL, 'file:')) {
             const path = Common.ParsedURL.ParsedURL.urlToRawPathString(fileURL, Host.Platform.isWin());
             contextMenu.revealSection().appendItem(i18nString(UIStrings.openInContainingFolder), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.showItemInFolder(path));
         }
@@ -109,7 +100,7 @@ export class ContextMenuProvider {
             }
         }
         else {
-            contextMenu.overrideSection().appendItem(i18nString(UIStrings.overrideContent), () => { }, true);
+            contextMenu.overrideSection().appendItem(i18nString(UIStrings.overrideContent), () => { }, { disabled: true });
         }
         if (contentProvider instanceof SDK.NetworkRequest.NetworkRequest) {
             contextMenu.overrideSection().appendItem(i18nString(UIStrings.showOverrides), async () => {

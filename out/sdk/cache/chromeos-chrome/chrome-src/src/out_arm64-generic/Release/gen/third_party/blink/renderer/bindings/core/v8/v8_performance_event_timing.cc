@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PerformanceEventTiming>::value,
     "PerformanceEventTiming inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PerformanceEventTiming::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PerformanceEventTiming is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEventTiming.processingStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->processingStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEventTiming.processingEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->processingEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEventTiming.cancelable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cancelable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEventTiming.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -151,7 +150,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventTimingInteraction
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interactionId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -168,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEventTiming.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceEventTiming* blink_receiver = V8PerformanceEventTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

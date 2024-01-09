@@ -19,13 +19,14 @@ class BLINK_COMMON_EXPORT PageBroadcastInterceptorForTesting : public PageBroadc
   void SetPageLifecycleState(PageLifecycleStatePtr state, PageRestoreParamsPtr page_restore_params, SetPageLifecycleStateCallback callback) override;
   void AudioStateChanged(bool is_audio_playing) override;
   void ActivatePrerenderedPage(PrerenderPageActivationParamsPtr prerender_page_activation_params, ActivatePrerenderedPageCallback callback) override;
-  void SetInsidePortal(bool is_inside_portal) override;
   void UpdateWebPreferences(const ::blink::web_pref::WebPreferences& preferences) override;
   void UpdateRendererPreferences(const ::blink::RendererPreferences& preferences) override;
   void SetHistoryOffsetAndLength(int32_t offset, int32_t length) override;
-  void SetPageBaseBackgroundColor(absl::optional<::SkColor> color) override;
-  void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) override;
+  void SetPageBaseBackgroundColor(std::optional<::SkColor> color) override;
+  void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) override;
   void UpdatePageBrowsingContextGroup(const ::blink::BrowsingContextGroupInfo& browsing_context_group_info) override;
+  void SetPageAttributionSupport(::network::mojom::AttributionSupport support) override;
+  void UpdateColorProviders(const ::blink::ColorProviderColorMaps& color_provider_colors) override;
 };
 class BLINK_COMMON_EXPORT PageBroadcastAsyncWaiter {
  public:

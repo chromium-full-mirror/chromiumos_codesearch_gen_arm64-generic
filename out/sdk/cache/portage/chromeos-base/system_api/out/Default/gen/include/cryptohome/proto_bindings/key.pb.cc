@@ -4,130 +4,166 @@
 #include "key.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace cryptohome {
+template <typename>
 PROTOBUF_CONSTEXPR KeyPrivileges::KeyPrivileges(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.add_)*/true
-  , /*decltype(_impl_.remove_)*/true
-  , /*decltype(_impl_.update_)*/true} {}
+  , /*decltype(_impl_.add_)*/ true
+
+  , /*decltype(_impl_.remove_)*/ true
+
+  , /*decltype(_impl_.update_)*/ true
+} {}
 struct KeyPrivilegesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyPrivilegesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyPrivilegesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyPrivilegesDefaultTypeInternal() {}
   union {
     KeyPrivileges _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPrivilegesDefaultTypeInternal _KeyPrivileges_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPrivilegesDefaultTypeInternal _KeyPrivileges_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyProviderData_Entry::KeyProviderData_Entry(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.bytes_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.number_)*/int64_t{0}} {}
+  , /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.bytes_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.number_)*/ ::int64_t{0}
+} {}
 struct KeyProviderData_EntryDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyProviderData_EntryDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyProviderData_EntryDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyProviderData_EntryDefaultTypeInternal() {}
   union {
     KeyProviderData_Entry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProviderData_EntryDefaultTypeInternal _KeyProviderData_Entry_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProviderData_EntryDefaultTypeInternal _KeyProviderData_Entry_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyProviderData::KeyProviderData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.entry_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KeyProviderDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyProviderDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyProviderDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyProviderDataDefaultTypeInternal() {}
   union {
     KeyProviderData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProviderDataDefaultTypeInternal _KeyProviderData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProviderDataDefaultTypeInternal _KeyProviderData_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ChallengePublicKeyInfo::ChallengePublicKeyInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.signature_algorithm_)*/{}
-  , /*decltype(_impl_.public_key_spki_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.signature_algorithm_)*/ {}
+
+  , /*decltype(_impl_.public_key_spki_der_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct ChallengePublicKeyInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ChallengePublicKeyInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChallengePublicKeyInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChallengePublicKeyInfoDefaultTypeInternal() {}
   union {
     ChallengePublicKeyInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChallengePublicKeyInfoDefaultTypeInternal _ChallengePublicKeyInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChallengePublicKeyInfoDefaultTypeInternal _ChallengePublicKeyInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyPolicy::KeyPolicy(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.low_entropy_credential_)*/false
-  , /*decltype(_impl_.auth_locked_)*/false} {}
+  , /*decltype(_impl_.low_entropy_credential_)*/ false
+
+  , /*decltype(_impl_.auth_locked_)*/ false
+} {}
 struct KeyPolicyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyPolicyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyPolicyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyPolicyDefaultTypeInternal() {}
   union {
     KeyPolicy _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPolicyDefaultTypeInternal _KeyPolicy_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPolicyDefaultTypeInternal _KeyPolicy_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyData::KeyData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.challenge_response_key_)*/{}
-  , /*decltype(_impl_.label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.label_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.privileges_)*/nullptr
   , /*decltype(_impl_.provider_data_)*/nullptr
   , /*decltype(_impl_.policy_)*/nullptr
-  , /*decltype(_impl_.revision_)*/int64_t{0}
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.revision_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct KeyDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyDataDefaultTypeInternal() {}
   union {
     KeyData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataDefaultTypeInternal _KeyData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataDefaultTypeInternal _KeyData_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Key::Key(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.secret_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.data_)*/nullptr} {}
 struct KeyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyDefaultTypeInternal() {}
   union {
     Key _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDefaultTypeInternal _Key_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDefaultTypeInternal _Key_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
 bool KeyData_KeyType_IsValid(int value) {
@@ -141,46 +177,46 @@ bool KeyData_KeyType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    KeyData_KeyType_strings[4] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> KeyData_KeyType_strings[4] = {};
+static const char KeyData_KeyType_names[] = {
+    "KEY_TYPE_CHALLENGE_RESPONSE"
+    "KEY_TYPE_FINGERPRINT"
+    "KEY_TYPE_KIOSK"
+    "KEY_TYPE_PASSWORD"
+};
 
-static const char KeyData_KeyType_names[] =
-  "KEY_TYPE_CHALLENGE_RESPONSE"
-  "KEY_TYPE_FINGERPRINT"
-  "KEY_TYPE_KIOSK"
-  "KEY_TYPE_PASSWORD";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyData_KeyType_entries[] = {
-  { {KeyData_KeyType_names + 0, 27}, 1 },
-  { {KeyData_KeyType_names + 27, 20}, 2 },
-  { {KeyData_KeyType_names + 47, 14}, 3 },
-  { {KeyData_KeyType_names + 61, 17}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyData_KeyType_entries[] =
+    {
+        {{&KeyData_KeyType_names[0], 27}, 1},
+        {{&KeyData_KeyType_names[27], 20}, 2},
+        {{&KeyData_KeyType_names[47], 14}, 3},
+        {{&KeyData_KeyType_names[61], 17}, 0},
 };
 
 static const int KeyData_KeyType_entries_by_number[] = {
-  3, // 0 -> KEY_TYPE_PASSWORD
-  0, // 1 -> KEY_TYPE_CHALLENGE_RESPONSE
-  1, // 2 -> KEY_TYPE_FINGERPRINT
-  2, // 3 -> KEY_TYPE_KIOSK
+    3,  // 0 -> KEY_TYPE_PASSWORD
+    0,  // 1 -> KEY_TYPE_CHALLENGE_RESPONSE
+    1,  // 2 -> KEY_TYPE_FINGERPRINT
+    2,  // 3 -> KEY_TYPE_KIOSK
 };
 
-const std::string& KeyData_KeyType_Name(
-    KeyData_KeyType value) {
-  static const bool dummy =
+const std::string& KeyData_KeyType_Name(KeyData_KeyType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          KeyData_KeyType_entries,
-          KeyData_KeyType_entries_by_number,
+          KeyData_KeyType_entries, KeyData_KeyType_entries_by_number,
           4, KeyData_KeyType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      KeyData_KeyType_entries,
-      KeyData_KeyType_entries_by_number,
-      4, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     KeyData_KeyType_strings[idx].get();
+      KeyData_KeyType_entries, KeyData_KeyType_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : KeyData_KeyType_strings[idx].get();
 }
-bool KeyData_KeyType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyData_KeyType* value) {
+
+bool KeyData_KeyType_Parse(absl::string_view name, KeyData_KeyType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       KeyData_KeyType_entries, 4, name, &int_value);
@@ -189,7 +225,9 @@ bool KeyData_KeyType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr KeyData_KeyType KeyData::KEY_TYPE_PASSWORD;
 constexpr KeyData_KeyType KeyData::KEY_TYPE_CHALLENGE_RESPONSE;
 constexpr KeyData_KeyType KeyData::KEY_TYPE_FINGERPRINT;
@@ -197,7 +235,9 @@ constexpr KeyData_KeyType KeyData::KEY_TYPE_KIOSK;
 constexpr KeyData_KeyType KeyData::KeyType_MIN;
 constexpr KeyData_KeyType KeyData::KeyType_MAX;
 constexpr int KeyData::KeyType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ChallengeSignatureAlgorithm_IsValid(int value) {
   switch (value) {
     case 1:
@@ -209,46 +249,46 @@ bool ChallengeSignatureAlgorithm_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ChallengeSignatureAlgorithm_strings[4] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ChallengeSignatureAlgorithm_strings[4] = {};
+static const char ChallengeSignatureAlgorithm_names[] = {
+    "CHALLENGE_RSASSA_PKCS1_V1_5_SHA1"
+    "CHALLENGE_RSASSA_PKCS1_V1_5_SHA256"
+    "CHALLENGE_RSASSA_PKCS1_V1_5_SHA384"
+    "CHALLENGE_RSASSA_PKCS1_V1_5_SHA512"
+};
 
-static const char ChallengeSignatureAlgorithm_names[] =
-  "CHALLENGE_RSASSA_PKCS1_V1_5_SHA1"
-  "CHALLENGE_RSASSA_PKCS1_V1_5_SHA256"
-  "CHALLENGE_RSASSA_PKCS1_V1_5_SHA384"
-  "CHALLENGE_RSASSA_PKCS1_V1_5_SHA512";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ChallengeSignatureAlgorithm_entries[] = {
-  { {ChallengeSignatureAlgorithm_names + 0, 32}, 1 },
-  { {ChallengeSignatureAlgorithm_names + 32, 34}, 2 },
-  { {ChallengeSignatureAlgorithm_names + 66, 34}, 3 },
-  { {ChallengeSignatureAlgorithm_names + 100, 34}, 4 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ChallengeSignatureAlgorithm_entries[] =
+    {
+        {{&ChallengeSignatureAlgorithm_names[0], 32}, 1},
+        {{&ChallengeSignatureAlgorithm_names[32], 34}, 2},
+        {{&ChallengeSignatureAlgorithm_names[66], 34}, 3},
+        {{&ChallengeSignatureAlgorithm_names[100], 34}, 4},
 };
 
 static const int ChallengeSignatureAlgorithm_entries_by_number[] = {
-  0, // 1 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA1
-  1, // 2 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA256
-  2, // 3 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA384
-  3, // 4 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA512
+    0,  // 1 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA1
+    1,  // 2 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA256
+    2,  // 3 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA384
+    3,  // 4 -> CHALLENGE_RSASSA_PKCS1_V1_5_SHA512
 };
 
-const std::string& ChallengeSignatureAlgorithm_Name(
-    ChallengeSignatureAlgorithm value) {
-  static const bool dummy =
+const std::string& ChallengeSignatureAlgorithm_Name(ChallengeSignatureAlgorithm value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ChallengeSignatureAlgorithm_entries,
-          ChallengeSignatureAlgorithm_entries_by_number,
+          ChallengeSignatureAlgorithm_entries, ChallengeSignatureAlgorithm_entries_by_number,
           4, ChallengeSignatureAlgorithm_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ChallengeSignatureAlgorithm_entries,
-      ChallengeSignatureAlgorithm_entries_by_number,
-      4, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ChallengeSignatureAlgorithm_strings[idx].get();
+      ChallengeSignatureAlgorithm_entries, ChallengeSignatureAlgorithm_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ChallengeSignatureAlgorithm_strings[idx].get();
 }
-bool ChallengeSignatureAlgorithm_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ChallengeSignatureAlgorithm* value) {
+
+bool ChallengeSignatureAlgorithm_Parse(absl::string_view name, ChallengeSignatureAlgorithm* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ChallengeSignatureAlgorithm_entries, 4, name, &int_value);
@@ -257,12 +297,13 @@ bool ChallengeSignatureAlgorithm_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class KeyPrivileges::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyPrivileges>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(KeyPrivileges, _impl_._has_bits_);
   static void set_has_add(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -274,39 +315,29 @@ class KeyPrivileges::_Internal {
   }
 };
 
-KeyPrivileges::KeyPrivileges(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyPrivileges::KeyPrivileges(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.KeyPrivileges)
 }
 KeyPrivileges::KeyPrivileges(const KeyPrivileges& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  KeyPrivileges* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.add_){}
-    , decltype(_impl_.remove_){}
-    , decltype(_impl_.update_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.add_, &from._impl_.add_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.update_) -
-    reinterpret_cast<char*>(&_impl_.add_)) + sizeof(_impl_.update_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:cryptohome.KeyPrivileges)
 }
 
-inline void KeyPrivileges::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyPrivileges::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.add_){true}
-    , decltype(_impl_.remove_){true}
-    , decltype(_impl_.update_){true}
+    , decltype(_impl_.add_) { true }
+
+    , decltype(_impl_.remove_) { true }
+
+    , decltype(_impl_.update_) { true }
+
   };
 }
 
@@ -320,7 +351,7 @@ KeyPrivileges::~KeyPrivileges() {
 }
 
 inline void KeyPrivileges::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void KeyPrivileges::SetCachedSize(int size) const {
@@ -329,7 +360,7 @@ void KeyPrivileges::SetCachedSize(int size) const {
 
 void KeyPrivileges::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.KeyPrivileges)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -347,35 +378,38 @@ const char* KeyPrivileges::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool add = 2 [default = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_add(&has_bits);
           _impl_.add_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool remove = 3 [default = true];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_remove(&has_bits);
           _impl_.remove_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool update = 4 [default = true];
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_update(&has_bits);
           _impl_.update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -401,29 +435,32 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyPrivileges::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyPrivileges::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.KeyPrivileges)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool add = 2 [default = true];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_add(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_add(), target);
   }
 
   // optional bool remove = 3 [default = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_remove(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_remove(), target);
   }
 
   // optional bool update = 4 [default = true];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_update(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_update(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -434,11 +471,11 @@ uint8_t* KeyPrivileges::_InternalSerialize(
   return target;
 }
 
-size_t KeyPrivileges::ByteSizeLong() const {
+::size_t KeyPrivileges::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.KeyPrivileges)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -446,17 +483,17 @@ size_t KeyPrivileges::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional bool add = 2 [default = true];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool remove = 3 [default = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool update = 4 [default = true];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -477,8 +514,8 @@ void KeyPrivileges::CheckTypeAndMergeFrom(
 void KeyPrivileges::MergeFrom(const KeyPrivileges& from) {
   KeyPrivileges* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.KeyPrivileges)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -512,21 +549,25 @@ void KeyPrivileges::InternalSwap(KeyPrivileges* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.add_, other->_impl_.add_);
-  swap(_impl_.remove_, other->_impl_.remove_);
-  swap(_impl_.update_, other->_impl_.update_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(KeyPrivileges, _impl_.update_)
+      + sizeof(KeyPrivileges::_impl_.update_)
+      - PROTOBUF_FIELD_OFFSET(KeyPrivileges, _impl_.add_)>(
+          reinterpret_cast<char*>(&_impl_.add_),
+          reinterpret_cast<char*>(&other->_impl_.add_));
 }
 
 std::string KeyPrivileges::GetTypeName() const {
   return "cryptohome.KeyPrivileges";
 }
 
-
 // ===================================================================
 
 class KeyProviderData_Entry::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyProviderData_Entry>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(KeyProviderData_Entry, _impl_._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -538,10 +579,9 @@ class KeyProviderData_Entry::_Internal {
   }
 };
 
-KeyProviderData_Entry::KeyProviderData_Entry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyProviderData_Entry::KeyProviderData_Entry(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.KeyProviderData.Entry)
 }
 KeyProviderData_Entry::KeyProviderData_Entry(const KeyProviderData_Entry& from)
@@ -550,50 +590,52 @@ KeyProviderData_Entry::KeyProviderData_Entry(const KeyProviderData_Entry& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.bytes_){}
-    , decltype(_impl_.number_){}};
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.bytes_) {}
+
+    , decltype(_impl_.number_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _impl_.bytes_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bytes_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_bytes()) {
-    _this->_impl_.bytes_.Set(from._internal_bytes(), 
-      _this->GetArenaForAllocation());
+        _impl_.bytes_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.bytes_.Set(from._internal_bytes(), _this->GetArenaForAllocation());
   }
   _this->_impl_.number_ = from._impl_.number_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.KeyProviderData.Entry)
 }
 
-inline void KeyProviderData_Entry::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyProviderData_Entry::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.bytes_){}
-    , decltype(_impl_.number_){int64_t{0}}
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.bytes_) {}
+
+    , decltype(_impl_.number_) { ::int64_t{0} }
+
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.bytes_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bytes_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.bytes_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 KeyProviderData_Entry::~KeyProviderData_Entry() {
@@ -606,7 +648,7 @@ KeyProviderData_Entry::~KeyProviderData_Entry() {
 }
 
 inline void KeyProviderData_Entry::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   _impl_.bytes_.Destroy();
 }
@@ -617,7 +659,7 @@ void KeyProviderData_Entry::SetCachedSize(int size) const {
 
 void KeyProviderData_Entry::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.KeyProviderData.Entry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -630,7 +672,7 @@ void KeyProviderData_Entry::Clear() {
       _impl_.bytes_.ClearNonDefaultToEmpty();
     }
   }
-  _impl_.number_ = int64_t{0};
+  _impl_.number_ = ::int64_t{0};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -639,35 +681,38 @@ const char* KeyProviderData_Entry::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 number = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_number(&has_bits);
           _impl_.number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes bytes = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_bytes();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -693,29 +738,30 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyProviderData_Entry::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyProviderData_Entry::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.KeyProviderData.Entry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string name = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+    const std::string& _s = this->_internal_name();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional int64 number = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_number(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_number(), target);
   }
 
   // optional bytes bytes = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_bytes(), target);
+    const std::string& _s = this->_internal_bytes();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -726,11 +772,11 @@ uint8_t* KeyProviderData_Entry::_InternalSerialize(
   return target;
 }
 
-size_t KeyProviderData_Entry::ByteSizeLong() const {
+::size_t KeyProviderData_Entry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.KeyProviderData.Entry)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -738,21 +784,20 @@ size_t KeyProviderData_Entry::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_name());
     }
 
     // optional bytes bytes = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_bytes());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_bytes());
     }
 
     // optional int64 number = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_number());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_number());
     }
 
   }
@@ -773,8 +818,8 @@ void KeyProviderData_Entry::CheckTypeAndMergeFrom(
 void KeyProviderData_Entry::MergeFrom(const KeyProviderData_Entry& from) {
   KeyProviderData_Entry* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.KeyProviderData.Entry)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -810,14 +855,11 @@ void KeyProviderData_Entry::InternalSwap(KeyProviderData_Entry* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.bytes_, lhs_arena,
-      &other->_impl_.bytes_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.bytes_, lhs_arena,
+                                       &other->_impl_.bytes_, rhs_arena);
+
   swap(_impl_.number_, other->_impl_.number_);
 }
 
@@ -825,17 +867,15 @@ std::string KeyProviderData_Entry::GetTypeName() const {
   return "cryptohome.KeyProviderData.Entry";
 }
 
-
 // ===================================================================
 
 class KeyProviderData::_Internal {
  public:
 };
 
-KeyProviderData::KeyProviderData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyProviderData::KeyProviderData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.KeyProviderData)
 }
 KeyProviderData::KeyProviderData(const KeyProviderData& from)
@@ -849,10 +889,8 @@ KeyProviderData::KeyProviderData(const KeyProviderData& from)
   // @@protoc_insertion_point(copy_constructor:cryptohome.KeyProviderData)
 }
 
-inline void KeyProviderData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyProviderData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.entry_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -869,8 +907,8 @@ KeyProviderData::~KeyProviderData() {
 }
 
 inline void KeyProviderData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.entry_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_entry()->~RepeatedPtrField();
 }
 
 void KeyProviderData::SetCachedSize(int size) const {
@@ -879,23 +917,23 @@ void KeyProviderData::SetCachedSize(int size) const {
 
 void KeyProviderData::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.KeyProviderData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.entry_.Clear();
+  _internal_mutable_entry()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* KeyProviderData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .cryptohome.KeyProviderData.Entry entry = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -903,8 +941,9 @@ const char* KeyProviderData::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -929,10 +968,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyProviderData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyProviderData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.KeyProviderData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .cryptohome.KeyProviderData.Entry entry = 1;
@@ -951,17 +990,17 @@ uint8_t* KeyProviderData::_InternalSerialize(
   return target;
 }
 
-size_t KeyProviderData::ByteSizeLong() const {
+::size_t KeyProviderData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.KeyProviderData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.KeyProviderData.Entry entry = 1;
   total_size += 1UL * this->_internal_entry_size();
-  for (const auto& msg : this->_impl_.entry_) {
+  for (const auto& msg : this->_internal_entry()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -983,11 +1022,11 @@ void KeyProviderData::CheckTypeAndMergeFrom(
 void KeyProviderData::MergeFrom(const KeyProviderData& from) {
   KeyProviderData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.KeyProviderData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.entry_.MergeFrom(from._impl_.entry_);
+  _this->_internal_mutable_entry()->MergeFrom(from._internal_entry());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1005,28 +1044,28 @@ bool KeyProviderData::IsInitialized() const {
 void KeyProviderData::InternalSwap(KeyProviderData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.entry_.InternalSwap(&other->_impl_.entry_);
+  _internal_mutable_entry()->InternalSwap(other->_internal_mutable_entry());
 }
 
 std::string KeyProviderData::GetTypeName() const {
   return "cryptohome.KeyProviderData";
 }
 
-
 // ===================================================================
 
 class ChallengePublicKeyInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<ChallengePublicKeyInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ChallengePublicKeyInfo, _impl_._has_bits_);
   static void set_has_public_key_spki_der(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-ChallengePublicKeyInfo::ChallengePublicKeyInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ChallengePublicKeyInfo::ChallengePublicKeyInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.ChallengePublicKeyInfo)
 }
 ChallengePublicKeyInfo::ChallengePublicKeyInfo(const ChallengePublicKeyInfo& from)
@@ -1035,35 +1074,36 @@ ChallengePublicKeyInfo::ChallengePublicKeyInfo(const ChallengePublicKeyInfo& fro
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.signature_algorithm_){from._impl_.signature_algorithm_}
-    , decltype(_impl_.public_key_spki_der_){}};
+    , decltype(_impl_.signature_algorithm_) { from._internal_signature_algorithm() }
+
+    , decltype(_impl_.public_key_spki_der_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_public_key_spki_der()) {
-    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), 
-      _this->GetArenaForAllocation());
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.ChallengePublicKeyInfo)
 }
 
-inline void ChallengePublicKeyInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ChallengePublicKeyInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.signature_algorithm_){arena}
-    , decltype(_impl_.public_key_spki_der_){}
+    , decltype(_impl_.signature_algorithm_) { arena }
+
+    , decltype(_impl_.public_key_spki_der_) {}
+
   };
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ChallengePublicKeyInfo::~ChallengePublicKeyInfo() {
@@ -1076,8 +1116,8 @@ ChallengePublicKeyInfo::~ChallengePublicKeyInfo() {
 }
 
 inline void ChallengePublicKeyInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.signature_algorithm_.~RepeatedField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_signature_algorithm()->~RepeatedField();
   _impl_.public_key_spki_der_.Destroy();
 }
 
@@ -1087,11 +1127,11 @@ void ChallengePublicKeyInfo::SetCachedSize(int size) const {
 
 void ChallengePublicKeyInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.ChallengePublicKeyInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.signature_algorithm_.Clear();
+  _internal_mutable_signature_algorithm()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     _impl_.public_key_spki_der_.ClearNonDefaultToEmpty();
@@ -1104,38 +1144,40 @@ const char* ChallengePublicKeyInfo::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes public_key_spki_der = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_public_key_spki_der();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cryptohome.ChallengeSignatureAlgorithm signature_algorithm = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
             CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::cryptohome::ChallengeSignatureAlgorithm_IsValid(val))) {
+            if (PROTOBUF_PREDICT_TRUE(::cryptohome::ChallengeSignatureAlgorithm_IsValid(static_cast<int>(val)))) {
               _internal_add_signature_algorithm(static_cast<::cryptohome::ChallengeSignatureAlgorithm>(val));
             } else {
               ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
             }
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_signature_algorithm(), ptr, ctx, ::cryptohome::ChallengeSignatureAlgorithm_IsValid, &_internal_metadata_, 2);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1161,21 +1203,21 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ChallengePublicKeyInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ChallengePublicKeyInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.ChallengePublicKeyInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes public_key_spki_der = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_public_key_spki_der(), target);
+    const std::string& _s = this->_internal_public_key_spki_der();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // repeated .cryptohome.ChallengeSignatureAlgorithm signature_algorithm = 2;
-  for (int i = 0, n = this->_internal_signature_algorithm_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_signature_algorithm_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
         2, this->_internal_signature_algorithm(i), target);
@@ -1189,30 +1231,32 @@ uint8_t* ChallengePublicKeyInfo::_InternalSerialize(
   return target;
 }
 
-size_t ChallengePublicKeyInfo::ByteSizeLong() const {
+::size_t ChallengePublicKeyInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.ChallengePublicKeyInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.ChallengeSignatureAlgorithm signature_algorithm = 2;
   {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_signature_algorithm_size());for (unsigned int i = 0; i < count; i++) {
+    std::size_t data_size = 0;
+    auto count = static_cast<std::size_t>(this->_internal_signature_algorithm_size());
+
+    for (std::size_t i = 0; i < count; ++i) {
       data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_signature_algorithm(static_cast<int>(i)));
+          this->_internal_signature_algorithm(static_cast<int>(i)));
     }
-    total_size += (1UL * count) + data_size;
+    total_size += data_size;
+    total_size += std::size_t{1} * count;
   }
 
   // optional bytes public_key_spki_der = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_public_key_spki_der());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_public_key_spki_der());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1232,12 +1276,12 @@ void ChallengePublicKeyInfo::CheckTypeAndMergeFrom(
 void ChallengePublicKeyInfo::MergeFrom(const ChallengePublicKeyInfo& from) {
   ChallengePublicKeyInfo* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.ChallengePublicKeyInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.signature_algorithm_.MergeFrom(from._impl_.signature_algorithm_);
-  if (from._internal_has_public_key_spki_der()) {
+  _this->_internal_mutable_signature_algorithm()->MergeFrom(from._internal_signature_algorithm());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_public_key_spki_der(from._internal_public_key_spki_der());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1260,23 +1304,23 @@ void ChallengePublicKeyInfo::InternalSwap(ChallengePublicKeyInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.signature_algorithm_.InternalSwap(&other->_impl_.signature_algorithm_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.public_key_spki_der_, lhs_arena,
-      &other->_impl_.public_key_spki_der_, rhs_arena
-  );
+  _internal_mutable_signature_algorithm()->InternalSwap(
+      other->_internal_mutable_signature_algorithm());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.public_key_spki_der_, lhs_arena,
+                                       &other->_impl_.public_key_spki_der_, rhs_arena);
 }
 
 std::string ChallengePublicKeyInfo::GetTypeName() const {
   return "cryptohome.ChallengePublicKeyInfo";
 }
 
-
 // ===================================================================
 
 class KeyPolicy::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyPolicy>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(KeyPolicy, _impl_._has_bits_);
   static void set_has_low_entropy_credential(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1285,37 +1329,27 @@ class KeyPolicy::_Internal {
   }
 };
 
-KeyPolicy::KeyPolicy(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyPolicy::KeyPolicy(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.KeyPolicy)
 }
 KeyPolicy::KeyPolicy(const KeyPolicy& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  KeyPolicy* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.low_entropy_credential_){}
-    , decltype(_impl_.auth_locked_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.low_entropy_credential_, &from._impl_.low_entropy_credential_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.auth_locked_) -
-    reinterpret_cast<char*>(&_impl_.low_entropy_credential_)) + sizeof(_impl_.auth_locked_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:cryptohome.KeyPolicy)
 }
 
-inline void KeyPolicy::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyPolicy::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.low_entropy_credential_){false}
-    , decltype(_impl_.auth_locked_){false}
+    , decltype(_impl_.low_entropy_credential_) { false }
+
+    , decltype(_impl_.auth_locked_) { false }
+
   };
 }
 
@@ -1329,7 +1363,7 @@ KeyPolicy::~KeyPolicy() {
 }
 
 inline void KeyPolicy::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void KeyPolicy::SetCachedSize(int size) const {
@@ -1338,11 +1372,11 @@ void KeyPolicy::SetCachedSize(int size) const {
 
 void KeyPolicy::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.KeyPolicy)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.low_entropy_credential_, 0, static_cast<size_t>(
+  ::memset(&_impl_.low_entropy_credential_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.auth_locked_) -
       reinterpret_cast<char*>(&_impl_.low_entropy_credential_)) + sizeof(_impl_.auth_locked_));
   _impl_._has_bits_.Clear();
@@ -1353,26 +1387,28 @@ const char* KeyPolicy::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool low_entropy_credential = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_low_entropy_credential(&has_bits);
           _impl_.low_entropy_credential_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool auth_locked = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_auth_locked(&has_bits);
           _impl_.auth_locked_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1398,23 +1434,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyPolicy::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyPolicy::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.KeyPolicy)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool low_entropy_credential = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_low_entropy_credential(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_low_entropy_credential(), target);
   }
 
   // optional bool auth_locked = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_auth_locked(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_auth_locked(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1425,11 +1463,11 @@ uint8_t* KeyPolicy::_InternalSerialize(
   return target;
 }
 
-size_t KeyPolicy::ByteSizeLong() const {
+::size_t KeyPolicy::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.KeyPolicy)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1437,12 +1475,12 @@ size_t KeyPolicy::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bool low_entropy_credential = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool auth_locked = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -1463,8 +1501,8 @@ void KeyPolicy::CheckTypeAndMergeFrom(
 void KeyPolicy::MergeFrom(const KeyPolicy& from) {
   KeyPolicy* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.KeyPolicy)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1507,12 +1545,13 @@ std::string KeyPolicy::GetTypeName() const {
   return "cryptohome.KeyPolicy";
 }
 
-
 // ===================================================================
 
 class KeyData::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyData>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(KeyData, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
@@ -1548,10 +1587,9 @@ const ::cryptohome::KeyPolicy&
 KeyData::_Internal::policy(const KeyData* msg) {
   return *msg->_impl_.policy_;
 }
-KeyData::KeyData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyData::KeyData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.KeyData)
 }
 KeyData::KeyData(const KeyData& from)
@@ -1561,56 +1599,59 @@ KeyData::KeyData(const KeyData& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.challenge_response_key_){from._impl_.challenge_response_key_}
-    , decltype(_impl_.label_){}
+    , decltype(_impl_.label_) {}
+
     , decltype(_impl_.privileges_){nullptr}
     , decltype(_impl_.provider_data_){nullptr}
     , decltype(_impl_.policy_){nullptr}
-    , decltype(_impl_.revision_){}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.revision_) {}
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.label_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_label()) {
-    _this->_impl_.label_.Set(from._internal_label(), 
-      _this->GetArenaForAllocation());
+        _impl_.label_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.label_.Set(from._internal_label(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_privileges()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.privileges_ = new ::cryptohome::KeyPrivileges(*from._impl_.privileges_);
   }
-  if (from._internal_has_provider_data()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.provider_data_ = new ::cryptohome::KeyProviderData(*from._impl_.provider_data_);
   }
-  if (from._internal_has_policy()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.policy_ = new ::cryptohome::KeyPolicy(*from._impl_.policy_);
   }
   ::memcpy(&_impl_.revision_, &from._impl_.revision_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.type_) -
     reinterpret_cast<char*>(&_impl_.revision_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.KeyData)
 }
 
-inline void KeyData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.challenge_response_key_){arena}
-    , decltype(_impl_.label_){}
+    , decltype(_impl_.label_) {}
+
     , decltype(_impl_.privileges_){nullptr}
     , decltype(_impl_.provider_data_){nullptr}
     , decltype(_impl_.policy_){nullptr}
-    , decltype(_impl_.revision_){int64_t{0}}
-    , decltype(_impl_.type_){0}
+    , decltype(_impl_.revision_) { ::int64_t{0} }
+
+    , decltype(_impl_.type_) { 0 }
+
   };
   _impl_.label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.label_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.label_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 KeyData::~KeyData() {
@@ -1623,8 +1664,8 @@ KeyData::~KeyData() {
 }
 
 inline void KeyData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.challenge_response_key_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_challenge_response_key()->~RepeatedPtrField();
   _impl_.label_.Destroy();
   if (this != internal_default_instance()) delete _impl_.privileges_;
   if (this != internal_default_instance()) delete _impl_.provider_data_;
@@ -1637,31 +1678,31 @@ void KeyData::SetCachedSize(int size) const {
 
 void KeyData::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.KeyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.challenge_response_key_.Clear();
+  _internal_mutable_challenge_response_key()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.label_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.privileges_ != nullptr);
+      ABSL_DCHECK(_impl_.privileges_ != nullptr);
       _impl_.privileges_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.provider_data_ != nullptr);
+      ABSL_DCHECK(_impl_.provider_data_ != nullptr);
       _impl_.provider_data_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.policy_ != nullptr);
+      ABSL_DCHECK(_impl_.policy_ != nullptr);
       _impl_.policy_->Clear();
     }
   }
   if (cached_has_bits & 0x00000030u) {
-    ::memset(&_impl_.revision_, 0, static_cast<size_t>(
+    ::memset(&_impl_.revision_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.type_) -
         reinterpret_cast<char*>(&_impl_.revision_)) + sizeof(_impl_.type_));
   }
@@ -1673,59 +1714,64 @@ const char* KeyData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cryptohome.KeyData.KeyType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cryptohome::KeyData_KeyType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cryptohome::KeyData_KeyType_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::cryptohome::KeyData_KeyType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string label = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_label();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cryptohome.KeyPrivileges privileges = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_privileges(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 revision = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_revision(&has_bits);
           _impl_.revision_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cryptohome.KeyProviderData provider_data = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_provider_data(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cryptohome.ChallengePublicKeyInfo challenge_response_key = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1733,16 +1779,18 @@ const char* KeyData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cryptohome.KeyPolicy policy = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_policy(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1768,10 +1816,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.KeyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -1779,13 +1827,13 @@ uint8_t* KeyData::_InternalSerialize(
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // optional string label = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_label(), target);
+    const std::string& _s = this->_internal_label();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional .cryptohome.KeyPrivileges privileges = 3;
@@ -1798,7 +1846,8 @@ uint8_t* KeyData::_InternalSerialize(
   // optional int64 revision = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_revision(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        4, this->_internal_revision(), target);
   }
 
   // optional .cryptohome.KeyProviderData provider_data = 6;
@@ -1831,17 +1880,17 @@ uint8_t* KeyData::_InternalSerialize(
   return target;
 }
 
-size_t KeyData::ByteSizeLong() const {
+::size_t KeyData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.KeyData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.ChallengePublicKeyInfo challenge_response_key = 7;
   total_size += 1UL * this->_internal_challenge_response_key_size();
-  for (const auto& msg : this->_impl_.challenge_response_key_) {
+  for (const auto& msg : this->_internal_challenge_response_key()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1850,9 +1899,8 @@ size_t KeyData::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional string label = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_label());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_label());
     }
 
     // optional .cryptohome.KeyPrivileges privileges = 3;
@@ -1878,13 +1926,14 @@ size_t KeyData::ByteSizeLong() const {
 
     // optional int64 revision = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_revision());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_revision());
     }
 
     // optional .cryptohome.KeyData.KeyType type = 1;
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
   }
@@ -1905,11 +1954,11 @@ void KeyData::CheckTypeAndMergeFrom(
 void KeyData::MergeFrom(const KeyData& from) {
   KeyData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.KeyData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.challenge_response_key_.MergeFrom(from._impl_.challenge_response_key_);
+  _this->_internal_mutable_challenge_response_key()->MergeFrom(from._internal_challenge_response_key());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1955,11 +2004,9 @@ void KeyData::InternalSwap(KeyData* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.challenge_response_key_.InternalSwap(&other->_impl_.challenge_response_key_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.label_, lhs_arena,
-      &other->_impl_.label_, rhs_arena
-  );
+  _internal_mutable_challenge_response_key()->InternalSwap(other->_internal_mutable_challenge_response_key());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.label_, lhs_arena,
+                                       &other->_impl_.label_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(KeyData, _impl_.type_)
       + sizeof(KeyData::_impl_.type_)
@@ -1972,12 +2019,13 @@ std::string KeyData::GetTypeName() const {
   return "cryptohome.KeyData";
 }
 
-
 // ===================================================================
 
 class Key::_Internal {
  public:
   using HasBits = decltype(std::declval<Key>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Key, _impl_._has_bits_);
   static const ::cryptohome::KeyData& data(const Key* msg);
   static void set_has_data(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -1991,10 +2039,9 @@ const ::cryptohome::KeyData&
 Key::_Internal::data(const Key* msg) {
   return *msg->_impl_.data_;
 }
-Key::Key(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Key::Key(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.Key)
 }
 Key::Key(const Key& from)
@@ -2003,38 +2050,37 @@ Key::Key(const Key& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.secret_){}
+    , decltype(_impl_.secret_) {}
+
     , decltype(_impl_.data_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_secret()) {
-    _this->_impl_.secret_.Set(from._internal_secret(), 
-      _this->GetArenaForAllocation());
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.secret_.Set(from._internal_secret(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_data()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.data_ = new ::cryptohome::KeyData(*from._impl_.data_);
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.Key)
 }
 
-inline void Key::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Key::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.secret_){}
+    , decltype(_impl_.secret_) {}
+
     , decltype(_impl_.data_){nullptr}
   };
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Key::~Key() {
@@ -2047,7 +2093,7 @@ Key::~Key() {
 }
 
 inline void Key::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.secret_.Destroy();
   if (this != internal_default_instance()) delete _impl_.data_;
 }
@@ -2058,7 +2104,7 @@ void Key::SetCachedSize(int size) const {
 
 void Key::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.Key)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2068,7 +2114,7 @@ void Key::Clear() {
       _impl_.secret_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.data_ != nullptr);
+      ABSL_DCHECK(_impl_.data_ != nullptr);
       _impl_.data_->Clear();
     }
   }
@@ -2080,25 +2126,27 @@ const char* Key::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cryptohome.KeyData data = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_data(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes secret = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_secret();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2124,10 +2172,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Key::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Key::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.Key)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -2140,8 +2188,8 @@ uint8_t* Key::_InternalSerialize(
 
   // optional bytes secret = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_secret(), target);
+    const std::string& _s = this->_internal_secret();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2152,11 +2200,11 @@ uint8_t* Key::_InternalSerialize(
   return target;
 }
 
-size_t Key::ByteSizeLong() const {
+::size_t Key::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.Key)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2164,9 +2212,8 @@ size_t Key::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bytes secret = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_secret());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_secret());
     }
 
     // optional .cryptohome.KeyData data = 1;
@@ -2194,8 +2241,8 @@ void Key::CheckTypeAndMergeFrom(
 void Key::MergeFrom(const Key& from) {
   Key* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.Key)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2228,17 +2275,14 @@ void Key::InternalSwap(Key* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.secret_, lhs_arena,
-      &other->_impl_.secret_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.secret_, lhs_arena,
+                                       &other->_impl_.secret_, rhs_arena);
   swap(_impl_.data_, other->_impl_.data_);
 }
 
 std::string Key::GetTypeName() const {
   return "cryptohome.Key";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
@@ -2272,6 +2316,5 @@ Arena::CreateMaybeMessage< ::cryptohome::Key >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::Key >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

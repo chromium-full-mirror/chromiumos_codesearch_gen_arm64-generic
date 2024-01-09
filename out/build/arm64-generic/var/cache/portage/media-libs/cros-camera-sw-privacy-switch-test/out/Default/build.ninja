@@ -52,8 +52,6 @@ build camera_connector: phony obj/camera/common/camera_connector.stamp
 build camera_gpu_algorithm: phony obj/camera/common/camera_gpu_algorithm.stamp
 build defect_detector: phony obj/camera/common/defect_detector.stamp
 build egl: phony obj/camera/gpu/egl/egl.stamp
-build embed_file_toc_test_files: phony ./libembed_file_toc_test_files.a
-build embed_file_toc_test_files_gen: phony obj/camera/common/embed_file_toc_test_files_gen.stamp
 build embedded_gpu_shaders: phony ./libembedded_gpu_shaders.a
 build embedded_gpu_shaders_gen: phony obj/camera/gpu/embedded_gpu_shaders_gen.stamp
 build face_detection: phony obj/camera/common/face_detection.stamp
@@ -123,20 +121,11 @@ build camera/common$:_libcros_camera_pkg_config-install_config: phony obj/camera
 build camera/common$:all: phony obj/camera/common/all.stamp
 build camera/common$:base: phony obj/camera/common/base.stamp
 build camera/common$:camera_algo_bridge: phony obj/camera/common/camera_algo_bridge.stamp
-build camera/common$:camera_buffer_pool_test: phony ./camera_buffer_pool_test
 build camera/common$:camera_connector: phony obj/camera/common/camera_connector.stamp
-build camera/common$:camera_face_detection_test: phony ./camera_face_detection_test
 build camera/common$:camera_gpu_algorithm: phony obj/camera/common/camera_gpu_algorithm.stamp
-build camera/common$:camera_hal3_helpers_test: phony ./camera_hal3_helpers_test
-build camera/common$:cbm_test: phony ./cbm_test
 build camera/common$:cros_camera_algo: phony ./cros_camera_algo
 build camera/common$:defect_detector: phony obj/camera/common/defect_detector.stamp
-build camera/common$:embed_file_toc_test: phony ./embed_file_toc_test
-build camera/common$:embed_file_toc_test_files: phony ./libembed_file_toc_test_files.a
-build camera/common$:embed_file_toc_test_files_gen: phony obj/camera/common/embed_file_toc_test_files_gen.stamp
 build camera/common$:face_detection: phony obj/camera/common/face_detection.stamp
-build camera/common$:feature_profile_test: phony ./feature_profile_test
-build camera/common$:future_test: phony ./future_test
 build camera/common$:install_camera_hal_dispatcher_mojo: phony obj/camera/common/install_camera_hal_dispatcher_mojo.stamp
 build camera/common$:install_cros_camera_algo_conf: phony obj/camera/common/install_cros_camera_algo_conf.stamp
 build camera/common$:install_cros_camera_algo_policy: phony obj/camera/common/install_cros_camera_algo_policy.stamp
@@ -160,10 +149,8 @@ build camera/common$:libcros_camera_pkg_config: phony obj/camera/common/libcros_
 build camera/common$:mojo_base: phony obj/camera/common/mojo_base.stamp
 build camera/common$:privacy_shutter: phony obj/camera/common/privacy_shutter.stamp
 build camera/common$:stream_manipulator: phony obj/camera/common/stream_manipulator.stamp
-build camera/common$:stream_manipulator_manager_test: phony ./stream_manipulator_manager_test
 build camera/common$:tracing: phony obj/camera/common/tracing.stamp
 build camera/common$:v4l2_device: phony obj/camera/common/v4l2_device.stamp
-build camera/common$:zsl_helper_test: phony ./zsl_helper_test
 build camera/common/sw_privacy_switch_test$:_sw_privacy_switch_test-install_config: phony obj/camera/common/sw_privacy_switch_test/_sw_privacy_switch_test-install_config.stamp
 build camera/common/sw_privacy_switch_test$:all: phony obj/camera/common/sw_privacy_switch_test/all.stamp
 build camera/common/sw_privacy_switch_test$:sw_privacy_switch_test: phony ./sw_privacy_switch_test
@@ -225,20 +212,11 @@ build all: phony $
     obj/camera/common/all.stamp $
     obj/camera/common/base.stamp $
     obj/camera/common/camera_algo_bridge.stamp $
-    ./camera_buffer_pool_test $
     obj/camera/common/camera_connector.stamp $
-    ./camera_face_detection_test $
     obj/camera/common/camera_gpu_algorithm.stamp $
-    ./camera_hal3_helpers_test $
-    ./cbm_test $
     ./cros_camera_algo $
     obj/camera/common/defect_detector.stamp $
-    ./embed_file_toc_test $
-    ./libembed_file_toc_test_files.a $
-    obj/camera/common/embed_file_toc_test_files_gen.stamp $
     obj/camera/common/face_detection.stamp $
-    ./feature_profile_test $
-    ./future_test $
     obj/camera/common/install_camera_hal_dispatcher_mojo.stamp $
     obj/camera/common/install_cros_camera_algo_conf.stamp $
     obj/camera/common/install_cros_camera_algo_policy.stamp $
@@ -262,10 +240,8 @@ build all: phony $
     obj/camera/common/mojo_base.stamp $
     obj/camera/common/privacy_shutter.stamp $
     obj/camera/common/stream_manipulator.stamp $
-    ./stream_manipulator_manager_test $
     obj/camera/common/tracing.stamp $
     obj/camera/common/v4l2_device.stamp $
-    ./zsl_helper_test $
     obj/camera/common/sw_privacy_switch_test/_sw_privacy_switch_test-install_config.stamp $
     obj/camera/common/sw_privacy_switch_test/all.stamp $
     ./sw_privacy_switch_test $

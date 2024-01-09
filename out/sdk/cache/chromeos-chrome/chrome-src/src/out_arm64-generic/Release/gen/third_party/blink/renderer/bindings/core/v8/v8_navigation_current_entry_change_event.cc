@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigationCurrentEntryChangeEvent>::value,
     "NavigationCurrentEntryChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigationCurrentEntryChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigationCurrentEntryChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationCurrentEntryChangeEvent.navigationType.get
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->navigationType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->navigationType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationCurrentEntryChangeEvent.from.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(v8_receiver);
+NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->from();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationCurrentEntryChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(v8_receiver);
+NavigationCurrentEntryChangeEvent* blink_receiver = V8NavigationCurrentEntryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

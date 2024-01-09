@@ -1,5 +1,5 @@
-import { aI as PaperRippleBehavior, E as EventTracker, b as assert, h as CrPolicyPrefMixin, I as I18nMixin, g as focusWithoutInk, F as getInstance, a as assertNotReached, aJ as AnchorAlignment, O as OpenWindowProxyImpl, M as MetricsBrowserProxyImpl, au as PrivacyElementInteractions, aK as SettingsBooleanControlMixin, x as sanitizeInnerHtml, e as RouteObserverMixin, W as WebUiListenerMixin, aL as ClearBrowsingDataBrowserProxyImpl, J as SyncBrowserProxyImpl, a0 as FocusOutlineManager, r as routes, ae as StatusAction, Y as SearchEnginesBrowserProxyImpl, Z as ChoiceMadeLocation, G as FocusRowMixin, ab as ExtensionControlBrowserProxyImpl, aM as GlobalScrollTargetMixin, aG as SearchEnginesInteractions, aN as SiteSettingsMixin, q as ContentSettingsTypes, aO as ContentSettingProvider, s as ContentSetting, j as PrefsMixin, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, aD as PrivacySandboxBrowserProxyImpl, f as Router, v as PluralStringProxyImpl, aP as CardState, R as RelaunchMixin, o as SafetyHubBrowserProxyImpl, u as SafetyHubEvent, z as PasswordManagerImpl, D as PasswordManagerPage, c as RestartType, B as BaseMixin, aQ as AllSitesAction2, aR as SortMethod, at as DeleteBrowsingDataAction, aS as AllSitesDialog, Q as TooltipMixin, aT as SiteSettingSource, az as SafetyCheckUnusedSitePermissionsModuleInteractions, aU as MODEL_UPDATE_DELAY_MS, aV as isUndoKeyboardEvent, aW as CookiesExceptionType, aX as SITE_EXCEPTION_WILDCARD, S as SiteSettingsPrefsBrowserProxyImpl, t as ChooserType, N as ListPropertyUpdateMixin, aY as INVALID_CATEGORY_SUBTYPE, af as syncPrefsIndividualDataTypes, n as PrivacyPageBrowserProxyImpl, ad as PageStatus, aZ as CrPolicyIndicatorType, P as PrefControlMixin, l as listenOnce, X as ResetBrowserProxyImpl, a_ as CookiePrimarySetting, w as CookieControlsMode, U as NetworkPredictionOptions, ay as SafetyCheckNotificationsModuleInteractions, p as SettingsState } from './shared.rollup.js';
-export { b3 as CrCheckboxElement, ao as CrDialogElement, b4 as CrIconButtonElement, b5 as CrInputElement, b6 as CrLazyRenderElement, b7 as CrTextareaElement, ba as PreloadingPageElement, bc as PrivacyGuideCompletionFragmentElement, bd as PrivacyGuideCookiesFragmentElement, be as PrivacyGuideDescriptionItemElement, bg as PrivacyGuideHistorySyncFragmentElement, bh as PrivacyGuideMsbbFragmentElement, bj as PrivacyGuideSafeBrowsingFragmentElement, bk as PrivacyGuideSearchSuggestionsFragmentElement, bb as PrivacyGuideStep, bl as PrivacyGuideWelcomeFragmentElement, bm as SafeBrowsingSetting, b2 as SecureDnsInputElement, br as SettingsCategoryDefaultRadioGroupElement, b9 as SettingsCollapseRadioButtonElement, b8 as SettingsPageContentPageElement, bf as SettingsPrivacyGuideDialogElement, bi as SettingsPrivacyGuidePageElement, a$ as SettingsRadioGroupElement, bo as SettingsSafetyHubEntryPointElement, bp as SettingsSafetyHubModuleElement, b1 as SettingsSecureDnsDialogElement, b0 as SettingsSecureDnsElement, bn as SettingsSecurityPageElement, bq as SettingsSimpleConfirmationDialogElement, aa as SettingsToggleButtonElement } from './shared.rollup.js';
+import { aR as PaperRippleBehavior, E as EventTracker, b as assert, h as CrPolicyPrefMixin, I as I18nMixin, g as focusWithoutInk, G as getInstance, a as assertNotReached, aS as AnchorAlignment, O as OpenWindowProxyImpl, M as MetricsBrowserProxyImpl, aA as PrivacyElementInteractions, ay as CvcDeletionUserAction, aT as SettingsBooleanControlMixin, y as sanitizeInnerHtml, e as RouteObserverMixin, W as WebUiListenerMixin, P as PrefsMixin, aU as ClearBrowsingDataBrowserProxyImpl, L as SyncBrowserProxyImpl, a2 as FocusOutlineManager, r as routes, ag as StatusAction, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, K as FocusRowMixin, ad as ExtensionControlBrowserProxyImpl, aV as GlobalScrollTargetMixin, aP as SearchEnginesInteractions, aW as SiteSettingsMixin, q as ContentSettingsTypes, aX as ContentSettingProvider, s as ContentSetting, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, aM as PrivacySandboxBrowserProxyImpl, f as Router, w as PluralStringProxyImpl, aY as CardState, R as RelaunchMixin, o as SafetyHubBrowserProxyImpl, aI as SafetyHubSurfaces, u as SafetyHubEvent, A as PasswordManagerImpl, F as PasswordManagerPage, c as RestartType, aH as SafetyHubModuleType, B as BaseMixin, aZ as AllSitesAction2, a_ as SortMethod, az as DeleteBrowsingDataAction, a$ as AllSitesDialog, V as TooltipMixin, b0 as SiteSettingSource, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, b1 as MODEL_UPDATE_DELAY_MS, b2 as isUndoKeyboardEvent, v as SafetyHubEntryPoint, b3 as CookiesExceptionType, b4 as SITE_EXCEPTION_WILDCARD, S as SiteSettingsPrefsBrowserProxyImpl, t as ChooserType, U as ListPropertyUpdateMixin, b5 as INVALID_CATEGORY_SUBTYPE, ah as syncPrefsIndividualDataTypes, n as PrivacyPageBrowserProxyImpl, af as PageStatus, b6 as CrPolicyIndicatorType, j as PrefControlMixin, l as listenOnce, Z as ResetBrowserProxyImpl, b7 as CookiePrimarySetting, x as CookieControlsMode, X as NetworkPredictionOptions, aE as SafetyCheckNotificationsModuleInteractions, p as SettingsState } from './shared.rollup.js';
+export { bd as CrCheckboxElement, aq as CrDialogElement, be as CrIconButtonElement, bf as CrInputElement, bg as CrLazyRenderElement, bh as CrTextareaElement, bw as HttpsFirstModeSetting, bk as PreloadingPageElement, bm as PrivacyGuideCompletionFragmentElement, bn as PrivacyGuideCookiesFragmentElement, bo as PrivacyGuideDescriptionItemElement, bq as PrivacyGuideHistorySyncFragmentElement, br as PrivacyGuideMsbbFragmentElement, bt as PrivacyGuideSafeBrowsingFragmentElement, bu as PrivacyGuideSearchSuggestionsFragmentElement, bl as PrivacyGuideStep, bv as PrivacyGuideWelcomeFragmentElement, bx as SafeBrowsingSetting, bc as SecureDnsInputElement, b9 as SecureDnsResolverType, bC as SettingsCategoryDefaultRadioGroupElement, bj as SettingsCollapseRadioButtonElement, bi as SettingsPageContentPageElement, bp as SettingsPrivacyGuideDialogElement, bs as SettingsPrivacyGuidePageElement, b8 as SettingsRadioGroupElement, bz as SettingsSafetyHubEntryPointElement, bA as SettingsSafetyHubModuleElement, bb as SettingsSecureDnsDialogElement, ba as SettingsSecureDnsElement, by as SettingsSecurityPageElement, bB as SettingsSimpleConfirmationDialogElement, ac as SettingsToggleButtonElement } from './shared.rollup.js';
 import { html, mixinBehaviors, PolymerElement, Debouncer, microTask, flush, afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
@@ -223,7 +223,9 @@ class CrSliderElement extends CrSliderElementBase {
         if (this.noink) {
             return;
         }
-        this.getRipple().showAndHoldDown();
+        if (!this.getRipple().holdDown) {
+            this.getRipple().showAndHoldDown();
+        }
         this.showLabel_ = true;
     }
     onDisabledChanged_() {
@@ -942,7 +944,7 @@ class AddressComponentUi {
  */
 const SANCTOINED_COUNTRY_CODES = Object.freeze(['CU', 'IR', 'KP', 'SD', 'SY']);
 const AddressSource = chrome.autofillPrivate.AddressSource;
-const ServerFieldType = chrome.autofillPrivate.ServerFieldType;
+const FieldType = chrome.autofillPrivate.FieldType;
 const SettingsAddressEditDialogElementBase = I18nMixin(PolymerElement);
 class SettingsAddressEditDialogElement extends SettingsAddressEditDialogElementBase {
     constructor() {
@@ -1015,16 +1017,16 @@ class SettingsAddressEditDialogElement extends SettingsAddressEditDialogElementB
             this.originalAddressFields_ =
                 isEditingExistingAddress ? new Map(this.addressFields_) : undefined;
             microTask.run(() => {
-                const countryField = this.addressFields_.get(ServerFieldType.ADDRESS_HOME_COUNTRY);
+                const countryField = this.addressFields_.get(FieldType.ADDRESS_HOME_COUNTRY);
                 if (!countryField) {
                     assert(countryList.length > 0);
                     // If the address is completely empty, the dialog is creating a new
                     // address. The first address in the country list is what we suspect
                     // the user's country is.
-                    this.addressFields_.set(ServerFieldType.ADDRESS_HOME_COUNTRY, countryList[0].countryCode);
+                    this.addressFields_.set(FieldType.ADDRESS_HOME_COUNTRY, countryList[0].countryCode);
                 }
                 this.countryCode_ =
-                    this.addressFields_.get(ServerFieldType.ADDRESS_HOME_COUNTRY);
+                    this.addressFields_.get(FieldType.ADDRESS_HOME_COUNTRY);
             });
         });
         // Open is called on the dialog after the address wrapper has been
@@ -1048,17 +1050,16 @@ class SettingsAddressEditDialogElement extends SettingsAddressEditDialogElementB
             this.components_ = [];
             for (const row of format.components) {
                 // If this is the name field, add a honorific title row before it.
-                if (row.row[0].field === ServerFieldType.NAME_FULL &&
-                    this.showHonorific_) {
-                    this.components_.push([new AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.NAME_HONORIFIC_PREFIX, this.i18n('honorificLabel'), 'long')]);
+                if (row.row[0].field === FieldType.NAME_FULL && this.showHonorific_) {
+                    this.components_.push([new AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.NAME_HONORIFIC_PREFIX, this.i18n('honorificLabel'), 'long')]);
                 }
-                this.components_.push(row.row.map(component => new AddressComponentUi(this.addressFields_, this.originalAddressFields_, component.field, component.fieldName, component.isLongField ? 'long' : '', component.field === ServerFieldType.ADDRESS_HOME_STREET_ADDRESS, skipValidation, component.isRequired)));
+                this.components_.push(row.row.map(component => new AddressComponentUi(this.addressFields_, this.originalAddressFields_, component.field, component.fieldName, component.isLongField ? 'long' : '', component.field === FieldType.ADDRESS_HOME_STREET_ADDRESS, skipValidation, component.isRequired)));
             }
             // Phone and email do not come in the address format as fields, but
             // should be editable and saveable in the resulting address.
             this.components_.push([
-                new AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.PHONE_HOME_WHOLE_NUMBER, this.i18n('addressPhone'), 'last-row'),
-                new AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.EMAIL_ADDRESS, this.i18n('addressEmail'), 'long last-row'),
+                new AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.PHONE_HOME_WHOLE_NUMBER, this.i18n('addressPhone'), 'last-row'),
+                new AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.EMAIL_ADDRESS, this.i18n('addressEmail'), 'long last-row'),
             ]);
             // Because of potentially added honorific field the resulting components
             // structure my be different from the original format, that is why
@@ -1208,7 +1209,7 @@ class SettingsAddressEditDialogElement extends SettingsAddressEditDialogElementB
      * components for the new location.
      */
     onCountryCodeSelectChange_() {
-        this.addressFields_.set(ServerFieldType.ADDRESS_HOME_COUNTRY, this.$.country.value);
+        this.addressFields_.set(FieldType.ADDRESS_HOME_COUNTRY, this.$.country.value);
         this.countryCode_ = this.$.country.value;
     }
 }
@@ -1310,15 +1311,15 @@ class SettingsAddressRemoveConfirmationDialogElement extends SettingsAddressRemo
 }
 customElements.define(SettingsAddressRemoveConfirmationDialogElement.is, SettingsAddressRemoveConfirmationDialogElement);
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 :host{display:flex;flex-direction:column}.dialog-title{color:var(--cr-primary-text-color);font-size:15px;font-weight:400;line-height:22px;margin:0;padding-block-end:16px;padding-block-start:16px}.list-with-header>div:first-of-type{border-top:var(--cr-separator-line)}.website-column{align-items:center;display:flex;flex:1}.website-column .text-elide{color:var(--cr-primary-text-color)}.username-column{display:flex;flex:1;margin:0 8px}.password-column{align-items:center;display:flex;flex:1}.password-field{background-color:transparent;border:none;flex:1;height:20px;width:0}.type-column{align-items:center;display:flex;flex:2;overflow:hidden}.ellipses{flex:1;max-width:fit-content;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.elide-left{direction:rtl}.elide-left>span{direction:ltr;unicode-bidi:bidi-override}site-favicon{margin-inline-end:16px;min-width:16px}#leakedPassword,cr-input.password-input::part(input),input.password-input{font-family:'DejaVu Sans Mono',monospace}
     </style>
   </template>
 `.content);
-styleMod$4.register('passwords-shared');
+styleMod$5.register('passwords-shared');
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -1506,9 +1507,9 @@ class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase 
     }
     onAddressRemoveConfirmationDialogClose_() {
         // Check if the dialog was confirmed before closing it.
-        if (this.shadowRoot
-            .querySelector('settings-address-remove-confirmation-dialog')
-            .wasConfirmed()) {
+        const wasDeletionConfirmed = this.shadowRoot
+            .querySelector('settings-address-remove-confirmation-dialog').wasConfirmed();
+        if (wasDeletionConfirmed) {
             // Two corner cases are handled:
             // 1. removing the only address: the focus goes to the Add button
             // 2. removing the last address: the focus goes to the previous address
@@ -1526,6 +1527,9 @@ class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase 
             this.autofillManager_.removeAddress(this.activeAddress.guid);
             getInstance().announce(loadTimeData.getString('addressRemovedMessage'));
         }
+        chrome.metricsPrivate.recordBoolean('Autofill.ProfileDeleted.Settings', 
+        /*confirmed=*/ wasDeletionConfirmed);
+        chrome.metricsPrivate.recordBoolean('Autofill.ProfileDeleted.Any', /*confirmed=*/ wasDeletionConfirmed);
         this.showAddressRemoveConfirmationDialog_ = false;
     }
     /**
@@ -1558,8 +1562,7 @@ class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase 
         if (accountInfo.isSyncEnabledForAutofillProfiles) {
             return false;
         }
-        if (!loadTimeData.getBoolean('autofillAccountProfileStorage') ||
-            !loadTimeData.getBoolean('syncEnableContactInfoDataTypeInTransportMode')) {
+        if (!loadTimeData.getBoolean('syncEnableContactInfoDataTypeInTransportMode')) {
             return false;
         }
         // Local profile of a logged-in user with disabled address sync and
@@ -1577,7 +1580,7 @@ class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase 
 customElements.define(SettingsAutofillSectionElement.is, SettingsAutofillSectionElement);
 
 function getTemplate$1t() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select">cr-input{--cr-input-error-display:block;margin-bottom:0;width:var(--cr-default-input-max-width)}.md-select+.md-select{margin-inline-start:8px}#month{width:70px}#saved-to-this-device-only-label{margin-bottom:10px;margin-top:0}#year{width:100px}#nicknameInput{--cr-input-width:var(--cr-default-input-max-width);width:fit-content}#charCount{font-size:var(--cr-form-field-label-font-size);line-height:var(--cr-form-field-label-line-height);padding-inline-start:8px}#nicknameInput:not(:focus-within) #charCount{display:none}#expiredError{display:block;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden}:host([expired_]) #expiredError{visibility:visible}#expiredError,:host([expired_]) #expiration{color:var(--google-red-600)}@media (prefers-color-scheme:dark){#expiredError,:host([expired_]) #expiration{color:var(--google-red-300)}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select">cr-input{--cr-input-error-display:block;margin-bottom:0;width:var(--cr-default-input-max-width)}.md-select+.md-select{margin-inline-start:8px}#month{width:70px}#cvcInput{width:132px}#cvcImage{margin-inline-start:10px}#saved-to-this-device-only-label{margin-bottom:10px;margin-top:0}#year{width:100px}#nicknameInput{--cr-input-width:var(--cr-default-input-max-width);width:fit-content}#charCount{font-size:var(--cr-form-field-label-font-size);line-height:var(--cr-form-field-label-line-height);padding-inline-start:8px}#nicknameInput:not(:focus-within) #charCount{display:none}#expiredError{display:block;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden}:host([expired_]) #expiredError{visibility:visible}#expiredError,:host([expired_]) #expiration{color:var(--google-red-600)}@media (prefers-color-scheme:dark){#expiredError,:host([expired_]) #expiration{color:var(--google-red-300)}}</style>
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[title_]]</div>
       <div slot="body">
@@ -1598,6 +1601,14 @@ function getTemplate$1t() {
           </template>
         </select>
         <div id="expiredError">$i18n{creditCardExpired}</div>
+        <template is="dom-if" if="[[checkIfCvcStorageIsAvailable_(
+                  prefs.autofill.payment_cvc_storage.value,
+                  cvcStorageAvailable_)]]">
+          <cr-input id="cvcInput" label="$i18n{creditCardCvcInputTitle}" placeholder="$i18n{creditCardCvcInputPlaceholder}" value="{{cvc_}}">
+            <img slot="suffix" id="cvcImage" src="[[getCvcImageSource_(cardNumber_)]]" title="[[getCvcImageTooltip_(cardNumber_)]]">
+            
+          </cr-input>
+        </template>
         
         <cr-input id="nameInput" label="$i18n{creditCardName}" value="{{name_}}" spellcheck="false">
         </cr-input>
@@ -1644,6 +1655,10 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
     static get properties() {
         return {
             /**
+             * User preferences state.
+             */
+            prefs: Object,
+            /**
              * The credit card being edited.
              */
             creditCard: Object,
@@ -1676,6 +1691,7 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
             yearList_: Array,
             name_: String,
             cardNumber_: String,
+            cvc_: String,
             nickname_: String,
             expirationYear_: String,
             expirationMonth_: String,
@@ -1689,6 +1705,15 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
                 computed: 'computeExpired_(expirationMonth_, expirationYear_)',
                 reflectToAttribute: true,
                 observer: 'onExpiredChanged_',
+            },
+            /**
+             * Checks if CVC storage is available based on the feature flag.
+             */
+            cvcStorageAvailable_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('cvcStorageAvailable');
+                },
             },
         };
     }
@@ -1737,8 +1762,9 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
         microTask.run(() => {
             this.expirationYear_ = selectedYear.toString();
             this.expirationMonth_ = this.creditCard.expirationMonth;
+            this.cvc_ = this.creditCard.cvc;
             this.name_ = this.creditCard.name;
-            this.cardNumber_ = this.creditCard.cardNumber;
+            this.cardNumber_ = this.creditCard.cardNumber || '';
             this.nickname_ = this.creditCard.nickname;
             this.$.dialog.showModal();
         });
@@ -1765,6 +1791,8 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
         this.creditCard.name = this.name_;
         this.creditCard.cardNumber = this.cardNumber_;
         this.creditCard.nickname = this.nickname_;
+        // Take the user entered CVC input as-is. This is due to PCI compliance.
+        this.creditCard.cvc = this.cvc_;
         this.trimCreditCard_();
         this.dispatchEvent(new CustomEvent('save-credit-card', { bubbles: true, composed: true, detail: this.creditCard }));
         this.close();
@@ -1836,6 +1864,29 @@ class SettingsCreditCardEditDialogElement extends SettingsCreditCardEditDialogEl
         if (this.creditCard.nickname) {
             this.creditCard.nickname = this.creditCard.nickname.trim();
         }
+    }
+    isCardAmex_() {
+        return !!this.cardNumber_ && this.cardNumber_.length >= 2 &&
+            !!this.cardNumber_.match('^(34|37)');
+    }
+    getCvcImageTooltip_() {
+        // An icon is shown to the user to help them look for their CVC.
+        // The location differs for AmEx and non-AmEx cards, so we have to get
+        // the first two digits of the card number for AmEx cards before we can
+        // update the icon.
+        return this.i18n(this.isCardAmex_() ? 'creditCardCvcAmexImageTitle' :
+            'creditCardCvcImageTitle');
+    }
+    getCvcImageSource_() {
+        // An icon is shown to the user to help them look for their CVC.
+        // The location differs for AmEx and non-AmEx cards, so we have to get
+        // the first two digits of the card number for AmEx cards before we can
+        // update the icon.
+        return this.isCardAmex_() ? 'chrome://settings/images/cvc_amex.svg' :
+            'chrome://settings/images/cvc.svg';
+    }
+    checkIfCvcStorageIsAvailable_(cvcStorageToggleEnabled) {
+        return this.cvcStorageAvailable_ && cvcStorageToggleEnabled;
     }
 }
 customElements.define(SettingsCreditCardEditDialogElement.is, SettingsCreditCardEditDialogElement);
@@ -1909,6 +1960,9 @@ class PaymentsManagerImpl {
     logServerCardLinkClicked() {
         chrome.autofillPrivate.logServerCardLinkClicked();
     }
+    logServerIbanLinkClicked() {
+        chrome.autofillPrivate.logServerIbanLinkClicked();
+    }
     setCreditCardFidoAuthEnabledState(enabled) {
         chrome.autofillPrivate.setCreditCardFIDOAuthEnabledState(enabled);
     }
@@ -1932,6 +1986,9 @@ class PaymentsManagerImpl {
         return chrome.autofillPrivate.getLocalCard(guid);
     }
     // 
+    bulkDeleteAllCvcs() {
+        chrome.autofillPrivate.bulkDeleteAllCvcs();
+    }
     static getInstance() {
         return instance$5 || (instance$5 = new PaymentsManagerImpl());
     }
@@ -2042,13 +2099,23 @@ class SettingsIbanEditDialogElement extends SettingsIbanEditDialogElementBase {
 }
 customElements.define(SettingsIbanEditDialogElement.is, SettingsIbanEditDialogElement);
 
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
+  <template>
+    <style>
+.cr-screen-reader-only{clip-path:inset(100%);position:fixed}.cr-screen-reader-only-host-node{position:relative}.cr-screen-reader-only-host-node .cr-screen-reader-only{height:100%;overflow:hidden;position:absolute;width:100%}
+    </style>
+  </template>
+`.content);
+styleMod$4.register('cr-screen-reader-only');
+
 function getTemplate$1r() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}.screen-reader-only-substituted-parent{position:relative}.screen-reader-only-visually-hidden{clip-path:inset(100%);height:100%;position:absolute;width:100%}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}</style>
     <div class="list-item" role="row">
       <div class="type-column" role="cell">
         <img id="cardImage" src="[[creditCard.imageSrc]]" alt="">
-        <div class="summary-column screen-reader-only-substituted-parent">
-          <div class="screen-reader-only-visually-hidden">
+        <div class="summary-column cr-screen-reader-only-host-node">
+          <div class="cr-screen-reader-only">
             [[getSummaryAriaLabel_(creditCard)]],
             [[getSummaryAriaSublabel_(creditCard)]]
           </div>
@@ -2239,13 +2306,19 @@ class SettingsCreditCardListEntryElement extends SettingsCreditCardListEntryElem
 customElements.define(SettingsCreditCardListEntryElement.is, SettingsCreditCardListEntryElement);
 
 function getTemplate$1q() {
-    return html `<!--_html_template_start_--><style include="settings-shared passwords-shared">.second-column{align-items:center;display:flex;flex:1;justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#ibanImage{margin-inline-end:16px;vertical-align:middle}</style>
-
+    return html `<!--_html_template_start_--><style include="settings-shared passwords-shared cr-screen-reader-only">.second-column{align-items:center;display:flex;flex:1;justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#ibanImage{margin-inline-end:16px;vertical-align:middle}</style>
 <div class="list-item type-column" role="row">
   <img id="ibanImage" src="chrome://settings/images/iban.svg" alt="">
-  <div class="summary-column" role="cell">
-    <div id="value" class="ellipses">[[iban.metadata.summaryLabel]]</div>
-    <div id="nickname" class="ellipses sub-label">[[iban.nickname]]</div>
+  <div class="summary-column cr-screen-reader-only-host-node" role="cell">
+    <div class="cr-screen-reader-only">
+      [[getA11yIbanDescription_(iban)]], [[iban.nickname]]
+    </div>
+    <div id="value" class="ellipses" aria-hidden="true">
+      [[iban.metadata.summaryLabel]]
+    </div>
+    <div id="nickname" class="ellipses sub-label" aria-hidden="true">
+      [[iban.nickname]]
+    </div>
   </div>
   <div role="cell" class="second-column">
     <div id="paymentsIndicator" hidden$="[[!shouldShowGooglePaymentsIndicator_(iban.metadata)]]">
@@ -2321,19 +2394,19 @@ class SettingsIbanListEntryElement extends SettingsIbanListEntryElementBase {
             composed: true,
         }));
     }
+    getA11yIbanDescription_(iban) {
+        // Strip all whitespace and get the pure last four digits of the value.
+        const strippedSummaryLabel = iban.metadata ? iban.metadata.summaryLabel.replace(/\s/g, '') : '';
+        const lastFourDigits = strippedSummaryLabel.substring(Math.max(0, strippedSummaryLabel.length - 4));
+        return this.i18n('a11yIbanDescription', lastFourDigits);
+    }
     /**
      * @return the title for the More Actions button corresponding to the IBAN
      *     which is described by the nickname or last 4 digits of the IBAN's
      *     value.
      */
     getMoreActionsTitle_(iban) {
-        if (iban.nickname) {
-            return this.i18n('moreActionsForIban', iban.nickname);
-        }
-        // Strip all whitespace and get the pure last four digits of the value.
-        const strippedSummaryLabel = iban.metadata ? iban.metadata.summaryLabel.replace(/\s/g, '') : '';
-        const lastFourDigits = strippedSummaryLabel.substring(Math.max(0, strippedSummaryLabel.length - 4));
-        return this.i18n('moreActionsForIban', this.i18n('moreActionsForIbanDescription', lastFourDigits));
+        return this.i18n('moreActionsForIban', iban.nickname || this.getA11yIbanDescription_(iban));
     }
 }
 customElements.define(SettingsIbanListEntryElement.is, SettingsIbanListEntryElement);
@@ -2652,7 +2725,7 @@ function getTemplate$1n() {
 </cr-lazy-render>
 
 <template is="dom-if" if="[[showCreditCardDialog_]]" restamp>
-  <settings-credit-card-edit-dialog credit-card="[[activeCreditCard_]]" on-close="onCreditCardDialogClose_" on-save-credit-card="saveCreditCard_">
+  <settings-credit-card-edit-dialog credit-card="[[activeCreditCard_]]" on-close="onCreditCardDialogClose_" on-save-credit-card="saveCreditCard_" prefs="{{prefs}}">
   </settings-credit-card-edit-dialog>
 </template>
 <template is="dom-if" if="[[showIbanDialog_]]" restamp>
@@ -2943,6 +3016,7 @@ class SettingsPaymentsSectionElement extends SettingsPaymentsSectionElementBase 
         OpenWindowProxyImpl.getInstance().openUrl(url.toString());
     }
     onRemoteEditIbanMenuClick_() {
+        this.paymentsManager_.logServerIbanLinkClicked();
         OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('managePaymentMethodsUrl'));
     }
     onLocalCreditCardRemoveConfirmationDialogClose_() {
@@ -3132,14 +3206,26 @@ class SettingsPaymentsSectionElement extends SettingsPaymentsSectionElementBase 
      */
     onBulkRemoveCvcClick_() {
         assert(this.cvcStorageAvailable_);
+        // Log the metric for user clicking on the bulk delete hyperlink which
+        // triggers the dialog window.
+        MetricsBrowserProxyImpl.getInstance().recordAction(CvcDeletionUserAction.HYPERLINK_CLICKED);
         this.showBulkRemoveCvcConfirmationDialog_ = true;
     }
     /**
      * Method to bulk delete all the CVCs present on the local DB.
-     * TODO(crbug/1464441): Add the code to delete all the CVCs from the local DB.
      */
     onShowBulkRemoveCvcConfirmationDialogClose_() {
         assert(this.cvcStorageAvailable_);
+        const confirmationDialog = this.shadowRoot.querySelector('#bulkDeleteCvcConfirmDialog');
+        assert(confirmationDialog);
+        // Log the metric for user either clicking on "Delete" or "Cancel" on the
+        // bulk delete dialog window.
+        MetricsBrowserProxyImpl.getInstance().recordAction(confirmationDialog.wasConfirmed() ?
+            CvcDeletionUserAction.DIALOG_ACCEPTED :
+            CvcDeletionUserAction.DIALOG_CANCELLED);
+        if (confirmationDialog.wasConfirmed()) {
+            this.paymentsManager_.bulkDeleteAllCvcs();
+        }
         this.showBulkRemoveCvcConfirmationDialog_ = false;
     }
     /**
@@ -3340,9 +3426,11 @@ function getTemplate$1j() {
                     )]]" disabled="[[clearingInProgress_]]" no-set-pref>
             </settings-checkbox>
             <settings-checkbox id="cookiesCheckboxBasic" class="cookies-checkbox" pref="{{prefs.browser.clear_data.cookies_basic}}" label="$i18n{clearCookies}" sub-label="[[cookiesCheckboxLabel_(
+                    isSignedIn_,
                     shouldShowCookieException_,
                     '$i18nPolymer{clearCookiesSummary}',
                     '$i18nPolymer{clearCookiesSummarySignedIn}',
+                    '$i18nPolymer{clearCookiesSummarySyncing}',
                     '$i18nPolymer{clearCookiesSummarySignedInSupervisedProfile}'
                     )]]" disabled="[[clearingInProgress_]]" no-set-pref>
             </settings-checkbox>
@@ -3408,13 +3496,16 @@ function getTemplate$1j() {
           [[clearingDataAlertString_]]
         </div>
       </div>
-      <template is="dom-if" if="[[shouldShowFooter_(syncStatus.signedIn)]]" restamp>
+      <template is="dom-if" if="[[shouldShowFooter_(isSignedIn_, syncStatus.signedIn)]]" restamp>
         <div slot="footer">
-          <settings-sync-account-control sync-status="[[syncStatus]]" prefs="{{prefs}}" hide-buttons>
+          <settings-sync-account-control sync-status="[[syncStatus]]" prefs="{{prefs}}" hide-buttons hide-banner>
           </settings-sync-account-control>
           <div class="divider"></div>
           <div id="footer-description" on-click="onSyncDescriptionLinkClicked_">
-            <span id="sync-info" hidden="[[syncStatus.hasError]]">
+            <span id="signin-info" hidden="[[!showSigninInfo_(isSignedIn_, syncStatus.signedIn)]]">
+              $i18nRaw{clearBrowsingDataSignedIn}
+            </span>
+            <span id="sync-info" hidden="[[!showSyncInfo_(isSignedIn_, syncStatus.signedIn)]]">
               $i18nRaw{clearBrowsingDataWithSync}
             </span>
             <span id="sync-paused-info" hidden="[[!isSyncPaused_]]">
@@ -3464,7 +3555,29 @@ function closeDialog(dialog, isLast) {
     }
     dialog.close();
 }
-const SettingsClearBrowsingDataDialogElementBase = RouteObserverMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
+var TimePeriod;
+(function (TimePeriod) {
+    TimePeriod[TimePeriod["LAST_HOUR"] = 0] = "LAST_HOUR";
+    TimePeriod[TimePeriod["LAST_DAY"] = 1] = "LAST_DAY";
+    TimePeriod[TimePeriod["LAST_WEEK"] = 2] = "LAST_WEEK";
+    TimePeriod[TimePeriod["FOUR_WEEKS"] = 3] = "FOUR_WEEKS";
+    TimePeriod[TimePeriod["ALL_TIME"] = 4] = "ALL_TIME";
+    TimePeriod[TimePeriod["TIME_PERIOD_LAST"] = 4] = "TIME_PERIOD_LAST";
+})(TimePeriod || (TimePeriod = {}));
+// TODO(crbug.com/1487530): Remove this after CbdTimeframeRequired finishes.
+var TimePeriodExperiment;
+(function (TimePeriodExperiment) {
+    TimePeriodExperiment[TimePeriodExperiment["NOT_SELECTED"] = -1] = "NOT_SELECTED";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_HOUR"] = 0] = "LAST_HOUR";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_DAY"] = 1] = "LAST_DAY";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_WEEK"] = 2] = "LAST_WEEK";
+    TimePeriodExperiment[TimePeriodExperiment["FOUR_WEEKS"] = 3] = "FOUR_WEEKS";
+    TimePeriodExperiment[TimePeriodExperiment["ALL_TIME"] = 4] = "ALL_TIME";
+    TimePeriodExperiment[TimePeriodExperiment["OLDER_THAN_30_DAYS"] = 5] = "OLDER_THAN_30_DAYS";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_15_MINUTES"] = 6] = "LAST_15_MINUTES";
+    TimePeriodExperiment[TimePeriodExperiment["TIME_PERIOD_LAST"] = 6] = "TIME_PERIOD_LAST";
+})(TimePeriodExperiment || (TimePeriodExperiment = {}));
+const SettingsClearBrowsingDataDialogElementBase = RouteObserverMixin(WebUiListenerMixin(PrefsMixin(I18nMixin(PolymerElement))));
 class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDialogElementBase {
     constructor() {
         super(...arguments);
@@ -3509,11 +3622,26 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
                 readOnly: true,
                 type: Array,
                 value: [
-                    { value: 0, name: loadTimeData.getString('clearPeriodHour') },
-                    { value: 1, name: loadTimeData.getString('clearPeriod24Hours') },
-                    { value: 2, name: loadTimeData.getString('clearPeriod7Days') },
-                    { value: 3, name: loadTimeData.getString('clearPeriod4Weeks') },
-                    { value: 4, name: loadTimeData.getString('clearPeriodEverything') },
+                    {
+                        value: TimePeriod.LAST_HOUR,
+                        name: loadTimeData.getString('clearPeriodHour'),
+                    },
+                    {
+                        value: TimePeriod.LAST_DAY,
+                        name: loadTimeData.getString('clearPeriod24Hours'),
+                    },
+                    {
+                        value: TimePeriod.LAST_WEEK,
+                        name: loadTimeData.getString('clearPeriod7Days'),
+                    },
+                    {
+                        value: TimePeriod.FOUR_WEEKS,
+                        name: loadTimeData.getString('clearPeriod4Weeks'),
+                    },
+                    {
+                        value: TimePeriod.ALL_TIME,
+                        name: loadTimeData.getString('clearPeriodEverything'),
+                    },
                 ],
             },
             enableCbdTimeframeRequired_: {
@@ -3522,24 +3650,60 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
                     return loadTimeData.getBoolean('enableCbdTimeframeRequired');
                 },
             },
+            unoDesktopEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('unoDesktopEnabled');
+                },
+            },
             /**
              * When CBDTimeframeRequired feature/flag is on, this will be the list
              * of options for the dropdown menu. V2 additionally contains the "Last 15
-             * minutes" option.
+             * minutes" and the "Select a time range" options with "Select a time
+             * range" being always hidden in the menuOptions list in which users can
+             * chose the time range.
              */
             clearFromOptionsV2_: {
                 readOnly: true,
                 type: Array,
                 value: [
+                    // The pref is initialized to TimePeriodExperiment.NOT_SELECTED, which
+                    // is shown in the dropdown as the selected option until the user
+                    // selects a different value. The menuList of options should not
+                    // contain the option for TimePeriodExperiment.NOT_SELECTED, as it
+                    // doesn't make sense for users to choose it.
+                    {
+                        value: TimePeriodExperiment.NOT_SELECTED,
+                        name: loadTimeData.getString('clearPeriodNotSelected'),
+                        hidden: true,
+                    },
                     // The value of 15min is 6 to match the value written in the backend,
                     // Also, it comes first in the list to keep the list in ascending
                     // order.
-                    { value: 6, name: loadTimeData.getString('clearPeriod15Minutes') },
-                    { value: 0, name: loadTimeData.getString('clearPeriodHour') },
-                    { value: 1, name: loadTimeData.getString('clearPeriod24Hours') },
-                    { value: 2, name: loadTimeData.getString('clearPeriod7Days') },
-                    { value: 3, name: loadTimeData.getString('clearPeriod4Weeks') },
-                    { value: 4, name: loadTimeData.getString('clearPeriodEverything') },
+                    {
+                        value: TimePeriodExperiment.LAST_15_MINUTES,
+                        name: loadTimeData.getString('clearPeriod15Minutes'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_HOUR,
+                        name: loadTimeData.getString('clearPeriodHour'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_DAY,
+                        name: loadTimeData.getString('clearPeriod24Hours'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_WEEK,
+                        name: loadTimeData.getString('clearPeriod7Days'),
+                    },
+                    {
+                        value: TimePeriodExperiment.FOUR_WEEKS,
+                        name: loadTimeData.getString('clearPeriod4Weeks'),
+                    },
+                    {
+                        value: TimePeriodExperiment.ALL_TIME,
+                        name: loadTimeData.getString('clearPeriodEverything'),
+                    },
                 ],
             },
             clearingInProgress_: {
@@ -3613,6 +3777,14 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
             },
             nonGoogleSearchHistoryString_: String,
         };
+    }
+    static get observers() {
+        return [
+            `onTimePeriodAdvancedPrefUpdated_(
+          prefs.browser.clear_data.time_period.value)`,
+            `onTimePeriodBasicPrefUpdated_(
+          prefs.browser.clear_data.time_period_basic.value)`,
+        ];
     }
     ready() {
         super.ready();
@@ -3692,25 +3864,32 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
     }
     /**
      * Choose a label for the cookie checkbox
+     * @param isSignedIn boolean whether the user is signed in or not.
      * @param shouldShowCookieException boolean whether the exception about not
-     *  being signed out of your Google account should be shown when user is
+     * being signed out of your Google account should be shown when user is
      * sync.
      * @param cookiesSummary string explaining that deleting cookies and site data
-     * will sign the user out of most websites
-     * @param cookiesSummarySignedIn string explaining that deleting cookies and
-     * site data will sign the user out of most websites but Google sign in will
-     * stay.
+     * will sign the user out of most websites.
+     * @param clearCookiesSummarySignedIn string explaining that deleting cookies
+     * and site data will sign the user out of most websites but Google sign in
+     * will stay.
+     * @param clearCookiesSummarySyncing string explaining that deleting cookies
+     * and site data will sign the user out of most websites but Google sign in
+     * will stay when user is syncing.
      * @param clearCookiesSummarySignedInSupervisedProfile string used for a
      * supervised user. Gives information about family link controls and that they
      * will not be signed out on clearing cookies
      */
-    cookiesCheckboxLabel_(shouldShowCookieException, cookiesSummary, cookiesSummarySignedIn, clearCookiesSummarySignedInSupervisedProfile) {
+    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, clearCookiesSummarySignedInSupervisedProfile) {
         if (loadTimeData.getBoolean('isChildAccount') &&
             loadTimeData.getBoolean('clearingCookiesKeepsSupervisedUsersSignedIn')) {
             return clearCookiesSummarySignedInSupervisedProfile;
         }
+        if (this.unoDesktopEnabled_ && isSignedIn) {
+            return clearCookiesSummarySignedIn;
+        }
         if (shouldShowCookieException) {
-            return cookiesSummarySignedIn;
+            return clearCookiesSummarySyncing;
         }
         // 
         return cookiesSummary;
@@ -3832,6 +4011,35 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
         // 
         return showFooter;
     }
+    /**
+     * @return Whether the signed info description should be shown in the footer.
+     */
+    showSigninInfo_() {
+        return this.unoDesktopEnabled_ && this.isSignedIn_ &&
+            (!this.syncStatus || !this.syncStatus.signedIn);
+    }
+    /**
+     * @return Whether the synced info description should be shown in the footer.
+     */
+    showSyncInfo_() {
+        return !this.showSigninInfo_() && !!this.syncStatus &&
+            !this.syncStatus.hasError;
+    }
+    onTimePeriodAdvancedPrefUpdated_() {
+        this.onTimePeriodPrefUpdated_(false);
+    }
+    onTimePeriodBasicPrefUpdated_() {
+        this.onTimePeriodPrefUpdated_(true);
+    }
+    onTimePeriodPrefUpdated_(basic) {
+        const timePeriodPref = basic ? 'browser.clear_data.time_period_basic' :
+            'browser.clear_data.time_period';
+        const timePeriodValue = this.getPref(timePeriodPref).value;
+        if (!(timePeriodValue in TimePeriod)) {
+            // If the synced time period is not supported, default to "Last hour".
+            this.setPrefValue(timePeriodPref, TimePeriod.LAST_HOUR);
+        }
+    }
 }
 customElements.define(SettingsClearBrowsingDataDialogElement.is, SettingsClearBrowsingDataDialogElement);
 
@@ -3840,16 +4048,16 @@ function getTemplate$1i() {
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[dialogTitle_]]</div>
       <div slot="body" spellcheck="false">
-         <cr-input id="searchEngine" label="$i18n{searchEnginesSearchEngine}" error-message="$i18n{notValid}" value="{{searchEngine_}}" on-input="validate_" autofocus>
+         <cr-input id="searchEngine" label="$i18n{searchEnginesSearchEngine}" readonly="[[readonly_]]" error-message="$i18n{notValid}" value="{{searchEngine_}}" on-input="validate_" autofocus>
         </cr-input>
-        <cr-input id="keyword" label="$i18n{searchEnginesShortcut}" error-message="$i18n{notValid}" value="{{keyword_}}" on-focus="validate_" on-input="validate_">
+        <cr-input id="keyword" label="$i18n{searchEnginesShortcut}" readonly="[[readonly_]]" error-message="$i18n{notValid}" value="{{keyword_}}" on-focus="validate_" on-input="validate_">
         </cr-input>
-        <cr-input id="queryUrl" label="$i18n{searchEnginesQueryURLExplanation}" error-message="$i18n{notValid}" value="{{queryUrl_}}" on-focus="validate_" on-input="validate_" disabled$="[[model.urlLocked]]">
+        <cr-input id="queryUrl" label="$i18n{searchEnginesQueryURLExplanation}" readonly="[[urlIsReadonly_]]" error-message="$i18n{notValid}" value="{{queryUrl_}}" on-focus="validate_" on-input="validate_">
         </cr-input>
       </div>
       <div slot="button-container">
-        <cr-button class="cancel-button" on-click="cancel_" id="cancel">
-            $i18n{cancel}</cr-button>
+        <cr-button class="cancel-button" on-click="cancel_" id="cancel" hidden="[[cancelButtonHidden_]]">
+          $i18n{cancel}</cr-button>
         <cr-button id="actionButton" class="action-button" on-click="onActionButtonClick_">
           [[actionButtonText_]]
         </cr-button>
@@ -3895,23 +4103,33 @@ class SettingsSearchEngineEditDialogElement extends SettingsSearchEngineEditDial
             queryUrl_: String,
             dialogTitle_: String,
             actionButtonText_: String,
+            cancelButtonHidden_: Boolean,
+            readonly_: Boolean,
+            urlIsReadonly_: {
+                type: Boolean,
+                computed: 'computeUrlIsReadonly_(model, readonly_)',
+            },
         };
     }
     ready() {
         super.ready();
         if (this.model) {
-            this.dialogTitle_ =
-                loadTimeData.getString('searchEnginesEditSearchEngine');
-            this.actionButtonText_ = loadTimeData.getString('save');
+            this.dialogTitle_ = loadTimeData.getString(this.model.isManaged ? 'searchEnginesViewSearchEngine' :
+                'searchEnginesEditSearchEngine');
+            this.actionButtonText_ =
+                loadTimeData.getString(this.model.isManaged ? 'done' : 'save');
+            this.cancelButtonHidden_ = this.model.isManaged;
             // If editing an existing search engine, pre-populate the input fields.
             this.searchEngine_ = this.model.name;
             this.keyword_ = this.model.keyword;
             this.queryUrl_ = this.model.url;
+            this.readonly_ = this.model.isManaged;
         }
         else {
             this.dialogTitle_ =
                 loadTimeData.getString('searchEnginesAddSearchEngine');
             this.actionButtonText_ = loadTimeData.getString('add');
+            this.readonly_ = false;
         }
         this.addEventListener('cancel', () => {
             this.browserProxy_.searchEngineEditCancelled();
@@ -3970,6 +4188,9 @@ class SettingsSearchEngineEditDialogElement extends SettingsSearchEngineEditDial
         });
         this.$.actionButton.disabled = !allValid;
     }
+    computeUrlIsReadonly_() {
+        return this.readonly_ || (!!this.model && this.model.urlLocked);
+    }
 }
 customElements.define(SettingsSearchEngineEditDialogElement.is, SettingsSearchEngineEditDialogElement);
 
@@ -3984,39 +4205,48 @@ site-favicon{margin-inline-end:8px;min-width:16px}
 styleMod$3.register('search-engine-entry');
 
 function getTemplate$1h() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared search-engine-entry">:host([is-default]) .list-item{font-weight:500}#name-column{align-items:center;display:flex;flex:3;word-break:break-word}#shortcut-column{flex:4;word-break:break-word}#url-column-padded{flex:3;margin-inline-end:40px}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared search-engine-entry">:host([is-default]) .list-item{font-weight:500}.additional-info-column-group{align-items:center;display:flex;flex:6}#controls-column-group{flex:auto;margin-left:auto;display:flex;justify-content:end;align-items:center}cr-policy-indicator{display:inline-flex;justify-content:center;margin-inline-start:16px;vertical-align:middle;width:36px}#name-column{align-items:center;display:flex;flex:3;word-break:break-word}#shortcut-column{word-break:break-word}#shortcut-column,#url-column{flex:auto;margin-inline-end:40px}</style>
 
     <div class="list-item cr-row" role="row">
       <span role="cell" id="name-column">
-        <site-favicon favicon-url="[[engine.iconURL]]" url="[[engine.url]]">
+        <site-favicon favicon-url="[[engine.iconURL]]" url="[[engine.url]]" icon-path="[[engine.iconPath]]">
         </site-favicon>
         <div>[[engine.displayName]]</div>
       </span>
-      <span role="cell" id="shortcut-column" hidden="[[!showShortcut]]">
-        <div>[[engine.keyword]]</div>
-      </span>
-      <span role="cell" id="url-column-padded" class="text-elide" hidden="[[!showQueryUrl]]">
-        <div>[[engine.url]]</div>
-      </span>
-      <span role="cell">
-        <cr-button class="secondary-button" on-click="onActivateClick_" hidden="[[!engine.canBeActivated]]" id="activate">
-          $i18n{searchEnginesActivate}
-        </cr-button>
-        <cr-icon-button class="icon-edit" on-click="onEditClick_" title="$i18n{edit}" hidden="[[engine.canBeActivated]]" disabled$="[[!engine.canBeEdited]]" id="editIconButton">
-        </cr-icon-button>
-        <cr-icon-button class="icon-more-vert" on-click="onDotsClick_" disabled$="[[engine.default]]" title="$i18n{moreActions}">
-        </cr-icon-button>
-        <cr-action-menu role-description="$i18n{menu}">
-          <button class="dropdown-item" on-click="onMakeDefaultClick_" disabled$="[[!engine.canBeDefault]]" id="makeDefault">
-            $i18n{searchEnginesMakeDefault}
-          </button>
-          <button class="dropdown-item" on-click="onDeactivateClick_" hidden="[[!engine.canBeDeactivated]]" id="deactivate">
-            $i18n{searchEnginesDeactivate}
-          </button>
-          <button class="dropdown-item" on-click="onDeleteClick_" hidden="[[!engine.canBeRemoved]]" id="delete">
-            $i18n{delete}
-          </button>
-        </cr-action-menu>
+      <span class="additional-info-column-group">
+        <span role="cell" id="shortcut-column" hidden="[[!showShortcut]]">
+          <div>[[engine.keyword]]</div>
+        </span>
+        <span role="cell" id="url-column" class="text-elide" hidden="[[!showQueryUrl]]">
+          <div>[[engine.url]]</div>
+        </span>
+        <span role="cell" id="controls-column-group">
+          <cr-button class="secondary-button" on-click="onActivateClick_" hidden="[[!engine.canBeActivated]]" id="activate">
+            $i18n{searchEnginesActivate}
+          </cr-button>
+          <cr-icon-button class="icon-edit" on-click="onViewOrEditClick_" title="$i18n{edit}" hidden="[[!showEditIcon_]]" disabled$="[[!engine.canBeEdited]]" id="editIconButton">
+          </cr-icon-button>
+          <cr-button class="secondary-button" on-click="onViewOrEditClick_" hidden="[[!engine.isManaged]]" id="viewDetailsButton">
+            $i18n{searchEnginesViewDetails}
+          </cr-button>
+          <cr-icon-button class="icon-more-vert" on-click="onDotsClick_" disabled$="[[engine.default]]" title="$i18n{moreActions}" hidden="[[engine.isManaged]]">
+          </cr-icon-button>
+          <cr-action-menu role-description="$i18n{menu}">
+            <button class="dropdown-item" on-click="onMakeDefaultClick_" disabled$="[[!engine.canBeDefault]]" id="makeDefault">
+              $i18n{searchEnginesMakeDefault}
+            </button>
+            <button class="dropdown-item" on-click="onDeactivateClick_" hidden="[[!engine.canBeDeactivated]]" id="deactivate">
+              $i18n{searchEnginesDeactivate}
+            </button>
+            <button class="dropdown-item" on-click="onDeleteClick_" hidden="[[!engine.canBeRemoved]]" id="delete">
+              $i18n{delete}
+            </button>
+          </cr-action-menu>
+          <template is="dom-if" if="[[engine.isManaged]]">
+            <cr-policy-indicator indicator-type="userPolicy">
+            </cr-policy-indicator>
+          
+        </template></span>
       </span>
     </div>
     <template is="dom-if" if="[[engine.extension]]">
@@ -4054,6 +4284,10 @@ class SettingsSearchEngineEntryElement extends PolymerElement {
                 type: Boolean,
                 computed: 'computeIsDefault_(engine)',
             },
+            showEditIcon_: {
+                type: Boolean,
+                computed: 'computeShowEditIcon_(engine)',
+            },
         };
     }
     closePopupMenu_() {
@@ -4061,6 +4295,9 @@ class SettingsSearchEngineEntryElement extends PolymerElement {
     }
     computeIsDefault_() {
         return this.engine.default;
+    }
+    computeShowEditIcon_() {
+        return !this.engine.canBeActivated && !this.engine.isManaged;
     }
     onDeleteClick_(e) {
         e.preventDefault();
@@ -4087,12 +4324,12 @@ class SettingsSearchEngineEntryElement extends PolymerElement {
             anchorAlignmentY: AnchorAlignment.AFTER_END,
         });
     }
-    onEditClick_(e) {
+    onViewOrEditClick_(e) {
         e.preventDefault();
         this.closePopupMenu_();
         const anchor = this.shadowRoot.querySelector('cr-icon-button');
         assert(anchor);
-        this.dispatchEvent(new CustomEvent('edit-search-engine', {
+        this.dispatchEvent(new CustomEvent('view-or-edit-search-engine', {
             bubbles: true,
             composed: true,
             detail: {
@@ -4117,19 +4354,23 @@ class SettingsSearchEngineEntryElement extends PolymerElement {
 customElements.define(SettingsSearchEngineEntryElement.is, SettingsSearchEngineEntryElement);
 
 function getTemplate$1g() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared">#headers{display:flex;padding:10px 0}#headers .name{flex:3}#headers .shortcut,#headers .url,#headers .url-padded{flex:4}settings-search-engine-entry{border-top:var(--cr-separator-line)}:host([fixed-height]) #container{max-height:calc((var(--cr-section-min-height) + var(--cr-separator-height)) * 6)}.icon-placeholder{margin-inline-end:0;margin-inline-start:var(--cr-icon-button-margin-start);width:var(--cr-icon-ripple-size)}.cr-row{padding-inline-end:7px;padding-inline-start:0}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared">#headers{display:flex;padding:10px 0}#headers .additional-info-column-group{align-items:center;display:flex;flex:6}#headers .controls-group{flex:auto;margin-left:auto;display:flex;justify-content:end;align-items:center}#headers .name{flex:3}#headers .shortcut,#headers .url{flex:auto;margin-inline-end:40px}settings-search-engine-entry{border-top:var(--cr-separator-line)}:host([fixed-height]) #container{max-height:calc((var(--cr-section-min-height) + var(--cr-separator-height)) * 6)}.icon-placeholder{margin-inline-end:0;margin-inline-start:var(--cr-icon-button-margin-start);width:var(--cr-icon-ripple-size)}.cr-row{padding-inline-end:7px;padding-inline-start:0}</style>
     <div id="outer" class="list-frame" role="table">
       <div role="rowgroup">
         <div role="row" id="headers" class="column-header">
           <span class="name" role="columnheader">[[nameColumnHeader]]</span>
-          <span class="shortcut" role="columnheader" hidden="[[!showShortcut]]">
-            $i18n{searchEnginesShortcut}
+          <span class="additional-info-column-group">
+            <span class="shortcut" role="columnheader" hidden="[[!showShortcut]]">
+              $i18n{searchEnginesShortcut}
+            </span>
+            <span class="url" role="columnheader" hidden="[[!showQueryUrl]]">
+              $i18n{searchEnginesQueryURL}
+            </span>
+            <span class="controls-group">
+              <span class="icon-placeholder"></span>
+              <span class="icon-placeholder"></span>
+            </span>
           </span>
-          <span class="url-padded" role="columnheader" hidden="[[!showQueryUrl]]">
-            $i18n{searchEnginesQueryURL}
-          </span>
-          <span class="icon-placeholder"></span>
-          <span class="icon-placeholder"></span>
         </div>
       </div>
       <template is="dom-if" if="[[!collapseList]]">
@@ -4520,7 +4761,7 @@ class SettingsSearchEnginesPageElement extends SettingsSearchEnginesPageElementB
         super.ready();
         this.browserProxy_.getSearchEnginesList().then(this.enginesChanged_.bind(this));
         this.addWebUiListener('search-engines-changed', this.enginesChanged_.bind(this));
-        this.addEventListener('edit-search-engine', e => this.onEditSearchEngine_(e));
+        this.addEventListener('view-or-edit-search-engine', e => this.onEditSearchEngine_(e));
         this.addEventListener('delete-search-engine', e => this.onDeleteSearchEngine_(e));
     }
     openEditDialog_(searchEngine, anchorElement) {
@@ -4564,9 +4805,8 @@ class SettingsSearchEnginesPageElement extends SettingsSearchEnginesPageElementB
     }
     enginesChanged_(searchEnginesInfo) {
         this.defaultEngines = searchEnginesInfo.defaults;
-        // Sort |activeEngines| and |otherEngines| in alphabetical order.
-        this.activeEngines = searchEnginesInfo.actives.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()));
-        this.otherEngines = searchEnginesInfo.others.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()));
+        this.activeEngines = searchEnginesInfo.actives;
+        this.otherEngines = searchEnginesInfo.others;
         this.extensions = searchEnginesInfo.extensions;
     }
     onAddSearchEngineClick_(e) {
@@ -4731,7 +4971,7 @@ function getTemplate$1c() {
 </settings-toggle-button>
 <div class="settings-columned-section">
   <div class="column">
-    <div class="description-header">$i18n{adMeasurementPageEnabledHeading}</div>
+    <h2 class="description-header">$i18n{adMeasurementPageEnabledHeading}</h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:bar-chart" aria-hidden="true"></iron-icon>
@@ -4749,9 +4989,7 @@ function getTemplate$1c() {
     </ul>
   </div>
   <div class="column">
-    <div class="description-header">
-      $i18n{adMeasurementPageConsiderHeading}
-    </div>
+    <h2 class="description-header">$i18n{adMeasurementPageConsiderHeading}</h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:delete" aria-hidden="true"></iron-icon>
@@ -4774,7 +5012,7 @@ function getTemplate$1c() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const SettingsPrivacySandboxAdMeasurementSubpageElementBase = PrefsMixin(PolymerElement);
+const SettingsPrivacySandboxAdMeasurementSubpageElementBase = RouteObserverMixin(PrefsMixin(PolymerElement));
 class SettingsPrivacySandboxAdMeasurementSubpageElement extends SettingsPrivacySandboxAdMeasurementSubpageElementBase {
     constructor() {
         super(...arguments);
@@ -4797,9 +5035,10 @@ class SettingsPrivacySandboxAdMeasurementSubpageElement extends SettingsPrivacyS
             },
         };
     }
-    ready() {
-        super.ready();
-        HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_AD_MEASUREMENT_SUBPAGE);
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_AD_MEASUREMENT) {
+            HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_AD_MEASUREMENT_SUBPAGE);
+        }
     }
     onToggleChange_(e) {
         const target = e.target;
@@ -4975,7 +5214,7 @@ function getTemplate$1a() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const maxFledgeSitesCount = 15;
-const SettingsPrivacySandboxFledgeSubpageElementBase = I18nMixin(PrefsMixin(PolymerElement));
+const SettingsPrivacySandboxFledgeSubpageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
 class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacySandboxFledgeSubpageElementBase {
     constructor() {
         super(...arguments);
@@ -5063,8 +5302,12 @@ class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacySandboxF
     ready() {
         super.ready();
         this.privacySandboxBrowserProxy_.getFledgeState().then(state => this.onFledgeStateChanged_(state));
-        this.$.footer.querySelectorAll('a').forEach(link => link.title = this.i18n('opensInNewTab'));
-        HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_FLEDGE_SUBPAGE);
+        this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_FLEDGE) {
+            HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_FLEDGE_SUBPAGE);
+        }
     }
     isFledgePrefManaged_() {
         const fledgeEnabledPref = this.getPref('privacy_sandbox.m1.fledge_enabled');
@@ -5192,7 +5435,7 @@ function getTemplate$19() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const SettingsPrivacySandboxPageElementBase = I18nMixin(PrefsMixin(PolymerElement));
+const SettingsPrivacySandboxPageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
 class SettingsPrivacySandboxPageElement extends SettingsPrivacySandboxPageElementBase {
     constructor() {
         super(...arguments);
@@ -5223,9 +5466,10 @@ class SettingsPrivacySandboxPageElement extends SettingsPrivacySandboxPageElemen
             },
         };
     }
-    ready() {
-        super.ready();
-        HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_AD_PRIVACY);
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX) {
+            HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_AD_PRIVACY);
+        }
     }
     focusConfigChanged_(_newConfig, oldConfig) {
         assert(!oldConfig);
@@ -5357,7 +5601,7 @@ function getTemplate$18() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const SettingsPrivacySandboxTopicsSubpageElementBase = I18nMixin(PrefsMixin(PolymerElement));
+const SettingsPrivacySandboxTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
 class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxTopicsSubpageElementBase {
     constructor() {
         super(...arguments);
@@ -5416,8 +5660,12 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
     ready() {
         super.ready();
         this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
-        this.$.footer.querySelectorAll('a').forEach(link => link.title = this.i18n('opensInNewTab'));
-        HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+        this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_TOPICS) {
+            HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+        }
     }
     isTopicsPrefManaged_() {
         const topicsEnabledPref = this.getPref('privacy_sandbox.m1.topics_enabled');
@@ -8387,7 +8635,7 @@ class SecurityKeysPhonesDialog extends PolymerElement {
 customElements.define(SecurityKeysPhonesDialog.is, SecurityKeysPhonesDialog);
 
 function getTemplate$Y() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{flex-direction:column;display:flex;flex:1;padding:14px 16px}#header{font-size:.75rem;user-select:none}#subheader{font-size:.6875rem;user-select:none}iron-icon{height:var(--cr-icon-size);margin-bottom:10px;width:var(--cr-icon-size)}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-700)}iron-icon.red{--iron-icon-fill-color:var(--google-red-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-300)}iron-icon.red{--iron-icon-fill-color:var(--google-red-300)}}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{flex-direction:column;display:flex;flex:1;padding:14px 16px}#header{font-weight:500;font-size:.75rem;user-select:none}#subheader{font-size:.6875rem;line-height:18px;user-select:none}iron-icon{height:var(--cr-icon-size);margin-bottom:10px;width:var(--cr-icon-size)}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-700)}iron-icon.red{--iron-icon-fill-color:var(--google-red-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-300)}iron-icon.red{--iron-icon-fill-color:var(--google-red-300)}}</style>
 
 <iron-icon id="icon" icon$="[[getStatusIcon(data.state)]]" class$="[[getColorClass(data.state)]]">
 </iron-icon>
@@ -8422,8 +8670,9 @@ class SettingsSafetyHubCardElement extends PolymerElement {
         switch (state) {
             case CardState.WARNING:
             case CardState.WEAK:
-            case CardState.INFO:
                 return 'cr:error';
+            case CardState.INFO:
+                return 'cr:info';
             case CardState.SAFE:
                 return 'cr:check-circle';
             default:
@@ -8449,11 +8698,11 @@ class SettingsSafetyHubCardElement extends PolymerElement {
 customElements.define(SettingsSafetyHubCardElement.is, SettingsSafetyHubCardElement);
 
 function getTemplate$X() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex;flex-direction:column}.box{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow)}.card-container{align-items:stretch;display:flex;gap:13px;justify-content:space-between;width:100%}.card:hover{background-color:var(--cr-hover-background-color)}.module{height:fit-content;margin-bottom:24px}.section-header{font-size:.8125rem;margin:16px 0;width:100%;flex:1;user-select:none}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex;flex-direction:column}.box{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow)}.card-container{align-items:stretch;display:flex;gap:16px;justify-content:space-between;width:100%}.card:hover{background-color:var(--cr-hover-background-color);cursor:pointer}.module{height:fit-content;margin-bottom:16px;padding:12px 20px}.section-header{color:var(--cr-primary-text-color);flex:1;font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:16px;margin-top:30px;width:100%;user-select:none}.section-header.first{margin-top:0}</style>
 
-<div class="section-header cr-secondary-text">
+<h2 class="section-header cr-secondary-text first">
   $i18n{safetyHubPageCardSectionHeader}
-</div>
+</h2>
 <div class="card-container">
   <settings-safety-hub-card id="passwords" class="card box" data="[[passwordCardData_]]" on-click="onPasswordsClick_" tabindex="0" on-keydown="onPasswordsKeyPress_">
   </settings-safety-hub-card>
@@ -8462,9 +8711,9 @@ function getTemplate$X() {
   <settings-safety-hub-card id="safeBrowsing" class="card box" data="[[safeBrowsingCardData_]]" on-click="onSafeBrowsingClick_" tabindex="0" on-keydown="onSafeBrowsingKeyPress_">
   </settings-safety-hub-card>
 </div>
-<div class="section-header cr-secondary-text">
+<h2 class="section-header cr-secondary-text">
   $i18n{safetyHubPageModuleSectionHeader}
-</div>
+</h2>
 <template is="dom-if" if="[[showNotificationPermissions_]]">
   <settings-safety-hub-notification-permissions-module class="module box">
   </settings-safety-hub-notification-permissions-module>
@@ -8483,6 +8732,8 @@ function getTemplate$X() {
   <settings-safety-hub-module id="userEducationModule" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
   </settings-safety-hub-module>
 </template>
+
+
 <!--_html_template_end_-->`;
 }
 
@@ -8494,11 +8745,13 @@ function getTemplate$X() {
  * 'settings-safety-hub-page' is the settings page that presents the safety
  * state of Chrome.
  */
-const SettingsSafetyHubPageElementBase = RelaunchMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
+const SettingsSafetyHubPageElementBase = RouteObserverMixin(RelaunchMixin(WebUiListenerMixin(I18nMixin(PolymerElement))));
 class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
     constructor() {
         super(...arguments);
+        this.shouldRecordMetric_ = false;
         this.browserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-page';
@@ -8534,16 +8787,40 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
                 computed: 'computeShowNoRecommendationsState_(showUnusedSitePermissions_.*, showExtensions_.*, showNotificationPermissions_.*)',
             },
             userEducationItemList_: Array,
+            // Whether the data for notification permissions is ready.
+            hasDataForNotificationPermissions_: Boolean,
+            // Whether the data for unused site permissions is ready.
+            hasDataForUnusedPermissions_: Boolean,
+            // Whether the data for extensions is ready.
+            hasDataForExtensions_: Boolean,
         };
     }
+    static get observers() {
+        return [
+            'onAllModulesLoaded_(passwordCardData_, versionCardData_, safeBrowsingCardData_, hasDataForUnusedPermissions_, hasDataForNotificationPermissions_, hasDataForExtensions_)',
+        ];
+    }
     connectedCallback() {
-        super.connectedCallback();
         this.initializeCards_();
         this.initializeModules_();
         this.initializeUserEducation_();
+        super.connectedCallback();
+    }
+    currentRouteChanged() {
+        if (Router.getInstance().getCurrentRoute() !== routes.SAFETY_HUB) {
+            return;
+        }
+        // When the user navigates to the Safety Hub page, any active menu
+        // notification is dismissed.
+        this.browserProxy_.dismissActiveMenuNotification();
+        this.metricsBrowserProxy_.recordSafetyHubImpression(SafetyHubSurfaces.SAFETY_HUB_PAGE);
+        this.metricsBrowserProxy_.recordSafetyHubInteraction(SafetyHubSurfaces.SAFETY_HUB_PAGE);
+        // Only record the metrics when the user navigates to the Safety Hub page.
+        this.shouldRecordMetric_ = true;
+        this.onAllModulesLoaded_();
     }
     initializeCards_() {
-        // TODO(1443466): Add listeners for cards.
+        // TODO(crbug.com/1443466): Add listeners for cards.
         this.browserProxy_.getPasswordCardData().then((data) => {
             this.passwordCardData_ = data;
         });
@@ -8582,6 +8859,7 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
         ];
     }
     onPasswordsClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.PasswordsCard.StatusOnClick', this.passwordCardData_.state);
         PasswordManagerImpl.getInstance().showPasswordManager(PasswordManagerPage.CHECKUP);
     }
     onPasswordsKeyPress_(e) {
@@ -8591,6 +8869,7 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
         }
     }
     onVersionClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.VersionCard.StatusOnClick', this.versionCardData_.state);
         if (this.versionCardData_.state === CardState.WARNING) {
             this.performRestart(RestartType.RELAUNCH);
         }
@@ -8606,6 +8885,7 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
         }
     }
     onSafeBrowsingClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.SafeBrowsingCard.StatusOnClick', this.safeBrowsingCardData_.state);
         Router.getInstance().navigateTo(routes.SECURITY, /* dynamicParams= */ undefined, 
         /* removeSearch= */ true);
     }
@@ -8620,12 +8900,14 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
         // there is no item on the list but the list was shown before.
         this.showNotificationPermissions_ =
             permissions.length > 0 || this.showNotificationPermissions_;
+        this.hasDataForNotificationPermissions_ = true;
     }
     onUnusedSitePermissionListChanged_(permissions) {
         // The module should be visible if there is any item on the list, or if
         // there is no item on the list but the list was shown before.
         this.showUnusedSitePermissions_ =
             permissions.length > 0 || this.showUnusedSitePermissions_;
+        this.hasDataForUnusedPermissions_ = true;
     }
     computeShowNoRecommendationsState_() {
         return !(this.showUnusedSitePermissions_ || this.showNotificationPermissions_ ||
@@ -8633,9 +8915,55 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
     }
     onExtensionsChanged_(numberOfExtensions) {
         this.showExtensions_ = !!numberOfExtensions;
+        this.hasDataForExtensions_ = true;
     }
     isEnterOrSpaceClicked_(e) {
         return e.key === 'Enter' || e.key === ' ';
+    }
+    onAllModulesLoaded_() {
+        // If the metrics are recorded already, don't record again.
+        if (!this.shouldRecordMetric_) {
+            return;
+        }
+        // Wait till the data of the cards be ready.
+        if (!this.passwordCardData_ || !this.safeBrowsingCardData_ ||
+            !this.versionCardData_) {
+            return;
+        }
+        // Wait till the data of the modules be ready.
+        if (!this.hasDataForUnusedPermissions_ ||
+            !this.hasDataForNotificationPermissions_ ||
+            !this.hasDataForExtensions_) {
+            return;
+        }
+        this.shouldRecordMetric_ = false;
+        let hasAnyWarning = false;
+        // TODO(crbug.com/1443466): Iterate over the cards/modules with for loop.
+        if (this.passwordCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.PASSWORDS);
+            hasAnyWarning = true;
+        }
+        if (this.safeBrowsingCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.SAFE_BROWSING);
+            hasAnyWarning = true;
+        }
+        if (this.versionCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.VERSION);
+            hasAnyWarning = true;
+        }
+        if (this.showNotificationPermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.NOTIFICATIONS);
+            hasAnyWarning = true;
+        }
+        if (this.showUnusedSitePermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.PERMISSIONS);
+            hasAnyWarning = true;
+        }
+        if (this.showExtensions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.EXTENSIONS);
+            hasAnyWarning = true;
+        }
+        this.metricsBrowserProxy_.recordSafetyHubDashboardAnyWarning(hasAnyWarning);
     }
 }
 customElements.define(SettingsSafetyHubPageElement.is, SettingsSafetyHubPageElement);
@@ -10048,16 +10376,15 @@ class AllSitesElement extends AllSitesElementBase {
 customElements.define(AllSitesElement.is, AllSitesElement);
 
 function getTemplate$U() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
-<div class="list-item">
-  <cr-icon-button class$="cr-icon [[getClassForListItem_(grant)]]">
-  </cr-icon-button>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.file-system{padding-inline-start:20px;padding-inline-end:20px}</style>
+<div class="list-item file-system">
+  <div id="fileTypeIcon" class$="cr-icon [[getClassForListItem_(grant)]]">
+  </div>
   <div class="site-representation middle text-elide">
     <span class="display-name url-directionality text-elide">
         [[grant.displayName]]
     </span>
   </div>
-  <div class="separator"></div>
   <cr-icon-button id="removeGrant" class="icon-delete-gray" on-click="onRemoveGrantClick_" aria-label="$i18n{siteSettingsFileSystemSiteListRemoveGrantLabel}">
   <cr-icon-button>
 </cr-icon-button></cr-icon-button></div><!--_html_template_end_-->`;
@@ -10097,16 +10424,18 @@ class FileSystemSiteEntryItemElement extends FileSystemSiteEntryItemElementBase 
 customElements.define(FileSystemSiteEntryItemElement.is, FileSystemSiteEntryItemElement);
 
 function getTemplate$T() {
-    return html `<!--_html_template_start_--><div hidden$="[[!grantsPerOrigin.editGrants.length]]">
+    return html `<!--_html_template_start_--><style>.grants-list-header{padding-inline-start:20px;padding-bottom:20px}.view-grants{padding-top:20px}</style>
+
+<div class="grants-list-header" hidden$="[[!grantsPerOrigin.editGrants.length]]">
   $i18n{siteSettingsFileSystemSiteListEditHeader}
 </div>
 <template is="dom-repeat" items="[[grantsPerOrigin.editGrants]]" as="editGrant">
   <file-system-site-entry-item grant="[[editGrant]]" on-revoke-grant="onRevokeGrant_">
   </file-system-site-entry-item>
 </template>
-  <div hidden$="[[!grantsPerOrigin.viewGrants.length]]">
-    $i18n{siteSettingsFileSystemSiteListViewHeader}
-  </div>
+<div class="grants-list-header view-grants" hidden$="[[!grantsPerOrigin.viewGrants.length]]">
+  $i18n{siteSettingsFileSystemSiteListViewHeader}
+</div>
 <template is="dom-repeat" items="[[grantsPerOrigin.viewGrants]]" as="viewGrant">
   <file-system-site-entry-item grant="[[viewGrant]]" on-revoke-grant="onRevokeGrant_">
   </file-system-site-entry-item>
@@ -10203,14 +10532,12 @@ class FileSystemSiteDetailsElement extends FileSystemSiteDetailsElementBase {
 customElements.define(FileSystemSiteDetailsElement.is, FileSystemSiteDetailsElement);
 
 function getTemplate$S() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.origin-row{align-items:center;display:flex;margin-left:auto;padding-right:.5em}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.origin{flex-grow:1;padding-inline-start:20px}.origin-row{align-items:center;display:flex;padding-bottom:5px;padding-inline-end:10px;padding-top:5px}.subpage-arrow{margin-inline-end:2px}.separator{padding-inline-end:25px}</style>
 
 <div class="list-frame">
   <div class="origin-row">
     <site-favicon url="[[grantsPerOrigin.origin]]"></site-favicon>
-    <div class="cr-row">
-      [[grantsPerOrigin.origin]]
-    </div>
+    <div class="origin">[[grantsPerOrigin.origin]]</div>
     <cr-icon-button id="fileSystemSiteDetails" class="subpage-arrow" aria-label$="[[grantsPerOrigin.origin]]" aria-roledescription="$i18n{subpageArrowRoleDescription}" on-click="onNavigateToDetailsPageClick_">
     </cr-icon-button>
     <div class="separator"></div>
@@ -10471,6 +10798,7 @@ function getLocalizationStringForContentType(contentSettingsType) {
         // The following members do not have a mid-sentence localization.
         case ContentSettingsTypes.ANTI_ABUSE:
         case ContentSettingsTypes.PDF_DOCUMENTS:
+        case ContentSettingsTypes.PERFORMANCE:
         case ContentSettingsTypes.PRIVATE_NETWORK_DEVICES:
         case ContentSettingsTypes.SITE_DATA:
             return null;
@@ -11028,15 +11356,18 @@ class SettingsUnusedSitePermissionsElement extends SettingsUnusedSitePermissions
 customElements.define(SettingsUnusedSitePermissionsElement.is, SettingsUnusedSitePermissionsElement);
 
 function getTemplate$O() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">.no-min-height{min-height:0}img{width:100%}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">.no-min-height{min-height:0}img{width:100%}#safetyHubModule{padding:0 var(--cr-section-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/permissions_banner_dark.svg" media="(prefers-color-scheme: dark)">
       <img id="banner" alt="" src="chrome://settings/images/permissions_banner.svg">
     </picture>
     <template is="dom-if" if="[[showUnusedSitePermissions_]]">
       <template is="dom-if" if="[[enableSafetyHub_]]">
-        <settings-safety-hub-module id="safetyHubModule" header="[[unusedSitePermissionsHeader_]]" subheader="[[unusedSitePermissionsSubheader_]]" header-icon="settings:shield-with-heart">
-          <cr-button id="safetyHubButton" slot="button-container" on-click="onSafetyHubButtonClick_">
+        <div class="cr-row first">
+          <h2>$i18n{safetyHub}</h2>
+        </div>
+        <settings-safety-hub-module id="safetyHubModule" header="[[unusedSitePermissionsHeader_]]" subheader="[[unusedSitePermissionsSubheader_]]" header-icon="cr:security" header-icon-color="blue">
+          <cr-button id="safetyHubButton" slot="button-container" class="action-button" on-click="onSafetyHubButtonClick_">
             $i18n{safetyHubEntryPointButton}
           </cr-button>
         </settings-safety-hub-module>
@@ -11348,7 +11679,6 @@ function getCategoryItemMap() {
             id: Id.SITE_DATA,
             label: 'siteDataPageTitle',
             icon: 'settings:database',
-            shouldShow: () => loadTimeData.getBoolean('isPrivacySandboxSettings4'),
         },
         {
             route: routes.SITE_SETTINGS_SOUND,
@@ -11397,6 +11727,14 @@ function getCategoryItemMap() {
             label: 'siteSettingsZoomLevels',
             icon: 'settings:zoom-in',
         },
+        {
+            route: routes.PERFORMANCE,
+            id: Id.PERFORMANCE,
+            label: 'siteSettingsPerformance',
+            icon: 'settings:performance',
+            enabledLabel: 'siteSettingsPerformanceSublabel',
+            disabledLabel: 'siteSettingsPerformanceSublabel',
+        },
     ];
     if (loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')) {
         categoryList.push({
@@ -11406,16 +11744,13 @@ function getCategoryItemMap() {
             icon: 'settings:visibility-off',
             enabledLabel: 'siteSettingsCookiesAllowed',
             disabledLabel: 'siteSettingsBlocked',
-            otherLabel: 'cookiePageClearOnExit',
         });
     }
     else {
         categoryList.push({
             route: routes.COOKIES,
             id: Id.COOKIES,
-            label: (loadTimeData.getBoolean('isPrivacySandboxSettings4') ?
-                'thirdPartyCookiesLinkRowLabel' :
-                'siteSettingsCookies'),
+            label: 'thirdPartyCookiesLinkRowLabel',
             icon: 'settings:cookie',
             enabledLabel: 'trackingProtectionLinkRowSubLabel',
             disabledLabel: 'trackingProtectionLinkRowSubLabel',
@@ -11435,11 +11770,12 @@ function buildItemListFromIds(orderedIdList) {
     }
     return orderedList;
 }
-const SettingsSiteSettingsPageElementBase = WebUiListenerMixin(PolymerElement);
+const SettingsSiteSettingsPageElementBase = RouteObserverMixin(WebUiListenerMixin(PolymerElement));
 class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBase {
     constructor() {
         super(...arguments);
         this.safetyHubBrowserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-site-settings-page';
@@ -11511,6 +11847,7 @@ class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBas
                             Id.FEDERATED_IDENTITY_API,
                             Id.ANTI_ABUSE,
                             Id.SITE_DATA,
+                            Id.PERFORMANCE,
                         ]),
                     };
                 },
@@ -11547,6 +11884,16 @@ class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBas
         this.addWebUiListener(SafetyHubEvent.UNUSED_PERMISSIONS_MAYBE_CHANGED, (sites) => this.onUnusedSitePermissionListChanged_(sites));
         this.safetyHubBrowserProxy_.getRevokedUnusedSitePermissionsList().then((sites) => this.onUnusedSitePermissionListChanged_(sites));
     }
+    currentRouteChanged() {
+        if (Router.getInstance().getCurrentRoute() !== routes.SITE_SETTINGS) {
+            return;
+        }
+        // Only record the metrics when the user navigates to the privacy page
+        // that shows the entry point.
+        if (this.showUnusedSitePermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointShown(SafetyHubEntryPoint.SITE_SETTINGS);
+        }
+    }
     focusConfigChanged_(_newConfig, oldConfig) {
         // focusConfig is set only once on the parent, so this observer should
         // only fire once.
@@ -11579,6 +11926,7 @@ class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBas
         return this.noRecentSitePermissions_ ? '' : 'hr';
     }
     onSafetyHubButtonClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.SITE_SETTINGS);
         Router.getInstance().navigateTo(routes.SAFETY_HUB);
     }
 }
@@ -11593,10 +11941,6 @@ function getTemplate$N() {
         <cr-checkbox id="incognito" hidden$="[[!showIncognitoSessionOnly_(hasIncognito,
                 contentSetting)]]">
           $i18n{incognitoSiteOnly}
-        </cr-checkbox>
-        <cr-checkbox id="thirdParties" hidden$="[[shouldHideThirdPartyCookieCheckbox_(category,
-                cookiesExceptionType)]]">
-          $i18n{siteSettingsCookiesThirdPartyExceptionLabel}
         </cr-checkbox>
       </div>
       <div slot="button-container">
@@ -11694,8 +12038,7 @@ class AddSiteDialogElement extends AddSiteDialogElementBase {
         assert(!this.$.add.disabled);
         let primaryPattern = this.site_;
         let secondaryPattern = SITE_EXCEPTION_WILDCARD;
-        if (this.$.thirdParties.checked ||
-            this.cookiesExceptionType === CookiesExceptionType.THIRD_PARTY) {
+        if (this.cookiesExceptionType === CookiesExceptionType.THIRD_PARTY) {
             primaryPattern = SITE_EXCEPTION_WILDCARD;
             secondaryPattern = this.site_;
         }
@@ -11710,15 +12053,6 @@ class AddSiteDialogElement extends AddSiteDialogElementBase {
         if (!this.hasIncognito) {
             this.$.incognito.checked = false;
         }
-    }
-    shouldHideThirdPartyCookieCheckbox_() {
-        // TODO(crbug.com/1378703): Remove checkbox support after feature is
-        // launched.
-        if (loadTimeData.getBoolean('isPrivacySandboxSettings4')) {
-            return true;
-        }
-        return this.cookiesExceptionType !== CookiesExceptionType.COMBINED ||
-            this.category !== ContentSettingsTypes.COOKIES;
     }
 }
 customElements.define(AddSiteDialogElement.is, AddSiteDialogElement);
@@ -13947,12 +14281,10 @@ function getTemplate$A() {
             <iron-icon icon="all-sites:offline" aria-hidden="true" role="presentation"></iron-icon>
             $i18n{siteSettingsSiteDeleteStorageOfflineData}
           </div>
-          <template is="dom-if" if="[[isPrivacySandboxSettings4_]]">
-            <div class="detail" id="adPersonalization">
-              <iron-icon icon="all-sites:tag" aria-hidden="true" role="presentation"></iron-icon>
-              $i18n{siteSettingsRemoveSiteAdPersonalization}
-            </div>
-          </template>
+          <div class="detail" id="adPersonalization">
+            <iron-icon icon="all-sites:tag" aria-hidden="true" role="presentation"></iron-icon>
+            $i18n{siteSettingsRemoveSiteAdPersonalization}
+          </div>
         </div>
       </div>
       <div slot="button-container">
@@ -14187,12 +14519,6 @@ class SiteDetailsElement extends SiteDetailsElementBase {
             autoPictureInPictureEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('autoPictureInPictureEnabled'),
-            },
-            isPrivacySandboxSettings4_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isPrivacySandboxSettings4');
-                },
             },
             blockMidiByDefault_: {
                 type: Boolean,
@@ -16960,6 +17286,9 @@ class CertificateProvisioningBrowserProxyImpl {
     triggerCertificateProvisioningProcessUpdate(certProfileId) {
         chrome.send('triggerCertificateProvisioningProcessUpdate', [certProfileId]);
     }
+    triggerCertificateProvisioningProcessReset(certProfileId) {
+        chrome.send('triggerCertificateProvisioningProcessReset', [certProfileId]);
+    }
     static getInstance() {
         return instance$2 ||
             (instance$2 = new CertificateProvisioningBrowserProxyImpl());
@@ -17024,6 +17353,9 @@ function getTemplate$k() {
         [[model.lastUnsuccessfulMessage]]
       </div>
     </div>
+    <cr-button id="reset" role="button" on-click="onReset_">
+      [[i18n('certificateProvisioningReset')]]
+    </cr-button>
     <hr>
     <cr-expand-button expanded="{{advancedExpanded_}}" aria-expanded$="[[boolToString_(advancedOpened)]]">
       <div>[[i18n('certificateProvisioningAdvancedSectionTitle')]]</div>
@@ -17047,8 +17379,7 @@ function getTemplate$k() {
       </div>
     </iron-collapse>
   </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
+</cr-dialog><!--_html_template_end_-->`;
 }
 
 // Copyright 2020 The Chromium Authors
@@ -17078,6 +17409,10 @@ class CertificateProvisioningDetailsDialogElement extends CertificateProvisionin
     onRefresh_() {
         CertificateProvisioningBrowserProxyImpl.getInstance()
             .triggerCertificateProvisioningProcessUpdate(this.model.certProfileId);
+    }
+    onReset_() {
+        CertificateProvisioningBrowserProxyImpl.getInstance()
+            .triggerCertificateProvisioningProcessReset(this.model.certProfileId);
     }
     shouldHideLastFailedStatus_() {
         return this.model.lastUnsuccessfulMessage.length === 0;
@@ -17524,6 +17859,10 @@ class AccessibilityBrowserProxyImpl {
     recordOverscrollHistoryNavigationChanged(enabled) {
         chrome.metricsPrivate.recordBoolean('Settings.OverscrollHistoryNavigation.Enabled', enabled);
     }
+    // 
+    getScreenReaderState() {
+        return sendWithPromise('getScreenReaderState');
+    }
     static getInstance() {
         return instance$1 || (instance$1 = new AccessibilityBrowserProxyImpl());
     }
@@ -17542,7 +17881,7 @@ function getTemplate$g() {
         </cr-link-row>
 
 
-        <settings-toggle-button class="hr" hidden$="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onA11yImageLabelsChange_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}">
+        <settings-toggle-button class="hr" hidden$="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onA11yImageLabelsChange_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}">
         </settings-toggle-button>
 
 
@@ -17567,11 +17906,11 @@ function getTemplate$g() {
 // clang-format off
 // 
 // clang-format on
-const SettingsA11yPageElementBase = WebUiListenerMixin(BaseMixin(PolymerElement));
+const SettingsA11yPageElementBase = PrefsMixin(WebUiListenerMixin(BaseMixin(PolymerElement)));
 class SettingsA11yPageElement extends SettingsA11yPageElementBase {
     constructor() {
         super(...arguments);
-        this.accessibilityBrowserProxy = AccessibilityBrowserProxyImpl.getInstance();
+        this.browserProxy_ = AccessibilityBrowserProxyImpl.getInstance();
         // 
         // 
     }
@@ -17599,23 +17938,14 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             },
             // 
             /**
-             * Whether to show accessibility labels settings.
+             * Indicate whether a screen reader is enabled. Also, determine whether
+             * to show accessibility labels settings.
              */
-            showAccessibilityLabelsSetting_: {
+            hasScreenReader_: {
                 type: Boolean,
                 value: false,
             },
-            /**
-             * Whether to show pdf ocr settings.
-             */
-            showPdfOcrToggle_: {
-                type: Boolean,
-                value: function () {
-                    let isPdfOcrEnabled = false;
-                    // 
-                    return isPdfOcrEnabled;
-                },
-            },
+            // 
             focusConfig_: {
                 type: Object,
                 value() {
@@ -17651,19 +17981,14 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             },
         };
     }
-    ready() {
-        super.ready();
-        this.addWebUiListener('screen-reader-state-changed', (hasScreenReader) => this.onScreenReaderStateChanged_(hasScreenReader));
-        // Enables javascript and gets the screen reader state.
-        chrome.send('a11yPageReady');
-    }
-    /**
-     * @param hasScreenReader Whether a screen reader is enabled.
-     */
-    onScreenReaderStateChanged_(hasScreenReader) {
-        this.showAccessibilityLabelsSetting_ = hasScreenReader;
-        this.showPdfOcrToggle_ =
-            hasScreenReader && loadTimeData.getBoolean('pdfOcrEnabled');
+    // 
+    connectedCallback() {
+        super.connectedCallback();
+        const updateScreenReaderState = (hasScreenReader) => {
+            this.hasScreenReader_ = hasScreenReader;
+        };
+        this.browserProxy_.getScreenReaderState().then(updateScreenReaderState);
+        this.addWebUiListener('screen-reader-state-changed', updateScreenReaderState);
     }
     onA11yCaretBrowsingChange_(event) {
         if (event.target.checked) {
@@ -17679,12 +18004,7 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             chrome.send('confirmA11yImageLabels');
         }
     }
-    onPdfOcrChange_(event) {
-        const pdfOcrOn = event.target.checked;
-        if (pdfOcrOn) {
-            console.error('Need to check a pdf ocr model and download it if necessary');
-        }
-    }
+    // 
     // 
     // 
     onManageSystemAccessibilityFeaturesClick_() {
@@ -18235,7 +18555,11 @@ function getTemplate$a() {
     <template is="dom-if" if="[[showDialog_]]" on-dom-change="onDomChange_" restamp>
       <cr-dialog id="confirmDialog" close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClosed_">
         <div slot="title">$i18n{doNotTrackDialogTitle}</div>
-        <div slot="body">$i18nRaw{doNotTrackDialogMessage}</div>
+        <div slot="body">$i18n{doNotTrackDialogMessage}
+          <a href="$i18nRaw{doNotTrackLearnMoreURL}" target="_blank" aria-description="$i18n{opensInNewTab}" aria-label="$i18n{doNotTrackDialogLearnMoreA11yLabel}">
+            $i18n{learnMore}
+          </a>
+        </div>
         <div slot="button-container">
           <cr-button class="cancel-button" on-click="onDialogCancel_">
             $i18n{cancel}
@@ -18370,8 +18694,7 @@ function getTemplate$9() {
       <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}">
       </settings-do-not-track-toggle>
     </div></template>
-    <template is="dom-if" if="[[isPrivacySandboxSettings4CookieSettingsEnabled_(
-        isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
+    <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
       <div id="rollbackNotice" hidden="[[!showTrackingProtectionRollbackNotice_]]">
         $i18nRaw{trackingProtectionRollbackNotice}
       </div>
@@ -18446,91 +18769,11 @@ function getTemplate$9() {
         </settings-radio-group>
       </div>
     </template>
-    <template is="dom-if" if="[[isPrivacySandboxSettings3CookieSettingsEnabled_(
-        isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
-      <div id="generalControls">
-        <h2>$i18n{cookiePageGeneralControls}</h2>
-        <settings-radio-group id="primarySettingGroup" no-set-pref pref="{{prefs.generated.cookie_primary_setting}}" selectable-elements="
-                cr-radio-button, settings-collapse-radio-button" on-change="onCookiePrimarySettingChanged_">
-          <settings-collapse-radio-button id="allowAll" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.ALLOW_ALL]]" label="$i18n{cookiePageAllowAll}" expand-aria-label="$i18n{cookiePageAllowAllExpandA11yLabel}">
-            <div slot="collapse">
-              <div class="bullet-line">
-                <iron-icon icon="settings:cookie"></iron-icon>
-                <div class="secondary">$i18n{cookiePageAllowAllBulOne}</div>
-              </div>
-              <div class="bullet-line">
-                <iron-icon icon="settings:cookie"></iron-icon>
-                <div class="secondary">$i18n{cookiePageAllowAllBulTwo}</div>
-              </div>
-            </div>
-          </settings-collapse-radio-button>
-          <settings-collapse-radio-button id="blockThirdPartyIncognito" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY_INCOGNITO]]" label="$i18n{cookiePageBlockThirdIncognito}" expand-aria-label="$i18n{cookiePageBlockThirdIncognitoExpandA11yLabel}">
-            <div slot="collapse">
-              <div class="bullet-line">
-                <iron-icon icon="settings:cookie"></iron-icon>
-                <div class="secondary">
-                      $i18n{cookiePageBlockThirdIncognitoBulOne}
-                </div>
-              </div>
-              <div class="bullet-line" id="cookiesPageBlockThirdPartyIncognitoBulTwo">
-                <iron-icon icon="settings:block"></iron-icon>
-                <div class="secondary">
-                  [[getCookiesPageBlockThirdPartyIncognitoBulTwoLabel_()]]
-                </div>
-              </div>
-            </div>
-          </settings-collapse-radio-button>
-          <settings-collapse-radio-button id="blockThirdParty" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY]]" label="$i18n{cookiePageBlockThird}" expand-aria-label="$i18n{cookiePageBlockThirdExpandA11yLabel}">
-            <div slot="collapse">
-              <div class="bullet-line">
-                <iron-icon icon="settings:cookie"></iron-icon>
-                <div class="secondary">$i18n{cookiePageBlockThirdBulOne}</div>
-              </div>
-              <div class="bullet-line">
-                <iron-icon icon="settings:block"></iron-icon>
-                <div class="secondary">$i18n{cookiePageBlockThirdBulTwo}</div>
-              </div>
-            </div>
-            <template is="dom-if" if="[[enableFirstPartySetsUI_]]">
-              <div slot="noSelectionCollapse">
-                <settings-toggle-button id="firstPartySetsToggle" pref="{{prefs.privacy_sandbox.first_party_sets_enabled}}" label="$i18n{cookiePageFpsLabel}" sub-label="$i18n{cookiePageFpsSubLabel}" disabled="[[firstPartySetsToggleDisabled_(
-                        prefs.profile.cookie_controls_mode.value)]]">
-                </settings-toggle-button>
-              </div>
-            </template>
-          </settings-collapse-radio-button>
-          <settings-collapse-radio-button id="blockAll" pref="[[blockAllPref_]]" name="[[cookiePrimarySettingEnum_.BLOCK_ALL]]" label="$i18n{cookiePageBlockAll}" expand-aria-label="$i18n{cookiePageBlockAllExpandA11yLabel}">
-            <div slot="collapse">
-              <div class="bullet-line">
-                <iron-icon icon="settings:block"></iron-icon>
-                <div class="secondary">$i18n{cookiePageBlockAllBulOne}</div>
-              </div>
-              <div class="bullet-line">
-                <iron-icon icon="settings:block"></iron-icon>
-                <div class="secondary">$i18n{cookiePageBlockAllBulTwo}</div>
-              </div>
-              <div class="bullet-line one-line">
-                <iron-icon icon="settings:block"></iron-icon>
-                <div class="secondary">$i18n{cookiePageBlockAllBulThree}</div>
-              </div>
-            </div>
-          </settings-collapse-radio-button>
-        </settings-radio-group>
-      </div>
-      <settings-toggle-button id="clearOnExit" class="hr" pref="{{prefs.generated.cookie_session_only}}" label="$i18n{cookiePageClearOnExit}" on-settings-boolean-control-change="onClearOnExitChange_">
-      </settings-toggle-button>
-    </template>
     <settings-do-not-track-toggle id="doNotTrack" prefs="{{prefs}}" hidden="[[is3pcdRedesignEnabled_]]">
     </settings-do-not-track-toggle>
-    <template is="dom-if" if="[[showPreloadingSubpage_]]">
-      <cr-link-row id="preloadingLinkRow" class="hr" hidden="[[!pageVisibility.networkPrediction]]" on-click="onPreloadingClick_" label="$i18n{preloadingPageTitle}" sub-label="[[getNetworkPredictionsOptionsLabel_(
-              prefs.net.network_prediction_options.value)]]" role-description="$i18n{networkPredictionEnabledDescCookiesPage}">
-      </cr-link-row>
-    </template>
     <cr-link-row id="site-data-trigger" class="hr" on-click="onSiteDataClick_" label="$i18n{cookiePageAllSitesLink}" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
-    <template is="dom-if" if="[[isPrivacySandboxSettings4CookieSettingsEnabled_(
-        isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
+    <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
       <div id="exceptionHeader">
         <h2>$i18n{thirdPartyCookiesPageCustomizedBehaviorHeading}</h2>
         <div id="exceptionHeaderSubLabel" class="secondary">
@@ -18548,24 +18791,12 @@ function getTemplate$9() {
       <site-list id="allowExceptionsList" category="[[cookiesContentSettingType_]]" category-subtype="[[contentSetting_.ALLOW]]" category-header="$i18n{trackingProtectionSitesAllowedCookiesDescription}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="third-party">
       </site-list>
     </template>
-    <template is="dom-if" if="[[isPrivacySandboxSettings3CookieSettingsEnabled_(
-        isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
-      <div id="exceptionHeader">
-        <h2>$i18n{siteSettingsCustomizedBehaviors}</h2>
-      </div>
-      <site-list id="allowExceptionsList" category="[[cookiesContentSettingType_]]" category-subtype="[[contentSetting_.ALLOW]]" category-header="$i18n{cookiePageAllowExceptions}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="combined">
-      </site-list>
-      <site-list id="sessionOnlyExceptionsList" category="[[cookiesContentSettingType_]]" category-subtype="[[contentSetting_.SESSION_ONLY]]" category-header="$i18n{cookiePageSessionOnlyExceptions}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="combined">
-      </site-list>
-      <site-list id="blockExceptionsList" category="[[cookiesContentSettingType_]]" category-subtype="[[contentSetting_.BLOCK]]" category-header="$i18n{cookiePageBlockExceptions}" read-only-list="[[exceptionListsReadOnly_]]" search-filter="[[searchTerm]]" cookies-exception-type="combined">
-      </site-list>
-    </template>
     <cr-toast id="toast">
       <div id="toastText">$i18n{privacySandboxCookiesDialog}</div>
       <cr-button on-click="onPrivacySandboxClick_">
         $i18n{privacySandboxCookiesDialogMore}
       </cr-button>
-      <a id="privacySandboxLink" href="privacySandbox" target="_blank" tabindex="-1" aria-disabled="true" role="none"></a>
+      <a id="privacySandboxLink" href="adPrivacy" target="_blank" tabindex="-1" aria-disabled="true" role="none"></a>
     </cr-toast>
 <!--_html_template_end_-->`;
 }
@@ -18645,14 +18876,6 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('firstPartySetsUIEnabled'),
             },
-            isPrivacySandboxSettings4_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('isPrivacySandboxSettings4'),
-            },
-            showPreloadingSubpage_: {
-                type: Boolean,
-                value: () => !loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled'),
-            },
             is3pcdRedesignEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
@@ -18681,14 +18904,6 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
         else {
             this.focusConfig.set(`${routes.SITE_SETTINGS_ALL.path}_${routes.COOKIES.path}`, selectSiteDataLinkRow);
         }
-        if (this.showPreloadingSubpage_) {
-            const selectPreloadingLinkRow = () => {
-                const toFocus = this.shadowRoot.querySelector('#preloadingLinkRow');
-                assert(toFocus);
-                focusWithoutInk(toFocus);
-            };
-            this.focusConfig.set(`${routes.PRELOADING.path}_${routes.COOKIES.path}`, selectPreloadingLinkRow);
-        }
     }
     currentRouteChanged(route) {
         if (this.is3pcdRedesignEnabled_) {
@@ -18710,39 +18925,16 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
             'cookiePageBlockThirdIncognitoBulTwoFps' :
             'cookiePageBlockThirdIncognitoBulTwo');
     }
-    // 
     onSiteDataClick_() {
         Router.getInstance().navigateTo(routes.SITE_SETTINGS_ALL);
     }
     onGeneratedPrefsUpdated_() {
-        if (this.isPrivacySandboxSettings4_) {
-            // If the default cookie content setting is managed, the exception lists
-            // should be disabled. `profile.cookie_controls_mode` doesn't control the
-            // ability to create exceptions but the content setting does.
-            const defaultContentSettingPref = this.getPref('generated.cookie_default_content_setting');
-            this.exceptionListsReadOnly_ = defaultContentSettingPref.enforcement ===
-                chrome.settingsPrivate.Enforcement.ENFORCED;
-            return;
-        }
-        // TODO(crbug.com/1378703): Clean up after the feature is launched and these
-        // generated preferences are deprecated. New page won't have 'session only'
-        // controls.
-        const sessionOnlyPref = this.getPref('generated.cookie_session_only');
-        // If the clear on exit toggle is managed this implies a content setting
-        // policy is present and the exception lists should be disabled.
-        this.exceptionListsReadOnly_ = sessionOnlyPref.enforcement ===
+        // If the default cookie content setting is managed, the exception lists
+        // should be disabled. `profile.cookie_controls_mode` doesn't control the
+        // ability to create exceptions but the content setting does.
+        const defaultContentSettingPref = this.getPref('generated.cookie_default_content_setting');
+        this.exceptionListsReadOnly_ = defaultContentSettingPref.enforcement ===
             chrome.settingsPrivate.Enforcement.ENFORCED;
-        // It is not currently possible to represent multiple management
-        // sources for a single a preference. In all management scenarios,
-        // the blockAll setting shares the same controlledBy as the
-        // cookie_session_only pref. To support this, the controlledBy
-        // fields for the |cookie_primary_setting| pref provided to the
-        // blockAll control are overwritten with values from the session_only
-        // preference.
-        this.set('blockAllPref_', Object.assign(this.getPref('generated.cookie_primary_setting'), {
-            controlledBy: sessionOnlyPref.controlledBy,
-            controlledByName: sessionOnlyPref.controlledByName,
-        }));
     }
     onBlockAll3pcToggleChanged_(event) {
         this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.BLOCK_ALL_THIRD_PARTY_COOKIES);
@@ -18772,7 +18964,7 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
         const currentCookieControlsMode = this.getPref('profile.cookie_controls_mode').value;
         const areAnyPrivacySandboxApisEnabled = this.getPref('privacy_sandbox.m1.topics_enabled').value ||
             this.getPref('privacy_sandbox.m1.fledge_enabled').value ||
-            this.getPref('privacy_sandbox.m1.fledge_enabled').value;
+            this.getPref('privacy_sandbox.m1.ad_measurement_enabled').value;
         const areThirdPartyCookiesAllowed = currentCookieControlsMode === CookieControlsMode.OFF ||
             currentCookieControlsMode === CookieControlsMode.INCOGNITO_ONLY;
         if (areAnyPrivacySandboxApisEnabled && areThirdPartyCookiesAllowed &&
@@ -18830,42 +19022,15 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
     onClearOnExitChange_() {
         this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.COOKIES_SESSION);
     }
-    onPreloadingClick_() {
-        this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.NETWORK_PREDICTION);
-        Router.getInstance().navigateTo(routes.PRELOADING);
-    }
-    getNetworkPredictionsOptionsLabel_(networkPredictionOption) {
-        if (networkPredictionOption === NetworkPredictionOptions.DISABLED) {
-            return this.i18n('preloadingPageNoPreloadingTitle');
-        }
-        if (networkPredictionOption === NetworkPredictionOptions.EXTENDED) {
-            return this.i18n('preloadingPageExtendedPreloadingTitle');
-        }
-        // NetworkPredictionOptions.WIFI_ONLY_DEPRECATED is treated the same as
-        // NetworkPredictionOptions.STANDARD.
-        // See chrome/browser/preloading/preloading_prefs.h.
-        return this.i18n('preloadingPageStandardPreloadingTitle');
-    }
     onPrivacySandboxClick_() {
         this.metricsBrowserProxy_.recordAction('Settings.PrivacySandbox.OpenedFromCookiesPageToast');
         this.$.toast.hide();
-        // TODO(crbug.com/1378703): Open new privacy sandbox settings page.
         // TODO(crbug/1159942): Replace this with an ordinary OpenWindowProxy call.
         this.shadowRoot.querySelector('#privacySandboxLink').click();
     }
     firstPartySetsToggleDisabled_() {
-        if (this.isPrivacySandboxSettings4_) {
-            return this.getPref('profile.cookie_controls_mode').value !==
-                CookieControlsMode.BLOCK_THIRD_PARTY;
-        }
-        return this.getPref('generated.cookie_primary_setting').value !==
-            CookiePrimarySetting.BLOCK_THIRD_PARTY;
-    }
-    isPrivacySandboxSettings4CookieSettingsEnabled_() {
-        return this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
-    }
-    isPrivacySandboxSettings3CookieSettingsEnabled_() {
-        return !this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
+        return this.getPref('profile.cookie_controls_mode').value !==
+            CookieControlsMode.BLOCK_THIRD_PARTY;
     }
 }
 customElements.define(SettingsCookiesPageElement.is, SettingsCookiesPageElement);
@@ -18884,9 +19049,9 @@ function getTemplate$8() {
     <settings-collapse-radio-button id="preloadRadioStandard" pref="[[prefs.net.network_prediction_options]]" name="[[networkPredictionOptionsEnum_.STANDARD]]" label="$i18n{preloadingPageStandardPreloadingTitle}" sub-label="$i18n{preloadingPageStandardPreloadingSummary}">
       <div slot="collapse" class="settings-columned-section">
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideFeatureDescriptionHeader}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:bolt" label="$i18n{preloadingPageStandardPreloadingWhenOnBulletOne}">
             </privacy-guide-description-item>
@@ -18895,9 +19060,9 @@ function getTemplate$8() {
           </div>
         </div>
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideThingsToConsider}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings:cookie" label="$i18n{preloadingPageThingsToConsiderBulletOne}">
             </privacy-guide-description-item>
@@ -18958,9 +19123,9 @@ class PrivacyGuidePreloadFragmentElement extends PrivacyGuidePreloadFragmentBase
 customElements.define(PrivacyGuidePreloadFragmentElement.is, PrivacyGuidePreloadFragmentElement);
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;padding:0 var(--cr-section-padding)}.icon-blue{fill:var(--google-blue-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block}.icon-blue{fill:var(--google-blue-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}}</style>
 
-<settings-safety-hub-module header="[[headerString_]]" header-icon="cr:extension">
+<settings-safety-hub-module header="[[headerString_]]" header-icon="settings20:my_extensions">
   <div slot="button-container">
     <cr-button id="reviewButton" on-click="onButtonClick_">
       $i18n{safetyCheckReview}
@@ -19007,15 +19172,15 @@ class SettingsSafetyHubExtensionsModuleElement extends SettingsSafetyHubExtensio
 customElements.define(SettingsSafetyHubExtensionsModuleElement.is, SettingsSafetyHubExtensionsModuleElement);
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;padding:0 var(--cr-section-padding)}</style>
-<settings-safety-hub-module id="module" on-sh-module-item-button-click="onBlockClick_" on-sh-module-more-action-button-click="onMoreActionClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckNotificationPermissionReviewDontAllowAriaLabel" button-icon="cr20:block" button-tooltip-text="$i18n{safetyCheckNotificationPermissionReviewDontAllowLabel}" more-action-visible more-button-aria-label-id="safetyCheckNotificationPermissionReviewMoreActionsAriaLabel" sites="[[sites_]]">
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">paper-tooltip{--paper-tooltip-min-width:max-content}</style>
+<settings-safety-hub-module id="module" animated on-sh-module-item-button-click="onBlockClick_" on-sh-module-more-action-button-click="onMoreActionClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckNotificationPermissionReviewDontAllowAriaLabel" button-icon="cr20:block" button-tooltip-text="$i18n{safetyCheckNotificationPermissionReviewDontAllowLabel}" more-action-visible more-button-aria-label-id="safetyCheckNotificationPermissionReviewMoreActionsAriaLabel" sites="[[sites_]]">
   <div slot="button-container">
     <cr-button id="blockAllButton" on-click="onBlockAllClick_" hidden$="[[shouldShowCompletionInfo_]]">
       $i18n{safetyCheckNotificationPermissionReviewBlockAllLabel}
     </cr-button>
     <cr-icon-button id="moreActionButton" class="icon-more-vert" on-click="onHeaderMoreActionClick_" hidden$="[[shouldShowCompletionInfo_]]" title="$i18n{moreActions}">
     </cr-icon-button>
-    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]">
+    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]" on-focus="showUndoTooltip_" on-mouseenter="showUndoTooltip_" aria-label$="$i18n{safetyCheckNotificationPermissionReviewUndo}">>
     </cr-icon-button>
   </div>
 </settings-safety-hub-module>
@@ -19038,6 +19203,9 @@ function getTemplate$6() {
     $i18n{safetyCheckNotificationPermissionReviewUndo}
   </cr-button>
 </cr-toast>
+<paper-tooltip fit-to-visible-bounds manual-mode position="top" offset="3">
+  $i18n{safetyCheckNotificationPermissionReviewUndo}
+</paper-tooltip>
 <!--_html_template_end_-->`;
 }
 
@@ -19059,7 +19227,7 @@ var Actions$1;
     Actions["IGNORE"] = "ignore";
     Actions["RESET"] = "reset";
 })(Actions$1 || (Actions$1 = {}));
-const SettingsSafetyHubNotificationPermissionsModuleElementBase = WebUiListenerMixin(RouteObserverMixin(BaseMixin(SiteSettingsMixin(I18nMixin(PolymerElement)))));
+const SettingsSafetyHubNotificationPermissionsModuleElementBase = TooltipMixin(WebUiListenerMixin(RouteObserverMixin(BaseMixin(SiteSettingsMixin(I18nMixin(PolymerElement))))));
 class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafetyHubNotificationPermissionsModuleElementBase {
     constructor() {
         super(...arguments);
@@ -19067,6 +19235,7 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         this.renderedOrigins_ = [];
         this.eventTracker_ = new EventTracker();
         this.browserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-notification-permissions-module';
@@ -19125,6 +19294,10 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
             this.eventTracker_.removeAll();
             return;
         }
+        if (this.sites_ !== null) {
+            this.metricsBrowserProxy_
+                .recordSafetyHubNotificationPermissionsModuleListCountHistogram(this.sites_.length);
+        }
         this.eventTracker_.add(document, 'keydown', (e) => this.onKeyDown_(e));
     }
     /* Repopulate the list when notification permission list is updated. */
@@ -19152,9 +19325,9 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
             return;
         }
         this.headerString_ =
-            await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckNotificationPermissionReviewPrimaryLabel', this.sites_.length);
+            await PluralStringProxyImpl.getInstance().getPluralString('safetyHubNotificationPermissionsPrimaryLabel', this.sites_.length);
         this.subheaderString_ =
-            await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckNotificationPermissionReviewSecondaryLabel', this.sites_.length);
+            await PluralStringProxyImpl.getInstance().getPluralString('safetyHubNotificationPermissionsSecondaryLabel', this.sites_.length);
         this.headerIconString_ = 'settings:notifications-none';
     }
     onBlockClick_(e) {
@@ -19163,6 +19336,8 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         this.lastUserAction_ = Actions$1.BLOCK;
         this.$.undoToast.show();
         this.$.module.animateHide(e.detail.origin, this.browserProxy_.blockNotificationPermissionForOrigins.bind(this.browserProxy_, this.lastOrigins_));
+        this.metricsBrowserProxy_
+            .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.BLOCK);
     }
     onMoreActionClick_(e) {
         e.stopPropagation();
@@ -19178,6 +19353,8 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         // the context menu with the |reset| option was open,
         // in |onMoreActionClick_|.
         this.$.module.animateHide(this.lastOrigins_[0], this.browserProxy_.ignoreNotificationPermissionForOrigins.bind(this.browserProxy_, this.lastOrigins_));
+        this.metricsBrowserProxy_
+            .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.IGNORE);
     }
     onResetClick_(e) {
         e.stopPropagation();
@@ -19188,6 +19365,8 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         // the context menu with the |reset| option was open,
         // in |onMoreActionClick_|.
         this.$.module.animateHide(this.lastOrigins_[0], this.browserProxy_.resetNotificationPermissionForOrigins.bind(this.browserProxy_, this.lastOrigins_));
+        this.metricsBrowserProxy_
+            .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.RESET);
     }
     onBlockAllClick_(e) {
         e.stopPropagation();
@@ -19195,15 +19374,12 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         // origins that were blocked.
         assert(this.sites_);
         this.lastOrigins_ = this.sites_.map(site => site.origin);
-        // Pre-emptively set the header to the completion state, as that is the
-        // state we expect at the end of the animation. In the corner case that
-        // another site was added to the list at exactly the same time as the
-        // animation runs, the callback will still re-render the header correctly.
-        this.setHeaderToCompletionState_();
         this.$.module.animateHide(
         /* all origins */ null, this.browserProxy_.blockNotificationPermissionForOrigins.bind(this.browserProxy_, this.lastOrigins_));
         this.lastUserAction_ = Actions$1.BLOCK;
         this.$.undoToast.show();
+        this.metricsBrowserProxy_
+            .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.BLOCK_ALL);
     }
     onUndoClick_(e) {
         e.stopPropagation();
@@ -19218,6 +19394,8 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         this.$.headerActionMenu.close();
         Router.getInstance().navigateTo(routes.SITE_SETTINGS_NOTIFICATIONS, /* dynamicParams= */ undefined, 
         /* removeSearch= */ true);
+        this.metricsBrowserProxy_
+            .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.GO_TO_SETTINGS);
     }
     async updateUndoNotificationText_() {
         if (!this.lastUserAction_ || this.lastOrigins_.length === 0) {
@@ -19249,12 +19427,24 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
             // undoing them only requires allowing notification permissions again.
             case Actions$1.BLOCK:
                 this.browserProxy_.allowNotificationPermissionForOrigins(this.lastOrigins_);
+                if (this.lastOrigins_.length === 1) {
+                    this.metricsBrowserProxy_
+                        .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.UNDO_BLOCK);
+                }
+                else {
+                    this.metricsBrowserProxy_
+                        .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.UNDO_BLOCK_ALL);
+                }
                 break;
             case Actions$1.RESET:
                 this.browserProxy_.allowNotificationPermissionForOrigins(this.lastOrigins_);
+                this.metricsBrowserProxy_
+                    .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.UNDO_RESET);
                 break;
             case Actions$1.IGNORE:
                 this.browserProxy_.undoIgnoreNotificationPermissionForOrigins(this.lastOrigins_);
+                this.metricsBrowserProxy_
+                    .recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(SafetyCheckNotificationsModuleInteractions.UNDO_IGNORE);
                 break;
             default:
                 assertNotReached();
@@ -19290,19 +19480,25 @@ class SettingsSafetyHubNotificationPermissionsModuleElement extends SettingsSafe
         }
         return this.i18n('safetyCheckNotificationPermissionReviewResetAriaLabel', origins[0]);
     }
+    showUndoTooltip_(e) {
+        e.stopPropagation();
+        const tooltip = this.shadowRoot.querySelector('paper-tooltip');
+        assert(tooltip);
+        this.showTooltipAtTarget(tooltip, e.target);
+    }
 }
 customElements.define(SettingsSafetyHubNotificationPermissionsModuleElement.is, SettingsSafetyHubNotificationPermissionsModuleElement);
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;padding:0 var(--cr-section-padding)}</style>
-<settings-safety-hub-module id="module" on-sh-module-item-button-click="onAllowAgainClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckUnusedSitePermissionsAllowAgainAriaLabel" button-icon="settings20:undo" button-tooltip-text="$i18n{safetyCheckUnusedSitePermissionsAllowAgainLabel}" sites="[[sites_]]">
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">paper-tooltip{--paper-tooltip-min-width:max-content}</style>
+<settings-safety-hub-module id="module" animated on-sh-module-item-button-click="onAllowAgainClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckUnusedSitePermissionsAllowAgainAriaLabel" button-icon="settings20:undo" button-tooltip-text="$i18n{safetyCheckUnusedSitePermissionsAllowAgainLabel}" sites="[[sites_]]">
   <div slot="button-container">
     <cr-button id="gotItButton" on-click="onGotItClick_" hidden$="[[shouldShowCompletionInfo_]]">
       $i18n{safetyCheckUnusedSitePermissionsGotItLabel}
     </cr-button>
     <cr-icon-button id="moreActionButton" class="icon-more-vert" on-click="onMoreActionClick_" hidden$="[[shouldShowCompletionInfo_]]" title="$i18n{moreActions}">
     </cr-icon-button>
-    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]">
+    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]" on-focus="showUndoTooltip_" on-mouseenter="showUndoTooltip_" aria-label$="$i18n{safetyCheckUnusedSitePermissionsUndoLabel}">
     </cr-icon-button>
   </div>
 </settings-safety-hub-module>
@@ -19317,6 +19513,9 @@ function getTemplate$5() {
     $i18n{safetyHubGoSiteSettingsItem}
   </button>
 </cr-action-menu>
+<paper-tooltip fit-to-visible-bounds manual-mode position="top" offset="3">
+  $i18n{safetyCheckUnusedSitePermissionsUndoLabel}
+</paper-tooltip>
 <!--_html_template_end_-->`;
 }
 
@@ -19329,12 +19528,13 @@ var Action;
     Action[Action["ALLOW_AGAIN"] = 0] = "ALLOW_AGAIN";
     Action[Action["GOT_IT"] = 1] = "GOT_IT";
 })(Action || (Action = {}));
-const SettingsSafetyHubUnusedSitePermissionsModuleElementBase = I18nMixin(RouteObserverMixin(WebUiListenerMixin(SiteSettingsMixin(PolymerElement))));
+const SettingsSafetyHubUnusedSitePermissionsModuleElementBase = TooltipMixin(I18nMixin(RouteObserverMixin(WebUiListenerMixin(SiteSettingsMixin(PolymerElement)))));
 class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafetyHubUnusedSitePermissionsModuleElementBase {
     constructor() {
         super(...arguments);
         this.eventTracker_ = new EventTracker();
         this.browserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-unused-site-permissions';
@@ -19406,6 +19606,10 @@ class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafety
             this.eventTracker_.removeAll();
             return;
         }
+        if (this.sites_ !== null) {
+            this.metricsBrowserProxy_
+                .recordSafetyHubUnusedSitePermissionsModuleListCountHistogram(this.sites_.length);
+        }
         this.eventTracker_.add(document, 'keydown', (e) => this.onKeyDown_(e));
     }
     /**
@@ -19438,21 +19642,20 @@ class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafety
         this.lastUnusedSitePermissionsAllowedAgain_ = item;
         this.showUndoToast_(this.i18n('safetyCheckUnusedSitePermissionsToastLabel', item.origin));
         this.$.module.animateHide(item.origin, this.browserProxy_.allowPermissionsAgainForUnusedSite.bind(this.browserProxy_, item.origin));
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.ALLOW_AGAIN);
     }
     async onGotItClick_(e) {
         e.stopPropagation();
         assert(this.sites_ !== null);
         this.lastUserAction_ = Action.GOT_IT;
         this.lastUnusedSitePermissionsListAcknowledged_ = this.sites_;
-        // Pre-emptively set the header to the completion state, as that is the
-        // state we expect at the end of the animation. In the corner case that
-        // another site was added to the list at exactly the same time as the
-        // animation runs, the callback will still re-render the header correctly.
-        this.setHeaderToCompletionState_();
         this.$.module.animateHide(
         /* all origins */ null, this.browserProxy_.acknowledgeRevokedUnusedSitePermissionsList.bind(this.browserProxy_));
         const toastText = await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckUnusedSitePermissionsToastBulkLabel', this.sites_.length);
         this.showUndoToast_(toastText);
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.ACKNOWLEDGE_ALL);
     }
     onMoreActionClick_(e) {
         e.stopPropagation();
@@ -19463,6 +19666,8 @@ class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafety
         this.$.headerActionMenu.close();
         Router.getInstance().navigateTo(routes.SITE_SETTINGS, /* dynamicParams= */ undefined, 
         /* removeSearch= */ true);
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.GO_TO_SETTINGS);
     }
     /* Repopulate the list when unused site permission list is updated. */
     onUnusedSitePermissionListChanged_(sites) {
@@ -19510,11 +19715,17 @@ class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafety
                 assert(this.lastUnusedSitePermissionsAllowedAgain_ !== null);
                 this.browserProxy_.undoAllowPermissionsAgainForUnusedSite(this.lastUnusedSitePermissionsAllowedAgain_);
                 this.lastUnusedSitePermissionsAllowedAgain_ = null;
+                this.metricsBrowserProxy_
+                    .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions
+                    .UNDO_ALLOW_AGAIN);
                 break;
             case Action.GOT_IT:
                 assert(this.lastUnusedSitePermissionsListAcknowledged_ !== null);
                 this.browserProxy_.undoAcknowledgeRevokedUnusedSitePermissionsList(this.lastUnusedSitePermissionsListAcknowledged_);
                 this.lastUnusedSitePermissionsListAcknowledged_ = null;
+                this.metricsBrowserProxy_
+                    .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions
+                    .UNDO_ACKNOWLEDGE_ALL);
                 break;
             default:
                 assertNotReached();
@@ -19535,6 +19746,15 @@ class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafety
     showUndoToast_(text) {
         this.toastText_ = text;
         this.$.undoToast.show();
+    }
+    // TODO(crbug.com/1443466): Move common functionality between
+    // unused_site_permissions_module.ts and notification_permissions_module.ts to
+    // a util class.
+    showUndoTooltip_(e) {
+        e.stopPropagation();
+        const tooltip = this.shadowRoot.querySelector('paper-tooltip');
+        assert(tooltip);
+        this.showTooltipAtTarget(tooltip, e.target);
     }
 }
 customElements.define(SettingsSafetyHubUnusedSitePermissionsModuleElement.is, SettingsSafetyHubUnusedSitePermissionsModuleElement);
@@ -20367,16 +20587,6 @@ class SettingsSiteSettingsListElement extends SettingsSiteSettingsListElementBas
             });
             this.browserProxy_.observeProtocolHandlersEnabledState();
         }
-        // TODO(crbug.com/1378703): Remove this after the feature is launched.
-        const hasCookies = this.categoryList.some(item => {
-            return item.id === ContentSettingsTypes.COOKIES;
-        });
-        if (hasCookies && !loadTimeData.getBoolean('isPrivacySandboxSettings4') &&
-            !loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')) {
-            // The cookies sub-label is provided by an update from C++.
-            this.browserProxy_.getCookieSettingDescription().then((label) => this.updateCookiesLabel_(label));
-            this.addWebUiListener('cookieSettingDescriptionChanged', (label) => this.updateCookiesLabel_(label));
-        }
     }
     /**
      * @param category The category to refresh (fetch current value + update UI)
@@ -20403,6 +20613,11 @@ class SettingsSiteSettingsListElement extends SettingsSiteSettingsListElementBas
         if (category === ContentSettingsTypes.NOTIFICATIONS) {
             // Updates to the notifications label are handled by a preference
             // observer.
+            return Promise.resolve();
+        }
+        if (category === ContentSettingsTypes.PERFORMANCE) {
+            const index = this.categoryList.map(e => e.id).indexOf(ContentSettingsTypes.PERFORMANCE);
+            this.set(`categoryList.${index}.subLabel`, this.i18n('siteSettingsPerformanceSublabel'));
             return Promise.resolve();
         }
         return this.browserProxy_.getDefaultValueForContentType(category).then(defaultValue => {
@@ -20511,8 +20726,7 @@ class SettingsSiteSettingsListElement extends SettingsSiteSettingsListElementBas
      * Update the third-party cookies link row label when the pref changes.
      */
     updateThirdPartyCookiesLabel_() {
-        if (!loadTimeData.getBoolean('isPrivacySandboxSettings4') ||
-            loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')) {
+        if (loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled')) {
             return;
         }
         const state = this.getPref('profile.cookie_controls_mode').value;
@@ -20541,5 +20755,5 @@ class SettingsSiteSettingsListElement extends SettingsSiteSettingsListElementBas
 }
 customElements.define(SettingsSiteSettingsListElement.is, SettingsSiteSettingsListElement);
 
-export { AddSiteDialogElement, AllSitesElement, AutofillManagerImpl, BioEnrollDialogPage, CardState, CategorySettingExceptionsElement, ChooserExceptionListElement, ChooserExceptionListEntryElement, ChooserType, ClearBrowsingDataBrowserProxyImpl, ContentSetting, ContentSettingProvider, ContentSettingsTypes, ControlledButtonElement, CookieControlsMode, CookiePrimarySetting, CookiesExceptionType, CountryDetailManagerImpl, CrSliderElement, CredentialManagementDialogPage, Ctap2Status, DownloadsBrowserProxyImpl, FileSystemSiteDetailsElement, FileSystemSiteEntryElement, FileSystemSiteEntryItemElement, FileSystemSiteListElement, FontsBrowserProxyImpl, NetworkPredictionOptions, PaymentsManagerImpl, PrivacyGuidePreloadFragmentElement, PrivacySandboxInterestItemElement, ProtocolHandlersElement, ResetDialogPage, SITE_EXCEPTION_WILDCARD, SafetyHubBrowserProxyImpl, SafetyHubEvent, SampleStatus, SecurityKeysBioEnrollProxyImpl, SecurityKeysCredentialBrowserProxyImpl, SecurityKeysPhonesBrowserProxyImpl, SecurityKeysPhonesSubpageElement, SecurityKeysPinBrowserProxyImpl, SecurityKeysResetBrowserProxyImpl, SetPinDialogPage, SettingsAddressEditDialogElement, SettingsAddressRemoveConfirmationDialogElement, SettingsAntiAbusePageElement, SettingsAppearanceFontsPageElement, SettingsAutofillSectionElement, SettingsCheckboxElement, SettingsClearBrowsingDataDialogElement, SettingsCookiesPageElement, SettingsCreditCardEditDialogElement, SettingsCreditCardListEntryElement, SettingsDoNotTrackToggleElement, SettingsDownloadsPageElement, SettingsEditExceptionDialogElement, SettingsHistoryDeletionDialogElement, SettingsIbanEditDialogElement, SettingsIbanListEntryElement, SettingsOmniboxExtensionEntryElement, SettingsPasswordsDeletionDialogElement, SettingsPaymentsSectionElement, SettingsPersonalizationOptionsElement, SettingsPrivacySandboxAdMeasurementSubpageElement, SettingsPrivacySandboxFledgeSubpageElement, SettingsPrivacySandboxPageElement, SettingsPrivacySandboxTopicsSubpageElement, SettingsRecentSitePermissionsElement, SettingsResetPageElement, SettingsResetProfileDialogElement, SettingsReviewNotificationPermissionsElement, SettingsSafetyHubCardElement, SettingsSafetyHubExtensionsModuleElement, SettingsSafetyHubNotificationPermissionsModuleElement, SettingsSafetyHubPageElement, SettingsSafetyHubUnusedSitePermissionsModuleElement, SettingsSearchEngineEditDialogElement, SettingsSearchEngineEntryElement, SettingsSearchEnginesListElement, SettingsSearchEnginesPageElement, SettingsSecurityKeysBioEnrollDialogElement, SettingsSecurityKeysCredentialManagementDialogElement, SettingsSecurityKeysResetDialogElement, SettingsSecurityKeysSetPinDialogElement, SettingsSiteDataElement, SettingsSiteSettingsPageElement, SettingsSliderElement, SettingsState, SettingsSyncControlsElement, SettingsSyncEncryptionOptionsElement, SettingsSyncPageElement, SettingsUnusedSitePermissionsElement, SettingsVirtualCardUnenrollDialogElement, SiteDetailsElement, SiteDetailsPermissionDeviceEntryElement, SiteDetailsPermissionElement, SiteEntryElement, SiteListElement, SiteListEntryElement, SiteSettingSource, SiteSettingsPrefsBrowserProxyImpl, SortMethod, StorageAccessSiteListElement, StorageAccessSiteListEntryElement, StorageAccessStaticSiteListEntryElement, WebsiteUsageBrowserProxyImpl, ZoomLevelsElement, defaultSettingLabel, getToastManager };
+export { AccessibilityBrowserProxyImpl, AddSiteDialogElement, AllSitesElement, AutofillManagerImpl, BioEnrollDialogPage, CardState, CategorySettingExceptionsElement, ChooserExceptionListElement, ChooserExceptionListEntryElement, ChooserType, ClearBrowsingDataBrowserProxyImpl, ContentSetting, ContentSettingProvider, ContentSettingsTypes, ControlledButtonElement, CookieControlsMode, CookiePrimarySetting, CookiesExceptionType, CountryDetailManagerImpl, CrSliderElement, CredentialManagementDialogPage, Ctap2Status, DownloadsBrowserProxyImpl, FileSystemSiteDetailsElement, FileSystemSiteEntryElement, FileSystemSiteEntryItemElement, FileSystemSiteListElement, FontsBrowserProxyImpl, NetworkPredictionOptions, PaymentsManagerImpl, PrivacyGuidePreloadFragmentElement, PrivacySandboxInterestItemElement, ProtocolHandlersElement, ResetDialogPage, SITE_EXCEPTION_WILDCARD, SafetyHubBrowserProxyImpl, SafetyHubEvent, SampleStatus, SecurityKeysBioEnrollProxyImpl, SecurityKeysCredentialBrowserProxyImpl, SecurityKeysPhonesBrowserProxyImpl, SecurityKeysPhonesSubpageElement, SecurityKeysPinBrowserProxyImpl, SecurityKeysResetBrowserProxyImpl, SetPinDialogPage, SettingsA11yPageElement, SettingsAddressEditDialogElement, SettingsAddressRemoveConfirmationDialogElement, SettingsAntiAbusePageElement, SettingsAppearanceFontsPageElement, SettingsAutofillSectionElement, SettingsCheckboxElement, SettingsClearBrowsingDataDialogElement, SettingsCookiesPageElement, SettingsCreditCardEditDialogElement, SettingsCreditCardListEntryElement, SettingsDoNotTrackToggleElement, SettingsDownloadsPageElement, SettingsEditExceptionDialogElement, SettingsHistoryDeletionDialogElement, SettingsIbanEditDialogElement, SettingsIbanListEntryElement, SettingsOmniboxExtensionEntryElement, SettingsPasswordsDeletionDialogElement, SettingsPaymentsSectionElement, SettingsPersonalizationOptionsElement, SettingsPrivacySandboxAdMeasurementSubpageElement, SettingsPrivacySandboxFledgeSubpageElement, SettingsPrivacySandboxPageElement, SettingsPrivacySandboxTopicsSubpageElement, SettingsRecentSitePermissionsElement, SettingsResetPageElement, SettingsResetProfileDialogElement, SettingsReviewNotificationPermissionsElement, SettingsSafetyHubCardElement, SettingsSafetyHubExtensionsModuleElement, SettingsSafetyHubNotificationPermissionsModuleElement, SettingsSafetyHubPageElement, SettingsSafetyHubUnusedSitePermissionsModuleElement, SettingsSearchEngineEditDialogElement, SettingsSearchEngineEntryElement, SettingsSearchEnginesListElement, SettingsSearchEnginesPageElement, SettingsSecurityKeysBioEnrollDialogElement, SettingsSecurityKeysCredentialManagementDialogElement, SettingsSecurityKeysResetDialogElement, SettingsSecurityKeysSetPinDialogElement, SettingsSiteDataElement, SettingsSiteSettingsPageElement, SettingsSliderElement, SettingsState, SettingsSyncControlsElement, SettingsSyncEncryptionOptionsElement, SettingsSyncPageElement, SettingsUnusedSitePermissionsElement, SettingsVirtualCardUnenrollDialogElement, SiteDetailsElement, SiteDetailsPermissionDeviceEntryElement, SiteDetailsPermissionElement, SiteEntryElement, SiteListElement, SiteListEntryElement, SiteSettingSource, SiteSettingsPrefsBrowserProxyImpl, SortMethod, StorageAccessSiteListElement, StorageAccessSiteListEntryElement, StorageAccessStaticSiteListEntryElement, TimePeriod, TimePeriodExperiment, WebsiteUsageBrowserProxyImpl, ZoomLevelsElement, defaultSettingLabel, getToastManager };
 //# sourceMappingURL=lazy_load.rollup.js.map

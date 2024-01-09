@@ -81,11 +81,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Node>::value,
     "Node inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Node::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Node is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,8 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.nodeType.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNodeType();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -112,10 +108,10 @@ BLINK_BINDINGS_TRACE_EVENT("Node.nodeName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->nodeName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->nodeName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -127,10 +123,10 @@ BLINK_BINDINGS_TRACE_EVENT("Node.baseURI.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->baseURI();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->baseURI();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,7 +144,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Node_IsConnected_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isConnected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -161,8 +157,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.ownerDocument.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerDocument();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -175,8 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.ownerDocument.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerDocument();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -189,8 +187,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.parentNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentNode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -203,8 +202,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.parentNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -217,8 +217,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.parentElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentElement();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -231,8 +232,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.parentElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -245,8 +247,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.childNodes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->childNodes();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -259,8 +262,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.childNodes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->childNodes();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -273,8 +277,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.firstChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -287,8 +292,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.firstChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -301,8 +307,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.lastChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -315,8 +322,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.lastChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -329,8 +337,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.previousSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousSibling();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -343,8 +352,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.previousSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -357,8 +367,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.nextSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nextSibling();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -371,8 +382,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.nextSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nextSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -385,10 +397,10 @@ BLINK_BINDINGS_TRACE_EVENT("Node.nodeValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->nodeValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->nodeValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -412,7 +424,7 @@ return;
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -437,7 +449,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textContentForBinding();
 if (!ToV8Traits<IDLNullable<V8UnionStringOrTrustedScript>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -465,7 +478,7 @@ return;
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionStringOrTrustedScript>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -520,7 +533,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -556,7 +569,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -588,7 +601,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLBoolean>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_deep{false};
 if (!info[0]->IsUndefined()) {
   arg1_deep = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -624,7 +637,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_other = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -654,7 +667,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_other = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -680,7 +693,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNodeGetRootNode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GetRootNodeOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = GetRootNodeOptions::Create();
@@ -709,8 +722,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.hasChildNodes");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasChildren();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -739,7 +753,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -779,7 +793,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -816,7 +830,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -846,7 +860,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_other_node = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -876,7 +890,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_other_node = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -906,7 +920,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_prefix = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -936,7 +950,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -959,8 +973,9 @@ BLINK_BINDINGS_TRACE_EVENT("Node.normalize");
 CEReactionsScope ce_reactions_scope;
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->normalize();
 
 }
@@ -989,7 +1004,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_child = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1025,7 +1040,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1065,7 +1080,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Node* blink_receiver = V8Node::ToWrappableUnsafe(v8_receiver);
+Node* blink_receiver = V8Node::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -30,6 +30,7 @@ class AuctionAdConfig;
 class AuctionAdInterestGroupSize;
 class AuctionReportBuyersConfig;
 class ExceptionState;
+class ProtectedAudiencePrivateAggregationConfig;
 
 class MODULES_EXPORT AuctionAdConfig : public bindings::DictionaryBase {
   
@@ -62,17 +63,17 @@ void setAdditionalBids(const ScriptPromise& value) {
   member_additional_bids_ = value;
 }
 
-bool hasAggregationCoordinatorOrigin() const {
-  return has_aggregation_coordinator_origin_;
+bool hasAllSlotsRequestedSizes() const {
+  return has_all_slots_requested_sizes_;
 }
-const String& aggregationCoordinatorOrigin() const {
-  DCHECK(hasAggregationCoordinatorOrigin());
-return member_aggregation_coordinator_origin_;
+const HeapVector<Member<AuctionAdInterestGroupSize>>& allSlotsRequestedSizes() const {
+  DCHECK(hasAllSlotsRequestedSizes());
+return member_all_slots_requested_sizes_;
 }
-String getAggregationCoordinatorOriginOr(const String& fallback_value) const;
-String getAggregationCoordinatorOriginOr(String&& fallback_value) const;
-void setAggregationCoordinatorOrigin(const String& value);
-void setAggregationCoordinatorOrigin(String&& value);
+HeapVector<Member<AuctionAdInterestGroupSize>> getAllSlotsRequestedSizesOr(const HeapVector<Member<AuctionAdInterestGroupSize>>& fallback_value) const;
+HeapVector<Member<AuctionAdInterestGroupSize>> getAllSlotsRequestedSizesOr(HeapVector<Member<AuctionAdInterestGroupSize>>&& fallback_value) const;
+void setAllSlotsRequestedSizes(const HeapVector<Member<AuctionAdInterestGroupSize>>& value);
+void setAllSlotsRequestedSizes(HeapVector<Member<AuctionAdInterestGroupSize>>&& value);
 
 bool hasAuctionNonce() const {
   return has_auction_nonce_;
@@ -313,6 +314,25 @@ void setPerBuyerTimeouts(const ScriptPromise& value) {
   member_per_buyer_timeouts_ = value;
 }
 
+bool hasPrivateAggregationConfig() const {
+  return has_private_aggregation_config_;
+}
+ProtectedAudiencePrivateAggregationConfig* privateAggregationConfig() const {
+  DCHECK(hasPrivateAggregationConfig());
+return member_private_aggregation_config_.Get();
+}
+ProtectedAudiencePrivateAggregationConfig* getPrivateAggregationConfigOr(ProtectedAudiencePrivateAggregationConfig* fallback_value) const {
+  if (!hasPrivateAggregationConfig()) {
+  return fallback_value;
+}
+return member_private_aggregation_config_.Get();
+}
+void setPrivateAggregationConfig(ProtectedAudiencePrivateAggregationConfig* value) {
+  member_private_aggregation_config_ = value;
+has_private_aggregation_config_ = true;
+DCHECK(member_private_aggregation_config_);
+}
+
 bool hasRequestId() const {
   return has_request_id_;
 }
@@ -521,7 +541,7 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-bool has_aggregation_coordinator_origin_ = false;
+bool has_all_slots_requested_sizes_ = false;
 bool has_auction_nonce_ = false;
 bool has_auction_report_buyer_keys_ = false;
 bool has_auction_report_buyers_ = false;
@@ -532,6 +552,7 @@ bool has_interest_group_buyers_ = false;
 bool has_per_buyer_experiment_group_ids_ = false;
 bool has_per_buyer_group_limits_ = false;
 bool has_per_buyer_priority_signals_ = false;
+bool has_private_aggregation_config_ = false;
 bool has_request_id_ = false;
 bool has_requested_size_ = false;
 bool has_required_seller_capabilities_ = false;
@@ -543,7 +564,7 @@ bool has_trusted_scoring_signals_url_ = false;
 bool has_trusted_scoring_signals_url_deprecated_ = false;
 
 ScriptPromise member_additional_bids_;
-String member_aggregation_coordinator_origin_;
+HeapVector<Member<AuctionAdInterestGroupSize>> member_all_slots_requested_sizes_;
 String member_auction_nonce_;
 Vector<BigInt> member_auction_report_buyer_keys_;
 HeapVector<std::pair<String, Member<AuctionReportBuyersConfig>>> member_auction_report_buyers_;
@@ -561,6 +582,7 @@ Vector<std::pair<String, uint16_t>> member_per_buyer_group_limits_;
 Vector<std::pair<String, Vector<std::pair<String, double>>>> member_per_buyer_priority_signals_;
 ScriptPromise member_per_buyer_signals_;
 ScriptPromise member_per_buyer_timeouts_;
+Member<ProtectedAudiencePrivateAggregationConfig> member_private_aggregation_config_;
 String member_request_id_;
 Member<AuctionAdInterestGroupSize> member_requested_size_;
 Vector<String> member_required_seller_capabilities_;

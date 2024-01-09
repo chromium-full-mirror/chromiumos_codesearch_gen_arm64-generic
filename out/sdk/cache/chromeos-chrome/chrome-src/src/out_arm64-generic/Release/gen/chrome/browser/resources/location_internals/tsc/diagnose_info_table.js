@@ -11,6 +11,11 @@ export class DiagnoseInfoTableElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    tableTitle_;
+    tableHead_;
+    tableBody_;
+    tableFooter_;
+    lastTableEntries_;
     constructor() {
         super();
         this.tableTitle_ =

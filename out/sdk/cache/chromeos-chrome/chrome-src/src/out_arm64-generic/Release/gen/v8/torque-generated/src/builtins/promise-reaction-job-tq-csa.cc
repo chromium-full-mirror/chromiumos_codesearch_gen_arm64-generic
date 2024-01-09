@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-reaction-job-tq-csa.h"
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
@@ -134,7 +135,7 @@ TNode<Object> RejectPromiseReactionJob_0(compiler::CodeAssemblerState* state_, T
   if (block7.is_used()) {
     ca_.Bind(&block7);
     tmp4 = False_0(state_);
-    tmp5 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRejectPromise), p_context, tmp0, p_reason, tmp4);
+    tmp5 = ca_.CallBuiltin<Object>(Builtin::kRejectPromise, p_context, tmp0, p_reason, tmp4);
     ca_.Goto(&block1, tmp5);
   }
 
@@ -168,7 +169,7 @@ TNode<Object> RejectPromiseReactionJob_0(compiler::CodeAssemblerState* state_, T
     tmp12 = FromConstexpr_bool_constexpr_bool_0(state_, (CodeStubAssembler(state_).ConstexprInt31Equal(p_reactionType, PromiseReaction::kFulfill)));
     CodeStubAssembler(state_).StaticAssert(TNode<BoolT>{tmp12}, "static_assert(reactionType == kPromiseReactionFulfill) at https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-reaction-job.tq?l=32&c=5");
     tmp13 = Undefined_0(state_);
-    tmp14 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseRejectReactionJob), p_context, p_reason, tmp13, p_promiseOrCapability);
+    tmp14 = ca_.CallBuiltin<Object>(Builtin::kPromiseRejectReactionJob, p_context, p_reason, tmp13, p_promiseOrCapability);
     ca_.Goto(&block1, tmp14);
   }
 
@@ -223,7 +224,7 @@ TNode<Object> FuflfillPromiseReactionJob_0(compiler::CodeAssemblerState* state_,
   TNode<Object> tmp4;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp4 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kResolvePromise), p_context, tmp0, p_result);
+    tmp4 = ca_.CallBuiltin<Object>(Builtin::kResolvePromise, p_context, tmp0, p_result);
     ca_.Goto(&block1, tmp4);
   }
 

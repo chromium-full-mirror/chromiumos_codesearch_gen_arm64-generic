@@ -118,11 +118,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BaseAudioContext>::value,
     "BaseAudioContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BaseAudioContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BaseAudioContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -135,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.destination.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->destination();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -149,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.currentTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -171,7 +168,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BaseAudioContext_Sam
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sampleRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 // [HighEntropy=Direct]
@@ -186,8 +183,9 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.listener.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->listener();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -200,10 +198,10 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -215,8 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.audioWorklet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->audioWorklet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -229,10 +228,10 @@ BLINK_BINDINGS_TRACE_EVENT("BaseAudioContext.onstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -245,8 +244,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstatechange(event_handler);
 }
 
@@ -267,7 +267,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateAnal
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createAnalyser";
@@ -296,7 +296,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateBiqu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createBiquadFilter";
@@ -329,7 +329,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_number_of_channels = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -366,7 +366,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateBuff
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createBufferSource";
@@ -396,7 +396,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateChan
 
 ChannelMergerNode* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createChannelMerger";
@@ -437,7 +437,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateChan
 
 ChannelSplitterNode* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createChannelSplitter";
@@ -477,7 +477,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateCons
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createConstantSource";
@@ -506,7 +506,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateConv
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createConvolver";
@@ -536,7 +536,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateDela
 
 DelayNode* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createDelay";
@@ -578,7 +578,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateDyna
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createDynamicsCompressor";
@@ -607,7 +607,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateGain
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createGain";
@@ -644,7 +644,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_feed_forward = NativeValueTraits<IDLSequence<IDLDouble>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -679,7 +679,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateOsci
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createOscillator";
@@ -708,7 +708,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreatePann
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createPanner";
@@ -745,7 +745,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_real = NativeValueTraits<IDLSequence<IDLFloat>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -788,7 +788,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateScri
 
 ScriptProcessorNode* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createScriptProcessor";
@@ -844,7 +844,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateSter
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createStereoPanner";
@@ -873,7 +873,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateWave
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "BaseAudioContext";
 const char* const property_name = "createWaveShaper";
@@ -919,7 +919,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(v8_receiver);
+BaseAudioContext* blink_receiver = V8BaseAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

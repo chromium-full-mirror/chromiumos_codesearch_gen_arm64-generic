@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_NEARBY_PUBLIC_MOJOM_NEARBY_PRESENCE_CREDENTIAL_STORAGE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

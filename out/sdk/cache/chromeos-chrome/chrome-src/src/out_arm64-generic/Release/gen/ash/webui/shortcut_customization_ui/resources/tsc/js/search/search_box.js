@@ -15,6 +15,7 @@ import { stringToMojoString16 } from 'chrome://resources/js/mojo_type_util.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { SearchResultsAvailabilityObserverReceiver } from '../../mojom-webui/ash/webui/shortcut_customization_ui/backend/search/search.mojom-webui.js';
 import { AcceleratorState } from '../shortcut_types.js';
+import { isCustomizationAllowed } from '../shortcut_utils.js';
 import { getTemplate } from './search_box.html.js';
 import { SearchResultRowElement } from './search_result_row.js';
 import { getShortcutSearchHandler } from './shortcut_search_handler.js';
@@ -326,22 +327,29 @@ export class SearchBoxElement extends SearchBoxElementBase {
     }
     /**
      * Filter the given search results to hide accelerators and results that are
-     * disabled because their keys are unavailable. This filtering matches the
-     * behavior of the Shortcut app's main list of shortcuts.
+     * disabled because their keys are unavailable or they are disabled by user.
+     * This filtering matches the behavior of the Shortcut app's main list of
+     * shortcuts.
      * @param searchResults the search results to filter.
      * @returns the given search results with disabled keys and results with no
      *     keys filtered out.
      */
     filterSearchResults(searchResults) {
-        return searchResults
+        const enabledSearchResults = searchResults
             // Hide accelerators that are disabled because the keys are
             // unavailable.
             .map(result => ({
             ...result,
-            acceleratorInfos: result.acceleratorInfos.filter(a => a.state !== AcceleratorState.kDisabledByUnavailableKeys),
-        }))
-            // Hide results that don't contain any accelerators.
-            .filter(result => result.acceleratorInfos.length > 0);
+            acceleratorInfos: result.acceleratorInfos.filter(a => a.state !==
+                AcceleratorState.kDisabledByUnavailableKeys &&
+                a.state !== AcceleratorState.kDisabledByUser),
+        }));
+        // If customization is not allowed, hide results that don't contain any
+        // accelerators.
+        if (!isCustomizationAllowed()) {
+            return enabledSearchResults.filter(result => result.acceleratorInfos.length > 0);
+        }
+        return enabledSearchResults;
     }
 }
 customElements.define(SearchBoxElement.is, SearchBoxElement);

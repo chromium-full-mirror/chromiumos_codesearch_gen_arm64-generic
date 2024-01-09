@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -97,7 +98,6 @@ GpuPreferences::GpuPreferences()
       enable_dawn_backend_validation(),
       enabled_dawn_features_list(),
       disabled_dawn_features_list(),
-      enable_gpu_blocked_time_metric(),
       enable_perf_data_collection(),
       message_pump_type(),
       enable_native_gpu_memory_buffers(),
@@ -157,7 +157,6 @@ GpuPreferences::GpuPreferences(
     DawnBackendValidationLevel enable_dawn_backend_validation_in,
     WTF::Vector<WTF::String> enabled_dawn_features_list_in,
     WTF::Vector<WTF::String> disabled_dawn_features_list_in,
-    bool enable_gpu_blocked_time_metric_in,
     bool enable_perf_data_collection_in,
     ::mojo_base::mojom::blink::MessagePumpType message_pump_type_in,
     bool enable_native_gpu_memory_buffers_in,
@@ -215,7 +214,6 @@ GpuPreferences::GpuPreferences(
       enable_dawn_backend_validation(std::move(enable_dawn_backend_validation_in)),
       enabled_dawn_features_list(std::move(enabled_dawn_features_list_in)),
       disabled_dawn_features_list(std::move(disabled_dawn_features_list_in)),
-      enable_gpu_blocked_time_metric(std::move(enable_gpu_blocked_time_metric_in)),
       enable_perf_data_collection(std::move(enable_perf_data_collection_in)),
       message_pump_type(std::move(message_pump_type_in)),
       enable_native_gpu_memory_buffers(std::move(enable_native_gpu_memory_buffers_in)),
@@ -697,15 +695,6 @@ void GpuPreferences::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "enable_gpu_blocked_time_metric"), this->enable_gpu_blocked_time_metric,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "enable_perf_data_collection"), this->enable_perf_data_collection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
@@ -875,8 +864,6 @@ bool StructTraits<::gpu::mojom::blink::GpuPreferences::DataView, ::gpu::mojom::b
         success = false;
       if (success && !input.ReadDisabledDawnFeaturesList(&result->disabled_dawn_features_list))
         success = false;
-      if (success)
-        result->enable_gpu_blocked_time_metric = input.enable_gpu_blocked_time_metric();
       if (success)
         result->enable_perf_data_collection = input.enable_perf_data_collection();
       if (success && !input.ReadMessagePumpType(&result->message_pump_type))

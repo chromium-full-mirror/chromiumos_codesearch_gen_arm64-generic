@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -57,6 +58,12 @@ RendererHost::IPCStableHashFunction RendererHost::MessageToMethodInfo_(mojo::Mes
     case internal::kRendererHost_AddDOMActionToActivityLog_Name: {
       return &RendererHost::AddDOMActionToActivityLog_Sym::IPCStableHash;
     }
+    case internal::kRendererHost_WakeEventPage_Name: {
+      return &RendererHost::WakeEventPage_Sym::IPCStableHash;
+    }
+    case internal::kRendererHost_GetMessageBundle_Name: {
+      return &RendererHost::GetMessageBundle_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -74,6 +81,10 @@ const char* RendererHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive extensions::mojom::RendererHost::AddEventToActivityLog";
       case internal::kRendererHost_AddDOMActionToActivityLog_Name:
             return "Receive extensions::mojom::RendererHost::AddDOMActionToActivityLog";
+      case internal::kRendererHost_WakeEventPage_Name:
+            return "Receive extensions::mojom::RendererHost::WakeEventPage";
+      case internal::kRendererHost_GetMessageBundle_Name:
+            return "Receive extensions::mojom::RendererHost::GetMessageBundle";
     }
   } else {
     switch (message.name()) {
@@ -83,6 +94,10 @@ const char* RendererHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply extensions::mojom::RendererHost::AddEventToActivityLog";
       case internal::kRendererHost_AddDOMActionToActivityLog_Name:
             return "Receive reply extensions::mojom::RendererHost::AddDOMActionToActivityLog";
+      case internal::kRendererHost_WakeEventPage_Name:
+            return "Receive reply extensions::mojom::RendererHost::WakeEventPage";
+      case internal::kRendererHost_GetMessageBundle_Name:
+            return "Receive reply extensions::mojom::RendererHost::GetMessageBundle";
     }
   }
   return "Receive unknown mojo message";
@@ -136,7 +151,85 @@ uint32_t RendererHost::AddDOMActionToActivityLog_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t RendererHost::WakeEventPage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::RendererHost::WakeEventPage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t RendererHost::GetMessageBundle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::RendererHost::GetMessageBundle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+bool RendererHost::GetMessageBundle(const std::string& extension_id, base::flat_map<std::string, std::string>* out_message_map) {
+  NOTREACHED();
+  return false;
+}
+
+class RendererHost_WakeEventPage_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  RendererHost_WakeEventPage_ForwardToCallback(
+      RendererHost::WakeEventPageCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  RendererHost_WakeEventPage_ForwardToCallback(const RendererHost_WakeEventPage_ForwardToCallback&) = delete;
+  RendererHost_WakeEventPage_ForwardToCallback& operator=(const RendererHost_WakeEventPage_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  RendererHost::WakeEventPageCallback callback_;
+};
+class RendererHost_GetMessageBundle_HandleSyncResponse
+    : public mojo::MessageReceiver {
+ public:
+  RendererHost_GetMessageBundle_HandleSyncResponse(
+      bool* result, base::flat_map<std::string, std::string>* out_message_map)
+      : result_(result), out_message_map_(out_message_map) {
+    DCHECK(!*result_);
+  }
+
+  RendererHost_GetMessageBundle_HandleSyncResponse(const RendererHost_GetMessageBundle_HandleSyncResponse&) = delete;
+  RendererHost_GetMessageBundle_HandleSyncResponse& operator=(const RendererHost_GetMessageBundle_HandleSyncResponse&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  bool* result_;
+  base::flat_map<std::string, std::string>* out_message_map_;};
+
+class RendererHost_GetMessageBundle_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  RendererHost_GetMessageBundle_ForwardToCallback(
+      RendererHost::GetMessageBundleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  RendererHost_GetMessageBundle_ForwardToCallback(const RendererHost_GetMessageBundle_ForwardToCallback&) = delete;
+  RendererHost_GetMessageBundle_ForwardToCallback& operator=(const RendererHost_GetMessageBundle_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  RendererHost::GetMessageBundleCallback callback_;
+};
 
 RendererHostProxy::RendererHostProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -163,14 +256,17 @@ void RendererHostProxy::AddAPIActionToActivityLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererHost_AddAPIActionToActivityLog_Name, kFlags, 0, 0, nullptr);
@@ -253,14 +349,17 @@ void RendererHostProxy::AddEventToActivityLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererHost_AddEventToActivityLog_Name, kFlags, 0, 0, nullptr);
@@ -349,14 +448,17 @@ void RendererHostProxy::AddDOMActionToActivityLog(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererHost_AddDOMActionToActivityLog_Name, kFlags, 0, 0, nullptr);
@@ -428,6 +530,452 @@ void RendererHostProxy::AddDOMActionToActivityLog(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void RendererHostProxy::WakeEventPage(
+    const std::string& in_extension_id, WakeEventPageCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::RendererHost::WakeEventPage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("extension_id"), in_extension_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_WakeEventPage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::RendererHost_WakeEventPage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->extension_id)::BaseType> extension_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_extension_id, extension_id_fragment);
+  params->extension_id.Set(
+      extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->extension_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null extension_id in RendererHost.WakeEventPage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("WakeEventPage");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RendererHost_WakeEventPage_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+bool RendererHostProxy::GetMessageBundle(
+    const std::string& param_extension_id, base::flat_map<std::string, std::string>* out_param_message_map) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_BEGIN1(
+    "mojom", "Call extensions::mojom::RendererHost::GetMessageBundle (sync)", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("extension_id"), param_extension_id,
+                        "<value of type const std::string&>");
+   });
+#else
+  TRACE_EVENT0("mojom", "RendererHost::GetMessageBundle");
+#endif
+  
+  const bool kExpectsResponse = true;
+  const bool kIsSync = true;
+  const bool kAllowInterrupt =
+      true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_GetMessageBundle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::RendererHost_GetMessageBundle_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->extension_id)::BaseType> extension_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      param_extension_id, extension_id_fragment);
+  params->extension_id.Set(
+      extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->extension_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null extension_id in RendererHost.GetMessageBundle request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("GetMessageBundle");
+#endif
+
+  bool result = false;
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RendererHost_GetMessageBundle_HandleSyncResponse(
+          &result, out_param_message_map));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_END1(
+    "mojom", "RendererHost::GetMessageBundle", "sync_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("message_map"), out_param_message_map,
+                        "<value of type const base::flat_map<std::string, std::string>&>");
+   });
+#endif
+  return result;
+}
+
+void RendererHostProxy::GetMessageBundle(
+    const std::string& in_extension_id, GetMessageBundleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::RendererHost::GetMessageBundle", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("extension_id"), in_extension_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_GetMessageBundle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::RendererHost_GetMessageBundle_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->extension_id)::BaseType> extension_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_extension_id, extension_id_fragment);
+  params->extension_id.Set(
+      extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->extension_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null extension_id in RendererHost.GetMessageBundle request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("GetMessageBundle");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RendererHost_GetMessageBundle_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class RendererHost_WakeEventPage_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static RendererHost::WakeEventPageCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<RendererHost_WakeEventPage_ProxyToResponder> proxy(
+        new RendererHost_WakeEventPage_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&RendererHost_WakeEventPage_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~RendererHost_WakeEventPage_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  RendererHost_WakeEventPage_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "RendererHost::WakeEventPageCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool RendererHost_WakeEventPage_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RendererHost_WakeEventPage_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::RendererHost_WakeEventPage_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success{};
+  RendererHost_WakeEventPage_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RendererHost::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void RendererHost_WakeEventPage_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply extensions::mojom::RendererHost::WakeEventPage", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_WakeEventPage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::RendererHost_WakeEventPage_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("WakeEventPage");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class RendererHost_GetMessageBundle_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static RendererHost::GetMessageBundleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<RendererHost_GetMessageBundle_ProxyToResponder> proxy(
+        new RendererHost_GetMessageBundle_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&RendererHost_GetMessageBundle_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~RendererHost_GetMessageBundle_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  RendererHost_GetMessageBundle_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "RendererHost::GetMessageBundleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const base::flat_map<std::string, std::string>& in_message_map);
+};
+
+bool RendererHost_GetMessageBundle_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RendererHost_GetMessageBundle_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::RendererHost_GetMessageBundle_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  base::flat_map<std::string, std::string> p_message_map{};
+  RendererHost_GetMessageBundle_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadMessageMap(&p_message_map))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RendererHost::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_message_map));
+  return true;
+}
+
+void RendererHost_GetMessageBundle_ProxyToResponder::Run(
+    const base::flat_map<std::string, std::string>& in_message_map) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply extensions::mojom::RendererHost::GetMessageBundle", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("message_map"), in_message_map,
+                        "<value of type const base::flat_map<std::string, std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_GetMessageBundle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::RendererHost_GetMessageBundle_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->message_map)::BaseType>
+      message_map_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& message_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+      in_message_map, message_map_fragment, &message_map_validate_params);
+  params->message_map.Set(
+      message_map_fragment.is_null() ? nullptr : message_map_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->message_map.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null message_map in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("GetMessageBundle");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+bool RendererHost_GetMessageBundle_HandleSyncResponse::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RendererHost_GetMessageBundle_ResponseParams_Data* params =
+      reinterpret_cast<internal::RendererHost_GetMessageBundle_ResponseParams_Data*>(
+          message->mutable_payload());
+  
+  bool success = true;
+  base::flat_map<std::string, std::string> p_message_map{};
+  RendererHost_GetMessageBundle_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadMessageMap(&p_message_map))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RendererHost::Name_, 4, true);
+    return false;
+  }
+  *out_message_map_ = std::move(p_message_map);
+  *result_ = true;
+  return true;
 }
 
 // static
@@ -557,6 +1105,12 @@ std::move(p_url_title),
 std::move(p_call_type));
       return true;
     }
+    case internal::kRendererHost_WakeEventPage_Name: {
+      break;
+    }
+    case internal::kRendererHost_GetMessageBundle_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -579,18 +1133,80 @@ bool RendererHostStubDispatch::AcceptWithResponder(
     case internal::kRendererHost_AddDOMActionToActivityLog_Name: {
       break;
     }
+    case internal::kRendererHost_WakeEventPage_Name: {
+
+      internal::RendererHost_WakeEventPage_Params_Data* params =
+          reinterpret_cast<
+              internal::RendererHost_WakeEventPage_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_extension_id{};
+      RendererHost_WakeEventPage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadExtensionId(&p_extension_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RendererHost::Name_, 3, false);
+        return false;
+      }
+      RendererHost::WakeEventPageCallback callback =
+          RendererHost_WakeEventPage_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->WakeEventPage(
+std::move(p_extension_id), std::move(callback));
+      return true;
+    }
+    case internal::kRendererHost_GetMessageBundle_Name: {
+
+      internal::RendererHost_GetMessageBundle_Params_Data* params =
+          reinterpret_cast<
+              internal::RendererHost_GetMessageBundle_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_extension_id{};
+      RendererHost_GetMessageBundle_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadExtensionId(&p_extension_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RendererHost::Name_, 4, false);
+        return false;
+      }
+      RendererHost::GetMessageBundleCallback callback =
+          RendererHost_GetMessageBundle_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetMessageBundle(
+std::move(p_extension_id), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererHostValidationInfo[] = {
-    {&internal::RendererHost_AddAPIActionToActivityLog_Params_Data::Validate,
+    { &internal::RendererHost_AddAPIActionToActivityLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererHost_AddEventToActivityLog_Params_Data::Validate,
+    { &internal::RendererHost_AddEventToActivityLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererHost_AddDOMActionToActivityLog_Params_Data::Validate,
+    { &internal::RendererHost_AddDOMActionToActivityLog_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::RendererHost_WakeEventPage_Params_Data::Validate,
+     &internal::RendererHost_WakeEventPage_ResponseParams_Data::Validate},
+    { &internal::RendererHost_GetMessageBundle_Params_Data::Validate,
+     &internal::RendererHost_GetMessageBundle_ResponseParams_Data::Validate},
 };
 
 bool RendererHostRequestValidator::Accept(mojo::Message* message) {
@@ -598,6 +1214,10 @@ bool RendererHostRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kRendererHostValidationInfo);
 }
 
+bool RendererHostResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::extensions::mojom::RendererHost::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kRendererHostValidationInfo);
+}
 
 
 }  // extensions::mojom
@@ -624,10 +1244,62 @@ void RendererHostInterceptorForTesting::AddEventToActivityLog(const std::string&
 void RendererHostInterceptorForTesting::AddDOMActionToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const ::GURL& url, const ::std::u16string& url_title, int32_t call_type) {
   GetForwardingInterface()->AddDOMActionToActivityLog(std::move(extension_id), std::move(call_name), std::move(args), std::move(url), std::move(url_title), std::move(call_type));
 }
+void RendererHostInterceptorForTesting::WakeEventPage(const std::string& extension_id, WakeEventPageCallback callback) {
+  GetForwardingInterface()->WakeEventPage(std::move(extension_id), std::move(callback));
+}
+void RendererHostInterceptorForTesting::GetMessageBundle(const std::string& extension_id, GetMessageBundleCallback callback) {
+  GetForwardingInterface()->GetMessageBundle(std::move(extension_id), std::move(callback));
+}
 RendererHostAsyncWaiter::RendererHostAsyncWaiter(
     RendererHost* proxy) : proxy_(proxy) {}
 
 RendererHostAsyncWaiter::~RendererHostAsyncWaiter() = default;
+
+void RendererHostAsyncWaiter::WakeEventPage(
+    const std::string& extension_id, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->WakeEventPage(std::move(extension_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool RendererHostAsyncWaiter::WakeEventPage(
+    const std::string& extension_id) {
+  bool async_wait_result;
+  WakeEventPage(std::move(extension_id),&async_wait_result);
+  return async_wait_result;
+}
+
+void RendererHostAsyncWaiter::GetMessageBundle(
+    const std::string& extension_id, base::flat_map<std::string, std::string>* out_message_map) {
+  base::RunLoop loop;
+  proxy_->GetMessageBundle(std::move(extension_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             base::flat_map<std::string, std::string>* out_message_map
+,
+             const base::flat_map<std::string, std::string>& message_map) {*out_message_map = std::move(message_map);
+            loop->Quit();
+          },
+          &loop,
+          out_message_map));
+  loop.Run();
+}
+
+base::flat_map<std::string, std::string> RendererHostAsyncWaiter::GetMessageBundle(
+    const std::string& extension_id) {
+  base::flat_map<std::string, std::string> async_wait_result;
+  GetMessageBundle(std::move(extension_id),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

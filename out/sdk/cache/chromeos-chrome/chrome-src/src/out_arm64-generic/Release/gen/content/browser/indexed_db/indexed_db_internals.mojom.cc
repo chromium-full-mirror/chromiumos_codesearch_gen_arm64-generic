@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -235,14 +236,17 @@ void IdbInternalsHandlerProxy::GetAllBucketsAcrossAllStorageKeys(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IdbInternalsHandler::GetAllBucketsAcrossAllStorageKeys");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_Name, kFlags, 0, 0, nullptr);
@@ -273,14 +277,17 @@ void IdbInternalsHandlerProxy::DownloadBucketData(
                         "<value of type ::storage::BucketId>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_DownloadBucketData_Name, kFlags, 0, 0, nullptr);
@@ -322,14 +329,17 @@ void IdbInternalsHandlerProxy::ForceClose(
                         "<value of type ::storage::BucketId>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_ForceClose_Name, kFlags, 0, 0, nullptr);
@@ -404,7 +414,7 @@ class IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ProxyToResponder : p
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error, std::vector<IdbPartitionMetadataPtr> in_partitions);
+      const std::optional<std::string>& in_error, std::vector<IdbPartitionMetadataPtr> in_partitions);
 };
 
 bool IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ForwardToCallback::Accept(
@@ -417,7 +427,7 @@ bool IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   std::vector<IdbPartitionMetadataPtr> p_partitions{};
   IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ResponseParamsDataView input_data_view(params, message);
   
@@ -440,7 +450,7 @@ std::move(p_partitions));
 }
 
 void IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error, std::vector<IdbPartitionMetadataPtr> in_partitions) {
+    const std::optional<std::string>& in_error, std::vector<IdbPartitionMetadataPtr> in_partitions) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::IdbInternalsHandler::GetAllBucketsAcrossAllStorageKeys", "async_response_parameters",
@@ -448,7 +458,7 @@ void IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ProxyToResponder::Run
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("partitions"), in_partitions,
                         "<value of type std::vector<IdbPartitionMetadataPtr>>");
@@ -457,7 +467,8 @@ void IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_Name, kFlags, 0, 0, nullptr);
@@ -548,7 +559,7 @@ class IdbInternalsHandler_DownloadBucketData_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error, uint64_t in_connection_count);
+      const std::optional<std::string>& in_error);
 };
 
 bool IdbInternalsHandler_DownloadBucketData_ForwardToCallback::Accept(
@@ -561,14 +572,11 @@ bool IdbInternalsHandler_DownloadBucketData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
-  uint64_t p_connection_count{};
+  std::optional<std::string> p_error{};
   IdbInternalsHandler_DownloadBucketData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
     success = false;
-  if (success)
-    p_connection_count = input_data_view.connection_count();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -578,13 +586,12 @@ bool IdbInternalsHandler_DownloadBucketData_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_error), 
-std::move(p_connection_count));
+std::move(p_error));
   return true;
 }
 
 void IdbInternalsHandler_DownloadBucketData_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error, uint64_t in_connection_count) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::IdbInternalsHandler::DownloadBucketData", "async_response_parameters",
@@ -592,16 +599,14 @@ void IdbInternalsHandler_DownloadBucketData_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("connection_count"), in_connection_count,
-                        "<value of type uint64_t>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_DownloadBucketData_Name, kFlags, 0, 0, nullptr);
@@ -616,7 +621,6 @@ void IdbInternalsHandler_DownloadBucketData_ProxyToResponder::Run(
       in_error, error_fragment);
   params->error.Set(
       error_fragment.is_null() ? nullptr : error_fragment.data());
-  params->connection_count = in_connection_count;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(IdbInternalsHandler::Name_);
@@ -680,7 +684,7 @@ class IdbInternalsHandler_ForceClose_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error, uint64_t in_connection_count);
+      const std::optional<std::string>& in_error);
 };
 
 bool IdbInternalsHandler_ForceClose_ForwardToCallback::Accept(
@@ -693,14 +697,11 @@ bool IdbInternalsHandler_ForceClose_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
-  uint64_t p_connection_count{};
+  std::optional<std::string> p_error{};
   IdbInternalsHandler_ForceClose_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
     success = false;
-  if (success)
-    p_connection_count = input_data_view.connection_count();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -710,13 +711,12 @@ bool IdbInternalsHandler_ForceClose_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_error), 
-std::move(p_connection_count));
+std::move(p_error));
   return true;
 }
 
 void IdbInternalsHandler_ForceClose_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error, uint64_t in_connection_count) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::IdbInternalsHandler::ForceClose", "async_response_parameters",
@@ -724,16 +724,14 @@ void IdbInternalsHandler_ForceClose_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("connection_count"), in_connection_count,
-                        "<value of type uint64_t>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdbInternalsHandler_ForceClose_Name, kFlags, 0, 0, nullptr);
@@ -748,7 +746,6 @@ void IdbInternalsHandler_ForceClose_ProxyToResponder::Run(
       in_error, error_fragment);
   params->error.Set(
       error_fragment.is_null() ? nullptr : error_fragment.data());
-  params->connection_count = in_connection_count;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(IdbInternalsHandler::Name_);
@@ -880,14 +877,14 @@ std::move(p_bucketId), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIdbInternalsHandlerValidationInfo[] = {
-    {&internal::IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_Params_Data::Validate,
+    { &internal::IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_Params_Data::Validate,
      &internal::IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ResponseParams_Data::Validate},
-    {&internal::IdbInternalsHandler_DownloadBucketData_Params_Data::Validate,
+    { &internal::IdbInternalsHandler_DownloadBucketData_Params_Data::Validate,
      &internal::IdbInternalsHandler_DownloadBucketData_ResponseParams_Data::Validate},
-    {&internal::IdbInternalsHandler_ForceClose_Params_Data::Validate,
+    { &internal::IdbInternalsHandler_ForceClose_Params_Data::Validate,
      &internal::IdbInternalsHandler_ForceClose_ResponseParams_Data::Validate},
 };
 
@@ -948,16 +945,16 @@ IdbInternalsHandlerAsyncWaiter::IdbInternalsHandlerAsyncWaiter(
 IdbInternalsHandlerAsyncWaiter::~IdbInternalsHandlerAsyncWaiter() = default;
 
 void IdbInternalsHandlerAsyncWaiter::GetAllBucketsAcrossAllStorageKeys(
-    absl::optional<std::string>* out_error, std::vector<IdbPartitionMetadataPtr>* out_partitions) {
+    std::optional<std::string>* out_error, std::vector<IdbPartitionMetadataPtr>* out_partitions) {
   base::RunLoop loop;
   proxy_->GetAllBucketsAcrossAllStorageKeys(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
              std::vector<IdbPartitionMetadataPtr>* out_partitions
 ,
-             const absl::optional<std::string>& error,
+             const std::optional<std::string>& error,
              std::vector<IdbPartitionMetadataPtr> partitions) {*out_error = std::move(error);*out_partitions = std::move(partitions);
             loop->Quit();
           },
@@ -970,48 +967,50 @@ void IdbInternalsHandlerAsyncWaiter::GetAllBucketsAcrossAllStorageKeys(
 
 
 void IdbInternalsHandlerAsyncWaiter::DownloadBucketData(
-    ::storage::BucketId bucketId, absl::optional<std::string>* out_error, uint64_t* out_connection_count) {
+    ::storage::BucketId bucketId, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->DownloadBucketData(std::move(bucketId),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             uint64_t* out_connection_count
-,
-             const absl::optional<std::string>& error,
-             uint64_t connection_count) {*out_error = std::move(error);*out_connection_count = std::move(connection_count);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
-          out_error,
-          out_connection_count));
+          out_error));
   loop.Run();
 }
 
-
+std::optional<std::string> IdbInternalsHandlerAsyncWaiter::DownloadBucketData(
+    ::storage::BucketId bucketId) {
+  std::optional<std::string> async_wait_result;
+  DownloadBucketData(std::move(bucketId),&async_wait_result);
+  return async_wait_result;
+}
 
 void IdbInternalsHandlerAsyncWaiter::ForceClose(
-    ::storage::BucketId bucketId, absl::optional<std::string>* out_error, uint64_t* out_connection_count) {
+    ::storage::BucketId bucketId, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->ForceClose(std::move(bucketId),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             uint64_t* out_connection_count
-,
-             const absl::optional<std::string>& error,
-             uint64_t connection_count) {*out_error = std::move(error);*out_connection_count = std::move(connection_count);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
-          out_error,
-          out_connection_count));
+          out_error));
   loop.Run();
 }
 
-
+std::optional<std::string> IdbInternalsHandlerAsyncWaiter::ForceClose(
+    ::storage::BucketId bucketId) {
+  std::optional<std::string> async_wait_result;
+  ForceClose(std::move(bucketId),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

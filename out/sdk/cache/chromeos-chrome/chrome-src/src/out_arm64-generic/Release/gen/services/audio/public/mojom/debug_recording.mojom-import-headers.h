@@ -8,5 +8,7 @@
 #define SERVICES_AUDIO_PUBLIC_MOJOM_DEBUG_RECORDING_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/file.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 
 #endif  // SERVICES_AUDIO_PUBLIC_MOJOM_DEBUG_RECORDING_MOJOM_IMPORT_HEADERS_H_

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -180,14 +181,17 @@ void DemuxerStreamProxy::Initialize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::DemuxerStream::Initialize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDemuxerStream_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -218,14 +222,17 @@ void DemuxerStreamProxy::Read(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDemuxerStream_Read_Name, kFlags, 0, 0, nullptr);
@@ -250,14 +257,17 @@ void DemuxerStreamProxy::EnableBitstreamConverter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::DemuxerStream::EnableBitstreamConverter");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDemuxerStream_EnableBitstreamConverter_Name, kFlags, 0, 0, nullptr);
@@ -320,7 +330,7 @@ class DemuxerStream_Initialize_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      ::media::DemuxerStream::Type in_type, ::mojo::ScopedDataPipeConsumerHandle in_pipe, const absl::optional<::media::AudioDecoderConfig>& in_audio_config, const absl::optional<::media::VideoDecoderConfig>& in_video_config);
+      ::media::DemuxerStream::Type in_type, ::mojo::ScopedDataPipeConsumerHandle in_pipe, const std::optional<::media::AudioDecoderConfig>& in_audio_config, const std::optional<::media::VideoDecoderConfig>& in_video_config);
 };
 
 bool DemuxerStream_Initialize_ForwardToCallback::Accept(
@@ -335,8 +345,8 @@ bool DemuxerStream_Initialize_ForwardToCallback::Accept(
   bool success = true;
   ::media::DemuxerStream::Type p_type{};
   ::mojo::ScopedDataPipeConsumerHandle p_pipe{};
-  absl::optional<::media::AudioDecoderConfig> p_audio_config{};
-  absl::optional<::media::VideoDecoderConfig> p_video_config{};
+  std::optional<::media::AudioDecoderConfig> p_audio_config{};
+  std::optional<::media::VideoDecoderConfig> p_video_config{};
   DemuxerStream_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadType(&p_type))
@@ -364,7 +374,7 @@ std::move(p_video_config));
 }
 
 void DemuxerStream_Initialize_ProxyToResponder::Run(
-    ::media::DemuxerStream::Type in_type, ::mojo::ScopedDataPipeConsumerHandle in_pipe, const absl::optional<::media::AudioDecoderConfig>& in_audio_config, const absl::optional<::media::VideoDecoderConfig>& in_video_config) {
+    ::media::DemuxerStream::Type in_type, ::mojo::ScopedDataPipeConsumerHandle in_pipe, const std::optional<::media::AudioDecoderConfig>& in_audio_config, const std::optional<::media::VideoDecoderConfig>& in_video_config) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media::mojom::DemuxerStream::Initialize", "async_response_parameters",
@@ -378,16 +388,17 @@ void DemuxerStream_Initialize_ProxyToResponder::Run(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("audio_config"), in_audio_config,
-                        "<value of type const absl::optional<::media::AudioDecoderConfig>&>");
+                        "<value of type const std::optional<::media::AudioDecoderConfig>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("video_config"), in_video_config,
-                        "<value of type const absl::optional<::media::VideoDecoderConfig>&>");
+                        "<value of type const std::optional<::media::VideoDecoderConfig>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDemuxerStream_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -480,7 +491,7 @@ class DemuxerStream_Read_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      ::media::DemuxerStream::Status in_status, std::vector<::media::mojom::DecoderBufferPtr> in_batch_buffers, const absl::optional<::media::AudioDecoderConfig>& in_audio_config, const absl::optional<::media::VideoDecoderConfig>& in_video_config);
+      ::media::DemuxerStream::Status in_status, std::vector<::media::mojom::DecoderBufferPtr> in_batch_buffers, const std::optional<::media::AudioDecoderConfig>& in_audio_config, const std::optional<::media::VideoDecoderConfig>& in_video_config);
 };
 
 bool DemuxerStream_Read_ForwardToCallback::Accept(
@@ -495,8 +506,8 @@ bool DemuxerStream_Read_ForwardToCallback::Accept(
   bool success = true;
   ::media::DemuxerStream::Status p_status{};
   std::vector<::media::mojom::DecoderBufferPtr> p_batch_buffers{};
-  absl::optional<::media::AudioDecoderConfig> p_audio_config{};
-  absl::optional<::media::VideoDecoderConfig> p_video_config{};
+  std::optional<::media::AudioDecoderConfig> p_audio_config{};
+  std::optional<::media::VideoDecoderConfig> p_video_config{};
   DemuxerStream_Read_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -524,7 +535,7 @@ std::move(p_video_config));
 }
 
 void DemuxerStream_Read_ProxyToResponder::Run(
-    ::media::DemuxerStream::Status in_status, std::vector<::media::mojom::DecoderBufferPtr> in_batch_buffers, const absl::optional<::media::AudioDecoderConfig>& in_audio_config, const absl::optional<::media::VideoDecoderConfig>& in_video_config) {
+    ::media::DemuxerStream::Status in_status, std::vector<::media::mojom::DecoderBufferPtr> in_batch_buffers, const std::optional<::media::AudioDecoderConfig>& in_audio_config, const std::optional<::media::VideoDecoderConfig>& in_video_config) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media::mojom::DemuxerStream::Read", "async_response_parameters",
@@ -538,16 +549,17 @@ void DemuxerStream_Read_ProxyToResponder::Run(
                         "<value of type std::vector<::media::mojom::DecoderBufferPtr>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("audio_config"), in_audio_config,
-                        "<value of type const absl::optional<::media::AudioDecoderConfig>&>");
+                        "<value of type const std::optional<::media::AudioDecoderConfig>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("video_config"), in_video_config,
-                        "<value of type const absl::optional<::media::VideoDecoderConfig>&>");
+                        "<value of type const std::optional<::media::VideoDecoderConfig>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDemuxerStream_Read_Name, kFlags, 0, 0, nullptr);
@@ -708,14 +720,14 @@ std::move(p_count), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDemuxerStreamValidationInfo[] = {
-    {&internal::DemuxerStream_Initialize_Params_Data::Validate,
+    { &internal::DemuxerStream_Initialize_Params_Data::Validate,
      &internal::DemuxerStream_Initialize_ResponseParams_Data::Validate},
-    {&internal::DemuxerStream_Read_Params_Data::Validate,
+    { &internal::DemuxerStream_Read_Params_Data::Validate,
      &internal::DemuxerStream_Read_ResponseParams_Data::Validate},
-    {&internal::DemuxerStream_EnableBitstreamConverter_Params_Data::Validate,
+    { &internal::DemuxerStream_EnableBitstreamConverter_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -760,7 +772,7 @@ DemuxerStreamAsyncWaiter::DemuxerStreamAsyncWaiter(
 DemuxerStreamAsyncWaiter::~DemuxerStreamAsyncWaiter() = default;
 
 void DemuxerStreamAsyncWaiter::Initialize(
-    ::media::DemuxerStream::Type* out_type, ::mojo::ScopedDataPipeConsumerHandle* out_pipe, absl::optional<::media::AudioDecoderConfig>* out_audio_config, absl::optional<::media::VideoDecoderConfig>* out_video_config) {
+    ::media::DemuxerStream::Type* out_type, ::mojo::ScopedDataPipeConsumerHandle* out_pipe, std::optional<::media::AudioDecoderConfig>* out_audio_config, std::optional<::media::VideoDecoderConfig>* out_video_config) {
   base::RunLoop loop;
   proxy_->Initialize(
       base::BindOnce(
@@ -769,14 +781,14 @@ void DemuxerStreamAsyncWaiter::Initialize(
 ,
              ::mojo::ScopedDataPipeConsumerHandle* out_pipe
 ,
-             absl::optional<::media::AudioDecoderConfig>* out_audio_config
+             std::optional<::media::AudioDecoderConfig>* out_audio_config
 ,
-             absl::optional<::media::VideoDecoderConfig>* out_video_config
+             std::optional<::media::VideoDecoderConfig>* out_video_config
 ,
              ::media::DemuxerStream::Type type,
              ::mojo::ScopedDataPipeConsumerHandle pipe,
-             const absl::optional<::media::AudioDecoderConfig>& audio_config,
-             const absl::optional<::media::VideoDecoderConfig>& video_config) {*out_type = std::move(type);*out_pipe = std::move(pipe);*out_audio_config = std::move(audio_config);*out_video_config = std::move(video_config);
+             const std::optional<::media::AudioDecoderConfig>& audio_config,
+             const std::optional<::media::VideoDecoderConfig>& video_config) {*out_type = std::move(type);*out_pipe = std::move(pipe);*out_audio_config = std::move(audio_config);*out_video_config = std::move(video_config);
             loop->Quit();
           },
           &loop,
@@ -790,7 +802,7 @@ void DemuxerStreamAsyncWaiter::Initialize(
 
 
 void DemuxerStreamAsyncWaiter::Read(
-    uint32_t count, ::media::DemuxerStream::Status* out_status, std::vector<::media::mojom::DecoderBufferPtr>* out_batch_buffers, absl::optional<::media::AudioDecoderConfig>* out_audio_config, absl::optional<::media::VideoDecoderConfig>* out_video_config) {
+    uint32_t count, ::media::DemuxerStream::Status* out_status, std::vector<::media::mojom::DecoderBufferPtr>* out_batch_buffers, std::optional<::media::AudioDecoderConfig>* out_audio_config, std::optional<::media::VideoDecoderConfig>* out_video_config) {
   base::RunLoop loop;
   proxy_->Read(std::move(count),
       base::BindOnce(
@@ -799,14 +811,14 @@ void DemuxerStreamAsyncWaiter::Read(
 ,
              std::vector<::media::mojom::DecoderBufferPtr>* out_batch_buffers
 ,
-             absl::optional<::media::AudioDecoderConfig>* out_audio_config
+             std::optional<::media::AudioDecoderConfig>* out_audio_config
 ,
-             absl::optional<::media::VideoDecoderConfig>* out_video_config
+             std::optional<::media::VideoDecoderConfig>* out_video_config
 ,
              ::media::DemuxerStream::Status status,
              std::vector<::media::mojom::DecoderBufferPtr> batch_buffers,
-             const absl::optional<::media::AudioDecoderConfig>& audio_config,
-             const absl::optional<::media::VideoDecoderConfig>& video_config) {*out_status = std::move(status);*out_batch_buffers = std::move(batch_buffers);*out_audio_config = std::move(audio_config);*out_video_config = std::move(video_config);
+             const std::optional<::media::AudioDecoderConfig>& audio_config,
+             const std::optional<::media::VideoDecoderConfig>& video_config) {*out_status = std::move(status);*out_batch_buffers = std::move(batch_buffers);*out_audio_config = std::move(audio_config);*out_video_config = std::move(video_config);
             loop->Quit();
           },
           &loop,

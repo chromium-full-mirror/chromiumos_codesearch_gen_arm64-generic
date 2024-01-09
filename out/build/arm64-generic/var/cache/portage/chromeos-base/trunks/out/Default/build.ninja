@@ -26,7 +26,6 @@ build install_trunksd_conf: phony obj/trunks/install_trunksd_conf.stamp
 build interface_proto: phony ./libinterface_proto.a
 build interface_proto_gen: phony obj/trunks/interface_proto_gen.stamp
 build libtrunks: phony obj/trunks/libtrunks.stamp
-build pinweaver_csme_lib: phony obj/trunks/pinweaver_csme_lib.stamp
 build pinweaver_proto: phony ./libpinweaver_proto.a
 build pinweaver_proto_gen: phony obj/trunks/pinweaver_proto_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
@@ -42,16 +41,12 @@ build trunks$:interface_proto: phony ./libinterface_proto.a
 build trunks$:interface_proto_gen: phony obj/trunks/interface_proto_gen.stamp
 build trunks$:libtrunks: phony obj/trunks/libtrunks.stamp
 build trunks$:pinweaver_client: phony ./pinweaver_client
-build trunks$:pinweaver_csme_lib: phony obj/trunks/pinweaver_csme_lib.stamp
 build trunks$:pinweaver_proto: phony ./libpinweaver_proto.a
 build trunks$:pinweaver_proto_gen: phony obj/trunks/pinweaver_proto_gen.stamp
-build trunks$:pinweaver_provision: phony ./pinweaver_provision
-build trunks$:tpm_tunneld: phony ./tpm_tunneld
 build trunks$:trunks: phony ./lib/libtrunks.so
 build trunks$:trunks_client: phony ./trunks_client
 build trunks$:trunks_send: phony ./trunks_send
 build trunks$:trunks_test: phony ./libtrunks_test.a
-build trunks$:trunks_testrunner: phony ./trunks_testrunner
 build trunks$:trunksd: phony ./trunksd
 build trunks$:trunksd_lib: phony ./libtrunksd_lib.a
 
@@ -66,16 +61,12 @@ build all: phony $
     obj/trunks/interface_proto_gen.stamp $
     obj/trunks/libtrunks.stamp $
     ./pinweaver_client $
-    obj/trunks/pinweaver_csme_lib.stamp $
     ./libpinweaver_proto.a $
     obj/trunks/pinweaver_proto_gen.stamp $
-    ./pinweaver_provision $
-    ./tpm_tunneld $
     ./lib/libtrunks.so $
     ./trunks_client $
     ./trunks_send $
     ./libtrunks_test.a $
-    ./trunks_testrunner $
     ./trunksd $
     ./libtrunksd_lib.a
 

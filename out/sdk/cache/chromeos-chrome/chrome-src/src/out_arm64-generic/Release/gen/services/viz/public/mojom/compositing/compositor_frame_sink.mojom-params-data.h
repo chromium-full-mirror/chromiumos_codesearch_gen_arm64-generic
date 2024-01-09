@@ -306,6 +306,22 @@ class  CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_P
 };
 static_assert(sizeof(CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data) == 16,
               "Bad sizeof(CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data)");
+class  CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::viz::mojom::internal::LocalSurfaceId_Data> local_surface_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data>;
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data();
+  ~CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data() = delete;
+};
+static_assert(sizeof(CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data) == 16,
+              "Bad sizeof(CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data)");
 
 }  // namespace internal
 
@@ -793,6 +809,32 @@ class CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Pa
 };
 
 
+class CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView {
+ public:
+  CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView() = default;
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView(
+      internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocalSurfaceIdDataView(
+      ::viz::mojom::LocalSurfaceIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalSurfaceId(UserType* output) {
+    
+    auto* pointer = data_->local_surface_id.Get();
+    return mojo::internal::Deserialize<::viz::mojom::LocalSurfaceIdDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -909,6 +951,13 @@ inline void CompositorFrameSinkClient_ReclaimResources_ParamsDataView::GetResour
 }
 
 
+
+
+inline void CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView::GetLocalSurfaceIdDataView(
+    ::viz::mojom::LocalSurfaceIdDataView* output) {
+  auto pointer = data_->local_surface_id.Get();
+  *output = ::viz::mojom::LocalSurfaceIdDataView(pointer, message_);
+}
 
 
 

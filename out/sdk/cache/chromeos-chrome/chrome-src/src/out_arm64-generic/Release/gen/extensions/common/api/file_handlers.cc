@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/file_handlers.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -41,8 +42,8 @@ Icon::Icon()
  {}
 
 Icon::~Icon() = default;
-Icon::Icon(Icon&& rhs) = default;
-Icon& Icon::operator=(Icon&& rhs) = default;
+Icon::Icon(Icon&& rhs) noexcept = default;
+Icon& Icon::operator=(Icon&& rhs) noexcept = default;
 Icon Icon::Clone() const {
   Icon out;
   out.src = src;
@@ -77,7 +78,7 @@ bool Icon::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'sizes': expected sizes, got " + UTF8ToUTF16(base::Value::GetTypeName((*sizes_value).type()));
-        out.sizes = absl::nullopt;
+        out.sizes = std::nullopt;
         return false;
       }
       out.sizes = *temp;
@@ -91,7 +92,7 @@ bool Icon::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'type': expected type, got " + UTF8ToUTF16(base::Value::GetTypeName((*type_value).type()));
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -110,24 +111,6 @@ bool Icon::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<Icon> Icon::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Icon>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -176,8 +159,8 @@ FileHandler::Accept::Accept()
  {}
 
 FileHandler::Accept::~Accept() = default;
-FileHandler::Accept::Accept(Accept&& rhs) = default;
-FileHandler::Accept& FileHandler::Accept::operator=(Accept&& rhs) = default;
+FileHandler::Accept::Accept(Accept&& rhs) noexcept = default;
+FileHandler::Accept& FileHandler::Accept::operator=(Accept&& rhs) noexcept = default;
 FileHandler::Accept FileHandler::Accept::Clone() const {
   Accept out;
   return out;
@@ -250,8 +233,8 @@ FileHandler::FileHandler()
  {}
 
 FileHandler::~FileHandler() = default;
-FileHandler::FileHandler(FileHandler&& rhs) = default;
-FileHandler& FileHandler::operator=(FileHandler&& rhs) = default;
+FileHandler::FileHandler(FileHandler&& rhs) noexcept = default;
+FileHandler& FileHandler::operator=(FileHandler&& rhs) noexcept = default;
 // static
 constexpr char FileHandler::kAccept[];
 // static
@@ -358,7 +341,7 @@ bool FileHandler::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'launch_type': expected launch_type, got " + UTF8ToUTF16(base::Value::GetTypeName((*launch_type_value).type()));
-        out.launch_type = absl::nullopt;
+        out.launch_type = std::nullopt;
         return false;
       }
       out.launch_type = *temp;
@@ -377,24 +360,6 @@ bool FileHandler::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<FileHandler> FileHandler::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<FileHandler>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -488,8 +453,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kFileHandlers[];
 

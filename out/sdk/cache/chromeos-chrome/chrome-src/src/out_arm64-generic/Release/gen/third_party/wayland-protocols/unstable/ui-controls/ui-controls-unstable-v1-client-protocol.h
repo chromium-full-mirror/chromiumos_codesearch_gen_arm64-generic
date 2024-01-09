@@ -171,6 +171,11 @@ zcr_ui_controls_v1_add_listener(struct zcr_ui_controls_v1 *zcr_ui_controls_v1,
 #define ZCR_UI_CONTROLS_V1_SEND_MOUSE_MOVE 1
 #define ZCR_UI_CONTROLS_V1_SEND_MOUSE_BUTTON 2
 #define ZCR_UI_CONTROLS_V1_SEND_TOUCH 3
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_ID 4
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_SIZE 5
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_DEVICE_SCALE_FACTOR 6
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_DONE 7
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_LIST_DONE 8
 
 /**
  * @ingroup iface_zcr_ui_controls_v1
@@ -193,6 +198,26 @@ zcr_ui_controls_v1_add_listener(struct zcr_ui_controls_v1 *zcr_ui_controls_v1,
  * @ingroup iface_zcr_ui_controls_v1
  */
 #define ZCR_UI_CONTROLS_V1_SEND_TOUCH_SINCE_VERSION 1
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_ID_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_SIZE_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_DEVICE_SCALE_FACTOR_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_DONE_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_LIST_DONE_SINCE_VERSION 3
 
 /** @ingroup iface_zcr_ui_controls_v1 */
 static inline void
@@ -294,6 +319,80 @@ zcr_ui_controls_v1_send_touch(struct zcr_ui_controls_v1 *zcr_ui_controls_v1, uin
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
 			 ZCR_UI_CONTROLS_V1_SEND_TOUCH, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0, action, touch_id, x, y, surface, id);
+}
+
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ *
+ * Set the display id to be added. This is double buffered
+ * and the display will be created upon `display_info_done`
+ * request.
+ */
+static inline void
+zcr_ui_controls_v1_set_display_info_id(struct zcr_ui_controls_v1 *zcr_ui_controls_v1, uint32_t display_id_hi, uint32_t display_id_low)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
+			 ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_ID, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0, display_id_hi, display_id_low);
+}
+
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ *
+ * Set the display size to be added. The display will be
+ * created upon `display_info_done` request.
+ */
+static inline void
+zcr_ui_controls_v1_set_display_info_size(struct zcr_ui_controls_v1 *zcr_ui_controls_v1, uint32_t width, uint32_t height)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
+			 ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_SIZE, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0, width, height);
+}
+
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ *
+ * Set the display device scale factor to be added. The display
+ * will be created upon `display_info_done` request.
+ *
+ * The client has a 32-bit float scale factor that is associated with each
+ * display. This scale factor must be propagated exactly to exo. To do so
+ * we reinterpret_cast into a 32-bit uint and later cast back into a
+ * float. This is because wayland does not support native transport of
+ * floats. As different CPU architectures may use different endian
+ * representations for IEEE 754 floats, this protocol implicitly assumes
+ * that the caller and receiver are the same machine.
+ */
+static inline void
+zcr_ui_controls_v1_set_display_info_device_scale_factor(struct zcr_ui_controls_v1 *zcr_ui_controls_v1, uint32_t device_scale_factor_as_uint)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
+			 ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_DEVICE_SCALE_FACTOR, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0, device_scale_factor_as_uint);
+}
+
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ *
+ * Add pending display to pending display list. The value
+ * of display properties will use default value if they're
+ * not set by request.
+ */
+static inline void
+zcr_ui_controls_v1_display_info_done(struct zcr_ui_controls_v1 *zcr_ui_controls_v1)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
+			 ZCR_UI_CONTROLS_V1_DISPLAY_INFO_DONE, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0);
+}
+
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ *
+ * Flush the display information to ash and update the displays.
+ */
+static inline void
+zcr_ui_controls_v1_display_info_list_done(struct zcr_ui_controls_v1 *zcr_ui_controls_v1, uint32_t id)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_ui_controls_v1,
+			 ZCR_UI_CONTROLS_V1_DISPLAY_INFO_LIST_DONE, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_ui_controls_v1), 0, id);
 }
 
 #ifdef  __cplusplus

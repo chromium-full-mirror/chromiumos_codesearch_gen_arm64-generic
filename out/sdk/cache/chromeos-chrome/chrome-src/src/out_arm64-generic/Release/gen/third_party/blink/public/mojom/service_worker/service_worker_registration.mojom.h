@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/service_worker_registration.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_registration.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_registration.mojom-forward.h"
 #include "third_party/blink/public/mojom/loader/fetch_client_settings_object.mojom-forward.h"
@@ -105,27 +106,27 @@ class BLINK_COMMON_EXPORT ServiceWorkerRegistrationObjectHost
   virtual ~ServiceWorkerRegistrationObjectHost() = default;
 
 
-  using UpdateCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&)>;
+  using UpdateCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&)>;
   
   virtual void Update(::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, UpdateCallback callback) = 0;
 
 
-  using UnregisterCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&)>;
+  using UnregisterCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&)>;
   
   virtual void Unregister(UnregisterCallback callback) = 0;
 
 
-  using EnableNavigationPreloadCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&)>;
+  using EnableNavigationPreloadCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&)>;
   
   virtual void EnableNavigationPreload(bool enable, EnableNavigationPreloadCallback callback) = 0;
 
 
-  using GetNavigationPreloadStateCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&, ::blink::mojom::NavigationPreloadStatePtr)>;
+  using GetNavigationPreloadStateCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&, ::blink::mojom::NavigationPreloadStatePtr)>;
   
   virtual void GetNavigationPreloadState(GetNavigationPreloadStateCallback callback) = 0;
 
 
-  using SetNavigationPreloadHeaderCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&)>;
+  using SetNavigationPreloadHeaderCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&)>;
   
   virtual void SetNavigationPreloadHeader(const std::string& value, SetNavigationPreloadHeaderCallback callback) = 0;
 };

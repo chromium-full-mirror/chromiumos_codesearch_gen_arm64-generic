@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common">cr-radio-group{width:100%}cr-radio-button{height:48px;padding:0 var(--cr-section-padding)}cr-radio-button+cr-radio-button{border-top:var(--cr-separator-line)}</style>
+    return html `<!--_html_template_start_--><style include="common">cr-radio-group{width:100%}cr-radio-button{height:48px;padding:0 14px;margin:0 10px}cr-radio-button+cr-radio-button{border-top:var(--cr-separator-line)}</style>
 <div id="weatherDiv">
   <h3 id="weatherTitle" class="ambient-subpage-element-title">
     $i18n{ambientModeWeatherTitle}

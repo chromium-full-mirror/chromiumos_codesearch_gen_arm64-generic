@@ -1,4 +1,4 @@
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import{ColorChangeUpdater}from"chrome://resources/cr_components/color_change_listener/colors_css_updater.js";import{loadTimeData}from"chrome://resources/js/load_time_data.js";import{createLogsMapTable}from"./logs_map_page.js";function getSystemInformation(){return new Promise((resolve=>chrome.feedbackPrivate.getSystemInformation(resolve)))}function configureJellyColors(){if(loadTimeData.getBoolean("isJellyEnabledForOsFeedback")){document.body.classList.add("jelly-enabled");ColorChangeUpdater.forDocument().start()}}window.onload=function(){getSystemInformation().then(createLogsMapTable);configureJellyColors()};
+import"./jelly_colors.js";import{createLogsMapTable}from"./logs_map_page.js";function getSystemInformation(){return new Promise((resolve=>chrome.feedbackPrivate.getSystemInformation(resolve)))}window.onload=function(){getSystemInformation().then(createLogsMapTable)};

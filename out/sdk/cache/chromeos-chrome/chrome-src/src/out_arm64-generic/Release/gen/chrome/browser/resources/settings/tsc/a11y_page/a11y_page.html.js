@@ -8,7 +8,7 @@ export function getTemplate() {
         </cr-link-row>
 
 
-        <settings-toggle-button class="hr" hidden$="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onA11yImageLabelsChange_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}">
+        <settings-toggle-button class="hr" hidden$="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onA11yImageLabelsChange_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}">
         </settings-toggle-button>
 
 

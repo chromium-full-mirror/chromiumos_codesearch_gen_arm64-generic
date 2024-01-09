@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCRtpReceiver>::value,
     "RTCRtpReceiver inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCRtpReceiver::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCRtpReceiver is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,8 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.track.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->track();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -110,8 +106,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.transport.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transport();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,8 +121,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.rtcpTransport.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rtcpTransport();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,7 +142,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_Playo
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playoutDelayHint();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -170,7 +168,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -204,7 +202,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCRtpReceiver";
 const char* const property_name = "createEncodedStreams";
@@ -235,8 +233,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCRtpReceiver";
 const char* const property_name = "getContributingSources";
@@ -267,7 +265,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParameters();
 if (!ToV8Traits<RTCRtpReceiveParameters>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -298,7 +297,7 @@ return;
 
 
 
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -322,8 +321,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCRtpReceiver";
 const char* const property_name = "getSynchronizationSources";
@@ -369,7 +368,7 @@ ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_kind;
 if (LIKELY(info[0]->IsString())) {
-  arg1_kind.Init(info[0].As<v8::String>());
+  arg1_kind.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCRtpReceiver";

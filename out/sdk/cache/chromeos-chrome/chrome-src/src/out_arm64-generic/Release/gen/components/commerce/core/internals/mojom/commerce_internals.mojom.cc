@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -95,7 +96,6 @@ ShoppingListEligibleDetail::ShoppingListEligibleDetail()
       is_signed_in(),
       is_syncing_bookmarks(),
       is_anonymized_url_data_collection_enabled(),
-      is_web_and_app_activity_enabled(),
       is_subject_to_parental_controls() {}
 
 ShoppingListEligibleDetail::ShoppingListEligibleDetail(
@@ -105,7 +105,6 @@ ShoppingListEligibleDetail::ShoppingListEligibleDetail(
     EligibleEntryPtr is_signed_in_in,
     EligibleEntryPtr is_syncing_bookmarks_in,
     EligibleEntryPtr is_anonymized_url_data_collection_enabled_in,
-    EligibleEntryPtr is_web_and_app_activity_enabled_in,
     EligibleEntryPtr is_subject_to_parental_controls_in)
     : is_region_locked_feature_enabled(std::move(is_region_locked_feature_enabled_in)),
       is_shopping_list_allowed_for_enterprise(std::move(is_shopping_list_allowed_for_enterprise_in)),
@@ -113,7 +112,6 @@ ShoppingListEligibleDetail::ShoppingListEligibleDetail(
       is_signed_in(std::move(is_signed_in_in)),
       is_syncing_bookmarks(std::move(is_syncing_bookmarks_in)),
       is_anonymized_url_data_collection_enabled(std::move(is_anonymized_url_data_collection_enabled_in)),
-      is_web_and_app_activity_enabled(std::move(is_web_and_app_activity_enabled_in)),
       is_subject_to_parental_controls(std::move(is_subject_to_parental_controls_in)) {}
 
 ShoppingListEligibleDetail::~ShoppingListEligibleDetail() = default;
@@ -124,7 +122,6 @@ size_t ShoppingListEligibleDetail::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->is_signed_in);
   seed = mojo::internal::Hash(seed, this->is_syncing_bookmarks);
   seed = mojo::internal::Hash(seed, this->is_anonymized_url_data_collection_enabled);
-  seed = mojo::internal::Hash(seed, this->is_web_and_app_activity_enabled);
   seed = mojo::internal::Hash(seed, this->is_subject_to_parental_controls);
   return seed;
 }
@@ -180,15 +177,6 @@ void ShoppingListEligibleDetail::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_anonymized_url_data_collection_enabled"), this->is_anonymized_url_data_collection_enabled,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type EligibleEntryPtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "is_web_and_app_activity_enabled"), this->is_web_and_app_activity_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type EligibleEntryPtr>"
 #else
@@ -285,14 +273,17 @@ void CommerceInternalsHandlerFactoryProxy::CreateCommerceInternalsHandler(
                         "<value of type ::mojo::PendingReceiver<CommerceInternalsHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Name, kFlags, 0, 0, nullptr);
@@ -380,10 +371,10 @@ bool CommerceInternalsHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCommerceInternalsHandlerFactoryValidationInfo[] = {
-    {&internal::CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params_Data::Validate,
+    { &internal::CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -528,14 +519,17 @@ void CommerceInternalsHandlerProxy::GetIsShoppingListEligible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send commerce::mojom::CommerceInternalsHandler::GetIsShoppingListEligible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandler_GetIsShoppingListEligible_Name, kFlags, 0, 0, nullptr);
@@ -559,14 +553,17 @@ void CommerceInternalsHandlerProxy::GetShoppingListEligibleDetails(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send commerce::mojom::CommerceInternalsHandler::GetShoppingListEligibleDetails");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandler_GetShoppingListEligibleDetails_Name, kFlags, 0, 0, nullptr);
@@ -590,14 +587,17 @@ void CommerceInternalsHandlerProxy::ResetPriceTrackingEmailPref(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send commerce::mojom::CommerceInternalsHandler::ResetPriceTrackingEmailPref");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name, kFlags, 0, 0, nullptr);
@@ -706,7 +706,8 @@ void CommerceInternalsHandler_GetIsShoppingListEligible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandler_GetIsShoppingListEligible_Name, kFlags, 0, 0, nullptr);
@@ -824,7 +825,8 @@ void CommerceInternalsHandler_GetShoppingListEligibleDetails_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsHandler_GetShoppingListEligibleDetails_Name, kFlags, 0, 0, nullptr);
@@ -963,14 +965,14 @@ bool CommerceInternalsHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCommerceInternalsHandlerValidationInfo[] = {
-    {&internal::CommerceInternalsHandler_GetIsShoppingListEligible_Params_Data::Validate,
+    { &internal::CommerceInternalsHandler_GetIsShoppingListEligible_Params_Data::Validate,
      &internal::CommerceInternalsHandler_GetIsShoppingListEligible_ResponseParams_Data::Validate},
-    {&internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_Params_Data::Validate,
+    { &internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_Params_Data::Validate,
      &internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParams_Data::Validate},
-    {&internal::CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data::Validate,
+    { &internal::CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1054,14 +1056,17 @@ void CommerceInternalsPageProxy::OnShoppingListEligibilityChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceInternalsPage_OnShoppingListEligibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -1130,10 +1135,10 @@ bool CommerceInternalsPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCommerceInternalsPageValidationInfo[] = {
-    {&internal::CommerceInternalsPage_OnShoppingListEligibilityChanged_Params_Data::Validate,
+    { &internal::CommerceInternalsPage_OnShoppingListEligibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1184,8 +1189,6 @@ bool StructTraits<::commerce::mojom::ShoppingListEligibleDetail::DataView, ::com
       if (success && !input.ReadIsSyncingBookmarks(&result->is_syncing_bookmarks))
         success = false;
       if (success && !input.ReadIsAnonymizedUrlDataCollectionEnabled(&result->is_anonymized_url_data_collection_enabled))
-        success = false;
-      if (success && !input.ReadIsWebAndAppActivityEnabled(&result->is_web_and_app_activity_enabled))
         success = false;
       if (success && !input.ReadIsSubjectToParentalControls(&result->is_subject_to_parental_controls))
         success = false;

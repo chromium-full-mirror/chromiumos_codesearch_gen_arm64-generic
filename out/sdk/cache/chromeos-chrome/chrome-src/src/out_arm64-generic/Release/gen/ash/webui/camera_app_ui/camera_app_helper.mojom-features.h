@@ -8,6 +8,7 @@
 #define ASH_WEBUI_CAMERA_APP_UI_CAMERA_APP_HELPER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

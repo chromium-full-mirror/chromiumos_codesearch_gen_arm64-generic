@@ -58,8 +58,6 @@ class ManagerInterface {
       brillo::ErrorPtr* error) = 0;
   virtual bool RecheckPortal(
       brillo::ErrorPtr* error) = 0;
-  virtual bool RequestWiFiRestart(
-      brillo::ErrorPtr* error) = 0;
   virtual bool RequestScan(
       brillo::ErrorPtr* error,
       const std::string& in_1) = 0;
@@ -115,6 +113,12 @@ class ManagerInterface {
   virtual bool GetNetworksForGeolocation(
       brillo::ErrorPtr* error,
       brillo::VariantDictionary* out_1) = 0;
+  virtual bool GetWiFiNetworksForGeolocation(
+      brillo::ErrorPtr* error,
+      brillo::VariantDictionary* out_1) = 0;
+  virtual bool GetCellularNetworksForGeolocation(
+      brillo::ErrorPtr* error,
+      brillo::VariantDictionary* out_1) = 0;
   virtual bool ScanAndConnectToBestServices(
       brillo::ErrorPtr* error) = 0;
   virtual bool CreateConnectivityReport(
@@ -153,6 +157,18 @@ class ManagerInterface {
   virtual void SetLOHSEnabled(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response,
       bool in_1) = 0;
+  virtual void CreateP2PGroup(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
+      const brillo::VariantDictionary& in_1) = 0;
+  virtual void ConnectToP2PGroup(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
+      const brillo::VariantDictionary& in_1) = 0;
+  virtual void DestroyP2PGroup(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
+      int32_t in_1) = 0;
+  virtual void DisconnectFromP2PGroup(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<brillo::VariantDictionary>> response,
+      int32_t in_1) = 0;
 };
 
 // Interface adaptor for org::chromium::flimflam::Manager.
@@ -210,10 +226,6 @@ class ManagerAdaptor {
         "RecheckPortal",
         base::Unretained(interface_),
         &ManagerInterface::RecheckPortal);
-    itf->AddSimpleMethodHandlerWithError(
-        "RequestWiFiRestart",
-        base::Unretained(interface_),
-        &ManagerInterface::RequestWiFiRestart);
     itf->AddSimpleMethodHandlerWithError(
         "RequestScan",
         base::Unretained(interface_),
@@ -279,6 +291,14 @@ class ManagerAdaptor {
         base::Unretained(interface_),
         &ManagerInterface::GetNetworksForGeolocation);
     itf->AddSimpleMethodHandlerWithError(
+        "GetWiFiNetworksForGeolocation",
+        base::Unretained(interface_),
+        &ManagerInterface::GetWiFiNetworksForGeolocation);
+    itf->AddSimpleMethodHandlerWithError(
+        "GetCellularNetworksForGeolocation",
+        base::Unretained(interface_),
+        &ManagerInterface::GetCellularNetworksForGeolocation);
+    itf->AddSimpleMethodHandlerWithError(
         "ScanAndConnectToBestServices",
         base::Unretained(interface_),
         &ManagerInterface::ScanAndConnectToBestServices);
@@ -326,6 +346,22 @@ class ManagerAdaptor {
         "SetLOHSEnabled",
         base::Unretained(interface_),
         &ManagerInterface::SetLOHSEnabled);
+    itf->AddMethodHandler(
+        "CreateP2PGroup",
+        base::Unretained(interface_),
+        &ManagerInterface::CreateP2PGroup);
+    itf->AddMethodHandler(
+        "ConnectToP2PGroup",
+        base::Unretained(interface_),
+        &ManagerInterface::ConnectToP2PGroup);
+    itf->AddMethodHandler(
+        "DestroyP2PGroup",
+        base::Unretained(interface_),
+        &ManagerInterface::DestroyP2PGroup);
+    itf->AddMethodHandler(
+        "DisconnectFromP2PGroup",
+        base::Unretained(interface_),
+        &ManagerInterface::DisconnectFromP2PGroup);
 
     signal_PropertyChanged_ = itf->RegisterSignalOfType<SignalPropertyChangedType>("PropertyChanged");
     signal_StateChanged_ = itf->RegisterSignalOfType<SignalStateChangedType>("StateChanged");
@@ -387,8 +423,6 @@ class ManagerAdaptor {
         "    </method>\n"
         "    <method name=\"RecheckPortal\">\n"
         "    </method>\n"
-        "    <method name=\"RequestWiFiRestart\">\n"
-        "    </method>\n"
         "    <method name=\"RequestScan\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
@@ -444,6 +478,12 @@ class ManagerAdaptor {
         "    <method name=\"GetNetworksForGeolocation\">\n"
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"GetWiFiNetworksForGeolocation\">\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetCellularNetworksForGeolocation\">\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"ScanAndConnectToBestServices\">\n"
         "    </method>\n"
         "    <method name=\"CreateConnectivityReport\">\n"
@@ -482,6 +522,22 @@ class ManagerAdaptor {
         "    <method name=\"SetLOHSEnabled\">\n"
         "      <arg name=\"\" type=\"b\" direction=\"in\"/>\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"CreateP2PGroup\">\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"ConnectToP2PGroup\">\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"DestroyP2PGroup\">\n"
+        "      <arg name=\"\" type=\"i\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"DisconnectFromP2PGroup\">\n"
+        "      <arg name=\"\" type=\"i\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"PropertyChanged\">\n"
         "      <arg name=\"\" type=\"s\"/>\n"

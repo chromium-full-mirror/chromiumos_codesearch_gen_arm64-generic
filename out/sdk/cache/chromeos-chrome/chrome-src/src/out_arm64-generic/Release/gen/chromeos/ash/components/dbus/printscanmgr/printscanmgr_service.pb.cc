@@ -21,7 +21,8 @@ namespace printscanmgr {
 PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , uri_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , uri_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , language_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -48,7 +49,8 @@ PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfi
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , uri_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , ppd_contents_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , ppd_contents_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , language_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -349,6 +351,14 @@ CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(const C
     uri_.Set(from._internal_uri(), 
       GetArenaForAllocation());
   }
+  language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    language_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_language().empty()) {
+    language_.Set(from._internal_language(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
 }
 
@@ -360,6 +370,10 @@ name_.InitDefault();
 uri_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   uri_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+language_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  language_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -376,6 +390,7 @@ inline void CupsAddAutoConfiguredPrinterRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.Destroy();
   uri_.Destroy();
+  language_.Destroy();
 }
 
 void CupsAddAutoConfiguredPrinterRequest::SetCachedSize(int size) const {
@@ -390,6 +405,7 @@ void CupsAddAutoConfiguredPrinterRequest::Clear() {
 
   name_.ClearToEmpty();
   uri_.ClearToEmpty();
+  language_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -413,6 +429,16 @@ const char* CupsAddAutoConfiguredPrinterRequest::_InternalParse(const char* ptr,
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_uri();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string language = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_language();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -468,6 +494,16 @@ uint8_t* CupsAddAutoConfiguredPrinterRequest::_InternalSerialize(
         2, this->_internal_uri(), target);
   }
 
+  // string language = 3;
+  if (!this->_internal_language().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_language().data(), static_cast<int>(this->_internal_language().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "printscanmgr.CupsAddAutoConfiguredPrinterRequest.language");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_language(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -498,6 +534,13 @@ size_t CupsAddAutoConfiguredPrinterRequest::ByteSizeLong() const {
         this->_internal_uri());
   }
 
+  // string language = 3;
+  if (!this->_internal_language().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_language());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -523,6 +566,9 @@ void CupsAddAutoConfiguredPrinterRequest::MergeFrom(const CupsAddAutoConfiguredP
   }
   if (!from._internal_uri().empty()) {
     _internal_set_uri(from._internal_uri());
+  }
+  if (!from._internal_language().empty()) {
+    _internal_set_language(from._internal_language());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -550,6 +596,10 @@ void CupsAddAutoConfiguredPrinterRequest::InternalSwap(CupsAddAutoConfiguredPrin
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &uri_, lhs_arena,
       &other->uri_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &language_, lhs_arena,
+      &other->language_, rhs_arena
   );
 }
 
@@ -768,6 +818,14 @@ CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfiguredPrinterRequest
     ppd_contents_.Set(from._internal_ppd_contents(), 
       GetArenaForAllocation());
   }
+  language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    language_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_language().empty()) {
+    language_.Set(from._internal_language(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
 }
 
@@ -783,6 +841,10 @@ uri_.InitDefault();
 ppd_contents_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   ppd_contents_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+language_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  language_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -800,6 +862,7 @@ inline void CupsAddManuallyConfiguredPrinterRequest::SharedDtor() {
   name_.Destroy();
   uri_.Destroy();
   ppd_contents_.Destroy();
+  language_.Destroy();
 }
 
 void CupsAddManuallyConfiguredPrinterRequest::SetCachedSize(int size) const {
@@ -815,6 +878,7 @@ void CupsAddManuallyConfiguredPrinterRequest::Clear() {
   name_.ClearToEmpty();
   uri_.ClearToEmpty();
   ppd_contents_.ClearToEmpty();
+  language_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -850,6 +914,16 @@ const char* CupsAddManuallyConfiguredPrinterRequest::_InternalParse(const char* 
           auto str = _internal_mutable_ppd_contents();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string language = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_language();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -908,6 +982,16 @@ uint8_t* CupsAddManuallyConfiguredPrinterRequest::_InternalSerialize(
         3, this->_internal_ppd_contents(), target);
   }
 
+  // string language = 4;
+  if (!this->_internal_language().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_language().data(), static_cast<int>(this->_internal_language().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_language(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -945,6 +1029,13 @@ size_t CupsAddManuallyConfiguredPrinterRequest::ByteSizeLong() const {
         this->_internal_ppd_contents());
   }
 
+  // string language = 4;
+  if (!this->_internal_language().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_language());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -973,6 +1064,9 @@ void CupsAddManuallyConfiguredPrinterRequest::MergeFrom(const CupsAddManuallyCon
   }
   if (!from._internal_ppd_contents().empty()) {
     _internal_set_ppd_contents(from._internal_ppd_contents());
+  }
+  if (!from._internal_language().empty()) {
+    _internal_set_language(from._internal_language());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1004,6 +1098,10 @@ void CupsAddManuallyConfiguredPrinterRequest::InternalSwap(CupsAddManuallyConfig
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &ppd_contents_, lhs_arena,
       &other->ppd_contents_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &language_, lhs_arena,
+      &other->language_, rhs_arena
   );
 }
 

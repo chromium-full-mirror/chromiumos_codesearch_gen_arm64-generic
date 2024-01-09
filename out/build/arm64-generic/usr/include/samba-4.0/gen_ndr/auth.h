@@ -50,12 +50,12 @@ struct auth_user_info {
 	uint16_t logon_count;
 	uint16_t bad_password_count;
 	uint32_t acct_flags;
-	uint8_t authenticated;
+	uint32_t user_flags;
 }/* [public] */;
 
 struct auth_user_info_torture {
 	uint32_t num_dc_sids;
-	struct dom_sid *dc_sids;/* [size_is(num_dc_sids)] */
+	struct auth_SidAttr *dc_sids;/* [size_is(num_dc_sids)] */
 }/* [public] */;
 
 struct auth_user_info_unix {
@@ -78,9 +78,31 @@ enum ticket_type
 #endif
 ;
 
+enum auth_group_inclusion
+#ifndef USE_UINT_ENUMS
+ {
+	AUTH_GROUP_INCLUSION_INVALID=(int)(0),
+	AUTH_INCLUDE_RESOURCE_GROUPS=(int)(2),
+	AUTH_INCLUDE_RESOURCE_GROUPS_COMPRESSED=(int)(3),
+	AUTH_EXCLUDE_RESOURCE_GROUPS=(int)(4)
+}
+#else
+ { __do_not_use_enum_auth_group_inclusion=0x7FFFFFFF}
+#define AUTH_GROUP_INCLUSION_INVALID ( 0 )
+#define AUTH_INCLUDE_RESOURCE_GROUPS ( 2 )
+#define AUTH_INCLUDE_RESOURCE_GROUPS_COMPRESSED ( 3 )
+#define AUTH_EXCLUDE_RESOURCE_GROUPS ( 4 )
+#endif
+;
+
+struct auth_SidAttr {
+	struct dom_sid sid;
+	uint32_t attrs;
+}/* [public] */;
+
 struct auth_user_info_dc {
 	uint32_t num_sids;
-	struct dom_sid *sids;/* [size_is(num_sids)] */
+	struct auth_SidAttr *sids;/* [size_is(num_sids)] */
 	struct auth_user_info *info;/* [unique] */
 	DATA_BLOB user_session_key;/* [noprint] */
 	DATA_BLOB lm_session_key;/* [noprint] */

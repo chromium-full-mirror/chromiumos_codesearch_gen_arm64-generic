@@ -9002,16 +9002,20 @@ bool CertProvBackendError_Error_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
+    case 12:
+    case 13:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertProvBackendError_Error_strings[11] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertProvBackendError_Error_strings[14] = {};
 
 static const char CertProvBackendError_Error_names[] =
   "BAD_PUBLIC_KEY"
+  "CA_CONNECTION_NOT_FOUND"
   "CA_FAILURE"
   "CA_UNAVAILABLE"
   "CPP_ALREADY_EXISTS"
@@ -9021,34 +9025,42 @@ static const char CertProvBackendError_Error_names[] =
   "INSTRUCTION_NOT_YET_AVAILABLE"
   "INVALID_OPERATION"
   "INVALID_SIGNATURE"
-  "PROFILE_NOT_FOUND";
+  "PROFILE_NOT_FOUND"
+  "PUBSUB_TOPIC_NOT_FOUND"
+  "USER_PRIMARY_EMAIL_NOT_FOUND";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CertProvBackendError_Error_entries[] = {
   { {CertProvBackendError_Error_names + 0, 14}, 5 },
-  { {CertProvBackendError_Error_names + 14, 10}, 9 },
-  { {CertProvBackendError_Error_names + 24, 14}, 8 },
-  { {CertProvBackendError_Error_names + 38, 18}, 4 },
-  { {CertProvBackendError_Error_names + 56, 17}, 0 },
-  { {CertProvBackendError_Error_names + 73, 27}, 3 },
-  { {CertProvBackendError_Error_names + 100, 17}, 2 },
-  { {CertProvBackendError_Error_names + 117, 29}, 7 },
-  { {CertProvBackendError_Error_names + 146, 17}, 1 },
-  { {CertProvBackendError_Error_names + 163, 17}, 6 },
-  { {CertProvBackendError_Error_names + 180, 17}, 10 },
+  { {CertProvBackendError_Error_names + 14, 23}, 12 },
+  { {CertProvBackendError_Error_names + 37, 10}, 9 },
+  { {CertProvBackendError_Error_names + 47, 14}, 8 },
+  { {CertProvBackendError_Error_names + 61, 18}, 4 },
+  { {CertProvBackendError_Error_names + 79, 17}, 0 },
+  { {CertProvBackendError_Error_names + 96, 27}, 3 },
+  { {CertProvBackendError_Error_names + 123, 17}, 2 },
+  { {CertProvBackendError_Error_names + 140, 29}, 7 },
+  { {CertProvBackendError_Error_names + 169, 17}, 1 },
+  { {CertProvBackendError_Error_names + 186, 17}, 6 },
+  { {CertProvBackendError_Error_names + 203, 17}, 10 },
+  { {CertProvBackendError_Error_names + 220, 22}, 13 },
+  { {CertProvBackendError_Error_names + 242, 28}, 11 },
 };
 
 static const int CertProvBackendError_Error_entries_by_number[] = {
-  4, // 0 -> ERROR_UNSPECIFIED
-  8, // 1 -> INVALID_OPERATION
-  6, // 2 -> INCONSISTENT_DATA
-  5, // 3 -> IDENTITY_VERIFICATION_ERROR
-  3, // 4 -> CPP_ALREADY_EXISTS
+  5, // 0 -> ERROR_UNSPECIFIED
+  9, // 1 -> INVALID_OPERATION
+  7, // 2 -> INCONSISTENT_DATA
+  6, // 3 -> IDENTITY_VERIFICATION_ERROR
+  4, // 4 -> CPP_ALREADY_EXISTS
   0, // 5 -> BAD_PUBLIC_KEY
-  9, // 6 -> INVALID_SIGNATURE
-  7, // 7 -> INSTRUCTION_NOT_YET_AVAILABLE
-  2, // 8 -> CA_UNAVAILABLE
-  1, // 9 -> CA_FAILURE
-  10, // 10 -> PROFILE_NOT_FOUND
+  10, // 6 -> INVALID_SIGNATURE
+  8, // 7 -> INSTRUCTION_NOT_YET_AVAILABLE
+  3, // 8 -> CA_UNAVAILABLE
+  2, // 9 -> CA_FAILURE
+  11, // 10 -> PROFILE_NOT_FOUND
+  13, // 11 -> USER_PRIMARY_EMAIL_NOT_FOUND
+  1, // 12 -> CA_CONNECTION_NOT_FOUND
+  12, // 13 -> PUBSUB_TOPIC_NOT_FOUND
 };
 
 const std::string& CertProvBackendError_Error_Name(
@@ -9057,12 +9069,12 @@ const std::string& CertProvBackendError_Error_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CertProvBackendError_Error_entries,
           CertProvBackendError_Error_entries_by_number,
-          11, CertProvBackendError_Error_strings);
+          14, CertProvBackendError_Error_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CertProvBackendError_Error_entries,
       CertProvBackendError_Error_entries_by_number,
-      11, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CertProvBackendError_Error_strings[idx].get();
 }
@@ -9070,7 +9082,7 @@ bool CertProvBackendError_Error_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CertProvBackendError_Error* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CertProvBackendError_Error_entries, 11, name, &int_value);
+      CertProvBackendError_Error_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<CertProvBackendError_Error>(int_value);
   }
@@ -9088,6 +9100,9 @@ constexpr CertProvBackendError_Error CertProvBackendError::INSTRUCTION_NOT_YET_A
 constexpr CertProvBackendError_Error CertProvBackendError::CA_UNAVAILABLE;
 constexpr CertProvBackendError_Error CertProvBackendError::CA_FAILURE;
 constexpr CertProvBackendError_Error CertProvBackendError::PROFILE_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError::USER_PRIMARY_EMAIL_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError::CA_CONNECTION_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError::PUBSUB_TOPIC_NOT_FOUND;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MIN;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MAX;
 constexpr int CertProvBackendError::Error_ARRAYSIZE;
@@ -9573,6 +9588,207 @@ bool CrdSessionAvailability_Parse(
       CrdSessionAvailability_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<CrdSessionAvailability>(int_value);
+  }
+  return success;
+}
+bool StartCrdSessionResultCode_IsValid(int value) {
+  switch (value) {
+    case -1:
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartCrdSessionResultCode_strings[10] = {};
+
+static const char StartCrdSessionResultCode_names[] =
+  "FAILURE_CRD_HOST_ERROR"
+  "FAILURE_DISABLED_BY_POLICY"
+  "FAILURE_NOT_IDLE"
+  "FAILURE_NO_ICE_CONFIG"
+  "FAILURE_NO_OAUTH_TOKEN"
+  "FAILURE_UNMANAGED_ENVIRONMENT"
+  "FAILURE_UNSUPPORTED_USER_TYPE"
+  "SERVICES_NOT_READY"
+  "START_CRD_SESSION_RESULT_UNKNOWN"
+  "START_CRD_SESSION_SUCCESS";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartCrdSessionResultCode_entries[] = {
+  { {StartCrdSessionResultCode_names + 0, 22}, 6 },
+  { {StartCrdSessionResultCode_names + 22, 26}, 8 },
+  { {StartCrdSessionResultCode_names + 48, 16}, 3 },
+  { {StartCrdSessionResultCode_names + 64, 21}, 5 },
+  { {StartCrdSessionResultCode_names + 85, 22}, 4 },
+  { {StartCrdSessionResultCode_names + 107, 29}, 7 },
+  { {StartCrdSessionResultCode_names + 136, 29}, 2 },
+  { {StartCrdSessionResultCode_names + 165, 18}, 1 },
+  { {StartCrdSessionResultCode_names + 183, 32}, -1 },
+  { {StartCrdSessionResultCode_names + 215, 25}, 0 },
+};
+
+static const int StartCrdSessionResultCode_entries_by_number[] = {
+  8, // -1 -> START_CRD_SESSION_RESULT_UNKNOWN
+  9, // 0 -> START_CRD_SESSION_SUCCESS
+  7, // 1 -> SERVICES_NOT_READY
+  6, // 2 -> FAILURE_UNSUPPORTED_USER_TYPE
+  2, // 3 -> FAILURE_NOT_IDLE
+  4, // 4 -> FAILURE_NO_OAUTH_TOKEN
+  3, // 5 -> FAILURE_NO_ICE_CONFIG
+  0, // 6 -> FAILURE_CRD_HOST_ERROR
+  5, // 7 -> FAILURE_UNMANAGED_ENVIRONMENT
+  1, // 8 -> FAILURE_DISABLED_BY_POLICY
+};
+
+const std::string& StartCrdSessionResultCode_Name(
+    StartCrdSessionResultCode value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          StartCrdSessionResultCode_entries,
+          StartCrdSessionResultCode_entries_by_number,
+          10, StartCrdSessionResultCode_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      StartCrdSessionResultCode_entries,
+      StartCrdSessionResultCode_entries_by_number,
+      10, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     StartCrdSessionResultCode_strings[idx].get();
+}
+bool StartCrdSessionResultCode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartCrdSessionResultCode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      StartCrdSessionResultCode_entries, 10, name, &int_value);
+  if (success) {
+    *value = static_cast<StartCrdSessionResultCode>(int_value);
+  }
+  return success;
+}
+bool FetchSupportPacketResultCode_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FetchSupportPacketResultCode_strings[6] = {};
+
+static const char FetchSupportPacketResultCode_names[] =
+  "FAILURE_COMMAND_NOT_ENABLED"
+  "FAILURE_EXPORTING_FILE"
+  "FAILURE_LOG_UPLOAD"
+  "FAILURE_REPORTING_PIPELINE"
+  "FETCH_SUPPORT_PACKET_RESULT_CODE_UNSPECIFIED"
+  "FETCH_SUPPORT_PACKET_RESULT_SUCCESS";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FetchSupportPacketResultCode_entries[] = {
+  { {FetchSupportPacketResultCode_names + 0, 27}, 2 },
+  { {FetchSupportPacketResultCode_names + 27, 22}, 3 },
+  { {FetchSupportPacketResultCode_names + 49, 18}, 5 },
+  { {FetchSupportPacketResultCode_names + 67, 26}, 4 },
+  { {FetchSupportPacketResultCode_names + 93, 44}, 0 },
+  { {FetchSupportPacketResultCode_names + 137, 35}, 1 },
+};
+
+static const int FetchSupportPacketResultCode_entries_by_number[] = {
+  4, // 0 -> FETCH_SUPPORT_PACKET_RESULT_CODE_UNSPECIFIED
+  5, // 1 -> FETCH_SUPPORT_PACKET_RESULT_SUCCESS
+  0, // 2 -> FAILURE_COMMAND_NOT_ENABLED
+  1, // 3 -> FAILURE_EXPORTING_FILE
+  3, // 4 -> FAILURE_REPORTING_PIPELINE
+  2, // 5 -> FAILURE_LOG_UPLOAD
+};
+
+const std::string& FetchSupportPacketResultCode_Name(
+    FetchSupportPacketResultCode value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FetchSupportPacketResultCode_entries,
+          FetchSupportPacketResultCode_entries_by_number,
+          6, FetchSupportPacketResultCode_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FetchSupportPacketResultCode_entries,
+      FetchSupportPacketResultCode_entries_by_number,
+      6, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     FetchSupportPacketResultCode_strings[idx].get();
+}
+bool FetchSupportPacketResultCode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FetchSupportPacketResultCode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FetchSupportPacketResultCode_entries, 6, name, &int_value);
+  if (success) {
+    *value = static_cast<FetchSupportPacketResultCode>(int_value);
+  }
+  return success;
+}
+bool FetchSupportPacketResultNote_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FetchSupportPacketResultNote_strings[2] = {};
+
+static const char FetchSupportPacketResultNote_names[] =
+  "FETCH_SUPPORT_PACKET_RESULT_PAYLOAD_UNSPECIFIED"
+  "WARNING_PII_NOT_ALLOWED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FetchSupportPacketResultNote_entries[] = {
+  { {FetchSupportPacketResultNote_names + 0, 47}, 0 },
+  { {FetchSupportPacketResultNote_names + 47, 23}, 1 },
+};
+
+static const int FetchSupportPacketResultNote_entries_by_number[] = {
+  0, // 0 -> FETCH_SUPPORT_PACKET_RESULT_PAYLOAD_UNSPECIFIED
+  1, // 1 -> WARNING_PII_NOT_ALLOWED
+};
+
+const std::string& FetchSupportPacketResultNote_Name(
+    FetchSupportPacketResultNote value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FetchSupportPacketResultNote_entries,
+          FetchSupportPacketResultNote_entries_by_number,
+          2, FetchSupportPacketResultNote_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FetchSupportPacketResultNote_entries,
+      FetchSupportPacketResultNote_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     FetchSupportPacketResultNote_strings[idx].get();
+}
+bool FetchSupportPacketResultNote_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FetchSupportPacketResultNote* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FetchSupportPacketResultNote_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<FetchSupportPacketResultNote>(int_value);
   }
   return success;
 }

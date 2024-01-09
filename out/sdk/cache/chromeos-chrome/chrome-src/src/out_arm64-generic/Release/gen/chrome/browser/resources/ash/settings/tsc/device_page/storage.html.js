@@ -59,7 +59,7 @@ export function getTemplate() {
 </cr-link-row>
 <cr-link-row id="appsSize" class="hr" on-click="onAppsClick_" label="$i18n{storageItemApps}" sub-label="$i18n{storageSizeComputing}" external>
 </cr-link-row>
-<template is="dom-if" if="[[shouldShowOfflineFilesRow_(isDriveEnabled_, isDriveFsBulkPinningEnabled_, showGoogleDriveSettingsPage_)]]">
+<template is="dom-if" if="[[shouldShowOfflineFilesRow_(isDriveEnabled_)]]">
   <cr-link-row id="driveOfflineSize" class="hr" on-click="onDriveOfflineClick_" label="$i18n{storageItemOffline}" sub-label="$i18n{storageSizeComputing}" role-description="$i18n{subpageArrowRoleDescription}">
   </cr-link-row>
 </template>

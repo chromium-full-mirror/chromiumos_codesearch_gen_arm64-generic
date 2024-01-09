@@ -25,30 +25,13 @@ Polymer({
   _template: html`<!--_html_template_start_-->
 <style>
   cr-dialog::part(dialog) {
+    background-color: var(--cros-sys-dialog_container);
     border-radius: 0;
     height: 100%;
     width: 100%;
   }
 
-  :host-context([theme='legacy']) cr-dialog::part(dialog) {
-    background-color: var(--cros-bg-color-elevation-3);
-  }
-
-  :host-context([theme='refresh23']) cr-dialog::part(dialog) {
-    background-color: var(--cros-sys-dialog_container);
-  }
-
-  :host-context([theme='legacy']) cr-input {
-    --cr-form-field-label-color: var(--cros-textfield-label-color);
-    --cr-input-background-color: var(--cros-textfield-background-color);
-    --cr-input-color: var(--cros-textfield-input-color);
-    --cr-input-error-color: var(--cros-textfield-label-color-error);
-    --cr-input-error-display: none;
-    --cr-input-focus-color: var(--cros-textfield-label-color-focus);
-    margin-bottom: var(--cr-form-field-bottom-spacing);
-  }
-
-  :host-context([theme='refresh23']) cr-input {
+  cr-input {
     --cr-form-field-label-color: var(--cros-sys-on_surface);
     --cr-input-background-color: var(--cros-sys-input_field_on_base);
     --cr-input-border-radius: 8px;
@@ -64,34 +47,7 @@ Polymer({
     margin-bottom: var(--cr-form-field-bottom-spacing);
   }
 
-  :host-context([theme='legacy']) cr-button {
-    --active-bg: transparent;
-    --active-shadow:
-        0 1px 2px var(--cros-button-active-shadow-color-key-secondary),
-        0 1px 3px var(--cros-button-active-shadow-color-ambient-secondary);
-    --active-shadow-action:
-        0 1px 2px var(--cros-button-active-shadow-color-key-primary),
-        0 1px 3px var(--cros-button-active-shadow-color-ambient-primary);
-    --bg-action: var(--cros-button-background-color-primary);
-    --border-color: var(--cros-button-stroke-color-secondary);
-    --disabled-bg-action:
-        var(--cros-button-background-color-primary-disabled);
-    --disabled-bg: var(--cros-button-background-color-primary-disabled);
-    --disabled-border-color:
-        var(--cros-button-stroke-color-secondary-disabled);
-    --disabled-text-color: var(--cros-button-label-color-secondary-disabled);
-    --hover-bg-action:
-        var(--cros-button-background-color-primary-hover-preblended);
-    --hover-bg-color: var(--cros-button-background-color-secondary-hover);
-    --hover-border-color: var(--cros-button-stroke-color-secondary-hover);
-    --ink-color: var(--cros-button-ripple-color-secondary);
-    --ripple-opacity-action: var(--cros-button-primary-ripple-opacity);
-    --ripple-opacity: var(--cros-button-secondary-ripple-opacity);
-    --text-color-action: var(--cros-button-label-color-primary);
-    --text-color: var(--cros-button-label-color-secondary);
-  }
-
-  :host-context([theme='refresh23']) cr-button {
+  cr-button {
     --active-bg: transparent;
     --active-shadow: none;
     --active-shadow-action: none;
@@ -116,36 +72,21 @@ Polymer({
     position: relative;
   }
 
-  :host-context([theme='refresh23']) cr-button.cancel-button {
+  cr-button.cancel-button {
     background-color: var(--cros-sys-primary_container);
   }
 
-  :host-context([theme='refresh23'])
-      cr-button.cancel-button:hover::part(hoverBackground) {
+  cr-button.cancel-button:hover::part(hoverBackground) {
     background-color: var(--cros-sys-hover_on_subtle);
     display: block;
   }
 
-  :host-context([theme='refresh23'])
-      cr-button.action-button:hover::part(hoverBackground) {
+  cr-button.action-button:hover::part(hoverBackground) {
     background-color: var(--cros-sys-hover_on_prominent);
     display: block;
   }
 
-  :host-context([theme='legacy']) cr-button.action-button {
-    --ink-color: var(--cros-button-ripple-color-primary);
-  }
-
-  :host-context([theme='legacy']):host-context(.focus-outline-visible)
-      cr-button:focus {
-    /* disable the focus shadow because we use outline below */
-    box-shadow: none;
-    outline: 2px solid var(--cros-focus-ring-color);
-    outline-offset: 2px;
-  }
-
-  :host-context([theme='refresh23']):host-context(.focus-outline-visible)
-      cr-button:focus {
+  :host-context(.focus-outline-visible) cr-button:focus {
     /* disable the focus shadow because we use outline below */
     box-shadow: none;
     outline: 2px solid var(--cros-sys-focus_ring);
@@ -156,12 +97,7 @@ Polymer({
     box-shadow: none;
   }
 
-  :host-context([theme='legacy']) [slot='title'] {
-    --cr-primary-text-color: var(--cros-text-color-primary);
-    padding-top: 4px;
-  }
-
-  :host-context([theme='refresh23']) [slot='title'] {
+  [slot='title'] {
     --cr-dialog-title-slot-padding-bottom: 32px;
     --cr-dialog-title-slot-padding-end: 32px;
     --cr-dialog-title-slot-padding-start: 32px;
@@ -174,17 +110,12 @@ Polymer({
     margin-bottom: 0;
   }
 
-  :host-context([theme='refresh23']) [slot='body'] {
+  [slot='body'] {
     --cr-dialog-body-padding-horizontal: 32px;
     --cr-form-field-bottom-spacing: 8px;
   }
 
-  :host-context([theme='legacy']) [slot='button-container']  {
-    padding-bottom: 20px;
-    padding-top: 32px;
-  }
-
-  :host-context([theme='refresh23']) [slot='button-container'] {
+  [slot='button-container'] {
     --cr-dialog-button-container-padding-bottom: 28px;
     --cr-dialog-button-container-padding-horizontal: 32px;
     padding-top: 32px;
@@ -235,10 +166,6 @@ Polymer({
   /** @override */
   created() {
     this.browserProxy_ = SmbBrowserProxyImpl.getInstance();
-
-    const jellyEnabled = loadTimeData.getBoolean('isJellyEnabled');
-    const theme = jellyEnabled ? 'refresh23' : 'legacy';
-    document.documentElement.setAttribute('theme', theme);
 
     /** @suppress {checkTypes} */
     (function() {

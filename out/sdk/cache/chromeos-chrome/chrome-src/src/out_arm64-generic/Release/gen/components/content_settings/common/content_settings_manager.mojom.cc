@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -138,7 +139,7 @@ uint32_t ContentSettingsManager::OnContentBlocked_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool ContentSettingsManager::AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) {
+bool ContentSettingsManager::AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) {
   NOTREACHED();
   return false;
 }
@@ -191,14 +192,17 @@ void ContentSettingsManagerProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<ContentSettingsManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsManager_Clone_Name, kFlags, 0, 0, nullptr);
@@ -222,15 +226,15 @@ void ContentSettingsManagerProxy::Clone(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 bool ContentSettingsManagerProxy::AllowStorageAccess(
-    int32_t param_render_frame_id, ContentSettingsManager::StorageType param_storage_type, const ::url::Origin& param_origin, const ::net::SiteForCookies& param_site_for_cookies, const ::url::Origin& param_top_frame_origin, bool* out_param_allowed) {
+    const ::blink::LocalFrameToken& param_frame_token, ContentSettingsManager::StorageType param_storage_type, const ::url::Origin& param_origin, const ::net::SiteForCookies& param_site_for_cookies, const ::url::Origin& param_top_frame_origin, bool* out_param_allowed) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call content_settings::mojom::ContentSettingsManager::AllowStorageAccess (sync)", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("render_frame_id"), param_render_frame_id,
-                        "<value of type int32_t>");
+           dict.AddItem("frame_token"), param_frame_token,
+                        "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("storage_type"), param_storage_type,
                         "<value of type ContentSettingsManager::StorageType>");
@@ -247,15 +251,18 @@ bool ContentSettingsManagerProxy::AllowStorageAccess(
 #else
   TRACE_EVENT0("mojom", "ContentSettingsManager::AllowStorageAccess");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsManager_AllowStorageAccess_Name, kFlags, 0, 0, nullptr);
@@ -263,7 +270,17 @@ bool ContentSettingsManagerProxy::AllowStorageAccess(
       ::content_settings::mojom::internal::ContentSettingsManager_AllowStorageAccess_Params_Data> params(
           message);
   params.Allocate();
-  params->render_frame_id = param_render_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      param_frame_token, frame_token_fragment);
+  params->frame_token.Set(
+      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->frame_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null frame_token in ContentSettingsManager.AllowStorageAccess request");
   mojo::internal::Serialize<::content_settings::mojom::ContentSettingsManager_StorageType>(
       param_storage_type, &params->storage_type);
   mojo::internal::MessageFragment<
@@ -324,15 +341,15 @@ bool ContentSettingsManagerProxy::AllowStorageAccess(
 }
 
 void ContentSettingsManagerProxy::AllowStorageAccess(
-    int32_t in_render_frame_id, ContentSettingsManager::StorageType in_storage_type, const ::url::Origin& in_origin, const ::net::SiteForCookies& in_site_for_cookies, const ::url::Origin& in_top_frame_origin, AllowStorageAccessCallback callback) {
+    const ::blink::LocalFrameToken& in_frame_token, ContentSettingsManager::StorageType in_storage_type, const ::url::Origin& in_origin, const ::net::SiteForCookies& in_site_for_cookies, const ::url::Origin& in_top_frame_origin, AllowStorageAccessCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content_settings::mojom::ContentSettingsManager::AllowStorageAccess", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("render_frame_id"), in_render_frame_id,
-                        "<value of type int32_t>");
+           dict.AddItem("frame_token"), in_frame_token,
+                        "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("storage_type"), in_storage_type,
                         "<value of type ContentSettingsManager::StorageType>");
@@ -347,14 +364,17 @@ void ContentSettingsManagerProxy::AllowStorageAccess(
                         "<value of type const ::url::Origin&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsManager_AllowStorageAccess_Name, kFlags, 0, 0, nullptr);
@@ -362,7 +382,17 @@ void ContentSettingsManagerProxy::AllowStorageAccess(
       ::content_settings::mojom::internal::ContentSettingsManager_AllowStorageAccess_Params_Data> params(
           message);
   params.Allocate();
-  params->render_frame_id = in_render_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      in_frame_token, frame_token_fragment);
+  params->frame_token.Set(
+      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->frame_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null frame_token in ContentSettingsManager.AllowStorageAccess request");
   mojo::internal::Serialize<::content_settings::mojom::ContentSettingsManager_StorageType>(
       in_storage_type, &params->storage_type);
   mojo::internal::MessageFragment<
@@ -410,28 +440,31 @@ void ContentSettingsManagerProxy::AllowStorageAccess(
 }
 
 void ContentSettingsManagerProxy::OnContentBlocked(
-    int32_t in_render_frame_id, ::ContentSettingsType in_type) {
+    const ::blink::LocalFrameToken& in_frame_token, ::ContentSettingsType in_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content_settings::mojom::ContentSettingsManager::OnContentBlocked", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("render_frame_id"), in_render_frame_id,
-                        "<value of type int32_t>");
+           dict.AddItem("frame_token"), in_frame_token,
+                        "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ::ContentSettingsType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsManager_OnContentBlocked_Name, kFlags, 0, 0, nullptr);
@@ -439,7 +472,17 @@ void ContentSettingsManagerProxy::OnContentBlocked(
       ::content_settings::mojom::internal::ContentSettingsManager_OnContentBlocked_Params_Data> params(
           message);
   params.Allocate();
-  params->render_frame_id = in_render_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      in_frame_token, frame_token_fragment);
+  params->frame_token.Set(
+      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->frame_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null frame_token in ContentSettingsManager.OnContentBlocked request");
   mojo::internal::Serialize<::content_settings::mojom::ContentSettingsType>(
       in_type, &params->type);
 
@@ -543,7 +586,8 @@ void ContentSettingsManager_AllowStorageAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsManager_AllowStorageAccess_Name, kFlags, 0, 0, nullptr);
@@ -639,12 +683,12 @@ std::move(p_clone));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_render_frame_id{};
+      ::blink::LocalFrameToken p_frame_token{};
       ::ContentSettingsType p_type{};
       ContentSettingsManager_OnContentBlocked_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_render_frame_id = input_data_view.render_frame_id();
+      if (success && !input_data_view.ReadFrameToken(&p_frame_token))
+        success = false;
       if (success && !input_data_view.ReadType(&p_type))
         success = false;
       if (!success) {
@@ -657,7 +701,7 @@ std::move(p_clone));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->OnContentBlocked(
-std::move(p_render_frame_id), 
+std::move(p_frame_token), 
 std::move(p_type));
       return true;
     }
@@ -685,15 +729,15 @@ bool ContentSettingsManagerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_render_frame_id{};
+      ::blink::LocalFrameToken p_frame_token{};
       ContentSettingsManager::StorageType p_storage_type{};
       ::url::Origin p_origin{};
       ::net::SiteForCookies p_site_for_cookies{};
       ::url::Origin p_top_frame_origin{};
       ContentSettingsManager_AllowStorageAccess_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_render_frame_id = input_data_view.render_frame_id();
+      if (success && !input_data_view.ReadFrameToken(&p_frame_token))
+        success = false;
       if (success && !input_data_view.ReadStorageType(&p_storage_type))
         success = false;
       if (success && !input_data_view.ReadOrigin(&p_origin))
@@ -715,7 +759,7 @@ bool ContentSettingsManagerStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->AllowStorageAccess(
-std::move(p_render_frame_id), 
+std::move(p_frame_token), 
 std::move(p_storage_type), 
 std::move(p_origin), 
 std::move(p_site_for_cookies), 
@@ -728,14 +772,14 @@ std::move(p_top_frame_origin), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentSettingsManagerValidationInfo[] = {
-    {&internal::ContentSettingsManager_Clone_Params_Data::Validate,
+    { &internal::ContentSettingsManager_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentSettingsManager_AllowStorageAccess_Params_Data::Validate,
+    { &internal::ContentSettingsManager_AllowStorageAccess_Params_Data::Validate,
      &internal::ContentSettingsManager_AllowStorageAccess_ResponseParams_Data::Validate},
-    {&internal::ContentSettingsManager_OnContentBlocked_Params_Data::Validate,
+    { &internal::ContentSettingsManager_OnContentBlocked_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -768,11 +812,11 @@ namespace content_settings::mojom {
 void ContentSettingsManagerInterceptorForTesting::Clone(::mojo::PendingReceiver<ContentSettingsManager> clone) {
   GetForwardingInterface()->Clone(std::move(clone));
 }
-void ContentSettingsManagerInterceptorForTesting::AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) {
-  GetForwardingInterface()->AllowStorageAccess(std::move(render_frame_id), std::move(storage_type), std::move(origin), std::move(site_for_cookies), std::move(top_frame_origin), std::move(callback));
+void ContentSettingsManagerInterceptorForTesting::AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) {
+  GetForwardingInterface()->AllowStorageAccess(std::move(frame_token), std::move(storage_type), std::move(origin), std::move(site_for_cookies), std::move(top_frame_origin), std::move(callback));
 }
-void ContentSettingsManagerInterceptorForTesting::OnContentBlocked(int32_t render_frame_id, ::ContentSettingsType type) {
-  GetForwardingInterface()->OnContentBlocked(std::move(render_frame_id), std::move(type));
+void ContentSettingsManagerInterceptorForTesting::OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) {
+  GetForwardingInterface()->OnContentBlocked(std::move(frame_token), std::move(type));
 }
 ContentSettingsManagerAsyncWaiter::ContentSettingsManagerAsyncWaiter(
     ContentSettingsManager* proxy) : proxy_(proxy) {}
@@ -780,9 +824,9 @@ ContentSettingsManagerAsyncWaiter::ContentSettingsManagerAsyncWaiter(
 ContentSettingsManagerAsyncWaiter::~ContentSettingsManagerAsyncWaiter() = default;
 
 void ContentSettingsManagerAsyncWaiter::AllowStorageAccess(
-    int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) {
+    const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) {
   base::RunLoop loop;
-  proxy_->AllowStorageAccess(std::move(render_frame_id),std::move(storage_type),std::move(origin),std::move(site_for_cookies),std::move(top_frame_origin),
+  proxy_->AllowStorageAccess(std::move(frame_token),std::move(storage_type),std::move(origin),std::move(site_for_cookies),std::move(top_frame_origin),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_allowed
@@ -796,9 +840,9 @@ void ContentSettingsManagerAsyncWaiter::AllowStorageAccess(
 }
 
 bool ContentSettingsManagerAsyncWaiter::AllowStorageAccess(
-    int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin) {
+    const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin) {
   bool async_wait_result;
-  AllowStorageAccess(std::move(render_frame_id),std::move(storage_type),std::move(origin),std::move(site_for_cookies),std::move(top_frame_origin),&async_wait_result);
+  AllowStorageAccess(std::move(frame_token),std::move(storage_type),std::move(origin),std::move(site_for_cookies),std::move(top_frame_origin),&async_wait_result);
   return async_wait_result;
 }
 

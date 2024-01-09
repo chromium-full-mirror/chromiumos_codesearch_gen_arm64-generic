@@ -78,11 +78,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PannerNode>::value,
     "PannerNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PannerNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PannerNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,10 +90,10 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.panningModel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->panningModel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->panningModel();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -109,9 +104,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.panningModel.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -145,8 +140,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.positionX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -159,8 +155,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.positionY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,8 +170,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.positionZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -187,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.orientationX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientationX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -201,8 +200,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.orientationY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientationY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -215,8 +215,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.orientationZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientationZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -229,10 +230,10 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.distanceModel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->distanceModel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->distanceModel();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -243,9 +244,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.distanceModel.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -279,8 +280,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.refDistance.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->refDistance();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -292,9 +294,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.refDistance.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -318,8 +320,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.maxDistance.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxDistance();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -331,9 +334,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.maxDistance.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -357,8 +360,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.rolloffFactor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rolloffFactor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -370,9 +374,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.rolloffFactor.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -396,8 +400,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneInnerAngle.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->coneInnerAngle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -409,9 +414,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneInnerAngle.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -432,8 +437,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneOuterAngle.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->coneOuterAngle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -445,9 +451,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneOuterAngle.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -468,8 +474,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneOuterGain.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->coneOuterGain();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -481,9 +488,9 @@ BLINK_BINDINGS_TRACE_EVENT("PannerNode.coneOuterGain.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PannerNode";
@@ -574,7 +581,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -619,7 +626,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(v8_receiver);
+PannerNode* blink_receiver = V8PannerNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLLegendElement>::value,
     "HTMLLegendElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLLegendElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLLegendElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLLegendElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLLegendElement* blink_receiver = V8HTMLLegendElement::ToWrappableUnsafe(v8_receiver);
+HTMLLegendElement* blink_receiver = V8HTMLLegendElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->form();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLLegendElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLLegendElement* blink_receiver = V8HTMLLegendElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLLegendElement* blink_receiver = V8HTMLLegendElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

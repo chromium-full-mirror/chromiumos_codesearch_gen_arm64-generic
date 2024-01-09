@@ -79,6 +79,7 @@ struct RequestDestination_Data {
       case 22:
       case 23:
       case 24:
+      case 25:
         return true;
     }
     return false;

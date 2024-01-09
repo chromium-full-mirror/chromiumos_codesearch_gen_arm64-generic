@@ -15,6 +15,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_chapter_information.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_image.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_metadata_init.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -70,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaMetadata>::value,
     "MediaMetadata inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaMetadata::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaMetadata is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.title.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->title();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.title.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaMetadata";
@@ -124,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.artist.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->artist();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->artist();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -138,9 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.artist.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaMetadata";
@@ -161,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.album.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->album();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->album();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -175,9 +171,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.album.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaMetadata";
@@ -203,7 +199,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->artwork(script_state);
 if (!ToV8Traits<IDLArray<MediaImage>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -218,12 +215,12 @@ BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.artwork.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(v8_receiver);
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaMetadata";
@@ -234,6 +231,56 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 blink_receiver->setArtwork(script_state, arg1_value, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+
+}
+
+void ChapterInfoAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MediaMetadata_chapterInfo_Getter");
+BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.chapterInfo.get");
+
+
+
+v8::Local<v8::Value> v8_return_value;
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+v8::Isolate* isolate = info.GetIsolate();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->chapterInfo(script_state);
+if (!ToV8Traits<IDLArray<ChapterInformation>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+  return;
+}
+bindings::V8SetReturnValue(info, v8_return_value);
+}
+
+void ChapterInfoAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MediaMetadata_chapterInfo_Setter");
+BLINK_BINDINGS_TRACE_EVENT("MediaMetadata.chapterInfo.set");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaMetadata* blink_receiver = V8MediaMetadata::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+v8::Local<v8::Value> v8_property_value = info[0];
+const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
+const char* const class_like_name = "MediaMetadata";
+const char* const property_name = "chapterInfo";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& arg1_value = NativeValueTraits<IDLArray<ChapterInformation>>::NativeValue(isolate, v8_property_value, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setChapterInfo(script_state, arg1_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -306,6 +353,7 @@ interface_function_template->SetLength(0);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8MediaMetadata::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -331,6 +379,24 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 }
 
+void V8MediaMetadata::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+if (RuntimeEnabledFeatures::MediaSessionChapterInformationEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"chapterInfo", ChapterInfoAttributeGetCallback, ChapterInfoAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+
+
+
+
+
+
+}
 
 
 

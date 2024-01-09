@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StaticSelection>::value,
     "StaticSelection inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StaticSelection::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StaticSelection is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("StaticSelection.anchorNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(v8_receiver);
+StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->anchorNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("StaticSelection.anchorOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(v8_receiver);
+StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->anchorOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("StaticSelection.focusNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(v8_receiver);
+StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->focusNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("StaticSelection.focusOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(v8_receiver);
+StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->focusOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -140,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("StaticSelection.isCollapsed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(v8_receiver);
+StaticSelection* blink_receiver = V8StaticSelection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isCollapsed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMScheduler>::value,
     "DOMScheduler inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMScheduler::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMScheduler is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("Scheduler.taskId.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(v8_receiver);
+DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -121,7 +117,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(v8_receiver);
+DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -164,7 +160,7 @@ return;
 
 
 
-DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(v8_receiver);
+DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -215,7 +211,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSchedulerYield);
 
 
 
-DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(v8_receiver);
+DOMScheduler* blink_receiver = V8Scheduler::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

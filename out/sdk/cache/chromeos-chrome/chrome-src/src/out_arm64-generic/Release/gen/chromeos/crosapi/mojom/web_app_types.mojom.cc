@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ ArcWebAppInstallInfo::ArcWebAppInstallInfo(
     const ::std::u16string& title_in,
     const ::GURL& start_url_in,
     const ::GURL& scope_in,
-    absl::optional<::SkColor> theme_color_in,
+    std::optional<::SkColor> theme_color_in,
     const ::gfx::ImageSkia& icon_in)
     : title(std::move(title_in)),
       start_url(std::move(start_url_in)),
@@ -68,9 +69,9 @@ ArcWebAppInstallInfo::ArcWebAppInstallInfo(
     const ::std::u16string& title_in,
     const ::GURL& start_url_in,
     const ::GURL& scope_in,
-    absl::optional<::SkColor> theme_color_in,
+    std::optional<::SkColor> theme_color_in,
     const ::gfx::ImageSkia& icon_in,
-    absl::optional<std::vector<std::string>> additional_policy_ids_in)
+    std::optional<std::vector<std::string>> additional_policy_ids_in)
     : title(std::move(title_in)),
       start_url(std::move(start_url_in)),
       scope(std::move(scope_in)),
@@ -114,7 +115,7 @@ void ArcWebAppInstallInfo::WriteIntoTrace(
     dict.AddItem(
       "theme_color"), this->theme_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +133,7 @@ void ArcWebAppInstallInfo::WriteIntoTrace(
     dict.AddItem(
       "additional_policy_ids"), this->additional_policy_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

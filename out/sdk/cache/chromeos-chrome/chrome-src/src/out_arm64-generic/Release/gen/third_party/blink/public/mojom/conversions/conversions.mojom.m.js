@@ -64,6 +64,13 @@ export class AttributionHostInterface {
    */
 
   registerNavigationDataHost(dataHost, attributionSrcToken) {}
+  
+  /**
+   * @param { !blink_mojom_AttributionSrcToken } attributionSrcToken
+   * @param { !number } expectedRegistrations
+   */
+
+  notifyNavigationWithBackgroundRegistrationsWillStart(attributionSrcToken, expectedRegistrations) {}
 }
 
 /**
@@ -126,6 +133,25 @@ export class AttributionHostRemote {
           attributionSrcToken
         ]);
   }
+
+  
+  /**
+   * @param { !blink_mojom_AttributionSrcToken } attributionSrcToken
+   * @param { !number } expectedRegistrations
+   */
+
+  notifyNavigationWithBackgroundRegistrationsWillStart(
+      attributionSrcToken,
+      expectedRegistrations) {
+    this.proxy.sendMessage(
+        2,
+        AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        [
+          attributionSrcToken,
+          expectedRegistrations
+        ]);
+  }
 }
 
 /**
@@ -158,6 +184,11 @@ export class AttributionHostReceiver {
         AttributionHost_RegisterNavigationDataHost_ParamsSpec.$,
         null,
         impl.registerNavigationDataHost.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
+        AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        impl.notifyNavigationWithBackgroundRegistrationsWillStart.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -228,6 +259,18 @@ export class AttributionHostCallbackRouter {
         AttributionHost_RegisterNavigationDataHost_ParamsSpec.$,
         null,
         this.registerNavigationDataHost.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyNavigationWithBackgroundRegistrationsWillStart =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
+        AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        this.notifyNavigationWithBackgroundRegistrationsWillStart.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -257,6 +300,12 @@ export const AttributionHost_RegisterDataHost_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const AttributionHost_RegisterNavigationDataHost_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -374,6 +423,45 @@ export class AttributionHost_RegisterNavigationDataHost_Params {
     this.dataHost;
     /** @type { !blink_mojom_AttributionSrcToken } */
     this.attributionSrcToken;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+    'AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params',
+    [
+      mojo.internal.StructField(
+        'attributionSrcToken', 0,
+        0,
+        blink_mojom_AttributionSrcTokenSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'expectedRegistrations', 8,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params {
+  constructor() {
+    /** @type { !blink_mojom_AttributionSrcToken } */
+    this.attributionSrcToken;
+    /** @type { !number } */
+    this.expectedRegistrations;
   }
 }
 

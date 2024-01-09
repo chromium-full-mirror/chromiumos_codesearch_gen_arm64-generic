@@ -66,7 +66,7 @@ PageHandlerFactory_CreatePageHandler_Params_Data::PageHandlerFactory_CreatePageH
 
 
 // static
-bool PageHandler_GetApiKey_Params_Data::Validate(
+bool PageHandler_OnSurveyLoaded_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -78,31 +78,54 @@ bool PageHandler_GetApiKey_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetApiKey_Params_Data* object =
-      static_cast<const PageHandler_GetApiKey_Params_Data*>(data);
+  [[maybe_unused]] const PageHandler_OnSurveyLoaded_Params_Data* object =
+      static_cast<const PageHandler_OnSurveyLoaded_Params_Data*>(data);
 
   return true;
 }
 
-PageHandler_GetApiKey_Params_Data::PageHandler_GetApiKey_Params_Data()
+PageHandler_OnSurveyLoaded_Params_Data::PageHandler_OnSurveyLoaded_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PageHandler_GetApiKey_ResponseParams_Data::Validate(
+bool PageHandler_OnSurveyClosed_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 8, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetApiKey_ResponseParams_Data* object =
-      static_cast<const PageHandler_GetApiKey_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PageHandler_OnSurveyClosed_Params_Data* object =
+      static_cast<const PageHandler_OnSurveyClosed_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_OnSurveyClosed_Params_Data::PageHandler_OnSurveyClosed_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Page_RequestSurvey_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Page_RequestSurvey_Params_Data* object =
+      static_cast<const Page_RequestSurvey_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->api_key, 1, validation_context)) {
@@ -115,10 +138,43 @@ bool PageHandler_GetApiKey_ResponseParams_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->trigger_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& trigger_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->trigger_id, validation_context,
+                                         &trigger_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->language_list, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& language_list_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->language_list, validation_context,
+                                         &language_list_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->product_specific_data_json, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& product_specific_data_json_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->product_specific_data_json, validation_context,
+                                         &product_specific_data_json_validate_params)) {
+    return false;
+  }
+
   return true;
 }
 
-PageHandler_GetApiKey_ResponseParams_Data::PageHandler_GetApiKey_ResponseParams_Data()
+Page_RequestSurvey_Params_Data::Page_RequestSurvey_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/instance_id.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -60,8 +61,8 @@ Params::GetTokenParams::Options::Options()
  {}
 
 Params::GetTokenParams::Options::~Options() = default;
-Params::GetTokenParams::Options::Options(Options&& rhs) = default;
-Params::GetTokenParams::Options& Params::GetTokenParams::Options::operator=(Options&& rhs) = default;
+Params::GetTokenParams::Options::Options(Options&& rhs) noexcept = default;
+Params::GetTokenParams::Options& Params::GetTokenParams::Options::operator=(Options&& rhs) noexcept = default;
 Params::GetTokenParams::Options Params::GetTokenParams::Options::Clone() const {
   Options out;
   return out;
@@ -94,21 +95,21 @@ bool Params::GetTokenParams::Options::Populate(
 }
 
 // static
-absl::optional<Params::GetTokenParams::Options> Params::GetTokenParams::Options::FromValue(const base::Value::Dict& value) {
+std::optional<Params::GetTokenParams::Options> Params::GetTokenParams::Options::FromValue(const base::Value::Dict& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::GetTokenParams::Options> Params::GetTokenParams::Options::FromValue(const base::Value& value) {
+std::optional<Params::GetTokenParams::Options> Params::GetTokenParams::Options::FromValue(const base::Value& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -119,8 +120,8 @@ Params::GetTokenParams::GetTokenParams()
  {}
 
 Params::GetTokenParams::~GetTokenParams() = default;
-Params::GetTokenParams::GetTokenParams(GetTokenParams&& rhs) = default;
-Params::GetTokenParams& Params::GetTokenParams::operator=(GetTokenParams&& rhs) = default;
+Params::GetTokenParams::GetTokenParams(GetTokenParams&& rhs) noexcept = default;
+Params::GetTokenParams& Params::GetTokenParams::operator=(GetTokenParams&& rhs) noexcept = default;
 Params::GetTokenParams Params::GetTokenParams::Clone() const {
   GetTokenParams out;
   out.authorized_entity = authorized_entity;
@@ -186,21 +187,21 @@ bool Params::GetTokenParams::Populate(
 }
 
 // static
-absl::optional<Params::GetTokenParams> Params::GetTokenParams::FromValue(const base::Value::Dict& value) {
+std::optional<Params::GetTokenParams> Params::GetTokenParams::FromValue(const base::Value::Dict& value) {
   GetTokenParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::GetTokenParams> Params::GetTokenParams::FromValue(const base::Value& value) {
+std::optional<Params::GetTokenParams> Params::GetTokenParams::FromValue(const base::Value& value) {
   GetTokenParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -208,13 +209,13 @@ absl::optional<Params::GetTokenParams> Params::GetTokenParams::FromValue(const b
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -223,15 +224,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& get_token_params_value = args[0];
     {
       if (!get_token_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetTokenParams::Populate(get_token_params_value.GetDict(), params.get_token_params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -253,8 +254,8 @@ Params::DeleteTokenParams::DeleteTokenParams()
  {}
 
 Params::DeleteTokenParams::~DeleteTokenParams() = default;
-Params::DeleteTokenParams::DeleteTokenParams(DeleteTokenParams&& rhs) = default;
-Params::DeleteTokenParams& Params::DeleteTokenParams::operator=(DeleteTokenParams&& rhs) = default;
+Params::DeleteTokenParams::DeleteTokenParams(DeleteTokenParams&& rhs) noexcept = default;
+Params::DeleteTokenParams& Params::DeleteTokenParams::operator=(DeleteTokenParams&& rhs) noexcept = default;
 Params::DeleteTokenParams Params::DeleteTokenParams::Clone() const {
   DeleteTokenParams out;
   out.authorized_entity = authorized_entity;
@@ -302,21 +303,21 @@ bool Params::DeleteTokenParams::Populate(
 }
 
 // static
-absl::optional<Params::DeleteTokenParams> Params::DeleteTokenParams::FromValue(const base::Value::Dict& value) {
+std::optional<Params::DeleteTokenParams> Params::DeleteTokenParams::FromValue(const base::Value::Dict& value) {
   DeleteTokenParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::DeleteTokenParams> Params::DeleteTokenParams::FromValue(const base::Value& value) {
+std::optional<Params::DeleteTokenParams> Params::DeleteTokenParams::FromValue(const base::Value& value) {
   DeleteTokenParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -324,13 +325,13 @@ absl::optional<Params::DeleteTokenParams> Params::DeleteTokenParams::FromValue(c
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -339,15 +340,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& delete_token_params_value = args[0];
     {
       if (!delete_token_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DeleteTokenParams::Populate(delete_token_params_value.GetDict(), params.delete_token_params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

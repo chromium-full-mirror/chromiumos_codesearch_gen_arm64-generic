@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/context_menu/context_menu.mojom-features.h"
 #include "third_party/blink/public/mojom/context_menu/context_menu.mojom-shared.h"
 #include "third_party/blink/public/mojom/context_menu/context_menu.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -46,30 +47,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ContextMenuDataMediaType>
-    : EnumHashTraits<::blink::mojom::ContextMenuDataMediaType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::CustomContextMenuItemType>
-    : EnumHashTraits<::blink::mojom::CustomContextMenuItemType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -681,7 +658,7 @@ class PLATFORM_EXPORT UntrustworthyContextMenuParams {
       int32_t y,
       const ::blink::KURL& link_url,
       const ::WTF::String& link_text,
-      const absl::optional<::blink::Impression>& impression,
+      const std::optional<::blink::Impression>& impression,
       const ::blink::KURL& unfiltered_link_url,
       const ::blink::KURL& src_url,
       bool has_image_contents,
@@ -706,7 +683,7 @@ class PLATFORM_EXPORT UntrustworthyContextMenuParams {
       const ::gfx::Rect& selection_rect,
       int32_t selection_start_offset,
       bool opened_from_highlight,
-      absl::optional<::blink::mojom::blink::FormControlType> form_control_type,
+      std::optional<::blink::mojom::blink::FormControlType> form_control_type,
       bool is_content_editable_for_autofill,
       FieldRendererIdPtr field_renderer_id,
       FormRendererIdPtr form_renderer_id,
@@ -800,7 +777,7 @@ UntrustworthyContextMenuParams& operator=(const UntrustworthyContextMenuParams&)
   
   ::WTF::String link_text;
   
-  absl::optional<::blink::Impression> impression;
+  std::optional<::blink::Impression> impression;
   
   ::blink::KURL unfiltered_link_url;
   
@@ -850,7 +827,7 @@ UntrustworthyContextMenuParams& operator=(const UntrustworthyContextMenuParams&)
   
   bool opened_from_highlight;
   
-  absl::optional<::blink::mojom::blink::FormControlType> form_control_type;
+  std::optional<::blink::mojom::blink::FormControlType> form_control_type;
   
   bool is_content_editable_for_autofill;
   

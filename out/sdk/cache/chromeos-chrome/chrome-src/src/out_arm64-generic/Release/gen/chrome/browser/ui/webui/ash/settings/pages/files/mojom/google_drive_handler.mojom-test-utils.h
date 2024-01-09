@@ -47,8 +47,8 @@ class  PageHandlerAsyncWaiter {
 
   ~PageHandlerAsyncWaiter();
   void GetContentCacheSize(
-      absl::optional<std::string>* out_size);
-  absl::optional<std::string> GetContentCacheSize();
+      std::optional<std::string>* out_size);
+  std::optional<std::string> GetContentCacheSize();
   void ClearPinnedFiles(
       );
   

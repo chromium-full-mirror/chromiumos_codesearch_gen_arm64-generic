@@ -50,6 +50,12 @@ class FanRoutineArgumentDataView;
 
 class BluetoothScanningRoutineArgumentDataView;
 
+class BluetoothPairingRoutineArgumentDataView;
+
+class CameraAvailabilityRoutineArgumentDataView;
+
+class UrandomRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -94,13 +100,23 @@ class BluetoothScannedPeripheralInfoDataView;
 
 class BluetoothScanningRoutineDetailDataView;
 
+class BluetoothPairingPeripheralInfoDataView;
+
+class BluetoothPairingRoutineDetailDataView;
+
+class CameraAvailabilityRoutineDetailDataView;
+
 class FanRoutineDetailDataView;
+
+class UrandomRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
 
 enum class MemtesterTestItemEnum : int32_t;
+
+enum class CameraSubtestResult : int32_t;
 
 enum class DiskReadTypeEnum : int32_t;
 
@@ -113,6 +129,12 @@ enum class HardwarePresenceStatus : int32_t;
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_PairError : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_ConnectError : int32_t;
+
+enum class BluetoothPairingPeripheralInfo_AddressType : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
 
@@ -154,6 +176,15 @@ using FanRoutineArgumentPtr = mojo::InlinedStructPtr<FanRoutineArgument>;
 
 class BluetoothScanningRoutineArgument;
 using BluetoothScanningRoutineArgumentPtr = mojo::StructPtr<BluetoothScanningRoutineArgument>;
+
+class BluetoothPairingRoutineArgument;
+using BluetoothPairingRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothPairingRoutineArgument>;
+
+class CameraAvailabilityRoutineArgument;
+using CameraAvailabilityRoutineArgumentPtr = mojo::InlinedStructPtr<CameraAvailabilityRoutineArgument>;
+
+class UrandomRoutineArgument;
+using UrandomRoutineArgumentPtr = mojo::StructPtr<UrandomRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -221,8 +252,20 @@ using BluetoothScannedPeripheralInfoPtr = mojo::StructPtr<BluetoothScannedPeriph
 class BluetoothScanningRoutineDetail;
 using BluetoothScanningRoutineDetailPtr = mojo::StructPtr<BluetoothScanningRoutineDetail>;
 
+class BluetoothPairingPeripheralInfo;
+using BluetoothPairingPeripheralInfoPtr = mojo::StructPtr<BluetoothPairingPeripheralInfo>;
+
+class BluetoothPairingRoutineDetail;
+using BluetoothPairingRoutineDetailPtr = mojo::StructPtr<BluetoothPairingRoutineDetail>;
+
+class CameraAvailabilityRoutineDetail;
+using CameraAvailabilityRoutineDetailPtr = mojo::InlinedStructPtr<CameraAvailabilityRoutineDetail>;
+
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
+
+class UrandomRoutineDetail;
+using UrandomRoutineDetailPtr = mojo::InlinedStructPtr<UrandomRoutineDetail>;
 
 class RoutineArgument;
 

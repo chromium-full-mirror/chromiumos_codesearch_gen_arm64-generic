@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/crosapi/mojom/download_status_updater.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/string16.mojom-shared.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-shared.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -109,7 +110,7 @@ class DownloadStatusDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::crosapi::mojom::DownloadState>(data_->state));
   }
-  absl::optional<int64_t> received_bytes() const {
+  std::optional<int64_t> received_bytes() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
@@ -118,7 +119,7 @@ class DownloadStatusDataView {
         ? absl::make_optional(data_->received_bytes_$value)
         : absl::nullopt;
   }
-  absl::optional<int64_t> total_bytes() const {
+  std::optional<int64_t> total_bytes() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
@@ -148,7 +149,7 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
         pointer, output, message_);
   }
-  absl::optional<bool> cancellable() const {
+  std::optional<bool> cancellable() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
@@ -157,7 +158,7 @@ static_assert(
         ? absl::make_optional(!!data_->cancellable_$value)
         : absl::nullopt;
   }
-  absl::optional<bool> pausable() const {
+  std::optional<bool> pausable() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
@@ -166,7 +167,7 @@ static_assert(
         ? absl::make_optional(!!data_->pausable_$value)
         : absl::nullopt;
   }
-  absl::optional<bool> resumable() const {
+  std::optional<bool> resumable() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
@@ -194,6 +195,27 @@ static_assert(
     auto* pointer = data_->header_.version >= 2
                     ? data_->full_path.Get() : nullptr;
     return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
+        pointer, output, message_);
+  }
+  inline void GetStatusTextDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatusText(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::String16DataView, UserType>(),
+    "Attempting to read the optional `status_text` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadStatusText` instead "
+    "of `ReadStatusText if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 3
+                    ? data_->status_text.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
  private:
@@ -274,6 +296,14 @@ struct Serializer<::crosapi::mojom::DownloadStatusDataView, MaybeConstUserType> 
         in_full_path, full_path_fragment);
     fragment->full_path.Set(
         full_path_fragment.is_null() ? nullptr : full_path_fragment.data());
+    decltype(Traits::status_text(input)) in_status_text = Traits::status_text(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->status_text)::BaseType> status_text_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+        in_status_text, status_text_fragment);
+    fragment->status_text.Set(
+        status_text_fragment.is_null() ? nullptr : status_text_fragment.data());
   }
 
   static bool Deserialize(::crosapi::mojom::internal::DownloadStatus_Data* input,
@@ -310,6 +340,12 @@ inline void DownloadStatusDataView::GetFullPathDataView(
   auto pointer = data_->header_.version >= 2
                  ? data_->full_path.Get() : nullptr;
   *output = ::mojo_base::mojom::FilePathDataView(pointer, message_);
+}
+inline void DownloadStatusDataView::GetStatusTextDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->header_.version >= 3
+                 ? data_->status_text.Get() : nullptr;
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
 }
 
 

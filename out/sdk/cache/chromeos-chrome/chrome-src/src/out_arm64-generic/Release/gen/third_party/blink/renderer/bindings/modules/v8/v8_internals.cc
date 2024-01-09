@@ -56,6 +56,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_types_test.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_window.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_create_virtual_sensor_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_dialog_button.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_effective_connection_type.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_device_info.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_track.h"
@@ -157,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.pagePopupWindow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pagePopupWindow();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -171,8 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.settings.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->settings();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -185,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.runtimeFlags.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->runtimeFlags();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -199,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.workerThreadCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->workerThreadCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -213,8 +218,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.cursorUpdatePending.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cursorUpdatePending();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -227,8 +233,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.visibleSelectionAnchorNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibleSelectionAnchorNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -241,8 +248,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.visibleSelectionAnchorOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibleSelectionAnchorOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -255,8 +263,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.visibleSelectionFocusNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibleSelectionFocusNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -269,8 +278,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.visibleSelectionFocusOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibleSelectionFocusOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -283,10 +293,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.textAffinity.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textAffinity();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textAffinity();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -298,8 +308,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.interestedElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interestedElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -312,8 +323,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -326,10 +338,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.unscopableAttribute.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->unscopableAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->unscopableAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -341,8 +353,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.overlayScrollbarsEnabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->overlayScrollbarsEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -355,8 +368,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.peerConnectionCountLimit.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsRTCPeerConnection::peerConnectionCountLimit(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -375,9 +389,79 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.DisableIntersectionObserverThrottleDelay")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->DisableIntersectionObserverThrottleDelay();
+
+}
+
+void LCPPredictionOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Internals_LCPPrediction");
+BLINK_BINDINGS_TRACE_EVENT("Internals.LCPPrediction");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Internals";
+const char* const property_name = "LCPPrediction";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Internals::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->LCPPrediction(script_state, arg1_document);
+bindings::V8SetReturnValue(info, return_value);
+}
+
+void SetSupportsAppRegionOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Internals_SetSupportsAppRegion");
+BLINK_BINDINGS_TRACE_EVENT("Internals.SetSupportsAppRegion");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Internals";
+const char* const property_name = "SetSupportsAppRegion";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_supports_app_regions = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->SetSupportsAppRegion(arg1_supports_app_regions);
 
 }
 
@@ -392,9 +476,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.absoluteCaretBounds");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "absoluteCaretBounds";
@@ -427,7 +511,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -457,7 +541,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -502,7 +586,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -555,7 +639,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -597,7 +681,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_device_info = NativeValueTraits<MediaDeviceInfo>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -641,7 +725,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -674,7 +758,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -727,7 +811,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -764,7 +848,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -801,7 +885,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -824,8 +908,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.audioHandlerCount");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsWebAudio::audioHandlerCount(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -841,8 +926,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.audioWorkletProcessorCount");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsWebAudio::audioWorkletProcessorCount(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -868,7 +954,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -888,8 +974,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.callbackFunctionTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->callbackFunctionTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -902,9 +989,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.canHyphenate");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "canHyphenate";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -915,13 +1002,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_locale;
 if (LIKELY(info[0]->IsString())) {
-  arg1_locale.Init(info[0].As<v8::String>());
+  arg1_locale.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "canHyphenate";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -955,7 +1041,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -978,8 +1064,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.canvasFontCacheMaxFonts");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canvasFontCacheMaxFonts();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -1005,7 +1092,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1028,8 +1115,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.clearNetworkConnectionInfoOverride");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 InternalsNetInfo::clearNetworkConnectionInfoOverride(*blink_receiver);
 
 }
@@ -1055,7 +1143,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1066,6 +1154,45 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 blink_receiver->clearUseCounter(arg1_document, arg2_feature);
 
+}
+
+void ClickFedCmDialogButtonOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Internals_clickFedCmDialogButton");
+BLINK_BINDINGS_TRACE_EVENT("Internals.clickFedCmDialogButton");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Internals";
+const char* const property_name = "clickFedCmDialogButton";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Internals::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_dialog_button = NativeValueTraits<V8DialogButton>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = InternalsFedCm::clickFedCmDialogButton(script_state, *blink_receiver, arg1_dialog_button);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void CollectSampleOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -1083,7 +1210,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 InternalsProfiler::collectSample(script_state, *blink_receiver);
 
 }
@@ -1109,7 +1237,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_tree_scope_1 = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1146,44 +1274,13 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->computedStyleIncludingVisitedInfo(arg1_element);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-void ConfirmIdpLoginOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Internals_confirmIdpLogin");
-BLINK_BINDINGS_TRACE_EVENT("Internals.confirmIdpLogin");
-
-// Promise returning function: Convert a TypeError to a reject promise.
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-if (!V8Internals::HasInstance(isolate, v8_receiver)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "Internals";
-const char* const property_name = "confirmIdpLogin";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-exception_state.ThrowTypeError("Illegal invocation");
-return;
-}
-
-
-
-
-
-
-
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = InternalsFedCm::confirmIdpLogin(script_state, *blink_receiver);
-bindings::V8SetReturnValue(info, return_value);
 }
 
 void CountElementShadowOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -1207,7 +1304,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1240,7 +1337,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1260,8 +1357,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.crash");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->crash();
 
 }
@@ -1287,7 +1385,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1333,7 +1431,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1372,7 +1470,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1405,7 +1503,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_host = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1444,7 +1542,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<V8VirtualSensorType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1478,7 +1576,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1508,8 +1606,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.currentTimeTicks");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTimeTicks();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -1540,7 +1639,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsDeleteAllCookies::deleteAllCookies(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -1566,7 +1665,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<DOMArrayBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1586,8 +1685,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.dictionaryTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dictionaryTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1613,7 +1713,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_canvas = NativeValueTraits<HTMLCanvasElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1643,7 +1743,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_animation = NativeValueTraits<Animation>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1663,8 +1763,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.disableReferencedFilePathsVerification");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disableReferencedFilePathsVerification();
 
 }
@@ -1695,7 +1796,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsFedCm::dismissFedCmDialog(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -1721,7 +1822,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_window = NativeValueTraits<DOMWindow>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1751,7 +1852,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1784,7 +1885,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1814,7 +1915,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1844,7 +1945,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1893,7 +1994,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1926,7 +2027,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1959,7 +2060,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_window = NativeValueTraits<DOMWindow>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1989,7 +2090,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2019,10 +2120,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_script;
 if (LIKELY(info[0]->IsString())) {
-  arg1_script.Init(info[0].As<v8::String>());
+  arg1_script.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
@@ -2048,8 +2149,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.evictAllResources");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->evictAllResources();
 
 }
@@ -2075,7 +2177,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2116,7 +2218,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_track = NativeValueTraits<IDLNullable<MediaStreamTrack>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2146,7 +2248,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2179,7 +2281,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2212,7 +2314,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2245,7 +2347,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2275,7 +2377,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_canvas = NativeValueTraits<HTMLCanvasElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2306,7 +2408,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offscreencanvas = NativeValueTraits<OffscreenCanvas>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2372,7 +2474,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_end_to_end = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2402,7 +2504,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2431,8 +2533,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "formControlStateOfHistoryItem";
@@ -2455,9 +2557,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.generateTestReport");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "generateTestReport";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2468,13 +2570,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
-  arg1_message.Init(info[0].As<v8::String>());
+  arg1_message.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "generateTestReport";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2508,7 +2609,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_window = NativeValueTraits<DOMWindow>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2543,7 +2644,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsGetAllCookies::getAllCookies(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -2564,7 +2665,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCSSPropertyAliases();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -2588,7 +2690,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCSSPropertyLonghands();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -2612,7 +2715,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCSSPropertyShorthands();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -2645,7 +2749,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_img = NativeValueTraits<HTMLImageElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2668,10 +2772,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.getCurrentCursorInfo");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->getCurrentCursorInfo();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getCurrentCursorInfo();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -2686,8 +2790,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.getDragCaret");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDragCaret();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -2718,7 +2823,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsFedCm::getFedCmDialogType(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -2749,7 +2854,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsFedCm::getFedCmTitle(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -2775,7 +2880,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2811,7 +2916,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -2854,7 +2959,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -2895,7 +3000,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_response = NativeValueTraits<Response>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2937,7 +3042,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2967,7 +3072,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3000,7 +3105,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3025,7 +3130,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReferencedFilePaths();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -3054,7 +3160,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3092,7 +3198,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3122,7 +3228,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_window = NativeValueTraits<DOMWindow>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3164,7 +3270,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<V8VirtualSensorType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3187,13 +3293,13 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.hasAutofocusRequest");
 bool return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->hasAutofocusRequest();
 break;
 }
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "hasAutofocusRequest";
@@ -3228,7 +3334,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3269,7 +3375,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3302,7 +3408,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3343,7 +3449,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3376,7 +3482,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3399,10 +3505,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.htmlNamespace");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->htmlNamespace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->htmlNamespace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -3422,7 +3528,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->htmlTags();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -3451,7 +3558,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3474,8 +3581,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.initializeUKMRecorder");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->initializeUKMRecorder();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -3501,7 +3609,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_container = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3524,8 +3632,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.isActivated");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isActivated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -3551,7 +3660,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3585,7 +3694,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3619,7 +3728,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_animation = NativeValueTraits<Animation>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3649,7 +3758,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3670,9 +3779,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.isLoading");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isLoading";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3683,13 +3792,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_url;
 if (LIKELY(info[0]->IsString())) {
-  arg1_url.Init(info[0].As<v8::String>());
+  arg1_url.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isLoading";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3710,9 +3818,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.isLoadingFromMemoryCache");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isLoadingFromMemoryCache";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3723,13 +3831,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_url;
 if (LIKELY(info[0]->IsString())) {
-  arg1_url.Init(info[0].As<v8::String>());
+  arg1_url.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isLoadingFromMemoryCache";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3753,8 +3860,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.isLowEndDevice");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isLowEndDevice();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -3780,7 +3888,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3797,9 +3905,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.isPreloaded");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isPreloaded";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3810,13 +3918,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_url;
 if (LIKELY(info[0]->IsString())) {
-  arg1_url.Init(info[0].As<v8::String>());
+  arg1_url.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "isPreloaded";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3850,7 +3957,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3884,7 +3991,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3914,7 +4021,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_iframe = NativeValueTraits<HTMLIFrameElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3944,7 +4051,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_iframe = NativeValueTraits<HTMLIFrameElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3974,7 +4081,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4008,7 +4115,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4038,7 +4145,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_navigator = NativeValueTraits<Navigator>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4068,7 +4175,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4101,7 +4208,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4134,7 +4241,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4170,7 +4277,7 @@ String return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4202,9 +4309,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.layoutCountForTesting");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "layoutCountForTesting";
@@ -4237,7 +4344,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scope = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4271,7 +4378,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scope = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4305,7 +4412,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4338,7 +4445,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4379,7 +4486,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4416,7 +4523,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4457,7 +4564,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4498,7 +4605,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4528,7 +4635,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<Text>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4559,8 +4666,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.mediaKeySessionCount");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mediaKeySessionCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -4576,8 +4684,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.mediaKeysCount");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mediaKeysCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -4603,7 +4712,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4637,7 +4746,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4671,7 +4780,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_platform_time = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4694,9 +4803,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.needsLayoutCount");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "needsLayoutCount";
@@ -4729,7 +4838,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4762,7 +4871,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4795,7 +4904,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -4855,7 +4964,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4888,7 +4997,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4911,8 +5020,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.numberOfLiveAXObjects");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsAccessibility::numberOfLiveAXObjects(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -4928,8 +5038,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.numberOfLiveDocuments");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfLiveDocuments();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -4945,8 +5056,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.numberOfLiveNodes");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfLiveNodes();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -4962,10 +5074,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.numberOfPages");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_page_width_in_pixels{800};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_page_width_in_pixels{800};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "numberOfPages";
@@ -5011,7 +5123,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5041,7 +5153,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_observed = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5080,7 +5192,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5107,8 +5219,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.originTrialsTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->originTrialsTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5134,7 +5247,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5181,7 +5294,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_property_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5208,9 +5321,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.pageScaleFactor");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "pageScaleFactor";
@@ -5233,9 +5346,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.pageZoomFactor");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "pageZoomFactor";
@@ -5268,7 +5381,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5298,7 +5411,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pause_time = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5321,8 +5434,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.peerConnectionCount");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = InternalsRTCPeerConnection::peerConnectionCount(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -5352,7 +5466,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_navigator = NativeValueTraits<Navigator>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5385,7 +5499,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5415,7 +5529,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5454,7 +5568,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5509,7 +5623,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5545,7 +5659,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5581,7 +5695,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5664,7 +5778,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5703,7 +5817,7 @@ return;
 
 
 
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5744,7 +5858,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5774,7 +5888,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scope = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5802,8 +5916,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.recordTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->recordTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5813,9 +5928,9 @@ void RegisterURLSchemeAsBypassingContentSecurityPolicyOperationOverload1(const v
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "registerURLSchemeAsBypassingContentSecurityPolicy";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -5826,13 +5941,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scheme;
 if (LIKELY(info[0]->IsString())) {
-  arg1_scheme.Init(info[0].As<v8::String>());
+  arg1_scheme.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "registerURLSchemeAsBypassingContentSecurityPolicy";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -5863,7 +5977,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scheme = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5924,7 +6038,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5952,9 +6066,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.removeURLSchemeRegisteredAsBypassingConten
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "removeURLSchemeRegisteredAsBypassingContentSecurityPolicy";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -5965,13 +6079,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scheme;
 if (LIKELY(info[0]->IsString())) {
-  arg1_scheme.Init(info[0].As<v8::String>());
+  arg1_scheme.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "removeURLSchemeRegisteredAsBypassingContentSecurityPolicy";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6014,7 +6127,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<V8VirtualSensorType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6044,7 +6157,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6081,7 +6194,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selectlist = NativeValueTraits<HTMLSelectListElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6111,7 +6224,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_select = NativeValueTraits<HTMLSelectElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6141,7 +6254,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<RTCCertificate>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6175,7 +6288,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6208,7 +6321,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6238,7 +6351,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6268,7 +6381,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6311,7 +6424,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_account_index = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6344,7 +6457,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_select = NativeValueTraits<HTMLSelectElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6374,7 +6487,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_select = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6408,7 +6521,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_select = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6432,10 +6545,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.selectedHTMLForClipboard");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->selectedHTMLForClipboard();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->selectedHTMLForClipboard();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -6450,10 +6563,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.selectedTextForClipboard");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->selectedTextForClipboard();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->selectedTextForClipboard();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -6468,9 +6581,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.selectionBounds");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "selectionBounds";
@@ -6493,8 +6606,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.sequenceTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sequenceTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -6524,7 +6638,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_obj = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6560,7 +6674,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_stream = NativeValueTraits<ReadableStream>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6590,7 +6704,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6627,7 +6741,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6664,7 +6778,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_max_size = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6694,7 +6808,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_top_ratio = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6728,7 +6842,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_top_height = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6766,7 +6880,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6796,7 +6910,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6826,7 +6940,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scale = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6859,7 +6973,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_focused = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6889,7 +7003,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6919,7 +7033,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_values = NativeValueTraits<IDLSequence<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6952,7 +7066,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_reverse = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6982,7 +7096,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target_doc = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7015,7 +7129,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7052,7 +7166,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_is_low_end_device = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7082,7 +7196,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7116,7 +7230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7157,7 +7271,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_enable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7187,7 +7301,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7208,9 +7322,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.setMockHyphenation");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "setMockHyphenation";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -7221,13 +7335,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_locale;
 if (LIKELY(info[0]->IsString())) {
-  arg1_locale.Init(info[0].As<v8::String>());
+  arg1_locale.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "setMockHyphenation";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -7261,7 +7374,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_on_line = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7310,7 +7423,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scale_factor = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7343,7 +7456,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_min_scale_factor = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7389,7 +7502,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<IDLObject>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7426,7 +7539,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_video = NativeValueTraits<HTMLVideoElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7460,7 +7573,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7501,7 +7614,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7531,7 +7644,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7565,7 +7678,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7606,7 +7719,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7652,7 +7765,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_origin = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7693,7 +7806,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7717,9 +7830,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.setSystemTimeZone");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "setSystemTimeZone";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -7730,13 +7843,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_timezone;
 if (LIKELY(info[0]->IsString())) {
-  arg1_timezone.Init(info[0].As<v8::String>());
+  arg1_timezone.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "setSystemTimeZone";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -7770,7 +7882,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7812,7 +7924,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_languages = NativeValueTraits<IDLSequence<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7842,7 +7954,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<HTMLInputElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7876,7 +7988,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7910,7 +8022,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7940,7 +8052,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_host = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7970,7 +8082,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8007,7 +8119,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8040,7 +8152,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_enable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8070,7 +8182,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8103,7 +8215,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8136,7 +8248,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8159,9 +8271,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.styleForElementCount");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "styleForElementCount";
@@ -8194,7 +8306,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8222,7 +8334,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->supportedTextEncodingLabels();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -8241,10 +8354,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.svgNamespace");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->svgNamespace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->svgNamespace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -8264,7 +8377,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->svgTags();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -8302,7 +8416,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_worker = NativeValueTraits<ServiceWorker>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8332,7 +8446,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8362,7 +8476,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8395,7 +8509,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8444,7 +8558,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8493,7 +8607,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8542,7 +8656,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8591,7 +8705,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8640,7 +8754,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8670,7 +8784,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8700,7 +8814,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8720,8 +8834,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.typeConversions");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->typeConversions();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -8737,8 +8852,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.unionTypesTest");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unionTypesTest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -8754,10 +8870,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.unscopableMethod");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->unscopableMethod();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->unscopableMethod();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -8772,10 +8888,10 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.updateLayoutAndRunPostLayoutTasks");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLNullable<Node>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_node{nullptr};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLNullable<Node>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_node{nullptr};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "updateLayoutAndRunPostLayoutTasks";
@@ -8804,9 +8920,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.updateStyleAndReturnAffectedElementCount")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Internals";
 const char* const property_name = "updateStyleAndReturnAffectedElementCount";
@@ -8848,7 +8964,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<V8VirtualSensorType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8872,8 +8988,9 @@ BLINK_BINDINGS_TRACE_EVENT("Internals.useMockOverlayScrollbars");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->useMockOverlayScrollbars();
 
 }
@@ -8894,7 +9011,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userPreferredLanguages();
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -8923,7 +9041,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8968,7 +9086,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9007,7 +9125,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_connection = NativeValueTraits<RTCPeerConnection>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9037,7 +9155,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_document = NativeValueTraits<Document>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9067,7 +9185,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Internals* blink_receiver = V8Internals::ToWrappableUnsafe(v8_receiver);
+Internals* blink_receiver = V8Internals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dom_high_res_time_stamp = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9169,6 +9287,8 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"DisableIntersectionObserverThrottleDelay", DisableIntersectionObserverThrottleDelayOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"LCPPrediction", LCPPredictionOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"SetSupportsAppRegion", SetSupportsAppRegionOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"absoluteCaretBounds", AbsoluteCaretBoundsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"activeMarkerCountForNode", ActiveMarkerCountForNodeOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"addActiveSuggestionMarker", AddActiveSuggestionMarkerOperationCallback, 4, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -9190,10 +9310,10 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"clearHitTestCache", ClearHitTestCacheOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"clearNetworkConnectionInfoOverride", ClearNetworkConnectionInfoOverrideOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"clearUseCounter", ClearUseCounterOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"clickFedCmDialogButton", ClickFedCmDialogButtonOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"collectSample", CollectSampleOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"compareTreeScopePosition", CompareTreeScopePositionOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"computedStyleIncludingVisitedInfo", ComputedStyleIncludingVisitedInfoOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"confirmIdpLogin", ConfirmIdpLoginOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"countElementShadow", CountElementShadowOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"counterValue", CounterValueOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"crash", CrashOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

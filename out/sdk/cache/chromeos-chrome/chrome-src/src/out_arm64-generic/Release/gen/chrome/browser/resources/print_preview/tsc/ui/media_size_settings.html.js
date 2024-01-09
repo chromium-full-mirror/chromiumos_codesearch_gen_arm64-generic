@@ -13,7 +13,7 @@ export function getTemplate() {
   <print-preview-settings-section>
     <div slot="title"></div>
     <div slot="controls" class="checkbox">
-      <cr-checkbox id="borderless" aria-labelledby="borderless-label" disabled$="[[disabled]]" on-change="onBorderlessCheckboxChange_">
+      <cr-checkbox id="borderless" aria-labelledby="borderless-label" disabled$="[[disableBorderlessCheckbox_]]" on-change="onBorderlessCheckboxChange_">
         <span id="borderless-label">$i18n{borderlessLabel}</span>
       </cr-checkbox>
     </div>

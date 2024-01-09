@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/sessions.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -45,8 +46,8 @@ Filter::Filter()
  {}
 
 Filter::~Filter() = default;
-Filter::Filter(Filter&& rhs) = default;
-Filter& Filter::operator=(Filter&& rhs) = default;
+Filter::Filter(Filter&& rhs) noexcept = default;
+Filter& Filter::operator=(Filter&& rhs) noexcept = default;
 Filter Filter::Clone() const {
   Filter out;
   out.max_results = max_results;
@@ -61,7 +62,7 @@ bool Filter::Populate(
     {
       auto temp = (*max_results_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_results = absl::nullopt;
+        out.max_results = std::nullopt;
         return false;
       }
       out.max_results = *temp;
@@ -81,34 +82,21 @@ bool Filter::Populate(
 }
 
 // static
-std::unique_ptr<Filter> Filter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Filter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Filter> Filter::FromValue(const base::Value::Dict& value) {
+  Filter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Filter> Filter::FromValue(const base::Value::Dict& value) {
+std::optional<Filter> Filter::FromValue(const base::Value& value) {
   Filter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Filter> Filter::FromValue(const base::Value& value) {
-  Filter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -129,8 +117,8 @@ Session::Session()
 : last_modified(0) {}
 
 Session::~Session() = default;
-Session::Session(Session&& rhs) = default;
-Session& Session::operator=(Session&& rhs) = default;
+Session::Session(Session&& rhs) noexcept = default;
+Session& Session::operator=(Session&& rhs) noexcept = default;
 Session Session::Clone() const {
   Session out;
   out.last_modified = last_modified;
@@ -201,34 +189,21 @@ bool Session::Populate(
 }
 
 // static
-std::unique_ptr<Session> Session::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Session>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Session> Session::FromValue(const base::Value::Dict& value) {
+  Session out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Session> Session::FromValue(const base::Value::Dict& value) {
+std::optional<Session> Session::FromValue(const base::Value& value) {
   Session out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Session> Session::FromValue(const base::Value& value) {
-  Session out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -255,8 +230,8 @@ Device::Device()
  {}
 
 Device::~Device() = default;
-Device::Device(Device&& rhs) = default;
-Device& Device::operator=(Device&& rhs) = default;
+Device::Device(Device&& rhs) noexcept = default;
+Device& Device::operator=(Device&& rhs) noexcept = default;
 Device Device::Clone() const {
   Device out;
   out.info = info;
@@ -323,34 +298,21 @@ bool Device::Populate(
 }
 
 // static
-std::unique_ptr<Device> Device::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Device>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+  Device out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+std::optional<Device> Device::FromValue(const base::Value& value) {
   Device out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Device> Device::FromValue(const base::Value& value) {
-  Device out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -378,13 +340,13 @@ namespace GetRecentlyClosed {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -393,12 +355,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Filter temp;
         if (!Filter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -421,13 +383,13 @@ namespace GetDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -436,12 +398,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Filter temp;
         if (!Filter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -464,13 +426,13 @@ namespace Restore {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -480,8 +442,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = session_id_value.GetIfString();
       if (!temp) {
-        params.session_id = absl::nullopt;
-        return absl::nullopt;
+        params.session_id = std::nullopt;
+        return std::nullopt;
       }
       params.session_id = *temp;
     }

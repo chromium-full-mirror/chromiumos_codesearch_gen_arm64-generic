@@ -5,7 +5,6 @@
 import { PageImageServiceBrowserProxy } from '//resources/cr_components/page_image_service/browser_proxy.js';
 import { ClientId as PageImageServiceClientId } from '//resources/cr_components/page_image_service/page_image_service.mojom-webui.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
-import { Url } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 import { BookmarksApiProxyImpl } from './bookmarks_api_proxy.js';
 // This corresponds to the max number of concurrent ImageService requests
 // before further requests get dropped. Further requests up to 600 should be
@@ -386,8 +385,7 @@ export class PowerBookmarksService {
         if (!bookmark.url || !loadTimeData.getBoolean('urlImagesEnabled')) {
             return;
         }
-        const url = new Url();
-        url.url = bookmark.url;
+        const url = { url: bookmark.url };
         // Fetch the representative image for this page, if possible.
         this.activeImageServiceRequestCount_++;
         const { result } = await PageImageServiceBrowserProxy.getInstance()

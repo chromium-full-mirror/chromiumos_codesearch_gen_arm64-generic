@@ -35,7 +35,7 @@ class PLATFORM_EXPORT RendererAudioInputStreamFactoryAsyncWaiter {
 
 class PLATFORM_EXPORT RendererAudioInputStreamFactoryClientInterceptorForTesting : public RendererAudioInputStreamFactoryClient {
   virtual RendererAudioInputStreamFactoryClient* GetForwardingInterface() = 0;
-  void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const absl::optional<::base::UnguessableToken>& stream_id) override;
+  void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const std::optional<::base::UnguessableToken>& stream_id) override;
 };
 class PLATFORM_EXPORT RendererAudioInputStreamFactoryClientAsyncWaiter {
  public:

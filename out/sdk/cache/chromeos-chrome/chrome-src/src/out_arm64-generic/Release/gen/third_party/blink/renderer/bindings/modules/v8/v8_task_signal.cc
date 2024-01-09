@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMTaskSignal>::value,
     "DOMTaskSignal inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMTaskSignal::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMTaskSignal is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kTaskSignalPriority);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(v8_receiver);
+DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->priority();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -110,10 +105,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskSignal.onprioritychange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprioritychange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprioritychange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -126,8 +121,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(v8_receiver);
+DOMTaskSignal* blink_receiver = V8TaskSignal::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprioritychange(event_handler);
 }
 

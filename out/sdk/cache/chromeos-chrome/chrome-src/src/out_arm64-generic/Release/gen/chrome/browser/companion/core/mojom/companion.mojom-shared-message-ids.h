@@ -28,6 +28,7 @@ constexpr uint32_t kCompanionPageHandler_OnCqJumptagClicked_Name = 9;
 constexpr uint32_t kCompanionPageHandler_OpenUrlInBrowser_Name = 10;
 constexpr uint32_t kCompanionPageHandler_OnLoadingState_Name = 11;
 constexpr uint32_t kCompanionPageHandler_RefreshCompanionPage_Name = 12;
+constexpr uint32_t kCompanionPageHandler_OnServerSideUrlFilterEvent_Name = 13;
 constexpr uint32_t kCompanionPage_LoadCompanionPage_Name = 0;
 constexpr uint32_t kCompanionPage_UpdateCompanionPage_Name = 1;
 constexpr uint32_t kCompanionPage_OnImageQuery_Name = 2;
@@ -35,6 +36,7 @@ constexpr uint32_t kCompanionPage_OnCqFindTextResultsAvailable_Name = 3;
 constexpr uint32_t kCompanionPage_OnDeviceVisualClassificationResult_Name = 4;
 constexpr uint32_t kCompanionPage_OnNavigationError_Name = 5;
 constexpr uint32_t kCompanionPage_NotifyLinkOpen_Name = 6;
+constexpr uint32_t kCompanionPage_UpdatePageContent_Name = 7;
 
 }  // namespace internal
 

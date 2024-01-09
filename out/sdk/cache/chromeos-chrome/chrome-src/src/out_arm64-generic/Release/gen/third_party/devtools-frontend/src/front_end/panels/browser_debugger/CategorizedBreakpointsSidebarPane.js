@@ -84,6 +84,10 @@ const UIStrings = {
      */
     script: 'Script',
     /**
+     *@description Category of breakpoints
+     */
+    sharedStorageWorklet: 'Shared Storage Worklet',
+    /**
      *@description Text in DOMDebugger Model
      */
     timer: 'Timer',
@@ -171,10 +175,10 @@ export class CategorizedBreakpointsSidebarPane extends UI.Widget.VBox {
         }
     }
     createCategory(name) {
-        const labelNode = UI.UIUtils.CheckboxLabel.create(getLocalizedCategory(name));
+        const labelNode = UI.UIUtils.CheckboxLabel.create(getLocalizedCategory(name), undefined, undefined, name);
         labelNode.checkboxElement.addEventListener('click', this.categoryCheckboxClicked.bind(this, name), true);
         labelNode.checkboxElement.tabIndex = -1;
-        const treeElement = new UI.TreeOutline.TreeElement(labelNode);
+        const treeElement = new UI.TreeOutline.TreeElement(labelNode, undefined, name);
         treeElement.listItemElement.addEventListener('keydown', event => {
             this.handleSpaceKeyEventOnBreakpoint(event, this.#categories.get(name));
         });
@@ -187,11 +191,11 @@ export class CategorizedBreakpointsSidebarPane extends UI.Widget.VBox {
         this.#categories.set(name, { element: treeElement, checkbox: labelNode.checkboxElement });
     }
     createBreakpoint(breakpoint) {
-        const labelNode = UI.UIUtils.CheckboxLabel.create(Sources.CategorizedBreakpointL10n.getLocalizedBreakpointName(breakpoint.name));
+        const labelNode = UI.UIUtils.CheckboxLabel.create(Sources.CategorizedBreakpointL10n.getLocalizedBreakpointName(breakpoint.name), undefined, undefined, breakpoint.name);
         labelNode.classList.add('source-code');
         labelNode.checkboxElement.addEventListener('click', this.breakpointCheckboxClicked.bind(this, breakpoint), true);
         labelNode.checkboxElement.tabIndex = -1;
-        const treeElement = new UI.TreeOutline.TreeElement(labelNode);
+        const treeElement = new UI.TreeOutline.TreeElement(labelNode, undefined, breakpoint.name);
         treeElement.listItemElement.addEventListener('keydown', event => {
             this.handleSpaceKeyEventOnBreakpoint(event, this.#breakpoints.get(breakpoint));
         });
@@ -318,6 +322,7 @@ const LOCALIZED_CATEGORIES = {
     ["PictureInPicture" /* SDK.CategorizedBreakpoint.Category.PictureInPicture */]: i18nLazyString(UIStrings.pictureinpicture),
     ["Pointer" /* SDK.CategorizedBreakpoint.Category.Pointer */]: i18nLazyString(UIStrings.pointer),
     ["Script" /* SDK.CategorizedBreakpoint.Category.Script */]: i18nLazyString(UIStrings.script),
+    ["SharedStorageWorklet" /* SDK.CategorizedBreakpoint.Category.SharedStorageWorklet */]: i18nLazyString(UIStrings.sharedStorageWorklet),
     ["Timer" /* SDK.CategorizedBreakpoint.Category.Timer */]: i18nLazyString(UIStrings.timer),
     ["Touch" /* SDK.CategorizedBreakpoint.Category.Touch */]: i18nLazyString(UIStrings.touch),
     ["TrustedTypeViolation" /* SDK.CategorizedBreakpoint.Category.TrustedTypeViolation */]: i18nLazyString(UIStrings.trustedTypeViolations),

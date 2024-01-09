@@ -1,13 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import { assertInstanceof } from 'chrome://resources/ash/common/assert.js';
-import { util } from '../../../../common/js/util.js';
+import { visitURL } from '../../../../common/js/util.js';
 import { Command } from '../command.js';
 import { getTemplate } from './state_banner.html.js';
 import { Banner } from './types.js';
@@ -25,7 +20,7 @@ import { Banner } from './types.js';
  *
  *    class ConcreteStateBanner extends StateBanner {
  *      allowedVolumes() {
- *        return [{type: VolumeManagerCommon.VolumeType.DOWNLOADS}];
+ *        return [{type: VolumeType.DOWNLOADS}];
  *      }
  *    }
  *
@@ -89,7 +84,7 @@ export class StateBanner extends Banner {
                     e.preventDefault();
                     return;
                 }
-                util.visitURL(extraButton.getAttribute('href'));
+                visitURL(extraButton.getAttribute('href'));
                 e.preventDefault();
             });
         }

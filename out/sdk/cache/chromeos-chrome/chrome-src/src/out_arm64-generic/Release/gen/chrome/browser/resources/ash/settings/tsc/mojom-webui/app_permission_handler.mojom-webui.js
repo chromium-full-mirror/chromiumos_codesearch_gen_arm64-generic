@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
-import { PermissionTypeSpec as appManagement_mojom_PermissionTypeSpec, PermissionSpec as appManagement_mojom_PermissionSpec } from '//resources/cr_components/app_management/app_management.mojom-webui.js';
+import { AppTypeSpec as appManagement_mojom_AppTypeSpec, PermissionTypeSpec as appManagement_mojom_PermissionTypeSpec, PermissionSpec as appManagement_mojom_PermissionSpec } from '//resources/cr_components/app_management/app_management.mojom-webui.js';
 export class AppPermissionsHandlerPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -27,6 +27,17 @@ export class AppPermissionsHandlerRemote {
     getApps() {
         return this.proxy.sendMessage(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, []);
     }
+    openNativeSettings(appId) {
+        this.proxy.sendMessage(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, [
+            appId
+        ]);
+    }
+    setPermission(appId, permission) {
+        this.proxy.sendMessage(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, [
+            appId,
+            permission
+        ]);
+    }
 }
 ;
 /**
@@ -40,6 +51,8 @@ export class AppPermissionsHandlerReceiver {
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, impl.addObserver.bind(impl));
         this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, impl.getApps.bind(impl));
+        this.helper_internal_.registerHandler(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, impl.openNativeSettings.bind(impl));
+        this.helper_internal_.registerHandler(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, impl.setPermission.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -75,6 +88,12 @@ export class AppPermissionsHandlerCallbackRouter {
         this.getApps =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, this.getApps.createReceiverHandler(true /* expectsResponse */));
+        this.openNativeSettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, this.openNativeSettings.createReceiverHandler(false /* expectsResponse */));
+        this.setPermission =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, this.setPermission.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -172,13 +191,16 @@ export const AppSpec = { $: {} };
 export const AppPermissionsHandler_AddObserver_ParamsSpec = { $: {} };
 export const AppPermissionsHandler_GetApps_ParamsSpec = { $: {} };
 export const AppPermissionsHandler_GetApps_ResponseParamsSpec = { $: {} };
+export const AppPermissionsHandler_OpenNativeSettings_ParamsSpec = { $: {} };
+export const AppPermissionsHandler_SetPermission_ParamsSpec = { $: {} };
 export const AppPermissionsObserver_OnAppRemoved_ParamsSpec = { $: {} };
 export const AppPermissionsObserver_OnAppUpdated_ParamsSpec = { $: {} };
 mojo.internal.Struct(AppSpec.$, 'App', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('permissions', 16, 0, mojo.internal.Map(appManagement_mojom_PermissionTypeSpec.$, appManagement_mojom_PermissionSpec.$, false), null, false /* nullable */, 0),
-], [[0, 32],]);
+    mojo.internal.StructField('type', 16, 0, appManagement_mojom_AppTypeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('permissions', 24, 0, mojo.internal.Map(appManagement_mojom_PermissionTypeSpec.$, appManagement_mojom_PermissionSpec.$, false), null, false /* nullable */, 0),
+], [[0, 40],]);
 mojo.internal.Struct(AppPermissionsHandler_AddObserver_ParamsSpec.$, 'AppPermissionsHandler_AddObserver_Params', [
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(AppPermissionsObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -186,6 +208,13 @@ mojo.internal.Struct(AppPermissionsHandler_GetApps_ParamsSpec.$, 'AppPermissions
 mojo.internal.Struct(AppPermissionsHandler_GetApps_ResponseParamsSpec.$, 'AppPermissionsHandler_GetApps_ResponseParams', [
     mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, 'AppPermissionsHandler_OpenNativeSettings_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_SetPermission_ParamsSpec.$, 'AppPermissionsHandler_SetPermission_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('permission', 8, 0, appManagement_mojom_PermissionSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, 'AppPermissionsObserver_OnAppRemoved_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);

@@ -3165,23 +3165,23 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableInt16DataView>(
         pointer, output, message_);
   }
-  inline void GetMtuDataView(
+  inline void GetDeprecatedMtuDataView(
       ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadMtu(UserType* output) {
+  [[nodiscard]] bool ReadDeprecatedMtu(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
-    "Attempting to read the optional `mtu` field into a type which "
+    "Attempting to read the optional `deprecated_mtu` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadMtu` instead "
-    "of `ReadMtu if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDeprecatedMtu` instead "
+    "of `ReadDeprecatedMtu if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->mtu.Get();
+    auto* pointer = data_->deprecated_mtu.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
@@ -4486,7 +4486,7 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         pointer, output, message_);
   }
-  absl::optional<double> power_on_to_kernel_seconds() const {
+  std::optional<double> power_on_to_kernel_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4495,7 +4495,7 @@ static_assert(
         ? absl::make_optional(data_->power_on_to_kernel_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> kernel_to_pre_startup_seconds() const {
+  std::optional<double> kernel_to_pre_startup_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4504,7 +4504,7 @@ static_assert(
         ? absl::make_optional(data_->kernel_to_pre_startup_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> kernel_to_post_startup_seconds() const {
+  std::optional<double> kernel_to_post_startup_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4513,7 +4513,7 @@ static_assert(
         ? absl::make_optional(data_->kernel_to_post_startup_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> startup_to_chrome_exec_seconds() const {
+  std::optional<double> startup_to_chrome_exec_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4522,7 +4522,7 @@ static_assert(
         ? absl::make_optional(data_->startup_to_chrome_exec_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> chrome_exec_to_login_seconds() const {
+  std::optional<double> chrome_exec_to_login_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -10105,14 +10105,14 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_rssi, rssi_fragment);
     fragment->rssi.Set(
         rssi_fragment.is_null() ? nullptr : rssi_fragment.data());
-    decltype(Traits::mtu(input)) in_mtu = Traits::mtu(input);
+    decltype(Traits::deprecated_mtu(input)) in_deprecated_mtu = Traits::deprecated_mtu(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->mtu)::BaseType> mtu_fragment(
+        typename decltype(fragment->deprecated_mtu)::BaseType> deprecated_mtu_fragment(
             fragment.message());
     mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
-        in_mtu, mtu_fragment);
-    fragment->mtu.Set(
-        mtu_fragment.is_null() ? nullptr : mtu_fragment.data());
+        in_deprecated_mtu, deprecated_mtu_fragment);
+    fragment->deprecated_mtu.Set(
+        deprecated_mtu_fragment.is_null() ? nullptr : deprecated_mtu_fragment.data());
     decltype(Traits::uuids(input)) in_uuids = Traits::uuids(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->uuids)::BaseType>
@@ -15361,9 +15361,9 @@ inline void BluetoothDeviceInfoDataView::GetRssiDataView(
   auto pointer = data_->rssi.Get();
   *output = ::ash::cros_healthd::mojom::NullableInt16DataView(pointer, message_);
 }
-inline void BluetoothDeviceInfoDataView::GetMtuDataView(
+inline void BluetoothDeviceInfoDataView::GetDeprecatedMtuDataView(
     ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
-  auto pointer = data_->mtu.Get();
+  auto pointer = data_->deprecated_mtu.Get();
   *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetUuidsDataView(

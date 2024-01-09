@@ -1,1 +1,1 @@
-{"base_dir": "gen/chrome/browser/resources/omnibox/preprocessed", "files": ["ml/ml.css", "ml/ml.html", "ml/ml_calculator.css", "ml/ml_table.css", "ml/ml_ui.css", "omnibox.css", "omnibox.html", "omnibox_input.css", "omnibox_output_column_widths.css", "output_results_group.css"]}
+{"base_dir": "gen/chrome/browser/resources/omnibox/preprocessed", "files": ["ml/ml.css", "ml/ml.html", "ml/ml_calculator.css", "ml/ml_chart.css", "ml/ml_table.css", "ml/ml_ui.css", "omnibox.css", "omnibox.html", "omnibox_input.css", "omnibox_output_column_widths.css", "output_results_group.css"]}

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUTexture>::value,
     "GPUTexture inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUTexture::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUTexture is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.depthOrArrayLayers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthOrArrayLayers();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -132,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.mipLevelCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mipLevelCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -146,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.sampleCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sampleCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -160,10 +160,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.dimension.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dimension();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dimension();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -175,10 +175,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.format.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->format();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->format();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -190,8 +190,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.usage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -204,10 +205,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -218,9 +219,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUTexture";
@@ -245,10 +246,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.createView");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<GPUTextureViewDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<GPUTextureViewDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUTexture";
 const char* const property_name = "createView";
@@ -279,8 +280,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUTexture.destroy");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(v8_receiver);
+GPUTexture* blink_receiver = V8GPUTexture::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy();
 
 }

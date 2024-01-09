@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct UrlOverrideInfo {
   ~UrlOverrideInfo();
   UrlOverrideInfo(const UrlOverrideInfo&) = delete;
   UrlOverrideInfo& operator=(const UrlOverrideInfo&) = delete;
-  UrlOverrideInfo(UrlOverrideInfo&& rhs);
-  UrlOverrideInfo& operator=(UrlOverrideInfo&& rhs);
+  UrlOverrideInfo(UrlOverrideInfo&& rhs) noexcept;
+  UrlOverrideInfo& operator=(UrlOverrideInfo&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kNewtab[] = "newtab";
@@ -55,15 +56,12 @@ struct UrlOverrideInfo {
   // Creates a deep copy of UrlOverrideInfo.
   UrlOverrideInfo Clone() const;
 
-  // Creates a UrlOverrideInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UrlOverrideInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a UrlOverrideInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UrlOverrideInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<UrlOverrideInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a UrlOverrideInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<UrlOverrideInfo> FromValue(const base::Value& value);
+  static std::optional<UrlOverrideInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUrlOverrideInfo object.
@@ -76,17 +74,17 @@ struct UrlOverrideInfo {
 
 
   // Override for the chrome://newtab page.
-  absl::optional<std::string> newtab;
+  std::optional<std::string> newtab;
 
   // Override for the chrome://bookmarks page.
-  absl::optional<std::string> bookmarks;
+  std::optional<std::string> bookmarks;
 
   // Override for the chrome://history page.
-  absl::optional<std::string> history;
+  std::optional<std::string> history;
 
-  absl::optional<std::string> activationmessage;
+  std::optional<std::string> activationmessage;
 
-  absl::optional<std::string> keyboard;
+  std::optional<std::string> keyboard;
 
 };
 
@@ -100,8 +98,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kChromeUrlOverrides[] = "chrome_url_overrides";

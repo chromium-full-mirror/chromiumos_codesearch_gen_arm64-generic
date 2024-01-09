@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-of-tq-csa.h"
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
@@ -227,7 +228,7 @@ TF_BUILTIN(ArrayOf, CodeStubAssembler) {
     ca_.Bind(&block15, &phi_bb15_12, &phi_bb15_13);
     tmp14 = Convert_intptr_Smi_0(state_, TNode<Smi>{phi_bb15_13});
     tmp15 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp14});
-    tmp16 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastCreateDataProperty), parameter0, phi_bb15_12, phi_bb15_13, tmp15);
+    tmp16 = ca_.CallBuiltin<Object>(Builtin::kFastCreateDataProperty, parameter0, phi_bb15_12, phi_bb15_13, tmp15);
     tmp17 = FromConstexpr_Smi_constexpr_int31_0(state_, 1);
     tmp18 = CodeStubAssembler(state_).SmiAdd(TNode<Smi>{phi_bb15_13}, TNode<Smi>{tmp17});
     ca_.Goto(&block17, phi_bb15_12, tmp18);

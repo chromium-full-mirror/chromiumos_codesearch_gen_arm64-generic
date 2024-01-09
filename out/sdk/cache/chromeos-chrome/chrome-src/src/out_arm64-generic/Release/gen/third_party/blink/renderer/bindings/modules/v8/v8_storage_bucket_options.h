@@ -12,7 +12,6 @@
 #define THIRD_PARTY_BLINK_RENDERER_BINDINGS_MODULES_V8_V8_STORAGE_BUCKET_OPTIONS_H_
 
 #include "base/containers/span.h"
-#include "third_party/abseil-cpp/absl/types/optional.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_storage_bucket_durability.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
@@ -36,92 +35,86 @@ explicit  StorageBucketOptions();
 explicit  StorageBucketOptions(v8::Isolate* isolate);
 
 bool hasDurability() const {
-  return true;
+  return has_durability_;
 }
-const absl::optional<V8StorageBucketDurability>& durability() const {
-  return member_durability_;
+V8StorageBucketDurability durability() const {
+  DCHECK(hasDurability());
+return member_durability_;
 }
-void setDurability(const absl::optional<V8StorageBucketDurability>& value) {
-  member_durability_ = value;
+V8StorageBucketDurability getDurabilityOr(V8StorageBucketDurability fallback_value) const {
+  if (!hasDurability()) {
+  return fallback_value;
+}
+return member_durability_;
 }
 void setDurability(V8StorageBucketDurability value) {
   member_durability_ = value;
+has_durability_ = true;
 }
 void setDurability(V8StorageBucketDurability::Enum value) {
   member_durability_ = V8StorageBucketDurability(value);
+has_durability_ = true;
 }
 
 bool hasExpires() const {
-  return true;
+  return has_expires_;
 }
-const absl::optional<double>& expires() const {
-  return member_expires_;
+double expires() const {
+  DCHECK(hasExpires());
+return member_expires_;
 }
-void setExpires(const absl::optional<double>& value) {
-  member_expires_ = value;
+double getExpiresOr(double fallback_value) const {
+  if (!hasExpires()) {
+  return fallback_value;
+}
+return member_expires_;
 }
 void setExpires(double value) {
   member_expires_ = value;
+has_expires_ = true;
 }
 
 bool hasPersisted() const {
-  return true;
+  return has_persisted_;
 }
-const absl::optional<bool>& persisted() const {
-  return member_persisted_;
+bool persisted() const {
+  DCHECK(hasPersisted());
+return member_persisted_;
 }
-void setPersisted(const absl::optional<bool>& value) {
-  member_persisted_ = value;
+bool getPersistedOr(bool fallback_value) const {
+  if (!hasPersisted()) {
+  return fallback_value;
+}
+return member_persisted_;
 }
 void setPersisted(bool value) {
   member_persisted_ = value;
+has_persisted_ = true;
 }
 
 bool hasQuota() const {
-  return true;
+  return has_quota_;
 }
-const absl::optional<uint64_t>& quota() const {
-  return member_quota_;
+uint64_t quota() const {
+  DCHECK(hasQuota());
+return member_quota_;
 }
-void setQuota(const absl::optional<uint64_t>& value) {
-  member_quota_ = value;
+uint64_t getQuotaOr(uint64_t fallback_value) const {
+  if (!hasQuota()) {
+  return fallback_value;
+}
+return member_quota_;
 }
 void setQuota(uint64_t value) {
   member_quota_ = value;
+has_quota_ = true;
 }
 
 
 // Obsolete accessor functions
 void setDurability(const String& value) {
   member_durability_ = V8StorageBucketDurability::Create(value).value();
-}
-bool hasDurabilityNonNull() const {
-  return hasDurability() && durability().has_value();
-}
-V8StorageBucketDurability durabilityNonNull() const {
-  DCHECK(hasDurabilityNonNull());
-return durability().value();
-}
-bool hasExpiresNonNull() const {
-  return hasExpires() && expires().has_value();
-}
-double expiresNonNull() const {
-  DCHECK(hasExpiresNonNull());
-return expires().value();
-}
-bool hasPersistedNonNull() const {
-  return hasPersisted() && persisted().has_value();
-}
-bool persistedNonNull() const {
-  DCHECK(hasPersistedNonNull());
-return persisted().value();
-}
-bool hasQuotaNonNull() const {
-  return hasQuota() && quota().has_value();
-}
-uint64_t quotaNonNull() const {
-  DCHECK(hasQuotaNonNull());
-return quota().value();
+has_durability_ = true;
 }
 
 void Trace(Visitor* visitor) const override;
@@ -136,12 +129,15 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
+bool has_durability_ = false;
+bool has_expires_ = false;
+bool has_persisted_ = false;
+bool has_quota_ = false;
 
-
-absl::optional<V8StorageBucketDurability> member_durability_;
-absl::optional<double> member_expires_;
-absl::optional<bool> member_persisted_;
-absl::optional<uint64_t> member_quota_;
+V8StorageBucketDurability member_durability_{static_cast<V8StorageBucketDurability::Enum>(0)};
+double member_expires_;
+bool member_persisted_;
+uint64_t member_quota_;
 
 
   

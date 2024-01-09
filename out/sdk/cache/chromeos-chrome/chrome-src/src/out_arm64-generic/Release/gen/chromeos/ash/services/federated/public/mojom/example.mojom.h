@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/federated/public/mojom/example.mojom-features.h"
 #include "chromeos/ash/services/federated/public/mojom/example.mojom-shared.h"
 #include "chromeos/ash/services/federated/public/mojom/example.mojom-forward.h"
 #include <string>
@@ -65,25 +66,25 @@ class  ValueList {
   // Construct an instance holding |string_list|.
   static ValueListPtr
   NewStringList(
-      StringListPtr string_list) {
+      StringListPtr value) {
     auto result = ValueListPtr(absl::in_place);
-    result->set_string_list(std::move(string_list));
+    result->set_string_list(std::move(value));
     return result;
   }
   // Construct an instance holding |float_list|.
   static ValueListPtr
   NewFloatList(
-      FloatListPtr float_list) {
+      FloatListPtr value) {
     auto result = ValueListPtr(absl::in_place);
-    result->set_float_list(std::move(float_list));
+    result->set_float_list(std::move(value));
     return result;
   }
   // Construct an instance holding |int64_list|.
   static ValueListPtr
   NewInt64List(
-      Int64ListPtr int64_list) {
+      Int64ListPtr value) {
     auto result = ValueListPtr(absl::in_place);
-    result->set_int64_list(std::move(int64_list));
+    result->set_int64_list(std::move(value));
     return result;
   }
 

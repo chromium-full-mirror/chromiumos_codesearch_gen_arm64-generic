@@ -20,6 +20,9 @@ class  ServiceWorkerHostInterceptorForTesting : public ServiceWorkerHost {
   void DidStopServiceWorkerContext(const std::string& extension_id, const ::base::UnguessableToken& activation_token, const ::GURL& service_worker_scope, int64_t service_worker_version_id, int32_t worker_thread_id) override;
   void RequestWorker(::extensions::mojom::RequestParamsPtr params, RequestWorkerCallback callback) override;
   void WorkerResponseAck(const ::base::Uuid& request_uuid) override;
+  void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
+  void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
+  void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
 };
 class  ServiceWorkerHostAsyncWaiter {
  public:

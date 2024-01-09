@@ -35,6 +35,8 @@ class BlobDataView;
 
 enum class BackgroundBlurMode : int32_t;
 
+enum class EyeGazeCorrectionMode : int32_t;
+
 enum class MeteringMode : int32_t;
 
 enum class RedEyeReduction : int32_t;

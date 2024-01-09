@@ -60,6 +60,7 @@ bool DataSourceConfig::operator==(const DataSourceConfig& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_layers_config_, other.surfaceflinger_layers_config_)
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_transactions_config_, other.surfaceflinger_transactions_config_)
    && ::protozero::internal::gen_helpers::EqualsField(android_sdk_sysprop_guard_config_, other.android_sdk_sysprop_guard_config_)
+   && ::protozero::internal::gen_helpers::EqualsField(etw_config_, other.etw_config_)
    && ::protozero::internal::gen_helpers::EqualsField(legacy_config_, other.legacy_config_)
    && ::protozero::internal::gen_helpers::EqualsField(for_testing_, other.for_testing_);
 }
@@ -169,6 +170,9 @@ bool DataSourceConfig::ParseFromArray(const void* raw, size_t size) {
         break;
       case 124 /* android_sdk_sysprop_guard_config */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &android_sdk_sysprop_guard_config_);
+        break;
+      case 125 /* etw_config */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &etw_config_);
         break;
       case 1000 /* legacy_config */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &legacy_config_);
@@ -355,6 +359,11 @@ void DataSourceConfig::Serialize(::protozero::Message* msg) const {
   // Field 124: android_sdk_sysprop_guard_config
   if (_has_field_[124]) {
     msg->AppendString(124, android_sdk_sysprop_guard_config_);
+  }
+
+  // Field 125: etw_config
+  if (_has_field_[125]) {
+    msg->AppendString(125, etw_config_);
   }
 
   // Field 1000: legacy_config

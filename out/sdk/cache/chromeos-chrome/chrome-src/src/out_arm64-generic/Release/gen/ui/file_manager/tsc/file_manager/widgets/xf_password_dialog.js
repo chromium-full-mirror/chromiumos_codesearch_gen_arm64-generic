@@ -1,15 +1,10 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { AsyncQueue } from '../common/js/async_util.js';
 import { getTemplate } from './xf_password_dialog.html.js';
 /**

@@ -28,8 +28,11 @@ constexpr uint32_t kMediaStreamDispatcherHost_CloseDevice_Name = 5;
 constexpr uint32_t kMediaStreamDispatcherHost_SetCapturingLinkSecured_Name = 6;
 constexpr uint32_t kMediaStreamDispatcherHost_OnStreamStarted_Name = 7;
 constexpr uint32_t kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name = 8;
-constexpr uint32_t kMediaStreamDispatcherHost_GetOpenDevice_Name = 9;
-constexpr uint32_t kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name = 10;
+constexpr uint32_t kMediaStreamDispatcherHost_SendWheel_Name = 9;
+constexpr uint32_t kMediaStreamDispatcherHost_GetZoomLevel_Name = 10;
+constexpr uint32_t kMediaStreamDispatcherHost_SetZoomLevel_Name = 11;
+constexpr uint32_t kMediaStreamDispatcherHost_GetOpenDevice_Name = 12;
+constexpr uint32_t kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name = 13;
 constexpr uint32_t kMediaStreamTrackMetricsHost_AddTrack_Name = 0;
 constexpr uint32_t kMediaStreamTrackMetricsHost_RemoveTrack_Name = 1;
 

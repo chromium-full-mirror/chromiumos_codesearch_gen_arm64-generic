@@ -23,7 +23,7 @@ class  InputMethodHostInterceptorForTesting : public InputMethodHost {
   void DeleteSurroundingText(uint32_t num_before_cursor, uint32_t num_after_cursor) override;
   void ReplaceSurroundingText(uint32_t num_before_cursor, uint32_t num_after_cursor, const ::std::u16string& text) override;
   void HandleAutocorrect(AutocorrectSpanPtr autocorrect_span) override;
-  void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const absl::optional<::ash::ime::SuggestionsTextContext>& context) override;
+  void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const std::optional<::ash::ime::SuggestionsTextContext>& context) override;
   void UpdateCandidatesWindow(CandidatesWindowPtr window) override;
   void RequestSuggestions(SuggestionsRequestPtr request, RequestSuggestionsCallback callback) override;
   void UpdateQuickSettings(::ash::ime::mojom::InputMethodQuickSettingsPtr settings) override;

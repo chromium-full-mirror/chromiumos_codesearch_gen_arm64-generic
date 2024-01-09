@@ -76,11 +76,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaKeys>::value,
     "MediaKeys does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaKeys::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaKeys is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,13 +92,13 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeys.createSession");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(v8_receiver);
+MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<V8MediaKeySessionType>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_session_type{V8MediaKeySessionType::Enum::kTemporary};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaKeys";
 const char* const property_name = "createSession";
@@ -155,7 +150,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(v8_receiver);
+MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_policy = NativeValueTraits<MediaKeysPolicy>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -194,7 +189,7 @@ return;
 
 
 
-MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(v8_receiver);
+MediaKeys* blink_receiver = V8MediaKeys::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -48,6 +48,10 @@ class EtwTraceEventBundle;
 class EtwTraceEvent;
 class ReadyThreadEtwEvent;
 class CSwitchEtwEvent;
+class ShellHandlerMappings;
+class ShellHandlerMapping;
+class ShellTransition;
+class ShellTransition_Target;
 class TransactionTraceEntry;
 class DisplayInfo;
 class Transform;
@@ -94,6 +98,8 @@ class OneofOptions;
 class FtraceEventBundle;
 class FtraceEventBundle_CompactSched;
 class FtraceEvent;
+class GpuWorkPeriodFtraceEvent;
+class SchedSwitchWithCtrsFtraceEvent;
 class BinderReturnFtraceEvent;
 class BinderCommandFtraceEvent;
 class SamsungTracingMarkWriteFtraceEvent;
@@ -793,6 +799,7 @@ enum ChromeThreadDescriptor_ThreadType : int;
 enum ChromeProcessDescriptor_ProcessType : int;
 enum AndroidCameraFrameEvent_CaptureResultStatus : int;
 enum FrameTimelineEvent_JankType : int;
+enum FrameTimelineEvent_JankSeverityType : int;
 enum FrameTimelineEvent_PresentType : int;
 enum FrameTimelineEvent_PredictionType : int;
 enum MemoryTrackerSnapshot_LevelOfDetail : int;
@@ -947,6 +954,8 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
     kTrackEventRangeOfInterestFieldNumber = 90,
     kSurfaceflingerLayersSnapshotFieldNumber = 93,
     kSurfaceflingerTransactionsFieldNumber = 94,
+    kShellTransitionFieldNumber = 96,
+    kShellHandlerMappingsFieldNumber = 97,
     kEtwEventsFieldNumber = 95,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
@@ -958,6 +967,7 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
     kTracePacketDefaultsFieldNumber = 59,
     kPreviousPacketDroppedFieldNumber = 42,
     kFirstPacketOnSequenceFieldNumber = 87,
+    kMachineIdFieldNumber = 98,
   };
 
   TracePacket();
@@ -1236,6 +1246,14 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   const TransactionTraceEntry& surfaceflinger_transactions() const { return *surfaceflinger_transactions_; }
   TransactionTraceEntry* mutable_surfaceflinger_transactions() { _has_field_.set(94); return surfaceflinger_transactions_.get(); }
 
+  bool has_shell_transition() const { return _has_field_[96]; }
+  const ShellTransition& shell_transition() const { return *shell_transition_; }
+  ShellTransition* mutable_shell_transition() { _has_field_.set(96); return shell_transition_.get(); }
+
+  bool has_shell_handler_mappings() const { return _has_field_[97]; }
+  const ShellHandlerMappings& shell_handler_mappings() const { return *shell_handler_mappings_; }
+  ShellHandlerMappings* mutable_shell_handler_mappings() { _has_field_.set(97); return shell_handler_mappings_.get(); }
+
   bool has_etw_events() const { return _has_field_[95]; }
   const EtwTraceEventBundle& etw_events() const { return *etw_events_; }
   EtwTraceEventBundle* mutable_etw_events() { _has_field_.set(95); return etw_events_.get(); }
@@ -1279,6 +1297,10 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   bool has_first_packet_on_sequence() const { return _has_field_[87]; }
   bool first_packet_on_sequence() const { return first_packet_on_sequence_; }
   void set_first_packet_on_sequence(bool value) { first_packet_on_sequence_ = value; _has_field_.set(87); }
+
+  bool has_machine_id() const { return _has_field_[98]; }
+  uint32_t machine_id() const { return machine_id_; }
+  void set_machine_id(uint32_t value) { machine_id_ = value; _has_field_.set(98); }
 
  private:
   uint64_t timestamp_{};
@@ -1346,6 +1368,8 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   ::protozero::CopyablePtr<TrackEventRangeOfInterest> track_event_range_of_interest_;
   ::protozero::CopyablePtr<LayersSnapshotProto> surfaceflinger_layers_snapshot_;
   ::protozero::CopyablePtr<TransactionTraceEntry> surfaceflinger_transactions_;
+  ::protozero::CopyablePtr<ShellTransition> shell_transition_;
+  ::protozero::CopyablePtr<ShellHandlerMappings> shell_handler_mappings_;
   ::protozero::CopyablePtr<EtwTraceEventBundle> etw_events_;
   ::protozero::CopyablePtr<TestEvent> for_testing_;
   int32_t trusted_uid_{};
@@ -1357,6 +1381,7 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   ::protozero::CopyablePtr<TracePacketDefaults> trace_packet_defaults_;
   bool previous_packet_dropped_{};
   bool first_packet_on_sequence_{};
+  uint32_t machine_id_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.

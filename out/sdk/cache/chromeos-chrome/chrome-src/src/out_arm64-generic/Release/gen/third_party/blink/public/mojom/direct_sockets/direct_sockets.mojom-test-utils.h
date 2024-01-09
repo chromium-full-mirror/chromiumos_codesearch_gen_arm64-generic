@@ -30,16 +30,16 @@ class BLINK_COMMON_EXPORT DirectSocketsServiceAsyncWaiter {
 
   ~DirectSocketsServiceAsyncWaiter();
   void OpenTCPSocket(
-      DirectTCPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> receiver, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
+      DirectTCPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> receiver, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
   
   void OpenConnectedUDPSocket(
-      DirectConnectedUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::UDPSocketListener> listener, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr);
+      DirectConnectedUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::UDPSocketListener> listener, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr);
   
   void OpenBoundUDPSocket(
-      DirectBoundUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::UDPSocketListener> listener, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr);
+      DirectBoundUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::UDPSocketListener> listener, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr);
   
   void OpenTCPServerSocket(
-      DirectTCPServerSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> receiver, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr);
+      DirectTCPServerSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> receiver, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr);
   
 
  private:

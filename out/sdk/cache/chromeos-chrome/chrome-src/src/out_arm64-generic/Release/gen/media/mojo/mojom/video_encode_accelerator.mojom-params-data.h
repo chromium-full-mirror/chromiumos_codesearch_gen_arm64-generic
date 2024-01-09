@@ -180,7 +180,8 @@ class  VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_D
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::VideoBitrateAllocation_Data> bitrate_allocation;
   uint32_t framerate;
-  uint8_t padfinal_[4];
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> size;
 
  private:
   friend class mojo::internal::MessageFragment<VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data>;
@@ -188,7 +189,7 @@ class  VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_D
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data();
   ~VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data() = delete;
 };
-static_assert(sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data) == 24,
+static_assert(sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data) == 32,
               "Bad sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data)");
 class  VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data {
  public:
@@ -198,7 +199,8 @@ class  VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_
   mojo::internal::StructHeader header_;
   internal::Bitrate_Data bitrate;
   uint32_t framerate;
-  uint8_t padfinal_[4];
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> size;
 
  private:
   friend class mojo::internal::MessageFragment<VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data>;
@@ -206,7 +208,7 @@ class  VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data();
   ~VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data() = delete;
 };
-static_assert(sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data) == 32,
+static_assert(sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data) == 40,
               "Bad sizeof(VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data)");
 class  VideoEncodeAccelerator_IsFlushSupported_Params_Data {
  public:
@@ -600,6 +602,26 @@ class VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_ParamsDat
   uint32_t framerate() const {
     return data_->framerate;
   }
+  inline void GetSizeDataView(
+      ::gfx::mojom::SizeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSize(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::SizeDataView, UserType>(),
+    "Attempting to read the optional `size` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSize` instead "
+    "of `ReadSize if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->size.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::SizeDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -628,6 +650,26 @@ class VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_ParamsDa
   }
   uint32_t framerate() const {
     return data_->framerate;
+  }
+  inline void GetSizeDataView(
+      ::gfx::mojom::SizeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSize(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::SizeDataView, UserType>(),
+    "Attempting to read the optional `size` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSize` instead "
+    "of `ReadSize if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->size.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::SizeDataView>(
+        pointer, output, message_);
   }
  private:
   internal::VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Data* data_ = nullptr;
@@ -861,12 +903,22 @@ inline void VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Par
   auto pointer = data_->bitrate_allocation.Get();
   *output = VideoBitrateAllocationDataView(pointer, message_);
 }
+inline void VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_ParamsDataView::GetSizeDataView(
+    ::gfx::mojom::SizeDataView* output) {
+  auto pointer = data_->size.Get();
+  *output = ::gfx::mojom::SizeDataView(pointer, message_);
+}
 
 
 inline void VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_ParamsDataView::GetBitrateDataView(
     BitrateDataView* output) {
   auto pointer = &data_->bitrate;
   *output = BitrateDataView(pointer, message_);
+}
+inline void VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_ParamsDataView::GetSizeDataView(
+    ::gfx::mojom::SizeDataView* output) {
+  auto pointer = data_->size.Get();
+  *output = ::gfx::mojom::SizeDataView(pointer, message_);
 }
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/mojom/public/wilco_dtc_supportd.mojom-features.h"
 #include "diagnostics/mojom/public/wilco_dtc_supportd.mojom-shared.h"
 #include "diagnostics/mojom/public/wilco_dtc_supportd.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom-forward.h"

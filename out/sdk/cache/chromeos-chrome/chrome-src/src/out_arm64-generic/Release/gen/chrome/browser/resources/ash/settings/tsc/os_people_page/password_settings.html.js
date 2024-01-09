@@ -26,8 +26,8 @@ export function getTemplate() {
           <cr-button on-click="openSetLocalPasswordDialog_">
             $i18n{lockScreenChangePasswordButton}
           </cr-button>
-        <template>
-      </template></template></div>
+        </template>
+      </div>
       <cr-radio-button name="gaia" disabled="disabled" class="list-item" label="$i18n{lockScreenGoogleAccountPasswordOptionLabel}">
       </cr-radio-button>
     </cr-radio-group>

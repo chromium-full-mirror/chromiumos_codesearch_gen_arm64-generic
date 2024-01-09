@@ -15,7 +15,7 @@ namespace subresource_filter::mojom {
 
 class  SubresourceFilterAgentInterceptorForTesting : public SubresourceFilterAgent {
   virtual SubresourceFilterAgent* GetForwardingInterface() = 0;
-  void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const absl::optional<::blink::FrameAdEvidence>& ad_evidence) override;
+  void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const std::optional<::blink::FrameAdEvidence>& ad_evidence) override;
 };
 class  SubresourceFilterAgentAsyncWaiter {
  public:

@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGGradientElement>::value,
     "SVGGradientElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGGradientElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGGradientElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->gradientUnits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->gradientTransform();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -137,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->spreadMethod();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -156,7 +151,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGGradientElement* blink_receiver = V8SVGGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

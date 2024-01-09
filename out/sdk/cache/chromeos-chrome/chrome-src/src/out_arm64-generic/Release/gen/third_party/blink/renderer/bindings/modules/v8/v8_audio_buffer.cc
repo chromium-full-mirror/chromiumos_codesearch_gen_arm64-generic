@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioBuffer>::value,
     "AudioBuffer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioBuffer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioBuffer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBuffer.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBuffer.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBuffer.sampleRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sampleRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBuffer.numberOfChannels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->numberOfChannels();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -205,7 +204,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -249,7 +248,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -303,7 +302,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(v8_receiver);
+AudioBuffer* blink_receiver = V8AudioBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_channel_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

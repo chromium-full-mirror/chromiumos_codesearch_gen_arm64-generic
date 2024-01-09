@@ -1,15 +1,16 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/auth_factor.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/fido.proto
+// /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/recoverable_key_store.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/key.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/rpc.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/UserDataAuth.proto
@@ -22,6 +23,8 @@
 
 #include <base/strings/string_number_conversions.h>
 #include <base/strings/stringprintf.h>
+
+#include "cryptohome/common/print_recoverable_key_store_proto.h"
 
 namespace user_data_auth {
 
@@ -151,13 +154,20 @@ std::string GetProtoDebugStringWithIndent(const PasswordAuthInput& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  secret: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.secret().data(), value.secret().size()).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_secret(); }) {
+      if (!value.has_secret()) {
+        return;
+      }
+    }
+    output += indent + "  secret: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.secret().data(), value.secret().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -171,13 +181,20 @@ std::string GetProtoDebugStringWithIndent(const PinAuthInput& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  secret: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.secret().data(), value.secret().size()).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_secret(); }) {
+      if (!value.has_secret()) {
+        return;
+      }
+    }
+    output += indent + "  secret: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.secret().data(), value.secret().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -193,23 +210,44 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  name: ";
-  base::StringAppendF(&output, "%s", value.name().c_str());
-  output += "\n";
-
-  output += indent + "  key_hash: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.key_hash(), value.key_hash());
-  output += "\n";
-
-  output += indent + "  public_key: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.public_key().data(), value.public_key().size())
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_name(); }) {
+      if (!value.has_name()) {
+        return;
+      }
+    }
+    output += indent + "  name: ";
+    base::StringAppendF(&output, "%s", value.name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_key_hash(); }) {
+      if (!value.has_key_hash()) {
+        return;
+      }
+    }
+    output += indent + "  key_hash: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                        value.key_hash(), value.key_hash());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_public_key(); }) {
+      if (!value.has_public_key()) {
+        return;
+      }
+    }
+    output += indent + "  public_key: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.public_key().data(), value.public_key().size())
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -224,43 +262,97 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  mediator_pub_key: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.mediator_pub_key().data(),
-                                      value.mediator_pub_key().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  user_gaia_id: ";
-  base::StringAppendF(&output, "%s", value.user_gaia_id().c_str());
-  output += "\n";
-
-  output += indent + "  device_user_id: ";
-  base::StringAppendF(&output, "%s", value.device_user_id().c_str());
-  output += "\n";
-
-  output += indent + "  epoch_response: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.epoch_response().data(),
-                                      value.epoch_response().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  recovery_response: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.recovery_response().data(),
-                                      value.recovery_response().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  ledger_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.ledger_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_mediator_pub_key(); }) {
+      if (!value.has_mediator_pub_key()) {
+        return;
+      }
+    }
+    output += indent + "  mediator_pub_key: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.mediator_pub_key().data(),
+                                        value.mediator_pub_key().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_gaia_id(); }) {
+      if (!value.has_user_gaia_id()) {
+        return;
+      }
+    }
+    output += indent + "  user_gaia_id: ";
+    base::StringAppendF(&output, "%s", value.user_gaia_id().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_device_user_id(); }) {
+      if (!value.has_device_user_id()) {
+        return;
+      }
+    }
+    output += indent + "  device_user_id: ";
+    base::StringAppendF(&output, "%s", value.device_user_id().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_ensure_fresh_recovery_id(); }) {
+      if (!value.has_ensure_fresh_recovery_id()) {
+        return;
+      }
+    }
+    output += indent + "  ensure_fresh_recovery_id: ";
+    base::StringAppendF(&output, "%s",
+                        value.ensure_fresh_recovery_id() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_epoch_response(); }) {
+      if (!value.has_epoch_response()) {
+        return;
+      }
+    }
+    output += indent + "  epoch_response: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.epoch_response().data(),
+                                        value.epoch_response().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_recovery_response(); }) {
+      if (!value.has_recovery_response()) {
+        return;
+      }
+    }
+    output += indent + "  recovery_response: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.recovery_response().data(),
+                                        value.recovery_response().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_ledger_info(); }) {
+      if (!value.has_ledger_info()) {
+        return;
+      }
+    }
+    output += indent + "  ledger_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.ledger_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -274,7 +366,7 @@ std::string GetProtoDebugStringWithIndent(const KioskAuthInput& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -291,20 +383,31 @@ std::string GetProtoDebugStringWithIndent(const SmartCardAuthInput& value,
   output += indent + "  signature_algorithms: {";
   for (int i = 0; i < value.signature_algorithms_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
-                            value.signature_algorithms(i), indent_size + 2)
+                            value.signature_algorithms(i), indent_size + 4)
                             .c_str());
+    if (i == value.signature_algorithms_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "  key_delegate_dbus_service_name: ";
-  base::StringAppendF(&output, "%s",
-                      value.key_delegate_dbus_service_name().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_key_delegate_dbus_service_name(); }) {
+      if (!value.has_key_delegate_dbus_service_name()) {
+        return;
+      }
+    }
+    output += indent + "  key_delegate_dbus_service_name: ";
+    base::StringAppendF(&output, "%s",
+                        value.key_delegate_dbus_service_name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -319,7 +422,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -333,7 +436,7 @@ std::string GetProtoDebugStringWithIndent(const FingerprintAuthInput& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -347,56 +450,105 @@ std::string GetProtoDebugStringWithIndent(const AuthInput& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  password_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.password_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  pin_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.pin_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  cryptohome_recovery_input: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.cryptohome_recovery_input(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  kiosk_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.kiosk_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  smart_card_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.smart_card_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  legacy_fingerprint_input: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.legacy_fingerprint_input(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  fingerprint_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.fingerprint_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_password_input(); }) {
+      if (!value.has_password_input()) {
+        return;
+      }
+    }
+    output += indent + "  password_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.password_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_pin_input(); }) {
+      if (!value.has_pin_input()) {
+        return;
+      }
+    }
+    output += indent + "  pin_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.pin_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_cryptohome_recovery_input(); }) {
+      if (!value.has_cryptohome_recovery_input()) {
+        return;
+      }
+    }
+    output += indent + "  cryptohome_recovery_input: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.cryptohome_recovery_input(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_kiosk_input(); }) {
+      if (!value.has_kiosk_input()) {
+        return;
+      }
+    }
+    output += indent + "  kiosk_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.kiosk_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_smart_card_input(); }) {
+      if (!value.has_smart_card_input()) {
+        return;
+      }
+    }
+    output += indent + "  smart_card_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.smart_card_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_legacy_fingerprint_input(); }) {
+      if (!value.has_legacy_fingerprint_input()) {
+        return;
+      }
+    }
+    output += indent + "  legacy_fingerprint_input: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.legacy_fingerprint_input(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fingerprint_input(); }) {
+      if (!value.has_fingerprint_input()) {
+        return;
+      }
+    }
+    output += indent + "  fingerprint_input: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(value.fingerprint_input(),
+                                                      indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -410,7 +562,21 @@ std::string GetProtoDebugStringWithIndent(const PasswordMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_hash_info(); }) {
+      if (!value.has_hash_info()) {
+        return;
+      }
+    }
+    output += indent + "  hash_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.hash_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -424,11 +590,32 @@ std::string GetProtoDebugStringWithIndent(const PinMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_locked: ";
-  base::StringAppendF(&output, "%s", value.auth_locked() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_locked(); }) {
+      if (!value.has_auth_locked()) {
+        return;
+      }
+    }
+    output += indent + "  auth_locked: ";
+    base::StringAppendF(&output, "%s", value.auth_locked() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_hash_info(); }) {
+      if (!value.has_hash_info()) {
+        return;
+      }
+    }
+    output += indent + "  hash_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.hash_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -443,14 +630,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  mediator_pub_key: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.mediator_pub_key().data(),
-                                      value.mediator_pub_key().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_mediator_pub_key(); }) {
+      if (!value.has_mediator_pub_key()) {
+        return;
+      }
+    }
+    output += indent + "  mediator_pub_key: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.mediator_pub_key().data(),
+                                        value.mediator_pub_key().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -464,7 +658,7 @@ std::string GetProtoDebugStringWithIndent(const KioskMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -478,14 +672,62 @@ std::string GetProtoDebugStringWithIndent(const SmartCardMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  public_key_spki_der: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.public_key_spki_der().data(),
-                                      value.public_key_spki_der().size())
-                          .c_str());
-  output += "\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_public_key_spki_der(); }) {
+      if (!value.has_public_key_spki_der()) {
+        return;
+      }
+    }
+    output += indent + "  public_key_spki_der: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.public_key_spki_der().data(),
+                                        value.public_key_spki_der().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
 
-  output += indent + "}\n";
+std::string GetProtoDebugString(const KnowledgeFactorHashInfo& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const KnowledgeFactorHashInfo& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_algorithm(); }) {
+      if (!value.has_algorithm()) {
+        return;
+      }
+    }
+    output += indent + "  algorithm: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.algorithm(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_salt(); }) {
+      if (!value.has_salt()) {
+        return;
+      }
+    }
+    output += indent + "  salt: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.salt().data(), value.salt().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -499,28 +741,56 @@ std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  chromeos_version_last_updated: ";
-  base::StringAppendF(&output, "%s",
-                      value.chromeos_version_last_updated().c_str());
-  output += "\n";
-
-  output += indent + "  chrome_version_last_updated: ";
-  base::StringAppendF(&output, "%s",
-                      value.chrome_version_last_updated().c_str());
-  output += "\n";
-
-  output += indent + "  lockout_policy: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.lockout_policy(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  user_specified_name: ";
-  base::StringAppendF(&output, "%s", value.user_specified_name().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_chromeos_version_last_updated(); }) {
+      if (!value.has_chromeos_version_last_updated()) {
+        return;
+      }
+    }
+    output += indent + "  chromeos_version_last_updated: ";
+    base::StringAppendF(&output, "%s",
+                        value.chromeos_version_last_updated().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_chrome_version_last_updated(); }) {
+      if (!value.has_chrome_version_last_updated()) {
+        return;
+      }
+    }
+    output += indent + "  chrome_version_last_updated: ";
+    base::StringAppendF(&output, "%s",
+                        value.chrome_version_last_updated().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_lockout_policy(); }) {
+      if (!value.has_lockout_policy()) {
+        return;
+      }
+    }
+    output += indent + "  lockout_policy: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.lockout_policy(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_specified_name(); }) {
+      if (!value.has_user_specified_name()) {
+        return;
+      }
+    }
+    output += indent + "  user_specified_name: ";
+    base::StringAppendF(&output, "%s", value.user_specified_name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -535,7 +805,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -549,7 +819,7 @@ std::string GetProtoDebugStringWithIndent(const FingerprintMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -563,73 +833,145 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  label: ";
-  base::StringAppendF(&output, "%s", value.label().c_str());
-  output += "\n";
-
-  output += indent + "  common_metadata: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.common_metadata(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  password_metadata: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.password_metadata(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  pin_metadata: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.pin_metadata(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  cryptohome_recovery_metadata: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.cryptohome_recovery_metadata(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  kiosk_metadata: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.kiosk_metadata(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  smart_card_metadata: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.smart_card_metadata(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  legacy_fingerprint_metadata: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.legacy_fingerprint_metadata(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  fingerprint_metadata: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.fingerprint_metadata(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_type(); }) {
+      if (!value.has_type()) {
+        return;
+      }
+    }
+    output += indent + "  type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_label(); }) {
+      if (!value.has_label()) {
+        return;
+      }
+    }
+    output += indent + "  label: ";
+    base::StringAppendF(&output, "%s", value.label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_common_metadata(); }) {
+      if (!value.has_common_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  common_metadata: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.common_metadata(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_password_metadata(); }) {
+      if (!value.has_password_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  password_metadata: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(value.password_metadata(),
+                                                      indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_pin_metadata(); }) {
+      if (!value.has_pin_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  pin_metadata: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.pin_metadata(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_cryptohome_recovery_metadata(); }) {
+      if (!value.has_cryptohome_recovery_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  cryptohome_recovery_metadata: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.cryptohome_recovery_metadata(),
+                                      indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_kiosk_metadata(); }) {
+      if (!value.has_kiosk_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  kiosk_metadata: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.kiosk_metadata(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_smart_card_metadata(); }) {
+      if (!value.has_smart_card_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  smart_card_metadata: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.smart_card_metadata(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_legacy_fingerprint_metadata(); }) {
+      if (!value.has_legacy_fingerprint_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  legacy_fingerprint_metadata: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.legacy_fingerprint_metadata(),
+                                      indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fingerprint_metadata(); }) {
+      if (!value.has_fingerprint_metadata()) {
+        return;
+      }
+    }
+    output += indent + "  fingerprint_metadata: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.fingerprint_metadata(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 

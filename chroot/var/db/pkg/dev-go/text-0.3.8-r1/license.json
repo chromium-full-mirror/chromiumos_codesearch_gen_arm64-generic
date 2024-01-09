@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "text", "version": "0.3.8", "revision": 1, "fullname": "dev-go/text", "fullnamerev": "dev-go/text-0.3.8-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/text"], "skip": false, "tainted": false, "ebuild_path": null}

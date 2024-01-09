@@ -218,27 +218,88 @@ class BluetoothProxyMock : public BluetoothProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              GetRemoteAddressType,
+              (const brillo::VariantDictionary& /*in_device*/,
+               uint32_t* /*out_address_type*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRemoteAddressTypeAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               base::OnceCallback<void(uint32_t /*address_type*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetRemoteAlias,
+              (const brillo::VariantDictionary& /*in_device*/,
+               std::string* /*out_alias*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRemoteAliasAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               base::OnceCallback<void(const std::string& /*alias*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetRemoteAlias,
+              (const brillo::VariantDictionary& /*in_device*/,
+               const std::string& /*in_alias*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetRemoteAliasAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               const std::string& /*in_alias*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetConnectionState,
+              (const brillo::VariantDictionary& /*in_device*/,
+               uint32_t* /*out_state*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetConnectionStateAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               base::OnceCallback<void(uint32_t /*state*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               StartDiscovery,
-              (bool* /*out_discovering*/,
+              (bool* /*out_is_success*/,
                brillo::ErrorPtr* /*error*/,
                int /*timeout_ms*/),
               (override));
   MOCK_METHOD(void,
               StartDiscoveryAsync,
-              (base::OnceCallback<void(bool /*discovering*/)> /*success_callback*/,
+              (base::OnceCallback<void(bool /*is_success*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));
 
   MOCK_METHOD(bool,
               CancelDiscovery,
-              (bool* /*out_discovering*/,
+              (bool* /*out_is_success*/,
                brillo::ErrorPtr* /*error*/,
                int /*timeout_ms*/),
               (override));
   MOCK_METHOD(void,
               CancelDiscoveryAsync,
-              (base::OnceCallback<void(bool /*discovering*/)> /*success_callback*/,
+              (base::OnceCallback<void(bool /*is_success*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));
@@ -252,6 +313,68 @@ class BluetoothProxyMock : public BluetoothProxyInterface {
   MOCK_METHOD(void,
               GetConnectedDevicesAsync,
               (base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*devices*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetBondedDevices,
+              (std::vector<brillo::VariantDictionary>* /*out_devices*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetBondedDevicesAsync,
+              (base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*devices*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              CreateBond,
+              (const brillo::VariantDictionary& /*in_device*/,
+               uint32_t /*in_transport*/,
+               bool* /*out_is_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CreateBondAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               uint32_t /*in_transport*/,
+               base::OnceCallback<void(bool /*is_success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveBond,
+              (const brillo::VariantDictionary& /*in_device*/,
+               bool* /*out_is_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveBondAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               base::OnceCallback<void(bool /*is_success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetPairingConfirmation,
+              (const brillo::VariantDictionary& /*in_device*/,
+               bool /*in_accept*/,
+               bool* /*out_is_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetPairingConfirmationAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               bool /*in_accept*/,
+               base::OnceCallback<void(bool /*is_success*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

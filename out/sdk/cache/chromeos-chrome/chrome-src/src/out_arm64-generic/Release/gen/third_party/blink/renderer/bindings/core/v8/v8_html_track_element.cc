@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLTrackElement>::value,
     "HTMLTrackElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLTrackElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLTrackElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,7 +109,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -131,10 +126,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -154,7 +149,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -171,10 +166,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.srclang.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrclangAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrclangAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -195,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kLabelAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kLabelAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -219,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.default.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kDefaultAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -242,8 +238,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReadyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -256,8 +253,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTrackElement.track.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(v8_receiver);
+HTMLTrackElement* blink_receiver = V8HTMLTrackElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->track();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

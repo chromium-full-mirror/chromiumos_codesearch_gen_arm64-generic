@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -42,8 +43,8 @@ struct AlertInfo {
   ~AlertInfo();
   AlertInfo(const AlertInfo&) = delete;
   AlertInfo& operator=(const AlertInfo&) = delete;
-  AlertInfo(AlertInfo&& rhs);
-  AlertInfo& operator=(AlertInfo&& rhs);
+  AlertInfo(AlertInfo&& rhs) noexcept;
+  AlertInfo& operator=(AlertInfo&& rhs) noexcept;
 
   // Populates a AlertInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -56,14 +57,11 @@ struct AlertInfo {
   // Creates a deep copy of AlertInfo.
   AlertInfo Clone() const;
 
-  // Creates a AlertInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AlertInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AlertInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<AlertInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AlertInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AlertInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AlertInfo> FromValue(const base::Value& value);
+  static std::optional<AlertInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlertInfo object.
@@ -80,8 +78,8 @@ struct ScreenRect {
   ~ScreenRect();
   ScreenRect(const ScreenRect&) = delete;
   ScreenRect& operator=(const ScreenRect&) = delete;
-  ScreenRect(ScreenRect&& rhs);
-  ScreenRect& operator=(ScreenRect&& rhs);
+  ScreenRect(ScreenRect&& rhs) noexcept;
+  ScreenRect& operator=(ScreenRect&& rhs) noexcept;
 
   // Populates a ScreenRect object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -94,15 +92,12 @@ struct ScreenRect {
   // Creates a deep copy of ScreenRect.
   ScreenRect Clone() const;
 
-  // Creates a ScreenRect object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ScreenRect> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScreenRect object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ScreenRect> FromValue(const base::Value::Dict& value);
+  static std::optional<ScreenRect> FromValue(const base::Value::Dict& value);
 
   // Creates a ScreenRect object from a base::Value, or nullopt on failure.
-  static absl::optional<ScreenRect> FromValue(const base::Value& value);
+  static std::optional<ScreenRect> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScreenRect object.
@@ -128,8 +123,8 @@ struct ScreenPoint {
   ~ScreenPoint();
   ScreenPoint(const ScreenPoint&) = delete;
   ScreenPoint& operator=(const ScreenPoint&) = delete;
-  ScreenPoint(ScreenPoint&& rhs);
-  ScreenPoint& operator=(ScreenPoint&& rhs);
+  ScreenPoint(ScreenPoint&& rhs) noexcept;
+  ScreenPoint& operator=(ScreenPoint&& rhs) noexcept;
 
   // Populates a ScreenPoint object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -142,15 +137,12 @@ struct ScreenPoint {
   // Creates a deep copy of ScreenPoint.
   ScreenPoint Clone() const;
 
-  // Creates a ScreenPoint object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ScreenPoint> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScreenPoint object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ScreenPoint> FromValue(const base::Value::Dict& value);
+  static std::optional<ScreenPoint> FromValue(const base::Value::Dict& value);
 
   // Creates a ScreenPoint object from a base::Value, or nullopt on failure.
-  static absl::optional<ScreenPoint> FromValue(const base::Value& value);
+  static std::optional<ScreenPoint> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScreenPoint object.
@@ -165,30 +157,30 @@ struct ScreenPoint {
 };
 
 // Accessibility gestures fired by the touch exploration controller.
-enum  Gesture {
-  GESTURE_NONE = 0,
-  GESTURE_CLICK,
-  GESTURE_SWIPELEFT1,
-  GESTURE_SWIPEUP1,
-  GESTURE_SWIPERIGHT1,
-  GESTURE_SWIPEDOWN1,
-  GESTURE_SWIPELEFT2,
-  GESTURE_SWIPEUP2,
-  GESTURE_SWIPERIGHT2,
-  GESTURE_SWIPEDOWN2,
-  GESTURE_SWIPELEFT3,
-  GESTURE_SWIPEUP3,
-  GESTURE_SWIPERIGHT3,
-  GESTURE_SWIPEDOWN3,
-  GESTURE_SWIPELEFT4,
-  GESTURE_SWIPEUP4,
-  GESTURE_SWIPERIGHT4,
-  GESTURE_SWIPEDOWN4,
-  GESTURE_TAP2,
-  GESTURE_TAP3,
-  GESTURE_TAP4,
-  GESTURE_TOUCHEXPLORE,
-  GESTURE_LAST = GESTURE_TOUCHEXPLORE,
+enum class Gesture {
+  kNone = 0,
+  kClick,
+  kSwipeLeft1,
+  kSwipeUp1,
+  kSwipeRight1,
+  kSwipeDown1,
+  kSwipeLeft2,
+  kSwipeUp2,
+  kSwipeRight2,
+  kSwipeDown2,
+  kSwipeLeft3,
+  kSwipeUp3,
+  kSwipeRight3,
+  kSwipeDown3,
+  kSwipeLeft4,
+  kSwipeUp4,
+  kSwipeRight4,
+  kSwipeDown4,
+  kTap2,
+  kTap3,
+  kTap4,
+  kTouchExplore,
+  kMaxValue = kTouchExplore,
 };
 
 
@@ -197,14 +189,14 @@ Gesture ParseGesture(base::StringPiece as_string);
 std::u16string GetGestureParseError(base::StringPiece as_string);
 
 // Commands for magnifier (e.g. move magnifier viewport up).
-enum  MagnifierCommand {
-  MAGNIFIER_COMMAND_NONE = 0,
-  MAGNIFIER_COMMAND_MOVESTOP,
-  MAGNIFIER_COMMAND_MOVEUP,
-  MAGNIFIER_COMMAND_MOVEDOWN,
-  MAGNIFIER_COMMAND_MOVELEFT,
-  MAGNIFIER_COMMAND_MOVERIGHT,
-  MAGNIFIER_COMMAND_LAST = MAGNIFIER_COMMAND_MOVERIGHT,
+enum class MagnifierCommand {
+  kNone = 0,
+  kMoveStop,
+  kMoveUp,
+  kMoveDown,
+  kMoveLeft,
+  kMoveRight,
+  kMaxValue = kMoveRight,
 };
 
 
@@ -213,12 +205,12 @@ MagnifierCommand ParseMagnifierCommand(base::StringPiece as_string);
 std::u16string GetMagnifierCommandParseError(base::StringPiece as_string);
 
 // Commands that can be triggered by switch activation.
-enum  SwitchAccessCommand {
-  SWITCH_ACCESS_COMMAND_NONE = 0,
-  SWITCH_ACCESS_COMMAND_SELECT,
-  SWITCH_ACCESS_COMMAND_NEXT,
-  SWITCH_ACCESS_COMMAND_PREVIOUS,
-  SWITCH_ACCESS_COMMAND_LAST = SWITCH_ACCESS_COMMAND_PREVIOUS,
+enum class SwitchAccessCommand {
+  kNone = 0,
+  kSelect,
+  kNext,
+  kPrevious,
+  kMaxValue = kPrevious,
 };
 
 
@@ -227,11 +219,11 @@ SwitchAccessCommand ParseSwitchAccessCommand(base::StringPiece as_string);
 std::u16string GetSwitchAccessCommandParseError(base::StringPiece as_string);
 
 // Point scanning states in Switch Access.
-enum  PointScanState {
-  POINT_SCAN_STATE_NONE = 0,
-  POINT_SCAN_STATE_START,
-  POINT_SCAN_STATE_STOP,
-  POINT_SCAN_STATE_LAST = POINT_SCAN_STATE_STOP,
+enum class PointScanState {
+  kNone = 0,
+  kStart,
+  kStop,
+  kMaxValue = kStop,
 };
 
 
@@ -240,11 +232,11 @@ PointScanState ParsePointScanState(base::StringPiece as_string);
 std::u16string GetPointScanStateParseError(base::StringPiece as_string);
 
 // Different Switch Access bubbles that can be shown or hidden.
-enum  SwitchAccessBubble {
-  SWITCH_ACCESS_BUBBLE_NONE = 0,
-  SWITCH_ACCESS_BUBBLE_BACKBUTTON,
-  SWITCH_ACCESS_BUBBLE_MENU,
-  SWITCH_ACCESS_BUBBLE_LAST = SWITCH_ACCESS_BUBBLE_MENU,
+enum class SwitchAccessBubble {
+  kNone = 0,
+  kBackButton,
+  kMenu,
+  kMaxValue = kMenu,
 };
 
 
@@ -257,8 +249,8 @@ struct PointScanPoint {
   ~PointScanPoint();
   PointScanPoint(const PointScanPoint&) = delete;
   PointScanPoint& operator=(const PointScanPoint&) = delete;
-  PointScanPoint(PointScanPoint&& rhs);
-  PointScanPoint& operator=(PointScanPoint&& rhs);
+  PointScanPoint(PointScanPoint&& rhs) noexcept;
+  PointScanPoint& operator=(PointScanPoint&& rhs) noexcept;
 
   // Populates a PointScanPoint object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -271,15 +263,12 @@ struct PointScanPoint {
   // Creates a deep copy of PointScanPoint.
   PointScanPoint Clone() const;
 
-  // Creates a PointScanPoint object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PointScanPoint> FromValueDeprecated(const base::Value& value);
-
   // Creates a PointScanPoint object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PointScanPoint> FromValue(const base::Value::Dict& value);
+  static std::optional<PointScanPoint> FromValue(const base::Value::Dict& value);
 
   // Creates a PointScanPoint object from a base::Value, or nullopt on failure.
-  static absl::optional<PointScanPoint> FromValue(const base::Value& value);
+  static std::optional<PointScanPoint> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPointScanPoint object.
@@ -296,37 +285,37 @@ struct PointScanPoint {
 // Available actions to be shown in the Switch Access menu. Must be kept in sync
 // with the strings in
 // ash/system/accessibility/switch_access/switch_access_menu_view.cc
-enum  SwitchAccessMenuAction {
-  SWITCH_ACCESS_MENU_ACTION_NONE = 0,
-  SWITCH_ACCESS_MENU_ACTION_COPY,
-  SWITCH_ACCESS_MENU_ACTION_CUT,
-  SWITCH_ACCESS_MENU_ACTION_DECREMENT,
-  SWITCH_ACCESS_MENU_ACTION_DICTATION,
-  SWITCH_ACCESS_MENU_ACTION_ENDTEXTSELECTION,
-  SWITCH_ACCESS_MENU_ACTION_INCREMENT,
-  SWITCH_ACCESS_MENU_ACTION_ITEMSCAN,
-  SWITCH_ACCESS_MENU_ACTION_JUMPTOBEGINNINGOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_JUMPTOENDOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_KEYBOARD,
-  SWITCH_ACCESS_MENU_ACTION_LEFTCLICK,
-  SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONECHAROFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONEWORDOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_MOVECURSOR,
-  SWITCH_ACCESS_MENU_ACTION_MOVEDOWNONELINEOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONECHAROFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONEWORDOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_MOVEUPONELINEOFTEXT,
-  SWITCH_ACCESS_MENU_ACTION_PASTE,
-  SWITCH_ACCESS_MENU_ACTION_POINTSCAN,
-  SWITCH_ACCESS_MENU_ACTION_RIGHTCLICK,
-  SWITCH_ACCESS_MENU_ACTION_SCROLLDOWN,
-  SWITCH_ACCESS_MENU_ACTION_SCROLLLEFT,
-  SWITCH_ACCESS_MENU_ACTION_SCROLLRIGHT,
-  SWITCH_ACCESS_MENU_ACTION_SCROLLUP,
-  SWITCH_ACCESS_MENU_ACTION_SELECT,
-  SWITCH_ACCESS_MENU_ACTION_SETTINGS,
-  SWITCH_ACCESS_MENU_ACTION_STARTTEXTSELECTION,
-  SWITCH_ACCESS_MENU_ACTION_LAST = SWITCH_ACCESS_MENU_ACTION_STARTTEXTSELECTION,
+enum class SwitchAccessMenuAction {
+  kNone = 0,
+  kCopy,
+  kCut,
+  kDecrement,
+  kDictation,
+  kEndTextSelection,
+  kIncrement,
+  kItemScan,
+  kJumpToBeginningOfText,
+  kJumpToEndOfText,
+  kKeyboard,
+  kLeftClick,
+  kMoveBackwardOneCharOfText,
+  kMoveBackwardOneWordOfText,
+  kMoveCursor,
+  kMoveDownOneLineOfText,
+  kMoveForwardOneCharOfText,
+  kMoveForwardOneWordOfText,
+  kMoveUpOneLineOfText,
+  kPaste,
+  kPointScan,
+  kRightClick,
+  kScrollDown,
+  kScrollLeft,
+  kScrollRight,
+  kScrollUp,
+  kSelect,
+  kSettings,
+  kStartTextSelection,
+  kMaxValue = kStartTextSelection,
 };
 
 
@@ -335,11 +324,11 @@ SwitchAccessMenuAction ParseSwitchAccessMenuAction(base::StringPiece as_string);
 std::u16string GetSwitchAccessMenuActionParseError(base::StringPiece as_string);
 
 // The event to send
-enum  SyntheticKeyboardEventType {
-  SYNTHETIC_KEYBOARD_EVENT_TYPE_NONE = 0,
-  SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYUP,
-  SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYDOWN,
-  SYNTHETIC_KEYBOARD_EVENT_TYPE_LAST = SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYDOWN,
+enum class SyntheticKeyboardEventType {
+  kNone = 0,
+  kKeyup,
+  kKeydown,
+  kMaxValue = kKeydown,
 };
 
 
@@ -352,8 +341,8 @@ struct SyntheticKeyboardModifiers {
   ~SyntheticKeyboardModifiers();
   SyntheticKeyboardModifiers(const SyntheticKeyboardModifiers&) = delete;
   SyntheticKeyboardModifiers& operator=(const SyntheticKeyboardModifiers&) = delete;
-  SyntheticKeyboardModifiers(SyntheticKeyboardModifiers&& rhs);
-  SyntheticKeyboardModifiers& operator=(SyntheticKeyboardModifiers&& rhs);
+  SyntheticKeyboardModifiers(SyntheticKeyboardModifiers&& rhs) noexcept;
+  SyntheticKeyboardModifiers& operator=(SyntheticKeyboardModifiers&& rhs) noexcept;
 
   // Populates a SyntheticKeyboardModifiers object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -366,33 +355,29 @@ struct SyntheticKeyboardModifiers {
   // Creates a deep copy of SyntheticKeyboardModifiers.
   SyntheticKeyboardModifiers Clone() const;
 
-  // Creates a SyntheticKeyboardModifiers object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SyntheticKeyboardModifiers> FromValueDeprecated(const base::Value& value);
-
   // Creates a SyntheticKeyboardModifiers object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SyntheticKeyboardModifiers> FromValue(const base::Value::Dict& value);
+  static std::optional<SyntheticKeyboardModifiers> FromValue(const base::Value::Dict& value);
 
   // Creates a SyntheticKeyboardModifiers object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SyntheticKeyboardModifiers> FromValue(const base::Value& value);
+  static std::optional<SyntheticKeyboardModifiers> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSyntheticKeyboardModifiers object.
   base::Value::Dict ToValue() const;
 
   // Control modifier.
-  absl::optional<bool> ctrl;
+  std::optional<bool> ctrl;
 
   // alt modifier.
-  absl::optional<bool> alt;
+  std::optional<bool> alt;
 
   // search modifier.
-  absl::optional<bool> search;
+  std::optional<bool> search;
 
   // shift modifier.
-  absl::optional<bool> shift;
+  std::optional<bool> shift;
 
 };
 
@@ -401,8 +386,8 @@ struct SyntheticKeyboardEvent {
   ~SyntheticKeyboardEvent();
   SyntheticKeyboardEvent(const SyntheticKeyboardEvent&) = delete;
   SyntheticKeyboardEvent& operator=(const SyntheticKeyboardEvent&) = delete;
-  SyntheticKeyboardEvent(SyntheticKeyboardEvent&& rhs);
-  SyntheticKeyboardEvent& operator=(SyntheticKeyboardEvent&& rhs);
+  SyntheticKeyboardEvent(SyntheticKeyboardEvent&& rhs) noexcept;
+  SyntheticKeyboardEvent& operator=(SyntheticKeyboardEvent&& rhs) noexcept;
 
   // Populates a SyntheticKeyboardEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -415,17 +400,13 @@ struct SyntheticKeyboardEvent {
   // Creates a deep copy of SyntheticKeyboardEvent.
   SyntheticKeyboardEvent Clone() const;
 
-  // Creates a SyntheticKeyboardEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SyntheticKeyboardEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a SyntheticKeyboardEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SyntheticKeyboardEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<SyntheticKeyboardEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a SyntheticKeyboardEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SyntheticKeyboardEvent> FromValue(const base::Value& value);
+  static std::optional<SyntheticKeyboardEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSyntheticKeyboardEvent object.
@@ -438,20 +419,20 @@ struct SyntheticKeyboardEvent {
   int key_code;
 
   // Contains all active modifiers.
-  absl::optional<SyntheticKeyboardModifiers> modifiers;
+  std::optional<SyntheticKeyboardModifiers> modifiers;
 
 };
 
 // The type of event to send
-enum  SyntheticMouseEventType {
-  SYNTHETIC_MOUSE_EVENT_TYPE_NONE = 0,
-  SYNTHETIC_MOUSE_EVENT_TYPE_PRESS,
-  SYNTHETIC_MOUSE_EVENT_TYPE_RELEASE,
-  SYNTHETIC_MOUSE_EVENT_TYPE_DRAG,
-  SYNTHETIC_MOUSE_EVENT_TYPE_MOVE,
-  SYNTHETIC_MOUSE_EVENT_TYPE_ENTER,
-  SYNTHETIC_MOUSE_EVENT_TYPE_EXIT,
-  SYNTHETIC_MOUSE_EVENT_TYPE_LAST = SYNTHETIC_MOUSE_EVENT_TYPE_EXIT,
+enum class SyntheticMouseEventType {
+  kNone = 0,
+  kPress,
+  kRelease,
+  kDrag,
+  kMove,
+  kEnter,
+  kExit,
+  kMaxValue = kExit,
 };
 
 
@@ -460,14 +441,14 @@ SyntheticMouseEventType ParseSyntheticMouseEventType(base::StringPiece as_string
 std::u16string GetSyntheticMouseEventTypeParseError(base::StringPiece as_string);
 
 // The button to send event on
-enum  SyntheticMouseEventButton {
-  SYNTHETIC_MOUSE_EVENT_BUTTON_NONE = 0,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_LEFT,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_MIDDLE,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_RIGHT,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_BACK,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_FOWARD,
-  SYNTHETIC_MOUSE_EVENT_BUTTON_LAST = SYNTHETIC_MOUSE_EVENT_BUTTON_FOWARD,
+enum class SyntheticMouseEventButton {
+  kNone = 0,
+  kLeft,
+  kMiddle,
+  kRight,
+  kBack,
+  kFoward,
+  kMaxValue = kFoward,
 };
 
 
@@ -480,8 +461,8 @@ struct SyntheticMouseEvent {
   ~SyntheticMouseEvent();
   SyntheticMouseEvent(const SyntheticMouseEvent&) = delete;
   SyntheticMouseEvent& operator=(const SyntheticMouseEvent&) = delete;
-  SyntheticMouseEvent(SyntheticMouseEvent&& rhs);
-  SyntheticMouseEvent& operator=(SyntheticMouseEvent&& rhs);
+  SyntheticMouseEvent(SyntheticMouseEvent&& rhs) noexcept;
+  SyntheticMouseEvent& operator=(SyntheticMouseEvent&& rhs) noexcept;
 
   // Populates a SyntheticMouseEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -494,17 +475,13 @@ struct SyntheticMouseEvent {
   // Creates a deep copy of SyntheticMouseEvent.
   SyntheticMouseEvent Clone() const;
 
-  // Creates a SyntheticMouseEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SyntheticMouseEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a SyntheticMouseEvent object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SyntheticMouseEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<SyntheticMouseEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a SyntheticMouseEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SyntheticMouseEvent> FromValue(const base::Value& value);
+  static std::optional<SyntheticMouseEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSyntheticMouseEvent object.
@@ -519,7 +496,7 @@ struct SyntheticMouseEvent {
   int y;
 
   // True if the touch accessibility flag should be set.
-  absl::optional<bool> touch_accessibility;
+  std::optional<bool> touch_accessibility;
 
   // The default mouse button is set to left if mouseButton is not specified.
   SyntheticMouseEventButton mouse_button;
@@ -527,12 +504,12 @@ struct SyntheticMouseEvent {
 };
 
 // The state of the Select-to-Speak extension
-enum  SelectToSpeakState {
-  SELECT_TO_SPEAK_STATE_NONE = 0,
-  SELECT_TO_SPEAK_STATE_SELECTING,
-  SELECT_TO_SPEAK_STATE_SPEAKING,
-  SELECT_TO_SPEAK_STATE_INACTIVE,
-  SELECT_TO_SPEAK_STATE_LAST = SELECT_TO_SPEAK_STATE_INACTIVE,
+enum class SelectToSpeakState {
+  kNone = 0,
+  kSelecting,
+  kSpeaking,
+  kInactive,
+  kMaxValue = kInactive,
 };
 
 
@@ -541,12 +518,12 @@ SelectToSpeakState ParseSelectToSpeakState(base::StringPiece as_string);
 std::u16string GetSelectToSpeakStateParseError(base::StringPiece as_string);
 
 // The type of visual appearance for the focus ring.
-enum  FocusType {
-  FOCUS_TYPE_NONE = 0,
-  FOCUS_TYPE_GLOW,
-  FOCUS_TYPE_SOLID,
-  FOCUS_TYPE_DASHED,
-  FOCUS_TYPE_LAST = FOCUS_TYPE_DASHED,
+enum class FocusType {
+  kNone = 0,
+  kGlow,
+  kSolid,
+  kDashed,
+  kMaxValue = kDashed,
 };
 
 
@@ -556,11 +533,11 @@ std::u16string GetFocusTypeParseError(base::StringPiece as_string);
 
 // Whether to stack focus rings above or below accessibility bubble panels.
 // Note: focus rings will be stacked above most other UI in either case
-enum  FocusRingStackingOrder {
-  FOCUS_RING_STACKING_ORDER_NONE = 0,
-  FOCUS_RING_STACKING_ORDER_ABOVEACCESSIBILITYBUBBLES,
-  FOCUS_RING_STACKING_ORDER_BELOWACCESSIBILITYBUBBLES,
-  FOCUS_RING_STACKING_ORDER_LAST = FOCUS_RING_STACKING_ORDER_BELOWACCESSIBILITYBUBBLES,
+enum class FocusRingStackingOrder {
+  kNone = 0,
+  kAboveAccessibilityBubbles,
+  kBelowAccessibilityBubbles,
+  kMaxValue = kBelowAccessibilityBubbles,
 };
 
 
@@ -569,15 +546,15 @@ FocusRingStackingOrder ParseFocusRingStackingOrder(base::StringPiece as_string);
 std::u16string GetFocusRingStackingOrderParseError(base::StringPiece as_string);
 
 // The assistive technology type of this extension.
-enum  AssistiveTechnologyType {
-  ASSISTIVE_TECHNOLOGY_TYPE_NONE = 0,
-  ASSISTIVE_TECHNOLOGY_TYPE_CHROMEVOX,
-  ASSISTIVE_TECHNOLOGY_TYPE_SELECTTOSPEAK,
-  ASSISTIVE_TECHNOLOGY_TYPE_SWITCHACCESS,
-  ASSISTIVE_TECHNOLOGY_TYPE_AUTOCLICK,
-  ASSISTIVE_TECHNOLOGY_TYPE_MAGNIFIER,
-  ASSISTIVE_TECHNOLOGY_TYPE_DICTATION,
-  ASSISTIVE_TECHNOLOGY_TYPE_LAST = ASSISTIVE_TECHNOLOGY_TYPE_DICTATION,
+enum class AssistiveTechnologyType {
+  kNone = 0,
+  kChromeVox,
+  kSelectToSpeak,
+  kSwitchAccess,
+  kAutoClick,
+  kMagnifier,
+  kDictation,
+  kMaxValue = kDictation,
 };
 
 
@@ -590,8 +567,8 @@ struct FocusRingInfo {
   ~FocusRingInfo();
   FocusRingInfo(const FocusRingInfo&) = delete;
   FocusRingInfo& operator=(const FocusRingInfo&) = delete;
-  FocusRingInfo(FocusRingInfo&& rhs);
-  FocusRingInfo& operator=(FocusRingInfo&& rhs);
+  FocusRingInfo(FocusRingInfo&& rhs) noexcept;
+  FocusRingInfo& operator=(FocusRingInfo&& rhs) noexcept;
 
   // Populates a FocusRingInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -604,15 +581,12 @@ struct FocusRingInfo {
   // Creates a deep copy of FocusRingInfo.
   FocusRingInfo Clone() const;
 
-  // Creates a FocusRingInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FocusRingInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a FocusRingInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FocusRingInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<FocusRingInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a FocusRingInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<FocusRingInfo> FromValue(const base::Value& value);
+  static std::optional<FocusRingInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFocusRingInfo object.
@@ -630,26 +604,26 @@ struct FocusRingInfo {
 
   // A RGB hex-value color string (e.g. #3F82E4) that describes the secondary
   // color of the focus ring, if there is one.
-  absl::optional<std::string> secondary_color;
+  std::optional<std::string> secondary_color;
 
   // A RGB hex-value color string (e.g. #803F82E4) that describes the color drawn
   // outside of the focus ring and over the rest of the display.
-  absl::optional<std::string> background_color;
+  std::optional<std::string> background_color;
 
   // The FocusType for the ring.
   FocusRingStackingOrder stacking_order;
 
   // An identifier for this focus ring, unique within the extension.
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
 };
 
 // A subset of accelerator actions used by accessibility.
-enum  AcceleratorAction {
-  ACCELERATOR_ACTION_NONE = 0,
-  ACCELERATOR_ACTION_FOCUSPREVIOUSPANE,
-  ACCELERATOR_ACTION_FOCUSNEXTPANE,
-  ACCELERATOR_ACTION_LAST = ACCELERATOR_ACTION_FOCUSNEXTPANE,
+enum class AcceleratorAction {
+  kNone = 0,
+  kFocusPreviousPane,
+  kFocusNextPane,
+  kMaxValue = kFocusNextPane,
 };
 
 
@@ -658,13 +632,13 @@ AcceleratorAction ParseAcceleratorAction(base::StringPiece as_string);
 std::u16string GetAcceleratorActionParseError(base::StringPiece as_string);
 
 // Subset of accessibility features.
-enum  AccessibilityFeature {
-  ACCESSIBILITY_FEATURE_NONE = 0,
-  ACCESSIBILITY_FEATURE_GOOGLETTSLANGUAGEPACKS,
-  ACCESSIBILITY_FEATURE_DICTATIONCONTEXTCHECKING,
-  ACCESSIBILITY_FEATURE_GAMEFACEINTEGRATION,
-  ACCESSIBILITY_FEATURE_GOOGLETTSHIGHQUALITYVOICES,
-  ACCESSIBILITY_FEATURE_LAST = ACCESSIBILITY_FEATURE_GOOGLETTSHIGHQUALITYVOICES,
+enum class AccessibilityFeature {
+  kNone = 0,
+  kGoogleTtsLanguagePacks,
+  kDictationContextChecking,
+  kFaceGaze,
+  kGoogleTtsHighQualityVoices,
+  kMaxValue = kGoogleTtsHighQualityVoices,
 };
 
 
@@ -673,17 +647,17 @@ AccessibilityFeature ParseAccessibilityFeature(base::StringPiece as_string);
 std::u16string GetAccessibilityFeatureParseError(base::StringPiece as_string);
 
 // Actions that can be performed in the Select-to-speak panel.
-enum  SelectToSpeakPanelAction {
-  SELECT_TO_SPEAK_PANEL_ACTION_NONE = 0,
-  SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSPARAGRAPH,
-  SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSSENTENCE,
-  SELECT_TO_SPEAK_PANEL_ACTION_PAUSE,
-  SELECT_TO_SPEAK_PANEL_ACTION_RESUME,
-  SELECT_TO_SPEAK_PANEL_ACTION_NEXTSENTENCE,
-  SELECT_TO_SPEAK_PANEL_ACTION_NEXTPARAGRAPH,
-  SELECT_TO_SPEAK_PANEL_ACTION_EXIT,
-  SELECT_TO_SPEAK_PANEL_ACTION_CHANGESPEED,
-  SELECT_TO_SPEAK_PANEL_ACTION_LAST = SELECT_TO_SPEAK_PANEL_ACTION_CHANGESPEED,
+enum class SelectToSpeakPanelAction {
+  kNone = 0,
+  kPreviousParagraph,
+  kPreviousSentence,
+  kPause,
+  kResume,
+  kNextSentence,
+  kNextParagraph,
+  kExit,
+  kChangeSpeed,
+  kMaxValue = kChangeSpeed,
 };
 
 
@@ -692,14 +666,14 @@ SelectToSpeakPanelAction ParseSelectToSpeakPanelAction(base::StringPiece as_stri
 std::u16string GetSelectToSpeakPanelActionParseError(base::StringPiece as_string);
 
 // Response code for onNativeChromeVoxArcSupportResult
-enum  SetNativeChromeVoxResponse {
-  SET_NATIVE_CHROME_VOX_RESPONSE_NONE = 0,
-  SET_NATIVE_CHROME_VOX_RESPONSE_SUCCESS,
-  SET_NATIVE_CHROME_VOX_RESPONSE_TALKBACKNOTINSTALLED,
-  SET_NATIVE_CHROME_VOX_RESPONSE_WINDOWNOTFOUND,
-  SET_NATIVE_CHROME_VOX_RESPONSE_FAILURE,
-  SET_NATIVE_CHROME_VOX_RESPONSE_NEEDDEPRECATIONCONFIRMATION,
-  SET_NATIVE_CHROME_VOX_RESPONSE_LAST = SET_NATIVE_CHROME_VOX_RESPONSE_NEEDDEPRECATIONCONFIRMATION,
+enum class SetNativeChromeVoxResponse {
+  kNone = 0,
+  kSuccess,
+  kTalkbackNotInstalled,
+  kWindowNotFound,
+  kFailure,
+  kNeedDeprecationConfirmation,
+  kMaxValue = kNeedDeprecationConfirmation,
 };
 
 
@@ -708,13 +682,13 @@ SetNativeChromeVoxResponse ParseSetNativeChromeVoxResponse(base::StringPiece as_
 std::u16string GetSetNativeChromeVoxResponseParseError(base::StringPiece as_string);
 
 // The icon shown in the Dictation bubble UI.
-enum  DictationBubbleIconType {
-  DICTATION_BUBBLE_ICON_TYPE_NONE = 0,
-  DICTATION_BUBBLE_ICON_TYPE_HIDDEN,
-  DICTATION_BUBBLE_ICON_TYPE_STANDBY,
-  DICTATION_BUBBLE_ICON_TYPE_MACROSUCCESS,
-  DICTATION_BUBBLE_ICON_TYPE_MACROFAIL,
-  DICTATION_BUBBLE_ICON_TYPE_LAST = DICTATION_BUBBLE_ICON_TYPE_MACROFAIL,
+enum class DictationBubbleIconType {
+  kNone = 0,
+  kHidden,
+  kStandby,
+  kMacroSuccess,
+  kMacroFail,
+  kMaxValue = kMacroFail,
 };
 
 
@@ -723,17 +697,17 @@ DictationBubbleIconType ParseDictationBubbleIconType(base::StringPiece as_string
 std::u16string GetDictationBubbleIconTypeParseError(base::StringPiece as_string);
 
 // Types of hints displayed in the Dictation bubble UI.
-enum  DictationBubbleHintType {
-  DICTATION_BUBBLE_HINT_TYPE_NONE = 0,
-  DICTATION_BUBBLE_HINT_TYPE_TRYSAYING,
-  DICTATION_BUBBLE_HINT_TYPE_TYPE,
-  DICTATION_BUBBLE_HINT_TYPE_DELETE,
-  DICTATION_BUBBLE_HINT_TYPE_SELECTALL,
-  DICTATION_BUBBLE_HINT_TYPE_UNDO,
-  DICTATION_BUBBLE_HINT_TYPE_HELP,
-  DICTATION_BUBBLE_HINT_TYPE_UNSELECT,
-  DICTATION_BUBBLE_HINT_TYPE_COPY,
-  DICTATION_BUBBLE_HINT_TYPE_LAST = DICTATION_BUBBLE_HINT_TYPE_COPY,
+enum class DictationBubbleHintType {
+  kNone = 0,
+  kTrySaying,
+  kType,
+  kDelete,
+  kSelectAll,
+  kUndo,
+  kHelp,
+  kUnselect,
+  kCopy,
+  kMaxValue = kCopy,
 };
 
 
@@ -746,8 +720,8 @@ struct DictationBubbleProperties {
   ~DictationBubbleProperties();
   DictationBubbleProperties(const DictationBubbleProperties&) = delete;
   DictationBubbleProperties& operator=(const DictationBubbleProperties&) = delete;
-  DictationBubbleProperties(DictationBubbleProperties&& rhs);
-  DictationBubbleProperties& operator=(DictationBubbleProperties&& rhs);
+  DictationBubbleProperties(DictationBubbleProperties&& rhs) noexcept;
+  DictationBubbleProperties& operator=(DictationBubbleProperties&& rhs) noexcept;
 
   // Populates a DictationBubbleProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -760,17 +734,13 @@ struct DictationBubbleProperties {
   // Creates a deep copy of DictationBubbleProperties.
   DictationBubbleProperties Clone() const;
 
-  // Creates a DictationBubbleProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DictationBubbleProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a DictationBubbleProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DictationBubbleProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<DictationBubbleProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a DictationBubbleProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<DictationBubbleProperties> FromValue(const base::Value& value);
+  static std::optional<DictationBubbleProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDictationBubbleProperties object.
@@ -784,18 +754,18 @@ struct DictationBubbleProperties {
 
   // The text to be displayed in the bubble UI. If `text` is undefined, the bubble
   // will clear its current text.
-  absl::optional<std::string> text;
+  std::optional<std::string> text;
 
   // Array of hints to show in the UI.
-  absl::optional<std::vector<DictationBubbleHintType>> hints;
+  std::optional<std::vector<DictationBubbleHintType>> hints;
 
 };
 
-enum  ToastType {
-  TOAST_TYPE_NONE = 0,
-  TOAST_TYPE_DICTATIONNOFOCUSEDTEXTFIELD,
-  TOAST_TYPE_DICTATIONMICMUTED,
-  TOAST_TYPE_LAST = TOAST_TYPE_DICTATIONMICMUTED,
+enum class ToastType {
+  kNone = 0,
+  kDictationNoFocusedTextField,
+  kDictationMicMuted,
+  kMaxValue = kDictationMicMuted,
 };
 
 
@@ -804,42 +774,43 @@ ToastType ParseToastType(base::StringPiece as_string);
 std::u16string GetToastTypeParseError(base::StringPiece as_string);
 
 // Types of accessibility-specific DLCs.
-enum  DlcType {
-  DLC_TYPE_NONE = 0,
-  DLC_TYPE_TTSBNBD,
-  DLC_TYPE_TTSCSCZ,
-  DLC_TYPE_TTSDADK,
-  DLC_TYPE_TTSDEDE,
-  DLC_TYPE_TTSELGR,
-  DLC_TYPE_TTSENAU,
-  DLC_TYPE_TTSENGB,
-  DLC_TYPE_TTSENUS,
-  DLC_TYPE_TTSESES,
-  DLC_TYPE_TTSESUS,
-  DLC_TYPE_TTSFIFI,
-  DLC_TYPE_TTSFILPH,
-  DLC_TYPE_TTSFRFR,
-  DLC_TYPE_TTSHIIN,
-  DLC_TYPE_TTSHUHU,
-  DLC_TYPE_TTSIDID,
-  DLC_TYPE_TTSITIT,
-  DLC_TYPE_TTSJAJP,
-  DLC_TYPE_TTSKMKH,
-  DLC_TYPE_TTSKOKR,
-  DLC_TYPE_TTSNBNO,
-  DLC_TYPE_TTSNENP,
-  DLC_TYPE_TTSNLNL,
-  DLC_TYPE_TTSPLPL,
-  DLC_TYPE_TTSPTBR,
-  DLC_TYPE_TTSSILK,
-  DLC_TYPE_TTSSKSK,
-  DLC_TYPE_TTSSVSE,
-  DLC_TYPE_TTSTHTH,
-  DLC_TYPE_TTSTRTR,
-  DLC_TYPE_TTSUKUA,
-  DLC_TYPE_TTSVIVN,
-  DLC_TYPE_TTSYUEHK,
-  DLC_TYPE_LAST = DLC_TYPE_TTSYUEHK,
+enum class DlcType {
+  kNone = 0,
+  kTtsBnBd,
+  kTtsCsCz,
+  kTtsDaDk,
+  kTtsDeDe,
+  kTtsElGr,
+  kTtsEnAu,
+  kTtsEnGb,
+  kTtsEnUs,
+  kTtsEsEs,
+  kTtsEsUs,
+  kTtsFiFi,
+  kTtsFilPh,
+  kTtsFrFr,
+  kTtsHiIn,
+  kTtsHuHu,
+  kTtsIdId,
+  kTtsItIt,
+  kTtsJaJp,
+  kTtsKmKh,
+  kTtsKoKr,
+  kTtsNbNo,
+  kTtsNeNp,
+  kTtsNlNl,
+  kTtsPlPl,
+  kTtsPtBr,
+  kTtsPtPt,
+  kTtsSiLk,
+  kTtsSkSk,
+  kTtsSvSe,
+  kTtsThTh,
+  kTtsTrTr,
+  kTtsUkUa,
+  kTtsViVn,
+  kTtsYueHk,
+  kMaxValue = kTtsYueHk,
 };
 
 
@@ -847,13 +818,26 @@ const char* ToString(DlcType as_enum);
 DlcType ParseDlcType(base::StringPiece as_string);
 std::u16string GetDlcTypeParseError(base::StringPiece as_string);
 
+// Variants of TTS voices.
+enum class TtsVariant {
+  kNone = 0,
+  kLite,
+  kStandard,
+  kMaxValue = kStandard,
+};
+
+
+const char* ToString(TtsVariant as_enum);
+TtsVariant ParseTtsVariant(base::StringPiece as_string);
+std::u16string GetTtsVariantParseError(base::StringPiece as_string);
+
 struct PumpkinData {
   PumpkinData();
   ~PumpkinData();
   PumpkinData(const PumpkinData&) = delete;
   PumpkinData& operator=(const PumpkinData&) = delete;
-  PumpkinData(PumpkinData&& rhs);
-  PumpkinData& operator=(PumpkinData&& rhs);
+  PumpkinData(PumpkinData&& rhs) noexcept;
+  PumpkinData& operator=(PumpkinData&& rhs) noexcept;
 
   // Populates a PumpkinData object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -866,15 +850,12 @@ struct PumpkinData {
   // Creates a deep copy of PumpkinData.
   PumpkinData Clone() const;
 
-  // Creates a PumpkinData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PumpkinData> FromValueDeprecated(const base::Value& value);
-
   // Creates a PumpkinData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PumpkinData> FromValue(const base::Value::Dict& value);
+  static std::optional<PumpkinData> FromValue(const base::Value::Dict& value);
 
   // Creates a PumpkinData object from a base::Value, or nullopt on failure.
-  static absl::optional<PumpkinData> FromValue(const base::Value& value);
+  static std::optional<PumpkinData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPumpkinData object.
@@ -947,11 +928,11 @@ base::Value::List Create(const PumpkinData& data);
 namespace SetNativeAccessibilityEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True if native accessibility support should be enabled.
@@ -967,11 +948,11 @@ struct Params {
 namespace SetFocusRings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Array of focus rings to draw.
@@ -990,11 +971,11 @@ struct Params {
 namespace SetHighlights {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Array of rectangles to draw the highlight around.
@@ -1013,11 +994,11 @@ struct Params {
 namespace SetKeyboardListener {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True if the caller wants to listen to key events; false to stop listening to
@@ -1038,11 +1019,11 @@ struct Params {
 namespace DarkenScreen {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True to darken screen; false to undarken screen.
@@ -1058,11 +1039,11 @@ struct Params {
 namespace ForwardKeyEventsToSwitchAccess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool should_forward;
@@ -1077,11 +1058,11 @@ struct Params {
 namespace UpdateSwitchAccessBubble {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Which bubble to show/hide
@@ -1092,10 +1073,10 @@ struct Params {
 
   // A rectangle indicating the bounds of the object the menu should be displayed
   // next to.
-  absl::optional<ScreenRect> anchor;
+  std::optional<ScreenRect> anchor;
 
   // The actions to be shown in the menu.
-  absl::optional<std::vector<SwitchAccessMenuAction>> actions;
+  std::optional<std::vector<SwitchAccessMenuAction>> actions;
 
 
  private:
@@ -1107,11 +1088,11 @@ struct Params {
 namespace SetPointScanState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The point scanning state to set.
@@ -1127,11 +1108,11 @@ struct Params {
 namespace SetNativeChromeVoxArcSupportForCurrentApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True for ChromeVox (native), false for TalkBack.
@@ -1153,11 +1134,11 @@ base::Value::List Create(const SetNativeChromeVoxResponse& response);
 namespace SendSyntheticKeyEvent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The event to send.
@@ -1165,7 +1146,7 @@ struct Params {
 
   // If true, uses rewriters for the key event; only allowed if used from
   // Dictation. Otherwise indicates that rewriters should be skipped.
-  absl::optional<bool> use_rewriters;
+  std::optional<bool> use_rewriters;
 
 
  private:
@@ -1177,11 +1158,11 @@ struct Params {
 namespace EnableMouseEvents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True if accessibility component extensions should receive mouse events.
@@ -1194,14 +1175,34 @@ struct Params {
 
 }  // namespace EnableMouseEvents
 
+namespace SetCursorPosition {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  // The screen point at which to put the cursor.
+  ScreenPoint point;
+
+
+ private:
+  Params();
+};
+
+}  // namespace SetCursorPosition
+
 namespace SendSyntheticMouseEvent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The event to send.
@@ -1217,11 +1218,11 @@ struct Params {
 namespace SetSelectToSpeakState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SelectToSpeakState state;
@@ -1236,11 +1237,11 @@ struct Params {
 namespace ClipboardCopyInActiveLacrosGoogleDoc {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // URL of the Google Docs tab.
@@ -1256,11 +1257,11 @@ struct Params {
 namespace HandleScrollableBoundsForPointFound {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ScreenRect rect;
@@ -1275,11 +1276,11 @@ struct Params {
 namespace MoveMagnifierToRect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Rect to ensure visible in the magnified viewport.
@@ -1295,11 +1296,11 @@ struct Params {
 namespace MagnifierCenterOnPoint {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ScreenPoint point;
@@ -1318,11 +1319,11 @@ namespace ToggleDictation {
 namespace SetVirtualKeyboardVisible {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool is_visible;
@@ -1337,11 +1338,11 @@ struct Params {
 namespace OpenSettingsSubpage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string subpage;
@@ -1356,11 +1357,11 @@ struct Params {
 namespace PerformAcceleratorAction {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   AcceleratorAction accelerator_action;
@@ -1375,11 +1376,11 @@ struct Params {
 namespace IsFeatureEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   AccessibilityFeature feature;
@@ -1399,11 +1400,11 @@ base::Value::List Create(bool feature_enabled);
 namespace UpdateSelectToSpeakPanel {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True to show panel, false to hide it
@@ -1411,13 +1412,13 @@ struct Params {
 
   // A rectangle indicating the bounds of the object the panel should be displayed
   // next to.
-  absl::optional<ScreenRect> anchor;
+  std::optional<ScreenRect> anchor;
 
   // True if Select-to-speak playback is paused.
-  absl::optional<bool> is_paused;
+  std::optional<bool> is_paused;
 
   // Current reading speed (TTS speech rate).
-  absl::optional<double> speed;
+  std::optional<double> speed;
 
 
  private:
@@ -1429,11 +1430,11 @@ struct Params {
 namespace ShowConfirmationDialog {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The title of the confirmation dialog.
@@ -1443,7 +1444,7 @@ struct Params {
   std::string description;
 
   // The human-readable name of the cancel button.
-  absl::optional<std::string> cancel_name;
+  std::optional<std::string> cancel_name;
 
 
  private:
@@ -1461,11 +1462,11 @@ base::Value::List Create(bool confirmed);
 namespace GetLocalizedDomKeyStringForKeyCode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int key_code;
@@ -1486,11 +1487,11 @@ base::Value::List Create(const std::string& dom_key_string);
 namespace UpdateDictationBubble {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Properties for the updated Dictation bubble UI.
@@ -1510,11 +1511,11 @@ namespace SilenceSpokenFeedback {
 namespace GetDlcContents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The DLC of interest.
@@ -1533,6 +1534,46 @@ base::Value::List Create(const std::vector<uint8_t>& contents);
 
 }  // namespace GetDlcContents
 
+namespace GetTtsDlcContents {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  // The DLC of interest.
+  DlcType dlc;
+
+  // The TTS voice variant.
+  TtsVariant variant;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+// The contents of the DLC as a Uint8Array.
+base::Value::List Create(const std::vector<uint8_t>& contents);
+}  // namespace Results
+
+}  // namespace GetTtsDlcContents
+
+namespace GetDisplayBounds {
+
+namespace Results {
+
+// Array of rects represeting the display bounds in screen coordinates for all
+// displays.
+base::Value::List Create(const std::vector<ScreenRect>& rects);
+}  // namespace Results
+
+}  // namespace GetDisplayBounds
+
 namespace IsLacrosPrimary {
 
 namespace Results {
@@ -1546,11 +1587,11 @@ base::Value::List Create(bool use_lacros);
 namespace ShowToast {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The type of toast to show.

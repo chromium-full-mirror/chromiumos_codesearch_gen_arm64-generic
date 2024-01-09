@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/scripting.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,11 +38,11 @@ namespace scripting {
 
 const char* ToString(StyleOrigin enum_param) {
   switch (enum_param) {
-    case STYLE_ORIGIN_AUTHOR:
+    case StyleOrigin::kAuthor:
       return "AUTHOR";
-    case STYLE_ORIGIN_USER:
+    case StyleOrigin::kUser:
       return "USER";
-    case STYLE_ORIGIN_NONE:
+    case StyleOrigin::kNone:
       return "";
   }
   NOTREACHED();
@@ -50,10 +51,10 @@ const char* ToString(StyleOrigin enum_param) {
 
 StyleOrigin ParseStyleOrigin(base::StringPiece enum_string) {
   if (enum_string == "AUTHOR")
-    return STYLE_ORIGIN_AUTHOR;
+    return StyleOrigin::kAuthor;
   if (enum_string == "USER")
-    return STYLE_ORIGIN_USER;
-  return STYLE_ORIGIN_NONE;
+    return StyleOrigin::kUser;
+  return StyleOrigin::kNone;
 }
 
 std::u16string GetStyleOriginParseError(base::StringPiece enum_string) {
@@ -63,11 +64,11 @@ std::u16string GetStyleOriginParseError(base::StringPiece enum_string) {
 
 const char* ToString(ExecutionWorld enum_param) {
   switch (enum_param) {
-    case EXECUTION_WORLD_ISOLATED:
+    case ExecutionWorld::kIsolated:
       return "ISOLATED";
-    case EXECUTION_WORLD_MAIN:
+    case ExecutionWorld::kMain:
       return "MAIN";
-    case EXECUTION_WORLD_NONE:
+    case ExecutionWorld::kNone:
       return "";
   }
   NOTREACHED();
@@ -76,10 +77,10 @@ const char* ToString(ExecutionWorld enum_param) {
 
 ExecutionWorld ParseExecutionWorld(base::StringPiece enum_string) {
   if (enum_string == "ISOLATED")
-    return EXECUTION_WORLD_ISOLATED;
+    return ExecutionWorld::kIsolated;
   if (enum_string == "MAIN")
-    return EXECUTION_WORLD_MAIN;
-  return EXECUTION_WORLD_NONE;
+    return ExecutionWorld::kMain;
+  return ExecutionWorld::kNone;
 }
 
 std::u16string GetExecutionWorldParseError(base::StringPiece enum_string) {
@@ -91,8 +92,8 @@ InjectionTarget::InjectionTarget()
 : tab_id(0) {}
 
 InjectionTarget::~InjectionTarget() = default;
-InjectionTarget::InjectionTarget(InjectionTarget&& rhs) = default;
-InjectionTarget& InjectionTarget::operator=(InjectionTarget&& rhs) = default;
+InjectionTarget::InjectionTarget(InjectionTarget&& rhs) noexcept = default;
+InjectionTarget& InjectionTarget::operator=(InjectionTarget&& rhs) noexcept = default;
 InjectionTarget InjectionTarget::Clone() const {
   InjectionTarget out;
   out.tab_id = tab_id;
@@ -150,7 +151,7 @@ bool InjectionTarget::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -170,34 +171,21 @@ bool InjectionTarget::Populate(
 }
 
 // static
-std::unique_ptr<InjectionTarget> InjectionTarget::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InjectionTarget>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InjectionTarget> InjectionTarget::FromValue(const base::Value::Dict& value) {
+  InjectionTarget out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InjectionTarget> InjectionTarget::FromValue(const base::Value::Dict& value) {
+std::optional<InjectionTarget> InjectionTarget::FromValue(const base::Value& value) {
   InjectionTarget out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InjectionTarget> InjectionTarget::FromValue(const base::Value& value) {
-  InjectionTarget out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -228,8 +216,8 @@ ScriptInjection::ScriptInjection()
 : world() {}
 
 ScriptInjection::~ScriptInjection() = default;
-ScriptInjection::ScriptInjection(ScriptInjection&& rhs) = default;
-ScriptInjection& ScriptInjection::operator=(ScriptInjection&& rhs) = default;
+ScriptInjection::ScriptInjection(ScriptInjection&& rhs) noexcept = default;
+ScriptInjection& ScriptInjection::operator=(ScriptInjection&& rhs) noexcept = default;
 ScriptInjection ScriptInjection::Clone() const {
   ScriptInjection out;
   out.func = func;
@@ -257,7 +245,7 @@ bool ScriptInjection::Populate(
     {
       auto* temp = (*func_value).GetIfString();
       if (!temp) {
-        out.func = absl::nullopt;
+        out.func = std::nullopt;
         return false;
       }
       out.func = *temp;
@@ -281,7 +269,7 @@ bool ScriptInjection::Populate(
     {
       auto* temp = (*function_value).GetIfString();
       if (!temp) {
-        out.function = absl::nullopt;
+        out.function = std::nullopt;
         return false;
       }
       out.function = *temp;
@@ -336,7 +324,7 @@ bool ScriptInjection::Populate(
     {
       auto temp = (*inject_immediately_value).GetIfBool();
       if (!temp.has_value()) {
-        out.inject_immediately = absl::nullopt;
+        out.inject_immediately = std::nullopt;
         return false;
       }
       out.inject_immediately = *temp;
@@ -356,34 +344,21 @@ bool ScriptInjection::Populate(
 }
 
 // static
-std::unique_ptr<ScriptInjection> ScriptInjection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScriptInjection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScriptInjection> ScriptInjection::FromValue(const base::Value::Dict& value) {
+  ScriptInjection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScriptInjection> ScriptInjection::FromValue(const base::Value::Dict& value) {
+std::optional<ScriptInjection> ScriptInjection::FromValue(const base::Value& value) {
   ScriptInjection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScriptInjection> ScriptInjection::FromValue(const base::Value& value) {
-  ScriptInjection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -426,8 +401,8 @@ CSSInjection::CSSInjection()
 : origin() {}
 
 CSSInjection::~CSSInjection() = default;
-CSSInjection::CSSInjection(CSSInjection&& rhs) = default;
-CSSInjection& CSSInjection::operator=(CSSInjection&& rhs) = default;
+CSSInjection::CSSInjection(CSSInjection&& rhs) noexcept = default;
+CSSInjection& CSSInjection::operator=(CSSInjection&& rhs) noexcept = default;
 CSSInjection CSSInjection::Clone() const {
   CSSInjection out;
   out.target = target.Clone();
@@ -459,7 +434,7 @@ bool CSSInjection::Populate(
     {
       auto* temp = (*css_value).GetIfString();
       if (!temp) {
-        out.css = absl::nullopt;
+        out.css = std::nullopt;
         return false;
       }
       out.css = *temp;
@@ -509,34 +484,21 @@ bool CSSInjection::Populate(
 }
 
 // static
-std::unique_ptr<CSSInjection> CSSInjection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CSSInjection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CSSInjection> CSSInjection::FromValue(const base::Value::Dict& value) {
+  CSSInjection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CSSInjection> CSSInjection::FromValue(const base::Value::Dict& value) {
+std::optional<CSSInjection> CSSInjection::FromValue(const base::Value& value) {
   CSSInjection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CSSInjection> CSSInjection::FromValue(const base::Value& value) {
-  CSSInjection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -567,8 +529,8 @@ InjectionResult::InjectionResult()
 : frame_id(0) {}
 
 InjectionResult::~InjectionResult() = default;
-InjectionResult::InjectionResult(InjectionResult&& rhs) = default;
-InjectionResult& InjectionResult::operator=(InjectionResult&& rhs) = default;
+InjectionResult::InjectionResult(InjectionResult&& rhs) noexcept = default;
+InjectionResult& InjectionResult::operator=(InjectionResult&& rhs) noexcept = default;
 InjectionResult InjectionResult::Clone() const {
   InjectionResult out;
   if (result) {
@@ -626,34 +588,21 @@ bool InjectionResult::Populate(
 }
 
 // static
-std::unique_ptr<InjectionResult> InjectionResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InjectionResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InjectionResult> InjectionResult::FromValue(const base::Value::Dict& value) {
+  InjectionResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InjectionResult> InjectionResult::FromValue(const base::Value::Dict& value) {
+std::optional<InjectionResult> InjectionResult::FromValue(const base::Value& value) {
   InjectionResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InjectionResult> InjectionResult::FromValue(const base::Value& value) {
-  InjectionResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -679,8 +628,8 @@ RegisteredContentScript::RegisteredContentScript()
 world() {}
 
 RegisteredContentScript::~RegisteredContentScript() = default;
-RegisteredContentScript::RegisteredContentScript(RegisteredContentScript&& rhs) = default;
-RegisteredContentScript& RegisteredContentScript::operator=(RegisteredContentScript&& rhs) = default;
+RegisteredContentScript::RegisteredContentScript(RegisteredContentScript&& rhs) noexcept = default;
+RegisteredContentScript& RegisteredContentScript::operator=(RegisteredContentScript&& rhs) noexcept = default;
 RegisteredContentScript RegisteredContentScript::Clone() const {
   RegisteredContentScript out;
   out.id = id;
@@ -774,7 +723,7 @@ bool RegisteredContentScript::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -786,7 +735,7 @@ bool RegisteredContentScript::Populate(
     {
       auto temp = (*match_origin_as_fallback_value).GetIfBool();
       if (!temp.has_value()) {
-        out.match_origin_as_fallback = absl::nullopt;
+        out.match_origin_as_fallback = std::nullopt;
         return false;
       }
       out.match_origin_as_fallback = *temp;
@@ -814,7 +763,7 @@ bool RegisteredContentScript::Populate(
     {
       auto temp = (*persist_across_sessions_value).GetIfBool();
       if (!temp.has_value()) {
-        out.persist_across_sessions = absl::nullopt;
+        out.persist_across_sessions = std::nullopt;
         return false;
       }
       out.persist_across_sessions = *temp;
@@ -850,34 +799,21 @@ bool RegisteredContentScript::Populate(
 }
 
 // static
-std::unique_ptr<RegisteredContentScript> RegisteredContentScript::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RegisteredContentScript>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RegisteredContentScript> RegisteredContentScript::FromValue(const base::Value::Dict& value) {
+  RegisteredContentScript out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RegisteredContentScript> RegisteredContentScript::FromValue(const base::Value::Dict& value) {
+std::optional<RegisteredContentScript> RegisteredContentScript::FromValue(const base::Value& value) {
   RegisteredContentScript out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RegisteredContentScript> RegisteredContentScript::FromValue(const base::Value& value) {
-  RegisteredContentScript out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -932,8 +868,8 @@ ContentScriptFilter::ContentScriptFilter()
  {}
 
 ContentScriptFilter::~ContentScriptFilter() = default;
-ContentScriptFilter::ContentScriptFilter(ContentScriptFilter&& rhs) = default;
-ContentScriptFilter& ContentScriptFilter::operator=(ContentScriptFilter&& rhs) = default;
+ContentScriptFilter::ContentScriptFilter(ContentScriptFilter&& rhs) noexcept = default;
+ContentScriptFilter& ContentScriptFilter::operator=(ContentScriptFilter&& rhs) noexcept = default;
 ContentScriptFilter ContentScriptFilter::Clone() const {
   ContentScriptFilter out;
   out.ids = ids;
@@ -970,34 +906,21 @@ bool ContentScriptFilter::Populate(
 }
 
 // static
-std::unique_ptr<ContentScriptFilter> ContentScriptFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ContentScriptFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ContentScriptFilter> ContentScriptFilter::FromValue(const base::Value::Dict& value) {
+  ContentScriptFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ContentScriptFilter> ContentScriptFilter::FromValue(const base::Value::Dict& value) {
+std::optional<ContentScriptFilter> ContentScriptFilter::FromValue(const base::Value& value) {
   ContentScriptFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ContentScriptFilter> ContentScriptFilter::FromValue(const base::Value& value) {
-  ContentScriptFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1023,13 +946,13 @@ namespace ExecuteScript {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1038,15 +961,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& injection_value = args[0];
     {
       if (!injection_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ScriptInjection::Populate(injection_value.GetDict(), params.injection)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1066,13 +989,13 @@ namespace InsertCSS {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1081,15 +1004,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& injection_value = args[0];
     {
       if (!injection_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CSSInjection::Populate(injection_value.GetDict(), params.injection)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1107,13 +1030,13 @@ namespace RemoveCSS {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1122,15 +1045,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& injection_value = args[0];
     {
       if (!injection_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CSSInjection::Populate(injection_value.GetDict(), params.injection)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1148,13 +1071,13 @@ namespace RegisterContentScripts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1163,17 +1086,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& scripts_value = args[0];
     {
       if (!scripts_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(scripts_value.GetList(), params.scripts)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1191,13 +1114,13 @@ namespace GetRegisteredContentScripts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1206,12 +1129,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ContentScriptFilter temp;
         if (!ContentScriptFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -1234,13 +1157,13 @@ namespace UnregisterContentScripts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1249,12 +1172,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ContentScriptFilter temp;
         if (!ContentScriptFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -1275,13 +1198,13 @@ namespace UpdateContentScripts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1290,17 +1213,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& scripts_value = args[0];
     {
       if (!scripts_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(scripts_value.GetList(), params.scripts)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

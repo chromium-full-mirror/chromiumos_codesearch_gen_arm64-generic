@@ -4,10 +4,10 @@ export function getTemplate() {
 
 <settings-card header-text="[[getHeaderText_()]]">
   <template is="dom-if" if="[[shouldShowStorageRow_]]">
-    <cr-link-row id="storageRow" label="$i18n{storageTitle}" on-click="showStorageSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="storageRow" start-icon="[[rowIcons_.storage]]" label="$i18n{storageTitle}" on-click="showStorageSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
-  <cr-link-row id="powerRow" class="hr" label="$i18n{powerTitle}" on-click="showPowerSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
+  <cr-link-row id="powerRow" start-icon="[[rowIcons_.power]]" class="hr" label="$i18n{powerTitle}" on-click="showPowerSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
   </cr-link-row>
 </settings-card>
 <!--_html_template_end_-->`;

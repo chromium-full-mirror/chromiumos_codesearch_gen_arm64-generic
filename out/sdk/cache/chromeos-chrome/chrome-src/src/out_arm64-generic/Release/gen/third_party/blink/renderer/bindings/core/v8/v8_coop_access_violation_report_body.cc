@@ -66,11 +66,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CoopAccessViolationReportBody>::value,
     "CoopAccessViolationReportBody inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CoopAccessViolationReportBody::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CoopAccessViolationReportBody is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -83,10 +78,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.sourceFile.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sourceFile();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sourceFile();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -98,8 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.lineNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -112,8 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.columnNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->columnNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -126,10 +123,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -141,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.property.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->property();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->property();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -156,10 +153,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.openeeURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->openeeURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->openeeURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -171,10 +168,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.openerURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->openerURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->openerURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -186,10 +183,10 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.otherDocumentURL.get")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->otherDocumentURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->otherDocumentURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -205,8 +202,9 @@ BLINK_BINDINGS_TRACE_EVENT("CoopAccessViolationReportBody.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CoopAccessViolationReportBody* blink_receiver = V8CoopAccessViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

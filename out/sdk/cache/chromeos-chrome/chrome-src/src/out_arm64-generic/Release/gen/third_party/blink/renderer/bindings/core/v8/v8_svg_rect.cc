@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGRectTearOff>::value,
     "SVGRectTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGRectTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGRectTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -97,9 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.x.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGRect";
@@ -123,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -136,9 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.y.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGRect";
@@ -162,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -175,9 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.width.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGRect";
@@ -201,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -214,9 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGRect.height.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGRectTearOff* blink_receiver = V8SVGRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGRect";

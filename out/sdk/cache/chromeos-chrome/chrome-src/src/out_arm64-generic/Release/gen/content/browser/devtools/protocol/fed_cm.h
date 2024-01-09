@@ -17,6 +17,7 @@ namespace protocol {
 namespace FedCm {
 using LoginState = String;
 using DialogType = String;
+using DialogButton = String;
 class Account;
 
 // ------------- Forward and enum declarations.
@@ -30,7 +31,14 @@ namespace DialogTypeEnum {
 CONTENT_EXPORT extern const char AccountChooser[];
 CONTENT_EXPORT extern const char AutoReauthn[];
 CONTENT_EXPORT extern const char ConfirmIdpLogin[];
+CONTENT_EXPORT extern const char Error[];
 } // namespace DialogTypeEnum
+
+namespace DialogButtonEnum {
+CONTENT_EXPORT extern const char ConfirmIdpLoginContinue[];
+CONTENT_EXPORT extern const char ErrorGotIt[];
+CONTENT_EXPORT extern const char ErrorMoreDetails[];
+} // namespace DialogButtonEnum
 
 // ------------- Type and builder declarations.
 
@@ -210,7 +218,7 @@ public:
     virtual DispatchResponse Enable(Maybe<bool> in_disableRejectionDelay) = 0;
     virtual DispatchResponse Disable() = 0;
     virtual DispatchResponse SelectAccount(const String& in_dialogId, int in_accountIndex) = 0;
-    virtual DispatchResponse ConfirmIdpLogin(const String& in_dialogId) = 0;
+    virtual DispatchResponse ClickDialogButton(const String& in_dialogId, const String& in_dialogButton) = 0;
     virtual DispatchResponse DismissDialog(const String& in_dialogId, Maybe<bool> in_triggerCooldown) = 0;
     virtual DispatchResponse ResetCooldown() = 0;
 
@@ -222,6 +230,7 @@ class CONTENT_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
     void DialogShown(const String& dialogId, const String& dialogType, std::unique_ptr<protocol::Array<protocol::FedCm::Account>> accounts, const String& title, Maybe<String> subtitle = Maybe<String>());
+    void DialogClosed(const String& dialogId);
 
   void flush();
   void sendRawNotification(std::unique_ptr<Serializable>);

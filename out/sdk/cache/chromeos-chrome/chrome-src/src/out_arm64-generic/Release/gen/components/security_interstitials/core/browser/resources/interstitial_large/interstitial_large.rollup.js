@@ -208,9 +208,7 @@ function assert(value, message) {
  * change if the page is re-opened later.
  */
 class LoadTimeData {
-    constructor() {
-        this.data_ = null;
-    }
+    data_ = null;
     /**
      * Sets the backing object.
      *

@@ -4,70 +4,97 @@
 #include "user_charging_event.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace power_manager {
+template <typename>
 PROTOBUF_CONSTEXPR UserChargingEvent_Features::UserChargingEvent_Features(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.battery_percentage_)*/0
-  , /*decltype(_impl_.time_since_last_charge_minutes_)*/0
-  , /*decltype(_impl_.duration_of_last_charge_minutes_)*/0
-  , /*decltype(_impl_.battery_percentage_of_last_charge_)*/0
-  , /*decltype(_impl_.battery_percentage_before_last_charge_)*/0
-  , /*decltype(_impl_.time_of_the_day_minutes_)*/0
-  , /*decltype(_impl_.day_of_week_)*/0
-  , /*decltype(_impl_.day_of_month_)*/0
-  , /*decltype(_impl_.timezone_difference_from_last_charge_hours_)*/0
-  , /*decltype(_impl_.device_type_)*/0
-  , /*decltype(_impl_.device_mode_)*/0
-  , /*decltype(_impl_.num_recent_key_events_)*/0
-  , /*decltype(_impl_.num_recent_mouse_events_)*/0
-  , /*decltype(_impl_.num_recent_touch_events_)*/0
-  , /*decltype(_impl_.num_recent_stylus_events_)*/0
-  , /*decltype(_impl_.duration_recent_video_playing_minutes_)*/0
-  , /*decltype(_impl_.duration_recent_audio_playing_minutes_)*/0
-  , /*decltype(_impl_.screen_brightness_percent_)*/0
-  , /*decltype(_impl_.voltage_mv_)*/0
-  , /*decltype(_impl_.halt_from_last_charge_)*/false
-  , /*decltype(_impl_.is_charging_)*/false
-  , /*decltype(_impl_.month_)*/1} {}
+  , /*decltype(_impl_.battery_percentage_)*/ 0
+
+  , /*decltype(_impl_.time_since_last_charge_minutes_)*/ 0
+
+  , /*decltype(_impl_.duration_of_last_charge_minutes_)*/ 0
+
+  , /*decltype(_impl_.battery_percentage_of_last_charge_)*/ 0
+
+  , /*decltype(_impl_.battery_percentage_before_last_charge_)*/ 0
+
+  , /*decltype(_impl_.time_of_the_day_minutes_)*/ 0
+
+  , /*decltype(_impl_.day_of_week_)*/ 0
+
+  , /*decltype(_impl_.day_of_month_)*/ 0
+
+  , /*decltype(_impl_.timezone_difference_from_last_charge_hours_)*/ 0
+
+  , /*decltype(_impl_.device_type_)*/ 0
+
+  , /*decltype(_impl_.device_mode_)*/ 0
+
+  , /*decltype(_impl_.num_recent_key_events_)*/ 0
+
+  , /*decltype(_impl_.num_recent_mouse_events_)*/ 0
+
+  , /*decltype(_impl_.num_recent_touch_events_)*/ 0
+
+  , /*decltype(_impl_.num_recent_stylus_events_)*/ 0
+
+  , /*decltype(_impl_.duration_recent_video_playing_minutes_)*/ 0
+
+  , /*decltype(_impl_.duration_recent_audio_playing_minutes_)*/ 0
+
+  , /*decltype(_impl_.screen_brightness_percent_)*/ 0
+
+  , /*decltype(_impl_.voltage_mv_)*/ 0
+
+  , /*decltype(_impl_.halt_from_last_charge_)*/ false
+
+  , /*decltype(_impl_.is_charging_)*/ false
+
+  , /*decltype(_impl_.month_)*/ 1
+} {}
 struct UserChargingEvent_FeaturesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserChargingEvent_FeaturesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserChargingEvent_FeaturesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserChargingEvent_FeaturesDefaultTypeInternal() {}
   union {
     UserChargingEvent_Features _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEvent_FeaturesDefaultTypeInternal _UserChargingEvent_Features_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEvent_FeaturesDefaultTypeInternal _UserChargingEvent_Features_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UserChargingEvent_Event::UserChargingEvent_Event(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.event_id_)*/0
-  , /*decltype(_impl_.reason_)*/1} {}
+  , /*decltype(_impl_.event_id_)*/ 0
+
+  , /*decltype(_impl_.reason_)*/ 1
+} {}
 struct UserChargingEvent_EventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserChargingEvent_EventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserChargingEvent_EventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserChargingEvent_EventDefaultTypeInternal() {}
   union {
     UserChargingEvent_Event _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEvent_EventDefaultTypeInternal _UserChargingEvent_Event_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEvent_EventDefaultTypeInternal _UserChargingEvent_Event_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UserChargingEvent::UserChargingEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -75,44 +102,53 @@ PROTOBUF_CONSTEXPR UserChargingEvent::UserChargingEvent(
   , /*decltype(_impl_.features_)*/nullptr
   , /*decltype(_impl_.event_)*/nullptr} {}
 struct UserChargingEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserChargingEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserChargingEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserChargingEventDefaultTypeInternal() {}
   union {
     UserChargingEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEventDefaultTypeInternal _UserChargingEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserChargingEventDefaultTypeInternal _UserChargingEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PastChargingEvents_Event::PastChargingEvents_Event(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.time_)*/0
-  , /*decltype(_impl_.battery_percent_)*/0
-  , /*decltype(_impl_.timezone_)*/0
-  , /*decltype(_impl_.reason_)*/1} {}
+  , /*decltype(_impl_.time_)*/ 0
+
+  , /*decltype(_impl_.battery_percent_)*/ 0
+
+  , /*decltype(_impl_.timezone_)*/ 0
+
+  , /*decltype(_impl_.reason_)*/ 1
+} {}
 struct PastChargingEvents_EventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PastChargingEvents_EventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PastChargingEvents_EventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PastChargingEvents_EventDefaultTypeInternal() {}
   union {
     PastChargingEvents_Event _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PastChargingEvents_EventDefaultTypeInternal _PastChargingEvents_Event_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PastChargingEvents_EventDefaultTypeInternal _PastChargingEvents_Event_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PastChargingEvents::PastChargingEvents(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.events_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PastChargingEventsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PastChargingEventsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PastChargingEventsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PastChargingEventsDefaultTypeInternal() {}
   union {
     PastChargingEvents _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PastChargingEventsDefaultTypeInternal _PastChargingEvents_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PastChargingEventsDefaultTypeInternal _PastChargingEvents_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool UserChargingEvent_Features_DayOfWeek_IsValid(int value) {
@@ -129,55 +165,55 @@ bool UserChargingEvent_Features_DayOfWeek_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    UserChargingEvent_Features_DayOfWeek_strings[7] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserChargingEvent_Features_DayOfWeek_strings[7] = {};
+static const char UserChargingEvent_Features_DayOfWeek_names[] = {
+    "FRI"
+    "MON"
+    "SAT"
+    "SUN"
+    "THU"
+    "TUE"
+    "WED"
+};
 
-static const char UserChargingEvent_Features_DayOfWeek_names[] =
-  "FRI"
-  "MON"
-  "SAT"
-  "SUN"
-  "THU"
-  "TUE"
-  "WED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DayOfWeek_entries[] = {
-  { {UserChargingEvent_Features_DayOfWeek_names + 0, 3}, 5 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 3, 3}, 1 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 6, 3}, 6 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 9, 3}, 0 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 12, 3}, 4 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 15, 3}, 2 },
-  { {UserChargingEvent_Features_DayOfWeek_names + 18, 3}, 3 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DayOfWeek_entries[] =
+    {
+        {{&UserChargingEvent_Features_DayOfWeek_names[0], 3}, 5},
+        {{&UserChargingEvent_Features_DayOfWeek_names[3], 3}, 1},
+        {{&UserChargingEvent_Features_DayOfWeek_names[6], 3}, 6},
+        {{&UserChargingEvent_Features_DayOfWeek_names[9], 3}, 0},
+        {{&UserChargingEvent_Features_DayOfWeek_names[12], 3}, 4},
+        {{&UserChargingEvent_Features_DayOfWeek_names[15], 3}, 2},
+        {{&UserChargingEvent_Features_DayOfWeek_names[18], 3}, 3},
 };
 
 static const int UserChargingEvent_Features_DayOfWeek_entries_by_number[] = {
-  3, // 0 -> SUN
-  1, // 1 -> MON
-  5, // 2 -> TUE
-  6, // 3 -> WED
-  4, // 4 -> THU
-  0, // 5 -> FRI
-  2, // 6 -> SAT
+    3,  // 0 -> SUN
+    1,  // 1 -> MON
+    5,  // 2 -> TUE
+    6,  // 3 -> WED
+    4,  // 4 -> THU
+    0,  // 5 -> FRI
+    2,  // 6 -> SAT
 };
 
-const std::string& UserChargingEvent_Features_DayOfWeek_Name(
-    UserChargingEvent_Features_DayOfWeek value) {
-  static const bool dummy =
+const std::string& UserChargingEvent_Features_DayOfWeek_Name(UserChargingEvent_Features_DayOfWeek value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          UserChargingEvent_Features_DayOfWeek_entries,
-          UserChargingEvent_Features_DayOfWeek_entries_by_number,
+          UserChargingEvent_Features_DayOfWeek_entries, UserChargingEvent_Features_DayOfWeek_entries_by_number,
           7, UserChargingEvent_Features_DayOfWeek_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      UserChargingEvent_Features_DayOfWeek_entries,
-      UserChargingEvent_Features_DayOfWeek_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     UserChargingEvent_Features_DayOfWeek_strings[idx].get();
+      UserChargingEvent_Features_DayOfWeek_entries, UserChargingEvent_Features_DayOfWeek_entries_by_number, 7,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : UserChargingEvent_Features_DayOfWeek_strings[idx].get();
 }
-bool UserChargingEvent_Features_DayOfWeek_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Features_DayOfWeek* value) {
+
+bool UserChargingEvent_Features_DayOfWeek_Parse(absl::string_view name, UserChargingEvent_Features_DayOfWeek* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UserChargingEvent_Features_DayOfWeek_entries, 7, name, &int_value);
@@ -186,7 +222,9 @@ bool UserChargingEvent_Features_DayOfWeek_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::SUN;
 constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::MON;
 constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::TUE;
@@ -197,7 +235,9 @@ constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::SAT;
 constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::DayOfWeek_MIN;
 constexpr UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::DayOfWeek_MAX;
 constexpr int UserChargingEvent_Features::DayOfWeek_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool UserChargingEvent_Features_Month_IsValid(int value) {
   switch (value) {
     case 1:
@@ -217,70 +257,70 @@ bool UserChargingEvent_Features_Month_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    UserChargingEvent_Features_Month_strings[12] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserChargingEvent_Features_Month_strings[12] = {};
+static const char UserChargingEvent_Features_Month_names[] = {
+    "APR"
+    "AUG"
+    "DEC"
+    "FEB"
+    "JAN"
+    "JUL"
+    "JUN"
+    "MAR"
+    "MAY"
+    "NOV"
+    "OCT"
+    "SEP"
+};
 
-static const char UserChargingEvent_Features_Month_names[] =
-  "APR"
-  "AUG"
-  "DEC"
-  "FEB"
-  "JAN"
-  "JUL"
-  "JUN"
-  "MAR"
-  "MAY"
-  "NOV"
-  "OCT"
-  "SEP";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_Month_entries[] = {
-  { {UserChargingEvent_Features_Month_names + 0, 3}, 4 },
-  { {UserChargingEvent_Features_Month_names + 3, 3}, 8 },
-  { {UserChargingEvent_Features_Month_names + 6, 3}, 12 },
-  { {UserChargingEvent_Features_Month_names + 9, 3}, 2 },
-  { {UserChargingEvent_Features_Month_names + 12, 3}, 1 },
-  { {UserChargingEvent_Features_Month_names + 15, 3}, 7 },
-  { {UserChargingEvent_Features_Month_names + 18, 3}, 6 },
-  { {UserChargingEvent_Features_Month_names + 21, 3}, 3 },
-  { {UserChargingEvent_Features_Month_names + 24, 3}, 5 },
-  { {UserChargingEvent_Features_Month_names + 27, 3}, 11 },
-  { {UserChargingEvent_Features_Month_names + 30, 3}, 10 },
-  { {UserChargingEvent_Features_Month_names + 33, 3}, 9 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_Month_entries[] =
+    {
+        {{&UserChargingEvent_Features_Month_names[0], 3}, 4},
+        {{&UserChargingEvent_Features_Month_names[3], 3}, 8},
+        {{&UserChargingEvent_Features_Month_names[6], 3}, 12},
+        {{&UserChargingEvent_Features_Month_names[9], 3}, 2},
+        {{&UserChargingEvent_Features_Month_names[12], 3}, 1},
+        {{&UserChargingEvent_Features_Month_names[15], 3}, 7},
+        {{&UserChargingEvent_Features_Month_names[18], 3}, 6},
+        {{&UserChargingEvent_Features_Month_names[21], 3}, 3},
+        {{&UserChargingEvent_Features_Month_names[24], 3}, 5},
+        {{&UserChargingEvent_Features_Month_names[27], 3}, 11},
+        {{&UserChargingEvent_Features_Month_names[30], 3}, 10},
+        {{&UserChargingEvent_Features_Month_names[33], 3}, 9},
 };
 
 static const int UserChargingEvent_Features_Month_entries_by_number[] = {
-  4, // 1 -> JAN
-  3, // 2 -> FEB
-  7, // 3 -> MAR
-  0, // 4 -> APR
-  8, // 5 -> MAY
-  6, // 6 -> JUN
-  5, // 7 -> JUL
-  1, // 8 -> AUG
-  11, // 9 -> SEP
-  10, // 10 -> OCT
-  9, // 11 -> NOV
-  2, // 12 -> DEC
+    4,  // 1 -> JAN
+    3,  // 2 -> FEB
+    7,  // 3 -> MAR
+    0,  // 4 -> APR
+    8,  // 5 -> MAY
+    6,  // 6 -> JUN
+    5,  // 7 -> JUL
+    1,  // 8 -> AUG
+    11,  // 9 -> SEP
+    10,  // 10 -> OCT
+    9,  // 11 -> NOV
+    2,  // 12 -> DEC
 };
 
-const std::string& UserChargingEvent_Features_Month_Name(
-    UserChargingEvent_Features_Month value) {
-  static const bool dummy =
+const std::string& UserChargingEvent_Features_Month_Name(UserChargingEvent_Features_Month value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          UserChargingEvent_Features_Month_entries,
-          UserChargingEvent_Features_Month_entries_by_number,
+          UserChargingEvent_Features_Month_entries, UserChargingEvent_Features_Month_entries_by_number,
           12, UserChargingEvent_Features_Month_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      UserChargingEvent_Features_Month_entries,
-      UserChargingEvent_Features_Month_entries_by_number,
-      12, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     UserChargingEvent_Features_Month_strings[idx].get();
+      UserChargingEvent_Features_Month_entries, UserChargingEvent_Features_Month_entries_by_number, 12,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : UserChargingEvent_Features_Month_strings[idx].get();
 }
-bool UserChargingEvent_Features_Month_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Features_Month* value) {
+
+bool UserChargingEvent_Features_Month_Parse(absl::string_view name, UserChargingEvent_Features_Month* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UserChargingEvent_Features_Month_entries, 12, name, &int_value);
@@ -289,7 +329,9 @@ bool UserChargingEvent_Features_Month_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::JAN;
 constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::FEB;
 constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::MAR;
@@ -305,7 +347,9 @@ constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::DEC;
 constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::Month_MIN;
 constexpr UserChargingEvent_Features_Month UserChargingEvent_Features::Month_MAX;
 constexpr int UserChargingEvent_Features::Month_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool UserChargingEvent_Features_DeviceType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -319,52 +363,52 @@ bool UserChargingEvent_Features_DeviceType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    UserChargingEvent_Features_DeviceType_strings[6] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserChargingEvent_Features_DeviceType_strings[6] = {};
+static const char UserChargingEvent_Features_DeviceType_names[] = {
+    "CLAMSHELL"
+    "CONVERTIBLE"
+    "DETACHABLE"
+    "OTHER"
+    "TABLET"
+    "UNKNOWN"
+};
 
-static const char UserChargingEvent_Features_DeviceType_names[] =
-  "CLAMSHELL"
-  "CONVERTIBLE"
-  "DETACHABLE"
-  "OTHER"
-  "TABLET"
-  "UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DeviceType_entries[] = {
-  { {UserChargingEvent_Features_DeviceType_names + 0, 9}, 1 },
-  { {UserChargingEvent_Features_DeviceType_names + 9, 11}, 2 },
-  { {UserChargingEvent_Features_DeviceType_names + 20, 10}, 3 },
-  { {UserChargingEvent_Features_DeviceType_names + 30, 5}, 5 },
-  { {UserChargingEvent_Features_DeviceType_names + 35, 6}, 4 },
-  { {UserChargingEvent_Features_DeviceType_names + 41, 7}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DeviceType_entries[] =
+    {
+        {{&UserChargingEvent_Features_DeviceType_names[0], 9}, 1},
+        {{&UserChargingEvent_Features_DeviceType_names[9], 11}, 2},
+        {{&UserChargingEvent_Features_DeviceType_names[20], 10}, 3},
+        {{&UserChargingEvent_Features_DeviceType_names[30], 5}, 5},
+        {{&UserChargingEvent_Features_DeviceType_names[35], 6}, 4},
+        {{&UserChargingEvent_Features_DeviceType_names[41], 7}, 0},
 };
 
 static const int UserChargingEvent_Features_DeviceType_entries_by_number[] = {
-  5, // 0 -> UNKNOWN
-  0, // 1 -> CLAMSHELL
-  1, // 2 -> CONVERTIBLE
-  2, // 3 -> DETACHABLE
-  4, // 4 -> TABLET
-  3, // 5 -> OTHER
+    5,  // 0 -> UNKNOWN
+    0,  // 1 -> CLAMSHELL
+    1,  // 2 -> CONVERTIBLE
+    2,  // 3 -> DETACHABLE
+    4,  // 4 -> TABLET
+    3,  // 5 -> OTHER
 };
 
-const std::string& UserChargingEvent_Features_DeviceType_Name(
-    UserChargingEvent_Features_DeviceType value) {
-  static const bool dummy =
+const std::string& UserChargingEvent_Features_DeviceType_Name(UserChargingEvent_Features_DeviceType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          UserChargingEvent_Features_DeviceType_entries,
-          UserChargingEvent_Features_DeviceType_entries_by_number,
+          UserChargingEvent_Features_DeviceType_entries, UserChargingEvent_Features_DeviceType_entries_by_number,
           6, UserChargingEvent_Features_DeviceType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      UserChargingEvent_Features_DeviceType_entries,
-      UserChargingEvent_Features_DeviceType_entries_by_number,
-      6, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     UserChargingEvent_Features_DeviceType_strings[idx].get();
+      UserChargingEvent_Features_DeviceType_entries, UserChargingEvent_Features_DeviceType_entries_by_number, 6,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : UserChargingEvent_Features_DeviceType_strings[idx].get();
 }
-bool UserChargingEvent_Features_DeviceType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Features_DeviceType* value) {
+
+bool UserChargingEvent_Features_DeviceType_Parse(absl::string_view name, UserChargingEvent_Features_DeviceType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UserChargingEvent_Features_DeviceType_entries, 6, name, &int_value);
@@ -373,7 +417,9 @@ bool UserChargingEvent_Features_DeviceType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::UNKNOWN;
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::CLAMSHELL;
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::CONVERTIBLE;
@@ -383,7 +429,9 @@ constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::OTHE
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::DeviceType_MIN;
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features::DeviceType_MAX;
 constexpr int UserChargingEvent_Features::DeviceType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool UserChargingEvent_Features_DeviceMode_IsValid(int value) {
   switch (value) {
     case 0:
@@ -395,46 +443,46 @@ bool UserChargingEvent_Features_DeviceMode_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    UserChargingEvent_Features_DeviceMode_strings[4] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserChargingEvent_Features_DeviceMode_strings[4] = {};
+static const char UserChargingEvent_Features_DeviceMode_names[] = {
+    "CLOSED_LID_MODE"
+    "LAPTOP_MODE"
+    "TABLET_MODE"
+    "UNKNOWN_MODE"
+};
 
-static const char UserChargingEvent_Features_DeviceMode_names[] =
-  "CLOSED_LID_MODE"
-  "LAPTOP_MODE"
-  "TABLET_MODE"
-  "UNKNOWN_MODE";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DeviceMode_entries[] = {
-  { {UserChargingEvent_Features_DeviceMode_names + 0, 15}, 1 },
-  { {UserChargingEvent_Features_DeviceMode_names + 15, 11}, 2 },
-  { {UserChargingEvent_Features_DeviceMode_names + 26, 11}, 3 },
-  { {UserChargingEvent_Features_DeviceMode_names + 37, 12}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Features_DeviceMode_entries[] =
+    {
+        {{&UserChargingEvent_Features_DeviceMode_names[0], 15}, 1},
+        {{&UserChargingEvent_Features_DeviceMode_names[15], 11}, 2},
+        {{&UserChargingEvent_Features_DeviceMode_names[26], 11}, 3},
+        {{&UserChargingEvent_Features_DeviceMode_names[37], 12}, 0},
 };
 
 static const int UserChargingEvent_Features_DeviceMode_entries_by_number[] = {
-  3, // 0 -> UNKNOWN_MODE
-  0, // 1 -> CLOSED_LID_MODE
-  1, // 2 -> LAPTOP_MODE
-  2, // 3 -> TABLET_MODE
+    3,  // 0 -> UNKNOWN_MODE
+    0,  // 1 -> CLOSED_LID_MODE
+    1,  // 2 -> LAPTOP_MODE
+    2,  // 3 -> TABLET_MODE
 };
 
-const std::string& UserChargingEvent_Features_DeviceMode_Name(
-    UserChargingEvent_Features_DeviceMode value) {
-  static const bool dummy =
+const std::string& UserChargingEvent_Features_DeviceMode_Name(UserChargingEvent_Features_DeviceMode value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          UserChargingEvent_Features_DeviceMode_entries,
-          UserChargingEvent_Features_DeviceMode_entries_by_number,
+          UserChargingEvent_Features_DeviceMode_entries, UserChargingEvent_Features_DeviceMode_entries_by_number,
           4, UserChargingEvent_Features_DeviceMode_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      UserChargingEvent_Features_DeviceMode_entries,
-      UserChargingEvent_Features_DeviceMode_entries_by_number,
-      4, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     UserChargingEvent_Features_DeviceMode_strings[idx].get();
+      UserChargingEvent_Features_DeviceMode_entries, UserChargingEvent_Features_DeviceMode_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : UserChargingEvent_Features_DeviceMode_strings[idx].get();
 }
-bool UserChargingEvent_Features_DeviceMode_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Features_DeviceMode* value) {
+
+bool UserChargingEvent_Features_DeviceMode_Parse(absl::string_view name, UserChargingEvent_Features_DeviceMode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UserChargingEvent_Features_DeviceMode_entries, 4, name, &int_value);
@@ -443,7 +491,9 @@ bool UserChargingEvent_Features_DeviceMode_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::UNKNOWN_MODE;
 constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::CLOSED_LID_MODE;
 constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::LAPTOP_MODE;
@@ -451,7 +501,9 @@ constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::TABL
 constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::DeviceMode_MIN;
 constexpr UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::DeviceMode_MAX;
 constexpr int UserChargingEvent_Features::DeviceMode_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool UserChargingEvent_Event_Reason_IsValid(int value) {
   switch (value) {
     case 1:
@@ -464,49 +516,49 @@ bool UserChargingEvent_Event_Reason_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    UserChargingEvent_Event_Reason_strings[5] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserChargingEvent_Event_Reason_strings[5] = {};
+static const char UserChargingEvent_Event_Reason_names[] = {
+    "CHARGER_PLUGGED_IN"
+    "CHARGER_UNPLUGGED"
+    "PERIODIC_LOG"
+    "SHUTDOWN"
+    "SUSPEND"
+};
 
-static const char UserChargingEvent_Event_Reason_names[] =
-  "CHARGER_PLUGGED_IN"
-  "CHARGER_UNPLUGGED"
-  "PERIODIC_LOG"
-  "SHUTDOWN"
-  "SUSPEND";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Event_Reason_entries[] = {
-  { {UserChargingEvent_Event_Reason_names + 0, 18}, 1 },
-  { {UserChargingEvent_Event_Reason_names + 18, 17}, 2 },
-  { {UserChargingEvent_Event_Reason_names + 35, 12}, 3 },
-  { {UserChargingEvent_Event_Reason_names + 47, 8}, 4 },
-  { {UserChargingEvent_Event_Reason_names + 55, 7}, 5 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserChargingEvent_Event_Reason_entries[] =
+    {
+        {{&UserChargingEvent_Event_Reason_names[0], 18}, 1},
+        {{&UserChargingEvent_Event_Reason_names[18], 17}, 2},
+        {{&UserChargingEvent_Event_Reason_names[35], 12}, 3},
+        {{&UserChargingEvent_Event_Reason_names[47], 8}, 4},
+        {{&UserChargingEvent_Event_Reason_names[55], 7}, 5},
 };
 
 static const int UserChargingEvent_Event_Reason_entries_by_number[] = {
-  0, // 1 -> CHARGER_PLUGGED_IN
-  1, // 2 -> CHARGER_UNPLUGGED
-  2, // 3 -> PERIODIC_LOG
-  3, // 4 -> SHUTDOWN
-  4, // 5 -> SUSPEND
+    0,  // 1 -> CHARGER_PLUGGED_IN
+    1,  // 2 -> CHARGER_UNPLUGGED
+    2,  // 3 -> PERIODIC_LOG
+    3,  // 4 -> SHUTDOWN
+    4,  // 5 -> SUSPEND
 };
 
-const std::string& UserChargingEvent_Event_Reason_Name(
-    UserChargingEvent_Event_Reason value) {
-  static const bool dummy =
+const std::string& UserChargingEvent_Event_Reason_Name(UserChargingEvent_Event_Reason value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          UserChargingEvent_Event_Reason_entries,
-          UserChargingEvent_Event_Reason_entries_by_number,
+          UserChargingEvent_Event_Reason_entries, UserChargingEvent_Event_Reason_entries_by_number,
           5, UserChargingEvent_Event_Reason_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      UserChargingEvent_Event_Reason_entries,
-      UserChargingEvent_Event_Reason_entries_by_number,
-      5, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     UserChargingEvent_Event_Reason_strings[idx].get();
+      UserChargingEvent_Event_Reason_entries, UserChargingEvent_Event_Reason_entries_by_number, 5,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : UserChargingEvent_Event_Reason_strings[idx].get();
 }
-bool UserChargingEvent_Event_Reason_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Event_Reason* value) {
+
+bool UserChargingEvent_Event_Reason_Parse(absl::string_view name, UserChargingEvent_Event_Reason* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UserChargingEvent_Event_Reason_entries, 5, name, &int_value);
@@ -515,7 +567,9 @@ bool UserChargingEvent_Event_Reason_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::CHARGER_PLUGGED_IN;
 constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::CHARGER_UNPLUGGED;
 constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::PERIODIC_LOG;
@@ -524,13 +578,16 @@ constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::SUSPEND;
 constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::Reason_MIN;
 constexpr UserChargingEvent_Event_Reason UserChargingEvent_Event::Reason_MAX;
 constexpr int UserChargingEvent_Event::Reason_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class UserChargingEvent_Features::_Internal {
  public:
   using HasBits = decltype(std::declval<UserChargingEvent_Features>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserChargingEvent_Features, _impl_._has_bits_);
   static void set_has_battery_percentage(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -599,77 +656,67 @@ class UserChargingEvent_Features::_Internal {
   }
 };
 
-UserChargingEvent_Features::UserChargingEvent_Features(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserChargingEvent_Features::UserChargingEvent_Features(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.UserChargingEvent.Features)
 }
 UserChargingEvent_Features::UserChargingEvent_Features(const UserChargingEvent_Features& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  UserChargingEvent_Features* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.battery_percentage_){}
-    , decltype(_impl_.time_since_last_charge_minutes_){}
-    , decltype(_impl_.duration_of_last_charge_minutes_){}
-    , decltype(_impl_.battery_percentage_of_last_charge_){}
-    , decltype(_impl_.battery_percentage_before_last_charge_){}
-    , decltype(_impl_.time_of_the_day_minutes_){}
-    , decltype(_impl_.day_of_week_){}
-    , decltype(_impl_.day_of_month_){}
-    , decltype(_impl_.timezone_difference_from_last_charge_hours_){}
-    , decltype(_impl_.device_type_){}
-    , decltype(_impl_.device_mode_){}
-    , decltype(_impl_.num_recent_key_events_){}
-    , decltype(_impl_.num_recent_mouse_events_){}
-    , decltype(_impl_.num_recent_touch_events_){}
-    , decltype(_impl_.num_recent_stylus_events_){}
-    , decltype(_impl_.duration_recent_video_playing_minutes_){}
-    , decltype(_impl_.duration_recent_audio_playing_minutes_){}
-    , decltype(_impl_.screen_brightness_percent_){}
-    , decltype(_impl_.voltage_mv_){}
-    , decltype(_impl_.halt_from_last_charge_){}
-    , decltype(_impl_.is_charging_){}
-    , decltype(_impl_.month_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.battery_percentage_, &from._impl_.battery_percentage_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.month_) -
-    reinterpret_cast<char*>(&_impl_.battery_percentage_)) + sizeof(_impl_.month_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.UserChargingEvent.Features)
 }
 
-inline void UserChargingEvent_Features::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserChargingEvent_Features::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.battery_percentage_){0}
-    , decltype(_impl_.time_since_last_charge_minutes_){0}
-    , decltype(_impl_.duration_of_last_charge_minutes_){0}
-    , decltype(_impl_.battery_percentage_of_last_charge_){0}
-    , decltype(_impl_.battery_percentage_before_last_charge_){0}
-    , decltype(_impl_.time_of_the_day_minutes_){0}
-    , decltype(_impl_.day_of_week_){0}
-    , decltype(_impl_.day_of_month_){0}
-    , decltype(_impl_.timezone_difference_from_last_charge_hours_){0}
-    , decltype(_impl_.device_type_){0}
-    , decltype(_impl_.device_mode_){0}
-    , decltype(_impl_.num_recent_key_events_){0}
-    , decltype(_impl_.num_recent_mouse_events_){0}
-    , decltype(_impl_.num_recent_touch_events_){0}
-    , decltype(_impl_.num_recent_stylus_events_){0}
-    , decltype(_impl_.duration_recent_video_playing_minutes_){0}
-    , decltype(_impl_.duration_recent_audio_playing_minutes_){0}
-    , decltype(_impl_.screen_brightness_percent_){0}
-    , decltype(_impl_.voltage_mv_){0}
-    , decltype(_impl_.halt_from_last_charge_){false}
-    , decltype(_impl_.is_charging_){false}
-    , decltype(_impl_.month_){1}
+    , decltype(_impl_.battery_percentage_) { 0 }
+
+    , decltype(_impl_.time_since_last_charge_minutes_) { 0 }
+
+    , decltype(_impl_.duration_of_last_charge_minutes_) { 0 }
+
+    , decltype(_impl_.battery_percentage_of_last_charge_) { 0 }
+
+    , decltype(_impl_.battery_percentage_before_last_charge_) { 0 }
+
+    , decltype(_impl_.time_of_the_day_minutes_) { 0 }
+
+    , decltype(_impl_.day_of_week_) { 0 }
+
+    , decltype(_impl_.day_of_month_) { 0 }
+
+    , decltype(_impl_.timezone_difference_from_last_charge_hours_) { 0 }
+
+    , decltype(_impl_.device_type_) { 0 }
+
+    , decltype(_impl_.device_mode_) { 0 }
+
+    , decltype(_impl_.num_recent_key_events_) { 0 }
+
+    , decltype(_impl_.num_recent_mouse_events_) { 0 }
+
+    , decltype(_impl_.num_recent_touch_events_) { 0 }
+
+    , decltype(_impl_.num_recent_stylus_events_) { 0 }
+
+    , decltype(_impl_.duration_recent_video_playing_minutes_) { 0 }
+
+    , decltype(_impl_.duration_recent_audio_playing_minutes_) { 0 }
+
+    , decltype(_impl_.screen_brightness_percent_) { 0 }
+
+    , decltype(_impl_.voltage_mv_) { 0 }
+
+    , decltype(_impl_.halt_from_last_charge_) { false }
+
+    , decltype(_impl_.is_charging_) { false }
+
+    , decltype(_impl_.month_) { 1 }
+
   };
 }
 
@@ -683,7 +730,7 @@ UserChargingEvent_Features::~UserChargingEvent_Features() {
 }
 
 inline void UserChargingEvent_Features::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void UserChargingEvent_Features::SetCachedSize(int size) const {
@@ -692,23 +739,23 @@ void UserChargingEvent_Features::SetCachedSize(int size) const {
 
 void UserChargingEvent_Features::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.UserChargingEvent.Features)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&_impl_.battery_percentage_, 0, static_cast<size_t>(
+    ::memset(&_impl_.battery_percentage_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.day_of_month_) -
         reinterpret_cast<char*>(&_impl_.battery_percentage_)) + sizeof(_impl_.day_of_month_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&_impl_.timezone_difference_from_last_charge_hours_, 0, static_cast<size_t>(
+    ::memset(&_impl_.timezone_difference_from_last_charge_hours_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.duration_recent_video_playing_minutes_) -
         reinterpret_cast<char*>(&_impl_.timezone_difference_from_last_charge_hours_)) + sizeof(_impl_.duration_recent_video_playing_minutes_));
   }
   if (cached_has_bits & 0x003f0000u) {
-    ::memset(&_impl_.duration_recent_audio_playing_minutes_, 0, static_cast<size_t>(
+    ::memset(&_impl_.duration_recent_audio_playing_minutes_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.is_charging_) -
         reinterpret_cast<char*>(&_impl_.duration_recent_audio_playing_minutes_)) + sizeof(_impl_.is_charging_));
     _impl_.month_ = 1;
@@ -721,222 +768,244 @@ const char* UserChargingEvent_Features::_InternalParse(const char* ptr, ::_pbi::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 battery_percentage = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_battery_percentage(&has_bits);
           _impl_.battery_percentage_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 time_since_last_charge_minutes = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_time_since_last_charge_minutes(&has_bits);
           _impl_.time_since_last_charge_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 duration_of_last_charge_minutes = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_duration_of_last_charge_minutes(&has_bits);
           _impl_.duration_of_last_charge_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 battery_percentage_of_last_charge = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_battery_percentage_of_last_charge(&has_bits);
           _impl_.battery_percentage_of_last_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 battery_percentage_before_last_charge = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_battery_percentage_before_last_charge(&has_bits);
           _impl_.battery_percentage_before_last_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 time_of_the_day_minutes = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_time_of_the_day_minutes(&has_bits);
           _impl_.time_of_the_day_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DayOfWeek_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DayOfWeek_IsValid(static_cast<int>(val)))) {
             _internal_set_day_of_week(static_cast<::power_manager::UserChargingEvent_Features_DayOfWeek>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(7, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 day_of_month = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_day_of_month(&has_bits);
           _impl_.day_of_month_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Features.Month month = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_Month_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_Month_IsValid(static_cast<int>(val)))) {
             _internal_set_month(static_cast<::power_manager::UserChargingEvent_Features_Month>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(9, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional double timezone_difference_from_last_charge_hours = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 81)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 81)) {
           _Internal::set_has_timezone_difference_from_last_charge_hours(&has_bits);
           _impl_.timezone_difference_from_last_charge_hours_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Features.DeviceType device_type = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DeviceType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DeviceType_IsValid(static_cast<int>(val)))) {
             _internal_set_device_type(static_cast<::power_manager::UserChargingEvent_Features_DeviceType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(11, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Features.DeviceMode device_mode = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DeviceMode_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Features_DeviceMode_IsValid(static_cast<int>(val)))) {
             _internal_set_device_mode(static_cast<::power_manager::UserChargingEvent_Features_DeviceMode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(12, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 num_recent_key_events = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 104)) {
           _Internal::set_has_num_recent_key_events(&has_bits);
           _impl_.num_recent_key_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 num_recent_mouse_events = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
           _Internal::set_has_num_recent_mouse_events(&has_bits);
           _impl_.num_recent_mouse_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 num_recent_touch_events = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 120)) {
           _Internal::set_has_num_recent_touch_events(&has_bits);
           _impl_.num_recent_touch_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 num_recent_stylus_events = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_num_recent_stylus_events(&has_bits);
           _impl_.num_recent_stylus_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 duration_recent_video_playing_minutes = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 136)) {
           _Internal::set_has_duration_recent_video_playing_minutes(&has_bits);
           _impl_.duration_recent_video_playing_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 duration_recent_audio_playing_minutes = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 144)) {
           _Internal::set_has_duration_recent_audio_playing_minutes(&has_bits);
           _impl_.duration_recent_audio_playing_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 screen_brightness_percent = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 152)) {
           _Internal::set_has_screen_brightness_percent(&has_bits);
           _impl_.screen_brightness_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 voltage_mv = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 160)) {
           _Internal::set_has_voltage_mv(&has_bits);
           _impl_.voltage_mv_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool halt_from_last_charge = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 168)) {
           _Internal::set_has_halt_from_last_charge(&has_bits);
           _impl_.halt_from_last_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool is_charging = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 176)) {
           _Internal::set_has_is_charging(&has_bits);
           _impl_.is_charging_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -962,147 +1031,165 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserChargingEvent_Features::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserChargingEvent_Features::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.UserChargingEvent.Features)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int32 battery_percentage = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_battery_percentage(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_battery_percentage(), target);
   }
 
   // optional int32 time_since_last_charge_minutes = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_time_since_last_charge_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_time_since_last_charge_minutes(), target);
   }
 
   // optional int32 duration_of_last_charge_minutes = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_duration_of_last_charge_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_duration_of_last_charge_minutes(), target);
   }
 
   // optional int32 battery_percentage_of_last_charge = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_battery_percentage_of_last_charge(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_battery_percentage_of_last_charge(), target);
   }
 
   // optional int32 battery_percentage_before_last_charge = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_battery_percentage_before_last_charge(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_battery_percentage_before_last_charge(), target);
   }
 
   // optional int32 time_of_the_day_minutes = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_time_of_the_day_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        6, this->_internal_time_of_the_day_minutes(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      7, this->_internal_day_of_week(), target);
+        7, this->_internal_day_of_week(), target);
   }
 
   // optional int32 day_of_month = 8;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(8, this->_internal_day_of_month(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        8, this->_internal_day_of_month(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Features.Month month = 9;
   if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      9, this->_internal_month(), target);
+        9, this->_internal_month(), target);
   }
 
   // optional double timezone_difference_from_last_charge_hours = 10;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteDoubleToArray(10, this->_internal_timezone_difference_from_last_charge_hours(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        10, this->_internal_timezone_difference_from_last_charge_hours(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Features.DeviceType device_type = 11;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      11, this->_internal_device_type(), target);
+        11, this->_internal_device_type(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Features.DeviceMode device_mode = 12;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      12, this->_internal_device_mode(), target);
+        12, this->_internal_device_mode(), target);
   }
 
   // optional int32 num_recent_key_events = 13;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(13, this->_internal_num_recent_key_events(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        13, this->_internal_num_recent_key_events(), target);
   }
 
   // optional int32 num_recent_mouse_events = 14;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(14, this->_internal_num_recent_mouse_events(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        14, this->_internal_num_recent_mouse_events(), target);
   }
 
   // optional int32 num_recent_touch_events = 15;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(15, this->_internal_num_recent_touch_events(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        15, this->_internal_num_recent_touch_events(), target);
   }
 
   // optional int32 num_recent_stylus_events = 16;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(16, this->_internal_num_recent_stylus_events(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        16, this->_internal_num_recent_stylus_events(), target);
   }
 
   // optional int32 duration_recent_video_playing_minutes = 17;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(17, this->_internal_duration_recent_video_playing_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        17, this->_internal_duration_recent_video_playing_minutes(), target);
   }
 
   // optional int32 duration_recent_audio_playing_minutes = 18;
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(18, this->_internal_duration_recent_audio_playing_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        18, this->_internal_duration_recent_audio_playing_minutes(), target);
   }
 
   // optional int32 screen_brightness_percent = 19;
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(19, this->_internal_screen_brightness_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        19, this->_internal_screen_brightness_percent(), target);
   }
 
   // optional int32 voltage_mv = 20;
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(20, this->_internal_voltage_mv(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        20, this->_internal_voltage_mv(), target);
   }
 
   // optional bool halt_from_last_charge = 21;
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(21, this->_internal_halt_from_last_charge(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        21, this->_internal_halt_from_last_charge(), target);
   }
 
   // optional bool is_charging = 22;
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_is_charging(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        22, this->_internal_is_charging(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1113,11 +1200,11 @@ uint8_t* UserChargingEvent_Features::_InternalSerialize(
   return target;
 }
 
-size_t UserChargingEvent_Features::ByteSizeLong() const {
+::size_t UserChargingEvent_Features::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.UserChargingEvent.Features)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1125,130 +1212,135 @@ size_t UserChargingEvent_Features::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional int32 battery_percentage = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_battery_percentage());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_battery_percentage());
     }
 
     // optional int32 time_since_last_charge_minutes = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_time_since_last_charge_minutes());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_time_since_last_charge_minutes());
     }
 
     // optional int32 duration_of_last_charge_minutes = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_duration_of_last_charge_minutes());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_duration_of_last_charge_minutes());
     }
 
     // optional int32 battery_percentage_of_last_charge = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_battery_percentage_of_last_charge());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_battery_percentage_of_last_charge());
     }
 
     // optional int32 battery_percentage_before_last_charge = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_battery_percentage_before_last_charge());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_battery_percentage_before_last_charge());
     }
 
     // optional int32 time_of_the_day_minutes = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_time_of_the_day_minutes());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_time_of_the_day_minutes());
     }
 
     // optional .power_manager.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_day_of_week());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_day_of_week());
     }
 
     // optional int32 day_of_month = 8;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_day_of_month());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_day_of_month());
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
     // optional double timezone_difference_from_last_charge_hours = 10;
     if (cached_has_bits & 0x00000100u) {
-      total_size += 1 + 8;
+      total_size += 9;
     }
 
     // optional .power_manager.UserChargingEvent.Features.DeviceType device_type = 11;
     if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_device_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_device_type());
     }
 
     // optional .power_manager.UserChargingEvent.Features.DeviceMode device_mode = 12;
     if (cached_has_bits & 0x00000400u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_device_mode());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_device_mode());
     }
 
     // optional int32 num_recent_key_events = 13;
     if (cached_has_bits & 0x00000800u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_recent_key_events());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_num_recent_key_events());
     }
 
     // optional int32 num_recent_mouse_events = 14;
     if (cached_has_bits & 0x00001000u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_recent_mouse_events());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_num_recent_mouse_events());
     }
 
     // optional int32 num_recent_touch_events = 15;
     if (cached_has_bits & 0x00002000u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_recent_touch_events());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_num_recent_touch_events());
     }
 
     // optional int32 num_recent_stylus_events = 16;
     if (cached_has_bits & 0x00004000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_num_recent_stylus_events());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_num_recent_stylus_events());
     }
 
     // optional int32 duration_recent_video_playing_minutes = 17;
     if (cached_has_bits & 0x00008000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_duration_recent_video_playing_minutes());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_duration_recent_video_playing_minutes());
     }
 
   }
   if (cached_has_bits & 0x003f0000u) {
     // optional int32 duration_recent_audio_playing_minutes = 18;
     if (cached_has_bits & 0x00010000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_duration_recent_audio_playing_minutes());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_duration_recent_audio_playing_minutes());
     }
 
     // optional int32 screen_brightness_percent = 19;
     if (cached_has_bits & 0x00020000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_screen_brightness_percent());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_screen_brightness_percent());
     }
 
     // optional int32 voltage_mv = 20;
     if (cached_has_bits & 0x00040000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_voltage_mv());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_voltage_mv());
     }
 
     // optional bool halt_from_last_charge = 21;
     if (cached_has_bits & 0x00080000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool is_charging = 22;
     if (cached_has_bits & 0x00100000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional .power_manager.UserChargingEvent.Features.Month month = 9;
     if (cached_has_bits & 0x00200000u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_month());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_month());
     }
 
   }
@@ -1269,8 +1361,8 @@ void UserChargingEvent_Features::CheckTypeAndMergeFrom(
 void UserChargingEvent_Features::MergeFrom(const UserChargingEvent_Features& from) {
   UserChargingEvent_Features* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.UserChargingEvent.Features)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1368,24 +1460,24 @@ void UserChargingEvent_Features::InternalSwap(UserChargingEvent_Features* other)
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UserChargingEvent_Features, _impl_.is_charging_)
-      + sizeof(UserChargingEvent_Features::_impl_.is_charging_)
+      PROTOBUF_FIELD_OFFSET(UserChargingEvent_Features, _impl_.month_)
+      + sizeof(UserChargingEvent_Features::_impl_.month_)
       - PROTOBUF_FIELD_OFFSET(UserChargingEvent_Features, _impl_.battery_percentage_)>(
           reinterpret_cast<char*>(&_impl_.battery_percentage_),
           reinterpret_cast<char*>(&other->_impl_.battery_percentage_));
-  swap(_impl_.month_, other->_impl_.month_);
 }
 
 std::string UserChargingEvent_Features::GetTypeName() const {
   return "power_manager.UserChargingEvent.Features";
 }
 
-
 // ===================================================================
 
 class UserChargingEvent_Event::_Internal {
  public:
   using HasBits = decltype(std::declval<UserChargingEvent_Event>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserChargingEvent_Event, _impl_._has_bits_);
   static void set_has_event_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1394,37 +1486,27 @@ class UserChargingEvent_Event::_Internal {
   }
 };
 
-UserChargingEvent_Event::UserChargingEvent_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserChargingEvent_Event::UserChargingEvent_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.UserChargingEvent.Event)
 }
 UserChargingEvent_Event::UserChargingEvent_Event(const UserChargingEvent_Event& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  UserChargingEvent_Event* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.event_id_){}
-    , decltype(_impl_.reason_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.event_id_, &from._impl_.event_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.reason_) -
-    reinterpret_cast<char*>(&_impl_.event_id_)) + sizeof(_impl_.reason_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.UserChargingEvent.Event)
 }
 
-inline void UserChargingEvent_Event::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserChargingEvent_Event::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.event_id_){0}
-    , decltype(_impl_.reason_){1}
+    , decltype(_impl_.event_id_) { 0 }
+
+    , decltype(_impl_.reason_) { 1 }
+
   };
 }
 
@@ -1438,7 +1520,7 @@ UserChargingEvent_Event::~UserChargingEvent_Event() {
 }
 
 inline void UserChargingEvent_Event::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void UserChargingEvent_Event::SetCachedSize(int size) const {
@@ -1447,7 +1529,7 @@ void UserChargingEvent_Event::SetCachedSize(int size) const {
 
 void UserChargingEvent_Event::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.UserChargingEvent.Event)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1464,30 +1546,32 @@ const char* UserChargingEvent_Event::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 event_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_event_id(&has_bits);
           _impl_.event_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Event.Reason reason = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Event_Reason_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Event_Reason_IsValid(static_cast<int>(val)))) {
             _internal_set_reason(static_cast<::power_manager::UserChargingEvent_Event_Reason>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1513,24 +1597,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserChargingEvent_Event::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserChargingEvent_Event::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.UserChargingEvent.Event)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int32 event_id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_event_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_event_id(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Event.Reason reason = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_reason(), target);
+        2, this->_internal_reason(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1541,11 +1626,11 @@ uint8_t* UserChargingEvent_Event::_InternalSerialize(
   return target;
 }
 
-size_t UserChargingEvent_Event::ByteSizeLong() const {
+::size_t UserChargingEvent_Event::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.UserChargingEvent.Event)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1553,13 +1638,14 @@ size_t UserChargingEvent_Event::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional int32 event_id = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_event_id());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_event_id());
     }
 
     // optional .power_manager.UserChargingEvent.Event.Reason reason = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_reason());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_reason());
     }
 
   }
@@ -1580,8 +1666,8 @@ void UserChargingEvent_Event::CheckTypeAndMergeFrom(
 void UserChargingEvent_Event::MergeFrom(const UserChargingEvent_Event& from) {
   UserChargingEvent_Event* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.UserChargingEvent.Event)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1612,20 +1698,25 @@ void UserChargingEvent_Event::InternalSwap(UserChargingEvent_Event* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.event_id_, other->_impl_.event_id_);
-  swap(_impl_.reason_, other->_impl_.reason_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UserChargingEvent_Event, _impl_.reason_)
+      + sizeof(UserChargingEvent_Event::_impl_.reason_)
+      - PROTOBUF_FIELD_OFFSET(UserChargingEvent_Event, _impl_.event_id_)>(
+          reinterpret_cast<char*>(&_impl_.event_id_),
+          reinterpret_cast<char*>(&other->_impl_.event_id_));
 }
 
 std::string UserChargingEvent_Event::GetTypeName() const {
   return "power_manager.UserChargingEvent.Event";
 }
 
-
 // ===================================================================
 
 class UserChargingEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<UserChargingEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserChargingEvent, _impl_._has_bits_);
   static const ::power_manager::UserChargingEvent_Features& features(const UserChargingEvent* msg);
   static void set_has_features(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1644,10 +1735,9 @@ const ::power_manager::UserChargingEvent_Event&
 UserChargingEvent::_Internal::event(const UserChargingEvent* msg) {
   return *msg->_impl_.event_;
 }
-UserChargingEvent::UserChargingEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserChargingEvent::UserChargingEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.UserChargingEvent)
 }
 UserChargingEvent::UserChargingEvent(const UserChargingEvent& from)
@@ -1660,19 +1750,17 @@ UserChargingEvent::UserChargingEvent(const UserChargingEvent& from)
     , decltype(_impl_.event_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_features()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.features_ = new ::power_manager::UserChargingEvent_Features(*from._impl_.features_);
   }
-  if (from._internal_has_event()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.event_ = new ::power_manager::UserChargingEvent_Event(*from._impl_.event_);
   }
   // @@protoc_insertion_point(copy_constructor:power_manager.UserChargingEvent)
 }
 
-inline void UserChargingEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserChargingEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1691,7 +1779,7 @@ UserChargingEvent::~UserChargingEvent() {
 }
 
 inline void UserChargingEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.features_;
   if (this != internal_default_instance()) delete _impl_.event_;
 }
@@ -1702,18 +1790,18 @@ void UserChargingEvent::SetCachedSize(int size) const {
 
 void UserChargingEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.UserChargingEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.features_ != nullptr);
+      ABSL_DCHECK(_impl_.features_ != nullptr);
       _impl_.features_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.event_ != nullptr);
+      ABSL_DCHECK(_impl_.event_ != nullptr);
       _impl_.event_->Clear();
     }
   }
@@ -1725,24 +1813,26 @@ const char* UserChargingEvent::_InternalParse(const char* ptr, ::_pbi::ParseCont
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .power_manager.UserChargingEvent.Features features = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_features(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Event event = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1768,10 +1858,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserChargingEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserChargingEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.UserChargingEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -1797,11 +1887,11 @@ uint8_t* UserChargingEvent::_InternalSerialize(
   return target;
 }
 
-size_t UserChargingEvent::ByteSizeLong() const {
+::size_t UserChargingEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.UserChargingEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1839,8 +1929,8 @@ void UserChargingEvent::CheckTypeAndMergeFrom(
 void UserChargingEvent::MergeFrom(const UserChargingEvent& from) {
   UserChargingEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.UserChargingEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1884,12 +1974,13 @@ std::string UserChargingEvent::GetTypeName() const {
   return "power_manager.UserChargingEvent";
 }
 
-
 // ===================================================================
 
 class PastChargingEvents_Event::_Internal {
  public:
   using HasBits = decltype(std::declval<PastChargingEvents_Event>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PastChargingEvents_Event, _impl_._has_bits_);
   static void set_has_time(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1904,41 +1995,31 @@ class PastChargingEvents_Event::_Internal {
   }
 };
 
-PastChargingEvents_Event::PastChargingEvents_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PastChargingEvents_Event::PastChargingEvents_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.PastChargingEvents.Event)
 }
 PastChargingEvents_Event::PastChargingEvents_Event(const PastChargingEvents_Event& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PastChargingEvents_Event* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.time_){}
-    , decltype(_impl_.battery_percent_){}
-    , decltype(_impl_.timezone_){}
-    , decltype(_impl_.reason_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.time_, &from._impl_.time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.reason_) -
-    reinterpret_cast<char*>(&_impl_.time_)) + sizeof(_impl_.reason_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.PastChargingEvents.Event)
 }
 
-inline void PastChargingEvents_Event::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PastChargingEvents_Event::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.time_){0}
-    , decltype(_impl_.battery_percent_){0}
-    , decltype(_impl_.timezone_){0}
-    , decltype(_impl_.reason_){1}
+    , decltype(_impl_.time_) { 0 }
+
+    , decltype(_impl_.battery_percent_) { 0 }
+
+    , decltype(_impl_.timezone_) { 0 }
+
+    , decltype(_impl_.reason_) { 1 }
+
   };
 }
 
@@ -1952,7 +2033,7 @@ PastChargingEvents_Event::~PastChargingEvents_Event() {
 }
 
 inline void PastChargingEvents_Event::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PastChargingEvents_Event::SetCachedSize(int size) const {
@@ -1961,13 +2042,13 @@ void PastChargingEvents_Event::SetCachedSize(int size) const {
 
 void PastChargingEvents_Event::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.PastChargingEvents.Event)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&_impl_.time_, 0, static_cast<size_t>(
+    ::memset(&_impl_.time_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.timezone_) -
         reinterpret_cast<char*>(&_impl_.time_)) + sizeof(_impl_.timezone_));
     _impl_.reason_ = 1;
@@ -1980,48 +2061,52 @@ const char* PastChargingEvents_Event::_InternalParse(const char* ptr, ::_pbi::Pa
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 time = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_time(&has_bits);
           _impl_.time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 battery_percent = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_battery_percent(&has_bits);
           _impl_.battery_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 timezone = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_timezone(&has_bits);
           _impl_.timezone_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.UserChargingEvent.Event.Reason reason = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Event_Reason_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::UserChargingEvent_Event_Reason_IsValid(static_cast<int>(val)))) {
             _internal_set_reason(static_cast<::power_manager::UserChargingEvent_Event_Reason>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2047,36 +2132,39 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PastChargingEvents_Event::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PastChargingEvents_Event::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.PastChargingEvents.Event)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int32 time = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_time(), target);
   }
 
   // optional int32 battery_percent = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_battery_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_battery_percent(), target);
   }
 
   // optional int32 timezone = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_timezone(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_timezone(), target);
   }
 
   // optional .power_manager.UserChargingEvent.Event.Reason reason = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_reason(), target);
+        4, this->_internal_reason(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2087,11 +2175,11 @@ uint8_t* PastChargingEvents_Event::_InternalSerialize(
   return target;
 }
 
-size_t PastChargingEvents_Event::ByteSizeLong() const {
+::size_t PastChargingEvents_Event::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.PastChargingEvents.Event)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2099,23 +2187,26 @@ size_t PastChargingEvents_Event::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 time = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_time());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_time());
     }
 
     // optional int32 battery_percent = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_battery_percent());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_battery_percent());
     }
 
     // optional int32 timezone = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_timezone());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_timezone());
     }
 
     // optional .power_manager.UserChargingEvent.Event.Reason reason = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_reason());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_reason());
     }
 
   }
@@ -2136,8 +2227,8 @@ void PastChargingEvents_Event::CheckTypeAndMergeFrom(
 void PastChargingEvents_Event::MergeFrom(const PastChargingEvents_Event& from) {
   PastChargingEvents_Event* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PastChargingEvents.Event)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2175,18 +2266,16 @@ void PastChargingEvents_Event::InternalSwap(PastChargingEvents_Event* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PastChargingEvents_Event, _impl_.timezone_)
-      + sizeof(PastChargingEvents_Event::_impl_.timezone_)
+      PROTOBUF_FIELD_OFFSET(PastChargingEvents_Event, _impl_.reason_)
+      + sizeof(PastChargingEvents_Event::_impl_.reason_)
       - PROTOBUF_FIELD_OFFSET(PastChargingEvents_Event, _impl_.time_)>(
           reinterpret_cast<char*>(&_impl_.time_),
           reinterpret_cast<char*>(&other->_impl_.time_));
-  swap(_impl_.reason_, other->_impl_.reason_);
 }
 
 std::string PastChargingEvents_Event::GetTypeName() const {
   return "power_manager.PastChargingEvents.Event";
 }
-
 
 // ===================================================================
 
@@ -2194,10 +2283,9 @@ class PastChargingEvents::_Internal {
  public:
 };
 
-PastChargingEvents::PastChargingEvents(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PastChargingEvents::PastChargingEvents(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.PastChargingEvents)
 }
 PastChargingEvents::PastChargingEvents(const PastChargingEvents& from)
@@ -2211,10 +2299,8 @@ PastChargingEvents::PastChargingEvents(const PastChargingEvents& from)
   // @@protoc_insertion_point(copy_constructor:power_manager.PastChargingEvents)
 }
 
-inline void PastChargingEvents::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PastChargingEvents::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.events_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2231,8 +2317,8 @@ PastChargingEvents::~PastChargingEvents() {
 }
 
 inline void PastChargingEvents::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_events()->~RepeatedPtrField();
 }
 
 void PastChargingEvents::SetCachedSize(int size) const {
@@ -2241,23 +2327,23 @@ void PastChargingEvents::SetCachedSize(int size) const {
 
 void PastChargingEvents::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.PastChargingEvents)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.events_.Clear();
+  _internal_mutable_events()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* PastChargingEvents::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .power_manager.PastChargingEvents.Event events = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2265,8 +2351,9 @@ const char* PastChargingEvents::_InternalParse(const char* ptr, ::_pbi::ParseCon
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2291,10 +2378,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PastChargingEvents::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PastChargingEvents::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.PastChargingEvents)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .power_manager.PastChargingEvents.Event events = 1;
@@ -2313,17 +2400,17 @@ uint8_t* PastChargingEvents::_InternalSerialize(
   return target;
 }
 
-size_t PastChargingEvents::ByteSizeLong() const {
+::size_t PastChargingEvents::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.PastChargingEvents)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .power_manager.PastChargingEvents.Event events = 1;
   total_size += 1UL * this->_internal_events_size();
-  for (const auto& msg : this->_impl_.events_) {
+  for (const auto& msg : this->_internal_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2345,11 +2432,11 @@ void PastChargingEvents::CheckTypeAndMergeFrom(
 void PastChargingEvents::MergeFrom(const PastChargingEvents& from) {
   PastChargingEvents* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PastChargingEvents)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.events_.MergeFrom(from._impl_.events_);
+  _this->_internal_mutable_events()->MergeFrom(from._internal_events());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -2367,13 +2454,12 @@ bool PastChargingEvents::IsInitialized() const {
 void PastChargingEvents::InternalSwap(PastChargingEvents* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.events_.InternalSwap(&other->_impl_.events_);
+  _internal_mutable_events()->InternalSwap(other->_internal_mutable_events());
 }
 
 std::string PastChargingEvents::GetTypeName() const {
   return "power_manager.PastChargingEvents";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
@@ -2399,6 +2485,5 @@ Arena::CreateMaybeMessage< ::power_manager::PastChargingEvents >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::PastChargingEvents >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

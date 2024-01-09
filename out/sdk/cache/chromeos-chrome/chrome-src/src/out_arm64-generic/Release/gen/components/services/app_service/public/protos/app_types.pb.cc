@@ -27,7 +27,6 @@ bool ApplicationType_IsValid(int value) {
     case 3:
     case 4:
     case 5:
-    case 6:
     case 7:
     case 8:
     case 9:
@@ -43,7 +42,7 @@ bool ApplicationType_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationType_strings[16] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationType_strings[15] = {};
 
 static const char ApplicationType_names[] =
   "APPLICATION_TYPE_ARC"
@@ -53,7 +52,6 @@ static const char ApplicationType_names[] =
   "APPLICATION_TYPE_CHROME_APP"
   "APPLICATION_TYPE_CROSTINI"
   "APPLICATION_TYPE_EXTENSION"
-  "APPLICATION_TYPE_MAC_OS"
   "APPLICATION_TYPE_PLUGIN_VM"
   "APPLICATION_TYPE_REMOTE"
   "APPLICATION_TYPE_STANDALONE_BROWSER"
@@ -71,33 +69,31 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ApplicationType_entrie
   { {ApplicationType_names + 97, 27}, 4 },
   { {ApplicationType_names + 124, 25}, 3 },
   { {ApplicationType_names + 149, 26}, 13 },
-  { {ApplicationType_names + 175, 23}, 6 },
-  { {ApplicationType_names + 198, 26}, 7 },
-  { {ApplicationType_names + 224, 23}, 9 },
-  { {ApplicationType_names + 247, 35}, 8 },
-  { {ApplicationType_names + 282, 46}, 12 },
-  { {ApplicationType_names + 328, 45}, 14 },
-  { {ApplicationType_names + 373, 27}, 11 },
-  { {ApplicationType_names + 400, 24}, 0 },
-  { {ApplicationType_names + 424, 20}, 5 },
+  { {ApplicationType_names + 175, 26}, 7 },
+  { {ApplicationType_names + 201, 23}, 9 },
+  { {ApplicationType_names + 224, 35}, 8 },
+  { {ApplicationType_names + 259, 46}, 12 },
+  { {ApplicationType_names + 305, 45}, 14 },
+  { {ApplicationType_names + 350, 27}, 11 },
+  { {ApplicationType_names + 377, 24}, 0 },
+  { {ApplicationType_names + 401, 20}, 5 },
 };
 
 static const int ApplicationType_entries_by_number[] = {
-  14, // 0 -> APPLICATION_TYPE_UNKNOWN
+  13, // 0 -> APPLICATION_TYPE_UNKNOWN
   0, // 1 -> APPLICATION_TYPE_ARC
   3, // 2 -> APPLICATION_TYPE_BUILT_IN
   5, // 3 -> APPLICATION_TYPE_CROSTINI
   4, // 4 -> APPLICATION_TYPE_CHROME_APP
-  15, // 5 -> APPLICATION_TYPE_WEB
-  7, // 6 -> APPLICATION_TYPE_MAC_OS
-  8, // 7 -> APPLICATION_TYPE_PLUGIN_VM
-  10, // 8 -> APPLICATION_TYPE_STANDALONE_BROWSER
-  9, // 9 -> APPLICATION_TYPE_REMOTE
+  14, // 5 -> APPLICATION_TYPE_WEB
+  7, // 7 -> APPLICATION_TYPE_PLUGIN_VM
+  9, // 8 -> APPLICATION_TYPE_STANDALONE_BROWSER
+  8, // 9 -> APPLICATION_TYPE_REMOTE
   1, // 10 -> APPLICATION_TYPE_BOREALIS
-  13, // 11 -> APPLICATION_TYPE_SYSTEM_WEB
-  11, // 12 -> APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP
+  12, // 11 -> APPLICATION_TYPE_SYSTEM_WEB
+  10, // 12 -> APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP
   6, // 13 -> APPLICATION_TYPE_EXTENSION
-  12, // 14 -> APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION
+  11, // 14 -> APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION
   2, // 15 -> APPLICATION_TYPE_BRUSCHETTA
 };
 
@@ -107,12 +103,12 @@ const std::string& ApplicationType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ApplicationType_entries,
           ApplicationType_entries_by_number,
-          16, ApplicationType_strings);
+          15, ApplicationType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ApplicationType_entries,
       ApplicationType_entries_by_number,
-      16, value);
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ApplicationType_strings[idx].get();
 }
@@ -120,7 +116,7 @@ bool ApplicationType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ApplicationType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ApplicationType_entries, 16, name, &int_value);
+      ApplicationType_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<ApplicationType>(int_value);
   }
@@ -370,13 +366,14 @@ bool ApplicationLaunchSource_IsValid(int value) {
     case 34:
     case 35:
     case 36:
+    case 37:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationLaunchSource_strings[37] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ApplicationLaunchSource_strings[38] = {};
 
 static const char ApplicationLaunchSource_names[] =
   "APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE"
@@ -393,6 +390,7 @@ static const char ApplicationLaunchSource_names[] =
   "APPLICATION_LAUNCH_SOURCE_FILE_MANAGER"
   "APPLICATION_LAUNCH_SOURCE_FULL_RESTORE"
   "APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION"
+  "APPLICATION_LAUNCH_SOURCE_INSTALLER"
   "APPLICATION_LAUNCH_SOURCE_INTENT_URL"
   "APPLICATION_LAUNCH_SOURCE_KEYBOARD"
   "APPLICATION_LAUNCH_SOURCE_KIOSK"
@@ -432,69 +430,71 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ApplicationLaunchSourc
   { {ApplicationLaunchSource_names + 472, 38}, 8 },
   { {ApplicationLaunchSource_names + 510, 38}, 20 },
   { {ApplicationLaunchSource_names + 548, 48}, 15 },
-  { {ApplicationLaunchSource_names + 596, 36}, 28 },
-  { {ApplicationLaunchSource_names + 632, 34}, 12 },
-  { {ApplicationLaunchSource_names + 666, 31}, 24 },
-  { {ApplicationLaunchSource_names + 697, 30}, 9 },
-  { {ApplicationLaunchSource_names + 727, 37}, 32 },
-  { {ApplicationLaunchSource_names + 764, 40}, 23 },
-  { {ApplicationLaunchSource_names + 804, 30}, 14 },
-  { {ApplicationLaunchSource_names + 834, 38}, 27 },
-  { {ApplicationLaunchSource_names + 872, 33}, 10 },
-  { {ApplicationLaunchSource_names + 905, 34}, 29 },
-  { {ApplicationLaunchSource_names + 939, 35}, 13 },
-  { {ApplicationLaunchSource_names + 974, 43}, 6 },
-  { {ApplicationLaunchSource_names + 1017, 38}, 35 },
-  { {ApplicationLaunchSource_names + 1055, 42}, 30 },
-  { {ApplicationLaunchSource_names + 1097, 52}, 19 },
-  { {ApplicationLaunchSource_names + 1149, 37}, 34 },
-  { {ApplicationLaunchSource_names + 1186, 36}, 18 },
-  { {ApplicationLaunchSource_names + 1222, 31}, 7 },
-  { {ApplicationLaunchSource_names + 1253, 49}, 21 },
-  { {ApplicationLaunchSource_names + 1302, 46}, 36 },
-  { {ApplicationLaunchSource_names + 1348, 30}, 16 },
-  { {ApplicationLaunchSource_names + 1378, 33}, 0 },
-  { {ApplicationLaunchSource_names + 1411, 37}, 31 },
+  { {ApplicationLaunchSource_names + 596, 35}, 37 },
+  { {ApplicationLaunchSource_names + 631, 36}, 28 },
+  { {ApplicationLaunchSource_names + 667, 34}, 12 },
+  { {ApplicationLaunchSource_names + 701, 31}, 24 },
+  { {ApplicationLaunchSource_names + 732, 30}, 9 },
+  { {ApplicationLaunchSource_names + 762, 37}, 32 },
+  { {ApplicationLaunchSource_names + 799, 40}, 23 },
+  { {ApplicationLaunchSource_names + 839, 30}, 14 },
+  { {ApplicationLaunchSource_names + 869, 38}, 27 },
+  { {ApplicationLaunchSource_names + 907, 33}, 10 },
+  { {ApplicationLaunchSource_names + 940, 34}, 29 },
+  { {ApplicationLaunchSource_names + 974, 35}, 13 },
+  { {ApplicationLaunchSource_names + 1009, 43}, 6 },
+  { {ApplicationLaunchSource_names + 1052, 38}, 35 },
+  { {ApplicationLaunchSource_names + 1090, 42}, 30 },
+  { {ApplicationLaunchSource_names + 1132, 52}, 19 },
+  { {ApplicationLaunchSource_names + 1184, 37}, 34 },
+  { {ApplicationLaunchSource_names + 1221, 36}, 18 },
+  { {ApplicationLaunchSource_names + 1257, 31}, 7 },
+  { {ApplicationLaunchSource_names + 1288, 49}, 21 },
+  { {ApplicationLaunchSource_names + 1337, 46}, 36 },
+  { {ApplicationLaunchSource_names + 1383, 30}, 16 },
+  { {ApplicationLaunchSource_names + 1413, 33}, 0 },
+  { {ApplicationLaunchSource_names + 1446, 37}, 31 },
 };
 
 static const int ApplicationLaunchSource_entries_by_number[] = {
-  35, // 0 -> APPLICATION_LAUNCH_SOURCE_UNKNOWN
+  36, // 0 -> APPLICATION_LAUNCH_SOURCE_UNKNOWN
   1, // 1 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID
   2, // 2 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID_CONTEXT_MENU
   3, // 3 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY
   4, // 4 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY_CONTEXT_MENU
   5, // 5 -> APPLICATION_LAUNCH_SOURCE_APP_LIST_RECOMMENDATION
-  25, // 6 -> APPLICATION_LAUNCH_SOURCE_PARENTAL_CONTROLS
-  31, // 7 -> APPLICATION_LAUNCH_SOURCE_SHELF
+  26, // 6 -> APPLICATION_LAUNCH_SOURCE_PARENTAL_CONTROLS
+  32, // 7 -> APPLICATION_LAUNCH_SOURCE_SHELF
   11, // 8 -> APPLICATION_LAUNCH_SOURCE_FILE_MANAGER
-  17, // 9 -> APPLICATION_LAUNCH_SOURCE_LINK
-  22, // 10 -> APPLICATION_LAUNCH_SOURCE_OMNIBOX
+  18, // 9 -> APPLICATION_LAUNCH_SOURCE_LINK
+  23, // 10 -> APPLICATION_LAUNCH_SOURCE_OMNIBOX
   8, // 11 -> APPLICATION_LAUNCH_SOURCE_CHROME_INTERNAL
-  15, // 12 -> APPLICATION_LAUNCH_SOURCE_KEYBOARD
-  24, // 13 -> APPLICATION_LAUNCH_SOURCE_OTHER_APP
-  20, // 14 -> APPLICATION_LAUNCH_SOURCE_MENU
+  16, // 12 -> APPLICATION_LAUNCH_SOURCE_KEYBOARD
+  25, // 13 -> APPLICATION_LAUNCH_SOURCE_OTHER_APP
+  21, // 14 -> APPLICATION_LAUNCH_SOURCE_MENU
   13, // 15 -> APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION
-  34, // 16 -> APPLICATION_LAUNCH_SOURCE_TEST
+  35, // 16 -> APPLICATION_LAUNCH_SOURCE_TEST
   6, // 17 -> APPLICATION_LAUNCH_SOURCE_ARC
-  30, // 18 -> APPLICATION_LAUNCH_SOURCE_SHARESHEET
-  28, // 19 -> APPLICATION_LAUNCH_SOURCE_RELEASE_NOTES_NOTIFICATION
+  31, // 18 -> APPLICATION_LAUNCH_SOURCE_SHARESHEET
+  29, // 19 -> APPLICATION_LAUNCH_SOURCE_RELEASE_NOTES_NOTIFICATION
   12, // 20 -> APPLICATION_LAUNCH_SOURCE_FULL_RESTORE
-  32, // 21 -> APPLICATION_LAUNCH_SOURCE_SMART_TEXT_CONTEXT_MENU
+  33, // 21 -> APPLICATION_LAUNCH_SOURCE_SMART_TEXT_CONTEXT_MENU
   10, // 22 -> APPLICATION_LAUNCH_SOURCE_DISCOVER_TAB_NOTIFICATION
-  19, // 23 -> APPLICATION_LAUNCH_SOURCE_MANAGEMENT_API
-  16, // 24 -> APPLICATION_LAUNCH_SOURCE_KIOSK
+  20, // 23 -> APPLICATION_LAUNCH_SOURCE_MANAGEMENT_API
+  17, // 24 -> APPLICATION_LAUNCH_SOURCE_KIOSK
   9, // 25 -> APPLICATION_LAUNCH_SOURCE_COMMAND_LINE
   7, // 26 -> APPLICATION_LAUNCH_SOURCE_BACKGROUND_MODE
-  21, // 27 -> APPLICATION_LAUNCH_SOURCE_NEW_TAB_PAGE
-  14, // 28 -> APPLICATION_LAUNCH_SOURCE_INTENT_URL
-  23, // 29 -> APPLICATION_LAUNCH_SOURCE_OS_LOGIN
-  27, // 30 -> APPLICATION_LAUNCH_SOURCE_PROTOCOL_HANDLER
-  36, // 31 -> APPLICATION_LAUNCH_SOURCE_URL_HANDLER
-  18, // 32 -> APPLICATION_LAUNCH_SOURCE_LOCK_SCREEN
+  22, // 27 -> APPLICATION_LAUNCH_SOURCE_NEW_TAB_PAGE
+  15, // 28 -> APPLICATION_LAUNCH_SOURCE_INTENT_URL
+  24, // 29 -> APPLICATION_LAUNCH_SOURCE_OS_LOGIN
+  28, // 30 -> APPLICATION_LAUNCH_SOURCE_PROTOCOL_HANDLER
+  37, // 31 -> APPLICATION_LAUNCH_SOURCE_URL_HANDLER
+  19, // 32 -> APPLICATION_LAUNCH_SOURCE_LOCK_SCREEN
   0, // 33 -> APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE
-  29, // 34 -> APPLICATION_LAUNCH_SOURCE_REPARENTING
-  26, // 35 -> APPLICATION_LAUNCH_SOURCE_PROFILE_MENU
-  33, // 36 -> APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR
+  30, // 34 -> APPLICATION_LAUNCH_SOURCE_REPARENTING
+  27, // 35 -> APPLICATION_LAUNCH_SOURCE_PROFILE_MENU
+  34, // 36 -> APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR
+  14, // 37 -> APPLICATION_LAUNCH_SOURCE_INSTALLER
 };
 
 const std::string& ApplicationLaunchSource_Name(
@@ -503,12 +503,12 @@ const std::string& ApplicationLaunchSource_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ApplicationLaunchSource_entries,
           ApplicationLaunchSource_entries_by_number,
-          37, ApplicationLaunchSource_strings);
+          38, ApplicationLaunchSource_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ApplicationLaunchSource_entries,
       ApplicationLaunchSource_entries_by_number,
-      37, value);
+      38, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ApplicationLaunchSource_strings[idx].get();
 }
@@ -516,7 +516,7 @@ bool ApplicationLaunchSource_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ApplicationLaunchSource* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ApplicationLaunchSource_entries, 37, name, &int_value);
+      ApplicationLaunchSource_entries, 38, name, &int_value);
   if (success) {
     *value = static_cast<ApplicationLaunchSource>(int_value);
   }

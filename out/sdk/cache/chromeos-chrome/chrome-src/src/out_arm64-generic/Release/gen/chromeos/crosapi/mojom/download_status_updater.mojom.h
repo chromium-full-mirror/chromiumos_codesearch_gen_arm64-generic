@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/download_status_updater.mojom-features.h"
 #include "chromeos/crosapi/mojom/download_status_updater.mojom-shared.h"
 #include "chromeos/crosapi/mojom/download_status_updater.mojom-forward.h"
+#include "mojo/public/mojom/base/string16.mojom.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include <string>
@@ -344,23 +346,35 @@ class  DownloadStatus {
   DownloadStatus(
       const std::string& guid,
       ::crosapi::mojom::DownloadState state,
-      absl::optional<int64_t> received_bytes,
-      absl::optional<int64_t> total_bytes,
-      const absl::optional<::base::FilePath>& target_file_path,
-      absl::optional<bool> cancellable,
-      absl::optional<bool> pausable,
-      absl::optional<bool> resumable);
+      std::optional<int64_t> received_bytes,
+      std::optional<int64_t> total_bytes,
+      const std::optional<::base::FilePath>& target_file_path,
+      std::optional<bool> cancellable,
+      std::optional<bool> pausable,
+      std::optional<bool> resumable);
 
   DownloadStatus(
       const std::string& guid,
       ::crosapi::mojom::DownloadState state,
-      absl::optional<int64_t> received_bytes,
-      absl::optional<int64_t> total_bytes,
-      const absl::optional<::base::FilePath>& target_file_path,
-      const absl::optional<::base::FilePath>& full_path,
-      absl::optional<bool> cancellable,
-      absl::optional<bool> pausable,
-      absl::optional<bool> resumable);
+      std::optional<int64_t> received_bytes,
+      std::optional<int64_t> total_bytes,
+      const std::optional<::base::FilePath>& target_file_path,
+      const std::optional<::base::FilePath>& full_path,
+      std::optional<bool> cancellable,
+      std::optional<bool> pausable,
+      std::optional<bool> resumable);
+
+  DownloadStatus(
+      const std::string& guid,
+      ::crosapi::mojom::DownloadState state,
+      std::optional<int64_t> received_bytes,
+      std::optional<int64_t> total_bytes,
+      const std::optional<::base::FilePath>& target_file_path,
+      const std::optional<::base::FilePath>& full_path,
+      std::optional<bool> cancellable,
+      std::optional<bool> pausable,
+      std::optional<bool> resumable,
+      const std::optional<::std::u16string>& status_text);
 
 
   ~DownloadStatus();
@@ -442,19 +456,21 @@ class  DownloadStatus {
   
   ::crosapi::mojom::DownloadState state;
   
-  absl::optional<int64_t> received_bytes;
+  std::optional<int64_t> received_bytes;
   
-  absl::optional<int64_t> total_bytes;
+  std::optional<int64_t> total_bytes;
   
-  absl::optional<::base::FilePath> target_file_path;
+  std::optional<::base::FilePath> target_file_path;
   
-  absl::optional<::base::FilePath> full_path;
+  std::optional<::base::FilePath> full_path;
   
-  absl::optional<bool> cancellable;
+  std::optional<bool> cancellable;
   
-  absl::optional<bool> pausable;
+  std::optional<bool> pausable;
   
-  absl::optional<bool> resumable;
+  std::optional<bool> resumable;
+  
+  std::optional<::std::u16string> status_text;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -496,7 +512,8 @@ DownloadStatusPtr DownloadStatus::Clone() const {
       mojo::Clone(full_path),
       mojo::Clone(cancellable),
       mojo::Clone(pausable),
-      mojo::Clone(resumable)
+      mojo::Clone(resumable),
+      mojo::Clone(status_text)
   );
 }
 
@@ -519,6 +536,8 @@ bool DownloadStatus::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->pausable, other_struct.pausable))
     return false;
   if (!mojo::Equals(this->resumable, other_struct.resumable))
+    return false;
+  if (!mojo::Equals(this->status_text, other_struct.status_text))
     return false;
   return true;
 }
@@ -560,6 +579,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.resumable < rhs.resumable)
     return true;
   if (rhs.resumable < lhs.resumable)
+    return false;
+  if (lhs.status_text < rhs.status_text)
+    return true;
+  if (rhs.status_text < lhs.status_text)
     return false;
   return false;
 }
@@ -619,6 +642,11 @@ struct  StructTraits<::crosapi::mojom::DownloadStatus::DataView,
   static decltype(::crosapi::mojom::DownloadStatus::resumable) resumable(
       const ::crosapi::mojom::DownloadStatusPtr& input) {
     return input->resumable;
+  }
+
+  static const decltype(::crosapi::mojom::DownloadStatus::status_text)& status_text(
+      const ::crosapi::mojom::DownloadStatusPtr& input) {
+    return input->status_text;
   }
 
   static bool Read(::crosapi::mojom::DownloadStatus::DataView input, ::crosapi::mojom::DownloadStatusPtr* output);

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -793,14 +794,17 @@ void InputInjectorProxy::QueueSyntheticSmoothDrag(
                         "<value of type const ::content::SyntheticSmoothDragGestureParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticSmoothDrag_Name, kFlags, 0, 0, nullptr);
@@ -842,14 +846,17 @@ void InputInjectorProxy::QueueSyntheticSmoothScroll(
                         "<value of type const ::content::SyntheticSmoothScrollGestureParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticSmoothScroll_Name, kFlags, 0, 0, nullptr);
@@ -891,14 +898,17 @@ void InputInjectorProxy::QueueSyntheticPinch(
                         "<value of type const ::content::SyntheticPinchGestureParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticPinch_Name, kFlags, 0, 0, nullptr);
@@ -940,14 +950,17 @@ void InputInjectorProxy::QueueSyntheticTap(
                         "<value of type const ::content::SyntheticTapGestureParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticTap_Name, kFlags, 0, 0, nullptr);
@@ -989,14 +1002,17 @@ void InputInjectorProxy::QueueSyntheticPointerAction(
                         "<value of type const ::content::SyntheticPointerActionListParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticPointerAction_Name, kFlags, 0, 0, nullptr);
@@ -1106,7 +1122,8 @@ void InputInjector_QueueSyntheticSmoothDrag_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticSmoothDrag_Name, kFlags, 0, 0, nullptr);
@@ -1212,7 +1229,8 @@ void InputInjector_QueueSyntheticSmoothScroll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticSmoothScroll_Name, kFlags, 0, 0, nullptr);
@@ -1318,7 +1336,8 @@ void InputInjector_QueueSyntheticPinch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticPinch_Name, kFlags, 0, 0, nullptr);
@@ -1424,7 +1443,8 @@ void InputInjector_QueueSyntheticTap_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticTap_Name, kFlags, 0, 0, nullptr);
@@ -1530,7 +1550,8 @@ void InputInjector_QueueSyntheticPointerAction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputInjector_QueueSyntheticPointerAction_Name, kFlags, 0, 0, nullptr);
@@ -1737,18 +1758,18 @@ std::move(p_pointer_action), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputInjectorValidationInfo[] = {
-    {&internal::InputInjector_QueueSyntheticSmoothDrag_Params_Data::Validate,
+    { &internal::InputInjector_QueueSyntheticSmoothDrag_Params_Data::Validate,
      &internal::InputInjector_QueueSyntheticSmoothDrag_ResponseParams_Data::Validate},
-    {&internal::InputInjector_QueueSyntheticSmoothScroll_Params_Data::Validate,
+    { &internal::InputInjector_QueueSyntheticSmoothScroll_Params_Data::Validate,
      &internal::InputInjector_QueueSyntheticSmoothScroll_ResponseParams_Data::Validate},
-    {&internal::InputInjector_QueueSyntheticPinch_Params_Data::Validate,
+    { &internal::InputInjector_QueueSyntheticPinch_Params_Data::Validate,
      &internal::InputInjector_QueueSyntheticPinch_ResponseParams_Data::Validate},
-    {&internal::InputInjector_QueueSyntheticTap_Params_Data::Validate,
+    { &internal::InputInjector_QueueSyntheticTap_Params_Data::Validate,
      &internal::InputInjector_QueueSyntheticTap_ResponseParams_Data::Validate},
-    {&internal::InputInjector_QueueSyntheticPointerAction_Params_Data::Validate,
+    { &internal::InputInjector_QueueSyntheticPointerAction_Params_Data::Validate,
      &internal::InputInjector_QueueSyntheticPointerAction_ResponseParams_Data::Validate},
 };
 

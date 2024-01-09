@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,7 +55,7 @@ Recipe::Recipe(
     const std::string& name_in,
     const ::GURL& image_url_in,
     const std::string& info_in,
-    const absl::optional<std::string>& site_name_in,
+    const std::optional<std::string>& site_name_in,
     const ::GURL& target_url_in)
     : name(std::move(name_in)),
       image_url(std::move(image_url_in)),
@@ -98,7 +99,7 @@ void Recipe::WriteIntoTrace(
     dict.AddItem(
       "site_name"), this->site_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -383,14 +384,17 @@ void RecipesHandlerProxy::GetPrimaryTask(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send recipes::mojom::RecipesHandler::GetPrimaryTask");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_GetPrimaryTask_Name, kFlags, 0, 0, nullptr);
@@ -421,14 +425,17 @@ void RecipesHandlerProxy::DismissTask(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_DismissTask_Name, kFlags, 0, 0, nullptr);
@@ -469,14 +476,17 @@ void RecipesHandlerProxy::RestoreTask(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_RestoreTask_Name, kFlags, 0, 0, nullptr);
@@ -517,14 +527,17 @@ void RecipesHandlerProxy::OnRecipeClicked(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_OnRecipeClicked_Name, kFlags, 0, 0, nullptr);
@@ -555,14 +568,17 @@ void RecipesHandlerProxy::OnRelatedSearchClicked(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_OnRelatedSearchClicked_Name, kFlags, 0, 0, nullptr);
@@ -672,7 +688,8 @@ void RecipesHandler_GetPrimaryTask_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecipesHandler_GetPrimaryTask_Name, kFlags, 0, 0, nullptr);
@@ -870,18 +887,18 @@ bool RecipesHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRecipesHandlerValidationInfo[] = {
-    {&internal::RecipesHandler_GetPrimaryTask_Params_Data::Validate,
+    { &internal::RecipesHandler_GetPrimaryTask_Params_Data::Validate,
      &internal::RecipesHandler_GetPrimaryTask_ResponseParams_Data::Validate},
-    {&internal::RecipesHandler_DismissTask_Params_Data::Validate,
+    { &internal::RecipesHandler_DismissTask_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecipesHandler_RestoreTask_Params_Data::Validate,
+    { &internal::RecipesHandler_RestoreTask_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecipesHandler_OnRecipeClicked_Params_Data::Validate,
+    { &internal::RecipesHandler_OnRecipeClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecipesHandler_OnRelatedSearchClicked_Params_Data::Validate,
+    { &internal::RecipesHandler_OnRelatedSearchClicked_Params_Data::Validate,
      nullptr /* no response */},
 };
 

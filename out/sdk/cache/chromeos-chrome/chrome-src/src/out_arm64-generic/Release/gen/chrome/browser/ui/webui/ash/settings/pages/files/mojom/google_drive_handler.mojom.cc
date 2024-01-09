@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -201,14 +202,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -296,10 +300,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -464,14 +468,17 @@ void PageHandlerProxy::CalculateRequiredSpace(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::google_drive::mojom::PageHandler::CalculateRequiredSpace");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_CalculateRequiredSpace_Name, kFlags, 0, 0, nullptr);
@@ -494,14 +501,17 @@ void PageHandlerProxy::GetContentCacheSize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::google_drive::mojom::PageHandler::GetContentCacheSize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetContentCacheSize_Name, kFlags, 0, 0, nullptr);
@@ -525,14 +535,17 @@ void PageHandlerProxy::ClearPinnedFiles(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::google_drive::mojom::PageHandler::ClearPinnedFiles");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClearPinnedFiles_Name, kFlags, 0, 0, nullptr);
@@ -556,14 +569,17 @@ void PageHandlerProxy::RecordBulkPinningEnabledMetric(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::google_drive::mojom::PageHandler::RecordBulkPinningEnabledMetric");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordBulkPinningEnabledMetric_Name, kFlags, 0, 0, nullptr);
@@ -626,7 +642,7 @@ class PageHandler_GetContentCacheSize_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_size);
+      const std::optional<std::string>& in_size);
 };
 
 bool PageHandler_GetContentCacheSize_ForwardToCallback::Accept(
@@ -639,7 +655,7 @@ bool PageHandler_GetContentCacheSize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_size{};
+  std::optional<std::string> p_size{};
   PageHandler_GetContentCacheSize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadSize(&p_size))
@@ -658,7 +674,7 @@ std::move(p_size));
 }
 
 void PageHandler_GetContentCacheSize_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_size) {
+    const std::optional<std::string>& in_size) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::settings::google_drive::mojom::PageHandler::GetContentCacheSize", "async_response_parameters",
@@ -666,13 +682,14 @@ void PageHandler_GetContentCacheSize_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("size"), in_size,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetContentCacheSize_Name, kFlags, 0, 0, nullptr);
@@ -785,7 +802,8 @@ void PageHandler_ClearPinnedFiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClearPinnedFiles_Name, kFlags, 0, 0, nullptr);
@@ -938,16 +956,16 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_CalculateRequiredSpace_Params_Data::Validate,
+    { &internal::PageHandler_CalculateRequiredSpace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetContentCacheSize_Params_Data::Validate,
+    { &internal::PageHandler_GetContentCacheSize_Params_Data::Validate,
      &internal::PageHandler_GetContentCacheSize_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ClearPinnedFiles_Params_Data::Validate,
+    { &internal::PageHandler_ClearPinnedFiles_Params_Data::Validate,
      &internal::PageHandler_ClearPinnedFiles_ResponseParams_Data::Validate},
-    {&internal::PageHandler_RecordBulkPinningEnabledMetric_Params_Data::Validate,
+    { &internal::PageHandler_RecordBulkPinningEnabledMetric_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1044,14 +1062,17 @@ void PageProxy::OnServiceUnavailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::google_drive::mojom::Page::OnServiceUnavailable");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnServiceUnavailable_Name, kFlags, 0, 0, nullptr);
@@ -1081,14 +1102,17 @@ void PageProxy::OnProgress(
                         "<value of type StatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnProgress_Name, kFlags, 0, 0, nullptr);
@@ -1192,12 +1216,12 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnServiceUnavailable_Params_Data::Validate,
+    { &internal::Page_OnServiceUnavailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnProgress_Params_Data::Validate,
+    { &internal::Page_OnProgress_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1274,14 +1298,14 @@ PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 
 void PageHandlerAsyncWaiter::GetContentCacheSize(
-    absl::optional<std::string>* out_size) {
+    std::optional<std::string>* out_size) {
   base::RunLoop loop;
   proxy_->GetContentCacheSize(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_size
+             std::optional<std::string>* out_size
 ,
-             const absl::optional<std::string>& size) {*out_size = std::move(size);
+             const std::optional<std::string>& size) {*out_size = std::move(size);
             loop->Quit();
           },
           &loop,
@@ -1289,9 +1313,9 @@ void PageHandlerAsyncWaiter::GetContentCacheSize(
   loop.Run();
 }
 
-absl::optional<std::string> PageHandlerAsyncWaiter::GetContentCacheSize(
+std::optional<std::string> PageHandlerAsyncWaiter::GetContentCacheSize(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetContentCacheSize(&async_wait_result);
   return async_wait_result;
 }

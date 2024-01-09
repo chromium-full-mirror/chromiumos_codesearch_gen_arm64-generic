@@ -29,8 +29,8 @@ class  PageMetricsHostAsyncWaiter {
 
   ~PageMetricsHostAsyncWaiter();
   void OnGetMark(
-      const std::string& name, absl::optional<::base::TimeDelta>* out_marked_time);
-  absl::optional<::base::TimeDelta> OnGetMark(const std::string& name);
+      const std::string& name, std::optional<::base::TimeDelta>* out_marked_time);
+  std::optional<::base::TimeDelta> OnGetMark(const std::string& name);
 
  private:
   PageMetricsHost* const proxy_;
@@ -51,8 +51,8 @@ class  PageMetricsAsyncWaiter {
 
   ~PageMetricsAsyncWaiter();
   void OnGetMark(
-      const std::string& name, absl::optional<::base::TimeDelta>* out_marked_time);
-  absl::optional<::base::TimeDelta> OnGetMark(const std::string& name);
+      const std::string& name, std::optional<::base::TimeDelta>* out_marked_time);
+  std::optional<::base::TimeDelta> OnGetMark(const std::string& name);
 
  private:
   PageMetrics* const proxy_;

@@ -106,15 +106,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'operatedByGoogle', 24,
-        0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'disqualifiedAt', 32,
+        'disqualifiedAt', 24,
         0,
         mojoBase.mojom.TimeSpec.$,
         null,
@@ -122,7 +114,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'mmd', 40,
+        'mmd', 32,
         0,
         mojoBase.mojom.TimeDeltaSpec.$,
         null,
@@ -130,7 +122,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'currentOperator', 48,
+        'currentOperator', 40,
         0,
         mojo.internal.String,
         null,
@@ -138,7 +130,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'previousOperators', 56,
+        'previousOperators', 48,
         0,
         mojo.internal.Array(network.mojom.PreviousOperatorEntrySpec.$, false),
         null,
@@ -146,7 +138,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 72],]);
+    [[0, 64],]);
 
 
 
@@ -161,8 +153,6 @@ network.mojom.CTLogInfo = class {
     this.publicKey;
     /** @export { !string } */
     this.name;
-    /** @export { !boolean } */
-    this.operatedByGoogle;
     /** @export { (mojoBase.mojom.Time|undefined) } */
     this.disqualifiedAt;
     /** @export { !mojoBase.mojom.TimeDelta } */

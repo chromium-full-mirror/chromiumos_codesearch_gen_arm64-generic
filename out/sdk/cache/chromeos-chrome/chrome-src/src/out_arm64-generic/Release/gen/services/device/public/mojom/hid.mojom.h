@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/hid.mojom-features.h"
 #include "services/device/public/mojom/hid.mojom-shared.h"
 #include "services/device/public/mojom/hid.mojom-forward.h"
 #include <string>
@@ -232,7 +233,7 @@ class HidConnection
   virtual ~HidConnection() = default;
 
 
-  using ReadCallback = base::OnceCallback<void(bool, uint8_t, const absl::optional<std::vector<uint8_t>>&)>;
+  using ReadCallback = base::OnceCallback<void(bool, uint8_t, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void Read(ReadCallback callback) = 0;
 
@@ -242,7 +243,7 @@ class HidConnection
   virtual void Write(uint8_t report_id, const std::vector<uint8_t>& buffer, WriteCallback callback) = 0;
 
 
-  using GetFeatureReportCallback = base::OnceCallback<void(bool, const absl::optional<std::vector<uint8_t>>&)>;
+  using GetFeatureReportCallback = base::OnceCallback<void(bool, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetFeatureReport(uint8_t report_id, GetFeatureReportCallback callback) = 0;
 
@@ -1392,9 +1393,9 @@ class  HidDeviceInfo {
       uint64_t max_output_report_size,
       uint64_t max_feature_report_size,
       const std::string& device_node,
-      absl::optional<std::vector<uint8_t>> protected_input_report_ids,
-      absl::optional<std::vector<uint8_t>> protected_output_report_ids,
-      absl::optional<std::vector<uint8_t>> protected_feature_report_ids);
+      std::optional<std::vector<uint8_t>> protected_input_report_ids,
+      std::optional<std::vector<uint8_t>> protected_output_report_ids,
+      std::optional<std::vector<uint8_t>> protected_feature_report_ids);
 
   HidDeviceInfo(
       const std::string& guid,
@@ -1411,9 +1412,9 @@ class  HidDeviceInfo {
       uint64_t max_output_report_size,
       uint64_t max_feature_report_size,
       const std::string& device_node,
-      absl::optional<std::vector<uint8_t>> protected_input_report_ids,
-      absl::optional<std::vector<uint8_t>> protected_output_report_ids,
-      absl::optional<std::vector<uint8_t>> protected_feature_report_ids,
+      std::optional<std::vector<uint8_t>> protected_input_report_ids,
+      std::optional<std::vector<uint8_t>> protected_output_report_ids,
+      std::optional<std::vector<uint8_t>> protected_feature_report_ids,
       bool is_excluded_by_blocklist);
 
 HidDeviceInfo(const HidDeviceInfo&) = delete;
@@ -1522,11 +1523,11 @@ HidDeviceInfo& operator=(const HidDeviceInfo&) = delete;
   
   std::string device_node;
   
-  absl::optional<std::vector<uint8_t>> protected_input_report_ids;
+  std::optional<std::vector<uint8_t>> protected_input_report_ids;
   
-  absl::optional<std::vector<uint8_t>> protected_output_report_ids;
+  std::optional<std::vector<uint8_t>> protected_output_report_ids;
   
-  absl::optional<std::vector<uint8_t>> protected_feature_report_ids;
+  std::optional<std::vector<uint8_t>> protected_feature_report_ids;
   
   bool is_excluded_by_blocklist;
 

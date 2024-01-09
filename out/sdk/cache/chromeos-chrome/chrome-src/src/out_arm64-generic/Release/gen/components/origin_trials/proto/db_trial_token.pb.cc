@@ -24,7 +24,8 @@ PROTOBUF_CONSTEXPR TrialTokenDbEntry::TrialTokenDbEntry(
   , trial_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , token_signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , token_expiry_(uint64_t{0u})
-  , usage_restriction_(0u){}
+  , usage_restriction_(0u)
+  , match_subdomains_(false){}
 struct TrialTokenDbEntryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TrialTokenDbEntryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -81,6 +82,9 @@ class TrialTokenDbEntry::_Internal {
   static void set_has_token_signature(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_match_subdomains(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 TrialTokenDbEntry::TrialTokenDbEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -112,8 +116,8 @@ TrialTokenDbEntry::TrialTokenDbEntry(const TrialTokenDbEntry& from)
       GetArenaForAllocation());
   }
   ::memcpy(&token_expiry_, &from.token_expiry_,
-    static_cast<size_t>(reinterpret_cast<char*>(&usage_restriction_) -
-    reinterpret_cast<char*>(&token_expiry_)) + sizeof(usage_restriction_));
+    static_cast<size_t>(reinterpret_cast<char*>(&match_subdomains_) -
+    reinterpret_cast<char*>(&token_expiry_)) + sizeof(match_subdomains_));
   // @@protoc_insertion_point(copy_constructor:origin_trials_pb.TrialTokenDbEntry)
 }
 
@@ -128,8 +132,8 @@ token_signature_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&token_expiry_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&usage_restriction_) -
-    reinterpret_cast<char*>(&token_expiry_)) + sizeof(usage_restriction_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&match_subdomains_) -
+    reinterpret_cast<char*>(&token_expiry_)) + sizeof(match_subdomains_));
 }
 
 TrialTokenDbEntry::~TrialTokenDbEntry() {
@@ -167,10 +171,10 @@ void TrialTokenDbEntry::Clear() {
       token_signature_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x0000000cu) {
+  if (cached_has_bits & 0x0000001cu) {
     ::memset(&token_expiry_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&usage_restriction_) -
-        reinterpret_cast<char*>(&token_expiry_)) + sizeof(usage_restriction_));
+        reinterpret_cast<char*>(&match_subdomains_) -
+        reinterpret_cast<char*>(&token_expiry_)) + sizeof(match_subdomains_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -230,6 +234,15 @@ const char* TrialTokenDbEntry::_InternalParse(const char* ptr, ::_pbi::ParseCont
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool match_subdomains = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_match_subdomains(&has_bits);
+          match_subdomains_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -294,6 +307,12 @@ uint8_t* TrialTokenDbEntry::_InternalSerialize(
     target = stream->WriteString(5, s, target);
   }
 
+  // optional bool match_subdomains = 6;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_match_subdomains(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -319,7 +338,7 @@ size_t TrialTokenDbEntry::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional string trial_name = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -342,6 +361,11 @@ size_t TrialTokenDbEntry::ByteSizeLong() const {
     // optional uint32 usage_restriction = 3;
     if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_usage_restriction());
+    }
+
+    // optional bool match_subdomains = 6;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -367,7 +391,7 @@ void TrialTokenDbEntry::MergeFrom(const TrialTokenDbEntry& from) {
 
   partition_sites_.MergeFrom(from.partition_sites_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_trial_name(from._internal_trial_name());
     }
@@ -379,6 +403,9 @@ void TrialTokenDbEntry::MergeFrom(const TrialTokenDbEntry& from) {
     }
     if (cached_has_bits & 0x00000008u) {
       usage_restriction_ = from.usage_restriction_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      match_subdomains_ = from.match_subdomains_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -412,8 +439,8 @@ void TrialTokenDbEntry::InternalSwap(TrialTokenDbEntry* other) {
       &other->token_signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TrialTokenDbEntry, usage_restriction_)
-      + sizeof(TrialTokenDbEntry::usage_restriction_)
+      PROTOBUF_FIELD_OFFSET(TrialTokenDbEntry, match_subdomains_)
+      + sizeof(TrialTokenDbEntry::match_subdomains_)
       - PROTOBUF_FIELD_OFFSET(TrialTokenDbEntry, token_expiry_)>(
           reinterpret_cast<char*>(&token_expiry_),
           reinterpret_cast<char*>(&other->token_expiry_));

@@ -85,8 +85,9 @@ export function getTemplate() {
   }
 </style>
 
-<tr id="container" tabindex$="[[getTabIndex()]]" on-focus="onRowFocused"
-    on-blur="onRowBlur"
+<tr id="container" tabindex$="[[getTabIndex()]]"
+    on-focus="onFocusOrMouseEnter"
+    on-mouseenter="onFocusOrMouseEnter"
     aria-label$="[[getAriaLabel(description, acceleratorInfos)]]">
   <th id="descriptionText" scope="row">[[description]]</th>
   <td>
@@ -95,8 +96,7 @@ export function getTemplate() {
           index-as="index">
         <accelerator-view class="accelerator-item" accelerator-info="[[item]]"
             action="[[action]]" source="[[source]]" source-is-locked="[[isLocked]]"
-            show-edit-icon="true" is-first-accelerator="[[isFirstAccelerator(index)]]"
-            highlighted="[[selected]]">
+            show-edit-icon="true" is-first-accelerator="[[isFirstAccelerator(index)]]">
         </accelerator-view>
       </template>
       <div id="noShortcutAssignedContainer" hidden="[[!isEmptyList(acceleratorInfos)]]">

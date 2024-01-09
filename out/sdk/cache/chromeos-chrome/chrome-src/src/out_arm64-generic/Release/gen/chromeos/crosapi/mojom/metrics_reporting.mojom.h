@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/metrics_reporting.mojom-features.h"
 #include "chromeos/crosapi/mojom/metrics_reporting.mojom-shared.h"
 #include "chromeos/crosapi/mojom/metrics_reporting.mojom-forward.h"
 #include <string>
@@ -83,7 +84,7 @@ class MetricsReportingObserver
   virtual ~MetricsReportingObserver() = default;
 
   
-  virtual void OnMetricsReportingChanged(bool enabled, const absl::optional<std::string>& client_id) = 0;
+  virtual void OnMetricsReportingChanged(bool enabled, const std::optional<std::string>& client_id) = 0;
 };
 
 class MetricsReportingProxy;
@@ -152,7 +153,7 @@ class  MetricsReportingObserverProxy
 
   explicit MetricsReportingObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnMetricsReportingChanged(bool enabled, const absl::optional<std::string>& client_id) final;
+  void OnMetricsReportingChanged(bool enabled, const std::optional<std::string>& client_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

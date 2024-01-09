@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TouchEvent>::value,
     "TouchEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TouchEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TouchEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.touches.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->touches();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.targetTouches.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->targetTouches();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.changedTouches.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->changedTouches();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.altKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -145,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.metaKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->metaKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -159,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.ctrlKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ctrlKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -173,8 +174,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.shiftKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shiftKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -187,8 +189,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(v8_receiver);
+TouchEvent* blink_receiver = V8TouchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

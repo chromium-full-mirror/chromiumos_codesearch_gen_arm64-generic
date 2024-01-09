@@ -21,7 +21,7 @@ class  CrosDisplayConfigControllerInterceptorForTesting : public CrosDisplayConf
   void GetDisplayUnitInfoList(bool single_unified, GetDisplayUnitInfoListCallback callback) override;
   void SetDisplayProperties(const std::string& id, DisplayConfigPropertiesPtr properties, DisplayConfigSource source, SetDisplayPropertiesCallback callback) override;
   void SetUnifiedDesktopEnabled(bool enabled) override;
-  void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) override;
+  void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) override;
   void TouchCalibration(const std::string& display_id, DisplayConfigOperation op, TouchCalibrationPtr calibration, TouchCalibrationCallback callback) override;
   void HighlightDisplay(int64_t id) override;
   void DragDisplayDelta(int64_t display_id, int32_t delta_x, int32_t delta_y) override;
@@ -47,8 +47,8 @@ class  CrosDisplayConfigControllerAsyncWaiter {
       const std::string& id, DisplayConfigPropertiesPtr properties, DisplayConfigSource source, DisplayConfigResult* out_result);
   DisplayConfigResult SetDisplayProperties(const std::string& id, DisplayConfigPropertiesPtr properties, DisplayConfigSource source);
   void OverscanCalibration(
-      const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, DisplayConfigResult* out_result);
-  DisplayConfigResult OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta);
+      const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, DisplayConfigResult* out_result);
+  DisplayConfigResult OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta);
   void TouchCalibration(
       const std::string& display_id, DisplayConfigOperation op, TouchCalibrationPtr calibration, DisplayConfigResult* out_result);
   DisplayConfigResult TouchCalibration(const std::string& display_id, DisplayConfigOperation op, TouchCalibrationPtr calibration);

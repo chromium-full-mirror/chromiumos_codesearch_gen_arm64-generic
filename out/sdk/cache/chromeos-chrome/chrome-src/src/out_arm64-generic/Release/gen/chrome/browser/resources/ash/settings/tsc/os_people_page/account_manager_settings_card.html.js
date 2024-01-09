@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared">.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px;padding-top:8px;padding-bottom:8px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:8px}.device-account-container{align-items:center;display:flex;flex-direction:column;margin-bottom:16px}.device-account-container .primary{font-weight:500;margin-top:8px}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
-                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}</style>
+                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}:host-context(body.revamp-wayfinding-enabled) #managedUserIcon{--iron-icon-fill-color:var(--cros-sys-secondary)}</style>
 
 <settings-card header-text="$i18n{accountManagerPageTitle}">
   <div class="settings-box first account-manager-description full-width">
@@ -13,20 +13,20 @@ export function getTemplate() {
    <template is="dom-if" if="[[isDeviceAccountManaged_]]">
     <div class="settings-box managed-message">
       <template is="dom-if" if="[[!isChildUser_]]">
-        <iron-icon icon="cr20:domain"></iron-icon>
+        <iron-icon id="managedUserIcon" icon="[[managedByIcon_]]"></iron-icon>
       </template>
       <template is="dom-if" if="[[isChildUser_]]">
         <cr-icon-button iron-icon="cr20:kite" on-click="onManagedIconClick_">
         </cr-icon-button>
       </template>
-      <localized-link localized-string="[[getManagementDescription_(isChildUser_, deviceAccount_)]]" link-url="$i18nRaw{accountManagerChromeUIManagementURL}">
+      <localized-link localized-string="[[getManagementDescription_(isChildUser_, deviceAccount)]]" link-url="$i18nRaw{accountManagerChromeUIManagementURL}">
       </localized-link>
     </div>
   </template>
 
   
   <div class="device-account-container hr" aria-labelledby="deviceAccountFullName" aria-describedby="deviceAccountEmail">
-    <div class="profile-icon device-account-icon" aria-hidden="true" style="background-image:[[getIconImageSet_(deviceAccount_.pic) ]]">
+    <div class="profile-icon device-account-icon" aria-hidden="true" style="background-image:[[getIconImageSet_(deviceAccount) ]]">
       <template is="dom-if" if="[[shouldShowManagedBadge_(isDeviceAccountManaged_,
                 isChildUser_)]]">
         <div class="managed-badge">
@@ -35,10 +35,10 @@ export function getTemplate() {
       </template>
     </div>
     <span id="deviceAccountFullName" class="primary" aria-hidden="true">
-      [[deviceAccount_.fullName]]
+      [[deviceAccount.fullName]]
     </span>
     <span id="deviceAccountEmail" class="secondary" aria-hidden="true">
-      [[deviceAccount_.email]]
+      [[deviceAccount.email]]
     </span>
   </div>
 </settings-card>

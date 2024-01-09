@@ -36,7 +36,7 @@ rule copy
 build obj/common-mk/gn_root/root.stamp: stamp obj/device_management/all.stamp
 build obj/device_management/_device_management_client-install_config.stamp: stamp
 build obj/device_management/_device_managementd-install_config.stamp: stamp
-build obj/device_management/all.stamp: stamp ./device_management_client ./device_managementd obj/device_management/install_init.stamp obj/device_management/install_minijail_conf.stamp obj/device_management/install_policy.stamp obj/device_management/install_systemd.stamp obj/device_management/install_tmpfiles_config.stamp ./device_management_testrunner
+build obj/device_management/all.stamp: stamp ./device_management_client ./device_managementd obj/device_management/install_init.stamp obj/device_management/install_minijail_conf.stamp obj/device_management/install_policy.stamp obj/device_management/install_systemd.stamp obj/device_management/install_tmpfiles_config.stamp
 rule __device_management_device_management_adaptors___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/include/device_management/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/device_management/dbus_bindings/dbus-service-config-device_management.json ${in}
   description = ACTION //device_management:device_management_adaptors(//common-mk/toolchain:toolchain)
@@ -48,7 +48,6 @@ build gen/include/device_management/dbus_adaptors/org.chromium.DeviceManagement.
 build obj/device_management/device_management_adaptors.stamp: stamp gen/include/device_management/dbus_adaptors/org.chromium.DeviceManagement.h
 subninja obj/device_management/device_management_client.ninja
 subninja obj/device_management/device_management_server_library.ninja
-subninja obj/device_management/device_management_testrunner.ninja
 subninja obj/device_management/device_managementd.ninja
 build obj/device_management/install_init.stamp: stamp
 build obj/device_management/install_minijail_conf.stamp: stamp

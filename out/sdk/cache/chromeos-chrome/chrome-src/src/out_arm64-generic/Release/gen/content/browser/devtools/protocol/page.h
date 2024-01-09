@@ -176,6 +176,8 @@ CONTENT_EXPORT extern const char JsNetworkRequestReceivedCacheControlNoStoreReso
 CONTENT_EXPORT extern const char WebRTCSticky[];
 CONTENT_EXPORT extern const char WebTransportSticky[];
 CONTENT_EXPORT extern const char WebSocketSticky[];
+CONTENT_EXPORT extern const char SmartCard[];
+CONTENT_EXPORT extern const char LiveMediaStreamTrack[];
 CONTENT_EXPORT extern const char ContentSecurityHandler[];
 CONTENT_EXPORT extern const char ContentWebAuthenticationAPI[];
 CONTENT_EXPORT extern const char ContentFileChooser[];

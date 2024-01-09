@@ -82,6 +82,27 @@ blink.mojom.Opaque = {
   MAX_VALUE: 0,
 };
 
+goog.provide('blink.mojom.AutomaticBeaconType');
+goog.provide('blink.mojom.AutomaticBeaconTypeSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.mojom.AutomaticBeaconTypeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.mojom.AutomaticBeaconType = {
+  
+  kDeprecatedTopNavigation: 0,
+  kTopNavigationStart: 1,
+  kTopNavigationCommit: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 
 
 goog.provide('blink.mojom.AdAuctionDataSpec');

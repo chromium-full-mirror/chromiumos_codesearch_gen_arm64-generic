@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -513,14 +514,17 @@ void ProfileImportObserverProxy::OnImportStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ProfileImportObserver::OnImportStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnImportStart_Name, kFlags, 0, 0, nullptr);
@@ -553,14 +557,17 @@ void ProfileImportObserverProxy::OnImportFinished(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnImportFinished_Name, kFlags, 0, 0, nullptr);
@@ -602,14 +609,17 @@ void ProfileImportObserverProxy::OnImportItemStart(
                         "<value of type ::importer::ImportItem>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnImportItemStart_Name, kFlags, 0, 0, nullptr);
@@ -641,14 +651,17 @@ void ProfileImportObserverProxy::OnImportItemFinished(
                         "<value of type ::importer::ImportItem>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnImportItemFinished_Name, kFlags, 0, 0, nullptr);
@@ -680,14 +693,17 @@ void ProfileImportObserverProxy::OnHistoryImportStart(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnHistoryImportStart_Name, kFlags, 0, 0, nullptr);
@@ -721,14 +737,17 @@ void ProfileImportObserverProxy::OnHistoryImportGroup(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnHistoryImportGroup_Name, kFlags, 0, 0, nullptr);
@@ -772,14 +791,17 @@ void ProfileImportObserverProxy::OnHomePageImportReady(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnHomePageImportReady_Name, kFlags, 0, 0, nullptr);
@@ -823,14 +845,17 @@ void ProfileImportObserverProxy::OnBookmarksImportStart(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnBookmarksImportStart_Name, kFlags, 0, 0, nullptr);
@@ -872,14 +897,17 @@ void ProfileImportObserverProxy::OnBookmarksImportGroup(
                         "<value of type const std::vector<::ImportedBookmarkEntry>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnBookmarksImportGroup_Name, kFlags, 0, 0, nullptr);
@@ -922,14 +950,17 @@ void ProfileImportObserverProxy::OnFaviconsImportStart(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnFaviconsImportStart_Name, kFlags, 0, 0, nullptr);
@@ -960,14 +991,17 @@ void ProfileImportObserverProxy::OnFaviconsImportGroup(
                         "<value of type const ::favicon_base::FaviconUsageDataList&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnFaviconsImportGroup_Name, kFlags, 0, 0, nullptr);
@@ -1008,14 +1042,17 @@ void ProfileImportObserverProxy::OnPasswordFormImportReady(
                         "<value of type const ::importer::ImportedPasswordForm&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnPasswordFormImportReady_Name, kFlags, 0, 0, nullptr);
@@ -1059,14 +1096,17 @@ void ProfileImportObserverProxy::OnKeywordsImportReady(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnKeywordsImportReady_Name, kFlags, 0, 0, nullptr);
@@ -1110,14 +1150,17 @@ void ProfileImportObserverProxy::OnAutofillFormDataImportStart(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnAutofillFormDataImportStart_Name, kFlags, 0, 0, nullptr);
@@ -1148,14 +1191,17 @@ void ProfileImportObserverProxy::OnAutofillFormDataImportGroup(
                         "<value of type const std::vector<::ImporterAutofillFormDataEntry>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImportObserver_OnAutofillFormDataImportGroup_Name, kFlags, 0, 0, nullptr);
@@ -1654,38 +1700,38 @@ bool ProfileImportObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProfileImportObserverValidationInfo[] = {
-    {&internal::ProfileImportObserver_OnImportStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnImportStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnImportFinished_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnImportFinished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnImportItemStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnImportItemStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnImportItemFinished_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnImportItemFinished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnHistoryImportStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnHistoryImportStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnHistoryImportGroup_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnHistoryImportGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnHomePageImportReady_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnHomePageImportReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnBookmarksImportStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnBookmarksImportStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnBookmarksImportGroup_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnBookmarksImportGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnFaviconsImportStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnFaviconsImportStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnFaviconsImportGroup_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnFaviconsImportGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnPasswordFormImportReady_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnPasswordFormImportReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnKeywordsImportReady_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnKeywordsImportReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnAutofillFormDataImportStart_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnAutofillFormDataImportStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImportObserver_OnAutofillFormDataImportGroup_Params_Data::Validate,
+    { &internal::ProfileImportObserver_OnAutofillFormDataImportGroup_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1814,14 +1860,17 @@ void ProfileImportProxy::StartImport(
                         "<value of type ::mojo::PendingRemote<ProfileImportObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImport_StartImport_Name, kFlags, 0, 0, nullptr);
@@ -1875,14 +1924,17 @@ void ProfileImportProxy::CancelImport(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ProfileImport::CancelImport");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImport_CancelImport_Name, kFlags, 0, 0, nullptr);
@@ -1912,14 +1964,17 @@ void ProfileImportProxy::ReportImportItemFinished(
                         "<value of type ::importer::ImportItem>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProfileImport_ReportImportItemFinished_Name, kFlags, 0, 0, nullptr);
@@ -2057,14 +2112,14 @@ bool ProfileImportStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProfileImportValidationInfo[] = {
-    {&internal::ProfileImport_StartImport_Params_Data::Validate,
+    { &internal::ProfileImport_StartImport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImport_CancelImport_Params_Data::Validate,
+    { &internal::ProfileImport_CancelImport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProfileImport_ReportImportItemFinished_Params_Data::Validate,
+    { &internal::ProfileImport_ReportImportItemFinished_Params_Data::Validate,
      nullptr /* no response */},
 };
 

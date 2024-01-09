@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BackgroundFetchEvent>::value,
     "BackgroundFetchEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BackgroundFetchEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BackgroundFetchEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchEvent.registration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchEvent* blink_receiver = V8BackgroundFetchEvent::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchEvent* blink_receiver = V8BackgroundFetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->registration();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchEvent* blink_receiver = V8BackgroundFetchEvent::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchEvent* blink_receiver = V8BackgroundFetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

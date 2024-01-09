@@ -8,6 +8,7 @@
 #define COMPONENTS_MEDIA_ROUTER_COMMON_MOJOM_MEDIA_ROUTER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

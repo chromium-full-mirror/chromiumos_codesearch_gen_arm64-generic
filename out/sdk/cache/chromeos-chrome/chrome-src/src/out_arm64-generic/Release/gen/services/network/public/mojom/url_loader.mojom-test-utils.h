@@ -15,7 +15,7 @@ namespace network::mojom {
 
 class  URLLoaderInterceptorForTesting : public URLLoader {
   virtual URLLoader* GetForwardingInterface() = 0;
-  void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const absl::optional<::GURL>& new_url) override;
+  void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const std::optional<::GURL>& new_url) override;
   void SetPriority(::net::RequestPriority priority, int32_t intra_priority_value) override;
   void PauseReadingBodyFromNet() override;
   void ResumeReadingBodyFromNet() override;
@@ -37,7 +37,7 @@ class  URLLoaderAsyncWaiter {
 class  URLLoaderClientInterceptorForTesting : public URLLoaderClient {
   virtual URLLoaderClient* GetForwardingInterface() = 0;
   void OnReceiveEarlyHints(::network::mojom::EarlyHintsPtr early_hints) override;
-  void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, absl::optional<::mojo_base::BigBuffer> cached_metadata) override;
+  void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, std::optional<::mojo_base::BigBuffer> cached_metadata) override;
   void OnReceiveRedirect(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr head) override;
   void OnUploadProgress(int64_t current_position, int64_t total_size, OnUploadProgressCallback callback) override;
   void OnTransferSizeUpdated(int32_t transfer_size_diff) override;

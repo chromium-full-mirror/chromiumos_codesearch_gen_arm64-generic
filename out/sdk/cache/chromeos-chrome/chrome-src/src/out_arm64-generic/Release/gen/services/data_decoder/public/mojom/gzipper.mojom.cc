@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -238,14 +239,17 @@ void GzipperProxy::Deflate(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Deflate_Name, kFlags, 0, 0, nullptr);
@@ -288,14 +292,17 @@ void GzipperProxy::Inflate(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Inflate_Name, kFlags, 0, 0, nullptr);
@@ -336,14 +343,17 @@ void GzipperProxy::Compress(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Compress_Name, kFlags, 0, 0, nullptr);
@@ -383,14 +393,17 @@ void GzipperProxy::Uncompress(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Uncompress_Name, kFlags, 0, 0, nullptr);
@@ -463,7 +476,7 @@ class Gzipper_Deflate_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_deflated_data);
+      std::optional<::mojo_base::BigBuffer> in_deflated_data);
 };
 
 bool Gzipper_Deflate_ForwardToCallback::Accept(
@@ -476,7 +489,7 @@ bool Gzipper_Deflate_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_deflated_data{};
+  std::optional<::mojo_base::BigBuffer> p_deflated_data{};
   Gzipper_Deflate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDeflatedData(&p_deflated_data))
@@ -495,7 +508,7 @@ std::move(p_deflated_data));
 }
 
 void Gzipper_Deflate_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_deflated_data) {
+    std::optional<::mojo_base::BigBuffer> in_deflated_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::Gzipper::Deflate", "async_response_parameters",
@@ -503,13 +516,14 @@ void Gzipper_Deflate_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("deflated_data"), in_deflated_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Deflate_Name, kFlags, 0, 0, nullptr);
@@ -585,7 +599,7 @@ class Gzipper_Inflate_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_inflated_data);
+      std::optional<::mojo_base::BigBuffer> in_inflated_data);
 };
 
 bool Gzipper_Inflate_ForwardToCallback::Accept(
@@ -598,7 +612,7 @@ bool Gzipper_Inflate_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_inflated_data{};
+  std::optional<::mojo_base::BigBuffer> p_inflated_data{};
   Gzipper_Inflate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInflatedData(&p_inflated_data))
@@ -617,7 +631,7 @@ std::move(p_inflated_data));
 }
 
 void Gzipper_Inflate_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_inflated_data) {
+    std::optional<::mojo_base::BigBuffer> in_inflated_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::Gzipper::Inflate", "async_response_parameters",
@@ -625,13 +639,14 @@ void Gzipper_Inflate_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("inflated_data"), in_inflated_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Inflate_Name, kFlags, 0, 0, nullptr);
@@ -707,7 +722,7 @@ class Gzipper_Compress_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_compressed_data);
+      std::optional<::mojo_base::BigBuffer> in_compressed_data);
 };
 
 bool Gzipper_Compress_ForwardToCallback::Accept(
@@ -720,7 +735,7 @@ bool Gzipper_Compress_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_compressed_data{};
+  std::optional<::mojo_base::BigBuffer> p_compressed_data{};
   Gzipper_Compress_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCompressedData(&p_compressed_data))
@@ -739,7 +754,7 @@ std::move(p_compressed_data));
 }
 
 void Gzipper_Compress_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_compressed_data) {
+    std::optional<::mojo_base::BigBuffer> in_compressed_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::Gzipper::Compress", "async_response_parameters",
@@ -747,13 +762,14 @@ void Gzipper_Compress_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("compressed_data"), in_compressed_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Compress_Name, kFlags, 0, 0, nullptr);
@@ -829,7 +845,7 @@ class Gzipper_Uncompress_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_data);
+      std::optional<::mojo_base::BigBuffer> in_data);
 };
 
 bool Gzipper_Uncompress_ForwardToCallback::Accept(
@@ -842,7 +858,7 @@ bool Gzipper_Uncompress_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_data{};
+  std::optional<::mojo_base::BigBuffer> p_data{};
   Gzipper_Uncompress_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadData(&p_data))
@@ -861,7 +877,7 @@ std::move(p_data));
 }
 
 void Gzipper_Uncompress_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_data) {
+    std::optional<::mojo_base::BigBuffer> in_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::Gzipper::Uncompress", "async_response_parameters",
@@ -869,13 +885,14 @@ void Gzipper_Uncompress_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGzipper_Uncompress_Name, kFlags, 0, 0, nullptr);
@@ -1059,16 +1076,16 @@ std::move(p_compressed_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGzipperValidationInfo[] = {
-    {&internal::Gzipper_Deflate_Params_Data::Validate,
+    { &internal::Gzipper_Deflate_Params_Data::Validate,
      &internal::Gzipper_Deflate_ResponseParams_Data::Validate},
-    {&internal::Gzipper_Inflate_Params_Data::Validate,
+    { &internal::Gzipper_Inflate_Params_Data::Validate,
      &internal::Gzipper_Inflate_ResponseParams_Data::Validate},
-    {&internal::Gzipper_Compress_Params_Data::Validate,
+    { &internal::Gzipper_Compress_Params_Data::Validate,
      &internal::Gzipper_Compress_ResponseParams_Data::Validate},
-    {&internal::Gzipper_Uncompress_Params_Data::Validate,
+    { &internal::Gzipper_Uncompress_Params_Data::Validate,
      &internal::Gzipper_Uncompress_ResponseParams_Data::Validate},
 };
 
@@ -1116,14 +1133,14 @@ GzipperAsyncWaiter::GzipperAsyncWaiter(
 GzipperAsyncWaiter::~GzipperAsyncWaiter() = default;
 
 void GzipperAsyncWaiter::Deflate(
-    ::mojo_base::BigBuffer data, absl::optional<::mojo_base::BigBuffer>* out_deflated_data) {
+    ::mojo_base::BigBuffer data, std::optional<::mojo_base::BigBuffer>* out_deflated_data) {
   base::RunLoop loop;
   proxy_->Deflate(std::move(data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_deflated_data
+             std::optional<::mojo_base::BigBuffer>* out_deflated_data
 ,
-             absl::optional<::mojo_base::BigBuffer> deflated_data) {*out_deflated_data = std::move(deflated_data);
+             std::optional<::mojo_base::BigBuffer> deflated_data) {*out_deflated_data = std::move(deflated_data);
             loop->Quit();
           },
           &loop,
@@ -1131,22 +1148,22 @@ void GzipperAsyncWaiter::Deflate(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Deflate(
+std::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Deflate(
     ::mojo_base::BigBuffer data) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   Deflate(std::move(data),&async_wait_result);
   return async_wait_result;
 }
 
 void GzipperAsyncWaiter::Inflate(
-    ::mojo_base::BigBuffer data, uint64_t max_uncompressed_size, absl::optional<::mojo_base::BigBuffer>* out_inflated_data) {
+    ::mojo_base::BigBuffer data, uint64_t max_uncompressed_size, std::optional<::mojo_base::BigBuffer>* out_inflated_data) {
   base::RunLoop loop;
   proxy_->Inflate(std::move(data),std::move(max_uncompressed_size),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_inflated_data
+             std::optional<::mojo_base::BigBuffer>* out_inflated_data
 ,
-             absl::optional<::mojo_base::BigBuffer> inflated_data) {*out_inflated_data = std::move(inflated_data);
+             std::optional<::mojo_base::BigBuffer> inflated_data) {*out_inflated_data = std::move(inflated_data);
             loop->Quit();
           },
           &loop,
@@ -1154,22 +1171,22 @@ void GzipperAsyncWaiter::Inflate(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Inflate(
+std::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Inflate(
     ::mojo_base::BigBuffer data, uint64_t max_uncompressed_size) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   Inflate(std::move(data),std::move(max_uncompressed_size),&async_wait_result);
   return async_wait_result;
 }
 
 void GzipperAsyncWaiter::Compress(
-    ::mojo_base::BigBuffer data, absl::optional<::mojo_base::BigBuffer>* out_compressed_data) {
+    ::mojo_base::BigBuffer data, std::optional<::mojo_base::BigBuffer>* out_compressed_data) {
   base::RunLoop loop;
   proxy_->Compress(std::move(data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_compressed_data
+             std::optional<::mojo_base::BigBuffer>* out_compressed_data
 ,
-             absl::optional<::mojo_base::BigBuffer> compressed_data) {*out_compressed_data = std::move(compressed_data);
+             std::optional<::mojo_base::BigBuffer> compressed_data) {*out_compressed_data = std::move(compressed_data);
             loop->Quit();
           },
           &loop,
@@ -1177,22 +1194,22 @@ void GzipperAsyncWaiter::Compress(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Compress(
+std::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Compress(
     ::mojo_base::BigBuffer data) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   Compress(std::move(data),&async_wait_result);
   return async_wait_result;
 }
 
 void GzipperAsyncWaiter::Uncompress(
-    ::mojo_base::BigBuffer compressed_data, absl::optional<::mojo_base::BigBuffer>* out_data) {
+    ::mojo_base::BigBuffer compressed_data, std::optional<::mojo_base::BigBuffer>* out_data) {
   base::RunLoop loop;
   proxy_->Uncompress(std::move(compressed_data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_data
+             std::optional<::mojo_base::BigBuffer>* out_data
 ,
-             absl::optional<::mojo_base::BigBuffer> data) {*out_data = std::move(data);
+             std::optional<::mojo_base::BigBuffer> data) {*out_data = std::move(data);
             loop->Quit();
           },
           &loop,
@@ -1200,9 +1217,9 @@ void GzipperAsyncWaiter::Uncompress(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Uncompress(
+std::optional<::mojo_base::BigBuffer> GzipperAsyncWaiter::Uncompress(
     ::mojo_base::BigBuffer compressed_data) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   Uncompress(std::move(compressed_data),&async_wait_result);
   return async_wait_result;
 }

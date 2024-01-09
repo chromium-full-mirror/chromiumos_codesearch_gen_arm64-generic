@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/ct_log_info.mojom-features.h"
 #include "services/network/public/mojom/ct_log_info.mojom-shared.h"
 #include "services/network/public/mojom/ct_log_info.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -223,8 +224,7 @@ class BLINK_PLATFORM_EXPORT CTLogInfo {
       const WTF::String& id,
       const WTF::String& public_key,
       const WTF::String& name,
-      bool operated_by_google,
-      absl::optional<::base::Time> disqualified_at,
+      std::optional<::base::Time> disqualified_at,
       ::base::TimeDelta mmd,
       const WTF::String& current_operator,
       WTF::Vector<PreviousOperatorEntryPtr> previous_operators);
@@ -313,9 +313,7 @@ CTLogInfo& operator=(const CTLogInfo&) = delete;
   
   WTF::String name;
   
-  bool operated_by_google;
-  
-  absl::optional<::base::Time> disqualified_at;
+  std::optional<::base::Time> disqualified_at;
   
   ::base::TimeDelta mmd;
   
@@ -387,7 +385,6 @@ CTLogInfoPtr CTLogInfo::Clone() const {
       mojo::Clone(id),
       mojo::Clone(public_key),
       mojo::Clone(name),
-      mojo::Clone(operated_by_google),
       mojo::Clone(disqualified_at),
       mojo::Clone(mmd),
       mojo::Clone(current_operator),
@@ -402,8 +399,6 @@ bool CTLogInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->public_key, other_struct.public_key))
     return false;
   if (!mojo::Equals(this->name, other_struct.name))
-    return false;
-  if (!mojo::Equals(this->operated_by_google, other_struct.operated_by_google))
     return false;
   if (!mojo::Equals(this->disqualified_at, other_struct.disqualified_at))
     return false;
@@ -429,10 +424,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.name < rhs.name)
     return true;
   if (rhs.name < lhs.name)
-    return false;
-  if (lhs.operated_by_google < rhs.operated_by_google)
-    return true;
-  if (rhs.operated_by_google < lhs.operated_by_google)
     return false;
   if (lhs.disqualified_at < rhs.disqualified_at)
     return true;
@@ -498,11 +489,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::CTLogInfo::Da
   static const decltype(::network::mojom::blink::CTLogInfo::name)& name(
       const ::network::mojom::blink::CTLogInfoPtr& input) {
     return input->name;
-  }
-
-  static decltype(::network::mojom::blink::CTLogInfo::operated_by_google) operated_by_google(
-      const ::network::mojom::blink::CTLogInfoPtr& input) {
-    return input->operated_by_google;
   }
 
   static const decltype(::network::mojom::blink::CTLogInfo::disqualified_at)& disqualified_at(

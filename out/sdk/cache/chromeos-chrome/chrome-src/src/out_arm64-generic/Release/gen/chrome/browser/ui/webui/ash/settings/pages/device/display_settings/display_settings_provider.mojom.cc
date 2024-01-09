@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,6 +44,46 @@
 
 
 namespace ash::settings::mojom {
+DisplaySettingsValue::DisplaySettingsValue()
+    : is_internal_display(),
+      display_id() {}
+
+DisplaySettingsValue::DisplaySettingsValue(
+    std::optional<bool> is_internal_display_in,
+    std::optional<int64_t> display_id_in)
+    : is_internal_display(std::move(is_internal_display_in)),
+      display_id(std::move(display_id_in)) {}
+
+DisplaySettingsValue::~DisplaySettingsValue() = default;
+
+void DisplaySettingsValue::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_internal_display"), this->is_internal_display,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "display_id"), this->display_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<int64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DisplaySettingsValue::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char TabletModeObserver::Name_[] = "ash.settings.mojom.TabletModeObserver";
 
 TabletModeObserver::IPCStableHashFunction TabletModeObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -114,14 +155,17 @@ void TabletModeObserverProxy::OnTabletModeChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTabletModeObserver_OnTabletModeChanged_Name, kFlags, 0, 0, nullptr);
@@ -190,16 +234,166 @@ bool TabletModeObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTabletModeObserverValidationInfo[] = {
-    {&internal::TabletModeObserver_OnTabletModeChanged_Params_Data::Validate,
+    { &internal::TabletModeObserver_OnTabletModeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
 bool TabletModeObserverRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::settings::mojom::TabletModeObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kTabletModeObserverValidationInfo);
+}
+
+const char DisplayConfigurationObserver::Name_[] = "ash.settings.mojom.DisplayConfigurationObserver";
+
+DisplayConfigurationObserver::IPCStableHashFunction DisplayConfigurationObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name: {
+      return &DisplayConfigurationObserver::OnDisplayConfigurationChanged_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* DisplayConfigurationObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name:
+            return "Receive ash::settings::mojom::DisplayConfigurationObserver::OnDisplayConfigurationChanged";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name:
+            return "Receive reply ash::settings::mojom::DisplayConfigurationObserver::OnDisplayConfigurationChanged";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t DisplayConfigurationObserver::OnDisplayConfigurationChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::mojom::DisplayConfigurationObserver::OnDisplayConfigurationChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+DisplayConfigurationObserverProxy::DisplayConfigurationObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void DisplayConfigurationObserverProxy::OnDisplayConfigurationChanged(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::settings::mojom::DisplayConfigurationObserver::OnDisplayConfigurationChanged");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::mojom::internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DisplayConfigurationObserver::Name_);
+  message.set_method_name("OnDisplayConfigurationChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool DisplayConfigurationObserverStubDispatch::Accept(
+    DisplayConfigurationObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data* params =
+          reinterpret_cast<internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DisplayConfigurationObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnDisplayConfigurationChanged();
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool DisplayConfigurationObserverStubDispatch::AcceptWithResponder(
+    DisplayConfigurationObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kDisplayConfigurationObserverValidationInfo[] = {
+    { &internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool DisplayConfigurationObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::settings::mojom::DisplayConfigurationObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kDisplayConfigurationObserverValidationInfo);
 }
 
 const char DisplaySettingsProvider::Name_[] = "ash.settings.mojom.DisplaySettingsProvider";
@@ -209,6 +403,12 @@ DisplaySettingsProvider::IPCStableHashFunction DisplaySettingsProvider::MessageT
   switch (message.name()) {
     case internal::kDisplaySettingsProvider_ObserveTabletMode_Name: {
       return &DisplaySettingsProvider::ObserveTabletMode_Sym::IPCStableHash;
+    }
+    case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name: {
+      return &DisplaySettingsProvider::ObserveDisplayConfiguration_Sym::IPCStableHash;
+    }
+    case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name: {
+      return &DisplaySettingsProvider::RecordChangingDisplaySettings_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -223,11 +423,19 @@ const char* DisplaySettingsProvider::MessageToMethodName_(mojo::Message& message
     switch (message.name()) {
       case internal::kDisplaySettingsProvider_ObserveTabletMode_Name:
             return "Receive ash::settings::mojom::DisplaySettingsProvider::ObserveTabletMode";
+      case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name:
+            return "Receive ash::settings::mojom::DisplaySettingsProvider::ObserveDisplayConfiguration";
+      case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name:
+            return "Receive ash::settings::mojom::DisplaySettingsProvider::RecordChangingDisplaySettings";
     }
   } else {
     switch (message.name()) {
       case internal::kDisplaySettingsProvider_ObserveTabletMode_Name:
             return "Receive reply ash::settings::mojom::DisplaySettingsProvider::ObserveTabletMode";
+      case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name:
+            return "Receive reply ash::settings::mojom::DisplaySettingsProvider::ObserveDisplayConfiguration";
+      case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name:
+            return "Receive reply ash::settings::mojom::DisplaySettingsProvider::RecordChangingDisplaySettings";
     }
   }
   return "Receive unknown mojo message";
@@ -251,6 +459,32 @@ uint32_t DisplaySettingsProvider::ObserveTabletMode_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::settings::mojom::DisplaySettingsProvider::ObserveTabletMode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DisplaySettingsProvider::ObserveDisplayConfiguration_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::mojom::DisplaySettingsProvider::ObserveDisplayConfiguration");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DisplaySettingsProvider::RecordChangingDisplaySettings_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::mojom::DisplaySettingsProvider::RecordChangingDisplaySettings");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -289,14 +523,17 @@ void DisplaySettingsProviderProxy::ObserveTabletMode(
                         "<value of type ::mojo::PendingRemote<TabletModeObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplaySettingsProvider_ObserveTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -319,6 +556,108 @@ void DisplaySettingsProviderProxy::ObserveTabletMode(
       new DisplaySettingsProvider_ObserveTabletMode_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DisplaySettingsProviderProxy::ObserveDisplayConfiguration(
+    ::mojo::PendingRemote<DisplayConfigurationObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::settings::mojom::DisplaySettingsProvider::ObserveDisplayConfiguration", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<DisplayConfigurationObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::mojom::internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::settings::mojom::DisplayConfigurationObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in DisplaySettingsProvider.ObserveDisplayConfiguration request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DisplaySettingsProvider::Name_);
+  message.set_method_name("ObserveDisplayConfiguration");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DisplaySettingsProviderProxy::RecordChangingDisplaySettings(
+    DisplaySettingsType in_type, DisplaySettingsValuePtr in_value) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::settings::mojom::DisplaySettingsProvider::RecordChangingDisplaySettings", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("type"), in_type,
+                        "<value of type DisplaySettingsType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("value"), in_value,
+                        "<value of type DisplaySettingsValuePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::mojom::internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::settings::mojom::DisplaySettingsType>(
+      in_type, &params->type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->value)::BaseType> value_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::settings::mojom::DisplaySettingsValueDataView>(
+      in_value, value_fragment);
+  params->value.Set(
+      value_fragment.is_null() ? nullptr : value_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->value.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null value in DisplaySettingsProvider.RecordChangingDisplaySettings request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DisplaySettingsProvider::Name_);
+  message.set_method_name("RecordChangingDisplaySettings");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class DisplaySettingsProvider_ObserveTabletMode_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -412,7 +751,8 @@ void DisplaySettingsProvider_ObserveTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplaySettingsProvider_ObserveTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -446,6 +786,64 @@ bool DisplaySettingsProviderStubDispatch::Accept(
   switch (message->header()->name) {
     case internal::kDisplaySettingsProvider_ObserveTabletMode_Name: {
       break;
+    }
+    case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data* params =
+          reinterpret_cast<internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<DisplayConfigurationObserver> p_observer{};
+      DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DisplaySettingsProvider::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ObserveDisplayConfiguration(
+std::move(p_observer));
+      return true;
+    }
+    case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data* params =
+          reinterpret_cast<internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DisplaySettingsType p_type{};
+      DisplaySettingsValuePtr p_value{};
+      DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success && !input_data_view.ReadValue(&p_value))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DisplaySettingsProvider::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordChangingDisplaySettings(
+std::move(p_type), 
+std::move(p_value));
+      return true;
     }
   }
   return false;
@@ -491,14 +889,24 @@ bool DisplaySettingsProviderStubDispatch::AcceptWithResponder(
 std::move(p_observer), std::move(callback));
       return true;
     }
+    case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name: {
+      break;
+    }
+    case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDisplaySettingsProviderValidationInfo[] = {
-    {&internal::DisplaySettingsProvider_ObserveTabletMode_Params_Data::Validate,
+    { &internal::DisplaySettingsProvider_ObserveTabletMode_Params_Data::Validate,
      &internal::DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data::Validate},
+    { &internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool DisplaySettingsProviderRequestValidator::Accept(mojo::Message* message) {
@@ -516,6 +924,24 @@ bool DisplaySettingsProviderResponseValidator::Accept(mojo::Message* message) {
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView, ::ash::settings::mojom::DisplaySettingsValuePtr>::Read(
+    ::ash::settings::mojom::DisplaySettingsValue::DataView input,
+    ::ash::settings::mojom::DisplaySettingsValuePtr* output) {
+  bool success = true;
+  ::ash::settings::mojom::DisplaySettingsValuePtr result(::ash::settings::mojom::DisplaySettingsValue::New());
+  
+      if (success) {
+        result->is_internal_display = input.is_internal_display();
+      }
+      if (success) {
+        result->display_id = input.display_id();
+      }
+  *output = std::move(result);
+  return success;
+}
 
 }  // namespace mojo
 
@@ -538,8 +964,25 @@ TabletModeObserverAsyncWaiter::~TabletModeObserverAsyncWaiter() = default;
 
 
 
+void DisplayConfigurationObserverInterceptorForTesting::OnDisplayConfigurationChanged() {
+  GetForwardingInterface()->OnDisplayConfigurationChanged();
+}
+DisplayConfigurationObserverAsyncWaiter::DisplayConfigurationObserverAsyncWaiter(
+    DisplayConfigurationObserver* proxy) : proxy_(proxy) {}
+
+DisplayConfigurationObserverAsyncWaiter::~DisplayConfigurationObserverAsyncWaiter() = default;
+
+
+
+
 void DisplaySettingsProviderInterceptorForTesting::ObserveTabletMode(::mojo::PendingRemote<TabletModeObserver> observer, ObserveTabletModeCallback callback) {
   GetForwardingInterface()->ObserveTabletMode(std::move(observer), std::move(callback));
+}
+void DisplaySettingsProviderInterceptorForTesting::ObserveDisplayConfiguration(::mojo::PendingRemote<DisplayConfigurationObserver> observer) {
+  GetForwardingInterface()->ObserveDisplayConfiguration(std::move(observer));
+}
+void DisplaySettingsProviderInterceptorForTesting::RecordChangingDisplaySettings(DisplaySettingsType type, DisplaySettingsValuePtr value) {
+  GetForwardingInterface()->RecordChangingDisplaySettings(std::move(type), std::move(value));
 }
 DisplaySettingsProviderAsyncWaiter::DisplaySettingsProviderAsyncWaiter(
     DisplaySettingsProvider* proxy) : proxy_(proxy) {}

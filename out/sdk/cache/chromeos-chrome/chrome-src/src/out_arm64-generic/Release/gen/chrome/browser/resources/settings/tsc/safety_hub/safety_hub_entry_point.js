@@ -2,21 +2,23 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 // clang-format off
+import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import '../icons.html.js';
 import './safety_hub_module.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { routes } from '../route.js';
-import { Router } from '../router.js';
+import { Router, RouteObserverMixin } from '../router.js';
+import { MetricsBrowserProxyImpl, SafetyHubEntryPoint } from '../metrics_browser_proxy.js';
 import { SafetyHubBrowserProxyImpl } from './safety_hub_browser_proxy.js';
 import { getTemplate } from './safety_hub_entry_point.html.js';
-const SettingsSafetyHubEntryPointElementBase = I18nMixin(PolymerElement);
+const SettingsSafetyHubEntryPointElementBase = RouteObserverMixin(I18nMixin(PolymerElement));
 export class SettingsSafetyHubEntryPointElement extends SettingsSafetyHubEntryPointElementBase {
     constructor() {
         super(...arguments);
         this.safetyHubBrowserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-entry-point';
@@ -39,16 +41,35 @@ export class SettingsSafetyHubEntryPointElement extends SettingsSafetyHubEntryPo
                 computed: 'computeHeaderString_(hasRecommendations_)',
             },
             subheaderString_: String,
+            headerIconColor_: {
+                type: String,
+                computed: 'computeHeaderIconColor_(hasRecommendations_)',
+            },
         };
     }
     connectedCallback() {
-        super.connectedCallback();
         this.safetyHubBrowserProxy_.getSafetyHubHasRecommendations().then((hasRecommendations) => {
             this.hasRecommendations_ = hasRecommendations;
         });
         this.safetyHubBrowserProxy_.getSafetyHubEntryPointSubheader().then((subheader) => {
             this.subheaderString_ = subheader;
         });
+        // This should be called after the data for modules are retrieved so that
+        // currentRouteChanged is called afterwards.
+        super.connectedCallback();
+    }
+    currentRouteChanged() {
+        if (Router.getInstance().getCurrentRoute() !== routes.PRIVACY) {
+            return;
+        }
+        // Only record the metrics when the user navigates to the privacy page
+        // that shows the entry point.
+        if (this.hasRecommendations_) {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointShown(SafetyHubEntryPoint.PRIVACY_WARNING);
+        }
+        else {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointShown(SafetyHubEntryPoint.PRIVACY_SAFE);
+        }
     }
     computeButtonClass_() {
         return this.hasRecommendations_ ? 'action-button' : '';
@@ -57,7 +78,16 @@ export class SettingsSafetyHubEntryPointElement extends SettingsSafetyHubEntryPo
         return this.hasRecommendations_ ? this.i18n('safetyHubEntryPointHeader') :
             '';
     }
+    computeHeaderIconColor_() {
+        return this.hasRecommendations_ ? 'blue' : '';
+    }
     onClick_() {
+        if (this.hasRecommendations_) {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.PRIVACY_WARNING);
+        }
+        else {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.PRIVACY_SAFE);
+        }
         Router.getInstance().navigateTo(routes.SAFETY_HUB);
     }
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/side_panel/customize_chrome/customize_chrome.mojom-features.h"
 #include "chrome/browser/ui/webui/side_panel/customize_chrome/customize_chrome.mojom-shared.h"
 #include "chrome/browser/ui/webui/side_panel/customize_chrome/customize_chrome.mojom-forward.h"
 #include "mojo/public/mojom/base/token.mojom.h"
@@ -133,9 +134,6 @@ class CustomizeChromePageHandler
     kSetModulesVisibleMinVersion = 0,
     kSetModuleDisabledMinVersion = 0,
     kUpdateScrollToSectionMinVersion = 0,
-    kGetDescriptorsMinVersion = 0,
-    kGetWallpaperSearchResultsMinVersion = 0,
-    kSetBackgroundToWallpaperSearchResultMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -190,15 +188,6 @@ class CustomizeChromePageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UpdateScrollToSection_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetDescriptors_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetWallpaperSearchResults_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetBackgroundToWallpaperSearchResult_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -260,19 +249,6 @@ class CustomizeChromePageHandler
 
   
   virtual void UpdateScrollToSection() = 0;
-
-
-  using GetDescriptorsCallback = base::OnceCallback<void(DescriptorsPtr)>;
-  
-  virtual void GetDescriptors(GetDescriptorsCallback callback) = 0;
-
-
-  using GetWallpaperSearchResultsCallback = base::OnceCallback<void(std::vector<WallpaperSearchResultPtr>)>;
-  
-  virtual void GetWallpaperSearchResults(const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, GetWallpaperSearchResultsCallback callback) = 0;
-
-  
-  virtual void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id) = 0;
 };
 
 class CustomizeChromePageProxy;
@@ -398,12 +374,6 @@ class  CustomizeChromePageHandlerProxy
   void SetModuleDisabled(const std::string& module_id, bool disabled) final;
   
   void UpdateScrollToSection() final;
-  
-  void GetDescriptors(GetDescriptorsCallback callback) final;
-  
-  void GetWallpaperSearchResults(const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, GetWallpaperSearchResultsCallback callback) final;
-  
-  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -869,153 +839,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  DescriptorB {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DescriptorB, T>::value>;
-  using DataView = DescriptorBDataView;
-  using Data_ = internal::DescriptorB_Data;
-
-  template <typename... Args>
-  static DescriptorBPtr New(Args&&... args) {
-    return DescriptorBPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DescriptorBPtr From(const U& u) {
-    return mojo::TypeConverter<DescriptorBPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DescriptorB>::Convert(*this);
-  }
-
-
-  DescriptorB();
-
-  DescriptorB(
-      const std::string& label,
-      const std::string& image_path);
-
-
-  ~DescriptorB();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DescriptorBPtr>
-  DescriptorBPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DescriptorB::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DescriptorB::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DescriptorB_UnserializedMessageContext<
-            UserType, DescriptorB::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DescriptorB::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DescriptorB::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DescriptorB_UnserializedMessageContext<
-            UserType, DescriptorB::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DescriptorB::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string label;
-  
-  std::string image_path;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DescriptorB::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-
-
-
 
 class  BackgroundImage {
  public:
@@ -1047,6 +870,7 @@ class  BackgroundImage {
       const ::GURL& url,
       const ::GURL& snapshot_url,
       bool is_uploaded_image,
+      const std::optional<::base::Token>& local_background_id,
       const std::string& title,
       const std::string& collection_id,
       bool daily_refresh_enabled);
@@ -1133,6 +957,8 @@ class  BackgroundImage {
   
   bool is_uploaded_image;
   
+  std::optional<::base::Token> local_background_id;
+  
   std::string title;
   
   std::string collection_id;
@@ -1203,7 +1029,7 @@ class  Theme {
       BackgroundImagePtr background_image,
       ThirdPartyThemeInfoPtr third_party_theme_info,
       ::SkColor background_color,
-      absl::optional<::SkColor> foreground_color,
+      std::optional<::SkColor> foreground_color,
       bool background_managed_by_policy,
       bool follow_device_theme);
 
@@ -1291,7 +1117,7 @@ Theme& operator=(const Theme&) = delete;
   
   ::SkColor background_color;
   
-  absl::optional<::SkColor> foreground_color;
+  std::optional<::SkColor> foreground_color;
   
   bool background_managed_by_policy;
   
@@ -1628,447 +1454,13 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
-
-
-
-
-class  DescriptorA {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DescriptorA, T>::value>;
-  using DataView = DescriptorADataView;
-  using Data_ = internal::DescriptorA_Data;
-
-  template <typename... Args>
-  static DescriptorAPtr New(Args&&... args) {
-    return DescriptorAPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DescriptorAPtr From(const U& u) {
-    return mojo::TypeConverter<DescriptorAPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DescriptorA>::Convert(*this);
-  }
-
-
-  DescriptorA();
-
-  DescriptorA(
-      const std::string& category,
-      std::vector<std::string> labels);
-
-
-  ~DescriptorA();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DescriptorAPtr>
-  DescriptorAPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DescriptorA::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DescriptorA::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DescriptorA_UnserializedMessageContext<
-            UserType, DescriptorA::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DescriptorA::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DescriptorA::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DescriptorA_UnserializedMessageContext<
-            UserType, DescriptorA::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DescriptorA::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string category;
-  
-  std::vector<std::string> labels;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DescriptorA::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-
-class  Descriptors {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<Descriptors, T>::value>;
-  using DataView = DescriptorsDataView;
-  using Data_ = internal::Descriptors_Data;
-
-  template <typename... Args>
-  static DescriptorsPtr New(Args&&... args) {
-    return DescriptorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DescriptorsPtr From(const U& u) {
-    return mojo::TypeConverter<DescriptorsPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, Descriptors>::Convert(*this);
-  }
-
-
-  Descriptors();
-
-  Descriptors(
-      std::vector<DescriptorAPtr> descriptor_a,
-      std::vector<DescriptorBPtr> descriptor_b,
-      std::vector<std::string> descriptor_c);
-
-Descriptors(const Descriptors&) = delete;
-Descriptors& operator=(const Descriptors&) = delete;
-
-  ~Descriptors();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DescriptorsPtr>
-  DescriptorsPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        Descriptors::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        Descriptors::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::Descriptors_UnserializedMessageContext<
-            UserType, Descriptors::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<Descriptors::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return Descriptors::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::Descriptors_UnserializedMessageContext<
-            UserType, Descriptors::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<Descriptors::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::vector<DescriptorAPtr> descriptor_a;
-  
-  std::vector<DescriptorBPtr> descriptor_b;
-  
-  std::vector<std::string> descriptor_c;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, Descriptors::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  WallpaperSearchResult {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<WallpaperSearchResult, T>::value>;
-  using DataView = WallpaperSearchResultDataView;
-  using Data_ = internal::WallpaperSearchResult_Data;
-
-  template <typename... Args>
-  static WallpaperSearchResultPtr New(Args&&... args) {
-    return WallpaperSearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static WallpaperSearchResultPtr From(const U& u) {
-    return mojo::TypeConverter<WallpaperSearchResultPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, WallpaperSearchResult>::Convert(*this);
-  }
-
-
-  WallpaperSearchResult();
-
-  WallpaperSearchResult(
-      const ::base::Token& id,
-      const std::string& image);
-
-
-  ~WallpaperSearchResult();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = WallpaperSearchResultPtr>
-  WallpaperSearchResultPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        WallpaperSearchResult::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        WallpaperSearchResult::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::WallpaperSearchResult_UnserializedMessageContext<
-            UserType, WallpaperSearchResult::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<WallpaperSearchResult::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return WallpaperSearchResult::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::WallpaperSearchResult_UnserializedMessageContext<
-            UserType, WallpaperSearchResult::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<WallpaperSearchResult::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::base::Token id;
-  
-  std::string image;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, WallpaperSearchResult::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
 template <typename StructPtrType>
 BackgroundImagePtr BackgroundImage::Clone() const {
   return New(
       mojo::Clone(url),
       mojo::Clone(snapshot_url),
       mojo::Clone(is_uploaded_image),
+      mojo::Clone(local_background_id),
       mojo::Clone(title),
       mojo::Clone(collection_id),
       mojo::Clone(daily_refresh_enabled)
@@ -2082,6 +1474,8 @@ bool BackgroundImage::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->snapshot_url, other_struct.snapshot_url))
     return false;
   if (!mojo::Equals(this->is_uploaded_image, other_struct.is_uploaded_image))
+    return false;
+  if (!mojo::Equals(this->local_background_id, other_struct.local_background_id))
     return false;
   if (!mojo::Equals(this->title, other_struct.title))
     return false;
@@ -2105,6 +1499,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_uploaded_image < rhs.is_uploaded_image)
     return true;
   if (rhs.is_uploaded_image < lhs.is_uploaded_image)
+    return false;
+  if (lhs.local_background_id < rhs.local_background_id)
+    return true;
+  if (rhs.local_background_id < lhs.local_background_id)
     return false;
   if (lhs.title < rhs.title)
     return true;
@@ -2335,129 +1733,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
-template <typename StructPtrType>
-DescriptorAPtr DescriptorA::Clone() const {
-  return New(
-      mojo::Clone(category),
-      mojo::Clone(labels)
-  );
-}
-
-template <typename T, DescriptorA::EnableIfSame<T>*>
-bool DescriptorA::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->category, other_struct.category))
-    return false;
-  if (!mojo::Equals(this->labels, other_struct.labels))
-    return false;
-  return true;
-}
-
-template <typename T, DescriptorA::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.category < rhs.category)
-    return true;
-  if (rhs.category < lhs.category)
-    return false;
-  if (lhs.labels < rhs.labels)
-    return true;
-  if (rhs.labels < lhs.labels)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-DescriptorBPtr DescriptorB::Clone() const {
-  return New(
-      mojo::Clone(label),
-      mojo::Clone(image_path)
-  );
-}
-
-template <typename T, DescriptorB::EnableIfSame<T>*>
-bool DescriptorB::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->label, other_struct.label))
-    return false;
-  if (!mojo::Equals(this->image_path, other_struct.image_path))
-    return false;
-  return true;
-}
-
-template <typename T, DescriptorB::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.label < rhs.label)
-    return true;
-  if (rhs.label < lhs.label)
-    return false;
-  if (lhs.image_path < rhs.image_path)
-    return true;
-  if (rhs.image_path < lhs.image_path)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-DescriptorsPtr Descriptors::Clone() const {
-  return New(
-      mojo::Clone(descriptor_a),
-      mojo::Clone(descriptor_b),
-      mojo::Clone(descriptor_c)
-  );
-}
-
-template <typename T, Descriptors::EnableIfSame<T>*>
-bool Descriptors::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->descriptor_a, other_struct.descriptor_a))
-    return false;
-  if (!mojo::Equals(this->descriptor_b, other_struct.descriptor_b))
-    return false;
-  if (!mojo::Equals(this->descriptor_c, other_struct.descriptor_c))
-    return false;
-  return true;
-}
-
-template <typename T, Descriptors::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.descriptor_a < rhs.descriptor_a)
-    return true;
-  if (rhs.descriptor_a < lhs.descriptor_a)
-    return false;
-  if (lhs.descriptor_b < rhs.descriptor_b)
-    return true;
-  if (rhs.descriptor_b < lhs.descriptor_b)
-    return false;
-  if (lhs.descriptor_c < rhs.descriptor_c)
-    return true;
-  if (rhs.descriptor_c < lhs.descriptor_c)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-WallpaperSearchResultPtr WallpaperSearchResult::Clone() const {
-  return New(
-      mojo::Clone(id),
-      mojo::Clone(image)
-  );
-}
-
-template <typename T, WallpaperSearchResult::EnableIfSame<T>*>
-bool WallpaperSearchResult::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->id, other_struct.id))
-    return false;
-  if (!mojo::Equals(this->image, other_struct.image))
-    return false;
-  return true;
-}
-
-template <typename T, WallpaperSearchResult::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.id < rhs.id)
-    return true;
-  if (rhs.id < lhs.id)
-    return false;
-  if (lhs.image < rhs.image)
-    return true;
-  if (rhs.image < lhs.image)
-    return false;
-  return false;
-}
 
 
 }  // side_panel::mojom
@@ -2484,6 +1759,11 @@ struct  StructTraits<::side_panel::mojom::BackgroundImage::DataView,
   static decltype(::side_panel::mojom::BackgroundImage::is_uploaded_image) is_uploaded_image(
       const ::side_panel::mojom::BackgroundImagePtr& input) {
     return input->is_uploaded_image;
+  }
+
+  static const decltype(::side_panel::mojom::BackgroundImage::local_background_id)& local_background_id(
+      const ::side_panel::mojom::BackgroundImagePtr& input) {
+    return input->local_background_id;
   }
 
   static const decltype(::side_panel::mojom::BackgroundImage::title)& title(
@@ -2652,91 +1932,6 @@ struct  StructTraits<::side_panel::mojom::ModuleSettings::DataView,
   }
 
   static bool Read(::side_panel::mojom::ModuleSettings::DataView input, ::side_panel::mojom::ModuleSettingsPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::side_panel::mojom::DescriptorA::DataView,
-                                         ::side_panel::mojom::DescriptorAPtr> {
-  static bool IsNull(const ::side_panel::mojom::DescriptorAPtr& input) { return !input; }
-  static void SetToNull(::side_panel::mojom::DescriptorAPtr* output) { output->reset(); }
-
-  static const decltype(::side_panel::mojom::DescriptorA::category)& category(
-      const ::side_panel::mojom::DescriptorAPtr& input) {
-    return input->category;
-  }
-
-  static const decltype(::side_panel::mojom::DescriptorA::labels)& labels(
-      const ::side_panel::mojom::DescriptorAPtr& input) {
-    return input->labels;
-  }
-
-  static bool Read(::side_panel::mojom::DescriptorA::DataView input, ::side_panel::mojom::DescriptorAPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::side_panel::mojom::DescriptorB::DataView,
-                                         ::side_panel::mojom::DescriptorBPtr> {
-  static bool IsNull(const ::side_panel::mojom::DescriptorBPtr& input) { return !input; }
-  static void SetToNull(::side_panel::mojom::DescriptorBPtr* output) { output->reset(); }
-
-  static const decltype(::side_panel::mojom::DescriptorB::label)& label(
-      const ::side_panel::mojom::DescriptorBPtr& input) {
-    return input->label;
-  }
-
-  static const decltype(::side_panel::mojom::DescriptorB::image_path)& image_path(
-      const ::side_panel::mojom::DescriptorBPtr& input) {
-    return input->image_path;
-  }
-
-  static bool Read(::side_panel::mojom::DescriptorB::DataView input, ::side_panel::mojom::DescriptorBPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::side_panel::mojom::Descriptors::DataView,
-                                         ::side_panel::mojom::DescriptorsPtr> {
-  static bool IsNull(const ::side_panel::mojom::DescriptorsPtr& input) { return !input; }
-  static void SetToNull(::side_panel::mojom::DescriptorsPtr* output) { output->reset(); }
-
-  static const decltype(::side_panel::mojom::Descriptors::descriptor_a)& descriptor_a(
-      const ::side_panel::mojom::DescriptorsPtr& input) {
-    return input->descriptor_a;
-  }
-
-  static const decltype(::side_panel::mojom::Descriptors::descriptor_b)& descriptor_b(
-      const ::side_panel::mojom::DescriptorsPtr& input) {
-    return input->descriptor_b;
-  }
-
-  static const decltype(::side_panel::mojom::Descriptors::descriptor_c)& descriptor_c(
-      const ::side_panel::mojom::DescriptorsPtr& input) {
-    return input->descriptor_c;
-  }
-
-  static bool Read(::side_panel::mojom::Descriptors::DataView input, ::side_panel::mojom::DescriptorsPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::side_panel::mojom::WallpaperSearchResult::DataView,
-                                         ::side_panel::mojom::WallpaperSearchResultPtr> {
-  static bool IsNull(const ::side_panel::mojom::WallpaperSearchResultPtr& input) { return !input; }
-  static void SetToNull(::side_panel::mojom::WallpaperSearchResultPtr* output) { output->reset(); }
-
-  static const decltype(::side_panel::mojom::WallpaperSearchResult::id)& id(
-      const ::side_panel::mojom::WallpaperSearchResultPtr& input) {
-    return input->id;
-  }
-
-  static const decltype(::side_panel::mojom::WallpaperSearchResult::image)& image(
-      const ::side_panel::mojom::WallpaperSearchResultPtr& input) {
-    return input->image;
-  }
-
-  static bool Read(::side_panel::mojom::WallpaperSearchResult::DataView input, ::side_panel::mojom::WallpaperSearchResultPtr* output);
 };
 
 }  // namespace mojo

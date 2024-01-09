@@ -43,6 +43,7 @@ using ServiceWorkerResponseSource = String;
 class TrustTokenParams;
 using TrustTokenOperationType = String;
 using AlternateProtocolUsage = String;
+class ServiceWorkerRouterInfo;
 class Response;
 class Initiator;
 class Cookie;
@@ -1465,6 +1466,64 @@ private:
 };
 
 
+class CONTENT_EXPORT ServiceWorkerRouterInfo : public ::crdtp::ProtocolObject<ServiceWorkerRouterInfo> {
+public:
+    ~ServiceWorkerRouterInfo() override { }
+
+    int GetRuleIdMatched() { return m_ruleIdMatched; }
+    void SetRuleIdMatched(int value) { m_ruleIdMatched = value; }
+
+    template<int STATE>
+    class ServiceWorkerRouterInfoBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            RuleIdMatchedSet = 1 << 1,
+            AllFieldsSet = (RuleIdMatchedSet | 0)};
+
+
+        ServiceWorkerRouterInfoBuilder<STATE | RuleIdMatchedSet>& SetRuleIdMatched(int value)
+        {
+            static_assert(!(STATE & RuleIdMatchedSet), "property ruleIdMatched should not be set yet");
+            m_result->SetRuleIdMatched(value);
+            return castState<RuleIdMatchedSet>();
+        }
+
+        std::unique_ptr<ServiceWorkerRouterInfo> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class ServiceWorkerRouterInfo;
+        ServiceWorkerRouterInfoBuilder() : m_result(new ServiceWorkerRouterInfo()) { }
+
+        template<int STEP> ServiceWorkerRouterInfoBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<ServiceWorkerRouterInfoBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> m_result;
+    };
+
+    static ServiceWorkerRouterInfoBuilder<0> Create()
+    {
+        return ServiceWorkerRouterInfoBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    ServiceWorkerRouterInfo()
+    {
+          m_ruleIdMatched = 0;
+    }
+
+    int m_ruleIdMatched;
+};
+
+
 class CONTENT_EXPORT Response : public ::crdtp::ProtocolObject<Response> {
 public:
     ~Response() override { }
@@ -1537,6 +1596,12 @@ public:
        return m_fromPrefetchCache.value_or(defaultValue);
     }
     void SetFromPrefetchCache(bool value) { m_fromPrefetchCache = value; }
+
+    bool HasServiceWorkerRouterInfo() { return m_serviceWorkerRouterInfo.has_value(); }
+    protocol::Network::ServiceWorkerRouterInfo* GetServiceWorkerRouterInfo(protocol::Network::ServiceWorkerRouterInfo* defaultValue) {
+       return m_serviceWorkerRouterInfo.has_value() ? &m_serviceWorkerRouterInfo.value() : defaultValue;
+    }
+    void SetServiceWorkerRouterInfo(std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> value) { m_serviceWorkerRouterInfo = std::move(value); }
 
     double GetEncodedDataLength() { return m_encodedDataLength; }
     void SetEncodedDataLength(double value) { m_encodedDataLength = value; }
@@ -1700,6 +1765,12 @@ public:
             return *this;
         }
 
+        ResponseBuilder<STATE>& SetServiceWorkerRouterInfo(std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> value)
+        {
+            m_result->SetServiceWorkerRouterInfo(std::move(value));
+            return *this;
+        }
+
         ResponseBuilder<STATE | EncodedDataLengthSet>& SetEncodedDataLength(double value)
         {
             static_assert(!(STATE & EncodedDataLengthSet), "property encodedDataLength should not be set yet");
@@ -1805,6 +1876,7 @@ private:
     Maybe<bool> m_fromDiskCache;
     Maybe<bool> m_fromServiceWorker;
     Maybe<bool> m_fromPrefetchCache;
+    Maybe<protocol::Network::ServiceWorkerRouterInfo> m_serviceWorkerRouterInfo;
     double m_encodedDataLength;
     Maybe<protocol::Network::ResourceTiming> m_timing;
     Maybe<String> m_serviceWorkerResponseSource;

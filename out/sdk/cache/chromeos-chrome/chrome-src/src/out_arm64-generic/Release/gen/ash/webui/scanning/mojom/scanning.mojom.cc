@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -429,14 +430,17 @@ void ScanJobObserverProxy::OnPageProgress(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanJobObserver_OnPageProgress_Name, kFlags, 0, 0, nullptr);
@@ -471,14 +475,17 @@ void ScanJobObserverProxy::OnPageComplete(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanJobObserver_OnPageComplete_Name, kFlags, 0, 0, nullptr);
@@ -525,14 +532,17 @@ void ScanJobObserverProxy::OnScanComplete(
                         "<value of type const std::vector<::base::FilePath>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanJobObserver_OnScanComplete_Name, kFlags, 0, 0, nullptr);
@@ -577,14 +587,17 @@ void ScanJobObserverProxy::OnCancelComplete(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanJobObserver_OnCancelComplete_Name, kFlags, 0, 0, nullptr);
@@ -615,14 +628,17 @@ void ScanJobObserverProxy::OnMultiPageScanFail(
                         "<value of type ::lorgnette::ScanFailureMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanJobObserver_OnMultiPageScanFail_Name, kFlags, 0, 0, nullptr);
@@ -820,18 +836,18 @@ bool ScanJobObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScanJobObserverValidationInfo[] = {
-    {&internal::ScanJobObserver_OnPageProgress_Params_Data::Validate,
+    { &internal::ScanJobObserver_OnPageProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanJobObserver_OnPageComplete_Params_Data::Validate,
+    { &internal::ScanJobObserver_OnPageComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanJobObserver_OnScanComplete_Params_Data::Validate,
+    { &internal::ScanJobObserver_OnScanComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanJobObserver_OnCancelComplete_Params_Data::Validate,
+    { &internal::ScanJobObserver_OnCancelComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanJobObserver_OnMultiPageScanFail_Params_Data::Validate,
+    { &internal::ScanJobObserver_OnMultiPageScanFail_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1048,14 +1064,17 @@ void ScanServiceProxy::GetScanners(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::scanning::mojom::ScanService::GetScanners");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_GetScanners_Name, kFlags, 0, 0, nullptr);
@@ -1086,14 +1105,17 @@ void ScanServiceProxy::GetScannerCapabilities(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_GetScannerCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -1141,14 +1163,17 @@ void ScanServiceProxy::StartScan(
                         "<value of type ::mojo::PendingRemote<ScanJobObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_StartScan_Name, kFlags, 0, 0, nullptr);
@@ -1213,14 +1238,17 @@ void ScanServiceProxy::StartMultiPageScan(
                         "<value of type ::mojo::PendingRemote<ScanJobObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_StartMultiPageScan_Name, kFlags, 0, 0, nullptr);
@@ -1272,14 +1300,17 @@ void ScanServiceProxy::CancelScan(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::scanning::mojom::ScanService::CancelScan");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_CancelScan_Name, kFlags, 0, 0, nullptr);
@@ -1388,7 +1419,8 @@ void ScanService_GetScanners_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_GetScanners_Name, kFlags, 0, 0, nullptr);
@@ -1518,7 +1550,8 @@ void ScanService_GetScannerCapabilities_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_GetScannerCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -1646,7 +1679,8 @@ void ScanService_StartScan_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_StartScan_Name, kFlags, 0, 0, nullptr);
@@ -1766,7 +1800,8 @@ void ScanService_StartMultiPageScan_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanService_StartMultiPageScan_Name, kFlags, 0, 0, nullptr);
@@ -1984,18 +2019,18 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScanServiceValidationInfo[] = {
-    {&internal::ScanService_GetScanners_Params_Data::Validate,
+    { &internal::ScanService_GetScanners_Params_Data::Validate,
      &internal::ScanService_GetScanners_ResponseParams_Data::Validate},
-    {&internal::ScanService_GetScannerCapabilities_Params_Data::Validate,
+    { &internal::ScanService_GetScannerCapabilities_Params_Data::Validate,
      &internal::ScanService_GetScannerCapabilities_ResponseParams_Data::Validate},
-    {&internal::ScanService_StartScan_Params_Data::Validate,
+    { &internal::ScanService_StartScan_Params_Data::Validate,
      &internal::ScanService_StartScan_ResponseParams_Data::Validate},
-    {&internal::ScanService_StartMultiPageScan_Params_Data::Validate,
+    { &internal::ScanService_StartMultiPageScan_Params_Data::Validate,
      &internal::ScanService_StartMultiPageScan_ResponseParams_Data::Validate},
-    {&internal::ScanService_CancelScan_Params_Data::Validate,
+    { &internal::ScanService_CancelScan_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2174,14 +2209,17 @@ void MultiPageScanControllerProxy::ScanNextPage(
                         "<value of type ScanSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_ScanNextPage_Name, kFlags, 0, 0, nullptr);
@@ -2234,14 +2272,17 @@ void MultiPageScanControllerProxy::RemovePage(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_RemovePage_Name, kFlags, 0, 0, nullptr);
@@ -2278,14 +2319,17 @@ void MultiPageScanControllerProxy::RescanPage(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_RescanPage_Name, kFlags, 0, 0, nullptr);
@@ -2332,14 +2376,17 @@ void MultiPageScanControllerProxy::CompleteMultiPageScan(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::scanning::mojom::MultiPageScanController::CompleteMultiPageScan");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_CompleteMultiPageScan_Name, kFlags, 0, 0, nullptr);
@@ -2448,7 +2495,8 @@ void MultiPageScanController_ScanNextPage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_ScanNextPage_Name, kFlags, 0, 0, nullptr);
@@ -2566,7 +2614,8 @@ void MultiPageScanController_RescanPage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiPageScanController_RescanPage_Name, kFlags, 0, 0, nullptr);
@@ -2744,16 +2793,16 @@ std::move(p_page_index), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMultiPageScanControllerValidationInfo[] = {
-    {&internal::MultiPageScanController_ScanNextPage_Params_Data::Validate,
+    { &internal::MultiPageScanController_ScanNextPage_Params_Data::Validate,
      &internal::MultiPageScanController_ScanNextPage_ResponseParams_Data::Validate},
-    {&internal::MultiPageScanController_RemovePage_Params_Data::Validate,
+    { &internal::MultiPageScanController_RemovePage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiPageScanController_RescanPage_Params_Data::Validate,
+    { &internal::MultiPageScanController_RescanPage_Params_Data::Validate,
      &internal::MultiPageScanController_RescanPage_ResponseParams_Data::Validate},
-    {&internal::MultiPageScanController_CompleteMultiPageScan_Params_Data::Validate,
+    { &internal::MultiPageScanController_CompleteMultiPageScan_Params_Data::Validate,
      nullptr /* no response */},
 };
 

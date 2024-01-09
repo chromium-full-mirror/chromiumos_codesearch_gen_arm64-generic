@@ -6,6 +6,7 @@ import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { MostVisitedThemeSpec as mostVisited_mojom_MostVisitedThemeSpec } from '//resources/cr_components/most_visited/most_visited.mojom-webui.js';
 import { SkColorSpec as skia_mojom_SkColorSpec } from '//resources/mojo/skia/public/mojom/skcolor.mojom-webui.js';
 export class PageHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -14,6 +15,9 @@ export class PageHandlerFactoryPendingReceiver {
     }
 }
 export class PageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
@@ -34,6 +38,9 @@ export class PageHandlerFactoryRemote {
  * interface.
  */
 export class PageHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -63,6 +70,11 @@ export class PageHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createPageHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -81,6 +93,7 @@ export class PageHandlerFactoryCallbackRouter {
     }
 }
 export class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -89,6 +102,9 @@ export class PageHandlerPendingReceiver {
     }
 }
 export class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -106,6 +122,9 @@ export class PageHandlerRemote {
  * interface.
  */
 export class PageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -135,6 +154,11 @@ export class PageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    updateTheme;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -153,6 +177,7 @@ export class PageHandlerCallbackRouter {
     }
 }
 export class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -161,6 +186,9 @@ export class PagePendingReceiver {
     }
 }
 export class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
@@ -180,6 +208,9 @@ export class PageRemote {
  * interface.
  */
 export class PageReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -209,6 +240,11 @@ export class Page {
  * receiver can have any number of listeners added to it.
  */
 export class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    setTheme;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

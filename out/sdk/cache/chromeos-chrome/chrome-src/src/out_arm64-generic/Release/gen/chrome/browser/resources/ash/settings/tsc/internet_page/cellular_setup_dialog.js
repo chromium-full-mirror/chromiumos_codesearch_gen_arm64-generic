@@ -28,7 +28,7 @@ export class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetu
              */
             pageName: String,
             delegate_: Object,
-            dialogTitle_: {
+            psimBanner_: {
                 type: String,
             },
             dialogHeader_: {
@@ -51,8 +51,8 @@ export class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetu
     onExitCellularSetup_() {
         this.$.dialog.close();
     }
-    shouldShowDialogTitle_() {
-        return !!this.dialogTitle_;
+    shouldShowPsimBanner_() {
+        return !!this.psimBanner_;
     }
     getDialogHeader_() {
         if (this.dialogHeader_) {

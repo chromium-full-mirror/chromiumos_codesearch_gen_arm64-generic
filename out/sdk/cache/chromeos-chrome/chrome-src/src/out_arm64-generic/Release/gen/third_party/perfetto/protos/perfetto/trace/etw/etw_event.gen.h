@@ -39,6 +39,7 @@ class PERFETTO_EXPORT_COMPONENT EtwTraceEvent : public ::protozero::CppMessageOb
  public:
   enum FieldNumbers {
     kTimestampFieldNumber = 1,
+    kCpuFieldNumber = 4,
     kCSwitchFieldNumber = 2,
     kReadyThreadFieldNumber = 3,
   };
@@ -61,6 +62,10 @@ class PERFETTO_EXPORT_COMPONENT EtwTraceEvent : public ::protozero::CppMessageOb
   uint64_t timestamp() const { return timestamp_; }
   void set_timestamp(uint64_t value) { timestamp_ = value; _has_field_.set(1); }
 
+  bool has_cpu() const { return _has_field_[4]; }
+  uint32_t cpu() const { return cpu_; }
+  void set_cpu(uint32_t value) { cpu_ = value; _has_field_.set(4); }
+
   bool has_c_switch() const { return _has_field_[2]; }
   const CSwitchEtwEvent& c_switch() const { return *c_switch_; }
   CSwitchEtwEvent* mutable_c_switch() { _has_field_.set(2); return c_switch_.get(); }
@@ -71,6 +76,7 @@ class PERFETTO_EXPORT_COMPONENT EtwTraceEvent : public ::protozero::CppMessageOb
 
  private:
   uint64_t timestamp_{};
+  uint32_t cpu_{};
   ::protozero::CopyablePtr<CSwitchEtwEvent> c_switch_;
   ::protozero::CopyablePtr<ReadyThreadEtwEvent> ready_thread_;
 
@@ -78,7 +84,7 @@ class PERFETTO_EXPORT_COMPONENT EtwTraceEvent : public ::protozero::CppMessageOb
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 }  // namespace perfetto

@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaSession>::value,
     "MediaSession inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaSession::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaSession is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaSession_Metadat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->metadata();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,7 +119,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<MediaMetadata>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -147,7 +142,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaSession_Playbac
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playbackState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -165,7 +160,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaSession_Playbac
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaSession";
@@ -217,7 +212,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_action = NativeValueTraits<V8MediaSessionAction>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -258,7 +253,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_active = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -292,7 +287,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_active = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -318,7 +313,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaSession_SetPosi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(v8_receiver);
+MediaSession* blink_receiver = V8MediaSession::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<MediaPositionState>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_state;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaSession";

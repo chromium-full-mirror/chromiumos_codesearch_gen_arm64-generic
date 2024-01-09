@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/ime/public/mojom/input_method.mojom-features.h"
 #include "chromeos/ash/services/ime/public/mojom/input_method.mojom-shared.h"
 #include "chromeos/ash/services/ime/public/mojom/input_method.mojom-forward.h"
 #include "chromeos/ash/services/ime/public/mojom/japanese_settings.mojom.h"
@@ -1750,17 +1751,17 @@ class  DomKey {
   // Construct an instance holding |named_key|.
   static DomKeyPtr
   NewNamedKey(
-      NamedDomKey named_key) {
+      NamedDomKey value) {
     auto result = DomKeyPtr(absl::in_place);
-    result->set_named_key(std::move(named_key));
+    result->set_named_key(std::move(value));
     return result;
   }
   // Construct an instance holding |codepoint|.
   static DomKeyPtr
   NewCodepoint(
-      uint32_t codepoint) {
+      uint32_t value) {
     auto result = DomKeyPtr(absl::in_place);
-    result->set_codepoint(std::move(codepoint));
+    result->set_codepoint(std::move(value));
     return result;
   }
 
@@ -1877,65 +1878,65 @@ class  InputMethodSettings {
   // Construct an instance holding |korean_settings|.
   static InputMethodSettingsPtr
   NewKoreanSettings(
-      KoreanSettingsPtr korean_settings) {
+      KoreanSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_korean_settings(std::move(korean_settings));
+    result->set_korean_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |latin_settings|.
   static InputMethodSettingsPtr
   NewLatinSettings(
-      LatinSettingsPtr latin_settings) {
+      LatinSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_latin_settings(std::move(latin_settings));
+    result->set_latin_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |pinyin_settings|.
   static InputMethodSettingsPtr
   NewPinyinSettings(
-      PinyinSettingsPtr pinyin_settings) {
+      PinyinSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_pinyin_settings(std::move(pinyin_settings));
+    result->set_pinyin_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |zhuyin_settings|.
   static InputMethodSettingsPtr
   NewZhuyinSettings(
-      ZhuyinSettingsPtr zhuyin_settings) {
+      ZhuyinSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_zhuyin_settings(std::move(zhuyin_settings));
+    result->set_zhuyin_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |null_settings|.
   static InputMethodSettingsPtr
   NewNullSettings(
-      bool null_settings) {
+      bool value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_null_settings(std::move(null_settings));
+    result->set_null_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |japanese_settings|.
   static InputMethodSettingsPtr
   NewJapaneseSettings(
-      JapaneseSettingsPtr japanese_settings) {
+      JapaneseSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_japanese_settings(std::move(japanese_settings));
+    result->set_japanese_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |vietnamese_telex_settings|.
   static InputMethodSettingsPtr
   NewVietnameseTelexSettings(
-      VietnameseTelexSettingsPtr vietnamese_telex_settings) {
+      VietnameseTelexSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_vietnamese_telex_settings(std::move(vietnamese_telex_settings));
+    result->set_vietnamese_telex_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |vietnamese_vni_settings|.
   static InputMethodSettingsPtr
   NewVietnameseVniSettings(
-      VietnameseVniSettingsPtr vietnamese_vni_settings) {
+      VietnameseVniSettingsPtr value) {
     auto result = InputMethodSettingsPtr(absl::in_place);
-    result->set_vietnamese_vni_settings(std::move(vietnamese_vni_settings));
+    result->set_vietnamese_vni_settings(std::move(value));
     return result;
   }
 
@@ -2133,17 +2134,17 @@ class  InputMethodQuickSettings {
   // Construct an instance holding |chinese_settings|.
   static InputMethodQuickSettingsPtr
   NewChineseSettings(
-      ChineseQuickSettingsPtr chinese_settings) {
+      ChineseQuickSettingsPtr value) {
     auto result = InputMethodQuickSettingsPtr(absl::in_place);
-    result->set_chinese_settings(std::move(chinese_settings));
+    result->set_chinese_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |japanese_settings|.
   static InputMethodQuickSettingsPtr
   NewJapaneseSettings(
-      JapaneseQuickSettingsPtr japanese_settings) {
+      JapaneseQuickSettingsPtr value) {
     auto result = InputMethodQuickSettingsPtr(absl::in_place);
-    result->set_japanese_settings(std::move(japanese_settings));
+    result->set_japanese_settings(std::move(value));
     return result;
   }
 

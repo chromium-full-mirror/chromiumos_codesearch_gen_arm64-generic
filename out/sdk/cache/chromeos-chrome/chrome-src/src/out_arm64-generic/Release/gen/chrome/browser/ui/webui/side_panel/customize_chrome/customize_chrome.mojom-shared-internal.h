@@ -33,10 +33,6 @@ class Theme_Data;
 class BackgroundCollection_Data;
 class CollectionImage_Data;
 class ModuleSettings_Data;
-class DescriptorA_Data;
-class DescriptorB_Data;
-class Descriptors_Data;
-class WallpaperSearchResult_Data;
 
 struct CustomizeChromeSection_Data {
  public:
@@ -75,6 +71,7 @@ class  BackgroundImage_Data {
   uint8_t is_uploaded_image : 1;
   uint8_t daily_refresh_enabled : 1;
   uint8_t pad3_[7];
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> local_background_id;
   mojo::internal::Pointer<mojo::internal::String_Data> title;
   mojo::internal::Pointer<mojo::internal::String_Data> collection_id;
 
@@ -84,7 +81,7 @@ class  BackgroundImage_Data {
   BackgroundImage_Data();
   ~BackgroundImage_Data() = delete;
 };
-static_assert(sizeof(BackgroundImage_Data) == 48,
+static_assert(sizeof(BackgroundImage_Data) == 56,
               "Bad sizeof(BackgroundImage_Data)");
 // Used by BackgroundImage::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -375,203 +372,6 @@ struct ModuleSettings_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ModuleSettings_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  DescriptorA_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> category;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> labels;
-
- private:
-  friend class mojo::internal::MessageFragment<DescriptorA_Data>;
-
-  DescriptorA_Data();
-  ~DescriptorA_Data() = delete;
-};
-static_assert(sizeof(DescriptorA_Data) == 24,
-              "Bad sizeof(DescriptorA_Data)");
-// Used by DescriptorA::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct DescriptorA_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  DescriptorA_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~DescriptorA_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DescriptorA_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    DescriptorA_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  DescriptorB_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> label;
-  mojo::internal::Pointer<mojo::internal::String_Data> image_path;
-
- private:
-  friend class mojo::internal::MessageFragment<DescriptorB_Data>;
-
-  DescriptorB_Data();
-  ~DescriptorB_Data() = delete;
-};
-static_assert(sizeof(DescriptorB_Data) == 24,
-              "Bad sizeof(DescriptorB_Data)");
-// Used by DescriptorB::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct DescriptorB_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  DescriptorB_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~DescriptorB_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DescriptorB_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    DescriptorB_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  Descriptors_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DescriptorA_Data>>> descriptor_a;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DescriptorB_Data>>> descriptor_b;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> descriptor_c;
-
- private:
-  friend class mojo::internal::MessageFragment<Descriptors_Data>;
-
-  Descriptors_Data();
-  ~Descriptors_Data() = delete;
-};
-static_assert(sizeof(Descriptors_Data) == 32,
-              "Bad sizeof(Descriptors_Data)");
-// Used by Descriptors::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct Descriptors_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  Descriptors_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~Descriptors_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<Descriptors_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    Descriptors_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  WallpaperSearchResult_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> id;
-  mojo::internal::Pointer<mojo::internal::String_Data> image;
-
- private:
-  friend class mojo::internal::MessageFragment<WallpaperSearchResult_Data>;
-
-  WallpaperSearchResult_Data();
-  ~WallpaperSearchResult_Data() = delete;
-};
-static_assert(sizeof(WallpaperSearchResult_Data) == 24,
-              "Bad sizeof(WallpaperSearchResult_Data)");
-// Used by WallpaperSearchResult::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct WallpaperSearchResult_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  WallpaperSearchResult_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~WallpaperSearchResult_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<WallpaperSearchResult_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    WallpaperSearchResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

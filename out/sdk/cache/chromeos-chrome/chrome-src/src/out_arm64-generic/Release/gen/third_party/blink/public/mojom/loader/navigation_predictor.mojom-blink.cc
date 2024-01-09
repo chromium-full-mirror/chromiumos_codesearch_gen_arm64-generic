@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -651,6 +652,9 @@ AnchorElementMetricsHost::IPCStableHashFunction AnchorElementMetricsHost::Messag
     case internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name: {
       return &AnchorElementMetricsHost::ProcessPointerEventUsingMLModel_Sym::IPCStableHash;
     }
+    case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name: {
+      return &AnchorElementMetricsHost::ShouldSkipUpdateDelays_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -680,6 +684,8 @@ const char* AnchorElementMetricsHost::MessageToMethodName_(mojo::Message& messag
             return "Receive blink::mojom::AnchorElementMetricsHost::ReportAnchorElementPointerDataOnHoverTimerFired";
       case internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name:
             return "Receive blink::mojom::AnchorElementMetricsHost::ProcessPointerEventUsingMLModel";
+      case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name:
+            return "Receive blink::mojom::AnchorElementMetricsHost::ShouldSkipUpdateDelays";
     }
   } else {
     switch (message.name()) {
@@ -701,6 +707,8 @@ const char* AnchorElementMetricsHost::MessageToMethodName_(mojo::Message& messag
             return "Receive reply blink::mojom::AnchorElementMetricsHost::ReportAnchorElementPointerDataOnHoverTimerFired";
       case internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name:
             return "Receive reply blink::mojom::AnchorElementMetricsHost::ProcessPointerEventUsingMLModel";
+      case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name:
+            return "Receive reply blink::mojom::AnchorElementMetricsHost::ShouldSkipUpdateDelays";
     }
   }
   return "Receive unknown mojo message";
@@ -832,7 +840,36 @@ uint32_t AnchorElementMetricsHost::ProcessPointerEventUsingMLModel_Sym::IPCStabl
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AnchorElementMetricsHost::ShouldSkipUpdateDelays_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::AnchorElementMetricsHost::ShouldSkipUpdateDelays");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback(
+      AnchorElementMetricsHost::ShouldSkipUpdateDelaysCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback(const AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback&) = delete;
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback& operator=(const AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AnchorElementMetricsHost::ShouldSkipUpdateDelaysCallback callback_;
+};
 
 AnchorElementMetricsHostProxy::AnchorElementMetricsHostProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -850,14 +887,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementClick(
                         "<value of type AnchorElementClickPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementClick_Name, kFlags, 0, 0, nullptr);
@@ -898,14 +938,17 @@ void AnchorElementMetricsHostProxy::ReportNewAnchorElements(
                         "<value of type WTF::Vector<AnchorElementMetricsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportNewAnchorElements_Name, kFlags, 0, 0, nullptr);
@@ -948,14 +991,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementsEnteredViewport(
                         "<value of type WTF::Vector<AnchorElementEnteredViewportPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Name, kFlags, 0, 0, nullptr);
@@ -998,14 +1044,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementsLeftViewport(
                         "<value of type WTF::Vector<AnchorElementLeftViewportPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementsLeftViewport_Name, kFlags, 0, 0, nullptr);
@@ -1048,14 +1097,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementPointerOver(
                         "<value of type AnchorElementPointerOverPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementPointerOver_Name, kFlags, 0, 0, nullptr);
@@ -1096,14 +1148,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementPointerOut(
                         "<value of type AnchorElementPointerOutPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementPointerOut_Name, kFlags, 0, 0, nullptr);
@@ -1144,14 +1199,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementPointerDown(
                         "<value of type AnchorElementPointerDownPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementPointerDown_Name, kFlags, 0, 0, nullptr);
@@ -1192,14 +1250,17 @@ void AnchorElementMetricsHostProxy::ReportAnchorElementPointerDataOnHoverTimerFi
                         "<value of type AnchorElementPointerDataOnHoverTimerFiredPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Name, kFlags, 0, 0, nullptr);
@@ -1240,14 +1301,17 @@ void AnchorElementMetricsHostProxy::ProcessPointerEventUsingMLModel(
                         "<value of type AnchorElementPointerEventForMLModelPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name, kFlags, 0, 0, nullptr);
@@ -1274,6 +1338,159 @@ void AnchorElementMetricsHostProxy::ProcessPointerEventUsingMLModel(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AnchorElementMetricsHostProxy::ShouldSkipUpdateDelays(
+    ShouldSkipUpdateDelaysCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::AnchorElementMetricsHost::ShouldSkipUpdateDelays");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AnchorElementMetricsHost::Name_);
+  message.set_method_name("ShouldSkipUpdateDelays");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AnchorElementMetricsHost::ShouldSkipUpdateDelaysCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder> proxy(
+        new AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AnchorElementMetricsHost::ShouldSkipUpdateDelaysCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_should_skip_for_testing);
+};
+
+bool AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_should_skip_for_testing{};
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_should_skip_for_testing = input_data_view.should_skip_for_testing();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AnchorElementMetricsHost::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_should_skip_for_testing));
+  return true;
+}
+
+void AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder::Run(
+    bool in_should_skip_for_testing) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::AnchorElementMetricsHost::ShouldSkipUpdateDelays", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("should_skip_for_testing"), in_should_skip_for_testing,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->should_skip_for_testing = in_should_skip_for_testing;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AnchorElementMetricsHost::Name_);
+  message.set_method_name("ShouldSkipUpdateDelays");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -1515,6 +1732,9 @@ std::move(p_pointer_data));
 std::move(p_pointer_event));
       return true;
     }
+    case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1555,30 +1775,57 @@ bool AnchorElementMetricsHostStubDispatch::AcceptWithResponder(
     case internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name: {
       break;
     }
+    case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name: {
+
+      internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data* params =
+          reinterpret_cast<
+              internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AnchorElementMetricsHost::Name_, 9, false);
+        return false;
+      }
+      AnchorElementMetricsHost::ShouldSkipUpdateDelaysCallback callback =
+          AnchorElementMetricsHost_ShouldSkipUpdateDelays_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShouldSkipUpdateDelays(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAnchorElementMetricsHostValidationInfo[] = {
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementClick_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementClick_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportNewAnchorElements_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportNewAnchorElements_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementsLeftViewport_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementsLeftViewport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementPointerOver_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementPointerOver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementPointerOut_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementPointerOut_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementPointerDown_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementPointerDown_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params_Data::Validate,
+    { &internal::AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data::Validate,
+     &internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data::Validate},
 };
 
 bool AnchorElementMetricsHostRequestValidator::Accept(mojo::Message* message) {
@@ -1586,6 +1833,10 @@ bool AnchorElementMetricsHostRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kAnchorElementMetricsHostValidationInfo);
 }
 
+bool AnchorElementMetricsHostResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::blink::mojom::blink::AnchorElementMetricsHost::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kAnchorElementMetricsHostValidationInfo);
+}
 
 
 }  // blink::mojom::blink
@@ -1808,10 +2059,36 @@ void AnchorElementMetricsHostInterceptorForTesting::ReportAnchorElementPointerDa
 void AnchorElementMetricsHostInterceptorForTesting::ProcessPointerEventUsingMLModel(AnchorElementPointerEventForMLModelPtr pointer_event) {
   GetForwardingInterface()->ProcessPointerEventUsingMLModel(std::move(pointer_event));
 }
+void AnchorElementMetricsHostInterceptorForTesting::ShouldSkipUpdateDelays(ShouldSkipUpdateDelaysCallback callback) {
+  GetForwardingInterface()->ShouldSkipUpdateDelays(std::move(callback));
+}
 AnchorElementMetricsHostAsyncWaiter::AnchorElementMetricsHostAsyncWaiter(
     AnchorElementMetricsHost* proxy) : proxy_(proxy) {}
 
 AnchorElementMetricsHostAsyncWaiter::~AnchorElementMetricsHostAsyncWaiter() = default;
+
+void AnchorElementMetricsHostAsyncWaiter::ShouldSkipUpdateDelays(
+    bool* out_should_skip_for_testing) {
+  base::RunLoop loop;
+  proxy_->ShouldSkipUpdateDelays(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_should_skip_for_testing
+,
+             bool should_skip_for_testing) {*out_should_skip_for_testing = std::move(should_skip_for_testing);
+            loop->Quit();
+          },
+          &loop,
+          out_should_skip_for_testing));
+  loop.Run();
+}
+
+bool AnchorElementMetricsHostAsyncWaiter::ShouldSkipUpdateDelays(
+    ) {
+  bool async_wait_result;
+  ShouldSkipUpdateDelays(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

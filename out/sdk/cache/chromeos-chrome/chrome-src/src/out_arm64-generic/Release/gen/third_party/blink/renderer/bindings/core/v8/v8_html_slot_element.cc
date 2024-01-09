@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLSlotElement>::value,
     "HTMLSlotElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLSlotElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLSlotElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSlotElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,9 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSlotElement.assign");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLSlotElement";
 const char* const property_name = "assign";
@@ -182,13 +177,13 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<AssignedNodesOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = AssignedNodesOptions::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLSlotElement";
 const char* const property_name = "assignedElements";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -220,13 +215,13 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+HTMLSlotElement* blink_receiver = V8HTMLSlotElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<AssignedNodesOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = AssignedNodesOptions::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLSlotElement";
 const char* const property_name = "assignedNodes";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

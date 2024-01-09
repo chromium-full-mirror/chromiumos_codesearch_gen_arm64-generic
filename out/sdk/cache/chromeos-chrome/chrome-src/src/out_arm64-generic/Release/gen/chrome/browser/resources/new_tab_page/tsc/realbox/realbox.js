@@ -7,7 +7,7 @@ import { NavigationPredictor, SideType } from 'chrome://resources/cr_components/
 import { RealboxBrowserProxy } from 'chrome://resources/cr_components/omnibox/realbox_browser_proxy.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { MetricsReporterImpl } from 'chrome://resources/js/metrics_reporter/metrics_reporter.js';
-import { hasKeyModifiers } from 'chrome://resources/js/util_ts.js';
+import { hasKeyModifiers } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
 import { decodeString16, mojoString16 } from '../utils.js';
@@ -34,6 +34,10 @@ export class RealboxElement extends PolymerElement {
             canShowSecondarySide: {
                 type: Boolean,
                 value: () => canShowSecondarySideMediaQueryList.matches,
+                reflectToAttribute: true,
+            },
+            colorSourceIsBaseline: {
+                type: Boolean,
                 reflectToAttribute: true,
             },
             /** Whether the cr-realbox-dropdown should be visible. */
@@ -73,10 +77,9 @@ export class RealboxElement extends PolymerElement {
                 value: () => loadTimeData.getBoolean('realboxLensSearch'),
                 reflectToAttribute: true,
             },
-            /** Whether to display single-colored icons or not. */
-            singleColoredIcons: {
+            realboxChromeRefreshTheming: {
                 type: Boolean,
-                value: false,
+                value: () => loadTimeData.getBoolean('realboxCr23Theming'),
                 reflectToAttribute: true,
             },
             //========================================================================

@@ -51,6 +51,34 @@
   },
   {
     "traits_headers": [
+      "skia/public/mojom/skcolorspace_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//skia"
+    ],
+    "types": [
+      {
+        "cpp": "::skcms_Matrix3x3",
+        "mojom": "skia.mojom.SkcmsMatrix3x3"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
+      "skia/public/mojom/skcolorspace_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//skia"
+    ],
+    "types": [
+      {
+        "cpp": "::skcms_TransferFunction",
+        "mojom": "skia.mojom.SkcmsTransferFunction"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
       "skia/public/mojom/skcolor_mojom_traits.h"
     ],
     "traits_public_deps": [
@@ -89,6 +117,20 @@
       {
         "cpp": "::SkColorSpacePrimaries",
         "mojom": "skia.mojom.SkColorSpacePrimaries"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
+      "skia/public/mojom/skcolorspace_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//skia"
+    ],
+    "types": [
+      {
+        "cpp": "::sk_sp<SkColorSpace>",
+        "mojom": "skia.mojom.SkColorSpace"
       }
     ]
   },

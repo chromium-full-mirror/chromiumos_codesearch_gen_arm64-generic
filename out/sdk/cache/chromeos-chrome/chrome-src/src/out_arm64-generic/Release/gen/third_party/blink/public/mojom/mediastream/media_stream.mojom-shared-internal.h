@@ -36,6 +36,7 @@ class MediaStreamDevice_Data;
 class TrackControls_Data;
 class StreamControls_Data;
 class GetOpenDeviceResponse_Data;
+class CapturedWheelAction_Data;
 class StreamDevices_Data;
 class StreamDevicesSet_Data;
 
@@ -163,6 +164,32 @@ struct MediaStreamStateChange_Data {
 };
 
 struct PreferredDisplaySurface_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct CapturedSurfaceControlResult_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -457,6 +484,57 @@ struct GetOpenDeviceResponse_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     GetOpenDeviceResponse_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) CapturedWheelAction_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t x;
+  int32_t y;
+  int32_t wheel_delta_x;
+  int32_t wheel_delta_y;
+
+ private:
+  friend class mojo::internal::MessageFragment<CapturedWheelAction_Data>;
+
+  CapturedWheelAction_Data();
+  ~CapturedWheelAction_Data() = delete;
+};
+static_assert(sizeof(CapturedWheelAction_Data) == 24,
+              "Bad sizeof(CapturedWheelAction_Data)");
+// Used by CapturedWheelAction::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CapturedWheelAction_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CapturedWheelAction_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CapturedWheelAction_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CapturedWheelAction_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CapturedWheelAction_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) StreamDevices_Data {
  public:
   static bool Validate(const void* data,

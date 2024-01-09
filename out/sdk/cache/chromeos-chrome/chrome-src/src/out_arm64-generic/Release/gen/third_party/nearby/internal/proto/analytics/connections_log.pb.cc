@@ -24,7 +24,9 @@ namespace proto {
 PROTOBUF_CONSTEXPR ConnectionsLog_ClientSession::ConnectionsLog_ClientSession(
     ::_pbi::ConstantInitialized)
   : strategy_session_()
-  , duration_millis_(int64_t{0}){}
+  , connection_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , duration_millis_(int64_t{0})
+  , client_flow_id_(int64_t{0}){}
 struct ConnectionsLog_ClientSessionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ConnectionsLog_ClientSessionDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -430,6 +432,12 @@ class ConnectionsLog_ClientSession::_Internal {
  public:
   using HasBits = decltype(std::declval<ConnectionsLog_ClientSession>()._has_bits_);
   static void set_has_duration_millis(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_client_flow_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_connection_token(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -446,12 +454,29 @@ ConnectionsLog_ClientSession::ConnectionsLog_ClientSession(const ConnectionsLog_
       _has_bits_(from._has_bits_),
       strategy_session_(from.strategy_session_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  duration_millis_ = from.duration_millis_;
+  connection_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    connection_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_connection_token()) {
+    connection_token_.Set(from._internal_connection_token(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&duration_millis_, &from.duration_millis_,
+    static_cast<size_t>(reinterpret_cast<char*>(&client_flow_id_) -
+    reinterpret_cast<char*>(&duration_millis_)) + sizeof(client_flow_id_));
   // @@protoc_insertion_point(copy_constructor:location.nearby.analytics.proto.ConnectionsLog.ClientSession)
 }
 
 inline void ConnectionsLog_ClientSession::SharedCtor() {
-duration_millis_ = int64_t{0};
+connection_token_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  connection_token_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&duration_millis_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&client_flow_id_) -
+    reinterpret_cast<char*>(&duration_millis_)) + sizeof(client_flow_id_));
 }
 
 ConnectionsLog_ClientSession::~ConnectionsLog_ClientSession() {
@@ -465,6 +490,7 @@ ConnectionsLog_ClientSession::~ConnectionsLog_ClientSession() {
 
 inline void ConnectionsLog_ClientSession::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  connection_token_.Destroy();
 }
 
 void ConnectionsLog_ClientSession::SetCachedSize(int size) const {
@@ -478,7 +504,15 @@ void ConnectionsLog_ClientSession::Clear() {
   (void) cached_has_bits;
 
   strategy_session_.Clear();
-  duration_millis_ = int64_t{0};
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    connection_token_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&duration_millis_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&client_flow_id_) -
+        reinterpret_cast<char*>(&duration_millis_)) + sizeof(client_flow_id_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -509,6 +543,24 @@ const char* ConnectionsLog_ClientSession::_InternalParse(const char* ptr, ::_pbi
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 client_flow_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_client_flow_id(&has_bits);
+          client_flow_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string connection_token = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_connection_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -544,7 +596,7 @@ uint8_t* ConnectionsLog_ClientSession::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional int64 duration_millis = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_duration_millis(), target);
   }
@@ -555,6 +607,18 @@ uint8_t* ConnectionsLog_ClientSession::_InternalSerialize(
     const auto& repfield = this->_internal_strategy_session(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // optional int64 client_flow_id = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_client_flow_id(), target);
+  }
+
+  // optional string connection_token = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_connection_token(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -580,12 +644,26 @@ size_t ConnectionsLog_ClientSession::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // optional int64 duration_millis = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_duration_millis());
-  }
+  if (cached_has_bits & 0x00000007u) {
+    // optional string connection_token = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_connection_token());
+    }
 
+    // optional int64 duration_millis = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_duration_millis());
+    }
+
+    // optional int64 client_flow_id = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_client_flow_id());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -607,8 +685,18 @@ void ConnectionsLog_ClientSession::MergeFrom(const ConnectionsLog_ClientSession&
   (void) cached_has_bits;
 
   strategy_session_.MergeFrom(from.strategy_session_);
-  if (from._internal_has_duration_millis()) {
-    _internal_set_duration_millis(from._internal_duration_millis());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_connection_token(from._internal_connection_token());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      duration_millis_ = from.duration_millis_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      client_flow_id_ = from.client_flow_id_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -626,10 +714,21 @@ bool ConnectionsLog_ClientSession::IsInitialized() const {
 
 void ConnectionsLog_ClientSession::InternalSwap(ConnectionsLog_ClientSession* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   strategy_session_.InternalSwap(&other->strategy_session_);
-  swap(duration_millis_, other->duration_millis_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &connection_token_, lhs_arena,
+      &other->connection_token_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ConnectionsLog_ClientSession, client_flow_id_)
+      + sizeof(ConnectionsLog_ClientSession::client_flow_id_)
+      - PROTOBUF_FIELD_OFFSET(ConnectionsLog_ClientSession, duration_millis_)>(
+          reinterpret_cast<char*>(&duration_millis_),
+          reinterpret_cast<char*>(&other->duration_millis_));
 }
 
 std::string ConnectionsLog_ClientSession::GetTypeName() const {

@@ -41,10 +41,6 @@ const UIStrings = {
      */
     frameworkListeners: '`Framework` listeners',
     /**
-     *@description Text to refresh the page
-     */
-    refresh: 'Refresh',
-    /**
      *@description Tooltip text that appears on the setting when hovering over it in Event Listeners Widget of the Elements panel
      */
     showListenersOnTheAncestors: 'Show listeners on the ancestors',
@@ -97,11 +93,8 @@ export class EventListenersWidget extends UI.ThrottledWidget.ThrottledWidget {
         this.showFrameworkListenersSetting.addChangeListener(this.showFrameworkListenersChanged.bind(this));
         this.eventListenersView = new EventListeners.EventListenersView.EventListenersView(this.update.bind(this));
         this.eventListenersView.show(this.element);
-        this.element.setAttribute('jslog', `${VisualLogging.eventListenersPane()}`);
-        const refreshButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.refresh), 'refresh');
-        refreshButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.update.bind(this));
-        refreshButton.element.setAttribute('jslog', `${VisualLogging.refresh().track({ click: true })}`);
-        this.toolbarItemsInternal.push(refreshButton);
+        this.element.setAttribute('jslog', `${VisualLogging.pane().context('event-listeners')}`);
+        this.toolbarItemsInternal.push(UI.Toolbar.Toolbar.createActionButtonForId('elements.refresh-event-listeners'));
         this.toolbarItemsInternal.push(new UI.Toolbar.ToolbarSettingCheckbox(this.showForAncestorsSetting, i18nString(UIStrings.showListenersOnTheAncestors), i18nString(UIStrings.ancestors)));
         const dispatchFilter = new UI.Toolbar.ToolbarComboBox(this.onDispatchFilterTypeChanged.bind(this), i18nString(UIStrings.eventListenersCategory));
         dispatchFilter.element.setAttribute('jslog', `${VisualLogging.filterDropdown().track({ change: true })}`);
@@ -154,6 +147,14 @@ export class EventListenersWidget extends UI.ThrottledWidget.ThrottledWidget {
             .then(this.eventListenersView.addObjects.bind(this.eventListenersView))
             .then(this.showFrameworkListenersChanged.bind(this));
     }
+    wasShown() {
+        UI.Context.Context.instance().setFlavor(EventListenersWidget, this);
+        super.wasShown();
+    }
+    willHide() {
+        super.willHide();
+        UI.Context.Context.instance().setFlavor(EventListenersWidget, null);
+    }
     toolbarItems() {
         return this.toolbarItemsInternal;
     }
@@ -205,4 +206,15 @@ export const DispatchFilterBy = {
     Passive: 'Passive',
 };
 const objectGroupName = 'event-listeners-panel';
+export class ActionDelegate {
+    handleAction(_context, actionId) {
+        switch (actionId) {
+            case 'elements.refresh-event-listeners': {
+                EventListenersWidget.instance().update();
+                return true;
+            }
+        }
+        return false;
+    }
+}
 //# sourceMappingURL=EventListenersWidget.js.map

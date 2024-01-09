@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -85,7 +86,7 @@ CSVPassword::CSVPassword(
     const std::string& password_in,
     const std::string& note_in,
     const ::GURL& url_in,
-    const absl::optional<std::string>& invalid_url_in)
+    const std::optional<std::string>& invalid_url_in)
     : status(std::move(status_in)),
       username(std::move(username_in)),
       password(std::move(password_in)),
@@ -147,7 +148,7 @@ void CSVPassword::WriteIntoTrace(
     dict.AddItem(
       "invalid_url"), this->invalid_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -246,14 +247,17 @@ void CSVPasswordParserProxy::ParseCSV(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCSVPasswordParser_ParseCSV_Name, kFlags, 0, 0, nullptr);
@@ -374,7 +378,8 @@ void CSVPasswordParser_ParseCSV_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCSVPasswordParser_ParseCSV_Name, kFlags, 0, 0, nullptr);
@@ -460,10 +465,10 @@ std::move(p_raw_csv), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCSVPasswordParserValidationInfo[] = {
-    {&internal::CSVPasswordParser_ParseCSV_Params_Data::Validate,
+    { &internal::CSVPasswordParser_ParseCSV_Params_Data::Validate,
      &internal::CSVPasswordParser_ParseCSV_ResponseParams_Data::Validate},
 };
 

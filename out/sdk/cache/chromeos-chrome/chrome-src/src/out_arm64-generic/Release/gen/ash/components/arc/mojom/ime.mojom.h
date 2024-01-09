@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/ime.mojom-features.h"
 #include "ash/components/arc/mojom/ime.mojom-shared.h"
 #include "ash/components/arc/mojom/ime.mojom-forward.h"
 #include "ash/components/arc/mojom/gfx.mojom.h"
@@ -199,7 +200,7 @@ class ImeInstance
   virtual void Init(::mojo::PendingRemote<ImeHost> host_remote, InitCallback callback) = 0;
 
   
-  virtual void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const absl::optional<::gfx::Range>& selection_range) = 0;
+  virtual void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const std::optional<::gfx::Range>& selection_range) = 0;
 
   
   virtual void SetSelectionText(const ::gfx::Range& selection) = 0;
@@ -256,7 +257,7 @@ class  ImeInstanceProxy
   
   void Init(::mojo::PendingRemote<ImeHost> host_remote, InitCallback callback) final;
   
-  void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const absl::optional<::gfx::Range>& selection_range) final;
+  void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const std::optional<::gfx::Range>& selection_range) final;
   
   void SetSelectionText(const ::gfx::Range& selection) final;
   

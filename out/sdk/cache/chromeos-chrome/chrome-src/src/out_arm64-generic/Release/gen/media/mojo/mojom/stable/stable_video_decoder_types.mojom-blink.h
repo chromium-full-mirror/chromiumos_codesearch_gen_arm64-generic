@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-features.h"
 #include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-shared.h"
 #include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink-forward.h"
 #include "media/mojo/mojom/encryption_pattern.mojom-blink.h"
@@ -43,174 +44,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::VideoCodec>
-    : EnumHashTraits<::media::stable::mojom::VideoCodec, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::VideoCodecProfile>
-    : EnumHashTraits<::media::stable::mojom::VideoCodecProfile, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::EncryptionScheme>
-    : EnumHashTraits<::media::stable::mojom::EncryptionScheme, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::StatusCode>
-    : EnumHashTraits<::media::stable::mojom::StatusCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::VideoDecoderType>
-    : EnumHashTraits<::media::stable::mojom::VideoDecoderType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::ColorSpacePrimaryID>
-    : EnumHashTraits<::media::stable::mojom::ColorSpacePrimaryID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::ColorSpaceTransferID>
-    : EnumHashTraits<::media::stable::mojom::ColorSpaceTransferID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::ColorSpaceMatrixID>
-    : EnumHashTraits<::media::stable::mojom::ColorSpaceMatrixID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::ColorSpaceRangeID>
-    : EnumHashTraits<::media::stable::mojom::ColorSpaceRangeID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::VideoPixelFormat>
-    : EnumHashTraits<::media::stable::mojom::VideoPixelFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::WaitingReason>
-    : EnumHashTraits<::media::stable::mojom::WaitingReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::DecryptStatus>
-    : EnumHashTraits<::media::stable::mojom::DecryptStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::CdmContextEvent>
-    : EnumHashTraits<::media::stable::mojom::CdmContextEvent, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::stable::mojom::MediaLogRecord_Type>
-    : EnumHashTraits<::media::stable::mojom::MediaLogRecord_Type, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::stable::mojom::blink {

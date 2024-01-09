@@ -159,6 +159,10 @@ class HEADLESS_EXPORT ServiceWorkerVersion {
   std::string GetTargetId() const { DCHECK(HasTargetId()); return target_id_.value(); }
   void SetTargetId(const std::string& value) { target_id_ = value; }
 
+  bool HasRouterRules() const { return !!router_rules_; }
+  std::string GetRouterRules() const { DCHECK(HasRouterRules()); return router_rules_.value(); }
+  void SetRouterRules(const std::string& value) { router_rules_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<ServiceWorkerVersion> Clone() const;
 
@@ -225,6 +229,11 @@ class HEADLESS_EXPORT ServiceWorkerVersion {
       return *this;
     }
 
+    ServiceWorkerVersionBuilder<STATE>& SetRouterRules(const std::string& value) {
+      result_->SetRouterRules(value);
+      return *this;
+    }
+
     std::unique_ptr<ServiceWorkerVersion> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -257,6 +266,7 @@ class HEADLESS_EXPORT ServiceWorkerVersion {
   absl::optional<double> script_response_time_;
   absl::optional<std::vector<std::string>> controlled_clients_;
   absl::optional<std::string> target_id_;
+  absl::optional<std::string> router_rules_;
 };
 
 

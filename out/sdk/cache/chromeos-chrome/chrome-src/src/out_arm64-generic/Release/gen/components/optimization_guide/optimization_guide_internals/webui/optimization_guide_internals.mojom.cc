@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -101,6 +102,38 @@ bool DownloadedModelInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+LoggedClientIds::LoggedClientIds()
+    : client_id() {}
+
+LoggedClientIds::LoggedClientIds(
+    int64_t client_id_in)
+    : client_id(std::move(client_id_in)) {}
+
+LoggedClientIds::~LoggedClientIds() = default;
+size_t LoggedClientIds::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->client_id);
+  return seed;
+}
+
+void LoggedClientIds::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "client_id"), this->client_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LoggedClientIds::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char PageHandlerFactory::Name_[] = "optimization_guide_internals.mojom.PageHandlerFactory";
 
 PageHandlerFactory::IPCStableHashFunction PageHandlerFactory::MessageToMethodInfo_(mojo::Message& message) {
@@ -111,6 +144,9 @@ PageHandlerFactory::IPCStableHashFunction PageHandlerFactory::MessageToMethodInf
     }
     case internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name: {
       return &PageHandlerFactory::RequestDownloadedModelsInfo_Sym::IPCStableHash;
+    }
+    case internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name: {
+      return &PageHandlerFactory::RequestLoggedModelQualityClientIds_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -127,6 +163,8 @@ const char* PageHandlerFactory::MessageToMethodName_(mojo::Message& message) {
             return "Receive optimization_guide_internals::mojom::PageHandlerFactory::CreatePageHandler";
       case internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name:
             return "Receive optimization_guide_internals::mojom::PageHandlerFactory::RequestDownloadedModelsInfo";
+      case internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name:
+            return "Receive optimization_guide_internals::mojom::PageHandlerFactory::RequestLoggedModelQualityClientIds";
     }
   } else {
     switch (message.name()) {
@@ -134,6 +172,8 @@ const char* PageHandlerFactory::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply optimization_guide_internals::mojom::PageHandlerFactory::CreatePageHandler";
       case internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name:
             return "Receive reply optimization_guide_internals::mojom::PageHandlerFactory::RequestDownloadedModelsInfo";
+      case internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name:
+            return "Receive reply optimization_guide_internals::mojom::PageHandlerFactory::RequestLoggedModelQualityClientIds";
     }
   }
   return "Receive unknown mojo message";
@@ -174,6 +214,19 @@ uint32_t PageHandlerFactory::RequestDownloadedModelsInfo_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandlerFactory::RequestLoggedModelQualityClientIds_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)optimization_guide_internals::mojom::PageHandlerFactory::RequestLoggedModelQualityClientIds");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageHandlerFactory_RequestDownloadedModelsInfo_ForwardToCallback
@@ -192,6 +245,22 @@ class PageHandlerFactory_RequestDownloadedModelsInfo_ForwardToCallback
   PageHandlerFactory::RequestDownloadedModelsInfoCallback callback_;
 };
 
+class PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback(
+      PageHandlerFactory::RequestLoggedModelQualityClientIdsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback(const PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback&) = delete;
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback& operator=(const PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandlerFactory::RequestLoggedModelQualityClientIdsCallback callback_;
+};
+
 PageHandlerFactoryProxy::PageHandlerFactoryProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -208,14 +277,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingRemote<Page>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -244,14 +316,17 @@ void PageHandlerFactoryProxy::RequestDownloadedModelsInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send optimization_guide_internals::mojom::PageHandlerFactory::RequestDownloadedModelsInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name, kFlags, 0, 0, nullptr);
@@ -266,6 +341,40 @@ void PageHandlerFactoryProxy::RequestDownloadedModelsInfo(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new PageHandlerFactory_RequestDownloadedModelsInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerFactoryProxy::RequestLoggedModelQualityClientIds(
+    RequestLoggedModelQualityClientIdsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send optimization_guide_internals::mojom::PageHandlerFactory::RequestLoggedModelQualityClientIds");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::optimization_guide_internals::mojom::internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandlerFactory::Name_);
+  message.set_method_name("RequestLoggedModelQualityClientIds");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -361,7 +470,8 @@ void PageHandlerFactory_RequestDownloadedModelsInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name, kFlags, 0, 0, nullptr);
@@ -386,6 +496,137 @@ void PageHandlerFactory_RequestDownloadedModelsInfo_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandlerFactory::Name_);
   message.set_method_name("RequestDownloadedModelsInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandlerFactory::RequestLoggedModelQualityClientIdsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder> proxy(
+        new PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandlerFactory::RequestLoggedModelQualityClientIdsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<LoggedClientIdsPtr> in_logged_client_ids);
+};
+
+bool PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<LoggedClientIdsPtr> p_logged_client_ids{};
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadLoggedClientIds(&p_logged_client_ids))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandlerFactory::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_logged_client_ids));
+  return true;
+}
+
+void PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder::Run(
+    std::vector<LoggedClientIdsPtr> in_logged_client_ids) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply optimization_guide_internals::mojom::PageHandlerFactory::RequestLoggedModelQualityClientIds", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("logged_client_ids"), in_logged_client_ids,
+                        "<value of type std::vector<LoggedClientIdsPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::optimization_guide_internals::mojom::internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->logged_client_ids)::BaseType>
+      logged_client_ids_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& logged_client_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::optimization_guide_internals::mojom::LoggedClientIdsDataView>>(
+      in_logged_client_ids, logged_client_ids_fragment, &logged_client_ids_validate_params);
+  params->logged_client_ids.Set(
+      logged_client_ids_fragment.is_null() ? nullptr : logged_client_ids_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->logged_client_ids.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null logged_client_ids in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandlerFactory::Name_);
+  message.set_method_name("RequestLoggedModelQualityClientIds");
 #endif
 
   message.set_request_id(request_id_);
@@ -436,6 +677,9 @@ std::move(p_page));
     case internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name: {
       break;
     }
+    case internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -477,16 +721,43 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
       impl->RequestDownloadedModelsInfo(std::move(callback));
       return true;
     }
+    case internal::kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name: {
+
+      internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandlerFactory::Name_, 2, false);
+        return false;
+      }
+      PageHandlerFactory::RequestLoggedModelQualityClientIdsCallback callback =
+          PageHandlerFactory_RequestLoggedModelQualityClientIds_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RequestLoggedModelQualityClientIds(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandlerFactory_RequestDownloadedModelsInfo_Params_Data::Validate,
+    { &internal::PageHandlerFactory_RequestDownloadedModelsInfo_Params_Data::Validate,
      &internal::PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams_Data::Validate},
+    { &internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data::Validate,
+     &internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data::Validate},
 };
 
 bool PageHandlerFactoryRequestValidator::Accept(mojo::Message* message) {
@@ -581,14 +852,17 @@ void PageProxy::OnLogMessageAdded(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnLogMessageAdded_Name, kFlags, 0, 0, nullptr);
@@ -708,10 +982,10 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnLogMessageAdded_Params_Data::Validate,
+    { &internal::Page_OnLogMessageAdded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -745,6 +1019,20 @@ bool StructTraits<::optimization_guide_internals::mojom::DownloadedModelInfo::Da
   return success;
 }
 
+
+// static
+bool StructTraits<::optimization_guide_internals::mojom::LoggedClientIds::DataView, ::optimization_guide_internals::mojom::LoggedClientIdsPtr>::Read(
+    ::optimization_guide_internals::mojom::LoggedClientIds::DataView input,
+    ::optimization_guide_internals::mojom::LoggedClientIdsPtr* output) {
+  bool success = true;
+  ::optimization_guide_internals::mojom::LoggedClientIdsPtr result(::optimization_guide_internals::mojom::LoggedClientIds::New());
+  
+      if (success)
+        result->client_id = input.client_id();
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -760,6 +1048,9 @@ void PageHandlerFactoryInterceptorForTesting::CreatePageHandler(::mojo::PendingR
 }
 void PageHandlerFactoryInterceptorForTesting::RequestDownloadedModelsInfo(RequestDownloadedModelsInfoCallback callback) {
   GetForwardingInterface()->RequestDownloadedModelsInfo(std::move(callback));
+}
+void PageHandlerFactoryInterceptorForTesting::RequestLoggedModelQualityClientIds(RequestLoggedModelQualityClientIdsCallback callback) {
+  GetForwardingInterface()->RequestLoggedModelQualityClientIds(std::move(callback));
 }
 PageHandlerFactoryAsyncWaiter::PageHandlerFactoryAsyncWaiter(
     PageHandlerFactory* proxy) : proxy_(proxy) {}
@@ -786,6 +1077,29 @@ std::vector<DownloadedModelInfoPtr> PageHandlerFactoryAsyncWaiter::RequestDownlo
     ) {
   std::vector<DownloadedModelInfoPtr> async_wait_result;
   RequestDownloadedModelsInfo(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerFactoryAsyncWaiter::RequestLoggedModelQualityClientIds(
+    std::vector<LoggedClientIdsPtr>* out_logged_client_ids) {
+  base::RunLoop loop;
+  proxy_->RequestLoggedModelQualityClientIds(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<LoggedClientIdsPtr>* out_logged_client_ids
+,
+             std::vector<LoggedClientIdsPtr> logged_client_ids) {*out_logged_client_ids = std::move(logged_client_ids);
+            loop->Quit();
+          },
+          &loop,
+          out_logged_client_ids));
+  loop.Run();
+}
+
+std::vector<LoggedClientIdsPtr> PageHandlerFactoryAsyncWaiter::RequestLoggedModelQualityClientIds(
+    ) {
+  std::vector<LoggedClientIdsPtr> async_wait_result;
+  RequestLoggedModelQualityClientIds(&async_wait_result);
   return async_wait_result;
 }
 

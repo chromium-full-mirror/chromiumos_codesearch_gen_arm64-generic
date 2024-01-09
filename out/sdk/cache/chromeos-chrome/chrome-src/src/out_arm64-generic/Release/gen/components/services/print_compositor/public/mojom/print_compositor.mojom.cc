@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -57,17 +58,17 @@ PrintCompositor::IPCStableHashFunction PrintCompositor::MessageToMethodInfo_(moj
     case internal::kPrintCompositor_SetAccessibilityTree_Name: {
       return &PrintCompositor::SetAccessibilityTree_Sym::IPCStableHash;
     }
-    case internal::kPrintCompositor_CompositePageToPdf_Name: {
-      return &PrintCompositor::CompositePageToPdf_Sym::IPCStableHash;
+    case internal::kPrintCompositor_CompositePage_Name: {
+      return &PrintCompositor::CompositePage_Sym::IPCStableHash;
     }
-    case internal::kPrintCompositor_CompositeDocumentToPdf_Name: {
-      return &PrintCompositor::CompositeDocumentToPdf_Sym::IPCStableHash;
+    case internal::kPrintCompositor_CompositeDocument_Name: {
+      return &PrintCompositor::CompositeDocument_Sym::IPCStableHash;
     }
-    case internal::kPrintCompositor_PrepareForDocumentToPdf_Name: {
-      return &PrintCompositor::PrepareForDocumentToPdf_Sym::IPCStableHash;
+    case internal::kPrintCompositor_PrepareToCompositeDocument_Name: {
+      return &PrintCompositor::PrepareToCompositeDocument_Sym::IPCStableHash;
     }
-    case internal::kPrintCompositor_CompleteDocumentToPdf_Name: {
-      return &PrintCompositor::CompleteDocumentToPdf_Sym::IPCStableHash;
+    case internal::kPrintCompositor_FinishDocumentComposition_Name: {
+      return &PrintCompositor::FinishDocumentComposition_Sym::IPCStableHash;
     }
     case internal::kPrintCompositor_SetWebContentsURL_Name: {
       return &PrintCompositor::SetWebContentsURL_Sym::IPCStableHash;
@@ -92,14 +93,14 @@ const char* PrintCompositor::MessageToMethodName_(mojo::Message& message) {
             return "Receive printing::mojom::PrintCompositor::AddSubframeContent";
       case internal::kPrintCompositor_SetAccessibilityTree_Name:
             return "Receive printing::mojom::PrintCompositor::SetAccessibilityTree";
-      case internal::kPrintCompositor_CompositePageToPdf_Name:
-            return "Receive printing::mojom::PrintCompositor::CompositePageToPdf";
-      case internal::kPrintCompositor_CompositeDocumentToPdf_Name:
-            return "Receive printing::mojom::PrintCompositor::CompositeDocumentToPdf";
-      case internal::kPrintCompositor_PrepareForDocumentToPdf_Name:
-            return "Receive printing::mojom::PrintCompositor::PrepareForDocumentToPdf";
-      case internal::kPrintCompositor_CompleteDocumentToPdf_Name:
-            return "Receive printing::mojom::PrintCompositor::CompleteDocumentToPdf";
+      case internal::kPrintCompositor_CompositePage_Name:
+            return "Receive printing::mojom::PrintCompositor::CompositePage";
+      case internal::kPrintCompositor_CompositeDocument_Name:
+            return "Receive printing::mojom::PrintCompositor::CompositeDocument";
+      case internal::kPrintCompositor_PrepareToCompositeDocument_Name:
+            return "Receive printing::mojom::PrintCompositor::PrepareToCompositeDocument";
+      case internal::kPrintCompositor_FinishDocumentComposition_Name:
+            return "Receive printing::mojom::PrintCompositor::FinishDocumentComposition";
       case internal::kPrintCompositor_SetWebContentsURL_Name:
             return "Receive printing::mojom::PrintCompositor::SetWebContentsURL";
       case internal::kPrintCompositor_SetUserAgent_Name:
@@ -113,14 +114,14 @@ const char* PrintCompositor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply printing::mojom::PrintCompositor::AddSubframeContent";
       case internal::kPrintCompositor_SetAccessibilityTree_Name:
             return "Receive reply printing::mojom::PrintCompositor::SetAccessibilityTree";
-      case internal::kPrintCompositor_CompositePageToPdf_Name:
-            return "Receive reply printing::mojom::PrintCompositor::CompositePageToPdf";
-      case internal::kPrintCompositor_CompositeDocumentToPdf_Name:
-            return "Receive reply printing::mojom::PrintCompositor::CompositeDocumentToPdf";
-      case internal::kPrintCompositor_PrepareForDocumentToPdf_Name:
-            return "Receive reply printing::mojom::PrintCompositor::PrepareForDocumentToPdf";
-      case internal::kPrintCompositor_CompleteDocumentToPdf_Name:
-            return "Receive reply printing::mojom::PrintCompositor::CompleteDocumentToPdf";
+      case internal::kPrintCompositor_CompositePage_Name:
+            return "Receive reply printing::mojom::PrintCompositor::CompositePage";
+      case internal::kPrintCompositor_CompositeDocument_Name:
+            return "Receive reply printing::mojom::PrintCompositor::CompositeDocument";
+      case internal::kPrintCompositor_PrepareToCompositeDocument_Name:
+            return "Receive reply printing::mojom::PrintCompositor::PrepareToCompositeDocument";
+      case internal::kPrintCompositor_FinishDocumentComposition_Name:
+            return "Receive reply printing::mojom::PrintCompositor::FinishDocumentComposition";
       case internal::kPrintCompositor_SetWebContentsURL_Name:
             return "Receive reply printing::mojom::PrintCompositor::SetWebContentsURL";
       case internal::kPrintCompositor_SetUserAgent_Name:
@@ -178,7 +179,7 @@ uint32_t PrintCompositor::SetAccessibilityTree_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PrintCompositor::CompositePageToPdf_Sym::IPCStableHash() {
+uint32_t PrintCompositor::CompositePage_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -186,12 +187,12 @@ uint32_t PrintCompositor::CompositePageToPdf_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printing::mojom::PrintCompositor::CompositePageToPdf");
+          "(Impl)printing::mojom::PrintCompositor::CompositePage");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PrintCompositor::CompositeDocumentToPdf_Sym::IPCStableHash() {
+uint32_t PrintCompositor::CompositeDocument_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -199,12 +200,12 @@ uint32_t PrintCompositor::CompositeDocumentToPdf_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printing::mojom::PrintCompositor::CompositeDocumentToPdf");
+          "(Impl)printing::mojom::PrintCompositor::CompositeDocument");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PrintCompositor::PrepareForDocumentToPdf_Sym::IPCStableHash() {
+uint32_t PrintCompositor::PrepareToCompositeDocument_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -212,12 +213,12 @@ uint32_t PrintCompositor::PrepareForDocumentToPdf_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printing::mojom::PrintCompositor::PrepareForDocumentToPdf");
+          "(Impl)printing::mojom::PrintCompositor::PrepareToCompositeDocument");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PrintCompositor::CompleteDocumentToPdf_Sym::IPCStableHash() {
+uint32_t PrintCompositor::FinishDocumentComposition_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -225,7 +226,7 @@ uint32_t PrintCompositor::CompleteDocumentToPdf_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printing::mojom::PrintCompositor::CompleteDocumentToPdf");
+          "(Impl)printing::mojom::PrintCompositor::FinishDocumentComposition");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -258,68 +259,68 @@ uint32_t PrintCompositor::SetUserAgent_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class PrintCompositor_CompositePageToPdf_ForwardToCallback
+class PrintCompositor_CompositePage_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  PrintCompositor_CompositePageToPdf_ForwardToCallback(
-      PrintCompositor::CompositePageToPdfCallback callback
+  PrintCompositor_CompositePage_ForwardToCallback(
+      PrintCompositor::CompositePageCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  PrintCompositor_CompositePageToPdf_ForwardToCallback(const PrintCompositor_CompositePageToPdf_ForwardToCallback&) = delete;
-  PrintCompositor_CompositePageToPdf_ForwardToCallback& operator=(const PrintCompositor_CompositePageToPdf_ForwardToCallback&) = delete;
+  PrintCompositor_CompositePage_ForwardToCallback(const PrintCompositor_CompositePage_ForwardToCallback&) = delete;
+  PrintCompositor_CompositePage_ForwardToCallback& operator=(const PrintCompositor_CompositePage_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  PrintCompositor::CompositePageToPdfCallback callback_;
+  PrintCompositor::CompositePageCallback callback_;
 };
 
-class PrintCompositor_CompositeDocumentToPdf_ForwardToCallback
+class PrintCompositor_CompositeDocument_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  PrintCompositor_CompositeDocumentToPdf_ForwardToCallback(
-      PrintCompositor::CompositeDocumentToPdfCallback callback
+  PrintCompositor_CompositeDocument_ForwardToCallback(
+      PrintCompositor::CompositeDocumentCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  PrintCompositor_CompositeDocumentToPdf_ForwardToCallback(const PrintCompositor_CompositeDocumentToPdf_ForwardToCallback&) = delete;
-  PrintCompositor_CompositeDocumentToPdf_ForwardToCallback& operator=(const PrintCompositor_CompositeDocumentToPdf_ForwardToCallback&) = delete;
+  PrintCompositor_CompositeDocument_ForwardToCallback(const PrintCompositor_CompositeDocument_ForwardToCallback&) = delete;
+  PrintCompositor_CompositeDocument_ForwardToCallback& operator=(const PrintCompositor_CompositeDocument_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  PrintCompositor::CompositeDocumentToPdfCallback callback_;
+  PrintCompositor::CompositeDocumentCallback callback_;
 };
 
-class PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback
+class PrintCompositor_PrepareToCompositeDocument_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback(
-      PrintCompositor::PrepareForDocumentToPdfCallback callback
+  PrintCompositor_PrepareToCompositeDocument_ForwardToCallback(
+      PrintCompositor::PrepareToCompositeDocumentCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback(const PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback&) = delete;
-  PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback& operator=(const PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback&) = delete;
+  PrintCompositor_PrepareToCompositeDocument_ForwardToCallback(const PrintCompositor_PrepareToCompositeDocument_ForwardToCallback&) = delete;
+  PrintCompositor_PrepareToCompositeDocument_ForwardToCallback& operator=(const PrintCompositor_PrepareToCompositeDocument_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  PrintCompositor::PrepareForDocumentToPdfCallback callback_;
+  PrintCompositor::PrepareToCompositeDocumentCallback callback_;
 };
 
-class PrintCompositor_CompleteDocumentToPdf_ForwardToCallback
+class PrintCompositor_FinishDocumentComposition_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  PrintCompositor_CompleteDocumentToPdf_ForwardToCallback(
-      PrintCompositor::CompleteDocumentToPdfCallback callback
+  PrintCompositor_FinishDocumentComposition_ForwardToCallback(
+      PrintCompositor::FinishDocumentCompositionCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  PrintCompositor_CompleteDocumentToPdf_ForwardToCallback(const PrintCompositor_CompleteDocumentToPdf_ForwardToCallback&) = delete;
-  PrintCompositor_CompleteDocumentToPdf_ForwardToCallback& operator=(const PrintCompositor_CompleteDocumentToPdf_ForwardToCallback&) = delete;
+  PrintCompositor_FinishDocumentComposition_ForwardToCallback(const PrintCompositor_FinishDocumentComposition_ForwardToCallback&) = delete;
+  PrintCompositor_FinishDocumentComposition_ForwardToCallback& operator=(const PrintCompositor_FinishDocumentComposition_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  PrintCompositor::CompleteDocumentToPdfCallback callback_;
+  PrintCompositor::FinishDocumentCompositionCallback callback_;
 };
 
 PrintCompositorProxy::PrintCompositorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -338,14 +339,17 @@ void PrintCompositorProxy::NotifyUnavailableSubframe(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintCompositor_NotifyUnavailableSubframe_Name, kFlags, 0, 0, nullptr);
@@ -382,14 +386,17 @@ void PrintCompositorProxy::AddSubframeContent(
                         "<value of type const base::flat_map<uint32_t, uint64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintCompositor_AddSubframeContent_Name, kFlags, 0, 0, nullptr);
@@ -444,14 +451,17 @@ void PrintCompositorProxy::SetAccessibilityTree(
                         "<value of type const ::ui::AXTreeUpdate&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintCompositor_SetAccessibilityTree_Name, kFlags, 0, 0,
@@ -481,11 +491,11 @@ void PrintCompositorProxy::SetAccessibilityTree(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void PrintCompositorProxy::CompositePageToPdf(
-    uint64_t in_frame_guid, ::base::ReadOnlySharedMemoryRegion in_sk_region, const base::flat_map<uint32_t, uint64_t>& in_subframe_content_info, CompositePageToPdfCallback callback) {
+void PrintCompositorProxy::CompositePage(
+    uint64_t in_frame_guid, ::base::ReadOnlySharedMemoryRegion in_sk_region, const base::flat_map<uint32_t, uint64_t>& in_subframe_content_info, CompositePageCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send printing::mojom::PrintCompositor::CompositePageToPdf", "input_parameters",
+    "mojom", "Send printing::mojom::PrintCompositor::CompositePage", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -499,19 +509,22 @@ void PrintCompositorProxy::CompositePageToPdf(
                         "<value of type const base::flat_map<uint32_t, uint64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompositePageToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_CompositePage_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompositePageToPdf_Params_Data> params(
+      ::printing::mojom::internal::PrintCompositor_CompositePage_Params_Data> params(
           message);
   params.Allocate();
   params->frame_guid = in_frame_guid;
@@ -525,7 +538,7 @@ void PrintCompositorProxy::CompositePageToPdf(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->sk_region.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null sk_region in PrintCompositor.CompositePageToPdf request");
+      "null sk_region in PrintCompositor.CompositePage request");
   mojo::internal::MessageFragment<
       typename decltype(params->subframe_content_info)::BaseType>
       subframe_content_info_fragment(params.message());
@@ -538,23 +551,23 @@ void PrintCompositorProxy::CompositePageToPdf(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->subframe_content_info.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null subframe_content_info in PrintCompositor.CompositePageToPdf request");
+      "null subframe_content_info in PrintCompositor.CompositePage request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompositePageToPdf");
+  message.set_method_name("CompositePage");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new PrintCompositor_CompositePageToPdf_ForwardToCallback(
+      new PrintCompositor_CompositePage_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void PrintCompositorProxy::CompositeDocumentToPdf(
-    uint64_t in_frame_guid, ::base::ReadOnlySharedMemoryRegion in_sk_region, const base::flat_map<uint32_t, uint64_t>& in_subframe_content_info, CompositeDocumentToPdfCallback callback) {
+void PrintCompositorProxy::CompositeDocument(
+    uint64_t in_frame_guid, ::base::ReadOnlySharedMemoryRegion in_sk_region, const base::flat_map<uint32_t, uint64_t>& in_subframe_content_info, PrintCompositor::DocumentType in_document_type, CompositeDocumentCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send printing::mojom::PrintCompositor::CompositeDocumentToPdf", "input_parameters",
+    "mojom", "Send printing::mojom::PrintCompositor::CompositeDocument", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -566,21 +579,27 @@ void PrintCompositorProxy::CompositeDocumentToPdf(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("subframe_content_info"), in_subframe_content_info,
                         "<value of type const base::flat_map<uint32_t, uint64_t>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("document_type"), in_document_type,
+                        "<value of type PrintCompositor::DocumentType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompositeDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_CompositeDocument_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompositeDocumentToPdf_Params_Data> params(
+      ::printing::mojom::internal::PrintCompositor_CompositeDocument_Params_Data> params(
           message);
   params.Allocate();
   params->frame_guid = in_frame_guid;
@@ -594,7 +613,7 @@ void PrintCompositorProxy::CompositeDocumentToPdf(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->sk_region.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null sk_region in PrintCompositor.CompositeDocumentToPdf request");
+      "null sk_region in PrintCompositor.CompositeDocument request");
   mojo::internal::MessageFragment<
       typename decltype(params->subframe_content_info)::BaseType>
       subframe_content_info_fragment(params.message());
@@ -607,54 +626,68 @@ void PrintCompositorProxy::CompositeDocumentToPdf(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->subframe_content_info.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null subframe_content_info in PrintCompositor.CompositeDocumentToPdf request");
+      "null subframe_content_info in PrintCompositor.CompositeDocument request");
+  mojo::internal::Serialize<::printing::mojom::PrintCompositor_DocumentType>(
+      in_document_type, &params->document_type);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompositeDocumentToPdf");
+  message.set_method_name("CompositeDocument");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new PrintCompositor_CompositeDocumentToPdf_ForwardToCallback(
+      new PrintCompositor_CompositeDocument_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void PrintCompositorProxy::PrepareForDocumentToPdf(
-    PrepareForDocumentToPdfCallback callback) {
+void PrintCompositorProxy::PrepareToCompositeDocument(
+    PrintCompositor::DocumentType in_document_type, PrepareToCompositeDocumentCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send printing::mojom::PrintCompositor::PrepareForDocumentToPdf");
+  TRACE_EVENT1(
+    "mojom", "Send printing::mojom::PrintCompositor::PrepareToCompositeDocument", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("document_type"), in_document_type,
+                        "<value of type PrintCompositor::DocumentType>");
+   });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_PrepareForDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_PrepareToCompositeDocument_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data> params(
+      ::printing::mojom::internal::PrintCompositor_PrepareToCompositeDocument_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::printing::mojom::PrintCompositor_DocumentType>(
+      in_document_type, &params->document_type);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("PrepareForDocumentToPdf");
+  message.set_method_name("PrepareToCompositeDocument");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback(
+      new PrintCompositor_PrepareToCompositeDocument_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void PrintCompositorProxy::CompleteDocumentToPdf(
-    uint32_t in_pages_count, CompleteDocumentToPdfCallback callback) {
+void PrintCompositorProxy::FinishDocumentComposition(
+    uint32_t in_pages_count, FinishDocumentCompositionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send printing::mojom::PrintCompositor::CompleteDocumentToPdf", "input_parameters",
+    "mojom", "Send printing::mojom::PrintCompositor::FinishDocumentComposition", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -662,29 +695,32 @@ void PrintCompositorProxy::CompleteDocumentToPdf(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompleteDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_FinishDocumentComposition_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompleteDocumentToPdf_Params_Data> params(
+      ::printing::mojom::internal::PrintCompositor_FinishDocumentComposition_Params_Data> params(
           message);
   params.Allocate();
   params->pages_count = in_pages_count;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompleteDocumentToPdf");
+  message.set_method_name("FinishDocumentComposition");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new PrintCompositor_CompleteDocumentToPdf_ForwardToCallback(
+      new PrintCompositor_FinishDocumentComposition_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -701,14 +737,17 @@ void PrintCompositorProxy::SetWebContentsURL(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintCompositor_SetWebContentsURL_Name, kFlags, 0, 0, nullptr);
@@ -749,14 +788,17 @@ void PrintCompositorProxy::SetUserAgent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintCompositor_SetUserAgent_Name, kFlags, 0, 0, nullptr);
@@ -784,19 +826,19 @@ void PrintCompositorProxy::SetUserAgent(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
-class PrintCompositor_CompositePageToPdf_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class PrintCompositor_CompositePage_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static PrintCompositor::CompositePageToPdfCallback CreateCallback(
+  static PrintCompositor::CompositePageCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PrintCompositor_CompositePageToPdf_ProxyToResponder> proxy(
-        new PrintCompositor_CompositePageToPdf_ProxyToResponder(
+    std::unique_ptr<PrintCompositor_CompositePage_ProxyToResponder> proxy(
+        new PrintCompositor_CompositePage_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&PrintCompositor_CompositePageToPdf_ProxyToResponder::Run,
+    return base::BindOnce(&PrintCompositor_CompositePage_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~PrintCompositor_CompositePageToPdf_ProxyToResponder() {
+  ~PrintCompositor_CompositePage_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -813,7 +855,7 @@ class PrintCompositor_CompositePageToPdf_ProxyToResponder : public ::mojo::inter
   }
 
  private:
-  PrintCompositor_CompositePageToPdf_ProxyToResponder(
+  PrintCompositor_CompositePage_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -822,7 +864,7 @@ class PrintCompositor_CompositePageToPdf_ProxyToResponder : public ::mojo::inter
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "PrintCompositor::CompositePageToPdfCallback was destroyed without "
+        << "PrintCompositor::CompositePageCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -830,26 +872,26 @@ class PrintCompositor_CompositePageToPdf_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region);
+      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region);
 };
 
-bool PrintCompositor_CompositePageToPdf_ForwardToCallback::Accept(
+bool PrintCompositor_CompositePage_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data* params =
+  internal::PrintCompositor_CompositePage_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data*>(
+          internal::PrintCompositor_CompositePage_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   PrintCompositor::Status p_status{};
-  ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
-  PrintCompositor_CompositePageToPdf_ResponseParamsDataView input_data_view(params, message);
+  ::base::ReadOnlySharedMemoryRegion p_document_region{};
+  PrintCompositor_CompositePage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
-  if (success && !input_data_view.ReadPdfRegion(&p_pdf_region))
+  if (success && !input_data_view.ReadDocumentRegion(&p_document_region))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -861,49 +903,50 @@ bool PrintCompositor_CompositePageToPdf_ForwardToCallback::Accept(
   if (!callback_.is_null())
     std::move(callback_).Run(
 std::move(p_status), 
-std::move(p_pdf_region));
+std::move(p_document_region));
   return true;
 }
 
-void PrintCompositor_CompositePageToPdf_ProxyToResponder::Run(
-    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region) {
+void PrintCompositor_CompositePage_ProxyToResponder::Run(
+    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply printing::mojom::PrintCompositor::CompositePageToPdf", "async_response_parameters",
+    "mojom", "Send reply printing::mojom::PrintCompositor::CompositePage", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type PrintCompositor::Status>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("pdf_region"), in_pdf_region,
+           dict.AddItem("document_region"), in_document_region,
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompositePageToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_CompositePage_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data> params(
+      ::printing::mojom::internal::PrintCompositor_CompositePage_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::printing::mojom::PrintCompositor_Status>(
       in_status, &params->status);
   mojo::internal::MessageFragment<
-      typename decltype(params->pdf_region)::BaseType> pdf_region_fragment(
+      typename decltype(params->document_region)::BaseType> document_region_fragment(
           params.message());
   mojo::internal::Serialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
-      in_pdf_region, pdf_region_fragment);
-  params->pdf_region.Set(
-      pdf_region_fragment.is_null() ? nullptr : pdf_region_fragment.data());
+      in_document_region, document_region_fragment);
+  params->document_region.Set(
+      document_region_fragment.is_null() ? nullptr : document_region_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompositePageToPdf");
+  message.set_method_name("CompositePage");
 #endif
 
   message.set_request_id(request_id_);
@@ -917,19 +960,19 @@ void PrintCompositor_CompositePageToPdf_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class PrintCompositor_CompositeDocumentToPdf_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class PrintCompositor_CompositeDocument_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static PrintCompositor::CompositeDocumentToPdfCallback CreateCallback(
+  static PrintCompositor::CompositeDocumentCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PrintCompositor_CompositeDocumentToPdf_ProxyToResponder> proxy(
-        new PrintCompositor_CompositeDocumentToPdf_ProxyToResponder(
+    std::unique_ptr<PrintCompositor_CompositeDocument_ProxyToResponder> proxy(
+        new PrintCompositor_CompositeDocument_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&PrintCompositor_CompositeDocumentToPdf_ProxyToResponder::Run,
+    return base::BindOnce(&PrintCompositor_CompositeDocument_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~PrintCompositor_CompositeDocumentToPdf_ProxyToResponder() {
+  ~PrintCompositor_CompositeDocument_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -946,7 +989,7 @@ class PrintCompositor_CompositeDocumentToPdf_ProxyToResponder : public ::mojo::i
   }
 
  private:
-  PrintCompositor_CompositeDocumentToPdf_ProxyToResponder(
+  PrintCompositor_CompositeDocument_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -955,7 +998,7 @@ class PrintCompositor_CompositeDocumentToPdf_ProxyToResponder : public ::mojo::i
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "PrintCompositor::CompositeDocumentToPdfCallback was destroyed without "
+        << "PrintCompositor::CompositeDocumentCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -963,26 +1006,26 @@ class PrintCompositor_CompositeDocumentToPdf_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region);
+      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region);
 };
 
-bool PrintCompositor_CompositeDocumentToPdf_ForwardToCallback::Accept(
+bool PrintCompositor_CompositeDocument_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data* params =
+  internal::PrintCompositor_CompositeDocument_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data*>(
+          internal::PrintCompositor_CompositeDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   PrintCompositor::Status p_status{};
-  ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
-  PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView input_data_view(params, message);
+  ::base::ReadOnlySharedMemoryRegion p_document_region{};
+  PrintCompositor_CompositeDocument_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
-  if (success && !input_data_view.ReadPdfRegion(&p_pdf_region))
+  if (success && !input_data_view.ReadDocumentRegion(&p_document_region))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -994,49 +1037,50 @@ bool PrintCompositor_CompositeDocumentToPdf_ForwardToCallback::Accept(
   if (!callback_.is_null())
     std::move(callback_).Run(
 std::move(p_status), 
-std::move(p_pdf_region));
+std::move(p_document_region));
   return true;
 }
 
-void PrintCompositor_CompositeDocumentToPdf_ProxyToResponder::Run(
-    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region) {
+void PrintCompositor_CompositeDocument_ProxyToResponder::Run(
+    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply printing::mojom::PrintCompositor::CompositeDocumentToPdf", "async_response_parameters",
+    "mojom", "Send reply printing::mojom::PrintCompositor::CompositeDocument", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type PrintCompositor::Status>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("pdf_region"), in_pdf_region,
+           dict.AddItem("document_region"), in_document_region,
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompositeDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_CompositeDocument_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data> params(
+      ::printing::mojom::internal::PrintCompositor_CompositeDocument_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::printing::mojom::PrintCompositor_Status>(
       in_status, &params->status);
   mojo::internal::MessageFragment<
-      typename decltype(params->pdf_region)::BaseType> pdf_region_fragment(
+      typename decltype(params->document_region)::BaseType> document_region_fragment(
           params.message());
   mojo::internal::Serialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
-      in_pdf_region, pdf_region_fragment);
-  params->pdf_region.Set(
-      pdf_region_fragment.is_null() ? nullptr : pdf_region_fragment.data());
+      in_document_region, document_region_fragment);
+  params->document_region.Set(
+      document_region_fragment.is_null() ? nullptr : document_region_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompositeDocumentToPdf");
+  message.set_method_name("CompositeDocument");
 #endif
 
   message.set_request_id(request_id_);
@@ -1050,19 +1094,19 @@ void PrintCompositor_CompositeDocumentToPdf_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class PrintCompositor_PrepareToCompositeDocument_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static PrintCompositor::PrepareForDocumentToPdfCallback CreateCallback(
+  static PrintCompositor::PrepareToCompositeDocumentCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder> proxy(
-        new PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder(
+    std::unique_ptr<PrintCompositor_PrepareToCompositeDocument_ProxyToResponder> proxy(
+        new PrintCompositor_PrepareToCompositeDocument_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::Run,
+    return base::BindOnce(&PrintCompositor_PrepareToCompositeDocument_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder() {
+  ~PrintCompositor_PrepareToCompositeDocument_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -1079,7 +1123,7 @@ class PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder : public ::mojo::
   }
 
  private:
-  PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder(
+  PrintCompositor_PrepareToCompositeDocument_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -1088,7 +1132,7 @@ class PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder : public ::mojo::
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "PrintCompositor::PrepareForDocumentToPdfCallback was destroyed without "
+        << "PrintCompositor::PrepareToCompositeDocumentCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -1099,18 +1143,18 @@ class PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder : public ::mojo::
       PrintCompositor::Status in_status);
 };
 
-bool PrintCompositor_PrepareForDocumentToPdf_ForwardToCallback::Accept(
+bool PrintCompositor_PrepareToCompositeDocument_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data* params =
+  internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data*>(
+          internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   PrintCompositor::Status p_status{};
-  PrintCompositor_PrepareForDocumentToPdf_ResponseParamsDataView input_data_view(params, message);
+  PrintCompositor_PrepareToCompositeDocument_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
@@ -1127,11 +1171,11 @@ std::move(p_status));
   return true;
 }
 
-void PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::Run(
+void PrintCompositor_PrepareToCompositeDocument_ProxyToResponder::Run(
     PrintCompositor::Status in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply printing::mojom::PrintCompositor::PrepareForDocumentToPdf", "async_response_parameters",
+    "mojom", "Send reply printing::mojom::PrintCompositor::PrepareToCompositeDocument", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1142,12 +1186,13 @@ void PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_PrepareForDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_PrepareToCompositeDocument_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data> params(
+      ::printing::mojom::internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::printing::mojom::PrintCompositor_Status>(
@@ -1155,7 +1200,7 @@ void PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("PrepareForDocumentToPdf");
+  message.set_method_name("PrepareToCompositeDocument");
 #endif
 
   message.set_request_id(request_id_);
@@ -1169,19 +1214,19 @@ void PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class PrintCompositor_CompleteDocumentToPdf_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class PrintCompositor_FinishDocumentComposition_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static PrintCompositor::CompleteDocumentToPdfCallback CreateCallback(
+  static PrintCompositor::FinishDocumentCompositionCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PrintCompositor_CompleteDocumentToPdf_ProxyToResponder> proxy(
-        new PrintCompositor_CompleteDocumentToPdf_ProxyToResponder(
+    std::unique_ptr<PrintCompositor_FinishDocumentComposition_ProxyToResponder> proxy(
+        new PrintCompositor_FinishDocumentComposition_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&PrintCompositor_CompleteDocumentToPdf_ProxyToResponder::Run,
+    return base::BindOnce(&PrintCompositor_FinishDocumentComposition_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~PrintCompositor_CompleteDocumentToPdf_ProxyToResponder() {
+  ~PrintCompositor_FinishDocumentComposition_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -1198,7 +1243,7 @@ class PrintCompositor_CompleteDocumentToPdf_ProxyToResponder : public ::mojo::in
   }
 
  private:
-  PrintCompositor_CompleteDocumentToPdf_ProxyToResponder(
+  PrintCompositor_FinishDocumentComposition_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -1207,7 +1252,7 @@ class PrintCompositor_CompleteDocumentToPdf_ProxyToResponder : public ::mojo::in
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "PrintCompositor::CompleteDocumentToPdfCallback was destroyed without "
+        << "PrintCompositor::FinishDocumentCompositionCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -1215,26 +1260,26 @@ class PrintCompositor_CompleteDocumentToPdf_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region);
+      PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region);
 };
 
-bool PrintCompositor_CompleteDocumentToPdf_ForwardToCallback::Accept(
+bool PrintCompositor_FinishDocumentComposition_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data* params =
+  internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data*>(
+          internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   PrintCompositor::Status p_status{};
-  ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
-  PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView input_data_view(params, message);
+  ::base::ReadOnlySharedMemoryRegion p_document_region{};
+  PrintCompositor_FinishDocumentComposition_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
-  if (success && !input_data_view.ReadPdfRegion(&p_pdf_region))
+  if (success && !input_data_view.ReadDocumentRegion(&p_document_region))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -1246,49 +1291,50 @@ bool PrintCompositor_CompleteDocumentToPdf_ForwardToCallback::Accept(
   if (!callback_.is_null())
     std::move(callback_).Run(
 std::move(p_status), 
-std::move(p_pdf_region));
+std::move(p_document_region));
   return true;
 }
 
-void PrintCompositor_CompleteDocumentToPdf_ProxyToResponder::Run(
-    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_pdf_region) {
+void PrintCompositor_FinishDocumentComposition_ProxyToResponder::Run(
+    PrintCompositor::Status in_status, ::base::ReadOnlySharedMemoryRegion in_document_region) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply printing::mojom::PrintCompositor::CompleteDocumentToPdf", "async_response_parameters",
+    "mojom", "Send reply printing::mojom::PrintCompositor::FinishDocumentComposition", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type PrintCompositor::Status>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("pdf_region"), in_pdf_region,
+           dict.AddItem("document_region"), in_document_region,
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPrintCompositor_CompleteDocumentToPdf_Name, kFlags, 0, 0, nullptr);
+      internal::kPrintCompositor_FinishDocumentComposition_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data> params(
+      ::printing::mojom::internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::printing::mojom::PrintCompositor_Status>(
       in_status, &params->status);
   mojo::internal::MessageFragment<
-      typename decltype(params->pdf_region)::BaseType> pdf_region_fragment(
+      typename decltype(params->document_region)::BaseType> document_region_fragment(
           params.message());
   mojo::internal::Serialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
-      in_pdf_region, pdf_region_fragment);
-  params->pdf_region.Set(
-      pdf_region_fragment.is_null() ? nullptr : pdf_region_fragment.data());
+      in_document_region, document_region_fragment);
+  params->document_region.Set(
+      document_region_fragment.is_null() ? nullptr : document_region_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintCompositor::Name_);
-  message.set_method_name("CompleteDocumentToPdf");
+  message.set_method_name("FinishDocumentComposition");
 #endif
 
   message.set_request_id(request_id_);
@@ -1394,16 +1440,16 @@ std::move(p_subframe_content_info));
 std::move(p_accessibility_tree));
       return true;
     }
-    case internal::kPrintCompositor_CompositePageToPdf_Name: {
+    case internal::kPrintCompositor_CompositePage_Name: {
       break;
     }
-    case internal::kPrintCompositor_CompositeDocumentToPdf_Name: {
+    case internal::kPrintCompositor_CompositeDocument_Name: {
       break;
     }
-    case internal::kPrintCompositor_PrepareForDocumentToPdf_Name: {
+    case internal::kPrintCompositor_PrepareToCompositeDocument_Name: {
       break;
     }
-    case internal::kPrintCompositor_CompleteDocumentToPdf_Name: {
+    case internal::kPrintCompositor_FinishDocumentComposition_Name: {
       break;
     }
     case internal::kPrintCompositor_SetWebContentsURL_Name: {
@@ -1480,18 +1526,18 @@ bool PrintCompositorStubDispatch::AcceptWithResponder(
     case internal::kPrintCompositor_SetAccessibilityTree_Name: {
       break;
     }
-    case internal::kPrintCompositor_CompositePageToPdf_Name: {
+    case internal::kPrintCompositor_CompositePage_Name: {
 
-      internal::PrintCompositor_CompositePageToPdf_Params_Data* params =
+      internal::PrintCompositor_CompositePage_Params_Data* params =
           reinterpret_cast<
-              internal::PrintCompositor_CompositePageToPdf_Params_Data*>(
+              internal::PrintCompositor_CompositePage_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       uint64_t p_frame_guid{};
       ::base::ReadOnlySharedMemoryRegion p_sk_region{};
       base::flat_map<uint32_t, uint64_t> p_subframe_content_info{};
-      PrintCompositor_CompositePageToPdf_ParamsDataView input_data_view(params, message);
+      PrintCompositor_CompositePage_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_frame_guid = input_data_view.frame_guid();
@@ -1506,35 +1552,38 @@ bool PrintCompositorStubDispatch::AcceptWithResponder(
             PrintCompositor::Name_, 3, false);
         return false;
       }
-      PrintCompositor::CompositePageToPdfCallback callback =
-          PrintCompositor_CompositePageToPdf_ProxyToResponder::CreateCallback(
+      PrintCompositor::CompositePageCallback callback =
+          PrintCompositor_CompositePage_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompositePageToPdf(
+      impl->CompositePage(
 std::move(p_frame_guid), 
 std::move(p_sk_region), 
 std::move(p_subframe_content_info), std::move(callback));
       return true;
     }
-    case internal::kPrintCompositor_CompositeDocumentToPdf_Name: {
+    case internal::kPrintCompositor_CompositeDocument_Name: {
 
-      internal::PrintCompositor_CompositeDocumentToPdf_Params_Data* params =
+      internal::PrintCompositor_CompositeDocument_Params_Data* params =
           reinterpret_cast<
-              internal::PrintCompositor_CompositeDocumentToPdf_Params_Data*>(
+              internal::PrintCompositor_CompositeDocument_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       uint64_t p_frame_guid{};
       ::base::ReadOnlySharedMemoryRegion p_sk_region{};
       base::flat_map<uint32_t, uint64_t> p_subframe_content_info{};
-      PrintCompositor_CompositeDocumentToPdf_ParamsDataView input_data_view(params, message);
+      PrintCompositor::DocumentType p_document_type{};
+      PrintCompositor_CompositeDocument_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_frame_guid = input_data_view.frame_guid();
       if (success && !input_data_view.ReadSkRegion(&p_sk_region))
         success = false;
       if (success && !input_data_view.ReadSubframeContentInfo(&p_subframe_content_info))
+        success = false;
+      if (success && !input_data_view.ReadDocumentType(&p_document_type))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1543,27 +1592,31 @@ std::move(p_subframe_content_info), std::move(callback));
             PrintCompositor::Name_, 4, false);
         return false;
       }
-      PrintCompositor::CompositeDocumentToPdfCallback callback =
-          PrintCompositor_CompositeDocumentToPdf_ProxyToResponder::CreateCallback(
+      PrintCompositor::CompositeDocumentCallback callback =
+          PrintCompositor_CompositeDocument_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompositeDocumentToPdf(
+      impl->CompositeDocument(
 std::move(p_frame_guid), 
 std::move(p_sk_region), 
-std::move(p_subframe_content_info), std::move(callback));
+std::move(p_subframe_content_info), 
+std::move(p_document_type), std::move(callback));
       return true;
     }
-    case internal::kPrintCompositor_PrepareForDocumentToPdf_Name: {
+    case internal::kPrintCompositor_PrepareToCompositeDocument_Name: {
 
-      internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data* params =
+      internal::PrintCompositor_PrepareToCompositeDocument_Params_Data* params =
           reinterpret_cast<
-              internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data*>(
+              internal::PrintCompositor_PrepareToCompositeDocument_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      PrintCompositor_PrepareForDocumentToPdf_ParamsDataView input_data_view(params, message);
+      PrintCompositor::DocumentType p_document_type{};
+      PrintCompositor_PrepareToCompositeDocument_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadDocumentType(&p_document_type))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1571,24 +1624,25 @@ std::move(p_subframe_content_info), std::move(callback));
             PrintCompositor::Name_, 5, false);
         return false;
       }
-      PrintCompositor::PrepareForDocumentToPdfCallback callback =
-          PrintCompositor_PrepareForDocumentToPdf_ProxyToResponder::CreateCallback(
+      PrintCompositor::PrepareToCompositeDocumentCallback callback =
+          PrintCompositor_PrepareToCompositeDocument_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepareForDocumentToPdf(std::move(callback));
+      impl->PrepareToCompositeDocument(
+std::move(p_document_type), std::move(callback));
       return true;
     }
-    case internal::kPrintCompositor_CompleteDocumentToPdf_Name: {
+    case internal::kPrintCompositor_FinishDocumentComposition_Name: {
 
-      internal::PrintCompositor_CompleteDocumentToPdf_Params_Data* params =
+      internal::PrintCompositor_FinishDocumentComposition_Params_Data* params =
           reinterpret_cast<
-              internal::PrintCompositor_CompleteDocumentToPdf_Params_Data*>(
+              internal::PrintCompositor_FinishDocumentComposition_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       uint32_t p_pages_count{};
-      PrintCompositor_CompleteDocumentToPdf_ParamsDataView input_data_view(params, message);
+      PrintCompositor_FinishDocumentComposition_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_pages_count = input_data_view.pages_count();
@@ -1599,12 +1653,12 @@ std::move(p_subframe_content_info), std::move(callback));
             PrintCompositor::Name_, 6, false);
         return false;
       }
-      PrintCompositor::CompleteDocumentToPdfCallback callback =
-          PrintCompositor_CompleteDocumentToPdf_ProxyToResponder::CreateCallback(
+      PrintCompositor::FinishDocumentCompositionCallback callback =
+          PrintCompositor_FinishDocumentComposition_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompleteDocumentToPdf(
+      impl->FinishDocumentComposition(
 std::move(p_pages_count), std::move(callback));
       return true;
     }
@@ -1617,26 +1671,26 @@ std::move(p_pages_count), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintCompositorValidationInfo[] = {
-    {&internal::PrintCompositor_NotifyUnavailableSubframe_Params_Data::Validate,
+    { &internal::PrintCompositor_NotifyUnavailableSubframe_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintCompositor_AddSubframeContent_Params_Data::Validate,
+    { &internal::PrintCompositor_AddSubframeContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintCompositor_SetAccessibilityTree_Params_Data::Validate,
+    { &internal::PrintCompositor_SetAccessibilityTree_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintCompositor_CompositePageToPdf_Params_Data::Validate,
-     &internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data::Validate},
-    {&internal::PrintCompositor_CompositeDocumentToPdf_Params_Data::Validate,
-     &internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data::Validate},
-    {&internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data::Validate,
-     &internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data::Validate},
-    {&internal::PrintCompositor_CompleteDocumentToPdf_Params_Data::Validate,
-     &internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data::Validate},
-    {&internal::PrintCompositor_SetWebContentsURL_Params_Data::Validate,
+    { &internal::PrintCompositor_CompositePage_Params_Data::Validate,
+     &internal::PrintCompositor_CompositePage_ResponseParams_Data::Validate},
+    { &internal::PrintCompositor_CompositeDocument_Params_Data::Validate,
+     &internal::PrintCompositor_CompositeDocument_ResponseParams_Data::Validate},
+    { &internal::PrintCompositor_PrepareToCompositeDocument_Params_Data::Validate,
+     &internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data::Validate},
+    { &internal::PrintCompositor_FinishDocumentComposition_Params_Data::Validate,
+     &internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data::Validate},
+    { &internal::PrintCompositor_SetWebContentsURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintCompositor_SetUserAgent_Params_Data::Validate,
+    { &internal::PrintCompositor_SetUserAgent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1675,17 +1729,17 @@ void PrintCompositorInterceptorForTesting::AddSubframeContent(uint64_t frame_gui
 void PrintCompositorInterceptorForTesting::SetAccessibilityTree(const ::ui::AXTreeUpdate& accessibility_tree) {
   GetForwardingInterface()->SetAccessibilityTree(std::move(accessibility_tree));
 }
-void PrintCompositorInterceptorForTesting::CompositePageToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageToPdfCallback callback) {
-  GetForwardingInterface()->CompositePageToPdf(std::move(frame_guid), std::move(sk_region), std::move(subframe_content_info), std::move(callback));
+void PrintCompositorInterceptorForTesting::CompositePage(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageCallback callback) {
+  GetForwardingInterface()->CompositePage(std::move(frame_guid), std::move(sk_region), std::move(subframe_content_info), std::move(callback));
 }
-void PrintCompositorInterceptorForTesting::CompositeDocumentToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositeDocumentToPdfCallback callback) {
-  GetForwardingInterface()->CompositeDocumentToPdf(std::move(frame_guid), std::move(sk_region), std::move(subframe_content_info), std::move(callback));
+void PrintCompositorInterceptorForTesting::CompositeDocument(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, CompositeDocumentCallback callback) {
+  GetForwardingInterface()->CompositeDocument(std::move(frame_guid), std::move(sk_region), std::move(subframe_content_info), std::move(document_type), std::move(callback));
 }
-void PrintCompositorInterceptorForTesting::PrepareForDocumentToPdf(PrepareForDocumentToPdfCallback callback) {
-  GetForwardingInterface()->PrepareForDocumentToPdf(std::move(callback));
+void PrintCompositorInterceptorForTesting::PrepareToCompositeDocument(PrintCompositor::DocumentType document_type, PrepareToCompositeDocumentCallback callback) {
+  GetForwardingInterface()->PrepareToCompositeDocument(std::move(document_type), std::move(callback));
 }
-void PrintCompositorInterceptorForTesting::CompleteDocumentToPdf(uint32_t pages_count, CompleteDocumentToPdfCallback callback) {
-  GetForwardingInterface()->CompleteDocumentToPdf(std::move(pages_count), std::move(callback));
+void PrintCompositorInterceptorForTesting::FinishDocumentComposition(uint32_t pages_count, FinishDocumentCompositionCallback callback) {
+  GetForwardingInterface()->FinishDocumentComposition(std::move(pages_count), std::move(callback));
 }
 void PrintCompositorInterceptorForTesting::SetWebContentsURL(const ::GURL& url) {
   GetForwardingInterface()->SetWebContentsURL(std::move(url));
@@ -1698,54 +1752,54 @@ PrintCompositorAsyncWaiter::PrintCompositorAsyncWaiter(
 
 PrintCompositorAsyncWaiter::~PrintCompositorAsyncWaiter() = default;
 
-void PrintCompositorAsyncWaiter::CompositePageToPdf(
-    uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region) {
+void PrintCompositorAsyncWaiter::CompositePage(
+    uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region) {
   base::RunLoop loop;
-  proxy_->CompositePageToPdf(std::move(frame_guid),std::move(sk_region),std::move(subframe_content_info),
+  proxy_->CompositePage(std::move(frame_guid),std::move(sk_region),std::move(subframe_content_info),
       base::BindOnce(
           [](base::RunLoop* loop,
              PrintCompositor::Status* out_status
 ,
-             ::base::ReadOnlySharedMemoryRegion* out_pdf_region
+             ::base::ReadOnlySharedMemoryRegion* out_document_region
 ,
              PrintCompositor::Status status,
-             ::base::ReadOnlySharedMemoryRegion pdf_region) {*out_status = std::move(status);*out_pdf_region = std::move(pdf_region);
+             ::base::ReadOnlySharedMemoryRegion document_region) {*out_status = std::move(status);*out_document_region = std::move(document_region);
             loop->Quit();
           },
           &loop,
           out_status,
-          out_pdf_region));
+          out_document_region));
   loop.Run();
 }
 
 
 
-void PrintCompositorAsyncWaiter::CompositeDocumentToPdf(
-    uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region) {
+void PrintCompositorAsyncWaiter::CompositeDocument(
+    uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region) {
   base::RunLoop loop;
-  proxy_->CompositeDocumentToPdf(std::move(frame_guid),std::move(sk_region),std::move(subframe_content_info),
+  proxy_->CompositeDocument(std::move(frame_guid),std::move(sk_region),std::move(subframe_content_info),std::move(document_type),
       base::BindOnce(
           [](base::RunLoop* loop,
              PrintCompositor::Status* out_status
 ,
-             ::base::ReadOnlySharedMemoryRegion* out_pdf_region
+             ::base::ReadOnlySharedMemoryRegion* out_document_region
 ,
              PrintCompositor::Status status,
-             ::base::ReadOnlySharedMemoryRegion pdf_region) {*out_status = std::move(status);*out_pdf_region = std::move(pdf_region);
+             ::base::ReadOnlySharedMemoryRegion document_region) {*out_status = std::move(status);*out_document_region = std::move(document_region);
             loop->Quit();
           },
           &loop,
           out_status,
-          out_pdf_region));
+          out_document_region));
   loop.Run();
 }
 
 
 
-void PrintCompositorAsyncWaiter::PrepareForDocumentToPdf(
-    PrintCompositor::Status* out_status) {
+void PrintCompositorAsyncWaiter::PrepareToCompositeDocument(
+    PrintCompositor::DocumentType document_type, PrintCompositor::Status* out_status) {
   base::RunLoop loop;
-  proxy_->PrepareForDocumentToPdf(
+  proxy_->PrepareToCompositeDocument(std::move(document_type),
       base::BindOnce(
           [](base::RunLoop* loop,
              PrintCompositor::Status* out_status
@@ -1758,30 +1812,30 @@ void PrintCompositorAsyncWaiter::PrepareForDocumentToPdf(
   loop.Run();
 }
 
-PrintCompositor::Status PrintCompositorAsyncWaiter::PrepareForDocumentToPdf(
-    ) {
+PrintCompositor::Status PrintCompositorAsyncWaiter::PrepareToCompositeDocument(
+    PrintCompositor::DocumentType document_type) {
   PrintCompositor::Status async_wait_result;
-  PrepareForDocumentToPdf(&async_wait_result);
+  PrepareToCompositeDocument(std::move(document_type),&async_wait_result);
   return async_wait_result;
 }
 
-void PrintCompositorAsyncWaiter::CompleteDocumentToPdf(
-    uint32_t pages_count, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region) {
+void PrintCompositorAsyncWaiter::FinishDocumentComposition(
+    uint32_t pages_count, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region) {
   base::RunLoop loop;
-  proxy_->CompleteDocumentToPdf(std::move(pages_count),
+  proxy_->FinishDocumentComposition(std::move(pages_count),
       base::BindOnce(
           [](base::RunLoop* loop,
              PrintCompositor::Status* out_status
 ,
-             ::base::ReadOnlySharedMemoryRegion* out_pdf_region
+             ::base::ReadOnlySharedMemoryRegion* out_document_region
 ,
              PrintCompositor::Status status,
-             ::base::ReadOnlySharedMemoryRegion pdf_region) {*out_status = std::move(status);*out_pdf_region = std::move(pdf_region);
+             ::base::ReadOnlySharedMemoryRegion document_region) {*out_status = std::move(status);*out_document_region = std::move(document_region);
             loop->Quit();
           },
           &loop,
           out_status,
-          out_pdf_region));
+          out_document_region));
   loop.Run();
 }
 

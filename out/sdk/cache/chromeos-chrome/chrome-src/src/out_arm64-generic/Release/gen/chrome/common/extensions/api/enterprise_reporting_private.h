@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,12 +31,12 @@ namespace enterprise_reporting_private {
 //
 
 // Possible states a particular device setting can be in.
-enum  SettingValue {
-  SETTING_VALUE_NONE = 0,
-  SETTING_VALUE_UNKNOWN,
-  SETTING_VALUE_DISABLED,
-  SETTING_VALUE_ENABLED,
-  SETTING_VALUE_LAST = SETTING_VALUE_ENABLED,
+enum class SettingValue {
+  kNone = 0,
+  kUnknown,
+  kDisabled,
+  kEnabled,
+  kMaxValue = kEnabled,
 };
 
 
@@ -48,8 +49,8 @@ struct DeviceInfo {
   ~DeviceInfo();
   DeviceInfo(const DeviceInfo&) = delete;
   DeviceInfo& operator=(const DeviceInfo&) = delete;
-  DeviceInfo(DeviceInfo&& rhs);
-  DeviceInfo& operator=(DeviceInfo&& rhs);
+  DeviceInfo(DeviceInfo&& rhs) noexcept;
+  DeviceInfo& operator=(DeviceInfo&& rhs) noexcept;
 
   // Populates a DeviceInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -62,15 +63,12 @@ struct DeviceInfo {
   // Creates a deep copy of DeviceInfo.
   DeviceInfo Clone() const;
 
-  // Creates a DeviceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceInfo> FromValue(const base::Value& value);
+  static std::optional<DeviceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceInfo object.
@@ -92,9 +90,9 @@ struct DeviceInfo {
 
   std::vector<std::string> mac_addresses;
 
-  absl::optional<std::string> windows_machine_domain;
+  std::optional<std::string> windows_machine_domain;
 
-  absl::optional<std::string> windows_user_domain;
+  std::optional<std::string> windows_user_domain;
 
   std::string security_patch_level;
 
@@ -104,11 +102,11 @@ struct DeviceInfo {
 };
 
 // Possible states for the EnterpriseRealTimeUrlCheckMode policy.
-enum  RealtimeUrlCheckMode {
-  REALTIME_URL_CHECK_MODE_NONE = 0,
-  REALTIME_URL_CHECK_MODE_DISABLED,
-  REALTIME_URL_CHECK_MODE_ENABLED_MAIN_FRAME,
-  REALTIME_URL_CHECK_MODE_LAST = REALTIME_URL_CHECK_MODE_ENABLED_MAIN_FRAME,
+enum class RealtimeUrlCheckMode {
+  kNone = 0,
+  kDisabled,
+  kEnabledMainFrame,
+  kMaxValue = kEnabledMainFrame,
 };
 
 
@@ -117,12 +115,12 @@ RealtimeUrlCheckMode ParseRealtimeUrlCheckMode(base::StringPiece as_string);
 std::u16string GetRealtimeUrlCheckModeParseError(base::StringPiece as_string);
 
 // Possible states for the SafeBrowsingProtectionLevel policy.
-enum  SafeBrowsingLevel {
-  SAFE_BROWSING_LEVEL_NONE = 0,
-  SAFE_BROWSING_LEVEL_DISABLED,
-  SAFE_BROWSING_LEVEL_STANDARD,
-  SAFE_BROWSING_LEVEL_ENHANCED,
-  SAFE_BROWSING_LEVEL_LAST = SAFE_BROWSING_LEVEL_ENHANCED,
+enum class SafeBrowsingLevel {
+  kNone = 0,
+  kDisabled,
+  kStandard,
+  kEnhanced,
+  kMaxValue = kEnhanced,
 };
 
 
@@ -131,13 +129,13 @@ SafeBrowsingLevel ParseSafeBrowsingLevel(base::StringPiece as_string);
 std::u16string GetSafeBrowsingLevelParseError(base::StringPiece as_string);
 
 // Possible states for the PasswordProtectionWarningTrigger policy
-enum  PasswordProtectionTrigger {
-  PASSWORD_PROTECTION_TRIGGER_NONE = 0,
-  PASSWORD_PROTECTION_TRIGGER_PASSWORD_PROTECTION_OFF,
-  PASSWORD_PROTECTION_TRIGGER_PASSWORD_REUSE,
-  PASSWORD_PROTECTION_TRIGGER_PHISHING_REUSE,
-  PASSWORD_PROTECTION_TRIGGER_POLICY_UNSET,
-  PASSWORD_PROTECTION_TRIGGER_LAST = PASSWORD_PROTECTION_TRIGGER_POLICY_UNSET,
+enum class PasswordProtectionTrigger {
+  kNone = 0,
+  kPasswordProtectionOff,
+  kPasswordReuse,
+  kPhishingReuse,
+  kPolicyUnset,
+  kMaxValue = kPolicyUnset,
 };
 
 
@@ -150,8 +148,8 @@ struct ContextInfo {
   ~ContextInfo();
   ContextInfo(const ContextInfo&) = delete;
   ContextInfo& operator=(const ContextInfo&) = delete;
-  ContextInfo(ContextInfo&& rhs);
-  ContextInfo& operator=(ContextInfo&& rhs);
+  ContextInfo(ContextInfo&& rhs) noexcept;
+  ContextInfo& operator=(ContextInfo&& rhs) noexcept;
 
   // Populates a ContextInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -164,15 +162,12 @@ struct ContextInfo {
   // Creates a deep copy of ContextInfo.
   ContextInfo Clone() const;
 
-  // Creates a ContextInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ContextInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContextInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ContextInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ContextInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ContextInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ContextInfo> FromValue(const base::Value& value);
+  static std::optional<ContextInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContextInfo object.
@@ -206,23 +201,23 @@ struct ContextInfo {
 
   bool chrome_remote_desktop_app_blocked;
 
-  absl::optional<bool> third_party_blocking_enabled;
+  std::optional<bool> third_party_blocking_enabled;
 
   SettingValue os_firewall;
 
   std::vector<std::string> system_dns_servers;
 
-  absl::optional<std::string> enterprise_profile_id;
+  std::optional<std::string> enterprise_profile_id;
 
 };
 
 // The status passed to the callback of <code>getCertificate</code> to indicate
 // if the required policy is set.
-enum  CertificateStatus {
-  CERTIFICATE_STATUS_NONE = 0,
-  CERTIFICATE_STATUS_OK,
-  CERTIFICATE_STATUS_POLICY_UNSET,
-  CERTIFICATE_STATUS_LAST = CERTIFICATE_STATUS_POLICY_UNSET,
+enum class CertificateStatus {
+  kNone = 0,
+  kOk,
+  kPolicyUnset,
+  kMaxValue = kPolicyUnset,
 };
 
 
@@ -235,8 +230,8 @@ struct Certificate {
   ~Certificate();
   Certificate(const Certificate&) = delete;
   Certificate& operator=(const Certificate&) = delete;
-  Certificate(Certificate&& rhs);
-  Certificate& operator=(Certificate&& rhs);
+  Certificate(Certificate&& rhs) noexcept;
+  Certificate& operator=(Certificate&& rhs) noexcept;
 
   // Populates a Certificate object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -249,15 +244,12 @@ struct Certificate {
   // Creates a deep copy of Certificate.
   Certificate Clone() const;
 
-  // Creates a Certificate object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Certificate> FromValueDeprecated(const base::Value& value);
-
   // Creates a Certificate object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Certificate> FromValue(const base::Value::Dict& value);
+  static std::optional<Certificate> FromValue(const base::Value::Dict& value);
 
   // Creates a Certificate object from a base::Value, or nullopt on failure.
-  static absl::optional<Certificate> FromValue(const base::Value& value);
+  static std::optional<Certificate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificate object.
@@ -265,17 +257,17 @@ struct Certificate {
 
   CertificateStatus status;
 
-  absl::optional<std::vector<uint8_t>> encoded_certificate;
+  std::optional<std::vector<uint8_t>> encoded_certificate;
 
 };
 
 // Captures the type of event so it can be associated with user or device in
 // Chrome for reporting purposes
-enum  EventType {
-  EVENT_TYPE_NONE = 0,
-  EVENT_TYPE_DEVICE,
-  EVENT_TYPE_USER,
-  EVENT_TYPE_LAST = EVENT_TYPE_USER,
+enum class EventType {
+  kNone = 0,
+  kDevice,
+  kUser,
+  kMaxValue = kUser,
 };
 
 
@@ -288,8 +280,8 @@ struct EnqueueRecordRequest {
   ~EnqueueRecordRequest();
   EnqueueRecordRequest(const EnqueueRecordRequest&) = delete;
   EnqueueRecordRequest& operator=(const EnqueueRecordRequest&) = delete;
-  EnqueueRecordRequest(EnqueueRecordRequest&& rhs);
-  EnqueueRecordRequest& operator=(EnqueueRecordRequest&& rhs);
+  EnqueueRecordRequest(EnqueueRecordRequest&& rhs) noexcept;
+  EnqueueRecordRequest& operator=(EnqueueRecordRequest&& rhs) noexcept;
 
   // Populates a EnqueueRecordRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -302,17 +294,13 @@ struct EnqueueRecordRequest {
   // Creates a deep copy of EnqueueRecordRequest.
   EnqueueRecordRequest Clone() const;
 
-  // Creates a EnqueueRecordRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<EnqueueRecordRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a EnqueueRecordRequest object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<EnqueueRecordRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<EnqueueRecordRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a EnqueueRecordRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EnqueueRecordRequest> FromValue(const base::Value& value);
+  static std::optional<EnqueueRecordRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEnqueueRecordRequest object.
@@ -336,8 +324,8 @@ struct UserContext {
   ~UserContext();
   UserContext(const UserContext&) = delete;
   UserContext& operator=(const UserContext&) = delete;
-  UserContext(UserContext&& rhs);
-  UserContext& operator=(UserContext&& rhs);
+  UserContext(UserContext&& rhs) noexcept;
+  UserContext& operator=(UserContext&& rhs) noexcept;
 
   // Populates a UserContext object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -350,15 +338,12 @@ struct UserContext {
   // Creates a deep copy of UserContext.
   UserContext Clone() const;
 
-  // Creates a UserContext object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UserContext> FromValueDeprecated(const base::Value& value);
-
   // Creates a UserContext object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UserContext> FromValue(const base::Value::Dict& value);
+  static std::optional<UserContext> FromValue(const base::Value::Dict& value);
 
   // Creates a UserContext object from a base::Value, or nullopt on failure.
-  static absl::optional<UserContext> FromValue(const base::Value& value);
+  static std::optional<UserContext> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUserContext object.
@@ -369,13 +354,13 @@ struct UserContext {
 };
 
 // Enumeration of the various states an AntiVirus software product can be in.
-enum  AntiVirusProductState {
-  ANTI_VIRUS_PRODUCT_STATE_NONE = 0,
-  ANTI_VIRUS_PRODUCT_STATE_ON,
-  ANTI_VIRUS_PRODUCT_STATE_OFF,
-  ANTI_VIRUS_PRODUCT_STATE_SNOOZED,
-  ANTI_VIRUS_PRODUCT_STATE_EXPIRED,
-  ANTI_VIRUS_PRODUCT_STATE_LAST = ANTI_VIRUS_PRODUCT_STATE_EXPIRED,
+enum class AntiVirusProductState {
+  kNone = 0,
+  kOn,
+  kOff,
+  kSnoozed,
+  kExpired,
+  kMaxValue = kExpired,
 };
 
 
@@ -388,8 +373,8 @@ struct AntiVirusSignal {
   ~AntiVirusSignal();
   AntiVirusSignal(const AntiVirusSignal&) = delete;
   AntiVirusSignal& operator=(const AntiVirusSignal&) = delete;
-  AntiVirusSignal(AntiVirusSignal&& rhs);
-  AntiVirusSignal& operator=(AntiVirusSignal&& rhs);
+  AntiVirusSignal(AntiVirusSignal&& rhs) noexcept;
+  AntiVirusSignal& operator=(AntiVirusSignal&& rhs) noexcept;
 
   // Populates a AntiVirusSignal object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -402,15 +387,12 @@ struct AntiVirusSignal {
   // Creates a deep copy of AntiVirusSignal.
   AntiVirusSignal Clone() const;
 
-  // Creates a AntiVirusSignal object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AntiVirusSignal> FromValueDeprecated(const base::Value& value);
-
   // Creates a AntiVirusSignal object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AntiVirusSignal> FromValue(const base::Value::Dict& value);
+  static std::optional<AntiVirusSignal> FromValue(const base::Value::Dict& value);
 
   // Creates a AntiVirusSignal object from a base::Value, or nullopt on failure.
-  static absl::optional<AntiVirusSignal> FromValue(const base::Value& value);
+  static std::optional<AntiVirusSignal> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAntiVirusSignal object.
@@ -429,8 +411,8 @@ struct HotfixSignal {
   ~HotfixSignal();
   HotfixSignal(const HotfixSignal&) = delete;
   HotfixSignal& operator=(const HotfixSignal&) = delete;
-  HotfixSignal(HotfixSignal&& rhs);
-  HotfixSignal& operator=(HotfixSignal&& rhs);
+  HotfixSignal(HotfixSignal&& rhs) noexcept;
+  HotfixSignal& operator=(HotfixSignal&& rhs) noexcept;
 
   // Populates a HotfixSignal object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -443,15 +425,12 @@ struct HotfixSignal {
   // Creates a deep copy of HotfixSignal.
   HotfixSignal Clone() const;
 
-  // Creates a HotfixSignal object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HotfixSignal> FromValueDeprecated(const base::Value& value);
-
   // Creates a HotfixSignal object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HotfixSignal> FromValue(const base::Value::Dict& value);
+  static std::optional<HotfixSignal> FromValue(const base::Value::Dict& value);
 
   // Creates a HotfixSignal object from a base::Value, or nullopt on failure.
-  static absl::optional<HotfixSignal> FromValue(const base::Value& value);
+  static std::optional<HotfixSignal> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHotfixSignal object.
@@ -463,13 +442,13 @@ struct HotfixSignal {
 
 // Used to indicate whether a given signal was correctly found or not, or
 // indicate a reason for not being able to find it.
-enum  PresenceValue {
-  PRESENCE_VALUE_NONE = 0,
-  PRESENCE_VALUE_UNSPECIFIED,
-  PRESENCE_VALUE_ACCESS_DENIED,
-  PRESENCE_VALUE_NOT_FOUND,
-  PRESENCE_VALUE_FOUND,
-  PRESENCE_VALUE_LAST = PRESENCE_VALUE_FOUND,
+enum class PresenceValue {
+  kNone = 0,
+  kUnspecified,
+  kAccessDenied,
+  kNotFound,
+  kFound,
+  kMaxValue = kFound,
 };
 
 
@@ -482,8 +461,8 @@ struct GetFileSystemInfoOptions {
   ~GetFileSystemInfoOptions();
   GetFileSystemInfoOptions(const GetFileSystemInfoOptions&) = delete;
   GetFileSystemInfoOptions& operator=(const GetFileSystemInfoOptions&) = delete;
-  GetFileSystemInfoOptions(GetFileSystemInfoOptions&& rhs);
-  GetFileSystemInfoOptions& operator=(GetFileSystemInfoOptions&& rhs);
+  GetFileSystemInfoOptions(GetFileSystemInfoOptions&& rhs) noexcept;
+  GetFileSystemInfoOptions& operator=(GetFileSystemInfoOptions&& rhs) noexcept;
 
   // Populates a GetFileSystemInfoOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -496,17 +475,13 @@ struct GetFileSystemInfoOptions {
   // Creates a deep copy of GetFileSystemInfoOptions.
   GetFileSystemInfoOptions Clone() const;
 
-  // Creates a GetFileSystemInfoOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetFileSystemInfoOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetFileSystemInfoOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetFileSystemInfoOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetFileSystemInfoOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetFileSystemInfoOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetFileSystemInfoOptions> FromValue(const base::Value& value);
+  static std::optional<GetFileSystemInfoOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetFileSystemInfoOptions object.
@@ -525,8 +500,8 @@ struct GetFileSystemInfoRequest {
   ~GetFileSystemInfoRequest();
   GetFileSystemInfoRequest(const GetFileSystemInfoRequest&) = delete;
   GetFileSystemInfoRequest& operator=(const GetFileSystemInfoRequest&) = delete;
-  GetFileSystemInfoRequest(GetFileSystemInfoRequest&& rhs);
-  GetFileSystemInfoRequest& operator=(GetFileSystemInfoRequest&& rhs);
+  GetFileSystemInfoRequest(GetFileSystemInfoRequest&& rhs) noexcept;
+  GetFileSystemInfoRequest& operator=(GetFileSystemInfoRequest&& rhs) noexcept;
 
   // Populates a GetFileSystemInfoRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -539,17 +514,13 @@ struct GetFileSystemInfoRequest {
   // Creates a deep copy of GetFileSystemInfoRequest.
   GetFileSystemInfoRequest Clone() const;
 
-  // Creates a GetFileSystemInfoRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetFileSystemInfoRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetFileSystemInfoRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetFileSystemInfoRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<GetFileSystemInfoRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a GetFileSystemInfoRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetFileSystemInfoRequest> FromValue(const base::Value& value);
+  static std::optional<GetFileSystemInfoRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetFileSystemInfoRequest object.
@@ -569,8 +540,8 @@ struct GetFileSystemInfoResponse {
   ~GetFileSystemInfoResponse();
   GetFileSystemInfoResponse(const GetFileSystemInfoResponse&) = delete;
   GetFileSystemInfoResponse& operator=(const GetFileSystemInfoResponse&) = delete;
-  GetFileSystemInfoResponse(GetFileSystemInfoResponse&& rhs);
-  GetFileSystemInfoResponse& operator=(GetFileSystemInfoResponse&& rhs);
+  GetFileSystemInfoResponse(GetFileSystemInfoResponse&& rhs) noexcept;
+  GetFileSystemInfoResponse& operator=(GetFileSystemInfoResponse&& rhs) noexcept;
 
   // Populates a GetFileSystemInfoResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -583,17 +554,13 @@ struct GetFileSystemInfoResponse {
   // Creates a deep copy of GetFileSystemInfoResponse.
   GetFileSystemInfoResponse Clone() const;
 
-  // Creates a GetFileSystemInfoResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetFileSystemInfoResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetFileSystemInfoResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetFileSystemInfoResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<GetFileSystemInfoResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a GetFileSystemInfoResponse object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<GetFileSystemInfoResponse> FromValue(const base::Value& value);
+  static std::optional<GetFileSystemInfoResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetFileSystemInfoResponse object.
@@ -608,30 +575,30 @@ struct GetFileSystemInfoResponse {
   // Sha256 hash of a file's bytes. Ignored when path points to a directory.
   // Collected only when computeSha256 is set to true in the given signals
   // collection parameters.
-  absl::optional<std::string> sha256_hash;
+  std::optional<std::string> sha256_hash;
 
   // Is true if a currently running process was spawned from this file.
-  absl::optional<bool> is_running;
+  std::optional<bool> is_running;
 
   // SHA-256 hashes of the public keys of the certificates used to sign the
   // executable. A hash is computed over the DER-encoded SubjectPublicKeyInfo
   // representation of the key.
-  absl::optional<std::vector<std::string>> public_keys_hashes;
+  std::optional<std::vector<std::string>> public_keys_hashes;
 
   // Product name of this executable.
-  absl::optional<std::string> product_name;
+  std::optional<std::string> product_name;
 
   // Version of this executable.
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
 
 };
 
-enum  RegistryHive {
-  REGISTRY_HIVE_NONE = 0,
-  REGISTRY_HIVE_HKEY_CLASSES_ROOT,
-  REGISTRY_HIVE_HKEY_LOCAL_MACHINE,
-  REGISTRY_HIVE_HKEY_CURRENT_USER,
-  REGISTRY_HIVE_LAST = REGISTRY_HIVE_HKEY_CURRENT_USER,
+enum class RegistryHive {
+  kNone = 0,
+  kHkeyClassesRoot,
+  kHkeyLocalMachine,
+  kHkeyCurrentUser,
+  kMaxValue = kHkeyCurrentUser,
 };
 
 
@@ -644,8 +611,8 @@ struct GetSettingsOptions {
   ~GetSettingsOptions();
   GetSettingsOptions(const GetSettingsOptions&) = delete;
   GetSettingsOptions& operator=(const GetSettingsOptions&) = delete;
-  GetSettingsOptions(GetSettingsOptions&& rhs);
-  GetSettingsOptions& operator=(GetSettingsOptions&& rhs);
+  GetSettingsOptions(GetSettingsOptions&& rhs) noexcept;
+  GetSettingsOptions& operator=(GetSettingsOptions&& rhs) noexcept;
 
   // Populates a GetSettingsOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -658,16 +625,13 @@ struct GetSettingsOptions {
   // Creates a deep copy of GetSettingsOptions.
   GetSettingsOptions Clone() const;
 
-  // Creates a GetSettingsOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetSettingsOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetSettingsOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetSettingsOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetSettingsOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetSettingsOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetSettingsOptions> FromValue(const base::Value& value);
+  static std::optional<GetSettingsOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetSettingsOptions object.
@@ -699,8 +663,8 @@ struct GetSettingsRequest {
   ~GetSettingsRequest();
   GetSettingsRequest(const GetSettingsRequest&) = delete;
   GetSettingsRequest& operator=(const GetSettingsRequest&) = delete;
-  GetSettingsRequest(GetSettingsRequest&& rhs);
-  GetSettingsRequest& operator=(GetSettingsRequest&& rhs);
+  GetSettingsRequest(GetSettingsRequest&& rhs) noexcept;
+  GetSettingsRequest& operator=(GetSettingsRequest&& rhs) noexcept;
 
   // Populates a GetSettingsRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -713,16 +677,13 @@ struct GetSettingsRequest {
   // Creates a deep copy of GetSettingsRequest.
   GetSettingsRequest Clone() const;
 
-  // Creates a GetSettingsRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetSettingsRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetSettingsRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetSettingsRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<GetSettingsRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a GetSettingsRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetSettingsRequest> FromValue(const base::Value& value);
+  static std::optional<GetSettingsRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetSettingsRequest object.
@@ -742,8 +703,8 @@ struct GetSettingsResponse {
   ~GetSettingsResponse();
   GetSettingsResponse(const GetSettingsResponse&) = delete;
   GetSettingsResponse& operator=(const GetSettingsResponse&) = delete;
-  GetSettingsResponse(GetSettingsResponse&& rhs);
-  GetSettingsResponse& operator=(GetSettingsResponse&& rhs);
+  GetSettingsResponse(GetSettingsResponse&& rhs) noexcept;
+  GetSettingsResponse& operator=(GetSettingsResponse&& rhs) noexcept;
 
   // Populates a GetSettingsResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -756,17 +717,13 @@ struct GetSettingsResponse {
   // Creates a deep copy of GetSettingsResponse.
   GetSettingsResponse Clone() const;
 
-  // Creates a GetSettingsResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetSettingsResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetSettingsResponse object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GetSettingsResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<GetSettingsResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a GetSettingsResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetSettingsResponse> FromValue(const base::Value& value);
+  static std::optional<GetSettingsResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetSettingsResponse object.
@@ -787,7 +744,7 @@ struct GetSettingsResponse {
 
   // JSON-stringified value of the setting. Only set if <code>getValue</code> was
   // true in the corresponding request, and if the setting value was retrievable.
-  absl::optional<std::string> value;
+  std::optional<std::string> value;
 
 };
 
@@ -808,14 +765,14 @@ base::Value::List Create(const std::string& id);
 namespace GetPersistentSecret {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<bool> reset_secret;
+  std::optional<bool> reset_secret;
 
 
  private:
@@ -832,11 +789,11 @@ base::Value::List Create(const std::vector<uint8_t>& secret);
 namespace GetDeviceData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -856,16 +813,16 @@ base::Value::List Create(const std::vector<uint8_t>& data);
 namespace SetDeviceData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
 
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
 
  private:
@@ -900,11 +857,11 @@ base::Value::List Create(const ContextInfo& context_info);
 namespace GetCertificate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -924,11 +881,11 @@ base::Value::List Create(const Certificate& certificate);
 namespace EnqueueRecord {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Composite object that captures everything we need for uploading records.
@@ -949,11 +906,11 @@ base::Value::List Create();
 namespace GetFileSystemInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   GetFileSystemInfoRequest request;
@@ -973,11 +930,11 @@ base::Value::List Create(const std::vector<GetFileSystemInfoResponse>& file_syst
 namespace GetSettings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   GetSettingsRequest request;
@@ -997,11 +954,11 @@ base::Value::List Create(const std::vector<GetSettingsResponse>& settings);
 namespace GetAvInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UserContext user_context;
@@ -1021,11 +978,11 @@ base::Value::List Create(const std::vector<AntiVirusSignal>& av_signals);
 namespace GetHotfixes {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UserContext user_context;

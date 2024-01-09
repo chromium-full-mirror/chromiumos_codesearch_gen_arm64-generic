@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,6 +44,57 @@
 
 
 namespace guest_view::mojom {
+const char ViewHandle::Name_[] = "guest_view.mojom.ViewHandle";
+
+ViewHandle::IPCStableHashFunction ViewHandle::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* ViewHandle::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+ViewHandleProxy::ViewHandleProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+// static
+bool ViewHandleStubDispatch::Accept(
+    ViewHandle* impl,
+    mojo::Message* message) {
+  return false;
+}
+
+// static
+bool ViewHandleStubDispatch::AcceptWithResponder(
+    ViewHandle* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  return false;
+}
+namespace {
+}  // namespace
+
+bool ViewHandleRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::guest_view::mojom::ViewHandle::Name_;
+  return mojo::internal::ValidateRequestGeneric(message, name, {});
+}
+
 const char GuestViewHost::Name_[] = "guest_view.mojom.GuestViewHost";
 
 GuestViewHost::IPCStableHashFunction GuestViewHost::MessageToMethodInfo_(mojo::Message& message) {
@@ -53,9 +105,6 @@ GuestViewHost::IPCStableHashFunction GuestViewHost::MessageToMethodInfo_(mojo::M
     }
     case internal::kGuestViewHost_ViewCreated_Name: {
       return &GuestViewHost::ViewCreated_Sym::IPCStableHash;
-    }
-    case internal::kGuestViewHost_ViewGarbageCollected_Name: {
-      return &GuestViewHost::ViewGarbageCollected_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -72,8 +121,6 @@ const char* GuestViewHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive guest_view::mojom::GuestViewHost::AttachToEmbedderFrame";
       case internal::kGuestViewHost_ViewCreated_Name:
             return "Receive guest_view::mojom::GuestViewHost::ViewCreated";
-      case internal::kGuestViewHost_ViewGarbageCollected_Name:
-            return "Receive guest_view::mojom::GuestViewHost::ViewGarbageCollected";
     }
   } else {
     switch (message.name()) {
@@ -81,8 +128,6 @@ const char* GuestViewHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply guest_view::mojom::GuestViewHost::AttachToEmbedderFrame";
       case internal::kGuestViewHost_ViewCreated_Name:
             return "Receive reply guest_view::mojom::GuestViewHost::ViewCreated";
-      case internal::kGuestViewHost_ViewGarbageCollected_Name:
-            return "Receive reply guest_view::mojom::GuestViewHost::ViewGarbageCollected";
     }
   }
   return "Receive unknown mojo message";
@@ -123,19 +168,6 @@ uint32_t GuestViewHost::ViewCreated_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t GuestViewHost::ViewGarbageCollected_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)guest_view::mojom::GuestViewHost::ViewGarbageCollected");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class GuestViewHost_AttachToEmbedderFrame_ForwardToCallback
@@ -159,15 +191,12 @@ GuestViewHostProxy::GuestViewHostProxy(mojo::MessageReceiverWithResponder* recei
 }
 
 void GuestViewHostProxy::AttachToEmbedderFrame(
-    int32_t in_embedder_local_frame_routing_id, int32_t in_element_instance_id, int32_t in_guest_instance_id, ::base::Value::Dict in_params, AttachToEmbedderFrameCallback callback) {
+    int32_t in_element_instance_id, int32_t in_guest_instance_id, ::base::Value::Dict in_params, AttachToEmbedderFrameCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send guest_view::mojom::GuestViewHost::AttachToEmbedderFrame", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("embedder_local_frame_routing_id"), in_embedder_local_frame_routing_id,
-                        "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("element_instance_id"), in_element_instance_id,
                         "<value of type int32_t>");
@@ -179,14 +208,17 @@ void GuestViewHostProxy::AttachToEmbedderFrame(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestViewHost_AttachToEmbedderFrame_Name, kFlags, 0, 0, nullptr);
@@ -194,7 +226,6 @@ void GuestViewHostProxy::AttachToEmbedderFrame(
       ::guest_view::mojom::internal::GuestViewHost_AttachToEmbedderFrame_Params_Data> params(
           message);
   params.Allocate();
-  params->embedder_local_frame_routing_id = in_embedder_local_frame_routing_id;
   params->element_instance_id = in_element_instance_id;
   params->guest_instance_id = in_guest_instance_id;
   mojo::internal::MessageFragment<
@@ -220,7 +251,7 @@ void GuestViewHostProxy::AttachToEmbedderFrame(
 }
 
 void GuestViewHostProxy::ViewCreated(
-    int32_t in_view_instance_id, const std::string& in_view_type) {
+    int32_t in_view_instance_id, const std::string& in_view_type, ::mojo::PendingReceiver<ViewHandle> in_keep_alive_handle_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send guest_view::mojom::GuestViewHost::ViewCreated", "input_parameters",
@@ -232,16 +263,22 @@ void GuestViewHostProxy::ViewCreated(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("view_type"), in_view_type,
                         "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("keep_alive_handle_receiver"), in_keep_alive_handle_receiver,
+                        "<value of type ::mojo::PendingReceiver<ViewHandle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestViewHost_ViewCreated_Name, kFlags, 0, 0, nullptr);
@@ -261,48 +298,16 @@ void GuestViewHostProxy::ViewCreated(
       params->view_type.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null view_type in GuestViewHost.ViewCreated request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::guest_view::mojom::ViewHandleInterfaceBase>>(
+      in_keep_alive_handle_receiver, &params->keep_alive_handle_receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->keep_alive_handle_receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid keep_alive_handle_receiver in GuestViewHost.ViewCreated request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(GuestViewHost::Name_);
   message.set_method_name("ViewCreated");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void GuestViewHostProxy::ViewGarbageCollected(
-    int32_t in_view_instance_id) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send guest_view::mojom::GuestViewHost::ViewGarbageCollected", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("view_instance_id"), in_view_instance_id,
-                        "<value of type int32_t>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kGuestViewHost_ViewGarbageCollected_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::guest_view::mojom::internal::GuestViewHost_ViewGarbageCollected_Params_Data> params(
-          message);
-  params.Allocate();
-  params->view_instance_id = in_view_instance_id;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(GuestViewHost::Name_);
-  message.set_method_name("ViewGarbageCollected");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -389,7 +394,8 @@ void GuestViewHost_AttachToEmbedderFrame_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestViewHost_AttachToEmbedderFrame_Name, kFlags, 0, 0, nullptr);
@@ -433,12 +439,17 @@ bool GuestViewHostStubDispatch::Accept(
       bool success = true;
       int32_t p_view_instance_id{};
       std::string p_view_type{};
+      ::mojo::PendingReceiver<ViewHandle> p_keep_alive_handle_receiver{};
       GuestViewHost_ViewCreated_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_view_instance_id = input_data_view.view_instance_id();
       if (success && !input_data_view.ReadViewType(&p_view_type))
         success = false;
+      if (success) {
+        p_keep_alive_handle_receiver =
+            input_data_view.TakeKeepAliveHandleReceiver<decltype(p_keep_alive_handle_receiver)>();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -450,33 +461,8 @@ bool GuestViewHostStubDispatch::Accept(
       DCHECK(impl);
       impl->ViewCreated(
 std::move(p_view_instance_id), 
-std::move(p_view_type));
-      return true;
-    }
-    case internal::kGuestViewHost_ViewGarbageCollected_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::GuestViewHost_ViewGarbageCollected_Params_Data* params =
-          reinterpret_cast<internal::GuestViewHost_ViewGarbageCollected_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      int32_t p_view_instance_id{};
-      GuestViewHost_ViewGarbageCollected_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_view_instance_id = input_data_view.view_instance_id();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            GuestViewHost::Name_, 2, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ViewGarbageCollected(
-std::move(p_view_instance_id));
+std::move(p_view_type), 
+std::move(p_keep_alive_handle_receiver));
       return true;
     }
   }
@@ -500,14 +486,11 @@ bool GuestViewHostStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_embedder_local_frame_routing_id{};
       int32_t p_element_instance_id{};
       int32_t p_guest_instance_id{};
       ::base::Value::Dict p_params{};
       GuestViewHost_AttachToEmbedderFrame_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_embedder_local_frame_routing_id = input_data_view.embedder_local_frame_routing_id();
       if (success)
         p_element_instance_id = input_data_view.element_instance_id();
       if (success)
@@ -527,7 +510,6 @@ bool GuestViewHostStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->AttachToEmbedderFrame(
-std::move(p_embedder_local_frame_routing_id), 
 std::move(p_element_instance_id), 
 std::move(p_guest_instance_id), 
 std::move(p_params), std::move(callback));
@@ -536,20 +518,15 @@ std::move(p_params), std::move(callback));
     case internal::kGuestViewHost_ViewCreated_Name: {
       break;
     }
-    case internal::kGuestViewHost_ViewGarbageCollected_Name: {
-      break;
-    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGuestViewHostValidationInfo[] = {
-    {&internal::GuestViewHost_AttachToEmbedderFrame_Params_Data::Validate,
+    { &internal::GuestViewHost_AttachToEmbedderFrame_Params_Data::Validate,
      &internal::GuestViewHost_AttachToEmbedderFrame_ResponseParams_Data::Validate},
-    {&internal::GuestViewHost_ViewCreated_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::GuestViewHost_ViewGarbageCollected_Params_Data::Validate,
+    { &internal::GuestViewHost_ViewCreated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -579,14 +556,19 @@ namespace mojo {
 namespace guest_view::mojom {
 
 
-void GuestViewHostInterceptorForTesting::AttachToEmbedderFrame(int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) {
-  GetForwardingInterface()->AttachToEmbedderFrame(std::move(embedder_local_frame_routing_id), std::move(element_instance_id), std::move(guest_instance_id), std::move(params), std::move(callback));
+ViewHandleAsyncWaiter::ViewHandleAsyncWaiter(
+    ViewHandle* proxy) : proxy_(proxy) {}
+
+ViewHandleAsyncWaiter::~ViewHandleAsyncWaiter() = default;
+
+
+
+
+void GuestViewHostInterceptorForTesting::AttachToEmbedderFrame(int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) {
+  GetForwardingInterface()->AttachToEmbedderFrame(std::move(element_instance_id), std::move(guest_instance_id), std::move(params), std::move(callback));
 }
-void GuestViewHostInterceptorForTesting::ViewCreated(int32_t view_instance_id, const std::string& view_type) {
-  GetForwardingInterface()->ViewCreated(std::move(view_instance_id), std::move(view_type));
-}
-void GuestViewHostInterceptorForTesting::ViewGarbageCollected(int32_t view_instance_id) {
-  GetForwardingInterface()->ViewGarbageCollected(std::move(view_instance_id));
+void GuestViewHostInterceptorForTesting::ViewCreated(int32_t view_instance_id, const std::string& view_type, ::mojo::PendingReceiver<ViewHandle> keep_alive_handle_receiver) {
+  GetForwardingInterface()->ViewCreated(std::move(view_instance_id), std::move(view_type), std::move(keep_alive_handle_receiver));
 }
 GuestViewHostAsyncWaiter::GuestViewHostAsyncWaiter(
     GuestViewHost* proxy) : proxy_(proxy) {}
@@ -594,9 +576,9 @@ GuestViewHostAsyncWaiter::GuestViewHostAsyncWaiter(
 GuestViewHostAsyncWaiter::~GuestViewHostAsyncWaiter() = default;
 
 void GuestViewHostAsyncWaiter::AttachToEmbedderFrame(
-    int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params) {
+    int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params) {
   base::RunLoop loop;
-  proxy_->AttachToEmbedderFrame(std::move(embedder_local_frame_routing_id),std::move(element_instance_id),std::move(guest_instance_id),std::move(params),
+  proxy_->AttachToEmbedderFrame(std::move(element_instance_id),std::move(guest_instance_id),std::move(params),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();

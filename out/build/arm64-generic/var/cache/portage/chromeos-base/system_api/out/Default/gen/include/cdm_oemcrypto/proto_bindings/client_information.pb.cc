@@ -4,112 +4,120 @@
 #include "client_information.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace chromeos {
 namespace cdm {
+template <typename>
 PROTOBUF_CONSTEXPR ClientInformation::ClientInformation(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.make_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.model_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.manufacturer_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.make_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.model_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.manufacturer_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ClientInformationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ClientInformationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ClientInformationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ClientInformationDefaultTypeInternal() {}
   union {
     ClientInformation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientInformationDefaultTypeInternal _ClientInformation_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientInformationDefaultTypeInternal _ClientInformation_default_instance_;
 }  // namespace cdm
 }  // namespace chromeos
 namespace chromeos {
 namespace cdm {
-
 // ===================================================================
 
 class ClientInformation::_Internal {
  public:
 };
 
-ClientInformation::ClientInformation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ClientInformation::ClientInformation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos.cdm.ClientInformation)
 }
 ClientInformation::ClientInformation(const ClientInformation& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   ClientInformation* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.make_){}
-    , decltype(_impl_.model_){}
-    , decltype(_impl_.manufacturer_){}
+      decltype(_impl_.make_) {}
+
+    , decltype(_impl_.model_) {}
+
+    , decltype(_impl_.manufacturer_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.make_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.make_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.make_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_make().empty()) {
-    _this->_impl_.make_.Set(from._internal_make(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.make_.Set(from._internal_make(), _this->GetArenaForAllocation());
   }
   _impl_.model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.model_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.model_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_model().empty()) {
-    _this->_impl_.model_.Set(from._internal_model(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.model_.Set(from._internal_model(), _this->GetArenaForAllocation());
   }
   _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.manufacturer_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_manufacturer().empty()) {
-    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chromeos.cdm.ClientInformation)
 }
 
-inline void ClientInformation::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ClientInformation::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.make_){}
-    , decltype(_impl_.model_){}
-    , decltype(_impl_.manufacturer_){}
+      decltype(_impl_.make_) {}
+
+    , decltype(_impl_.model_) {}
+
+    , decltype(_impl_.manufacturer_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.make_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.make_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.make_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.model_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.model_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.manufacturer_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ClientInformation::~ClientInformation() {
@@ -122,7 +130,7 @@ ClientInformation::~ClientInformation() {
 }
 
 inline void ClientInformation::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.make_.Destroy();
   _impl_.model_.Destroy();
   _impl_.manufacturer_.Destroy();
@@ -134,7 +142,7 @@ void ClientInformation::SetCachedSize(int size) const {
 
 void ClientInformation::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos.cdm.ClientInformation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -147,35 +155,38 @@ void ClientInformation::Clear() {
 const char* ClientInformation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes make = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_make();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes model = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_model();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes manufacturer = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_manufacturer();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -200,28 +211,28 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ClientInformation::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ClientInformation::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos.cdm.ClientInformation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bytes make = 1;
   if (!this->_internal_make().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_make(), target);
+    const std::string& _s = this->_internal_make();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // bytes model = 2;
   if (!this->_internal_model().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_model(), target);
+    const std::string& _s = this->_internal_model();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // bytes manufacturer = 3;
   if (!this->_internal_manufacturer().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_manufacturer(), target);
+    const std::string& _s = this->_internal_manufacturer();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -232,33 +243,30 @@ uint8_t* ClientInformation::_InternalSerialize(
   return target;
 }
 
-size_t ClientInformation::ByteSizeLong() const {
+::size_t ClientInformation::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos.cdm.ClientInformation)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes make = 1;
   if (!this->_internal_make().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_make());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_make());
   }
 
   // bytes model = 2;
   if (!this->_internal_model().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_model());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_model());
   }
 
   // bytes manufacturer = 3;
   if (!this->_internal_manufacturer().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_manufacturer());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_manufacturer());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -278,8 +286,8 @@ void ClientInformation::CheckTypeAndMergeFrom(
 void ClientInformation::MergeFrom(const ClientInformation& from) {
   ClientInformation* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos.cdm.ClientInformation)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_make().empty()) {
@@ -310,24 +318,17 @@ void ClientInformation::InternalSwap(ClientInformation* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.make_, lhs_arena,
-      &other->_impl_.make_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.model_, lhs_arena,
-      &other->_impl_.model_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.manufacturer_, lhs_arena,
-      &other->_impl_.manufacturer_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.make_, lhs_arena,
+                                       &other->_impl_.make_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.model_, lhs_arena,
+                                       &other->_impl_.model_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.manufacturer_, lhs_arena,
+                                       &other->_impl_.manufacturer_, rhs_arena);
 }
 
 std::string ClientInformation::GetTypeName() const {
   return "chromeos.cdm.ClientInformation";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cdm
@@ -338,6 +339,5 @@ Arena::CreateMaybeMessage< ::chromeos::cdm::ClientInformation >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chromeos::cdm::ClientInformation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

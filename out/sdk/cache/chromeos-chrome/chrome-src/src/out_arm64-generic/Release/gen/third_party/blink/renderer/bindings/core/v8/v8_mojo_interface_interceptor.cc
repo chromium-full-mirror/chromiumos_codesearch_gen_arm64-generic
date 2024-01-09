@@ -71,11 +71,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MojoInterfaceInterceptor>::value,
     "MojoInterfaceInterceptor does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MojoInterfaceInterceptor::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MojoInterfaceInterceptor is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("MojoInterfaceInterceptor.oninterfacerequest.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninterfacerequest();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninterfacerequest();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -104,8 +99,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(v8_receiver);
+MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninterfacerequest(event_handler);
 }
 
@@ -166,9 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("MojoInterfaceInterceptor.start");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MojoInterfaceInterceptor";
 const char* const property_name = "start";
@@ -191,8 +187,9 @@ BLINK_BINDINGS_TRACE_EVENT("MojoInterfaceInterceptor.stop");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(v8_receiver);
+MojoInterfaceInterceptor* blink_receiver = V8MojoInterfaceInterceptor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stop();
 
 }

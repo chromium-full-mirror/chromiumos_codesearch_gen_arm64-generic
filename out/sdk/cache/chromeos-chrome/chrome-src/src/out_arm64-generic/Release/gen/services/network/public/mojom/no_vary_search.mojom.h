@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/no_vary_search.mojom-features.h"
 #include "services/network/public/mojom/no_vary_search.mojom-shared.h"
 #include "services/network/public/mojom/no_vary_search.mojom-forward.h"
 #include <string>
@@ -61,17 +62,17 @@ class  SearchParamsVariance {
   // Construct an instance holding |no_vary_params|.
   static SearchParamsVariancePtr
   NewNoVaryParams(
-      std::vector<std::string> no_vary_params) {
+      std::vector<std::string> value) {
     auto result = SearchParamsVariancePtr(absl::in_place);
-    result->set_no_vary_params(std::move(no_vary_params));
+    result->set_no_vary_params(std::move(value));
     return result;
   }
   // Construct an instance holding |vary_params|.
   static SearchParamsVariancePtr
   NewVaryParams(
-      std::vector<std::string> vary_params) {
+      std::vector<std::string> value) {
     auto result = SearchParamsVariancePtr(absl::in_place);
-    result->set_vary_params(std::move(vary_params));
+    result->set_vary_params(std::move(value));
     return result;
   }
 
@@ -191,17 +192,17 @@ class  NoVarySearchWithParseError {
   // Construct an instance holding |no_vary_search|.
   static NoVarySearchWithParseErrorPtr
   NewNoVarySearch(
-      NoVarySearchPtr no_vary_search) {
+      NoVarySearchPtr value) {
     auto result = NoVarySearchWithParseErrorPtr(absl::in_place);
-    result->set_no_vary_search(std::move(no_vary_search));
+    result->set_no_vary_search(std::move(value));
     return result;
   }
   // Construct an instance holding |parse_error|.
   static NoVarySearchWithParseErrorPtr
   NewParseError(
-      NoVarySearchParseError parse_error) {
+      NoVarySearchParseError value) {
     auto result = NoVarySearchWithParseErrorPtr(absl::in_place);
-    result->set_parse_error(std::move(parse_error));
+    result->set_parse_error(std::move(value));
     return result;
   }
 

@@ -154,6 +154,23 @@ class  UntrustedPageHandler_OnSpeechRateChange_Params_Data {
 };
 static_assert(sizeof(UntrustedPageHandler_OnSpeechRateChange_Params_Data) == 16,
               "Bad sizeof(UntrustedPageHandler_OnSpeechRateChange_Params_Data)");
+class  UntrustedPageHandler_OnVoiceChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> voice;
+  mojo::internal::Pointer<mojo::internal::String_Data> lang;
+
+ private:
+  friend class mojo::internal::MessageFragment<UntrustedPageHandler_OnVoiceChange_Params_Data>;
+
+  UntrustedPageHandler_OnVoiceChange_Params_Data();
+  ~UntrustedPageHandler_OnVoiceChange_Params_Data() = delete;
+};
+static_assert(sizeof(UntrustedPageHandler_OnVoiceChange_Params_Data) == 24,
+              "Bad sizeof(UntrustedPageHandler_OnVoiceChange_Params_Data)");
 class  UntrustedPageHandler_OnHighlightGranularityChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -339,6 +356,7 @@ class  UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data {
   int32_t color;
   int32_t granularity;
   double speech_rate;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::DictionaryValue_Data> voices;
 
  private:
   friend class mojo::internal::MessageFragment<UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data>;
@@ -346,7 +364,7 @@ class  UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data {
   UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data();
   ~UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data() = delete;
 };
-static_assert(sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data) == 48,
+static_assert(sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data) == 56,
               "Bad sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data)");
 class  UntrustedPage_ScreenAIServiceReady_Params_Data {
  public:
@@ -550,6 +568,42 @@ class UntrustedPageHandler_OnSpeechRateChange_ParamsDataView {
   }
  private:
   internal::UntrustedPageHandler_OnSpeechRateChange_Params_Data* data_ = nullptr;
+};
+
+
+class UntrustedPageHandler_OnVoiceChange_ParamsDataView {
+ public:
+  UntrustedPageHandler_OnVoiceChange_ParamsDataView() = default;
+
+  UntrustedPageHandler_OnVoiceChange_ParamsDataView(
+      internal::UntrustedPageHandler_OnVoiceChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetVoiceDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVoice(UserType* output) {
+    
+    auto* pointer = data_->voice.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLangDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLang(UserType* output) {
+    
+    auto* pointer = data_->lang.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UntrustedPageHandler_OnVoiceChange_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -908,6 +962,16 @@ class UntrustedPage_OnSettingsRestoredFromPrefs_ParamsDataView {
   double speech_rate() const {
     return data_->speech_rate;
   }
+  inline void GetVoicesDataView(
+      ::mojo_base::mojom::DictionaryValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVoices(UserType* output) {
+    
+    auto* pointer = data_->voices.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::DictionaryValueDataView>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadGranularity(UserType* output) const {
     auto data_value = data_->granularity;
@@ -957,6 +1021,18 @@ inline void UntrustedPageHandler_OnFontChange_ParamsDataView::GetFontDataView(
 
 
 
+
+
+inline void UntrustedPageHandler_OnVoiceChange_ParamsDataView::GetVoiceDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->voice.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void UntrustedPageHandler_OnVoiceChange_ParamsDataView::GetLangDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->lang.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 
@@ -1038,6 +1114,11 @@ inline void UntrustedPage_OnSettingsRestoredFromPrefs_ParamsDataView::GetFontDat
     mojo::StringDataView* output) {
   auto pointer = data_->font.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void UntrustedPage_OnSettingsRestoredFromPrefs_ParamsDataView::GetVoicesDataView(
+    ::mojo_base::mojom::DictionaryValueDataView* output) {
+  auto pointer = data_->voices.Get();
+  *output = ::mojo_base::mojom::DictionaryValueDataView(pointer, message_);
 }
 
 

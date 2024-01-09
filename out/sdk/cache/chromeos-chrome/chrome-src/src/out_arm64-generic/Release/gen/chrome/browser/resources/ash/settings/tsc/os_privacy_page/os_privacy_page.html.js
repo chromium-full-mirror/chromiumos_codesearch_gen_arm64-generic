@@ -1,30 +1,31 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host([is-user-configurable_]) .peripheral-data-access-protection{--cr-disabled-opacity:1;cursor:pointer;opacity:1}#dataAccessProtectionWrapper:focus{outline:0}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host([is-user-configurable_]) .peripheral-data-access-protection{--cr-disabled-opacity:1;cursor:pointer;opacity:1}#dataAccessProtectionWrapper:focus{outline:0}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{privacyPageTitle}">
       <template is="dom-if" if="[[showPrivacyHubPage_]]" restamp>
         <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-          <cr-link-row id="privacyHubSubpageTrigger" on-click="onPrivacyHubClick_" label="$i18n{privacyHubTitle}" sub-label="$i18n{privacyHubSubtext}" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="privacyHubSubpageTrigger" start-icon="[[rowIcons_.privacyHub]]" on-click="onPrivacyHubClick_" label="$i18n{privacyHubTitle}" sub-label="$i18n{privacyHubSubtext}" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
       </template>
       <template is="dom-if" if="[[!isGuestMode_]]" restamp>
         <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-          <cr-link-row id="syncSetupRow" start-icon="cr:sync" label="$i18n{syncAndNonPersonalizedServices}" sub-label="[[getSyncAndGoogleServicesSubtext_(syncStatus)]]" on-click="onSyncClick_" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="syncSetupRow" start-icon="[[rowIcons_.sync]]" label="$i18n{syncAndNonPersonalizedServices}" sub-label="[[getSyncAndGoogleServicesSubtext_(syncStatus)]]" on-click="onSyncClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
-        <cr-link-row id="lockScreenRow" on-click="onConfigureLockClick_" label="[[selectLockScreenTitleString_(hasPinLogin)]]" sub-label="[[getPasswordState_(hasPin,
+        <cr-link-row id="lockScreenRow" start-icon="[[rowIcons_.lockScreen]]" on-click="onConfigureLockClick_" label="[[selectLockScreenTitleString_(hasPinLogin)]]" sub-label="[[getPasswordState_(hasPin,
                 prefs.settings.enable_screen_lock.value)]]" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
-        <cr-link-row id="manageOtherPeopleRow" class="hr" label="$i18n{manageOtherPeople}" on-click="onManageOtherPeople_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="manageOtherPeopleRow" class="hr" start-icon="[[rowIcons_.manageOtherPeople]]" label="$i18n{manageOtherPeople}" on-click="onManageOtherPeople_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
         <div class="hr"></div>
         <template is="dom-if" if="[[isSmartPrivacyEnabled_]]" restamp>
-          <cr-link-row id="smartPrivacySubpageTrigger" on-click="onSmartPrivacy_" label="$i18n{smartPrivacyTitle}" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="smartPrivacySubpageTrigger" start-icon="[[rowIcons_.smartPrivacy]]" on-click="onSmartPrivacy_" label="$i18n{smartPrivacyTitle}" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
@@ -32,11 +33,11 @@ export function getTemplate() {
 
 
       <template is="dom-if" if="[[!showPrivacyHubPage_]]" restamp>
-        <settings-toggle-button id="contentRecommendationsToggle" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
+        <settings-toggle-button id="contentRecommendationsToggle" icon="[[rowIcons_.suggestedContent]]" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
         </settings-toggle-button>
         <div class="hr"></div>
       </template>
-      <settings-toggle-button id="verifiedAccessToggle" pref="{{
+      <settings-toggle-button id="verifiedAccessToggle" icon="[[rowIcons_.verifiedAccess]]" pref="{{
             prefs.cros.device.attestation_for_content_protection_enabled}}" label="$i18n{enableContentProtectionAttestation}" on-settings-boolean-control-change="onVerifiedAccessChange_" deep-link-focus-id$="[[Setting.kVerifiedAccess]]">
       </settings-toggle-button>
       <template is="dom-if" if="[[showPrivacyHubPage_]]" restamp>
@@ -49,10 +50,10 @@ export function getTemplate() {
         <div class="hr"></div>
         
         <div id="dataAccessProtectionWrapper" tabindex="0" on-focus="onDataAccessToggleFocus_" on-keypress="onDataAccessToggleKeyPress_">
-          <settings-toggle-button id="crosSettingDataAccessToggle" class="peripheral-data-access-protection" pref="{{prefs.cros.device.peripheral_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isLocalStateDataAccessPref_(
+          <settings-toggle-button id="crosSettingDataAccessToggle" class="peripheral-data-access-protection" icon="[[rowIcons_.dataAccessProtection]]" pref="{{prefs.cros.device.peripheral_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isLocalStateDataAccessPref_(
                   dataAccessProtectionPrefName_)]]" disabled="disabled" inverted>
           </settings-toggle-button>
-          <settings-toggle-button id="localStateDataAccessToggle" class="peripheral-data-access-protection" pref="{{prefs.settings.local_state_device_pci_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isCrosSettingDataAccessPref_(
+          <settings-toggle-button id="localStateDataAccessToggle" class="peripheral-data-access-protection" icon="[[rowIcons_.dataAccessProtection]]" pref="{{prefs.settings.local_state_device_pci_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isCrosSettingDataAccessPref_(
                   dataAccessProtectionPrefName_)]]" disabled="disabled" inverted>
           </settings-toggle-button>
         </div>
@@ -112,6 +113,12 @@ export function getTemplate() {
       <os-settings-subpage page-title="$i18n{microphoneToggleTitle}">
         <settings-privacy-hub-microphone-subpage prefs="{{prefs}}">
         </settings-privacy-hub-microphone-subpage>
+      </os-settings-subpage>
+    </template>
+    <template is="dom-if" route-path="/osPrivacy/privacyHub/camera">
+      <os-settings-subpage page-title="$i18n{cameraToggleTitle}">
+        <settings-privacy-hub-camera-subpage prefs="{{prefs}}">
+        </settings-privacy-hub-camera-subpage>
       </os-settings-subpage>
     </template>
     <template is="dom-if" route-path="/osPrivacy/privacyHub/geolocation">

@@ -17,7 +17,7 @@ class  StorageServiceInterceptorForTesting : public StorageService {
   virtual StorageService* GetForwardingInterface() = 0;
   void EnableAggressiveDomStorageFlushing() override;
   void SetDataDirectory(const ::base::FilePath& path, ::mojo::PendingRemote<::storage::mojom::Directory> directory) override;
-  void BindPartition(const absl::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) override;
+  void BindPartition(const std::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) override;
   void BindTestApi(::mojo::ScopedMessagePipeHandle test_api_receiver) override;
 };
 class  StorageServiceAsyncWaiter {

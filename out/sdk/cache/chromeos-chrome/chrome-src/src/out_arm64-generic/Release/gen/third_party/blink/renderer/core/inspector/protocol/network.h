@@ -44,6 +44,7 @@ using ServiceWorkerResponseSource = String;
 class TrustTokenParams;
 using TrustTokenOperationType = String;
 using AlternateProtocolUsage = String;
+class ServiceWorkerRouterInfo;
 class Response;
 class WebSocketRequest;
 class WebSocketResponse;
@@ -1432,6 +1433,64 @@ private:
 };
 
 
+class CORE_EXPORT ServiceWorkerRouterInfo : public ::crdtp::ProtocolObject<ServiceWorkerRouterInfo> {
+public:
+    ~ServiceWorkerRouterInfo() override { }
+
+    int getRuleIdMatched() { return m_ruleIdMatched; }
+    void setRuleIdMatched(int value) { m_ruleIdMatched = value; }
+
+    template<int STATE>
+    class ServiceWorkerRouterInfoBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            RuleIdMatchedSet = 1 << 1,
+            AllFieldsSet = (RuleIdMatchedSet | 0)};
+
+
+        ServiceWorkerRouterInfoBuilder<STATE | RuleIdMatchedSet>& setRuleIdMatched(int value)
+        {
+            static_assert(!(STATE & RuleIdMatchedSet), "property ruleIdMatched should not be set yet");
+            m_result->setRuleIdMatched(value);
+            return castState<RuleIdMatchedSet>();
+        }
+
+        std::unique_ptr<ServiceWorkerRouterInfo> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class ServiceWorkerRouterInfo;
+        ServiceWorkerRouterInfoBuilder() : m_result(new ServiceWorkerRouterInfo()) { }
+
+        template<int STEP> ServiceWorkerRouterInfoBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<ServiceWorkerRouterInfoBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> m_result;
+    };
+
+    static ServiceWorkerRouterInfoBuilder<0> create()
+    {
+        return ServiceWorkerRouterInfoBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    ServiceWorkerRouterInfo()
+    {
+          m_ruleIdMatched = 0;
+    }
+
+    int m_ruleIdMatched;
+};
+
+
 class CORE_EXPORT Response : public ::crdtp::ProtocolObject<Response> {
 public:
     ~Response() override { }
@@ -1504,6 +1563,12 @@ public:
        return m_fromPrefetchCache.value_or(defaultValue);
     }
     void setFromPrefetchCache(bool value) { m_fromPrefetchCache = value; }
+
+    bool hasServiceWorkerRouterInfo() { return m_serviceWorkerRouterInfo.has_value(); }
+    protocol::Network::ServiceWorkerRouterInfo* getServiceWorkerRouterInfo(protocol::Network::ServiceWorkerRouterInfo* defaultValue) {
+       return m_serviceWorkerRouterInfo.has_value() ? &m_serviceWorkerRouterInfo.value() : defaultValue;
+    }
+    void setServiceWorkerRouterInfo(std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> value) { m_serviceWorkerRouterInfo = std::move(value); }
 
     double getEncodedDataLength() { return m_encodedDataLength; }
     void setEncodedDataLength(double value) { m_encodedDataLength = value; }
@@ -1667,6 +1732,12 @@ public:
             return *this;
         }
 
+        ResponseBuilder<STATE>& setServiceWorkerRouterInfo(std::unique_ptr<protocol::Network::ServiceWorkerRouterInfo> value)
+        {
+            m_result->setServiceWorkerRouterInfo(std::move(value));
+            return *this;
+        }
+
         ResponseBuilder<STATE | EncodedDataLengthSet>& setEncodedDataLength(double value)
         {
             static_assert(!(STATE & EncodedDataLengthSet), "property encodedDataLength should not be set yet");
@@ -1772,6 +1843,7 @@ private:
     Maybe<bool> m_fromDiskCache;
     Maybe<bool> m_fromServiceWorker;
     Maybe<bool> m_fromPrefetchCache;
+    Maybe<protocol::Network::ServiceWorkerRouterInfo> m_serviceWorkerRouterInfo;
     double m_encodedDataLength;
     Maybe<protocol::Network::ResourceTiming> m_timing;
     Maybe<String> m_serviceWorkerResponseSource;
@@ -3743,6 +3815,7 @@ public:
     virtual DispatchResponse setCacheDisabled(bool in_cacheDisabled) = 0;
     virtual DispatchResponse setExtraHTTPHeaders(std::unique_ptr<protocol::Network::Headers> in_headers) = 0;
     virtual DispatchResponse setAttachDebugStack(bool in_enabled) = 0;
+    virtual DispatchResponse streamResourceContent(const String& in_requestId, Binary* out_bufferedData) = 0;
 
 };
 
@@ -3751,7 +3824,7 @@ public:
 class CORE_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
-    void dataReceived(const String& requestId, double timestamp, int dataLength, int encodedDataLength);
+    void dataReceived(const String& requestId, double timestamp, int dataLength, int encodedDataLength, Maybe<Binary> data = Maybe<Binary>());
     void eventSourceMessageReceived(const String& requestId, double timestamp, const String& eventName, const String& eventId, const String& data);
     void loadingFailed(const String& requestId, double timestamp, const String& type, const String& errorText, Maybe<bool> canceled = Maybe<bool>(), Maybe<String> blockedReason = Maybe<String>(), Maybe<protocol::Network::CorsErrorStatus> corsErrorStatus = Maybe<protocol::Network::CorsErrorStatus>());
     void loadingFinished(const String& requestId, double timestamp, double encodedDataLength);

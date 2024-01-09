@@ -26,7 +26,7 @@ import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled
 import { PageStatus, StatusAction, SyncBrowserProxyImpl } from '/shared/settings/people_page/sync_browser_proxy.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './os_sync_subpage.html.js';
 const OsSettingsSyncSubpageElementBase = RouteOriginMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));

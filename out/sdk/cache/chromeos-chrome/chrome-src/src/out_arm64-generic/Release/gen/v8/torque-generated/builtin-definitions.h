@@ -29,6 +29,10 @@ TFC(ArrayFindLastLoopContinuation, ArrayFindLastLoopContinuation) \
 TFJ(ArrayPrototypeFindLast, kDontAdaptArgumentsSentinel) \
 TFC(ArrayFindLastIndexLoopContinuation, ArrayFindLastIndexLoopContinuation) \
 TFJ(ArrayPrototypeFindLastIndex, kDontAdaptArgumentsSentinel) \
+TFC(FlattenIntoArrayWithoutMapFn, FlattenIntoArrayWithoutMapFn) \
+TFC(FlattenIntoArrayWithMapFn, FlattenIntoArrayWithMapFn) \
+TFJ(ArrayPrototypeFlat, kDontAdaptArgumentsSentinel) \
+TFJ(ArrayPrototypeFlatMap, kDontAdaptArgumentsSentinel) \
 TFJ(ArrayForEachLoopEagerDeoptContinuation, JSParameterCount(4), kReceiver, kCallback, kThisArg, kInitialK, kLength) \
 TFJ(ArrayForEachLoopLazyDeoptContinuation, JSParameterCount(5), kReceiver, kCallback, kThisArg, kInitialK, kLength, kResult) \
 TFC(ArrayForEachLoopContinuation, ArrayForEachLoopContinuation) \
@@ -199,6 +203,10 @@ TFC(GetIteratorBaseline, GetIteratorBaseline) \
 TFC(CreateAsyncFromSyncIteratorBaseline, CreateAsyncFromSyncIteratorBaseline) \
 TFC(CallIteratorWithFeedback, CallIteratorWithFeedback) \
 TFJ(IteratorConstructor, JSParameterCount(0), kReceiver) \
+TFJ(IteratorPrototypeGetToStringTag, JSParameterCount(0), kReceiver) \
+TFJ(IteratorPrototypeSetToStringTag, JSParameterCount(1), kReceiver, kValue) \
+TFJ(IteratorPrototypeGetConstructor, JSParameterCount(0), kReceiver) \
+TFJ(IteratorPrototypeSetConstructor, JSParameterCount(1), kReceiver, kValue) \
 TFJ(IteratorFrom, JSParameterCount(1), kReceiver, kObjArg) \
 TFJ(WrapForValidIteratorPrototypeNext, JSParameterCount(0), kReceiver) \
 TFJ(WrapForValidIteratorPrototypeReturn, JSParameterCount(0), kReceiver) \
@@ -417,6 +425,7 @@ TFJ(StringPrototypeToWellFormed, kDontAdaptArgumentsSentinel) \
 TFJ(StringPrototypeTrim, kDontAdaptArgumentsSentinel) \
 TFJ(StringPrototypeTrimStart, kDontAdaptArgumentsSentinel) \
 TFJ(StringPrototypeTrimEnd, kDontAdaptArgumentsSentinel) \
+TFJ(SuppressedErrorConstructor, kDontAdaptArgumentsSentinel) \
 TFJ(SymbolPrototypeDescriptionGetter, JSParameterCount(0), kReceiver) \
 TFJ(SymbolPrototypeToPrimitive, JSParameterCount(1), kReceiver, kHint) \
 TFJ(SymbolPrototypeToString, JSParameterCount(0), kReceiver) \
@@ -490,6 +499,7 @@ TFC(GallopRight, GallopRight) \
 TFC(ArrayTimSort, ArrayTimSort) \
 TFJ(ArrayPrototypeSort, kDontAdaptArgumentsSentinel) \
 TFC(StringFastLocaleCompare, StringFastLocaleCompare) \
+TFJ(JSToJSWrapper, kDontAdaptArgumentsSentinel) \
 TFJ(JSToWasmWrapper, kDontAdaptArgumentsSentinel) \
 TFJ(WasmReturnPromiseOnSuspend, kDontAdaptArgumentsSentinel) \
 TFC(JSToWasmHandleReturns, JSToWasmHandleReturns) \
@@ -535,6 +545,7 @@ TFC(CallRefIC, CallRefIC) \
 TFC(WasmGetOwnProperty, WasmGetOwnProperty) \
 TFC(WasmTrap, WasmTrap) \
 TFC(ThrowWasmTrapUnreachable, ThrowWasmTrapUnreachable) \
+TFC(WasmTrapHandlerThrowTrap, WasmTrapHandlerThrowTrap) \
 TFC(ThrowWasmTrapMemOutOfBounds, ThrowWasmTrapMemOutOfBounds) \
 TFC(ThrowWasmTrapUnalignedAccess, ThrowWasmTrapUnalignedAccess) \
 TFC(ThrowWasmTrapDivByZero, ThrowWasmTrapDivByZero) \
@@ -566,66 +577,9 @@ TFC(WasmStringEncodeWtf16, WasmStringEncodeWtf16) \
 TFC(WasmStringEncodeWtf16Array, WasmStringEncodeWtf16Array) \
 TFC(ThrowToLowerCaseCalledOnNull, ThrowToLowerCaseCalledOnNull) \
 TFC(ThrowIndexOfCalledOnNull, ThrowIndexOfCalledOnNull) \
-TFC(ThrowDataViewGetBigInt64DetachedError, ThrowDataViewGetBigInt64DetachedError) \
-TFC(ThrowDataViewGetBigInt64OutOfBounds, ThrowDataViewGetBigInt64OutOfBounds) \
-TFC(ThrowDataViewGetBigInt64TypeError, ThrowDataViewGetBigInt64TypeError) \
-TFC(ThrowDataViewGetBigUint64DetachedError, ThrowDataViewGetBigUint64DetachedError) \
-TFC(ThrowDataViewGetBigUint64OutOfBounds, ThrowDataViewGetBigUint64OutOfBounds) \
-TFC(ThrowDataViewGetBigUint64TypeError, ThrowDataViewGetBigUint64TypeError) \
-TFC(ThrowDataViewGetFloat32DetachedError, ThrowDataViewGetFloat32DetachedError) \
-TFC(ThrowDataViewGetFloat32OutOfBounds, ThrowDataViewGetFloat32OutOfBounds) \
-TFC(ThrowDataViewGetFloat32TypeError, ThrowDataViewGetFloat32TypeError) \
-TFC(ThrowDataViewGetFloat64DetachedError, ThrowDataViewGetFloat64DetachedError) \
-TFC(ThrowDataViewGetFloat64OutOfBounds, ThrowDataViewGetFloat64OutOfBounds) \
-TFC(ThrowDataViewGetFloat64TypeError, ThrowDataViewGetFloat64TypeError) \
-TFC(ThrowDataViewGetInt8DetachedError, ThrowDataViewGetInt8DetachedError) \
-TFC(ThrowDataViewGetInt8OutOfBounds, ThrowDataViewGetInt8OutOfBounds) \
-TFC(ThrowDataViewGetInt8TypeError, ThrowDataViewGetInt8TypeError) \
-TFC(ThrowDataViewGetInt16DetachedError, ThrowDataViewGetInt16DetachedError) \
-TFC(ThrowDataViewGetInt16OutOfBounds, ThrowDataViewGetInt16OutOfBounds) \
-TFC(ThrowDataViewGetInt16TypeError, ThrowDataViewGetInt16TypeError) \
-TFC(ThrowDataViewGetInt32DetachedError, ThrowDataViewGetInt32DetachedError) \
-TFC(ThrowDataViewGetInt32OutOfBounds, ThrowDataViewGetInt32OutOfBounds) \
-TFC(ThrowDataViewGetInt32TypeError, ThrowDataViewGetInt32TypeError) \
-TFC(ThrowDataViewGetUint8DetachedError, ThrowDataViewGetUint8DetachedError) \
-TFC(ThrowDataViewGetUint8OutOfBounds, ThrowDataViewGetUint8OutOfBounds) \
-TFC(ThrowDataViewGetUint8TypeError, ThrowDataViewGetUint8TypeError) \
-TFC(ThrowDataViewGetUint16DetachedError, ThrowDataViewGetUint16DetachedError) \
-TFC(ThrowDataViewGetUint16OutOfBounds, ThrowDataViewGetUint16OutOfBounds) \
-TFC(ThrowDataViewGetUint16TypeError, ThrowDataViewGetUint16TypeError) \
-TFC(ThrowDataViewGetUint32DetachedError, ThrowDataViewGetUint32DetachedError) \
-TFC(ThrowDataViewGetUint32OutOfBounds, ThrowDataViewGetUint32OutOfBounds) \
-TFC(ThrowDataViewGetUint32TypeError, ThrowDataViewGetUint32TypeError) \
-TFC(ThrowDataViewSetBigInt64DetachedError, ThrowDataViewSetBigInt64DetachedError) \
-TFC(ThrowDataViewSetBigInt64OutOfBounds, ThrowDataViewSetBigInt64OutOfBounds) \
-TFC(ThrowDataViewSetBigInt64TypeError, ThrowDataViewSetBigInt64TypeError) \
-TFC(ThrowDataViewSetBigUint64DetachedError, ThrowDataViewSetBigUint64DetachedError) \
-TFC(ThrowDataViewSetBigUint64OutOfBounds, ThrowDataViewSetBigUint64OutOfBounds) \
-TFC(ThrowDataViewSetBigUint64TypeError, ThrowDataViewSetBigUint64TypeError) \
-TFC(ThrowDataViewSetFloat32DetachedError, ThrowDataViewSetFloat32DetachedError) \
-TFC(ThrowDataViewSetFloat32OutOfBounds, ThrowDataViewSetFloat32OutOfBounds) \
-TFC(ThrowDataViewSetFloat32TypeError, ThrowDataViewSetFloat32TypeError) \
-TFC(ThrowDataViewSetFloat64DetachedError, ThrowDataViewSetFloat64DetachedError) \
-TFC(ThrowDataViewSetFloat64OutOfBounds, ThrowDataViewSetFloat64OutOfBounds) \
-TFC(ThrowDataViewSetFloat64TypeError, ThrowDataViewSetFloat64TypeError) \
-TFC(ThrowDataViewSetInt8DetachedError, ThrowDataViewSetInt8DetachedError) \
-TFC(ThrowDataViewSetInt8OutOfBounds, ThrowDataViewSetInt8OutOfBounds) \
-TFC(ThrowDataViewSetInt8TypeError, ThrowDataViewSetInt8TypeError) \
-TFC(ThrowDataViewSetInt16DetachedError, ThrowDataViewSetInt16DetachedError) \
-TFC(ThrowDataViewSetInt16OutOfBounds, ThrowDataViewSetInt16OutOfBounds) \
-TFC(ThrowDataViewSetInt16TypeError, ThrowDataViewSetInt16TypeError) \
-TFC(ThrowDataViewSetInt32DetachedError, ThrowDataViewSetInt32DetachedError) \
-TFC(ThrowDataViewSetInt32OutOfBounds, ThrowDataViewSetInt32OutOfBounds) \
-TFC(ThrowDataViewSetInt32TypeError, ThrowDataViewSetInt32TypeError) \
-TFC(ThrowDataViewSetUint8DetachedError, ThrowDataViewSetUint8DetachedError) \
-TFC(ThrowDataViewSetUint8OutOfBounds, ThrowDataViewSetUint8OutOfBounds) \
-TFC(ThrowDataViewSetUint8TypeError, ThrowDataViewSetUint8TypeError) \
-TFC(ThrowDataViewSetUint16DetachedError, ThrowDataViewSetUint16DetachedError) \
-TFC(ThrowDataViewSetUint16OutOfBounds, ThrowDataViewSetUint16OutOfBounds) \
-TFC(ThrowDataViewSetUint16TypeError, ThrowDataViewSetUint16TypeError) \
-TFC(ThrowDataViewSetUint32DetachedError, ThrowDataViewSetUint32DetachedError) \
-TFC(ThrowDataViewSetUint32OutOfBounds, ThrowDataViewSetUint32OutOfBounds) \
-TFC(ThrowDataViewSetUint32TypeError, ThrowDataViewSetUint32TypeError) \
+TFC(ThrowDataViewTypeError, ThrowDataViewTypeError) \
+TFC(ThrowDataViewDetachedError, ThrowDataViewDetachedError) \
+TFC(ThrowDataViewOutOfBounds, ThrowDataViewOutOfBounds) \
 TFC(WasmStringConcat, WasmStringConcat) \
 TFC(WasmStringEqual, WasmStringEqual) \
 TFC(WasmStringIsUSVSequence, WasmStringIsUSVSequence) \
@@ -647,6 +601,8 @@ TFC(WasmStringToDouble, WasmStringToDouble) \
 TFC(WasmStringFromCodePoint, WasmStringFromCodePoint) \
 TFC(WasmStringHash, WasmStringHash) \
 TFC(WasmAnyConvertExtern, WasmAnyConvertExtern) \
+TFJ(WebAssemblyStringCast, kDontAdaptArgumentsSentinel) \
+TFJ(WebAssemblyStringTest, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromWtf16Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromWtf8Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringToWtf16Array, kDontAdaptArgumentsSentinel) \

@@ -26,6 +26,7 @@ import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { ProfileInstallResult, ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { InhibitReason } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { DeviceStateType, NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
@@ -268,8 +269,8 @@ export class CellularNetworksListElement extends CellularNetworksListElementBase
             customItemType: properties.state === ProfileState.kInstalling ?
                 NetworkList.CustomItemType.ESIM_INSTALLING_PROFILE :
                 NetworkList.CustomItemType.ESIM_PENDING_PROFILE,
-            customItemName: String.fromCharCode(...properties.name.data),
-            customItemSubtitle: String.fromCharCode(...properties.serviceProvider.data),
+            customItemName: mojoString16ToString(properties.name),
+            customItemSubtitle: mojoString16ToString(properties.serviceProvider),
             polymerIcon: 'network:cellular-0',
             showBeforeNetworksList: false,
             customData: {

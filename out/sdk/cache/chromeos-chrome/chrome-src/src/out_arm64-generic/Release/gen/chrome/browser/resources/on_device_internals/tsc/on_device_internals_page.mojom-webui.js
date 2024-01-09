@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
-import { PerformanceClassSpec as onDeviceModel_mojom_PerformanceClassSpec, LoadModelResultSpec as onDeviceModel_mojom_LoadModelResultSpec } from './on_device_model.mojom-webui.js';
+import { LoadModelResultSpec as onDeviceModel_mojom_LoadModelResultSpec, PerformanceClassSpec as onDeviceModel_mojom_PerformanceClassSpec, OnDeviceModelPendingReceiver as onDeviceModel_mojom_OnDeviceModelPendingReceiver } from './on_device_model.mojom-webui.js';
 import { FilePathSpec as mojoBase_mojom_FilePathSpec } from '//resources/mojo/mojo/public/mojom/base/file_path.mojom-webui.js';
 export class OnDeviceInternalsPagePendingReceiver {
     constructor(handle) {
@@ -20,9 +20,10 @@ export class OnDeviceInternalsPageRemote {
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
-    loadModel(modelPath) {
+    loadModel(modelPath, model) {
         return this.proxy.sendMessage(0, OnDeviceInternalsPage_LoadModel_ParamsSpec.$, OnDeviceInternalsPage_LoadModel_ResponseParamsSpec.$, [
-            modelPath
+            modelPath,
+            model
         ]);
     }
     getEstimatedPerformanceClass() {
@@ -92,10 +93,11 @@ export const OnDeviceInternalsPage_GetEstimatedPerformanceClass_ParamsSpec = { $
 export const OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParamsSpec = { $: {} };
 mojo.internal.Struct(OnDeviceInternalsPage_LoadModel_ParamsSpec.$, 'OnDeviceInternalsPage_LoadModel_Params', [
     mojo.internal.StructField('modelPath', 0, 0, mojoBase_mojom_FilePathSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(OnDeviceInternalsPage_LoadModel_ResponseParamsSpec.$, 'OnDeviceInternalsPage_LoadModel_ResponseParams', [
-    mojo.internal.StructField('result', 0, 0, onDeviceModel_mojom_LoadModelResultSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('model', 8, 0, mojo.internal.InterfaceRequest(onDeviceModel_mojom_OnDeviceModelPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 24],]);
+mojo.internal.Struct(OnDeviceInternalsPage_LoadModel_ResponseParamsSpec.$, 'OnDeviceInternalsPage_LoadModel_ResponseParams', [
+    mojo.internal.StructField('result', 0, 0, onDeviceModel_mojom_LoadModelResultSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(OnDeviceInternalsPage_GetEstimatedPerformanceClass_ParamsSpec.$, 'OnDeviceInternalsPage_GetEstimatedPerformanceClass_Params', [], [[0, 8],]);
 mojo.internal.Struct(OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParamsSpec.$, 'OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParams', [
     mojo.internal.StructField('performanceClass', 0, 0, onDeviceModel_mojom_PerformanceClassSpec.$, 0, false /* nullable */, 0),

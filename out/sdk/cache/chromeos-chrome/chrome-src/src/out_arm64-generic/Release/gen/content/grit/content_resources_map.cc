@@ -13,9 +13,6 @@ const webui::ResourcePath kContentResources[] = {
   {"browser/resources/devtools/devtools_pinch_cursor_2x.png", IDR_DEVTOOLS_PINCH_CURSOR_ICON_2X},
   {"browser/resources/devtools/devtools_touch_cursor.png", IDR_DEVTOOLS_TOUCH_CURSOR_ICON},
   {"browser/resources/devtools/devtools_touch_cursor_2x.png", IDR_DEVTOOLS_TOUCH_CURSOR_ICON_2X},
-  {"../components/ukm/debug/ukm_internals.html", IDR_UKM_INTERNALS_HTML},
-  {"ukm_internals.js", IDR_UKM_INTERNALS_JS},
-  {"../components/ukm/debug/ukm_internals.css", IDR_UKM_INTERNALS_CSS},
   {"mojo/mojo/public/mojom/base/unguessable_token.mojom-lite.js", IDR_UNGUESSABLE_TOKEN_MOJO_JS},
   {"mojo/url/mojom/url.mojom-lite.js", IDR_URL_MOJO_JS},
 };

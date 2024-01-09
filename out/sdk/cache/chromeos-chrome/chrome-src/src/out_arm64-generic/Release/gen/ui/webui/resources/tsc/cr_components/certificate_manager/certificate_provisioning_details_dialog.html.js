@@ -51,6 +51,9 @@ export function getTemplate() {
         [[model.lastUnsuccessfulMessage]]
       </div>
     </div>
+    <cr-button id="reset" role="button" on-click="onReset_">
+      [[i18n('certificateProvisioningReset')]]
+    </cr-button>
     <hr>
     <cr-expand-button expanded="{{advancedExpanded_}}" aria-expanded$="[[boolToString_(advancedOpened)]]">
       <div>[[i18n('certificateProvisioningAdvancedSectionTitle')]]</div>
@@ -74,6 +77,5 @@ export function getTemplate() {
       </div>
     </iron-collapse>
   </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
+</cr-dialog><!--_html_template_end_-->`;
 }

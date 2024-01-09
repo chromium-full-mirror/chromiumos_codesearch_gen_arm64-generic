@@ -378,6 +378,37 @@ class  IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParams_Data {
 };
 static_assert(sizeof(IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParams_Data) == 8,
               "Bad sizeof(IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParams_Data)");
+class  IndexedDBControlTest_GetUsageForTesting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<IndexedDBControlTest_GetUsageForTesting_Params_Data>;
+
+  IndexedDBControlTest_GetUsageForTesting_Params_Data();
+  ~IndexedDBControlTest_GetUsageForTesting_Params_Data() = delete;
+};
+static_assert(sizeof(IndexedDBControlTest_GetUsageForTesting_Params_Data) == 8,
+              "Bad sizeof(IndexedDBControlTest_GetUsageForTesting_Params_Data)");
+class  IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t total_usage;
+
+ private:
+  friend class mojo::internal::MessageFragment<IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data>;
+
+  IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data();
+  ~IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data) == 16,
+              "Bad sizeof(IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data)");
 class  IndexedDBControlTest_BindMockFailureSingletonForTesting_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -986,6 +1017,39 @@ class IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParamsDataView 
 };
 
 
+class IndexedDBControlTest_GetUsageForTesting_ParamsDataView {
+ public:
+  IndexedDBControlTest_GetUsageForTesting_ParamsDataView() = default;
+
+  IndexedDBControlTest_GetUsageForTesting_ParamsDataView(
+      internal::IndexedDBControlTest_GetUsageForTesting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::IndexedDBControlTest_GetUsageForTesting_Params_Data* data_ = nullptr;
+};
+
+
+class IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView {
+ public:
+  IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView() = default;
+
+  IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView(
+      internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int64_t total_usage() const {
+    return data_->total_usage;
+  }
+ private:
+  internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class IndexedDBControlTest_BindMockFailureSingletonForTesting_ParamsDataView {
  public:
   IndexedDBControlTest_BindMockFailureSingletonForTesting_ParamsDataView() = default;
@@ -1196,6 +1260,10 @@ inline void IndexedDBControlTest_CompactBackingStoreForTesting_ParamsDataView::G
   auto pointer = data_->bucket_locator.Get();
   *output = ::storage::mojom::BucketLocatorDataView(pointer, message_);
 }
+
+
+
+
 
 
 

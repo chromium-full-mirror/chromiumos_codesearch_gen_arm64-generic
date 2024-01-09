@@ -117,8 +117,8 @@ class FeaturePromoDemoPageInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  int64_t added_timestamp_ms() const {
-    return data_->added_timestamp_ms;
+  int32_t added_milestone() const {
+    return data_->added_milestone;
   }
   inline void GetSupportedPlatformsDataView(
       mojo::ArrayDataView<mojo::StringDataView>* output);
@@ -138,6 +138,16 @@ class FeaturePromoDemoPageInfoDataView {
     
     auto* pointer = data_->instructions.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetFollowedByInternalNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFollowedByInternalName(UserType* output) {
+    
+    auto* pointer = data_->followed_by_internal_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
  private:
@@ -216,7 +226,7 @@ struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageInfoDat
         fragment->type.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null type in FeaturePromoDemoPageInfo struct");
-    fragment->added_timestamp_ms = Traits::added_timestamp_ms(input);
+    fragment->added_milestone = Traits::added_milestone(input);
     decltype(Traits::supported_platforms(input)) in_supported_platforms = Traits::supported_platforms(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->supported_platforms)::BaseType>
@@ -245,6 +255,18 @@ struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageInfoDat
         fragment->instructions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null instructions in FeaturePromoDemoPageInfo struct");
+    decltype(Traits::followed_by_internal_name(input)) in_followed_by_internal_name = Traits::followed_by_internal_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->followed_by_internal_name)::BaseType> followed_by_internal_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_followed_by_internal_name, followed_by_internal_name_fragment);
+    fragment->followed_by_internal_name.Set(
+        followed_by_internal_name_fragment.is_null() ? nullptr : followed_by_internal_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->followed_by_internal_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null followed_by_internal_name in FeaturePromoDemoPageInfo struct");
   }
 
   static bool Deserialize(::mojom::user_education_internals::internal::FeaturePromoDemoPageInfo_Data* input,
@@ -294,6 +316,11 @@ inline void FeaturePromoDemoPageInfoDataView::GetInstructionsDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->instructions.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void FeaturePromoDemoPageInfoDataView::GetFollowedByInternalNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->followed_by_internal_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

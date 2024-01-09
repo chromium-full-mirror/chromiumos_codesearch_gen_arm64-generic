@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -246,14 +247,17 @@ void AudioDecoderProxy::Construct(
                         "<value of type ::mojo::PendingRemote<::media::mojom::blink::MediaLog>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Construct_Name, kFlags, 0, 0, nullptr);
@@ -284,7 +288,7 @@ void AudioDecoderProxy::Construct(
 }
 
 void AudioDecoderProxy::Initialize(
-    ::media::mojom::blink::AudioDecoderConfigPtr in_config, const absl::optional<::base::UnguessableToken>& in_cdm_id, InitializeCallback callback) {
+    ::media::mojom::blink::AudioDecoderConfigPtr in_config, const std::optional<::base::UnguessableToken>& in_cdm_id, InitializeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::AudioDecoder::Initialize", "input_parameters",
@@ -295,17 +299,20 @@ void AudioDecoderProxy::Initialize(
                         "<value of type ::media::mojom::blink::AudioDecoderConfigPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cdm_id"), in_cdm_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -354,14 +361,17 @@ void AudioDecoderProxy::SetDataSource(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_SetDataSource_Name, kFlags, 0, 0, nullptr);
@@ -397,14 +407,17 @@ void AudioDecoderProxy::Decode(
                         "<value of type ::media::mojom::blink::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -439,14 +452,17 @@ void AudioDecoderProxy::Reset(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::AudioDecoder::Reset");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -570,7 +586,8 @@ void AudioDecoder_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -701,7 +718,8 @@ void AudioDecoder_Decode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -818,7 +836,8 @@ void AudioDecoder_Reset_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -943,7 +962,7 @@ bool AudioDecoderStubDispatch::AcceptWithResponder(
       
       bool success = true;
       ::media::mojom::blink::AudioDecoderConfigPtr p_config{};
-      absl::optional<::base::UnguessableToken> p_cdm_id{};
+      std::optional<::base::UnguessableToken> p_cdm_id{};
       AudioDecoder_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -1027,18 +1046,18 @@ std::move(p_buffer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioDecoderValidationInfo[] = {
-    {&internal::AudioDecoder_Construct_Params_Data::Validate,
+    { &internal::AudioDecoder_Construct_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioDecoder_Initialize_Params_Data::Validate,
+    { &internal::AudioDecoder_Initialize_Params_Data::Validate,
      &internal::AudioDecoder_Initialize_ResponseParams_Data::Validate},
-    {&internal::AudioDecoder_SetDataSource_Params_Data::Validate,
+    { &internal::AudioDecoder_SetDataSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioDecoder_Decode_Params_Data::Validate,
+    { &internal::AudioDecoder_Decode_Params_Data::Validate,
      &internal::AudioDecoder_Decode_ResponseParams_Data::Validate},
-    {&internal::AudioDecoder_Reset_Params_Data::Validate,
+    { &internal::AudioDecoder_Reset_Params_Data::Validate,
      &internal::AudioDecoder_Reset_ResponseParams_Data::Validate},
 };
 
@@ -1142,14 +1161,17 @@ void AudioDecoderClientProxy::OnBufferDecoded(
                         "<value of type ::media::mojom::blink::AudioBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoderClient_OnBufferDecoded_Name, kFlags, 0, 0, nullptr);
@@ -1190,14 +1212,17 @@ void AudioDecoderClientProxy::OnWaiting(
                         "<value of type ::media::mojom::blink::WaitingReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr);
@@ -1296,12 +1321,12 @@ bool AudioDecoderClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioDecoderClientValidationInfo[] = {
-    {&internal::AudioDecoderClient_OnBufferDecoded_Params_Data::Validate,
+    { &internal::AudioDecoderClient_OnBufferDecoded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioDecoderClient_OnWaiting_Params_Data::Validate,
+    { &internal::AudioDecoderClient_OnWaiting_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1330,7 +1355,7 @@ namespace media::mojom::blink {
 void AudioDecoderInterceptorForTesting::Construct(::mojo::PendingAssociatedRemote<AudioDecoderClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log) {
   GetForwardingInterface()->Construct(std::move(client), std::move(media_log));
 }
-void AudioDecoderInterceptorForTesting::Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) {
+void AudioDecoderInterceptorForTesting::Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) {
   GetForwardingInterface()->Initialize(std::move(config), std::move(cdm_id), std::move(callback));
 }
 void AudioDecoderInterceptorForTesting::SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) {
@@ -1348,7 +1373,7 @@ AudioDecoderAsyncWaiter::AudioDecoderAsyncWaiter(
 AudioDecoderAsyncWaiter::~AudioDecoderAsyncWaiter() = default;
 
 void AudioDecoderAsyncWaiter::Initialize(
-    ::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_success, bool* out_needs_bitstream_conversion, ::media::mojom::blink::AudioDecoderType* out_decoder_type) {
+    ::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_success, bool* out_needs_bitstream_conversion, ::media::mojom::blink::AudioDecoderType* out_decoder_type) {
   base::RunLoop loop;
   proxy_->Initialize(std::move(config),std::move(cdm_id),
       base::BindOnce(

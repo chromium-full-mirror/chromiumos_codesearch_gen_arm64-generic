@@ -135,7 +135,7 @@ static const struct wl_message zaura_shell_events[] = {
 };
 
 WL_PRIVATE const struct wl_interface zaura_shell_interface = {
-	"zaura_shell", 62,
+	"zaura_shell", 64,
 	6, zaura_shell_requests,
 	10, zaura_shell_events,
 };
@@ -245,6 +245,7 @@ static const struct wl_message zaura_toplevel_requests[] = {
 	{ "unset_can_fullscreen", "58", aura_shell_types + 0 },
 	{ "set_float_to_location", "59u", aura_shell_types + 0 },
 	{ "set_window_corner_radii", "60uuuu", aura_shell_types + 0 },
+	{ "set_shadow_corner_radii", "63uuuu", aura_shell_types + 0 },
 };
 
 static const struct wl_message zaura_toplevel_events[] = {
@@ -256,8 +257,8 @@ static const struct wl_message zaura_toplevel_events[] = {
 };
 
 WL_PRIVATE const struct wl_interface zaura_toplevel_interface = {
-	"zaura_toplevel", 62,
-	32, zaura_toplevel_requests,
+	"zaura_toplevel", 64,
+	33, zaura_toplevel_requests,
 	5, zaura_toplevel_events,
 };
 

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PaymentAddress>::value,
     "PaymentAddress inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PaymentAddress::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PaymentAddress is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.city.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->city();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->city();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.country.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->country();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->country();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -115,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.dependentLocality.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dependentLocality();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dependentLocality();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -130,10 +125,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.organization.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->organization();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->organization();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -145,10 +140,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.phone.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->phone();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->phone();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -160,10 +155,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.postalCode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->postalCode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->postalCode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -175,10 +170,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.recipient.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->recipient();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->recipient();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -190,10 +185,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.region.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->region();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->region();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -205,10 +200,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.sortingCode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sortingCode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sortingCode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -225,7 +220,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->addressLine();
 if (!ToV8Traits<IDLArray<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -245,8 +241,9 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentAddress.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(v8_receiver);
+PaymentAddress* blink_receiver = V8PaymentAddress::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

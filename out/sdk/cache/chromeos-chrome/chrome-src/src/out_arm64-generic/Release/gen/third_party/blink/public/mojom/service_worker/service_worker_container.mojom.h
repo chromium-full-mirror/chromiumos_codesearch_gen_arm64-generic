@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -125,17 +126,17 @@ class BLINK_COMMON_EXPORT ServiceWorkerContainerHost
   virtual ~ServiceWorkerContainerHost() = default;
 
 
-  using RegisterCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr)>;
+  using RegisterCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr)>;
   
   virtual void Register(const ::GURL& script_url, ::blink::mojom::ServiceWorkerRegistrationOptionsPtr options, ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, RegisterCallback callback) = 0;
 
 
-  using GetRegistrationCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr)>;
+  using GetRegistrationCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr)>;
   
   virtual void GetRegistration(const ::GURL& client_url, GetRegistrationCallback callback) = 0;
 
 
-  using GetRegistrationsCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&, absl::optional<std::vector<::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr>>)>;
+  using GetRegistrationsCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&, std::optional<std::vector<::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr>>)>;
   
   virtual void GetRegistrations(GetRegistrationsCallback callback) = 0;
 

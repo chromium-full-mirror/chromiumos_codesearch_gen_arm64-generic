@@ -1,11 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview A Selector implementation for redux, bundled with a
- * SelectorEmitter helper class that allows selectors to be efficiently updated.
- */
-import 'chrome://resources/mwc/lit/index.js';
+import { isDebugStoreEnabled } from '../common/js/util.js';
 /**
  * A class implementing ReactiveController in order to provide an ergonomic
  * way to update Lit elements based on selected data.
@@ -48,10 +44,10 @@ export class SelectorNode {
      *     selector node is constructed. The arguments of select() must match the
      *     order and type of what is emitted by the parents. This typing match is
      *     not enforced here because SelectorNodes are only meant to be created by
-     *     the Store. Users of the Store should use `combineXSelectors()` to combine
-     *     selectors.
+     *     the Store. Users of the Store should use `combineXSelectors()` to
+     * combine selectors.
      * @param name An optional human-readable name used for debugging purposes.
-     *     Named selectors will log to the console when window.DEBUG_STORE is set,
+     *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
      */
     constructor(parents, select, name) {
@@ -85,11 +81,11 @@ export class SelectorNode {
      *
      * Slice's default selectors are then connected to the store's source node,
      * and additional selector nodes can then be created from store and slices'
-     * default selectors using `combineXSelectors()` (and resulting selectors can be
-     * further combined using `combineXSelectors()`).
+     * default selectors using `combineXSelectors()` (and resulting selectors can
+     * be further combined using `combineXSelectors()`).
      */
-    static createSourceNode(select) {
-        return new SelectorNode([], select);
+    static createSourceNode(select, name) {
+        return new SelectorNode([], select, name);
     }
     /**
      * Creates a selector node that doesn't have parents or select function. Used
@@ -149,7 +145,7 @@ export class SelectorNode {
         if (newValue === this.value_) {
             return false;
         }
-        if (window.DEBUG_STORE && this.name) {
+        if (isDebugStoreEnabled() && this.name) {
             console.log(`Selector '${this.name}' emitted a new value:`);
             console.log(newValue);
         }
@@ -183,20 +179,20 @@ export class SelectorNode {
     }
 }
 /** Create a selector whose value derives from a single Selector. */
-export function combine1Selector(combineFunction, s1) {
-    return new SelectorNode([s1], combineFunction);
+export function combine1Selector(combineFunction, s1, name) {
+    return new SelectorNode([s1], combineFunction, name);
 }
 /** Create a selector whose value derives from 2 Selectors. */
-export function combine2Selectors(combineFunction, s1, s2) {
-    return new SelectorNode([s1, s2], combineFunction);
+export function combine2Selectors(combineFunction, s1, s2, name) {
+    return new SelectorNode([s1, s2], combineFunction, name);
 }
 /** Create a selector whose value derives from 3 Selectors. */
-export function combine3Selectors(combineFunction, s1, s2, s3) {
-    return new SelectorNode([s1, s2, s3], combineFunction);
+export function combine3Selectors(combineFunction, s1, s2, s3, name) {
+    return new SelectorNode([s1, s2, s3], combineFunction, name);
 }
 /** Create a selector whose value derives from 4 Selectors. */
-export function combine4Selectors(combineFunction, s1, s2, s3, s4) {
-    return new SelectorNode([s1, s2, s3, s4], combineFunction);
+export function combine4Selectors(combineFunction, s1, s2, s3, s4, name) {
+    return new SelectorNode([s1, s2, s3, s4], combineFunction, name);
 }
 /**
  * A DAG (Directed Acyclic Graph) representation of chains of selectors where

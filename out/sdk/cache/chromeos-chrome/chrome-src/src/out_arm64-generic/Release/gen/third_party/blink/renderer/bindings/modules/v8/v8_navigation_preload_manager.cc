@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigationPreloadManager>::value,
     "NavigationPreloadManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigationPreloadManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigationPreloadManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ return;
 
 
 
-NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(v8_receiver);
+NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -132,7 +127,7 @@ return;
 
 
 
-NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(v8_receiver);
+NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -163,7 +158,7 @@ return;
 
 
 
-NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(v8_receiver);
+NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -198,7 +193,7 @@ return;
 
 
 
-NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(v8_receiver);
+NavigationPreloadManager* blink_receiver = V8NavigationPreloadManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

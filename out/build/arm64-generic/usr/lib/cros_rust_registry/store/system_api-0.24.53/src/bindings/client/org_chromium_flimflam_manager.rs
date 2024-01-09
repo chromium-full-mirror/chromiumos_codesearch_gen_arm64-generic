@@ -16,7 +16,6 @@ pub trait OrgChromiumFlimflamManager {
     fn pop_any_profile(&self) -> Result<(), dbus::Error>;
     fn pop_all_user_profiles(&self) -> Result<(), dbus::Error>;
     fn recheck_portal(&self) -> Result<(), dbus::Error>;
-    fn request_wi_fi_restart(&self) -> Result<(), dbus::Error>;
     fn request_scan(&self, arg0: &str) -> Result<(), dbus::Error>;
     fn enable_technology(&self, arg0: &str) -> Result<(), dbus::Error>;
     fn set_network_throttling_status(&self, arg0: bool, arg1: u32, arg2: u32) -> Result<(), dbus::Error>;
@@ -33,6 +32,8 @@ pub trait OrgChromiumFlimflamManager {
     fn set_debug_tags(&self, arg0: &str) -> Result<(), dbus::Error>;
     fn list_debug_tags(&self) -> Result<String, dbus::Error>;
     fn get_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
+    fn get_wi_fi_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
+    fn get_cellular_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
     fn scan_and_connect_to_best_services(&self) -> Result<(), dbus::Error>;
     fn create_connectivity_report(&self) -> Result<(), dbus::Error>;
     fn claim_interface(&self, claimer_name: &str, interface_name: &str) -> Result<(), dbus::Error>;
@@ -45,6 +46,10 @@ pub trait OrgChromiumFlimflamManager {
     fn set_tethering_enabled(&self, arg0: bool) -> Result<String, dbus::Error>;
     fn check_tethering_readiness(&self) -> Result<String, dbus::Error>;
     fn set_lohsenabled(&self, arg0: bool) -> Result<String, dbus::Error>;
+    fn create_p2_pgroup(&self, arg0: arg::PropMap) -> Result<arg::PropMap, dbus::Error>;
+    fn connect_to_p2_pgroup(&self, arg0: arg::PropMap) -> Result<arg::PropMap, dbus::Error>;
+    fn destroy_p2_pgroup(&self, arg0: i32) -> Result<arg::PropMap, dbus::Error>;
+    fn disconnect_from_p2_pgroup(&self, arg0: i32) -> Result<arg::PropMap, dbus::Error>;
 }
 
 #[derive(Debug)]
@@ -149,10 +154,6 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
         self.method_call("org.chromium.flimflam.Manager", "RecheckPortal", ())
     }
 
-    fn request_wi_fi_restart(&self) -> Result<(), dbus::Error> {
-        self.method_call("org.chromium.flimflam.Manager", "RequestWiFiRestart", ())
-    }
-
     fn request_scan(&self, arg0: &str) -> Result<(), dbus::Error> {
         self.method_call("org.chromium.flimflam.Manager", "RequestScan", (arg0, ))
     }
@@ -226,6 +227,16 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
             .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
     }
 
+    fn get_wi_fi_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "GetWiFiNetworksForGeolocation", ())
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
+    }
+
+    fn get_cellular_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "GetCellularNetworksForGeolocation", ())
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
+    }
+
     fn scan_and_connect_to_best_services(&self) -> Result<(), dbus::Error> {
         self.method_call("org.chromium.flimflam.Manager", "ScanAndConnectToBestServices", ())
     }
@@ -275,5 +286,25 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
     fn set_lohsenabled(&self, arg0: bool) -> Result<String, dbus::Error> {
         self.method_call("org.chromium.flimflam.Manager", "SetLOHSEnabled", (arg0, ))
             .and_then(|r: (String, )| Ok(r.0, ))
+    }
+
+    fn create_p2_pgroup(&self, arg0: arg::PropMap) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "CreateP2PGroup", (arg0, ))
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
+    }
+
+    fn connect_to_p2_pgroup(&self, arg0: arg::PropMap) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "ConnectToP2PGroup", (arg0, ))
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
+    }
+
+    fn destroy_p2_pgroup(&self, arg0: i32) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "DestroyP2PGroup", (arg0, ))
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
+    }
+
+    fn disconnect_from_p2_pgroup(&self, arg0: i32) -> Result<arg::PropMap, dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "DisconnectFromP2PGroup", (arg0, ))
+            .and_then(|r: (arg::PropMap, )| Ok(r.0, ))
     }
 }

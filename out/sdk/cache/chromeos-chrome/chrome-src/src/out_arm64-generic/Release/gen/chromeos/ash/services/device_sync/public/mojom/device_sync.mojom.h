@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/device_sync/public/mojom/device_sync.mojom-features.h"
 #include "chromeos/ash/services/device_sync/public/mojom/device_sync.mojom-shared.h"
 #include "chromeos/ash/services/device_sync/public/mojom/device_sync.mojom-forward.h"
 #include "chromeos/ash/components/multidevice/mojom/multidevice_types.mojom.h"
@@ -221,12 +222,12 @@ class DeviceSync
   virtual void GetBetterTogetherMetadataStatus(GetBetterTogetherMetadataStatusCallback callback) = 0;
 
 
-  using GetSyncedDevicesCallback = base::OnceCallback<void(const absl::optional<std::vector<::ash::multidevice::RemoteDevice>>&)>;
+  using GetSyncedDevicesCallback = base::OnceCallback<void(const std::optional<std::vector<::ash::multidevice::RemoteDevice>>&)>;
   
   virtual void GetSyncedDevices(GetSyncedDevicesCallback callback) = 0;
 
 
-  using GetLocalDeviceMetadataCallback = base::OnceCallback<void(const absl::optional<::ash::multidevice::RemoteDevice>&)>;
+  using GetLocalDeviceMetadataCallback = base::OnceCallback<void(const std::optional<::ash::multidevice::RemoteDevice>&)>;
   
   virtual void GetLocalDeviceMetadata(GetLocalDeviceMetadataCallback callback) = 0;
 
@@ -251,7 +252,7 @@ class DeviceSync
   virtual void NotifyDevices(const std::vector<std::string>& device_instance_ids, ::cryptauthv2::TargetService cryptauth_service, ::ash::multidevice::SoftwareFeature feature, NotifyDevicesCallback callback) = 0;
 
 
-  using GetDevicesActivityStatusCallback = base::OnceCallback<void(NetworkRequestResult, absl::optional<std::vector<DeviceActivityStatusPtr>>)>;
+  using GetDevicesActivityStatusCallback = base::OnceCallback<void(NetworkRequestResult, std::optional<std::vector<DeviceActivityStatusPtr>>)>;
   
   virtual void GetDevicesActivityStatus(GetDevicesActivityStatusCallback callback) = 0;
 

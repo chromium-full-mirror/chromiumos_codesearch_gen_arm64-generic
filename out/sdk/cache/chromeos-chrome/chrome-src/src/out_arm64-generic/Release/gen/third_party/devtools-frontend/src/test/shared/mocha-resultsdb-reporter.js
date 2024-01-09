@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 const Mocha = require("mocha");
-const screenshots_js_1 = require("../shared/screenshots.js");
+const screenshot_error_js_1 = require("../shared/screenshot-error.js");
 const ResultsDb = require("./resultsdb.js");
 const { EVENT_TEST_FAIL, EVENT_TEST_PASS, EVENT_TEST_PENDING, } = Mocha.Runner.constants;
 function sanitize(message) {
@@ -52,7 +52,7 @@ class ResultsDbReporter extends Mocha.reporters.Spec {
         const testResult = this.buildDefaultTestResultFrom(test);
         testResult.status = 'FAIL';
         testResult.expected = false;
-        if (error instanceof screenshots_js_1.ScreenshotError) {
+        if (error instanceof screenshot_error_js_1.ScreenshotError) {
             [testResult.artifacts, testResult.summaryHtml] = error.toMiloArtifacts();
         }
         else {

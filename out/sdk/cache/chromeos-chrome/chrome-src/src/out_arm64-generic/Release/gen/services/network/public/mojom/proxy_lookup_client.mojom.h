@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/proxy_lookup_client.mojom-features.h"
 #include "services/network/public/mojom/proxy_lookup_client.mojom-shared.h"
 #include "services/network/public/mojom/proxy_lookup_client.mojom-forward.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom.h"
@@ -81,7 +82,7 @@ class ProxyLookupClient
   virtual ~ProxyLookupClient() = default;
 
   
-  virtual void OnProxyLookupComplete(int32_t net_error, const absl::optional<::net::ProxyInfo>& proxy_info) = 0;
+  virtual void OnProxyLookupComplete(int32_t net_error, const std::optional<::net::ProxyInfo>& proxy_info) = 0;
 };
 
 
@@ -93,7 +94,7 @@ class  ProxyLookupClientProxy
 
   explicit ProxyLookupClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnProxyLookupComplete(int32_t net_error, const absl::optional<::net::ProxyInfo>& proxy_info) final;
+  void OnProxyLookupComplete(int32_t net_error, const std::optional<::net::ProxyInfo>& proxy_info) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

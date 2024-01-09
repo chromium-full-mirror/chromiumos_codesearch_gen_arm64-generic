@@ -204,7 +204,7 @@ static_assert(
     return mojo::internal::Deserialize<::ax::mojom::FocusRingStackingOrder>(
         data_->stacking_order_$value, &output->emplace());
   }
-  absl::optional<FocusRingStackingOrder> stacking_order() const {
+  std::optional<FocusRingStackingOrder> stacking_order() const {
     if (!data_->stacking_order_$flag) {
       return absl::nullopt;
     }

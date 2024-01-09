@@ -469,7 +469,7 @@ class LanguageIdentificationEventDataView {
     return mojo::internal::Deserialize<::media::mojom::AsrSwitchResult>(
         data_->asr_switch_result_$value, &output->emplace());
   }
-  absl::optional<AsrSwitchResult> asr_switch_result() const {
+  std::optional<AsrSwitchResult> asr_switch_result() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }

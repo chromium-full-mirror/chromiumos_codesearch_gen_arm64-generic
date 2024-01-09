@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/diagnostics_ui/mojom/system_routine_controller.mojom-features.h"
 #include "ash/webui/diagnostics_ui/mojom/system_routine_controller.mojom-shared.h"
 #include "ash/webui/diagnostics_ui/mojom/system_routine_controller.mojom-forward.h"
 #include <string>
@@ -435,17 +436,17 @@ class  RoutineResult {
   // Construct an instance holding |simple_result|.
   static RoutineResultPtr
   NewSimpleResult(
-      StandardRoutineResult simple_result) {
+      StandardRoutineResult value) {
     auto result = RoutineResultPtr(absl::in_place);
-    result->set_simple_result(std::move(simple_result));
+    result->set_simple_result(std::move(value));
     return result;
   }
   // Construct an instance holding |power_result|.
   static RoutineResultPtr
   NewPowerResult(
-      PowerRoutineResultPtr power_result) {
+      PowerRoutineResultPtr value) {
     auto result = RoutineResultPtr(absl::in_place);
-    result->set_power_result(std::move(power_result));
+    result->set_power_result(std::move(value));
     return result;
   }
 

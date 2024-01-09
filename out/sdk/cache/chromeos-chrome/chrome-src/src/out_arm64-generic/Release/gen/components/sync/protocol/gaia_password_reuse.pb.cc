@@ -176,35 +176,35 @@ bool GaiaPasswordReuse_PasswordReuseLookup_LookupResult_IsValid(int value) {
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GaiaPasswordReuse_PasswordReuseLookup_LookupResult_strings[8] = {};
 
 static const char GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names[] =
+  "ALLOWLIST_HIT"
   "CACHE_HIT"
-  "ENTERPRISE_WHITELIST_HIT"
+  "ENTERPRISE_ALLOWLIST_HIT"
   "REQUEST_FAILURE"
   "REQUEST_SUCCESS"
   "TURNED_OFF_BY_POLICY"
   "UNSPECIFIED"
-  "URL_UNSUPPORTED"
-  "WHITELIST_HIT";
+  "URL_UNSUPPORTED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GaiaPasswordReuse_PasswordReuseLookup_LookupResult_entries[] = {
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 0, 9}, 2 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 9, 24}, 6 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 33, 15}, 4 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 48, 15}, 3 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 63, 20}, 7 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 83, 11}, 0 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 94, 15}, 5 },
-  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 109, 13}, 1 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 0, 13}, 1 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 13, 9}, 2 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 22, 24}, 6 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 46, 15}, 4 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 61, 15}, 3 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 76, 20}, 7 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 96, 11}, 0 },
+  { {GaiaPasswordReuse_PasswordReuseLookup_LookupResult_names + 107, 15}, 5 },
 };
 
 static const int GaiaPasswordReuse_PasswordReuseLookup_LookupResult_entries_by_number[] = {
-  5, // 0 -> UNSPECIFIED
-  7, // 1 -> WHITELIST_HIT
-  0, // 2 -> CACHE_HIT
-  3, // 3 -> REQUEST_SUCCESS
-  2, // 4 -> REQUEST_FAILURE
-  6, // 5 -> URL_UNSUPPORTED
-  1, // 6 -> ENTERPRISE_WHITELIST_HIT
-  4, // 7 -> TURNED_OFF_BY_POLICY
+  6, // 0 -> UNSPECIFIED
+  0, // 1 -> ALLOWLIST_HIT
+  1, // 2 -> CACHE_HIT
+  4, // 3 -> REQUEST_SUCCESS
+  3, // 4 -> REQUEST_FAILURE
+  7, // 5 -> URL_UNSUPPORTED
+  2, // 6 -> ENTERPRISE_ALLOWLIST_HIT
+  5, // 7 -> TURNED_OFF_BY_POLICY
 };
 
 const std::string& GaiaPasswordReuse_PasswordReuseLookup_LookupResult_Name(
@@ -234,12 +234,12 @@ bool GaiaPasswordReuse_PasswordReuseLookup_LookupResult_Parse(
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::UNSPECIFIED;
-constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::WHITELIST_HIT;
+constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::ALLOWLIST_HIT;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::CACHE_HIT;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::REQUEST_SUCCESS;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::REQUEST_FAILURE;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::URL_UNSUPPORTED;
-constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::ENTERPRISE_WHITELIST_HIT;
+constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::ENTERPRISE_ALLOWLIST_HIT;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::TURNED_OFF_BY_POLICY;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::LookupResult_MIN;
 constexpr GaiaPasswordReuse_PasswordReuseLookup_LookupResult GaiaPasswordReuse_PasswordReuseLookup::LookupResult_MAX;

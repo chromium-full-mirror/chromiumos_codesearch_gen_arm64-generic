@@ -6,15 +6,15 @@
 import { __decorate } from "//resources/mwc/tslib/tslib.js";
 import { isServer, LitElement } from '//resources/mwc/lit/index.js';
 import { property } from '//resources/mwc/lit/index.js';
-import { AttachableController } from '../../internal/controller/attachable-controller.js';
+import { AttachableController, } from '../../internal/controller/attachable-controller.js';
 /**
  * Events that the focus ring listens to.
- *
- * @fires visibility-changed Fired whenever `visible` changes.
  */
 const EVENTS = ['focusin', 'focusout', 'pointerdown'];
 /**
  * A focus ring component.
+ *
+ * @fires visibility-changed {Event} Fired whenever `visible` changes.
  */
 export class FocusRing extends LitElement {
     constructor() {

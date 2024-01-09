@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -180,14 +181,17 @@ void ScreenAIDownloaderProxy::DownloadComponentDeprecated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ScreenAIDownloader::DownloadComponentDeprecated");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIDownloader_DownloadComponentDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -211,14 +215,17 @@ void ScreenAIDownloaderProxy::SetLastUsageTime(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ScreenAIDownloader::SetLastUsageTime");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIDownloader_SetLastUsageTime_Name, kFlags, 0, 0, nullptr);
@@ -248,14 +255,17 @@ void ScreenAIDownloaderProxy::GetComponentFolder(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIDownloader_GetComponentFolder_Name, kFlags, 0, 0, nullptr);
@@ -320,7 +330,7 @@ class ScreenAIDownloader_DownloadComponentDeprecated_ProxyToResponder : public :
 #endif
 
   void Run(
-      const absl::optional<::base::FilePath>& in_loaded_folder);
+      const std::optional<::base::FilePath>& in_loaded_folder);
 };
 
 bool ScreenAIDownloader_DownloadComponentDeprecated_ForwardToCallback::Accept(
@@ -333,7 +343,7 @@ bool ScreenAIDownloader_DownloadComponentDeprecated_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::FilePath> p_loaded_folder{};
+  std::optional<::base::FilePath> p_loaded_folder{};
   ScreenAIDownloader_DownloadComponentDeprecated_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadLoadedFolder(&p_loaded_folder))
@@ -352,7 +362,7 @@ std::move(p_loaded_folder));
 }
 
 void ScreenAIDownloader_DownloadComponentDeprecated_ProxyToResponder::Run(
-    const absl::optional<::base::FilePath>& in_loaded_folder) {
+    const std::optional<::base::FilePath>& in_loaded_folder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ScreenAIDownloader::DownloadComponentDeprecated", "async_response_parameters",
@@ -360,13 +370,14 @@ void ScreenAIDownloader_DownloadComponentDeprecated_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("loaded_folder"), in_loaded_folder,
-                        "<value of type const absl::optional<::base::FilePath>&>");
+                        "<value of type const std::optional<::base::FilePath>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIDownloader_DownloadComponentDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -444,7 +455,7 @@ class ScreenAIDownloader_GetComponentFolder_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      const absl::optional<::base::FilePath>& in_component_folder);
+      const std::optional<::base::FilePath>& in_component_folder);
 };
 
 bool ScreenAIDownloader_GetComponentFolder_ForwardToCallback::Accept(
@@ -457,7 +468,7 @@ bool ScreenAIDownloader_GetComponentFolder_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::FilePath> p_component_folder{};
+  std::optional<::base::FilePath> p_component_folder{};
   ScreenAIDownloader_GetComponentFolder_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadComponentFolder(&p_component_folder))
@@ -476,7 +487,7 @@ std::move(p_component_folder));
 }
 
 void ScreenAIDownloader_GetComponentFolder_ProxyToResponder::Run(
-    const absl::optional<::base::FilePath>& in_component_folder) {
+    const std::optional<::base::FilePath>& in_component_folder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ScreenAIDownloader::GetComponentFolder", "async_response_parameters",
@@ -484,13 +495,14 @@ void ScreenAIDownloader_GetComponentFolder_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("component_folder"), in_component_folder,
-                        "<value of type const absl::optional<::base::FilePath>&>");
+                        "<value of type const std::optional<::base::FilePath>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenAIDownloader_GetComponentFolder_Name, kFlags, 0, 0, nullptr);
@@ -629,14 +641,14 @@ std::move(p_download_if_needed), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenAIDownloaderValidationInfo[] = {
-    {&internal::ScreenAIDownloader_DownloadComponentDeprecated_Params_Data::Validate,
+    { &internal::ScreenAIDownloader_DownloadComponentDeprecated_Params_Data::Validate,
      &internal::ScreenAIDownloader_DownloadComponentDeprecated_ResponseParams_Data::Validate},
-    {&internal::ScreenAIDownloader_SetLastUsageTime_Params_Data::Validate,
+    { &internal::ScreenAIDownloader_SetLastUsageTime_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScreenAIDownloader_GetComponentFolder_Params_Data::Validate,
+    { &internal::ScreenAIDownloader_GetComponentFolder_Params_Data::Validate,
      &internal::ScreenAIDownloader_GetComponentFolder_ResponseParams_Data::Validate},
 };
 
@@ -681,14 +693,14 @@ ScreenAIDownloaderAsyncWaiter::ScreenAIDownloaderAsyncWaiter(
 ScreenAIDownloaderAsyncWaiter::~ScreenAIDownloaderAsyncWaiter() = default;
 
 void ScreenAIDownloaderAsyncWaiter::DownloadComponentDeprecated(
-    absl::optional<::base::FilePath>* out_loaded_folder) {
+    std::optional<::base::FilePath>* out_loaded_folder) {
   base::RunLoop loop;
   proxy_->DownloadComponentDeprecated(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::FilePath>* out_loaded_folder
+             std::optional<::base::FilePath>* out_loaded_folder
 ,
-             const absl::optional<::base::FilePath>& loaded_folder) {*out_loaded_folder = std::move(loaded_folder);
+             const std::optional<::base::FilePath>& loaded_folder) {*out_loaded_folder = std::move(loaded_folder);
             loop->Quit();
           },
           &loop,
@@ -696,22 +708,22 @@ void ScreenAIDownloaderAsyncWaiter::DownloadComponentDeprecated(
   loop.Run();
 }
 
-absl::optional<::base::FilePath> ScreenAIDownloaderAsyncWaiter::DownloadComponentDeprecated(
+std::optional<::base::FilePath> ScreenAIDownloaderAsyncWaiter::DownloadComponentDeprecated(
     ) {
-  absl::optional<::base::FilePath> async_wait_result;
+  std::optional<::base::FilePath> async_wait_result;
   DownloadComponentDeprecated(&async_wait_result);
   return async_wait_result;
 }
 
 void ScreenAIDownloaderAsyncWaiter::GetComponentFolder(
-    bool download_if_needed, absl::optional<::base::FilePath>* out_component_folder) {
+    bool download_if_needed, std::optional<::base::FilePath>* out_component_folder) {
   base::RunLoop loop;
   proxy_->GetComponentFolder(std::move(download_if_needed),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::FilePath>* out_component_folder
+             std::optional<::base::FilePath>* out_component_folder
 ,
-             const absl::optional<::base::FilePath>& component_folder) {*out_component_folder = std::move(component_folder);
+             const std::optional<::base::FilePath>& component_folder) {*out_component_folder = std::move(component_folder);
             loop->Quit();
           },
           &loop,
@@ -719,9 +731,9 @@ void ScreenAIDownloaderAsyncWaiter::GetComponentFolder(
   loop.Run();
 }
 
-absl::optional<::base::FilePath> ScreenAIDownloaderAsyncWaiter::GetComponentFolder(
+std::optional<::base::FilePath> ScreenAIDownloaderAsyncWaiter::GetComponentFolder(
     bool download_if_needed) {
-  absl::optional<::base::FilePath> async_wait_result;
+  std::optional<::base::FilePath> async_wait_result;
   GetComponentFolder(std::move(download_if_needed),&async_wait_result);
   return async_wait_result;
 }

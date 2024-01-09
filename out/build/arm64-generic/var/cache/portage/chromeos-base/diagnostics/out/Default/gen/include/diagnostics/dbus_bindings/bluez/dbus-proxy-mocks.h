@@ -214,9 +214,6 @@ class Device1ProxyMock : public Device1ProxyInterface {
   MOCK_METHOD(int16_t, rssi, (), (const, override));
   MOCK_METHOD(bool, is_rssi_valid, (), (const, override));
 
-  MOCK_METHOD(uint16_t, mtu, (), (const, override));
-  MOCK_METHOD(bool, is_mtu_valid, (), (const, override));
-
   MOCK_METHOD(const std::vector<std::string>&, uuids, (), (const, override));
   MOCK_METHOD(bool, is_uuids_valid, (), (const, override));
 

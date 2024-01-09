@@ -1,8 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-page-styles cr-hidden-style iron-flex">:host([is-subpage-animating]){overflow:hidden}:host(:not([in-search-mode])) settings-section:not([active]){display:none}</style>
-    <template is="dom-if" if="[[showBasicPage_(
-        currentRoute_, inSearchMode, hasExpandedSection_)]]">
+    <template is="dom-if" if="[[showBasicPage_(currentRoute_, inSearchMode)]]" restamp>
       <div id="basicPage">
         <template is="dom-if" if="[[showResetProfileBanner_]]" restamp>
           <settings-reset-profile-banner on-close="onResetProfileBannerClosed_">
@@ -12,6 +11,11 @@ export function getTemplate() {
           <settings-section page-title="$i18n{peoplePageTitle}" section="people">
             <settings-people-page prefs="{{prefs}}" page-visibility="[[pageVisibility]]">
             </settings-people-page>
+          </settings-section>
+        </template>
+        <template is="dom-if" if="[[showExperimentalAdvancedPage_(pageVisibility.ai)]]" restamp>
+          <settings-section page-title="$i18n{experimentalAdvancedPageTitle}" section="ai">
+            <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPage_(pageVisibility.autofill)]]" restamp>
@@ -30,7 +34,8 @@ export function getTemplate() {
             </settings-safety-check-page>
           </settings-section>
         </template>
-        <template is="dom-if" if="[[showSafetyHubEntryPointPage_(pageVisibility.privacy)]]" restamp>
+        
+        <template is="dom-if" if="[[showSafetyHubEntryPointPage_(pageVisibility.safetyHub)]]" restamp>
           <settings-section page-title="$i18n{safetyHub}" section="safetyHubEntryPoint" nest-under-section="privacy" id="safetyHubEntryPointSection">
             <settings-safety-hub-entry-point></settings-safety-hub-entry-point>
           </settings-section>
@@ -42,7 +47,7 @@ export function getTemplate() {
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPerformancePage_(pageVisibility.performance)]]" restamp>
-          <settings-section page-title="[[getPerformancePageTitle_()]]" section="performance" id="performanceSettingsSection">
+          <settings-section page-title="$i18n{memoryPageTitle}" section="performance" id="performanceSettingsSection">
             <settings-performance-page prefs="{{prefs}}">
             </settings-performance-page>
           </settings-section>
@@ -86,9 +91,7 @@ export function getTemplate() {
     <template is="dom-if" if="[[showAdvancedSettings_(pageVisibility.advancedSettings)]]">
       <settings-idle-load id="advancedPageTemplate">
         <template>
-          <div id="advancedPage" hidden$="[[!showAdvancedPage_(
-              currentRoute_, inSearchMode, hasExpandedSection_,
-              advancedToggleExpanded)]]">
+          <div id="advancedPage">
             <template is="dom-if" if="[[showPage_(pageVisibility.languages)]]" restamp>
 
               <settings-section page-title="$i18n{languagesPageTitle}" section="languages">

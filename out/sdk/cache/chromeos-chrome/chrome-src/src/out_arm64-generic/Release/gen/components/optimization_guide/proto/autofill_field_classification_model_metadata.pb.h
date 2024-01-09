@@ -161,6 +161,7 @@ class AutofillFieldClassificationModelMetadata final :
   enum : int {
     kInputTokenFieldNumber = 1,
     kOutputTypeFieldNumber = 2,
+    kConfidenceThresholdFieldNumber = 3,
   };
   // repeated string input_token = 1;
   int input_token_size() const;
@@ -208,6 +209,19 @@ class AutofillFieldClassificationModelMetadata final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
       mutable_output_type();
 
+  // optional float confidence_threshold = 3;
+  bool has_confidence_threshold() const;
+  private:
+  bool _internal_has_confidence_threshold() const;
+  public:
+  void clear_confidence_threshold();
+  float confidence_threshold() const;
+  void set_confidence_threshold(float value);
+  private:
+  float _internal_confidence_threshold() const;
+  void _internal_set_confidence_threshold(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:optimization_guide.proto.AutofillFieldClassificationModelMetadata)
  private:
   class _Internal;
@@ -215,9 +229,11 @@ class AutofillFieldClassificationModelMetadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> input_token_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > output_type_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  float confidence_threshold_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fautofill_5ffield_5fclassification_5fmodel_5fmetadata_2eproto;
 };
 // ===================================================================
@@ -351,6 +367,34 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
 AutofillFieldClassificationModelMetadata::mutable_output_type() {
   // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.AutofillFieldClassificationModelMetadata.output_type)
   return _internal_mutable_output_type();
+}
+
+// optional float confidence_threshold = 3;
+inline bool AutofillFieldClassificationModelMetadata::_internal_has_confidence_threshold() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool AutofillFieldClassificationModelMetadata::has_confidence_threshold() const {
+  return _internal_has_confidence_threshold();
+}
+inline void AutofillFieldClassificationModelMetadata::clear_confidence_threshold() {
+  confidence_threshold_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline float AutofillFieldClassificationModelMetadata::_internal_confidence_threshold() const {
+  return confidence_threshold_;
+}
+inline float AutofillFieldClassificationModelMetadata::confidence_threshold() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.AutofillFieldClassificationModelMetadata.confidence_threshold)
+  return _internal_confidence_threshold();
+}
+inline void AutofillFieldClassificationModelMetadata::_internal_set_confidence_threshold(float value) {
+  _has_bits_[0] |= 0x00000001u;
+  confidence_threshold_ = value;
+}
+inline void AutofillFieldClassificationModelMetadata::set_confidence_threshold(float value) {
+  _internal_set_confidence_threshold(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.AutofillFieldClassificationModelMetadata.confidence_threshold)
 }
 
 #ifdef __GNUC__

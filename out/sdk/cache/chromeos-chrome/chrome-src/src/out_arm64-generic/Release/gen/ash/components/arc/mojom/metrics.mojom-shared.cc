@@ -717,6 +717,40 @@ std::ostream& operator<<(std::ostream& os, WaylandTimingEvent value) {
   return os << WaylandTimingEventToString(value);
 }
 
+NOINLINE static const char* ArcKeyMintErrorToStringHelper(ArcKeyMintError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ArcKeyMintError::kOther:
+      return "kOther";
+    case ArcKeyMintError::kOk:
+      return "kOk";
+    case ArcKeyMintError::kUnknownError:
+      return "kUnknownError";
+    case ArcKeyMintError::kInvalidKeyBlob:
+      return "kInvalidKeyBlob";
+    case ArcKeyMintError::kInvalidArgument:
+      return "kInvalidArgument";
+    case ArcKeyMintError::kUnsupportedAlgorithm:
+      return "kUnsupportedAlgorithm";
+    case ArcKeyMintError::kUnimplemented:
+      return "kUnimplemented";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ArcKeyMintErrorToString(ArcKeyMintError value) {
+  const char *str = ArcKeyMintErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ArcKeyMintError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ArcKeyMintError value) {
+  return os << ArcKeyMintErrorToString(value);
+}
+
 namespace internal {
 
 
@@ -1771,6 +1805,34 @@ MetricsHost_ReportQosSocketPercentage_Params_Data::MetricsHost_ReportQosSocketPe
 
 
 // static
+bool MetricsHost_ReportArcKeyMintError_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MetricsHost_ReportArcKeyMintError_Params_Data* object =
+      static_cast<const MetricsHost_ReportArcKeyMintError_Params_Data*>(data);
+
+
+  if (!::arc::mojom::internal::ArcKeyMintError_Data
+        ::Validate(object->error, validation_context))
+    return false;
+
+  return true;
+}
+
+MetricsHost_ReportArcKeyMintError_Params_Data::MetricsHost_ReportArcKeyMintError_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool MetricsInstance_Init_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2064,6 +2126,16 @@ namespace perfetto {
 void TraceFormatTraits<::arc::mojom::WaylandTimingEvent>::WriteIntoTrace(
    perfetto::TracedValue context, ::arc::mojom::WaylandTimingEvent value) {
   return std::move(context).WriteString(::arc::mojom::WaylandTimingEventToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::arc::mojom::ArcKeyMintError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::arc::mojom::ArcKeyMintError value) {
+  return std::move(context).WriteString(::arc::mojom::ArcKeyMintErrorToString(value));
 }
 
 } // namespace perfetto

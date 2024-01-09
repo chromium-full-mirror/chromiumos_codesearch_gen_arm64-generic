@@ -122,12 +122,6 @@ export class WatchTimeRecorderInterface {
    */
 
   updateUnderflowDuration(totalCompletedCount, totalDuration) {}
-  
-  /**
-   * @param { !mojoBase_mojom_TimeDelta } lastTimestamp
-   */
-
-  onCurrentTimestampChanged(lastTimestamp) {}
 }
 
 /**
@@ -305,22 +299,6 @@ export class WatchTimeRecorderRemote {
           totalDuration
         ]);
   }
-
-  
-  /**
-   * @param { !mojoBase_mojom_TimeDelta } lastTimestamp
-   */
-
-  onCurrentTimestampChanged(
-      lastTimestamp) {
-    this.proxy.sendMessage(
-        9,
-        WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        [
-          lastTimestamp
-        ]);
-  }
 }
 
 /**
@@ -388,11 +366,6 @@ export class WatchTimeRecorderReceiver {
         WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec.$,
         null,
         impl.updateUnderflowDuration.bind(impl));
-    this.helper_internal_.registerHandler(
-        9,
-        WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        impl.onCurrentTimestampChanged.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -547,18 +520,6 @@ export class WatchTimeRecorderCallbackRouter {
         WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec.$,
         null,
         this.updateUnderflowDuration.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.onCurrentTimestampChanged =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        9,
-        WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        this.onCurrentTimestampChanged.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -636,12 +597,6 @@ export const WatchTimeRecorder_UpdateUnderflowCount_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1151,35 +1106,6 @@ export class WatchTimeRecorder_UpdateUnderflowDuration_Params {
     this.totalCompletedCount;
     /** @type { !mojoBase_mojom_TimeDelta } */
     this.totalDuration;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-    'WatchTimeRecorder_OnCurrentTimestampChanged_Params',
-    [
-      mojo.internal.StructField(
-        'lastTimestamp', 0,
-        0,
-        mojoBase_mojom_TimeDeltaSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class WatchTimeRecorder_OnCurrentTimestampChanged_Params {
-  constructor() {
-    /** @type { !mojoBase_mojom_TimeDelta } */
-    this.lastTimestamp;
   }
 }
 

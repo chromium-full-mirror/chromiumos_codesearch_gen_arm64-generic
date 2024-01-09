@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HIDConnectionEvent>::value,
     "HIDConnectionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HIDConnectionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HIDConnectionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("HIDConnectionEvent.device.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDConnectionEvent* blink_receiver = V8HIDConnectionEvent::ToWrappableUnsafe(v8_receiver);
+HIDConnectionEvent* blink_receiver = V8HIDConnectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->device();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("HIDConnectionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDConnectionEvent* blink_receiver = V8HIDConnectionEvent::ToWrappableUnsafe(v8_receiver);
+HIDConnectionEvent* blink_receiver = V8HIDConnectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

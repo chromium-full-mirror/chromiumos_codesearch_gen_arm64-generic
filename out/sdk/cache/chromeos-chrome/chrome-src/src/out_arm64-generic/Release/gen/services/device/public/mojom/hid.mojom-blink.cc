@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -614,9 +615,9 @@ HidDeviceInfo::HidDeviceInfo(
     uint64_t max_output_report_size_in,
     uint64_t max_feature_report_size_in,
     const WTF::String& device_node_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_input_report_ids_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_output_report_ids_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_feature_report_ids_in)
+    std::optional<WTF::Vector<uint8_t>> protected_input_report_ids_in,
+    std::optional<WTF::Vector<uint8_t>> protected_output_report_ids_in,
+    std::optional<WTF::Vector<uint8_t>> protected_feature_report_ids_in)
     : guid(std::move(guid_in)),
       physical_device_id(std::move(physical_device_id_in)),
       vendor_id(std::move(vendor_id_in)),
@@ -651,9 +652,9 @@ HidDeviceInfo::HidDeviceInfo(
     uint64_t max_output_report_size_in,
     uint64_t max_feature_report_size_in,
     const WTF::String& device_node_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_input_report_ids_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_output_report_ids_in,
-    absl::optional<WTF::Vector<uint8_t>> protected_feature_report_ids_in,
+    std::optional<WTF::Vector<uint8_t>> protected_input_report_ids_in,
+    std::optional<WTF::Vector<uint8_t>> protected_output_report_ids_in,
+    std::optional<WTF::Vector<uint8_t>> protected_feature_report_ids_in,
     bool is_excluded_by_blocklist_in)
     : guid(std::move(guid_in)),
       physical_device_id(std::move(physical_device_id_in)),
@@ -809,7 +810,7 @@ void HidDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "protected_input_report_ids"), this->protected_input_report_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<uint8_t>>&>"
+      "<value of type const std::optional<WTF::Vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -818,7 +819,7 @@ void HidDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "protected_output_report_ids"), this->protected_output_report_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<uint8_t>>&>"
+      "<value of type const std::optional<WTF::Vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -827,7 +828,7 @@ void HidDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "protected_feature_report_ids"), this->protected_feature_report_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<uint8_t>>&>"
+      "<value of type const std::optional<WTF::Vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -960,14 +961,17 @@ void HidManagerClientProxy::DeviceAdded(
                         "<value of type HidDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManagerClient_DeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -1008,14 +1012,17 @@ void HidManagerClientProxy::DeviceRemoved(
                         "<value of type HidDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManagerClient_DeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1056,14 +1063,17 @@ void HidManagerClientProxy::DeviceChanged(
                         "<value of type HidDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManagerClient_DeviceChanged_Name, kFlags, 0, 0, nullptr);
@@ -1200,14 +1210,14 @@ bool HidManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHidManagerClientValidationInfo[] = {
-    {&internal::HidManagerClient_DeviceAdded_Params_Data::Validate,
+    { &internal::HidManagerClient_DeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HidManagerClient_DeviceRemoved_Params_Data::Validate,
+    { &internal::HidManagerClient_DeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HidManagerClient_DeviceChanged_Params_Data::Validate,
+    { &internal::HidManagerClient_DeviceChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1396,14 +1406,17 @@ void HidManagerProxy::GetDevicesAndSetClient(
                         "<value of type ::mojo::PendingAssociatedRemote<HidManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_GetDevicesAndSetClient_Name, kFlags, 0, 0, nullptr);
@@ -1433,14 +1446,17 @@ void HidManagerProxy::GetDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::HidManager::GetDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1483,14 +1499,17 @@ void HidManagerProxy::Connect(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1538,14 +1557,17 @@ void HidManagerProxy::AddReceiver(
                         "<value of type ::mojo::PendingReceiver<HidManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_AddReceiver_Name, kFlags, 0, 0, nullptr);
@@ -1660,7 +1682,8 @@ void HidManager_GetDevicesAndSetClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_GetDevicesAndSetClient_Name, kFlags, 0, 0, nullptr);
@@ -1790,7 +1813,8 @@ void HidManager_GetDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1922,7 +1946,8 @@ void HidManager_Connect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidManager_Connect_Name, kFlags, 0, 0, nullptr);
@@ -2116,16 +2141,16 @@ std::move(p_allow_fido_reports), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHidManagerValidationInfo[] = {
-    {&internal::HidManager_GetDevicesAndSetClient_Params_Data::Validate,
+    { &internal::HidManager_GetDevicesAndSetClient_Params_Data::Validate,
      &internal::HidManager_GetDevicesAndSetClient_ResponseParams_Data::Validate},
-    {&internal::HidManager_GetDevices_Params_Data::Validate,
+    { &internal::HidManager_GetDevices_Params_Data::Validate,
      &internal::HidManager_GetDevices_ResponseParams_Data::Validate},
-    {&internal::HidManager_Connect_Params_Data::Validate,
+    { &internal::HidManager_Connect_Params_Data::Validate,
      &internal::HidManager_Connect_ResponseParams_Data::Validate},
-    {&internal::HidManager_AddReceiver_Params_Data::Validate,
+    { &internal::HidManager_AddReceiver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2327,14 +2352,17 @@ void HidConnectionProxy::Read(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::HidConnection::Read");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_Read_Name, kFlags, 0, 0, nullptr);
@@ -2368,14 +2396,17 @@ void HidConnectionProxy::Write(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_Write_Name, kFlags, 0, 0, nullptr);
@@ -2420,14 +2451,17 @@ void HidConnectionProxy::GetFeatureReport(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_GetFeatureReport_Name, kFlags, 0, 0, nullptr);
@@ -2462,14 +2496,17 @@ void HidConnectionProxy::SendFeatureReport(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_SendFeatureReport_Name, kFlags, 0, 0, nullptr);
@@ -2547,7 +2584,7 @@ class HidConnection_Read_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      bool in_success, uint8_t in_report_id, const absl::optional<WTF::Vector<uint8_t>>& in_buffer);
+      bool in_success, uint8_t in_report_id, const std::optional<WTF::Vector<uint8_t>>& in_buffer);
 };
 
 bool HidConnection_Read_ForwardToCallback::Accept(
@@ -2562,7 +2599,7 @@ bool HidConnection_Read_ForwardToCallback::Accept(
   bool success = true;
   bool p_success{};
   uint8_t p_report_id{};
-  absl::optional<WTF::Vector<uint8_t>> p_buffer{};
+  std::optional<WTF::Vector<uint8_t>> p_buffer{};
   HidConnection_Read_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2587,7 +2624,7 @@ std::move(p_buffer));
 }
 
 void HidConnection_Read_ProxyToResponder::Run(
-    bool in_success, uint8_t in_report_id, const absl::optional<WTF::Vector<uint8_t>>& in_buffer) {
+    bool in_success, uint8_t in_report_id, const std::optional<WTF::Vector<uint8_t>>& in_buffer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply device::mojom::HidConnection::Read", "async_response_parameters",
@@ -2601,13 +2638,14 @@ void HidConnection_Read_ProxyToResponder::Run(
                         "<value of type uint8_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("buffer"), in_buffer,
-                        "<value of type const absl::optional<WTF::Vector<uint8_t>>&>");
+                        "<value of type const std::optional<WTF::Vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_Read_Name, kFlags, 0, 0, nullptr);
@@ -2735,7 +2773,8 @@ void HidConnection_Write_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_Write_Name, kFlags, 0, 0, nullptr);
@@ -2807,7 +2846,7 @@ class HidConnection_GetFeatureReport_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      bool in_success, const absl::optional<WTF::Vector<uint8_t>>& in_buffer);
+      bool in_success, const std::optional<WTF::Vector<uint8_t>>& in_buffer);
 };
 
 bool HidConnection_GetFeatureReport_ForwardToCallback::Accept(
@@ -2821,7 +2860,7 @@ bool HidConnection_GetFeatureReport_ForwardToCallback::Accept(
   
   bool success = true;
   bool p_success{};
-  absl::optional<WTF::Vector<uint8_t>> p_buffer{};
+  std::optional<WTF::Vector<uint8_t>> p_buffer{};
   HidConnection_GetFeatureReport_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2843,7 +2882,7 @@ std::move(p_buffer));
 }
 
 void HidConnection_GetFeatureReport_ProxyToResponder::Run(
-    bool in_success, const absl::optional<WTF::Vector<uint8_t>>& in_buffer) {
+    bool in_success, const std::optional<WTF::Vector<uint8_t>>& in_buffer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply device::mojom::HidConnection::GetFeatureReport", "async_response_parameters",
@@ -2854,13 +2893,14 @@ void HidConnection_GetFeatureReport_ProxyToResponder::Run(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("buffer"), in_buffer,
-                        "<value of type const absl::optional<WTF::Vector<uint8_t>>&>");
+                        "<value of type const std::optional<WTF::Vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_GetFeatureReport_Name, kFlags, 0, 0, nullptr);
@@ -2987,7 +3027,8 @@ void HidConnection_SendFeatureReport_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnection_SendFeatureReport_Name, kFlags, 0, 0, nullptr);
@@ -3167,16 +3208,16 @@ std::move(p_buffer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHidConnectionValidationInfo[] = {
-    {&internal::HidConnection_Read_Params_Data::Validate,
+    { &internal::HidConnection_Read_Params_Data::Validate,
      &internal::HidConnection_Read_ResponseParams_Data::Validate},
-    {&internal::HidConnection_Write_Params_Data::Validate,
+    { &internal::HidConnection_Write_Params_Data::Validate,
      &internal::HidConnection_Write_ResponseParams_Data::Validate},
-    {&internal::HidConnection_GetFeatureReport_Params_Data::Validate,
+    { &internal::HidConnection_GetFeatureReport_Params_Data::Validate,
      &internal::HidConnection_GetFeatureReport_ResponseParams_Data::Validate},
-    {&internal::HidConnection_SendFeatureReport_Params_Data::Validate,
+    { &internal::HidConnection_SendFeatureReport_Params_Data::Validate,
      &internal::HidConnection_SendFeatureReport_ResponseParams_Data::Validate},
 };
 
@@ -3264,14 +3305,17 @@ void HidConnectionClientProxy::OnInputReport(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHidConnectionClient_OnInputReport_Name, kFlags, 0, 0, nullptr);
@@ -3357,10 +3401,10 @@ bool HidConnectionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHidConnectionClientValidationInfo[] = {
-    {&internal::HidConnectionClient_OnInputReport_Params_Data::Validate,
+    { &internal::HidConnectionClient_OnInputReport_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3413,8 +3457,8 @@ bool HidConnectionWatcherStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool HidConnectionWatcherRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::device::mojom::blink::HidConnectionWatcher::Name_;
@@ -3730,7 +3774,7 @@ HidConnectionAsyncWaiter::HidConnectionAsyncWaiter(
 HidConnectionAsyncWaiter::~HidConnectionAsyncWaiter() = default;
 
 void HidConnectionAsyncWaiter::Read(
-    bool* out_success, uint8_t* out_report_id, absl::optional<WTF::Vector<uint8_t>>* out_buffer) {
+    bool* out_success, uint8_t* out_report_id, std::optional<WTF::Vector<uint8_t>>* out_buffer) {
   base::RunLoop loop;
   proxy_->Read(
       base::BindOnce(
@@ -3739,11 +3783,11 @@ void HidConnectionAsyncWaiter::Read(
 ,
              uint8_t* out_report_id
 ,
-             absl::optional<WTF::Vector<uint8_t>>* out_buffer
+             std::optional<WTF::Vector<uint8_t>>* out_buffer
 ,
              bool success,
              uint8_t report_id,
-             const absl::optional<WTF::Vector<uint8_t>>& buffer) {*out_success = std::move(success);*out_report_id = std::move(report_id);*out_buffer = std::move(buffer);
+             const std::optional<WTF::Vector<uint8_t>>& buffer) {*out_success = std::move(success);*out_report_id = std::move(report_id);*out_buffer = std::move(buffer);
             loop->Quit();
           },
           &loop,
@@ -3779,17 +3823,17 @@ bool HidConnectionAsyncWaiter::Write(
 }
 
 void HidConnectionAsyncWaiter::GetFeatureReport(
-    uint8_t report_id, bool* out_success, absl::optional<WTF::Vector<uint8_t>>* out_buffer) {
+    uint8_t report_id, bool* out_success, std::optional<WTF::Vector<uint8_t>>* out_buffer) {
   base::RunLoop loop;
   proxy_->GetFeatureReport(std::move(report_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_success
 ,
-             absl::optional<WTF::Vector<uint8_t>>* out_buffer
+             std::optional<WTF::Vector<uint8_t>>* out_buffer
 ,
              bool success,
-             const absl::optional<WTF::Vector<uint8_t>>& buffer) {*out_success = std::move(success);*out_buffer = std::move(buffer);
+             const std::optional<WTF::Vector<uint8_t>>& buffer) {*out_success = std::move(success);*out_buffer = std::move(buffer);
             loop->Quit();
           },
           &loop,

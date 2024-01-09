@@ -16,10 +16,10 @@ namespace media_session::mojom {
 class  MediaSessionObserverInterceptorForTesting : public MediaSessionObserver {
   virtual MediaSessionObserver* GetForwardingInterface() = 0;
   void MediaSessionInfoChanged(MediaSessionInfoPtr info) override;
-  void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) override;
+  void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) override;
   void MediaSessionActionsChanged(const std::vector<MediaSessionAction>& action) override;
   void MediaSessionImagesChanged(const base::flat_map<MediaSessionImageType, std::vector<::media_session::MediaImage>>& images) override;
-  void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) override;
+  void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) override;
 };
 class  MediaSessionObserverAsyncWaiter {
  public:
@@ -54,7 +54,7 @@ class  MediaSessionInterceptorForTesting : public MediaSession {
   void ScrubTo(::base::TimeDelta seek_time) override;
   void EnterPictureInPicture() override;
   void ExitPictureInPicture() override;
-  void SetAudioSinkId(const absl::optional<std::string>& id) override;
+  void SetAudioSinkId(const std::optional<std::string>& id) override;
   void ToggleMicrophone() override;
   void ToggleCamera() override;
   void HangUp() override;

@@ -1595,6 +1595,13 @@ std::unique_ptr<PlatformFontUsage> PlatformFontUsage::Parse(const base::Value& v
   } else {
     errors->AddError("required property missing: familyName");
   }
+  const base::Value* post_script_name_value = dict.Find("postScriptName");
+  if (post_script_name_value) {
+    errors->SetName("postScriptName");
+    result->post_script_name_ = internal::FromValue<std::string>::Parse(*post_script_name_value, errors);
+  } else {
+    errors->AddError("required property missing: postScriptName");
+  }
   const base::Value* is_custom_font_value = dict.Find("isCustomFont");
   if (is_custom_font_value) {
     errors->SetName("isCustomFont");
@@ -1619,6 +1626,7 @@ std::unique_ptr<PlatformFontUsage> PlatformFontUsage::Parse(const base::Value& v
 base::Value PlatformFontUsage::Serialize() const {
   base::Value::Dict result;
   result.Set("familyName", internal::ToValue(family_name_));
+  result.Set("postScriptName", internal::ToValue(post_script_name_));
   result.Set("isCustomFont", internal::ToValue(is_custom_font_));
   result.Set("glyphCount", internal::ToValue(glyph_count_));
   return base::Value(std::move(result));
@@ -2035,6 +2043,70 @@ std::unique_ptr<CSSPropertyRegistration> CSSPropertyRegistration::Clone() const 
 }
 
 
+std::unique_ptr<CSSFontPaletteValuesRule> CSSFontPaletteValuesRule::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("CSSFontPaletteValuesRule");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<CSSFontPaletteValuesRule> result(new CSSFontPaletteValuesRule());
+  errors->Push();
+  errors->SetName("CSSFontPaletteValuesRule");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* style_sheet_id_value = dict.Find("styleSheetId");
+  if (style_sheet_id_value) {
+    errors->SetName("styleSheetId");
+    result->style_sheet_id_ = internal::FromValue<std::string>::Parse(*style_sheet_id_value, errors);
+  }
+  const base::Value* origin_value = dict.Find("origin");
+  if (origin_value) {
+    errors->SetName("origin");
+    result->origin_ = internal::FromValue<::headless::css::StyleSheetOrigin>::Parse(*origin_value, errors);
+  } else {
+    errors->AddError("required property missing: origin");
+  }
+  const base::Value* font_palette_name_value = dict.Find("fontPaletteName");
+  if (font_palette_name_value) {
+    errors->SetName("fontPaletteName");
+    result->font_palette_name_ = internal::FromValue<::headless::css::Value>::Parse(*font_palette_name_value, errors);
+  } else {
+    errors->AddError("required property missing: fontPaletteName");
+  }
+  const base::Value* style_value = dict.Find("style");
+  if (style_value) {
+    errors->SetName("style");
+    result->style_ = internal::FromValue<::headless::css::CSSStyle>::Parse(*style_value, errors);
+  } else {
+    errors->AddError("required property missing: style");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value CSSFontPaletteValuesRule::Serialize() const {
+  base::Value::Dict result;
+  if (style_sheet_id_)
+    result.Set("styleSheetId", internal::ToValue(style_sheet_id_.value()));
+  result.Set("origin", internal::ToValue(origin_));
+  result.Set("fontPaletteName", internal::ToValue(*font_palette_name_));
+  result.Set("style", internal::ToValue(*style_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<CSSFontPaletteValuesRule> CSSFontPaletteValuesRule::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<CSSFontPaletteValuesRule> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<CSSPropertyRule> CSSPropertyRule::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("CSSPropertyRule");
@@ -2254,6 +2326,11 @@ std::unique_ptr<AddRuleParams> AddRuleParams::Parse(const base::Value& value, Er
   } else {
     errors->AddError("required property missing: location");
   }
+  const base::Value* node_for_property_syntax_validation_value = dict.Find("nodeForPropertySyntaxValidation");
+  if (node_for_property_syntax_validation_value) {
+    errors->SetName("nodeForPropertySyntaxValidation");
+    result->node_for_property_syntax_validation_ = internal::FromValue<int>::Parse(*node_for_property_syntax_validation_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -2266,6 +2343,8 @@ base::Value AddRuleParams::Serialize() const {
   result.Set("styleSheetId", internal::ToValue(style_sheet_id_));
   result.Set("ruleText", internal::ToValue(rule_text_));
   result.Set("location", internal::ToValue(*location_));
+  if (node_for_property_syntax_validation_)
+    result.Set("nodeForPropertySyntaxValidation", internal::ToValue(node_for_property_syntax_validation_.value()));
   return base::Value(std::move(result));
 }
 
@@ -3060,6 +3139,11 @@ std::unique_ptr<GetMatchedStylesForNodeResult> GetMatchedStylesForNodeResult::Pa
     errors->SetName("cssPropertyRegistrations");
     result->css_property_registrations_ = internal::FromValue<std::vector<std::unique_ptr<::headless::css::CSSPropertyRegistration>>>::Parse(*css_property_registrations_value, errors);
   }
+  const base::Value* css_font_palette_values_rule_value = dict.Find("cssFontPaletteValuesRule");
+  if (css_font_palette_values_rule_value) {
+    errors->SetName("cssFontPaletteValuesRule");
+    result->css_font_palette_values_rule_ = internal::FromValue<::headless::css::CSSFontPaletteValuesRule>::Parse(*css_font_palette_values_rule_value, errors);
+  }
   const base::Value* parent_layout_node_id_value = dict.Find("parentLayoutNodeId");
   if (parent_layout_node_id_value) {
     errors->SetName("parentLayoutNodeId");
@@ -3094,6 +3178,8 @@ base::Value GetMatchedStylesForNodeResult::Serialize() const {
     result.Set("cssPropertyRules", internal::ToValue(css_property_rules_.value()));
   if (css_property_registrations_)
     result.Set("cssPropertyRegistrations", internal::ToValue(css_property_registrations_.value()));
+  if (css_font_palette_values_rule_)
+    result.Set("cssFontPaletteValuesRule", internal::ToValue(*css_font_palette_values_rule_.value()));
   if (parent_layout_node_id_)
     result.Set("parentLayoutNodeId", internal::ToValue(parent_layout_node_id_.value()));
   return base::Value(std::move(result));
@@ -4456,6 +4542,11 @@ std::unique_ptr<SetStyleTextsParams> SetStyleTextsParams::Parse(const base::Valu
   } else {
     errors->AddError("required property missing: edits");
   }
+  const base::Value* node_for_property_syntax_validation_value = dict.Find("nodeForPropertySyntaxValidation");
+  if (node_for_property_syntax_validation_value) {
+    errors->SetName("nodeForPropertySyntaxValidation");
+    result->node_for_property_syntax_validation_ = internal::FromValue<int>::Parse(*node_for_property_syntax_validation_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -4466,6 +4557,8 @@ std::unique_ptr<SetStyleTextsParams> SetStyleTextsParams::Parse(const base::Valu
 base::Value SetStyleTextsParams::Serialize() const {
   base::Value::Dict result;
   result.Set("edits", internal::ToValue(edits_));
+  if (node_for_property_syntax_validation_)
+    result.Set("nodeForPropertySyntaxValidation", internal::ToValue(node_for_property_syntax_validation_.value()));
   return base::Value(std::move(result));
 }
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -96,8 +97,8 @@ struct Device {
   ~Device();
   Device(const Device&) = delete;
   Device& operator=(const Device&) = delete;
-  Device(Device&& rhs);
-  Device& operator=(Device&& rhs);
+  Device(Device&& rhs) noexcept;
+  Device& operator=(Device&& rhs) noexcept;
 
   // Populates a Device object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -110,14 +111,11 @@ struct Device {
   // Creates a deep copy of Device.
   Device Clone() const;
 
-  // Creates a Device object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Device> FromValueDeprecated(const base::Value& value);
-
   // Creates a Device object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value::Dict& value);
+  static std::optional<Device> FromValue(const base::Value::Dict& value);
 
   // Creates a Device object from a base::Value, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value& value);
+  static std::optional<Device> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDevice object.
@@ -127,11 +125,11 @@ struct Device {
   std::string address;
 
   // The human-readable name of the device.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // The class of the device, a bit-field defined by
   // http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband.
-  absl::optional<int> device_class;
+  std::optional<int> device_class;
 
 };
 
@@ -140,8 +138,8 @@ struct Service {
   ~Service();
   Service(const Service&) = delete;
   Service& operator=(const Service&) = delete;
-  Service(Service&& rhs);
-  Service& operator=(Service&& rhs);
+  Service(Service&& rhs) noexcept;
+  Service& operator=(Service&& rhs) noexcept;
 
   // Populates a Service object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -154,14 +152,11 @@ struct Service {
   // Creates a deep copy of Service.
   Service Clone() const;
 
-  // Creates a Service object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Service> FromValueDeprecated(const base::Value& value);
-
   // Creates a Service object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Service> FromValue(const base::Value::Dict& value);
+  static std::optional<Service> FromValue(const base::Value::Dict& value);
 
   // Creates a Service object from a base::Value, or nullopt on failure.
-  static absl::optional<Service> FromValue(const base::Value& value);
+  static std::optional<Service> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisService object.
@@ -177,11 +172,11 @@ struct Service {
   // distinguish between services from a peripheral with the same UUID and to make
   // function calls that take in a service identifier. Present, if this instance
   // represents a remote service.
-  absl::optional<std::string> instance_id;
+  std::optional<std::string> instance_id;
 
   // The device address of the remote peripheral that the GATT service belongs to.
   // Present, if this instance represents a remote service.
-  absl::optional<std::string> device_address;
+  std::optional<std::string> device_address;
 
 };
 
@@ -190,8 +185,8 @@ struct Characteristic {
   ~Characteristic();
   Characteristic(const Characteristic&) = delete;
   Characteristic& operator=(const Characteristic&) = delete;
-  Characteristic(Characteristic&& rhs);
-  Characteristic& operator=(Characteristic&& rhs);
+  Characteristic(Characteristic&& rhs) noexcept;
+  Characteristic& operator=(Characteristic&& rhs) noexcept;
 
   // Populates a Characteristic object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -204,15 +199,12 @@ struct Characteristic {
   // Creates a deep copy of Characteristic.
   Characteristic Clone() const;
 
-  // Creates a Characteristic object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Characteristic> FromValueDeprecated(const base::Value& value);
-
   // Creates a Characteristic object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Characteristic> FromValue(const base::Value::Dict& value);
+  static std::optional<Characteristic> FromValue(const base::Value::Dict& value);
 
   // Creates a Characteristic object from a base::Value, or nullopt on failure.
-  static absl::optional<Characteristic> FromValue(const base::Value& value);
+  static std::optional<Characteristic> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCharacteristic object.
@@ -222,7 +214,7 @@ struct Characteristic {
   std::string uuid;
 
   // The GATT service this characteristic belongs to.
-  absl::optional<Service> service;
+  std::optional<Service> service;
 
   // The properties of this characteristic.
   std::vector<CharacteristicProperty> properties;
@@ -231,12 +223,12 @@ struct Characteristic {
   // to distinguish between characteristics from a peripheral with the same UUID
   // and to make function calls that take in a characteristic identifier. Present,
   // if this instance represents a remote characteristic.
-  absl::optional<std::string> instance_id;
+  std::optional<std::string> instance_id;
 
   // The currently cached characteristic value. This value gets updated when the
   // value of the characteristic is read or updated via a notification or
   // indication.
-  absl::optional<std::vector<uint8_t>> value;
+  std::optional<std::vector<uint8_t>> value;
 
 };
 
@@ -245,8 +237,8 @@ struct Descriptor {
   ~Descriptor();
   Descriptor(const Descriptor&) = delete;
   Descriptor& operator=(const Descriptor&) = delete;
-  Descriptor(Descriptor&& rhs);
-  Descriptor& operator=(Descriptor&& rhs);
+  Descriptor(Descriptor&& rhs) noexcept;
+  Descriptor& operator=(Descriptor&& rhs) noexcept;
 
   // Populates a Descriptor object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -259,15 +251,12 @@ struct Descriptor {
   // Creates a deep copy of Descriptor.
   Descriptor Clone() const;
 
-  // Creates a Descriptor object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Descriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a Descriptor object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Descriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<Descriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a Descriptor object from a base::Value, or nullopt on failure.
-  static absl::optional<Descriptor> FromValue(const base::Value& value);
+  static std::optional<Descriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDescriptor object.
@@ -278,7 +267,7 @@ struct Descriptor {
   std::string uuid;
 
   // The GATT characteristic this descriptor belongs to.
-  absl::optional<Characteristic> characteristic;
+  std::optional<Characteristic> characteristic;
 
   // The permissions of this descriptor.
   std::vector<DescriptorPermission> permissions;
@@ -287,11 +276,11 @@ struct Descriptor {
   // distinguish between descriptors from a peripheral with the same UUID and to
   // make function calls that take in a descriptor identifier. Present, if this
   // instance represents a remote characteristic.
-  absl::optional<std::string> instance_id;
+  std::optional<std::string> instance_id;
 
   // The currently cached descriptor value. This value gets updated when the value
   // of the descriptor is read.
-  absl::optional<std::vector<uint8_t>> value;
+  std::optional<std::vector<uint8_t>> value;
 
 };
 
@@ -300,8 +289,8 @@ struct ConnectProperties {
   ~ConnectProperties();
   ConnectProperties(const ConnectProperties&) = delete;
   ConnectProperties& operator=(const ConnectProperties&) = delete;
-  ConnectProperties(ConnectProperties&& rhs);
-  ConnectProperties& operator=(ConnectProperties&& rhs);
+  ConnectProperties(ConnectProperties&& rhs) noexcept;
+  ConnectProperties& operator=(ConnectProperties&& rhs) noexcept;
 
   // Populates a ConnectProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -314,16 +303,13 @@ struct ConnectProperties {
   // Creates a deep copy of ConnectProperties.
   ConnectProperties Clone() const;
 
-  // Creates a ConnectProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ConnectProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConnectProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ConnectProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ConnectProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ConnectProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConnectProperties> FromValue(const base::Value& value);
+  static std::optional<ConnectProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConnectProperties object.
@@ -342,8 +328,8 @@ struct NotificationProperties {
   ~NotificationProperties();
   NotificationProperties(const NotificationProperties&) = delete;
   NotificationProperties& operator=(const NotificationProperties&) = delete;
-  NotificationProperties(NotificationProperties&& rhs);
-  NotificationProperties& operator=(NotificationProperties&& rhs);
+  NotificationProperties(NotificationProperties&& rhs) noexcept;
+  NotificationProperties& operator=(NotificationProperties&& rhs) noexcept;
 
   // Populates a NotificationProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -356,17 +342,13 @@ struct NotificationProperties {
   // Creates a deep copy of NotificationProperties.
   NotificationProperties Clone() const;
 
-  // Creates a NotificationProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<NotificationProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotificationProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<NotificationProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<NotificationProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a NotificationProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NotificationProperties> FromValue(const base::Value& value);
+  static std::optional<NotificationProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotificationProperties object.
@@ -385,8 +367,8 @@ struct ManufacturerData {
   ~ManufacturerData();
   ManufacturerData(const ManufacturerData&) = delete;
   ManufacturerData& operator=(const ManufacturerData&) = delete;
-  ManufacturerData(ManufacturerData&& rhs);
-  ManufacturerData& operator=(ManufacturerData&& rhs);
+  ManufacturerData(ManufacturerData&& rhs) noexcept;
+  ManufacturerData& operator=(ManufacturerData&& rhs) noexcept;
 
   // Populates a ManufacturerData object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -399,16 +381,13 @@ struct ManufacturerData {
   // Creates a deep copy of ManufacturerData.
   ManufacturerData Clone() const;
 
-  // Creates a ManufacturerData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManufacturerData> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManufacturerData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManufacturerData> FromValue(const base::Value::Dict& value);
+  static std::optional<ManufacturerData> FromValue(const base::Value::Dict& value);
 
   // Creates a ManufacturerData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManufacturerData> FromValue(const base::Value& value);
+  static std::optional<ManufacturerData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManufacturerData object.
@@ -425,8 +404,8 @@ struct ServiceData {
   ~ServiceData();
   ServiceData(const ServiceData&) = delete;
   ServiceData& operator=(const ServiceData&) = delete;
-  ServiceData(ServiceData&& rhs);
-  ServiceData& operator=(ServiceData&& rhs);
+  ServiceData(ServiceData&& rhs) noexcept;
+  ServiceData& operator=(ServiceData&& rhs) noexcept;
 
   // Populates a ServiceData object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -439,15 +418,12 @@ struct ServiceData {
   // Creates a deep copy of ServiceData.
   ServiceData Clone() const;
 
-  // Creates a ServiceData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ServiceData> FromValueDeprecated(const base::Value& value);
-
   // Creates a ServiceData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ServiceData> FromValue(const base::Value::Dict& value);
+  static std::optional<ServiceData> FromValue(const base::Value::Dict& value);
 
   // Creates a ServiceData object from a base::Value, or nullopt on failure.
-  static absl::optional<ServiceData> FromValue(const base::Value& value);
+  static std::optional<ServiceData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisServiceData object.
@@ -464,8 +440,8 @@ struct Advertisement {
   ~Advertisement();
   Advertisement(const Advertisement&) = delete;
   Advertisement& operator=(const Advertisement&) = delete;
-  Advertisement(Advertisement&& rhs);
-  Advertisement& operator=(Advertisement&& rhs);
+  Advertisement(Advertisement&& rhs) noexcept;
+  Advertisement& operator=(Advertisement&& rhs) noexcept;
 
   // Populates a Advertisement object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -478,15 +454,12 @@ struct Advertisement {
   // Creates a deep copy of Advertisement.
   Advertisement Clone() const;
 
-  // Creates a Advertisement object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Advertisement> FromValueDeprecated(const base::Value& value);
-
   // Creates a Advertisement object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Advertisement> FromValue(const base::Value::Dict& value);
+  static std::optional<Advertisement> FromValue(const base::Value::Dict& value);
 
   // Creates a Advertisement object from a base::Value, or nullopt on failure.
-  static absl::optional<Advertisement> FromValue(const base::Value& value);
+  static std::optional<Advertisement> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAdvertisement object.
@@ -497,19 +470,19 @@ struct Advertisement {
 
   // List of UUIDs to include in the "Service UUIDs" field of the Advertising
   // Data. These UUIDs can be of the 16bit, 32bit or 128 formats.
-  absl::optional<std::vector<std::string>> service_uuids;
+  std::optional<std::vector<std::string>> service_uuids;
 
   // List of manufacturer specific data to be included in "Manufacturer Specific
   // Data" fields of the advertising data.
-  absl::optional<std::vector<ManufacturerData>> manufacturer_data;
+  std::optional<std::vector<ManufacturerData>> manufacturer_data;
 
   // List of UUIDs to include in the "Solicit UUIDs" field of the Advertising
   // Data. These UUIDs can be of the 16bit, 32bit or 128 formats.
-  absl::optional<std::vector<std::string>> solicit_uuids;
+  std::optional<std::vector<std::string>> solicit_uuids;
 
   // List of service data to be included in "Service Data" fields of the
   // advertising data.
-  absl::optional<std::vector<ServiceData>> service_data;
+  std::optional<std::vector<ServiceData>> service_data;
 
 };
 
@@ -518,8 +491,8 @@ struct Request {
   ~Request();
   Request(const Request&) = delete;
   Request& operator=(const Request&) = delete;
-  Request(Request&& rhs);
-  Request& operator=(Request&& rhs);
+  Request(Request&& rhs) noexcept;
+  Request& operator=(Request&& rhs) noexcept;
 
   // Populates a Request object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -532,14 +505,11 @@ struct Request {
   // Creates a deep copy of Request.
   Request Clone() const;
 
-  // Creates a Request object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Request> FromValueDeprecated(const base::Value& value);
-
   // Creates a Request object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Request> FromValue(const base::Value::Dict& value);
+  static std::optional<Request> FromValue(const base::Value::Dict& value);
 
   // Creates a Request object from a base::Value, or nullopt on failure.
-  static absl::optional<Request> FromValue(const base::Value& value);
+  static std::optional<Request> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequest object.
@@ -552,7 +522,7 @@ struct Request {
   Device device;
 
   // Value to write (if this is a write request).
-  absl::optional<std::vector<uint8_t>> value;
+  std::optional<std::vector<uint8_t>> value;
 
 };
 
@@ -561,8 +531,8 @@ struct Response {
   ~Response();
   Response(const Response&) = delete;
   Response& operator=(const Response&) = delete;
-  Response(Response&& rhs);
-  Response& operator=(Response&& rhs);
+  Response(Response&& rhs) noexcept;
+  Response& operator=(Response&& rhs) noexcept;
 
   // Populates a Response object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -575,14 +545,11 @@ struct Response {
   // Creates a deep copy of Response.
   Response Clone() const;
 
-  // Creates a Response object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Response> FromValueDeprecated(const base::Value& value);
-
   // Creates a Response object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Response> FromValue(const base::Value::Dict& value);
+  static std::optional<Response> FromValue(const base::Value::Dict& value);
 
   // Creates a Response object from a base::Value, or nullopt on failure.
-  static absl::optional<Response> FromValue(const base::Value& value);
+  static std::optional<Response> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResponse object.
@@ -596,7 +563,7 @@ struct Response {
 
   // Response value. Write requests and error responses will ignore this
   // parameter.
-  absl::optional<std::vector<uint8_t>> value;
+  std::optional<std::vector<uint8_t>> value;
 
 };
 
@@ -605,8 +572,8 @@ struct Notification {
   ~Notification();
   Notification(const Notification&) = delete;
   Notification& operator=(const Notification&) = delete;
-  Notification(Notification&& rhs);
-  Notification& operator=(Notification&& rhs);
+  Notification(Notification&& rhs) noexcept;
+  Notification& operator=(Notification&& rhs) noexcept;
 
   // Populates a Notification object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -619,15 +586,12 @@ struct Notification {
   // Creates a deep copy of Notification.
   Notification Clone() const;
 
-  // Creates a Notification object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Notification> FromValueDeprecated(const base::Value& value);
-
   // Creates a Notification object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Notification> FromValue(const base::Value::Dict& value);
+  static std::optional<Notification> FromValue(const base::Value::Dict& value);
 
   // Creates a Notification object from a base::Value, or nullopt on failure.
-  static absl::optional<Notification> FromValue(const base::Value& value);
+  static std::optional<Notification> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotification object.
@@ -637,7 +601,7 @@ struct Notification {
   std::vector<uint8_t> value;
 
   // Optional flag for sending an indication instead of a notification.
-  absl::optional<bool> should_indicate;
+  std::optional<bool> should_indicate;
 
 };
 
@@ -649,11 +613,11 @@ struct Notification {
 namespace Connect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The Bluetooth address of the remote device to which a GATT connection should
@@ -661,7 +625,7 @@ struct Params {
   std::string device_address;
 
   // Connection properties (optional).
-  absl::optional<ConnectProperties> properties;
+  std::optional<ConnectProperties> properties;
 
 
  private:
@@ -678,11 +642,11 @@ base::Value::List Create();
 namespace Disconnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The Bluetooth address of the remote device.
@@ -703,11 +667,11 @@ base::Value::List Create();
 namespace GetService {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the requested GATT service.
@@ -728,11 +692,11 @@ base::Value::List Create(const Service& result);
 namespace CreateService {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The service to create.
@@ -753,11 +717,11 @@ base::Value::List Create(const std::string& service_id);
 namespace GetServices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The Bluetooth address of the remote device whose GATT services should be
@@ -779,11 +743,11 @@ base::Value::List Create(const std::vector<Service>& result);
 namespace GetCharacteristic {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the requested GATT characteristic.
@@ -804,11 +768,11 @@ base::Value::List Create(const Characteristic& result);
 namespace CreateCharacteristic {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The characteristic to create.
@@ -832,11 +796,11 @@ base::Value::List Create(const std::string& characteristic_id);
 namespace GetCharacteristics {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT service whose characteristics should be returned.
@@ -857,11 +821,11 @@ base::Value::List Create(const std::vector<Characteristic>& result);
 namespace GetIncludedServices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT service whose included services should be
@@ -883,11 +847,11 @@ base::Value::List Create(const std::vector<Service>& result);
 namespace GetDescriptor {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the requested GATT characteristic descriptor.
@@ -908,11 +872,11 @@ base::Value::List Create(const Descriptor& result);
 namespace CreateDescriptor {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The descriptor to create.
@@ -936,11 +900,11 @@ base::Value::List Create(const std::string& descriptor_id);
 namespace GetDescriptors {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic whose descriptors should be
@@ -962,11 +926,11 @@ base::Value::List Create(const std::vector<Descriptor>& result);
 namespace ReadCharacteristicValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic whose value should be read from
@@ -988,11 +952,11 @@ base::Value::List Create(const Characteristic& result);
 namespace WriteCharacteristicValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic whose value should be written to.
@@ -1017,11 +981,11 @@ base::Value::List Create();
 namespace StartCharacteristicNotifications {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic that notifications should be
@@ -1029,7 +993,7 @@ struct Params {
   std::string characteristic_id;
 
   // Notification session properties (optional).
-  absl::optional<NotificationProperties> properties;
+  std::optional<NotificationProperties> properties;
 
 
  private:
@@ -1046,11 +1010,11 @@ base::Value::List Create();
 namespace StopCharacteristicNotifications {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic on which this app's notification
@@ -1072,11 +1036,11 @@ base::Value::List Create();
 namespace NotifyCharacteristicValueChanged {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The characteristic to send the notication for.
@@ -1099,11 +1063,11 @@ base::Value::List Create();
 namespace ReadDescriptorValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic descriptor whose value should be
@@ -1125,11 +1089,11 @@ base::Value::List Create(const Descriptor& result);
 namespace WriteDescriptorValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the GATT characteristic descriptor whose value should be
@@ -1155,11 +1119,11 @@ base::Value::List Create();
 namespace RegisterService {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Unique ID of a created service.
@@ -1180,11 +1144,11 @@ base::Value::List Create();
 namespace UnregisterService {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Unique ID of a current registered service.
@@ -1205,11 +1169,11 @@ base::Value::List Create();
 namespace RemoveService {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Unique ID of a current registered service.
@@ -1230,11 +1194,11 @@ base::Value::List Create();
 namespace RegisterAdvertisement {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The advertisement to advertise.
@@ -1255,11 +1219,11 @@ base::Value::List Create(int advertisement_id);
 namespace UnregisterAdvertisement {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Id of the advertisement to unregister.
@@ -1289,11 +1253,11 @@ base::Value::List Create();
 namespace SetAdvertisingInterval {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Minimum interval between advertisments (in milliseconds). This cannot be
@@ -1319,11 +1283,11 @@ base::Value::List Create();
 namespace SendRequestResponse {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The response to the request.

@@ -6,6 +6,7 @@ pub mod dlcservice;
 pub mod fido;
 pub mod key;
 pub mod printscanmgr_service;
+pub mod recoverable_key_store;
 pub mod resource_manager;
 pub mod rpc;
 pub mod shadercached;

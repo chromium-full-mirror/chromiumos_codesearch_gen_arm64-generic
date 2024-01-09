@@ -12,7 +12,7 @@ styleMod.appendChild(html`
 @import 'ui/webui/resources/cr_elements/chromeos/cros_color_overrides.css';
 
 a {
-  color: var(--cros-link-color);
+  color: var(--cros-sys-primary);
   text-decoration: none;
 }
     </style>

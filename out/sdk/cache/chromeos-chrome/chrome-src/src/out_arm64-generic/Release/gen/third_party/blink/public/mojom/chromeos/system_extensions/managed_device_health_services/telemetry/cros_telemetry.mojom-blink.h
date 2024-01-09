@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/cros_telemetry.mojom-features.h"
 #include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/cros_telemetry.mojom-shared.h"
 #include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/cros_telemetry.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/nullable_primitives.mojom-blink.h"
@@ -39,30 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ProbeCategoryEnum>
-    : EnumHashTraits<::blink::mojom::ProbeCategoryEnum, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::TelemetryErrorType>
-    : EnumHashTraits<::blink::mojom::TelemetryErrorType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -348,17 +325,17 @@ class PLATFORM_EXPORT MemoryResult {
   // Construct an instance holding |memory_info|.
   static MemoryResultPtr
   NewMemoryInfo(
-      MemoryInfoPtr memory_info) {
+      MemoryInfoPtr value) {
     auto result = MemoryResultPtr(absl::in_place);
-    result->set_memory_info(std::move(memory_info));
+    result->set_memory_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static MemoryResultPtr
   NewError(
-      TelemetryErrorPtr error) {
+      TelemetryErrorPtr value) {
     auto result = MemoryResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

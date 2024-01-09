@@ -29,8 +29,6 @@ const UIStrings = {
      */
     toggleCode: 'Toggle code view',
 };
-// TODO: (crbug.com/1181019)
-const RecorderCategory = 'Recorder';
 const str_ = i18n.i18n.registerUIStrings('panels/recorder/recorder-meta.ts', UIStrings);
 const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
 let loadedRecorderModule;
@@ -65,16 +63,16 @@ UI.ViewManager.registerViewExtension({
     },
 });
 UI.ActionRegistration.registerActionExtension({
-    category: RecorderCategory,
+    category: UI.ActionRegistration.ActionCategory.RECORDER,
     actionId: "chrome_recorder.create-recording" /* Actions.RecorderActions.CreateRecording */,
     title: i18nLazyString(UIStrings.createRecording),
     async loadActionDelegate() {
         const Recorder = await loadRecorderModule();
-        return Recorder.RecorderPanel.ActionDelegate.instance();
+        return new Recorder.RecorderPanel.ActionDelegate();
     },
 });
 UI.ActionRegistration.registerActionExtension({
-    category: RecorderCategory,
+    category: UI.ActionRegistration.ActionCategory.RECORDER,
     actionId: "chrome_recorder.start-recording" /* Actions.RecorderActions.StartRecording */,
     title: i18nLazyString(UIStrings.startStopRecording),
     contextTypes() {
@@ -82,7 +80,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Recorder = await loadRecorderModule();
-        return Recorder.RecorderPanel.ActionDelegate.instance();
+        return new Recorder.RecorderPanel.ActionDelegate();
     },
     bindings: [
         {
@@ -93,7 +91,7 @@ UI.ActionRegistration.registerActionExtension({
     ],
 });
 UI.ActionRegistration.registerActionExtension({
-    category: RecorderCategory,
+    category: UI.ActionRegistration.ActionCategory.RECORDER,
     actionId: "chrome_recorder.replay-recording" /* Actions.RecorderActions.ReplayRecording */,
     title: i18nLazyString(UIStrings.replayRecording),
     contextTypes() {
@@ -101,7 +99,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Recorder = await loadRecorderModule();
-        return Recorder.RecorderPanel.ActionDelegate.instance();
+        return new Recorder.RecorderPanel.ActionDelegate();
     },
     bindings: [
         {
@@ -112,7 +110,7 @@ UI.ActionRegistration.registerActionExtension({
     ],
 });
 UI.ActionRegistration.registerActionExtension({
-    category: RecorderCategory,
+    category: UI.ActionRegistration.ActionCategory.RECORDER,
     actionId: "chrome_recorder.toggle-code-view" /* Actions.RecorderActions.ToggleCodeView */,
     title: i18nLazyString(UIStrings.toggleCode),
     contextTypes() {
@@ -120,7 +118,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Recorder = await loadRecorderModule();
-        return Recorder.RecorderPanel.ActionDelegate.instance();
+        return new Recorder.RecorderPanel.ActionDelegate();
     },
     bindings: [
         {

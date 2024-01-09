@@ -80,7 +80,7 @@ export class SidenavItem extends LitElement {
       width: 100%;
     }
 
-    #tree-row-button {
+    #tree-row {
       align-items: center;
       background: none;
       border: none;
@@ -100,7 +100,7 @@ export class SidenavItem extends LitElement {
       width: 100%;
     }
 
-    #tree-row button:focus-visible {
+    #tree-row:focus-visible {
       outline: none;
     }
 
@@ -111,22 +111,22 @@ export class SidenavItem extends LitElement {
       --md-focus-ring-width: 2px;
     }
 
-    :host([enabled]) #tree-row-button {
+    :host([enabled]) #tree-row {
       background-color: var(--cros-sys-primary);
       color: var(--cros-sys-on_primary);
     }
 
-    :host([disabled]) #tree-row-button {
+    :host([disabled]) #tree-row {
       color: var(--cros-sys-disabled);
       pointer-events: none;
     }
 
-    :host([error]) #tree-row-button {
+    :host([error]) #tree-row {
       background-color: var(--cros-sys-error_container);
       color: var(--cros-sys-on_error_container);
     }
 
-    :host-context(.pointer-active) #tree-row-button:not(:active) {
+    :host-context(.pointer-active) #tree-row:not(:active) {
       cursor: default;
     }
 
@@ -323,7 +323,7 @@ export class SidenavItem extends LitElement {
         };
     }
     get treeRowElement() {
-        return castExists(this.renderRoot.querySelector('button'));
+        return castExists(this.shadowRoot.getElementById('tree-row'));
     }
     get renameInputElement() {
         return castExists(this.renderRoot.querySelector('.rename'));
@@ -410,40 +410,42 @@ export class SidenavItem extends LitElement {
             aria-labelledby="tree-label"
             aria-expanded=${showExpandIcon ? this.expanded : nothing}
             aria-disabled=${this.disabled}
+            tabindex=${this.tabIndex}
             title="${this.label}"
-            @click=${this.onRowClicked}>
-            <button
-              id="tree-row-button"
-              tabindex=${this.tabIndex}
-              class=${classMap(treeRowClasses)}
-              style=${styleMap(treeRowStyles)}>
-            <md-ripple
-                for="tree-row-button"
-                ?disabled=${this.disabled}>
-            </md-ripple>
-            <md-focus-ring
-                for="tree-row-button"
-                ?disabled=${this.disabled}>
-            </md-focus-ring>
-            <!-- TODO: b/231672472 - Implement icon from spec -->
-            <span
-                class="expand-icon"
-                aria-hidden="true"
-                @click=${this.onExpandIconClicked}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                <polyline points="6 8 10 12 14 8 6 8"/>
-              </svg>
-            </span>
-            <slot
-                name="icon"
-                class=${this.hasIcon ? 'has-icon' : ''}
-                aria-hidden="true"
-                @slotchange=${this.onIconSlotChanged}>
-            </slot>
-            ${this.renderTreeLabel()}
-          </button>
+            @click=${this.onRowClicked}
+            @keydown=${this.onKeyDown}
+            class=${classMap(treeRowClasses)}
+            style=${styleMap(treeRowStyles)}>
+          <md-ripple
+              for="tree-row"
+              ?disabled=${this.disabled}>
+          </md-ripple>
+          <md-focus-ring
+              for="tree-row"
+              ?disabled=${this.disabled}>
+          </md-focus-ring>
+          <!-- TODO: b/231672472 - Implement icon from spec -->
+          <span
+              class="expand-icon"
+              aria-hidden="true"
+              @click=${this.onExpandIconClicked}>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20">
+              <polyline points="6 8 10 12 14 8 6 8"/>
+            </svg>
+          </span>
+          <slot
+              name="icon"
+              class=${this.hasIcon ? 'has-icon' : ''}
+              aria-hidden="true"
+              @slotchange=${this.onIconSlotChanged}>
+          </slot>
+          ${this.renderTreeLabel()}
         </div>
         <ul
+            aria-hidden=${!this.expanded}
             class="tree-children"
             role="group">
           <slot @slotchange=${this.onSlotChanged}></slot>
@@ -581,6 +583,24 @@ export class SidenavItem extends LitElement {
             bubbles: false,
             detail: { item: this },
         }));
+    }
+    onKeyDown(e) {
+        if (this.renaming)
+            return;
+        switch (e.key) {
+            case 'Enter':
+            case ' ':
+                if (this.disabled)
+                    break;
+                this.enabled = true;
+                this.dispatchEvent(new CustomEvent(SidenavItem.events.SIDENAV_ITEM_TRIGGERED, {
+                    bubbles: false,
+                    detail: { item: this },
+                }));
+                break;
+            default:
+                break;
+        }
     }
     onRenamingChanged() {
         if (this.renaming) {

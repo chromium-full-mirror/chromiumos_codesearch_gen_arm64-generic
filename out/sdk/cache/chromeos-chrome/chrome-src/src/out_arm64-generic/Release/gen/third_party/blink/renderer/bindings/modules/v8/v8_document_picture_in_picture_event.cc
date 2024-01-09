@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentPictureInPictureEvent>::value,
     "DocumentPictureInPictureEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentPictureInPictureEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentPictureInPictureEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8DocumentPictureInPic
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPictureInPictureEvent* blink_receiver = V8DocumentPictureInPictureEvent::ToWrappableUnsafe(v8_receiver);
+DocumentPictureInPictureEvent* blink_receiver = V8DocumentPictureInPictureEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->window();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -110,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentPictureInPictureEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPictureInPictureEvent* blink_receiver = V8DocumentPictureInPictureEvent::ToWrappableUnsafe(v8_receiver);
+DocumentPictureInPictureEvent* blink_receiver = V8DocumentPictureInPictureEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

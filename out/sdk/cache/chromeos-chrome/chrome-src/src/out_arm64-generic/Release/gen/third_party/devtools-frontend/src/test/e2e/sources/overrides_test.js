@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const network_helpers_js_1 = require("../helpers/network-helpers.js");
 const quick_open_helpers_js_1 = require("../helpers/quick_open-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
@@ -21,10 +22,10 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         await (0, helper_js_1.goToResource)('empty.html');
         await (0, sources_helpers_js_1.openSourcesPanel)();
         await (0, sources_helpers_js_1.enableLocalOverrides)();
-        await (0, sources_helpers_js_1.clickOnContextMenu)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
+        await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
         await (0, helper_js_1.waitFor)('[aria-label="NewFile, file"]');
         await (0, helper_js_1.typeText)('foo\n');
-        await (0, sources_helpers_js_1.clickOnContextMenu)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
+        await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
         await (0, helper_js_1.waitFor)('[aria-label="NewFile, file"]');
         await (0, helper_js_1.typeText)('bar\n');
         await (0, helper_js_1.waitFor)('[aria-label="bar, file"]');
@@ -82,7 +83,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
             chai_1.assert.deepEqual(list, ['coffees.json']);
         });
     });
-    (0, mocha_extensions_js_1.it)('can always override content via the Network panel', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] can always override content via the Network panel', async () => {
         await (0, helper_js_1.step)('can override without local overrides folder set up', async () => {
             await (0, helper_js_1.goToResource)('network/fetch-json.html');
             await (0, network_helpers_js_1.openNetworkTab)();
@@ -124,7 +126,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
             await (0, helper_js_1.click)('aria/Close coffees.json');
         });
     });
-    (0, mocha_extensions_js_1.it)('overrides indicator on the Network panel title', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] overrides indicator on the Network panel title', async () => {
         await (0, helper_js_1.step)('no indicator when overrides setting is disabled', async () => {
             await (0, helper_js_1.goToResource)('network/fetch-json.html');
             await (0, network_helpers_js_1.openNetworkTab)();
@@ -159,7 +162,7 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         await (0, helper_js_1.step)('shows indicator after enabling override in Overrides tab', async () => {
             await (0, helper_js_1.click)('aria/Sources');
             await (0, helper_js_1.click)('aria/Select folder for overrides');
-            await (0, sources_helpers_js_1.clickOnContextMenu)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
             await (0, helper_js_1.waitFor)('[aria-label="NewFile, file"]');
             await (0, network_helpers_js_1.openNetworkTab)();
             const networkPanel = await (0, helper_js_1.waitFor)('.tabbed-pane-header-tab.selected');
@@ -183,7 +186,7 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         await (0, helper_js_1.step)('when overrides setting is enabled', async () => {
             // Set up & enable overrides in the Sources panel
             await (0, helper_js_1.click)('aria/Select folder for overrides');
-            await (0, sources_helpers_js_1.clickOnContextMenu)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(OVERRIDES_FILESYSTEM_SELECTOR, 'New file');
             await (0, network_helpers_js_1.openNetworkTab)();
             await (0, network_helpers_js_1.selectRequestByName)('coffees.json', { button: 'right' });
             await (0, helper_js_1.click)('aria/Show all overrides');
@@ -193,7 +196,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
             chai_1.assert.strictEqual(assertElements.length, 1);
         });
     });
-    (0, mocha_extensions_js_1.it)('has correct context menu for overrides files', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] has correct context menu for overrides files', async () => {
         await (0, helper_js_1.goToResource)('network/fetch-json.html');
         await (0, network_helpers_js_1.openNetworkTab)();
         await (0, network_helpers_js_1.selectRequestByName)('coffees.json', { button: 'right' });
@@ -213,7 +217,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         chai_1.assert.strictEqual(assertOverrideContentElements.length, 0);
         chai_1.assert.strictEqual(assertOpenInElements.length, 1);
     });
-    (0, mocha_extensions_js_1.it)('has correct context menu for main overrides folder', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] has correct context menu for main overrides folder', async () => {
         await (0, helper_js_1.goToResource)('network/fetch-json.html');
         await (0, network_helpers_js_1.openNetworkTab)();
         await (0, network_helpers_js_1.selectRequestByName)('coffees.json', { button: 'right' });
@@ -232,7 +237,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         chai_1.assert.strictEqual(assertRemoveFolderElements.length, 0);
         chai_1.assert.strictEqual(assertDeleteElements.length, 0);
     });
-    (0, mocha_extensions_js_1.it)('has correct context menu for sub overrides folder', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] has correct context menu for sub overrides folder', async () => {
         await (0, helper_js_1.goToResource)('network/fetch-json.html');
         await (0, network_helpers_js_1.openNetworkTab)();
         await (0, network_helpers_js_1.selectRequestByName)('coffees.json', { button: 'right' });
@@ -251,7 +257,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         chai_1.assert.strictEqual(assertRemoveFolderElements.length, 0);
         chai_1.assert.strictEqual(assertDeleteElements.length, 1);
     });
-    (0, mocha_extensions_js_1.it)('show redirect dialog when override content of source mapped js file', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] show redirect dialog when override content of source mapped js file', async () => {
         await (0, helper_js_1.goToResource)('sources/sourcemap-origin.html');
         await (0, sources_helpers_js_1.openSourcesPanel)();
         await (0, sources_helpers_js_1.enableLocalOverrides)();
@@ -273,7 +280,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
         await okButton?.click();
         await (0, helper_js_1.waitFor)('[aria-label="Close sourcemap-origin.min.js"]');
     });
-    (0, mocha_extensions_js_1.it)('show redirect dialog when override content of source mapped css file', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502463] show redirect dialog when override content of source mapped css file', async () => {
         await (0, helper_js_1.goToResource)('sources/sourcemap-origin.html');
         await (0, sources_helpers_js_1.openSourcesPanel)();
         await (0, sources_helpers_js_1.enableLocalOverrides)();
@@ -297,7 +305,8 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
     });
 });
 (0, mocha_extensions_js_1.describe)('Overrides panel', () => {
-    (0, mocha_extensions_js_1.it)('appends correct overrides context menu for Sources > Page file', async () => {
+    // Context menu is flakily not populated yet with the "Open in Sources panel".
+    mocha_extensions_js_1.it.skip('[crbug.com/1509276] appends correct overrides context menu for Sources > Page file', async () => {
         await (0, helper_js_1.goToResource)('elements/elements-panel-styles.html');
         await (0, network_helpers_js_1.openNetworkTab)();
         await (0, network_helpers_js_1.waitForSomeRequestsToAppear)(2);
@@ -315,8 +324,6 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
 (0, mocha_extensions_js_1.describe)('Overrides panel > Delete context menus', () => {
     beforeEach(async () => {
         // set up 3 overriden files - .header, json, custom js
-        await (0, helper_js_1.enableExperiment)('headerOverrides');
-        await (0, helper_js_1.enableExperiment)('deleteOverridesTemporarilyEnable');
         await (0, helper_js_1.goToResource)('network/fetch-json.html');
         await (0, sources_helpers_js_1.openSourcesPanel)();
         await (0, sources_helpers_js_1.enableLocalOverrides)();
@@ -342,28 +349,6 @@ const OVERRIDES_FILESYSTEM_SELECTOR = '[aria-label="overrides, fs"]';
     afterEach(async () => {
         await (0, helper_js_1.click)('[aria-label="Clear configuration"]');
         await (0, helper_js_1.waitFor)(sources_helpers_js_1.ENABLE_OVERRIDES_SELECTOR);
-    });
-    // Flaky test
-    mocha_extensions_js_1.it.skipOnPlatforms(['mac'], '[crbug.com/1480951] delete only overridden files from sub folder', async () => {
-        await (0, helper_js_1.step)('files exist in Sources panel', async () => {
-            await (0, network_helpers_js_1.selectRequestByName)('coffees.json', { button: 'right' });
-            await (0, helper_js_1.click)('aria/Show all overrides');
-            await (0, helper_js_1.waitFor)('[aria-label=".headers, file"]');
-            await (0, helper_js_1.waitFor)('[aria-label="coffees.json, file"]');
-            await (0, helper_js_1.waitFor)('[aria-label="foo.js, file"]');
-        });
-        await (0, helper_js_1.step)('delete all overrides only', async () => {
-            const subfolderTab = await (0, helper_js_1.waitFor)('[role="group"] > .navigator-folder-tree-item');
-            await subfolderTab.click({ button: 'right' });
-            await (0, helper_js_1.click)('aria/Delete all overrides');
-            await (0, helper_js_1.waitFor)('[role="dialog"]');
-            await (0, helper_js_1.click)('aria/OK');
-            await (0, helper_js_1.waitForNone)('[role="dialog"]');
-            const treeItems = await (0, helper_js_1.$$)('.navigator-file-tree-item');
-            chai_1.assert.strictEqual(treeItems.length, 1);
-            const fileName = await treeItems[0].evaluate(x => x.textContent);
-            chai_1.assert.strictEqual(fileName, 'foo.js');
-        });
     });
     (0, mocha_extensions_js_1.it)('delete all files from sub folder', async () => {
         await (0, helper_js_1.step)('files exist in Sources panel', async () => {

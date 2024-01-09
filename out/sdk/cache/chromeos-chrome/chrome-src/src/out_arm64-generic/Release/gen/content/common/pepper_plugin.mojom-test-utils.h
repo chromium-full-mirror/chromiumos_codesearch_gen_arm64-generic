@@ -23,7 +23,7 @@ class CONTENT_EXPORT PepperHostInterceptorForTesting : public PepperHost {
   void DidDeleteInProcessInstance(int32_t instance_id) override;
   void DidCreateOutOfProcessPepperInstance(int32_t plugin_child_id, int32_t pp_instance, bool is_external, int32_t frame_routing_id, const ::GURL& document_url, const ::GURL& plugin_url, bool is_privileged_context, DidCreateOutOfProcessPepperInstanceCallback callback) override;
   void DidDeleteOutOfProcessPepperInstance(int32_t plugin_child_id, int32_t pp_instance, bool is_external) override;
-  void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) override;
+  void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) override;
 };
 class CONTENT_EXPORT PepperHostAsyncWaiter {
  public:
@@ -40,7 +40,7 @@ class CONTENT_EXPORT PepperHostAsyncWaiter {
       int32_t plugin_child_id, int32_t pp_instance, bool is_external, int32_t frame_routing_id, const ::GURL& document_url, const ::GURL& plugin_url, bool is_privileged_context);
   
   void OpenChannelToPepperPlugin(
-      const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id);
+      const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id);
   
 
  private:

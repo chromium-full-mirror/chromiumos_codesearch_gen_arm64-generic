@@ -9,7 +9,7 @@ export function getTemplate() {
   }
 
   #icon {
-    background: var(--cros-icon-color-primary, rgba(0, 0, 0, 0.65));
+    background: var(--network-icon-fill-color, var(--cros-icon-color-primary, rgba(0, 0, 0, 0.65)));
     height: 20px;
     width: 20px;
   }
@@ -197,6 +197,11 @@ export function getTemplate() {
   }
 
   #icon.cellular-locked {
+    -webkit-mask: url(chrome://resources/ash/common/network/cellular_locked.svg);
+  }
+
+  /* TODO(b/315043236): Update icon URL to point to the new carrier lock icon*/
+  #icon.cellular-carrier-locked {
     -webkit-mask: url(chrome://resources/ash/common/network/cellular_locked.svg);
   }
 

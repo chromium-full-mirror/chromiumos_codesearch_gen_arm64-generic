@@ -48,6 +48,21 @@ export class RealboxMatchElement extends PolymerElement {
                 computed: `computeAriaLabel_(match.a11yLabel)`,
                 reflectToAttribute: true,
             },
+            expandedStateIconsChromeRefresh: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ExpandedStateLayout'),
+            },
+            hasAction: {
+                type: Boolean,
+                computed: `computeHasAction_(match.actions)`,
+                reflectToAttribute: true,
+            },
+            /** Whether action chip will have an outset focus ring. */
+            hasOutsetActionFocusRing: {
+                type: Boolean,
+                computed: `computeHasOutsetActionFocusRing_(hasAction)`,
+                reflectToAttribute: true,
+            },
             /**
              * Whether the match features an image (as opposed to an icon or favicon).
              */
@@ -81,6 +96,11 @@ export class RealboxMatchElement extends PolymerElement {
             matchIndex: {
                 type: Number,
                 value: -1,
+            },
+            realboxConsistentRowHeight: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
+                reflectToAttribute: true,
             },
             sideType: Number,
             /** String representation of `sideType` to use in CSS. */
@@ -236,6 +256,12 @@ export class RealboxMatchElement extends PolymerElement {
                 .innerHTML) :
             this.sanitizeInnerHtml_(this.renderTextWithClassifications_(decodeString16(match.description), match.descriptionClass)
                 .innerHTML);
+    }
+    computeHasAction_() {
+        return this.match?.actions?.length > 0;
+    }
+    computeHasOutsetActionFocusRing_() {
+        return this.expandedStateIconsChromeRefresh && this.hasAction;
     }
     computeTailSuggestPrefix_() {
         if (!this.match || !this.match.tailSuggestCommonPrefix) {

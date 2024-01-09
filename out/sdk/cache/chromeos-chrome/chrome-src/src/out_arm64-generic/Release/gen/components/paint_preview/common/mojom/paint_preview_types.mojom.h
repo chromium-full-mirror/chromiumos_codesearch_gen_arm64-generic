@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/paint_preview/common/mojom/paint_preview_types.mojom-features.h"
 #include "components/paint_preview/common/mojom/paint_preview_types.mojom-shared.h"
 #include "components/paint_preview/common/mojom/paint_preview_types.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -64,17 +65,17 @@ class  SerializedRecording {
   // Construct an instance holding |file|.
   static SerializedRecordingPtr
   NewFile(
-      ::base::File file) {
+      ::base::File value) {
     auto result = SerializedRecordingPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |buffer|.
   static SerializedRecordingPtr
   NewBuffer(
-      ::mojo_base::BigBuffer buffer) {
+      ::mojo_base::BigBuffer value) {
     auto result = SerializedRecordingPtr(absl::in_place);
-    result->set_buffer(std::move(buffer));
+    result->set_buffer(std::move(value));
     return result;
   }
 

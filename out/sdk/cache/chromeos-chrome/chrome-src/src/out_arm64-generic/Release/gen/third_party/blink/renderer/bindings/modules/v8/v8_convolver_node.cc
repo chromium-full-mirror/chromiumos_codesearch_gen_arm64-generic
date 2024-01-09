@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ConvolverNode>::value,
     "ConvolverNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ConvolverNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ConvolverNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("ConvolverNode.buffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(v8_receiver);
+ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->buffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +112,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(v8_receiver);
+ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<AudioBuffer>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -136,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("ConvolverNode.normalize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(v8_receiver);
+ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->normalize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -149,9 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("ConvolverNode.normalize.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ConvolverNode* blink_receiver = V8ConvolverNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "ConvolverNode";

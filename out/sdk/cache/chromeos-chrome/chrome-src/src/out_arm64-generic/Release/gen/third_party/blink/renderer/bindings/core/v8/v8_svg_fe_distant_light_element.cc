@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGFEDistantLightElement>::value,
     "SVGFEDistantLightElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGFEDistantLightElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGFEDistantLightElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEDistantLightElement* blink_receiver = V8SVGFEDistantLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFEDistantLightElement* blink_receiver = V8SVGFEDistantLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->azimuth();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEDistantLightElement* blink_receiver = V8SVGFEDistantLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFEDistantLightElement* blink_receiver = V8SVGFEDistantLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->elevation();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

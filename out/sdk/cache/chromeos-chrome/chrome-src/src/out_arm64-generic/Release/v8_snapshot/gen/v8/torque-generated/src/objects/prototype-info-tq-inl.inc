@@ -93,27 +93,27 @@ void TorqueGeneratedPrototypeInfo<D, P>::set_bit_field(int value) {
   WRITE_FIELD(*this, kBitFieldOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
 template<class D, class P>
-MaybeObject TorqueGeneratedPrototypeInfo<D, P>::object_create_map() const {
+Tagged<HeapObject> TorqueGeneratedPrototypeInfo<D, P>::derived_maps() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
-  return TorqueGeneratedPrototypeInfo::object_create_map(cage_base);
+  return TorqueGeneratedPrototypeInfo::derived_maps(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
 template<class D, class P>
-MaybeObject TorqueGeneratedPrototypeInfo<D, P>::object_create_map(PtrComprCageBase cage_base) const {
-  MaybeObject value = TaggedField<MaybeObject>::load(cage_base, *this, kObjectCreateMapOffset);
-  DCHECK(value.IsCleared() || (!value.IsWeak() && IsUndefined(value.GetHeapObjectOrSmi())) || (value.IsWeak() && IsMap(value.GetHeapObjectOrSmi())));
+Tagged<HeapObject> TorqueGeneratedPrototypeInfo<D, P>::derived_maps(PtrComprCageBase cage_base) const {
+  Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kDerivedMapsOffset);
+  DCHECK(IsUndefined(value) || IsWeakArrayList(value));
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
 template<class D, class P>
-void TorqueGeneratedPrototypeInfo<D, P>::set_object_create_map(MaybeObject value, WriteBarrierMode mode) {
-  SLOW_DCHECK(value.IsCleared() || (!value.IsWeak() && IsUndefined(value.GetHeapObjectOrSmi())) || (value.IsWeak() && IsMap(value.GetHeapObjectOrSmi())));
-  RELAXED_WRITE_WEAK_FIELD(*this, kObjectCreateMapOffset, value);
-  CONDITIONAL_WEAK_WRITE_BARRIER(*this, kObjectCreateMapOffset, value, mode);
+void TorqueGeneratedPrototypeInfo<D, P>::set_derived_maps(Tagged<HeapObject> value, WriteBarrierMode mode) {
+  SLOW_DCHECK(IsUndefined(value) || IsWeakArrayList(value));
+  WRITE_FIELD(*this, kDerivedMapsOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kDerivedMapsOffset, value, mode);
 }
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=9&c=1

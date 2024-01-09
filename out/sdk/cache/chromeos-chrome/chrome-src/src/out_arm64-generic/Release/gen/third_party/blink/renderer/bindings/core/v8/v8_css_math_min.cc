@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSMathMin>::value,
     "CSSMathMin inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSMathMin::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSMathMin is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSMathMin.values.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSMathMin* blink_receiver = V8CSSMathMin::ToWrappableUnsafe(v8_receiver);
+CSSMathMin* blink_receiver = V8CSSMathMin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->values();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

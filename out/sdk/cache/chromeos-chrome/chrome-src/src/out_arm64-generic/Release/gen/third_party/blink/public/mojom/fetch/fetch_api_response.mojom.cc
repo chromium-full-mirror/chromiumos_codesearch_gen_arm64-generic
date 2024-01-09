@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -76,21 +77,21 @@ FetchAPIResponse::FetchAPIResponse(
     int64_t padding_in,
     ::network::mojom::FetchResponseSource response_source_in,
     const base::flat_map<std::string, std::string>& headers_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& request_method_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& request_method_in,
     ::blink::mojom::SerializedBlobPtr blob_in,
     ::blink::mojom::ServiceWorkerResponseError error_in,
     ::base::Time response_time_in,
-    const absl::optional<std::string>& cache_storage_cache_name_in,
+    const std::optional<std::string>& cache_storage_cache_name_in,
     std::vector<std::string> cors_exposed_header_names_in,
     ::blink::mojom::SerializedBlobPtr side_data_blob_in,
     ::blink::mojom::SerializedBlobPtr side_data_blob_for_cache_put_in,
     ::network::mojom::ParsedHeadersPtr parsed_headers_in,
-    ::net::HttpResponseInfo::ConnectionInfo connection_info_in,
+    ::net::HttpConnectionInfo connection_info_in,
     const std::string& alpn_negotiated_protocol_in,
     bool was_fetched_via_spdy_in,
     bool has_range_requested_in,
-    const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
+    const std::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
     bool request_include_credentials_in)
     : url_list(std::move(url_list_in)),
       status_code(std::move(status_code_in)),
@@ -188,7 +189,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "mime_type"), this->mime_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -197,7 +198,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "request_method"), this->request_method,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -233,7 +234,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "cache_storage_cache_name"), this->cache_storage_cache_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -278,7 +279,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "connection_info"), this->connection_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::net::HttpResponseInfo::ConnectionInfo>"
+      "<value of type ::net::HttpConnectionInfo>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -314,7 +315,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "auth_challenge_info"), this->auth_challenge_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::AuthChallengeInfo>&>"
+      "<value of type const std::optional<::net::AuthChallengeInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

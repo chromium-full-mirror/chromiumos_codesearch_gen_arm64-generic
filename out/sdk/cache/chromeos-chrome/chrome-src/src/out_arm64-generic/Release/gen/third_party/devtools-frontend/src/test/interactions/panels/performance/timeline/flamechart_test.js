@@ -8,9 +8,6 @@ const mocha_extensions_js_1 = require("../../../../shared/mocha-extensions.js");
 const screenshots_js_1 = require("../../../../shared/screenshots.js");
 const shared_js_1 = require("../../../helpers/shared.js");
 (0, mocha_extensions_js_1.describe)('FlameChart', function () {
-    // TODO(crbug.com/1492405): Improve perf panel trace load speed to
-    // prevent timeout bump.
-    this.timeout(20_000);
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/flamechart.html');
     async function getFlameChartContainerWhenReady(selector) {
         // The container element exists immediately, but we want to wait for the

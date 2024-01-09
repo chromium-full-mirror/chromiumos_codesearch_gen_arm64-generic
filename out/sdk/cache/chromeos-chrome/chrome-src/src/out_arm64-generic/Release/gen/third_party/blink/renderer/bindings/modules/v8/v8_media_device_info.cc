@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaDeviceInfo>::value,
     "MediaDeviceInfo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaDeviceInfo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaDeviceInfo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDeviceInfo.deviceId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->deviceId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->deviceId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDeviceInfo.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDeviceInfo.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,10 +126,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDeviceInfo.groupId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->groupId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->groupId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -150,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDeviceInfo.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(v8_receiver);
+MediaDeviceInfo* blink_receiver = V8MediaDeviceInfo::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

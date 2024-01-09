@@ -15,12 +15,14 @@ import { CategoryEnum } from './types.js';
 export class EmojiSearch extends PolymerElement {
     constructor() {
         super(...arguments);
+        this.globalTone = null;
+        this.globalGender = null;
         // TODO(b/235419647): Update the config to use extended search.
         this.fuseConfig = {
-            threshold: 0.0,
-            ignoreLocation: true,
+            threshold: 0.0, // Exact match only.
+            ignoreLocation: true, // Match in all locations.
             keys: [
-                { name: 'base.name', weight: 10 },
+                { name: 'base.name', weight: 10 }, // Increase scoring of emoji name.
                 'base.keywords',
             ],
         };
@@ -46,6 +48,8 @@ export class EmojiSearch extends PolymerElement {
             nextGifPos: { type: String, value: '' },
             errorMessage: { type: String, value: NO_INTERNET_SEARCH_ERROR_MSG },
             closeGifNudgeOverlay: { type: Object },
+            globalTone: { type: Number, value: null, readonly: true },
+            globalGender: { type: Number, value: null, readonly: true },
         };
     }
     static get observers() {

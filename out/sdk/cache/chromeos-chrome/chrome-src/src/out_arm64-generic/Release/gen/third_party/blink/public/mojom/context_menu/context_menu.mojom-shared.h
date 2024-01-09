@@ -513,7 +513,7 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::FormControlType>(
         data_->form_control_type_$value, &output->emplace());
   }
-  absl::optional<::blink::mojom::FormControlType> form_control_type() const {
+  std::optional<::blink::mojom::FormControlType> form_control_type() const {
     if (!data_->form_control_type_$flag) {
       return absl::nullopt;
     }

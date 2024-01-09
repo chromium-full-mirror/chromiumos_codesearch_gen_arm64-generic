@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCEncodedVideoFrame>::value,
     "RTCEncodedVideoFrame inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCEncodedVideoFrame::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCEncodedVideoFrame is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -122,7 +118,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->data();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -137,9 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.data.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "RTCEncodedVideoFrame";
@@ -169,7 +166,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getMetadata();
 if (!ToV8Traits<RTCEncodedVideoFrameMetadata>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -202,7 +200,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_metadata = NativeValueTraits<RTCEncodedVideoFrameMetadata>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -239,7 +237,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_timestamp = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -262,10 +260,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

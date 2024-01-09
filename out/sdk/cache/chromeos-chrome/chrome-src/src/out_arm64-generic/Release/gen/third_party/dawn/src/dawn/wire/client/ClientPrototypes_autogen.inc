@@ -19,6 +19,6 @@ bool DoDeviceLoggingCallback(Device* device, WGPULoggingType type, char const * 
 bool DoDeviceLostCallback(Device* device, WGPUDeviceLostReason reason, char const * message);
 bool DoDevicePopErrorScopeCallback(Device* device, uint64_t requestSerial, WGPUErrorType type, char const * message);
 bool DoDeviceUncapturedErrorCallback(Device* device, WGPUErrorType type, char const * message);
-bool DoInstanceRequestAdapterCallback(Instance* instance, uint64_t requestSerial, WGPURequestAdapterStatus status, char const * message, WGPUAdapterProperties const * properties, WGPUSupportedLimits const * limits, uint32_t featuresCount, WGPUFeatureName const * features);
+bool DoInstanceRequestAdapterCallback(Instance* instance, WGPUFuture future, WGPURequestAdapterStatus status, char const * message, WGPUAdapterProperties const * properties, WGPUSupportedLimits const * limits, uint32_t featuresCount, WGPUFeatureName const * features);
 bool DoQueueWorkDoneCallback(Queue* queue, WGPUFuture future, WGPUQueueWorkDoneStatus status);
 bool DoShaderModuleGetCompilationInfoCallback(ShaderModule* shaderModule, uint64_t requestSerial, WGPUCompilationInfoRequestStatus status, WGPUCompilationInfo const * info);

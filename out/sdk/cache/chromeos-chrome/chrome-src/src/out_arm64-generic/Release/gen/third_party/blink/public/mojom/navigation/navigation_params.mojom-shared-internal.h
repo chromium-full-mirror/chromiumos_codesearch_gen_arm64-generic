@@ -449,6 +449,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) CommitNavigationParams_
   mojo::internal::Pointer<::blink::mojom::internal::BrowsingContextGroupInfo_Data> browsing_context_group_info;
   mojo::internal::Pointer<::blink::mojom::internal::LCPCriticalPathPredictorNavigationTimeHint_Data> lcpp_hint;
   mojo::internal::Pointer<::blink::mojom::internal::RendererContentSettings_Data> content_settings;
+  mojo::internal::Pointer<mojo::internal::String_Data> cookie_deprecation_label;
 
  private:
   friend class mojo::internal::MessageFragment<CommitNavigationParams_Data>;
@@ -456,7 +457,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) CommitNavigationParams_
   CommitNavigationParams_Data();
   ~CommitNavigationParams_Data() = delete;
 };
-static_assert(sizeof(CommitNavigationParams_Data) == 296,
+static_assert(sizeof(CommitNavigationParams_Data) == 304,
               "Bad sizeof(CommitNavigationParams_Data)");
 // Used by CommitNavigationParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -6,5 +6,13 @@
 
 #ifndef EXTENSIONS_COMMON_MOJOM_MESSAGE_PORT_MOJOM_IMPORT_HEADERS_H_
 #define EXTENSIONS_COMMON_MOJOM_MESSAGE_PORT_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/unguessable_token.mojom.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
+#include "mojo/public/mojom/base/values.mojom.h"
+#include "mojo/public/mojom/base/values.mojom-import-headers.h"
+#include "url/mojom/origin.mojom.h"
+#include "url/mojom/origin.mojom-import-headers.h"
+#include "url/mojom/url.mojom.h"
+#include "url/mojom/url.mojom-import-headers.h"
 
 #endif  // EXTENSIONS_COMMON_MOJOM_MESSAGE_PORT_MOJOM_IMPORT_HEADERS_H_

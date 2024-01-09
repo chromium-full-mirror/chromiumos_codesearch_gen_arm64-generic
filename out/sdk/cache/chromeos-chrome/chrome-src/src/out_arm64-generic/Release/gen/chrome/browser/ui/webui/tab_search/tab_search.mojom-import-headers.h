@@ -6,6 +6,8 @@
 
 #ifndef CHROME_BROWSER_UI_WEBUI_TAB_SEARCH_TAB_SEARCH_MOJOM_IMPORT_HEADERS_H_
 #define CHROME_BROWSER_UI_WEBUI_TAB_SEARCH_TAB_SEARCH_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/string16.mojom.h"
+#include "mojo/public/mojom/base/string16.mojom-import-headers.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom.h"

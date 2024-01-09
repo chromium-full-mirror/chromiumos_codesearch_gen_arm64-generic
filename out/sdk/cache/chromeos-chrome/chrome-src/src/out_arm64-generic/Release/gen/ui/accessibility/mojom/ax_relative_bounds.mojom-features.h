@@ -8,6 +8,7 @@
 #define UI_ACCESSIBILITY_MOJOM_AX_RELATIVE_BOUNDS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HIDDevice>::value,
     "HIDDevice does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HIDDevice::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HIDDevice is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("HIDDevice.oninputreport.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninputreport();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninputreport();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,8 +102,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninputreport(event_handler);
 }
 
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("HIDDevice.opened.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->opened();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -133,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("HIDDevice.vendorId.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vendorId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -147,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("HIDDevice.productId.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->productId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -161,10 +160,10 @@ BLINK_BINDINGS_TRACE_EVENT("HIDDevice.productName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->productName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->productName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -181,7 +180,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->collections();
 if (!ToV8Traits<IDLArray<HIDCollectionInfo>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -217,7 +217,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHidDeviceClose);
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -248,7 +248,7 @@ return;
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -286,7 +286,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHidDeviceOpen);
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -328,7 +328,7 @@ return;
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -371,7 +371,7 @@ return;
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -418,7 +418,7 @@ return;
 
 
 
-HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(v8_receiver);
+HIDDevice* blink_receiver = V8HIDDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -21,8 +21,9 @@ namespace optimization_guide {
 namespace proto {
 PROTOBUF_CONSTEXPR LogAiDataRequest::LogAiDataRequest(
     ::_pbi::ConstantInitialized)
-  : ai_logging_data_()
-  , batched_metadata_(nullptr){}
+  : logging_metadata_(nullptr)
+  , model_execution_info_(nullptr)
+  , _oneof_case_{}{}
 struct LogAiDataRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LogAiDataRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -43,20 +44,6 @@ struct LogAiDataResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogAiDataResponseDefaultTypeInternal _LogAiDataResponse_default_instance_;
-PROTOBUF_CONSTEXPR AiLoggingData::AiLoggingData(
-    ::_pbi::ConstantInitialized)
-  : logging_metadata_(nullptr)
-  , model_execution_info_(nullptr)
-  , _oneof_case_{}{}
-struct AiLoggingDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AiLoggingDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~AiLoggingDataDefaultTypeInternal() {}
-  union {
-    AiLoggingData _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AiLoggingDataDefaultTypeInternal _AiLoggingData_default_instance_;
 }  // namespace proto
 }  // namespace optimization_guide
 namespace optimization_guide {
@@ -66,40 +53,196 @@ namespace proto {
 
 class LogAiDataRequest::_Internal {
  public:
-  static const ::optimization_guide::proto::BatchedLoggingMetadata& batched_metadata(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::LoggingMetadata& logging_metadata(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::ModelExecutionInfo& model_execution_info(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::ComposeLoggingData& compose(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::TabOrganizationLoggingData& tab_organization(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::WallpaperSearchLoggingData& wallpaper_search(const LogAiDataRequest* msg);
+  static const ::optimization_guide::proto::DefaultLoggingData& default_(const LogAiDataRequest* msg);
 };
 
-const ::optimization_guide::proto::BatchedLoggingMetadata&
-LogAiDataRequest::_Internal::batched_metadata(const LogAiDataRequest* msg) {
-  return *msg->batched_metadata_;
+const ::optimization_guide::proto::LoggingMetadata&
+LogAiDataRequest::_Internal::logging_metadata(const LogAiDataRequest* msg) {
+  return *msg->logging_metadata_;
 }
-void LogAiDataRequest::clear_batched_metadata() {
-  if (GetArenaForAllocation() == nullptr && batched_metadata_ != nullptr) {
-    delete batched_metadata_;
+const ::optimization_guide::proto::ModelExecutionInfo&
+LogAiDataRequest::_Internal::model_execution_info(const LogAiDataRequest* msg) {
+  return *msg->model_execution_info_;
+}
+const ::optimization_guide::proto::ComposeLoggingData&
+LogAiDataRequest::_Internal::compose(const LogAiDataRequest* msg) {
+  return *msg->feature_.compose_;
+}
+const ::optimization_guide::proto::TabOrganizationLoggingData&
+LogAiDataRequest::_Internal::tab_organization(const LogAiDataRequest* msg) {
+  return *msg->feature_.tab_organization_;
+}
+const ::optimization_guide::proto::WallpaperSearchLoggingData&
+LogAiDataRequest::_Internal::wallpaper_search(const LogAiDataRequest* msg) {
+  return *msg->feature_.wallpaper_search_;
+}
+const ::optimization_guide::proto::DefaultLoggingData&
+LogAiDataRequest::_Internal::default_(const LogAiDataRequest* msg) {
+  return *msg->feature_.default__;
+}
+void LogAiDataRequest::clear_logging_metadata() {
+  if (GetArenaForAllocation() == nullptr && logging_metadata_ != nullptr) {
+    delete logging_metadata_;
   }
-  batched_metadata_ = nullptr;
+  logging_metadata_ = nullptr;
+}
+void LogAiDataRequest::clear_model_execution_info() {
+  if (GetArenaForAllocation() == nullptr && model_execution_info_ != nullptr) {
+    delete model_execution_info_;
+  }
+  model_execution_info_ = nullptr;
+}
+void LogAiDataRequest::set_allocated_compose(::optimization_guide::proto::ComposeLoggingData* compose) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_feature();
+  if (compose) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(compose));
+    if (message_arena != submessage_arena) {
+      compose = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, compose, submessage_arena);
+    }
+    set_has_compose();
+    feature_.compose_ = compose;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.compose)
+}
+void LogAiDataRequest::clear_compose() {
+  if (_internal_has_compose()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete feature_.compose_;
+    }
+    clear_has_feature();
+  }
+}
+void LogAiDataRequest::set_allocated_tab_organization(::optimization_guide::proto::TabOrganizationLoggingData* tab_organization) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_feature();
+  if (tab_organization) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tab_organization));
+    if (message_arena != submessage_arena) {
+      tab_organization = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, tab_organization, submessage_arena);
+    }
+    set_has_tab_organization();
+    feature_.tab_organization_ = tab_organization;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.tab_organization)
+}
+void LogAiDataRequest::clear_tab_organization() {
+  if (_internal_has_tab_organization()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete feature_.tab_organization_;
+    }
+    clear_has_feature();
+  }
+}
+void LogAiDataRequest::set_allocated_wallpaper_search(::optimization_guide::proto::WallpaperSearchLoggingData* wallpaper_search) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_feature();
+  if (wallpaper_search) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(wallpaper_search));
+    if (message_arena != submessage_arena) {
+      wallpaper_search = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, wallpaper_search, submessage_arena);
+    }
+    set_has_wallpaper_search();
+    feature_.wallpaper_search_ = wallpaper_search;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+}
+void LogAiDataRequest::clear_wallpaper_search() {
+  if (_internal_has_wallpaper_search()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete feature_.wallpaper_search_;
+    }
+    clear_has_feature();
+  }
+}
+void LogAiDataRequest::set_allocated_default_(::optimization_guide::proto::DefaultLoggingData* default_) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_feature();
+  if (default_) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(default_));
+    if (message_arena != submessage_arena) {
+      default_ = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, default_, submessage_arena);
+    }
+    set_has_default_();
+    feature_.default__ = default_;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.default)
+}
+void LogAiDataRequest::clear_default_() {
+  if (_internal_has_default_()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete feature_.default__;
+    }
+    clear_has_feature();
+  }
 }
 LogAiDataRequest::LogAiDataRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  ai_logging_data_(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.LogAiDataRequest)
 }
 LogAiDataRequest::LogAiDataRequest(const LogAiDataRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      ai_logging_data_(from.ai_logging_data_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_batched_metadata()) {
-    batched_metadata_ = new ::optimization_guide::proto::BatchedLoggingMetadata(*from.batched_metadata_);
+  if (from._internal_has_logging_metadata()) {
+    logging_metadata_ = new ::optimization_guide::proto::LoggingMetadata(*from.logging_metadata_);
   } else {
-    batched_metadata_ = nullptr;
+    logging_metadata_ = nullptr;
+  }
+  if (from._internal_has_model_execution_info()) {
+    model_execution_info_ = new ::optimization_guide::proto::ModelExecutionInfo(*from.model_execution_info_);
+  } else {
+    model_execution_info_ = nullptr;
+  }
+  clear_has_feature();
+  switch (from.feature_case()) {
+    case kCompose: {
+      _internal_mutable_compose()->::optimization_guide::proto::ComposeLoggingData::MergeFrom(from._internal_compose());
+      break;
+    }
+    case kTabOrganization: {
+      _internal_mutable_tab_organization()->::optimization_guide::proto::TabOrganizationLoggingData::MergeFrom(from._internal_tab_organization());
+      break;
+    }
+    case kWallpaperSearch: {
+      _internal_mutable_wallpaper_search()->::optimization_guide::proto::WallpaperSearchLoggingData::MergeFrom(from._internal_wallpaper_search());
+      break;
+    }
+    case kDefault: {
+      _internal_mutable_default_()->::optimization_guide::proto::DefaultLoggingData::MergeFrom(from._internal_default_());
+      break;
+    }
+    case FEATURE_NOT_SET: {
+      break;
+    }
   }
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.LogAiDataRequest)
 }
 
 inline void LogAiDataRequest::SharedCtor() {
-batched_metadata_ = nullptr;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&logging_metadata_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&model_execution_info_) -
+    reinterpret_cast<char*>(&logging_metadata_)) + sizeof(model_execution_info_));
+clear_has_feature();
 }
 
 LogAiDataRequest::~LogAiDataRequest() {
@@ -113,12 +256,51 @@ LogAiDataRequest::~LogAiDataRequest() {
 
 inline void LogAiDataRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete batched_metadata_;
+  if (this != internal_default_instance()) delete logging_metadata_;
+  if (this != internal_default_instance()) delete model_execution_info_;
+  if (has_feature()) {
+    clear_feature();
+  }
 }
 
 void LogAiDataRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+
+void LogAiDataRequest::clear_feature() {
+// @@protoc_insertion_point(one_of_clear_start:optimization_guide.proto.LogAiDataRequest)
+  switch (feature_case()) {
+    case kCompose: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete feature_.compose_;
+      }
+      break;
+    }
+    case kTabOrganization: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete feature_.tab_organization_;
+      }
+      break;
+    }
+    case kWallpaperSearch: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete feature_.wallpaper_search_;
+      }
+      break;
+    }
+    case kDefault: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete feature_.default__;
+      }
+      break;
+    }
+    case FEATURE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = FEATURE_NOT_SET;
+}
+
 
 void LogAiDataRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:optimization_guide.proto.LogAiDataRequest)
@@ -126,11 +308,15 @@ void LogAiDataRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ai_logging_data_.Clear();
-  if (GetArenaForAllocation() == nullptr && batched_metadata_ != nullptr) {
-    delete batched_metadata_;
+  if (GetArenaForAllocation() == nullptr && logging_metadata_ != nullptr) {
+    delete logging_metadata_;
   }
-  batched_metadata_ = nullptr;
+  logging_metadata_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && model_execution_info_ != nullptr) {
+    delete model_execution_info_;
+  }
+  model_execution_info_ = nullptr;
+  clear_feature();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -140,24 +326,51 @@ const char* LogAiDataRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .optimization_guide.proto.BatchedLoggingMetadata batched_metadata = 1;
+      // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_batched_metadata(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_logging_metadata(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // repeated .optimization_guide.proto.AiLoggingData ai_logging_data = 2;
+      // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_ai_logging_data(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          ptr = ctx->ParseMessage(_internal_mutable_model_execution_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.ComposeLoggingData compose = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_compose(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.TabOrganizationLoggingData tab_organization = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_tab_organization(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.WallpaperSearchLoggingData wallpaper_search = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_wallpaper_search(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.DefaultLoggingData default = 1000;
+      case 1000:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_default_(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -190,19 +403,46 @@ uint8_t* LogAiDataRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .optimization_guide.proto.BatchedLoggingMetadata batched_metadata = 1;
-  if (this->_internal_has_batched_metadata()) {
+  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
+  if (this->_internal_has_logging_metadata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::batched_metadata(this),
-        _Internal::batched_metadata(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(1, _Internal::logging_metadata(this),
+        _Internal::logging_metadata(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .optimization_guide.proto.AiLoggingData ai_logging_data = 2;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_ai_logging_data_size()); i < n; i++) {
-    const auto& repfield = this->_internal_ai_logging_data(i);
+  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
+  if (this->_internal_has_model_execution_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(2, _Internal::model_execution_info(this),
+        _Internal::model_execution_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .optimization_guide.proto.ComposeLoggingData compose = 3;
+  if (_internal_has_compose()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::compose(this),
+        _Internal::compose(this).GetCachedSize(), target, stream);
+  }
+
+  // .optimization_guide.proto.TabOrganizationLoggingData tab_organization = 4;
+  if (_internal_has_tab_organization()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::tab_organization(this),
+        _Internal::tab_organization(this).GetCachedSize(), target, stream);
+  }
+
+  // .optimization_guide.proto.WallpaperSearchLoggingData wallpaper_search = 5;
+  if (_internal_has_wallpaper_search()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::wallpaper_search(this),
+        _Internal::wallpaper_search(this).GetCachedSize(), target, stream);
+  }
+
+  // .optimization_guide.proto.DefaultLoggingData default = 1000;
+  if (_internal_has_default_()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1000, _Internal::default_(this),
+        _Internal::default_(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -221,20 +461,53 @@ size_t LogAiDataRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .optimization_guide.proto.AiLoggingData ai_logging_data = 2;
-  total_size += 1UL * this->_internal_ai_logging_data_size();
-  for (const auto& msg : this->ai_logging_data_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // .optimization_guide.proto.BatchedLoggingMetadata batched_metadata = 1;
-  if (this->_internal_has_batched_metadata()) {
+  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
+  if (this->_internal_has_logging_metadata()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *batched_metadata_);
+        *logging_metadata_);
   }
 
+  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
+  if (this->_internal_has_model_execution_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *model_execution_info_);
+  }
+
+  switch (feature_case()) {
+    // .optimization_guide.proto.ComposeLoggingData compose = 3;
+    case kCompose: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *feature_.compose_);
+      break;
+    }
+    // .optimization_guide.proto.TabOrganizationLoggingData tab_organization = 4;
+    case kTabOrganization: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *feature_.tab_organization_);
+      break;
+    }
+    // .optimization_guide.proto.WallpaperSearchLoggingData wallpaper_search = 5;
+    case kWallpaperSearch: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *feature_.wallpaper_search_);
+      break;
+    }
+    // .optimization_guide.proto.DefaultLoggingData default = 1000;
+    case kDefault: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *feature_.default__);
+      break;
+    }
+    case FEATURE_NOT_SET: {
+      break;
+    }
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -255,9 +528,32 @@ void LogAiDataRequest::MergeFrom(const LogAiDataRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  ai_logging_data_.MergeFrom(from.ai_logging_data_);
-  if (from._internal_has_batched_metadata()) {
-    _internal_mutable_batched_metadata()->::optimization_guide::proto::BatchedLoggingMetadata::MergeFrom(from._internal_batched_metadata());
+  if (from._internal_has_logging_metadata()) {
+    _internal_mutable_logging_metadata()->::optimization_guide::proto::LoggingMetadata::MergeFrom(from._internal_logging_metadata());
+  }
+  if (from._internal_has_model_execution_info()) {
+    _internal_mutable_model_execution_info()->::optimization_guide::proto::ModelExecutionInfo::MergeFrom(from._internal_model_execution_info());
+  }
+  switch (from.feature_case()) {
+    case kCompose: {
+      _internal_mutable_compose()->::optimization_guide::proto::ComposeLoggingData::MergeFrom(from._internal_compose());
+      break;
+    }
+    case kTabOrganization: {
+      _internal_mutable_tab_organization()->::optimization_guide::proto::TabOrganizationLoggingData::MergeFrom(from._internal_tab_organization());
+      break;
+    }
+    case kWallpaperSearch: {
+      _internal_mutable_wallpaper_search()->::optimization_guide::proto::WallpaperSearchLoggingData::MergeFrom(from._internal_wallpaper_search());
+      break;
+    }
+    case kDefault: {
+      _internal_mutable_default_()->::optimization_guide::proto::DefaultLoggingData::MergeFrom(from._internal_default_());
+      break;
+    }
+    case FEATURE_NOT_SET: {
+      break;
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -276,8 +572,14 @@ bool LogAiDataRequest::IsInitialized() const {
 void LogAiDataRequest::InternalSwap(LogAiDataRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ai_logging_data_.InternalSwap(&other->ai_logging_data_);
-  swap(batched_metadata_, other->batched_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(LogAiDataRequest, model_execution_info_)
+      + sizeof(LogAiDataRequest::model_execution_info_)
+      - PROTOBUF_FIELD_OFFSET(LogAiDataRequest, logging_metadata_)>(
+          reinterpret_cast<char*>(&logging_metadata_),
+          reinterpret_cast<char*>(&other->logging_metadata_));
+  swap(feature_, other->feature_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 std::string LogAiDataRequest::GetTypeName() const {
@@ -422,414 +724,6 @@ std::string LogAiDataResponse::GetTypeName() const {
 }
 
 
-// ===================================================================
-
-class AiLoggingData::_Internal {
- public:
-  static const ::optimization_guide::proto::LoggingMetadata& logging_metadata(const AiLoggingData* msg);
-  static const ::optimization_guide::proto::ModelExecutionInfo& model_execution_info(const AiLoggingData* msg);
-  static const ::optimization_guide::proto::ComposeAiLoggingData& compose(const AiLoggingData* msg);
-  static const ::optimization_guide::proto::DefaultFeatureAiLoggingData& default_(const AiLoggingData* msg);
-};
-
-const ::optimization_guide::proto::LoggingMetadata&
-AiLoggingData::_Internal::logging_metadata(const AiLoggingData* msg) {
-  return *msg->logging_metadata_;
-}
-const ::optimization_guide::proto::ModelExecutionInfo&
-AiLoggingData::_Internal::model_execution_info(const AiLoggingData* msg) {
-  return *msg->model_execution_info_;
-}
-const ::optimization_guide::proto::ComposeAiLoggingData&
-AiLoggingData::_Internal::compose(const AiLoggingData* msg) {
-  return *msg->feature_.compose_;
-}
-const ::optimization_guide::proto::DefaultFeatureAiLoggingData&
-AiLoggingData::_Internal::default_(const AiLoggingData* msg) {
-  return *msg->feature_.default__;
-}
-void AiLoggingData::clear_logging_metadata() {
-  if (GetArenaForAllocation() == nullptr && logging_metadata_ != nullptr) {
-    delete logging_metadata_;
-  }
-  logging_metadata_ = nullptr;
-}
-void AiLoggingData::clear_model_execution_info() {
-  if (GetArenaForAllocation() == nullptr && model_execution_info_ != nullptr) {
-    delete model_execution_info_;
-  }
-  model_execution_info_ = nullptr;
-}
-void AiLoggingData::set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  clear_feature();
-  if (compose) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(compose));
-    if (message_arena != submessage_arena) {
-      compose = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, compose, submessage_arena);
-    }
-    set_has_compose();
-    feature_.compose_ = compose;
-  }
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.compose)
-}
-void AiLoggingData::clear_compose() {
-  if (_internal_has_compose()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete feature_.compose_;
-    }
-    clear_has_feature();
-  }
-}
-void AiLoggingData::set_allocated_default_(::optimization_guide::proto::DefaultFeatureAiLoggingData* default_) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  clear_feature();
-  if (default_) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(default_));
-    if (message_arena != submessage_arena) {
-      default_ = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, default_, submessage_arena);
-    }
-    set_has_default_();
-    feature_.default__ = default_;
-  }
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.default)
-}
-void AiLoggingData::clear_default_() {
-  if (_internal_has_default_()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete feature_.default__;
-    }
-    clear_has_feature();
-  }
-}
-AiLoggingData::AiLoggingData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.AiLoggingData)
-}
-AiLoggingData::AiLoggingData(const AiLoggingData& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_logging_metadata()) {
-    logging_metadata_ = new ::optimization_guide::proto::LoggingMetadata(*from.logging_metadata_);
-  } else {
-    logging_metadata_ = nullptr;
-  }
-  if (from._internal_has_model_execution_info()) {
-    model_execution_info_ = new ::optimization_guide::proto::ModelExecutionInfo(*from.model_execution_info_);
-  } else {
-    model_execution_info_ = nullptr;
-  }
-  clear_has_feature();
-  switch (from.feature_case()) {
-    case kCompose: {
-      _internal_mutable_compose()->::optimization_guide::proto::ComposeAiLoggingData::MergeFrom(from._internal_compose());
-      break;
-    }
-    case kDefault: {
-      _internal_mutable_default_()->::optimization_guide::proto::DefaultFeatureAiLoggingData::MergeFrom(from._internal_default_());
-      break;
-    }
-    case FEATURE_NOT_SET: {
-      break;
-    }
-  }
-  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.AiLoggingData)
-}
-
-inline void AiLoggingData::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&logging_metadata_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&model_execution_info_) -
-    reinterpret_cast<char*>(&logging_metadata_)) + sizeof(model_execution_info_));
-clear_has_feature();
-}
-
-AiLoggingData::~AiLoggingData() {
-  // @@protoc_insertion_point(destructor:optimization_guide.proto.AiLoggingData)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void AiLoggingData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete logging_metadata_;
-  if (this != internal_default_instance()) delete model_execution_info_;
-  if (has_feature()) {
-    clear_feature();
-  }
-}
-
-void AiLoggingData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void AiLoggingData::clear_feature() {
-// @@protoc_insertion_point(one_of_clear_start:optimization_guide.proto.AiLoggingData)
-  switch (feature_case()) {
-    case kCompose: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete feature_.compose_;
-      }
-      break;
-    }
-    case kDefault: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete feature_.default__;
-      }
-      break;
-    }
-    case FEATURE_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[0] = FEATURE_NOT_SET;
-}
-
-
-void AiLoggingData::Clear() {
-// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.AiLoggingData)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && logging_metadata_ != nullptr) {
-    delete logging_metadata_;
-  }
-  logging_metadata_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && model_execution_info_ != nullptr) {
-    delete model_execution_info_;
-  }
-  model_execution_info_ = nullptr;
-  clear_feature();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* AiLoggingData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_logging_metadata(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_model_execution_info(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_compose(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
-      case 1000:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
-          ptr = ctx->ParseMessage(_internal_mutable_default_(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* AiLoggingData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.AiLoggingData)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
-  if (this->_internal_has_logging_metadata()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::logging_metadata(this),
-        _Internal::logging_metadata(this).GetCachedSize(), target, stream);
-  }
-
-  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
-  if (this->_internal_has_model_execution_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::model_execution_info(this),
-        _Internal::model_execution_info(this).GetCachedSize(), target, stream);
-  }
-
-  // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
-  if (_internal_has_compose()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::compose(this),
-        _Internal::compose(this).GetCachedSize(), target, stream);
-  }
-
-  // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
-  if (_internal_has_default_()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1000, _Internal::default_(this),
-        _Internal::default_(this).GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.AiLoggingData)
-  return target;
-}
-
-size_t AiLoggingData::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.AiLoggingData)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
-  if (this->_internal_has_logging_metadata()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *logging_metadata_);
-  }
-
-  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
-  if (this->_internal_has_model_execution_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *model_execution_info_);
-  }
-
-  switch (feature_case()) {
-    // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
-    case kCompose: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *feature_.compose_);
-      break;
-    }
-    // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
-    case kDefault: {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *feature_.default__);
-      break;
-    }
-    case FEATURE_NOT_SET: {
-      break;
-    }
-  }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void AiLoggingData::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const AiLoggingData*>(
-      &from));
-}
-
-void AiLoggingData::MergeFrom(const AiLoggingData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.AiLoggingData)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_logging_metadata()) {
-    _internal_mutable_logging_metadata()->::optimization_guide::proto::LoggingMetadata::MergeFrom(from._internal_logging_metadata());
-  }
-  if (from._internal_has_model_execution_info()) {
-    _internal_mutable_model_execution_info()->::optimization_guide::proto::ModelExecutionInfo::MergeFrom(from._internal_model_execution_info());
-  }
-  switch (from.feature_case()) {
-    case kCompose: {
-      _internal_mutable_compose()->::optimization_guide::proto::ComposeAiLoggingData::MergeFrom(from._internal_compose());
-      break;
-    }
-    case kDefault: {
-      _internal_mutable_default_()->::optimization_guide::proto::DefaultFeatureAiLoggingData::MergeFrom(from._internal_default_());
-      break;
-    }
-    case FEATURE_NOT_SET: {
-      break;
-    }
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void AiLoggingData::CopyFrom(const AiLoggingData& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.AiLoggingData)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool AiLoggingData::IsInitialized() const {
-  return true;
-}
-
-void AiLoggingData::InternalSwap(AiLoggingData* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AiLoggingData, model_execution_info_)
-      + sizeof(AiLoggingData::model_execution_info_)
-      - PROTOBUF_FIELD_OFFSET(AiLoggingData, logging_metadata_)>(
-          reinterpret_cast<char*>(&logging_metadata_),
-          reinterpret_cast<char*>(&other->logging_metadata_));
-  swap(feature_, other->feature_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
-}
-
-std::string AiLoggingData::GetTypeName() const {
-  return "optimization_guide.proto.AiLoggingData";
-}
-
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace proto
 }  // namespace optimization_guide
@@ -841,10 +735,6 @@ Arena::CreateMaybeMessage< ::optimization_guide::proto::LogAiDataRequest >(Arena
 template<> PROTOBUF_NOINLINE ::optimization_guide::proto::LogAiDataResponse*
 Arena::CreateMaybeMessage< ::optimization_guide::proto::LogAiDataResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::optimization_guide::proto::LogAiDataResponse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::optimization_guide::proto::AiLoggingData*
-Arena::CreateMaybeMessage< ::optimization_guide::proto::AiLoggingData >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::optimization_guide::proto::AiLoggingData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

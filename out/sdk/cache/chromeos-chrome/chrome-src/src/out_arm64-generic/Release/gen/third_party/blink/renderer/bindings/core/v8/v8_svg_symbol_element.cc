@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGSymbolElement>::value,
     "SVGSymbolElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGSymbolElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGSymbolElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSymbolElement* blink_receiver = V8SVGSymbolElement::ToWrappableUnsafe(v8_receiver);
+SVGSymbolElement* blink_receiver = V8SVGSymbolElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewBox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +111,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSymbolElement* blink_receiver = V8SVGSymbolElement::ToWrappableUnsafe(v8_receiver);
+SVGSymbolElement* blink_receiver = V8SVGSymbolElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAspectRatio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

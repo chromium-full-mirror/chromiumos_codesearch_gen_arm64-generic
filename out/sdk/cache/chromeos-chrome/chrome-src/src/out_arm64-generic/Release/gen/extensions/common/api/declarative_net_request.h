@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -197,8 +198,8 @@ struct Ruleset {
   ~Ruleset();
   Ruleset(const Ruleset&) = delete;
   Ruleset& operator=(const Ruleset&) = delete;
-  Ruleset(Ruleset&& rhs);
-  Ruleset& operator=(Ruleset&& rhs);
+  Ruleset(Ruleset&& rhs) noexcept;
+  Ruleset& operator=(Ruleset&& rhs) noexcept;
 
   // Populates a Ruleset object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -210,9 +211,6 @@ struct Ruleset {
 
   // Creates a deep copy of Ruleset.
   Ruleset Clone() const;
-
-  // Creates a Ruleset object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Ruleset> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Ruleset object from a base::Value::Dict, or unexpected on
   // failure.
@@ -242,8 +240,8 @@ struct QueryKeyValue {
   ~QueryKeyValue();
   QueryKeyValue(const QueryKeyValue&) = delete;
   QueryKeyValue& operator=(const QueryKeyValue&) = delete;
-  QueryKeyValue(QueryKeyValue&& rhs);
-  QueryKeyValue& operator=(QueryKeyValue&& rhs);
+  QueryKeyValue(QueryKeyValue&& rhs) noexcept;
+  QueryKeyValue& operator=(QueryKeyValue&& rhs) noexcept;
 
   // Populates a QueryKeyValue object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -255,9 +253,6 @@ struct QueryKeyValue {
 
   // Creates a deep copy of QueryKeyValue.
   QueryKeyValue Clone() const;
-
-  // Creates a QueryKeyValue object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryKeyValue> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a QueryKeyValue object from a base::Value::Dict, or unexpected on
   // failure.
@@ -277,7 +272,7 @@ struct QueryKeyValue {
 
   // If true, the query key is replaced only if it's already present. Otherwise,
   // the key is also added if it's missing. Defaults to false.
-  absl::optional<bool> replace_only;
+  std::optional<bool> replace_only;
 
 };
 
@@ -286,8 +281,8 @@ struct QueryTransform {
   ~QueryTransform();
   QueryTransform(const QueryTransform&) = delete;
   QueryTransform& operator=(const QueryTransform&) = delete;
-  QueryTransform(QueryTransform&& rhs);
-  QueryTransform& operator=(QueryTransform&& rhs);
+  QueryTransform(QueryTransform&& rhs) noexcept;
+  QueryTransform& operator=(QueryTransform&& rhs) noexcept;
 
   // Populates a QueryTransform object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -299,9 +294,6 @@ struct QueryTransform {
 
   // Creates a deep copy of QueryTransform.
   QueryTransform Clone() const;
-
-  // Creates a QueryTransform object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryTransform> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a QueryTransform object from a base::Value::Dict, or unexpected on
   // failure.
@@ -316,10 +308,10 @@ struct QueryTransform {
   base::Value::Dict ToValue() const;
 
   // The list of query keys to be removed.
-  absl::optional<std::vector<std::string>> remove_params;
+  std::optional<std::vector<std::string>> remove_params;
 
   // The list of query key-value pairs to be added or replaced.
-  absl::optional<std::vector<QueryKeyValue>> add_or_replace_params;
+  std::optional<std::vector<QueryKeyValue>> add_or_replace_params;
 
 };
 
@@ -328,8 +320,8 @@ struct URLTransform {
   ~URLTransform();
   URLTransform(const URLTransform&) = delete;
   URLTransform& operator=(const URLTransform&) = delete;
-  URLTransform(URLTransform&& rhs);
-  URLTransform& operator=(URLTransform&& rhs);
+  URLTransform(URLTransform&& rhs) noexcept;
+  URLTransform& operator=(URLTransform&& rhs) noexcept;
 
   // Populates a URLTransform object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -341,9 +333,6 @@ struct URLTransform {
 
   // Creates a deep copy of URLTransform.
   URLTransform Clone() const;
-
-  // Creates a URLTransform object from a base::Value, or NULL on failure.
-  static std::unique_ptr<URLTransform> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a URLTransform object from a base::Value::Dict, or unexpected on
   // failure.
@@ -358,33 +347,33 @@ struct URLTransform {
 
   // The new scheme for the request. Allowed values are "http", "https", "ftp" and
   // "chrome-extension".
-  absl::optional<std::string> scheme;
+  std::optional<std::string> scheme;
 
   // The new host for the request.
-  absl::optional<std::string> host;
+  std::optional<std::string> host;
 
   // The new port for the request. If empty, the existing port is cleared.
-  absl::optional<std::string> port;
+  std::optional<std::string> port;
 
   // The new path for the request. If empty, the existing path is cleared.
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
 
   // The new query for the request. Should be either empty, in which case the
   // existing query is cleared; or should begin with '?'.
-  absl::optional<std::string> query;
+  std::optional<std::string> query;
 
   // Add, remove or replace query key-value pairs.
-  absl::optional<QueryTransform> query_transform;
+  std::optional<QueryTransform> query_transform;
 
   // The new fragment for the request. Should be either empty, in which case the
   // existing fragment is cleared; or should begin with '#'.
-  absl::optional<std::string> fragment;
+  std::optional<std::string> fragment;
 
   // The new username for the request.
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
   // The new password for the request.
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
 };
 
@@ -393,8 +382,8 @@ struct Redirect {
   ~Redirect();
   Redirect(const Redirect&) = delete;
   Redirect& operator=(const Redirect&) = delete;
-  Redirect(Redirect&& rhs);
-  Redirect& operator=(Redirect&& rhs);
+  Redirect(Redirect&& rhs) noexcept;
+  Redirect& operator=(Redirect&& rhs) noexcept;
 
   // Populates a Redirect object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -406,9 +395,6 @@ struct Redirect {
 
   // Creates a deep copy of Redirect.
   Redirect Clone() const;
-
-  // Creates a Redirect object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Redirect> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Redirect object from a base::Value::Dict, or unexpected on
   // failure.
@@ -422,20 +408,63 @@ struct Redirect {
   base::Value::Dict ToValue() const;
 
   // Path relative to the extension directory. Should start with '/'.
-  absl::optional<std::string> extension_path;
+  std::optional<std::string> extension_path;
 
   // Url transformations to perform.
-  absl::optional<URLTransform> transform;
+  std::optional<URLTransform> transform;
 
   // The redirect url. Redirects to JavaScript urls are not allowed.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Substitution pattern for rules which specify a <code>regexFilter</code>. The
   // first match of <code>regexFilter</code> within the url will be replaced with
   // this pattern. Within <code>regexSubstitution</code>, backslash-escaped digits
   // (\1 to \9) can be used to insert the corresponding capture groups. \0 refers
   // to the entire matching text.
-  absl::optional<std::string> regex_substitution;
+  std::optional<std::string> regex_substitution;
+
+};
+
+struct HeaderInfo {
+  HeaderInfo();
+  ~HeaderInfo();
+  HeaderInfo(const HeaderInfo&) = delete;
+  HeaderInfo& operator=(const HeaderInfo&) = delete;
+  HeaderInfo(HeaderInfo&& rhs) noexcept;
+  HeaderInfo& operator=(HeaderInfo&& rhs) noexcept;
+
+  // Populates a HeaderInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, HeaderInfo& out, std::u16string& error);
+
+  // Populates a HeaderInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, HeaderInfo& out, std::u16string& error);
+
+  // Creates a deep copy of HeaderInfo.
+  HeaderInfo Clone() const;
+
+  // Creates a HeaderInfo object from a base::Value::Dict, or unexpected on
+  // failure.
+  static base::expected<HeaderInfo, std::u16string> FromValue(const base::Value::Dict& value);
+
+  // Creates a HeaderInfo object from a base::Value, or unexpected on failure.
+  static base::expected<HeaderInfo, std::u16string> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisHeaderInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The name of the header.
+  std::string header;
+
+  // If specified, match this rule if the header's value contains at least one
+  // element in this list.
+  std::optional<std::vector<std::string>> values;
+
+  // If specified, the rule is not matched if the header exists but its value
+  // contains at least one element in this list.
+  std::optional<std::vector<std::string>> excluded_values;
 
 };
 
@@ -444,8 +473,8 @@ struct RuleCondition {
   ~RuleCondition();
   RuleCondition(const RuleCondition&) = delete;
   RuleCondition& operator=(const RuleCondition&) = delete;
-  RuleCondition(RuleCondition&& rhs);
-  RuleCondition& operator=(RuleCondition&& rhs);
+  RuleCondition(RuleCondition&& rhs) noexcept;
+  RuleCondition& operator=(RuleCondition&& rhs) noexcept;
 
   // Populates a RuleCondition object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -457,9 +486,6 @@ struct RuleCondition {
 
   // Creates a deep copy of RuleCondition.
   RuleCondition Clone() const;
-
-  // Creates a RuleCondition object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RuleCondition> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a RuleCondition object from a base::Value::Dict, or unexpected on
   // failure.
@@ -494,7 +520,7 @@ struct RuleCondition {
   // encoded in utf-8. For example, when the request url is
   // http://abc.&#x0440;&#x0444;?q=&#x0444;, the <code>urlFilter</code> will be
   // matched against the url http://abc.xn--p1ai/?q=%D1%84.</p>
-  absl::optional<std::string> url_filter;
+  std::optional<std::string> url_filter;
 
   // <p>Regular expression to match against the network request url. This follows
   // the <a href = "https://github.com/google/re2/wiki/Syntax">RE2
@@ -504,11 +530,11 @@ struct RuleCondition {
   // matched against a url where the host is encoded in the punycode format (in
   // case of internationalized domains) and any other non-ascii characters are url
   // encoded in utf-8.</p>
-  absl::optional<std::string> regex_filter;
+  std::optional<std::string> regex_filter;
 
   // Whether the <code>urlFilter</code> or <code>regexFilter</code> (whichever is
   // specified) is case sensitive. Default is false.
-  absl::optional<bool> is_url_filter_case_sensitive;
+  std::optional<bool> is_url_filter_case_sensitive;
 
   // <p>The rule will only match network requests originating from the list of
   // <code>initiatorDomains</code>. If the list is omitted, the rule is applied to
@@ -518,7 +544,7 @@ struct RuleCondition {
   // internationalized domains.</li>  <li>    This matches against the request
   // initiator and not the request url.  </li>  <li>Sub-domains of the listed
   // domains are also matched.</li> </ul></p>
-  absl::optional<std::vector<std::string>> initiator_domains;
+  std::optional<std::vector<std::string>> initiator_domains;
 
   // <p>The rule will not match network requests originating from the list of
   // <code>excludedInitiatorDomains</code>. If the list is empty or omitted, no
@@ -529,7 +555,7 @@ struct RuleCondition {
   // domains.</li>  <li>    This matches against the request initiator and not the
   // request url.  </li>  <li>Sub-domains of the listed domains are also
   // excluded.</li> </ul></p>
-  absl::optional<std::vector<std::string>> excluded_initiator_domains;
+  std::optional<std::vector<std::string>> excluded_initiator_domains;
 
   // <p>The rule will only match network requests when the domain matches one from
   // the list of <code>requestDomains</code>. If the list is omitted, the rule is
@@ -538,7 +564,7 @@ struct RuleCondition {
   // allowed.</li>  <li>The entries must consist of only ascii characters.</li>
   // <li>Use punycode encoding for internationalized domains.</li>
   // <li>Sub-domains of the listed domains are also matched.</li> </ul></p>
-  absl::optional<std::vector<std::string>> request_domains;
+  std::optional<std::vector<std::string>> request_domains;
 
   // <p>The rule will not match network requests when the domains matches one from
   // the list of <code>excludedRequestDomains</code>. If the list is empty or
@@ -548,38 +574,38 @@ struct RuleCondition {
   // ascii characters.</li>  <li>Use punycode encoding for internationalized
   // domains.</li>  <li>Sub-domains of the listed domains are also excluded.</li>
   // </ul></p>
-  absl::optional<std::vector<std::string>> excluded_request_domains;
+  std::optional<std::vector<std::string>> excluded_request_domains;
 
   // The rule will only match network requests originating from the list of
   // <code>domains</code>.
-  absl::optional<std::vector<std::string>> domains;
+  std::optional<std::vector<std::string>> domains;
 
   // The rule will not match network requests originating from the list of
   // <code>excludedDomains</code>.
-  absl::optional<std::vector<std::string>> excluded_domains;
+  std::optional<std::vector<std::string>> excluded_domains;
 
   // <p>List of resource types which the rule can match. An empty list is not
   // allowed.</p><p>Note: this must be specified for <code>allowAllRequests</code>
   // rules and may only include the <code>sub_frame</code> and
   // <code>main_frame</code> resource types.</p>
-  absl::optional<std::vector<ResourceType>> resource_types;
+  std::optional<std::vector<ResourceType>> resource_types;
 
   // List of resource types which the rule won't match. Only one of
   // <code>resourceTypes</code> and <code>excludedResourceTypes</code> should be
   // specified. If neither of them is specified, all resource types except
   // "main_frame" are blocked.
-  absl::optional<std::vector<ResourceType>> excluded_resource_types;
+  std::optional<std::vector<ResourceType>> excluded_resource_types;
 
   // <p>List of HTTP request methods which the rule can match. An empty list is
   // not allowed.</p><p>Note: Specifying a <code>requestMethods</code> rule
   // condition will also exclude non-HTTP(s) requests, whereas specifying
   // <code>excludedRequestMethods</code> will not.</p>
-  absl::optional<std::vector<RequestMethod>> request_methods;
+  std::optional<std::vector<RequestMethod>> request_methods;
 
   // List of request methods which the rule won't match. Only one of
   // <code>requestMethods</code> and <code>excludedRequestMethods</code> should be
   // specified. If neither of them is specified, all request methods are matched.
-  absl::optional<std::vector<RequestMethod>> excluded_request_methods;
+  std::optional<std::vector<RequestMethod>> excluded_request_methods;
 
   // Specifies whether the network request is first-party or third-party to the
   // domain from which it originated. If omitted, all requests are accepted.
@@ -588,12 +614,21 @@ struct RuleCondition {
   // List of $(ref:tabs.Tab.id) which the rule should match. An ID of
   // $(ref:tabs.TAB_ID_NONE) matches requests which don't originate from a tab. An
   // empty list is not allowed. Only supported for session-scoped rules.
-  absl::optional<std::vector<int>> tab_ids;
+  std::optional<std::vector<int>> tab_ids;
 
   // List of $(ref:tabs.Tab.id) which the rule should not match. An ID of
   // $(ref:tabs.TAB_ID_NONE) excludes requests which don't originate from a tab.
   // Only supported for session-scoped rules.
-  absl::optional<std::vector<int>> excluded_tab_ids;
+  std::optional<std::vector<int>> excluded_tab_ids;
+
+  // Rule matches if the request matches any response header in this list (if
+  // specified). TODO(crbug,com/1141166): Add documentation once feature is
+  // complete.
+  std::optional<std::vector<HeaderInfo>> response_headers;
+
+  // Rule does not match if the request has any of the specified headers.
+  // TODO(crbug,com/1141166): Add documentation once feature is complete.
+  std::optional<std::vector<std::string>> excluded_response_headers;
 
 };
 
@@ -602,8 +637,8 @@ struct ModifyHeaderInfo {
   ~ModifyHeaderInfo();
   ModifyHeaderInfo(const ModifyHeaderInfo&) = delete;
   ModifyHeaderInfo& operator=(const ModifyHeaderInfo&) = delete;
-  ModifyHeaderInfo(ModifyHeaderInfo&& rhs);
-  ModifyHeaderInfo& operator=(ModifyHeaderInfo&& rhs);
+  ModifyHeaderInfo(ModifyHeaderInfo&& rhs) noexcept;
+  ModifyHeaderInfo& operator=(ModifyHeaderInfo&& rhs) noexcept;
 
   // Populates a ModifyHeaderInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -615,9 +650,6 @@ struct ModifyHeaderInfo {
 
   // Creates a deep copy of ModifyHeaderInfo.
   ModifyHeaderInfo Clone() const;
-
-  // Creates a ModifyHeaderInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ModifyHeaderInfo> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ModifyHeaderInfo object from a base::Value::Dict, or unexpected
   // on failure.
@@ -639,7 +671,7 @@ struct ModifyHeaderInfo {
 
   // The new value for the header. Must be specified for <code>append</code> and
   // <code>set</code> operations.
-  absl::optional<std::string> value;
+  std::optional<std::string> value;
 
 };
 
@@ -648,8 +680,8 @@ struct RuleAction {
   ~RuleAction();
   RuleAction(const RuleAction&) = delete;
   RuleAction& operator=(const RuleAction&) = delete;
-  RuleAction(RuleAction&& rhs);
-  RuleAction& operator=(RuleAction&& rhs);
+  RuleAction(RuleAction&& rhs) noexcept;
+  RuleAction& operator=(RuleAction&& rhs) noexcept;
 
   // Populates a RuleAction object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -661,9 +693,6 @@ struct RuleAction {
 
   // Creates a deep copy of RuleAction.
   RuleAction Clone() const;
-
-  // Creates a RuleAction object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RuleAction> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a RuleAction object from a base::Value::Dict, or unexpected on
   // failure.
@@ -681,15 +710,15 @@ struct RuleAction {
 
   // Describes how the redirect should be performed. Only valid for redirect
   // rules.
-  absl::optional<Redirect> redirect;
+  std::optional<Redirect> redirect;
 
   // The request headers to modify for the request. Only valid if RuleActionType
   // is "modifyHeaders".
-  absl::optional<std::vector<ModifyHeaderInfo>> request_headers;
+  std::optional<std::vector<ModifyHeaderInfo>> request_headers;
 
   // The response headers to modify for the request. Only valid if RuleActionType
   // is "modifyHeaders".
-  absl::optional<std::vector<ModifyHeaderInfo>> response_headers;
+  std::optional<std::vector<ModifyHeaderInfo>> response_headers;
 
 };
 
@@ -698,8 +727,8 @@ struct Rule {
   ~Rule();
   Rule(const Rule&) = delete;
   Rule& operator=(const Rule&) = delete;
-  Rule(Rule&& rhs);
-  Rule& operator=(Rule&& rhs);
+  Rule(Rule&& rhs) noexcept;
+  Rule& operator=(Rule&& rhs) noexcept;
 
   // Populates a Rule object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -711,9 +740,6 @@ struct Rule {
 
   // Creates a deep copy of Rule.
   Rule Clone() const;
-
-  // Creates a Rule object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Rule> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Rule object from a base::Value::Dict, or unexpected on failure.
   static base::expected<Rule, std::u16string> FromValue(const base::Value::Dict& value);
@@ -729,7 +755,7 @@ struct Rule {
   int id;
 
   // Rule priority. Defaults to 1. When specified, should be >= 1.
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
   // The condition under which this rule is triggered.
   RuleCondition condition;
@@ -744,8 +770,8 @@ struct MatchedRule {
   ~MatchedRule();
   MatchedRule(const MatchedRule&) = delete;
   MatchedRule& operator=(const MatchedRule&) = delete;
-  MatchedRule(MatchedRule&& rhs);
-  MatchedRule& operator=(MatchedRule&& rhs);
+  MatchedRule(MatchedRule&& rhs) noexcept;
+  MatchedRule& operator=(MatchedRule&& rhs) noexcept;
 
   // Populates a MatchedRule object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -757,9 +783,6 @@ struct MatchedRule {
 
   // Creates a deep copy of MatchedRule.
   MatchedRule Clone() const;
-
-  // Creates a MatchedRule object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MatchedRule> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a MatchedRule object from a base::Value::Dict, or unexpected on
   // failure.
@@ -786,8 +809,8 @@ struct GetRulesFilter {
   ~GetRulesFilter();
   GetRulesFilter(const GetRulesFilter&) = delete;
   GetRulesFilter& operator=(const GetRulesFilter&) = delete;
-  GetRulesFilter(GetRulesFilter&& rhs);
-  GetRulesFilter& operator=(GetRulesFilter&& rhs);
+  GetRulesFilter(GetRulesFilter&& rhs) noexcept;
+  GetRulesFilter& operator=(GetRulesFilter&& rhs) noexcept;
 
   // Populates a GetRulesFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -799,9 +822,6 @@ struct GetRulesFilter {
 
   // Creates a deep copy of GetRulesFilter.
   GetRulesFilter Clone() const;
-
-  // Creates a GetRulesFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetRulesFilter> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a GetRulesFilter object from a base::Value::Dict, or unexpected on
   // failure.
@@ -816,7 +836,7 @@ struct GetRulesFilter {
   base::Value::Dict ToValue() const;
 
   // If specified, only rules with matching IDs are included.
-  absl::optional<std::vector<int>> rule_ids;
+  std::optional<std::vector<int>> rule_ids;
 
 };
 
@@ -825,8 +845,8 @@ struct MatchedRuleInfo {
   ~MatchedRuleInfo();
   MatchedRuleInfo(const MatchedRuleInfo&) = delete;
   MatchedRuleInfo& operator=(const MatchedRuleInfo&) = delete;
-  MatchedRuleInfo(MatchedRuleInfo&& rhs);
-  MatchedRuleInfo& operator=(MatchedRuleInfo&& rhs);
+  MatchedRuleInfo(MatchedRuleInfo&& rhs) noexcept;
+  MatchedRuleInfo& operator=(MatchedRuleInfo&& rhs) noexcept;
 
   // Populates a MatchedRuleInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -838,9 +858,6 @@ struct MatchedRuleInfo {
 
   // Creates a deep copy of MatchedRuleInfo.
   MatchedRuleInfo Clone() const;
-
-  // Creates a MatchedRuleInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MatchedRuleInfo> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a MatchedRuleInfo object from a base::Value::Dict, or unexpected on
   // failure.
@@ -871,8 +888,8 @@ struct MatchedRulesFilter {
   ~MatchedRulesFilter();
   MatchedRulesFilter(const MatchedRulesFilter&) = delete;
   MatchedRulesFilter& operator=(const MatchedRulesFilter&) = delete;
-  MatchedRulesFilter(MatchedRulesFilter&& rhs);
-  MatchedRulesFilter& operator=(MatchedRulesFilter&& rhs);
+  MatchedRulesFilter(MatchedRulesFilter&& rhs) noexcept;
+  MatchedRulesFilter& operator=(MatchedRulesFilter&& rhs) noexcept;
 
   // Populates a MatchedRulesFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -884,9 +901,6 @@ struct MatchedRulesFilter {
 
   // Creates a deep copy of MatchedRulesFilter.
   MatchedRulesFilter Clone() const;
-
-  // Creates a MatchedRulesFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MatchedRulesFilter> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a MatchedRulesFilter object from a base::Value::Dict, or unexpected
   // on failure.
@@ -902,10 +916,10 @@ struct MatchedRulesFilter {
 
   // If specified, only matches rules for the given tab. Matches rules not
   // associated with any active tab if set to -1.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // If specified, only matches rules after the given timestamp.
-  absl::optional<double> min_time_stamp;
+  std::optional<double> min_time_stamp;
 
 };
 
@@ -914,8 +928,8 @@ struct RulesMatchedDetails {
   ~RulesMatchedDetails();
   RulesMatchedDetails(const RulesMatchedDetails&) = delete;
   RulesMatchedDetails& operator=(const RulesMatchedDetails&) = delete;
-  RulesMatchedDetails(RulesMatchedDetails&& rhs);
-  RulesMatchedDetails& operator=(RulesMatchedDetails&& rhs);
+  RulesMatchedDetails(RulesMatchedDetails&& rhs) noexcept;
+  RulesMatchedDetails& operator=(RulesMatchedDetails&& rhs) noexcept;
 
   // Populates a RulesMatchedDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -927,10 +941,6 @@ struct RulesMatchedDetails {
 
   // Creates a deep copy of RulesMatchedDetails.
   RulesMatchedDetails Clone() const;
-
-  // Creates a RulesMatchedDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RulesMatchedDetails> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a RulesMatchedDetails object from a base::Value::Dict, or
   // unexpected on failure.
@@ -954,8 +964,8 @@ struct RequestDetails {
   ~RequestDetails();
   RequestDetails(const RequestDetails&) = delete;
   RequestDetails& operator=(const RequestDetails&) = delete;
-  RequestDetails(RequestDetails&& rhs);
-  RequestDetails& operator=(RequestDetails&& rhs);
+  RequestDetails(RequestDetails&& rhs) noexcept;
+  RequestDetails& operator=(RequestDetails&& rhs) noexcept;
 
   // Populates a RequestDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -967,9 +977,6 @@ struct RequestDetails {
 
   // Creates a deep copy of RequestDetails.
   RequestDetails Clone() const;
-
-  // Creates a RequestDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RequestDetails> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a RequestDetails object from a base::Value::Dict, or unexpected on
   // failure.
@@ -991,7 +998,7 @@ struct RequestDetails {
 
   // The origin where the request was initiated. This does not change through
   // redirects. If this is an opaque origin, the string 'null' will be used.
-  absl::optional<std::string> initiator;
+  std::optional<std::string> initiator;
 
   // Standard HTTP method.
   std::string method;
@@ -1006,7 +1013,7 @@ struct RequestDetails {
 
   // The unique identifier for the frame's document, if this request is for a
   // frame.
-  absl::optional<std::string> document_id;
+  std::optional<std::string> document_id;
 
   // The type of the frame, if this request is for a frame.
   extensions::api::extension_types::FrameType frame_type;
@@ -1020,7 +1027,7 @@ struct RequestDetails {
 
   // The unique identifier for the frame's parent document, if this request is for
   // a frame and has a parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The ID of the tab in which the request takes place. Set to -1 if the request
   // isn't related to a tab.
@@ -1036,8 +1043,8 @@ struct TestMatchRequestDetails {
   ~TestMatchRequestDetails();
   TestMatchRequestDetails(const TestMatchRequestDetails&) = delete;
   TestMatchRequestDetails& operator=(const TestMatchRequestDetails&) = delete;
-  TestMatchRequestDetails(TestMatchRequestDetails&& rhs);
-  TestMatchRequestDetails& operator=(TestMatchRequestDetails&& rhs);
+  TestMatchRequestDetails(TestMatchRequestDetails&& rhs) noexcept;
+  TestMatchRequestDetails& operator=(TestMatchRequestDetails&& rhs) noexcept;
 
   // Populates a TestMatchRequestDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1049,10 +1056,6 @@ struct TestMatchRequestDetails {
 
   // Creates a deep copy of TestMatchRequestDetails.
   TestMatchRequestDetails Clone() const;
-
-  // Creates a TestMatchRequestDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TestMatchRequestDetails> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a TestMatchRequestDetails object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1070,7 +1073,7 @@ struct TestMatchRequestDetails {
   std::string url;
 
   // The initiator URL (if any) for the hypothetical request.
-  absl::optional<std::string> initiator;
+  std::optional<std::string> initiator;
 
   // Standard HTTP method of the hypothetical request. Defaults to "get" for HTTP
   // requests and is ignored for non-HTTP requests.
@@ -1082,7 +1085,7 @@ struct TestMatchRequestDetails {
   // The ID of the tab in which the hypothetical request takes place. Does not
   // need to correspond to a real tab ID. Default is -1, meaning that the request
   // isn't related to a tab.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 };
 
@@ -1091,8 +1094,8 @@ struct MatchedRuleInfoDebug {
   ~MatchedRuleInfoDebug();
   MatchedRuleInfoDebug(const MatchedRuleInfoDebug&) = delete;
   MatchedRuleInfoDebug& operator=(const MatchedRuleInfoDebug&) = delete;
-  MatchedRuleInfoDebug(MatchedRuleInfoDebug&& rhs);
-  MatchedRuleInfoDebug& operator=(MatchedRuleInfoDebug&& rhs);
+  MatchedRuleInfoDebug(MatchedRuleInfoDebug&& rhs) noexcept;
+  MatchedRuleInfoDebug& operator=(MatchedRuleInfoDebug&& rhs) noexcept;
 
   // Populates a MatchedRuleInfoDebug object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1104,10 +1107,6 @@ struct MatchedRuleInfoDebug {
 
   // Creates a deep copy of MatchedRuleInfoDebug.
   MatchedRuleInfoDebug Clone() const;
-
-  // Creates a MatchedRuleInfoDebug object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MatchedRuleInfoDebug> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a MatchedRuleInfoDebug object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1133,8 +1132,8 @@ struct DNRInfo {
   ~DNRInfo();
   DNRInfo(const DNRInfo&) = delete;
   DNRInfo& operator=(const DNRInfo&) = delete;
-  DNRInfo(DNRInfo&& rhs);
-  DNRInfo& operator=(DNRInfo&& rhs);
+  DNRInfo(DNRInfo&& rhs) noexcept;
+  DNRInfo& operator=(DNRInfo&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kRuleResources[] = "rule_resources";
@@ -1149,9 +1148,6 @@ struct DNRInfo {
 
   // Creates a deep copy of DNRInfo.
   DNRInfo Clone() const;
-
-  // Creates a DNRInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DNRInfo> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a DNRInfo object from a base::Value::Dict, or unexpected on
   // failure.
@@ -1179,8 +1175,8 @@ struct RegexOptions {
   ~RegexOptions();
   RegexOptions(const RegexOptions&) = delete;
   RegexOptions& operator=(const RegexOptions&) = delete;
-  RegexOptions(RegexOptions&& rhs);
-  RegexOptions& operator=(RegexOptions&& rhs);
+  RegexOptions(RegexOptions&& rhs) noexcept;
+  RegexOptions& operator=(RegexOptions&& rhs) noexcept;
 
   // Populates a RegexOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1192,9 +1188,6 @@ struct RegexOptions {
 
   // Creates a deep copy of RegexOptions.
   RegexOptions Clone() const;
-
-  // Creates a RegexOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RegexOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a RegexOptions object from a base::Value::Dict, or unexpected on
   // failure.
@@ -1211,12 +1204,12 @@ struct RegexOptions {
   std::string regex;
 
   // Whether the <code>regex</code> specified is case sensitive. Default is true.
-  absl::optional<bool> is_case_sensitive;
+  std::optional<bool> is_case_sensitive;
 
   // Whether the <code>regex</code> specified requires capturing. Capturing is
   // only required for redirect rules which specify a <code>regexSubstition</code>
   // action. The default is false.
-  absl::optional<bool> require_capturing;
+  std::optional<bool> require_capturing;
 
 };
 
@@ -1225,8 +1218,8 @@ struct IsRegexSupportedResult {
   ~IsRegexSupportedResult();
   IsRegexSupportedResult(const IsRegexSupportedResult&) = delete;
   IsRegexSupportedResult& operator=(const IsRegexSupportedResult&) = delete;
-  IsRegexSupportedResult(IsRegexSupportedResult&& rhs);
-  IsRegexSupportedResult& operator=(IsRegexSupportedResult&& rhs);
+  IsRegexSupportedResult(IsRegexSupportedResult&& rhs) noexcept;
+  IsRegexSupportedResult& operator=(IsRegexSupportedResult&& rhs) noexcept;
 
   // Populates a IsRegexSupportedResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1238,10 +1231,6 @@ struct IsRegexSupportedResult {
 
   // Creates a deep copy of IsRegexSupportedResult.
   IsRegexSupportedResult Clone() const;
-
-  // Creates a IsRegexSupportedResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<IsRegexSupportedResult> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a IsRegexSupportedResult object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1268,8 +1257,8 @@ struct TestMatchOutcomeResult {
   ~TestMatchOutcomeResult();
   TestMatchOutcomeResult(const TestMatchOutcomeResult&) = delete;
   TestMatchOutcomeResult& operator=(const TestMatchOutcomeResult&) = delete;
-  TestMatchOutcomeResult(TestMatchOutcomeResult&& rhs);
-  TestMatchOutcomeResult& operator=(TestMatchOutcomeResult&& rhs);
+  TestMatchOutcomeResult(TestMatchOutcomeResult&& rhs) noexcept;
+  TestMatchOutcomeResult& operator=(TestMatchOutcomeResult&& rhs) noexcept;
 
   // Populates a TestMatchOutcomeResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1281,10 +1270,6 @@ struct TestMatchOutcomeResult {
 
   // Creates a deep copy of TestMatchOutcomeResult.
   TestMatchOutcomeResult Clone() const;
-
-  // Creates a TestMatchOutcomeResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TestMatchOutcomeResult> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a TestMatchOutcomeResult object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1308,8 +1293,8 @@ struct UpdateRuleOptions {
   ~UpdateRuleOptions();
   UpdateRuleOptions(const UpdateRuleOptions&) = delete;
   UpdateRuleOptions& operator=(const UpdateRuleOptions&) = delete;
-  UpdateRuleOptions(UpdateRuleOptions&& rhs);
-  UpdateRuleOptions& operator=(UpdateRuleOptions&& rhs);
+  UpdateRuleOptions(UpdateRuleOptions&& rhs) noexcept;
+  UpdateRuleOptions& operator=(UpdateRuleOptions&& rhs) noexcept;
 
   // Populates a UpdateRuleOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1321,9 +1306,6 @@ struct UpdateRuleOptions {
 
   // Creates a deep copy of UpdateRuleOptions.
   UpdateRuleOptions Clone() const;
-
-  // Creates a UpdateRuleOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UpdateRuleOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a UpdateRuleOptions object from a base::Value::Dict, or unexpected
   // on failure.
@@ -1338,10 +1320,10 @@ struct UpdateRuleOptions {
   base::Value::Dict ToValue() const;
 
   // IDs of the rules to remove. Any invalid IDs will be ignored.
-  absl::optional<std::vector<int>> remove_rule_ids;
+  std::optional<std::vector<int>> remove_rule_ids;
 
   // Rules to add.
-  absl::optional<std::vector<Rule>> add_rules;
+  std::optional<std::vector<Rule>> add_rules;
 
 };
 
@@ -1350,8 +1332,8 @@ struct UpdateRulesetOptions {
   ~UpdateRulesetOptions();
   UpdateRulesetOptions(const UpdateRulesetOptions&) = delete;
   UpdateRulesetOptions& operator=(const UpdateRulesetOptions&) = delete;
-  UpdateRulesetOptions(UpdateRulesetOptions&& rhs);
-  UpdateRulesetOptions& operator=(UpdateRulesetOptions&& rhs);
+  UpdateRulesetOptions(UpdateRulesetOptions&& rhs) noexcept;
+  UpdateRulesetOptions& operator=(UpdateRulesetOptions&& rhs) noexcept;
 
   // Populates a UpdateRulesetOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1363,10 +1345,6 @@ struct UpdateRulesetOptions {
 
   // Creates a deep copy of UpdateRulesetOptions.
   UpdateRulesetOptions Clone() const;
-
-  // Creates a UpdateRulesetOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<UpdateRulesetOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a UpdateRulesetOptions object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1382,11 +1360,11 @@ struct UpdateRulesetOptions {
 
   // The set of ids corresponding to a static $(ref:Ruleset) that should be
   // disabled.
-  absl::optional<std::vector<std::string>> disable_ruleset_ids;
+  std::optional<std::vector<std::string>> disable_ruleset_ids;
 
   // The set of ids corresponding to a static $(ref:Ruleset) that should be
   // enabled.
-  absl::optional<std::vector<std::string>> enable_ruleset_ids;
+  std::optional<std::vector<std::string>> enable_ruleset_ids;
 
 };
 
@@ -1395,8 +1373,8 @@ struct UpdateStaticRulesOptions {
   ~UpdateStaticRulesOptions();
   UpdateStaticRulesOptions(const UpdateStaticRulesOptions&) = delete;
   UpdateStaticRulesOptions& operator=(const UpdateStaticRulesOptions&) = delete;
-  UpdateStaticRulesOptions(UpdateStaticRulesOptions&& rhs);
-  UpdateStaticRulesOptions& operator=(UpdateStaticRulesOptions&& rhs);
+  UpdateStaticRulesOptions(UpdateStaticRulesOptions&& rhs) noexcept;
+  UpdateStaticRulesOptions& operator=(UpdateStaticRulesOptions&& rhs) noexcept;
 
   // Populates a UpdateStaticRulesOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1408,10 +1386,6 @@ struct UpdateStaticRulesOptions {
 
   // Creates a deep copy of UpdateStaticRulesOptions.
   UpdateStaticRulesOptions Clone() const;
-
-  // Creates a UpdateStaticRulesOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<UpdateStaticRulesOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a UpdateStaticRulesOptions object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1429,10 +1403,10 @@ struct UpdateStaticRulesOptions {
   std::string ruleset_id;
 
   // Set of ids corresponding to rules in the $(ref:Ruleset) to disable.
-  absl::optional<std::vector<int>> disable_rule_ids;
+  std::optional<std::vector<int>> disable_rule_ids;
 
   // Set of ids corresponding to rules in the $(ref:Ruleset) to enable.
-  absl::optional<std::vector<int>> enable_rule_ids;
+  std::optional<std::vector<int>> enable_rule_ids;
 
 };
 
@@ -1441,8 +1415,8 @@ struct GetDisabledRuleIdsOptions {
   ~GetDisabledRuleIdsOptions();
   GetDisabledRuleIdsOptions(const GetDisabledRuleIdsOptions&) = delete;
   GetDisabledRuleIdsOptions& operator=(const GetDisabledRuleIdsOptions&) = delete;
-  GetDisabledRuleIdsOptions(GetDisabledRuleIdsOptions&& rhs);
-  GetDisabledRuleIdsOptions& operator=(GetDisabledRuleIdsOptions&& rhs);
+  GetDisabledRuleIdsOptions(GetDisabledRuleIdsOptions&& rhs) noexcept;
+  GetDisabledRuleIdsOptions& operator=(GetDisabledRuleIdsOptions&& rhs) noexcept;
 
   // Populates a GetDisabledRuleIdsOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1454,10 +1428,6 @@ struct GetDisabledRuleIdsOptions {
 
   // Creates a deep copy of GetDisabledRuleIdsOptions.
   GetDisabledRuleIdsOptions Clone() const;
-
-  // Creates a GetDisabledRuleIdsOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetDisabledRuleIdsOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a GetDisabledRuleIdsOptions object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1481,8 +1451,8 @@ struct TabActionCountUpdate {
   ~TabActionCountUpdate();
   TabActionCountUpdate(const TabActionCountUpdate&) = delete;
   TabActionCountUpdate& operator=(const TabActionCountUpdate&) = delete;
-  TabActionCountUpdate(TabActionCountUpdate&& rhs);
-  TabActionCountUpdate& operator=(TabActionCountUpdate&& rhs);
+  TabActionCountUpdate(TabActionCountUpdate&& rhs) noexcept;
+  TabActionCountUpdate& operator=(TabActionCountUpdate&& rhs) noexcept;
 
   // Populates a TabActionCountUpdate object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1494,10 +1464,6 @@ struct TabActionCountUpdate {
 
   // Creates a deep copy of TabActionCountUpdate.
   TabActionCountUpdate Clone() const;
-
-  // Creates a TabActionCountUpdate object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TabActionCountUpdate> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a TabActionCountUpdate object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1525,8 +1491,8 @@ struct ExtensionActionOptions {
   ~ExtensionActionOptions();
   ExtensionActionOptions(const ExtensionActionOptions&) = delete;
   ExtensionActionOptions& operator=(const ExtensionActionOptions&) = delete;
-  ExtensionActionOptions(ExtensionActionOptions&& rhs);
-  ExtensionActionOptions& operator=(ExtensionActionOptions&& rhs);
+  ExtensionActionOptions(ExtensionActionOptions&& rhs) noexcept;
+  ExtensionActionOptions& operator=(ExtensionActionOptions&& rhs) noexcept;
 
   // Populates a ExtensionActionOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1538,10 +1504,6 @@ struct ExtensionActionOptions {
 
   // Creates a deep copy of ExtensionActionOptions.
   ExtensionActionOptions Clone() const;
-
-  // Creates a ExtensionActionOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExtensionActionOptions> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ExtensionActionOptions object from a base::Value::Dict, or
   // unexpected on failure.
@@ -1557,10 +1519,10 @@ struct ExtensionActionOptions {
 
   // Whether to automatically display the action count for a page as the
   // extension's badge text. This preference is persisted across sessions.
-  absl::optional<bool> display_action_count_as_badge_text;
+  std::optional<bool> display_action_count_as_badge_text;
 
   // Details of how the tab's action count should be adjusted.
-  absl::optional<TabActionCountUpdate> tab_update;
+  std::optional<TabActionCountUpdate> tab_update;
 
 };
 
@@ -1574,8 +1536,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kDeclarativeNetRequest[] = "declarative_net_request";
@@ -1600,11 +1562,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UpdateRuleOptions options;
@@ -1627,15 +1589,15 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An object to filter the list of fetched rules.
-  absl::optional<GetRulesFilter> filter;
+  std::optional<GetRulesFilter> filter;
 
 
  private:
@@ -1655,11 +1617,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UpdateRuleOptions options;
@@ -1682,15 +1644,15 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An object to filter the list of fetched rules.
-  absl::optional<GetRulesFilter> filter;
+  std::optional<GetRulesFilter> filter;
 
 
  private:
@@ -1710,11 +1672,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UpdateRulesetOptions options;
@@ -1746,11 +1708,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UpdateStaticRulesOptions options;
@@ -1773,11 +1735,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Specifies the ruleset to query.
@@ -1801,15 +1763,15 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An object to filter the list of matched rules.
-  absl::optional<MatchedRulesFilter> filter;
+  std::optional<MatchedRulesFilter> filter;
 
 
  private:
@@ -1829,11 +1791,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ExtensionActionOptions options;
@@ -1856,11 +1818,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The regular expression to check.
@@ -1893,11 +1855,11 @@ struct Params {
   static base::expected<Params, std::u16string> Create(const base::Value::List& args);
   // DEPRECATED: prefer the variant of this function returning errors with
   // `base::expected`.
-  static absl::optional<Params> Create(const base::Value::List& args, std::u16string& error);
+  static std::optional<Params> Create(const base::Value::List& args, std::u16string& error);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   TestMatchRequestDetails request;

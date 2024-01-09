@@ -1,4 +1,4 @@
-import*as e from"../../../models/emulation/emulation.js";import*as t from"../../../ui/components/helpers/helpers.js";import*as i from"../../../ui/lit-html/lit-html.js";import*as s from"../../../ui/legacy/legacy.js";class a extends Event{size;static eventName="sizechanged";constructor(e){super(a.eventName),this.size=e}}function n(e){return Number(e.target.value)}class r extends HTMLElement{#e=this.attachShadow({mode:"open"});#t=!1;#i="0";#s="";#a;static litTagName=i.literal`device-mode-emulation-size-input`;constructor(e){super(),this.#a=e}connectedCallback(){this.render()}set disabled(e){this.#t=e,this.render()}set size(e){this.#i=e,this.render()}set placeholder(e){this.#s=e,this.render()}render(){i.render(i.html`
+import*as e from"../../../models/emulation/emulation.js";import*as t from"../../../ui/components/helpers/helpers.js";import*as i from"../../../ui/legacy/legacy.js";import*as s from"../../../ui/lit-html/lit-html.js";import*as o from"../../../ui/visual_logging/visual_logging.js";class l extends Event{size;static eventName="sizechanged";constructor(e){super(l.eventName),this.size=e}}function n(e){return Number(e.target.value)}class a extends HTMLElement{#e=this.attachShadow({mode:"open"});#t=!1;#i="0";#s="";#o;#l;static litTagName=s.literal`device-mode-emulation-size-input`;constructor(e,{jslogContext:t}){super(),this.#o=e,this.#l=t}connectedCallback(){this.render()}set disabled(e){this.#t=e,this.render()}set size(e){this.#i=e,this.render()}set placeholder(e){this.#s=e,this.render()}render(){s.render(s.html`
       <style>
         input {
           /*
@@ -28,11 +28,12 @@ import*as e from"../../../models/emulation/emulation.js";import*as t from"../../
       <input type="number"
              max=${e.DeviceModeModel.MaxDeviceSize}
              min=${e.DeviceModeModel.MinDeviceSize}
+             jslog=${o.textField().track({change:!0}).context(this.#l)}
              maxlength="4"
-             title=${this.#a}
+             title=${this.#o}
              placeholder=${this.#s}
              ?disabled=${this.#t}
              .value=${this.#i}
              @change=${this.#n}
-             @keydown=${this.#r} />
-    `,this.#e,{host:this})}#n(e){this.dispatchEvent(new a(n(e)))}#r(t){let i=s.UIUtils.modifiedFloatNumber(n(t),t);null!==i&&(i=Math.min(i,e.DeviceModeModel.MaxDeviceSize),i=Math.max(i,e.DeviceModeModel.MinDeviceSize),t.preventDefault(),t.target.value=String(i),this.dispatchEvent(new a(i)))}}t.CustomElements.defineComponent("device-mode-emulation-size-input",r);var l=Object.freeze({__proto__:null,SizeInputElement:r});export{l as DeviceSizeInputElement};
+             @keydown=${this.#a} />
+    `,this.#e,{host:this})}#n(e){this.dispatchEvent(new l(n(e)))}#a(t){let s=i.UIUtils.modifiedFloatNumber(n(t),t);null!==s&&(s=Math.min(s,e.DeviceModeModel.MaxDeviceSize),s=Math.max(s,e.DeviceModeModel.MinDeviceSize),t.preventDefault(),t.target.value=String(s),this.dispatchEvent(new l(s)))}}t.CustomElements.defineComponent("device-mode-emulation-size-input",a);var r=Object.freeze({__proto__:null,SizeInputElement:a});export{r as DeviceSizeInputElement};

@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAnimatedEnumerationBase>::value,
     "SVGAnimatedEnumerationBase inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAnimatedEnumerationBase::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAnimatedEnumerationBase is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedEnumeration.baseVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseVal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -97,9 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedEnumeration.baseVal.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGAnimatedEnumeration";
@@ -123,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedEnumeration.animVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedEnumerationBase* blink_receiver = V8SVGAnimatedEnumeration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animVal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }

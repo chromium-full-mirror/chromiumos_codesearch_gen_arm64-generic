@@ -9,11 +9,11 @@ import { alphabeticalSort } from 'chrome://resources/cr_components/app_managemen
 import { assert } from 'chrome://resources/js/assert.js';
 import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../../route_observer_mixin.js';
+import { AppManagementStore } from '../../common/app_management/store.js';
+import { AppManagementStoreMixin } from '../../common/app_management/store_mixin.js';
+import { RouteObserverMixin } from '../../common/route_observer_mixin.js';
 import { routes } from '../../router.js';
 import { getTemplate } from './main_view.html.js';
-import { AppManagementStore } from './store.js';
-import { AppManagementStoreMixin } from './store_mixin.js';
 const AppManagementMainViewElementBase = AppManagementStoreMixin(RouteObserverMixin(PolymerElement));
 export class AppManagementMainViewElement extends AppManagementMainViewElementBase {
     static get is() {

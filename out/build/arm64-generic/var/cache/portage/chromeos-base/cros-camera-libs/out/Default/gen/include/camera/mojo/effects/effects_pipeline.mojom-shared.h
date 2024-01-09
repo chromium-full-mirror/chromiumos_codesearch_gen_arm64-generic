@@ -258,7 +258,7 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::RelativeFilePathDataView>(
         pointer, output, message_);
   }
-  absl::optional<float> light_intensity() const {
+  std::optional<float> light_intensity() const {
     if (data_->header_.version < 4) {
       return absl::nullopt;
     }

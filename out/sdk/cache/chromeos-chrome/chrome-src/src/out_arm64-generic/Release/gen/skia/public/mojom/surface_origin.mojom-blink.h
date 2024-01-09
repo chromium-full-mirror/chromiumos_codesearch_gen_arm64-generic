@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "skia/public/mojom/surface_origin.mojom-features.h"
 #include "skia/public/mojom/surface_origin.mojom-shared.h"
 #include "skia/public/mojom/surface_origin.mojom-blink-forward.h"
 
@@ -32,18 +33,6 @@
 #include "skia/public/mojom/surface_origin_mojom_traits.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::skia::mojom::SurfaceOrigin>
-    : EnumHashTraits<::skia::mojom::SurfaceOrigin, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace skia::mojom::blink {

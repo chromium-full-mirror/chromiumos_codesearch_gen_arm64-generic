@@ -76,11 +76,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, RTCDataChannel>::value,
     "RTCDataChannel does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&RTCDataChannel::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCDataChannel is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -108,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.ordered.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ordered();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -122,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.maxPacketLifeTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxPacketLifeTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -136,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.maxRetransmits.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxRetransmits();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -150,10 +148,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -165,8 +163,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.negotiated.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->negotiated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -179,8 +178,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.id.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -193,10 +193,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.readyState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->readyState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -208,8 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.bufferedAmount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bufferedAmount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -222,8 +223,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.bufferedAmountLowThreshold.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bufferedAmountLowThreshold();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -235,9 +237,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.bufferedAmountLowThreshold.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "RTCDataChannel";
@@ -258,10 +260,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onopen.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onopen();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onopen();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -274,8 +276,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnopen(event_handler);
 }
 
@@ -286,10 +289,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onbufferedamountlow.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbufferedamountlow();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbufferedamountlow();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -302,8 +305,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbufferedamountlow(event_handler);
 }
 
@@ -314,10 +318,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -330,8 +334,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -342,10 +347,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onclosing.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclosing();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclosing();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -358,8 +363,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclosing(event_handler);
 }
 
@@ -370,10 +376,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -386,8 +392,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -398,10 +405,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -414,8 +421,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -426,10 +434,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.binaryType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->binaryType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->binaryType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -440,9 +448,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.binaryType.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "RTCDataChannel";
@@ -485,7 +493,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCDataChannel_Relia
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reliable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -502,8 +510,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDataChannel.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -526,7 +535,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -556,7 +565,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -586,7 +595,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<DOMArrayBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -616,7 +625,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(v8_receiver);
+RTCDataChannel* blink_receiver = V8RTCDataChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<NotShared<DOMArrayBufferView>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

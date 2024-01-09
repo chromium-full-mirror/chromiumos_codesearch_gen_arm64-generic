@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/performance_manager/public/mojom/web_memory.mojom-features.h"
 #include "components/performance_manager/public/mojom/web_memory.mojom-shared.h"
 #include "components/performance_manager/public/mojom/web_memory.mojom-forward.h"
 #include <string>
@@ -71,9 +72,9 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) WebMemoryAttribution {
 
   WebMemoryAttribution(
       WebMemoryAttribution::Scope scope,
-      const absl::optional<std::string>& url,
-      const absl::optional<std::string>& src,
-      const absl::optional<std::string>& id);
+      const std::optional<std::string>& url,
+      const std::optional<std::string>& src,
+      const std::optional<std::string>& id);
 
 
   ~WebMemoryAttribution();
@@ -153,11 +154,11 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) WebMemoryAttribution {
   
   WebMemoryAttribution::Scope scope;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
   
-  absl::optional<std::string> src;
+  std::optional<std::string> src;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

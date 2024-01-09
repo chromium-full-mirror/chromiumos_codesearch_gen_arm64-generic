@@ -27,8 +27,8 @@ class BLINK_COMMON_EXPORT ContactsManagerAsyncWaiter {
 
   ~ContactsManagerAsyncWaiter();
   void Select(
-      bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons, absl::optional<std::vector<ContactInfoPtr>>* out_contacts);
-  absl::optional<std::vector<ContactInfoPtr>> Select(bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons);
+      bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons, std::optional<std::vector<ContactInfoPtr>>* out_contacts);
+  std::optional<std::vector<ContactInfoPtr>> Select(bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons);
 
  private:
   ContactsManager* const proxy_;

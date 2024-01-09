@@ -7,6 +7,10 @@
 import {mojo} from '../../../../../mojo/public/js/bindings.js';
 
 import {
+  CameraAvailability as media_mojom_CameraAvailability,
+  CameraAvailabilitySpec as media_mojom_CameraAvailabilitySpec,
+  SubCaptureTargetType as media_mojom_SubCaptureTargetType,
+  SubCaptureTargetTypeSpec as media_mojom_SubCaptureTargetTypeSpec,
   VideoCaptureControlSupport as media_mojom_VideoCaptureControlSupport,
   VideoCaptureControlSupportSpec as media_mojom_VideoCaptureControlSupportSpec,
   VideoCaptureFormat as media_mojom_VideoCaptureFormat,
@@ -45,22 +49,6 @@ export const MediaDeviceType = {
   kNumMediaDeviceTypes: 3,
   MIN_VALUE: 0,
   MAX_VALUE: 3,
-};
-
-/**
- * @const { {$: !mojo.internal.MojomType} }
- */
-export const SubCaptureTargetTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- */
-export const SubCaptureTargetType = {
-  
-  kCropTarget: 0,
-  kRestrictionTarget: 1,
-  MIN_VALUE: 0,
-  MAX_VALUE: 1,
 };
 
 /**
@@ -177,7 +165,7 @@ export class MediaDevicesDispatcherHostInterface {
   closeFocusWindowOfOpportunity(label) {}
   
   /**
-   * @param { !SubCaptureTargetType } type
+   * @param { !media_mojom_SubCaptureTargetType } type
    * @return {!Promise<{
         id: !string,
    *  }>}
@@ -371,7 +359,7 @@ export class MediaDevicesDispatcherHostRemote {
 
   
   /**
-   * @param { !SubCaptureTargetType } type
+   * @param { !media_mojom_SubCaptureTargetType } type
    * @return {!Promise<{
         id: !string,
    *  }>}
@@ -936,8 +924,49 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'controlSupport', 24,
+        0,
+        media_mojom_VideoCaptureControlSupportSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'facingMode', 32,
+        0,
+        FacingModeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'availability_$flag', 36,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 40,
+        0,
+        media_mojom_CameraAvailabilitySpec.$,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 32],]);
+    [[0, 56],]);
 
 
 
@@ -952,6 +981,12 @@ export class MediaDeviceInfo {
     this.label;
     /** @type { !string } */
     this.groupId;
+    /** @type { !media_mojom_VideoCaptureControlSupport } */
+    this.controlSupport;
+    /** @type { !FacingMode } */
+    this.facingMode;
+    /** @type { (media_mojom_CameraAvailability|undefined) } */
+    this.availability;
   }
 }
 
@@ -1001,8 +1036,33 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'availability_$flag', 36,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 40,
+        0,
+        media_mojom_CameraAvailabilitySpec.$,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 48],]);
+    [[0, 56],]);
 
 
 
@@ -1021,6 +1081,8 @@ export class VideoInputDeviceCapabilities {
     this.formats;
     /** @type { !FacingMode } */
     this.facingMode;
+    /** @type { (media_mojom_CameraAvailability|undefined) } */
+    this.availability;
   }
 }
 
@@ -1569,7 +1631,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'type', 0,
         0,
-        SubCaptureTargetTypeSpec.$,
+        media_mojom_SubCaptureTargetTypeSpec.$,
         0,
         false /* nullable */,
         0,
@@ -1584,7 +1646,7 @@ mojo.internal.Struct(
  */
 export class MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params {
   constructor() {
-    /** @type { !SubCaptureTargetType } */
+    /** @type { !media_mojom_SubCaptureTargetType } */
     this.type;
   }
 }

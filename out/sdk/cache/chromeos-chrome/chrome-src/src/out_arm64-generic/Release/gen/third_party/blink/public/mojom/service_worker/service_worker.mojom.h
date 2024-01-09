@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/service_worker.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"
@@ -109,6 +110,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
     kSkipWaitingMinVersion = 0,
     kClaimClientsMinVersion = 0,
     kRegisterRouterMinVersion = 0,
+    kAddRoutesMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -150,6 +152,9 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
   struct RegisterRouter_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct AddRoutes_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~ServiceWorkerHost() = default;
 
@@ -170,12 +175,12 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
   virtual void GetClient(const std::string& client_uuid, GetClientCallback callback) = 0;
 
 
-  using OpenNewTabCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const absl::optional<std::string>&)>;
+  using OpenNewTabCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const std::optional<std::string>&)>;
   
   virtual void OpenNewTab(const ::GURL& url, OpenNewTabCallback callback) = 0;
 
 
-  using OpenPaymentHandlerWindowCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const absl::optional<std::string>&)>;
+  using OpenPaymentHandlerWindowCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const std::optional<std::string>&)>;
   
   virtual void OpenPaymentHandlerWindow(const ::GURL& url, OpenPaymentHandlerWindowCallback callback) = 0;
 
@@ -188,7 +193,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
   virtual void FocusClient(const std::string& client_uuid, FocusClientCallback callback) = 0;
 
 
-  using NavigateClientCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const absl::optional<std::string>&)>;
+  using NavigateClientCallback = base::OnceCallback<void(bool, ::blink::mojom::ServiceWorkerClientInfoPtr, const std::optional<std::string>&)>;
   
   virtual void NavigateClient(const std::string& client_uuid, const ::GURL& url, NavigateClientCallback callback) = 0;
 
@@ -198,7 +203,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
   virtual void SkipWaiting(SkipWaitingCallback callback) = 0;
 
 
-  using ClaimClientsCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const absl::optional<std::string>&)>;
+  using ClaimClientsCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerErrorType, const std::optional<std::string>&)>;
   
   virtual void ClaimClients(ClaimClientsCallback callback) = 0;
 
@@ -206,6 +211,11 @@ class BLINK_COMMON_EXPORT ServiceWorkerHost
   using RegisterRouterCallback = base::OnceCallback<void()>;
   
   virtual void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) = 0;
+
+
+  using AddRoutesCallback = base::OnceCallback<void()>;
+  
+  virtual void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) = 0;
 };
 
 class ServiceWorkerProxy;
@@ -396,7 +406,7 @@ class BLINK_COMMON_EXPORT ServiceWorker
 
   using DispatchNotificationClickEventCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerEventStatus)>;
   
-  virtual void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) = 0;
+  virtual void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) = 0;
 
 
   using DispatchNotificationCloseEventCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerEventStatus)>;
@@ -406,7 +416,7 @@ class BLINK_COMMON_EXPORT ServiceWorker
 
   using DispatchPushEventCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerEventStatus)>;
   
-  virtual void DispatchPushEvent(const absl::optional<std::string>& payload, DispatchPushEventCallback callback) = 0;
+  virtual void DispatchPushEvent(const std::optional<std::string>& payload, DispatchPushEventCallback callback) = 0;
 
 
   using DispatchPushSubscriptionChangeEventCallback = base::OnceCallback<void(::blink::mojom::ServiceWorkerEventStatus)>;
@@ -466,7 +476,7 @@ class BLINK_COMMON_EXPORT ServiceWorker
   virtual void AddMessageToConsole(::blink::mojom::ConsoleMessageLevel level, const std::string& message) = 0;
 
 
-  using ExecuteScriptForTestCallback = base::OnceCallback<void(::base::Value, const absl::optional<std::string>&)>;
+  using ExecuteScriptForTestCallback = base::OnceCallback<void(::base::Value, const std::optional<std::string>&)>;
   
   virtual void ExecuteScriptForTest(const ::std::u16string& javascript, bool wants_result, ExecuteScriptForTestCallback callback) = 0;
 };
@@ -503,6 +513,8 @@ class BLINK_COMMON_EXPORT ServiceWorkerHostProxy
   void ClaimClients(ClaimClientsCallback callback) final;
   
   void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) final;
+  
+  void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -535,11 +547,11 @@ class BLINK_COMMON_EXPORT ServiceWorkerProxy
   
   void DispatchFetchEventForMainResource(::blink::mojom::DispatchFetchEventParamsPtr params, ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback> response_callback, DispatchFetchEventForMainResourceCallback callback) final;
   
-  void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) final;
+  void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) final;
   
   void DispatchNotificationCloseEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, DispatchNotificationCloseEventCallback callback) final;
   
-  void DispatchPushEvent(const absl::optional<std::string>& payload, DispatchPushEventCallback callback) final;
+  void DispatchPushEvent(const std::optional<std::string>& payload, DispatchPushEventCallback callback) final;
   
   void DispatchPushSubscriptionChangeEvent(::blink::mojom::PushSubscriptionPtr old_subscription, ::blink::mojom::PushSubscriptionPtr new_subscription, DispatchPushSubscriptionChangeEventCallback callback) final;
   

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.016" timestamp="2023-10-27T00:18:13.593" name="AllTests">
-  <testsuite name="EWMAPower" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-27T00:18:13.602">
-    <testcase name="RelativePowerValue" file="cras/src/tests/ewma_power_unittest.cc" line="11" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:13.602" classname="EWMAPower" />
-    <testcase name="PowerInStereoData" file="cras/src/tests/ewma_power_unittest.cc" line="42" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:13.606" classname="EWMAPower" />
-    <testcase name="PowerInAudioArea" file="cras/src/tests/ewma_power_unittest.cc" line="82" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:18:13.607" classname="EWMAPower" />
-  </testsuite>
-</testsuites>

@@ -1,4 +1,4 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import{getRequiredElement}from"./util_ts.js";getRequiredElement("os-link-href").onclick=crosUrlAboutRedirect;getRequiredElement("os-link-href").onauxclick=event=>{if(event.button===1){crosUrlAboutRedirect(event)}};function crosUrlAboutRedirect(event){event.preventDefault();chrome.send("crosUrlAboutRedirect")}
+import{getRequiredElement}from"./util.js";getRequiredElement("os-link-href").onclick=crosUrlAboutRedirect;getRequiredElement("os-link-href").onauxclick=event=>{if(event.button===1){crosUrlAboutRedirect(event)}};function crosUrlAboutRedirect(event){event.preventDefault();chrome.send("crosUrlAboutRedirect")}

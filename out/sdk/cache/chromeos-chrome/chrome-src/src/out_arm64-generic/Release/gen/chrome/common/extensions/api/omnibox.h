@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,12 +31,12 @@ namespace omnibox {
 //
 
 // The style type.
-enum  DescriptionStyleType {
-  DESCRIPTION_STYLE_TYPE_NONE = 0,
-  DESCRIPTION_STYLE_TYPE_URL,
-  DESCRIPTION_STYLE_TYPE_MATCH,
-  DESCRIPTION_STYLE_TYPE_DIM,
-  DESCRIPTION_STYLE_TYPE_LAST = DESCRIPTION_STYLE_TYPE_DIM,
+enum class DescriptionStyleType {
+  kNone = 0,
+  kUrl,
+  kMatch,
+  kDim,
+  kMaxValue = kDim,
 };
 
 
@@ -47,12 +48,12 @@ std::u16string GetDescriptionStyleTypeParseError(base::StringPiece as_string);
 // to display results. For example, if the omnibox command is to navigate to a
 // certain URL, a disposition of 'newForegroundTab' means the navigation should
 // take place in a new selected tab.
-enum  OnInputEnteredDisposition {
-  ON_INPUT_ENTERED_DISPOSITION_NONE = 0,
-  ON_INPUT_ENTERED_DISPOSITION_CURRENTTAB,
-  ON_INPUT_ENTERED_DISPOSITION_NEWFOREGROUNDTAB,
-  ON_INPUT_ENTERED_DISPOSITION_NEWBACKGROUNDTAB,
-  ON_INPUT_ENTERED_DISPOSITION_LAST = ON_INPUT_ENTERED_DISPOSITION_NEWBACKGROUNDTAB,
+enum class OnInputEnteredDisposition {
+  kNone = 0,
+  kCurrentTab,
+  kNewForegroundTab,
+  kNewBackgroundTab,
+  kMaxValue = kNewBackgroundTab,
 };
 
 
@@ -66,8 +67,8 @@ struct MatchClassification {
   ~MatchClassification();
   MatchClassification(const MatchClassification&) = delete;
   MatchClassification& operator=(const MatchClassification&) = delete;
-  MatchClassification(MatchClassification&& rhs);
-  MatchClassification& operator=(MatchClassification&& rhs);
+  MatchClassification(MatchClassification&& rhs) noexcept;
+  MatchClassification& operator=(MatchClassification&& rhs) noexcept;
 
   // Populates a MatchClassification object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -80,17 +81,13 @@ struct MatchClassification {
   // Creates a deep copy of MatchClassification.
   MatchClassification Clone() const;
 
-  // Creates a MatchClassification object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MatchClassification> FromValueDeprecated(const base::Value& value);
-
   // Creates a MatchClassification object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MatchClassification> FromValue(const base::Value::Dict& value);
+  static std::optional<MatchClassification> FromValue(const base::Value::Dict& value);
 
   // Creates a MatchClassification object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MatchClassification> FromValue(const base::Value& value);
+  static std::optional<MatchClassification> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMatchClassification object.
@@ -101,7 +98,7 @@ struct MatchClassification {
   // The style type
   DescriptionStyleType type;
 
-  absl::optional<int> length;
+  std::optional<int> length;
 
 };
 
@@ -111,8 +108,8 @@ struct SuggestResult {
   ~SuggestResult();
   SuggestResult(const SuggestResult&) = delete;
   SuggestResult& operator=(const SuggestResult&) = delete;
-  SuggestResult(SuggestResult&& rhs);
-  SuggestResult& operator=(SuggestResult&& rhs);
+  SuggestResult(SuggestResult&& rhs) noexcept;
+  SuggestResult& operator=(SuggestResult&& rhs) noexcept;
 
   // Populates a SuggestResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -125,15 +122,12 @@ struct SuggestResult {
   // Creates a deep copy of SuggestResult.
   SuggestResult Clone() const;
 
-  // Creates a SuggestResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SuggestResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a SuggestResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SuggestResult> FromValue(const base::Value::Dict& value);
+  static std::optional<SuggestResult> FromValue(const base::Value::Dict& value);
 
   // Creates a SuggestResult object from a base::Value, or nullopt on failure.
-  static absl::optional<SuggestResult> FromValue(const base::Value& value);
+  static std::optional<SuggestResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSuggestResult object.
@@ -152,10 +146,10 @@ struct SuggestResult {
   std::string description;
 
   // Whether the suggest result can be deleted by the user.
-  absl::optional<bool> deletable;
+  std::optional<bool> deletable;
 
   // An array of style ranges for the description, as provided by the extension.
-  absl::optional<std::vector<MatchClassification>> description_styles;
+  std::optional<std::vector<MatchClassification>> description_styles;
 
 };
 
@@ -165,8 +159,8 @@ struct DefaultSuggestResult {
   ~DefaultSuggestResult();
   DefaultSuggestResult(const DefaultSuggestResult&) = delete;
   DefaultSuggestResult& operator=(const DefaultSuggestResult&) = delete;
-  DefaultSuggestResult(DefaultSuggestResult&& rhs);
-  DefaultSuggestResult& operator=(DefaultSuggestResult&& rhs);
+  DefaultSuggestResult(DefaultSuggestResult&& rhs) noexcept;
+  DefaultSuggestResult& operator=(DefaultSuggestResult&& rhs) noexcept;
 
   // Populates a DefaultSuggestResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -179,17 +173,13 @@ struct DefaultSuggestResult {
   // Creates a deep copy of DefaultSuggestResult.
   DefaultSuggestResult Clone() const;
 
-  // Creates a DefaultSuggestResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DefaultSuggestResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a DefaultSuggestResult object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DefaultSuggestResult> FromValue(const base::Value::Dict& value);
+  static std::optional<DefaultSuggestResult> FromValue(const base::Value::Dict& value);
 
   // Creates a DefaultSuggestResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DefaultSuggestResult> FromValue(const base::Value& value);
+  static std::optional<DefaultSuggestResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDefaultSuggestResult object.
@@ -203,7 +193,7 @@ struct DefaultSuggestResult {
   std::string description;
 
   // An array of style ranges for the description, as provided by the extension.
-  absl::optional<std::vector<MatchClassification>> description_styles;
+  std::optional<std::vector<MatchClassification>> description_styles;
 
 };
 
@@ -217,8 +207,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kOmnibox[] = "omnibox";
@@ -234,8 +224,8 @@ struct ManifestKeys {
     ~Omnibox();
     Omnibox(const Omnibox&) = delete;
     Omnibox& operator=(const Omnibox&) = delete;
-    Omnibox(Omnibox&& rhs);
-    Omnibox& operator=(Omnibox&& rhs);
+    Omnibox(Omnibox&& rhs) noexcept;
+    Omnibox& operator=(Omnibox&& rhs) noexcept;
 
     // Manifest key constants.
     static constexpr char kKeyword[] = "keyword";
@@ -263,11 +253,11 @@ struct ManifestKeys {
 namespace SendSuggestions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -285,11 +275,11 @@ struct Params {
 namespace SetDefaultSuggestion {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A partial SuggestResult object, without the 'content' parameter.

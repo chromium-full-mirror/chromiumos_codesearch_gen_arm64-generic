@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_service_test.mojom-features.h"
 #include "services/network/public/mojom/network_service_test.mojom-shared.h"
 #include "services/network/public/mojom/network_service_test.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom-forward.h"
@@ -576,11 +577,11 @@ class NetworkServiceTest
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay);
+  virtual bool SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay);
 
   using SetSCTAuditingRetryDelayCallback = base::OnceCallback<void()>;
   
-  virtual void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) = 0;
+  virtual void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) = 0;
 
 
   using OpenFileCallback = base::OnceCallback<void(bool)>;
@@ -756,9 +757,9 @@ class  NetworkServiceTestProxy
   
   void ActivateFieldTrial(const std::string& field_trial_name) final;
   
-  bool SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay) final;
+  bool SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay) final;
   
-  void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) final;
+  void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) final;
   
   void OpenFile(const ::base::FilePath& path, OpenFileCallback callback) final;
   

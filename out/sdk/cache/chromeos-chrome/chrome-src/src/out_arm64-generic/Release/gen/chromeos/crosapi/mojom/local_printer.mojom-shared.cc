@@ -66,6 +66,8 @@ NOINLINE static const char* PrintJobSourceToStringHelper(PrintJobSource value) {
       return "kAny";
     case PrintJobSource::kExtension:
       return "kExtension";
+    case PrintJobSource::kIsolatedWebApp:
+      return "kIsolatedWebApp";
     default:
       return nullptr;
   }
@@ -204,6 +206,8 @@ NOINLINE static const char* PrintJob_SourceToStringHelper(PrintJob_Source value)
       return "kExtension";
     case PrintJob_Source::kPrintPreviewIncognito:
       return "kPrintPreviewIncognito";
+    case PrintJob_Source::kIsolatedWebApp:
+      return "kIsolatedWebApp";
     default:
       return nullptr;
   }

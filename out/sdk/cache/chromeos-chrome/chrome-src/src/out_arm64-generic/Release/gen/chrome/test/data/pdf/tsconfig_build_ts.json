@@ -1,0 +1,94 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/*": [
+        "./../../../browser/resources/pdf/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../webui/tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/basic_plugin_test.ts",
+    "preprocessed/basic_test.ts",
+    "preprocessed/beep_test.ts",
+    "preprocessed/bookmarks_test.ts",
+    "preprocessed/download_controls_test.ts",
+    "preprocessed/fullscreen_test.ts",
+    "preprocessed/gesture_detector_test.ts",
+    "preprocessed/layout_test.ts",
+    "preprocessed/material_elements_test.ts",
+    "preprocessed/metrics_test.ts",
+    "preprocessed/navigator_test.ts",
+    "preprocessed/nobeep_test.ts",
+    "preprocessed/page_change_test.ts",
+    "preprocessed/params_parser_test.ts",
+    "preprocessed/plugin_controller_test.ts",
+    "preprocessed/post_message_proxy_test.ts",
+    "preprocessed/scroll_with_form_field_focused_test.ts",
+    "preprocessed/swipe_detector_test.ts",
+    "preprocessed/test_util.ts",
+    "preprocessed/title_test.ts",
+    "preprocessed/touch_handling_test.ts",
+    "preprocessed/viewer_attachment_bar_test.ts",
+    "preprocessed/viewer_attachment_test.ts",
+    "preprocessed/viewer_password_dialog_test.ts",
+    "preprocessed/viewer_pdf_sidenav_test.ts",
+    "preprocessed/viewer_properties_dialog_test.ts",
+    "preprocessed/viewer_thumbnail_bar_test.ts",
+    "preprocessed/viewer_thumbnail_test.ts",
+    "preprocessed/viewer_toolbar_test.ts",
+    "preprocessed/viewport_scroller_test.ts",
+    "preprocessed/viewport_test.ts",
+    "preprocessed/whitespace_title_test.ts",
+    "preprocessed/zoom_manager_test.ts",
+    "preprocessed/pdf_ocr_toolbar_test.ts",
+    "preprocessed/printing_icon_test.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_test.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/mime_handler_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../webui/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../webui/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../browser/resources/pdf/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

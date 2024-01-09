@@ -656,12 +656,12 @@ class MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::blink::mojom::SubCaptureTargetType>(
+    return mojo::internal::Deserialize<::media::mojom::SubCaptureTargetType>(
         data_value, output);
   }
-  SubCaptureTargetType type() const {
+  ::media::mojom::SubCaptureTargetType type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::SubCaptureTargetType>(data_->type));
+          static_cast<::media::mojom::SubCaptureTargetType>(data_->type));
   }
  private:
   internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data* data_ = nullptr;

@@ -5,13 +5,6 @@ class Context::BodyDescriptor final : public SuffixRangeBodyDescriptor<4> {
   }
 
 };
-class WeakFixedArray::BodyDescriptor final : public SuffixRangeWeakBodyDescriptor<4> {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return WeakFixedArray::unchecked_cast(raw_object)->AllocatedSize();
-  }
-
-};
 class WeakArrayList::BodyDescriptor final : public SuffixRangeWeakBodyDescriptor<4> {
  public:
   static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
@@ -98,41 +91,6 @@ class OnHeapBasicBlockProfilerData::BodyDescriptor final : public SuffixRangeBod
  public:
   static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
     return 32;
-  }
-
-};
-class ConsString::BodyDescriptor final : public SuffixRangeBodyDescriptor<12> {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return 20;
-  }
-
-};
-class SeqOneByteString::BodyDescriptor final : public DataOnlyBodyDescriptor {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return SeqOneByteString::unchecked_cast(raw_object)->AllocatedSize();
-  }
-
-};
-class SeqTwoByteString::BodyDescriptor final : public DataOnlyBodyDescriptor {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return SeqTwoByteString::unchecked_cast(raw_object)->AllocatedSize();
-  }
-
-};
-class SlicedString::BodyDescriptor final : public SuffixRangeBodyDescriptor<12> {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return 20;
-  }
-
-};
-class ThinString::BodyDescriptor final : public SuffixRangeBodyDescriptor<12> {
- public:
-  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
-    return 16;
   }
 
 };

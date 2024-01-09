@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,6 +55,12 @@ DevicePostureProvider::IPCStableHashFunction DevicePostureProvider::MessageToMet
     case internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name: {
       return &DevicePostureProvider::AddListenerAndGetCurrentViewportSegments_Sym::IPCStableHash;
     }
+    case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name: {
+      return &DevicePostureProvider::OverrideDevicePostureForEmulation_Sym::IPCStableHash;
+    }
+    case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name: {
+      return &DevicePostureProvider::DisableDevicePostureOverrideForEmulation_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -69,6 +76,10 @@ const char* DevicePostureProvider::MessageToMethodName_(mojo::Message& message) 
             return "Receive device::mojom::DevicePostureProvider::AddListenerAndGetCurrentPosture";
       case internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name:
             return "Receive device::mojom::DevicePostureProvider::AddListenerAndGetCurrentViewportSegments";
+      case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name:
+            return "Receive device::mojom::DevicePostureProvider::OverrideDevicePostureForEmulation";
+      case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name:
+            return "Receive device::mojom::DevicePostureProvider::DisableDevicePostureOverrideForEmulation";
     }
   } else {
     switch (message.name()) {
@@ -76,6 +87,10 @@ const char* DevicePostureProvider::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply device::mojom::DevicePostureProvider::AddListenerAndGetCurrentPosture";
       case internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name:
             return "Receive reply device::mojom::DevicePostureProvider::AddListenerAndGetCurrentViewportSegments";
+      case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name:
+            return "Receive reply device::mojom::DevicePostureProvider::OverrideDevicePostureForEmulation";
+      case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name:
+            return "Receive reply device::mojom::DevicePostureProvider::DisableDevicePostureOverrideForEmulation";
     }
   }
   return "Receive unknown mojo message";
@@ -112,6 +127,32 @@ uint32_t DevicePostureProvider::AddListenerAndGetCurrentViewportSegments_Sym::IP
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)device::mojom::DevicePostureProvider::AddListenerAndGetCurrentViewportSegments");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DevicePostureProvider::OverrideDevicePostureForEmulation_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)device::mojom::DevicePostureProvider::OverrideDevicePostureForEmulation");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DevicePostureProvider::DisableDevicePostureOverrideForEmulation_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)device::mojom::DevicePostureProvider::DisableDevicePostureOverrideForEmulation");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -166,14 +207,17 @@ void DevicePostureProviderProxy::AddListenerAndGetCurrentPosture(
                         "<value of type ::mojo::PendingRemote<DevicePostureClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePostureProvider_AddListenerAndGetCurrentPosture_Name, kFlags, 0, 0, nullptr);
@@ -210,14 +254,17 @@ void DevicePostureProviderProxy::AddListenerAndGetCurrentViewportSegments(
                         "<value of type ::mojo::PendingRemote<DeviceViewportSegmentsClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name, kFlags, 0, 0, nullptr);
@@ -240,6 +287,81 @@ void DevicePostureProviderProxy::AddListenerAndGetCurrentViewportSegments(
       new DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DevicePostureProviderProxy::OverrideDevicePostureForEmulation(
+    DevicePostureType in_posture) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send device::mojom::DevicePostureProvider::OverrideDevicePostureForEmulation", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("posture"), in_posture,
+                        "<value of type DevicePostureType>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::device::mojom::internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::device::mojom::DevicePostureType>(
+      in_posture, &params->posture);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DevicePostureProvider::Name_);
+  message.set_method_name("OverrideDevicePostureForEmulation");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DevicePostureProviderProxy::DisableDevicePostureOverrideForEmulation(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send device::mojom::DevicePostureProvider::DisableDevicePostureOverrideForEmulation");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::device::mojom::internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DevicePostureProvider::Name_);
+  message.set_method_name("DisableDevicePostureOverrideForEmulation");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class DevicePostureProvider_AddListenerAndGetCurrentPosture_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -333,7 +455,8 @@ void DevicePostureProvider_AddListenerAndGetCurrentPosture_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePostureProvider_AddListenerAndGetCurrentPosture_Name, kFlags, 0, 0, nullptr);
@@ -452,7 +575,8 @@ void DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name, kFlags, 0, 0, nullptr);
@@ -501,6 +625,54 @@ bool DevicePostureProviderStubDispatch::Accept(
     }
     case internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name: {
       break;
+    }
+    case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data* params =
+          reinterpret_cast<internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DevicePostureType p_posture{};
+      DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPosture(&p_posture))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DevicePostureProvider::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OverrideDevicePostureForEmulation(
+std::move(p_posture));
+      return true;
+    }
+    case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data* params =
+          reinterpret_cast<internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DevicePostureProvider::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DisableDevicePostureOverrideForEmulation();
+      return true;
     }
   }
   return false;
@@ -577,16 +749,26 @@ std::move(p_client), std::move(callback));
 std::move(p_client), std::move(callback));
       return true;
     }
+    case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name: {
+      break;
+    }
+    case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevicePostureProviderValidationInfo[] = {
-    {&internal::DevicePostureProvider_AddListenerAndGetCurrentPosture_Params_Data::Validate,
+    { &internal::DevicePostureProvider_AddListenerAndGetCurrentPosture_Params_Data::Validate,
      &internal::DevicePostureProvider_AddListenerAndGetCurrentPosture_ResponseParams_Data::Validate},
-    {&internal::DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Params_Data::Validate,
+    { &internal::DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Params_Data::Validate,
      &internal::DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParams_Data::Validate},
+    { &internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool DevicePostureProviderRequestValidator::Accept(mojo::Message* message) {
@@ -669,14 +851,17 @@ void DevicePostureClientProxy::OnPostureChanged(
                         "<value of type DevicePostureType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePostureClient_OnPostureChanged_Name, kFlags, 0, 0, nullptr);
@@ -746,10 +931,10 @@ bool DevicePostureClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevicePostureClientValidationInfo[] = {
-    {&internal::DevicePostureClient_OnPostureChanged_Params_Data::Validate,
+    { &internal::DevicePostureClient_OnPostureChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -829,14 +1014,17 @@ void DeviceViewportSegmentsClientProxy::OnViewportSegmentsChanged(
                         "<value of type const std::vector<::gfx::Rect>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceViewportSegmentsClient_OnViewportSegmentsChanged_Name, kFlags, 0, 0, nullptr);
@@ -917,10 +1105,10 @@ bool DeviceViewportSegmentsClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceViewportSegmentsClientValidationInfo[] = {
-    {&internal::DeviceViewportSegmentsClient_OnViewportSegmentsChanged_Params_Data::Validate,
+    { &internal::DeviceViewportSegmentsClient_OnViewportSegmentsChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -951,6 +1139,12 @@ void DevicePostureProviderInterceptorForTesting::AddListenerAndGetCurrentPosture
 }
 void DevicePostureProviderInterceptorForTesting::AddListenerAndGetCurrentViewportSegments(::mojo::PendingRemote<DeviceViewportSegmentsClient> client, AddListenerAndGetCurrentViewportSegmentsCallback callback) {
   GetForwardingInterface()->AddListenerAndGetCurrentViewportSegments(std::move(client), std::move(callback));
+}
+void DevicePostureProviderInterceptorForTesting::OverrideDevicePostureForEmulation(DevicePostureType posture) {
+  GetForwardingInterface()->OverrideDevicePostureForEmulation(std::move(posture));
+}
+void DevicePostureProviderInterceptorForTesting::DisableDevicePostureOverrideForEmulation() {
+  GetForwardingInterface()->DisableDevicePostureOverrideForEmulation();
 }
 DevicePostureProviderAsyncWaiter::DevicePostureProviderAsyncWaiter(
     DevicePostureProvider* proxy) : proxy_(proxy) {}

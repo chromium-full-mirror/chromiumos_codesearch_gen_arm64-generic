@@ -1,0 +1,38 @@
+import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+  return html`<!--_html_template_start_--><!--
+Copyright 2019 The Chromium Authors
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+<style include="oobe-dialog-host-styles"></style>
+<oobe-adaptive-dialog id="packagedLicenseDialog"
+    aria-label$="[[i18nDynamic(locale, 'oobePackagedLicenseTitle')]]"
+    role="dialog">
+  <iron-icon slot="icon" icon="oobe-32:enterprise"></iron-icon>
+  <h1 slot="title">
+    [[i18nDynamic(locale, 'oobePackagedLicenseTitle')]]
+  </h1>
+  <p slot="subtitle">
+    [[i18nDynamic(locale, 'oobePackagedLicenseSubtitleP1')]]
+  </p>
+  <p slot="subtitle">
+    [[i18nDynamic(locale, 'oobePackagedLicenseSubtitleP2')]]
+  </p>
+  <div slot="content" class="flex layout vertical center center-justified">
+    <iron-icon icon="oobe-illos:enrollment-complete-illo"
+        class="illustration-jelly">
+    </iron-icon>
+  </div>
+  <div slot="bottom-buttons">
+    <oobe-text-button id="dont-enroll-button"
+        text-key="oobePackagedLicenseDontEnroll"
+        on-click="onDontEnrollButtonPressed"></oobe-text-button>
+    <oobe-text-button id="enroll-button"
+        text-key="oobePackagedLicenseEnroll" class="focus-on-show"
+        inverse on-click="onEnrollButtonPressed"></oobe-text-button>
+  </div>
+</oobe-adaptive-dialog>
+<!--_html_template_end_-->`;
+}

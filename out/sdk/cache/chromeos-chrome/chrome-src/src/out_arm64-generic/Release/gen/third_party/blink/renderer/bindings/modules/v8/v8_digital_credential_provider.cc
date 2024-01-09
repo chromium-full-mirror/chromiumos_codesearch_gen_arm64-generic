@@ -76,6 +76,87 @@ has_params_ = true;
 
 
 
+String DigitalCredentialProvider::getProtocolOr(const String& fallback_value) const {
+  if (!hasProtocol()) {
+  return fallback_value;
+}
+return member_protocol_;
+}
+
+String DigitalCredentialProvider::getProtocolOr(String&& fallback_value) const {
+  if (!hasProtocol()) {
+  return std::move(fallback_value);
+}
+return member_protocol_;
+}
+
+void DigitalCredentialProvider::setProtocol(const String& value) {
+  member_protocol_ = value;
+has_protocol_ = true;
+}
+
+void DigitalCredentialProvider::setProtocol(String&& value) {
+  member_protocol_ = std::move(value);
+has_protocol_ = true;
+}
+
+
+
+
+String DigitalCredentialProvider::getPublicKeyOr(const String& fallback_value) const {
+  if (!hasPublicKey()) {
+  return fallback_value;
+}
+return member_public_key_;
+}
+
+String DigitalCredentialProvider::getPublicKeyOr(String&& fallback_value) const {
+  if (!hasPublicKey()) {
+  return std::move(fallback_value);
+}
+return member_public_key_;
+}
+
+void DigitalCredentialProvider::setPublicKey(const String& value) {
+  member_public_key_ = value;
+has_public_key_ = true;
+}
+
+void DigitalCredentialProvider::setPublicKey(String&& value) {
+  member_public_key_ = std::move(value);
+has_public_key_ = true;
+}
+
+
+
+
+String DigitalCredentialProvider::getRequestOr(const String& fallback_value) const {
+  if (!hasRequest()) {
+  return fallback_value;
+}
+return member_request_;
+}
+
+String DigitalCredentialProvider::getRequestOr(String&& fallback_value) const {
+  if (!hasRequest()) {
+  return std::move(fallback_value);
+}
+return member_request_;
+}
+
+void DigitalCredentialProvider::setRequest(const String& value) {
+  member_request_ = value;
+has_request_ = true;
+}
+
+void DigitalCredentialProvider::setRequest(String&& value) {
+  member_request_ = std::move(value);
+has_request_ = true;
+}
+
+
+
+
 
 
 
@@ -85,6 +166,9 @@ has_params_ = true;
 
 void DigitalCredentialProvider::Trace(Visitor* visitor) const {
   TraceIfNeeded<Vector<std::pair<String, String>>>::Trace(visitor, member_params_);
+TraceIfNeeded<String>::Trace(visitor, member_protocol_);
+TraceIfNeeded<String>::Trace(visitor, member_public_key_);
+TraceIfNeeded<String>::Trace(visitor, member_request_);
 TraceIfNeeded<Member<DigitalCredentialSelector>>::Trace(visitor, member_selector_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -103,11 +187,35 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
   return false;
 }
 }
+if (hasProtocol()) {
+  if (!ToV8Traits<IDLString>::ToV8(script_state, member_protocol_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+if (hasPublicKey()) {
+  if (!ToV8Traits<IDLString>::ToV8(script_state, member_public_key_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+if (hasRequest()) {
+  if (!ToV8Traits<IDLString>::ToV8(script_state, member_request_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasSelector()) {
   if (!ToV8Traits<DigitalCredentialSelector>::ToV8(script_state, member_selector_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -125,8 +233,20 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<IDLRecord<IDLUSVString, IDLUSVString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_params_, member_params_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("protocol");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_protocol_, member_protocol_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("publicKey");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_public_key_, member_public_key_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("request");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_request_, member_request_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("selector");
-if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialSelector, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_selector_, member_selector_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialSelector, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_selector_, member_selector_, try_block, exception_state)) {
   return;
 }
 }
@@ -134,6 +254,9 @@ if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialSelector, is_opt
 const base::span<const v8::Eternal<v8::Name>> DigitalCredentialProvider::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "params",
+"protocol",
+"publicKey",
+"request",
 "selector",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

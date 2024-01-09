@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
+import * as VisualLogging from '../visual_logging/visual_logging.js';
 import * as ARIAUtils from './ARIAUtils.js';
 import listWidgetStyles from './listWidget.css.legacy.js';
 import { Toolbar, ToolbarButton } from './Toolbar.js';
@@ -80,6 +81,7 @@ export class ListWidget extends VBox {
         this.items.push(item);
         this.editable.push(editable);
         const element = this.list.createChild('div', 'list-item');
+        element.setAttribute('jslog', `${VisualLogging.item()}`);
         element.appendChild(this.delegate.renderItem(item, editable));
         if (editable) {
             element.classList.add('editable');
@@ -127,10 +129,10 @@ export class ListWidget extends VBox {
         controls.createChild('div', 'controls-gradient');
         const buttons = controls.createChild('div', 'controls-buttons');
         const toolbar = new Toolbar('', buttons);
-        const editButton = new ToolbarButton(i18nString(UIStrings.editString), 'edit');
+        const editButton = new ToolbarButton(i18nString(UIStrings.editString), 'edit', undefined, 'edit-item');
         editButton.addEventListener(ToolbarButton.Events.Click, onEditClicked.bind(this));
         toolbar.appendToolbarItem(editButton);
-        const removeButton = new ToolbarButton(i18nString(UIStrings.removeString), 'bin');
+        const removeButton = new ToolbarButton(i18nString(UIStrings.removeString), 'bin', undefined, 'remove-item');
         removeButton.addEventListener(ToolbarButton.Events.Click, onRemoveClicked.bind(this));
         toolbar.appendToolbarItem(removeButton);
         return controls;
@@ -184,7 +186,7 @@ export class ListWidget extends VBox {
         const isNew = !this.editElement;
         const editor = this.editor;
         this.stopEditing();
-        if (editItem) {
+        if (editItem !== null) {
             this.delegate.commitEdit(editItem, editor, isNew);
         }
     }
@@ -224,12 +226,23 @@ export class Editor {
         this.element.classList.add('editor-container');
         this.element.addEventListener('keydown', onKeyDown.bind(null, Platform.KeyboardUtilities.isEscKey, this.cancelClicked.bind(this)), false);
         this.contentElementInternal = this.element.createChild('div', 'editor-content');
-        this.contentElementInternal.addEventListener('keydown', onKeyDown.bind(null, event => event.key === 'Enter', this.commitClicked.bind(this)), false);
+        this.contentElementInternal.addEventListener('keydown', onKeyDown.bind(null, event => {
+            if (event.key !== 'Enter') {
+                return false;
+            }
+            if (event.target instanceof HTMLSelectElement) {
+                // 'Enter' on <select> is supposed to open the drop down, so don't swallow that here.
+                return false;
+            }
+            return true;
+        }, this.commitClicked.bind(this)), false);
         const buttonsRow = this.element.createChild('div', 'editor-buttons');
         this.commitButton = createTextButton('', this.commitClicked.bind(this), '', true /* primary */);
+        this.commitButton.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('commit')}`);
         buttonsRow.appendChild(this.commitButton);
         this.cancelButton =
             createTextButton(i18nString(UIStrings.cancelString), this.cancelClicked.bind(this), '', true /* primary */);
+        this.cancelButton.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('cancel')}`);
         buttonsRow.appendChild(this.cancelButton);
         this.errorMessageContainer = this.element.createChild('div', 'list-widget-input-validation-error');
         ARIAUtils.markAsAlert(this.errorMessageContainer);
@@ -254,6 +267,7 @@ export class Editor {
         const input = createInput('', type);
         input.placeholder = title;
         input.addEventListener('input', this.validateControls.bind(this, false), false);
+        input.setAttribute('jslog', `${VisualLogging.textField().track({ keydown: true }).context(name)}`);
         ARIAUtils.setLabel(input, title);
         this.controlByName.set(name, input);
         this.controls.push(input);
@@ -262,6 +276,7 @@ export class Editor {
     }
     createSelect(name, options, validator, title) {
         const select = document.createElement('select');
+        select.setAttribute('jslog', `${VisualLogging.dropDown().track({ change: true }).context(name)}`);
         select.classList.add('chrome-select');
         for (let index = 0; index < options.length; ++index) {
             const option = select.createChild('option');

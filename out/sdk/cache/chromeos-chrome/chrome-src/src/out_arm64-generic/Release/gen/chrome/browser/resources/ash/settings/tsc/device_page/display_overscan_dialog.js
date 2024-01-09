@@ -133,7 +133,7 @@ export class SettingsDisplayOverscanDialogElement extends PolymerElement {
         const delta = {
             left: x,
             top: y,
-            right: x ? -x : 0,
+            right: x ? -x : 0, // negating 0 will produce a double.
             bottom: y ? -y : 0,
         };
         getDisplayApi().overscanCalibrationAdjust(this.displayId, delta);

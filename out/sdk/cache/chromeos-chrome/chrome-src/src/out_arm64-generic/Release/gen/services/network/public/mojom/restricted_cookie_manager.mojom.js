@@ -191,6 +191,7 @@
     this.siteForCookies = null;
     this.topFrameOrigin = null;
     this.hasStorageAccess = false;
+    this.isAdTagged = false;
     this.options = null;
   };
   RestrictedCookieManager_GetAllForUrl_Params.prototype.initFields_ = function(fields) {
@@ -238,6 +239,7 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
@@ -256,6 +258,7 @@
         decoder.decodeStructPointer(origin$.Origin);
     packed = decoder.readUint8();
     val.hasStorageAccess = (packed >> 0) & 1 ? true : false;
+    val.isAdTagged = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -277,6 +280,7 @@
     encoder.encodeStructPointer(origin$.Origin, val.topFrameOrigin);
     packed = 0;
     packed |= (val.hasStorageAccess & 1) << 0
+    packed |= (val.isAdTagged & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -845,6 +849,7 @@
     this.topFrameOrigin = null;
     this.hasStorageAccess = false;
     this.getVersionSharedMemory = false;
+    this.isAdTagged = false;
   };
   RestrictedCookieManager_GetCookiesString_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -886,6 +891,7 @@
 
 
 
+
     return validator.validationError.NONE;
   };
 
@@ -905,6 +911,7 @@
     packed = decoder.readUint8();
     val.hasStorageAccess = (packed >> 0) & 1 ? true : false;
     val.getVersionSharedMemory = (packed >> 1) & 1 ? true : false;
+    val.isAdTagged = (packed >> 2) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -925,6 +932,7 @@
     packed = 0;
     packed |= (val.hasStorageAccess & 1) << 0
     packed |= (val.getVersionSharedMemory & 1) << 1
+    packed |= (val.isAdTagged & 1) << 2
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -1199,13 +1207,14 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  RestrictedCookieManagerProxy.prototype.getAllForUrl = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, options) {
+  RestrictedCookieManagerProxy.prototype.getAllForUrl = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, options, isAdTagged) {
     var params_ = new RestrictedCookieManager_GetAllForUrl_Params();
     params_.url = url;
     params_.siteForCookies = siteForCookies;
     params_.topFrameOrigin = topFrameOrigin;
     params_.hasStorageAccess = hasStorageAccess;
     params_.options = options;
+    params_.isAdTagged = isAdTagged;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kRestrictedCookieManager_GetAllForUrl_Name,
@@ -1316,13 +1325,14 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  RestrictedCookieManagerProxy.prototype.getCookiesString = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory) {
+  RestrictedCookieManagerProxy.prototype.getCookiesString = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory, isAdTagged) {
     var params_ = new RestrictedCookieManager_GetCookiesString_Params();
     params_.url = url;
     params_.siteForCookies = siteForCookies;
     params_.topFrameOrigin = topFrameOrigin;
     params_.hasStorageAccess = hasStorageAccess;
     params_.getVersionSharedMemory = getVersionSharedMemory;
+    params_.isAdTagged = isAdTagged;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kRestrictedCookieManager_GetCookiesString_Name,
@@ -1372,8 +1382,8 @@
   function RestrictedCookieManagerStub(delegate) {
     this.delegate_ = delegate;
   }
-  RestrictedCookieManagerStub.prototype.getAllForUrl = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, options) {
-    return this.delegate_ && this.delegate_.getAllForUrl && this.delegate_.getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options);
+  RestrictedCookieManagerStub.prototype.getAllForUrl = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, options, isAdTagged) {
+    return this.delegate_ && this.delegate_.getAllForUrl && this.delegate_.getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options, isAdTagged);
   }
   RestrictedCookieManagerStub.prototype.setCanonicalCookie = function(cookie, url, siteForCookies, topFrameOrigin, hasStorageAccess, status) {
     return this.delegate_ && this.delegate_.setCanonicalCookie && this.delegate_.setCanonicalCookie(cookie, url, siteForCookies, topFrameOrigin, hasStorageAccess, status);
@@ -1384,8 +1394,8 @@
   RestrictedCookieManagerStub.prototype.setCookieFromString = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, cookie) {
     return this.delegate_ && this.delegate_.setCookieFromString && this.delegate_.setCookieFromString(url, siteForCookies, topFrameOrigin, hasStorageAccess, cookie);
   }
-  RestrictedCookieManagerStub.prototype.getCookiesString = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory) {
-    return this.delegate_ && this.delegate_.getCookiesString && this.delegate_.getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory);
+  RestrictedCookieManagerStub.prototype.getCookiesString = function(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory, isAdTagged) {
+    return this.delegate_ && this.delegate_.getCookiesString && this.delegate_.getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory, isAdTagged);
   }
   RestrictedCookieManagerStub.prototype.cookiesEnabledFor = function(url, siteForCookies, topFrameOrigin, hasStorageAccess) {
     return this.delegate_ && this.delegate_.cookiesEnabledFor && this.delegate_.cookiesEnabledFor(url, siteForCookies, topFrameOrigin, hasStorageAccess);
@@ -1405,7 +1415,7 @@
     switch (reader.messageName) {
     case kRestrictedCookieManager_GetAllForUrl_Name:
       var params = reader.decodeStruct(RestrictedCookieManager_GetAllForUrl_Params);
-      this.getAllForUrl(params.url, params.siteForCookies, params.topFrameOrigin, params.hasStorageAccess, params.options).then(function(response) {
+      this.getAllForUrl(params.url, params.siteForCookies, params.topFrameOrigin, params.hasStorageAccess, params.options, params.isAdTagged).then(function(response) {
         var responseParams =
             new RestrictedCookieManager_GetAllForUrl_ResponseParams();
         responseParams.cookies = response.cookies;
@@ -1467,7 +1477,7 @@
       return true;
     case kRestrictedCookieManager_GetCookiesString_Name:
       var params = reader.decodeStruct(RestrictedCookieManager_GetCookiesString_Params);
-      this.getCookiesString(params.url, params.siteForCookies, params.topFrameOrigin, params.hasStorageAccess, params.getVersionSharedMemory).then(function(response) {
+      this.getCookiesString(params.url, params.siteForCookies, params.topFrameOrigin, params.hasStorageAccess, params.getVersionSharedMemory, params.isAdTagged).then(function(response) {
         var responseParams =
             new RestrictedCookieManager_GetCookiesString_ResponseParams();
         responseParams.version = response.version;

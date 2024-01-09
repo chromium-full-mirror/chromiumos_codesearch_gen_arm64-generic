@@ -16,33 +16,6 @@ mojo.internal.exportModule('extensions.mojom');
 
 
 
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
-extensions.mojom.ContextTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-extensions.mojom.ContextType = {
-  
-  kPrivilegedExtension: 0,
-  kUnprivilegedExtension: 1,
-  kContentScript: 2,
-  kWebPage: 3,
-  kPrivilegedWebPage: 4,
-  kWebUi: 5,
-  kUntrustedWebUi: 6,
-  kLockscreenExtension: 7,
-  kOffscreenExtension: 8,
-  kUserScript: 9,
-  MIN_VALUE: 0,
-  MAX_VALUE: 9,
-};
-
-
 
 
 
@@ -260,6 +233,43 @@ extensions.mojom.LocalFrameRemote = class {
           windowId
         ]);
   }
+
+  
+  /**
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.TabConnectionInfo } tabInfo
+   * @param { !extensions.mojom.ExternalConnectionInfo } externalConnectionInfo
+   * @param { !Object } port
+   * @param { !Object } portHost
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  dispatchOnConnect(
+      portId,
+      channelType,
+      channelName,
+      tabInfo,
+      externalConnectionInfo,
+      port,
+      portHost) {
+    return this.proxy.sendMessage(
+        9,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParamsSpec.$,
+        [
+          portId,
+          channelType,
+          channelName,
+          tabInfo,
+          externalConnectionInfo,
+          port,
+          portHost
+        ]);
+  }
 };
 
 /**
@@ -329,6 +339,11 @@ extensions.mojom.LocalFrameReceiver = class {
         extensions.mojom.LocalFrame_UpdateBrowserWindowId_ParamsSpec.$,
         null,
         impl.updateBrowserWindowId.bind(impl));
+    this.helper_internal_.registerHandler(
+        9,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParamsSpec.$,
+        impl.dispatchOnConnect.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -489,6 +504,18 @@ extensions.mojom.LocalFrameCallbackRouter = class {
         extensions.mojom.LocalFrame_UpdateBrowserWindowId_ParamsSpec.$,
         null,
         this.updateBrowserWindowId.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.dispatchOnConnect =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        9,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParamsSpec.$,
+        this.dispatchOnConnect.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -750,6 +777,99 @@ extensions.mojom.LocalFrameHostRemote = class {
         [
         ]);
   }
+
+  
+  /**
+   * @param { !extensions.mojom.ExternalConnectionInfo } info
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToExtension(
+      info,
+      channelType,
+      channelName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        11,
+        extensions.mojom.LocalFrameHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        [
+          info,
+          channelType,
+          channelName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
+
+  
+  /**
+   * @param { !string } nativeAppName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToNativeApp(
+      nativeAppName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        12,
+        extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        [
+          nativeAppName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
+
+  
+  /**
+   * @param { !number } tabId
+   * @param { !number } frameId
+   * @param { ?string } documentId
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToTab(
+      tabId,
+      frameId,
+      documentId,
+      channelType,
+      channelName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        13,
+        extensions.mojom.LocalFrameHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        [
+          tabId,
+          frameId,
+          documentId,
+          channelType,
+          channelName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
 };
 
 /**
@@ -829,6 +949,21 @@ extensions.mojom.LocalFrameHostReceiver = class {
         extensions.mojom.LocalFrameHost_AppWindowReady_ParamsSpec.$,
         null,
         impl.appWindowReady.bind(impl));
+    this.helper_internal_.registerHandler(
+        11,
+        extensions.mojom.LocalFrameHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        impl.openChannelToExtension.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        impl.openChannelToNativeApp.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
+        extensions.mojom.LocalFrameHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        impl.openChannelToTab.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1013,6 +1148,42 @@ extensions.mojom.LocalFrameHostCallbackRouter = class {
         extensions.mojom.LocalFrameHost_AppWindowReady_ParamsSpec.$,
         null,
         this.appWindowReady.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToExtension =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        11,
+        extensions.mojom.LocalFrameHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        this.openChannelToExtension.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToNativeApp =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        this.openChannelToNativeApp.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToTab =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
+        extensions.mojom.LocalFrameHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        this.openChannelToTab.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1137,6 +1308,22 @@ extensions.mojom.LocalFrame_UpdateBrowserWindowId_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+extensions.mojom.LocalFrame_DispatchOnConnect_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 extensions.mojom.LocalFrameHost_RequestScriptInjectionPermission_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1242,6 +1429,30 @@ extensions.mojom.LocalFrameHost_UpdateDraggableRegions_ParamsSpec =
  * @export
  */
 extensions.mojom.LocalFrameHost_AppWindowReady_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.LocalFrameHost_OpenChannelToExtension_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.LocalFrameHost_OpenChannelToTab_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1855,6 +2066,124 @@ extensions.mojom.LocalFrame_UpdateBrowserWindowId_Params = class {
 
 
 mojo.internal.Struct(
+    extensions.mojom.LocalFrame_DispatchOnConnect_ParamsSpec.$,
+    'LocalFrame_DispatchOnConnect_Params',
+    [
+      mojo.internal.StructField(
+        'portId', 0,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 8,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'tabInfo', 24,
+        0,
+        extensions.mojom.TabConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'externalConnectionInfo', 32,
+        0,
+        extensions.mojom.ExternalConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 12,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 40,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortHostRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 56],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.LocalFrame_DispatchOnConnect_Params = class {
+  constructor() {
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.TabConnectionInfo } */
+    this.tabInfo;
+    /** @export { !extensions.mojom.ExternalConnectionInfo } */
+    this.externalConnectionInfo;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParamsSpec.$,
+    'LocalFrame_DispatchOnConnect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.LocalFrame_DispatchOnConnect_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.success;
+  }
+};
+
+
+
+mojo.internal.Struct(
     extensions.mojom.LocalFrameHost_RequestScriptInjectionPermission_ParamsSpec.$,
     'LocalFrameHost_RequestScriptInjectionPermission_Params',
     [
@@ -2315,6 +2644,243 @@ mojo.internal.Struct(
 /** @record */
 extensions.mojom.LocalFrameHost_AppWindowReady_Params = class {
   constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.LocalFrameHost_OpenChannelToExtension_ParamsSpec.$,
+    'LocalFrameHost_OpenChannelToExtension_Params',
+    [
+      mojo.internal.StructField(
+        'info', 0,
+        0,
+        extensions.mojom.ExternalConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 8,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 24,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 32,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 12,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 48],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.LocalFrameHost_OpenChannelToExtension_Params = class {
+  constructor() {
+    /** @export { !extensions.mojom.ExternalConnectionInfo } */
+    this.info;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_ParamsSpec.$,
+    'LocalFrameHost_OpenChannelToNativeApp_Params',
+    [
+      mojo.internal.StructField(
+        'nativeAppName', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 8,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 16,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 24,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 40],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.LocalFrameHost_OpenChannelToNativeApp_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.nativeAppName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.LocalFrameHost_OpenChannelToTab_ParamsSpec.$,
+    'LocalFrameHost_OpenChannelToTab_Params',
+    [
+      mojo.internal.StructField(
+        'tabId', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'frameId', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'documentId', 8,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 16,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 24,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 32,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 40,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 20,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 56],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.LocalFrameHost_OpenChannelToTab_Params = class {
+  constructor() {
+    /** @export { !number } */
+    this.tabId;
+    /** @export { !number } */
+    this.frameId;
+    /** @export { (string|undefined) } */
+    this.documentId;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
   }
 };
 

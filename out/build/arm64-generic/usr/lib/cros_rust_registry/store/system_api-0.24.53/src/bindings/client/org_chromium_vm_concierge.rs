@@ -40,6 +40,7 @@ pub trait OrgChromiumVmConcierge {
     fn start_vm(&self) -> Result<(), dbus::Error>;
     fn stop_all_vms(&self) -> Result<(), dbus::Error>;
     fn stop_vm(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
+    fn stop_vm_without_owner_id(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn suspend_vm(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn swap_vm(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn sync_vm_times(&self) -> Result<Vec<u8>, dbus::Error>;
@@ -405,6 +406,11 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
 
     fn stop_vm(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
         self.method_call("org.chromium.VmConcierge", "StopVm", (request, ))
+            .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
+    }
+
+    fn stop_vm_without_owner_id(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
+        self.method_call("org.chromium.VmConcierge", "StopVmWithoutOwnerId", (request, ))
             .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
     }
 

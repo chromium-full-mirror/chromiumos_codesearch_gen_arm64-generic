@@ -28,6 +28,7 @@
 #include "chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-shared.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-shared.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared.h"
+#include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "services/device/public/mojom/battery_monitor.mojom-shared.h"
 #include "services/device/public/mojom/wake_lock_provider.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"

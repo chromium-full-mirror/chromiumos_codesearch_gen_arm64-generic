@@ -24,6 +24,10 @@
 namespace crosapi::mojom {
 class TelemetryDiagnosticMemoryRoutineArgumentDataView;
 
+class TelemetryDiagnosticVolumeButtonRoutineArgumentDataView;
+
+class TelemetryDiagnosticFanRoutineArgumentDataView;
+
 class TelemetryDiagnosticRoutineStateInitializedDataView;
 
 class TelemetryDiagnosticRoutineStateRunningDataView;
@@ -33,6 +37,10 @@ class TelemetryDiagnosticRoutineStateWaitingDataView;
 class TelemetryDiagnosticMemtesterResultDataView;
 
 class TelemetryDiagnosticMemoryRoutineDetailDataView;
+
+class TelemetryDiagnosticVolumeButtonRoutineDetailDataView;
+
+class TelemetryDiagnosticFanRoutineDetailDataView;
 
 class TelemetryDiagnosticRoutineStateFinishedDataView;
 
@@ -44,9 +52,19 @@ class TelemetryDiagnosticRoutineStateUnionDataView;
 
 enum class TelemetryDiagnosticMemtesterTestItemEnum : int32_t;
 
+enum class TelemetryDiagnosticHardwarePresenceStatus : int32_t;
+
+enum class TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType : int32_t;
+
 enum class TelemetryDiagnosticRoutineStateWaiting_Reason : int32_t;
 class TelemetryDiagnosticMemoryRoutineArgument;
 using TelemetryDiagnosticMemoryRoutineArgumentPtr = mojo::InlinedStructPtr<TelemetryDiagnosticMemoryRoutineArgument>;
+
+class TelemetryDiagnosticVolumeButtonRoutineArgument;
+using TelemetryDiagnosticVolumeButtonRoutineArgumentPtr = mojo::StructPtr<TelemetryDiagnosticVolumeButtonRoutineArgument>;
+
+class TelemetryDiagnosticFanRoutineArgument;
+using TelemetryDiagnosticFanRoutineArgumentPtr = mojo::InlinedStructPtr<TelemetryDiagnosticFanRoutineArgument>;
 
 class TelemetryDiagnosticRoutineStateInitialized;
 using TelemetryDiagnosticRoutineStateInitializedPtr = mojo::InlinedStructPtr<TelemetryDiagnosticRoutineStateInitialized>;
@@ -62,6 +80,12 @@ using TelemetryDiagnosticMemtesterResultPtr = mojo::StructPtr<TelemetryDiagnosti
 
 class TelemetryDiagnosticMemoryRoutineDetail;
 using TelemetryDiagnosticMemoryRoutineDetailPtr = mojo::StructPtr<TelemetryDiagnosticMemoryRoutineDetail>;
+
+class TelemetryDiagnosticVolumeButtonRoutineDetail;
+using TelemetryDiagnosticVolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<TelemetryDiagnosticVolumeButtonRoutineDetail>;
+
+class TelemetryDiagnosticFanRoutineDetail;
+using TelemetryDiagnosticFanRoutineDetailPtr = mojo::StructPtr<TelemetryDiagnosticFanRoutineDetail>;
 
 class TelemetryDiagnosticRoutineStateFinished;
 using TelemetryDiagnosticRoutineStateFinishedPtr = mojo::StructPtr<TelemetryDiagnosticRoutineStateFinished>;

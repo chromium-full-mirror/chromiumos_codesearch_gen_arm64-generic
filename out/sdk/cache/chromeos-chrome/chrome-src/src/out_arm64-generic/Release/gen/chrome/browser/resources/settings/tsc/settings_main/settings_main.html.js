@@ -10,7 +10,7 @@ export function getTemplate() {
       <managed-footnote></managed-footnote>
     </template>
     <template is="dom-if" if="[[showPages_.settings]]">
-      <settings-basic-page class="cr-centered-card-container" prefs="{{prefs}}" page-visibility="[[pageVisibility]]" on-subpage-expand="onShowingSubpage_" on-showing-main-page="onShowingMainPage_" in-search-mode="[[inSearchMode_]]" advanced-toggle-expanded="{{advancedToggleExpanded}}">
+      <settings-basic-page class="cr-centered-card-container" prefs="{{prefs}}" page-visibility="[[pageVisibility]]" on-subpage-expand="onShowingSubpage_" on-showing-main-page="onShowingMainPage_" in-search-mode="[[inSearchMode_]]">
       </settings-basic-page>
     </template>
     <template is="dom-if" if="[[showPages_.about]]">

@@ -27,6 +27,7 @@ class ValidationContext;
 namespace optimization_guide_internals::mojom {
 namespace internal {
 class DownloadedModelInfo_Data;
+class LoggedClientIds_Data;
 
 #pragma pack(push, 1)
 class  DownloadedModelInfo_Data {
@@ -79,6 +80,54 @@ struct DownloadedModelInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DownloadedModelInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LoggedClientIds_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t client_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<LoggedClientIds_Data>;
+
+  LoggedClientIds_Data();
+  ~LoggedClientIds_Data() = delete;
+};
+static_assert(sizeof(LoggedClientIds_Data) == 16,
+              "Bad sizeof(LoggedClientIds_Data)");
+// Used by LoggedClientIds::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LoggedClientIds_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LoggedClientIds_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LoggedClientIds_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LoggedClientIds_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LoggedClientIds_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

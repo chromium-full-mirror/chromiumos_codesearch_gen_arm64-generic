@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/content_settings.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -42,8 +43,8 @@ ResourceIdentifier::ResourceIdentifier()
  {}
 
 ResourceIdentifier::~ResourceIdentifier() = default;
-ResourceIdentifier::ResourceIdentifier(ResourceIdentifier&& rhs) = default;
-ResourceIdentifier& ResourceIdentifier::operator=(ResourceIdentifier&& rhs) = default;
+ResourceIdentifier::ResourceIdentifier(ResourceIdentifier&& rhs) noexcept = default;
+ResourceIdentifier& ResourceIdentifier::operator=(ResourceIdentifier&& rhs) noexcept = default;
 ResourceIdentifier ResourceIdentifier::Clone() const {
   ResourceIdentifier out;
   out.id = id;
@@ -71,7 +72,7 @@ bool ResourceIdentifier::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -91,34 +92,21 @@ bool ResourceIdentifier::Populate(
 }
 
 // static
-std::unique_ptr<ResourceIdentifier> ResourceIdentifier::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ResourceIdentifier>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ResourceIdentifier> ResourceIdentifier::FromValue(const base::Value::Dict& value) {
+  ResourceIdentifier out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ResourceIdentifier> ResourceIdentifier::FromValue(const base::Value::Dict& value) {
+std::optional<ResourceIdentifier> ResourceIdentifier::FromValue(const base::Value& value) {
   ResourceIdentifier out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ResourceIdentifier> ResourceIdentifier::FromValue(const base::Value& value) {
-  ResourceIdentifier out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -171,8 +159,8 @@ Params::Details::Details()
 : scope() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.scope = scope;
@@ -212,21 +200,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -234,13 +222,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -249,15 +237,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -277,8 +265,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.primary_url = primary_url;
@@ -310,7 +298,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*secondary_url_value).GetIfString();
       if (!temp) {
-        out.secondary_url = absl::nullopt;
+        out.secondary_url = std::nullopt;
         return false;
       }
       out.secondary_url = *temp;
@@ -337,7 +325,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*incognito_value).GetIfBool();
       if (!temp.has_value()) {
-        out.incognito = absl::nullopt;
+        out.incognito = std::nullopt;
         return false;
       }
       out.incognito = *temp;
@@ -357,21 +345,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -379,13 +367,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -394,15 +382,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -413,8 +401,8 @@ Results::Details::Details()
  {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -440,8 +428,8 @@ Params::Details::Details()
 : scope() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.primary_pattern = primary_pattern;
@@ -475,7 +463,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*secondary_pattern_value).GetIfString();
       if (!temp) {
-        out.secondary_pattern = absl::nullopt;
+        out.secondary_pattern = std::nullopt;
         return false;
       }
       out.secondary_pattern = *temp;
@@ -534,21 +522,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -556,13 +544,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -571,15 +559,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -629,6 +617,36 @@ AutoVerifyContentSetting ParseAutoVerifyContentSetting(base::StringPiece enum_st
 
 std::u16string GetAutoVerifyContentSettingParseError(base::StringPiece enum_string) {
   return u"expected \"allow\" or \"block\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+}
+
+
+const char* ToString(ClipboardContentSetting enum_param) {
+  switch (enum_param) {
+    case ClipboardContentSetting::kAllow:
+      return "allow";
+    case ClipboardContentSetting::kBlock:
+      return "block";
+    case ClipboardContentSetting::kAsk:
+      return "ask";
+    case ClipboardContentSetting::kNone:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+ClipboardContentSetting ParseClipboardContentSetting(base::StringPiece enum_string) {
+  if (enum_string == "allow")
+    return ClipboardContentSetting::kAllow;
+  if (enum_string == "block")
+    return ClipboardContentSetting::kBlock;
+  if (enum_string == "ask")
+    return ClipboardContentSetting::kAsk;
+  return ClipboardContentSetting::kNone;
+}
+
+std::u16string GetClipboardContentSettingParseError(base::StringPiece enum_string) {
+  return u"expected \"allow\" or \"block\" or \"ask\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 

@@ -41,25 +41,6 @@ blink.mojom.MediaDeviceType = {
  * @const { {$: !mojo.internal.MojomType} }
  * @export
  */
-blink.mojom.SubCaptureTargetTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-blink.mojom.SubCaptureTargetType = {
-  
-  kCropTarget: 0,
-  kRestrictionTarget: 1,
-  MIN_VALUE: 0,
-  MAX_VALUE: 1,
-};
-
-
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
 blink.mojom.FacingModeSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -291,7 +272,7 @@ blink.mojom.MediaDevicesDispatcherHostRemote = class {
 
   
   /**
-   * @param { !blink.mojom.SubCaptureTargetType } type
+   * @param { !media.mojom.SubCaptureTargetType } type
    * @return {!Promise<{
         id: !string,
    *  }>}
@@ -910,8 +891,49 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'controlSupport', 24,
+        0,
+        media.mojom.VideoCaptureControlSupportSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'facingMode', 32,
+        0,
+        blink.mojom.FacingModeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'availability_$flag', 36,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 40,
+        0,
+        media.mojom.CameraAvailabilitySpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 32],]);
+    [[0, 56],]);
 
 
 
@@ -926,6 +948,12 @@ blink.mojom.MediaDeviceInfo = class {
     this.label;
     /** @export { !string } */
     this.groupId;
+    /** @export { !media.mojom.VideoCaptureControlSupport } */
+    this.controlSupport;
+    /** @export { !blink.mojom.FacingMode } */
+    this.facingMode;
+    /** @export { (media.mojom.CameraAvailability|undefined) } */
+    this.availability;
   }
 };
 
@@ -975,8 +1003,33 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'availability_$flag', 36,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 40,
+        0,
+        media.mojom.CameraAvailabilitySpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 48],]);
+    [[0, 56],]);
 
 
 
@@ -995,6 +1048,8 @@ blink.mojom.VideoInputDeviceCapabilities = class {
     this.formats;
     /** @export { !blink.mojom.FacingMode } */
     this.facingMode;
+    /** @export { (media.mojom.CameraAvailability|undefined) } */
+    this.availability;
   }
 };
 
@@ -1543,7 +1598,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'type', 0,
         0,
-        blink.mojom.SubCaptureTargetTypeSpec.$,
+        media.mojom.SubCaptureTargetTypeSpec.$,
         0,
         false, /* nullable */
         0 /* minVersion */,
@@ -1558,7 +1613,7 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params = class {
   constructor() {
-    /** @export { !blink.mojom.SubCaptureTargetType } */
+    /** @export { !media.mojom.SubCaptureTargetType } */
     this.type;
   }
 };

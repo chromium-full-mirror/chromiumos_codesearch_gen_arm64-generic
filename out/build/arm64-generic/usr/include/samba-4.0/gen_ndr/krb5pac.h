@@ -14,6 +14,9 @@
 #ifndef _HEADER_krb5pac
 #define _HEADER_krb5pac
 
+#define PAC_TYPE_BEGIN	( 1 )
+#define PAC_TYPE_END	( 20 )
+#define PAC_TYPE_COUNT	( PAC_TYPE_END-PAC_TYPE_BEGIN )
 #define NETLOGON_GENERIC_KRB5_PAC_VALIDATE	( 3 )
 struct PAC_LOGON_NAME {
 	NTTIME logon_time;

@@ -51,10 +51,26 @@ const LOTTIE_NAME_KEY = 'nm';
 /** The CustomEvent names that LottieRenderer can fire. */
 export var CrosLottieEvent;
 (function (CrosLottieEvent) {
+    /**
+     * Fired when the animation has been loaded on the worker thread and is
+     * ready to play.
+     */
     CrosLottieEvent["INITIALIZED"] = "cros-lottie-initialized";
+    /**
+     * Fired when the animation has been paused on the worker thread.
+     */
     CrosLottieEvent["PAUSED"] = "cros-lottie-paused";
+    /**
+     * Fired when the animation has begun playing on the worker thread.
+     */
     CrosLottieEvent["PLAYING"] = "cros-lottie-playing";
+    /**
+     * Fired when the animation has been resized on the worker thread.
+     */
     CrosLottieEvent["RESIZED"] = "cros-lottie-resized";
+    /**
+     * Fired when the animation has begun playing on the worker thread.
+     */
     CrosLottieEvent["STOPPED"] = "cros-lottie-stopped";
 })(CrosLottieEvent || (CrosLottieEvent = {}));
 /**
@@ -142,6 +158,10 @@ export class LottieRenderer extends LitElement {
         loop: { type: Boolean, attribute: true },
         dynamic: { type: Boolean, attribute: true },
     }; }
+    /** @nocollapse */
+    static { this.events = {
+        ...CrosLottieEvent,
+    }; }
     constructor() {
         super();
         /**
@@ -157,11 +177,6 @@ export class LottieRenderer extends LitElement {
          * @export
          */
         this.getWorker = defaultGetWorker;
-        /**
-         * Temporary public API to ensure component color resolution works.
-         * TODO: b/274998765 - Remove legacy usages of this function and then make
-         * private.
-         */
         this.onColorSchemeChanged = () => {
             if (!this.dynamic)
                 return;

@@ -25,8 +25,9 @@ namespace blink {
 
 class ExceptionState;
 class RouterCondition;
+class URLPattern;
 class URLPatternInit;
-class V8UnionURLPatternInitOrUSVString;
+class V8UnionURLPatternOrURLPatternInitOrUSVString;
 
 class MODULES_EXPORT RouterCondition : public bindings::DictionaryBase {
   
@@ -135,17 +136,17 @@ has_running_status_ = true;
 bool hasUrlPattern() const {
   return has_url_pattern_;
 }
-V8UnionURLPatternInitOrUSVString* urlPattern() const {
+V8UnionURLPatternOrURLPatternInitOrUSVString* urlPattern() const {
   DCHECK(hasUrlPattern());
 return member_url_pattern_.Get();
 }
-V8UnionURLPatternInitOrUSVString* getUrlPatternOr(V8UnionURLPatternInitOrUSVString* fallback_value) const {
+V8UnionURLPatternOrURLPatternInitOrUSVString* getUrlPatternOr(V8UnionURLPatternOrURLPatternInitOrUSVString* fallback_value) const {
   if (!hasUrlPattern()) {
   return fallback_value;
 }
 return member_url_pattern_.Get();
 }
-void setUrlPattern(V8UnionURLPatternInitOrUSVString* value) {
+void setUrlPattern(V8UnionURLPatternOrURLPatternInitOrUSVString* value) {
   member_url_pattern_ = value;
 has_url_pattern_ = true;
 DCHECK(member_url_pattern_);
@@ -190,7 +191,7 @@ V8RequestDestination member_request_destination_{static_cast<V8RequestDestinatio
 String member_request_method_;
 V8RequestMode member_request_mode_{static_cast<V8RequestMode::Enum>(0)};
 V8RunningStatusEnum member_running_status_{static_cast<V8RunningStatusEnum::Enum>(0)};
-Member<V8UnionURLPatternInitOrUSVString> member_url_pattern_;
+Member<V8UnionURLPatternOrURLPatternInitOrUSVString> member_url_pattern_;
 
 
   

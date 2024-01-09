@@ -18,7 +18,6 @@ extern const gfx::VectorIcon icon_name;
 namespace permissions {
 
 VECTOR_ICON_TEMPLATE_H(kAccessibilityIcon)
-VECTOR_ICON_TEMPLATE_H(kUsbSecurityKeyIcon)
 
 }  // namespace permissions
 

@@ -166,26 +166,6 @@ void RuntimeFeatureStateOverrideContext::SetFedCmIdpSigninStatusForceEnabled() {
 }
 
 bool RuntimeFeatureStateOverrideContext::
-    SetFedCmIdpSigninStatusEnabled(const WTF::Vector<WTF::String>& tokens) {
-  // Origin Trial feature values should not override any sent from
-  // the browser, so we only add a value if has not already been set
-  // in the override_values_ map. Return whether the override was
-  // successful.
-  if(!override_values_.contains(
-      mojom::RuntimeFeature::kFedCmIdpSigninStatus)) {
-    // Update the state of all feature overrides in this class.
-    override_values_
-      [mojom::RuntimeFeature::kFedCmIdpSigninStatus] = true;
-    // Add successful overrides to the list of features we sent back
-    // to the browser process.
-    auto value = mojom::blink::OriginTrialFeatureState::New(true, tokens);
-    origin_trial_overrides_[
-      mojom::RuntimeFeature::kFedCmIdpSigninStatus] = std::move(value);
-    return true;
-  }
-  return false;
-}
-bool RuntimeFeatureStateOverrideContext::
     IsOriginTrialsSampleAPIBrowserReadWriteForceDisabled() const {
   auto it = override_values_.find(
       mojom::RuntimeFeature::kOriginTrialsSampleAPIBrowserReadWrite);
@@ -268,9 +248,6 @@ void RuntimeFeatureStateOverrideContext::ApplyOriginTrialOverride(
   bool overridden = false;
   if(origin_trial_feature == blink::mojom::blink::OriginTrialFeature::kDisableThirdPartyStoragePartitioning) {
     overridden = SetDisableThirdPartyStoragePartitioningEnabled(tokens);
-  }
-  if(origin_trial_feature == blink::mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus) {
-    overridden = SetFedCmIdpSigninStatusEnabled(tokens);
   }
   if(origin_trial_feature == blink::mojom::blink::OriginTrialFeature::kOriginTrialsSampleAPIBrowserReadWrite) {
     overridden = SetOriginTrialsSampleAPIBrowserReadWriteEnabled(tokens);

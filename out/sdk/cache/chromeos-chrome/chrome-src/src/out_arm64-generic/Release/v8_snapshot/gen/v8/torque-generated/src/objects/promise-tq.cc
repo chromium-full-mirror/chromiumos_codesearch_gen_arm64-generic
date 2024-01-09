@@ -20,7 +20,7 @@ void TorqueGeneratedPromiseCapability<PromiseCapability, Struct>::PromiseCapabil
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=31&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=39&c=1
 bool IsPromiseReaction_NonInline(Tagged<HeapObject> o) {
   return IsPromiseReaction(o);
 }
@@ -34,7 +34,7 @@ void TorqueGeneratedPromiseReaction<PromiseReaction, Struct>::PromiseReactionVer
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=53&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=1
 bool IsPromiseReactionJobTask_NonInline(Tagged<HeapObject> o) {
   return IsPromiseReactionJobTask(o);
 }
@@ -48,7 +48,7 @@ void TorqueGeneratedPromiseReactionJobTask<PromiseReactionJobTask, Microtask>::P
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=64&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=84&c=1
 bool IsPromiseFulfillReactionJobTask_NonInline(Tagged<HeapObject> o) {
   return IsPromiseFulfillReactionJobTask(o);
 }
@@ -62,7 +62,7 @@ void TorqueGeneratedPromiseFulfillReactionJobTask<PromiseFulfillReactionJobTask,
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=66&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=86&c=1
 bool IsPromiseRejectReactionJobTask_NonInline(Tagged<HeapObject> o) {
   return IsPromiseRejectReactionJobTask(o);
 }
@@ -76,7 +76,7 @@ void TorqueGeneratedPromiseRejectReactionJobTask<PromiseRejectReactionJobTask, P
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=68&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=88&c=1
 bool IsPromiseResolveThenableJobTask_NonInline(Tagged<HeapObject> o) {
   return IsPromiseResolveThenableJobTask(o);
 }

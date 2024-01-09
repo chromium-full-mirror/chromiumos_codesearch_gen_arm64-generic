@@ -237,7 +237,6 @@
     this.enableUnsafeWebgpu = false;
     this.enableWebgpuDeveloperFeatures = false;
     this.forceWebgpuCompat = false;
-    this.enableGpuBlockedTimeMetric = false;
     this.enablePerfDataCollection = false;
     this.enableNativeGpuMemoryBuffers = false;
     this.enableChromeosDirectVideoDecoder = false;
@@ -365,7 +364,6 @@
 
 
 
-
     // validate GpuPreferences.messagePumpType
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 60, message_pump_type$.MessagePumpType);
     if (err !== validator.validationError.NONE)
@@ -441,12 +439,11 @@
     val.enableUnsafeWebgpu = (packed >> 3) & 1 ? true : false;
     val.enableWebgpuDeveloperFeatures = (packed >> 4) & 1 ? true : false;
     val.forceWebgpuCompat = (packed >> 5) & 1 ? true : false;
-    val.enableGpuBlockedTimeMetric = (packed >> 6) & 1 ? true : false;
-    val.enablePerfDataCollection = (packed >> 7) & 1 ? true : false;
+    val.enablePerfDataCollection = (packed >> 6) & 1 ? true : false;
+    val.enableNativeGpuMemoryBuffers = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.enableNativeGpuMemoryBuffers = (packed >> 0) & 1 ? true : false;
-    val.enableChromeosDirectVideoDecoder = (packed >> 1) & 1 ? true : false;
-    val.forceSeparateEglDisplayForWebglTesting = (packed >> 2) & 1 ? true : false;
+    val.enableChromeosDirectVideoDecoder = (packed >> 0) & 1 ? true : false;
+    val.forceSeparateEglDisplayForWebglTesting = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     val.vulkanHeapMemoryLimit =
@@ -526,13 +523,12 @@
     packed |= (val.enableUnsafeWebgpu & 1) << 3
     packed |= (val.enableWebgpuDeveloperFeatures & 1) << 4
     packed |= (val.forceWebgpuCompat & 1) << 5
-    packed |= (val.enableGpuBlockedTimeMetric & 1) << 6
-    packed |= (val.enablePerfDataCollection & 1) << 7
+    packed |= (val.enablePerfDataCollection & 1) << 6
+    packed |= (val.enableNativeGpuMemoryBuffers & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.enableNativeGpuMemoryBuffers & 1) << 0
-    packed |= (val.enableChromeosDirectVideoDecoder & 1) << 1
-    packed |= (val.forceSeparateEglDisplayForWebglTesting & 1) << 2
+    packed |= (val.enableChromeosDirectVideoDecoder & 1) << 0
+    packed |= (val.forceSeparateEglDisplayForWebglTesting & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,11 +30,11 @@ namespace input_ime {
 // Types
 //
 
-enum  KeyboardEventType {
-  KEYBOARD_EVENT_TYPE_NONE = 0,
-  KEYBOARD_EVENT_TYPE_KEYUP,
-  KEYBOARD_EVENT_TYPE_KEYDOWN,
-  KEYBOARD_EVENT_TYPE_LAST = KEYBOARD_EVENT_TYPE_KEYDOWN,
+enum class KeyboardEventType {
+  kNone = 0,
+  kKeyup,
+  kKeydown,
+  kMaxValue = kKeydown,
 };
 
 
@@ -47,8 +48,8 @@ struct KeyboardEvent {
   ~KeyboardEvent();
   KeyboardEvent(const KeyboardEvent&) = delete;
   KeyboardEvent& operator=(const KeyboardEvent&) = delete;
-  KeyboardEvent(KeyboardEvent&& rhs);
-  KeyboardEvent& operator=(KeyboardEvent&& rhs);
+  KeyboardEvent(KeyboardEvent&& rhs) noexcept;
+  KeyboardEvent& operator=(KeyboardEvent&& rhs) noexcept;
 
   // Populates a KeyboardEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -61,15 +62,12 @@ struct KeyboardEvent {
   // Creates a deep copy of KeyboardEvent.
   KeyboardEvent Clone() const;
 
-  // Creates a KeyboardEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<KeyboardEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a KeyboardEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<KeyboardEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<KeyboardEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a KeyboardEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<KeyboardEvent> FromValue(const base::Value& value);
+  static std::optional<KeyboardEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisKeyboardEvent object.
@@ -80,10 +78,10 @@ struct KeyboardEvent {
 
   // (Deprecated) The ID of the request. Use the <code>requestId</code> param from
   // the <code>onKeyEvent</code> event instead.
-  absl::optional<std::string> request_id;
+  std::optional<std::string> request_id;
 
   // The extension ID of the sender of this keyevent.
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   // Value of the key being pressed
   std::string key;
@@ -95,37 +93,37 @@ struct KeyboardEvent {
   // The deprecated HTML keyCode, which is system- and implementation-dependent
   // numerical code signifying the unmodified identifier associated with the key
   // pressed.
-  absl::optional<int> key_code;
+  std::optional<int> key_code;
 
   // Whether or not the ALT key is pressed.
-  absl::optional<bool> alt_key;
+  std::optional<bool> alt_key;
 
   // Whether or not the ALTGR key is pressed.
-  absl::optional<bool> altgr_key;
+  std::optional<bool> altgr_key;
 
   // Whether or not the CTRL key is pressed.
-  absl::optional<bool> ctrl_key;
+  std::optional<bool> ctrl_key;
 
   // Whether or not the SHIFT key is pressed.
-  absl::optional<bool> shift_key;
+  std::optional<bool> shift_key;
 
   // Whether or not the CAPS_LOCK is enabled.
-  absl::optional<bool> caps_lock;
+  std::optional<bool> caps_lock;
 
 };
 
 // Type of value this text field edits, (Text, Number, URL, etc)
-enum  InputContextType {
-  INPUT_CONTEXT_TYPE_NONE = 0,
-  INPUT_CONTEXT_TYPE_TEXT,
-  INPUT_CONTEXT_TYPE_SEARCH,
-  INPUT_CONTEXT_TYPE_TEL,
-  INPUT_CONTEXT_TYPE_URL,
-  INPUT_CONTEXT_TYPE_EMAIL,
-  INPUT_CONTEXT_TYPE_NUMBER,
-  INPUT_CONTEXT_TYPE_PASSWORD,
-  INPUT_CONTEXT_TYPE_NULL,
-  INPUT_CONTEXT_TYPE_LAST = INPUT_CONTEXT_TYPE_NULL,
+enum class InputContextType {
+  kNone = 0,
+  kText,
+  kSearch,
+  kTel,
+  kUrl,
+  kEmail,
+  kNumber,
+  kPassword,
+  kNull,
+  kMaxValue = kNull,
 };
 
 
@@ -134,12 +132,12 @@ InputContextType ParseInputContextType(base::StringPiece as_string);
 std::u16string GetInputContextTypeParseError(base::StringPiece as_string);
 
 // The auto-capitalize type of the text field.
-enum  AutoCapitalizeType {
-  AUTO_CAPITALIZE_TYPE_NONE = 0,
-  AUTO_CAPITALIZE_TYPE_CHARACTERS,
-  AUTO_CAPITALIZE_TYPE_WORDS,
-  AUTO_CAPITALIZE_TYPE_SENTENCES,
-  AUTO_CAPITALIZE_TYPE_LAST = AUTO_CAPITALIZE_TYPE_SENTENCES,
+enum class AutoCapitalizeType {
+  kNone = 0,
+  kCharacters,
+  kWords,
+  kSentences,
+  kMaxValue = kSentences,
 };
 
 
@@ -153,8 +151,8 @@ struct InputContext {
   ~InputContext();
   InputContext(const InputContext&) = delete;
   InputContext& operator=(const InputContext&) = delete;
-  InputContext(InputContext&& rhs);
-  InputContext& operator=(InputContext&& rhs);
+  InputContext(InputContext&& rhs) noexcept;
+  InputContext& operator=(InputContext&& rhs) noexcept;
 
   // Populates a InputContext object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -167,15 +165,12 @@ struct InputContext {
   // Creates a deep copy of InputContext.
   InputContext Clone() const;
 
-  // Creates a InputContext object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InputContext> FromValueDeprecated(const base::Value& value);
-
   // Creates a InputContext object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InputContext> FromValue(const base::Value::Dict& value);
+  static std::optional<InputContext> FromValue(const base::Value::Dict& value);
 
   // Creates a InputContext object from a base::Value, or nullopt on failure.
-  static absl::optional<InputContext> FromValue(const base::Value& value);
+  static std::optional<InputContext> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputContext object.
@@ -208,12 +203,12 @@ struct InputContext {
 
 // The type of menu item. Radio buttons between separators are considered
 // grouped.
-enum  MenuItemStyle {
-  MENU_ITEM_STYLE_NONE = 0,
-  MENU_ITEM_STYLE_CHECK,
-  MENU_ITEM_STYLE_RADIO,
-  MENU_ITEM_STYLE_SEPARATOR,
-  MENU_ITEM_STYLE_LAST = MENU_ITEM_STYLE_SEPARATOR,
+enum class MenuItemStyle {
+  kNone = 0,
+  kCheck,
+  kRadio,
+  kSeparator,
+  kMaxValue = kSeparator,
 };
 
 
@@ -228,8 +223,8 @@ struct MenuItem {
   ~MenuItem();
   MenuItem(const MenuItem&) = delete;
   MenuItem& operator=(const MenuItem&) = delete;
-  MenuItem(MenuItem&& rhs);
-  MenuItem& operator=(MenuItem&& rhs);
+  MenuItem(MenuItem&& rhs) noexcept;
+  MenuItem& operator=(MenuItem&& rhs) noexcept;
 
   // Populates a MenuItem object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -242,14 +237,11 @@ struct MenuItem {
   // Creates a deep copy of MenuItem.
   MenuItem Clone() const;
 
-  // Creates a MenuItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MenuItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a MenuItem object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<MenuItem> FromValue(const base::Value::Dict& value);
+  static std::optional<MenuItem> FromValue(const base::Value::Dict& value);
 
   // Creates a MenuItem object from a base::Value, or nullopt on failure.
-  static absl::optional<MenuItem> FromValue(const base::Value& value);
+  static std::optional<MenuItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMenuItem object.
@@ -259,29 +251,29 @@ struct MenuItem {
   std::string id;
 
   // Text displayed in the menu for this item.
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
 
   // The type of menu item.
   MenuItemStyle style;
 
   // Indicates this item is visible.
-  absl::optional<bool> visible;
+  std::optional<bool> visible;
 
   // Indicates this item should be drawn with a check.
-  absl::optional<bool> checked;
+  std::optional<bool> checked;
 
   // Indicates this item is enabled.
-  absl::optional<bool> enabled;
+  std::optional<bool> enabled;
 
 };
 
 // The type of the underline to modify this segment.
-enum  UnderlineStyle {
-  UNDERLINE_STYLE_NONE = 0,
-  UNDERLINE_STYLE_UNDERLINE,
-  UNDERLINE_STYLE_DOUBLEUNDERLINE,
-  UNDERLINE_STYLE_NOUNDERLINE,
-  UNDERLINE_STYLE_LAST = UNDERLINE_STYLE_NOUNDERLINE,
+enum class UnderlineStyle {
+  kNone = 0,
+  kUnderline,
+  kDoubleUnderline,
+  kNoUnderline,
+  kMaxValue = kNoUnderline,
 };
 
 
@@ -292,11 +284,11 @@ std::u16string GetUnderlineStyleParseError(base::StringPiece as_string);
 // Where to display the candidate window. If set to 'cursor', the window follows
 // the cursor. If set to 'composition', the window is locked to the beginning of
 // the composition.
-enum  WindowPosition {
-  WINDOW_POSITION_NONE = 0,
-  WINDOW_POSITION_CURSOR,
-  WINDOW_POSITION_COMPOSITION,
-  WINDOW_POSITION_LAST = WINDOW_POSITION_COMPOSITION,
+enum class WindowPosition {
+  kNone = 0,
+  kCursor,
+  kComposition,
+  kMaxValue = kComposition,
 };
 
 
@@ -305,13 +297,13 @@ WindowPosition ParseWindowPosition(base::StringPiece as_string);
 std::u16string GetWindowPositionParseError(base::StringPiece as_string);
 
 // The screen type under which the IME is activated.
-enum  ScreenType {
-  SCREEN_TYPE_NONE = 0,
-  SCREEN_TYPE_NORMAL,
-  SCREEN_TYPE_LOGIN,
-  SCREEN_TYPE_LOCK,
-  SCREEN_TYPE_SECONDARY_LOGIN,
-  SCREEN_TYPE_LAST = SCREEN_TYPE_SECONDARY_LOGIN,
+enum class ScreenType {
+  kNone = 0,
+  kNormal,
+  kLogin,
+  kLock,
+  kSecondaryLogin,
+  kMaxValue = kSecondaryLogin,
 };
 
 
@@ -320,12 +312,12 @@ ScreenType ParseScreenType(base::StringPiece as_string);
 std::u16string GetScreenTypeParseError(base::StringPiece as_string);
 
 // Which mouse buttons was clicked.
-enum  MouseButton {
-  MOUSE_BUTTON_NONE = 0,
-  MOUSE_BUTTON_LEFT,
-  MOUSE_BUTTON_MIDDLE,
-  MOUSE_BUTTON_RIGHT,
-  MOUSE_BUTTON_LAST = MOUSE_BUTTON_RIGHT,
+enum class MouseButton {
+  kNone = 0,
+  kLeft,
+  kMiddle,
+  kRight,
+  kMaxValue = kRight,
 };
 
 
@@ -334,10 +326,10 @@ MouseButton ParseMouseButton(base::StringPiece as_string);
 std::u16string GetMouseButtonParseError(base::StringPiece as_string);
 
 // Type of assistive window.
-enum  AssistiveWindowType {
-  ASSISTIVE_WINDOW_TYPE_NONE = 0,
-  ASSISTIVE_WINDOW_TYPE_UNDO,
-  ASSISTIVE_WINDOW_TYPE_LAST = ASSISTIVE_WINDOW_TYPE_UNDO,
+enum class AssistiveWindowType {
+  kNone = 0,
+  kUndo,
+  kMaxValue = kUndo,
 };
 
 
@@ -351,8 +343,8 @@ struct AssistiveWindowProperties {
   ~AssistiveWindowProperties();
   AssistiveWindowProperties(const AssistiveWindowProperties&) = delete;
   AssistiveWindowProperties& operator=(const AssistiveWindowProperties&) = delete;
-  AssistiveWindowProperties(AssistiveWindowProperties&& rhs);
-  AssistiveWindowProperties& operator=(AssistiveWindowProperties&& rhs);
+  AssistiveWindowProperties(AssistiveWindowProperties&& rhs) noexcept;
+  AssistiveWindowProperties& operator=(AssistiveWindowProperties&& rhs) noexcept;
 
   // Populates a AssistiveWindowProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -365,17 +357,13 @@ struct AssistiveWindowProperties {
   // Creates a deep copy of AssistiveWindowProperties.
   AssistiveWindowProperties Clone() const;
 
-  // Creates a AssistiveWindowProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AssistiveWindowProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a AssistiveWindowProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<AssistiveWindowProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<AssistiveWindowProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a AssistiveWindowProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<AssistiveWindowProperties> FromValue(const base::Value& value);
+  static std::optional<AssistiveWindowProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAssistiveWindowProperties object.
@@ -387,16 +375,16 @@ struct AssistiveWindowProperties {
   bool visible;
 
   // Strings for ChromeVox to announce.
-  absl::optional<std::string> announce_string;
+  std::optional<std::string> announce_string;
 
 };
 
 // ID of buttons in assistive window.
-enum  AssistiveWindowButton {
-  ASSISTIVE_WINDOW_BUTTON_NONE = 0,
-  ASSISTIVE_WINDOW_BUTTON_UNDO,
-  ASSISTIVE_WINDOW_BUTTON_ADDTODICTIONARY,
-  ASSISTIVE_WINDOW_BUTTON_LAST = ASSISTIVE_WINDOW_BUTTON_ADDTODICTIONARY,
+enum class AssistiveWindowButton {
+  kNone = 0,
+  kUndo,
+  kAddToDictionary,
+  kMaxValue = kAddToDictionary,
 };
 
 
@@ -409,8 +397,8 @@ struct MenuParameters {
   ~MenuParameters();
   MenuParameters(const MenuParameters&) = delete;
   MenuParameters& operator=(const MenuParameters&) = delete;
-  MenuParameters(MenuParameters&& rhs);
-  MenuParameters& operator=(MenuParameters&& rhs);
+  MenuParameters(MenuParameters&& rhs) noexcept;
+  MenuParameters& operator=(MenuParameters&& rhs) noexcept;
 
   // Populates a MenuParameters object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -423,15 +411,12 @@ struct MenuParameters {
   // Creates a deep copy of MenuParameters.
   MenuParameters Clone() const;
 
-  // Creates a MenuParameters object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MenuParameters> FromValueDeprecated(const base::Value& value);
-
   // Creates a MenuParameters object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MenuParameters> FromValue(const base::Value::Dict& value);
+  static std::optional<MenuParameters> FromValue(const base::Value::Dict& value);
 
   // Creates a MenuParameters object from a base::Value, or nullopt on failure.
-  static absl::optional<MenuParameters> FromValue(const base::Value& value);
+  static std::optional<MenuParameters> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMenuParameters object.
@@ -454,11 +439,11 @@ struct MenuParameters {
 namespace SetComposition {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -466,8 +451,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -482,18 +467,18 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     struct SegmentsType {
       SegmentsType();
       ~SegmentsType();
       SegmentsType(const SegmentsType&) = delete;
       SegmentsType& operator=(const SegmentsType&) = delete;
-      SegmentsType(SegmentsType&& rhs);
-      SegmentsType& operator=(SegmentsType&& rhs);
+      SegmentsType(SegmentsType&& rhs) noexcept;
+      SegmentsType& operator=(SegmentsType&& rhs) noexcept;
 
       // Populates a SegmentsType object from a base::Value& instance. Returns
       // whether |out| was successfully populated.
@@ -508,10 +493,10 @@ struct Params {
 
       // Creates a SegmentsType object from a base::Value::Dict, or nullopt on
       // failure.
-      static absl::optional<SegmentsType> FromValue(const base::Value::Dict& value);
+      static std::optional<SegmentsType> FromValue(const base::Value::Dict& value);
 
       // Creates a SegmentsType object from a base::Value, or nullopt on failure.
-      static absl::optional<SegmentsType> FromValue(const base::Value& value);
+      static std::optional<SegmentsType> FromValue(const base::Value& value);
 
       // Index of the character to start this segment at
       int start;
@@ -533,16 +518,16 @@ struct Params {
     std::string text;
 
     // Position in the text that the selection starts at.
-    absl::optional<int> selection_start;
+    std::optional<int> selection_start;
 
     // Position in the text that the selection ends at.
-    absl::optional<int> selection_end;
+    std::optional<int> selection_end;
 
     // Position in the text of the cursor.
     int cursor;
 
     // List of segments and their associated types.
-    absl::optional<std::vector<SegmentsType>> segments;
+    std::optional<std::vector<SegmentsType>> segments;
 
   };
 
@@ -564,11 +549,11 @@ base::Value::List Create(bool success);
 namespace ClearComposition {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -576,8 +561,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -592,10 +577,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context where the composition will be cleared
     int context_id;
@@ -620,11 +605,11 @@ base::Value::List Create(bool success);
 namespace CommitText {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -632,8 +617,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -648,10 +633,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context where the text will be committed
     int context_id;
@@ -679,11 +664,11 @@ base::Value::List Create(bool success);
 namespace SendKeyEvents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -691,8 +676,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -707,10 +692,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context where the key events will be sent, or zero to send key
     // events to non-input field.
@@ -743,11 +728,11 @@ namespace HideInputView {
 namespace SetCandidateWindowProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -755,8 +740,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -771,18 +756,18 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     struct Properties {
       Properties();
       ~Properties();
       Properties(const Properties&) = delete;
       Properties& operator=(const Properties&) = delete;
-      Properties(Properties&& rhs);
-      Properties& operator=(Properties&& rhs);
+      Properties(Properties&& rhs) noexcept;
+      Properties& operator=(Properties&& rhs) noexcept;
 
       // Populates a Properties object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -797,35 +782,35 @@ struct Params {
 
       // Creates a Properties object from a base::Value::Dict, or nullopt on
       // failure.
-      static absl::optional<Properties> FromValue(const base::Value::Dict& value);
+      static std::optional<Properties> FromValue(const base::Value::Dict& value);
 
       // Creates a Properties object from a base::Value, or nullopt on failure.
-      static absl::optional<Properties> FromValue(const base::Value& value);
+      static std::optional<Properties> FromValue(const base::Value& value);
 
       // True to show the Candidate window, false to hide it.
-      absl::optional<bool> visible;
+      std::optional<bool> visible;
 
       // True to show the cursor, false to hide it.
-      absl::optional<bool> cursor_visible;
+      std::optional<bool> cursor_visible;
 
       // True if the candidate window should be rendered vertical, false to make it
       // horizontal.
-      absl::optional<bool> vertical;
+      std::optional<bool> vertical;
 
       // The number of candidates to display per page.
-      absl::optional<int> page_size;
+      std::optional<int> page_size;
 
       // Text that is shown at the bottom of the candidate window.
-      absl::optional<std::string> auxiliary_text;
+      std::optional<std::string> auxiliary_text;
 
       // True to display the auxiliary text, false to hide it.
-      absl::optional<bool> auxiliary_text_visible;
+      std::optional<bool> auxiliary_text_visible;
 
       // The total number of candidates for the candidate window.
-      absl::optional<int> total_candidates;
+      std::optional<int> total_candidates;
 
       // The index of the current chosen candidate out of total candidates.
-      absl::optional<int> current_candidate_index;
+      std::optional<int> current_candidate_index;
 
       // Where to display the candidate window.
       WindowPosition window_position;
@@ -858,11 +843,11 @@ base::Value::List Create(bool success);
 namespace SetCandidates {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -870,8 +855,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -886,18 +871,18 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     struct CandidatesType {
       CandidatesType();
       ~CandidatesType();
       CandidatesType(const CandidatesType&) = delete;
       CandidatesType& operator=(const CandidatesType&) = delete;
-      CandidatesType(CandidatesType&& rhs);
-      CandidatesType& operator=(CandidatesType&& rhs);
+      CandidatesType(CandidatesType&& rhs) noexcept;
+      CandidatesType& operator=(CandidatesType&& rhs) noexcept;
 
       // Populates a CandidatesType object from a base::Value& instance. Returns
       // whether |out| was successfully populated.
@@ -912,10 +897,10 @@ struct Params {
 
       // Creates a CandidatesType object from a base::Value::Dict, or nullopt on
       // failure.
-      static absl::optional<CandidatesType> FromValue(const base::Value::Dict& value);
+      static std::optional<CandidatesType> FromValue(const base::Value::Dict& value);
 
       // Creates a CandidatesType object from a base::Value, or nullopt on failure.
-      static absl::optional<CandidatesType> FromValue(const base::Value& value);
+      static std::optional<CandidatesType> FromValue(const base::Value& value);
 
       // The usage or detail description of word.
       struct Usage {
@@ -923,8 +908,8 @@ struct Params {
         ~Usage();
         Usage(const Usage&) = delete;
         Usage& operator=(const Usage&) = delete;
-        Usage(Usage&& rhs);
-        Usage& operator=(Usage&& rhs);
+        Usage(Usage&& rhs) noexcept;
+        Usage& operator=(Usage&& rhs) noexcept;
 
         // Populates a Usage object from a base::Value& instance. Returns whether
         // |out| was successfully populated.
@@ -938,10 +923,10 @@ struct Params {
         Usage Clone() const;
 
         // Creates a Usage object from a base::Value::Dict, or nullopt on failure.
-        static absl::optional<Usage> FromValue(const base::Value::Dict& value);
+        static std::optional<Usage> FromValue(const base::Value::Dict& value);
 
         // Creates a Usage object from a base::Value, or nullopt on failure.
-        static absl::optional<Usage> FromValue(const base::Value& value);
+        static std::optional<Usage> FromValue(const base::Value& value);
 
         // The title string of details description.
         std::string title;
@@ -959,17 +944,17 @@ struct Params {
       int id;
 
       // The id to add these candidates under
-      absl::optional<int> parent_id;
+      std::optional<int> parent_id;
 
       // Short string displayed to next to the candidate, often the shortcut key or
       // index
-      absl::optional<std::string> label;
+      std::optional<std::string> label;
 
       // Additional text describing the candidate
-      absl::optional<std::string> annotation;
+      std::optional<std::string> annotation;
 
       // The usage or detail description of word.
-      absl::optional<Usage> usage;
+      std::optional<Usage> usage;
 
     };
 
@@ -1001,11 +986,11 @@ base::Value::List Create(bool success);
 namespace SetCursorPosition {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -1013,8 +998,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1029,10 +1014,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context that owns the candidate window.
     int context_id;
@@ -1060,11 +1045,11 @@ base::Value::List Create(bool success);
 namespace SetAssistiveWindowProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -1072,8 +1057,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1088,10 +1073,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context owning the assistive window.
     int context_id;
@@ -1119,11 +1104,11 @@ base::Value::List Create(bool success);
 namespace SetAssistiveWindowButtonHighlighted {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -1131,8 +1116,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1147,10 +1132,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context owning the assistive window.
     int context_id;
@@ -1162,7 +1147,7 @@ struct Params {
     AssistiveWindowType window_type;
 
     // The text for the screenreader to announce.
-    absl::optional<std::string> announce_string;
+    std::optional<std::string> announce_string;
 
     // Whether the button should be highlighted.
     bool highlighted;
@@ -1187,11 +1172,11 @@ base::Value::List Create();
 namespace SetMenuItems {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   MenuParameters parameters;
@@ -1211,11 +1196,11 @@ base::Value::List Create();
 namespace UpdateMenuItems {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   MenuParameters parameters;
@@ -1235,11 +1220,11 @@ base::Value::List Create();
 namespace DeleteSurroundingText {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -1247,8 +1232,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1263,10 +1248,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the engine receiving the event.
     std::string engine_id;
@@ -1301,11 +1286,11 @@ base::Value::List Create();
 namespace KeyEventHandled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Request id of the event that was handled.  This should come from
@@ -1409,8 +1394,8 @@ struct SurroundingInfo {
   ~SurroundingInfo();
   SurroundingInfo(const SurroundingInfo&) = delete;
   SurroundingInfo& operator=(const SurroundingInfo&) = delete;
-  SurroundingInfo(SurroundingInfo&& rhs);
-  SurroundingInfo& operator=(SurroundingInfo&& rhs);
+  SurroundingInfo(SurroundingInfo&& rhs) noexcept;
+  SurroundingInfo& operator=(SurroundingInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSurroundingInfo object.
@@ -1458,8 +1443,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.

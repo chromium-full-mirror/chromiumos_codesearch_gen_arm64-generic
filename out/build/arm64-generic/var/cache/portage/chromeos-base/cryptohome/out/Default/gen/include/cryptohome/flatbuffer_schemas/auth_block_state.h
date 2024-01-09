@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -44,10 +44,10 @@ namespace cryptohome {
 
 struct TpmBoundToPcrAuthBlockState {
   std::optional<bool> scrypt_derived;
-  std::optional<brillo::SecureBlob> salt;
-  std::optional<brillo::SecureBlob> tpm_key;
-  std::optional<brillo::SecureBlob> extended_tpm_key;
-  std::optional<brillo::SecureBlob> tpm_public_key_hash;
+  std::optional<brillo::Blob> salt;
+  std::optional<brillo::Blob> tpm_key;
+  std::optional<brillo::Blob> extended_tpm_key;
+  std::optional<brillo::Blob> tpm_public_key_hash;
 };
 
 }  // namespace cryptohome
@@ -56,10 +56,10 @@ namespace cryptohome {
 
 struct TpmNotBoundToPcrAuthBlockState {
   std::optional<bool> scrypt_derived;
-  std::optional<brillo::SecureBlob> salt;
+  std::optional<brillo::Blob> salt;
   std::optional<uint32_t> password_rounds;
-  std::optional<brillo::SecureBlob> tpm_key;
-  std::optional<brillo::SecureBlob> tpm_public_key_hash;
+  std::optional<brillo::Blob> tpm_key;
+  std::optional<brillo::Blob> tpm_public_key_hash;
 };
 
 }  // namespace cryptohome
@@ -68,10 +68,10 @@ namespace cryptohome {
 
 struct PinWeaverAuthBlockState {
   std::optional<uint64_t> le_label;
-  std::optional<brillo::SecureBlob> salt;
-  std::optional<brillo::SecureBlob> chaps_iv;
-  std::optional<brillo::SecureBlob> fek_iv;
-  std::optional<brillo::SecureBlob> reset_salt;
+  std::optional<brillo::Blob> salt;
+  std::optional<brillo::Blob> chaps_iv;
+  std::optional<brillo::Blob> fek_iv;
+  std::optional<brillo::Blob> reset_salt;
 };
 
 }  // namespace cryptohome
@@ -79,9 +79,9 @@ struct PinWeaverAuthBlockState {
 namespace cryptohome {
 
 struct ScryptAuthBlockState {
-  std::optional<brillo::SecureBlob> salt;
-  std::optional<brillo::SecureBlob> chaps_salt;
-  std::optional<brillo::SecureBlob> reset_seed_salt;
+  std::optional<brillo::Blob> salt;
+  std::optional<brillo::Blob> chaps_salt;
+  std::optional<brillo::Blob> reset_seed_salt;
   std::optional<int32_t> work_factor;
   std::optional<uint32_t> block_size;
   std::optional<uint32_t> parallel_factor;
@@ -111,12 +111,12 @@ struct DoubleWrappedCompatAuthBlockState {
 namespace cryptohome {
 
 struct CryptohomeRecoveryAuthBlockState {
-  brillo::SecureBlob hsm_payload;
-  brillo::SecureBlob encrypted_destination_share;
-  brillo::SecureBlob extended_pcr_bound_destination_share;
-  brillo::SecureBlob channel_pub_key;
-  brillo::SecureBlob encrypted_channel_priv_key;
-  brillo::SecureBlob encrypted_rsa_priv_key;
+  brillo::Blob hsm_payload;
+  brillo::Blob encrypted_destination_share;
+  brillo::Blob extended_pcr_bound_destination_share;
+  brillo::Blob channel_pub_key;
+  brillo::Blob encrypted_channel_priv_key;
+  brillo::Blob encrypted_rsa_priv_key;
 };
 
 }  // namespace cryptohome
@@ -124,13 +124,13 @@ struct CryptohomeRecoveryAuthBlockState {
 namespace cryptohome {
 
 struct TpmEccAuthBlockState {
-  std::optional<brillo::SecureBlob> salt;
-  std::optional<brillo::SecureBlob> vkk_iv;
+  std::optional<brillo::Blob> salt;
+  std::optional<brillo::Blob> vkk_iv;
   std::optional<uint32_t> auth_value_rounds;
-  std::optional<brillo::SecureBlob> sealed_hvkkm;
-  std::optional<brillo::SecureBlob> extended_sealed_hvkkm;
-  std::optional<brillo::SecureBlob> tpm_public_key_hash;
-  std::optional<brillo::SecureBlob> wrapped_reset_seed;
+  std::optional<brillo::Blob> sealed_hvkkm;
+  std::optional<brillo::Blob> extended_sealed_hvkkm;
+  std::optional<brillo::Blob> tpm_public_key_hash;
+  std::optional<brillo::Blob> wrapped_reset_seed;
 };
 
 }  // namespace cryptohome
@@ -162,6 +162,14 @@ using AuthBlockStateUnion =
 
 namespace cryptohome {
 
+struct RecoverableKeyStoreState {
+  brillo::Blob key_store_proto;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 struct RevocationState {
   std::optional<uint64_t> le_label;
 };
@@ -171,11 +179,13 @@ struct RevocationState {
 namespace cryptohome {
 
 struct AuthBlockState {
-  std::optional<brillo::SecureBlob> Serialize() const;
-  static std::optional<AuthBlockState> Deserialize(const brillo::SecureBlob&);
+  std::optional<brillo::Blob> Serialize() const;
+  static std::optional<AuthBlockState> Deserialize(const brillo::Blob&);
 
   ::cryptohome::AuthBlockStateUnion state;
   std::optional<::cryptohome::RevocationState> revocation_state;
+  std::optional<::cryptohome::RecoverableKeyStoreState>
+      recoverable_key_store_state;
 };
 
 }  // namespace cryptohome

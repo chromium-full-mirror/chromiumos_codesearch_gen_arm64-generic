@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-createtypedarray-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -657,7 +658,7 @@ void ConstructByIterable_0(compiler::CodeAssemblerState* state_, TNode<Context> 
   TNode<UintPtrT> tmp1;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kIterableToListConvertHoles), p_context, p_iterable, p_iteratorFn);
+    tmp0 = ca_.CallBuiltin<JSArray>(Builtin::kIterableToListConvertHoles, p_context, p_iterable, p_iteratorFn);
     tmp1 = LoadJSArrayLengthAsUintPtr_0(state_, TNode<JSArray>{tmp0});
     *label_IfConstructByArrayLike_parameter_1 = tmp1;
     *label_IfConstructByArrayLike_parameter_0 = tmp0;
@@ -1577,7 +1578,7 @@ TNode<JSTypedArray> TypedArraySpeciesCreate_0(compiler::CodeAssemblerState* stat
   TNode<JSTypedArray> tmp6;
   if (block7.is_used()) {
     ca_.Bind(&block7);
-    tmp6 = ca_.CallStub<JSTypedArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateTypedArray), p_context, tmp0, tmp0, p_arg0, p_arg1, p_arg2);
+    tmp6 = ca_.CallBuiltin<JSTypedArray>(Builtin::kCreateTypedArray, p_context, tmp0, tmp0, p_arg0, p_arg1, p_arg2);
     ca_.Goto(&block1, tmp6);
   }
 
@@ -1742,7 +1743,7 @@ TNode<JSTypedArray> TypedArrayCreateSameType_0(compiler::CodeAssemblerState* sta
     tmp1 = Convert_Number_uintptr_0(state_, TNode<UintPtrT>{p_newLength});
     tmp2 = Undefined_0(state_);
     tmp3 = Undefined_0(state_);
-    tmp4 = ca_.CallStub<JSTypedArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateTypedArray), p_context, tmp0, tmp0, tmp1, tmp2, tmp3);
+    tmp4 = ca_.CallBuiltin<JSTypedArray>(Builtin::kCreateTypedArray, p_context, tmp0, tmp0, tmp1, tmp2, tmp3);
     ca_.Goto(&block10);
   }
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/renderer.mojom-features.h"
 #include "content/common/renderer.mojom-shared.h"
 #include "content/common/renderer.mojom-forward.h"
 #include "content/common/agent_scheduling_group.mojom-forward.h"
@@ -31,7 +32,6 @@
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "services/network/public/mojom/network_types.mojom.h"
-#include "services/network/public/mojom/attribution.mojom-forward.h"
 #include "skia/public/mojom/skcolor.mojom.h"
 #include "third_party/blink/public/mojom/browser_interface_broker.mojom-forward.h"
 #include "third_party/blink/public/mojom/origin_trials/origin_trials_settings.mojom-forward.h"
@@ -94,12 +94,12 @@ class CONTENT_EXPORT Renderer
     kPurgePluginListCacheMinVersion = 0,
     kPurgeResourceCacheMinVersion = 0,
     kSetProcessStateMinVersion = 0,
+    kSetBatterySaverModeMinVersion = 0,
     kSetIsLockedToSiteMinVersion = 0,
     kSetIsCrossOriginIsolatedMinVersion = 0,
     kSetIsWebSecurityDisabledMinVersion = 0,
     kSetIsIsolatedContextMinVersion = 0,
     kInitializeRendererMinVersion = 0,
-    kSetAttributionReportingSupportMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -138,6 +138,9 @@ class CONTENT_EXPORT Renderer
   struct SetProcessState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetBatterySaverMode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct SetIsLockedToSite_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -151,9 +154,6 @@ class CONTENT_EXPORT Renderer
     NOINLINE static uint32_t IPCStableHash();
   };
   struct InitializeRenderer_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetAttributionReportingSupport_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -195,6 +195,9 @@ class CONTENT_EXPORT Renderer
   virtual void SetProcessState(RenderProcessBackgroundState background_state, RenderProcessVisibleState visible_state) = 0;
 
   
+  virtual void SetBatterySaverMode(bool battery_saver_mode_enabled) = 0;
+
+  
   virtual void SetIsLockedToSite() = 0;
 
   
@@ -207,10 +210,7 @@ class CONTENT_EXPORT Renderer
   virtual void SetIsIsolatedContext(bool value) = 0;
 
   
-  virtual void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::network::mojom::AttributionSupport attribution_support, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) = 0;
-
-  
-  virtual void SetAttributionReportingSupport(::network::mojom::AttributionSupport attribution_support) = 0;
+  virtual void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) = 0;
 };
 
 
@@ -244,6 +244,8 @@ class CONTENT_EXPORT RendererProxy
   
   void SetProcessState(RenderProcessBackgroundState background_state, RenderProcessVisibleState visible_state) final;
   
+  void SetBatterySaverMode(bool battery_saver_mode_enabled) final;
+  
   void SetIsLockedToSite() final;
   
   void SetIsCrossOriginIsolated(bool value) final;
@@ -252,9 +254,7 @@ class CONTENT_EXPORT RendererProxy
   
   void SetIsIsolatedContext(bool value) final;
   
-  void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::network::mojom::AttributionSupport attribution_support, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) final;
-  
-  void SetAttributionReportingSupport(::network::mojom::AttributionSupport attribution_support) final;
+  void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -509,7 +509,7 @@ class CONTENT_EXPORT UpdateSystemColorInfoParams {
       bool is_dark_mode,
       bool forced_colors,
       const base::flat_map<::ui::NativeTheme::SystemThemeColor, uint32_t>& colors,
-      absl::optional<uint32_t> accent_color,
+      std::optional<uint32_t> accent_color,
       const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& light_colors,
       const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& dark_colors,
       const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& forced_colors_map);
@@ -596,7 +596,7 @@ class CONTENT_EXPORT UpdateSystemColorInfoParams {
   
   base::flat_map<::ui::NativeTheme::SystemThemeColor, uint32_t> colors;
   
-  absl::optional<uint32_t> accent_color;
+  std::optional<uint32_t> accent_color;
   
   base::flat_map<::color::mojom::RendererColorId, ::SkColor> light_colors;
   

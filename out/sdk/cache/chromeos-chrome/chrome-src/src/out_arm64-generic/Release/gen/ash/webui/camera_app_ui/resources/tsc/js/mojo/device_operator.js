@@ -9,7 +9,7 @@ import { isLocalDev } from '../models/load_time_data.js';
 import * as state from '../state.js';
 import { CameraSuspendError, ErrorLevel, ErrorType, Facing, PortraitErrorNoFaceDetected, Resolution, } from '../type.js';
 import { CancelableEvent } from '../waitable_event.js';
-import { AndroidInfoSupportedHardwareLevel, CameraAppDeviceProvider, CameraEventObserverCallbackRouter, CameraFacing, CameraInfoObserverCallbackRouter, CameraMetadataTag, DocumentCornersObserverCallbackRouter, Effect, EntryType, GetCameraAppDeviceStatus, ResultMetadataObserverCallbackRouter, StillCaptureResultObserverCallbackRouter, } from './type.js';
+import { AndroidInfoSupportedHardwareLevel, CameraAppDeviceProvider, CameraEventObserverCallbackRouter, CameraFacing, CameraInfoObserverCallbackRouter, CameraMetadataTag, DocumentCornersObserverCallbackRouter, Effect, EntryType, GetCameraAppDeviceStatus, PortraitModeSegResult, ResultMetadataObserverCallbackRouter, StillCaptureResultObserverCallbackRouter, } from './type.js';
 import { closeEndpoint, wrapEndpoint, } from './util.js';
 /**
  * Parse the entry data according to its type.
@@ -508,10 +508,6 @@ export class DeviceOperator {
      *     operation is not supported.
      */
     async takePortraitModePhoto(deviceId) {
-        // TODO(b/244503017): Add definitions for the portrait mode segmentation
-        // result in the mojom file.
-        const PORTRAIT_SUCCESS = 0;
-        const PORTRAIT_NO_FACES = 3;
         const normalCapture = new CancelableEvent();
         const portraitCapture = new CancelableEvent();
         const portraitEvents = new Map([
@@ -526,11 +522,12 @@ export class DeviceOperator {
                 event.signalError(new Error(`Capture failed.`));
                 return;
             }
-            if (effect === Effect.PORTRAIT_MODE && status !== PORTRAIT_SUCCESS) {
+            if (effect === Effect.PORTRAIT_MODE &&
+                status !== PortraitModeSegResult.kSuccess) {
                 // We only appends the blob result to the output when the status
-                // code is `PORTRAIT_SUCCESS`. For any other status code, the blob
+                // code is `kSuccess`. For any other status code, the blob
                 // will be the original photo and will not be shown to the user.
-                if (status === PORTRAIT_NO_FACES) {
+                if (status === PortraitModeSegResult.kNoFaces) {
                     event.signalError(new PortraitErrorNoFaceDetected());
                     return;
                 }
@@ -677,6 +674,21 @@ export class DeviceOperator {
             AndroidInfoSupportedHardwareLevel.ANDROID_INFO_SUPPORTED_HARDWARE_LEVEL_3,
         ];
         return supportedLevel.includes(level);
+    }
+    /**
+     * Sets the crop region for the configured stream on camera with |deviceId|.
+     */
+    async setCropRegion(deviceId, cropRegion) {
+        const device = await this.getDevice(deviceId);
+        await device.setCropRegion(cropRegion);
+    }
+    /**
+     * Resets the crop region for the camera with |deviceId| to let the camera
+     * stream back to full frame.
+     */
+    async resetCropRegion(deviceId) {
+        const device = await this.getDevice(deviceId);
+        await device.resetCropRegion();
     }
     /**
      * Initializes the singleton instance.

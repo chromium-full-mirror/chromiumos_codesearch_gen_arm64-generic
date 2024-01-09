@@ -11,6 +11,28 @@ namespace structured {
 namespace events {
 namespace v2 {
 
+namespace popular_displays {
+
+MonitorInfo::MonitorInfo() :
+  ::metrics::structured::Event("PopularDisplays",
+                               "MonitorInfo",
+                               false) {}
+MonitorInfo::~MonitorInfo() = default;
+
+MonitorInfo& MonitorInfo::SetDisplayName(const std::string& value) {
+  AddMetric("DisplayName", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetProductCode(const std::string& value) {
+  AddMetric("ProductCode", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+}  // namespace popular_displays
+
 namespace fast_pair {
 
 DiscoveryNotificationShown::DiscoveryNotificationShown() :
@@ -419,6 +441,280 @@ LauncherUsage& LauncherUsage::SetTarget(const std::string& value) {
 
 }  // namespace launcher_usage
 
+namespace nearby_share {
+
+Discovery::Discovery() :
+  ::metrics::structured::Event("NearbyShare",
+                               "Discovery",
+                               false) {}
+Discovery::~Discovery() = default;
+
+Discovery& Discovery::SetPlatform(const int64_t value) {
+  AddMetric("Platform", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Discovery& Discovery::SetDeviceRelationship(const int64_t value) {
+  AddMetric("DeviceRelationship", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Discovery& Discovery::SetTimeToDiscovery(const int64_t value) {
+  AddMetric("TimeToDiscovery", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput::Throughput() :
+  ::metrics::structured::Event("NearbyShare",
+                               "Throughput",
+                               false) {}
+Throughput::~Throughput() = default;
+
+Throughput& Throughput::SetIsReceiving(const int64_t value) {
+  AddMetric("IsReceiving", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetPlatform(const int64_t value) {
+  AddMetric("Platform", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetDeviceRelationship(const int64_t value) {
+  AddMetric("DeviceRelationship", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetMedium(const int64_t value) {
+  AddMetric("Medium", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetUpdateBytes(const int64_t value) {
+  AddMetric("UpdateBytes", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetUpdateMillis(const int64_t value) {
+  AddMetric("UpdateMillis", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetTransferredBytes(const int64_t value) {
+  AddMetric("TransferredBytes", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Throughput& Throughput::SetTotalTransferBytes(const int64_t value) {
+  AddMetric("TotalTransferBytes", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment::FileAttachment() :
+  ::metrics::structured::Event("NearbyShare",
+                               "FileAttachment",
+                               false) {}
+FileAttachment::~FileAttachment() = default;
+
+FileAttachment& FileAttachment::SetIsReceiving(const int64_t value) {
+  AddMetric("IsReceiving", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment& FileAttachment::SetPlatform(const int64_t value) {
+  AddMetric("Platform", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment& FileAttachment::SetDeviceRelationship(const int64_t value) {
+  AddMetric("DeviceRelationship", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment& FileAttachment::SetFileType(const int64_t value) {
+  AddMetric("FileType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment& FileAttachment::SetSize(const int64_t value) {
+  AddMetric("Size", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+FileAttachment& FileAttachment::SetResult(const int64_t value) {
+  AddMetric("Result", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment::TextAttachment() :
+  ::metrics::structured::Event("NearbyShare",
+                               "TextAttachment",
+                               false) {}
+TextAttachment::~TextAttachment() = default;
+
+TextAttachment& TextAttachment::SetIsReceiving(const int64_t value) {
+  AddMetric("IsReceiving", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment& TextAttachment::SetPlatform(const int64_t value) {
+  AddMetric("Platform", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment& TextAttachment::SetDeviceRelationship(const int64_t value) {
+  AddMetric("DeviceRelationship", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment& TextAttachment::SetTextType(const int64_t value) {
+  AddMetric("TextType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment& TextAttachment::SetSize(const int64_t value) {
+  AddMetric("Size", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+TextAttachment& TextAttachment::SetResult(const int64_t value) {
+  AddMetric("Result", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession::ShareSession() :
+  ::metrics::structured::Event("NearbyShare",
+                               "ShareSession",
+                               false) {}
+ShareSession::~ShareSession() = default;
+
+ShareSession& ShareSession::SetIsReceiving(const int64_t value) {
+  AddMetric("IsReceiving", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetPlatform(const int64_t value) {
+  AddMetric("Platform", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetDeviceRelationship(const int64_t value) {
+  AddMetric("DeviceRelationship", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToDiscovery(const int64_t value) {
+  AddMetric("TimeToDiscovery", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToSelect(const int64_t value) {
+  AddMetric("TimeToSelect", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToConnect(const int64_t value) {
+  AddMetric("TimeToConnect", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToAccept(const int64_t value) {
+  AddMetric("TimeToAccept", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToTransferComplete(const int64_t value) {
+  AddMetric("TimeToTransferComplete", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetInitialMedium(const int64_t value) {
+  AddMetric("InitialMedium", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTimeToUpgrade(const int64_t value) {
+  AddMetric("TimeToUpgrade", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetFinalMedium(const int64_t value) {
+  AddMetric("FinalMedium", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetNumberOfFiles(const int64_t value) {
+  AddMetric("NumberOfFiles", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetNumberOfTexts(const int64_t value) {
+  AddMetric("NumberOfTexts", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetNumberOfWiFiCredentials(const int64_t value) {
+  AddMetric("NumberOfWiFiCredentials", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetTotalTransferBytes(const int64_t value) {
+  AddMetric("TotalTransferBytes", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetBytesTransferred(const int64_t value) {
+  AddMetric("BytesTransferred", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+ShareSession& ShareSession::SetResult(const int64_t value) {
+  AddMetric("Result", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+}  // namespace nearby_share
+
 namespace structured_metrics {
 
 Initialization::Initialization() :
@@ -635,6 +931,612 @@ AppDiscovery_Browser_CreateShortcut& AppDiscovery_Browser_CreateShortcut::SetApp
   return *this;
 }
 
+OOBE_GaiaSigninRequested::OOBE_GaiaSigninRequested() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_GaiaSigninRequested",
+                               true) {}
+OOBE_GaiaSigninRequested::~OOBE_GaiaSigninRequested() = default;
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsReauthentication(const int64_t value) {
+  AddMetric("IsReauthentication", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninRequested& OOBE_GaiaSigninRequested::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted::OOBE_GaiaSigninCompleted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_GaiaSigninCompleted",
+                               true) {}
+OOBE_GaiaSigninCompleted::~OOBE_GaiaSigninCompleted() = default;
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsReauthentication(const int64_t value) {
+  AddMetric("IsReauthentication", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_GaiaSigninCompleted& OOBE_GaiaSigninCompleted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeStarted::OOBE_OobeStarted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_OobeStarted",
+                               true) {}
+OOBE_OobeStarted::~OOBE_OobeStarted() = default;
+
+OOBE_OobeStarted& OOBE_OobeStarted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeStarted& OOBE_OobeStarted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeCompleted::OOBE_PreLoginOobeCompleted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_PreLoginOobeCompleted",
+                               true) {}
+OOBE_PreLoginOobeCompleted::~OOBE_PreLoginOobeCompleted() = default;
+
+OOBE_PreLoginOobeCompleted& OOBE_PreLoginOobeCompleted::SetCompletedFlowType(const int64_t value) {
+  AddMetric("CompletedFlowType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeCompleted& OOBE_PreLoginOobeCompleted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeCompleted& OOBE_PreLoginOobeCompleted::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeCompleted& OOBE_PreLoginOobeCompleted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_DeviceRegistered::OOBE_DeviceRegistered() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_DeviceRegistered",
+                               true) {}
+OOBE_DeviceRegistered::~OOBE_DeviceRegistered() = default;
+
+OOBE_DeviceRegistered& OOBE_DeviceRegistered::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_DeviceRegistered& OOBE_DeviceRegistered::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_DeviceRegistered& OOBE_DeviceRegistered::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_DeviceRegistered& OOBE_DeviceRegistered::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted::OOBE_OobeCompleted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_OobeCompleted",
+                               true) {}
+OOBE_OobeCompleted::~OOBE_OobeCompleted() = default;
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OobeCompleted& OOBE_OobeCompleted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted::OOBE_OnboardingStarted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_OnboardingStarted",
+                               true) {}
+OOBE_OnboardingStarted::~OOBE_OnboardingStarted() = default;
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingStarted& OOBE_OnboardingStarted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted::OOBE_OnboardingCompleted() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_OnboardingCompleted",
+                               true) {}
+OOBE_OnboardingCompleted::~OOBE_OnboardingCompleted() = default;
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingCompleted& OOBE_OnboardingCompleted::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered::OOBE_PageEntered() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_PageEntered",
+                               true) {}
+OOBE_PageEntered::~OOBE_PageEntered() = default;
+
+OOBE_PageEntered& OOBE_PageEntered::SetPageId(const std::string& value) {
+  AddMetric("PageId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageEntered& OOBE_PageEntered::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem::OOBE_PageSkippedBySystem() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_PageSkippedBySystem",
+                               true) {}
+OOBE_PageSkippedBySystem::~OOBE_PageSkippedBySystem() = default;
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetPageId(const std::string& value) {
+  AddMetric("PageId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageSkippedBySystem& OOBE_PageSkippedBySystem::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft::OOBE_PageLeft() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_PageLeft",
+                               true) {}
+OOBE_PageLeft::~OOBE_PageLeft() = default;
+
+OOBE_PageLeft& OOBE_PageLeft::SetPageId(const std::string& value) {
+  AddMetric("PageId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetExitReason(const std::string& value) {
+  AddMetric("ExitReason", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PageLeft& OOBE_PageLeft::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed::OOBE_PreLoginOobeResumed() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_PreLoginOobeResumed",
+                               true) {}
+OOBE_PreLoginOobeResumed::~OOBE_PreLoginOobeResumed() = default;
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetPendingPageId(const std::string& value) {
+  AddMetric("PendingPageId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetExitReason(const std::string& value) {
+  AddMetric("ExitReason", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_PreLoginOobeResumed& OOBE_PreLoginOobeResumed::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed::OOBE_OnboardingResumed() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_OnboardingResumed",
+                               true) {}
+OOBE_OnboardingResumed::~OOBE_OnboardingResumed() = default;
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetPendingPageId(const std::string& value) {
+  AddMetric("PendingPageId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetExitReason(const std::string& value) {
+  AddMetric("ExitReason", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_OnboardingResumed& OOBE_OnboardingResumed::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed::OOBE_ChoobeResumed() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "OOBE_ChoobeResumed",
+                               true) {}
+OOBE_ChoobeResumed::~OOBE_ChoobeResumed() = default;
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetExitReason(const std::string& value) {
+  AddMetric("ExitReason", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetIsFlexFlow(const int64_t value) {
+  AddMetric("IsFlexFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetIsDemoModeFlow(const int64_t value) {
+  AddMetric("IsDemoModeFlow", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetIsOwnerUser(const int64_t value) {
+  AddMetric("IsOwnerUser", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetIsEphemeralOrMGS(const int64_t value) {
+  AddMetric("IsEphemeralOrMGS", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetIsFirstOnboarding(const int64_t value) {
+  AddMetric("IsFirstOnboarding", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+OOBE_ChoobeResumed& OOBE_ChoobeResumed::SetChromeMilestone(const int64_t value) {
+  AddMetric("ChromeMilestone", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
 UserLogin::UserLogin() :
   ::metrics::structured::Event("CrOSEvents",
                                "UserLogin",
@@ -678,6 +1580,268 @@ NoMetricsEvent::NoMetricsEvent() :
 NoMetricsEvent::~NoMetricsEvent() = default;
 
 }  // namespace cr_os_events
+
+namespace dev_tools {
+
+SessionStart::SessionStart() :
+  ::metrics::structured::Event("DevTools",
+                               "SessionStart",
+                               false) {}
+SessionStart::~SessionStart() = default;
+
+SessionStart& SessionStart::SetTrigger(const int64_t value) {
+  AddMetric("Trigger", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+SessionStart& SessionStart::SetDockSide(const int64_t value) {
+  AddMetric("DockSide", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+SessionStart& SessionStart::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+SessionEnd::SessionEnd() :
+  ::metrics::structured::Event("DevTools",
+                               "SessionEnd",
+                               false) {}
+SessionEnd::~SessionEnd() = default;
+
+SessionEnd& SessionEnd::SetTrigger(const int64_t value) {
+  AddMetric("Trigger", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+SessionEnd& SessionEnd::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+SessionEnd& SessionEnd::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression::Impression() :
+  ::metrics::structured::Event("DevTools",
+                               "Impression",
+                               false) {}
+Impression::~Impression() = default;
+
+Impression& Impression::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetVeType(const int64_t value) {
+  AddMetric("VeType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetVeParent(const int64_t value) {
+  AddMetric("VeParent", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetVeContext(const int64_t value) {
+  AddMetric("VeContext", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Impression& Impression::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Click::Click() :
+  ::metrics::structured::Event("DevTools",
+                               "Click",
+                               false) {}
+Click::~Click() = default;
+
+Click& Click::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Click& Click::SetMouseButton(const int64_t value) {
+  AddMetric("MouseButton", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Click& Click::SetContext(const int64_t value) {
+  AddMetric("Context", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Click& Click::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Click& Click::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Hover::Hover() :
+  ::metrics::structured::Event("DevTools",
+                               "Hover",
+                               false) {}
+Hover::~Hover() = default;
+
+Hover& Hover::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Hover& Hover::SetTime(const int64_t value) {
+  AddMetric("Time", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Hover& Hover::SetContext(const int64_t value) {
+  AddMetric("Context", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Hover& Hover::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Hover& Hover::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Drag::Drag() :
+  ::metrics::structured::Event("DevTools",
+                               "Drag",
+                               false) {}
+Drag::~Drag() = default;
+
+Drag& Drag::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Drag& Drag::SetDistance(const int64_t value) {
+  AddMetric("Distance", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Drag& Drag::SetContext(const int64_t value) {
+  AddMetric("Context", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Drag& Drag::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Drag& Drag::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Change::Change() :
+  ::metrics::structured::Event("DevTools",
+                               "Change",
+                               false) {}
+Change::~Change() = default;
+
+Change& Change::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Change& Change::SetContext(const int64_t value) {
+  AddMetric("Context", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Change& Change::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+Change& Change::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+KeyDown::KeyDown() :
+  ::metrics::structured::Event("DevTools",
+                               "KeyDown",
+                               false) {}
+KeyDown::~KeyDown() = default;
+
+KeyDown& KeyDown::SetVeId(const int64_t value) {
+  AddMetric("VeId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+KeyDown& KeyDown::SetContext(const int64_t value) {
+  AddMetric("Context", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+KeyDown& KeyDown::SetTimeSinceLastAction(const int64_t value) {
+  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+KeyDown& KeyDown::SetSessionId(const int64_t value) {
+  AddMetric("SessionId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+}  // namespace dev_tools
 
 namespace test_project_one {
 
@@ -792,6 +1956,22 @@ TestEventSeven& TestEventSeven::SetTestMetricSeven(const double value) {
 }
 
 }  // namespace test_project_six
+
+namespace test_project_seven {
+
+TestEventEight::TestEventEight() :
+  ::metrics::structured::Event("TestProjectSeven",
+                               "TestEventEight",
+                               false) {}
+TestEventEight::~TestEventEight() = default;
+
+TestEventEight& TestEventEight::SetTestMetricEight(const double value) {
+  AddMetric("TestMetricEight", Event::MetricType::kDouble,
+            base::Value(value));
+  return *this;
+}
+
+}  // namespace test_project_seven
 
 
 }  // namespace v2

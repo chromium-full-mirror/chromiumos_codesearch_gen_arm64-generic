@@ -41,7 +41,7 @@ class CORE_EXPORT ServiceWorkerContainerHostAsyncWaiter {
       const ::blink::KURL& client_url, ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg, ::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr* out_registration);
   
   void GetRegistrations(
-      ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg, absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos);
+      ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg, std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos);
   
   void GetRegistrationForReady(
       ::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr* out_registration);

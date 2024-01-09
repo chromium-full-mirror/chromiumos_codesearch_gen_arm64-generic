@@ -11,11 +11,12 @@ import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import './album_list_element.js';
 import './art_album_dialog_element.js';
 import '../../css/common.css.js';
+import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { TopicSource } from '../../personalization_app.mojom-webui.js';
 import { PersonalizationRouterElement } from '../personalization_router_element.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { getNumberOfGridItemsPerRow, getZerosArray, isNonEmptyArray } from '../utils.js';
+import { getNumberOfGridItemsPerRow } from '../utils.js';
 import { getTemplate } from './albums_subpage_element.html.js';
 import { setAlbumSelected } from './ambient_controller.js';
 import { getAmbientProvider } from './ambient_interface_provider.js';
@@ -81,7 +82,7 @@ export class AlbumsSubpageElement extends WithPersonalizationStore {
     getLoadingTiles_() {
         const x = getNumberOfGridItemsPerRow();
         const y = Math.floor(this.offsetHeight / kTileHeightPx);
-        return getZerosArray(x * y);
+        return new Array(x * y).fill(0);
     }
     loadingAlbums_() {
         return this.albums === null || this.topicSource === null;

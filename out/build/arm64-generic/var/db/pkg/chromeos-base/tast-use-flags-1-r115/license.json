@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "tast-use-flags", "version": "1", "revision": 115, "fullname": "chromeos-base/tast-use-flags", "fullnamerev": "chromeos-base/tast-use-flags-1-r115", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

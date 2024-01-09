@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Crypto>::value,
     "Crypto inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Crypto::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Crypto is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("Crypto.subtle.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(v8_receiver);
+Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->subtle();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,7 +120,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(v8_receiver);
+Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_array = NativeValueTraits<NotShared<DOMArrayBufferView>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -150,10 +146,10 @@ BLINK_BINDINGS_TRACE_EVENT("Crypto.randomUUID");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->randomUUID();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Crypto* blink_receiver = V8Crypto::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->randomUUID();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

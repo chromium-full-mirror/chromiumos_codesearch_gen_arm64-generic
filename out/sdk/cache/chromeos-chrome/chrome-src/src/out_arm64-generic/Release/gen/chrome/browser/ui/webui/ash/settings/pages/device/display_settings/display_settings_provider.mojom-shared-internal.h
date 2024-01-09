@@ -24,8 +24,94 @@ class ValidationContext;
 
 namespace ash::settings::mojom {
 namespace internal {
+class DisplaySettingsValue_Data;
+
+struct DisplaySettingsType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
+class  DisplaySettingsValue_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t is_internal_display_$flag : 1;
+  uint8_t is_internal_display_$value : 1;
+  uint8_t display_id_$flag : 1;
+  uint8_t pad2_[7];
+  int64_t display_id_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<DisplaySettingsValue_Data>;
+
+  DisplaySettingsValue_Data();
+  ~DisplaySettingsValue_Data() = delete;
+};
+static_assert(sizeof(DisplaySettingsValue_Data) == 24,
+              "Bad sizeof(DisplaySettingsValue_Data)");
+// Used by DisplaySettingsValue::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DisplaySettingsValue_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DisplaySettingsValue_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DisplaySettingsValue_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DisplaySettingsValue_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DisplaySettingsValue_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

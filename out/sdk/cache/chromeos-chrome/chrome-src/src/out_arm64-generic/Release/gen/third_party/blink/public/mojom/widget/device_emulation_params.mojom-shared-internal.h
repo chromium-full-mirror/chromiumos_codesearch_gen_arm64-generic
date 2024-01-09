@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "ui/display/mojom/screen_orientation.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -71,6 +72,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DeviceEmulationParams_D
   int32_t screen_orientation_type;
   uint32_t screen_orientation_angle;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data>>> window_segments;
+  int32_t device_posture;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<DeviceEmulationParams_Data>;
@@ -78,7 +81,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DeviceEmulationParams_D
   DeviceEmulationParams_Data();
   ~DeviceEmulationParams_Data() = delete;
 };
-static_assert(sizeof(DeviceEmulationParams_Data) == 72,
+static_assert(sizeof(DeviceEmulationParams_Data) == 80,
               "Bad sizeof(DeviceEmulationParams_Data)");
 // Used by DeviceEmulationParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

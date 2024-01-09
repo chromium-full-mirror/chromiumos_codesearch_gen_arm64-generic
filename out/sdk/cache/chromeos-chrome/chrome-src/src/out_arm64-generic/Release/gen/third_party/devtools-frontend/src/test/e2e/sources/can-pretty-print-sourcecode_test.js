@@ -16,9 +16,6 @@ const PRETTY_PRINTED_TOGGLE = 'devtools-text-editor.pretty-printed';
     if (this.timeout() > 0) {
         this.timeout(10000);
     }
-    (0, mocha_extensions_js_1.beforeEach)(async () => {
-        await (0, helper_js_1.enableExperiment)('sourcesPrettyPrint');
-    });
     (0, mocha_extensions_js_1.it)('can pretty-print a JavaScript file inline', async () => {
         await (0, sources_helpers_js_1.openSourceCodeEditorForFile)('minified-sourcecode.js', 'minified-sourcecode.html');
         await (0, helper_js_1.step)('can pretty-print successfully', async () => {

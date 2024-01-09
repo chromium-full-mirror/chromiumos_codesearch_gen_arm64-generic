@@ -48,7 +48,7 @@ class  MediaControllerInterceptorForTesting : public MediaController {
   void ScrubTo(::base::TimeDelta seek_time) override;
   void EnterPictureInPicture() override;
   void ExitPictureInPicture() override;
-  void SetAudioSinkId(const absl::optional<std::string>& id) override;
+  void SetAudioSinkId(const std::optional<std::string>& id) override;
   void ToggleMicrophone() override;
   void ToggleCamera() override;
   void HangUp() override;
@@ -56,6 +56,7 @@ class  MediaControllerInterceptorForTesting : public MediaController {
   void SetMute(bool mute) override;
   void RequestMediaRemoting() override;
   void EnterAutoPictureInPicture() override;
+  void SkipAd() override;
 };
 class  MediaControllerAsyncWaiter {
  public:
@@ -74,10 +75,10 @@ class  MediaControllerAsyncWaiter {
 class  MediaControllerObserverInterceptorForTesting : public MediaControllerObserver {
   virtual MediaControllerObserver* GetForwardingInterface() = 0;
   void MediaSessionInfoChanged(::media_session::mojom::MediaSessionInfoPtr info) override;
-  void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) override;
+  void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) override;
   void MediaSessionActionsChanged(const std::vector<::media_session::mojom::MediaSessionAction>& action) override;
-  void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) override;
-  void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) override;
+  void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) override;
+  void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) override;
 };
 class  MediaControllerObserverAsyncWaiter {
  public:

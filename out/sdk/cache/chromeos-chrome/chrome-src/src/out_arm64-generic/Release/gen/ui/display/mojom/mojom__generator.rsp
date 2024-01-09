@@ -1,4 +1,5 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/ui/display/mojom/display.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/ui/display/mojom/display_color_management.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/ui/display/mojom/display_configuration_params.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/ui/display/mojom/display_constants.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/ui/display/mojom/display_layout.mojom

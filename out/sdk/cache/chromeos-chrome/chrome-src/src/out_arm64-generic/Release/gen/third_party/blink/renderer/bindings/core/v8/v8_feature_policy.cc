@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMFeaturePolicy>::value,
     "DOMFeaturePolicy inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMFeaturePolicy::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMFeaturePolicy is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(v8_receiver);
+DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->allowedFeatures(script_state);
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -137,13 +132,13 @@ bool return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(v8_receiver);
+DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_feature;
 if (LIKELY(info[0]->IsString())) {
-  arg1_feature.Init(info[0].As<v8::String>());
+  arg1_feature.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FeaturePolicy";
@@ -160,7 +155,7 @@ break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_origin;
 if (LIKELY(info[1]->IsString())) {
-  arg2_origin.Init(info[1].As<v8::String>());
+  arg2_origin.Init(isolate, info[1].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FeaturePolicy";
@@ -199,7 +194,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(v8_receiver);
+DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->features(script_state);
 if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -238,10 +233,10 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(v8_receiver);
+DOMFeaturePolicy* blink_receiver = V8FeaturePolicy::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_feature;
 if (LIKELY(info[0]->IsString())) {
-  arg1_feature.Init(info[0].As<v8::String>());
+  arg1_feature.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FeaturePolicy";

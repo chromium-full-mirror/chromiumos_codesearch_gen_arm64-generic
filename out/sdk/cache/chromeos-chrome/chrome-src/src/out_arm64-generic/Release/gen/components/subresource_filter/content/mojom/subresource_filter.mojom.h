@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/subresource_filter/content/mojom/subresource_filter.mojom-features.h"
 #include "components/subresource_filter/content/mojom/subresource_filter.mojom-shared.h"
 #include "components/subresource_filter/content/mojom/subresource_filter.mojom-forward.h"
 #include "components/subresource_filter/core/mojom/subresource_filter.mojom-forward.h"
@@ -83,7 +84,7 @@ class SubresourceFilterAgent
   virtual ~SubresourceFilterAgent() = default;
 
   
-  virtual void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const absl::optional<::blink::FrameAdEvidence>& ad_evidence) = 0;
+  virtual void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const std::optional<::blink::FrameAdEvidence>& ad_evidence) = 0;
 };
 
 class SubresourceFilterHostProxy;
@@ -175,7 +176,7 @@ class  SubresourceFilterAgentProxy
 
   explicit SubresourceFilterAgentProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const absl::optional<::blink::FrameAdEvidence>& ad_evidence) final;
+  void ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const std::optional<::blink::FrameAdEvidence>& ad_evidence) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

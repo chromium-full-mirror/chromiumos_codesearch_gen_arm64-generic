@@ -8,6 +8,7 @@
 #define SERVICES_DATA_DECODER_PUBLIC_MOJOM_XML_PARSER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

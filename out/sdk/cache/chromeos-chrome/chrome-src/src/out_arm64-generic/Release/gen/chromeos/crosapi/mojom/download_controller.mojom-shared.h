@@ -133,9 +133,11 @@ enum class DownloadDangerType : int32_t {
   
   kDownloadDangerTypeDeepScannedFailed = 20,
   
-  kDownloadDangerTypePromptForLocalPasswordScanning = 20,
+  kDownloadDangerTypePromptForLocalPasswordScanning = 21,
+  
+  kDownloadDangerTypeAsyncLocalPasswordScanning = 22,
   kMinValue = -1,
-  kMaxValue = 20,
+  kMaxValue = 22,
   kDefaultValue = -1
 };
 

@@ -218,6 +218,7 @@ class DeviceIdentityMetaData final :
   enum : int {
     kDeviceNameFieldNumber = 2,
     kBluetoothMacAddressFieldNumber = 3,
+    kDeviceIdFieldNumber = 5,
     kDeviceTypeFieldNumber = 1,
     kInstanceTypeFieldNumber = 4,
   };
@@ -249,6 +250,20 @@ class DeviceIdentityMetaData final :
   std::string* _internal_mutable_bluetooth_mac_address();
   public:
 
+  // bytes device_id = 5;
+  void clear_device_id();
+  const std::string& device_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_device_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_device_id();
+  PROTOBUF_NODISCARD std::string* release_device_id();
+  void set_allocated_device_id(std::string* device_id);
+  private:
+  const std::string& _internal_device_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_device_id(const std::string& value);
+  std::string* _internal_mutable_device_id();
+  public:
+
   // .nearby.internal.DeviceType device_type = 1;
   void clear_device_type();
   ::nearby::internal::DeviceType device_type() const;
@@ -276,6 +291,7 @@ class DeviceIdentityMetaData final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bluetooth_mac_address_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_id_;
   int device_type_;
   int instance_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -648,6 +664,56 @@ inline void DeviceIdentityMetaData::_internal_set_instance_type(::nearby::intern
 inline void DeviceIdentityMetaData::set_instance_type(::nearby::internal::InstanceType value) {
   _internal_set_instance_type(value);
   // @@protoc_insertion_point(field_set:nearby.internal.DeviceIdentityMetaData.instance_type)
+}
+
+// bytes device_id = 5;
+inline void DeviceIdentityMetaData::clear_device_id() {
+  device_id_.ClearToEmpty();
+}
+inline const std::string& DeviceIdentityMetaData::device_id() const {
+  // @@protoc_insertion_point(field_get:nearby.internal.DeviceIdentityMetaData.device_id)
+  return _internal_device_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeviceIdentityMetaData::set_device_id(ArgT0&& arg0, ArgT... args) {
+ 
+ device_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:nearby.internal.DeviceIdentityMetaData.device_id)
+}
+inline std::string* DeviceIdentityMetaData::mutable_device_id() {
+  std::string* _s = _internal_mutable_device_id();
+  // @@protoc_insertion_point(field_mutable:nearby.internal.DeviceIdentityMetaData.device_id)
+  return _s;
+}
+inline const std::string& DeviceIdentityMetaData::_internal_device_id() const {
+  return device_id_.Get();
+}
+inline void DeviceIdentityMetaData::_internal_set_device_id(const std::string& value) {
+  
+  device_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceIdentityMetaData::_internal_mutable_device_id() {
+  
+  return device_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeviceIdentityMetaData::release_device_id() {
+  // @@protoc_insertion_point(field_release:nearby.internal.DeviceIdentityMetaData.device_id)
+  return device_id_.Release();
+}
+inline void DeviceIdentityMetaData::set_allocated_device_id(std::string* device_id) {
+  if (device_id != nullptr) {
+    
+  } else {
+    
+  }
+  device_id_.SetAllocated(device_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (device_id_.IsDefault()) {
+    device_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:nearby.internal.DeviceIdentityMetaData.device_id)
 }
 
 // -------------------------------------------------------------------

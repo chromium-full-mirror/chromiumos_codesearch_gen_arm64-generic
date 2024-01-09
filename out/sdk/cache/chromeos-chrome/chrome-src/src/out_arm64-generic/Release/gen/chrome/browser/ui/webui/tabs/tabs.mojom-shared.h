@@ -43,27 +43,31 @@ enum class TabAlertState : int32_t {
   
   kAudioMuting = 0,
   
-  kAudioPlaying = 1,
+  kAudioRecording = 1,
   
-  kBluetoothConnected = 2,
+  kAudioPlaying = 2,
   
-  kDesktopCapturing = 3,
+  kBluetoothConnected = 3,
   
-  kHidConnected = 4,
+  kDesktopCapturing = 4,
   
-  kMediaRecording = 5,
+  kHidConnected = 5,
   
-  kPipPlaying = 6,
+  kMediaRecording = 6,
   
-  kSerialConnected = 7,
+  kPipPlaying = 7,
   
-  kTabCapturing = 8,
+  kSerialConnected = 8,
   
-  kUsbConnected = 9,
+  kTabCapturing = 9,
   
-  kVrPresentingInHeadset = 10,
+  kUsbConnected = 10,
+  
+  kVideoRecording = 11,
+  
+  kVrPresentingInHeadset = 12,
   kMinValue = 0,
-  kMaxValue = 10,
+  kMaxValue = 12,
 };
 
  std::ostream& operator<<(std::ostream& os, TabAlertState value);

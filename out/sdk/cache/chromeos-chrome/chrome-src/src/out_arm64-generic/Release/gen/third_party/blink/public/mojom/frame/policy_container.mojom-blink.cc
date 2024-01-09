@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -335,14 +336,17 @@ void PolicyContainerHostProxy::SetReferrerPolicy(
                         "<value of type ::network::mojom::blink::ReferrerPolicy>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyContainerHost_SetReferrerPolicy_Name, kFlags, 0, 0, nullptr);
@@ -374,14 +378,17 @@ void PolicyContainerHostProxy::AddContentSecurityPolicies(
                         "<value of type WTF::Vector<::network::mojom::blink::ContentSecurityPolicyPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyContainerHost_AddContentSecurityPolicies_Name, kFlags, 0, 0, nullptr);
@@ -424,14 +431,17 @@ void PolicyContainerHostProxy::IssueKeepAliveHandle(
                         "<value of type ::mojo::PendingReceiver<PolicyContainerHostKeepAliveHandle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyContainerHost_IssueKeepAliveHandle_Name, kFlags, 0, 0, nullptr);
@@ -565,14 +575,14 @@ bool PolicyContainerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPolicyContainerHostValidationInfo[] = {
-    {&internal::PolicyContainerHost_SetReferrerPolicy_Params_Data::Validate,
+    { &internal::PolicyContainerHost_SetReferrerPolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PolicyContainerHost_AddContentSecurityPolicies_Params_Data::Validate,
+    { &internal::PolicyContainerHost_AddContentSecurityPolicies_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PolicyContainerHost_IssueKeepAliveHandle_Params_Data::Validate,
+    { &internal::PolicyContainerHost_IssueKeepAliveHandle_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -624,8 +634,8 @@ bool PolicyContainerHostKeepAliveHandleStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool PolicyContainerHostKeepAliveHandleRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::blink::mojom::blink::PolicyContainerHostKeepAliveHandle::Name_;

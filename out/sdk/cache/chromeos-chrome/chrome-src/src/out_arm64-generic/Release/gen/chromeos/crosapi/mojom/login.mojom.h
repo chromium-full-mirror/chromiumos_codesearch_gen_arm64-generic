@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/login.mojom-features.h"
 #include "chromeos/crosapi/mojom/login.mojom-shared.h"
 #include "chromeos/crosapi/mojom/login.mojom-forward.h"
 #include <string>
@@ -84,7 +85,7 @@ class LacrosCleanupTriggeredObserver
   virtual ~LacrosCleanupTriggeredObserver() = default;
 
 
-  using OnLacrosCleanupTriggeredCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using OnLacrosCleanupTriggeredCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void OnLacrosCleanupTriggered(OnLacrosCleanupTriggeredCallback callback) = 0;
 };
@@ -245,9 +246,9 @@ class Login
   virtual ~Login() = default;
 
 
-  using ExitCurrentSessionCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using ExitCurrentSessionCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
-  virtual void ExitCurrentSession(const absl::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) = 0;
+  virtual void ExitCurrentSession(const std::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) = 0;
 
 
   using FetchDataForNextLoginAttemptCallback = base::OnceCallback<void(const std::string&)>;
@@ -255,12 +256,12 @@ class Login
   virtual void FetchDataForNextLoginAttempt(FetchDataForNextLoginAttemptCallback callback) = 0;
 
 
-  using LockManagedGuestSessionCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using LockManagedGuestSessionCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void LockManagedGuestSession(LockManagedGuestSessionCallback callback) = 0;
 
 
-  using EndSharedSessionCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using EndSharedSessionCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void EndSharedSession(EndSharedSessionCallback callback) = 0;
 
@@ -270,7 +271,7 @@ class Login
   virtual void SetDataForNextLoginAttempt(const std::string& data_for_next_login_attempt, SetDataForNextLoginAttemptCallback callback) = 0;
 
 
-  using LockCurrentSessionCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using LockCurrentSessionCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void LockCurrentSession(LockCurrentSessionCallback callback) = 0;
 
@@ -287,37 +288,37 @@ class Login
   virtual void ShowGuestSessionConfirmationDialog() = 0;
 
 
-  using REMOVED_0Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_0Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
-  virtual void REMOVED_0(const absl::optional<std::string>& password, REMOVED_0Callback callback) = 0;
+  virtual void REMOVED_0(const std::optional<std::string>& password, REMOVED_0Callback callback) = 0;
 
 
-  using REMOVED_4Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_4Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_4(const std::string& password, REMOVED_4Callback callback) = 0;
 
 
-  using REMOVED_5Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_5Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_5(const std::string& password, REMOVED_5Callback callback) = 0;
 
 
-  using REMOVED_6Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_6Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_6(const std::string& password, REMOVED_6Callback callback) = 0;
 
 
-  using REMOVED_7Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_7Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_7(const std::string& password, REMOVED_7Callback callback) = 0;
 
 
-  using REMOVED_10Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_10Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_10(SamlUserSessionPropertiesPtr properties, REMOVED_10Callback callback) = 0;
 
 
-  using REMOVED_12Callback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using REMOVED_12Callback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void REMOVED_12(const std::string& password, REMOVED_12Callback callback) = 0;
 };
@@ -361,7 +362,7 @@ class  LoginProxy
 
   explicit LoginProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ExitCurrentSession(const absl::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) final;
+  void ExitCurrentSession(const std::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) final;
   
   void FetchDataForNextLoginAttempt(FetchDataForNextLoginAttemptCallback callback) final;
   
@@ -381,7 +382,7 @@ class  LoginProxy
   
   void ShowGuestSessionConfirmationDialog() final;
   
-  void REMOVED_0(const absl::optional<std::string>& password, REMOVED_0Callback callback) final;
+  void REMOVED_0(const std::optional<std::string>& password, REMOVED_0Callback callback) final;
   
   void REMOVED_4(const std::string& password, REMOVED_4Callback callback) final;
   

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,8 +54,8 @@ BootupConfig::BootupConfig()
       hotword_enabled() {}
 
 BootupConfig::BootupConfig(
-    const absl::optional<std::string>& s3_server_uri_override_in,
-    const absl::optional<std::string>& device_id_override_in,
+    const std::optional<std::string>& s3_server_uri_override_in,
+    const std::optional<std::string>& device_id_override_in,
     std::vector<::ash::libassistant::mojom::AuthenticationTokenPtr> authentication_tokens_in,
     const std::string& locale_in,
     bool spoken_feedback_enabled_in,
@@ -77,7 +78,7 @@ void BootupConfig::WriteIntoTrace(
     dict.AddItem(
       "s3_server_uri_override"), this->s3_server_uri_override,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void BootupConfig::WriteIntoTrace(
     dict.AddItem(
       "device_id_override"), this->device_id_override,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -297,14 +298,17 @@ void ServiceControllerProxy::Initialize(
                         "<value of type ::mojo::PendingRemote<::network::mojom::URLLoaderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceController_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -344,14 +348,17 @@ void ServiceControllerProxy::Start(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::ServiceController::Start");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceController_Start_Name, kFlags, 0, 0, nullptr);
@@ -374,14 +381,17 @@ void ServiceControllerProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::ServiceController::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceController_Stop_Name, kFlags, 0, 0, nullptr);
@@ -404,14 +414,17 @@ void ServiceControllerProxy::ResetAllDataAndStop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::ServiceController::ResetAllDataAndStop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceController_ResetAllDataAndStop_Name, kFlags, 0, 0, nullptr);
@@ -441,14 +454,17 @@ void ServiceControllerProxy::AddAndFireStateObserver(
                         "<value of type ::mojo::PendingRemote<StateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceController_AddAndFireStateObserver_Name, kFlags, 0, 0, nullptr);
@@ -634,18 +650,18 @@ bool ServiceControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceControllerValidationInfo[] = {
-    {&internal::ServiceController_Initialize_Params_Data::Validate,
+    { &internal::ServiceController_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceController_Start_Params_Data::Validate,
+    { &internal::ServiceController_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceController_Stop_Params_Data::Validate,
+    { &internal::ServiceController_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceController_ResetAllDataAndStop_Params_Data::Validate,
+    { &internal::ServiceController_ResetAllDataAndStop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceController_AddAndFireStateObserver_Params_Data::Validate,
+    { &internal::ServiceController_AddAndFireStateObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -725,14 +741,17 @@ void StateObserverProxy::OnStateChanged(
                         "<value of type ServiceState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStateObserver_OnStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -802,10 +821,10 @@ bool StateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStateObserverValidationInfo[] = {
-    {&internal::StateObserver_OnStateChanged_Params_Data::Validate,
+    { &internal::StateObserver_OnStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

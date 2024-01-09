@@ -25,6 +25,7 @@
 
 #include "third_party/blink/public/mojom/lcp_critical_path_predictor/lcp_critical_path_predictor.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/byte_string.mojom-shared.h"
+#include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

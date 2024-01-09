@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -489,12 +490,12 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSpec {
 
   HandwritingRecognizerSpec(
       const std::string& language,
-      const absl::optional<std::string>& language_pack_path);
+      const std::optional<std::string>& language_pack_path);
 
   HandwritingRecognizerSpec(
       const std::string& language,
-      const absl::optional<std::string>& language_pack_path,
-      const absl::optional<std::string>& library_dlc_path);
+      const std::optional<std::string>& language_pack_path,
+      const std::optional<std::string>& library_dlc_path);
 
 
   ~HandwritingRecognizerSpec();
@@ -574,9 +575,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSpec {
   
   std::string language;
   
-  absl::optional<std::string> language_pack_path;
+  std::optional<std::string> language_pack_path;
   
-  absl::optional<std::string> library_dlc_path;
+  std::optional<std::string> library_dlc_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -642,7 +643,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) InkPoint {
   InkPoint(
       float x,
       float y,
-      absl::optional<::base::TimeDelta> t);
+      std::optional<::base::TimeDelta> t);
 
 
   ~InkPoint();
@@ -724,7 +725,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) InkPoint {
   
   float y;
   
-  absl::optional<::base::TimeDelta> t;
+  std::optional<::base::TimeDelta> t;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -930,7 +931,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) RecognitionContext {
 
   RecognitionContext(
       WritingGuidePtr writing_guide,
-      const absl::optional<std::string>& pre_context);
+      const std::optional<std::string>& pre_context);
 
 RecognitionContext(const RecognitionContext&) = delete;
 RecognitionContext& operator=(const RecognitionContext&) = delete;
@@ -1012,7 +1013,7 @@ RecognitionContext& operator=(const RecognitionContext&) = delete;
   
   WritingGuidePtr writing_guide;
   
-  absl::optional<std::string> pre_context;
+  std::optional<std::string> pre_context;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

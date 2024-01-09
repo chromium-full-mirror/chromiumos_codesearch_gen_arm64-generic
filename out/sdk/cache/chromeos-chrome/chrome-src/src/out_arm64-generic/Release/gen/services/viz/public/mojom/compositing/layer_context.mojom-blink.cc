@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -248,14 +249,17 @@ void LayerContextProxy::SetTargetLocalSurfaceId(
                         "<value of type const ::viz::LocalSurfaceId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLayerContext_SetTargetLocalSurfaceId_Name, kFlags, 0, 0, nullptr);
@@ -296,14 +300,17 @@ void LayerContextProxy::SetVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLayerContext_SetVisible_Name, kFlags, 0, 0, nullptr);
@@ -334,14 +341,17 @@ void LayerContextProxy::Commit(
                         "<value of type LayerTreeUpdatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLayerContext_Commit_Name, kFlags, 0, 0, nullptr);
@@ -478,14 +488,14 @@ bool LayerContextStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLayerContextValidationInfo[] = {
-    {&internal::LayerContext_SetTargetLocalSurfaceId_Params_Data::Validate,
+    { &internal::LayerContext_SetTargetLocalSurfaceId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LayerContext_SetVisible_Params_Data::Validate,
+    { &internal::LayerContext_SetVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LayerContext_Commit_Params_Data::Validate,
+    { &internal::LayerContext_Commit_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -565,14 +575,17 @@ void LayerContextClientProxy::OnRequestCommitForFrame(
                         "<value of type const ::viz::BeginFrameArgs&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLayerContextClient_OnRequestCommitForFrame_Name, kFlags, 0, 0, nullptr);
@@ -651,10 +664,10 @@ bool LayerContextClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLayerContextClientValidationInfo[] = {
-    {&internal::LayerContextClient_OnRequestCommitForFrame_Params_Data::Validate,
+    { &internal::LayerContextClient_OnRequestCommitForFrame_Params_Data::Validate,
      nullptr /* no response */},
 };
 

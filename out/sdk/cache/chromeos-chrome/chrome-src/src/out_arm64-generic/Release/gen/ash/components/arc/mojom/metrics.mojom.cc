@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -340,6 +341,9 @@ MetricsHost::IPCStableHashFunction MetricsHost::MessageToMethodInfo_(mojo::Messa
     case internal::kMetricsHost_ReportQosSocketPercentage_Name: {
       return &MetricsHost::ReportQosSocketPercentage_Sym::IPCStableHash;
     }
+    case internal::kMetricsHost_ReportArcKeyMintError_Name: {
+      return &MetricsHost::ReportArcKeyMintError_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -417,6 +421,8 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::MetricsHost::ReportNewQosSocketCount";
       case internal::kMetricsHost_ReportQosSocketPercentage_Name:
             return "Receive arc::mojom::MetricsHost::ReportQosSocketPercentage";
+      case internal::kMetricsHost_ReportArcKeyMintError_Name:
+            return "Receive arc::mojom::MetricsHost::ReportArcKeyMintError";
     }
   } else {
     switch (message.name()) {
@@ -486,6 +492,8 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::MetricsHost::ReportNewQosSocketCount";
       case internal::kMetricsHost_ReportQosSocketPercentage_Name:
             return "Receive reply arc::mojom::MetricsHost::ReportQosSocketPercentage";
+      case internal::kMetricsHost_ReportArcKeyMintError_Name:
+            return "Receive reply arc::mojom::MetricsHost::ReportArcKeyMintError";
     }
   }
   return "Receive unknown mojo message";
@@ -929,6 +937,19 @@ uint32_t MetricsHost::ReportQosSocketPercentage_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t MetricsHost::ReportArcKeyMintError_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::MetricsHost::ReportArcKeyMintError");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 MetricsHostProxy::MetricsHostProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -950,14 +971,17 @@ void MetricsHostProxy::ReportBootProgress(
                         "<value of type BootType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportBootProgress_Name, kFlags, 0, 0, nullptr);
@@ -1002,14 +1026,17 @@ void MetricsHostProxy::ReportNativeBridge(
                         "<value of type NativeBridgeType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportNativeBridge_Name, kFlags, 0, 0, nullptr);
@@ -1041,14 +1068,17 @@ void MetricsHostProxy::ReportCompanionLibApiUsage(
                         "<value of type CompanionLibApiId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportCompanionLibApiUsage_Name, kFlags, 0, 0, nullptr);
@@ -1080,14 +1110,17 @@ void MetricsHostProxy::ReportAppKill(
                         "<value of type AppKillPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportAppKill_Name, kFlags, 0, 0, nullptr);
@@ -1128,14 +1161,17 @@ void MetricsHostProxy::ReportArcCorePriAbiMigEvent(
                         "<value of type ArcCorePriAbiMigEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcCorePriAbiMigEvent_Name, kFlags, 0, 0, nullptr);
@@ -1167,14 +1203,17 @@ void MetricsHostProxy::ReportArcCorePriAbiMigFailedTries(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcCorePriAbiMigFailedTries_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1244,17 @@ void MetricsHostProxy::ReportArcCorePriAbiMigDowngradeDelay(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcCorePriAbiMigDowngradeDelay_Name, kFlags, 0, 0, nullptr);
@@ -1253,14 +1295,17 @@ void MetricsHostProxy::ReportArcCorePriAbiMigBootTime(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcCorePriAbiMigBootTime_Name, kFlags, 0, 0, nullptr);
@@ -1301,14 +1346,17 @@ void MetricsHostProxy::ReportClipboardDragDropEvent(
                         "<value of type ArcClipboardDragDropEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportClipboardDragDropEvent_Name, kFlags, 0, 0, nullptr);
@@ -1340,14 +1388,17 @@ void MetricsHostProxy::ReportAnr(
                         "<value of type ::arc::mojom::AnrPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportAnr_Name, kFlags, 0, 0, nullptr);
@@ -1391,14 +1442,17 @@ void MetricsHostProxy::ReportArcSystemHealthUpgrade(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcSystemHealthUpgrade_Name, kFlags, 0, 0, nullptr);
@@ -1440,14 +1494,17 @@ void MetricsHostProxy::ReportLowLatencyStylusLibApiUsage(
                         "<value of type LowLatencyStylusLibApiId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportLowLatencyStylusLibApiUsage_Name, kFlags, 0, 0, nullptr);
@@ -1479,14 +1536,17 @@ void MetricsHostProxy::ReportLowLatencyStylusLibPredictionTarget(
                         "<value of type LowLatencyStylusLibPredictionTargetPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportLowLatencyStylusLibPredictionTarget_Name, kFlags, 0, 0, nullptr);
@@ -1533,14 +1593,17 @@ void MetricsHostProxy::ReportEntireFixupMetrics(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportEntireFixupMetrics_Name, kFlags, 0, 0, nullptr);
@@ -1586,14 +1649,17 @@ void MetricsHostProxy::ReportPerAppFixupMetrics(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportPerAppFixupMetrics_Name, kFlags, 0, 0, nullptr);
@@ -1638,14 +1704,17 @@ void MetricsHostProxy::ReportDnsQueryResult(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportDnsQueryResult_Name, kFlags, 0, 0, nullptr);
@@ -1678,14 +1747,17 @@ void MetricsHostProxy::ReportMainAccountHashMigrationMetrics(
                         "<value of type MainAccountHashMigrationStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportMainAccountHashMigrationMetrics_Name, kFlags, 0, 0, nullptr);
@@ -1717,14 +1789,17 @@ void MetricsHostProxy::ReportImageCopyPasteCompatActionDeprecated(
                         "<value of type ArcImageCopyPasteCompatAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportImageCopyPasteCompatActionDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1756,14 +1831,17 @@ void MetricsHostProxy::ReportArcNetworkEvent(
                         "<value of type ArcNetworkEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcNetworkEvent_Name, kFlags, 0, 0, nullptr);
@@ -1795,14 +1873,17 @@ void MetricsHostProxy::ReportArcNetworkError(
                         "<value of type ArcNetworkError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportArcNetworkError_Name, kFlags, 0, 0, nullptr);
@@ -1834,14 +1915,17 @@ void MetricsHostProxy::ReportAppPrimaryAbi(
                         "<value of type AppPrimaryAbi>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportAppPrimaryAbi_Name, kFlags, 0, 0, nullptr);
@@ -1876,14 +1960,17 @@ void MetricsHostProxy::ReportDataRestore(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportDataRestore_Name, kFlags, 0, 0, nullptr);
@@ -1916,14 +2003,17 @@ void MetricsHostProxy::ReportMemoryPressure(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -1959,14 +2049,17 @@ void MetricsHostProxy::ReportProvisioningPreSignIn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::MetricsHost::ReportProvisioningPreSignIn");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportProvisioningPreSignIn_Name, kFlags, 0, 0, nullptr);
@@ -1999,14 +2092,17 @@ void MetricsHostProxy::ReportWaylandLateTimingEvent(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportWaylandLateTimingEvent_Name, kFlags, 0, 0, nullptr);
@@ -2052,14 +2148,17 @@ void MetricsHostProxy::ReportNonAndroidPlayFilesCount(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name, kFlags, 0, 0, nullptr);
@@ -2097,14 +2196,17 @@ void MetricsHostProxy::ReportPerAppFileStatsOfAndroidDataDirs(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name, kFlags, 0, 0, nullptr);
@@ -2146,14 +2248,17 @@ void MetricsHostProxy::ReportTotalFileStatsOfAndroidDataDirs(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name, kFlags, 0, 0, nullptr);
@@ -2206,14 +2311,17 @@ void MetricsHostProxy::ReportTotalFileStatsOfAndroidDataSubdir(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name, kFlags, 0, 0, nullptr);
@@ -2241,14 +2349,17 @@ void MetricsHostProxy::ReportWebViewProcessStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::MetricsHost::ReportWebViewProcessStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportWebViewProcessStarted_Name, kFlags, 0, 0, nullptr);
@@ -2278,14 +2389,17 @@ void MetricsHostProxy::ReportVpnServiceBuilderCompatApiUsage(
                         "<value of type VpnServiceBuilderCompatApiId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name, kFlags, 0, 0, nullptr);
@@ -2317,14 +2431,17 @@ void MetricsHostProxy::ReportNewQosSocketCount(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportNewQosSocketCount_Name, kFlags, 0, 0, nullptr);
@@ -2355,14 +2472,17 @@ void MetricsHostProxy::ReportQosSocketPercentage(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsHost_ReportQosSocketPercentage_Name, kFlags, 0, 0, nullptr);
@@ -2375,6 +2495,48 @@ void MetricsHostProxy::ReportQosSocketPercentage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MetricsHost::Name_);
   message.set_method_name("ReportQosSocketPercentage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MetricsHostProxy::ReportArcKeyMintError(
+    ArcKeyMintError in_error) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::MetricsHost::ReportArcKeyMintError", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error"), in_error,
+                        "<value of type ArcKeyMintError>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMetricsHost_ReportArcKeyMintError_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::MetricsHost_ReportArcKeyMintError_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::arc::mojom::ArcKeyMintError>(
+      in_error, &params->error);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MetricsHost::Name_);
+  message.set_method_name("ReportArcKeyMintError");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3304,6 +3466,32 @@ std::move(p_count));
 std::move(p_perc));
       return true;
     }
+    case internal::kMetricsHost_ReportArcKeyMintError_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MetricsHost_ReportArcKeyMintError_Params_Data* params =
+          reinterpret_cast<internal::MetricsHost_ReportArcKeyMintError_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ArcKeyMintError p_error{};
+      MetricsHost_ReportArcKeyMintError_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadError(&p_error))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MetricsHost::Name_, 35, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ReportArcKeyMintError(
+std::move(p_error));
+      return true;
+    }
   }
   return false;
 }
@@ -3416,79 +3604,84 @@ bool MetricsHostStubDispatch::AcceptWithResponder(
     case internal::kMetricsHost_ReportQosSocketPercentage_Name: {
       break;
     }
+    case internal::kMetricsHost_ReportArcKeyMintError_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMetricsHostValidationInfo[] = {
-    {&internal::MetricsHost_ReportBootProgress_Params_Data::Validate,
+    { &internal::MetricsHost_ReportBootProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportNativeBridge_Params_Data::Validate,
+    { &internal::MetricsHost_ReportNativeBridge_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportCompanionLibApiUsage_Params_Data::Validate,
+    { &internal::MetricsHost_ReportCompanionLibApiUsage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportAppKill_Params_Data::Validate,
+    { &internal::MetricsHost_ReportAppKill_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcCorePriAbiMigEvent_Params_Data::Validate,
+    { &internal::MetricsHost_ReportArcCorePriAbiMigEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcCorePriAbiMigFailedTries_Params_Data::Validate,
+    { &internal::MetricsHost_ReportArcCorePriAbiMigFailedTries_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcCorePriAbiMigDowngradeDelay_Params_Data::Validate,
+    { &internal::MetricsHost_ReportArcCorePriAbiMigDowngradeDelay_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcCorePriAbiMigBootTime_Params_Data::Validate,
+    { &internal::MetricsHost_ReportArcCorePriAbiMigBootTime_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportClipboardDragDropEvent_Params_Data::Validate,
-     nullptr /* no response */},
-    {nullptr, nullptr},  // nonexistent
-    {&internal::MetricsHost_ReportAnr_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcSystemHealthUpgrade_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportLowLatencyStylusLibApiUsage_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportLowLatencyStylusLibPredictionTarget_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportEntireFixupMetrics_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportPerAppFixupMetrics_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportDnsQueryResult_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportMainAccountHashMigrationMetrics_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportImageCopyPasteCompatActionDeprecated_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcNetworkEvent_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportArcNetworkError_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportAppPrimaryAbi_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportDataRestore_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportMemoryPressure_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::MetricsHost_ReportProvisioningPreSignIn_Params_Data::Validate,
+    { &internal::MetricsHost_ReportClipboardDragDropEvent_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data::Validate,
+    { &internal::MetricsHost_ReportAnr_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data::Validate,
+    { &internal::MetricsHost_ReportArcSystemHealthUpgrade_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data::Validate,
+    { &internal::MetricsHost_ReportLowLatencyStylusLibApiUsage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data::Validate,
+    { &internal::MetricsHost_ReportLowLatencyStylusLibPredictionTarget_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportWaylandLateTimingEvent_Params_Data::Validate,
+    { &internal::MetricsHost_ReportEntireFixupMetrics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportWebViewProcessStarted_Params_Data::Validate,
+    { &internal::MetricsHost_ReportPerAppFixupMetrics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportVpnServiceBuilderCompatApiUsage_Params_Data::Validate,
+    { &internal::MetricsHost_ReportDnsQueryResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportNewQosSocketCount_Params_Data::Validate,
+    { &internal::MetricsHost_ReportMainAccountHashMigrationMetrics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MetricsHost_ReportQosSocketPercentage_Params_Data::Validate,
+    { &internal::MetricsHost_ReportImageCopyPasteCompatActionDeprecated_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportArcNetworkEvent_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportArcNetworkError_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportAppPrimaryAbi_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportDataRestore_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportMemoryPressure_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportProvisioningPreSignIn_Params_Data::Validate,
+     nullptr /* no response */},
+    {nullptr, nullptr},  // nonexistent
+    { &internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportWaylandLateTimingEvent_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportWebViewProcessStarted_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportVpnServiceBuilderCompatApiUsage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportNewQosSocketCount_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportQosSocketPercentage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportArcKeyMintError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3620,14 +3813,17 @@ void MetricsInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<MetricsHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -3664,14 +3860,17 @@ void MetricsInstanceProxy::GetGfxMetrics(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsInstance_GetGfxMetrics_Name, kFlags, 0, 0, nullptr);
@@ -3781,7 +3980,8 @@ void MetricsInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -3898,7 +4098,8 @@ void MetricsInstance_GetGfxMetrics_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMetricsInstance_GetGfxMetrics_Name, kFlags, 0, 0, nullptr);
@@ -4018,13 +4219,13 @@ std::move(p_packageName), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMetricsInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::MetricsInstance_Init_Params_Data::Validate,
+    { &internal::MetricsInstance_Init_Params_Data::Validate,
      &internal::MetricsInstance_Init_ResponseParams_Data::Validate},
-    {&internal::MetricsInstance_GetGfxMetrics_Params_Data::Validate,
+    { &internal::MetricsInstance_GetGfxMetrics_Params_Data::Validate,
      &internal::MetricsInstance_GetGfxMetrics_ResponseParams_Data::Validate},
 };
 
@@ -4218,6 +4419,9 @@ void MetricsHostInterceptorForTesting::ReportNewQosSocketCount(int32_t count) {
 }
 void MetricsHostInterceptorForTesting::ReportQosSocketPercentage(int32_t perc) {
   GetForwardingInterface()->ReportQosSocketPercentage(std::move(perc));
+}
+void MetricsHostInterceptorForTesting::ReportArcKeyMintError(ArcKeyMintError error) {
+  GetForwardingInterface()->ReportArcKeyMintError(std::move(error));
 }
 MetricsHostAsyncWaiter::MetricsHostAsyncWaiter(
     MetricsHost* proxy) : proxy_(proxy) {}

@@ -36,7 +36,7 @@ class  DeskEventObserverAsyncWaiter {
 class  DeskInterceptorForTesting : public Desk {
   virtual Desk* GetForwardingInterface() = 0;
   void LaunchEmptyDesk(const std::string& desk_name, LaunchEmptyDeskCallback callback) override;
-  void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskCallback callback) override;
+  void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskCallback callback) override;
   void GetTemplateJson(const ::base::Uuid& desk_template_uuid, GetTemplateJsonCallback callback) override;
   void GetAllDesks(GetAllDesksCallback callback) override;
   void SaveActiveDesk(SaveActiveDeskCallback callback) override;
@@ -61,8 +61,8 @@ class  DeskAsyncWaiter {
       const std::string& desk_name, LaunchEmptyDeskResultPtr* out_result);
   LaunchEmptyDeskResultPtr LaunchEmptyDesk(const std::string& desk_name);
   void RemoveDesk(
-      const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskResultPtr* out_result);
-  RemoveDeskResultPtr RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo);
+      const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskResultPtr* out_result);
+  RemoveDeskResultPtr RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo);
   void GetTemplateJson(
       const ::base::Uuid& desk_template_uuid, GetTemplateJsonResultPtr* out_result);
   GetTemplateJsonResultPtr GetTemplateJson(const ::base::Uuid& desk_template_uuid);

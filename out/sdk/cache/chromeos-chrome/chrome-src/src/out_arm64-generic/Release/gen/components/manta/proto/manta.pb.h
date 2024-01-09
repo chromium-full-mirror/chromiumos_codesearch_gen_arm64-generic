@@ -47,6 +47,9 @@ namespace proto {
 class Image;
 struct ImageDefaultTypeInternal;
 extern ImageDefaultTypeInternal _Image_default_instance_;
+class ImageDimensions;
+struct ImageDimensionsDefaultTypeInternal;
+extern ImageDimensionsDefaultTypeInternal _ImageDimensions_default_instance_;
 class InputData;
 struct InputDataDefaultTypeInternal;
 extern InputDataDefaultTypeInternal _InputData_default_instance_;
@@ -66,6 +69,7 @@ extern ResponseDefaultTypeInternal _Response_default_instance_;
 }  // namespace manta
 PROTOBUF_NAMESPACE_OPEN
 template<> ::manta::proto::Image* Arena::CreateMaybeMessage<::manta::proto::Image>(Arena*);
+template<> ::manta::proto::ImageDimensions* Arena::CreateMaybeMessage<::manta::proto::ImageDimensions>(Arena*);
 template<> ::manta::proto::InputData* Arena::CreateMaybeMessage<::manta::proto::InputData>(Arena*);
 template<> ::manta::proto::OutputData* Arena::CreateMaybeMessage<::manta::proto::OutputData>(Arena*);
 template<> ::manta::proto::Request* Arena::CreateMaybeMessage<::manta::proto::Request>(Arena*);
@@ -101,11 +105,12 @@ inline const std::string& RequestConfig_Tone_Name(T enum_t_value) {
 bool RequestConfig_Tone_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RequestConfig_Tone* value);
 enum FeatureName : int {
-  IMAGE_TEST = 5,
+  CHROMEOS_VC_BACKGROUNDS = 300,
+  CHROMEOS_WALLPAPER = 301,
   TEXT_TEST = 302
 };
 bool FeatureName_IsValid(int value);
-constexpr FeatureName FeatureName_MIN = IMAGE_TEST;
+constexpr FeatureName FeatureName_MIN = CHROMEOS_VC_BACKGROUNDS;
 constexpr FeatureName FeatureName_MAX = TEXT_TEST;
 constexpr int FeatureName_ARRAYSIZE = FeatureName_MAX + 1;
 
@@ -122,11 +127,12 @@ bool FeatureName_Parse(
 enum ImageResolution : int {
   RESOLUTION_64 = 1,
   RESOLUTION_256 = 2,
-  RESOLUTION_1024 = 3
+  RESOLUTION_1024 = 3,
+  RESOLUTION_LARGE = 12
 };
 bool ImageResolution_IsValid(int value);
 constexpr ImageResolution ImageResolution_MIN = RESOLUTION_64;
-constexpr ImageResolution ImageResolution_MAX = RESOLUTION_1024;
+constexpr ImageResolution ImageResolution_MAX = RESOLUTION_LARGE;
 constexpr int ImageResolution_ARRAYSIZE = ImageResolution_MAX + 1;
 
 const std::string& ImageResolution_Name(ImageResolution value);
@@ -139,7 +145,182 @@ inline const std::string& ImageResolution_Name(T enum_t_value) {
 }
 bool ImageResolution_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ImageResolution* value);
+enum AspectRatio : int {
+  ASPECT_RATIO_UNSPECIFIED = 0,
+  ASPECT_RATIO_16_9 = 1,
+  ASPECT_RATIO_16_10 = 2,
+  ASPECT_RATIO_4_3 = 3
+};
+bool AspectRatio_IsValid(int value);
+constexpr AspectRatio AspectRatio_MIN = ASPECT_RATIO_UNSPECIFIED;
+constexpr AspectRatio AspectRatio_MAX = ASPECT_RATIO_4_3;
+constexpr int AspectRatio_ARRAYSIZE = AspectRatio_MAX + 1;
+
+const std::string& AspectRatio_Name(AspectRatio value);
+template<typename T>
+inline const std::string& AspectRatio_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AspectRatio>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AspectRatio_Name.");
+  return AspectRatio_Name(static_cast<AspectRatio>(enum_t_value));
+}
+bool AspectRatio_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AspectRatio* value);
 // ===================================================================
+
+class ImageDimensions final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:manta.proto.ImageDimensions) */ {
+ public:
+  inline ImageDimensions() : ImageDimensions(nullptr) {}
+  ~ImageDimensions() override;
+  explicit PROTOBUF_CONSTEXPR ImageDimensions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ImageDimensions(const ImageDimensions& from);
+  ImageDimensions(ImageDimensions&& from) noexcept
+    : ImageDimensions() {
+    *this = ::std::move(from);
+  }
+
+  inline ImageDimensions& operator=(const ImageDimensions& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ImageDimensions& operator=(ImageDimensions&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ImageDimensions& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ImageDimensions* internal_default_instance() {
+    return reinterpret_cast<const ImageDimensions*>(
+               &_ImageDimensions_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(ImageDimensions& a, ImageDimensions& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ImageDimensions* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ImageDimensions* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ImageDimensions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ImageDimensions>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ImageDimensions& from);
+  void MergeFrom(const ImageDimensions& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ImageDimensions* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "manta.proto.ImageDimensions";
+  }
+  protected:
+  explicit ImageDimensions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kWidthFieldNumber = 1,
+    kHeightFieldNumber = 2,
+  };
+  // optional uint32 width = 1;
+  bool has_width() const;
+  private:
+  bool _internal_has_width() const;
+  public:
+  void clear_width();
+  uint32_t width() const;
+  void set_width(uint32_t value);
+  private:
+  uint32_t _internal_width() const;
+  void _internal_set_width(uint32_t value);
+  public:
+
+  // optional uint32 height = 2;
+  bool has_height() const;
+  private:
+  bool _internal_has_height() const;
+  public:
+  void clear_height();
+  uint32_t height() const;
+  void set_height(uint32_t value);
+  private:
+  uint32_t _internal_height() const;
+  void _internal_set_height(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:manta.proto.ImageDimensions)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t width_;
+  uint32_t height_;
+  friend struct ::TableStruct_components_2fmanta_2fproto_2fmanta_2eproto;
+};
+// -------------------------------------------------------------------
 
 class RequestConfig final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:manta.proto.RequestConfig) */ {
@@ -187,7 +368,7 @@ class RequestConfig final :
                &_RequestConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(RequestConfig& a, RequestConfig& b) {
     a.Swap(&b);
@@ -289,11 +470,31 @@ class RequestConfig final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kImageDimensionsFieldNumber = 7,
     kGenerationSeedFieldNumber = 1,
     kNumOutputsFieldNumber = 3,
     kToneFieldNumber = 5,
+    kAspectRatioFieldNumber = 8,
     kImageResolutionFieldNumber = 2,
   };
+  // optional .manta.proto.ImageDimensions image_dimensions = 7;
+  bool has_image_dimensions() const;
+  private:
+  bool _internal_has_image_dimensions() const;
+  public:
+  void clear_image_dimensions();
+  const ::manta::proto::ImageDimensions& image_dimensions() const;
+  PROTOBUF_NODISCARD ::manta::proto::ImageDimensions* release_image_dimensions();
+  ::manta::proto::ImageDimensions* mutable_image_dimensions();
+  void set_allocated_image_dimensions(::manta::proto::ImageDimensions* image_dimensions);
+  private:
+  const ::manta::proto::ImageDimensions& _internal_image_dimensions() const;
+  ::manta::proto::ImageDimensions* _internal_mutable_image_dimensions();
+  public:
+  void unsafe_arena_set_allocated_image_dimensions(
+      ::manta::proto::ImageDimensions* image_dimensions);
+  ::manta::proto::ImageDimensions* unsafe_arena_release_image_dimensions();
+
   // optional uint32 generation_seed = 1;
   bool has_generation_seed() const;
   private:
@@ -333,6 +534,19 @@ class RequestConfig final :
   void _internal_set_tone(::manta::proto::RequestConfig_Tone value);
   public:
 
+  // optional .manta.proto.AspectRatio aspect_ratio = 8;
+  bool has_aspect_ratio() const;
+  private:
+  bool _internal_has_aspect_ratio() const;
+  public:
+  void clear_aspect_ratio();
+  ::manta::proto::AspectRatio aspect_ratio() const;
+  void set_aspect_ratio(::manta::proto::AspectRatio value);
+  private:
+  ::manta::proto::AspectRatio _internal_aspect_ratio() const;
+  void _internal_set_aspect_ratio(::manta::proto::AspectRatio value);
+  public:
+
   // optional .manta.proto.ImageResolution image_resolution = 2;
   bool has_image_resolution() const;
   private:
@@ -355,9 +569,11 @@ class RequestConfig final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::manta::proto::ImageDimensions* image_dimensions_;
   uint32_t generation_seed_;
   uint32_t num_outputs_;
   int tone_;
+  int aspect_ratio_;
   int image_resolution_;
   friend struct ::TableStruct_components_2fmanta_2fproto_2fmanta_2eproto;
 };
@@ -409,7 +625,7 @@ class InputData final :
                &_InputData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(InputData& a, InputData& b) {
     a.Swap(&b);
@@ -476,7 +692,7 @@ class InputData final :
     kTextFieldNumber = 1,
     kTagFieldNumber = 4,
   };
-  // required string text = 1;
+  // optional string text = 1;
   bool has_text() const;
   private:
   bool _internal_has_text() const;
@@ -573,7 +789,7 @@ class Request final :
                &_Request_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(Request& a, Request& b) {
     a.Swap(&b);
@@ -752,7 +968,7 @@ class Image final :
                &_Image_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Image& a, Image& b) {
     a.Swap(&b);
@@ -902,7 +1118,7 @@ class OutputData final :
                &_OutputData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(OutputData& a, OutputData& b) {
     a.Swap(&b);
@@ -966,9 +1182,23 @@ class OutputData final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kGenerationSeedFieldNumber = 6,
     kTextFieldNumber = 1,
     kImageFieldNumber = 2,
   };
+  // optional uint32 generation_seed = 6;
+  bool has_generation_seed() const;
+  private:
+  bool _internal_has_generation_seed() const;
+  public:
+  void clear_generation_seed();
+  uint32_t generation_seed() const;
+  void set_generation_seed(uint32_t value);
+  private:
+  uint32_t _internal_generation_seed() const;
+  void _internal_set_generation_seed(uint32_t value);
+  public:
+
   // string text = 1;
   bool has_text() const;
   private:
@@ -1019,13 +1249,15 @@ class OutputData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t generation_seed_;
   union OutputDataUnion {
     constexpr OutputDataUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
     ::manta::proto::Image* image_;
   } output_data_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   uint32_t _oneof_case_[1];
 
   friend struct ::TableStruct_components_2fmanta_2fproto_2fmanta_2eproto;
@@ -1078,7 +1310,7 @@ class Response final :
                &_Response_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(Response& a, Response& b) {
     a.Swap(&b);
@@ -1182,11 +1414,71 @@ class Response final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ImageDimensions
+
+// optional uint32 width = 1;
+inline bool ImageDimensions::_internal_has_width() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ImageDimensions::has_width() const {
+  return _internal_has_width();
+}
+inline void ImageDimensions::clear_width() {
+  width_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t ImageDimensions::_internal_width() const {
+  return width_;
+}
+inline uint32_t ImageDimensions::width() const {
+  // @@protoc_insertion_point(field_get:manta.proto.ImageDimensions.width)
+  return _internal_width();
+}
+inline void ImageDimensions::_internal_set_width(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  width_ = value;
+}
+inline void ImageDimensions::set_width(uint32_t value) {
+  _internal_set_width(value);
+  // @@protoc_insertion_point(field_set:manta.proto.ImageDimensions.width)
+}
+
+// optional uint32 height = 2;
+inline bool ImageDimensions::_internal_has_height() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ImageDimensions::has_height() const {
+  return _internal_has_height();
+}
+inline void ImageDimensions::clear_height() {
+  height_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t ImageDimensions::_internal_height() const {
+  return height_;
+}
+inline uint32_t ImageDimensions::height() const {
+  // @@protoc_insertion_point(field_get:manta.proto.ImageDimensions.height)
+  return _internal_height();
+}
+inline void ImageDimensions::_internal_set_height(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  height_ = value;
+}
+inline void ImageDimensions::set_height(uint32_t value) {
+  _internal_set_height(value);
+  // @@protoc_insertion_point(field_set:manta.proto.ImageDimensions.height)
+}
+
+// -------------------------------------------------------------------
+
 // RequestConfig
 
 // optional uint32 generation_seed = 1;
 inline bool RequestConfig::_internal_has_generation_seed() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool RequestConfig::has_generation_seed() const {
@@ -1194,7 +1486,7 @@ inline bool RequestConfig::has_generation_seed() const {
 }
 inline void RequestConfig::clear_generation_seed() {
   generation_seed_ = 0u;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline uint32_t RequestConfig::_internal_generation_seed() const {
   return generation_seed_;
@@ -1204,7 +1496,7 @@ inline uint32_t RequestConfig::generation_seed() const {
   return _internal_generation_seed();
 }
 inline void RequestConfig::_internal_set_generation_seed(uint32_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   generation_seed_ = value;
 }
 inline void RequestConfig::set_generation_seed(uint32_t value) {
@@ -1214,7 +1506,7 @@ inline void RequestConfig::set_generation_seed(uint32_t value) {
 
 // optional .manta.proto.ImageResolution image_resolution = 2;
 inline bool RequestConfig::_internal_has_image_resolution() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool RequestConfig::has_image_resolution() const {
@@ -1222,7 +1514,7 @@ inline bool RequestConfig::has_image_resolution() const {
 }
 inline void RequestConfig::clear_image_resolution() {
   image_resolution_ = 1;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline ::manta::proto::ImageResolution RequestConfig::_internal_image_resolution() const {
   return static_cast< ::manta::proto::ImageResolution >(image_resolution_);
@@ -1233,7 +1525,7 @@ inline ::manta::proto::ImageResolution RequestConfig::image_resolution() const {
 }
 inline void RequestConfig::_internal_set_image_resolution(::manta::proto::ImageResolution value) {
   assert(::manta::proto::ImageResolution_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000020u;
   image_resolution_ = value;
 }
 inline void RequestConfig::set_image_resolution(::manta::proto::ImageResolution value) {
@@ -1243,7 +1535,7 @@ inline void RequestConfig::set_image_resolution(::manta::proto::ImageResolution 
 
 // optional uint32 num_outputs = 3;
 inline bool RequestConfig::_internal_has_num_outputs() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool RequestConfig::has_num_outputs() const {
@@ -1251,7 +1543,7 @@ inline bool RequestConfig::has_num_outputs() const {
 }
 inline void RequestConfig::clear_num_outputs() {
   num_outputs_ = 0u;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline uint32_t RequestConfig::_internal_num_outputs() const {
   return num_outputs_;
@@ -1261,7 +1553,7 @@ inline uint32_t RequestConfig::num_outputs() const {
   return _internal_num_outputs();
 }
 inline void RequestConfig::_internal_set_num_outputs(uint32_t value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   num_outputs_ = value;
 }
 inline void RequestConfig::set_num_outputs(uint32_t value) {
@@ -1271,7 +1563,7 @@ inline void RequestConfig::set_num_outputs(uint32_t value) {
 
 // optional .manta.proto.RequestConfig.Tone tone = 5;
 inline bool RequestConfig::_internal_has_tone() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool RequestConfig::has_tone() const {
@@ -1279,7 +1571,7 @@ inline bool RequestConfig::has_tone() const {
 }
 inline void RequestConfig::clear_tone() {
   tone_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::manta::proto::RequestConfig_Tone RequestConfig::_internal_tone() const {
   return static_cast< ::manta::proto::RequestConfig_Tone >(tone_);
@@ -1290,7 +1582,7 @@ inline ::manta::proto::RequestConfig_Tone RequestConfig::tone() const {
 }
 inline void RequestConfig::_internal_set_tone(::manta::proto::RequestConfig_Tone value) {
   assert(::manta::proto::RequestConfig_Tone_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   tone_ = value;
 }
 inline void RequestConfig::set_tone(::manta::proto::RequestConfig_Tone value) {
@@ -1298,11 +1590,130 @@ inline void RequestConfig::set_tone(::manta::proto::RequestConfig_Tone value) {
   // @@protoc_insertion_point(field_set:manta.proto.RequestConfig.tone)
 }
 
+// optional .manta.proto.ImageDimensions image_dimensions = 7;
+inline bool RequestConfig::_internal_has_image_dimensions() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || image_dimensions_ != nullptr);
+  return value;
+}
+inline bool RequestConfig::has_image_dimensions() const {
+  return _internal_has_image_dimensions();
+}
+inline void RequestConfig::clear_image_dimensions() {
+  if (image_dimensions_ != nullptr) image_dimensions_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::manta::proto::ImageDimensions& RequestConfig::_internal_image_dimensions() const {
+  const ::manta::proto::ImageDimensions* p = image_dimensions_;
+  return p != nullptr ? *p : reinterpret_cast<const ::manta::proto::ImageDimensions&>(
+      ::manta::proto::_ImageDimensions_default_instance_);
+}
+inline const ::manta::proto::ImageDimensions& RequestConfig::image_dimensions() const {
+  // @@protoc_insertion_point(field_get:manta.proto.RequestConfig.image_dimensions)
+  return _internal_image_dimensions();
+}
+inline void RequestConfig::unsafe_arena_set_allocated_image_dimensions(
+    ::manta::proto::ImageDimensions* image_dimensions) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(image_dimensions_);
+  }
+  image_dimensions_ = image_dimensions;
+  if (image_dimensions) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:manta.proto.RequestConfig.image_dimensions)
+}
+inline ::manta::proto::ImageDimensions* RequestConfig::release_image_dimensions() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::manta::proto::ImageDimensions* temp = image_dimensions_;
+  image_dimensions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::manta::proto::ImageDimensions* RequestConfig::unsafe_arena_release_image_dimensions() {
+  // @@protoc_insertion_point(field_release:manta.proto.RequestConfig.image_dimensions)
+  _has_bits_[0] &= ~0x00000001u;
+  ::manta::proto::ImageDimensions* temp = image_dimensions_;
+  image_dimensions_ = nullptr;
+  return temp;
+}
+inline ::manta::proto::ImageDimensions* RequestConfig::_internal_mutable_image_dimensions() {
+  _has_bits_[0] |= 0x00000001u;
+  if (image_dimensions_ == nullptr) {
+    auto* p = CreateMaybeMessage<::manta::proto::ImageDimensions>(GetArenaForAllocation());
+    image_dimensions_ = p;
+  }
+  return image_dimensions_;
+}
+inline ::manta::proto::ImageDimensions* RequestConfig::mutable_image_dimensions() {
+  ::manta::proto::ImageDimensions* _msg = _internal_mutable_image_dimensions();
+  // @@protoc_insertion_point(field_mutable:manta.proto.RequestConfig.image_dimensions)
+  return _msg;
+}
+inline void RequestConfig::set_allocated_image_dimensions(::manta::proto::ImageDimensions* image_dimensions) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete image_dimensions_;
+  }
+  if (image_dimensions) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(image_dimensions);
+    if (message_arena != submessage_arena) {
+      image_dimensions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, image_dimensions, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  image_dimensions_ = image_dimensions;
+  // @@protoc_insertion_point(field_set_allocated:manta.proto.RequestConfig.image_dimensions)
+}
+
+// optional .manta.proto.AspectRatio aspect_ratio = 8;
+inline bool RequestConfig::_internal_has_aspect_ratio() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool RequestConfig::has_aspect_ratio() const {
+  return _internal_has_aspect_ratio();
+}
+inline void RequestConfig::clear_aspect_ratio() {
+  aspect_ratio_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::manta::proto::AspectRatio RequestConfig::_internal_aspect_ratio() const {
+  return static_cast< ::manta::proto::AspectRatio >(aspect_ratio_);
+}
+inline ::manta::proto::AspectRatio RequestConfig::aspect_ratio() const {
+  // @@protoc_insertion_point(field_get:manta.proto.RequestConfig.aspect_ratio)
+  return _internal_aspect_ratio();
+}
+inline void RequestConfig::_internal_set_aspect_ratio(::manta::proto::AspectRatio value) {
+  assert(::manta::proto::AspectRatio_IsValid(value));
+  _has_bits_[0] |= 0x00000010u;
+  aspect_ratio_ = value;
+}
+inline void RequestConfig::set_aspect_ratio(::manta::proto::AspectRatio value) {
+  _internal_set_aspect_ratio(value);
+  // @@protoc_insertion_point(field_set:manta.proto.RequestConfig.aspect_ratio)
+}
+
 // -------------------------------------------------------------------
 
 // InputData
 
-// required string text = 1;
+// optional string text = 1;
 inline bool InputData::_internal_has_text() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1451,7 +1862,7 @@ inline bool Request::has_feature_name() const {
   return _internal_has_feature_name();
 }
 inline void Request::clear_feature_name() {
-  feature_name_ = 5;
+  feature_name_ = 300;
   _has_bits_[0] &= ~0x00000002u;
 }
 inline ::manta::proto::FeatureName Request::_internal_feature_name() const {
@@ -1828,6 +2239,34 @@ inline ::manta::proto::Image* OutputData::mutable_image() {
   return _msg;
 }
 
+// optional uint32 generation_seed = 6;
+inline bool OutputData::_internal_has_generation_seed() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool OutputData::has_generation_seed() const {
+  return _internal_has_generation_seed();
+}
+inline void OutputData::clear_generation_seed() {
+  generation_seed_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t OutputData::_internal_generation_seed() const {
+  return generation_seed_;
+}
+inline uint32_t OutputData::generation_seed() const {
+  // @@protoc_insertion_point(field_get:manta.proto.OutputData.generation_seed)
+  return _internal_generation_seed();
+}
+inline void OutputData::_internal_set_generation_seed(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  generation_seed_ = value;
+}
+inline void OutputData::set_generation_seed(uint32_t value) {
+  _internal_set_generation_seed(value);
+  // @@protoc_insertion_point(field_set:manta.proto.OutputData.generation_seed)
+}
+
 inline bool OutputData::has_output_data() const {
   return output_data_case() != OUTPUT_DATA_NOT_SET;
 }
@@ -1894,6 +2333,8 @@ Response::output_data() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1905,6 +2346,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::manta::proto::RequestConfig_Tone> : ::std::true_type {};
 template <> struct is_proto_enum< ::manta::proto::FeatureName> : ::std::true_type {};
 template <> struct is_proto_enum< ::manta::proto::ImageResolution> : ::std::true_type {};
+template <> struct is_proto_enum< ::manta::proto::AspectRatio> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

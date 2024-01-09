@@ -376,6 +376,82 @@
     encoder.encodeStructPointer(string16$.String16, val.type);
     encoder.encodeArrayPointer(new codec.PointerTo(geometry$.Size), val.sizes);
   };
+  function ChapterInformation(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ChapterInformation.prototype.initDefaults_ = function() {
+    this.title = null;
+    this.startTime = null;
+    this.artwork = null;
+  };
+  ChapterInformation.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ChapterInformation.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ChapterInformation.title
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, string16$.String16, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ChapterInformation.startTime
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, time$.TimeDelta, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ChapterInformation.artwork
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(MediaImage), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ChapterInformation.encodedSize = codec.kStructHeaderSize + 24;
+
+  ChapterInformation.decode = function(decoder) {
+    var packed;
+    var val = new ChapterInformation();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.title =
+        decoder.decodeStructPointer(string16$.String16);
+    val.startTime =
+        decoder.decodeStructPointer(time$.TimeDelta);
+    val.artwork =
+        decoder.decodeArrayPointer(new codec.PointerTo(MediaImage));
+    return val;
+  };
+
+  ChapterInformation.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ChapterInformation.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(string16$.String16, val.title);
+    encoder.encodeStructPointer(time$.TimeDelta, val.startTime);
+    encoder.encodeArrayPointer(new codec.PointerTo(MediaImage), val.artwork);
+  };
   function MediaMetadata(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -4074,6 +4150,7 @@
   exports.MicrophoneState = MicrophoneState;
   exports.CameraState = CameraState;
   exports.MediaImage = MediaImage;
+  exports.ChapterInformation = ChapterInformation;
   exports.MediaMetadata = MediaMetadata;
   exports.MediaImageBitmap = MediaImageBitmap;
   exports.MediaPosition = MediaPosition;

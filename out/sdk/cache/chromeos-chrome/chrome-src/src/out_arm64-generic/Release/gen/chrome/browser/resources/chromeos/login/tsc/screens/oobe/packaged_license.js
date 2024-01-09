@@ -1,0 +1,51 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Polymer element for Packaged License screen.
+ */
+import '//resources/cr_elements/cr_shared_vars.css.js';
+import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
+import '../../components/oobe_icons.html.js';
+import '../../components/common_styles/oobe_common_styles.css.js';
+import '../../components/common_styles/oobe_dialog_host_styles.css.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { getTemplate } from './packaged_license.html.js';
+export const PackagedLicenseScreenBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, OobeDialogHostBehavior], PolymerElement);
+export class PackagedLicenseScreen extends PackagedLicenseScreenBase {
+    static get is() {
+        return 'packaged-license-element';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {};
+    }
+    ready() {
+        super.ready();
+        this.initializeLoginScreen('PackagedLicenseScreen');
+    }
+    /**
+     * Returns the control which should receive initial focus.
+     */
+    get defaultControl() {
+        return this.shadowRoot.querySelector('#packagedLicenseDialog');
+    }
+    /**
+     * On-tap event handler for Don't Enroll button.
+     */
+    onDontEnrollButtonPressed() {
+        this.userActed('dont-enroll');
+    }
+    /**
+     * On-tap event handler for Enroll button.
+     */
+    onEnrollButtonPressed() {
+        this.userActed('enroll');
+    }
+}
+customElements.define(PackagedLicenseScreen.is, PackagedLicenseScreen);

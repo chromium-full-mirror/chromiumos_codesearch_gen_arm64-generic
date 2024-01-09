@@ -141,6 +141,7 @@ class  InputDeviceSettingsProviderInterceptorForTesting : public InputDeviceSett
   void StopObserving() override;
   void GetActionsForMouseButtonCustomization(GetActionsForMouseButtonCustomizationCallback callback) override;
   void GetActionsForGraphicsTabletButtonCustomization(GetActionsForGraphicsTabletButtonCustomizationCallback callback) override;
+  void HasLauncherButton(HasLauncherButtonCallback callback) override;
 };
 class  InputDeviceSettingsProviderAsyncWaiter {
  public:
@@ -156,6 +157,9 @@ class  InputDeviceSettingsProviderAsyncWaiter {
   void GetActionsForGraphicsTabletButtonCustomization(
       std::vector<ActionChoicePtr>* out_options);
   std::vector<ActionChoicePtr> GetActionsForGraphicsTabletButtonCustomization();
+  void HasLauncherButton(
+      bool* out_has_launcher_button);
+  bool HasLauncherButton();
 
  private:
   InputDeviceSettingsProvider* const proxy_;

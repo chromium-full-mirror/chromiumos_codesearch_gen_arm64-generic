@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/diagnostics_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/diagnostics_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/diagnostics_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom-forward.h"
@@ -236,7 +237,7 @@ class DiagnosticsService
 
   using RunAcPowerRoutineCallback = base::OnceCallback<void(DiagnosticsRunRoutineResponsePtr)>;
   
-  virtual void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) = 0;
+  virtual void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) = 0;
 
 
   using RunCpuCacheRoutineCallback = base::OnceCallback<void(DiagnosticsRunRoutineResponsePtr)>;
@@ -388,7 +389,7 @@ class  DiagnosticsServiceProxy
   
   void RunSmartctlCheckRoutine(::crosapi::mojom::UInt32ValuePtr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) final;
   
-  void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
+  void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
   
   void RunCpuCacheRoutine(uint32_t length_seconds, RunCpuCacheRoutineCallback callback) final;
   
@@ -948,17 +949,17 @@ class  DiagnosticsRoutineUpdateUnion {
   // Construct an instance holding |interactive_update|.
   static DiagnosticsRoutineUpdateUnionPtr
   NewInteractiveUpdate(
-      DiagnosticsInteractiveRoutineUpdatePtr interactive_update) {
+      DiagnosticsInteractiveRoutineUpdatePtr value) {
     auto result = DiagnosticsRoutineUpdateUnionPtr(absl::in_place);
-    result->set_interactive_update(std::move(interactive_update));
+    result->set_interactive_update(std::move(value));
     return result;
   }
   // Construct an instance holding |noninteractive_update|.
   static DiagnosticsRoutineUpdateUnionPtr
   NewNoninteractiveUpdate(
-      DiagnosticsNonInteractiveRoutineUpdatePtr noninteractive_update) {
+      DiagnosticsNonInteractiveRoutineUpdatePtr value) {
     auto result = DiagnosticsRoutineUpdateUnionPtr(absl::in_place);
-    result->set_noninteractive_update(std::move(noninteractive_update));
+    result->set_noninteractive_update(std::move(value));
     return result;
   }
 
@@ -1092,7 +1093,7 @@ class  DiagnosticsRoutineUpdate {
 
   DiagnosticsRoutineUpdate(
       uint32_t progress_percent,
-      const absl::optional<std::string>& output,
+      const std::optional<std::string>& output,
       DiagnosticsRoutineUpdateUnionPtr routine_update_union);
 
 DiagnosticsRoutineUpdate(const DiagnosticsRoutineUpdate&) = delete;
@@ -1175,7 +1176,7 @@ DiagnosticsRoutineUpdate& operator=(const DiagnosticsRoutineUpdate&) = delete;
   
   uint32_t progress_percent;
   
-  absl::optional<std::string> output;
+  std::optional<std::string> output;
   
   DiagnosticsRoutineUpdateUnionPtr routine_update_union;
 

@@ -22,14 +22,12 @@ build install_usb_so: phony obj/camera/hal/usb/install_usb_so.stamp
 build libcamera_hal: phony ./lib/libcamera_hal.so
 build root: phony obj/common-mk/gn_root/root.stamp
 build camera/hal/usb$:all: phony obj/camera/hal/usb/all.stamp
-build camera/hal/usb$:image_processor_test: phony ./image_processor_test
 build camera/hal/usb$:install_usb_so: phony obj/camera/hal/usb/install_usb_so.stamp
 build camera/hal/usb$:libcamera_hal: phony ./lib/libcamera_hal.so
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 
 build all: phony $
     obj/camera/hal/usb/all.stamp $
-    ./image_processor_test $
     obj/camera/hal/usb/install_usb_so.stamp $
     ./lib/libcamera_hal.so $
     obj/common-mk/gn_root/root.stamp

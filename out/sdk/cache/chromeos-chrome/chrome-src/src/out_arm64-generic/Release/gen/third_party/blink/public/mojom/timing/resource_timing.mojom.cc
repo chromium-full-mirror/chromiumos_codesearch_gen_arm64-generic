@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -126,7 +127,7 @@ ResourceTimingInfo::ResourceTimingInfo(
     ::base::TimeTicks start_time_in,
     const std::string& alpn_negotiated_protocol_in,
     const std::string& connection_info_in,
-    const absl::optional<::net::LoadTimingInfo>& timing_in,
+    const std::optional<::net::LoadTimingInfo>& timing_in,
     ::base::TimeTicks last_redirect_end_time_in,
     ::base::TimeTicks response_end_in,
     CacheState cache_state_in,
@@ -204,7 +205,7 @@ void ResourceTimingInfo::WriteIntoTrace(
     dict.AddItem(
       "timing"), this->timing,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::LoadTimingInfo>&>"
+      "<value of type const std::optional<::net::LoadTimingInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

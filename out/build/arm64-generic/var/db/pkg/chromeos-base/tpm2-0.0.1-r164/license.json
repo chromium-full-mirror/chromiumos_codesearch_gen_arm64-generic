@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "tpm2", "version": "0.0.1", "revision": 164, "fullname": "chromeos-base/tpm2", "fullnamerev": "chromeos-base/tpm2-0.0.1-r164", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/third_party/tpm2/"], "skip": false, "tainted": false, "ebuild_path": null}

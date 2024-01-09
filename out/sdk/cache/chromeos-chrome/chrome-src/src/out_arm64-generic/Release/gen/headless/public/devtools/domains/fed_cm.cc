@@ -34,6 +34,10 @@ void Domain::RegisterEventHandlersIfNeeded() {
       "FedCm.dialogShown",
       base::BindRepeating(&Domain::DispatchDialogShownEvent,
                           base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "FedCm.dialogClosed",
+      base::BindRepeating(&Domain::DispatchDialogClosedEvent,
+                          base::Unretained(this)));
 }
 
 void ExperimentalDomain::Enable(std::unique_ptr<EnableParams> params, base::OnceCallback<void(std::unique_ptr<EnableResult>)> callback) {
@@ -45,8 +49,8 @@ void ExperimentalDomain::Disable(std::unique_ptr<DisableParams> params, base::On
 void ExperimentalDomain::SelectAccount(std::unique_ptr<SelectAccountParams> params, base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)> callback) {
   dispatcher_->SendMessage("FedCm.selectAccount", params->Serialize(), base::BindOnce(&Domain::HandleSelectAccountResponse, std::move(callback)));
 }
-void ExperimentalDomain::ConfirmIdpLogin(std::unique_ptr<ConfirmIdpLoginParams> params, base::OnceCallback<void(std::unique_ptr<ConfirmIdpLoginResult>)> callback) {
-  dispatcher_->SendMessage("FedCm.confirmIdpLogin", params->Serialize(), base::BindOnce(&Domain::HandleConfirmIdpLoginResponse, std::move(callback)));
+void ExperimentalDomain::ClickDialogButton(std::unique_ptr<ClickDialogButtonParams> params, base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback) {
+  dispatcher_->SendMessage("FedCm.clickDialogButton", params->Serialize(), base::BindOnce(&Domain::HandleClickDialogButtonResponse, std::move(callback)));
 }
 void ExperimentalDomain::DismissDialog(std::unique_ptr<DismissDialogParams> params, base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback) {
   dispatcher_->SendMessage("FedCm.dismissDialog", params->Serialize(), base::BindOnce(&Domain::HandleDismissDialogResponse, std::move(callback)));
@@ -102,7 +106,7 @@ void Domain::HandleSelectAccountResponse(base::OnceCallback<void(std::unique_ptr
 }
 
 // static
-void Domain::HandleConfirmIdpLoginResponse(base::OnceCallback<void(std::unique_ptr<ConfirmIdpLoginResult>)> callback, const base::Value& response) {
+void Domain::HandleClickDialogButtonResponse(base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback, const base::Value& response) {
   if (callback.is_null())
     return;
   // This is an error response.
@@ -111,7 +115,7 @@ void Domain::HandleConfirmIdpLoginResponse(base::OnceCallback<void(std::unique_p
     return;
   }
   ErrorReporter errors;
-  std::unique_ptr<ConfirmIdpLoginResult> result = ConfirmIdpLoginResult::Parse(response, &errors);
+  std::unique_ptr<ClickDialogButtonResult> result = ClickDialogButtonResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }
@@ -152,6 +156,15 @@ void Domain::DispatchDialogShownEvent(const base::Value& params) {
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnDialogShown(*parsed_params);
+  }
+}
+
+void Domain::DispatchDialogClosedEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<DialogClosedParams> parsed_params(DialogClosedParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnDialogClosed(*parsed_params);
   }
 }
 

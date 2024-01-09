@@ -140,11 +140,14 @@ enum ConnectTetheringResponse_ResponseCode : int {
   ConnectTetheringResponse_ResponseCode_TETHERING_UNSUPPORTED = 4,
   ConnectTetheringResponse_ResponseCode_NO_CELL_DATA = 5,
   ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_FAILED = 6,
-  ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_TIMEOUT = 7
+  ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_TIMEOUT = 7,
+  ConnectTetheringResponse_ResponseCode_INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG = 8,
+  ConnectTetheringResponse_ResponseCode_INVALID_NEW_SOFT_AP_CONFIG = 9,
+  ConnectTetheringResponse_ResponseCode_INVALID_WIFI_AP_CONFIG = 10
 };
 bool ConnectTetheringResponse_ResponseCode_IsValid(int value);
 constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse_ResponseCode_ResponseCode_MIN = ConnectTetheringResponse_ResponseCode_UNKNOWN_ERROR;
-constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse_ResponseCode_ResponseCode_MAX = ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_TIMEOUT;
+constexpr ConnectTetheringResponse_ResponseCode ConnectTetheringResponse_ResponseCode_ResponseCode_MAX = ConnectTetheringResponse_ResponseCode_INVALID_WIFI_AP_CONFIG;
 constexpr int ConnectTetheringResponse_ResponseCode_ResponseCode_ARRAYSIZE = ConnectTetheringResponse_ResponseCode_ResponseCode_MAX + 1;
 
 const std::string& ConnectTetheringResponse_ResponseCode_Name(ConnectTetheringResponse_ResponseCode value);
@@ -1158,6 +1161,12 @@ class ConnectTetheringResponse final :
     ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_FAILED;
   static constexpr ResponseCode ENABLING_HOTSPOT_TIMEOUT =
     ConnectTetheringResponse_ResponseCode_ENABLING_HOTSPOT_TIMEOUT;
+  static constexpr ResponseCode INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG =
+    ConnectTetheringResponse_ResponseCode_INVALID_ACTIVE_EXISTING_SOFT_AP_CONFIG;
+  static constexpr ResponseCode INVALID_NEW_SOFT_AP_CONFIG =
+    ConnectTetheringResponse_ResponseCode_INVALID_NEW_SOFT_AP_CONFIG;
+  static constexpr ResponseCode INVALID_WIFI_AP_CONFIG =
+    ConnectTetheringResponse_ResponseCode_INVALID_WIFI_AP_CONFIG;
   static inline bool ResponseCode_IsValid(int value) {
     return ConnectTetheringResponse_ResponseCode_IsValid(value);
   }

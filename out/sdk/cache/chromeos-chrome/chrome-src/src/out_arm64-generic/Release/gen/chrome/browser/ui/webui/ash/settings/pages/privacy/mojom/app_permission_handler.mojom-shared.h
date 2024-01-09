@@ -108,6 +108,16 @@ class AppDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::app_management::mojom::AppType>(
+        data_value, output);
+  }
+  ::app_management::mojom::AppType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::app_management::mojom::AppType>(data_->type));
+  }
   inline void GetPermissionsDataView(
       mojo::MapDataView<::app_management::mojom::PermissionType, ::app_management::mojom::PermissionDataView>* output);
 
@@ -170,6 +180,8 @@ struct Serializer<::ash::settings::app_permission::mojom::AppDataView, MaybeCons
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null name in App struct");
+    mojo::internal::Serialize<::app_management::mojom::AppType>(
+        Traits::type(input), &fragment->type);
     decltype(Traits::permissions(input)) in_permissions = Traits::permissions(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->permissions)::BaseType>

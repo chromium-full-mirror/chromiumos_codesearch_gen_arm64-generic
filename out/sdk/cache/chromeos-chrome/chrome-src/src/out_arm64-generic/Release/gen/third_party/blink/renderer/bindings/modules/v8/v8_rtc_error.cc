@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCError>::value,
     "RTCError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.errorDetail.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->errorDetail();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->errorDetail();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.sdpLineNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sdpLineNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -117,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.httpRequestStatusCode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->httpRequestStatusCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.sctpCauseCode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sctpCauseCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -145,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.receivedAlert.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->receivedAlert();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -159,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCError.sentAlert.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(v8_receiver);
+RTCError* blink_receiver = V8RTCError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sentAlert();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

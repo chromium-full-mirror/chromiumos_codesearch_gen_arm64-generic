@@ -176,6 +176,7 @@ class TrialTokenDbEntry final :
     kTokenSignatureFieldNumber = 4,
     kTokenExpiryFieldNumber = 2,
     kUsageRestrictionFieldNumber = 3,
+    kMatchSubdomainsFieldNumber = 6,
   };
   // repeated string partition_sites = 5;
   int partition_sites_size() const;
@@ -263,6 +264,19 @@ class TrialTokenDbEntry final :
   void _internal_set_usage_restriction(uint32_t value);
   public:
 
+  // optional bool match_subdomains = 6;
+  bool has_match_subdomains() const;
+  private:
+  bool _internal_has_match_subdomains() const;
+  public:
+  void clear_match_subdomains();
+  bool match_subdomains() const;
+  void set_match_subdomains(bool value);
+  private:
+  bool _internal_match_subdomains() const;
+  void _internal_set_match_subdomains(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:origin_trials_pb.TrialTokenDbEntry)
  private:
   class _Internal;
@@ -277,6 +291,7 @@ class TrialTokenDbEntry final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_signature_;
   uint64_t token_expiry_;
   uint32_t usage_restriction_;
+  bool match_subdomains_;
   friend struct ::TableStruct_db_5ftrial_5ftoken_2eproto;
 };
 // -------------------------------------------------------------------
@@ -898,6 +913,34 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 TrialTokenDbEntry::mutable_partition_sites() {
   // @@protoc_insertion_point(field_mutable_list:origin_trials_pb.TrialTokenDbEntry.partition_sites)
   return &partition_sites_;
+}
+
+// optional bool match_subdomains = 6;
+inline bool TrialTokenDbEntry::_internal_has_match_subdomains() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool TrialTokenDbEntry::has_match_subdomains() const {
+  return _internal_has_match_subdomains();
+}
+inline void TrialTokenDbEntry::clear_match_subdomains() {
+  match_subdomains_ = false;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline bool TrialTokenDbEntry::_internal_match_subdomains() const {
+  return match_subdomains_;
+}
+inline bool TrialTokenDbEntry::match_subdomains() const {
+  // @@protoc_insertion_point(field_get:origin_trials_pb.TrialTokenDbEntry.match_subdomains)
+  return _internal_match_subdomains();
+}
+inline void TrialTokenDbEntry::_internal_set_match_subdomains(bool value) {
+  _has_bits_[0] |= 0x00000010u;
+  match_subdomains_ = value;
+}
+inline void TrialTokenDbEntry::set_match_subdomains(bool value) {
+  _internal_set_match_subdomains(value);
+  // @@protoc_insertion_point(field_set:origin_trials_pb.TrialTokenDbEntry.match_subdomains)
 }
 
 // -------------------------------------------------------------------

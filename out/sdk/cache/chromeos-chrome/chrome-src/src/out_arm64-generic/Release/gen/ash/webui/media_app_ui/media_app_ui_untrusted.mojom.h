@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/media_app_ui/media_app_ui_untrusted.mojom-features.h"
 #include "ash/webui/media_app_ui/media_app_ui_untrusted.mojom-shared.h"
 #include "ash/webui/media_app_ui/media_app_ui_untrusted.mojom-forward.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include <string>
 #include <vector>
 
@@ -67,32 +69,32 @@ class UntrustedPageHandlerFactory
   using RequestValidator_ = UntrustedPageHandlerFactoryRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kCreateUntrustedPageHandlerMinVersion = 0,
+    kCreateOcrUntrustedPageHandlerMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct CreateUntrustedPageHandler_Sym {
+  struct CreateOcrUntrustedPageHandler_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~UntrustedPageHandlerFactory() = default;
 
   
-  virtual void CreateUntrustedPageHandler(::mojo::PendingReceiver<UntrustedPageHandler> receiver, ::mojo::PendingRemote<UntrustedPage> page) = 0;
+  virtual void CreateOcrUntrustedPageHandler(::mojo::PendingReceiver<OcrUntrustedPageHandler> receiver, ::mojo::PendingRemote<OcrUntrustedPage> page) = 0;
 };
 
-class UntrustedPageHandlerProxy;
+class OcrUntrustedPageHandlerProxy;
 
 template <typename ImplRefTraits>
-class UntrustedPageHandlerStub;
+class OcrUntrustedPageHandlerStub;
 
-class UntrustedPageHandlerRequestValidator;
+class OcrUntrustedPageHandlerRequestValidator;
 
 
-class UntrustedPageHandler
-    : public UntrustedPageHandlerInterfaceBase {
+class OcrUntrustedPageHandler
+    : public OcrUntrustedPageHandlerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -103,34 +105,41 @@ class UntrustedPageHandler
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = UntrustedPageHandlerInterfaceBase;
-  using Proxy_ = UntrustedPageHandlerProxy;
+  using Base_ = OcrUntrustedPageHandlerInterfaceBase;
+  using Proxy_ = OcrUntrustedPageHandlerProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = UntrustedPageHandlerStub<ImplRefTraits>;
+  using Stub_ = OcrUntrustedPageHandlerStub<ImplRefTraits>;
 
-  using RequestValidator_ = UntrustedPageHandlerRequestValidator;
+  using RequestValidator_ = OcrUntrustedPageHandlerRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kViewportUpdatedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct ViewportUpdated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~UntrustedPageHandler() = default;
+  virtual ~OcrUntrustedPageHandler() = default;
+
+  
+  virtual void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) = 0;
 };
 
-class UntrustedPageProxy;
+class OcrUntrustedPageProxy;
 
 template <typename ImplRefTraits>
-class UntrustedPageStub;
+class OcrUntrustedPageStub;
 
-class UntrustedPageRequestValidator;
+class OcrUntrustedPageRequestValidator;
 
 
-class UntrustedPage
-    : public UntrustedPageInterfaceBase {
+class OcrUntrustedPage
+    : public OcrUntrustedPageInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -141,22 +150,29 @@ class UntrustedPage
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = UntrustedPageInterfaceBase;
-  using Proxy_ = UntrustedPageProxy;
+  using Base_ = OcrUntrustedPageInterfaceBase;
+  using Proxy_ = OcrUntrustedPageProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = UntrustedPageStub<ImplRefTraits>;
+  using Stub_ = OcrUntrustedPageStub<ImplRefTraits>;
 
-  using RequestValidator_ = UntrustedPageRequestValidator;
+  using RequestValidator_ = OcrUntrustedPageRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kSetViewportMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct SetViewport_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~UntrustedPage() = default;
+  virtual ~OcrUntrustedPage() = default;
+
+  
+  virtual void SetViewport(const ::gfx::RectF& viewportBox) = 0;
 };
 
 
@@ -168,7 +184,7 @@ class  UntrustedPageHandlerFactoryProxy
 
   explicit UntrustedPageHandlerFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateUntrustedPageHandler(::mojo::PendingReceiver<UntrustedPageHandler> receiver, ::mojo::PendingRemote<UntrustedPage> page) final;
+  void CreateOcrUntrustedPageHandler(::mojo::PendingReceiver<OcrUntrustedPageHandler> receiver, ::mojo::PendingRemote<OcrUntrustedPage> page) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -176,12 +192,14 @@ class  UntrustedPageHandlerFactoryProxy
 
 
 
-class  UntrustedPageHandlerProxy
-    : public UntrustedPageHandler {
+class  OcrUntrustedPageHandlerProxy
+    : public OcrUntrustedPageHandler {
  public:
-  using InterfaceType = UntrustedPageHandler;
+  using InterfaceType = OcrUntrustedPageHandler;
 
-  explicit UntrustedPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit OcrUntrustedPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -189,12 +207,14 @@ class  UntrustedPageHandlerProxy
 
 
 
-class  UntrustedPageProxy
-    : public UntrustedPage {
+class  OcrUntrustedPageProxy
+    : public OcrUntrustedPage {
  public:
-  using InterfaceType = UntrustedPage;
+  using InterfaceType = OcrUntrustedPage;
 
-  explicit UntrustedPageProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit OcrUntrustedPageProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void SetViewport(const ::gfx::RectF& viewportBox) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -240,24 +260,24 @@ class UntrustedPageHandlerFactoryStub
  private:
   ImplPointerType sink_;
 };
-class  UntrustedPageHandlerStubDispatch {
+class  OcrUntrustedPageHandlerStubDispatch {
  public:
-  static bool Accept(UntrustedPageHandler* impl, mojo::Message* message);
+  static bool Accept(OcrUntrustedPageHandler* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      UntrustedPageHandler* impl,
+      OcrUntrustedPageHandler* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<UntrustedPageHandler>>
-class UntrustedPageHandlerStub
+              mojo::RawPtrImplRefTraits<OcrUntrustedPageHandler>>
+class OcrUntrustedPageHandlerStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  UntrustedPageHandlerStub() = default;
-  ~UntrustedPageHandlerStub() override = default;
+  OcrUntrustedPageHandlerStub() = default;
+  ~OcrUntrustedPageHandlerStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -265,7 +285,7 @@ class UntrustedPageHandlerStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return UntrustedPageHandlerStubDispatch::Accept(
+    return OcrUntrustedPageHandlerStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -274,31 +294,31 @@ class UntrustedPageHandlerStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return UntrustedPageHandlerStubDispatch::AcceptWithResponder(
+    return OcrUntrustedPageHandlerStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
  private:
   ImplPointerType sink_;
 };
-class  UntrustedPageStubDispatch {
+class  OcrUntrustedPageStubDispatch {
  public:
-  static bool Accept(UntrustedPage* impl, mojo::Message* message);
+  static bool Accept(OcrUntrustedPage* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      UntrustedPage* impl,
+      OcrUntrustedPage* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<UntrustedPage>>
-class UntrustedPageStub
+              mojo::RawPtrImplRefTraits<OcrUntrustedPage>>
+class OcrUntrustedPageStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  UntrustedPageStub() = default;
-  ~UntrustedPageStub() override = default;
+  OcrUntrustedPageStub() = default;
+  ~OcrUntrustedPageStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -306,7 +326,7 @@ class UntrustedPageStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return UntrustedPageStubDispatch::Accept(
+    return OcrUntrustedPageStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -315,7 +335,7 @@ class UntrustedPageStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return UntrustedPageStubDispatch::AcceptWithResponder(
+    return OcrUntrustedPageStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -326,11 +346,11 @@ class  UntrustedPageHandlerFactoryRequestValidator : public mojo::MessageReceive
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  UntrustedPageHandlerRequestValidator : public mojo::MessageReceiver {
+class  OcrUntrustedPageHandlerRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  UntrustedPageRequestValidator : public mojo::MessageReceiver {
+class  OcrUntrustedPageRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

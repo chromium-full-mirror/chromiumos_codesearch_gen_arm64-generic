@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "mojo/public/mojom/base/values.mojom-features.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-forward.h"
 #include <string>
@@ -64,65 +65,65 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   // Construct an instance holding |null_value|.
   static ValuePtr
   NewNullValue(
-      uint8_t null_value) {
+      uint8_t value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_null_value(std::move(null_value));
+    result->set_null_value(std::move(value));
     return result;
   }
   // Construct an instance holding |bool_value|.
   static ValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |int_value|.
   static ValuePtr
   NewIntValue(
-      int32_t int_value) {
+      int32_t value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_int_value(std::move(int_value));
+    result->set_int_value(std::move(value));
     return result;
   }
   // Construct an instance holding |double_value|.
   static ValuePtr
   NewDoubleValue(
-      double double_value) {
+      double value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_double_value(std::move(double_value));
+    result->set_double_value(std::move(value));
     return result;
   }
   // Construct an instance holding |string_value|.
   static ValuePtr
   NewStringValue(
-      const std::string& string_value) {
+      const std::string& value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_string_value(std::move(string_value));
+    result->set_string_value(std::move(value));
     return result;
   }
   // Construct an instance holding |binary_value|.
   static ValuePtr
   NewBinaryValue(
-      std::vector<uint8_t> binary_value) {
+      std::vector<uint8_t> value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_binary_value(std::move(binary_value));
+    result->set_binary_value(std::move(value));
     return result;
   }
   // Construct an instance holding |dictionary_value|.
   static ValuePtr
   NewDictionaryValue(
-      ::base::Value::Dict dictionary_value) {
+      ::base::Value::Dict value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_dictionary_value(std::move(dictionary_value));
+    result->set_dictionary_value(std::move(value));
     return result;
   }
   // Construct an instance holding |list_value|.
   static ValuePtr
   NewListValue(
-      ::base::Value::List list_value) {
+      ::base::Value::List value) {
     auto result = ValuePtr(absl::in_place);
-    result->set_list_value(std::move(list_value));
+    result->set_list_value(std::move(value));
     return result;
   }
 

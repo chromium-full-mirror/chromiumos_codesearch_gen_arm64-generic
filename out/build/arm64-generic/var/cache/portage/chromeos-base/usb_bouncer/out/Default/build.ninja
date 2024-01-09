@@ -19,15 +19,11 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build usb_bouncer_common: phony ./libusb_bouncer_common.a
 build usb_bouncer_protos: phony ./libusb_bouncer_protos.a
 build usb_bouncer_protos_gen: phony obj/usb_bouncer/usb_bouncer_protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build usb_bouncer$:all: phony obj/usb_bouncer/all.stamp
-build usb_bouncer$:run_tests: phony ./run_tests
 build usb_bouncer$:usb_bouncer: phony ./usb_bouncer
 build usb_bouncer$:usb_bouncer_common: phony ./libusb_bouncer_common.a
 build usb_bouncer$:usb_bouncer_protos: phony ./libusb_bouncer_protos.a
@@ -35,9 +31,7 @@ build usb_bouncer$:usb_bouncer_protos_gen: phony obj/usb_bouncer/usb_bouncer_pro
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/usb_bouncer/all.stamp $
-    ./run_tests $
     ./usb_bouncer $
     ./libusb_bouncer_common.a $
     ./libusb_bouncer_protos.a $

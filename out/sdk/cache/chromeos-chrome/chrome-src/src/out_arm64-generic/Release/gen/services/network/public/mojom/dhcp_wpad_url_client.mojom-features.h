@@ -8,6 +8,7 @@
 #define SERVICES_NETWORK_PUBLIC_MOJOM_DHCP_WPAD_URL_CLIENT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

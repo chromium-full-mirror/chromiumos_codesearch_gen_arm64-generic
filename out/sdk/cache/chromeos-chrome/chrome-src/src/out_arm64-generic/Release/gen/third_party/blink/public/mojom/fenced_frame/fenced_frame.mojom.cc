@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -124,7 +125,7 @@ FencedFrameOwnerHostProxy::FencedFrameOwnerHostProxy(mojo::MessageReceiverWithRe
 }
 
 void FencedFrameOwnerHostProxy::Navigate(
-    const ::GURL& in_url, ::base::TimeTicks in_navigation_start_time, const absl::optional<::std::u16string>& in_embedder_shared_storage_context) {
+    const ::GURL& in_url, ::base::TimeTicks in_navigation_start_time, const std::optional<::std::u16string>& in_embedder_shared_storage_context) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::FencedFrameOwnerHost::Navigate", "input_parameters",
@@ -138,17 +139,20 @@ void FencedFrameOwnerHostProxy::Navigate(
                         "<value of type ::base::TimeTicks>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("embedder_shared_storage_context"), in_embedder_shared_storage_context,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFencedFrameOwnerHost_Navigate_Name, kFlags, 0, 0, nullptr);
@@ -207,14 +211,17 @@ void FencedFrameOwnerHostProxy::DidChangeFramePolicy(
                         "<value of type const ::blink::FramePolicy&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFencedFrameOwnerHost_DidChangeFramePolicy_Name, kFlags, 0, 0, nullptr);
@@ -258,7 +265,7 @@ bool FencedFrameOwnerHostStubDispatch::Accept(
       bool success = true;
       ::GURL p_url{};
       ::base::TimeTicks p_navigation_start_time{};
-      absl::optional<::std::u16string> p_embedder_shared_storage_context{};
+      std::optional<::std::u16string> p_embedder_shared_storage_context{};
       FencedFrameOwnerHost_Navigate_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -330,12 +337,12 @@ bool FencedFrameOwnerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFencedFrameOwnerHostValidationInfo[] = {
-    {&internal::FencedFrameOwnerHost_Navigate_Params_Data::Validate,
+    { &internal::FencedFrameOwnerHost_Navigate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FencedFrameOwnerHost_DidChangeFramePolicy_Params_Data::Validate,
+    { &internal::FencedFrameOwnerHost_DidChangeFramePolicy_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -361,7 +368,7 @@ namespace mojo {
 namespace blink::mojom {
 
 
-void FencedFrameOwnerHostInterceptorForTesting::Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const absl::optional<::std::u16string>& embedder_shared_storage_context) {
+void FencedFrameOwnerHostInterceptorForTesting::Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const std::optional<::std::u16string>& embedder_shared_storage_context) {
   GetForwardingInterface()->Navigate(std::move(url), std::move(navigation_start_time), std::move(embedder_shared_storage_context));
 }
 void FencedFrameOwnerHostInterceptorForTesting::DidChangeFramePolicy(const ::blink::FramePolicy& frame_policy) {

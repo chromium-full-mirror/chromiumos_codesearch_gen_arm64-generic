@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/clipboard/clipboard.mojom-features.h"
 #include "third_party/blink/public/mojom/clipboard/clipboard.mojom-shared.h"
 #include "third_party/blink/public/mojom/clipboard/clipboard.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -472,7 +473,7 @@ class BLINK_COMMON_EXPORT ClipboardFiles {
 
   ClipboardFiles(
       std::vector<::blink::mojom::DataTransferFilePtr> files,
-      const absl::optional<std::string>& file_system_id);
+      const std::optional<std::string>& file_system_id);
 
 ClipboardFiles(const ClipboardFiles&) = delete;
 ClipboardFiles& operator=(const ClipboardFiles&) = delete;
@@ -549,7 +550,7 @@ ClipboardFiles& operator=(const ClipboardFiles&) = delete;
   
   std::vector<::blink::mojom::DataTransferFilePtr> files;
   
-  absl::optional<std::string> file_system_id;
+  std::optional<std::string> file_system_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

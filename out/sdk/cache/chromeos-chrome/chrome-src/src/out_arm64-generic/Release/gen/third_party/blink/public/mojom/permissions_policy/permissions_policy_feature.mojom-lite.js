@@ -106,8 +106,13 @@ blink.mojom.PermissionsPolicyFeature = {
   kPrivateStateTokenIssuance: 110,
   kClientHintUAFormFactor: 111,
   kClientHintPrefersReducedTransparency: 112,
+  kWebPrinting: 113,
+  kUsbUnrestricted: 114,
+  kCapturedSurfaceControl: 115,
+  kSubApps: 116,
+  kPublicKeyCredentialsCreate: 117,
   MIN_VALUE: 0,
-  MAX_VALUE: 112,
+  MAX_VALUE: 117,
 };
 
 

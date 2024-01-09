@@ -5,7 +5,7 @@ export function getTemplate() {
 <downloads-toolbar id="toolbar" items="[[items_]]" spinner-active="{{spinnerActive_}}" role="none" on-search-changed="onSearchChanged_">
 </downloads-toolbar>
 <div id="drop-shadow" class="cr-container-shadow"></div>
-<div id="mainContainer" on-scroll="onScroll_">
+<div id="mainContainer" on-scroll="onScroll_" on-save-dangerous-click="onSaveDangerousClick_">
   <managed-footnote hidden="[[inSearchMode_]]"></managed-footnote>
   <iron-list id="downloadsList" items="[[items_]]" role="grid" aria-rowcount$="[[items_.length]]" hidden="[[!hasDownloads_]]" scroll-target="mainContainer" preserve-focus>
     <template>
@@ -25,5 +25,9 @@ export function getTemplate() {
     $i18n{undo}
   </cr-button>
 </cr-toast-manager>
+<template is="dom-if" if="[[shouldShowBypassWarningDialog_(bypassDialogItemId_)]]" restamp>
+  <download-bypass-warning-confirmation-dialog file-name="[[computeBypassWarningDialogFileName_(bypassDialogItemId_)]]" on-close="onBypassWarningConfirmationDialogClose_">
+  </download-bypass-warning-confirmation-dialog>
+</template>
 <!--_html_template_end_-->`;
 }

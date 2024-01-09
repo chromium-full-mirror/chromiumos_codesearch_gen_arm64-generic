@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/event_router.mojom-features.h"
 #include "extensions/common/mojom/event_router.mojom-shared.h"
 #include "extensions/common/mojom/event_router.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -269,17 +270,17 @@ class  EventListenerOwner {
   // Construct an instance holding |extension_id|.
   static EventListenerOwnerPtr
   NewExtensionId(
-      const std::string& extension_id) {
+      const std::string& value) {
     auto result = EventListenerOwnerPtr(absl::in_place);
-    result->set_extension_id(std::move(extension_id));
+    result->set_extension_id(std::move(value));
     return result;
   }
   // Construct an instance holding |listener_url|.
   static EventListenerOwnerPtr
   NewListenerUrl(
-      const ::GURL& listener_url) {
+      const ::GURL& value) {
     auto result = EventListenerOwnerPtr(absl::in_place);
-    result->set_listener_url(std::move(listener_url));
+    result->set_listener_url(std::move(value));
     return result;
   }
 
@@ -558,7 +559,7 @@ class  EventListener {
       EventListenerOwnerPtr listener_owner,
       const std::string& event_name,
       ServiceWorkerContextPtr service_worker_context,
-      absl::optional<::base::Value::Dict> filter);
+      std::optional<::base::Value::Dict> filter);
 
 EventListener(const EventListener&) = delete;
 EventListener& operator=(const EventListener&) = delete;
@@ -644,7 +645,7 @@ EventListener& operator=(const EventListener&) = delete;
   
   ServiceWorkerContextPtr service_worker_context;
   
-  absl::optional<::base::Value::Dict> filter;
+  std::optional<::base::Value::Dict> filter;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

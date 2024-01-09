@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/printing_metrics.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,13 +38,15 @@ namespace printing_metrics {
 
 const char* ToString(PrintJobSource enum_param) {
   switch (enum_param) {
-    case PRINT_JOB_SOURCE_PRINT_PREVIEW:
+    case PrintJobSource::kPrintPreview:
       return "PRINT_PREVIEW";
-    case PRINT_JOB_SOURCE_ANDROID_APP:
+    case PrintJobSource::kAndroidApp:
       return "ANDROID_APP";
-    case PRINT_JOB_SOURCE_EXTENSION:
+    case PrintJobSource::kExtension:
       return "EXTENSION";
-    case PRINT_JOB_SOURCE_NONE:
+    case PrintJobSource::kIsolatedWebApp:
+      return "ISOLATED_WEB_APP";
+    case PrintJobSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -52,28 +55,30 @@ const char* ToString(PrintJobSource enum_param) {
 
 PrintJobSource ParsePrintJobSource(base::StringPiece enum_string) {
   if (enum_string == "PRINT_PREVIEW")
-    return PRINT_JOB_SOURCE_PRINT_PREVIEW;
+    return PrintJobSource::kPrintPreview;
   if (enum_string == "ANDROID_APP")
-    return PRINT_JOB_SOURCE_ANDROID_APP;
+    return PrintJobSource::kAndroidApp;
   if (enum_string == "EXTENSION")
-    return PRINT_JOB_SOURCE_EXTENSION;
-  return PRINT_JOB_SOURCE_NONE;
+    return PrintJobSource::kExtension;
+  if (enum_string == "ISOLATED_WEB_APP")
+    return PrintJobSource::kIsolatedWebApp;
+  return PrintJobSource::kNone;
 }
 
 std::u16string GetPrintJobSourceParseError(base::StringPiece enum_string) {
-  return u"expected \"PRINT_PREVIEW\" or \"ANDROID_APP\" or \"EXTENSION\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"PRINT_PREVIEW\" or \"ANDROID_APP\" or \"EXTENSION\" or \"ISOLATED_WEB_APP\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
 const char* ToString(PrintJobStatus enum_param) {
   switch (enum_param) {
-    case PRINT_JOB_STATUS_FAILED:
+    case PrintJobStatus::kFailed:
       return "FAILED";
-    case PRINT_JOB_STATUS_CANCELED:
+    case PrintJobStatus::kCanceled:
       return "CANCELED";
-    case PRINT_JOB_STATUS_PRINTED:
+    case PrintJobStatus::kPrinted:
       return "PRINTED";
-    case PRINT_JOB_STATUS_NONE:
+    case PrintJobStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -82,12 +87,12 @@ const char* ToString(PrintJobStatus enum_param) {
 
 PrintJobStatus ParsePrintJobStatus(base::StringPiece enum_string) {
   if (enum_string == "FAILED")
-    return PRINT_JOB_STATUS_FAILED;
+    return PrintJobStatus::kFailed;
   if (enum_string == "CANCELED")
-    return PRINT_JOB_STATUS_CANCELED;
+    return PrintJobStatus::kCanceled;
   if (enum_string == "PRINTED")
-    return PRINT_JOB_STATUS_PRINTED;
-  return PRINT_JOB_STATUS_NONE;
+    return PrintJobStatus::kPrinted;
+  return PrintJobStatus::kNone;
 }
 
 std::u16string GetPrintJobStatusParseError(base::StringPiece enum_string) {
@@ -97,11 +102,11 @@ std::u16string GetPrintJobStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(PrinterSource enum_param) {
   switch (enum_param) {
-    case PRINTER_SOURCE_USER:
+    case PrinterSource::kUser:
       return "USER";
-    case PRINTER_SOURCE_POLICY:
+    case PrinterSource::kPolicy:
       return "POLICY";
-    case PRINTER_SOURCE_NONE:
+    case PrinterSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -110,10 +115,10 @@ const char* ToString(PrinterSource enum_param) {
 
 PrinterSource ParsePrinterSource(base::StringPiece enum_string) {
   if (enum_string == "USER")
-    return PRINTER_SOURCE_USER;
+    return PrinterSource::kUser;
   if (enum_string == "POLICY")
-    return PRINTER_SOURCE_POLICY;
-  return PRINTER_SOURCE_NONE;
+    return PrinterSource::kPolicy;
+  return PrinterSource::kNone;
 }
 
 std::u16string GetPrinterSourceParseError(base::StringPiece enum_string) {
@@ -123,11 +128,11 @@ std::u16string GetPrinterSourceParseError(base::StringPiece enum_string) {
 
 const char* ToString(ColorMode enum_param) {
   switch (enum_param) {
-    case COLOR_MODE_BLACK_AND_WHITE:
+    case ColorMode::kBlackAndWhite:
       return "BLACK_AND_WHITE";
-    case COLOR_MODE_COLOR:
+    case ColorMode::kColor:
       return "COLOR";
-    case COLOR_MODE_NONE:
+    case ColorMode::kNone:
       return "";
   }
   NOTREACHED();
@@ -136,10 +141,10 @@ const char* ToString(ColorMode enum_param) {
 
 ColorMode ParseColorMode(base::StringPiece enum_string) {
   if (enum_string == "BLACK_AND_WHITE")
-    return COLOR_MODE_BLACK_AND_WHITE;
+    return ColorMode::kBlackAndWhite;
   if (enum_string == "COLOR")
-    return COLOR_MODE_COLOR;
-  return COLOR_MODE_NONE;
+    return ColorMode::kColor;
+  return ColorMode::kNone;
 }
 
 std::u16string GetColorModeParseError(base::StringPiece enum_string) {
@@ -149,13 +154,13 @@ std::u16string GetColorModeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DuplexMode enum_param) {
   switch (enum_param) {
-    case DUPLEX_MODE_ONE_SIDED:
+    case DuplexMode::kOneSided:
       return "ONE_SIDED";
-    case DUPLEX_MODE_TWO_SIDED_LONG_EDGE:
+    case DuplexMode::kTwoSidedLongEdge:
       return "TWO_SIDED_LONG_EDGE";
-    case DUPLEX_MODE_TWO_SIDED_SHORT_EDGE:
+    case DuplexMode::kTwoSidedShortEdge:
       return "TWO_SIDED_SHORT_EDGE";
-    case DUPLEX_MODE_NONE:
+    case DuplexMode::kNone:
       return "";
   }
   NOTREACHED();
@@ -164,12 +169,12 @@ const char* ToString(DuplexMode enum_param) {
 
 DuplexMode ParseDuplexMode(base::StringPiece enum_string) {
   if (enum_string == "ONE_SIDED")
-    return DUPLEX_MODE_ONE_SIDED;
+    return DuplexMode::kOneSided;
   if (enum_string == "TWO_SIDED_LONG_EDGE")
-    return DUPLEX_MODE_TWO_SIDED_LONG_EDGE;
+    return DuplexMode::kTwoSidedLongEdge;
   if (enum_string == "TWO_SIDED_SHORT_EDGE")
-    return DUPLEX_MODE_TWO_SIDED_SHORT_EDGE;
-  return DUPLEX_MODE_NONE;
+    return DuplexMode::kTwoSidedShortEdge;
+  return DuplexMode::kNone;
 }
 
 std::u16string GetDuplexModeParseError(base::StringPiece enum_string) {
@@ -182,8 +187,8 @@ MediaSize::MediaSize()
 height(0) {}
 
 MediaSize::~MediaSize() = default;
-MediaSize::MediaSize(MediaSize&& rhs) = default;
-MediaSize& MediaSize::operator=(MediaSize&& rhs) = default;
+MediaSize::MediaSize(MediaSize&& rhs) noexcept = default;
+MediaSize& MediaSize::operator=(MediaSize&& rhs) noexcept = default;
 MediaSize MediaSize::Clone() const {
   MediaSize out;
   out.width = width;
@@ -244,34 +249,21 @@ bool MediaSize::Populate(
 }
 
 // static
-std::unique_ptr<MediaSize> MediaSize::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaSize>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaSize> MediaSize::FromValue(const base::Value::Dict& value) {
+  MediaSize out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaSize> MediaSize::FromValue(const base::Value::Dict& value) {
+std::optional<MediaSize> MediaSize::FromValue(const base::Value& value) {
   MediaSize out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaSize> MediaSize::FromValue(const base::Value& value) {
-  MediaSize out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -296,8 +288,8 @@ duplex(),
 copies(0) {}
 
 PrintSettings::~PrintSettings() = default;
-PrintSettings::PrintSettings(PrintSettings&& rhs) = default;
-PrintSettings& PrintSettings::operator=(PrintSettings&& rhs) = default;
+PrintSettings::PrintSettings(PrintSettings&& rhs) noexcept = default;
+PrintSettings& PrintSettings::operator=(PrintSettings&& rhs) noexcept = default;
 PrintSettings PrintSettings::Clone() const {
   PrintSettings out;
   out.color = color;
@@ -378,34 +370,21 @@ bool PrintSettings::Populate(
 }
 
 // static
-std::unique_ptr<PrintSettings> PrintSettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PrintSettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PrintSettings> PrintSettings::FromValue(const base::Value::Dict& value) {
+  PrintSettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrintSettings> PrintSettings::FromValue(const base::Value::Dict& value) {
+std::optional<PrintSettings> PrintSettings::FromValue(const base::Value& value) {
   PrintSettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PrintSettings> PrintSettings::FromValue(const base::Value& value) {
-  PrintSettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -430,8 +409,8 @@ Printer::Printer()
 : source() {}
 
 Printer::~Printer() = default;
-Printer::Printer(Printer&& rhs) = default;
-Printer& Printer::operator=(Printer&& rhs) = default;
+Printer::Printer(Printer&& rhs) noexcept = default;
+Printer& Printer::operator=(Printer&& rhs) noexcept = default;
 Printer Printer::Clone() const {
   Printer out;
   out.name = name;
@@ -495,34 +474,21 @@ bool Printer::Populate(
 }
 
 // static
-std::unique_ptr<Printer> Printer::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Printer>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Printer> Printer::FromValue(const base::Value::Dict& value) {
+  Printer out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Printer> Printer::FromValue(const base::Value::Dict& value) {
+std::optional<Printer> Printer::FromValue(const base::Value& value) {
   Printer out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Printer> Printer::FromValue(const base::Value& value) {
-  Printer out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -550,8 +516,8 @@ number_of_pages(0),
 printer_status() {}
 
 PrintJobInfo::~PrintJobInfo() = default;
-PrintJobInfo::PrintJobInfo(PrintJobInfo&& rhs) = default;
-PrintJobInfo& PrintJobInfo::operator=(PrintJobInfo&& rhs) = default;
+PrintJobInfo::PrintJobInfo(PrintJobInfo&& rhs) noexcept = default;
+PrintJobInfo& PrintJobInfo::operator=(PrintJobInfo&& rhs) noexcept = default;
 PrintJobInfo PrintJobInfo::Clone() const {
   PrintJobInfo out;
   out.id = id;
@@ -615,7 +581,7 @@ bool PrintJobInfo::Populate(
     {
       auto* temp = (*source_id_value).GetIfString();
       if (!temp) {
-        out.source_id = absl::nullopt;
+        out.source_id = std::nullopt;
         return false;
       }
       out.source_id = *temp;
@@ -727,34 +693,21 @@ bool PrintJobInfo::Populate(
 }
 
 // static
-std::unique_ptr<PrintJobInfo> PrintJobInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PrintJobInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PrintJobInfo> PrintJobInfo::FromValue(const base::Value::Dict& value) {
+  PrintJobInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrintJobInfo> PrintJobInfo::FromValue(const base::Value::Dict& value) {
+std::optional<PrintJobInfo> PrintJobInfo::FromValue(const base::Value& value) {
   PrintJobInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PrintJobInfo> PrintJobInfo::FromValue(const base::Value& value) {
-  PrintJobInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

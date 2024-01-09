@@ -39,6 +39,7 @@ class  DlpInterceptorForTesting : public Dlp {
   void CheckScreenShareRestriction(ScreenShareAreaPtr area, const ::std::u16string& application_title, CheckScreenShareRestrictionCallback callback) override;
   void OnScreenShareStarted(const std::string& label, ScreenShareAreaPtr area, const ::std::u16string& application_title, ::mojo::PendingRemote<StateChangeDelegate> delegate) override;
   void OnScreenShareStopped(const std::string& label, ScreenShareAreaPtr area) override;
+  void ShowBlockedFiles(std::optional<uint64_t> task_id, const std::vector<::base::FilePath>& files, FileAction action) override;
 };
 class  DlpAsyncWaiter {
  public:

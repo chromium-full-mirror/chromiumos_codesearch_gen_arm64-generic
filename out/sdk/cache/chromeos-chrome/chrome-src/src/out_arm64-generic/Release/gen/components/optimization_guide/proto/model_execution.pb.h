@@ -45,30 +45,115 @@ struct TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution
 };
 namespace optimization_guide {
 namespace proto {
+class Condition;
+struct ConditionDefaultTypeInternal;
+extern ConditionDefaultTypeInternal _Condition_default_instance_;
+class ConditionList;
+struct ConditionListDefaultTypeInternal;
+extern ConditionListDefaultTypeInternal _ConditionList_default_instance_;
+class ErrorResponse;
+struct ErrorResponseDefaultTypeInternal;
+extern ErrorResponseDefaultTypeInternal _ErrorResponse_default_instance_;
 class ExecuteRequest;
 struct ExecuteRequestDefaultTypeInternal;
 extern ExecuteRequestDefaultTypeInternal _ExecuteRequest_default_instance_;
 class ExecuteResponse;
 struct ExecuteResponseDefaultTypeInternal;
 extern ExecuteResponseDefaultTypeInternal _ExecuteResponse_default_instance_;
+class OnDeviceModelExecutionConfig;
+struct OnDeviceModelExecutionConfigDefaultTypeInternal;
+extern OnDeviceModelExecutionConfigDefaultTypeInternal _OnDeviceModelExecutionConfig_default_instance_;
+class OnDeviceModelExecutionFeatureConfig;
+struct OnDeviceModelExecutionFeatureConfigDefaultTypeInternal;
+extern OnDeviceModelExecutionFeatureConfigDefaultTypeInternal _OnDeviceModelExecutionFeatureConfig_default_instance_;
+class OnDeviceModelExecutionInputConfig;
+struct OnDeviceModelExecutionInputConfigDefaultTypeInternal;
+extern OnDeviceModelExecutionInputConfigDefaultTypeInternal _OnDeviceModelExecutionInputConfig_default_instance_;
+class OnDeviceModelExecutionOutputConfig;
+struct OnDeviceModelExecutionOutputConfigDefaultTypeInternal;
+extern OnDeviceModelExecutionOutputConfigDefaultTypeInternal _OnDeviceModelExecutionOutputConfig_default_instance_;
+class ProtoDescriptor;
+struct ProtoDescriptorDefaultTypeInternal;
+extern ProtoDescriptorDefaultTypeInternal _ProtoDescriptor_default_instance_;
+class ProtoField;
+struct ProtoFieldDefaultTypeInternal;
+extern ProtoFieldDefaultTypeInternal _ProtoField_default_instance_;
+class RedactRule;
+struct RedactRuleDefaultTypeInternal;
+extern RedactRuleDefaultTypeInternal _RedactRule_default_instance_;
+class RedactRules;
+struct RedactRulesDefaultTypeInternal;
+extern RedactRulesDefaultTypeInternal _RedactRules_default_instance_;
+class StringArg;
+struct StringArgDefaultTypeInternal;
+extern StringArgDefaultTypeInternal _StringArg_default_instance_;
+class StringSubstitution;
+struct StringSubstitutionDefaultTypeInternal;
+extern StringSubstitutionDefaultTypeInternal _StringSubstitution_default_instance_;
+class SubstitutedString;
+struct SubstitutedStringDefaultTypeInternal;
+extern SubstitutedStringDefaultTypeInternal _SubstitutedString_default_instance_;
+class Value;
+struct ValueDefaultTypeInternal;
+extern ValueDefaultTypeInternal _Value_default_instance_;
 }  // namespace proto
 }  // namespace optimization_guide
 PROTOBUF_NAMESPACE_OPEN
+template<> ::optimization_guide::proto::Condition* Arena::CreateMaybeMessage<::optimization_guide::proto::Condition>(Arena*);
+template<> ::optimization_guide::proto::ConditionList* Arena::CreateMaybeMessage<::optimization_guide::proto::ConditionList>(Arena*);
+template<> ::optimization_guide::proto::ErrorResponse* Arena::CreateMaybeMessage<::optimization_guide::proto::ErrorResponse>(Arena*);
 template<> ::optimization_guide::proto::ExecuteRequest* Arena::CreateMaybeMessage<::optimization_guide::proto::ExecuteRequest>(Arena*);
 template<> ::optimization_guide::proto::ExecuteResponse* Arena::CreateMaybeMessage<::optimization_guide::proto::ExecuteResponse>(Arena*);
+template<> ::optimization_guide::proto::OnDeviceModelExecutionConfig* Arena::CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionConfig>(Arena*);
+template<> ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* Arena::CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig>(Arena*);
+template<> ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* Arena::CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionInputConfig>(Arena*);
+template<> ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* Arena::CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionOutputConfig>(Arena*);
+template<> ::optimization_guide::proto::ProtoDescriptor* Arena::CreateMaybeMessage<::optimization_guide::proto::ProtoDescriptor>(Arena*);
+template<> ::optimization_guide::proto::ProtoField* Arena::CreateMaybeMessage<::optimization_guide::proto::ProtoField>(Arena*);
+template<> ::optimization_guide::proto::RedactRule* Arena::CreateMaybeMessage<::optimization_guide::proto::RedactRule>(Arena*);
+template<> ::optimization_guide::proto::RedactRules* Arena::CreateMaybeMessage<::optimization_guide::proto::RedactRules>(Arena*);
+template<> ::optimization_guide::proto::StringArg* Arena::CreateMaybeMessage<::optimization_guide::proto::StringArg>(Arena*);
+template<> ::optimization_guide::proto::StringSubstitution* Arena::CreateMaybeMessage<::optimization_guide::proto::StringSubstitution>(Arena*);
+template<> ::optimization_guide::proto::SubstitutedString* Arena::CreateMaybeMessage<::optimization_guide::proto::SubstitutedString>(Arena*);
+template<> ::optimization_guide::proto::Value* Arena::CreateMaybeMessage<::optimization_guide::proto::Value>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace optimization_guide {
 namespace proto {
 
+enum ErrorState : int {
+  ERROR_STATE_UNSPECIFIED = 0,
+  ERROR_STATE_INTERNAL_SERVER_ERROR_RETRY = 1,
+  ERROR_STATE_INTERNAL_SERVER_ERROR_NO_RETRY = 2,
+  ERROR_STATE_UNSUPPORTED_LANGUAGE = 3,
+  ERROR_STATE_FILTERED = 4,
+  ERROR_STATE_REQUEST_THROTTLED = 5,
+  ERROR_STATE_DISABLED = 6
+};
+bool ErrorState_IsValid(int value);
+constexpr ErrorState ErrorState_MIN = ERROR_STATE_UNSPECIFIED;
+constexpr ErrorState ErrorState_MAX = ERROR_STATE_DISABLED;
+constexpr int ErrorState_ARRAYSIZE = ErrorState_MAX + 1;
+
+const std::string& ErrorState_Name(ErrorState value);
+template<typename T>
+inline const std::string& ErrorState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ErrorState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ErrorState_Name.");
+  return ErrorState_Name(static_cast<ErrorState>(enum_t_value));
+}
+bool ErrorState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ErrorState* value);
 enum ModelExecutionFeature : int {
   MODEL_EXECUTION_FEATURE_UNSPECIFIED = 0,
   MODEL_EXECUTION_FEATURE_COMPOSE = 1,
   MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION = 2,
-  MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH = 3
+  MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH = 3,
+  MODEL_EXECUTION_FEATURE_TEST = 4
 };
 bool ModelExecutionFeature_IsValid(int value);
 constexpr ModelExecutionFeature ModelExecutionFeature_MIN = MODEL_EXECUTION_FEATURE_UNSPECIFIED;
-constexpr ModelExecutionFeature ModelExecutionFeature_MAX = MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH;
+constexpr ModelExecutionFeature ModelExecutionFeature_MAX = MODEL_EXECUTION_FEATURE_TEST;
 constexpr int ModelExecutionFeature_ARRAYSIZE = ModelExecutionFeature_MAX + 1;
 
 const std::string& ModelExecutionFeature_Name(ModelExecutionFeature value);
@@ -81,6 +166,67 @@ inline const std::string& ModelExecutionFeature_Name(T enum_t_value) {
 }
 bool ModelExecutionFeature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ModelExecutionFeature* value);
+enum RedactBehavior : int {
+  REDACT_BEHAVIOR_UNSPECIFIED = 0,
+  REJECT = 1,
+  REDACT_IF_ONLY_IN_OUTPUT = 2,
+  REDACT_ALWAYS = 3
+};
+bool RedactBehavior_IsValid(int value);
+constexpr RedactBehavior RedactBehavior_MIN = REDACT_BEHAVIOR_UNSPECIFIED;
+constexpr RedactBehavior RedactBehavior_MAX = REDACT_ALWAYS;
+constexpr int RedactBehavior_ARRAYSIZE = RedactBehavior_MAX + 1;
+
+const std::string& RedactBehavior_Name(RedactBehavior value);
+template<typename T>
+inline const std::string& RedactBehavior_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RedactBehavior>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RedactBehavior_Name.");
+  return RedactBehavior_Name(static_cast<RedactBehavior>(enum_t_value));
+}
+bool RedactBehavior_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RedactBehavior* value);
+enum OperatorType : int {
+  OPERATOR_TYPE_UNSPECIFIED = 0,
+  OPERATOR_TYPE_EQUAL_TO = 1,
+  OPERATOR_TYPE_NOT_EQUAL_TO = 2
+};
+bool OperatorType_IsValid(int value);
+constexpr OperatorType OperatorType_MIN = OPERATOR_TYPE_UNSPECIFIED;
+constexpr OperatorType OperatorType_MAX = OPERATOR_TYPE_NOT_EQUAL_TO;
+constexpr int OperatorType_ARRAYSIZE = OperatorType_MAX + 1;
+
+const std::string& OperatorType_Name(OperatorType value);
+template<typename T>
+inline const std::string& OperatorType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OperatorType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OperatorType_Name.");
+  return OperatorType_Name(static_cast<OperatorType>(enum_t_value));
+}
+bool OperatorType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OperatorType* value);
+enum ConditionEvaluationType : int {
+  CONDITION_EVALUATION_TYPE_UNSPECIFIED = 0,
+  CONDITION_EVALUATION_TYPE_AND = 1,
+  CONDITION_EVALUATION_TYPE_OR = 2
+};
+bool ConditionEvaluationType_IsValid(int value);
+constexpr ConditionEvaluationType ConditionEvaluationType_MIN = CONDITION_EVALUATION_TYPE_UNSPECIFIED;
+constexpr ConditionEvaluationType ConditionEvaluationType_MAX = CONDITION_EVALUATION_TYPE_OR;
+constexpr int ConditionEvaluationType_ARRAYSIZE = ConditionEvaluationType_MAX + 1;
+
+const std::string& ConditionEvaluationType_Name(ConditionEvaluationType value);
+template<typename T>
+inline const std::string& ConditionEvaluationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ConditionEvaluationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ConditionEvaluationType_Name.");
+  return ConditionEvaluationType_Name(static_cast<ConditionEvaluationType>(enum_t_value));
+}
+bool ConditionEvaluationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ConditionEvaluationType* value);
 // ===================================================================
 
 class ExecuteRequest final :
@@ -285,7 +431,7 @@ class ExecuteResponse final :
   }
   enum ResponseCase {
     kResponseMetadata = 2,
-    kErrorMessage = 3,
+    kErrorResponse = 5,
     RESPONSE_NOT_SET = 0,
   };
 
@@ -358,10 +504,29 @@ class ExecuteResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kServerExecutionIdFieldNumber = 4,
     kModelVersionFieldNumber = 1,
     kResponseMetadataFieldNumber = 2,
-    kErrorMessageFieldNumber = 3,
+    kErrorResponseFieldNumber = 5,
   };
+  // optional string server_execution_id = 4;
+  bool has_server_execution_id() const;
+  private:
+  bool _internal_has_server_execution_id() const;
+  public:
+  void clear_server_execution_id();
+  const std::string& server_execution_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_server_execution_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_server_execution_id();
+  PROTOBUF_NODISCARD std::string* release_server_execution_id();
+  void set_allocated_server_execution_id(std::string* server_execution_id);
+  private:
+  const std::string& _internal_server_execution_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_server_execution_id(const std::string& value);
+  std::string* _internal_mutable_server_execution_id();
+  public:
+
   // optional int64 model_version = 1;
   bool has_model_version() const;
   private:
@@ -393,23 +558,23 @@ class ExecuteResponse final :
       ::optimization_guide::proto::Any* response_metadata);
   ::optimization_guide::proto::Any* unsafe_arena_release_response_metadata();
 
-  // string error_message = 3;
-  bool has_error_message() const;
+  // .optimization_guide.proto.ErrorResponse error_response = 5;
+  bool has_error_response() const;
   private:
-  bool _internal_has_error_message() const;
+  bool _internal_has_error_response() const;
   public:
-  void clear_error_message();
-  const std::string& error_message() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_error_message(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_error_message();
-  PROTOBUF_NODISCARD std::string* release_error_message();
-  void set_allocated_error_message(std::string* error_message);
+  void clear_error_response();
+  const ::optimization_guide::proto::ErrorResponse& error_response() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ErrorResponse* release_error_response();
+  ::optimization_guide::proto::ErrorResponse* mutable_error_response();
+  void set_allocated_error_response(::optimization_guide::proto::ErrorResponse* error_response);
   private:
-  const std::string& _internal_error_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_error_message(const std::string& value);
-  std::string* _internal_mutable_error_message();
+  const ::optimization_guide::proto::ErrorResponse& _internal_error_response() const;
+  ::optimization_guide::proto::ErrorResponse* _internal_mutable_error_response();
   public:
+  void unsafe_arena_set_allocated_error_response(
+      ::optimization_guide::proto::ErrorResponse* error_response);
+  ::optimization_guide::proto::ErrorResponse* unsafe_arena_release_error_response();
 
   void clear_response();
   ResponseCase response_case() const;
@@ -417,7 +582,7 @@ class ExecuteResponse final :
  private:
   class _Internal;
   void set_has_response_metadata();
-  void set_has_error_message();
+  void set_has_error_response();
 
   inline bool has_response() const;
   inline void clear_has_response();
@@ -427,15 +592,2580 @@ class ExecuteResponse final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr server_execution_id_;
   int64_t model_version_;
   union ResponseUnion {
     constexpr ResponseUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::optimization_guide::proto::Any* response_metadata_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
+    ::optimization_guide::proto::ErrorResponse* error_response_;
   } response_;
   uint32_t _oneof_case_[1];
 
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ErrorResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ErrorResponse) */ {
+ public:
+  inline ErrorResponse() : ErrorResponse(nullptr) {}
+  ~ErrorResponse() override;
+  explicit PROTOBUF_CONSTEXPR ErrorResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ErrorResponse(const ErrorResponse& from);
+  ErrorResponse(ErrorResponse&& from) noexcept
+    : ErrorResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ErrorResponse& operator=(const ErrorResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ErrorResponse& operator=(ErrorResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ErrorResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ErrorResponse* internal_default_instance() {
+    return reinterpret_cast<const ErrorResponse*>(
+               &_ErrorResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(ErrorResponse& a, ErrorResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ErrorResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ErrorResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ErrorResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ErrorResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ErrorResponse& from);
+  void MergeFrom(const ErrorResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ErrorResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.ErrorResponse";
+  }
+  protected:
+  explicit ErrorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorStateFieldNumber = 1,
+  };
+  // optional .optimization_guide.proto.ErrorState error_state = 1;
+  bool has_error_state() const;
+  private:
+  bool _internal_has_error_state() const;
+  public:
+  void clear_error_state();
+  ::optimization_guide::proto::ErrorState error_state() const;
+  void set_error_state(::optimization_guide::proto::ErrorState value);
+  private:
+  ::optimization_guide::proto::ErrorState _internal_error_state() const;
+  void _internal_set_error_state(::optimization_guide::proto::ErrorState value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.ErrorResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int error_state_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OnDeviceModelExecutionConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.OnDeviceModelExecutionConfig) */ {
+ public:
+  inline OnDeviceModelExecutionConfig() : OnDeviceModelExecutionConfig(nullptr) {}
+  ~OnDeviceModelExecutionConfig() override;
+  explicit PROTOBUF_CONSTEXPR OnDeviceModelExecutionConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OnDeviceModelExecutionConfig(const OnDeviceModelExecutionConfig& from);
+  OnDeviceModelExecutionConfig(OnDeviceModelExecutionConfig&& from) noexcept
+    : OnDeviceModelExecutionConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline OnDeviceModelExecutionConfig& operator=(const OnDeviceModelExecutionConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OnDeviceModelExecutionConfig& operator=(OnDeviceModelExecutionConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const OnDeviceModelExecutionConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OnDeviceModelExecutionConfig* internal_default_instance() {
+    return reinterpret_cast<const OnDeviceModelExecutionConfig*>(
+               &_OnDeviceModelExecutionConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(OnDeviceModelExecutionConfig& a, OnDeviceModelExecutionConfig& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OnDeviceModelExecutionConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OnDeviceModelExecutionConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OnDeviceModelExecutionConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OnDeviceModelExecutionConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OnDeviceModelExecutionConfig& from);
+  void MergeFrom(const OnDeviceModelExecutionConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OnDeviceModelExecutionConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.OnDeviceModelExecutionConfig";
+  }
+  protected:
+  explicit OnDeviceModelExecutionConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFeatureConfigsFieldNumber = 1,
+  };
+  // repeated .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_configs = 1;
+  int feature_configs_size() const;
+  private:
+  int _internal_feature_configs_size() const;
+  public:
+  void clear_feature_configs();
+  ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* mutable_feature_configs(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >*
+      mutable_feature_configs();
+  private:
+  const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig& _internal_feature_configs(int index) const;
+  ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* _internal_add_feature_configs();
+  public:
+  const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig& feature_configs(int index) const;
+  ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* add_feature_configs();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >&
+      feature_configs() const;
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.OnDeviceModelExecutionConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig > feature_configs_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RedactRule final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.RedactRule) */ {
+ public:
+  inline RedactRule() : RedactRule(nullptr) {}
+  ~RedactRule() override;
+  explicit PROTOBUF_CONSTEXPR RedactRule(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RedactRule(const RedactRule& from);
+  RedactRule(RedactRule&& from) noexcept
+    : RedactRule() {
+    *this = ::std::move(from);
+  }
+
+  inline RedactRule& operator=(const RedactRule& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RedactRule& operator=(RedactRule&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RedactRule& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RedactRule* internal_default_instance() {
+    return reinterpret_cast<const RedactRule*>(
+               &_RedactRule_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(RedactRule& a, RedactRule& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(RedactRule* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RedactRule* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RedactRule* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RedactRule>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RedactRule& from);
+  void MergeFrom(const RedactRule& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RedactRule* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.RedactRule";
+  }
+  protected:
+  explicit RedactRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRegexFieldNumber = 2,
+    kReplacementStringFieldNumber = 3,
+    kBehaviorFieldNumber = 1,
+  };
+  // optional string regex = 2;
+  bool has_regex() const;
+  private:
+  bool _internal_has_regex() const;
+  public:
+  void clear_regex();
+  const std::string& regex() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_regex(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_regex();
+  PROTOBUF_NODISCARD std::string* release_regex();
+  void set_allocated_regex(std::string* regex);
+  private:
+  const std::string& _internal_regex() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_regex(const std::string& value);
+  std::string* _internal_mutable_regex();
+  public:
+
+  // optional string replacement_string = 3;
+  bool has_replacement_string() const;
+  private:
+  bool _internal_has_replacement_string() const;
+  public:
+  void clear_replacement_string();
+  const std::string& replacement_string() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_replacement_string(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_replacement_string();
+  PROTOBUF_NODISCARD std::string* release_replacement_string();
+  void set_allocated_replacement_string(std::string* replacement_string);
+  private:
+  const std::string& _internal_replacement_string() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_replacement_string(const std::string& value);
+  std::string* _internal_mutable_replacement_string();
+  public:
+
+  // optional .optimization_guide.proto.RedactBehavior behavior = 1;
+  bool has_behavior() const;
+  private:
+  bool _internal_has_behavior() const;
+  public:
+  void clear_behavior();
+  ::optimization_guide::proto::RedactBehavior behavior() const;
+  void set_behavior(::optimization_guide::proto::RedactBehavior value);
+  private:
+  ::optimization_guide::proto::RedactBehavior _internal_behavior() const;
+  void _internal_set_behavior(::optimization_guide::proto::RedactBehavior value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.RedactRule)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr regex_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr replacement_string_;
+  int behavior_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RedactRules final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.RedactRules) */ {
+ public:
+  inline RedactRules() : RedactRules(nullptr) {}
+  ~RedactRules() override;
+  explicit PROTOBUF_CONSTEXPR RedactRules(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RedactRules(const RedactRules& from);
+  RedactRules(RedactRules&& from) noexcept
+    : RedactRules() {
+    *this = ::std::move(from);
+  }
+
+  inline RedactRules& operator=(const RedactRules& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RedactRules& operator=(RedactRules&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RedactRules& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RedactRules* internal_default_instance() {
+    return reinterpret_cast<const RedactRules*>(
+               &_RedactRules_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(RedactRules& a, RedactRules& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(RedactRules* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RedactRules* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RedactRules* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RedactRules>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RedactRules& from);
+  void MergeFrom(const RedactRules& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RedactRules* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.RedactRules";
+  }
+  protected:
+  explicit RedactRules(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFieldsToCheckFieldNumber = 1,
+    kRulesFieldNumber = 2,
+  };
+  // repeated .optimization_guide.proto.ProtoField fields_to_check = 1;
+  int fields_to_check_size() const;
+  private:
+  int _internal_fields_to_check_size() const;
+  public:
+  void clear_fields_to_check();
+  ::optimization_guide::proto::ProtoField* mutable_fields_to_check(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoField >*
+      mutable_fields_to_check();
+  private:
+  const ::optimization_guide::proto::ProtoField& _internal_fields_to_check(int index) const;
+  ::optimization_guide::proto::ProtoField* _internal_add_fields_to_check();
+  public:
+  const ::optimization_guide::proto::ProtoField& fields_to_check(int index) const;
+  ::optimization_guide::proto::ProtoField* add_fields_to_check();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoField >&
+      fields_to_check() const;
+
+  // repeated .optimization_guide.proto.RedactRule rules = 2;
+  int rules_size() const;
+  private:
+  int _internal_rules_size() const;
+  public:
+  void clear_rules();
+  ::optimization_guide::proto::RedactRule* mutable_rules(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::RedactRule >*
+      mutable_rules();
+  private:
+  const ::optimization_guide::proto::RedactRule& _internal_rules(int index) const;
+  ::optimization_guide::proto::RedactRule* _internal_add_rules();
+  public:
+  const ::optimization_guide::proto::RedactRule& rules(int index) const;
+  ::optimization_guide::proto::RedactRule* add_rules();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::RedactRule >&
+      rules() const;
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.RedactRules)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoField > fields_to_check_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::RedactRule > rules_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OnDeviceModelExecutionFeatureConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig) */ {
+ public:
+  inline OnDeviceModelExecutionFeatureConfig() : OnDeviceModelExecutionFeatureConfig(nullptr) {}
+  ~OnDeviceModelExecutionFeatureConfig() override;
+  explicit PROTOBUF_CONSTEXPR OnDeviceModelExecutionFeatureConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OnDeviceModelExecutionFeatureConfig(const OnDeviceModelExecutionFeatureConfig& from);
+  OnDeviceModelExecutionFeatureConfig(OnDeviceModelExecutionFeatureConfig&& from) noexcept
+    : OnDeviceModelExecutionFeatureConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline OnDeviceModelExecutionFeatureConfig& operator=(const OnDeviceModelExecutionFeatureConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OnDeviceModelExecutionFeatureConfig& operator=(OnDeviceModelExecutionFeatureConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const OnDeviceModelExecutionFeatureConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OnDeviceModelExecutionFeatureConfig* internal_default_instance() {
+    return reinterpret_cast<const OnDeviceModelExecutionFeatureConfig*>(
+               &_OnDeviceModelExecutionFeatureConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(OnDeviceModelExecutionFeatureConfig& a, OnDeviceModelExecutionFeatureConfig& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OnDeviceModelExecutionFeatureConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OnDeviceModelExecutionFeatureConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OnDeviceModelExecutionFeatureConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OnDeviceModelExecutionFeatureConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OnDeviceModelExecutionFeatureConfig& from);
+  void MergeFrom(const OnDeviceModelExecutionFeatureConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OnDeviceModelExecutionFeatureConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.OnDeviceModelExecutionFeatureConfig";
+  }
+  protected:
+  explicit OnDeviceModelExecutionFeatureConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInputConfigFieldNumber = 2,
+    kOutputConfigFieldNumber = 3,
+    kFeatureFieldNumber = 1,
+  };
+  // optional .optimization_guide.proto.OnDeviceModelExecutionInputConfig input_config = 2;
+  bool has_input_config() const;
+  private:
+  bool _internal_has_input_config() const;
+  public:
+  void clear_input_config();
+  const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig& input_config() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* release_input_config();
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* mutable_input_config();
+  void set_allocated_input_config(::optimization_guide::proto::OnDeviceModelExecutionInputConfig* input_config);
+  private:
+  const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig& _internal_input_config() const;
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* _internal_mutable_input_config();
+  public:
+  void unsafe_arena_set_allocated_input_config(
+      ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* input_config);
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* unsafe_arena_release_input_config();
+
+  // optional .optimization_guide.proto.OnDeviceModelExecutionOutputConfig output_config = 3;
+  bool has_output_config() const;
+  private:
+  bool _internal_has_output_config() const;
+  public:
+  void clear_output_config();
+  const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig& output_config() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* release_output_config();
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* mutable_output_config();
+  void set_allocated_output_config(::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* output_config);
+  private:
+  const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig& _internal_output_config() const;
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* _internal_mutable_output_config();
+  public:
+  void unsafe_arena_set_allocated_output_config(
+      ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* output_config);
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* unsafe_arena_release_output_config();
+
+  // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
+  bool has_feature() const;
+  private:
+  bool _internal_has_feature() const;
+  public:
+  void clear_feature();
+  ::optimization_guide::proto::ModelExecutionFeature feature() const;
+  void set_feature(::optimization_guide::proto::ModelExecutionFeature value);
+  private:
+  ::optimization_guide::proto::ModelExecutionFeature _internal_feature() const;
+  void _internal_set_feature(::optimization_guide::proto::ModelExecutionFeature value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* input_config_;
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* output_config_;
+  int feature_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OnDeviceModelExecutionInputConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.OnDeviceModelExecutionInputConfig) */ {
+ public:
+  inline OnDeviceModelExecutionInputConfig() : OnDeviceModelExecutionInputConfig(nullptr) {}
+  ~OnDeviceModelExecutionInputConfig() override;
+  explicit PROTOBUF_CONSTEXPR OnDeviceModelExecutionInputConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OnDeviceModelExecutionInputConfig(const OnDeviceModelExecutionInputConfig& from);
+  OnDeviceModelExecutionInputConfig(OnDeviceModelExecutionInputConfig&& from) noexcept
+    : OnDeviceModelExecutionInputConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline OnDeviceModelExecutionInputConfig& operator=(const OnDeviceModelExecutionInputConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OnDeviceModelExecutionInputConfig& operator=(OnDeviceModelExecutionInputConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const OnDeviceModelExecutionInputConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OnDeviceModelExecutionInputConfig* internal_default_instance() {
+    return reinterpret_cast<const OnDeviceModelExecutionInputConfig*>(
+               &_OnDeviceModelExecutionInputConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(OnDeviceModelExecutionInputConfig& a, OnDeviceModelExecutionInputConfig& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OnDeviceModelExecutionInputConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OnDeviceModelExecutionInputConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OnDeviceModelExecutionInputConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OnDeviceModelExecutionInputConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OnDeviceModelExecutionInputConfig& from);
+  void MergeFrom(const OnDeviceModelExecutionInputConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OnDeviceModelExecutionInputConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.OnDeviceModelExecutionInputConfig";
+  }
+  protected:
+  explicit OnDeviceModelExecutionInputConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kExecuteSubstitutionsFieldNumber = 2,
+    kInputContextSubstitutionsFieldNumber = 3,
+    kRequestBaseNameFieldNumber = 1,
+  };
+  // repeated .optimization_guide.proto.SubstitutedString execute_substitutions = 2;
+  int execute_substitutions_size() const;
+  private:
+  int _internal_execute_substitutions_size() const;
+  public:
+  void clear_execute_substitutions();
+  ::optimization_guide::proto::SubstitutedString* mutable_execute_substitutions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >*
+      mutable_execute_substitutions();
+  private:
+  const ::optimization_guide::proto::SubstitutedString& _internal_execute_substitutions(int index) const;
+  ::optimization_guide::proto::SubstitutedString* _internal_add_execute_substitutions();
+  public:
+  const ::optimization_guide::proto::SubstitutedString& execute_substitutions(int index) const;
+  ::optimization_guide::proto::SubstitutedString* add_execute_substitutions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >&
+      execute_substitutions() const;
+
+  // repeated .optimization_guide.proto.SubstitutedString input_context_substitutions = 3;
+  int input_context_substitutions_size() const;
+  private:
+  int _internal_input_context_substitutions_size() const;
+  public:
+  void clear_input_context_substitutions();
+  ::optimization_guide::proto::SubstitutedString* mutable_input_context_substitutions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >*
+      mutable_input_context_substitutions();
+  private:
+  const ::optimization_guide::proto::SubstitutedString& _internal_input_context_substitutions(int index) const;
+  ::optimization_guide::proto::SubstitutedString* _internal_add_input_context_substitutions();
+  public:
+  const ::optimization_guide::proto::SubstitutedString& input_context_substitutions(int index) const;
+  ::optimization_guide::proto::SubstitutedString* add_input_context_substitutions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >&
+      input_context_substitutions() const;
+
+  // optional string request_base_name = 1;
+  bool has_request_base_name() const;
+  private:
+  bool _internal_has_request_base_name() const;
+  public:
+  void clear_request_base_name();
+  const std::string& request_base_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_request_base_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_request_base_name();
+  PROTOBUF_NODISCARD std::string* release_request_base_name();
+  void set_allocated_request_base_name(std::string* request_base_name);
+  private:
+  const std::string& _internal_request_base_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_request_base_name(const std::string& value);
+  std::string* _internal_mutable_request_base_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString > execute_substitutions_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString > input_context_substitutions_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr request_base_name_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SubstitutedString final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.SubstitutedString) */ {
+ public:
+  inline SubstitutedString() : SubstitutedString(nullptr) {}
+  ~SubstitutedString() override;
+  explicit PROTOBUF_CONSTEXPR SubstitutedString(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SubstitutedString(const SubstitutedString& from);
+  SubstitutedString(SubstitutedString&& from) noexcept
+    : SubstitutedString() {
+    *this = ::std::move(from);
+  }
+
+  inline SubstitutedString& operator=(const SubstitutedString& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SubstitutedString& operator=(SubstitutedString&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const SubstitutedString& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SubstitutedString* internal_default_instance() {
+    return reinterpret_cast<const SubstitutedString*>(
+               &_SubstitutedString_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(SubstitutedString& a, SubstitutedString& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SubstitutedString* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SubstitutedString* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SubstitutedString* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SubstitutedString>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SubstitutedString& from);
+  void MergeFrom(const SubstitutedString& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SubstitutedString* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.SubstitutedString";
+  }
+  protected:
+  explicit SubstitutedString(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSubstitutionsFieldNumber = 6,
+    kStringTemplateFieldNumber = 1,
+    kConditionsFieldNumber = 4,
+    kShouldIgnoreInputContextFieldNumber = 5,
+  };
+  // repeated .optimization_guide.proto.StringSubstitution substitutions = 6;
+  int substitutions_size() const;
+  private:
+  int _internal_substitutions_size() const;
+  public:
+  void clear_substitutions();
+  ::optimization_guide::proto::StringSubstitution* mutable_substitutions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringSubstitution >*
+      mutable_substitutions();
+  private:
+  const ::optimization_guide::proto::StringSubstitution& _internal_substitutions(int index) const;
+  ::optimization_guide::proto::StringSubstitution* _internal_add_substitutions();
+  public:
+  const ::optimization_guide::proto::StringSubstitution& substitutions(int index) const;
+  ::optimization_guide::proto::StringSubstitution* add_substitutions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringSubstitution >&
+      substitutions() const;
+
+  // optional string string_template = 1;
+  bool has_string_template() const;
+  private:
+  bool _internal_has_string_template() const;
+  public:
+  void clear_string_template();
+  const std::string& string_template() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_string_template(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_string_template();
+  PROTOBUF_NODISCARD std::string* release_string_template();
+  void set_allocated_string_template(std::string* string_template);
+  private:
+  const std::string& _internal_string_template() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_string_template(const std::string& value);
+  std::string* _internal_mutable_string_template();
+  public:
+
+  // optional .optimization_guide.proto.ConditionList conditions = 4;
+  bool has_conditions() const;
+  private:
+  bool _internal_has_conditions() const;
+  public:
+  void clear_conditions();
+  const ::optimization_guide::proto::ConditionList& conditions() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ConditionList* release_conditions();
+  ::optimization_guide::proto::ConditionList* mutable_conditions();
+  void set_allocated_conditions(::optimization_guide::proto::ConditionList* conditions);
+  private:
+  const ::optimization_guide::proto::ConditionList& _internal_conditions() const;
+  ::optimization_guide::proto::ConditionList* _internal_mutable_conditions();
+  public:
+  void unsafe_arena_set_allocated_conditions(
+      ::optimization_guide::proto::ConditionList* conditions);
+  ::optimization_guide::proto::ConditionList* unsafe_arena_release_conditions();
+
+  // optional bool should_ignore_input_context = 5;
+  bool has_should_ignore_input_context() const;
+  private:
+  bool _internal_has_should_ignore_input_context() const;
+  public:
+  void clear_should_ignore_input_context();
+  bool should_ignore_input_context() const;
+  void set_should_ignore_input_context(bool value);
+  private:
+  bool _internal_should_ignore_input_context() const;
+  void _internal_set_should_ignore_input_context(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.SubstitutedString)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringSubstitution > substitutions_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_template_;
+  ::optimization_guide::proto::ConditionList* conditions_;
+  bool should_ignore_input_context_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class StringSubstitution final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.StringSubstitution) */ {
+ public:
+  inline StringSubstitution() : StringSubstitution(nullptr) {}
+  ~StringSubstitution() override;
+  explicit PROTOBUF_CONSTEXPR StringSubstitution(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StringSubstitution(const StringSubstitution& from);
+  StringSubstitution(StringSubstitution&& from) noexcept
+    : StringSubstitution() {
+    *this = ::std::move(from);
+  }
+
+  inline StringSubstitution& operator=(const StringSubstitution& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StringSubstitution& operator=(StringSubstitution&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StringSubstitution& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StringSubstitution* internal_default_instance() {
+    return reinterpret_cast<const StringSubstitution*>(
+               &_StringSubstitution_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(StringSubstitution& a, StringSubstitution& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(StringSubstitution* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StringSubstitution* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StringSubstitution* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StringSubstitution>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StringSubstitution& from);
+  void MergeFrom(const StringSubstitution& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StringSubstitution* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.StringSubstitution";
+  }
+  protected:
+  explicit StringSubstitution(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCandidatesFieldNumber = 1,
+  };
+  // repeated .optimization_guide.proto.StringArg candidates = 1;
+  int candidates_size() const;
+  private:
+  int _internal_candidates_size() const;
+  public:
+  void clear_candidates();
+  ::optimization_guide::proto::StringArg* mutable_candidates(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringArg >*
+      mutable_candidates();
+  private:
+  const ::optimization_guide::proto::StringArg& _internal_candidates(int index) const;
+  ::optimization_guide::proto::StringArg* _internal_add_candidates();
+  public:
+  const ::optimization_guide::proto::StringArg& candidates(int index) const;
+  ::optimization_guide::proto::StringArg* add_candidates();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringArg >&
+      candidates() const;
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.StringSubstitution)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringArg > candidates_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class StringArg final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.StringArg) */ {
+ public:
+  inline StringArg() : StringArg(nullptr) {}
+  ~StringArg() override;
+  explicit PROTOBUF_CONSTEXPR StringArg(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StringArg(const StringArg& from);
+  StringArg(StringArg&& from) noexcept
+    : StringArg() {
+    *this = ::std::move(from);
+  }
+
+  inline StringArg& operator=(const StringArg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StringArg& operator=(StringArg&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StringArg& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ArgCase {
+    kRawString = 1,
+    kProtoField = 2,
+    ARG_NOT_SET = 0,
+  };
+
+  static inline const StringArg* internal_default_instance() {
+    return reinterpret_cast<const StringArg*>(
+               &_StringArg_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(StringArg& a, StringArg& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(StringArg* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StringArg* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StringArg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StringArg>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StringArg& from);
+  void MergeFrom(const StringArg& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StringArg* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.StringArg";
+  }
+  protected:
+  explicit StringArg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConditionsFieldNumber = 3,
+    kRawStringFieldNumber = 1,
+    kProtoFieldFieldNumber = 2,
+  };
+  // optional .optimization_guide.proto.ConditionList conditions = 3;
+  bool has_conditions() const;
+  private:
+  bool _internal_has_conditions() const;
+  public:
+  void clear_conditions();
+  const ::optimization_guide::proto::ConditionList& conditions() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ConditionList* release_conditions();
+  ::optimization_guide::proto::ConditionList* mutable_conditions();
+  void set_allocated_conditions(::optimization_guide::proto::ConditionList* conditions);
+  private:
+  const ::optimization_guide::proto::ConditionList& _internal_conditions() const;
+  ::optimization_guide::proto::ConditionList* _internal_mutable_conditions();
+  public:
+  void unsafe_arena_set_allocated_conditions(
+      ::optimization_guide::proto::ConditionList* conditions);
+  ::optimization_guide::proto::ConditionList* unsafe_arena_release_conditions();
+
+  // string raw_string = 1;
+  bool has_raw_string() const;
+  private:
+  bool _internal_has_raw_string() const;
+  public:
+  void clear_raw_string();
+  const std::string& raw_string() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_raw_string(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_raw_string();
+  PROTOBUF_NODISCARD std::string* release_raw_string();
+  void set_allocated_raw_string(std::string* raw_string);
+  private:
+  const std::string& _internal_raw_string() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_raw_string(const std::string& value);
+  std::string* _internal_mutable_raw_string();
+  public:
+
+  // .optimization_guide.proto.ProtoField proto_field = 2;
+  bool has_proto_field() const;
+  private:
+  bool _internal_has_proto_field() const;
+  public:
+  void clear_proto_field();
+  const ::optimization_guide::proto::ProtoField& proto_field() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ProtoField* release_proto_field();
+  ::optimization_guide::proto::ProtoField* mutable_proto_field();
+  void set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field);
+  private:
+  const ::optimization_guide::proto::ProtoField& _internal_proto_field() const;
+  ::optimization_guide::proto::ProtoField* _internal_mutable_proto_field();
+  public:
+  void unsafe_arena_set_allocated_proto_field(
+      ::optimization_guide::proto::ProtoField* proto_field);
+  ::optimization_guide::proto::ProtoField* unsafe_arena_release_proto_field();
+
+  void clear_arg();
+  ArgCase arg_case() const;
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.StringArg)
+ private:
+  class _Internal;
+  void set_has_raw_string();
+  void set_has_proto_field();
+
+  inline bool has_arg() const;
+  inline void clear_has_arg();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::optimization_guide::proto::ConditionList* conditions_;
+  union ArgUnion {
+    constexpr ArgUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr raw_string_;
+    ::optimization_guide::proto::ProtoField* proto_field_;
+  } arg_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ProtoDescriptor final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ProtoDescriptor) */ {
+ public:
+  inline ProtoDescriptor() : ProtoDescriptor(nullptr) {}
+  ~ProtoDescriptor() override;
+  explicit PROTOBUF_CONSTEXPR ProtoDescriptor(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ProtoDescriptor(const ProtoDescriptor& from);
+  ProtoDescriptor(ProtoDescriptor&& from) noexcept
+    : ProtoDescriptor() {
+    *this = ::std::move(from);
+  }
+
+  inline ProtoDescriptor& operator=(const ProtoDescriptor& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ProtoDescriptor& operator=(ProtoDescriptor&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ProtoDescriptor& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ProtoDescriptor* internal_default_instance() {
+    return reinterpret_cast<const ProtoDescriptor*>(
+               &_ProtoDescriptor_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(ProtoDescriptor& a, ProtoDescriptor& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ProtoDescriptor* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ProtoDescriptor* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ProtoDescriptor* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ProtoDescriptor>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ProtoDescriptor& from);
+  void MergeFrom(const ProtoDescriptor& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ProtoDescriptor* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.ProtoDescriptor";
+  }
+  protected:
+  explicit ProtoDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTagNumberFieldNumber = 1,
+  };
+  // optional int32 tag_number = 1;
+  bool has_tag_number() const;
+  private:
+  bool _internal_has_tag_number() const;
+  public:
+  void clear_tag_number();
+  int32_t tag_number() const;
+  void set_tag_number(int32_t value);
+  private:
+  int32_t _internal_tag_number() const;
+  void _internal_set_tag_number(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.ProtoDescriptor)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int32_t tag_number_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ProtoField final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ProtoField) */ {
+ public:
+  inline ProtoField() : ProtoField(nullptr) {}
+  ~ProtoField() override;
+  explicit PROTOBUF_CONSTEXPR ProtoField(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ProtoField(const ProtoField& from);
+  ProtoField(ProtoField&& from) noexcept
+    : ProtoField() {
+    *this = ::std::move(from);
+  }
+
+  inline ProtoField& operator=(const ProtoField& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ProtoField& operator=(ProtoField&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ProtoField& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ProtoField* internal_default_instance() {
+    return reinterpret_cast<const ProtoField*>(
+               &_ProtoField_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(ProtoField& a, ProtoField& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ProtoField* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ProtoField* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ProtoField* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ProtoField>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ProtoField& from);
+  void MergeFrom(const ProtoField& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ProtoField* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.ProtoField";
+  }
+  protected:
+  explicit ProtoField(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProtoDescriptorsFieldNumber = 1,
+  };
+  // repeated .optimization_guide.proto.ProtoDescriptor proto_descriptors = 1;
+  int proto_descriptors_size() const;
+  private:
+  int _internal_proto_descriptors_size() const;
+  public:
+  void clear_proto_descriptors();
+  ::optimization_guide::proto::ProtoDescriptor* mutable_proto_descriptors(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoDescriptor >*
+      mutable_proto_descriptors();
+  private:
+  const ::optimization_guide::proto::ProtoDescriptor& _internal_proto_descriptors(int index) const;
+  ::optimization_guide::proto::ProtoDescriptor* _internal_add_proto_descriptors();
+  public:
+  const ::optimization_guide::proto::ProtoDescriptor& proto_descriptors(int index) const;
+  ::optimization_guide::proto::ProtoDescriptor* add_proto_descriptors();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoDescriptor >&
+      proto_descriptors() const;
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.ProtoField)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoDescriptor > proto_descriptors_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Value final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.Value) */ {
+ public:
+  inline Value() : Value(nullptr) {}
+  ~Value() override;
+  explicit PROTOBUF_CONSTEXPR Value(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Value(const Value& from);
+  Value(Value&& from) noexcept
+    : Value() {
+    *this = ::std::move(from);
+  }
+
+  inline Value& operator=(const Value& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Value& operator=(Value&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Value& default_instance() {
+    return *internal_default_instance();
+  }
+  enum TypeCase {
+    kInt64Value = 1,
+    kInt32Value = 2,
+    kFloatValue = 3,
+    kStringValue = 4,
+    kBooleanValue = 5,
+    TYPE_NOT_SET = 0,
+  };
+
+  static inline const Value* internal_default_instance() {
+    return reinterpret_cast<const Value*>(
+               &_Value_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(Value& a, Value& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Value* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Value* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Value* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Value>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Value& from);
+  void MergeFrom(const Value& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Value* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.Value";
+  }
+  protected:
+  explicit Value(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInt64ValueFieldNumber = 1,
+    kInt32ValueFieldNumber = 2,
+    kFloatValueFieldNumber = 3,
+    kStringValueFieldNumber = 4,
+    kBooleanValueFieldNumber = 5,
+  };
+  // int64 int64_value = 1;
+  bool has_int64_value() const;
+  private:
+  bool _internal_has_int64_value() const;
+  public:
+  void clear_int64_value();
+  int64_t int64_value() const;
+  void set_int64_value(int64_t value);
+  private:
+  int64_t _internal_int64_value() const;
+  void _internal_set_int64_value(int64_t value);
+  public:
+
+  // int32 int32_value = 2;
+  bool has_int32_value() const;
+  private:
+  bool _internal_has_int32_value() const;
+  public:
+  void clear_int32_value();
+  int32_t int32_value() const;
+  void set_int32_value(int32_t value);
+  private:
+  int32_t _internal_int32_value() const;
+  void _internal_set_int32_value(int32_t value);
+  public:
+
+  // double float_value = 3;
+  bool has_float_value() const;
+  private:
+  bool _internal_has_float_value() const;
+  public:
+  void clear_float_value();
+  double float_value() const;
+  void set_float_value(double value);
+  private:
+  double _internal_float_value() const;
+  void _internal_set_float_value(double value);
+  public:
+
+  // string string_value = 4;
+  bool has_string_value() const;
+  private:
+  bool _internal_has_string_value() const;
+  public:
+  void clear_string_value();
+  const std::string& string_value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_string_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_string_value();
+  PROTOBUF_NODISCARD std::string* release_string_value();
+  void set_allocated_string_value(std::string* string_value);
+  private:
+  const std::string& _internal_string_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_string_value(const std::string& value);
+  std::string* _internal_mutable_string_value();
+  public:
+
+  // bool boolean_value = 5;
+  bool has_boolean_value() const;
+  private:
+  bool _internal_has_boolean_value() const;
+  public:
+  void clear_boolean_value();
+  bool boolean_value() const;
+  void set_boolean_value(bool value);
+  private:
+  bool _internal_boolean_value() const;
+  void _internal_set_boolean_value(bool value);
+  public:
+
+  void clear_type();
+  TypeCase type_case() const;
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.Value)
+ private:
+  class _Internal;
+  void set_has_int64_value();
+  void set_has_int32_value();
+  void set_has_float_value();
+  void set_has_string_value();
+  void set_has_boolean_value();
+
+  inline bool has_type() const;
+  inline void clear_has_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  union TypeUnion {
+    constexpr TypeUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    int64_t int64_value_;
+    int32_t int32_value_;
+    double float_value_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_value_;
+    bool boolean_value_;
+  } type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ConditionList final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ConditionList) */ {
+ public:
+  inline ConditionList() : ConditionList(nullptr) {}
+  ~ConditionList() override;
+  explicit PROTOBUF_CONSTEXPR ConditionList(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ConditionList(const ConditionList& from);
+  ConditionList(ConditionList&& from) noexcept
+    : ConditionList() {
+    *this = ::std::move(from);
+  }
+
+  inline ConditionList& operator=(const ConditionList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ConditionList& operator=(ConditionList&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ConditionList& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ConditionList* internal_default_instance() {
+    return reinterpret_cast<const ConditionList*>(
+               &_ConditionList_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(ConditionList& a, ConditionList& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ConditionList* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ConditionList* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ConditionList* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ConditionList>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ConditionList& from);
+  void MergeFrom(const ConditionList& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ConditionList* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.ConditionList";
+  }
+  protected:
+  explicit ConditionList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConditionsFieldNumber = 2,
+    kConditionEvaluationTypeFieldNumber = 1,
+  };
+  // repeated .optimization_guide.proto.Condition conditions = 2;
+  int conditions_size() const;
+  private:
+  int _internal_conditions_size() const;
+  public:
+  void clear_conditions();
+  ::optimization_guide::proto::Condition* mutable_conditions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::Condition >*
+      mutable_conditions();
+  private:
+  const ::optimization_guide::proto::Condition& _internal_conditions(int index) const;
+  ::optimization_guide::proto::Condition* _internal_add_conditions();
+  public:
+  const ::optimization_guide::proto::Condition& conditions(int index) const;
+  ::optimization_guide::proto::Condition* add_conditions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::Condition >&
+      conditions() const;
+
+  // optional .optimization_guide.proto.ConditionEvaluationType condition_evaluation_type = 1;
+  bool has_condition_evaluation_type() const;
+  private:
+  bool _internal_has_condition_evaluation_type() const;
+  public:
+  void clear_condition_evaluation_type();
+  ::optimization_guide::proto::ConditionEvaluationType condition_evaluation_type() const;
+  void set_condition_evaluation_type(::optimization_guide::proto::ConditionEvaluationType value);
+  private:
+  ::optimization_guide::proto::ConditionEvaluationType _internal_condition_evaluation_type() const;
+  void _internal_set_condition_evaluation_type(::optimization_guide::proto::ConditionEvaluationType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.ConditionList)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::Condition > conditions_;
+  int condition_evaluation_type_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Condition final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.Condition) */ {
+ public:
+  inline Condition() : Condition(nullptr) {}
+  ~Condition() override;
+  explicit PROTOBUF_CONSTEXPR Condition(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Condition(const Condition& from);
+  Condition(Condition&& from) noexcept
+    : Condition() {
+    *this = ::std::move(from);
+  }
+
+  inline Condition& operator=(const Condition& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Condition& operator=(Condition&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Condition& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Condition* internal_default_instance() {
+    return reinterpret_cast<const Condition*>(
+               &_Condition_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(Condition& a, Condition& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Condition* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Condition* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Condition* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Condition>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Condition& from);
+  void MergeFrom(const Condition& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Condition* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.Condition";
+  }
+  protected:
+  explicit Condition(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProtoFieldFieldNumber = 1,
+    kValueFieldNumber = 3,
+    kOperatorTypeFieldNumber = 2,
+  };
+  // optional .optimization_guide.proto.ProtoField proto_field = 1;
+  bool has_proto_field() const;
+  private:
+  bool _internal_has_proto_field() const;
+  public:
+  void clear_proto_field();
+  const ::optimization_guide::proto::ProtoField& proto_field() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ProtoField* release_proto_field();
+  ::optimization_guide::proto::ProtoField* mutable_proto_field();
+  void set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field);
+  private:
+  const ::optimization_guide::proto::ProtoField& _internal_proto_field() const;
+  ::optimization_guide::proto::ProtoField* _internal_mutable_proto_field();
+  public:
+  void unsafe_arena_set_allocated_proto_field(
+      ::optimization_guide::proto::ProtoField* proto_field);
+  ::optimization_guide::proto::ProtoField* unsafe_arena_release_proto_field();
+
+  // optional .optimization_guide.proto.Value value = 3;
+  bool has_value() const;
+  private:
+  bool _internal_has_value() const;
+  public:
+  void clear_value();
+  const ::optimization_guide::proto::Value& value() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::Value* release_value();
+  ::optimization_guide::proto::Value* mutable_value();
+  void set_allocated_value(::optimization_guide::proto::Value* value);
+  private:
+  const ::optimization_guide::proto::Value& _internal_value() const;
+  ::optimization_guide::proto::Value* _internal_mutable_value();
+  public:
+  void unsafe_arena_set_allocated_value(
+      ::optimization_guide::proto::Value* value);
+  ::optimization_guide::proto::Value* unsafe_arena_release_value();
+
+  // optional .optimization_guide.proto.OperatorType operator_type = 2;
+  bool has_operator_type() const;
+  private:
+  bool _internal_has_operator_type() const;
+  public:
+  void clear_operator_type();
+  ::optimization_guide::proto::OperatorType operator_type() const;
+  void set_operator_type(::optimization_guide::proto::OperatorType value);
+  private:
+  ::optimization_guide::proto::OperatorType _internal_operator_type() const;
+  void _internal_set_operator_type(::optimization_guide::proto::OperatorType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.Condition)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::optimization_guide::proto::ProtoField* proto_field_;
+  ::optimization_guide::proto::Value* value_;
+  int operator_type_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OnDeviceModelExecutionOutputConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.OnDeviceModelExecutionOutputConfig) */ {
+ public:
+  inline OnDeviceModelExecutionOutputConfig() : OnDeviceModelExecutionOutputConfig(nullptr) {}
+  ~OnDeviceModelExecutionOutputConfig() override;
+  explicit PROTOBUF_CONSTEXPR OnDeviceModelExecutionOutputConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OnDeviceModelExecutionOutputConfig(const OnDeviceModelExecutionOutputConfig& from);
+  OnDeviceModelExecutionOutputConfig(OnDeviceModelExecutionOutputConfig&& from) noexcept
+    : OnDeviceModelExecutionOutputConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline OnDeviceModelExecutionOutputConfig& operator=(const OnDeviceModelExecutionOutputConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OnDeviceModelExecutionOutputConfig& operator=(OnDeviceModelExecutionOutputConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const OnDeviceModelExecutionOutputConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OnDeviceModelExecutionOutputConfig* internal_default_instance() {
+    return reinterpret_cast<const OnDeviceModelExecutionOutputConfig*>(
+               &_OnDeviceModelExecutionOutputConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(OnDeviceModelExecutionOutputConfig& a, OnDeviceModelExecutionOutputConfig& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OnDeviceModelExecutionOutputConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OnDeviceModelExecutionOutputConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OnDeviceModelExecutionOutputConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OnDeviceModelExecutionOutputConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OnDeviceModelExecutionOutputConfig& from);
+  void MergeFrom(const OnDeviceModelExecutionOutputConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OnDeviceModelExecutionOutputConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.OnDeviceModelExecutionOutputConfig";
+  }
+  protected:
+  explicit OnDeviceModelExecutionOutputConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProtoTypeFieldNumber = 1,
+    kProtoFieldFieldNumber = 2,
+    kRedactRulesFieldNumber = 3,
+  };
+  // optional string proto_type = 1;
+  bool has_proto_type() const;
+  private:
+  bool _internal_has_proto_type() const;
+  public:
+  void clear_proto_type();
+  const std::string& proto_type() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_proto_type(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_proto_type();
+  PROTOBUF_NODISCARD std::string* release_proto_type();
+  void set_allocated_proto_type(std::string* proto_type);
+  private:
+  const std::string& _internal_proto_type() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_proto_type(const std::string& value);
+  std::string* _internal_mutable_proto_type();
+  public:
+
+  // optional .optimization_guide.proto.ProtoField proto_field = 2;
+  bool has_proto_field() const;
+  private:
+  bool _internal_has_proto_field() const;
+  public:
+  void clear_proto_field();
+  const ::optimization_guide::proto::ProtoField& proto_field() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ProtoField* release_proto_field();
+  ::optimization_guide::proto::ProtoField* mutable_proto_field();
+  void set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field);
+  private:
+  const ::optimization_guide::proto::ProtoField& _internal_proto_field() const;
+  ::optimization_guide::proto::ProtoField* _internal_mutable_proto_field();
+  public:
+  void unsafe_arena_set_allocated_proto_field(
+      ::optimization_guide::proto::ProtoField* proto_field);
+  ::optimization_guide::proto::ProtoField* unsafe_arena_release_proto_field();
+
+  // optional .optimization_guide.proto.RedactRules redact_rules = 3;
+  bool has_redact_rules() const;
+  private:
+  bool _internal_has_redact_rules() const;
+  public:
+  void clear_redact_rules();
+  const ::optimization_guide::proto::RedactRules& redact_rules() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::RedactRules* release_redact_rules();
+  ::optimization_guide::proto::RedactRules* mutable_redact_rules();
+  void set_allocated_redact_rules(::optimization_guide::proto::RedactRules* redact_rules);
+  private:
+  const ::optimization_guide::proto::RedactRules& _internal_redact_rules() const;
+  ::optimization_guide::proto::RedactRules* _internal_mutable_redact_rules();
+  public:
+  void unsafe_arena_set_allocated_redact_rules(
+      ::optimization_guide::proto::RedactRules* redact_rules);
+  ::optimization_guide::proto::RedactRules* unsafe_arena_release_redact_rules();
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr proto_type_;
+  ::optimization_guide::proto::ProtoField* proto_field_;
+  ::optimization_guide::proto::RedactRules* redact_rules_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
 };
 // ===================================================================
@@ -571,7 +3301,7 @@ inline void ExecuteRequest::set_allocated_request_metadata(::optimization_guide:
 
 // optional int64 model_version = 1;
 inline bool ExecuteResponse::_internal_has_model_version() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool ExecuteResponse::has_model_version() const {
@@ -579,7 +3309,7 @@ inline bool ExecuteResponse::has_model_version() const {
 }
 inline void ExecuteResponse::clear_model_version() {
   model_version_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline int64_t ExecuteResponse::_internal_model_version() const {
   return model_version_;
@@ -589,7 +3319,7 @@ inline int64_t ExecuteResponse::model_version() const {
   return _internal_model_version();
 }
 inline void ExecuteResponse::_internal_set_model_version(int64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   model_version_ = value;
 }
 inline void ExecuteResponse::set_model_version(int64_t value) {
@@ -663,81 +3393,146 @@ inline ::optimization_guide::proto::Any* ExecuteResponse::mutable_response_metad
   return _msg;
 }
 
-// string error_message = 3;
-inline bool ExecuteResponse::_internal_has_error_message() const {
-  return response_case() == kErrorMessage;
+// .optimization_guide.proto.ErrorResponse error_response = 5;
+inline bool ExecuteResponse::_internal_has_error_response() const {
+  return response_case() == kErrorResponse;
 }
-inline bool ExecuteResponse::has_error_message() const {
-  return _internal_has_error_message();
+inline bool ExecuteResponse::has_error_response() const {
+  return _internal_has_error_response();
 }
-inline void ExecuteResponse::set_has_error_message() {
-  _oneof_case_[0] = kErrorMessage;
+inline void ExecuteResponse::set_has_error_response() {
+  _oneof_case_[0] = kErrorResponse;
 }
-inline void ExecuteResponse::clear_error_message() {
-  if (_internal_has_error_message()) {
-    response_.error_message_.Destroy();
+inline void ExecuteResponse::clear_error_response() {
+  if (_internal_has_error_response()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete response_.error_response_;
+    }
     clear_has_response();
   }
 }
-inline const std::string& ExecuteResponse::error_message() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.ExecuteResponse.error_message)
-  return _internal_error_message();
-}
-template <typename ArgT0, typename... ArgT>
-inline void ExecuteResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
-  if (!_internal_has_error_message()) {
-    clear_response();
-    set_has_error_message();
-    response_.error_message_.InitDefault();
-  }
-  response_.error_message_.Set( static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.ExecuteResponse.error_message)
-}
-inline std::string* ExecuteResponse::mutable_error_message() {
-  std::string* _s = _internal_mutable_error_message();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ExecuteResponse.error_message)
-  return _s;
-}
-inline const std::string& ExecuteResponse::_internal_error_message() const {
-  if (_internal_has_error_message()) {
-    return response_.error_message_.Get();
-  }
-  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
-}
-inline void ExecuteResponse::_internal_set_error_message(const std::string& value) {
-  if (!_internal_has_error_message()) {
-    clear_response();
-    set_has_error_message();
-    response_.error_message_.InitDefault();
-  }
-  response_.error_message_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ExecuteResponse::_internal_mutable_error_message() {
-  if (!_internal_has_error_message()) {
-    clear_response();
-    set_has_error_message();
-    response_.error_message_.InitDefault();
-  }
-  return response_.error_message_.Mutable(      GetArenaForAllocation());
-}
-inline std::string* ExecuteResponse::release_error_message() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.ExecuteResponse.error_message)
-  if (_internal_has_error_message()) {
+inline ::optimization_guide::proto::ErrorResponse* ExecuteResponse::release_error_response() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.ExecuteResponse.error_response)
+  if (_internal_has_error_response()) {
     clear_has_response();
-    return response_.error_message_.Release();
+    ::optimization_guide::proto::ErrorResponse* temp = response_.error_response_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    response_.error_response_ = nullptr;
+    return temp;
   } else {
     return nullptr;
   }
 }
-inline void ExecuteResponse::set_allocated_error_message(std::string* error_message) {
-  if (has_response()) {
+inline const ::optimization_guide::proto::ErrorResponse& ExecuteResponse::_internal_error_response() const {
+  return _internal_has_error_response()
+      ? *response_.error_response_
+      : reinterpret_cast< ::optimization_guide::proto::ErrorResponse&>(::optimization_guide::proto::_ErrorResponse_default_instance_);
+}
+inline const ::optimization_guide::proto::ErrorResponse& ExecuteResponse::error_response() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ExecuteResponse.error_response)
+  return _internal_error_response();
+}
+inline ::optimization_guide::proto::ErrorResponse* ExecuteResponse::unsafe_arena_release_error_response() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.ExecuteResponse.error_response)
+  if (_internal_has_error_response()) {
+    clear_has_response();
+    ::optimization_guide::proto::ErrorResponse* temp = response_.error_response_;
+    response_.error_response_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ExecuteResponse::unsafe_arena_set_allocated_error_response(::optimization_guide::proto::ErrorResponse* error_response) {
+  clear_response();
+  if (error_response) {
+    set_has_error_response();
+    response_.error_response_ = error_response;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.ExecuteResponse.error_response)
+}
+inline ::optimization_guide::proto::ErrorResponse* ExecuteResponse::_internal_mutable_error_response() {
+  if (!_internal_has_error_response()) {
     clear_response();
+    set_has_error_response();
+    response_.error_response_ = CreateMaybeMessage< ::optimization_guide::proto::ErrorResponse >(GetArenaForAllocation());
   }
-  if (error_message != nullptr) {
-    set_has_error_message();
-    response_.error_message_.InitAllocated(error_message, GetArenaForAllocation());
+  return response_.error_response_;
+}
+inline ::optimization_guide::proto::ErrorResponse* ExecuteResponse::mutable_error_response() {
+  ::optimization_guide::proto::ErrorResponse* _msg = _internal_mutable_error_response();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ExecuteResponse.error_response)
+  return _msg;
+}
+
+// optional string server_execution_id = 4;
+inline bool ExecuteResponse::_internal_has_server_execution_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ExecuteResponse::has_server_execution_id() const {
+  return _internal_has_server_execution_id();
+}
+inline void ExecuteResponse::clear_server_execution_id() {
+  server_execution_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& ExecuteResponse::server_execution_id() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ExecuteResponse.server_execution_id)
+  return _internal_server_execution_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ExecuteResponse::set_server_execution_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ server_execution_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.ExecuteResponse.server_execution_id)
+}
+inline std::string* ExecuteResponse::mutable_server_execution_id() {
+  std::string* _s = _internal_mutable_server_execution_id();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ExecuteResponse.server_execution_id)
+  return _s;
+}
+inline const std::string& ExecuteResponse::_internal_server_execution_id() const {
+  return server_execution_id_.Get();
+}
+inline void ExecuteResponse::_internal_set_server_execution_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  server_execution_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ExecuteResponse::_internal_mutable_server_execution_id() {
+  _has_bits_[0] |= 0x00000001u;
+  return server_execution_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ExecuteResponse::release_server_execution_id() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.ExecuteResponse.server_execution_id)
+  if (!_internal_has_server_execution_id()) {
+    return nullptr;
   }
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.ExecuteResponse.error_message)
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = server_execution_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (server_execution_id_.IsDefault()) {
+    server_execution_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ExecuteResponse::set_allocated_server_execution_id(std::string* server_execution_id) {
+  if (server_execution_id != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  server_execution_id_.SetAllocated(server_execution_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (server_execution_id_.IsDefault()) {
+    server_execution_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.ExecuteResponse.server_execution_id)
 }
 
 inline bool ExecuteResponse::has_response() const {
@@ -749,9 +3544,2118 @@ inline void ExecuteResponse::clear_has_response() {
 inline ExecuteResponse::ResponseCase ExecuteResponse::response_case() const {
   return ExecuteResponse::ResponseCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// ErrorResponse
+
+// optional .optimization_guide.proto.ErrorState error_state = 1;
+inline bool ErrorResponse::_internal_has_error_state() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ErrorResponse::has_error_state() const {
+  return _internal_has_error_state();
+}
+inline void ErrorResponse::clear_error_state() {
+  error_state_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::optimization_guide::proto::ErrorState ErrorResponse::_internal_error_state() const {
+  return static_cast< ::optimization_guide::proto::ErrorState >(error_state_);
+}
+inline ::optimization_guide::proto::ErrorState ErrorResponse::error_state() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ErrorResponse.error_state)
+  return _internal_error_state();
+}
+inline void ErrorResponse::_internal_set_error_state(::optimization_guide::proto::ErrorState value) {
+  assert(::optimization_guide::proto::ErrorState_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  error_state_ = value;
+}
+inline void ErrorResponse::set_error_state(::optimization_guide::proto::ErrorState value) {
+  _internal_set_error_state(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.ErrorResponse.error_state)
+}
+
+// -------------------------------------------------------------------
+
+// OnDeviceModelExecutionConfig
+
+// repeated .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_configs = 1;
+inline int OnDeviceModelExecutionConfig::_internal_feature_configs_size() const {
+  return feature_configs_.size();
+}
+inline int OnDeviceModelExecutionConfig::feature_configs_size() const {
+  return _internal_feature_configs_size();
+}
+inline void OnDeviceModelExecutionConfig::clear_feature_configs() {
+  feature_configs_.Clear();
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* OnDeviceModelExecutionConfig::mutable_feature_configs(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionConfig.feature_configs)
+  return feature_configs_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >*
+OnDeviceModelExecutionConfig::mutable_feature_configs() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.OnDeviceModelExecutionConfig.feature_configs)
+  return &feature_configs_;
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig& OnDeviceModelExecutionConfig::_internal_feature_configs(int index) const {
+  return feature_configs_.Get(index);
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig& OnDeviceModelExecutionConfig::feature_configs(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionConfig.feature_configs)
+  return _internal_feature_configs(index);
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* OnDeviceModelExecutionConfig::_internal_add_feature_configs() {
+  return feature_configs_.Add();
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* OnDeviceModelExecutionConfig::add_feature_configs() {
+  ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig* _add = _internal_add_feature_configs();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.OnDeviceModelExecutionConfig.feature_configs)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >&
+OnDeviceModelExecutionConfig::feature_configs() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.OnDeviceModelExecutionConfig.feature_configs)
+  return feature_configs_;
+}
+
+// -------------------------------------------------------------------
+
+// RedactRule
+
+// optional .optimization_guide.proto.RedactBehavior behavior = 1;
+inline bool RedactRule::_internal_has_behavior() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool RedactRule::has_behavior() const {
+  return _internal_has_behavior();
+}
+inline void RedactRule::clear_behavior() {
+  behavior_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::optimization_guide::proto::RedactBehavior RedactRule::_internal_behavior() const {
+  return static_cast< ::optimization_guide::proto::RedactBehavior >(behavior_);
+}
+inline ::optimization_guide::proto::RedactBehavior RedactRule::behavior() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.behavior)
+  return _internal_behavior();
+}
+inline void RedactRule::_internal_set_behavior(::optimization_guide::proto::RedactBehavior value) {
+  assert(::optimization_guide::proto::RedactBehavior_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  behavior_ = value;
+}
+inline void RedactRule::set_behavior(::optimization_guide::proto::RedactBehavior value) {
+  _internal_set_behavior(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.behavior)
+}
+
+// optional string regex = 2;
+inline bool RedactRule::_internal_has_regex() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RedactRule::has_regex() const {
+  return _internal_has_regex();
+}
+inline void RedactRule::clear_regex() {
+  regex_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& RedactRule::regex() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.regex)
+  return _internal_regex();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RedactRule::set_regex(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ regex_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.regex)
+}
+inline std::string* RedactRule::mutable_regex() {
+  std::string* _s = _internal_mutable_regex();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.RedactRule.regex)
+  return _s;
+}
+inline const std::string& RedactRule::_internal_regex() const {
+  return regex_.Get();
+}
+inline void RedactRule::_internal_set_regex(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  regex_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RedactRule::_internal_mutable_regex() {
+  _has_bits_[0] |= 0x00000001u;
+  return regex_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RedactRule::release_regex() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.RedactRule.regex)
+  if (!_internal_has_regex()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = regex_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (regex_.IsDefault()) {
+    regex_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void RedactRule::set_allocated_regex(std::string* regex) {
+  if (regex != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  regex_.SetAllocated(regex, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (regex_.IsDefault()) {
+    regex_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.RedactRule.regex)
+}
+
+// optional string replacement_string = 3;
+inline bool RedactRule::_internal_has_replacement_string() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool RedactRule::has_replacement_string() const {
+  return _internal_has_replacement_string();
+}
+inline void RedactRule::clear_replacement_string() {
+  replacement_string_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& RedactRule::replacement_string() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.replacement_string)
+  return _internal_replacement_string();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RedactRule::set_replacement_string(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ replacement_string_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.replacement_string)
+}
+inline std::string* RedactRule::mutable_replacement_string() {
+  std::string* _s = _internal_mutable_replacement_string();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.RedactRule.replacement_string)
+  return _s;
+}
+inline const std::string& RedactRule::_internal_replacement_string() const {
+  return replacement_string_.Get();
+}
+inline void RedactRule::_internal_set_replacement_string(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  replacement_string_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RedactRule::_internal_mutable_replacement_string() {
+  _has_bits_[0] |= 0x00000002u;
+  return replacement_string_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RedactRule::release_replacement_string() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.RedactRule.replacement_string)
+  if (!_internal_has_replacement_string()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = replacement_string_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (replacement_string_.IsDefault()) {
+    replacement_string_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void RedactRule::set_allocated_replacement_string(std::string* replacement_string) {
+  if (replacement_string != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  replacement_string_.SetAllocated(replacement_string, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (replacement_string_.IsDefault()) {
+    replacement_string_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.RedactRule.replacement_string)
+}
+
+// -------------------------------------------------------------------
+
+// RedactRules
+
+// repeated .optimization_guide.proto.ProtoField fields_to_check = 1;
+inline int RedactRules::_internal_fields_to_check_size() const {
+  return fields_to_check_.size();
+}
+inline int RedactRules::fields_to_check_size() const {
+  return _internal_fields_to_check_size();
+}
+inline void RedactRules::clear_fields_to_check() {
+  fields_to_check_.Clear();
+}
+inline ::optimization_guide::proto::ProtoField* RedactRules::mutable_fields_to_check(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.RedactRules.fields_to_check)
+  return fields_to_check_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoField >*
+RedactRules::mutable_fields_to_check() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.RedactRules.fields_to_check)
+  return &fields_to_check_;
+}
+inline const ::optimization_guide::proto::ProtoField& RedactRules::_internal_fields_to_check(int index) const {
+  return fields_to_check_.Get(index);
+}
+inline const ::optimization_guide::proto::ProtoField& RedactRules::fields_to_check(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRules.fields_to_check)
+  return _internal_fields_to_check(index);
+}
+inline ::optimization_guide::proto::ProtoField* RedactRules::_internal_add_fields_to_check() {
+  return fields_to_check_.Add();
+}
+inline ::optimization_guide::proto::ProtoField* RedactRules::add_fields_to_check() {
+  ::optimization_guide::proto::ProtoField* _add = _internal_add_fields_to_check();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.RedactRules.fields_to_check)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoField >&
+RedactRules::fields_to_check() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.RedactRules.fields_to_check)
+  return fields_to_check_;
+}
+
+// repeated .optimization_guide.proto.RedactRule rules = 2;
+inline int RedactRules::_internal_rules_size() const {
+  return rules_.size();
+}
+inline int RedactRules::rules_size() const {
+  return _internal_rules_size();
+}
+inline void RedactRules::clear_rules() {
+  rules_.Clear();
+}
+inline ::optimization_guide::proto::RedactRule* RedactRules::mutable_rules(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.RedactRules.rules)
+  return rules_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::RedactRule >*
+RedactRules::mutable_rules() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.RedactRules.rules)
+  return &rules_;
+}
+inline const ::optimization_guide::proto::RedactRule& RedactRules::_internal_rules(int index) const {
+  return rules_.Get(index);
+}
+inline const ::optimization_guide::proto::RedactRule& RedactRules::rules(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRules.rules)
+  return _internal_rules(index);
+}
+inline ::optimization_guide::proto::RedactRule* RedactRules::_internal_add_rules() {
+  return rules_.Add();
+}
+inline ::optimization_guide::proto::RedactRule* RedactRules::add_rules() {
+  ::optimization_guide::proto::RedactRule* _add = _internal_add_rules();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.RedactRules.rules)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::RedactRule >&
+RedactRules::rules() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.RedactRules.rules)
+  return rules_;
+}
+
+// -------------------------------------------------------------------
+
+// OnDeviceModelExecutionFeatureConfig
+
+// optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
+inline bool OnDeviceModelExecutionFeatureConfig::_internal_has_feature() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool OnDeviceModelExecutionFeatureConfig::has_feature() const {
+  return _internal_has_feature();
+}
+inline void OnDeviceModelExecutionFeatureConfig::clear_feature() {
+  feature_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::optimization_guide::proto::ModelExecutionFeature OnDeviceModelExecutionFeatureConfig::_internal_feature() const {
+  return static_cast< ::optimization_guide::proto::ModelExecutionFeature >(feature_);
+}
+inline ::optimization_guide::proto::ModelExecutionFeature OnDeviceModelExecutionFeatureConfig::feature() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.feature)
+  return _internal_feature();
+}
+inline void OnDeviceModelExecutionFeatureConfig::_internal_set_feature(::optimization_guide::proto::ModelExecutionFeature value) {
+  assert(::optimization_guide::proto::ModelExecutionFeature_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  feature_ = value;
+}
+inline void OnDeviceModelExecutionFeatureConfig::set_feature(::optimization_guide::proto::ModelExecutionFeature value) {
+  _internal_set_feature(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.feature)
+}
+
+// optional .optimization_guide.proto.OnDeviceModelExecutionInputConfig input_config = 2;
+inline bool OnDeviceModelExecutionFeatureConfig::_internal_has_input_config() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || input_config_ != nullptr);
+  return value;
+}
+inline bool OnDeviceModelExecutionFeatureConfig::has_input_config() const {
+  return _internal_has_input_config();
+}
+inline void OnDeviceModelExecutionFeatureConfig::clear_input_config() {
+  if (input_config_ != nullptr) input_config_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig& OnDeviceModelExecutionFeatureConfig::_internal_input_config() const {
+  const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* p = input_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig&>(
+      ::optimization_guide::proto::_OnDeviceModelExecutionInputConfig_default_instance_);
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig& OnDeviceModelExecutionFeatureConfig::input_config() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.input_config)
+  return _internal_input_config();
+}
+inline void OnDeviceModelExecutionFeatureConfig::unsafe_arena_set_allocated_input_config(
+    ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* input_config) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(input_config_);
+  }
+  input_config_ = input_config;
+  if (input_config) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.input_config)
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* OnDeviceModelExecutionFeatureConfig::release_input_config() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* temp = input_config_;
+  input_config_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* OnDeviceModelExecutionFeatureConfig::unsafe_arena_release_input_config() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.input_config)
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* temp = input_config_;
+  input_config_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* OnDeviceModelExecutionFeatureConfig::_internal_mutable_input_config() {
+  _has_bits_[0] |= 0x00000001u;
+  if (input_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionInputConfig>(GetArenaForAllocation());
+    input_config_ = p;
+  }
+  return input_config_;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* OnDeviceModelExecutionFeatureConfig::mutable_input_config() {
+  ::optimization_guide::proto::OnDeviceModelExecutionInputConfig* _msg = _internal_mutable_input_config();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.input_config)
+  return _msg;
+}
+inline void OnDeviceModelExecutionFeatureConfig::set_allocated_input_config(::optimization_guide::proto::OnDeviceModelExecutionInputConfig* input_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete input_config_;
+  }
+  if (input_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(input_config);
+    if (message_arena != submessage_arena) {
+      input_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, input_config, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  input_config_ = input_config;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.input_config)
+}
+
+// optional .optimization_guide.proto.OnDeviceModelExecutionOutputConfig output_config = 3;
+inline bool OnDeviceModelExecutionFeatureConfig::_internal_has_output_config() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || output_config_ != nullptr);
+  return value;
+}
+inline bool OnDeviceModelExecutionFeatureConfig::has_output_config() const {
+  return _internal_has_output_config();
+}
+inline void OnDeviceModelExecutionFeatureConfig::clear_output_config() {
+  if (output_config_ != nullptr) output_config_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig& OnDeviceModelExecutionFeatureConfig::_internal_output_config() const {
+  const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* p = output_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig&>(
+      ::optimization_guide::proto::_OnDeviceModelExecutionOutputConfig_default_instance_);
+}
+inline const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig& OnDeviceModelExecutionFeatureConfig::output_config() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.output_config)
+  return _internal_output_config();
+}
+inline void OnDeviceModelExecutionFeatureConfig::unsafe_arena_set_allocated_output_config(
+    ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* output_config) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(output_config_);
+  }
+  output_config_ = output_config;
+  if (output_config) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.output_config)
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* OnDeviceModelExecutionFeatureConfig::release_output_config() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* temp = output_config_;
+  output_config_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* OnDeviceModelExecutionFeatureConfig::unsafe_arena_release_output_config() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.output_config)
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* temp = output_config_;
+  output_config_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* OnDeviceModelExecutionFeatureConfig::_internal_mutable_output_config() {
+  _has_bits_[0] |= 0x00000002u;
+  if (output_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::OnDeviceModelExecutionOutputConfig>(GetArenaForAllocation());
+    output_config_ = p;
+  }
+  return output_config_;
+}
+inline ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* OnDeviceModelExecutionFeatureConfig::mutable_output_config() {
+  ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* _msg = _internal_mutable_output_config();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.output_config)
+  return _msg;
+}
+inline void OnDeviceModelExecutionFeatureConfig::set_allocated_output_config(::optimization_guide::proto::OnDeviceModelExecutionOutputConfig* output_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete output_config_;
+  }
+  if (output_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(output_config);
+    if (message_arena != submessage_arena) {
+      output_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, output_config, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  output_config_ = output_config;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig.output_config)
+}
+
+// -------------------------------------------------------------------
+
+// OnDeviceModelExecutionInputConfig
+
+// optional string request_base_name = 1;
+inline bool OnDeviceModelExecutionInputConfig::_internal_has_request_base_name() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool OnDeviceModelExecutionInputConfig::has_request_base_name() const {
+  return _internal_has_request_base_name();
+}
+inline void OnDeviceModelExecutionInputConfig::clear_request_base_name() {
+  request_base_name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& OnDeviceModelExecutionInputConfig::request_base_name() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionInputConfig.request_base_name)
+  return _internal_request_base_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void OnDeviceModelExecutionInputConfig::set_request_base_name(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ request_base_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.OnDeviceModelExecutionInputConfig.request_base_name)
+}
+inline std::string* OnDeviceModelExecutionInputConfig::mutable_request_base_name() {
+  std::string* _s = _internal_mutable_request_base_name();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionInputConfig.request_base_name)
+  return _s;
+}
+inline const std::string& OnDeviceModelExecutionInputConfig::_internal_request_base_name() const {
+  return request_base_name_.Get();
+}
+inline void OnDeviceModelExecutionInputConfig::_internal_set_request_base_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  request_base_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* OnDeviceModelExecutionInputConfig::_internal_mutable_request_base_name() {
+  _has_bits_[0] |= 0x00000001u;
+  return request_base_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* OnDeviceModelExecutionInputConfig::release_request_base_name() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionInputConfig.request_base_name)
+  if (!_internal_has_request_base_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = request_base_name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (request_base_name_.IsDefault()) {
+    request_base_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void OnDeviceModelExecutionInputConfig::set_allocated_request_base_name(std::string* request_base_name) {
+  if (request_base_name != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  request_base_name_.SetAllocated(request_base_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (request_base_name_.IsDefault()) {
+    request_base_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionInputConfig.request_base_name)
+}
+
+// repeated .optimization_guide.proto.SubstitutedString input_context_substitutions = 3;
+inline int OnDeviceModelExecutionInputConfig::_internal_input_context_substitutions_size() const {
+  return input_context_substitutions_.size();
+}
+inline int OnDeviceModelExecutionInputConfig::input_context_substitutions_size() const {
+  return _internal_input_context_substitutions_size();
+}
+inline void OnDeviceModelExecutionInputConfig::clear_input_context_substitutions() {
+  input_context_substitutions_.Clear();
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::mutable_input_context_substitutions(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionInputConfig.input_context_substitutions)
+  return input_context_substitutions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >*
+OnDeviceModelExecutionInputConfig::mutable_input_context_substitutions() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.OnDeviceModelExecutionInputConfig.input_context_substitutions)
+  return &input_context_substitutions_;
+}
+inline const ::optimization_guide::proto::SubstitutedString& OnDeviceModelExecutionInputConfig::_internal_input_context_substitutions(int index) const {
+  return input_context_substitutions_.Get(index);
+}
+inline const ::optimization_guide::proto::SubstitutedString& OnDeviceModelExecutionInputConfig::input_context_substitutions(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionInputConfig.input_context_substitutions)
+  return _internal_input_context_substitutions(index);
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::_internal_add_input_context_substitutions() {
+  return input_context_substitutions_.Add();
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::add_input_context_substitutions() {
+  ::optimization_guide::proto::SubstitutedString* _add = _internal_add_input_context_substitutions();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.OnDeviceModelExecutionInputConfig.input_context_substitutions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >&
+OnDeviceModelExecutionInputConfig::input_context_substitutions() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.OnDeviceModelExecutionInputConfig.input_context_substitutions)
+  return input_context_substitutions_;
+}
+
+// repeated .optimization_guide.proto.SubstitutedString execute_substitutions = 2;
+inline int OnDeviceModelExecutionInputConfig::_internal_execute_substitutions_size() const {
+  return execute_substitutions_.size();
+}
+inline int OnDeviceModelExecutionInputConfig::execute_substitutions_size() const {
+  return _internal_execute_substitutions_size();
+}
+inline void OnDeviceModelExecutionInputConfig::clear_execute_substitutions() {
+  execute_substitutions_.Clear();
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::mutable_execute_substitutions(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionInputConfig.execute_substitutions)
+  return execute_substitutions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >*
+OnDeviceModelExecutionInputConfig::mutable_execute_substitutions() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.OnDeviceModelExecutionInputConfig.execute_substitutions)
+  return &execute_substitutions_;
+}
+inline const ::optimization_guide::proto::SubstitutedString& OnDeviceModelExecutionInputConfig::_internal_execute_substitutions(int index) const {
+  return execute_substitutions_.Get(index);
+}
+inline const ::optimization_guide::proto::SubstitutedString& OnDeviceModelExecutionInputConfig::execute_substitutions(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionInputConfig.execute_substitutions)
+  return _internal_execute_substitutions(index);
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::_internal_add_execute_substitutions() {
+  return execute_substitutions_.Add();
+}
+inline ::optimization_guide::proto::SubstitutedString* OnDeviceModelExecutionInputConfig::add_execute_substitutions() {
+  ::optimization_guide::proto::SubstitutedString* _add = _internal_add_execute_substitutions();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.OnDeviceModelExecutionInputConfig.execute_substitutions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SubstitutedString >&
+OnDeviceModelExecutionInputConfig::execute_substitutions() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.OnDeviceModelExecutionInputConfig.execute_substitutions)
+  return execute_substitutions_;
+}
+
+// -------------------------------------------------------------------
+
+// SubstitutedString
+
+// optional string string_template = 1;
+inline bool SubstitutedString::_internal_has_string_template() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SubstitutedString::has_string_template() const {
+  return _internal_has_string_template();
+}
+inline void SubstitutedString::clear_string_template() {
+  string_template_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& SubstitutedString::string_template() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.SubstitutedString.string_template)
+  return _internal_string_template();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SubstitutedString::set_string_template(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ string_template_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.SubstitutedString.string_template)
+}
+inline std::string* SubstitutedString::mutable_string_template() {
+  std::string* _s = _internal_mutable_string_template();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.SubstitutedString.string_template)
+  return _s;
+}
+inline const std::string& SubstitutedString::_internal_string_template() const {
+  return string_template_.Get();
+}
+inline void SubstitutedString::_internal_set_string_template(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  string_template_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SubstitutedString::_internal_mutable_string_template() {
+  _has_bits_[0] |= 0x00000001u;
+  return string_template_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SubstitutedString::release_string_template() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.SubstitutedString.string_template)
+  if (!_internal_has_string_template()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = string_template_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (string_template_.IsDefault()) {
+    string_template_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SubstitutedString::set_allocated_string_template(std::string* string_template) {
+  if (string_template != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  string_template_.SetAllocated(string_template, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (string_template_.IsDefault()) {
+    string_template_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.SubstitutedString.string_template)
+}
+
+// repeated .optimization_guide.proto.StringSubstitution substitutions = 6;
+inline int SubstitutedString::_internal_substitutions_size() const {
+  return substitutions_.size();
+}
+inline int SubstitutedString::substitutions_size() const {
+  return _internal_substitutions_size();
+}
+inline void SubstitutedString::clear_substitutions() {
+  substitutions_.Clear();
+}
+inline ::optimization_guide::proto::StringSubstitution* SubstitutedString::mutable_substitutions(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.SubstitutedString.substitutions)
+  return substitutions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringSubstitution >*
+SubstitutedString::mutable_substitutions() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.SubstitutedString.substitutions)
+  return &substitutions_;
+}
+inline const ::optimization_guide::proto::StringSubstitution& SubstitutedString::_internal_substitutions(int index) const {
+  return substitutions_.Get(index);
+}
+inline const ::optimization_guide::proto::StringSubstitution& SubstitutedString::substitutions(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.SubstitutedString.substitutions)
+  return _internal_substitutions(index);
+}
+inline ::optimization_guide::proto::StringSubstitution* SubstitutedString::_internal_add_substitutions() {
+  return substitutions_.Add();
+}
+inline ::optimization_guide::proto::StringSubstitution* SubstitutedString::add_substitutions() {
+  ::optimization_guide::proto::StringSubstitution* _add = _internal_add_substitutions();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.SubstitutedString.substitutions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringSubstitution >&
+SubstitutedString::substitutions() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.SubstitutedString.substitutions)
+  return substitutions_;
+}
+
+// optional .optimization_guide.proto.ConditionList conditions = 4;
+inline bool SubstitutedString::_internal_has_conditions() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || conditions_ != nullptr);
+  return value;
+}
+inline bool SubstitutedString::has_conditions() const {
+  return _internal_has_conditions();
+}
+inline void SubstitutedString::clear_conditions() {
+  if (conditions_ != nullptr) conditions_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::optimization_guide::proto::ConditionList& SubstitutedString::_internal_conditions() const {
+  const ::optimization_guide::proto::ConditionList* p = conditions_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::ConditionList&>(
+      ::optimization_guide::proto::_ConditionList_default_instance_);
+}
+inline const ::optimization_guide::proto::ConditionList& SubstitutedString::conditions() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.SubstitutedString.conditions)
+  return _internal_conditions();
+}
+inline void SubstitutedString::unsafe_arena_set_allocated_conditions(
+    ::optimization_guide::proto::ConditionList* conditions) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(conditions_);
+  }
+  conditions_ = conditions;
+  if (conditions) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.SubstitutedString.conditions)
+}
+inline ::optimization_guide::proto::ConditionList* SubstitutedString::release_conditions() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::ConditionList* temp = conditions_;
+  conditions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::ConditionList* SubstitutedString::unsafe_arena_release_conditions() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.SubstitutedString.conditions)
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::ConditionList* temp = conditions_;
+  conditions_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::ConditionList* SubstitutedString::_internal_mutable_conditions() {
+  _has_bits_[0] |= 0x00000002u;
+  if (conditions_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::ConditionList>(GetArenaForAllocation());
+    conditions_ = p;
+  }
+  return conditions_;
+}
+inline ::optimization_guide::proto::ConditionList* SubstitutedString::mutable_conditions() {
+  ::optimization_guide::proto::ConditionList* _msg = _internal_mutable_conditions();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.SubstitutedString.conditions)
+  return _msg;
+}
+inline void SubstitutedString::set_allocated_conditions(::optimization_guide::proto::ConditionList* conditions) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete conditions_;
+  }
+  if (conditions) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(conditions);
+    if (message_arena != submessage_arena) {
+      conditions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, conditions, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  conditions_ = conditions;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.SubstitutedString.conditions)
+}
+
+// optional bool should_ignore_input_context = 5;
+inline bool SubstitutedString::_internal_has_should_ignore_input_context() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool SubstitutedString::has_should_ignore_input_context() const {
+  return _internal_has_should_ignore_input_context();
+}
+inline void SubstitutedString::clear_should_ignore_input_context() {
+  should_ignore_input_context_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool SubstitutedString::_internal_should_ignore_input_context() const {
+  return should_ignore_input_context_;
+}
+inline bool SubstitutedString::should_ignore_input_context() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.SubstitutedString.should_ignore_input_context)
+  return _internal_should_ignore_input_context();
+}
+inline void SubstitutedString::_internal_set_should_ignore_input_context(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  should_ignore_input_context_ = value;
+}
+inline void SubstitutedString::set_should_ignore_input_context(bool value) {
+  _internal_set_should_ignore_input_context(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.SubstitutedString.should_ignore_input_context)
+}
+
+// -------------------------------------------------------------------
+
+// StringSubstitution
+
+// repeated .optimization_guide.proto.StringArg candidates = 1;
+inline int StringSubstitution::_internal_candidates_size() const {
+  return candidates_.size();
+}
+inline int StringSubstitution::candidates_size() const {
+  return _internal_candidates_size();
+}
+inline void StringSubstitution::clear_candidates() {
+  candidates_.Clear();
+}
+inline ::optimization_guide::proto::StringArg* StringSubstitution::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.StringSubstitution.candidates)
+  return candidates_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringArg >*
+StringSubstitution::mutable_candidates() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.StringSubstitution.candidates)
+  return &candidates_;
+}
+inline const ::optimization_guide::proto::StringArg& StringSubstitution::_internal_candidates(int index) const {
+  return candidates_.Get(index);
+}
+inline const ::optimization_guide::proto::StringArg& StringSubstitution::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.StringSubstitution.candidates)
+  return _internal_candidates(index);
+}
+inline ::optimization_guide::proto::StringArg* StringSubstitution::_internal_add_candidates() {
+  return candidates_.Add();
+}
+inline ::optimization_guide::proto::StringArg* StringSubstitution::add_candidates() {
+  ::optimization_guide::proto::StringArg* _add = _internal_add_candidates();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.StringSubstitution.candidates)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::StringArg >&
+StringSubstitution::candidates() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.StringSubstitution.candidates)
+  return candidates_;
+}
+
+// -------------------------------------------------------------------
+
+// StringArg
+
+// string raw_string = 1;
+inline bool StringArg::_internal_has_raw_string() const {
+  return arg_case() == kRawString;
+}
+inline bool StringArg::has_raw_string() const {
+  return _internal_has_raw_string();
+}
+inline void StringArg::set_has_raw_string() {
+  _oneof_case_[0] = kRawString;
+}
+inline void StringArg::clear_raw_string() {
+  if (_internal_has_raw_string()) {
+    arg_.raw_string_.Destroy();
+    clear_has_arg();
+  }
+}
+inline const std::string& StringArg::raw_string() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.StringArg.raw_string)
+  return _internal_raw_string();
+}
+template <typename ArgT0, typename... ArgT>
+inline void StringArg::set_raw_string(ArgT0&& arg0, ArgT... args) {
+  if (!_internal_has_raw_string()) {
+    clear_arg();
+    set_has_raw_string();
+    arg_.raw_string_.InitDefault();
+  }
+  arg_.raw_string_.Set( static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.StringArg.raw_string)
+}
+inline std::string* StringArg::mutable_raw_string() {
+  std::string* _s = _internal_mutable_raw_string();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.StringArg.raw_string)
+  return _s;
+}
+inline const std::string& StringArg::_internal_raw_string() const {
+  if (_internal_has_raw_string()) {
+    return arg_.raw_string_.Get();
+  }
+  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
+}
+inline void StringArg::_internal_set_raw_string(const std::string& value) {
+  if (!_internal_has_raw_string()) {
+    clear_arg();
+    set_has_raw_string();
+    arg_.raw_string_.InitDefault();
+  }
+  arg_.raw_string_.Set(value, GetArenaForAllocation());
+}
+inline std::string* StringArg::_internal_mutable_raw_string() {
+  if (!_internal_has_raw_string()) {
+    clear_arg();
+    set_has_raw_string();
+    arg_.raw_string_.InitDefault();
+  }
+  return arg_.raw_string_.Mutable(      GetArenaForAllocation());
+}
+inline std::string* StringArg::release_raw_string() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.StringArg.raw_string)
+  if (_internal_has_raw_string()) {
+    clear_has_arg();
+    return arg_.raw_string_.Release();
+  } else {
+    return nullptr;
+  }
+}
+inline void StringArg::set_allocated_raw_string(std::string* raw_string) {
+  if (has_arg()) {
+    clear_arg();
+  }
+  if (raw_string != nullptr) {
+    set_has_raw_string();
+    arg_.raw_string_.InitAllocated(raw_string, GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.StringArg.raw_string)
+}
+
+// .optimization_guide.proto.ProtoField proto_field = 2;
+inline bool StringArg::_internal_has_proto_field() const {
+  return arg_case() == kProtoField;
+}
+inline bool StringArg::has_proto_field() const {
+  return _internal_has_proto_field();
+}
+inline void StringArg::set_has_proto_field() {
+  _oneof_case_[0] = kProtoField;
+}
+inline void StringArg::clear_proto_field() {
+  if (_internal_has_proto_field()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete arg_.proto_field_;
+    }
+    clear_has_arg();
+  }
+}
+inline ::optimization_guide::proto::ProtoField* StringArg::release_proto_field() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.StringArg.proto_field)
+  if (_internal_has_proto_field()) {
+    clear_has_arg();
+    ::optimization_guide::proto::ProtoField* temp = arg_.proto_field_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    arg_.proto_field_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::optimization_guide::proto::ProtoField& StringArg::_internal_proto_field() const {
+  return _internal_has_proto_field()
+      ? *arg_.proto_field_
+      : reinterpret_cast< ::optimization_guide::proto::ProtoField&>(::optimization_guide::proto::_ProtoField_default_instance_);
+}
+inline const ::optimization_guide::proto::ProtoField& StringArg::proto_field() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.StringArg.proto_field)
+  return _internal_proto_field();
+}
+inline ::optimization_guide::proto::ProtoField* StringArg::unsafe_arena_release_proto_field() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.StringArg.proto_field)
+  if (_internal_has_proto_field()) {
+    clear_has_arg();
+    ::optimization_guide::proto::ProtoField* temp = arg_.proto_field_;
+    arg_.proto_field_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void StringArg::unsafe_arena_set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field) {
+  clear_arg();
+  if (proto_field) {
+    set_has_proto_field();
+    arg_.proto_field_ = proto_field;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.StringArg.proto_field)
+}
+inline ::optimization_guide::proto::ProtoField* StringArg::_internal_mutable_proto_field() {
+  if (!_internal_has_proto_field()) {
+    clear_arg();
+    set_has_proto_field();
+    arg_.proto_field_ = CreateMaybeMessage< ::optimization_guide::proto::ProtoField >(GetArenaForAllocation());
+  }
+  return arg_.proto_field_;
+}
+inline ::optimization_guide::proto::ProtoField* StringArg::mutable_proto_field() {
+  ::optimization_guide::proto::ProtoField* _msg = _internal_mutable_proto_field();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.StringArg.proto_field)
+  return _msg;
+}
+
+// optional .optimization_guide.proto.ConditionList conditions = 3;
+inline bool StringArg::_internal_has_conditions() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || conditions_ != nullptr);
+  return value;
+}
+inline bool StringArg::has_conditions() const {
+  return _internal_has_conditions();
+}
+inline void StringArg::clear_conditions() {
+  if (conditions_ != nullptr) conditions_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::optimization_guide::proto::ConditionList& StringArg::_internal_conditions() const {
+  const ::optimization_guide::proto::ConditionList* p = conditions_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::ConditionList&>(
+      ::optimization_guide::proto::_ConditionList_default_instance_);
+}
+inline const ::optimization_guide::proto::ConditionList& StringArg::conditions() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.StringArg.conditions)
+  return _internal_conditions();
+}
+inline void StringArg::unsafe_arena_set_allocated_conditions(
+    ::optimization_guide::proto::ConditionList* conditions) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(conditions_);
+  }
+  conditions_ = conditions;
+  if (conditions) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.StringArg.conditions)
+}
+inline ::optimization_guide::proto::ConditionList* StringArg::release_conditions() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::ConditionList* temp = conditions_;
+  conditions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::ConditionList* StringArg::unsafe_arena_release_conditions() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.StringArg.conditions)
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::ConditionList* temp = conditions_;
+  conditions_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::ConditionList* StringArg::_internal_mutable_conditions() {
+  _has_bits_[0] |= 0x00000001u;
+  if (conditions_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::ConditionList>(GetArenaForAllocation());
+    conditions_ = p;
+  }
+  return conditions_;
+}
+inline ::optimization_guide::proto::ConditionList* StringArg::mutable_conditions() {
+  ::optimization_guide::proto::ConditionList* _msg = _internal_mutable_conditions();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.StringArg.conditions)
+  return _msg;
+}
+inline void StringArg::set_allocated_conditions(::optimization_guide::proto::ConditionList* conditions) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete conditions_;
+  }
+  if (conditions) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(conditions);
+    if (message_arena != submessage_arena) {
+      conditions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, conditions, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  conditions_ = conditions;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.StringArg.conditions)
+}
+
+inline bool StringArg::has_arg() const {
+  return arg_case() != ARG_NOT_SET;
+}
+inline void StringArg::clear_has_arg() {
+  _oneof_case_[0] = ARG_NOT_SET;
+}
+inline StringArg::ArgCase StringArg::arg_case() const {
+  return StringArg::ArgCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// ProtoDescriptor
+
+// optional int32 tag_number = 1;
+inline bool ProtoDescriptor::_internal_has_tag_number() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ProtoDescriptor::has_tag_number() const {
+  return _internal_has_tag_number();
+}
+inline void ProtoDescriptor::clear_tag_number() {
+  tag_number_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t ProtoDescriptor::_internal_tag_number() const {
+  return tag_number_;
+}
+inline int32_t ProtoDescriptor::tag_number() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ProtoDescriptor.tag_number)
+  return _internal_tag_number();
+}
+inline void ProtoDescriptor::_internal_set_tag_number(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  tag_number_ = value;
+}
+inline void ProtoDescriptor::set_tag_number(int32_t value) {
+  _internal_set_tag_number(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.ProtoDescriptor.tag_number)
+}
+
+// -------------------------------------------------------------------
+
+// ProtoField
+
+// repeated .optimization_guide.proto.ProtoDescriptor proto_descriptors = 1;
+inline int ProtoField::_internal_proto_descriptors_size() const {
+  return proto_descriptors_.size();
+}
+inline int ProtoField::proto_descriptors_size() const {
+  return _internal_proto_descriptors_size();
+}
+inline void ProtoField::clear_proto_descriptors() {
+  proto_descriptors_.Clear();
+}
+inline ::optimization_guide::proto::ProtoDescriptor* ProtoField::mutable_proto_descriptors(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ProtoField.proto_descriptors)
+  return proto_descriptors_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoDescriptor >*
+ProtoField::mutable_proto_descriptors() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.ProtoField.proto_descriptors)
+  return &proto_descriptors_;
+}
+inline const ::optimization_guide::proto::ProtoDescriptor& ProtoField::_internal_proto_descriptors(int index) const {
+  return proto_descriptors_.Get(index);
+}
+inline const ::optimization_guide::proto::ProtoDescriptor& ProtoField::proto_descriptors(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ProtoField.proto_descriptors)
+  return _internal_proto_descriptors(index);
+}
+inline ::optimization_guide::proto::ProtoDescriptor* ProtoField::_internal_add_proto_descriptors() {
+  return proto_descriptors_.Add();
+}
+inline ::optimization_guide::proto::ProtoDescriptor* ProtoField::add_proto_descriptors() {
+  ::optimization_guide::proto::ProtoDescriptor* _add = _internal_add_proto_descriptors();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.ProtoField.proto_descriptors)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::ProtoDescriptor >&
+ProtoField::proto_descriptors() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.ProtoField.proto_descriptors)
+  return proto_descriptors_;
+}
+
+// -------------------------------------------------------------------
+
+// Value
+
+// int64 int64_value = 1;
+inline bool Value::_internal_has_int64_value() const {
+  return type_case() == kInt64Value;
+}
+inline bool Value::has_int64_value() const {
+  return _internal_has_int64_value();
+}
+inline void Value::set_has_int64_value() {
+  _oneof_case_[0] = kInt64Value;
+}
+inline void Value::clear_int64_value() {
+  if (_internal_has_int64_value()) {
+    type_.int64_value_ = int64_t{0};
+    clear_has_type();
+  }
+}
+inline int64_t Value::_internal_int64_value() const {
+  if (_internal_has_int64_value()) {
+    return type_.int64_value_;
+  }
+  return int64_t{0};
+}
+inline void Value::_internal_set_int64_value(int64_t value) {
+  if (!_internal_has_int64_value()) {
+    clear_type();
+    set_has_int64_value();
+  }
+  type_.int64_value_ = value;
+}
+inline int64_t Value::int64_value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Value.int64_value)
+  return _internal_int64_value();
+}
+inline void Value::set_int64_value(int64_t value) {
+  _internal_set_int64_value(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Value.int64_value)
+}
+
+// int32 int32_value = 2;
+inline bool Value::_internal_has_int32_value() const {
+  return type_case() == kInt32Value;
+}
+inline bool Value::has_int32_value() const {
+  return _internal_has_int32_value();
+}
+inline void Value::set_has_int32_value() {
+  _oneof_case_[0] = kInt32Value;
+}
+inline void Value::clear_int32_value() {
+  if (_internal_has_int32_value()) {
+    type_.int32_value_ = 0;
+    clear_has_type();
+  }
+}
+inline int32_t Value::_internal_int32_value() const {
+  if (_internal_has_int32_value()) {
+    return type_.int32_value_;
+  }
+  return 0;
+}
+inline void Value::_internal_set_int32_value(int32_t value) {
+  if (!_internal_has_int32_value()) {
+    clear_type();
+    set_has_int32_value();
+  }
+  type_.int32_value_ = value;
+}
+inline int32_t Value::int32_value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Value.int32_value)
+  return _internal_int32_value();
+}
+inline void Value::set_int32_value(int32_t value) {
+  _internal_set_int32_value(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Value.int32_value)
+}
+
+// double float_value = 3;
+inline bool Value::_internal_has_float_value() const {
+  return type_case() == kFloatValue;
+}
+inline bool Value::has_float_value() const {
+  return _internal_has_float_value();
+}
+inline void Value::set_has_float_value() {
+  _oneof_case_[0] = kFloatValue;
+}
+inline void Value::clear_float_value() {
+  if (_internal_has_float_value()) {
+    type_.float_value_ = 0;
+    clear_has_type();
+  }
+}
+inline double Value::_internal_float_value() const {
+  if (_internal_has_float_value()) {
+    return type_.float_value_;
+  }
+  return 0;
+}
+inline void Value::_internal_set_float_value(double value) {
+  if (!_internal_has_float_value()) {
+    clear_type();
+    set_has_float_value();
+  }
+  type_.float_value_ = value;
+}
+inline double Value::float_value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Value.float_value)
+  return _internal_float_value();
+}
+inline void Value::set_float_value(double value) {
+  _internal_set_float_value(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Value.float_value)
+}
+
+// string string_value = 4;
+inline bool Value::_internal_has_string_value() const {
+  return type_case() == kStringValue;
+}
+inline bool Value::has_string_value() const {
+  return _internal_has_string_value();
+}
+inline void Value::set_has_string_value() {
+  _oneof_case_[0] = kStringValue;
+}
+inline void Value::clear_string_value() {
+  if (_internal_has_string_value()) {
+    type_.string_value_.Destroy();
+    clear_has_type();
+  }
+}
+inline const std::string& Value::string_value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Value.string_value)
+  return _internal_string_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline void Value::set_string_value(ArgT0&& arg0, ArgT... args) {
+  if (!_internal_has_string_value()) {
+    clear_type();
+    set_has_string_value();
+    type_.string_value_.InitDefault();
+  }
+  type_.string_value_.Set( static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Value.string_value)
+}
+inline std::string* Value::mutable_string_value() {
+  std::string* _s = _internal_mutable_string_value();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.Value.string_value)
+  return _s;
+}
+inline const std::string& Value::_internal_string_value() const {
+  if (_internal_has_string_value()) {
+    return type_.string_value_.Get();
+  }
+  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
+}
+inline void Value::_internal_set_string_value(const std::string& value) {
+  if (!_internal_has_string_value()) {
+    clear_type();
+    set_has_string_value();
+    type_.string_value_.InitDefault();
+  }
+  type_.string_value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Value::_internal_mutable_string_value() {
+  if (!_internal_has_string_value()) {
+    clear_type();
+    set_has_string_value();
+    type_.string_value_.InitDefault();
+  }
+  return type_.string_value_.Mutable(      GetArenaForAllocation());
+}
+inline std::string* Value::release_string_value() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.Value.string_value)
+  if (_internal_has_string_value()) {
+    clear_has_type();
+    return type_.string_value_.Release();
+  } else {
+    return nullptr;
+  }
+}
+inline void Value::set_allocated_string_value(std::string* string_value) {
+  if (has_type()) {
+    clear_type();
+  }
+  if (string_value != nullptr) {
+    set_has_string_value();
+    type_.string_value_.InitAllocated(string_value, GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.Value.string_value)
+}
+
+// bool boolean_value = 5;
+inline bool Value::_internal_has_boolean_value() const {
+  return type_case() == kBooleanValue;
+}
+inline bool Value::has_boolean_value() const {
+  return _internal_has_boolean_value();
+}
+inline void Value::set_has_boolean_value() {
+  _oneof_case_[0] = kBooleanValue;
+}
+inline void Value::clear_boolean_value() {
+  if (_internal_has_boolean_value()) {
+    type_.boolean_value_ = false;
+    clear_has_type();
+  }
+}
+inline bool Value::_internal_boolean_value() const {
+  if (_internal_has_boolean_value()) {
+    return type_.boolean_value_;
+  }
+  return false;
+}
+inline void Value::_internal_set_boolean_value(bool value) {
+  if (!_internal_has_boolean_value()) {
+    clear_type();
+    set_has_boolean_value();
+  }
+  type_.boolean_value_ = value;
+}
+inline bool Value::boolean_value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Value.boolean_value)
+  return _internal_boolean_value();
+}
+inline void Value::set_boolean_value(bool value) {
+  _internal_set_boolean_value(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Value.boolean_value)
+}
+
+inline bool Value::has_type() const {
+  return type_case() != TYPE_NOT_SET;
+}
+inline void Value::clear_has_type() {
+  _oneof_case_[0] = TYPE_NOT_SET;
+}
+inline Value::TypeCase Value::type_case() const {
+  return Value::TypeCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// ConditionList
+
+// optional .optimization_guide.proto.ConditionEvaluationType condition_evaluation_type = 1;
+inline bool ConditionList::_internal_has_condition_evaluation_type() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ConditionList::has_condition_evaluation_type() const {
+  return _internal_has_condition_evaluation_type();
+}
+inline void ConditionList::clear_condition_evaluation_type() {
+  condition_evaluation_type_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::optimization_guide::proto::ConditionEvaluationType ConditionList::_internal_condition_evaluation_type() const {
+  return static_cast< ::optimization_guide::proto::ConditionEvaluationType >(condition_evaluation_type_);
+}
+inline ::optimization_guide::proto::ConditionEvaluationType ConditionList::condition_evaluation_type() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ConditionList.condition_evaluation_type)
+  return _internal_condition_evaluation_type();
+}
+inline void ConditionList::_internal_set_condition_evaluation_type(::optimization_guide::proto::ConditionEvaluationType value) {
+  assert(::optimization_guide::proto::ConditionEvaluationType_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  condition_evaluation_type_ = value;
+}
+inline void ConditionList::set_condition_evaluation_type(::optimization_guide::proto::ConditionEvaluationType value) {
+  _internal_set_condition_evaluation_type(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.ConditionList.condition_evaluation_type)
+}
+
+// repeated .optimization_guide.proto.Condition conditions = 2;
+inline int ConditionList::_internal_conditions_size() const {
+  return conditions_.size();
+}
+inline int ConditionList::conditions_size() const {
+  return _internal_conditions_size();
+}
+inline void ConditionList::clear_conditions() {
+  conditions_.Clear();
+}
+inline ::optimization_guide::proto::Condition* ConditionList::mutable_conditions(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ConditionList.conditions)
+  return conditions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::Condition >*
+ConditionList::mutable_conditions() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.ConditionList.conditions)
+  return &conditions_;
+}
+inline const ::optimization_guide::proto::Condition& ConditionList::_internal_conditions(int index) const {
+  return conditions_.Get(index);
+}
+inline const ::optimization_guide::proto::Condition& ConditionList::conditions(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.ConditionList.conditions)
+  return _internal_conditions(index);
+}
+inline ::optimization_guide::proto::Condition* ConditionList::_internal_add_conditions() {
+  return conditions_.Add();
+}
+inline ::optimization_guide::proto::Condition* ConditionList::add_conditions() {
+  ::optimization_guide::proto::Condition* _add = _internal_add_conditions();
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.ConditionList.conditions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::Condition >&
+ConditionList::conditions() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.ConditionList.conditions)
+  return conditions_;
+}
+
+// -------------------------------------------------------------------
+
+// Condition
+
+// optional .optimization_guide.proto.ProtoField proto_field = 1;
+inline bool Condition::_internal_has_proto_field() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || proto_field_ != nullptr);
+  return value;
+}
+inline bool Condition::has_proto_field() const {
+  return _internal_has_proto_field();
+}
+inline void Condition::clear_proto_field() {
+  if (proto_field_ != nullptr) proto_field_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::optimization_guide::proto::ProtoField& Condition::_internal_proto_field() const {
+  const ::optimization_guide::proto::ProtoField* p = proto_field_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::ProtoField&>(
+      ::optimization_guide::proto::_ProtoField_default_instance_);
+}
+inline const ::optimization_guide::proto::ProtoField& Condition::proto_field() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Condition.proto_field)
+  return _internal_proto_field();
+}
+inline void Condition::unsafe_arena_set_allocated_proto_field(
+    ::optimization_guide::proto::ProtoField* proto_field) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(proto_field_);
+  }
+  proto_field_ = proto_field;
+  if (proto_field) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.Condition.proto_field)
+}
+inline ::optimization_guide::proto::ProtoField* Condition::release_proto_field() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::ProtoField* temp = proto_field_;
+  proto_field_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::ProtoField* Condition::unsafe_arena_release_proto_field() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.Condition.proto_field)
+  _has_bits_[0] &= ~0x00000001u;
+  ::optimization_guide::proto::ProtoField* temp = proto_field_;
+  proto_field_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::ProtoField* Condition::_internal_mutable_proto_field() {
+  _has_bits_[0] |= 0x00000001u;
+  if (proto_field_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::ProtoField>(GetArenaForAllocation());
+    proto_field_ = p;
+  }
+  return proto_field_;
+}
+inline ::optimization_guide::proto::ProtoField* Condition::mutable_proto_field() {
+  ::optimization_guide::proto::ProtoField* _msg = _internal_mutable_proto_field();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.Condition.proto_field)
+  return _msg;
+}
+inline void Condition::set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete proto_field_;
+  }
+  if (proto_field) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(proto_field);
+    if (message_arena != submessage_arena) {
+      proto_field = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, proto_field, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  proto_field_ = proto_field;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.Condition.proto_field)
+}
+
+// optional .optimization_guide.proto.OperatorType operator_type = 2;
+inline bool Condition::_internal_has_operator_type() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Condition::has_operator_type() const {
+  return _internal_has_operator_type();
+}
+inline void Condition::clear_operator_type() {
+  operator_type_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::optimization_guide::proto::OperatorType Condition::_internal_operator_type() const {
+  return static_cast< ::optimization_guide::proto::OperatorType >(operator_type_);
+}
+inline ::optimization_guide::proto::OperatorType Condition::operator_type() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Condition.operator_type)
+  return _internal_operator_type();
+}
+inline void Condition::_internal_set_operator_type(::optimization_guide::proto::OperatorType value) {
+  assert(::optimization_guide::proto::OperatorType_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  operator_type_ = value;
+}
+inline void Condition::set_operator_type(::optimization_guide::proto::OperatorType value) {
+  _internal_set_operator_type(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.Condition.operator_type)
+}
+
+// optional .optimization_guide.proto.Value value = 3;
+inline bool Condition::_internal_has_value() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || value_ != nullptr);
+  return value;
+}
+inline bool Condition::has_value() const {
+  return _internal_has_value();
+}
+inline void Condition::clear_value() {
+  if (value_ != nullptr) value_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::optimization_guide::proto::Value& Condition::_internal_value() const {
+  const ::optimization_guide::proto::Value* p = value_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::Value&>(
+      ::optimization_guide::proto::_Value_default_instance_);
+}
+inline const ::optimization_guide::proto::Value& Condition::value() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.Condition.value)
+  return _internal_value();
+}
+inline void Condition::unsafe_arena_set_allocated_value(
+    ::optimization_guide::proto::Value* value) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(value_);
+  }
+  value_ = value;
+  if (value) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.Condition.value)
+}
+inline ::optimization_guide::proto::Value* Condition::release_value() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::Value* temp = value_;
+  value_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::Value* Condition::unsafe_arena_release_value() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.Condition.value)
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::Value* temp = value_;
+  value_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::Value* Condition::_internal_mutable_value() {
+  _has_bits_[0] |= 0x00000002u;
+  if (value_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::Value>(GetArenaForAllocation());
+    value_ = p;
+  }
+  return value_;
+}
+inline ::optimization_guide::proto::Value* Condition::mutable_value() {
+  ::optimization_guide::proto::Value* _msg = _internal_mutable_value();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.Condition.value)
+  return _msg;
+}
+inline void Condition::set_allocated_value(::optimization_guide::proto::Value* value) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete value_;
+  }
+  if (value) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(value);
+    if (message_arena != submessage_arena) {
+      value = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, value, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  value_ = value;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.Condition.value)
+}
+
+// -------------------------------------------------------------------
+
+// OnDeviceModelExecutionOutputConfig
+
+// optional string proto_type = 1;
+inline bool OnDeviceModelExecutionOutputConfig::_internal_has_proto_type() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool OnDeviceModelExecutionOutputConfig::has_proto_type() const {
+  return _internal_has_proto_type();
+}
+inline void OnDeviceModelExecutionOutputConfig::clear_proto_type() {
+  proto_type_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& OnDeviceModelExecutionOutputConfig::proto_type() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_type)
+  return _internal_proto_type();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void OnDeviceModelExecutionOutputConfig::set_proto_type(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ proto_type_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_type)
+}
+inline std::string* OnDeviceModelExecutionOutputConfig::mutable_proto_type() {
+  std::string* _s = _internal_mutable_proto_type();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_type)
+  return _s;
+}
+inline const std::string& OnDeviceModelExecutionOutputConfig::_internal_proto_type() const {
+  return proto_type_.Get();
+}
+inline void OnDeviceModelExecutionOutputConfig::_internal_set_proto_type(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  proto_type_.Set(value, GetArenaForAllocation());
+}
+inline std::string* OnDeviceModelExecutionOutputConfig::_internal_mutable_proto_type() {
+  _has_bits_[0] |= 0x00000001u;
+  return proto_type_.Mutable(GetArenaForAllocation());
+}
+inline std::string* OnDeviceModelExecutionOutputConfig::release_proto_type() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_type)
+  if (!_internal_has_proto_type()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = proto_type_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (proto_type_.IsDefault()) {
+    proto_type_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void OnDeviceModelExecutionOutputConfig::set_allocated_proto_type(std::string* proto_type) {
+  if (proto_type != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  proto_type_.SetAllocated(proto_type, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (proto_type_.IsDefault()) {
+    proto_type_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_type)
+}
+
+// optional .optimization_guide.proto.ProtoField proto_field = 2;
+inline bool OnDeviceModelExecutionOutputConfig::_internal_has_proto_field() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || proto_field_ != nullptr);
+  return value;
+}
+inline bool OnDeviceModelExecutionOutputConfig::has_proto_field() const {
+  return _internal_has_proto_field();
+}
+inline void OnDeviceModelExecutionOutputConfig::clear_proto_field() {
+  if (proto_field_ != nullptr) proto_field_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::optimization_guide::proto::ProtoField& OnDeviceModelExecutionOutputConfig::_internal_proto_field() const {
+  const ::optimization_guide::proto::ProtoField* p = proto_field_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::ProtoField&>(
+      ::optimization_guide::proto::_ProtoField_default_instance_);
+}
+inline const ::optimization_guide::proto::ProtoField& OnDeviceModelExecutionOutputConfig::proto_field() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_field)
+  return _internal_proto_field();
+}
+inline void OnDeviceModelExecutionOutputConfig::unsafe_arena_set_allocated_proto_field(
+    ::optimization_guide::proto::ProtoField* proto_field) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(proto_field_);
+  }
+  proto_field_ = proto_field;
+  if (proto_field) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_field)
+}
+inline ::optimization_guide::proto::ProtoField* OnDeviceModelExecutionOutputConfig::release_proto_field() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::ProtoField* temp = proto_field_;
+  proto_field_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::ProtoField* OnDeviceModelExecutionOutputConfig::unsafe_arena_release_proto_field() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_field)
+  _has_bits_[0] &= ~0x00000002u;
+  ::optimization_guide::proto::ProtoField* temp = proto_field_;
+  proto_field_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::ProtoField* OnDeviceModelExecutionOutputConfig::_internal_mutable_proto_field() {
+  _has_bits_[0] |= 0x00000002u;
+  if (proto_field_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::ProtoField>(GetArenaForAllocation());
+    proto_field_ = p;
+  }
+  return proto_field_;
+}
+inline ::optimization_guide::proto::ProtoField* OnDeviceModelExecutionOutputConfig::mutable_proto_field() {
+  ::optimization_guide::proto::ProtoField* _msg = _internal_mutable_proto_field();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_field)
+  return _msg;
+}
+inline void OnDeviceModelExecutionOutputConfig::set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete proto_field_;
+  }
+  if (proto_field) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(proto_field);
+    if (message_arena != submessage_arena) {
+      proto_field = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, proto_field, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  proto_field_ = proto_field;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.proto_field)
+}
+
+// optional .optimization_guide.proto.RedactRules redact_rules = 3;
+inline bool OnDeviceModelExecutionOutputConfig::_internal_has_redact_rules() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || redact_rules_ != nullptr);
+  return value;
+}
+inline bool OnDeviceModelExecutionOutputConfig::has_redact_rules() const {
+  return _internal_has_redact_rules();
+}
+inline void OnDeviceModelExecutionOutputConfig::clear_redact_rules() {
+  if (redact_rules_ != nullptr) redact_rules_->Clear();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::optimization_guide::proto::RedactRules& OnDeviceModelExecutionOutputConfig::_internal_redact_rules() const {
+  const ::optimization_guide::proto::RedactRules* p = redact_rules_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::RedactRules&>(
+      ::optimization_guide::proto::_RedactRules_default_instance_);
+}
+inline const ::optimization_guide::proto::RedactRules& OnDeviceModelExecutionOutputConfig::redact_rules() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.redact_rules)
+  return _internal_redact_rules();
+}
+inline void OnDeviceModelExecutionOutputConfig::unsafe_arena_set_allocated_redact_rules(
+    ::optimization_guide::proto::RedactRules* redact_rules) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(redact_rules_);
+  }
+  redact_rules_ = redact_rules;
+  if (redact_rules) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.redact_rules)
+}
+inline ::optimization_guide::proto::RedactRules* OnDeviceModelExecutionOutputConfig::release_redact_rules() {
+  _has_bits_[0] &= ~0x00000004u;
+  ::optimization_guide::proto::RedactRules* temp = redact_rules_;
+  redact_rules_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::RedactRules* OnDeviceModelExecutionOutputConfig::unsafe_arena_release_redact_rules() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.redact_rules)
+  _has_bits_[0] &= ~0x00000004u;
+  ::optimization_guide::proto::RedactRules* temp = redact_rules_;
+  redact_rules_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::RedactRules* OnDeviceModelExecutionOutputConfig::_internal_mutable_redact_rules() {
+  _has_bits_[0] |= 0x00000004u;
+  if (redact_rules_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::RedactRules>(GetArenaForAllocation());
+    redact_rules_ = p;
+  }
+  return redact_rules_;
+}
+inline ::optimization_guide::proto::RedactRules* OnDeviceModelExecutionOutputConfig::mutable_redact_rules() {
+  ::optimization_guide::proto::RedactRules* _msg = _internal_mutable_redact_rules();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.redact_rules)
+  return _msg;
+}
+inline void OnDeviceModelExecutionOutputConfig::set_allocated_redact_rules(::optimization_guide::proto::RedactRules* redact_rules) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete redact_rules_;
+  }
+  if (redact_rules) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(redact_rules);
+    if (message_arena != submessage_arena) {
+      redact_rules = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, redact_rules, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  redact_rules_ = redact_rules;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.OnDeviceModelExecutionOutputConfig.redact_rules)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 
@@ -762,7 +5666,11 @@ inline ExecuteResponse::ResponseCase ExecuteResponse::response_case() const {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::optimization_guide::proto::ErrorState> : ::std::true_type {};
 template <> struct is_proto_enum< ::optimization_guide::proto::ModelExecutionFeature> : ::std::true_type {};
+template <> struct is_proto_enum< ::optimization_guide::proto::RedactBehavior> : ::std::true_type {};
+template <> struct is_proto_enum< ::optimization_guide::proto::OperatorType> : ::std::true_type {};
+template <> struct is_proto_enum< ::optimization_guide::proto::ConditionEvaluationType> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

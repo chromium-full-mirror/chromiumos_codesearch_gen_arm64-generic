@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, IntersectionObserver>::value,
     "IntersectionObserver does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&IntersectionObserver::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IntersectionObserver is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.root.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->root();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -109,10 +105,10 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.rootMargin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->rootMargin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->rootMargin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -124,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.scrollMargin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->scrollMargin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->scrollMargin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -144,7 +140,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->thresholds();
 if (!ToV8Traits<IDLArray<IDLDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -160,8 +157,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.delay.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->delay();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -174,8 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.trackVisibility.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->trackVisibility();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -243,9 +242,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.disconnect");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IntersectionObserver";
 const char* const property_name = "disconnect";
@@ -278,7 +277,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -306,8 +305,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IntersectionObserver";
 const char* const property_name = "takeRecords";
@@ -343,7 +342,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(v8_receiver);
+IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

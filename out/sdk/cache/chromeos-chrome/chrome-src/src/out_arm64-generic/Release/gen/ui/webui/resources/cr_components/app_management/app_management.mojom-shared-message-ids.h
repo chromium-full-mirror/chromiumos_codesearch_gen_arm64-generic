@@ -32,6 +32,7 @@ constexpr uint32_t kPageHandler_SetRunOnOsLoginMode_Name = 13;
 constexpr uint32_t kPageHandler_SetFileHandlingEnabled_Name = 14;
 constexpr uint32_t kPageHandler_ShowDefaultAppAssociationsUi_Name = 15;
 constexpr uint32_t kPageHandler_OpenStorePage_Name = 16;
+constexpr uint32_t kPageHandler_SetAppLocale_Name = 17;
 constexpr uint32_t kPage_OnAppAdded_Name = 0;
 constexpr uint32_t kPage_OnAppChanged_Name = 1;
 constexpr uint32_t kPage_OnAppRemoved_Name = 2;

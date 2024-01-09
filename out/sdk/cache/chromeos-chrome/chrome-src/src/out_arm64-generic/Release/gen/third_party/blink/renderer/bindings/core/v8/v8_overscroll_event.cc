@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OverscrollEvent>::value,
     "OverscrollEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OverscrollEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OverscrollEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("OverscrollEvent.deltaX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(v8_receiver);
+OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("OverscrollEvent.deltaY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(v8_receiver);
+OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("OverscrollEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(v8_receiver);
+OverscrollEvent* blink_receiver = V8OverscrollEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

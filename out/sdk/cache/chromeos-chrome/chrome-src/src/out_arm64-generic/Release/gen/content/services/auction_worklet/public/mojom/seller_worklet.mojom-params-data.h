@@ -72,7 +72,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) SellerWorklet_ScoreAd_Params
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> browser_signal_render_url;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> browser_signal_ad_component_render_urls;
   uint32_t browser_signal_bidding_duration_msecs;
-  uint8_t pad13_[4];
+  uint8_t browser_signal_for_debugging_only_in_cooldown_or_lockout : 1;
+  uint8_t pad14_[3];
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> seller_timeout;
   uint64_t trace_id;
   mojo::internal::Interface_Data score_ad_client;
@@ -219,13 +220,13 @@ static_assert(
     return mojo::internal::Deserialize<::auction_worklet::mojom::ComponentAuctionModifiedBidParamsDataView>(
         pointer, output, message_);
   }
-  absl::optional<double> bid_in_seller_currency() const {
+  std::optional<double> bid_in_seller_currency() const {
 
     return data_->bid_in_seller_currency_$flag
         ? absl::make_optional(data_->bid_in_seller_currency_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> scoring_signals_data_version() const {
+  std::optional<uint32_t> scoring_signals_data_version() const {
 
     return data_->scoring_signals_data_version_$flag
         ? absl::make_optional(data_->scoring_signals_data_version_$value)
@@ -522,6 +523,9 @@ static_assert(
   }
   uint32_t browser_signal_bidding_duration_msecs() const {
     return data_->browser_signal_bidding_duration_msecs;
+  }
+  bool browser_signal_for_debugging_only_in_cooldown_or_lockout() const {
+    return data_->browser_signal_for_debugging_only_in_cooldown_or_lockout;
   }
   inline void GetSellerTimeoutDataView(
       ::mojo_base::mojom::TimeDeltaDataView* output);

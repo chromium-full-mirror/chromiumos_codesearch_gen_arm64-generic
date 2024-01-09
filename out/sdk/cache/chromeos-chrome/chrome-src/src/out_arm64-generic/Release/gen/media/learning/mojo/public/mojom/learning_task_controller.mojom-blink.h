@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/learning/mojo/public/mojom/learning_task_controller.mojom-features.h"
 #include "media/learning/mojo/public/mojom/learning_task_controller.mojom-shared.h"
 #include "media/learning/mojo/public/mojom/learning_task_controller.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -103,7 +104,7 @@ class BLINK_PLATFORM_EXPORT LearningTaskController
   virtual ~LearningTaskController() = default;
 
   
-  virtual void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const absl::optional<::media::learning::TargetValue>& default_target) = 0;
+  virtual void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const std::optional<::media::learning::TargetValue>& default_target) = 0;
 
   
   virtual void CompleteObservation(const ::base::UnguessableToken& id, const ::media::learning::ObservationCompletion& completion) = 0;
@@ -112,10 +113,10 @@ class BLINK_PLATFORM_EXPORT LearningTaskController
   virtual void CancelObservation(const ::base::UnguessableToken& id) = 0;
 
   
-  virtual void UpdateDefaultTarget(const ::base::UnguessableToken& id, const absl::optional<::media::learning::TargetValue>& default_target) = 0;
+  virtual void UpdateDefaultTarget(const ::base::UnguessableToken& id, const std::optional<::media::learning::TargetValue>& default_target) = 0;
 
 
-  using PredictDistributionCallback = base::OnceCallback<void(const absl::optional<::media::learning::TargetHistogram>&)>;
+  using PredictDistributionCallback = base::OnceCallback<void(const std::optional<::media::learning::TargetHistogram>&)>;
   
   virtual void PredictDistribution(const WTF::Vector<::media::learning::FeatureValue>& features, PredictDistributionCallback callback) = 0;
 };
@@ -129,13 +130,13 @@ class BLINK_PLATFORM_EXPORT LearningTaskControllerProxy
 
   explicit LearningTaskControllerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const absl::optional<::media::learning::TargetValue>& default_target) final;
+  void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const std::optional<::media::learning::TargetValue>& default_target) final;
   
   void CompleteObservation(const ::base::UnguessableToken& id, const ::media::learning::ObservationCompletion& completion) final;
   
   void CancelObservation(const ::base::UnguessableToken& id) final;
   
-  void UpdateDefaultTarget(const ::base::UnguessableToken& id, const absl::optional<::media::learning::TargetValue>& default_target) final;
+  void UpdateDefaultTarget(const ::base::UnguessableToken& id, const std::optional<::media::learning::TargetValue>& default_target) final;
   
   void PredictDistribution(const WTF::Vector<::media::learning::FeatureValue>& features, PredictDistributionCallback callback) final;
 

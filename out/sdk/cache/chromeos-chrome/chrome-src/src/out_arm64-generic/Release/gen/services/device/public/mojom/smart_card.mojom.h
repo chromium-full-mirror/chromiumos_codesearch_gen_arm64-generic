@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/smart_card.mojom-features.h"
 #include "services/device/public/mojom/smart_card.mojom-shared.h"
 #include "services/device/public/mojom/smart_card.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -761,17 +762,17 @@ class  SmartCardResult {
   // Construct an instance holding |success|.
   static SmartCardResultPtr
   NewSuccess(
-      SmartCardSuccess success) {
+      SmartCardSuccess value) {
     auto result = SmartCardResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -888,17 +889,17 @@ class  SmartCardStatusChangeResult {
   // Construct an instance holding |reader_states|.
   static SmartCardStatusChangeResultPtr
   NewReaderStates(
-      std::vector<SmartCardReaderStateOutPtr> reader_states) {
+      std::vector<SmartCardReaderStateOutPtr> value) {
     auto result = SmartCardStatusChangeResultPtr(absl::in_place);
-    result->set_reader_states(std::move(reader_states));
+    result->set_reader_states(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardStatusChangeResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardStatusChangeResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1018,17 +1019,17 @@ class  SmartCardListReadersResult {
   // Construct an instance holding |readers|.
   static SmartCardListReadersResultPtr
   NewReaders(
-      std::vector<std::string> readers) {
+      std::vector<std::string> value) {
     auto result = SmartCardListReadersResultPtr(absl::in_place);
-    result->set_readers(std::move(readers));
+    result->set_readers(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardListReadersResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardListReadersResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1148,17 +1149,17 @@ class  SmartCardCreateContextResult {
   // Construct an instance holding |context|.
   static SmartCardCreateContextResultPtr
   NewContext(
-      ::mojo::PendingRemote<SmartCardContext> context) {
+      ::mojo::PendingRemote<SmartCardContext> value) {
     auto result = SmartCardCreateContextResultPtr(absl::in_place);
-    result->set_context(std::move(context));
+    result->set_context(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardCreateContextResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardCreateContextResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1278,17 +1279,17 @@ class  SmartCardConnectResult {
   // Construct an instance holding |success|.
   static SmartCardConnectResultPtr
   NewSuccess(
-      SmartCardConnectSuccessPtr success) {
+      SmartCardConnectSuccessPtr value) {
     auto result = SmartCardConnectResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardConnectResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardConnectResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1408,17 +1409,17 @@ class  SmartCardDataResult {
   // Construct an instance holding |data|.
   static SmartCardDataResultPtr
   NewData(
-      std::vector<uint8_t> data) {
+      std::vector<uint8_t> value) {
     auto result = SmartCardDataResultPtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardDataResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardDataResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1538,17 +1539,17 @@ class  SmartCardStatusResult {
   // Construct an instance holding |status|.
   static SmartCardStatusResultPtr
   NewStatus(
-      SmartCardStatusPtr status) {
+      SmartCardStatusPtr value) {
     auto result = SmartCardStatusResultPtr(absl::in_place);
-    result->set_status(std::move(status));
+    result->set_status(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardStatusResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardStatusResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1668,17 +1669,17 @@ class  SmartCardTransactionResult {
   // Construct an instance holding |transaction|.
   static SmartCardTransactionResultPtr
   NewTransaction(
-      ::mojo::PendingAssociatedRemote<SmartCardTransaction> transaction) {
+      ::mojo::PendingAssociatedRemote<SmartCardTransaction> value) {
     auto result = SmartCardTransactionResultPtr(absl::in_place);
-    result->set_transaction(std::move(transaction));
+    result->set_transaction(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SmartCardTransactionResultPtr
   NewError(
-      SmartCardError error) {
+      SmartCardError value) {
     auto result = SmartCardTransactionResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

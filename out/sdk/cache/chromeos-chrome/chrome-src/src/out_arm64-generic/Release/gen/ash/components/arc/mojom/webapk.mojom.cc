@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,12 +55,12 @@ WebShareTargetInfo::WebShareTargetInfo()
       file_accepts() {}
 
 WebShareTargetInfo::WebShareTargetInfo(
-    const absl::optional<std::string>& action_in,
-    const absl::optional<std::string>& method_in,
-    const absl::optional<std::string>& enctype_in,
-    const absl::optional<std::string>& param_title_in,
-    const absl::optional<std::string>& param_text_in,
-    const absl::optional<std::string>& param_url_in,
+    const std::optional<std::string>& action_in,
+    const std::optional<std::string>& method_in,
+    const std::optional<std::string>& enctype_in,
+    const std::optional<std::string>& param_title_in,
+    const std::optional<std::string>& param_text_in,
+    const std::optional<std::string>& param_url_in,
     std::vector<std::string> file_names_in,
     std::vector<std::vector<std::string>> file_accepts_in)
     : action(std::move(action_in)),
@@ -80,7 +81,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "action"), this->action,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -89,7 +90,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "method"), this->method,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -98,7 +99,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "enctype"), this->enctype,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -107,7 +108,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "param_title"), this->param_title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -116,7 +117,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "param_text"), this->param_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -125,7 +126,7 @@ void WebShareTargetInfo::WriteIntoTrace(
     dict.AddItem(
       "param_url"), this->param_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -411,14 +412,17 @@ void WebApkInstanceProxy::InstallWebApk(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebApkInstance_InstallWebApk_Name, kFlags, 0, 0, nullptr);
@@ -483,14 +487,17 @@ void WebApkInstanceProxy::GetWebApkInfo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebApkInstance_GetWebApkInfo_Name, kFlags, 0, 0, nullptr);
@@ -611,7 +618,8 @@ void WebApkInstance_InstallWebApk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebApkInstance_InstallWebApk_Name, kFlags, 0, 0, nullptr);
@@ -730,7 +738,8 @@ void WebApkInstance_GetWebApkInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebApkInstance_GetWebApkInfo_Name, kFlags, 0, 0, nullptr);
@@ -860,12 +869,12 @@ std::move(p_package_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebApkInstanceValidationInfo[] = {
-    {&internal::WebApkInstance_InstallWebApk_Params_Data::Validate,
+    { &internal::WebApkInstance_InstallWebApk_Params_Data::Validate,
      &internal::WebApkInstance_InstallWebApk_ResponseParams_Data::Validate},
-    {&internal::WebApkInstance_GetWebApkInfo_Params_Data::Validate,
+    { &internal::WebApkInstance_GetWebApkInfo_Params_Data::Validate,
      &internal::WebApkInstance_GetWebApkInfo_ResponseParams_Data::Validate},
 };
 

@@ -26,30 +26,44 @@ class ValidationContext;
 namespace webnn::mojom {
 namespace internal {
 class Operand_Data;
+class ArgMinMax_Data;
+class BatchNormalization_Data;
 class Clamp_Data;
 class Concat_Data;
 class Size2d_Data;
 class Padding2d_Data;
 class Conv2d_Data;
 class ElementWiseBinary_Data;
+class ElementWiseUnary_Data;
+class Expand_Data;
 class ConstantPadding_Data;
 class EdgePadding_Data;
 class ReflectionPadding_Data;
 class SymmetricPadding_Data;
+class InstanceNormalization_Data;
+class Matmul_Data;
 class Pad_Data;
+class Reduce_Data;
 class Pool2d_Data;
 class StartAndSize_Data;
 class Slice_Data;
+class Elu_Data;
+class Gather_Data;
 class Gemm_Data;
+class LayerNormalization_Data;
+class LeakyRelu_Data;
+class Linear_Data;
 class Prelu_Data;
 class Relu_Data;
 class Reshape_Data;
 class Sigmoid_Data;
 class Softmax_Data;
+class Softplus_Data;
 class Split_Data;
 class Tanh_Data;
 class Transpose_Data;
 class Resample2d_Data;
+class Where_Data;
 class GraphInfo_Data;
 class PaddingMode_Data;
 class Activation_Data;
@@ -116,6 +130,8 @@ struct Operand_DataType_Data {
       case 3:
       case 4:
       case 5:
+      case 6:
+      case 7:
         return true;
     }
     return false;
@@ -157,6 +173,54 @@ struct Operand_Kind_Data {
   }
 };
 
+struct ArgMinMax_Kind_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Conv2d_Type_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct ElementWiseBinary_Kind_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -170,6 +234,80 @@ struct ElementWiseBinary_Kind_Data {
       case 4:
       case 5:
       case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct ElementWiseUnary_Kind_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Reduce_Kind_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
         return true;
     }
     return false;
@@ -326,11 +464,19 @@ class  Activation_Data {
     
     kClamp,
     
+    kElu,
+    
+    kLeakyRelu,
+    
+    kLinear,
+    
     kRelu,
     
     kSigmoid,
     
     kSoftmax,
+    
+    kSoftplus,
     
     kTanh,
   };
@@ -341,9 +487,13 @@ class  Activation_Data {
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::Clamp_Data> f_clamp;
+    mojo::internal::Pointer<internal::Elu_Data> f_elu;
+    mojo::internal::Pointer<internal::LeakyRelu_Data> f_leaky_relu;
+    mojo::internal::Pointer<internal::Linear_Data> f_linear;
     mojo::internal::Pointer<internal::Relu_Data> f_relu;
     mojo::internal::Pointer<internal::Sigmoid_Data> f_sigmoid;
     mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
+    mojo::internal::Pointer<internal::Softplus_Data> f_softplus;
     mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
     uint64_t unknown;
   };
@@ -385,6 +535,10 @@ class  Operation_Data {
   enum class Operation_Tag : uint32_t {
 
     
+    kArgMinMax,
+    
+    kBatchNormalization,
+    
     kClamp,
     
     kConcat,
@@ -393,13 +547,33 @@ class  Operation_Data {
     
     kElementWiseBinary,
     
+    kElu,
+    
+    kElementWiseUnary,
+    
+    kExpand,
+    
+    kGather,
+    
     kGemm,
+    
+    kLayerNormalization,
+    
+    kInstanceNormalization,
+    
+    kLeakyRelu,
+    
+    kLinear,
+    
+    kMatmul,
     
     kPad,
     
     kPool2d,
     
     kPrelu,
+    
+    kReduce,
     
     kRelu,
     
@@ -413,11 +587,15 @@ class  Operation_Data {
     
     kSoftmax,
     
+    kSoftplus,
+    
     kSplit,
     
     kTanh,
     
     kTranspose,
+    
+    kWhere,
   };
 
   // A note on layout:
@@ -425,23 +603,37 @@ class  Operation_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::ArgMinMax_Data> f_arg_min_max;
+    mojo::internal::Pointer<internal::BatchNormalization_Data> f_batch_normalization;
     mojo::internal::Pointer<internal::Clamp_Data> f_clamp;
     mojo::internal::Pointer<internal::Concat_Data> f_concat;
     mojo::internal::Pointer<internal::Conv2d_Data> f_conv2d;
     mojo::internal::Pointer<internal::ElementWiseBinary_Data> f_element_wise_binary;
+    mojo::internal::Pointer<internal::Elu_Data> f_elu;
+    mojo::internal::Pointer<internal::ElementWiseUnary_Data> f_element_wise_unary;
+    mojo::internal::Pointer<internal::Expand_Data> f_expand;
+    mojo::internal::Pointer<internal::Gather_Data> f_gather;
     mojo::internal::Pointer<internal::Gemm_Data> f_gemm;
+    mojo::internal::Pointer<internal::LayerNormalization_Data> f_layer_normalization;
+    mojo::internal::Pointer<internal::InstanceNormalization_Data> f_instance_normalization;
+    mojo::internal::Pointer<internal::LeakyRelu_Data> f_leaky_relu;
+    mojo::internal::Pointer<internal::Linear_Data> f_linear;
+    mojo::internal::Pointer<internal::Matmul_Data> f_matmul;
     mojo::internal::Pointer<internal::Pad_Data> f_pad;
     mojo::internal::Pointer<internal::Pool2d_Data> f_pool2d;
     mojo::internal::Pointer<internal::Prelu_Data> f_prelu;
+    mojo::internal::Pointer<internal::Reduce_Data> f_reduce;
     mojo::internal::Pointer<internal::Relu_Data> f_relu;
     mojo::internal::Pointer<internal::Resample2d_Data> f_resample2d;
     mojo::internal::Pointer<internal::Reshape_Data> f_reshape;
     mojo::internal::Pointer<internal::Sigmoid_Data> f_sigmoid;
     mojo::internal::Pointer<internal::Slice_Data> f_slice;
     mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
+    mojo::internal::Pointer<internal::Softplus_Data> f_softplus;
     mojo::internal::Pointer<internal::Split_Data> f_split;
     mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
     mojo::internal::Pointer<internal::Transpose_Data> f_transpose;
+    mojo::internal::Pointer<internal::Where_Data> f_where;
     uint64_t unknown;
   };
 
@@ -502,6 +694,120 @@ struct Operand_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Operand_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ArgMinMax_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t kind;
+  uint8_t keep_dimensions : 1;
+  uint8_t select_last_index : 1;
+  uint8_t pad2_[3];
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> axes;
+
+ private:
+  friend class mojo::internal::MessageFragment<ArgMinMax_Data>;
+
+  ArgMinMax_Data();
+  ~ArgMinMax_Data() = delete;
+};
+static_assert(sizeof(ArgMinMax_Data) == 40,
+              "Bad sizeof(ArgMinMax_Data)");
+// Used by ArgMinMax::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ArgMinMax_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ArgMinMax_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ArgMinMax_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ArgMinMax_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ArgMinMax_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BatchNormalization_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t mean_operand_id;
+  uint64_t variance_operand_id;
+  uint64_t output_operand_id;
+  uint8_t scale_operand_id_$flag : 1;
+  uint8_t bias_operand_id_$flag : 1;
+  uint8_t pad5_[3];
+  uint32_t axis;
+  uint64_t scale_operand_id_$value;
+  uint64_t bias_operand_id_$value;
+  float epsilon;
+  uint8_t pad9_[4];
+  internal::Activation_Data activation;
+
+ private:
+  friend class mojo::internal::MessageFragment<BatchNormalization_Data>;
+
+  BatchNormalization_Data();
+  ~BatchNormalization_Data() = delete;
+};
+static_assert(sizeof(BatchNormalization_Data) == 88,
+              "Bad sizeof(BatchNormalization_Data)");
+// Used by BatchNormalization::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BatchNormalization_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BatchNormalization_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BatchNormalization_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BatchNormalization_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BatchNormalization_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Clamp_Data {
  public:
   static bool Validate(const void* data,
@@ -708,16 +1014,17 @@ class  Conv2d_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t type;
+  uint32_t groups;
   uint64_t input_operand_id;
   uint64_t filter_operand_id;
   uint64_t output_operand_id;
   mojo::internal::Pointer<internal::Padding2d_Data> padding;
   mojo::internal::Pointer<internal::Size2d_Data> strides;
   mojo::internal::Pointer<internal::Size2d_Data> dilations;
-  uint32_t groups;
   int32_t input_layout;
   uint8_t bias_operand_id_$flag : 1;
-  uint8_t pad8_[7];
+  uint8_t pad9_[3];
   uint64_t bias_operand_id_$value;
   internal::Activation_Data activation;
 
@@ -813,6 +1120,106 @@ struct ElementWiseBinary_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ElementWiseBinary_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ElementWiseUnary_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t kind;
+  uint8_t pad0_[4];
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<ElementWiseUnary_Data>;
+
+  ElementWiseUnary_Data();
+  ~ElementWiseUnary_Data() = delete;
+};
+static_assert(sizeof(ElementWiseUnary_Data) == 32,
+              "Bad sizeof(ElementWiseUnary_Data)");
+// Used by ElementWiseUnary::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ElementWiseUnary_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ElementWiseUnary_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ElementWiseUnary_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ElementWiseUnary_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ElementWiseUnary_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Expand_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Expand_Data>;
+
+  Expand_Data();
+  ~Expand_Data() = delete;
+};
+static_assert(sizeof(Expand_Data) == 24,
+              "Bad sizeof(Expand_Data)");
+// Used by Expand::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Expand_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Expand_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Expand_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Expand_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Expand_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ConstantPadding_Data {
  public:
   static bool Validate(const void* data,
@@ -1003,6 +1410,113 @@ struct SymmetricPadding_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SymmetricPadding_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  InstanceNormalization_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  uint8_t scale_operand_id_$flag : 1;
+  uint8_t bias_operand_id_$flag : 1;
+  uint8_t pad3_[3];
+  float epsilon;
+  uint64_t scale_operand_id_$value;
+  uint64_t bias_operand_id_$value;
+  int32_t layout;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<InstanceNormalization_Data>;
+
+  InstanceNormalization_Data();
+  ~InstanceNormalization_Data() = delete;
+};
+static_assert(sizeof(InstanceNormalization_Data) == 56,
+              "Bad sizeof(InstanceNormalization_Data)");
+// Used by InstanceNormalization::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct InstanceNormalization_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  InstanceNormalization_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~InstanceNormalization_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<InstanceNormalization_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    InstanceNormalization_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Matmul_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t a_operand_id;
+  uint64_t b_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Matmul_Data>;
+
+  Matmul_Data();
+  ~Matmul_Data() = delete;
+};
+static_assert(sizeof(Matmul_Data) == 32,
+              "Bad sizeof(Matmul_Data)");
+// Used by Matmul::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Matmul_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Matmul_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Matmul_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Matmul_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Matmul_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Pad_Data {
  public:
   static bool Validate(const void* data,
@@ -1055,6 +1569,59 @@ struct Pad_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Pad_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Reduce_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t kind;
+  uint8_t keep_dimensions : 1;
+  uint8_t pad1_[3];
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> axes;
+
+ private:
+  friend class mojo::internal::MessageFragment<Reduce_Data>;
+
+  Reduce_Data();
+  ~Reduce_Data() = delete;
+};
+static_assert(sizeof(Reduce_Data) == 40,
+              "Bad sizeof(Reduce_Data)");
+// Used by Reduce::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Reduce_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Reduce_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Reduce_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Reduce_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Reduce_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Pool2d_Data {
  public:
   static bool Validate(const void* data,
@@ -1209,6 +1776,109 @@ struct Slice_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Slice_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Elu_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  float alpha;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Elu_Data>;
+
+  Elu_Data();
+  ~Elu_Data() = delete;
+};
+static_assert(sizeof(Elu_Data) == 32,
+              "Bad sizeof(Elu_Data)");
+// Used by Elu::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Elu_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Elu_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Elu_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Elu_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Elu_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Gather_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t indices_operand_id;
+  uint64_t output_operand_id;
+  uint32_t axis;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Gather_Data>;
+
+  Gather_Data();
+  ~Gather_Data() = delete;
+};
+static_assert(sizeof(Gather_Data) == 40,
+              "Bad sizeof(Gather_Data)");
+// Used by Gather::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Gather_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Gather_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Gather_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Gather_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Gather_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Gemm_Data {
  public:
   static bool Validate(const void* data,
@@ -1267,6 +1937,164 @@ struct Gemm_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Gemm_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LayerNormalization_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  uint8_t scale_operand_id_$flag : 1;
+  uint8_t bias_operand_id_$flag : 1;
+  uint8_t pad3_[3];
+  float epsilon;
+  uint64_t scale_operand_id_$value;
+  uint64_t bias_operand_id_$value;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> axes;
+
+ private:
+  friend class mojo::internal::MessageFragment<LayerNormalization_Data>;
+
+  LayerNormalization_Data();
+  ~LayerNormalization_Data() = delete;
+};
+static_assert(sizeof(LayerNormalization_Data) == 56,
+              "Bad sizeof(LayerNormalization_Data)");
+// Used by LayerNormalization::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LayerNormalization_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LayerNormalization_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LayerNormalization_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LayerNormalization_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LayerNormalization_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LeakyRelu_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  float alpha;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<LeakyRelu_Data>;
+
+  LeakyRelu_Data();
+  ~LeakyRelu_Data() = delete;
+};
+static_assert(sizeof(LeakyRelu_Data) == 32,
+              "Bad sizeof(LeakyRelu_Data)");
+// Used by LeakyRelu::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LeakyRelu_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LeakyRelu_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LeakyRelu_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LeakyRelu_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LeakyRelu_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Linear_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  float alpha;
+  float beta;
+
+ private:
+  friend class mojo::internal::MessageFragment<Linear_Data>;
+
+  Linear_Data();
+  ~Linear_Data() = delete;
+};
+static_assert(sizeof(Linear_Data) == 32,
+              "Bad sizeof(Linear_Data)");
+// Used by Linear::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Linear_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Linear_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Linear_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Linear_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Linear_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Prelu_Data {
  public:
   static bool Validate(const void* data,
@@ -1513,6 +2341,57 @@ struct Softmax_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Softmax_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Softplus_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  float steepness;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Softplus_Data>;
+
+  Softplus_Data();
+  ~Softplus_Data() = delete;
+};
+static_assert(sizeof(Softplus_Data) == 32,
+              "Bad sizeof(Softplus_Data)");
+// Used by Softplus::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Softplus_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Softplus_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Softplus_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Softplus_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Softplus_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Split_Data {
  public:
   static bool Validate(const void* data,
@@ -1672,7 +2551,9 @@ class  Resample2d_Data {
   uint64_t input_operand_id;
   uint64_t output_operand_id;
   int32_t mode;
-  uint8_t padfinal_[4];
+  uint8_t pad2_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<float>> scales;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> axes;
 
  private:
   friend class mojo::internal::MessageFragment<Resample2d_Data>;
@@ -1680,7 +2561,7 @@ class  Resample2d_Data {
   Resample2d_Data();
   ~Resample2d_Data() = delete;
 };
-static_assert(sizeof(Resample2d_Data) == 32,
+static_assert(sizeof(Resample2d_Data) == 48,
               "Bad sizeof(Resample2d_Data)");
 // Used by Resample2d::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1714,6 +2595,57 @@ struct Resample2d_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Resample2d_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Where_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t condition_operand_id;
+  uint64_t true_value_operand_id;
+  uint64_t false_value_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Where_Data>;
+
+  Where_Data();
+  ~Where_Data() = delete;
+};
+static_assert(sizeof(Where_Data) == 40,
+              "Bad sizeof(Where_Data)");
+// Used by Where::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Where_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Where_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Where_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Where_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Where_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  GraphInfo_Data {
  public:
   static bool Validate(const void* data,

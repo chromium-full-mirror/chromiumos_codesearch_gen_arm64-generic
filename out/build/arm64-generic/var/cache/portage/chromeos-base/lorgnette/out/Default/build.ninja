@@ -29,11 +29,8 @@ build liblorgnette_cli: phony ./liblorgnette_cli.a
 build lorgnette-adaptors: phony obj/lorgnette/lorgnette-adaptors.stamp
 build lorgnette-proxies: phony obj/lorgnette/lorgnette-proxies.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build tmpfiles.d: phony obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build lorgnette$:_lorgnette-install_config: phony obj/lorgnette/_lorgnette-install_config.stamp
 build lorgnette$:all: phony obj/lorgnette/all.stamp
 build lorgnette$:install_dbus_config: phony obj/lorgnette/install_dbus_config.stamp
@@ -46,15 +43,12 @@ build lorgnette$:lorgnette: phony ./lorgnette
 build lorgnette$:lorgnette-adaptors: phony obj/lorgnette/lorgnette-adaptors.stamp
 build lorgnette$:lorgnette-proxies: phony obj/lorgnette/lorgnette-proxies.stamp
 build lorgnette$:lorgnette_cli: phony ./lorgnette_cli
-build lorgnette$:lorgnette_cli_unittest: phony ./lorgnette_cli_unittest
-build lorgnette$:lorgnette_unittest: phony ./lorgnette_unittest
 build lorgnette/tmpfiles.d$:install_tmpfiles_config: phony obj/lorgnette/tmpfiles.d/install_tmpfiles_config.stamp
 build lorgnette/tmpfiles.d$:tmpfiles.d: phony obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp
 build lorgnette/tmpfiles.d: phony obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/lorgnette/_lorgnette-install_config.stamp $
     obj/lorgnette/all.stamp $
     obj/lorgnette/install_dbus_config.stamp $
@@ -67,8 +61,6 @@ build all: phony $
     obj/lorgnette/lorgnette-adaptors.stamp $
     obj/lorgnette/lorgnette-proxies.stamp $
     ./lorgnette_cli $
-    ./lorgnette_cli_unittest $
-    ./lorgnette_unittest $
     obj/lorgnette/tmpfiles.d/install_tmpfiles_config.stamp $
     obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp
 

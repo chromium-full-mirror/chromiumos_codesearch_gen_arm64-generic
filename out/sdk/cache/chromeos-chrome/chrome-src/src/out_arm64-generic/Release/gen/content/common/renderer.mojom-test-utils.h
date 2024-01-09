@@ -27,12 +27,12 @@ class CONTENT_EXPORT RendererInterceptorForTesting : public Renderer {
   void PurgePluginListCache(bool reload_pages) override;
   void PurgeResourceCache(PurgeResourceCacheCallback callback) override;
   void SetProcessState(RenderProcessBackgroundState background_state, RenderProcessVisibleState visible_state) override;
+  void SetBatterySaverMode(bool battery_saver_mode_enabled) override;
   void SetIsLockedToSite() override;
   void SetIsCrossOriginIsolated(bool value) override;
   void SetIsWebSecurityDisabled(bool value) override;
   void SetIsIsolatedContext(bool value) override;
-  void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::network::mojom::AttributionSupport attribution_support, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) override;
-  void SetAttributionReportingSupport(::network::mojom::AttributionSupport attribution_support) override;
+  void InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) override;
 };
 class CONTENT_EXPORT RendererAsyncWaiter {
  public:

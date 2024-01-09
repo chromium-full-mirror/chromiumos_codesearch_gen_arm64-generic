@@ -42,7 +42,6 @@ import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as IssueCounter from '../../ui/components/issue_counter/issue_counter.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
-import { IssuesPane } from '../issues/IssuesPane.js';
 import * as ElementsComponents from './components/components.js';
 import { ElementsPanel } from './ElementsPanel.js';
 import { ElementsTreeElement, InitialChildrenLimit } from './ElementsTreeElement.js';
@@ -142,7 +141,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         this.elementInternal.addEventListener('keydown', this.onKeyDown.bind(this), false);
         outlineDisclosureElement.appendChild(this.elementInternal);
         this.element = shadowContainer;
-        this.element.setAttribute('jslog', `${VisualLogging.elementsTreeOutline()}`);
+        this.element.setAttribute('jslog', `${VisualLogging.tree().context('elements-tree-outline')}`);
         this.includeRootDOMNode = !omitRootDOMNode;
         this.selectEnabled = selectEnabled;
         this.rootDOMNodeInternal = null;
@@ -202,10 +201,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
                     box: hoveredNode.boxInWindow(),
                     show: async (popover) => {
                         popover.setIgnoreLeftMargin(true);
-                        const openIssueEvent = () => {
-                            void UI.ViewManager.ViewManager.instance().showView('issues-pane');
-                            void IssuesPane.instance().reveal(issue);
-                        };
+                        const openIssueEvent = () => Common.Revealer.reveal(issue);
                         viewIssueElement.addEventListener('click', () => openIssueEvent());
                         issueKindIcon.addEventListener('click', () => openIssueEvent());
                         popover.contentElement.appendChild(element);
@@ -735,13 +731,14 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         if (treeElement.isClosingTag()) {
             // Drop onto closing tag -> insert as last child.
             parentNode = treeElement.node();
+            anchorNode = null;
         }
         else {
             const dragTargetNode = treeElement.node();
             parentNode = dragTargetNode.parentNode;
             anchorNode = dragTargetNode;
         }
-        if (!parentNode || !anchorNode) {
+        if (!parentNode) {
             return;
         }
         const wasExpanded = this.treeElementBeingDragged.expanded;
@@ -781,7 +778,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
             textNode = null;
         }
         const commentNode = node.enclosingNodeOrSelfWithClass('webkit-html-comment');
-        contextMenu.saveSection().appendItem(i18nString(UIStrings.storeAsGlobalVariable), this.saveNodeToTempVariable.bind(this, treeElement.node()));
+        contextMenu.saveSection().appendItem(i18nString(UIStrings.storeAsGlobalVariable), this.saveNodeToTempVariable.bind(this, treeElement.node()), { jslogContext: 'storeAsGlobalVariable' });
         if (textNode) {
             treeElement.populateTextContextMenu(contextMenu, textNode);
         }
@@ -792,11 +789,11 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
             treeElement.populateNodeContextMenu(contextMenu);
         }
         else if (isPseudoElement) {
-            treeElement.populateScrollIntoView(contextMenu);
+            treeElement.populatePseudoElementContextMenu(contextMenu);
         }
         contextMenu.viewSection().appendItem(i18nString(UIStrings.adornerSettings), () => {
             ElementsPanel.instance().showAdornerSettingsPane();
-        });
+        }, { jslogContext: 'showAdornerSettings' });
         contextMenu.appendApplicableItems(treeElement.node());
         void contextMenu.show();
     }

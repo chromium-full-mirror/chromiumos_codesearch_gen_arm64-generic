@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'media/mojo/mojom/audio_stream_factory.mojom', '../../../../../media/mojo/mojom/audio_stream_factory.mojom.js');
   }
+  var context$ =
+      mojo.internal.exposeNamespace('sandbox.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'sandbox/policy/mojom/context.mojom', '../../../../../sandbox/policy/mojom/context.mojom.js');
+  }
   var sandbox$ =
       mojo.internal.exposeNamespace('sandbox.mojom');
   if (mojo.config.autoLoadMojomDeps) {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,11 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-forward.h"
+#include "mojo/public/mojom/base/time.mojom.h"
 #include <string>
 #include <vector>
 
@@ -420,7 +422,7 @@ class  TelemetryDiagnosticMemoryRoutineArgument {
   TelemetryDiagnosticMemoryRoutineArgument();
 
   explicit TelemetryDiagnosticMemoryRoutineArgument(
-      absl::optional<uint32_t> max_testing_mem_kib);
+      std::optional<uint32_t> max_testing_mem_kib);
 
 
   ~TelemetryDiagnosticMemoryRoutineArgument();
@@ -498,7 +500,7 @@ class  TelemetryDiagnosticMemoryRoutineArgument {
   }
 
   
-  absl::optional<uint32_t> max_testing_mem_kib;
+  std::optional<uint32_t> max_testing_mem_kib;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -525,6 +527,143 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, TelemetryDiagnosticMemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  TelemetryDiagnosticFanRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TelemetryDiagnosticFanRoutineArgument, T>::value>;
+  using DataView = TelemetryDiagnosticFanRoutineArgumentDataView;
+  using Data_ = internal::TelemetryDiagnosticFanRoutineArgument_Data;
+
+  template <typename... Args>
+  static TelemetryDiagnosticFanRoutineArgumentPtr New(Args&&... args) {
+    return TelemetryDiagnosticFanRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TelemetryDiagnosticFanRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<TelemetryDiagnosticFanRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TelemetryDiagnosticFanRoutineArgument>::Convert(*this);
+  }
+
+
+  TelemetryDiagnosticFanRoutineArgument();
+
+
+  ~TelemetryDiagnosticFanRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TelemetryDiagnosticFanRoutineArgumentPtr>
+  TelemetryDiagnosticFanRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TelemetryDiagnosticFanRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TelemetryDiagnosticFanRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticFanRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticFanRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TelemetryDiagnosticFanRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticFanRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticFanRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -952,6 +1091,143 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  TelemetryDiagnosticVolumeButtonRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TelemetryDiagnosticVolumeButtonRoutineDetail, T>::value>;
+  using DataView = TelemetryDiagnosticVolumeButtonRoutineDetailDataView;
+  using Data_ = internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data;
+
+  template <typename... Args>
+  static TelemetryDiagnosticVolumeButtonRoutineDetailPtr New(Args&&... args) {
+    return TelemetryDiagnosticVolumeButtonRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TelemetryDiagnosticVolumeButtonRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<TelemetryDiagnosticVolumeButtonRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TelemetryDiagnosticVolumeButtonRoutineDetail>::Convert(*this);
+  }
+
+
+  TelemetryDiagnosticVolumeButtonRoutineDetail();
+
+
+  ~TelemetryDiagnosticVolumeButtonRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TelemetryDiagnosticVolumeButtonRoutineDetailPtr>
+  TelemetryDiagnosticVolumeButtonRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TelemetryDiagnosticVolumeButtonRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TelemetryDiagnosticVolumeButtonRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticVolumeButtonRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticVolumeButtonRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TelemetryDiagnosticVolumeButtonRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticVolumeButtonRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticVolumeButtonRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 
 class  TelemetryDiagnosticRoutineArgument {
@@ -973,17 +1249,33 @@ class  TelemetryDiagnosticRoutineArgument {
   // Construct an instance holding |unrecognizedArgument|.
   static TelemetryDiagnosticRoutineArgumentPtr
   NewUnrecognizedArgument(
-      bool unrecognizedArgument) {
+      bool value) {
     auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
-    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    result->set_unrecognizedArgument(std::move(value));
     return result;
   }
   // Construct an instance holding |memory|.
   static TelemetryDiagnosticRoutineArgumentPtr
   NewMemory(
-      TelemetryDiagnosticMemoryRoutineArgumentPtr memory) {
+      TelemetryDiagnosticMemoryRoutineArgumentPtr value) {
     auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
-    result->set_memory(std::move(memory));
+    result->set_memory(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |volume_button|.
+  static TelemetryDiagnosticRoutineArgumentPtr
+  NewVolumeButton(
+      TelemetryDiagnosticVolumeButtonRoutineArgumentPtr value) {
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    result->set_volume_button(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |fan|.
+  static TelemetryDiagnosticRoutineArgumentPtr
+  NewFan(
+      TelemetryDiagnosticFanRoutineArgumentPtr value) {
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    result->set_fan(std::move(value));
     return result;
   }
 
@@ -1052,6 +1344,30 @@ class  TelemetryDiagnosticRoutineArgument {
   
   void set_memory(
       TelemetryDiagnosticMemoryRoutineArgumentPtr memory);
+  
+  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
+
+  
+  TelemetryDiagnosticVolumeButtonRoutineArgumentPtr& get_volume_button() const {
+    CHECK(tag_ == Tag::kVolumeButton);
+    return *(data_.volume_button);
+  }
+
+  
+  void set_volume_button(
+      TelemetryDiagnosticVolumeButtonRoutineArgumentPtr volume_button);
+  
+  bool is_fan() const { return tag_ == Tag::kFan; }
+
+  
+  TelemetryDiagnosticFanRoutineArgumentPtr& get_fan() const {
+    CHECK(tag_ == Tag::kFan);
+    return *(data_.fan);
+  }
+
+  
+  void set_fan(
+      TelemetryDiagnosticFanRoutineArgumentPtr fan);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1072,6 +1388,8 @@ class  TelemetryDiagnosticRoutineArgument {
     ~Union_() = default;
     bool unrecognizedArgument;
     TelemetryDiagnosticMemoryRoutineArgumentPtr* memory;
+    TelemetryDiagnosticVolumeButtonRoutineArgumentPtr* volume_button;
+    TelemetryDiagnosticFanRoutineArgumentPtr* fan;
   };
 
   static bool Validate(const void* data,
@@ -1103,17 +1421,33 @@ class  TelemetryDiagnosticRoutineDetail {
   // Construct an instance holding |unrecognizedArgument|.
   static TelemetryDiagnosticRoutineDetailPtr
   NewUnrecognizedArgument(
-      bool unrecognizedArgument) {
+      bool value) {
     auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
-    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    result->set_unrecognizedArgument(std::move(value));
     return result;
   }
   // Construct an instance holding |memory|.
   static TelemetryDiagnosticRoutineDetailPtr
   NewMemory(
-      TelemetryDiagnosticMemoryRoutineDetailPtr memory) {
+      TelemetryDiagnosticMemoryRoutineDetailPtr value) {
     auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
-    result->set_memory(std::move(memory));
+    result->set_memory(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |volume_button|.
+  static TelemetryDiagnosticRoutineDetailPtr
+  NewVolumeButton(
+      TelemetryDiagnosticVolumeButtonRoutineDetailPtr value) {
+    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    result->set_volume_button(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |fan|.
+  static TelemetryDiagnosticRoutineDetailPtr
+  NewFan(
+      TelemetryDiagnosticFanRoutineDetailPtr value) {
+    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    result->set_fan(std::move(value));
     return result;
   }
 
@@ -1182,6 +1516,30 @@ class  TelemetryDiagnosticRoutineDetail {
   
   void set_memory(
       TelemetryDiagnosticMemoryRoutineDetailPtr memory);
+  
+  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
+
+  
+  TelemetryDiagnosticVolumeButtonRoutineDetailPtr& get_volume_button() const {
+    CHECK(tag_ == Tag::kVolumeButton);
+    return *(data_.volume_button);
+  }
+
+  
+  void set_volume_button(
+      TelemetryDiagnosticVolumeButtonRoutineDetailPtr volume_button);
+  
+  bool is_fan() const { return tag_ == Tag::kFan; }
+
+  
+  TelemetryDiagnosticFanRoutineDetailPtr& get_fan() const {
+    CHECK(tag_ == Tag::kFan);
+    return *(data_.fan);
+  }
+
+  
+  void set_fan(
+      TelemetryDiagnosticFanRoutineDetailPtr fan);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1202,6 +1560,8 @@ class  TelemetryDiagnosticRoutineDetail {
     ~Union_() = default;
     bool unrecognizedArgument;
     TelemetryDiagnosticMemoryRoutineDetailPtr* memory;
+    TelemetryDiagnosticVolumeButtonRoutineDetailPtr* volume_button;
+    TelemetryDiagnosticFanRoutineDetailPtr* fan;
   };
 
   static bool Validate(const void* data,
@@ -1233,41 +1593,41 @@ class  TelemetryDiagnosticRoutineStateUnion {
   // Construct an instance holding |unrecognizedArgument|.
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewUnrecognizedArgument(
-      bool unrecognizedArgument) {
+      bool value) {
     auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
-    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    result->set_unrecognizedArgument(std::move(value));
     return result;
   }
   // Construct an instance holding |initialized|.
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewInitialized(
-      TelemetryDiagnosticRoutineStateInitializedPtr initialized) {
+      TelemetryDiagnosticRoutineStateInitializedPtr value) {
     auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
-    result->set_initialized(std::move(initialized));
+    result->set_initialized(std::move(value));
     return result;
   }
   // Construct an instance holding |running|.
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewRunning(
-      TelemetryDiagnosticRoutineStateRunningPtr running) {
+      TelemetryDiagnosticRoutineStateRunningPtr value) {
     auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
-    result->set_running(std::move(running));
+    result->set_running(std::move(value));
     return result;
   }
   // Construct an instance holding |waiting|.
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewWaiting(
-      TelemetryDiagnosticRoutineStateWaitingPtr waiting) {
+      TelemetryDiagnosticRoutineStateWaitingPtr value) {
     auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
-    result->set_waiting(std::move(waiting));
+    result->set_waiting(std::move(value));
     return result;
   }
   // Construct an instance holding |finished|.
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewFinished(
-      TelemetryDiagnosticRoutineStateFinishedPtr finished) {
+      TelemetryDiagnosticRoutineStateFinishedPtr value) {
     auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
-    result->set_finished(std::move(finished));
+    result->set_finished(std::move(value));
     return result;
   }
 
@@ -1404,6 +1764,151 @@ class  TelemetryDiagnosticRoutineStateUnion {
   Tag tag_;
   Union_ data_;
 };
+
+
+
+
+
+
+class  TelemetryDiagnosticVolumeButtonRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TelemetryDiagnosticVolumeButtonRoutineArgument, T>::value>;
+  using DataView = TelemetryDiagnosticVolumeButtonRoutineArgumentDataView;
+  using Data_ = internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data;
+  using ButtonType = TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType;
+
+  template <typename... Args>
+  static TelemetryDiagnosticVolumeButtonRoutineArgumentPtr New(Args&&... args) {
+    return TelemetryDiagnosticVolumeButtonRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TelemetryDiagnosticVolumeButtonRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<TelemetryDiagnosticVolumeButtonRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TelemetryDiagnosticVolumeButtonRoutineArgument>::Convert(*this);
+  }
+
+
+  TelemetryDiagnosticVolumeButtonRoutineArgument();
+
+  TelemetryDiagnosticVolumeButtonRoutineArgument(
+      TelemetryDiagnosticVolumeButtonRoutineArgument::ButtonType type,
+      ::base::TimeDelta timeout);
+
+
+  ~TelemetryDiagnosticVolumeButtonRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TelemetryDiagnosticVolumeButtonRoutineArgumentPtr>
+  TelemetryDiagnosticVolumeButtonRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TelemetryDiagnosticVolumeButtonRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TelemetryDiagnosticVolumeButtonRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticVolumeButtonRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticVolumeButtonRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TelemetryDiagnosticVolumeButtonRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticVolumeButtonRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticVolumeButtonRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  TelemetryDiagnosticVolumeButtonRoutineArgument::ButtonType type;
+  
+  ::base::TimeDelta timeout;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1693,6 +2198,153 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, TelemetryDiagnosticMemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  TelemetryDiagnosticFanRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TelemetryDiagnosticFanRoutineDetail, T>::value>;
+  using DataView = TelemetryDiagnosticFanRoutineDetailDataView;
+  using Data_ = internal::TelemetryDiagnosticFanRoutineDetail_Data;
+
+  template <typename... Args>
+  static TelemetryDiagnosticFanRoutineDetailPtr New(Args&&... args) {
+    return TelemetryDiagnosticFanRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TelemetryDiagnosticFanRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<TelemetryDiagnosticFanRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TelemetryDiagnosticFanRoutineDetail>::Convert(*this);
+  }
+
+
+  TelemetryDiagnosticFanRoutineDetail();
+
+  TelemetryDiagnosticFanRoutineDetail(
+      std::vector<uint8_t> passed_fan_ids,
+      std::vector<uint8_t> failed_fan_ids,
+      TelemetryDiagnosticHardwarePresenceStatus fan_count_status);
+
+
+  ~TelemetryDiagnosticFanRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TelemetryDiagnosticFanRoutineDetailPtr>
+  TelemetryDiagnosticFanRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TelemetryDiagnosticFanRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TelemetryDiagnosticFanRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticFanRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticFanRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TelemetryDiagnosticFanRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext<
+            UserType, TelemetryDiagnosticFanRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TelemetryDiagnosticFanRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<uint8_t> passed_fan_ids;
+  
+  std::vector<uint8_t> failed_fan_ids;
+  
+  TelemetryDiagnosticHardwarePresenceStatus fan_count_status;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1996,6 +2648,12 @@ TelemetryDiagnosticRoutineArgumentPtr TelemetryDiagnosticRoutineArgument::Clone(
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kVolumeButton:
+      return NewVolumeButton(
+          mojo::Clone(*data_.volume_button));
+    case Tag::kFan:
+      return NewFan(
+          mojo::Clone(*data_.fan));
   }
   return nullptr;
 }
@@ -2012,6 +2670,10 @@ bool TelemetryDiagnosticRoutineArgument::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kVolumeButton:
+      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
+    case Tag::kFan:
+      return mojo::Equals(*(data_.fan), *(other.data_.fan));
   }
 
   return false;
@@ -2025,6 +2687,12 @@ TelemetryDiagnosticRoutineDetailPtr TelemetryDiagnosticRoutineDetail::Clone() co
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kVolumeButton:
+      return NewVolumeButton(
+          mojo::Clone(*data_.volume_button));
+    case Tag::kFan:
+      return NewFan(
+          mojo::Clone(*data_.fan));
   }
   return nullptr;
 }
@@ -2041,6 +2709,10 @@ bool TelemetryDiagnosticRoutineDetail::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kVolumeButton:
+      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
+    case Tag::kFan:
+      return mojo::Equals(*(data_.fan), *(other.data_.fan));
   }
 
   return false;
@@ -2109,6 +2781,50 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.max_testing_mem_kib < lhs.max_testing_mem_kib)
     return false;
+  return false;
+}
+template <typename StructPtrType>
+TelemetryDiagnosticVolumeButtonRoutineArgumentPtr TelemetryDiagnosticVolumeButtonRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(timeout)
+  );
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>*>
+bool TelemetryDiagnosticVolumeButtonRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->timeout, other_struct.timeout))
+    return false;
+  return true;
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.timeout < rhs.timeout)
+    return true;
+  if (rhs.timeout < lhs.timeout)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TelemetryDiagnosticFanRoutineArgumentPtr TelemetryDiagnosticFanRoutineArgument::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>*>
+bool TelemetryDiagnosticFanRoutineArgument::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
@@ -2229,6 +2945,57 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+TelemetryDiagnosticVolumeButtonRoutineDetailPtr TelemetryDiagnosticVolumeButtonRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>*>
+bool TelemetryDiagnosticVolumeButtonRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, TelemetryDiagnosticVolumeButtonRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+TelemetryDiagnosticFanRoutineDetailPtr TelemetryDiagnosticFanRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(passed_fan_ids),
+      mojo::Clone(failed_fan_ids),
+      mojo::Clone(fan_count_status)
+  );
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>*>
+bool TelemetryDiagnosticFanRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->passed_fan_ids, other_struct.passed_fan_ids))
+    return false;
+  if (!mojo::Equals(this->failed_fan_ids, other_struct.failed_fan_ids))
+    return false;
+  if (!mojo::Equals(this->fan_count_status, other_struct.fan_count_status))
+    return false;
+  return true;
+}
+
+template <typename T, TelemetryDiagnosticFanRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.passed_fan_ids < rhs.passed_fan_ids)
+    return true;
+  if (rhs.passed_fan_ids < lhs.passed_fan_ids)
+    return false;
+  if (lhs.failed_fan_ids < rhs.failed_fan_ids)
+    return true;
+  if (rhs.failed_fan_ids < lhs.failed_fan_ids)
+    return false;
+  if (lhs.fan_count_status < rhs.fan_count_status)
+    return true;
+  if (rhs.fan_count_status < lhs.fan_count_status)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 TelemetryDiagnosticRoutineStateFinishedPtr TelemetryDiagnosticRoutineStateFinished::Clone() const {
   return New(
       mojo::Clone(has_passed),
@@ -2305,6 +3072,36 @@ struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgument:
   }
 
   static bool Read(::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgument::DataView input, ::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::DataView,
+                                         ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr> {
+  static bool IsNull(const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::type) type(
+      const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::timeout)& timeout(
+      const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr& input) {
+    return input->timeout;
+  }
+
+  static bool Read(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::DataView input, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgument::DataView,
+                                         ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr> {
+  static bool IsNull(const ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr* output) { output->reset(); }
+
+  static bool Read(::crosapi::mojom::TelemetryDiagnosticFanRoutineArgument::DataView input, ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr* output);
 };
 
 
@@ -2389,6 +3186,41 @@ struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetail::D
 
 
 template <>
+struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetail::DataView,
+                                         ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr> {
+  static bool IsNull(const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetail::DataView input, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::DataView,
+                                         ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr> {
+  static bool IsNull(const ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::passed_fan_ids)& passed_fan_ids(
+      const ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr& input) {
+    return input->passed_fan_ids;
+  }
+
+  static const decltype(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::failed_fan_ids)& failed_fan_ids(
+      const ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr& input) {
+    return input->failed_fan_ids;
+  }
+
+  static decltype(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::fan_count_status) fan_count_status(
+      const ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr& input) {
+    return input->fan_count_status;
+  }
+
+  static bool Read(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::DataView input, ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::crosapi::mojom::TelemetryDiagnosticRoutineStateFinished::DataView,
                                          ::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedPtr> {
   static bool IsNull(const ::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedPtr& input) { return !input; }
@@ -2446,6 +3278,14 @@ struct  UnionTraits<::crosapi::mojom::TelemetryDiagnosticRoutineArgument::DataVi
     return input->get_memory();
   }
 
+  static const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr& volume_button(const ::crosapi::mojom::TelemetryDiagnosticRoutineArgumentPtr& input) {
+    return input->get_volume_button();
+  }
+
+  static const ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr& fan(const ::crosapi::mojom::TelemetryDiagnosticRoutineArgumentPtr& input) {
+    return input->get_fan();
+  }
+
   static bool Read(::crosapi::mojom::TelemetryDiagnosticRoutineArgument::DataView input, ::crosapi::mojom::TelemetryDiagnosticRoutineArgumentPtr* output);
 };
 
@@ -2466,6 +3306,14 @@ struct  UnionTraits<::crosapi::mojom::TelemetryDiagnosticRoutineDetail::DataView
 
   static const ::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetailPtr& memory(const ::crosapi::mojom::TelemetryDiagnosticRoutineDetailPtr& input) {
     return input->get_memory();
+  }
+
+  static const ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr& volume_button(const ::crosapi::mojom::TelemetryDiagnosticRoutineDetailPtr& input) {
+    return input->get_volume_button();
+  }
+
+  static const ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr& fan(const ::crosapi::mojom::TelemetryDiagnosticRoutineDetailPtr& input) {
+    return input->get_fan();
   }
 
   static bool Read(::crosapi::mojom::TelemetryDiagnosticRoutineDetail::DataView input, ::crosapi::mojom::TelemetryDiagnosticRoutineDetailPtr* output);

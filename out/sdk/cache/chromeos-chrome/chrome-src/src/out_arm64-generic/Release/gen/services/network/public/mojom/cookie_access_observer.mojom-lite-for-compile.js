@@ -13,6 +13,8 @@ goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
 goog.require('network.mojom.CookieOrLineWithAccessResult');
+goog.require('network.mojom.CookieSettingOverrides');
+goog.require('url.mojom.Origin');
 goog.require('network.mojom.SiteForCookies');
 goog.require('url.mojom.Url');
 
@@ -315,7 +317,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'siteForCookies', 16,
+        'topFrameOrigin', 16,
+        0,
+        url.mojom.OriginSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'siteForCookies', 24,
         0,
         network.mojom.SiteForCookiesSpec.$,
         null,
@@ -323,7 +333,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'cookieList', 24,
+        'cookieList', 32,
         0,
         mojo.internal.Array(network.mojom.CookieOrLineWithAccessResultSpec.$, false),
         null,
@@ -331,7 +341,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'devtoolsRequestId', 32,
+        'devtoolsRequestId', 40,
         0,
         mojo.internal.String,
         null,
@@ -346,8 +356,24 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 48,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'cookieSettingOverrides', 56,
+        0,
+        network.mojom.CookieSettingOverridesSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 48],]);
+    [[0, 72],]);
 
 
 
@@ -360,6 +386,8 @@ network.mojom.CookieAccessDetails = class {
     this.type;
     /** @export { !url.mojom.Url } */
     this.url;
+    /** @export { !url.mojom.Origin } */
+    this.topFrameOrigin;
     /** @export { !network.mojom.SiteForCookies } */
     this.siteForCookies;
     /** @export { !Array<!network.mojom.CookieOrLineWithAccessResult> } */
@@ -368,6 +396,10 @@ network.mojom.CookieAccessDetails = class {
     this.devtoolsRequestId;
     /** @export { !number } */
     this.count;
+    /** @export { !boolean } */
+    this.isAdTagged;
+    /** @export { !network.mojom.CookieSettingOverrides } */
+    this.cookieSettingOverrides;
   }
 };
 

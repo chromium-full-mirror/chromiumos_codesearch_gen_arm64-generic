@@ -28,10 +28,10 @@ class  DemuxerStreamAsyncWaiter {
 
   ~DemuxerStreamAsyncWaiter();
   void Initialize(
-      ::media::DemuxerStream::Type* out_type, ::mojo::ScopedDataPipeConsumerHandle* out_pipe, absl::optional<::media::AudioDecoderConfig>* out_audio_config, absl::optional<::media::VideoDecoderConfig>* out_video_config);
+      ::media::DemuxerStream::Type* out_type, ::mojo::ScopedDataPipeConsumerHandle* out_pipe, std::optional<::media::AudioDecoderConfig>* out_audio_config, std::optional<::media::VideoDecoderConfig>* out_video_config);
   
   void Read(
-      uint32_t count, ::media::DemuxerStream::Status* out_status, std::vector<::media::mojom::DecoderBufferPtr>* out_batch_buffers, absl::optional<::media::AudioDecoderConfig>* out_audio_config, absl::optional<::media::VideoDecoderConfig>* out_video_config);
+      uint32_t count, ::media::DemuxerStream::Status* out_status, std::vector<::media::mojom::DecoderBufferPtr>* out_batch_buffers, std::optional<::media::AudioDecoderConfig>* out_audio_config, std::optional<::media::VideoDecoderConfig>* out_video_config);
   
 
  private:

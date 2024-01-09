@@ -31,6 +31,24 @@ class  UpdateObserverAsyncWaiter {
 };
 
 
+class  DeviceRequestObserverInterceptorForTesting : public DeviceRequestObserver {
+  virtual DeviceRequestObserver* GetForwardingInterface() = 0;
+  void OnDeviceRequest(DeviceRequestPtr request) override;
+};
+class  DeviceRequestObserverAsyncWaiter {
+ public:
+  explicit DeviceRequestObserverAsyncWaiter(DeviceRequestObserver* proxy);
+
+  DeviceRequestObserverAsyncWaiter(const DeviceRequestObserverAsyncWaiter&) = delete;
+  DeviceRequestObserverAsyncWaiter& operator=(const DeviceRequestObserverAsyncWaiter&) = delete;
+
+  ~DeviceRequestObserverAsyncWaiter();
+
+ private:
+  DeviceRequestObserver* const proxy_;
+};
+
+
 class  UpdateProgressObserverInterceptorForTesting : public UpdateProgressObserver {
   virtual UpdateProgressObserver* GetForwardingInterface() = 0;
   void OnStatusChanged(InstallationProgressPtr update) override;
@@ -78,7 +96,8 @@ class  UpdateProviderAsyncWaiter {
 class  InstallControllerInterceptorForTesting : public InstallController {
   virtual InstallController* GetForwardingInterface() = 0;
   void BeginUpdate(const std::string& device_id, const ::base::FilePath& filepath) override;
-  void AddObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) override;
+  void AddDeviceRequestObserver(::mojo::PendingRemote<DeviceRequestObserver> observer) override;
+  void AddUpdateProgressObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) override;
 };
 class  InstallControllerAsyncWaiter {
  public:

@@ -180,6 +180,16 @@ NOINLINE static const char* PermissionsPolicyFeatureToStringHelper(PermissionsPo
       return "kClientHintUAFormFactor";
     case PermissionsPolicyFeature::kClientHintPrefersReducedTransparency:
       return "kClientHintPrefersReducedTransparency";
+    case PermissionsPolicyFeature::kWebPrinting:
+      return "kWebPrinting";
+    case PermissionsPolicyFeature::kUsbUnrestricted:
+      return "kUsbUnrestricted";
+    case PermissionsPolicyFeature::kCapturedSurfaceControl:
+      return "kCapturedSurfaceControl";
+    case PermissionsPolicyFeature::kSubApps:
+      return "kSubApps";
+    case PermissionsPolicyFeature::kPublicKeyCredentialsCreate:
+      return "kPublicKeyCredentialsCreate";
     default:
       return nullptr;
   }

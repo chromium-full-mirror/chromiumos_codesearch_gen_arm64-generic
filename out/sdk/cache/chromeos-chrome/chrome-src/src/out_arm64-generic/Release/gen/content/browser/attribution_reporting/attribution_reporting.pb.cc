@@ -97,7 +97,9 @@ PROTOBUF_CONSTEXPR AttributionReadOnlySourceData::AttributionReadOnlySourceData(
   , max_event_level_reports_(0)
   , trigger_data_matching_(0)
 
-  , randomized_response_rate_(0){}
+  , randomized_response_rate_(0)
+  , event_level_epsilon_(0)
+  , debug_cookie_set_(false){}
 struct AttributionReadOnlySourceDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AttributionReadOnlySourceDataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -109,8 +111,8 @@ struct AttributionReadOnlySourceDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttributionReadOnlySourceDataDefaultTypeInternal _AttributionReadOnlySourceData_default_instance_;
 PROTOBUF_CONSTEXPR AttributionEventLevelMetadata::AttributionEventLevelMetadata(
     ::_pbi::ConstantInitialized)
-  : trigger_data_(uint64_t{0u})
-  , priority_(int64_t{0}){}
+  : priority_(int64_t{0})
+  , trigger_data_(0u){}
 struct AttributionEventLevelMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AttributionEventLevelMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -124,6 +126,7 @@ PROTOBUF_CONSTEXPR AttributionCommonAggregatableMetadata::AttributionCommonAggre
     ::_pbi::ConstantInitialized)
   : verification_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , coordinator_origin_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , trigger_context_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , source_registration_time_config_(0)
 {}
 struct AttributionCommonAggregatableMetadataDefaultTypeInternal {
@@ -1116,6 +1119,12 @@ class AttributionReadOnlySourceData::_Internal {
   static void set_has_trigger_data_matching(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_debug_cookie_set(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_event_level_epsilon(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 AttributionReadOnlySourceData::AttributionReadOnlySourceData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1131,16 +1140,16 @@ AttributionReadOnlySourceData::AttributionReadOnlySourceData(const AttributionRe
       event_level_report_window_end_times_(from.event_level_report_window_end_times_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&event_level_report_window_start_time_, &from.event_level_report_window_start_time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&randomized_response_rate_) -
-    reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(randomized_response_rate_));
+    static_cast<size_t>(reinterpret_cast<char*>(&debug_cookie_set_) -
+    reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(debug_cookie_set_));
   // @@protoc_insertion_point(copy_constructor:content.proto.AttributionReadOnlySourceData)
 }
 
 inline void AttributionReadOnlySourceData::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&event_level_report_window_start_time_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&randomized_response_rate_) -
-    reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(randomized_response_rate_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&debug_cookie_set_) -
+    reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(debug_cookie_set_));
 }
 
 AttributionReadOnlySourceData::~AttributionReadOnlySourceData() {
@@ -1168,10 +1177,10 @@ void AttributionReadOnlySourceData::Clear() {
 
   event_level_report_window_end_times_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000003fu) {
     ::memset(&event_level_report_window_start_time_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&randomized_response_rate_) -
-        reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(randomized_response_rate_));
+        reinterpret_cast<char*>(&debug_cookie_set_) -
+        reinterpret_cast<char*>(&event_level_report_window_start_time_)) + sizeof(debug_cookie_set_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1240,6 +1249,24 @@ const char* AttributionReadOnlySourceData::_InternalParse(const char* ptr, ::_pb
         } else
           goto handle_unusual;
         continue;
+      // optional bool debug_cookie_set = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_debug_cookie_set(&has_bits);
+          debug_cookie_set_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double event_level_epsilon = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 57)) {
+          _Internal::set_has_event_level_epsilon(&has_bits);
+          event_level_epsilon_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1302,6 +1329,18 @@ uint8_t* AttributionReadOnlySourceData::_InternalSerialize(
       5, this->_internal_trigger_data_matching(), target);
   }
 
+  // optional bool debug_cookie_set = 6;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_debug_cookie_set(), target);
+  }
+
+  // optional double event_level_epsilon = 7;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(7, this->_internal_event_level_epsilon(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1328,7 +1367,7 @@ size_t AttributionReadOnlySourceData::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional int64 event_level_report_window_start_time = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_event_level_report_window_start_time());
@@ -1348,6 +1387,16 @@ size_t AttributionReadOnlySourceData::ByteSizeLong() const {
     // optional double randomized_response_rate = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 8;
+    }
+
+    // optional double event_level_epsilon = 7;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 8;
+    }
+
+    // optional bool debug_cookie_set = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -1373,7 +1422,7 @@ void AttributionReadOnlySourceData::MergeFrom(const AttributionReadOnlySourceDat
 
   event_level_report_window_end_times_.MergeFrom(from.event_level_report_window_end_times_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       event_level_report_window_start_time_ = from.event_level_report_window_start_time_;
     }
@@ -1385,6 +1434,12 @@ void AttributionReadOnlySourceData::MergeFrom(const AttributionReadOnlySourceDat
     }
     if (cached_has_bits & 0x00000008u) {
       randomized_response_rate_ = from.randomized_response_rate_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      event_level_epsilon_ = from.event_level_epsilon_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      debug_cookie_set_ = from.debug_cookie_set_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1408,8 +1463,8 @@ void AttributionReadOnlySourceData::InternalSwap(AttributionReadOnlySourceData* 
   swap(_has_bits_[0], other->_has_bits_[0]);
   event_level_report_window_end_times_.InternalSwap(&other->event_level_report_window_end_times_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AttributionReadOnlySourceData, randomized_response_rate_)
-      + sizeof(AttributionReadOnlySourceData::randomized_response_rate_)
+      PROTOBUF_FIELD_OFFSET(AttributionReadOnlySourceData, debug_cookie_set_)
+      + sizeof(AttributionReadOnlySourceData::debug_cookie_set_)
       - PROTOBUF_FIELD_OFFSET(AttributionReadOnlySourceData, event_level_report_window_start_time_)>(
           reinterpret_cast<char*>(&event_level_report_window_start_time_),
           reinterpret_cast<char*>(&other->event_level_report_window_start_time_));
@@ -1426,10 +1481,10 @@ class AttributionEventLevelMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<AttributionEventLevelMetadata>()._has_bits_);
   static void set_has_trigger_data(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 2u;
   }
   static void set_has_priority(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 1u;
   }
 };
 
@@ -1443,17 +1498,17 @@ AttributionEventLevelMetadata::AttributionEventLevelMetadata(const AttributionEv
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&trigger_data_, &from.trigger_data_,
-    static_cast<size_t>(reinterpret_cast<char*>(&priority_) -
-    reinterpret_cast<char*>(&trigger_data_)) + sizeof(priority_));
+  ::memcpy(&priority_, &from.priority_,
+    static_cast<size_t>(reinterpret_cast<char*>(&trigger_data_) -
+    reinterpret_cast<char*>(&priority_)) + sizeof(trigger_data_));
   // @@protoc_insertion_point(copy_constructor:content.proto.AttributionEventLevelMetadata)
 }
 
 inline void AttributionEventLevelMetadata::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&trigger_data_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&priority_) -
-    reinterpret_cast<char*>(&trigger_data_)) + sizeof(priority_));
+    reinterpret_cast<char*>(&priority_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&trigger_data_) -
+    reinterpret_cast<char*>(&priority_)) + sizeof(trigger_data_));
 }
 
 AttributionEventLevelMetadata::~AttributionEventLevelMetadata() {
@@ -1481,9 +1536,9 @@ void AttributionEventLevelMetadata::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&trigger_data_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&priority_) -
-        reinterpret_cast<char*>(&trigger_data_)) + sizeof(priority_));
+    ::memset(&priority_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&trigger_data_) -
+        reinterpret_cast<char*>(&priority_)) + sizeof(trigger_data_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1496,11 +1551,11 @@ const char* AttributionEventLevelMetadata::_InternalParse(const char* ptr, ::_pb
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint64 trigger_data = 1;
+      // optional uint32 trigger_data = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_trigger_data(&has_bits);
-          trigger_data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          trigger_data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1545,14 +1600,14 @@ uint8_t* AttributionEventLevelMetadata::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional uint64 trigger_data = 1;
-  if (cached_has_bits & 0x00000001u) {
+  // optional uint32 trigger_data = 1;
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_trigger_data(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_trigger_data(), target);
   }
 
   // optional int64 priority = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_priority(), target);
   }
@@ -1575,14 +1630,14 @@ size_t AttributionEventLevelMetadata::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional uint64 trigger_data = 1;
+    // optional int64 priority = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_trigger_data());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_priority());
     }
 
-    // optional int64 priority = 2;
+    // optional uint32 trigger_data = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_priority());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_trigger_data());
     }
 
   }
@@ -1609,10 +1664,10 @@ void AttributionEventLevelMetadata::MergeFrom(const AttributionEventLevelMetadat
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      trigger_data_ = from.trigger_data_;
+      priority_ = from.priority_;
     }
     if (cached_has_bits & 0x00000002u) {
-      priority_ = from.priority_;
+      trigger_data_ = from.trigger_data_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1635,11 +1690,11 @@ void AttributionEventLevelMetadata::InternalSwap(AttributionEventLevelMetadata* 
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AttributionEventLevelMetadata, priority_)
-      + sizeof(AttributionEventLevelMetadata::priority_)
-      - PROTOBUF_FIELD_OFFSET(AttributionEventLevelMetadata, trigger_data_)>(
-          reinterpret_cast<char*>(&trigger_data_),
-          reinterpret_cast<char*>(&other->trigger_data_));
+      PROTOBUF_FIELD_OFFSET(AttributionEventLevelMetadata, trigger_data_)
+      + sizeof(AttributionEventLevelMetadata::trigger_data_)
+      - PROTOBUF_FIELD_OFFSET(AttributionEventLevelMetadata, priority_)>(
+          reinterpret_cast<char*>(&priority_),
+          reinterpret_cast<char*>(&other->priority_));
 }
 
 std::string AttributionEventLevelMetadata::GetTypeName() const {
@@ -1656,10 +1711,13 @@ class AttributionCommonAggregatableMetadata::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_source_registration_time_config(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_coordinator_origin(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_trigger_context_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -1689,6 +1747,14 @@ AttributionCommonAggregatableMetadata::AttributionCommonAggregatableMetadata(con
     coordinator_origin_.Set(from._internal_coordinator_origin(), 
       GetArenaForAllocation());
   }
+  trigger_context_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    trigger_context_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_trigger_context_id()) {
+    trigger_context_id_.Set(from._internal_trigger_context_id(), 
+      GetArenaForAllocation());
+  }
   source_registration_time_config_ = from.source_registration_time_config_;
   // @@protoc_insertion_point(copy_constructor:content.proto.AttributionCommonAggregatableMetadata)
 }
@@ -1701,6 +1767,10 @@ verification_token_.InitDefault();
 coordinator_origin_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   coordinator_origin_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+trigger_context_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  trigger_context_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 source_registration_time_config_ = 0;
 }
@@ -1718,6 +1788,7 @@ inline void AttributionCommonAggregatableMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   verification_token_.Destroy();
   coordinator_origin_.Destroy();
+  trigger_context_id_.Destroy();
 }
 
 void AttributionCommonAggregatableMetadata::SetCachedSize(int size) const {
@@ -1731,12 +1802,15 @@ void AttributionCommonAggregatableMetadata::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       verification_token_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       coordinator_origin_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      trigger_context_id_.ClearNonDefaultToEmpty();
     }
   }
   source_registration_time_config_ = 0;
@@ -1782,6 +1856,15 @@ const char* AttributionCommonAggregatableMetadata::_InternalParse(const char* pt
         } else
           goto handle_unusual;
         continue;
+      // optional string trigger_context_id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_trigger_context_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1820,7 +1903,7 @@ uint8_t* AttributionCommonAggregatableMetadata::_InternalSerialize(
   }
 
   // optional .content.proto.AttributionCommonAggregatableMetadata.SourceRegistrationTimeConfig source_registration_time_config = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_source_registration_time_config(), target);
@@ -1830,6 +1913,12 @@ uint8_t* AttributionCommonAggregatableMetadata::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_coordinator_origin(), target);
+  }
+
+  // optional string trigger_context_id = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_trigger_context_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1849,7 +1938,7 @@ size_t AttributionCommonAggregatableMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string verification_token = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1864,8 +1953,15 @@ size_t AttributionCommonAggregatableMetadata::ByteSizeLong() const {
           this->_internal_coordinator_origin());
     }
 
-    // optional .content.proto.AttributionCommonAggregatableMetadata.SourceRegistrationTimeConfig source_registration_time_config = 3;
+    // optional string trigger_context_id = 5;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_trigger_context_id());
+    }
+
+    // optional .content.proto.AttributionCommonAggregatableMetadata.SourceRegistrationTimeConfig source_registration_time_config = 3;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_source_registration_time_config());
     }
@@ -1892,7 +1988,7 @@ void AttributionCommonAggregatableMetadata::MergeFrom(const AttributionCommonAgg
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_verification_token(from._internal_verification_token());
     }
@@ -1900,6 +1996,9 @@ void AttributionCommonAggregatableMetadata::MergeFrom(const AttributionCommonAgg
       _internal_set_coordinator_origin(from._internal_coordinator_origin());
     }
     if (cached_has_bits & 0x00000004u) {
+      _internal_set_trigger_context_id(from._internal_trigger_context_id());
+    }
+    if (cached_has_bits & 0x00000008u) {
       source_registration_time_config_ = from.source_registration_time_config_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1931,6 +2030,10 @@ void AttributionCommonAggregatableMetadata::InternalSwap(AttributionCommonAggreg
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &coordinator_origin_, lhs_arena,
       &other->coordinator_origin_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &trigger_context_id_, lhs_arena,
+      &other->trigger_context_id_, rhs_arena
   );
   swap(source_registration_time_config_, other->source_registration_time_config_);
 }

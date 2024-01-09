@@ -24,7 +24,7 @@ class PLATFORM_EXPORT MediaDevicesDispatcherHostInterceptorForTesting : public M
   void AddMediaDevicesListener(bool subscribe_audio_input, bool subscribe_video_input, bool subscribe_audio_output, ::mojo::PendingRemote<MediaDevicesListener> listener) override;
   void SetCaptureHandleConfig(::blink::mojom::blink::CaptureHandleConfigPtr config) override;
   void CloseFocusWindowOfOpportunity(const WTF::String& label) override;
-  void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) override;
+  void ProduceSubCaptureTargetId(::media::mojom::blink::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) override;
 };
 class PLATFORM_EXPORT MediaDevicesDispatcherHostAsyncWaiter {
  public:
@@ -50,8 +50,8 @@ class PLATFORM_EXPORT MediaDevicesDispatcherHostAsyncWaiter {
       WTF::Vector<AudioInputDeviceCapabilitiesPtr>* out_audio_input_device_capabilities);
   WTF::Vector<AudioInputDeviceCapabilitiesPtr> GetAudioInputCapabilities();
   void ProduceSubCaptureTargetId(
-      SubCaptureTargetType type, WTF::String* out_id);
-  WTF::String ProduceSubCaptureTargetId(SubCaptureTargetType type);
+      ::media::mojom::blink::SubCaptureTargetType type, WTF::String* out_id);
+  WTF::String ProduceSubCaptureTargetId(::media::mojom::blink::SubCaptureTargetType type);
 
  private:
   MediaDevicesDispatcherHost* const proxy_;

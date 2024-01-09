@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/guest_view.mojom-features.h"
 #include "extensions/common/mojom/guest_view.mojom-shared.h"
 #include "extensions/common/mojom/guest_view.mojom-forward.h"
 #include "extensions/common/api/mime_handler.mojom-forward.h"
@@ -91,16 +92,16 @@ class GuestView
   virtual ~GuestView() = default;
 
   
-  virtual void ReadyToCreateMimeHandlerView(int32_t routing_id, bool success) = 0;
+  virtual void ReadyToCreateMimeHandlerView(bool success) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool CanExecuteContentScript(int32_t routing_id, const std::string& script_id, bool* out_allowed);
+  virtual bool CanExecuteContentScript(const std::string& script_id, bool* out_allowed);
 
   using CanExecuteContentScriptCallback = base::OnceCallback<void(bool)>;
   
-  virtual void CanExecuteContentScript(int32_t routing_id, const std::string& script_id, CanExecuteContentScriptCallback callback) = 0;
+  virtual void CanExecuteContentScript(const std::string& script_id, CanExecuteContentScriptCallback callback) = 0;
 };
 
 class MimeHandlerViewContainerManagerProxy;
@@ -181,11 +182,11 @@ class  GuestViewProxy
 
   explicit GuestViewProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ReadyToCreateMimeHandlerView(int32_t routing_id, bool success) final;
+  void ReadyToCreateMimeHandlerView(bool success) final;
   
-  bool CanExecuteContentScript(int32_t routing_id, const std::string& script_id, bool* out_allowed) final;
+  bool CanExecuteContentScript(const std::string& script_id, bool* out_allowed) final;
   
-  void CanExecuteContentScript(int32_t routing_id, const std::string& script_id, CanExecuteContentScriptCallback callback) final;
+  void CanExecuteContentScript(const std::string& script_id, CanExecuteContentScriptCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

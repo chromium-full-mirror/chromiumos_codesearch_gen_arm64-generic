@@ -8,6 +8,7 @@
 #define COMPONENTS_SERVICES_STORAGE_PRIVILEGED_MOJOM_INDEXED_DB_CLIENT_STATE_CHECKER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

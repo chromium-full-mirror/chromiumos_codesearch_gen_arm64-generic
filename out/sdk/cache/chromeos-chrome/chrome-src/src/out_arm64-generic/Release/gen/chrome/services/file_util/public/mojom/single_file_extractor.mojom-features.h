@@ -8,6 +8,7 @@
 #define CHROME_SERVICES_FILE_UTIL_PUBLIC_MOJOM_SINGLE_FILE_EXTRACTOR_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

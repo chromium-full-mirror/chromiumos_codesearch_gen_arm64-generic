@@ -16,20 +16,28 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_activation.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_arg_min_max_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_batch_normalization_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_clamp_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_context.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_conv_2d_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_conv_transpose_2d_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_elu_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_gather_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_gemm_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_graph.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_instance_normalization_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_layer_normalization_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_leaky_relu_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_linear_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_data_type.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_descriptor.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_pad_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_pool_2d_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_reduce_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_resample_2d_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_softplus_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_split_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_transpose_options.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -90,11 +98,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MLGraphBuilder>::value,
     "MLGraphBuilder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MLGraphBuilder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MLGraphBuilder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -154,7 +157,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -187,7 +190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -197,6 +200,90 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->add(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ArgMaxOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_argMax");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.argMax");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "argMax";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLArgMinMaxOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLArgMinMaxOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLArgMinMaxOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->argMax(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ArgMinOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_argMin");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.argMin");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "argMin";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLArgMinMaxOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLArgMinMaxOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLArgMinMaxOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->argMin(arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -224,7 +311,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -239,6 +326,56 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->averagePool2d(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void BatchNormalizationOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_batchNormalization");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.batchNormalization");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "batchNormalization";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 3)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(3, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_mean = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg3_variance = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLBatchNormalizationOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg4_options;
+if (info[3]->IsUndefined()) {
+  arg4_options = MLBatchNormalizationOptions::Create();
+} else {
+  arg4_options = NativeValueTraits<MLBatchNormalizationOptions>::ArgumentValue(isolate, 3, info[3], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->batchNormalization(arg1_input, arg2_mean, arg3_variance, arg4_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -272,7 +409,7 @@ return;
 
 
 
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -308,12 +445,52 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
 auto&& arg1_outputs = NativeValueTraits<IDLRecord<IDLString, MLOperand>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& return_value = blink_receiver->buildSync(arg1_outputs, exception_state);
+auto&& return_value = blink_receiver->buildSync(script_state, arg1_outputs, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CastOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_cast");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.cast");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "cast";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_output_data_type = NativeValueTraits<V8MLOperandDataType>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->cast(arg1_input, arg2_output_data_type, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -341,7 +518,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -371,7 +548,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -400,10 +577,10 @@ void ClampOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<MLClampOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<MLClampOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "clamp";
@@ -482,7 +659,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_inputs = NativeValueTraits<IDLSequence<MLOperand>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -519,7 +696,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_desc = NativeValueTraits<MLOperandDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -556,7 +733,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -602,7 +779,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -621,6 +798,39 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->convTranspose2d(arg1_input, arg2_filter, arg3_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CosOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_cos");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.cos");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "cos";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->cos(arg1_x, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -648,7 +858,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -682,7 +892,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -711,10 +921,10 @@ void EluOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<MLEluOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<MLEluOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "elu";
@@ -772,6 +982,146 @@ exception_state.ThrowTypeError("Overload resolution failed.");
 return;
 }
 
+void EqualOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_equal");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.equal");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "equal";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->equal(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ErfOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_erf");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.erf");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "erf";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->erf(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ExpOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_exp");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.exp");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "exp";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->exp(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ExpandOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_expand");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.expand");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "expand";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_new_shape = NativeValueTraits<IDLSequence<IDLUnsignedLongEnforceRange>>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->expand(arg1_input, arg2_new_shape, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void FloorOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_floor");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.floor");
@@ -793,12 +1143,58 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->floor(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void GatherOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_gather");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.gather");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "gather";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_indices = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLGatherOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg3_options;
+if (info[2]->IsUndefined()) {
+  arg3_options = MLGatherOptions::Create();
+} else {
+  arg3_options = NativeValueTraits<MLGatherOptions>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->gather(arg1_input, arg2_indices, arg3_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -826,7 +1222,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -851,6 +1247,80 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
+void GreaterOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_greater");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.greater");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "greater";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->greater(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void GreaterOrEqualOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_greaterOrEqual");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.greaterOrEqual");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "greaterOrEqual";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->greaterOrEqual(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void HardSwishOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 
@@ -869,7 +1339,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -889,9 +1359,9 @@ void HardSwishOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "hardSwish";
@@ -916,6 +1386,39 @@ if (arg_count == 1) {
 return HardSwishOperationOverload2(info);
 }
 
+void IdentityOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_identity");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.identity");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "identity";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->identity(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void InputOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_input");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.input");
@@ -937,7 +1440,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -947,6 +1450,90 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->input(arg1_name, arg2_desc, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void InstanceNormalizationOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_instanceNormalization");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.instanceNormalization");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "instanceNormalization";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLInstanceNormalizationOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLInstanceNormalizationOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLInstanceNormalizationOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->instanceNormalization(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LayerNormalizationOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_layerNormalization");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.layerNormalization");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "layerNormalization";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLLayerNormalizationOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLLayerNormalizationOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLLayerNormalizationOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->layerNormalization(arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -971,7 +1558,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1000,10 +1587,10 @@ void LeakyReluOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<MLLeakyReluOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<MLLeakyReluOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "leakyRelu";
@@ -1061,6 +1648,291 @@ exception_state.ThrowTypeError("Overload resolution failed.");
 return;
 }
 
+void LesserOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_lesser");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.lesser");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "lesser";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->lesser(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LesserOrEqualOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_lesserOrEqual");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.lesserOrEqual");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "lesserOrEqual";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->lesserOrEqual(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LinearOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "linear";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLLinearOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLLinearOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLLinearOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->linear(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LinearOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<MLLinearOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "linear";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (info[0]->IsUndefined()) {
+  arg1_options = MLLinearOptions::Create();
+} else {
+  arg1_options = NativeValueTraits<MLLinearOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->linear(arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LinearOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_linear");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.linear");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 2);
+v8::Isolate* isolate = info.GetIsolate();
+do {  // Dummy loop for use of 'break'.
+  if (arg_count == 2) {
+  return LinearOperationOverload1(info);
+}
+if (arg_count == 1) {
+  if (info[0]->IsUndefined()) {
+  return LinearOperationOverload2(info);
+}
+if (info[0]->IsNullOrUndefined()) {
+  return LinearOperationOverload2(info);
+}
+if (V8MLOperand::HasInstance(isolate, info[0])) {
+  return LinearOperationOverload1(info);
+}
+if (info[0]->IsObject()) {
+  return LinearOperationOverload2(info);
+}
+break;
+}
+return LinearOperationOverload2(info);
+} while (false);
+
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "linear";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+exception_state.ThrowTypeError("Overload resolution failed.");
+return;
+}
+
+void LogOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_log");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.log");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "log";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->log(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void LogicalNotOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_logicalNot");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.logicalNot");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "logicalNot";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->logicalNot(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void MatmulOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_matmul");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.matmul");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "matmul";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 2)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_b = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->matmul(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void MaxOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_max");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.max");
@@ -1082,7 +1954,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1119,7 +1991,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1161,7 +2033,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1198,7 +2070,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1235,7 +2107,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1268,7 +2140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1318,7 +2190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1355,7 +2227,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1365,6 +2237,249 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->prelu(arg1_x, arg2_slope, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReciprocalOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reciprocal");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reciprocal");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reciprocal";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->reciprocal(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceL1OperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceL1");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceL1");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceL1";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceL1(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceL2OperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceL2");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceL2");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceL2";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceL2(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceLogSumOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceLogSum");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceLogSum");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceLogSum";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceLogSum(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceLogSumExpOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceLogSumExp");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceLogSumExp");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceLogSumExp";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceLogSumExp(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceMaxOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceMax");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceMax");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceMax";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceMax(arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1392,7 +2507,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1407,6 +2522,90 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->reduceMean(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceMinOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceMin");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceMin");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceMin";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceMin(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceProductOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceProduct");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceProduct");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceProduct";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceProduct(arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1434,7 +2633,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1449,6 +2648,48 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->reduceSum(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void ReduceSumSquareOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_reduceSumSquare");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.reduceSumSquare");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "reduceSumSquare";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLReduceOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLReduceOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLReduceOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->reduceSumSquare(arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1473,7 +2714,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1493,9 +2734,9 @@ void ReluOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "relu";
@@ -1541,7 +2782,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1583,12 +2824,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& arg2_new_shape = NativeValueTraits<IDLSequence<IDLNullable<IDLUnsignedLongEnforceRange>>>::ArgumentValue(isolate, 1, info[1], exception_state);
+auto&& arg2_new_shape = NativeValueTraits<IDLSequence<IDLUnsignedLongEnforceRange>>::ArgumentValue(isolate, 1, info[1], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1617,7 +2858,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1637,9 +2878,9 @@ void SigmoidOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) 
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "sigmoid";
@@ -1664,6 +2905,39 @@ if (arg_count == 1) {
 return SigmoidOperationOverload2(info);
 }
 
+void SinOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_sin");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.sin");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "sin";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->sin(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void SliceOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_slice");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.slice");
@@ -1685,7 +2959,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1705,11 +2979,8 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
-void SoftmaxOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_softmax");
-BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.softmax");
-
-
+void SoftmaxOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
 
 
 
@@ -1726,7 +2997,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1736,6 +3007,214 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftmaxOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softmax";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& return_value = blink_receiver->softmax(exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftmaxOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_softmax");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.softmax");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 1);
+if (arg_count == 1) {
+  return SoftmaxOperationOverload1(info);
+}
+return SoftmaxOperationOverload2(info);
+}
+
+void SoftplusOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softplus";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<MLSoftplusOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = MLSoftplusOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<MLSoftplusOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->softplus(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftplusOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<MLSoftplusOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softplus";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (info[0]->IsUndefined()) {
+  arg1_options = MLSoftplusOptions::Create();
+} else {
+  arg1_options = NativeValueTraits<MLSoftplusOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = blink_receiver->softplus(arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftplusOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_softplus");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.softplus");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 2);
+v8::Isolate* isolate = info.GetIsolate();
+do {  // Dummy loop for use of 'break'.
+  if (arg_count == 2) {
+  return SoftplusOperationOverload1(info);
+}
+if (arg_count == 1) {
+  if (info[0]->IsUndefined()) {
+  return SoftplusOperationOverload2(info);
+}
+if (info[0]->IsNullOrUndefined()) {
+  return SoftplusOperationOverload2(info);
+}
+if (V8MLOperand::HasInstance(isolate, info[0])) {
+  return SoftplusOperationOverload1(info);
+}
+if (info[0]->IsObject()) {
+  return SoftplusOperationOverload2(info);
+}
+break;
+}
+return SoftplusOperationOverload2(info);
+} while (false);
+
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softplus";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+exception_state.ThrowTypeError("Overload resolution failed.");
+return;
+}
+
+void SoftsignOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softsign";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->softsign(arg1_input, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftsignOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "softsign";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& return_value = blink_receiver->softsign(exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void SoftsignOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_softsign");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.softsign");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 1);
+if (arg_count == 1) {
+  return SoftsignOperationOverload1(info);
+}
+return SoftsignOperationOverload2(info);
 }
 
 void SplitOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -1760,7 +3239,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1810,7 +3289,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1883,6 +3362,39 @@ exception_state.ThrowTypeError("Overload resolution failed.");
 return;
 }
 
+void SqrtOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_sqrt");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.sqrt");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "sqrt";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->sqrt(arg1_x, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void SubOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_sub");
 BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.sub");
@@ -1904,7 +3416,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1914,6 +3426,39 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->sub(arg1_a, arg2_b, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void TanOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_tan");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.tan");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "tan";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_x = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->tan(arg1_x, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1938,7 +3483,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1958,9 +3503,9 @@ void TanhOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MLGraphBuilder";
 const char* const property_name = "tanh";
@@ -2006,7 +3551,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(v8_receiver);
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2021,6 +3566,47 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->transpose(arg1_input, arg2_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void WhereOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLGraphBuilder_where");
+BLINK_BINDINGS_TRACE_EVENT("MLGraphBuilder.where");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "MLGraphBuilder";
+const char* const property_name = "where";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 3)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(3, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+MLGraphBuilder* blink_receiver = V8MLGraphBuilder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_condition = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_true_value = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg3_false_value = NativeValueTraits<MLOperand>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->where(arg1_condition, arg2_true_value, arg3_false_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -2066,20 +3652,41 @@ void V8MLGraphBuilder::InstallUnconditionalProperties(v8::Isolate* isolate, cons
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"abs", AbsOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"add", AddOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"argMax", ArgMaxOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"argMin", ArgMinOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"averagePool2d", AveragePool2dOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"batchNormalization", BatchNormalizationOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"cast", CastOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"ceil", CeilOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"clamp", ClampOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"concat", ConcatOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"constant", ConstantOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"conv2d", Conv2dOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"convTranspose2d", ConvTranspose2dOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"cos", CosOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"div", DivOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"elu", EluOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"equal", EqualOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"erf", ErfOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"exp", ExpOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"expand", ExpandOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"floor", FloorOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"gather", GatherOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"gemm", GemmOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"greater", GreaterOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"greaterOrEqual", GreaterOrEqualOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"hardSwish", HardSwishOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"identity", IdentityOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"input", InputOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"instanceNormalization", InstanceNormalizationOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"layerNormalization", LayerNormalizationOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"leakyRelu", LeakyReluOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"lesser", LesserOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"lesserOrEqual", LesserOrEqualOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"linear", LinearOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"log", LogOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"logicalNot", LogicalNotOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"matmul", MatmulOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"max", MaxOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"maxPool2d", MaxPool2dOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"min", MinOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -2088,18 +3695,33 @@ void V8MLGraphBuilder::InstallUnconditionalProperties(v8::Isolate* isolate, cons
 {"pad", PadOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"pow", PowOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"prelu", PreluOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reciprocal", ReciprocalOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceL1", ReduceL1OperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceL2", ReduceL2OperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceLogSum", ReduceLogSumOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceLogSumExp", ReduceLogSumExpOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceMax", ReduceMaxOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"reduceMean", ReduceMeanOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceMin", ReduceMinOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceProduct", ReduceProductOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"reduceSum", ReduceSumOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"reduceSumSquare", ReduceSumSquareOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"relu", ReluOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"resample2d", Resample2dOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"reshape", ReshapeOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"sigmoid", SigmoidOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"sin", SinOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"slice", SliceOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"softmax", SoftmaxOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"softmax", SoftmaxOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"softplus", SoftplusOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"softsign", SoftsignOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"split", SplitOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"sqrt", SqrtOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"sub", SubOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"tan", TanOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"tanh", TanhOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"transpose", TransposeOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"where", WhereOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

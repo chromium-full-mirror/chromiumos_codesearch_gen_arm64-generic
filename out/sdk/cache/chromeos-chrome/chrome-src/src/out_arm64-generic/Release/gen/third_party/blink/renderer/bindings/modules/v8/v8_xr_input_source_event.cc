@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRInputSourceEvent>::value,
     "XRInputSourceEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRInputSourceEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRInputSourceEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourceEvent.frame.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->frame();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourceEvent.inputSource.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inputSource();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -120,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourceEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourceEvent* blink_receiver = V8XRInputSourceEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

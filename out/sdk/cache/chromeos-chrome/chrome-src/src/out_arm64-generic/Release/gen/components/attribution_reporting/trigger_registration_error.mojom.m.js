@@ -22,6 +22,7 @@ export const TriggerRegistrationError = {
   kFiltersWrongType: 2,
   kFiltersListWrongType: 5,
   kFiltersValueWrongType: 7,
+  kFiltersUsingReservedKey: 36,
   kAggregatableValuesWrongType: 9,
   kAggregatableValuesKeyTooLong: 11,
   kAggregatableValuesValueWrongType: 12,
@@ -46,8 +47,10 @@ export const TriggerRegistrationError = {
   kAggregatableDedupKeyWrongType: 33,
   kAggregatableSourceRegistrationTimeWrongType: 34,
   kAggregatableSourceRegistrationTimeUnknownValue: 35,
+  kTriggerContextIdInvalidValue: 37,
+  kTriggerContextIdInvalidSourceRegistrationTimeConfig: 38,
   MIN_VALUE: 0,
-  MAX_VALUE: 35,
+  MAX_VALUE: 38,
 };
 
 

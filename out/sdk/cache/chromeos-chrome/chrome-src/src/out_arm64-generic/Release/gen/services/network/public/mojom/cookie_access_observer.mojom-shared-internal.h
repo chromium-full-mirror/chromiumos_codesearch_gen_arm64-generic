@@ -10,9 +10,11 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "url/mojom/origin.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-shared-internal.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared-internal.h"
+#include "services/network/public/mojom/cookie_setting_overrides.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -63,9 +65,13 @@ class  CookieAccessDetails_Data {
   int32_t type;
   uint32_t count;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
+  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> top_frame_origin;
   mojo::internal::Pointer<::network::mojom::internal::SiteForCookies_Data> site_for_cookies;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::CookieOrLineWithAccessResult_Data>>> cookie_list;
   mojo::internal::Pointer<mojo::internal::String_Data> devtools_request_id;
+  uint8_t is_ad_tagged : 1;
+  uint8_t pad7_[7];
+  mojo::internal::Pointer<::network::mojom::internal::CookieSettingOverrides_Data> cookie_setting_overrides;
 
  private:
   friend class mojo::internal::MessageFragment<CookieAccessDetails_Data>;
@@ -73,7 +79,7 @@ class  CookieAccessDetails_Data {
   CookieAccessDetails_Data();
   ~CookieAccessDetails_Data() = delete;
 };
-static_assert(sizeof(CookieAccessDetails_Data) == 48,
+static_assert(sizeof(CookieAccessDetails_Data) == 72,
               "Bad sizeof(CookieAccessDetails_Data)");
 // Used by CookieAccessDetails::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

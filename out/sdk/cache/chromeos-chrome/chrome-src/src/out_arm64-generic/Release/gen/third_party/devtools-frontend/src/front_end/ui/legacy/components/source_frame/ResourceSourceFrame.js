@@ -51,8 +51,8 @@ export class ResourceSourceFrame extends SourceFrameImpl {
         this.givenContentType = givenContentType;
         this.resourceInternal = resource;
     }
-    static createSearchableView(resource, contentType, autoPrettyPrint) {
-        return new SearchableContainer(resource, contentType, autoPrettyPrint);
+    static createSearchableView(resource, contentType) {
+        return new SearchableContainer(resource, contentType);
     }
     getContentType() {
         return this.givenContentType;
@@ -67,14 +67,14 @@ export class ResourceSourceFrame extends SourceFrameImpl {
 }
 export class SearchableContainer extends UI.Widget.VBox {
     sourceFrame;
-    constructor(resource, contentType, autoPrettyPrint) {
+    constructor(resource, contentType) {
         super(true);
         this.registerRequiredCSS(resourceSourceFrameStyles);
         const simpleContentType = Common.ResourceType.ResourceType.simplifyContentType(contentType);
         const sourceFrame = new ResourceSourceFrame(resource, simpleContentType);
         this.sourceFrame = sourceFrame;
         const canPrettyPrint = FormatterActions.FORMATTABLE_MEDIA_TYPES.includes(simpleContentType);
-        sourceFrame.setCanPrettyPrint(canPrettyPrint, autoPrettyPrint);
+        sourceFrame.setCanPrettyPrint(canPrettyPrint, true /* autoPrettyPrint */);
         const searchableView = new UI.SearchableView.SearchableView(sourceFrame, sourceFrame);
         searchableView.element.classList.add('searchable-view');
         searchableView.setPlaceholder(i18nString(UIStrings.find));

@@ -18,7 +18,6 @@
 
 namespace blink {
 
-class AbortSignal;
 class ExceptionState;
 class V8ObserverCallback;
 class V8ObserverCompleteCallback;
@@ -94,25 +93,6 @@ has_next_ = true;
 DCHECK(member_next_);
 }
 
-bool hasSignal() const {
-  return has_signal_;
-}
-AbortSignal* signal() const {
-  DCHECK(hasSignal());
-return member_signal_.Get();
-}
-AbortSignal* getSignalOr(AbortSignal* fallback_value) const {
-  if (!hasSignal()) {
-  return fallback_value;
-}
-return member_signal_.Get();
-}
-void setSignal(AbortSignal* value) {
-  member_signal_ = value;
-has_signal_ = true;
-DCHECK(member_signal_);
-}
-
 
 
 
@@ -131,12 +111,10 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 bool has_complete_ = false;
 bool has_error_ = false;
 bool has_next_ = false;
-bool has_signal_ = false;
 
 Member<V8ObserverCompleteCallback> member_complete_;
 Member<V8ObserverCallback> member_error_;
 Member<V8ObserverCallback> member_next_;
-Member<AbortSignal> member_signal_;
 
 
   

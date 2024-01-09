@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TrustedScriptURL>::value,
     "TrustedScriptURL inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TrustedScriptURL::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TrustedScriptURL is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedScriptURL.toJSON");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrustedScriptURL* blink_receiver = V8TrustedScriptURL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toJSON();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrustedScriptURL* blink_receiver = V8TrustedScriptURL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toJSON();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -141,10 +136,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedScriptURL.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrustedScriptURL* blink_receiver = V8TrustedScriptURL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrustedScriptURL* blink_receiver = V8TrustedScriptURL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -2077,7 +2078,7 @@ TNode<Object> CreateArrayFromIterableAsynchronously_0(compiler::CodeAssemblerSta
     ca_.Bind(&block64, &phi_bb64_5, &phi_bb64_7, &phi_bb64_8, &phi_bb64_9);
     compiler::CodeAssemblerExceptionHandlerLabel catch168__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
     { compiler::ScopedExceptionHandler s(&ca_, &catch168__label);
-    tmp167 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastCreateDataProperty), p_context, tmp20, phi_bb64_7, phi_bb64_8);
+    tmp167 = ca_.CallBuiltin<Object>(Builtin::kFastCreateDataProperty, p_context, tmp20, phi_bb64_7, phi_bb64_8);
     }
     if (catch168__label.is_used()) {
       compiler::CodeAssemblerLabel catch168_skip(&ca_);
@@ -2294,7 +2295,7 @@ TNode<Object> CreateArrayFromIterableAsynchronously_0(compiler::CodeAssemblerSta
     tmp204 = CodeStubAssembler(state_).LoadReference<JSPromise>(CodeStubAssembler::Reference{tmp200, tmp201});
     compiler::CodeAssemblerExceptionHandlerLabel catch206__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
     { compiler::ScopedExceptionHandler s(&ca_, &catch206__label);
-    tmp205 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kResolvePromise), p_context, tmp204, tmp20);
+    tmp205 = ca_.CallBuiltin<Object>(Builtin::kResolvePromise, p_context, tmp204, tmp20);
     }
     if (catch206__label.is_used()) {
       compiler::CodeAssemblerLabel catch206_skip(&ca_);
@@ -4486,7 +4487,7 @@ TNode<Object> CreateArrayFromArrayLikeAsynchronously_0(compiler::CodeAssemblerSt
     ca_.Bind(&block49, &phi_bb49_4, &phi_bb49_7, &phi_bb49_8);
     compiler::CodeAssemblerExceptionHandlerLabel catch148__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
     { compiler::ScopedExceptionHandler s(&ca_, &catch148__label);
-    tmp147 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastCreateDataProperty), p_context, tmp17, phi_bb49_7, tmp33);
+    tmp147 = ca_.CallBuiltin<Object>(Builtin::kFastCreateDataProperty, p_context, tmp17, phi_bb49_7, tmp33);
     }
     if (catch148__label.is_used()) {
       compiler::CodeAssemblerLabel catch148_skip(&ca_);
@@ -4688,7 +4689,7 @@ TNode<Object> CreateArrayFromArrayLikeAsynchronously_0(compiler::CodeAssemblerSt
     tmp184 = CodeStubAssembler(state_).LoadReference<JSPromise>(CodeStubAssembler::Reference{tmp180, tmp181});
     compiler::CodeAssemblerExceptionHandlerLabel catch186__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
     { compiler::ScopedExceptionHandler s(&ca_, &catch186__label);
-    tmp185 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kResolvePromise), p_context, tmp184, tmp17);
+    tmp185 = ca_.CallBuiltin<Object>(Builtin::kResolvePromise, p_context, tmp184, tmp17);
     }
     if (catch186__label.is_used()) {
       compiler::CodeAssemblerLabel catch186_skip(&ca_);
@@ -5886,7 +5887,7 @@ TF_BUILTIN(ArrayFromAsync, CodeStubAssembler) {
   if (block6.is_used()) {
     ca_.Bind(&block6, &phi_bb6_13, &phi_bb6_14, &phi_bb6_15, &phi_bb6_16);
     tmp157 = False_0(state_);
-    tmp158 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRejectPromise), parameter0, tmp8, phi_bb6_15, tmp157);
+    tmp158 = ca_.CallBuiltin<Object>(Builtin::kRejectPromise, parameter0, tmp8, phi_bb6_15, tmp157);
     arguments.PopAndReturn(tmp8);
   }
 }
@@ -6451,7 +6452,7 @@ TNode<Object> RejectArrayFromAsyncPromise_ArrayFromAsyncIterableResolveContext_0
     std::tie(tmp3, tmp4) = ContextSlot_ArrayFromAsyncIterableResolveContext_ArrayFromAsyncIterableResolveContext_JSPromise_0(state_, TNode<Context>{p_resolveContext}, TNode<IntPtrT>{p_promiseSlot}).Flatten();
     tmp5 = CodeStubAssembler(state_).LoadReference<JSPromise>(CodeStubAssembler::Reference{tmp3, tmp4});
     tmp6 = False_0(state_);
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRejectPromise), p_context, tmp5, tmp2, tmp6);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kRejectPromise, p_context, tmp5, tmp2, tmp6);
     ca_.Goto(&block2);
   }
 
@@ -6494,7 +6495,7 @@ TNode<Object> ArrayFromAsyncAwaitPoint_ArrayFromAsyncIterableResolveContext_0(co
     tmp8 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp6, tmp7});
     std::tie(tmp9, tmp10) = ContextSlot_ArrayFromAsyncIterableResolveContext_ArrayFromAsyncIterableResolveContext_Undefined_OR_JSFunction_0(state_, TNode<Context>{p_resolveContext}, TNode<IntPtrT>{p_rejectSlot}).Flatten();
     tmp11 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp9, tmp10});
-    tmp12 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseResolve), p_context, tmp5, p_value);
+    tmp12 = ca_.CallBuiltin<Object>(Builtin::kPromiseResolve, p_context, tmp5, p_value);
     tmp13 = UnsafeCast_JSPromise_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp12});
     tmp14 = Undefined_0(state_);
     PerformPromiseThenImpl_0(state_, TNode<Context>{p_context}, TNode<JSPromise>{tmp13}, TNode<HeapObject>{tmp8}, TNode<HeapObject>{tmp11}, TNode<HeapObject>{tmp14});
@@ -7096,7 +7097,7 @@ TNode<Object> RejectArrayFromAsyncPromise_ArrayFromAsyncArrayLikeResolveContext_
     std::tie(tmp3, tmp4) = ContextSlot_ArrayFromAsyncArrayLikeResolveContext_ArrayFromAsyncArrayLikeResolveContext_JSPromise_0(state_, TNode<Context>{p_resolveContext}, TNode<IntPtrT>{p_promiseSlot}).Flatten();
     tmp5 = CodeStubAssembler(state_).LoadReference<JSPromise>(CodeStubAssembler::Reference{tmp3, tmp4});
     tmp6 = False_0(state_);
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRejectPromise), p_context, tmp5, tmp2, tmp6);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kRejectPromise, p_context, tmp5, tmp2, tmp6);
     ca_.Goto(&block2);
   }
 
@@ -7139,7 +7140,7 @@ TNode<Object> ArrayFromAsyncAwaitPoint_ArrayFromAsyncArrayLikeResolveContext_0(c
     tmp8 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp6, tmp7});
     std::tie(tmp9, tmp10) = ContextSlot_ArrayFromAsyncArrayLikeResolveContext_ArrayFromAsyncArrayLikeResolveContext_Undefined_OR_JSFunction_0(state_, TNode<Context>{p_resolveContext}, TNode<IntPtrT>{p_rejectSlot}).Flatten();
     tmp11 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp9, tmp10});
-    tmp12 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseResolve), p_context, tmp5, p_value);
+    tmp12 = ca_.CallBuiltin<Object>(Builtin::kPromiseResolve, p_context, tmp5, p_value);
     tmp13 = UnsafeCast_JSPromise_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp12});
     tmp14 = Undefined_0(state_);
     PerformPromiseThenImpl_0(state_, TNode<Context>{p_context}, TNode<JSPromise>{tmp13}, TNode<HeapObject>{tmp8}, TNode<HeapObject>{tmp11}, TNode<HeapObject>{tmp14});

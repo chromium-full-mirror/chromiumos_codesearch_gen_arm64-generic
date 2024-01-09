@@ -66,12 +66,6 @@ export class PasswordsImporterElement extends PasswordsImporterElementBase {
     }
     static get properties() {
         return {
-            enablePasswordsImportM2_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('enablePasswordsImportM2');
-                },
-            },
             dialogState_: Number,
             dialogStateEnum_: {
                 type: Object,
@@ -361,21 +355,9 @@ export class PasswordsImporterElement extends PasswordsImporterElementBase {
     shouldShowSelectFileButton_() {
         return !this.isAccountStoreUser && !this.isState_(DialogState.IN_PROGRESS);
     }
-    shouldHideTipBox_() {
-        // Tip box is only shown in "success" state if all passwords were imported.
-        // Only shown in Passwords Import M1.
-        if (this.enablePasswordsImportM2_) {
-            return true;
-        }
-        assert(this.results_);
-        return !!this.results_.displayedEntries.length;
-    }
     shouldHideDeleteFileOption_() {
         // "Delete file" checkbox is only shown in "success" state if all passwords
         // were imported.
-        if (!this.enablePasswordsImportM2_) {
-            return true;
-        }
         assert(this.results_);
         return !!this.results_.displayedEntries.length;
     }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -57,6 +58,9 @@ NearbyPresenceCredentialStorage::IPCStableHashFunction NearbyPresenceCredentialS
     case internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name: {
       return &NearbyPresenceCredentialStorage::GetPrivateCredentials_Sym::IPCStableHash;
     }
+    case internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name: {
+      return &NearbyPresenceCredentialStorage::UpdateLocalCredential_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -74,6 +78,8 @@ const char* NearbyPresenceCredentialStorage::MessageToMethodName_(mojo::Message&
             return "Receive ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPublicCredentials";
       case internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name:
             return "Receive ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPrivateCredentials";
+      case internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name:
+            return "Receive ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::UpdateLocalCredential";
     }
   } else {
     switch (message.name()) {
@@ -83,6 +89,8 @@ const char* NearbyPresenceCredentialStorage::MessageToMethodName_(mojo::Message&
             return "Receive reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPublicCredentials";
       case internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name:
             return "Receive reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPrivateCredentials";
+      case internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name:
+            return "Receive reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::UpdateLocalCredential";
     }
   }
   return "Receive unknown mojo message";
@@ -132,6 +140,19 @@ uint32_t NearbyPresenceCredentialStorage::GetPrivateCredentials_Sym::IPCStableHa
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPrivateCredentials");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NearbyPresenceCredentialStorage::UpdateLocalCredential_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::UpdateLocalCredential");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -186,6 +207,22 @@ class NearbyPresenceCredentialStorage_GetPrivateCredentials_ForwardToCallback
   NearbyPresenceCredentialStorage::GetPrivateCredentialsCallback callback_;
 };
 
+class NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback(
+      NearbyPresenceCredentialStorage::UpdateLocalCredentialCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback(const NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback&) = delete;
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback& operator=(const NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NearbyPresenceCredentialStorage::UpdateLocalCredentialCallback callback_;
+};
+
 NearbyPresenceCredentialStorageProxy::NearbyPresenceCredentialStorageProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -208,14 +245,17 @@ void NearbyPresenceCredentialStorageProxy::SaveCredentials(
                         "<value of type ::ash::nearby::presence::mojom::PublicCredentialType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_SaveCredentials_Name, kFlags, 0, 0, nullptr);
@@ -274,14 +314,17 @@ void NearbyPresenceCredentialStorageProxy::GetPublicCredentials(
                         "<value of type ::ash::nearby::presence::mojom::PublicCredentialType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_GetPublicCredentials_Name, kFlags, 0, 0, nullptr);
@@ -307,14 +350,17 @@ void NearbyPresenceCredentialStorageProxy::GetPrivateCredentials(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPrivateCredentials");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name, kFlags, 0, 0, nullptr);
@@ -329,6 +375,58 @@ void NearbyPresenceCredentialStorageProxy::GetPrivateCredentials(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NearbyPresenceCredentialStorage_GetPrivateCredentials_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void NearbyPresenceCredentialStorageProxy::UpdateLocalCredential(
+    ::ash::nearby::presence::mojom::LocalCredentialPtr in_local_credential, UpdateLocalCredentialCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::UpdateLocalCredential", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("local_credential"), in_local_credential,
+                        "<value of type ::ash::nearby::presence::mojom::LocalCredentialPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::nearby::presence::mojom::internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->local_credential)::BaseType> local_credential_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::LocalCredentialDataView>(
+      in_local_credential, local_credential_fragment);
+  params->local_credential.Set(
+      local_credential_fragment.is_null() ? nullptr : local_credential_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->local_credential.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null local_credential in NearbyPresenceCredentialStorage.UpdateLocalCredential request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyPresenceCredentialStorage::Name_);
+  message.set_method_name("UpdateLocalCredential");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -424,7 +522,8 @@ void NearbyPresenceCredentialStorage_SaveCredentials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_SaveCredentials_Name, kFlags, 0, 0, nullptr);
@@ -497,7 +596,7 @@ class NearbyPresenceCredentialStorage_GetPublicCredentials_ProxyToResponder : pu
 #endif
 
   void Run(
-      ::mojo_base::mojom::AbslStatusCode in_status, absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> in_shared_credentials);
+      ::mojo_base::mojom::AbslStatusCode in_status, std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> in_shared_credentials);
 };
 
 bool NearbyPresenceCredentialStorage_GetPublicCredentials_ForwardToCallback::Accept(
@@ -511,7 +610,7 @@ bool NearbyPresenceCredentialStorage_GetPublicCredentials_ForwardToCallback::Acc
   
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
-  absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> p_shared_credentials{};
+  std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> p_shared_credentials{};
   NearbyPresenceCredentialStorage_GetPublicCredentials_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -533,7 +632,7 @@ std::move(p_shared_credentials));
 }
 
 void NearbyPresenceCredentialStorage_GetPublicCredentials_ProxyToResponder::Run(
-    ::mojo_base::mojom::AbslStatusCode in_status, absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> in_shared_credentials) {
+    ::mojo_base::mojom::AbslStatusCode in_status, std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> in_shared_credentials) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPublicCredentials", "async_response_parameters",
@@ -544,13 +643,14 @@ void NearbyPresenceCredentialStorage_GetPublicCredentials_ProxyToResponder::Run(
                         "<value of type ::mojo_base::mojom::AbslStatusCode>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("shared_credentials"), in_shared_credentials,
-                        "<value of type absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>>");
+                        "<value of type std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_GetPublicCredentials_Name, kFlags, 0, 0, nullptr);
@@ -632,7 +732,7 @@ class NearbyPresenceCredentialStorage_GetPrivateCredentials_ProxyToResponder : p
 #endif
 
   void Run(
-      ::mojo_base::mojom::AbslStatusCode in_status, absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> in_local_credentials);
+      ::mojo_base::mojom::AbslStatusCode in_status, std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> in_local_credentials);
 };
 
 bool NearbyPresenceCredentialStorage_GetPrivateCredentials_ForwardToCallback::Accept(
@@ -646,7 +746,7 @@ bool NearbyPresenceCredentialStorage_GetPrivateCredentials_ForwardToCallback::Ac
   
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
-  absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> p_local_credentials{};
+  std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> p_local_credentials{};
   NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -668,7 +768,7 @@ std::move(p_local_credentials));
 }
 
 void NearbyPresenceCredentialStorage_GetPrivateCredentials_ProxyToResponder::Run(
-    ::mojo_base::mojom::AbslStatusCode in_status, absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> in_local_credentials) {
+    ::mojo_base::mojom::AbslStatusCode in_status, std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> in_local_credentials) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::GetPrivateCredentials", "async_response_parameters",
@@ -679,13 +779,14 @@ void NearbyPresenceCredentialStorage_GetPrivateCredentials_ProxyToResponder::Run
                         "<value of type ::mojo_base::mojom::AbslStatusCode>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_credentials"), in_local_credentials,
-                        "<value of type absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>>");
+                        "<value of type std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name, kFlags, 0, 0, nullptr);
@@ -721,6 +822,126 @@ void NearbyPresenceCredentialStorage_GetPrivateCredentials_ProxyToResponder::Run
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NearbyPresenceCredentialStorage::UpdateLocalCredentialCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder> proxy(
+        new NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NearbyPresenceCredentialStorage::UpdateLocalCredentialCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::mojo_base::mojom::AbslStatusCode in_status);
+};
+
+bool NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::mojo_base::mojom::AbslStatusCode p_status{};
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NearbyPresenceCredentialStorage::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder::Run(
+    ::mojo_base::mojom::AbslStatusCode in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::nearby::presence::mojom::NearbyPresenceCredentialStorage::UpdateLocalCredential", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::mojo_base::mojom::AbslStatusCode>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::nearby::presence::mojom::internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::mojo_base::mojom::AbslStatusCode>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyPresenceCredentialStorage::Name_);
+  message.set_method_name("UpdateLocalCredential");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool NearbyPresenceCredentialStorageStubDispatch::Accept(
@@ -734,6 +955,9 @@ bool NearbyPresenceCredentialStorageStubDispatch::Accept(
       break;
     }
     case internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name: {
+      break;
+    }
+    case internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name: {
       break;
     }
   }
@@ -840,18 +1064,49 @@ std::move(p_public_credential_type), std::move(callback));
       impl->GetPrivateCredentials(std::move(callback));
       return true;
     }
+    case internal::kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name: {
+
+      internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data* params =
+          reinterpret_cast<
+              internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::nearby::presence::mojom::LocalCredentialPtr p_local_credential{};
+      NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLocalCredential(&p_local_credential))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyPresenceCredentialStorage::Name_, 3, false);
+        return false;
+      }
+      NearbyPresenceCredentialStorage::UpdateLocalCredentialCallback callback =
+          NearbyPresenceCredentialStorage_UpdateLocalCredential_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateLocalCredential(
+std::move(p_local_credential), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyPresenceCredentialStorageValidationInfo[] = {
-    {&internal::NearbyPresenceCredentialStorage_SaveCredentials_Params_Data::Validate,
+    { &internal::NearbyPresenceCredentialStorage_SaveCredentials_Params_Data::Validate,
      &internal::NearbyPresenceCredentialStorage_SaveCredentials_ResponseParams_Data::Validate},
-    {&internal::NearbyPresenceCredentialStorage_GetPublicCredentials_Params_Data::Validate,
+    { &internal::NearbyPresenceCredentialStorage_GetPublicCredentials_Params_Data::Validate,
      &internal::NearbyPresenceCredentialStorage_GetPublicCredentials_ResponseParams_Data::Validate},
-    {&internal::NearbyPresenceCredentialStorage_GetPrivateCredentials_Params_Data::Validate,
+    { &internal::NearbyPresenceCredentialStorage_GetPrivateCredentials_Params_Data::Validate,
      &internal::NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data::Validate},
+    { &internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data::Validate,
+     &internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data::Validate},
 };
 
 bool NearbyPresenceCredentialStorageRequestValidator::Accept(mojo::Message* message) {
@@ -889,6 +1144,9 @@ void NearbyPresenceCredentialStorageInterceptorForTesting::GetPublicCredentials(
 void NearbyPresenceCredentialStorageInterceptorForTesting::GetPrivateCredentials(GetPrivateCredentialsCallback callback) {
   GetForwardingInterface()->GetPrivateCredentials(std::move(callback));
 }
+void NearbyPresenceCredentialStorageInterceptorForTesting::UpdateLocalCredential(::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, UpdateLocalCredentialCallback callback) {
+  GetForwardingInterface()->UpdateLocalCredential(std::move(local_credential), std::move(callback));
+}
 NearbyPresenceCredentialStorageAsyncWaiter::NearbyPresenceCredentialStorageAsyncWaiter(
     NearbyPresenceCredentialStorage* proxy) : proxy_(proxy) {}
 
@@ -918,17 +1176,17 @@ void NearbyPresenceCredentialStorageAsyncWaiter::SaveCredentials(
 }
 
 void NearbyPresenceCredentialStorageAsyncWaiter::GetPublicCredentials(
-    ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, ::mojo_base::mojom::AbslStatusCode* out_status, absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials) {
+    ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, ::mojo_base::mojom::AbslStatusCode* out_status, std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials) {
   base::RunLoop loop;
   proxy_->GetPublicCredentials(std::move(public_credential_type),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo_base::mojom::AbslStatusCode* out_status
 ,
-             absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials
+             std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials
 ,
              ::mojo_base::mojom::AbslStatusCode status,
-             absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> shared_credentials) {*out_status = std::move(status);*out_shared_credentials = std::move(shared_credentials);
+             std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> shared_credentials) {*out_status = std::move(status);*out_shared_credentials = std::move(shared_credentials);
             loop->Quit();
           },
           &loop,
@@ -940,17 +1198,17 @@ void NearbyPresenceCredentialStorageAsyncWaiter::GetPublicCredentials(
 
 
 void NearbyPresenceCredentialStorageAsyncWaiter::GetPrivateCredentials(
-    ::mojo_base::mojom::AbslStatusCode* out_status, absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials) {
+    ::mojo_base::mojom::AbslStatusCode* out_status, std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials) {
   base::RunLoop loop;
   proxy_->GetPrivateCredentials(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo_base::mojom::AbslStatusCode* out_status
 ,
-             absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials
+             std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials
 ,
              ::mojo_base::mojom::AbslStatusCode status,
-             absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> local_credentials) {*out_status = std::move(status);*out_local_credentials = std::move(local_credentials);
+             std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> local_credentials) {*out_status = std::move(status);*out_local_credentials = std::move(local_credentials);
             loop->Quit();
           },
           &loop,
@@ -960,6 +1218,29 @@ void NearbyPresenceCredentialStorageAsyncWaiter::GetPrivateCredentials(
 }
 
 
+
+void NearbyPresenceCredentialStorageAsyncWaiter::UpdateLocalCredential(
+    ::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, ::mojo_base::mojom::AbslStatusCode* out_status) {
+  base::RunLoop loop;
+  proxy_->UpdateLocalCredential(std::move(local_credential),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::mojo_base::mojom::AbslStatusCode* out_status
+,
+             ::mojo_base::mojom::AbslStatusCode status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+::mojo_base::mojom::AbslStatusCode NearbyPresenceCredentialStorageAsyncWaiter::UpdateLocalCredential(
+    ::ash::nearby::presence::mojom::LocalCredentialPtr local_credential) {
+  ::mojo_base::mojom::AbslStatusCode async_wait_result;
+  UpdateLocalCredential(std::move(local_credential),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -154,14 +155,17 @@ void AudioOutputDelegateProxy::RequestAudioFocus(
                         "<value of type AudioOutputStreamType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioOutputDelegate_RequestAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -186,14 +190,17 @@ void AudioOutputDelegateProxy::AbandonAudioFocusIfNeeded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::AudioOutputDelegate::AbandonAudioFocusIfNeeded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioOutputDelegate_AbandonAudioFocusIfNeeded_Name, kFlags, 0, 0, nullptr);
@@ -223,14 +230,17 @@ void AudioOutputDelegateProxy::AddMediaSessionObserver(
                         "<value of type ::mojo::PendingRemote<::media_session::mojom::MediaSessionObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioOutputDelegate_AddMediaSessionObserver_Name, kFlags, 0, 0, nullptr);
@@ -360,14 +370,14 @@ bool AudioOutputDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioOutputDelegateValidationInfo[] = {
-    {&internal::AudioOutputDelegate_RequestAudioFocus_Params_Data::Validate,
+    { &internal::AudioOutputDelegate_RequestAudioFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioOutputDelegate_AbandonAudioFocusIfNeeded_Params_Data::Validate,
+    { &internal::AudioOutputDelegate_AbandonAudioFocusIfNeeded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioOutputDelegate_AddMediaSessionObserver_Params_Data::Validate,
+    { &internal::AudioOutputDelegate_AddMediaSessionObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 

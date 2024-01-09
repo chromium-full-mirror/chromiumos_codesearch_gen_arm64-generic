@@ -1110,6 +1110,144 @@ class HEADLESS_EXPORT AttributionReportingFilterDataEntry {
 };
 
 
+class HEADLESS_EXPORT AttributionReportingFilterConfig {
+ public:
+  static std::unique_ptr<AttributionReportingFilterConfig> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingFilterConfig(const AttributionReportingFilterConfig&) = delete;
+  AttributionReportingFilterConfig& operator=(const AttributionReportingFilterConfig&) = delete;
+
+  ~AttributionReportingFilterConfig() { }
+
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>>* GetFilterValues() const { return &filter_values_; }
+  void SetFilterValues(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>> value) { filter_values_ = std::move(value); }
+
+  // duration in seconds
+  bool HasLookbackWindow() const { return !!lookback_window_; }
+  int GetLookbackWindow() const { DCHECK(HasLookbackWindow()); return lookback_window_.value(); }
+  void SetLookbackWindow(int value) { lookback_window_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingFilterConfig> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingFilterConfigBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kFilterValuesSet = 1 << 1,
+      kAllRequiredFieldsSet = (kFilterValuesSet | 0)
+    };
+
+    AttributionReportingFilterConfigBuilder<STATE | kFilterValuesSet>& SetFilterValues(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>> value) {
+      static_assert(!(STATE & kFilterValuesSet), "property filterValues should not have already been set");
+      result_->SetFilterValues(std::move(value));
+      return CastState<kFilterValuesSet>();
+    }
+
+    AttributionReportingFilterConfigBuilder<STATE>& SetLookbackWindow(int value) {
+      result_->SetLookbackWindow(value);
+      return *this;
+    }
+
+    std::unique_ptr<AttributionReportingFilterConfig> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingFilterConfig;
+    AttributionReportingFilterConfigBuilder() : result_(new AttributionReportingFilterConfig()) { }
+
+    template<int STEP> AttributionReportingFilterConfigBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingFilterConfigBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingFilterConfig> result_;
+  };
+
+  static AttributionReportingFilterConfigBuilder<0> Builder() {
+    return AttributionReportingFilterConfigBuilder<0>();
+  }
+
+ private:
+  AttributionReportingFilterConfig() { }
+
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>> filter_values_;
+  absl::optional<int> lookback_window_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingFilterPair {
+ public:
+  static std::unique_ptr<AttributionReportingFilterPair> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingFilterPair(const AttributionReportingFilterPair&) = delete;
+  AttributionReportingFilterPair& operator=(const AttributionReportingFilterPair&) = delete;
+
+  ~AttributionReportingFilterPair() { }
+
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>>* GetFilters() const { return &filters_; }
+  void SetFilters(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> value) { filters_ = std::move(value); }
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>>* GetNotFilters() const { return &not_filters_; }
+  void SetNotFilters(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> value) { not_filters_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingFilterPair> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingFilterPairBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kFiltersSet = 1 << 1,
+    kNotFiltersSet = 1 << 2,
+      kAllRequiredFieldsSet = (kFiltersSet | kNotFiltersSet | 0)
+    };
+
+    AttributionReportingFilterPairBuilder<STATE | kFiltersSet>& SetFilters(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> value) {
+      static_assert(!(STATE & kFiltersSet), "property filters should not have already been set");
+      result_->SetFilters(std::move(value));
+      return CastState<kFiltersSet>();
+    }
+
+    AttributionReportingFilterPairBuilder<STATE | kNotFiltersSet>& SetNotFilters(std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> value) {
+      static_assert(!(STATE & kNotFiltersSet), "property notFilters should not have already been set");
+      result_->SetNotFilters(std::move(value));
+      return CastState<kNotFiltersSet>();
+    }
+
+    std::unique_ptr<AttributionReportingFilterPair> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingFilterPair;
+    AttributionReportingFilterPairBuilder() : result_(new AttributionReportingFilterPair()) { }
+
+    template<int STEP> AttributionReportingFilterPairBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingFilterPairBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingFilterPair> result_;
+  };
+
+  static AttributionReportingFilterPairBuilder<0> Builder() {
+    return AttributionReportingFilterPairBuilder<0>();
+  }
+
+ private:
+  AttributionReportingFilterPair() { }
+
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> filters_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>> not_filters_;
+};
+
+
 class HEADLESS_EXPORT AttributionReportingAggregationKeysEntry {
  public:
   static std::unique_ptr<AttributionReportingAggregationKeysEntry> Parse(const base::Value& value, ErrorReporter* errors);
@@ -1250,6 +1388,77 @@ class HEADLESS_EXPORT AttributionReportingEventReportWindows {
 };
 
 
+class HEADLESS_EXPORT AttributionReportingTriggerSpec {
+ public:
+  static std::unique_ptr<AttributionReportingTriggerSpec> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingTriggerSpec(const AttributionReportingTriggerSpec&) = delete;
+  AttributionReportingTriggerSpec& operator=(const AttributionReportingTriggerSpec&) = delete;
+
+  ~AttributionReportingTriggerSpec() { }
+
+
+  // number instead of integer because not all uint32 can be represented by
+  // int
+  const std::vector<double>* GetTriggerData() const { return &trigger_data_; }
+  void SetTriggerData(std::vector<double> value) { trigger_data_ = std::move(value); }
+
+  const ::headless::storage::AttributionReportingEventReportWindows* GetEventReportWindows() const { return event_report_windows_.get(); }
+  void SetEventReportWindows(std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> value) { event_report_windows_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingTriggerSpec> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingTriggerSpecBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kTriggerDataSet = 1 << 1,
+    kEventReportWindowsSet = 1 << 2,
+      kAllRequiredFieldsSet = (kTriggerDataSet | kEventReportWindowsSet | 0)
+    };
+
+    AttributionReportingTriggerSpecBuilder<STATE | kTriggerDataSet>& SetTriggerData(std::vector<double> value) {
+      static_assert(!(STATE & kTriggerDataSet), "property triggerData should not have already been set");
+      result_->SetTriggerData(std::move(value));
+      return CastState<kTriggerDataSet>();
+    }
+
+    AttributionReportingTriggerSpecBuilder<STATE | kEventReportWindowsSet>& SetEventReportWindows(std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> value) {
+      static_assert(!(STATE & kEventReportWindowsSet), "property eventReportWindows should not have already been set");
+      result_->SetEventReportWindows(std::move(value));
+      return CastState<kEventReportWindowsSet>();
+    }
+
+    std::unique_ptr<AttributionReportingTriggerSpec> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingTriggerSpec;
+    AttributionReportingTriggerSpecBuilder() : result_(new AttributionReportingTriggerSpec()) { }
+
+    template<int STEP> AttributionReportingTriggerSpecBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingTriggerSpecBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingTriggerSpec> result_;
+  };
+
+  static AttributionReportingTriggerSpecBuilder<0> Builder() {
+    return AttributionReportingTriggerSpecBuilder<0>();
+  }
+
+ private:
+  AttributionReportingTriggerSpec() { }
+
+  std::vector<double> trigger_data_;
+  std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> event_report_windows_;
+};
+
+
 class HEADLESS_EXPORT AttributionReportingSourceRegistration {
  public:
   static std::unique_ptr<AttributionReportingSourceRegistration> Parse(const base::Value& value, ErrorReporter* errors);
@@ -1267,8 +1476,8 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
   int GetExpiry() const { return expiry_; }
   void SetExpiry(int value) { expiry_ = value; }
 
-  const ::headless::storage::AttributionReportingEventReportWindows* GetEventReportWindows() const { return event_report_windows_.get(); }
-  void SetEventReportWindows(std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> value) { event_report_windows_ = std::move(value); }
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingTriggerSpec>>* GetTriggerSpecs() const { return &trigger_specs_; }
+  void SetTriggerSpecs(std::vector<std::unique_ptr<::headless::storage::AttributionReportingTriggerSpec>> value) { trigger_specs_ = std::move(value); }
 
   // duration in seconds
   int GetAggregatableReportWindow() const { return aggregatable_report_window_; }
@@ -1315,7 +1524,7 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
       kNoFieldsSet = 0,
     kTimeSet = 1 << 1,
     kExpirySet = 1 << 2,
-    kEventReportWindowsSet = 1 << 3,
+    kTriggerSpecsSet = 1 << 3,
     kAggregatableReportWindowSet = 1 << 4,
     kTypeSet = 1 << 5,
     kSourceOriginSet = 1 << 6,
@@ -1326,7 +1535,7 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
     kFilterDataSet = 1 << 11,
     kAggregationKeysSet = 1 << 12,
     kTriggerDataMatchingSet = 1 << 13,
-      kAllRequiredFieldsSet = (kTimeSet | kExpirySet | kEventReportWindowsSet | kAggregatableReportWindowSet | kTypeSet | kSourceOriginSet | kReportingOriginSet | kDestinationSitesSet | kEventIdSet | kPrioritySet | kFilterDataSet | kAggregationKeysSet | kTriggerDataMatchingSet | 0)
+      kAllRequiredFieldsSet = (kTimeSet | kExpirySet | kTriggerSpecsSet | kAggregatableReportWindowSet | kTypeSet | kSourceOriginSet | kReportingOriginSet | kDestinationSitesSet | kEventIdSet | kPrioritySet | kFilterDataSet | kAggregationKeysSet | kTriggerDataMatchingSet | 0)
     };
 
     AttributionReportingSourceRegistrationBuilder<STATE | kTimeSet>& SetTime(double value) {
@@ -1341,10 +1550,10 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
       return CastState<kExpirySet>();
     }
 
-    AttributionReportingSourceRegistrationBuilder<STATE | kEventReportWindowsSet>& SetEventReportWindows(std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> value) {
-      static_assert(!(STATE & kEventReportWindowsSet), "property eventReportWindows should not have already been set");
-      result_->SetEventReportWindows(std::move(value));
-      return CastState<kEventReportWindowsSet>();
+    AttributionReportingSourceRegistrationBuilder<STATE | kTriggerSpecsSet>& SetTriggerSpecs(std::vector<std::unique_ptr<::headless::storage::AttributionReportingTriggerSpec>> value) {
+      static_assert(!(STATE & kTriggerSpecsSet), "property triggerSpecs should not have already been set");
+      result_->SetTriggerSpecs(std::move(value));
+      return CastState<kTriggerSpecsSet>();
     }
 
     AttributionReportingSourceRegistrationBuilder<STATE | kAggregatableReportWindowSet>& SetAggregatableReportWindow(int value) {
@@ -1437,7 +1646,7 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
 
   double time_;
   int expiry_;
-  std::unique_ptr<::headless::storage::AttributionReportingEventReportWindows> event_report_windows_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingTriggerSpec>> trigger_specs_;
   int aggregatable_report_window_;
   ::headless::storage::AttributionReportingSourceType type_;
   std::string source_origin_;
@@ -1449,6 +1658,469 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
   std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregationKeysEntry>> aggregation_keys_;
   absl::optional<std::string> debug_key_;
   ::headless::storage::AttributionReportingTriggerDataMatching trigger_data_matching_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingAggregatableValueEntry {
+ public:
+  static std::unique_ptr<AttributionReportingAggregatableValueEntry> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingAggregatableValueEntry(const AttributionReportingAggregatableValueEntry&) = delete;
+  AttributionReportingAggregatableValueEntry& operator=(const AttributionReportingAggregatableValueEntry&) = delete;
+
+  ~AttributionReportingAggregatableValueEntry() { }
+
+
+  std::string GetKey() const { return key_; }
+  void SetKey(const std::string& value) { key_ = value; }
+
+  // number instead of integer because not all uint32 can be represented by
+  // int
+  double GetValue() const { return value_; }
+  void SetValue(double value) { value_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingAggregatableValueEntry> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingAggregatableValueEntryBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kKeySet = 1 << 1,
+    kValueSet = 1 << 2,
+      kAllRequiredFieldsSet = (kKeySet | kValueSet | 0)
+    };
+
+    AttributionReportingAggregatableValueEntryBuilder<STATE | kKeySet>& SetKey(const std::string& value) {
+      static_assert(!(STATE & kKeySet), "property key should not have already been set");
+      result_->SetKey(value);
+      return CastState<kKeySet>();
+    }
+
+    AttributionReportingAggregatableValueEntryBuilder<STATE | kValueSet>& SetValue(double value) {
+      static_assert(!(STATE & kValueSet), "property value should not have already been set");
+      result_->SetValue(value);
+      return CastState<kValueSet>();
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableValueEntry> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingAggregatableValueEntry;
+    AttributionReportingAggregatableValueEntryBuilder() : result_(new AttributionReportingAggregatableValueEntry()) { }
+
+    template<int STEP> AttributionReportingAggregatableValueEntryBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingAggregatableValueEntryBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableValueEntry> result_;
+  };
+
+  static AttributionReportingAggregatableValueEntryBuilder<0> Builder() {
+    return AttributionReportingAggregatableValueEntryBuilder<0>();
+  }
+
+ private:
+  AttributionReportingAggregatableValueEntry() { }
+
+  std::string key_;
+  double value_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingEventTriggerData {
+ public:
+  static std::unique_ptr<AttributionReportingEventTriggerData> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingEventTriggerData(const AttributionReportingEventTriggerData&) = delete;
+  AttributionReportingEventTriggerData& operator=(const AttributionReportingEventTriggerData&) = delete;
+
+  ~AttributionReportingEventTriggerData() { }
+
+
+  std::string GetData() const { return data_; }
+  void SetData(const std::string& value) { data_ = value; }
+
+  std::string GetPriority() const { return priority_; }
+  void SetPriority(const std::string& value) { priority_ = value; }
+
+  bool HasDedupKey() const { return !!dedup_key_; }
+  std::string GetDedupKey() const { DCHECK(HasDedupKey()); return dedup_key_.value(); }
+  void SetDedupKey(const std::string& value) { dedup_key_ = value; }
+
+  const ::headless::storage::AttributionReportingFilterPair* GetFilters() const { return filters_.get(); }
+  void SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) { filters_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingEventTriggerData> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingEventTriggerDataBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kDataSet = 1 << 1,
+    kPrioritySet = 1 << 2,
+    kFiltersSet = 1 << 3,
+      kAllRequiredFieldsSet = (kDataSet | kPrioritySet | kFiltersSet | 0)
+    };
+
+    AttributionReportingEventTriggerDataBuilder<STATE | kDataSet>& SetData(const std::string& value) {
+      static_assert(!(STATE & kDataSet), "property data should not have already been set");
+      result_->SetData(value);
+      return CastState<kDataSet>();
+    }
+
+    AttributionReportingEventTriggerDataBuilder<STATE | kPrioritySet>& SetPriority(const std::string& value) {
+      static_assert(!(STATE & kPrioritySet), "property priority should not have already been set");
+      result_->SetPriority(value);
+      return CastState<kPrioritySet>();
+    }
+
+    AttributionReportingEventTriggerDataBuilder<STATE>& SetDedupKey(const std::string& value) {
+      result_->SetDedupKey(value);
+      return *this;
+    }
+
+    AttributionReportingEventTriggerDataBuilder<STATE | kFiltersSet>& SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) {
+      static_assert(!(STATE & kFiltersSet), "property filters should not have already been set");
+      result_->SetFilters(std::move(value));
+      return CastState<kFiltersSet>();
+    }
+
+    std::unique_ptr<AttributionReportingEventTriggerData> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingEventTriggerData;
+    AttributionReportingEventTriggerDataBuilder() : result_(new AttributionReportingEventTriggerData()) { }
+
+    template<int STEP> AttributionReportingEventTriggerDataBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingEventTriggerDataBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingEventTriggerData> result_;
+  };
+
+  static AttributionReportingEventTriggerDataBuilder<0> Builder() {
+    return AttributionReportingEventTriggerDataBuilder<0>();
+  }
+
+ private:
+  AttributionReportingEventTriggerData() { }
+
+  std::string data_;
+  std::string priority_;
+  absl::optional<std::string> dedup_key_;
+  std::unique_ptr<::headless::storage::AttributionReportingFilterPair> filters_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingAggregatableTriggerData {
+ public:
+  static std::unique_ptr<AttributionReportingAggregatableTriggerData> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingAggregatableTriggerData(const AttributionReportingAggregatableTriggerData&) = delete;
+  AttributionReportingAggregatableTriggerData& operator=(const AttributionReportingAggregatableTriggerData&) = delete;
+
+  ~AttributionReportingAggregatableTriggerData() { }
+
+
+  std::string GetKeyPiece() const { return key_piece_; }
+  void SetKeyPiece(const std::string& value) { key_piece_ = value; }
+
+  const std::vector<std::string>* GetSourceKeys() const { return &source_keys_; }
+  void SetSourceKeys(std::vector<std::string> value) { source_keys_ = std::move(value); }
+
+  const ::headless::storage::AttributionReportingFilterPair* GetFilters() const { return filters_.get(); }
+  void SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) { filters_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingAggregatableTriggerData> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingAggregatableTriggerDataBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kKeyPieceSet = 1 << 1,
+    kSourceKeysSet = 1 << 2,
+    kFiltersSet = 1 << 3,
+      kAllRequiredFieldsSet = (kKeyPieceSet | kSourceKeysSet | kFiltersSet | 0)
+    };
+
+    AttributionReportingAggregatableTriggerDataBuilder<STATE | kKeyPieceSet>& SetKeyPiece(const std::string& value) {
+      static_assert(!(STATE & kKeyPieceSet), "property keyPiece should not have already been set");
+      result_->SetKeyPiece(value);
+      return CastState<kKeyPieceSet>();
+    }
+
+    AttributionReportingAggregatableTriggerDataBuilder<STATE | kSourceKeysSet>& SetSourceKeys(std::vector<std::string> value) {
+      static_assert(!(STATE & kSourceKeysSet), "property sourceKeys should not have already been set");
+      result_->SetSourceKeys(std::move(value));
+      return CastState<kSourceKeysSet>();
+    }
+
+    AttributionReportingAggregatableTriggerDataBuilder<STATE | kFiltersSet>& SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) {
+      static_assert(!(STATE & kFiltersSet), "property filters should not have already been set");
+      result_->SetFilters(std::move(value));
+      return CastState<kFiltersSet>();
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableTriggerData> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingAggregatableTriggerData;
+    AttributionReportingAggregatableTriggerDataBuilder() : result_(new AttributionReportingAggregatableTriggerData()) { }
+
+    template<int STEP> AttributionReportingAggregatableTriggerDataBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingAggregatableTriggerDataBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableTriggerData> result_;
+  };
+
+  static AttributionReportingAggregatableTriggerDataBuilder<0> Builder() {
+    return AttributionReportingAggregatableTriggerDataBuilder<0>();
+  }
+
+ private:
+  AttributionReportingAggregatableTriggerData() { }
+
+  std::string key_piece_;
+  std::vector<std::string> source_keys_;
+  std::unique_ptr<::headless::storage::AttributionReportingFilterPair> filters_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingAggregatableDedupKey {
+ public:
+  static std::unique_ptr<AttributionReportingAggregatableDedupKey> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingAggregatableDedupKey(const AttributionReportingAggregatableDedupKey&) = delete;
+  AttributionReportingAggregatableDedupKey& operator=(const AttributionReportingAggregatableDedupKey&) = delete;
+
+  ~AttributionReportingAggregatableDedupKey() { }
+
+
+  bool HasDedupKey() const { return !!dedup_key_; }
+  std::string GetDedupKey() const { DCHECK(HasDedupKey()); return dedup_key_.value(); }
+  void SetDedupKey(const std::string& value) { dedup_key_ = value; }
+
+  const ::headless::storage::AttributionReportingFilterPair* GetFilters() const { return filters_.get(); }
+  void SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) { filters_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingAggregatableDedupKey> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingAggregatableDedupKeyBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kFiltersSet = 1 << 1,
+      kAllRequiredFieldsSet = (kFiltersSet | 0)
+    };
+
+    AttributionReportingAggregatableDedupKeyBuilder<STATE>& SetDedupKey(const std::string& value) {
+      result_->SetDedupKey(value);
+      return *this;
+    }
+
+    AttributionReportingAggregatableDedupKeyBuilder<STATE | kFiltersSet>& SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) {
+      static_assert(!(STATE & kFiltersSet), "property filters should not have already been set");
+      result_->SetFilters(std::move(value));
+      return CastState<kFiltersSet>();
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableDedupKey> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingAggregatableDedupKey;
+    AttributionReportingAggregatableDedupKeyBuilder() : result_(new AttributionReportingAggregatableDedupKey()) { }
+
+    template<int STEP> AttributionReportingAggregatableDedupKeyBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingAggregatableDedupKeyBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingAggregatableDedupKey> result_;
+  };
+
+  static AttributionReportingAggregatableDedupKeyBuilder<0> Builder() {
+    return AttributionReportingAggregatableDedupKeyBuilder<0>();
+  }
+
+ private:
+  AttributionReportingAggregatableDedupKey() { }
+
+  absl::optional<std::string> dedup_key_;
+  std::unique_ptr<::headless::storage::AttributionReportingFilterPair> filters_;
+};
+
+
+class HEADLESS_EXPORT AttributionReportingTriggerRegistration {
+ public:
+  static std::unique_ptr<AttributionReportingTriggerRegistration> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingTriggerRegistration(const AttributionReportingTriggerRegistration&) = delete;
+  AttributionReportingTriggerRegistration& operator=(const AttributionReportingTriggerRegistration&) = delete;
+
+  ~AttributionReportingTriggerRegistration() { }
+
+
+  const ::headless::storage::AttributionReportingFilterPair* GetFilters() const { return filters_.get(); }
+  void SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) { filters_ = std::move(value); }
+
+  bool HasDebugKey() const { return !!debug_key_; }
+  std::string GetDebugKey() const { DCHECK(HasDebugKey()); return debug_key_.value(); }
+  void SetDebugKey(const std::string& value) { debug_key_ = value; }
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableDedupKey>>* GetAggregatableDedupKeys() const { return &aggregatable_dedup_keys_; }
+  void SetAggregatableDedupKeys(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableDedupKey>> value) { aggregatable_dedup_keys_ = std::move(value); }
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingEventTriggerData>>* GetEventTriggerData() const { return &event_trigger_data_; }
+  void SetEventTriggerData(std::vector<std::unique_ptr<::headless::storage::AttributionReportingEventTriggerData>> value) { event_trigger_data_ = std::move(value); }
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableTriggerData>>* GetAggregatableTriggerData() const { return &aggregatable_trigger_data_; }
+  void SetAggregatableTriggerData(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableTriggerData>> value) { aggregatable_trigger_data_ = std::move(value); }
+
+  const std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableValueEntry>>* GetAggregatableValues() const { return &aggregatable_values_; }
+  void SetAggregatableValues(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableValueEntry>> value) { aggregatable_values_ = std::move(value); }
+
+  bool GetDebugReporting() const { return debug_reporting_; }
+  void SetDebugReporting(bool value) { debug_reporting_ = value; }
+
+  bool HasAggregationCoordinatorOrigin() const { return !!aggregation_coordinator_origin_; }
+  std::string GetAggregationCoordinatorOrigin() const { DCHECK(HasAggregationCoordinatorOrigin()); return aggregation_coordinator_origin_.value(); }
+  void SetAggregationCoordinatorOrigin(const std::string& value) { aggregation_coordinator_origin_ = value; }
+
+  ::headless::storage::AttributionReportingSourceRegistrationTimeConfig GetSourceRegistrationTimeConfig() const { return source_registration_time_config_; }
+  void SetSourceRegistrationTimeConfig(::headless::storage::AttributionReportingSourceRegistrationTimeConfig value) { source_registration_time_config_ = value; }
+
+  bool HasTriggerContextId() const { return !!trigger_context_id_; }
+  std::string GetTriggerContextId() const { DCHECK(HasTriggerContextId()); return trigger_context_id_.value(); }
+  void SetTriggerContextId(const std::string& value) { trigger_context_id_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingTriggerRegistration> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingTriggerRegistrationBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kFiltersSet = 1 << 1,
+    kAggregatableDedupKeysSet = 1 << 2,
+    kEventTriggerDataSet = 1 << 3,
+    kAggregatableTriggerDataSet = 1 << 4,
+    kAggregatableValuesSet = 1 << 5,
+    kDebugReportingSet = 1 << 6,
+    kSourceRegistrationTimeConfigSet = 1 << 7,
+      kAllRequiredFieldsSet = (kFiltersSet | kAggregatableDedupKeysSet | kEventTriggerDataSet | kAggregatableTriggerDataSet | kAggregatableValuesSet | kDebugReportingSet | kSourceRegistrationTimeConfigSet | 0)
+    };
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kFiltersSet>& SetFilters(std::unique_ptr<::headless::storage::AttributionReportingFilterPair> value) {
+      static_assert(!(STATE & kFiltersSet), "property filters should not have already been set");
+      result_->SetFilters(std::move(value));
+      return CastState<kFiltersSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE>& SetDebugKey(const std::string& value) {
+      result_->SetDebugKey(value);
+      return *this;
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kAggregatableDedupKeysSet>& SetAggregatableDedupKeys(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableDedupKey>> value) {
+      static_assert(!(STATE & kAggregatableDedupKeysSet), "property aggregatableDedupKeys should not have already been set");
+      result_->SetAggregatableDedupKeys(std::move(value));
+      return CastState<kAggregatableDedupKeysSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kEventTriggerDataSet>& SetEventTriggerData(std::vector<std::unique_ptr<::headless::storage::AttributionReportingEventTriggerData>> value) {
+      static_assert(!(STATE & kEventTriggerDataSet), "property eventTriggerData should not have already been set");
+      result_->SetEventTriggerData(std::move(value));
+      return CastState<kEventTriggerDataSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kAggregatableTriggerDataSet>& SetAggregatableTriggerData(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableTriggerData>> value) {
+      static_assert(!(STATE & kAggregatableTriggerDataSet), "property aggregatableTriggerData should not have already been set");
+      result_->SetAggregatableTriggerData(std::move(value));
+      return CastState<kAggregatableTriggerDataSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kAggregatableValuesSet>& SetAggregatableValues(std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableValueEntry>> value) {
+      static_assert(!(STATE & kAggregatableValuesSet), "property aggregatableValues should not have already been set");
+      result_->SetAggregatableValues(std::move(value));
+      return CastState<kAggregatableValuesSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kDebugReportingSet>& SetDebugReporting(bool value) {
+      static_assert(!(STATE & kDebugReportingSet), "property debugReporting should not have already been set");
+      result_->SetDebugReporting(value);
+      return CastState<kDebugReportingSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE>& SetAggregationCoordinatorOrigin(const std::string& value) {
+      result_->SetAggregationCoordinatorOrigin(value);
+      return *this;
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE | kSourceRegistrationTimeConfigSet>& SetSourceRegistrationTimeConfig(::headless::storage::AttributionReportingSourceRegistrationTimeConfig value) {
+      static_assert(!(STATE & kSourceRegistrationTimeConfigSet), "property sourceRegistrationTimeConfig should not have already been set");
+      result_->SetSourceRegistrationTimeConfig(value);
+      return CastState<kSourceRegistrationTimeConfigSet>();
+    }
+
+    AttributionReportingTriggerRegistrationBuilder<STATE>& SetTriggerContextId(const std::string& value) {
+      result_->SetTriggerContextId(value);
+      return *this;
+    }
+
+    std::unique_ptr<AttributionReportingTriggerRegistration> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingTriggerRegistration;
+    AttributionReportingTriggerRegistrationBuilder() : result_(new AttributionReportingTriggerRegistration()) { }
+
+    template<int STEP> AttributionReportingTriggerRegistrationBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingTriggerRegistrationBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingTriggerRegistration> result_;
+  };
+
+  static AttributionReportingTriggerRegistrationBuilder<0> Builder() {
+    return AttributionReportingTriggerRegistrationBuilder<0>();
+  }
+
+ private:
+  AttributionReportingTriggerRegistration() { }
+
+  std::unique_ptr<::headless::storage::AttributionReportingFilterPair> filters_;
+  absl::optional<std::string> debug_key_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableDedupKey>> aggregatable_dedup_keys_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingEventTriggerData>> event_trigger_data_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableTriggerData>> aggregatable_trigger_data_;
+  std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableValueEntry>> aggregatable_values_;
+  bool debug_reporting_;
+  absl::optional<std::string> aggregation_coordinator_origin_;
+  ::headless::storage::AttributionReportingSourceRegistrationTimeConfig source_registration_time_config_;
+  absl::optional<std::string> trigger_context_id_;
 };
 
 
@@ -5883,6 +6555,87 @@ class HEADLESS_EXPORT AttributionReportingSourceRegisteredParams {
 
   std::unique_ptr<::headless::storage::AttributionReportingSourceRegistration> registration_;
   ::headless::storage::AttributionReportingSourceRegistrationResult result_;
+};
+
+
+// Parameters for the AttributionReportingTriggerRegistered event.
+class HEADLESS_EXPORT AttributionReportingTriggerRegisteredParams {
+ public:
+  static std::unique_ptr<AttributionReportingTriggerRegisteredParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AttributionReportingTriggerRegisteredParams(const AttributionReportingTriggerRegisteredParams&) = delete;
+  AttributionReportingTriggerRegisteredParams& operator=(const AttributionReportingTriggerRegisteredParams&) = delete;
+
+  ~AttributionReportingTriggerRegisteredParams() { }
+
+
+  const ::headless::storage::AttributionReportingTriggerRegistration* GetRegistration() const { return registration_.get(); }
+  void SetRegistration(std::unique_ptr<::headless::storage::AttributionReportingTriggerRegistration> value) { registration_ = std::move(value); }
+
+  ::headless::storage::AttributionReportingEventLevelResult GetEventLevel() const { return event_level_; }
+  void SetEventLevel(::headless::storage::AttributionReportingEventLevelResult value) { event_level_ = value; }
+
+  ::headless::storage::AttributionReportingAggregatableResult GetAggregatable() const { return aggregatable_; }
+  void SetAggregatable(::headless::storage::AttributionReportingAggregatableResult value) { aggregatable_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AttributionReportingTriggerRegisteredParams> Clone() const;
+
+  template<int STATE>
+  class AttributionReportingTriggerRegisteredParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kRegistrationSet = 1 << 1,
+    kEventLevelSet = 1 << 2,
+    kAggregatableSet = 1 << 3,
+      kAllRequiredFieldsSet = (kRegistrationSet | kEventLevelSet | kAggregatableSet | 0)
+    };
+
+    AttributionReportingTriggerRegisteredParamsBuilder<STATE | kRegistrationSet>& SetRegistration(std::unique_ptr<::headless::storage::AttributionReportingTriggerRegistration> value) {
+      static_assert(!(STATE & kRegistrationSet), "property registration should not have already been set");
+      result_->SetRegistration(std::move(value));
+      return CastState<kRegistrationSet>();
+    }
+
+    AttributionReportingTriggerRegisteredParamsBuilder<STATE | kEventLevelSet>& SetEventLevel(::headless::storage::AttributionReportingEventLevelResult value) {
+      static_assert(!(STATE & kEventLevelSet), "property eventLevel should not have already been set");
+      result_->SetEventLevel(value);
+      return CastState<kEventLevelSet>();
+    }
+
+    AttributionReportingTriggerRegisteredParamsBuilder<STATE | kAggregatableSet>& SetAggregatable(::headless::storage::AttributionReportingAggregatableResult value) {
+      static_assert(!(STATE & kAggregatableSet), "property aggregatable should not have already been set");
+      result_->SetAggregatable(value);
+      return CastState<kAggregatableSet>();
+    }
+
+    std::unique_ptr<AttributionReportingTriggerRegisteredParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AttributionReportingTriggerRegisteredParams;
+    AttributionReportingTriggerRegisteredParamsBuilder() : result_(new AttributionReportingTriggerRegisteredParams()) { }
+
+    template<int STEP> AttributionReportingTriggerRegisteredParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AttributionReportingTriggerRegisteredParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AttributionReportingTriggerRegisteredParams> result_;
+  };
+
+  static AttributionReportingTriggerRegisteredParamsBuilder<0> Builder() {
+    return AttributionReportingTriggerRegisteredParamsBuilder<0>();
+  }
+
+ private:
+  AttributionReportingTriggerRegisteredParams() { }
+
+  std::unique_ptr<::headless::storage::AttributionReportingTriggerRegistration> registration_;
+  ::headless::storage::AttributionReportingEventLevelResult event_level_;
+  ::headless::storage::AttributionReportingAggregatableResult aggregatable_;
 };
 
 

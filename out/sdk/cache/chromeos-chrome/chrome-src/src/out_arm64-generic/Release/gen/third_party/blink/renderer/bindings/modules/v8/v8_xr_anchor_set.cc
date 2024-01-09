@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRAnchorSet>::value,
     "XRAnchorSet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRAnchorSet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRAnchorSet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchorSet.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -107,12 +103,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchorSet.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRAnchorSet";
 const char* const property_name = "entries";
@@ -145,7 +141,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -190,7 +186,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -216,12 +212,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchorSet.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRAnchorSet";
 const char* const property_name = "keys";
@@ -244,12 +240,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchorSet.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(v8_receiver);
+XRAnchorSet* blink_receiver = V8XRAnchorSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRAnchorSet";
 const char* const property_name = "values";

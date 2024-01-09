@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/page_state/page_state.mojom-features.h"
 #include "third_party/blink/public/mojom/page_state/page_state.mojom-shared.h"
 #include "third_party/blink/public/mojom/page_state/page_state.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -42,18 +43,6 @@
 #include "third_party/blink/renderer/core/core_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ScrollRestorationType>
-    : EnumHashTraits<::blink::mojom::ScrollRestorationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -88,33 +77,33 @@ class CORE_EXPORT Element {
   // Construct an instance holding |blob_uuid|.
   static ElementPtr
   NewBlobUuid(
-      const WTF::String& blob_uuid) {
+      const WTF::String& value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_blob_uuid(std::move(blob_uuid));
+    result->set_blob_uuid(std::move(value));
     return result;
   }
   // Construct an instance holding |bytes|.
   static ElementPtr
   NewBytes(
-      WTF::Vector<uint8_t> bytes) {
+      WTF::Vector<uint8_t> value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_bytes(std::move(bytes));
+    result->set_bytes(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static ElementPtr
   NewFile(
-      FilePtr file) {
+      FilePtr value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |DEPRECATED_file_system_file|.
   static ElementPtr
   NewDeprecatedFileSystemFile(
-      DEPRECATED_FileSystemFilePtr DEPRECATED_file_system_file) {
+      DEPRECATED_FileSystemFilePtr value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_DEPRECATED_file_system_file(std::move(DEPRECATED_file_system_file));
+    result->set_DEPRECATED_file_system_file(std::move(value));
     return result;
   }
 
@@ -873,7 +862,7 @@ class CORE_EXPORT ViewState {
       const ::gfx::Point& scroll_offset,
       double page_scale_factor,
       const ::WTF::String& scroll_anchor_selector,
-      const absl::optional<::gfx::PointF>& scroll_anchor_offset,
+      const std::optional<::gfx::PointF>& scroll_anchor_offset,
       uint64_t scroll_anchor_simhash);
 
 
@@ -960,7 +949,7 @@ class CORE_EXPORT ViewState {
   
   ::WTF::String scroll_anchor_selector;
   
-  absl::optional<::gfx::PointF> scroll_anchor_offset;
+  std::optional<::gfx::PointF> scroll_anchor_offset;
   
   uint64_t scroll_anchor_simhash;
 

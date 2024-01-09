@@ -29,6 +29,7 @@ constexpr uint32_t kAppController_Launch_Name = 8;
 constexpr uint32_t kAppController_ExecuteContextMenuCommand_Name = 9;
 constexpr uint32_t kAppController_StopApp_Name = 10;
 constexpr uint32_t kAppController_SetPermission_Name = 11;
+constexpr uint32_t kAppController_UpdateAppSize_Name = 21;
 constexpr uint32_t kAppServiceProxy_RegisterAppServiceSubscriber_Name = 0;
 constexpr uint32_t kAppServiceProxy_Launch_Name = 1;
 constexpr uint32_t kAppServiceProxy_LaunchWithResult_Name = 7;
@@ -37,9 +38,16 @@ constexpr uint32_t kAppServiceProxy_AddPreferredAppDeprecated_Name = 3;
 constexpr uint32_t kAppServiceProxy_ShowAppManagementPage_Name = 4;
 constexpr uint32_t kAppServiceProxy_SetSupportedLinksPreference_Name = 5;
 constexpr uint32_t kAppServiceProxy_UninstallSilently_Name = 6;
+constexpr uint32_t kAppServiceProxy_InstallApp_Name = 8;
 constexpr uint32_t kAppServiceSubscriber_OnApps_Name = 0;
 constexpr uint32_t kAppServiceSubscriber_OnPreferredAppsChanged_Name = 1;
 constexpr uint32_t kAppServiceSubscriber_InitializePreferredApps_Name = 2;
+constexpr uint32_t kAppShortcutPublisher_PublishShortcuts_Name = 0;
+constexpr uint32_t kAppShortcutPublisher_RegisterAppShortcutController_Name = 1;
+constexpr uint32_t kAppShortcutPublisher_ShortcutRemoved_Name = 2;
+constexpr uint32_t kAppShortcutController_LaunchShortcut_Name = 0;
+constexpr uint32_t kAppShortcutController_GetCompressedIcon_Name = 1;
+constexpr uint32_t kAppShortcutController_RemoveShortcut_Name = 2;
 
 }  // namespace internal
 

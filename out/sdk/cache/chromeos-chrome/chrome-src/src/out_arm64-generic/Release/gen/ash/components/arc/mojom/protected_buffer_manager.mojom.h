@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/protected_buffer_manager.mojom-features.h"
 #include "ash/components/arc/mojom/protected_buffer_manager.mojom-shared.h"
 #include "ash/components/arc/mojom/protected_buffer_manager.mojom-forward.h"
 #include "media/mojo/mojom/stable/native_pixmap_handle.mojom.h"
@@ -109,7 +110,7 @@ class ProtectedBufferManager
   virtual void GetProtectedSharedMemoryFromHandle(::mojo::ScopedHandle dummy_handle, GetProtectedSharedMemoryFromHandleCallback callback) = 0;
 
 
-  using GetProtectedNativePixmapHandleFromHandleCallback = base::OnceCallback<void(absl::optional<::gfx::NativePixmapHandle>)>;
+  using GetProtectedNativePixmapHandleFromHandleCallback = base::OnceCallback<void(std::optional<::gfx::NativePixmapHandle>)>;
   
   virtual void GetProtectedNativePixmapHandleFromHandle(::mojo::ScopedHandle dummy_handle, GetProtectedNativePixmapHandleFromHandleCallback callback) = 0;
 

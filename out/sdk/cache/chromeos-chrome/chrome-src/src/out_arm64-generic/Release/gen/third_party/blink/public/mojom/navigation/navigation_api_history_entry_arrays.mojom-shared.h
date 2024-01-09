@@ -168,6 +168,26 @@ class NavigationApiHistoryEntryArraysDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::NavigationApiHistoryEntryDataView>>(
         pointer, output, message_);
   }
+  inline void GetPreviousEntryDataView(
+      NavigationApiHistoryEntryDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPreviousEntry(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::NavigationApiHistoryEntryDataView, UserType>(),
+    "Attempting to read the optional `previous_entry` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPreviousEntry` instead "
+    "of `ReadPreviousEntry if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->previous_entry.Get();
+    return mojo::internal::Deserialize<::blink::mojom::NavigationApiHistoryEntryDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::NavigationApiHistoryEntryArrays_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -299,6 +319,14 @@ struct Serializer<::blink::mojom::NavigationApiHistoryEntryArraysDataView, Maybe
         fragment->forward_entries.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null forward_entries in NavigationApiHistoryEntryArrays struct");
+    decltype(Traits::previous_entry(input)) in_previous_entry = Traits::previous_entry(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->previous_entry)::BaseType> previous_entry_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::NavigationApiHistoryEntryDataView>(
+        in_previous_entry, previous_entry_fragment);
+    fragment->previous_entry.Set(
+        previous_entry_fragment.is_null() ? nullptr : previous_entry_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::NavigationApiHistoryEntryArrays_Data* input,
@@ -350,6 +378,11 @@ inline void NavigationApiHistoryEntryArraysDataView::GetForwardEntriesDataView(
     mojo::ArrayDataView<NavigationApiHistoryEntryDataView>* output) {
   auto pointer = data_->forward_entries.Get();
   *output = mojo::ArrayDataView<NavigationApiHistoryEntryDataView>(pointer, message_);
+}
+inline void NavigationApiHistoryEntryArraysDataView::GetPreviousEntryDataView(
+    NavigationApiHistoryEntryDataView* output) {
+  auto pointer = data_->previous_entry.Get();
+  *output = NavigationApiHistoryEntryDataView(pointer, message_);
 }
 
 

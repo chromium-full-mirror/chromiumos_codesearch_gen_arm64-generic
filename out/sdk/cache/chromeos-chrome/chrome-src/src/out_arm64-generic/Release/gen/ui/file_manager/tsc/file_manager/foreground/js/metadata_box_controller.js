@@ -1,23 +1,17 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { isDirectoryEntry, isSameEntry, unwrapEntry } from '../../common/js/entry_utils.js';
-import { FileType } from '../../common/js/file_type.js';
-import '../../common/js/trash.js';
-import { util } from '../../common/js/util.js';
-import '../../externs/volume_manager.js';
-import '../elements/files_metadata_box.js';
-import '../elements/files_quick_view.js';
-import './metadata/metadata_item.js';
-import './metadata/metadata_model.js';
+import { isDirectoryEntry, isNativeEntry, isSameEntry, unwrapEntry } from '../../common/js/entry_utils.js';
+import { getType } from '../../common/js/file_type.js';
+import { strf } from '../../common/js/translations.js';
+import { TrashEntry } from '../../common/js/trash.js';
+import { FilesMetadataBox } from '../elements/files_metadata_box.js';
+import { FilesQuickView } from '../elements/files_quick_view.js';
+import { MetadataItem } from './metadata/metadata_item.js';
+import { MetadataModel } from './metadata/metadata_model.js';
 import { PathComponent } from './path_component.js';
-import './quick_view_model.js';
-import './ui/file_metadata_formatter.js';
+import { QuickViewModel } from './quick_view_model.js';
+import { FileMetadataFormatter } from './ui/file_metadata_formatter.js';
 function isTrashEntry(entry) {
     return 'restoreEntry' in entry;
 }
@@ -70,7 +64,12 @@ export class MetadataBoxController {
         }
         // Do not clear isSizeLoading and size fields when the entry is not changed.
         this.metadataBox.clear(sameEntry);
-        const metadata = GENERAL_METADATA_NAMES.concat(['alternateUrl', 'externalFileUrl', 'hosted']);
+        const metadata = [
+            ...GENERAL_METADATA_NAMES,
+            'alternateUrl',
+            'externalFileUrl',
+            'hosted',
+        ];
         this.metadataModel_.get([entry], metadata)
             .then(this.onGeneralMetadataLoaded_.bind(this, entry, sameEntry));
     }
@@ -86,7 +85,7 @@ export class MetadataBoxController {
      * @param isSameEntry if the entry is not changed from the last time.
      */
     onGeneralMetadataLoaded_(entry, isSameEntry, items) {
-        const type = FileType.getType(entry).type;
+        const type = getType(entry).type;
         const item = items[0];
         if (isDirectoryEntry(entry)) {
             this.setDirectorySize_(entry, isSameEntry);
@@ -103,7 +102,8 @@ export class MetadataBoxController {
         }
         this.updateModificationTime_(entry, items);
         if (!entry.isDirectory) {
-            let media = []; // Extra metadata types for local video media.
+            // Extra metadata types for local video media.
+            let media = [];
             let sniffMimeType = 'mediaMimeType';
             if (item?.externalFileUrl || item?.alternateUrl) {
                 sniffMimeType = 'contentMimeType';
@@ -111,15 +111,15 @@ export class MetadataBoxController {
             else if (type === 'video') {
                 media = EXTRA_METADATA_NAMES;
             }
-            this.metadataModel_.get([entry], [sniffMimeType].concat(media))
+            this.metadataModel_.get([entry], [sniffMimeType, ...media])
                 .then(items => {
                 let mimeType = items[0] &&
                     items[0][sniffMimeType] ||
                     '';
-                const newType = FileType.getType(entry, mimeType);
+                const newType = getType(entry, mimeType);
                 if (newType.encrypted) {
                     mimeType =
-                        util.strf('METADATA_BOX_ENCRYPTED', newType.originalMimeType);
+                        strf('METADATA_BOX_ENCRYPTED', newType.originalMimeType);
                 }
                 this.metadataBox.mediaMimeType = mimeType;
                 this.metadataBox.metadataRendered('mime');
@@ -129,8 +129,8 @@ export class MetadataBoxController {
         }
         if (['image', 'video', 'audio'].includes(type)) {
             if (item?.externalFileUrl || item?.alternateUrl) {
-                const data = ['imageHeight', 'imageWidth'];
-                this.metadataModel_.get([entry], data).then(items => {
+                this.metadataModel_.get([entry], ['imageHeight', 'imageWidth'])
+                    .then(items => {
                     this.metadataBox.imageWidth = items[0]?.imageWidth || 0;
                     this.metadataBox.imageHeight = items[0]?.imageHeight || 0;
                     this.metadataBox.setFileTypeInfo(type);
@@ -159,8 +159,7 @@ export class MetadataBoxController {
             }
         }
         else if (type === 'raw') {
-            const data = ['ifd'];
-            this.metadataModel_.get([entry], data).then(items => {
+            this.metadataModel_.get([entry], ['ifd']).then(items => {
                 const raw = items[0]?.ifd ? items[0].ifd : null;
                 this.metadataBox.ifd = raw ? { raw } : undefined;
                 this.metadataBox.imageWidth = raw?.width || 0;
@@ -197,6 +196,13 @@ export class MetadataBoxController {
             return;
         }
         const directoryEntry = unwrapEntry(entry);
+        if (!isNativeEntry(directoryEntry)) {
+            const typeName = ('typeName' in directoryEntry) ?
+                directoryEntry.typeName :
+                'no typeName';
+            console.warn('Supplied directory is not a native type:', typeName);
+            return;
+        }
         if (this.metadataBox.size === '') {
             this.metadataBox.size = ' '; // Provide a dummy size value.
         }

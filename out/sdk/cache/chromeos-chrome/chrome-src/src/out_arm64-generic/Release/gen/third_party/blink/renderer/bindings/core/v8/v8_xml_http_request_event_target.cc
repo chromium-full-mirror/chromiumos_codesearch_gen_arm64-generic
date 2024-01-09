@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XMLHttpRequestEventTarget>::value,
     "XMLHttpRequestEventTarget inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XMLHttpRequestEventTarget::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XMLHttpRequestEventTarget is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onloadstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -102,8 +97,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadstart(event_handler);
 }
 
@@ -114,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -130,8 +126,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -142,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -158,8 +155,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -170,10 +168,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -186,8 +184,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -198,10 +197,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -214,8 +213,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnload(event_handler);
 }
 
@@ -226,10 +226,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.ontimeout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontimeout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontimeout();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -242,8 +242,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntimeout(event_handler);
 }
 
@@ -254,10 +255,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequestEventTarget.onloadend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -270,8 +271,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequestEventTarget* blink_receiver = V8XMLHttpRequestEventTarget::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadend(event_handler);
 }
 

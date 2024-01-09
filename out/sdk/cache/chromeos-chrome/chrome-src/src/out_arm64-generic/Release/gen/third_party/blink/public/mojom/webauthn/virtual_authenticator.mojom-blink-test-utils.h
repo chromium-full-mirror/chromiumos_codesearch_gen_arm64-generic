@@ -49,8 +49,8 @@ class PLATFORM_EXPORT VirtualAuthenticatorAsyncWaiter {
       );
   
   void GetLargeBlob(
-      const WTF::Vector<uint8_t>& key_handle, absl::optional<WTF::Vector<uint8_t>>* out_blob);
-  absl::optional<WTF::Vector<uint8_t>> GetLargeBlob(const WTF::Vector<uint8_t>& key_handle);
+      const WTF::Vector<uint8_t>& key_handle, std::optional<WTF::Vector<uint8_t>>* out_blob);
+  std::optional<WTF::Vector<uint8_t>> GetLargeBlob(const WTF::Vector<uint8_t>& key_handle);
   void SetLargeBlob(
       const WTF::Vector<uint8_t>& key_handle, const WTF::Vector<uint8_t>& blob, bool* out_set);
   bool SetLargeBlob(const WTF::Vector<uint8_t>& key_handle, const WTF::Vector<uint8_t>& blob);

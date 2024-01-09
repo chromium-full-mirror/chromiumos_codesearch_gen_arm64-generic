@@ -149,6 +149,10 @@ export class CheckupSectionElement extends CheckupSectionElementBase {
             PasswordManagerImpl.getInstance().startBulkPasswordCheck().catch(() => { });
             PasswordManagerImpl.getInstance().recordPasswordCheckInteraction(PasswordCheckInteraction.START_CHECK_AUTOMATICALLY);
         }
+        if (route.page === Page.CHECKUP) {
+            PasswordManagerImpl.getInstance()
+                .dismissSafetyHubPasswordMenuNotification();
+        }
     }
     async onStatusChanged_(newStatus, oldStatus) {
         // if state is unchanged - nothing to do.

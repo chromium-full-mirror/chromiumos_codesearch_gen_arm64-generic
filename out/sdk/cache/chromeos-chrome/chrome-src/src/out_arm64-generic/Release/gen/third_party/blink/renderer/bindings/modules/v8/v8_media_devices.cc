@@ -77,11 +77,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaDevices>::value,
     "MediaDevices does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaDevices::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaDevices is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,10 +89,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDevices.ondevicechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondevicechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondevicechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -110,8 +105,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndevicechange(event_handler);
 }
 
@@ -144,7 +140,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaDevicesEnumerateD
 
 
 
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -182,7 +178,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGetAllScreensMedia);
 
 
 
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -220,7 +216,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGetDisplayMedia);
 
 
 
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -256,7 +252,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSupportedConstraints();
 if (!ToV8Traits<MediaTrackSupportedConstraints>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -293,7 +290,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGetUserMediaPromise);
 
 
 
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -324,13 +321,13 @@ BLINK_BINDINGS_TRACE_EVENT("MediaDevices.setCaptureHandleConfig");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(v8_receiver);
+MediaDevices* blink_receiver = V8MediaDevices::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<CaptureHandleConfig>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_config;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaDevices";
 const char* const property_name = "setCaptureHandleConfig";

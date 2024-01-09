@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAElement>::value,
     "SVGAElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGAElement_Target_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAElement* blink_receiver = V8SVGAElement::ToWrappableUnsafe(v8_receiver);
+SVGAElement* blink_receiver = V8SVGAElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->svgTarget();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAElement* blink_receiver = V8SVGAElement::ToWrappableUnsafe(v8_receiver);
+SVGAElement* blink_receiver = V8SVGAElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

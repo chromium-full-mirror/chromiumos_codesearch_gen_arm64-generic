@@ -30,7 +30,7 @@ bool OnDeviceInternalsPage_LoadModel_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -46,6 +46,15 @@ bool OnDeviceInternalsPage_LoadModel_Params_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->model_path, validation_context))
     return false;
 
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->model, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->model,
+                                                 validation_context)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -60,7 +69,7 @@ bool OnDeviceInternalsPage_LoadModel_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -69,11 +78,9 @@ bool OnDeviceInternalsPage_LoadModel_ResponseParams_Data::Validate(
   [[maybe_unused]] const OnDeviceInternalsPage_LoadModel_ResponseParams_Data* object =
       static_cast<const OnDeviceInternalsPage_LoadModel_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidateInlinedUnionNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
+
+  if (!::on_device_model::mojom::internal::LoadModelResult_Data
+        ::Validate(object->result, validation_context))
     return false;
 
   return true;

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/alarms.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ Alarm::Alarm()
 : scheduled_time(0.0) {}
 
 Alarm::~Alarm() = default;
-Alarm::Alarm(Alarm&& rhs) = default;
-Alarm& Alarm::operator=(Alarm&& rhs) = default;
+Alarm::Alarm(Alarm&& rhs) noexcept = default;
+Alarm& Alarm::operator=(Alarm&& rhs) noexcept = default;
 Alarm Alarm::Clone() const {
   Alarm out;
   out.name = name;
@@ -78,7 +79,7 @@ bool Alarm::Populate(
     {
       auto temp = (*period_in_minutes_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.period_in_minutes = absl::nullopt;
+        out.period_in_minutes = std::nullopt;
         return false;
       }
       out.period_in_minutes = *temp;
@@ -98,34 +99,21 @@ bool Alarm::Populate(
 }
 
 // static
-std::unique_ptr<Alarm> Alarm::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Alarm>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Alarm> Alarm::FromValue(const base::Value::Dict& value) {
+  Alarm out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Alarm> Alarm::FromValue(const base::Value::Dict& value) {
+std::optional<Alarm> Alarm::FromValue(const base::Value& value) {
   Alarm out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Alarm> Alarm::FromValue(const base::Value& value) {
-  Alarm out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -150,8 +138,8 @@ AlarmCreateInfo::AlarmCreateInfo()
  {}
 
 AlarmCreateInfo::~AlarmCreateInfo() = default;
-AlarmCreateInfo::AlarmCreateInfo(AlarmCreateInfo&& rhs) = default;
-AlarmCreateInfo& AlarmCreateInfo::operator=(AlarmCreateInfo&& rhs) = default;
+AlarmCreateInfo::AlarmCreateInfo(AlarmCreateInfo&& rhs) noexcept = default;
+AlarmCreateInfo& AlarmCreateInfo::operator=(AlarmCreateInfo&& rhs) noexcept = default;
 AlarmCreateInfo AlarmCreateInfo::Clone() const {
   AlarmCreateInfo out;
   out.when = when;
@@ -168,7 +156,7 @@ bool AlarmCreateInfo::Populate(
     {
       auto temp = (*when_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.when = absl::nullopt;
+        out.when = std::nullopt;
         return false;
       }
       out.when = *temp;
@@ -180,7 +168,7 @@ bool AlarmCreateInfo::Populate(
     {
       auto temp = (*delay_in_minutes_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.delay_in_minutes = absl::nullopt;
+        out.delay_in_minutes = std::nullopt;
         return false;
       }
       out.delay_in_minutes = *temp;
@@ -192,7 +180,7 @@ bool AlarmCreateInfo::Populate(
     {
       auto temp = (*period_in_minutes_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.period_in_minutes = absl::nullopt;
+        out.period_in_minutes = std::nullopt;
         return false;
       }
       out.period_in_minutes = *temp;
@@ -212,34 +200,21 @@ bool AlarmCreateInfo::Populate(
 }
 
 // static
-std::unique_ptr<AlarmCreateInfo> AlarmCreateInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AlarmCreateInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AlarmCreateInfo> AlarmCreateInfo::FromValue(const base::Value::Dict& value) {
+  AlarmCreateInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AlarmCreateInfo> AlarmCreateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AlarmCreateInfo> AlarmCreateInfo::FromValue(const base::Value& value) {
   AlarmCreateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AlarmCreateInfo> AlarmCreateInfo::FromValue(const base::Value& value) {
-  AlarmCreateInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -273,13 +248,13 @@ namespace Create {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -289,8 +264,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        params.name = absl::nullopt;
-        return absl::nullopt;
+        params.name = std::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
@@ -301,15 +276,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& alarm_info_value = args[1];
     {
       if (!alarm_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AlarmCreateInfo::Populate(alarm_info_value.GetDict(), params.alarm_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -327,13 +302,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -343,8 +318,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        params.name = absl::nullopt;
-        return absl::nullopt;
+        params.name = std::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
@@ -378,13 +353,13 @@ namespace Clear {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -394,8 +369,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        params.name = absl::nullopt;
-        return absl::nullopt;
+        params.name = std::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }

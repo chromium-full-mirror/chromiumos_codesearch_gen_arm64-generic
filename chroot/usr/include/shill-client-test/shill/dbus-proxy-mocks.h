@@ -483,18 +483,6 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
-              RequestWiFiRestart,
-              (brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              RequestWiFiRestartAsync,
-              (base::OnceCallback<void()> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
               RequestScan,
               (const std::string&,
                brillo::ErrorPtr* /*error*/,
@@ -724,6 +712,32 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              GetWiFiNetworksForGeolocation,
+              (brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetWiFiNetworksForGeolocationAsync,
+              (base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetCellularNetworksForGeolocation,
+              (brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetCellularNetworksForGeolocationAsync,
+              (base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               ScanAndConnectToBestServices,
               (brillo::ErrorPtr* /*error*/,
                int /*timeout_ms*/),
@@ -890,6 +904,66 @@ class ManagerProxyMock : public ManagerProxyInterface {
               SetLOHSEnabledAsync,
               (bool,
                base::OnceCallback<void(const std::string&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              CreateP2PGroup,
+              (const brillo::VariantDictionary&,
+               brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CreateP2PGroupAsync,
+              (const brillo::VariantDictionary&,
+               base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ConnectToP2PGroup,
+              (const brillo::VariantDictionary&,
+               brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ConnectToP2PGroupAsync,
+              (const brillo::VariantDictionary&,
+               base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              DestroyP2PGroup,
+              (int32_t,
+               brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DestroyP2PGroupAsync,
+              (int32_t,
+               base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              DisconnectFromP2PGroup,
+              (int32_t,
+               brillo::VariantDictionary*,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DisconnectFromP2PGroupAsync,
+              (int32_t,
+               base::OnceCallback<void(const brillo::VariantDictionary&)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

@@ -23,9 +23,9 @@ class MODULES_EXPORT V8PermissionName final : public bindings::EnumerationBase {
   
   public:
 enum class Enum : enum_int_t {
-kGeolocation, kNotifications, kPush, kMidi, kCamera, kMicrophone, kBackgroundFetch, kBackgroundSync, kPersistentStorage, kAmbientLightSensor, kAccelerometer, kGyroscope, kMagnetometer, kScreenWakeLock, kNfc, kDisplayCapture, kAccessibilityEvents, kClipboardRead, kClipboardWrite, kPaymentHandler, kIdleDetection, kPeriodicBackgroundSync, kSystemWakeLock, kStorageAccess, kWindowManagement, kWindowPlacement, kLocalFonts, kTopLevelStorageAccess
+kGeolocation, kNotifications, kPush, kMidi, kCamera, kMicrophone, kBackgroundFetch, kBackgroundSync, kPersistentStorage, kAmbientLightSensor, kAccelerometer, kGyroscope, kMagnetometer, kScreenWakeLock, kNfc, kDisplayCapture, kAccessibilityEvents, kClipboardRead, kClipboardWrite, kPaymentHandler, kIdleDetection, kPeriodicBackgroundSync, kSystemWakeLock, kStorageAccess, kWindowManagement, kWindowPlacement, kLocalFonts, kTopLevelStorageAccess, kCapturedSurfaceControl
 };
-static constexpr size_t kEnumSize = 28;
+static constexpr size_t kEnumSize = 29;
 
 static V8PermissionName Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8PermissionName> Create(const String& value);

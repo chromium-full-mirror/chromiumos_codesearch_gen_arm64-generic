@@ -23,9 +23,9 @@ class  UntrustedProjectorPageHandlerInterceptorForTesting : public UntrustedProj
   void SetUserPref(::ash::projector::mojom::PrefsThatProjectorCanAskFor pref, ::base::Value value, SetUserPrefCallback callback) override;
   void OpenFeedbackDialog(OpenFeedbackDialogCallback callback) override;
   void StartProjectorSession(const ::base::SafeBaseName& storage_dir_name, StartProjectorSessionCallback callback) override;
-  void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, SendXhrCallback callback) override;
+  void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, SendXhrCallback callback) override;
   void GetAccounts(GetAccountsCallback callback) override;
-  void GetVideo(const std::string& video_file_id, const absl::optional<std::string>& resource_key, GetVideoCallback callback) override;
+  void GetVideo(const std::string& video_file_id, const std::optional<std::string>& resource_key, GetVideoCallback callback) override;
 };
 class  UntrustedProjectorPageHandlerAsyncWaiter {
  public:
@@ -60,14 +60,14 @@ class  UntrustedProjectorPageHandlerAsyncWaiter {
       const ::base::SafeBaseName& storage_dir_name, bool* out_success);
   bool StartProjectorSession(const ::base::SafeBaseName& storage_dir_name);
   void SendXhr(
-      const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, ::ash::projector::mojom::XhrResponsePtr* out_response);
-  ::ash::projector::mojom::XhrResponsePtr SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email);
+      const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, ::ash::projector::mojom::XhrResponsePtr* out_response);
+  ::ash::projector::mojom::XhrResponsePtr SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email);
   void GetAccounts(
       std::vector<::ash::projector::mojom::AccountPtr>* out_accounts);
   std::vector<::ash::projector::mojom::AccountPtr> GetAccounts();
   void GetVideo(
-      const std::string& video_file_id, const absl::optional<std::string>& resource_key, ::ash::projector::mojom::GetVideoResultPtr* out_result);
-  ::ash::projector::mojom::GetVideoResultPtr GetVideo(const std::string& video_file_id, const absl::optional<std::string>& resource_key);
+      const std::string& video_file_id, const std::optional<std::string>& resource_key, ::ash::projector::mojom::GetVideoResultPtr* out_result);
+  ::ash::projector::mojom::GetVideoResultPtr GetVideo(const std::string& video_file_id, const std::optional<std::string>& resource_key);
 
  private:
   UntrustedProjectorPageHandler* const proxy_;

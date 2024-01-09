@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/vpn_provider.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Parameters::Parameters()
  {}
 
 Parameters::~Parameters() = default;
-Parameters::Parameters(Parameters&& rhs) = default;
-Parameters& Parameters::operator=(Parameters&& rhs) = default;
+Parameters::Parameters(Parameters&& rhs) noexcept = default;
+Parameters& Parameters::operator=(Parameters&& rhs) noexcept = default;
 Parameters Parameters::Clone() const {
   Parameters out;
   out.address = address;
@@ -73,7 +74,7 @@ bool Parameters::Populate(
     {
       auto* temp = (*broadcast_address_value).GetIfString();
       if (!temp) {
-        out.broadcast_address = absl::nullopt;
+        out.broadcast_address = std::nullopt;
         return false;
       }
       out.broadcast_address = *temp;
@@ -85,7 +86,7 @@ bool Parameters::Populate(
     {
       auto* temp = (*mtu_value).GetIfString();
       if (!temp) {
-        out.mtu = absl::nullopt;
+        out.mtu = std::nullopt;
         return false;
       }
       out.mtu = *temp;
@@ -156,7 +157,7 @@ bool Parameters::Populate(
     {
       auto* temp = (*reconnect_value).GetIfString();
       if (!temp) {
-        out.reconnect = absl::nullopt;
+        out.reconnect = std::nullopt;
         return false;
       }
       out.reconnect = *temp;
@@ -176,34 +177,21 @@ bool Parameters::Populate(
 }
 
 // static
-std::unique_ptr<Parameters> Parameters::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Parameters>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Parameters> Parameters::FromValue(const base::Value::Dict& value) {
+  Parameters out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Parameters> Parameters::FromValue(const base::Value::Dict& value) {
+std::optional<Parameters> Parameters::FromValue(const base::Value& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Parameters> Parameters::FromValue(const base::Value& value) {
-  Parameters out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -242,23 +230,23 @@ base::Value::Dict Parameters::ToValue() const {
 
 const char* ToString(PlatformMessage enum_param) {
   switch (enum_param) {
-    case PLATFORM_MESSAGE_CONNECTED:
+    case PlatformMessage::kConnected:
       return "connected";
-    case PLATFORM_MESSAGE_DISCONNECTED:
+    case PlatformMessage::kDisconnected:
       return "disconnected";
-    case PLATFORM_MESSAGE_ERROR:
+    case PlatformMessage::kError:
       return "error";
-    case PLATFORM_MESSAGE_LINKDOWN:
+    case PlatformMessage::kLinkDown:
       return "linkDown";
-    case PLATFORM_MESSAGE_LINKUP:
+    case PlatformMessage::kLinkUp:
       return "linkUp";
-    case PLATFORM_MESSAGE_LINKCHANGED:
+    case PlatformMessage::kLinkChanged:
       return "linkChanged";
-    case PLATFORM_MESSAGE_SUSPEND:
+    case PlatformMessage::kSuspend:
       return "suspend";
-    case PLATFORM_MESSAGE_RESUME:
+    case PlatformMessage::kResume:
       return "resume";
-    case PLATFORM_MESSAGE_NONE:
+    case PlatformMessage::kNone:
       return "";
   }
   NOTREACHED();
@@ -267,22 +255,22 @@ const char* ToString(PlatformMessage enum_param) {
 
 PlatformMessage ParsePlatformMessage(base::StringPiece enum_string) {
   if (enum_string == "connected")
-    return PLATFORM_MESSAGE_CONNECTED;
+    return PlatformMessage::kConnected;
   if (enum_string == "disconnected")
-    return PLATFORM_MESSAGE_DISCONNECTED;
+    return PlatformMessage::kDisconnected;
   if (enum_string == "error")
-    return PLATFORM_MESSAGE_ERROR;
+    return PlatformMessage::kError;
   if (enum_string == "linkDown")
-    return PLATFORM_MESSAGE_LINKDOWN;
+    return PlatformMessage::kLinkDown;
   if (enum_string == "linkUp")
-    return PLATFORM_MESSAGE_LINKUP;
+    return PlatformMessage::kLinkUp;
   if (enum_string == "linkChanged")
-    return PLATFORM_MESSAGE_LINKCHANGED;
+    return PlatformMessage::kLinkChanged;
   if (enum_string == "suspend")
-    return PLATFORM_MESSAGE_SUSPEND;
+    return PlatformMessage::kSuspend;
   if (enum_string == "resume")
-    return PLATFORM_MESSAGE_RESUME;
-  return PLATFORM_MESSAGE_NONE;
+    return PlatformMessage::kResume;
+  return PlatformMessage::kNone;
 }
 
 std::u16string GetPlatformMessageParseError(base::StringPiece enum_string) {
@@ -292,11 +280,11 @@ std::u16string GetPlatformMessageParseError(base::StringPiece enum_string) {
 
 const char* ToString(VpnConnectionState enum_param) {
   switch (enum_param) {
-    case VPN_CONNECTION_STATE_CONNECTED:
+    case VpnConnectionState::kConnected:
       return "connected";
-    case VPN_CONNECTION_STATE_FAILURE:
+    case VpnConnectionState::kFailure:
       return "failure";
-    case VPN_CONNECTION_STATE_NONE:
+    case VpnConnectionState::kNone:
       return "";
   }
   NOTREACHED();
@@ -305,10 +293,10 @@ const char* ToString(VpnConnectionState enum_param) {
 
 VpnConnectionState ParseVpnConnectionState(base::StringPiece enum_string) {
   if (enum_string == "connected")
-    return VPN_CONNECTION_STATE_CONNECTED;
+    return VpnConnectionState::kConnected;
   if (enum_string == "failure")
-    return VPN_CONNECTION_STATE_FAILURE;
-  return VPN_CONNECTION_STATE_NONE;
+    return VpnConnectionState::kFailure;
+  return VpnConnectionState::kNone;
 }
 
 std::u16string GetVpnConnectionStateParseError(base::StringPiece enum_string) {
@@ -318,11 +306,11 @@ std::u16string GetVpnConnectionStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(UIEvent enum_param) {
   switch (enum_param) {
-    case UI_EVENT_SHOWADDDIALOG:
+    case UIEvent::kShowAddDialog:
       return "showAddDialog";
-    case UI_EVENT_SHOWCONFIGUREDIALOG:
+    case UIEvent::kShowConfigureDialog:
       return "showConfigureDialog";
-    case UI_EVENT_NONE:
+    case UIEvent::kNone:
       return "";
   }
   NOTREACHED();
@@ -331,10 +319,10 @@ const char* ToString(UIEvent enum_param) {
 
 UIEvent ParseUIEvent(base::StringPiece enum_string) {
   if (enum_string == "showAddDialog")
-    return UI_EVENT_SHOWADDDIALOG;
+    return UIEvent::kShowAddDialog;
   if (enum_string == "showConfigureDialog")
-    return UI_EVENT_SHOWCONFIGUREDIALOG;
-  return UI_EVENT_NONE;
+    return UIEvent::kShowConfigureDialog;
+  return UIEvent::kNone;
 }
 
 std::u16string GetUIEventParseError(base::StringPiece enum_string) {
@@ -351,13 +339,13 @@ namespace CreateConfig {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -367,13 +355,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -393,13 +381,13 @@ namespace DestroyConfig {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -409,13 +397,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -433,13 +421,13 @@ namespace SetParameters {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -448,15 +436,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& parameters_value = args[0];
     {
       if (!parameters_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -474,13 +462,13 @@ namespace SendPacket {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -489,7 +477,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[0];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -497,7 +485,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -515,13 +503,13 @@ namespace NotifyConnectionStateChanged {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -531,16 +519,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* vpn_connection_state_as_string = state_value.GetIfString();
       if (!vpn_connection_state_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.state = ParseVpnConnectionState(*vpn_connection_state_as_string);
       if (params.state == VpnConnectionState()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -612,8 +600,8 @@ Data::Data()
  {}
 
 Data::~Data() = default;
-Data::Data(Data&& rhs) = default;
-Data& Data::operator=(Data&& rhs) = default;
+Data::Data(Data&& rhs) noexcept = default;
+Data& Data::operator=(Data&& rhs) noexcept = default;
 base::Value::Dict Data::ToValue() const {
   base::Value::Dict to_value_result;
 

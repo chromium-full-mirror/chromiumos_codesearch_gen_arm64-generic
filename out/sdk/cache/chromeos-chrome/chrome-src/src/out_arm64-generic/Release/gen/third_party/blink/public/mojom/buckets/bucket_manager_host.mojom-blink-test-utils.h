@@ -51,7 +51,7 @@ class MODULES_EXPORT BucketHostAsyncWaiter {
       ::base::Time expires, bool* out_success);
   bool SetExpires(::base::Time expires);
   void Expires(
-      absl::optional<::base::Time>* out_expires, bool* out_success);
+      std::optional<::base::Time>* out_expires, bool* out_success);
   
   void GetDirectory(
       ::blink::mojom::blink::FileSystemAccessErrorPtr* out_result, ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessDirectoryHandle>* out_directory);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-features.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-shared.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-forward.h"
 #include <string>
@@ -1031,17 +1032,17 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunInput {
   // Construct an instance holding |query_version|.
   static RunInputPtr
   NewQueryVersion(
-      QueryVersionPtr query_version) {
+      QueryVersionPtr value) {
     auto result = RunInputPtr(absl::in_place);
-    result->set_query_version(std::move(query_version));
+    result->set_query_version(std::move(value));
     return result;
   }
   // Construct an instance holding |flush_for_testing|.
   static RunInputPtr
   NewFlushForTesting(
-      FlushForTestingPtr flush_for_testing) {
+      FlushForTestingPtr value) {
     auto result = RunInputPtr(absl::in_place);
-    result->set_flush_for_testing(std::move(flush_for_testing));
+    result->set_flush_for_testing(std::move(value));
     return result;
   }
 
@@ -1162,9 +1163,9 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOutput {
   // Construct an instance holding |query_version_result|.
   static RunOutputPtr
   NewQueryVersionResult(
-      QueryVersionResultPtr query_version_result) {
+      QueryVersionResultPtr value) {
     auto result = RunOutputPtr(absl::in_place);
-    result->set_query_version_result(std::move(query_version_result));
+    result->set_query_version_result(std::move(value));
     return result;
   }
 
@@ -1272,33 +1273,33 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   // Construct an instance holding |require_version|.
   static RunOrClosePipeInputPtr
   NewRequireVersion(
-      RequireVersionPtr require_version) {
+      RequireVersionPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_require_version(std::move(require_version));
+    result->set_require_version(std::move(value));
     return result;
   }
   // Construct an instance holding |enable_idle_tracking|.
   static RunOrClosePipeInputPtr
   NewEnableIdleTracking(
-      EnableIdleTrackingPtr enable_idle_tracking) {
+      EnableIdleTrackingPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_enable_idle_tracking(std::move(enable_idle_tracking));
+    result->set_enable_idle_tracking(std::move(value));
     return result;
   }
   // Construct an instance holding |message_ack|.
   static RunOrClosePipeInputPtr
   NewMessageAck(
-      MessageAckPtr message_ack) {
+      MessageAckPtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_message_ack(std::move(message_ack));
+    result->set_message_ack(std::move(value));
     return result;
   }
   // Construct an instance holding |notify_idle|.
   static RunOrClosePipeInputPtr
   NewNotifyIdle(
-      NotifyIdlePtr notify_idle) {
+      NotifyIdlePtr value) {
     auto result = RunOrClosePipeInputPtr(absl::in_place);
-    result->set_notify_idle(std::move(notify_idle));
+    result->set_notify_idle(std::move(value));
     return result;
   }
 

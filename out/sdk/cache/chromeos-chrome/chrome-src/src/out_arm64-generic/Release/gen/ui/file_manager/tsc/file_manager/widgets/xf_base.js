@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 /**
  * @fileoverview A base class for all Files app(xf) widgets.
- * @suppress {checkTypes} closure can't recognize LitElement
  */
 import '../common/js/tslib_shim.js';
 import { classMap, css, CSSResult, customElement, html, ifDefined, LitElement, nothing, property, query, repeat, state, styleMap, svg } from 'chrome://resources/mwc/lit/index.js';

@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLSelectListElement>::value,
     "HTMLSelectListElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLSelectListElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLSelectListElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,8 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.open.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->open();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -110,8 +106,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.selectedOption.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selectedOption();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,10 +121,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.value.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->valueForBinding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->valueForBinding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -138,9 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.value.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLSelectListElement";
@@ -161,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.disabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kDisabledAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -184,8 +182,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->formOwner();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -198,10 +197,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -222,10 +221,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -237,8 +236,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.required.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kRequiredAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -260,8 +260,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.willValidate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->willValidate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -274,8 +275,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.validity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->validity();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -288,10 +290,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.validationMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->validationMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->validationMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -303,8 +305,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.labels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->labels();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -345,8 +348,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.checkValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->checkValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -362,8 +366,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.reportValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reportValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -376,9 +381,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLSelectListElement.setCustomValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLSelectListElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -389,13 +394,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(v8_receiver);
+HTMLSelectListElement* blink_receiver = V8HTMLSelectListElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_error;
 if (LIKELY(info[0]->IsString())) {
-  arg1_error.Init(info[0].As<v8::String>());
+  arg1_error.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLSelectListElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

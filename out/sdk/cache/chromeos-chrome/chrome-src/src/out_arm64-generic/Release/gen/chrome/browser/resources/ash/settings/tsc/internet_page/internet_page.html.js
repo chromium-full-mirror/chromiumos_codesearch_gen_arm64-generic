@@ -79,7 +79,7 @@ export function getTemplate() {
     <os-settings-subpage page-title="$i18n{internetApnPageTitle}">
       <div slot="subpage-title-extra">
         <div id="apnButtonTitle">
-          <cr-button id="createCustomApnButton" on-click="onCreateCustomApnClicked_" class="cancel-button" disabled="[[isCreateCustomApnButtonDisabled_]]">
+          <cr-button id="createCustomApnButton" on-click="onCreateCustomApnClicked_" class="cancel-button" deep-link-focus-id$="[[Setting.kCellularAddApn]]" disabled="[[isCreateCustomApnButtonDisabled_]]">
             <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
             $i18n{apnPageAddNewApn}
           </cr-button>
@@ -100,6 +100,15 @@ export function getTemplate() {
     <os-settings-subpage page-title="[[getNetworksPageTitle_(subpageType_)]]" show-spinner="[[showSpinner_]]" spinner-title="$i18n{networkScanningLabel}">
       <settings-internet-subpage-menu slot="subpage-title-extra" device-state="[[getDeviceState_(subpageType_, deviceStates)]]">
       </settings-internet-subpage-menu>
+      <template is="dom-if" if="[[isProviderLocked_(subpageType_)]]">
+        
+        <div class="settings-box first">
+          <div class="settings-box-text">
+            <localized-link localized-string="[[i18nAdvanced('cellularSubpageSubtitle')]]">
+            </localized-link>
+          </div>
+        </div>
+      </template>
       <settings-internet-subpage default-network="[[defaultNetwork]]" device-state="[[getDeviceState_(subpageType_, deviceStates)]]" tether-device-state="[[getTetherDeviceState_(deviceStates)]]" global-policy="[[globalPolicy_]]" vpn-providers="[[vpnProviders_]]" show-spinner="{{showSpinner_}}" is-connected-to-non-cellular-network="[[isConnectedToNonCellularNetwork_]]" is-cellular-setup-active="[[showCellularSetupDialog_]]">
       </settings-internet-subpage>
     </os-settings-subpage>

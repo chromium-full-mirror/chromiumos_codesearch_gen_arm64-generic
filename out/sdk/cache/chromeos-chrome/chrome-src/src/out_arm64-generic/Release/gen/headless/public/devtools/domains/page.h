@@ -287,7 +287,6 @@ class HEADLESS_EXPORT Domain {
   static void HandleGetManifestIconsResponse(base::OnceCallback<void(std::unique_ptr<GetManifestIconsResult>)> callback, const base::Value& response);
   static void HandleGetAppIdResponse(base::OnceCallback<void(std::unique_ptr<GetAppIdResult>)> callback, const base::Value& response);
   static void HandleGetAdScriptIdResponse(base::OnceCallback<void(std::unique_ptr<GetAdScriptIdResult>)> callback, const base::Value& response);
-  static void HandleGetCookiesResponse(base::OnceCallback<void(std::unique_ptr<GetCookiesResult>)> callback, const base::Value& response);
   static void HandleGetFrameTreeResponse(base::OnceCallback<void(std::unique_ptr<GetFrameTreeResult>)> callback, const base::Value& response);
   static void HandleGetLayoutMetricsResponse(base::OnceCallback<void(std::unique_ptr<GetLayoutMetricsResult>)> callback, const base::Value& response);
   static void HandleGetNavigationHistoryResponse(base::OnceCallback<void(std::unique_ptr<GetNavigationHistoryResult>)> callback, const base::Value& response);
@@ -410,11 +409,6 @@ class ExperimentalDomain : public Domain {
   void GetAppId(std::unique_ptr<GetAppIdParams> params, base::OnceCallback<void(std::unique_ptr<GetAppIdResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetAppIdResult>)>());
 
   void GetAdScriptId(std::unique_ptr<GetAdScriptIdParams> params, base::OnceCallback<void(std::unique_ptr<GetAdScriptIdResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetAdScriptIdResult>)>());
-
-  // Returns all browser cookies for the page and all of its subframes. Depending
-  // on the backend support, will return detailed cookie information in the
-  // `cookies` field.
-  void GetCookies(std::unique_ptr<GetCookiesParams> params, base::OnceCallback<void(std::unique_ptr<GetCookiesResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetCookiesResult>)>());
 
   // Returns content of the given resource.
   void GetResourceContent(std::unique_ptr<GetResourceContentParams> params, base::OnceCallback<void(std::unique_ptr<GetResourceContentResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetResourceContentResult>)>());

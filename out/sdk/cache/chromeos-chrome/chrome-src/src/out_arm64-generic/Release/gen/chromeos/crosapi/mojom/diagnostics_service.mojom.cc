@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -127,7 +128,7 @@ DiagnosticsRoutineUpdate::DiagnosticsRoutineUpdate()
 
 DiagnosticsRoutineUpdate::DiagnosticsRoutineUpdate(
     uint32_t progress_percent_in,
-    const absl::optional<std::string>& output_in,
+    const std::optional<std::string>& output_in,
     DiagnosticsRoutineUpdateUnionPtr routine_update_union_in)
     : progress_percent(std::move(progress_percent_in)),
       output(std::move(output_in)),
@@ -151,7 +152,7 @@ void DiagnosticsRoutineUpdate::WriteIntoTrace(
     dict.AddItem(
       "output"), this->output,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1478,14 +1479,17 @@ void DiagnosticsServiceProxy::GetAvailableRoutines(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::GetAvailableRoutines");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
@@ -1522,14 +1526,17 @@ void DiagnosticsServiceProxy::GetRoutineUpdate(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1557,14 +1564,17 @@ void DiagnosticsServiceProxy::RunBatteryCapacityRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunBatteryCapacityRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1588,14 +1598,17 @@ void DiagnosticsServiceProxy::RunBatteryHealthRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunBatteryHealthRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1626,14 +1639,17 @@ void DiagnosticsServiceProxy::RunSmartctlCheckRoutine(
                         "<value of type ::crosapi::mojom::UInt32ValuePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1660,7 +1676,7 @@ void DiagnosticsServiceProxy::RunSmartctlCheckRoutine(
 }
 
 void DiagnosticsServiceProxy::RunAcPowerRoutine(
-    DiagnosticsAcPowerStatusEnum in_expected_status, const absl::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
+    DiagnosticsAcPowerStatusEnum in_expected_status, const std::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::DiagnosticsService::RunAcPowerRoutine", "input_parameters",
@@ -1671,17 +1687,20 @@ void DiagnosticsServiceProxy::RunAcPowerRoutine(
                         "<value of type DiagnosticsAcPowerStatusEnum>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_power_type"), in_expected_power_type,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1721,14 +1740,17 @@ void DiagnosticsServiceProxy::RunCpuCacheRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1760,14 +1782,17 @@ void DiagnosticsServiceProxy::RunCpuStressRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1799,14 +1824,17 @@ void DiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1838,14 +1866,17 @@ void DiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1877,14 +1908,17 @@ void DiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
                         "<value of type DiagnosticsNvmeSelfTestTypeEnum>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1923,14 +1957,17 @@ void DiagnosticsServiceProxy::RunDiskReadRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1965,14 +2002,17 @@ void DiagnosticsServiceProxy::RunPrimeSearchRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2007,14 +2047,17 @@ void DiagnosticsServiceProxy::RunBatteryDischargeRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2050,14 +2093,17 @@ void DiagnosticsServiceProxy::RunBatteryChargeRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2083,14 +2129,17 @@ void DiagnosticsServiceProxy::RunMemoryRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunMemoryRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2114,14 +2163,17 @@ void DiagnosticsServiceProxy::RunLanConnectivityRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunLanConnectivityRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2145,14 +2197,17 @@ void DiagnosticsServiceProxy::RunDnsResolutionRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunDnsResolutionRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2176,14 +2231,17 @@ void DiagnosticsServiceProxy::RunSignalStrengthRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunSignalStrengthRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2207,14 +2265,17 @@ void DiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunGatewayCanBePingedRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2238,14 +2299,17 @@ void DiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunDnsResolverPresentRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2269,14 +2333,17 @@ void DiagnosticsServiceProxy::RunSensitiveSensorRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunSensitiveSensorRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2300,14 +2367,17 @@ void DiagnosticsServiceProxy::RunFingerprintAliveRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunFingerprintAliveRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2331,14 +2401,17 @@ void DiagnosticsServiceProxy::RunEmmcLifetimeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunEmmcLifetimeRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2362,14 +2435,17 @@ void DiagnosticsServiceProxy::RunBluetoothPowerRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunBluetoothPowerRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2393,14 +2469,17 @@ void DiagnosticsServiceProxy::RunUfsLifetimeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunUfsLifetimeRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2431,14 +2510,17 @@ void DiagnosticsServiceProxy::RunPowerButtonRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2463,14 +2545,17 @@ void DiagnosticsServiceProxy::RunAudioDriverRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunAudioDriverRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2494,14 +2579,17 @@ void DiagnosticsServiceProxy::RunBluetoothDiscoveryRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunBluetoothDiscoveryRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2532,14 +2620,17 @@ void DiagnosticsServiceProxy::RunBluetoothScanningRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2571,14 +2662,17 @@ void DiagnosticsServiceProxy::RunBluetoothPairingRoutine(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2613,14 +2707,17 @@ void DiagnosticsServiceProxy::RunFanRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DiagnosticsService::RunFanRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2730,7 +2827,8 @@ void DiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
@@ -2860,7 +2958,8 @@ void DiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
@@ -2988,7 +3087,8 @@ void DiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3116,7 +3216,8 @@ void DiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3244,7 +3345,8 @@ void DiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3372,7 +3474,8 @@ void DiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3500,7 +3603,8 @@ void DiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3628,7 +3732,8 @@ void DiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3756,7 +3861,8 @@ void DiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3884,7 +3990,8 @@ void DiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4012,7 +4119,8 @@ void DiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4140,7 +4248,8 @@ void DiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4268,7 +4377,8 @@ void DiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4396,7 +4506,8 @@ void DiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4524,7 +4635,8 @@ void DiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4652,7 +4764,8 @@ void DiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4780,7 +4893,8 @@ void DiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4908,7 +5022,8 @@ void DiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5036,7 +5151,8 @@ void DiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5164,7 +5280,8 @@ void DiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5292,7 +5409,8 @@ void DiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5420,7 +5538,8 @@ void DiagnosticsService_RunSensitiveSensorRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5548,7 +5667,8 @@ void DiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5676,7 +5796,8 @@ void DiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5804,7 +5925,8 @@ void DiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5932,7 +6054,8 @@ void DiagnosticsService_RunUfsLifetimeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6060,7 +6183,8 @@ void DiagnosticsService_RunPowerButtonRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6188,7 +6312,8 @@ void DiagnosticsService_RunAudioDriverRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6316,7 +6441,8 @@ void DiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6444,7 +6570,8 @@ void DiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6572,7 +6699,8 @@ void DiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6700,7 +6828,8 @@ void DiagnosticsService_RunFanRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7001,7 +7130,7 @@ std::move(p_percentage_used_threshold), std::move(callback));
       
       bool success = true;
       DiagnosticsAcPowerStatusEnum p_expected_status{};
-      absl::optional<std::string> p_expected_power_type{};
+      std::optional<std::string> p_expected_power_type{};
       DiagnosticsService_RunAcPowerRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadExpectedStatus(&p_expected_status))
@@ -7742,72 +7871,72 @@ std::move(p_peripheral_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiagnosticsServiceValidationInfo[] = {
-    {&internal::DiagnosticsService_GetAvailableRoutines_Params_Data::Validate,
+    { &internal::DiagnosticsService_GetAvailableRoutines_Params_Data::Validate,
      &internal::DiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_GetRoutineUpdate_Params_Data::Validate,
+    { &internal::DiagnosticsService_GetRoutineUpdate_Params_Data::Validate,
      &internal::DiagnosticsService_GetRoutineUpdate_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBatteryCapacityRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBatteryCapacityRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBatteryHealthRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBatteryHealthRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunAcPowerRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunAcPowerRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunAcPowerRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunCpuCacheRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunCpuCacheRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunCpuStressRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunCpuStressRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunCpuStressRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunDiskReadRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunDiskReadRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunDiskReadRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunPrimeSearchRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunPrimeSearchRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBatteryDischargeRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBatteryDischargeRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBatteryChargeRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBatteryChargeRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunMemoryRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunMemoryRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunMemoryRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunLanConnectivityRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunLanConnectivityRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunDnsResolutionRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunDnsResolutionRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunSignalStrengthRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunSignalStrengthRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunDnsResolverPresentRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunDnsResolverPresentRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunUfsLifetimeRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunUfsLifetimeRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunPowerButtonRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunPowerButtonRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunAudioDriverRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunAudioDriverRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data::Validate},
-    {&internal::DiagnosticsService_RunFanRoutine_Params_Data::Validate,
+    { &internal::DiagnosticsService_RunFanRoutine_Params_Data::Validate,
      &internal::DiagnosticsService_RunFanRoutine_ResponseParams_Data::Validate},
 };
 
@@ -7949,7 +8078,7 @@ void DiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine(RunBattery
 void DiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(::crosapi::mojom::UInt32ValuePtr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
   GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(percentage_used_threshold), std::move(callback));
 }
-void DiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
+void DiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
   GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
 }
 void DiagnosticsServiceInterceptorForTesting::RunCpuCacheRoutine(uint32_t length_seconds, RunCpuCacheRoutineCallback callback) {
@@ -8151,7 +8280,7 @@ DiagnosticsRunRoutineResponsePtr DiagnosticsServiceAsyncWaiter::RunSmartctlCheck
 }
 
 void DiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, DiagnosticsRunRoutineResponsePtr* out_response) {
+    DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, DiagnosticsRunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),
       base::BindOnce(
@@ -8167,7 +8296,7 @@ void DiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
 }
 
 DiagnosticsRunRoutineResponsePtr DiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
+    DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type) {
   DiagnosticsRunRoutineResponsePtr async_wait_result;
   RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),&async_wait_result);
   return async_wait_result;

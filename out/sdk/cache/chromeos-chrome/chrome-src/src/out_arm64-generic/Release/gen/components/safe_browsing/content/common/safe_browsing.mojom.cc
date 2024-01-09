@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -109,7 +110,7 @@ ThreatDOMDetailsNode::ThreatDOMDetailsNode(
     std::vector<::GURL> children_in,
     std::vector<int32_t> child_node_ids_in,
     std::vector<AttributeNameValuePtr> attributes_in,
-    const absl::optional<::blink::FrameToken>& child_frame_token_in,
+    const std::optional<::blink::FrameToken>& child_frame_token_in,
     const std::string& inner_html_in)
     : node_id(std::move(node_id_in)),
       url(std::move(url_in)),
@@ -203,7 +204,7 @@ void ThreatDOMDetailsNode::WriteIntoTrace(
     dict.AddItem(
       "child_frame_token"), this->child_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -320,15 +321,15 @@ SafeBrowsingProxy::SafeBrowsingProxy(mojo::MessageReceiverWithResponder* receive
 }
 
 void SafeBrowsingProxy::CreateCheckerAndCheck(
-    int32_t in_render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> in_receiver, const ::GURL& in_url, const std::string& in_method, const ::net::HttpRequestHeaders& in_headers, int32_t in_load_flags, ::network::mojom::RequestDestination in_request_destination, bool in_has_user_gesture, bool in_originated_from_service_worker, CreateCheckerAndCheckCallback callback) {
+    const std::optional<::blink::LocalFrameToken>& in_frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> in_receiver, const ::GURL& in_url, const std::string& in_method, const ::net::HttpRequestHeaders& in_headers, int32_t in_load_flags, ::network::mojom::RequestDestination in_request_destination, bool in_has_user_gesture, bool in_originated_from_service_worker, CreateCheckerAndCheckCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send safe_browsing::mojom::SafeBrowsing::CreateCheckerAndCheck", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("render_frame_id"), in_render_frame_id,
-                        "<value of type int32_t>");
+           dict.AddItem("frame_token"), in_frame_token,
+                        "<value of type const std::optional<::blink::LocalFrameToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker>>");
@@ -355,14 +356,17 @@ void SafeBrowsingProxy::CreateCheckerAndCheck(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeBrowsing_CreateCheckerAndCheck_Name, kFlags, 0, 0, nullptr);
@@ -370,7 +374,13 @@ void SafeBrowsingProxy::CreateCheckerAndCheck(
       ::safe_browsing::mojom::internal::SafeBrowsing_CreateCheckerAndCheck_Params_Data> params(
           message);
   params.Allocate();
-  params->render_frame_id = in_render_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      in_frame_token, frame_token_fragment);
+  params->frame_token.Set(
+      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::safe_browsing::mojom::SafeBrowsingUrlCheckerInterfaceBase>>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -438,14 +448,17 @@ void SafeBrowsingProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<SafeBrowsing>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeBrowsing_Clone_Name, kFlags, 0, 0, nullptr);
@@ -576,7 +589,8 @@ void SafeBrowsing_CreateCheckerAndCheck_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeBrowsing_CreateCheckerAndCheck_Name, kFlags, 0, 0, nullptr);
@@ -663,7 +677,7 @@ bool SafeBrowsingStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_render_frame_id{};
+      std::optional<::blink::LocalFrameToken> p_frame_token{};
       ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> p_receiver{};
       ::GURL p_url{};
       std::string p_method{};
@@ -674,8 +688,8 @@ bool SafeBrowsingStubDispatch::AcceptWithResponder(
       bool p_originated_from_service_worker{};
       SafeBrowsing_CreateCheckerAndCheck_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_render_frame_id = input_data_view.render_frame_id();
+      if (success && !input_data_view.ReadFrameToken(&p_frame_token))
+        success = false;
       if (success) {
         p_receiver =
             input_data_view.TakeReceiver<decltype(p_receiver)>();
@@ -707,7 +721,7 @@ bool SafeBrowsingStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->CreateCheckerAndCheck(
-std::move(p_render_frame_id), 
+std::move(p_frame_token), 
 std::move(p_receiver), 
 std::move(p_url), 
 std::move(p_method), 
@@ -724,12 +738,12 @@ std::move(p_originated_from_service_worker), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSafeBrowsingValidationInfo[] = {
-    {&internal::SafeBrowsing_CreateCheckerAndCheck_Params_Data::Validate,
+    { &internal::SafeBrowsing_CreateCheckerAndCheck_Params_Data::Validate,
      &internal::SafeBrowsing_CreateCheckerAndCheck_ResponseParams_Data::Validate},
-    {&internal::SafeBrowsing_Clone_Params_Data::Validate,
+    { &internal::SafeBrowsing_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -822,14 +836,17 @@ void ThreatReporterProxy::GetThreatDOMDetails(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send safe_browsing::mojom::ThreatReporter::GetThreatDOMDetails");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThreatReporter_GetThreatDOMDetails_Name, kFlags, 0, 0, nullptr);
@@ -939,7 +956,8 @@ void ThreatReporter_GetThreatDOMDetails_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThreatReporter_GetThreatDOMDetails_Name, kFlags, 0, 0, nullptr);
@@ -1027,10 +1045,10 @@ bool ThreatReporterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThreatReporterValidationInfo[] = {
-    {&internal::ThreatReporter_GetThreatDOMDetails_Params_Data::Validate,
+    { &internal::ThreatReporter_GetThreatDOMDetails_Params_Data::Validate,
      &internal::ThreatReporter_GetThreatDOMDetails_ResponseParams_Data::Validate},
 };
 
@@ -1130,14 +1148,17 @@ void PhishingDetectorProxy::StartPhishingDetection(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingDetector_StartPhishingDetection_Name, kFlags, 0, 0, nullptr);
@@ -1265,7 +1286,8 @@ void PhishingDetector_StartPhishingDetection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingDetector_StartPhishingDetection_Name, kFlags, 0, 0, nullptr);
@@ -1357,10 +1379,10 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPhishingDetectorValidationInfo[] = {
-    {&internal::PhishingDetector_StartPhishingDetection_Params_Data::Validate,
+    { &internal::PhishingDetector_StartPhishingDetection_Params_Data::Validate,
      &internal::PhishingDetector_StartPhishingDetection_ResponseParams_Data::Validate},
 };
 
@@ -1546,14 +1568,17 @@ void PhishingModelSetterProxy::SetImageEmbeddingAndPhishingFlatBufferModel(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Name, kFlags, 0, 0, nullptr);
@@ -1608,14 +1633,17 @@ void PhishingModelSetterProxy::AttachImageEmbeddingModel(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name, kFlags, 0, 0, nullptr);
@@ -1655,14 +1683,17 @@ void PhishingModelSetterProxy::SetPhishingFlatBufferModel(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name, kFlags, 0, 0, nullptr);
@@ -1703,14 +1734,17 @@ void PhishingModelSetterProxy::ClearScorer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send safe_browsing::mojom::PhishingModelSetter::ClearScorer");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_ClearScorer_Name, kFlags, 0, 0, nullptr);
@@ -1740,14 +1774,17 @@ void PhishingModelSetterProxy::SetTestObserver(
                         "<value of type ::mojo::PendingRemote<PhishingModelSetterTestObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_SetTestObserver_Name, kFlags, 0, 0, nullptr);
@@ -1848,7 +1885,8 @@ void PhishingModelSetter_SetTestObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetter_SetTestObserver_Name, kFlags, 0, 0, nullptr);
@@ -2053,18 +2091,18 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPhishingModelSetterValidationInfo[] = {
-    {&internal::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data::Validate,
+    { &internal::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data::Validate,
+    { &internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhishingModelSetter_SetPhishingFlatBufferModel_Params_Data::Validate,
+    { &internal::PhishingModelSetter_SetPhishingFlatBufferModel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhishingModelSetter_ClearScorer_Params_Data::Validate,
+    { &internal::PhishingModelSetter_ClearScorer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhishingModelSetter_SetTestObserver_Params_Data::Validate,
+    { &internal::PhishingModelSetter_SetTestObserver_Params_Data::Validate,
      &internal::PhishingModelSetter_SetTestObserver_ResponseParams_Data::Validate},
 };
 
@@ -2141,14 +2179,17 @@ void PhishingModelSetterTestObserverProxy::PhishingModelUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send safe_browsing::mojom::PhishingModelSetterTestObserver::PhishingModelUpdated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingModelSetterTestObserver_PhishingModelUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2212,10 +2253,10 @@ bool PhishingModelSetterTestObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPhishingModelSetterTestObserverValidationInfo[] = {
-    {&internal::PhishingModelSetterTestObserver_PhishingModelUpdated_Params_Data::Validate,
+    { &internal::PhishingModelSetterTestObserver_PhishingModelUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2311,14 +2352,17 @@ void PhishingImageEmbedderDetectorProxy::StartImageEmbedding(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingImageEmbedderDetector_StartImageEmbedding_Name, kFlags, 0, 0, nullptr);
@@ -2446,7 +2490,8 @@ void PhishingImageEmbedderDetector_StartImageEmbedding_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhishingImageEmbedderDetector_StartImageEmbedding_Name, kFlags, 0, 0, nullptr);
@@ -2538,10 +2583,10 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPhishingImageEmbedderDetectorValidationInfo[] = {
-    {&internal::PhishingImageEmbedderDetector_StartImageEmbedding_Params_Data::Validate,
+    { &internal::PhishingImageEmbedderDetector_StartImageEmbedding_Params_Data::Validate,
      &internal::PhishingImageEmbedderDetector_StartImageEmbedding_ResponseParams_Data::Validate},
 };
 
@@ -2634,7 +2679,7 @@ ExtensionWebRequestReporterProxy::ExtensionWebRequestReporterProxy(mojo::Message
 }
 
 void ExtensionWebRequestReporterProxy::SendWebRequestData(
-    const std::string& in_origin_extension_id, const ::GURL& in_telemetry_url, WebRequestProtocolType in_protocol_type) {
+    const std::string& in_origin_extension_id, const ::GURL& in_telemetry_url, WebRequestProtocolType in_protocol_type, WebRequestContactInitiatorType in_contact_initiator_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send safe_browsing::mojom::ExtensionWebRequestReporter::SendWebRequestData", "input_parameters",
@@ -2649,16 +2694,22 @@ void ExtensionWebRequestReporterProxy::SendWebRequestData(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("protocol_type"), in_protocol_type,
                         "<value of type WebRequestProtocolType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("contact_initiator_type"), in_contact_initiator_type,
+                        "<value of type WebRequestContactInitiatorType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kExtensionWebRequestReporter_SendWebRequestData_Name, kFlags, 0, 0, nullptr);
@@ -2690,6 +2741,8 @@ void ExtensionWebRequestReporterProxy::SendWebRequestData(
       "null telemetry_url in ExtensionWebRequestReporter.SendWebRequestData request");
   mojo::internal::Serialize<::safe_browsing::mojom::WebRequestProtocolType>(
       in_protocol_type, &params->protocol_type);
+  mojo::internal::Serialize<::safe_browsing::mojom::WebRequestContactInitiatorType>(
+      in_contact_initiator_type, &params->contact_initiator_type);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ExtensionWebRequestReporter::Name_);
@@ -2712,14 +2765,17 @@ void ExtensionWebRequestReporterProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<ExtensionWebRequestReporter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kExtensionWebRequestReporter_Clone_Name, kFlags, 0, 0, nullptr);
@@ -2759,6 +2815,7 @@ bool ExtensionWebRequestReporterStubDispatch::Accept(
       std::string p_origin_extension_id{};
       ::GURL p_telemetry_url{};
       WebRequestProtocolType p_protocol_type{};
+      WebRequestContactInitiatorType p_contact_initiator_type{};
       ExtensionWebRequestReporter_SendWebRequestData_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOriginExtensionId(&p_origin_extension_id))
@@ -2766,6 +2823,8 @@ bool ExtensionWebRequestReporterStubDispatch::Accept(
       if (success && !input_data_view.ReadTelemetryUrl(&p_telemetry_url))
         success = false;
       if (success && !input_data_view.ReadProtocolType(&p_protocol_type))
+        success = false;
+      if (success && !input_data_view.ReadContactInitiatorType(&p_contact_initiator_type))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2779,7 +2838,8 @@ bool ExtensionWebRequestReporterStubDispatch::Accept(
       impl->SendWebRequestData(
 std::move(p_origin_extension_id), 
 std::move(p_telemetry_url), 
-std::move(p_protocol_type));
+std::move(p_protocol_type), 
+std::move(p_contact_initiator_type));
       return true;
     }
     case internal::kExtensionWebRequestReporter_Clone_Name: {
@@ -2832,12 +2892,12 @@ bool ExtensionWebRequestReporterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kExtensionWebRequestReporterValidationInfo[] = {
-    {&internal::ExtensionWebRequestReporter_SendWebRequestData_Params_Data::Validate,
+    { &internal::ExtensionWebRequestReporter_SendWebRequestData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ExtensionWebRequestReporter_Clone_Params_Data::Validate,
+    { &internal::ExtensionWebRequestReporter_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2911,8 +2971,8 @@ bool StructTraits<::safe_browsing::mojom::ThreatDOMDetailsNode::DataView, ::safe
 namespace safe_browsing::mojom {
 
 
-void SafeBrowsingInterceptorForTesting::CreateCheckerAndCheck(int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) {
-  GetForwardingInterface()->CreateCheckerAndCheck(std::move(render_frame_id), std::move(receiver), std::move(url), std::move(method), std::move(headers), std::move(load_flags), std::move(request_destination), std::move(has_user_gesture), std::move(originated_from_service_worker), std::move(callback));
+void SafeBrowsingInterceptorForTesting::CreateCheckerAndCheck(const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) {
+  GetForwardingInterface()->CreateCheckerAndCheck(std::move(frame_token), std::move(receiver), std::move(url), std::move(method), std::move(headers), std::move(load_flags), std::move(request_destination), std::move(has_user_gesture), std::move(originated_from_service_worker), std::move(callback));
 }
 void SafeBrowsingInterceptorForTesting::Clone(::mojo::PendingReceiver<SafeBrowsing> receiver) {
   GetForwardingInterface()->Clone(std::move(receiver));
@@ -2923,9 +2983,9 @@ SafeBrowsingAsyncWaiter::SafeBrowsingAsyncWaiter(
 SafeBrowsingAsyncWaiter::~SafeBrowsingAsyncWaiter() = default;
 
 void SafeBrowsingAsyncWaiter::CreateCheckerAndCheck(
-    int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>* out_slow_check_notifier, bool* out_proceed, bool* out_showed_interstitial) {
+    const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>* out_slow_check_notifier, bool* out_proceed, bool* out_showed_interstitial) {
   base::RunLoop loop;
-  proxy_->CreateCheckerAndCheck(std::move(render_frame_id),std::move(receiver),std::move(url),std::move(method),std::move(headers),std::move(load_flags),std::move(request_destination),std::move(has_user_gesture),std::move(originated_from_service_worker),
+  proxy_->CreateCheckerAndCheck(std::move(frame_token),std::move(receiver),std::move(url),std::move(method),std::move(headers),std::move(load_flags),std::move(request_destination),std::move(has_user_gesture),std::move(originated_from_service_worker),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>* out_slow_check_notifier
@@ -3099,8 +3159,8 @@ void PhishingImageEmbedderDetectorAsyncWaiter::StartImageEmbedding(
 
 
 
-void ExtensionWebRequestReporterInterceptorForTesting::SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type) {
-  GetForwardingInterface()->SendWebRequestData(std::move(origin_extension_id), std::move(telemetry_url), std::move(protocol_type));
+void ExtensionWebRequestReporterInterceptorForTesting::SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type, WebRequestContactInitiatorType contact_initiator_type) {
+  GetForwardingInterface()->SendWebRequestData(std::move(origin_extension_id), std::move(telemetry_url), std::move(protocol_type), std::move(contact_initiator_type));
 }
 void ExtensionWebRequestReporterInterceptorForTesting::Clone(::mojo::PendingReceiver<ExtensionWebRequestReporter> receiver) {
   GetForwardingInterface()->Clone(std::move(receiver));

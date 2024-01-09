@@ -1,12 +1,24 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#mouseSwapToggleButton{border-bottom:var(--cr-separator-line)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#mouseSwapToggleButton{border-bottom:var(--cr-separator-line)}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin:8px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}.secondary{font:var(--cros-body-2-font)}#buttonsSection{border-top:var(--cr-separator-line)}</style>
 <settings-toggle-button id="mouseSwapToggleButton" aria-describedby="description" label="$i18n{mouseSwapButtonsLabel}" pref="{{primaryRightPref_}}">
 </settings-toggle-button>
-<div id="description" class="subpage-description">
-  [[getDescription_(selectedMouse.*)]]
+<div id="helpSection">
+  <div id="helpIconSection">
+    <iron-icon icon="os-settings:mouse-banner"></iron-icon>
+  </div>
+  <div id="helpSectionText">
+    <div class="help-title">
+      $i18n{customizeMouseButtonsNudgeHeader}
+    </div>
+    <div class="secondary">
+      [[getDescription_(selectedMouse.*)]]
+    </div>
+  </div>
 </div>
-<customize-buttons-subsection button-remapping-list="{{selectedMouse.settings.buttonRemappings}}" action-list$="[[buttonActionList_]]">
-</customize-buttons-subsection>
+<div id="buttonsSection">
+  <customize-buttons-subsection button-remapping-list="{{selectedMouse.settings.buttonRemappings}}" action-list$="[[buttonActionList_]]" has-launcher-button="[[hasLauncherButton_]]">
+  </customize-buttons-subsection>
+</div>
 <!--_html_template_end_-->`;
 }

@@ -8,6 +8,7 @@
 #define SERVICES_TRACING_PUBLIC_MOJOM_TRACING_SERVICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

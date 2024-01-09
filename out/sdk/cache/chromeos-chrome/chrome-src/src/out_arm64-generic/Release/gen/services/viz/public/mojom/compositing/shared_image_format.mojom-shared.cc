@@ -54,6 +54,10 @@ NOINLINE static const char* SubsamplingToStringHelper(Subsampling value) {
   switch(value) {
     case Subsampling::k420:
       return "k420";
+    case Subsampling::k422:
+      return "k422";
+    case Subsampling::k444:
+      return "k444";
     default:
       return nullptr;
   }

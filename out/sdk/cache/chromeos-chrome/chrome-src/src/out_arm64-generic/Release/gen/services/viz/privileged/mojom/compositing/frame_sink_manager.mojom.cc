@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -855,14 +856,17 @@ void FrameSinkManagerProxy::RegisterFrameSinkId(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_RegisterFrameSinkId_Name, kFlags, 0, 0, nullptr);
@@ -904,14 +908,17 @@ void FrameSinkManagerProxy::InvalidateFrameSinkId(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_InvalidateFrameSinkId_Name, kFlags, 0, 0, nullptr);
@@ -955,14 +962,17 @@ void FrameSinkManagerProxy::SetFrameSinkDebugLabel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_SetFrameSinkDebugLabel_Name, kFlags, 0, 0, nullptr);
@@ -1014,14 +1024,17 @@ void FrameSinkManagerProxy::CreateRootCompositorFrameSink(
                         "<value of type RootCompositorFrameSinkParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_CreateRootCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -1068,14 +1081,17 @@ void FrameSinkManagerProxy::CreateFrameSinkBundle(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_CreateFrameSinkBundle_Name, kFlags, 0, 0, nullptr);
@@ -1117,7 +1133,7 @@ void FrameSinkManagerProxy::CreateFrameSinkBundle(
 }
 
 void FrameSinkManagerProxy::CreateCompositorFrameSink(
-    const ::viz::FrameSinkId& in_frame_sink_id, const absl::optional<::viz::FrameSinkBundleId>& in_bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> in_compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> in_compositor_frame_sink_client) {
+    const ::viz::FrameSinkId& in_frame_sink_id, const std::optional<::viz::FrameSinkBundleId>& in_bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> in_compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> in_compositor_frame_sink_client) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::FrameSinkManager::CreateCompositorFrameSink", "input_parameters",
@@ -1128,7 +1144,7 @@ void FrameSinkManagerProxy::CreateCompositorFrameSink(
                         "<value of type const ::viz::FrameSinkId&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bundle_id"), in_bundle_id,
-                        "<value of type const absl::optional<::viz::FrameSinkBundleId>&>");
+                        "<value of type const std::optional<::viz::FrameSinkBundleId>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("compositor_frame_sink"), in_compositor_frame_sink,
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink>>");
@@ -1137,14 +1153,17 @@ void FrameSinkManagerProxy::CreateCompositorFrameSink(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_CreateCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -1205,15 +1224,18 @@ bool FrameSinkManagerProxy::DestroyCompositorFrameSink(
 #else
   TRACE_EVENT0("mojom", "FrameSinkManager::DestroyCompositorFrameSink");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       false;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_DestroyCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -1261,14 +1283,17 @@ void FrameSinkManagerProxy::DestroyCompositorFrameSink(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_DestroyCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -1313,14 +1338,17 @@ void FrameSinkManagerProxy::RegisterFrameSinkHierarchy(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_RegisterFrameSinkHierarchy_Name, kFlags, 0, 0, nullptr);
@@ -1375,14 +1403,17 @@ void FrameSinkManagerProxy::UnregisterFrameSinkHierarchy(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_UnregisterFrameSinkHierarchy_Name, kFlags, 0, 0, nullptr);
@@ -1434,14 +1465,17 @@ void FrameSinkManagerProxy::AddVideoDetectorObserver(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::VideoDetectorObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_AddVideoDetectorObserver_Name, kFlags, 0, 0, nullptr);
@@ -1477,14 +1511,17 @@ void FrameSinkManagerProxy::CreateVideoCapturer(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::FrameSinkVideoCapturer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_CreateVideoCapturer_Name, kFlags, 0, 0, nullptr);
@@ -1520,14 +1557,17 @@ void FrameSinkManagerProxy::EvictSurfaces(
                         "<value of type const std::vector<::viz::SurfaceId>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_EvictSurfaces_Name, kFlags, 0, 0, nullptr);
@@ -1573,14 +1613,17 @@ void FrameSinkManagerProxy::Throttle(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_Throttle_Name, kFlags, 0, 0, nullptr);
@@ -1634,14 +1677,17 @@ void FrameSinkManagerProxy::StartThrottlingAllFrameSinks(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_StartThrottlingAllFrameSinks_Name, kFlags, 0, 0, nullptr);
@@ -1675,14 +1721,17 @@ void FrameSinkManagerProxy::StopThrottlingAllFrameSinks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkManager::StopThrottlingAllFrameSinks");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_StopThrottlingAllFrameSinks_Name, kFlags, 0, 0, nullptr);
@@ -1718,14 +1767,17 @@ void FrameSinkManagerProxy::RequestCopyOfOutput(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_RequestCopyOfOutput_Name, kFlags, 0, 0, nullptr);
@@ -1781,14 +1833,17 @@ void FrameSinkManagerProxy::CacheBackBuffer(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_CacheBackBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1831,15 +1886,18 @@ bool FrameSinkManagerProxy::EvictBackBuffer(
 #else
   TRACE_EVENT0("mojom", "FrameSinkManager::EvictBackBuffer");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_EvictBackBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1877,14 +1935,17 @@ void FrameSinkManagerProxy::EvictBackBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_EvictBackBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1916,14 +1977,17 @@ void FrameSinkManagerProxy::UpdateDebugRendererSettings(
                         "<value of type const ::viz::DebugRendererSettings&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_UpdateDebugRendererSettings_Name, kFlags, 0, 0, nullptr);
@@ -1967,14 +2031,17 @@ void FrameSinkManagerProxy::StartFrameCountingForTest(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_StartFrameCountingForTest_Name, kFlags, 0, 0, nullptr);
@@ -2019,14 +2086,17 @@ void FrameSinkManagerProxy::StopFrameCountingForTest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkManager::StopFrameCountingForTest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_StopFrameCountingForTest_Name, kFlags, 0, 0, nullptr);
@@ -2125,7 +2195,8 @@ void FrameSinkManager_DestroyCompositorFrameSink_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_DestroyCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -2252,7 +2323,8 @@ void FrameSinkManager_EvictBackBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_EvictBackBuffer_Name, kFlags, 0, 0, nullptr);
@@ -2390,7 +2462,8 @@ void FrameSinkManager_StopFrameCountingForTest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManager_StopFrameCountingForTest_Name, kFlags, 0, 0, nullptr);
@@ -2587,7 +2660,7 @@ std::move(p_client));
       
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
-      absl::optional<::viz::FrameSinkBundleId> p_bundle_id{};
+      std::optional<::viz::FrameSinkBundleId> p_bundle_id{};
       ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> p_compositor_frame_sink{};
       ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> p_compositor_frame_sink_client{};
       FrameSinkManager_CreateCompositorFrameSink_ParamsDataView input_data_view(params, message);
@@ -3122,50 +3195,50 @@ std::move(p_cache_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkManagerValidationInfo[] = {
-    {&internal::FrameSinkManager_RegisterFrameSinkId_Params_Data::Validate,
+    { &internal::FrameSinkManager_RegisterFrameSinkId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_InvalidateFrameSinkId_Params_Data::Validate,
+    { &internal::FrameSinkManager_InvalidateFrameSinkId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_SetFrameSinkDebugLabel_Params_Data::Validate,
+    { &internal::FrameSinkManager_SetFrameSinkDebugLabel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_CreateRootCompositorFrameSink_Params_Data::Validate,
+    { &internal::FrameSinkManager_CreateRootCompositorFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_CreateFrameSinkBundle_Params_Data::Validate,
+    { &internal::FrameSinkManager_CreateFrameSinkBundle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_CreateCompositorFrameSink_Params_Data::Validate,
+    { &internal::FrameSinkManager_CreateCompositorFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_DestroyCompositorFrameSink_Params_Data::Validate,
+    { &internal::FrameSinkManager_DestroyCompositorFrameSink_Params_Data::Validate,
      &internal::FrameSinkManager_DestroyCompositorFrameSink_ResponseParams_Data::Validate},
-    {&internal::FrameSinkManager_RegisterFrameSinkHierarchy_Params_Data::Validate,
+    { &internal::FrameSinkManager_RegisterFrameSinkHierarchy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_UnregisterFrameSinkHierarchy_Params_Data::Validate,
+    { &internal::FrameSinkManager_UnregisterFrameSinkHierarchy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_AddVideoDetectorObserver_Params_Data::Validate,
+    { &internal::FrameSinkManager_AddVideoDetectorObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_CreateVideoCapturer_Params_Data::Validate,
+    { &internal::FrameSinkManager_CreateVideoCapturer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_EvictSurfaces_Params_Data::Validate,
+    { &internal::FrameSinkManager_EvictSurfaces_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_Throttle_Params_Data::Validate,
+    { &internal::FrameSinkManager_Throttle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_StartThrottlingAllFrameSinks_Params_Data::Validate,
+    { &internal::FrameSinkManager_StartThrottlingAllFrameSinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_StopThrottlingAllFrameSinks_Params_Data::Validate,
+    { &internal::FrameSinkManager_StopThrottlingAllFrameSinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_RequestCopyOfOutput_Params_Data::Validate,
+    { &internal::FrameSinkManager_RequestCopyOfOutput_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_CacheBackBuffer_Params_Data::Validate,
+    { &internal::FrameSinkManager_CacheBackBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_EvictBackBuffer_Params_Data::Validate,
+    { &internal::FrameSinkManager_EvictBackBuffer_Params_Data::Validate,
      &internal::FrameSinkManager_EvictBackBuffer_ResponseParams_Data::Validate},
-    {&internal::FrameSinkManager_UpdateDebugRendererSettings_Params_Data::Validate,
+    { &internal::FrameSinkManager_UpdateDebugRendererSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_StartFrameCountingForTest_Params_Data::Validate,
+    { &internal::FrameSinkManager_StartFrameCountingForTest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManager_StopFrameCountingForTest_Params_Data::Validate,
+    { &internal::FrameSinkManager_StopFrameCountingForTest_Params_Data::Validate,
      &internal::FrameSinkManager_StopFrameCountingForTest_ResponseParams_Data::Validate},
 };
 
@@ -3289,14 +3362,17 @@ void FrameSinkManagerClientProxy::OnFirstSurfaceActivation(
                         "<value of type const ::viz::SurfaceInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManagerClient_OnFirstSurfaceActivation_Name, kFlags, 0, 0, nullptr);
@@ -3340,14 +3416,17 @@ void FrameSinkManagerClientProxy::OnAggregatedHitTestRegionListUpdated(
                         "<value of type const std::vector<::viz::AggregatedHitTestRegion>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManagerClient_OnAggregatedHitTestRegionListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3407,14 +3486,17 @@ void FrameSinkManagerClientProxy::OnFrameTokenChanged(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkManagerClient_OnFrameTokenChanged_Name, kFlags, 0, 0, nullptr);
@@ -3575,14 +3657,14 @@ bool FrameSinkManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkManagerClientValidationInfo[] = {
-    {&internal::FrameSinkManagerClient_OnFirstSurfaceActivation_Params_Data::Validate,
+    { &internal::FrameSinkManagerClient_OnFirstSurfaceActivation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManagerClient_OnAggregatedHitTestRegionListUpdated_Params_Data::Validate,
+    { &internal::FrameSinkManagerClient_OnAggregatedHitTestRegionListUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkManagerClient_OnFrameTokenChanged_Params_Data::Validate,
+    { &internal::FrameSinkManagerClient_OnFrameTokenChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3703,7 +3785,7 @@ void FrameSinkManagerInterceptorForTesting::CreateRootCompositorFrameSink(RootCo
 void FrameSinkManagerInterceptorForTesting::CreateFrameSinkBundle(const ::viz::FrameSinkBundleId& bundle_id, ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> receiver, ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient> client) {
   GetForwardingInterface()->CreateFrameSinkBundle(std::move(bundle_id), std::move(receiver), std::move(client));
 }
-void FrameSinkManagerInterceptorForTesting::CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const absl::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) {
+void FrameSinkManagerInterceptorForTesting::CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const std::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) {
   GetForwardingInterface()->CreateCompositorFrameSink(std::move(frame_sink_id), std::move(bundle_id), std::move(compositor_frame_sink), std::move(compositor_frame_sink_client));
 }
 void FrameSinkManagerInterceptorForTesting::DestroyCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, DestroyCompositorFrameSinkCallback callback) {

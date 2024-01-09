@@ -82,11 +82,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGMarkerElement>::value,
     "SVGMarkerElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGMarkerElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGMarkerElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -105,7 +100,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->refX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,7 +119,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->refY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -143,7 +138,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->markerUnits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -162,7 +157,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->markerWidth();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -181,7 +176,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->markerHeight();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -200,7 +195,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientType();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -219,7 +214,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientAngle();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -238,7 +233,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewBox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -257,7 +252,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAspectRatio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -294,7 +289,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<SVGAngleTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -320,7 +315,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMarkerElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(v8_receiver);
+SVGMarkerElement* blink_receiver = V8SVGMarkerElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOrientToAuto();
 
 }

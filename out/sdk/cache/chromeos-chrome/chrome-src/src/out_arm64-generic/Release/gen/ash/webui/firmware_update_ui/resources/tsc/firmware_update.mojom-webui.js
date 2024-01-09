@@ -19,14 +19,36 @@ export const UpdateStateSpec = { $: mojo.internal.Enum() };
 export var UpdateState;
 (function (UpdateState) {
     UpdateState[UpdateState["MIN_VALUE"] = 0] = "MIN_VALUE";
-    UpdateState[UpdateState["MAX_VALUE"] = 5] = "MAX_VALUE";
+    UpdateState[UpdateState["MAX_VALUE"] = 6] = "MAX_VALUE";
     UpdateState[UpdateState["kUnknown"] = 0] = "kUnknown";
     UpdateState[UpdateState["kIdle"] = 1] = "kIdle";
     UpdateState[UpdateState["kUpdating"] = 2] = "kUpdating";
     UpdateState[UpdateState["kRestarting"] = 3] = "kRestarting";
     UpdateState[UpdateState["kFailed"] = 4] = "kFailed";
     UpdateState[UpdateState["kSuccess"] = 5] = "kSuccess";
+    UpdateState[UpdateState["kWaitingForUser"] = 6] = "kWaitingForUser";
 })(UpdateState || (UpdateState = {}));
+export const DeviceRequestIdSpec = { $: mojo.internal.Enum() };
+export var DeviceRequestId;
+(function (DeviceRequestId) {
+    DeviceRequestId[DeviceRequestId["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DeviceRequestId[DeviceRequestId["MAX_VALUE"] = 5] = "MAX_VALUE";
+    DeviceRequestId[DeviceRequestId["kDoNotPowerOff"] = 0] = "kDoNotPowerOff";
+    DeviceRequestId[DeviceRequestId["kReplugInstall"] = 1] = "kReplugInstall";
+    DeviceRequestId[DeviceRequestId["kInsertUSBCable"] = 2] = "kInsertUSBCable";
+    DeviceRequestId[DeviceRequestId["kRemoveUSBCable"] = 3] = "kRemoveUSBCable";
+    DeviceRequestId[DeviceRequestId["kPressUnlock"] = 4] = "kPressUnlock";
+    DeviceRequestId[DeviceRequestId["kRemoveReplug"] = 5] = "kRemoveReplug";
+})(DeviceRequestId || (DeviceRequestId = {}));
+export const DeviceRequestKindSpec = { $: mojo.internal.Enum() };
+export var DeviceRequestKind;
+(function (DeviceRequestKind) {
+    DeviceRequestKind[DeviceRequestKind["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DeviceRequestKind[DeviceRequestKind["MAX_VALUE"] = 2] = "MAX_VALUE";
+    DeviceRequestKind[DeviceRequestKind["kUnknown"] = 0] = "kUnknown";
+    DeviceRequestKind[DeviceRequestKind["kImmediate"] = 1] = "kImmediate";
+    DeviceRequestKind[DeviceRequestKind["kPost"] = 2] = "kPost";
+})(DeviceRequestKind || (DeviceRequestKind = {}));
 export class UpdateObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -91,6 +113,80 @@ export class UpdateObserverCallbackRouter {
         this.onUpdateListChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, UpdateObserver_OnUpdateListChanged_ParamsSpec.$, null, this.onUpdateListChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+export class DeviceRequestObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.firmware_update.mojom.DeviceRequestObserver', scope);
+    }
+}
+export class DeviceRequestObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(DeviceRequestObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onDeviceRequest(request) {
+        this.proxy.sendMessage(0, DeviceRequestObserver_OnDeviceRequest_ParamsSpec.$, null, [
+            request
+        ]);
+    }
+}
+;
+/**
+ * An object which receives request messages for the DeviceRequestObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class DeviceRequestObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DeviceRequestObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, DeviceRequestObserver_OnDeviceRequest_ParamsSpec.$, null, impl.onDeviceRequest.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+export class DeviceRequestObserver {
+    static get $interfaceName() {
+        return "ash.firmware_update.mojom.DeviceRequestObserver";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new DeviceRequestObserverRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the DeviceRequestObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class DeviceRequestObserverCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DeviceRequestObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onDeviceRequest =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, DeviceRequestObserver_OnDeviceRequest_ParamsSpec.$, null, this.onDeviceRequest.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -286,8 +382,13 @@ export class InstallControllerRemote {
             filepath
         ]);
     }
-    addObserver(observer) {
-        this.proxy.sendMessage(1, InstallController_AddObserver_ParamsSpec.$, null, [
+    addDeviceRequestObserver(observer) {
+        this.proxy.sendMessage(1, InstallController_AddDeviceRequestObserver_ParamsSpec.$, null, [
+            observer
+        ]);
+    }
+    addUpdateProgressObserver(observer) {
+        this.proxy.sendMessage(2, InstallController_AddUpdateProgressObserver_ParamsSpec.$, null, [
             observer
         ]);
     }
@@ -303,7 +404,8 @@ export class InstallControllerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(InstallControllerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, InstallController_BeginUpdate_ParamsSpec.$, null, impl.beginUpdate.bind(impl));
-        this.helper_internal_.registerHandler(1, InstallController_AddObserver_ParamsSpec.$, null, impl.addObserver.bind(impl));
+        this.helper_internal_.registerHandler(1, InstallController_AddDeviceRequestObserver_ParamsSpec.$, null, impl.addDeviceRequestObserver.bind(impl));
+        this.helper_internal_.registerHandler(2, InstallController_AddUpdateProgressObserver_ParamsSpec.$, null, impl.addUpdateProgressObserver.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -336,9 +438,12 @@ export class InstallControllerCallbackRouter {
         this.beginUpdate =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, InstallController_BeginUpdate_ParamsSpec.$, null, this.beginUpdate.createReceiverHandler(false /* expectsResponse */));
-        this.addObserver =
+        this.addDeviceRequestObserver =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, InstallController_AddObserver_ParamsSpec.$, null, this.addObserver.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(1, InstallController_AddDeviceRequestObserver_ParamsSpec.$, null, this.addDeviceRequestObserver.createReceiverHandler(false /* expectsResponse */));
+        this.addUpdateProgressObserver =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, InstallController_AddUpdateProgressObserver_ParamsSpec.$, null, this.addUpdateProgressObserver.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -351,7 +456,9 @@ export class InstallControllerCallbackRouter {
 }
 export const FirmwareUpdateSpec = { $: {} };
 export const InstallationProgressSpec = { $: {} };
+export const DeviceRequestSpec = { $: {} };
 export const UpdateObserver_OnUpdateListChanged_ParamsSpec = { $: {} };
+export const DeviceRequestObserver_OnDeviceRequest_ParamsSpec = { $: {} };
 export const UpdateProgressObserver_OnStatusChanged_ParamsSpec = { $: {} };
 export const UpdateProvider_ObservePeripheralUpdates_ParamsSpec = { $: {} };
 export const UpdateProvider_PrepareForUpdate_ParamsSpec = { $: {} };
@@ -359,7 +466,8 @@ export const UpdateProvider_PrepareForUpdate_ResponseParamsSpec = { $: {} };
 export const UpdateProvider_FetchInProgressUpdate_ParamsSpec = { $: {} };
 export const UpdateProvider_FetchInProgressUpdate_ResponseParamsSpec = { $: {} };
 export const InstallController_BeginUpdate_ParamsSpec = { $: {} };
-export const InstallController_AddObserver_ParamsSpec = { $: {} };
+export const InstallController_AddDeviceRequestObserver_ParamsSpec = { $: {} };
+export const InstallController_AddUpdateProgressObserver_ParamsSpec = { $: {} };
 mojo.internal.Struct(FirmwareUpdateSpec.$, 'FirmwareUpdate', [
     mojo.internal.StructField('deviceId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('deviceName', 8, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
@@ -373,8 +481,15 @@ mojo.internal.Struct(InstallationProgressSpec.$, 'InstallationProgress', [
     mojo.internal.StructField('percentage', 0, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
     mojo.internal.StructField('state', 4, 0, UpdateStateSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(DeviceRequestSpec.$, 'DeviceRequest', [
+    mojo.internal.StructField('id', 0, 0, DeviceRequestIdSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('kind', 4, 0, DeviceRequestKindSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(UpdateObserver_OnUpdateListChanged_ParamsSpec.$, 'UpdateObserver_OnUpdateListChanged_Params', [
     mojo.internal.StructField('firmwareUpdates', 0, 0, mojo.internal.Array(FirmwareUpdateSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(DeviceRequestObserver_OnDeviceRequest_ParamsSpec.$, 'DeviceRequestObserver_OnDeviceRequest_Params', [
+    mojo.internal.StructField('request', 0, 0, DeviceRequestSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(UpdateProgressObserver_OnStatusChanged_ParamsSpec.$, 'UpdateProgressObserver_OnStatusChanged_Params', [
     mojo.internal.StructField('update', 0, 0, InstallationProgressSpec.$, null, false /* nullable */, 0),
@@ -396,6 +511,9 @@ mojo.internal.Struct(InstallController_BeginUpdate_ParamsSpec.$, 'InstallControl
     mojo.internal.StructField('deviceId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('filepath', 8, 0, mojoBase_mojom_FilePathSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(InstallController_AddObserver_ParamsSpec.$, 'InstallController_AddObserver_Params', [
+mojo.internal.Struct(InstallController_AddDeviceRequestObserver_ParamsSpec.$, 'InstallController_AddDeviceRequestObserver_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(DeviceRequestObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(InstallController_AddUpdateProgressObserver_ParamsSpec.$, 'InstallController_AddUpdateProgressObserver_Params', [
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(UpdateProgressObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);

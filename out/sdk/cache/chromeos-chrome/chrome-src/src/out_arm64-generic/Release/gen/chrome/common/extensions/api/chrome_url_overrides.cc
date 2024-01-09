@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/chrome_url_overrides.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -40,8 +41,8 @@ UrlOverrideInfo::UrlOverrideInfo()
  {}
 
 UrlOverrideInfo::~UrlOverrideInfo() = default;
-UrlOverrideInfo::UrlOverrideInfo(UrlOverrideInfo&& rhs) = default;
-UrlOverrideInfo& UrlOverrideInfo::operator=(UrlOverrideInfo&& rhs) = default;
+UrlOverrideInfo::UrlOverrideInfo(UrlOverrideInfo&& rhs) noexcept = default;
+UrlOverrideInfo& UrlOverrideInfo::operator=(UrlOverrideInfo&& rhs) noexcept = default;
 // static
 constexpr char UrlOverrideInfo::kNewtab[];
 // static
@@ -71,7 +72,7 @@ bool UrlOverrideInfo::Populate(
     {
       auto* temp = (*newtab_value).GetIfString();
       if (!temp) {
-        out.newtab = absl::nullopt;
+        out.newtab = std::nullopt;
         return false;
       }
       out.newtab = *temp;
@@ -83,7 +84,7 @@ bool UrlOverrideInfo::Populate(
     {
       auto* temp = (*bookmarks_value).GetIfString();
       if (!temp) {
-        out.bookmarks = absl::nullopt;
+        out.bookmarks = std::nullopt;
         return false;
       }
       out.bookmarks = *temp;
@@ -95,7 +96,7 @@ bool UrlOverrideInfo::Populate(
     {
       auto* temp = (*history_value).GetIfString();
       if (!temp) {
-        out.history = absl::nullopt;
+        out.history = std::nullopt;
         return false;
       }
       out.history = *temp;
@@ -107,7 +108,7 @@ bool UrlOverrideInfo::Populate(
     {
       auto* temp = (*activationmessage_value).GetIfString();
       if (!temp) {
-        out.activationmessage = absl::nullopt;
+        out.activationmessage = std::nullopt;
         return false;
       }
       out.activationmessage = *temp;
@@ -119,7 +120,7 @@ bool UrlOverrideInfo::Populate(
     {
       auto* temp = (*keyboard_value).GetIfString();
       if (!temp) {
-        out.keyboard = absl::nullopt;
+        out.keyboard = std::nullopt;
         return false;
       }
       out.keyboard = *temp;
@@ -139,34 +140,21 @@ bool UrlOverrideInfo::Populate(
 }
 
 // static
-std::unique_ptr<UrlOverrideInfo> UrlOverrideInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UrlOverrideInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UrlOverrideInfo> UrlOverrideInfo::FromValue(const base::Value::Dict& value) {
+  UrlOverrideInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UrlOverrideInfo> UrlOverrideInfo::FromValue(const base::Value::Dict& value) {
+std::optional<UrlOverrideInfo> UrlOverrideInfo::FromValue(const base::Value& value) {
   UrlOverrideInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UrlOverrideInfo> UrlOverrideInfo::FromValue(const base::Value& value) {
-  UrlOverrideInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -244,8 +232,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kChromeUrlOverrides[];
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/device_attributes.mojom-features.h"
 #include "chromeos/crosapi/mojom/device_attributes.mojom-shared.h"
 #include "chromeos/crosapi/mojom/device_attributes.mojom-forward.h"
 #include <string>
@@ -231,17 +232,17 @@ class  DeviceAttributesStringResult {
   // Construct an instance holding |error_message|.
   static DeviceAttributesStringResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = DeviceAttributesStringResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |contents|.
   static DeviceAttributesStringResultPtr
   NewContents(
-      const std::string& contents) {
+      const std::string& value) {
     auto result = DeviceAttributesStringResultPtr(absl::in_place);
-    result->set_contents(std::move(contents));
+    result->set_contents(std::move(value));
     return result;
   }
 

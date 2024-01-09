@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,20 +31,20 @@ namespace processes {
 //
 
 // The types of the browser processes.
-enum  ProcessType {
-  PROCESS_TYPE_NONE = 0,
-  PROCESS_TYPE_BROWSER,
-  PROCESS_TYPE_RENDERER,
-  PROCESS_TYPE_EXTENSION,
-  PROCESS_TYPE_NOTIFICATION,
-  PROCESS_TYPE_PLUGIN,
-  PROCESS_TYPE_WORKER,
-  PROCESS_TYPE_NACL,
-  PROCESS_TYPE_SERVICE_WORKER,
-  PROCESS_TYPE_UTILITY,
-  PROCESS_TYPE_GPU,
-  PROCESS_TYPE_OTHER,
-  PROCESS_TYPE_LAST = PROCESS_TYPE_OTHER,
+enum class ProcessType {
+  kNone = 0,
+  kBrowser,
+  kRenderer,
+  kExtension,
+  kNotification,
+  kPlugin,
+  kWorker,
+  kNacl,
+  kServiceWorker,
+  kUtility,
+  kGpu,
+  kOther,
+  kMaxValue = kOther,
 };
 
 
@@ -56,8 +57,8 @@ struct TaskInfo {
   ~TaskInfo();
   TaskInfo(const TaskInfo&) = delete;
   TaskInfo& operator=(const TaskInfo&) = delete;
-  TaskInfo(TaskInfo&& rhs);
-  TaskInfo& operator=(TaskInfo&& rhs);
+  TaskInfo(TaskInfo&& rhs) noexcept;
+  TaskInfo& operator=(TaskInfo&& rhs) noexcept;
 
   // Populates a TaskInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -70,14 +71,11 @@ struct TaskInfo {
   // Creates a deep copy of TaskInfo.
   TaskInfo Clone() const;
 
-  // Creates a TaskInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TaskInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TaskInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<TaskInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TaskInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TaskInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<TaskInfo> FromValue(const base::Value& value);
+  static std::optional<TaskInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTaskInfo object.
@@ -87,7 +85,7 @@ struct TaskInfo {
   std::string title;
 
   // Optional tab ID, if this task represents a tab running on a renderer process.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 };
 
@@ -96,8 +94,8 @@ struct Cache {
   ~Cache();
   Cache(const Cache&) = delete;
   Cache& operator=(const Cache&) = delete;
-  Cache(Cache&& rhs);
-  Cache& operator=(Cache&& rhs);
+  Cache(Cache&& rhs) noexcept;
+  Cache& operator=(Cache&& rhs) noexcept;
 
   // Populates a Cache object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -110,14 +108,11 @@ struct Cache {
   // Creates a deep copy of Cache.
   Cache Clone() const;
 
-  // Creates a Cache object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Cache> FromValueDeprecated(const base::Value& value);
-
   // Creates a Cache object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Cache> FromValue(const base::Value::Dict& value);
+  static std::optional<Cache> FromValue(const base::Value::Dict& value);
 
   // Creates a Cache object from a base::Value, or nullopt on failure.
-  static absl::optional<Cache> FromValue(const base::Value& value);
+  static std::optional<Cache> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCache object.
@@ -136,8 +131,8 @@ struct Process {
   ~Process();
   Process(const Process&) = delete;
   Process& operator=(const Process&) = delete;
-  Process(Process&& rhs);
-  Process& operator=(Process&& rhs);
+  Process(Process&& rhs) noexcept;
+  Process& operator=(Process&& rhs) noexcept;
 
   // Populates a Process object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -150,14 +145,11 @@ struct Process {
   // Creates a deep copy of Process.
   Process Clone() const;
 
-  // Creates a Process object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Process> FromValueDeprecated(const base::Value& value);
-
   // Creates a Process object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Process> FromValue(const base::Value::Dict& value);
+  static std::optional<Process> FromValue(const base::Value::Dict& value);
 
   // Creates a Process object from a base::Value, or nullopt on failure.
-  static absl::optional<Process> FromValue(const base::Value& value);
+  static std::optional<Process> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcess object.
@@ -187,47 +179,47 @@ struct Process {
   // threads. This gives a value from zero to CpuInfo.numOfProcessors*100, which
   // can exceed 100% in multi-threaded processes. Only available when receiving
   // the object as part of a callback from onUpdated or onUpdatedWithMemory.
-  absl::optional<double> cpu;
+  std::optional<double> cpu;
 
   // The most recent measurement of the process network usage, in bytes per
   // second. Only available when receiving the object as part of a callback from
   // onUpdated or onUpdatedWithMemory.
-  absl::optional<double> network;
+  std::optional<double> network;
 
   // The most recent measurement of the process private memory usage, in bytes.
   // Only available when receiving the object as part of a callback from
   // onUpdatedWithMemory or getProcessInfo with the includeMemory flag.
-  absl::optional<double> private_memory;
+  std::optional<double> private_memory;
 
   // The most recent measurement of the process JavaScript allocated memory, in
   // bytes. Only available when receiving the object as part of a callback from
   // onUpdated or onUpdatedWithMemory.
-  absl::optional<double> js_memory_allocated;
+  std::optional<double> js_memory_allocated;
 
   // The most recent measurement of the process JavaScript memory used, in bytes.
   // Only available when receiving the object as part of a callback from onUpdated
   // or onUpdatedWithMemory.
-  absl::optional<double> js_memory_used;
+  std::optional<double> js_memory_used;
 
   // The most recent measurement of the process's SQLite memory usage, in bytes.
   // Only available when receiving the object as part of a callback from onUpdated
   // or onUpdatedWithMemory.
-  absl::optional<double> sqlite_memory;
+  std::optional<double> sqlite_memory;
 
   // The most recent information about the image cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  absl::optional<Cache> image_cache;
+  std::optional<Cache> image_cache;
 
   // The most recent information about the script cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  absl::optional<Cache> script_cache;
+  std::optional<Cache> script_cache;
 
   // The most recent information about the CSS cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  absl::optional<Cache> css_cache;
+  std::optional<Cache> css_cache;
 
 };
 
@@ -239,11 +231,11 @@ struct Process {
 namespace GetProcessIdForTab {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab for which the renderer process ID is to be returned.
@@ -265,11 +257,11 @@ base::Value::List Create(int process_id);
 namespace Terminate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the process to be terminated.
@@ -291,11 +283,11 @@ base::Value::List Create(bool did_terminate);
 namespace GetProcessInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The list of process IDs or single process ID for which to return the process
@@ -305,8 +297,8 @@ struct Params {
     ~ProcessIds();
     ProcessIds(const ProcessIds&) = delete;
     ProcessIds& operator=(const ProcessIds&) = delete;
-    ProcessIds(ProcessIds&& rhs);
-    ProcessIds& operator=(ProcessIds&& rhs);
+    ProcessIds(ProcessIds&& rhs) noexcept;
+    ProcessIds& operator=(ProcessIds&& rhs) noexcept;
 
     // Populates a ProcessIds object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -316,10 +308,10 @@ struct Params {
     ProcessIds Clone() const;
 
     // Creates a ProcessIds object from a base::Value, or nullopt on failure.
-    static absl::optional<ProcessIds> FromValue(const base::Value& value);
+    static std::optional<ProcessIds> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::vector<int>> as_integers;
+    std::optional<int> as_integer;
+    std::optional<std::vector<int>> as_integers;
   };
 
 
@@ -348,8 +340,8 @@ struct Processes {
   ~Processes();
   Processes(const Processes&) = delete;
   Processes& operator=(const Processes&) = delete;
-  Processes(Processes&& rhs);
-  Processes& operator=(Processes&& rhs);
+  Processes(Processes&& rhs) noexcept;
+  Processes& operator=(Processes&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcesses object.
@@ -384,8 +376,8 @@ struct Processes {
   ~Processes();
   Processes(const Processes&) = delete;
   Processes& operator=(const Processes&) = delete;
-  Processes(Processes&& rhs);
-  Processes& operator=(Processes&& rhs);
+  Processes(Processes&& rhs) noexcept;
+  Processes& operator=(Processes&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcesses object.
@@ -413,8 +405,8 @@ struct Processes {
   ~Processes();
   Processes(const Processes&) = delete;
   Processes& operator=(const Processes&) = delete;
-  Processes(Processes&& rhs);
-  Processes& operator=(Processes&& rhs);
+  Processes(Processes&& rhs) noexcept;
+  Processes& operator=(Processes&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcesses object.

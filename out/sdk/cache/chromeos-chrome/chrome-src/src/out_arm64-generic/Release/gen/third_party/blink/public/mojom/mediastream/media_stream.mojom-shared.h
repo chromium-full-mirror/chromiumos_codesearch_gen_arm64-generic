@@ -52,6 +52,8 @@ class StreamControlsDataView;
 
 class GetOpenDeviceResponseDataView;
 
+class CapturedWheelActionDataView;
+
 class StreamDevicesDataView;
 
 class StreamDevicesSetDataView;
@@ -94,6 +96,13 @@ struct MojomTypeTraits<::blink::mojom::StreamControlsDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::GetOpenDeviceResponseDataView> {
   using Data = ::blink::mojom::internal::GetOpenDeviceResponse_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::CapturedWheelActionDataView> {
+  using Data = ::blink::mojom::internal::CapturedWheelAction_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -253,6 +262,26 @@ enum class PreferredDisplaySurface : int32_t {
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, PreferredDisplaySurface value);
 inline bool IsKnownEnumValue(PreferredDisplaySurface value) {
   return internal::PreferredDisplaySurface_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class CapturedSurfaceControlResult : int32_t {
+  
+  kSuccess = 0,
+  
+  kUnknownError = 1,
+  
+  kNoPermissionError = 2,
+  
+  kCapturedSurfaceNotFoundError = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, CapturedSurfaceControlResult value);
+inline bool IsKnownEnumValue(CapturedSurfaceControlResult value) {
+  return internal::CapturedSurfaceControlResult_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -631,6 +660,33 @@ class GetOpenDeviceResponseDataView {
 };
 
 
+class CapturedWheelActionDataView {
+ public:
+  CapturedWheelActionDataView() = default;
+
+  CapturedWheelActionDataView(
+      internal::CapturedWheelAction_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t x() const {
+    return data_->x;
+  }
+  int32_t y() const {
+    return data_->y;
+  }
+  int32_t wheel_delta_x() const {
+    return data_->wheel_delta_x;
+  }
+  int32_t wheel_delta_y() const {
+    return data_->wheel_delta_y;
+  }
+ private:
+  internal::CapturedWheelAction_Data* data_ = nullptr;
+};
+
+
 class StreamDevicesDataView {
  public:
   StreamDevicesDataView() = default;
@@ -737,6 +793,10 @@ template <>
 struct hash<::blink::mojom::PreferredDisplaySurface>
     : public mojo::internal::EnumHashImpl<::blink::mojom::PreferredDisplaySurface> {};
 
+template <>
+struct hash<::blink::mojom::CapturedSurfaceControlResult>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::CapturedSurfaceControlResult> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -836,6 +896,26 @@ struct Serializer<::blink::mojom::PreferredDisplaySurface, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::PreferredDisplaySurface>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::CapturedSurfaceControlResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::CapturedSurfaceControlResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::CapturedSurfaceControlResult>(input)), output);
   }
 };
 
@@ -1147,6 +1227,39 @@ struct Serializer<::blink::mojom::GetOpenDeviceResponseDataView, MaybeConstUserT
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::CapturedWheelActionDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::CapturedWheelActionDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::CapturedWheelAction_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->x = Traits::x(input);
+    fragment->y = Traits::y(input);
+    fragment->wheel_delta_x = Traits::wheel_delta_x(input);
+    fragment->wheel_delta_y = Traits::wheel_delta_y(input);
+  }
+
+  static bool Deserialize(::blink::mojom::internal::CapturedWheelAction_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::CapturedWheelActionDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::StreamDevicesDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::StreamDevicesDataView, UserType>;
@@ -1311,6 +1424,8 @@ inline void GetOpenDeviceResponseDataView::GetDeviceDataView(
 }
 
 
+
+
 inline void StreamDevicesDataView::GetAudioDeviceDataView(
     MediaStreamDeviceDataView* output) {
   auto pointer = data_->audio_device.Get();
@@ -1377,6 +1492,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::PreferredDisplaySurface> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::PreferredDisplaySurface value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::CapturedSurfaceControlResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::CapturedSurfaceControlResult value);
 };
 
 } // namespace perfetto

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/media_types.mojom-features.h"
 #include "media/mojo/mojom/media_types.mojom-shared.h"
 #include "media/mojo/mojom/media_types.mojom-blink-forward.h"
 #include "gpu/ipc/common/mailbox_holder.mojom-blink.h"
@@ -54,114 +55,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoRotation>
-    : EnumHashTraits<::media::mojom::VideoRotation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::EncryptionType>
-    : EnumHashTraits<::media::mojom::EncryptionType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::SVCScalabilityMode>
-    : EnumHashTraits<::media::mojom::SVCScalabilityMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::SVCInterLayerPredMode>
-    : EnumHashTraits<::media::mojom::SVCInterLayerPredMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::CdmSessionClosedReason>
-    : EnumHashTraits<::media::mojom::CdmSessionClosedReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::SharedImageFormatType>
-    : EnumHashTraits<::media::mojom::SharedImageFormatType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::MediaStreamType>
-    : EnumHashTraits<::media::mojom::MediaStreamType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::InputStreamErrorCode>
-    : EnumHashTraits<::media::mojom::InputStreamErrorCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::RendererType>
-    : EnumHashTraits<::media::mojom::RendererType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -1089,33 +982,33 @@ class BLINK_PLATFORM_EXPORT VideoFrameData {
   // Construct an instance holding |eos_data|.
   static VideoFrameDataPtr
   NewEosData(
-      EosVideoFrameDataPtr eos_data) {
+      EosVideoFrameDataPtr value) {
     auto result = VideoFrameDataPtr(absl::in_place);
-    result->set_eos_data(std::move(eos_data));
+    result->set_eos_data(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_memory_data|.
   static VideoFrameDataPtr
   NewSharedMemoryData(
-      SharedMemoryVideoFrameDataPtr shared_memory_data) {
+      SharedMemoryVideoFrameDataPtr value) {
     auto result = VideoFrameDataPtr(absl::in_place);
-    result->set_shared_memory_data(std::move(shared_memory_data));
+    result->set_shared_memory_data(std::move(value));
     return result;
   }
   // Construct an instance holding |gpu_memory_buffer_data|.
   static VideoFrameDataPtr
   NewGpuMemoryBufferData(
-      GpuMemoryBufferVideoFrameDataPtr gpu_memory_buffer_data) {
+      GpuMemoryBufferVideoFrameDataPtr value) {
     auto result = VideoFrameDataPtr(absl::in_place);
-    result->set_gpu_memory_buffer_data(std::move(gpu_memory_buffer_data));
+    result->set_gpu_memory_buffer_data(std::move(value));
     return result;
   }
   // Construct an instance holding |mailbox_data|.
   static VideoFrameDataPtr
   NewMailboxData(
-      MailboxVideoFrameDataPtr mailbox_data) {
+      MailboxVideoFrameDataPtr value) {
     auto result = VideoFrameDataPtr(absl::in_place);
-    result->set_mailbox_data(std::move(mailbox_data));
+    result->set_mailbox_data(std::move(value));
     return result;
   }
 
@@ -2254,21 +2147,21 @@ class BLINK_PLATFORM_EXPORT VideoFrameMetadata {
 
   VideoFrameMetadata(
       bool allow_overlay,
-      absl::optional<::base::TimeTicks> capture_begin_time,
-      absl::optional<::base::TimeTicks> capture_end_time,
+      std::optional<::base::TimeTicks> capture_begin_time,
+      std::optional<::base::TimeTicks> capture_end_time,
       bool has_capture_counter,
       int32_t capture_counter,
-      const absl::optional<::gfx::Rect>& capture_update_rect,
-      const absl::optional<::gfx::Size>& source_size,
-      const absl::optional<::gfx::Rect>& region_capture_rect,
+      const std::optional<::gfx::Rect>& capture_update_rect,
+      const std::optional<::gfx::Size>& source_size,
+      const std::optional<::gfx::Rect>& region_capture_rect,
       uint32_t sub_capture_target_version,
       bool copy_required,
       bool end_of_stream,
-      absl::optional<::base::TimeDelta> frame_duration,
+      std::optional<::base::TimeDelta> frame_duration,
       bool has_frame_rate,
       double frame_rate,
       bool interactive_content,
-      absl::optional<::base::TimeTicks> reference_time,
+      std::optional<::base::TimeTicks> reference_time,
       bool read_lock_fences_enabled,
       VideoTransformationPtr transformation,
       bool texture_owner,
@@ -2276,7 +2169,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameMetadata {
       bool protected_video,
       bool hw_protected,
       bool is_webgpu_compatible,
-      const absl::optional<::base::UnguessableToken>& overlay_plane_id,
+      const std::optional<::base::UnguessableToken>& overlay_plane_id,
       bool power_efficient,
       bool texture_origin_is_top_left,
       bool has_device_scale_factor,
@@ -2289,13 +2182,14 @@ class BLINK_PLATFORM_EXPORT VideoFrameMetadata {
       double root_scroll_offset_y,
       bool has_top_controls_visible_height,
       double top_controls_visible_height,
-      absl::optional<::base::TimeTicks> decode_begin_time,
-      absl::optional<::base::TimeTicks> decode_end_time,
-      absl::optional<::base::TimeDelta> processing_time,
+      std::optional<::base::TimeTicks> decode_begin_time,
+      std::optional<::base::TimeTicks> decode_end_time,
+      std::optional<::base::TimeDelta> processing_time,
       bool has_rtp_timestamp,
       double rtp_timestamp,
-      absl::optional<::base::TimeTicks> receive_time,
-      absl::optional<::base::TimeDelta> wallclock_frame_duration);
+      std::optional<::base::TimeTicks> receive_time,
+      std::optional<::base::TimeDelta> wallclock_frame_duration,
+      std::optional<uint64_t> frame_sequence);
 
 VideoFrameMetadata(const VideoFrameMetadata&) = delete;
 VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
@@ -2377,19 +2271,19 @@ VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
   
   bool allow_overlay;
   
-  absl::optional<::base::TimeTicks> capture_begin_time;
+  std::optional<::base::TimeTicks> capture_begin_time;
   
-  absl::optional<::base::TimeTicks> capture_end_time;
+  std::optional<::base::TimeTicks> capture_end_time;
   
   bool has_capture_counter;
   
   int32_t capture_counter;
   
-  absl::optional<::gfx::Rect> capture_update_rect;
+  std::optional<::gfx::Rect> capture_update_rect;
   
-  absl::optional<::gfx::Size> source_size;
+  std::optional<::gfx::Size> source_size;
   
-  absl::optional<::gfx::Rect> region_capture_rect;
+  std::optional<::gfx::Rect> region_capture_rect;
   
   uint32_t sub_capture_target_version;
   
@@ -2397,7 +2291,7 @@ VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
   
   bool end_of_stream;
   
-  absl::optional<::base::TimeDelta> frame_duration;
+  std::optional<::base::TimeDelta> frame_duration;
   
   bool has_frame_rate;
   
@@ -2405,7 +2299,7 @@ VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
   
   bool interactive_content;
   
-  absl::optional<::base::TimeTicks> reference_time;
+  std::optional<::base::TimeTicks> reference_time;
   
   bool read_lock_fences_enabled;
   
@@ -2421,7 +2315,7 @@ VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
   
   bool is_webgpu_compatible;
   
-  absl::optional<::base::UnguessableToken> overlay_plane_id;
+  std::optional<::base::UnguessableToken> overlay_plane_id;
   
   bool power_efficient;
   
@@ -2447,19 +2341,21 @@ VideoFrameMetadata& operator=(const VideoFrameMetadata&) = delete;
   
   double top_controls_visible_height;
   
-  absl::optional<::base::TimeTicks> decode_begin_time;
+  std::optional<::base::TimeTicks> decode_begin_time;
   
-  absl::optional<::base::TimeTicks> decode_end_time;
+  std::optional<::base::TimeTicks> decode_end_time;
   
-  absl::optional<::base::TimeDelta> processing_time;
+  std::optional<::base::TimeDelta> processing_time;
   
   bool has_rtp_timestamp;
   
   double rtp_timestamp;
   
-  absl::optional<::base::TimeTicks> receive_time;
+  std::optional<::base::TimeTicks> receive_time;
   
-  absl::optional<::base::TimeDelta> wallclock_frame_duration;
+  std::optional<::base::TimeDelta> wallclock_frame_duration;
+  
+  std::optional<uint64_t> frame_sequence;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -4576,7 +4472,8 @@ VideoFrameMetadataPtr VideoFrameMetadata::Clone() const {
       mojo::Clone(has_rtp_timestamp),
       mojo::Clone(rtp_timestamp),
       mojo::Clone(receive_time),
-      mojo::Clone(wallclock_frame_duration)
+      mojo::Clone(wallclock_frame_duration),
+      mojo::Clone(frame_sequence)
   );
 }
 
@@ -4667,6 +4564,8 @@ bool VideoFrameMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->receive_time, other_struct.receive_time))
     return false;
   if (!mojo::Equals(this->wallclock_frame_duration, other_struct.wallclock_frame_duration))
+    return false;
+  if (!mojo::Equals(this->frame_sequence, other_struct.frame_sequence))
     return false;
   return true;
 }
@@ -4844,6 +4743,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.wallclock_frame_duration < rhs.wallclock_frame_duration)
     return true;
   if (rhs.wallclock_frame_duration < lhs.wallclock_frame_duration)
+    return false;
+  if (lhs.frame_sequence < rhs.frame_sequence)
+    return true;
+  if (rhs.frame_sequence < lhs.frame_sequence)
     return false;
   return false;
 }
@@ -5986,6 +5889,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::media::mojom::blink::VideoFrameMetad
   static const decltype(::media::mojom::blink::VideoFrameMetadata::wallclock_frame_duration)& wallclock_frame_duration(
       const ::media::mojom::blink::VideoFrameMetadataPtr& input) {
     return input->wallclock_frame_duration;
+  }
+
+  static decltype(::media::mojom::blink::VideoFrameMetadata::frame_sequence) frame_sequence(
+      const ::media::mojom::blink::VideoFrameMetadataPtr& input) {
+    return input->frame_sequence;
   }
 
   static bool Read(::media::mojom::blink::VideoFrameMetadata::DataView input, ::media::mojom::blink::VideoFrameMetadataPtr* output);

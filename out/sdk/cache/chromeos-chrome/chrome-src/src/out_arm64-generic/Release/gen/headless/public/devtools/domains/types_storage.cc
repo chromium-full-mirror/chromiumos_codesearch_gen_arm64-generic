@@ -767,6 +767,103 @@ std::unique_ptr<AttributionReportingFilterDataEntry> AttributionReportingFilterD
 }
 
 
+std::unique_ptr<AttributionReportingFilterConfig> AttributionReportingFilterConfig::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingFilterConfig");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingFilterConfig> result(new AttributionReportingFilterConfig());
+  errors->Push();
+  errors->SetName("AttributionReportingFilterConfig");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* filter_values_value = dict.Find("filterValues");
+  if (filter_values_value) {
+    errors->SetName("filterValues");
+    result->filter_values_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>>>::Parse(*filter_values_value, errors);
+  } else {
+    errors->AddError("required property missing: filterValues");
+  }
+  const base::Value* lookback_window_value = dict.Find("lookbackWindow");
+  if (lookback_window_value) {
+    errors->SetName("lookbackWindow");
+    result->lookback_window_ = internal::FromValue<int>::Parse(*lookback_window_value, errors);
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingFilterConfig::Serialize() const {
+  base::Value::Dict result;
+  result.Set("filterValues", internal::ToValue(filter_values_));
+  if (lookback_window_)
+    result.Set("lookbackWindow", internal::ToValue(lookback_window_.value()));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingFilterConfig> AttributionReportingFilterConfig::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingFilterConfig> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingFilterPair> AttributionReportingFilterPair::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingFilterPair");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingFilterPair> result(new AttributionReportingFilterPair());
+  errors->Push();
+  errors->SetName("AttributionReportingFilterPair");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* filters_value = dict.Find("filters");
+  if (filters_value) {
+    errors->SetName("filters");
+    result->filters_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>>>::Parse(*filters_value, errors);
+  } else {
+    errors->AddError("required property missing: filters");
+  }
+  const base::Value* not_filters_value = dict.Find("notFilters");
+  if (not_filters_value) {
+    errors->SetName("notFilters");
+    result->not_filters_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterConfig>>>::Parse(*not_filters_value, errors);
+  } else {
+    errors->AddError("required property missing: notFilters");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingFilterPair::Serialize() const {
+  base::Value::Dict result;
+  result.Set("filters", internal::ToValue(filters_));
+  result.Set("notFilters", internal::ToValue(not_filters_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingFilterPair> AttributionReportingFilterPair::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingFilterPair> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<AttributionReportingAggregationKeysEntry> AttributionReportingAggregationKeysEntry::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("AttributionReportingAggregationKeysEntry");
@@ -865,6 +962,55 @@ std::unique_ptr<AttributionReportingEventReportWindows> AttributionReportingEven
 }
 
 
+std::unique_ptr<AttributionReportingTriggerSpec> AttributionReportingTriggerSpec::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerSpec");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingTriggerSpec> result(new AttributionReportingTriggerSpec());
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerSpec");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* trigger_data_value = dict.Find("triggerData");
+  if (trigger_data_value) {
+    errors->SetName("triggerData");
+    result->trigger_data_ = internal::FromValue<std::vector<double>>::Parse(*trigger_data_value, errors);
+  } else {
+    errors->AddError("required property missing: triggerData");
+  }
+  const base::Value* event_report_windows_value = dict.Find("eventReportWindows");
+  if (event_report_windows_value) {
+    errors->SetName("eventReportWindows");
+    result->event_report_windows_ = internal::FromValue<::headless::storage::AttributionReportingEventReportWindows>::Parse(*event_report_windows_value, errors);
+  } else {
+    errors->AddError("required property missing: eventReportWindows");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingTriggerSpec::Serialize() const {
+  base::Value::Dict result;
+  result.Set("triggerData", internal::ToValue(trigger_data_));
+  result.Set("eventReportWindows", internal::ToValue(*event_report_windows_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingTriggerSpec> AttributionReportingTriggerSpec::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingTriggerSpec> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<AttributionReportingSourceRegistration> AttributionReportingSourceRegistration::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("AttributionReportingSourceRegistration");
@@ -892,12 +1038,12 @@ std::unique_ptr<AttributionReportingSourceRegistration> AttributionReportingSour
   } else {
     errors->AddError("required property missing: expiry");
   }
-  const base::Value* event_report_windows_value = dict.Find("eventReportWindows");
-  if (event_report_windows_value) {
-    errors->SetName("eventReportWindows");
-    result->event_report_windows_ = internal::FromValue<::headless::storage::AttributionReportingEventReportWindows>::Parse(*event_report_windows_value, errors);
+  const base::Value* trigger_specs_value = dict.Find("triggerSpecs");
+  if (trigger_specs_value) {
+    errors->SetName("triggerSpecs");
+    result->trigger_specs_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingTriggerSpec>>>::Parse(*trigger_specs_value, errors);
   } else {
-    errors->AddError("required property missing: eventReportWindows");
+    errors->AddError("required property missing: triggerSpecs");
   }
   const base::Value* aggregatable_report_window_value = dict.Find("aggregatableReportWindow");
   if (aggregatable_report_window_value) {
@@ -985,7 +1131,7 @@ base::Value AttributionReportingSourceRegistration::Serialize() const {
   base::Value::Dict result;
   result.Set("time", internal::ToValue(time_));
   result.Set("expiry", internal::ToValue(expiry_));
-  result.Set("eventReportWindows", internal::ToValue(*event_report_windows_));
+  result.Set("triggerSpecs", internal::ToValue(trigger_specs_));
   result.Set("aggregatableReportWindow", internal::ToValue(aggregatable_report_window_));
   result.Set("type", internal::ToValue(type_));
   result.Set("sourceOrigin", internal::ToValue(source_origin_));
@@ -1004,6 +1150,334 @@ base::Value AttributionReportingSourceRegistration::Serialize() const {
 std::unique_ptr<AttributionReportingSourceRegistration> AttributionReportingSourceRegistration::Clone() const {
   ErrorReporter errors;
   std::unique_ptr<AttributionReportingSourceRegistration> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingAggregatableValueEntry> AttributionReportingAggregatableValueEntry::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableValueEntry");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingAggregatableValueEntry> result(new AttributionReportingAggregatableValueEntry());
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableValueEntry");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* key_value = dict.Find("key");
+  if (key_value) {
+    errors->SetName("key");
+    result->key_ = internal::FromValue<std::string>::Parse(*key_value, errors);
+  } else {
+    errors->AddError("required property missing: key");
+  }
+  const base::Value* value_value = dict.Find("value");
+  if (value_value) {
+    errors->SetName("value");
+    result->value_ = internal::FromValue<double>::Parse(*value_value, errors);
+  } else {
+    errors->AddError("required property missing: value");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingAggregatableValueEntry::Serialize() const {
+  base::Value::Dict result;
+  result.Set("key", internal::ToValue(key_));
+  result.Set("value", internal::ToValue(value_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingAggregatableValueEntry> AttributionReportingAggregatableValueEntry::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingAggregatableValueEntry> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingEventTriggerData> AttributionReportingEventTriggerData::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingEventTriggerData");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingEventTriggerData> result(new AttributionReportingEventTriggerData());
+  errors->Push();
+  errors->SetName("AttributionReportingEventTriggerData");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* data_value = dict.Find("data");
+  if (data_value) {
+    errors->SetName("data");
+    result->data_ = internal::FromValue<std::string>::Parse(*data_value, errors);
+  } else {
+    errors->AddError("required property missing: data");
+  }
+  const base::Value* priority_value = dict.Find("priority");
+  if (priority_value) {
+    errors->SetName("priority");
+    result->priority_ = internal::FromValue<std::string>::Parse(*priority_value, errors);
+  } else {
+    errors->AddError("required property missing: priority");
+  }
+  const base::Value* dedup_key_value = dict.Find("dedupKey");
+  if (dedup_key_value) {
+    errors->SetName("dedupKey");
+    result->dedup_key_ = internal::FromValue<std::string>::Parse(*dedup_key_value, errors);
+  }
+  const base::Value* filters_value = dict.Find("filters");
+  if (filters_value) {
+    errors->SetName("filters");
+    result->filters_ = internal::FromValue<::headless::storage::AttributionReportingFilterPair>::Parse(*filters_value, errors);
+  } else {
+    errors->AddError("required property missing: filters");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingEventTriggerData::Serialize() const {
+  base::Value::Dict result;
+  result.Set("data", internal::ToValue(data_));
+  result.Set("priority", internal::ToValue(priority_));
+  if (dedup_key_)
+    result.Set("dedupKey", internal::ToValue(dedup_key_.value()));
+  result.Set("filters", internal::ToValue(*filters_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingEventTriggerData> AttributionReportingEventTriggerData::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingEventTriggerData> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingAggregatableTriggerData> AttributionReportingAggregatableTriggerData::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableTriggerData");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingAggregatableTriggerData> result(new AttributionReportingAggregatableTriggerData());
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableTriggerData");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* key_piece_value = dict.Find("keyPiece");
+  if (key_piece_value) {
+    errors->SetName("keyPiece");
+    result->key_piece_ = internal::FromValue<std::string>::Parse(*key_piece_value, errors);
+  } else {
+    errors->AddError("required property missing: keyPiece");
+  }
+  const base::Value* source_keys_value = dict.Find("sourceKeys");
+  if (source_keys_value) {
+    errors->SetName("sourceKeys");
+    result->source_keys_ = internal::FromValue<std::vector<std::string>>::Parse(*source_keys_value, errors);
+  } else {
+    errors->AddError("required property missing: sourceKeys");
+  }
+  const base::Value* filters_value = dict.Find("filters");
+  if (filters_value) {
+    errors->SetName("filters");
+    result->filters_ = internal::FromValue<::headless::storage::AttributionReportingFilterPair>::Parse(*filters_value, errors);
+  } else {
+    errors->AddError("required property missing: filters");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingAggregatableTriggerData::Serialize() const {
+  base::Value::Dict result;
+  result.Set("keyPiece", internal::ToValue(key_piece_));
+  result.Set("sourceKeys", internal::ToValue(source_keys_));
+  result.Set("filters", internal::ToValue(*filters_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingAggregatableTriggerData> AttributionReportingAggregatableTriggerData::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingAggregatableTriggerData> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingAggregatableDedupKey> AttributionReportingAggregatableDedupKey::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableDedupKey");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingAggregatableDedupKey> result(new AttributionReportingAggregatableDedupKey());
+  errors->Push();
+  errors->SetName("AttributionReportingAggregatableDedupKey");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* dedup_key_value = dict.Find("dedupKey");
+  if (dedup_key_value) {
+    errors->SetName("dedupKey");
+    result->dedup_key_ = internal::FromValue<std::string>::Parse(*dedup_key_value, errors);
+  }
+  const base::Value* filters_value = dict.Find("filters");
+  if (filters_value) {
+    errors->SetName("filters");
+    result->filters_ = internal::FromValue<::headless::storage::AttributionReportingFilterPair>::Parse(*filters_value, errors);
+  } else {
+    errors->AddError("required property missing: filters");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingAggregatableDedupKey::Serialize() const {
+  base::Value::Dict result;
+  if (dedup_key_)
+    result.Set("dedupKey", internal::ToValue(dedup_key_.value()));
+  result.Set("filters", internal::ToValue(*filters_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingAggregatableDedupKey> AttributionReportingAggregatableDedupKey::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingAggregatableDedupKey> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingTriggerRegistration> AttributionReportingTriggerRegistration::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerRegistration");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingTriggerRegistration> result(new AttributionReportingTriggerRegistration());
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerRegistration");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* filters_value = dict.Find("filters");
+  if (filters_value) {
+    errors->SetName("filters");
+    result->filters_ = internal::FromValue<::headless::storage::AttributionReportingFilterPair>::Parse(*filters_value, errors);
+  } else {
+    errors->AddError("required property missing: filters");
+  }
+  const base::Value* debug_key_value = dict.Find("debugKey");
+  if (debug_key_value) {
+    errors->SetName("debugKey");
+    result->debug_key_ = internal::FromValue<std::string>::Parse(*debug_key_value, errors);
+  }
+  const base::Value* aggregatable_dedup_keys_value = dict.Find("aggregatableDedupKeys");
+  if (aggregatable_dedup_keys_value) {
+    errors->SetName("aggregatableDedupKeys");
+    result->aggregatable_dedup_keys_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableDedupKey>>>::Parse(*aggregatable_dedup_keys_value, errors);
+  } else {
+    errors->AddError("required property missing: aggregatableDedupKeys");
+  }
+  const base::Value* event_trigger_data_value = dict.Find("eventTriggerData");
+  if (event_trigger_data_value) {
+    errors->SetName("eventTriggerData");
+    result->event_trigger_data_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingEventTriggerData>>>::Parse(*event_trigger_data_value, errors);
+  } else {
+    errors->AddError("required property missing: eventTriggerData");
+  }
+  const base::Value* aggregatable_trigger_data_value = dict.Find("aggregatableTriggerData");
+  if (aggregatable_trigger_data_value) {
+    errors->SetName("aggregatableTriggerData");
+    result->aggregatable_trigger_data_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableTriggerData>>>::Parse(*aggregatable_trigger_data_value, errors);
+  } else {
+    errors->AddError("required property missing: aggregatableTriggerData");
+  }
+  const base::Value* aggregatable_values_value = dict.Find("aggregatableValues");
+  if (aggregatable_values_value) {
+    errors->SetName("aggregatableValues");
+    result->aggregatable_values_ = internal::FromValue<std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregatableValueEntry>>>::Parse(*aggregatable_values_value, errors);
+  } else {
+    errors->AddError("required property missing: aggregatableValues");
+  }
+  const base::Value* debug_reporting_value = dict.Find("debugReporting");
+  if (debug_reporting_value) {
+    errors->SetName("debugReporting");
+    result->debug_reporting_ = internal::FromValue<bool>::Parse(*debug_reporting_value, errors);
+  } else {
+    errors->AddError("required property missing: debugReporting");
+  }
+  const base::Value* aggregation_coordinator_origin_value = dict.Find("aggregationCoordinatorOrigin");
+  if (aggregation_coordinator_origin_value) {
+    errors->SetName("aggregationCoordinatorOrigin");
+    result->aggregation_coordinator_origin_ = internal::FromValue<std::string>::Parse(*aggregation_coordinator_origin_value, errors);
+  }
+  const base::Value* source_registration_time_config_value = dict.Find("sourceRegistrationTimeConfig");
+  if (source_registration_time_config_value) {
+    errors->SetName("sourceRegistrationTimeConfig");
+    result->source_registration_time_config_ = internal::FromValue<::headless::storage::AttributionReportingSourceRegistrationTimeConfig>::Parse(*source_registration_time_config_value, errors);
+  } else {
+    errors->AddError("required property missing: sourceRegistrationTimeConfig");
+  }
+  const base::Value* trigger_context_id_value = dict.Find("triggerContextId");
+  if (trigger_context_id_value) {
+    errors->SetName("triggerContextId");
+    result->trigger_context_id_ = internal::FromValue<std::string>::Parse(*trigger_context_id_value, errors);
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingTriggerRegistration::Serialize() const {
+  base::Value::Dict result;
+  result.Set("filters", internal::ToValue(*filters_));
+  if (debug_key_)
+    result.Set("debugKey", internal::ToValue(debug_key_.value()));
+  result.Set("aggregatableDedupKeys", internal::ToValue(aggregatable_dedup_keys_));
+  result.Set("eventTriggerData", internal::ToValue(event_trigger_data_));
+  result.Set("aggregatableTriggerData", internal::ToValue(aggregatable_trigger_data_));
+  result.Set("aggregatableValues", internal::ToValue(aggregatable_values_));
+  result.Set("debugReporting", internal::ToValue(debug_reporting_));
+  if (aggregation_coordinator_origin_)
+    result.Set("aggregationCoordinatorOrigin", internal::ToValue(aggregation_coordinator_origin_.value()));
+  result.Set("sourceRegistrationTimeConfig", internal::ToValue(source_registration_time_config_));
+  if (trigger_context_id_)
+    result.Set("triggerContextId", internal::ToValue(trigger_context_id_.value()));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingTriggerRegistration> AttributionReportingTriggerRegistration::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingTriggerRegistration> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }
@@ -4023,6 +4497,63 @@ base::Value AttributionReportingSourceRegisteredParams::Serialize() const {
 std::unique_ptr<AttributionReportingSourceRegisteredParams> AttributionReportingSourceRegisteredParams::Clone() const {
   ErrorReporter errors;
   std::unique_ptr<AttributionReportingSourceRegisteredParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AttributionReportingTriggerRegisteredParams> AttributionReportingTriggerRegisteredParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerRegisteredParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AttributionReportingTriggerRegisteredParams> result(new AttributionReportingTriggerRegisteredParams());
+  errors->Push();
+  errors->SetName("AttributionReportingTriggerRegisteredParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* registration_value = dict.Find("registration");
+  if (registration_value) {
+    errors->SetName("registration");
+    result->registration_ = internal::FromValue<::headless::storage::AttributionReportingTriggerRegistration>::Parse(*registration_value, errors);
+  } else {
+    errors->AddError("required property missing: registration");
+  }
+  const base::Value* event_level_value = dict.Find("eventLevel");
+  if (event_level_value) {
+    errors->SetName("eventLevel");
+    result->event_level_ = internal::FromValue<::headless::storage::AttributionReportingEventLevelResult>::Parse(*event_level_value, errors);
+  } else {
+    errors->AddError("required property missing: eventLevel");
+  }
+  const base::Value* aggregatable_value = dict.Find("aggregatable");
+  if (aggregatable_value) {
+    errors->SetName("aggregatable");
+    result->aggregatable_ = internal::FromValue<::headless::storage::AttributionReportingAggregatableResult>::Parse(*aggregatable_value, errors);
+  } else {
+    errors->AddError("required property missing: aggregatable");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AttributionReportingTriggerRegisteredParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("registration", internal::ToValue(*registration_));
+  result.Set("eventLevel", internal::ToValue(event_level_));
+  result.Set("aggregatable", internal::ToValue(aggregatable_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AttributionReportingTriggerRegisteredParams> AttributionReportingTriggerRegisteredParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingTriggerRegisteredParams> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }

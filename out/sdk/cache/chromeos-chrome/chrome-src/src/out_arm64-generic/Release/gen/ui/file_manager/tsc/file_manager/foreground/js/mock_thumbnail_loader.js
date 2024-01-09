@@ -1,35 +1,32 @@
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { ThumbnailLoader } from './thumbnail_loader.js';
+import { LoaderType, LoadTarget } from './thumbnail_loader.js';
 /**
  * Mock thumbnail loader.
  */
 export class MockThumbnailLoader {
+    static { this.testImageDataUrl = null; }
+    static { this.testImageWidth = 0; }
+    static { this.testImageHeight = 0; }
+    static { this.errorUrls = []; }
     /**
-     * @param {Entry} entry An entry.
-     * @param {ThumbnailLoader.LoaderType=} opt_loaderType Loader type.
-     * @param {Object=} opt_metadata Metadata.
-     * @param {string=} opt_mediaType Media type.
-     * @param {Array<ThumbnailLoader.LoadTarget>=} opt_loadTargets Load targets.
-     * @param {number=} opt_priority Priority.
+     * @param entry An entry.
+     * @param loaderType Loader type.
+     * @param metadata Metadata.
+     * @param mediaType Media type.
+     * @param loadTargets Load targets.
+     * @param priority Priority.
      */
-    constructor(
-    // @ts-ignore: error TS6133: 'opt_loadTargets' is declared but its value
-    // is never read.
-    entry, opt_loaderType, opt_metadata, opt_mediaType, opt_loadTargets, 
-    // @ts-ignore: error TS6133: 'opt_priority' is declared but its value is
-    // never read.
-    opt_priority) {
-        this.entry_ = entry;
+    constructor(entry_, _loaderType, _metadata, _mediaType, _loadTargets, _priority) {
+        this.entry_ = entry_;
     }
     /**
      * Loads thumbnail as data url.
      *
-     * @return {!Promise<{data:?string, width:number, height:number}>} A
-     *     promise which is resolved with data url.
+     * @return A promise which is resolved with data url.
      */
-    loadAsDataUrl() {
+    async loadAsDataUrl() {
         if (MockThumbnailLoader.errorUrls.indexOf(this.entry_.toURL()) !== -1) {
             throw new Error('Failed to load thumbnail.');
         }
@@ -40,25 +37,3 @@ export class MockThumbnailLoader {
         });
     }
 }
-/**
- * Data url of test image.
- * @private @type {?string}
- */
-// @ts-ignore: error TS2341: Property 'testImageDataUrl' is private and only
-// accessible within class 'MockThumbnailLoader'.
-MockThumbnailLoader.testImageDataUrl = null;
-/**
- * Width of test image.
- * @type {number}
- */
-MockThumbnailLoader.testImageWidth = 0;
-/**
- * Height of test image.
- * @type {number}
- */
-MockThumbnailLoader.testImageHeight = 0;
-/**
- * Error urls.
- * @type {Array<string>}
- */
-MockThumbnailLoader.errorUrls = [];

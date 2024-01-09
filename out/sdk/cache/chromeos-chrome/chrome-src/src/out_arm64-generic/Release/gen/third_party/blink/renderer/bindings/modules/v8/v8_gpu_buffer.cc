@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUBuffer>::value,
     "GPUBuffer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUBuffer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUBuffer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.usage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -114,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.mapState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mapState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mapState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,10 +126,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -143,9 +140,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUBuffer";
@@ -170,9 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.destroy");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy(isolate);
 
 }
@@ -201,7 +198,7 @@ const char* const property_name = "getMappedRange";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnsignedLongLongEnforceRange>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_offset{0};
 if (!info[0]->IsUndefined()) {
   arg1_offset = NativeValueTraits<IDLUnsignedLongLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -258,7 +255,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -300,9 +297,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBuffer.unmap");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBuffer* blink_receiver = V8GPUBuffer::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->unmap(isolate);
 
 }

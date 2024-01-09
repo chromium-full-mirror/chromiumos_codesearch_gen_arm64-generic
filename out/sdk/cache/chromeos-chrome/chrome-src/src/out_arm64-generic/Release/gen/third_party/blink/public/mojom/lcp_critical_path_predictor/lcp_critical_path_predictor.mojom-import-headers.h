@@ -8,6 +8,8 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_LCP_CRITICAL_PATH_PREDICTOR_LCP_CRITICAL_PATH_PREDICTOR_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/byte_string.mojom.h"
 #include "mojo/public/mojom/base/byte_string.mojom-import-headers.h"
+#include "mojo/public/mojom/base/time.mojom.h"
+#include "mojo/public/mojom/base/time.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
 

@@ -79,6 +79,7 @@ enum TraceConfig_TraceFilter_StringFilterPolicy : int {
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK = 3,
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK = 4,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS = 5,
 };
 enum TraceConfig_TriggerConfig_TriggerMode : int {
   TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
@@ -467,8 +468,9 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::Cp
   static constexpr auto SFP_ATRACE_MATCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS;
   static constexpr auto SFP_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK;
   static constexpr auto SFP_ATRACE_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+  static constexpr auto SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
   static constexpr auto StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
-  static constexpr auto StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+  static constexpr auto StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
   enum FieldNumbers {
     kBytecodeFieldNumber = 1,
     kBytecodeV2FieldNumber = 2,

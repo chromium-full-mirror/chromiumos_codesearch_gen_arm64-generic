@@ -191,7 +191,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'renderUrl', 0,
         0,
-        url.mojom.UrlSpec.$,
+        mojo.internal.String,
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -254,7 +254,7 @@ goog.provide('blink.mojom.InterestGroupAd');
 /** @record */
 blink.mojom.InterestGroupAd = class {
   constructor() {
-    /** @export { !url.mojom.Url } */
+    /** @export { !string } */
     this.renderUrl;
     /** @export { (string|undefined) } */
     this.sizeGroup;
@@ -371,6 +371,27 @@ blink.mojom.InterestGroup_ExecutionMode = {
   MAX_VALUE: 2,
 };
 
+goog.provide('blink.mojom.InterestGroup_TrustedBiddingSignalsSlotSizeMode');
+goog.provide('blink.mojom.InterestGroupSpec.TrustedBiddingSignalsSlotSizeModeSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.mojom.InterestGroupSpec.TrustedBiddingSignalsSlotSizeModeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.mojom.InterestGroup_TrustedBiddingSignalsSlotSizeMode = {
+  
+  kNone: 0,
+  kSlotSize: 1,
+  kAllSlotsRequestedSizes: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 
 mojo.internal.Struct(
     blink.mojom.InterestGroupSpec.$,
@@ -457,7 +478,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'biddingUrl', 72,
+        'trustedBiddingSignalsSlotSizeMode', 72,
+        0,
+        blink.mojom.InterestGroupSpec.TrustedBiddingSignalsSlotSizeModeSpec.$,
+        blink.mojom.InterestGroup_TrustedBiddingSignalsSlotSizeMode.kNone,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'biddingUrl', 80,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -465,7 +494,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'biddingWasmHelperUrl', 80,
+        'biddingWasmHelperUrl', 88,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -473,7 +502,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'updateUrl', 88,
+        'updateUrl', 96,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -481,7 +510,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'trustedBiddingSignalsUrl', 96,
+        'trustedBiddingSignalsUrl', 104,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -489,7 +518,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'trustedBiddingSignalsKeys', 104,
+        'trustedBiddingSignalsKeys', 112,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -497,7 +526,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'userBiddingSignals', 112,
+        'userBiddingSignals', 120,
         0,
         mojo.internal.String,
         null,
@@ -505,7 +534,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'ads', 120,
+        'ads', 128,
         0,
         mojo.internal.Array(blink.mojom.InterestGroupAdSpec.$, false),
         null,
@@ -513,7 +542,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'adComponents', 128,
+        'adComponents', 136,
         0,
         mojo.internal.Array(blink.mojom.InterestGroupAdSpec.$, false),
         null,
@@ -521,7 +550,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'adSizes', 136,
+        'adSizes', 144,
         0,
         mojo.internal.Map(mojo.internal.String, blink.mojom.AdSizeSpec.$, false),
         null,
@@ -529,7 +558,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sizeGroups', 144,
+        'sizeGroups', 152,
         0,
         mojo.internal.Map(mojo.internal.String, mojo.internal.Array(mojo.internal.String, false), false),
         null,
@@ -537,7 +566,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'auctionServerRequestFlags', 152,
+        'auctionServerRequestFlags', 160,
         0,
         blink.mojom.AuctionServerRequestFlagsSpec.$,
         null,
@@ -545,7 +574,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'additionalBidKey', 160,
+        'additionalBidKey', 168,
         0,
         mojo.internal.Array(mojo.internal.Uint8, false),
         null,
@@ -553,7 +582,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'aggregationCoordinatorOrigin', 168,
+        'aggregationCoordinatorOrigin', 176,
         0,
         url.mojom.OriginSpec.$,
         null,
@@ -561,7 +590,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 184],]);
+    [[0, 192],]);
 
 
 
@@ -590,6 +619,8 @@ blink.mojom.InterestGroup = class {
     this.allSellersCapabilities;
     /** @export { !blink.mojom.InterestGroup_ExecutionMode } */
     this.executionMode;
+    /** @export { !blink.mojom.InterestGroup_TrustedBiddingSignalsSlotSizeMode } */
+    this.trustedBiddingSignalsSlotSizeMode;
     /** @export { (url.mojom.Url|undefined) } */
     this.biddingUrl;
     /** @export { (url.mojom.Url|undefined) } */
@@ -1057,7 +1088,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'auctionNonce', 184,
+        'allSlotsRequestedSizes', 184,
+        0,
+        mojo.internal.Array(blink.mojom.AdSizeSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'auctionNonce', 192,
         0,
         mojoBase.mojom.UuidSpec.$,
         null,
@@ -1065,7 +1104,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'componentAuctions', 192,
+        'componentAuctions', 200,
         0,
         mojo.internal.Array(blink.mojom.AuctionAdConfigSpec.$, false),
         null,
@@ -1073,7 +1112,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 208],]);
+    [[0, 216],]);
 
 
 
@@ -1116,6 +1155,8 @@ blink.mojom.AuctionAdConfigNonSharedParams = class {
     this.requiredSellerCapabilities;
     /** @export { (blink.mojom.AdSize|undefined) } */
     this.requestedSize;
+    /** @export { (Array<!blink.mojom.AdSize>|undefined) } */
+    this.allSlotsRequestedSizes;
     /** @export { (mojoBase.mojom.Uuid|undefined) } */
     this.auctionNonce;
     /** @export { !Array<!blink.mojom.AuctionAdConfig> } */

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-misc", "name": "socat", "version": "1.7.4.4", "revision": 0, "fullname": "net-misc/socat", "fullnamerev": "net-misc/socat-1.7.4.4", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://www.dest-unreach.org/socat/", "https://repo.or.cz/socat.git"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -55,10 +55,10 @@ let DOMAIN_SELECTOR;
         const dataGridRowValues1 = await (0, application_helpers_js_1.getStorageItemsData)(['partitionKey'], 4);
         chai_1.assert.deepEqual(dataGridRowValues1, [
             {
-                partitionKey: '',
+                partitionKey: 'https://localhost',
             },
             {
-                partitionKey: 'https://localhost',
+                partitionKey: '',
             },
             {
                 partitionKey: '',
@@ -74,7 +74,6 @@ let DOMAIN_SELECTOR;
         await (0, application_helpers_js_1.navigateToApplicationTab)(target, 'cookies');
         await (0, application_helpers_js_1.doubleClickSourceTreeItem)(COOKIES_SELECTOR);
         await (0, application_helpers_js_1.doubleClickSourceTreeItem)(DOMAIN_SELECTOR);
-        await (0, helper_js_1.waitFor)('.cookies-table .data-grid-data-grid-node');
         await (0, helper_js_1.click)('.cookies-table .data-grid-data-grid-node');
         await (0, application_helpers_js_1.selectCookieByName)('urlencoded');
         await (0, helper_js_1.waitForFunction)(async () => {
@@ -120,10 +119,10 @@ let DOMAIN_SELECTOR;
         const dataGridRowValues1 = await (0, application_helpers_js_1.getStorageItemsData)(['name'], 4);
         chai_1.assert.deepEqual(dataGridRowValues1, [
             {
-                name: 'urlencoded',
+                name: '__Host-foo3',
             },
             {
-                name: '__Host-foo3',
+                name: 'urlencoded',
             },
             {
                 name: 'foo2',

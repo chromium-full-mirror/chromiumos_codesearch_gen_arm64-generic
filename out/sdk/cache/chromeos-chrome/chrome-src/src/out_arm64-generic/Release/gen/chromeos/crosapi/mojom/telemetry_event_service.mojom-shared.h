@@ -995,19 +995,19 @@ class TelemetryTouchscreenConnectedEventInfoDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> max_x() const {
+  std::optional<uint32_t> max_x() const {
 
     return data_->max_x_$flag
         ? absl::make_optional(data_->max_x_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> max_y() const {
+  std::optional<uint32_t> max_y() const {
 
     return data_->max_y_$flag
         ? absl::make_optional(data_->max_y_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> max_pressure() const {
+  std::optional<uint32_t> max_pressure() const {
 
     return data_->max_pressure_$flag
         ? absl::make_optional(data_->max_pressure_$value)
@@ -1028,19 +1028,19 @@ class TelemetryStylusTouchPointInfoDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> x() const {
+  std::optional<uint32_t> x() const {
 
     return data_->x_$flag
         ? absl::make_optional(data_->x_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> y() const {
+  std::optional<uint32_t> y() const {
 
     return data_->y_$flag
         ? absl::make_optional(data_->y_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> pressure() const {
+  std::optional<uint32_t> pressure() const {
 
     return data_->pressure_$flag
         ? absl::make_optional(data_->pressure_$value)
@@ -1097,19 +1097,19 @@ class TelemetryStylusConnectedEventInfoDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> max_x() const {
+  std::optional<uint32_t> max_x() const {
 
     return data_->max_x_$flag
         ? absl::make_optional(data_->max_x_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> max_y() const {
+  std::optional<uint32_t> max_y() const {
 
     return data_->max_y_$flag
         ? absl::make_optional(data_->max_y_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> max_pressure() const {
+  std::optional<uint32_t> max_pressure() const {
 
     return data_->max_pressure_$flag
         ? absl::make_optional(data_->max_pressure_$value)

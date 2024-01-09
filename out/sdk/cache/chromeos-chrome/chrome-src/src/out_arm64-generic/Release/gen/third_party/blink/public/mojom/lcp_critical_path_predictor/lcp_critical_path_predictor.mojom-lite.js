@@ -70,16 +70,19 @@ blink.mojom.LCPCriticalPathPredictorHostRemote = class {
   
   /**
    * @param { !mojoBase.mojom.ByteString } lcpElementLocator
+   * @param { ?number } predictedLcpIndex
    */
 
   setLcpElementLocator(
-      lcpElementLocator) {
+      lcpElementLocator,
+      predictedLcpIndex) {
     this.proxy.sendMessage(
         0,
         blink.mojom.LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsSpec.$,
         null,
         [
-          lcpElementLocator
+          lcpElementLocator,
+          predictedLcpIndex
         ]);
   }
 
@@ -112,6 +115,25 @@ blink.mojom.LCPCriticalPathPredictorHostRemote = class {
         null,
         [
           fontUrl
+        ]);
+  }
+
+  
+  /**
+   * @param { !url.mojom.Url } subresourceUrl
+   * @param { !mojoBase.mojom.TimeDelta } subresourceLoadStart
+   */
+
+  notifyFetchedSubresource(
+      subresourceUrl,
+      subresourceLoadStart) {
+    this.proxy.sendMessage(
+        3,
+        blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        [
+          subresourceUrl,
+          subresourceLoadStart
         ]);
   }
 };
@@ -153,6 +175,11 @@ blink.mojom.LCPCriticalPathPredictorHostReceiver = class {
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         impl.notifyFetchedFont.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        impl.notifyFetchedSubresource.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -241,6 +268,18 @@ blink.mojom.LCPCriticalPathPredictorHostCallbackRouter = class {
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         this.notifyFetchedFont.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyFetchedSubresource =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        this.notifyFetchedSubresource.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -286,6 +325,14 @@ blink.mojom.LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsSpec =
  * @export
  */
 blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -352,8 +399,33 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'predicted_lcp_index_$flag', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "predicted_lcp_index_$value",
+          originalFieldName: "predictedLcpIndex",
+        }
+      ),
+      mojo.internal.StructField(
+        'predicted_lcp_index_$value', 12,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "predictedLcpIndex",
+        }
+      ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -364,6 +436,8 @@ blink.mojom.LCPCriticalPathPredictorHost_SetLcpElementLocator_Params = class {
   constructor() {
     /** @export { !mojoBase.mojom.ByteString } */
     this.lcpElementLocator;
+    /** @export { (number|undefined) } */
+    this.predictedLcpIndex;
   }
 };
 
@@ -422,6 +496,45 @@ blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_Params = class {
   constructor() {
     /** @export { !url.mojom.Url } */
     this.fontUrl;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+    'LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params',
+    [
+      mojo.internal.StructField(
+        'subresourceUrl', 0,
+        0,
+        url.mojom.UrlSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'subresourceLoadStart', 8,
+        0,
+        mojoBase.mojom.TimeDeltaSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params = class {
+  constructor() {
+    /** @export { !url.mojom.Url } */
+    this.subresourceUrl;
+    /** @export { !mojoBase.mojom.TimeDelta } */
+    this.subresourceLoadStart;
   }
 };
 

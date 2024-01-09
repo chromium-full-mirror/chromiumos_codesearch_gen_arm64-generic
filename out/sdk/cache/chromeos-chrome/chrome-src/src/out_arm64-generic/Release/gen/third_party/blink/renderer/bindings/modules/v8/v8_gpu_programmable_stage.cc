@@ -73,12 +73,28 @@ has_constants_ = true;
 
 
 
+String GPUProgrammableStage::getEntryPointOr(const String& fallback_value) const {
+  if (!hasEntryPoint()) {
+  return fallback_value;
+}
+return member_entry_point_;
+}
+
+String GPUProgrammableStage::getEntryPointOr(String&& fallback_value) const {
+  if (!hasEntryPoint()) {
+  return std::move(fallback_value);
+}
+return member_entry_point_;
+}
+
 void GPUProgrammableStage::setEntryPoint(const String& value) {
   member_entry_point_ = value;
+has_entry_point_ = true;
 }
 
 void GPUProgrammableStage::setEntryPoint(String&& value) {
   member_entry_point_ = std::move(value);
+has_entry_point_ = true;
 }
 
 
@@ -141,12 +157,12 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLRecord<IDLUSVString, IDLDouble
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("entryPoint");
-constexpr bool is_required = true;
-bool fallback_presence_var;
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_entry_point_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_entry_point_, member_entry_point_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("module");
+constexpr bool is_required = true;
+bool fallback_presence_var;
 if (!bindings::GetDictionaryMemberFromV8Object<GPUShaderModule, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_module_, try_block, exception_state)) {
   return;
 }

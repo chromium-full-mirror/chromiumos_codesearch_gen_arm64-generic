@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/presentation/presentation.mojom-features.h"
 #include "third_party/blink/public/mojom/presentation/presentation.mojom-shared.h"
 #include "third_party/blink/public/mojom/presentation/presentation.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -755,17 +756,17 @@ class BLINK_COMMON_EXPORT PresentationConnectionMessage {
   // Construct an instance holding |message|.
   static PresentationConnectionMessagePtr
   NewMessage(
-      const std::string& message) {
+      const std::string& value) {
     auto result = PresentationConnectionMessagePtr(absl::in_place);
-    result->set_message(std::move(message));
+    result->set_message(std::move(value));
     return result;
   }
   // Construct an instance holding |data|.
   static PresentationConnectionMessagePtr
   NewData(
-      std::vector<uint8_t> data) {
+      std::vector<uint8_t> value) {
     auto result = PresentationConnectionMessagePtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/text_suggester.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/text_suggester.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/text_suggester.mojom-forward.h"
 #include <string>
@@ -605,9 +606,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextSuggestionCandidate {
   // Construct an instance holding |multi_word|.
   static TextSuggestionCandidatePtr
   NewMultiWord(
-      MultiWordSuggestionCandidatePtr multi_word) {
+      MultiWordSuggestionCandidatePtr value) {
     auto result = TextSuggestionCandidatePtr(absl::in_place);
-    result->set_multi_word(std::move(multi_word));
+    result->set_multi_word(std::move(value));
     return result;
   }
 

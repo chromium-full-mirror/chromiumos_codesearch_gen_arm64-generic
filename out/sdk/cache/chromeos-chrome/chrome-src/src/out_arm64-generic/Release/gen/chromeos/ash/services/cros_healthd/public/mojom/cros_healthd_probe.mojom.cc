@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -207,7 +208,7 @@ ProcessInfo::ProcessInfo(
     uint64_t physical_bytes_read_in,
     uint64_t physical_bytes_written_in,
     uint64_t cancelled_bytes_written_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     uint32_t parent_process_id_in,
     uint32_t process_group_id_in,
     uint32_t threads_in)
@@ -250,7 +251,7 @@ ProcessInfo::ProcessInfo(
     uint64_t physical_bytes_read_in,
     uint64_t physical_bytes_written_in,
     uint64_t cancelled_bytes_written_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     uint32_t parent_process_id_in,
     uint32_t process_group_id_in,
     uint32_t threads_in,
@@ -430,7 +431,7 @@ void ProcessInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -507,7 +508,7 @@ BatteryInfo::BatteryInfo(
     double current_now_in,
     const std::string& technology_in,
     const std::string& status_in,
-    const absl::optional<std::string>& manufacture_date_in,
+    const std::optional<std::string>& manufacture_date_in,
     ::ash::cros_healthd::mojom::NullableUint64Ptr temperature_in)
     : cycle_count(std::move(cycle_count_in)),
       voltage_now(std::move(voltage_now_in)),
@@ -641,7 +642,7 @@ void BatteryInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacture_date"), this->manufacture_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -966,7 +967,7 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
     const std::string& path_in,
     uint8_t manufacturer_id_in,
     uint32_t serial_in,
-    const absl::optional<std::string>& firmware_string_in)
+    const std::optional<std::string>& firmware_string_in)
     : bytes_read_since_last_boot(std::move(bytes_read_since_last_boot_in)),
       bytes_written_since_last_boot(std::move(bytes_written_since_last_boot_in)),
       read_time_seconds_since_last_boot(std::move(read_time_seconds_since_last_boot_in)),
@@ -1158,7 +1159,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "firmware_string"), this->firmware_string,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1200,7 +1201,7 @@ CpuInfo::CpuInfo(
     std::vector<CpuTemperatureChannelPtr> temperature_channels_in,
     KeylockerInfoPtr keylocker_info_in,
     VirtualizationInfoPtr virtualization_in,
-    absl::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities_in)
+    std::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities_in)
     : num_total_threads(std::move(num_total_threads_in)),
       architecture(std::move(architecture_in)),
       physical_cpus(std::move(physical_cpus_in)),
@@ -1272,7 +1273,7 @@ void CpuInfo::WriteIntoTrace(
     dict.AddItem(
       "vulnerabilities"), this->vulnerabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<std::string, VulnerabilityInfoPtr>>>"
+      "<value of type std::optional<base::flat_map<std::string, VulnerabilityInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1426,7 +1427,7 @@ PhysicalCpuInfo::PhysicalCpuInfo()
       virtualization() {}
 
 PhysicalCpuInfo::PhysicalCpuInfo(
-    const absl::optional<std::string>& model_name_in,
+    const std::optional<std::string>& model_name_in,
     std::vector<LogicalCpuInfoPtr> logical_cpus_in)
     : model_name(std::move(model_name_in)),
       logical_cpus(std::move(logical_cpus_in)),
@@ -1434,9 +1435,9 @@ PhysicalCpuInfo::PhysicalCpuInfo(
       virtualization() {}
 
 PhysicalCpuInfo::PhysicalCpuInfo(
-    const absl::optional<std::string>& model_name_in,
+    const std::optional<std::string>& model_name_in,
     std::vector<LogicalCpuInfoPtr> logical_cpus_in,
-    absl::optional<std::vector<std::string>> flags_in,
+    std::optional<std::vector<std::string>> flags_in,
     CpuVirtualizationInfoPtr virtualization_in)
     : model_name(std::move(model_name_in)),
       logical_cpus(std::move(logical_cpus_in)),
@@ -1452,7 +1453,7 @@ void PhysicalCpuInfo::WriteIntoTrace(
     dict.AddItem(
       "model_name"), this->model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1470,7 +1471,7 @@ void PhysicalCpuInfo::WriteIntoTrace(
     dict.AddItem(
       "flags"), this->flags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1728,7 +1729,7 @@ CpuTemperatureChannel::CpuTemperatureChannel()
       temperature_celsius() {}
 
 CpuTemperatureChannel::CpuTemperatureChannel(
-    const absl::optional<std::string>& label_in,
+    const std::optional<std::string>& label_in,
     int32_t temperature_celsius_in)
     : label(std::move(label_in)),
       temperature_celsius(std::move(temperature_celsius_in)) {}
@@ -1742,7 +1743,7 @@ void CpuTemperatureChannel::WriteIntoTrace(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2162,11 +2163,11 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
     const std::string& address_in,
     bool powered_in,
     uint32_t num_connected_devices_in,
-    absl::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices_in,
+    std::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices_in,
     bool discoverable_in,
     bool discovering_in,
-    absl::optional<std::vector<std::string>> uuids_in,
-    const absl::optional<std::string>& modalias_in)
+    std::optional<std::vector<std::string>> uuids_in,
+    const std::optional<std::string>& modalias_in)
     : name(std::move(name_in)),
       address(std::move(address_in)),
       powered(std::move(powered_in)),
@@ -2184,12 +2185,12 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
     const std::string& address_in,
     bool powered_in,
     uint32_t num_connected_devices_in,
-    absl::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices_in,
+    std::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices_in,
     bool discoverable_in,
     bool discovering_in,
-    absl::optional<std::vector<std::string>> uuids_in,
-    const absl::optional<std::string>& modalias_in,
-    absl::optional<std::vector<std::string>> service_allow_list_in,
+    std::optional<std::vector<std::string>> uuids_in,
+    const std::optional<std::string>& modalias_in,
+    std::optional<std::vector<std::string>> service_allow_list_in,
     DEPRECATED_SupportedCapabilitiesPtr deprecated_capabilities_in)
     : name(std::move(name_in)),
       address(std::move(address_in)),
@@ -2248,7 +2249,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
     dict.AddItem(
       "connected_devices"), this->connected_devices,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<BluetoothDeviceInfoPtr>>>"
+      "<value of type std::optional<std::vector<BluetoothDeviceInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2275,7 +2276,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
     dict.AddItem(
       "uuids"), this->uuids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2284,7 +2285,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
     dict.AddItem(
       "modalias"), this->modalias,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2293,7 +2294,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
     dict.AddItem(
       "service_allow_list"), this->service_allow_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2321,40 +2322,40 @@ BluetoothDeviceInfo::BluetoothDeviceInfo()
       appearance(),
       modalias(),
       rssi(),
-      mtu(),
+      deprecated_mtu(),
       uuids(),
       battery_percentage(),
       bluetooth_class() {}
 
 BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     BluetoothDeviceType type_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
-    const absl::optional<std::string>& modalias_in,
+    const std::optional<std::string>& modalias_in,
     ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
-    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
-    absl::optional<std::vector<std::string>> uuids_in)
+    ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu_in,
+    std::optional<std::vector<std::string>> uuids_in)
     : address(std::move(address_in)),
       name(std::move(name_in)),
       type(std::move(type_in)),
       appearance(std::move(appearance_in)),
       modalias(std::move(modalias_in)),
       rssi(std::move(rssi_in)),
-      mtu(std::move(mtu_in)),
+      deprecated_mtu(std::move(deprecated_mtu_in)),
       uuids(std::move(uuids_in)),
       battery_percentage(),
       bluetooth_class() {}
 
 BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     BluetoothDeviceType type_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
-    const absl::optional<std::string>& modalias_in,
+    const std::optional<std::string>& modalias_in,
     ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
-    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
-    absl::optional<std::vector<std::string>> uuids_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu_in,
+    std::optional<std::vector<std::string>> uuids_in,
     ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage_in)
     : address(std::move(address_in)),
       name(std::move(name_in)),
@@ -2362,20 +2363,20 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
       appearance(std::move(appearance_in)),
       modalias(std::move(modalias_in)),
       rssi(std::move(rssi_in)),
-      mtu(std::move(mtu_in)),
+      deprecated_mtu(std::move(deprecated_mtu_in)),
       uuids(std::move(uuids_in)),
       battery_percentage(std::move(battery_percentage_in)),
       bluetooth_class() {}
 
 BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     BluetoothDeviceType type_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
-    const absl::optional<std::string>& modalias_in,
+    const std::optional<std::string>& modalias_in,
     ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
-    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
-    absl::optional<std::vector<std::string>> uuids_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu_in,
+    std::optional<std::vector<std::string>> uuids_in,
     ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage_in,
     ::ash::cros_healthd::mojom::NullableUint32Ptr bluetooth_class_in)
     : address(std::move(address_in)),
@@ -2384,7 +2385,7 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
       appearance(std::move(appearance_in)),
       modalias(std::move(modalias_in)),
       rssi(std::move(rssi_in)),
-      mtu(std::move(mtu_in)),
+      deprecated_mtu(std::move(deprecated_mtu_in)),
       uuids(std::move(uuids_in)),
       battery_percentage(std::move(battery_percentage_in)),
       bluetooth_class(std::move(bluetooth_class_in)) {}
@@ -2407,7 +2408,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2434,7 +2435,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "modalias"), this->modalias,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2450,7 +2451,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "mtu"), this->mtu,
+      "deprecated_mtu"), this->deprecated_mtu,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
@@ -2461,7 +2462,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "uuids"), this->uuids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2591,7 +2592,7 @@ OsInfo::OsInfo()
 
 OsInfo::OsInfo(
     const std::string& code_name_in,
-    const absl::optional<std::string>& marketing_name_in,
+    const std::optional<std::string>& marketing_name_in,
     OsVersionPtr os_version_in,
     BootMode boot_mode_in)
     : code_name(std::move(code_name_in)),
@@ -2603,10 +2604,10 @@ OsInfo::OsInfo(
 
 OsInfo::OsInfo(
     const std::string& code_name_in,
-    const absl::optional<std::string>& marketing_name_in,
+    const std::optional<std::string>& marketing_name_in,
     OsVersionPtr os_version_in,
     BootMode boot_mode_in,
-    const absl::optional<std::string>& oem_name_in)
+    const std::optional<std::string>& oem_name_in)
     : code_name(std::move(code_name_in)),
       marketing_name(std::move(marketing_name_in)),
       os_version(std::move(os_version_in)),
@@ -2616,10 +2617,10 @@ OsInfo::OsInfo(
 
 OsInfo::OsInfo(
     const std::string& code_name_in,
-    const absl::optional<std::string>& marketing_name_in,
+    const std::optional<std::string>& marketing_name_in,
     OsVersionPtr os_version_in,
     BootMode boot_mode_in,
-    const absl::optional<std::string>& oem_name_in,
+    const std::optional<std::string>& oem_name_in,
     OsInfo::EfiPlatformSize efi_platform_size_in)
     : code_name(std::move(code_name_in)),
       marketing_name(std::move(marketing_name_in)),
@@ -2646,7 +2647,7 @@ void OsInfo::WriteIntoTrace(
     dict.AddItem(
       "marketing_name"), this->marketing_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2673,7 +2674,7 @@ void OsInfo::WriteIntoTrace(
     dict.AddItem(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2715,7 +2716,7 @@ OsVersion::OsVersion(
 OsVersion::OsVersion(
     const std::string& release_milestone_in,
     const std::string& build_number_in,
-    const absl::optional<std::string>& branch_number_in,
+    const std::optional<std::string>& branch_number_in,
     const std::string& patch_number_in,
     const std::string& release_channel_in)
     : release_milestone(std::move(release_milestone_in)),
@@ -2751,7 +2752,7 @@ void OsVersion::WriteIntoTrace(
     dict.AddItem(
       "branch_number"), this->branch_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2791,12 +2792,12 @@ VpdInfo::VpdInfo()
       oem_name() {}
 
 VpdInfo::VpdInfo(
-    const absl::optional<std::string>& serial_number_in,
-    const absl::optional<std::string>& region_in,
-    const absl::optional<std::string>& mfg_date_in,
-    const absl::optional<std::string>& activate_date_in,
-    const absl::optional<std::string>& sku_number_in,
-    const absl::optional<std::string>& model_name_in)
+    const std::optional<std::string>& serial_number_in,
+    const std::optional<std::string>& region_in,
+    const std::optional<std::string>& mfg_date_in,
+    const std::optional<std::string>& activate_date_in,
+    const std::optional<std::string>& sku_number_in,
+    const std::optional<std::string>& model_name_in)
     : serial_number(std::move(serial_number_in)),
       region(std::move(region_in)),
       mfg_date(std::move(mfg_date_in)),
@@ -2806,13 +2807,13 @@ VpdInfo::VpdInfo(
       oem_name() {}
 
 VpdInfo::VpdInfo(
-    const absl::optional<std::string>& serial_number_in,
-    const absl::optional<std::string>& region_in,
-    const absl::optional<std::string>& mfg_date_in,
-    const absl::optional<std::string>& activate_date_in,
-    const absl::optional<std::string>& sku_number_in,
-    const absl::optional<std::string>& model_name_in,
-    const absl::optional<std::string>& oem_name_in)
+    const std::optional<std::string>& serial_number_in,
+    const std::optional<std::string>& region_in,
+    const std::optional<std::string>& mfg_date_in,
+    const std::optional<std::string>& activate_date_in,
+    const std::optional<std::string>& sku_number_in,
+    const std::optional<std::string>& model_name_in,
+    const std::optional<std::string>& oem_name_in)
     : serial_number(std::move(serial_number_in)),
       region(std::move(region_in)),
       mfg_date(std::move(mfg_date_in)),
@@ -2830,7 +2831,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2839,7 +2840,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "region"), this->region,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2848,7 +2849,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "mfg_date"), this->mfg_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2857,7 +2858,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "activate_date"), this->activate_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2866,7 +2867,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "sku_number"), this->sku_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2875,7 +2876,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "model_name"), this->model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2884,7 +2885,7 @@ void VpdInfo::WriteIntoTrace(
     dict.AddItem(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2910,17 +2911,17 @@ DmiInfo::DmiInfo()
       sys_vendor() {}
 
 DmiInfo::DmiInfo(
-    const absl::optional<std::string>& bios_vendor_in,
-    const absl::optional<std::string>& bios_version_in,
-    const absl::optional<std::string>& board_name_in,
-    const absl::optional<std::string>& board_vendor_in,
-    const absl::optional<std::string>& board_version_in,
-    const absl::optional<std::string>& chassis_vendor_in,
+    const std::optional<std::string>& bios_vendor_in,
+    const std::optional<std::string>& bios_version_in,
+    const std::optional<std::string>& board_name_in,
+    const std::optional<std::string>& board_vendor_in,
+    const std::optional<std::string>& board_version_in,
+    const std::optional<std::string>& chassis_vendor_in,
     ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type_in,
-    const absl::optional<std::string>& product_family_in,
-    const absl::optional<std::string>& product_name_in,
-    const absl::optional<std::string>& product_version_in,
-    const absl::optional<std::string>& sys_vendor_in)
+    const std::optional<std::string>& product_family_in,
+    const std::optional<std::string>& product_name_in,
+    const std::optional<std::string>& product_version_in,
+    const std::optional<std::string>& sys_vendor_in)
     : bios_vendor(std::move(bios_vendor_in)),
       bios_version(std::move(bios_version_in)),
       board_name(std::move(board_name_in)),
@@ -2942,7 +2943,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "bios_vendor"), this->bios_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2951,7 +2952,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "bios_version"), this->bios_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2960,7 +2961,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "board_name"), this->board_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2969,7 +2970,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "board_vendor"), this->board_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2978,7 +2979,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "board_version"), this->board_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2987,7 +2988,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "chassis_vendor"), this->chassis_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3005,7 +3006,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "product_family"), this->product_family,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3014,7 +3015,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "product_name"), this->product_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3023,7 +3024,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "product_version"), this->product_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3032,7 +3033,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "sys_vendor"), this->sys_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3546,8 +3547,8 @@ AudioInfo::AudioInfo(
     const std::string& input_device_name_in,
     uint32_t underruns_in,
     uint32_t severe_underruns_in,
-    absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes_in,
-    absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes_in)
+    std::optional<std::vector<AudioNodeInfoPtr>> output_nodes_in,
+    std::optional<std::vector<AudioNodeInfoPtr>> input_nodes_in)
     : output_mute(std::move(output_mute_in)),
       input_mute(std::move(input_mute_in)),
       output_volume(std::move(output_volume_in)),
@@ -3640,7 +3641,7 @@ void AudioInfo::WriteIntoTrace(
     dict.AddItem(
       "output_nodes"), this->output_nodes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<AudioNodeInfoPtr>>>"
+      "<value of type std::optional<std::vector<AudioNodeInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3649,7 +3650,7 @@ void AudioInfo::WriteIntoTrace(
     dict.AddItem(
       "input_nodes"), this->input_nodes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<AudioNodeInfoPtr>>>"
+      "<value of type std::optional<std::vector<AudioNodeInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3940,11 +3941,11 @@ BootPerformanceInfo::BootPerformanceInfo(
     double shutdown_timestamp_in,
     const std::string& shutdown_reason_in,
     ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds_in,
-    absl::optional<double> power_on_to_kernel_seconds_in,
-    absl::optional<double> kernel_to_pre_startup_seconds_in,
-    absl::optional<double> kernel_to_post_startup_seconds_in,
-    absl::optional<double> startup_to_chrome_exec_seconds_in,
-    absl::optional<double> chrome_exec_to_login_seconds_in)
+    std::optional<double> power_on_to_kernel_seconds_in,
+    std::optional<double> kernel_to_pre_startup_seconds_in,
+    std::optional<double> kernel_to_post_startup_seconds_in,
+    std::optional<double> startup_to_chrome_exec_seconds_in,
+    std::optional<double> chrome_exec_to_login_seconds_in)
     : boot_up_seconds(std::move(boot_up_seconds_in)),
       boot_up_timestamp(std::move(boot_up_timestamp_in)),
       shutdown_seconds(std::move(shutdown_seconds_in)),
@@ -4020,7 +4021,7 @@ void BootPerformanceInfo::WriteIntoTrace(
     dict.AddItem(
       "power_on_to_kernel_seconds"), this->power_on_to_kernel_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4029,7 +4030,7 @@ void BootPerformanceInfo::WriteIntoTrace(
     dict.AddItem(
       "kernel_to_pre_startup_seconds"), this->kernel_to_pre_startup_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4038,7 +4039,7 @@ void BootPerformanceInfo::WriteIntoTrace(
     dict.AddItem(
       "kernel_to_post_startup_seconds"), this->kernel_to_post_startup_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4047,7 +4048,7 @@ void BootPerformanceInfo::WriteIntoTrace(
     dict.AddItem(
       "startup_to_chrome_exec_seconds"), this->startup_to_chrome_exec_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4056,7 +4057,7 @@ void BootPerformanceInfo::WriteIntoTrace(
     dict.AddItem(
       "chrome_exec_to_login_seconds"), this->chrome_exec_to_login_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4148,7 +4149,7 @@ PciBusInfo::PciBusInfo(
     uint8_t prog_if_id_in,
     uint16_t vendor_id_in,
     uint16_t device_id_in,
-    const absl::optional<std::string>& driver_in)
+    const std::optional<std::string>& driver_in)
     : class_id(std::move(class_id_in)),
       subclass_id(std::move(subclass_id_in)),
       prog_if_id(std::move(prog_if_id_in)),
@@ -4164,7 +4165,7 @@ PciBusInfo::PciBusInfo(
     uint8_t prog_if_id_in,
     uint16_t vendor_id_in,
     uint16_t device_id_in,
-    const absl::optional<std::string>& driver_in,
+    const std::optional<std::string>& driver_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr sub_device_id_in)
     : class_id(std::move(class_id_in)),
@@ -4230,7 +4231,7 @@ void PciBusInfo::WriteIntoTrace(
     dict.AddItem(
       "driver"), this->driver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4476,7 +4477,7 @@ UsbBusInterfaceInfo::UsbBusInterfaceInfo(
     uint8_t class_id_in,
     uint8_t subclass_id_in,
     uint8_t protocol_id_in,
-    const absl::optional<std::string>& driver_in)
+    const std::optional<std::string>& driver_in)
     : interface_number(std::move(interface_number_in)),
       class_id(std::move(class_id_in)),
       subclass_id(std::move(subclass_id_in)),
@@ -4528,7 +4529,7 @@ void UsbBusInterfaceInfo::WriteIntoTrace(
     dict.AddItem(
       "driver"), this->driver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4554,7 +4555,7 @@ TpmInfo::TpmInfo(
     TpmDictionaryAttackPtr dictionary_attack_in,
     TpmAttestationPtr attestation_in,
     TpmSupportedFeaturesPtr supported_features_in,
-    const absl::optional<std::string>& did_vid_in)
+    const std::optional<std::string>& did_vid_in)
     : version(std::move(version_in)),
       status(std::move(status_in)),
       dictionary_attack(std::move(dictionary_attack_in)),
@@ -4616,7 +4617,7 @@ void TpmInfo::WriteIntoTrace(
     dict.AddItem(
       "did_vid"), this->did_vid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4644,7 +4645,7 @@ TpmVersion::TpmVersion(
     uint32_t manufacturer_in,
     uint32_t tpm_model_in,
     uint64_t firmware_version_in,
-    const absl::optional<std::string>& vendor_specific_in)
+    const std::optional<std::string>& vendor_specific_in)
     : gsc_version(std::move(gsc_version_in)),
       family(std::move(family_in)),
       spec_level(std::move(spec_level_in)),
@@ -4716,7 +4717,7 @@ void TpmVersion::WriteIntoTrace(
     dict.AddItem(
       "vendor_specific"), this->vendor_specific,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5164,7 +5165,7 @@ DisplayInfo::DisplayInfo(
 
 DisplayInfo::DisplayInfo(
     EmbeddedDisplayInfoPtr embedded_display_in,
-    absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays_in)
+    std::optional<std::vector<ExternalDisplayInfoPtr>> external_displays_in)
     : embedded_display(std::move(embedded_display_in)),
       external_displays(std::move(external_displays_in)) {}
 
@@ -5186,7 +5187,7 @@ void DisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "external_displays"), this->external_displays,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ExternalDisplayInfoPtr>>>"
+      "<value of type std::optional<std::vector<ExternalDisplayInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5266,14 +5267,14 @@ EmbeddedDisplayInfo::EmbeddedDisplayInfo(
     ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
     ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
     ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
-    const absl::optional<std::string>& manufacturer_in,
+    const std::optional<std::string>& manufacturer_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr model_id_in,
     ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
     ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
-    const absl::optional<std::string>& edid_version_in,
+    const std::optional<std::string>& edid_version_in,
     DisplayInputType input_type_in,
-    const absl::optional<std::string>& display_name_in)
+    const std::optional<std::string>& display_name_in)
     : privacy_screen_supported(std::move(privacy_screen_supported_in)),
       privacy_screen_enabled(std::move(privacy_screen_enabled_in)),
       display_width(std::move(display_width_in)),
@@ -5362,7 +5363,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5407,7 +5408,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "edid_version"), this->edid_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5425,7 +5426,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_name"), this->display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5478,14 +5479,14 @@ ExternalDisplayInfo::ExternalDisplayInfo(
     ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
     ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
     ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
-    const absl::optional<std::string>& manufacturer_in,
+    const std::optional<std::string>& manufacturer_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr model_id_in,
     ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
     ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
     ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
-    const absl::optional<std::string>& edid_version_in,
+    const std::optional<std::string>& edid_version_in,
     DisplayInputType input_type_in,
-    const absl::optional<std::string>& display_name_in)
+    const std::optional<std::string>& display_name_in)
     : display_width(std::move(display_width_in)),
       display_height(std::move(display_height_in)),
       resolution_horizontal(std::move(resolution_horizontal_in)),
@@ -5554,7 +5555,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5599,7 +5600,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "edid_version"), this->edid_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5617,7 +5618,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_name"), this->display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5985,7 +5986,7 @@ SensorInfo::SensorInfo(
 
 SensorInfo::SensorInfo(
     ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle_in,
-    absl::optional<std::vector<SensorPtr>> sensors_in)
+    std::optional<std::vector<SensorPtr>> sensors_in)
     : lid_angle(std::move(lid_angle_in)),
       sensors(std::move(sensors_in)) {}
 
@@ -6007,7 +6008,7 @@ void SensorInfo::WriteIntoTrace(
     dict.AddItem(
       "sensors"), this->sensors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<SensorPtr>>>"
+      "<value of type std::optional<std::vector<SensorPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6026,7 +6027,7 @@ Sensor::Sensor()
       location() {}
 
 Sensor::Sensor(
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     int32_t device_id_in,
     Sensor::Type type_in,
     Sensor::Location location_in)
@@ -6044,7 +6045,7 @@ void Sensor::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8909,7 +8910,7 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView, ::a
         success = false;
       if (success && !input.ReadRssi(&result->rssi))
         success = false;
-      if (success && !input.ReadMtu(&result->mtu))
+      if (success && !input.ReadDeprecatedMtu(&result->deprecated_mtu))
         success = false;
       if (success && !input.ReadUuids(&result->uuids))
         success = false;

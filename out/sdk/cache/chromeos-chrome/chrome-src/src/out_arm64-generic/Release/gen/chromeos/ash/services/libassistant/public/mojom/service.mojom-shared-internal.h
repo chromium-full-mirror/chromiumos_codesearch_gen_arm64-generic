@@ -24,6 +24,7 @@
 #include "chromeos/ash/services/libassistant/public/mojom/speech_recognition_observer.mojom-shared-internal.h"
 #include "chromeos/ash/services/libassistant/public/mojom/timer_controller.mojom-shared-internal.h"
 #include "chromeos/ash/services/libassistant/public/mojom/notification_delegate.mojom-shared-internal.h"
+#include "sandbox/policy/mojom/context.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"

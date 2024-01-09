@@ -48,12 +48,12 @@ import { ActivationStateType, HiddenSsidMode, MatchType, SecurityType, VpnType }
 import { ConnectionStateType, DeviceStateType, IPConfigType, NetworkType, OncSource, PolicySource, PortalState } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { afterNextRender, flush, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists, castExists } from '../assert_extras.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
 import { OsSyncBrowserProxyImpl } from '../os_people_page/os_sync_browser_proxy.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './internet_detail_subpage.html.js';
 import { InternetPageBrowserProxyImpl } from './internet_page_browser_proxy.js';
@@ -61,7 +61,7 @@ const SettingsInternetDetailPageElementBase = mixinBehaviors([
     NetworkListenerBehavior,
     CrPolicyNetworkBehaviorMojo,
 ], DeepLinkingMixin(PrefsMixin(RouteObserverMixin(WebUiListenerMixin(I18nMixin(PolymerElement))))));
-class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElementBase {
+export class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElementBase {
     static get is() {
         return 'settings-internet-detail-subpage';
     }
@@ -252,6 +252,13 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
                 value() {
                     return loadTimeData.valueExists('isSuppressTextMessagesEnabled') &&
                         loadTimeData.getBoolean('isSuppressTextMessagesEnabled');
+                },
+            },
+            isCellularCarrierLockEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
+                        loadTimeData.getBoolean('isCellularCarrierLockEnabled');
                 },
             },
             isPasspointEnabled_: {
@@ -918,6 +925,10 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
                 return this.i18n('networkListItemConnectedNoConnectivity');
             }
         }
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return this.i18n('networkMobileProviderLocked');
+        }
         return this.i18n(OncMojo.getConnectionStateString(managedProperties.connectionState));
     }
     getAutoConnectToggleLabel_(managedProperties) {
@@ -1486,7 +1497,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
     /**
      * @return Returns 'continuation' class for shared networks.
      */
-    messagesDividerClass_(name, managedProperties, globalPolicy, managedNetworkAvailable, isSecondaryUser, isWifiSyncEnabled) {
+    messagesDividerClass_(name, managedProperties, globalPolicy, managedNetworkAvailable, isSecondaryUser, isWifiSyncEnabled, deviceState) {
         let first = '';
         if (this.isBlockedByPolicy_(managedProperties, globalPolicy, managedNetworkAvailable)) {
             first = 'policy';
@@ -1500,6 +1511,10 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         else if (this.showSynced_(managedProperties, globalPolicy, managedNetworkAvailable, isWifiSyncEnabled)) {
             first = 'synced';
         }
+        else if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            first = 'carrierlocked';
+        }
         return first === name ? 'continuation' : '';
     }
     showSynced_(managedProperties, _globalPolicy, _managedNetworkAvailable, isWifiSyncEnabled) {
@@ -1510,6 +1525,26 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return !this.propertiesMissingOrBlockedByPolicy_() &&
             (managedProperties.source === OncSource.kDevice ||
                 managedProperties.source === OncSource.kDevicePolicy);
+    }
+    isCarrierLockedActiveSim_(managedProperties, deviceState) {
+        if (!this.isCellularCarrierLockEnabled_) {
+            return false;
+        }
+        if (!deviceState || deviceState.type !== NetworkType.kCellular) {
+            return false;
+        }
+        if (!managedProperties) {
+            return false;
+        }
+        const networkState = OncMojo.managedPropertiesToNetworkState(managedProperties);
+        if (!isActiveSim(networkState, deviceState)) {
+            return false;
+        }
+        const simLockStatus = deviceState.simLockStatus;
+        if (!simLockStatus) {
+            return false;
+        }
+        return simLockStatus.lockType === 'network-pin';
     }
     showAutoConnect_(managedProperties, globalPolicy, managedNetworkAvailable) {
         return !!managedProperties &&
@@ -1848,6 +1883,12 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         if (!this.deviceState_ ||
             this.deviceState_.type !== NetworkType.kCellular) {
             return false;
+        }
+        // If device is carrier locked, all the settings should be
+        // disabled for non compatible SIMs.
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(this.managedProperties_, this.deviceState_)) {
+            return true;
         }
         // If this is a cellular device and inhibited, state cannot be changed, so
         // the page's inputs should be disabled.

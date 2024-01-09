@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, UserActivation>::value,
     "UserActivation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&UserActivation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "UserActivation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,7 +87,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8UserActivation_HasBe
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UserActivation* blink_receiver = V8UserActivation::ToWrappableUnsafe(v8_receiver);
+UserActivation* blink_receiver = V8UserActivation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasBeenActive();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -111,7 +106,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8UserActivation_IsAct
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UserActivation* blink_receiver = V8UserActivation::ToWrappableUnsafe(v8_receiver);
+UserActivation* blink_receiver = V8UserActivation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isActive();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

@@ -682,14 +682,19 @@ public:
     bool isLValueOnePastTheEnd = subR.find("isLValueOnePastTheEnd").readBool();
     bool isExpr = subR.find("isExpr").readBool();
     bool isTypeInfo = subR.find("isTypeInfo").readBool();
+    bool isDynamicAlloc = subR.find("isDynamicAlloc").readBool();
     bool hasBase = subR.find("hasBase").readBool();
     bool isNullPtr = subR.find("isNullPtr").readBool();
     std::optional<QualType> typeInfo;
     if ( hasBase && isTypeInfo ) {
       typeInfo.emplace(subR.find("typeInfo").readQualType());
     }
+    std::optional<uint32_t> dynamicAlloc;
+    if ( hasBase && isDynamicAlloc ) {
+      dynamicAlloc.emplace(subR.find("dynamicAlloc").readUInt32());
+    }
     std::optional<QualType> type;
-    if ( hasBase && isTypeInfo ) {
+    if ( hasBase && (isTypeInfo || isDynamicAlloc) ) {
       type.emplace(subR.find("type").readQualType());
     }
     std::optional<uint32_t> callIndex;
@@ -705,7 +710,7 @@ public:
       stmt.emplace(subR.find("stmt").readStmtRef());
     }
     std::optional<Decl*> decl;
-    if ( hasBase && !isTypeInfo && !isExpr ) {
+    if ( hasBase && !isTypeInfo && !isDynamicAlloc && !isExpr ) {
       decl.emplace(subR.find("decl").readDeclRef());
     }
     uint32_t offsetQuantity = subR.find("offsetQuantity").readUInt32();
@@ -721,6 +726,9 @@ public:
       if (isTypeInfo) {
         base = APValue::LValueBase::getTypeInfo(
             TypeInfoLValue(typeInfo->getTypePtr()), *type);
+      } else if (isDynamicAlloc) {
+        base = APValue::LValueBase::getDynamicAlloc(
+            DynamicAllocLValue(*dynamicAlloc), *type);
       } else if (isExpr) {
         base = APValue::LValueBase(cast<Expr>(*stmt),
                                    *callIndex, *version);

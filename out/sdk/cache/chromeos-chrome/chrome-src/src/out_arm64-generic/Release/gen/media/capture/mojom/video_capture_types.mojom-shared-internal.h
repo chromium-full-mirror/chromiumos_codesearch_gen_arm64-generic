@@ -167,6 +167,30 @@ struct VideoFacingMode_Data {
   }
 };
 
+struct CameraAvailability_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct VideoCaptureApi_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -458,6 +482,30 @@ struct VideoCaptureFrameDropReason_Data {
       case 26:
       case 27:
       case 28:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct SubCaptureTargetType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
         return true;
     }
     return false;
@@ -799,6 +847,9 @@ class  VideoCaptureDeviceDescriptor_Data {
   int32_t capture_api;
   mojo::internal::Pointer<internal::VideoCaptureControlSupport_Data> control_support;
   int32_t transport_type;
+  uint8_t availability_$flag : 1;
+  uint8_t pad7_[3];
+  int32_t availability_$value;
   uint8_t padfinal_[4];
 
  private:
@@ -807,7 +858,7 @@ class  VideoCaptureDeviceDescriptor_Data {
   VideoCaptureDeviceDescriptor_Data();
   ~VideoCaptureDeviceDescriptor_Data() = delete;
 };
-static_assert(sizeof(VideoCaptureDeviceDescriptor_Data) == 56,
+static_assert(sizeof(VideoCaptureDeviceDescriptor_Data) == 64,
               "Bad sizeof(VideoCaptureDeviceDescriptor_Data)");
 // Used by VideoCaptureDeviceDescriptor::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

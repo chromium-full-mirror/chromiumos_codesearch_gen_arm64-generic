@@ -3,8 +3,7 @@ export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host([is-device-connected_]) #bluetoothState{color:var(--cros-text-color-positive)}#connectionFailed{color:var(--cros-text-color-alert)}#managedIcon{flex:8}#forgetBtn{margin-inline-end:8px}.bluetooth-middle{align-items:center;flex:auto}.cancel-button{margin-inline-end:0}</style>
 <div id="container">
   <div id="deviceStateSettings" class="settings-box two-line first">
-    <iron-icon id="statusIcon" icon="[[getBluetoothStateIcon_(isDeviceConnected_)]]">
-    </iron-icon>
+    <bluetooth-icon device="[[device_.deviceProperties]]"></bluetooth-icon>
     <div id="bluetoothState" class="middle settings-box-text">
       <div id="bluetoothStateText" aria-live="polite" aria-label$="[[getDeviceStatusA11yLabel_(device_.*, pageState_)]]">
         [[getBluetoothStateTextLabel_(pageState_)]]

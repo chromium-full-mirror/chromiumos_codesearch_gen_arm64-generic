@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -180,14 +181,17 @@ void AuctionSharedStorageHostProxy::Set(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionSharedStorageHost_Set_Name, kFlags, 0, 0, nullptr);
@@ -243,14 +247,17 @@ void AuctionSharedStorageHostProxy::Append(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionSharedStorageHost_Append_Name, kFlags, 0, 0, nullptr);
@@ -302,14 +309,17 @@ void AuctionSharedStorageHostProxy::Delete(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionSharedStorageHost_Delete_Name, kFlags, 0, 0, nullptr);
@@ -343,14 +353,17 @@ void AuctionSharedStorageHostProxy::Clear(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send auction_worklet::mojom::AuctionSharedStorageHost::Clear");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionSharedStorageHost_Clear_Name, kFlags, 0, 0, nullptr);
@@ -513,16 +526,16 @@ bool AuctionSharedStorageHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuctionSharedStorageHostValidationInfo[] = {
-    {&internal::AuctionSharedStorageHost_Set_Params_Data::Validate,
+    { &internal::AuctionSharedStorageHost_Set_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionSharedStorageHost_Append_Params_Data::Validate,
+    { &internal::AuctionSharedStorageHost_Append_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionSharedStorageHost_Delete_Params_Data::Validate,
+    { &internal::AuctionSharedStorageHost_Delete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionSharedStorageHost_Clear_Params_Data::Validate,
+    { &internal::AuctionSharedStorageHost_Clear_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -69,6 +69,37 @@ class  PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams_Data)");
+class  PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data>;
+
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data();
+  ~PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data) == 8,
+              "Bad sizeof(PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data)");
+class  PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::LoggedClientIds_Data>>> logged_client_ids;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data>;
+
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data();
+  ~PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data)");
 class  Page_OnLogMessageAdded_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -160,6 +191,47 @@ class PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsDataView {
 };
 
 
+class PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsDataView {
+ public:
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsDataView() = default;
+
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsDataView(
+      internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView {
+ public:
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView() = default;
+
+  PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView(
+      internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLoggedClientIdsDataView(
+      mojo::ArrayDataView<LoggedClientIdsDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLoggedClientIds(UserType* output) {
+    
+    auto* pointer = data_->logged_client_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::optimization_guide_internals::mojom::LoggedClientIdsDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Page_OnLogMessageAdded_ParamsDataView {
  public:
   Page_OnLogMessageAdded_ParamsDataView() = default;
@@ -226,6 +298,15 @@ inline void PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsDataVie
     mojo::ArrayDataView<DownloadedModelInfoDataView>* output) {
   auto pointer = data_->downloaded_models_info.Get();
   *output = mojo::ArrayDataView<DownloadedModelInfoDataView>(pointer, message_);
+}
+
+
+
+
+inline void PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView::GetLoggedClientIdsDataView(
+    mojo::ArrayDataView<LoggedClientIdsDataView>* output) {
+  auto pointer = data_->logged_client_ids.Get();
+  *output = mojo::ArrayDataView<LoggedClientIdsDataView>(pointer, message_);
 }
 
 

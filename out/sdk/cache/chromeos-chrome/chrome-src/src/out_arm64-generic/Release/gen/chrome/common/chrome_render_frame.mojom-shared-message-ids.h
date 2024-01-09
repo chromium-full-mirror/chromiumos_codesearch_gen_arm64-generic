@@ -21,6 +21,7 @@ constexpr uint32_t kChromeRenderFrame_RequestImageForContextNode_Name = 3;
 constexpr uint32_t kChromeRenderFrame_ExecuteWebUIJavaScript_Name = 4;
 constexpr uint32_t kChromeRenderFrame_GetMediaFeedURL_Name = 5;
 constexpr uint32_t kChromeRenderFrame_LoadBlockedPlugins_Name = 6;
+constexpr uint32_t kChromeRenderFrame_SetSupportsAppRegion_Name = 7;
 
 }  // namespace internal
 

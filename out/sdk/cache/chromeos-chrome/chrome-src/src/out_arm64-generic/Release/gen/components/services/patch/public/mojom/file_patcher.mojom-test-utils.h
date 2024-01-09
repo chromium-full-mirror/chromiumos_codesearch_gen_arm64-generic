@@ -15,8 +15,6 @@ namespace patch::mojom {
 
 class  FilePatcherInterceptorForTesting : public FilePatcher {
   virtual FilePatcher* GetForwardingInterface() = 0;
-  void PatchFileBsdiff(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileBsdiffCallback callback) override;
-  void PatchFileCourgette(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileCourgetteCallback callback) override;
   void PatchFilePuffPatch(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFilePuffPatchCallback callback) override;
 };
 class  FilePatcherAsyncWaiter {
@@ -27,12 +25,6 @@ class  FilePatcherAsyncWaiter {
   FilePatcherAsyncWaiter& operator=(const FilePatcherAsyncWaiter&) = delete;
 
   ~FilePatcherAsyncWaiter();
-  void PatchFileBsdiff(
-      ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result);
-  int32_t PatchFileBsdiff(::base::File input_file, ::base::File patch_file, ::base::File output_file);
-  void PatchFileCourgette(
-      ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result);
-  int32_t PatchFileCourgette(::base::File input_file, ::base::File patch_file, ::base::File output_file);
   void PatchFilePuffPatch(
       ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result);
   int32_t PatchFilePuffPatch(::base::File input_file, ::base::File patch_file, ::base::File output_file);

@@ -16,7 +16,7 @@ namespace on_device_model::mojom {
 class  StreamingResponderInterceptorForTesting : public StreamingResponder {
   virtual StreamingResponder* GetForwardingInterface() = 0;
   void OnResponse(const std::string& text) override;
-  void OnComplete() override;
+  void OnComplete(ResponseStatus status) override;
 };
 class  StreamingResponderAsyncWaiter {
  public:
@@ -32,9 +32,46 @@ class  StreamingResponderAsyncWaiter {
 };
 
 
+class  ContextClientInterceptorForTesting : public ContextClient {
+  virtual ContextClient* GetForwardingInterface() = 0;
+  void OnComplete(uint32_t tokens_processed) override;
+};
+class  ContextClientAsyncWaiter {
+ public:
+  explicit ContextClientAsyncWaiter(ContextClient* proxy);
+
+  ContextClientAsyncWaiter(const ContextClientAsyncWaiter&) = delete;
+  ContextClientAsyncWaiter& operator=(const ContextClientAsyncWaiter&) = delete;
+
+  ~ContextClientAsyncWaiter();
+
+ private:
+  ContextClient* const proxy_;
+};
+
+
+class  SessionInterceptorForTesting : public Session {
+  virtual Session* GetForwardingInterface() = 0;
+  void AddContext(InputOptionsPtr input, ::mojo::PendingRemote<ContextClient> client) override;
+  void Execute(InputOptionsPtr input, ::mojo::PendingRemote<StreamingResponder> response) override;
+};
+class  SessionAsyncWaiter {
+ public:
+  explicit SessionAsyncWaiter(Session* proxy);
+
+  SessionAsyncWaiter(const SessionAsyncWaiter&) = delete;
+  SessionAsyncWaiter& operator=(const SessionAsyncWaiter&) = delete;
+
+  ~SessionAsyncWaiter();
+
+ private:
+  Session* const proxy_;
+};
+
+
 class  OnDeviceModelInterceptorForTesting : public OnDeviceModel {
   virtual OnDeviceModel* GetForwardingInterface() = 0;
-  void Execute(const std::string& input, ::mojo::PendingRemote<StreamingResponder> response) override;
+  void StartSession(::mojo::PendingReceiver<Session> session) override;
 };
 class  OnDeviceModelAsyncWaiter {
  public:
@@ -47,31 +84,6 @@ class  OnDeviceModelAsyncWaiter {
 
  private:
   OnDeviceModel* const proxy_;
-};
-
-
-class  OnDeviceModelServiceInterceptorForTesting : public OnDeviceModelService {
-  virtual OnDeviceModelService* GetForwardingInterface() = 0;
-  void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) override;
-  void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) override;
-};
-class  OnDeviceModelServiceAsyncWaiter {
- public:
-  explicit OnDeviceModelServiceAsyncWaiter(OnDeviceModelService* proxy);
-
-  OnDeviceModelServiceAsyncWaiter(const OnDeviceModelServiceAsyncWaiter&) = delete;
-  OnDeviceModelServiceAsyncWaiter& operator=(const OnDeviceModelServiceAsyncWaiter&) = delete;
-
-  ~OnDeviceModelServiceAsyncWaiter();
-  void LoadModel(
-      on_device_model::ModelAssets assets, LoadModelResultPtr* out_result);
-  LoadModelResultPtr LoadModel(on_device_model::ModelAssets assets);
-  void GetEstimatedPerformanceClass(
-      PerformanceClass* out_performance_class);
-  PerformanceClass GetEstimatedPerformanceClass();
-
- private:
-  OnDeviceModelService* const proxy_;
 };
 
 

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16stability_report.proto\x12\x10stability_report\"\xa1\x05\n\x0cProcessState\x12\x12\n\nprocess_id\x18\x03 \x01(\x03\x12@\n\x0cmemory_state\x18\x04 \x01(\x0b\x32*.stability_report.ProcessState.MemoryState\x12I\n\x11\x66ile_system_state\x18\x07 \x01(\x0b\x32..stability_report.ProcessState.FileSystemState\x1a\x9d\x02\n\x0bMemoryState\x12P\n\x0ewindows_memory\x18\x01 \x01(\x0b\x32\x38.stability_report.ProcessState.MemoryState.WindowsMemory\x1a\xbb\x01\n\rWindowsMemory\x12\x1d\n\x15process_private_usage\x18\x01 \x01(\r\x12$\n\x1cprocess_peak_workingset_size\x18\x02 \x01(\r\x12#\n\x1bprocess_peak_pagefile_usage\x18\x03 \x01(\r\x12\"\n\x1aprocess_allocation_attempt\x18\x04 \x01(\r\x12\x1c\n\x14process_handle_count\x18\x05 \x01(\r\x1a\xb7\x01\n\x0f\x46ileSystemState\x12\x64\n\x17posix_file_system_state\x18\x01 \x01(\x0b\x32\x43.stability_report.ProcessState.FileSystemState.PosixFileSystemState\x1a>\n\x14PosixFileSystemState\x12&\n\x1e\x63rashing_open_file_descriptors\x18\x01 \x01(\rJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07\"\xca\x01\n\x11SystemMemoryState\x12I\n\x0ewindows_memory\x18\x01 \x01(\x0b\x32\x31.stability_report.SystemMemoryState.WindowsMemory\x1aj\n\rWindowsMemory\x12\x1b\n\x13system_commit_limit\x18\x01 \x01(\r\x12\x1f\n\x17system_commit_remaining\x18\x02 \x01(\r\x12\x1b\n\x13system_handle_count\x18\x03 \x01(\r\"\x9d\x01\n\x0fStabilityReport\x12\x36\n\x0eprocess_states\x18\x02 \x03(\x0b\x32\x1e.stability_report.ProcessState\x12@\n\x13system_memory_state\x18\x07 \x01(\x0b\x32#.stability_report.SystemMemoryStateJ\x04\x08\x01\x10\x02J\x04\x08\x03\x10\x07J\x04\x08\x08\x10\tB\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16stability_report.proto\x12\x10stability_report\"\xa2\x06\n\x0cProcessState\x12\x12\n\nprocess_id\x18\x03 \x01(\x03\x12@\n\x0cmemory_state\x18\x04 \x01(\x0b\x32*.stability_report.ProcessState.MemoryState\x12I\n\x11\x66ile_system_state\x18\x07 \x01(\x0b\x32..stability_report.ProcessState.FileSystemState\x1a\x85\x02\n\x0bMemoryState\x12P\n\x0ewindows_memory\x18\x01 \x01(\x0b\x32\x38.stability_report.ProcessState.MemoryState.WindowsMemory\x1a\xa3\x01\n\rWindowsMemory\x12\x1d\n\x15process_private_usage\x18\x01 \x01(\r\x12$\n\x1cprocess_peak_workingset_size\x18\x02 \x01(\r\x12#\n\x1bprocess_peak_pagefile_usage\x18\x03 \x01(\r\x12\"\n\x1aprocess_allocation_attempt\x18\x04 \x01(\rJ\x04\x08\x05\x10\x06\x1a\xd0\x02\n\x0f\x46ileSystemState\x12\x64\n\x17posix_file_system_state\x18\x01 \x01(\x0b\x32\x43.stability_report.ProcessState.FileSystemState.PosixFileSystemState\x12h\n\x19windows_file_system_state\x18\x02 \x01(\x0b\x32\x45.stability_report.ProcessState.FileSystemState.WindowsFileSystemState\x1a\x35\n\x14PosixFileSystemState\x12\x1d\n\x15open_file_descriptors\x18\x01 \x01(\r\x1a\x36\n\x16WindowsFileSystemState\x12\x1c\n\x14process_handle_count\x18\x01 \x01(\rJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07\"\xca\x01\n\x11SystemMemoryState\x12I\n\x0ewindows_memory\x18\x01 \x01(\x0b\x32\x31.stability_report.SystemMemoryState.WindowsMemory\x1aj\n\rWindowsMemory\x12\x1b\n\x13system_commit_limit\x18\x01 \x01(\r\x12\x1f\n\x17system_commit_remaining\x18\x02 \x01(\r\x12\x1b\n\x13system_handle_count\x18\x03 \x01(\r\"\x9d\x01\n\x0fStabilityReport\x12\x36\n\x0eprocess_states\x18\x02 \x03(\x0b\x32\x1e.stability_report.ProcessState\x12@\n\x13system_memory_state\x18\x07 \x01(\x0b\x32#.stability_report.SystemMemoryStateJ\x04\x08\x01\x10\x02J\x04\x08\x03\x10\x07J\x04\x08\x08\x10\tB\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'stability_report_pb2', globals())
@@ -22,19 +22,21 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
   _PROCESSSTATE._serialized_start=45
-  _PROCESSSTATE._serialized_end=718
+  _PROCESSSTATE._serialized_end=847
   _PROCESSSTATE_MEMORYSTATE._serialized_start=223
-  _PROCESSSTATE_MEMORYSTATE._serialized_end=508
+  _PROCESSSTATE_MEMORYSTATE._serialized_end=484
   _PROCESSSTATE_MEMORYSTATE_WINDOWSMEMORY._serialized_start=321
-  _PROCESSSTATE_MEMORYSTATE_WINDOWSMEMORY._serialized_end=508
-  _PROCESSSTATE_FILESYSTEMSTATE._serialized_start=511
-  _PROCESSSTATE_FILESYSTEMSTATE._serialized_end=694
-  _PROCESSSTATE_FILESYSTEMSTATE_POSIXFILESYSTEMSTATE._serialized_start=632
-  _PROCESSSTATE_FILESYSTEMSTATE_POSIXFILESYSTEMSTATE._serialized_end=694
-  _SYSTEMMEMORYSTATE._serialized_start=721
-  _SYSTEMMEMORYSTATE._serialized_end=923
-  _SYSTEMMEMORYSTATE_WINDOWSMEMORY._serialized_start=817
-  _SYSTEMMEMORYSTATE_WINDOWSMEMORY._serialized_end=923
-  _STABILITYREPORT._serialized_start=926
-  _STABILITYREPORT._serialized_end=1083
+  _PROCESSSTATE_MEMORYSTATE_WINDOWSMEMORY._serialized_end=484
+  _PROCESSSTATE_FILESYSTEMSTATE._serialized_start=487
+  _PROCESSSTATE_FILESYSTEMSTATE._serialized_end=823
+  _PROCESSSTATE_FILESYSTEMSTATE_POSIXFILESYSTEMSTATE._serialized_start=714
+  _PROCESSSTATE_FILESYSTEMSTATE_POSIXFILESYSTEMSTATE._serialized_end=767
+  _PROCESSSTATE_FILESYSTEMSTATE_WINDOWSFILESYSTEMSTATE._serialized_start=769
+  _PROCESSSTATE_FILESYSTEMSTATE_WINDOWSFILESYSTEMSTATE._serialized_end=823
+  _SYSTEMMEMORYSTATE._serialized_start=850
+  _SYSTEMMEMORYSTATE._serialized_end=1052
+  _SYSTEMMEMORYSTATE_WINDOWSMEMORY._serialized_start=946
+  _SYSTEMMEMORYSTATE_WINDOWSMEMORY._serialized_end=1052
+  _STABILITYREPORT._serialized_start=1055
+  _STABILITYREPORT._serialized_end=1212
 # @@protoc_insertion_point(module_scope)

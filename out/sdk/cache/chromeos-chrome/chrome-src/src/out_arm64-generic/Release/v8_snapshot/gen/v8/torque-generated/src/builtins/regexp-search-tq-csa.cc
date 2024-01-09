@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-search-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -347,7 +348,7 @@ TF_BUILTIN(RegExpPrototypeSearch, CodeStubAssembler) {
   if (block1.is_used()) {
     ca_.Bind(&block1);
     tmp3 = UnsafeCast_JSRegExp_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp0});
-    tmp4 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpSearchFast), parameter0, tmp3, tmp1);
+    tmp4 = ca_.CallBuiltin<Object>(Builtin::kRegExpSearchFast, parameter0, tmp3, tmp1);
     CodeStubAssembler(state_).Return(tmp4);
   }
 

@@ -4,18 +4,16 @@
 #include "keystore.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace attestation {
 }  // namespace attestation
 namespace attestation {
@@ -28,40 +26,40 @@ bool KeyType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    KeyType_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> KeyType_strings[2] = {};
+static const char KeyType_names[] = {
+    "KEY_TYPE_ECC"
+    "KEY_TYPE_RSA"
+};
 
-static const char KeyType_names[] =
-  "KEY_TYPE_ECC"
-  "KEY_TYPE_RSA";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyType_entries[] = {
-  { {KeyType_names + 0, 12}, 2 },
-  { {KeyType_names + 12, 12}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyType_entries[] =
+    {
+        {{&KeyType_names[0], 12}, 2},
+        {{&KeyType_names[12], 12}, 1},
 };
 
 static const int KeyType_entries_by_number[] = {
-  1, // 1 -> KEY_TYPE_RSA
-  0, // 2 -> KEY_TYPE_ECC
+    1,  // 1 -> KEY_TYPE_RSA
+    0,  // 2 -> KEY_TYPE_ECC
 };
 
-const std::string& KeyType_Name(
-    KeyType value) {
-  static const bool dummy =
+const std::string& KeyType_Name(KeyType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          KeyType_entries,
-          KeyType_entries_by_number,
+          KeyType_entries, KeyType_entries_by_number,
           2, KeyType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      KeyType_entries,
-      KeyType_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     KeyType_strings[idx].get();
+      KeyType_entries, KeyType_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : KeyType_strings[idx].get();
 }
-bool KeyType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyType* value) {
+
+bool KeyType_Parse(absl::string_view name, KeyType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       KeyType_entries, 2, name, &int_value);
@@ -79,40 +77,40 @@ bool KeyUsage_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    KeyUsage_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> KeyUsage_strings[2] = {};
+static const char KeyUsage_names[] = {
+    "KEY_USAGE_DECRYPT"
+    "KEY_USAGE_SIGN"
+};
 
-static const char KeyUsage_names[] =
-  "KEY_USAGE_DECRYPT"
-  "KEY_USAGE_SIGN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyUsage_entries[] = {
-  { {KeyUsage_names + 0, 17}, 2 },
-  { {KeyUsage_names + 17, 14}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyUsage_entries[] =
+    {
+        {{&KeyUsage_names[0], 17}, 2},
+        {{&KeyUsage_names[17], 14}, 1},
 };
 
 static const int KeyUsage_entries_by_number[] = {
-  1, // 1 -> KEY_USAGE_SIGN
-  0, // 2 -> KEY_USAGE_DECRYPT
+    1,  // 1 -> KEY_USAGE_SIGN
+    0,  // 2 -> KEY_USAGE_DECRYPT
 };
 
-const std::string& KeyUsage_Name(
-    KeyUsage value) {
-  static const bool dummy =
+const std::string& KeyUsage_Name(KeyUsage value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          KeyUsage_entries,
-          KeyUsage_entries_by_number,
+          KeyUsage_entries, KeyUsage_entries_by_number,
           2, KeyUsage_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      KeyUsage_entries,
-      KeyUsage_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     KeyUsage_strings[idx].get();
+      KeyUsage_entries, KeyUsage_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : KeyUsage_strings[idx].get();
 }
-bool KeyUsage_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyUsage* value) {
+
+bool KeyUsage_Parse(absl::string_view name, KeyUsage* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       KeyUsage_entries, 2, name, &int_value);
@@ -121,11 +119,9 @@ bool KeyUsage_Parse(
   }
   return success;
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace attestation
 PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

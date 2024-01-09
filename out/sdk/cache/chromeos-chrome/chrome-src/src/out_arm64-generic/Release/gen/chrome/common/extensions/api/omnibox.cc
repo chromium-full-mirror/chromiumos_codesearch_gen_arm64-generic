@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/omnibox.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,13 +39,13 @@ namespace omnibox {
 
 const char* ToString(DescriptionStyleType enum_param) {
   switch (enum_param) {
-    case DESCRIPTION_STYLE_TYPE_URL:
+    case DescriptionStyleType::kUrl:
       return "url";
-    case DESCRIPTION_STYLE_TYPE_MATCH:
+    case DescriptionStyleType::kMatch:
       return "match";
-    case DESCRIPTION_STYLE_TYPE_DIM:
+    case DescriptionStyleType::kDim:
       return "dim";
-    case DESCRIPTION_STYLE_TYPE_NONE:
+    case DescriptionStyleType::kNone:
       return "";
   }
   NOTREACHED();
@@ -53,12 +54,12 @@ const char* ToString(DescriptionStyleType enum_param) {
 
 DescriptionStyleType ParseDescriptionStyleType(base::StringPiece enum_string) {
   if (enum_string == "url")
-    return DESCRIPTION_STYLE_TYPE_URL;
+    return DescriptionStyleType::kUrl;
   if (enum_string == "match")
-    return DESCRIPTION_STYLE_TYPE_MATCH;
+    return DescriptionStyleType::kMatch;
   if (enum_string == "dim")
-    return DESCRIPTION_STYLE_TYPE_DIM;
-  return DESCRIPTION_STYLE_TYPE_NONE;
+    return DescriptionStyleType::kDim;
+  return DescriptionStyleType::kNone;
 }
 
 std::u16string GetDescriptionStyleTypeParseError(base::StringPiece enum_string) {
@@ -68,13 +69,13 @@ std::u16string GetDescriptionStyleTypeParseError(base::StringPiece enum_string) 
 
 const char* ToString(OnInputEnteredDisposition enum_param) {
   switch (enum_param) {
-    case ON_INPUT_ENTERED_DISPOSITION_CURRENTTAB:
+    case OnInputEnteredDisposition::kCurrentTab:
       return "currentTab";
-    case ON_INPUT_ENTERED_DISPOSITION_NEWFOREGROUNDTAB:
+    case OnInputEnteredDisposition::kNewForegroundTab:
       return "newForegroundTab";
-    case ON_INPUT_ENTERED_DISPOSITION_NEWBACKGROUNDTAB:
+    case OnInputEnteredDisposition::kNewBackgroundTab:
       return "newBackgroundTab";
-    case ON_INPUT_ENTERED_DISPOSITION_NONE:
+    case OnInputEnteredDisposition::kNone:
       return "";
   }
   NOTREACHED();
@@ -83,12 +84,12 @@ const char* ToString(OnInputEnteredDisposition enum_param) {
 
 OnInputEnteredDisposition ParseOnInputEnteredDisposition(base::StringPiece enum_string) {
   if (enum_string == "currentTab")
-    return ON_INPUT_ENTERED_DISPOSITION_CURRENTTAB;
+    return OnInputEnteredDisposition::kCurrentTab;
   if (enum_string == "newForegroundTab")
-    return ON_INPUT_ENTERED_DISPOSITION_NEWFOREGROUNDTAB;
+    return OnInputEnteredDisposition::kNewForegroundTab;
   if (enum_string == "newBackgroundTab")
-    return ON_INPUT_ENTERED_DISPOSITION_NEWBACKGROUNDTAB;
-  return ON_INPUT_ENTERED_DISPOSITION_NONE;
+    return OnInputEnteredDisposition::kNewBackgroundTab;
+  return OnInputEnteredDisposition::kNone;
 }
 
 std::u16string GetOnInputEnteredDispositionParseError(base::StringPiece enum_string) {
@@ -101,8 +102,8 @@ MatchClassification::MatchClassification()
 type() {}
 
 MatchClassification::~MatchClassification() = default;
-MatchClassification::MatchClassification(MatchClassification&& rhs) = default;
-MatchClassification& MatchClassification::operator=(MatchClassification&& rhs) = default;
+MatchClassification::MatchClassification(MatchClassification&& rhs) noexcept = default;
+MatchClassification& MatchClassification::operator=(MatchClassification&& rhs) noexcept = default;
 MatchClassification MatchClassification::Clone() const {
   MatchClassification out;
   out.offset = offset;
@@ -146,7 +147,7 @@ bool MatchClassification::Populate(
     {
       auto temp = (*length_value).GetIfInt();
       if (!temp.has_value()) {
-        out.length = absl::nullopt;
+        out.length = std::nullopt;
         return false;
       }
       out.length = *temp;
@@ -166,34 +167,21 @@ bool MatchClassification::Populate(
 }
 
 // static
-std::unique_ptr<MatchClassification> MatchClassification::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MatchClassification>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MatchClassification> MatchClassification::FromValue(const base::Value::Dict& value) {
+  MatchClassification out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MatchClassification> MatchClassification::FromValue(const base::Value::Dict& value) {
+std::optional<MatchClassification> MatchClassification::FromValue(const base::Value& value) {
   MatchClassification out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MatchClassification> MatchClassification::FromValue(const base::Value& value) {
-  MatchClassification out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -218,8 +206,8 @@ SuggestResult::SuggestResult()
  {}
 
 SuggestResult::~SuggestResult() = default;
-SuggestResult::SuggestResult(SuggestResult&& rhs) = default;
-SuggestResult& SuggestResult::operator=(SuggestResult&& rhs) = default;
+SuggestResult::SuggestResult(SuggestResult&& rhs) noexcept = default;
+SuggestResult& SuggestResult::operator=(SuggestResult&& rhs) noexcept = default;
 SuggestResult SuggestResult::Clone() const {
   SuggestResult out;
   out.content = content;
@@ -267,7 +255,7 @@ bool SuggestResult::Populate(
     {
       auto temp = (*deletable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.deletable = absl::nullopt;
+        out.deletable = std::nullopt;
         return false;
       }
       out.deletable = *temp;
@@ -301,34 +289,21 @@ bool SuggestResult::Populate(
 }
 
 // static
-std::unique_ptr<SuggestResult> SuggestResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SuggestResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SuggestResult> SuggestResult::FromValue(const base::Value::Dict& value) {
+  SuggestResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SuggestResult> SuggestResult::FromValue(const base::Value::Dict& value) {
+std::optional<SuggestResult> SuggestResult::FromValue(const base::Value& value) {
   SuggestResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SuggestResult> SuggestResult::FromValue(const base::Value& value) {
-  SuggestResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -357,8 +332,8 @@ DefaultSuggestResult::DefaultSuggestResult()
  {}
 
 DefaultSuggestResult::~DefaultSuggestResult() = default;
-DefaultSuggestResult::DefaultSuggestResult(DefaultSuggestResult&& rhs) = default;
-DefaultSuggestResult& DefaultSuggestResult::operator=(DefaultSuggestResult&& rhs) = default;
+DefaultSuggestResult::DefaultSuggestResult(DefaultSuggestResult&& rhs) noexcept = default;
+DefaultSuggestResult& DefaultSuggestResult::operator=(DefaultSuggestResult&& rhs) noexcept = default;
 DefaultSuggestResult DefaultSuggestResult::Clone() const {
   DefaultSuggestResult out;
   out.description = description;
@@ -414,34 +389,21 @@ bool DefaultSuggestResult::Populate(
 }
 
 // static
-std::unique_ptr<DefaultSuggestResult> DefaultSuggestResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DefaultSuggestResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DefaultSuggestResult> DefaultSuggestResult::FromValue(const base::Value::Dict& value) {
+  DefaultSuggestResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DefaultSuggestResult> DefaultSuggestResult::FromValue(const base::Value::Dict& value) {
+std::optional<DefaultSuggestResult> DefaultSuggestResult::FromValue(const base::Value& value) {
   DefaultSuggestResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DefaultSuggestResult> DefaultSuggestResult::FromValue(const base::Value& value) {
-  DefaultSuggestResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -469,8 +431,8 @@ ManifestKeys::Omnibox::Omnibox()
  {}
 
 ManifestKeys::Omnibox::~Omnibox() = default;
-ManifestKeys::Omnibox::Omnibox(Omnibox&& rhs) = default;
-ManifestKeys::Omnibox& ManifestKeys::Omnibox::operator=(Omnibox&& rhs) = default;
+ManifestKeys::Omnibox::Omnibox(Omnibox&& rhs) noexcept = default;
+ManifestKeys::Omnibox& ManifestKeys::Omnibox::operator=(Omnibox&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::Omnibox::kKeyword[];
 
@@ -496,8 +458,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kOmnibox[];
 
@@ -524,13 +486,13 @@ namespace SendSuggestions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -540,13 +502,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -554,17 +516,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& suggest_results_value = args[1];
     {
       if (!suggest_results_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(suggest_results_value.GetList(), params.suggest_results)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -577,13 +539,13 @@ namespace SetDefaultSuggestion {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -592,15 +554,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& suggestion_value = args[0];
     {
       if (!suggestion_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DefaultSuggestResult::Populate(suggestion_value.GetDict(), params.suggestion)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

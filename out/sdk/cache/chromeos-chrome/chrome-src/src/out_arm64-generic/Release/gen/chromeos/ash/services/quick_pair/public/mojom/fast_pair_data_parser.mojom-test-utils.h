@@ -30,17 +30,17 @@ class  FastPairDataParserAsyncWaiter {
 
   ~FastPairDataParserAsyncWaiter();
   void GetHexModelIdFromServiceData(
-      const std::vector<uint8_t>& service_data, absl::optional<std::string>* out_model_id);
-  absl::optional<std::string> GetHexModelIdFromServiceData(const std::vector<uint8_t>& service_data);
+      const std::vector<uint8_t>& service_data, std::optional<std::string>* out_model_id);
+  std::optional<std::string> GetHexModelIdFromServiceData(const std::vector<uint8_t>& service_data);
   void ParseDecryptedResponse(
-      const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes, absl::optional<::ash::quick_pair::DecryptedResponse>* out_response);
-  absl::optional<::ash::quick_pair::DecryptedResponse> ParseDecryptedResponse(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes);
+      const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes, std::optional<::ash::quick_pair::DecryptedResponse>* out_response);
+  std::optional<::ash::quick_pair::DecryptedResponse> ParseDecryptedResponse(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes);
   void ParseDecryptedPasskey(
-      const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes, absl::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey);
-  absl::optional<::ash::quick_pair::DecryptedPasskey> ParseDecryptedPasskey(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes);
+      const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes, std::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey);
+  std::optional<::ash::quick_pair::DecryptedPasskey> ParseDecryptedPasskey(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes);
   void ParseNotDiscoverableAdvertisement(
-      const std::vector<uint8_t>& service_data, const std::string& address, absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement);
-  absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement> ParseNotDiscoverableAdvertisement(const std::vector<uint8_t>& service_data, const std::string& address);
+      const std::vector<uint8_t>& service_data, const std::string& address, std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement);
+  std::optional<::ash::quick_pair::NotDiscoverableAdvertisement> ParseNotDiscoverableAdvertisement(const std::vector<uint8_t>& service_data, const std::string& address);
   void ParseMessageStreamMessages(
       const std::vector<uint8_t>& message_bytes, std::vector<MessageStreamMessagePtr>* out_messages);
   std::vector<MessageStreamMessagePtr> ParseMessageStreamMessages(const std::vector<uint8_t>& message_bytes);

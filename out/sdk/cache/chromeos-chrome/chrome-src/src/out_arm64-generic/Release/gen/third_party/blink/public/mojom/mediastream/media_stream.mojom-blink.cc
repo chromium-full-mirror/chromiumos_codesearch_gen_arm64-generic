@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,7 +51,7 @@ StreamSelectionInfo::StreamSelectionInfo()
 
 StreamSelectionInfo::StreamSelectionInfo(
     StreamSelectionStrategy strategy_in,
-    const absl::optional<::base::UnguessableToken>& session_id_in)
+    const std::optional<::base::UnguessableToken>& session_id_in)
     : strategy(std::move(strategy_in)),
       session_id(std::move(session_id_in)) {}
 
@@ -72,7 +73,7 @@ void StreamSelectionInfo::WriteIntoTrace(
     dict.AddItem(
       "session_id"), this->session_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -105,7 +106,7 @@ MediaStreamDevice::MediaStreamDevice(
     const WTF::String& matched_output_device_id_in,
     const WTF::String& name_in,
     const ::media::AudioParameters& input_in,
-    const absl::optional<::base::UnguessableToken>& session_id_in,
+    const std::optional<::base::UnguessableToken>& session_id_in,
     ::media::mojom::blink::DisplayMediaInformationPtr display_media_info_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
@@ -199,7 +200,7 @@ void MediaStreamDevice::WriteIntoTrace(
     dict.AddItem(
       "session_id"), this->session_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -472,13 +473,84 @@ bool GetOpenDeviceResponse::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CapturedWheelAction::CapturedWheelAction()
+    : x(),
+      y(),
+      wheel_delta_x(),
+      wheel_delta_y() {}
+
+CapturedWheelAction::CapturedWheelAction(
+    int32_t x_in,
+    int32_t y_in,
+    int32_t wheel_delta_x_in,
+    int32_t wheel_delta_y_in)
+    : x(std::move(x_in)),
+      y(std::move(y_in)),
+      wheel_delta_x(std::move(wheel_delta_x_in)),
+      wheel_delta_y(std::move(wheel_delta_y_in)) {}
+
+CapturedWheelAction::~CapturedWheelAction() = default;
+size_t CapturedWheelAction::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->x);
+  seed = mojo::internal::WTFHash(seed, this->y);
+  seed = mojo::internal::WTFHash(seed, this->wheel_delta_x);
+  seed = mojo::internal::WTFHash(seed, this->wheel_delta_y);
+  return seed;
+}
+
+void CapturedWheelAction::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "x"), this->x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "y"), this->y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "wheel_delta_x"), this->wheel_delta_x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "wheel_delta_y"), this->wheel_delta_y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CapturedWheelAction::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 StreamDevices::StreamDevices()
     : audio_device(),
       video_device() {}
 
 StreamDevices::StreamDevices(
-    const absl::optional<::blink::MediaStreamDevice>& audio_device_in,
-    const absl::optional<::blink::MediaStreamDevice>& video_device_in)
+    const std::optional<::blink::MediaStreamDevice>& audio_device_in,
+    const std::optional<::blink::MediaStreamDevice>& video_device_in)
     : audio_device(std::move(audio_device_in)),
       video_device(std::move(video_device_in)) {}
 
@@ -491,7 +563,7 @@ void StreamDevices::WriteIntoTrace(
     dict.AddItem(
       "audio_device"), this->audio_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::MediaStreamDevice>&>"
+      "<value of type const std::optional<::blink::MediaStreamDevice>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -500,7 +572,7 @@ void StreamDevices::WriteIntoTrace(
     dict.AddItem(
       "video_device"), this->video_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::MediaStreamDevice>&>"
+      "<value of type const std::optional<::blink::MediaStreamDevice>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -694,14 +766,17 @@ void MediaStreamDeviceObserverProxy::OnDeviceStopped(
                         "<value of type const ::blink::MediaStreamDevice&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDeviceObserver_OnDeviceStopped_Name, kFlags, 0, 0, nullptr);
@@ -759,14 +834,17 @@ void MediaStreamDeviceObserverProxy::OnDeviceChanged(
                         "<value of type const ::blink::MediaStreamDevice&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDeviceObserver_OnDeviceChanged_Name, kFlags, 0, 0, nullptr);
@@ -835,14 +913,17 @@ void MediaStreamDeviceObserverProxy::OnDeviceRequestStateChange(
                         "<value of type MediaStreamStateChange>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDeviceObserver_OnDeviceRequestStateChange_Name, kFlags, 0, 0, nullptr);
@@ -899,14 +980,17 @@ void MediaStreamDeviceObserverProxy::OnDeviceCaptureConfigurationChange(
                         "<value of type const ::blink::MediaStreamDevice&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Name, kFlags, 0, 0, nullptr);
@@ -961,14 +1045,17 @@ void MediaStreamDeviceObserverProxy::OnDeviceCaptureHandleChange(
                         "<value of type const ::blink::MediaStreamDevice&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name, kFlags, 0, 0, nullptr);
@@ -1202,18 +1289,18 @@ bool MediaStreamDeviceObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaStreamDeviceObserverValidationInfo[] = {
-    {&internal::MediaStreamDeviceObserver_OnDeviceStopped_Params_Data::Validate,
+    { &internal::MediaStreamDeviceObserver_OnDeviceStopped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDeviceObserver_OnDeviceChanged_Params_Data::Validate,
+    { &internal::MediaStreamDeviceObserver_OnDeviceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDeviceObserver_OnDeviceRequestStateChange_Params_Data::Validate,
+    { &internal::MediaStreamDeviceObserver_OnDeviceRequestStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Params_Data::Validate,
+    { &internal::MediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data::Validate,
+    { &internal::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1254,6 +1341,15 @@ MediaStreamDispatcherHost::IPCStableHashFunction MediaStreamDispatcherHost::Mess
     case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
       return &MediaStreamDispatcherHost::ApplySubCaptureTarget_Sym::IPCStableHash;
     }
+    case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
+      return &MediaStreamDispatcherHost::SendWheel_Sym::IPCStableHash;
+    }
+    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
+      return &MediaStreamDispatcherHost::GetZoomLevel_Sym::IPCStableHash;
+    }
+    case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
+      return &MediaStreamDispatcherHost::SetZoomLevel_Sym::IPCStableHash;
+    }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
       return &MediaStreamDispatcherHost::GetOpenDevice_Sym::IPCStableHash;
     }
@@ -1289,6 +1385,12 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive blink::mojom::MediaStreamDispatcherHost::OnStreamStarted";
       case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
+      case internal::kMediaStreamDispatcherHost_SendWheel_Name:
+            return "Receive blink::mojom::MediaStreamDispatcherHost::SendWheel";
+      case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name:
+            return "Receive blink::mojom::MediaStreamDispatcherHost::GetZoomLevel";
+      case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name:
+            return "Receive blink::mojom::MediaStreamDispatcherHost::SetZoomLevel";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::GetOpenDevice";
       case internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name:
@@ -1314,6 +1416,12 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::OnStreamStarted";
       case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
+      case internal::kMediaStreamDispatcherHost_SendWheel_Name:
+            return "Receive reply blink::mojom::MediaStreamDispatcherHost::SendWheel";
+      case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name:
+            return "Receive reply blink::mojom::MediaStreamDispatcherHost::GetZoomLevel";
+      case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name:
+            return "Receive reply blink::mojom::MediaStreamDispatcherHost::SetZoomLevel";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::GetOpenDevice";
       case internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name:
@@ -1449,6 +1557,45 @@ uint32_t MediaStreamDispatcherHost::ApplySubCaptureTarget_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t MediaStreamDispatcherHost::SendWheel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::MediaStreamDispatcherHost::SendWheel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MediaStreamDispatcherHost::GetZoomLevel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::MediaStreamDispatcherHost::GetZoomLevel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MediaStreamDispatcherHost::SetZoomLevel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::MediaStreamDispatcherHost::SetZoomLevel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t MediaStreamDispatcherHost::GetOpenDevice_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1528,6 +1675,54 @@ class MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback
  private:
   MediaStreamDispatcherHost::ApplySubCaptureTargetCallback callback_;
 };
+
+class MediaStreamDispatcherHost_SendWheel_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  MediaStreamDispatcherHost_SendWheel_ForwardToCallback(
+      MediaStreamDispatcherHost::SendWheelCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  MediaStreamDispatcherHost_SendWheel_ForwardToCallback(const MediaStreamDispatcherHost_SendWheel_ForwardToCallback&) = delete;
+  MediaStreamDispatcherHost_SendWheel_ForwardToCallback& operator=(const MediaStreamDispatcherHost_SendWheel_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  MediaStreamDispatcherHost::SendWheelCallback callback_;
+};
+
+class MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(
+      MediaStreamDispatcherHost::GetZoomLevelCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(const MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback&) = delete;
+  MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback& operator=(const MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  MediaStreamDispatcherHost::GetZoomLevelCallback callback_;
+};
+
+class MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback(
+      MediaStreamDispatcherHost::SetZoomLevelCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback(const MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback&) = delete;
+  MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback& operator=(const MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  MediaStreamDispatcherHost::SetZoomLevelCallback callback_;
+};
 class MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
@@ -1603,14 +1798,17 @@ void MediaStreamDispatcherHostProxy::GenerateStreams(
                         "<value of type StreamSelectionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_GenerateStreams_Name, kFlags, 0, 0, nullptr);
@@ -1668,14 +1866,17 @@ void MediaStreamDispatcherHostProxy::FocusCapturedSurface(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_FocusCapturedSurface_Name, kFlags, 0, 0, nullptr);
@@ -1717,14 +1918,17 @@ void MediaStreamDispatcherHostProxy::CancelRequest(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_CancelRequest_Name, kFlags, 0, 0, nullptr);
@@ -1744,7 +1948,7 @@ void MediaStreamDispatcherHostProxy::CancelRequest(
 }
 
 void MediaStreamDispatcherHostProxy::StopStreamDevice(
-    const WTF::String& in_device_id, const absl::optional<::base::UnguessableToken>& in_session_id) {
+    const WTF::String& in_device_id, const std::optional<::base::UnguessableToken>& in_session_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::MediaStreamDispatcherHost::StopStreamDevice", "input_parameters",
@@ -1755,17 +1959,20 @@ void MediaStreamDispatcherHostProxy::StopStreamDevice(
                         "<value of type const WTF::String&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("session_id"), in_session_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_StopStreamDevice_Name, kFlags, 0, 0, nullptr);
@@ -1819,14 +2026,17 @@ void MediaStreamDispatcherHostProxy::OpenDevice(
                         "<value of type MediaStreamType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_OpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -1871,14 +2081,17 @@ void MediaStreamDispatcherHostProxy::CloseDevice(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_CloseDevice_Name, kFlags, 0, 0, nullptr);
@@ -1908,7 +2121,7 @@ void MediaStreamDispatcherHostProxy::CloseDevice(
 }
 
 void MediaStreamDispatcherHostProxy::SetCapturingLinkSecured(
-    const absl::optional<::base::UnguessableToken>& in_session_id, MediaStreamType in_type, bool in_is_secure) {
+    const std::optional<::base::UnguessableToken>& in_session_id, MediaStreamType in_type, bool in_is_secure) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::MediaStreamDispatcherHost::SetCapturingLinkSecured", "input_parameters",
@@ -1916,7 +2129,7 @@ void MediaStreamDispatcherHostProxy::SetCapturingLinkSecured(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("session_id"), in_session_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type MediaStreamType>");
@@ -1925,14 +2138,17 @@ void MediaStreamDispatcherHostProxy::SetCapturingLinkSecured(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_SetCapturingLinkSecured_Name, kFlags, 0, 0, nullptr);
@@ -1972,14 +2188,17 @@ void MediaStreamDispatcherHostProxy::OnStreamStarted(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_OnStreamStarted_Name, kFlags, 0, 0, nullptr);
@@ -2009,7 +2228,7 @@ void MediaStreamDispatcherHostProxy::OnStreamStarted(
 }
 
 void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
-    const ::base::UnguessableToken& in_device_id, ::blink::mojom::blink::SubCaptureTargetType in_type, const ::base::Token& in_sub_capture_target, uint32_t in_sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
+    const ::base::UnguessableToken& in_device_id, ::media::mojom::blink::SubCaptureTargetType in_type, const ::base::Token& in_sub_capture_target, uint32_t in_sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget", "input_parameters",
@@ -2020,7 +2239,7 @@ void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
-                        "<value of type ::blink::mojom::blink::SubCaptureTargetType>");
+                        "<value of type ::media::mojom::blink::SubCaptureTargetType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("sub_capture_target"), in_sub_capture_target,
                         "<value of type const ::base::Token&>");
@@ -2029,14 +2248,17 @@ void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name, kFlags, 0, 0, nullptr);
@@ -2055,7 +2277,7 @@ void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
       params->device_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null device_id in MediaStreamDispatcherHost.ApplySubCaptureTarget request");
-  mojo::internal::Serialize<::blink::mojom::SubCaptureTargetType>(
+  mojo::internal::Serialize<::media::mojom::SubCaptureTargetType>(
       in_type, &params->type);
   mojo::internal::MessageFragment<
       typename decltype(params->sub_capture_target)::BaseType> sub_capture_target_fragment(
@@ -2079,6 +2301,180 @@ void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void MediaStreamDispatcherHostProxy::SendWheel(
+    const ::base::UnguessableToken& in_device_id, CapturedWheelActionPtr in_action, SendWheelCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::SendWheel", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device_id"), in_device_id,
+                        "<value of type const ::base::UnguessableToken&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("action"), in_action,
+                        "<value of type CapturedWheelActionPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_SendWheel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_SendWheel_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->device_id)::BaseType> device_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+      in_device_id, device_id_fragment);
+  params->device_id.Set(
+      device_id_fragment.is_null() ? nullptr : device_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->device_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null device_id in MediaStreamDispatcherHost.SendWheel request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->action)::BaseType> action_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::CapturedWheelActionDataView>(
+      in_action, action_fragment);
+  params->action.Set(
+      action_fragment.is_null() ? nullptr : action_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->action.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null action in MediaStreamDispatcherHost.SendWheel request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("SendWheel");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new MediaStreamDispatcherHost_SendWheel_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void MediaStreamDispatcherHostProxy::GetZoomLevel(
+    const ::base::UnguessableToken& in_device_id, GetZoomLevelCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::GetZoomLevel", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device_id"), in_device_id,
+                        "<value of type const ::base::UnguessableToken&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_GetZoomLevel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->device_id)::BaseType> device_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+      in_device_id, device_id_fragment);
+  params->device_id.Set(
+      device_id_fragment.is_null() ? nullptr : device_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->device_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null device_id in MediaStreamDispatcherHost.GetZoomLevel request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("GetZoomLevel");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void MediaStreamDispatcherHostProxy::SetZoomLevel(
+    const ::base::UnguessableToken& in_device_id, int32_t in_zoom_level, SetZoomLevelCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::SetZoomLevel", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device_id"), in_device_id,
+                        "<value of type const ::base::UnguessableToken&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("zoom_level"), in_zoom_level,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_SetZoomLevel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->device_id)::BaseType> device_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+      in_device_id, device_id_fragment);
+  params->device_id.Set(
+      device_id_fragment.is_null() ? nullptr : device_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->device_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null device_id in MediaStreamDispatcherHost.SetZoomLevel request");
+  params->zoom_level = in_zoom_level;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("SetZoomLevel");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 bool MediaStreamDispatcherHostProxy::GetOpenDevice(
     int32_t param_request_id, const ::base::UnguessableToken& param_session_id, const ::base::UnguessableToken& param_transfer_id, MediaStreamRequestResult* out_param_result, GetOpenDeviceResponsePtr* out_param_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2099,15 +2495,18 @@ bool MediaStreamDispatcherHostProxy::GetOpenDevice(
 #else
   TRACE_EVENT0("mojom", "MediaStreamDispatcherHost::GetOpenDevice");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_GetOpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -2183,14 +2582,17 @@ void MediaStreamDispatcherHostProxy::GetOpenDevice(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_GetOpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -2247,14 +2649,17 @@ void MediaStreamDispatcherHostProxy::KeepDeviceAliveForTransfer(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name, kFlags, 0, 0, nullptr);
@@ -2407,7 +2812,8 @@ void MediaStreamDispatcherHost_GenerateStreams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_GenerateStreams_Name, kFlags, 0, 0, nullptr);
@@ -2559,7 +2965,8 @@ void MediaStreamDispatcherHost_OpenDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_OpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -2699,7 +3106,8 @@ void MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name, kFlags, 0, 0, nullptr);
@@ -2713,6 +3121,378 @@ void MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaStreamDispatcherHost::Name_);
   message.set_method_name("ApplySubCaptureTarget");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class MediaStreamDispatcherHost_SendWheel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static MediaStreamDispatcherHost::SendWheelCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<MediaStreamDispatcherHost_SendWheel_ProxyToResponder> proxy(
+        new MediaStreamDispatcherHost_SendWheel_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&MediaStreamDispatcherHost_SendWheel_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~MediaStreamDispatcherHost_SendWheel_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  MediaStreamDispatcherHost_SendWheel_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "MediaStreamDispatcherHost::SendWheelCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      CapturedSurfaceControlResult in_result);
+};
+
+bool MediaStreamDispatcherHost_SendWheel_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CapturedSurfaceControlResult p_result{};
+  MediaStreamDispatcherHost_SendWheel_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        MediaStreamDispatcherHost::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void MediaStreamDispatcherHost_SendWheel_ProxyToResponder::Run(
+    CapturedSurfaceControlResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::SendWheel", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type CapturedSurfaceControlResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_SendWheel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::blink::mojom::CapturedSurfaceControlResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("SendWheel");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static MediaStreamDispatcherHost::GetZoomLevelCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder> proxy(
+        new MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "MediaStreamDispatcherHost::GetZoomLevelCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<int32_t> in_zoom_level, CapturedSurfaceControlResult in_result);
+};
+
+bool MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::optional<int32_t> p_zoom_level{};
+  CapturedSurfaceControlResult p_result{};
+  MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_zoom_level = input_data_view.zoom_level();
+  }
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        MediaStreamDispatcherHost::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_zoom_level), 
+std::move(p_result));
+  return true;
+}
+
+void MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::Run(
+    std::optional<int32_t> in_zoom_level, CapturedSurfaceControlResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::GetZoomLevel", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("zoom_level"), in_zoom_level,
+                        "<value of type std::optional<int32_t>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type CapturedSurfaceControlResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_GetZoomLevel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->zoom_level_$flag = in_zoom_level.has_value();
+  if (in_zoom_level.has_value()) {
+    params->zoom_level_$value = in_zoom_level.value();
+  }
+  mojo::internal::Serialize<::blink::mojom::CapturedSurfaceControlResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("GetZoomLevel");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static MediaStreamDispatcherHost::SetZoomLevelCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder> proxy(
+        new MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "MediaStreamDispatcherHost::SetZoomLevelCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      CapturedSurfaceControlResult in_result);
+};
+
+bool MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CapturedSurfaceControlResult p_result{};
+  MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        MediaStreamDispatcherHost::Name_, 11, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder::Run(
+    CapturedSurfaceControlResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::SetZoomLevel", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type CapturedSurfaceControlResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDispatcherHost_SetZoomLevel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::blink::mojom::CapturedSurfaceControlResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDispatcherHost::Name_);
+  message.set_method_name("SetZoomLevel");
 #endif
 
   message.set_request_id(request_id_);
@@ -2797,7 +3577,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 9, true);
+        MediaStreamDispatcherHost::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2825,7 +3605,8 @@ void MediaStreamDispatcherHost_GetOpenDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_GetOpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -2880,7 +3661,7 @@ bool MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 9, true);
+        MediaStreamDispatcherHost::Name_, 12, true);
     return false;
   }
   *out_result_ = std::move(p_result);
@@ -2956,7 +3737,7 @@ bool MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ForwardToCallback::Acc
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        MediaStreamDispatcherHost::Name_, 10, true);
+        MediaStreamDispatcherHost::Name_, 13, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2980,7 +3761,8 @@ void MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name, kFlags, 0, 0, nullptr);
@@ -3080,7 +3862,7 @@ std::move(p_request_id));
       
       bool success = true;
       WTF::String p_device_id{};
-      absl::optional<::base::UnguessableToken> p_session_id{};
+      std::optional<::base::UnguessableToken> p_session_id{};
       MediaStreamDispatcherHost_StopStreamDevice_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceId(&p_device_id))
@@ -3138,7 +3920,7 @@ std::move(p_label));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_session_id{};
+      std::optional<::base::UnguessableToken> p_session_id{};
       MediaStreamType p_type{};
       bool p_is_secure{};
       MediaStreamDispatcherHost_SetCapturingLinkSecured_ParamsDataView input_data_view(params, message);
@@ -3191,6 +3973,15 @@ std::move(p_label));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
+      break;
+    }
+    case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
+      break;
+    }
+    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
+      break;
+    }
+    case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
       break;
     }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
@@ -3317,7 +4108,7 @@ std::move(p_type), std::move(callback));
       
       bool success = true;
       ::base::UnguessableToken p_device_id{};
-      ::blink::mojom::blink::SubCaptureTargetType p_type{};
+      ::media::mojom::blink::SubCaptureTargetType p_type{};
       ::base::Token p_sub_capture_target{};
       uint32_t p_sub_capture_target_version{};
       MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView input_data_view(params, message);
@@ -3349,6 +4140,101 @@ std::move(p_sub_capture_target),
 std::move(p_sub_capture_target_version), std::move(callback));
       return true;
     }
+    case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
+
+      internal::MediaStreamDispatcherHost_SendWheel_Params_Data* params =
+          reinterpret_cast<
+              internal::MediaStreamDispatcherHost_SendWheel_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::base::UnguessableToken p_device_id{};
+      CapturedWheelActionPtr p_action{};
+      MediaStreamDispatcherHost_SendWheel_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDeviceId(&p_device_id))
+        success = false;
+      if (success && !input_data_view.ReadAction(&p_action))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaStreamDispatcherHost::Name_, 9, false);
+        return false;
+      }
+      MediaStreamDispatcherHost::SendWheelCallback callback =
+          MediaStreamDispatcherHost_SendWheel_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SendWheel(
+std::move(p_device_id), 
+std::move(p_action), std::move(callback));
+      return true;
+    }
+    case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
+
+      internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data* params =
+          reinterpret_cast<
+              internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::base::UnguessableToken p_device_id{};
+      MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDeviceId(&p_device_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaStreamDispatcherHost::Name_, 10, false);
+        return false;
+      }
+      MediaStreamDispatcherHost::GetZoomLevelCallback callback =
+          MediaStreamDispatcherHost_GetZoomLevel_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetZoomLevel(
+std::move(p_device_id), std::move(callback));
+      return true;
+    }
+    case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
+
+      internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data* params =
+          reinterpret_cast<
+              internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::base::UnguessableToken p_device_id{};
+      int32_t p_zoom_level{};
+      MediaStreamDispatcherHost_SetZoomLevel_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDeviceId(&p_device_id))
+        success = false;
+      if (success)
+        p_zoom_level = input_data_view.zoom_level();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaStreamDispatcherHost::Name_, 11, false);
+        return false;
+      }
+      MediaStreamDispatcherHost::SetZoomLevelCallback callback =
+          MediaStreamDispatcherHost_SetZoomLevel_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetZoomLevel(
+std::move(p_device_id), 
+std::move(p_zoom_level), std::move(callback));
+      return true;
+    }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
 
       internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data* params =
@@ -3372,7 +4258,7 @@ std::move(p_sub_capture_target_version), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 9, false);
+            MediaStreamDispatcherHost::Name_, 12, false);
         return false;
       }
       MediaStreamDispatcherHost::GetOpenDeviceCallback callback =
@@ -3406,7 +4292,7 @@ std::move(p_transfer_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaStreamDispatcherHost::Name_, 10, false);
+            MediaStreamDispatcherHost::Name_, 13, false);
         return false;
       }
       MediaStreamDispatcherHost::KeepDeviceAliveForTransferCallback callback =
@@ -3422,30 +4308,36 @@ std::move(p_transfer_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaStreamDispatcherHostValidationInfo[] = {
-    {&internal::MediaStreamDispatcherHost_GenerateStreams_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_GenerateStreams_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_GenerateStreams_ResponseParams_Data::Validate},
-    {&internal::MediaStreamDispatcherHost_FocusCapturedSurface_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_FocusCapturedSurface_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_CancelRequest_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_CancelRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_StopStreamDevice_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_StopStreamDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_OpenDevice_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_OpenDevice_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_OpenDevice_ResponseParams_Data::Validate},
-    {&internal::MediaStreamDispatcherHost_CloseDevice_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_CloseDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_SetCapturingLinkSecured_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_SetCapturingLinkSecured_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_OnStreamStarted_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_OnStreamStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::Validate},
-    {&internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_SendWheel_Params_Data::Validate,
+     &internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data::Validate},
+    { &internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data::Validate,
+     &internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::Validate},
+    { &internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data::Validate,
+     &internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data::Validate},
+    { &internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_GetOpenDevice_ResponseParams_Data::Validate},
-    {&internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Params_Data::Validate,
+    { &internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParams_Data::Validate},
 };
 
@@ -3555,14 +4447,17 @@ void MediaStreamTrackMetricsHostProxy::AddTrack(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamTrackMetricsHost_AddTrack_Name, kFlags, 0, 0, nullptr);
@@ -3595,14 +4490,17 @@ void MediaStreamTrackMetricsHostProxy::RemoveTrack(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStreamTrackMetricsHost_RemoveTrack_Name, kFlags, 0, 0, nullptr);
@@ -3708,12 +4606,12 @@ bool MediaStreamTrackMetricsHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaStreamTrackMetricsHostValidationInfo[] = {
-    {&internal::MediaStreamTrackMetricsHost_AddTrack_Params_Data::Validate,
+    { &internal::MediaStreamTrackMetricsHost_AddTrack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamTrackMetricsHost_RemoveTrack_Params_Data::Validate,
+    { &internal::MediaStreamTrackMetricsHost_RemoveTrack_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3849,6 +4747,26 @@ bool StructTraits<::blink::mojom::blink::GetOpenDeviceResponse::DataView, ::blin
 
 
 // static
+bool StructTraits<::blink::mojom::blink::CapturedWheelAction::DataView, ::blink::mojom::blink::CapturedWheelActionPtr>::Read(
+    ::blink::mojom::blink::CapturedWheelAction::DataView input,
+    ::blink::mojom::blink::CapturedWheelActionPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::CapturedWheelActionPtr result(::blink::mojom::blink::CapturedWheelAction::New());
+  
+      if (success)
+        result->x = input.x();
+      if (success)
+        result->y = input.y();
+      if (success)
+        result->wheel_delta_x = input.wheel_delta_x();
+      if (success)
+        result->wheel_delta_y = input.wheel_delta_y();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::blink::mojom::blink::StreamDevices::DataView, ::blink::mojom::blink::StreamDevicesPtr>::Read(
     ::blink::mojom::blink::StreamDevices::DataView input,
     ::blink::mojom::blink::StreamDevicesPtr* output) {
@@ -3919,7 +4837,7 @@ void MediaStreamDispatcherHostInterceptorForTesting::FocusCapturedSurface(const 
 void MediaStreamDispatcherHostInterceptorForTesting::CancelRequest(int32_t request_id) {
   GetForwardingInterface()->CancelRequest(std::move(request_id));
 }
-void MediaStreamDispatcherHostInterceptorForTesting::StopStreamDevice(const WTF::String& device_id, const absl::optional<::base::UnguessableToken>& session_id) {
+void MediaStreamDispatcherHostInterceptorForTesting::StopStreamDevice(const WTF::String& device_id, const std::optional<::base::UnguessableToken>& session_id) {
   GetForwardingInterface()->StopStreamDevice(std::move(device_id), std::move(session_id));
 }
 void MediaStreamDispatcherHostInterceptorForTesting::OpenDevice(int32_t request_id, const WTF::String& device_id, MediaStreamType type, OpenDeviceCallback callback) {
@@ -3928,14 +4846,23 @@ void MediaStreamDispatcherHostInterceptorForTesting::OpenDevice(int32_t request_
 void MediaStreamDispatcherHostInterceptorForTesting::CloseDevice(const WTF::String& label) {
   GetForwardingInterface()->CloseDevice(std::move(label));
 }
-void MediaStreamDispatcherHostInterceptorForTesting::SetCapturingLinkSecured(const absl::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) {
+void MediaStreamDispatcherHostInterceptorForTesting::SetCapturingLinkSecured(const std::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) {
   GetForwardingInterface()->SetCapturingLinkSecured(std::move(session_id), std::move(type), std::move(is_secure));
 }
 void MediaStreamDispatcherHostInterceptorForTesting::OnStreamStarted(const WTF::String& label) {
   GetForwardingInterface()->OnStreamStarted(std::move(label));
 }
-void MediaStreamDispatcherHostInterceptorForTesting::ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
+void MediaStreamDispatcherHostInterceptorForTesting::ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
   GetForwardingInterface()->ApplySubCaptureTarget(std::move(device_id), std::move(type), std::move(sub_capture_target), std::move(sub_capture_target_version), std::move(callback));
+}
+void MediaStreamDispatcherHostInterceptorForTesting::SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) {
+  GetForwardingInterface()->SendWheel(std::move(device_id), std::move(action), std::move(callback));
+}
+void MediaStreamDispatcherHostInterceptorForTesting::GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) {
+  GetForwardingInterface()->GetZoomLevel(std::move(device_id), std::move(callback));
+}
+void MediaStreamDispatcherHostInterceptorForTesting::SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) {
+  GetForwardingInterface()->SetZoomLevel(std::move(device_id), std::move(zoom_level), std::move(callback));
 }
 void MediaStreamDispatcherHostInterceptorForTesting::GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, GetOpenDeviceCallback callback) {
   GetForwardingInterface()->GetOpenDevice(std::move(request_id), std::move(session_id), std::move(transfer_id), std::move(callback));
@@ -4005,7 +4932,7 @@ void MediaStreamDispatcherHostAsyncWaiter::OpenDevice(
 
 
 void MediaStreamDispatcherHostAsyncWaiter::ApplySubCaptureTarget(
-    const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result) {
+    const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result) {
   base::RunLoop loop;
   proxy_->ApplySubCaptureTarget(std::move(device_id),std::move(type),std::move(sub_capture_target),std::move(sub_capture_target_version),
       base::BindOnce(
@@ -4021,9 +4948,77 @@ void MediaStreamDispatcherHostAsyncWaiter::ApplySubCaptureTarget(
 }
 
 ::media::mojom::blink::ApplySubCaptureTargetResult MediaStreamDispatcherHostAsyncWaiter::ApplySubCaptureTarget(
-    const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version) {
+    const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version) {
   ::media::mojom::blink::ApplySubCaptureTargetResult async_wait_result;
   ApplySubCaptureTarget(std::move(device_id),std::move(type),std::move(sub_capture_target),std::move(sub_capture_target_version),&async_wait_result);
+  return async_wait_result;
+}
+
+void MediaStreamDispatcherHostAsyncWaiter::SendWheel(
+    const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, CapturedSurfaceControlResult* out_result) {
+  base::RunLoop loop;
+  proxy_->SendWheel(std::move(device_id),std::move(action),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             CapturedSurfaceControlResult* out_result
+,
+             CapturedSurfaceControlResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+CapturedSurfaceControlResult MediaStreamDispatcherHostAsyncWaiter::SendWheel(
+    const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action) {
+  CapturedSurfaceControlResult async_wait_result;
+  SendWheel(std::move(device_id),std::move(action),&async_wait_result);
+  return async_wait_result;
+}
+
+void MediaStreamDispatcherHostAsyncWaiter::GetZoomLevel(
+    const ::base::UnguessableToken& device_id, std::optional<int32_t>* out_zoom_level, CapturedSurfaceControlResult* out_result) {
+  base::RunLoop loop;
+  proxy_->GetZoomLevel(std::move(device_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<int32_t>* out_zoom_level
+,
+             CapturedSurfaceControlResult* out_result
+,
+             std::optional<int32_t> zoom_level,
+             CapturedSurfaceControlResult result) {*out_zoom_level = std::move(zoom_level);*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_zoom_level,
+          out_result));
+  loop.Run();
+}
+
+
+
+void MediaStreamDispatcherHostAsyncWaiter::SetZoomLevel(
+    const ::base::UnguessableToken& device_id, int32_t zoom_level, CapturedSurfaceControlResult* out_result) {
+  base::RunLoop loop;
+  proxy_->SetZoomLevel(std::move(device_id),std::move(zoom_level),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             CapturedSurfaceControlResult* out_result
+,
+             CapturedSurfaceControlResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+CapturedSurfaceControlResult MediaStreamDispatcherHostAsyncWaiter::SetZoomLevel(
+    const ::base::UnguessableToken& device_id, int32_t zoom_level) {
+  CapturedSurfaceControlResult async_wait_result;
+  SetZoomLevel(std::move(device_id),std::move(zoom_level),&async_wait_result);
   return async_wait_result;
 }
 

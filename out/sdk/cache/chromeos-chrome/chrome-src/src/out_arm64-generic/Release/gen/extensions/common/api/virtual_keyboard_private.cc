@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/virtual_keyboard_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -66,8 +67,8 @@ char_value(0),
 key_code(0) {}
 
 VirtualKeyboardEvent::~VirtualKeyboardEvent() = default;
-VirtualKeyboardEvent::VirtualKeyboardEvent(VirtualKeyboardEvent&& rhs) = default;
-VirtualKeyboardEvent& VirtualKeyboardEvent::operator=(VirtualKeyboardEvent&& rhs) = default;
+VirtualKeyboardEvent::VirtualKeyboardEvent(VirtualKeyboardEvent&& rhs) noexcept = default;
+VirtualKeyboardEvent& VirtualKeyboardEvent::operator=(VirtualKeyboardEvent&& rhs) noexcept = default;
 VirtualKeyboardEvent VirtualKeyboardEvent::Clone() const {
   VirtualKeyboardEvent out;
   out.type = type;
@@ -137,7 +138,7 @@ bool VirtualKeyboardEvent::Populate(
     {
       auto temp = (*modifiers_value).GetIfInt();
       if (!temp.has_value()) {
-        out.modifiers = absl::nullopt;
+        out.modifiers = std::nullopt;
         return false;
       }
       out.modifiers = *temp;
@@ -157,34 +158,21 @@ bool VirtualKeyboardEvent::Populate(
 }
 
 // static
-std::unique_ptr<VirtualKeyboardEvent> VirtualKeyboardEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VirtualKeyboardEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VirtualKeyboardEvent> VirtualKeyboardEvent::FromValue(const base::Value::Dict& value) {
+  VirtualKeyboardEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VirtualKeyboardEvent> VirtualKeyboardEvent::FromValue(const base::Value::Dict& value) {
+std::optional<VirtualKeyboardEvent> VirtualKeyboardEvent::FromValue(const base::Value& value) {
   VirtualKeyboardEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VirtualKeyboardEvent> VirtualKeyboardEvent::FromValue(const base::Value& value) {
-  VirtualKeyboardEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -272,8 +260,8 @@ width(0),
 height(0) {}
 
 Bounds::~Bounds() = default;
-Bounds::Bounds(Bounds&& rhs) = default;
-Bounds& Bounds::operator=(Bounds&& rhs) = default;
+Bounds::Bounds(Bounds&& rhs) noexcept = default;
+Bounds& Bounds::operator=(Bounds&& rhs) noexcept = default;
 Bounds Bounds::Clone() const {
   Bounds out;
   out.left = left;
@@ -347,34 +335,21 @@ bool Bounds::Populate(
 }
 
 // static
-std::unique_ptr<Bounds> Bounds::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Bounds>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+  Bounds out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+std::optional<Bounds> Bounds::FromValue(const base::Value& value) {
   Bounds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Bounds> Bounds::FromValue(const base::Value& value) {
-  Bounds out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -400,8 +375,8 @@ KeyboardConfig::KeyboardConfig()
 a11ymode(false) {}
 
 KeyboardConfig::~KeyboardConfig() = default;
-KeyboardConfig::KeyboardConfig(KeyboardConfig&& rhs) = default;
-KeyboardConfig& KeyboardConfig::operator=(KeyboardConfig&& rhs) = default;
+KeyboardConfig::KeyboardConfig(KeyboardConfig&& rhs) noexcept = default;
+KeyboardConfig& KeyboardConfig::operator=(KeyboardConfig&& rhs) noexcept = default;
 KeyboardConfig KeyboardConfig::Clone() const {
   KeyboardConfig out;
   out.layout = layout;
@@ -478,34 +453,21 @@ bool KeyboardConfig::Populate(
 }
 
 // static
-std::unique_ptr<KeyboardConfig> KeyboardConfig::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<KeyboardConfig>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<KeyboardConfig> KeyboardConfig::FromValue(const base::Value::Dict& value) {
+  KeyboardConfig out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<KeyboardConfig> KeyboardConfig::FromValue(const base::Value::Dict& value) {
+std::optional<KeyboardConfig> KeyboardConfig::FromValue(const base::Value& value) {
   KeyboardConfig out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<KeyboardConfig> KeyboardConfig::FromValue(const base::Value& value) {
-  KeyboardConfig out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -530,8 +492,8 @@ ContainerBehaviorOptions::ContainerBehaviorOptions()
 : mode() {}
 
 ContainerBehaviorOptions::~ContainerBehaviorOptions() = default;
-ContainerBehaviorOptions::ContainerBehaviorOptions(ContainerBehaviorOptions&& rhs) = default;
-ContainerBehaviorOptions& ContainerBehaviorOptions::operator=(ContainerBehaviorOptions&& rhs) = default;
+ContainerBehaviorOptions::ContainerBehaviorOptions(ContainerBehaviorOptions&& rhs) noexcept = default;
+ContainerBehaviorOptions& ContainerBehaviorOptions::operator=(ContainerBehaviorOptions&& rhs) noexcept = default;
 ContainerBehaviorOptions ContainerBehaviorOptions::Clone() const {
   ContainerBehaviorOptions out;
   out.mode = mode;
@@ -583,34 +545,21 @@ bool ContainerBehaviorOptions::Populate(
 }
 
 // static
-std::unique_ptr<ContainerBehaviorOptions> ContainerBehaviorOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ContainerBehaviorOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ContainerBehaviorOptions> ContainerBehaviorOptions::FromValue(const base::Value::Dict& value) {
+  ContainerBehaviorOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ContainerBehaviorOptions> ContainerBehaviorOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ContainerBehaviorOptions> ContainerBehaviorOptions::FromValue(const base::Value& value) {
   ContainerBehaviorOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ContainerBehaviorOptions> ContainerBehaviorOptions::FromValue(const base::Value& value) {
-  ContainerBehaviorOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -666,8 +615,8 @@ ClipboardItem::ClipboardItem()
 time_copied(0.0) {}
 
 ClipboardItem::~ClipboardItem() = default;
-ClipboardItem::ClipboardItem(ClipboardItem&& rhs) = default;
-ClipboardItem& ClipboardItem::operator=(ClipboardItem&& rhs) = default;
+ClipboardItem::ClipboardItem(ClipboardItem&& rhs) noexcept = default;
+ClipboardItem& ClipboardItem::operator=(ClipboardItem&& rhs) noexcept = default;
 ClipboardItem ClipboardItem::Clone() const {
   ClipboardItem out;
   out.id = id;
@@ -698,7 +647,7 @@ bool ClipboardItem::Populate(
     {
       auto* temp = (*image_data_value).GetIfString();
       if (!temp) {
-        out.image_data = absl::nullopt;
+        out.image_data = std::nullopt;
         return false;
       }
       out.image_data = *temp;
@@ -710,7 +659,7 @@ bool ClipboardItem::Populate(
     {
       auto* temp = (*text_data_value).GetIfString();
       if (!temp) {
-        out.text_data = absl::nullopt;
+        out.text_data = std::nullopt;
         return false;
       }
       out.text_data = *temp;
@@ -757,34 +706,21 @@ bool ClipboardItem::Populate(
 }
 
 // static
-std::unique_ptr<ClipboardItem> ClipboardItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ClipboardItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ClipboardItem> ClipboardItem::FromValue(const base::Value::Dict& value) {
+  ClipboardItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ClipboardItem> ClipboardItem::FromValue(const base::Value::Dict& value) {
+std::optional<ClipboardItem> ClipboardItem::FromValue(const base::Value& value) {
   ClipboardItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ClipboardItem> ClipboardItem::FromValue(const base::Value& value) {
-  ClipboardItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -820,13 +756,13 @@ namespace InsertText {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -836,13 +772,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = text_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.text = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -860,13 +796,13 @@ namespace SendKeyEvent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -875,15 +811,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& key_event_value = args[0];
     {
       if (!key_event_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!VirtualKeyboardEvent::Populate(key_event_value.GetDict(), params.key_event)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -910,13 +846,13 @@ namespace SetHotrodKeyboard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -926,13 +862,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enable_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enable = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -945,13 +881,13 @@ namespace LockKeyboard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -961,13 +897,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = lock_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.lock = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1008,13 +944,13 @@ namespace SetContainerBehavior {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1023,15 +959,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ContainerBehaviorOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1051,13 +987,13 @@ namespace SetDraggableArea {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1066,15 +1002,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_value = args[0];
     {
       if (!bounds_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Bounds::Populate(bounds_value.GetDict(), params.bounds)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1087,13 +1023,13 @@ namespace SetKeyboardState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1103,16 +1039,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* keyboard_state_as_string = state_value.GetIfString();
       if (!keyboard_state_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.state = ParseKeyboardState(*keyboard_state_as_string);
       if (params.state == KeyboardState()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1125,13 +1061,13 @@ namespace SetOccludedBounds {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1140,17 +1076,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_list_value = args[0];
     {
       if (!bounds_list_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(bounds_list_value.GetList(), params.bounds_list)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1163,13 +1099,13 @@ namespace SetHitTestBounds {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1178,17 +1114,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_list_value = args[0];
     {
       if (!bounds_list_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(bounds_list_value.GetList(), params.bounds_list)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1201,13 +1137,13 @@ namespace SetAreaToRemainOnScreen {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1216,15 +1152,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_value = args[0];
     {
       if (!bounds_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Bounds::Populate(bounds_value.GetDict(), params.bounds)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1237,13 +1173,13 @@ namespace SetWindowBoundsInScreen {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1252,15 +1188,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_value = args[0];
     {
       if (!bounds_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Bounds::Populate(bounds_value.GetDict(), params.bounds)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1275,8 +1211,8 @@ Params::Options::Options()
  {}
 
 Params::Options::~Options() = default;
-Params::Options::Options(Options&& rhs) = default;
-Params::Options& Params::Options::operator=(Options&& rhs) = default;
+Params::Options::Options(Options&& rhs) noexcept = default;
+Params::Options& Params::Options::operator=(Options&& rhs) noexcept = default;
 Params::Options Params::Options::Clone() const {
   Options out;
   out.item_ids = item_ids;
@@ -1313,21 +1249,21 @@ bool Params::Options::Populate(
 }
 
 // static
-absl::optional<Params::Options> Params::Options::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Options> Params::Options::FromValue(const base::Value::Dict& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Options> Params::Options::FromValue(const base::Value& value) {
+std::optional<Params::Options> Params::Options::FromValue(const base::Value& value) {
   Options out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1335,13 +1271,13 @@ absl::optional<Params::Options> Params::Options::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1350,15 +1286,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Options::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1378,13 +1314,13 @@ namespace PasteClipboardItem {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1394,13 +1330,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = item_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.item_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1413,13 +1349,13 @@ namespace DeleteClipboardItem {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1429,13 +1365,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = item_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.item_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

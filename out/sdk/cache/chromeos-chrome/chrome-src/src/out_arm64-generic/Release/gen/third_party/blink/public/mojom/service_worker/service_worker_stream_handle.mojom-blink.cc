@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -168,14 +169,17 @@ void ServiceWorkerStreamCallbackProxy::OnCompleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerStreamCallback::OnCompleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStreamCallback_OnCompleted_Name, kFlags, 0, 0, nullptr);
@@ -198,14 +202,17 @@ void ServiceWorkerStreamCallbackProxy::OnAborted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerStreamCallback::OnAborted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStreamCallback_OnAborted_Name, kFlags, 0, 0, nullptr);
@@ -294,12 +301,12 @@ bool ServiceWorkerStreamCallbackStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerStreamCallbackValidationInfo[] = {
-    {&internal::ServiceWorkerStreamCallback_OnCompleted_Params_Data::Validate,
+    { &internal::ServiceWorkerStreamCallback_OnCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerStreamCallback_OnAborted_Params_Data::Validate,
+    { &internal::ServiceWorkerStreamCallback_OnAborted_Params_Data::Validate,
      nullptr /* no response */},
 };
 

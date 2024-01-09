@@ -2576,11 +2576,14 @@ CertProvBackendError_Error_INVALID_SIGNATURE = 6,
 CertProvBackendError_Error_INSTRUCTION_NOT_YET_AVAILABLE = 7,
 CertProvBackendError_Error_CA_UNAVAILABLE = 8,
 CertProvBackendError_Error_CA_FAILURE = 9,
-CertProvBackendError_Error_PROFILE_NOT_FOUND = 10
+CertProvBackendError_Error_PROFILE_NOT_FOUND = 10,
+CertProvBackendError_Error_USER_PRIMARY_EMAIL_NOT_FOUND = 11,
+CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND = 12,
+CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND = 13
 };
 POLICY_PROTO_EXPORT bool CertProvBackendError_Error_IsValid(int value);
 constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MIN = CertProvBackendError_Error_ERROR_UNSPECIFIED;
-constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_PROFILE_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND;
 constexpr int CertProvBackendError_Error_Error_ARRAYSIZE = CertProvBackendError_Error_Error_MAX + 1;
 
 const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error value);
@@ -2748,6 +2751,75 @@ return CrdSessionAvailability_Name(static_cast<CrdSessionAvailability>(enum_t_va
 }
 bool CrdSessionAvailability_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionAvailability* value);
+enum StartCrdSessionResultCode : int {
+START_CRD_SESSION_RESULT_UNKNOWN = -1,
+START_CRD_SESSION_SUCCESS = 0,
+SERVICES_NOT_READY = 1,
+FAILURE_UNSUPPORTED_USER_TYPE = 2,
+FAILURE_NOT_IDLE = 3,
+FAILURE_NO_OAUTH_TOKEN = 4,
+FAILURE_NO_ICE_CONFIG = 5,
+FAILURE_CRD_HOST_ERROR = 6,
+FAILURE_UNMANAGED_ENVIRONMENT = 7,
+FAILURE_DISABLED_BY_POLICY = 8
+};
+POLICY_PROTO_EXPORT bool StartCrdSessionResultCode_IsValid(int value);
+constexpr StartCrdSessionResultCode StartCrdSessionResultCode_MIN = START_CRD_SESSION_RESULT_UNKNOWN;
+constexpr StartCrdSessionResultCode StartCrdSessionResultCode_MAX = FAILURE_DISABLED_BY_POLICY;
+constexpr int StartCrdSessionResultCode_ARRAYSIZE = StartCrdSessionResultCode_MAX + 1;
+
+const std::string& StartCrdSessionResultCode_Name(StartCrdSessionResultCode value);
+template<typename T>
+inline const std::string& StartCrdSessionResultCode_Name(T enum_t_value) {
+static_assert(::std::is_same<T, StartCrdSessionResultCode>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function StartCrdSessionResultCode_Name.");
+return StartCrdSessionResultCode_Name(static_cast<StartCrdSessionResultCode>(enum_t_value));
+}
+bool StartCrdSessionResultCode_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartCrdSessionResultCode* value);
+enum FetchSupportPacketResultCode : int {
+FETCH_SUPPORT_PACKET_RESULT_CODE_UNSPECIFIED = 0,
+FETCH_SUPPORT_PACKET_RESULT_SUCCESS = 1,
+FAILURE_COMMAND_NOT_ENABLED = 2,
+FAILURE_EXPORTING_FILE = 3,
+FAILURE_REPORTING_PIPELINE = 4,
+FAILURE_LOG_UPLOAD = 5
+};
+POLICY_PROTO_EXPORT bool FetchSupportPacketResultCode_IsValid(int value);
+constexpr FetchSupportPacketResultCode FetchSupportPacketResultCode_MIN = FETCH_SUPPORT_PACKET_RESULT_CODE_UNSPECIFIED;
+constexpr FetchSupportPacketResultCode FetchSupportPacketResultCode_MAX = FAILURE_LOG_UPLOAD;
+constexpr int FetchSupportPacketResultCode_ARRAYSIZE = FetchSupportPacketResultCode_MAX + 1;
+
+const std::string& FetchSupportPacketResultCode_Name(FetchSupportPacketResultCode value);
+template<typename T>
+inline const std::string& FetchSupportPacketResultCode_Name(T enum_t_value) {
+static_assert(::std::is_same<T, FetchSupportPacketResultCode>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function FetchSupportPacketResultCode_Name.");
+return FetchSupportPacketResultCode_Name(static_cast<FetchSupportPacketResultCode>(enum_t_value));
+}
+bool FetchSupportPacketResultCode_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FetchSupportPacketResultCode* value);
+enum FetchSupportPacketResultNote : int {
+FETCH_SUPPORT_PACKET_RESULT_PAYLOAD_UNSPECIFIED = 0,
+WARNING_PII_NOT_ALLOWED = 1
+};
+POLICY_PROTO_EXPORT bool FetchSupportPacketResultNote_IsValid(int value);
+constexpr FetchSupportPacketResultNote FetchSupportPacketResultNote_MIN = FETCH_SUPPORT_PACKET_RESULT_PAYLOAD_UNSPECIFIED;
+constexpr FetchSupportPacketResultNote FetchSupportPacketResultNote_MAX = WARNING_PII_NOT_ALLOWED;
+constexpr int FetchSupportPacketResultNote_ARRAYSIZE = FetchSupportPacketResultNote_MAX + 1;
+
+const std::string& FetchSupportPacketResultNote_Name(FetchSupportPacketResultNote value);
+template<typename T>
+inline const std::string& FetchSupportPacketResultNote_Name(T enum_t_value) {
+static_assert(::std::is_same<T, FetchSupportPacketResultNote>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function FetchSupportPacketResultNote_Name.");
+return FetchSupportPacketResultNote_Name(static_cast<FetchSupportPacketResultNote>(enum_t_value));
+}
+bool FetchSupportPacketResultNote_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FetchSupportPacketResultNote* value);
 enum Channel : int {
 CHANNEL_UNKNOWN = 0,
 CHANNEL_CANARY = 1,
@@ -40851,6 +40923,12 @@ static constexpr Error CA_FAILURE =
 CertProvBackendError_Error_CA_FAILURE;
 static constexpr Error PROFILE_NOT_FOUND =
 CertProvBackendError_Error_PROFILE_NOT_FOUND;
+static constexpr Error USER_PRIMARY_EMAIL_NOT_FOUND =
+CertProvBackendError_Error_USER_PRIMARY_EMAIL_NOT_FOUND;
+static constexpr Error CA_CONNECTION_NOT_FOUND =
+CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND;
+static constexpr Error PUBSUB_TOPIC_NOT_FOUND =
+CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND;
 static inline bool Error_IsValid(int value) {
 return CertProvBackendError_Error_IsValid(value);
 }
@@ -88120,6 +88198,9 @@ template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploa
 template <> struct is_proto_enum< ::enterprise_management::UserSessionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CrdSessionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CrdSessionAvailability> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::StartCrdSessionResultCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::FetchSupportPacketResultCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::FetchSupportPacketResultNote> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Channel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusDeviceClass> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusType> : ::std::true_type {};

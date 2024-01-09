@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct ContentBounds {
   ~ContentBounds();
   ContentBounds(const ContentBounds&) = delete;
   ContentBounds& operator=(const ContentBounds&) = delete;
-  ContentBounds(ContentBounds&& rhs);
-  ContentBounds& operator=(ContentBounds&& rhs);
+  ContentBounds(ContentBounds&& rhs) noexcept;
+  ContentBounds& operator=(ContentBounds&& rhs) noexcept;
 
   // Populates a ContentBounds object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -49,27 +50,24 @@ struct ContentBounds {
   // Creates a deep copy of ContentBounds.
   ContentBounds Clone() const;
 
-  // Creates a ContentBounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ContentBounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContentBounds object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ContentBounds> FromValue(const base::Value::Dict& value);
+  static std::optional<ContentBounds> FromValue(const base::Value::Dict& value);
 
   // Creates a ContentBounds object from a base::Value, or nullopt on failure.
-  static absl::optional<ContentBounds> FromValue(const base::Value& value);
+  static std::optional<ContentBounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContentBounds object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> left;
+  std::optional<int> left;
 
-  absl::optional<int> top;
+  std::optional<int> top;
 
-  absl::optional<int> width;
+  std::optional<int> width;
 
-  absl::optional<int> height;
+  std::optional<int> height;
 
 };
 
@@ -78,8 +76,8 @@ struct BoundsSpecification {
   ~BoundsSpecification();
   BoundsSpecification(const BoundsSpecification&) = delete;
   BoundsSpecification& operator=(const BoundsSpecification&) = delete;
-  BoundsSpecification(BoundsSpecification&& rhs);
-  BoundsSpecification& operator=(BoundsSpecification&& rhs);
+  BoundsSpecification(BoundsSpecification&& rhs) noexcept;
+  BoundsSpecification& operator=(BoundsSpecification&& rhs) noexcept;
 
   // Populates a BoundsSpecification object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -92,45 +90,41 @@ struct BoundsSpecification {
   // Creates a deep copy of BoundsSpecification.
   BoundsSpecification Clone() const;
 
-  // Creates a BoundsSpecification object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<BoundsSpecification> FromValueDeprecated(const base::Value& value);
-
   // Creates a BoundsSpecification object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<BoundsSpecification> FromValue(const base::Value::Dict& value);
+  static std::optional<BoundsSpecification> FromValue(const base::Value::Dict& value);
 
   // Creates a BoundsSpecification object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<BoundsSpecification> FromValue(const base::Value& value);
+  static std::optional<BoundsSpecification> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBoundsSpecification object.
   base::Value::Dict ToValue() const;
 
   // The X coordinate of the content or window.
-  absl::optional<int> left;
+  std::optional<int> left;
 
   // The Y coordinate of the content or window.
-  absl::optional<int> top;
+  std::optional<int> top;
 
   // The width of the content or window.
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // The height of the content or window.
-  absl::optional<int> height;
+  std::optional<int> height;
 
   // The minimum width of the content or window.
-  absl::optional<int> min_width;
+  std::optional<int> min_width;
 
   // The minimum height of the content or window.
-  absl::optional<int> min_height;
+  std::optional<int> min_height;
 
   // The maximum width of the content or window.
-  absl::optional<int> max_width;
+  std::optional<int> max_width;
 
   // The maximum height of the content or window.
-  absl::optional<int> max_height;
+  std::optional<int> max_height;
 
 };
 
@@ -139,8 +133,8 @@ struct Bounds {
   ~Bounds();
   Bounds(const Bounds&) = delete;
   Bounds& operator=(const Bounds&) = delete;
-  Bounds(Bounds&& rhs);
-  Bounds& operator=(Bounds&& rhs);
+  Bounds(Bounds&& rhs) noexcept;
+  Bounds& operator=(Bounds&& rhs) noexcept;
 
   // Populates a Bounds object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -153,14 +147,11 @@ struct Bounds {
   // Creates a deep copy of Bounds.
   Bounds Clone() const;
 
-  // Creates a Bounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a Bounds object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value::Dict& value);
+  static std::optional<Bounds> FromValue(const base::Value::Dict& value);
 
   // Creates a Bounds object from a base::Value, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value& value);
+  static std::optional<Bounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBounds object.
@@ -184,19 +175,19 @@ struct Bounds {
 
   // This property can be used to read or write the current minimum width of the
   // content or window. A value of <code>null</code> indicates 'unspecified'.
-  absl::optional<int> min_width;
+  std::optional<int> min_width;
 
   // This property can be used to read or write the current minimum height of the
   // content or window. A value of <code>null</code> indicates 'unspecified'.
-  absl::optional<int> min_height;
+  std::optional<int> min_height;
 
   // This property can be used to read or write the current maximum width of the
   // content or window. A value of <code>null</code> indicates 'unspecified'.
-  absl::optional<int> max_width;
+  std::optional<int> max_width;
 
   // This property can be used to read or write the current maximum height of the
   // content or window. A value of <code>null</code> indicates 'unspecified'.
-  absl::optional<int> max_height;
+  std::optional<int> max_height;
 
   // Set the left and top position of the content or window.
   base::Value::Dict set_position;
@@ -221,8 +212,8 @@ struct FrameOptions {
   ~FrameOptions();
   FrameOptions(const FrameOptions&) = delete;
   FrameOptions& operator=(const FrameOptions&) = delete;
-  FrameOptions(FrameOptions&& rhs);
-  FrameOptions& operator=(FrameOptions&& rhs);
+  FrameOptions(FrameOptions&& rhs) noexcept;
+  FrameOptions& operator=(FrameOptions&& rhs) noexcept;
 
   // Populates a FrameOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -235,15 +226,12 @@ struct FrameOptions {
   // Creates a deep copy of FrameOptions.
   FrameOptions Clone() const;
 
-  // Creates a FrameOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FrameOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a FrameOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FrameOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<FrameOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a FrameOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<FrameOptions> FromValue(const base::Value& value);
+  static std::optional<FrameOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFrameOptions object.
@@ -255,25 +243,25 @@ struct FrameOptions {
   // draggability to the app's window.</p><p><code>-webkit-app-region: drag</code>
   // can be used to mark regions draggable. <code>no-drag</code> can be used to
   // disable this style on nested elements.</p>
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
 
   // <p>Allows the frame color to be set. Frame coloring is only available if the
   // frame type is <code>chrome</code>.</p><p>Frame coloring is new in Chrome
   // 36.</p>
-  absl::optional<std::string> color;
+  std::optional<std::string> color;
 
   // <p>Allows the frame color of the window when active to be set. Frame coloring
   // is only available if the frame type is <code>chrome</code>.</p><p>Frame
   // coloring is only available if the frame type is
   // <code>chrome</code>.</p><p>Frame coloring is new in Chrome 36.</p>
-  absl::optional<std::string> active_color;
+  std::optional<std::string> active_color;
 
   // <p>Allows the frame color of the window when inactive to be set differently
   // to the active color. Frame coloring is only available if the frame type is
   // <code>chrome</code>.</p><p><code>inactiveColor</code> must be used in
   // conjunction with <code> color</code>.</p><p>Frame coloring is new in Chrome
   // 36.</p>
-  absl::optional<std::string> inactive_color;
+  std::optional<std::string> inactive_color;
 
 };
 
@@ -310,8 +298,8 @@ struct CreateWindowOptions {
   ~CreateWindowOptions();
   CreateWindowOptions(const CreateWindowOptions&) = delete;
   CreateWindowOptions& operator=(const CreateWindowOptions&) = delete;
-  CreateWindowOptions(CreateWindowOptions&& rhs);
-  CreateWindowOptions& operator=(CreateWindowOptions&& rhs);
+  CreateWindowOptions(CreateWindowOptions&& rhs) noexcept;
+  CreateWindowOptions& operator=(CreateWindowOptions&& rhs) noexcept;
 
   // Populates a CreateWindowOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -324,17 +312,13 @@ struct CreateWindowOptions {
   // Creates a deep copy of CreateWindowOptions.
   CreateWindowOptions Clone() const;
 
-  // Creates a CreateWindowOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CreateWindowOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateWindowOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<CreateWindowOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateWindowOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateWindowOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CreateWindowOptions> FromValue(const base::Value& value);
+  static std::optional<CreateWindowOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateWindowOptions object.
@@ -352,8 +336,8 @@ struct CreateWindowOptions {
     ~Frame();
     Frame(const Frame&) = delete;
     Frame& operator=(const Frame&) = delete;
-    Frame(Frame&& rhs);
-    Frame& operator=(Frame&& rhs);
+    Frame(Frame&& rhs) noexcept;
+    Frame& operator=(Frame&& rhs) noexcept;
 
     // Populates a Frame object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -363,14 +347,14 @@ struct CreateWindowOptions {
     Frame Clone() const;
 
     // Creates a Frame object from a base::Value, or nullopt on failure.
-    static absl::optional<Frame> FromValue(const base::Value& value);
+    static std::optional<Frame> FromValue(const base::Value& value);
 
     // Returns a new base::Value representing the serialized form of thisFrame
     // object.
     base::Value ToValue() const;
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<FrameOptions> as_frame_options;
+    std::optional<std::string> as_string;
+    std::optional<FrameOptions> as_frame_options;
   };
 
 
@@ -379,7 +363,7 @@ struct CreateWindowOptions {
   // id is later opened. If a window with a given id is created while another
   // window with the same id already exists, the currently opened window will be
   // focused instead of creating a new window.
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // <p>Used to specify the initial position, initial size and constraints of the
   // window's content (excluding window decorations). If an <code>id</code> is
@@ -389,7 +373,7 @@ struct CreateWindowOptions {
   // setting the same bounds property for both the <code>innerBounds</code> and
   // <code>outerBounds</code> will result in an error.</p><p>This property is new
   // in Chrome 36.</p>
-  absl::optional<BoundsSpecification> inner_bounds;
+  std::optional<BoundsSpecification> inner_bounds;
 
   // <p>Used to specify the initial position, initial size and constraints of the
   // window (including window decorations such as the title bar and frame). If an
@@ -399,43 +383,43 @@ struct CreateWindowOptions {
   // determined by the OS. Therefore setting the same bounds property for both the
   // <code>innerBounds</code> and <code>outerBounds</code> will result in an
   // error.</p><p>This property is new in Chrome 36.</p>
-  absl::optional<BoundsSpecification> outer_bounds;
+  std::optional<BoundsSpecification> outer_bounds;
 
   // Default width of the window.
-  absl::optional<int> default_width;
+  std::optional<int> default_width;
 
   // Default height of the window.
-  absl::optional<int> default_height;
+  std::optional<int> default_height;
 
   // Default X coordinate of the window.
-  absl::optional<int> default_left;
+  std::optional<int> default_left;
 
   // Default Y coordinate of the window.
-  absl::optional<int> default_top;
+  std::optional<int> default_top;
 
   // Width of the window.
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // Height of the window.
-  absl::optional<int> height;
+  std::optional<int> height;
 
   // X coordinate of the window.
-  absl::optional<int> left;
+  std::optional<int> left;
 
   // Y coordinate of the window.
-  absl::optional<int> top;
+  std::optional<int> top;
 
   // Minimum width of the window.
-  absl::optional<int> min_width;
+  std::optional<int> min_width;
 
   // Minimum height of the window.
-  absl::optional<int> min_height;
+  std::optional<int> min_height;
 
   // Maximum width of the window.
-  absl::optional<int> max_width;
+  std::optional<int> max_width;
 
   // Maximum height of the window.
-  absl::optional<int> max_height;
+  std::optional<int> max_height;
 
   // Type of window to create.
   WindowType type;
@@ -443,17 +427,17 @@ struct CreateWindowOptions {
   // Creates a special ime window. This window is not focusable and can be stacked
   // above virtual keyboard window. This is restriced to component ime extensions.
   // Requires the <code>app.window.ime</code> API permission.
-  absl::optional<bool> ime;
+  std::optional<bool> ime;
 
   // If true, the window will have its own shelf icon. Otherwise the window will
   // be grouped in the shelf with other windows that are associated with the app.
   // Defaults to false. If showInShelf is set to true you need to specify an id
   // for the window.
-  absl::optional<bool> show_in_shelf;
+  std::optional<bool> show_in_shelf;
 
   // URL of the window icon. A window can have its own icon when showInShelf is
   // set to true. The URL should be a global or an extension local URL.
-  absl::optional<std::string> icon;
+  std::optional<std::string> icon;
 
   // <p>Frame type: <code>none</code> or <code>chrome</code> (defaults to
   // <code>chrome</code>). For <code>none</code>, the
@@ -462,16 +446,16 @@ struct CreateWindowOptions {
   // be used to mark regions draggable. <code>no-drag</code> can be used to
   // disable this style on nested elements.</p><p>Use of <code>FrameOptions</code>
   // is new in M36.</p>
-  absl::optional<Frame> frame;
+  std::optional<Frame> frame;
 
   // Size and position of the content in the window (excluding the titlebar). If
   // an id is also specified and a window with a matching id has been shown
   // before, the remembered bounds of the window will be used instead.
-  absl::optional<ContentBounds> bounds;
+  std::optional<ContentBounds> bounds;
 
   // Enable window background transparency. Only supported in ash. Requires the
   // <code>app.window.alpha</code> API permission.
-  absl::optional<bool> alpha_enabled;
+  std::optional<bool> alpha_enabled;
 
   // The initial state of the window, allowing it to be created already
   // fullscreen, maximized, or minimized. Defaults to 'normal'.
@@ -479,31 +463,31 @@ struct CreateWindowOptions {
 
   // If true, the window will be created in a hidden state. Call show() on the
   // window to show it once it has been created. Defaults to false.
-  absl::optional<bool> hidden;
+  std::optional<bool> hidden;
 
   // If true, the window will be resizable by the user. Defaults to true.
-  absl::optional<bool> resizable;
+  std::optional<bool> resizable;
 
   // By default if you specify an id for the window, the window will only be
   // created if another window with the same id doesn't already exist. If a window
   // with the same id already exists that window is activated instead. If you do
   // want to create multiple windows with the same id, you can set this property
   // to false.
-  absl::optional<bool> singleton;
+  std::optional<bool> singleton;
 
   // <p>If true, the window will stay above most other windows. If there are
   // multiple windows of this kind, the currently focused window will be in the
   // foreground. Requires the <code>alwaysOnTopWindows</code> permission. Defaults
   // to false.</p><p>Call <code>setAlwaysOnTop()</code> on the window to change
   // this property after creation.</p>
-  absl::optional<bool> always_on_top;
+  std::optional<bool> always_on_top;
 
   // If true, the window will be focused when created. Defaults to true.
-  absl::optional<bool> focused;
+  std::optional<bool> focused;
 
   // If true, and supported by the platform, the window will be visible on all
   // workspaces.
-  absl::optional<bool> visible_on_all_workspaces;
+  std::optional<bool> visible_on_all_workspaces;
 
   // <p>If set, the action that is intended to be handled by the window on
   // lockscreen. This has to be set to create an app window visible on the   lock
@@ -520,8 +504,8 @@ struct AppWindow {
   ~AppWindow();
   AppWindow(const AppWindow&) = delete;
   AppWindow& operator=(const AppWindow&) = delete;
-  AppWindow(AppWindow&& rhs);
-  AppWindow& operator=(AppWindow&& rhs);
+  AppWindow(AppWindow&& rhs) noexcept;
+  AppWindow& operator=(AppWindow&& rhs) noexcept;
 
   // Populates a AppWindow object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -534,14 +518,11 @@ struct AppWindow {
   // Creates a deep copy of AppWindow.
   AppWindow Clone() const;
 
-  // Creates a AppWindow object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AppWindow> FromValueDeprecated(const base::Value& value);
-
   // Creates a AppWindow object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<AppWindow> FromValue(const base::Value::Dict& value);
+  static std::optional<AppWindow> FromValue(const base::Value::Dict& value);
 
   // Creates a AppWindow object from a base::Value, or nullopt on failure.
-  static absl::optional<AppWindow> FromValue(const base::Value& value);
+  static std::optional<AppWindow> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAppWindow object.
@@ -553,8 +534,8 @@ struct AppWindow {
     ~ContentWindow();
     ContentWindow(const ContentWindow&) = delete;
     ContentWindow& operator=(const ContentWindow&) = delete;
-    ContentWindow(ContentWindow&& rhs);
-    ContentWindow& operator=(ContentWindow&& rhs);
+    ContentWindow(ContentWindow&& rhs) noexcept;
+    ContentWindow& operator=(ContentWindow&& rhs) noexcept;
 
     // Populates a ContentWindow object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -569,10 +550,10 @@ struct AppWindow {
 
     // Creates a ContentWindow object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<ContentWindow> FromValue(const base::Value::Dict& value);
+    static std::optional<ContentWindow> FromValue(const base::Value::Dict& value);
 
     // Creates a ContentWindow object from a base::Value, or nullopt on failure.
-    static absl::optional<ContentWindow> FromValue(const base::Value& value);
+    static std::optional<ContentWindow> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisContentWindow object.
@@ -693,16 +674,16 @@ struct AppWindow {
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
 
-  absl::optional<CreateWindowOptions> options;
+  std::optional<CreateWindowOptions> options;
 
 
  private:
@@ -716,8 +697,8 @@ struct CreatedWindow {
   ~CreatedWindow();
   CreatedWindow(const CreatedWindow&) = delete;
   CreatedWindow& operator=(const CreatedWindow&) = delete;
-  CreatedWindow(CreatedWindow&& rhs);
-  CreatedWindow& operator=(CreatedWindow&& rhs);
+  CreatedWindow(CreatedWindow&& rhs) noexcept;
+  CreatedWindow& operator=(CreatedWindow&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreatedWindow object.

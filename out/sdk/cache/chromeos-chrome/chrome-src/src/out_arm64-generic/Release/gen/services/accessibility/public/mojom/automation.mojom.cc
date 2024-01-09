@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -194,14 +195,17 @@ void AutomationProxy::DispatchTreeDestroyedEvent(
                         "<value of type const ::ui::AXTreeID&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchTreeDestroyedEvent_Name, kFlags, 0, 0, nullptr);
@@ -243,14 +247,17 @@ void AutomationProxy::DispatchActionResult(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchActionResult_Name, kFlags, 0, 0, nullptr);
@@ -301,14 +308,17 @@ void AutomationProxy::DispatchAccessibilityEvents(
                         "<value of type const std::vector<::ui::AXEvent>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchAccessibilityEvents_Name, kFlags, 0, 0, nullptr);
@@ -390,14 +400,17 @@ void AutomationProxy::DispatchAccessibilityLocationChange(
                         "<value of type const ::ui::AXRelativeBounds&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchAccessibilityLocationChange_Name, kFlags, 0, 0, nullptr);
@@ -437,7 +450,7 @@ void AutomationProxy::DispatchAccessibilityLocationChange(
 }
 
 void AutomationProxy::DispatchGetTextLocationResult(
-    const ::ui::AXActionData& in_data, const absl::optional<::gfx::Rect>& in_rect) {
+    const ::ui::AXActionData& in_data, const std::optional<::gfx::Rect>& in_rect) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ax::mojom::Automation::DispatchGetTextLocationResult", "input_parameters",
@@ -448,17 +461,20 @@ void AutomationProxy::DispatchGetTextLocationResult(
                         "<value of type const ::ui::AXActionData&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("rect"), in_rect,
-                        "<value of type const absl::optional<::gfx::Rect>&>");
+                        "<value of type const std::optional<::gfx::Rect>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchGetTextLocationResult_Name, kFlags, 0, 0, nullptr);
@@ -636,7 +652,7 @@ std::move(p_bounds));
       
       bool success = true;
       ::ui::AXActionData p_data{};
-      absl::optional<::gfx::Rect> p_rect{};
+      std::optional<::gfx::Rect> p_rect{};
       Automation_DispatchGetTextLocationResult_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadData(&p_data))
@@ -688,75 +704,24 @@ bool AutomationStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutomationValidationInfo[] = {
-    {&internal::Automation_DispatchTreeDestroyedEvent_Params_Data::Validate,
+    { &internal::Automation_DispatchTreeDestroyedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchActionResult_Params_Data::Validate,
+    { &internal::Automation_DispatchActionResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchAccessibilityEvents_Params_Data::Validate,
+    { &internal::Automation_DispatchAccessibilityEvents_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchAccessibilityLocationChange_Params_Data::Validate,
+    { &internal::Automation_DispatchAccessibilityLocationChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchGetTextLocationResult_Params_Data::Validate,
+    { &internal::Automation_DispatchGetTextLocationResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
 bool AutomationRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ax::mojom::Automation::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kAutomationValidationInfo);
-}
-
-const char AutomationClient::Name_[] = "ax.mojom.AutomationClient";
-
-AutomationClient::IPCStableHashFunction AutomationClient::MessageToMethodInfo_(mojo::Message& message) {
-#if !BUILDFLAG(IS_FUCHSIA)
-#endif  // !BUILDFLAG(IS_FUCHSIA)
-  return nullptr;
-}
-
-
-const char* AutomationClient::MessageToMethodName_(mojo::Message& message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  return "Receive unknown mojo message";
-#else
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (is_response) {
-    return "Receive mojo reply";
-  } else {
-    return "Receive mojo message";
-  }
-#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
-}
-
-#if !BUILDFLAG(IS_FUCHSIA)
-# endif // !BUILDFLAG(IS_FUCHSIA)
-
-AutomationClientProxy::AutomationClientProxy(mojo::MessageReceiverWithResponder* receiver)
-    : receiver_(receiver) {
-}
-
-// static
-bool AutomationClientStubDispatch::Accept(
-    AutomationClient* impl,
-    mojo::Message* message) {
-  return false;
-}
-
-// static
-bool AutomationClientStubDispatch::AcceptWithResponder(
-    AutomationClient* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  return false;
-}
-
-
-
-bool AutomationClientRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ax::mojom::AutomationClient::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
 }
 
 
@@ -788,21 +753,13 @@ void AutomationInterceptorForTesting::DispatchAccessibilityEvents(const ::ui::AX
 void AutomationInterceptorForTesting::DispatchAccessibilityLocationChange(const ::ui::AXTreeID& tree_id, int32_t node_id, const ::ui::AXRelativeBounds& bounds) {
   GetForwardingInterface()->DispatchAccessibilityLocationChange(std::move(tree_id), std::move(node_id), std::move(bounds));
 }
-void AutomationInterceptorForTesting::DispatchGetTextLocationResult(const ::ui::AXActionData& data, const absl::optional<::gfx::Rect>& rect) {
+void AutomationInterceptorForTesting::DispatchGetTextLocationResult(const ::ui::AXActionData& data, const std::optional<::gfx::Rect>& rect) {
   GetForwardingInterface()->DispatchGetTextLocationResult(std::move(data), std::move(rect));
 }
 AutomationAsyncWaiter::AutomationAsyncWaiter(
     Automation* proxy) : proxy_(proxy) {}
 
 AutomationAsyncWaiter::~AutomationAsyncWaiter() = default;
-
-
-
-
-AutomationClientAsyncWaiter::AutomationClientAsyncWaiter(
-    AutomationClient* proxy) : proxy_(proxy) {}
-
-AutomationClientAsyncWaiter::~AutomationClientAsyncWaiter() = default;
 
 
 

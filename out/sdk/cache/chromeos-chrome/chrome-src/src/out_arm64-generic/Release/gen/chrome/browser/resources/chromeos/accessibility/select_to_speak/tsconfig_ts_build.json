@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility",
     "outDir": "tsc",
@@ -11,8 +11,27 @@
     }
   },
   "files": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/common/instance_checker.js",
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak.js",
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak_main.ts"
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak_main.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/metrics_utils.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak_constants.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/tts_manager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/input_handler.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/ui_manager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/prefs_manager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/select_to_speak/select_to_speak.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tts.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/context_menus.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/automation.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extensions.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/runtime.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/i18n.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tabs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/accessibility_private_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/settings_private_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/storage_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/clipboard_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extension_types.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/windows.d.ts"
   ]
 }

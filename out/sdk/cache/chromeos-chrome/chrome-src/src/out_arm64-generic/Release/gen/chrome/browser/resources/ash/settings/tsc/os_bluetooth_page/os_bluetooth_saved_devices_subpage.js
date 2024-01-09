@@ -13,7 +13,7 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { routes } from '../router.js';
 import { OsBluetoothDevicesSubpageBrowserProxyImpl } from './os_bluetooth_devices_subpage_browser_proxy.js';
 import { getTemplate } from './os_bluetooth_saved_devices_subpage.html.js';

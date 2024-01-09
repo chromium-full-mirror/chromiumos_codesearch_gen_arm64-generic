@@ -38,6 +38,7 @@
 #include "third_party/blink/renderer/core/style/filter_operations.h"
 #include "third_party/blink/renderer/core/style/grid_position.h"
 #include "third_party/blink/renderer/core/style/grid_track_list.h"
+#include "third_party/blink/renderer/core/style/inset_area.h"
 #include "third_party/blink/renderer/core/style/list_style_type_data.h"
 #include "third_party/blink/renderer/core/style/offset_path_operation.h"
 #include "third_party/blink/renderer/core/style/scoped_css_name.h"
@@ -61,9 +62,6 @@
 #include "third_party/blink/renderer/core/style/svg_paint.h"
 #include "third_party/blink/renderer/core/style/text_decoration_thickness.h"
 #include "third_party/blink/renderer/core/style/text_size_adjust.h"
-#include "third_party/blink/renderer/core/style/toggle_group_list.h"
-#include "third_party/blink/renderer/core/style/toggle_root_list.h"
-#include "third_party/blink/renderer/core/style/toggle_trigger_list.h"
 #include "third_party/blink/renderer/core/style/transform_origin.h"
 #include "third_party/blink/renderer/core/style/unzoomed_length.h"
 #include "third_party/blink/renderer/platform/fonts/shaping/text_spacing_trim.h"
@@ -73,6 +71,7 @@
 #include "third_party/blink/renderer/platform/geometry/length_point.h"
 #include "third_party/blink/renderer/platform/geometry/length_size.h"
 #include "third_party/blink/renderer/platform/graphics/graphics_types.h"
+#include "third_party/blink/renderer/platform/graphics/image_orientation.h"
 #include "third_party/blink/renderer/platform/graphics/touch_action.h"
 #include "third_party/blink/renderer/platform/text/quotes_data.h"
 #include "third_party/blink/renderer/platform/text/tab_size.h"
@@ -135,6 +134,42 @@ inline CSSValueID platformEnumToCSSValueIDGenerated(EForcedColorAdjust v) {
       DCHECK_GE(v, EForcedColorAdjust::kNone);
       DCHECK_LE(v, EForcedColorAdjust::kNone);
       return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EForcedColorAdjust::kNone) + static_cast<int>(CSSValueID::kNone));
+  }
+}
+
+
+template <>
+inline EPosition cssValueIDToPlatformEnumGenerated(CSSValueID v) {
+  switch (v) {
+    case CSSValueID::kFixed:
+      return EPosition::kFixed;
+    case CSSValueID::kRelative:
+      return EPosition::kRelative;
+    case CSSValueID::kStatic:
+      return EPosition::kStatic;
+    case CSSValueID::kSticky:
+      return EPosition::kSticky;
+    default:
+      DCHECK_GE(v, CSSValueID::kAbsolute);
+      DCHECK_LE(v, CSSValueID::kAbsolute);
+      return static_cast<EPosition>(static_cast<int>(v) - static_cast<int>(CSSValueID::kAbsolute) + static_cast<int>(EPosition::kAbsolute));
+  }
+}
+
+inline CSSValueID platformEnumToCSSValueIDGenerated(EPosition v) {
+  switch (v) {
+    case EPosition::kFixed:
+      return CSSValueID::kFixed;
+    case EPosition::kRelative:
+      return CSSValueID::kRelative;
+    case EPosition::kStatic:
+      return CSSValueID::kStatic;
+    case EPosition::kSticky:
+      return CSSValueID::kSticky;
+    default:
+      DCHECK_GE(v, EPosition::kAbsolute);
+      DCHECK_LE(v, EPosition::kAbsolute);
+      return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EPosition::kAbsolute) + static_cast<int>(CSSValueID::kAbsolute));
   }
 }
 
@@ -682,20 +717,6 @@ inline CSSValueID platformEnumToCSSValueIDGenerated(EDominantBaseline v) {
       DCHECK_LE(v, EDominantBaseline::kResetSize);
       return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EDominantBaseline::kCentral) + static_cast<int>(CSSValueID::kCentral));
   }
-}
-
-
-template <>
-inline EDynamicRangeLimit cssValueIDToPlatformEnumGenerated(CSSValueID v) {
-  DCHECK_GE(v, CSSValueID::kStandard);
-  DCHECK_LE(v, CSSValueID::kConstrainedHigh);
-  return static_cast<EDynamicRangeLimit>(static_cast<int>(v) - static_cast<int>(CSSValueID::kStandard) + static_cast<int>(EDynamicRangeLimit::kStandard));
-}
-
-inline CSSValueID platformEnumToCSSValueIDGenerated(EDynamicRangeLimit v) {
-  DCHECK_GE(v, EDynamicRangeLimit::kStandard);
-  DCHECK_LE(v, EDynamicRangeLimit::kConstrainedHigh);
-  return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EDynamicRangeLimit::kStandard) + static_cast<int>(CSSValueID::kStandard));
 }
 
 
@@ -1249,42 +1270,6 @@ inline CSSValueID platformEnumToCSSValueIDGenerated(EPointerEvents v) {
       DCHECK_GE(v, EPointerEvents::kVisiblepainted);
       DCHECK_LE(v, EPointerEvents::kBoundingBox);
       return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EPointerEvents::kVisiblepainted) + static_cast<int>(CSSValueID::kVisiblepainted));
-  }
-}
-
-
-template <>
-inline EPosition cssValueIDToPlatformEnumGenerated(CSSValueID v) {
-  switch (v) {
-    case CSSValueID::kFixed:
-      return EPosition::kFixed;
-    case CSSValueID::kRelative:
-      return EPosition::kRelative;
-    case CSSValueID::kStatic:
-      return EPosition::kStatic;
-    case CSSValueID::kSticky:
-      return EPosition::kSticky;
-    default:
-      DCHECK_GE(v, CSSValueID::kAbsolute);
-      DCHECK_LE(v, CSSValueID::kAbsolute);
-      return static_cast<EPosition>(static_cast<int>(v) - static_cast<int>(CSSValueID::kAbsolute) + static_cast<int>(EPosition::kAbsolute));
-  }
-}
-
-inline CSSValueID platformEnumToCSSValueIDGenerated(EPosition v) {
-  switch (v) {
-    case EPosition::kFixed:
-      return CSSValueID::kFixed;
-    case EPosition::kRelative:
-      return CSSValueID::kRelative;
-    case EPosition::kStatic:
-      return CSSValueID::kStatic;
-    case EPosition::kSticky:
-      return CSSValueID::kSticky;
-    default:
-      DCHECK_GE(v, EPosition::kAbsolute);
-      DCHECK_LE(v, EPosition::kAbsolute);
-      return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EPosition::kAbsolute) + static_cast<int>(CSSValueID::kAbsolute));
   }
 }
 
@@ -2007,30 +1992,6 @@ inline CSSValueID platformEnumToCSSValueIDGenerated(EBoxDirection v) {
       DCHECK_GE(v, EBoxDirection::kNormal);
       DCHECK_LE(v, EBoxDirection::kNormal);
       return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EBoxDirection::kNormal) + static_cast<int>(CSSValueID::kNormal));
-  }
-}
-
-
-template <>
-inline EBoxDirectionAlternative cssValueIDToPlatformEnumGenerated(CSSValueID v) {
-  switch (v) {
-    case CSSValueID::kReverse:
-      return EBoxDirectionAlternative::kReverse;
-    default:
-      DCHECK_GE(v, CSSValueID::kNormal);
-      DCHECK_LE(v, CSSValueID::kNormal);
-      return static_cast<EBoxDirectionAlternative>(static_cast<int>(v) - static_cast<int>(CSSValueID::kNormal) + static_cast<int>(EBoxDirectionAlternative::kNormal));
-  }
-}
-
-inline CSSValueID platformEnumToCSSValueIDGenerated(EBoxDirectionAlternative v) {
-  switch (v) {
-    case EBoxDirectionAlternative::kReverse:
-      return CSSValueID::kReverse;
-    default:
-      DCHECK_GE(v, EBoxDirectionAlternative::kNormal);
-      DCHECK_LE(v, EBoxDirectionAlternative::kNormal);
-      return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EBoxDirectionAlternative::kNormal) + static_cast<int>(CSSValueID::kNormal));
   }
 }
 

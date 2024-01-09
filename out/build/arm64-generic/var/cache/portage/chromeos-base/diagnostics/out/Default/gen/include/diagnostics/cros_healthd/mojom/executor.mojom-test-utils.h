@@ -179,7 +179,7 @@ class  VolumeButtonObserverAsyncWaiter {
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
-  void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) override;
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size, ReadFilePartCallback callback) override;
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
   void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
@@ -202,7 +202,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetPsr(GetPsrCallback callback) override;
   void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void RemoveFioTestFile(RemoveFioTestFileCallback callback) override;
-  void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) override;
+  void GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
@@ -215,6 +215,11 @@ class  ExecutorInterceptorForTesting : public Executor {
   void RemoveBtmonLog(RemoveBtmonLogCallback callback) override;
   void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) override;
   void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) override;
+  void GetEcThermalSensors(GetEcThermalSensorsCallback callback) override;
+  void GetTouchpadDevices(GetTouchpadDevicesCallback callback) override;
+  void GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) override;
+  void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) override;
+  void RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -225,16 +230,16 @@ class  ExecutorAsyncWaiter {
 
   ~ExecutorAsyncWaiter();
   void ReadFile(
-      Executor::File file_enum, absl::optional<std::string>* out_content);
-  absl::optional<std::string> ReadFile(Executor::File file_enum);
+      Executor::File file_enum, std::optional<std::string>* out_content);
+  std::optional<std::string> ReadFile(Executor::File file_enum);
   void ReadFilePart(
-      Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, absl::optional<std::string>* out_content);
-  absl::optional<std::string> ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size);
+      Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size, std::optional<std::string>* out_content);
+  std::optional<std::string> ReadFilePart(Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size);
   void GetFileInfo(
       Executor::File file_enum, FileInfoPtr* out_info);
   FileInfoPtr GetFileInfo(Executor::File file_enum);
   void GetAllFanSpeed(
-      std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+      std::vector<uint16_t>* out_fan_rpms, std::optional<std::string>* out_err);
   
   void RunIw(
       Executor::IwCommand cmd, const std::string& interface_name, ExecutedProcessResultPtr* out_result);
@@ -243,23 +248,23 @@ class  ExecutorAsyncWaiter {
       const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents);
   base::flat_map<uint32_t, std::string> GetProcessIOContents(const std::vector<uint32_t>& pids);
   void ReadMsr(
-      uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value);
-  ::ash::cros_healthd::mojom::NullableUint64Ptr ReadMsr(uint32_t msr_reg, uint32_t cpu_index);
+      uint32_t msr_reg, uint32_t cpu_index, std::optional<uint64_t>* out_value);
+  std::optional<uint64_t> ReadMsr(uint32_t msr_reg, uint32_t cpu_index);
   void GetLidAngle(
-      absl::optional<uint16_t>* out_lid_angle);
-  absl::optional<uint16_t> GetLidAngle();
+      std::optional<uint16_t>* out_lid_angle);
+  std::optional<uint16_t> GetLidAngle();
   void GetFingerprintFrame(
-      FingerprintCaptureType type, FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err);
+      FingerprintCaptureType type, FingerprintFrameResultPtr* out_result, std::optional<std::string>* out_err);
   
   void GetFingerprintInfo(
-      FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
+      FingerprintInfoResultPtr* out_result, std::optional<std::string>* out_err);
   
   void SetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
+      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, std::optional<std::string>* out_err);
+  std::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
   void ResetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
-  absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
+      ::ash::cros_healthd::mojom::LedName name, std::optional<std::string>* out_err);
+  std::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
   void GetHciDeviceConfig(
       int32_t hci_interface, ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetHciDeviceConfig(int32_t hci_interface);
@@ -267,16 +272,16 @@ class  ExecutorAsyncWaiter {
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
   void GetPsr(
-      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
+      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err);
   
   void RemoveFioTestFile(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RemoveFioTestFile();
   void GetConnectedExternalDisplayConnectors(
-      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
+      const std::optional<std::vector<uint32_t>>& last_known_connectors, base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, std::optional<std::string>* out_err);
   
   void GetPrivacyScreenInfo(
-      bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err);
+      bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, std::optional<std::string>* out_err);
   
   void FetchDisplayInfo(
       ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
@@ -297,11 +302,26 @@ class  ExecutorAsyncWaiter {
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RemoveBtmonLog();
   void SetFanSpeed(
-      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
+      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, std::optional<std::string>* out_err);
+  std::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
   void SetAllFanAutoControl(
-      absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetAllFanAutoControl();
+      std::optional<std::string>* out_err);
+  std::optional<std::string> SetAllFanAutoControl();
+  void GetEcThermalSensors(
+      std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>* out_thermal_sensors, std::optional<std::string>* out_err);
+  
+  void GetTouchpadDevices(
+      std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>* out_devices, std::optional<std::string>* out_err);
+  
+  void GetSmartBatteryManufactureDate(
+      uint8_t i2c_port, std::optional<uint32_t>* out_manufacture_date);
+  std::optional<uint32_t> GetSmartBatteryManufactureDate(uint8_t i2c_port);
+  void GetSmartBatteryTemperature(
+      uint8_t i2c_port, std::optional<uint32_t>* out_temperature);
+  std::optional<uint32_t> GetSmartBatteryTemperature(uint8_t i2c_port);
+  void RunUrandom(
+      base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
+  bool RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control);
 
  private:
   Executor* const proxy_;

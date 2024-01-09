@@ -1,13 +1,12 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../common/js/util.js';
-import '../../externs/ts/state.js';
-import { constants } from '../../foreground/js/constants.js';
+import { iconSetToCSSBackgroundImageValue } from '../../common/js/util.js';
+import { AndroidApp, State } from '../../externs/ts/state.js';
+import { ICON_TYPES } from '../../foreground/js/constants.js';
 import { Slice } from '../../lib/base_store.js';
 /**
  * @fileoverview Android apps slice of the store.
- * @suppress {checkTypes}
  *
  * Android App is something we get from private API
  * `chrome.fileManagerPrivate.getAndroidPickerApps`, it will be shown as a
@@ -22,9 +21,9 @@ function addAndroidAppsReducer(currentState, payload) {
     for (const app of payload.apps) {
         // For android app item, if no icon is derived from IconSet, set the icon to
         // the generic one.
-        let icon = constants.ICON_TYPES.GENERIC;
+        let icon = ICON_TYPES.GENERIC;
         if (app.iconSet) {
-            const backgroundImage = util.iconSetToCSSBackgroundImageValue(app.iconSet);
+            const backgroundImage = iconSetToCSSBackgroundImageValue(app.iconSet);
             if (backgroundImage !== 'none') {
                 icon = app.iconSet;
             }

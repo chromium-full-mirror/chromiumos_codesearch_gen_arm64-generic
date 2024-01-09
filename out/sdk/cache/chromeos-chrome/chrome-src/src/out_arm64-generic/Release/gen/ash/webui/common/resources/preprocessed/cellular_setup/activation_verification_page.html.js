@@ -14,7 +14,7 @@ export function getTemplate() {
     margin-top: 24px;
   }
 
-  cr-lottie {
+  cros-lottie-renderer {
     margin: auto;
   }
 </style>

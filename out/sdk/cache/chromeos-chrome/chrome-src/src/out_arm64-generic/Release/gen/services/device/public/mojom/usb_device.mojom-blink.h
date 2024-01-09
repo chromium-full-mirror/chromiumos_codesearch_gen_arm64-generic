@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/usb_device.mojom-features.h"
 #include "services/device/public/mojom/usb_device.mojom-shared.h"
 #include "services/device/public/mojom/usb_device.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-blink.h"
@@ -41,126 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbOpenDeviceSuccess>
-    : EnumHashTraits<::device::mojom::UsbOpenDeviceSuccess, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbOpenDeviceError>
-    : EnumHashTraits<::device::mojom::UsbOpenDeviceError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbClaimInterfaceResult>
-    : EnumHashTraits<::device::mojom::UsbClaimInterfaceResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbTransferDirection>
-    : EnumHashTraits<::device::mojom::UsbTransferDirection, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbControlTransferType>
-    : EnumHashTraits<::device::mojom::UsbControlTransferType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbControlTransferRecipient>
-    : EnumHashTraits<::device::mojom::UsbControlTransferRecipient, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbTransferType>
-    : EnumHashTraits<::device::mojom::UsbTransferType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbSynchronizationType>
-    : EnumHashTraits<::device::mojom::UsbSynchronizationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbUsageType>
-    : EnumHashTraits<::device::mojom::UsbUsageType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::UsbTransferStatus>
-    : EnumHashTraits<::device::mojom::UsbTransferStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -710,17 +591,17 @@ class BLINK_PLATFORM_EXPORT UsbOpenDeviceResult {
   // Construct an instance holding |success|.
   static UsbOpenDeviceResultPtr
   NewSuccess(
-      UsbOpenDeviceSuccess success) {
+      UsbOpenDeviceSuccess value) {
     auto result = UsbOpenDeviceResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static UsbOpenDeviceResultPtr
   NewError(
-      UsbOpenDeviceError error) {
+      UsbOpenDeviceError value) {
     auto result = UsbOpenDeviceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1493,7 +1374,7 @@ class BLINK_PLATFORM_EXPORT UsbDeviceInfo {
       const ::WTF::String& manufacturer_name,
       const ::WTF::String& product_name,
       const ::WTF::String& serial_number,
-      const absl::optional<::blink::KURL>& webusb_landing_page,
+      const std::optional<::blink::KURL>& webusb_landing_page,
       uint8_t active_configuration,
       WTF::Vector<UsbConfigurationInfoPtr> configurations);
 
@@ -1609,7 +1490,7 @@ UsbDeviceInfo& operator=(const UsbDeviceInfo&) = delete;
   
   ::WTF::String serial_number;
   
-  absl::optional<::blink::KURL> webusb_landing_page;
+  std::optional<::blink::KURL> webusb_landing_page;
   
   uint8_t active_configuration;
   

@@ -69,17 +69,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaList>::value,
     "MediaList inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaList::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaList is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8MediaList::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MediaList_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -88,7 +84,6 @@ if (index >= blink_receiver->length())
   return;  // Do not intercept.  Fallback to OrdinaryGetOwnProperty.
 
 auto&& return_value = blink_receiver->item(index);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -118,13 +113,13 @@ void V8MediaList::IndexedPropertyDeleterCallback(uint32_t index, const v8::Prope
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "MediaList";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -197,9 +192,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8MediaList::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MediaList_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -224,8 +219,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaList.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -238,13 +234,13 @@ BLINK_BINDINGS_TRACE_EVENT("MediaList.mediaText.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& return_value = blink_receiver->mediaText(execution_context);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -255,12 +251,12 @@ BLINK_BINDINGS_TRACE_EVENT("MediaList.mediaText.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaList";
@@ -282,9 +278,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaList.appendMedium");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaList";
 const char* const property_name = "appendMedium";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -295,16 +291,15 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_medium;
 if (LIKELY(info[0]->IsString())) {
-  arg1_medium.Init(info[0].As<v8::String>());
+  arg1_medium.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaList";
 const char* const property_name = "appendMedium";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -338,7 +333,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -378,7 +373,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -394,13 +389,13 @@ BLINK_BINDINGS_TRACE_EVENT("MediaList.mediaText.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(v8_receiver);
+MediaList* blink_receiver = V8MediaList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& return_value = blink_receiver->mediaText(execution_context);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

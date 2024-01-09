@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBCursor>::value,
     "IDBCursor inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBCursor::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBCursor is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->source();
 if (!ToV8Traits<V8UnionIDBIndexOrIDBObjectStore>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -115,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursor.direction.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->direction();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->direction();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,7 +127,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursor.key.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -166,7 +162,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursor.primaryKey.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -200,8 +196,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursor.request.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->request();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -228,7 +225,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_count = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -251,13 +248,13 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursor.continue");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLAny>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_key;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBCursor";
 const char* const property_name = "continue";
@@ -298,7 +295,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -334,7 +331,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBWrite);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -374,7 +371,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(v8_receiver);
+IDBCursor* blink_receiver = V8IDBCursor::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

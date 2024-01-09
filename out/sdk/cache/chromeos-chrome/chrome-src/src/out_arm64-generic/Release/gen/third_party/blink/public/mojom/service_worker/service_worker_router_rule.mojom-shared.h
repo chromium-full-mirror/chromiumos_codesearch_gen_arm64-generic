@@ -39,9 +39,9 @@ class ServiceWorkerRouterRunningStatusConditionDataView;
 
 class ServiceWorkerRouterRequestConditionDataView;
 
-class ServiceWorkerRouterConditionObjectDataView;
-
 class ServiceWorkerRouterOrConditionDataView;
+
+class ServiceWorkerRouterConditionDataView;
 
 class ServiceWorkerRouterNetworkSourceDataView;
 
@@ -55,7 +55,6 @@ class ServiceWorkerRouterRuleDataView;
 
 class ServiceWorkerRouterRulesDataView;
 
-class ServiceWorkerRouterConditionDataView;
 class ServiceWorkerRouterSourceDataView;
 
 
@@ -79,15 +78,15 @@ struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterRequestConditionDataVi
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterConditionObjectDataView> {
-  using Data = ::blink::mojom::internal::ServiceWorkerRouterConditionObject_Data;
+struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterOrConditionDataView> {
+  using Data = ::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterOrConditionDataView> {
-  using Data = ::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data;
+struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterConditionDataView> {
+  using Data = ::blink::mojom::internal::ServiceWorkerRouterCondition_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -132,13 +131,6 @@ struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterRulesDataView> {
   using Data = ::blink::mojom::internal::ServiceWorkerRouterRules_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::blink::mojom::ServiceWorkerRouterConditionDataView> {
-  using Data = ::blink::mojom::internal::ServiceWorkerRouterCondition_Data;
-  using DataAsArrayElement = Data;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
@@ -258,12 +250,12 @@ static_assert(
 };
 
 
-class ServiceWorkerRouterConditionObjectDataView {
+class ServiceWorkerRouterOrConditionDataView {
  public:
-  ServiceWorkerRouterConditionObjectDataView() = default;
+  ServiceWorkerRouterOrConditionDataView() = default;
 
-  ServiceWorkerRouterConditionObjectDataView(
-      internal::ServiceWorkerRouterConditionObject_Data* data,
+  ServiceWorkerRouterOrConditionDataView(
+      internal::ServiceWorkerRouterOrCondition_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -279,33 +271,103 @@ class ServiceWorkerRouterConditionObjectDataView {
         pointer, output, message_);
   }
  private:
-  internal::ServiceWorkerRouterConditionObject_Data* data_ = nullptr;
+  internal::ServiceWorkerRouterOrCondition_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class ServiceWorkerRouterOrConditionDataView {
+class ServiceWorkerRouterConditionDataView {
  public:
-  ServiceWorkerRouterOrConditionDataView() = default;
+  ServiceWorkerRouterConditionDataView() = default;
 
-  ServiceWorkerRouterOrConditionDataView(
-      internal::ServiceWorkerRouterOrCondition_Data* data,
+  ServiceWorkerRouterConditionDataView(
+      internal::ServiceWorkerRouterCondition_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetObjectsDataView(
-      mojo::ArrayDataView<ServiceWorkerRouterConditionObjectDataView>* output);
+  inline void GetUrlPatternDataView(
+      ::blink::mojom::SafeUrlPatternDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadObjects(UserType* output) {
+  [[nodiscard]] bool ReadUrlPattern(UserType* output) {
     
-    auto* pointer = data_->objects.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::ServiceWorkerRouterConditionObjectDataView>>(
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::SafeUrlPatternDataView, UserType>(),
+    "Attempting to read the optional `url_pattern` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUrlPattern` instead "
+    "of `ReadUrlPattern if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->url_pattern.Get();
+    return mojo::internal::Deserialize<::blink::mojom::SafeUrlPatternDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRequestDataView(
+      ServiceWorkerRouterRequestConditionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequest(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::ServiceWorkerRouterRequestConditionDataView, UserType>(),
+    "Attempting to read the optional `request` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadRequest` instead "
+    "of `ReadRequest if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->request.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterRequestConditionDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRunningStatusDataView(
+      ServiceWorkerRouterRunningStatusConditionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRunningStatus(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView, UserType>(),
+    "Attempting to read the optional `running_status` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadRunningStatus` instead "
+    "of `ReadRunningStatus if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->running_status.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOrConditionDataView(
+      ServiceWorkerRouterOrConditionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrCondition(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::ServiceWorkerRouterOrConditionDataView, UserType>(),
+    "Attempting to read the optional `or_condition` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOrCondition` instead "
+    "of `ReadOrCondition if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->or_condition.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterOrConditionDataView>(
         pointer, output, message_);
   }
  private:
-  internal::ServiceWorkerRouterOrCondition_Data* data_ = nullptr;
+  internal::ServiceWorkerRouterCondition_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -401,14 +463,14 @@ class ServiceWorkerRouterRuleDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetConditionsDataView(
-      mojo::ArrayDataView<ServiceWorkerRouterConditionDataView>* output);
+  inline void GetConditionDataView(
+      ServiceWorkerRouterConditionDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadConditions(UserType* output) {
+  [[nodiscard]] bool ReadCondition(UserType* output) {
     
-    auto* pointer = data_->conditions.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::ServiceWorkerRouterConditionDataView>>(
+    auto* pointer = data_->condition.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterConditionDataView>(
         pointer, output, message_);
   }
   inline void GetSourcesDataView(
@@ -451,76 +513,6 @@ class ServiceWorkerRouterRulesDataView {
   internal::ServiceWorkerRouterRules_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
-
-class ServiceWorkerRouterConditionDataView {
- public:
-  using Tag = internal::ServiceWorkerRouterCondition_Data::ServiceWorkerRouterCondition_Tag;
-
-  ServiceWorkerRouterConditionDataView() = default;
-
-  ServiceWorkerRouterConditionDataView(
-      internal::ServiceWorkerRouterCondition_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const {
-    // For inlined unions, |data_| is always non-null. In that case we need to
-    // check |data_->is_null()|.
-    return !data_ || data_->is_null();
-  }
-
-  Tag tag() const { return data_->tag; }
-  bool is_url_pattern() const { return data_->tag == Tag::kUrlPattern; }
-  inline void GetUrlPatternDataView(
-      ::blink::mojom::SafeUrlPatternDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadUrlPattern(UserType* output) const {
-    
-    CHECK(is_url_pattern());
-    return mojo::internal::Deserialize<::blink::mojom::SafeUrlPatternDataView>(
-        data_->data.f_url_pattern.Get(), output, message_);
-  }
-  bool is_request() const { return data_->tag == Tag::kRequest; }
-  inline void GetRequestDataView(
-      ServiceWorkerRouterRequestConditionDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadRequest(UserType* output) const {
-    
-    CHECK(is_request());
-    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterRequestConditionDataView>(
-        data_->data.f_request.Get(), output, message_);
-  }
-  bool is_running_status() const { return data_->tag == Tag::kRunningStatus; }
-  inline void GetRunningStatusDataView(
-      ServiceWorkerRouterRunningStatusConditionDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadRunningStatus(UserType* output) const {
-    
-    CHECK(is_running_status());
-    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView>(
-        data_->data.f_running_status.Get(), output, message_);
-  }
-  bool is_or_condition() const { return data_->tag == Tag::kOrCondition; }
-  inline void GetOrConditionDataView(
-      ServiceWorkerRouterOrConditionDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadOrCondition(UserType* output) const {
-    
-    CHECK(is_or_condition());
-    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterOrConditionDataView>(
-        data_->data.f_or_condition.Get(), output, message_);
-  }
-
- private:
-  internal::ServiceWorkerRouterCondition_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
 
 
 class ServiceWorkerRouterSourceDataView {
@@ -703,13 +695,13 @@ struct Serializer<::blink::mojom::ServiceWorkerRouterRequestConditionDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::ServiceWorkerRouterConditionObjectDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::ServiceWorkerRouterOrConditionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::ServiceWorkerRouterConditionObjectDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::ServiceWorkerRouterOrConditionDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::ServiceWorkerRouterConditionObject_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -726,16 +718,16 @@ struct Serializer<::blink::mojom::ServiceWorkerRouterConditionObjectDataView, Ma
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->conditions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null conditions in ServiceWorkerRouterConditionObject struct");
+        "null conditions in ServiceWorkerRouterOrCondition struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::ServiceWorkerRouterConditionObject_Data* input,
+  static bool Deserialize(::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::ServiceWorkerRouterConditionObjectDataView data_view(input, message);
+    ::blink::mojom::ServiceWorkerRouterOrConditionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -746,39 +738,57 @@ struct Serializer<::blink::mojom::ServiceWorkerRouterConditionObjectDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::ServiceWorkerRouterOrConditionDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::ServiceWorkerRouterConditionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::ServiceWorkerRouterOrConditionDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::ServiceWorkerRouterConditionDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::ServiceWorkerRouterCondition_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::objects(input)) in_objects = Traits::objects(input);
+    decltype(Traits::url_pattern(input)) in_url_pattern = Traits::url_pattern(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->objects)::BaseType>
-        objects_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& objects_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::ServiceWorkerRouterConditionObjectDataView>>(
-        in_objects, objects_fragment, &objects_validate_params);
-    fragment->objects.Set(
-        objects_fragment.is_null() ? nullptr : objects_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->objects.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null objects in ServiceWorkerRouterOrCondition struct");
+        typename decltype(fragment->url_pattern)::BaseType> url_pattern_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::SafeUrlPatternDataView>(
+        in_url_pattern, url_pattern_fragment);
+    fragment->url_pattern.Set(
+        url_pattern_fragment.is_null() ? nullptr : url_pattern_fragment.data());
+    decltype(Traits::request(input)) in_request = Traits::request(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->request)::BaseType> request_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterRequestConditionDataView>(
+        in_request, request_fragment);
+    fragment->request.Set(
+        request_fragment.is_null() ? nullptr : request_fragment.data());
+    decltype(Traits::running_status(input)) in_running_status = Traits::running_status(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->running_status)::BaseType> running_status_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView>(
+        in_running_status, running_status_fragment);
+    fragment->running_status.Set(
+        running_status_fragment.is_null() ? nullptr : running_status_fragment.data());
+    decltype(Traits::or_condition(input)) in_or_condition = Traits::or_condition(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->or_condition)::BaseType> or_condition_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterOrConditionDataView>(
+        in_or_condition, or_condition_fragment);
+    fragment->or_condition.Set(
+        or_condition_fragment.is_null() ? nullptr : or_condition_fragment.data());
   }
 
-  static bool Deserialize(::blink::mojom::internal::ServiceWorkerRouterOrCondition_Data* input,
+  static bool Deserialize(::blink::mojom::internal::ServiceWorkerRouterCondition_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::ServiceWorkerRouterOrConditionDataView data_view(input, message);
+    ::blink::mojom::ServiceWorkerRouterConditionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -923,20 +933,18 @@ struct Serializer<::blink::mojom::ServiceWorkerRouterRuleDataView, MaybeConstUse
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::conditions(input)) in_conditions = Traits::conditions(input);
+    decltype(Traits::condition(input)) in_condition = Traits::condition(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->conditions)::BaseType>
-        conditions_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& conditions_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::ServiceWorkerRouterConditionDataView>>(
-        in_conditions, conditions_fragment, &conditions_validate_params);
-    fragment->conditions.Set(
-        conditions_fragment.is_null() ? nullptr : conditions_fragment.data());
+        typename decltype(fragment->condition)::BaseType> condition_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterConditionDataView>(
+        in_condition, condition_fragment);
+    fragment->condition.Set(
+        condition_fragment.is_null() ? nullptr : condition_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->conditions.is_null(),
+        fragment->condition.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null conditions in ServiceWorkerRouterRule struct");
+        "null condition in ServiceWorkerRouterRule struct");
     decltype(Traits::sources(input)) in_sources = Traits::sources(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->sources)::BaseType>
@@ -1003,111 +1011,6 @@ struct Serializer<::blink::mojom::ServiceWorkerRouterRulesDataView, MaybeConstUs
       return CallSetToNullIfExists<Traits>(output);
 
     ::blink::mojom::ServiceWorkerRouterRulesDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::ServiceWorkerRouterConditionDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::blink::mojom::ServiceWorkerRouterConditionDataView, UserType>;
-
-  static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::blink::mojom::internal::ServiceWorkerRouterCondition_Data>& fragment,
-                        bool inlined) {
-    if (CallIsNullIfExists<Traits>(input)) {
-       if (inlined)
-        fragment->set_null();
-      return;
-    }
-
-    if (!inlined)
-      fragment.Allocate();
-
-    // TODO(azani): Handle unknown and objects.
-    // Set the not-null flag.
-    fragment->size = kUnionDataSize;
-    fragment->tag = Traits::GetTag(input);
-    switch (fragment->tag) {
-      case ::blink::mojom::ServiceWorkerRouterConditionDataView::Tag::kUrlPattern: {
-        decltype(Traits::url_pattern(input))
-            in_url_pattern = Traits::url_pattern(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_url_pattern)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::SafeUrlPatternDataView>(
-            in_url_pattern, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null url_pattern in ServiceWorkerRouterCondition union");
-        fragment->data.f_url_pattern.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::blink::mojom::ServiceWorkerRouterConditionDataView::Tag::kRequest: {
-        decltype(Traits::request(input))
-            in_request = Traits::request(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_request)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterRequestConditionDataView>(
-            in_request, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null request in ServiceWorkerRouterCondition union");
-        fragment->data.f_request.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::blink::mojom::ServiceWorkerRouterConditionDataView::Tag::kRunningStatus: {
-        decltype(Traits::running_status(input))
-            in_running_status = Traits::running_status(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_running_status)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView>(
-            in_running_status, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null running_status in ServiceWorkerRouterCondition union");
-        fragment->data.f_running_status.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::blink::mojom::ServiceWorkerRouterConditionDataView::Tag::kOrCondition: {
-        decltype(Traits::or_condition(input))
-            in_or_condition = Traits::or_condition(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_or_condition)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterOrConditionDataView>(
-            in_or_condition, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null or_condition in ServiceWorkerRouterCondition union");
-        fragment->data.f_or_condition.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-    }
-  }
-
-  static bool Deserialize(::blink::mojom::internal::ServiceWorkerRouterCondition_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input || input->is_null())
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::blink::mojom::ServiceWorkerRouterConditionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1233,17 +1136,32 @@ inline void ServiceWorkerRouterRequestConditionDataView::GetMethodDataView(
 }
 
 
-inline void ServiceWorkerRouterConditionObjectDataView::GetConditionsDataView(
+inline void ServiceWorkerRouterOrConditionDataView::GetConditionsDataView(
     mojo::ArrayDataView<ServiceWorkerRouterConditionDataView>* output) {
   auto pointer = data_->conditions.Get();
   *output = mojo::ArrayDataView<ServiceWorkerRouterConditionDataView>(pointer, message_);
 }
 
 
-inline void ServiceWorkerRouterOrConditionDataView::GetObjectsDataView(
-    mojo::ArrayDataView<ServiceWorkerRouterConditionObjectDataView>* output) {
-  auto pointer = data_->objects.Get();
-  *output = mojo::ArrayDataView<ServiceWorkerRouterConditionObjectDataView>(pointer, message_);
+inline void ServiceWorkerRouterConditionDataView::GetUrlPatternDataView(
+    ::blink::mojom::SafeUrlPatternDataView* output) {
+  auto pointer = data_->url_pattern.Get();
+  *output = ::blink::mojom::SafeUrlPatternDataView(pointer, message_);
+}
+inline void ServiceWorkerRouterConditionDataView::GetRequestDataView(
+    ServiceWorkerRouterRequestConditionDataView* output) {
+  auto pointer = data_->request.Get();
+  *output = ServiceWorkerRouterRequestConditionDataView(pointer, message_);
+}
+inline void ServiceWorkerRouterConditionDataView::GetRunningStatusDataView(
+    ServiceWorkerRouterRunningStatusConditionDataView* output) {
+  auto pointer = data_->running_status.Get();
+  *output = ServiceWorkerRouterRunningStatusConditionDataView(pointer, message_);
+}
+inline void ServiceWorkerRouterConditionDataView::GetOrConditionDataView(
+    ServiceWorkerRouterOrConditionDataView* output) {
+  auto pointer = data_->or_condition.Get();
+  *output = ServiceWorkerRouterOrConditionDataView(pointer, message_);
 }
 
 
@@ -1260,10 +1178,10 @@ inline void ServiceWorkerRouterCacheSourceDataView::GetCacheNameDataView(
 }
 
 
-inline void ServiceWorkerRouterRuleDataView::GetConditionsDataView(
-    mojo::ArrayDataView<ServiceWorkerRouterConditionDataView>* output) {
-  auto pointer = data_->conditions.Get();
-  *output = mojo::ArrayDataView<ServiceWorkerRouterConditionDataView>(pointer, message_);
+inline void ServiceWorkerRouterRuleDataView::GetConditionDataView(
+    ServiceWorkerRouterConditionDataView* output) {
+  auto pointer = data_->condition.Get();
+  *output = ServiceWorkerRouterConditionDataView(pointer, message_);
 }
 inline void ServiceWorkerRouterRuleDataView::GetSourcesDataView(
     mojo::ArrayDataView<ServiceWorkerRouterSourceDataView>* output) {
@@ -1278,27 +1196,6 @@ inline void ServiceWorkerRouterRulesDataView::GetRulesDataView(
   *output = mojo::ArrayDataView<ServiceWorkerRouterRuleDataView>(pointer, message_);
 }
 
-
-inline void ServiceWorkerRouterConditionDataView::GetUrlPatternDataView(
-    ::blink::mojom::SafeUrlPatternDataView* output) const {
-  CHECK(is_url_pattern());
-  *output = ::blink::mojom::SafeUrlPatternDataView(data_->data.f_url_pattern.Get(), message_);
-}
-inline void ServiceWorkerRouterConditionDataView::GetRequestDataView(
-    ServiceWorkerRouterRequestConditionDataView* output) const {
-  CHECK(is_request());
-  *output = ServiceWorkerRouterRequestConditionDataView(data_->data.f_request.Get(), message_);
-}
-inline void ServiceWorkerRouterConditionDataView::GetRunningStatusDataView(
-    ServiceWorkerRouterRunningStatusConditionDataView* output) const {
-  CHECK(is_running_status());
-  *output = ServiceWorkerRouterRunningStatusConditionDataView(data_->data.f_running_status.Get(), message_);
-}
-inline void ServiceWorkerRouterConditionDataView::GetOrConditionDataView(
-    ServiceWorkerRouterOrConditionDataView* output) const {
-  CHECK(is_or_condition());
-  *output = ServiceWorkerRouterOrConditionDataView(data_->data.f_or_condition.Get(), message_);
-}
 
 inline void ServiceWorkerRouterSourceDataView::GetNetworkSourceDataView(
     ServiceWorkerRouterNetworkSourceDataView* output) const {

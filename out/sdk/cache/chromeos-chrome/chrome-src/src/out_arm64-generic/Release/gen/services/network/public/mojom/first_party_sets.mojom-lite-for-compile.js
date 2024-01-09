@@ -349,8 +349,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'manualAliases', 32,
+        0,
+        mojo.internal.Map(network.mojom.SchemefulSiteSpec.$, network.mojom.SchemefulSiteSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -367,6 +375,8 @@ network.mojom.GlobalFirstPartySets = class {
     this.aliases;
     /** @export { !network.mojom.FirstPartySetsContextConfig } */
     this.manualConfig;
+    /** @export { !Map<!network.mojom.SchemefulSite, !network.mojom.SchemefulSite> } */
+    this.manualAliases;
   }
 };
 

@@ -25,6 +25,7 @@
 #include "ui/gfx/mojom/buffer_types.mojom-shared-internal.h"
 #include "ui/gfx/mojom/color_space.mojom-shared-internal.h"
 #include "ui/gfx/mojom/gpu_fence_handle.mojom-shared-internal.h"
+#include "ui/gfx/mojom/native_handle_types.mojom-shared-internal.h"
 #include "ui/gfx/mojom/presentation_feedback.mojom-shared-internal.h"
 #include "ui/gl/mojom/gpu_preference.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
@@ -339,10 +340,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_GPU_EXPORT) ContextCreationAttribs_Data {
   uint8_t enable_grcontext : 1;
   uint8_t enable_raster_interface : 1;
   uint8_t enable_oop_rasterization : 1;
-  uint8_t enable_swap_timestamps_if_supported : 1;
-  uint8_t pad8_[3];
+  uint8_t pad7_[3];
   int32_t context_type;
-  int32_t color_space;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ContextCreationAttribs_Data>;
@@ -390,11 +390,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_GPU_EXPORT) CreateCommandBufferParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::gpu::mojom::internal::SurfaceHandle_Data> surface_handle;
   int32_t share_group_id;
   int32_t stream_id;
   int32_t stream_priority;
-  uint8_t pad3_[4];
+  uint8_t pad2_[4];
   mojo::internal::Pointer<internal::ContextCreationAttribs_Data> attribs;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> active_url;
 
@@ -404,7 +403,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_GPU_EXPORT) CreateCommandBufferParams_Data {
   CreateCommandBufferParams_Data();
   ~CreateCommandBufferParams_Data() = delete;
 };
-static_assert(sizeof(CreateCommandBufferParams_Data) == 48,
+static_assert(sizeof(CreateCommandBufferParams_Data) == 40,
               "Bad sizeof(CreateCommandBufferParams_Data)");
 // Used by CreateCommandBufferParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

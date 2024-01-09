@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSNumericValue>::value,
     "CSSNumericValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSNumericValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSNumericValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,9 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.add");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "add";
@@ -124,9 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.div");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "div";
@@ -153,9 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.equals");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "equals";
@@ -179,9 +174,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.max");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "max";
@@ -208,9 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.min");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "min";
@@ -237,9 +232,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.mul");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "mul";
@@ -266,9 +261,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.sub");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "sub";
@@ -305,7 +300,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_unit = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -328,9 +323,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNumericValue.toSum");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSNumericValue";
 const char* const property_name = "toSum";
@@ -362,7 +357,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSNumericValue* blink_receiver = V8CSSNumericValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 if (!ToV8Traits<CSSNumericType>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

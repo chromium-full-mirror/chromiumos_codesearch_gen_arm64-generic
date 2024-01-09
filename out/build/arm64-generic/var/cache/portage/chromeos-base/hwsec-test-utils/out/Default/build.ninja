@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/hwsec-test-utils-0.0.1-r1032/work/hwsec-test-utils-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -25,11 +25,8 @@ build _hwsec-test-va-install_config: phony obj/hwsec-test-utils/_hwsec-test-va-i
 build common_library: phony obj/hwsec-test-utils/common_library.stamp
 build fake_pca_agent_library: phony obj/hwsec-test-utils/fake_pca_agent_library.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build verified_access_library: phony obj/hwsec-test-utils/verified_access_library.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build hwsec-test-utils$:_attestation-injected-keys-install_config: phony obj/hwsec-test-utils/_attestation-injected-keys-install_config.stamp
 build hwsec-test-utils$:_fake_pca_agentd-install_config: phony obj/hwsec-test-utils/_fake_pca_agentd-install_config.stamp
 build hwsec-test-utils$:_hwsec-ownership-id-install_config: phony obj/hwsec-test-utils/_hwsec-ownership-id-install_config.stamp
@@ -40,13 +37,11 @@ build hwsec-test-utils$:common_library: phony obj/hwsec-test-utils/common_librar
 build hwsec-test-utils$:fake_pca_agent_library: phony obj/hwsec-test-utils/fake_pca_agent_library.stamp
 build hwsec-test-utils$:fake_pca_agentd: phony ./fake_pca_agentd
 build hwsec-test-utils$:hwsec-ownership-id: phony ./hwsec-ownership-id
-build hwsec-test-utils$:hwsec-test-utils_testrunner: phony ./hwsec-test-utils_testrunner
 build hwsec-test-utils$:hwsec-test-va: phony ./hwsec-test-va
 build hwsec-test-utils$:verified_access_library: phony obj/hwsec-test-utils/verified_access_library.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/hwsec-test-utils/_attestation-injected-keys-install_config.stamp $
     obj/hwsec-test-utils/_fake_pca_agentd-install_config.stamp $
     obj/hwsec-test-utils/_hwsec-ownership-id-install_config.stamp $
@@ -57,7 +52,6 @@ build all: phony $
     obj/hwsec-test-utils/fake_pca_agent_library.stamp $
     ./fake_pca_agentd $
     ./hwsec-ownership-id $
-    ./hwsec-test-utils_testrunner $
     ./hwsec-test-va $
     obj/hwsec-test-utils/verified_access_library.stamp
 

@@ -241,6 +241,22 @@ blink.mojom.WidgetInputHandlerHostRemote = class {
 
   
   /**
+   * @param { !boolean } autoscrollSelection
+   */
+
+  setAutoscrollSelectionActiveInMainFrame(
+      autoscrollSelection) {
+    this.proxy.sendMessage(
+        7,
+        blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        [
+          autoscrollSelection
+        ]);
+  }
+
+  
+  /**
    * @param { !boolean } fromUserGesture
    * @param { !boolean } unadjustedMovement
    * @return {!Promise<{
@@ -253,7 +269,7 @@ blink.mojom.WidgetInputHandlerHostRemote = class {
       fromUserGesture,
       unadjustedMovement) {
     return this.proxy.sendMessage(
-        7,
+        8,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         [
@@ -322,6 +338,11 @@ blink.mojom.WidgetInputHandlerHostReceiver = class {
         impl.setMouseCapture.bind(impl));
     this.helper_internal_.registerHandler(
         7,
+        blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        impl.setAutoscrollSelectionActiveInMainFrame.bind(impl));
+    this.helper_internal_.registerHandler(
+        8,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         impl.requestMouseLock.bind(impl));
@@ -464,12 +485,24 @@ blink.mojom.WidgetInputHandlerHostCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.requestMouseLock =
+    this.setAutoscrollSelectionActiveInMainFrame =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         7,
+        blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        this.setAutoscrollSelectionActiveInMainFrame.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.requestMouseLock =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        8,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         blink.mojom.WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         this.requestMouseLock.createReceiverHandler(true /* expectsResponse */));
@@ -1863,7 +1896,6 @@ blink.mojom.WidgetInputHandlerRemote = class {
         state: !blink.mojom.InputEventResultState,
         overscroll: ?blink.mojom.DidOverscrollParams,
         touchAction: ?blink.mojom.TouchActionOptional,
-        scrollResultData: ?blink.mojom.ScrollResultData,
    *  }>}
    */
 
@@ -2439,14 +2471,6 @@ blink.mojom.SelectAroundCaretResultSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.ScrollResultDataSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 blink.mojom.WidgetInputHandlerHost_SetTouchActionFromMain_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2496,6 +2520,14 @@ blink.mojom.WidgetInputHandlerHost_ImeCompositionRangeChanged_ParamsSpec =
  * @export
  */
 blink.mojom.WidgetInputHandlerHost_SetMouseCapture_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -4366,35 +4398,6 @@ blink.mojom.SelectAroundCaretResult = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.ScrollResultDataSpec.$,
-    'ScrollResultData',
-    [
-      mojo.internal.StructField(
-        'rootScrollOffset', 0,
-        0,
-        gfx.mojom.PointFSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.ScrollResultData = class {
-  constructor() {
-    /** @export { (gfx.mojom.PointF|undefined) } */
-    this.rootScrollOffset;
-  }
-};
-
-
-
-mojo.internal.Struct(
     blink.mojom.WidgetInputHandlerHost_SetTouchActionFromMain_ParamsSpec.$,
     'WidgetInputHandlerHost_SetTouchActionFromMain_Params',
     [
@@ -4592,6 +4595,35 @@ blink.mojom.WidgetInputHandlerHost_SetMouseCapture_Params = class {
   constructor() {
     /** @export { !boolean } */
     this.capture;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+    'WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params',
+    [
+      mojo.internal.StructField(
+        'autoscrollSelection', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+blink.mojom.WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.autoscrollSelection;
   }
 };
 
@@ -6104,16 +6136,8 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'scrollResultData', 32,
-        0,
-        blink.mojom.ScrollResultDataSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
-    [[0, 48],]);
+    [[0, 40],]);
 
 
 
@@ -6132,8 +6156,6 @@ blink.mojom.WidgetInputHandler_DispatchEvent_ResponseParams = class {
     this.overscroll;
     /** @export { (blink.mojom.TouchActionOptional|undefined) } */
     this.touchAction;
-    /** @export { (blink.mojom.ScrollResultData|undefined) } */
-    this.scrollResultData;
   }
 };
 

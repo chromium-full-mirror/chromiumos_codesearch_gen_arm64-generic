@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "virtual", "name": "target-chromium-os-dev", "version": "1", "revision": 107, "fullname": "virtual/target-chromium-os-dev", "fullnamerev": "virtual/target-chromium-os-dev-1-r107", "license_names": [], "license_text_scanned": [], "homepages": ["https://dev.chromium.org/"], "skip": true, "tainted": false, "ebuild_path": null}

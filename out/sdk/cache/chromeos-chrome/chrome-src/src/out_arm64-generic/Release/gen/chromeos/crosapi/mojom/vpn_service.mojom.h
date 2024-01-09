@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/vpn_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/vpn_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/vpn_service.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -163,7 +164,7 @@ class EventObserverForExtension
   virtual void OnConfigRemoved(const std::string& configuration_name) = 0;
 
   
-  virtual void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const absl::optional<std::string>& error) = 0;
+  virtual void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const std::optional<std::string>& error) = 0;
 
   
   virtual void OnPacketReceived(const std::vector<uint8_t>& data) = 0;
@@ -364,7 +365,7 @@ class  EventObserverForExtensionProxy
   
   void OnConfigRemoved(const std::string& configuration_name) final;
   
-  void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const absl::optional<std::string>& error) final;
+  void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const std::optional<std::string>& error) final;
   
   void OnPacketReceived(const std::vector<uint8_t>& data) final;
 
@@ -633,8 +634,8 @@ class  VpnErrorResponse {
   VpnErrorResponse();
 
   VpnErrorResponse(
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& message);
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& message);
 
 
   ~VpnErrorResponse();
@@ -712,9 +713,9 @@ class  VpnErrorResponse {
   }
 
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

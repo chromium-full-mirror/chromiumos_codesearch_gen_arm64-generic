@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -104,7 +105,7 @@ ProxyLookupClientProxy::ProxyLookupClientProxy(mojo::MessageReceiverWithResponde
 }
 
 void ProxyLookupClientProxy::OnProxyLookupComplete(
-    int32_t in_net_error, const absl::optional<::net::ProxyInfo>& in_proxy_info) {
+    int32_t in_net_error, const std::optional<::net::ProxyInfo>& in_proxy_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::ProxyLookupClient::OnProxyLookupComplete", "input_parameters",
@@ -115,17 +116,20 @@ void ProxyLookupClientProxy::OnProxyLookupComplete(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("proxy_info"), in_proxy_info,
-                        "<value of type const absl::optional<::net::ProxyInfo>&>");
+                        "<value of type const std::optional<::net::ProxyInfo>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyLookupClient_OnProxyLookupComplete_Name, kFlags, 0, 0, nullptr);
@@ -165,7 +169,7 @@ bool ProxyLookupClientStubDispatch::Accept(
       
       bool success = true;
       int32_t p_net_error{};
-      absl::optional<::net::ProxyInfo> p_proxy_info{};
+      std::optional<::net::ProxyInfo> p_proxy_info{};
       ProxyLookupClient_OnProxyLookupComplete_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -205,10 +209,10 @@ bool ProxyLookupClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyLookupClientValidationInfo[] = {
-    {&internal::ProxyLookupClient_OnProxyLookupComplete_Params_Data::Validate,
+    { &internal::ProxyLookupClient_OnProxyLookupComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -234,7 +238,7 @@ namespace mojo {
 namespace network::mojom {
 
 
-void ProxyLookupClientInterceptorForTesting::OnProxyLookupComplete(int32_t net_error, const absl::optional<::net::ProxyInfo>& proxy_info) {
+void ProxyLookupClientInterceptorForTesting::OnProxyLookupComplete(int32_t net_error, const std::optional<::net::ProxyInfo>& proxy_info) {
   GetForwardingInterface()->OnProxyLookupComplete(std::move(net_error), std::move(proxy_info));
 }
 ProxyLookupClientAsyncWaiter::ProxyLookupClientAsyncWaiter(

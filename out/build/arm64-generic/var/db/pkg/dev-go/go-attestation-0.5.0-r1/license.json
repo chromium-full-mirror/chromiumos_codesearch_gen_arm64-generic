@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "go-attestation", "version": "0.5.0", "revision": 1, "fullname": "dev-go/go-attestation", "fullnamerev": "dev-go/go-attestation-0.5.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/go-attestation"], "skip": false, "tainted": false, "ebuild_path": null}

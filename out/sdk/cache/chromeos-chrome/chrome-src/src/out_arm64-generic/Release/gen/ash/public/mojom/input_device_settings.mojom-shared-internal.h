@@ -192,6 +192,9 @@ struct StaticShortcutAction_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
+      case 10:
+      case 11:
         return true;
     }
     return false;
@@ -217,6 +220,8 @@ struct CustomizationRestriction_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
+      case 4:
         return true;
     }
     return false;
@@ -1086,7 +1091,7 @@ class  GraphicsTablet_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   uint32_t id;
-  uint8_t pad1_[4];
+  int32_t customization_restriction;
   mojo::internal::Pointer<mojo::internal::String_Data> device_key;
   mojo::internal::Pointer<internal::GraphicsTabletSettings_Data> settings;
 
@@ -1239,6 +1244,7 @@ class  KeyEvent_Data {
   uint32_t dom_code;
   uint32_t dom_key;
   uint32_t modifiers;
+  mojo::internal::Pointer<mojo::internal::String_Data> key_display;
 
  private:
   friend class mojo::internal::MessageFragment<KeyEvent_Data>;
@@ -1246,7 +1252,7 @@ class  KeyEvent_Data {
   KeyEvent_Data();
   ~KeyEvent_Data() = delete;
 };
-static_assert(sizeof(KeyEvent_Data) == 24,
+static_assert(sizeof(KeyEvent_Data) == 32,
               "Bad sizeof(KeyEvent_Data)");
 // Used by KeyEvent::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

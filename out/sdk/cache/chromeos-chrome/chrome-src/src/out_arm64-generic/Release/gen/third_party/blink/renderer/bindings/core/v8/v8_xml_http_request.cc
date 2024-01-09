@@ -89,11 +89,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, XMLHttpRequest>::value,
     "XMLHttpRequest does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&XMLHttpRequest::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XMLHttpRequest is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -106,10 +101,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.onreadystatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreadystatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreadystatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -122,8 +117,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreadystatechange(event_handler);
 }
 
@@ -134,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -148,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.timeout.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -161,9 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.timeout.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XMLHttpRequest";
@@ -187,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.withCredentials.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->withCredentials();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -200,9 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.withCredentials.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XMLHttpRequest";
@@ -219,42 +218,6 @@ if (UNLIKELY(exception_state.HadException())) {
 
 }
 
-void DeprecatedBrowsingTopicsAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XMLHttpRequest_deprecatedBrowsingTopics_Getter");
-BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.deprecatedBrowsingTopics.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->deprecatedBrowsingTopics();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
-}
-
-void DeprecatedBrowsingTopicsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XMLHttpRequest_deprecatedBrowsingTopics_Setter");
-BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.deprecatedBrowsingTopics.set");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Value> v8_property_value = info[0];
-const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
-const char* const class_like_name = "XMLHttpRequest";
-const char* const property_name = "deprecatedBrowsingTopics";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-auto&& arg1_value = NativeValueTraits<IDLBoolean>::NativeValue(isolate, v8_property_value, exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setDeprecatedBrowsingTopics(arg1_value);
-
-}
-
 void UploadAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XMLHttpRequest_upload_Getter");
@@ -262,8 +225,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.upload.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->upload();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -276,10 +240,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.responseURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->responseURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->responseURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -291,8 +255,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.status.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->status();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -305,10 +270,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.statusText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->statusText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->statusText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -320,10 +285,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.responseType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->responseType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->responseType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -334,9 +299,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.responseType.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XMLHttpRequest";
@@ -373,12 +338,12 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.response.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XMLHttpRequest";
 const char* const property_name = "response";
@@ -398,9 +363,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.responseText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XMLHttpRequest";
 const char* const property_name = "responseText";
@@ -426,7 +391,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXMLHttpRequestResponse
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XMLHttpRequest";
 const char* const property_name = "responseXML";
@@ -483,8 +448,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.abort");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->abort();
 
 }
@@ -500,10 +466,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.getAllResponseHeaders");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->getAllResponseHeaders();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getAllResponseHeaders();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -528,7 +494,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLByteString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -555,7 +521,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_method = NativeValueTraits<IDLByteString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -589,7 +555,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_method = NativeValueTraits<IDLByteString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -677,7 +643,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mime = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -700,10 +666,10 @@ BLINK_BINDINGS_TRACE_EVENT("XMLHttpRequest.send");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLNullable<V8UnionArrayBufferOrArrayBufferViewOrBlobOrDocumentOrFormDataOrURLSearchParamsOrUSVString>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_body{nullptr};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLNullable<V8UnionArrayBufferOrArrayBufferViewOrBlobOrDocumentOrFormDataOrURLSearchParamsOrUSVString>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_body{nullptr};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XMLHttpRequest";
 const char* const property_name = "send";
@@ -742,7 +708,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_attribution_reporting = NativeValueTraits<AttributionReportingRequestOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -779,7 +745,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_private_token = NativeValueTraits<PrivateToken>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -812,7 +778,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(v8_receiver);
+XMLHttpRequest* blink_receiver = V8XMLHttpRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLByteString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -915,22 +881,13 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8XMLHttpRequest::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;
 
+
+
+
+
 ScriptState* script_state = ScriptState::From(context);
 ExecutionContext* execution_context = ExecutionContext::From(script_state);
 const bool is_in_secure_context = execution_context->IsSecureContext();
-if (is_in_secure_context && execution_context->IsWindow() && ((feature_selector.IsAll() && RuntimeEnabledFeatures::TopicsXHREnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kTopicsXHR))) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"deprecatedBrowsingTopics", DeprecatedBrowsingTopicsAttributeGetCallback, DeprecatedBrowsingTopicsAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-
-
-
-
 if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::AttributionReportingInterfaceEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kAttributionReportingInterface))) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setAttributionReporting", SetAttributionReportingOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

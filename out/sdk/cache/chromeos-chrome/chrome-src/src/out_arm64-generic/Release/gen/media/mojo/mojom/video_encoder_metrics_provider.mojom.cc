@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -189,14 +190,17 @@ void VideoEncoderMetricsProviderProxy::Initialize(
                         "<value of type ::media::SVCScalabilityMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncoderMetricsProvider_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -248,14 +252,17 @@ void VideoEncoderMetricsProviderProxy::SetEncodedFrameCount(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncoderMetricsProvider_SetEncodedFrameCount_Name, kFlags, 0, 0, nullptr);
@@ -290,14 +297,17 @@ void VideoEncoderMetricsProviderProxy::SetError(
                         "<value of type const ::media::EncoderStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncoderMetricsProvider_SetError_Name, kFlags, 0, 0, nullptr);
@@ -339,14 +349,17 @@ void VideoEncoderMetricsProviderProxy::Complete(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncoderMetricsProvider_Complete_Name, kFlags, 0, 0, nullptr);
@@ -530,16 +543,16 @@ bool VideoEncoderMetricsProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoEncoderMetricsProviderValidationInfo[] = {
-    {&internal::VideoEncoderMetricsProvider_Initialize_Params_Data::Validate,
+    { &internal::VideoEncoderMetricsProvider_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoEncoderMetricsProvider_SetEncodedFrameCount_Params_Data::Validate,
+    { &internal::VideoEncoderMetricsProvider_SetEncodedFrameCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoEncoderMetricsProvider_SetError_Params_Data::Validate,
+    { &internal::VideoEncoderMetricsProvider_SetError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoEncoderMetricsProvider_Complete_Params_Data::Validate,
+    { &internal::VideoEncoderMetricsProvider_Complete_Params_Data::Validate,
      nullptr /* no response */},
 };
 

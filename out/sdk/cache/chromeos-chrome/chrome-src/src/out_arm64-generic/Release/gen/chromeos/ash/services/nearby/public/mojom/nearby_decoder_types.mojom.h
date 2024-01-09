@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_decoder_types.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_decoder_types.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_decoder_types.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-forward.h"
@@ -640,9 +641,9 @@ class  Frame {
   // Construct an instance holding |v1|.
   static FramePtr
   NewV1(
-      V1FramePtr v1) {
+      V1FramePtr value) {
     auto result = FramePtr(absl::in_place);
-    result->set_v1(std::move(v1));
+    result->set_v1(std::move(value));
     return result;
   }
 
@@ -749,49 +750,49 @@ class  V1Frame {
   // Construct an instance holding |introduction|.
   static V1FramePtr
   NewIntroduction(
-      IntroductionFramePtr introduction) {
+      IntroductionFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_introduction(std::move(introduction));
+    result->set_introduction(std::move(value));
     return result;
   }
   // Construct an instance holding |connection_response|.
   static V1FramePtr
   NewConnectionResponse(
-      ConnectionResponseFramePtr connection_response) {
+      ConnectionResponseFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_connection_response(std::move(connection_response));
+    result->set_connection_response(std::move(value));
     return result;
   }
   // Construct an instance holding |paired_key_encryption|.
   static V1FramePtr
   NewPairedKeyEncryption(
-      PairedKeyEncryptionFramePtr paired_key_encryption) {
+      PairedKeyEncryptionFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_paired_key_encryption(std::move(paired_key_encryption));
+    result->set_paired_key_encryption(std::move(value));
     return result;
   }
   // Construct an instance holding |paired_key_result|.
   static V1FramePtr
   NewPairedKeyResult(
-      PairedKeyResultFramePtr paired_key_result) {
+      PairedKeyResultFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_paired_key_result(std::move(paired_key_result));
+    result->set_paired_key_result(std::move(value));
     return result;
   }
   // Construct an instance holding |certificate_info|.
   static V1FramePtr
   NewCertificateInfo(
-      CertificateInfoFramePtr certificate_info) {
+      CertificateInfoFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_certificate_info(std::move(certificate_info));
+    result->set_certificate_info(std::move(value));
     return result;
   }
   // Construct an instance holding |cancel_frame|.
   static V1FramePtr
   NewCancelFrame(
-      CancelFramePtr cancel_frame) {
+      CancelFramePtr value) {
     auto result = V1FramePtr(absl::in_place);
-    result->set_cancel_frame(std::move(cancel_frame));
+    result->set_cancel_frame(std::move(value));
     return result;
   }
 
@@ -976,7 +977,7 @@ class  Advertisement {
       std::vector<uint8_t> salt,
       std::vector<uint8_t> encrypted_metadata_key,
       ::nearby_share::mojom::ShareTargetType device_type,
-      const absl::optional<std::string>& device_name);
+      const std::optional<std::string>& device_name);
 
 
   ~Advertisement();
@@ -1060,7 +1061,7 @@ class  Advertisement {
   
   ::nearby_share::mojom::ShareTargetType device_type;
   
-  absl::optional<std::string> device_name;
+  std::optional<std::string> device_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1124,7 +1125,7 @@ class  IntroductionFrame {
   IntroductionFrame(
       std::vector<FileMetadataPtr> file_metadata,
       std::vector<TextMetadataPtr> text_metadata,
-      const absl::optional<std::string>& required_package,
+      const std::optional<std::string>& required_package,
       std::vector<WifiCredentialsMetadataPtr> wifi_credentials_metadata);
 
 IntroductionFrame(const IntroductionFrame&) = delete;
@@ -1209,7 +1210,7 @@ IntroductionFrame& operator=(const IntroductionFrame&) = delete;
   
   std::vector<TextMetadataPtr> text_metadata;
   
-  absl::optional<std::string> required_package;
+  std::optional<std::string> required_package;
   
   std::vector<WifiCredentialsMetadataPtr> wifi_credentials_metadata;
 
@@ -1588,7 +1589,7 @@ class  PairedKeyEncryptionFrame {
   PairedKeyEncryptionFrame(
       std::vector<uint8_t> signed_data,
       std::vector<uint8_t> secret_id_hash,
-      absl::optional<std::vector<uint8_t>> optional_signed_data);
+      std::optional<std::vector<uint8_t>> optional_signed_data);
 
 
   ~PairedKeyEncryptionFrame();
@@ -1670,7 +1671,7 @@ class  PairedKeyEncryptionFrame {
   
   std::vector<uint8_t> secret_id_hash;
   
-  absl::optional<std::vector<uint8_t>> optional_signed_data;
+  std::optional<std::vector<uint8_t>> optional_signed_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -8,6 +8,7 @@
 #define CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

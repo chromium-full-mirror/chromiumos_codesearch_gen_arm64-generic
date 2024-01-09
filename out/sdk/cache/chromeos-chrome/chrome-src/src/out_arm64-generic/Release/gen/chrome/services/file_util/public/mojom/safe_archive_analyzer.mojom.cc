@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -228,7 +229,7 @@ SafeArchiveAnalyzerProxy::SafeArchiveAnalyzerProxy(mojo::MessageReceiverWithResp
 }
 
 void SafeArchiveAnalyzerProxy::AnalyzeZipFile(
-    ::base::File in_zip_file, const absl::optional<std::string>& in_password, ::mojo::PendingRemote<TemporaryFileGetter> in_temp_file_getter, AnalyzeZipFileCallback callback) {
+    ::base::File in_zip_file, const std::optional<std::string>& in_password, ::mojo::PendingRemote<TemporaryFileGetter> in_temp_file_getter, AnalyzeZipFileCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chrome::mojom::SafeArchiveAnalyzer::AnalyzeZipFile", "input_parameters",
@@ -239,20 +240,23 @@ void SafeArchiveAnalyzerProxy::AnalyzeZipFile(
                         "<value of type ::base::File>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("password"), in_password,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("temp_file_getter"), in_temp_file_getter,
                         "<value of type ::mojo::PendingRemote<TemporaryFileGetter>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeZipFile_Name, kFlags, 0, 0, nullptr);
@@ -310,14 +314,17 @@ void SafeArchiveAnalyzerProxy::AnalyzeDmgFile(
                         "<value of type ::mojo::PendingRemote<TemporaryFileGetter>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeDmgFile_Name, kFlags, 0, 0, nullptr);
@@ -354,7 +361,7 @@ void SafeArchiveAnalyzerProxy::AnalyzeDmgFile(
 }
 
 void SafeArchiveAnalyzerProxy::AnalyzeRarFile(
-    ::base::File in_rar_file, const absl::optional<std::string>& in_password, ::mojo::PendingRemote<TemporaryFileGetter> in_temp_file_getter, AnalyzeRarFileCallback callback) {
+    ::base::File in_rar_file, const std::optional<std::string>& in_password, ::mojo::PendingRemote<TemporaryFileGetter> in_temp_file_getter, AnalyzeRarFileCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chrome::mojom::SafeArchiveAnalyzer::AnalyzeRarFile", "input_parameters",
@@ -365,20 +372,23 @@ void SafeArchiveAnalyzerProxy::AnalyzeRarFile(
                         "<value of type ::base::File>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("password"), in_password,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("temp_file_getter"), in_temp_file_getter,
                         "<value of type ::mojo::PendingRemote<TemporaryFileGetter>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeRarFile_Name, kFlags, 0, 0, nullptr);
@@ -436,14 +446,17 @@ void SafeArchiveAnalyzerProxy::AnalyzeSevenZipFile(
                         "<value of type ::mojo::PendingRemote<TemporaryFileGetter>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeSevenZipFile_Name, kFlags, 0, 0, nullptr);
@@ -570,7 +583,8 @@ void SafeArchiveAnalyzer_AnalyzeZipFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeZipFile_Name, kFlags, 0, 0, nullptr);
@@ -698,7 +712,8 @@ void SafeArchiveAnalyzer_AnalyzeDmgFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeDmgFile_Name, kFlags, 0, 0, nullptr);
@@ -826,7 +841,8 @@ void SafeArchiveAnalyzer_AnalyzeRarFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeRarFile_Name, kFlags, 0, 0, nullptr);
@@ -954,7 +970,8 @@ void SafeArchiveAnalyzer_AnalyzeSevenZipFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSafeArchiveAnalyzer_AnalyzeSevenZipFile_Name, kFlags, 0, 0, nullptr);
@@ -1030,7 +1047,7 @@ bool SafeArchiveAnalyzerStubDispatch::AcceptWithResponder(
       
       bool success = true;
       ::base::File p_zip_file{};
-      absl::optional<std::string> p_password{};
+      std::optional<std::string> p_password{};
       ::mojo::PendingRemote<TemporaryFileGetter> p_temp_file_getter{};
       SafeArchiveAnalyzer_AnalyzeZipFile_ParamsDataView input_data_view(params, message);
       
@@ -1104,7 +1121,7 @@ std::move(p_temp_file_getter), std::move(callback));
       
       bool success = true;
       ::base::File p_rar_file{};
-      absl::optional<std::string> p_password{};
+      std::optional<std::string> p_password{};
       ::mojo::PendingRemote<TemporaryFileGetter> p_temp_file_getter{};
       SafeArchiveAnalyzer_AnalyzeRarFile_ParamsDataView input_data_view(params, message);
       
@@ -1172,16 +1189,16 @@ std::move(p_temp_file_getter), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSafeArchiveAnalyzerValidationInfo[] = {
-    {&internal::SafeArchiveAnalyzer_AnalyzeZipFile_Params_Data::Validate,
+    { &internal::SafeArchiveAnalyzer_AnalyzeZipFile_Params_Data::Validate,
      &internal::SafeArchiveAnalyzer_AnalyzeZipFile_ResponseParams_Data::Validate},
-    {&internal::SafeArchiveAnalyzer_AnalyzeDmgFile_Params_Data::Validate,
+    { &internal::SafeArchiveAnalyzer_AnalyzeDmgFile_Params_Data::Validate,
      &internal::SafeArchiveAnalyzer_AnalyzeDmgFile_ResponseParams_Data::Validate},
-    {&internal::SafeArchiveAnalyzer_AnalyzeRarFile_Params_Data::Validate,
+    { &internal::SafeArchiveAnalyzer_AnalyzeRarFile_Params_Data::Validate,
      &internal::SafeArchiveAnalyzer_AnalyzeRarFile_ResponseParams_Data::Validate},
-    {&internal::SafeArchiveAnalyzer_AnalyzeSevenZipFile_Params_Data::Validate,
+    { &internal::SafeArchiveAnalyzer_AnalyzeSevenZipFile_Params_Data::Validate,
      &internal::SafeArchiveAnalyzer_AnalyzeSevenZipFile_ResponseParams_Data::Validate},
 };
 
@@ -1274,14 +1291,17 @@ void TemporaryFileGetterProxy::RequestTemporaryFile(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::TemporaryFileGetter::RequestTemporaryFile");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTemporaryFileGetter_RequestTemporaryFile_Name, kFlags, 0, 0, nullptr);
@@ -1391,7 +1411,8 @@ void TemporaryFileGetter_RequestTemporaryFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTemporaryFileGetter_RequestTemporaryFile_Name, kFlags, 0, 0, nullptr);
@@ -1473,10 +1494,10 @@ bool TemporaryFileGetterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTemporaryFileGetterValidationInfo[] = {
-    {&internal::TemporaryFileGetter_RequestTemporaryFile_Params_Data::Validate,
+    { &internal::TemporaryFileGetter_RequestTemporaryFile_Params_Data::Validate,
      &internal::TemporaryFileGetter_RequestTemporaryFile_ResponseParams_Data::Validate},
 };
 
@@ -1506,13 +1527,13 @@ namespace mojo {
 namespace chrome::mojom {
 
 
-void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeZipFile(::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) {
+void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeZipFile(::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) {
   GetForwardingInterface()->AnalyzeZipFile(std::move(zip_file), std::move(password), std::move(temp_file_getter), std::move(callback));
 }
 void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeDmgFile(::base::File dmg_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeDmgFileCallback callback) {
   GetForwardingInterface()->AnalyzeDmgFile(std::move(dmg_file), std::move(temp_file_getter), std::move(callback));
 }
-void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeRarFile(::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) {
+void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeRarFile(::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) {
   GetForwardingInterface()->AnalyzeRarFile(std::move(rar_file), std::move(password), std::move(temp_file_getter), std::move(callback));
 }
 void SafeArchiveAnalyzerInterceptorForTesting::AnalyzeSevenZipFile(::base::File seven_zip_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeSevenZipFileCallback callback) {
@@ -1524,7 +1545,7 @@ SafeArchiveAnalyzerAsyncWaiter::SafeArchiveAnalyzerAsyncWaiter(
 SafeArchiveAnalyzerAsyncWaiter::~SafeArchiveAnalyzerAsyncWaiter() = default;
 
 void SafeArchiveAnalyzerAsyncWaiter::AnalyzeZipFile(
-    ::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results) {
+    ::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results) {
   base::RunLoop loop;
   proxy_->AnalyzeZipFile(std::move(zip_file),std::move(password),std::move(temp_file_getter),
       base::BindOnce(
@@ -1540,7 +1561,7 @@ void SafeArchiveAnalyzerAsyncWaiter::AnalyzeZipFile(
 }
 
 ::safe_browsing::ArchiveAnalyzerResults SafeArchiveAnalyzerAsyncWaiter::AnalyzeZipFile(
-    ::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter) {
+    ::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter) {
   ::safe_browsing::ArchiveAnalyzerResults async_wait_result;
   AnalyzeZipFile(std::move(zip_file),std::move(password),std::move(temp_file_getter),&async_wait_result);
   return async_wait_result;
@@ -1570,7 +1591,7 @@ void SafeArchiveAnalyzerAsyncWaiter::AnalyzeDmgFile(
 }
 
 void SafeArchiveAnalyzerAsyncWaiter::AnalyzeRarFile(
-    ::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results) {
+    ::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results) {
   base::RunLoop loop;
   proxy_->AnalyzeRarFile(std::move(rar_file),std::move(password),std::move(temp_file_getter),
       base::BindOnce(
@@ -1586,7 +1607,7 @@ void SafeArchiveAnalyzerAsyncWaiter::AnalyzeRarFile(
 }
 
 ::safe_browsing::ArchiveAnalyzerResults SafeArchiveAnalyzerAsyncWaiter::AnalyzeRarFile(
-    ::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter) {
+    ::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter) {
   ::safe_browsing::ArchiveAnalyzerResults async_wait_result;
   AnalyzeRarFile(std::move(rar_file),std::move(password),std::move(temp_file_getter),&async_wait_result);
   return async_wait_result;

@@ -88,7 +88,7 @@ return;
 
 
 
-AsyncIterator<FileSystemDirectoryHandle>* blink_receiver = V8AsyncIteratorFileSystemDirectoryHandle::ToWrappableUnsafe(v8_receiver);
+AsyncIterator<FileSystemDirectoryHandle>* blink_receiver = V8AsyncIteratorFileSystemDirectoryHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

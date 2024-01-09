@@ -1,9 +1,10 @@
 /*
- * Copyright (C) 2010 Red Hat, Inc.
+ * Copyright (c) 2017 Red Hat, Inc.
  *
  * All rights reserved.
  *
  * Author: Angus Salkeld <asalkeld@redhat.com>
+ *         Jan Pokorny <jpokorny@redhat.com>
  *
  * libqb is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -38,10 +39,6 @@ extern "C" {
 #include <qb/qbutil.h>
 #include <qb/qbconfig.h>
 
-#ifdef S_SPLINT_S
-#undef QB_HAVE_ATTRIBUTE_SECTION
-#endif /* S_SPLINT_S */
-
 /**
  * @file qblog.h
  * The logging API provides four main parts (basics, filtering, threading & blackbox).
@@ -53,7 +50,7 @@ extern "C" {
  * Call qb_log() to generate a log message. Then to write the message
  * somewhere meaningful call qb_log_ctl() to configure the targets.
  *
- * Simplist possible use:
+ * Simplest possible use:
  * @code
  * main() {
  *	qb_log_init("simple-log", LOG_DAEMON, LOG_INFO);
@@ -65,24 +62,30 @@ extern "C" {
  * @endcode
  *
  * @par Configuring log targets.
- * A log target can by syslog, stderr, the blackbox or a text file.
- * By default only syslog is enabled.
+ * A log target can be syslog, stderr, the blackbox, stdout, or a text file.
+ * By default, only syslog is enabled.  While this is usual for daemons,
+ * it is rarely appropriate for ordinary programs, which should
+ * disable it when other targets (see below) are to be used:
+ * @code
+ *	qb_log_ctl(B_LOG_SYSLOG, QB_LOG_CONF_ENABLED, QB_FALSE);
+ * @endcode
  *
- * To enable a target do the following
+ * To enable a target do the following:
  * @code
  *	qb_log_ctl(QB_LOG_BLACKBOX, QB_LOG_CONF_ENABLED, QB_TRUE);
  * @endcode
  *
- * syslog, stderr and the blackbox are static (they don't need
- * to be created, just enabled or disabled. However you can open multiple
- * logfiles (32 - QB_LOG_BLACKBOX). To do this use the following code.
+ * syslog, stderr, the blackbox, and stdout are static (they don't need
+ * to be created, just enabled or disabled).  However, you can open multiple
+ * logfiles (falling within inclusive range @c QB_LOG_TARGET_DYNAMIC_START
+ * up to @c QB_LOG_TARGET_DYNAMIC_END).  To do this, use the following code:
  * @code
  *	mytarget = qb_log_file_open("/var/log/mylogfile");
  *	qb_log_ctl(mytarget, QB_LOG_CONF_ENABLED, QB_TRUE);
  * @endcode
  *
- * Once your targets are enabled/opened you can configure them as follows:
- * Configure the size of blackbox
+ * Once your targets are enabled/opened, you can configure them as follows:
+ * Configure the size of blackbox:
  * @code
  *	qb_log_ctl(QB_LOG_BLACKBOX, QB_LOG_CONF_SIZE, 1024*10);
  * @endcode
@@ -92,13 +95,21 @@ extern "C" {
  *	qb_log_ctl(mytarget, QB_LOG_CONF_THREADED, QB_TRUE);
  * @endcode
  *
- * To workaround your syslog daemon filtering all messages > LOG_INFO
+ * Sometimes, syslog daemons are (pre)configured to filter messages not
+ * exceeding a particular priority.  When this happens to be the logging
+ * target, the designated priority of the message is passed along unchanged,
+ * possibly resulting in message loss.  For messages up to @c LOG_DEBUG
+ * importance, this can be worked around by proportionally bumping the
+ * priorities to be passed to syslog (here, the step is such that
+ * @c LOG_DEBUG gets promoted to @c LOG_INFO):
  * @code
  *	qb_log_ctl(QB_LOG_SYSLOG, QB_LOG_CONF_PRIORITY_BUMP,
- *		   LOG_INFO - LOG_DEBUG);
+ *	           LOG_INFO - LOG_DEBUG);
  * @endcode
  *
- * To ensure all logs to file targets are fsync'ed (default QB_FALSE)
+ * To ensure all logs to file targets are fsync'ed (new messages expressly
+ * transferred to the storage device as they keep coming, otherwise defaults
+ * to @c QB_FALSE):
  * @code
  *	qb_log_ctl(mytarget, QB_LOG_CONF_FILE_SYNC, QB_TRUE);
  * @endcode
@@ -114,19 +125,21 @@ extern "C" {
  * -# function name + priority
  * -# format string + priority
  *
- * So to make all logs from evil_fnunction() go to stderr do the following:
+ * So to make all logs from evil_function() go to stderr, do the following:
  * @code
  *	qb_log_filter_ctl(QB_LOG_STDERR, QB_LOG_FILTER_ADD,
- *			  QB_LOG_FILTER_FUNCTION, "evil_fnunction", LOG_TRACE);
+ *			  QB_LOG_FILTER_FUNCTION, "evil_function", LOG_TRACE);
  * @endcode
  *
- * So to make all logs from totem* (with  a priority <= LOG_INFO) go to stderr do the following:
+ * So to make all logs from totem* (with  a priority <= LOG_INFO) go to stderr,
+ * do the following:
  * @code
  *	qb_log_filter_ctl(QB_LOG_STDERR, QB_LOG_FILTER_ADD,
  *			  QB_LOG_FILTER_FILE, "totem", LOG_INFO);
  * @endcode
  *
- * So to make all logs with the substring "ringbuffer" go to stderr do the following:
+ * So to make all logs with the substring "ringbuffer" go to stderr,
+ * do the following:
  * @code
  *	qb_log_filter_ctl(QB_LOG_STDERR, QB_LOG_FILTER_ADD,
  *			  QB_LOG_FILTER_FORMAT, "ringbuffer", LOG_TRACE);
@@ -135,11 +148,11 @@ extern "C" {
  * @par Thread safe non-blocking logging.
  * Logging is only thread safe when threaded logging is in use. If you plan
  * on logging from multiple threads, you must initialize libqb's logger thread
- * and use qg_log_filter_ctl to set the QB_LOG_CONF_THREADED flag on all the
+ * and use qb_log_filter_ctl to set the QB_LOG_CONF_THREADED flag on all the
  * logging targets in use.
  *
- * To achieve non-blocking logging you can use threaded logging as well
- * So any calls to write() or syslog() will not hold up your program.
+ * To achieve non-blocking logging, so that any calls to write() or syslog()
+ * will not hold up your program, you can use threaded logging as well.
  *
  * Threaded logging use:
  * @code
@@ -229,14 +242,14 @@ extern "C" {
 #define LOG_TRACE    (LOG_DEBUG + 1)
 
 #define QB_LOG_MAX_LEN 512
+#define QB_LOG_ABSOLUTE_MAX_LEN 4096
 #define QB_LOG_STRERROR_MAX_LEN 128
 
 typedef const char *(*qb_log_tags_stringify_fn)(uint32_t tags);
 
 /**
- * An instance of this structure is created in a special
- * ELF section at every dynamic debug callsite.  At runtime,
- * the special section is treated as an array of these.
+ * An instance of this structure is created for each log message
+ * with the message-id
  */
 struct qb_log_callsite {
 	const char *function;
@@ -246,22 +259,12 @@ struct qb_log_callsite {
 	uint32_t lineno;
 	uint32_t targets;
 	uint32_t tags;
+	const char *message_id;
 } __attribute__((aligned(8)));
 
 typedef void (*qb_log_filter_fn)(struct qb_log_callsite * cs);
 
-/* will be assigned by ld linker magic */
-#ifdef QB_HAVE_ATTRIBUTE_SECTION
-extern struct qb_log_callsite __start___verbose[];
-extern struct qb_log_callsite __stop___verbose[];
-
-#define QB_LOG_INIT_DATA(name)						\
-    void name(void);							\
-    void name(void) { if (__start___verbose != __stop___verbose) {assert(1);} }	\
-    void __attribute__ ((constructor)) name(void);
-#else
 #define QB_LOG_INIT_DATA(name)
-#endif
 
 /**
  * Internal function: use qb_log() or qb_logt()
@@ -270,7 +273,7 @@ void qb_log_real_(struct qb_log_callsite *cs, ...);
 void qb_log_real_va_(struct qb_log_callsite *cs, va_list ap);
 
 #define QB_LOG_TAG_LIBQB_MSG_BIT 31
-#define QB_LOG_TAG_LIBQB_MSG (1 << QB_LOG_TAG_LIBQB_MSG_BIT)
+#define QB_LOG_TAG_LIBQB_MSG (1U << QB_LOG_TAG_LIBQB_MSG_BIT)
 
 /**
  * This function is to import logs from other code (like libraries)
@@ -278,7 +281,7 @@ void qb_log_real_va_(struct qb_log_callsite *cs, va_list ap);
  *
  * @note the performance of this will not impress you, as
  * the filtering is done on each log message, not
- * before hand. So try doing basic pre-filtering.
+ * beforehand. So try doing basic pre-filtering.
  *
  * @param function originating function name
  * @param filename originating filename
@@ -296,10 +299,11 @@ void qb_log_from_external_source(const char *function,
 				 uint8_t priority,
 				 uint32_t lineno,
 				 uint32_t tags,
-				 ...);
+				 ...)
+	__attribute__ ((format (printf, 3, 7)));
 
 /**
- * Get or create a callsite at the give position.
+ * Get or create a callsite at the given position.
  *
  * The result can then be passed into qb_log_real_()
  *
@@ -317,13 +321,67 @@ struct qb_log_callsite* qb_log_callsite_get(const char *function,
 					    uint32_t lineno,
 					    uint32_t tags);
 
+/**
+ * Get or create a callsite at the given position.
+ * The same that qb_log_callsite_get but with the
+ * message_id parameter.
+ *
+ * The result can then be passed into qb_log_real_()
+ *
+ * @param message_id in the systemd catalog or NULL
+ * @param function originating function name
+ * @param filename originating filename
+ * @param format format string
+ * @param priority this takes syslog priorities.
+ * @param lineno file line number
+ * @param tags the tag
+ */
+struct qb_log_callsite* qb_log_callsite_get2(const char *message_id,
+					    const char *function,
+					    const char *filename,
+					    const char *format,
+					    uint8_t priority,
+					    uint32_t lineno,
+					    uint32_t tags);
+
+void qb_log_from_external_source_va2(const char *message_id,
+				    const char *function,
+				    const char *filename,
+				    const char *format,
+				    uint8_t priority,
+				    uint32_t lineno,
+				    uint32_t tags,
+				    va_list ap)
+	__attribute__ ((format (printf, 4, 0)));
+
 void qb_log_from_external_source_va(const char *function,
 				    const char *filename,
 				    const char *format,
 				    uint8_t priority,
 				    uint32_t lineno,
 				    uint32_t tags,
-				    va_list ap);
+				    va_list ap)
+	__attribute__ ((format (printf, 3, 0)));
+
+/**
+ * This is the function to generate a log message if you want to
+ * manually add tags.
+ *
+ * @param message_id in the systemd catalog or NULL
+ * @param priority this takes syslog priorities.
+ * @param tags this is a uint32_t that you can use with
+ *             qb_log_tags_stringify_fn_set() to "tag" a log message
+ *             with a feature or sub-system then you can use "%g"
+ *             in the format specifer to print it out.
+ * @param fmt usual printf style format specifiers
+ * @param args usual printf style args
+ */
+#define qb_logt2(message_id, priority, tags, fmt, args...) do {	\
+	struct qb_log_callsite* descriptor_pt =		\
+	qb_log_callsite_get2(message_id, __func__, __FILE__, fmt,	\
+			    priority, __LINE__, tags);	\
+	qb_log_real_(descriptor_pt, ##args);		\
+    } while(0)
 
 /**
  * This is the function to generate a log message if you want to
@@ -337,22 +395,18 @@ void qb_log_from_external_source_va(const char *function,
  * @param fmt usual printf style format specifiers
  * @param args usual printf style args
  */
-#ifdef QB_HAVE_ATTRIBUTE_SECTION
-#define qb_logt(priority, tags, fmt, args...) do {			\
-	static struct qb_log_callsite descriptor			\
-	__attribute__((section("__verbose"), aligned(8))) =		\
-	{ __func__, __FILE__, fmt, priority, __LINE__, 0, tags };	\
-	qb_log_real_(&descriptor, ##args);				\
-    } while(0)
-#else
-#define qb_logt(priority, tags, fmt, args...) do {	\
-	struct qb_log_callsite* descriptor_pt =		\
-	qb_log_callsite_get(__func__, __FILE__, fmt,	\
-			    priority, __LINE__, tags);	\
-	qb_log_real_(descriptor_pt, ##args);		\
-    } while(0)
-#endif /* QB_HAVE_ATTRIBUTE_SECTION */
+#define qb_logt(priority, tags, fmt, args...) qb_logt2(NULL, priority, tags, fmt, ##args)
 
+
+/**
+ * This is the main function to generate a log message.
+ *
+ * @param message_id in the systemd catalog or NULL
+ * @param priority this takes syslog priorities.
+ * @param fmt usual printf style format specifiers
+ * @param args usual printf style args
+ */
+#define qb_log2(message_id, priority, fmt, args...) qb_logt2(message_id, priority, 0, fmt, ##args)
 
 /**
  * This is the main function to generate a log message.
@@ -395,12 +449,36 @@ void qb_log_from_external_source_va(const char *function,
 #define qb_enter() qb_log(LOG_TRACE, "ENTERING %s()", __func__)
 #define qb_leave() qb_log(LOG_TRACE, "LEAVING %s()", __func__)
 
-#define QB_LOG_SYSLOG 0
-#define QB_LOG_STDERR 1
-#define QB_LOG_BLACKBOX 2
-#define QB_LOG_STDOUT 3
+/*
+ * Note that QB_LOG_TARGET_{STATIC_,}MAX are sentinel indexes
+ * as non-inclusive higher bounds of the respective categories
+ * (static and all the log targets) and also denote the number
+ * of (reserved) items in the category.  Both are possibly subject
+ * to change, so you should always refer to them using
+ * these defined values.
+ * Similarly, there are QB_LOG_TARGET_{STATIC_,DYNAMIC_,}START
+ * and QB_LOG_TARGET_{STATIC_,DYNAMIC_,}END values, but these
+ * are inclusive lower and higher bounds, respectively.
+ */
+enum qb_log_target_slot {
+	QB_LOG_TARGET_START,
 
-#define QB_LOG_TARGET_MAX 32
+	/* static */
+	QB_LOG_TARGET_STATIC_START = QB_LOG_TARGET_START,
+	QB_LOG_SYSLOG = QB_LOG_TARGET_STATIC_START,
+	QB_LOG_STDERR,
+	QB_LOG_BLACKBOX,
+	QB_LOG_STDOUT,
+	QB_LOG_TARGET_STATIC_MAX,
+	QB_LOG_TARGET_STATIC_END = QB_LOG_TARGET_STATIC_MAX - 1,
+
+	/* dynamic */
+	QB_LOG_TARGET_DYNAMIC_START = QB_LOG_TARGET_STATIC_MAX,
+
+	QB_LOG_TARGET_MAX = 32,
+	QB_LOG_TARGET_DYNAMIC_END = QB_LOG_TARGET_MAX - 1,
+	QB_LOG_TARGET_END = QB_LOG_TARGET_DYNAMIC_END,
+};
 
 enum qb_log_target_state {
 	QB_LOG_STATE_UNUSED = 1,
@@ -418,6 +496,10 @@ enum qb_log_conf {
 	QB_LOG_CONF_STATE_GET,
 	QB_LOG_CONF_FILE_SYNC,
 	QB_LOG_CONF_EXTENDED,
+	QB_LOG_CONF_IDENT,
+	QB_LOG_CONF_MAX_LINE_LEN,
+	QB_LOG_CONF_ELLIPSIS,
+	QB_LOG_CONF_USE_JOURNAL,
 };
 
 enum qb_log_filter_type {
@@ -440,11 +522,11 @@ enum qb_log_filter_conf {
 
 typedef void (*qb_log_logger_fn)(int32_t t,
 				 struct qb_log_callsite *cs,
-				 time_t timestamp,
+				 struct timespec *timestamp,
 				 const char *msg);
 typedef void (*qb_log_vlogger_fn)(int32_t t,
 				 struct qb_log_callsite *cs,
-				 time_t timestamp,
+				 struct timespec *timestamp,
 				 va_list ap);
 
 typedef void (*qb_log_close_fn)(int32_t t);
@@ -466,7 +548,7 @@ void qb_log_init(const char *name,
  *
  * It releases any shared memory.
  * Stops the logging thread if running.
- * Flushes the last message to their destinations.
+ * Flushes the last messages to their destinations.
  */
 void qb_log_fini(void);
 
@@ -474,10 +556,10 @@ void qb_log_fini(void);
  * If you are using dynamically loadable modules via dlopen() and
  * you load them after qb_log_init() then after you load the module
  * you will need to do the following to get the filters to work
- * in that module.
+ * in that module:
  * @code
- * 	_start = dlsym (dl_handle, "__start___verbose");
- *	_stop = dlsym (dl_handle, "__stop___verbose");
+ * 	_start = dlsym (dl_handle, QB_ATTR_SECTION_START_STR);
+ *	_stop = dlsym (dl_handle, QB_ATTR_SECTION_STOP_STR);
  *	qb_log_callsites_register(_start, _stop);
  * @endcode
  */
@@ -492,8 +574,12 @@ void qb_log_callsites_dump(void);
  * Main logging control function.
  *
  * @param target QB_LOG_SYSLOG, QB_LOG_STDERR or result from qb_log_file_open()
- * @param conf_type what to configure
- * @param arg the new value
+ * @param conf_type configuration directive ("what to configure") that accepts
+ *        @c int32_t argument determining the new value unless ignored
+ *        for particular directive altogether
+ *        (incompatible directives: QB_LOG_CONF_IDENT)
+ * @param arg the new value for a state-changing configuration directive,
+ *        ignored otherwise
  * @see qb_log_conf
  *
  * @retval -errno on error
@@ -501,6 +587,42 @@ void qb_log_callsites_dump(void);
  * @retval qb_log_target_state for QB_LOG_CONF_STATE_GET
  */
 int32_t qb_log_ctl(int32_t target, enum qb_log_conf conf_type, int32_t arg);
+
+typedef union {
+	int32_t i32;
+	const char *s;
+} qb_log_ctl2_arg_t;
+
+/**
+ * Extension of main logging control function accepting also strings.
+ *
+ * @param target QB_LOG_SYSLOG, QB_LOG_STDERR or result from qb_log_file_open()
+ * @param conf_type configuration directive ("what to configure") that accepts
+ *        either @c int32_t or a null-terminated string argument
+ *        determining the new value unless ignored for particular directive
+ *        (compatible directives: those valid for qb_log_ctl
+ *                                + QB_LOG_CONF_IDENT)
+ * @param arg the new value for a state-changing configuration directive,
+ *        ignored otherwise;  for QB_LOG_CONF_IDENT, 's' member as new
+ *        identifier to openlog(), for all qb_log_ctl-compatible ones,
+ *        'i32' member is assumed (although a preferred way is to use
+ *        that original function directly as it allows for more type safety)
+ * @see qb_log_ctl
+ *
+ * @note You can use @ref QB_LOG_CTL2_I32 and @ref QB_LOG_CTL2_S macros
+ *       for a convenient on-the-fly construction of the object
+ *       to be passed as an @p arg argument.
+ */
+int32_t qb_log_ctl2(int32_t target, enum qb_log_conf conf_type,
+		    qb_log_ctl2_arg_t arg);
+
+# ifndef S_SPLINT_S
+#define QB_LOG_CTL2_I32(a)  ((qb_log_ctl2_arg_t) { .i32 = (a) })
+#define QB_LOG_CTL2_S(a)    ((qb_log_ctl2_arg_t) { .s = (a) })
+#else
+#define QB_LOG_CTL2_I32(a)  ((qb_log_ctl2_arg_t)(a))
+#define QB_LOG_CTL2_S(a)    ((qb_log_ctl2_arg_t)(a))
+#endif
 
 /**
  * This allows you modify the 'tags' and 'targets' callsite fields at runtime.
@@ -522,7 +644,7 @@ int32_t qb_log_filter_ctl2(int32_t value, enum qb_log_filter_conf c,
  * Instead of using the qb_log_filter_ctl() functions you
  * can apply the filters manually by defining a callback
  * and setting the targets field using qb_bit_set() and
- * qb_bit_clear() like the following below.
+ * qb_bit_clear() like the following below:
  * @code
  * static void
  * m_filter(struct qb_log_callsite *cs)
@@ -544,21 +666,48 @@ int32_t qb_log_filter_fn_set(qb_log_filter_fn fn);
  */
 void qb_log_tags_stringify_fn_set(qb_log_tags_stringify_fn fn);
 
+
+/**
+ *This is a Feature Test macro so that calling applications know that
+ * millisecond timestamps are implemented. Because %T a string in
+ * function call with an indirect effect, there is no easy test for it
+ * beyond the library version (which is a very blunt instrument)
+ */
+#define QB_FEATURE_LOG_HIRES_TIMESTAMPS 1
+
 /**
  * Set the format specifiers.
  *
- * %n FUNCTION NAME
- * %f FILENAME
- * %l FILELINE
- * %p PRIORITY
- * %t TIMESTAMP
- * %b BUFFER
- * %g TAGS
- * %N name (passed into qb_log_init)
- * %P PID
- * %H hostname
+ * \%n FUNCTION NAME
  *
- * any number between % and character specify field length to pad or chop
+ * \%f FILENAME
+ *
+ * \%l FILELINE
+ *
+ * \%p PRIORITY
+ *
+ * \%t TIMESTAMP
+ *
+ * \%T TIMESTAMP with milliseconds
+ *
+ * \%b BUFFER
+ *
+ * \%g TAGS
+ *
+ * \%N name (passed into qb_log_init)
+ *
+ * \%P PID
+ *
+ * \%H hostname
+ *
+ * Any number between % and character specify field length to pad or chop.
+ *
+ * @note Some of the fields are immediately evaluated and remembered
+ *       for performance reasons, so whenlog messages carry PIDs (not the default)
+ *       this function needs to be reinvoked following @c fork
+ *       (@c clone) in the respective children.  When already linking
+ *       with @c libpthread, @c pthread_atfork callback registration
+ *       could be useful.
  */
 void qb_log_format_set(int32_t t, const char* format);
 
@@ -566,14 +715,26 @@ void qb_log_format_set(int32_t t, const char* format);
  * Open a log file.
  *
  * @retval -errno on error
- * @retval 3 to 31 (to be passed into other qb_log_* functions)
+ * @retval value in inclusive range QB_LOG_TARGET_DYNAMIC_START
+ *         to QB_LOG_TARGET_DYNAMIC_END
+ *         (to be passed into other qb_log_* functions)
  */
 int32_t qb_log_file_open(const char *filename);
 
 /**
- * Close a log file and release is resources.
+ * Close a log file and release its resources.
  */
 void qb_log_file_close(int32_t t);
+
+/**
+ * Open a new log file for an existing target
+ * @param t target
+ * @param filename may be NULL to use existing file name
+ *
+ * @retval -errno on error
+ *
+ */
+int32_t qb_log_file_reopen(int32_t t, const char *filename);
 
 /**
  * When using threaded logging set the pthread policy and priority.
@@ -596,13 +757,15 @@ ssize_t qb_log_blackbox_write_to_file(const char *filename);
 /**
  * Read the blackbox for file and print it out.
  */
-void qb_log_blackbox_print_from_file(const char* filename);
+int qb_log_blackbox_print_from_file(const char* filename);
 
 /**
  * Open a custom log target.
  *
  * @retval -errno on error
- * @retval 3 to 31 (to be passed into other qb_log_* functions)
+ * @retval value in inclusive range QB_LOG_TARGET_DYNAMIC_START
+ *         to QB_LOG_TARGET_DYNAMIC_END
+ *         (to be passed into other qb_log_* functions)
  */
 int32_t qb_log_custom_open(qb_log_logger_fn log_fn,
 			   qb_log_close_fn close_fn,
@@ -610,7 +773,7 @@ int32_t qb_log_custom_open(qb_log_logger_fn log_fn,
 			   void *user_data);
 
 /**
- * Close a custom log target and release is resources.
+ * Close a custom log target and release its resources.
  */
 void qb_log_custom_close(int32_t t);
 
@@ -621,19 +784,19 @@ void qb_log_custom_close(int32_t t);
 void *qb_log_target_user_data_get(int32_t t);
 
 /**
- * Associate user data with this log target
+ * Associate user data with this log target.
  * @note only use this with custom targets
  */
 int32_t qb_log_target_user_data_set(int32_t t, void *user_data);
 
 /**
- * format the callsite and timestamp info according to the format
+ * Format the callsite and timestamp info according to the format.
  * set using qb_log_format_set()
  * It is intended to be used from your custom logger function.
  */
 void qb_log_target_format(int32_t target,
 			  struct qb_log_callsite *cs,
-			  time_t timestamp,
+			  struct timespec *timestamp,
 			  const char* formatted_message,
 			  char *output_buffer);
 

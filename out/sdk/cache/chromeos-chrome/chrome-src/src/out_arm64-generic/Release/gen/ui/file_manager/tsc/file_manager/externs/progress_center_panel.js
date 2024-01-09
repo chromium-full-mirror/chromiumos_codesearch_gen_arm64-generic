@@ -40,4 +40,9 @@ export class ProgressCenterPanelInterface {
      */
     // @ts-ignore: error TS6133: 'id' is declared but its value is never read.
     dismissErrorItem(id) { }
+    /**
+     * @param {number} _pendingTimeMs
+     * @param {number} _timeoutToRemoveMs
+     */
+    setTimingForTests(_pendingTimeMs, _timeoutToRemoveMs) { }
 }

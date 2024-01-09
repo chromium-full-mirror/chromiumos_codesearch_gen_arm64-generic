@@ -37,7 +37,6 @@ build device_management$:all: phony obj/device_management/all.stamp
 build device_management$:device_management_adaptors: phony obj/device_management/device_management_adaptors.stamp
 build device_management$:device_management_client: phony ./device_management_client
 build device_management$:device_management_server_library: phony obj/device_management/device_management_server_library.stamp
-build device_management$:device_management_testrunner: phony ./device_management_testrunner
 build device_management$:device_managementd: phony ./device_managementd
 build device_management$:install_init: phony obj/device_management/install_init.stamp
 build device_management$:install_minijail_conf: phony obj/device_management/install_minijail_conf.stamp
@@ -55,7 +54,6 @@ build all: phony $
     obj/device_management/device_management_adaptors.stamp $
     ./device_management_client $
     obj/device_management/device_management_server_library.stamp $
-    ./device_management_testrunner $
     ./device_managementd $
     obj/device_management/install_init.stamp $
     obj/device_management/install_minijail_conf.stamp $

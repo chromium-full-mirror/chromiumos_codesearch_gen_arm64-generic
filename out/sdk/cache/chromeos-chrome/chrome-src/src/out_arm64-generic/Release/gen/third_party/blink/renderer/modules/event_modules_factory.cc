@@ -23,7 +23,7 @@
 
 namespace blink {
 
-Event* EventModulesFactory::Create(ExecutionContext* executionContext, const String& type) {
+Event* EventModulesFactory::Create(ScriptState* script_state, ExecutionContext* executionContext, const String& type) {
   if (EqualIgnoringASCIICase(type, "CloseEvent")) {
     UseCounter::Count(executionContext, WebFeature::kDocumentCreateEventCloseEvent);
     return CloseEvent::Create();

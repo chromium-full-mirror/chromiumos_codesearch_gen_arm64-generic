@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, NetworkInformation>::value,
     "NetworkInformation does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&NetworkInformation::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NetworkInformation is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoType);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -122,7 +117,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoDownlinkMax);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->downlinkMax();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -143,7 +138,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnChange);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -163,7 +158,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -180,7 +175,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnTypeChange);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ontypechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -200,7 +195,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntypechange(event_handler);
 }
 
@@ -219,7 +214,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoEffectiveType);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->effectiveType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -242,7 +237,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoRtt);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rtt();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 // [HighEntropy=Direct]
@@ -265,7 +260,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoDownlink);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->downlink();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -288,7 +283,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfoSaveData);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(v8_receiver);
+NetworkInformation* blink_receiver = V8NetworkInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->saveData();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]

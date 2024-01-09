@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -370,14 +371,17 @@ void PushVideoStreamSubscriptionProxy::Activate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::Activate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Activate_Name, kFlags, 0, 0, nullptr);
@@ -400,14 +404,17 @@ void PushVideoStreamSubscriptionProxy::Suspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::Suspend");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Suspend_Name, kFlags, 0, 0, nullptr);
@@ -431,14 +438,17 @@ void PushVideoStreamSubscriptionProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Resume_Name, kFlags, 0, 0, nullptr);
@@ -461,14 +471,17 @@ void PushVideoStreamSubscriptionProxy::GetPhotoState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::GetPhotoState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -499,14 +512,17 @@ void PushVideoStreamSubscriptionProxy::SetPhotoOptions(
                         "<value of type ::media::mojom::PhotoSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -541,14 +557,17 @@ void PushVideoStreamSubscriptionProxy::TakePhoto(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::TakePhoto");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -572,14 +591,17 @@ void PushVideoStreamSubscriptionProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::PushVideoStreamSubscription::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Close_Name, kFlags, 0, 0, nullptr);
@@ -610,14 +632,17 @@ void PushVideoStreamSubscriptionProxy::ProcessFeedback(
                         "<value of type const ::media::VideoCaptureFeedback&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_ProcessFeedback_Name, kFlags, 0, 0, nullptr);
@@ -726,7 +751,8 @@ void PushVideoStreamSubscription_Suspend_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Suspend_Name, kFlags, 0, 0, nullptr);
@@ -843,7 +869,8 @@ void PushVideoStreamSubscription_GetPhotoState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -967,7 +994,8 @@ void PushVideoStreamSubscription_SetPhotoOptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -1085,7 +1113,8 @@ void PushVideoStreamSubscription_TakePhoto_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -1198,7 +1227,8 @@ void PushVideoStreamSubscription_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPushVideoStreamSubscription_Close_Name, kFlags, 0, 0, nullptr);
@@ -1468,24 +1498,24 @@ std::move(p_settings), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPushVideoStreamSubscriptionValidationInfo[] = {
-    {&internal::PushVideoStreamSubscription_Activate_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_Activate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PushVideoStreamSubscription_Suspend_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_Suspend_Params_Data::Validate,
      &internal::PushVideoStreamSubscription_Suspend_ResponseParams_Data::Validate},
-    {&internal::PushVideoStreamSubscription_Resume_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PushVideoStreamSubscription_GetPhotoState_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_GetPhotoState_Params_Data::Validate,
      &internal::PushVideoStreamSubscription_GetPhotoState_ResponseParams_Data::Validate},
-    {&internal::PushVideoStreamSubscription_SetPhotoOptions_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_SetPhotoOptions_Params_Data::Validate,
      &internal::PushVideoStreamSubscription_SetPhotoOptions_ResponseParams_Data::Validate},
-    {&internal::PushVideoStreamSubscription_TakePhoto_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_TakePhoto_Params_Data::Validate,
      &internal::PushVideoStreamSubscription_TakePhoto_ResponseParams_Data::Validate},
-    {&internal::PushVideoStreamSubscription_Close_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_Close_Params_Data::Validate,
      &internal::PushVideoStreamSubscription_Close_ResponseParams_Data::Validate},
-    {&internal::PushVideoStreamSubscription_ProcessFeedback_Params_Data::Validate,
+    { &internal::PushVideoStreamSubscription_ProcessFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1614,14 +1644,17 @@ void VideoSourceProxy::CreatePushSubscription(
                         "<value of type ::mojo::PendingReceiver<PushVideoStreamSubscription>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSource_CreatePushSubscription_Name, kFlags, 0, 0, nullptr);
@@ -1676,14 +1709,17 @@ void VideoSourceProxy::RegisterVideoEffectsManager(
                         "<value of type ::mojo::PendingRemote<::video_capture::mojom::VideoEffectsManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSource_RegisterVideoEffectsManager_Name, kFlags, 0, 0, nullptr);
@@ -1805,7 +1841,8 @@ void VideoSource_CreatePushSubscription_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSource_CreatePushSubscription_Name, kFlags, 0, 0, nullptr);
@@ -1951,12 +1988,12 @@ std::move(p_subscription), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoSourceValidationInfo[] = {
-    {&internal::VideoSource_CreatePushSubscription_Params_Data::Validate,
+    { &internal::VideoSource_CreatePushSubscription_Params_Data::Validate,
      &internal::VideoSource_CreatePushSubscription_ResponseParams_Data::Validate},
-    {&internal::VideoSource_RegisterVideoEffectsManager_Params_Data::Validate,
+    { &internal::VideoSource_RegisterVideoEffectsManager_Params_Data::Validate,
      nullptr /* no response */},
 };
 

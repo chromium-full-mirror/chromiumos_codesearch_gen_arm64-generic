@@ -7,6 +7,7 @@ import * as i18n from '../../core/i18n/i18n.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { MobileThrottlingSelector } from './MobileThrottlingSelector.js';
 import { NetworkThrottlingSelector } from './NetworkThrottlingSelector.js';
 import { ThrottlingPresets, } from './ThrottlingPresets.js';
@@ -115,6 +116,9 @@ export class ThrottlingManager {
     decorateSelectWithNetworkThrottling(selectElement) {
         let options = [];
         const selector = new NetworkThrottlingSelector(populate, select, this.customNetworkConditionsSetting);
+        selectElement.setAttribute('jslog', `${VisualLogging.dropDown()
+            .track({ change: true })
+            .context(this.currentNetworkThrottlingConditionsSetting.name)}`);
         selectElement.addEventListener('change', optionSelected, false);
         return selector;
         function populate(groups) {
@@ -160,6 +164,7 @@ export class ThrottlingManager {
     }
     createOfflineToolbarCheckbox() {
         const checkbox = new UI.Toolbar.ToolbarCheckbox(i18nString(UIStrings.offline), i18nString(UIStrings.forceDisconnectedFromNetwork), forceOffline.bind(this));
+        checkbox.element.setAttribute('jslog', `${VisualLogging.toggle().track({ click: true }).context('disconnect-from-network')}`);
         SDK.NetworkManager.MultitargetNetworkManager.instance().addEventListener(SDK.NetworkManager.MultitargetNetworkManager.Events.ConditionsChanged, networkConditionsChanged);
         checkbox.setChecked(SDK.NetworkManager.MultitargetNetworkManager.instance().isOffline());
         function forceOffline() {
@@ -179,7 +184,7 @@ export class ThrottlingManager {
         return checkbox;
     }
     createMobileThrottlingButton() {
-        const button = new UI.Toolbar.ToolbarMenuButton(appendItems);
+        const button = new UI.Toolbar.ToolbarMenuButton(appendItems, undefined, 'mobileThrottling');
         button.setTitle(i18nString(UIStrings.throttling));
         button.setGlyph('');
         button.turnIntoSelect();
@@ -198,7 +203,7 @@ export class ThrottlingManager {
                     conditions.description === ThrottlingPresets.getCustomConditions().description) {
                     continue;
                 }
-                contextMenu.defaultSection().appendCheckboxItem(conditions.title, selector.optionSelected.bind(selector, conditions), selectedIndex === index);
+                contextMenu.defaultSection().appendCheckboxItem(conditions.title, selector.optionSelected.bind(selector, conditions), selectedIndex === index, undefined, undefined, undefined, conditions.jslogContext);
             }
         }
         function populate(groups) {
@@ -327,16 +332,8 @@ export class ThrottlingManager {
         return !SDK.NetworkManager.networkConditionsEqual(networkConditions, knownCurrentConditions);
     }
 }
-let actionDelegateInstance;
 export class ActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!actionDelegateInstance || forceNew) {
-            actionDelegateInstance = new ActionDelegate();
-        }
-        return actionDelegateInstance;
-    }
-    handleAction(context, actionId) {
+    handleAction(_context, actionId) {
         if (actionId === 'network-conditions.network-online') {
             SDK.NetworkManager.MultitargetNetworkManager.instance().setNetworkConditions(SDK.NetworkManager.NoThrottlingConditions);
             return true;

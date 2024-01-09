@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-features.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -53,42 +54,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::RequestContextType>
-    : EnumHashTraits<::blink::mojom::RequestContextType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FetchCacheMode>
-    : EnumHashTraits<::blink::mojom::FetchCacheMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FetchPriorityHint>
-    : EnumHashTraits<::blink::mojom::FetchPriorityHint, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -429,7 +394,7 @@ class PLATFORM_EXPORT FetchAPIRequest {
       ::network::mojom::blink::RedirectMode redirect_mode,
       const WTF::String& integrity,
       ::net::RequestPriority priority,
-      const absl::optional<::base::UnguessableToken>& fetch_window_id,
+      const std::optional<::base::UnguessableToken>& fetch_window_id,
       bool keepalive,
       bool is_reload,
       bool is_history_navigation,
@@ -437,7 +402,7 @@ class PLATFORM_EXPORT FetchAPIRequest {
       ::network::mojom::blink::TrustTokenParamsPtr trust_token_params,
       ::network::mojom::blink::IPAddressSpace target_address_space,
       ::network::mojom::blink::AttributionReportingEligibility attribution_reporting_eligibility,
-      const absl::optional<::base::UnguessableToken>& service_worker_race_network_request_token);
+      const std::optional<::base::UnguessableToken>& service_worker_race_network_request_token);
 
 FetchAPIRequest(const FetchAPIRequest&) = delete;
 FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
@@ -546,7 +511,7 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   ::net::RequestPriority priority;
   
-  absl::optional<::base::UnguessableToken> fetch_window_id;
+  std::optional<::base::UnguessableToken> fetch_window_id;
   
   bool keepalive;
   
@@ -562,7 +527,7 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   ::network::mojom::blink::AttributionReportingEligibility attribution_reporting_eligibility;
   
-  absl::optional<::base::UnguessableToken> service_worker_race_network_request_token;
+  std::optional<::base::UnguessableToken> service_worker_race_network_request_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

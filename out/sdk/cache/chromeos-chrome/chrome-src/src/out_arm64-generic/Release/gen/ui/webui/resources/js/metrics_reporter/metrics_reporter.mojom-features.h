@@ -8,6 +8,7 @@
 #define UI_WEBUI_RESOURCES_JS_METRICS_REPORTER_METRICS_REPORTER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-editors", "name": "vim", "version": "9.0.1627", "revision": 0, "fullname": "app-editors/vim", "fullnamerev": "app-editors/vim-9.0.1627", "license_names": ["vim"], "license_text_scanned": [], "homepages": ["https://www.vim.org", "https://github.com/vim/vim"], "skip": false, "tainted": false, "ebuild_path": null}

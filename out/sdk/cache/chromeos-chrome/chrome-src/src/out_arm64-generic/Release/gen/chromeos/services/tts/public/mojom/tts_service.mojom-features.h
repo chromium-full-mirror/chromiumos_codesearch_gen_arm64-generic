@@ -8,6 +8,7 @@
 #define CHROMEOS_SERVICES_TTS_PUBLIC_MOJOM_TTS_SERVICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -1,6 +1,7 @@
 
 #include "dawn/native/webgpu_absl_format_autogen.h"
 
+#include "dawn/native/ChainUtils.h"
 #include "dawn/native/ObjectType_autogen.h"
 
 namespace dawn::native {
@@ -11,8 +12,8 @@ namespace dawn::native {
 
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const BufferDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -25,9 +26,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<BufferDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const CommandBufferDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -40,9 +47,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<CommandBufferDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const CommandEncoderDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -55,9 +68,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<CommandEncoderDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const PipelineLayoutDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -70,9 +89,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<PipelineLayoutDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const QuerySetDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -85,9 +110,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<QuerySetDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const QueueDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -100,9 +131,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<QueueDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const RenderBundleDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -115,9 +152,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<RenderBundleDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const RenderBundleEncoderDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -130,9 +173,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<RenderBundleEncoderDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const SamplerDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -145,9 +194,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<SamplerDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const ShaderModuleDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -160,9 +215,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<ShaderModuleDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const SharedFenceDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -175,9 +236,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<SharedFenceDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const SharedTextureMemoryDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -190,9 +257,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<SharedTextureMemoryDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const SurfaceDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -205,9 +278,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<SurfaceDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const SwapChainDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -220,9 +299,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<SwapChainDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const TextureViewDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -235,9 +320,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<TextureViewDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const BindGroupDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -250,9 +341,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<BindGroupDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const ComputePassDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -265,9 +362,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<ComputePassDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const ExternalTextureDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -280,9 +383,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<ExternalTextureDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const TextureDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -295,9 +404,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<TextureDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const BindGroupLayoutDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -310,9 +425,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<BindGroupLayoutDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const ComputePipelineDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -325,9 +446,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<ComputePipelineDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const DeviceDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -340,9 +467,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<DeviceDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const RenderPassDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -355,9 +488,15 @@ namespace dawn::native {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<RenderPassDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
     AbslFormatConvert(const RenderPipelineDescriptor* value,
-                        const absl::FormatConversionSpec& spec,
-                        absl::FormatSink* s) {
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
         if (value == nullptr) {
             s->Append("[null]");
             return {true};
@@ -368,6 +507,12 @@ namespace dawn::native {
         }
         s->Append("]");
         return {true};
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+    AbslFormatConvert(const UnpackedPtr<RenderPipelineDescriptor>& value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        return AbslFormatConvert(*value, spec, s);
     }
 
     //
@@ -423,6 +568,49 @@ namespace wgpu {
     //
 
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
+    AbslFormatConvert(WGSLFeatureName value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        if (spec.conversion_char() == absl::FormatConversionChar::s) {
+            s->Append("WGSLFeatureName::");
+            switch (value) {
+            case WGSLFeatureName::Undefined:
+                s->Append("Undefined");
+                break;
+            case WGSLFeatureName::ReadonlyAndReadwriteStorageTextures:
+                s->Append("ReadonlyAndReadwriteStorageTextures");
+                break;
+            case WGSLFeatureName::Packed4x8IntegerDotProduct:
+                s->Append("Packed4x8IntegerDotProduct");
+                break;
+            case WGSLFeatureName::UnrestrictedPointerParameters:
+                s->Append("UnrestrictedPointerParameters");
+                break;
+            case WGSLFeatureName::PointerCompositeAccess:
+                s->Append("PointerCompositeAccess");
+                break;
+            case WGSLFeatureName::ChromiumTestingUnimplemented:
+                s->Append("ChromiumTestingUnimplemented");
+                break;
+            case WGSLFeatureName::ChromiumTestingUnsafeExperimental:
+                s->Append("ChromiumTestingUnsafeExperimental");
+                break;
+            case WGSLFeatureName::ChromiumTestingExperimental:
+                s->Append("ChromiumTestingExperimental");
+                break;
+            case WGSLFeatureName::ChromiumTestingShippedWithKillswitch:
+                s->Append("ChromiumTestingShippedWithKillswitch");
+                break;
+            case WGSLFeatureName::ChromiumTestingShipped:
+                s->Append("ChromiumTestingShipped");
+                break;
+            }
+        } else {
+            s->Append(absl::StrFormat("%u", static_cast<typename std::underlying_type<WGSLFeatureName>::type>(value)));
+        }
+        return {true};
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
     AbslFormatConvert(AdapterType value,
                       const absl::FormatConversionSpec& spec,
                       absl::FormatSink* s) {
@@ -476,14 +664,14 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("AlphaMode::");
             switch (value) {
+            case AlphaMode::Opaque:
+                s->Append("Opaque");
+                break;
             case AlphaMode::Premultiplied:
                 s->Append("Premultiplied");
                 break;
             case AlphaMode::Unpremultiplied:
                 s->Append("Unpremultiplied");
-                break;
-            case AlphaMode::Opaque:
-                s->Append("Opaque");
                 break;
             }
         } else {
@@ -748,20 +936,20 @@ namespace wgpu {
             case CompareFunction::Less:
                 s->Append("Less");
                 break;
+            case CompareFunction::Equal:
+                s->Append("Equal");
+                break;
             case CompareFunction::LessEqual:
                 s->Append("LessEqual");
                 break;
             case CompareFunction::Greater:
                 s->Append("Greater");
                 break;
-            case CompareFunction::GreaterEqual:
-                s->Append("GreaterEqual");
-                break;
-            case CompareFunction::Equal:
-                s->Append("Equal");
-                break;
             case CompareFunction::NotEqual:
                 s->Append("NotEqual");
+                break;
+            case CompareFunction::GreaterEqual:
+                s->Append("GreaterEqual");
                 break;
             case CompareFunction::Always:
                 s->Append("Always");
@@ -1021,9 +1209,6 @@ namespace wgpu {
             case FeatureName::DawnNative:
                 s->Append("DawnNative");
                 break;
-            case FeatureName::ChromiumExperimentalDp4a:
-                s->Append("ChromiumExperimentalDp4a");
-                break;
             case FeatureName::ChromiumExperimentalTimestampQueryInsidePasses:
                 s->Append("ChromiumExperimentalTimestampQueryInsidePasses");
                 break;
@@ -1054,9 +1239,6 @@ namespace wgpu {
             case FeatureName::ChromiumExperimentalSubgroupUniformControlFlow:
                 s->Append("ChromiumExperimentalSubgroupUniformControlFlow");
                 break;
-            case FeatureName::ChromiumExperimentalReadWriteStorageTexture:
-                s->Append("ChromiumExperimentalReadWriteStorageTexture");
-                break;
             case FeatureName::PixelLocalStorageCoherent:
                 s->Append("PixelLocalStorageCoherent");
                 break;
@@ -1077,6 +1259,18 @@ namespace wgpu {
                 break;
             case FeatureName::MultiPlanarRenderTargets:
                 s->Append("MultiPlanarRenderTargets");
+                break;
+            case FeatureName::MultiPlanarFormatNv12a:
+                s->Append("MultiPlanarFormatNv12a");
+                break;
+            case FeatureName::FramebufferFetch:
+                s->Append("FramebufferFetch");
+                break;
+            case FeatureName::BufferMapExtendedUsages:
+                s->Append("BufferMapExtendedUsages");
+                break;
+            case FeatureName::AdapterPropertiesMemoryHeaps:
+                s->Append("AdapterPropertiesMemoryHeaps");
                 break;
             case FeatureName::SharedTextureMemoryVkDedicatedAllocation:
                 s->Append("SharedTextureMemoryVkDedicatedAllocation");
@@ -1470,6 +1664,9 @@ namespace wgpu {
             case SType::DepthStencilStateDepthWriteDefinedDawn:
                 s->Append("DepthStencilStateDepthWriteDefinedDawn");
                 break;
+            case SType::TextureBindingViewDimensionDescriptor:
+                s->Append("TextureBindingViewDimensionDescriptor");
+                break;
             case SType::DawnTextureInternalUsageDescriptor:
                 s->Append("DawnTextureInternalUsageDescriptor");
                 break;
@@ -1500,6 +1697,9 @@ namespace wgpu {
             case SType::RequestAdapterOptionsGetGLProc:
                 s->Append("RequestAdapterOptionsGetGLProc");
                 break;
+            case SType::RequestAdapterOptionsD3D11Device:
+                s->Append("RequestAdapterOptionsD3D11Device");
+                break;
             case SType::DawnMultisampleStateRenderToSingleSampled:
                 s->Append("DawnMultisampleStateRenderToSingleSampled");
                 break;
@@ -1517,6 +1717,18 @@ namespace wgpu {
                 break;
             case SType::DawnExperimentalSubgroupLimits:
                 s->Append("DawnExperimentalSubgroupLimits");
+                break;
+            case SType::AdapterPropertiesMemoryHeaps:
+                s->Append("AdapterPropertiesMemoryHeaps");
+                break;
+            case SType::DawnComputePipelineFullSubgroups:
+                s->Append("DawnComputePipelineFullSubgroups");
+                break;
+            case SType::DawnWireWGSLControl:
+                s->Append("DawnWireWGSLControl");
+                break;
+            case SType::DawnWGSLBlocklist:
+                s->Append("DawnWGSLBlocklist");
                 break;
             case SType::SharedTextureMemoryVkImageDescriptor:
                 s->Append("SharedTextureMemoryVkImageDescriptor");
@@ -1757,6 +1969,9 @@ namespace wgpu {
                 break;
             case TextureAspect::Plane1Only:
                 s->Append("Plane1Only");
+                break;
+            case TextureAspect::Plane2Only:
+                s->Append("Plane2Only");
                 break;
             }
         } else {
@@ -2104,6 +2319,9 @@ namespace wgpu {
                 break;
             case TextureFormat::R10X6BG10X6Biplanar420Unorm:
                 s->Append("R10X6BG10X6Biplanar420Unorm");
+                break;
+            case TextureFormat::R8BG8A8Triplanar420Unorm:
+                s->Append("R8BG8A8Triplanar420Unorm");
                 break;
             }
         } else {
@@ -2528,6 +2746,80 @@ namespace wgpu {
             }
         } else {
             s->Append(absl::StrFormat("%u", static_cast<typename std::underlying_type<ColorWriteMask>::type>(value)));
+        }
+        return {true};
+    }
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
+    AbslFormatConvert(HeapProperty value,
+                      const absl::FormatConversionSpec& spec,
+                      absl::FormatSink* s) {
+        if (spec.conversion_char() == absl::FormatConversionChar::s) {
+            s->Append("HeapProperty::");
+            if (!static_cast<bool>(value)) {
+                // 0 is often explicitly declared as None.
+                s->Append("Undefined");
+                return {true};
+            }
+
+            bool moreThanOneBit = !HasZeroOrOneBits(value);
+            if (moreThanOneBit) {
+                s->Append("(");
+            }
+
+            bool first = true;
+            if (value & HeapProperty::DeviceLocal) {
+                if (!first) {
+                    s->Append("|");
+                }
+                first = false;
+                s->Append("DeviceLocal");
+                value &= ~HeapProperty::DeviceLocal;
+            }
+            if (value & HeapProperty::HostVisible) {
+                if (!first) {
+                    s->Append("|");
+                }
+                first = false;
+                s->Append("HostVisible");
+                value &= ~HeapProperty::HostVisible;
+            }
+            if (value & HeapProperty::HostCoherent) {
+                if (!first) {
+                    s->Append("|");
+                }
+                first = false;
+                s->Append("HostCoherent");
+                value &= ~HeapProperty::HostCoherent;
+            }
+            if (value & HeapProperty::HostUncached) {
+                if (!first) {
+                    s->Append("|");
+                }
+                first = false;
+                s->Append("HostUncached");
+                value &= ~HeapProperty::HostUncached;
+            }
+            if (value & HeapProperty::HostCached) {
+                if (!first) {
+                    s->Append("|");
+                }
+                first = false;
+                s->Append("HostCached");
+                value &= ~HeapProperty::HostCached;
+            }
+
+            if (static_cast<bool>(value)) {
+                if (!first) {
+                    s->Append("|");
+                }
+                s->Append(absl::StrFormat("HeapProperty::%x", static_cast<typename std::underlying_type<HeapProperty>::type>(value)));
+            }
+
+            if (moreThanOneBit) {
+                s->Append(")");
+            }
+        } else {
+            s->Append(absl::StrFormat("%u", static_cast<typename std::underlying_type<HeapProperty>::type>(value)));
         }
         return {true};
     }

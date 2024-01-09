@@ -578,6 +578,36 @@ bool CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Par
 CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data::CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data* object =
+      static_cast<const CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_surface_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->local_surface_id, validation_context))
+    return false;
+
+  return true;
+}
+
+CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace viz

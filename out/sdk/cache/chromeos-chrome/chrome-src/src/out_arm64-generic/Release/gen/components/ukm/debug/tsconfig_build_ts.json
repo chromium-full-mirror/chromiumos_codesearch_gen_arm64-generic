@@ -1,7 +1,7 @@
 {
   "extends": "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "preprocessed",
     "outDir": "tsc",
     "paths": {
       "//resources/js/*": [
@@ -16,7 +16,7 @@
     }
   },
   "files": [
-    "./ukm_internals.ts"
+    "preprocessed/ukm_internals.ts"
   ],
   "references": [
     {

@@ -4,123 +4,164 @@
 #include "signature_sealed_data.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace cryptohome {
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData_PcrValue::SignatureSealedData_PcrValue(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.pcr_value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.pcr_index_)*/0u} {}
+  , /*decltype(_impl_.pcr_value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.pcr_index_)*/ 0u
+} {}
 struct SignatureSealedData_PcrValueDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedData_PcrValueDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedData_PcrValueDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedData_PcrValueDefaultTypeInternal() {}
   union {
     SignatureSealedData_PcrValue _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_PcrValueDefaultTypeInternal _SignatureSealedData_PcrValue_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_PcrValueDefaultTypeInternal _SignatureSealedData_PcrValue_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PcrRestriction::SignatureSealedData_Tpm2PcrRestriction(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.pcr_values_)*/{}
-  , /*decltype(_impl_.policy_digest_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.policy_digest_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal() {}
   union {
     SignatureSealedData_Tpm2PcrRestriction _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal _SignatureSealedData_Tpm2PcrRestriction_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm2PcrRestrictionDefaultTypeInternal _SignatureSealedData_Tpm2PcrRestriction_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PolicySignedData::SignatureSealedData_Tpm2PolicySignedData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.pcr_restrictions_)*/{}
-  , /*decltype(_impl_.public_key_spki_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.srk_wrapped_secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.scheme_)*/0
-  , /*decltype(_impl_.hash_alg_)*/0} {}
+  , /*decltype(_impl_.public_key_spki_der_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.srk_wrapped_secret_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.scheme_)*/ 0
+
+  , /*decltype(_impl_.hash_alg_)*/ 0
+} {}
 struct SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal() {}
   union {
     SignatureSealedData_Tpm2PolicySignedData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal _SignatureSealedData_Tpm2PolicySignedData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm2PolicySignedDataDefaultTypeInternal _SignatureSealedData_Tpm2PolicySignedData_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12PcrBoundItem::SignatureSealedData_Tpm12PcrBoundItem(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.pcr_values_)*/{}
-  , /*decltype(_impl_.bound_secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.bound_secret_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal() {}
   union {
     SignatureSealedData_Tpm12PcrBoundItem _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal _SignatureSealedData_Tpm12PcrBoundItem_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm12PcrBoundItemDefaultTypeInternal _SignatureSealedData_Tpm12PcrBoundItem_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12CertifiedMigratableKeyData::SignatureSealedData_Tpm12CertifiedMigratableKeyData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.pcr_bound_items_)*/{}
-  , /*decltype(_impl_.public_key_spki_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.srk_wrapped_cmk_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.cmk_pubkey_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.cmk_wrapped_auth_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.public_key_spki_der_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.srk_wrapped_cmk_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.cmk_pubkey_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.cmk_wrapped_auth_data_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal() {}
   union {
     SignatureSealedData_Tpm12CertifiedMigratableKeyData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal _SignatureSealedData_Tpm12CertifiedMigratableKeyData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedData_Tpm12CertifiedMigratableKeyDataDefaultTypeInternal _SignatureSealedData_Tpm12CertifiedMigratableKeyData_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SignatureSealedData::SignatureSealedData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.data_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct SignatureSealedDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignatureSealedDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignatureSealedDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignatureSealedDataDefaultTypeInternal() {}
   union {
     SignatureSealedData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedDataDefaultTypeInternal _SignatureSealedData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignatureSealedDataDefaultTypeInternal _SignatureSealedData_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
-
 // ===================================================================
 
 class SignatureSealedData_PcrValue::_Internal {
  public:
   using HasBits = decltype(std::declval<SignatureSealedData_PcrValue>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SignatureSealedData_PcrValue, _impl_._has_bits_);
   static void set_has_pcr_index(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -129,10 +170,9 @@ class SignatureSealedData_PcrValue::_Internal {
   }
 };
 
-SignatureSealedData_PcrValue::SignatureSealedData_PcrValue(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData_PcrValue::SignatureSealedData_PcrValue(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData.PcrValue)
 }
 SignatureSealedData_PcrValue::SignatureSealedData_PcrValue(const SignatureSealedData_PcrValue& from)
@@ -141,36 +181,37 @@ SignatureSealedData_PcrValue::SignatureSealedData_PcrValue(const SignatureSealed
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pcr_value_){}
-    , decltype(_impl_.pcr_index_){}};
+    , decltype(_impl_.pcr_value_) {}
+
+    , decltype(_impl_.pcr_index_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.pcr_value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pcr_value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_pcr_value()) {
-    _this->_impl_.pcr_value_.Set(from._internal_pcr_value(), 
-      _this->GetArenaForAllocation());
+        _impl_.pcr_value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.pcr_value_.Set(from._internal_pcr_value(), _this->GetArenaForAllocation());
   }
   _this->_impl_.pcr_index_ = from._impl_.pcr_index_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData.PcrValue)
 }
 
-inline void SignatureSealedData_PcrValue::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData_PcrValue::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pcr_value_){}
-    , decltype(_impl_.pcr_index_){0u}
+    , decltype(_impl_.pcr_value_) {}
+
+    , decltype(_impl_.pcr_index_) { 0u }
+
   };
   _impl_.pcr_value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pcr_value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.pcr_value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignatureSealedData_PcrValue::~SignatureSealedData_PcrValue() {
@@ -183,7 +224,7 @@ SignatureSealedData_PcrValue::~SignatureSealedData_PcrValue() {
 }
 
 inline void SignatureSealedData_PcrValue::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.pcr_value_.Destroy();
 }
 
@@ -193,7 +234,7 @@ void SignatureSealedData_PcrValue::SetCachedSize(int size) const {
 
 void SignatureSealedData_PcrValue::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData.PcrValue)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -210,26 +251,28 @@ const char* SignatureSealedData_PcrValue::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pcr_index = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pcr_index(&has_bits);
           _impl_.pcr_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes pcr_value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_pcr_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -255,23 +298,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData_PcrValue::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData_PcrValue::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData.PcrValue)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pcr_index = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pcr_index(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pcr_index(), target);
   }
 
   // optional bytes pcr_value = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_pcr_value(), target);
+    const std::string& _s = this->_internal_pcr_value();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -282,11 +326,11 @@ uint8_t* SignatureSealedData_PcrValue::_InternalSerialize(
   return target;
 }
 
-size_t SignatureSealedData_PcrValue::ByteSizeLong() const {
+::size_t SignatureSealedData_PcrValue::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData.PcrValue)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -294,14 +338,14 @@ size_t SignatureSealedData_PcrValue::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bytes pcr_value = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_pcr_value());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_pcr_value());
     }
 
     // optional uint32 pcr_index = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pcr_index());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pcr_index());
     }
 
   }
@@ -322,8 +366,8 @@ void SignatureSealedData_PcrValue::CheckTypeAndMergeFrom(
 void SignatureSealedData_PcrValue::MergeFrom(const SignatureSealedData_PcrValue& from) {
   SignatureSealedData_PcrValue* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData.PcrValue)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -356,10 +400,9 @@ void SignatureSealedData_PcrValue::InternalSwap(SignatureSealedData_PcrValue* ot
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.pcr_value_, lhs_arena,
-      &other->_impl_.pcr_value_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.pcr_value_, lhs_arena,
+                                       &other->_impl_.pcr_value_, rhs_arena);
+
   swap(_impl_.pcr_index_, other->_impl_.pcr_index_);
 }
 
@@ -367,21 +410,21 @@ std::string SignatureSealedData_PcrValue::GetTypeName() const {
   return "cryptohome.SignatureSealedData.PcrValue";
 }
 
-
 // ===================================================================
 
 class SignatureSealedData_Tpm2PcrRestriction::_Internal {
  public:
   using HasBits = decltype(std::declval<SignatureSealedData_Tpm2PcrRestriction>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SignatureSealedData_Tpm2PcrRestriction, _impl_._has_bits_);
   static void set_has_policy_digest(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SignatureSealedData_Tpm2PcrRestriction::SignatureSealedData_Tpm2PcrRestriction(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData_Tpm2PcrRestriction::SignatureSealedData_Tpm2PcrRestriction(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
 }
 SignatureSealedData_Tpm2PcrRestriction::SignatureSealedData_Tpm2PcrRestriction(const SignatureSealedData_Tpm2PcrRestriction& from)
@@ -391,34 +434,33 @@ SignatureSealedData_Tpm2PcrRestriction::SignatureSealedData_Tpm2PcrRestriction(c
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_values_){from._impl_.pcr_values_}
-    , decltype(_impl_.policy_digest_){}};
+    , decltype(_impl_.policy_digest_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.policy_digest_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.policy_digest_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_policy_digest()) {
-    _this->_impl_.policy_digest_.Set(from._internal_policy_digest(), 
-      _this->GetArenaForAllocation());
+        _impl_.policy_digest_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.policy_digest_.Set(from._internal_policy_digest(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
 }
 
-inline void SignatureSealedData_Tpm2PcrRestriction::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData_Tpm2PcrRestriction::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_values_){arena}
-    , decltype(_impl_.policy_digest_){}
+    , decltype(_impl_.policy_digest_) {}
+
   };
   _impl_.policy_digest_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.policy_digest_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.policy_digest_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignatureSealedData_Tpm2PcrRestriction::~SignatureSealedData_Tpm2PcrRestriction() {
@@ -431,8 +473,8 @@ SignatureSealedData_Tpm2PcrRestriction::~SignatureSealedData_Tpm2PcrRestriction(
 }
 
 inline void SignatureSealedData_Tpm2PcrRestriction::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.pcr_values_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_pcr_values()->~RepeatedPtrField();
   _impl_.policy_digest_.Destroy();
 }
 
@@ -442,11 +484,11 @@ void SignatureSealedData_Tpm2PcrRestriction::SetCachedSize(int size) const {
 
 void SignatureSealedData_Tpm2PcrRestriction::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.pcr_values_.Clear();
+  _internal_mutable_pcr_values()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     _impl_.policy_digest_.ClearNonDefaultToEmpty();
@@ -459,12 +501,12 @@ const char* SignatureSealedData_Tpm2PcrRestriction::_InternalParse(const char* p
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -472,17 +514,19 @@ const char* SignatureSealedData_Tpm2PcrRestriction::_InternalParse(const char* p
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes policy_digest = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_policy_digest();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -508,10 +552,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData_Tpm2PcrRestriction::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData_Tpm2PcrRestriction::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
@@ -525,8 +569,8 @@ uint8_t* SignatureSealedData_Tpm2PcrRestriction::_InternalSerialize(
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes policy_digest = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_policy_digest(), target);
+    const std::string& _s = this->_internal_policy_digest();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -537,17 +581,17 @@ uint8_t* SignatureSealedData_Tpm2PcrRestriction::_InternalSerialize(
   return target;
 }
 
-size_t SignatureSealedData_Tpm2PcrRestriction::ByteSizeLong() const {
+::size_t SignatureSealedData_Tpm2PcrRestriction::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
   total_size += 1UL * this->_internal_pcr_values_size();
-  for (const auto& msg : this->_impl_.pcr_values_) {
+  for (const auto& msg : this->_internal_pcr_values()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -555,9 +599,8 @@ size_t SignatureSealedData_Tpm2PcrRestriction::ByteSizeLong() const {
   // optional bytes policy_digest = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_policy_digest());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_policy_digest());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -577,12 +620,12 @@ void SignatureSealedData_Tpm2PcrRestriction::CheckTypeAndMergeFrom(
 void SignatureSealedData_Tpm2PcrRestriction::MergeFrom(const SignatureSealedData_Tpm2PcrRestriction& from) {
   SignatureSealedData_Tpm2PcrRestriction* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData.Tpm2PcrRestriction)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.pcr_values_.MergeFrom(from._impl_.pcr_values_);
-  if (from._internal_has_policy_digest()) {
+  _this->_internal_mutable_pcr_values()->MergeFrom(from._internal_pcr_values());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_policy_digest(from._internal_policy_digest());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -605,23 +648,22 @@ void SignatureSealedData_Tpm2PcrRestriction::InternalSwap(SignatureSealedData_Tp
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.pcr_values_.InternalSwap(&other->_impl_.pcr_values_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.policy_digest_, lhs_arena,
-      &other->_impl_.policy_digest_, rhs_arena
-  );
+  _internal_mutable_pcr_values()->InternalSwap(other->_internal_mutable_pcr_values());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.policy_digest_, lhs_arena,
+                                       &other->_impl_.policy_digest_, rhs_arena);
 }
 
 std::string SignatureSealedData_Tpm2PcrRestriction::GetTypeName() const {
   return "cryptohome.SignatureSealedData.Tpm2PcrRestriction";
 }
 
-
 // ===================================================================
 
 class SignatureSealedData_Tpm2PolicySignedData::_Internal {
  public:
   using HasBits = decltype(std::declval<SignatureSealedData_Tpm2PolicySignedData>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SignatureSealedData_Tpm2PolicySignedData, _impl_._has_bits_);
   static void set_has_public_key_spki_der(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -636,10 +678,9 @@ class SignatureSealedData_Tpm2PolicySignedData::_Internal {
   }
 };
 
-SignatureSealedData_Tpm2PolicySignedData::SignatureSealedData_Tpm2PolicySignedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData_Tpm2PolicySignedData::SignatureSealedData_Tpm2PolicySignedData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
 }
 SignatureSealedData_Tpm2PolicySignedData::SignatureSealedData_Tpm2PolicySignedData(const SignatureSealedData_Tpm2PolicySignedData& from)
@@ -649,55 +690,59 @@ SignatureSealedData_Tpm2PolicySignedData::SignatureSealedData_Tpm2PolicySignedDa
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_restrictions_){from._impl_.pcr_restrictions_}
-    , decltype(_impl_.public_key_spki_der_){}
-    , decltype(_impl_.srk_wrapped_secret_){}
-    , decltype(_impl_.scheme_){}
-    , decltype(_impl_.hash_alg_){}};
+    , decltype(_impl_.public_key_spki_der_) {}
+
+    , decltype(_impl_.srk_wrapped_secret_) {}
+
+    , decltype(_impl_.scheme_) {}
+
+    , decltype(_impl_.hash_alg_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_public_key_spki_der()) {
-    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), 
-      _this->GetArenaForAllocation());
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), _this->GetArenaForAllocation());
   }
   _impl_.srk_wrapped_secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.srk_wrapped_secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_srk_wrapped_secret()) {
-    _this->_impl_.srk_wrapped_secret_.Set(from._internal_srk_wrapped_secret(), 
-      _this->GetArenaForAllocation());
+        _impl_.srk_wrapped_secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.srk_wrapped_secret_.Set(from._internal_srk_wrapped_secret(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.scheme_, &from._impl_.scheme_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.hash_alg_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.hash_alg_) -
     reinterpret_cast<char*>(&_impl_.scheme_)) + sizeof(_impl_.hash_alg_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
 }
 
-inline void SignatureSealedData_Tpm2PolicySignedData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData_Tpm2PolicySignedData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_restrictions_){arena}
-    , decltype(_impl_.public_key_spki_der_){}
-    , decltype(_impl_.srk_wrapped_secret_){}
-    , decltype(_impl_.scheme_){0}
-    , decltype(_impl_.hash_alg_){0}
+    , decltype(_impl_.public_key_spki_der_) {}
+
+    , decltype(_impl_.srk_wrapped_secret_) {}
+
+    , decltype(_impl_.scheme_) { 0 }
+
+    , decltype(_impl_.hash_alg_) { 0 }
+
   };
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.srk_wrapped_secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.srk_wrapped_secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.srk_wrapped_secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignatureSealedData_Tpm2PolicySignedData::~SignatureSealedData_Tpm2PolicySignedData() {
@@ -710,8 +755,8 @@ SignatureSealedData_Tpm2PolicySignedData::~SignatureSealedData_Tpm2PolicySignedD
 }
 
 inline void SignatureSealedData_Tpm2PolicySignedData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.pcr_restrictions_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_pcr_restrictions()->~RepeatedPtrField();
   _impl_.public_key_spki_der_.Destroy();
   _impl_.srk_wrapped_secret_.Destroy();
 }
@@ -722,11 +767,11 @@ void SignatureSealedData_Tpm2PolicySignedData::SetCachedSize(int size) const {
 
 void SignatureSealedData_Tpm2PolicySignedData::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.pcr_restrictions_.Clear();
+  _internal_mutable_pcr_restrictions()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -737,7 +782,7 @@ void SignatureSealedData_Tpm2PolicySignedData::Clear() {
     }
   }
   if (cached_has_bits & 0x0000000cu) {
-    ::memset(&_impl_.scheme_, 0, static_cast<size_t>(
+    ::memset(&_impl_.scheme_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.hash_alg_) -
         reinterpret_cast<char*>(&_impl_.scheme_)) + sizeof(_impl_.hash_alg_));
   }
@@ -749,48 +794,52 @@ const char* SignatureSealedData_Tpm2PolicySignedData::_InternalParse(const char*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes public_key_spki_der = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_public_key_spki_der();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes srk_wrapped_secret = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_srk_wrapped_secret();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 scheme = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_scheme(&has_bits);
           _impl_.scheme_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 hash_alg = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_hash_alg(&has_bits);
           _impl_.hash_alg_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cryptohome.SignatureSealedData.Tpm2PcrRestriction pcr_restrictions = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -798,8 +847,9 @@ const char* SignatureSealedData_Tpm2PolicySignedData::_InternalParse(const char*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -825,35 +875,37 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData_Tpm2PolicySignedData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData_Tpm2PolicySignedData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes public_key_spki_der = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_public_key_spki_der(), target);
+    const std::string& _s = this->_internal_public_key_spki_der();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes srk_wrapped_secret = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_srk_wrapped_secret(), target);
+    const std::string& _s = this->_internal_srk_wrapped_secret();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional int32 scheme = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_scheme(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_scheme(), target);
   }
 
   // optional int32 hash_alg = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_hash_alg(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_hash_alg(), target);
   }
 
   // repeated .cryptohome.SignatureSealedData.Tpm2PcrRestriction pcr_restrictions = 5;
@@ -872,17 +924,17 @@ uint8_t* SignatureSealedData_Tpm2PolicySignedData::_InternalSerialize(
   return target;
 }
 
-size_t SignatureSealedData_Tpm2PolicySignedData::ByteSizeLong() const {
+::size_t SignatureSealedData_Tpm2PolicySignedData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.Tpm2PcrRestriction pcr_restrictions = 5;
   total_size += 1UL * this->_internal_pcr_restrictions_size();
-  for (const auto& msg : this->_impl_.pcr_restrictions_) {
+  for (const auto& msg : this->_internal_pcr_restrictions()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -891,26 +943,26 @@ size_t SignatureSealedData_Tpm2PolicySignedData::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes public_key_spki_der = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_public_key_spki_der());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_public_key_spki_der());
     }
 
     // optional bytes srk_wrapped_secret = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_srk_wrapped_secret());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_srk_wrapped_secret());
     }
 
     // optional int32 scheme = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_scheme());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_scheme());
     }
 
     // optional int32 hash_alg = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_hash_alg());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_hash_alg());
     }
 
   }
@@ -931,11 +983,11 @@ void SignatureSealedData_Tpm2PolicySignedData::CheckTypeAndMergeFrom(
 void SignatureSealedData_Tpm2PolicySignedData::MergeFrom(const SignatureSealedData_Tpm2PolicySignedData& from) {
   SignatureSealedData_Tpm2PolicySignedData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData.Tpm2PolicySignedData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.pcr_restrictions_.MergeFrom(from._impl_.pcr_restrictions_);
+  _this->_internal_mutable_pcr_restrictions()->MergeFrom(from._internal_pcr_restrictions());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -972,15 +1024,11 @@ void SignatureSealedData_Tpm2PolicySignedData::InternalSwap(SignatureSealedData_
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.pcr_restrictions_.InternalSwap(&other->_impl_.pcr_restrictions_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.public_key_spki_der_, lhs_arena,
-      &other->_impl_.public_key_spki_der_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.srk_wrapped_secret_, lhs_arena,
-      &other->_impl_.srk_wrapped_secret_, rhs_arena
-  );
+  _internal_mutable_pcr_restrictions()->InternalSwap(other->_internal_mutable_pcr_restrictions());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.public_key_spki_der_, lhs_arena,
+                                       &other->_impl_.public_key_spki_der_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.srk_wrapped_secret_, lhs_arena,
+                                       &other->_impl_.srk_wrapped_secret_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SignatureSealedData_Tpm2PolicySignedData, _impl_.hash_alg_)
       + sizeof(SignatureSealedData_Tpm2PolicySignedData::_impl_.hash_alg_)
@@ -993,21 +1041,21 @@ std::string SignatureSealedData_Tpm2PolicySignedData::GetTypeName() const {
   return "cryptohome.SignatureSealedData.Tpm2PolicySignedData";
 }
 
-
 // ===================================================================
 
 class SignatureSealedData_Tpm12PcrBoundItem::_Internal {
  public:
   using HasBits = decltype(std::declval<SignatureSealedData_Tpm12PcrBoundItem>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SignatureSealedData_Tpm12PcrBoundItem, _impl_._has_bits_);
   static void set_has_bound_secret(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SignatureSealedData_Tpm12PcrBoundItem::SignatureSealedData_Tpm12PcrBoundItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData_Tpm12PcrBoundItem::SignatureSealedData_Tpm12PcrBoundItem(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
 }
 SignatureSealedData_Tpm12PcrBoundItem::SignatureSealedData_Tpm12PcrBoundItem(const SignatureSealedData_Tpm12PcrBoundItem& from)
@@ -1017,34 +1065,33 @@ SignatureSealedData_Tpm12PcrBoundItem::SignatureSealedData_Tpm12PcrBoundItem(con
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_values_){from._impl_.pcr_values_}
-    , decltype(_impl_.bound_secret_){}};
+    , decltype(_impl_.bound_secret_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.bound_secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bound_secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_bound_secret()) {
-    _this->_impl_.bound_secret_.Set(from._internal_bound_secret(), 
-      _this->GetArenaForAllocation());
+        _impl_.bound_secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.bound_secret_.Set(from._internal_bound_secret(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
 }
 
-inline void SignatureSealedData_Tpm12PcrBoundItem::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData_Tpm12PcrBoundItem::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_values_){arena}
-    , decltype(_impl_.bound_secret_){}
+    , decltype(_impl_.bound_secret_) {}
+
   };
   _impl_.bound_secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bound_secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.bound_secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignatureSealedData_Tpm12PcrBoundItem::~SignatureSealedData_Tpm12PcrBoundItem() {
@@ -1057,8 +1104,8 @@ SignatureSealedData_Tpm12PcrBoundItem::~SignatureSealedData_Tpm12PcrBoundItem() 
 }
 
 inline void SignatureSealedData_Tpm12PcrBoundItem::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.pcr_values_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_pcr_values()->~RepeatedPtrField();
   _impl_.bound_secret_.Destroy();
 }
 
@@ -1068,11 +1115,11 @@ void SignatureSealedData_Tpm12PcrBoundItem::SetCachedSize(int size) const {
 
 void SignatureSealedData_Tpm12PcrBoundItem::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.pcr_values_.Clear();
+  _internal_mutable_pcr_values()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     _impl_.bound_secret_.ClearNonDefaultToEmpty();
@@ -1085,12 +1132,12 @@ const char* SignatureSealedData_Tpm12PcrBoundItem::_InternalParse(const char* pt
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1098,17 +1145,19 @@ const char* SignatureSealedData_Tpm12PcrBoundItem::_InternalParse(const char* pt
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes bound_secret = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_bound_secret();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1134,10 +1183,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData_Tpm12PcrBoundItem::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData_Tpm12PcrBoundItem::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
@@ -1151,8 +1200,8 @@ uint8_t* SignatureSealedData_Tpm12PcrBoundItem::_InternalSerialize(
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes bound_secret = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_bound_secret(), target);
+    const std::string& _s = this->_internal_bound_secret();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1163,17 +1212,17 @@ uint8_t* SignatureSealedData_Tpm12PcrBoundItem::_InternalSerialize(
   return target;
 }
 
-size_t SignatureSealedData_Tpm12PcrBoundItem::ByteSizeLong() const {
+::size_t SignatureSealedData_Tpm12PcrBoundItem::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.PcrValue pcr_values = 1;
   total_size += 1UL * this->_internal_pcr_values_size();
-  for (const auto& msg : this->_impl_.pcr_values_) {
+  for (const auto& msg : this->_internal_pcr_values()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1181,9 +1230,8 @@ size_t SignatureSealedData_Tpm12PcrBoundItem::ByteSizeLong() const {
   // optional bytes bound_secret = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_bound_secret());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_bound_secret());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1203,12 +1251,12 @@ void SignatureSealedData_Tpm12PcrBoundItem::CheckTypeAndMergeFrom(
 void SignatureSealedData_Tpm12PcrBoundItem::MergeFrom(const SignatureSealedData_Tpm12PcrBoundItem& from) {
   SignatureSealedData_Tpm12PcrBoundItem* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData.Tpm12PcrBoundItem)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.pcr_values_.MergeFrom(from._impl_.pcr_values_);
-  if (from._internal_has_bound_secret()) {
+  _this->_internal_mutable_pcr_values()->MergeFrom(from._internal_pcr_values());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_bound_secret(from._internal_bound_secret());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1231,23 +1279,22 @@ void SignatureSealedData_Tpm12PcrBoundItem::InternalSwap(SignatureSealedData_Tpm
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.pcr_values_.InternalSwap(&other->_impl_.pcr_values_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.bound_secret_, lhs_arena,
-      &other->_impl_.bound_secret_, rhs_arena
-  );
+  _internal_mutable_pcr_values()->InternalSwap(other->_internal_mutable_pcr_values());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.bound_secret_, lhs_arena,
+                                       &other->_impl_.bound_secret_, rhs_arena);
 }
 
 std::string SignatureSealedData_Tpm12PcrBoundItem::GetTypeName() const {
   return "cryptohome.SignatureSealedData.Tpm12PcrBoundItem";
 }
 
-
 // ===================================================================
 
 class SignatureSealedData_Tpm12CertifiedMigratableKeyData::_Internal {
  public:
   using HasBits = decltype(std::declval<SignatureSealedData_Tpm12CertifiedMigratableKeyData>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SignatureSealedData_Tpm12CertifiedMigratableKeyData, _impl_._has_bits_);
   static void set_has_public_key_spki_der(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1262,10 +1309,9 @@ class SignatureSealedData_Tpm12CertifiedMigratableKeyData::_Internal {
   }
 };
 
-SignatureSealedData_Tpm12CertifiedMigratableKeyData::SignatureSealedData_Tpm12CertifiedMigratableKeyData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData_Tpm12CertifiedMigratableKeyData::SignatureSealedData_Tpm12CertifiedMigratableKeyData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
 }
 SignatureSealedData_Tpm12CertifiedMigratableKeyData::SignatureSealedData_Tpm12CertifiedMigratableKeyData(const SignatureSealedData_Tpm12CertifiedMigratableKeyData& from)
@@ -1275,76 +1321,78 @@ SignatureSealedData_Tpm12CertifiedMigratableKeyData::SignatureSealedData_Tpm12Ce
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_bound_items_){from._impl_.pcr_bound_items_}
-    , decltype(_impl_.public_key_spki_der_){}
-    , decltype(_impl_.srk_wrapped_cmk_){}
-    , decltype(_impl_.cmk_pubkey_){}
-    , decltype(_impl_.cmk_wrapped_auth_data_){}};
+    , decltype(_impl_.public_key_spki_der_) {}
+
+    , decltype(_impl_.srk_wrapped_cmk_) {}
+
+    , decltype(_impl_.cmk_pubkey_) {}
+
+    , decltype(_impl_.cmk_wrapped_auth_data_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_public_key_spki_der()) {
-    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), 
-      _this->GetArenaForAllocation());
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), _this->GetArenaForAllocation());
   }
   _impl_.srk_wrapped_cmk_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.srk_wrapped_cmk_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_srk_wrapped_cmk()) {
-    _this->_impl_.srk_wrapped_cmk_.Set(from._internal_srk_wrapped_cmk(), 
-      _this->GetArenaForAllocation());
+        _impl_.srk_wrapped_cmk_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.srk_wrapped_cmk_.Set(from._internal_srk_wrapped_cmk(), _this->GetArenaForAllocation());
   }
   _impl_.cmk_pubkey_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cmk_pubkey_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_cmk_pubkey()) {
-    _this->_impl_.cmk_pubkey_.Set(from._internal_cmk_pubkey(), 
-      _this->GetArenaForAllocation());
+        _impl_.cmk_pubkey_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.cmk_pubkey_.Set(from._internal_cmk_pubkey(), _this->GetArenaForAllocation());
   }
   _impl_.cmk_wrapped_auth_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cmk_wrapped_auth_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_cmk_wrapped_auth_data()) {
-    _this->_impl_.cmk_wrapped_auth_data_.Set(from._internal_cmk_wrapped_auth_data(), 
-      _this->GetArenaForAllocation());
+        _impl_.cmk_wrapped_auth_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.cmk_wrapped_auth_data_.Set(from._internal_cmk_wrapped_auth_data(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
 }
 
-inline void SignatureSealedData_Tpm12CertifiedMigratableKeyData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData_Tpm12CertifiedMigratableKeyData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.pcr_bound_items_){arena}
-    , decltype(_impl_.public_key_spki_der_){}
-    , decltype(_impl_.srk_wrapped_cmk_){}
-    , decltype(_impl_.cmk_pubkey_){}
-    , decltype(_impl_.cmk_wrapped_auth_data_){}
+    , decltype(_impl_.public_key_spki_der_) {}
+
+    , decltype(_impl_.srk_wrapped_cmk_) {}
+
+    , decltype(_impl_.cmk_pubkey_) {}
+
+    , decltype(_impl_.cmk_wrapped_auth_data_) {}
+
   };
   _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.srk_wrapped_cmk_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.srk_wrapped_cmk_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.srk_wrapped_cmk_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.cmk_pubkey_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cmk_pubkey_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.cmk_pubkey_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.cmk_wrapped_auth_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cmk_wrapped_auth_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.cmk_wrapped_auth_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SignatureSealedData_Tpm12CertifiedMigratableKeyData::~SignatureSealedData_Tpm12CertifiedMigratableKeyData() {
@@ -1357,8 +1405,8 @@ SignatureSealedData_Tpm12CertifiedMigratableKeyData::~SignatureSealedData_Tpm12C
 }
 
 inline void SignatureSealedData_Tpm12CertifiedMigratableKeyData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.pcr_bound_items_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_pcr_bound_items()->~RepeatedPtrField();
   _impl_.public_key_spki_der_.Destroy();
   _impl_.srk_wrapped_cmk_.Destroy();
   _impl_.cmk_pubkey_.Destroy();
@@ -1371,11 +1419,11 @@ void SignatureSealedData_Tpm12CertifiedMigratableKeyData::SetCachedSize(int size
 
 void SignatureSealedData_Tpm12CertifiedMigratableKeyData::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.pcr_bound_items_.Clear();
+  _internal_mutable_pcr_bound_items()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1399,48 +1447,52 @@ const char* SignatureSealedData_Tpm12CertifiedMigratableKeyData::_InternalParse(
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes public_key_spki_der = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_public_key_spki_der();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes srk_wrapped_cmk = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_srk_wrapped_cmk();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes cmk_pubkey = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_cmk_pubkey();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes cmk_wrapped_auth_data = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_cmk_wrapped_auth_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cryptohome.SignatureSealedData.Tpm12PcrBoundItem pcr_bound_items = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1448,8 +1500,9 @@ const char* SignatureSealedData_Tpm12CertifiedMigratableKeyData::_InternalParse(
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1475,35 +1528,35 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData_Tpm12CertifiedMigratableKeyData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData_Tpm12CertifiedMigratableKeyData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes public_key_spki_der = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_public_key_spki_der(), target);
+    const std::string& _s = this->_internal_public_key_spki_der();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes srk_wrapped_cmk = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_srk_wrapped_cmk(), target);
+    const std::string& _s = this->_internal_srk_wrapped_cmk();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional bytes cmk_pubkey = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_cmk_pubkey(), target);
+    const std::string& _s = this->_internal_cmk_pubkey();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional bytes cmk_wrapped_auth_data = 4;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_cmk_wrapped_auth_data(), target);
+    const std::string& _s = this->_internal_cmk_wrapped_auth_data();
+    target = stream->WriteBytesMaybeAliased(4, _s, target);
   }
 
   // repeated .cryptohome.SignatureSealedData.Tpm12PcrBoundItem pcr_bound_items = 5;
@@ -1522,17 +1575,17 @@ uint8_t* SignatureSealedData_Tpm12CertifiedMigratableKeyData::_InternalSerialize
   return target;
 }
 
-size_t SignatureSealedData_Tpm12CertifiedMigratableKeyData::ByteSizeLong() const {
+::size_t SignatureSealedData_Tpm12CertifiedMigratableKeyData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cryptohome.SignatureSealedData.Tpm12PcrBoundItem pcr_bound_items = 5;
   total_size += 1UL * this->_internal_pcr_bound_items_size();
-  for (const auto& msg : this->_impl_.pcr_bound_items_) {
+  for (const auto& msg : this->_internal_pcr_bound_items()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1541,30 +1594,26 @@ size_t SignatureSealedData_Tpm12CertifiedMigratableKeyData::ByteSizeLong() const
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes public_key_spki_der = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_public_key_spki_der());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_public_key_spki_der());
     }
 
     // optional bytes srk_wrapped_cmk = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_srk_wrapped_cmk());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_srk_wrapped_cmk());
     }
 
     // optional bytes cmk_pubkey = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_cmk_pubkey());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_cmk_pubkey());
     }
 
     // optional bytes cmk_wrapped_auth_data = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_cmk_wrapped_auth_data());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_cmk_wrapped_auth_data());
     }
 
   }
@@ -1585,11 +1634,11 @@ void SignatureSealedData_Tpm12CertifiedMigratableKeyData::CheckTypeAndMergeFrom(
 void SignatureSealedData_Tpm12CertifiedMigratableKeyData::MergeFrom(const SignatureSealedData_Tpm12CertifiedMigratableKeyData& from) {
   SignatureSealedData_Tpm12CertifiedMigratableKeyData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.pcr_bound_items_.MergeFrom(from._impl_.pcr_bound_items_);
+  _this->_internal_mutable_pcr_bound_items()->MergeFrom(from._internal_pcr_bound_items());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1625,34 +1674,27 @@ void SignatureSealedData_Tpm12CertifiedMigratableKeyData::InternalSwap(Signature
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.pcr_bound_items_.InternalSwap(&other->_impl_.pcr_bound_items_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.public_key_spki_der_, lhs_arena,
-      &other->_impl_.public_key_spki_der_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.srk_wrapped_cmk_, lhs_arena,
-      &other->_impl_.srk_wrapped_cmk_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.cmk_pubkey_, lhs_arena,
-      &other->_impl_.cmk_pubkey_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.cmk_wrapped_auth_data_, lhs_arena,
-      &other->_impl_.cmk_wrapped_auth_data_, rhs_arena
-  );
+  _internal_mutable_pcr_bound_items()->InternalSwap(other->_internal_mutable_pcr_bound_items());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.public_key_spki_der_, lhs_arena,
+                                       &other->_impl_.public_key_spki_der_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.srk_wrapped_cmk_, lhs_arena,
+                                       &other->_impl_.srk_wrapped_cmk_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.cmk_pubkey_, lhs_arena,
+                                       &other->_impl_.cmk_pubkey_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.cmk_wrapped_auth_data_, lhs_arena,
+                                       &other->_impl_.cmk_wrapped_auth_data_, rhs_arena);
 }
 
 std::string SignatureSealedData_Tpm12CertifiedMigratableKeyData::GetTypeName() const {
   return "cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData";
 }
 
-
 // ===================================================================
 
 class SignatureSealedData::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cryptohome::SignatureSealedData, _impl_._oneof_case_);
   static const ::cryptohome::SignatureSealedData_Tpm2PolicySignedData& tpm2_policy_signed_data(const SignatureSealedData* msg);
   static const ::cryptohome::SignatureSealedData_Tpm12CertifiedMigratableKeyData& tpm12_certified_migratable_key_data(const SignatureSealedData* msg);
 };
@@ -1695,10 +1737,9 @@ void SignatureSealedData::set_allocated_tpm12_certified_migratable_key_data(::cr
   }
   // @@protoc_insertion_point(field_set_allocated:cryptohome.SignatureSealedData.tpm12_certified_migratable_key_data)
 }
-SignatureSealedData::SignatureSealedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SignatureSealedData::SignatureSealedData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SignatureSealedData)
 }
 SignatureSealedData::SignatureSealedData(const SignatureSealedData& from)
@@ -1729,10 +1770,8 @@ SignatureSealedData::SignatureSealedData(const SignatureSealedData& from)
   // @@protoc_insertion_point(copy_constructor:cryptohome.SignatureSealedData)
 }
 
-inline void SignatureSealedData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SignatureSealedData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.data_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1751,7 +1790,7 @@ SignatureSealedData::~SignatureSealedData() {
 }
 
 inline void SignatureSealedData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_data()) {
     clear_data();
   }
@@ -1786,7 +1825,7 @@ void SignatureSealedData::clear_data() {
 
 void SignatureSealedData::Clear() {
 // @@protoc_insertion_point(message_clear_start:cryptohome.SignatureSealedData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1797,24 +1836,26 @@ void SignatureSealedData::Clear() {
 const char* SignatureSealedData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.SignatureSealedData.Tpm2PolicySignedData tpm2_policy_signed_data = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_tpm2_policy_signed_data(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cryptohome.SignatureSealedData.Tpm12CertifiedMigratableKeyData tpm12_certified_migratable_key_data = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_tpm12_certified_migratable_key_data(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1839,10 +1880,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SignatureSealedData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SignatureSealedData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SignatureSealedData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (data_case()) {
@@ -1868,11 +1909,11 @@ uint8_t* SignatureSealedData::_InternalSerialize(
   return target;
 }
 
-size_t SignatureSealedData::ByteSizeLong() const {
+::size_t SignatureSealedData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SignatureSealedData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1912,8 +1953,8 @@ void SignatureSealedData::CheckTypeAndMergeFrom(
 void SignatureSealedData::MergeFrom(const SignatureSealedData& from) {
   SignatureSealedData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SignatureSealedData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.data_case()) {
@@ -1956,7 +1997,6 @@ std::string SignatureSealedData::GetTypeName() const {
   return "cryptohome.SignatureSealedData";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
@@ -1985,6 +2025,5 @@ Arena::CreateMaybeMessage< ::cryptohome::SignatureSealedData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::SignatureSealedData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

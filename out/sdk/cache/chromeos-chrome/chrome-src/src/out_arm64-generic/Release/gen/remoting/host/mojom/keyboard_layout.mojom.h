@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "remoting/host/mojom/keyboard_layout.mojom-features.h"
 #include "remoting/host/mojom/keyboard_layout.mojom-shared.h"
 #include "remoting/host/mojom/keyboard_layout.mojom-forward.h"
 #include <string>
@@ -63,17 +64,17 @@ class  KeyAction {
   // Construct an instance holding |function|.
   static KeyActionPtr
   NewFunction(
-      ::remoting::protocol::LayoutKeyFunction function) {
+      ::remoting::protocol::LayoutKeyFunction value) {
     auto result = KeyActionPtr(absl::in_place);
-    result->set_function(std::move(function));
+    result->set_function(std::move(value));
     return result;
   }
   // Construct an instance holding |character|.
   static KeyActionPtr
   NewCharacter(
-      const std::string& character) {
+      const std::string& value) {
     auto result = KeyActionPtr(absl::in_place);
-    result->set_character(std::move(character));
+    result->set_character(std::move(value));
     return result;
   }
 

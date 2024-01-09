@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/web_authentication_proxy.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ IsUvpaaRequest::IsUvpaaRequest()
 : request_id(0) {}
 
 IsUvpaaRequest::~IsUvpaaRequest() = default;
-IsUvpaaRequest::IsUvpaaRequest(IsUvpaaRequest&& rhs) = default;
-IsUvpaaRequest& IsUvpaaRequest::operator=(IsUvpaaRequest&& rhs) = default;
+IsUvpaaRequest::IsUvpaaRequest(IsUvpaaRequest&& rhs) noexcept = default;
+IsUvpaaRequest& IsUvpaaRequest::operator=(IsUvpaaRequest&& rhs) noexcept = default;
 IsUvpaaRequest IsUvpaaRequest::Clone() const {
   IsUvpaaRequest out;
   out.request_id = request_id;
@@ -72,34 +73,21 @@ bool IsUvpaaRequest::Populate(
 }
 
 // static
-std::unique_ptr<IsUvpaaRequest> IsUvpaaRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IsUvpaaRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IsUvpaaRequest> IsUvpaaRequest::FromValue(const base::Value::Dict& value) {
+  IsUvpaaRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IsUvpaaRequest> IsUvpaaRequest::FromValue(const base::Value::Dict& value) {
+std::optional<IsUvpaaRequest> IsUvpaaRequest::FromValue(const base::Value& value) {
   IsUvpaaRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IsUvpaaRequest> IsUvpaaRequest::FromValue(const base::Value& value) {
-  IsUvpaaRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -118,8 +106,8 @@ CreateRequest::CreateRequest()
 : request_id(0) {}
 
 CreateRequest::~CreateRequest() = default;
-CreateRequest::CreateRequest(CreateRequest&& rhs) = default;
-CreateRequest& CreateRequest::operator=(CreateRequest&& rhs) = default;
+CreateRequest::CreateRequest(CreateRequest&& rhs) noexcept = default;
+CreateRequest& CreateRequest::operator=(CreateRequest&& rhs) noexcept = default;
 CreateRequest CreateRequest::Clone() const {
   CreateRequest out;
   out.request_id = request_id;
@@ -167,34 +155,21 @@ bool CreateRequest::Populate(
 }
 
 // static
-std::unique_ptr<CreateRequest> CreateRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateRequest> CreateRequest::FromValue(const base::Value::Dict& value) {
+  CreateRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateRequest> CreateRequest::FromValue(const base::Value::Dict& value) {
+std::optional<CreateRequest> CreateRequest::FromValue(const base::Value& value) {
   CreateRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateRequest> CreateRequest::FromValue(const base::Value& value) {
-  CreateRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -215,8 +190,8 @@ GetRequest::GetRequest()
 : request_id(0) {}
 
 GetRequest::~GetRequest() = default;
-GetRequest::GetRequest(GetRequest&& rhs) = default;
-GetRequest& GetRequest::operator=(GetRequest&& rhs) = default;
+GetRequest::GetRequest(GetRequest&& rhs) noexcept = default;
+GetRequest& GetRequest::operator=(GetRequest&& rhs) noexcept = default;
 GetRequest GetRequest::Clone() const {
   GetRequest out;
   out.request_id = request_id;
@@ -264,34 +239,21 @@ bool GetRequest::Populate(
 }
 
 // static
-std::unique_ptr<GetRequest> GetRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetRequest> GetRequest::FromValue(const base::Value::Dict& value) {
+  GetRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetRequest> GetRequest::FromValue(const base::Value::Dict& value) {
+std::optional<GetRequest> GetRequest::FromValue(const base::Value& value) {
   GetRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetRequest> GetRequest::FromValue(const base::Value& value) {
-  GetRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -312,8 +274,8 @@ DOMExceptionDetails::DOMExceptionDetails()
  {}
 
 DOMExceptionDetails::~DOMExceptionDetails() = default;
-DOMExceptionDetails::DOMExceptionDetails(DOMExceptionDetails&& rhs) = default;
-DOMExceptionDetails& DOMExceptionDetails::operator=(DOMExceptionDetails&& rhs) = default;
+DOMExceptionDetails::DOMExceptionDetails(DOMExceptionDetails&& rhs) noexcept = default;
+DOMExceptionDetails& DOMExceptionDetails::operator=(DOMExceptionDetails&& rhs) noexcept = default;
 DOMExceptionDetails DOMExceptionDetails::Clone() const {
   DOMExceptionDetails out;
   out.name = name;
@@ -361,34 +323,21 @@ bool DOMExceptionDetails::Populate(
 }
 
 // static
-std::unique_ptr<DOMExceptionDetails> DOMExceptionDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DOMExceptionDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DOMExceptionDetails> DOMExceptionDetails::FromValue(const base::Value::Dict& value) {
+  DOMExceptionDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DOMExceptionDetails> DOMExceptionDetails::FromValue(const base::Value::Dict& value) {
+std::optional<DOMExceptionDetails> DOMExceptionDetails::FromValue(const base::Value& value) {
   DOMExceptionDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DOMExceptionDetails> DOMExceptionDetails::FromValue(const base::Value& value) {
-  DOMExceptionDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -409,8 +358,8 @@ CreateResponseDetails::CreateResponseDetails()
 : request_id(0) {}
 
 CreateResponseDetails::~CreateResponseDetails() = default;
-CreateResponseDetails::CreateResponseDetails(CreateResponseDetails&& rhs) = default;
-CreateResponseDetails& CreateResponseDetails::operator=(CreateResponseDetails&& rhs) = default;
+CreateResponseDetails::CreateResponseDetails(CreateResponseDetails&& rhs) noexcept = default;
+CreateResponseDetails& CreateResponseDetails::operator=(CreateResponseDetails&& rhs) noexcept = default;
 CreateResponseDetails CreateResponseDetails::Clone() const {
   CreateResponseDetails out;
   out.request_id = request_id;
@@ -456,7 +405,7 @@ bool CreateResponseDetails::Populate(
     {
       auto* temp = (*response_json_value).GetIfString();
       if (!temp) {
-        out.response_json = absl::nullopt;
+        out.response_json = std::nullopt;
         return false;
       }
       out.response_json = *temp;
@@ -476,34 +425,21 @@ bool CreateResponseDetails::Populate(
 }
 
 // static
-std::unique_ptr<CreateResponseDetails> CreateResponseDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateResponseDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateResponseDetails> CreateResponseDetails::FromValue(const base::Value::Dict& value) {
+  CreateResponseDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateResponseDetails> CreateResponseDetails::FromValue(const base::Value::Dict& value) {
+std::optional<CreateResponseDetails> CreateResponseDetails::FromValue(const base::Value& value) {
   CreateResponseDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateResponseDetails> CreateResponseDetails::FromValue(const base::Value& value) {
-  CreateResponseDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -530,8 +466,8 @@ GetResponseDetails::GetResponseDetails()
 : request_id(0) {}
 
 GetResponseDetails::~GetResponseDetails() = default;
-GetResponseDetails::GetResponseDetails(GetResponseDetails&& rhs) = default;
-GetResponseDetails& GetResponseDetails::operator=(GetResponseDetails&& rhs) = default;
+GetResponseDetails::GetResponseDetails(GetResponseDetails&& rhs) noexcept = default;
+GetResponseDetails& GetResponseDetails::operator=(GetResponseDetails&& rhs) noexcept = default;
 GetResponseDetails GetResponseDetails::Clone() const {
   GetResponseDetails out;
   out.request_id = request_id;
@@ -577,7 +513,7 @@ bool GetResponseDetails::Populate(
     {
       auto* temp = (*response_json_value).GetIfString();
       if (!temp) {
-        out.response_json = absl::nullopt;
+        out.response_json = std::nullopt;
         return false;
       }
       out.response_json = *temp;
@@ -597,34 +533,21 @@ bool GetResponseDetails::Populate(
 }
 
 // static
-std::unique_ptr<GetResponseDetails> GetResponseDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetResponseDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetResponseDetails> GetResponseDetails::FromValue(const base::Value::Dict& value) {
+  GetResponseDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetResponseDetails> GetResponseDetails::FromValue(const base::Value::Dict& value) {
+std::optional<GetResponseDetails> GetResponseDetails::FromValue(const base::Value& value) {
   GetResponseDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetResponseDetails> GetResponseDetails::FromValue(const base::Value& value) {
-  GetResponseDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -652,8 +575,8 @@ IsUvpaaResponseDetails::IsUvpaaResponseDetails()
 is_uvpaa(false) {}
 
 IsUvpaaResponseDetails::~IsUvpaaResponseDetails() = default;
-IsUvpaaResponseDetails::IsUvpaaResponseDetails(IsUvpaaResponseDetails&& rhs) = default;
-IsUvpaaResponseDetails& IsUvpaaResponseDetails::operator=(IsUvpaaResponseDetails&& rhs) = default;
+IsUvpaaResponseDetails::IsUvpaaResponseDetails(IsUvpaaResponseDetails&& rhs) noexcept = default;
+IsUvpaaResponseDetails& IsUvpaaResponseDetails::operator=(IsUvpaaResponseDetails&& rhs) noexcept = default;
 IsUvpaaResponseDetails IsUvpaaResponseDetails::Clone() const {
   IsUvpaaResponseDetails out;
   out.request_id = request_id;
@@ -701,34 +624,21 @@ bool IsUvpaaResponseDetails::Populate(
 }
 
 // static
-std::unique_ptr<IsUvpaaResponseDetails> IsUvpaaResponseDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IsUvpaaResponseDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IsUvpaaResponseDetails> IsUvpaaResponseDetails::FromValue(const base::Value::Dict& value) {
+  IsUvpaaResponseDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IsUvpaaResponseDetails> IsUvpaaResponseDetails::FromValue(const base::Value::Dict& value) {
+std::optional<IsUvpaaResponseDetails> IsUvpaaResponseDetails::FromValue(const base::Value& value) {
   IsUvpaaResponseDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IsUvpaaResponseDetails> IsUvpaaResponseDetails::FromValue(const base::Value& value) {
-  IsUvpaaResponseDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -754,13 +664,13 @@ namespace CompleteCreateRequest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -769,15 +679,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CreateResponseDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -795,13 +705,13 @@ namespace CompleteGetRequest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -810,15 +720,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetResponseDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -836,13 +746,13 @@ namespace CompleteIsUvpaaRequest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -851,15 +761,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!IsUvpaaResponseDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -5,23 +5,27 @@
  * The wrapper for Select-to-speak's text-to-speech features.
  */
 export class TtsManager {
+    clientTtsOptions_;
+    currentCharIndex_;
+    fallbackVoice_;
+    isNetworkVoice_;
+    isSpeaking_;
+    pauseCompleteCallback_;
+    text_;
     /** Please keep fields in alphabetical order. */
     constructor() {
         /**
          * The TTS options that the client passed in.
-         * @private {!chrome.tts.TtsOptions}
          */
-        this.clientTtsOptions_ = /** @type {!chrome.tts.TtsOptions} */ ({});
+        this.clientTtsOptions_ = ({});
         /**
          * The current char index to the |this.text_| indicating the current spoken
          * word. For example, if |this.text_| is "hello world" and TTS is speaking
          * the second word, the |this.currentCharIndex_| should be 6.
-         * @private {number}
          */
         this.currentCharIndex_ = 0;
         /**
          * The fallback voice to use if TTS fails.
-         * @private {string|undefined}
          */
         this.fallbackVoice_ = undefined;
         /**
@@ -30,36 +34,33 @@ export class TtsManager {
         this.isNetworkVoice_ = false;
         /**
          * Whether TTS is speaking.
-         * @private {boolean}
          */
         this.isSpeaking_ = false;
         /**
          * Function to be called when STS finishes a pausing request.
-         * @private {?function()}
          */
         this.pauseCompleteCallback_ = null;
         /**
          * The text currently being spoken.
-         * @private {string|null}
          */
         this.text_ = null;
     }
     /**
-     * @return {boolean} Whether TTS is speaking. If TTS is paused, this will
-     *     return false.
+     * Whether TTS is speaking. If TTS is paused, this will return false.
      */
     isSpeaking() {
         return this.isSpeaking_;
     }
     /**
      * Sets TtsManager with the parameters and starts reading |text|.
-     * @param {string} text The text to read.
-     * @param {!chrome.tts.TtsOptions} ttsOptions The options for TTS.
-     * @param {boolean} networkVoice Whether a network voice is specified for TTS.
-     * @param {string|undefined} fallbackVoice A voice to use if to retry if TTS
+     * @param text The text to read.
+     * @param ttsOptions The options for TTS.
+     * @param networkVoice Whether a network voice is specified for TTS.
+     * @param fallbackVoice A voice to use if to retry if TTS
      *     fails.
      */
     speak(text, ttsOptions, networkVoice, fallbackVoice) {
+        // @ts-ignore: TODO(b/): Change to `enqueue`.
         if (ttsOptions.enqueued) {
             console.warn('TtsManager does not support a queue of utterances.');
             return;
@@ -72,15 +73,15 @@ export class TtsManager {
     }
     /**
      * Starts reading text with |offset|.
-     * @param {number} offset The character offset into the text at which to start
+     * @param offset The character offset into the text at which to start
      *     speaking.
-     * @param {boolean} resume Whether it is a resume action.
-     * @param {!chrome.tts.TtsOptions} ttsOptions The options for TTS.
+     * @param resume Whether it is a resume action.
+     * @param ttsOptions The options for TTS.
      */
     startSpeakingTextWithOffset_(offset, resume, ttsOptions) {
+        // @ts-ignore: TODO(b/270623046): this.text_ can be null.
         const text = this.text_.slice(offset);
-        const modifiedOptions = 
-        /** @type {!chrome.tts.TtsOptions} */ (Object.assign({}, ttsOptions));
+        const modifiedOptions = (Object.assign({}, ttsOptions));
         // Saves a copy of the ttsOptions for resume.
         Object.assign(this.clientTtsOptions_, ttsOptions);
         modifiedOptions.onEvent = event => {
@@ -124,6 +125,7 @@ export class TtsManager {
                     break;
                 case chrome.tts.EventType.WORD:
                     this.isSpeaking_ = true;
+                    // @ts-ignore: TODO(b/270623046): event.charIndex can be undefined.
                     this.currentCharIndex_ = event.charIndex + offset;
                     TtsManager.sendEventToOptions(ttsOptions, {
                         type: chrome.tts.EventType.WORD,
@@ -162,7 +164,6 @@ export class TtsManager {
      * pause request is finished. For example, to navigate the next sentence, we
      * trigger pause_ and start finding the next sentence when the pause function
      * is fulfilled.
-     * @return {!Promise}
      */
     pause() {
         return new Promise(resolve => {
@@ -175,8 +176,8 @@ export class TtsManager {
     }
     /**
      * Resumes the TTS.
-     * @param {chrome.tts.TtsOptions=} ttsOptions The options for TTS. If this is
-     *     not passed, the previous options will be used.
+     * @param ttsOptions The options for TTS. If this is not passed,
+     *     the previous options will be used.
      */
     resume(ttsOptions) {
         ttsOptions = ttsOptions || this.clientTtsOptions_;
@@ -186,6 +187,7 @@ export class TtsManager {
         }
         // If there is no content in the remaining text, sends an error message and
         // returns early. This avoids sending 'end' events to client.
+        // @ts-ignore: TODO(b/270623046): this.text_ can be null.
         if (this.text_.slice(this.currentCharIndex_).trim().length === 0) {
             TtsManager.sendEventToOptions(ttsOptions, {
                 type: chrome.tts.EventType.ERROR,
@@ -211,8 +213,8 @@ export class TtsManager {
     }
     /**
      * Sends TtsEvent to TtsOptions.
-     * @param {!chrome.tts.TtsOptions} options
-     * @param {!chrome.tts.TtsEvent} event
+     * @param options
+     * @param event
      */
     static sendEventToOptions(options, event) {
         if (options.onEvent) {
@@ -222,10 +224,12 @@ export class TtsManager {
         console.warn('onEvent is not defined in the TtsOptions');
     }
 }
-/**
- * Error message for "error" events.
- * @enum {string}
- */
-TtsManager.ErrorMessage = {
-    RESUME_WITH_EMPTY_CONTENT: 'Cannot resume with empty content.',
-};
+(function (TtsManager) {
+    /**
+    * Error message for "error" events.
+    */
+    let ErrorMessage;
+    (function (ErrorMessage) {
+        ErrorMessage["RESUME_WITH_EMPTY_CONTENT"] = "Cannot resume with empty content.";
+    })(ErrorMessage = TtsManager.ErrorMessage || (TtsManager.ErrorMessage = {}));
+})(TtsManager || (TtsManager = {}));

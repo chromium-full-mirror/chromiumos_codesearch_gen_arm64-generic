@@ -18,31 +18,12 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
-build _libnet-base-install_config: phony obj/net-base/_libnet-base-install_config.stamp
-build _libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
-build _libshill-net-install_config: phony obj/shill/net/_libshill-net-install_config.stamp
-build _update_reset_counter-install_config: phony obj/metrics/structured/_update_reset_counter-install_config.stamp
-build gen_structured_events: phony obj/metrics/structured/gen_structured_events.stamp
 build generate_bluetooth_proxies: phony obj/shill/generate_bluetooth_proxies.stamp
 build generate_cellular_proxies: phony obj/shill/generate_cellular_proxies.stamp
 build generate_dhcpcd_proxies: phony obj/shill/generate_dhcpcd_proxies.stamp
 build generate_supplicant_proxies: phony obj/shill/generate_supplicant_proxies.stamp
 build generate_upstart_proxies: phony obj/shill/generate_upstart_proxies.stamp
-build install_headers: phony obj/shill/net/install_headers.stamp
-build install_minijail_conf: phony obj/metrics/install_minijail_conf.stamp
-build libmetrics: phony ./lib/libmetrics.so
-build libmetrics_daemon: phony ./libmetrics_daemon.a
-build libnet-base: phony ./lib/libnet-base.so
-build libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
 build libshill: phony ./libshill.a
-build libshill-net: phony ./lib/libshill-net.so
-build libshill-net_deps: phony obj/shill/net/libshill-net_deps.stamp
-build libstructuredmetrics: phony ./lib/libstructuredmetrics.so
-build libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
-build libupload_service: phony ./libupload_service.a
-build metrics_proto: phony ./libmetrics_proto.a
-build metrics_proto_gen: phony obj/metrics/metrics_proto_gen.stamp
-build metrics_test_support: phony obj/metrics/metrics_test_support.stamp
 build mobile_operator_db: phony ./libmobile_operator_db.a
 build mobile_operator_db-db: phony obj/shill/mobile_operator_db-db.stamp
 build mobile_operator_db-db_gen: phony obj/shill/mobile_operator_db-db_gen.stamp
@@ -56,48 +37,10 @@ build mojo_bindings_gen_mojo_templates: phony obj/shill/mojo_bindings_gen_mojo_t
 build mojo_bindings_gen_mojo_templates_dir: phony obj/shill/mojo_bindings_gen_mojo_templates_dir.stamp
 build mojo_bindings_gen_parse: phony obj/shill/mojo_bindings_gen_parse.stamp
 build mojo_policy: phony obj/shill/mojo_policy.stamp
-build net_base_test_support: phony obj/net-base/net_base_test_support.stamp
-build net_test_support: phony obj/shill/net/net_test_support.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build shill-chromeos-dbus-adaptors: phony obj/shill/shill-chromeos-dbus-adaptors.stamp
 build shill-pppd-plugin: phony ./lib/libshill-pppd-plugin.so
-build storage: phony ./libstorage.a
-build storage_gen: phony obj/metrics/structured/storage_gen.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
-build metrics$:all: phony obj/metrics/all.stamp
-build metrics$:chromeos-pgmem: phony ./chromeos-pgmem
-build metrics$:cumulative_metrics_test: phony ./cumulative_metrics_test
-build metrics$:hold_lock_file: phony ./hold_lock_file
-build metrics$:install_minijail_conf: phony obj/metrics/install_minijail_conf.stamp
-build metrics$:libmetrics: phony ./lib/libmetrics.so
-build metrics$:libmetrics_daemon: phony ./libmetrics_daemon.a
-build metrics$:libupload_service: phony ./libupload_service.a
-build metrics$:metrics_client: phony ./metrics_client
-build metrics$:metrics_library_test: phony ./metrics_library_test
-build metrics$:metrics_proto: phony ./libmetrics_proto.a
-build metrics$:metrics_proto_gen: phony obj/metrics/metrics_proto_gen.stamp
-build metrics$:metrics_test_support: phony obj/metrics/metrics_test_support.stamp
-build metrics$:persistent_integer_test: phony ./persistent_integer_test
-build metrics$:process_meter_test: phony ./process_meter_test
-build metrics$:timer_test: phony ./timer_test
-build metrics$:upload_service_test: phony ./upload_service_test
-build metrics/structured$:_update_reset_counter-install_config: phony obj/metrics/structured/_update_reset_counter-install_config.stamp
-build metrics/structured$:gen_structured_events: phony obj/metrics/structured/gen_structured_events.stamp
-build metrics/structured$:libstructuredmetrics: phony ./lib/libstructuredmetrics.so
-build metrics/structured$:libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
-build metrics/structured$:storage: phony ./libstorage.a
-build metrics/structured$:storage_gen: phony obj/metrics/structured/storage_gen.stamp
-build metrics/structured$:update_reset_counter: phony ./update_reset_counter
-build net-base$:_libnet-base-install_config: phony obj/net-base/_libnet-base-install_config.stamp
-build net-base$:_libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
-build net-base$:all: phony obj/net-base/all.stamp
-build net-base$:libnet-base: phony ./lib/libnet-base.so
-build net-base$:libnet-base-testrunner: phony ./libnet-base-testrunner
-build net-base$:libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
-build net-base$:net_base_test_support: phony obj/net-base/net_base_test_support.stamp
 build shill$:all: phony obj/shill/all.stamp
 build shill$:cellular_mobile_operator_info_tester: phony ./cellular_mobile_operator_info_tester
 build shill$:generate_bluetooth_proxies: phony obj/shill/generate_bluetooth_proxies.stamp
@@ -124,49 +67,9 @@ build shill$:set-apn-helper: phony ./set-apn-helper
 build shill$:shill: phony ./shill
 build shill$:shill-chromeos-dbus-adaptors: phony obj/shill/shill-chromeos-dbus-adaptors.stamp
 build shill$:shill-pppd-plugin: phony ./lib/libshill-pppd-plugin.so
-build shill$:shill_unittest: phony ./shill_unittest
-build shill/net$:_libshill-net-install_config: phony obj/shill/net/_libshill-net-install_config.stamp
-build shill/net$:all: phony obj/shill/net/all.stamp
-build shill/net$:install_headers: phony obj/shill/net/install_headers.stamp
-build shill/net$:libshill-net: phony ./lib/libshill-net.so
-build shill/net$:libshill-net_deps: phony obj/shill/net/libshill-net_deps.stamp
-build shill/net$:net_test_support: phony obj/shill/net/net_test_support.stamp
-build shill/net$:shill_net_test: phony ./shill_net_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
-    obj/metrics/all.stamp $
-    ./chromeos-pgmem $
-    ./cumulative_metrics_test $
-    ./hold_lock_file $
-    obj/metrics/install_minijail_conf.stamp $
-    ./lib/libmetrics.so $
-    ./libmetrics_daemon.a $
-    ./libupload_service.a $
-    ./metrics_client $
-    ./metrics_library_test $
-    ./libmetrics_proto.a $
-    obj/metrics/metrics_proto_gen.stamp $
-    obj/metrics/metrics_test_support.stamp $
-    ./persistent_integer_test $
-    ./process_meter_test $
-    ./timer_test $
-    ./upload_service_test $
-    obj/metrics/structured/_update_reset_counter-install_config.stamp $
-    obj/metrics/structured/gen_structured_events.stamp $
-    ./lib/libstructuredmetrics.so $
-    obj/metrics/structured/libstructuredmetrics_pkg_config.stamp $
-    ./libstorage.a $
-    obj/metrics/structured/storage_gen.stamp $
-    ./update_reset_counter $
-    obj/net-base/_libnet-base-install_config.stamp $
-    obj/net-base/_libnet-base_pc-install_config.stamp $
-    obj/net-base/all.stamp $
-    ./lib/libnet-base.so $
-    ./libnet-base-testrunner $
-    obj/net-base/libnet-base_pc.stamp $
-    obj/net-base/net_base_test_support.stamp $
     obj/shill/all.stamp $
     ./cellular_mobile_operator_info_tester $
     obj/shill/generate_bluetooth_proxies.stamp $
@@ -192,14 +95,6 @@ build all: phony $
     ./set-apn-helper $
     ./shill $
     obj/shill/shill-chromeos-dbus-adaptors.stamp $
-    ./lib/libshill-pppd-plugin.so $
-    ./shill_unittest $
-    obj/shill/net/_libshill-net-install_config.stamp $
-    obj/shill/net/all.stamp $
-    obj/shill/net/install_headers.stamp $
-    ./lib/libshill-net.so $
-    obj/shill/net/libshill-net_deps.stamp $
-    obj/shill/net/net_test_support.stamp $
-    ./shill_net_test
+    ./lib/libshill-pppd-plugin.so
 
 default all

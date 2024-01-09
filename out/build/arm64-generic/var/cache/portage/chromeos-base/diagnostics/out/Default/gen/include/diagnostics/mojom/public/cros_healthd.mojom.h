@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/mojom/public/cros_healthd.mojom-features.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom-forward.h"
 #include "diagnostics/mojom/external/cros_healthd_internal.mojom-forward.h"
@@ -401,7 +402,7 @@ class CrosHealthdDiagnosticsService
 
   using RunAcPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) = 0;
+  virtual void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) = 0;
 
 
   using RunCpuCacheRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -456,7 +457,7 @@ class CrosHealthdDiagnosticsService
 
   using RunMemoryRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) = 0;
+  virtual void RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) = 0;
 
 
   using RunLanConnectivityRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -516,7 +517,7 @@ class CrosHealthdDiagnosticsService
 
   using RunVideoConferencingRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) = 0;
+  virtual void RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) = 0;
 
 
   using RunArcHttpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -781,7 +782,7 @@ class CrosHealthdProbeService
 
   using ProbeMultipleProcessInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::MultipleProcessResultPtr)>;
   
-  virtual void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) = 0;
+  virtual void ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) = 0;
 };
 
 class CrosHealthdSystemServiceProxy;
@@ -949,7 +950,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) final;
   
-  void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
+  void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
   
   void RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) final;
   
@@ -971,7 +972,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) final;
   
-  void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) final;
+  void RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) final;
   
   void RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) final;
   
@@ -995,7 +996,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunHttpsLatencyRoutine(RunHttpsLatencyRoutineCallback callback) final;
   
-  void RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) final;
+  void RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) final;
   
   void RunArcHttpRoutine(RunArcHttpRoutineCallback callback) final;
   
@@ -1083,7 +1084,7 @@ class  CrosHealthdProbeServiceProxy
   
   void ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) final;
   
-  void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) final;
+  void ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

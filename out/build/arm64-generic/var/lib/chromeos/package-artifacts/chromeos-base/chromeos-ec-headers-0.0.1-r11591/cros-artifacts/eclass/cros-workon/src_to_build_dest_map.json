@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/ec",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-ec-headers-0.0.1-r11591/work/chromeos-ec-headers-0.0.1/platform/ec"
+    },
+    {
+      "src_path": "src/platform/cr50",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-ec-headers-0.0.1-r11591/work/chromeos-ec-headers-0.0.1/platform/cr50"
+    }
+  ]
+}

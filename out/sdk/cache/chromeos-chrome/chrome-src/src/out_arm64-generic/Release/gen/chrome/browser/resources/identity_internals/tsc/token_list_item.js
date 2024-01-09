@@ -15,13 +15,10 @@ function dashToCamelCase(dashId) {
     return output;
 }
 class TokenListItemElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.extensionId = '';
-    }
     static get template() {
         return getTemplate();
     }
+    extensionId = '';
     configure(data) {
         this.id = data['accessToken'];
         this.extensionId = data['extensionId'];

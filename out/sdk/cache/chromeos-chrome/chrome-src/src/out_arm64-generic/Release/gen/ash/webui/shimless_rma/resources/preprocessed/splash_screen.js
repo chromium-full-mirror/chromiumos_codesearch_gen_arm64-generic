@@ -6,13 +6,14 @@ import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/paper-spinner/paper-spinner-lite.js';
 import './base_page.js';
-import './icons.js';
-import './shimless_rma_shared_css.js';
+import './icons.html.js';
+import './shimless_rma_shared.css.js';
 
 import {I18nBehavior, I18nBehaviorInterface} from 'chrome://resources/ash/common/i18n_behavior.js';
-import {html, mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 
 import {focusPageTitle} from './shimless_rma_util.js';
+import {getTemplate} from './splash_screen.html.js';
 
 /**
  * @fileoverview
@@ -34,31 +35,7 @@ export class SplashScreen extends SplashScreenBase {
   }
 
   static get template() {
-    return html`<!--_html_template_start_-->
-<style include="cr-shared-style shimless-rma-shared">
-  .busy-icon {
-    float: left;
-  }
-</style>
-
-<base-page>
-  <div slot="left-pane">
-    <br> <!-- div is not enough to make a new line after the spinner. -->
-    <div class="splash-title">
-      <h1 tabindex="-1">[[i18n('shimlessSplashTitle')]]</h1>
-    </div>
-    <div class="icon-message">
-      <paper-spinner-lite id="busyIcon" class="small-icon" active></paper-spinner-lite>
-      <span class="instructions">[[getSplashInstructionsText_()]]</span>
-    </div>
-  </div>
-  <div slot="right-pane">
-    <div class="illustration-wrapper" aria-hidden="true">
-      <img src="illustrations/repair_start.svg" alt="[[i18n('repairStartAltText')]]">
-    </div>
-  </div>
-</base-page>
-<!--_html_template_end_-->`;
+    return getTemplate();
   }
 
   /** @override */
@@ -73,7 +50,7 @@ export class SplashScreen extends SplashScreenBase {
    * @returns {string}
    * @protected
    */
-  getSplashInstructionsText_() {
+  getSplashInstructionsText() {
     return this.i18n('shimlessSplashRemembering');
   }
 }

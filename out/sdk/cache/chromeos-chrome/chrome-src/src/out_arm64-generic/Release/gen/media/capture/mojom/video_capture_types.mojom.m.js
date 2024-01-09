@@ -117,6 +117,22 @@ export const VideoFacingMode = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const CameraAvailabilitySpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const CameraAvailability = {
+  
+  kAvailable: 0,
+  kUnavailableExclusivelyUsedByOtherApplication: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const VideoCaptureApiSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -379,6 +395,22 @@ export const VideoCaptureFrameDropReason = {
   kSubCaptureTargetVersionNotCurrent: 28,
   MIN_VALUE: 0,
   MAX_VALUE: 28,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const SubCaptureTargetTypeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const SubCaptureTargetType = {
+  
+  kCropTarget: 0,
+  kRestrictionTarget: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
 };
 
 /**
@@ -819,8 +851,33 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'availability_$flag', 44,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        1,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 48,
+        0,
+        CameraAvailabilitySpec.$,
+        0,
+        false /* nullable */,
+        1,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 56],]);
+    [[0, 56],[1, 64],]);
 
 
 
@@ -843,6 +900,8 @@ export class VideoCaptureDeviceDescriptor {
     this.controlSupport;
     /** @type { !VideoCaptureTransportType } */
     this.transportType;
+    /** @type { (CameraAvailability|undefined) } */
+    this.availability;
   }
 }
 

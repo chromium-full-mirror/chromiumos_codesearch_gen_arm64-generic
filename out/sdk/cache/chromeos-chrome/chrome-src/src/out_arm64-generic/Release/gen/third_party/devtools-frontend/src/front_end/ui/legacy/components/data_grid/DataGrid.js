@@ -27,6 +27,8 @@
 import * as Common from '../../../../core/common/common.js';
 import * as i18n from '../../../../core/i18n/i18n.js';
 import * as Platform from '../../../../core/platform/platform.js';
+import * as IconButton from '../../../components/icon_button/icon_button.js';
+import * as VisualLogging from '../../../visual_logging/visual_logging.js';
 import * as UI from '../../legacy.js';
 import dataGridStyles from './dataGrid.css.js';
 const UIStrings = {
@@ -360,6 +362,7 @@ export class DataGridImpl extends Common.ObjectWrapper.ObjectWrapper {
             this.disclosureColumnId = columnId;
         }
         const cell = document.createElement('th');
+        cell.setAttribute('jslog', `${VisualLogging.tableHeader().track({ click: column.sortable }).context(columnId)}`);
         cell.className = columnId + '-column';
         nodeToColumnIdMap.set(cell, columnId);
         this.dataTableHeaders[columnId] = cell;
@@ -378,7 +381,8 @@ export class DataGridImpl extends Common.ObjectWrapper.ObjectWrapper {
         if (column.sortable) {
             cell.addEventListener('click', this.clickInHeaderCell.bind(this), false);
             cell.classList.add('sortable');
-            const icon = UI.Icon.Icon.create('', 'sort-order-icon');
+            const icon = new IconButton.Icon.Icon();
+            icon.className = 'sort-order-icon';
             cell.createChild('div', 'sort-order-icon-container').appendChild(icon);
             elementToSortIconMap.set(cell, icon);
         }
@@ -1141,7 +1145,7 @@ export class DataGridImpl extends Common.ObjectWrapper.ObjectWrapper {
         if (!icon) {
             return;
         }
-        icon.setIconType(sortOrder === Order.Ascending ? 'triangle-up' : 'triangle-down');
+        icon.name = sortOrder === Order.Ascending ? 'triangle-up' : 'triangle-down';
         this.dispatchEventToListeners(Events.SortingChanged);
     }
     markColumnAsSortedBy(columnId, sortOrder) {
@@ -1198,7 +1202,9 @@ export class DataGridImpl extends Common.ObjectWrapper.ObjectWrapper {
             const sortMenu = contextMenu.defaultSection().appendSubMenuItem(i18nString(UIStrings.sortByString));
             for (const column of sortableColumns) {
                 const headerCell = this.dataTableHeaders[column.id];
-                sortMenu.defaultSection().appendItem(column.title, this.sortByColumnHeaderCell.bind(this, headerCell));
+                sortMenu.defaultSection().appendItem(column.title, this.sortByColumnHeaderCell.bind(this, headerCell), {
+                    jslogContext: column.id,
+                });
             }
         }
         if (target.isSelfOrDescendant(this.dataTableHeadInternal)) {
@@ -1706,6 +1712,9 @@ export class DataGridNode {
     }
     createTD(columnId) {
         const cell = this.createTDWithClass(columnId + '-column');
+        cell.setAttribute('jslog', `${VisualLogging.tableCell()
+            .track({ click: true, keydown: Boolean(this.dataGrid?.columns[columnId].editable) })
+            .context(columnId)}`);
         nodeToColumnIdMap.set(cell, columnId);
         if (this.dataGrid) {
             const alignment = this.dataGrid.columns[columnId].align;

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/growable-fixed-array-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -74,7 +75,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/growable-fixed-array.tq?l=44&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/growable-fixed-array.tq?l=45&c=1
 TorqueStructGrowableFixedArray_0 NewGrowableFixedArray_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

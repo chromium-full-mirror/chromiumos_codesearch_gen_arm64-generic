@@ -7,11 +7,11 @@
 
 // Version Information
 
-#define CHROME_VERSION 120,0,6089,0
-#define CHROME_VERSION_STRING "120.0.6089.0"
-#define CHROME_VERSION_MAJOR 120
+#define CHROME_VERSION 122,0,6226,0
+#define CHROME_VERSION_STRING "122.0.6226.0"
+#define CHROME_VERSION_MAJOR 122
 #define CHROME_VERSION_MINOR 0
-#define CHROME_VERSION_BUILD 6089
+#define CHROME_VERSION_BUILD 6226
 #define CHROME_VERSION_PATCH 0
 
 // Branding Information
@@ -20,7 +20,7 @@
 #define COMPANY_SHORTNAME_STRING "The Chromium Authors"
 #define PRODUCT_FULLNAME_STRING "Chromium"
 #define PRODUCT_SHORTNAME_STRING "Chromium"
-#define COPYRIGHT_STRING "Copyright 2023 The Chromium Authors. All rights reserved."
+#define COPYRIGHT_STRING "Copyright 2024 The Chromium Authors. All rights reserved."
 #define OFFICIAL_BUILD_STRING "1"
 
 // Distribution Information

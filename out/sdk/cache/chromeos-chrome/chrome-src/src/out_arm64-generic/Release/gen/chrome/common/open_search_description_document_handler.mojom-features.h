@@ -8,6 +8,7 @@
 #define CHROME_COMMON_OPEN_SEARCH_DESCRIPTION_DOCUMENT_HANDLER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

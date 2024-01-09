@@ -72,8 +72,7 @@ struct fmap {
 	uint64_t base;			/* address of the firmware binary */
 	uint32_t size;			/* size of firmware binary in bytes */
 	uint8_t  name[FMAP_STRLEN];	/* name of this firmware binary */
-	uint16_t nareas;		/* number of areas described by
-					   fmap_areas[] below */
+	uint16_t nareas;		/* number of areas in fmap_areas[] */
 	struct fmap_area areas[];
 } __attribute__((packed));
 
@@ -149,7 +148,7 @@ char *fmap_flags_to_string(uint16_t flags);
  * returns NULL to indicate failure
  */
 extern struct fmap *fmap_create(uint64_t base,
-                                uint32_t size, uint8_t *name);
+                                uint32_t size, const uint8_t *name);
 
 /* free memory used by an fmap structure */
 extern void fmap_destroy(struct fmap *fmap);

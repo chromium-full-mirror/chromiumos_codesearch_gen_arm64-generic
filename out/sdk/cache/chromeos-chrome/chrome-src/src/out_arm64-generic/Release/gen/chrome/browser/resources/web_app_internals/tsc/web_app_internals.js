@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './strings.m.js';
+import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
-import { Url } from 'chrome://resources/mojo/url/mojom/url.mojom-webui.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { WebAppInternalsHandler } from './web_app_internals.mojom-webui.js';
 const webAppInternalsHandler = WebAppInternalsHandler.getRemote();
 const debugInfoAsJsonString = webAppInternalsHandler.getDebugInfoAsJsonString().then(response => response.result);
@@ -29,6 +29,19 @@ function originToText(origin) {
         result += ':' + origin.port;
     }
     return result;
+}
+/**
+ * Converts a mojo representation of `base::FilePath` into a user-readable
+ * string.
+ * @param filePath File path to convert
+ */
+function filePathToText(filePath) {
+    if (typeof filePath.path === 'string') {
+        return filePath.path;
+    }
+    const decoder = new TextDecoder('utf-16');
+    const buffer = new Uint16Array(filePath.path);
+    return decoder.decode(buffer);
 }
 getRequiredElement('copy-button').addEventListener('click', async () => {
     navigator.clipboard.writeText(await debugInfoAsJsonString);
@@ -74,8 +87,7 @@ async function iwaInstallSubmit() {
         return;
     }
     iwaInstallMessageDiv.innerText = `Installing IWA: ${iwaInstallUrl.value}...`;
-    const location = new Url();
-    location.url = iwaInstallUrl.value;
+    const location = { url: iwaInstallUrl.value };
     const installFromDevProxy = await webAppInternalsHandler.installIsolatedWebAppFromDevProxy(location);
     if (installFromDevProxy.result.success) {
         iwaInstallMessageDiv.innerText =
@@ -120,6 +132,15 @@ async function iwaSearchForUpdates() {
     messageDiv.innerText = result;
 }
 iwaSearchForUpdatesButton.addEventListener('click', iwaSearchForUpdates);
+function formatDevModeLocation(location) {
+    if (location.proxyOrigin) {
+        return originToText(location.proxyOrigin);
+    }
+    if (location.bundlePath) {
+        return filePathToText(location.bundlePath);
+    }
+    assertNotReached();
+}
 document.addEventListener('DOMContentLoaded', async () => {
     getRequiredElement('json').innerText = await debugInfoAsJsonString;
     if (loadTimeData.getBoolean('experimentalAreIwasEnabled')) {
@@ -128,12 +149,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (loadTimeData.getBoolean('experimentalIsIwaDevModeEnabled')) {
             // Unhide the IWA install div.
             getRequiredElement('iwa-install-div').style.display = '';
-            const devModeProxyAppList = getRequiredElement('iwa-dev-mode-proxy-app-list');
-            const { apps: devModeProxyApps } = await webAppInternalsHandler.getIsolatedWebAppDevModeProxyAppInfo();
-            for (const devModeProxyApp of devModeProxyApps) {
+            const devModeAppList = getRequiredElement('iwa-dev-mode-app-list');
+            const { apps: devModeApps } = await webAppInternalsHandler.getIsolatedWebAppDevModeAppInfo();
+            for (const devModeApp of devModeApps) {
                 const li = document.createElement('li');
-                li.innerText =
-                    `${devModeProxyApp.name} (${devModeProxyApp.installedVersion}) -> ${originToText(devModeProxyApp.proxyOrigin)}`;
+                li.innerText = `${devModeApp.name} (${devModeApp.installedVersion}) → ${formatDevModeLocation(devModeApp.location)}`;
                 const updateMsg = document.createElement('p');
                 const updateBtn = document.createElement('button');
                 updateBtn.className = 'iwa-update-btn';
@@ -144,8 +164,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                         updateBtn.disabled = true;
                         updateBtn.innerText =
                             'Performing update... (close the IWA if it is currently open!)';
-                        const { result } = await webAppInternalsHandler.updateDevProxyIsolatedWebApp(devModeProxyApp.appId);
-                        updateMsg.innerText = result;
+                        if (devModeApp.location.bundlePath) {
+                            const { result } = await webAppInternalsHandler
+                                .selectFileAndUpdateIsolatedWebAppFromDevBundle(devModeApp.appId);
+                            updateMsg.innerText = result;
+                        }
+                        else if (devModeApp.location.proxyOrigin) {
+                            const { result } = await webAppInternalsHandler.updateDevProxyIsolatedWebApp(devModeApp.appId);
+                            updateMsg.innerText = result;
+                        }
+                        else {
+                            assertNotReached();
+                        }
                     }
                     finally {
                         updateBtn.innerText = oldText;
@@ -154,10 +184,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 };
                 li.appendChild(updateBtn);
                 li.appendChild(updateMsg);
-                devModeProxyAppList.appendChild(li);
+                devModeAppList.appendChild(li);
             }
-            // Unhide the div that hides the list of dev mode proxy apps.
-            getRequiredElement('iwa-dev-mode-proxy-updates').style.display = '';
+            // Unhide the div that hides the list of dev mode apps.
+            getRequiredElement('iwa-dev-mode-updates').style.display = '';
         }
     }
 });

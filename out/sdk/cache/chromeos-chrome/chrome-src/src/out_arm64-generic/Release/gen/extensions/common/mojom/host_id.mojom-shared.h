@@ -60,8 +60,10 @@ enum class HostID_HostType : int32_t {
   kExtensions = 0,
   
   kWebUi = 1,
+  
+  kControlledFrameEmbedder = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, HostID_HostType value);

@@ -10,13 +10,22 @@ export const NtpBackgroundImageSourceSpec = { $: mojo.internal.Enum() };
 export var NtpBackgroundImageSource;
 (function (NtpBackgroundImageSource) {
     NtpBackgroundImageSource[NtpBackgroundImageSource["MIN_VALUE"] = 0] = "MIN_VALUE";
-    NtpBackgroundImageSource[NtpBackgroundImageSource["MAX_VALUE"] = 4] = "MAX_VALUE";
+    NtpBackgroundImageSource[NtpBackgroundImageSource["MAX_VALUE"] = 5] = "MAX_VALUE";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kNoImage"] = 0] = "kNoImage";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kFirstPartyThemeWithoutDailyRefresh"] = 1] = "kFirstPartyThemeWithoutDailyRefresh";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kFirstPartyThemeWithDailyRefresh"] = 2] = "kFirstPartyThemeWithDailyRefresh";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kThirdPartyTheme"] = 3] = "kThirdPartyTheme";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kUploadedImage"] = 4] = "kUploadedImage";
+    NtpBackgroundImageSource[NtpBackgroundImageSource["kWallpaperSearch"] = 5] = "kWallpaperSearch";
 })(NtpBackgroundImageSource || (NtpBackgroundImageSource = {}));
+export const IphFeatureSpec = { $: mojo.internal.Enum() };
+export var IphFeature;
+(function (IphFeature) {
+    IphFeature[IphFeature["MIN_VALUE"] = 0] = "MIN_VALUE";
+    IphFeature[IphFeature["MAX_VALUE"] = 1] = "MAX_VALUE";
+    IphFeature[IphFeature["kCustomizeChrome"] = 0] = "kCustomizeChrome";
+    IphFeature[IphFeature["kCustomizeModules"] = 1] = "kCustomizeModules";
+})(IphFeature || (IphFeature = {}));
 export const DoodleImageTypeSpec = { $: mojo.internal.Enum() };
 export var DoodleImageType;
 (function (DoodleImageType) {
@@ -252,86 +261,93 @@ export class PageHandlerRemote {
             moduleIds
         ]);
     }
+    onModuleUsed(moduleId) {
+        this.proxy.sendMessage(20, PageHandler_OnModuleUsed_ParamsSpec.$, null, [
+            moduleId
+        ]);
+    }
     getModulesIdNames() {
-        return this.proxy.sendMessage(20, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(21, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, []);
     }
     setModulesOrder(moduleIds) {
-        this.proxy.sendMessage(21, PageHandler_SetModulesOrder_ParamsSpec.$, null, [
+        this.proxy.sendMessage(22, PageHandler_SetModulesOrder_ParamsSpec.$, null, [
             moduleIds
         ]);
     }
     getModulesOrder() {
-        return this.proxy.sendMessage(22, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(23, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, []);
     }
     incrementModulesShownCount() {
-        this.proxy.sendMessage(23, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(24, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, []);
     }
     setModulesFreVisible(visible) {
-        this.proxy.sendMessage(24, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, [
+        this.proxy.sendMessage(25, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, [
             visible
         ]);
     }
     updateModulesFreVisibility() {
-        this.proxy.sendMessage(25, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(26, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, []);
     }
     logModulesFreOptInStatus(optInStatus) {
-        this.proxy.sendMessage(26, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, [
+        this.proxy.sendMessage(27, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, [
             optInStatus
         ]);
     }
     setCustomizeChromeSidePanelVisible(visible, section) {
-        this.proxy.sendMessage(27, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, [
+        this.proxy.sendMessage(28, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, [
             visible,
             section
         ]);
     }
     incrementCustomizeChromeButtonOpenCount() {
-        this.proxy.sendMessage(28, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(29, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, []);
     }
-    maybeShowCustomizeChromeFeaturePromo() {
-        this.proxy.sendMessage(29, PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsSpec.$, null, []);
+    maybeShowFeaturePromo(iphFeature) {
+        this.proxy.sendMessage(30, PageHandler_MaybeShowFeaturePromo_ParamsSpec.$, null, [
+            iphFeature
+        ]);
     }
     onOneGoogleBarRendered(time) {
-        this.proxy.sendMessage(30, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, [
+        this.proxy.sendMessage(31, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, [
             time
         ]);
     }
     onPromoRendered(time, logUrl) {
-        this.proxy.sendMessage(31, PageHandler_OnPromoRendered_ParamsSpec.$, null, [
+        this.proxy.sendMessage(32, PageHandler_OnPromoRendered_ParamsSpec.$, null, [
             time,
             logUrl
         ]);
     }
     onCustomizeDialogAction(action) {
-        this.proxy.sendMessage(32, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, [
+        this.proxy.sendMessage(33, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, [
             action
         ]);
     }
     onDoodleImageClicked(type, logUrl) {
-        this.proxy.sendMessage(33, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, [
+        this.proxy.sendMessage(34, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, [
             type,
             logUrl
         ]);
     }
     onDoodleImageRendered(type, time, logUrl) {
-        return this.proxy.sendMessage(34, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, [
+        return this.proxy.sendMessage(35, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, [
             type,
             time,
             logUrl
         ]);
     }
     onDoodleShared(channel, doodleId, shareId) {
-        this.proxy.sendMessage(35, PageHandler_OnDoodleShared_ParamsSpec.$, null, [
+        this.proxy.sendMessage(36, PageHandler_OnDoodleShared_ParamsSpec.$, null, [
             channel,
             doodleId,
             shareId
         ]);
     }
     onPromoLinkClicked() {
-        this.proxy.sendMessage(36, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(37, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, []);
     }
     onAppRendered(time) {
-        this.proxy.sendMessage(37, PageHandler_OnAppRendered_ParamsSpec.$, null, [
+        this.proxy.sendMessage(38, PageHandler_OnAppRendered_ParamsSpec.$, null, [
             time
         ]);
     }
@@ -366,24 +382,25 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(17, PageHandler_SetModuleDisabled_ParamsSpec.$, null, impl.setModuleDisabled.bind(impl));
         this.helper_internal_.registerHandler(18, PageHandler_UpdateDisabledModules_ParamsSpec.$, null, impl.updateDisabledModules.bind(impl));
         this.helper_internal_.registerHandler(19, PageHandler_OnModulesLoadedWithData_ParamsSpec.$, null, impl.onModulesLoadedWithData.bind(impl));
-        this.helper_internal_.registerHandler(20, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, impl.getModulesIdNames.bind(impl));
-        this.helper_internal_.registerHandler(21, PageHandler_SetModulesOrder_ParamsSpec.$, null, impl.setModulesOrder.bind(impl));
-        this.helper_internal_.registerHandler(22, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, impl.getModulesOrder.bind(impl));
-        this.helper_internal_.registerHandler(23, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, impl.incrementModulesShownCount.bind(impl));
-        this.helper_internal_.registerHandler(24, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, impl.setModulesFreVisible.bind(impl));
-        this.helper_internal_.registerHandler(25, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, impl.updateModulesFreVisibility.bind(impl));
-        this.helper_internal_.registerHandler(26, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, impl.logModulesFreOptInStatus.bind(impl));
-        this.helper_internal_.registerHandler(27, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, impl.setCustomizeChromeSidePanelVisible.bind(impl));
-        this.helper_internal_.registerHandler(28, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, impl.incrementCustomizeChromeButtonOpenCount.bind(impl));
-        this.helper_internal_.registerHandler(29, PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsSpec.$, null, impl.maybeShowCustomizeChromeFeaturePromo.bind(impl));
-        this.helper_internal_.registerHandler(30, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, impl.onOneGoogleBarRendered.bind(impl));
-        this.helper_internal_.registerHandler(31, PageHandler_OnPromoRendered_ParamsSpec.$, null, impl.onPromoRendered.bind(impl));
-        this.helper_internal_.registerHandler(32, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, impl.onCustomizeDialogAction.bind(impl));
-        this.helper_internal_.registerHandler(33, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, impl.onDoodleImageClicked.bind(impl));
-        this.helper_internal_.registerHandler(34, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, impl.onDoodleImageRendered.bind(impl));
-        this.helper_internal_.registerHandler(35, PageHandler_OnDoodleShared_ParamsSpec.$, null, impl.onDoodleShared.bind(impl));
-        this.helper_internal_.registerHandler(36, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, impl.onPromoLinkClicked.bind(impl));
-        this.helper_internal_.registerHandler(37, PageHandler_OnAppRendered_ParamsSpec.$, null, impl.onAppRendered.bind(impl));
+        this.helper_internal_.registerHandler(20, PageHandler_OnModuleUsed_ParamsSpec.$, null, impl.onModuleUsed.bind(impl));
+        this.helper_internal_.registerHandler(21, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, impl.getModulesIdNames.bind(impl));
+        this.helper_internal_.registerHandler(22, PageHandler_SetModulesOrder_ParamsSpec.$, null, impl.setModulesOrder.bind(impl));
+        this.helper_internal_.registerHandler(23, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, impl.getModulesOrder.bind(impl));
+        this.helper_internal_.registerHandler(24, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, impl.incrementModulesShownCount.bind(impl));
+        this.helper_internal_.registerHandler(25, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, impl.setModulesFreVisible.bind(impl));
+        this.helper_internal_.registerHandler(26, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, impl.updateModulesFreVisibility.bind(impl));
+        this.helper_internal_.registerHandler(27, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, impl.logModulesFreOptInStatus.bind(impl));
+        this.helper_internal_.registerHandler(28, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, impl.setCustomizeChromeSidePanelVisible.bind(impl));
+        this.helper_internal_.registerHandler(29, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, impl.incrementCustomizeChromeButtonOpenCount.bind(impl));
+        this.helper_internal_.registerHandler(30, PageHandler_MaybeShowFeaturePromo_ParamsSpec.$, null, impl.maybeShowFeaturePromo.bind(impl));
+        this.helper_internal_.registerHandler(31, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, impl.onOneGoogleBarRendered.bind(impl));
+        this.helper_internal_.registerHandler(32, PageHandler_OnPromoRendered_ParamsSpec.$, null, impl.onPromoRendered.bind(impl));
+        this.helper_internal_.registerHandler(33, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, impl.onCustomizeDialogAction.bind(impl));
+        this.helper_internal_.registerHandler(34, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, impl.onDoodleImageClicked.bind(impl));
+        this.helper_internal_.registerHandler(35, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, impl.onDoodleImageRendered.bind(impl));
+        this.helper_internal_.registerHandler(36, PageHandler_OnDoodleShared_ParamsSpec.$, null, impl.onDoodleShared.bind(impl));
+        this.helper_internal_.registerHandler(37, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, impl.onPromoLinkClicked.bind(impl));
+        this.helper_internal_.registerHandler(38, PageHandler_OnAppRendered_ParamsSpec.$, null, impl.onAppRendered.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -473,60 +490,63 @@ export class PageHandlerCallbackRouter {
         this.onModulesLoadedWithData =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(19, PageHandler_OnModulesLoadedWithData_ParamsSpec.$, null, this.onModulesLoadedWithData.createReceiverHandler(false /* expectsResponse */));
+        this.onModuleUsed =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(20, PageHandler_OnModuleUsed_ParamsSpec.$, null, this.onModuleUsed.createReceiverHandler(false /* expectsResponse */));
         this.getModulesIdNames =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(20, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, this.getModulesIdNames.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(21, PageHandler_GetModulesIdNames_ParamsSpec.$, PageHandler_GetModulesIdNames_ResponseParamsSpec.$, this.getModulesIdNames.createReceiverHandler(true /* expectsResponse */));
         this.setModulesOrder =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(21, PageHandler_SetModulesOrder_ParamsSpec.$, null, this.setModulesOrder.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(22, PageHandler_SetModulesOrder_ParamsSpec.$, null, this.setModulesOrder.createReceiverHandler(false /* expectsResponse */));
         this.getModulesOrder =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(22, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, this.getModulesOrder.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(23, PageHandler_GetModulesOrder_ParamsSpec.$, PageHandler_GetModulesOrder_ResponseParamsSpec.$, this.getModulesOrder.createReceiverHandler(true /* expectsResponse */));
         this.incrementModulesShownCount =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(23, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, this.incrementModulesShownCount.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(24, PageHandler_IncrementModulesShownCount_ParamsSpec.$, null, this.incrementModulesShownCount.createReceiverHandler(false /* expectsResponse */));
         this.setModulesFreVisible =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(24, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, this.setModulesFreVisible.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(25, PageHandler_SetModulesFreVisible_ParamsSpec.$, null, this.setModulesFreVisible.createReceiverHandler(false /* expectsResponse */));
         this.updateModulesFreVisibility =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(25, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, this.updateModulesFreVisibility.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(26, PageHandler_UpdateModulesFreVisibility_ParamsSpec.$, null, this.updateModulesFreVisibility.createReceiverHandler(false /* expectsResponse */));
         this.logModulesFreOptInStatus =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(26, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, this.logModulesFreOptInStatus.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(27, PageHandler_LogModulesFreOptInStatus_ParamsSpec.$, null, this.logModulesFreOptInStatus.createReceiverHandler(false /* expectsResponse */));
         this.setCustomizeChromeSidePanelVisible =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(27, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, this.setCustomizeChromeSidePanelVisible.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(28, PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$, null, this.setCustomizeChromeSidePanelVisible.createReceiverHandler(false /* expectsResponse */));
         this.incrementCustomizeChromeButtonOpenCount =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(28, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, this.incrementCustomizeChromeButtonOpenCount.createReceiverHandler(false /* expectsResponse */));
-        this.maybeShowCustomizeChromeFeaturePromo =
+        this.helper_internal_.registerHandler(29, PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, null, this.incrementCustomizeChromeButtonOpenCount.createReceiverHandler(false /* expectsResponse */));
+        this.maybeShowFeaturePromo =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(29, PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsSpec.$, null, this.maybeShowCustomizeChromeFeaturePromo.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(30, PageHandler_MaybeShowFeaturePromo_ParamsSpec.$, null, this.maybeShowFeaturePromo.createReceiverHandler(false /* expectsResponse */));
         this.onOneGoogleBarRendered =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(30, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, this.onOneGoogleBarRendered.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(31, PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, null, this.onOneGoogleBarRendered.createReceiverHandler(false /* expectsResponse */));
         this.onPromoRendered =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(31, PageHandler_OnPromoRendered_ParamsSpec.$, null, this.onPromoRendered.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(32, PageHandler_OnPromoRendered_ParamsSpec.$, null, this.onPromoRendered.createReceiverHandler(false /* expectsResponse */));
         this.onCustomizeDialogAction =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(32, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, this.onCustomizeDialogAction.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(33, PageHandler_OnCustomizeDialogAction_ParamsSpec.$, null, this.onCustomizeDialogAction.createReceiverHandler(false /* expectsResponse */));
         this.onDoodleImageClicked =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(33, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, this.onDoodleImageClicked.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(34, PageHandler_OnDoodleImageClicked_ParamsSpec.$, null, this.onDoodleImageClicked.createReceiverHandler(false /* expectsResponse */));
         this.onDoodleImageRendered =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(34, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, this.onDoodleImageRendered.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(35, PageHandler_OnDoodleImageRendered_ParamsSpec.$, PageHandler_OnDoodleImageRendered_ResponseParamsSpec.$, this.onDoodleImageRendered.createReceiverHandler(true /* expectsResponse */));
         this.onDoodleShared =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(35, PageHandler_OnDoodleShared_ParamsSpec.$, null, this.onDoodleShared.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(36, PageHandler_OnDoodleShared_ParamsSpec.$, null, this.onDoodleShared.createReceiverHandler(false /* expectsResponse */));
         this.onPromoLinkClicked =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(36, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, this.onPromoLinkClicked.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(37, PageHandler_OnPromoLinkClicked_ParamsSpec.$, null, this.onPromoLinkClicked.createReceiverHandler(false /* expectsResponse */));
         this.onAppRendered =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(37, PageHandler_OnAppRendered_ParamsSpec.$, null, this.onAppRendered.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(38, PageHandler_OnAppRendered_ParamsSpec.$, null, this.onAppRendered.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -695,6 +715,7 @@ export const PageHandler_SetModulesVisible_ParamsSpec = { $: {} };
 export const PageHandler_SetModuleDisabled_ParamsSpec = { $: {} };
 export const PageHandler_UpdateDisabledModules_ParamsSpec = { $: {} };
 export const PageHandler_OnModulesLoadedWithData_ParamsSpec = { $: {} };
+export const PageHandler_OnModuleUsed_ParamsSpec = { $: {} };
 export const PageHandler_GetModulesIdNames_ParamsSpec = { $: {} };
 export const PageHandler_GetModulesIdNames_ResponseParamsSpec = { $: {} };
 export const PageHandler_SetModulesOrder_ParamsSpec = { $: {} };
@@ -706,7 +727,7 @@ export const PageHandler_UpdateModulesFreVisibility_ParamsSpec = { $: {} };
 export const PageHandler_LogModulesFreOptInStatus_ParamsSpec = { $: {} };
 export const PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec = { $: {} };
 export const PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec = { $: {} };
-export const PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsSpec = { $: {} };
+export const PageHandler_MaybeShowFeaturePromo_ParamsSpec = { $: {} };
 export const PageHandler_OnOneGoogleBarRendered_ParamsSpec = { $: {} };
 export const PageHandler_OnPromoRendered_ParamsSpec = { $: {} };
 export const PageHandler_OnCustomizeDialogAction_ParamsSpec = { $: {} };
@@ -750,10 +771,11 @@ mojo.internal.Struct(BackgroundImageSpec.$, 'BackgroundImage', [
 mojo.internal.Struct(ThemeSpec.$, 'Theme', [
     mojo.internal.StructField('textColor', 0, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('backgroundColor', 8, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('isCustomBackground', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('dailyRefreshEnabled', 16, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('isDark', 16, 2, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('themeRealboxIcons', 16, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isBaseline', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isCustomBackground', 16, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('dailyRefreshEnabled', 16, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isDark', 16, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('themeRealboxIcons', 16, 4, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('logoColor', 24, 0, skia_mojom_SkColorSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('backgroundImageCollectionId', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
     mojo.internal.StructField('backgroundImage', 40, 0, BackgroundImageSpec.$, null, true /* nullable */, 0),
@@ -883,6 +905,9 @@ mojo.internal.Struct(PageHandler_UpdateDisabledModules_ParamsSpec.$, 'PageHandle
 mojo.internal.Struct(PageHandler_OnModulesLoadedWithData_ParamsSpec.$, 'PageHandler_OnModulesLoadedWithData_Params', [
     mojo.internal.StructField('moduleIds', 0, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_OnModuleUsed_ParamsSpec.$, 'PageHandler_OnModuleUsed_Params', [
+    mojo.internal.StructField('moduleId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(PageHandler_GetModulesIdNames_ParamsSpec.$, 'PageHandler_GetModulesIdNames_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetModulesIdNames_ResponseParamsSpec.$, 'PageHandler_GetModulesIdNames_ResponseParams', [
     mojo.internal.StructField('data', 0, 0, mojo.internal.Array(ModuleIdNameSpec.$, false), null, false /* nullable */, 0),
@@ -907,7 +932,9 @@ mojo.internal.Struct(PageHandler_SetCustomizeChromeSidePanelVisible_ParamsSpec.$
     mojo.internal.StructField('section', 4, 0, CustomizeChromeSectionSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsSpec.$, 'PageHandler_IncrementCustomizeChromeButtonOpenCount_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsSpec.$, 'PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_MaybeShowFeaturePromo_ParamsSpec.$, 'PageHandler_MaybeShowFeaturePromo_Params', [
+    mojo.internal.StructField('iphFeature', 0, 0, IphFeatureSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(PageHandler_OnOneGoogleBarRendered_ParamsSpec.$, 'PageHandler_OnOneGoogleBarRendered_Params', [
     mojo.internal.StructField('time', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
 ], [[0, 16],]);

@@ -81,7 +81,6 @@ async function clearStorageItemsFilter() {
 }
 exports.clearStorageItemsFilter = clearStorageItemsFilter;
 async function clearStorageItems() {
-    await (0, helper_js_1.waitFor)('#storage-items-delete-all');
     await (0, helper_js_1.click)('#storage-items-delete-all');
 }
 exports.clearStorageItems = clearStorageItems;
@@ -102,7 +101,6 @@ async function selectStorageItemAtIndex(index) {
 }
 exports.selectStorageItemAtIndex = selectStorageItemAtIndex;
 async function deleteSelectedStorageItem() {
-    await (0, helper_js_1.waitFor)('[aria-label="Delete Selected"]');
     await (0, helper_js_1.click)('[aria-label="Delete Selected"]');
 }
 exports.deleteSelectedStorageItem = deleteSelectedStorageItem;

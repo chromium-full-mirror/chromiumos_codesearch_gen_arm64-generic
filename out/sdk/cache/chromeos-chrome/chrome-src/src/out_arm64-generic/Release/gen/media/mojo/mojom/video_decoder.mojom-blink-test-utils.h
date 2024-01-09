@@ -16,7 +16,7 @@ namespace media::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT VideoFrameHandleReleaserInterceptorForTesting : public VideoFrameHandleReleaser {
   virtual VideoFrameHandleReleaser* GetForwardingInterface() = 0;
-  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) override;
+  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) override;
 };
 class BLINK_PLATFORM_EXPORT VideoFrameHandleReleaserAsyncWaiter {
  public:
@@ -36,7 +36,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderInterceptorForTesting : public VideoDeco
   virtual VideoDecoder* GetForwardingInterface() = 0;
   void GetSupportedConfigs(GetSupportedConfigsCallback callback) override;
   void Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) override;
-  void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
+  void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
   void Decode(::media::mojom::blink::DecoderBufferPtr buffer, DecodeCallback callback) override;
   void Reset(ResetCallback callback) override;
   void OnOverlayInfoChanged(OverlayInfoPtr overlay_info) override;
@@ -53,7 +53,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderAsyncWaiter {
       WTF::Vector<SupportedVideoDecoderConfigPtr>* out_supported_configs, ::media::mojom::blink::VideoDecoderType* out_decoder_type);
   
   void Initialize(
-      ::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::mojom::blink::VideoDecoderType* out_decoder_type);
+      ::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::mojom::blink::VideoDecoderType* out_decoder_type);
   
   void Decode(
       ::media::mojom::blink::DecoderBufferPtr buffer, ::media::mojom::blink::DecoderStatusPtr* out_status);
@@ -69,7 +69,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderAsyncWaiter {
 
 class BLINK_PLATFORM_EXPORT VideoDecoderClientInterceptorForTesting : public VideoDecoderClient {
   virtual VideoDecoderClient* GetForwardingInterface() = 0;
-  void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) override;
+  void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) override;
   void OnWaiting(::media::mojom::blink::WaitingReason reason) override;
   void RequestOverlayInfo(bool restart_for_transitions) override;
 };

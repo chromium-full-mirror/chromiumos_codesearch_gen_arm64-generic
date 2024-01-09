@@ -11,6 +11,7 @@
 import { PageCallbackRouter, PageHandler } from './color_change_listener.mojom-webui.js';
 let instance = null;
 export class BrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const pageHandlerRemote = PageHandler.getRemote();

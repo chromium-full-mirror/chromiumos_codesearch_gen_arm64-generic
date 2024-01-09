@@ -17,7 +17,6 @@ import { isPersonalizationJellyEnabled } from '../load_time_booleans.js';
 import { Paths, PersonalizationRouterElement } from '../personalization_router_element.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
 import { getWallpaperAriaLabel, getWallpaperSrc } from './utils.js';
-import { WallpaperObserver } from './wallpaper_observer.js';
 import { getTemplate } from './wallpaper_preview_element.html.js';
 export class WallpaperPreviewElement extends WithPersonalizationStore {
     static get is() {
@@ -55,7 +54,6 @@ export class WallpaperPreviewElement extends WithPersonalizationStore {
     }
     connectedCallback() {
         super.connectedCallback();
-        WallpaperObserver.initWallpaperObserverIfNeeded();
         this.watch('attribution_', state => state.wallpaper.attribution);
         this.watch('image_', state => state.wallpaper.currentSelected);
         this.watch('imageLoading_', state => state.wallpaper.loading.setImage > 0 ||

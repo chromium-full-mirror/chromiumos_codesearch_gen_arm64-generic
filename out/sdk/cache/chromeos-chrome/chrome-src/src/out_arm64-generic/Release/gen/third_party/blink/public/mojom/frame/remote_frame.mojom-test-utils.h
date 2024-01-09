@@ -23,12 +23,12 @@ class BLINK_COMMON_EXPORT RemoteFrameHostInterceptorForTesting : public RemoteFr
   void CheckCompleted() override;
   void CapturePaintPreviewOfCrossProcessSubframe(const ::gfx::Rect& clip_rect, const ::base::UnguessableToken& guid) override;
   void SetIsInert(bool inert) override;
-  void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) override;
+  void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) override;
   void AdvanceFocus(::blink::mojom::FocusType focus_type, const ::blink::LocalFrameToken& source_frame_token) override;
-  void RouteMessageEvent(const absl::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) override;
+  void RouteMessageEvent(const std::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) override;
   void PrintCrossProcessSubframe(const ::gfx::Rect& frame_content_rect, int32_t document_cookie) override;
   void Detach() override;
-  void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::FrameVisualProperties>& visual_properties) override;
+  void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::FrameVisualProperties>& visual_properties) override;
   void SynchronizeVisualProperties(const ::blink::FrameVisualProperties& properties) override;
   void OpenURL(OpenURLParamsPtr params) override;
 };
@@ -72,14 +72,14 @@ class BLINK_COMMON_EXPORT RemoteFrameInterceptorForTesting : public RemoteFrame 
   void IntrinsicSizingInfoOfChildChanged(::blink::mojom::IntrinsicSizingInfoPtr sizing_info) override;
   void DidSetFramePolicyHeaders(::network::mojom::WebSandboxFlags sandbox_flags, const std::vector<::blink::ParsedPermissionsPolicyDeclaration>& parsed_permissions_policy) override;
   void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) override;
-  void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) override;
+  void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) override;
   void DetachAndDispose() override;
   void EnableAutoResize(const ::gfx::Size& min_size, const ::gfx::Size& max_size) override;
   void DisableAutoResize() override;
   void DidUpdateVisualProperties(const ::cc::RenderFrameMetadata& metadata) override;
   void SetFrameSinkId(const ::viz::FrameSinkId& frame_sink_id) override;
   void ChildProcessGone() override;
-  void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) override;
+  void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) override;
   void CreateRemoteChildren(std::vector<CreateRemoteChildParamsPtr> params) override;
 };
 class BLINK_COMMON_EXPORT RemoteFrameAsyncWaiter {

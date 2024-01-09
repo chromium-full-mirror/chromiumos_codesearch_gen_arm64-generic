@@ -666,72 +666,6 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function AdditionalCertificates(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  AdditionalCertificates.prototype.initDefaults_ = function() {
-    this.allCertificates = null;
-    this.trustAnchors = null;
-  };
-  AdditionalCertificates.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  AdditionalCertificates.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate AdditionalCertificates.allCertificates
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate AdditionalCertificates.trustAnchors
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  AdditionalCertificates.encodedSize = codec.kStructHeaderSize + 16;
-
-  AdditionalCertificates.decode = function(decoder) {
-    var packed;
-    var val = new AdditionalCertificates();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.allCertificates =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
-    val.trustAnchors =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
-    return val;
-  };
-
-  AdditionalCertificates.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(AdditionalCertificates.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.allCertificates);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.trustAnchors);
-  };
   function HttpAuthStaticNetworkContextParams(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1088,7 +1022,6 @@
     this.sctAuditingMode = SCTAuditingMode.kDisabled;
     this.ctPolicy = null;
     this.certVerifierParams = null;
-    this.initialAdditionalCertificates = null;
     this.cookieManagerParams = null;
     this.domainReliabilityUploadReporter = null;
     this.reportingDeliveryInterval = null;
@@ -1116,7 +1049,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 248}
+      {version: 0, numBytes: 240}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1244,54 +1177,48 @@
         return err;
 
 
-    // validate NetworkContextParams.initialAdditionalCertificates
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 136, AdditionalCertificates, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate NetworkContextParams.cookieManagerParams
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 144, cookie_manager$.CookieManagerParams, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 136, cookie_manager$.CookieManagerParams, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate NetworkContextParams.domainReliabilityUploadReporter
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 152, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 144, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate NetworkContextParams.reportingDeliveryInterval
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 160, time$.TimeDelta, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 152, time$.TimeDelta, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate NetworkContextParams.corsOriginAccessList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 168, 8, new codec.PointerTo(cors_origin_pattern$.CorsOriginAccessPatterns), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 160, 8, new codec.PointerTo(cors_origin_pattern$.CorsOriginAccessPatterns), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContextParams.corsExemptHeaderList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 176, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 168, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate NetworkContextParams.hstsPolicyBypassList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 184, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 176, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContextParams.httpAuthStaticNetworkContextParams
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, HttpAuthStaticNetworkContextParams, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, HttpAuthStaticNetworkContextParams, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1300,7 +1227,7 @@
 
 
     // validate NetworkContextParams.filePaths
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 200, NetworkContextFilePaths, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, NetworkContextFilePaths, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1309,20 +1236,20 @@
 
 
     // validate NetworkContextParams.firstPartySetsAccessDelegateParams
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 216, first_party_sets_access_delegate$.FirstPartySetsAccessDelegateParams, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 208, first_party_sets_access_delegate$.FirstPartySetsAccessDelegateParams, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContextParams.firstPartySetsAccessDelegateReceiver
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 224, true)
+    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 216, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate NetworkContextParams.cookieDeprecationLabel
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 232, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 224, true)
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1330,7 +1257,7 @@
     return validator.validationError.NONE;
   };
 
-  NetworkContextParams.encodedSize = codec.kStructHeaderSize + 240;
+  NetworkContextParams.encodedSize = codec.kStructHeaderSize + 232;
 
   NetworkContextParams.decode = function(decoder) {
     var packed;
@@ -1402,8 +1329,6 @@
         decoder.decodeStructPointer(CTPolicy);
     val.certVerifierParams =
         decoder.decodeStructPointer(CertVerifierServiceRemoteParams);
-    val.initialAdditionalCertificates =
-        decoder.decodeStructPointer(AdditionalCertificates);
     val.cookieManagerParams =
         decoder.decodeStructPointer(cookie_manager$.CookieManagerParams);
     val.domainReliabilityUploadReporter =
@@ -1488,7 +1413,6 @@
     encoder.encodeStruct(codec.Int32, val.sctAuditingMode);
     encoder.encodeStructPointer(CTPolicy, val.ctPolicy);
     encoder.encodeStructPointer(CertVerifierServiceRemoteParams, val.certVerifierParams);
-    encoder.encodeStructPointer(AdditionalCertificates, val.initialAdditionalCertificates);
     encoder.encodeStructPointer(cookie_manager$.CookieManagerParams, val.cookieManagerParams);
     encoder.encodeStruct(codec.String, val.domainReliabilityUploadReporter);
     encoder.encodeStructPointer(time$.TimeDelta, val.reportingDeliveryInterval);
@@ -2262,7 +2186,7 @@
 
 
   CustomProxyConnectionObserver_OnFallback_Params.prototype.initDefaults_ = function() {
-    this.badProxy = null;
+    this.badChain = null;
     this.netError = 0;
   };
   CustomProxyConnectionObserver_OnFallback_Params.prototype.initFields_ = function(fields) {
@@ -2286,8 +2210,8 @@
         return err;
 
 
-    // validate CustomProxyConnectionObserver_OnFallback_Params.badProxy
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, network_param$.ProxyServer, false);
+    // validate CustomProxyConnectionObserver_OnFallback_Params.badChain
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, network_param$.ProxyChain, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -2302,8 +2226,8 @@
     var val = new CustomProxyConnectionObserver_OnFallback_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.badProxy =
-        decoder.decodeStructPointer(network_param$.ProxyServer);
+    val.badChain =
+        decoder.decodeStructPointer(network_param$.ProxyChain);
     val.netError =
         decoder.decodeStruct(codec.Int32);
     decoder.skip(1);
@@ -2317,7 +2241,7 @@
     var packed;
     encoder.writeUint32(CustomProxyConnectionObserver_OnFallback_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(network_param$.ProxyServer, val.badProxy);
+    encoder.encodeStructPointer(network_param$.ProxyChain, val.badChain);
     encoder.encodeStruct(codec.Int32, val.netError);
     encoder.skip(1);
     encoder.skip(1);
@@ -2331,7 +2255,8 @@
 
 
   CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.prototype.initDefaults_ = function() {
-    this.proxyServer = null;
+    this.proxyChain = null;
+    this.chainIndex = 0;
     this.responseHeaders = null;
   };
   CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.prototype.initFields_ = function(fields) {
@@ -2348,36 +2273,39 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.proxyServer
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, network_param$.ProxyServer, false);
+    // validate CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.proxyChain
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, network_param$.ProxyChain, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
+
     // validate CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.responseHeaders
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, network_param$.HttpResponseHeaders, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, network_param$.HttpResponseHeaders, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.encodedSize = codec.kStructHeaderSize + 16;
+  CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.encodedSize = codec.kStructHeaderSize + 24;
 
   CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.decode = function(decoder) {
     var packed;
     var val = new CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.proxyServer =
-        decoder.decodeStructPointer(network_param$.ProxyServer);
+    val.proxyChain =
+        decoder.decodeStructPointer(network_param$.ProxyChain);
+    val.chainIndex =
+        decoder.decodeStruct(codec.Uint64);
     val.responseHeaders =
         decoder.decodeStructPointer(network_param$.HttpResponseHeaders);
     return val;
@@ -2387,7 +2315,8 @@
     var packed;
     encoder.writeUint32(CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(network_param$.ProxyServer, val.proxyServer);
+    encoder.encodeStructPointer(network_param$.ProxyChain, val.proxyChain);
+    encoder.encodeStruct(codec.Uint64, val.chainIndex);
     encoder.encodeStructPointer(network_param$.HttpResponseHeaders, val.responseHeaders);
   };
   function CustomProxyConfigClient_OnCustomProxyConfigUpdated_Params(values) {
@@ -3852,7 +3781,7 @@
 
 
     // validate IpProtectionConfigGetter_GetProxyList_ResponseParams.proxyList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, codec.String, true, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.String), true, [0, 0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -3867,7 +3796,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.proxyList =
-        decoder.decodeArrayPointer(codec.String);
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.String));
     return val;
   };
 
@@ -3875,7 +3804,7 @@
     var packed;
     encoder.writeUint32(IpProtectionConfigGetter_GetProxyList_ResponseParams.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(codec.String, val.proxyList);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.String), val.proxyList);
   };
   function NetworkContext_SetClient_Params(values) {
     this.initDefaults_();
@@ -7013,62 +6942,6 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function NetworkContext_UpdateAdditionalCertificates_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  NetworkContext_UpdateAdditionalCertificates_Params.prototype.initDefaults_ = function() {
-    this.additionalCertificates = null;
-  };
-  NetworkContext_UpdateAdditionalCertificates_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  NetworkContext_UpdateAdditionalCertificates_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate NetworkContext_UpdateAdditionalCertificates_Params.additionalCertificates
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, AdditionalCertificates, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  NetworkContext_UpdateAdditionalCertificates_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  NetworkContext_UpdateAdditionalCertificates_Params.decode = function(decoder) {
-    var packed;
-    var val = new NetworkContext_UpdateAdditionalCertificates_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.additionalCertificates =
-        decoder.decodeStructPointer(AdditionalCertificates);
-    return val;
-  };
-
-  NetworkContext_UpdateAdditionalCertificates_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(NetworkContext_UpdateAdditionalCertificates_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(AdditionalCertificates, val.additionalCertificates);
-  };
   function NetworkContext_SetCTPolicy_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -8237,11 +8110,12 @@
     this.url = null;
     this.requestedProtocols = null;
     this.siteForCookies = null;
+    this.hasStorageAccess = false;
+    this.processId = 0;
     this.isolationInfo = null;
     this.additionalHeaders = null;
-    this.processId = 0;
-    this.options = 0;
     this.origin = null;
+    this.options = 0;
     this.trafficAnnotation = null;
     this.handshakeClient = new websocket$.WebSocketHandshakeClientPtr();
     this.urlLoaderNetworkObserver = new url_loader_network_service_observer$.URLLoaderNetworkServiceObserverPtr();
@@ -8263,7 +8137,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 112}
+      {version: 0, numBytes: 120}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -8288,14 +8162,15 @@
         return err;
 
 
+
     // validate NetworkContext_CreateWebSocket_Params.isolationInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, isolation_info$.IsolationInfo, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, isolation_info$.IsolationInfo, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContext_CreateWebSocket_Params.additionalHeaders
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, new codec.PointerTo(websocket$.HttpHeader), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, new codec.PointerTo(websocket$.HttpHeader), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -8309,44 +8184,44 @@
 
 
     // validate NetworkContext_CreateWebSocket_Params.trafficAnnotation
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContext_CreateWebSocket_Params.handshakeClient
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 64, false);
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 72, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContext_CreateWebSocket_Params.urlLoaderNetworkObserver
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 72, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate NetworkContext_CreateWebSocket_Params.authHandler
     err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 80, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate NetworkContext_CreateWebSocket_Params.headerClient
+    // validate NetworkContext_CreateWebSocket_Params.authHandler
     err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 88, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
+    // validate NetworkContext_CreateWebSocket_Params.headerClient
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 96, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate NetworkContext_CreateWebSocket_Params.throttlingProfileId
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 96, unguessable_token$.UnguessableToken, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 104, unguessable_token$.UnguessableToken, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkContext_CreateWebSocket_Params.encodedSize = codec.kStructHeaderSize + 104;
+  NetworkContext_CreateWebSocket_Params.encodedSize = codec.kStructHeaderSize + 112;
 
   NetworkContext_CreateWebSocket_Params.decode = function(decoder) {
     var packed;
@@ -8359,16 +8234,25 @@
         decoder.decodeArrayPointer(codec.String);
     val.siteForCookies =
         decoder.decodeStructPointer(site_for_cookies$.SiteForCookies);
+    packed = decoder.readUint8();
+    val.hasStorageAccess = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.processId =
+        decoder.decodeStruct(codec.Int32);
     val.isolationInfo =
         decoder.decodeStructPointer(isolation_info$.IsolationInfo);
     val.additionalHeaders =
         decoder.decodeArrayPointer(new codec.PointerTo(websocket$.HttpHeader));
-    val.processId =
-        decoder.decodeStruct(codec.Int32);
-    val.options =
-        decoder.decodeStruct(codec.Uint32);
     val.origin =
         decoder.decodeStructPointer(origin$.Origin);
+    val.options =
+        decoder.decodeStruct(codec.Uint32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.trafficAnnotation =
         decoder.decodeStructPointer(mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag);
     val.handshakeClient =
@@ -8391,11 +8275,21 @@
     encoder.encodeStructPointer(url$.Url, val.url);
     encoder.encodeArrayPointer(codec.String, val.requestedProtocols);
     encoder.encodeStructPointer(site_for_cookies$.SiteForCookies, val.siteForCookies);
+    packed = 0;
+    packed |= (val.hasStorageAccess & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.processId);
     encoder.encodeStructPointer(isolation_info$.IsolationInfo, val.isolationInfo);
     encoder.encodeArrayPointer(new codec.PointerTo(websocket$.HttpHeader), val.additionalHeaders);
-    encoder.encodeStruct(codec.Int32, val.processId);
-    encoder.encodeStruct(codec.Uint32, val.options);
     encoder.encodeStructPointer(origin$.Origin, val.origin);
+    encoder.encodeStruct(codec.Uint32, val.options);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStructPointer(mutable_network_traffic_annotation_tag$.MutableNetworkTrafficAnnotationTag, val.trafficAnnotation);
     encoder.encodeStruct(new codec.Interface(websocket$.WebSocketHandshakeClientPtr), val.handshakeClient);
     encoder.encodeStruct(new codec.NullableInterface(url_loader_network_service_observer$.URLLoaderNetworkServiceObserverPtr), val.urlLoaderNetworkObserver);
@@ -8966,7 +8860,6 @@
   NetworkContext_VerifyCertForSignedExchange_Params.prototype.initDefaults_ = function() {
     this.certificate = null;
     this.url = null;
-    this.networkAnonymizationKey = null;
     this.ocspResponse = null;
     this.sctList = null;
   };
@@ -8984,7 +8877,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -9003,27 +8896,21 @@
         return err;
 
 
-    // validate NetworkContext_VerifyCertForSignedExchange_Params.networkAnonymizationKey
-    err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 16, network_anonymization_key$.NetworkAnonymizationKey, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate NetworkContext_VerifyCertForSignedExchange_Params.ocspResponse
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 32, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate NetworkContext_VerifyCertForSignedExchange_Params.sctList
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 40, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkContext_VerifyCertForSignedExchange_Params.encodedSize = codec.kStructHeaderSize + 48;
+  NetworkContext_VerifyCertForSignedExchange_Params.encodedSize = codec.kStructHeaderSize + 32;
 
   NetworkContext_VerifyCertForSignedExchange_Params.decode = function(decoder) {
     var packed;
@@ -9034,8 +8921,6 @@
         decoder.decodeStructPointer(network_param$.X509Certificate);
     val.url =
         decoder.decodeStructPointer(url$.Url);
-    val.networkAnonymizationKey =
-        decoder.decodeStruct(network_anonymization_key$.NetworkAnonymizationKey);
     val.ocspResponse =
         decoder.decodeStruct(codec.String);
     val.sctList =
@@ -9049,7 +8934,6 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(network_param$.X509Certificate, val.certificate);
     encoder.encodeStructPointer(url$.Url, val.url);
-    encoder.encodeStruct(network_anonymization_key$.NetworkAnonymizationKey, val.networkAnonymizationKey);
     encoder.encodeStruct(codec.String, val.ocspResponse);
     encoder.encodeStruct(codec.String, val.sctList);
   };
@@ -9063,7 +8947,6 @@
     this.errorCode = 0;
     this.pkpBypassed = false;
     this.cvResult = null;
-    this.pinningFailureLog = null;
   };
   NetworkContext_VerifyCertForSignedExchange_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -9079,7 +8962,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -9093,16 +8976,10 @@
         return err;
 
 
-
-    // validate NetworkContext_VerifyCertForSignedExchange_ResponseParams.pinningFailureLog
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
     return validator.validationError.NONE;
   };
 
-  NetworkContext_VerifyCertForSignedExchange_ResponseParams.encodedSize = codec.kStructHeaderSize + 24;
+  NetworkContext_VerifyCertForSignedExchange_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
 
   NetworkContext_VerifyCertForSignedExchange_ResponseParams.decode = function(decoder) {
     var packed;
@@ -9118,8 +8995,6 @@
     decoder.skip(1);
     val.cvResult =
         decoder.decodeStructPointer(network_param$.CertVerifyResult);
-    val.pinningFailureLog =
-        decoder.decodeStruct(codec.String);
     return val;
   };
 
@@ -9135,7 +9010,6 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStructPointer(network_param$.CertVerifyResult, val.cvResult);
-    encoder.encodeStruct(codec.String, val.pinningFailureLog);
   };
   function NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params(values) {
     this.initDefaults_();
@@ -11063,52 +10937,6 @@
     encoder.writeUint32(NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams.encodedSize);
     encoder.writeUint32(0);
   };
-  function NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.prototype.initDefaults_ = function() {
-  };
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 8}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.encodedSize = codec.kStructHeaderSize + 0;
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.decode = function(decoder) {
-    var packed;
-    var val = new NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    return val;
-  };
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.encodedSize);
-    encoder.writeUint32(0);
-  };
   function NetworkContext_SetSCTAuditingMode_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -11841,9 +11669,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  CustomProxyConnectionObserverProxy.prototype.onFallback = function(badProxy, netError) {
+  CustomProxyConnectionObserverProxy.prototype.onFallback = function(badChain, netError) {
     var params_ = new CustomProxyConnectionObserver_OnFallback_Params();
-    params_.badProxy = badProxy;
+    params_.badChain = badChain;
     params_.netError = netError;
     var builder = new codec.MessageV0Builder(
         kCustomProxyConnectionObserver_OnFallback_Name,
@@ -11857,9 +11685,10 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  CustomProxyConnectionObserverProxy.prototype.onTunnelHeadersReceived = function(proxyServer, responseHeaders) {
+  CustomProxyConnectionObserverProxy.prototype.onTunnelHeadersReceived = function(proxyChain, chainIndex, responseHeaders) {
     var params_ = new CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params();
-    params_.proxyServer = proxyServer;
+    params_.proxyChain = proxyChain;
+    params_.chainIndex = chainIndex;
     params_.responseHeaders = responseHeaders;
     var builder = new codec.MessageV0Builder(
         kCustomProxyConnectionObserver_OnTunnelHeadersReceived_Name,
@@ -11872,11 +11701,11 @@
   function CustomProxyConnectionObserverStub(delegate) {
     this.delegate_ = delegate;
   }
-  CustomProxyConnectionObserverStub.prototype.onFallback = function(badProxy, netError) {
-    return this.delegate_ && this.delegate_.onFallback && this.delegate_.onFallback(badProxy, netError);
+  CustomProxyConnectionObserverStub.prototype.onFallback = function(badChain, netError) {
+    return this.delegate_ && this.delegate_.onFallback && this.delegate_.onFallback(badChain, netError);
   }
-  CustomProxyConnectionObserverStub.prototype.onTunnelHeadersReceived = function(proxyServer, responseHeaders) {
-    return this.delegate_ && this.delegate_.onTunnelHeadersReceived && this.delegate_.onTunnelHeadersReceived(proxyServer, responseHeaders);
+  CustomProxyConnectionObserverStub.prototype.onTunnelHeadersReceived = function(proxyChain, chainIndex, responseHeaders) {
+    return this.delegate_ && this.delegate_.onTunnelHeadersReceived && this.delegate_.onTunnelHeadersReceived(proxyChain, chainIndex, responseHeaders);
   }
 
   CustomProxyConnectionObserverStub.prototype.accept = function(message) {
@@ -11884,11 +11713,11 @@
     switch (reader.messageName) {
     case kCustomProxyConnectionObserver_OnFallback_Name:
       var params = reader.decodeStruct(CustomProxyConnectionObserver_OnFallback_Params);
-      this.onFallback(params.badProxy, params.netError);
+      this.onFallback(params.badChain, params.netError);
       return true;
     case kCustomProxyConnectionObserver_OnTunnelHeadersReceived_Name:
       var params = reader.decodeStruct(CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params);
-      this.onTunnelHeadersReceived(params.proxyServer, params.responseHeaders);
+      this.onTunnelHeadersReceived(params.proxyChain, params.chainIndex, params.responseHeaders);
       return true;
     default:
       return false;
@@ -12996,54 +12825,52 @@
   var kNetworkContext_SetNetworkConditions_Name = 31;
   var kNetworkContext_SetAcceptLanguage_Name = 32;
   var kNetworkContext_SetEnableReferrers_Name = 33;
-  var kNetworkContext_UpdateAdditionalCertificates_Name = 34;
-  var kNetworkContext_SetCTPolicy_Name = 35;
-  var kNetworkContext_CreateUDPSocket_Name = 36;
-  var kNetworkContext_CreateRestrictedUDPSocket_Name = 37;
-  var kNetworkContext_CreateTCPServerSocket_Name = 38;
-  var kNetworkContext_CreateTCPConnectedSocket_Name = 39;
-  var kNetworkContext_CreateTCPBoundSocket_Name = 40;
-  var kNetworkContext_CreateProxyResolvingSocketFactory_Name = 41;
-  var kNetworkContext_LookUpProxyForURL_Name = 42;
-  var kNetworkContext_ForceReloadProxyConfig_Name = 43;
-  var kNetworkContext_ClearBadProxiesCache_Name = 44;
-  var kNetworkContext_CreateWebSocket_Name = 45;
-  var kNetworkContext_CreateWebTransport_Name = 46;
-  var kNetworkContext_CreateNetLogExporter_Name = 47;
-  var kNetworkContext_PreconnectSockets_Name = 48;
-  var kNetworkContext_CreateP2PSocketManager_Name = 49;
-  var kNetworkContext_CreateMdnsResponder_Name = 50;
-  var kNetworkContext_ResolveHost_Name = 51;
-  var kNetworkContext_CreateHostResolver_Name = 52;
-  var kNetworkContext_VerifyCertForSignedExchange_Name = 53;
-  var kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name = 54;
-  var kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name = 55;
-  var kNetworkContext_AddHSTS_Name = 56;
-  var kNetworkContext_IsHSTSActiveForHost_Name = 57;
-  var kNetworkContext_GetHSTSState_Name = 58;
-  var kNetworkContext_SetCorsOriginAccessListsForOrigin_Name = 59;
-  var kNetworkContext_DeleteDynamicDataForHost_Name = 60;
-  var kNetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_Name = 61;
-  var kNetworkContext_SaveHttpAuthCacheProxyEntries_Name = 62;
-  var kNetworkContext_LoadHttpAuthCacheProxyEntries_Name = 63;
-  var kNetworkContext_AddAuthCacheEntry_Name = 64;
-  var kNetworkContext_SetCorsNonWildcardRequestHeadersSupport_Name = 65;
-  var kNetworkContext_LookupServerBasicAuthCredentials_Name = 66;
-  var kNetworkContext_LookupProxyAuthCredentials_Name = 67;
-  var kNetworkContext_EnableStaticKeyPinningForTesting_Name = 68;
-  var kNetworkContext_VerifyCertificateForTesting_Name = 69;
-  var kNetworkContext_AddDomainReliabilityContextForTesting_Name = 70;
-  var kNetworkContext_ForceDomainReliabilityUploadsForTesting_Name = 71;
-  var kNetworkContext_SetCTLogListAlwaysTimelyForTesting_Name = 72;
-  var kNetworkContext_SetSCTAuditingMode_Name = 73;
-  var kNetworkContext_AddReportingApiObserver_Name = 74;
-  var kNetworkContext_GetSharedDictionaryUsageInfo_Name = 75;
-  var kNetworkContext_GetSharedDictionaryInfo_Name = 76;
-  var kNetworkContext_GetSharedDictionaryOriginsBetween_Name = 77;
-  var kNetworkContext_SetSharedDictionaryCacheMaxSize_Name = 78;
-  var kNetworkContext_ResourceSchedulerClientVisibilityChanged_Name = 79;
-  var kNetworkContext_FlushCachedClientCertIfNeeded_Name = 80;
-  var kNetworkContext_SetCookieDeprecationLabel_Name = 81;
+  var kNetworkContext_SetCTPolicy_Name = 34;
+  var kNetworkContext_CreateUDPSocket_Name = 35;
+  var kNetworkContext_CreateRestrictedUDPSocket_Name = 36;
+  var kNetworkContext_CreateTCPServerSocket_Name = 37;
+  var kNetworkContext_CreateTCPConnectedSocket_Name = 38;
+  var kNetworkContext_CreateTCPBoundSocket_Name = 39;
+  var kNetworkContext_CreateProxyResolvingSocketFactory_Name = 40;
+  var kNetworkContext_LookUpProxyForURL_Name = 41;
+  var kNetworkContext_ForceReloadProxyConfig_Name = 42;
+  var kNetworkContext_ClearBadProxiesCache_Name = 43;
+  var kNetworkContext_CreateWebSocket_Name = 44;
+  var kNetworkContext_CreateWebTransport_Name = 45;
+  var kNetworkContext_CreateNetLogExporter_Name = 46;
+  var kNetworkContext_PreconnectSockets_Name = 47;
+  var kNetworkContext_CreateP2PSocketManager_Name = 48;
+  var kNetworkContext_CreateMdnsResponder_Name = 49;
+  var kNetworkContext_ResolveHost_Name = 50;
+  var kNetworkContext_CreateHostResolver_Name = 51;
+  var kNetworkContext_VerifyCertForSignedExchange_Name = 52;
+  var kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name = 53;
+  var kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name = 54;
+  var kNetworkContext_AddHSTS_Name = 55;
+  var kNetworkContext_IsHSTSActiveForHost_Name = 56;
+  var kNetworkContext_GetHSTSState_Name = 57;
+  var kNetworkContext_SetCorsOriginAccessListsForOrigin_Name = 58;
+  var kNetworkContext_DeleteDynamicDataForHost_Name = 59;
+  var kNetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_Name = 60;
+  var kNetworkContext_SaveHttpAuthCacheProxyEntries_Name = 61;
+  var kNetworkContext_LoadHttpAuthCacheProxyEntries_Name = 62;
+  var kNetworkContext_AddAuthCacheEntry_Name = 63;
+  var kNetworkContext_SetCorsNonWildcardRequestHeadersSupport_Name = 64;
+  var kNetworkContext_LookupServerBasicAuthCredentials_Name = 65;
+  var kNetworkContext_LookupProxyAuthCredentials_Name = 66;
+  var kNetworkContext_EnableStaticKeyPinningForTesting_Name = 67;
+  var kNetworkContext_VerifyCertificateForTesting_Name = 68;
+  var kNetworkContext_AddDomainReliabilityContextForTesting_Name = 69;
+  var kNetworkContext_ForceDomainReliabilityUploadsForTesting_Name = 70;
+  var kNetworkContext_SetSCTAuditingMode_Name = 71;
+  var kNetworkContext_AddReportingApiObserver_Name = 72;
+  var kNetworkContext_GetSharedDictionaryUsageInfo_Name = 73;
+  var kNetworkContext_GetSharedDictionaryInfo_Name = 74;
+  var kNetworkContext_GetSharedDictionaryOriginsBetween_Name = 75;
+  var kNetworkContext_SetSharedDictionaryCacheMaxSize_Name = 76;
+  var kNetworkContext_ResourceSchedulerClientVisibilityChanged_Name = 77;
+  var kNetworkContext_FlushCachedClientCertIfNeeded_Name = 78;
+  var kNetworkContext_SetCookieDeprecationLabel_Name = 79;
 
   function NetworkContextPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(NetworkContext,
@@ -13780,21 +13607,6 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  NetworkContextPtr.prototype.updateAdditionalCertificates = function() {
-    return NetworkContextProxy.prototype.updateAdditionalCertificates
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  NetworkContextProxy.prototype.updateAdditionalCertificates = function(additionalCertificates) {
-    var params_ = new NetworkContext_UpdateAdditionalCertificates_Params();
-    params_.additionalCertificates = additionalCertificates;
-    var builder = new codec.MessageV0Builder(
-        kNetworkContext_UpdateAdditionalCertificates_Name,
-        codec.align(NetworkContext_UpdateAdditionalCertificates_Params.encodedSize));
-    builder.encodeStruct(NetworkContext_UpdateAdditionalCertificates_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
   NetworkContextPtr.prototype.setCTPolicy = function() {
     return NetworkContextProxy.prototype.setCTPolicy
         .apply(this.ptr.getProxy(), arguments);
@@ -14026,11 +13838,12 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkContextProxy.prototype.createWebSocket = function(url, requestedProtocols, siteForCookies, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId) {
+  NetworkContextProxy.prototype.createWebSocket = function(url, requestedProtocols, siteForCookies, hasStorageAccess, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId) {
     var params_ = new NetworkContext_CreateWebSocket_Params();
     params_.url = url;
     params_.requestedProtocols = requestedProtocols;
     params_.siteForCookies = siteForCookies;
+    params_.hasStorageAccess = hasStorageAccess;
     params_.isolationInfo = isolationInfo;
     params_.additionalHeaders = additionalHeaders;
     params_.processId = processId;
@@ -14173,11 +13986,10 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkContextProxy.prototype.verifyCertForSignedExchange = function(certificate, url, networkAnonymizationKey, ocspResponse, sctList) {
+  NetworkContextProxy.prototype.verifyCertForSignedExchange = function(certificate, url, ocspResponse, sctList) {
     var params_ = new NetworkContext_VerifyCertForSignedExchange_Params();
     params_.certificate = certificate;
     params_.url = url;
-    params_.networkAnonymizationKey = networkAnonymizationKey;
     params_.ocspResponse = ocspResponse;
     params_.sctList = sctList;
     return new Promise(function(resolve, reject) {
@@ -14625,20 +14437,6 @@
       });
     }.bind(this));
   };
-  NetworkContextPtr.prototype.setCTLogListAlwaysTimelyForTesting = function() {
-    return NetworkContextProxy.prototype.setCTLogListAlwaysTimelyForTesting
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  NetworkContextProxy.prototype.setCTLogListAlwaysTimelyForTesting = function() {
-    var params_ = new NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params();
-    var builder = new codec.MessageV0Builder(
-        kNetworkContext_SetCTLogListAlwaysTimelyForTesting_Name,
-        codec.align(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params.encodedSize));
-    builder.encodeStruct(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
   NetworkContextPtr.prototype.setSCTAuditingMode = function() {
     return NetworkContextProxy.prototype.setSCTAuditingMode
         .apply(this.ptr.getProxy(), arguments);
@@ -14912,9 +14710,6 @@
   NetworkContextStub.prototype.setEnableReferrers = function(enableReferrers) {
     return this.delegate_ && this.delegate_.setEnableReferrers && this.delegate_.setEnableReferrers(enableReferrers);
   }
-  NetworkContextStub.prototype.updateAdditionalCertificates = function(additionalCertificates) {
-    return this.delegate_ && this.delegate_.updateAdditionalCertificates && this.delegate_.updateAdditionalCertificates(additionalCertificates);
-  }
   NetworkContextStub.prototype.setCTPolicy = function(ctPolicy) {
     return this.delegate_ && this.delegate_.setCTPolicy && this.delegate_.setCTPolicy(ctPolicy);
   }
@@ -14945,8 +14740,8 @@
   NetworkContextStub.prototype.clearBadProxiesCache = function() {
     return this.delegate_ && this.delegate_.clearBadProxiesCache && this.delegate_.clearBadProxiesCache();
   }
-  NetworkContextStub.prototype.createWebSocket = function(url, requestedProtocols, siteForCookies, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId) {
-    return this.delegate_ && this.delegate_.createWebSocket && this.delegate_.createWebSocket(url, requestedProtocols, siteForCookies, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId);
+  NetworkContextStub.prototype.createWebSocket = function(url, requestedProtocols, siteForCookies, hasStorageAccess, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId) {
+    return this.delegate_ && this.delegate_.createWebSocket && this.delegate_.createWebSocket(url, requestedProtocols, siteForCookies, hasStorageAccess, isolationInfo, additionalHeaders, processId, origin, options, trafficAnnotation, handshakeClient, urlLoaderNetworkObserver, authHandler, headerClient, throttlingProfileId);
   }
   NetworkContextStub.prototype.createWebTransport = function(url, origin, networkAnonymizationKey, fingerprints, handshakeClient) {
     return this.delegate_ && this.delegate_.createWebTransport && this.delegate_.createWebTransport(url, origin, networkAnonymizationKey, fingerprints, handshakeClient);
@@ -14969,8 +14764,8 @@
   NetworkContextStub.prototype.createHostResolver = function(configOverrides, hostResolver) {
     return this.delegate_ && this.delegate_.createHostResolver && this.delegate_.createHostResolver(configOverrides, hostResolver);
   }
-  NetworkContextStub.prototype.verifyCertForSignedExchange = function(certificate, url, networkAnonymizationKey, ocspResponse, sctList) {
-    return this.delegate_ && this.delegate_.verifyCertForSignedExchange && this.delegate_.verifyCertForSignedExchange(certificate, url, networkAnonymizationKey, ocspResponse, sctList);
+  NetworkContextStub.prototype.verifyCertForSignedExchange = function(certificate, url, ocspResponse, sctList) {
+    return this.delegate_ && this.delegate_.verifyCertForSignedExchange && this.delegate_.verifyCertForSignedExchange(certificate, url, ocspResponse, sctList);
   }
   NetworkContextStub.prototype.verifyIpProtectionConfigGetterForTesting = function() {
     return this.delegate_ && this.delegate_.verifyIpProtectionConfigGetterForTesting && this.delegate_.verifyIpProtectionConfigGetterForTesting();
@@ -15025,9 +14820,6 @@
   }
   NetworkContextStub.prototype.forceDomainReliabilityUploadsForTesting = function() {
     return this.delegate_ && this.delegate_.forceDomainReliabilityUploadsForTesting && this.delegate_.forceDomainReliabilityUploadsForTesting();
-  }
-  NetworkContextStub.prototype.setCTLogListAlwaysTimelyForTesting = function() {
-    return this.delegate_ && this.delegate_.setCTLogListAlwaysTimelyForTesting && this.delegate_.setCTLogListAlwaysTimelyForTesting();
   }
   NetworkContextStub.prototype.setSCTAuditingMode = function(mode) {
     return this.delegate_ && this.delegate_.setSCTAuditingMode && this.delegate_.setSCTAuditingMode(mode);
@@ -15124,10 +14916,6 @@
       var params = reader.decodeStruct(NetworkContext_SetEnableReferrers_Params);
       this.setEnableReferrers(params.enableReferrers);
       return true;
-    case kNetworkContext_UpdateAdditionalCertificates_Name:
-      var params = reader.decodeStruct(NetworkContext_UpdateAdditionalCertificates_Params);
-      this.updateAdditionalCertificates(params.additionalCertificates);
-      return true;
     case kNetworkContext_SetCTPolicy_Name:
       var params = reader.decodeStruct(NetworkContext_SetCTPolicy_Params);
       this.setCTPolicy(params.ctPolicy);
@@ -15146,7 +14934,7 @@
       return true;
     case kNetworkContext_CreateWebSocket_Name:
       var params = reader.decodeStruct(NetworkContext_CreateWebSocket_Params);
-      this.createWebSocket(params.url, params.requestedProtocols, params.siteForCookies, params.isolationInfo, params.additionalHeaders, params.processId, params.origin, params.options, params.trafficAnnotation, params.handshakeClient, params.urlLoaderNetworkObserver, params.authHandler, params.headerClient, params.throttlingProfileId);
+      this.createWebSocket(params.url, params.requestedProtocols, params.siteForCookies, params.hasStorageAccess, params.isolationInfo, params.additionalHeaders, params.processId, params.origin, params.options, params.trafficAnnotation, params.handshakeClient, params.urlLoaderNetworkObserver, params.authHandler, params.headerClient, params.throttlingProfileId);
       return true;
     case kNetworkContext_CreateWebTransport_Name:
       var params = reader.decodeStruct(NetworkContext_CreateWebTransport_Params);
@@ -15187,10 +14975,6 @@
     case kNetworkContext_SetCorsNonWildcardRequestHeadersSupport_Name:
       var params = reader.decodeStruct(NetworkContext_SetCorsNonWildcardRequestHeadersSupport_Params);
       this.setCorsNonWildcardRequestHeadersSupport(params.value);
-      return true;
-    case kNetworkContext_SetCTLogListAlwaysTimelyForTesting_Name:
-      var params = reader.decodeStruct(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params);
-      this.setCTLogListAlwaysTimelyForTesting();
       return true;
     case kNetworkContext_SetSCTAuditingMode_Name:
       var params = reader.decodeStruct(NetworkContext_SetSCTAuditingMode_Params);
@@ -15603,13 +15387,12 @@
       return true;
     case kNetworkContext_VerifyCertForSignedExchange_Name:
       var params = reader.decodeStruct(NetworkContext_VerifyCertForSignedExchange_Params);
-      this.verifyCertForSignedExchange(params.certificate, params.url, params.networkAnonymizationKey, params.ocspResponse, params.sctList).then(function(response) {
+      this.verifyCertForSignedExchange(params.certificate, params.url, params.ocspResponse, params.sctList).then(function(response) {
         var responseParams =
             new NetworkContext_VerifyCertForSignedExchange_ResponseParams();
         responseParams.errorCode = response.errorCode;
         responseParams.cvResult = response.cvResult;
         responseParams.pkpBypassed = response.pkpBypassed;
-        responseParams.pinningFailureLog = response.pinningFailureLog;
         var builder = new codec.MessageV1Builder(
             kNetworkContext_VerifyCertForSignedExchange_Name,
             codec.align(NetworkContext_VerifyCertForSignedExchange_ResponseParams.encodedSize),
@@ -16047,10 +15830,6 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkContext_SetEnableReferrers_Params;
       break;
-      case kNetworkContext_UpdateAdditionalCertificates_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = NetworkContext_UpdateAdditionalCertificates_Params;
-      break;
       case kNetworkContext_SetCTPolicy_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkContext_SetCTPolicy_Params;
@@ -16198,10 +15977,6 @@
       case kNetworkContext_ForceDomainReliabilityUploadsForTesting_Name:
         if (message.expectsResponse())
           paramsClass = NetworkContext_ForceDomainReliabilityUploadsForTesting_Params;
-      break;
-      case kNetworkContext_SetCTLogListAlwaysTimelyForTesting_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params;
       break;
       case kNetworkContext_SetSCTAuditingMode_Name:
         if (!message.expectsResponse() && !message.isResponse())
@@ -16474,7 +16249,6 @@
   exports.IpProtectionProxyLayer = IpProtectionProxyLayer;
   exports.CustomProxyConfig = CustomProxyConfig;
   exports.CertVerifierServiceRemoteParams = CertVerifierServiceRemoteParams;
-  exports.AdditionalCertificates = AdditionalCertificates;
   exports.HttpAuthStaticNetworkContextParams = HttpAuthStaticNetworkContextParams;
   exports.CTPolicy = CTPolicy;
   exports.NetworkContextFilePaths = NetworkContextFilePaths;

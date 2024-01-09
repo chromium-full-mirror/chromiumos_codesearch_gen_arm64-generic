@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.425" timestamp="2023-10-27T00:17:37.427" name="AllTests">
-  <testsuite name="DBusControlTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.405" timestamp="2023-10-27T00:17:37.443">
-    <testcase name="SetGlobalOutputChannelRemixBasic" file="cras/src/tests/dbus_control_unittest.cc" line="32" status="run" result="completed" time="0.287" timestamp="2023-10-27T00:17:37.444" classname="DBusControlTestSuite" />
-    <testcase name="SetGlobalOutputChannelRemixInvalid" file="cras/src/tests/dbus_control_unittest.cc" line="46" status="run" result="completed" time="0.07" timestamp="2023-10-27T00:17:37.746" classname="DBusControlTestSuite" />
-    <testcase name="GetFeatureFlagForTestSmoke" file="cras/src/tests/dbus_control_unittest.cc" line="68" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:17:37.818" classname="DBusControlTestSuite" />
-    <testcase name="GetFeatureFlagForTestBadArgs" file="cras/src/tests/dbus_control_unittest.cc" line="76" status="run" result="completed" time="0.013" timestamp="2023-10-27T00:17:37.835" classname="DBusControlTestSuite" />
-  </testsuite>
-</testsuites>

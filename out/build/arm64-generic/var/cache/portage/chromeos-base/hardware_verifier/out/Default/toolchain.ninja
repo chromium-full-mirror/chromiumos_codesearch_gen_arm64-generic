@@ -34,9 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/hardware_verifier/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/hardware_verifier/_hardware_verifier-install_config.stamp: stamp
-build obj/hardware_verifier/all.stamp: stamp ./hardware_verifier obj/hardware_verifier/install_dbus_config.stamp obj/hardware_verifier/install_dbus_service.stamp obj/hardware_verifier/install_init_config.stamp obj/hardware_verifier/install_minijail_config.stamp obj/hardware_verifier/install_minijail_dbus_config.stamp ./unittest_runner
+build obj/hardware_verifier/all.stamp: stamp ./hardware_verifier obj/hardware_verifier/install_dbus_config.stamp obj/hardware_verifier/install_dbus_service.stamp obj/hardware_verifier/install_init_config.stamp obj/hardware_verifier/install_minijail_config.stamp obj/hardware_verifier/install_minijail_dbus_config.stamp
 rule __hardware_verifier_dbus-adaptors___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/hardware_verifier/out/Default/gen/include/hardware_verifier/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/hardware_verifier/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //hardware_verifier:dbus-adaptors(//common-mk/toolchain:toolchain)
@@ -53,8 +52,6 @@ build obj/hardware_verifier/install_init_config.stamp: stamp
 build obj/hardware_verifier/install_minijail_config.stamp: stamp
 build obj/hardware_verifier/install_minijail_dbus_config.stamp: stamp
 subninja obj/hardware_verifier/libhardware_verifier.ninja
-subninja obj/hardware_verifier/libhardware_verifier_test.ninja
-subninja obj/hardware_verifier/unittest_runner.ninja
 build obj/hardware_verifier/proto/all.stamp: stamp obj/hardware_verifier/proto/hardware_verifier-goprotos.stamp
 rule __hardware_verifier_proto_hardware_verifier-goprotos___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/hardware_verifier/proto/ --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/runtime_probe --go_out Mruntime_probe.proto=chromiumos/system_api/runtime_probe_proto$:/build/arm64-generic/var/cache/portage/chromeos-base/hardware_verifier/out/Default/gen/go/src/ /mnt/host/source/src/platform2/hardware_verifier/proto/hardware_verifier.proto

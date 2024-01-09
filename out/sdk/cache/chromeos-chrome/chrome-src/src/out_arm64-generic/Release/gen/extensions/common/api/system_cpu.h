@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct CpuTime {
   ~CpuTime();
   CpuTime(const CpuTime&) = delete;
   CpuTime& operator=(const CpuTime&) = delete;
-  CpuTime(CpuTime&& rhs);
-  CpuTime& operator=(CpuTime&& rhs);
+  CpuTime(CpuTime&& rhs) noexcept;
+  CpuTime& operator=(CpuTime&& rhs) noexcept;
 
   // Populates a CpuTime object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,14 +47,11 @@ struct CpuTime {
   // Creates a deep copy of CpuTime.
   CpuTime Clone() const;
 
-  // Creates a CpuTime object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CpuTime> FromValueDeprecated(const base::Value& value);
-
   // Creates a CpuTime object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<CpuTime> FromValue(const base::Value::Dict& value);
+  static std::optional<CpuTime> FromValue(const base::Value::Dict& value);
 
   // Creates a CpuTime object from a base::Value, or nullopt on failure.
-  static absl::optional<CpuTime> FromValue(const base::Value& value);
+  static std::optional<CpuTime> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCpuTime object.
@@ -79,8 +77,8 @@ struct ProcessorInfo {
   ~ProcessorInfo();
   ProcessorInfo(const ProcessorInfo&) = delete;
   ProcessorInfo& operator=(const ProcessorInfo&) = delete;
-  ProcessorInfo(ProcessorInfo&& rhs);
-  ProcessorInfo& operator=(ProcessorInfo&& rhs);
+  ProcessorInfo(ProcessorInfo&& rhs) noexcept;
+  ProcessorInfo& operator=(ProcessorInfo&& rhs) noexcept;
 
   // Populates a ProcessorInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -93,15 +91,12 @@ struct ProcessorInfo {
   // Creates a deep copy of ProcessorInfo.
   ProcessorInfo Clone() const;
 
-  // Creates a ProcessorInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProcessorInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProcessorInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProcessorInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProcessorInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProcessorInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProcessorInfo> FromValue(const base::Value& value);
+  static std::optional<ProcessorInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcessorInfo object.
@@ -117,8 +112,8 @@ struct CpuInfo {
   ~CpuInfo();
   CpuInfo(const CpuInfo&) = delete;
   CpuInfo& operator=(const CpuInfo&) = delete;
-  CpuInfo(CpuInfo&& rhs);
-  CpuInfo& operator=(CpuInfo&& rhs);
+  CpuInfo(CpuInfo&& rhs) noexcept;
+  CpuInfo& operator=(CpuInfo&& rhs) noexcept;
 
   // Populates a CpuInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -131,14 +126,11 @@ struct CpuInfo {
   // Creates a deep copy of CpuInfo.
   CpuInfo Clone() const;
 
-  // Creates a CpuInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CpuInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a CpuInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<CpuInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<CpuInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a CpuInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<CpuInfo> FromValue(const base::Value& value);
+  static std::optional<CpuInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCpuInfo object.

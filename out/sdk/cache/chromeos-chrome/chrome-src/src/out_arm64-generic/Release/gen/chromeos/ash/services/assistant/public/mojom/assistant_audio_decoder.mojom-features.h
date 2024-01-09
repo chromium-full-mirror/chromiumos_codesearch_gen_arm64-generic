@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_ASSISTANT_PUBLIC_MOJOM_ASSISTANT_AUDIO_DECODER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -22,6 +22,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void ToggleDictationTray(bool visible) override;
   void ToggleVideoConferenceTray(bool visible) override;
   void ToggleProjectorTray(bool visible) override;
+  void SetActiveDirectoryManaged(bool managed) override;
   void TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) override;
 };
 class  PageHandlerAsyncWaiter {

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/shared_module.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -41,8 +42,8 @@ Import::Import()
  {}
 
 Import::~Import() = default;
-Import::Import(Import&& rhs) = default;
-Import& Import::operator=(Import&& rhs) = default;
+Import::Import(Import&& rhs) noexcept = default;
+Import& Import::operator=(Import&& rhs) noexcept = default;
 // static
 constexpr char Import::kId[];
 // static
@@ -81,7 +82,7 @@ bool Import::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'minimum_version': expected minimum_version, got " + UTF8ToUTF16(base::Value::GetTypeName((*minimum_version_value).type()));
-        out.minimum_version = absl::nullopt;
+        out.minimum_version = std::nullopt;
         return false;
       }
       out.minimum_version = *temp;
@@ -100,24 +101,6 @@ bool Import::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<Import> Import::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Import>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -183,8 +166,8 @@ Export::Export()
  {}
 
 Export::~Export() = default;
-Export::Export(Export&& rhs) = default;
-Export& Export::operator=(Export&& rhs) = default;
+Export::Export(Export&& rhs) noexcept = default;
+Export& Export::operator=(Export&& rhs) noexcept = default;
 // static
 constexpr char Export::kAllowlist[];
 
@@ -229,24 +212,6 @@ bool Export::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<Export> Export::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Export>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -310,8 +275,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kImport[];
 // static

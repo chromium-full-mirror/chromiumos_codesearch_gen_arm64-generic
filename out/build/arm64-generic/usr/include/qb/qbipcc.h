@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2007, 2009 Red Hat, Inc.
+ * Copyright (C) 2010-2020 Red Hat, Inc.
  *
  * Author: Steven Dake <sdake@redhat.com>
  *
@@ -27,12 +27,9 @@ extern "C" {
 #endif
 /* *INDENT-ON* */
 
-#include <qb/qbconfig.h>
+#include <sys/types.h>  /* size_t, ssize_t */
+#include <sys/uio.h>  /* iovec */
 
-#include <pthread.h>
-#include <sys/poll.h>
-#include <sys/socket.h>
-#include <qb/qbhdb.h>
 #include <qb/qbipc_common.h>
 
 /**
@@ -53,7 +50,7 @@ extern "C" {
  * The function qb_ipcc_send() sends an message buffer request.
  *
  * @par Asynchronous events from the server
- * The qb_ipcc_event_recv() function receives an out-of-band asyncronous message.
+ * The qb_ipcc_event_recv() function receives an out-of-band asynchronous message.
  * The asynchronous messages are queued and can provide very high out-of-band performance.
  * To determine when to call qb_ipcc_event_recv() the qb_ipcc_fd_get() call is
  * used to obtain a file descriptor used in the poll() or select() system calls.
@@ -111,6 +108,17 @@ void qb_ipcc_disconnect(qb_ipcc_connection_t* c);
  * @param fd (out) file descriptor to poll
  */
 int32_t qb_ipcc_fd_get(qb_ipcc_connection_t* c, int32_t * fd);
+
+/**
+ * Get the credentials of the server process
+ *
+ *
+ * @param c connection instance
+ * @param pid PID of the server we are connected to
+ * @param uid UID of the server we are connected to
+ * @param gid GID of the server we are connected to
+ */
+int32_t qb_ipcc_auth_get(qb_ipcc_connection_t* c, pid_t *pid, uid_t *uid, gid_t *gid);
 
 /**
  * Set the maximum allowable flowcontrol value.
@@ -193,9 +201,8 @@ ssize_t qb_ipcc_sendv_recv(qb_ipcc_connection_t *c,
  * @param c connection instance
  * @param msg_ptr pointer to a message buffer to receive into
  * @param msg_len the size of the buffer
- * @param ms_timeout time in milli seconds to wait for a message
+ * @param ms_timeout time in milliseconds to wait for a message
  *        0 == no wait, negative == block, positive == wait X ms.
- * @param ms_timeout max time to wait for a response
  * @return size of the message or error (-errno)
  *
  * @note that msg_ptr will include a qb_ipc_response_header at

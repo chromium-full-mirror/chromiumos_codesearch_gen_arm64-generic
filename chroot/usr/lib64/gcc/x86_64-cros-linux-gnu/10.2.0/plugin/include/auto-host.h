@@ -1510,7 +1510,7 @@
 
 /* Define if your linker supports -z bndplt */
 #ifndef USED_FOR_TARGET
-#define HAVE_LD_BNDPLT_SUPPORT 1
+/* #undef HAVE_LD_BNDPLT_SUPPORT */
 #endif
 
 

@@ -32,6 +32,10 @@ export class CredentialFieldElement extends PolymerElement {
              * Field value.
              */
             value: String,
+            /*
+             * Placeholder when the value is empty.
+             */
+            placeholder: String,
             /**
              * If set, clicking the copy button will record this password view
              * interaction.

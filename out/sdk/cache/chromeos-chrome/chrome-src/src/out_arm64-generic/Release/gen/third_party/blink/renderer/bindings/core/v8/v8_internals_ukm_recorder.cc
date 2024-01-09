@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, InternalsUkmRecorder>::value,
     "InternalsUkmRecorder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&InternalsUkmRecorder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "InternalsUkmRecorder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-InternalsUkmRecorder* blink_receiver = V8InternalsUkmRecorder::ToWrappableUnsafe(v8_receiver);
+InternalsUkmRecorder* blink_receiver = V8InternalsUkmRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_entry_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

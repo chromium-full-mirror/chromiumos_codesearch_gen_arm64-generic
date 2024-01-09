@@ -51,8 +51,16 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
 void GPUComputePipelineDescriptor::Trace(Visitor* visitor) const {
   TraceIfNeeded<Member<GPUProgrammableStage>>::Trace(visitor, member_compute_);
+TraceIfNeeded<bool>::Trace(visitor, member_requires_full_subgroups_);
 GPUPipelineDescriptorBase::Trace(visitor);
 }
 
@@ -61,17 +69,27 @@ bool GPUComputePipelineDescriptor::FillV8ObjectWithMembers(ScriptState* script_s
   return false;
 }
 
-if (hasCompute()) {
-  v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<GPUProgrammableStage>::ToV8(script_state, member_compute_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
+v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
+if (hasCompute()) {
+  if (!ToV8Traits<GPUProgrammableStage>::ToV8(script_state, member_compute_.Get()).ToLocal(&v8_value)) {
+  return false;
+}
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
+}
+}
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  if (hasRequiresFullSubgroups()) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_requires_full_subgroups_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
 }
 }
 return true;
@@ -94,11 +112,19 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<GPUProgrammableStage, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_compute_, try_block, exception_state)) {
   return;
 }
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("requiresFullSubgroups");
+constexpr bool is_optional = false;
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_requires_full_subgroups_, member_requires_full_subgroups_, try_block, exception_state)) {
+  return;
+}
+}
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPUComputePipelineDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "compute",
+"requiresFullSubgroups",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

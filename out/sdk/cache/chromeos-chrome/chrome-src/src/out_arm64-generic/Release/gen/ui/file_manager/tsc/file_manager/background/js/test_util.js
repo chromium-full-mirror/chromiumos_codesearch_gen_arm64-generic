@@ -3,15 +3,12 @@
 // found in the LICENSE file.
 import { ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../common/js/progress_center_common.js';
 import { ScriptLoader } from '../../common/js/script_loader.js';
-import { util } from '../../common/js/util.js';
-// @ts-ignore: error TS2440: Import declaration conflicts with local declaration
-// of 'test'.
+import { descriptorEqual } from '../../common/js/util.js';
 import { test } from './test_util_base.js';
 export { test };
 /**
  * Sanitizes the formatted date. Replaces unusual space with normal space.
- * @param {string} strDate the date already in the string format.
- * @return {string}
+ * @param strDate the date already in the string format.
  */
 export function sanitizeDate(strDate) {
     return strDate.replace('\u202f', ' ');
@@ -24,360 +21,246 @@ export function sanitizeDate(strDate) {
  * #detail-table recycles its file row elements, this call only returns details
  * about the visible file rows (11 rows normally, see crbug.com/850834).
  *
- * @param {Window} contentWindow Window to be tested.
- * @return {Array<Array<string>>} Details for each visible file row.
+ * @param contentWindow Window to be tested.
+ * @return Details for each visible file row.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getFileList = contentWindow => {
+test.util.sync.getFileList = (contentWindow) => {
     const table = contentWindow.document.querySelector('#detail-table');
-    // @ts-ignore: error TS18047: 'table' is possibly 'null'.
     const rows = table.querySelectorAll('li');
     const fileList = [];
-    for (let j = 0; j < rows.length; ++j) {
-        const row = rows[j];
+    for (const row of rows) {
         fileList.push([
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.filename-label').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.size').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.type').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            sanitizeDate(row.querySelector('.date').textContent || ''),
+            row.querySelector('.filename-label')?.textContent ?? '',
+            row.querySelector('.size')?.textContent ?? '',
+            row.querySelector('.type')?.textContent ?? '',
+            sanitizeDate(row.querySelector('.date')?.textContent || ''),
         ]);
     }
-    // @ts-ignore: error TS2322: Type '(string | null)[][]' is not assignable to
-    // type 'string[][]'.
     return fileList;
 };
 /**
  * Returns the name of the files currently selected in the file list. Note the
  * routine has the same 'visible files' limitation as getFileList() above.
  *
- * @param {Window} contentWindow Window to be tested.
- * @return {Array<string>} Selected file names.
+ * @param contentWindow Window to be tested.
+ * @return Selected file names.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getSelectedFiles = contentWindow => {
+test.util.sync.getSelectedFiles = (contentWindow) => {
     const table = contentWindow.document.querySelector('#detail-table');
-    // @ts-ignore: error TS18047: 'table' is possibly 'null'.
     const rows = table.querySelectorAll('li');
     const selected = [];
-    for (let i = 0; i < rows.length; ++i) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        if (rows[i].hasAttribute('selected')) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            selected.push(rows[i].querySelector('.filename-label').textContent);
+    for (const row of rows) {
+        if (row.hasAttribute('selected')) {
+            selected.push(row.querySelector('.filename-label')?.textContent ?? '');
         }
     }
-    // @ts-ignore: error TS2322: Type '(string | null)[]' is not assignable to
-    // type 'string[]'.
     return selected;
 };
 /**
  * Fakes pressing the down arrow until the given |filename| is selected.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be selected.
- * @return {boolean} True if file got selected, false otherwise.
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be selected.
+ * @return True if file got selected, false otherwise.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.selectFile = (contentWindow, filename) => {
-    const rows = contentWindow.document.querySelectorAll('#detail-table li');
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.focus(contentWindow, '#file-list');
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Home', false, false, false);
-    for (let index = 0; index < rows.length; ++index) {
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-        // util'.
-        const selection = test.util.sync.getSelectedFiles(contentWindow);
-        if (selection.length === 1 && selection[0] === filename) {
-            return true;
+test.util.sync.selectFile =
+    (contentWindow, filename) => {
+        const rows = contentWindow.document.querySelectorAll('#detail-table li');
+        test.util.sync.focus(contentWindow, '#file-list');
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Home', false, false, false);
+        for (let index = 0; index < rows.length; ++index) {
+            const selection = test.util.sync.getSelectedFiles(contentWindow);
+            if (selection.length === 1 && selection[0] === filename) {
+                return true;
+            }
+            test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'ArrowDown', false, false, false);
         }
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-        // util'.
-        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'ArrowDown', false, false, false);
-    }
-    console.warn('Failed to select file "' + filename + '"');
-    return false;
-};
+        console.warn('Failed to select file "' + filename + '"');
+        return false;
+    };
 /**
  * Open the file by selectFile and fakeMouseDoubleClick.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be opened.
- * @return {boolean} True if file got selected and a double click message is
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be opened.
+ * @return True if file got selected and a double click message is
  *     sent, false otherwise.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.openFile = (contentWindow, filename) => {
-    const query = '#file-list li.table-row[selected] .filename-label span';
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    return test.util.sync.selectFile(contentWindow, filename) &&
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type
-        // 'typeof util'.
-        test.util.sync.fakeMouseDoubleClick(contentWindow, query);
-};
+test.util.sync.openFile =
+    (contentWindow, filename) => {
+        const query = '#file-list li.table-row[selected] .filename-label span';
+        return test.util.sync.selectFile(contentWindow, filename) &&
+            test.util.sync.fakeMouseDoubleClick(contentWindow, query);
+    };
 /**
  * Returns the last URL visited with visitURL() (e.g. for "Manage in Drive").
  *
- * @param {Window} contentWindow The window where visitURL() was called.
- * @return {!string} The URL of the last URL visited.
+ * @param contentWindow The window where visitURL() was called.
+ * @return The URL of the last URL visited.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getLastVisitedURL = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'getLastVisitedURL' does not exist on
-    // type 'FileManager'.
-    return contentWindow.fileManager.getLastVisitedURL();
+test.util.sync.getLastVisitedURL = (contentWindow) => {
+    return contentWindow.fileManager.getLastVisitedUrl();
 };
 /**
  * Returns a string translation from its translation ID.
- * @param {string} id The id of the translated string.
- * @return {string}
+ * @param id The id of the translated string.
  */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.sync.getTranslatedString = (contentWindow, id) => {
-    return contentWindow.fileManager.getTranslatedString(id);
-};
+test.util.sync.getTranslatedString =
+    (contentWindow, id) => {
+        return contentWindow.fileManager.getTranslatedString(id);
+    };
 /**
  * Executes Javascript code on a webview and returns the result.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} webViewQuery Selector for the web view.
- * @param {string} code Javascript code to be executed within the web view.
- * @param {function(*):void} callback Callback function with results returned by
-the
- *     script.
-// @ts-ignore: error TS7014: Function type, which lacks return-type annotation,
-implicitly has an 'any' return type.
+ * @param contentWindow Window to be tested.
+ * @param webViewQuery Selector for the web view.
+ * @param code Javascript code to be executed within the web view.
+ * @param callback Callback function with results returned by the script.
  */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
 test.util.async.executeScriptInWebView =
     (contentWindow, webViewQuery, code, callback) => {
         const webView = contentWindow.document.querySelector(webViewQuery);
-        // @ts-ignore: error TS2339: Property 'executeScript' does not exist on
-        // type 'Element'.
         webView.executeScript({ code: code }, callback);
     };
 /**
  * Selects |filename| and fakes pressing Ctrl+C, Ctrl+V (copy, paste).
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be copied.
- * @return {boolean} True if copying got simulated successfully. It does not
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be copied.
+ * @return True if copying got simulated successfully. It does not
  *     say if the file got copied, or not.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.copyFile = (contentWindow, filename) => {
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    if (!test.util.sync.selectFile(contentWindow, filename)) {
-        return false;
-    }
-    // Ctrl+C and Ctrl+V
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'c', true, false, false);
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'v', true, false, false);
-    return true;
-};
+test.util.sync.copyFile =
+    (contentWindow, filename) => {
+        if (!test.util.sync.selectFile(contentWindow, filename)) {
+            return false;
+        }
+        // Ctrl+C and Ctrl+V
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'c', true, false, false);
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'v', true, false, false);
+        return true;
+    };
 /**
  * Selects |filename| and fakes pressing the Delete key.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be deleted.
- * @return {boolean} True if deleting got simulated successfully. It does not
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be deleted.
+ * @return True if deleting got simulated successfully. It does not
  *     say if the file got deleted, or not.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.deleteFile = (contentWindow, filename) => {
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    if (!test.util.sync.selectFile(contentWindow, filename)) {
-        return false;
-    }
-    // Delete
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Delete', false, false, false);
-    return true;
-};
+test.util.sync.deleteFile =
+    (contentWindow, filename) => {
+        if (!test.util.sync.selectFile(contentWindow, filename)) {
+            return false;
+        }
+        // Delete
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Delete', false, false, false);
+        return true;
+    };
 /**
  * Execute a command on the document in the specified window.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} command Command name.
- * @return {boolean} True if the command is executed successfully.
+ * @param contentWindow Window to be tested.
+ * @param command Command name.
+ * @return True if the command is executed successfully.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.execCommand = (contentWindow, command) => {
-    const ret = contentWindow.document.execCommand(command);
-    if (!ret) {
-        // TODO(b/191831968): Fix execCommand for SWA.
-        console.warn(`execCommand(${command}) returned false for SWA, forcing ` +
-            `return value to true. b/191831968`);
-        return true;
-    }
-    return ret;
-};
+test.util.sync.execCommand =
+    (contentWindow, command) => {
+        const ret = contentWindow.document.execCommand(command);
+        if (!ret) {
+            // TODO(b/191831968): Fix execCommand for SWA.
+            console.warn(`execCommand(${command}) returned false for SWA, forcing ` +
+                `return value to true. b/191831968`);
+            return true;
+        }
+        return ret;
+    };
 /**
  * Override the task-related methods in private api for test.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<Object>} taskList List of tasks to be returned in
+ * @param contentWindow Window to be tested.
+ * @param taskList List of tasks to be returned in
  *     fileManagerPrivate.getFileTasks().
- * @param {boolean}
- *     isPolicyDefault Whether the default is set by policy.
- * @return {boolean} Always return true.
+ * @param isPolicyDefault Whether the default is set by policy.
+ * @return Always return true.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync
-    .overrideTasks = (contentWindow, taskList, isPolicyDefault = false) => {
-    // @ts-ignore: error TS7006: Parameter 'onTasks' implicitly has an 'any' type.
-    const getFileTasks = (entries, sourceUrls, onTasks) => {
-        // Call onTask asynchronously (same with original getFileTasks).
-        setTimeout(() => {
-            const policyDefaultHandlerStatus = isPolicyDefault ?
-                chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
-                    .DEFAULT_HANDLER_ASSIGNED_BY_POLICY :
-                undefined;
-            onTasks({ tasks: taskList, policyDefaultHandlerStatus });
-        }, 0);
+test.util.sync.overrideTasks =
+    (contentWindow, taskList, isPolicyDefault = false) => {
+        const getFileTasks = (_entries, _sourceUrls, onTasks) => {
+            // Call onTask asynchronously (same with original getFileTasks).
+            setTimeout(() => {
+                const policyDefaultHandlerStatus = isPolicyDefault ?
+                    chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
+                        .DEFAULT_HANDLER_ASSIGNED_BY_POLICY :
+                    undefined;
+                onTasks({ tasks: taskList, policyDefaultHandlerStatus });
+            }, 0);
+        };
+        const executeTask = (descriptor, entries, callback) => {
+            executedTasks.push({ descriptor, entries, callback });
+        };
+        const setDefaultTask = (descriptor) => {
+            for (const task of taskList) {
+                task.isDefault = descriptorEqual(task.descriptor, descriptor);
+            }
+        };
+        executedTasks = [];
+        contentWindow.chrome.fileManagerPrivate.getFileTasks =
+            getFileTasks;
+        contentWindow.chrome.fileManagerPrivate.executeTask =
+            executeTask;
+        contentWindow.chrome.fileManagerPrivate.setDefaultTask =
+            setDefaultTask;
+        return true;
     };
-    // @ts-ignore: error TS7006: Parameter 'callback' implicitly has an 'any'
-    // type.
-    const executeTask = (descriptor, entries, callback) => {
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        test.util.executedTasks_.push({ descriptor, entries, callback });
-    };
-    // @ts-ignore: error TS7006: Parameter 'descriptor' implicitly has an 'any'
-    // type.
-    const setDefaultTask = descriptor => {
-        for (let i = 0; i < taskList.length; i++) {
-            // @ts-ignore: error TS2339: Property 'isDefault' does not exist on type
-            // 'Object'.
-            taskList[i].isDefault =
-                // @ts-ignore: error TS2339: Property 'descriptor' does not exist on
-                // type 'Object'.
-                util.descriptorEqual(taskList[i].descriptor, descriptor);
-        }
-    };
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    test.util.executedTasks_ = [];
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.getFileTasks = getFileTasks;
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.executeTask = executeTask;
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.setDefaultTask = setDefaultTask;
-    return true;
-};
 /**
  * Obtains the list of executed tasks.
- * @param {Window} contentWindow Window to be tested.
-// @ts-ignore: error TS1131: Property or signature expected.
- * @return {Array<!{descriptor: chrome.fileManagerPrivate.FileTaskDescriptor,
- *     fileNames: !Array<string>}>} List of executed tasks.
-// @ts-ignore: error TS1131: Property or signature expected.
  */
-// @ts-ignore: error TS6133: 'contentWindow' is declared but its value is never
-// read.
-test.util.sync.getExecutedTasks = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    if (!test.util.executedTasks_) {
+test.util.sync.getExecutedTasks = (_contentWindow) => {
+    if (!executedTasks) {
         console.error('Please call overrideTasks() first.');
-        // @ts-ignore: error TS2322: Type 'null' is not assignable to type '{}[]'.
         return null;
     }
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
-    return test.util.executedTasks_.map(task => {
+    return executedTasks.map((task) => {
         return {
             descriptor: task.descriptor,
-            // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
             fileNames: task.entries.map(e => e.name),
         };
     });
 };
 /**
  * Obtains the list of executed tasks.
- * @param {Window} contentWindow Window to be tested.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor the task to
- *     check.
- * @param {!Array<string>} fileNames Name of files that should have been passed
- *     to the executeTasks().
- * @return {boolean} True if the task was executed.
+ * @param _contentWindow Window to be tested.
+ * @param descriptor the task to *     check.
+ * @param fileNames Name of files that should have been passed to the
+ *     executeTasks().
+ * @return True if the task was executed.
  */
-// @ts-ignore: error TS6133: 'contentWindow' is declared but its value is never
-// read.
-test.util.sync.taskWasExecuted = (contentWindow, descriptor, fileNames) => {
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    if (!test.util.executedTasks_) {
-        console.error('Please call overrideTasks() first.');
-        // @ts-ignore: error TS2322: Type 'null' is not assignable to type
-        // 'boolean'.
-        return null;
-    }
-    const fileNamesStr = JSON.stringify(fileNames);
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    const task = test.util.executedTasks_.find(
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any'
-    // type.
-    task => util.descriptorEqual(task.descriptor, descriptor) &&
-        // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any'
-        // type.
-        fileNamesStr === JSON.stringify(task.entries.map(e => e.name)));
-    return task !== undefined;
-};
+test.util.sync.taskWasExecuted =
+    (_contentWindow, descriptor, fileNames) => {
+        if (!executedTasks) {
+            console.error('Please call overrideTasks() first.');
+            return null;
+        }
+        const fileNamesStr = JSON.stringify(fileNames);
+        const task = executedTasks.find((task) => descriptorEqual(task.descriptor, descriptor) &&
+            fileNamesStr === JSON.stringify(task.entries.map(e => e.name)));
+        return task !== undefined;
+    };
+let executedTasks = null;
 /**
  * Invokes an executed task with |responseArgs|.
- * @param {Window} contentWindow Window to be tested.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor the task to
- *     be replied to.
- * @param {Array<Object>} responseArgs the arguments to inoke the callback with.
+ * @param _contentWindow Window to be tested.
+ * @param descriptor the task to be replied to.
+ * @param responseArgs the arguments to invoke the callback with.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
 test.util.sync.replyExecutedTask =
-    // @ts-ignore: error TS6133: 'contentWindow' is declared but its value is
-    // never read.
-    (contentWindow, descriptor, responseArgs) => {
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        if (!test.util.executedTasks_) {
+    (_contentWindow, descriptor, responseArgs) => {
+        if (!executedTasks) {
             console.error('Please call overrideTasks() first.');
             return false;
         }
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        const found = test.util.executedTasks_.find(
-        // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any'
-        // type.
-        task => util.descriptorEqual(task.descriptor, descriptor));
+        const found = executedTasks.find((task) => descriptorEqual(task.descriptor, descriptor));
         if (!found) {
             const { appId, taskType, actionId } = descriptor;
             console.error(`No task with id ${appId}|${taskType}|${actionId}`);
@@ -388,119 +271,78 @@ test.util.sync.replyExecutedTask =
     };
 /**
  * Calls the unload handler for the window.
- * @param {Window} contentWindow Window to be tested.
+ * @param contentWindow Window to be tested.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.unload = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'onUnload_' does not exist on type
-    // 'FileManager'.
-    contentWindow.fileManager.onUnload_();
+test.util.sync.unload = (contentWindow) => {
+    contentWindow.fileManager.onUnloadForTest();
 };
 /**
  * Returns the path shown in the breadcrumb.
  *
- * @param {Window} contentWindow Window to be tested.
- * @return {string} The breadcrumb path.
+ * @param contentWindow Window to be tested.
+ * @return The breadcrumb path.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getBreadcrumbPath = contentWindow => {
+test.util.sync.getBreadcrumbPath = (contentWindow) => {
     const doc = contentWindow.document;
     const breadcrumb = doc.querySelector('#location-breadcrumbs xf-breadcrumb');
     if (!breadcrumb) {
         return '';
     }
-    // @ts-ignore: error TS2339: Property 'path' does not exist on type 'Element'.
     return '/' + breadcrumb.path;
 };
 /**
  * Obtains the preferences.
- * @param {function(Object):void} callback Callback function with results
- *     returned by the script.
+ * @param callback Callback function with results returned by the script.
  */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.getPreferences = callback => {
+test.util.async.getPreferences = (callback) => {
     chrome.fileManagerPrivate.getPreferences(callback);
 };
 /**
  * Stubs out the formatVolume() function in fileManagerPrivate.
  *
- * @param {Window} contentWindow Window to be affected.
+ * @param contentWindow Window to be affected.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.overrideFormat = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
+test.util.sync.overrideFormat = (contentWindow) => {
     contentWindow.chrome.fileManagerPrivate.formatVolume =
-        // @ts-ignore: error TS7006: Parameter 'volumeLabel' implicitly has an
-        // 'any' type.
-        (volumeId, filesystem, volumeLabel) => { };
+        (_volumeId, _filesystem, _volumeLabel) => { };
     return true;
 };
 /**
- * Run a contentWindow.requestAnimationFrame() cycle and resolve the callback
- * when that requestAnimationFrame completes.
- * @param {Window} contentWindow Window to be tested.
- * @param {function(boolean):void} callback Completion callback.
+ * Run a contentWindow.requestAnimationFrame() cycle and resolve the
+ * callback when that requestAnimationFrame completes.
+ * @param contentWindow Window to be tested.
+ * @param callback Completion callback.
  */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.requestAnimationFrame = (contentWindow, callback) => {
-    // @ts-ignore: error TS7014: Function type, which lacks return-type
-    // annotation, implicitly has an 'any' return type.
-    contentWindow.requestAnimationFrame(() => {
-        callback(true);
-    });
-};
+test.util.async.requestAnimationFrame =
+    (contentWindow, callback) => {
+        contentWindow.requestAnimationFrame(() => {
+            callback(true);
+        });
+    };
 /**
  * Set the window text direction to RTL and wait for the window to redraw.
- * @param {Window} contentWindow Window to be tested.
- * @param {function(boolean):void} callback Completion callback.
+ * @param contentWindow Window to be tested.
+ * @param callback Completion callback.
  */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.renderWindowTextDirectionRTL = (contentWindow, callback) => {
-    contentWindow.document.documentElement.setAttribute('dir', 'rtl');
-    // @ts-ignore: error TS7014: Function type, which lacks return-type
-    // annotation, implicitly has an 'any' return type.
-    contentWindow.document.body.setAttribute('dir', 'rtl');
-    contentWindow.requestAnimationFrame(() => {
-        callback(true);
-    });
-};
-/**
- * Maps the path to the replaced attribute to the PrepareFake instance that
- * replaced it, to be able to restore the original value.
- *
- * @private @type {Record<string, PrepareFake>}
- */
-// @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does not
-// exist on type 'typeof util'.
-test.util.backgroundReplacedObjects_ = {};
+test.util.async.renderWindowTextDirectionRTL =
+    (contentWindow, callback) => {
+        contentWindow.document.documentElement.setAttribute('dir', 'rtl');
+        contentWindow.document.body.setAttribute('dir', 'rtl');
+        contentWindow.requestAnimationFrame(() => {
+            callback(true);
+        });
+    };
 /**
  * Map the appId to a map of all fakes applied in the foreground window e.g.:
  *  {'files#0': {'chrome.bla.api': FAKE}
- *
- * @private @type {Record<string, Object<string, PrepareFake>>}
  */
-// @ts-ignore: error TS2339: Property 'foregroundReplacedObjects_' does not
-// exist on type 'typeof util'.
-test.util.foregroundReplacedObjects_ = {};
+const foregroundReplacedObjects = {};
 /**
- * @param {string} attrName
- * @param {*} staticValue
- * @return {function(...*)}
+ * A factory that returns a fake (aka function) that returns a static value.
+ * Used to force an API to return always the same value.
  */
-// @ts-ignore: error TS2339: Property 'staticFakeFactory' does not exist on type
-// 'typeof util'.
-test.util.staticFakeFactory = (attrName, staticValue) => {
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
+const staticFakeFactory = (attrName, staticValue) => {
     const fake = (...args) => {
-        // @ts-ignore: error TS1110: Type expected.
         setTimeout(() => {
             // Find the first callback.
             for (const arg of args) {
@@ -515,98 +357,61 @@ test.util.staticFakeFactory = (attrName, staticValue) => {
     return fake;
 };
 /**
- * Registry of available fakes, it maps the an string ID to a factory function
- * which returns the actual fake used to replace an implementation.
+ * Registry of available fakes, it maps the an string ID to a factory
+ * function which returns the actual fake used to replace an implementation.
  *
- * @private @type {Record<string, function(string, *):void>}
  */
-// @ts-ignore: error TS2339: Property 'fakes_' does not exist on type 'typeof
-// util'.
-test.util.fakes_ = {
-    // @ts-ignore: error TS2339: Property 'staticFakeFactory' does not exist on
-    // type 'typeof util'.
-    'static_fake': test.util.staticFakeFactory,
-};
-/**
- * @enum {string}
- */
-test.util.FakeType = {
-    FOREGROUND_FAKE: 'FOREGROUND_FAKE',
-    BACKGROUND_FAKE: 'BACKGROUND_FAKE',
+const fakes = {
+    'static_fake': staticFakeFactory,
 };
 /**
  * Class holds the information for applying and restoring fakes.
  */
 class PrepareFake {
     /**
-     * @param {string} attrName Name of the attribute to be replaced by the fake
+     * @param attrName Name of the attribute to be replaced by the fake
      *   e.g.: "chrome.app.window.create".
-     * @param {string} fakeId The name of the fake to be used from
-     *   test.util.fakes_.
-     * @param {*} context The context where the attribute will be traversed from,
+     * @param fakeId The name of the fake to be used from `fakes_`.
+     * @param context The context where the attribute will be traversed from,
      *   e.g.: Window object.
-     * @param {...*} args Additional args provided from the integration test to
-     *     the
-     *   fake, e.g.: static return value.
+     * @param args Additional args provided from the integration test to the fake,
+     *     e.g.: static return value.
      */
-    constructor(attrName, fakeId, context, ...args) {
+    constructor(attrName_, fakeId_, context_, ...args) {
+        this.attrName_ = attrName_;
+        this.fakeId_ = fakeId_;
+        this.context_ = context_;
         /**
          * The instance of the fake to be used, ready to be used.
-         * @private @type {*}
          */
         this.fake_ = null;
         /**
-         * The attribute name to be traversed in the |context_|.
-         * @private @type {string}
-         */
-        this.attrName_ = attrName;
-        /**
-         * The fake id the key to retrieve from test.util.fakes_.
-         * @private @type {string}
-         */
-        this.fakeId_ = fakeId;
-        /**
-         * The context where |attrName_| will be traversed from, e.g. Window.
-         * @private @type {*}
-         */
-        this.context_ = context;
-        /**
          * After traversing |context_| the object that holds the attribute to be
          * replaced by the fake.
-         * @private @type {*}
          */
         this.parentObject_ = null;
         /**
          * After traversing |context_| the attribute name in |parentObject_| that
          * will be replaced by the fake.
-         * @private @type {string}
          */
         this.leafAttrName_ = '';
         /**
-         * Additional data provided from integration tests to the fake constructor.
-         * @private @type {!Array<*>}
-         */
-        this.args_ = args;
-        /**
          * Original object that was replaced by the fake.
-         * @private @type {*}
          */
         this.original_ = null;
         /**
          * If this fake object has been constructed and everything initialized.
-         * @private @type {boolean}
          */
         this.prepared_ = false;
         /**
          * Counter to record the number of times the static fake is called.
-         * @private @type {number}
          */
-        this.callCounter_ = 0;
+        this.callCounter = 0;
         /**
          * List to record the arguments provided to the static fake calls.
-         * @private @type {!Array<*>}
          */
-        this.calledArgs_ = [];
+        this.calledArgs = [];
+        this.args_ = args;
     }
     /**
      * Initializes the fake and traverse |context_| to be ready to replace the
@@ -620,10 +425,9 @@ class PrepareFake {
     /**
      * Replaces the original implementation with the fake.
      * NOTE: It requires prepare() to have been called.
-     * @param {test.util.FakeType} fakeType Foreground or background fake.
-     * @param {Window} contentWindow Window to be tested.
+     * @param contentWindow Window to be tested.
      */
-    replace(fakeType, contentWindow) {
+    replace(contentWindow) {
         const suffix = `for ${this.attrName_} ${this.fakeId_}`;
         if (!this.prepared_) {
             throw new Error(`PrepareFake prepare() not called ${suffix}`);
@@ -637,17 +441,15 @@ class PrepareFake {
         if (!this.leafAttrName_) {
             throw new Error(`Missing leafAttrName_ ${suffix}`);
         }
-        this.saveOriginal_(fakeType, contentWindow);
-        // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-        // type.
+        this.saveOriginal_(contentWindow);
         this.parentObject_[this.leafAttrName_] = (...args) => {
             this.fake_(...args);
-            this.callCounter_++;
-            this.calledArgs_.push([...args]);
+            this.callCounter++;
+            this.calledArgs.push([...args]);
         };
     }
     /**
-     * Restores the original implementation that had been rpeviously replaced by
+     * Restores the original implementation that had been previously replaced by
      * the fake.
      */
     restore() {
@@ -659,50 +461,28 @@ class PrepareFake {
     }
     /**
      * Saves the original implementation to be able restore it later.
-     * @param {test.util.FakeType} fakeType Foreground or background fake.
-     * @param {Window} contentWindow Window to be tested.
+     * @param contentWindow Window to be tested.
      */
-    saveOriginal_(fakeType, contentWindow) {
-        // @ts-ignore: error TS2339: Property 'FOREGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        if (fakeType === test.util.FakeType.FOREGROUND_FAKE) {
-            const windowFakes = 
-            // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-            // 'Window'.
-            test.util.foregroundReplacedObjects_[contentWindow.appID] || {};
-            // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-            // 'Window'.
-            test.util.foregroundReplacedObjects_[contentWindow.appID] = windowFakes;
-            // Only save once, otherwise it can save an object that is already fake.
-            if (!windowFakes[this.attrName_]) {
-                const original = this.parentObject_[this.leafAttrName_];
-                this.original_ = original;
-                windowFakes[this.attrName_] = this;
+    saveOriginal_(contentWindow) {
+        const windowFakes = foregroundReplacedObjects[contentWindow.appID] || {};
+        foregroundReplacedObjects[contentWindow.appID] = windowFakes;
+        // Only save once, otherwise it can save an object that is already fake.
+        if (!windowFakes[this.attrName_]) {
+            if (!this.parentObject_) {
+                console.error(`Failed to find the fake context: ${this.attrName_}`);
+                return;
             }
-            return;
+            const original = this.parentObject_[this.leafAttrName_];
+            this.original_ = original;
+            windowFakes[this.attrName_] = this;
         }
-        // @ts-ignore: error TS2339: Property 'BACKGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        if (fakeType === test.util.FakeType.BACKGROUND_FAKE) {
-            // Only save once, otherwise it can save an object that is already fake.
-            // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does
-            // not exist on type 'typeof util'.
-            if (!test.util.backgroundReplacedObjects_[this.attrName_]) {
-                const original = this.parentObject_[this.leafAttrName_];
-                this.original_ = original;
-                // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does
-                // not exist on type 'typeof util'.
-                test.util.backgroundReplacedObjects_[this.attrName_] = this;
-            }
-        }
+        return;
     }
     /**
      * Constructs the fake.
      */
     buildFake_() {
-        // @ts-ignore: error TS2339: Property 'fakes_' does not exist on type
-        // 'typeof util'.
-        const factory = test.util.fakes_[this.fakeId_];
+        const factory = fakes[this.fakeId_];
         if (!factory) {
             throw new Error(`Failed to find the fake factory for ${this.fakeId_}`);
         }
@@ -713,7 +493,7 @@ class PrepareFake {
      */
     traverseContext_() {
         let target = this.context_;
-        let parentObj;
+        let parentObj = null;
         let attr = '';
         for (const a of this.attrName_.split('.')) {
             attr = a;
@@ -727,103 +507,48 @@ class PrepareFake {
         this.leafAttrName_ = attr;
     }
 }
-// @ts-ignore: error TS2339: Property 'PrepareFake' does not exist on type
-// 'typeof util'.
-test.util.PrepareFake = PrepareFake;
-/**
- * Replaces implementations in the background page with fakes.
- *
- * @param {Record<string, Array<*>>} fakeData An object mapping the path to the
- * object to be replaced and the value is the Array with fake id and additional
- * arguments for the fake constructor, e.g.:
- *   fakeData = {
- *     'chrome.app.window.create' : [
- *       'static_fake',
- *       ['some static value', 'other arg'],
-// @ts-ignore: error TS1005: '}' expected.
- *     ]
- *   }
- *
- *  This will replace the API 'chrome.app.window.create' with a static fake,
- *  providing the additional data to static fake: ['some static value', 'other
- *  value'].
- */
-// @ts-ignore: error TS7006: Parameter 'fakeData' implicitly has an 'any' type.
-test.util.sync.backgroundFake = (fakeData) => {
-    for (const [path, mockValue] of Object.entries(fakeData)) {
-        const fakeId = mockValue[0];
-        const fakeArgs = mockValue[1] || [];
-        const fake = new PrepareFake(path, fakeId, window, ...fakeArgs);
-        fake.prepare();
-        // @ts-ignore: error TS2339: Property 'BACKGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        fake.replace(test.util.FakeType.BACKGROUND_FAKE, window);
-    }
-};
-/**
- * Removes all fakes that were applied to the background page.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.removeAllBackgroundFakes = () => {
-    // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does not
-    // exist on type 'typeof util'.
-    const savedFakes = Object.entries(test.util.backgroundReplacedObjects_);
-    let removedCount = 0;
-    // @ts-ignore: error TS6133: 'path' is declared but its value is never read.
-    for (const [path, fake] of savedFakes) {
-        fake.restore();
-        removedCount++;
-    }
-    return removedCount;
-};
 /**
  * Replaces implementations in the foreground page with fakes.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {Record<string, Array<*>>} fakeData An object mapping the path to the
- * object to be replaced and the value is the Array with fake id and additional
- * arguments for the fake constructor, e.g.:
- *   fakeData = {
+ * @param contentWindow Window to be tested.
+ * @param fakeData An object mapping the path to the
+ * object to be replaced and the value is the Array with fake id and
+ * additional arguments for the fake constructor, e.g.: fakeData = {
  *     'chrome.app.window.create' : [
  *       'static_fake',
  *       ['some static value', 'other arg'],
  *     ]
-// @ts-ignore: error TS1005: '}' expected.
  *   }
  *
  *  This will replace the API 'chrome.app.window.create' with a static fake,
- *  providing the additional data to static fake: ['some static value', 'other
- *  value'].
+ *  providing the additional data to static fake: ['some static value',
+ * 'other value'].
  */
-// @ts-ignore: error TS7006: Parameter 'fakeData' implicitly has an 'any' type.
-test.util.sync.foregroundFake = (contentWindow, fakeData) => {
-    const entries = Object.entries(fakeData);
-    for (const [path, mockValue] of entries) {
-        const fakeId = mockValue[0];
-        const fakeArgs = mockValue[1] || [];
-        const fake = new PrepareFake(path, fakeId, contentWindow, ...fakeArgs);
-        fake.prepare();
-        // @ts-ignore: error TS2339: Property 'FOREGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        fake.replace(test.util.FakeType.FOREGROUND_FAKE, contentWindow);
-    }
-    return entries.length;
-};
+test.util.sync.foregroundFake =
+    (contentWindow, fakeData) => {
+        const entries = Object.entries(fakeData);
+        for (const [path, mockValue] of entries) {
+            const fakeId = mockValue[0];
+            const fakeArgs = mockValue[1] || [];
+            const fake = new PrepareFake(path, fakeId, contentWindow, ...fakeArgs);
+            fake.prepare();
+            fake.replace(contentWindow);
+        }
+        return entries.length;
+    };
 /**
  * Removes all fakes that were applied to the foreground page.
- * @param {Window} contentWindow Window to be tested.
+ * @param contentWindow Window to be tested.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
 test.util.sync.removeAllForegroundFakes = (contentWindow) => {
-    const savedFakes = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    Object.entries(test.util.foregroundReplacedObjects_[contentWindow.appID]);
+    const windowFakes = foregroundReplacedObjects[contentWindow.appID];
+    if (!windowFakes) {
+        console.error(`Failed to find the fakes for window ${contentWindow.appID}`);
+        return 0;
+    }
+    const savedFakes = Object.entries(windowFakes);
     let removedCount = 0;
-    // @ts-ignore: error TS6133: 'path' is declared but its value is never read.
-    for (const [path, fake] of savedFakes) {
+    for (const [_path, fake] of savedFakes) {
         fake.restore();
         removedCount++;
     }
@@ -831,54 +556,45 @@ test.util.sync.removeAllForegroundFakes = (contentWindow) => {
 };
 /**
  * Obtains the number of times the static fake api is called.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} fakedApi Path of the method that is faked.
- * @return {number} Number of times the fake api called.
+ * @param contentWindow Window to be tested.
+ * @param fakedApi Path of the method that is faked.
+ * @return Number of times the fake api called.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.staticFakeCounter = (contentWindow, fakedApi) => {
-    const fake = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    test.util.foregroundReplacedObjects_[contentWindow.appID][fakedApi];
-    return fake.callCounter_;
-};
+test.util.sync.staticFakeCounter =
+    (contentWindow, fakedApi) => {
+        const windowFakes = foregroundReplacedObjects[contentWindow.appID];
+        if (!windowFakes) {
+            console.error(`Failed to find the fakes for window ${contentWindow.appID}`);
+            return -1;
+        }
+        const fake = windowFakes[fakedApi];
+        return fake?.callCounter ?? -1;
+    };
 /**
  * Obtains the list of arguments with which the static fake api was called.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} fakedApi Path of the method that is faked.
- * @return {!Array<!Array<*>>} An array with all calls to this fake, each item
+ * @param contentWindow Window to be tested.
+ * @param fakedApi Path of the method that is faked.
+ * @return An array with all calls to this fake, each item
  *     is an array with all args passed in when the fake was called.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.staticFakeCalledArgs = (contentWindow, fakedApi) => {
-    const fake = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    test.util.foregroundReplacedObjects_[contentWindow.appID][fakedApi];
-    return fake.calledArgs_;
-    // @ts-ignore: error TS8024: JSDoc '@param' tag has name 'An', but there is no
-    // parameter with that name.
-};
+test.util.sync.staticFakeCalledArgs =
+    (contentWindow, fakedApi) => {
+        const fake = foregroundReplacedObjects[contentWindow.appID][fakedApi];
+        return fake.calledArgs;
+    };
 /**
  * Send progress item to Foreground page to display.
- * @param {string} id Progress item id.
- * @param {ProgressItemType} type Type of progress item.
- * @param {ProgressItemState} state State of the progress item.
- * @param {string} message Message of the progress item.
- * @param {number} remainingTime The remaining time of the progress in second.
- * @param {number} progressMax Max value of the progress.
- * @param {number} progressValue Current value of the progress.
- * @param {number} count Number of items being processed.
+ * @param id Progress item id.
+ * @param type Type of progress item.
+ * @param state State of the progress item.
+ * @param message Message of the progress item.
+ * @param remainingTime The remaining time of the progress in second.
+ * @param progressMax Max value of the progress.
+ * @param progressValue Current value of the progress.
+ * @param count Number of items being processed.
  */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
 test.util.sync.sendProgressItem =
-    // @ts-ignore: error TS2304: Cannot find name 'ProgressItemType'.
     (id, type, state, message, remainingTime, progressMax = 1, progressValue = 0, count = 1) => {
-        // @ts-ignore: error TS2304: Cannot find name 'ProgressItemState'.
         const item = new ProgressCenterItem();
         item.id = id;
         item.type = type;
@@ -888,56 +604,38 @@ test.util.sync.sendProgressItem =
         item.progressMax = progressMax;
         item.progressValue = progressValue;
         item.itemCount = count;
-        // @ts-ignore: error TS2339: Property 'background' does not exist on type
-        // 'Window & typeof globalThis'.
         window.background.progressCenter.updateItem(item);
         return true;
     };
 /**
- * Remote call API handler. This function handles messages coming from the test
- * harness to execute known functions and return results. This is a dummy
- * implementation that is replaced by a real one once the test harness is fully
- * loaded.
- * @type {function(*, function(*): void): void}
+ * Remote call API handler. This function handles messages coming from the
+ * test harness to execute known functions and return results. This is a
+ * dummy implementation that is replaced by a real one once the test harness
+ * is fully loaded.
  */
-// @ts-ignore: error TS6133: 'callback' is declared but its value is never read.
-test.util.executeTestMessage = (request, callback) => {
-    throw new Error('executeTestMessage not implemented');
-};
+test.util.executeTestMessage =
+    (_request, _callback) => {
+        throw new Error('executeTestMessage not implemented');
+    };
 /**
  * Handles a direct call from the integration test harness. We execute
  * swaTestMessageListener call directly from the FileManagerBrowserTest.
  * This method avoids enabling external callers to Files SWA. We forward
  * the response back to the caller, as a serialized JSON string.
-// @ts-ignore: error TS7014: Function type, which lacks return-type annotation,
-implicitly has an 'any' return type.
- * @param {!Object} request
  */
-// @ts-ignore: error TS2339: Property 'swaTestMessageListener' does not exist on
-// type 'typeof test'.
 test.swaTestMessageListener = (request) => {
-    // @ts-ignore: error TS2339: Property 'contentWindow' does not exist on type
-    // 'Window & typeof globalThis'.
-    request.contentWindow = window.contentWindow || window;
+    request.contentWindow = window;
     return new Promise(resolve => {
-        // @ts-ignore: error TS7006: Parameter 'response' implicitly has an 'any'
-        // type.
         test.util.executeTestMessage(request, (response) => {
             response = response === undefined ? '@undefined@' : response;
             resolve(JSON.stringify(response));
         });
     });
 };
-// @ts-ignore: error TS7034: Variable 'testUtilsLoaded' implicitly has type
-// 'any' in some locations where its type cannot be determined.
 let testUtilsLoaded = null;
-// @ts-ignore: error TS2339: Property 'swaLoadTestUtils' does not exist on type
-// 'typeof test'.
 test.swaLoadTestUtils = async () => {
     const scriptUrl = 'background/js/runtime_loaded_test_util.js';
     try {
-        // @ts-ignore: error TS7005: Variable 'testUtilsLoaded' implicitly has an
-        // 'any' type.
         if (!testUtilsLoaded) {
             console.log('Loading ' + scriptUrl);
             testUtilsLoaded = new ScriptLoader(scriptUrl, { type: 'module' }).load();
@@ -951,17 +649,9 @@ test.swaLoadTestUtils = async () => {
         return false;
     }
 };
-// @ts-ignore: error TS2339: Property 'getSwaAppId' does not exist on type
-// 'typeof test'.
 test.getSwaAppId = async () => {
-    // @ts-ignore: error TS7005: Variable 'testUtilsLoaded' implicitly has an
-    // 'any' type.
     if (!testUtilsLoaded) {
-        // @ts-ignore: error TS2339: Property 'swaLoadTestUtils' does not exist on
-        // type 'typeof test'.
         await test.swaLoadTestUtils();
     }
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type 'Window &
-    // typeof globalThis'.
     return String(window.appID);
 };

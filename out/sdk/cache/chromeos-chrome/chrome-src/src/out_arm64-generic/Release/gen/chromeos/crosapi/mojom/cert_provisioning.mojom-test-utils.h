@@ -36,6 +36,7 @@ class  CertProvisioningInterceptorForTesting : public CertProvisioning {
   void AddObserver(::mojo::PendingRemote<CertProvisioningObserver> observer) override;
   void GetStatus(GetStatusCallback callback) override;
   void UpdateOneProcess(const std::string& cert_profile_id) override;
+  void ResetOneProcess(const std::string& cert_profile_id) override;
 };
 class  CertProvisioningAsyncWaiter {
  public:

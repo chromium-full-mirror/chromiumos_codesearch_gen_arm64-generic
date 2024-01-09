@@ -58,7 +58,7 @@ class  SpellChecker_CustomDictionaryChanged_Params_Data {
 };
 static_assert(sizeof(SpellChecker_CustomDictionaryChanged_Params_Data) == 24,
               "Bad sizeof(SpellChecker_CustomDictionaryChanged_Params_Data)");
-class  SpellCheckHost_RequestDictionary_Params_Data {
+class  SpellCheckInitializationHost_RequestDictionary_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -66,13 +66,13 @@ class  SpellCheckHost_RequestDictionary_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<SpellCheckHost_RequestDictionary_Params_Data>;
+  friend class mojo::internal::MessageFragment<SpellCheckInitializationHost_RequestDictionary_Params_Data>;
 
-  SpellCheckHost_RequestDictionary_Params_Data();
-  ~SpellCheckHost_RequestDictionary_Params_Data() = delete;
+  SpellCheckInitializationHost_RequestDictionary_Params_Data();
+  ~SpellCheckInitializationHost_RequestDictionary_Params_Data() = delete;
 };
-static_assert(sizeof(SpellCheckHost_RequestDictionary_Params_Data) == 8,
-              "Bad sizeof(SpellCheckHost_RequestDictionary_Params_Data)");
+static_assert(sizeof(SpellCheckInitializationHost_RequestDictionary_Params_Data) == 8,
+              "Bad sizeof(SpellCheckInitializationHost_RequestDictionary_Params_Data)");
 class  SpellCheckHost_NotifyChecked_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -204,18 +204,18 @@ class SpellChecker_CustomDictionaryChanged_ParamsDataView {
 };
 
 
-class SpellCheckHost_RequestDictionary_ParamsDataView {
+class SpellCheckInitializationHost_RequestDictionary_ParamsDataView {
  public:
-  SpellCheckHost_RequestDictionary_ParamsDataView() = default;
+  SpellCheckInitializationHost_RequestDictionary_ParamsDataView() = default;
 
-  SpellCheckHost_RequestDictionary_ParamsDataView(
-      internal::SpellCheckHost_RequestDictionary_Params_Data* data,
+  SpellCheckInitializationHost_RequestDictionary_ParamsDataView(
+      internal::SpellCheckInitializationHost_RequestDictionary_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::SpellCheckHost_RequestDictionary_Params_Data* data_ = nullptr;
+  internal::SpellCheckInitializationHost_RequestDictionary_Params_Data* data_ = nullptr;
 };
 
 

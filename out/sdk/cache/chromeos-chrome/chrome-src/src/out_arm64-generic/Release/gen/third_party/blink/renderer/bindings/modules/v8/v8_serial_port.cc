@@ -79,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, SerialPort>::value,
     "SerialPort does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&SerialPort::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SerialPort is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("SerialPort.onconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -112,8 +107,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnect(event_handler);
 }
 
@@ -124,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("SerialPort.ondisconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondisconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondisconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -140,8 +136,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndisconnect(event_handler);
 }
 
@@ -152,12 +149,12 @@ BLINK_BINDINGS_TRACE_EVENT("SerialPort.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SerialPort";
 const char* const property_name = "readable";
@@ -177,12 +174,12 @@ BLINK_BINDINGS_TRACE_EVENT("SerialPort.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SerialPort";
 const char* const property_name = "writable";
@@ -222,7 +219,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSerialPortClose);
 
 
 
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -260,7 +257,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSerialPortForget);
 
 
 
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -292,7 +289,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getInfo();
 if (!ToV8Traits<SerialPortInfo>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -323,7 +320,7 @@ return;
 
 
 
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -365,7 +362,7 @@ return;
 
 
 
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -403,7 +400,7 @@ return;
 
 
 
-SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(v8_receiver);
+SerialPort* blink_receiver = V8SerialPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

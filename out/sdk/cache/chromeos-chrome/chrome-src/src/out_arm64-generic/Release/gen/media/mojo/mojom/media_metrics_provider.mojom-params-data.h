@@ -200,6 +200,21 @@ class  MediaMetricsProvider_SetKeySystem_Params_Data {
 };
 static_assert(sizeof(MediaMetricsProvider_SetKeySystem_Params_Data) == 16,
               "Bad sizeof(MediaMetricsProvider_SetKeySystem_Params_Data)");
+class  MediaMetricsProvider_SetHasWaitingForKey_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaMetricsProvider_SetHasWaitingForKey_Params_Data>;
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params_Data();
+  ~MediaMetricsProvider_SetHasWaitingForKey_Params_Data() = delete;
+};
+static_assert(sizeof(MediaMetricsProvider_SetHasWaitingForKey_Params_Data) == 8,
+              "Bad sizeof(MediaMetricsProvider_SetHasWaitingForKey_Params_Data)");
 class  MediaMetricsProvider_SetIsHardwareSecure_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -636,6 +651,21 @@ class MediaMetricsProvider_SetKeySystem_ParamsDataView {
 };
 
 
+class MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView {
+ public:
+  MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView() = default;
+
+  MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView(
+      internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data* data_ = nullptr;
+};
+
+
 class MediaMetricsProvider_SetIsHardwareSecure_ParamsDataView {
  public:
   MediaMetricsProvider_SetIsHardwareSecure_ParamsDataView() = default;
@@ -947,6 +977,8 @@ inline void MediaMetricsProvider_SetKeySystem_ParamsDataView::GetKeySystemDataVi
   auto pointer = data_->key_system.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

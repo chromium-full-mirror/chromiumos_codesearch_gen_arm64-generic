@@ -28,6 +28,7 @@ class CORE_EXPORT ServiceWorkerHostInterceptorForTesting : public ServiceWorkerH
   void SkipWaiting(SkipWaitingCallback callback) override;
   void ClaimClients(ClaimClientsCallback callback) override;
   void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) override;
+  void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) override;
 };
 class CORE_EXPORT ServiceWorkerHostAsyncWaiter {
  public:
@@ -62,6 +63,9 @@ class CORE_EXPORT ServiceWorkerHostAsyncWaiter {
       ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg);
   
   void RegisterRouter(
+      const ::blink::ServiceWorkerRouterRules& rules);
+  
+  void AddRoutes(
       const ::blink::ServiceWorkerRouterRules& rules);
   
 

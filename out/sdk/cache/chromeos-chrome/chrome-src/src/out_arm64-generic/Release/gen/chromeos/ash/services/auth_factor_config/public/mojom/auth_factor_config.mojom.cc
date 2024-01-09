@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void FactorObserverProxy::OnFactorChanged(
                         "<value of type AuthFactor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFactorObserver_OnFactorChanged_Name, kFlags, 0, 0, nullptr);
@@ -191,10 +195,10 @@ bool FactorObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFactorObserverValidationInfo[] = {
-    {&internal::FactorObserver_OnFactorChanged_Params_Data::Validate,
+    { &internal::FactorObserver_OnFactorChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -418,14 +422,17 @@ void AuthFactorConfigProxy::ObserveFactorChanges(
                         "<value of type ::mojo::PendingRemote<FactorObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_ObserveFactorChanges_Name, kFlags, 0, 0, nullptr);
@@ -464,14 +471,17 @@ void AuthFactorConfigProxy::IsSupported(
                         "<value of type AuthFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsSupported_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +528,17 @@ void AuthFactorConfigProxy::IsConfigured(
                         "<value of type AuthFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsConfigured_Name, kFlags, 0, 0, nullptr);
@@ -572,14 +585,17 @@ void AuthFactorConfigProxy::GetManagementType(
                         "<value of type AuthFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_GetManagementType_Name, kFlags, 0, 0, nullptr);
@@ -626,14 +642,17 @@ void AuthFactorConfigProxy::IsEditable(
                         "<value of type AuthFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsEditable_Name, kFlags, 0, 0, nullptr);
@@ -756,7 +775,8 @@ void AuthFactorConfig_IsSupported_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsSupported_Name, kFlags, 0, 0, nullptr);
@@ -874,7 +894,8 @@ void AuthFactorConfig_IsConfigured_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsConfigured_Name, kFlags, 0, 0, nullptr);
@@ -992,7 +1013,8 @@ void AuthFactorConfig_GetManagementType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_GetManagementType_Name, kFlags, 0, 0, nullptr);
@@ -1111,7 +1133,8 @@ void AuthFactorConfig_IsEditable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthFactorConfig_IsEditable_Name, kFlags, 0, 0, nullptr);
@@ -1334,18 +1357,18 @@ std::move(p_factor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuthFactorConfigValidationInfo[] = {
-    {&internal::AuthFactorConfig_ObserveFactorChanges_Params_Data::Validate,
+    { &internal::AuthFactorConfig_ObserveFactorChanges_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuthFactorConfig_IsSupported_Params_Data::Validate,
+    { &internal::AuthFactorConfig_IsSupported_Params_Data::Validate,
      &internal::AuthFactorConfig_IsSupported_ResponseParams_Data::Validate},
-    {&internal::AuthFactorConfig_IsConfigured_Params_Data::Validate,
+    { &internal::AuthFactorConfig_IsConfigured_Params_Data::Validate,
      &internal::AuthFactorConfig_IsConfigured_ResponseParams_Data::Validate},
-    {&internal::AuthFactorConfig_GetManagementType_Params_Data::Validate,
+    { &internal::AuthFactorConfig_GetManagementType_Params_Data::Validate,
      &internal::AuthFactorConfig_GetManagementType_ResponseParams_Data::Validate},
-    {&internal::AuthFactorConfig_IsEditable_Params_Data::Validate,
+    { &internal::AuthFactorConfig_IsEditable_Params_Data::Validate,
      &internal::AuthFactorConfig_IsEditable_ResponseParams_Data::Validate},
 };
 
@@ -1448,14 +1471,17 @@ void RecoveryFactorEditorProxy::Configure(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecoveryFactorEditor_Configure_Name, kFlags, 0, 0, nullptr);
@@ -1577,7 +1603,8 @@ void RecoveryFactorEditor_Configure_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecoveryFactorEditor_Configure_Name, kFlags, 0, 0, nullptr);
@@ -1662,10 +1689,10 @@ std::move(p_enabled), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRecoveryFactorEditorValidationInfo[] = {
-    {&internal::RecoveryFactorEditor_Configure_Params_Data::Validate,
+    { &internal::RecoveryFactorEditor_Configure_Params_Data::Validate,
      &internal::RecoveryFactorEditor_Configure_ResponseParams_Data::Validate},
 };
 
@@ -1804,14 +1831,17 @@ void PinFactorEditorProxy::SetPin(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPinFactorEditor_SetPin_Name, kFlags, 0, 0, nullptr);
@@ -1864,14 +1894,17 @@ void PinFactorEditorProxy::RemovePin(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPinFactorEditor_RemovePin_Name, kFlags, 0, 0, nullptr);
@@ -1992,7 +2025,8 @@ void PinFactorEditor_SetPin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPinFactorEditor_SetPin_Name, kFlags, 0, 0, nullptr);
@@ -2111,7 +2145,8 @@ void PinFactorEditor_RemovePin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPinFactorEditor_RemovePin_Name, kFlags, 0, 0, nullptr);
@@ -2228,12 +2263,12 @@ std::move(p_auth_token), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPinFactorEditorValidationInfo[] = {
-    {&internal::PinFactorEditor_SetPin_Params_Data::Validate,
+    { &internal::PinFactorEditor_SetPin_Params_Data::Validate,
      &internal::PinFactorEditor_SetPin_ResponseParams_Data::Validate},
-    {&internal::PinFactorEditor_RemovePin_Params_Data::Validate,
+    { &internal::PinFactorEditor_RemovePin_Params_Data::Validate,
      &internal::PinFactorEditor_RemovePin_ResponseParams_Data::Validate},
 };
 
@@ -2480,14 +2515,17 @@ void PasswordFactorEditorProxy::UpdateLocalPassword(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_UpdateLocalPassword_Name, kFlags, 0, 0, nullptr);
@@ -2543,14 +2581,17 @@ void PasswordFactorEditorProxy::UpdateOnlinePassword(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_UpdateOnlinePassword_Name, kFlags, 0, 0, nullptr);
@@ -2606,14 +2647,17 @@ void PasswordFactorEditorProxy::SetLocalPassword(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_SetLocalPassword_Name, kFlags, 0, 0, nullptr);
@@ -2669,14 +2713,17 @@ void PasswordFactorEditorProxy::SetOnlinePassword(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_SetOnlinePassword_Name, kFlags, 0, 0, nullptr);
@@ -2729,14 +2776,17 @@ void PasswordFactorEditorProxy::CheckLocalPasswordComplexity(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_CheckLocalPasswordComplexity_Name, kFlags, 0, 0, nullptr);
@@ -2857,7 +2907,8 @@ void PasswordFactorEditor_UpdateLocalPassword_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_UpdateLocalPassword_Name, kFlags, 0, 0, nullptr);
@@ -2976,7 +3027,8 @@ void PasswordFactorEditor_UpdateOnlinePassword_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_UpdateOnlinePassword_Name, kFlags, 0, 0, nullptr);
@@ -3095,7 +3147,8 @@ void PasswordFactorEditor_SetLocalPassword_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_SetLocalPassword_Name, kFlags, 0, 0, nullptr);
@@ -3214,7 +3267,8 @@ void PasswordFactorEditor_SetOnlinePassword_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_SetOnlinePassword_Name, kFlags, 0, 0, nullptr);
@@ -3333,7 +3387,8 @@ void PasswordFactorEditor_CheckLocalPasswordComplexity_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordFactorEditor_CheckLocalPasswordComplexity_Name, kFlags, 0, 0, nullptr);
@@ -3558,18 +3613,18 @@ std::move(p_password), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPasswordFactorEditorValidationInfo[] = {
-    {&internal::PasswordFactorEditor_UpdateLocalPassword_Params_Data::Validate,
+    { &internal::PasswordFactorEditor_UpdateLocalPassword_Params_Data::Validate,
      &internal::PasswordFactorEditor_UpdateLocalPassword_ResponseParams_Data::Validate},
-    {&internal::PasswordFactorEditor_UpdateOnlinePassword_Params_Data::Validate,
+    { &internal::PasswordFactorEditor_UpdateOnlinePassword_Params_Data::Validate,
      &internal::PasswordFactorEditor_UpdateOnlinePassword_ResponseParams_Data::Validate},
-    {&internal::PasswordFactorEditor_SetLocalPassword_Params_Data::Validate,
+    { &internal::PasswordFactorEditor_SetLocalPassword_Params_Data::Validate,
      &internal::PasswordFactorEditor_SetLocalPassword_ResponseParams_Data::Validate},
-    {&internal::PasswordFactorEditor_SetOnlinePassword_Params_Data::Validate,
+    { &internal::PasswordFactorEditor_SetOnlinePassword_Params_Data::Validate,
      &internal::PasswordFactorEditor_SetOnlinePassword_ResponseParams_Data::Validate},
-    {&internal::PasswordFactorEditor_CheckLocalPasswordComplexity_Params_Data::Validate,
+    { &internal::PasswordFactorEditor_CheckLocalPasswordComplexity_Params_Data::Validate,
      &internal::PasswordFactorEditor_CheckLocalPasswordComplexity_ResponseParams_Data::Validate},
 };
 

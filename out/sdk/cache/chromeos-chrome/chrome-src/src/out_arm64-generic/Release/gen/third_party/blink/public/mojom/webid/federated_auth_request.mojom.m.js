@@ -60,12 +60,12 @@ export const RequestUserInfoStatus = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
-export const LogoutRpsStatusSpec = { $: mojo.internal.Enum() };
+export const DisconnectStatusSpec = { $: mojo.internal.Enum() };
 
 /**
  * @enum {number}
  */
-export const LogoutRpsStatus = {
+export const DisconnectStatus = {
   
   kSuccess: 0,
   kErrorTooManyRequests: 1,
@@ -187,15 +187,6 @@ export class FederatedAuthRequestInterface {
   resolveTokenRequest(token) {}
   
   /**
-   * @param { !Array<!LogoutRpsRequest> } rpLogoutRequests
-   * @return {!Promise<{
-        status: !LogoutRpsStatus,
-   *  }>}
-   */
-
-  logoutRps(rpLogoutRequests) {}
-  
-  /**
    * @param { !url_mojom_Origin } origin
    * @param { !IdpSigninStatus } status
    */
@@ -230,6 +221,15 @@ export class FederatedAuthRequestInterface {
    */
 
   preventSilentAccess() {}
+  
+  /**
+   * @param { !IdentityCredentialDisconnectOptions } options
+   * @return {!Promise<{
+        status: !DisconnectStatus,
+   *  }>}
+   */
+
+  disconnect(options) {}
 }
 
 /**
@@ -335,25 +335,6 @@ export class FederatedAuthRequestRemote {
 
   
   /**
-   * @param { !Array<!LogoutRpsRequest> } rpLogoutRequests
-   * @return {!Promise<{
-        status: !LogoutRpsStatus,
-   *  }>}
-   */
-
-  logoutRps(
-      rpLogoutRequests) {
-    return this.proxy.sendMessage(
-        4,
-        FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        [
-          rpLogoutRequests
-        ]);
-  }
-
-  
-  /**
    * @param { !url_mojom_Origin } origin
    * @param { !IdpSigninStatus } status
    */
@@ -362,7 +343,7 @@ export class FederatedAuthRequestRemote {
       origin,
       status) {
     this.proxy.sendMessage(
-        5,
+        4,
         FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         [
@@ -382,7 +363,7 @@ export class FederatedAuthRequestRemote {
   registerIdP(
       url) {
     return this.proxy.sendMessage(
-        6,
+        5,
         FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         [
@@ -401,7 +382,7 @@ export class FederatedAuthRequestRemote {
   unregisterIdP(
       url) {
     return this.proxy.sendMessage(
-        7,
+        6,
         FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         [
@@ -415,7 +396,7 @@ export class FederatedAuthRequestRemote {
 
   closeModalDialogView() {
     this.proxy.sendMessage(
-        8,
+        7,
         FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         [
@@ -429,10 +410,29 @@ export class FederatedAuthRequestRemote {
 
   preventSilentAccess() {
     return this.proxy.sendMessage(
-        9,
+        8,
         FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         [
+        ]);
+  }
+
+  
+  /**
+   * @param { !IdentityCredentialDisconnectOptions } options
+   * @return {!Promise<{
+        status: !DisconnectStatus,
+   *  }>}
+   */
+
+  disconnect(
+      options) {
+    return this.proxy.sendMessage(
+        9,
+        FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        [
+          options
         ]);
   }
 }
@@ -479,34 +479,34 @@ export class FederatedAuthRequestReceiver {
         impl.resolveTokenRequest.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        impl.logoutRps.bind(impl));
-    this.helper_internal_.registerHandler(
-        5,
         FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         impl.setIdpSigninStatus.bind(impl));
     this.helper_internal_.registerHandler(
-        6,
+        5,
         FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         impl.registerIdP.bind(impl));
     this.helper_internal_.registerHandler(
-        7,
+        6,
         FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         impl.unregisterIdP.bind(impl));
     this.helper_internal_.registerHandler(
-        8,
+        7,
         FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         impl.closeModalDialogView.bind(impl));
     this.helper_internal_.registerHandler(
-        9,
+        8,
         FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         impl.preventSilentAccess.bind(impl));
+    this.helper_internal_.registerHandler(
+        9,
+        FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        impl.disconnect.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -604,24 +604,12 @@ export class FederatedAuthRequestCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.logoutRps =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        4,
-        FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        this.logoutRps.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setIdpSigninStatus =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        5,
+        4,
         FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         this.setIdpSigninStatus.createReceiverHandler(false /* expectsResponse */));
@@ -633,7 +621,7 @@ export class FederatedAuthRequestCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        6,
+        5,
         FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         this.registerIdP.createReceiverHandler(true /* expectsResponse */));
@@ -645,7 +633,7 @@ export class FederatedAuthRequestCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        7,
+        6,
         FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         this.unregisterIdP.createReceiverHandler(true /* expectsResponse */));
@@ -657,7 +645,7 @@ export class FederatedAuthRequestCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        8,
+        7,
         FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         this.closeModalDialogView.createReceiverHandler(false /* expectsResponse */));
@@ -669,10 +657,22 @@ export class FederatedAuthRequestCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        9,
+        8,
         FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         this.preventSilentAccess.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.disconnect =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        9,
+        FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        this.disconnect.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -685,12 +685,6 @@ export class FederatedAuthRequestCallbackRouter {
     return this.router_.removeListener(id);
   }
 }
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const LogoutRpsRequestSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -714,6 +708,18 @@ export const DigitalCredentialFieldRequirementSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const IdentityProviderConfigSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const IdentityProviderRequestOptionsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const IdentityCredentialDisconnectOptionsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -779,18 +785,6 @@ export const FederatedAuthRequest_ResolveTokenRequest_ResponseParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const FederatedAuthRequest_LogoutRps_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const FederatedAuthRequest_LogoutRps_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -837,50 +831,23 @@ export const FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const FederatedAuthRequest_Disconnect_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const FederatedAuthRequest_Disconnect_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
  * @const { {$:!mojo.internal.MojomType} }
  */
 export const IdentityProviderSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-
-
-
-mojo.internal.Struct(
-    LogoutRpsRequestSpec.$,
-    'LogoutRpsRequest',
-    [
-      mojo.internal.StructField(
-        'url', 0,
-        0,
-        url_mojom_UrlSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'accountId', 8,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class LogoutRpsRequest {
-  constructor() {
-    /** @type { !url_mojom_Url } */
-    this.url;
-    /** @type { !string } */
-    this.accountId;
-  }
-}
 
 
 
@@ -893,7 +860,7 @@ mojo.internal.Struct(
         0,
         mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
         null,
-        false /* nullable */,
+        true /* nullable */,
         0,
       ),
       mojo.internal.StructField(
@@ -901,11 +868,35 @@ mojo.internal.Struct(
         0,
         DigitalCredentialSelectorSpec.$,
         null,
-        false /* nullable */,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'protocol', 16,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'request', 24,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'publicKey', 32,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
         0,
       ),
     ],
-    [[0, 24],]);
+    [[0, 48],]);
 
 
 
@@ -914,10 +905,16 @@ mojo.internal.Struct(
  */
 export class DigitalCredentialProvider {
   constructor() {
-    /** @type { !Object<!string, !string> } */
+    /** @type { (Object<!string, !string>|undefined) } */
     this.params;
-    /** @type { !DigitalCredentialSelector } */
+    /** @type { (DigitalCredentialSelector|undefined) } */
     this.selector;
+    /** @type { (string|undefined) } */
+    this.protocol;
+    /** @type { (string|undefined) } */
+    this.request;
+    /** @type { (string|undefined) } */
+    this.publicKey;
   }
 }
 
@@ -1024,63 +1021,23 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'clientId', 8,
+        'useRegisteredConfigUrls', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'clientId', 16,
         0,
         mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'nonce', 16,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'loginHint', 24,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'hostedDomain', 32,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'scope', 40,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'responseType', 48,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'params', 56,
-        0,
-        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
         null,
         false /* nullable */,
         0,
       ),
     ],
-    [[0, 72],]);
+    [[0, 32],]);
 
 
 
@@ -1091,20 +1048,138 @@ export class IdentityProviderConfig {
   constructor() {
     /** @type { !url_mojom_Url } */
     this.configUrl;
+    /** @type { !boolean } */
+    this.useRegisteredConfigUrls;
     /** @type { !string } */
     this.clientId;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    IdentityProviderRequestOptionsSpec.$,
+    'IdentityProviderRequestOptions',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        IdentityProviderConfigSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'nonce', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'loginHint', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'domainHint', 24,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'scope', 32,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'responseType', 40,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'params', 48,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 64],]);
+
+
+
+/**
+ * @record
+ */
+export class IdentityProviderRequestOptions {
+  constructor() {
+    /** @type { !IdentityProviderConfig } */
+    this.config;
     /** @type { !string } */
     this.nonce;
     /** @type { !string } */
     this.loginHint;
     /** @type { !string } */
-    this.hostedDomain;
+    this.domainHint;
     /** @type { !Array<!string> } */
     this.scope;
     /** @type { !Array<!string> } */
     this.responseType;
     /** @type { !Object<!string, !string> } */
     this.params;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    IdentityCredentialDisconnectOptionsSpec.$,
+    'IdentityCredentialDisconnectOptions',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        IdentityProviderConfigSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'accountHint', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class IdentityCredentialDisconnectOptions {
+  constructor() {
+    /** @type { !IdentityProviderConfig } */
+    this.config;
+    /** @type { !string } */
+    this.accountHint;
   }
 }
 
@@ -1511,64 +1586,6 @@ export class FederatedAuthRequest_ResolveTokenRequest_ResponseParams {
 
 
 mojo.internal.Struct(
-    FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-    'FederatedAuthRequest_LogoutRps_Params',
-    [
-      mojo.internal.StructField(
-        'rpLogoutRequests', 0,
-        0,
-        mojo.internal.Array(LogoutRpsRequestSpec.$, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class FederatedAuthRequest_LogoutRps_Params {
-  constructor() {
-    /** @type { !Array<!LogoutRpsRequest> } */
-    this.rpLogoutRequests;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-    'FederatedAuthRequest_LogoutRps_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'status', 0,
-        0,
-        LogoutRpsStatusSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class FederatedAuthRequest_LogoutRps_ResponseParams {
-  constructor() {
-    /** @type { !LogoutRpsStatus } */
-    this.status;
-  }
-}
-
-
-
-mojo.internal.Struct(
     FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
     'FederatedAuthRequest_SetIdpSigninStatus_Params',
     [
@@ -1778,12 +1795,70 @@ export class FederatedAuthRequest_PreventSilentAccess_ResponseParams {
   }
 }
 
+
+
+mojo.internal.Struct(
+    FederatedAuthRequest_Disconnect_ParamsSpec.$,
+    'FederatedAuthRequest_Disconnect_Params',
+    [
+      mojo.internal.StructField(
+        'options', 0,
+        0,
+        IdentityCredentialDisconnectOptionsSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class FederatedAuthRequest_Disconnect_Params {
+  constructor() {
+    /** @type { !IdentityCredentialDisconnectOptions } */
+    this.options;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+    'FederatedAuthRequest_Disconnect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'status', 0,
+        0,
+        DisconnectStatusSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class FederatedAuthRequest_Disconnect_ResponseParams {
+  constructor() {
+    /** @type { !DisconnectStatus } */
+    this.status;
+  }
+}
+
 mojo.internal.Union(
     IdentityProviderSpec.$, 'IdentityProvider',
     {
       'federated': {
         'ordinal': 0,
-        'type': IdentityProviderConfigSpec.$,
+        'type': IdentityProviderRequestOptionsSpec.$,
       },
       'holder': {
         'ordinal': 1,
@@ -1793,7 +1868,7 @@ mojo.internal.Union(
 
 /**
  * @typedef { {
- *   federated: (!IdentityProviderConfig|undefined),
+ *   federated: (!IdentityProviderRequestOptions|undefined),
  *   holder: (!DigitalCredentialProvider|undefined),
  * } }
  */

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/webui/resources/cr_components/app_management/app_management.mojom-features.h"
 #include "ui/webui/resources/cr_components/app_management/app_management.mojom-shared.h"
 #include "ui/webui/resources/cr_components/app_management/app_management.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -135,6 +136,7 @@ class PageHandler
     kSetFileHandlingEnabledMinVersion = 0,
     kShowDefaultAppAssociationsUiMinVersion = 0,
     kOpenStorePageMinVersion = 0,
+    kSetAppLocaleMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -191,6 +193,9 @@ class PageHandler
   struct OpenStorePage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetAppLocale_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PageHandler() = default;
 
@@ -215,7 +220,7 @@ class PageHandler
   virtual void GetExtensionAppPermissionMessages(const std::string& app_id, GetExtensionAppPermissionMessagesCallback callback) = 0;
 
   
-  virtual void SetPinned(const std::string& app_id, OptionalBool pinned) = 0;
+  virtual void SetPinned(const std::string& app_id, bool pinned) = 0;
 
   
   virtual void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) = 0;
@@ -254,6 +259,9 @@ class PageHandler
 
   
   virtual void OpenStorePage(const std::string& app_id) = 0;
+
+  
+  virtual void SetAppLocale(const std::string& app_id, const std::string& locale_tag) = 0;
 };
 
 class PageProxy;
@@ -347,7 +355,7 @@ class  PageHandlerProxy
   
   void GetExtensionAppPermissionMessages(const std::string& app_id, GetExtensionAppPermissionMessagesCallback callback) final;
   
-  void SetPinned(const std::string& app_id, OptionalBool pinned) final;
+  void SetPinned(const std::string& app_id, bool pinned) final;
   
   void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) final;
   
@@ -372,6 +380,8 @@ class  PageHandlerProxy
   void ShowDefaultAppAssociationsUi() final;
   
   void OpenStorePage(const std::string& app_id) final;
+  
+  void SetAppLocale(const std::string& app_id, const std::string& locale_tag) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -683,6 +693,153 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  Locale {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Locale, T>::value>;
+  using DataView = LocaleDataView;
+  using Data_ = internal::Locale_Data;
+
+  template <typename... Args>
+  static LocalePtr New(Args&&... args) {
+    return LocalePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LocalePtr From(const U& u) {
+    return mojo::TypeConverter<LocalePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Locale>::Convert(*this);
+  }
+
+
+  Locale();
+
+  Locale(
+      const std::string& locale_tag,
+      const std::string& display_name,
+      const std::string& native_display_name);
+
+
+  ~Locale();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LocalePtr>
+  LocalePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Locale::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Locale::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Locale::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Locale::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Locale::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Locale_UnserializedMessageContext<
+            UserType, Locale::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Locale::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Locale::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Locale_UnserializedMessageContext<
+            UserType, Locale::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Locale::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string locale_tag;
+  
+  std::string display_name;
+  
+  std::string native_display_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Locale::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Locale::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Locale::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Locale::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 
@@ -705,17 +862,17 @@ class  PermissionValue {
   // Construct an instance holding |bool_value|.
   static PermissionValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = PermissionValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |tristate_value|.
   static PermissionValuePtr
   NewTristateValue(
-      TriState tristate_value) {
+      TriState value) {
     auto result = PermissionValuePtr(absl::in_place);
-    result->set_tristate_value(std::move(tristate_value));
+    result->set_tristate_value(std::move(value));
     return result;
   }
 
@@ -845,7 +1002,7 @@ class  Permission {
       ::apps::PermissionType permission_type,
       PermissionValuePtr value,
       bool is_managed,
-      const absl::optional<std::string>& details);
+      const std::optional<std::string>& details);
 
 Permission(const Permission&) = delete;
 Permission& operator=(const Permission&) = delete;
@@ -931,7 +1088,7 @@ Permission& operator=(const Permission&) = delete;
   
   bool is_managed;
   
-  absl::optional<std::string> details;
+  std::optional<std::string> details;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -967,6 +1124,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  App {
  public:
   template <typename T>
@@ -996,12 +1154,12 @@ class  App {
   App(
       const std::string& id,
       ::apps::AppType type,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& description,
-      OptionalBool is_pinned,
-      OptionalBool is_policy_pinned,
-      const absl::optional<std::string>& version,
-      const absl::optional<std::string>& size,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& description,
+      std::optional<bool> is_pinned,
+      std::optional<bool> is_policy_pinned,
+      const std::optional<std::string>& version,
+      const std::optional<std::string>& size,
       base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions,
       ::apps::InstallReason install_reason,
       ::apps::InstallSource install_source,
@@ -1013,13 +1171,15 @@ class  App {
       bool resize_locked,
       bool hide_resize_locked,
       std::vector<std::string> supported_links,
-      absl::optional<::apps::RunOnOsLoginPtr> run_on_os_login,
+      std::optional<::apps::RunOnOsLoginPtr> run_on_os_login,
       FileHandlingStatePtr file_handling_state,
-      const absl::optional<std::string>& app_size,
-      const absl::optional<std::string>& data_size,
+      const std::optional<std::string>& app_size,
+      const std::optional<std::string>& data_size,
       const std::string& publisher_id,
-      const absl::optional<std::string>& formatted_origin,
-      std::vector<std::string> scope_extensions);
+      const std::optional<std::string>& formatted_origin,
+      std::vector<std::string> scope_extensions,
+      std::vector<LocalePtr> supported_locales,
+      LocalePtr selected_locale);
 
 App(const App&) = delete;
 App& operator=(const App&) = delete;
@@ -1103,17 +1263,17 @@ App& operator=(const App&) = delete;
   
   ::apps::AppType type;
   
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
   
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
   
-  OptionalBool is_pinned;
+  std::optional<bool> is_pinned;
   
-  OptionalBool is_policy_pinned;
+  std::optional<bool> is_policy_pinned;
   
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
   
-  absl::optional<std::string> size;
+  std::optional<std::string> size;
   
   base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions;
   
@@ -1137,19 +1297,23 @@ App& operator=(const App&) = delete;
   
   std::vector<std::string> supported_links;
   
-  absl::optional<::apps::RunOnOsLoginPtr> run_on_os_login;
+  std::optional<::apps::RunOnOsLoginPtr> run_on_os_login;
   
   FileHandlingStatePtr file_handling_state;
   
-  absl::optional<std::string> app_size;
+  std::optional<std::string> app_size;
   
-  absl::optional<std::string> data_size;
+  std::optional<std::string> data_size;
   
   std::string publisher_id;
   
-  absl::optional<std::string> formatted_origin;
+  std::optional<std::string> formatted_origin;
   
   std::vector<std::string> scope_extensions;
+  
+  std::vector<LocalePtr> supported_locales;
+  
+  LocalePtr selected_locale;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1358,7 +1522,7 @@ class  FileHandlingState {
       bool is_managed,
       const std::string& user_visible_types,
       const std::string& user_visible_types_label,
-      const absl::optional<::GURL>& learn_more_url);
+      const std::optional<::GURL>& learn_more_url);
 
 
   ~FileHandlingState();
@@ -1444,7 +1608,7 @@ class  FileHandlingState {
   
   std::string user_visible_types_label;
   
-  absl::optional<::GURL> learn_more_url;
+  std::optional<::GURL> learn_more_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1577,6 +1741,42 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+LocalePtr Locale::Clone() const {
+  return New(
+      mojo::Clone(locale_tag),
+      mojo::Clone(display_name),
+      mojo::Clone(native_display_name)
+  );
+}
+
+template <typename T, Locale::EnableIfSame<T>*>
+bool Locale::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->locale_tag, other_struct.locale_tag))
+    return false;
+  if (!mojo::Equals(this->display_name, other_struct.display_name))
+    return false;
+  if (!mojo::Equals(this->native_display_name, other_struct.native_display_name))
+    return false;
+  return true;
+}
+
+template <typename T, Locale::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.locale_tag < rhs.locale_tag)
+    return true;
+  if (rhs.locale_tag < lhs.locale_tag)
+    return false;
+  if (lhs.display_name < rhs.display_name)
+    return true;
+  if (rhs.display_name < lhs.display_name)
+    return false;
+  if (lhs.native_display_name < rhs.native_display_name)
+    return true;
+  if (rhs.native_display_name < lhs.native_display_name)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 AppPtr App::Clone() const {
   return New(
       mojo::Clone(id),
@@ -1604,7 +1804,9 @@ AppPtr App::Clone() const {
       mojo::Clone(data_size),
       mojo::Clone(publisher_id),
       mojo::Clone(formatted_origin),
-      mojo::Clone(scope_extensions)
+      mojo::Clone(scope_extensions),
+      mojo::Clone(supported_locales),
+      mojo::Clone(selected_locale)
   );
 }
 
@@ -1661,6 +1863,10 @@ bool App::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->formatted_origin, other_struct.formatted_origin))
     return false;
   if (!mojo::Equals(this->scope_extensions, other_struct.scope_extensions))
+    return false;
+  if (!mojo::Equals(this->supported_locales, other_struct.supported_locales))
+    return false;
+  if (!mojo::Equals(this->selected_locale, other_struct.selected_locale))
     return false;
   return true;
 }
@@ -1770,6 +1976,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.scope_extensions < rhs.scope_extensions)
     return true;
   if (rhs.scope_extensions < lhs.scope_extensions)
+    return false;
+  if (lhs.supported_locales < rhs.supported_locales)
+    return true;
+  if (rhs.supported_locales < lhs.supported_locales)
+    return false;
+  if (lhs.selected_locale < rhs.selected_locale)
+    return true;
+  if (rhs.selected_locale < lhs.selected_locale)
     return false;
   return false;
 }
@@ -1910,6 +2124,31 @@ struct  StructTraits<::app_management::mojom::RunOnOsLogin::DataView,
 
 
 template <>
+struct  StructTraits<::app_management::mojom::Locale::DataView,
+                                         ::app_management::mojom::LocalePtr> {
+  static bool IsNull(const ::app_management::mojom::LocalePtr& input) { return !input; }
+  static void SetToNull(::app_management::mojom::LocalePtr* output) { output->reset(); }
+
+  static const decltype(::app_management::mojom::Locale::locale_tag)& locale_tag(
+      const ::app_management::mojom::LocalePtr& input) {
+    return input->locale_tag;
+  }
+
+  static const decltype(::app_management::mojom::Locale::display_name)& display_name(
+      const ::app_management::mojom::LocalePtr& input) {
+    return input->display_name;
+  }
+
+  static const decltype(::app_management::mojom::Locale::native_display_name)& native_display_name(
+      const ::app_management::mojom::LocalePtr& input) {
+    return input->native_display_name;
+  }
+
+  static bool Read(::app_management::mojom::Locale::DataView input, ::app_management::mojom::LocalePtr* output);
+};
+
+
+template <>
 struct  StructTraits<::app_management::mojom::App::DataView,
                                          ::app_management::mojom::AppPtr> {
   static bool IsNull(const ::app_management::mojom::AppPtr& input) { return !input; }
@@ -2043,6 +2282,16 @@ struct  StructTraits<::app_management::mojom::App::DataView,
   static const decltype(::app_management::mojom::App::scope_extensions)& scope_extensions(
       const ::app_management::mojom::AppPtr& input) {
     return input->scope_extensions;
+  }
+
+  static const decltype(::app_management::mojom::App::supported_locales)& supported_locales(
+      const ::app_management::mojom::AppPtr& input) {
+    return input->supported_locales;
+  }
+
+  static const decltype(::app_management::mojom::App::selected_locale)& selected_locale(
+      const ::app_management::mojom::AppPtr& input) {
+    return input->selected_locale;
   }
 
   static bool Read(::app_management::mojom::App::DataView input, ::app_management::mojom::AppPtr* output);

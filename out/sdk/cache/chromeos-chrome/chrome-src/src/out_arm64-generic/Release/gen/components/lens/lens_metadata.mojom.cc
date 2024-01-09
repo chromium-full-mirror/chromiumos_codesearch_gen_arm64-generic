@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,19 +49,22 @@ LatencyLog::LatencyLog()
       original_size(),
       downscaled_size(),
       image_format(),
-      time() {}
+      time(),
+      encoded_bytes_size() {}
 
 LatencyLog::LatencyLog(
     Phase phase_in,
     const ::gfx::Size& original_size_in,
     const ::gfx::Size& downscaled_size_in,
     ImageFormat image_format_in,
-    ::base::Time time_in)
+    ::base::Time time_in,
+    uint32_t encoded_bytes_size_in)
     : phase(std::move(phase_in)),
       original_size(std::move(original_size_in)),
       downscaled_size(std::move(downscaled_size_in)),
       image_format(std::move(image_format_in)),
-      time(std::move(time_in)) {}
+      time(std::move(time_in)),
+      encoded_bytes_size(std::move(encoded_bytes_size_in)) {}
 
 LatencyLog::~LatencyLog() = default;
 
@@ -112,6 +116,15 @@ void LatencyLog::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "encoded_bytes_size"), this->encoded_bytes_size,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool LatencyLog::Validate(
@@ -144,6 +157,8 @@ bool StructTraits<::lens::mojom::LatencyLog::DataView, ::lens::mojom::LatencyLog
         success = false;
       if (success && !input.ReadTime(&result->time))
         success = false;
+      if (success)
+        result->encoded_bytes_size = input.encoded_bytes_size();
   *output = std::move(result);
   return success;
 }

@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "cc/mojom/browser_controls_state.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/byte_string.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/string16.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/text_direction.mojom-shared-internal.h"
@@ -66,7 +67,6 @@
 #include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/opengraph/metadata.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-shared-internal.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/scroll/scroll_into_view_params.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/security_context/insecure_request_policy.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/timing/resource_timing.mojom-shared-internal.h"
@@ -78,6 +78,7 @@
 #include "ui/base/mojom/window_open_disposition.mojom-shared-internal.h"
 #include "ui/events/mojom/scroll_granularity.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
+#include "ui/gfx/image/mojom/image.mojom-shared-internal.h"
 #include "ui/gfx/range/mojom/range.mojom-shared-internal.h"
 #include "url/mojom/origin.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
@@ -212,7 +213,31 @@ struct FrameOwnerElementType_Data {
       case 3:
       case 4:
       case 5:
-      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct NavigationApiEntryRestoreReason_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -448,8 +473,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IframeAttributes_Data {
   mojo::internal::Pointer<::network::mojom::internal::ContentSecurityPolicy_Data> parsed_csp_attribute;
   uint8_t credentialless : 1;
   uint8_t browsing_topics : 1;
-  uint8_t shared_storage_writable : 1;
-  uint8_t pad3_[7];
+  uint8_t ad_auction_headers : 1;
+  uint8_t shared_storage_writable_opted_in : 1;
+  uint8_t pad4_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   mojo::internal::Pointer<mojo::internal::String_Data> src;

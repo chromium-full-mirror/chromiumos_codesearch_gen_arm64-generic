@@ -26,7 +26,7 @@ export class XfNudge extends HTMLElement {
         /**
          * The direction of the nudge relative to the anchor.
          */
-        this.direction_ = "top-startward" /* NudgeDirection.TOP_STARTWARD */;
+        this.direction_ = NudgeDirection.TOP_STARTWARD;
         /**
          * The content of the nudge.
          */
@@ -297,20 +297,20 @@ export class XfNudge extends HTMLElement {
      * they mean.
      */
     positionedTop_() {
-        return this.direction_ === "top-startward" /* NudgeDirection.TOP_STARTWARD */ ||
-            this.direction_ === "top-endward" /* NudgeDirection.TOP_ENDWARD */;
+        return this.direction_ === NudgeDirection.TOP_STARTWARD ||
+            this.direction_ === NudgeDirection.TOP_ENDWARD;
     }
     positionedBottom_() {
-        return this.direction_ === "bottom-startward" /* NudgeDirection.BOTTOM_STARTWARD */ ||
-            this.direction_ === "bottom-endward" /* NudgeDirection.BOTTOM_ENDWARD */;
+        return this.direction_ === NudgeDirection.BOTTOM_STARTWARD ||
+            this.direction_ === NudgeDirection.BOTTOM_ENDWARD;
     }
     positionedLeading_() {
-        return this.direction_ === "leading-upward" /* NudgeDirection.LEADING_UPWARD */ ||
-            this.direction_ === "leading-downward" /* NudgeDirection.LEADING_DOWNWARD */;
+        return this.direction_ === NudgeDirection.LEADING_UPWARD ||
+            this.direction_ === NudgeDirection.LEADING_DOWNWARD;
     }
     positionedTrailing_() {
-        return this.direction_ === "trailing-upward" /* NudgeDirection.TRAILING_UPWARD */ ||
-            this.direction_ === "trailing-downward" /* NudgeDirection.TRAILING_DOWNWARD */;
+        return this.direction_ === NudgeDirection.TRAILING_UPWARD ||
+            this.direction_ === NudgeDirection.TRAILING_DOWNWARD;
     }
     positionedLeft() {
         if (document.dir === 'rtl') {
@@ -332,18 +332,52 @@ export class XfNudge extends HTMLElement {
         return this.positionedTop_() || this.positionedBottom_();
     }
     growsUpward_() {
-        return this.direction_ === "leading-upward" /* NudgeDirection.LEADING_UPWARD */ ||
-            this.direction_ === "trailing-upward" /* NudgeDirection.TRAILING_UPWARD */;
+        return this.direction_ === NudgeDirection.LEADING_UPWARD ||
+            this.direction_ === NudgeDirection.TRAILING_UPWARD;
     }
     growsLeft_() {
         if (document.dir === 'rtl') {
-            return this.direction_ === "top-endward" /* NudgeDirection.TOP_ENDWARD */ ||
-                this.direction_ === "bottom-endward" /* NudgeDirection.BOTTOM_ENDWARD */;
+            return this.direction_ === NudgeDirection.TOP_ENDWARD ||
+                this.direction_ === NudgeDirection.BOTTOM_ENDWARD;
         }
         else {
-            return this.direction_ === "top-startward" /* NudgeDirection.TOP_STARTWARD */ ||
-                this.direction_ === "bottom-startward" /* NudgeDirection.BOTTOM_STARTWARD */;
+            return this.direction_ === NudgeDirection.TOP_STARTWARD ||
+                this.direction_ === NudgeDirection.BOTTOM_STARTWARD;
         }
     }
 }
+/**
+ * The direction a nudge should render relative to its anchor.
+ */
+export var NudgeDirection;
+(function (NudgeDirection) {
+    /** Shows above the anchor and extends to the left in LTR. */
+    NudgeDirection["TOP_STARTWARD"] = "top-startward";
+    /** Shows above the anchor and extends to the right in LTR. */
+    NudgeDirection["TOP_ENDWARD"] = "top-endward";
+    /** Shows below the anchor and extends to the left in LTR. */
+    NudgeDirection["BOTTOM_STARTWARD"] = "bottom-startward";
+    /** Shows below the anchor and extends to the right in LTR. */
+    NudgeDirection["BOTTOM_ENDWARD"] = "bottom-endward";
+    /**
+     * Shows left of the anchor in LTR and grows upwards if the content spans
+     * multiple lines.
+     */
+    NudgeDirection["LEADING_UPWARD"] = "leading-upward";
+    /**
+     * Shows left of the anchor in LTR and grows downwards if the content spans
+     * multiple lines.
+     */
+    NudgeDirection["LEADING_DOWNWARD"] = "leading-downward";
+    /**
+     * Shows right of the anchor in LTR and grows upwards if the content spans
+     * multiple lines.
+     */
+    NudgeDirection["TRAILING_UPWARD"] = "trailing-upward";
+    /**
+     * Shows right of the anchor in LTR and grows downwards if the content spans
+     * multiple lines.
+     */
+    NudgeDirection["TRAILING_DOWNWARD"] = "trailing-downward";
+})(NudgeDirection || (NudgeDirection = {}));
 customElements.define('xf-nudge', XfNudge);

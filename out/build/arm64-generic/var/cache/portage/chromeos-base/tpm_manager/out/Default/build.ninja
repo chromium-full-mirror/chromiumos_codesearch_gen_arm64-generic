@@ -37,7 +37,6 @@ build tpm_manager$:legacy_local_data_proto_gen: phony obj/tpm_manager/legacy_loc
 build tpm_manager$:local_data_migration: phony ./local_data_migration
 build tpm_manager$:server_library: phony ./libserver_library.a
 build tpm_manager$:tpm_manager_test: phony ./libtpm_manager_test.a
-build tpm_manager$:tpm_manager_testrunner: phony ./tpm_manager_testrunner
 build tpm_manager$:tpm_managerd: phony ./tpm_managerd
 
 build all: phony $
@@ -52,7 +51,6 @@ build all: phony $
     ./local_data_migration $
     ./libserver_library.a $
     ./libtpm_manager_test.a $
-    ./tpm_manager_testrunner $
     ./tpm_managerd
 
 default all

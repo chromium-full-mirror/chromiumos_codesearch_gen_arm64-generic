@@ -48,6 +48,33 @@ return dictionary;
 
 
 
+String SharedStoragePrivateAggregationConfig::getAggregationCoordinatorOriginOr(const String& fallback_value) const {
+  if (!hasAggregationCoordinatorOrigin()) {
+  return fallback_value;
+}
+return member_aggregation_coordinator_origin_;
+}
+
+String SharedStoragePrivateAggregationConfig::getAggregationCoordinatorOriginOr(String&& fallback_value) const {
+  if (!hasAggregationCoordinatorOrigin()) {
+  return std::move(fallback_value);
+}
+return member_aggregation_coordinator_origin_;
+}
+
+void SharedStoragePrivateAggregationConfig::setAggregationCoordinatorOrigin(const String& value) {
+  member_aggregation_coordinator_origin_ = value;
+has_aggregation_coordinator_origin_ = true;
+}
+
+void SharedStoragePrivateAggregationConfig::setAggregationCoordinatorOrigin(String&& value) {
+  member_aggregation_coordinator_origin_ = std::move(value);
+has_aggregation_coordinator_origin_ = true;
+}
+
+
+
+
 String SharedStoragePrivateAggregationConfig::getContextIdOr(const String& fallback_value) const {
   if (!hasContextId()) {
   return fallback_value;
@@ -76,21 +103,30 @@ has_context_id_ = true;
 
 
 void SharedStoragePrivateAggregationConfig::Trace(Visitor* visitor) const {
-  TraceIfNeeded<String>::Trace(visitor, member_context_id_);
+  TraceIfNeeded<String>::Trace(visitor, member_aggregation_coordinator_origin_);
+TraceIfNeeded<String>::Trace(visitor, member_context_id_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
 bool SharedStoragePrivateAggregationConfig::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (hasContextId()) {
   v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_context_id_).ToLocal(&v8_value)) {
-  return false;
-}
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
+if (hasAggregationCoordinatorOrigin()) {
+  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_aggregation_coordinator_origin_).ToLocal(&v8_value)) {
+  return false;
+}
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+if (hasContextId()) {
+  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_context_id_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -100,18 +136,23 @@ return true;
 void SharedStoragePrivateAggregationConfig::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "SharedStoragePrivateAggregationConfig";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("contextId");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("aggregationCoordinatorOrigin");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_context_id_, member_context_id_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_aggregation_coordinator_origin_, member_aggregation_coordinator_origin_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("contextId");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_context_id_, member_context_id_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> SharedStoragePrivateAggregationConfig::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"aggregationCoordinatorOrigin",
 "contextId",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

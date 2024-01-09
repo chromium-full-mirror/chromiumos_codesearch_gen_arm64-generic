@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -46,14 +47,17 @@ namespace ash::settings::app_permission::mojom {
 App::App()
     : id(),
       name(),
+      type(),
       permissions() {}
 
 App::App(
     const std::string& id_in,
     const std::string& name_in,
+    ::apps::AppType type_in,
     base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions_in)
     : id(std::move(id_in)),
       name(std::move(name_in)),
+      type(std::move(type_in)),
       permissions(std::move(permissions_in)) {}
 
 App::~App() = default;
@@ -75,6 +79,15 @@ void App::WriteIntoTrace(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::apps::AppType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -106,6 +119,12 @@ AppPermissionsHandler::IPCStableHashFunction AppPermissionsHandler::MessageToMet
     case internal::kAppPermissionsHandler_GetApps_Name: {
       return &AppPermissionsHandler::GetApps_Sym::IPCStableHash;
     }
+    case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
+      return &AppPermissionsHandler::OpenNativeSettings_Sym::IPCStableHash;
+    }
+    case internal::kAppPermissionsHandler_SetPermission_Name: {
+      return &AppPermissionsHandler::SetPermission_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -121,6 +140,10 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::AddObserver";
       case internal::kAppPermissionsHandler_GetApps_Name:
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps";
+      case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
+            return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
+      case internal::kAppPermissionsHandler_SetPermission_Name:
+            return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::SetPermission";
     }
   } else {
     switch (message.name()) {
@@ -128,6 +151,10 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::AddObserver";
       case internal::kAppPermissionsHandler_GetApps_Name:
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps";
+      case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
+            return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
+      case internal::kAppPermissionsHandler_SetPermission_Name:
+            return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::SetPermission";
     }
   }
   return "Receive unknown mojo message";
@@ -168,6 +195,32 @@ uint32_t AppPermissionsHandler::GetApps_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AppPermissionsHandler::OpenNativeSettings_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppPermissionsHandler::SetPermission_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::SetPermission");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AppPermissionsHandler_GetApps_ForwardToCallback
@@ -202,14 +255,17 @@ void AppPermissionsHandlerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<AppPermissionsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsHandler_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -238,14 +294,17 @@ void AppPermissionsHandlerProxy::GetApps(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -262,6 +321,122 @@ void AppPermissionsHandlerProxy::GetApps(
       new AppPermissionsHandler_GetApps_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppPermissionsHandlerProxy::OpenNativeSettings(
+    const std::string& in_app_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_OpenNativeSettings_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_OpenNativeSettings_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in AppPermissionsHandler.OpenNativeSettings request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("OpenNativeSettings");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AppPermissionsHandlerProxy::SetPermission(
+    const std::string& in_app_id, ::apps::PermissionPtr in_permission) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::SetPermission", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("permission"), in_permission,
+                        "<value of type ::apps::PermissionPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_SetPermission_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_SetPermission_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in AppPermissionsHandler.SetPermission request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->permission)::BaseType> permission_fragment(
+          params.message());
+  mojo::internal::Serialize<::app_management::mojom::PermissionDataView>(
+      in_permission, permission_fragment);
+  params->permission.Set(
+      permission_fragment.is_null() ? nullptr : permission_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->permission.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null permission in AppPermissionsHandler.SetPermission request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("SetPermission");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class AppPermissionsHandler_GetApps_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -355,7 +530,8 @@ void AppPermissionsHandler_GetApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -430,6 +606,62 @@ std::move(p_observer));
     case internal::kAppPermissionsHandler_GetApps_Name: {
       break;
     }
+    case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppPermissionsHandler_OpenNativeSettings_Params_Data* params =
+          reinterpret_cast<internal::AppPermissionsHandler_OpenNativeSettings_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_app_id{};
+      AppPermissionsHandler_OpenNativeSettings_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppPermissionsHandler::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenNativeSettings(
+std::move(p_app_id));
+      return true;
+    }
+    case internal::kAppPermissionsHandler_SetPermission_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppPermissionsHandler_SetPermission_Params_Data* params =
+          reinterpret_cast<internal::AppPermissionsHandler_SetPermission_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_app_id{};
+      ::apps::PermissionPtr p_permission{};
+      AppPermissionsHandler_SetPermission_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (success && !input_data_view.ReadPermission(&p_permission))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppPermissionsHandler::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetPermission(
+std::move(p_app_id), 
+std::move(p_permission));
+      return true;
+    }
   }
   return false;
 }
@@ -471,16 +703,26 @@ bool AppPermissionsHandlerStubDispatch::AcceptWithResponder(
       impl->GetApps(std::move(callback));
       return true;
     }
+    case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
+      break;
+    }
+    case internal::kAppPermissionsHandler_SetPermission_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppPermissionsHandlerValidationInfo[] = {
-    {&internal::AppPermissionsHandler_AddObserver_Params_Data::Validate,
+    { &internal::AppPermissionsHandler_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppPermissionsHandler_GetApps_Params_Data::Validate,
+    { &internal::AppPermissionsHandler_GetApps_Params_Data::Validate,
      &internal::AppPermissionsHandler_GetApps_ResponseParams_Data::Validate},
+    { &internal::AppPermissionsHandler_OpenNativeSettings_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AppPermissionsHandler_SetPermission_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool AppPermissionsHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -583,14 +825,17 @@ void AppPermissionsObserverProxy::OnAppRemoved(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsObserver_OnAppRemoved_Name, kFlags, 0, 0, nullptr);
@@ -631,14 +876,17 @@ void AppPermissionsObserverProxy::OnAppUpdated(
                         "<value of type AppPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsObserver_OnAppUpdated_Name, kFlags, 0, 0, nullptr);
@@ -746,12 +994,12 @@ bool AppPermissionsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppPermissionsObserverValidationInfo[] = {
-    {&internal::AppPermissionsObserver_OnAppRemoved_Params_Data::Validate,
+    { &internal::AppPermissionsObserver_OnAppRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppPermissionsObserver_OnAppUpdated_Params_Data::Validate,
+    { &internal::AppPermissionsObserver_OnAppUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -779,6 +1027,8 @@ bool StructTraits<::ash::settings::app_permission::mojom::App::DataView, ::ash::
         success = false;
       if (success && !input.ReadName(&result->name))
         success = false;
+      if (success && !input.ReadType(&result->type))
+        success = false;
       if (success && !input.ReadPermissions(&result->permissions))
         success = false;
   *output = std::move(result);
@@ -800,6 +1050,12 @@ void AppPermissionsHandlerInterceptorForTesting::AddObserver(::mojo::PendingRemo
 }
 void AppPermissionsHandlerInterceptorForTesting::GetApps(GetAppsCallback callback) {
   GetForwardingInterface()->GetApps(std::move(callback));
+}
+void AppPermissionsHandlerInterceptorForTesting::OpenNativeSettings(const std::string& app_id) {
+  GetForwardingInterface()->OpenNativeSettings(std::move(app_id));
+}
+void AppPermissionsHandlerInterceptorForTesting::SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) {
+  GetForwardingInterface()->SetPermission(std::move(app_id), std::move(permission));
 }
 AppPermissionsHandlerAsyncWaiter::AppPermissionsHandlerAsyncWaiter(
     AppPermissionsHandler* proxy) : proxy_(proxy) {}

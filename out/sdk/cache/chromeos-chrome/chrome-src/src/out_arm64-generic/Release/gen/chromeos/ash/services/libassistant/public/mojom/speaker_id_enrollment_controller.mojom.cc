@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -208,14 +209,17 @@ void SpeakerIdEnrollmentControllerProxy::StartSpeakerIdEnrollment(
                         "<value of type ::mojo::PendingRemote<SpeakerIdEnrollmentClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentController_StartSpeakerIdEnrollment_Name, kFlags, 0, 0, nullptr);
@@ -256,14 +260,17 @@ void SpeakerIdEnrollmentControllerProxy::StopSpeakerIdEnrollment(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeakerIdEnrollmentController::StopSpeakerIdEnrollment");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentController_StopSpeakerIdEnrollment_Name, kFlags, 0, 0, nullptr);
@@ -293,14 +300,17 @@ void SpeakerIdEnrollmentControllerProxy::GetSpeakerIdEnrollmentStatus(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Name, kFlags, 0, 0, nullptr);
@@ -421,7 +431,8 @@ void SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Name, kFlags, 0, 0, nullptr);
@@ -575,14 +586,14 @@ std::move(p_user_gaia_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeakerIdEnrollmentControllerValidationInfo[] = {
-    {&internal::SpeakerIdEnrollmentController_StartSpeakerIdEnrollment_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentController_StartSpeakerIdEnrollment_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeakerIdEnrollmentController_StopSpeakerIdEnrollment_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentController_StopSpeakerIdEnrollment_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Params_Data::Validate,
      &internal::SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ResponseParams_Data::Validate},
 };
 
@@ -719,14 +730,17 @@ void SpeakerIdEnrollmentClientProxy::OnListeningHotword(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeakerIdEnrollmentClient::OnListeningHotword");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentClient_OnListeningHotword_Name, kFlags, 0, 0, nullptr);
@@ -749,14 +763,17 @@ void SpeakerIdEnrollmentClientProxy::OnProcessingHotword(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeakerIdEnrollmentClient::OnProcessingHotword");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentClient_OnProcessingHotword_Name, kFlags, 0, 0, nullptr);
@@ -779,14 +796,17 @@ void SpeakerIdEnrollmentClientProxy::OnSpeakerIdEnrollmentDone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeakerIdEnrollmentClient::OnSpeakerIdEnrollmentDone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_Name, kFlags, 0, 0, nullptr);
@@ -809,14 +829,17 @@ void SpeakerIdEnrollmentClientProxy::OnSpeakerIdEnrollmentFailure(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeakerIdEnrollmentClient::OnSpeakerIdEnrollmentFailure");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_Name, kFlags, 0, 0, nullptr);
@@ -955,16 +978,16 @@ bool SpeakerIdEnrollmentClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeakerIdEnrollmentClientValidationInfo[] = {
-    {&internal::SpeakerIdEnrollmentClient_OnListeningHotword_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentClient_OnListeningHotword_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeakerIdEnrollmentClient_OnProcessingHotword_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentClient_OnProcessingHotword_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_Params_Data::Validate,
+    { &internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_Params_Data::Validate,
      nullptr /* no response */},
 };
 

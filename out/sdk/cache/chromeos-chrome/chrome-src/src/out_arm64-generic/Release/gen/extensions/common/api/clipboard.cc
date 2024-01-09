@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/clipboard.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -90,8 +91,8 @@ AdditionalDataItem::AdditionalDataItem()
 : type() {}
 
 AdditionalDataItem::~AdditionalDataItem() = default;
-AdditionalDataItem::AdditionalDataItem(AdditionalDataItem&& rhs) = default;
-AdditionalDataItem& AdditionalDataItem::operator=(AdditionalDataItem&& rhs) = default;
+AdditionalDataItem::AdditionalDataItem(AdditionalDataItem&& rhs) noexcept = default;
+AdditionalDataItem& AdditionalDataItem::operator=(AdditionalDataItem&& rhs) noexcept = default;
 AdditionalDataItem AdditionalDataItem::Clone() const {
   AdditionalDataItem out;
   out.type = type;
@@ -142,34 +143,21 @@ bool AdditionalDataItem::Populate(
 }
 
 // static
-std::unique_ptr<AdditionalDataItem> AdditionalDataItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AdditionalDataItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AdditionalDataItem> AdditionalDataItem::FromValue(const base::Value::Dict& value) {
+  AdditionalDataItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AdditionalDataItem> AdditionalDataItem::FromValue(const base::Value::Dict& value) {
+std::optional<AdditionalDataItem> AdditionalDataItem::FromValue(const base::Value& value) {
   AdditionalDataItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AdditionalDataItem> AdditionalDataItem::FromValue(const base::Value& value) {
-  AdditionalDataItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -195,13 +183,13 @@ namespace SetImageData {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -210,7 +198,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& image_data_value = args[0];
     {
       if (!image_data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.image_data = image_data_value.GetBlob();
@@ -218,7 +206,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -227,16 +215,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* image_type_as_string = type_value.GetIfString();
       if (!image_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = ParseImageType(*image_type_as_string);
       if (params.type == ImageType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -244,11 +232,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& additional_items_value = args[2];
     {
       if (!additional_items_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateOptionalArrayFromList(additional_items_value.GetList(), params.additional_items)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }

@@ -35,7 +35,7 @@ export const WallpaperTypeSpec = { $: mojo.internal.Enum() };
 export var WallpaperType;
 (function (WallpaperType) {
     WallpaperType[WallpaperType["MIN_VALUE"] = 0] = "MIN_VALUE";
-    WallpaperType[WallpaperType["MAX_VALUE"] = 12] = "MAX_VALUE";
+    WallpaperType[WallpaperType["MAX_VALUE"] = 13] = "MAX_VALUE";
     WallpaperType[WallpaperType["kDaily"] = 0] = "kDaily";
     WallpaperType[WallpaperType["kCustomized"] = 1] = "kCustomized";
     WallpaperType[WallpaperType["kDefault"] = 2] = "kDefault";
@@ -47,6 +47,7 @@ export var WallpaperType;
     WallpaperType[WallpaperType["kDailyGooglePhotos"] = 10] = "kDailyGooglePhotos";
     WallpaperType[WallpaperType["kOnceGooglePhotos"] = 11] = "kOnceGooglePhotos";
     WallpaperType[WallpaperType["kOobe"] = 12] = "kOobe";
+    WallpaperType[WallpaperType["kSeaPen"] = 13] = "kSeaPen";
 })(WallpaperType || (WallpaperType = {}));
 export const OnlineImageTypeSpec = { $: mojo.internal.Enum() };
 export var OnlineImageType;
@@ -343,6 +344,9 @@ export class WallpaperProviderRemote {
     cancelPreviewWallpaper() {
         this.proxy.sendMessage(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, []);
     }
+    shouldShowTimeOfDayWallpaperDialog() {
+        return this.proxy.sendMessage(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -379,6 +383,7 @@ export class WallpaperProviderReceiver {
         this.helper_internal_.registerHandler(22, WallpaperProvider_IsInTabletMode_ParamsSpec.$, WallpaperProvider_IsInTabletMode_ResponseParamsSpec.$, impl.isInTabletMode.bind(impl));
         this.helper_internal_.registerHandler(23, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec.$, null, impl.confirmPreviewWallpaper.bind(impl));
         this.helper_internal_.registerHandler(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, impl.cancelPreviewWallpaper.bind(impl));
+        this.helper_internal_.registerHandler(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, impl.shouldShowTimeOfDayWallpaperDialog.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -483,6 +488,9 @@ export class WallpaperProviderCallbackRouter {
         this.cancelPreviewWallpaper =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, this.cancelPreviewWallpaper.createReceiverHandler(false /* expectsResponse */));
+        this.shouldShowTimeOfDayWallpaperDialog =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, this.shouldShowTimeOfDayWallpaperDialog.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -1537,6 +1545,8 @@ export const WallpaperProvider_IsInTabletMode_ParamsSpec = { $: {} };
 export const WallpaperProvider_IsInTabletMode_ResponseParamsSpec = { $: {} };
 export const WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec = { $: {} };
 export const WallpaperProvider_CancelPreviewWallpaper_ParamsSpec = { $: {} };
+export const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec = { $: {} };
+export const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec = { $: {} };
 export const ThemeObserver_OnColorModeChanged_ParamsSpec = { $: {} };
 export const ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec = { $: {} };
 export const ThemeObserver_OnColorSchemeChanged_ParamsSpec = { $: {} };
@@ -1803,6 +1813,10 @@ mojo.internal.Struct(WallpaperProvider_IsInTabletMode_ResponseParamsSpec.$, 'Wal
 ], [[0, 16],]);
 mojo.internal.Struct(WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec.$, 'WallpaperProvider_ConfirmPreviewWallpaper_Params', [], [[0, 8],]);
 mojo.internal.Struct(WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, 'WallpaperProvider_CancelPreviewWallpaper_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, 'WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, 'WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams', [
+    mojo.internal.StructField('shouldShowDialog', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(ThemeObserver_OnColorModeChanged_ParamsSpec.$, 'ThemeObserver_OnColorModeChanged_Params', [
     mojo.internal.StructField('darkModeEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);

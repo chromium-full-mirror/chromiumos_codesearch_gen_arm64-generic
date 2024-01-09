@@ -15,7 +15,7 @@ namespace crosapi::mojom {
 
 class  MetricsReportingObserverInterceptorForTesting : public MetricsReportingObserver {
   virtual MetricsReportingObserver* GetForwardingInterface() = 0;
-  void OnMetricsReportingChanged(bool enabled, const absl::optional<std::string>& client_id) override;
+  void OnMetricsReportingChanged(bool enabled, const std::optional<std::string>& client_id) override;
 };
 class  MetricsReportingObserverAsyncWaiter {
  public:

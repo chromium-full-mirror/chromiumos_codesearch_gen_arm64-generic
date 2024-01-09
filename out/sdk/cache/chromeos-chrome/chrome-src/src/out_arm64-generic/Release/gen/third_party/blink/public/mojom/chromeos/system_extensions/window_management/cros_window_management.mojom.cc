@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -327,14 +328,17 @@ void CrosWindowManagementFactoryProxy::Create(
                         "<value of type ::mojo::PendingAssociatedRemote<CrosWindowManagementObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagementFactory_Create_Name, kFlags, 0, 0, nullptr);
@@ -422,10 +426,10 @@ bool CrosWindowManagementFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosWindowManagementFactoryValidationInfo[] = {
-    {&internal::CrosWindowManagementFactory_Create_Params_Data::Validate,
+    { &internal::CrosWindowManagementFactory_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -910,14 +914,17 @@ void CrosWindowManagementProxy::GetAllWindows(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::CrosWindowManagement::GetAllWindows");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_GetAllWindows_Name, kFlags, 0, 0, nullptr);
@@ -954,14 +961,17 @@ void CrosWindowManagementProxy::MoveTo(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_MoveTo_Name, kFlags, 0, 0, nullptr);
@@ -1011,14 +1021,17 @@ void CrosWindowManagementProxy::MoveBy(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_MoveBy_Name, kFlags, 0, 0, nullptr);
@@ -1068,14 +1081,17 @@ void CrosWindowManagementProxy::ResizeTo(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_ResizeTo_Name, kFlags, 0, 0, nullptr);
@@ -1125,14 +1141,17 @@ void CrosWindowManagementProxy::ResizeBy(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_ResizeBy_Name, kFlags, 0, 0, nullptr);
@@ -1179,14 +1198,17 @@ void CrosWindowManagementProxy::SetFullscreen(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_SetFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -1229,14 +1251,17 @@ void CrosWindowManagementProxy::Maximize(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Maximize_Name, kFlags, 0, 0, nullptr);
@@ -1278,14 +1303,17 @@ void CrosWindowManagementProxy::Minimize(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Minimize_Name, kFlags, 0, 0, nullptr);
@@ -1327,14 +1355,17 @@ void CrosWindowManagementProxy::Restore(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Restore_Name, kFlags, 0, 0, nullptr);
@@ -1376,14 +1407,17 @@ void CrosWindowManagementProxy::Focus(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Focus_Name, kFlags, 0, 0, nullptr);
@@ -1425,14 +1459,17 @@ void CrosWindowManagementProxy::Close(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Close_Name, kFlags, 0, 0, nullptr);
@@ -1467,14 +1504,17 @@ void CrosWindowManagementProxy::GetAllScreens(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::CrosWindowManagement::GetAllScreens");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_GetAllScreens_Name, kFlags, 0, 0, nullptr);
@@ -1584,7 +1624,8 @@ void CrosWindowManagement_GetAllWindows_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_GetAllWindows_Name, kFlags, 0, 0, nullptr);
@@ -1714,7 +1755,8 @@ void CrosWindowManagement_MoveTo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_MoveTo_Name, kFlags, 0, 0, nullptr);
@@ -1833,7 +1875,8 @@ void CrosWindowManagement_MoveBy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_MoveBy_Name, kFlags, 0, 0, nullptr);
@@ -1952,7 +1995,8 @@ void CrosWindowManagement_ResizeTo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_ResizeTo_Name, kFlags, 0, 0, nullptr);
@@ -2071,7 +2115,8 @@ void CrosWindowManagement_ResizeBy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_ResizeBy_Name, kFlags, 0, 0, nullptr);
@@ -2190,7 +2235,8 @@ void CrosWindowManagement_SetFullscreen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_SetFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -2309,7 +2355,8 @@ void CrosWindowManagement_Maximize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Maximize_Name, kFlags, 0, 0, nullptr);
@@ -2428,7 +2475,8 @@ void CrosWindowManagement_Minimize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Minimize_Name, kFlags, 0, 0, nullptr);
@@ -2547,7 +2595,8 @@ void CrosWindowManagement_Restore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Restore_Name, kFlags, 0, 0, nullptr);
@@ -2666,7 +2715,8 @@ void CrosWindowManagement_Focus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Focus_Name, kFlags, 0, 0, nullptr);
@@ -2785,7 +2835,8 @@ void CrosWindowManagement_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_Close_Name, kFlags, 0, 0, nullptr);
@@ -2904,7 +2955,8 @@ void CrosWindowManagement_GetAllScreens_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagement_GetAllScreens_Name, kFlags, 0, 0, nullptr);
@@ -3376,32 +3428,32 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosWindowManagementValidationInfo[] = {
-    {&internal::CrosWindowManagement_GetAllWindows_Params_Data::Validate,
+    { &internal::CrosWindowManagement_GetAllWindows_Params_Data::Validate,
      &internal::CrosWindowManagement_GetAllWindows_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_MoveTo_Params_Data::Validate,
+    { &internal::CrosWindowManagement_MoveTo_Params_Data::Validate,
      &internal::CrosWindowManagement_MoveTo_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_MoveBy_Params_Data::Validate,
+    { &internal::CrosWindowManagement_MoveBy_Params_Data::Validate,
      &internal::CrosWindowManagement_MoveBy_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_ResizeTo_Params_Data::Validate,
+    { &internal::CrosWindowManagement_ResizeTo_Params_Data::Validate,
      &internal::CrosWindowManagement_ResizeTo_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_ResizeBy_Params_Data::Validate,
+    { &internal::CrosWindowManagement_ResizeBy_Params_Data::Validate,
      &internal::CrosWindowManagement_ResizeBy_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_SetFullscreen_Params_Data::Validate,
+    { &internal::CrosWindowManagement_SetFullscreen_Params_Data::Validate,
      &internal::CrosWindowManagement_SetFullscreen_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_Maximize_Params_Data::Validate,
+    { &internal::CrosWindowManagement_Maximize_Params_Data::Validate,
      &internal::CrosWindowManagement_Maximize_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_Minimize_Params_Data::Validate,
+    { &internal::CrosWindowManagement_Minimize_Params_Data::Validate,
      &internal::CrosWindowManagement_Minimize_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_Restore_Params_Data::Validate,
+    { &internal::CrosWindowManagement_Restore_Params_Data::Validate,
      &internal::CrosWindowManagement_Restore_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_Focus_Params_Data::Validate,
+    { &internal::CrosWindowManagement_Focus_Params_Data::Validate,
      &internal::CrosWindowManagement_Focus_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_Close_Params_Data::Validate,
+    { &internal::CrosWindowManagement_Close_Params_Data::Validate,
      &internal::CrosWindowManagement_Close_ResponseParams_Data::Validate},
-    {&internal::CrosWindowManagement_GetAllScreens_Params_Data::Validate,
+    { &internal::CrosWindowManagement_GetAllScreens_Params_Data::Validate,
      &internal::CrosWindowManagement_GetAllScreens_ResponseParams_Data::Validate},
 };
 
@@ -3538,14 +3590,17 @@ void CrosWindowManagementObserverProxy::DispatchStartEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::CrosWindowManagementObserver::DispatchStartEvent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagementObserver_DispatchStartEvent_Name, kFlags, 0, 0, nullptr);
@@ -3575,14 +3630,17 @@ void CrosWindowManagementObserverProxy::DispatchAcceleratorEvent(
                         "<value of type AcceleratorEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagementObserver_DispatchAcceleratorEvent_Name, kFlags, 0, 0, nullptr);
@@ -3623,14 +3681,17 @@ void CrosWindowManagementObserverProxy::DispatchWindowOpenedEvent(
                         "<value of type CrosWindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagementObserver_DispatchWindowOpenedEvent_Name, kFlags, 0, 0, nullptr);
@@ -3671,14 +3732,17 @@ void CrosWindowManagementObserverProxy::DispatchWindowClosedEvent(
                         "<value of type CrosWindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosWindowManagementObserver_DispatchWindowClosedEvent_Name, kFlags, 0, 0, nullptr);
@@ -3840,16 +3904,16 @@ bool CrosWindowManagementObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosWindowManagementObserverValidationInfo[] = {
-    {&internal::CrosWindowManagementObserver_DispatchStartEvent_Params_Data::Validate,
+    { &internal::CrosWindowManagementObserver_DispatchStartEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosWindowManagementObserver_DispatchAcceleratorEvent_Params_Data::Validate,
+    { &internal::CrosWindowManagementObserver_DispatchAcceleratorEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosWindowManagementObserver_DispatchWindowOpenedEvent_Params_Data::Validate,
+    { &internal::CrosWindowManagementObserver_DispatchWindowOpenedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosWindowManagementObserver_DispatchWindowClosedEvent_Params_Data::Validate,
+    { &internal::CrosWindowManagementObserver_DispatchWindowClosedEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 

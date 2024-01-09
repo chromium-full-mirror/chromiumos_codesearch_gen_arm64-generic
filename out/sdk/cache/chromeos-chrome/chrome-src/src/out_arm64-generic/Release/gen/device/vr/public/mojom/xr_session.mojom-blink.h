@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/vr/public/mojom/xr_session.mojom-features.h"
 #include "device/vr/public/mojom/xr_session.mojom-shared.h"
 #include "device/vr/public/mojom/xr_session.mojom-blink-forward.h"
 #include "skia/public/mojom/bitmap.mojom-blink.h"
@@ -40,66 +41,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::RequestSessionError>
-    : EnumHashTraits<::device::mojom::RequestSessionError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRSessionFeature>
-    : EnumHashTraits<::device::mojom::XRSessionFeature, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRSessionMode>
-    : EnumHashTraits<::device::mojom::XRSessionMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRDepthUsage>
-    : EnumHashTraits<::device::mojom::XRDepthUsage, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRDepthDataFormat>
-    : EnumHashTraits<::device::mojom::XRDepthDataFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {

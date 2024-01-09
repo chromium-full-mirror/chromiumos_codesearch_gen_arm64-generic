@@ -373,7 +373,7 @@ const char* SharedCredential::_InternalParse(const char* ptr, ::_pbi::ParseConte
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bytes secret_id = 1;
+      // bytes secret_id = 1 [deprecated = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_secret_id();
@@ -535,7 +535,7 @@ uint8_t* SharedCredential::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bytes secret_id = 1;
+  // bytes secret_id = 1 [deprecated = true];
   if (!this->_internal_secret_id().empty()) {
     target = stream->WriteBytesMaybeAliased(
         1, this->_internal_secret_id(), target);
@@ -647,7 +647,7 @@ size_t SharedCredential::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bytes secret_id = 1;
+  // bytes secret_id = 1 [deprecated = true];
   if (!this->_internal_secret_id().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(

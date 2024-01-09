@@ -85,8 +85,12 @@ enum class Feature : int32_t {
   EMOJI_PICKER_GIF_SUPPORT = 2,
   
   EMOJI_PICKER_JELLY_SUPPORT = 3,
+  
+  EMOJI_PICKER_SEAL_SUPPORT = 4,
+  
+  EMOJI_PICKER_VARIANT_GROUPING_SUPPORT = 5,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 5,
 };
 
  std::ostream& operator<<(std::ostream& os, Feature value);

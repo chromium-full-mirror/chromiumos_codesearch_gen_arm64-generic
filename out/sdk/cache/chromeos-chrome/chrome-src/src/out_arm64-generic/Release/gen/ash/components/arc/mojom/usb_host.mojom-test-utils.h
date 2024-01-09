@@ -15,7 +15,7 @@ namespace arc::mojom {
 
 class  UsbHostHostInterceptorForTesting : public UsbHostHost {
   virtual UsbHostHost* GetForwardingInterface() = 0;
-  void OpenDevice(const std::string& guid, const absl::optional<std::string>& pkg_name, OpenDeviceCallback callback) override;
+  void OpenDevice(const std::string& guid, const std::optional<std::string>& pkg_name, OpenDeviceCallback callback) override;
   void GetDeviceInfo(const std::string& guid, GetDeviceInfoCallback callback) override;
   void RequestPermission(const std::string& guid, const std::string& pkg_name, bool interactive, RequestPermissionCallback callback) override;
 };
@@ -28,8 +28,8 @@ class  UsbHostHostAsyncWaiter {
 
   ~UsbHostHostAsyncWaiter();
   void OpenDevice(
-      const std::string& guid, const absl::optional<std::string>& pkg_name, ::mojo::ScopedHandle* out_usb_fd);
-  ::mojo::ScopedHandle OpenDevice(const std::string& guid, const absl::optional<std::string>& pkg_name);
+      const std::string& guid, const std::optional<std::string>& pkg_name, ::mojo::ScopedHandle* out_usb_fd);
+  ::mojo::ScopedHandle OpenDevice(const std::string& guid, const std::optional<std::string>& pkg_name);
   void GetDeviceInfo(
       const std::string& guid, std::string* out_device_name, ::device::mojom::UsbDeviceInfoPtr* out_info);
   
@@ -45,8 +45,8 @@ class  UsbHostHostAsyncWaiter {
 class  UsbHostInstanceInterceptorForTesting : public UsbHostInstance {
   virtual UsbHostInstance* GetForwardingInterface() = 0;
   void Init(::mojo::PendingRemote<UsbHostHost> host_remote, InitCallback callback) override;
-  void OnDeviceAdded(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) override;
-  void OnDeviceRemoved(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) override;
+  void OnDeviceAdded(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) override;
+  void OnDeviceRemoved(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) override;
 };
 class  UsbHostInstanceAsyncWaiter {
  public:

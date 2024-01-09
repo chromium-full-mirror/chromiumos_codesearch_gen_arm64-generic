@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1308,14 +1309,17 @@ void ClientProcessProxy::RequestChromeMemoryDump(
                         "<value of type RequestArgsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientProcess_RequestChromeMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -1360,14 +1364,17 @@ void ClientProcessProxy::RequestOSMemoryDump(
                         "<value of type WTF::Vector<::mojo_base::mojom::blink::ProcessIdPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientProcess_RequestOSMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -1506,7 +1513,8 @@ void ClientProcess_RequestChromeMemoryDump_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientProcess_RequestChromeMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -1639,7 +1647,8 @@ void ClientProcess_RequestOSMemoryDump_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientProcess_RequestOSMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -1768,12 +1777,12 @@ std::move(p_pids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kClientProcessValidationInfo[] = {
-    {&internal::ClientProcess_RequestChromeMemoryDump_Params_Data::Validate,
+    { &internal::ClientProcess_RequestChromeMemoryDump_Params_Data::Validate,
      &internal::ClientProcess_RequestChromeMemoryDump_ResponseParams_Data::Validate},
-    {&internal::ClientProcess_RequestOSMemoryDump_Params_Data::Validate,
+    { &internal::ClientProcess_RequestOSMemoryDump_Params_Data::Validate,
      &internal::ClientProcess_RequestOSMemoryDump_ResponseParams_Data::Validate},
 };
 
@@ -1876,14 +1885,17 @@ void HeapProfilerProxy::DumpProcessesForTracing(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHeapProfiler_DumpProcessesForTracing_Name, kFlags, 0, 0, nullptr);
@@ -1995,7 +2007,8 @@ void HeapProfiler_DumpProcessesForTracing_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHeapProfiler_DumpProcessesForTracing_Name, kFlags, 0, 0, nullptr);
@@ -2091,10 +2104,10 @@ std::move(p_write_proto), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHeapProfilerValidationInfo[] = {
-    {&internal::HeapProfiler_DumpProcessesForTracing_Params_Data::Validate,
+    { &internal::HeapProfiler_DumpProcessesForTracing_Params_Data::Validate,
      &internal::HeapProfiler_DumpProcessesForTracing_ResponseParams_Data::Validate},
 };
 
@@ -2194,14 +2207,17 @@ void HeapProfilerHelperProxy::GetVmRegionsForHeapProfiler(
                         "<value of type WTF::Vector<::mojo_base::mojom::blink::ProcessIdPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHeapProfilerHelper_GetVmRegionsForHeapProfiler_Name, kFlags, 0, 0, nullptr);
@@ -2324,7 +2340,8 @@ void HeapProfilerHelper_GetVmRegionsForHeapProfiler_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHeapProfilerHelper_GetVmRegionsForHeapProfiler_Name, kFlags, 0, 0, nullptr);
@@ -2416,10 +2433,10 @@ std::move(p_pids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHeapProfilerHelperValidationInfo[] = {
-    {&internal::HeapProfilerHelper_GetVmRegionsForHeapProfiler_Params_Data::Validate,
+    { &internal::HeapProfilerHelper_GetVmRegionsForHeapProfiler_Params_Data::Validate,
      &internal::HeapProfilerHelper_GetVmRegionsForHeapProfiler_ResponseParams_Data::Validate},
 };
 
@@ -2636,14 +2653,17 @@ void CoordinatorProxy::RequestGlobalMemoryDump(
                         "<value of type const WTF::Vector<WTF::String>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -2696,14 +2716,17 @@ void CoordinatorProxy::RequestGlobalMemoryDumpForPid(
                         "<value of type const WTF::Vector<WTF::String>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDumpForPid_Name, kFlags, 0, 0, nullptr);
@@ -2758,14 +2781,17 @@ void CoordinatorProxy::RequestPrivateMemoryFootprint(
                         "<value of type ::mojo_base::mojom::blink::ProcessIdPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestPrivateMemoryFootprint_Name, kFlags, 0, 0, nullptr);
@@ -2813,14 +2839,17 @@ void CoordinatorProxy::RequestGlobalMemoryDumpAndAppendToTrace(
                         "<value of type Determinism>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDumpAndAppendToTrace_Name, kFlags, 0, 0, nullptr);
@@ -2943,7 +2972,8 @@ void Coordinator_RequestGlobalMemoryDump_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDump_Name, kFlags, 0, 0, nullptr);
@@ -3075,7 +3105,8 @@ void Coordinator_RequestGlobalMemoryDumpForPid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDumpForPid_Name, kFlags, 0, 0, nullptr);
@@ -3207,7 +3238,8 @@ void Coordinator_RequestPrivateMemoryFootprint_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestPrivateMemoryFootprint_Name, kFlags, 0, 0, nullptr);
@@ -3339,7 +3371,8 @@ void Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinator_RequestGlobalMemoryDumpAndAppendToTrace_Name, kFlags, 0, 0, nullptr);
@@ -3540,16 +3573,16 @@ std::move(p_determinism), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCoordinatorValidationInfo[] = {
-    {&internal::Coordinator_RequestGlobalMemoryDump_Params_Data::Validate,
+    { &internal::Coordinator_RequestGlobalMemoryDump_Params_Data::Validate,
      &internal::Coordinator_RequestGlobalMemoryDump_ResponseParams_Data::Validate},
-    {&internal::Coordinator_RequestGlobalMemoryDumpForPid_Params_Data::Validate,
+    { &internal::Coordinator_RequestGlobalMemoryDumpForPid_Params_Data::Validate,
      &internal::Coordinator_RequestGlobalMemoryDumpForPid_ResponseParams_Data::Validate},
-    {&internal::Coordinator_RequestPrivateMemoryFootprint_Params_Data::Validate,
+    { &internal::Coordinator_RequestPrivateMemoryFootprint_Params_Data::Validate,
      &internal::Coordinator_RequestPrivateMemoryFootprint_ResponseParams_Data::Validate},
-    {&internal::Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_Params_Data::Validate,
+    { &internal::Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_Params_Data::Validate,
      &internal::Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_ResponseParams_Data::Validate},
 };
 
@@ -3636,14 +3669,17 @@ void CoordinatorConnectorProxy::RegisterCoordinatorClient(
                         "<value of type ::mojo::PendingRemote<ClientProcess>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCoordinatorConnector_RegisterCoordinatorClient_Name, kFlags, 0, 0, nullptr);
@@ -3731,10 +3767,10 @@ bool CoordinatorConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCoordinatorConnectorValidationInfo[] = {
-    {&internal::CoordinatorConnector_RegisterCoordinatorClient_Params_Data::Validate,
+    { &internal::CoordinatorConnector_RegisterCoordinatorClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 

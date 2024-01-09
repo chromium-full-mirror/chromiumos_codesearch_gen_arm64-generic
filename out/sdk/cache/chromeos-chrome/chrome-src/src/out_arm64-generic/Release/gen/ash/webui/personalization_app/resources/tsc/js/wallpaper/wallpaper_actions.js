@@ -11,7 +11,6 @@ export var WallpaperActionName;
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_ALBUMS"] = "append_google_photos_albums";
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_SHARED_ALBUMS"] = "append_google_photos_shared_albums";
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_PHOTOS"] = "append_google_photos_photos";
-    WallpaperActionName["BEGIN_SEARCH_IMAGE_THUMBNAILS"] = "begin_search_image_thumbnails";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_ALBUM"] = "begin_load_google_photos_album";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_ALBUMS"] = "begin_load_google_photos_albums";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_SHARED_ALBUMS"] = "begin_load_google_photos_shared_albums";
@@ -38,7 +37,7 @@ export var WallpaperActionName;
     WallpaperActionName["SET_SELECTED_IMAGE"] = "set_selected_image";
     WallpaperActionName["SET_UPDATED_DAILY_REFRESH_IMAGE"] = "set_updated_daily_refreshed_image";
     WallpaperActionName["SET_FULLSCREEN_ENABLED"] = "set_fullscreen_enabled";
-    WallpaperActionName["SET_IMAGE_THUMBNAILS"] = "set_image_thumbnails";
+    WallpaperActionName["SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG"] = "set_shoud_show_time_of_day_wallpaper_dialog";
 })(WallpaperActionName || (WallpaperActionName = {}));
 /**
  * Appends to the list of Google Photos photos for the album associated with the
@@ -83,12 +82,6 @@ export function appendGooglePhotosPhotosAction(photos, resumeToken) {
         photos,
         resumeToken,
         name: WallpaperActionName.APPEND_GOOGLE_PHOTOS_PHOTOS,
-    };
-}
-export function beginSearchImageThumbnailsAction(query) {
-    return {
-        query: query,
-        name: WallpaperActionName.BEGIN_SEARCH_IMAGE_THUMBNAILS,
     };
 }
 /**
@@ -280,15 +273,20 @@ export function setSelectedImageAction(image) {
     };
 }
 /**
+ * Sets the boolean that determines whether to show the time of day wallpaper
+ * dialog.
+ */
+export function setShouldShowTimeOfDayWallpaperDialog(shouldShowDialog) {
+    assert(typeof shouldShowDialog === 'boolean');
+    return {
+        name: WallpaperActionName.SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG,
+        shouldShowDialog,
+    };
+}
+/**
  * Enables/disables the fullscreen preview mode for wallpaper.
  */
 export function setFullscreenEnabledAction(enabled) {
     assert(typeof enabled === 'boolean');
     return { name: WallpaperActionName.SET_FULLSCREEN_ENABLED, enabled };
-}
-/**
- * Set the generated thumbnails for the given prompt text.
- */
-export function setImageThumbnailsAction(query, images) {
-    return { name: WallpaperActionName.SET_IMAGE_THUMBNAILS, query, images };
 }

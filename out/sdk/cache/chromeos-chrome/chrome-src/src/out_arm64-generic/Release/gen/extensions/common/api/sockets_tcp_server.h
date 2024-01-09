@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct SocketProperties {
   ~SocketProperties();
   SocketProperties(const SocketProperties&) = delete;
   SocketProperties& operator=(const SocketProperties&) = delete;
-  SocketProperties(SocketProperties&& rhs);
-  SocketProperties& operator=(SocketProperties&& rhs);
+  SocketProperties(SocketProperties&& rhs) noexcept;
+  SocketProperties& operator=(SocketProperties&& rhs) noexcept;
 
   // Populates a SocketProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,16 +47,13 @@ struct SocketProperties {
   // Creates a deep copy of SocketProperties.
   SocketProperties Clone() const;
 
-  // Creates a SocketProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SocketProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a SocketProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SocketProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<SocketProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a SocketProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SocketProperties> FromValue(const base::Value& value);
+  static std::optional<SocketProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSocketProperties object.
@@ -67,10 +65,10 @@ struct SocketProperties {
   // Lifecycle</a>). The default value is "false." When the application is loaded,
   // any sockets previously opened with persistent=true can be fetched with
   // <code>getSockets</code>.
-  absl::optional<bool> persistent;
+  std::optional<bool> persistent;
 
   // An application-defined string associated with the socket.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
 };
 
@@ -79,8 +77,8 @@ struct CreateInfo {
   ~CreateInfo();
   CreateInfo(const CreateInfo&) = delete;
   CreateInfo& operator=(const CreateInfo&) = delete;
-  CreateInfo(CreateInfo&& rhs);
-  CreateInfo& operator=(CreateInfo&& rhs);
+  CreateInfo(CreateInfo&& rhs) noexcept;
+  CreateInfo& operator=(CreateInfo&& rhs) noexcept;
 
   // Populates a CreateInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -93,15 +91,12 @@ struct CreateInfo {
   // Creates a deep copy of CreateInfo.
   CreateInfo Clone() const;
 
-  // Creates a CreateInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreateInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CreateInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<CreateInfo> FromValue(const base::Value& value);
+  static std::optional<CreateInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateInfo object.
@@ -119,8 +114,8 @@ struct SocketInfo {
   ~SocketInfo();
   SocketInfo(const SocketInfo&) = delete;
   SocketInfo& operator=(const SocketInfo&) = delete;
-  SocketInfo(SocketInfo&& rhs);
-  SocketInfo& operator=(SocketInfo&& rhs);
+  SocketInfo(SocketInfo&& rhs) noexcept;
+  SocketInfo& operator=(SocketInfo&& rhs) noexcept;
 
   // Populates a SocketInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -133,15 +128,12 @@ struct SocketInfo {
   // Creates a deep copy of SocketInfo.
   SocketInfo Clone() const;
 
-  // Creates a SocketInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SocketInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a SocketInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SocketInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<SocketInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a SocketInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<SocketInfo> FromValue(const base::Value& value);
+  static std::optional<SocketInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSocketInfo object.
@@ -156,7 +148,7 @@ struct SocketInfo {
   bool persistent;
 
   // Application-defined string associated with the socket.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Flag indicating whether connection requests on a listening socket are
   // dispatched through the <code>onAccept</code> event or queued up in the listen
@@ -164,10 +156,10 @@ struct SocketInfo {
   bool paused;
 
   // If the socket is listening, contains its local IPv4/6 address.
-  absl::optional<std::string> local_address;
+  std::optional<std::string> local_address;
 
   // If the socket is listening, contains its local port.
-  absl::optional<int> local_port;
+  std::optional<int> local_port;
 
 };
 
@@ -176,8 +168,8 @@ struct AcceptInfo {
   ~AcceptInfo();
   AcceptInfo(const AcceptInfo&) = delete;
   AcceptInfo& operator=(const AcceptInfo&) = delete;
-  AcceptInfo(AcceptInfo&& rhs);
-  AcceptInfo& operator=(AcceptInfo&& rhs);
+  AcceptInfo(AcceptInfo&& rhs) noexcept;
+  AcceptInfo& operator=(AcceptInfo&& rhs) noexcept;
 
   // Populates a AcceptInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -190,15 +182,12 @@ struct AcceptInfo {
   // Creates a deep copy of AcceptInfo.
   AcceptInfo Clone() const;
 
-  // Creates a AcceptInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AcceptInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AcceptInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AcceptInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AcceptInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AcceptInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AcceptInfo> FromValue(const base::Value& value);
+  static std::optional<AcceptInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptInfo object.
@@ -221,8 +210,8 @@ struct AcceptErrorInfo {
   ~AcceptErrorInfo();
   AcceptErrorInfo(const AcceptErrorInfo&) = delete;
   AcceptErrorInfo& operator=(const AcceptErrorInfo&) = delete;
-  AcceptErrorInfo(AcceptErrorInfo&& rhs);
-  AcceptErrorInfo& operator=(AcceptErrorInfo&& rhs);
+  AcceptErrorInfo(AcceptErrorInfo&& rhs) noexcept;
+  AcceptErrorInfo& operator=(AcceptErrorInfo&& rhs) noexcept;
 
   // Populates a AcceptErrorInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -235,15 +224,12 @@ struct AcceptErrorInfo {
   // Creates a deep copy of AcceptErrorInfo.
   AcceptErrorInfo Clone() const;
 
-  // Creates a AcceptErrorInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AcceptErrorInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AcceptErrorInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AcceptErrorInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AcceptErrorInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AcceptErrorInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AcceptErrorInfo> FromValue(const base::Value& value);
+  static std::optional<AcceptErrorInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptErrorInfo object.
@@ -265,15 +251,15 @@ struct AcceptErrorInfo {
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket properties (optional).
-  absl::optional<SocketProperties> properties;
+  std::optional<SocketProperties> properties;
 
 
  private:
@@ -291,11 +277,11 @@ base::Value::List Create(const CreateInfo& create_info);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket identifier.
@@ -319,11 +305,11 @@ base::Value::List Create();
 namespace SetPaused {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int socket_id;
@@ -345,11 +331,11 @@ base::Value::List Create();
 namespace Listen {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket identifier.
@@ -366,7 +352,7 @@ struct Params {
   // Length of the socket's listen queue. The default value depends on the
   // Operating System (SOMAXCONN), which ensures a reasonable queue length for
   // most applications.
-  absl::optional<int> backlog;
+  std::optional<int> backlog;
 
 
  private:
@@ -385,11 +371,11 @@ base::Value::List Create(int result);
 namespace Disconnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket identifier.
@@ -410,11 +396,11 @@ base::Value::List Create();
 namespace Close {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket identifier.
@@ -435,11 +421,11 @@ base::Value::List Create();
 namespace GetInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The socket identifier.

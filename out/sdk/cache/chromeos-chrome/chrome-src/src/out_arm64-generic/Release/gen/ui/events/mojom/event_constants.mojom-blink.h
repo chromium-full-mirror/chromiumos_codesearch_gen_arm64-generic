@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/events/mojom/event_constants.mojom-features.h"
 #include "ui/events/mojom/event_constants.mojom-shared.h"
 #include "ui/events/mojom/event_constants.mojom-blink-forward.h"
 
@@ -39,66 +40,6 @@
 #include "ui/events/ipc/ui_events_param_traits_macros.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::AcceleratorPhase>
-    : EnumHashTraits<::ui::mojom::AcceleratorPhase, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::EventType>
-    : EnumHashTraits<::ui::mojom::EventType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::ScrollEventPhase>
-    : EnumHashTraits<::ui::mojom::ScrollEventPhase, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::EventMomentumPhase>
-    : EnumHashTraits<::ui::mojom::EventMomentumPhase, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::GestureDeviceType>
-    : EnumHashTraits<::ui::mojom::GestureDeviceType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace ui::mojom::blink {

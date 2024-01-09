@@ -89,7 +89,75 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function AppWindow_SetSupportsAppRegion_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AppWindow_SetSupportsAppRegion_Params.prototype.initDefaults_ = function() {
+    this.supportsAppRegion = false;
+  };
+  AppWindow_SetSupportsAppRegion_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AppWindow_SetSupportsAppRegion_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  AppWindow_SetSupportsAppRegion_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  AppWindow_SetSupportsAppRegion_Params.decode = function(decoder) {
+    var packed;
+    var val = new AppWindow_SetSupportsAppRegion_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.supportsAppRegion = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  AppWindow_SetSupportsAppRegion_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AppWindow_SetSupportsAppRegion_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.supportsAppRegion & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   var kAppWindow_SetVisuallyDeemphasized_Name = 0;
+  var kAppWindow_SetSupportsAppRegion_Name = 1;
 
   function AppWindowPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(AppWindow,
@@ -124,12 +192,30 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  AppWindowPtr.prototype.setSupportsAppRegion = function() {
+    return AppWindowProxy.prototype.setSupportsAppRegion
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  AppWindowProxy.prototype.setSupportsAppRegion = function(supportsAppRegion) {
+    var params_ = new AppWindow_SetSupportsAppRegion_Params();
+    params_.supportsAppRegion = supportsAppRegion;
+    var builder = new codec.MessageV0Builder(
+        kAppWindow_SetSupportsAppRegion_Name,
+        codec.align(AppWindow_SetSupportsAppRegion_Params.encodedSize));
+    builder.encodeStruct(AppWindow_SetSupportsAppRegion_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function AppWindowStub(delegate) {
     this.delegate_ = delegate;
   }
   AppWindowStub.prototype.setVisuallyDeemphasized = function(deemphasized) {
     return this.delegate_ && this.delegate_.setVisuallyDeemphasized && this.delegate_.setVisuallyDeemphasized(deemphasized);
+  }
+  AppWindowStub.prototype.setSupportsAppRegion = function(supportsAppRegion) {
+    return this.delegate_ && this.delegate_.setSupportsAppRegion && this.delegate_.setSupportsAppRegion(supportsAppRegion);
   }
 
   AppWindowStub.prototype.accept = function(message) {
@@ -138,6 +224,10 @@
     case kAppWindow_SetVisuallyDeemphasized_Name:
       var params = reader.decodeStruct(AppWindow_SetVisuallyDeemphasized_Params);
       this.setVisuallyDeemphasized(params.deemphasized);
+      return true;
+    case kAppWindow_SetSupportsAppRegion_Name:
+      var params = reader.decodeStruct(AppWindow_SetSupportsAppRegion_Params);
+      this.setSupportsAppRegion(params.supportsAppRegion);
       return true;
     default:
       return false;
@@ -160,6 +250,10 @@
       case kAppWindow_SetVisuallyDeemphasized_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = AppWindow_SetVisuallyDeemphasized_Params;
+      break;
+      case kAppWindow_SetSupportsAppRegion_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = AppWindow_SetSupportsAppRegion_Params;
       break;
     }
     if (paramsClass === null)

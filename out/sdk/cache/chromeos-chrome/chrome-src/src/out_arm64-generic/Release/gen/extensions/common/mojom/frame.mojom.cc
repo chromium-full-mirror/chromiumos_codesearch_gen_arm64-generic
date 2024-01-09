@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -148,7 +149,7 @@ RequestParams::RequestParams(
     ::base::Value::List arguments_in,
     const std::string& extension_id_in,
     const ::GURL& source_url_in,
-    ContextType context_type_in,
+    ::extensions::mojom::ContextType context_type_in,
     int32_t request_id_in,
     bool has_callback_in,
     bool user_gesture_in,
@@ -210,7 +211,7 @@ void RequestParams::WriteIntoTrace(
     dict.AddItem(
       "context_type"), this->context_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ContextType>"
+      "<value of type ::extensions::mojom::ContextType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -339,6 +340,9 @@ LocalFrame::IPCStableHashFunction LocalFrame::MessageToMethodInfo_(mojo::Message
     case internal::kLocalFrame_UpdateBrowserWindowId_Name: {
       return &LocalFrame::UpdateBrowserWindowId_Sym::IPCStableHash;
     }
+    case internal::kLocalFrame_DispatchOnConnect_Name: {
+      return &LocalFrame::DispatchOnConnect_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -368,6 +372,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive extensions::mojom::LocalFrame::ExecuteDeclarativeScript";
       case internal::kLocalFrame_UpdateBrowserWindowId_Name:
             return "Receive extensions::mojom::LocalFrame::UpdateBrowserWindowId";
+      case internal::kLocalFrame_DispatchOnConnect_Name:
+            return "Receive extensions::mojom::LocalFrame::DispatchOnConnect";
     }
   } else {
     switch (message.name()) {
@@ -389,6 +395,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply extensions::mojom::LocalFrame::ExecuteDeclarativeScript";
       case internal::kLocalFrame_UpdateBrowserWindowId_Name:
             return "Receive reply extensions::mojom::LocalFrame::UpdateBrowserWindowId";
+      case internal::kLocalFrame_DispatchOnConnect_Name:
+            return "Receive reply extensions::mojom::LocalFrame::DispatchOnConnect";
     }
   }
   return "Receive unknown mojo message";
@@ -520,6 +528,19 @@ uint32_t LocalFrame::UpdateBrowserWindowId_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LocalFrame::DispatchOnConnect_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::LocalFrame::DispatchOnConnect");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class LocalFrame_ExecuteCode_ForwardToCallback
@@ -538,6 +559,22 @@ class LocalFrame_ExecuteCode_ForwardToCallback
   LocalFrame::ExecuteCodeCallback callback_;
 };
 
+class LocalFrame_DispatchOnConnect_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  LocalFrame_DispatchOnConnect_ForwardToCallback(
+      LocalFrame::DispatchOnConnectCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  LocalFrame_DispatchOnConnect_ForwardToCallback(const LocalFrame_DispatchOnConnect_ForwardToCallback&) = delete;
+  LocalFrame_DispatchOnConnect_ForwardToCallback& operator=(const LocalFrame_DispatchOnConnect_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  LocalFrame::DispatchOnConnectCallback callback_;
+};
+
 LocalFrameProxy::LocalFrameProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -554,14 +591,17 @@ void LocalFrameProxy::SetFrameName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SetFrameName_Name, kFlags, 0, 0, nullptr);
@@ -602,14 +642,17 @@ void LocalFrameProxy::SetSpatialNavigationEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SetSpatialNavigationEnabled_Name, kFlags, 0, 0, nullptr);
@@ -640,14 +683,17 @@ void LocalFrameProxy::SetTabId(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SetTabId_Name, kFlags, 0, 0, nullptr);
@@ -678,14 +724,17 @@ void LocalFrameProxy::AppWindowClosed(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_AppWindowClosed_Name, kFlags, 0, 0, nullptr);
@@ -716,14 +765,17 @@ void LocalFrameProxy::NotifyRenderViewType(
                         "<value of type ::extensions::mojom::ViewType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_NotifyRenderViewType_Name, kFlags, 0, 0, nullptr);
@@ -764,14 +816,17 @@ void LocalFrameProxy::MessageInvoke(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_MessageInvoke_Name, kFlags, 0, 0, nullptr);
@@ -845,14 +900,17 @@ void LocalFrameProxy::ExecuteCode(
                         "<value of type ExecuteCodeParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ExecuteCode_Name, kFlags, 0, 0, nullptr);
@@ -903,14 +961,17 @@ void LocalFrameProxy::ExecuteDeclarativeScript(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ExecuteDeclarativeScript_Name, kFlags, 0, 0, nullptr);
@@ -974,14 +1035,17 @@ void LocalFrameProxy::UpdateBrowserWindowId(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_UpdateBrowserWindowId_Name, kFlags, 0, 0, nullptr);
@@ -998,6 +1062,123 @@ void LocalFrameProxy::UpdateBrowserWindowId(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalFrameProxy::DispatchOnConnect(
+    const ::extensions::PortId& in_port_id, ::extensions::mojom::ChannelType in_channel_type, const std::string& in_channel_name, ::extensions::mojom::TabConnectionInfoPtr in_tab_info, ::extensions::mojom::ExternalConnectionInfoPtr in_external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> in_port_host, DispatchOnConnectCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::LocalFrame::DispatchOnConnect", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_type"), in_channel_type,
+                        "<value of type ::extensions::mojom::ChannelType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_name"), in_channel_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("tab_info"), in_tab_info,
+                        "<value of type ::extensions::mojom::TabConnectionInfoPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("external_connection_info"), in_external_connection_info,
+                        "<value of type ::extensions::mojom::ExternalConnectionInfoPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrame_DispatchOnConnect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::LocalFrame_DispatchOnConnect_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in LocalFrame.DispatchOnConnect request");
+  mojo::internal::Serialize<::extensions::mojom::ChannelType>(
+      in_channel_type, &params->channel_type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->channel_name)::BaseType> channel_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_channel_name, channel_name_fragment);
+  params->channel_name.Set(
+      channel_name_fragment.is_null() ? nullptr : channel_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->channel_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null channel_name in LocalFrame.DispatchOnConnect request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->tab_info)::BaseType> tab_info_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::TabConnectionInfoDataView>(
+      in_tab_info, tab_info_fragment);
+  params->tab_info.Set(
+      tab_info_fragment.is_null() ? nullptr : tab_info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->tab_info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null tab_info in LocalFrame.DispatchOnConnect request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->external_connection_info)::BaseType> external_connection_info_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+      in_external_connection_info, external_connection_info_fragment);
+  params->external_connection_info.Set(
+      external_connection_info_fragment.is_null() ? nullptr : external_connection_info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->external_connection_info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null external_connection_info in LocalFrame.DispatchOnConnect request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedRequestDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in LocalFrame.DispatchOnConnect request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedPtrInfoDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in LocalFrame.DispatchOnConnect request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrame::Name_);
+  message.set_method_name("DispatchOnConnect");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new LocalFrame_DispatchOnConnect_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class LocalFrame_ExecuteCode_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1045,7 +1226,7 @@ class LocalFrame_ExecuteCode_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      const std::string& in_error, const ::GURL& in_url, absl::optional<::base::Value> in_result);
+      const std::string& in_error, const ::GURL& in_url, std::optional<::base::Value> in_result);
 };
 
 bool LocalFrame_ExecuteCode_ForwardToCallback::Accept(
@@ -1060,7 +1241,7 @@ bool LocalFrame_ExecuteCode_ForwardToCallback::Accept(
   bool success = true;
   std::string p_error{};
   ::GURL p_url{};
-  absl::optional<::base::Value> p_result{};
+  std::optional<::base::Value> p_result{};
   LocalFrame_ExecuteCode_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1085,7 +1266,7 @@ std::move(p_result));
 }
 
 void LocalFrame_ExecuteCode_ProxyToResponder::Run(
-    const std::string& in_error, const ::GURL& in_url, absl::optional<::base::Value> in_result) {
+    const std::string& in_error, const ::GURL& in_url, std::optional<::base::Value> in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply extensions::mojom::LocalFrame::ExecuteCode", "async_response_parameters",
@@ -1099,13 +1280,14 @@ void LocalFrame_ExecuteCode_ProxyToResponder::Run(
                         "<value of type const ::GURL&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type absl::optional<::base::Value>>");
+                        "<value of type std::optional<::base::Value>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ExecuteCode_Name, kFlags, 0, 0, nullptr);
@@ -1144,6 +1326,125 @@ void LocalFrame_ExecuteCode_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrame::Name_);
   message.set_method_name("ExecuteCode");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class LocalFrame_DispatchOnConnect_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static LocalFrame::DispatchOnConnectCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<LocalFrame_DispatchOnConnect_ProxyToResponder> proxy(
+        new LocalFrame_DispatchOnConnect_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&LocalFrame_DispatchOnConnect_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~LocalFrame_DispatchOnConnect_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  LocalFrame_DispatchOnConnect_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "LocalFrame::DispatchOnConnectCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool LocalFrame_DispatchOnConnect_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::LocalFrame_DispatchOnConnect_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::LocalFrame_DispatchOnConnect_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success{};
+  LocalFrame_DispatchOnConnect_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        LocalFrame::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void LocalFrame_DispatchOnConnect_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply extensions::mojom::LocalFrame::DispatchOnConnect", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrame_DispatchOnConnect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::LocalFrame_DispatchOnConnect_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrame::Name_);
+  message.set_method_name("DispatchOnConnect");
 #endif
 
   message.set_request_id(request_id_);
@@ -1398,6 +1699,9 @@ std::move(p_url));
 std::move(p_window_id));
       return true;
     }
+    case internal::kLocalFrame_DispatchOnConnect_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1464,30 +1768,89 @@ std::move(p_param), std::move(callback));
     case internal::kLocalFrame_UpdateBrowserWindowId_Name: {
       break;
     }
+    case internal::kLocalFrame_DispatchOnConnect_Name: {
+
+      internal::LocalFrame_DispatchOnConnect_Params_Data* params =
+          reinterpret_cast<
+              internal::LocalFrame_DispatchOnConnect_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::extensions::PortId p_port_id{};
+      ::extensions::mojom::ChannelType p_channel_type{};
+      std::string p_channel_name{};
+      ::extensions::mojom::TabConnectionInfoPtr p_tab_info{};
+      ::extensions::mojom::ExternalConnectionInfoPtr p_external_connection_info{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> p_port_host{};
+      LocalFrame_DispatchOnConnect_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success && !input_data_view.ReadChannelType(&p_channel_type))
+        success = false;
+      if (success && !input_data_view.ReadChannelName(&p_channel_name))
+        success = false;
+      if (success && !input_data_view.ReadTabInfo(&p_tab_info))
+        success = false;
+      if (success && !input_data_view.ReadExternalConnectionInfo(&p_external_connection_info))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrame::Name_, 9, false);
+        return false;
+      }
+      LocalFrame::DispatchOnConnectCallback callback =
+          LocalFrame_DispatchOnConnect_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DispatchOnConnect(
+std::move(p_port_id), 
+std::move(p_channel_type), 
+std::move(p_channel_name), 
+std::move(p_tab_info), 
+std::move(p_external_connection_info), 
+std::move(p_port), 
+std::move(p_port_host), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalFrameValidationInfo[] = {
-    {&internal::LocalFrame_SetFrameName_Params_Data::Validate,
+    { &internal::LocalFrame_SetFrameName_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SetSpatialNavigationEnabled_Params_Data::Validate,
+    { &internal::LocalFrame_SetSpatialNavigationEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SetTabId_Params_Data::Validate,
+    { &internal::LocalFrame_SetTabId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_AppWindowClosed_Params_Data::Validate,
+    { &internal::LocalFrame_AppWindowClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_NotifyRenderViewType_Params_Data::Validate,
+    { &internal::LocalFrame_NotifyRenderViewType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_MessageInvoke_Params_Data::Validate,
+    { &internal::LocalFrame_MessageInvoke_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_ExecuteCode_Params_Data::Validate,
+    { &internal::LocalFrame_ExecuteCode_Params_Data::Validate,
      &internal::LocalFrame_ExecuteCode_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_ExecuteDeclarativeScript_Params_Data::Validate,
+    { &internal::LocalFrame_ExecuteDeclarativeScript_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_UpdateBrowserWindowId_Params_Data::Validate,
+    { &internal::LocalFrame_UpdateBrowserWindowId_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::LocalFrame_DispatchOnConnect_Params_Data::Validate,
+     &internal::LocalFrame_DispatchOnConnect_ResponseParams_Data::Validate},
 };
 
 bool LocalFrameRequestValidator::Accept(mojo::Message* message) {
@@ -1537,6 +1900,15 @@ LocalFrameHost::IPCStableHashFunction LocalFrameHost::MessageToMethodInfo_(mojo:
     case internal::kLocalFrameHost_AppWindowReady_Name: {
       return &LocalFrameHost::AppWindowReady_Sym::IPCStableHash;
     }
+    case internal::kLocalFrameHost_OpenChannelToExtension_Name: {
+      return &LocalFrameHost::OpenChannelToExtension_Sym::IPCStableHash;
+    }
+    case internal::kLocalFrameHost_OpenChannelToNativeApp_Name: {
+      return &LocalFrameHost::OpenChannelToNativeApp_Sym::IPCStableHash;
+    }
+    case internal::kLocalFrameHost_OpenChannelToTab_Name: {
+      return &LocalFrameHost::OpenChannelToTab_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1570,6 +1942,12 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive extensions::mojom::LocalFrameHost::UpdateDraggableRegions";
       case internal::kLocalFrameHost_AppWindowReady_Name:
             return "Receive extensions::mojom::LocalFrameHost::AppWindowReady";
+      case internal::kLocalFrameHost_OpenChannelToExtension_Name:
+            return "Receive extensions::mojom::LocalFrameHost::OpenChannelToExtension";
+      case internal::kLocalFrameHost_OpenChannelToNativeApp_Name:
+            return "Receive extensions::mojom::LocalFrameHost::OpenChannelToNativeApp";
+      case internal::kLocalFrameHost_OpenChannelToTab_Name:
+            return "Receive extensions::mojom::LocalFrameHost::OpenChannelToTab";
     }
   } else {
     switch (message.name()) {
@@ -1595,6 +1973,12 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply extensions::mojom::LocalFrameHost::UpdateDraggableRegions";
       case internal::kLocalFrameHost_AppWindowReady_Name:
             return "Receive reply extensions::mojom::LocalFrameHost::AppWindowReady";
+      case internal::kLocalFrameHost_OpenChannelToExtension_Name:
+            return "Receive reply extensions::mojom::LocalFrameHost::OpenChannelToExtension";
+      case internal::kLocalFrameHost_OpenChannelToNativeApp_Name:
+            return "Receive reply extensions::mojom::LocalFrameHost::OpenChannelToNativeApp";
+      case internal::kLocalFrameHost_OpenChannelToTab_Name:
+            return "Receive reply extensions::mojom::LocalFrameHost::OpenChannelToTab";
     }
   }
   return "Receive unknown mojo message";
@@ -1752,6 +2136,45 @@ uint32_t LocalFrameHost::AppWindowReady_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LocalFrameHost::OpenChannelToExtension_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::LocalFrameHost::OpenChannelToExtension");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalFrameHost::OpenChannelToNativeApp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::LocalFrameHost::OpenChannelToNativeApp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalFrameHost::OpenChannelToTab_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::LocalFrameHost::OpenChannelToTab");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class LocalFrameHost_RequestScriptInjectionPermission_ForwardToCallback
@@ -1824,14 +2247,17 @@ void LocalFrameHostProxy::RequestScriptInjectionPermission(
                         "<value of type ::extensions::mojom::RunLocation>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RequestScriptInjectionPermission_Name, kFlags, 0, 0, nullptr);
@@ -1877,14 +2303,17 @@ void LocalFrameHostProxy::GetAppInstallState(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_GetAppInstallState_Name, kFlags, 0, 0, nullptr);
@@ -1926,14 +2355,17 @@ void LocalFrameHostProxy::Request(
                         "<value of type RequestParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_Request_Name, kFlags, 0, 0,
@@ -1976,14 +2408,17 @@ void LocalFrameHostProxy::ResponseAck(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ResponseAck_Name, kFlags, 0, 0, nullptr);
@@ -2024,14 +2459,17 @@ void LocalFrameHostProxy::WatchedPageChange(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_WatchedPageChange_Name, kFlags, 0, 0, nullptr);
@@ -2083,14 +2521,17 @@ void LocalFrameHostProxy::DetailedConsoleMessageAdded(
                         "<value of type ::blink::mojom::ConsoleMessageLevel>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DetailedConsoleMessageAdded_Name, kFlags, 0, 0, nullptr);
@@ -2160,14 +2601,17 @@ void LocalFrameHostProxy::ContentScriptsExecuting(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ContentScriptsExecuting_Name, kFlags, 0, 0, nullptr);
@@ -2214,14 +2658,17 @@ void LocalFrameHostProxy::IncrementLazyKeepaliveCount(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::LocalFrameHost::IncrementLazyKeepaliveCount");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_IncrementLazyKeepaliveCount_Name, kFlags, 0, 0, nullptr);
@@ -2244,14 +2691,17 @@ void LocalFrameHostProxy::DecrementLazyKeepaliveCount(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::LocalFrameHost::DecrementLazyKeepaliveCount");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DecrementLazyKeepaliveCount_Name, kFlags, 0, 0, nullptr);
@@ -2281,14 +2731,17 @@ void LocalFrameHostProxy::UpdateDraggableRegions(
                         "<value of type std::vector<DraggableRegionPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_UpdateDraggableRegions_Name, kFlags, 0, 0, nullptr);
@@ -2324,14 +2777,17 @@ void LocalFrameHostProxy::AppWindowReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::LocalFrameHost::AppWindowReady");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_AppWindowReady_Name, kFlags, 0, 0, nullptr);
@@ -2343,6 +2799,297 @@ void LocalFrameHostProxy::AppWindowReady(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
   message.set_method_name("AppWindowReady");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalFrameHostProxy::OpenChannelToExtension(
+    ::extensions::mojom::ExternalConnectionInfoPtr in_info, ::extensions::mojom::ChannelType in_channel_type, const std::string& in_channel_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::LocalFrameHost::OpenChannelToExtension", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("info"), in_info,
+                        "<value of type ::extensions::mojom::ExternalConnectionInfoPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_type"), in_channel_type,
+                        "<value of type ::extensions::mojom::ChannelType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_name"), in_channel_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_OpenChannelToExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::LocalFrameHost_OpenChannelToExtension_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->info)::BaseType> info_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+      in_info, info_fragment);
+  params->info.Set(
+      info_fragment.is_null() ? nullptr : info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null info in LocalFrameHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::ChannelType>(
+      in_channel_type, &params->channel_type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->channel_name)::BaseType> channel_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_channel_name, channel_name_fragment);
+  params->channel_name.Set(
+      channel_name_fragment.is_null() ? nullptr : channel_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->channel_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null channel_name in LocalFrameHost.OpenChannelToExtension request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in LocalFrameHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in LocalFrameHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in LocalFrameHost.OpenChannelToExtension request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("OpenChannelToExtension");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalFrameHostProxy::OpenChannelToNativeApp(
+    const std::string& in_native_app_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::LocalFrameHost::OpenChannelToNativeApp", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("native_app_name"), in_native_app_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_OpenChannelToNativeApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->native_app_name)::BaseType> native_app_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_native_app_name, native_app_name_fragment);
+  params->native_app_name.Set(
+      native_app_name_fragment.is_null() ? nullptr : native_app_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->native_app_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null native_app_name in LocalFrameHost.OpenChannelToNativeApp request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in LocalFrameHost.OpenChannelToNativeApp request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in LocalFrameHost.OpenChannelToNativeApp request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in LocalFrameHost.OpenChannelToNativeApp request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("OpenChannelToNativeApp");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalFrameHostProxy::OpenChannelToTab(
+    int32_t in_tab_id, int32_t in_frame_id, const std::optional<std::string>& in_document_id, ::extensions::mojom::ChannelType in_channel_type, const std::string& in_channel_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::LocalFrameHost::OpenChannelToTab", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("tab_id"), in_tab_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("frame_id"), in_frame_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("document_id"), in_document_id,
+                        "<value of type const std::optional<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_type"), in_channel_type,
+                        "<value of type ::extensions::mojom::ChannelType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_name"), in_channel_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_OpenChannelToTab_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::LocalFrameHost_OpenChannelToTab_Params_Data> params(
+          message);
+  params.Allocate();
+  params->tab_id = in_tab_id;
+  params->frame_id = in_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->document_id)::BaseType> document_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_document_id, document_id_fragment);
+  params->document_id.Set(
+      document_id_fragment.is_null() ? nullptr : document_id_fragment.data());
+  mojo::internal::Serialize<::extensions::mojom::ChannelType>(
+      in_channel_type, &params->channel_type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->channel_name)::BaseType> channel_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_channel_name, channel_name_fragment);
+  params->channel_name.Set(
+      channel_name_fragment.is_null() ? nullptr : channel_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->channel_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null channel_name in LocalFrameHost.OpenChannelToTab request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in LocalFrameHost.OpenChannelToTab request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in LocalFrameHost.OpenChannelToTab request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in LocalFrameHost.OpenChannelToTab request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("OpenChannelToTab");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2440,7 +3187,8 @@ void LocalFrameHost_RequestScriptInjectionPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RequestScriptInjectionPermission_Name, kFlags, 0, 0, nullptr);
@@ -2558,7 +3306,8 @@ void LocalFrameHost_GetAppInstallState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_GetAppInstallState_Name, kFlags, 0, 0, nullptr);
@@ -2707,7 +3456,8 @@ void LocalFrameHost_Request_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_Request_Name, kFlags, 0, 0,
@@ -2990,6 +3740,156 @@ std::move(p_regions));
       impl->AppWindowReady();
       return true;
     }
+    case internal::kLocalFrameHost_OpenChannelToExtension_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_OpenChannelToExtension_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_OpenChannelToExtension_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::extensions::mojom::ExternalConnectionInfoPtr p_info{};
+      ::extensions::mojom::ChannelType p_channel_type{};
+      std::string p_channel_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      LocalFrameHost_OpenChannelToExtension_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadInfo(&p_info))
+        success = false;
+      if (success && !input_data_view.ReadChannelType(&p_channel_type))
+        success = false;
+      if (success && !input_data_view.ReadChannelName(&p_channel_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 11, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToExtension(
+std::move(p_info), 
+std::move(p_channel_type), 
+std::move(p_channel_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
+    case internal::kLocalFrameHost_OpenChannelToNativeApp_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_native_app_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      LocalFrameHost_OpenChannelToNativeApp_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadNativeAppName(&p_native_app_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 12, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToNativeApp(
+std::move(p_native_app_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
+    case internal::kLocalFrameHost_OpenChannelToTab_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_OpenChannelToTab_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_OpenChannelToTab_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int32_t p_tab_id{};
+      int32_t p_frame_id{};
+      std::optional<std::string> p_document_id{};
+      ::extensions::mojom::ChannelType p_channel_type{};
+      std::string p_channel_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      LocalFrameHost_OpenChannelToTab_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_tab_id = input_data_view.tab_id();
+      if (success)
+        p_frame_id = input_data_view.frame_id();
+      if (success && !input_data_view.ReadDocumentId(&p_document_id))
+        success = false;
+      if (success && !input_data_view.ReadChannelType(&p_channel_type))
+        success = false;
+      if (success && !input_data_view.ReadChannelName(&p_channel_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToTab(
+std::move(p_tab_id), 
+std::move(p_frame_id), 
+std::move(p_document_id), 
+std::move(p_channel_type), 
+std::move(p_channel_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
   }
   return false;
 }
@@ -3122,33 +4022,48 @@ std::move(p_params), std::move(callback));
     case internal::kLocalFrameHost_AppWindowReady_Name: {
       break;
     }
+    case internal::kLocalFrameHost_OpenChannelToExtension_Name: {
+      break;
+    }
+    case internal::kLocalFrameHost_OpenChannelToNativeApp_Name: {
+      break;
+    }
+    case internal::kLocalFrameHost_OpenChannelToTab_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalFrameHostValidationInfo[] = {
-    {&internal::LocalFrameHost_RequestScriptInjectionPermission_Params_Data::Validate,
+    { &internal::LocalFrameHost_RequestScriptInjectionPermission_Params_Data::Validate,
      &internal::LocalFrameHost_RequestScriptInjectionPermission_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_GetAppInstallState_Params_Data::Validate,
+    { &internal::LocalFrameHost_GetAppInstallState_Params_Data::Validate,
      &internal::LocalFrameHost_GetAppInstallState_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_Request_Params_Data::Validate,
+    { &internal::LocalFrameHost_Request_Params_Data::Validate,
      &internal::LocalFrameHost_Request_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_ResponseAck_Params_Data::Validate,
+    { &internal::LocalFrameHost_ResponseAck_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_WatchedPageChange_Params_Data::Validate,
+    { &internal::LocalFrameHost_WatchedPageChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DetailedConsoleMessageAdded_Params_Data::Validate,
+    { &internal::LocalFrameHost_DetailedConsoleMessageAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_ContentScriptsExecuting_Params_Data::Validate,
+    { &internal::LocalFrameHost_ContentScriptsExecuting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_IncrementLazyKeepaliveCount_Params_Data::Validate,
+    { &internal::LocalFrameHost_IncrementLazyKeepaliveCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DecrementLazyKeepaliveCount_Params_Data::Validate,
+    { &internal::LocalFrameHost_DecrementLazyKeepaliveCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_UpdateDraggableRegions_Params_Data::Validate,
+    { &internal::LocalFrameHost_UpdateDraggableRegions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_AppWindowReady_Params_Data::Validate,
+    { &internal::LocalFrameHost_AppWindowReady_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalFrameHost_OpenChannelToExtension_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalFrameHost_OpenChannelToTab_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3277,13 +4192,16 @@ void LocalFrameInterceptorForTesting::ExecuteDeclarativeScript(int32_t tab_id, c
 void LocalFrameInterceptorForTesting::UpdateBrowserWindowId(int32_t window_id) {
   GetForwardingInterface()->UpdateBrowserWindowId(std::move(window_id));
 }
+void LocalFrameInterceptorForTesting::DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) {
+  GetForwardingInterface()->DispatchOnConnect(std::move(port_id), std::move(channel_type), std::move(channel_name), std::move(tab_info), std::move(external_connection_info), std::move(port), std::move(port_host), std::move(callback));
+}
 LocalFrameAsyncWaiter::LocalFrameAsyncWaiter(
     LocalFrame* proxy) : proxy_(proxy) {}
 
 LocalFrameAsyncWaiter::~LocalFrameAsyncWaiter() = default;
 
 void LocalFrameAsyncWaiter::ExecuteCode(
-    ExecuteCodeParamsPtr param, std::string* out_error, ::GURL* out_url, absl::optional<::base::Value>* out_result) {
+    ExecuteCodeParamsPtr param, std::string* out_error, ::GURL* out_url, std::optional<::base::Value>* out_result) {
   base::RunLoop loop;
   proxy_->ExecuteCode(std::move(param),
       base::BindOnce(
@@ -3292,11 +4210,11 @@ void LocalFrameAsyncWaiter::ExecuteCode(
 ,
              ::GURL* out_url
 ,
-             absl::optional<::base::Value>* out_result
+             std::optional<::base::Value>* out_result
 ,
              const std::string& error,
              const ::GURL& url,
-             absl::optional<::base::Value> result) {*out_error = std::move(error);*out_url = std::move(url);*out_result = std::move(result);
+             std::optional<::base::Value> result) {*out_error = std::move(error);*out_url = std::move(url);*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -3307,6 +4225,29 @@ void LocalFrameAsyncWaiter::ExecuteCode(
 }
 
 
+
+void LocalFrameAsyncWaiter::DispatchOnConnect(
+    const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->DispatchOnConnect(std::move(port_id),std::move(channel_type),std::move(channel_name),std::move(tab_info),std::move(external_connection_info),std::move(port),std::move(port_host),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool LocalFrameAsyncWaiter::DispatchOnConnect(
+    const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host) {
+  bool async_wait_result;
+  DispatchOnConnect(std::move(port_id),std::move(channel_type),std::move(channel_name),std::move(tab_info),std::move(external_connection_info),std::move(port),std::move(port_host),&async_wait_result);
+  return async_wait_result;
+}
 
 
 
@@ -3343,6 +4284,15 @@ void LocalFrameHostInterceptorForTesting::UpdateDraggableRegions(std::vector<Dra
 }
 void LocalFrameHostInterceptorForTesting::AppWindowReady() {
   GetForwardingInterface()->AppWindowReady();
+}
+void LocalFrameHostInterceptorForTesting::OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToExtension(std::move(info), std::move(channel_type), std::move(channel_name), std::move(port_id), std::move(port), std::move(port_host));
+}
+void LocalFrameHostInterceptorForTesting::OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToNativeApp(std::move(native_app_name), std::move(port_id), std::move(port), std::move(port_host));
+}
+void LocalFrameHostInterceptorForTesting::OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToTab(std::move(tab_id), std::move(frame_id), std::move(document_id), std::move(channel_type), std::move(channel_name), std::move(port_id), std::move(port), std::move(port_host));
 }
 LocalFrameHostAsyncWaiter::LocalFrameHostAsyncWaiter(
     LocalFrameHost* proxy) : proxy_(proxy) {}

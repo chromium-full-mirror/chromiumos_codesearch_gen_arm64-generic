@@ -27,8 +27,8 @@ class  LoginScreenStorageAsyncWaiter {
 
   ~LoginScreenStorageAsyncWaiter();
   void Store(
-      const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data, absl::optional<std::string>* out_error_message);
-  absl::optional<std::string> Store(const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data);
+      const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data, std::optional<std::string>* out_error_message);
+  std::optional<std::string> Store(const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data);
   void Retrieve(
       const std::string& key, LoginScreenStorageRetrieveResultPtr* out_result);
   LoginScreenStorageRetrieveResultPtr Retrieve(const std::string& key);

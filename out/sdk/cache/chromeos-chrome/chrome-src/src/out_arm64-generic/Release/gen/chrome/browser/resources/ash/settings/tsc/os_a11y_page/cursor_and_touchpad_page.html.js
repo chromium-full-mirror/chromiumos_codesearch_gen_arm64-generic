@@ -25,13 +25,18 @@ export function getTemplate() {
   </settings-toggle-button>
 </div>
 
-<template is="dom-if" if="[[isAccessibilityFaceTrackingEnabled_]]">
-  <settings-toggle-button id="faceTrackingToggle" pref="{{prefs.settings.a11y.face_tracking.enabled}}" icon="os-settings:face-tracking" label="$i18n{accessibilityFaceTrackingLabel}" sub-label="$i18n{accessibilityFaceTrackingDescription}">
+<template is="dom-if" if="[[isAccessibilityFaceGazeEnabled_]]">
+  <settings-toggle-button id="faceGazeToggle" pref="{{prefs.settings.a11y.face_gaze.enabled}}" icon="os-settings:face-gaze" label="$i18n{accessibilityFaceGazeLabel}" sub-label="$i18n{accessibilityFaceGazeDescription}">
   </settings-toggle-button>
-  <iron-collapse opened="[[prefs.settings.a11y.face_tracking.enabled.value]]">
-    <div class="sub-item">
+  <iron-collapse opened="[[prefs.settings.a11y.face_gaze.enabled.value]]">
+    <div>
       
-      <cr-link-row id="faceTrackingSettingsButton" class="settings-box" label="$i18n{accessibilityFaceTrackingSettings}" external>
+      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}">
+      </cr-link-row>
+    </div>
+    <div>
+      
+      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}">
       </cr-link-row>
     </div>
   </iron-collapse>
@@ -43,7 +48,7 @@ export function getTemplate() {
     <div class="start settings-box-text" aria-hidden="true">
       $i18n{largeMouseCursorSizeLabel}
     </div>
-    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="64" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
+    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="[[largeCursorMaxSize_]]" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
     </settings-slider>
   </div>
 </div>

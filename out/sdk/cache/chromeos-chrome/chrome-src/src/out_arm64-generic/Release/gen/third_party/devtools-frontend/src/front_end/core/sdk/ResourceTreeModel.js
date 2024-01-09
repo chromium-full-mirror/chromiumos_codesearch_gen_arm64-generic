@@ -201,6 +201,9 @@ export class ResourceTreeModel extends SDKModel {
         if (type) {
             frame.backForwardCacheDetails.restoredFromCache = type === "BackForwardCacheRestore" /* Protocol.Page.NavigationType.BackForwardCacheRestore */;
         }
+        if (frame.isMainFrame()) {
+            this.target().setInspectedURL(frame.url);
+        }
         this.dispatchEventToListeners(Events.FrameNavigated, frame);
         if (frame.isPrimaryFrame()) {
             this.primaryPageChanged(frame, "Navigation" /* PrimaryPageChangeType.Navigation */);
@@ -209,9 +212,6 @@ export class ResourceTreeModel extends SDKModel {
         const resources = frame.resources();
         for (let i = 0; i < resources.length; ++i) {
             this.dispatchEventToListeners(Events.ResourceAdded, resources[i]);
-        }
-        if (frame.isMainFrame()) {
-            this.target().setInspectedURL(frame.url);
         }
         this.updateSecurityOrigins();
         void this.updateStorageKeys();
@@ -517,8 +517,6 @@ export var Events;
     Events["FrameDetached"] = "FrameDetached";
     Events["FrameResized"] = "FrameResized";
     Events["FrameWillNavigate"] = "FrameWillNavigate";
-    // Primary page changes can be either main frame navigations or activations of a background frame.
-    // TODO(crbug.com/1393057): Let frame activations trigger this event.
     Events["PrimaryPageChanged"] = "PrimaryPageChanged";
     Events["ResourceAdded"] = "ResourceAdded";
     Events["WillLoadCachedResources"] = "WillLoadCachedResources";

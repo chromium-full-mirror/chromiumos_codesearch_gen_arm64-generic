@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-features.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-shared.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-forward.h"
 #include "media/capture/mojom/video_capture_buffer.mojom-forward.h"
@@ -266,7 +267,7 @@ class FrameSinkVideoCapturer
   virtual void SetAutoThrottlingEnabled(bool enabled) = 0;
 
   
-  virtual void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) = 0;
+  virtual void ChangeTarget(const std::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) = 0;
 
   
   virtual void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) = 0;
@@ -312,6 +313,7 @@ class FrameSinkVideoCaptureOverlay
   enum MethodMinVersions : uint32_t {
     kSetImageAndBoundsMinVersion = 0,
     kSetBoundsMinVersion = 0,
+    kOnCapturedMouseEventMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -323,6 +325,9 @@ class FrameSinkVideoCaptureOverlay
   struct SetBounds_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnCapturedMouseEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~FrameSinkVideoCaptureOverlay() = default;
 
@@ -331,6 +336,9 @@ class FrameSinkVideoCaptureOverlay
 
   
   virtual void SetBounds(const ::gfx::RectF& bounds) = 0;
+
+  
+  virtual void OnCapturedMouseEvent(const ::gfx::Point& coordinates) = 0;
 };
 
 
@@ -392,7 +400,7 @@ class  FrameSinkVideoCapturerProxy
   
   void SetAutoThrottlingEnabled(bool enabled) final;
   
-  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) final;
+  void ChangeTarget(const std::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) final;
   
   void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) final;
   
@@ -418,6 +426,8 @@ class  FrameSinkVideoCaptureOverlayProxy
   void SetImageAndBounds(const ::SkBitmap& image, const ::gfx::RectF& bounds) final;
   
   void SetBounds(const ::gfx::RectF& bounds) final;
+  
+  void OnCapturedMouseEvent(const ::gfx::Point& coordinates) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -627,17 +637,17 @@ class  VideoCaptureSubTarget {
   // Construct an instance holding |subtree_capture_id|.
   static VideoCaptureSubTargetPtr
   NewSubtreeCaptureId(
-      const ::viz::SubtreeCaptureId& subtree_capture_id) {
+      const ::viz::SubtreeCaptureId& value) {
     auto result = VideoCaptureSubTargetPtr(absl::in_place);
-    result->set_subtree_capture_id(std::move(subtree_capture_id));
+    result->set_subtree_capture_id(std::move(value));
     return result;
   }
   // Construct an instance holding |region_capture_crop_id|.
   static VideoCaptureSubTargetPtr
   NewRegionCaptureCropId(
-      const ::base::Token& region_capture_crop_id) {
+      const ::base::Token& value) {
     auto result = VideoCaptureSubTargetPtr(absl::in_place);
-    result->set_region_capture_crop_id(std::move(region_capture_crop_id));
+    result->set_region_capture_crop_id(std::move(value));
     return result;
   }
 

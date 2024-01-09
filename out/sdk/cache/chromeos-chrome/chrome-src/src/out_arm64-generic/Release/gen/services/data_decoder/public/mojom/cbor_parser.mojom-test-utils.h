@@ -26,7 +26,7 @@ class  CborParserAsyncWaiter {
 
   ~CborParserAsyncWaiter();
   void Parse(
-      ::mojo_base::BigBuffer cbor, absl::optional<::base::Value>* out_result, absl::optional<std::string>* out_error);
+      ::mojo_base::BigBuffer cbor, std::optional<::base::Value>* out_result, std::optional<std::string>* out_error);
   
 
  private:

@@ -182,6 +182,7 @@ export function getTemplate() {
     outline: 0;
     position: relative;
     text-align: center;
+    margin-top: 8px;
     width: var(--pin-keyboard-pin-input-width, 200px);
   }
 

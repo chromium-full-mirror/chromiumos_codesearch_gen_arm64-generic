@@ -536,21 +536,25 @@ enum class FederatedAuthRequestResult : int32_t {
   
   kErrorFetchingIdTokenInvalidResponse = 26,
   
-  kErrorFetchingIdTokenInvalidContentType = 27,
+  kErrorFetchingIdTokenIdpErrorResponse = 27,
   
-  kErrorCanceled = 28,
+  kErrorFetchingIdTokenCrossSiteIdpErrorResponse = 28,
   
-  kErrorRpPageNotVisible = 29,
+  kErrorFetchingIdTokenInvalidContentType = 29,
   
-  kErrorSilentMediationFailure = 30,
+  kErrorCanceled = 30,
   
-  kErrorThirdPartyCookiesBlocked = 31,
+  kErrorRpPageNotVisible = 31,
   
-  kErrorNotSignedInWithIdp = 32,
+  kErrorSilentMediationFailure = 32,
   
-  kError = 33,
+  kErrorThirdPartyCookiesBlocked = 33,
+  
+  kErrorNotSignedInWithIdp = 34,
+  
+  kError = 35,
   kMinValue = 0,
-  kMaxValue = 33,
+  kMaxValue = 35,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, FederatedAuthRequestResult value);

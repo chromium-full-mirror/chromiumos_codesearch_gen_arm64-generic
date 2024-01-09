@@ -286,6 +286,116 @@
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(geometry$.Rect), val.segments);
   };
+  function DevicePostureProvider_OverrideDevicePostureForEmulation_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.prototype.initDefaults_ = function() {
+    this.posture = 0;
+  };
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DevicePostureProvider_OverrideDevicePostureForEmulation_Params.posture
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, DevicePostureType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.decode = function(decoder) {
+    var packed;
+    var val = new DevicePostureProvider_OverrideDevicePostureForEmulation_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.posture =
+        decoder.decodeStruct(new codec.Enum(DevicePostureType));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DevicePostureProvider_OverrideDevicePostureForEmulation_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.posture);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.prototype.initDefaults_ = function() {
+  };
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.decode = function(decoder) {
+    var packed;
+    var val = new DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
   function DevicePostureClient_OnPostureChanged_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -408,6 +518,8 @@
   };
   var kDevicePostureProvider_AddListenerAndGetCurrentPosture_Name = 0;
   var kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name = 1;
+  var kDevicePostureProvider_OverrideDevicePostureForEmulation_Name = 2;
+  var kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name = 3;
 
   function DevicePostureProviderPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(DevicePostureProvider,
@@ -477,6 +589,35 @@
       });
     }.bind(this));
   };
+  DevicePostureProviderPtr.prototype.overrideDevicePostureForEmulation = function() {
+    return DevicePostureProviderProxy.prototype.overrideDevicePostureForEmulation
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  DevicePostureProviderProxy.prototype.overrideDevicePostureForEmulation = function(posture) {
+    var params_ = new DevicePostureProvider_OverrideDevicePostureForEmulation_Params();
+    params_.posture = posture;
+    var builder = new codec.MessageV0Builder(
+        kDevicePostureProvider_OverrideDevicePostureForEmulation_Name,
+        codec.align(DevicePostureProvider_OverrideDevicePostureForEmulation_Params.encodedSize));
+    builder.encodeStruct(DevicePostureProvider_OverrideDevicePostureForEmulation_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  DevicePostureProviderPtr.prototype.disableDevicePostureOverrideForEmulation = function() {
+    return DevicePostureProviderProxy.prototype.disableDevicePostureOverrideForEmulation
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  DevicePostureProviderProxy.prototype.disableDevicePostureOverrideForEmulation = function() {
+    var params_ = new DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params();
+    var builder = new codec.MessageV0Builder(
+        kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name,
+        codec.align(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params.encodedSize));
+    builder.encodeStruct(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function DevicePostureProviderStub(delegate) {
     this.delegate_ = delegate;
@@ -487,10 +628,24 @@
   DevicePostureProviderStub.prototype.addListenerAndGetCurrentViewportSegments = function(client) {
     return this.delegate_ && this.delegate_.addListenerAndGetCurrentViewportSegments && this.delegate_.addListenerAndGetCurrentViewportSegments(client);
   }
+  DevicePostureProviderStub.prototype.overrideDevicePostureForEmulation = function(posture) {
+    return this.delegate_ && this.delegate_.overrideDevicePostureForEmulation && this.delegate_.overrideDevicePostureForEmulation(posture);
+  }
+  DevicePostureProviderStub.prototype.disableDevicePostureOverrideForEmulation = function() {
+    return this.delegate_ && this.delegate_.disableDevicePostureOverrideForEmulation && this.delegate_.disableDevicePostureOverrideForEmulation();
+  }
 
   DevicePostureProviderStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kDevicePostureProvider_OverrideDevicePostureForEmulation_Name:
+      var params = reader.decodeStruct(DevicePostureProvider_OverrideDevicePostureForEmulation_Params);
+      this.overrideDevicePostureForEmulation(params.posture);
+      return true;
+    case kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name:
+      var params = reader.decodeStruct(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params);
+      this.disableDevicePostureOverrideForEmulation();
+      return true;
     default:
       return false;
     }
@@ -548,6 +703,14 @@
       case kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name:
         if (message.expectsResponse())
           paramsClass = DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Params;
+      break;
+      case kDevicePostureProvider_OverrideDevicePostureForEmulation_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = DevicePostureProvider_OverrideDevicePostureForEmulation_Params;
+      break;
+      case kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params;
       break;
     }
     if (paramsClass === null)

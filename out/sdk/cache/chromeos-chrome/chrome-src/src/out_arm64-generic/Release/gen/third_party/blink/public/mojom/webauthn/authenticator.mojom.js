@@ -70,16 +70,21 @@
   AuthenticatorStatus.OPAQUE_DOMAIN = 14;
   AuthenticatorStatus.INVALID_PROTOCOL = 15;
   AuthenticatorStatus.BAD_RELYING_PARTY_ID = 16;
-  AuthenticatorStatus.CANNOT_READ_AND_WRITE_LARGE_BLOB = 17;
-  AuthenticatorStatus.INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB = 18;
-  AuthenticatorStatus.FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION = 19;
-  AuthenticatorStatus.REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED = 20;
-  AuthenticatorStatus.DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED = 21;
-  AuthenticatorStatus.CERTIFICATE_ERROR = 22;
-  AuthenticatorStatus.ERROR_WITH_DOM_EXCEPTION_DETAILS = 23;
-  AuthenticatorStatus.UNKNOWN_ERROR = 24;
+  AuthenticatorStatus.BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH = 17;
+  AuthenticatorStatus.BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE = 18;
+  AuthenticatorStatus.BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR = 19;
+  AuthenticatorStatus.BAD_RELYING_PARTY_ID_NO_JSON_MATCH = 20;
+  AuthenticatorStatus.BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS = 21;
+  AuthenticatorStatus.CANNOT_READ_AND_WRITE_LARGE_BLOB = 22;
+  AuthenticatorStatus.INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB = 23;
+  AuthenticatorStatus.FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION = 24;
+  AuthenticatorStatus.REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED = 25;
+  AuthenticatorStatus.DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED = 26;
+  AuthenticatorStatus.CERTIFICATE_ERROR = 27;
+  AuthenticatorStatus.ERROR_WITH_DOM_EXCEPTION_DETAILS = 28;
+  AuthenticatorStatus.UNKNOWN_ERROR = 29;
   AuthenticatorStatus.MIN_VALUE = 0;
-  AuthenticatorStatus.MAX_VALUE = 24;
+  AuthenticatorStatus.MAX_VALUE = 29;
 
   AuthenticatorStatus.isKnownEnumValue = function(value) {
     switch (value) {
@@ -108,6 +113,11 @@
     case 22:
     case 23:
     case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
       return true;
     }
     return false;
@@ -150,6 +160,34 @@
   };
 
   AuthenticatorTransport.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
+  var Hint = {};
+  Hint.SECURITY_KEY = 0;
+  Hint.CLIENT_DEVICE = 1;
+  Hint.HYBRID = 2;
+  Hint.MIN_VALUE = 0;
+  Hint.MAX_VALUE = 2;
+
+  Hint.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  Hint.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  Hint.validate = function(enumValue) {
     const isExtensible = false;
     if (isExtensible || this.isKnownEnumValue(enumValue))
       return validator.validationError.NONE;
@@ -439,71 +477,61 @@
     encoder.encodeArrayPointer(codec.Uint8, val.clientDataJson);
     encoder.encodeArrayPointer(codec.Uint8, val.authenticatorData);
   };
-  function DevicePublicKeyResponse(values) {
+  function SupplementalPubKeysResponse(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  DevicePublicKeyResponse.prototype.initDefaults_ = function() {
-    this.authenticatorOutput = null;
-    this.signature = null;
+  SupplementalPubKeysResponse.prototype.initDefaults_ = function() {
+    this.signatures = null;
   };
-  DevicePublicKeyResponse.prototype.initFields_ = function(fields) {
+  SupplementalPubKeysResponse.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  DevicePublicKeyResponse.validate = function(messageValidator, offset) {
+  SupplementalPubKeysResponse.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate DevicePublicKeyResponse.authenticatorOutput
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 1, codec.Uint8, false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate DevicePublicKeyResponse.signature
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 1, codec.Uint8, false, [0], 0);
+    // validate SupplementalPubKeysResponse.signatures
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  DevicePublicKeyResponse.encodedSize = codec.kStructHeaderSize + 16;
+  SupplementalPubKeysResponse.encodedSize = codec.kStructHeaderSize + 8;
 
-  DevicePublicKeyResponse.decode = function(decoder) {
+  SupplementalPubKeysResponse.decode = function(decoder) {
     var packed;
-    var val = new DevicePublicKeyResponse();
+    var val = new SupplementalPubKeysResponse();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.authenticatorOutput =
-        decoder.decodeArrayPointer(codec.Uint8);
-    val.signature =
-        decoder.decodeArrayPointer(codec.Uint8);
+    val.signatures =
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
     return val;
   };
 
-  DevicePublicKeyResponse.encode = function(encoder, val) {
+  SupplementalPubKeysResponse.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(DevicePublicKeyResponse.encodedSize);
+    encoder.writeUint32(SupplementalPubKeysResponse.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(codec.Uint8, val.authenticatorOutput);
-    encoder.encodeArrayPointer(codec.Uint8, val.signature);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.signatures);
   };
   function MakeCredentialAuthenticatorResponse(values) {
     this.initDefaults_();
@@ -530,7 +558,7 @@
     this.prfResults = null;
     this.publicKeyDer = null;
     this.publicKeyAlgo = 0;
-    this.devicePublicKey = null;
+    this.supplementalPubKeys = null;
   };
   MakeCredentialAuthenticatorResponse.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -601,8 +629,8 @@
 
 
 
-    // validate MakeCredentialAuthenticatorResponse.devicePublicKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, DevicePublicKeyResponse, true);
+    // validate MakeCredentialAuthenticatorResponse.supplementalPubKeys
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, SupplementalPubKeysResponse, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -649,8 +677,8 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
-    val.devicePublicKey =
-        decoder.decodeStructPointer(DevicePublicKeyResponse);
+    val.supplementalPubKeys =
+        decoder.decodeStructPointer(SupplementalPubKeysResponse);
     return val;
   };
 
@@ -686,7 +714,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.encodeStructPointer(DevicePublicKeyResponse, val.devicePublicKey);
+    encoder.encodeStructPointer(SupplementalPubKeysResponse, val.supplementalPubKeys);
   };
   function GetAssertionAuthenticatorResponse(values) {
     this.initDefaults_();
@@ -809,7 +837,7 @@
     this.prfResults = null;
     this.largeBlob = null;
     this.getCredBlob = null;
-    this.devicePublicKey = null;
+    this.supplementalPubKeys = null;
   };
   AuthenticationExtensionsClientOutputs.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -857,8 +885,8 @@
         return err;
 
 
-    // validate AuthenticationExtensionsClientOutputs.devicePublicKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, DevicePublicKeyResponse, true);
+    // validate AuthenticationExtensionsClientOutputs.supplementalPubKeys
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, SupplementalPubKeysResponse, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -893,8 +921,8 @@
         decoder.decodeArrayPointer(codec.Uint8);
     val.getCredBlob =
         decoder.decodeArrayPointer(codec.Uint8);
-    val.devicePublicKey =
-        decoder.decodeStructPointer(DevicePublicKeyResponse);
+    val.supplementalPubKeys =
+        decoder.decodeStructPointer(SupplementalPubKeysResponse);
     return val;
   };
 
@@ -921,7 +949,7 @@
     encoder.encodeStructPointer(PRFValues, val.prfResults);
     encoder.encodeArrayPointer(codec.Uint8, val.largeBlob);
     encoder.encodeArrayPointer(codec.Uint8, val.getCredBlob);
-    encoder.encodeStructPointer(DevicePublicKeyResponse, val.devicePublicKey);
+    encoder.encodeStructPointer(SupplementalPubKeysResponse, val.supplementalPubKeys);
   };
   function PublicKeyCredentialRpEntity(values) {
     this.initDefaults_();
@@ -1567,24 +1595,26 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function DevicePublicKeyRequest(values) {
+  function SupplementalPubKeysRequest(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  DevicePublicKeyRequest.prototype.initDefaults_ = function() {
+  SupplementalPubKeysRequest.prototype.initDefaults_ = function() {
+    this.deviceScopeRequested = false;
+    this.providerScopeRequested = false;
     this.attestation = 0;
     this.attestationFormats = null;
   };
-  DevicePublicKeyRequest.prototype.initFields_ = function(fields) {
+  SupplementalPubKeysRequest.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  DevicePublicKeyRequest.validate = function(messageValidator, offset) {
+  SupplementalPubKeysRequest.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1598,13 +1628,15 @@
         return err;
 
 
-    // validate DevicePublicKeyRequest.attestation
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, AttestationConveyancePreference);
+
+
+    // validate SupplementalPubKeysRequest.attestation
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, AttestationConveyancePreference);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate DevicePublicKeyRequest.attestationFormats
+    // validate SupplementalPubKeysRequest.attestationFormats
     err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
@@ -1612,33 +1644,38 @@
     return validator.validationError.NONE;
   };
 
-  DevicePublicKeyRequest.encodedSize = codec.kStructHeaderSize + 16;
+  SupplementalPubKeysRequest.encodedSize = codec.kStructHeaderSize + 16;
 
-  DevicePublicKeyRequest.decode = function(decoder) {
+  SupplementalPubKeysRequest.decode = function(decoder) {
     var packed;
-    var val = new DevicePublicKeyRequest();
+    var val = new SupplementalPubKeysRequest();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.deviceScopeRequested = (packed >> 0) & 1 ? true : false;
+    val.providerScopeRequested = (packed >> 1) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.attestation =
         decoder.decodeStruct(new codec.Enum(AttestationConveyancePreference));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     val.attestationFormats =
         decoder.decodeArrayPointer(codec.String);
     return val;
   };
 
-  DevicePublicKeyRequest.encode = function(encoder, val) {
+  SupplementalPubKeysRequest.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(DevicePublicKeyRequest.encodedSize);
+    encoder.writeUint32(SupplementalPubKeysRequest.encodedSize);
     encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.deviceScopeRequested & 1) << 0
+    packed |= (val.providerScopeRequested & 1) << 1
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.attestation);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
     encoder.encodeArrayPointer(codec.String, val.attestationFormats);
   };
   function PublicKeyCredentialRequestOptions(values) {
@@ -1654,6 +1691,7 @@
     this.timeout = null;
     this.relyingPartyId = null;
     this.allowCredentials = null;
+    this.hints = null;
     this.extensions = null;
   };
   PublicKeyCredentialRequestOptions.prototype.initFields_ = function(fields) {
@@ -1670,7 +1708,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1702,6 +1740,12 @@
         return err;
 
 
+    // validate PublicKeyCredentialRequestOptions.hints
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 4, new codec.Enum(Hint), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate PublicKeyCredentialRequestOptions.userVerification
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, UserVerificationRequirement);
     if (err !== validator.validationError.NONE)
@@ -1709,14 +1753,14 @@
 
 
     // validate PublicKeyCredentialRequestOptions.extensions
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, AuthenticationExtensionsClientInputs, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, AuthenticationExtensionsClientInputs, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  PublicKeyCredentialRequestOptions.encodedSize = codec.kStructHeaderSize + 48;
+  PublicKeyCredentialRequestOptions.encodedSize = codec.kStructHeaderSize + 56;
 
   PublicKeyCredentialRequestOptions.decode = function(decoder) {
     var packed;
@@ -1738,6 +1782,8 @@
         decoder.decodeStruct(codec.String);
     val.allowCredentials =
         decoder.decodeArrayPointer(new codec.PointerTo(PublicKeyCredentialDescriptor));
+    val.hints =
+        decoder.decodeArrayPointer(new codec.Enum(Hint));
     val.extensions =
         decoder.decodeStructPointer(AuthenticationExtensionsClientInputs);
     return val;
@@ -1758,6 +1804,7 @@
     encoder.encodeStructPointer(time$.TimeDelta, val.timeout);
     encoder.encodeStruct(codec.String, val.relyingPartyId);
     encoder.encodeArrayPointer(new codec.PointerTo(PublicKeyCredentialDescriptor), val.allowCredentials);
+    encoder.encodeArrayPointer(new codec.Enum(Hint), val.hints);
     encoder.encodeStructPointer(AuthenticationExtensionsClientInputs, val.extensions);
   };
   function AuthenticationExtensionsClientInputs(values) {
@@ -1776,7 +1823,7 @@
     this.prfInputs = null;
     this.largeBlobWrite = null;
     this.remoteDesktopClientOverride = null;
-    this.devicePublicKey = null;
+    this.supplementalPubKeys = null;
   };
   AuthenticationExtensionsClientInputs.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1833,8 +1880,8 @@
         return err;
 
 
-    // validate AuthenticationExtensionsClientInputs.devicePublicKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, DevicePublicKeyRequest, true);
+    // validate AuthenticationExtensionsClientInputs.supplementalPubKeys
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, SupplementalPubKeysRequest, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1870,8 +1917,8 @@
         decoder.decodeArrayPointer(codec.Uint8);
     val.remoteDesktopClientOverride =
         decoder.decodeStructPointer(RemoteDesktopClientOverride);
-    val.devicePublicKey =
-        decoder.decodeStructPointer(DevicePublicKeyRequest);
+    val.supplementalPubKeys =
+        decoder.decodeStructPointer(SupplementalPubKeysRequest);
     return val;
   };
 
@@ -1897,7 +1944,7 @@
     encoder.encodeArrayPointer(new codec.PointerTo(PRFValues), val.prfInputs);
     encoder.encodeArrayPointer(codec.Uint8, val.largeBlobWrite);
     encoder.encodeStructPointer(RemoteDesktopClientOverride, val.remoteDesktopClientOverride);
-    encoder.encodeStructPointer(DevicePublicKeyRequest, val.devicePublicKey);
+    encoder.encodeStructPointer(SupplementalPubKeysRequest, val.supplementalPubKeys);
   };
   function AuthenticatorSelectionCriteria(values) {
     this.initDefaults_();
@@ -1997,6 +2044,7 @@
     this.timeout = null;
     this.excludeCredentials = null;
     this.authenticatorSelection = null;
+    this.hints = null;
     this.attestation = 0;
     this.hmacCreateSecret = false;
     this.prfEnable = false;
@@ -2010,7 +2058,7 @@
     this.appidExclude = null;
     this.credBlob = null;
     this.remoteDesktopClientOverride = null;
-    this.devicePublicKey = null;
+    this.supplementalPubKeys = null;
   };
   PublicKeyCredentialCreationOptions.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2026,7 +2074,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 120}
+      {version: 0, numBytes: 128}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -2075,8 +2123,14 @@
         return err;
 
 
+    // validate PublicKeyCredentialCreationOptions.hints
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 56, 4, new codec.Enum(Hint), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate PublicKeyCredentialCreationOptions.attestation
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 56, AttestationConveyancePreference);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 64, AttestationConveyancePreference);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -2084,54 +2138,54 @@
 
 
     // validate PublicKeyCredentialCreationOptions.prfInput
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, PRFValues, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, PRFValues, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate PublicKeyCredentialCreationOptions.protectionPolicy
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 72, ProtectionPolicy);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 80, ProtectionPolicy);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate PublicKeyCredentialCreationOptions.appidExclude
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 80, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 88, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate PublicKeyCredentialCreationOptions.largeBlobEnable
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 76, LargeBlobSupport);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 84, LargeBlobSupport);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate PublicKeyCredentialCreationOptions.credBlob
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 88, 1, codec.Uint8, true, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 96, 1, codec.Uint8, true, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate PublicKeyCredentialCreationOptions.remoteDesktopClientOverride
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 96, RemoteDesktopClientOverride, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 104, RemoteDesktopClientOverride, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate PublicKeyCredentialCreationOptions.devicePublicKey
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 104, DevicePublicKeyRequest, true);
+    // validate PublicKeyCredentialCreationOptions.supplementalPubKeys
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 112, SupplementalPubKeysRequest, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  PublicKeyCredentialCreationOptions.encodedSize = codec.kStructHeaderSize + 112;
+  PublicKeyCredentialCreationOptions.encodedSize = codec.kStructHeaderSize + 120;
 
   PublicKeyCredentialCreationOptions.decode = function(decoder) {
     var packed;
@@ -2152,6 +2206,8 @@
         decoder.decodeArrayPointer(new codec.PointerTo(PublicKeyCredentialDescriptor));
     val.authenticatorSelection =
         decoder.decodeStructPointer(AuthenticatorSelectionCriteria);
+    val.hints =
+        decoder.decodeArrayPointer(new codec.Enum(Hint));
     val.attestation =
         decoder.decodeStruct(new codec.Enum(AttestationConveyancePreference));
     packed = decoder.readUint8();
@@ -2176,8 +2232,8 @@
         decoder.decodeArrayPointer(codec.Uint8);
     val.remoteDesktopClientOverride =
         decoder.decodeStructPointer(RemoteDesktopClientOverride);
-    val.devicePublicKey =
-        decoder.decodeStructPointer(DevicePublicKeyRequest);
+    val.supplementalPubKeys =
+        decoder.decodeStructPointer(SupplementalPubKeysRequest);
     return val;
   };
 
@@ -2192,6 +2248,7 @@
     encoder.encodeStructPointer(time$.TimeDelta, val.timeout);
     encoder.encodeArrayPointer(new codec.PointerTo(PublicKeyCredentialDescriptor), val.excludeCredentials);
     encoder.encodeStructPointer(AuthenticatorSelectionCriteria, val.authenticatorSelection);
+    encoder.encodeArrayPointer(new codec.Enum(Hint), val.hints);
     encoder.encodeStruct(codec.Int32, val.attestation);
     packed = 0;
     packed |= (val.hmacCreateSecret & 1) << 0
@@ -2210,7 +2267,7 @@
     encoder.encodeStruct(codec.NullableString, val.appidExclude);
     encoder.encodeArrayPointer(codec.Uint8, val.credBlob);
     encoder.encodeStructPointer(RemoteDesktopClientOverride, val.remoteDesktopClientOverride);
-    encoder.encodeStructPointer(DevicePublicKeyRequest, val.devicePublicKey);
+    encoder.encodeStructPointer(SupplementalPubKeysRequest, val.supplementalPubKeys);
   };
   function PublicKeyCredentialDescriptor(values) {
     this.initDefaults_();
@@ -3229,6 +3286,7 @@
   exports.PUBLIC_KEY_CREDENTIAL_DESCRIPTOR_LIST_MAX_SIZE = PUBLIC_KEY_CREDENTIAL_DESCRIPTOR_LIST_MAX_SIZE;
   exports.AuthenticatorStatus = AuthenticatorStatus;
   exports.AuthenticatorTransport = AuthenticatorTransport;
+  exports.Hint = Hint;
   exports.UserVerificationRequirement = UserVerificationRequirement;
   exports.ResidentKeyRequirement = ResidentKeyRequirement;
   exports.AuthenticatorAttachment = AuthenticatorAttachment;
@@ -3237,7 +3295,7 @@
   exports.AttestationConveyancePreference = AttestationConveyancePreference;
   exports.PublicKeyCredentialType = PublicKeyCredentialType;
   exports.CommonCredentialInfo = CommonCredentialInfo;
-  exports.DevicePublicKeyResponse = DevicePublicKeyResponse;
+  exports.SupplementalPubKeysResponse = SupplementalPubKeysResponse;
   exports.MakeCredentialAuthenticatorResponse = MakeCredentialAuthenticatorResponse;
   exports.GetAssertionAuthenticatorResponse = GetAssertionAuthenticatorResponse;
   exports.AuthenticationExtensionsClientOutputs = AuthenticationExtensionsClientOutputs;
@@ -3249,7 +3307,7 @@
   exports.PaymentOptions = PaymentOptions;
   exports.PaymentCredentialInstrument = PaymentCredentialInstrument;
   exports.RemoteDesktopClientOverride = RemoteDesktopClientOverride;
-  exports.DevicePublicKeyRequest = DevicePublicKeyRequest;
+  exports.SupplementalPubKeysRequest = SupplementalPubKeysRequest;
   exports.PublicKeyCredentialRequestOptions = PublicKeyCredentialRequestOptions;
   exports.AuthenticationExtensionsClientInputs = AuthenticationExtensionsClientInputs;
   exports.AuthenticatorSelectionCriteria = AuthenticatorSelectionCriteria;

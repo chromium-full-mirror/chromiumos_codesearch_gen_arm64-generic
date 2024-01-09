@@ -17,6 +17,7 @@ goog.require('cros.mojom.CameraInfo');
 goog.require('cros.mojom.CameraMetadata');
 goog.require('gfx.mojom.PointF');
 goog.require('gfx.mojom.Range');
+goog.require('gfx.mojom.Rect');
 goog.require('gfx.mojom.Size');
 
 
@@ -884,6 +885,19 @@ cros.mojom.CameraAppDeviceInterface = class {
    */
 
   registerCameraInfoObserver(observer) {}
+  
+  /**
+   * @param { !gfx.mojom.Rect } cropRegion
+   * @return {!Promise}
+   */
+
+  setCropRegion(cropRegion) {}
+  
+  /**
+   * @return {!Promise}
+   */
+
+  resetCropRegion() {}
 };
 
 /**
@@ -1102,6 +1116,37 @@ cros.mojom.CameraAppDeviceRemote = class {
           observer
         ]);
   }
+
+  
+  /**
+   * @param { !gfx.mojom.Rect } cropRegion
+   * @return {!Promise}
+   */
+
+  setCropRegion(
+      cropRegion) {
+    return this.proxy.sendMessage(
+        11,
+        cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        [
+          cropRegion
+        ]);
+  }
+
+  
+  /**
+   * @return {!Promise}
+   */
+
+  resetCropRegion() {
+    return this.proxy.sendMessage(
+        12,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        [
+        ]);
+  }
 };
 
 /**
@@ -1181,6 +1226,16 @@ cros.mojom.CameraAppDeviceReceiver = class {
         cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$,
         cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$,
         impl.registerCameraInfoObserver.bind(impl));
+    this.helper_internal_.registerHandler(
+        11,
+        cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        impl.setCropRegion.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        impl.resetCropRegion.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1365,6 +1420,30 @@ cros.mojom.CameraAppDeviceCallbackRouter = class {
         cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$,
         cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$,
         this.registerCameraInfoObserver.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setCropRegion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        11,
+        cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        this.setCropRegion.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.resetCropRegion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        this.resetCropRegion.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -2623,6 +2702,38 @@ goog.provide('cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponsePara
 cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('cros.mojom.ResultMetadataObserver_OnMetadataAvailable_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -3702,6 +3813,92 @@ goog.provide('cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponsePara
 
 /** @record */
 cros.mojom.CameraAppDevice_RegisterCameraInfoObserver_ResponseParams = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    cros.mojom.CameraAppDevice_SetCropRegion_ParamsSpec.$,
+    'CameraAppDevice_SetCropRegion_Params',
+    [
+      mojo.internal.StructField(
+        'cropRegion', 0,
+        0,
+        gfx.mojom.RectSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('cros.mojom.CameraAppDevice_SetCropRegion_Params');
+
+/** @record */
+cros.mojom.CameraAppDevice_SetCropRegion_Params = class {
+  constructor() {
+    /** @export { !gfx.mojom.Rect } */
+    this.cropRegion;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    cros.mojom.CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+    'CameraAppDevice_SetCropRegion_ResponseParams',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('cros.mojom.CameraAppDevice_SetCropRegion_ResponseParams');
+
+/** @record */
+cros.mojom.CameraAppDevice_SetCropRegion_ResponseParams = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    cros.mojom.CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+    'CameraAppDevice_ResetCropRegion_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('cros.mojom.CameraAppDevice_ResetCropRegion_Params');
+
+/** @record */
+cros.mojom.CameraAppDevice_ResetCropRegion_Params = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+    'CameraAppDevice_ResetCropRegion_ResponseParams',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParams');
+
+/** @record */
+cros.mojom.CameraAppDevice_ResetCropRegion_ResponseParams = class {
   constructor() {
   }
 };

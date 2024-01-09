@@ -1160,6 +1160,105 @@ CameraAppDevice_RegisterCameraInfoObserver_ResponseParams_Data::CameraAppDevice_
 
 
 // static
+bool CameraAppDevice_SetCropRegion_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAppDevice_SetCropRegion_Params_Data* object =
+      static_cast<const CameraAppDevice_SetCropRegion_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->crop_region, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->crop_region, validation_context))
+    return false;
+
+  return true;
+}
+
+CameraAppDevice_SetCropRegion_Params_Data::CameraAppDevice_SetCropRegion_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAppDevice_SetCropRegion_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAppDevice_SetCropRegion_ResponseParams_Data* object =
+      static_cast<const CameraAppDevice_SetCropRegion_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+CameraAppDevice_SetCropRegion_ResponseParams_Data::CameraAppDevice_SetCropRegion_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAppDevice_ResetCropRegion_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAppDevice_ResetCropRegion_Params_Data* object =
+      static_cast<const CameraAppDevice_ResetCropRegion_Params_Data*>(data);
+
+  return true;
+}
+
+CameraAppDevice_ResetCropRegion_Params_Data::CameraAppDevice_ResetCropRegion_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAppDevice_ResetCropRegion_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAppDevice_ResetCropRegion_ResponseParams_Data* object =
+      static_cast<const CameraAppDevice_ResetCropRegion_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+CameraAppDevice_ResetCropRegion_ResponseParams_Data::CameraAppDevice_ResetCropRegion_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ResultMetadataObserver_OnMetadataAvailable_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-features.h"
 #include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-shared.h"
 #include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -42,174 +43,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::InspectorIssueCode>
-    : EnumHashTraits<::blink::mojom::InspectorIssueCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::HeavyAdResolutionStatus>
-    : EnumHashTraits<::blink::mojom::HeavyAdResolutionStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::HeavyAdReason>
-    : EnumHashTraits<::blink::mojom::HeavyAdReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AttributionReportingIssueType>
-    : EnumHashTraits<::blink::mojom::AttributionReportingIssueType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::MixedContentResolutionStatus>
-    : EnumHashTraits<::blink::mojom::MixedContentResolutionStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ContentSecurityPolicyViolationType>
-    : EnumHashTraits<::blink::mojom::ContentSecurityPolicyViolationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::CookieOperation>
-    : EnumHashTraits<::blink::mojom::CookieOperation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::CookieExclusionReason>
-    : EnumHashTraits<::blink::mojom::CookieExclusionReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::CookieWarningReason>
-    : EnumHashTraits<::blink::mojom::CookieWarningReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SharedArrayBufferIssueType>
-    : EnumHashTraits<::blink::mojom::SharedArrayBufferIssueType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FederatedAuthRequestResult>
-    : EnumHashTraits<::blink::mojom::FederatedAuthRequestResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FederatedAuthUserInfoRequestResult>
-    : EnumHashTraits<::blink::mojom::FederatedAuthUserInfoRequestResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::GenericIssueErrorType>
-    : EnumHashTraits<::blink::mojom::GenericIssueErrorType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::DeprecationIssueType>
-    : EnumHashTraits<::blink::mojom::DeprecationIssueType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -1880,7 +1713,7 @@ class PLATFORM_EXPORT ContentSecurityPolicyIssueDetails {
   ContentSecurityPolicyIssueDetails();
 
   ContentSecurityPolicyIssueDetails(
-      const absl::optional<::blink::KURL>& blocked_url,
+      const std::optional<::blink::KURL>& blocked_url,
       const WTF::String& violated_directive,
       bool is_report_only,
       ContentSecurityPolicyViolationType content_security_policy_violation_type,
@@ -1966,7 +1799,7 @@ ContentSecurityPolicyIssueDetails& operator=(const ContentSecurityPolicyIssueDet
   }
 
   
-  absl::optional<::blink::KURL> blocked_url;
+  std::optional<::blink::KURL> blocked_url;
   
   WTF::String violated_directive;
   
@@ -2044,8 +1877,8 @@ class PLATFORM_EXPORT CookieIssueDetails {
       WTF::Vector<CookieExclusionReason> exclusion_reason,
       WTF::Vector<CookieWarningReason> warning_reason,
       CookieOperation operation,
-      const absl::optional<::blink::KURL>& site_for_cookies,
-      const absl::optional<::blink::KURL>& cookie_url,
+      const std::optional<::blink::KURL>& site_for_cookies,
+      const std::optional<::blink::KURL>& cookie_url,
       AffectedRequestPtr request);
 
 CookieIssueDetails(const CookieIssueDetails&) = delete;
@@ -2134,9 +1967,9 @@ CookieIssueDetails& operator=(const CookieIssueDetails&) = delete;
   
   CookieOperation operation;
   
-  absl::optional<::blink::KURL> site_for_cookies;
+  std::optional<::blink::KURL> site_for_cookies;
   
-  absl::optional<::blink::KURL> cookie_url;
+  std::optional<::blink::KURL> cookie_url;
   
   AffectedRequestPtr request;
 
@@ -2949,7 +2782,7 @@ class PLATFORM_EXPORT InspectorIssueDetails {
       GenericIssueDetailsPtr generic_issue_details,
       DeprecationIssueDetailsPtr deprecation_issue_details,
       FederatedAuthUserInfoRequestIssueDetailsPtr federated_auth_user_info_request_details,
-      const absl::optional<::base::UnguessableToken>& issue_id);
+      const std::optional<::base::UnguessableToken>& issue_id);
 
 InspectorIssueDetails(const InspectorIssueDetails&) = delete;
 InspectorIssueDetails& operator=(const InspectorIssueDetails&) = delete;
@@ -3057,7 +2890,7 @@ InspectorIssueDetails& operator=(const InspectorIssueDetails&) = delete;
   
   FederatedAuthUserInfoRequestIssueDetailsPtr federated_auth_user_info_request_details;
   
-  absl::optional<::base::UnguessableToken> issue_id;
+  std::optional<::base::UnguessableToken> issue_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

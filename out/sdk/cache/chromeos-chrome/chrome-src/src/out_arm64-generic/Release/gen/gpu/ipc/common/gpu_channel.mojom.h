@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,12 +23,13 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/gpu_channel.mojom-features.h"
 #include "gpu/ipc/common/gpu_channel.mojom-shared.h"
 #include "gpu/ipc/common/gpu_channel.mojom-forward.h"
 #include "gpu/ipc/common/capabilities.mojom.h"
 #include "gpu/ipc/common/context_result.mojom.h"
 #include "gpu/ipc/common/mailbox.mojom.h"
-#include "gpu/ipc/common/surface_handle.mojom.h"
+#include "gpu/ipc/common/surface_handle.mojom-forward.h"
 #include "gpu/ipc/common/sync_token.mojom.h"
 #include "gpu/ipc/common/vulkan_ycbcr_info.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -40,6 +41,7 @@
 #include "ui/gfx/mojom/buffer_types.mojom.h"
 #include "ui/gfx/mojom/color_space.mojom.h"
 #include "ui/gfx/mojom/gpu_fence_handle.mojom.h"
+#include "ui/gfx/mojom/native_handle_types.mojom-forward.h"
 #include "ui/gfx/mojom/presentation_feedback.mojom-forward.h"
 #include "ui/gl/mojom/gpu_preference.mojom.h"
 #include "url/mojom/url.mojom.h"
@@ -682,17 +684,17 @@ class GPU_EXPORT DeferredRequestParams {
   // Construct an instance holding |command_buffer_request|.
   static DeferredRequestParamsPtr
   NewCommandBufferRequest(
-      DeferredCommandBufferRequestPtr command_buffer_request) {
+      DeferredCommandBufferRequestPtr value) {
     auto result = DeferredRequestParamsPtr(absl::in_place);
-    result->set_command_buffer_request(std::move(command_buffer_request));
+    result->set_command_buffer_request(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_image_request|.
   static DeferredRequestParamsPtr
   NewSharedImageRequest(
-      DeferredSharedImageRequestPtr shared_image_request) {
+      DeferredSharedImageRequestPtr value) {
     auto result = DeferredRequestParamsPtr(absl::in_place);
-    result->set_shared_image_request(std::move(shared_image_request));
+    result->set_shared_image_request(std::move(value));
     return result;
   }
 
@@ -812,25 +814,25 @@ class GPU_EXPORT DeferredCommandBufferRequestParams {
   // Construct an instance holding |async_flush|.
   static DeferredCommandBufferRequestParamsPtr
   NewAsyncFlush(
-      AsyncFlushParamsPtr async_flush) {
+      AsyncFlushParamsPtr value) {
     auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
-    result->set_async_flush(std::move(async_flush));
+    result->set_async_flush(std::move(value));
     return result;
   }
   // Construct an instance holding |destroy_transfer_buffer|.
   static DeferredCommandBufferRequestParamsPtr
   NewDestroyTransferBuffer(
-      int32_t destroy_transfer_buffer) {
+      int32_t value) {
     auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
-    result->set_destroy_transfer_buffer(std::move(destroy_transfer_buffer));
+    result->set_destroy_transfer_buffer(std::move(value));
     return result;
   }
   // Construct an instance holding |set_default_framebuffer_shared_image|.
   static DeferredCommandBufferRequestParamsPtr
   NewSetDefaultFramebufferSharedImage(
-      SetDefaultFramebufferSharedImageParamsPtr set_default_framebuffer_shared_image) {
+      SetDefaultFramebufferSharedImageParamsPtr value) {
     auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
-    result->set_set_default_framebuffer_shared_image(std::move(set_default_framebuffer_shared_image));
+    result->set_set_default_framebuffer_shared_image(std::move(value));
     return result;
   }
 
@@ -963,73 +965,73 @@ class GPU_EXPORT DeferredSharedImageRequest {
   // Construct an instance holding |nop|.
   static DeferredSharedImageRequestPtr
   NewNop(
-      uint8_t nop) {
+      uint8_t value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_nop(std::move(nop));
+    result->set_nop(std::move(value));
     return result;
   }
   // Construct an instance holding |create_shared_image|.
   static DeferredSharedImageRequestPtr
   NewCreateSharedImage(
-      CreateSharedImageParamsPtr create_shared_image) {
+      CreateSharedImageParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_create_shared_image(std::move(create_shared_image));
+    result->set_create_shared_image(std::move(value));
     return result;
   }
   // Construct an instance holding |create_shared_image_with_data|.
   static DeferredSharedImageRequestPtr
   NewCreateSharedImageWithData(
-      CreateSharedImageWithDataParamsPtr create_shared_image_with_data) {
+      CreateSharedImageWithDataParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_create_shared_image_with_data(std::move(create_shared_image_with_data));
+    result->set_create_shared_image_with_data(std::move(value));
     return result;
   }
   // Construct an instance holding |create_shared_image_with_buffer|.
   static DeferredSharedImageRequestPtr
   NewCreateSharedImageWithBuffer(
-      CreateSharedImageWithBufferParamsPtr create_shared_image_with_buffer) {
+      CreateSharedImageWithBufferParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_create_shared_image_with_buffer(std::move(create_shared_image_with_buffer));
+    result->set_create_shared_image_with_buffer(std::move(value));
     return result;
   }
   // Construct an instance holding |create_gmb_shared_image|.
   static DeferredSharedImageRequestPtr
   NewCreateGmbSharedImage(
-      CreateGMBSharedImageParamsPtr create_gmb_shared_image) {
+      CreateGMBSharedImageParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_create_gmb_shared_image(std::move(create_gmb_shared_image));
+    result->set_create_gmb_shared_image(std::move(value));
     return result;
   }
   // Construct an instance holding |register_upload_buffer|.
   static DeferredSharedImageRequestPtr
   NewRegisterUploadBuffer(
-      ::base::ReadOnlySharedMemoryRegion register_upload_buffer) {
+      ::base::ReadOnlySharedMemoryRegion value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_register_upload_buffer(std::move(register_upload_buffer));
+    result->set_register_upload_buffer(std::move(value));
     return result;
   }
   // Construct an instance holding |update_shared_image|.
   static DeferredSharedImageRequestPtr
   NewUpdateSharedImage(
-      UpdateSharedImageParamsPtr update_shared_image) {
+      UpdateSharedImageParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_update_shared_image(std::move(update_shared_image));
+    result->set_update_shared_image(std::move(value));
     return result;
   }
   // Construct an instance holding |destroy_shared_image|.
   static DeferredSharedImageRequestPtr
   NewDestroySharedImage(
-      const ::gpu::Mailbox& destroy_shared_image) {
+      const ::gpu::Mailbox& value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_destroy_shared_image(std::move(destroy_shared_image));
+    result->set_destroy_shared_image(std::move(value));
     return result;
   }
   // Construct an instance holding |add_reference_to_shared_image|.
   static DeferredSharedImageRequestPtr
   NewAddReferenceToSharedImage(
-      AddReferenceToSharedImageParamsPtr add_reference_to_shared_image) {
+      AddReferenceToSharedImageParamsPtr value) {
     auto result = DeferredSharedImageRequestPtr(absl::in_place);
-    result->set_add_reference_to_shared_image(std::move(add_reference_to_shared_image));
+    result->set_add_reference_to_shared_image(std::move(value));
     return result;
   }
 
@@ -1258,9 +1260,7 @@ class GPU_EXPORT ContextCreationAttribs {
       bool enable_grcontext,
       bool enable_raster_interface,
       bool enable_oop_rasterization,
-      bool enable_swap_timestamps_if_supported,
-      ::gpu::ContextType context_type,
-      ContextColorSpace color_space);
+      ::gpu::ContextType context_type);
 
 
   ~ContextCreationAttribs();
@@ -1354,11 +1354,7 @@ class GPU_EXPORT ContextCreationAttribs {
   
   bool enable_oop_rasterization;
   
-  bool enable_swap_timestamps_if_supported;
-  
   ::gpu::ContextType context_type;
-  
-  ContextColorSpace color_space;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1420,7 +1416,6 @@ class GPU_EXPORT CreateCommandBufferParams {
   CreateCommandBufferParams();
 
   CreateCommandBufferParams(
-      ::gpu::SurfaceHandle surface_handle,
       int32_t share_group_id,
       int32_t stream_id,
       ::gpu::SchedulingPriority stream_priority,
@@ -1502,8 +1497,6 @@ class GPU_EXPORT CreateCommandBufferParams {
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  ::gpu::SurfaceHandle surface_handle;
   
   int32_t share_group_id;
   
@@ -3542,9 +3535,7 @@ ContextCreationAttribsPtr ContextCreationAttribs::Clone() const {
       mojo::Clone(enable_grcontext),
       mojo::Clone(enable_raster_interface),
       mojo::Clone(enable_oop_rasterization),
-      mojo::Clone(enable_swap_timestamps_if_supported),
-      mojo::Clone(context_type),
-      mojo::Clone(color_space)
+      mojo::Clone(context_type)
   );
 }
 
@@ -3566,11 +3557,7 @@ bool ContextCreationAttribs::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->enable_oop_rasterization, other_struct.enable_oop_rasterization))
     return false;
-  if (!mojo::Equals(this->enable_swap_timestamps_if_supported, other_struct.enable_swap_timestamps_if_supported))
-    return false;
   if (!mojo::Equals(this->context_type, other_struct.context_type))
-    return false;
-  if (!mojo::Equals(this->color_space, other_struct.color_space))
     return false;
   return true;
 }
@@ -3609,24 +3596,15 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.enable_oop_rasterization < lhs.enable_oop_rasterization)
     return false;
-  if (lhs.enable_swap_timestamps_if_supported < rhs.enable_swap_timestamps_if_supported)
-    return true;
-  if (rhs.enable_swap_timestamps_if_supported < lhs.enable_swap_timestamps_if_supported)
-    return false;
   if (lhs.context_type < rhs.context_type)
     return true;
   if (rhs.context_type < lhs.context_type)
-    return false;
-  if (lhs.color_space < rhs.color_space)
-    return true;
-  if (rhs.color_space < lhs.color_space)
     return false;
   return false;
 }
 template <typename StructPtrType>
 CreateCommandBufferParamsPtr CreateCommandBufferParams::Clone() const {
   return New(
-      mojo::Clone(surface_handle),
       mojo::Clone(share_group_id),
       mojo::Clone(stream_id),
       mojo::Clone(stream_priority),
@@ -3637,8 +3615,6 @@ CreateCommandBufferParamsPtr CreateCommandBufferParams::Clone() const {
 
 template <typename T, CreateCommandBufferParams::EnableIfSame<T>*>
 bool CreateCommandBufferParams::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->surface_handle, other_struct.surface_handle))
-    return false;
   if (!mojo::Equals(this->share_group_id, other_struct.share_group_id))
     return false;
   if (!mojo::Equals(this->stream_id, other_struct.stream_id))
@@ -3654,10 +3630,6 @@ bool CreateCommandBufferParams::Equals(const T& other_struct) const {
 
 template <typename T, CreateCommandBufferParams::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.surface_handle < rhs.surface_handle)
-    return true;
-  if (rhs.surface_handle < lhs.surface_handle)
-    return false;
   if (lhs.share_group_id < rhs.share_group_id)
     return true;
   if (rhs.share_group_id < lhs.share_group_id)
@@ -4438,19 +4410,9 @@ struct GPU_EXPORT StructTraits<::gpu::mojom::ContextCreationAttribs::DataView,
     return input->enable_oop_rasterization;
   }
 
-  static decltype(::gpu::mojom::ContextCreationAttribs::enable_swap_timestamps_if_supported) enable_swap_timestamps_if_supported(
-      const ::gpu::mojom::ContextCreationAttribsPtr& input) {
-    return input->enable_swap_timestamps_if_supported;
-  }
-
   static decltype(::gpu::mojom::ContextCreationAttribs::context_type) context_type(
       const ::gpu::mojom::ContextCreationAttribsPtr& input) {
     return input->context_type;
-  }
-
-  static decltype(::gpu::mojom::ContextCreationAttribs::color_space) color_space(
-      const ::gpu::mojom::ContextCreationAttribsPtr& input) {
-    return input->color_space;
   }
 
   static bool Read(::gpu::mojom::ContextCreationAttribs::DataView input, ::gpu::mojom::ContextCreationAttribsPtr* output);
@@ -4462,11 +4424,6 @@ struct GPU_EXPORT StructTraits<::gpu::mojom::CreateCommandBufferParams::DataView
                                          ::gpu::mojom::CreateCommandBufferParamsPtr> {
   static bool IsNull(const ::gpu::mojom::CreateCommandBufferParamsPtr& input) { return !input; }
   static void SetToNull(::gpu::mojom::CreateCommandBufferParamsPtr* output) { output->reset(); }
-
-  static const decltype(::gpu::mojom::CreateCommandBufferParams::surface_handle)& surface_handle(
-      const ::gpu::mojom::CreateCommandBufferParamsPtr& input) {
-    return input->surface_handle;
-  }
 
   static decltype(::gpu::mojom::CreateCommandBufferParams::share_group_id) share_group_id(
       const ::gpu::mojom::CreateCommandBufferParamsPtr& input) {

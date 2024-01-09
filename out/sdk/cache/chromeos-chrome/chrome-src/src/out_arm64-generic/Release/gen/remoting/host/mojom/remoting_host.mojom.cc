@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -138,8 +139,8 @@ bool RemotingHostControlStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool RemotingHostControlRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::remoting::mojom::RemotingHostControl::Name_;
@@ -189,8 +190,8 @@ bool DesktopSessionConnectionEventsStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool DesktopSessionConnectionEventsRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::remoting::mojom::DesktopSessionConnectionEvents::Name_;
@@ -388,14 +389,17 @@ void HostStatusObserverProxy::OnClientAccessDenied(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnClientAccessDenied_Name, kFlags, 0, 0, nullptr);
@@ -436,14 +440,17 @@ void HostStatusObserverProxy::OnClientAuthenticated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnClientAuthenticated_Name, kFlags, 0, 0, nullptr);
@@ -484,14 +491,17 @@ void HostStatusObserverProxy::OnClientConnected(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnClientConnected_Name, kFlags, 0, 0, nullptr);
@@ -532,14 +542,17 @@ void HostStatusObserverProxy::OnClientDisconnected(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnClientDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -586,14 +599,17 @@ void HostStatusObserverProxy::OnClientRouteChange(
                         "<value of type const ::remoting::protocol::TransportRoute&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnClientRouteChange_Name, kFlags, 0, 0, nullptr);
@@ -656,14 +672,17 @@ void HostStatusObserverProxy::OnHostStarted(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnHostStarted_Name, kFlags, 0, 0, nullptr);
@@ -697,14 +716,17 @@ void HostStatusObserverProxy::OnHostShutdown(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::HostStatusObserver::OnHostShutdown");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnHostShutdown_Name, kFlags, 0, 0, nullptr);
@@ -950,22 +972,22 @@ bool HostStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHostStatusObserverValidationInfo[] = {
-    {&internal::HostStatusObserver_OnClientAccessDenied_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnClientAccessDenied_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnClientAuthenticated_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnClientAuthenticated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnClientConnected_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnClientConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnClientDisconnected_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnClientDisconnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnClientRouteChange_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnClientRouteChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnHostStarted_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnHostStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostStatusObserver_OnHostShutdown_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnHostShutdown_Params_Data::Validate,
      nullptr /* no response */},
 };
 

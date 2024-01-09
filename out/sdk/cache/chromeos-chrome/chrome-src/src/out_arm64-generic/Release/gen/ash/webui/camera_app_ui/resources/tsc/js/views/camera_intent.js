@@ -31,12 +31,8 @@ export class CameraIntent extends Camera {
                 const buf = await blob.arrayBuffer();
                 await this.intent.appendData(new Uint8Array(buf));
             },
-            startSaveVideo: async (outputVideoRotation) => {
-                return VideoSaver.createForIntent(intent, outputVideoRotation);
-            },
-            finishSaveVideo: async (video) => {
-                assert(video instanceof VideoSaver);
-                this.videoResultFile = await video.endWrite();
+            saveVideo: (file) => {
+                this.videoResultFile = file;
             },
             saveGif: () => {
                 assertNotReached();
@@ -44,6 +40,9 @@ export class CameraIntent extends Camera {
         }, cameraManager, perfLogger);
         this.intent = intent;
         this.videoResultFile = null;
+    }
+    createVideoSaver() {
+        return VideoSaver.createForIntent(this.intent, this.outputVideoRotation);
     }
     reviewIntentResult(metricArgs) {
         return this.prepareReview(async () => {
@@ -100,8 +99,9 @@ export class CameraIntent extends Camera {
     async onVideoCaptureDone(videoResult) {
         await super.onVideoCaptureDone(videoResult);
         assert(this.videoResultFile !== null);
-        await this.review.setReviewVideo(this.videoResultFile);
+        const cleanup = await this.review.setReviewVideo(this.videoResultFile);
         await this.reviewIntentResult({ resolution: videoResult.resolution, duration: videoResult.duration });
+        cleanup();
         ChromeHelper.getInstance().maybeTriggerSurvey();
     }
 }

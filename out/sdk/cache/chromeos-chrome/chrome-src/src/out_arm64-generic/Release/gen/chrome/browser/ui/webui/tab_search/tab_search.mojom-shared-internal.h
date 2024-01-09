@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/string16.mojom-shared-internal.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/token.mojom-shared-internal.h"
@@ -68,6 +69,31 @@ struct TabOrganizationState_Data {
 };
 
 struct TabOrganizationError_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct UserFeedback_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -477,7 +503,7 @@ class  TabOrganization_Data {
   int32_t organization_id;
   uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Tab_Data>>> tabs;
-  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> name;
 
  private:
   friend class mojo::internal::MessageFragment<TabOrganization_Data>;

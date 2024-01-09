@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRJointSpace>::value,
     "XRJointSpace inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRJointSpace::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRJointSpace is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRJointSpace.jointName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRJointSpace* blink_receiver = V8XRJointSpace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->jointName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRJointSpace* blink_receiver = V8XRJointSpace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->jointName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

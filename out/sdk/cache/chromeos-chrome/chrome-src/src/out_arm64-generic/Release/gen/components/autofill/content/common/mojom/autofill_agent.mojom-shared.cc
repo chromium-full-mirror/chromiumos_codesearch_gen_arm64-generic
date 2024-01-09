@@ -100,7 +100,7 @@ bool AutofillAgent_ApplyFormAction_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -120,11 +120,22 @@ bool AutofillAgent_ApplyFormAction_Params_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->form, 3, validation_context)) {
+          object->form_renderer_id, 3, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->form, validation_context))
+  if (!mojo::internal::ValidateStruct(object->form_renderer_id, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->fields, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->fields, validation_context,
+                                         &fields_validate_params)) {
+    return false;
+  }
 
   return true;
 }
@@ -154,15 +165,20 @@ bool AutofillAgent_ApplyFieldAction_Params_Data::Validate(
         ::Validate(object->action_persistence, validation_context))
     return false;
 
+
+  if (!::autofill::mojom::internal::TextReplacement_Data
+        ::Validate(object->text_replacement, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->field, 2, validation_context)) {
+          object->field, 3, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->field, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->value, 3, validation_context)) {
+          object->value, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->value, validation_context))
@@ -370,8 +386,8 @@ bool AutofillAgent_SetSuggestionAvailability_Params_Data::Validate(
     return false;
 
 
-  if (!::autofill::mojom::internal::AutofillState_Data
-        ::Validate(object->type, validation_context))
+  if (!::autofill::mojom::internal::AutofillSuggestionAvailability_Data
+        ::Validate(object->suggestion_availability, validation_context))
     return false;
 
   return true;
@@ -970,6 +986,29 @@ bool PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data::Validat
 }
 
 PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data::PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data* object =
+      static_cast<const PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data*>(data);
+
+  return true;
+}
+
+PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

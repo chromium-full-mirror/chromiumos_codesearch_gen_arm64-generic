@@ -9,10 +9,10 @@
 #include <cstdint>
 #include <mutex>
 
+#include "build/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/starscan/metadata_allocator.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/starscan/pcscan.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/starscan/raceful_worklist.h"
-#include "build/build_config.h"
 
 namespace partition_alloc::internal {
 

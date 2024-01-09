@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -64,7 +65,7 @@ Event::Event(
     const std::string& project_name_in,
     const std::string& event_name_in,
     base::flat_map<std::string, MetricValuePtr> metrics_in,
-    absl::optional<::base::TimeDelta> system_uptime_in,
+    std::optional<::base::TimeDelta> system_uptime_in,
     bool is_event_sequence_in)
     : project_name(std::move(project_name_in)),
       event_name(std::move(event_name_in)),
@@ -108,7 +109,7 @@ void Event::WriteIntoTrace(
     dict.AddItem(
       "system_uptime"), this->system_uptime,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

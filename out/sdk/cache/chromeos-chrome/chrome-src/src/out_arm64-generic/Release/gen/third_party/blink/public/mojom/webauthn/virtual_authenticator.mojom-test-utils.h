@@ -49,8 +49,8 @@ class BLINK_COMMON_EXPORT VirtualAuthenticatorAsyncWaiter {
       );
   
   void GetLargeBlob(
-      const std::vector<uint8_t>& key_handle, absl::optional<std::vector<uint8_t>>* out_blob);
-  absl::optional<std::vector<uint8_t>> GetLargeBlob(const std::vector<uint8_t>& key_handle);
+      const std::vector<uint8_t>& key_handle, std::optional<std::vector<uint8_t>>* out_blob);
+  std::optional<std::vector<uint8_t>> GetLargeBlob(const std::vector<uint8_t>& key_handle);
   void SetLargeBlob(
       const std::vector<uint8_t>& key_handle, const std::vector<uint8_t>& blob, bool* out_set);
   bool SetLargeBlob(const std::vector<uint8_t>& key_handle, const std::vector<uint8_t>& blob);

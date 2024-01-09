@@ -132,7 +132,7 @@ bool SharedStorageWorkletHost_SelectURL_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -176,6 +176,9 @@ bool SharedStorageWorkletHost_SelectURL_Params_Data::Validate(
                                          &context_id_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidateStruct(object->aggregation_coordinator_origin, validation_context))
+    return false;
 
   return true;
 }
@@ -228,7 +231,7 @@ bool SharedStorageWorkletHost_Run_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -261,6 +264,9 @@ bool SharedStorageWorkletHost_Run_Params_Data::Validate(
                                          &context_id_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidateStruct(object->aggregation_coordinator_origin, validation_context))
+    return false;
 
   return true;
 }

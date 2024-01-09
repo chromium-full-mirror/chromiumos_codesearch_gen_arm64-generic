@@ -1,48 +1,45 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../../common/js/util.js';
+import { getFilesAppModalDialogInstance } from '../../../common/js/util.js';
 import { BaseDialog } from './dialogs.js';
 /**
  * This class is an extended class, to manage the status of the dialogs.
  */
-// @ts-ignore: error TS2415: Class 'FileManagerDialogBase' incorrectly extends
-// base class 'BaseDialog'.
 export class FileManagerDialogBase extends BaseDialog {
     /**
-     * @param {HTMLElement} parentNode Parent node of the dialog.
+     * The flag if any dialog is shown. True if a dialog is visible, false
+     * otherwise.
+     */
+    static { this.shown = false; }
+    /**
+     * @param parentNode Parent node of the dialog.
      */
     constructor(parentNode) {
         super(parentNode);
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.container.classList.add('files-ng');
     }
-    /**
-     * @protected
-     * @override
-     */
     initDom() {
         super.initDom();
-        super.hasModalContainer = true;
+        this.hasModalContainer = true;
     }
     /**
-     * @param {string} title Title.
-     * @param {string} message Message.
-     * @param {?function():void} onOk Called when the OK button is pressed.
-     * @param {?function():void} onCancel Called when the cancel button is
+     * @param title Title.
+     * @param message Message.
+     * @param onOk Called when the OK button is pressed.
+     * @param onCancel Called when the cancel button is
      *     pressed.
-     * @return {boolean} True if the dialog can show successfully. False if the
+     * @return True if the dialog can show successfully. False if the
      *     dialog failed to show due to an existing dialog.
      */
     showOkCancelDialog(title, message, onOk, onCancel) {
         return this.showImpl_(title, message, onOk, onCancel);
     }
     /**
-     * @param {string} title Title.
-     * @param {string} message Message.
-     * @param {?function():void} onOk Called when the OK button is pressed.
-     * @param {?function():void} onCancel Called when the cancel button is
-  pressed.
+     * @param title Title.
+     * @param message Message.
+     * @param onOk Called when the OK button is pressed.
+     * @param onCancel Called when the cancel button is pressed.
      * @return {boolean} True if the dialog can show successfully. False if the
      *     dialog failed to show due to an existing dialog.
      * @private
@@ -54,85 +51,54 @@ export class FileManagerDialogBase extends BaseDialog {
         FileManagerDialogBase.shown = true;
         // If a dialog is shown, activate the window.
         window.focus();
-        // @ts-ignore: error TS2345: Argument of type '(() => any) | null' is not
-        // assignable to parameter of type 'Function | undefined'.
-        super.showWithTitle(title, message, onOk, onCancel, null);
+        super.showWithTitle(title, message, onOk, onCancel);
         return true;
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showWithTitle(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+    showWithTitle(title, message, onOk, onCancel, onShow) {
         this.frame.classList.toggle('no-title', !title);
-        super.showWithTitle(title, message, ...args);
+        super.showWithTitle(title, message, onOk, onCancel, onShow);
+    }
+    showHtml(title, message, onOk, onCancel, onShow) {
+        this.frame.classList.toggle('no-title', !title);
+        super.showHtml(title, message, onOk, onCancel, onShow);
     }
     /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showHtml(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.frame.classList.toggle('no-title', !title);
-        super.showHtml(title, message, ...args);
-    }
-    /**
-     * @return {boolean} True if the dialog can show successfully. False if the
-     *     dialog failed to show due to an existing dialog.
+     * Returns true if the dialog can show successfully. False if the
+     * dialog failed to show due to an existing dialog.
      */
     showBlankDialog() {
-        return this.showImpl_('', '', null, null);
+        return this.showImpl_('', '');
     }
     /**
-     * @param {string} title Title.
-     * @return {boolean} True if the dialog can show successfully. False if the
+     * @param title Title.
+     * @return True if the dialog can show successfully. False if the
      *     dialog failed to show due to an existing dialog.
      */
     showTitleOnlyDialog(title) {
-        return this.showImpl_(title, '', null, null);
+        return this.showImpl_(title, '');
     }
     /**
-     * @param {string} title Title.
-     * @param {string} text Text to be shown in the dialog.
-     * @return {boolean} True if the dialog can show successfully. False if the
+     * @param title Title.
+     * @param text Text to be shown in the dialog.
+     * @return True if the dialog can show successfully. False if the
      *     dialog failed to show due to an existing dialog.
      */
     showTitleAndTextDialog(title, text) {
-        // @ts-ignore: error TS2339: Property 'style' does not exist on type
-        // 'Element'.
         this.buttons.style.display = 'none';
-        return this.showImpl_(title, text, null, null);
+        return this.showImpl_(title, text);
     }
-    /**
-     * @override
-     * @suppress {accessControls}
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    show_(...args) {
-        this.parentNode_ = util.getFilesAppModalDialogInstance();
-        // @ts-ignore: error TS2556: A spread argument must either have a tuple type
-        // or be passed to a rest parameter.
-        super.show_(...args);
-        this.parentNode_.showModal();
+    show_(title, onOk, onCancel, onShow) {
+        this.parentNode_ = getFilesAppModalDialogInstance();
+        super.show_(title, onOk, onCancel, onShow);
+        this.parentNode.showModal();
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    hide(...args) {
-        this.parentNode_.close();
+    get parentNode() {
+        this.parentNode_ = getFilesAppModalDialogInstance();
+        return this.parentNode_;
+    }
+    hide(onHide) {
+        this.parentNode.close();
         FileManagerDialogBase.shown = false;
-        super.hide(...args);
+        super.hide(onHide);
     }
 }
-/**
- * The flag if any dialog is shown. True if a dialog is visible, false
- *     otherwise.
- * @type {boolean}
- */
-FileManagerDialogBase.shown = false;

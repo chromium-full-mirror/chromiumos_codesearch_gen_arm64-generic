@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRWebGLDepthInformation>::value,
     "XRWebGLDepthInformation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRWebGLDepthInformation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRWebGLDepthInformation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXRWebGLDepthInformatio
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLDepthInformation* blink_receiver = V8XRWebGLDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRWebGLDepthInformation* blink_receiver = V8XRWebGLDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRWebGLDepthInformation";
 const char* const property_name = "texture";

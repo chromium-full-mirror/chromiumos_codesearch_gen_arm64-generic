@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_loader_completion_status.mojom-features.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-shared.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -239,7 +240,6 @@ class BLINK_PLATFORM_EXPORT URLLoaderCompletionStatus {
       ::network::mojom::blink::SSLInfoPtr ssl_info,
       BlockedByResponseReasonWrapperPtr blocked_by_response_reason,
       bool should_report_corb_blocking,
-      ::network::mojom::blink::ProxyServerPtr proxy_server,
       ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info,
       bool should_collapse_initiator);
 
@@ -349,8 +349,6 @@ URLLoaderCompletionStatus& operator=(const URLLoaderCompletionStatus&) = delete;
   
   bool should_report_corb_blocking;
   
-  ::network::mojom::blink::ProxyServerPtr proxy_server;
-  
   ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info;
   
   bool should_collapse_initiator;
@@ -423,7 +421,6 @@ URLLoaderCompletionStatusPtr URLLoaderCompletionStatus::Clone() const {
       mojo::Clone(ssl_info),
       mojo::Clone(blocked_by_response_reason),
       mojo::Clone(should_report_corb_blocking),
-      mojo::Clone(proxy_server),
       mojo::Clone(resolve_error_info),
       mojo::Clone(should_collapse_initiator)
   );
@@ -458,8 +455,6 @@ bool URLLoaderCompletionStatus::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->blocked_by_response_reason, other_struct.blocked_by_response_reason))
     return false;
   if (!mojo::Equals(this->should_report_corb_blocking, other_struct.should_report_corb_blocking))
-    return false;
-  if (!mojo::Equals(this->proxy_server, other_struct.proxy_server))
     return false;
   if (!mojo::Equals(this->resolve_error_info, other_struct.resolve_error_info))
     return false;
@@ -525,10 +520,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.should_report_corb_blocking < rhs.should_report_corb_blocking)
     return true;
   if (rhs.should_report_corb_blocking < lhs.should_report_corb_blocking)
-    return false;
-  if (lhs.proxy_server < rhs.proxy_server)
-    return true;
-  if (rhs.proxy_server < lhs.proxy_server)
     return false;
   if (lhs.resolve_error_info < rhs.resolve_error_info)
     return true;
@@ -636,11 +627,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLLoaderComp
   static decltype(::network::mojom::blink::URLLoaderCompletionStatus::should_report_corb_blocking) should_report_corb_blocking(
       const ::network::mojom::blink::URLLoaderCompletionStatusPtr& input) {
     return input->should_report_corb_blocking;
-  }
-
-  static const decltype(::network::mojom::blink::URLLoaderCompletionStatus::proxy_server)& proxy_server(
-      const ::network::mojom::blink::URLLoaderCompletionStatusPtr& input) {
-    return input->proxy_server;
   }
 
   static const decltype(::network::mojom::blink::URLLoaderCompletionStatus::resolve_error_info)& resolve_error_info(

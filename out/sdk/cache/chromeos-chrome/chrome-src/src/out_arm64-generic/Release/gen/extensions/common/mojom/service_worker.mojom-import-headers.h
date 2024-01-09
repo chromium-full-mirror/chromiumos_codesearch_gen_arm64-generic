@@ -6,6 +6,8 @@
 
 #ifndef EXTENSIONS_COMMON_MOJOM_SERVICE_WORKER_MOJOM_IMPORT_HEADERS_H_
 #define EXTENSIONS_COMMON_MOJOM_SERVICE_WORKER_MOJOM_IMPORT_HEADERS_H_
+#include "extensions/common/mojom/message_port.mojom.h"
+#include "extensions/common/mojom/message_port.mojom-import-headers.h"
 #include "extensions/common/mojom/permission_set.mojom.h"
 #include "extensions/common/mojom/permission_set.mojom-import-headers.h"
 

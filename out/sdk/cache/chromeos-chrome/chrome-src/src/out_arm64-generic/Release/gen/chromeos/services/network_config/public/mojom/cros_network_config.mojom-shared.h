@@ -1024,6 +1024,24 @@ inline bool IsKnownEnumValue(ApnType value) {
 }
 
 
+enum class SuppressionType : int32_t {
+  
+  kUnset = 0,
+  
+  kAllow = 1,
+  
+  kSuppress = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, SuppressionType value);
+inline bool IsKnownEnumValue(SuppressionType value) {
+  return internal::SuppressionType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class TrafficCounterSource : int32_t {
   
   kUnknown = 0,
@@ -1775,6 +1793,9 @@ static_assert(
     auto* pointer = data_->serial.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  bool is_carrier_locked() const {
+    return data_->is_carrier_locked;
   }
  private:
   internal::DeviceStateProperties_Data* data_ = nullptr;
@@ -8398,6 +8419,16 @@ class GlobalPolicyDataView {
   bool user_created_network_configurations_are_ephemeral() const {
     return data_->user_created_network_configurations_are_ephemeral;
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAllowTextMessages(UserType* output) const {
+    auto data_value = data_->allow_text_messages;
+    return mojo::internal::Deserialize<::chromeos::network_config::mojom::SuppressionType>(
+        data_value, output);
+  }
+  SuppressionType allow_text_messages() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_config::mojom::SuppressionType>(data_->allow_text_messages));
+  }
  private:
   internal::GlobalPolicy_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -8913,6 +8944,10 @@ struct hash<::chromeos::network_config::mojom::ApnType>
     : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::ApnType> {};
 
 template <>
+struct hash<::chromeos::network_config::mojom::SuppressionType>
+    : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::SuppressionType> {};
+
+template <>
 struct hash<::chromeos::network_config::mojom::TrafficCounterSource>
     : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::TrafficCounterSource> {};
 
@@ -9239,6 +9274,26 @@ struct Serializer<::chromeos::network_config::mojom::ApnType, MaybeConstUserType
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::chromeos::network_config::mojom::ApnType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::network_config::mojom::SuppressionType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::chromeos::network_config::mojom::SuppressionType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::chromeos::network_config::mojom::SuppressionType>(input)), output);
   }
 };
 
@@ -9864,6 +9919,7 @@ struct Serializer<::chromeos::network_config::mojom::DeviceStatePropertiesDataVi
         in_serial, serial_fragment);
     fragment->serial.Set(
         serial_fragment.is_null() ? nullptr : serial_fragment.data());
+    fragment->is_carrier_locked = Traits::is_carrier_locked(input);
   }
 
   static bool Deserialize(::chromeos::network_config::mojom::internal::DeviceStateProperties_Data* input,
@@ -14072,6 +14128,8 @@ struct Serializer<::chromeos::network_config::mojom::GlobalPolicyDataView, Maybe
         "null blocked_hex_ssids in GlobalPolicy struct");
     fragment->recommended_values_are_ephemeral = Traits::recommended_values_are_ephemeral(input);
     fragment->user_created_network_configurations_are_ephemeral = Traits::user_created_network_configurations_are_ephemeral(input);
+    mojo::internal::Serialize<::chromeos::network_config::mojom::SuppressionType>(
+        Traits::allow_text_messages(input), &fragment->allow_text_messages);
   }
 
   static bool Deserialize(::chromeos::network_config::mojom::internal::GlobalPolicy_Data* input,
@@ -16643,6 +16701,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::chromeos::network_config::mojom::ApnType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_config::mojom::ApnType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::chromeos::network_config::mojom::SuppressionType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_config::mojom::SuppressionType value);
 };
 
 } // namespace perfetto

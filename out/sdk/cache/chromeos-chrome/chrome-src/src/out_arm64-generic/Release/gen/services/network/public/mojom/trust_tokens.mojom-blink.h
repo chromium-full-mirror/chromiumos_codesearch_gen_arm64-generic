@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/trust_tokens.mojom-features.h"
 #include "services/network/public/mojom/trust_tokens.mojom-shared.h"
 #include "services/network/public/mojom/trust_tokens.mojom-blink-forward.h"
 #include "url/mojom/origin.mojom-blink.h"
@@ -40,126 +41,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenMajorVersion>
-    : EnumHashTraits<::network::mojom::TrustTokenMajorVersion, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenProtocolVersion>
-    : EnumHashTraits<::network::mojom::TrustTokenProtocolVersion, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenOperationStatus>
-    : EnumHashTraits<::network::mojom::TrustTokenOperationStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenOperationType>
-    : EnumHashTraits<::network::mojom::TrustTokenOperationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenRefreshPolicy>
-    : EnumHashTraits<::network::mojom::TrustTokenRefreshPolicy, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenSignRequestData>
-    : EnumHashTraits<::network::mojom::TrustTokenSignRequestData, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::DeleteStoredTrustTokensStatus>
-    : EnumHashTraits<::network::mojom::DeleteStoredTrustTokensStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenKeyCommitmentResult_Os>
-    : EnumHashTraits<::network::mojom::TrustTokenKeyCommitmentResult_Os, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenKeyCommitmentResult_UnavailableLocalOperationFallback>
-    : EnumHashTraits<::network::mojom::TrustTokenKeyCommitmentResult_UnavailableLocalOperationFallback, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::FulfillTrustTokenIssuanceAnswer_Status>
-    : EnumHashTraits<::network::mojom::FulfillTrustTokenIssuanceAnswer_Status, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -759,7 +640,6 @@ class BLINK_PLATFORM_EXPORT TrustTokenParams {
   TrustTokenParams();
 
   TrustTokenParams(
-      TrustTokenMajorVersion version,
       TrustTokenOperationType operation,
       TrustTokenRefreshPolicy refresh_policy,
       const WTF::String& custom_key_commitment,
@@ -845,8 +725,6 @@ class BLINK_PLATFORM_EXPORT TrustTokenParams {
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  TrustTokenMajorVersion version;
   
   TrustTokenOperationType operation;
   
@@ -1073,7 +951,6 @@ class BLINK_PLATFORM_EXPORT TrustTokenKeyCommitmentResult {
   TrustTokenKeyCommitmentResult();
 
   TrustTokenKeyCommitmentResult(
-      TrustTokenMajorVersion version,
       TrustTokenProtocolVersion protocol_version,
       int32_t id,
       int32_t batch_size,
@@ -1158,8 +1035,6 @@ TrustTokenKeyCommitmentResult& operator=(const TrustTokenKeyCommitmentResult&) =
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  TrustTokenMajorVersion version;
   
   TrustTokenProtocolVersion protocol_version;
   
@@ -1644,7 +1519,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 TrustTokenParamsPtr TrustTokenParams::Clone() const {
   return New(
-      mojo::Clone(version),
       mojo::Clone(operation),
       mojo::Clone(refresh_policy),
       mojo::Clone(custom_key_commitment),
@@ -1659,8 +1533,6 @@ TrustTokenParamsPtr TrustTokenParams::Clone() const {
 
 template <typename T, TrustTokenParams::EnableIfSame<T>*>
 bool TrustTokenParams::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->version, other_struct.version))
-    return false;
   if (!mojo::Equals(this->operation, other_struct.operation))
     return false;
   if (!mojo::Equals(this->refresh_policy, other_struct.refresh_policy))
@@ -1684,10 +1556,6 @@ bool TrustTokenParams::Equals(const T& other_struct) const {
 
 template <typename T, TrustTokenParams::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.version < rhs.version)
-    return true;
-  if (rhs.version < lhs.version)
-    return false;
   if (lhs.operation < rhs.operation)
     return true;
   if (rhs.operation < lhs.operation)
@@ -1816,7 +1684,6 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 TrustTokenKeyCommitmentResultPtr TrustTokenKeyCommitmentResult::Clone() const {
   return New(
-      mojo::Clone(version),
       mojo::Clone(protocol_version),
       mojo::Clone(id),
       mojo::Clone(batch_size),
@@ -1828,8 +1695,6 @@ TrustTokenKeyCommitmentResultPtr TrustTokenKeyCommitmentResult::Clone() const {
 
 template <typename T, TrustTokenKeyCommitmentResult::EnableIfSame<T>*>
 bool TrustTokenKeyCommitmentResult::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->version, other_struct.version))
-    return false;
   if (!mojo::Equals(this->protocol_version, other_struct.protocol_version))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
@@ -1847,10 +1712,6 @@ bool TrustTokenKeyCommitmentResult::Equals(const T& other_struct) const {
 
 template <typename T, TrustTokenKeyCommitmentResult::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.version < rhs.version)
-    return true;
-  if (rhs.version < lhs.version)
-    return false;
   if (lhs.protocol_version < rhs.protocol_version)
     return true;
   if (rhs.protocol_version < lhs.protocol_version)
@@ -2027,11 +1888,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::TrustTokenPar
   static bool IsNull(const ::network::mojom::blink::TrustTokenParamsPtr& input) { return !input; }
   static void SetToNull(::network::mojom::blink::TrustTokenParamsPtr* output) { output->reset(); }
 
-  static decltype(::network::mojom::blink::TrustTokenParams::version) version(
-      const ::network::mojom::blink::TrustTokenParamsPtr& input) {
-    return input->version;
-  }
-
   static decltype(::network::mojom::blink::TrustTokenParams::operation) operation(
       const ::network::mojom::blink::TrustTokenParamsPtr& input) {
     return input->operation;
@@ -2146,11 +2002,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::TrustTokenKey
                                          ::network::mojom::blink::TrustTokenKeyCommitmentResultPtr> {
   static bool IsNull(const ::network::mojom::blink::TrustTokenKeyCommitmentResultPtr& input) { return !input; }
   static void SetToNull(::network::mojom::blink::TrustTokenKeyCommitmentResultPtr* output) { output->reset(); }
-
-  static decltype(::network::mojom::blink::TrustTokenKeyCommitmentResult::version) version(
-      const ::network::mojom::blink::TrustTokenKeyCommitmentResultPtr& input) {
-    return input->version;
-  }
 
   static decltype(::network::mojom::blink::TrustTokenKeyCommitmentResult::protocol_version) protocol_version(
       const ::network::mojom::blink::TrustTokenKeyCommitmentResultPtr& input) {

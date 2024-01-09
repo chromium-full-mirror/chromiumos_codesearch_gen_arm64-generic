@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,15 +48,24 @@ namespace blink::mojom::blink {
 MediaDeviceInfo::MediaDeviceInfo()
     : device_id(),
       label(),
-      group_id() {}
+      group_id(),
+      control_support(),
+      facing_mode(),
+      availability() {}
 
 MediaDeviceInfo::MediaDeviceInfo(
     const WTF::String& device_id_in,
     const WTF::String& label_in,
-    const WTF::String& group_id_in)
+    const WTF::String& group_id_in,
+    const ::media::VideoCaptureControlSupport& control_support_in,
+    FacingMode facing_mode_in,
+    std::optional<::media::mojom::blink::CameraAvailability> availability_in)
     : device_id(std::move(device_id_in)),
       label(std::move(label_in)),
-      group_id(std::move(group_id_in)) {}
+      group_id(std::move(group_id_in)),
+      control_support(std::move(control_support_in)),
+      facing_mode(std::move(facing_mode_in)),
+      availability(std::move(availability_in)) {}
 
 MediaDeviceInfo::~MediaDeviceInfo() = default;
 
@@ -89,6 +99,33 @@ void MediaDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "control_support"), this->control_support,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::media::VideoCaptureControlSupport&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "facing_mode"), this->facing_mode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type FacingMode>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "availability"), this->availability,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::media::mojom::blink::CameraAvailability>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool MediaDeviceInfo::Validate(
@@ -101,19 +138,22 @@ VideoInputDeviceCapabilities::VideoInputDeviceCapabilities()
       group_id(),
       control_support(),
       formats(),
-      facing_mode() {}
+      facing_mode(),
+      availability() {}
 
 VideoInputDeviceCapabilities::VideoInputDeviceCapabilities(
     const WTF::String& device_id_in,
     const WTF::String& group_id_in,
     const ::media::VideoCaptureControlSupport& control_support_in,
     WTF::Vector<::media::VideoCaptureFormat> formats_in,
-    FacingMode facing_mode_in)
+    FacingMode facing_mode_in,
+    std::optional<::media::mojom::blink::CameraAvailability> availability_in)
     : device_id(std::move(device_id_in)),
       group_id(std::move(group_id_in)),
       control_support(std::move(control_support_in)),
       formats(std::move(formats_in)),
-      facing_mode(std::move(facing_mode_in)) {}
+      facing_mode(std::move(facing_mode_in)),
+      availability(std::move(availability_in)) {}
 
 VideoInputDeviceCapabilities::~VideoInputDeviceCapabilities() = default;
 
@@ -161,6 +201,15 @@ void VideoInputDeviceCapabilities::WriteIntoTrace(
       "facing_mode"), this->facing_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type FacingMode>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "availability"), this->availability,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::media::mojom::blink::CameraAvailability>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -611,14 +660,17 @@ void MediaDevicesDispatcherHostProxy::EnumerateDevices(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_EnumerateDevices_Name, kFlags, 0, 0, nullptr);
@@ -647,14 +699,17 @@ void MediaDevicesDispatcherHostProxy::GetVideoInputCapabilities(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::MediaDevicesDispatcherHost::GetVideoInputCapabilities");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetVideoInputCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -685,14 +740,17 @@ void MediaDevicesDispatcherHostProxy::GetAllVideoInputDeviceFormats(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_Name, kFlags, 0, 0, nullptr);
@@ -734,14 +792,17 @@ void MediaDevicesDispatcherHostProxy::GetAvailableVideoInputDeviceFormats(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Name, kFlags, 0, 0, nullptr);
@@ -776,14 +837,17 @@ void MediaDevicesDispatcherHostProxy::GetAudioInputCapabilities(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::MediaDevicesDispatcherHost::GetAudioInputCapabilities");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAudioInputCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -823,14 +887,17 @@ void MediaDevicesDispatcherHostProxy::AddMediaDevicesListener(
                         "<value of type ::mojo::PendingRemote<MediaDevicesListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_AddMediaDevicesListener_Name, kFlags, 0, 0, nullptr);
@@ -869,14 +936,17 @@ void MediaDevicesDispatcherHostProxy::SetCaptureHandleConfig(
                         "<value of type ::blink::mojom::blink::CaptureHandleConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_SetCaptureHandleConfig_Name, kFlags, 0, 0, nullptr);
@@ -917,14 +987,17 @@ void MediaDevicesDispatcherHostProxy::CloseFocusWindowOfOpportunity(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_Name, kFlags, 0, 0, nullptr);
@@ -954,7 +1027,7 @@ void MediaDevicesDispatcherHostProxy::CloseFocusWindowOfOpportunity(
 }
 
 void MediaDevicesDispatcherHostProxy::ProduceSubCaptureTargetId(
-    SubCaptureTargetType in_type, ProduceSubCaptureTargetIdCallback callback) {
+    ::media::mojom::blink::SubCaptureTargetType in_type, ProduceSubCaptureTargetIdCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::MediaDevicesDispatcherHost::ProduceSubCaptureTargetId", "input_parameters",
@@ -962,17 +1035,20 @@ void MediaDevicesDispatcherHostProxy::ProduceSubCaptureTargetId(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
-                        "<value of type SubCaptureTargetType>");
+                        "<value of type ::media::mojom::blink::SubCaptureTargetType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Name, kFlags, 0, 0, nullptr);
@@ -980,7 +1056,7 @@ void MediaDevicesDispatcherHostProxy::ProduceSubCaptureTargetId(
       ::blink::mojom::internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::SubCaptureTargetType>(
+  mojo::internal::Serialize<::media::mojom::SubCaptureTargetType>(
       in_type, &params->type);
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -1098,7 +1174,8 @@ void MediaDevicesDispatcherHost_EnumerateDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_EnumerateDevices_Name, kFlags, 0, 0, nullptr);
@@ -1254,7 +1331,8 @@ void MediaDevicesDispatcherHost_GetVideoInputCapabilities_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetVideoInputCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -1384,7 +1462,8 @@ void MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_Name, kFlags, 0, 0, nullptr);
@@ -1514,7 +1593,8 @@ void MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Name, kFlags, 0, 0, nullptr);
@@ -1644,7 +1724,8 @@ void MediaDevicesDispatcherHost_GetAudioInputCapabilities_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_GetAudioInputCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -1774,7 +1855,8 @@ void MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Name, kFlags, 0, 0, nullptr);
@@ -2109,7 +2191,7 @@ std::move(p_device_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      SubCaptureTargetType p_type{};
+      ::media::mojom::blink::SubCaptureTargetType p_type{};
       MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -2133,26 +2215,26 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaDevicesDispatcherHostValidationInfo[] = {
-    {&internal::MediaDevicesDispatcherHost_EnumerateDevices_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_EnumerateDevices_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_EnumerateDevices_ResponseParams_Data::Validate},
-    {&internal::MediaDevicesDispatcherHost_GetVideoInputCapabilities_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_GetVideoInputCapabilities_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_GetVideoInputCapabilities_ResponseParams_Data::Validate},
-    {&internal::MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ResponseParams_Data::Validate},
-    {&internal::MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ResponseParams_Data::Validate},
-    {&internal::MediaDevicesDispatcherHost_GetAudioInputCapabilities_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_GetAudioInputCapabilities_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_GetAudioInputCapabilities_ResponseParams_Data::Validate},
-    {&internal::MediaDevicesDispatcherHost_AddMediaDevicesListener_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_AddMediaDevicesListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDevicesDispatcherHost_SetCaptureHandleConfig_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_SetCaptureHandleConfig_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data::Validate,
+    { &internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data::Validate,
      &internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ResponseParams_Data::Validate},
 };
 
@@ -2239,14 +2321,17 @@ void MediaDevicesListenerProxy::OnDevicesChanged(
                         "<value of type const WTF::Vector<::blink::WebMediaDeviceInfo>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDevicesListener_OnDevicesChanged_Name, kFlags, 0, 0, nullptr);
@@ -2333,10 +2418,10 @@ bool MediaDevicesListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaDevicesListenerValidationInfo[] = {
-    {&internal::MediaDevicesListener_OnDevicesChanged_Params_Data::Validate,
+    { &internal::MediaDevicesListener_OnDevicesChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2366,6 +2451,13 @@ bool StructTraits<::blink::mojom::blink::MediaDeviceInfo::DataView, ::blink::moj
         success = false;
       if (success && !input.ReadGroupId(&result->group_id))
         success = false;
+      if (success && !input.ReadControlSupport(&result->control_support))
+        success = false;
+      if (success && !input.ReadFacingMode(&result->facing_mode))
+        success = false;
+      if (success && !input.ReadAvailability(&result->availability)) {
+        success = false;
+      }
   *output = std::move(result);
   return success;
 }
@@ -2388,6 +2480,9 @@ bool StructTraits<::blink::mojom::blink::VideoInputDeviceCapabilities::DataView,
         success = false;
       if (success && !input.ReadFacingMode(&result->facing_mode))
         success = false;
+      if (success && !input.ReadAvailability(&result->availability)) {
+        success = false;
+      }
   *output = std::move(result);
   return success;
 }
@@ -2452,7 +2547,7 @@ void MediaDevicesDispatcherHostInterceptorForTesting::SetCaptureHandleConfig(::b
 void MediaDevicesDispatcherHostInterceptorForTesting::CloseFocusWindowOfOpportunity(const WTF::String& label) {
   GetForwardingInterface()->CloseFocusWindowOfOpportunity(std::move(label));
 }
-void MediaDevicesDispatcherHostInterceptorForTesting::ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) {
+void MediaDevicesDispatcherHostInterceptorForTesting::ProduceSubCaptureTargetId(::media::mojom::blink::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) {
   GetForwardingInterface()->ProduceSubCaptureTargetId(std::move(type), std::move(callback));
 }
 MediaDevicesDispatcherHostAsyncWaiter::MediaDevicesDispatcherHostAsyncWaiter(
@@ -2579,7 +2674,7 @@ WTF::Vector<AudioInputDeviceCapabilitiesPtr> MediaDevicesDispatcherHostAsyncWait
 }
 
 void MediaDevicesDispatcherHostAsyncWaiter::ProduceSubCaptureTargetId(
-    SubCaptureTargetType type, WTF::String* out_id) {
+    ::media::mojom::blink::SubCaptureTargetType type, WTF::String* out_id) {
   base::RunLoop loop;
   proxy_->ProduceSubCaptureTargetId(std::move(type),
       base::BindOnce(
@@ -2595,7 +2690,7 @@ void MediaDevicesDispatcherHostAsyncWaiter::ProduceSubCaptureTargetId(
 }
 
 WTF::String MediaDevicesDispatcherHostAsyncWaiter::ProduceSubCaptureTargetId(
-    SubCaptureTargetType type) {
+    ::media::mojom::blink::SubCaptureTargetType type) {
   WTF::String async_wait_result;
   ProduceSubCaptureTargetId(std::move(type),&async_wait_result);
   return async_wait_result;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -405,14 +406,17 @@ void ServiceWorkerContainerHostProxy::Register(
                         "<value of type ::blink::mojom::blink::FetchClientSettingsObjectPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_Register_Name, kFlags, 0, 0, nullptr);
@@ -476,14 +480,17 @@ void ServiceWorkerContainerHostProxy::GetRegistration(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistration_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +525,17 @@ void ServiceWorkerContainerHostProxy::GetRegistrations(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerContainerHost::GetRegistrations");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -549,14 +559,17 @@ void ServiceWorkerContainerHostProxy::GetRegistrationForReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerContainerHost::GetRegistrationForReady");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistrationForReady_Name, kFlags, 0, 0, nullptr);
@@ -590,14 +603,17 @@ void ServiceWorkerContainerHostProxy::EnsureControllerServiceWorker(
                         "<value of type ControllerServiceWorkerPurpose>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_EnsureControllerServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -635,14 +651,17 @@ void ServiceWorkerContainerHostProxy::CloneContainerHost(
                         "<value of type ::mojo::PendingReceiver<ServiceWorkerContainerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_CloneContainerHost_Name, kFlags, 0, 0, nullptr);
@@ -671,14 +690,17 @@ void ServiceWorkerContainerHostProxy::HintToUpdateServiceWorker(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerContainerHost::HintToUpdateServiceWorker");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_HintToUpdateServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -708,14 +730,17 @@ void ServiceWorkerContainerHostProxy::EnsureFileAccess(
                         "<value of type const WTF::Vector<::base::FilePath>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_EnsureFileAccess_Name, kFlags, 0, 0, nullptr);
@@ -752,14 +777,17 @@ void ServiceWorkerContainerHostProxy::OnExecutionReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerContainerHost::OnExecutionReady");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_OnExecutionReady_Name, kFlags, 0, 0, nullptr);
@@ -882,7 +910,8 @@ void ServiceWorkerContainerHost_Register_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_Register_Name, kFlags, 0, 0, nullptr);
@@ -1029,7 +1058,8 @@ void ServiceWorkerContainerHost_GetRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1116,7 +1146,7 @@ class ServiceWorkerContainerHost_GetRegistrations_ProxyToResponder : public ::mo
 #endif
 
   void Run(
-      ::blink::mojom::blink::ServiceWorkerErrorType in_error, const WTF::String& in_error_msg, absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> in_infos);
+      ::blink::mojom::blink::ServiceWorkerErrorType in_error, const WTF::String& in_error_msg, std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> in_infos);
 };
 
 bool ServiceWorkerContainerHost_GetRegistrations_ForwardToCallback::Accept(
@@ -1131,7 +1161,7 @@ bool ServiceWorkerContainerHost_GetRegistrations_ForwardToCallback::Accept(
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
-  absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> p_infos{};
+  std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> p_infos{};
   ServiceWorkerContainerHost_GetRegistrations_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1156,7 +1186,7 @@ std::move(p_infos));
 }
 
 void ServiceWorkerContainerHost_GetRegistrations_ProxyToResponder::Run(
-    ::blink::mojom::blink::ServiceWorkerErrorType in_error, const WTF::String& in_error_msg, absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> in_infos) {
+    ::blink::mojom::blink::ServiceWorkerErrorType in_error, const WTF::String& in_error_msg, std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> in_infos) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerContainerHost::GetRegistrations", "async_response_parameters",
@@ -1170,13 +1200,14 @@ void ServiceWorkerContainerHost_GetRegistrations_ProxyToResponder::Run(
                         "<value of type const WTF::String&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("infos"), in_infos,
-                        "<value of type absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>>");
+                        "<value of type std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -1311,7 +1342,8 @@ void ServiceWorkerContainerHost_GetRegistrationForReady_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_GetRegistrationForReady_Name, kFlags, 0, 0, nullptr);
@@ -1424,7 +1456,8 @@ void ServiceWorkerContainerHost_EnsureFileAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainerHost_EnsureFileAccess_Name, kFlags, 0, 0, nullptr);
@@ -1747,26 +1780,26 @@ std::move(p_files), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerContainerHostValidationInfo[] = {
-    {&internal::ServiceWorkerContainerHost_Register_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_Register_Params_Data::Validate,
      &internal::ServiceWorkerContainerHost_Register_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerContainerHost_GetRegistration_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_GetRegistration_Params_Data::Validate,
      &internal::ServiceWorkerContainerHost_GetRegistration_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerContainerHost_GetRegistrations_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_GetRegistrations_Params_Data::Validate,
      &internal::ServiceWorkerContainerHost_GetRegistrations_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerContainerHost_GetRegistrationForReady_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_GetRegistrationForReady_Params_Data::Validate,
      &internal::ServiceWorkerContainerHost_GetRegistrationForReady_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerContainerHost_EnsureControllerServiceWorker_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_EnsureControllerServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerContainerHost_CloneContainerHost_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_CloneContainerHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerContainerHost_HintToUpdateServiceWorker_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_HintToUpdateServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerContainerHost_EnsureFileAccess_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_EnsureFileAccess_Params_Data::Validate,
      &internal::ServiceWorkerContainerHost_EnsureFileAccess_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerContainerHost_OnExecutionReady_Params_Data::Validate,
+    { &internal::ServiceWorkerContainerHost_OnExecutionReady_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1893,14 +1926,17 @@ void ServiceWorkerContainerProxy::SetController(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainer_SetController_Name, kFlags, 0, 0, nullptr);
@@ -1945,14 +1981,17 @@ void ServiceWorkerContainerProxy::PostMessageToClient(
                         "<value of type ::blink::BlinkTransferableMessage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainer_PostMessageToClient_Name, kFlags, 0, 0, nullptr);
@@ -2004,14 +2043,17 @@ void ServiceWorkerContainerProxy::CountFeature(
                         "<value of type ::blink::mojom::blink::WebFeature>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerContainer_CountFeature_Name, kFlags, 0, 0, nullptr);
@@ -2147,14 +2189,14 @@ bool ServiceWorkerContainerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerContainerValidationInfo[] = {
-    {&internal::ServiceWorkerContainer_SetController_Params_Data::Validate,
+    { &internal::ServiceWorkerContainer_SetController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerContainer_PostMessageToClient_Params_Data::Validate,
+    { &internal::ServiceWorkerContainer_PostMessageToClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerContainer_CountFeature_Params_Data::Validate,
+    { &internal::ServiceWorkerContainer_CountFeature_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2285,7 +2327,7 @@ void ServiceWorkerContainerHostAsyncWaiter::GetRegistration(
 
 
 void ServiceWorkerContainerHostAsyncWaiter::GetRegistrations(
-    ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg, absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos) {
+    ::blink::mojom::blink::ServiceWorkerErrorType* out_error, WTF::String* out_error_msg, std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos) {
   base::RunLoop loop;
   proxy_->GetRegistrations(
       base::BindOnce(
@@ -2294,11 +2336,11 @@ void ServiceWorkerContainerHostAsyncWaiter::GetRegistrations(
 ,
              WTF::String* out_error_msg
 ,
-             absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos
+             std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos
 ,
              ::blink::mojom::blink::ServiceWorkerErrorType error,
              const WTF::String& error_msg,
-             absl::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> infos) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);*out_infos = std::move(infos);
+             std::optional<WTF::Vector<::blink::mojom::blink::ServiceWorkerRegistrationObjectInfoPtr>> infos) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);*out_infos = std::move(infos);
             loop->Quit();
           },
           &loop,

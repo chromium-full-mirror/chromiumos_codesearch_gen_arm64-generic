@@ -19,6 +19,30 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('extensions.mojom');
+  var unguessable_token$ =
+      mojo.internal.exposeNamespace('mojoBase.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'mojo/public/mojom/base/unguessable_token.mojom', '../../../mojo/public/mojom/base/unguessable_token.mojom.js');
+  }
+  var values$ =
+      mojo.internal.exposeNamespace('mojoBase.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'mojo/public/mojom/base/values.mojom', '../../../mojo/public/mojom/base/values.mojom.js');
+  }
+  var origin$ =
+      mojo.internal.exposeNamespace('url.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'url/mojom/origin.mojom', '../../../url/mojom/origin.mojom.js');
+  }
+  var url$ =
+      mojo.internal.exposeNamespace('url.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'url/mojom/url.mojom', '../../../url/mojom/url.mojom.js');
+  }
 
 
   var SerializationFormat = {};
@@ -110,7 +134,1009 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
 
+  function PortId(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  PortId.prototype.initDefaults_ = function() {
+    this.contextId = null;
+    this.portNumber = 0;
+    this.isOpener = false;
+    this.serializationFormat = 0;
+  };
+  PortId.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  PortId.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate PortId.contextId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, unguessable_token$.UnguessableToken, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // validate PortId.serializationFormat
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 16, SerializationFormat);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  PortId.encodedSize = codec.kStructHeaderSize + 24;
+
+  PortId.decode = function(decoder) {
+    var packed;
+    var val = new PortId();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.contextId =
+        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
+    val.portNumber =
+        decoder.decodeStruct(codec.Int32);
+    packed = decoder.readUint8();
+    val.isOpener = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.serializationFormat =
+        decoder.decodeStruct(new codec.Enum(SerializationFormat));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  PortId.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(PortId.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.contextId);
+    encoder.encodeStruct(codec.Int32, val.portNumber);
+    packed = 0;
+    packed |= (val.isOpener & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.serializationFormat);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function MessagingEndpoint(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagingEndpoint.prototype.initDefaults_ = function() {
+    this.type = 0;
+    this.extensionId = null;
+    this.nativeAppName = null;
+  };
+  MessagingEndpoint.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagingEndpoint.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagingEndpoint.type
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, MessagingEndpointType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagingEndpoint.extensionId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagingEndpoint.nativeAppName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MessagingEndpoint.encodedSize = codec.kStructHeaderSize + 24;
+
+  MessagingEndpoint.decode = function(decoder) {
+    var packed;
+    var val = new MessagingEndpoint();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.type =
+        decoder.decodeStruct(new codec.Enum(MessagingEndpointType));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.extensionId =
+        decoder.decodeStruct(codec.NullableString);
+    val.nativeAppName =
+        decoder.decodeStruct(codec.NullableString);
+    return val;
+  };
+
+  MessagingEndpoint.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagingEndpoint.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.type);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.NullableString, val.extensionId);
+    encoder.encodeStruct(codec.NullableString, val.nativeAppName);
+  };
+  function TabConnectionInfo(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  TabConnectionInfo.prototype.initDefaults_ = function() {
+    this.tab = null;
+    this.frameId = 0;
+    this.documentId = null;
+    this.documentLifecycle = null;
+  };
+  TabConnectionInfo.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  TabConnectionInfo.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 40}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TabConnectionInfo.tab
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, values$.DictionaryValue, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate TabConnectionInfo.documentId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TabConnectionInfo.documentLifecycle
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  TabConnectionInfo.encodedSize = codec.kStructHeaderSize + 32;
+
+  TabConnectionInfo.decode = function(decoder) {
+    var packed;
+    var val = new TabConnectionInfo();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.tab =
+        decoder.decodeStructPointer(values$.DictionaryValue);
+    val.frameId =
+        decoder.decodeStruct(codec.Int32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.documentId =
+        decoder.decodeStruct(codec.String);
+    val.documentLifecycle =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  TabConnectionInfo.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(TabConnectionInfo.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(values$.DictionaryValue, val.tab);
+    encoder.encodeStruct(codec.Int32, val.frameId);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.String, val.documentId);
+    encoder.encodeStruct(codec.String, val.documentLifecycle);
+  };
+  function ExternalConnectionInfo(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ExternalConnectionInfo.prototype.initDefaults_ = function() {
+    this.sourceEndpoint = null;
+    this.targetId = null;
+    this.sourceUrl = null;
+    this.sourceOrigin = null;
+    this.guestProcessId = 0;
+    this.guestRenderFrameRoutingId = 0;
+  };
+  ExternalConnectionInfo.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ExternalConnectionInfo.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 48}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ExternalConnectionInfo.sourceEndpoint
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, MessagingEndpoint, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ExternalConnectionInfo.targetId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ExternalConnectionInfo.sourceUrl
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, url$.Url, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ExternalConnectionInfo.sourceOrigin
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, origin$.Origin, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    return validator.validationError.NONE;
+  };
+
+  ExternalConnectionInfo.encodedSize = codec.kStructHeaderSize + 40;
+
+  ExternalConnectionInfo.decode = function(decoder) {
+    var packed;
+    var val = new ExternalConnectionInfo();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.sourceEndpoint =
+        decoder.decodeStructPointer(MessagingEndpoint);
+    val.targetId =
+        decoder.decodeStruct(codec.String);
+    val.sourceUrl =
+        decoder.decodeStructPointer(url$.Url);
+    val.sourceOrigin =
+        decoder.decodeStructPointer(origin$.Origin);
+    val.guestProcessId =
+        decoder.decodeStruct(codec.Int32);
+    val.guestRenderFrameRoutingId =
+        decoder.decodeStruct(codec.Int32);
+    return val;
+  };
+
+  ExternalConnectionInfo.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ExternalConnectionInfo.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(MessagingEndpoint, val.sourceEndpoint);
+    encoder.encodeStruct(codec.String, val.targetId);
+    encoder.encodeStructPointer(url$.Url, val.sourceUrl);
+    encoder.encodeStructPointer(origin$.Origin, val.sourceOrigin);
+    encoder.encodeStruct(codec.Int32, val.guestProcessId);
+    encoder.encodeStruct(codec.Int32, val.guestRenderFrameRoutingId);
+  };
+  function Message(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  Message.prototype.initDefaults_ = function() {
+    this.data = null;
+    this.format = 0;
+    this.userGesture = false;
+    this.fromPrivilegedContext = false;
+  };
+  Message.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  Message.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate Message.data
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate Message.format
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, SerializationFormat);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    return validator.validationError.NONE;
+  };
+
+  Message.encodedSize = codec.kStructHeaderSize + 16;
+
+  Message.decode = function(decoder) {
+    var packed;
+    var val = new Message();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.data =
+        decoder.decodeStruct(codec.String);
+    val.format =
+        decoder.decodeStruct(new codec.Enum(SerializationFormat));
+    packed = decoder.readUint8();
+    val.userGesture = (packed >> 0) & 1 ? true : false;
+    val.fromPrivilegedContext = (packed >> 1) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  Message.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(Message.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.data);
+    encoder.encodeStruct(codec.Int32, val.format);
+    packed = 0;
+    packed |= (val.userGesture & 1) << 0
+    packed |= (val.fromPrivilegedContext & 1) << 1
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function MessagePort_DispatchDisconnect_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagePort_DispatchDisconnect_Params.prototype.initDefaults_ = function() {
+    this.error = null;
+  };
+  MessagePort_DispatchDisconnect_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagePort_DispatchDisconnect_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagePort_DispatchDisconnect_Params.error
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MessagePort_DispatchDisconnect_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  MessagePort_DispatchDisconnect_Params.decode = function(decoder) {
+    var packed;
+    var val = new MessagePort_DispatchDisconnect_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.error =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  MessagePort_DispatchDisconnect_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagePort_DispatchDisconnect_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.error);
+  };
+  function MessagePort_DeliverMessage_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagePort_DeliverMessage_Params.prototype.initDefaults_ = function() {
+    this.message = null;
+  };
+  MessagePort_DeliverMessage_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagePort_DeliverMessage_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagePort_DeliverMessage_Params.message
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, Message, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MessagePort_DeliverMessage_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  MessagePort_DeliverMessage_Params.decode = function(decoder) {
+    var packed;
+    var val = new MessagePort_DeliverMessage_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.message =
+        decoder.decodeStructPointer(Message);
+    return val;
+  };
+
+  MessagePort_DeliverMessage_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagePort_DeliverMessage_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(Message, val.message);
+  };
+  function MessagePortHost_ClosePort_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagePortHost_ClosePort_Params.prototype.initDefaults_ = function() {
+    this.closeChannel = false;
+  };
+  MessagePortHost_ClosePort_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagePortHost_ClosePort_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  MessagePortHost_ClosePort_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  MessagePortHost_ClosePort_Params.decode = function(decoder) {
+    var packed;
+    var val = new MessagePortHost_ClosePort_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.closeChannel = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  MessagePortHost_ClosePort_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagePortHost_ClosePort_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.closeChannel & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function MessagePortHost_PostMessage_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagePortHost_PostMessage_Params.prototype.initDefaults_ = function() {
+    this.message = null;
+  };
+  MessagePortHost_PostMessage_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagePortHost_PostMessage_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MessagePortHost_PostMessage_Params.message
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, Message, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MessagePortHost_PostMessage_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  MessagePortHost_PostMessage_Params.decode = function(decoder) {
+    var packed;
+    var val = new MessagePortHost_PostMessage_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.message =
+        decoder.decodeStructPointer(Message);
+    return val;
+  };
+
+  MessagePortHost_PostMessage_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagePortHost_PostMessage_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(Message, val.message);
+  };
+  function MessagePortHost_ResponsePending_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MessagePortHost_ResponsePending_Params.prototype.initDefaults_ = function() {
+  };
+  MessagePortHost_ResponsePending_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MessagePortHost_ResponsePending_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MessagePortHost_ResponsePending_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  MessagePortHost_ResponsePending_Params.decode = function(decoder) {
+    var packed;
+    var val = new MessagePortHost_ResponsePending_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  MessagePortHost_ResponsePending_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MessagePortHost_ResponsePending_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  var kMessagePort_DispatchDisconnect_Name = 0;
+  var kMessagePort_DeliverMessage_Name = 1;
+
+  function MessagePortPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(MessagePort,
+                                                   handleOrPtrInfo);
+  }
+
+  function MessagePortAssociatedPtr(associatedInterfacePtrInfo) {
+    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
+        MessagePort, associatedInterfacePtrInfo);
+  }
+
+  MessagePortAssociatedPtr.prototype =
+      Object.create(MessagePortPtr.prototype);
+  MessagePortAssociatedPtr.prototype.constructor =
+      MessagePortAssociatedPtr;
+
+  function MessagePortProxy(receiver) {
+    this.receiver_ = receiver;
+  }
+  MessagePortPtr.prototype.dispatchDisconnect = function() {
+    return MessagePortProxy.prototype.dispatchDisconnect
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MessagePortProxy.prototype.dispatchDisconnect = function(error) {
+    var params_ = new MessagePort_DispatchDisconnect_Params();
+    params_.error = error;
+    var builder = new codec.MessageV0Builder(
+        kMessagePort_DispatchDisconnect_Name,
+        codec.align(MessagePort_DispatchDisconnect_Params.encodedSize));
+    builder.encodeStruct(MessagePort_DispatchDisconnect_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  MessagePortPtr.prototype.deliverMessage = function() {
+    return MessagePortProxy.prototype.deliverMessage
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MessagePortProxy.prototype.deliverMessage = function(message) {
+    var params_ = new MessagePort_DeliverMessage_Params();
+    params_.message = message;
+    var builder = new codec.MessageV0Builder(
+        kMessagePort_DeliverMessage_Name,
+        codec.align(MessagePort_DeliverMessage_Params.encodedSize));
+    builder.encodeStruct(MessagePort_DeliverMessage_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function MessagePortStub(delegate) {
+    this.delegate_ = delegate;
+  }
+  MessagePortStub.prototype.dispatchDisconnect = function(error) {
+    return this.delegate_ && this.delegate_.dispatchDisconnect && this.delegate_.dispatchDisconnect(error);
+  }
+  MessagePortStub.prototype.deliverMessage = function(message) {
+    return this.delegate_ && this.delegate_.deliverMessage && this.delegate_.deliverMessage(message);
+  }
+
+  MessagePortStub.prototype.accept = function(message) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kMessagePort_DispatchDisconnect_Name:
+      var params = reader.decodeStruct(MessagePort_DispatchDisconnect_Params);
+      this.dispatchDisconnect(params.error);
+      return true;
+    case kMessagePort_DeliverMessage_Name:
+      var params = reader.decodeStruct(MessagePort_DeliverMessage_Params);
+      this.deliverMessage(params.message);
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  MessagePortStub.prototype.acceptWithResponder =
+      function(message, responder) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    default:
+      return false;
+    }
+  };
+
+  function validateMessagePortRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kMessagePort_DispatchDisconnect_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MessagePort_DispatchDisconnect_Params;
+      break;
+      case kMessagePort_DeliverMessage_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MessagePort_DeliverMessage_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateMessagePortResponse(messageValidator) {
+    return validator.validationError.NONE;
+  }
+
+  var MessagePort = {
+    name: 'extensions.mojom.MessagePort',
+    kVersion: 0,
+    ptrClass: MessagePortPtr,
+    proxyClass: MessagePortProxy,
+    stubClass: MessagePortStub,
+    validateRequest: validateMessagePortRequest,
+    validateResponse: null,
+  };
+  MessagePortStub.prototype.validator = validateMessagePortRequest;
+  MessagePortProxy.prototype.validator = null;
+  var kMessagePortHost_ClosePort_Name = 0;
+  var kMessagePortHost_PostMessage_Name = 1;
+  var kMessagePortHost_ResponsePending_Name = 2;
+
+  function MessagePortHostPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(MessagePortHost,
+                                                   handleOrPtrInfo);
+  }
+
+  function MessagePortHostAssociatedPtr(associatedInterfacePtrInfo) {
+    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
+        MessagePortHost, associatedInterfacePtrInfo);
+  }
+
+  MessagePortHostAssociatedPtr.prototype =
+      Object.create(MessagePortHostPtr.prototype);
+  MessagePortHostAssociatedPtr.prototype.constructor =
+      MessagePortHostAssociatedPtr;
+
+  function MessagePortHostProxy(receiver) {
+    this.receiver_ = receiver;
+  }
+  MessagePortHostPtr.prototype.closePort = function() {
+    return MessagePortHostProxy.prototype.closePort
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MessagePortHostProxy.prototype.closePort = function(closeChannel) {
+    var params_ = new MessagePortHost_ClosePort_Params();
+    params_.closeChannel = closeChannel;
+    var builder = new codec.MessageV0Builder(
+        kMessagePortHost_ClosePort_Name,
+        codec.align(MessagePortHost_ClosePort_Params.encodedSize));
+    builder.encodeStruct(MessagePortHost_ClosePort_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  MessagePortHostPtr.prototype.postMessage = function() {
+    return MessagePortHostProxy.prototype.postMessage
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MessagePortHostProxy.prototype.postMessage = function(message) {
+    var params_ = new MessagePortHost_PostMessage_Params();
+    params_.message = message;
+    var builder = new codec.MessageV0Builder(
+        kMessagePortHost_PostMessage_Name,
+        codec.align(MessagePortHost_PostMessage_Params.encodedSize));
+    builder.encodeStruct(MessagePortHost_PostMessage_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  MessagePortHostPtr.prototype.responsePending = function() {
+    return MessagePortHostProxy.prototype.responsePending
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MessagePortHostProxy.prototype.responsePending = function() {
+    var params_ = new MessagePortHost_ResponsePending_Params();
+    var builder = new codec.MessageV0Builder(
+        kMessagePortHost_ResponsePending_Name,
+        codec.align(MessagePortHost_ResponsePending_Params.encodedSize));
+    builder.encodeStruct(MessagePortHost_ResponsePending_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function MessagePortHostStub(delegate) {
+    this.delegate_ = delegate;
+  }
+  MessagePortHostStub.prototype.closePort = function(closeChannel) {
+    return this.delegate_ && this.delegate_.closePort && this.delegate_.closePort(closeChannel);
+  }
+  MessagePortHostStub.prototype.postMessage = function(message) {
+    return this.delegate_ && this.delegate_.postMessage && this.delegate_.postMessage(message);
+  }
+  MessagePortHostStub.prototype.responsePending = function() {
+    return this.delegate_ && this.delegate_.responsePending && this.delegate_.responsePending();
+  }
+
+  MessagePortHostStub.prototype.accept = function(message) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kMessagePortHost_ClosePort_Name:
+      var params = reader.decodeStruct(MessagePortHost_ClosePort_Params);
+      this.closePort(params.closeChannel);
+      return true;
+    case kMessagePortHost_PostMessage_Name:
+      var params = reader.decodeStruct(MessagePortHost_PostMessage_Params);
+      this.postMessage(params.message);
+      return true;
+    case kMessagePortHost_ResponsePending_Name:
+      var params = reader.decodeStruct(MessagePortHost_ResponsePending_Params);
+      this.responsePending();
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  MessagePortHostStub.prototype.acceptWithResponder =
+      function(message, responder) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    default:
+      return false;
+    }
+  };
+
+  function validateMessagePortHostRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kMessagePortHost_ClosePort_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MessagePortHost_ClosePort_Params;
+      break;
+      case kMessagePortHost_PostMessage_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MessagePortHost_PostMessage_Params;
+      break;
+      case kMessagePortHost_ResponsePending_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MessagePortHost_ResponsePending_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateMessagePortHostResponse(messageValidator) {
+    return validator.validationError.NONE;
+  }
+
+  var MessagePortHost = {
+    name: 'extensions.mojom.MessagePortHost',
+    kVersion: 0,
+    ptrClass: MessagePortHostPtr,
+    proxyClass: MessagePortHostProxy,
+    stubClass: MessagePortHostStub,
+    validateRequest: validateMessagePortHostRequest,
+    validateResponse: null,
+  };
+  MessagePortHostStub.prototype.validator = validateMessagePortHostRequest;
+  MessagePortHostProxy.prototype.validator = null;
   exports.SerializationFormat = SerializationFormat;
   exports.ChannelType = ChannelType;
   exports.MessagingEndpointType = MessagingEndpointType;
+  exports.PortId = PortId;
+  exports.MessagingEndpoint = MessagingEndpoint;
+  exports.TabConnectionInfo = TabConnectionInfo;
+  exports.ExternalConnectionInfo = ExternalConnectionInfo;
+  exports.Message = Message;
+  exports.MessagePort = MessagePort;
+  exports.MessagePortPtr = MessagePortPtr;
+  exports.MessagePortAssociatedPtr = MessagePortAssociatedPtr;
+  exports.MessagePortHost = MessagePortHost;
+  exports.MessagePortHostPtr = MessagePortHostPtr;
+  exports.MessagePortHostAssociatedPtr = MessagePortHostAssociatedPtr;
 })();

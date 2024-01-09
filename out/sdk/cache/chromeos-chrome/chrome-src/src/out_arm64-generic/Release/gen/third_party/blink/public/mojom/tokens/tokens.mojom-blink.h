@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/tokens/tokens.mojom-features.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-shared.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -63,7 +64,6 @@ namespace blink::mojom::blink {
 
 
 
-
 class PLATFORM_EXPORT FrameToken {
  public:
   using DataView = FrameTokenDataView;
@@ -83,17 +83,17 @@ class PLATFORM_EXPORT FrameToken {
   // Construct an instance holding |local_frame_token|.
   static FrameTokenPtr
   NewLocalFrameToken(
-      const ::blink::LocalFrameToken& local_frame_token) {
+      const ::blink::LocalFrameToken& value) {
     auto result = FrameTokenPtr(absl::in_place);
-    result->set_local_frame_token(std::move(local_frame_token));
+    result->set_local_frame_token(std::move(value));
     return result;
   }
   // Construct an instance holding |remote_frame_token|.
   static FrameTokenPtr
   NewRemoteFrameToken(
-      const ::blink::RemoteFrameToken& remote_frame_token) {
+      const ::blink::RemoteFrameToken& value) {
     auto result = FrameTokenPtr(absl::in_place);
-    result->set_remote_frame_token(std::move(remote_frame_token));
+    result->set_remote_frame_token(std::move(value));
     return result;
   }
 
@@ -213,25 +213,25 @@ class PLATFORM_EXPORT WorkerToken {
   // Construct an instance holding |dedicated_worker_token|.
   static WorkerTokenPtr
   NewDedicatedWorkerToken(
-      const ::blink::DedicatedWorkerToken& dedicated_worker_token) {
+      const ::blink::DedicatedWorkerToken& value) {
     auto result = WorkerTokenPtr(absl::in_place);
-    result->set_dedicated_worker_token(std::move(dedicated_worker_token));
+    result->set_dedicated_worker_token(std::move(value));
     return result;
   }
   // Construct an instance holding |service_worker_token|.
   static WorkerTokenPtr
   NewServiceWorkerToken(
-      const ::blink::ServiceWorkerToken& service_worker_token) {
+      const ::blink::ServiceWorkerToken& value) {
     auto result = WorkerTokenPtr(absl::in_place);
-    result->set_service_worker_token(std::move(service_worker_token));
+    result->set_service_worker_token(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_worker_token|.
   static WorkerTokenPtr
   NewSharedWorkerToken(
-      const ::blink::SharedWorkerToken& shared_worker_token) {
+      const ::blink::SharedWorkerToken& value) {
     auto result = WorkerTokenPtr(absl::in_place);
-    result->set_shared_worker_token(std::move(shared_worker_token));
+    result->set_shared_worker_token(std::move(value));
     return result;
   }
 
@@ -364,41 +364,41 @@ class PLATFORM_EXPORT WorkletToken {
   // Construct an instance holding |animation_worklet_token|.
   static WorkletTokenPtr
   NewAnimationWorkletToken(
-      const ::blink::AnimationWorkletToken& animation_worklet_token) {
+      const ::blink::AnimationWorkletToken& value) {
     auto result = WorkletTokenPtr(absl::in_place);
-    result->set_animation_worklet_token(std::move(animation_worklet_token));
+    result->set_animation_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |audio_worklet_token|.
   static WorkletTokenPtr
   NewAudioWorkletToken(
-      const ::blink::AudioWorkletToken& audio_worklet_token) {
+      const ::blink::AudioWorkletToken& value) {
     auto result = WorkletTokenPtr(absl::in_place);
-    result->set_audio_worklet_token(std::move(audio_worklet_token));
+    result->set_audio_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |layout_worklet_token|.
   static WorkletTokenPtr
   NewLayoutWorkletToken(
-      LayoutWorkletTokenPtr layout_worklet_token) {
+      LayoutWorkletTokenPtr value) {
     auto result = WorkletTokenPtr(absl::in_place);
-    result->set_layout_worklet_token(std::move(layout_worklet_token));
+    result->set_layout_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |paint_worklet_token|.
   static WorkletTokenPtr
   NewPaintWorkletToken(
-      const ::blink::PaintWorkletToken& paint_worklet_token) {
+      const ::blink::PaintWorkletToken& value) {
     auto result = WorkletTokenPtr(absl::in_place);
-    result->set_paint_worklet_token(std::move(paint_worklet_token));
+    result->set_paint_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_storage_worklet_token|.
   static WorkletTokenPtr
   NewSharedStorageWorkletToken(
-      SharedStorageWorkletTokenPtr shared_storage_worklet_token) {
+      SharedStorageWorkletTokenPtr value) {
     auto result = WorkletTokenPtr(absl::in_place);
-    result->set_shared_storage_worklet_token(std::move(shared_storage_worklet_token));
+    result->set_shared_storage_worklet_token(std::move(value));
     return result;
   }
 
@@ -557,81 +557,81 @@ class PLATFORM_EXPORT ExecutionContextToken {
   // Construct an instance holding |local_frame_token|.
   static ExecutionContextTokenPtr
   NewLocalFrameToken(
-      const ::blink::LocalFrameToken& local_frame_token) {
+      const ::blink::LocalFrameToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_local_frame_token(std::move(local_frame_token));
+    result->set_local_frame_token(std::move(value));
     return result;
   }
   // Construct an instance holding |dedicated_worker_token|.
   static ExecutionContextTokenPtr
   NewDedicatedWorkerToken(
-      const ::blink::DedicatedWorkerToken& dedicated_worker_token) {
+      const ::blink::DedicatedWorkerToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_dedicated_worker_token(std::move(dedicated_worker_token));
+    result->set_dedicated_worker_token(std::move(value));
     return result;
   }
   // Construct an instance holding |service_worker_token|.
   static ExecutionContextTokenPtr
   NewServiceWorkerToken(
-      const ::blink::ServiceWorkerToken& service_worker_token) {
+      const ::blink::ServiceWorkerToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_service_worker_token(std::move(service_worker_token));
+    result->set_service_worker_token(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_worker_token|.
   static ExecutionContextTokenPtr
   NewSharedWorkerToken(
-      const ::blink::SharedWorkerToken& shared_worker_token) {
+      const ::blink::SharedWorkerToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_shared_worker_token(std::move(shared_worker_token));
+    result->set_shared_worker_token(std::move(value));
     return result;
   }
   // Construct an instance holding |animation_worklet_token|.
   static ExecutionContextTokenPtr
   NewAnimationWorkletToken(
-      const ::blink::AnimationWorkletToken& animation_worklet_token) {
+      const ::blink::AnimationWorkletToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_animation_worklet_token(std::move(animation_worklet_token));
+    result->set_animation_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |audio_worklet_token|.
   static ExecutionContextTokenPtr
   NewAudioWorkletToken(
-      const ::blink::AudioWorkletToken& audio_worklet_token) {
+      const ::blink::AudioWorkletToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_audio_worklet_token(std::move(audio_worklet_token));
+    result->set_audio_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |layout_worklet_token|.
   static ExecutionContextTokenPtr
   NewLayoutWorkletToken(
-      LayoutWorkletTokenPtr layout_worklet_token) {
+      LayoutWorkletTokenPtr value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_layout_worklet_token(std::move(layout_worklet_token));
+    result->set_layout_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |paint_worklet_token|.
   static ExecutionContextTokenPtr
   NewPaintWorkletToken(
-      const ::blink::PaintWorkletToken& paint_worklet_token) {
+      const ::blink::PaintWorkletToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_paint_worklet_token(std::move(paint_worklet_token));
+    result->set_paint_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_storage_worklet_token|.
   static ExecutionContextTokenPtr
   NewSharedStorageWorkletToken(
-      SharedStorageWorkletTokenPtr shared_storage_worklet_token) {
+      SharedStorageWorkletTokenPtr value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_shared_storage_worklet_token(std::move(shared_storage_worklet_token));
+    result->set_shared_storage_worklet_token(std::move(value));
     return result;
   }
   // Construct an instance holding |shadow_realm_token|.
   static ExecutionContextTokenPtr
   NewShadowRealmToken(
-      const ::blink::ShadowRealmToken& shadow_realm_token) {
+      const ::blink::ShadowRealmToken& value) {
     auto result = ExecutionContextTokenPtr(absl::in_place);
-    result->set_shadow_realm_token(std::move(shadow_realm_token));
+    result->set_shadow_realm_token(std::move(value));
     return result;
   }
 
@@ -855,17 +855,17 @@ class PLATFORM_EXPORT WebGPUExecutionContextToken {
   // Construct an instance holding |document_token|.
   static WebGPUExecutionContextTokenPtr
   NewDocumentToken(
-      const ::blink::DocumentToken& document_token) {
+      const ::blink::DocumentToken& value) {
     auto result = WebGPUExecutionContextTokenPtr(absl::in_place);
-    result->set_document_token(std::move(document_token));
+    result->set_document_token(std::move(value));
     return result;
   }
   // Construct an instance holding |dedicated_worker_token|.
   static WebGPUExecutionContextTokenPtr
   NewDedicatedWorkerToken(
-      const ::blink::DedicatedWorkerToken& dedicated_worker_token) {
+      const ::blink::DedicatedWorkerToken& value) {
     auto result = WebGPUExecutionContextTokenPtr(absl::in_place);
-    result->set_dedicated_worker_token(std::move(dedicated_worker_token));
+    result->set_dedicated_worker_token(std::move(value));
     return result;
   }
 
@@ -2928,146 +2928,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class PLATFORM_EXPORT PortalToken {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<PortalToken, T>::value>;
-  using DataView = PortalTokenDataView;
-  using Data_ = internal::PortalToken_Data;
-
-  template <typename... Args>
-  static PortalTokenPtr New(Args&&... args) {
-    return PortalTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static PortalTokenPtr From(const U& u) {
-    return mojo::TypeConverter<PortalTokenPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, PortalToken>::Convert(*this);
-  }
-
-
-  PortalToken();
-
-  explicit PortalToken(
-      const ::base::UnguessableToken& value);
-
-
-  ~PortalToken();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = PortalTokenPtr>
-  PortalTokenPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static WTF::Vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        PortalToken::DataView, WTF::Vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        PortalToken::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::PortalToken_UnserializedMessageContext<
-            UserType, PortalToken::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<PortalToken::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const WTF::Vector<uint8_t>& input,
-                          UserType* output) {
-    return PortalToken::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::PortalToken_UnserializedMessageContext<
-            UserType, PortalToken::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<PortalToken::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::base::UnguessableToken value;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, PortalToken::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 class PLATFORM_EXPORT V8ContextToken {
  public:
   template <typename T>
@@ -3718,28 +3578,6 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-PortalTokenPtr PortalToken::Clone() const {
-  return New(
-      mojo::Clone(value)
-  );
-}
-
-template <typename T, PortalToken::EnableIfSame<T>*>
-bool PortalToken::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->value, other_struct.value))
-    return false;
-  return true;
-}
-
-template <typename T, PortalToken::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.value < rhs.value)
-    return true;
-  if (rhs.value < lhs.value)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
 V8ContextTokenPtr V8ContextToken::Clone() const {
   return New(
       mojo::Clone(value)
@@ -3975,21 +3813,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::ClipboardSequenceNumb
   }
 
   static bool Read(::blink::mojom::blink::ClipboardSequenceNumberToken::DataView input, ::blink::mojom::blink::ClipboardSequenceNumberTokenPtr* output);
-};
-
-
-template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::PortalToken::DataView,
-                                         ::blink::mojom::blink::PortalTokenPtr> {
-  static bool IsNull(const ::blink::mojom::blink::PortalTokenPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::PortalTokenPtr* output) { output->reset(); }
-
-  static const decltype(::blink::mojom::blink::PortalToken::value)& value(
-      const ::blink::mojom::blink::PortalTokenPtr& input) {
-    return input->value;
-  }
-
-  static bool Read(::blink::mojom::blink::PortalToken::DataView input, ::blink::mojom::blink::PortalTokenPtr* output);
 };
 
 

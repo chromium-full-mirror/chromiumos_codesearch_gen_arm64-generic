@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -63,9 +64,9 @@ SerialPortInfo::SerialPortInfo(
     bool has_vendor_id_in,
     uint16_t product_id_in,
     bool has_product_id_in,
-    const absl::optional<::device::BluetoothUUID>& bluetooth_service_class_id_in,
-    const absl::optional<std::string>& display_name_in,
-    const absl::optional<std::string>& serial_number_in)
+    const std::optional<::device::BluetoothUUID>& bluetooth_service_class_id_in,
+    const std::optional<std::string>& display_name_in,
+    const std::optional<std::string>& serial_number_in)
     : token(std::move(token_in)),
       path(std::move(path_in)),
       type(std::move(type_in)),
@@ -149,7 +150,7 @@ void SerialPortInfo::WriteIntoTrace(
     dict.AddItem(
       "bluetooth_service_class_id"), this->bluetooth_service_class_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::BluetoothUUID>&>"
+      "<value of type const std::optional<::device::BluetoothUUID>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -158,7 +159,7 @@ void SerialPortInfo::WriteIntoTrace(
     dict.AddItem(
       "display_name"), this->display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -167,7 +168,7 @@ void SerialPortInfo::WriteIntoTrace(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -671,14 +672,17 @@ void SerialPortManagerProxy::SetClient(
                         "<value of type ::mojo::PendingRemote<SerialPortManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManager_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -707,14 +711,17 @@ void SerialPortManagerProxy::GetDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SerialPortManager::GetDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -757,14 +764,17 @@ void SerialPortManagerProxy::OpenPort(
                         "<value of type ::mojo::PendingRemote<SerialPortConnectionWatcher>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManager_OpenPort_Name, kFlags, 0, 0, nullptr);
@@ -905,7 +915,8 @@ void SerialPortManager_GetDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1037,7 +1048,8 @@ void SerialPortManager_OpenPort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManager_OpenPort_Name, kFlags, 0, 0, nullptr);
@@ -1197,14 +1209,14 @@ std::move(p_watcher), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSerialPortManagerValidationInfo[] = {
-    {&internal::SerialPortManager_SetClient_Params_Data::Validate,
+    { &internal::SerialPortManager_SetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SerialPortManager_GetDevices_Params_Data::Validate,
+    { &internal::SerialPortManager_GetDevices_Params_Data::Validate,
      &internal::SerialPortManager_GetDevices_ResponseParams_Data::Validate},
-    {&internal::SerialPortManager_OpenPort_Params_Data::Validate,
+    { &internal::SerialPortManager_OpenPort_Params_Data::Validate,
      &internal::SerialPortManager_OpenPort_ResponseParams_Data::Validate},
 };
 
@@ -1308,14 +1320,17 @@ void SerialPortManagerClientProxy::OnPortAdded(
                         "<value of type SerialPortInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManagerClient_OnPortAdded_Name, kFlags, 0, 0, nullptr);
@@ -1356,14 +1371,17 @@ void SerialPortManagerClientProxy::OnPortRemoved(
                         "<value of type SerialPortInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortManagerClient_OnPortRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1471,12 +1489,12 @@ bool SerialPortManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSerialPortManagerClientValidationInfo[] = {
-    {&internal::SerialPortManagerClient_OnPortAdded_Params_Data::Validate,
+    { &internal::SerialPortManagerClient_OnPortAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SerialPortManagerClient_OnPortRemoved_Params_Data::Validate,
+    { &internal::SerialPortManagerClient_OnPortRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1828,14 +1846,17 @@ void SerialPortProxy::StartWriting(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_StartWriting_Name, kFlags, 0, 0, nullptr);
@@ -1871,14 +1892,17 @@ void SerialPortProxy::StartReading(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_StartReading_Name, kFlags, 0, 0, nullptr);
@@ -1914,14 +1938,17 @@ void SerialPortProxy::Flush(
                         "<value of type SerialPortFlushMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Flush_Name, kFlags, 0, 0, nullptr);
@@ -1947,14 +1974,17 @@ void SerialPortProxy::Drain(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SerialPort::Drain");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Drain_Name, kFlags, 0, 0, nullptr);
@@ -1978,14 +2008,17 @@ void SerialPortProxy::GetControlSignals(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SerialPort::GetControlSignals");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_GetControlSignals_Name, kFlags, 0, 0, nullptr);
@@ -2016,14 +2049,17 @@ void SerialPortProxy::SetControlSignals(
                         "<value of type SerialHostControlSignalsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_SetControlSignals_Name, kFlags, 0, 0, nullptr);
@@ -2065,14 +2101,17 @@ void SerialPortProxy::ConfigurePort(
                         "<value of type SerialConnectionOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_ConfigurePort_Name, kFlags, 0, 0, nullptr);
@@ -2107,14 +2146,17 @@ void SerialPortProxy::GetPortInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SerialPort::GetPortInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_GetPortInfo_Name, kFlags, 0, 0, nullptr);
@@ -2145,14 +2187,17 @@ void SerialPortProxy::Close(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Close_Name, kFlags, 0, 0, nullptr);
@@ -2252,7 +2297,8 @@ void SerialPort_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Flush_Name, kFlags, 0, 0, nullptr);
@@ -2358,7 +2404,8 @@ void SerialPort_Drain_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Drain_Name, kFlags, 0, 0, nullptr);
@@ -2475,7 +2522,8 @@ void SerialPort_GetControlSignals_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_GetControlSignals_Name, kFlags, 0, 0, nullptr);
@@ -2599,7 +2647,8 @@ void SerialPort_SetControlSignals_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_SetControlSignals_Name, kFlags, 0, 0, nullptr);
@@ -2717,7 +2766,8 @@ void SerialPort_ConfigurePort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_ConfigurePort_Name, kFlags, 0, 0, nullptr);
@@ -2835,7 +2885,8 @@ void SerialPort_GetPortInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_GetPortInfo_Name, kFlags, 0, 0, nullptr);
@@ -2952,7 +3003,8 @@ void SerialPort_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPort_Close_Name, kFlags, 0, 0, nullptr);
@@ -3269,26 +3321,26 @@ std::move(p_flush), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSerialPortValidationInfo[] = {
-    {&internal::SerialPort_StartWriting_Params_Data::Validate,
+    { &internal::SerialPort_StartWriting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SerialPort_StartReading_Params_Data::Validate,
+    { &internal::SerialPort_StartReading_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SerialPort_Flush_Params_Data::Validate,
+    { &internal::SerialPort_Flush_Params_Data::Validate,
      &internal::SerialPort_Flush_ResponseParams_Data::Validate},
-    {&internal::SerialPort_Drain_Params_Data::Validate,
+    { &internal::SerialPort_Drain_Params_Data::Validate,
      &internal::SerialPort_Drain_ResponseParams_Data::Validate},
-    {&internal::SerialPort_GetControlSignals_Params_Data::Validate,
+    { &internal::SerialPort_GetControlSignals_Params_Data::Validate,
      &internal::SerialPort_GetControlSignals_ResponseParams_Data::Validate},
-    {&internal::SerialPort_SetControlSignals_Params_Data::Validate,
+    { &internal::SerialPort_SetControlSignals_Params_Data::Validate,
      &internal::SerialPort_SetControlSignals_ResponseParams_Data::Validate},
-    {&internal::SerialPort_ConfigurePort_Params_Data::Validate,
+    { &internal::SerialPort_ConfigurePort_Params_Data::Validate,
      &internal::SerialPort_ConfigurePort_ResponseParams_Data::Validate},
-    {&internal::SerialPort_GetPortInfo_Params_Data::Validate,
+    { &internal::SerialPort_GetPortInfo_Params_Data::Validate,
      &internal::SerialPort_GetPortInfo_ResponseParams_Data::Validate},
-    {&internal::SerialPort_Close_Params_Data::Validate,
+    { &internal::SerialPort_Close_Params_Data::Validate,
      &internal::SerialPort_Close_ResponseParams_Data::Validate},
 };
 
@@ -3392,14 +3444,17 @@ void SerialPortClientProxy::OnReadError(
                         "<value of type SerialReceiveError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortClient_OnReadError_Name, kFlags, 0, 0, nullptr);
@@ -3431,14 +3486,17 @@ void SerialPortClientProxy::OnSendError(
                         "<value of type SerialSendError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSerialPortClient_OnSendError_Name, kFlags, 0, 0, nullptr);
@@ -3537,12 +3595,12 @@ bool SerialPortClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSerialPortClientValidationInfo[] = {
-    {&internal::SerialPortClient_OnReadError_Params_Data::Validate,
+    { &internal::SerialPortClient_OnReadError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SerialPortClient_OnSendError_Params_Data::Validate,
+    { &internal::SerialPortClient_OnSendError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3594,8 +3652,8 @@ bool SerialPortConnectionWatcherStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool SerialPortConnectionWatcherRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::device::mojom::SerialPortConnectionWatcher::Name_;

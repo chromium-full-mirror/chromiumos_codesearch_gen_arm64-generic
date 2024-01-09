@@ -1073,12 +1073,13 @@ enum UpgradeContainerRequest_Version : int {
   UpgradeContainerRequest_Version_DEBIAN_STRETCH = 1,
   UpgradeContainerRequest_Version_DEBIAN_BUSTER = 2,
   UpgradeContainerRequest_Version_DEBIAN_BULLSEYE = 3,
+  UpgradeContainerRequest_Version_DEBIAN_BOOKWORM = 4,
   UpgradeContainerRequest_Version_UpgradeContainerRequest_Version_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   UpgradeContainerRequest_Version_UpgradeContainerRequest_Version_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool UpgradeContainerRequest_Version_IsValid(int value);
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest_Version_Version_MIN = UpgradeContainerRequest_Version_UNKNOWN;
-constexpr UpgradeContainerRequest_Version UpgradeContainerRequest_Version_Version_MAX = UpgradeContainerRequest_Version_DEBIAN_BULLSEYE;
+constexpr UpgradeContainerRequest_Version UpgradeContainerRequest_Version_Version_MAX = UpgradeContainerRequest_Version_DEBIAN_BOOKWORM;
 constexpr int UpgradeContainerRequest_Version_Version_ARRAYSIZE = UpgradeContainerRequest_Version_Version_MAX + 1;
 
 const std::string& UpgradeContainerRequest_Version_Name(UpgradeContainerRequest_Version value);
@@ -13319,6 +13320,8 @@ class UpgradeContainerRequest final :
     UpgradeContainerRequest_Version_DEBIAN_BUSTER;
   static constexpr Version DEBIAN_BULLSEYE =
     UpgradeContainerRequest_Version_DEBIAN_BULLSEYE;
+  static constexpr Version DEBIAN_BOOKWORM =
+    UpgradeContainerRequest_Version_DEBIAN_BOOKWORM;
   static inline bool Version_IsValid(int value) {
     return UpgradeContainerRequest_Version_IsValid(value);
   }

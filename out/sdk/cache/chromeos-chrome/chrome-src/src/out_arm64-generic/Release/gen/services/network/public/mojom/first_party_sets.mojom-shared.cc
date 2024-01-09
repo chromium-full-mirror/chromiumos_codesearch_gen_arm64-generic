@@ -241,7 +241,7 @@ bool GlobalFirstPartySets_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -285,6 +285,17 @@ bool GlobalFirstPartySets_Data::Validate(
   }
   if (!mojo::internal::ValidateStruct(object->manual_config, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->manual_aliases, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& manual_aliases_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->manual_aliases, validation_context,
+                                         &manual_aliases_validate_params)) {
+    return false;
+  }
 
   return true;
 }

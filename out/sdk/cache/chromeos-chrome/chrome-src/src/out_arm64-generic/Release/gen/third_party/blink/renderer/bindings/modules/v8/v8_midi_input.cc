@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MIDIInput>::value,
     "MIDIInput does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MIDIInput::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIInput is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIInput.onmidimessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIInput* blink_receiver = V8MIDIInput::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmidimessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIInput* blink_receiver = V8MIDIInput::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmidimessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -103,8 +98,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIInput* blink_receiver = V8MIDIInput::ToWrappableUnsafe(v8_receiver);
+MIDIInput* blink_receiver = V8MIDIInput::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmidimessage(event_handler);
 }
 

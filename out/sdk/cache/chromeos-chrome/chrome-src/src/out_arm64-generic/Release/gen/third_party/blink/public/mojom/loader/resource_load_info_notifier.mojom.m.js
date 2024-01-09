@@ -73,9 +73,10 @@ export class ResourceLoadInfoNotifierInterface {
    * @param { !url_mojom_SchemeHostPort } finalResponseUrl
    * @param { !network_mojom_URLResponseHead } head
    * @param { !network_mojom_RequestDestination } requestDestination
+   * @param { !boolean } isAdResource
    */
 
-  notifyResourceResponseReceived(requestId, finalResponseUrl, head, requestDestination) {}
+  notifyResourceResponseReceived(requestId, finalResponseUrl, head, requestDestination, isAdResource) {}
   
   /**
    * @param { !bigint } requestId
@@ -152,13 +153,15 @@ export class ResourceLoadInfoNotifierRemote {
    * @param { !url_mojom_SchemeHostPort } finalResponseUrl
    * @param { !network_mojom_URLResponseHead } head
    * @param { !network_mojom_RequestDestination } requestDestination
+   * @param { !boolean } isAdResource
    */
 
   notifyResourceResponseReceived(
       requestId,
       finalResponseUrl,
       head,
-      requestDestination) {
+      requestDestination,
+      isAdResource) {
     this.proxy.sendMessage(
         1,
         ResourceLoadInfoNotifier_NotifyResourceResponseReceived_ParamsSpec.$,
@@ -167,7 +170,8 @@ export class ResourceLoadInfoNotifierRemote {
           requestId,
           finalResponseUrl,
           head,
-          requestDestination
+          requestDestination,
+          isAdResource
         ]);
   }
 
@@ -537,6 +541,14 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'isAdResource', 28,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
     [[0, 40],]);
 
@@ -555,6 +567,8 @@ export class ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params {
     this.head;
     /** @type { !network_mojom_RequestDestination } */
     this.requestDestination;
+    /** @type { !boolean } */
+    this.isAdResource;
   }
 }
 

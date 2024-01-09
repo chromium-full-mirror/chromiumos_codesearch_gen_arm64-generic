@@ -58,13 +58,14 @@ bool SystemWebAppDataProto_SystemWebAppType_IsValid(int value) {
     case 22:
     case 23:
     case 24:
+    case 25:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemWebAppDataProto_SystemWebAppType_strings[23] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemWebAppDataProto_SystemWebAppType_strings[24] = {};
 
 static const char SystemWebAppDataProto_SystemWebAppType_names[] =
   "CAMERA"
@@ -89,7 +90,8 @@ static const char SystemWebAppDataProto_SystemWebAppType_names[] =
   "SETTINGS"
   "SHIMLESS_RMA"
   "SHORTCUT_CUSTOMIZATION"
-  "TERMINAL";
+  "TERMINAL"
+  "VC_BACKGROUND";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemWebAppDataProto_SystemWebAppType_entries[] = {
   { {SystemWebAppDataProto_SystemWebAppType_names + 0, 6}, 5 },
@@ -115,6 +117,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemWebAppDataProto_
   { {SystemWebAppDataProto_SystemWebAppType_names + 197, 12}, 17 },
   { {SystemWebAppDataProto_SystemWebAppType_names + 209, 22}, 16 },
   { {SystemWebAppDataProto_SystemWebAppType_names + 231, 8}, 6 },
+  { {SystemWebAppDataProto_SystemWebAppType_names + 239, 13}, 25 },
 };
 
 static const int SystemWebAppDataProto_SystemWebAppType_entries_by_number[] = {
@@ -141,6 +144,7 @@ static const int SystemWebAppDataProto_SystemWebAppType_entries_by_number[] = {
   8, // 22 -> FIRMWARE_UPDATE
   12, // 23 -> OS_FLAGS
   6, // 24 -> FACE_ML
+  23, // 25 -> VC_BACKGROUND
 };
 
 const std::string& SystemWebAppDataProto_SystemWebAppType_Name(
@@ -149,12 +153,12 @@ const std::string& SystemWebAppDataProto_SystemWebAppType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemWebAppDataProto_SystemWebAppType_entries,
           SystemWebAppDataProto_SystemWebAppType_entries_by_number,
-          23, SystemWebAppDataProto_SystemWebAppType_strings);
+          24, SystemWebAppDataProto_SystemWebAppType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemWebAppDataProto_SystemWebAppType_entries,
       SystemWebAppDataProto_SystemWebAppType_entries_by_number,
-      23, value);
+      24, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemWebAppDataProto_SystemWebAppType_strings[idx].get();
 }
@@ -162,7 +166,7 @@ bool SystemWebAppDataProto_SystemWebAppType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemWebAppDataProto_SystemWebAppType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemWebAppDataProto_SystemWebAppType_entries, 23, name, &int_value);
+      SystemWebAppDataProto_SystemWebAppType_entries, 24, name, &int_value);
   if (success) {
     *value = static_cast<SystemWebAppDataProto_SystemWebAppType>(int_value);
   }
@@ -192,6 +196,7 @@ constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::OS_URL_H
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::FIRMWARE_UPDATE;
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::OS_FLAGS;
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::FACE_ML;
+constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::VC_BACKGROUND;
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::SystemWebAppType_MIN;
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto::SystemWebAppType_MAX;
 constexpr int SystemWebAppDataProto::SystemWebAppType_ARRAYSIZE;

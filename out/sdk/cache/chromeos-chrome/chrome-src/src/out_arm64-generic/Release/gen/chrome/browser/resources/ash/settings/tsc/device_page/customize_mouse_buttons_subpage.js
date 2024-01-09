@@ -13,7 +13,7 @@ import '/shared/settings/controls/settings_toggle_button.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './customize_mouse_buttons_subpage.html.js';
 import { getInputDeviceSettingsProvider } from './input_device_mojo_interface_provider.js';
@@ -56,6 +56,12 @@ export class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomi
                     };
                 },
             },
+            /**
+             * Use hasLauncherButton to decide which meta key icon to display.
+             */
+            hasLauncherButton_: {
+                type: Boolean,
+            },
         };
     }
     static get observers() {
@@ -65,9 +71,12 @@ export class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomi
             'onSettingsChanged(primaryRightPref_.value)',
         ];
     }
-    connectedCallback() {
+    async connectedCallback() {
         super.connectedCallback();
         this.addEventListener('button-remapping-changed', this.onSettingsChanged);
+        this.hasLauncherButton_ =
+            (await this.inputDeviceSettingsProvider_.hasLauncherButton())
+                ?.hasLauncherButton;
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -126,8 +135,12 @@ export class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomi
         if (Router.getInstance().currentRoute !== routes.CUSTOMIZE_MOUSE_BUTTONS) {
             return;
         }
-        if (!this.hasMice() || !this.isMouseConnected(this.getMouseIdFromUrl())) {
+        if (!this.hasMice()) {
             Router.getInstance().navigateTo(routes.DEVICE);
+            return;
+        }
+        if (!this.isMouseConnected(this.getMouseIdFromUrl())) {
+            Router.getInstance().navigateTo(routes.PER_DEVICE_MOUSE);
             return;
         }
         await this.initializeMouse();

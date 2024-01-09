@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,8 +37,8 @@ struct Items {
   ~Items();
   Items(const Items&) = delete;
   Items& operator=(const Items&) = delete;
-  Items(Items&& rhs);
-  Items& operator=(Items&& rhs);
+  Items(Items&& rhs) noexcept;
+  Items& operator=(Items&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisItems object.
@@ -55,11 +56,11 @@ base::Value::List Create(const Items& items);
 namespace Set {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Items {
@@ -67,8 +68,8 @@ struct Params {
     ~Items();
     Items(const Items&) = delete;
     Items& operator=(const Items&) = delete;
-    Items(Items&& rhs);
-    Items& operator=(Items&& rhs);
+    Items(Items&& rhs) noexcept;
+    Items& operator=(Items&& rhs) noexcept;
 
     // Populates a Items object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -82,10 +83,10 @@ struct Params {
     Items Clone() const;
 
     // Creates a Items object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Items> FromValue(const base::Value::Dict& value);
+    static std::optional<Items> FromValue(const base::Value::Dict& value);
 
     // Creates a Items object from a base::Value, or nullopt on failure.
-    static absl::optional<Items> FromValue(const base::Value& value);
+    static std::optional<Items> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -108,11 +109,11 @@ base::Value::List Create();
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> keys;

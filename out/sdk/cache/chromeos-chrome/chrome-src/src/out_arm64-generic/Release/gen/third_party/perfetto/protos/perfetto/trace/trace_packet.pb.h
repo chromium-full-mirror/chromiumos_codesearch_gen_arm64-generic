@@ -42,6 +42,7 @@
 #include "protos/perfetto/trace/android/initial_display_state.pb.h"
 #include "protos/perfetto/trace/android/network_trace.pb.h"
 #include "protos/perfetto/trace/android/packages_list.pb.h"
+#include "protos/perfetto/trace/android/shell_transition.pb.h"
 #include "protos/perfetto/trace/android/surfaceflinger_layers.pb.h"
 #include "protos/perfetto/trace/android/surfaceflinger_transactions.pb.h"
 #include "protos/perfetto/trace/chrome/chrome_benchmark_metadata.pb.h"
@@ -240,6 +241,8 @@ class TracePacket final :
     kTrackEventRangeOfInterest = 90,
     kSurfaceflingerLayersSnapshot = 93,
     kSurfaceflingerTransactions = 94,
+    kShellTransition = 96,
+    kShellHandlerMappings = 97,
     kEtwEvents = 95,
     kForTesting = 900,
     DATA_NOT_SET = 0,
@@ -361,6 +364,7 @@ class TracePacket final :
     kFirstPacketOnSequenceFieldNumber = 87,
     kTimestampClockIdFieldNumber = 58,
     kTrustedPidFieldNumber = 79,
+    kMachineIdFieldNumber = 98,
     kProcessTreeFieldNumber = 2,
     kProcessStatsFieldNumber = 9,
     kInodeFileMapFieldNumber = 4,
@@ -424,6 +428,8 @@ class TracePacket final :
     kTrackEventRangeOfInterestFieldNumber = 90,
     kSurfaceflingerLayersSnapshotFieldNumber = 93,
     kSurfaceflingerTransactionsFieldNumber = 94,
+    kShellTransitionFieldNumber = 96,
+    kShellHandlerMappingsFieldNumber = 97,
     kEtwEventsFieldNumber = 95,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
@@ -554,6 +560,19 @@ class TracePacket final :
   private:
   int32_t _internal_trusted_pid() const;
   void _internal_set_trusted_pid(int32_t value);
+  public:
+
+  // optional uint32 machine_id = 98;
+  bool has_machine_id() const;
+  private:
+  bool _internal_has_machine_id() const;
+  public:
+  void clear_machine_id();
+  uint32_t machine_id() const;
+  void set_machine_id(uint32_t value);
+  private:
+  uint32_t _internal_machine_id() const;
+  void _internal_set_machine_id(uint32_t value);
   public:
 
   // .perfetto.protos.ProcessTree process_tree = 2;
@@ -1690,6 +1709,42 @@ class TracePacket final :
       ::perfetto::protos::TransactionTraceEntry* surfaceflinger_transactions);
   ::perfetto::protos::TransactionTraceEntry* unsafe_arena_release_surfaceflinger_transactions();
 
+  // .perfetto.protos.ShellTransition shell_transition = 96;
+  bool has_shell_transition() const;
+  private:
+  bool _internal_has_shell_transition() const;
+  public:
+  void clear_shell_transition();
+  const ::perfetto::protos::ShellTransition& shell_transition() const;
+  PROTOBUF_NODISCARD ::perfetto::protos::ShellTransition* release_shell_transition();
+  ::perfetto::protos::ShellTransition* mutable_shell_transition();
+  void set_allocated_shell_transition(::perfetto::protos::ShellTransition* shell_transition);
+  private:
+  const ::perfetto::protos::ShellTransition& _internal_shell_transition() const;
+  ::perfetto::protos::ShellTransition* _internal_mutable_shell_transition();
+  public:
+  void unsafe_arena_set_allocated_shell_transition(
+      ::perfetto::protos::ShellTransition* shell_transition);
+  ::perfetto::protos::ShellTransition* unsafe_arena_release_shell_transition();
+
+  // .perfetto.protos.ShellHandlerMappings shell_handler_mappings = 97;
+  bool has_shell_handler_mappings() const;
+  private:
+  bool _internal_has_shell_handler_mappings() const;
+  public:
+  void clear_shell_handler_mappings();
+  const ::perfetto::protos::ShellHandlerMappings& shell_handler_mappings() const;
+  PROTOBUF_NODISCARD ::perfetto::protos::ShellHandlerMappings* release_shell_handler_mappings();
+  ::perfetto::protos::ShellHandlerMappings* mutable_shell_handler_mappings();
+  void set_allocated_shell_handler_mappings(::perfetto::protos::ShellHandlerMappings* shell_handler_mappings);
+  private:
+  const ::perfetto::protos::ShellHandlerMappings& _internal_shell_handler_mappings() const;
+  ::perfetto::protos::ShellHandlerMappings* _internal_mutable_shell_handler_mappings();
+  public:
+  void unsafe_arena_set_allocated_shell_handler_mappings(
+      ::perfetto::protos::ShellHandlerMappings* shell_handler_mappings);
+  ::perfetto::protos::ShellHandlerMappings* unsafe_arena_release_shell_handler_mappings();
+
   // .perfetto.protos.EtwTraceEventBundle etw_events = 95;
   bool has_etw_events() const;
   private:
@@ -1824,6 +1879,8 @@ class TracePacket final :
   void set_has_track_event_range_of_interest();
   void set_has_surfaceflinger_layers_snapshot();
   void set_has_surfaceflinger_transactions();
+  void set_has_shell_transition();
+  void set_has_shell_handler_mappings();
   void set_has_etw_events();
   void set_has_for_testing();
   void set_has_trusted_uid();
@@ -1852,6 +1909,7 @@ class TracePacket final :
   bool first_packet_on_sequence_;
   uint32_t timestamp_clock_id_;
   int32_t trusted_pid_;
+  uint32_t machine_id_;
   union DataUnion {
     constexpr DataUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -1918,6 +1976,8 @@ class TracePacket final :
     ::perfetto::protos::TrackEventRangeOfInterest* track_event_range_of_interest_;
     ::perfetto::protos::LayersSnapshotProto* surfaceflinger_layers_snapshot_;
     ::perfetto::protos::TransactionTraceEntry* surfaceflinger_transactions_;
+    ::perfetto::protos::ShellTransition* shell_transition_;
+    ::perfetto::protos::ShellHandlerMappings* shell_handler_mappings_;
     ::perfetto::protos::EtwTraceEventBundle* etw_events_;
     ::perfetto::protos::TestEvent* for_testing_;
   } data_;
@@ -6182,6 +6242,138 @@ inline ::perfetto::protos::TransactionTraceEntry* TracePacket::mutable_surfacefl
   return _msg;
 }
 
+// .perfetto.protos.ShellTransition shell_transition = 96;
+inline bool TracePacket::_internal_has_shell_transition() const {
+  return data_case() == kShellTransition;
+}
+inline bool TracePacket::has_shell_transition() const {
+  return _internal_has_shell_transition();
+}
+inline void TracePacket::set_has_shell_transition() {
+  _oneof_case_[0] = kShellTransition;
+}
+inline ::perfetto::protos::ShellTransition* TracePacket::release_shell_transition() {
+  // @@protoc_insertion_point(field_release:perfetto.protos.TracePacket.shell_transition)
+  if (_internal_has_shell_transition()) {
+    clear_has_data();
+    ::perfetto::protos::ShellTransition* temp = data_.shell_transition_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    data_.shell_transition_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::perfetto::protos::ShellTransition& TracePacket::_internal_shell_transition() const {
+  return _internal_has_shell_transition()
+      ? *data_.shell_transition_
+      : reinterpret_cast< ::perfetto::protos::ShellTransition&>(::perfetto::protos::_ShellTransition_default_instance_);
+}
+inline const ::perfetto::protos::ShellTransition& TracePacket::shell_transition() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TracePacket.shell_transition)
+  return _internal_shell_transition();
+}
+inline ::perfetto::protos::ShellTransition* TracePacket::unsafe_arena_release_shell_transition() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:perfetto.protos.TracePacket.shell_transition)
+  if (_internal_has_shell_transition()) {
+    clear_has_data();
+    ::perfetto::protos::ShellTransition* temp = data_.shell_transition_;
+    data_.shell_transition_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void TracePacket::unsafe_arena_set_allocated_shell_transition(::perfetto::protos::ShellTransition* shell_transition) {
+  clear_data();
+  if (shell_transition) {
+    set_has_shell_transition();
+    data_.shell_transition_ = shell_transition;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.TracePacket.shell_transition)
+}
+inline ::perfetto::protos::ShellTransition* TracePacket::_internal_mutable_shell_transition() {
+  if (!_internal_has_shell_transition()) {
+    clear_data();
+    set_has_shell_transition();
+    data_.shell_transition_ = CreateMaybeMessage< ::perfetto::protos::ShellTransition >(GetArenaForAllocation());
+  }
+  return data_.shell_transition_;
+}
+inline ::perfetto::protos::ShellTransition* TracePacket::mutable_shell_transition() {
+  ::perfetto::protos::ShellTransition* _msg = _internal_mutable_shell_transition();
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.TracePacket.shell_transition)
+  return _msg;
+}
+
+// .perfetto.protos.ShellHandlerMappings shell_handler_mappings = 97;
+inline bool TracePacket::_internal_has_shell_handler_mappings() const {
+  return data_case() == kShellHandlerMappings;
+}
+inline bool TracePacket::has_shell_handler_mappings() const {
+  return _internal_has_shell_handler_mappings();
+}
+inline void TracePacket::set_has_shell_handler_mappings() {
+  _oneof_case_[0] = kShellHandlerMappings;
+}
+inline ::perfetto::protos::ShellHandlerMappings* TracePacket::release_shell_handler_mappings() {
+  // @@protoc_insertion_point(field_release:perfetto.protos.TracePacket.shell_handler_mappings)
+  if (_internal_has_shell_handler_mappings()) {
+    clear_has_data();
+    ::perfetto::protos::ShellHandlerMappings* temp = data_.shell_handler_mappings_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    data_.shell_handler_mappings_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::perfetto::protos::ShellHandlerMappings& TracePacket::_internal_shell_handler_mappings() const {
+  return _internal_has_shell_handler_mappings()
+      ? *data_.shell_handler_mappings_
+      : reinterpret_cast< ::perfetto::protos::ShellHandlerMappings&>(::perfetto::protos::_ShellHandlerMappings_default_instance_);
+}
+inline const ::perfetto::protos::ShellHandlerMappings& TracePacket::shell_handler_mappings() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TracePacket.shell_handler_mappings)
+  return _internal_shell_handler_mappings();
+}
+inline ::perfetto::protos::ShellHandlerMappings* TracePacket::unsafe_arena_release_shell_handler_mappings() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:perfetto.protos.TracePacket.shell_handler_mappings)
+  if (_internal_has_shell_handler_mappings()) {
+    clear_has_data();
+    ::perfetto::protos::ShellHandlerMappings* temp = data_.shell_handler_mappings_;
+    data_.shell_handler_mappings_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void TracePacket::unsafe_arena_set_allocated_shell_handler_mappings(::perfetto::protos::ShellHandlerMappings* shell_handler_mappings) {
+  clear_data();
+  if (shell_handler_mappings) {
+    set_has_shell_handler_mappings();
+    data_.shell_handler_mappings_ = shell_handler_mappings;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.TracePacket.shell_handler_mappings)
+}
+inline ::perfetto::protos::ShellHandlerMappings* TracePacket::_internal_mutable_shell_handler_mappings() {
+  if (!_internal_has_shell_handler_mappings()) {
+    clear_data();
+    set_has_shell_handler_mappings();
+    data_.shell_handler_mappings_ = CreateMaybeMessage< ::perfetto::protos::ShellHandlerMappings >(GetArenaForAllocation());
+  }
+  return data_.shell_handler_mappings_;
+}
+inline ::perfetto::protos::ShellHandlerMappings* TracePacket::mutable_shell_handler_mappings() {
+  ::perfetto::protos::ShellHandlerMappings* _msg = _internal_mutable_shell_handler_mappings();
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.TracePacket.shell_handler_mappings)
+  return _msg;
+}
+
 // .perfetto.protos.EtwTraceEventBundle etw_events = 95;
 inline bool TracePacket::_internal_has_etw_events() const {
   return data_case() == kEtwEvents;
@@ -6702,6 +6894,34 @@ inline void TracePacket::_internal_set_first_packet_on_sequence(bool value) {
 inline void TracePacket::set_first_packet_on_sequence(bool value) {
   _internal_set_first_packet_on_sequence(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.TracePacket.first_packet_on_sequence)
+}
+
+// optional uint32 machine_id = 98;
+inline bool TracePacket::_internal_has_machine_id() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool TracePacket::has_machine_id() const {
+  return _internal_has_machine_id();
+}
+inline void TracePacket::clear_machine_id() {
+  machine_id_ = 0u;
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline uint32_t TracePacket::_internal_machine_id() const {
+  return machine_id_;
+}
+inline uint32_t TracePacket::machine_id() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TracePacket.machine_id)
+  return _internal_machine_id();
+}
+inline void TracePacket::_internal_set_machine_id(uint32_t value) {
+  _has_bits_[0] |= 0x00000200u;
+  machine_id_ = value;
+}
+inline void TracePacket::set_machine_id(uint32_t value) {
+  _internal_set_machine_id(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.TracePacket.machine_id)
 }
 
 inline bool TracePacket::has_data() const {

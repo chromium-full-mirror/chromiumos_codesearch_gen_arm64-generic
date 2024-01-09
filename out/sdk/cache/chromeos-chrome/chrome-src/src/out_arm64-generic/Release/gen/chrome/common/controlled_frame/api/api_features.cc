@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,9 @@
 #include "extensions/common/features/feature_provider.h"
 #include "extensions/common/features/manifest_feature.h"
 #include "extensions/common/features/permission_feature.h"
+#include "extensions/common/mojom/context_type.mojom.h"
 #include "extensions/common/mojom/feature_session_type.mojom.h"
+#include "printing/buildflags/buildflags.h"
 
 namespace extensions {
 
@@ -22,7 +24,7 @@ void AddControlledFrameAPIFeatures(FeatureProvider* provider) {
     SimpleFeature* feature = new SimpleFeature();
     feature->set_name("controlledFrameInternal");
     feature->set_channel(version_info::Channel::DEV);
-    feature->set_contexts({Feature::WEB_PAGE_CONTEXT});
+    feature->set_contexts({mojom::ContextType::kWebPage});
     feature->set_internal(true);
     feature->set_requires_delegated_availability_check(true);
     provider->AddFeature("controlledFrameInternal", feature);

@@ -79,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, VideoEncoder>::value,
     "VideoEncoder does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&VideoEncoder::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VideoEncoder is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,8 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoEncoder.encodeQueueSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->encodeQueueSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -110,10 +106,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoEncoder.ondequeue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondequeue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondequeue();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -126,8 +122,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndequeue(event_handler);
 }
 
@@ -138,10 +135,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoEncoder.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -199,9 +196,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoEncoder.close");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "VideoEncoder";
 const char* const property_name = "close";
@@ -234,7 +231,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_config = NativeValueTraits<VideoEncoderConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -267,7 +264,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_frame = NativeValueTraits<VideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -311,7 +308,7 @@ return;
 
 
 
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flush(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -330,9 +327,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoEncoder.reset");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoEncoder* blink_receiver = V8VideoEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "VideoEncoder";
 const char* const property_name = "reset";

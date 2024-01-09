@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMException>::value,
     "DOMException inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMException::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMException is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMException.code.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(v8_receiver);
+DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->code();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -99,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMException.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMException.message.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->message();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMException* blink_receiver = V8DOMException::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

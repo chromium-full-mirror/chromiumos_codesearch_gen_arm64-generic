@@ -50,8 +50,6 @@ class AttributionSrcTokenDataView;
 
 class ClipboardSequenceNumberTokenDataView;
 
-class PortalTokenDataView;
-
 class V8ContextTokenDataView;
 
 class FrameTokenDataView;
@@ -100,9 +98,6 @@ using AttributionSrcTokenPtr = mojo::StructPtr<AttributionSrcToken>;
 
 class ClipboardSequenceNumberToken;
 using ClipboardSequenceNumberTokenPtr = mojo::StructPtr<ClipboardSequenceNumberToken>;
-
-class PortalToken;
-using PortalTokenPtr = mojo::StructPtr<PortalToken>;
 
 class V8ContextToken;
 using V8ContextTokenPtr = mojo::StructPtr<V8ContextToken>;

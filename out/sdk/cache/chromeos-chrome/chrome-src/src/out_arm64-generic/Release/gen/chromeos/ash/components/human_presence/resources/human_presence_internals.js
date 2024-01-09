@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import './strings.m.js';
 import { addWebUiListener } from 'chrome://resources/js/cr.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 const POLL_INTERVAL_MS = 500; // Matches hpsd polling rate.
 const MAX_HISTORY = 512 / 4;
 // The field number of the config in the hps::FeatureConfig proto.

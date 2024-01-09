@@ -10,11 +10,11 @@ import '../settings_shared.css.js';
 import './cups_printers_browser_proxy.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { CupsPrintersBrowserProxyImpl } from './cups_printers_browser_proxy.js';
 import { getTemplate } from './printing_settings_card.html.js';
@@ -39,6 +39,21 @@ export class PrintingSettingsCardElement extends PrintingSettingsCardElementBase
                 type: Boolean,
                 value: () => {
                     return isRevampWayfindingEnabled();
+                },
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            print: 'os-settings:device-print',
+                            scan: 'os-settings:device-scan',
+                        };
+                    }
+                    return {
+                        print: '',
+                        scan: '',
+                    };
                 },
             },
         };

@@ -69,13 +69,13 @@ bool ProxyInfo_Data::Validate(
       static_cast<const ProxyInfo_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxy_servers, 1, validation_context)) {
+          object->proxy_chains, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& proxy_servers_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& proxy_chains_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->proxy_servers, validation_context,
-                                         &proxy_servers_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->proxy_chains, validation_context,
+                                         &proxy_chains_validate_params)) {
     return false;
   }
 

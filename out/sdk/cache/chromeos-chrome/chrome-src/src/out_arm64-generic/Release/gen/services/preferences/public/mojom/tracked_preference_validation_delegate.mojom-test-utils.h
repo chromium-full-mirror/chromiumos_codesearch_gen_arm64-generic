@@ -15,7 +15,7 @@ namespace prefs::mojom {
 
 class  TrackedPreferenceValidationDelegateInterceptorForTesting : public TrackedPreferenceValidationDelegate {
   virtual TrackedPreferenceValidationDelegate* GetForwardingInterface() = 0;
-  void OnAtomicPreferenceValidation(const std::string& pref_path, absl::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) override;
+  void OnAtomicPreferenceValidation(const std::string& pref_path, std::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) override;
   void OnSplitPreferenceValidation(const std::string& pref_path, const std::vector<std::string>& invalid_keys, const std::vector<std::string>& external_validation_invalid_keys, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) override;
 };
 class  TrackedPreferenceValidationDelegateAsyncWaiter {

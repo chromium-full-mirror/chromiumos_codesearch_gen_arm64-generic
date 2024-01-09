@@ -11,6 +11,15 @@ export var BackgroundBlurMode;
     BackgroundBlurMode[BackgroundBlurMode["OFF"] = 0] = "OFF";
     BackgroundBlurMode[BackgroundBlurMode["BLUR"] = 1] = "BLUR";
 })(BackgroundBlurMode || (BackgroundBlurMode = {}));
+export const EyeGazeCorrectionModeSpec = { $: mojo.internal.Enum() };
+export var EyeGazeCorrectionMode;
+(function (EyeGazeCorrectionMode) {
+    EyeGazeCorrectionMode[EyeGazeCorrectionMode["MIN_VALUE"] = 0] = "MIN_VALUE";
+    EyeGazeCorrectionMode[EyeGazeCorrectionMode["MAX_VALUE"] = 2] = "MAX_VALUE";
+    EyeGazeCorrectionMode[EyeGazeCorrectionMode["OFF"] = 0] = "OFF";
+    EyeGazeCorrectionMode[EyeGazeCorrectionMode["ON"] = 1] = "ON";
+    EyeGazeCorrectionMode[EyeGazeCorrectionMode["STARE"] = 2] = "STARE";
+})(EyeGazeCorrectionMode || (EyeGazeCorrectionMode = {}));
 export const MeteringModeSpec = { $: mojo.internal.Enum() };
 export var MeteringMode;
 (function (MeteringMode) {
@@ -179,7 +188,9 @@ mojo.internal.Struct(PhotoStateSpec.$, 'PhotoState', [
     mojo.internal.StructField('backgroundBlurMode', 148, 0, BackgroundBlurModeSpec.$, 0, false /* nullable */, 1),
     mojo.internal.StructField('supportedFaceFramingModes', 184, 0, mojo.internal.Array(MeteringModeSpec.$, false), null, true /* nullable */, 2),
     mojo.internal.StructField('currentFaceFramingMode', 192, 0, MeteringModeSpec.$, 0, false /* nullable */, 2),
-], [[0, 184], [1, 192], [2, 208],]);
+    mojo.internal.StructField('supportedEyeGazeCorrectionModes', 200, 0, mojo.internal.Array(EyeGazeCorrectionModeSpec.$, false), null, true /* nullable */, 3),
+    mojo.internal.StructField('currentEyeGazeCorrectionMode', 196, 0, EyeGazeCorrectionModeSpec.$, 0, false /* nullable */, 3),
+], [[0, 184], [1, 192], [2, 208], [3, 216],]);
 mojo.internal.Struct(Point2DSpec.$, 'Point2D', [
     mojo.internal.StructField('x', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
     mojo.internal.StructField('y', 8, 0, mojo.internal.Double, 0, false /* nullable */, 0),
@@ -230,7 +241,16 @@ mojo.internal.Struct(PhotoSettingsSpec.$, 'PhotoSettings', [
     mojo.internal.StructField('backgroundBlurMode', 124, 0, BackgroundBlurModeSpec.$, 0, false /* nullable */, 1),
     mojo.internal.StructField('hasFaceFramingMode', 2, 7, mojo.internal.Bool, false, false /* nullable */, 2),
     mojo.internal.StructField('faceFramingMode', 144, 0, MeteringModeSpec.$, 0, false /* nullable */, 2),
-], [[0, 152], [1, 152], [2, 160],]);
+    mojo.internal.StructField('eye_gaze_correction_mode_$flag', 3, 0, mojo.internal.Bool, false, false /* nullable */, 3, {
+        isPrimary: true,
+        linkedValueFieldName: "eye_gaze_correction_mode_$value",
+        originalFieldName: "eyeGazeCorrectionMode",
+    }),
+    mojo.internal.StructField('eye_gaze_correction_mode_$value', 148, 0, EyeGazeCorrectionModeSpec.$, 0, false /* nullable */, 3, {
+        isPrimary: false,
+        originalFieldName: "eyeGazeCorrectionMode",
+    }),
+], [[0, 152], [1, 152], [2, 160], [3, 160],]);
 mojo.internal.Struct(BlobSpec.$, 'Blob', [
     mojo.internal.StructField('mimeType', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('data', 8, 0, mojo.internal.Array(mojo.internal.Uint8, false), null, false /* nullable */, 0),

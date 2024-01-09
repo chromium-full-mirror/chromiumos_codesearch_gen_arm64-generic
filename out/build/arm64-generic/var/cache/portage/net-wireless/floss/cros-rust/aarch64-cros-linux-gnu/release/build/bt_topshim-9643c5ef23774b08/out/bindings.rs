@@ -751,6 +751,10 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
+    pub mod libchrome {
+        #[allow(unused_imports)]
+        use self::super::super::root;
+    }
     pub mod partition_alloc {
         #[allow(unused_imports)]
         use self::super::super::root;
@@ -763,14 +767,10 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
     }
-    pub mod libchrome {
-        #[allow(unused_imports)]
-        use self::super::super::root;
-    }
     pub mod absl {
         #[allow(unused_imports)]
         use self::super::super::root;
-        pub mod lts_20230125 {
+        pub mod lts_20230802 {
             #[allow(unused_imports)]
             use self::super::super::super::root;
         }
@@ -1681,7 +1681,7 @@ pub mod root {
         pub r: [u8; 16usize],
         pub device_name: [u8; 256usize],
         pub oob_data_length: [u8; 2usize],
-        pub class_of_device: [u8; 2usize],
+        pub class_of_device: [u8; 3usize],
         pub le_device_role: u8,
         pub sm_tk: [u8; 16usize],
         pub le_flags: u8,
@@ -1693,7 +1693,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<bt_oob_data_s>(),
-            320usize,
+            321usize,
             concat!("Size of: ", stringify!(bt_oob_data_s))
         );
         assert_eq!(
@@ -1748,7 +1748,7 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).le_device_role) as usize - ptr as usize },
-            300usize,
+            301usize,
             concat!(
                 "Offset of field: ",
                 stringify!(bt_oob_data_s),
@@ -1758,17 +1758,17 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).sm_tk) as usize - ptr as usize },
-            301usize,
+            302usize,
             concat!("Offset of field: ", stringify!(bt_oob_data_s), "::", stringify!(sm_tk))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).le_flags) as usize - ptr as usize },
-            317usize,
+            318usize,
             concat!("Offset of field: ", stringify!(bt_oob_data_s), "::", stringify!(le_flags))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).le_appearance) as usize - ptr as usize },
-            318usize,
+            319usize,
             concat!(
                 "Offset of field: ",
                 stringify!(bt_oob_data_s),
@@ -4123,7 +4123,7 @@ pub mod root {
     #[repr(C)]
     #[derive(Debug, Copy, Clone, PartialEq, Eq)]
     pub struct btgatt_unformatted_value_t {
-        pub value: [u8; 600usize],
+        pub value: [u8; 512usize],
         pub len: u16,
     }
     #[test]
@@ -4133,7 +4133,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<btgatt_unformatted_value_t>(),
-            602usize,
+            514usize,
             concat!("Size of: ", stringify!(btgatt_unformatted_value_t))
         );
         assert_eq!(
@@ -4153,7 +4153,7 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).len) as usize - ptr as usize },
-            600usize,
+            512usize,
             concat!(
                 "Offset of field: ",
                 stringify!(btgatt_unformatted_value_t),
@@ -4187,7 +4187,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<btgatt_read_params_t>(),
-            608usize,
+            520usize,
             concat!("Size of: ", stringify!(btgatt_read_params_t))
         );
         assert_eq!(
@@ -4212,7 +4212,7 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).value_type) as usize - ptr as usize },
-            604usize,
+            516usize,
             concat!(
                 "Offset of field: ",
                 stringify!(btgatt_read_params_t),
@@ -4222,7 +4222,7 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
-            606usize,
+            518usize,
             concat!(
                 "Offset of field: ",
                 stringify!(btgatt_read_params_t),
@@ -4309,7 +4309,7 @@ pub mod root {
     #[repr(C)]
     #[derive(Debug, Copy, Clone, PartialEq, Eq)]
     pub struct btgatt_notify_params_t {
-        pub value: [u8; 600usize],
+        pub value: [u8; 512usize],
         pub bda: root::RawAddress,
         pub handle: u16,
         pub len: u16,
@@ -4322,7 +4322,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<btgatt_notify_params_t>(),
-            612usize,
+            524usize,
             concat!("Size of: ", stringify!(btgatt_notify_params_t))
         );
         assert_eq!(
@@ -4342,12 +4342,12 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).bda) as usize - ptr as usize },
-            600usize,
+            512usize,
             concat!("Offset of field: ", stringify!(btgatt_notify_params_t), "::", stringify!(bda))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).handle) as usize - ptr as usize },
-            606usize,
+            518usize,
             concat!(
                 "Offset of field: ",
                 stringify!(btgatt_notify_params_t),
@@ -4357,12 +4357,12 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).len) as usize - ptr as usize },
-            608usize,
+            520usize,
             concat!("Offset of field: ", stringify!(btgatt_notify_params_t), "::", stringify!(len))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).is_notify) as usize - ptr as usize },
-            610usize,
+            522usize,
             concat!(
                 "Offset of field: ",
                 stringify!(btgatt_notify_params_t),
@@ -5654,7 +5654,7 @@ pub mod root {
     #[repr(C)]
     #[derive(Debug, Copy, Clone, PartialEq, Eq)]
     pub struct btgatt_value_t {
-        pub value: [u8; 600usize],
+        pub value: [u8; 512usize],
         pub handle: u16,
         pub offset: u16,
         pub len: u16,
@@ -5666,7 +5666,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<btgatt_value_t>(),
-            608usize,
+            520usize,
             concat!("Size of: ", stringify!(btgatt_value_t))
         );
         assert_eq!(
@@ -5681,22 +5681,22 @@ pub mod root {
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).handle) as usize - ptr as usize },
-            600usize,
+            512usize,
             concat!("Offset of field: ", stringify!(btgatt_value_t), "::", stringify!(handle))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).offset) as usize - ptr as usize },
-            602usize,
+            514usize,
             concat!("Offset of field: ", stringify!(btgatt_value_t), "::", stringify!(offset))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).len) as usize - ptr as usize },
-            604usize,
+            516usize,
             concat!("Offset of field: ", stringify!(btgatt_value_t), "::", stringify!(len))
         );
         assert_eq!(
             unsafe { ::std::ptr::addr_of!((*ptr).auth_req) as usize - ptr as usize },
-            606usize,
+            518usize,
             concat!("Offset of field: ", stringify!(btgatt_value_t), "::", stringify!(auth_req))
         );
     }
@@ -5723,7 +5723,7 @@ pub mod root {
         let ptr = UNINIT.as_ptr();
         assert_eq!(
             ::std::mem::size_of::<btgatt_response_t>(),
-            608usize,
+            520usize,
             concat!("Size of: ", stringify!(btgatt_response_t))
         );
         assert_eq!(
@@ -6512,6 +6512,8 @@ pub mod root {
         root::bthf_client_audio_state_t = 2;
     pub const bthf_client_audio_state_t_BTHF_CLIENT_AUDIO_STATE_CONNECTED_MSBC:
         root::bthf_client_audio_state_t = 3;
+    pub const bthf_client_audio_state_t_BTHF_CLIENT_AUDIO_STATE_CONNECTED_LC3:
+        root::bthf_client_audio_state_t = 4;
     pub type bthf_client_audio_state_t = ::std::os::raw::c_uint;
     pub const bthf_client_vr_state_t_BTHF_CLIENT_VR_STATE_STOPPED: root::bthf_client_vr_state_t = 0;
     pub const bthf_client_vr_state_t_BTHF_CLIENT_VR_STATE_STARTED: root::bthf_client_vr_state_t = 1;

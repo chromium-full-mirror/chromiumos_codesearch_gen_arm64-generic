@@ -7,7 +7,7 @@
  * only be called when a device exist.
  */
 import '../settings_shared.css.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/bluetooth/bluetooth_icon.js';
 import 'chrome://resources/cr_elements/policy/cr_tooltip_icon.js';
 import './os_bluetooth_change_device_name_dialog.js';
 import './os_bluetooth_true_wireless_images.js';
@@ -23,7 +23,7 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { AudioOutputCapability, DeviceConnectionState, DeviceType } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { isInputDeviceSettingsSplitEnabled } from '../common/load_time_booleans.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './os_bluetooth_device_detail_subpage.html.js';
 import { OsBluetoothDevicesSubpageBrowserProxyImpl } from './os_bluetooth_devices_subpage_browser_proxy.js';
@@ -143,10 +143,6 @@ export class SettingsBluetoothDeviceDetailSubpageElement extends SettingsBluetoo
         }
         return this.device_.deviceProperties.connectionState ===
             DeviceConnectionState.kConnected;
-    }
-    getBluetoothStateIcon_() {
-        return this.isDeviceConnected_ ? 'os-settings:bluetooth-connected' :
-            'os-settings:bluetooth-disabled';
     }
     getBluetoothConnectDisconnectBtnLabel_() {
         return this.isDeviceConnected_ ? this.i18n('bluetoothDisconnect') :

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common cros-button-style">#themeHeader{align-items:center;display:grid;grid-template-areas:'title       .' '.           .' 'description toggle';grid-template-columns:auto fit-content(40px);grid-template-rows:20px 6px 18px}#themeTitle{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);grid-area:title}#dynamicColorToggleDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-1-font);grid-area:description}#dynamicColorToggle{grid-area:toggle}iron-selector{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr));margin:16px 0 12px}#container cr-button{background-color:var(--cros-sys-app_base_shaded);border:none;border-radius:16px;display:grid;height:76px;justify-items:center;padding:0;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.container{height:48px;position:relative;width:48px}iron-icon[icon='personalization:circle_checkmark']{display:none}cr-button[aria-checked=true] iron-icon[icon='personalization:circle_checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:-4px;display:block;position:absolute;right:-4px}svg{grid-column:1;grid-row:1;height:48px;position:relative;width:48px}</style>
+    return html `<!--_html_template_start_--><style include="common cros-button-style">#themeHeader{align-items:center;display:grid;grid-template-areas:'title       .' '.           .' 'description toggle';grid-template-columns:auto fit-content(40px);grid-template-rows:20px 6px 18px}#themeTitle{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);grid-area:title}#dynamicColorToggleDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-1-font);grid-area:description}#dynamicColorToggle{grid-area:toggle}iron-selector{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr));margin:16px 0 12px}#container cr-button{background-color:var(--cros-sys-app_base_shaded);border:none;border-radius:16px;display:grid;height:76px;justify-items:center;padding:0;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.container{height:48px;position:relative;width:48px}iron-icon[icon='personalization-shared:circle-checkmark']{display:none}cr-button[aria-checked=true] iron-icon[icon='personalization-shared:circle-checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:-4px;display:block;position:absolute;right:-4px}svg{grid-column:1;grid-row:1;height:48px;position:relative;width:48px}</style>
 <div id="container">
   <div id="themeHeader">
     <div id="themeTitle" class="ellipsis">$i18n{dynamicColorLabel}</div>
@@ -17,7 +17,7 @@ export function getTemplate() {
       <cr-button tabindex$="[[getColorSchemeTabIndex_(colorScheme.scheme)]]" on-click="onClickColorSchemeButton_" data-color-scheme-id$="[[colorScheme.scheme]]" aria-checked$="[[getColorSchemeAriaChecked_(colorScheme.scheme, colorSchemeSelected_)]]" aria-description$="[[getColorSchemeAriaDescription_(colorScheme.scheme)]]" role="radio">
         <div class="container">
           <color-scheme-icon-svg scheme="[[colorScheme]]"></color-scheme-icon-svg>
-          <iron-icon class="checkmark" icon="personalization:circle_checkmark"></iron-icon>
+          <iron-icon class="checkmark" icon="personalization-shared:circle-checkmark"></iron-icon>
         </div>
       </cr-button>
     </template>
@@ -29,7 +29,7 @@ export function getTemplate() {
           <svg>
             <circle style$="fill: [[staticColor.fillVal]]" cx="24" cy="24" r="24"></circle>
           </svg>
-          <iron-icon icon="personalization:circle_checkmark"></iron-icon>
+          <iron-icon icon="personalization-shared:circle-checkmark"></iron-icon>
         </div>
       </cr-button>
     </template>

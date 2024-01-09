@@ -75,6 +75,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_usb.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_virtual_keyboard.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_wake_lock.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_window_controls_overlay.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_xr_system.h"
 #include "third_party/blink/renderer/core/events/navigator_events.h"
@@ -110,7 +111,6 @@
 #include "third_party/blink/renderer/modules/device_posture/navigator_device_posture.h"
 #include "third_party/blink/renderer/modules/donottrack/navigator_do_not_track.h"
 #include "third_party/blink/renderer/modules/encryptedmedia/navigator_request_media_key_system_access.h"
-#include "third_party/blink/renderer/modules/environment_integrity/navigator_environment_integrity.h"
 #include "third_party/blink/renderer/modules/gamepad/gamepad.h"
 #include "third_party/blink/renderer/modules/gamepad/navigator_gamepad.h"
 #include "third_party/blink/renderer/modules/geolocation/geolocation.h"
@@ -134,6 +134,7 @@
 #include "third_party/blink/renderer/modules/plugins/dom_plugin_array.h"
 #include "third_party/blink/renderer/modules/plugins/navigator_plugins.h"
 #include "third_party/blink/renderer/modules/presentation/presentation.h"
+#include "third_party/blink/renderer/modules/printing/web_printing_manager.h"
 #include "third_party/blink/renderer/modules/quota/deprecated_storage_quota.h"
 #include "third_party/blink/renderer/modules/quota/navigator_storage_quota.h"
 #include "third_party/blink/renderer/modules/quota/storage_manager.h"
@@ -187,7 +188,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorVendorSub);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vendorSub();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -210,7 +211,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorProductSub);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->productSub();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -233,7 +234,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorVendor);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vendor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -256,7 +257,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorMaxTouchPoint
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorEvents::maxTouchPoints(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -271,8 +272,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.scheduling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Scheduling::scheduling(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -285,8 +287,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.userActivation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorUserActivation::userActivation(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -299,8 +302,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.preferences.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorPreferences::preferences(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -317,7 +321,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorAuction::deprecatedRunAdAuctionEnforcesKAnonymity(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -330,8 +335,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.bluetooth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Bluetooth::bluetooth(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -344,8 +350,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.storageBuckets.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = StorageBucketManager::storageBuckets(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -358,8 +365,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.clipboard.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Clipboard::clipboard(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -372,8 +380,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.contacts.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ContactsManager::contacts(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -386,8 +395,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.cookieDeprecationLabel.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = CookieDeprecationLabel::cookieDeprecationLabel(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -400,8 +410,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.credentials.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = CredentialsContainer::credentials(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -414,8 +425,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.login.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorLogin::login(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -428,8 +440,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.ink.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Ink::ink(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -442,8 +455,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.devicePosture.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorDevicePosture::devicePosture(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -464,7 +478,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorDoNotTrack);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorDoNotTrack::doNotTrack(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 // [HighEntropy=Direct]
@@ -479,8 +493,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.geolocation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Geolocation::geolocation(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -493,8 +508,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.hid.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HID::hid(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -507,8 +523,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.keyboard.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorKeyboard::keyboard(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -521,8 +538,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.locks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = LockManager::locks(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -535,8 +553,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.managed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorManagedData::managed(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -549,8 +568,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.mediaCapabilities.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = MediaCapabilities::mediaCapabilities(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -563,8 +583,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.mediaSession.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = MediaSession::mediaSession(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -577,8 +598,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.mediaDevices.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = MediaDevices::mediaDevices(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -591,8 +613,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.ml.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorML::ml(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -611,7 +634,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfo);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NetworkInformation::connection(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -624,8 +647,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.permissions.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Permissions::permissions(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -646,7 +670,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorPlugins);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorPlugins::plugins(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -667,7 +691,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorMimeTypes);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorPlugins::mimeTypes(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -688,7 +712,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorPdfViewerEnab
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorPlugins::pdfViewerEnabled(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -701,8 +725,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.presentation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Presentation::presentation(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -721,7 +746,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedStorageQuota);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorStorageQuota::webkitTemporaryStorage(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -740,7 +765,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedStorageQuota);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorStorageQuota::webkitPersistentStorage(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -753,8 +778,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.storage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorStorageQuota::storage(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -771,8 +797,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "Navigator";
 const char* const property_name = "serviceWorker";
@@ -792,8 +818,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.subApps.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = SubApps::subApps(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -806,8 +833,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.virtualKeyboard.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = VirtualKeyboard::virtualKeyboard(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -820,8 +848,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.wakeLock.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = WakeLock::wakeLock(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -834,8 +863,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.gpu.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = GPU::gpu(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -848,8 +878,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.usb.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = USB::usb(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -868,8 +899,23 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorXR);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = XRSystem::xr(*blink_receiver);
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+
+void PrintingAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Navigator_printing_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Navigator.printing.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = WebPrintingManager::GetWebPrintingManager(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
@@ -881,8 +927,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.serial.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Serial::serial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -895,8 +942,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.smartCard.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = SmartCardResourceManager::smartCard(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -909,8 +957,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.windowControlsOverlay.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = WindowControlsOverlay::windowControlsOverlay(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -931,7 +980,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorHardwareConcu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hardwareConcurrency();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 // [HighEntropy=Direct]
@@ -954,7 +1003,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorCookieEnabled
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cookieEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -977,7 +1026,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorDeviceMemory)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceMemory();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 // [HighEntropy=Direct]
@@ -992,10 +1041,10 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.appCodeName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->appCodeName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->appCodeName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1007,10 +1056,10 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.appName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->appName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->appName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1030,7 +1079,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorAppVersion);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->appVersion();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -1053,7 +1102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorPlatform);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->platform();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -1068,10 +1117,10 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.product.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->product();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->product();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1091,7 +1140,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorUserAgent);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userAgent();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -1114,7 +1163,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorLanguage);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->language();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -1136,7 +1185,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorLanguages);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -1176,8 +1225,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.onLine.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onLine();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1190,8 +1240,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.webdriver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webdriver();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1204,8 +1255,9 @@ BLINK_BINDINGS_TRACE_EVENT("Navigator.userAgentData.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userAgentData();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1240,7 +1292,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_num_components = NativeValueTraits<IDLUnsignedShortClamp>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1270,7 +1322,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorAuction::canLoadAdAuctionFencedFrame(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1295,7 +1348,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<ShareData>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_data;
 if (info[0]->IsUndefined()) {
   arg1_data = ShareData::Create();
@@ -1343,7 +1396,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBadgeClear);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorBadge::clearAppBadge(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1384,7 +1437,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_owner = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1439,7 +1492,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_config = NativeValueTraits<AdRequestConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1481,7 +1534,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Navigator_CreateAuct
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorAuction::createAuctionNonce(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1523,7 +1576,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_constraint = NativeValueTraits<HandwritingModelConstraint>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1569,7 +1622,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_urn_or_config = NativeValueTraits<V8UnionFencedFrameConfigOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1619,7 +1672,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_urn_or_config = NativeValueTraits<V8UnionFencedFrameConfigOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1672,7 +1725,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_ads = NativeValueTraits<Ads>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1718,54 +1771,8 @@ UseCounter::Count(current_execution_context, WebFeature::kBatteryStatusGetBatter
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = BatteryManager::getBattery(script_state, *blink_receiver);
-bindings::V8SetReturnValue(info, return_value);
-}
-
-void GetEnvironmentIntegrityOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Navigator_getEnvironmentIntegrity");
-BLINK_BINDINGS_TRACE_EVENT("Navigator.getEnvironmentIntegrity");
-
-// Promise returning function: Convert a TypeError to a reject promise.
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "Navigator";
-const char* const property_name = "getEnvironmentIntegrity";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-if (!V8Navigator::HasInstance(isolate, v8_receiver)) {
-  exception_state.ThrowTypeError("Illegal invocation");
-return;
-}
-
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
-// [Measure], [MeasureAs]
-UseCounter::Count(current_execution_context, WebFeature::kV8Navigator_GetEnvironmentIntegrity_Method);
-
-
-
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_content_binding = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-auto&& return_value = NavigatorEnvironmentIntegrity::getEnvironmentIntegrity(script_state, *blink_receiver, arg1_content_binding, exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -1790,7 +1797,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Navigator";
 const char* const property_name = "getGamepads";
@@ -1835,7 +1842,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Navigator_GetInstall
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorInstalledApp::getInstalledRelatedApps(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1877,7 +1884,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_config = NativeValueTraits<AdAuctionDataConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1916,7 +1923,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_constraints = NativeValueTraits<MediaStreamConstraints>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1955,7 +1962,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Navigator_JavaEnable
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorPlugins::javaEnabled(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -1999,7 +2006,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_group = NativeValueTraits<AuctionAdInterestGroup>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2053,7 +2060,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = NavigatorAuction::leaveAdInterestGroup(script_state, *blink_receiver, exception_state);
 break;
@@ -2104,7 +2111,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_constraint = NativeValueTraits<HandwritingModelConstraint>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2137,7 +2144,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scheme = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2183,7 +2190,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRequestMIDIAccess_Obsc
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<MIDIOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = MIDIOptions::Create();
@@ -2230,7 +2237,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key_system = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2280,7 +2287,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_config = NativeValueTraits<AuctionAdConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2320,7 +2327,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2372,7 +2379,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = NavigatorBadge::setAppBadge(script_state, *blink_receiver, exception_state);
 break;
@@ -2419,7 +2426,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebShareShare);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<ShareData>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_data;
 if (info[0]->IsUndefined()) {
   arg1_data = ShareData::Create();
@@ -2457,7 +2464,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scheme = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2493,7 +2500,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Navigator";
 const char* const property_name = "updateAdInterestGroups";
@@ -2523,7 +2530,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pattern = NativeValueTraits<IDLUnsignedLongClamp>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2550,7 +2557,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pattern = NativeValueTraits<IDLSequence<IDLUnsignedLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2619,7 +2626,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(v8_receiver);
+Navigator* blink_receiver = V8Navigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_constraints = NativeValueTraits<MediaStreamConstraints>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2798,7 +2805,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus))) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled())) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"login", LoginAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
@@ -2807,9 +2814,10 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::DelegatedInkTrailsEnabled())) {
+if (execution_context->IsWindow() && feature_selector.IsAll()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"ink", InkAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"mediaCapabilities", MediaCapabilitiesAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -2838,15 +2846,6 @@ if (is_in_secure_context && execution_context->IsWindow() && feature_selector.Is
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"locks", LocksAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"gpu", GpuAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-if (execution_context->IsWindow() && feature_selector.IsAll()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"mediaCapabilities", MediaCapabilitiesAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -2911,6 +2910,15 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebXREnabled())) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"xr", XRAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (is_in_isolated_context && is_in_secure_context && execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebPrintingEnabled())) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"printing", PrintingAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -3043,15 +3051,6 @@ if (is_in_secure_context && ((feature_selector.IsAll() && (RuntimeEnabledFeature
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"deprecatedReplaceInURN", DeprecatedReplaceInURNOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"deprecatedURNToURL", DeprecatedURNToURLOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
-if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::WebEnvironmentIntegrityEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kWebEnvironmentIntegrity))) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getEnvironmentIntegrity", GetEnvironmentIntegrityOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

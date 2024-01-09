@@ -188,6 +188,65 @@ class HEADLESS_EXPORT DisplayFeature {
 };
 
 
+class HEADLESS_EXPORT DevicePosture {
+ public:
+  static std::unique_ptr<DevicePosture> Parse(const base::Value& value, ErrorReporter* errors);
+
+  DevicePosture(const DevicePosture&) = delete;
+  DevicePosture& operator=(const DevicePosture&) = delete;
+
+  ~DevicePosture() { }
+
+
+  // Current posture of the device
+  ::headless::emulation::DevicePostureType GetType() const { return type_; }
+  void SetType(::headless::emulation::DevicePostureType value) { type_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<DevicePosture> Clone() const;
+
+  template<int STATE>
+  class DevicePostureBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kTypeSet = 1 << 1,
+      kAllRequiredFieldsSet = (kTypeSet | 0)
+    };
+
+    DevicePostureBuilder<STATE | kTypeSet>& SetType(::headless::emulation::DevicePostureType value) {
+      static_assert(!(STATE & kTypeSet), "property type should not have already been set");
+      result_->SetType(value);
+      return CastState<kTypeSet>();
+    }
+
+    std::unique_ptr<DevicePosture> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class DevicePosture;
+    DevicePostureBuilder() : result_(new DevicePosture()) { }
+
+    template<int STEP> DevicePostureBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<DevicePostureBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<DevicePosture> result_;
+  };
+
+  static DevicePostureBuilder<0> Builder() {
+    return DevicePostureBuilder<0>();
+  }
+
+ private:
+  DevicePosture() { }
+
+  ::headless::emulation::DevicePostureType type_;
+};
+
+
 class HEADLESS_EXPORT MediaFeature {
  public:
   static std::unique_ptr<MediaFeature> Parse(const base::Value& value, ErrorReporter* errors);
@@ -1769,6 +1828,12 @@ class HEADLESS_EXPORT SetDeviceMetricsOverrideParams {
   const ::headless::emulation::DisplayFeature* GetDisplayFeature() const { DCHECK(HasDisplayFeature()); return display_feature_.value().get(); }
   void SetDisplayFeature(std::unique_ptr<::headless::emulation::DisplayFeature> value) { display_feature_ = std::move(value); }
 
+  // If set, the posture of a foldable device. If not set the posture is set
+  // to continuous.
+  bool HasDevicePosture() const { return !!device_posture_; }
+  const ::headless::emulation::DevicePosture* GetDevicePosture() const { DCHECK(HasDevicePosture()); return device_posture_.value().get(); }
+  void SetDevicePosture(std::unique_ptr<::headless::emulation::DevicePosture> value) { device_posture_ = std::move(value); }
+
   base::Value Serialize() const;
   std::unique_ptr<SetDeviceMetricsOverrideParams> Clone() const;
 
@@ -1853,6 +1918,11 @@ class HEADLESS_EXPORT SetDeviceMetricsOverrideParams {
       return *this;
     }
 
+    SetDeviceMetricsOverrideParamsBuilder<STATE>& SetDevicePosture(std::unique_ptr<::headless::emulation::DevicePosture> value) {
+      result_->SetDevicePosture(std::move(value));
+      return *this;
+    }
+
     std::unique_ptr<SetDeviceMetricsOverrideParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -1889,6 +1959,7 @@ class HEADLESS_EXPORT SetDeviceMetricsOverrideParams {
   absl::optional<std::unique_ptr<::headless::emulation::ScreenOrientation>> screen_orientation_;
   absl::optional<std::unique_ptr<::headless::page::Viewport>> viewport_;
   absl::optional<std::unique_ptr<::headless::emulation::DisplayFeature>> display_feature_;
+  absl::optional<std::unique_ptr<::headless::emulation::DevicePosture>> device_posture_;
 };
 
 
@@ -4376,7 +4447,7 @@ class HEADLESS_EXPORT SetUserAgentOverrideParams {
   std::string GetUserAgent() const { return user_agent_; }
   void SetUserAgent(const std::string& value) { user_agent_ = value; }
 
-  // Browser langugage to emulate.
+  // Browser language to emulate.
   bool HasAcceptLanguage() const { return !!accept_language_; }
   std::string GetAcceptLanguage() const { DCHECK(HasAcceptLanguage()); return accept_language_.value(); }
   void SetAcceptLanguage(const std::string& value) { accept_language_ = value; }

@@ -267,7 +267,7 @@ const kSections = {
     workarounds: ['Driver Bug Workarounds', 'ul'],
     problems: ['Problems Detected', 'ul'],
     angleFeatures: ['ANGLE Features', 'ul'],
-    dawnInfo: ['DAWN Info', 'ul'],
+    dawnInfo: ['Dawn Info', 'ul'],
     clientInfo: ['Version Information', 'div'],
     basicInfo: ['Driver Information', 'div'],
     compositorInfo: ['Compositor Information', 'div'],
@@ -289,6 +289,8 @@ const kSections = {
  * their data in an easy to read format for bug reports.
  */
 export class InfoViewElement extends CustomElement {
+    browserBridge;
+    sections;
     static get template() {
         return getTemplate();
     }

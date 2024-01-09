@@ -4,162 +4,196 @@
 #include "vm_memory_management/vm_memory_management.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace vm_tools {
 namespace vm_memory_management {
+template <typename>
 PROTOBUF_CONSTEXPR ConnectionHandshake::ConnectionHandshake(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.type_)*/0
+    /*decltype(_impl_.type_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConnectionHandshakeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ConnectionHandshakeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ConnectionHandshakeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ConnectionHandshakeDefaultTypeInternal() {}
   union {
     ConnectionHandshake _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectionHandshakeDefaultTypeInternal _ConnectionHandshake_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectionHandshakeDefaultTypeInternal _ConnectionHandshake_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KillDecisionRequest::KillDecisionRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sequence_num_)*/0u
-  , /*decltype(_impl_.size_kb_)*/0u
-  , /*decltype(_impl_.priority_)*/0
+    /*decltype(_impl_.sequence_num_)*/ 0u
+
+  , /*decltype(_impl_.size_kb_)*/ 0u
+
+  , /*decltype(_impl_.priority_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KillDecisionRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KillDecisionRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KillDecisionRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KillDecisionRequestDefaultTypeInternal() {}
   union {
     KillDecisionRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KillDecisionRequestDefaultTypeInternal _KillDecisionRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KillDecisionRequestDefaultTypeInternal _KillDecisionRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KillDecisionResponse::KillDecisionResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sequence_num_)*/0u
-  , /*decltype(_impl_.size_freed_kb_)*/0u
+    /*decltype(_impl_.sequence_num_)*/ 0u
+
+  , /*decltype(_impl_.size_freed_kb_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KillDecisionResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KillDecisionResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KillDecisionResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KillDecisionResponseDefaultTypeInternal() {}
   union {
     KillDecisionResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KillDecisionResponseDefaultTypeInternal _KillDecisionResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KillDecisionResponseDefaultTypeInternal _KillDecisionResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DecisionLatency::DecisionLatency(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sequence_num_)*/0u
-  , /*decltype(_impl_.latency_ms_)*/0u
+    /*decltype(_impl_.sequence_num_)*/ 0u
+
+  , /*decltype(_impl_.latency_ms_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DecisionLatencyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DecisionLatencyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DecisionLatencyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DecisionLatencyDefaultTypeInternal() {}
   union {
     DecisionLatency _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecisionLatencyDefaultTypeInternal _DecisionLatency_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DecisionLatencyDefaultTypeInternal _DecisionLatency_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MglruGeneration::MglruGeneration(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sequence_num_)*/0u
-  , /*decltype(_impl_.timestamp_msec_)*/0u
-  , /*decltype(_impl_.anon_kb_)*/0u
-  , /*decltype(_impl_.file_kb_)*/0u
+    /*decltype(_impl_.sequence_num_)*/ 0u
+
+  , /*decltype(_impl_.timestamp_msec_)*/ 0u
+
+  , /*decltype(_impl_.anon_kb_)*/ 0u
+
+  , /*decltype(_impl_.file_kb_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MglruGenerationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MglruGenerationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MglruGenerationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MglruGenerationDefaultTypeInternal() {}
   union {
     MglruGeneration _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruGenerationDefaultTypeInternal _MglruGeneration_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruGenerationDefaultTypeInternal _MglruGeneration_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MglruNode::MglruNode(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.generations_)*/{}
-  , /*decltype(_impl_.id_)*/0u
+  , /*decltype(_impl_.id_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MglruNodeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MglruNodeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MglruNodeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MglruNodeDefaultTypeInternal() {}
   union {
     MglruNode _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruNodeDefaultTypeInternal _MglruNode_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruNodeDefaultTypeInternal _MglruNode_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MglruMemcg::MglruMemcg(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.nodes_)*/{}
-  , /*decltype(_impl_.id_)*/0u
+  , /*decltype(_impl_.id_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MglruMemcgDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MglruMemcgDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MglruMemcgDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MglruMemcgDefaultTypeInternal() {}
   union {
     MglruMemcg _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruMemcgDefaultTypeInternal _MglruMemcg_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruMemcgDefaultTypeInternal _MglruMemcg_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MglruStats::MglruStats(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.cgs_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MglruStatsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MglruStatsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MglruStatsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MglruStatsDefaultTypeInternal() {}
   union {
     MglruStats _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruStatsDefaultTypeInternal _MglruStats_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruStatsDefaultTypeInternal _MglruStats_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MglruResponse::MglruResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.stats_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.stats_)*/nullptr} {}
 struct MglruResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MglruResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MglruResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MglruResponseDefaultTypeInternal() {}
   union {
     MglruResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruResponseDefaultTypeInternal _MglruResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MglruResponseDefaultTypeInternal _MglruResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR VmMemoryManagementPacket::VmMemoryManagementPacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.type_)*/0
+    /*decltype(_impl_.type_)*/ 0
+
   , /*decltype(_impl_.payload_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct VmMemoryManagementPacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR VmMemoryManagementPacketDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VmMemoryManagementPacketDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~VmMemoryManagementPacketDefaultTypeInternal() {}
   union {
     VmMemoryManagementPacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmMemoryManagementPacketDefaultTypeInternal _VmMemoryManagementPacket_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmMemoryManagementPacketDefaultTypeInternal _VmMemoryManagementPacket_default_instance_;
 }  // namespace vm_memory_management
 }  // namespace vm_tools
 namespace vm_tools {
@@ -174,43 +208,43 @@ bool ConnectionType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ConnectionType_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConnectionType_strings[3] = {};
+static const char ConnectionType_names[] = {
+    "CONNECTION_TYPE_KILLS"
+    "CONNECTION_TYPE_STATS"
+    "CONNECTION_TYPE_UNSPECIFIED"
+};
 
-static const char ConnectionType_names[] =
-  "CONNECTION_TYPE_KILLS"
-  "CONNECTION_TYPE_STATS"
-  "CONNECTION_TYPE_UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ConnectionType_entries[] = {
-  { {ConnectionType_names + 0, 21}, 1 },
-  { {ConnectionType_names + 21, 21}, 2 },
-  { {ConnectionType_names + 42, 27}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ConnectionType_entries[] =
+    {
+        {{&ConnectionType_names[0], 21}, 1},
+        {{&ConnectionType_names[21], 21}, 2},
+        {{&ConnectionType_names[42], 27}, 0},
 };
 
 static const int ConnectionType_entries_by_number[] = {
-  2, // 0 -> CONNECTION_TYPE_UNSPECIFIED
-  0, // 1 -> CONNECTION_TYPE_KILLS
-  1, // 2 -> CONNECTION_TYPE_STATS
+    2,  // 0 -> CONNECTION_TYPE_UNSPECIFIED
+    0,  // 1 -> CONNECTION_TYPE_KILLS
+    1,  // 2 -> CONNECTION_TYPE_STATS
 };
 
-const std::string& ConnectionType_Name(
-    ConnectionType value) {
-  static const bool dummy =
+const std::string& ConnectionType_Name(ConnectionType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ConnectionType_entries,
-          ConnectionType_entries_by_number,
+          ConnectionType_entries, ConnectionType_entries_by_number,
           3, ConnectionType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ConnectionType_entries,
-      ConnectionType_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ConnectionType_strings[idx].get();
+      ConnectionType_entries, ConnectionType_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ConnectionType_strings[idx].get();
 }
-bool ConnectionType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ConnectionType* value) {
+
+bool ConnectionType_Parse(absl::string_view name, ConnectionType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ConnectionType_entries, 3, name, &int_value);
@@ -238,74 +272,74 @@ bool ResizePriority_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ResizePriority_strings[12] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ResizePriority_strings[12] = {};
+static const char ResizePriority_names[] = {
+    "RESIZE_PRIORITY_BALLOON_STALL"
+    "RESIZE_PRIORITY_CACHED_APP"
+    "RESIZE_PRIORITY_CACHED_TAB"
+    "RESIZE_PRIORITY_FOCUSED_APP"
+    "RESIZE_PRIORITY_FOCUSED_TAB"
+    "RESIZE_PRIORITY_HIGHEST"
+    "RESIZE_PRIORITY_LOWEST"
+    "RESIZE_PRIORITY_MGLRU_RECLAIM"
+    "RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST"
+    "RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST"
+    "RESIZE_PRIORITY_N_PRIORITIES"
+    "RESIZE_PRIORITY_PERCEPTIBLE_APP"
+    "RESIZE_PRIORITY_PERCEPTIBLE_TAB"
+    "RESIZE_PRIORITY_UNSPECIFIED"
+};
 
-static const char ResizePriority_names[] =
-  "RESIZE_PRIORITY_BALLOON_STALL"
-  "RESIZE_PRIORITY_CACHED_APP"
-  "RESIZE_PRIORITY_CACHED_TAB"
-  "RESIZE_PRIORITY_FOCUSED_APP"
-  "RESIZE_PRIORITY_FOCUSED_TAB"
-  "RESIZE_PRIORITY_HIGHEST"
-  "RESIZE_PRIORITY_LOWEST"
-  "RESIZE_PRIORITY_MGLRU_RECLAIM"
-  "RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST"
-  "RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST"
-  "RESIZE_PRIORITY_N_PRIORITIES"
-  "RESIZE_PRIORITY_PERCEPTIBLE_APP"
-  "RESIZE_PRIORITY_PERCEPTIBLE_TAB"
-  "RESIZE_PRIORITY_UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ResizePriority_entries[] = {
-  { {ResizePriority_names + 0, 29}, 1 },
-  { {ResizePriority_names + 29, 26}, 9 },
-  { {ResizePriority_names + 55, 26}, 8 },
-  { {ResizePriority_names + 81, 27}, 5 },
-  { {ResizePriority_names + 108, 27}, 4 },
-  { {ResizePriority_names + 135, 23}, 1 },
-  { {ResizePriority_names + 158, 22}, 10 },
-  { {ResizePriority_names + 180, 29}, 10 },
-  { {ResizePriority_names + 209, 40}, 3 },
-  { {ResizePriority_names + 249, 39}, 2 },
-  { {ResizePriority_names + 288, 28}, 11 },
-  { {ResizePriority_names + 316, 31}, 7 },
-  { {ResizePriority_names + 347, 31}, 6 },
-  { {ResizePriority_names + 378, 27}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ResizePriority_entries[] =
+    {
+        {{&ResizePriority_names[0], 29}, 1},
+        {{&ResizePriority_names[29], 26}, 9},
+        {{&ResizePriority_names[55], 26}, 8},
+        {{&ResizePriority_names[81], 27}, 5},
+        {{&ResizePriority_names[108], 27}, 4},
+        {{&ResizePriority_names[135], 23}, 1},
+        {{&ResizePriority_names[158], 22}, 10},
+        {{&ResizePriority_names[180], 29}, 10},
+        {{&ResizePriority_names[209], 40}, 3},
+        {{&ResizePriority_names[249], 39}, 2},
+        {{&ResizePriority_names[288], 28}, 11},
+        {{&ResizePriority_names[316], 31}, 7},
+        {{&ResizePriority_names[347], 31}, 6},
+        {{&ResizePriority_names[378], 27}, 0},
 };
 
 static const int ResizePriority_entries_by_number[] = {
-  13, // 0 -> RESIZE_PRIORITY_UNSPECIFIED
-  5, // 1 -> RESIZE_PRIORITY_HIGHEST
-  9, // 2 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST
-  8, // 3 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST
-  4, // 4 -> RESIZE_PRIORITY_FOCUSED_TAB
-  3, // 5 -> RESIZE_PRIORITY_FOCUSED_APP
-  12, // 6 -> RESIZE_PRIORITY_PERCEPTIBLE_TAB
-  11, // 7 -> RESIZE_PRIORITY_PERCEPTIBLE_APP
-  2, // 8 -> RESIZE_PRIORITY_CACHED_TAB
-  1, // 9 -> RESIZE_PRIORITY_CACHED_APP
-  7, // 10 -> RESIZE_PRIORITY_MGLRU_RECLAIM
-  10, // 11 -> RESIZE_PRIORITY_N_PRIORITIES
+    13,  // 0 -> RESIZE_PRIORITY_UNSPECIFIED
+    0,  // 1 -> RESIZE_PRIORITY_HIGHEST
+    9,  // 2 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST
+    8,  // 3 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST
+    4,  // 4 -> RESIZE_PRIORITY_FOCUSED_TAB
+    3,  // 5 -> RESIZE_PRIORITY_FOCUSED_APP
+    12,  // 6 -> RESIZE_PRIORITY_PERCEPTIBLE_TAB
+    11,  // 7 -> RESIZE_PRIORITY_PERCEPTIBLE_APP
+    2,  // 8 -> RESIZE_PRIORITY_CACHED_TAB
+    1,  // 9 -> RESIZE_PRIORITY_CACHED_APP
+    6,  // 10 -> RESIZE_PRIORITY_MGLRU_RECLAIM
+    10,  // 11 -> RESIZE_PRIORITY_N_PRIORITIES
 };
 
-const std::string& ResizePriority_Name(
-    ResizePriority value) {
-  static const bool dummy =
+const std::string& ResizePriority_Name(ResizePriority value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ResizePriority_entries,
-          ResizePriority_entries_by_number,
+          ResizePriority_entries, ResizePriority_entries_by_number,
           12, ResizePriority_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ResizePriority_entries,
-      ResizePriority_entries_by_number,
-      12, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ResizePriority_strings[idx].get();
+      ResizePriority_entries, ResizePriority_entries_by_number, 12,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ResizePriority_strings[idx].get();
 }
-bool ResizePriority_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ResizePriority* value) {
+
+bool ResizePriority_Parse(absl::string_view name, ResizePriority* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ResizePriority_entries, 14, name, &int_value);
@@ -331,64 +365,64 @@ bool PacketType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    PacketType_strings[10] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PacketType_strings[10] = {};
+static const char PacketType_names[] = {
+    "PACKET_TYPE_CONNECTION_ACK"
+    "PACKET_TYPE_CONNECTION_NACK"
+    "PACKET_TYPE_DECISION_LATENCY"
+    "PACKET_TYPE_HANDSHAKE"
+    "PACKET_TYPE_KILL_DECISION"
+    "PACKET_TYPE_KILL_REQUEST"
+    "PACKET_TYPE_MGLRU_REQUEST"
+    "PACKET_TYPE_MGLRU_RESPONSE"
+    "PACKET_TYPE_NO_KILL_CANDIDATES"
+    "PACKET_TYPE_UNSPECIFIED"
+};
 
-static const char PacketType_names[] =
-  "PACKET_TYPE_CONNECTION_ACK"
-  "PACKET_TYPE_CONNECTION_NACK"
-  "PACKET_TYPE_DECISION_LATENCY"
-  "PACKET_TYPE_HANDSHAKE"
-  "PACKET_TYPE_KILL_DECISION"
-  "PACKET_TYPE_KILL_REQUEST"
-  "PACKET_TYPE_MGLRU_REQUEST"
-  "PACKET_TYPE_MGLRU_RESPONSE"
-  "PACKET_TYPE_NO_KILL_CANDIDATES"
-  "PACKET_TYPE_UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PacketType_entries[] = {
-  { {PacketType_names + 0, 26}, 2 },
-  { {PacketType_names + 26, 27}, 3 },
-  { {PacketType_names + 53, 28}, 6 },
-  { {PacketType_names + 81, 21}, 1 },
-  { {PacketType_names + 102, 25}, 5 },
-  { {PacketType_names + 127, 24}, 4 },
-  { {PacketType_names + 151, 25}, 7 },
-  { {PacketType_names + 176, 26}, 8 },
-  { {PacketType_names + 202, 30}, 9 },
-  { {PacketType_names + 232, 23}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PacketType_entries[] =
+    {
+        {{&PacketType_names[0], 26}, 2},
+        {{&PacketType_names[26], 27}, 3},
+        {{&PacketType_names[53], 28}, 6},
+        {{&PacketType_names[81], 21}, 1},
+        {{&PacketType_names[102], 25}, 5},
+        {{&PacketType_names[127], 24}, 4},
+        {{&PacketType_names[151], 25}, 7},
+        {{&PacketType_names[176], 26}, 8},
+        {{&PacketType_names[202], 30}, 9},
+        {{&PacketType_names[232], 23}, 0},
 };
 
 static const int PacketType_entries_by_number[] = {
-  9, // 0 -> PACKET_TYPE_UNSPECIFIED
-  3, // 1 -> PACKET_TYPE_HANDSHAKE
-  0, // 2 -> PACKET_TYPE_CONNECTION_ACK
-  1, // 3 -> PACKET_TYPE_CONNECTION_NACK
-  5, // 4 -> PACKET_TYPE_KILL_REQUEST
-  4, // 5 -> PACKET_TYPE_KILL_DECISION
-  2, // 6 -> PACKET_TYPE_DECISION_LATENCY
-  6, // 7 -> PACKET_TYPE_MGLRU_REQUEST
-  7, // 8 -> PACKET_TYPE_MGLRU_RESPONSE
-  8, // 9 -> PACKET_TYPE_NO_KILL_CANDIDATES
+    9,  // 0 -> PACKET_TYPE_UNSPECIFIED
+    3,  // 1 -> PACKET_TYPE_HANDSHAKE
+    0,  // 2 -> PACKET_TYPE_CONNECTION_ACK
+    1,  // 3 -> PACKET_TYPE_CONNECTION_NACK
+    5,  // 4 -> PACKET_TYPE_KILL_REQUEST
+    4,  // 5 -> PACKET_TYPE_KILL_DECISION
+    2,  // 6 -> PACKET_TYPE_DECISION_LATENCY
+    6,  // 7 -> PACKET_TYPE_MGLRU_REQUEST
+    7,  // 8 -> PACKET_TYPE_MGLRU_RESPONSE
+    8,  // 9 -> PACKET_TYPE_NO_KILL_CANDIDATES
 };
 
-const std::string& PacketType_Name(
-    PacketType value) {
-  static const bool dummy =
+const std::string& PacketType_Name(PacketType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          PacketType_entries,
-          PacketType_entries_by_number,
+          PacketType_entries, PacketType_entries_by_number,
           10, PacketType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      PacketType_entries,
-      PacketType_entries_by_number,
-      10, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     PacketType_strings[idx].get();
+      PacketType_entries, PacketType_entries_by_number, 10,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : PacketType_strings[idx].get();
 }
-bool PacketType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PacketType* value) {
+
+bool PacketType_Parse(absl::string_view name, PacketType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       PacketType_entries, 10, name, &int_value);
@@ -397,37 +431,29 @@ bool PacketType_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class ConnectionHandshake::_Internal {
  public:
 };
 
-ConnectionHandshake::ConnectionHandshake(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ConnectionHandshake::ConnectionHandshake(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.ConnectionHandshake)
 }
 ConnectionHandshake::ConnectionHandshake(const ConnectionHandshake& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  ConnectionHandshake* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.type_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.type_ = from._impl_.type_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.ConnectionHandshake)
 }
 
-inline void ConnectionHandshake::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ConnectionHandshake::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.type_){0}
+      decltype(_impl_.type_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -442,7 +468,7 @@ ConnectionHandshake::~ConnectionHandshake() {
 }
 
 inline void ConnectionHandshake::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void ConnectionHandshake::SetCachedSize(int size) const {
@@ -451,7 +477,7 @@ void ConnectionHandshake::SetCachedSize(int size) const {
 
 void ConnectionHandshake::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.ConnectionHandshake)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -462,17 +488,18 @@ void ConnectionHandshake::Clear() {
 const char* ConnectionHandshake::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vm_memory_management.ConnectionType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::vm_tools::vm_memory_management::ConnectionType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -497,17 +524,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ConnectionHandshake::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ConnectionHandshake::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.ConnectionHandshake)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vm_tools.vm_memory_management.ConnectionType type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -518,18 +545,18 @@ uint8_t* ConnectionHandshake::_InternalSerialize(
   return target;
 }
 
-size_t ConnectionHandshake::ByteSizeLong() const {
+::size_t ConnectionHandshake::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.ConnectionHandshake)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vm_tools.vm_memory_management.ConnectionType type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -549,8 +576,8 @@ void ConnectionHandshake::CheckTypeAndMergeFrom(
 void ConnectionHandshake::MergeFrom(const ConnectionHandshake& from) {
   ConnectionHandshake* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.ConnectionHandshake)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_type() != 0) {
@@ -580,43 +607,33 @@ std::string ConnectionHandshake::GetTypeName() const {
   return "vm_tools.vm_memory_management.ConnectionHandshake";
 }
 
-
 // ===================================================================
 
 class KillDecisionRequest::_Internal {
  public:
 };
 
-KillDecisionRequest::KillDecisionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KillDecisionRequest::KillDecisionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.KillDecisionRequest)
 }
 KillDecisionRequest::KillDecisionRequest(const KillDecisionRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  KillDecisionRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){}
-    , decltype(_impl_.size_kb_){}
-    , decltype(_impl_.priority_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.sequence_num_, &from._impl_.sequence_num_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.priority_) -
-    reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.priority_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.KillDecisionRequest)
 }
 
-inline void KillDecisionRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KillDecisionRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){0u}
-    , decltype(_impl_.size_kb_){0u}
-    , decltype(_impl_.priority_){0}
+      decltype(_impl_.sequence_num_) { 0u }
+
+    , decltype(_impl_.size_kb_) { 0u }
+
+    , decltype(_impl_.priority_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -631,7 +648,7 @@ KillDecisionRequest::~KillDecisionRequest() {
 }
 
 inline void KillDecisionRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void KillDecisionRequest::SetCachedSize(int size) const {
@@ -640,11 +657,11 @@ void KillDecisionRequest::SetCachedSize(int size) const {
 
 void KillDecisionRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.KillDecisionRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.sequence_num_, 0, static_cast<size_t>(
+  ::memset(&_impl_.sequence_num_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.priority_) -
       reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.priority_));
   _internal_metadata_.Clear<std::string>();
@@ -653,33 +670,36 @@ void KillDecisionRequest::Clear() {
 const char* KillDecisionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 sequence_num = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.sequence_num_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 size_kb = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.size_kb_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.ResizePriority priority = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_priority(static_cast<::vm_tools::vm_memory_management::ResizePriority>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -704,29 +724,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KillDecisionRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KillDecisionRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.KillDecisionRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_sequence_num(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_sequence_num(), target);
   }
 
   // uint32 size_kb = 2;
   if (this->_internal_size_kb() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_size_kb(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_size_kb(), target);
   }
 
   // .vm_tools.vm_memory_management.ResizePriority priority = 3;
   if (this->_internal_priority() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_priority(), target);
+        3, this->_internal_priority(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -737,28 +759,30 @@ uint8_t* KillDecisionRequest::_InternalSerialize(
   return target;
 }
 
-size_t KillDecisionRequest::ByteSizeLong() const {
+::size_t KillDecisionRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.KillDecisionRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sequence_num());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_sequence_num());
   }
 
   // uint32 size_kb = 2;
   if (this->_internal_size_kb() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_size_kb());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_size_kb());
   }
 
   // .vm_tools.vm_memory_management.ResizePriority priority = 3;
   if (this->_internal_priority() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -778,8 +802,8 @@ void KillDecisionRequest::CheckTypeAndMergeFrom(
 void KillDecisionRequest::MergeFrom(const KillDecisionRequest& from) {
   KillDecisionRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.KillDecisionRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_sequence_num() != 0) {
@@ -820,41 +844,31 @@ std::string KillDecisionRequest::GetTypeName() const {
   return "vm_tools.vm_memory_management.KillDecisionRequest";
 }
 
-
 // ===================================================================
 
 class KillDecisionResponse::_Internal {
  public:
 };
 
-KillDecisionResponse::KillDecisionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KillDecisionResponse::KillDecisionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.KillDecisionResponse)
 }
 KillDecisionResponse::KillDecisionResponse(const KillDecisionResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  KillDecisionResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){}
-    , decltype(_impl_.size_freed_kb_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.sequence_num_, &from._impl_.sequence_num_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.size_freed_kb_) -
-    reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.size_freed_kb_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.KillDecisionResponse)
 }
 
-inline void KillDecisionResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KillDecisionResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){0u}
-    , decltype(_impl_.size_freed_kb_){0u}
+      decltype(_impl_.sequence_num_) { 0u }
+
+    , decltype(_impl_.size_freed_kb_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -869,7 +883,7 @@ KillDecisionResponse::~KillDecisionResponse() {
 }
 
 inline void KillDecisionResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void KillDecisionResponse::SetCachedSize(int size) const {
@@ -878,11 +892,11 @@ void KillDecisionResponse::SetCachedSize(int size) const {
 
 void KillDecisionResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.KillDecisionResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.sequence_num_, 0, static_cast<size_t>(
+  ::memset(&_impl_.sequence_num_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.size_freed_kb_) -
       reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.size_freed_kb_));
   _internal_metadata_.Clear<std::string>();
@@ -891,24 +905,26 @@ void KillDecisionResponse::Clear() {
 const char* KillDecisionResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 sequence_num = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.sequence_num_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 size_freed_kb = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.size_freed_kb_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -933,22 +949,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KillDecisionResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KillDecisionResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.KillDecisionResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_sequence_num(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_sequence_num(), target);
   }
 
   // uint32 size_freed_kb = 2;
   if (this->_internal_size_freed_kb() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_size_freed_kb(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_size_freed_kb(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -959,22 +977,24 @@ uint8_t* KillDecisionResponse::_InternalSerialize(
   return target;
 }
 
-size_t KillDecisionResponse::ByteSizeLong() const {
+::size_t KillDecisionResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.KillDecisionResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sequence_num());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_sequence_num());
   }
 
   // uint32 size_freed_kb = 2;
   if (this->_internal_size_freed_kb() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_size_freed_kb());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_size_freed_kb());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -994,8 +1014,8 @@ void KillDecisionResponse::CheckTypeAndMergeFrom(
 void KillDecisionResponse::MergeFrom(const KillDecisionResponse& from) {
   KillDecisionResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.KillDecisionResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_sequence_num() != 0) {
@@ -1033,41 +1053,31 @@ std::string KillDecisionResponse::GetTypeName() const {
   return "vm_tools.vm_memory_management.KillDecisionResponse";
 }
 
-
 // ===================================================================
 
 class DecisionLatency::_Internal {
  public:
 };
 
-DecisionLatency::DecisionLatency(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DecisionLatency::DecisionLatency(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.DecisionLatency)
 }
 DecisionLatency::DecisionLatency(const DecisionLatency& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  DecisionLatency* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){}
-    , decltype(_impl_.latency_ms_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.sequence_num_, &from._impl_.sequence_num_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.latency_ms_) -
-    reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.latency_ms_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.DecisionLatency)
 }
 
-inline void DecisionLatency::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DecisionLatency::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){0u}
-    , decltype(_impl_.latency_ms_){0u}
+      decltype(_impl_.sequence_num_) { 0u }
+
+    , decltype(_impl_.latency_ms_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1082,7 +1092,7 @@ DecisionLatency::~DecisionLatency() {
 }
 
 inline void DecisionLatency::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void DecisionLatency::SetCachedSize(int size) const {
@@ -1091,11 +1101,11 @@ void DecisionLatency::SetCachedSize(int size) const {
 
 void DecisionLatency::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.DecisionLatency)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.sequence_num_, 0, static_cast<size_t>(
+  ::memset(&_impl_.sequence_num_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.latency_ms_) -
       reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.latency_ms_));
   _internal_metadata_.Clear<std::string>();
@@ -1104,24 +1114,26 @@ void DecisionLatency::Clear() {
 const char* DecisionLatency::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 sequence_num = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.sequence_num_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 latency_ms = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.latency_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1146,22 +1158,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DecisionLatency::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DecisionLatency::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.DecisionLatency)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_sequence_num(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_sequence_num(), target);
   }
 
   // uint32 latency_ms = 2;
   if (this->_internal_latency_ms() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_latency_ms(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_latency_ms(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1172,22 +1186,24 @@ uint8_t* DecisionLatency::_InternalSerialize(
   return target;
 }
 
-size_t DecisionLatency::ByteSizeLong() const {
+::size_t DecisionLatency::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.DecisionLatency)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sequence_num());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_sequence_num());
   }
 
   // uint32 latency_ms = 2;
   if (this->_internal_latency_ms() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_latency_ms());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_latency_ms());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1207,8 +1223,8 @@ void DecisionLatency::CheckTypeAndMergeFrom(
 void DecisionLatency::MergeFrom(const DecisionLatency& from) {
   DecisionLatency* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.DecisionLatency)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_sequence_num() != 0) {
@@ -1246,45 +1262,35 @@ std::string DecisionLatency::GetTypeName() const {
   return "vm_tools.vm_memory_management.DecisionLatency";
 }
 
-
 // ===================================================================
 
 class MglruGeneration::_Internal {
  public:
 };
 
-MglruGeneration::MglruGeneration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MglruGeneration::MglruGeneration(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.MglruGeneration)
 }
 MglruGeneration::MglruGeneration(const MglruGeneration& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  MglruGeneration* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){}
-    , decltype(_impl_.timestamp_msec_){}
-    , decltype(_impl_.anon_kb_){}
-    , decltype(_impl_.file_kb_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.sequence_num_, &from._impl_.sequence_num_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.file_kb_) -
-    reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.file_kb_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.MglruGeneration)
 }
 
-inline void MglruGeneration::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MglruGeneration::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sequence_num_){0u}
-    , decltype(_impl_.timestamp_msec_){0u}
-    , decltype(_impl_.anon_kb_){0u}
-    , decltype(_impl_.file_kb_){0u}
+      decltype(_impl_.sequence_num_) { 0u }
+
+    , decltype(_impl_.timestamp_msec_) { 0u }
+
+    , decltype(_impl_.anon_kb_) { 0u }
+
+    , decltype(_impl_.file_kb_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1299,7 +1305,7 @@ MglruGeneration::~MglruGeneration() {
 }
 
 inline void MglruGeneration::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void MglruGeneration::SetCachedSize(int size) const {
@@ -1308,11 +1314,11 @@ void MglruGeneration::SetCachedSize(int size) const {
 
 void MglruGeneration::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.MglruGeneration)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.sequence_num_, 0, static_cast<size_t>(
+  ::memset(&_impl_.sequence_num_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.file_kb_) -
       reinterpret_cast<char*>(&_impl_.sequence_num_)) + sizeof(_impl_.file_kb_));
   _internal_metadata_.Clear<std::string>();
@@ -1321,40 +1327,44 @@ void MglruGeneration::Clear() {
 const char* MglruGeneration::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 sequence_num = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.sequence_num_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 timestamp_msec = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.timestamp_msec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 anon_kb = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.anon_kb_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 file_kb = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.file_kb_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1379,34 +1389,38 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MglruGeneration::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MglruGeneration::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.MglruGeneration)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_sequence_num(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_sequence_num(), target);
   }
 
   // uint32 timestamp_msec = 2;
   if (this->_internal_timestamp_msec() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_timestamp_msec(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_timestamp_msec(), target);
   }
 
   // uint32 anon_kb = 3;
   if (this->_internal_anon_kb() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_anon_kb(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_anon_kb(), target);
   }
 
   // uint32 file_kb = 4;
   if (this->_internal_file_kb() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_file_kb(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_file_kb(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1417,32 +1431,36 @@ uint8_t* MglruGeneration::_InternalSerialize(
   return target;
 }
 
-size_t MglruGeneration::ByteSizeLong() const {
+::size_t MglruGeneration::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.MglruGeneration)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 sequence_num = 1;
   if (this->_internal_sequence_num() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sequence_num());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_sequence_num());
   }
 
   // uint32 timestamp_msec = 2;
   if (this->_internal_timestamp_msec() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_timestamp_msec());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_timestamp_msec());
   }
 
   // uint32 anon_kb = 3;
   if (this->_internal_anon_kb() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_anon_kb());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_anon_kb());
   }
 
   // uint32 file_kb = 4;
   if (this->_internal_file_kb() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_kb());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_file_kb());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1462,8 +1480,8 @@ void MglruGeneration::CheckTypeAndMergeFrom(
 void MglruGeneration::MergeFrom(const MglruGeneration& from) {
   MglruGeneration* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.MglruGeneration)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_sequence_num() != 0) {
@@ -1507,17 +1525,15 @@ std::string MglruGeneration::GetTypeName() const {
   return "vm_tools.vm_memory_management.MglruGeneration";
 }
 
-
 // ===================================================================
 
 class MglruNode::_Internal {
  public:
 };
 
-MglruNode::MglruNode(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MglruNode::MglruNode(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.MglruNode)
 }
 MglruNode::MglruNode(const MglruNode& from)
@@ -1525,7 +1541,8 @@ MglruNode::MglruNode(const MglruNode& from)
   MglruNode* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.generations_){from._impl_.generations_}
-    , decltype(_impl_.id_){}
+    , decltype(_impl_.id_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1533,13 +1550,12 @@ MglruNode::MglruNode(const MglruNode& from)
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.MglruNode)
 }
 
-inline void MglruNode::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MglruNode::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.generations_){arena}
-    , decltype(_impl_.id_){0u}
+    , decltype(_impl_.id_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1554,8 +1570,8 @@ MglruNode::~MglruNode() {
 }
 
 inline void MglruNode::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.generations_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_generations()->~RepeatedPtrField();
 }
 
 void MglruNode::SetCachedSize(int size) const {
@@ -1564,11 +1580,11 @@ void MglruNode::SetCachedSize(int size) const {
 
 void MglruNode::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.MglruNode)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.generations_.Clear();
+  _internal_mutable_generations()->Clear();
   _impl_.id_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
@@ -1576,20 +1592,21 @@ void MglruNode::Clear() {
 const char* MglruNode::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .vm_tools.vm_memory_management.MglruGeneration generations = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1597,8 +1614,9 @@ const char* MglruNode::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1623,16 +1641,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MglruNode::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MglruNode::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.MglruNode)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 id = 1;
   if (this->_internal_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_id(), target);
   }
 
   // repeated .vm_tools.vm_memory_management.MglruGeneration generations = 2;
@@ -1651,24 +1670,25 @@ uint8_t* MglruNode::_InternalSerialize(
   return target;
 }
 
-size_t MglruNode::ByteSizeLong() const {
+::size_t MglruNode::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.MglruNode)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .vm_tools.vm_memory_management.MglruGeneration generations = 2;
   total_size += 1UL * this->_internal_generations_size();
-  for (const auto& msg : this->_impl_.generations_) {
+  for (const auto& msg : this->_internal_generations()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // uint32 id = 1;
   if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_id());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1688,11 +1708,11 @@ void MglruNode::CheckTypeAndMergeFrom(
 void MglruNode::MergeFrom(const MglruNode& from) {
   MglruNode* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.MglruNode)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.generations_.MergeFrom(from._impl_.generations_);
+  _this->_internal_mutable_generations()->MergeFrom(from._internal_generations());
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());
   }
@@ -1713,7 +1733,8 @@ bool MglruNode::IsInitialized() const {
 void MglruNode::InternalSwap(MglruNode* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.generations_.InternalSwap(&other->_impl_.generations_);
+  _internal_mutable_generations()->InternalSwap(other->_internal_mutable_generations());
+
   swap(_impl_.id_, other->_impl_.id_);
 }
 
@@ -1721,17 +1742,15 @@ std::string MglruNode::GetTypeName() const {
   return "vm_tools.vm_memory_management.MglruNode";
 }
 
-
 // ===================================================================
 
 class MglruMemcg::_Internal {
  public:
 };
 
-MglruMemcg::MglruMemcg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MglruMemcg::MglruMemcg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.MglruMemcg)
 }
 MglruMemcg::MglruMemcg(const MglruMemcg& from)
@@ -1739,7 +1758,8 @@ MglruMemcg::MglruMemcg(const MglruMemcg& from)
   MglruMemcg* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.nodes_){from._impl_.nodes_}
-    , decltype(_impl_.id_){}
+    , decltype(_impl_.id_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1747,13 +1767,12 @@ MglruMemcg::MglruMemcg(const MglruMemcg& from)
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.MglruMemcg)
 }
 
-inline void MglruMemcg::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MglruMemcg::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.nodes_){arena}
-    , decltype(_impl_.id_){0u}
+    , decltype(_impl_.id_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1768,8 +1787,8 @@ MglruMemcg::~MglruMemcg() {
 }
 
 inline void MglruMemcg::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.nodes_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_nodes()->~RepeatedPtrField();
 }
 
 void MglruMemcg::SetCachedSize(int size) const {
@@ -1778,11 +1797,11 @@ void MglruMemcg::SetCachedSize(int size) const {
 
 void MglruMemcg::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.MglruMemcg)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.nodes_.Clear();
+  _internal_mutable_nodes()->Clear();
   _impl_.id_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
@@ -1790,20 +1809,21 @@ void MglruMemcg::Clear() {
 const char* MglruMemcg::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .vm_tools.vm_memory_management.MglruNode nodes = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1811,8 +1831,9 @@ const char* MglruMemcg::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1837,16 +1858,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MglruMemcg::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MglruMemcg::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.MglruMemcg)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 id = 1;
   if (this->_internal_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_id(), target);
   }
 
   // repeated .vm_tools.vm_memory_management.MglruNode nodes = 2;
@@ -1865,24 +1887,25 @@ uint8_t* MglruMemcg::_InternalSerialize(
   return target;
 }
 
-size_t MglruMemcg::ByteSizeLong() const {
+::size_t MglruMemcg::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.MglruMemcg)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .vm_tools.vm_memory_management.MglruNode nodes = 2;
   total_size += 1UL * this->_internal_nodes_size();
-  for (const auto& msg : this->_impl_.nodes_) {
+  for (const auto& msg : this->_internal_nodes()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // uint32 id = 1;
   if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_id());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1902,11 +1925,11 @@ void MglruMemcg::CheckTypeAndMergeFrom(
 void MglruMemcg::MergeFrom(const MglruMemcg& from) {
   MglruMemcg* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.MglruMemcg)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.nodes_.MergeFrom(from._impl_.nodes_);
+  _this->_internal_mutable_nodes()->MergeFrom(from._internal_nodes());
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());
   }
@@ -1927,7 +1950,8 @@ bool MglruMemcg::IsInitialized() const {
 void MglruMemcg::InternalSwap(MglruMemcg* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.nodes_.InternalSwap(&other->_impl_.nodes_);
+  _internal_mutable_nodes()->InternalSwap(other->_internal_mutable_nodes());
+
   swap(_impl_.id_, other->_impl_.id_);
 }
 
@@ -1935,17 +1959,15 @@ std::string MglruMemcg::GetTypeName() const {
   return "vm_tools.vm_memory_management.MglruMemcg";
 }
 
-
 // ===================================================================
 
 class MglruStats::_Internal {
  public:
 };
 
-MglruStats::MglruStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MglruStats::MglruStats(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.MglruStats)
 }
 MglruStats::MglruStats(const MglruStats& from)
@@ -1959,10 +1981,8 @@ MglruStats::MglruStats(const MglruStats& from)
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.MglruStats)
 }
 
-inline void MglruStats::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MglruStats::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.cgs_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1979,8 +1999,8 @@ MglruStats::~MglruStats() {
 }
 
 inline void MglruStats::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.cgs_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_cgs()->~RepeatedPtrField();
 }
 
 void MglruStats::SetCachedSize(int size) const {
@@ -1989,23 +2009,23 @@ void MglruStats::SetCachedSize(int size) const {
 
 void MglruStats::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.MglruStats)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.cgs_.Clear();
+  _internal_mutable_cgs()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* MglruStats::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .vm_tools.vm_memory_management.MglruMemcg cgs = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2013,8 +2033,9 @@ const char* MglruStats::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2039,10 +2060,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MglruStats::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MglruStats::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.MglruStats)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .vm_tools.vm_memory_management.MglruMemcg cgs = 1;
@@ -2061,17 +2082,17 @@ uint8_t* MglruStats::_InternalSerialize(
   return target;
 }
 
-size_t MglruStats::ByteSizeLong() const {
+::size_t MglruStats::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.MglruStats)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .vm_tools.vm_memory_management.MglruMemcg cgs = 1;
   total_size += 1UL * this->_internal_cgs_size();
-  for (const auto& msg : this->_impl_.cgs_) {
+  for (const auto& msg : this->_internal_cgs()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2093,11 +2114,11 @@ void MglruStats::CheckTypeAndMergeFrom(
 void MglruStats::MergeFrom(const MglruStats& from) {
   MglruStats* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.MglruStats)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.cgs_.MergeFrom(from._impl_.cgs_);
+  _this->_internal_mutable_cgs()->MergeFrom(from._internal_cgs());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -2115,52 +2136,56 @@ bool MglruStats::IsInitialized() const {
 void MglruStats::InternalSwap(MglruStats* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.cgs_.InternalSwap(&other->_impl_.cgs_);
+  _internal_mutable_cgs()->InternalSwap(other->_internal_mutable_cgs());
 }
 
 std::string MglruStats::GetTypeName() const {
   return "vm_tools.vm_memory_management.MglruStats";
 }
 
-
 // ===================================================================
 
 class MglruResponse::_Internal {
  public:
+  using HasBits = decltype(std::declval<MglruResponse>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(MglruResponse, _impl_._has_bits_);
   static const ::vm_tools::vm_memory_management::MglruStats& stats(const MglruResponse* msg);
+  static void set_has_stats(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::vm_tools::vm_memory_management::MglruStats&
 MglruResponse::_Internal::stats(const MglruResponse* msg) {
   return *msg->_impl_.stats_;
 }
-MglruResponse::MglruResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MglruResponse::MglruResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.MglruResponse)
 }
 MglruResponse::MglruResponse(const MglruResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   MglruResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.stats_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.stats_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_stats()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.stats_ = new ::vm_tools::vm_memory_management::MglruStats(*from._impl_.stats_);
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.MglruResponse)
 }
 
-inline void MglruResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MglruResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.stats_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.stats_){nullptr}
   };
 }
 
@@ -2174,7 +2199,7 @@ MglruResponse::~MglruResponse() {
 }
 
 inline void MglruResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.stats_;
 }
 
@@ -2184,30 +2209,34 @@ void MglruResponse::SetCachedSize(int size) const {
 
 void MglruResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.MglruResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.stats_ != nullptr) {
-    delete _impl_.stats_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.stats_ != nullptr);
+    _impl_.stats_->Clear();
   }
-  _impl_.stats_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* MglruResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vm_memory_management.MglruStats stats = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_stats(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2225,6 +2254,7 @@ const char* MglruResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2232,14 +2262,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MglruResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MglruResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.MglruResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .vm_tools.vm_memory_management.MglruStats stats = 1;
-  if (this->_internal_has_stats()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::stats(this),
         _Internal::stats(this).GetCachedSize(), target, stream);
@@ -2253,16 +2284,17 @@ uint8_t* MglruResponse::_InternalSerialize(
   return target;
 }
 
-size_t MglruResponse::ByteSizeLong() const {
+::size_t MglruResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.MglruResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vm_tools.vm_memory_management.MglruStats stats = 1;
-  if (this->_internal_has_stats()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.stats_);
@@ -2285,11 +2317,11 @@ void MglruResponse::CheckTypeAndMergeFrom(
 void MglruResponse::MergeFrom(const MglruResponse& from) {
   MglruResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.MglruResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_stats()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_stats()->::vm_tools::vm_memory_management::MglruStats::MergeFrom(
         from._internal_stats());
   }
@@ -2310,6 +2342,7 @@ bool MglruResponse::IsInitialized() const {
 void MglruResponse::InternalSwap(MglruResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.stats_, other->_impl_.stats_);
 }
 
@@ -2317,11 +2350,12 @@ std::string MglruResponse::GetTypeName() const {
   return "vm_tools.vm_memory_management.MglruResponse";
 }
 
-
 // ===================================================================
 
 class VmMemoryManagementPacket::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::vm_tools::vm_memory_management::VmMemoryManagementPacket, _impl_._oneof_case_);
   static const ::vm_tools::vm_memory_management::ConnectionHandshake& handshake(const VmMemoryManagementPacket* msg);
   static const ::vm_tools::vm_memory_management::KillDecisionRequest& kill_decision_request(const VmMemoryManagementPacket* msg);
   static const ::vm_tools::vm_memory_management::KillDecisionResponse& kill_decision_response(const VmMemoryManagementPacket* msg);
@@ -2424,17 +2458,17 @@ void VmMemoryManagementPacket::set_allocated_mglru_response(::vm_tools::vm_memor
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vm_memory_management.VmMemoryManagementPacket.mglru_response)
 }
-VmMemoryManagementPacket::VmMemoryManagementPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+VmMemoryManagementPacket::VmMemoryManagementPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vm_memory_management.VmMemoryManagementPacket)
 }
 VmMemoryManagementPacket::VmMemoryManagementPacket(const VmMemoryManagementPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   VmMemoryManagementPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.type_){}
+      decltype(_impl_.type_) {}
+
     , decltype(_impl_.payload_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}};
@@ -2475,12 +2509,11 @@ VmMemoryManagementPacket::VmMemoryManagementPacket(const VmMemoryManagementPacke
   // @@protoc_insertion_point(copy_constructor:vm_tools.vm_memory_management.VmMemoryManagementPacket)
 }
 
-inline void VmMemoryManagementPacket::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void VmMemoryManagementPacket::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.type_){0}
+      decltype(_impl_.type_) { 0 }
+
     , decltype(_impl_.payload_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}
@@ -2498,7 +2531,7 @@ VmMemoryManagementPacket::~VmMemoryManagementPacket() {
 }
 
 inline void VmMemoryManagementPacket::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_payload()) {
     clear_payload();
   }
@@ -2551,7 +2584,7 @@ void VmMemoryManagementPacket::clear_payload() {
 
 void VmMemoryManagementPacket::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.vm_memory_management.VmMemoryManagementPacket)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2563,57 +2596,63 @@ void VmMemoryManagementPacket::Clear() {
 const char* VmMemoryManagementPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vm_memory_management.PacketType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::vm_tools::vm_memory_management::PacketType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.ConnectionHandshake handshake = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_handshake(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.KillDecisionRequest kill_decision_request = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_kill_decision_request(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.KillDecisionResponse kill_decision_response = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_kill_decision_response(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.DecisionLatency decision_latency = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_decision_latency(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.vm_memory_management.MglruResponse mglru_response = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_mglru_response(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2638,54 +2677,52 @@ failure:
 #undef CHK_
 }
 
-uint8_t* VmMemoryManagementPacket::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* VmMemoryManagementPacket::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.vm_memory_management.VmMemoryManagementPacket)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vm_tools.vm_memory_management.PacketType type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
-  // .vm_tools.vm_memory_management.ConnectionHandshake handshake = 2;
-  if (_internal_has_handshake()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::handshake(this),
-        _Internal::handshake(this).GetCachedSize(), target, stream);
+  switch (payload_case()) {
+    case kHandshake: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::handshake(this),
+          _Internal::handshake(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kKillDecisionRequest: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::kill_decision_request(this),
+          _Internal::kill_decision_request(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kKillDecisionResponse: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, _Internal::kill_decision_response(this),
+          _Internal::kill_decision_response(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kDecisionLatency: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::decision_latency(this),
+          _Internal::decision_latency(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kMglruResponse: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, _Internal::mglru_response(this),
+          _Internal::mglru_response(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
   }
-
-  // .vm_tools.vm_memory_management.KillDecisionRequest kill_decision_request = 3;
-  if (_internal_has_kill_decision_request()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::kill_decision_request(this),
-        _Internal::kill_decision_request(this).GetCachedSize(), target, stream);
-  }
-
-  // .vm_tools.vm_memory_management.KillDecisionResponse kill_decision_response = 4;
-  if (_internal_has_kill_decision_response()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::kill_decision_response(this),
-        _Internal::kill_decision_response(this).GetCachedSize(), target, stream);
-  }
-
-  // .vm_tools.vm_memory_management.DecisionLatency decision_latency = 5;
-  if (_internal_has_decision_latency()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::decision_latency(this),
-        _Internal::decision_latency(this).GetCachedSize(), target, stream);
-  }
-
-  // .vm_tools.vm_memory_management.MglruResponse mglru_response = 6;
-  if (_internal_has_mglru_response()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, _Internal::mglru_response(this),
-        _Internal::mglru_response(this).GetCachedSize(), target, stream);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2694,18 +2731,18 @@ uint8_t* VmMemoryManagementPacket::_InternalSerialize(
   return target;
 }
 
-size_t VmMemoryManagementPacket::ByteSizeLong() const {
+::size_t VmMemoryManagementPacket::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.vm_memory_management.VmMemoryManagementPacket)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vm_tools.vm_memory_management.PacketType type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   switch (payload_case()) {
@@ -2765,8 +2802,8 @@ void VmMemoryManagementPacket::CheckTypeAndMergeFrom(
 void VmMemoryManagementPacket::MergeFrom(const VmMemoryManagementPacket& from) {
   VmMemoryManagementPacket* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vm_memory_management.VmMemoryManagementPacket)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_type() != 0) {
@@ -2828,7 +2865,6 @@ std::string VmMemoryManagementPacket::GetTypeName() const {
   return "vm_tools.vm_memory_management.VmMemoryManagementPacket";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace vm_memory_management
 }  // namespace vm_tools
@@ -2874,6 +2910,5 @@ Arena::CreateMaybeMessage< ::vm_tools::vm_memory_management::VmMemoryManagementP
   return Arena::CreateMessageInternal< ::vm_tools::vm_memory_management::VmMemoryManagementPacket >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

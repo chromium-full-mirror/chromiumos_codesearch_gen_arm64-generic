@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -177,14 +178,17 @@ void GeolocationContextProxy::BindGeolocation(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationContext_BindGeolocation_Name, kFlags, 0, 0, nullptr);
@@ -231,14 +235,17 @@ void GeolocationContextProxy::OnPermissionRevoked(
                         "<value of type const ::url::Origin&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationContext_OnPermissionRevoked_Name, kFlags, 0, 0, nullptr);
@@ -279,14 +286,17 @@ void GeolocationContextProxy::SetOverride(
                         "<value of type ::device::mojom::GeopositionResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationContext_SetOverride_Name, kFlags, 0, 0, nullptr);
@@ -318,14 +328,17 @@ void GeolocationContextProxy::ClearOverride(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::GeolocationContext::ClearOverride");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationContext_ClearOverride_Name, kFlags, 0, 0, nullptr);
@@ -482,16 +495,16 @@ bool GeolocationContextStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGeolocationContextValidationInfo[] = {
-    {&internal::GeolocationContext_BindGeolocation_Params_Data::Validate,
+    { &internal::GeolocationContext_BindGeolocation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GeolocationContext_OnPermissionRevoked_Params_Data::Validate,
+    { &internal::GeolocationContext_OnPermissionRevoked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GeolocationContext_SetOverride_Params_Data::Validate,
+    { &internal::GeolocationContext_SetOverride_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GeolocationContext_ClearOverride_Params_Data::Validate,
+    { &internal::GeolocationContext_ClearOverride_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -50,6 +50,37 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var EyeGazeCorrectionMode = {};
+  EyeGazeCorrectionMode.OFF = 0;
+  EyeGazeCorrectionMode.ON = 1;
+  EyeGazeCorrectionMode.STARE = 2;
+  EyeGazeCorrectionMode.MIN_VALUE = 0;
+  EyeGazeCorrectionMode.MAX_VALUE = 2;
+  EyeGazeCorrectionMode.DEFAULT_VALUE = 0;
+
+  EyeGazeCorrectionMode.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  EyeGazeCorrectionMode.toKnownEnumValue = function(value) {
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
+  };
+
+  EyeGazeCorrectionMode.validate = function(enumValue) {
+    const isExtensible = true;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var MeteringMode = {};
   MeteringMode.NONE = 0;
   MeteringMode.MANUAL = 1;
@@ -239,6 +270,8 @@
     this.supportedBackgroundBlurModes = null;
     this.supportedFaceFramingModes = null;
     this.currentFaceFramingMode = 0;
+    this.currentEyeGazeCorrectionMode = 0;
+    this.supportedEyeGazeCorrectionModes = null;
   };
   PhotoState.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -256,7 +289,8 @@
     var kVersionSizes = [
       {version: 0, numBytes: 184},
       {version: 1, numBytes: 192},
-      {version: 2, numBytes: 208}
+      {version: 2, numBytes: 208},
+      {version: 3, numBytes: 216}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -442,10 +476,30 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+    // version check PhotoState.supportedEyeGazeCorrectionModes
+    if (!messageValidator.isFieldInStructVersion(offset, 3))
+      return validator.validationError.NONE;
+    // validate PhotoState.supportedEyeGazeCorrectionModes
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 200, 4, new codec.Enum(EyeGazeCorrectionMode), true, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // version check PhotoState.currentEyeGazeCorrectionMode
+    if (!messageValidator.isFieldInStructVersion(offset, 3))
+      return validator.validationError.NONE;
+    // validate PhotoState.currentEyeGazeCorrectionMode
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 196, EyeGazeCorrectionMode);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  PhotoState.encodedSize = codec.kStructHeaderSize + 200;
+  PhotoState.encodedSize = codec.kStructHeaderSize + 208;
 
   PhotoState.decode = function(decoder) {
     var packed;
@@ -528,17 +582,25 @@
     } else {
       val.currentFaceFramingMode = null;
     }
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    if (version >= 3) {
+      val.currentEyeGazeCorrectionMode =
+          decoder.decodeStruct(new codec.Enum(EyeGazeCorrectionMode));
+    } else {
+      val.currentEyeGazeCorrectionMode = null;
+    }
+    if (version >= 3) {
+      val.supportedEyeGazeCorrectionModes =
+          decoder.decodeArrayPointer(new codec.Enum(EyeGazeCorrectionMode));
+    } else {
+      val.supportedEyeGazeCorrectionModes = null;
+    }
     return val;
   };
 
   PhotoState.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(PhotoState.encodedSize);
-    encoder.writeUint32(2);
+    encoder.writeUint32(3);
     encoder.encodeArrayPointer(new codec.Enum(MeteringMode), val.supportedWhiteBalanceModes);
     encoder.encodeStruct(codec.Int32, val.currentWhiteBalanceMode);
     encoder.encodeStruct(codec.Int32, val.currentExposureMode);
@@ -573,10 +635,8 @@
     encoder.encodeArrayPointer(new codec.Enum(BackgroundBlurMode), val.supportedBackgroundBlurModes);
     encoder.encodeArrayPointer(new codec.Enum(MeteringMode), val.supportedFaceFramingModes);
     encoder.encodeStruct(codec.Int32, val.currentFaceFramingMode);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.currentEyeGazeCorrectionMode);
+    encoder.encodeArrayPointer(new codec.Enum(EyeGazeCorrectionMode), val.supportedEyeGazeCorrectionModes);
   };
   function Point2D(values) {
     this.initDefaults_();
@@ -665,6 +725,7 @@
     this.redEyeReduction = false;
     this.hasBackgroundBlurMode = false;
     this.hasFaceFramingMode = false;
+    this.eye_gaze_correction_mode_$flag = false;
     this.whiteBalanceMode = 0;
     this.exposureMode = 0;
     this.focusMode = 0;
@@ -686,6 +747,7 @@
     this.width = 0;
     this.height = 0;
     this.faceFramingMode = 0;
+    this.eye_gaze_correction_mode_$value = 0;
   };
   PhotoSettings.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -703,7 +765,8 @@
     var kVersionSizes = [
       {version: 0, numBytes: 152},
       {version: 1, numBytes: 152},
-      {version: 2, numBytes: 160}
+      {version: 2, numBytes: 160},
+      {version: 3, numBytes: 160}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -797,6 +860,17 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+
+    // version check PhotoSettings.eye_gaze_correction_mode_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 3))
+      return validator.validationError.NONE;
+    // validate PhotoSettings.eye_gaze_correction_mode_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 148, EyeGazeCorrectionMode);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
@@ -834,7 +908,8 @@
     val.redEyeReduction = (packed >> 5) & 1 ? true : false;
     val.hasBackgroundBlurMode = (packed >> 6) & 1 ? true : false;
     val.hasFaceFramingMode = (packed >> 7) & 1 ? true : false;
-    decoder.skip(1);
+    packed = decoder.readUint8();
+    val.eye_gaze_correction_mode_$flag = (packed >> 0) & 1 ? true : false;
     val.whiteBalanceMode =
         decoder.decodeStruct(new codec.Enum(MeteringMode));
     val.exposureMode =
@@ -885,17 +960,19 @@
     } else {
       val.faceFramingMode = null;
     }
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    if (version >= 3) {
+      val.eye_gaze_correction_mode_$value =
+          decoder.decodeStruct(new codec.Enum(EyeGazeCorrectionMode));
+    } else {
+      val.eye_gaze_correction_mode_$value = null;
+    }
     return val;
   };
 
   PhotoSettings.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(PhotoSettings.encodedSize);
-    encoder.writeUint32(2);
+    encoder.writeUint32(3);
     packed = 0;
     packed |= (val.hasWhiteBalanceMode & 1) << 0
     packed |= (val.hasExposureMode & 1) << 1
@@ -926,7 +1003,9 @@
     packed |= (val.hasBackgroundBlurMode & 1) << 6
     packed |= (val.hasFaceFramingMode & 1) << 7
     encoder.writeUint8(packed);
-    encoder.skip(1);
+    packed = 0;
+    packed |= (val.eye_gaze_correction_mode_$flag & 1) << 0
+    encoder.writeUint8(packed);
     encoder.encodeStruct(codec.Int32, val.whiteBalanceMode);
     encoder.encodeStruct(codec.Int32, val.exposureMode);
     encoder.encodeStruct(codec.Int32, val.focusMode);
@@ -948,10 +1027,7 @@
     encoder.encodeStruct(codec.Double, val.width);
     encoder.encodeStruct(codec.Double, val.height);
     encoder.encodeStruct(codec.Int32, val.faceFramingMode);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.eye_gaze_correction_mode_$value);
   };
   function Blob(values) {
     this.initDefaults_();
@@ -1609,6 +1685,7 @@
   ImageCaptureStub.prototype.validator = validateImageCaptureRequest;
   ImageCaptureProxy.prototype.validator = validateImageCaptureResponse;
   exports.BackgroundBlurMode = BackgroundBlurMode;
+  exports.EyeGazeCorrectionMode = EyeGazeCorrectionMode;
   exports.MeteringMode = MeteringMode;
   exports.RedEyeReduction = RedEyeReduction;
   exports.FillLightMode = FillLightMode;

@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaKeyMessageEvent>::value,
     "MediaKeyMessageEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaKeyMessageEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaKeyMessageEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeyMessageEvent.messageType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->messageType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->messageType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -109,7 +104,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->message();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -125,8 +121,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeyMessageEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(v8_receiver);
+MediaKeyMessageEvent* blink_receiver = V8MediaKeyMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

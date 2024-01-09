@@ -639,6 +639,9 @@ class VideoEncodeAcceleratorConfigDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(data_->content_type));
   }
+  uint8_t drop_frame_thresh_percentage() const {
+    return data_->drop_frame_thresh_percentage;
+  }
   inline void GetSpatialLayersDataView(
       mojo::ArrayDataView<SpatialLayerDataView>* output);
 
@@ -1526,6 +1529,7 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
     fragment->has_storage_type = Traits::has_storage_type(input);
     mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(
         Traits::content_type(input), &fragment->content_type);
+    fragment->drop_frame_thresh_percentage = Traits::drop_frame_thresh_percentage(input);
     decltype(Traits::spatial_layers(input)) in_spatial_layers = Traits::spatial_layers(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->spatial_layers)::BaseType>

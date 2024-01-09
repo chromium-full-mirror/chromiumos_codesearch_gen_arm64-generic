@@ -41,7 +41,7 @@
 namespace blink::mojom {
 class CommonCredentialInfoDataView;
 
-class DevicePublicKeyResponseDataView;
+class SupplementalPubKeysResponseDataView;
 
 class MakeCredentialAuthenticatorResponseDataView;
 
@@ -65,7 +65,7 @@ class PaymentCredentialInstrumentDataView;
 
 class RemoteDesktopClientOverrideDataView;
 
-class DevicePublicKeyRequestDataView;
+class SupplementalPubKeysRequestDataView;
 
 class PublicKeyCredentialRequestOptionsDataView;
 
@@ -94,8 +94,8 @@ struct MojomTypeTraits<::blink::mojom::CommonCredentialInfoDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::DevicePublicKeyResponseDataView> {
-  using Data = ::blink::mojom::internal::DevicePublicKeyResponse_Data;
+struct MojomTypeTraits<::blink::mojom::SupplementalPubKeysResponseDataView> {
+  using Data = ::blink::mojom::internal::SupplementalPubKeysResponse_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -178,8 +178,8 @@ struct MojomTypeTraits<::blink::mojom::RemoteDesktopClientOverrideDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::DevicePublicKeyRequestDataView> {
-  using Data = ::blink::mojom::internal::DevicePublicKeyRequest_Data;
+struct MojomTypeTraits<::blink::mojom::SupplementalPubKeysRequestDataView> {
+  using Data = ::blink::mojom::internal::SupplementalPubKeysRequest_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -269,23 +269,33 @@ enum class AuthenticatorStatus : int32_t {
   
   BAD_RELYING_PARTY_ID = 16,
   
-  CANNOT_READ_AND_WRITE_LARGE_BLOB = 17,
+  BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH = 17,
   
-  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB = 18,
+  BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE = 18,
   
-  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION = 19,
+  BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR = 19,
   
-  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED = 20,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH = 20,
   
-  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED = 21,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS = 21,
   
-  CERTIFICATE_ERROR = 22,
+  CANNOT_READ_AND_WRITE_LARGE_BLOB = 22,
   
-  ERROR_WITH_DOM_EXCEPTION_DETAILS = 23,
+  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB = 23,
   
-  UNKNOWN_ERROR = 24,
+  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION = 24,
+  
+  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED = 25,
+  
+  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED = 26,
+  
+  CERTIFICATE_ERROR = 27,
+  
+  ERROR_WITH_DOM_EXCEPTION_DETAILS = 28,
+  
+  UNKNOWN_ERROR = 29,
   kMinValue = 0,
-  kMaxValue = 24,
+  kMaxValue = 29,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, AuthenticatorStatus value);
@@ -313,6 +323,24 @@ enum class AuthenticatorTransport : int32_t {
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, AuthenticatorTransport value);
 inline bool IsKnownEnumValue(AuthenticatorTransport value) {
   return internal::AuthenticatorTransport_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Hint : int32_t {
+  
+  SECURITY_KEY = 0,
+  
+  CLIENT_DEVICE = 1,
+  
+  HYBRID = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, Hint value);
+inline bool IsKnownEnumValue(Hint value) {
+  return internal::Hint_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -510,38 +538,28 @@ class CommonCredentialInfoDataView {
 };
 
 
-class DevicePublicKeyResponseDataView {
+class SupplementalPubKeysResponseDataView {
  public:
-  DevicePublicKeyResponseDataView() = default;
+  SupplementalPubKeysResponseDataView() = default;
 
-  DevicePublicKeyResponseDataView(
-      internal::DevicePublicKeyResponse_Data* data,
+  SupplementalPubKeysResponseDataView(
+      internal::SupplementalPubKeysResponse_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetAuthenticatorOutputDataView(
-      mojo::ArrayDataView<uint8_t>* output);
+  inline void GetSignaturesDataView(
+      mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadAuthenticatorOutput(UserType* output) {
+  [[nodiscard]] bool ReadSignatures(UserType* output) {
     
-    auto* pointer = data_->authenticator_output.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
-        pointer, output, message_);
-  }
-  inline void GetSignatureDataView(
-      mojo::ArrayDataView<uint8_t>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSignature(UserType* output) {
-    
-    auto* pointer = data_->signature.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+    auto* pointer = data_->signatures.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>>(
         pointer, output, message_);
   }
  private:
-  internal::DevicePublicKeyResponse_Data* data_ = nullptr;
+  internal::SupplementalPubKeysResponse_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -672,24 +690,24 @@ static_assert(
   bool supports_large_blob() const {
     return data_->supports_large_blob;
   }
-  inline void GetDevicePublicKeyDataView(
-      DevicePublicKeyResponseDataView* output);
+  inline void GetSupplementalPubKeysDataView(
+      SupplementalPubKeysResponseDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDevicePublicKey(UserType* output) {
+  [[nodiscard]] bool ReadSupplementalPubKeys(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::DevicePublicKeyResponseDataView, UserType>(),
-    "Attempting to read the optional `device_public_key` field into a type which "
+        ::blink::mojom::SupplementalPubKeysResponseDataView, UserType>(),
+    "Attempting to read the optional `supplemental_pub_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDevicePublicKey` instead "
-    "of `ReadDevicePublicKey if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadSupplementalPubKeys` instead "
+    "of `ReadSupplementalPubKeys if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->device_public_key.Get();
-    return mojo::internal::Deserialize<::blink::mojom::DevicePublicKeyResponseDataView>(
+    auto* pointer = data_->supplemental_pub_keys.Get();
+    return mojo::internal::Deserialize<::blink::mojom::SupplementalPubKeysResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -865,24 +883,24 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
         pointer, output, message_);
   }
-  inline void GetDevicePublicKeyDataView(
-      DevicePublicKeyResponseDataView* output);
+  inline void GetSupplementalPubKeysDataView(
+      SupplementalPubKeysResponseDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDevicePublicKey(UserType* output) {
+  [[nodiscard]] bool ReadSupplementalPubKeys(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::DevicePublicKeyResponseDataView, UserType>(),
-    "Attempting to read the optional `device_public_key` field into a type which "
+        ::blink::mojom::SupplementalPubKeysResponseDataView, UserType>(),
+    "Attempting to read the optional `supplemental_pub_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDevicePublicKey` instead "
-    "of `ReadDevicePublicKey if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadSupplementalPubKeys` instead "
+    "of `ReadSupplementalPubKeys if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->device_public_key.Get();
-    return mojo::internal::Deserialize<::blink::mojom::DevicePublicKeyResponseDataView>(
+    auto* pointer = data_->supplemental_pub_keys.Get();
+    return mojo::internal::Deserialize<::blink::mojom::SupplementalPubKeysResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -1330,16 +1348,22 @@ class RemoteDesktopClientOverrideDataView {
 };
 
 
-class DevicePublicKeyRequestDataView {
+class SupplementalPubKeysRequestDataView {
  public:
-  DevicePublicKeyRequestDataView() = default;
+  SupplementalPubKeysRequestDataView() = default;
 
-  DevicePublicKeyRequestDataView(
-      internal::DevicePublicKeyRequest_Data* data,
+  SupplementalPubKeysRequestDataView(
+      internal::SupplementalPubKeysRequest_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  bool device_scope_requested() const {
+    return data_->device_scope_requested;
+  }
+  bool provider_scope_requested() const {
+    return data_->provider_scope_requested;
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadAttestation(UserType* output) const {
     auto data_value = data_->attestation;
@@ -1361,7 +1385,7 @@ class DevicePublicKeyRequestDataView {
         pointer, output, message_);
   }
  private:
-  internal::DevicePublicKeyRequest_Data* data_ = nullptr;
+  internal::SupplementalPubKeysRequest_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1427,6 +1451,16 @@ static_assert(
     
     auto* pointer = data_->allow_credentials.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::PublicKeyCredentialDescriptorDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetHintsDataView(
+      mojo::ArrayDataView<Hint>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHints(UserType* output) {
+    
+    auto* pointer = data_->hints.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::Hint>>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -1557,24 +1591,24 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::RemoteDesktopClientOverrideDataView>(
         pointer, output, message_);
   }
-  inline void GetDevicePublicKeyDataView(
-      DevicePublicKeyRequestDataView* output);
+  inline void GetSupplementalPubKeysDataView(
+      SupplementalPubKeysRequestDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDevicePublicKey(UserType* output) {
+  [[nodiscard]] bool ReadSupplementalPubKeys(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::DevicePublicKeyRequestDataView, UserType>(),
-    "Attempting to read the optional `device_public_key` field into a type which "
+        ::blink::mojom::SupplementalPubKeysRequestDataView, UserType>(),
+    "Attempting to read the optional `supplemental_pub_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDevicePublicKey` instead "
-    "of `ReadDevicePublicKey if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadSupplementalPubKeys` instead "
+    "of `ReadSupplementalPubKeys if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->device_public_key.Get();
-    return mojo::internal::Deserialize<::blink::mojom::DevicePublicKeyRequestDataView>(
+    auto* pointer = data_->supplemental_pub_keys.Get();
+    return mojo::internal::Deserialize<::blink::mojom::SupplementalPubKeysRequestDataView>(
         pointer, output, message_);
   }
  private:
@@ -1728,6 +1762,16 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::AuthenticatorSelectionCriteriaDataView>(
         pointer, output, message_);
   }
+  inline void GetHintsDataView(
+      mojo::ArrayDataView<Hint>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHints(UserType* output) {
+    
+    auto* pointer = data_->hints.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::Hint>>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadAttestation(UserType* output) const {
     auto data_value = data_->attestation;
@@ -1856,24 +1900,24 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::RemoteDesktopClientOverrideDataView>(
         pointer, output, message_);
   }
-  inline void GetDevicePublicKeyDataView(
-      DevicePublicKeyRequestDataView* output);
+  inline void GetSupplementalPubKeysDataView(
+      SupplementalPubKeysRequestDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDevicePublicKey(UserType* output) {
+  [[nodiscard]] bool ReadSupplementalPubKeys(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::DevicePublicKeyRequestDataView, UserType>(),
-    "Attempting to read the optional `device_public_key` field into a type which "
+        ::blink::mojom::SupplementalPubKeysRequestDataView, UserType>(),
+    "Attempting to read the optional `supplemental_pub_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDevicePublicKey` instead "
-    "of `ReadDevicePublicKey if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadSupplementalPubKeys` instead "
+    "of `ReadSupplementalPubKeys if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->device_public_key.Get();
-    return mojo::internal::Deserialize<::blink::mojom::DevicePublicKeyRequestDataView>(
+    auto* pointer = data_->supplemental_pub_keys.Get();
+    return mojo::internal::Deserialize<::blink::mojom::SupplementalPubKeysRequestDataView>(
         pointer, output, message_);
   }
  private:
@@ -1977,6 +2021,10 @@ struct hash<::blink::mojom::AuthenticatorTransport>
     : public mojo::internal::EnumHashImpl<::blink::mojom::AuthenticatorTransport> {};
 
 template <>
+struct hash<::blink::mojom::Hint>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::Hint> {};
+
+template <>
 struct hash<::blink::mojom::UserVerificationRequirement>
     : public mojo::internal::EnumHashImpl<::blink::mojom::UserVerificationRequirement> {};
 
@@ -2043,6 +2091,26 @@ struct Serializer<::blink::mojom::AuthenticatorTransport, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::AuthenticatorTransport>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::Hint, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::Hint, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::Hint>(input)), output);
   }
 };
 
@@ -2275,53 +2343,39 @@ struct Serializer<::blink::mojom::CommonCredentialInfoDataView, MaybeConstUserTy
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::DevicePublicKeyResponseDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::SupplementalPubKeysResponseDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::DevicePublicKeyResponseDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::SupplementalPubKeysResponseDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::DevicePublicKeyResponse_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::SupplementalPubKeysResponse_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::authenticator_output(input)) in_authenticator_output = Traits::authenticator_output(input);
+    decltype(Traits::signatures(input)) in_signatures = Traits::signatures(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->authenticator_output)::BaseType>
-        authenticator_output_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& authenticator_output_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
-        in_authenticator_output, authenticator_output_fragment, &authenticator_output_validate_params);
-    fragment->authenticator_output.Set(
-        authenticator_output_fragment.is_null() ? nullptr : authenticator_output_fragment.data());
+        typename decltype(fragment->signatures)::BaseType>
+        signatures_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& signatures_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>>(
+        in_signatures, signatures_fragment, &signatures_validate_params);
+    fragment->signatures.Set(
+        signatures_fragment.is_null() ? nullptr : signatures_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->authenticator_output.is_null(),
+        fragment->signatures.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null authenticator_output in DevicePublicKeyResponse struct");
-    decltype(Traits::signature(input)) in_signature = Traits::signature(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->signature)::BaseType>
-        signature_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& signature_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
-        in_signature, signature_fragment, &signature_validate_params);
-    fragment->signature.Set(
-        signature_fragment.is_null() ? nullptr : signature_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->signature.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null signature in DevicePublicKeyResponse struct");
+        "null signatures in SupplementalPubKeysResponse struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::DevicePublicKeyResponse_Data* input,
+  static bool Deserialize(::blink::mojom::internal::SupplementalPubKeysResponse_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::DevicePublicKeyResponseDataView data_view(input, message);
+    ::blink::mojom::SupplementalPubKeysResponseDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2414,14 +2468,14 @@ struct Serializer<::blink::mojom::MakeCredentialAuthenticatorResponseDataView, M
     fragment->cred_props_rk = Traits::cred_props_rk(input);
     fragment->echo_large_blob = Traits::echo_large_blob(input);
     fragment->supports_large_blob = Traits::supports_large_blob(input);
-    decltype(Traits::device_public_key(input)) in_device_public_key = Traits::device_public_key(input);
+    decltype(Traits::supplemental_pub_keys(input)) in_supplemental_pub_keys = Traits::supplemental_pub_keys(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->device_public_key)::BaseType> device_public_key_fragment(
+        typename decltype(fragment->supplemental_pub_keys)::BaseType> supplemental_pub_keys_fragment(
             fragment.message());
-    mojo::internal::Serialize<::blink::mojom::DevicePublicKeyResponseDataView>(
-        in_device_public_key, device_public_key_fragment);
-    fragment->device_public_key.Set(
-        device_public_key_fragment.is_null() ? nullptr : device_public_key_fragment.data());
+    mojo::internal::Serialize<::blink::mojom::SupplementalPubKeysResponseDataView>(
+        in_supplemental_pub_keys, supplemental_pub_keys_fragment);
+    fragment->supplemental_pub_keys.Set(
+        supplemental_pub_keys_fragment.is_null() ? nullptr : supplemental_pub_keys_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::MakeCredentialAuthenticatorResponse_Data* input,
@@ -2565,14 +2619,14 @@ struct Serializer<::blink::mojom::AuthenticationExtensionsClientOutputsDataView,
         in_get_cred_blob, get_cred_blob_fragment, &get_cred_blob_validate_params);
     fragment->get_cred_blob.Set(
         get_cred_blob_fragment.is_null() ? nullptr : get_cred_blob_fragment.data());
-    decltype(Traits::device_public_key(input)) in_device_public_key = Traits::device_public_key(input);
+    decltype(Traits::supplemental_pub_keys(input)) in_supplemental_pub_keys = Traits::supplemental_pub_keys(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->device_public_key)::BaseType> device_public_key_fragment(
+        typename decltype(fragment->supplemental_pub_keys)::BaseType> supplemental_pub_keys_fragment(
             fragment.message());
-    mojo::internal::Serialize<::blink::mojom::DevicePublicKeyResponseDataView>(
-        in_device_public_key, device_public_key_fragment);
-    fragment->device_public_key.Set(
-        device_public_key_fragment.is_null() ? nullptr : device_public_key_fragment.data());
+    mojo::internal::Serialize<::blink::mojom::SupplementalPubKeysResponseDataView>(
+        in_supplemental_pub_keys, supplemental_pub_keys_fragment);
+    fragment->supplemental_pub_keys.Set(
+        supplemental_pub_keys_fragment.is_null() ? nullptr : supplemental_pub_keys_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::AuthenticationExtensionsClientOutputs_Data* input,
@@ -3052,16 +3106,18 @@ struct Serializer<::blink::mojom::RemoteDesktopClientOverrideDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::DevicePublicKeyRequestDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::SupplementalPubKeysRequestDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::DevicePublicKeyRequestDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::SupplementalPubKeysRequestDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::DevicePublicKeyRequest_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::SupplementalPubKeysRequest_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
+    fragment->device_scope_requested = Traits::device_scope_requested(input);
+    fragment->provider_scope_requested = Traits::provider_scope_requested(input);
     mojo::internal::Serialize<::blink::mojom::AttestationConveyancePreference>(
         Traits::attestation(input), &fragment->attestation);
     decltype(Traits::attestation_formats(input)) in_attestation_formats = Traits::attestation_formats(input);
@@ -3077,16 +3133,16 @@ struct Serializer<::blink::mojom::DevicePublicKeyRequestDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->attestation_formats.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null attestation_formats in DevicePublicKeyRequest struct");
+        "null attestation_formats in SupplementalPubKeysRequest struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::DevicePublicKeyRequest_Data* input,
+  static bool Deserialize(::blink::mojom::internal::SupplementalPubKeysRequest_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::DevicePublicKeyRequestDataView data_view(input, message);
+    ::blink::mojom::SupplementalPubKeysRequestDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -3156,6 +3212,20 @@ struct Serializer<::blink::mojom::PublicKeyCredentialRequestOptionsDataView, May
         fragment->allow_credentials.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null allow_credentials in PublicKeyCredentialRequestOptions struct");
+    decltype(Traits::hints(input)) in_hints = Traits::hints(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->hints)::BaseType>
+        hints_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& hints_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::Hint_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::Hint>>(
+        in_hints, hints_fragment, &hints_validate_params);
+    fragment->hints.Set(
+        hints_fragment.is_null() ? nullptr : hints_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->hints.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null hints in PublicKeyCredentialRequestOptions struct");
     mojo::internal::Serialize<::blink::mojom::UserVerificationRequirement>(
         Traits::user_verification(input), &fragment->user_verification);
     decltype(Traits::extensions(input)) in_extensions = Traits::extensions(input);
@@ -3257,14 +3327,14 @@ struct Serializer<::blink::mojom::AuthenticationExtensionsClientInputsDataView, 
         in_remote_desktop_client_override, remote_desktop_client_override_fragment);
     fragment->remote_desktop_client_override.Set(
         remote_desktop_client_override_fragment.is_null() ? nullptr : remote_desktop_client_override_fragment.data());
-    decltype(Traits::device_public_key(input)) in_device_public_key = Traits::device_public_key(input);
+    decltype(Traits::supplemental_pub_keys(input)) in_supplemental_pub_keys = Traits::supplemental_pub_keys(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->device_public_key)::BaseType> device_public_key_fragment(
+        typename decltype(fragment->supplemental_pub_keys)::BaseType> supplemental_pub_keys_fragment(
             fragment.message());
-    mojo::internal::Serialize<::blink::mojom::DevicePublicKeyRequestDataView>(
-        in_device_public_key, device_public_key_fragment);
-    fragment->device_public_key.Set(
-        device_public_key_fragment.is_null() ? nullptr : device_public_key_fragment.data());
+    mojo::internal::Serialize<::blink::mojom::SupplementalPubKeysRequestDataView>(
+        in_supplemental_pub_keys, supplemental_pub_keys_fragment);
+    fragment->supplemental_pub_keys.Set(
+        supplemental_pub_keys_fragment.is_null() ? nullptr : supplemental_pub_keys_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::AuthenticationExtensionsClientInputs_Data* input,
@@ -3411,6 +3481,20 @@ struct Serializer<::blink::mojom::PublicKeyCredentialCreationOptionsDataView, Ma
         in_authenticator_selection, authenticator_selection_fragment);
     fragment->authenticator_selection.Set(
         authenticator_selection_fragment.is_null() ? nullptr : authenticator_selection_fragment.data());
+    decltype(Traits::hints(input)) in_hints = Traits::hints(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->hints)::BaseType>
+        hints_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& hints_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::Hint_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::Hint>>(
+        in_hints, hints_fragment, &hints_validate_params);
+    fragment->hints.Set(
+        hints_fragment.is_null() ? nullptr : hints_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->hints.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null hints in PublicKeyCredentialCreationOptions struct");
     mojo::internal::Serialize<::blink::mojom::AttestationConveyancePreference>(
         Traits::attestation(input), &fragment->attestation);
     fragment->hmac_create_secret = Traits::hmac_create_secret(input);
@@ -3457,14 +3541,14 @@ struct Serializer<::blink::mojom::PublicKeyCredentialCreationOptionsDataView, Ma
         in_remote_desktop_client_override, remote_desktop_client_override_fragment);
     fragment->remote_desktop_client_override.Set(
         remote_desktop_client_override_fragment.is_null() ? nullptr : remote_desktop_client_override_fragment.data());
-    decltype(Traits::device_public_key(input)) in_device_public_key = Traits::device_public_key(input);
+    decltype(Traits::supplemental_pub_keys(input)) in_supplemental_pub_keys = Traits::supplemental_pub_keys(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->device_public_key)::BaseType> device_public_key_fragment(
+        typename decltype(fragment->supplemental_pub_keys)::BaseType> supplemental_pub_keys_fragment(
             fragment.message());
-    mojo::internal::Serialize<::blink::mojom::DevicePublicKeyRequestDataView>(
-        in_device_public_key, device_public_key_fragment);
-    fragment->device_public_key.Set(
-        device_public_key_fragment.is_null() ? nullptr : device_public_key_fragment.data());
+    mojo::internal::Serialize<::blink::mojom::SupplementalPubKeysRequestDataView>(
+        in_supplemental_pub_keys, supplemental_pub_keys_fragment);
+    fragment->supplemental_pub_keys.Set(
+        supplemental_pub_keys_fragment.is_null() ? nullptr : supplemental_pub_keys_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::PublicKeyCredentialCreationOptions_Data* input,
@@ -3619,15 +3703,10 @@ inline void CommonCredentialInfoDataView::GetAuthenticatorDataDataView(
 }
 
 
-inline void DevicePublicKeyResponseDataView::GetAuthenticatorOutputDataView(
-    mojo::ArrayDataView<uint8_t>* output) {
-  auto pointer = data_->authenticator_output.Get();
-  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
-}
-inline void DevicePublicKeyResponseDataView::GetSignatureDataView(
-    mojo::ArrayDataView<uint8_t>* output) {
-  auto pointer = data_->signature.Get();
-  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+inline void SupplementalPubKeysResponseDataView::GetSignaturesDataView(
+    mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>* output) {
+  auto pointer = data_->signatures.Get();
+  *output = mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>(pointer, message_);
 }
 
 
@@ -3656,10 +3735,10 @@ inline void MakeCredentialAuthenticatorResponseDataView::GetPublicKeyDerDataView
   auto pointer = data_->public_key_der.Get();
   *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
 }
-inline void MakeCredentialAuthenticatorResponseDataView::GetDevicePublicKeyDataView(
-    DevicePublicKeyResponseDataView* output) {
-  auto pointer = data_->device_public_key.Get();
-  *output = DevicePublicKeyResponseDataView(pointer, message_);
+inline void MakeCredentialAuthenticatorResponseDataView::GetSupplementalPubKeysDataView(
+    SupplementalPubKeysResponseDataView* output) {
+  auto pointer = data_->supplemental_pub_keys.Get();
+  *output = SupplementalPubKeysResponseDataView(pointer, message_);
 }
 
 
@@ -3700,10 +3779,10 @@ inline void AuthenticationExtensionsClientOutputsDataView::GetGetCredBlobDataVie
   auto pointer = data_->get_cred_blob.Get();
   *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
 }
-inline void AuthenticationExtensionsClientOutputsDataView::GetDevicePublicKeyDataView(
-    DevicePublicKeyResponseDataView* output) {
-  auto pointer = data_->device_public_key.Get();
-  *output = DevicePublicKeyResponseDataView(pointer, message_);
+inline void AuthenticationExtensionsClientOutputsDataView::GetSupplementalPubKeysDataView(
+    SupplementalPubKeysResponseDataView* output) {
+  auto pointer = data_->supplemental_pub_keys.Get();
+  *output = SupplementalPubKeysResponseDataView(pointer, message_);
 }
 
 
@@ -3823,7 +3902,7 @@ inline void RemoteDesktopClientOverrideDataView::GetOriginDataView(
 }
 
 
-inline void DevicePublicKeyRequestDataView::GetAttestationFormatsDataView(
+inline void SupplementalPubKeysRequestDataView::GetAttestationFormatsDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->attestation_formats.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
@@ -3849,6 +3928,11 @@ inline void PublicKeyCredentialRequestOptionsDataView::GetAllowCredentialsDataVi
     mojo::ArrayDataView<PublicKeyCredentialDescriptorDataView>* output) {
   auto pointer = data_->allow_credentials.Get();
   *output = mojo::ArrayDataView<PublicKeyCredentialDescriptorDataView>(pointer, message_);
+}
+inline void PublicKeyCredentialRequestOptionsDataView::GetHintsDataView(
+    mojo::ArrayDataView<Hint>* output) {
+  auto pointer = data_->hints.Get();
+  *output = mojo::ArrayDataView<Hint>(pointer, message_);
 }
 inline void PublicKeyCredentialRequestOptionsDataView::GetExtensionsDataView(
     AuthenticationExtensionsClientInputsDataView* output) {
@@ -3882,10 +3966,10 @@ inline void AuthenticationExtensionsClientInputsDataView::GetRemoteDesktopClient
   auto pointer = data_->remote_desktop_client_override.Get();
   *output = RemoteDesktopClientOverrideDataView(pointer, message_);
 }
-inline void AuthenticationExtensionsClientInputsDataView::GetDevicePublicKeyDataView(
-    DevicePublicKeyRequestDataView* output) {
-  auto pointer = data_->device_public_key.Get();
-  *output = DevicePublicKeyRequestDataView(pointer, message_);
+inline void AuthenticationExtensionsClientInputsDataView::GetSupplementalPubKeysDataView(
+    SupplementalPubKeysRequestDataView* output) {
+  auto pointer = data_->supplemental_pub_keys.Get();
+  *output = SupplementalPubKeysRequestDataView(pointer, message_);
 }
 
 
@@ -3926,6 +4010,11 @@ inline void PublicKeyCredentialCreationOptionsDataView::GetAuthenticatorSelectio
   auto pointer = data_->authenticator_selection.Get();
   *output = AuthenticatorSelectionCriteriaDataView(pointer, message_);
 }
+inline void PublicKeyCredentialCreationOptionsDataView::GetHintsDataView(
+    mojo::ArrayDataView<Hint>* output) {
+  auto pointer = data_->hints.Get();
+  *output = mojo::ArrayDataView<Hint>(pointer, message_);
+}
 inline void PublicKeyCredentialCreationOptionsDataView::GetPrfInputDataView(
     PRFValuesDataView* output) {
   auto pointer = data_->prf_input.Get();
@@ -3946,10 +4035,10 @@ inline void PublicKeyCredentialCreationOptionsDataView::GetRemoteDesktopClientOv
   auto pointer = data_->remote_desktop_client_override.Get();
   *output = RemoteDesktopClientOverrideDataView(pointer, message_);
 }
-inline void PublicKeyCredentialCreationOptionsDataView::GetDevicePublicKeyDataView(
-    DevicePublicKeyRequestDataView* output) {
-  auto pointer = data_->device_public_key.Get();
-  *output = DevicePublicKeyRequestDataView(pointer, message_);
+inline void PublicKeyCredentialCreationOptionsDataView::GetSupplementalPubKeysDataView(
+    SupplementalPubKeysRequestDataView* output) {
+  auto pointer = data_->supplemental_pub_keys.Get();
+  *output = SupplementalPubKeysRequestDataView(pointer, message_);
 }
 
 
@@ -3997,6 +4086,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::AuthenticatorTransport> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::AuthenticatorTransport value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::Hint> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::Hint value);
 };
 
 } // namespace perfetto

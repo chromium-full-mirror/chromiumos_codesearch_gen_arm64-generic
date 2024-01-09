@@ -16,6 +16,14 @@ namespace internal {
 
 constexpr uint32_t kDocumentScan_GetScannerNames_Name = 0;
 constexpr uint32_t kDocumentScan_ScanFirstPage_Name = 1;
+constexpr uint32_t kDocumentScan_GetScannerList_Name = 2;
+constexpr uint32_t kDocumentScan_OpenScanner_Name = 3;
+constexpr uint32_t kDocumentScan_CloseScanner_Name = 4;
+constexpr uint32_t kDocumentScan_StartPreparedScan_Name = 5;
+constexpr uint32_t kDocumentScan_ReadScanData_Name = 6;
+constexpr uint32_t kDocumentScan_SetOptions_Name = 7;
+constexpr uint32_t kDocumentScan_GetOptionGroups_Name = 8;
+constexpr uint32_t kDocumentScan_CancelScan_Name = 9;
 
 }  // namespace internal
 

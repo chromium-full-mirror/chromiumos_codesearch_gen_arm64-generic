@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/color_space.mojom-features.h"
 #include "ui/gfx/mojom/color_space.mojom-shared.h"
 #include "ui/gfx/mojom/color_space.mojom-blink-forward.h"
 
@@ -37,54 +38,6 @@
 #include "ui/gfx/mojom/color_space_mojom_traits.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gfx::mojom::ColorSpacePrimaryID>
-    : EnumHashTraits<::gfx::mojom::ColorSpacePrimaryID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gfx::mojom::ColorSpaceTransferID>
-    : EnumHashTraits<::gfx::mojom::ColorSpaceTransferID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gfx::mojom::ColorSpaceMatrixID>
-    : EnumHashTraits<::gfx::mojom::ColorSpaceMatrixID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gfx::mojom::ColorSpaceRangeID>
-    : EnumHashTraits<::gfx::mojom::ColorSpaceRangeID, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gfx::mojom::blink {

@@ -29,12 +29,8 @@ build install_init_config: phony obj/hardware_verifier/install_init_config.stamp
 build install_minijail_config: phony obj/hardware_verifier/install_minijail_config.stamp
 build install_minijail_dbus_config: phony obj/hardware_verifier/install_minijail_dbus_config.stamp
 build libhardware_verifier: phony ./libhardware_verifier.a
-build libhardware_verifier_test: phony ./libhardware_verifier_test.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build hardware_verifier$:_hardware_verifier-install_config: phony obj/hardware_verifier/_hardware_verifier-install_config.stamp
 build hardware_verifier$:all: phony obj/hardware_verifier/all.stamp
 build hardware_verifier$:dbus-adaptors: phony obj/hardware_verifier/dbus-adaptors.stamp
@@ -45,8 +41,6 @@ build hardware_verifier$:install_init_config: phony obj/hardware_verifier/instal
 build hardware_verifier$:install_minijail_config: phony obj/hardware_verifier/install_minijail_config.stamp
 build hardware_verifier$:install_minijail_dbus_config: phony obj/hardware_verifier/install_minijail_dbus_config.stamp
 build hardware_verifier$:libhardware_verifier: phony ./libhardware_verifier.a
-build hardware_verifier$:libhardware_verifier_test: phony ./libhardware_verifier_test.a
-build hardware_verifier$:unittest_runner: phony ./unittest_runner
 build hardware_verifier/proto$:all: phony obj/hardware_verifier/proto/all.stamp
 build hardware_verifier/proto$:hardware_verifier-goprotos: phony obj/hardware_verifier/proto/hardware_verifier-goprotos.stamp
 build hardware_verifier/proto$:hardware_verifier-protos: phony ./libhardware_verifier-protos.a
@@ -54,7 +48,6 @@ build hardware_verifier/proto$:hardware_verifier-protos_gen: phony obj/hardware_
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/hardware_verifier/_hardware_verifier-install_config.stamp $
     obj/hardware_verifier/all.stamp $
     obj/hardware_verifier/dbus-adaptors.stamp $
@@ -65,8 +58,6 @@ build all: phony $
     obj/hardware_verifier/install_minijail_config.stamp $
     obj/hardware_verifier/install_minijail_dbus_config.stamp $
     ./libhardware_verifier.a $
-    ./libhardware_verifier_test.a $
-    ./unittest_runner $
     obj/hardware_verifier/proto/all.stamp $
     obj/hardware_verifier/proto/hardware_verifier-goprotos.stamp $
     ./libhardware_verifier-protos.a $

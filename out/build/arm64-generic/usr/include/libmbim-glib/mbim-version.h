@@ -33,7 +33,7 @@
  *
  * Since: 1.2
  */
-#define MBIM_MINOR_VERSION (29)
+#define MBIM_MINOR_VERSION (31)
 
 /**
  * MBIM_MICRO_VERSION:
@@ -43,7 +43,7 @@
  *
  * Since: 1.2
  */
-#define MBIM_MICRO_VERSION (900)
+#define MBIM_MICRO_VERSION (2)
 
 /**
  * MBIM_CHECK_VERSION:

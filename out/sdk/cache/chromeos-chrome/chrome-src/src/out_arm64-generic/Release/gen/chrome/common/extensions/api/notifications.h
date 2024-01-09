@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,13 +30,13 @@ namespace notifications {
 // Types
 //
 
-enum  TemplateType {
-  TEMPLATE_TYPE_NONE = 0,
-  TEMPLATE_TYPE_BASIC,
-  TEMPLATE_TYPE_IMAGE,
-  TEMPLATE_TYPE_LIST,
-  TEMPLATE_TYPE_PROGRESS,
-  TEMPLATE_TYPE_LAST = TEMPLATE_TYPE_PROGRESS,
+enum class TemplateType {
+  kNone = 0,
+  kBasic,
+  kImage,
+  kList,
+  kProgress,
+  kMaxValue = kProgress,
 };
 
 
@@ -43,11 +44,11 @@ const char* ToString(TemplateType as_enum);
 TemplateType ParseTemplateType(base::StringPiece as_string);
 std::u16string GetTemplateTypeParseError(base::StringPiece as_string);
 
-enum  PermissionLevel {
-  PERMISSION_LEVEL_NONE = 0,
-  PERMISSION_LEVEL_GRANTED,
-  PERMISSION_LEVEL_DENIED,
-  PERMISSION_LEVEL_LAST = PERMISSION_LEVEL_DENIED,
+enum class PermissionLevel {
+  kNone = 0,
+  kGranted,
+  kDenied,
+  kMaxValue = kDenied,
 };
 
 
@@ -60,8 +61,8 @@ struct NotificationItem {
   ~NotificationItem();
   NotificationItem(const NotificationItem&) = delete;
   NotificationItem& operator=(const NotificationItem&) = delete;
-  NotificationItem(NotificationItem&& rhs);
-  NotificationItem& operator=(NotificationItem&& rhs);
+  NotificationItem(NotificationItem&& rhs) noexcept;
+  NotificationItem& operator=(NotificationItem&& rhs) noexcept;
 
   // Populates a NotificationItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -74,16 +75,13 @@ struct NotificationItem {
   // Creates a deep copy of NotificationItem.
   NotificationItem Clone() const;
 
-  // Creates a NotificationItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NotificationItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotificationItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NotificationItem> FromValue(const base::Value::Dict& value);
+  static std::optional<NotificationItem> FromValue(const base::Value::Dict& value);
 
   // Creates a NotificationItem object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NotificationItem> FromValue(const base::Value& value);
+  static std::optional<NotificationItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotificationItem object.
@@ -102,8 +100,8 @@ struct NotificationBitmap {
   ~NotificationBitmap();
   NotificationBitmap(const NotificationBitmap&) = delete;
   NotificationBitmap& operator=(const NotificationBitmap&) = delete;
-  NotificationBitmap(NotificationBitmap&& rhs);
-  NotificationBitmap& operator=(NotificationBitmap&& rhs);
+  NotificationBitmap(NotificationBitmap&& rhs) noexcept;
+  NotificationBitmap& operator=(NotificationBitmap&& rhs) noexcept;
 
   // Populates a NotificationBitmap object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -116,16 +114,13 @@ struct NotificationBitmap {
   // Creates a deep copy of NotificationBitmap.
   NotificationBitmap Clone() const;
 
-  // Creates a NotificationBitmap object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NotificationBitmap> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotificationBitmap object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NotificationBitmap> FromValue(const base::Value::Dict& value);
+  static std::optional<NotificationBitmap> FromValue(const base::Value::Dict& value);
 
   // Creates a NotificationBitmap object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NotificationBitmap> FromValue(const base::Value& value);
+  static std::optional<NotificationBitmap> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotificationBitmap object.
@@ -135,7 +130,7 @@ struct NotificationBitmap {
 
   int height;
 
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
 };
 
@@ -144,8 +139,8 @@ struct NotificationButton {
   ~NotificationButton();
   NotificationButton(const NotificationButton&) = delete;
   NotificationButton& operator=(const NotificationButton&) = delete;
-  NotificationButton(NotificationButton&& rhs);
-  NotificationButton& operator=(NotificationButton&& rhs);
+  NotificationButton(NotificationButton&& rhs) noexcept;
+  NotificationButton& operator=(NotificationButton&& rhs) noexcept;
 
   // Populates a NotificationButton object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -158,16 +153,13 @@ struct NotificationButton {
   // Creates a deep copy of NotificationButton.
   NotificationButton Clone() const;
 
-  // Creates a NotificationButton object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NotificationButton> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotificationButton object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NotificationButton> FromValue(const base::Value::Dict& value);
+  static std::optional<NotificationButton> FromValue(const base::Value::Dict& value);
 
   // Creates a NotificationButton object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NotificationButton> FromValue(const base::Value& value);
+  static std::optional<NotificationButton> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotificationButton object.
@@ -175,9 +167,9 @@ struct NotificationButton {
 
   std::string title;
 
-  absl::optional<std::string> icon_url;
+  std::optional<std::string> icon_url;
 
-  absl::optional<NotificationBitmap> icon_bitmap;
+  std::optional<NotificationBitmap> icon_bitmap;
 
 };
 
@@ -186,8 +178,8 @@ struct NotificationOptions {
   ~NotificationOptions();
   NotificationOptions(const NotificationOptions&) = delete;
   NotificationOptions& operator=(const NotificationOptions&) = delete;
-  NotificationOptions(NotificationOptions&& rhs);
-  NotificationOptions& operator=(NotificationOptions&& rhs);
+  NotificationOptions(NotificationOptions&& rhs) noexcept;
+  NotificationOptions& operator=(NotificationOptions&& rhs) noexcept;
 
   // Populates a NotificationOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -200,17 +192,13 @@ struct NotificationOptions {
   // Creates a deep copy of NotificationOptions.
   NotificationOptions Clone() const;
 
-  // Creates a NotificationOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<NotificationOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotificationOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<NotificationOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<NotificationOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a NotificationOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NotificationOptions> FromValue(const base::Value& value);
+  static std::optional<NotificationOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotificationOptions object.
@@ -224,67 +212,67 @@ struct NotificationOptions {
   // notifications.</p><p>URLs can be a data URL, a blob URL, or a URL relative to
   // a resource within this extension's .crx file <em>Required for
   // $(ref:notifications.create)</em> method.</p>
-  absl::optional<std::string> icon_url;
+  std::optional<std::string> icon_url;
 
-  absl::optional<NotificationBitmap> icon_bitmap;
+  std::optional<NotificationBitmap> icon_bitmap;
 
   // <p>A URL to the app icon mask. URLs have the same restrictions as
   // $(ref:notifications.NotificationOptions.iconUrl iconUrl).</p><p>The app icon
   // mask should be in alpha channel, as only the alpha channel of the image will
   // be considered.</p>
-  absl::optional<std::string> app_icon_mask_url;
+  std::optional<std::string> app_icon_mask_url;
 
-  absl::optional<NotificationBitmap> app_icon_mask_bitmap;
+  std::optional<NotificationBitmap> app_icon_mask_bitmap;
 
   // Title of the notification (e.g. sender name for email). <em>Required for
   // $(ref:notifications.create)</em> method.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // Main notification content. <em>Required for $(ref:notifications.create)</em>
   // method.
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
   // Alternate notification content with a lower-weight font.
-  absl::optional<std::string> context_message;
+  std::optional<std::string> context_message;
 
   // Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is
   // default.  On platforms that don't support a notification center (Windows,
   // Linux & Mac), -2 and -1 result in an error as notifications with those
   // priorities will not be shown at all.
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
   // A timestamp associated with the notification, in milliseconds past the epoch
   // (e.g. <code>Date.now() + n</code>).
-  absl::optional<double> event_time;
+  std::optional<double> event_time;
 
   // Text and icons for up to two notification action buttons.
-  absl::optional<std::vector<NotificationButton>> buttons;
+  std::optional<std::vector<NotificationButton>> buttons;
 
   // Secondary notification content.
-  absl::optional<std::string> expanded_message;
+  std::optional<std::string> expanded_message;
 
   // A URL to the image thumbnail for image-type notifications. URLs have the same
   // restrictions as $(ref:notifications.NotificationOptions.iconUrl iconUrl).
-  absl::optional<std::string> image_url;
+  std::optional<std::string> image_url;
 
-  absl::optional<NotificationBitmap> image_bitmap;
+  std::optional<NotificationBitmap> image_bitmap;
 
   // Items for multi-item notifications. Users on Mac OS X only see the first
   // item.
-  absl::optional<std::vector<NotificationItem>> items;
+  std::optional<std::vector<NotificationItem>> items;
 
   // Current progress ranges from 0 to 100.
-  absl::optional<int> progress;
+  std::optional<int> progress;
 
-  absl::optional<bool> is_clickable;
+  std::optional<bool> is_clickable;
 
   // Indicates that the notification should remain visible on screen until the
   // user activates or dismisses the notification. This defaults to false.
-  absl::optional<bool> require_interaction;
+  std::optional<bool> require_interaction;
 
   // Indicates that no sounds or vibrations should be made when the notification
   // is being shown. This defaults to false.
-  absl::optional<bool> silent;
+  std::optional<bool> silent;
 
 };
 
@@ -296,11 +284,11 @@ struct NotificationOptions {
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // <p>Identifier of the notification. If not set or empty, an ID will
@@ -308,7 +296,7 @@ struct Params {
   // method first clears that notification before proceeding with the create
   // operation. The identifier may not be longer than 500 characters.</p><p>The
   // <code>notificationId</code> parameter is required before Chrome 42.</p>
-  absl::optional<std::string> notification_id;
+  std::optional<std::string> notification_id;
 
   // Contents of the notification.
   NotificationOptions options;
@@ -328,11 +316,11 @@ base::Value::List Create(const std::string& notification_id);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the notification to be updated. This is returned by
@@ -357,11 +345,11 @@ base::Value::List Create(bool was_updated);
 namespace Clear {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the notification to be cleared. This is returned by
@@ -389,8 +377,8 @@ struct Notifications {
   ~Notifications();
   Notifications(const Notifications&) = delete;
   Notifications& operator=(const Notifications&) = delete;
-  Notifications(Notifications&& rhs);
-  Notifications& operator=(Notifications&& rhs);
+  Notifications(Notifications&& rhs) noexcept;
+  Notifications& operator=(Notifications&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotifications object.

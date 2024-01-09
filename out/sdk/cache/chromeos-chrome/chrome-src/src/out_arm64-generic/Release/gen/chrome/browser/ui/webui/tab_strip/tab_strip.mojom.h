@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/tab_strip/tab_strip.mojom-features.h"
 #include "chrome/browser/ui/webui/tab_strip/tab_strip.mojom-shared.h"
 #include "chrome/browser/ui/webui/tab_strip/tab_strip.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -381,7 +382,7 @@ class Page
   virtual void TabGroupClosed(const std::string& group_id) = 0;
 
   
-  virtual void TabGroupStateChanged(int32_t tab_id, int32_t index, const absl::optional<std::string>& group_id) = 0;
+  virtual void TabGroupStateChanged(int32_t tab_id, int32_t index, const std::optional<std::string>& group_id) = 0;
 
   
   virtual void TabCloseCancelled(int32_t tab_id) = 0;
@@ -499,7 +500,7 @@ class  PageProxy
   
   void TabGroupClosed(const std::string& group_id) final;
   
-  void TabGroupStateChanged(int32_t tab_id, int32_t index, const absl::optional<std::string>& group_id) final;
+  void TabGroupStateChanged(int32_t tab_id, int32_t index, const std::optional<std::string>& group_id) final;
   
   void TabCloseCancelled(int32_t tab_id) final;
   
@@ -849,9 +850,9 @@ class  Tab {
       std::vector<::TabAlertState> alert_states,
       bool blocked,
       bool crashed,
-      const absl::optional<::GURL>& favicon_url,
-      const absl::optional<::GURL>& active_favicon_url,
-      const absl::optional<std::string>& group_id,
+      const std::optional<::GURL>& favicon_url,
+      const std::optional<::GURL>& active_favicon_url,
+      const std::optional<std::string>& group_id,
       int32_t id,
       int32_t index,
       bool is_default_favicon,
@@ -946,11 +947,11 @@ class  Tab {
   
   bool crashed;
   
-  absl::optional<::GURL> favicon_url;
+  std::optional<::GURL> favicon_url;
   
-  absl::optional<::GURL> active_favicon_url;
+  std::optional<::GURL> active_favicon_url;
   
-  absl::optional<std::string> group_id;
+  std::optional<std::string> group_id;
   
   int32_t id;
   

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,20 +48,17 @@ RendererContentSettings::RendererContentSettings()
     : allow_script(),
       allow_image(),
       allow_popup(),
-      allow_mixed_content(),
-      allow_auto_dark() {}
+      allow_mixed_content() {}
 
 RendererContentSettings::RendererContentSettings(
     bool allow_script_in,
     bool allow_image_in,
     bool allow_popup_in,
-    bool allow_mixed_content_in,
-    bool allow_auto_dark_in)
+    bool allow_mixed_content_in)
     : allow_script(std::move(allow_script_in)),
       allow_image(std::move(allow_image_in)),
       allow_popup(std::move(allow_popup_in)),
-      allow_mixed_content(std::move(allow_mixed_content_in)),
-      allow_auto_dark(std::move(allow_auto_dark_in)) {}
+      allow_mixed_content(std::move(allow_mixed_content_in)) {}
 
 RendererContentSettings::~RendererContentSettings() = default;
 size_t RendererContentSettings::Hash(size_t seed) const {
@@ -68,7 +66,6 @@ size_t RendererContentSettings::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->allow_image);
   seed = mojo::internal::Hash(seed, this->allow_popup);
   seed = mojo::internal::Hash(seed, this->allow_mixed_content);
-  seed = mojo::internal::Hash(seed, this->allow_auto_dark);
   return seed;
 }
 
@@ -111,15 +108,6 @@ void RendererContentSettings::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "allow_auto_dark"), this->allow_auto_dark,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
 }
 
 bool RendererContentSettings::Validate(
@@ -150,8 +138,6 @@ bool StructTraits<::blink::mojom::RendererContentSettings::DataView, ::blink::mo
         result->allow_popup = input.allow_popup();
       if (success)
         result->allow_mixed_content = input.allow_mixed_content();
-      if (success)
-        result->allow_auto_dark = input.allow_auto_dark();
   *output = std::move(result);
   return success;
 }

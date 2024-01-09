@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/frame/pending_beacon.mojom-features.h"
 #include "third_party/blink/public/mojom/frame/pending_beacon.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/pending_beacon.mojom-blink-forward.h"
 #include "services/network/public/mojom/url_request.mojom-blink.h"
@@ -40,18 +41,6 @@
 #include "third_party/blink/renderer/core/core_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::BeaconMethod>
-    : EnumHashTraits<::blink::mojom::BeaconMethod, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {

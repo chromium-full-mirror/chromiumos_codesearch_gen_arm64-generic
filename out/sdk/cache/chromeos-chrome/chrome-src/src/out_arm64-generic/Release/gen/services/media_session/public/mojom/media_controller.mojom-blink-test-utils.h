@@ -57,6 +57,7 @@ class BLINK_PLATFORM_EXPORT MediaControllerInterceptorForTesting : public MediaC
   void SetMute(bool mute) override;
   void RequestMediaRemoting() override;
   void EnterAutoPictureInPicture() override;
+  void SkipAd() override;
 };
 class BLINK_PLATFORM_EXPORT MediaControllerAsyncWaiter {
  public:
@@ -77,7 +78,7 @@ class BLINK_PLATFORM_EXPORT MediaControllerObserverInterceptorForTesting : publi
   void MediaSessionInfoChanged(::media_session::mojom::blink::MediaSessionInfoPtr info) override;
   void MediaSessionMetadataChanged(::media_session::mojom::blink::MediaMetadataPtr metadata) override;
   void MediaSessionActionsChanged(const WTF::Vector<::media_session::mojom::blink::MediaSessionAction>& action) override;
-  void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) override;
+  void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) override;
   void MediaSessionPositionChanged(::media_session::mojom::blink::MediaPositionPtr position) override;
 };
 class BLINK_PLATFORM_EXPORT MediaControllerObserverAsyncWaiter {

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/developer_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,17 +37,17 @@ namespace developer_private {
 
 const char* ToString(ItemType enum_param) {
   switch (enum_param) {
-    case ITEM_TYPE_HOSTED_APP:
+    case ItemType::kHostedApp:
       return "hosted_app";
-    case ITEM_TYPE_PACKAGED_APP:
+    case ItemType::kPackagedApp:
       return "packaged_app";
-    case ITEM_TYPE_LEGACY_PACKAGED_APP:
+    case ItemType::kLegacyPackagedApp:
       return "legacy_packaged_app";
-    case ITEM_TYPE_EXTENSION:
+    case ItemType::kExtension:
       return "extension";
-    case ITEM_TYPE_THEME:
+    case ItemType::kTheme:
       return "theme";
-    case ITEM_TYPE_NONE:
+    case ItemType::kNone:
       return "";
   }
   NOTREACHED();
@@ -55,16 +56,16 @@ const char* ToString(ItemType enum_param) {
 
 ItemType ParseItemType(base::StringPiece enum_string) {
   if (enum_string == "hosted_app")
-    return ITEM_TYPE_HOSTED_APP;
+    return ItemType::kHostedApp;
   if (enum_string == "packaged_app")
-    return ITEM_TYPE_PACKAGED_APP;
+    return ItemType::kPackagedApp;
   if (enum_string == "legacy_packaged_app")
-    return ITEM_TYPE_LEGACY_PACKAGED_APP;
+    return ItemType::kLegacyPackagedApp;
   if (enum_string == "extension")
-    return ITEM_TYPE_EXTENSION;
+    return ItemType::kExtension;
   if (enum_string == "theme")
-    return ITEM_TYPE_THEME;
-  return ITEM_TYPE_NONE;
+    return ItemType::kTheme;
+  return ItemType::kNone;
 }
 
 std::u16string GetItemTypeParseError(base::StringPiece enum_string) {
@@ -79,8 +80,8 @@ incognito(false),
 generated_background_page(false) {}
 
 ItemInspectView::~ItemInspectView() = default;
-ItemInspectView::ItemInspectView(ItemInspectView&& rhs) = default;
-ItemInspectView& ItemInspectView::operator=(ItemInspectView&& rhs) = default;
+ItemInspectView::ItemInspectView(ItemInspectView&& rhs) noexcept = default;
+ItemInspectView& ItemInspectView::operator=(ItemInspectView&& rhs) noexcept = default;
 ItemInspectView ItemInspectView::Clone() const {
   ItemInspectView out;
   out.path = path;
@@ -167,34 +168,21 @@ bool ItemInspectView::Populate(
 }
 
 // static
-std::unique_ptr<ItemInspectView> ItemInspectView::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ItemInspectView>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ItemInspectView> ItemInspectView::FromValue(const base::Value::Dict& value) {
+  ItemInspectView out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ItemInspectView> ItemInspectView::FromValue(const base::Value::Dict& value) {
+std::optional<ItemInspectView> ItemInspectView::FromValue(const base::Value& value) {
   ItemInspectView out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ItemInspectView> ItemInspectView::FromValue(const base::Value& value) {
-  ItemInspectView out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -221,8 +209,8 @@ InspectOptions::RenderProcessId::RenderProcessId()
  {}
 
 InspectOptions::RenderProcessId::~RenderProcessId() = default;
-InspectOptions::RenderProcessId::RenderProcessId(RenderProcessId&& rhs) = default;
-InspectOptions::RenderProcessId& InspectOptions::RenderProcessId::operator=(RenderProcessId&& rhs) = default;
+InspectOptions::RenderProcessId::RenderProcessId(RenderProcessId&& rhs) noexcept = default;
+InspectOptions::RenderProcessId& InspectOptions::RenderProcessId::operator=(RenderProcessId&& rhs) noexcept = default;
 InspectOptions::RenderProcessId InspectOptions::RenderProcessId::Clone() const {
   RenderProcessId out;
   out.as_string = as_string;
@@ -237,7 +225,7 @@ bool InspectOptions::RenderProcessId::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -248,7 +236,7 @@ bool InspectOptions::RenderProcessId::Populate(
     {
       auto temp = value.GetIfInt();
       if (!temp.has_value()) {
-        out.as_integer = absl::nullopt;
+        out.as_integer = std::nullopt;
         return false;
       }
       out.as_integer = *temp;
@@ -259,11 +247,11 @@ bool InspectOptions::RenderProcessId::Populate(
 }
 
 // static
-absl::optional<InspectOptions::RenderProcessId> InspectOptions::RenderProcessId::FromValue(const base::Value& value) {
+std::optional<InspectOptions::RenderProcessId> InspectOptions::RenderProcessId::FromValue(const base::Value& value) {
   RenderProcessId out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -289,8 +277,8 @@ InspectOptions::RenderViewId::RenderViewId()
  {}
 
 InspectOptions::RenderViewId::~RenderViewId() = default;
-InspectOptions::RenderViewId::RenderViewId(RenderViewId&& rhs) = default;
-InspectOptions::RenderViewId& InspectOptions::RenderViewId::operator=(RenderViewId&& rhs) = default;
+InspectOptions::RenderViewId::RenderViewId(RenderViewId&& rhs) noexcept = default;
+InspectOptions::RenderViewId& InspectOptions::RenderViewId::operator=(RenderViewId&& rhs) noexcept = default;
 InspectOptions::RenderViewId InspectOptions::RenderViewId::Clone() const {
   RenderViewId out;
   out.as_string = as_string;
@@ -305,7 +293,7 @@ bool InspectOptions::RenderViewId::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -316,7 +304,7 @@ bool InspectOptions::RenderViewId::Populate(
     {
       auto temp = value.GetIfInt();
       if (!temp.has_value()) {
-        out.as_integer = absl::nullopt;
+        out.as_integer = std::nullopt;
         return false;
       }
       out.as_integer = *temp;
@@ -327,11 +315,11 @@ bool InspectOptions::RenderViewId::Populate(
 }
 
 // static
-absl::optional<InspectOptions::RenderViewId> InspectOptions::RenderViewId::FromValue(const base::Value& value) {
+std::optional<InspectOptions::RenderViewId> InspectOptions::RenderViewId::FromValue(const base::Value& value) {
   RenderViewId out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -358,8 +346,8 @@ InspectOptions::InspectOptions()
 : incognito(false) {}
 
 InspectOptions::~InspectOptions() = default;
-InspectOptions::InspectOptions(InspectOptions&& rhs) = default;
-InspectOptions& InspectOptions::operator=(InspectOptions&& rhs) = default;
+InspectOptions::InspectOptions(InspectOptions&& rhs) noexcept = default;
+InspectOptions& InspectOptions::operator=(InspectOptions&& rhs) noexcept = default;
 InspectOptions InspectOptions::Clone() const {
   InspectOptions out;
   out.extension_id = extension_id;
@@ -427,34 +415,21 @@ bool InspectOptions::Populate(
 }
 
 // static
-std::unique_ptr<InspectOptions> InspectOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InspectOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InspectOptions> InspectOptions::FromValue(const base::Value::Dict& value) {
+  InspectOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InspectOptions> InspectOptions::FromValue(const base::Value::Dict& value) {
+std::optional<InspectOptions> InspectOptions::FromValue(const base::Value& value) {
   InspectOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InspectOptions> InspectOptions::FromValue(const base::Value& value) {
-  InspectOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -479,8 +454,8 @@ InstallWarning::InstallWarning()
  {}
 
 InstallWarning::~InstallWarning() = default;
-InstallWarning::InstallWarning(InstallWarning&& rhs) = default;
-InstallWarning& InstallWarning::operator=(InstallWarning&& rhs) = default;
+InstallWarning::InstallWarning(InstallWarning&& rhs) noexcept = default;
+InstallWarning& InstallWarning::operator=(InstallWarning&& rhs) noexcept = default;
 InstallWarning InstallWarning::Clone() const {
   InstallWarning out;
   out.message = message;
@@ -515,34 +490,21 @@ bool InstallWarning::Populate(
 }
 
 // static
-std::unique_ptr<InstallWarning> InstallWarning::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InstallWarning>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InstallWarning> InstallWarning::FromValue(const base::Value::Dict& value) {
+  InstallWarning out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InstallWarning> InstallWarning::FromValue(const base::Value::Dict& value) {
+std::optional<InstallWarning> InstallWarning::FromValue(const base::Value& value) {
   InstallWarning out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InstallWarning> InstallWarning::FromValue(const base::Value& value) {
-  InstallWarning out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -559,19 +521,19 @@ base::Value::Dict InstallWarning::ToValue() const {
 
 const char* ToString(ExtensionType enum_param) {
   switch (enum_param) {
-    case EXTENSION_TYPE_HOSTED_APP:
+    case ExtensionType::kHostedApp:
       return "HOSTED_APP";
-    case EXTENSION_TYPE_PLATFORM_APP:
+    case ExtensionType::kPlatformApp:
       return "PLATFORM_APP";
-    case EXTENSION_TYPE_LEGACY_PACKAGED_APP:
+    case ExtensionType::kLegacyPackagedApp:
       return "LEGACY_PACKAGED_APP";
-    case EXTENSION_TYPE_EXTENSION:
+    case ExtensionType::kExtension:
       return "EXTENSION";
-    case EXTENSION_TYPE_THEME:
+    case ExtensionType::kTheme:
       return "THEME";
-    case EXTENSION_TYPE_SHARED_MODULE:
+    case ExtensionType::kSharedModule:
       return "SHARED_MODULE";
-    case EXTENSION_TYPE_NONE:
+    case ExtensionType::kNone:
       return "";
   }
   NOTREACHED();
@@ -580,18 +542,18 @@ const char* ToString(ExtensionType enum_param) {
 
 ExtensionType ParseExtensionType(base::StringPiece enum_string) {
   if (enum_string == "HOSTED_APP")
-    return EXTENSION_TYPE_HOSTED_APP;
+    return ExtensionType::kHostedApp;
   if (enum_string == "PLATFORM_APP")
-    return EXTENSION_TYPE_PLATFORM_APP;
+    return ExtensionType::kPlatformApp;
   if (enum_string == "LEGACY_PACKAGED_APP")
-    return EXTENSION_TYPE_LEGACY_PACKAGED_APP;
+    return ExtensionType::kLegacyPackagedApp;
   if (enum_string == "EXTENSION")
-    return EXTENSION_TYPE_EXTENSION;
+    return ExtensionType::kExtension;
   if (enum_string == "THEME")
-    return EXTENSION_TYPE_THEME;
+    return ExtensionType::kTheme;
   if (enum_string == "SHARED_MODULE")
-    return EXTENSION_TYPE_SHARED_MODULE;
-  return EXTENSION_TYPE_NONE;
+    return ExtensionType::kSharedModule;
+  return ExtensionType::kNone;
 }
 
 std::u16string GetExtensionTypeParseError(base::StringPiece enum_string) {
@@ -601,17 +563,17 @@ std::u16string GetExtensionTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(Location enum_param) {
   switch (enum_param) {
-    case LOCATION_FROM_STORE:
+    case Location::kFromStore:
       return "FROM_STORE";
-    case LOCATION_UNPACKED:
+    case Location::kUnpacked:
       return "UNPACKED";
-    case LOCATION_THIRD_PARTY:
+    case Location::kThirdParty:
       return "THIRD_PARTY";
-    case LOCATION_INSTALLED_BY_DEFAULT:
+    case Location::kInstalledByDefault:
       return "INSTALLED_BY_DEFAULT";
-    case LOCATION_UNKNOWN:
+    case Location::kUnknown:
       return "UNKNOWN";
-    case LOCATION_NONE:
+    case Location::kNone:
       return "";
   }
   NOTREACHED();
@@ -620,16 +582,16 @@ const char* ToString(Location enum_param) {
 
 Location ParseLocation(base::StringPiece enum_string) {
   if (enum_string == "FROM_STORE")
-    return LOCATION_FROM_STORE;
+    return Location::kFromStore;
   if (enum_string == "UNPACKED")
-    return LOCATION_UNPACKED;
+    return Location::kUnpacked;
   if (enum_string == "THIRD_PARTY")
-    return LOCATION_THIRD_PARTY;
+    return Location::kThirdParty;
   if (enum_string == "INSTALLED_BY_DEFAULT")
-    return LOCATION_INSTALLED_BY_DEFAULT;
+    return Location::kInstalledByDefault;
   if (enum_string == "UNKNOWN")
-    return LOCATION_UNKNOWN;
-  return LOCATION_NONE;
+    return Location::kUnknown;
+  return Location::kNone;
 }
 
 std::u16string GetLocationParseError(base::StringPiece enum_string) {
@@ -639,27 +601,27 @@ std::u16string GetLocationParseError(base::StringPiece enum_string) {
 
 const char* ToString(ViewType enum_param) {
   switch (enum_param) {
-    case VIEW_TYPE_APP_WINDOW:
+    case ViewType::kAppWindow:
       return "APP_WINDOW";
-    case VIEW_TYPE_BACKGROUND_CONTENTS:
+    case ViewType::kBackgroundContents:
       return "BACKGROUND_CONTENTS";
-    case VIEW_TYPE_COMPONENT:
+    case ViewType::kComponent:
       return "COMPONENT";
-    case VIEW_TYPE_EXTENSION_BACKGROUND_PAGE:
+    case ViewType::kExtensionBackgroundPage:
       return "EXTENSION_BACKGROUND_PAGE";
-    case VIEW_TYPE_EXTENSION_GUEST:
+    case ViewType::kExtensionGuest:
       return "EXTENSION_GUEST";
-    case VIEW_TYPE_EXTENSION_POPUP:
+    case ViewType::kExtensionPopup:
       return "EXTENSION_POPUP";
-    case VIEW_TYPE_EXTENSION_SERVICE_WORKER_BACKGROUND:
+    case ViewType::kExtensionServiceWorkerBackground:
       return "EXTENSION_SERVICE_WORKER_BACKGROUND";
-    case VIEW_TYPE_TAB_CONTENTS:
+    case ViewType::kTabContents:
       return "TAB_CONTENTS";
-    case VIEW_TYPE_OFFSCREEN_DOCUMENT:
+    case ViewType::kOffscreenDocument:
       return "OFFSCREEN_DOCUMENT";
-    case VIEW_TYPE_EXTENSION_SIDE_PANEL:
+    case ViewType::kExtensionSidePanel:
       return "EXTENSION_SIDE_PANEL";
-    case VIEW_TYPE_NONE:
+    case ViewType::kNone:
       return "";
   }
   NOTREACHED();
@@ -668,26 +630,26 @@ const char* ToString(ViewType enum_param) {
 
 ViewType ParseViewType(base::StringPiece enum_string) {
   if (enum_string == "APP_WINDOW")
-    return VIEW_TYPE_APP_WINDOW;
+    return ViewType::kAppWindow;
   if (enum_string == "BACKGROUND_CONTENTS")
-    return VIEW_TYPE_BACKGROUND_CONTENTS;
+    return ViewType::kBackgroundContents;
   if (enum_string == "COMPONENT")
-    return VIEW_TYPE_COMPONENT;
+    return ViewType::kComponent;
   if (enum_string == "EXTENSION_BACKGROUND_PAGE")
-    return VIEW_TYPE_EXTENSION_BACKGROUND_PAGE;
+    return ViewType::kExtensionBackgroundPage;
   if (enum_string == "EXTENSION_GUEST")
-    return VIEW_TYPE_EXTENSION_GUEST;
+    return ViewType::kExtensionGuest;
   if (enum_string == "EXTENSION_POPUP")
-    return VIEW_TYPE_EXTENSION_POPUP;
+    return ViewType::kExtensionPopup;
   if (enum_string == "EXTENSION_SERVICE_WORKER_BACKGROUND")
-    return VIEW_TYPE_EXTENSION_SERVICE_WORKER_BACKGROUND;
+    return ViewType::kExtensionServiceWorkerBackground;
   if (enum_string == "TAB_CONTENTS")
-    return VIEW_TYPE_TAB_CONTENTS;
+    return ViewType::kTabContents;
   if (enum_string == "OFFSCREEN_DOCUMENT")
-    return VIEW_TYPE_OFFSCREEN_DOCUMENT;
+    return ViewType::kOffscreenDocument;
   if (enum_string == "EXTENSION_SIDE_PANEL")
-    return VIEW_TYPE_EXTENSION_SIDE_PANEL;
-  return VIEW_TYPE_NONE;
+    return ViewType::kExtensionSidePanel;
+  return ViewType::kNone;
 }
 
 std::u16string GetViewTypeParseError(base::StringPiece enum_string) {
@@ -697,11 +659,11 @@ std::u16string GetViewTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ErrorType enum_param) {
   switch (enum_param) {
-    case ERROR_TYPE_MANIFEST:
+    case ErrorType::kManifest:
       return "MANIFEST";
-    case ERROR_TYPE_RUNTIME:
+    case ErrorType::kRuntime:
       return "RUNTIME";
-    case ERROR_TYPE_NONE:
+    case ErrorType::kNone:
       return "";
   }
   NOTREACHED();
@@ -710,10 +672,10 @@ const char* ToString(ErrorType enum_param) {
 
 ErrorType ParseErrorType(base::StringPiece enum_string) {
   if (enum_string == "MANIFEST")
-    return ERROR_TYPE_MANIFEST;
+    return ErrorType::kManifest;
   if (enum_string == "RUNTIME")
-    return ERROR_TYPE_RUNTIME;
-  return ERROR_TYPE_NONE;
+    return ErrorType::kRuntime;
+  return ErrorType::kNone;
 }
 
 std::u16string GetErrorTypeParseError(base::StringPiece enum_string) {
@@ -723,13 +685,13 @@ std::u16string GetErrorTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ErrorLevel enum_param) {
   switch (enum_param) {
-    case ERROR_LEVEL_LOG:
+    case ErrorLevel::kLog:
       return "LOG";
-    case ERROR_LEVEL_WARN:
+    case ErrorLevel::kWarn:
       return "WARN";
-    case ERROR_LEVEL_ERROR:
+    case ErrorLevel::kError:
       return "ERROR";
-    case ERROR_LEVEL_NONE:
+    case ErrorLevel::kNone:
       return "";
   }
   NOTREACHED();
@@ -738,12 +700,12 @@ const char* ToString(ErrorLevel enum_param) {
 
 ErrorLevel ParseErrorLevel(base::StringPiece enum_string) {
   if (enum_string == "LOG")
-    return ERROR_LEVEL_LOG;
+    return ErrorLevel::kLog;
   if (enum_string == "WARN")
-    return ERROR_LEVEL_WARN;
+    return ErrorLevel::kWarn;
   if (enum_string == "ERROR")
-    return ERROR_LEVEL_ERROR;
-  return ERROR_LEVEL_NONE;
+    return ErrorLevel::kError;
+  return ErrorLevel::kNone;
 }
 
 std::u16string GetErrorLevelParseError(base::StringPiece enum_string) {
@@ -753,15 +715,15 @@ std::u16string GetErrorLevelParseError(base::StringPiece enum_string) {
 
 const char* ToString(ExtensionState enum_param) {
   switch (enum_param) {
-    case EXTENSION_STATE_ENABLED:
+    case ExtensionState::kEnabled:
       return "ENABLED";
-    case EXTENSION_STATE_DISABLED:
+    case ExtensionState::kDisabled:
       return "DISABLED";
-    case EXTENSION_STATE_TERMINATED:
+    case ExtensionState::kTerminated:
       return "TERMINATED";
-    case EXTENSION_STATE_BLACKLISTED:
+    case ExtensionState::kBlacklisted:
       return "BLACKLISTED";
-    case EXTENSION_STATE_NONE:
+    case ExtensionState::kNone:
       return "";
   }
   NOTREACHED();
@@ -770,14 +732,14 @@ const char* ToString(ExtensionState enum_param) {
 
 ExtensionState ParseExtensionState(base::StringPiece enum_string) {
   if (enum_string == "ENABLED")
-    return EXTENSION_STATE_ENABLED;
+    return ExtensionState::kEnabled;
   if (enum_string == "DISABLED")
-    return EXTENSION_STATE_DISABLED;
+    return ExtensionState::kDisabled;
   if (enum_string == "TERMINATED")
-    return EXTENSION_STATE_TERMINATED;
+    return ExtensionState::kTerminated;
   if (enum_string == "BLACKLISTED")
-    return EXTENSION_STATE_BLACKLISTED;
-  return EXTENSION_STATE_NONE;
+    return ExtensionState::kBlacklisted;
+  return ExtensionState::kNone;
 }
 
 std::u16string GetExtensionStateParseError(base::StringPiece enum_string) {
@@ -787,11 +749,11 @@ std::u16string GetExtensionStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(CommandScope enum_param) {
   switch (enum_param) {
-    case COMMAND_SCOPE_GLOBAL:
+    case CommandScope::kGlobal:
       return "GLOBAL";
-    case COMMAND_SCOPE_CHROME:
+    case CommandScope::kChrome:
       return "CHROME";
-    case COMMAND_SCOPE_NONE:
+    case CommandScope::kNone:
       return "";
   }
   NOTREACHED();
@@ -800,10 +762,10 @@ const char* ToString(CommandScope enum_param) {
 
 CommandScope ParseCommandScope(base::StringPiece enum_string) {
   if (enum_string == "GLOBAL")
-    return COMMAND_SCOPE_GLOBAL;
+    return CommandScope::kGlobal;
   if (enum_string == "CHROME")
-    return COMMAND_SCOPE_CHROME;
-  return COMMAND_SCOPE_NONE;
+    return CommandScope::kChrome;
+  return CommandScope::kNone;
 }
 
 std::u16string GetCommandScopeParseError(base::StringPiece enum_string) {
@@ -816,8 +778,8 @@ AccessModifier::AccessModifier()
 is_active(false) {}
 
 AccessModifier::~AccessModifier() = default;
-AccessModifier::AccessModifier(AccessModifier&& rhs) = default;
-AccessModifier& AccessModifier::operator=(AccessModifier&& rhs) = default;
+AccessModifier::AccessModifier(AccessModifier&& rhs) noexcept = default;
+AccessModifier& AccessModifier::operator=(AccessModifier&& rhs) noexcept = default;
 AccessModifier AccessModifier::Clone() const {
   AccessModifier out;
   out.is_enabled = is_enabled;
@@ -865,34 +827,21 @@ bool AccessModifier::Populate(
 }
 
 // static
-std::unique_ptr<AccessModifier> AccessModifier::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AccessModifier>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AccessModifier> AccessModifier::FromValue(const base::Value::Dict& value) {
+  AccessModifier out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AccessModifier> AccessModifier::FromValue(const base::Value::Dict& value) {
+std::optional<AccessModifier> AccessModifier::FromValue(const base::Value& value) {
   AccessModifier out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AccessModifier> AccessModifier::FromValue(const base::Value& value) {
-  AccessModifier out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -914,8 +863,8 @@ StackFrame::StackFrame()
 column_number(0) {}
 
 StackFrame::~StackFrame() = default;
-StackFrame::StackFrame(StackFrame&& rhs) = default;
-StackFrame& StackFrame::operator=(StackFrame&& rhs) = default;
+StackFrame::StackFrame(StackFrame&& rhs) noexcept = default;
+StackFrame& StackFrame::operator=(StackFrame&& rhs) noexcept = default;
 StackFrame StackFrame::Clone() const {
   StackFrame out;
   out.line_number = line_number;
@@ -989,34 +938,21 @@ bool StackFrame::Populate(
 }
 
 // static
-std::unique_ptr<StackFrame> StackFrame::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StackFrame>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StackFrame> StackFrame::FromValue(const base::Value::Dict& value) {
+  StackFrame out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StackFrame> StackFrame::FromValue(const base::Value::Dict& value) {
+std::optional<StackFrame> StackFrame::FromValue(const base::Value& value) {
   StackFrame out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StackFrame> StackFrame::FromValue(const base::Value& value) {
-  StackFrame out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1043,8 +979,8 @@ from_incognito(false),
 id(0) {}
 
 ManifestError::~ManifestError() = default;
-ManifestError::ManifestError(ManifestError&& rhs) = default;
-ManifestError& ManifestError::operator=(ManifestError&& rhs) = default;
+ManifestError::ManifestError(ManifestError&& rhs) noexcept = default;
+ManifestError& ManifestError::operator=(ManifestError&& rhs) noexcept = default;
 ManifestError ManifestError::Clone() const {
   ManifestError out;
   out.type = type;
@@ -1153,7 +1089,7 @@ bool ManifestError::Populate(
     {
       auto* temp = (*manifest_specific_value).GetIfString();
       if (!temp) {
-        out.manifest_specific = absl::nullopt;
+        out.manifest_specific = std::nullopt;
         return false;
       }
       out.manifest_specific = *temp;
@@ -1173,34 +1109,21 @@ bool ManifestError::Populate(
 }
 
 // static
-std::unique_ptr<ManifestError> ManifestError::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManifestError>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManifestError> ManifestError::FromValue(const base::Value::Dict& value) {
+  ManifestError out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManifestError> ManifestError::FromValue(const base::Value::Dict& value) {
+std::optional<ManifestError> ManifestError::FromValue(const base::Value& value) {
   ManifestError out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManifestError> ManifestError::FromValue(const base::Value& value) {
-  ManifestError out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1242,8 +1165,8 @@ render_process_id(0),
 can_inspect(false) {}
 
 RuntimeError::~RuntimeError() = default;
-RuntimeError::RuntimeError(RuntimeError&& rhs) = default;
-RuntimeError& RuntimeError::operator=(RuntimeError&& rhs) = default;
+RuntimeError::RuntimeError(RuntimeError&& rhs) noexcept = default;
+RuntimeError& RuntimeError::operator=(RuntimeError&& rhs) noexcept = default;
 RuntimeError RuntimeError::Clone() const {
   RuntimeError out;
   out.type = type;
@@ -1446,34 +1369,21 @@ bool RuntimeError::Populate(
 }
 
 // static
-std::unique_ptr<RuntimeError> RuntimeError::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RuntimeError>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RuntimeError> RuntimeError::FromValue(const base::Value::Dict& value) {
+  RuntimeError out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RuntimeError> RuntimeError::FromValue(const base::Value::Dict& value) {
+std::optional<RuntimeError> RuntimeError::FromValue(const base::Value& value) {
   RuntimeError out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RuntimeError> RuntimeError::FromValue(const base::Value& value) {
-  RuntimeError out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1523,8 +1433,8 @@ custodian_approval_required(false),
 parent_disabled_permissions(false) {}
 
 DisableReasons::~DisableReasons() = default;
-DisableReasons::DisableReasons(DisableReasons&& rhs) = default;
-DisableReasons& DisableReasons::operator=(DisableReasons&& rhs) = default;
+DisableReasons::DisableReasons(DisableReasons&& rhs) noexcept = default;
+DisableReasons& DisableReasons::operator=(DisableReasons&& rhs) noexcept = default;
 DisableReasons DisableReasons::Clone() const {
   DisableReasons out;
   out.suspicious_install = suspicious_install;
@@ -1650,34 +1560,21 @@ bool DisableReasons::Populate(
 }
 
 // static
-std::unique_ptr<DisableReasons> DisableReasons::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisableReasons>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisableReasons> DisableReasons::FromValue(const base::Value::Dict& value) {
+  DisableReasons out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisableReasons> DisableReasons::FromValue(const base::Value::Dict& value) {
+std::optional<DisableReasons> DisableReasons::FromValue(const base::Value& value) {
   DisableReasons out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisableReasons> DisableReasons::FromValue(const base::Value& value) {
-  DisableReasons out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1710,8 +1607,8 @@ OptionsPage::OptionsPage()
 : open_in_tab(false) {}
 
 OptionsPage::~OptionsPage() = default;
-OptionsPage::OptionsPage(OptionsPage&& rhs) = default;
-OptionsPage& OptionsPage::operator=(OptionsPage&& rhs) = default;
+OptionsPage::OptionsPage(OptionsPage&& rhs) noexcept = default;
+OptionsPage& OptionsPage::operator=(OptionsPage&& rhs) noexcept = default;
 OptionsPage OptionsPage::Clone() const {
   OptionsPage out;
   out.open_in_tab = open_in_tab;
@@ -1759,34 +1656,21 @@ bool OptionsPage::Populate(
 }
 
 // static
-std::unique_ptr<OptionsPage> OptionsPage::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OptionsPage>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OptionsPage> OptionsPage::FromValue(const base::Value::Dict& value) {
+  OptionsPage out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OptionsPage> OptionsPage::FromValue(const base::Value::Dict& value) {
+std::optional<OptionsPage> OptionsPage::FromValue(const base::Value& value) {
   OptionsPage out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OptionsPage> OptionsPage::FromValue(const base::Value& value) {
-  OptionsPage out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1807,8 +1691,8 @@ HomePage::HomePage()
 : specified(false) {}
 
 HomePage::~HomePage() = default;
-HomePage::HomePage(HomePage&& rhs) = default;
-HomePage& HomePage::operator=(HomePage&& rhs) = default;
+HomePage::HomePage(HomePage&& rhs) noexcept = default;
+HomePage& HomePage::operator=(HomePage&& rhs) noexcept = default;
 HomePage HomePage::Clone() const {
   HomePage out;
   out.url = url;
@@ -1856,34 +1740,21 @@ bool HomePage::Populate(
 }
 
 // static
-std::unique_ptr<HomePage> HomePage::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HomePage>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HomePage> HomePage::FromValue(const base::Value::Dict& value) {
+  HomePage out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HomePage> HomePage::FromValue(const base::Value::Dict& value) {
+std::optional<HomePage> HomePage::FromValue(const base::Value& value) {
   HomePage out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HomePage> HomePage::FromValue(const base::Value& value) {
-  HomePage out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1908,8 +1779,8 @@ is_iframe(false),
 type() {}
 
 ExtensionView::~ExtensionView() = default;
-ExtensionView::ExtensionView(ExtensionView&& rhs) = default;
-ExtensionView& ExtensionView::operator=(ExtensionView&& rhs) = default;
+ExtensionView::ExtensionView(ExtensionView&& rhs) noexcept = default;
+ExtensionView& ExtensionView::operator=(ExtensionView&& rhs) noexcept = default;
 ExtensionView ExtensionView::Clone() const {
   ExtensionView out;
   out.url = url;
@@ -2012,34 +1883,21 @@ bool ExtensionView::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionView> ExtensionView::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionView>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionView> ExtensionView::FromValue(const base::Value::Dict& value) {
+  ExtensionView out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionView> ExtensionView::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionView> ExtensionView::FromValue(const base::Value& value) {
   ExtensionView out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionView> ExtensionView::FromValue(const base::Value& value) {
-  ExtensionView out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2066,13 +1924,13 @@ base::Value::Dict ExtensionView::ToValue() const {
 
 const char* ToString(HostAccess enum_param) {
   switch (enum_param) {
-    case HOST_ACCESS_ON_CLICK:
+    case HostAccess::kOnClick:
       return "ON_CLICK";
-    case HOST_ACCESS_ON_SPECIFIC_SITES:
+    case HostAccess::kOnSpecificSites:
       return "ON_SPECIFIC_SITES";
-    case HOST_ACCESS_ON_ALL_SITES:
+    case HostAccess::kOnAllSites:
       return "ON_ALL_SITES";
-    case HOST_ACCESS_NONE:
+    case HostAccess::kNone:
       return "";
   }
   NOTREACHED();
@@ -2081,12 +1939,12 @@ const char* ToString(HostAccess enum_param) {
 
 HostAccess ParseHostAccess(base::StringPiece enum_string) {
   if (enum_string == "ON_CLICK")
-    return HOST_ACCESS_ON_CLICK;
+    return HostAccess::kOnClick;
   if (enum_string == "ON_SPECIFIC_SITES")
-    return HOST_ACCESS_ON_SPECIFIC_SITES;
+    return HostAccess::kOnSpecificSites;
   if (enum_string == "ON_ALL_SITES")
-    return HOST_ACCESS_ON_ALL_SITES;
-  return HOST_ACCESS_NONE;
+    return HostAccess::kOnAllSites;
+  return HostAccess::kNone;
 }
 
 std::u16string GetHostAccessParseError(base::StringPiece enum_string) {
@@ -2098,8 +1956,8 @@ SafetyCheckStrings::SafetyCheckStrings()
  {}
 
 SafetyCheckStrings::~SafetyCheckStrings() = default;
-SafetyCheckStrings::SafetyCheckStrings(SafetyCheckStrings&& rhs) = default;
-SafetyCheckStrings& SafetyCheckStrings::operator=(SafetyCheckStrings&& rhs) = default;
+SafetyCheckStrings::SafetyCheckStrings(SafetyCheckStrings&& rhs) noexcept = default;
+SafetyCheckStrings& SafetyCheckStrings::operator=(SafetyCheckStrings&& rhs) noexcept = default;
 SafetyCheckStrings SafetyCheckStrings::Clone() const {
   SafetyCheckStrings out;
   out.panel_string = panel_string;
@@ -2115,7 +1973,7 @@ bool SafetyCheckStrings::Populate(
     {
       auto* temp = (*panel_string_value).GetIfString();
       if (!temp) {
-        out.panel_string = absl::nullopt;
+        out.panel_string = std::nullopt;
         return false;
       }
       out.panel_string = *temp;
@@ -2127,7 +1985,7 @@ bool SafetyCheckStrings::Populate(
     {
       auto* temp = (*detail_string_value).GetIfString();
       if (!temp) {
-        out.detail_string = absl::nullopt;
+        out.detail_string = std::nullopt;
         return false;
       }
       out.detail_string = *temp;
@@ -2147,34 +2005,21 @@ bool SafetyCheckStrings::Populate(
 }
 
 // static
-std::unique_ptr<SafetyCheckStrings> SafetyCheckStrings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SafetyCheckStrings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SafetyCheckStrings> SafetyCheckStrings::FromValue(const base::Value::Dict& value) {
+  SafetyCheckStrings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SafetyCheckStrings> SafetyCheckStrings::FromValue(const base::Value::Dict& value) {
+std::optional<SafetyCheckStrings> SafetyCheckStrings::FromValue(const base::Value& value) {
   SafetyCheckStrings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SafetyCheckStrings> SafetyCheckStrings::FromValue(const base::Value& value) {
-  SafetyCheckStrings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2199,8 +2044,8 @@ ControlledInfo::ControlledInfo()
  {}
 
 ControlledInfo::~ControlledInfo() = default;
-ControlledInfo::ControlledInfo(ControlledInfo&& rhs) = default;
-ControlledInfo& ControlledInfo::operator=(ControlledInfo&& rhs) = default;
+ControlledInfo::ControlledInfo(ControlledInfo&& rhs) noexcept = default;
+ControlledInfo& ControlledInfo::operator=(ControlledInfo&& rhs) noexcept = default;
 ControlledInfo ControlledInfo::Clone() const {
   ControlledInfo out;
   out.text = text;
@@ -2235,34 +2080,21 @@ bool ControlledInfo::Populate(
 }
 
 // static
-std::unique_ptr<ControlledInfo> ControlledInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ControlledInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ControlledInfo> ControlledInfo::FromValue(const base::Value::Dict& value) {
+  ControlledInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ControlledInfo> ControlledInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ControlledInfo> ControlledInfo::FromValue(const base::Value& value) {
   ControlledInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ControlledInfo> ControlledInfo::FromValue(const base::Value& value) {
-  ControlledInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2283,8 +2115,8 @@ scope(),
 is_extension_action(false) {}
 
 Command::~Command() = default;
-Command::Command(Command&& rhs) = default;
-Command& Command::operator=(Command&& rhs) = default;
+Command::Command(Command&& rhs) noexcept = default;
+Command& Command::operator=(Command&& rhs) noexcept = default;
 Command Command::Clone() const {
   Command out;
   out.description = description;
@@ -2387,34 +2219,21 @@ bool Command::Populate(
 }
 
 // static
-std::unique_ptr<Command> Command::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Command>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Command> Command::FromValue(const base::Value::Dict& value) {
+  Command out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Command> Command::FromValue(const base::Value::Dict& value) {
+std::optional<Command> Command::FromValue(const base::Value& value) {
   Command out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Command> Command::FromValue(const base::Value& value) {
-  Command out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2443,8 +2262,8 @@ DependentExtension::DependentExtension()
  {}
 
 DependentExtension::~DependentExtension() = default;
-DependentExtension::DependentExtension(DependentExtension&& rhs) = default;
-DependentExtension& DependentExtension::operator=(DependentExtension&& rhs) = default;
+DependentExtension::DependentExtension(DependentExtension&& rhs) noexcept = default;
+DependentExtension& DependentExtension::operator=(DependentExtension&& rhs) noexcept = default;
 DependentExtension DependentExtension::Clone() const {
   DependentExtension out;
   out.id = id;
@@ -2492,34 +2311,21 @@ bool DependentExtension::Populate(
 }
 
 // static
-std::unique_ptr<DependentExtension> DependentExtension::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DependentExtension>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DependentExtension> DependentExtension::FromValue(const base::Value::Dict& value) {
+  DependentExtension out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DependentExtension> DependentExtension::FromValue(const base::Value::Dict& value) {
+std::optional<DependentExtension> DependentExtension::FromValue(const base::Value& value) {
   DependentExtension out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DependentExtension> DependentExtension::FromValue(const base::Value& value) {
-  DependentExtension out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2540,8 +2346,8 @@ Permission::Permission()
  {}
 
 Permission::~Permission() = default;
-Permission::Permission(Permission&& rhs) = default;
-Permission& Permission::operator=(Permission&& rhs) = default;
+Permission::Permission(Permission&& rhs) noexcept = default;
+Permission& Permission::operator=(Permission&& rhs) noexcept = default;
 Permission Permission::Clone() const {
   Permission out;
   out.message = message;
@@ -2592,34 +2398,21 @@ bool Permission::Populate(
 }
 
 // static
-std::unique_ptr<Permission> Permission::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Permission>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Permission> Permission::FromValue(const base::Value::Dict& value) {
+  Permission out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Permission> Permission::FromValue(const base::Value::Dict& value) {
+std::optional<Permission> Permission::FromValue(const base::Value& value) {
   Permission out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Permission> Permission::FromValue(const base::Value& value) {
-  Permission out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2640,8 +2433,8 @@ SiteControl::SiteControl()
 : granted(false) {}
 
 SiteControl::~SiteControl() = default;
-SiteControl::SiteControl(SiteControl&& rhs) = default;
-SiteControl& SiteControl::operator=(SiteControl&& rhs) = default;
+SiteControl::SiteControl(SiteControl&& rhs) noexcept = default;
+SiteControl& SiteControl::operator=(SiteControl&& rhs) noexcept = default;
 SiteControl SiteControl::Clone() const {
   SiteControl out;
   out.host = host;
@@ -2689,34 +2482,21 @@ bool SiteControl::Populate(
 }
 
 // static
-std::unique_ptr<SiteControl> SiteControl::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SiteControl>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SiteControl> SiteControl::FromValue(const base::Value::Dict& value) {
+  SiteControl out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SiteControl> SiteControl::FromValue(const base::Value::Dict& value) {
+std::optional<SiteControl> SiteControl::FromValue(const base::Value& value) {
   SiteControl out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SiteControl> SiteControl::FromValue(const base::Value& value) {
-  SiteControl out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2738,8 +2518,8 @@ RuntimeHostPermissions::RuntimeHostPermissions()
 host_access() {}
 
 RuntimeHostPermissions::~RuntimeHostPermissions() = default;
-RuntimeHostPermissions::RuntimeHostPermissions(RuntimeHostPermissions&& rhs) = default;
-RuntimeHostPermissions& RuntimeHostPermissions::operator=(RuntimeHostPermissions&& rhs) = default;
+RuntimeHostPermissions::RuntimeHostPermissions(RuntimeHostPermissions&& rhs) noexcept = default;
+RuntimeHostPermissions& RuntimeHostPermissions::operator=(RuntimeHostPermissions&& rhs) noexcept = default;
 RuntimeHostPermissions RuntimeHostPermissions::Clone() const {
   RuntimeHostPermissions out;
   out.has_all_hosts = has_all_hosts;
@@ -2809,34 +2589,21 @@ bool RuntimeHostPermissions::Populate(
 }
 
 // static
-std::unique_ptr<RuntimeHostPermissions> RuntimeHostPermissions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RuntimeHostPermissions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RuntimeHostPermissions> RuntimeHostPermissions::FromValue(const base::Value::Dict& value) {
+  RuntimeHostPermissions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RuntimeHostPermissions> RuntimeHostPermissions::FromValue(const base::Value::Dict& value) {
+std::optional<RuntimeHostPermissions> RuntimeHostPermissions::FromValue(const base::Value& value) {
   RuntimeHostPermissions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RuntimeHostPermissions> RuntimeHostPermissions::FromValue(const base::Value& value) {
-  RuntimeHostPermissions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2859,8 +2626,8 @@ Permissions::Permissions()
 : can_access_site_data(false) {}
 
 Permissions::~Permissions() = default;
-Permissions::Permissions(Permissions&& rhs) = default;
-Permissions& Permissions::operator=(Permissions&& rhs) = default;
+Permissions::Permissions(Permissions&& rhs) noexcept = default;
+Permissions& Permissions::operator=(Permissions&& rhs) noexcept = default;
 Permissions Permissions::Clone() const {
   Permissions out;
   out.simple_permissions.reserve(simple_permissions.size());
@@ -2932,34 +2699,21 @@ bool Permissions::Populate(
 }
 
 // static
-std::unique_ptr<Permissions> Permissions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Permissions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Permissions> Permissions::FromValue(const base::Value::Dict& value) {
+  Permissions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Permissions> Permissions::FromValue(const base::Value::Dict& value) {
+std::optional<Permissions> Permissions::FromValue(const base::Value& value) {
   Permissions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Permissions> Permissions::FromValue(const base::Value& value) {
-  Permissions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2992,8 +2746,8 @@ show_access_requests_in_toolbar(false),
 acknowledge_safety_check_warning(false) {}
 
 ExtensionInfo::~ExtensionInfo() = default;
-ExtensionInfo::ExtensionInfo(ExtensionInfo&& rhs) = default;
-ExtensionInfo& ExtensionInfo::operator=(ExtensionInfo&& rhs) = default;
+ExtensionInfo::ExtensionInfo(ExtensionInfo&& rhs) noexcept = default;
+ExtensionInfo& ExtensionInfo::operator=(ExtensionInfo&& rhs) noexcept = default;
 ExtensionInfo ExtensionInfo::Clone() const {
   ExtensionInfo out;
   out.blacklist_text = blacklist_text;
@@ -3067,7 +2821,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*blacklist_text_value).GetIfString();
       if (!temp) {
-        out.blacklist_text = absl::nullopt;
+        out.blacklist_text = std::nullopt;
         return false;
       }
       out.blacklist_text = *temp;
@@ -3255,7 +3009,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*launch_url_value).GetIfString();
       if (!temp) {
-        out.launch_url = absl::nullopt;
+        out.launch_url = std::nullopt;
         return false;
       }
       out.launch_url = *temp;
@@ -3282,7 +3036,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*location_text_value).GetIfString();
       if (!temp) {
-        out.location_text = absl::nullopt;
+        out.location_text = std::nullopt;
         return false;
       }
       out.location_text = *temp;
@@ -3372,7 +3126,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*path_value).GetIfString();
       if (!temp) {
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -3397,7 +3151,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*prettified_path_value).GetIfString();
       if (!temp) {
-        out.prettified_path = absl::nullopt;
+        out.prettified_path = std::nullopt;
         return false;
       }
       out.prettified_path = *temp;
@@ -3568,7 +3322,7 @@ bool ExtensionInfo::Populate(
     {
       auto temp = (*pinned_to_toolbar_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinned_to_toolbar = absl::nullopt;
+        out.pinned_to_toolbar = std::nullopt;
         return false;
       }
       out.pinned_to_toolbar = *temp;
@@ -3588,34 +3342,21 @@ bool ExtensionInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionInfo> ExtensionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value::Dict& value) {
+  ExtensionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value& value) {
   ExtensionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value& value) {
-  ExtensionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3732,8 +3473,8 @@ is_incognito_available(false),
 is_child_account(false) {}
 
 ProfileInfo::~ProfileInfo() = default;
-ProfileInfo::ProfileInfo(ProfileInfo&& rhs) = default;
-ProfileInfo& ProfileInfo::operator=(ProfileInfo&& rhs) = default;
+ProfileInfo::ProfileInfo(ProfileInfo&& rhs) noexcept = default;
+ProfileInfo& ProfileInfo::operator=(ProfileInfo&& rhs) noexcept = default;
 ProfileInfo ProfileInfo::Clone() const {
   ProfileInfo out;
   out.can_load_unpacked = can_load_unpacked;
@@ -3820,34 +3561,21 @@ bool ProfileInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProfileInfo> ProfileInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProfileInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value::Dict& value) {
+  ProfileInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value& value) {
   ProfileInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value& value) {
-  ProfileInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3886,8 +3614,8 @@ allow_incognito(false),
 offline_enabled(false) {}
 
 ItemInfo::~ItemInfo() = default;
-ItemInfo::ItemInfo(ItemInfo&& rhs) = default;
-ItemInfo& ItemInfo::operator=(ItemInfo&& rhs) = default;
+ItemInfo::ItemInfo(ItemInfo&& rhs) noexcept = default;
+ItemInfo& ItemInfo::operator=(ItemInfo&& rhs) noexcept = default;
 ItemInfo ItemInfo::Clone() const {
   ItemInfo out;
   out.id = id;
@@ -4147,7 +3875,7 @@ bool ItemInfo::Populate(
     {
       auto* temp = (*path_value).GetIfString();
       if (!temp) {
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -4159,7 +3887,7 @@ bool ItemInfo::Populate(
     {
       auto* temp = (*options_url_value).GetIfString();
       if (!temp) {
-        out.options_url = absl::nullopt;
+        out.options_url = std::nullopt;
         return false;
       }
       out.options_url = *temp;
@@ -4171,7 +3899,7 @@ bool ItemInfo::Populate(
     {
       auto* temp = (*app_launch_url_value).GetIfString();
       if (!temp) {
-        out.app_launch_url = absl::nullopt;
+        out.app_launch_url = std::nullopt;
         return false;
       }
       out.app_launch_url = *temp;
@@ -4183,7 +3911,7 @@ bool ItemInfo::Populate(
     {
       auto* temp = (*homepage_url_value).GetIfString();
       if (!temp) {
-        out.homepage_url = absl::nullopt;
+        out.homepage_url = std::nullopt;
         return false;
       }
       out.homepage_url = *temp;
@@ -4195,7 +3923,7 @@ bool ItemInfo::Populate(
     {
       auto* temp = (*update_url_value).GetIfString();
       if (!temp) {
-        out.update_url = absl::nullopt;
+        out.update_url = std::nullopt;
         return false;
       }
       out.update_url = *temp;
@@ -4283,34 +4011,21 @@ bool ItemInfo::Populate(
 }
 
 // static
-std::unique_ptr<ItemInfo> ItemInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ItemInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ItemInfo> ItemInfo::FromValue(const base::Value::Dict& value) {
+  ItemInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ItemInfo> ItemInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ItemInfo> ItemInfo::FromValue(const base::Value& value) {
   ItemInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ItemInfo> ItemInfo::FromValue(const base::Value& value) {
-  ItemInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4391,8 +4106,8 @@ GetExtensionsInfoOptions::GetExtensionsInfoOptions()
  {}
 
 GetExtensionsInfoOptions::~GetExtensionsInfoOptions() = default;
-GetExtensionsInfoOptions::GetExtensionsInfoOptions(GetExtensionsInfoOptions&& rhs) = default;
-GetExtensionsInfoOptions& GetExtensionsInfoOptions::operator=(GetExtensionsInfoOptions&& rhs) = default;
+GetExtensionsInfoOptions::GetExtensionsInfoOptions(GetExtensionsInfoOptions&& rhs) noexcept = default;
+GetExtensionsInfoOptions& GetExtensionsInfoOptions::operator=(GetExtensionsInfoOptions&& rhs) noexcept = default;
 GetExtensionsInfoOptions GetExtensionsInfoOptions::Clone() const {
   GetExtensionsInfoOptions out;
   out.include_disabled = include_disabled;
@@ -4408,7 +4123,7 @@ bool GetExtensionsInfoOptions::Populate(
     {
       auto temp = (*include_disabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.include_disabled = absl::nullopt;
+        out.include_disabled = std::nullopt;
         return false;
       }
       out.include_disabled = *temp;
@@ -4420,7 +4135,7 @@ bool GetExtensionsInfoOptions::Populate(
     {
       auto temp = (*include_terminated_value).GetIfBool();
       if (!temp.has_value()) {
-        out.include_terminated = absl::nullopt;
+        out.include_terminated = std::nullopt;
         return false;
       }
       out.include_terminated = *temp;
@@ -4440,34 +4155,21 @@ bool GetExtensionsInfoOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetExtensionsInfoOptions> GetExtensionsInfoOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetExtensionsInfoOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetExtensionsInfoOptions> GetExtensionsInfoOptions::FromValue(const base::Value::Dict& value) {
+  GetExtensionsInfoOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetExtensionsInfoOptions> GetExtensionsInfoOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetExtensionsInfoOptions> GetExtensionsInfoOptions::FromValue(const base::Value& value) {
   GetExtensionsInfoOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetExtensionsInfoOptions> GetExtensionsInfoOptions::FromValue(const base::Value& value) {
-  GetExtensionsInfoOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4492,8 +4194,8 @@ ExtensionConfigurationUpdate::ExtensionConfigurationUpdate()
 : host_access() {}
 
 ExtensionConfigurationUpdate::~ExtensionConfigurationUpdate() = default;
-ExtensionConfigurationUpdate::ExtensionConfigurationUpdate(ExtensionConfigurationUpdate&& rhs) = default;
-ExtensionConfigurationUpdate& ExtensionConfigurationUpdate::operator=(ExtensionConfigurationUpdate&& rhs) = default;
+ExtensionConfigurationUpdate::ExtensionConfigurationUpdate(ExtensionConfigurationUpdate&& rhs) noexcept = default;
+ExtensionConfigurationUpdate& ExtensionConfigurationUpdate::operator=(ExtensionConfigurationUpdate&& rhs) noexcept = default;
 ExtensionConfigurationUpdate ExtensionConfigurationUpdate::Clone() const {
   ExtensionConfigurationUpdate out;
   out.extension_id = extension_id;
@@ -4528,7 +4230,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*file_access_value).GetIfBool();
       if (!temp.has_value()) {
-        out.file_access = absl::nullopt;
+        out.file_access = std::nullopt;
         return false;
       }
       out.file_access = *temp;
@@ -4540,7 +4242,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*incognito_access_value).GetIfBool();
       if (!temp.has_value()) {
-        out.incognito_access = absl::nullopt;
+        out.incognito_access = std::nullopt;
         return false;
       }
       out.incognito_access = *temp;
@@ -4552,7 +4254,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*error_collection_value).GetIfBool();
       if (!temp.has_value()) {
-        out.error_collection = absl::nullopt;
+        out.error_collection = std::nullopt;
         return false;
       }
       out.error_collection = *temp;
@@ -4580,7 +4282,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*show_access_requests_in_toolbar_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_access_requests_in_toolbar = absl::nullopt;
+        out.show_access_requests_in_toolbar = std::nullopt;
         return false;
       }
       out.show_access_requests_in_toolbar = *temp;
@@ -4592,7 +4294,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*acknowledge_safety_check_warning_value).GetIfBool();
       if (!temp.has_value()) {
-        out.acknowledge_safety_check_warning = absl::nullopt;
+        out.acknowledge_safety_check_warning = std::nullopt;
         return false;
       }
       out.acknowledge_safety_check_warning = *temp;
@@ -4604,7 +4306,7 @@ bool ExtensionConfigurationUpdate::Populate(
     {
       auto temp = (*pinned_to_toolbar_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinned_to_toolbar = absl::nullopt;
+        out.pinned_to_toolbar = std::nullopt;
         return false;
       }
       out.pinned_to_toolbar = *temp;
@@ -4624,34 +4326,21 @@ bool ExtensionConfigurationUpdate::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionConfigurationUpdate> ExtensionConfigurationUpdate::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionConfigurationUpdate>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionConfigurationUpdate> ExtensionConfigurationUpdate::FromValue(const base::Value::Dict& value) {
+  ExtensionConfigurationUpdate out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionConfigurationUpdate> ExtensionConfigurationUpdate::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionConfigurationUpdate> ExtensionConfigurationUpdate::FromValue(const base::Value& value) {
   ExtensionConfigurationUpdate out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionConfigurationUpdate> ExtensionConfigurationUpdate::FromValue(const base::Value& value) {
-  ExtensionConfigurationUpdate out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4698,8 +4387,8 @@ ProfileConfigurationUpdate::ProfileConfigurationUpdate()
  {}
 
 ProfileConfigurationUpdate::~ProfileConfigurationUpdate() = default;
-ProfileConfigurationUpdate::ProfileConfigurationUpdate(ProfileConfigurationUpdate&& rhs) = default;
-ProfileConfigurationUpdate& ProfileConfigurationUpdate::operator=(ProfileConfigurationUpdate&& rhs) = default;
+ProfileConfigurationUpdate::ProfileConfigurationUpdate(ProfileConfigurationUpdate&& rhs) noexcept = default;
+ProfileConfigurationUpdate& ProfileConfigurationUpdate::operator=(ProfileConfigurationUpdate&& rhs) noexcept = default;
 ProfileConfigurationUpdate ProfileConfigurationUpdate::Clone() const {
   ProfileConfigurationUpdate out;
   out.in_developer_mode = in_developer_mode;
@@ -4714,7 +4403,7 @@ bool ProfileConfigurationUpdate::Populate(
     {
       auto temp = (*in_developer_mode_value).GetIfBool();
       if (!temp.has_value()) {
-        out.in_developer_mode = absl::nullopt;
+        out.in_developer_mode = std::nullopt;
         return false;
       }
       out.in_developer_mode = *temp;
@@ -4734,34 +4423,21 @@ bool ProfileConfigurationUpdate::Populate(
 }
 
 // static
-std::unique_ptr<ProfileConfigurationUpdate> ProfileConfigurationUpdate::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProfileConfigurationUpdate>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProfileConfigurationUpdate> ProfileConfigurationUpdate::FromValue(const base::Value::Dict& value) {
+  ProfileConfigurationUpdate out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProfileConfigurationUpdate> ProfileConfigurationUpdate::FromValue(const base::Value::Dict& value) {
+std::optional<ProfileConfigurationUpdate> ProfileConfigurationUpdate::FromValue(const base::Value& value) {
   ProfileConfigurationUpdate out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProfileConfigurationUpdate> ProfileConfigurationUpdate::FromValue(const base::Value& value) {
-  ProfileConfigurationUpdate out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4782,8 +4458,8 @@ ExtensionCommandUpdate::ExtensionCommandUpdate()
 : scope() {}
 
 ExtensionCommandUpdate::~ExtensionCommandUpdate() = default;
-ExtensionCommandUpdate::ExtensionCommandUpdate(ExtensionCommandUpdate&& rhs) = default;
-ExtensionCommandUpdate& ExtensionCommandUpdate::operator=(ExtensionCommandUpdate&& rhs) = default;
+ExtensionCommandUpdate::ExtensionCommandUpdate(ExtensionCommandUpdate&& rhs) noexcept = default;
+ExtensionCommandUpdate& ExtensionCommandUpdate::operator=(ExtensionCommandUpdate&& rhs) noexcept = default;
 ExtensionCommandUpdate ExtensionCommandUpdate::Clone() const {
   ExtensionCommandUpdate out;
   out.extension_id = extension_id;
@@ -4842,7 +4518,7 @@ bool ExtensionCommandUpdate::Populate(
     {
       auto* temp = (*keybinding_value).GetIfString();
       if (!temp) {
-        out.keybinding = absl::nullopt;
+        out.keybinding = std::nullopt;
         return false;
       }
       out.keybinding = *temp;
@@ -4862,34 +4538,21 @@ bool ExtensionCommandUpdate::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionCommandUpdate> ExtensionCommandUpdate::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionCommandUpdate>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionCommandUpdate> ExtensionCommandUpdate::FromValue(const base::Value::Dict& value) {
+  ExtensionCommandUpdate out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionCommandUpdate> ExtensionCommandUpdate::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionCommandUpdate> ExtensionCommandUpdate::FromValue(const base::Value& value) {
   ExtensionCommandUpdate out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionCommandUpdate> ExtensionCommandUpdate::FromValue(const base::Value& value) {
-  ExtensionCommandUpdate out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4918,8 +4581,8 @@ ReloadOptions::ReloadOptions()
  {}
 
 ReloadOptions::~ReloadOptions() = default;
-ReloadOptions::ReloadOptions(ReloadOptions&& rhs) = default;
-ReloadOptions& ReloadOptions::operator=(ReloadOptions&& rhs) = default;
+ReloadOptions::ReloadOptions(ReloadOptions&& rhs) noexcept = default;
+ReloadOptions& ReloadOptions::operator=(ReloadOptions&& rhs) noexcept = default;
 ReloadOptions ReloadOptions::Clone() const {
   ReloadOptions out;
   out.fail_quietly = fail_quietly;
@@ -4935,7 +4598,7 @@ bool ReloadOptions::Populate(
     {
       auto temp = (*fail_quietly_value).GetIfBool();
       if (!temp.has_value()) {
-        out.fail_quietly = absl::nullopt;
+        out.fail_quietly = std::nullopt;
         return false;
       }
       out.fail_quietly = *temp;
@@ -4947,7 +4610,7 @@ bool ReloadOptions::Populate(
     {
       auto temp = (*populate_error_for_unpacked_value).GetIfBool();
       if (!temp.has_value()) {
-        out.populate_error_for_unpacked = absl::nullopt;
+        out.populate_error_for_unpacked = std::nullopt;
         return false;
       }
       out.populate_error_for_unpacked = *temp;
@@ -4967,34 +4630,21 @@ bool ReloadOptions::Populate(
 }
 
 // static
-std::unique_ptr<ReloadOptions> ReloadOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReloadOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReloadOptions> ReloadOptions::FromValue(const base::Value::Dict& value) {
+  ReloadOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReloadOptions> ReloadOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ReloadOptions> ReloadOptions::FromValue(const base::Value& value) {
   ReloadOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReloadOptions> ReloadOptions::FromValue(const base::Value& value) {
-  ReloadOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5019,8 +4669,8 @@ LoadUnpackedOptions::LoadUnpackedOptions()
  {}
 
 LoadUnpackedOptions::~LoadUnpackedOptions() = default;
-LoadUnpackedOptions::LoadUnpackedOptions(LoadUnpackedOptions&& rhs) = default;
-LoadUnpackedOptions& LoadUnpackedOptions::operator=(LoadUnpackedOptions&& rhs) = default;
+LoadUnpackedOptions::LoadUnpackedOptions(LoadUnpackedOptions&& rhs) noexcept = default;
+LoadUnpackedOptions& LoadUnpackedOptions::operator=(LoadUnpackedOptions&& rhs) noexcept = default;
 LoadUnpackedOptions LoadUnpackedOptions::Clone() const {
   LoadUnpackedOptions out;
   out.fail_quietly = fail_quietly;
@@ -5038,7 +4688,7 @@ bool LoadUnpackedOptions::Populate(
     {
       auto temp = (*fail_quietly_value).GetIfBool();
       if (!temp.has_value()) {
-        out.fail_quietly = absl::nullopt;
+        out.fail_quietly = std::nullopt;
         return false;
       }
       out.fail_quietly = *temp;
@@ -5050,7 +4700,7 @@ bool LoadUnpackedOptions::Populate(
     {
       auto temp = (*populate_error_value).GetIfBool();
       if (!temp.has_value()) {
-        out.populate_error = absl::nullopt;
+        out.populate_error = std::nullopt;
         return false;
       }
       out.populate_error = *temp;
@@ -5062,7 +4712,7 @@ bool LoadUnpackedOptions::Populate(
     {
       auto* temp = (*retry_guid_value).GetIfString();
       if (!temp) {
-        out.retry_guid = absl::nullopt;
+        out.retry_guid = std::nullopt;
         return false;
       }
       out.retry_guid = *temp;
@@ -5074,7 +4724,7 @@ bool LoadUnpackedOptions::Populate(
     {
       auto temp = (*use_dragged_path_value).GetIfBool();
       if (!temp.has_value()) {
-        out.use_dragged_path = absl::nullopt;
+        out.use_dragged_path = std::nullopt;
         return false;
       }
       out.use_dragged_path = *temp;
@@ -5094,34 +4744,21 @@ bool LoadUnpackedOptions::Populate(
 }
 
 // static
-std::unique_ptr<LoadUnpackedOptions> LoadUnpackedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LoadUnpackedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LoadUnpackedOptions> LoadUnpackedOptions::FromValue(const base::Value::Dict& value) {
+  LoadUnpackedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LoadUnpackedOptions> LoadUnpackedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<LoadUnpackedOptions> LoadUnpackedOptions::FromValue(const base::Value& value) {
   LoadUnpackedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LoadUnpackedOptions> LoadUnpackedOptions::FromValue(const base::Value& value) {
-  LoadUnpackedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5152,13 +4789,13 @@ base::Value::Dict LoadUnpackedOptions::ToValue() const {
 
 const char* ToString(SiteSet enum_param) {
   switch (enum_param) {
-    case SITE_SET_USER_PERMITTED:
+    case SiteSet::kUserPermitted:
       return "USER_PERMITTED";
-    case SITE_SET_USER_RESTRICTED:
+    case SiteSet::kUserRestricted:
       return "USER_RESTRICTED";
-    case SITE_SET_EXTENSION_SPECIFIED:
+    case SiteSet::kExtensionSpecified:
       return "EXTENSION_SPECIFIED";
-    case SITE_SET_NONE:
+    case SiteSet::kNone:
       return "";
   }
   NOTREACHED();
@@ -5167,12 +4804,12 @@ const char* ToString(SiteSet enum_param) {
 
 SiteSet ParseSiteSet(base::StringPiece enum_string) {
   if (enum_string == "USER_PERMITTED")
-    return SITE_SET_USER_PERMITTED;
+    return SiteSet::kUserPermitted;
   if (enum_string == "USER_RESTRICTED")
-    return SITE_SET_USER_RESTRICTED;
+    return SiteSet::kUserRestricted;
   if (enum_string == "EXTENSION_SPECIFIED")
-    return SITE_SET_EXTENSION_SPECIFIED;
-  return SITE_SET_NONE;
+    return SiteSet::kExtensionSpecified;
+  return SiteSet::kNone;
 }
 
 std::u16string GetSiteSetParseError(base::StringPiece enum_string) {
@@ -5184,8 +4821,8 @@ UserSiteSettingsOptions::UserSiteSettingsOptions()
 : site_set() {}
 
 UserSiteSettingsOptions::~UserSiteSettingsOptions() = default;
-UserSiteSettingsOptions::UserSiteSettingsOptions(UserSiteSettingsOptions&& rhs) = default;
-UserSiteSettingsOptions& UserSiteSettingsOptions::operator=(UserSiteSettingsOptions&& rhs) = default;
+UserSiteSettingsOptions::UserSiteSettingsOptions(UserSiteSettingsOptions&& rhs) noexcept = default;
+UserSiteSettingsOptions& UserSiteSettingsOptions::operator=(UserSiteSettingsOptions&& rhs) noexcept = default;
 UserSiteSettingsOptions UserSiteSettingsOptions::Clone() const {
   UserSiteSettingsOptions out;
   out.site_set = site_set;
@@ -5239,34 +4876,21 @@ bool UserSiteSettingsOptions::Populate(
 }
 
 // static
-std::unique_ptr<UserSiteSettingsOptions> UserSiteSettingsOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UserSiteSettingsOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UserSiteSettingsOptions> UserSiteSettingsOptions::FromValue(const base::Value::Dict& value) {
+  UserSiteSettingsOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UserSiteSettingsOptions> UserSiteSettingsOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UserSiteSettingsOptions> UserSiteSettingsOptions::FromValue(const base::Value& value) {
   UserSiteSettingsOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UserSiteSettingsOptions> UserSiteSettingsOptions::FromValue(const base::Value& value) {
-  UserSiteSettingsOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5287,8 +4911,8 @@ UserSiteSettings::UserSiteSettings()
  {}
 
 UserSiteSettings::~UserSiteSettings() = default;
-UserSiteSettings::UserSiteSettings(UserSiteSettings&& rhs) = default;
-UserSiteSettings& UserSiteSettings::operator=(UserSiteSettings&& rhs) = default;
+UserSiteSettings::UserSiteSettings(UserSiteSettings&& rhs) noexcept = default;
+UserSiteSettings& UserSiteSettings::operator=(UserSiteSettings&& rhs) noexcept = default;
 UserSiteSettings UserSiteSettings::Clone() const {
   UserSiteSettings out;
   out.permitted_sites = permitted_sites;
@@ -5342,34 +4966,21 @@ bool UserSiteSettings::Populate(
 }
 
 // static
-std::unique_ptr<UserSiteSettings> UserSiteSettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UserSiteSettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UserSiteSettings> UserSiteSettings::FromValue(const base::Value::Dict& value) {
+  UserSiteSettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UserSiteSettings> UserSiteSettings::FromValue(const base::Value::Dict& value) {
+std::optional<UserSiteSettings> UserSiteSettings::FromValue(const base::Value& value) {
   UserSiteSettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UserSiteSettings> UserSiteSettings::FromValue(const base::Value& value) {
-  UserSiteSettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5391,8 +5002,8 @@ SiteInfo::SiteInfo()
 num_extensions(0) {}
 
 SiteInfo::~SiteInfo() = default;
-SiteInfo::SiteInfo(SiteInfo&& rhs) = default;
-SiteInfo& SiteInfo::operator=(SiteInfo&& rhs) = default;
+SiteInfo::SiteInfo(SiteInfo&& rhs) noexcept = default;
+SiteInfo& SiteInfo::operator=(SiteInfo&& rhs) noexcept = default;
 SiteInfo SiteInfo::Clone() const {
   SiteInfo out;
   out.site_set = site_set;
@@ -5456,34 +5067,21 @@ bool SiteInfo::Populate(
 }
 
 // static
-std::unique_ptr<SiteInfo> SiteInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SiteInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SiteInfo> SiteInfo::FromValue(const base::Value::Dict& value) {
+  SiteInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SiteInfo> SiteInfo::FromValue(const base::Value::Dict& value) {
+std::optional<SiteInfo> SiteInfo::FromValue(const base::Value& value) {
   SiteInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SiteInfo> SiteInfo::FromValue(const base::Value& value) {
-  SiteInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5506,8 +5104,8 @@ SiteGroup::SiteGroup()
 : num_extensions(0) {}
 
 SiteGroup::~SiteGroup() = default;
-SiteGroup::SiteGroup(SiteGroup&& rhs) = default;
-SiteGroup& SiteGroup::operator=(SiteGroup&& rhs) = default;
+SiteGroup::SiteGroup(SiteGroup&& rhs) noexcept = default;
+SiteGroup& SiteGroup::operator=(SiteGroup&& rhs) noexcept = default;
 SiteGroup SiteGroup::Clone() const {
   SiteGroup out;
   out.etld_plus_one = etld_plus_one;
@@ -5574,34 +5172,21 @@ bool SiteGroup::Populate(
 }
 
 // static
-std::unique_ptr<SiteGroup> SiteGroup::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SiteGroup>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SiteGroup> SiteGroup::FromValue(const base::Value::Dict& value) {
+  SiteGroup out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SiteGroup> SiteGroup::FromValue(const base::Value::Dict& value) {
+std::optional<SiteGroup> SiteGroup::FromValue(const base::Value& value) {
   SiteGroup out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SiteGroup> SiteGroup::FromValue(const base::Value& value) {
-  SiteGroup out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5625,8 +5210,8 @@ MatchingExtensionInfo::MatchingExtensionInfo()
 can_request_all_sites(false) {}
 
 MatchingExtensionInfo::~MatchingExtensionInfo() = default;
-MatchingExtensionInfo::MatchingExtensionInfo(MatchingExtensionInfo&& rhs) = default;
-MatchingExtensionInfo& MatchingExtensionInfo::operator=(MatchingExtensionInfo&& rhs) = default;
+MatchingExtensionInfo::MatchingExtensionInfo(MatchingExtensionInfo&& rhs) noexcept = default;
+MatchingExtensionInfo& MatchingExtensionInfo::operator=(MatchingExtensionInfo&& rhs) noexcept = default;
 MatchingExtensionInfo MatchingExtensionInfo::Clone() const {
   MatchingExtensionInfo out;
   out.id = id;
@@ -5690,34 +5275,21 @@ bool MatchingExtensionInfo::Populate(
 }
 
 // static
-std::unique_ptr<MatchingExtensionInfo> MatchingExtensionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MatchingExtensionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MatchingExtensionInfo> MatchingExtensionInfo::FromValue(const base::Value::Dict& value) {
+  MatchingExtensionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MatchingExtensionInfo> MatchingExtensionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<MatchingExtensionInfo> MatchingExtensionInfo::FromValue(const base::Value& value) {
   MatchingExtensionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MatchingExtensionInfo> MatchingExtensionInfo::FromValue(const base::Value& value) {
-  MatchingExtensionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5740,8 +5312,8 @@ ExtensionSiteAccessUpdate::ExtensionSiteAccessUpdate()
 : site_access() {}
 
 ExtensionSiteAccessUpdate::~ExtensionSiteAccessUpdate() = default;
-ExtensionSiteAccessUpdate::ExtensionSiteAccessUpdate(ExtensionSiteAccessUpdate&& rhs) = default;
-ExtensionSiteAccessUpdate& ExtensionSiteAccessUpdate::operator=(ExtensionSiteAccessUpdate&& rhs) = default;
+ExtensionSiteAccessUpdate::ExtensionSiteAccessUpdate(ExtensionSiteAccessUpdate&& rhs) noexcept = default;
+ExtensionSiteAccessUpdate& ExtensionSiteAccessUpdate::operator=(ExtensionSiteAccessUpdate&& rhs) noexcept = default;
 ExtensionSiteAccessUpdate ExtensionSiteAccessUpdate::Clone() const {
   ExtensionSiteAccessUpdate out;
   out.id = id;
@@ -5792,34 +5364,21 @@ bool ExtensionSiteAccessUpdate::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionSiteAccessUpdate> ExtensionSiteAccessUpdate::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionSiteAccessUpdate>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionSiteAccessUpdate> ExtensionSiteAccessUpdate::FromValue(const base::Value::Dict& value) {
+  ExtensionSiteAccessUpdate out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionSiteAccessUpdate> ExtensionSiteAccessUpdate::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionSiteAccessUpdate> ExtensionSiteAccessUpdate::FromValue(const base::Value& value) {
   ExtensionSiteAccessUpdate out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionSiteAccessUpdate> ExtensionSiteAccessUpdate::FromValue(const base::Value& value) {
-  ExtensionSiteAccessUpdate out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5838,13 +5397,13 @@ base::Value::Dict ExtensionSiteAccessUpdate::ToValue() const {
 
 const char* ToString(PackStatus enum_param) {
   switch (enum_param) {
-    case PACK_STATUS_SUCCESS:
+    case PackStatus::kSuccess:
       return "SUCCESS";
-    case PACK_STATUS_ERROR:
+    case PackStatus::kError:
       return "ERROR";
-    case PACK_STATUS_WARNING:
+    case PackStatus::kWarning:
       return "WARNING";
-    case PACK_STATUS_NONE:
+    case PackStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -5853,12 +5412,12 @@ const char* ToString(PackStatus enum_param) {
 
 PackStatus ParsePackStatus(base::StringPiece enum_string) {
   if (enum_string == "SUCCESS")
-    return PACK_STATUS_SUCCESS;
+    return PackStatus::kSuccess;
   if (enum_string == "ERROR")
-    return PACK_STATUS_ERROR;
+    return PackStatus::kError;
   if (enum_string == "WARNING")
-    return PACK_STATUS_WARNING;
-  return PACK_STATUS_NONE;
+    return PackStatus::kWarning;
+  return PackStatus::kNone;
 }
 
 std::u16string GetPackStatusParseError(base::StringPiece enum_string) {
@@ -5868,11 +5427,11 @@ std::u16string GetPackStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(FileType enum_param) {
   switch (enum_param) {
-    case FILE_TYPE_LOAD:
+    case FileType::kLoad:
       return "LOAD";
-    case FILE_TYPE_PEM:
+    case FileType::kPem:
       return "PEM";
-    case FILE_TYPE_NONE:
+    case FileType::kNone:
       return "";
   }
   NOTREACHED();
@@ -5881,10 +5440,10 @@ const char* ToString(FileType enum_param) {
 
 FileType ParseFileType(base::StringPiece enum_string) {
   if (enum_string == "LOAD")
-    return FILE_TYPE_LOAD;
+    return FileType::kLoad;
   if (enum_string == "PEM")
-    return FILE_TYPE_PEM;
-  return FILE_TYPE_NONE;
+    return FileType::kPem;
+  return FileType::kNone;
 }
 
 std::u16string GetFileTypeParseError(base::StringPiece enum_string) {
@@ -5894,11 +5453,11 @@ std::u16string GetFileTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(SelectType enum_param) {
   switch (enum_param) {
-    case SELECT_TYPE_FILE:
+    case SelectType::kFile:
       return "FILE";
-    case SELECT_TYPE_FOLDER:
+    case SelectType::kFolder:
       return "FOLDER";
-    case SELECT_TYPE_NONE:
+    case SelectType::kNone:
       return "";
   }
   NOTREACHED();
@@ -5907,10 +5466,10 @@ const char* ToString(SelectType enum_param) {
 
 SelectType ParseSelectType(base::StringPiece enum_string) {
   if (enum_string == "FILE")
-    return SELECT_TYPE_FILE;
+    return SelectType::kFile;
   if (enum_string == "FOLDER")
-    return SELECT_TYPE_FOLDER;
-  return SELECT_TYPE_NONE;
+    return SelectType::kFolder;
+  return SelectType::kNone;
 }
 
 std::u16string GetSelectTypeParseError(base::StringPiece enum_string) {
@@ -5920,41 +5479,41 @@ std::u16string GetSelectTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(EventType enum_param) {
   switch (enum_param) {
-    case EVENT_TYPE_INSTALLED:
+    case EventType::kInstalled:
       return "INSTALLED";
-    case EVENT_TYPE_UNINSTALLED:
+    case EventType::kUninstalled:
       return "UNINSTALLED";
-    case EVENT_TYPE_LOADED:
+    case EventType::kLoaded:
       return "LOADED";
-    case EVENT_TYPE_UNLOADED:
+    case EventType::kUnloaded:
       return "UNLOADED";
-    case EVENT_TYPE_VIEW_REGISTERED:
+    case EventType::kViewRegistered:
       return "VIEW_REGISTERED";
-    case EVENT_TYPE_VIEW_UNREGISTERED:
+    case EventType::kViewUnregistered:
       return "VIEW_UNREGISTERED";
-    case EVENT_TYPE_ERROR_ADDED:
+    case EventType::kErrorAdded:
       return "ERROR_ADDED";
-    case EVENT_TYPE_ERRORS_REMOVED:
+    case EventType::kErrorsRemoved:
       return "ERRORS_REMOVED";
-    case EVENT_TYPE_PREFS_CHANGED:
+    case EventType::kPrefsChanged:
       return "PREFS_CHANGED";
-    case EVENT_TYPE_WARNINGS_CHANGED:
+    case EventType::kWarningsChanged:
       return "WARNINGS_CHANGED";
-    case EVENT_TYPE_COMMAND_ADDED:
+    case EventType::kCommandAdded:
       return "COMMAND_ADDED";
-    case EVENT_TYPE_COMMAND_REMOVED:
+    case EventType::kCommandRemoved:
       return "COMMAND_REMOVED";
-    case EVENT_TYPE_PERMISSIONS_CHANGED:
+    case EventType::kPermissionsChanged:
       return "PERMISSIONS_CHANGED";
-    case EVENT_TYPE_SERVICE_WORKER_STARTED:
+    case EventType::kServiceWorkerStarted:
       return "SERVICE_WORKER_STARTED";
-    case EVENT_TYPE_SERVICE_WORKER_STOPPED:
+    case EventType::kServiceWorkerStopped:
       return "SERVICE_WORKER_STOPPED";
-    case EVENT_TYPE_CONFIGURATION_CHANGED:
+    case EventType::kConfigurationChanged:
       return "CONFIGURATION_CHANGED";
-    case EVENT_TYPE_PINNED_ACTIONS_CHANGED:
+    case EventType::kPinnedActionsChanged:
       return "PINNED_ACTIONS_CHANGED";
-    case EVENT_TYPE_NONE:
+    case EventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -5963,40 +5522,40 @@ const char* ToString(EventType enum_param) {
 
 EventType ParseEventType(base::StringPiece enum_string) {
   if (enum_string == "INSTALLED")
-    return EVENT_TYPE_INSTALLED;
+    return EventType::kInstalled;
   if (enum_string == "UNINSTALLED")
-    return EVENT_TYPE_UNINSTALLED;
+    return EventType::kUninstalled;
   if (enum_string == "LOADED")
-    return EVENT_TYPE_LOADED;
+    return EventType::kLoaded;
   if (enum_string == "UNLOADED")
-    return EVENT_TYPE_UNLOADED;
+    return EventType::kUnloaded;
   if (enum_string == "VIEW_REGISTERED")
-    return EVENT_TYPE_VIEW_REGISTERED;
+    return EventType::kViewRegistered;
   if (enum_string == "VIEW_UNREGISTERED")
-    return EVENT_TYPE_VIEW_UNREGISTERED;
+    return EventType::kViewUnregistered;
   if (enum_string == "ERROR_ADDED")
-    return EVENT_TYPE_ERROR_ADDED;
+    return EventType::kErrorAdded;
   if (enum_string == "ERRORS_REMOVED")
-    return EVENT_TYPE_ERRORS_REMOVED;
+    return EventType::kErrorsRemoved;
   if (enum_string == "PREFS_CHANGED")
-    return EVENT_TYPE_PREFS_CHANGED;
+    return EventType::kPrefsChanged;
   if (enum_string == "WARNINGS_CHANGED")
-    return EVENT_TYPE_WARNINGS_CHANGED;
+    return EventType::kWarningsChanged;
   if (enum_string == "COMMAND_ADDED")
-    return EVENT_TYPE_COMMAND_ADDED;
+    return EventType::kCommandAdded;
   if (enum_string == "COMMAND_REMOVED")
-    return EVENT_TYPE_COMMAND_REMOVED;
+    return EventType::kCommandRemoved;
   if (enum_string == "PERMISSIONS_CHANGED")
-    return EVENT_TYPE_PERMISSIONS_CHANGED;
+    return EventType::kPermissionsChanged;
   if (enum_string == "SERVICE_WORKER_STARTED")
-    return EVENT_TYPE_SERVICE_WORKER_STARTED;
+    return EventType::kServiceWorkerStarted;
   if (enum_string == "SERVICE_WORKER_STOPPED")
-    return EVENT_TYPE_SERVICE_WORKER_STOPPED;
+    return EventType::kServiceWorkerStopped;
   if (enum_string == "CONFIGURATION_CHANGED")
-    return EVENT_TYPE_CONFIGURATION_CHANGED;
+    return EventType::kConfigurationChanged;
   if (enum_string == "PINNED_ACTIONS_CHANGED")
-    return EVENT_TYPE_PINNED_ACTIONS_CHANGED;
-  return EVENT_TYPE_NONE;
+    return EventType::kPinnedActionsChanged;
+  return EventType::kNone;
 }
 
 std::u16string GetEventTypeParseError(base::StringPiece enum_string) {
@@ -6009,8 +5568,8 @@ PackDirectoryResponse::PackDirectoryResponse()
 status() {}
 
 PackDirectoryResponse::~PackDirectoryResponse() = default;
-PackDirectoryResponse::PackDirectoryResponse(PackDirectoryResponse&& rhs) = default;
-PackDirectoryResponse& PackDirectoryResponse::operator=(PackDirectoryResponse&& rhs) = default;
+PackDirectoryResponse::PackDirectoryResponse(PackDirectoryResponse&& rhs) noexcept = default;
+PackDirectoryResponse& PackDirectoryResponse::operator=(PackDirectoryResponse&& rhs) noexcept = default;
 PackDirectoryResponse PackDirectoryResponse::Clone() const {
   PackDirectoryResponse out;
   out.message = message;
@@ -6100,34 +5659,21 @@ bool PackDirectoryResponse::Populate(
 }
 
 // static
-std::unique_ptr<PackDirectoryResponse> PackDirectoryResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PackDirectoryResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PackDirectoryResponse> PackDirectoryResponse::FromValue(const base::Value::Dict& value) {
+  PackDirectoryResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PackDirectoryResponse> PackDirectoryResponse::FromValue(const base::Value::Dict& value) {
+std::optional<PackDirectoryResponse> PackDirectoryResponse::FromValue(const base::Value& value) {
   PackDirectoryResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PackDirectoryResponse> PackDirectoryResponse::FromValue(const base::Value& value) {
-  PackDirectoryResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6154,8 +5700,8 @@ ProjectInfo::ProjectInfo()
  {}
 
 ProjectInfo::~ProjectInfo() = default;
-ProjectInfo::ProjectInfo(ProjectInfo&& rhs) = default;
-ProjectInfo& ProjectInfo::operator=(ProjectInfo&& rhs) = default;
+ProjectInfo::ProjectInfo(ProjectInfo&& rhs) noexcept = default;
+ProjectInfo& ProjectInfo::operator=(ProjectInfo&& rhs) noexcept = default;
 ProjectInfo ProjectInfo::Clone() const {
   ProjectInfo out;
   out.name = name;
@@ -6190,34 +5736,21 @@ bool ProjectInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProjectInfo> ProjectInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProjectInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProjectInfo> ProjectInfo::FromValue(const base::Value::Dict& value) {
+  ProjectInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProjectInfo> ProjectInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProjectInfo> ProjectInfo::FromValue(const base::Value& value) {
   ProjectInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProjectInfo> ProjectInfo::FromValue(const base::Value& value) {
-  ProjectInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6236,8 +5769,8 @@ EventData::EventData()
 : event_type() {}
 
 EventData::~EventData() = default;
-EventData::EventData(EventData&& rhs) = default;
-EventData& EventData::operator=(EventData&& rhs) = default;
+EventData::EventData(EventData&& rhs) noexcept = default;
+EventData& EventData::operator=(EventData&& rhs) noexcept = default;
 EventData EventData::Clone() const {
   EventData out;
   out.event_type = event_type;
@@ -6306,34 +5839,21 @@ bool EventData::Populate(
 }
 
 // static
-std::unique_ptr<EventData> EventData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EventData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EventData> EventData::FromValue(const base::Value::Dict& value) {
+  EventData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EventData> EventData::FromValue(const base::Value::Dict& value) {
+std::optional<EventData> EventData::FromValue(const base::Value& value) {
   EventData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EventData> EventData::FromValue(const base::Value& value) {
-  EventData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6358,8 +5878,8 @@ ErrorFileSource::ErrorFileSource()
  {}
 
 ErrorFileSource::~ErrorFileSource() = default;
-ErrorFileSource::ErrorFileSource(ErrorFileSource&& rhs) = default;
-ErrorFileSource& ErrorFileSource::operator=(ErrorFileSource&& rhs) = default;
+ErrorFileSource::ErrorFileSource(ErrorFileSource&& rhs) noexcept = default;
+ErrorFileSource& ErrorFileSource::operator=(ErrorFileSource&& rhs) noexcept = default;
 ErrorFileSource ErrorFileSource::Clone() const {
   ErrorFileSource out;
   out.before_highlight = before_highlight;
@@ -6420,34 +5940,21 @@ bool ErrorFileSource::Populate(
 }
 
 // static
-std::unique_ptr<ErrorFileSource> ErrorFileSource::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ErrorFileSource>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ErrorFileSource> ErrorFileSource::FromValue(const base::Value::Dict& value) {
+  ErrorFileSource out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ErrorFileSource> ErrorFileSource::FromValue(const base::Value::Dict& value) {
+std::optional<ErrorFileSource> ErrorFileSource::FromValue(const base::Value& value) {
   ErrorFileSource out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ErrorFileSource> ErrorFileSource::FromValue(const base::Value& value) {
-  ErrorFileSource out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6470,8 +5977,8 @@ LoadError::LoadError()
  {}
 
 LoadError::~LoadError() = default;
-LoadError::LoadError(LoadError&& rhs) = default;
-LoadError& LoadError::operator=(LoadError&& rhs) = default;
+LoadError::LoadError(LoadError&& rhs) noexcept = default;
+LoadError& LoadError::operator=(LoadError&& rhs) noexcept = default;
 LoadError LoadError::Clone() const {
   LoadError out;
   out.error = error;
@@ -6550,34 +6057,21 @@ bool LoadError::Populate(
 }
 
 // static
-std::unique_ptr<LoadError> LoadError::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LoadError>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LoadError> LoadError::FromValue(const base::Value::Dict& value) {
+  LoadError out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LoadError> LoadError::FromValue(const base::Value::Dict& value) {
+std::optional<LoadError> LoadError::FromValue(const base::Value& value) {
   LoadError out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LoadError> LoadError::FromValue(const base::Value& value) {
-  LoadError out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6604,8 +6098,8 @@ RequestFileSourceProperties::RequestFileSourceProperties()
  {}
 
 RequestFileSourceProperties::~RequestFileSourceProperties() = default;
-RequestFileSourceProperties::RequestFileSourceProperties(RequestFileSourceProperties&& rhs) = default;
-RequestFileSourceProperties& RequestFileSourceProperties::operator=(RequestFileSourceProperties&& rhs) = default;
+RequestFileSourceProperties::RequestFileSourceProperties(RequestFileSourceProperties&& rhs) noexcept = default;
+RequestFileSourceProperties& RequestFileSourceProperties::operator=(RequestFileSourceProperties&& rhs) noexcept = default;
 RequestFileSourceProperties RequestFileSourceProperties::Clone() const {
   RequestFileSourceProperties out;
   out.extension_id = extension_id;
@@ -6661,7 +6155,7 @@ bool RequestFileSourceProperties::Populate(
     {
       auto* temp = (*manifest_key_value).GetIfString();
       if (!temp) {
-        out.manifest_key = absl::nullopt;
+        out.manifest_key = std::nullopt;
         return false;
       }
       out.manifest_key = *temp;
@@ -6673,7 +6167,7 @@ bool RequestFileSourceProperties::Populate(
     {
       auto* temp = (*manifest_specific_value).GetIfString();
       if (!temp) {
-        out.manifest_specific = absl::nullopt;
+        out.manifest_specific = std::nullopt;
         return false;
       }
       out.manifest_specific = *temp;
@@ -6685,7 +6179,7 @@ bool RequestFileSourceProperties::Populate(
     {
       auto temp = (*line_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.line_number = absl::nullopt;
+        out.line_number = std::nullopt;
         return false;
       }
       out.line_number = *temp;
@@ -6705,34 +6199,21 @@ bool RequestFileSourceProperties::Populate(
 }
 
 // static
-std::unique_ptr<RequestFileSourceProperties> RequestFileSourceProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestFileSourceProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestFileSourceProperties> RequestFileSourceProperties::FromValue(const base::Value::Dict& value) {
+  RequestFileSourceProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestFileSourceProperties> RequestFileSourceProperties::FromValue(const base::Value::Dict& value) {
+std::optional<RequestFileSourceProperties> RequestFileSourceProperties::FromValue(const base::Value& value) {
   RequestFileSourceProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestFileSourceProperties> RequestFileSourceProperties::FromValue(const base::Value& value) {
-  RequestFileSourceProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6767,8 +6248,8 @@ RequestFileSourceResponse::RequestFileSourceResponse()
  {}
 
 RequestFileSourceResponse::~RequestFileSourceResponse() = default;
-RequestFileSourceResponse::RequestFileSourceResponse(RequestFileSourceResponse&& rhs) = default;
-RequestFileSourceResponse& RequestFileSourceResponse::operator=(RequestFileSourceResponse&& rhs) = default;
+RequestFileSourceResponse::RequestFileSourceResponse(RequestFileSourceResponse&& rhs) noexcept = default;
+RequestFileSourceResponse& RequestFileSourceResponse::operator=(RequestFileSourceResponse&& rhs) noexcept = default;
 RequestFileSourceResponse RequestFileSourceResponse::Clone() const {
   RequestFileSourceResponse out;
   out.highlight = highlight;
@@ -6855,34 +6336,21 @@ bool RequestFileSourceResponse::Populate(
 }
 
 // static
-std::unique_ptr<RequestFileSourceResponse> RequestFileSourceResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestFileSourceResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestFileSourceResponse> RequestFileSourceResponse::FromValue(const base::Value::Dict& value) {
+  RequestFileSourceResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestFileSourceResponse> RequestFileSourceResponse::FromValue(const base::Value::Dict& value) {
+std::optional<RequestFileSourceResponse> RequestFileSourceResponse::FromValue(const base::Value& value) {
   RequestFileSourceResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestFileSourceResponse> RequestFileSourceResponse::FromValue(const base::Value& value) {
-  RequestFileSourceResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6910,8 +6378,8 @@ OpenDevToolsProperties::OpenDevToolsProperties()
 render_process_id(0) {}
 
 OpenDevToolsProperties::~OpenDevToolsProperties() = default;
-OpenDevToolsProperties::OpenDevToolsProperties(OpenDevToolsProperties&& rhs) = default;
-OpenDevToolsProperties& OpenDevToolsProperties::operator=(OpenDevToolsProperties&& rhs) = default;
+OpenDevToolsProperties::OpenDevToolsProperties(OpenDevToolsProperties&& rhs) noexcept = default;
+OpenDevToolsProperties& OpenDevToolsProperties::operator=(OpenDevToolsProperties&& rhs) noexcept = default;
 OpenDevToolsProperties OpenDevToolsProperties::Clone() const {
   OpenDevToolsProperties out;
   out.extension_id = extension_id;
@@ -6933,7 +6401,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -6969,7 +6437,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto temp = (*is_service_worker_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_service_worker = absl::nullopt;
+        out.is_service_worker = std::nullopt;
         return false;
       }
       out.is_service_worker = *temp;
@@ -6981,7 +6449,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto temp = (*incognito_value).GetIfBool();
       if (!temp.has_value()) {
-        out.incognito = absl::nullopt;
+        out.incognito = std::nullopt;
         return false;
       }
       out.incognito = *temp;
@@ -6993,7 +6461,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -7005,7 +6473,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto temp = (*line_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.line_number = absl::nullopt;
+        out.line_number = std::nullopt;
         return false;
       }
       out.line_number = *temp;
@@ -7017,7 +6485,7 @@ bool OpenDevToolsProperties::Populate(
     {
       auto temp = (*column_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.column_number = absl::nullopt;
+        out.column_number = std::nullopt;
         return false;
       }
       out.column_number = *temp;
@@ -7037,34 +6505,21 @@ bool OpenDevToolsProperties::Populate(
 }
 
 // static
-std::unique_ptr<OpenDevToolsProperties> OpenDevToolsProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenDevToolsProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenDevToolsProperties> OpenDevToolsProperties::FromValue(const base::Value::Dict& value) {
+  OpenDevToolsProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenDevToolsProperties> OpenDevToolsProperties::FromValue(const base::Value::Dict& value) {
+std::optional<OpenDevToolsProperties> OpenDevToolsProperties::FromValue(const base::Value& value) {
   OpenDevToolsProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenDevToolsProperties> OpenDevToolsProperties::FromValue(const base::Value& value) {
-  OpenDevToolsProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7109,8 +6564,8 @@ DeleteExtensionErrorsProperties::DeleteExtensionErrorsProperties()
 : type() {}
 
 DeleteExtensionErrorsProperties::~DeleteExtensionErrorsProperties() = default;
-DeleteExtensionErrorsProperties::DeleteExtensionErrorsProperties(DeleteExtensionErrorsProperties&& rhs) = default;
-DeleteExtensionErrorsProperties& DeleteExtensionErrorsProperties::operator=(DeleteExtensionErrorsProperties&& rhs) = default;
+DeleteExtensionErrorsProperties::DeleteExtensionErrorsProperties(DeleteExtensionErrorsProperties&& rhs) noexcept = default;
+DeleteExtensionErrorsProperties& DeleteExtensionErrorsProperties::operator=(DeleteExtensionErrorsProperties&& rhs) noexcept = default;
 DeleteExtensionErrorsProperties DeleteExtensionErrorsProperties::Clone() const {
   DeleteExtensionErrorsProperties out;
   out.extension_id = extension_id;
@@ -7178,34 +6633,21 @@ bool DeleteExtensionErrorsProperties::Populate(
 }
 
 // static
-std::unique_ptr<DeleteExtensionErrorsProperties> DeleteExtensionErrorsProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeleteExtensionErrorsProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeleteExtensionErrorsProperties> DeleteExtensionErrorsProperties::FromValue(const base::Value::Dict& value) {
+  DeleteExtensionErrorsProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeleteExtensionErrorsProperties> DeleteExtensionErrorsProperties::FromValue(const base::Value::Dict& value) {
+std::optional<DeleteExtensionErrorsProperties> DeleteExtensionErrorsProperties::FromValue(const base::Value& value) {
   DeleteExtensionErrorsProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeleteExtensionErrorsProperties> DeleteExtensionErrorsProperties::FromValue(const base::Value& value) {
-  DeleteExtensionErrorsProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7246,13 +6688,13 @@ namespace GetExtensionsInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7261,12 +6703,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetExtensionsInfoOptions temp;
         if (!GetExtensionsInfoOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -7289,13 +6731,13 @@ namespace GetExtensionInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7305,13 +6747,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7331,13 +6773,13 @@ namespace GetExtensionSize {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7347,13 +6789,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7384,13 +6826,13 @@ namespace UpdateProfileConfiguration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7399,15 +6841,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& update_value = args[0];
     {
       if (!update_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ProfileConfigurationUpdate::Populate(update_value.GetDict(), params.update)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7425,13 +6867,13 @@ namespace Reload {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7441,13 +6883,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -7455,12 +6897,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ReloadOptions temp;
         if (!ReloadOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -7483,13 +6925,13 @@ namespace UpdateExtensionConfiguration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7498,15 +6940,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& update_value = args[0];
     {
       if (!update_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ExtensionConfigurationUpdate::Populate(update_value.GetDict(), params.update)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7524,13 +6966,13 @@ namespace LoadUnpacked {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7539,12 +6981,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         LoadUnpackedOptions temp;
         if (!LoadUnpackedOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -7582,8 +7024,8 @@ Params::Directory::Directory()
  {}
 
 Params::Directory::~Directory() = default;
-Params::Directory::Directory(Directory&& rhs) = default;
-Params::Directory& Params::Directory::operator=(Directory&& rhs) = default;
+Params::Directory::Directory(Directory&& rhs) noexcept = default;
+Params::Directory& Params::Directory::operator=(Directory&& rhs) noexcept = default;
 Params::Directory Params::Directory::Clone() const {
   Directory out;
   return out;
@@ -7606,21 +7048,21 @@ bool Params::Directory::Populate(
 }
 
 // static
-absl::optional<Params::Directory> Params::Directory::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Directory> Params::Directory::FromValue(const base::Value::Dict& value) {
   Directory out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Directory> Params::Directory::FromValue(const base::Value& value) {
+std::optional<Params::Directory> Params::Directory::FromValue(const base::Value& value) {
   Directory out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7628,13 +7070,13 @@ absl::optional<Params::Directory> Params::Directory::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7643,15 +7085,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& directory_value = args[0];
     {
       if (!directory_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Directory::Populate(directory_value.GetDict(), params.directory)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7671,13 +7113,13 @@ namespace ChoosePath {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7687,16 +7129,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* select_type_as_string = select_type_value.GetIfString();
       if (!select_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.select_type = ParseSelectType(*select_type_as_string);
       if (params.select_type == SelectType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -7705,16 +7147,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* file_type_as_string = file_type_value.GetIfString();
       if (!file_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.file_type = ParseFileType(*file_type_as_string);
       if (params.file_type == FileType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7734,13 +7176,13 @@ namespace PackDirectory {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7750,13 +7192,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = path_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -7765,8 +7207,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = private_key_path_value.GetIfString();
       if (!temp) {
-        params.private_key_path = absl::nullopt;
-        return absl::nullopt;
+        params.private_key_path = std::nullopt;
+        return std::nullopt;
       }
       params.private_key_path = *temp;
     }
@@ -7778,8 +7220,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = flags_value.GetIfInt();
       if (!temp.has_value()) {
-        params.flags = absl::nullopt;
-        return absl::nullopt;
+        params.flags = std::nullopt;
+        return std::nullopt;
       }
       params.flags = *temp;
     }
@@ -7813,13 +7255,13 @@ namespace RequestFileSource {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7828,15 +7270,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestFileSourceProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7856,13 +7298,13 @@ namespace OpenDevTools {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7871,15 +7313,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OpenDevToolsProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7897,13 +7339,13 @@ namespace DeleteExtensionErrors {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7912,15 +7354,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DeleteExtensionErrorsProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7938,13 +7380,13 @@ namespace RepairExtension {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7954,13 +7396,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -7978,13 +7420,13 @@ namespace ShowOptions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -7994,13 +7436,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8018,13 +7460,13 @@ namespace ShowPath {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8034,13 +7476,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8058,13 +7500,13 @@ namespace SetShortcutHandlingSuspended {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8074,13 +7516,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = is_suspended_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.is_suspended = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8098,13 +7540,13 @@ namespace UpdateExtensionCommand {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8113,15 +7555,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& update_value = args[0];
     {
       if (!update_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ExtensionCommandUpdate::Populate(update_value.GetDict(), params.update)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8139,13 +7581,13 @@ namespace AddHostPermission {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8155,13 +7597,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -8170,13 +7612,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = host_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.host = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8194,13 +7636,13 @@ namespace RemoveHostPermission {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8210,13 +7652,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -8225,13 +7667,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = host_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.host = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8260,13 +7702,13 @@ namespace AddUserSpecifiedSites {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8275,15 +7717,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UserSiteSettingsOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8301,13 +7743,13 @@ namespace RemoveUserSpecifiedSites {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8316,15 +7758,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UserSiteSettingsOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8353,13 +7795,13 @@ namespace GetMatchingExtensionsForSite {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8369,13 +7811,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = site_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.site = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8395,13 +7837,13 @@ namespace UpdateSiteAccess {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8411,13 +7853,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = site_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.site = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -8425,17 +7867,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& updates_value = args[1];
     {
       if (!updates_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(updates_value.GetList(), params.updates)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -8453,13 +7895,13 @@ namespace RemoveMultipleExtensions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -8468,17 +7910,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& extension_ids_value = args[0];
     {
       if (!extension_ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), params.extension_ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

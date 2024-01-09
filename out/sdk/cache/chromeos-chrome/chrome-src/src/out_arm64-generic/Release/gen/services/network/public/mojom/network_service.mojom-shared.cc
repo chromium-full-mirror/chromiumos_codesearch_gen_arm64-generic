@@ -228,6 +228,11 @@ bool NetworkServiceParams_Data::Validate(
     return false;
   }
 
+
+  if (!::network::mojom::internal::IpProtectionProxyBypassPolicy_Data
+        ::Validate(object->ip_protection_proxy_bypass_policy, validation_context))
+    return false;
+
   return true;
 }
 
@@ -934,40 +939,6 @@ NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data::NetworkService_On
 
 
 // static
-bool NetworkService_SetEnvironment_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const NetworkService_SetEnvironment_Params_Data* object =
-      static_cast<const NetworkService_SetEnvironment_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->environment, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& environment_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->environment, validation_context,
-                                         &environment_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-NetworkService_SetEnvironment_Params_Data::NetworkService_SetEnvironment_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool NetworkService_SetTrustTokenKeyCommitments_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1084,7 +1055,7 @@ bool NetworkService_UpdateCtLogList_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -1103,13 +1074,6 @@ bool NetworkService_UpdateCtLogList_Params_Data::Validate(
                                          &log_list_validate_params)) {
     return false;
   }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->update_time, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->update_time, validation_context))
-    return false;
 
   return true;
 }
@@ -1517,6 +1481,38 @@ bool NetworkService_SetIPv6ReachabilityOverride_Params_Data::Validate(
 }
 
 NetworkService_SetIPv6ReachabilityOverride_Params_Data::NetworkService_SetIPv6ReachabilityOverride_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NetworkService_SetCookieEncryptionProvider_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkService_SetCookieEncryptionProvider_Params_Data* object =
+      static_cast<const NetworkService_SetCookieEncryptionProvider_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->provider, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->provider,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+NetworkService_SetCookieEncryptionProvider_Params_Data::NetworkService_SetCookieEncryptionProvider_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

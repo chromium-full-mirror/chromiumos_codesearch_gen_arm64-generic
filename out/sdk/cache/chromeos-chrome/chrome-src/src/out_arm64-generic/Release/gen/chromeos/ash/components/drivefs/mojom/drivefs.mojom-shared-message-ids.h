@@ -67,6 +67,7 @@ constexpr uint32_t kDriveFsDelegate_GetMachineRootID_Name = 13;
 constexpr uint32_t kDriveFsDelegate_PersistMachineRootID_Name = 14;
 constexpr uint32_t kDriveFsDelegate_OnMirrorSyncingStatusUpdate_Name = 15;
 constexpr uint32_t kDriveFsDelegate_OnItemProgress_Name = 16;
+constexpr uint32_t kDriveFsDelegate_GetAccessTokenWithExpiry_Name = 17;
 constexpr uint32_t kSearchQuery_GetNextPage_Name = 0;
 constexpr uint32_t kHttpDelegate_GetRequestBody_Name = 0;
 constexpr uint32_t kHttpDelegate_OnReceiveResponse_Name = 1;

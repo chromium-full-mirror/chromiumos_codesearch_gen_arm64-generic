@@ -177,63 +177,6 @@ IndexedDBControl_BindIndexedDB_Params_Data::IndexedDBControl_BindIndexedDB_Param
 
 
 // static
-bool IndexedDBControl_GetUsage_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControl_GetUsage_Params_Data* object =
-      static_cast<const IndexedDBControl_GetUsage_Params_Data*>(data);
-
-  return true;
-}
-
-IndexedDBControl_GetUsage_Params_Data::IndexedDBControl_GetUsage_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControl_GetUsage_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControl_GetUsage_ResponseParams_Data* object =
-      static_cast<const IndexedDBControl_GetUsage_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->info, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& info_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->info, validation_context,
-                                         &info_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-IndexedDBControl_GetUsage_ResponseParams_Data::IndexedDBControl_GetUsage_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool IndexedDBControl_DeleteForStorageKey_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -341,59 +284,6 @@ bool IndexedDBControl_ForceClose_ResponseParams_Data::Validate(
 }
 
 IndexedDBControl_ForceClose_ResponseParams_Data::IndexedDBControl_ForceClose_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControl_GetConnectionCount_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControl_GetConnectionCount_Params_Data* object =
-      static_cast<const IndexedDBControl_GetConnectionCount_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->bucket_id, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->bucket_id, validation_context))
-    return false;
-
-  return true;
-}
-
-IndexedDBControl_GetConnectionCount_Params_Data::IndexedDBControl_GetConnectionCount_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool IndexedDBControl_GetConnectionCount_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IndexedDBControl_GetConnectionCount_ResponseParams_Data* object =
-      static_cast<const IndexedDBControl_GetConnectionCount_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-IndexedDBControl_GetConnectionCount_ResponseParams_Data::IndexedDBControl_GetConnectionCount_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

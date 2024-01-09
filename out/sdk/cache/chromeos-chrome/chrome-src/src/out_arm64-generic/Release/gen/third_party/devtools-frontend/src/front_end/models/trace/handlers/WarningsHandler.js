@@ -4,6 +4,7 @@
 import * as Platform from '../../../core/platform/platform.js';
 import * as Helpers from '../helpers/helpers.js';
 import * as Types from '../types/types.js';
+import { data as userInteractionsHandlerData } from './UserInteractionsHandler.js';
 const warningsPerEvent = new Map();
 const eventsPerWarning = new Map();
 export const FORCED_LAYOUT_AND_STYLES_THRESHOLD = Helpers.Timing.millisecondsToMicroseconds(Types.Timing.MilliSeconds(10));
@@ -47,6 +48,20 @@ export function handleEvent(event) {
             storeWarning(event, 'FORCED_STYLE');
         }
         return;
+    }
+}
+export function deps() {
+    return ['UserInteractions'];
+}
+export async function finalize() {
+    // These events do exist on the UserInteractionsHandler, but we also put
+    // them into the WarningsHandler so that the warnings handler can be the
+    // source of truth and the way to look up all warnings for a given event.
+    // Otherwise, we would have to look up warnings across multiple handlers for
+    // a given event, which will start to get messy very quickly.
+    const longInteractions = userInteractionsHandlerData().interactionsOverThreshold;
+    for (const interaction of longInteractions) {
+        storeWarning(interaction, 'LONG_INTERACTION');
     }
 }
 export function data() {

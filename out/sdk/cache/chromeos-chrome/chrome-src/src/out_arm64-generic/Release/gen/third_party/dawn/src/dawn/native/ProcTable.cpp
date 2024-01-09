@@ -248,6 +248,20 @@ namespace dawn::native {
         self->APIMapAsync(mode_, offset_, size_, callback_, userdata_);
     }
 
+    WGPUFuture NativeBufferMapAsyncF(WGPUBuffer cSelf, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallbackInfo callbackInfo) {
+        auto self = FromAPI(cSelf);
+
+        auto mode_ = static_cast<wgpu::MapMode>(mode);
+        auto offset_ = offset;
+        auto size_ = size;
+        auto callbackInfo_ = *reinterpret_cast<BufferMapCallbackInfo*>(&callbackInfo);
+        auto device = self->GetDevice();
+        auto deviceLock(device->GetScopedLock());
+
+        auto result =        self->APIMapAsyncF(mode_, offset_, size_, callbackInfo_);
+        return *ToAPI(&result);
+    }
+
     void NativeBufferSetLabel(WGPUBuffer cSelf, char const * label) {
         auto self = FromAPI(cSelf);
 
@@ -1137,6 +1151,26 @@ namespace dawn::native {
         return ToAPI(result);
     }
 
+    size_t NativeInstanceEnumerateWGSLLanguageFeatures(WGPUInstance cSelf, WGPUWGSLFeatureName * features) {
+        auto self = FromAPI(cSelf);
+
+        auto features_ = reinterpret_cast<wgpu::WGSLFeatureName * >(features);
+        // This method is specified to not use AutoLock in json script.
+
+        auto result =        self->APIEnumerateWGSLLanguageFeatures(features_);
+        return result;
+    }
+
+    WGPUBool NativeInstanceHasWGSLLanguageFeature(WGPUInstance cSelf, WGPUWGSLFeatureName feature) {
+        auto self = FromAPI(cSelf);
+
+        auto feature_ = static_cast<wgpu::WGSLFeatureName>(feature);
+        // This method is specified to not use AutoLock in json script.
+
+        auto result =        self->APIHasWGSLLanguageFeature(feature_);
+        return result;
+    }
+
     void NativeInstanceProcessEvents(WGPUInstance cSelf) {
         auto self = FromAPI(cSelf);
 
@@ -1154,6 +1188,17 @@ namespace dawn::native {
         // This method is specified to not use AutoLock in json script.
 
         self->APIRequestAdapter(options_, callback_, userdata_);
+    }
+
+    WGPUFuture NativeInstanceRequestAdapterF(WGPUInstance cSelf, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallbackInfo callbackInfo) {
+        auto self = FromAPI(cSelf);
+
+        auto options_ = reinterpret_cast<RequestAdapterOptions const * >(options);
+        auto callbackInfo_ = *reinterpret_cast<RequestAdapterCallbackInfo*>(&callbackInfo);
+        // This method is specified to not use AutoLock in json script.
+
+        auto result =        self->APIRequestAdapterF(options_, callbackInfo_);
+        return *ToAPI(&result);
     }
 
     WGPUWaitStatus NativeInstanceWaitAny(WGPUInstance cSelf, size_t futureCount, WGPUFutureWaitInfo * futures, uint64_t timeoutNS) {
@@ -1963,6 +2008,16 @@ namespace dawn::native {
         self->APIGetProperties(properties_);
     }
 
+    WGPUBool NativeSharedTextureMemoryIsDeviceLost(WGPUSharedTextureMemory cSelf) {
+        auto self = FromAPI(cSelf);
+
+        auto device = self->GetDevice();
+        auto deviceLock(device->GetScopedLock());
+
+        auto result =        self->APIIsDeviceLost();
+        return result;
+    }
+
     void NativeSharedTextureMemorySetLabel(WGPUSharedTextureMemory cSelf, char const * label) {
         auto self = FromAPI(cSelf);
 
@@ -2206,6 +2261,10 @@ namespace dawn::native {
         auto value_ = value;
         APIAdapterPropertiesFreeMembers(value_);
     }
+    void NativeAdapterPropertiesMemoryHeapsFreeMembers(WGPUAdapterPropertiesMemoryHeaps value) {
+        auto value_ = value;
+        APIAdapterPropertiesMemoryHeapsFreeMembers(value_);
+    }
     WGPUInstance NativeCreateInstance(WGPUInstanceDescriptor const * descriptor) {
         auto descriptor_ = reinterpret_cast<InstanceDescriptor const * >(descriptor);
         auto result =        APICreateInstance(descriptor_);
@@ -2250,6 +2309,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeBufferGetSize), "wgpuBufferGetSize" },
             { reinterpret_cast<WGPUProc>(NativeBufferGetUsage), "wgpuBufferGetUsage" },
             { reinterpret_cast<WGPUProc>(NativeBufferMapAsync), "wgpuBufferMapAsync" },
+            { reinterpret_cast<WGPUProc>(NativeBufferMapAsyncF), "wgpuBufferMapAsyncF" },
             { reinterpret_cast<WGPUProc>(NativeBufferReference), "wgpuBufferReference" },
             { reinterpret_cast<WGPUProc>(NativeBufferRelease), "wgpuBufferRelease" },
             { reinterpret_cast<WGPUProc>(NativeBufferSetLabel), "wgpuBufferSetLabel" },
@@ -2339,10 +2399,13 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeExternalTextureRelease), "wgpuExternalTextureRelease" },
             { reinterpret_cast<WGPUProc>(NativeExternalTextureSetLabel), "wgpuExternalTextureSetLabel" },
             { reinterpret_cast<WGPUProc>(NativeInstanceCreateSurface), "wgpuInstanceCreateSurface" },
+            { reinterpret_cast<WGPUProc>(NativeInstanceEnumerateWGSLLanguageFeatures), "wgpuInstanceEnumerateWGSLLanguageFeatures" },
+            { reinterpret_cast<WGPUProc>(NativeInstanceHasWGSLLanguageFeature), "wgpuInstanceHasWGSLLanguageFeature" },
             { reinterpret_cast<WGPUProc>(NativeInstanceProcessEvents), "wgpuInstanceProcessEvents" },
             { reinterpret_cast<WGPUProc>(NativeInstanceReference), "wgpuInstanceReference" },
             { reinterpret_cast<WGPUProc>(NativeInstanceRelease), "wgpuInstanceRelease" },
             { reinterpret_cast<WGPUProc>(NativeInstanceRequestAdapter), "wgpuInstanceRequestAdapter" },
+            { reinterpret_cast<WGPUProc>(NativeInstanceRequestAdapterF), "wgpuInstanceRequestAdapterF" },
             { reinterpret_cast<WGPUProc>(NativeInstanceWaitAny), "wgpuInstanceWaitAny" },
             { reinterpret_cast<WGPUProc>(NativePipelineLayoutReference), "wgpuPipelineLayoutReference" },
             { reinterpret_cast<WGPUProc>(NativePipelineLayoutRelease), "wgpuPipelineLayoutRelease" },
@@ -2423,6 +2486,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryCreateTexture), "wgpuSharedTextureMemoryCreateTexture" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryEndAccess), "wgpuSharedTextureMemoryEndAccess" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryGetProperties), "wgpuSharedTextureMemoryGetProperties" },
+            { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryIsDeviceLost), "wgpuSharedTextureMemoryIsDeviceLost" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryReference), "wgpuSharedTextureMemoryReference" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryRelease), "wgpuSharedTextureMemoryRelease" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemorySetLabel), "wgpuSharedTextureMemorySetLabel" },
@@ -2475,6 +2539,10 @@ namespace dawn::native {
             return reinterpret_cast<WGPUProc>(NativeAdapterPropertiesFreeMembers);
         }
 
+        if (strcmp(procName, "wgpuAdapterPropertiesMemoryHeapsFreeMembers") == 0) {
+            return reinterpret_cast<WGPUProc>(NativeAdapterPropertiesMemoryHeapsFreeMembers);
+        }
+
         if (strcmp(procName, "wgpuCreateInstance") == 0) {
             return reinterpret_cast<WGPUProc>(NativeCreateInstance);
         }
@@ -2516,6 +2584,7 @@ namespace dawn::native {
     static DawnProcTable gProcTable = MakeProcTable(
         /* unused */ 0
         , std::make_pair(&DawnProcTable::adapterPropertiesFreeMembers, NativeAdapterPropertiesFreeMembers)
+        , std::make_pair(&DawnProcTable::adapterPropertiesMemoryHeapsFreeMembers, NativeAdapterPropertiesMemoryHeapsFreeMembers)
         , std::make_pair(&DawnProcTable::createInstance, NativeCreateInstance)
         , std::make_pair(&DawnProcTable::getInstanceFeatures, NativeGetInstanceFeatures)
         , std::make_pair(&DawnProcTable::getProcAddress, NativeGetProcAddress)
@@ -2542,6 +2611,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::bufferGetSize, NativeBufferGetSize)
         , std::make_pair(&DawnProcTable::bufferGetUsage, NativeBufferGetUsage)
         , std::make_pair(&DawnProcTable::bufferMapAsync, NativeBufferMapAsync)
+        , std::make_pair(&DawnProcTable::bufferMapAsyncF, NativeBufferMapAsyncF)
         , std::make_pair(&DawnProcTable::bufferSetLabel, NativeBufferSetLabel)
         , std::make_pair(&DawnProcTable::bufferUnmap, NativeBufferUnmap)
         , std::make_pair(&DawnProcTable::bufferReference, NativeBufferReference)
@@ -2631,8 +2701,11 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::externalTextureReference, NativeExternalTextureReference)
         , std::make_pair(&DawnProcTable::externalTextureRelease, NativeExternalTextureRelease)
         , std::make_pair(&DawnProcTable::instanceCreateSurface, NativeInstanceCreateSurface)
+        , std::make_pair(&DawnProcTable::instanceEnumerateWGSLLanguageFeatures, NativeInstanceEnumerateWGSLLanguageFeatures)
+        , std::make_pair(&DawnProcTable::instanceHasWGSLLanguageFeature, NativeInstanceHasWGSLLanguageFeature)
         , std::make_pair(&DawnProcTable::instanceProcessEvents, NativeInstanceProcessEvents)
         , std::make_pair(&DawnProcTable::instanceRequestAdapter, NativeInstanceRequestAdapter)
+        , std::make_pair(&DawnProcTable::instanceRequestAdapterF, NativeInstanceRequestAdapterF)
         , std::make_pair(&DawnProcTable::instanceWaitAny, NativeInstanceWaitAny)
         , std::make_pair(&DawnProcTable::instanceReference, NativeInstanceReference)
         , std::make_pair(&DawnProcTable::instanceRelease, NativeInstanceRelease)
@@ -2715,6 +2788,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::sharedTextureMemoryCreateTexture, NativeSharedTextureMemoryCreateTexture)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryEndAccess, NativeSharedTextureMemoryEndAccess)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryGetProperties, NativeSharedTextureMemoryGetProperties)
+        , std::make_pair(&DawnProcTable::sharedTextureMemoryIsDeviceLost, NativeSharedTextureMemoryIsDeviceLost)
         , std::make_pair(&DawnProcTable::sharedTextureMemorySetLabel, NativeSharedTextureMemorySetLabel)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryReference, NativeSharedTextureMemoryReference)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryRelease, NativeSharedTextureMemoryRelease)

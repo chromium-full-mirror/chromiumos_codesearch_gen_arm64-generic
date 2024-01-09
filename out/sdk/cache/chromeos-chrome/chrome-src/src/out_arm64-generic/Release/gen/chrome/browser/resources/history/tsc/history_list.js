@@ -8,11 +8,11 @@ import 'chrome://resources/polymer/v3_0/iron-scroll-threshold/iron-scroll-thresh
 import './shared_style.css.js';
 import './history_item.js';
 import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
-import { assert } from 'chrome://resources/js/assert.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { getDeepActiveElement } from 'chrome://resources/js/util_ts.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { getDeepActiveElement } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { BrowserServiceImpl } from './browser_service.js';
 import { BROWSING_GAP_TIME } from './constants.js';

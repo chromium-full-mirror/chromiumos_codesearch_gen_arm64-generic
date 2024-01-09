@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MIDIOutput>::value,
     "MIDIOutput does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MIDIOutput::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIOutput is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutput* blink_receiver = V8MIDIOutput::ToWrappableUnsafe(v8_receiver);
+MIDIOutput* blink_receiver = V8MIDIOutput::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<NotShared<DOMUint8Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -141,7 +136,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutput* blink_receiver = V8MIDIOutput::ToWrappableUnsafe(v8_receiver);
+MIDIOutput* blink_receiver = V8MIDIOutput::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<IDLSequence<IDLUnsignedLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

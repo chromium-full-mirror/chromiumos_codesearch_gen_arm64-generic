@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void TabletModeMonitorProxy::Update(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTabletModeMonitor_Update_Name, kFlags, 0, 0, nullptr);
@@ -190,10 +194,10 @@ bool TabletModeMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTabletModeMonitorValidationInfo[] = {
-    {&internal::TabletModeMonitor_Update_Params_Data::Validate,
+    { &internal::TabletModeMonitor_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -273,14 +277,17 @@ void ScreenStateMonitorProxy::Update(
                         "<value of type ScreenState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenStateMonitor_Update_Name, kFlags, 0, 0, nullptr);
@@ -350,10 +357,10 @@ bool ScreenStateMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenStateMonitorValidationInfo[] = {
-    {&internal::ScreenStateMonitor_Update_Params_Data::Validate,
+    { &internal::ScreenStateMonitor_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -433,14 +440,17 @@ void ExternalScreenMonitorProxy::Update(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kExternalScreenMonitor_Update_Name, kFlags, 0, 0, nullptr);
@@ -509,10 +519,10 @@ bool ExternalScreenMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kExternalScreenMonitorValidationInfo[] = {
-    {&internal::ExternalScreenMonitor_Update_Params_Data::Validate,
+    { &internal::ExternalScreenMonitor_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -608,14 +618,17 @@ void CameraUsageOwnershipMonitorProxy::OnCameraUsageOwnershipChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_Name, kFlags, 0, 0, nullptr);
@@ -715,7 +728,8 @@ void CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_Name, kFlags, 0, 0, nullptr);
@@ -794,10 +808,10 @@ std::move(p_has_usage), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraUsageOwnershipMonitorValidationInfo[] = {
-    {&internal::CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_Params_Data::Validate,
+    { &internal::CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_Params_Data::Validate,
      &internal::CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ResponseParams_Data::Validate},
 };
 
@@ -901,14 +915,17 @@ void WindowStateMonitorProxy::OnWindowStateChanged(
                         "<value of type const std::vector<WindowStateType>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateMonitor_OnWindowStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -951,14 +968,17 @@ void WindowStateMonitorProxy::OnWindowFocusChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateMonitor_OnWindowFocusChanged_Name, kFlags, 0, 0, nullptr);
@@ -1056,12 +1076,12 @@ bool WindowStateMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWindowStateMonitorValidationInfo[] = {
-    {&internal::WindowStateMonitor_OnWindowStateChanged_Params_Data::Validate,
+    { &internal::WindowStateMonitor_OnWindowStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WindowStateMonitor_OnWindowFocusChanged_Params_Data::Validate,
+    { &internal::WindowStateMonitor_OnWindowFocusChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1141,14 +1161,17 @@ void StorageMonitorProxy::Update(
                         "<value of type StorageMonitorStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageMonitor_Update_Name, kFlags, 0, 0, nullptr);
@@ -1218,10 +1241,10 @@ bool StorageMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStorageMonitorValidationInfo[] = {
-    {&internal::StorageMonitor_Update_Params_Data::Validate,
+    { &internal::StorageMonitor_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1533,14 +1556,17 @@ void WindowStateControllerProxy::AddMonitor(
                         "<value of type ::mojo::PendingRemote<WindowStateMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_AddMonitor_Name, kFlags, 0, 0, nullptr);
@@ -1570,14 +1596,17 @@ void WindowStateControllerProxy::GetWindowState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::GetWindowState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_GetWindowState_Name, kFlags, 0, 0, nullptr);
@@ -1601,14 +1630,17 @@ void WindowStateControllerProxy::Minimize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::Minimize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Minimize_Name, kFlags, 0, 0, nullptr);
@@ -1632,14 +1664,17 @@ void WindowStateControllerProxy::Restore(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::Restore");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Restore_Name, kFlags, 0, 0, nullptr);
@@ -1663,14 +1698,17 @@ void WindowStateControllerProxy::Maximize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::Maximize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Maximize_Name, kFlags, 0, 0, nullptr);
@@ -1694,14 +1732,17 @@ void WindowStateControllerProxy::Fullscreen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::Fullscreen");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Fullscreen_Name, kFlags, 0, 0, nullptr);
@@ -1725,14 +1766,17 @@ void WindowStateControllerProxy::Focus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::WindowStateController::Focus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Focus_Name, kFlags, 0, 0, nullptr);
@@ -1842,7 +1886,8 @@ void WindowStateController_AddMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_AddMonitor_Name, kFlags, 0, 0, nullptr);
@@ -1972,7 +2017,8 @@ void WindowStateController_GetWindowState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_GetWindowState_Name, kFlags, 0, 0, nullptr);
@@ -2091,7 +2137,8 @@ void WindowStateController_Minimize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Minimize_Name, kFlags, 0, 0, nullptr);
@@ -2197,7 +2244,8 @@ void WindowStateController_Restore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Restore_Name, kFlags, 0, 0, nullptr);
@@ -2303,7 +2351,8 @@ void WindowStateController_Maximize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Maximize_Name, kFlags, 0, 0, nullptr);
@@ -2409,7 +2458,8 @@ void WindowStateController_Fullscreen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Fullscreen_Name, kFlags, 0, 0, nullptr);
@@ -2515,7 +2565,8 @@ void WindowStateController_Focus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWindowStateController_Focus_Name, kFlags, 0, 0, nullptr);
@@ -2764,22 +2815,22 @@ std::move(p_monitor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWindowStateControllerValidationInfo[] = {
-    {&internal::WindowStateController_AddMonitor_Params_Data::Validate,
+    { &internal::WindowStateController_AddMonitor_Params_Data::Validate,
      &internal::WindowStateController_AddMonitor_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_GetWindowState_Params_Data::Validate,
+    { &internal::WindowStateController_GetWindowState_Params_Data::Validate,
      &internal::WindowStateController_GetWindowState_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_Minimize_Params_Data::Validate,
+    { &internal::WindowStateController_Minimize_Params_Data::Validate,
      &internal::WindowStateController_Minimize_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_Restore_Params_Data::Validate,
+    { &internal::WindowStateController_Restore_Params_Data::Validate,
      &internal::WindowStateController_Restore_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_Maximize_Params_Data::Validate,
+    { &internal::WindowStateController_Maximize_Params_Data::Validate,
      &internal::WindowStateController_Maximize_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_Fullscreen_Params_Data::Validate,
+    { &internal::WindowStateController_Fullscreen_Params_Data::Validate,
      &internal::WindowStateController_Fullscreen_ResponseParams_Data::Validate},
-    {&internal::WindowStateController_Focus_Params_Data::Validate,
+    { &internal::WindowStateController_Focus_Params_Data::Validate,
      &internal::WindowStateController_Focus_ResponseParams_Data::Validate},
 };
 
@@ -3553,14 +3604,17 @@ void CameraAppHelperProxy::HandleCameraResult(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_HandleCameraResult_Name, kFlags, 0, 0, nullptr);
@@ -3600,14 +3654,17 @@ void CameraAppHelperProxy::IsTabletMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::IsTabletMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -3638,14 +3695,17 @@ void CameraAppHelperProxy::StartPerfEventTrace(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_StartPerfEventTrace_Name, kFlags, 0, 0, nullptr);
@@ -3686,14 +3746,17 @@ void CameraAppHelperProxy::StopPerfEventTrace(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_StopPerfEventTrace_Name, kFlags, 0, 0, nullptr);
@@ -3734,14 +3797,17 @@ void CameraAppHelperProxy::SetTabletMonitor(
                         "<value of type ::mojo::PendingRemote<TabletModeMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetTabletMonitor_Name, kFlags, 0, 0, nullptr);
@@ -3778,14 +3844,17 @@ void CameraAppHelperProxy::SetScreenStateMonitor(
                         "<value of type ::mojo::PendingRemote<ScreenStateMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetScreenStateMonitor_Name, kFlags, 0, 0, nullptr);
@@ -3815,14 +3884,17 @@ void CameraAppHelperProxy::IsMetricsAndCrashReportingEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::IsMetricsAndCrashReportingEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsMetricsAndCrashReportingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3853,14 +3925,17 @@ void CameraAppHelperProxy::SetExternalScreenMonitor(
                         "<value of type ::mojo::PendingRemote<ExternalScreenMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetExternalScreenMonitor_Name, kFlags, 0, 0, nullptr);
@@ -3897,14 +3972,17 @@ void CameraAppHelperProxy::OpenFileInGallery(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_OpenFileInGallery_Name, kFlags, 0, 0, nullptr);
@@ -3945,14 +4023,17 @@ void CameraAppHelperProxy::OpenFeedbackDialog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -3993,14 +4074,17 @@ void CameraAppHelperProxy::OpenUrlInBrowser(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_OpenUrlInBrowser_Name, kFlags, 0, 0, nullptr);
@@ -4034,14 +4118,17 @@ void CameraAppHelperProxy::GetWindowStateController(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::GetWindowStateController");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_GetWindowStateController_Name, kFlags, 0, 0, nullptr);
@@ -4075,14 +4162,17 @@ void CameraAppHelperProxy::SendNewCaptureBroadcast(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SendNewCaptureBroadcast_Name, kFlags, 0, 0, nullptr);
@@ -4127,14 +4217,17 @@ void CameraAppHelperProxy::NotifyTote(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_NotifyTote_Name, kFlags, 0, 0, nullptr);
@@ -4177,14 +4270,17 @@ void CameraAppHelperProxy::MonitorFileDeletion(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_MonitorFileDeletion_Name, kFlags, 0, 0, nullptr);
@@ -4219,14 +4315,17 @@ void CameraAppHelperProxy::IsDocumentScannerSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::IsDocumentScannerSupported");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsDocumentScannerSupported_Name, kFlags, 0, 0, nullptr);
@@ -4250,14 +4349,17 @@ void CameraAppHelperProxy::CheckDocumentModeReadiness(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::CheckDocumentModeReadiness");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_CheckDocumentModeReadiness_Name, kFlags, 0, 0, nullptr);
@@ -4288,14 +4390,17 @@ void CameraAppHelperProxy::ScanDocumentCorners(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ScanDocumentCorners_Name, kFlags, 0, 0, nullptr);
@@ -4348,14 +4453,17 @@ void CameraAppHelperProxy::ConvertToDocument(
                         "<value of type DocumentOutputFormat>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ConvertToDocument_Name, kFlags, 0, 0, nullptr);
@@ -4416,14 +4524,17 @@ void CameraAppHelperProxy::ConvertToPdf(
                         "<value of type const std::vector<std::vector<uint8_t>>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ConvertToPdf_Name, kFlags, 0, 0, nullptr);
@@ -4460,14 +4571,17 @@ void CameraAppHelperProxy::MaybeTriggerSurvey(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::MaybeTriggerSurvey");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_MaybeTriggerSurvey_Name, kFlags, 0, 0, nullptr);
@@ -4497,14 +4611,17 @@ void CameraAppHelperProxy::StartStorageMonitor(
                         "<value of type ::mojo::PendingRemote<StorageMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_StartStorageMonitor_Name, kFlags, 0, 0, nullptr);
@@ -4534,14 +4651,17 @@ void CameraAppHelperProxy::StopStorageMonitor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::StopStorageMonitor");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_StopStorageMonitor_Name, kFlags, 0, 0, nullptr);
@@ -4564,14 +4684,17 @@ void CameraAppHelperProxy::OpenStorageManagement(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::camera_app::mojom::CameraAppHelper::OpenStorageManagement");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_OpenStorageManagement_Name, kFlags, 0, 0, nullptr);
@@ -4680,7 +4803,8 @@ void CameraAppHelper_HandleCameraResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_HandleCameraResult_Name, kFlags, 0, 0, nullptr);
@@ -4798,7 +4922,8 @@ void CameraAppHelper_IsTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -4916,7 +5041,8 @@ void CameraAppHelper_SetTabletMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetTabletMonitor_Name, kFlags, 0, 0, nullptr);
@@ -5034,7 +5160,8 @@ void CameraAppHelper_SetScreenStateMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetScreenStateMonitor_Name, kFlags, 0, 0, nullptr);
@@ -5153,7 +5280,8 @@ void CameraAppHelper_IsMetricsAndCrashReportingEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsMetricsAndCrashReportingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -5271,7 +5399,8 @@ void CameraAppHelper_SetExternalScreenMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_SetExternalScreenMonitor_Name, kFlags, 0, 0, nullptr);
@@ -5391,7 +5520,8 @@ void CameraAppHelper_GetWindowStateController_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_GetWindowStateController_Name, kFlags, 0, 0, nullptr);
@@ -5514,7 +5644,8 @@ void CameraAppHelper_MonitorFileDeletion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_MonitorFileDeletion_Name, kFlags, 0, 0, nullptr);
@@ -5633,7 +5764,8 @@ void CameraAppHelper_IsDocumentScannerSupported_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_IsDocumentScannerSupported_Name, kFlags, 0, 0, nullptr);
@@ -5751,7 +5883,8 @@ void CameraAppHelper_CheckDocumentModeReadiness_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_CheckDocumentModeReadiness_Name, kFlags, 0, 0, nullptr);
@@ -5869,7 +6002,8 @@ void CameraAppHelper_ScanDocumentCorners_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ScanDocumentCorners_Name, kFlags, 0, 0, nullptr);
@@ -5999,7 +6133,8 @@ void CameraAppHelper_ConvertToDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ConvertToDocument_Name, kFlags, 0, 0, nullptr);
@@ -6129,7 +6264,8 @@ void CameraAppHelper_ConvertToPdf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_ConvertToPdf_Name, kFlags, 0, 0, nullptr);
@@ -6259,7 +6395,8 @@ void CameraAppHelper_StartStorageMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAppHelper_StartStorageMonitor_Name, kFlags, 0, 0, nullptr);
@@ -7050,56 +7187,56 @@ std::move(p_monitor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraAppHelperValidationInfo[] = {
-    {&internal::CameraAppHelper_HandleCameraResult_Params_Data::Validate,
+    { &internal::CameraAppHelper_HandleCameraResult_Params_Data::Validate,
      &internal::CameraAppHelper_HandleCameraResult_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_IsTabletMode_Params_Data::Validate,
+    { &internal::CameraAppHelper_IsTabletMode_Params_Data::Validate,
      &internal::CameraAppHelper_IsTabletMode_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_StartPerfEventTrace_Params_Data::Validate,
+    { &internal::CameraAppHelper_StartPerfEventTrace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_StopPerfEventTrace_Params_Data::Validate,
+    { &internal::CameraAppHelper_StopPerfEventTrace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_SetTabletMonitor_Params_Data::Validate,
+    { &internal::CameraAppHelper_SetTabletMonitor_Params_Data::Validate,
      &internal::CameraAppHelper_SetTabletMonitor_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_SetScreenStateMonitor_Params_Data::Validate,
+    { &internal::CameraAppHelper_SetScreenStateMonitor_Params_Data::Validate,
      &internal::CameraAppHelper_SetScreenStateMonitor_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_IsMetricsAndCrashReportingEnabled_Params_Data::Validate,
+    { &internal::CameraAppHelper_IsMetricsAndCrashReportingEnabled_Params_Data::Validate,
      &internal::CameraAppHelper_IsMetricsAndCrashReportingEnabled_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_SetExternalScreenMonitor_Params_Data::Validate,
+    { &internal::CameraAppHelper_SetExternalScreenMonitor_Params_Data::Validate,
      &internal::CameraAppHelper_SetExternalScreenMonitor_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_OpenFileInGallery_Params_Data::Validate,
+    { &internal::CameraAppHelper_OpenFileInGallery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_OpenFeedbackDialog_Params_Data::Validate,
+    { &internal::CameraAppHelper_OpenFeedbackDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_OpenUrlInBrowser_Params_Data::Validate,
+    { &internal::CameraAppHelper_OpenUrlInBrowser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_GetWindowStateController_Params_Data::Validate,
+    { &internal::CameraAppHelper_GetWindowStateController_Params_Data::Validate,
      &internal::CameraAppHelper_GetWindowStateController_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_SendNewCaptureBroadcast_Params_Data::Validate,
+    { &internal::CameraAppHelper_SendNewCaptureBroadcast_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_NotifyTote_Params_Data::Validate,
+    { &internal::CameraAppHelper_NotifyTote_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_MonitorFileDeletion_Params_Data::Validate,
+    { &internal::CameraAppHelper_MonitorFileDeletion_Params_Data::Validate,
      &internal::CameraAppHelper_MonitorFileDeletion_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_IsDocumentScannerSupported_Params_Data::Validate,
+    { &internal::CameraAppHelper_IsDocumentScannerSupported_Params_Data::Validate,
      &internal::CameraAppHelper_IsDocumentScannerSupported_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_CheckDocumentModeReadiness_Params_Data::Validate,
+    { &internal::CameraAppHelper_CheckDocumentModeReadiness_Params_Data::Validate,
      &internal::CameraAppHelper_CheckDocumentModeReadiness_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_ScanDocumentCorners_Params_Data::Validate,
+    { &internal::CameraAppHelper_ScanDocumentCorners_Params_Data::Validate,
      &internal::CameraAppHelper_ScanDocumentCorners_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_ConvertToDocument_Params_Data::Validate,
+    { &internal::CameraAppHelper_ConvertToDocument_Params_Data::Validate,
      &internal::CameraAppHelper_ConvertToDocument_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_ConvertToPdf_Params_Data::Validate,
+    { &internal::CameraAppHelper_ConvertToPdf_Params_Data::Validate,
      &internal::CameraAppHelper_ConvertToPdf_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_MaybeTriggerSurvey_Params_Data::Validate,
+    { &internal::CameraAppHelper_MaybeTriggerSurvey_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_StartStorageMonitor_Params_Data::Validate,
+    { &internal::CameraAppHelper_StartStorageMonitor_Params_Data::Validate,
      &internal::CameraAppHelper_StartStorageMonitor_ResponseParams_Data::Validate},
-    {&internal::CameraAppHelper_StopStorageMonitor_Params_Data::Validate,
+    { &internal::CameraAppHelper_StopStorageMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAppHelper_OpenStorageManagement_Params_Data::Validate,
+    { &internal::CameraAppHelper_OpenStorageManagement_Params_Data::Validate,
      nullptr /* no response */},
 };
 

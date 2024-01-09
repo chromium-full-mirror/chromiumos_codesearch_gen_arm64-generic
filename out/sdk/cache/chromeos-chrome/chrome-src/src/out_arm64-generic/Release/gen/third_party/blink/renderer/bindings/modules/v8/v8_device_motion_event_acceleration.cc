@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DeviceMotionEventAcceleration>::value,
     "DeviceMotionEventAcceleration inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DeviceMotionEventAcceleration::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DeviceMotionEventAcceleration is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEventAcceleration.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -99,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEventAcceleration.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -113,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEventAcceleration.z.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEventAcceleration* blink_receiver = V8DeviceMotionEventAcceleration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->z();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

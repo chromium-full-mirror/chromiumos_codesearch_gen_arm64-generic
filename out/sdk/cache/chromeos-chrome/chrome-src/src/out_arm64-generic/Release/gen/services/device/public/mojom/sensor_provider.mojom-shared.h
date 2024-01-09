@@ -37,10 +37,6 @@
 namespace device::mojom {
 class SensorInitParamsDataView;
 
-class NullableDoubleDataView;
-
-class NullableReportingModeDataView;
-
 class VirtualSensorMetadataDataView;
 
 class VirtualSensorInformationDataView;
@@ -56,20 +52,6 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::device::mojom::SensorInitParamsDataView> {
   using Data = ::device::mojom::internal::SensorInitParams_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::device::mojom::NullableDoubleDataView> {
-  using Data = ::device::mojom::internal::NullableDouble_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::device::mojom::NullableReportingModeDataView> {
-  using Data = ::device::mojom::internal::NullableReportingMode_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -250,49 +232,6 @@ class SensorInitParamsDataView {
 };
 
 
-class NullableDoubleDataView {
- public:
-  NullableDoubleDataView() = default;
-
-  NullableDoubleDataView(
-      internal::NullableDouble_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  double value() const {
-    return data_->value;
-  }
- private:
-  internal::NullableDouble_Data* data_ = nullptr;
-};
-
-
-class NullableReportingModeDataView {
- public:
-  NullableReportingModeDataView() = default;
-
-  NullableReportingModeDataView(
-      internal::NullableReportingMode_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadValue(UserType* output) const {
-    auto data_value = data_->value;
-    return mojo::internal::Deserialize<::device::mojom::ReportingMode>(
-        data_value, output);
-  }
-  ::device::mojom::ReportingMode value() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::device::mojom::ReportingMode>(data_->value));
-  }
- private:
-  internal::NullableReportingMode_Data* data_ = nullptr;
-};
-
-
 class VirtualSensorMetadataDataView {
  public:
   VirtualSensorMetadataDataView() = default;
@@ -300,75 +239,43 @@ class VirtualSensorMetadataDataView {
   VirtualSensorMetadataDataView(
       internal::VirtualSensorMetadata_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
   bool available() const {
     return data_->available;
   }
-  inline void GetMaximumFrequencyDataView(
-      NullableDoubleDataView* output);
+  std::optional<double> maximum_frequency() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadMaximumFrequency(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::device::mojom::NullableDoubleDataView, UserType>(),
-    "Attempting to read the optional `maximum_frequency` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadMaximumFrequency` instead "
-    "of `ReadMaximumFrequency if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->maximum_frequency.Get();
-    return mojo::internal::Deserialize<::device::mojom::NullableDoubleDataView>(
-        pointer, output, message_);
+    return data_->maximum_frequency_$flag
+        ? absl::make_optional(data_->maximum_frequency_$value)
+        : absl::nullopt;
   }
-  inline void GetMinimumFrequencyDataView(
-      NullableDoubleDataView* output);
+  std::optional<double> minimum_frequency() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadMinimumFrequency(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::device::mojom::NullableDoubleDataView, UserType>(),
-    "Attempting to read the optional `minimum_frequency` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadMinimumFrequency` instead "
-    "of `ReadMinimumFrequency if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->minimum_frequency.Get();
-    return mojo::internal::Deserialize<::device::mojom::NullableDoubleDataView>(
-        pointer, output, message_);
+    return data_->minimum_frequency_$flag
+        ? absl::make_optional(data_->minimum_frequency_$value)
+        : absl::nullopt;
   }
-  inline void GetReportingModeDataView(
-      NullableReportingModeDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadReportingMode(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::device::mojom::NullableReportingModeDataView, UserType>(),
-    "Attempting to read the optional `reporting_mode` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadReportingMode` instead "
-    "of `ReadReportingMode if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->reporting_mode.Get();
-    return mojo::internal::Deserialize<::device::mojom::NullableReportingModeDataView>(
-        pointer, output, message_);
+  [[nodiscard]] bool ReadReportingMode(UserType* output) const {
+    if (!data_->reporting_mode_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::device::mojom::ReportingMode>(
+        data_->reporting_mode_$value, &output->emplace());
+  }
+  std::optional<::device::mojom::ReportingMode> reporting_mode() const {
+    if (!data_->reporting_mode_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::device::mojom::ReportingMode>(data_->reporting_mode_$value));
   }
  private:
   internal::VirtualSensorMetadata_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -620,67 +527,6 @@ struct Serializer<::device::mojom::SensorInitParamsDataView, MaybeConstUserType>
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::device::mojom::NullableDoubleDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::device::mojom::NullableDoubleDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::device::mojom::internal::NullableDouble_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    fragment->value = Traits::value(input);
-  }
-
-  static bool Deserialize(::device::mojom::internal::NullableDouble_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::device::mojom::NullableDoubleDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::device::mojom::NullableReportingModeDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::device::mojom::NullableReportingModeDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::device::mojom::internal::NullableReportingMode_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    mojo::internal::Serialize<::device::mojom::ReportingMode>(
-        Traits::value(input), &fragment->value);
-  }
-
-  static bool Deserialize(::device::mojom::internal::NullableReportingMode_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::device::mojom::NullableReportingModeDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::device::mojom::VirtualSensorMetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::device::mojom::VirtualSensorMetadataDataView, UserType>;
@@ -692,30 +538,22 @@ struct Serializer<::device::mojom::VirtualSensorMetadataDataView, MaybeConstUser
       return;
     fragment.Allocate();
     fragment->available = Traits::available(input);
-    decltype(Traits::maximum_frequency(input)) in_maximum_frequency = Traits::maximum_frequency(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->maximum_frequency)::BaseType> maximum_frequency_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::device::mojom::NullableDoubleDataView>(
-        in_maximum_frequency, maximum_frequency_fragment);
-    fragment->maximum_frequency.Set(
-        maximum_frequency_fragment.is_null() ? nullptr : maximum_frequency_fragment.data());
-    decltype(Traits::minimum_frequency(input)) in_minimum_frequency = Traits::minimum_frequency(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->minimum_frequency)::BaseType> minimum_frequency_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::device::mojom::NullableDoubleDataView>(
-        in_minimum_frequency, minimum_frequency_fragment);
-    fragment->minimum_frequency.Set(
-        minimum_frequency_fragment.is_null() ? nullptr : minimum_frequency_fragment.data());
-    decltype(Traits::reporting_mode(input)) in_reporting_mode = Traits::reporting_mode(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->reporting_mode)::BaseType> reporting_mode_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::device::mojom::NullableReportingModeDataView>(
-        in_reporting_mode, reporting_mode_fragment);
-    fragment->reporting_mode.Set(
-        reporting_mode_fragment.is_null() ? nullptr : reporting_mode_fragment.data());
+    fragment->maximum_frequency_$flag = Traits::maximum_frequency(input).has_value();
+    if (Traits::maximum_frequency(input).has_value()) {
+      fragment->maximum_frequency_$value = Traits::maximum_frequency(input).value();
+    }
+    fragment->minimum_frequency_$flag = Traits::minimum_frequency(input).has_value();
+    if (Traits::minimum_frequency(input).has_value()) {
+      fragment->minimum_frequency_$value = Traits::minimum_frequency(input).value();
+    }
+    fragment->reporting_mode_$flag = Traits::reporting_mode(input).has_value();
+    if (Traits::reporting_mode(input).has_value()) {
+      mojo::internal::Serialize<::device::mojom::ReportingMode>(
+          Traits::reporting_mode(input).value(), &fragment->reporting_mode_$value);
+    } else {
+      fragment->reporting_mode_$value =
+          static_cast<int32_t>(::device::mojom::ReportingMode::kMinValue);
+    }
   }
 
   static bool Deserialize(::device::mojom::internal::VirtualSensorMetadata_Data* input,
@@ -842,25 +680,6 @@ inline void SensorInitParamsDataView::GetDefaultConfigurationDataView(
 }
 
 
-
-
-
-
-inline void VirtualSensorMetadataDataView::GetMaximumFrequencyDataView(
-    NullableDoubleDataView* output) {
-  auto pointer = data_->maximum_frequency.Get();
-  *output = NullableDoubleDataView(pointer, message_);
-}
-inline void VirtualSensorMetadataDataView::GetMinimumFrequencyDataView(
-    NullableDoubleDataView* output) {
-  auto pointer = data_->minimum_frequency.Get();
-  *output = NullableDoubleDataView(pointer, message_);
-}
-inline void VirtualSensorMetadataDataView::GetReportingModeDataView(
-    NullableReportingModeDataView* output) {
-  auto pointer = data_->reporting_mode.Get();
-  *output = NullableReportingModeDataView(pointer, message_);
-}
 
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,12 +23,14 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-features.h"
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-shared.h"
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-forward.h"
+#include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
@@ -92,14 +94,14 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletHost
   virtual ~SharedStorageWorkletHost() = default;
 
 
-  using SelectURLCallback = base::OnceCallback<void(bool, const std::string&, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
+  using SelectURLCallback = base::OnceCallback<void(bool, const std::string&, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
   
-  virtual void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, SelectURLCallback callback) = 0;
+  virtual void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, SelectURLCallback callback) = 0;
 
 
   using RunCallback = base::OnceCallback<void(bool, const std::string&)>;
   
-  virtual void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, RunCallback callback) = 0;
+  virtual void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, RunCallback callback) = 0;
 };
 
 class SharedStorageDocumentServiceProxy;
@@ -195,9 +197,9 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletHostProxy
 
   explicit SharedStorageWorkletHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, SelectURLCallback callback) final;
+  void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, SelectURLCallback callback) final;
   
-  void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, RunCallback callback) final;
+  void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, RunCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

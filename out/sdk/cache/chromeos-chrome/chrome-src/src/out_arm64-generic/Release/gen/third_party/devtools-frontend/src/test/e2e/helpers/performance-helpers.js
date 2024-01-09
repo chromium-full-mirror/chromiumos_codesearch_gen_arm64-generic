@@ -3,8 +3,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clickOnFunctionLink = exports.navigateToPerformanceSidebarTab = exports.retrieveSelectedAndExpandedActivityItems = exports.getTotalTimeFromSummary = exports.stopRecording = exports.reloadAndRecord = exports.startRecording = exports.navigateToCallTreeTab = exports.navigateToBottomUpTab = exports.navigateToSummaryTab = exports.searchForComponent = exports.openCaptureSettings = exports.navigateToPerformanceTab = exports.TOTAL_TIME_SELECTOR = exports.ACTIVITY_COLUMN_SELECTOR = exports.CALL_TREE_SELECTOR = exports.BOTTOM_UP_SELECTOR = exports.SUMMARY_TAB_SELECTOR = exports.STOP_BUTTON_SELECTOR = exports.RELOAD_AND_RECORD_BUTTON_SELECTOR = exports.RECORD_BUTTON_SELECTOR = void 0;
+exports.clickOnFunctionLink = exports.navigateToPerformanceSidebarTab = exports.retrieveSelectedAndExpandedActivityItems = exports.getTotalTimeFromSummary = exports.stopRecording = exports.reloadAndRecord = exports.startRecording = exports.toggleMatchWholeWordButtonBottomUp = exports.toggleRegExButtonBottomUp = exports.toggleCaseSensitive = exports.setFilter = exports.navigateToCallTreeTab = exports.navigateToBottomUpTab = exports.navigateToSummaryTab = exports.searchForComponent = exports.openCaptureSettings = exports.navigateToPerformanceTab = exports.TOTAL_TIME_SELECTOR = exports.ACTIVITY_COLUMN_SELECTOR = exports.CALL_TREE_SELECTOR = exports.BOTTOM_UP_SELECTOR = exports.SUMMARY_TAB_SELECTOR = exports.STOP_BUTTON_SELECTOR = exports.RELOAD_AND_RECORD_BUTTON_SELECTOR = exports.RECORD_BUTTON_SELECTOR = exports.FILTER_TEXTBOX_SELECTOR = void 0;
 const helper_js_1 = require("../../shared/helper.js");
+exports.FILTER_TEXTBOX_SELECTOR = '[aria-label="Filter bottom-up"]';
 exports.RECORD_BUTTON_SELECTOR = '[aria-label="Record"]';
 exports.RELOAD_AND_RECORD_BUTTON_SELECTOR = '[aria-label="Start profiling and reload page"]';
 exports.STOP_BUTTON_SELECTOR = '[aria-label="Stop"]';
@@ -49,6 +50,26 @@ async function navigateToCallTreeTab() {
     await (0, helper_js_1.click)(exports.CALL_TREE_SELECTOR);
 }
 exports.navigateToCallTreeTab = navigateToCallTreeTab;
+async function setFilter(filter) {
+    const filterBoxElement = await (0, helper_js_1.click)(exports.FILTER_TEXTBOX_SELECTOR);
+    await filterBoxElement.type(filter);
+}
+exports.setFilter = setFilter;
+async function toggleCaseSensitive() {
+    const matchCaseButton = await (0, helper_js_1.waitForAria)('Match Case');
+    await matchCaseButton.click();
+}
+exports.toggleCaseSensitive = toggleCaseSensitive;
+async function toggleRegExButtonBottomUp() {
+    const regexButton = await (0, helper_js_1.waitForAria)('Use Regular Expression');
+    await regexButton.click();
+}
+exports.toggleRegExButtonBottomUp = toggleRegExButtonBottomUp;
+async function toggleMatchWholeWordButtonBottomUp() {
+    const wholeWordButton = await (0, helper_js_1.waitForAria)('Match whole word');
+    await wholeWordButton.click();
+}
+exports.toggleMatchWholeWordButtonBottomUp = toggleMatchWholeWordButtonBottomUp;
 async function startRecording() {
     await (0, helper_js_1.click)(exports.RECORD_BUTTON_SELECTOR);
     // Wait for the button to turn to its stop state.

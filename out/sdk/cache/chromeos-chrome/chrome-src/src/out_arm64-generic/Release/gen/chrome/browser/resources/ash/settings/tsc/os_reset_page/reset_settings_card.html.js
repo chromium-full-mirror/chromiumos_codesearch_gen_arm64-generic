@@ -1,9 +1,12 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#powerwashIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{resetPageTitle}">
   <div class="settings-box two-line first">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="powerwashIcon" icon="os-settings:startup"></iron-icon>
+    </template>
     <div class="start" id="title" aria-hidden="true">
       $i18n{powerwashTitle}
       <div class="secondary" id="secondaryText" aria-hidden="true">

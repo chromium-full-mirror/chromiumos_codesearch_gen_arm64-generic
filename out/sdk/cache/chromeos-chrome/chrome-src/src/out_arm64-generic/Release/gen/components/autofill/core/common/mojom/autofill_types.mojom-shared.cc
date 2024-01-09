@@ -230,14 +230,12 @@ NOINLINE static const char* SubmissionIndicatorEventToStringHelper(SubmissionInd
       return "XHR_SUCCEEDED";
     case SubmissionIndicatorEvent::FRAME_DETACHED:
       return "FRAME_DETACHED";
-    case SubmissionIndicatorEvent::DOM_MUTATION_AFTER_XHR:
-      return "DOM_MUTATION_AFTER_XHR";
-    case SubmissionIndicatorEvent::PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD:
-      return "PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD";
     case SubmissionIndicatorEvent::PROBABLE_FORM_SUBMISSION:
       return "PROBABLE_FORM_SUBMISSION";
     case SubmissionIndicatorEvent::CHANGE_PASSWORD_FORM_CLEARED:
       return "CHANGE_PASSWORD_FORM_CLEARED";
+    case SubmissionIndicatorEvent::DOM_MUTATION_AFTER_AUTOFILL:
+      return "DOM_MUTATION_AFTER_AUTOFILL";
     default:
       return nullptr;
   }
@@ -266,12 +264,12 @@ NOINLINE static const char* SubmissionSourceToStringHelper(SubmissionSource valu
       return "XHR_SUCCEEDED";
     case SubmissionSource::FRAME_DETACHED:
       return "FRAME_DETACHED";
-    case SubmissionSource::DOM_MUTATION_AFTER_XHR:
-      return "DOM_MUTATION_AFTER_XHR";
     case SubmissionSource::PROBABLY_FORM_SUBMITTED:
       return "PROBABLY_FORM_SUBMITTED";
     case SubmissionSource::FORM_SUBMISSION:
       return "FORM_SUBMISSION";
+    case SubmissionSource::DOM_MUTATION_AFTER_AUTOFILL:
+      return "DOM_MUTATION_AFTER_AUTOFILL";
     default:
       return nullptr;
   }
@@ -399,30 +397,30 @@ std::ostream& operator<<(std::ostream& os, SubmissionReadinessState value) {
   return os << SubmissionReadinessStateToString(value);
 }
 
-NOINLINE static const char* AutofillStateToStringHelper(AutofillState value) {
+NOINLINE static const char* AutofillSuggestionAvailabilityToStringHelper(AutofillSuggestionAvailability value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case AutofillState::kNoSuggestions:
+    case AutofillSuggestionAvailability::kNoSuggestions:
       return "kNoSuggestions";
-    case AutofillState::kAutofillAvailable:
+    case AutofillSuggestionAvailability::kAutofillAvailable:
       return "kAutofillAvailable";
-    case AutofillState::kAutocompleteAvailable:
+    case AutofillSuggestionAvailability::kAutocompleteAvailable:
       return "kAutocompleteAvailable";
     default:
       return nullptr;
   }
 }
 
-std::string AutofillStateToString(AutofillState value) {
-  const char *str = AutofillStateToStringHelper(value);
+std::string AutofillSuggestionAvailabilityToString(AutofillSuggestionAvailability value) {
+  const char *str = AutofillSuggestionAvailabilityToStringHelper(value);
   if (!str) {
-    return base::StringPrintf("Unknown AutofillState value: %i", static_cast<int32_t>(value));
+    return base::StringPrintf("Unknown AutofillSuggestionAvailability value: %i", static_cast<int32_t>(value));
   }
   return str;
 }
 
-std::ostream& operator<<(std::ostream& os, AutofillState value) {
-  return os << AutofillStateToString(value);
+std::ostream& operator<<(std::ostream& os, AutofillSuggestionAvailability value) {
+  return os << AutofillSuggestionAvailabilityToString(value);
 }
 
 NOINLINE static const char* ActionPersistenceToStringHelper(ActionPersistence value) {
@@ -473,6 +471,30 @@ std::ostream& operator<<(std::ostream& os, ActionType value) {
   return os << ActionTypeToString(value);
 }
 
+NOINLINE static const char* TextReplacementToStringHelper(TextReplacement value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case TextReplacement::kReplaceAll:
+      return "kReplaceAll";
+    case TextReplacement::kReplaceSelection:
+      return "kReplaceSelection";
+    default:
+      return nullptr;
+  }
+}
+
+std::string TextReplacementToString(TextReplacement value) {
+  const char *str = TextReplacementToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown TextReplacement value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, TextReplacement value) {
+  return os << TextReplacementToString(value);
+}
+
 NOINLINE static const char* AutofillSuggestionTriggerSourceToStringHelper(AutofillSuggestionTriggerSource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -492,12 +514,12 @@ NOINLINE static const char* AutofillSuggestionTriggerSourceToStringHelper(Autofi
       return "kShowCardsFromAccount";
     case AutofillSuggestionTriggerSource::kPasswordManager:
       return "kPasswordManager";
-    case AutofillSuggestionTriggerSource::kAndroidWebView:
-      return "kAndroidWebView";
     case AutofillSuggestionTriggerSource::kiOS:
       return "kiOS";
-    case AutofillSuggestionTriggerSource::kManualFallbackForAutocompleteUnrecognized:
-      return "kManualFallbackForAutocompleteUnrecognized";
+    case AutofillSuggestionTriggerSource::kManualFallbackAddress:
+      return "kManualFallbackAddress";
+    case AutofillSuggestionTriggerSource::kManualFallbackPayments:
+      return "kManualFallbackPayments";
     case AutofillSuggestionTriggerSource::kShowPromptAfterDialogClosed:
       return "kShowPromptAfterDialogClosed";
     default:
@@ -1031,13 +1053,20 @@ bool FormFieldData_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->value, validation_context))
     return false;
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->selected_text, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->selected_text, validation_context))
+    return false;
+
 
   if (!::autofill::mojom::internal::FormControlType_Data
         ::Validate(object->form_control_type, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->autocomplete_attribute, 9, validation_context)) {
+          object->autocomplete_attribute, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& autocomplete_attribute_validate_params =
@@ -1051,42 +1080,42 @@ bool FormFieldData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->placeholder, 11, validation_context)) {
+          object->placeholder, 10, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->placeholder, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->css_classes, 12, validation_context)) {
+          object->css_classes, 11, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->css_classes, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aria_label, 13, validation_context)) {
+          object->aria_label, 12, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->aria_label, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aria_description, 14, validation_context)) {
+          object->aria_description, 13, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->aria_description, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->unique_renderer_id, 15, validation_context)) {
+          object->unique_renderer_id, 14, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->host_form_id, 16, validation_context)) {
+          object->host_form_id, 15, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->host_form_id, validation_context))
@@ -1311,7 +1340,7 @@ bool FormFieldDataPredictions_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 80, validation_context)) {
+          data, 88, validation_context)) {
     return false;
   }
 
@@ -1365,7 +1394,18 @@ bool FormFieldDataPredictions_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->overall_type, 5, validation_context)) {
+          object->html_type, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& html_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->html_type, validation_context,
+                                         &html_type_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->overall_type, 6, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& overall_type_validate_params =
@@ -1376,7 +1416,7 @@ bool FormFieldDataPredictions_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->parseable_name, 6, validation_context)) {
+          object->parseable_name, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& parseable_name_validate_params =
@@ -1387,7 +1427,7 @@ bool FormFieldDataPredictions_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->section, 7, validation_context)) {
+          object->section, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& section_validate_params =
@@ -1814,9 +1854,9 @@ void TraceFormatTraits<::autofill::mojom::SubmissionReadinessState>::WriteIntoTr
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::autofill::mojom::AutofillState>::WriteIntoTrace(
-   perfetto::TracedValue context, ::autofill::mojom::AutofillState value) {
-  return std::move(context).WriteString(::autofill::mojom::AutofillStateToString(value));
+void TraceFormatTraits<::autofill::mojom::AutofillSuggestionAvailability>::WriteIntoTrace(
+   perfetto::TracedValue context, ::autofill::mojom::AutofillSuggestionAvailability value) {
+  return std::move(context).WriteString(::autofill::mojom::AutofillSuggestionAvailabilityToString(value));
 }
 
 } // namespace perfetto
@@ -1837,6 +1877,16 @@ namespace perfetto {
 void TraceFormatTraits<::autofill::mojom::ActionType>::WriteIntoTrace(
    perfetto::TracedValue context, ::autofill::mojom::ActionType value) {
   return std::move(context).WriteString(::autofill::mojom::ActionTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::autofill::mojom::TextReplacement>::WriteIntoTrace(
+   perfetto::TracedValue context, ::autofill::mojom::TextReplacement value) {
+  return std::move(context).WriteString(::autofill::mojom::TextReplacementToString(value));
 }
 
 } // namespace perfetto

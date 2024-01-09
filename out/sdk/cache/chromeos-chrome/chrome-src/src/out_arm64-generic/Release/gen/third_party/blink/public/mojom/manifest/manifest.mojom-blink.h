@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/manifest/manifest.mojom-features.h"
 #include "third_party/blink/public/mojom/manifest/manifest.mojom-shared.h"
 #include "third_party/blink/public/mojom/manifest/manifest.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -47,78 +48,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::TabStripMemberVisibility>
-    : EnumHashTraits<::blink::mojom::TabStripMemberVisibility, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ManifestImageResource_Purpose>
-    : EnumHashTraits<::blink::mojom::ManifestImageResource_Purpose, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ManifestScreenshot_FormFactor>
-    : EnumHashTraits<::blink::mojom::ManifestScreenshot_FormFactor, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ManifestShareTarget_Method>
-    : EnumHashTraits<::blink::mojom::ManifestShareTarget_Method, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ManifestShareTarget_Enctype>
-    : EnumHashTraits<::blink::mojom::ManifestShareTarget_Enctype, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ManifestFileHandler_LaunchType>
-    : EnumHashTraits<::blink::mojom::ManifestFileHandler_LaunchType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -466,17 +395,17 @@ class PLATFORM_EXPORT HomeTabUnion {
   // Construct an instance holding |visibility|.
   static HomeTabUnionPtr
   NewVisibility(
-      TabStripMemberVisibility visibility) {
+      TabStripMemberVisibility value) {
     auto result = HomeTabUnionPtr(absl::in_place);
-    result->set_visibility(std::move(visibility));
+    result->set_visibility(std::move(value));
     return result;
   }
   // Construct an instance holding |params|.
   static HomeTabUnionPtr
   NewParams(
-      HomeTabParamsPtr params) {
+      HomeTabParamsPtr value) {
     auto result = HomeTabUnionPtr(absl::in_place);
-    result->set_params(std::move(params));
+    result->set_params(std::move(value));
     return result;
   }
 
@@ -610,6 +539,7 @@ class PLATFORM_EXPORT Manifest {
       const ::WTF::String& short_name,
       const ::WTF::String& description,
       const ::blink::KURL& id,
+      bool has_custom_id,
       const ::blink::KURL& start_url,
       ::blink::mojom::blink::DisplayMode display,
       WTF::Vector<::blink::mojom::blink::DisplayMode> display_override,
@@ -729,6 +659,8 @@ Manifest& operator=(const Manifest&) = delete;
   ::WTF::String description;
   
   ::blink::KURL id;
+  
+  bool has_custom_id;
   
   ::blink::KURL start_url;
   
@@ -2162,7 +2094,7 @@ class PLATFORM_EXPORT ManifestRelatedApplication {
 
   ManifestRelatedApplication(
       const ::WTF::String& platform,
-      const absl::optional<::blink::KURL>& url,
+      const std::optional<::blink::KURL>& url,
       const ::WTF::String& id);
 
 
@@ -2243,7 +2175,7 @@ class PLATFORM_EXPORT ManifestRelatedApplication {
   
   ::WTF::String platform;
   
-  absl::optional<::blink::KURL> url;
+  std::optional<::blink::KURL> url;
   
   ::WTF::String id;
 
@@ -2310,7 +2242,7 @@ class PLATFORM_EXPORT ManifestShareTargetParams {
       const ::WTF::String& title,
       const ::WTF::String& text,
       const ::WTF::String& url,
-      absl::optional<WTF::Vector<ManifestFileFilterPtr>> files);
+      std::optional<WTF::Vector<ManifestFileFilterPtr>> files);
 
 ManifestShareTargetParams(const ManifestShareTargetParams&) = delete;
 ManifestShareTargetParams& operator=(const ManifestShareTargetParams&) = delete;
@@ -2396,7 +2328,7 @@ ManifestShareTargetParams& operator=(const ManifestShareTargetParams&) = delete;
   
   ::WTF::String url;
   
-  absl::optional<WTF::Vector<ManifestFileFilterPtr>> files;
+  std::optional<WTF::Vector<ManifestFileFilterPtr>> files;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3345,7 +3277,7 @@ class PLATFORM_EXPORT NewTabButtonParams {
   NewTabButtonParams();
 
   explicit NewTabButtonParams(
-      const absl::optional<::blink::KURL>& url);
+      const std::optional<::blink::KURL>& url);
 
 
   ~NewTabButtonParams();
@@ -3423,7 +3355,7 @@ class PLATFORM_EXPORT NewTabButtonParams {
   }
 
   
-  absl::optional<::blink::KURL> url;
+  std::optional<::blink::KURL> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3636,6 +3568,7 @@ ManifestPtr Manifest::Clone() const {
       mojo::Clone(short_name),
       mojo::Clone(description),
       mojo::Clone(id),
+      mojo::Clone(has_custom_id),
       mojo::Clone(start_url),
       mojo::Clone(display),
       mojo::Clone(display_override),
@@ -3681,6 +3614,8 @@ bool Manifest::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->description, other_struct.description))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->has_custom_id, other_struct.has_custom_id))
     return false;
   if (!mojo::Equals(this->start_url, other_struct.start_url))
     return false;
@@ -3768,6 +3703,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.id < rhs.id)
     return true;
   if (rhs.id < lhs.id)
+    return false;
+  if (lhs.has_custom_id < rhs.has_custom_id)
+    return true;
+  if (rhs.has_custom_id < lhs.has_custom_id)
     return false;
   if (lhs.start_url < rhs.start_url)
     return true;
@@ -4648,6 +4587,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::Manifest::DataView,
   static const decltype(::blink::mojom::blink::Manifest::id)& id(
       const ::blink::mojom::blink::ManifestPtr& input) {
     return input->id;
+  }
+
+  static decltype(::blink::mojom::blink::Manifest::has_custom_id) has_custom_id(
+      const ::blink::mojom::blink::ManifestPtr& input) {
+    return input->has_custom_id;
   }
 
   static const decltype(::blink::mojom::blink::Manifest::start_url)& start_url(

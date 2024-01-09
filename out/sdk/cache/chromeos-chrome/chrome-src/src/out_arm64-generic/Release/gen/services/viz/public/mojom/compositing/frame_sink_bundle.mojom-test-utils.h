@@ -17,6 +17,7 @@ class  FrameSinkBundleInterceptorForTesting : public FrameSinkBundle {
   virtual FrameSinkBundle* GetForwardingInterface() = 0;
   void InitializeCompositorFrameSinkType(uint32_t sink_id, ::viz::mojom::CompositorFrameSinkType type) override;
   void SetNeedsBeginFrame(uint32_t sink_id, bool needs_begin_frame) override;
+  void SetWantsBeginFrameAcks(uint32_t sink_id) override;
   void Submit(std::vector<BundledFrameSubmissionPtr> submissions) override;
   void DidAllocateSharedBitmap(uint32_t sink_id, ::base::ReadOnlySharedMemoryRegion region, const ::gpu::Mailbox& id) override;
 };

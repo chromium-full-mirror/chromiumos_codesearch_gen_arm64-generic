@@ -14,7 +14,9 @@ namespace ash::media_app_ui::mojom {
 namespace internal {
 
 
-constexpr uint32_t kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name = 0;
+constexpr uint32_t kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name = 0;
+constexpr uint32_t kOcrUntrustedPageHandler_ViewportUpdated_Name = 0;
+constexpr uint32_t kOcrUntrustedPage_SetViewport_Name = 0;
 
 }  // namespace internal
 

@@ -20,12 +20,12 @@ class PLATFORM_EXPORT FederatedAuthRequestInterceptorForTesting : public Federat
   void RequestUserInfo(IdentityProviderConfigPtr provider, RequestUserInfoCallback callback) override;
   void CancelTokenRequest() override;
   void ResolveTokenRequest(const WTF::String& token, ResolveTokenRequestCallback callback) override;
-  void LogoutRps(WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsCallback callback) override;
   void SetIdpSigninStatus(const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, IdpSigninStatus status) override;
   void RegisterIdP(const ::blink::KURL& url, RegisterIdPCallback callback) override;
   void UnregisterIdP(const ::blink::KURL& url, UnregisterIdPCallback callback) override;
   void CloseModalDialogView() override;
   void PreventSilentAccess(PreventSilentAccessCallback callback) override;
+  void Disconnect(IdentityCredentialDisconnectOptionsPtr options, DisconnectCallback callback) override;
 };
 class PLATFORM_EXPORT FederatedAuthRequestAsyncWaiter {
  public:
@@ -36,17 +36,14 @@ class PLATFORM_EXPORT FederatedAuthRequestAsyncWaiter {
 
   ~FederatedAuthRequestAsyncWaiter();
   void RequestToken(
-      WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
+      WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, std::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
   
   void RequestUserInfo(
-      IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, absl::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info);
+      IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, std::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info);
   
   void ResolveTokenRequest(
       const WTF::String& token, bool* out_success);
   bool ResolveTokenRequest(const WTF::String& token);
-  void LogoutRps(
-      WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsStatus* out_status);
-  LogoutRpsStatus LogoutRps(WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests);
   void RegisterIdP(
       const ::blink::KURL& url, bool* out_accepted);
   bool RegisterIdP(const ::blink::KURL& url);
@@ -56,6 +53,9 @@ class PLATFORM_EXPORT FederatedAuthRequestAsyncWaiter {
   void PreventSilentAccess(
       );
   
+  void Disconnect(
+      IdentityCredentialDisconnectOptionsPtr options, DisconnectStatus* out_status);
+  DisconnectStatus Disconnect(IdentityCredentialDisconnectOptionsPtr options);
 
  private:
   FederatedAuthRequest* const proxy_;

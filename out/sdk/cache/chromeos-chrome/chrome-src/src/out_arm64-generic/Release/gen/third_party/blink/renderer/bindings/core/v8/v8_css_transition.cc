@@ -30,7 +30,7 @@ namespace blink {
 
 bool V8CSSTransition::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAnimationsAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -68,11 +68,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, CSSTransition>::value,
     "CSSTransition does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&CSSTransition::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSTransition is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransition.transitionProperty.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransition* blink_receiver = V8CSSTransition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->transitionProperty();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSTransition* blink_receiver = V8CSSTransition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->transitionProperty();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

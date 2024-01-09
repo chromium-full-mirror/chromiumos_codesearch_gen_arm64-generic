@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EntrySync>::value,
     "EntrySync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EntrySync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EntrySync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.isFile.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isFile();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.isDirectory.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isDirectory();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -116,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.fullPath.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fullPath();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fullPath();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -146,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.filesystem.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filesystem();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -174,7 +172,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_parent = NativeValueTraits<DirectoryEntrySync>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -201,9 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.getMetadata");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "EntrySync";
 const char* const property_name = "getMetadata";
@@ -226,8 +224,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.getParent");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParent();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -253,7 +252,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_parent = NativeValueTraits<DirectoryEntrySync>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -280,9 +279,9 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.remove");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "EntrySync";
 const char* const property_name = "remove";
@@ -305,10 +304,10 @@ BLINK_BINDINGS_TRACE_EVENT("EntrySync.toURL");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EntrySync* blink_receiver = V8EntrySync::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

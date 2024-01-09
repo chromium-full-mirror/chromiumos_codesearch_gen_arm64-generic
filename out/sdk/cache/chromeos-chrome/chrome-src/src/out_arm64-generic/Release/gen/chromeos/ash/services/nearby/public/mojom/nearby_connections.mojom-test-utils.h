@@ -73,6 +73,42 @@ class  PayloadListenerAsyncWaiter {
 };
 
 
+class  ConnectionListenerV3InterceptorForTesting : public ConnectionListenerV3 {
+  virtual ConnectionListenerV3* GetForwardingInterface() = 0;
+  void OnConnectionInitiated(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr info) override;
+  void OnDisconnected(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) override;
+};
+class  ConnectionListenerV3AsyncWaiter {
+ public:
+  explicit ConnectionListenerV3AsyncWaiter(ConnectionListenerV3* proxy);
+
+  ConnectionListenerV3AsyncWaiter(const ConnectionListenerV3AsyncWaiter&) = delete;
+  ConnectionListenerV3AsyncWaiter& operator=(const ConnectionListenerV3AsyncWaiter&) = delete;
+
+  ~ConnectionListenerV3AsyncWaiter();
+
+ private:
+  ConnectionListenerV3* const proxy_;
+};
+
+
+class  PayloadListenerV3InterceptorForTesting : public PayloadListenerV3 {
+  virtual PayloadListenerV3* GetForwardingInterface() = 0;
+};
+class  PayloadListenerV3AsyncWaiter {
+ public:
+  explicit PayloadListenerV3AsyncWaiter(PayloadListenerV3* proxy);
+
+  PayloadListenerV3AsyncWaiter(const PayloadListenerV3AsyncWaiter&) = delete;
+  PayloadListenerV3AsyncWaiter& operator=(const PayloadListenerV3AsyncWaiter&) = delete;
+
+  ~PayloadListenerV3AsyncWaiter();
+
+ private:
+  PayloadListenerV3* const proxy_;
+};
+
+
 class  NearbyConnectionsInterceptorForTesting : public NearbyConnections {
   virtual NearbyConnections* GetForwardingInterface() = 0;
   void StartAdvertising(const std::string& service_id, const std::vector<uint8_t>& endpoint_info, ::nearby::connections::mojom::AdvertisingOptionsPtr options, ::mojo::PendingRemote<ConnectionLifecycleListener> listener, StartAdvertisingCallback callback) override;
@@ -89,6 +125,10 @@ class  NearbyConnectionsInterceptorForTesting : public NearbyConnections {
   void StopAllEndpoints(const std::string& service_id, StopAllEndpointsCallback callback) override;
   void InitiateBandwidthUpgrade(const std::string& service_id, const std::string& endpoint_id, InitiateBandwidthUpgradeCallback callback) override;
   void RegisterPayloadFile(const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file, RegisterPayloadFileCallback callback) override;
+  void RequestConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, RequestConnectionV3Callback callback) override;
+  void AcceptConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, AcceptConnectionV3Callback callback) override;
+  void RejectConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, RejectConnectionV3Callback callback) override;
+  void DisconnectFromDeviceV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, DisconnectFromDeviceV3Callback callback) override;
 };
 class  NearbyConnectionsAsyncWaiter {
  public:
@@ -140,6 +180,18 @@ class  NearbyConnectionsAsyncWaiter {
   void RegisterPayloadFile(
       const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file, ::nearby::connections::mojom::Status* out_status);
   ::nearby::connections::mojom::Status RegisterPayloadFile(const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file);
+  void RequestConnectionV3(
+      const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, ::nearby::connections::mojom::Status* out_status);
+  ::nearby::connections::mojom::Status RequestConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener);
+  void AcceptConnectionV3(
+      const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, ::nearby::connections::mojom::Status* out_status);
+  ::nearby::connections::mojom::Status AcceptConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener);
+  void RejectConnectionV3(
+      const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::Status* out_status);
+  ::nearby::connections::mojom::Status RejectConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device);
+  void DisconnectFromDeviceV3(
+      const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::Status* out_status);
+  ::nearby::connections::mojom::Status DisconnectFromDeviceV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device);
 
  private:
   NearbyConnections* const proxy_;

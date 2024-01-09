@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct HidCollectionInfo {
   ~HidCollectionInfo();
   HidCollectionInfo(const HidCollectionInfo&) = delete;
   HidCollectionInfo& operator=(const HidCollectionInfo&) = delete;
-  HidCollectionInfo(HidCollectionInfo&& rhs);
-  HidCollectionInfo& operator=(HidCollectionInfo&& rhs);
+  HidCollectionInfo(HidCollectionInfo&& rhs) noexcept;
+  HidCollectionInfo& operator=(HidCollectionInfo&& rhs) noexcept;
 
   // Populates a HidCollectionInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,16 +47,13 @@ struct HidCollectionInfo {
   // Creates a deep copy of HidCollectionInfo.
   HidCollectionInfo Clone() const;
 
-  // Creates a HidCollectionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidCollectionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a HidCollectionInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HidCollectionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<HidCollectionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a HidCollectionInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HidCollectionInfo> FromValue(const base::Value& value);
+  static std::optional<HidCollectionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidCollectionInfo object.
@@ -77,8 +75,8 @@ struct HidDeviceInfo {
   ~HidDeviceInfo();
   HidDeviceInfo(const HidDeviceInfo&) = delete;
   HidDeviceInfo& operator=(const HidDeviceInfo&) = delete;
-  HidDeviceInfo(HidDeviceInfo&& rhs);
-  HidDeviceInfo& operator=(HidDeviceInfo&& rhs);
+  HidDeviceInfo(HidDeviceInfo&& rhs) noexcept;
+  HidDeviceInfo& operator=(HidDeviceInfo&& rhs) noexcept;
 
   // Populates a HidDeviceInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -91,15 +89,12 @@ struct HidDeviceInfo {
   // Creates a deep copy of HidDeviceInfo.
   HidDeviceInfo Clone() const;
 
-  // Creates a HidDeviceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidDeviceInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a HidDeviceInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HidDeviceInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<HidDeviceInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a HidDeviceInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<HidDeviceInfo> FromValue(const base::Value& value);
+  static std::optional<HidDeviceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidDeviceInfo object.
@@ -142,8 +137,8 @@ struct HidConnectInfo {
   ~HidConnectInfo();
   HidConnectInfo(const HidConnectInfo&) = delete;
   HidConnectInfo& operator=(const HidConnectInfo&) = delete;
-  HidConnectInfo(HidConnectInfo&& rhs);
-  HidConnectInfo& operator=(HidConnectInfo&& rhs);
+  HidConnectInfo(HidConnectInfo&& rhs) noexcept;
+  HidConnectInfo& operator=(HidConnectInfo&& rhs) noexcept;
 
   // Populates a HidConnectInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -156,15 +151,12 @@ struct HidConnectInfo {
   // Creates a deep copy of HidConnectInfo.
   HidConnectInfo Clone() const;
 
-  // Creates a HidConnectInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidConnectInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a HidConnectInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HidConnectInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<HidConnectInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a HidConnectInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<HidConnectInfo> FromValue(const base::Value& value);
+  static std::optional<HidConnectInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidConnectInfo object.
@@ -180,8 +172,8 @@ struct DeviceFilter {
   ~DeviceFilter();
   DeviceFilter(const DeviceFilter&) = delete;
   DeviceFilter& operator=(const DeviceFilter&) = delete;
-  DeviceFilter(DeviceFilter&& rhs);
-  DeviceFilter& operator=(DeviceFilter&& rhs);
+  DeviceFilter(DeviceFilter&& rhs) noexcept;
+  DeviceFilter& operator=(DeviceFilter&& rhs) noexcept;
 
   // Populates a DeviceFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -194,31 +186,28 @@ struct DeviceFilter {
   // Creates a deep copy of DeviceFilter.
   DeviceFilter Clone() const;
 
-  // Creates a DeviceFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceFilter object.
   base::Value::Dict ToValue() const;
 
   // Device vendor ID.
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
   // Device product ID, only checked only if the vendor ID matches.
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // HID usage page identifier.
-  absl::optional<int> usage_page;
+  std::optional<int> usage_page;
 
   // HID usage identifier, checked only if the HID usage page matches.
-  absl::optional<int> usage;
+  std::optional<int> usage;
 
 };
 
@@ -227,8 +216,8 @@ struct GetDevicesOptions {
   ~GetDevicesOptions();
   GetDevicesOptions(const GetDevicesOptions&) = delete;
   GetDevicesOptions& operator=(const GetDevicesOptions&) = delete;
-  GetDevicesOptions(GetDevicesOptions&& rhs);
-  GetDevicesOptions& operator=(GetDevicesOptions&& rhs);
+  GetDevicesOptions(GetDevicesOptions&& rhs) noexcept;
+  GetDevicesOptions& operator=(GetDevicesOptions&& rhs) noexcept;
 
   // Populates a GetDevicesOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -241,28 +230,25 @@ struct GetDevicesOptions {
   // Creates a deep copy of GetDevicesOptions.
   GetDevicesOptions Clone() const;
 
-  // Creates a GetDevicesOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetDevicesOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetDevicesOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetDevicesOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetDevicesOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetDevicesOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetDevicesOptions> FromValue(const base::Value& value);
+  static std::optional<GetDevicesOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetDevicesOptions object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // A device matching any given filter will be returned. An empty filter list
   // will return all devices the app has permission for.
-  absl::optional<std::vector<DeviceFilter>> filters;
+  std::optional<std::vector<DeviceFilter>> filters;
 
 };
 
@@ -274,11 +260,11 @@ struct GetDevicesOptions {
 namespace GetDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The properties to search for on target devices.
@@ -299,11 +285,11 @@ base::Value::List Create(const std::vector<HidDeviceInfo>& devices);
 namespace Connect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:HidDeviceInfo.deviceId) of the device to open.
@@ -324,11 +310,11 @@ base::Value::List Create(const HidConnectInfo& connection);
 namespace Disconnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The <code>connectionId</code> returned by $(ref:connect).
@@ -349,11 +335,11 @@ base::Value::List Create();
 namespace Receive {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The <code>connectionId</code> returned by $(ref:connect).
@@ -376,11 +362,11 @@ base::Value::List Create(int report_id, const std::vector<uint8_t>& data);
 namespace Send {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The <code>connectionId</code> returned by $(ref:connect).
@@ -407,11 +393,11 @@ base::Value::List Create();
 namespace ReceiveFeatureReport {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The <code>connectionId</code> returned by $(ref:connect).
@@ -436,11 +422,11 @@ base::Value::List Create(const std::vector<uint8_t>& data);
 namespace SendFeatureReport {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The <code>connectionId</code> returned by $(ref:connect).

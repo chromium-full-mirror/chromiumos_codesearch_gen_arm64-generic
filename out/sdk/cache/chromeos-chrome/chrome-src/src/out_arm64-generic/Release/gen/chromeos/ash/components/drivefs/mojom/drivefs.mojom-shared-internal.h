@@ -29,6 +29,7 @@ class ValidationContext;
 namespace drivefs::mojom {
 namespace internal {
 class DriveFsConfiguration_Data;
+class AccessToken_Data;
 class DriveError_Data;
 class DialogReason_Data;
 class FileMetadata_Data;
@@ -53,6 +54,43 @@ class HttpResponse_Data;
 class HttpCompletionStatus_Data;
 class DocsOfflineStats_Data;
 class FilePathOrError_Data;
+
+struct DocsOfflineEnableStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 struct CSESupport_Data {
  public:
@@ -761,6 +799,55 @@ struct DriveFsConfiguration_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DriveFsConfiguration_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) AccessToken_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> token;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> expiry_time;
+
+ private:
+  friend class mojo::internal::MessageFragment<AccessToken_Data>;
+
+  AccessToken_Data();
+  ~AccessToken_Data() = delete;
+};
+static_assert(sizeof(AccessToken_Data) == 24,
+              "Bad sizeof(AccessToken_Data)");
+// Used by AccessToken::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AccessToken_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AccessToken_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AccessToken_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AccessToken_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AccessToken_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveError_Data {
  public:
   static bool Validate(const void* data,

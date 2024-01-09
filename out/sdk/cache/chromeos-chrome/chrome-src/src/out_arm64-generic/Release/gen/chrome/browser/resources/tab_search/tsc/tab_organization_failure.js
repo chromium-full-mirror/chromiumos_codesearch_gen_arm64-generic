@@ -19,6 +19,7 @@ export class TabOrganizationFailureElement extends PolymerElement {
     static get properties() {
         return {
             error: Object,
+            showFre: Boolean,
         };
     }
     static get template() {
@@ -34,14 +35,56 @@ export class TabOrganizationFailureElement extends PolymerElement {
                 return '';
         }
     }
-    getBody_() {
+    getBodyPreLink_() {
         switch (this.error) {
             case TabOrganizationError.kGrouping:
-                return loadTimeData.getString('failureBodyGrouping');
+                return loadTimeData.getString('failureBodyGroupingPreLink');
             case TabOrganizationError.kGeneric:
-                return loadTimeData.getString('failureBodyGeneric');
+                return loadTimeData.getString('failureBodyGenericPreLink');
             default:
                 return '';
+        }
+    }
+    getBodyLink_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureBodyGroupingLink');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureBodyGenericLink');
+            default:
+                return '';
+        }
+    }
+    getBodyPostLink_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureBodyGroupingPostLink');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureBodyGenericPostLink');
+            default:
+                return '';
+        }
+    }
+    onCheckNow_() {
+        this.dispatchEvent(new CustomEvent('check-now', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onCheckNowKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onCheckNow_();
+        }
+    }
+    onTipClick_() {
+        this.dispatchEvent(new CustomEvent('tip-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onTipKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onTipClick_();
         }
     }
 }

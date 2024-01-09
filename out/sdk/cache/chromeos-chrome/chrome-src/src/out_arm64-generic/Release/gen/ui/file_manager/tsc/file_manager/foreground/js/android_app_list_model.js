@@ -9,48 +9,41 @@ import { getStore } from '../../state/store.js';
  */
 export class AndroidAppListModel extends EventTarget {
     /**
-     * @param {boolean} showAndroidPickerApps Whether to show picker apps in file
+     * @param showAndroidPickerApps Whether to show picker apps in file
      *     selector.
-     * @param {boolean} includeAllFiles Corresponds to LaunchParam.includeAllFiles
-     * @param {!Array<!Object>} typeList Corresponds to LaunchParam.typeList
+     * @param includeAllFiles Corresponds to LaunchParam.includeAllFiles
+     * @param typeList Corresponds to LaunchParam.typeList
      */
     constructor(showAndroidPickerApps, includeAllFiles, typeList) {
         super();
-        /** @private @type {!Array<!chrome.fileManagerPrivate.AndroidApp>} */
         this.apps_ = [];
         if (!showAndroidPickerApps) {
             return;
         }
-        // @ts-ignore: error TS7034: Variable 'extensions' implicitly has type
-        // 'any[]' in some locations where its type cannot be determined.
         let extensions = [];
         if (!includeAllFiles) {
-            for (let i = 0; i < typeList.length; i++) {
-                // @ts-ignore: error TS2339: Property 'extensions' does not exist on
-                // type 'Object'.
-                extensions = extensions.concat(typeList[i].extensions);
+            for (const type of typeList) {
+                extensions = extensions.concat(type.extensions);
             }
         }
         chrome.fileManagerPrivate.getAndroidPickerApps(extensions, apps => {
             this.apps_ = apps;
             getStore().dispatch(addAndroidApps({ apps }));
-            this.dispatchEvent(new Event('permuted'));
+            this.dispatchEvent(new CustomEvent('permuted'));
         });
     }
     /**
-     * @return {number} Number of picker apps.
+     * @return Number of picker apps.
      */
     length() {
         return this.apps_.length;
     }
     /**
-     * @param {number} index Index of the picker app to be retrieved.
-     * @return {chrome.fileManagerPrivate.AndroidApp} The value of the |index|-th
+     * @param index Index of the picker app to be retrieved.
+     * @return The value of the |index|-th
      *     picker app.
      */
     item(index) {
-        // @ts-ignore: error TS2322: Type 'AndroidApp | undefined' is not assignable
-        // to type 'AndroidApp'.
         return this.apps_[index];
     }
 }

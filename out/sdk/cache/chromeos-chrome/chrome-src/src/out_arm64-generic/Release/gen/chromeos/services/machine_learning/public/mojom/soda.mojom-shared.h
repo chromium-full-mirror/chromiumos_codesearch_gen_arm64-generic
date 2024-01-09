@@ -311,6 +311,11 @@ class SodaConfigDataView {
       return bool{};
     return data_->speaker_change_detection;
   }
+  bool include_logging_output() const {
+    if (data_->header_.version < 6)
+      return bool{};
+    return data_->include_logging_output;
+  }
  private:
   internal::SodaConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -854,6 +859,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SodaConfigDataView, Maybe
         Traits::recognition_mode(input), &fragment->recognition_mode);
     fragment->mask_offensive_words = Traits::mask_offensive_words(input);
     fragment->speaker_change_detection = Traits::speaker_change_detection(input);
+    fragment->include_logging_output = Traits::include_logging_output(input);
   }
 
   static bool Deserialize(::chromeos::machine_learning::mojom::internal::SodaConfig_Data* input,

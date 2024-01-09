@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -199,7 +200,7 @@ LearningTaskControllerProxy::LearningTaskControllerProxy(mojo::MessageReceiverWi
 }
 
 void LearningTaskControllerProxy::BeginObservation(
-    const ::base::UnguessableToken& in_id, const std::vector<::media::learning::FeatureValue>& in_features, const absl::optional<::media::learning::TargetValue>& in_default_target) {
+    const ::base::UnguessableToken& in_id, const std::vector<::media::learning::FeatureValue>& in_features, const std::optional<::media::learning::TargetValue>& in_default_target) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::learning::mojom::LearningTaskController::BeginObservation", "input_parameters",
@@ -213,17 +214,20 @@ void LearningTaskControllerProxy::BeginObservation(
                         "<value of type const std::vector<::media::learning::FeatureValue>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("default_target"), in_default_target,
-                        "<value of type const absl::optional<::media::learning::TargetValue>&>");
+                        "<value of type const std::optional<::media::learning::TargetValue>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_BeginObservation_Name, kFlags, 0, 0, nullptr);
@@ -287,14 +291,17 @@ void LearningTaskControllerProxy::CompleteObservation(
                         "<value of type const ::media::learning::ObservationCompletion&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_CompleteObservation_Name, kFlags, 0, 0, nullptr);
@@ -346,14 +353,17 @@ void LearningTaskControllerProxy::CancelObservation(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_CancelObservation_Name, kFlags, 0, 0, nullptr);
@@ -383,7 +393,7 @@ void LearningTaskControllerProxy::CancelObservation(
 }
 
 void LearningTaskControllerProxy::UpdateDefaultTarget(
-    const ::base::UnguessableToken& in_id, const absl::optional<::media::learning::TargetValue>& in_default_target) {
+    const ::base::UnguessableToken& in_id, const std::optional<::media::learning::TargetValue>& in_default_target) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::learning::mojom::LearningTaskController::UpdateDefaultTarget", "input_parameters",
@@ -394,17 +404,20 @@ void LearningTaskControllerProxy::UpdateDefaultTarget(
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("default_target"), in_default_target,
-                        "<value of type const absl::optional<::media::learning::TargetValue>&>");
+                        "<value of type const std::optional<::media::learning::TargetValue>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_UpdateDefaultTarget_Name, kFlags, 0, 0, nullptr);
@@ -452,14 +465,17 @@ void LearningTaskControllerProxy::PredictDistribution(
                         "<value of type const std::vector<::media::learning::FeatureValue>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_PredictDistribution_Name, kFlags, 0, 0, nullptr);
@@ -536,7 +552,7 @@ class LearningTaskController_PredictDistribution_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      const absl::optional<::media::learning::TargetHistogram>& in_predicted);
+      const std::optional<::media::learning::TargetHistogram>& in_predicted);
 };
 
 bool LearningTaskController_PredictDistribution_ForwardToCallback::Accept(
@@ -549,7 +565,7 @@ bool LearningTaskController_PredictDistribution_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media::learning::TargetHistogram> p_predicted{};
+  std::optional<::media::learning::TargetHistogram> p_predicted{};
   LearningTaskController_PredictDistribution_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadPredicted(&p_predicted))
@@ -568,7 +584,7 @@ std::move(p_predicted));
 }
 
 void LearningTaskController_PredictDistribution_ProxyToResponder::Run(
-    const absl::optional<::media::learning::TargetHistogram>& in_predicted) {
+    const std::optional<::media::learning::TargetHistogram>& in_predicted) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media::learning::mojom::LearningTaskController::PredictDistribution", "async_response_parameters",
@@ -576,13 +592,14 @@ void LearningTaskController_PredictDistribution_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("predicted"), in_predicted,
-                        "<value of type const absl::optional<::media::learning::TargetHistogram>&>");
+                        "<value of type const std::optional<::media::learning::TargetHistogram>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLearningTaskController_PredictDistribution_Name, kFlags, 0, 0, nullptr);
@@ -630,7 +647,7 @@ bool LearningTaskControllerStubDispatch::Accept(
       bool success = true;
       ::base::UnguessableToken p_id{};
       std::vector<::media::learning::FeatureValue> p_features{};
-      absl::optional<::media::learning::TargetValue> p_default_target{};
+      std::optional<::media::learning::TargetValue> p_default_target{};
       LearningTaskController_BeginObservation_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadId(&p_id))
@@ -719,7 +736,7 @@ std::move(p_id));
       
       bool success = true;
       ::base::UnguessableToken p_id{};
-      absl::optional<::media::learning::TargetValue> p_default_target{};
+      std::optional<::media::learning::TargetValue> p_default_target{};
       LearningTaskController_UpdateDefaultTarget_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadId(&p_id))
@@ -800,18 +817,18 @@ std::move(p_features), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLearningTaskControllerValidationInfo[] = {
-    {&internal::LearningTaskController_BeginObservation_Params_Data::Validate,
+    { &internal::LearningTaskController_BeginObservation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LearningTaskController_CompleteObservation_Params_Data::Validate,
+    { &internal::LearningTaskController_CompleteObservation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LearningTaskController_CancelObservation_Params_Data::Validate,
+    { &internal::LearningTaskController_CancelObservation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LearningTaskController_UpdateDefaultTarget_Params_Data::Validate,
+    { &internal::LearningTaskController_UpdateDefaultTarget_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LearningTaskController_PredictDistribution_Params_Data::Validate,
+    { &internal::LearningTaskController_PredictDistribution_Params_Data::Validate,
      &internal::LearningTaskController_PredictDistribution_ResponseParams_Data::Validate},
 };
 
@@ -841,7 +858,7 @@ namespace mojo {
 namespace media::learning::mojom {
 
 
-void LearningTaskControllerInterceptorForTesting::BeginObservation(const ::base::UnguessableToken& id, const std::vector<::media::learning::FeatureValue>& features, const absl::optional<::media::learning::TargetValue>& default_target) {
+void LearningTaskControllerInterceptorForTesting::BeginObservation(const ::base::UnguessableToken& id, const std::vector<::media::learning::FeatureValue>& features, const std::optional<::media::learning::TargetValue>& default_target) {
   GetForwardingInterface()->BeginObservation(std::move(id), std::move(features), std::move(default_target));
 }
 void LearningTaskControllerInterceptorForTesting::CompleteObservation(const ::base::UnguessableToken& id, const ::media::learning::ObservationCompletion& completion) {
@@ -850,7 +867,7 @@ void LearningTaskControllerInterceptorForTesting::CompleteObservation(const ::ba
 void LearningTaskControllerInterceptorForTesting::CancelObservation(const ::base::UnguessableToken& id) {
   GetForwardingInterface()->CancelObservation(std::move(id));
 }
-void LearningTaskControllerInterceptorForTesting::UpdateDefaultTarget(const ::base::UnguessableToken& id, const absl::optional<::media::learning::TargetValue>& default_target) {
+void LearningTaskControllerInterceptorForTesting::UpdateDefaultTarget(const ::base::UnguessableToken& id, const std::optional<::media::learning::TargetValue>& default_target) {
   GetForwardingInterface()->UpdateDefaultTarget(std::move(id), std::move(default_target));
 }
 void LearningTaskControllerInterceptorForTesting::PredictDistribution(const std::vector<::media::learning::FeatureValue>& features, PredictDistributionCallback callback) {
@@ -862,14 +879,14 @@ LearningTaskControllerAsyncWaiter::LearningTaskControllerAsyncWaiter(
 LearningTaskControllerAsyncWaiter::~LearningTaskControllerAsyncWaiter() = default;
 
 void LearningTaskControllerAsyncWaiter::PredictDistribution(
-    const std::vector<::media::learning::FeatureValue>& features, absl::optional<::media::learning::TargetHistogram>* out_predicted) {
+    const std::vector<::media::learning::FeatureValue>& features, std::optional<::media::learning::TargetHistogram>* out_predicted) {
   base::RunLoop loop;
   proxy_->PredictDistribution(std::move(features),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media::learning::TargetHistogram>* out_predicted
+             std::optional<::media::learning::TargetHistogram>* out_predicted
 ,
-             const absl::optional<::media::learning::TargetHistogram>& predicted) {*out_predicted = std::move(predicted);
+             const std::optional<::media::learning::TargetHistogram>& predicted) {*out_predicted = std::move(predicted);
             loop->Quit();
           },
           &loop,
@@ -877,9 +894,9 @@ void LearningTaskControllerAsyncWaiter::PredictDistribution(
   loop.Run();
 }
 
-absl::optional<::media::learning::TargetHistogram> LearningTaskControllerAsyncWaiter::PredictDistribution(
+std::optional<::media::learning::TargetHistogram> LearningTaskControllerAsyncWaiter::PredictDistribution(
     const std::vector<::media::learning::FeatureValue>& features) {
-  absl::optional<::media::learning::TargetHistogram> async_wait_result;
+  std::optional<::media::learning::TargetHistogram> async_wait_result;
   PredictDistribution(std::move(features),&async_wait_result);
   return async_wait_result;
 }

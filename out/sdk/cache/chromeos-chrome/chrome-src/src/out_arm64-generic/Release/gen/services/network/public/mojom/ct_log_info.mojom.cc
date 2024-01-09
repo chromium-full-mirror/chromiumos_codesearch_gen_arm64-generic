@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -87,7 +88,6 @@ CTLogInfo::CTLogInfo()
     : id(),
       public_key(),
       name(),
-      operated_by_google(false),
       disqualified_at(),
       mmd(),
       current_operator(),
@@ -97,15 +97,13 @@ CTLogInfo::CTLogInfo(
     const std::string& id_in,
     const std::string& public_key_in,
     const std::string& name_in,
-    bool operated_by_google_in,
-    absl::optional<::base::Time> disqualified_at_in,
+    std::optional<::base::Time> disqualified_at_in,
     ::base::TimeDelta mmd_in,
     const std::string& current_operator_in,
     std::vector<PreviousOperatorEntryPtr> previous_operators_in)
     : id(std::move(id_in)),
       public_key(std::move(public_key_in)),
       name(std::move(name_in)),
-      operated_by_google(std::move(operated_by_google_in)),
       disqualified_at(std::move(disqualified_at_in)),
       mmd(std::move(mmd_in)),
       current_operator(std::move(current_operator_in)),
@@ -145,18 +143,9 @@ void CTLogInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "operated_by_google"), this->operated_by_google,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "disqualified_at"), this->disqualified_at,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -232,8 +221,6 @@ bool StructTraits<::network::mojom::CTLogInfo::DataView, ::network::mojom::CTLog
         success = false;
       if (success && !input.ReadName(&result->name))
         success = false;
-      if (success)
-        result->operated_by_google = input.operated_by_google();
       if (success && !input.ReadDisqualifiedAt(&result->disqualified_at))
         success = false;
       if (success && !input.ReadMmd(&result->mmd))

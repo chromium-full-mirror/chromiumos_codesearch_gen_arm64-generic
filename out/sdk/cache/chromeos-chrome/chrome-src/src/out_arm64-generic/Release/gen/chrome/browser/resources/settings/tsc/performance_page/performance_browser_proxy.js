@@ -12,8 +12,8 @@ export class PerformanceBrowserProxyImpl {
     openBatterySaverFeedbackDialog() {
         chrome.send('openBatterySaverFeedbackDialog');
     }
-    openHighEfficiencyFeedbackDialog() {
-        chrome.send('openHighEfficiencyFeedbackDialog');
+    openMemorySaverFeedbackDialog() {
+        chrome.send('openMemorySaverFeedbackDialog');
     }
     openSpeedFeedbackDialog() {
         chrome.send('openSpeedFeedbackDialog');

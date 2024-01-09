@@ -48,6 +48,8 @@ class TabsRemovedInfoDataView;
 enum class TabOrganizationState : int32_t;
 
 enum class TabOrganizationError : int32_t;
+
+enum class UserFeedback : int32_t;
 class ProfileData;
 using ProfileDataPtr = mojo::StructPtr<ProfileData>;
 

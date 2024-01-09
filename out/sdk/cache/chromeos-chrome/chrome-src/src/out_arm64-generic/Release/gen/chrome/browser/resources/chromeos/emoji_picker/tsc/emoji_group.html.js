@@ -45,18 +45,29 @@ export function getTemplate() {
       </template>
     </div>
   </template>
-  <template is="dom-repeat" items="[[data]]">
-      <template is="dom-if" if="[[!isVisual(category)]]">
+  <template is="dom-if" if="[[!isVisual(category)]]">
+    <template is="dom-if" if="[[hasVariants(data)]]">
+      <template is="dom-repeat" items="[[data]]">
         <div class="emoji-button-container">
         <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
           [[getDisplayEmojiForEmoji(item.base.string)]]
         </button>
         <template is="dom-if" if="[[isEmojiVariantVisible(index,shownEmojiVariantIndex)]]">
-          <emoji-variants id="emoji-variant-[[index]]" variants="[[item.alternates]]" tooltip="[[item.base.name]]">
+          <emoji-variants id="emoji-variant-[[index]]" variants="[[item.alternates]]" grouped-tone="[[item.groupedTone]]" grouped-gender="[[item.groupedGender]]" tooltip="[[item.base.name]]">
           </emoji-variants>
         </template>
         </div>
       </template>
+    </template>
+    <template is="dom-if" if="[[!hasVariants(data)]]">
+      <template is="dom-repeat" items="[[data]]">
+        <div class="emoji-button-container">
+        <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
+          [[getDisplayEmojiForEmoji(item.base.string)]]
+        </button>
+        </div>
+      </template>
+    </template>
   </template>
   <paper-tooltip id="tooltip" fit-to-visible-bounds offset="8">
     [[focusedEmoji.base.name]]

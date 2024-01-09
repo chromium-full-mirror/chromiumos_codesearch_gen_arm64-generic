@@ -177,6 +177,7 @@ class DataSourceDescriptor final :
     kWillNotifyOnStopFieldNumber = 2,
     kWillNotifyOnStartFieldNumber = 3,
     kHandlesIncrementalStateClearFieldNumber = 4,
+    kNoFlushFieldNumber = 9,
   };
   // optional string name = 1;
   bool has_name() const;
@@ -302,6 +303,19 @@ class DataSourceDescriptor final :
   void _internal_set_handles_incremental_state_clear(bool value);
   public:
 
+  // optional bool no_flush = 9;
+  bool has_no_flush() const;
+  private:
+  bool _internal_has_no_flush() const;
+  public:
+  void clear_no_flush();
+  bool no_flush() const;
+  void set_no_flush(bool value);
+  private:
+  bool _internal_no_flush() const;
+  void _internal_set_no_flush(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.DataSourceDescriptor)
  private:
   class _Internal;
@@ -319,6 +333,7 @@ class DataSourceDescriptor final :
   bool will_notify_on_stop_;
   bool will_notify_on_start_;
   bool handles_incremental_state_clear_;
+  bool no_flush_;
   friend struct ::TableStruct_protos_2fperfetto_2fcommon_2fdata_5fsource_5fdescriptor_2eproto;
 };
 // ===================================================================
@@ -510,6 +525,34 @@ inline void DataSourceDescriptor::_internal_set_handles_incremental_state_clear(
 inline void DataSourceDescriptor::set_handles_incremental_state_clear(bool value) {
   _internal_set_handles_incremental_state_clear(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.DataSourceDescriptor.handles_incremental_state_clear)
+}
+
+// optional bool no_flush = 9;
+inline bool DataSourceDescriptor::_internal_has_no_flush() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool DataSourceDescriptor::has_no_flush() const {
+  return _internal_has_no_flush();
+}
+inline void DataSourceDescriptor::clear_no_flush() {
+  no_flush_ = false;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline bool DataSourceDescriptor::_internal_no_flush() const {
+  return no_flush_;
+}
+inline bool DataSourceDescriptor::no_flush() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.DataSourceDescriptor.no_flush)
+  return _internal_no_flush();
+}
+inline void DataSourceDescriptor::_internal_set_no_flush(bool value) {
+  _has_bits_[0] |= 0x00000100u;
+  no_flush_ = value;
+}
+inline void DataSourceDescriptor::set_no_flush(bool value) {
+  _internal_set_no_flush(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.DataSourceDescriptor.no_flush)
 }
 
 // optional .perfetto.protos.GpuCounterDescriptor gpu_counter_descriptor = 5 [lazy = true];

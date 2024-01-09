@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,41 +33,41 @@ namespace smart_card_provider_private {
 // PC/SC error codes we can expect to hit (thus a non-exhaustive list). UNKNOWN
 // means an SCARD error code that is not mapped in this enum (and thus should
 // probably be added here).
-enum  ResultCode {
-  RESULT_CODE_NONE = 0,
-  RESULT_CODE_SUCCESS,
-  RESULT_CODE_REMOVED_CARD,
-  RESULT_CODE_RESET_CARD,
-  RESULT_CODE_UNPOWERED_CARD,
-  RESULT_CODE_UNRESPONSIVE_CARD,
-  RESULT_CODE_UNSUPPORTED_CARD,
-  RESULT_CODE_READER_UNAVAILABLE,
-  RESULT_CODE_SHARING_VIOLATION,
-  RESULT_CODE_NOT_TRANSACTED,
-  RESULT_CODE_NO_SMARTCARD,
-  RESULT_CODE_PROTO_MISMATCH,
-  RESULT_CODE_SYSTEM_CANCELLED,
-  RESULT_CODE_NOT_READY,
-  RESULT_CODE_CANCELLED,
-  RESULT_CODE_INSUFFICIENT_BUFFER,
-  RESULT_CODE_INVALID_HANDLE,
-  RESULT_CODE_INVALID_PARAMETER,
-  RESULT_CODE_INVALID_VALUE,
-  RESULT_CODE_NO_MEMORY,
-  RESULT_CODE_TIMEOUT,
-  RESULT_CODE_UNKNOWN_READER,
-  RESULT_CODE_UNSUPPORTED_FEATURE,
-  RESULT_CODE_NO_READERS_AVAILABLE,
-  RESULT_CODE_SERVICE_STOPPED,
-  RESULT_CODE_NO_SERVICE,
-  RESULT_CODE_COMM_ERROR,
-  RESULT_CODE_INTERNAL_ERROR,
-  RESULT_CODE_UNKNOWN_ERROR,
-  RESULT_CODE_SERVER_TOO_BUSY,
-  RESULT_CODE_UNEXPECTED,
-  RESULT_CODE_SHUTDOWN,
-  RESULT_CODE_UNKNOWN,
-  RESULT_CODE_LAST = RESULT_CODE_UNKNOWN,
+enum class ResultCode {
+  kNone = 0,
+  kSuccess,
+  kRemovedCard,
+  kResetCard,
+  kUnpoweredCard,
+  kUnresponsiveCard,
+  kUnsupportedCard,
+  kReaderUnavailable,
+  kSharingViolation,
+  kNotTransacted,
+  kNoSmartcard,
+  kProtoMismatch,
+  kSystemCancelled,
+  kNotReady,
+  kCancelled,
+  kInsufficientBuffer,
+  kInvalidHandle,
+  kInvalidParameter,
+  kInvalidValue,
+  kNoMemory,
+  kTimeout,
+  kUnknownReader,
+  kUnsupportedFeature,
+  kNoReadersAvailable,
+  kServiceStopped,
+  kNoService,
+  kCommError,
+  kInternalError,
+  kUnknownError,
+  kServerTooBusy,
+  kUnexpected,
+  kShutdown,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -75,12 +76,12 @@ ResultCode ParseResultCode(base::StringPiece as_string);
 std::u16string GetResultCodeParseError(base::StringPiece as_string);
 
 // Maps to the SCARD_SHARE_* values defined in the winscard.h API.
-enum  ShareMode {
-  SHARE_MODE_NONE = 0,
-  SHARE_MODE_SHARED,
-  SHARE_MODE_EXCLUSIVE,
-  SHARE_MODE_DIRECT,
-  SHARE_MODE_LAST = SHARE_MODE_DIRECT,
+enum class ShareMode {
+  kNone = 0,
+  kShared,
+  kExclusive,
+  kDirect,
+  kMaxValue = kDirect,
 };
 
 
@@ -89,13 +90,13 @@ ShareMode ParseShareMode(base::StringPiece as_string);
 std::u16string GetShareModeParseError(base::StringPiece as_string);
 
 // What the reader should do with the card inserted in it.
-enum  Disposition {
-  DISPOSITION_NONE = 0,
-  DISPOSITION_LEAVE_CARD,
-  DISPOSITION_RESET_CARD,
-  DISPOSITION_UNPOWER_CARD,
-  DISPOSITION_EJECT_CARD,
-  DISPOSITION_LAST = DISPOSITION_EJECT_CARD,
+enum class Disposition {
+  kNone = 0,
+  kLeaveCard,
+  kResetCard,
+  kUnpowerCard,
+  kEjectCard,
+  kMaxValue = kEjectCard,
 };
 
 
@@ -103,15 +104,15 @@ const char* ToString(Disposition as_enum);
 Disposition ParseDisposition(base::StringPiece as_string);
 std::u16string GetDispositionParseError(base::StringPiece as_string);
 
-enum  ConnectionState {
-  CONNECTION_STATE_NONE = 0,
-  CONNECTION_STATE_ABSENT,
-  CONNECTION_STATE_PRESENT,
-  CONNECTION_STATE_SWALLOWED,
-  CONNECTION_STATE_POWERED,
-  CONNECTION_STATE_NEGOTIABLE,
-  CONNECTION_STATE_SPECIFIC,
-  CONNECTION_STATE_LAST = CONNECTION_STATE_SPECIFIC,
+enum class ConnectionState {
+  kNone = 0,
+  kAbsent,
+  kPresent,
+  kSwallowed,
+  kPowered,
+  kNegotiable,
+  kSpecific,
+  kMaxValue = kSpecific,
 };
 
 
@@ -124,8 +125,8 @@ struct ReaderStateFlags {
   ~ReaderStateFlags();
   ReaderStateFlags(const ReaderStateFlags&) = delete;
   ReaderStateFlags& operator=(const ReaderStateFlags&) = delete;
-  ReaderStateFlags(ReaderStateFlags&& rhs);
-  ReaderStateFlags& operator=(ReaderStateFlags&& rhs);
+  ReaderStateFlags(ReaderStateFlags&& rhs) noexcept;
+  ReaderStateFlags& operator=(ReaderStateFlags&& rhs) noexcept;
 
   // Populates a ReaderStateFlags object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -138,42 +139,39 @@ struct ReaderStateFlags {
   // Creates a deep copy of ReaderStateFlags.
   ReaderStateFlags Clone() const;
 
-  // Creates a ReaderStateFlags object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReaderStateFlags> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReaderStateFlags object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReaderStateFlags> FromValue(const base::Value::Dict& value);
+  static std::optional<ReaderStateFlags> FromValue(const base::Value::Dict& value);
 
   // Creates a ReaderStateFlags object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReaderStateFlags> FromValue(const base::Value& value);
+  static std::optional<ReaderStateFlags> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReaderStateFlags object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> unaware;
+  std::optional<bool> unaware;
 
-  absl::optional<bool> ignore;
+  std::optional<bool> ignore;
 
-  absl::optional<bool> changed;
+  std::optional<bool> changed;
 
-  absl::optional<bool> unknown;
+  std::optional<bool> unknown;
 
-  absl::optional<bool> unavailable;
+  std::optional<bool> unavailable;
 
-  absl::optional<bool> empty;
+  std::optional<bool> empty;
 
-  absl::optional<bool> present;
+  std::optional<bool> present;
 
-  absl::optional<bool> exclusive;
+  std::optional<bool> exclusive;
 
-  absl::optional<bool> inuse;
+  std::optional<bool> inuse;
 
-  absl::optional<bool> mute;
+  std::optional<bool> mute;
 
-  absl::optional<bool> unpowered;
+  std::optional<bool> unpowered;
 
 };
 
@@ -182,8 +180,8 @@ struct Protocols {
   ~Protocols();
   Protocols(const Protocols&) = delete;
   Protocols& operator=(const Protocols&) = delete;
-  Protocols(Protocols&& rhs);
-  Protocols& operator=(Protocols&& rhs);
+  Protocols(Protocols&& rhs) noexcept;
+  Protocols& operator=(Protocols&& rhs) noexcept;
 
   // Populates a Protocols object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -196,35 +194,32 @@ struct Protocols {
   // Creates a deep copy of Protocols.
   Protocols Clone() const;
 
-  // Creates a Protocols object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Protocols> FromValueDeprecated(const base::Value& value);
-
   // Creates a Protocols object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Protocols> FromValue(const base::Value::Dict& value);
+  static std::optional<Protocols> FromValue(const base::Value::Dict& value);
 
   // Creates a Protocols object from a base::Value, or nullopt on failure.
-  static absl::optional<Protocols> FromValue(const base::Value& value);
+  static std::optional<Protocols> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProtocols object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> t0;
+  std::optional<bool> t0;
 
-  absl::optional<bool> t1;
+  std::optional<bool> t1;
 
-  absl::optional<bool> raw;
+  std::optional<bool> raw;
 
 };
 
 // Maps to the SCARD_PROTOCOL_* values defined in the winscard.h API.
-enum  Protocol {
-  PROTOCOL_NONE = 0,
-  PROTOCOL_UNDEFINED,
-  PROTOCOL_T0,
-  PROTOCOL_T1,
-  PROTOCOL_RAW,
-  PROTOCOL_LAST = PROTOCOL_RAW,
+enum class Protocol {
+  kNone = 0,
+  kUndefined,
+  kT0,
+  kT1,
+  kRaw,
+  kMaxValue = kRaw,
 };
 
 
@@ -237,8 +232,8 @@ struct ReaderStateIn {
   ~ReaderStateIn();
   ReaderStateIn(const ReaderStateIn&) = delete;
   ReaderStateIn& operator=(const ReaderStateIn&) = delete;
-  ReaderStateIn(ReaderStateIn&& rhs);
-  ReaderStateIn& operator=(ReaderStateIn&& rhs);
+  ReaderStateIn(ReaderStateIn&& rhs) noexcept;
+  ReaderStateIn& operator=(ReaderStateIn&& rhs) noexcept;
 
   // Populates a ReaderStateIn object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -251,15 +246,12 @@ struct ReaderStateIn {
   // Creates a deep copy of ReaderStateIn.
   ReaderStateIn Clone() const;
 
-  // Creates a ReaderStateIn object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReaderStateIn> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReaderStateIn object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReaderStateIn> FromValue(const base::Value::Dict& value);
+  static std::optional<ReaderStateIn> FromValue(const base::Value::Dict& value);
 
   // Creates a ReaderStateIn object from a base::Value, or nullopt on failure.
-  static absl::optional<ReaderStateIn> FromValue(const base::Value& value);
+  static std::optional<ReaderStateIn> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReaderStateIn object.
@@ -280,8 +272,8 @@ struct ReaderStateOut {
   ~ReaderStateOut();
   ReaderStateOut(const ReaderStateOut&) = delete;
   ReaderStateOut& operator=(const ReaderStateOut&) = delete;
-  ReaderStateOut(ReaderStateOut&& rhs);
-  ReaderStateOut& operator=(ReaderStateOut&& rhs);
+  ReaderStateOut(ReaderStateOut&& rhs) noexcept;
+  ReaderStateOut& operator=(ReaderStateOut&& rhs) noexcept;
 
   // Populates a ReaderStateOut object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -294,15 +286,12 @@ struct ReaderStateOut {
   // Creates a deep copy of ReaderStateOut.
   ReaderStateOut Clone() const;
 
-  // Creates a ReaderStateOut object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReaderStateOut> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReaderStateOut object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReaderStateOut> FromValue(const base::Value::Dict& value);
+  static std::optional<ReaderStateOut> FromValue(const base::Value::Dict& value);
 
   // Creates a ReaderStateOut object from a base::Value, or nullopt on failure.
-  static absl::optional<ReaderStateOut> FromValue(const base::Value& value);
+  static std::optional<ReaderStateOut> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReaderStateOut object.
@@ -325,8 +314,8 @@ struct Timeout {
   ~Timeout();
   Timeout(const Timeout&) = delete;
   Timeout& operator=(const Timeout&) = delete;
-  Timeout(Timeout&& rhs);
-  Timeout& operator=(Timeout&& rhs);
+  Timeout(Timeout&& rhs) noexcept;
+  Timeout& operator=(Timeout&& rhs) noexcept;
 
   // Populates a Timeout object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -339,21 +328,18 @@ struct Timeout {
   // Creates a deep copy of Timeout.
   Timeout Clone() const;
 
-  // Creates a Timeout object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Timeout> FromValueDeprecated(const base::Value& value);
-
   // Creates a Timeout object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Timeout> FromValue(const base::Value::Dict& value);
+  static std::optional<Timeout> FromValue(const base::Value::Dict& value);
 
   // Creates a Timeout object from a base::Value, or nullopt on failure.
-  static absl::optional<Timeout> FromValue(const base::Value& value);
+  static std::optional<Timeout> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTimeout object.
   base::Value::Dict ToValue() const;
 
   // If absent, it means "infinite" or "never timeout"
-  absl::optional<int> milliseconds;
+  std::optional<int> milliseconds;
 
 };
 
@@ -365,11 +351,11 @@ struct Timeout {
 namespace ReportEstablishContextResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -388,11 +374,11 @@ struct Params {
 namespace ReportReleaseContextResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -409,11 +395,11 @@ struct Params {
 namespace ReportListReadersResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -432,11 +418,11 @@ struct Params {
 namespace ReportGetStatusChangeResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -455,11 +441,11 @@ struct Params {
 namespace ReportPlainResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -476,11 +462,11 @@ struct Params {
 namespace ReportConnectResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -501,11 +487,11 @@ struct Params {
 namespace ReportDataResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -524,11 +510,11 @@ struct Params {
 namespace ReportStatusResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;

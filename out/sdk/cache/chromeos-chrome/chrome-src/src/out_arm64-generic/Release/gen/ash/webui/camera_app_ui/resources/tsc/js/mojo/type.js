@@ -6,5 +6,6 @@ export { CameraAppHelper, CameraAppHelperRemote, CameraUsageOwnershipMonitorCall
 export { Rotation, } from '../../mojom/chromeos/services/machine_learning/public/mojom/document_scanner_param_types.mojom-webui.js';
 export { CameraAppDeviceProvider, CameraAppDeviceProviderRemote, CameraAppDeviceRemote, CameraEventObserverCallbackRouter, CameraInfoObserverCallbackRouter, CaptureIntent, DocumentCornersObserverCallbackRouter, Effect, GetCameraAppDeviceStatus, ResultMetadataObserverCallbackRouter, StillCaptureResultObserverCallbackRouter, StreamType, } from '../../mojom/media/capture/video/chromeos/mojom/camera_app.mojom-webui.js';
 export { CameraFacing, } from '../../mojom/media/capture/video/chromeos/mojom/camera_common.mojom-webui.js';
+export { PortraitModeSegResult, } from '../../mojom/media/capture/video/chromeos/mojom/camera_features.mojom-webui.js';
 export { EntryType, } from '../../mojom/media/capture/video/chromeos/mojom/camera_metadata.mojom-webui.js';
 export { AndroidControlAeAntibandingMode, AndroidControlAeMode, AndroidControlAeState, AndroidControlAfMode, AndroidControlAfState, AndroidControlAwbMode, AndroidControlAwbState, AndroidInfoSupportedHardwareLevel, AndroidStatisticsFaceDetectMode, CameraMetadataTag, } from '../../mojom/media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-webui.js';

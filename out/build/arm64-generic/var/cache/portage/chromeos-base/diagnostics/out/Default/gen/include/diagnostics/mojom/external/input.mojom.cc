@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -61,7 +62,7 @@ KeyboardInfo::KeyboardInfo(
     const std::string& name_in,
     PhysicalLayout physical_layout_in,
     MechanicalLayout mechanical_layout_in,
-    const absl::optional<std::string>& region_code_in,
+    const std::optional<std::string>& region_code_in,
     NumberPadPresence number_pad_present_in,
     std::vector<TopRowKey> top_row_keys_in,
     TopRightKey top_right_key_in,
@@ -131,7 +132,7 @@ void KeyboardInfo::WriteIntoTrace(
     dict.AddItem(
       "region_code"), this->region_code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

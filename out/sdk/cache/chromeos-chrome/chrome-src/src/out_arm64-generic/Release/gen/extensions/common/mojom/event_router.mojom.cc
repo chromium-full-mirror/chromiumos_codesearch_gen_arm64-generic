@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -105,7 +106,7 @@ EventListener::EventListener(
     EventListenerOwnerPtr listener_owner_in,
     const std::string& event_name_in,
     ServiceWorkerContextPtr service_worker_context_in,
-    absl::optional<::base::Value::Dict> filter_in)
+    std::optional<::base::Value::Dict> filter_in)
     : listener_owner(std::move(listener_owner_in)),
       event_name(std::move(event_name_in)),
       service_worker_context(std::move(service_worker_context_in)),
@@ -147,7 +148,7 @@ void EventListener::WriteIntoTrace(
     dict.AddItem(
       "filter"), this->filter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Value::Dict>>"
+      "<value of type std::optional<::base::Value::Dict>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -501,14 +502,17 @@ void EventRouterProxy::AddListenerForMainThread(
                         "<value of type EventListenerPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -549,14 +553,17 @@ void EventRouterProxy::AddListenerForServiceWorker(
                         "<value of type EventListenerPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -600,14 +607,17 @@ void EventRouterProxy::AddLazyListenerForMainThread(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddLazyListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -665,14 +675,17 @@ void EventRouterProxy::AddLazyListenerForServiceWorker(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddLazyListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -744,14 +757,17 @@ void EventRouterProxy::AddFilteredListenerForMainThread(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddFilteredListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -825,14 +841,17 @@ void EventRouterProxy::AddFilteredListenerForServiceWorker(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_AddFilteredListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -907,14 +926,17 @@ void EventRouterProxy::RemoveListenerForMainThread(
                         "<value of type EventListenerPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -955,14 +977,17 @@ void EventRouterProxy::RemoveListenerForServiceWorker(
                         "<value of type EventListenerPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -1006,14 +1031,17 @@ void EventRouterProxy::RemoveLazyListenerForMainThread(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveLazyListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -1071,14 +1099,17 @@ void EventRouterProxy::RemoveLazyListenerForServiceWorker(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveLazyListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -1150,14 +1181,17 @@ void EventRouterProxy::RemoveFilteredListenerForMainThread(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveFilteredListenerForMainThread_Name, kFlags, 0, 0, nullptr);
@@ -1231,14 +1265,17 @@ void EventRouterProxy::RemoveFilteredListenerForServiceWorker(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventRouter_RemoveFilteredListenerForServiceWorker_Name, kFlags, 0, 0, nullptr);
@@ -1750,32 +1787,32 @@ bool EventRouterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEventRouterValidationInfo[] = {
-    {&internal::EventRouter_AddListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_AddListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_AddListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_AddListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_AddLazyListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_AddLazyListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_AddLazyListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_AddLazyListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_AddFilteredListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_AddFilteredListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_AddFilteredListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_AddFilteredListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_RemoveListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_RemoveListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveLazyListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_RemoveLazyListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveLazyListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_RemoveLazyListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveFilteredListenerForMainThread_Params_Data::Validate,
+    { &internal::EventRouter_RemoveFilteredListenerForMainThread_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventRouter_RemoveFilteredListenerForServiceWorker_Params_Data::Validate,
+    { &internal::EventRouter_RemoveFilteredListenerForServiceWorker_Params_Data::Validate,
      nullptr /* no response */},
 };
 

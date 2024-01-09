@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Clipboard>::value,
     "Clipboard inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Clipboard::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Clipboard is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -109,7 +104,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIRead)
 
 
 
-Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(v8_receiver);
+Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -145,7 +140,7 @@ return;
 
 
 
-Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(v8_receiver);
+Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -199,7 +194,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIReadT
 
 
 
-Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(v8_receiver);
+Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -238,7 +233,7 @@ return;
 
 
 
-Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(v8_receiver);
+Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -281,7 +276,7 @@ return;
 
 
 
-Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(v8_receiver);
+Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -899,14 +900,17 @@ void FastPairDataParserProxy::GetHexModelIdFromServiceData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_GetHexModelIdFromServiceData_Name, kFlags, 0, 0, nullptr);
@@ -953,14 +957,17 @@ void FastPairDataParserProxy::ParseDecryptedResponse(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseDecryptedResponse_Name, kFlags, 0, 0, nullptr);
@@ -1020,14 +1027,17 @@ void FastPairDataParserProxy::ParseDecryptedPasskey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseDecryptedPasskey_Name, kFlags, 0, 0, nullptr);
@@ -1087,14 +1097,17 @@ void FastPairDataParserProxy::ParseNotDiscoverableAdvertisement(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseNotDiscoverableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -1149,14 +1162,17 @@ void FastPairDataParserProxy::ParseMessageStreamMessages(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseMessageStreamMessages_Name, kFlags, 0, 0, nullptr);
@@ -1233,7 +1249,7 @@ class FastPairDataParser_GetHexModelIdFromServiceData_ProxyToResponder : public 
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_model_id);
+      const std::optional<std::string>& in_model_id);
 };
 
 bool FastPairDataParser_GetHexModelIdFromServiceData_ForwardToCallback::Accept(
@@ -1246,7 +1262,7 @@ bool FastPairDataParser_GetHexModelIdFromServiceData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_model_id{};
+  std::optional<std::string> p_model_id{};
   FastPairDataParser_GetHexModelIdFromServiceData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadModelId(&p_model_id))
@@ -1265,7 +1281,7 @@ std::move(p_model_id));
 }
 
 void FastPairDataParser_GetHexModelIdFromServiceData_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_model_id) {
+    const std::optional<std::string>& in_model_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::quick_pair::mojom::FastPairDataParser::GetHexModelIdFromServiceData", "async_response_parameters",
@@ -1273,13 +1289,14 @@ void FastPairDataParser_GetHexModelIdFromServiceData_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_id"), in_model_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_GetHexModelIdFromServiceData_Name, kFlags, 0, 0, nullptr);
@@ -1357,7 +1374,7 @@ class FastPairDataParser_ParseDecryptedResponse_ProxyToResponder : public ::mojo
 #endif
 
   void Run(
-      const absl::optional<::ash::quick_pair::DecryptedResponse>& in_response);
+      const std::optional<::ash::quick_pair::DecryptedResponse>& in_response);
 };
 
 bool FastPairDataParser_ParseDecryptedResponse_ForwardToCallback::Accept(
@@ -1370,7 +1387,7 @@ bool FastPairDataParser_ParseDecryptedResponse_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::ash::quick_pair::DecryptedResponse> p_response{};
+  std::optional<::ash::quick_pair::DecryptedResponse> p_response{};
   FastPairDataParser_ParseDecryptedResponse_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -1389,7 +1406,7 @@ std::move(p_response));
 }
 
 void FastPairDataParser_ParseDecryptedResponse_ProxyToResponder::Run(
-    const absl::optional<::ash::quick_pair::DecryptedResponse>& in_response) {
+    const std::optional<::ash::quick_pair::DecryptedResponse>& in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::quick_pair::mojom::FastPairDataParser::ParseDecryptedResponse", "async_response_parameters",
@@ -1397,13 +1414,14 @@ void FastPairDataParser_ParseDecryptedResponse_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type const absl::optional<::ash::quick_pair::DecryptedResponse>&>");
+                        "<value of type const std::optional<::ash::quick_pair::DecryptedResponse>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseDecryptedResponse_Name, kFlags, 0, 0, nullptr);
@@ -1481,7 +1499,7 @@ class FastPairDataParser_ParseDecryptedPasskey_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      const absl::optional<::ash::quick_pair::DecryptedPasskey>& in_passkey);
+      const std::optional<::ash::quick_pair::DecryptedPasskey>& in_passkey);
 };
 
 bool FastPairDataParser_ParseDecryptedPasskey_ForwardToCallback::Accept(
@@ -1494,7 +1512,7 @@ bool FastPairDataParser_ParseDecryptedPasskey_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::ash::quick_pair::DecryptedPasskey> p_passkey{};
+  std::optional<::ash::quick_pair::DecryptedPasskey> p_passkey{};
   FastPairDataParser_ParseDecryptedPasskey_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadPasskey(&p_passkey))
@@ -1513,7 +1531,7 @@ std::move(p_passkey));
 }
 
 void FastPairDataParser_ParseDecryptedPasskey_ProxyToResponder::Run(
-    const absl::optional<::ash::quick_pair::DecryptedPasskey>& in_passkey) {
+    const std::optional<::ash::quick_pair::DecryptedPasskey>& in_passkey) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::quick_pair::mojom::FastPairDataParser::ParseDecryptedPasskey", "async_response_parameters",
@@ -1521,13 +1539,14 @@ void FastPairDataParser_ParseDecryptedPasskey_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("passkey"), in_passkey,
-                        "<value of type const absl::optional<::ash::quick_pair::DecryptedPasskey>&>");
+                        "<value of type const std::optional<::ash::quick_pair::DecryptedPasskey>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseDecryptedPasskey_Name, kFlags, 0, 0, nullptr);
@@ -1605,7 +1624,7 @@ class FastPairDataParser_ParseNotDiscoverableAdvertisement_ProxyToResponder : pu
 #endif
 
   void Run(
-      const absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& in_advertisement);
+      const std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& in_advertisement);
 };
 
 bool FastPairDataParser_ParseNotDiscoverableAdvertisement_ForwardToCallback::Accept(
@@ -1618,7 +1637,7 @@ bool FastPairDataParser_ParseNotDiscoverableAdvertisement_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement> p_advertisement{};
+  std::optional<::ash::quick_pair::NotDiscoverableAdvertisement> p_advertisement{};
   FastPairDataParser_ParseNotDiscoverableAdvertisement_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAdvertisement(&p_advertisement))
@@ -1637,7 +1656,7 @@ std::move(p_advertisement));
 }
 
 void FastPairDataParser_ParseNotDiscoverableAdvertisement_ProxyToResponder::Run(
-    const absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& in_advertisement) {
+    const std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& in_advertisement) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::quick_pair::mojom::FastPairDataParser::ParseNotDiscoverableAdvertisement", "async_response_parameters",
@@ -1645,13 +1664,14 @@ void FastPairDataParser_ParseNotDiscoverableAdvertisement_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("advertisement"), in_advertisement,
-                        "<value of type const absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>&>");
+                        "<value of type const std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseNotDiscoverableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -1775,7 +1795,8 @@ void FastPairDataParser_ParseMessageStreamMessages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFastPairDataParser_ParseMessageStreamMessages_Name, kFlags, 0, 0, nullptr);
@@ -2007,18 +2028,18 @@ std::move(p_message_bytes), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFastPairDataParserValidationInfo[] = {
-    {&internal::FastPairDataParser_GetHexModelIdFromServiceData_Params_Data::Validate,
+    { &internal::FastPairDataParser_GetHexModelIdFromServiceData_Params_Data::Validate,
      &internal::FastPairDataParser_GetHexModelIdFromServiceData_ResponseParams_Data::Validate},
-    {&internal::FastPairDataParser_ParseDecryptedResponse_Params_Data::Validate,
+    { &internal::FastPairDataParser_ParseDecryptedResponse_Params_Data::Validate,
      &internal::FastPairDataParser_ParseDecryptedResponse_ResponseParams_Data::Validate},
-    {&internal::FastPairDataParser_ParseDecryptedPasskey_Params_Data::Validate,
+    { &internal::FastPairDataParser_ParseDecryptedPasskey_Params_Data::Validate,
      &internal::FastPairDataParser_ParseDecryptedPasskey_ResponseParams_Data::Validate},
-    {&internal::FastPairDataParser_ParseNotDiscoverableAdvertisement_Params_Data::Validate,
+    { &internal::FastPairDataParser_ParseNotDiscoverableAdvertisement_Params_Data::Validate,
      &internal::FastPairDataParser_ParseNotDiscoverableAdvertisement_ResponseParams_Data::Validate},
-    {&internal::FastPairDataParser_ParseMessageStreamMessages_Params_Data::Validate,
+    { &internal::FastPairDataParser_ParseMessageStreamMessages_Params_Data::Validate,
      &internal::FastPairDataParser_ParseMessageStreamMessages_ResponseParams_Data::Validate},
 };
 
@@ -2293,14 +2314,14 @@ FastPairDataParserAsyncWaiter::FastPairDataParserAsyncWaiter(
 FastPairDataParserAsyncWaiter::~FastPairDataParserAsyncWaiter() = default;
 
 void FastPairDataParserAsyncWaiter::GetHexModelIdFromServiceData(
-    const std::vector<uint8_t>& service_data, absl::optional<std::string>* out_model_id) {
+    const std::vector<uint8_t>& service_data, std::optional<std::string>* out_model_id) {
   base::RunLoop loop;
   proxy_->GetHexModelIdFromServiceData(std::move(service_data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_model_id
+             std::optional<std::string>* out_model_id
 ,
-             const absl::optional<std::string>& model_id) {*out_model_id = std::move(model_id);
+             const std::optional<std::string>& model_id) {*out_model_id = std::move(model_id);
             loop->Quit();
           },
           &loop,
@@ -2308,22 +2329,22 @@ void FastPairDataParserAsyncWaiter::GetHexModelIdFromServiceData(
   loop.Run();
 }
 
-absl::optional<std::string> FastPairDataParserAsyncWaiter::GetHexModelIdFromServiceData(
+std::optional<std::string> FastPairDataParserAsyncWaiter::GetHexModelIdFromServiceData(
     const std::vector<uint8_t>& service_data) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetHexModelIdFromServiceData(std::move(service_data),&async_wait_result);
   return async_wait_result;
 }
 
 void FastPairDataParserAsyncWaiter::ParseDecryptedResponse(
-    const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes, absl::optional<::ash::quick_pair::DecryptedResponse>* out_response) {
+    const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes, std::optional<::ash::quick_pair::DecryptedResponse>* out_response) {
   base::RunLoop loop;
   proxy_->ParseDecryptedResponse(std::move(aes_key),std::move(encrypted_response_bytes),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::ash::quick_pair::DecryptedResponse>* out_response
+             std::optional<::ash::quick_pair::DecryptedResponse>* out_response
 ,
-             const absl::optional<::ash::quick_pair::DecryptedResponse>& response) {*out_response = std::move(response);
+             const std::optional<::ash::quick_pair::DecryptedResponse>& response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -2331,22 +2352,22 @@ void FastPairDataParserAsyncWaiter::ParseDecryptedResponse(
   loop.Run();
 }
 
-absl::optional<::ash::quick_pair::DecryptedResponse> FastPairDataParserAsyncWaiter::ParseDecryptedResponse(
+std::optional<::ash::quick_pair::DecryptedResponse> FastPairDataParserAsyncWaiter::ParseDecryptedResponse(
     const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes) {
-  absl::optional<::ash::quick_pair::DecryptedResponse> async_wait_result;
+  std::optional<::ash::quick_pair::DecryptedResponse> async_wait_result;
   ParseDecryptedResponse(std::move(aes_key),std::move(encrypted_response_bytes),&async_wait_result);
   return async_wait_result;
 }
 
 void FastPairDataParserAsyncWaiter::ParseDecryptedPasskey(
-    const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes, absl::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey) {
+    const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes, std::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey) {
   base::RunLoop loop;
   proxy_->ParseDecryptedPasskey(std::move(aes_key),std::move(encrypted_passkey_bytes),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey
+             std::optional<::ash::quick_pair::DecryptedPasskey>* out_passkey
 ,
-             const absl::optional<::ash::quick_pair::DecryptedPasskey>& passkey) {*out_passkey = std::move(passkey);
+             const std::optional<::ash::quick_pair::DecryptedPasskey>& passkey) {*out_passkey = std::move(passkey);
             loop->Quit();
           },
           &loop,
@@ -2354,22 +2375,22 @@ void FastPairDataParserAsyncWaiter::ParseDecryptedPasskey(
   loop.Run();
 }
 
-absl::optional<::ash::quick_pair::DecryptedPasskey> FastPairDataParserAsyncWaiter::ParseDecryptedPasskey(
+std::optional<::ash::quick_pair::DecryptedPasskey> FastPairDataParserAsyncWaiter::ParseDecryptedPasskey(
     const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes) {
-  absl::optional<::ash::quick_pair::DecryptedPasskey> async_wait_result;
+  std::optional<::ash::quick_pair::DecryptedPasskey> async_wait_result;
   ParseDecryptedPasskey(std::move(aes_key),std::move(encrypted_passkey_bytes),&async_wait_result);
   return async_wait_result;
 }
 
 void FastPairDataParserAsyncWaiter::ParseNotDiscoverableAdvertisement(
-    const std::vector<uint8_t>& service_data, const std::string& address, absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement) {
+    const std::vector<uint8_t>& service_data, const std::string& address, std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement) {
   base::RunLoop loop;
   proxy_->ParseNotDiscoverableAdvertisement(std::move(service_data),std::move(address),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement
+             std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>* out_advertisement
 ,
-             const absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& advertisement) {*out_advertisement = std::move(advertisement);
+             const std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>& advertisement) {*out_advertisement = std::move(advertisement);
             loop->Quit();
           },
           &loop,
@@ -2377,9 +2398,9 @@ void FastPairDataParserAsyncWaiter::ParseNotDiscoverableAdvertisement(
   loop.Run();
 }
 
-absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement> FastPairDataParserAsyncWaiter::ParseNotDiscoverableAdvertisement(
+std::optional<::ash::quick_pair::NotDiscoverableAdvertisement> FastPairDataParserAsyncWaiter::ParseNotDiscoverableAdvertisement(
     const std::vector<uint8_t>& service_data, const std::string& address) {
-  absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement> async_wait_result;
+  std::optional<::ash::quick_pair::NotDiscoverableAdvertisement> async_wait_result;
   ParseNotDiscoverableAdvertisement(std::move(service_data),std::move(address),&async_wait_result);
   return async_wait_result;
 }

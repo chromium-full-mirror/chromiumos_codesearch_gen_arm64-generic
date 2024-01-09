@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -74,8 +75,8 @@ struct AudioDeviceInfo {
   ~AudioDeviceInfo();
   AudioDeviceInfo(const AudioDeviceInfo&) = delete;
   AudioDeviceInfo& operator=(const AudioDeviceInfo&) = delete;
-  AudioDeviceInfo(AudioDeviceInfo&& rhs);
-  AudioDeviceInfo& operator=(AudioDeviceInfo&& rhs);
+  AudioDeviceInfo(AudioDeviceInfo&& rhs) noexcept;
+  AudioDeviceInfo& operator=(AudioDeviceInfo&& rhs) noexcept;
 
   // Populates a AudioDeviceInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -88,15 +89,12 @@ struct AudioDeviceInfo {
   // Creates a deep copy of AudioDeviceInfo.
   AudioDeviceInfo Clone() const;
 
-  // Creates a AudioDeviceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AudioDeviceInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AudioDeviceInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AudioDeviceInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AudioDeviceInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AudioDeviceInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AudioDeviceInfo> FromValue(const base::Value& value);
+  static std::optional<AudioDeviceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAudioDeviceInfo object.
@@ -124,7 +122,7 @@ struct AudioDeviceInfo {
   int level;
 
   // The stable/persisted device id string when available.
-  absl::optional<std::string> stable_device_id;
+  std::optional<std::string> stable_device_id;
 
 };
 
@@ -133,8 +131,8 @@ struct DeviceFilter {
   ~DeviceFilter();
   DeviceFilter(const DeviceFilter&) = delete;
   DeviceFilter& operator=(const DeviceFilter&) = delete;
-  DeviceFilter(DeviceFilter&& rhs);
-  DeviceFilter& operator=(DeviceFilter&& rhs);
+  DeviceFilter(DeviceFilter&& rhs) noexcept;
+  DeviceFilter& operator=(DeviceFilter&& rhs) noexcept;
 
   // Populates a DeviceFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -147,15 +145,12 @@ struct DeviceFilter {
   // Creates a deep copy of DeviceFilter.
   DeviceFilter Clone() const;
 
-  // Creates a DeviceFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceFilter object.
@@ -163,11 +158,11 @@ struct DeviceFilter {
 
   // If set, only audio devices whose stream type is included in this list will
   // satisfy the filter.
-  absl::optional<std::vector<StreamType>> stream_types;
+  std::optional<std::vector<StreamType>> stream_types;
 
   // If set, only audio devices whose active state matches this value will satisfy
   // the filter.
-  absl::optional<bool> is_active;
+  std::optional<bool> is_active;
 
 };
 
@@ -176,8 +171,8 @@ struct DeviceProperties {
   ~DeviceProperties();
   DeviceProperties(const DeviceProperties&) = delete;
   DeviceProperties& operator=(const DeviceProperties&) = delete;
-  DeviceProperties(DeviceProperties&& rhs);
-  DeviceProperties& operator=(DeviceProperties&& rhs);
+  DeviceProperties(DeviceProperties&& rhs) noexcept;
+  DeviceProperties& operator=(DeviceProperties&& rhs) noexcept;
 
   // Populates a DeviceProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -190,16 +185,13 @@ struct DeviceProperties {
   // Creates a deep copy of DeviceProperties.
   DeviceProperties Clone() const;
 
-  // Creates a DeviceProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DeviceProperties> FromValue(const base::Value& value);
+  static std::optional<DeviceProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceProperties object.
@@ -209,7 +201,7 @@ struct DeviceProperties {
   // current sound level. </p> <p>If used with audio input device, represents
   // audio device gain.</p> <p>If used with audio output device, represents audio
   // device volume.</p>
-  absl::optional<int> level;
+  std::optional<int> level;
 
 };
 
@@ -218,8 +210,8 @@ struct DeviceIdLists {
   ~DeviceIdLists();
   DeviceIdLists(const DeviceIdLists&) = delete;
   DeviceIdLists& operator=(const DeviceIdLists&) = delete;
-  DeviceIdLists(DeviceIdLists&& rhs);
-  DeviceIdLists& operator=(DeviceIdLists&& rhs);
+  DeviceIdLists(DeviceIdLists&& rhs) noexcept;
+  DeviceIdLists& operator=(DeviceIdLists&& rhs) noexcept;
 
   // Populates a DeviceIdLists object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -232,15 +224,12 @@ struct DeviceIdLists {
   // Creates a deep copy of DeviceIdLists.
   DeviceIdLists Clone() const;
 
-  // Creates a DeviceIdLists object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceIdLists> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceIdLists object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceIdLists> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceIdLists> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceIdLists object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceIdLists> FromValue(const base::Value& value);
+  static std::optional<DeviceIdLists> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceIdLists object.
@@ -248,11 +237,11 @@ struct DeviceIdLists {
 
   // <p>List of input devices specified by their ID.</p> <p>To indicate input
   // devices should be unaffected, leave this property   unset.</p>
-  absl::optional<std::vector<std::string>> input;
+  std::optional<std::vector<std::string>> input;
 
   // <p>List of output devices specified by their ID.</p> <p>To indicate output
   // devices should be unaffected, leave this property   unset.</p>
-  absl::optional<std::vector<std::string>> output;
+  std::optional<std::vector<std::string>> output;
 
 };
 
@@ -261,8 +250,8 @@ struct MuteChangedEvent {
   ~MuteChangedEvent();
   MuteChangedEvent(const MuteChangedEvent&) = delete;
   MuteChangedEvent& operator=(const MuteChangedEvent&) = delete;
-  MuteChangedEvent(MuteChangedEvent&& rhs);
-  MuteChangedEvent& operator=(MuteChangedEvent&& rhs);
+  MuteChangedEvent(MuteChangedEvent&& rhs) noexcept;
+  MuteChangedEvent& operator=(MuteChangedEvent&& rhs) noexcept;
 
   // Populates a MuteChangedEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -275,16 +264,13 @@ struct MuteChangedEvent {
   // Creates a deep copy of MuteChangedEvent.
   MuteChangedEvent Clone() const;
 
-  // Creates a MuteChangedEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MuteChangedEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a MuteChangedEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MuteChangedEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<MuteChangedEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a MuteChangedEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MuteChangedEvent> FromValue(const base::Value& value);
+  static std::optional<MuteChangedEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMuteChangedEvent object.
@@ -304,8 +290,8 @@ struct LevelChangedEvent {
   ~LevelChangedEvent();
   LevelChangedEvent(const LevelChangedEvent&) = delete;
   LevelChangedEvent& operator=(const LevelChangedEvent&) = delete;
-  LevelChangedEvent(LevelChangedEvent&& rhs);
-  LevelChangedEvent& operator=(LevelChangedEvent&& rhs);
+  LevelChangedEvent(LevelChangedEvent&& rhs) noexcept;
+  LevelChangedEvent& operator=(LevelChangedEvent&& rhs) noexcept;
 
   // Populates a LevelChangedEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -318,16 +304,13 @@ struct LevelChangedEvent {
   // Creates a deep copy of LevelChangedEvent.
   LevelChangedEvent Clone() const;
 
-  // Creates a LevelChangedEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LevelChangedEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a LevelChangedEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LevelChangedEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<LevelChangedEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a LevelChangedEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LevelChangedEvent> FromValue(const base::Value& value);
+  static std::optional<LevelChangedEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLevelChangedEvent object.
@@ -349,17 +332,17 @@ struct LevelChangedEvent {
 namespace GetDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Device properties by which to filter the list of returned     audio devices.
   // If the filter is not set or set to <code>{}</code>,     returned device list
   // will contain all available audio devices.
-  absl::optional<DeviceFilter> filter;
+  std::optional<DeviceFilter> filter;
 
 
  private:
@@ -376,11 +359,11 @@ base::Value::List Create(const std::vector<AudioDeviceInfo>& devices);
 namespace SetActiveDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // <p>Specifies IDs of devices that should be active. If either the     input or
@@ -403,11 +386,11 @@ base::Value::List Create();
 namespace SetProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -429,11 +412,11 @@ base::Value::List Create();
 namespace GetMute {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Stream type for which mute state should be fetched.
@@ -454,11 +437,11 @@ base::Value::List Create(bool value);
 namespace SetMute {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Stream type for which mute state should be set.

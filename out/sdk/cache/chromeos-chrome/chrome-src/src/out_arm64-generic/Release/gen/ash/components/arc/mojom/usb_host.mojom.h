@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/usb_host.mojom-features.h"
 #include "ash/components/arc/mojom/usb_host.mojom-shared.h"
 #include "ash/components/arc/mojom/usb_host.mojom-forward.h"
 #include "services/device/public/mojom/usb_device.mojom-forward.h"
@@ -92,7 +93,7 @@ class UsbHostHost
 
   using OpenDeviceCallback = base::OnceCallback<void(::mojo::ScopedHandle)>;
   
-  virtual void OpenDevice(const std::string& guid, const absl::optional<std::string>& pkg_name, OpenDeviceCallback callback) = 0;
+  virtual void OpenDevice(const std::string& guid, const std::optional<std::string>& pkg_name, OpenDeviceCallback callback) = 0;
 
 
   using GetDeviceInfoCallback = base::OnceCallback<void(const std::string&, ::device::mojom::UsbDeviceInfoPtr)>;
@@ -161,10 +162,10 @@ class UsbHostInstance
   virtual void Init(::mojo::PendingRemote<UsbHostHost> host_remote, InitCallback callback) = 0;
 
   
-  virtual void OnDeviceAdded(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) = 0;
+  virtual void OnDeviceAdded(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) = 0;
 
   
-  virtual void OnDeviceRemoved(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) = 0;
+  virtual void OnDeviceRemoved(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) = 0;
 };
 
 
@@ -176,7 +177,7 @@ class  UsbHostHostProxy
 
   explicit UsbHostHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OpenDevice(const std::string& guid, const absl::optional<std::string>& pkg_name, OpenDeviceCallback callback) final;
+  void OpenDevice(const std::string& guid, const std::optional<std::string>& pkg_name, OpenDeviceCallback callback) final;
   
   void GetDeviceInfo(const std::string& guid, GetDeviceInfoCallback callback) final;
   
@@ -197,9 +198,9 @@ class  UsbHostInstanceProxy
   
   void Init(::mojo::PendingRemote<UsbHostHost> host_remote, InitCallback callback) final;
   
-  void OnDeviceAdded(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) final;
+  void OnDeviceAdded(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) final;
   
-  void OnDeviceRemoved(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) final;
+  void OnDeviceRemoved(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

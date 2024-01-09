@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/offscreen.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -116,8 +117,8 @@ CreateParameters::CreateParameters()
  {}
 
 CreateParameters::~CreateParameters() = default;
-CreateParameters::CreateParameters(CreateParameters&& rhs) = default;
-CreateParameters& CreateParameters::operator=(CreateParameters&& rhs) = default;
+CreateParameters::CreateParameters(CreateParameters&& rhs) noexcept = default;
+CreateParameters& CreateParameters::operator=(CreateParameters&& rhs) noexcept = default;
 CreateParameters CreateParameters::Clone() const {
   CreateParameters out;
   out.reasons = reasons;
@@ -190,34 +191,21 @@ bool CreateParameters::Populate(
 }
 
 // static
-std::unique_ptr<CreateParameters> CreateParameters::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateParameters>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateParameters> CreateParameters::FromValue(const base::Value::Dict& value) {
+  CreateParameters out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateParameters> CreateParameters::FromValue(const base::Value::Dict& value) {
+std::optional<CreateParameters> CreateParameters::FromValue(const base::Value& value) {
   CreateParameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateParameters> CreateParameters::FromValue(const base::Value& value) {
-  CreateParameters out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -251,13 +239,13 @@ namespace CreateDocument {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -266,15 +254,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& parameters_value = args[0];
     {
       if (!parameters_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CreateParameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

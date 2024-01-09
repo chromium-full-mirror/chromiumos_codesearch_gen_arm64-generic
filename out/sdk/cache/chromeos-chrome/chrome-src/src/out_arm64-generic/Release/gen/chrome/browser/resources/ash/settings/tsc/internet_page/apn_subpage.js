@@ -15,7 +15,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { MAX_NUM_CUSTOM_APNS } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './apn_subpage.html.js';
 const ApnSubpageElementBase = mixinBehaviors([
@@ -122,12 +122,6 @@ export class ApnSubpageElement extends ApnSubpageElementBase {
             // Close the page if there are no cellular properties.
             this.close();
             return;
-        }
-        if (this.deviceState_ && this.deviceState_.scanning) {
-            // Cellular properties may be invalid while scanning, so keep the
-            // existing properties instead.
-            response.result.typeProperties.cellular =
-                this.managedProperties_.typeProperties.cellular;
         }
         this.managedProperties_ = response.result;
         if (!this.deviceState_) {

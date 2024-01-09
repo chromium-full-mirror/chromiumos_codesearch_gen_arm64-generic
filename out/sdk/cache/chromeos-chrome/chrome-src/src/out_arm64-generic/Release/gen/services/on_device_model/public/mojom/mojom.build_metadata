@@ -4,6 +4,7 @@
     "../../../../sandbox/policy/mojom/mojom.build_metadata"
   ],
   "sources": [
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/on_device_model/public/mojom/on_device_model.mojom"
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/on_device_model/public/mojom/on_device_model.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/on_device_model/public/mojom/on_device_model_service.mojom"
   ]
 }

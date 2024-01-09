@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAnimatedAngle>::value,
     "SVGAnimatedAngle inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAnimatedAngle::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAnimatedAngle is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedAngle.baseVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedAngle* blink_receiver = V8SVGAnimatedAngle::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedAngle* blink_receiver = V8SVGAnimatedAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseVal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedAngle.animVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedAngle* blink_receiver = V8SVGAnimatedAngle::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedAngle* blink_receiver = V8SVGAnimatedAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animVal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

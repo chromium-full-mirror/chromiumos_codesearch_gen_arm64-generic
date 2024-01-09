@@ -34,9 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/usb_bouncer/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/usb_bouncer/all.stamp: stamp ./usb_bouncer ./run_tests
-subninja obj/usb_bouncer/run_tests.ninja
+build obj/usb_bouncer/all.stamp: stamp ./usb_bouncer
 subninja obj/usb_bouncer/usb_bouncer.ninja
 subninja obj/usb_bouncer/usb_bouncer_common.ninja
 subninja obj/usb_bouncer/usb_bouncer_protos.ninja

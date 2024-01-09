@@ -10,12 +10,9 @@
 
 const webui::ResourcePath kDlpInternalsResources[] = {
   {"index.html", IDR_DLP_INTERNALS_INDEX_HTML},
-  {"app.js", IDR_DLP_INTERNALS_APP_JS},
-  {"dlp_clipboard_tab.js", IDR_DLP_INTERNALS_DLP_CLIPBOARD_TAB_JS},
-  {"dlp_tabs.js", IDR_DLP_INTERNALS_DLP_TABS_JS},
-  {"app.html.js", IDR_DLP_INTERNALS_APP_HTML_JS},
-  {"dlp_clipboard_tab.html.js", IDR_DLP_INTERNALS_DLP_CLIPBOARD_TAB_HTML_JS},
-  {"dlp_tabs.html.js", IDR_DLP_INTERNALS_DLP_TABS_HTML_JS},
+  {"dlp_internals_ui.js", IDR_DLP_INTERNALS_DLP_INTERNALS_UI_JS},
+  {"dlp_utils.js", IDR_DLP_INTERNALS_DLP_UTILS_JS},
+  {"dlp_internals_ui.html.js", IDR_DLP_INTERNALS_DLP_INTERNALS_UI_HTML_JS},
   {"dlp_internals.mojom-webui.js", IDR_DLP_INTERNALS_DLP_INTERNALS_MOJOM_WEBUI_JS},
 };
 

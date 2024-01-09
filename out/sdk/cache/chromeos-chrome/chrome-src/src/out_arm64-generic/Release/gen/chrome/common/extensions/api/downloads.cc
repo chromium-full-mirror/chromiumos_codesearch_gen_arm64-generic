@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/downloads.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ HeaderNameValuePair::HeaderNameValuePair()
  {}
 
 HeaderNameValuePair::~HeaderNameValuePair() = default;
-HeaderNameValuePair::HeaderNameValuePair(HeaderNameValuePair&& rhs) = default;
-HeaderNameValuePair& HeaderNameValuePair::operator=(HeaderNameValuePair&& rhs) = default;
+HeaderNameValuePair::HeaderNameValuePair(HeaderNameValuePair&& rhs) noexcept = default;
+HeaderNameValuePair& HeaderNameValuePair::operator=(HeaderNameValuePair&& rhs) noexcept = default;
 HeaderNameValuePair HeaderNameValuePair::Clone() const {
   HeaderNameValuePair out;
   out.name = name;
@@ -87,34 +88,21 @@ bool HeaderNameValuePair::Populate(
 }
 
 // static
-std::unique_ptr<HeaderNameValuePair> HeaderNameValuePair::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HeaderNameValuePair>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HeaderNameValuePair> HeaderNameValuePair::FromValue(const base::Value::Dict& value) {
+  HeaderNameValuePair out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HeaderNameValuePair> HeaderNameValuePair::FromValue(const base::Value::Dict& value) {
+std::optional<HeaderNameValuePair> HeaderNameValuePair::FromValue(const base::Value& value) {
   HeaderNameValuePair out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HeaderNameValuePair> HeaderNameValuePair::FromValue(const base::Value& value) {
-  HeaderNameValuePair out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -133,13 +121,13 @@ base::Value::Dict HeaderNameValuePair::ToValue() const {
 
 const char* ToString(FilenameConflictAction enum_param) {
   switch (enum_param) {
-    case FILENAME_CONFLICT_ACTION_UNIQUIFY:
+    case FilenameConflictAction::kUniquify:
       return "uniquify";
-    case FILENAME_CONFLICT_ACTION_OVERWRITE:
+    case FilenameConflictAction::kOverwrite:
       return "overwrite";
-    case FILENAME_CONFLICT_ACTION_PROMPT:
+    case FilenameConflictAction::kPrompt:
       return "prompt";
-    case FILENAME_CONFLICT_ACTION_NONE:
+    case FilenameConflictAction::kNone:
       return "";
   }
   NOTREACHED();
@@ -148,12 +136,12 @@ const char* ToString(FilenameConflictAction enum_param) {
 
 FilenameConflictAction ParseFilenameConflictAction(base::StringPiece enum_string) {
   if (enum_string == "uniquify")
-    return FILENAME_CONFLICT_ACTION_UNIQUIFY;
+    return FilenameConflictAction::kUniquify;
   if (enum_string == "overwrite")
-    return FILENAME_CONFLICT_ACTION_OVERWRITE;
+    return FilenameConflictAction::kOverwrite;
   if (enum_string == "prompt")
-    return FILENAME_CONFLICT_ACTION_PROMPT;
-  return FILENAME_CONFLICT_ACTION_NONE;
+    return FilenameConflictAction::kPrompt;
+  return FilenameConflictAction::kNone;
 }
 
 std::u16string GetFilenameConflictActionParseError(base::StringPiece enum_string) {
@@ -165,8 +153,8 @@ FilenameSuggestion::FilenameSuggestion()
 : conflict_action() {}
 
 FilenameSuggestion::~FilenameSuggestion() = default;
-FilenameSuggestion::FilenameSuggestion(FilenameSuggestion&& rhs) = default;
-FilenameSuggestion& FilenameSuggestion::operator=(FilenameSuggestion&& rhs) = default;
+FilenameSuggestion::FilenameSuggestion(FilenameSuggestion&& rhs) noexcept = default;
+FilenameSuggestion& FilenameSuggestion::operator=(FilenameSuggestion&& rhs) noexcept = default;
 FilenameSuggestion FilenameSuggestion::Clone() const {
   FilenameSuggestion out;
   out.filename = filename;
@@ -219,34 +207,21 @@ bool FilenameSuggestion::Populate(
 }
 
 // static
-std::unique_ptr<FilenameSuggestion> FilenameSuggestion::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FilenameSuggestion>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FilenameSuggestion> FilenameSuggestion::FromValue(const base::Value::Dict& value) {
+  FilenameSuggestion out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FilenameSuggestion> FilenameSuggestion::FromValue(const base::Value::Dict& value) {
+std::optional<FilenameSuggestion> FilenameSuggestion::FromValue(const base::Value& value) {
   FilenameSuggestion out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FilenameSuggestion> FilenameSuggestion::FromValue(const base::Value& value) {
-  FilenameSuggestion out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -267,11 +242,11 @@ base::Value::Dict FilenameSuggestion::ToValue() const {
 
 const char* ToString(HttpMethod enum_param) {
   switch (enum_param) {
-    case HTTP_METHOD_GET:
+    case HttpMethod::kGet:
       return "GET";
-    case HTTP_METHOD_POST:
+    case HttpMethod::kPost:
       return "POST";
-    case HTTP_METHOD_NONE:
+    case HttpMethod::kNone:
       return "";
   }
   NOTREACHED();
@@ -280,10 +255,10 @@ const char* ToString(HttpMethod enum_param) {
 
 HttpMethod ParseHttpMethod(base::StringPiece enum_string) {
   if (enum_string == "GET")
-    return HTTP_METHOD_GET;
+    return HttpMethod::kGet;
   if (enum_string == "POST")
-    return HTTP_METHOD_POST;
-  return HTTP_METHOD_NONE;
+    return HttpMethod::kPost;
+  return HttpMethod::kNone;
 }
 
 std::u16string GetHttpMethodParseError(base::StringPiece enum_string) {
@@ -293,65 +268,65 @@ std::u16string GetHttpMethodParseError(base::StringPiece enum_string) {
 
 const char* ToString(InterruptReason enum_param) {
   switch (enum_param) {
-    case INTERRUPT_REASON_FILE_FAILED:
+    case InterruptReason::kFileFailed:
       return "FILE_FAILED";
-    case INTERRUPT_REASON_FILE_ACCESS_DENIED:
+    case InterruptReason::kFileAccessDenied:
       return "FILE_ACCESS_DENIED";
-    case INTERRUPT_REASON_FILE_NO_SPACE:
+    case InterruptReason::kFileNoSpace:
       return "FILE_NO_SPACE";
-    case INTERRUPT_REASON_FILE_NAME_TOO_LONG:
+    case InterruptReason::kFileNameTooLong:
       return "FILE_NAME_TOO_LONG";
-    case INTERRUPT_REASON_FILE_TOO_LARGE:
+    case InterruptReason::kFileTooLarge:
       return "FILE_TOO_LARGE";
-    case INTERRUPT_REASON_FILE_VIRUS_INFECTED:
+    case InterruptReason::kFileVirusInfected:
       return "FILE_VIRUS_INFECTED";
-    case INTERRUPT_REASON_FILE_TRANSIENT_ERROR:
+    case InterruptReason::kFileTransientError:
       return "FILE_TRANSIENT_ERROR";
-    case INTERRUPT_REASON_FILE_BLOCKED:
+    case InterruptReason::kFileBlocked:
       return "FILE_BLOCKED";
-    case INTERRUPT_REASON_FILE_SECURITY_CHECK_FAILED:
+    case InterruptReason::kFileSecurityCheckFailed:
       return "FILE_SECURITY_CHECK_FAILED";
-    case INTERRUPT_REASON_FILE_TOO_SHORT:
+    case InterruptReason::kFileTooShort:
       return "FILE_TOO_SHORT";
-    case INTERRUPT_REASON_FILE_HASH_MISMATCH:
+    case InterruptReason::kFileHashMismatch:
       return "FILE_HASH_MISMATCH";
-    case INTERRUPT_REASON_FILE_SAME_AS_SOURCE:
+    case InterruptReason::kFileSameAsSource:
       return "FILE_SAME_AS_SOURCE";
-    case INTERRUPT_REASON_NETWORK_FAILED:
+    case InterruptReason::kNetworkFailed:
       return "NETWORK_FAILED";
-    case INTERRUPT_REASON_NETWORK_TIMEOUT:
+    case InterruptReason::kNetworkTimeout:
       return "NETWORK_TIMEOUT";
-    case INTERRUPT_REASON_NETWORK_DISCONNECTED:
+    case InterruptReason::kNetworkDisconnected:
       return "NETWORK_DISCONNECTED";
-    case INTERRUPT_REASON_NETWORK_SERVER_DOWN:
+    case InterruptReason::kNetworkServerDown:
       return "NETWORK_SERVER_DOWN";
-    case INTERRUPT_REASON_NETWORK_INVALID_REQUEST:
+    case InterruptReason::kNetworkInvalidRequest:
       return "NETWORK_INVALID_REQUEST";
-    case INTERRUPT_REASON_SERVER_FAILED:
+    case InterruptReason::kServerFailed:
       return "SERVER_FAILED";
-    case INTERRUPT_REASON_SERVER_NO_RANGE:
+    case InterruptReason::kServerNoRange:
       return "SERVER_NO_RANGE";
-    case INTERRUPT_REASON_SERVER_BAD_CONTENT:
+    case InterruptReason::kServerBadContent:
       return "SERVER_BAD_CONTENT";
-    case INTERRUPT_REASON_SERVER_UNAUTHORIZED:
+    case InterruptReason::kServerUnauthorized:
       return "SERVER_UNAUTHORIZED";
-    case INTERRUPT_REASON_SERVER_CERT_PROBLEM:
+    case InterruptReason::kServerCertProblem:
       return "SERVER_CERT_PROBLEM";
-    case INTERRUPT_REASON_SERVER_FORBIDDEN:
+    case InterruptReason::kServerForbidden:
       return "SERVER_FORBIDDEN";
-    case INTERRUPT_REASON_SERVER_UNREACHABLE:
+    case InterruptReason::kServerUnreachable:
       return "SERVER_UNREACHABLE";
-    case INTERRUPT_REASON_SERVER_CONTENT_LENGTH_MISMATCH:
+    case InterruptReason::kServerContentLengthMismatch:
       return "SERVER_CONTENT_LENGTH_MISMATCH";
-    case INTERRUPT_REASON_SERVER_CROSS_ORIGIN_REDIRECT:
+    case InterruptReason::kServerCrossOriginRedirect:
       return "SERVER_CROSS_ORIGIN_REDIRECT";
-    case INTERRUPT_REASON_USER_CANCELED:
+    case InterruptReason::kUserCanceled:
       return "USER_CANCELED";
-    case INTERRUPT_REASON_USER_SHUTDOWN:
+    case InterruptReason::kUserShutdown:
       return "USER_SHUTDOWN";
-    case INTERRUPT_REASON_CRASH:
+    case InterruptReason::kCrash:
       return "CRASH";
-    case INTERRUPT_REASON_NONE:
+    case InterruptReason::kNone:
       return "";
   }
   NOTREACHED();
@@ -360,64 +335,64 @@ const char* ToString(InterruptReason enum_param) {
 
 InterruptReason ParseInterruptReason(base::StringPiece enum_string) {
   if (enum_string == "FILE_FAILED")
-    return INTERRUPT_REASON_FILE_FAILED;
+    return InterruptReason::kFileFailed;
   if (enum_string == "FILE_ACCESS_DENIED")
-    return INTERRUPT_REASON_FILE_ACCESS_DENIED;
+    return InterruptReason::kFileAccessDenied;
   if (enum_string == "FILE_NO_SPACE")
-    return INTERRUPT_REASON_FILE_NO_SPACE;
+    return InterruptReason::kFileNoSpace;
   if (enum_string == "FILE_NAME_TOO_LONG")
-    return INTERRUPT_REASON_FILE_NAME_TOO_LONG;
+    return InterruptReason::kFileNameTooLong;
   if (enum_string == "FILE_TOO_LARGE")
-    return INTERRUPT_REASON_FILE_TOO_LARGE;
+    return InterruptReason::kFileTooLarge;
   if (enum_string == "FILE_VIRUS_INFECTED")
-    return INTERRUPT_REASON_FILE_VIRUS_INFECTED;
+    return InterruptReason::kFileVirusInfected;
   if (enum_string == "FILE_TRANSIENT_ERROR")
-    return INTERRUPT_REASON_FILE_TRANSIENT_ERROR;
+    return InterruptReason::kFileTransientError;
   if (enum_string == "FILE_BLOCKED")
-    return INTERRUPT_REASON_FILE_BLOCKED;
+    return InterruptReason::kFileBlocked;
   if (enum_string == "FILE_SECURITY_CHECK_FAILED")
-    return INTERRUPT_REASON_FILE_SECURITY_CHECK_FAILED;
+    return InterruptReason::kFileSecurityCheckFailed;
   if (enum_string == "FILE_TOO_SHORT")
-    return INTERRUPT_REASON_FILE_TOO_SHORT;
+    return InterruptReason::kFileTooShort;
   if (enum_string == "FILE_HASH_MISMATCH")
-    return INTERRUPT_REASON_FILE_HASH_MISMATCH;
+    return InterruptReason::kFileHashMismatch;
   if (enum_string == "FILE_SAME_AS_SOURCE")
-    return INTERRUPT_REASON_FILE_SAME_AS_SOURCE;
+    return InterruptReason::kFileSameAsSource;
   if (enum_string == "NETWORK_FAILED")
-    return INTERRUPT_REASON_NETWORK_FAILED;
+    return InterruptReason::kNetworkFailed;
   if (enum_string == "NETWORK_TIMEOUT")
-    return INTERRUPT_REASON_NETWORK_TIMEOUT;
+    return InterruptReason::kNetworkTimeout;
   if (enum_string == "NETWORK_DISCONNECTED")
-    return INTERRUPT_REASON_NETWORK_DISCONNECTED;
+    return InterruptReason::kNetworkDisconnected;
   if (enum_string == "NETWORK_SERVER_DOWN")
-    return INTERRUPT_REASON_NETWORK_SERVER_DOWN;
+    return InterruptReason::kNetworkServerDown;
   if (enum_string == "NETWORK_INVALID_REQUEST")
-    return INTERRUPT_REASON_NETWORK_INVALID_REQUEST;
+    return InterruptReason::kNetworkInvalidRequest;
   if (enum_string == "SERVER_FAILED")
-    return INTERRUPT_REASON_SERVER_FAILED;
+    return InterruptReason::kServerFailed;
   if (enum_string == "SERVER_NO_RANGE")
-    return INTERRUPT_REASON_SERVER_NO_RANGE;
+    return InterruptReason::kServerNoRange;
   if (enum_string == "SERVER_BAD_CONTENT")
-    return INTERRUPT_REASON_SERVER_BAD_CONTENT;
+    return InterruptReason::kServerBadContent;
   if (enum_string == "SERVER_UNAUTHORIZED")
-    return INTERRUPT_REASON_SERVER_UNAUTHORIZED;
+    return InterruptReason::kServerUnauthorized;
   if (enum_string == "SERVER_CERT_PROBLEM")
-    return INTERRUPT_REASON_SERVER_CERT_PROBLEM;
+    return InterruptReason::kServerCertProblem;
   if (enum_string == "SERVER_FORBIDDEN")
-    return INTERRUPT_REASON_SERVER_FORBIDDEN;
+    return InterruptReason::kServerForbidden;
   if (enum_string == "SERVER_UNREACHABLE")
-    return INTERRUPT_REASON_SERVER_UNREACHABLE;
+    return InterruptReason::kServerUnreachable;
   if (enum_string == "SERVER_CONTENT_LENGTH_MISMATCH")
-    return INTERRUPT_REASON_SERVER_CONTENT_LENGTH_MISMATCH;
+    return InterruptReason::kServerContentLengthMismatch;
   if (enum_string == "SERVER_CROSS_ORIGIN_REDIRECT")
-    return INTERRUPT_REASON_SERVER_CROSS_ORIGIN_REDIRECT;
+    return InterruptReason::kServerCrossOriginRedirect;
   if (enum_string == "USER_CANCELED")
-    return INTERRUPT_REASON_USER_CANCELED;
+    return InterruptReason::kUserCanceled;
   if (enum_string == "USER_SHUTDOWN")
-    return INTERRUPT_REASON_USER_SHUTDOWN;
+    return InterruptReason::kUserShutdown;
   if (enum_string == "CRASH")
-    return INTERRUPT_REASON_CRASH;
-  return INTERRUPT_REASON_NONE;
+    return InterruptReason::kCrash;
+  return InterruptReason::kNone;
 }
 
 std::u16string GetInterruptReasonParseError(base::StringPiece enum_string) {
@@ -430,8 +405,8 @@ DownloadOptions::DownloadOptions()
 method() {}
 
 DownloadOptions::~DownloadOptions() = default;
-DownloadOptions::DownloadOptions(DownloadOptions&& rhs) = default;
-DownloadOptions& DownloadOptions::operator=(DownloadOptions&& rhs) = default;
+DownloadOptions::DownloadOptions(DownloadOptions&& rhs) noexcept = default;
+DownloadOptions& DownloadOptions::operator=(DownloadOptions&& rhs) noexcept = default;
 DownloadOptions DownloadOptions::Clone() const {
   DownloadOptions out;
   out.url = url;
@@ -472,7 +447,7 @@ bool DownloadOptions::Populate(
     {
       auto* temp = (*filename_value).GetIfString();
       if (!temp) {
-        out.filename = absl::nullopt;
+        out.filename = std::nullopt;
         return false;
       }
       out.filename = *temp;
@@ -500,7 +475,7 @@ bool DownloadOptions::Populate(
     {
       auto temp = (*save_as_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_as = absl::nullopt;
+        out.save_as = std::nullopt;
         return false;
       }
       out.save_as = *temp;
@@ -542,7 +517,7 @@ bool DownloadOptions::Populate(
     {
       auto* temp = (*body_value).GetIfString();
       if (!temp) {
-        out.body = absl::nullopt;
+        out.body = std::nullopt;
         return false;
       }
       out.body = *temp;
@@ -562,34 +537,21 @@ bool DownloadOptions::Populate(
 }
 
 // static
-std::unique_ptr<DownloadOptions> DownloadOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DownloadOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DownloadOptions> DownloadOptions::FromValue(const base::Value::Dict& value) {
+  DownloadOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DownloadOptions> DownloadOptions::FromValue(const base::Value::Dict& value) {
+std::optional<DownloadOptions> DownloadOptions::FromValue(const base::Value& value) {
   DownloadOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DownloadOptions> DownloadOptions::FromValue(const base::Value& value) {
-  DownloadOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -630,49 +592,51 @@ base::Value::Dict DownloadOptions::ToValue() const {
 
 const char* ToString(DangerType enum_param) {
   switch (enum_param) {
-    case DANGER_TYPE_FILE:
+    case DangerType::kFile:
       return "file";
-    case DANGER_TYPE_URL:
+    case DangerType::kUrl:
       return "url";
-    case DANGER_TYPE_CONTENT:
+    case DangerType::kContent:
       return "content";
-    case DANGER_TYPE_UNCOMMON:
+    case DangerType::kUncommon:
       return "uncommon";
-    case DANGER_TYPE_HOST:
+    case DangerType::kHost:
       return "host";
-    case DANGER_TYPE_UNWANTED:
+    case DangerType::kUnwanted:
       return "unwanted";
-    case DANGER_TYPE_SAFE:
+    case DangerType::kSafe:
       return "safe";
-    case DANGER_TYPE_ACCEPTED:
+    case DangerType::kAccepted:
       return "accepted";
-    case DANGER_TYPE_ALLOWLISTEDBYPOLICY:
+    case DangerType::kAllowlistedByPolicy:
       return "allowlistedByPolicy";
-    case DANGER_TYPE_ASYNCSCANNING:
+    case DangerType::kAsyncScanning:
       return "asyncScanning";
-    case DANGER_TYPE_PASSWORDPROTECTED:
+    case DangerType::kAsyncLocalPasswordScanning:
+      return "asyncLocalPasswordScanning";
+    case DangerType::kPasswordProtected:
       return "passwordProtected";
-    case DANGER_TYPE_BLOCKEDTOOLARGE:
+    case DangerType::kBlockedTooLarge:
       return "blockedTooLarge";
-    case DANGER_TYPE_SENSITIVECONTENTWARNING:
+    case DangerType::kSensitiveContentWarning:
       return "sensitiveContentWarning";
-    case DANGER_TYPE_SENSITIVECONTENTBLOCK:
+    case DangerType::kSensitiveContentBlock:
       return "sensitiveContentBlock";
-    case DANGER_TYPE_UNSUPPORTEDFILETYPE:
+    case DangerType::kUnsupportedFileType:
       return "unsupportedFileType";
-    case DANGER_TYPE_DEEPSCANNEDFAILED:
+    case DangerType::kDeepScannedFailed:
       return "deepScannedFailed";
-    case DANGER_TYPE_DEEPSCANNEDSAFE:
+    case DangerType::kDeepScannedSafe:
       return "deepScannedSafe";
-    case DANGER_TYPE_DEEPSCANNEDOPENEDDANGEROUS:
+    case DangerType::kDeepScannedOpenedDangerous:
       return "deepScannedOpenedDangerous";
-    case DANGER_TYPE_PROMPTFORSCANNING:
+    case DangerType::kPromptForScanning:
       return "promptForScanning";
-    case DANGER_TYPE_PROMPTFORLOCALPASSWORDSCANNING:
+    case DangerType::kPromptForLocalPasswordScanning:
       return "promptForLocalPasswordScanning";
-    case DANGER_TYPE_ACCOUNTCOMPROMISE:
+    case DangerType::kAccountCompromise:
       return "accountCompromise";
-    case DANGER_TYPE_NONE:
+    case DangerType::kNone:
       return "";
   }
   NOTREACHED();
@@ -681,64 +645,66 @@ const char* ToString(DangerType enum_param) {
 
 DangerType ParseDangerType(base::StringPiece enum_string) {
   if (enum_string == "file")
-    return DANGER_TYPE_FILE;
+    return DangerType::kFile;
   if (enum_string == "url")
-    return DANGER_TYPE_URL;
+    return DangerType::kUrl;
   if (enum_string == "content")
-    return DANGER_TYPE_CONTENT;
+    return DangerType::kContent;
   if (enum_string == "uncommon")
-    return DANGER_TYPE_UNCOMMON;
+    return DangerType::kUncommon;
   if (enum_string == "host")
-    return DANGER_TYPE_HOST;
+    return DangerType::kHost;
   if (enum_string == "unwanted")
-    return DANGER_TYPE_UNWANTED;
+    return DangerType::kUnwanted;
   if (enum_string == "safe")
-    return DANGER_TYPE_SAFE;
+    return DangerType::kSafe;
   if (enum_string == "accepted")
-    return DANGER_TYPE_ACCEPTED;
+    return DangerType::kAccepted;
   if (enum_string == "allowlistedByPolicy")
-    return DANGER_TYPE_ALLOWLISTEDBYPOLICY;
+    return DangerType::kAllowlistedByPolicy;
   if (enum_string == "asyncScanning")
-    return DANGER_TYPE_ASYNCSCANNING;
+    return DangerType::kAsyncScanning;
+  if (enum_string == "asyncLocalPasswordScanning")
+    return DangerType::kAsyncLocalPasswordScanning;
   if (enum_string == "passwordProtected")
-    return DANGER_TYPE_PASSWORDPROTECTED;
+    return DangerType::kPasswordProtected;
   if (enum_string == "blockedTooLarge")
-    return DANGER_TYPE_BLOCKEDTOOLARGE;
+    return DangerType::kBlockedTooLarge;
   if (enum_string == "sensitiveContentWarning")
-    return DANGER_TYPE_SENSITIVECONTENTWARNING;
+    return DangerType::kSensitiveContentWarning;
   if (enum_string == "sensitiveContentBlock")
-    return DANGER_TYPE_SENSITIVECONTENTBLOCK;
+    return DangerType::kSensitiveContentBlock;
   if (enum_string == "unsupportedFileType")
-    return DANGER_TYPE_UNSUPPORTEDFILETYPE;
+    return DangerType::kUnsupportedFileType;
   if (enum_string == "deepScannedFailed")
-    return DANGER_TYPE_DEEPSCANNEDFAILED;
+    return DangerType::kDeepScannedFailed;
   if (enum_string == "deepScannedSafe")
-    return DANGER_TYPE_DEEPSCANNEDSAFE;
+    return DangerType::kDeepScannedSafe;
   if (enum_string == "deepScannedOpenedDangerous")
-    return DANGER_TYPE_DEEPSCANNEDOPENEDDANGEROUS;
+    return DangerType::kDeepScannedOpenedDangerous;
   if (enum_string == "promptForScanning")
-    return DANGER_TYPE_PROMPTFORSCANNING;
+    return DangerType::kPromptForScanning;
   if (enum_string == "promptForLocalPasswordScanning")
-    return DANGER_TYPE_PROMPTFORLOCALPASSWORDSCANNING;
+    return DangerType::kPromptForLocalPasswordScanning;
   if (enum_string == "accountCompromise")
-    return DANGER_TYPE_ACCOUNTCOMPROMISE;
-  return DANGER_TYPE_NONE;
+    return DangerType::kAccountCompromise;
+  return DangerType::kNone;
 }
 
 std::u16string GetDangerTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"file\" or \"url\" or \"content\" or \"uncommon\" or \"host\" or \"unwanted\" or \"safe\" or \"accepted\" or \"allowlistedByPolicy\" or \"asyncScanning\" or \"passwordProtected\" or \"blockedTooLarge\" or \"sensitiveContentWarning\" or \"sensitiveContentBlock\" or \"unsupportedFileType\" or \"deepScannedFailed\" or \"deepScannedSafe\" or \"deepScannedOpenedDangerous\" or \"promptForScanning\" or \"promptForLocalPasswordScanning\" or \"accountCompromise\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"file\" or \"url\" or \"content\" or \"uncommon\" or \"host\" or \"unwanted\" or \"safe\" or \"accepted\" or \"allowlistedByPolicy\" or \"asyncScanning\" or \"asyncLocalPasswordScanning\" or \"passwordProtected\" or \"blockedTooLarge\" or \"sensitiveContentWarning\" or \"sensitiveContentBlock\" or \"unsupportedFileType\" or \"deepScannedFailed\" or \"deepScannedSafe\" or \"deepScannedOpenedDangerous\" or \"promptForScanning\" or \"promptForLocalPasswordScanning\" or \"accountCompromise\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
 const char* ToString(State enum_param) {
   switch (enum_param) {
-    case STATE_IN_PROGRESS:
+    case State::kInProgress:
       return "in_progress";
-    case STATE_INTERRUPTED:
+    case State::kInterrupted:
       return "interrupted";
-    case STATE_COMPLETE:
+    case State::kComplete:
       return "complete";
-    case STATE_NONE:
+    case State::kNone:
       return "";
   }
   NOTREACHED();
@@ -747,12 +713,12 @@ const char* ToString(State enum_param) {
 
 State ParseState(base::StringPiece enum_string) {
   if (enum_string == "in_progress")
-    return STATE_IN_PROGRESS;
+    return State::kInProgress;
   if (enum_string == "interrupted")
-    return STATE_INTERRUPTED;
+    return State::kInterrupted;
   if (enum_string == "complete")
-    return STATE_COMPLETE;
-  return STATE_NONE;
+    return State::kComplete;
+  return State::kNone;
 }
 
 std::u16string GetStateParseError(base::StringPiece enum_string) {
@@ -774,8 +740,8 @@ file_size(0.0),
 exists(false) {}
 
 DownloadItem::~DownloadItem() = default;
-DownloadItem::DownloadItem(DownloadItem&& rhs) = default;
-DownloadItem& DownloadItem::operator=(DownloadItem&& rhs) = default;
+DownloadItem::DownloadItem(DownloadItem&& rhs) noexcept = default;
+DownloadItem& DownloadItem::operator=(DownloadItem&& rhs) noexcept = default;
 DownloadItem DownloadItem::Clone() const {
   DownloadItem out;
   out.id = id;
@@ -922,7 +888,7 @@ bool DownloadItem::Populate(
     {
       auto* temp = (*end_time_value).GetIfString();
       if (!temp) {
-        out.end_time = absl::nullopt;
+        out.end_time = std::nullopt;
         return false;
       }
       out.end_time = *temp;
@@ -934,7 +900,7 @@ bool DownloadItem::Populate(
     {
       auto* temp = (*estimated_end_time_value).GetIfString();
       if (!temp) {
-        out.estimated_end_time = absl::nullopt;
+        out.estimated_end_time = std::nullopt;
         return false;
       }
       out.estimated_end_time = *temp;
@@ -1049,7 +1015,7 @@ bool DownloadItem::Populate(
     {
       auto* temp = (*by_extension_id_value).GetIfString();
       if (!temp) {
-        out.by_extension_id = absl::nullopt;
+        out.by_extension_id = std::nullopt;
         return false;
       }
       out.by_extension_id = *temp;
@@ -1061,7 +1027,7 @@ bool DownloadItem::Populate(
     {
       auto* temp = (*by_extension_name_value).GetIfString();
       if (!temp) {
-        out.by_extension_name = absl::nullopt;
+        out.by_extension_name = std::nullopt;
         return false;
       }
       out.by_extension_name = *temp;
@@ -1081,34 +1047,21 @@ bool DownloadItem::Populate(
 }
 
 // static
-std::unique_ptr<DownloadItem> DownloadItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DownloadItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DownloadItem> DownloadItem::FromValue(const base::Value::Dict& value) {
+  DownloadItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DownloadItem> DownloadItem::FromValue(const base::Value::Dict& value) {
+std::optional<DownloadItem> DownloadItem::FromValue(const base::Value& value) {
   DownloadItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DownloadItem> DownloadItem::FromValue(const base::Value& value) {
-  DownloadItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1179,8 +1132,8 @@ state(),
 error() {}
 
 DownloadQuery::~DownloadQuery() = default;
-DownloadQuery::DownloadQuery(DownloadQuery&& rhs) = default;
-DownloadQuery& DownloadQuery::operator=(DownloadQuery&& rhs) = default;
+DownloadQuery::DownloadQuery(DownloadQuery&& rhs) noexcept = default;
+DownloadQuery& DownloadQuery::operator=(DownloadQuery&& rhs) noexcept = default;
 DownloadQuery DownloadQuery::Clone() const {
   DownloadQuery out;
   out.query = query;
@@ -1238,7 +1191,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*started_before_value).GetIfString();
       if (!temp) {
-        out.started_before = absl::nullopt;
+        out.started_before = std::nullopt;
         return false;
       }
       out.started_before = *temp;
@@ -1250,7 +1203,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*started_after_value).GetIfString();
       if (!temp) {
-        out.started_after = absl::nullopt;
+        out.started_after = std::nullopt;
         return false;
       }
       out.started_after = *temp;
@@ -1262,7 +1215,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*ended_before_value).GetIfString();
       if (!temp) {
-        out.ended_before = absl::nullopt;
+        out.ended_before = std::nullopt;
         return false;
       }
       out.ended_before = *temp;
@@ -1274,7 +1227,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*ended_after_value).GetIfString();
       if (!temp) {
-        out.ended_after = absl::nullopt;
+        out.ended_after = std::nullopt;
         return false;
       }
       out.ended_after = *temp;
@@ -1286,7 +1239,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*total_bytes_greater_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.total_bytes_greater = absl::nullopt;
+        out.total_bytes_greater = std::nullopt;
         return false;
       }
       out.total_bytes_greater = *temp;
@@ -1298,7 +1251,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*total_bytes_less_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.total_bytes_less = absl::nullopt;
+        out.total_bytes_less = std::nullopt;
         return false;
       }
       out.total_bytes_less = *temp;
@@ -1310,7 +1263,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*filename_regex_value).GetIfString();
       if (!temp) {
-        out.filename_regex = absl::nullopt;
+        out.filename_regex = std::nullopt;
         return false;
       }
       out.filename_regex = *temp;
@@ -1322,7 +1275,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*url_regex_value).GetIfString();
       if (!temp) {
-        out.url_regex = absl::nullopt;
+        out.url_regex = std::nullopt;
         return false;
       }
       out.url_regex = *temp;
@@ -1334,7 +1287,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*final_url_regex_value).GetIfString();
       if (!temp) {
-        out.final_url_regex = absl::nullopt;
+        out.final_url_regex = std::nullopt;
         return false;
       }
       out.final_url_regex = *temp;
@@ -1346,7 +1299,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*limit_value).GetIfInt();
       if (!temp.has_value()) {
-        out.limit = absl::nullopt;
+        out.limit = std::nullopt;
         return false;
       }
       out.limit = *temp;
@@ -1372,7 +1325,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -1384,7 +1337,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -1396,7 +1349,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*final_url_value).GetIfString();
       if (!temp) {
-        out.final_url = absl::nullopt;
+        out.final_url = std::nullopt;
         return false;
       }
       out.final_url = *temp;
@@ -1408,7 +1361,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*filename_value).GetIfString();
       if (!temp) {
-        out.filename = absl::nullopt;
+        out.filename = std::nullopt;
         return false;
       }
       out.filename = *temp;
@@ -1436,7 +1389,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*mime_value).GetIfString();
       if (!temp) {
-        out.mime = absl::nullopt;
+        out.mime = std::nullopt;
         return false;
       }
       out.mime = *temp;
@@ -1448,7 +1401,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*start_time_value).GetIfString();
       if (!temp) {
-        out.start_time = absl::nullopt;
+        out.start_time = std::nullopt;
         return false;
       }
       out.start_time = *temp;
@@ -1460,7 +1413,7 @@ bool DownloadQuery::Populate(
     {
       auto* temp = (*end_time_value).GetIfString();
       if (!temp) {
-        out.end_time = absl::nullopt;
+        out.end_time = std::nullopt;
         return false;
       }
       out.end_time = *temp;
@@ -1488,7 +1441,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*paused_value).GetIfBool();
       if (!temp.has_value()) {
-        out.paused = absl::nullopt;
+        out.paused = std::nullopt;
         return false;
       }
       out.paused = *temp;
@@ -1516,7 +1469,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*bytes_received_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.bytes_received = absl::nullopt;
+        out.bytes_received = std::nullopt;
         return false;
       }
       out.bytes_received = *temp;
@@ -1528,7 +1481,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*total_bytes_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.total_bytes = absl::nullopt;
+        out.total_bytes = std::nullopt;
         return false;
       }
       out.total_bytes = *temp;
@@ -1540,7 +1493,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*file_size_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.file_size = absl::nullopt;
+        out.file_size = std::nullopt;
         return false;
       }
       out.file_size = *temp;
@@ -1552,7 +1505,7 @@ bool DownloadQuery::Populate(
     {
       auto temp = (*exists_value).GetIfBool();
       if (!temp.has_value()) {
-        out.exists = absl::nullopt;
+        out.exists = std::nullopt;
         return false;
       }
       out.exists = *temp;
@@ -1572,34 +1525,21 @@ bool DownloadQuery::Populate(
 }
 
 // static
-std::unique_ptr<DownloadQuery> DownloadQuery::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DownloadQuery>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DownloadQuery> DownloadQuery::FromValue(const base::Value::Dict& value) {
+  DownloadQuery out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DownloadQuery> DownloadQuery::FromValue(const base::Value::Dict& value) {
+std::optional<DownloadQuery> DownloadQuery::FromValue(const base::Value& value) {
   DownloadQuery out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DownloadQuery> DownloadQuery::FromValue(const base::Value& value) {
-  DownloadQuery out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1724,8 +1664,8 @@ StringDelta::StringDelta()
  {}
 
 StringDelta::~StringDelta() = default;
-StringDelta::StringDelta(StringDelta&& rhs) = default;
-StringDelta& StringDelta::operator=(StringDelta&& rhs) = default;
+StringDelta::StringDelta(StringDelta&& rhs) noexcept = default;
+StringDelta& StringDelta::operator=(StringDelta&& rhs) noexcept = default;
 StringDelta StringDelta::Clone() const {
   StringDelta out;
   out.previous = previous;
@@ -1741,7 +1681,7 @@ bool StringDelta::Populate(
     {
       auto* temp = (*previous_value).GetIfString();
       if (!temp) {
-        out.previous = absl::nullopt;
+        out.previous = std::nullopt;
         return false;
       }
       out.previous = *temp;
@@ -1753,7 +1693,7 @@ bool StringDelta::Populate(
     {
       auto* temp = (*current_value).GetIfString();
       if (!temp) {
-        out.current = absl::nullopt;
+        out.current = std::nullopt;
         return false;
       }
       out.current = *temp;
@@ -1773,34 +1713,21 @@ bool StringDelta::Populate(
 }
 
 // static
-std::unique_ptr<StringDelta> StringDelta::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StringDelta>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StringDelta> StringDelta::FromValue(const base::Value::Dict& value) {
+  StringDelta out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StringDelta> StringDelta::FromValue(const base::Value::Dict& value) {
+std::optional<StringDelta> StringDelta::FromValue(const base::Value& value) {
   StringDelta out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StringDelta> StringDelta::FromValue(const base::Value& value) {
-  StringDelta out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1825,8 +1752,8 @@ DoubleDelta::DoubleDelta()
  {}
 
 DoubleDelta::~DoubleDelta() = default;
-DoubleDelta::DoubleDelta(DoubleDelta&& rhs) = default;
-DoubleDelta& DoubleDelta::operator=(DoubleDelta&& rhs) = default;
+DoubleDelta::DoubleDelta(DoubleDelta&& rhs) noexcept = default;
+DoubleDelta& DoubleDelta::operator=(DoubleDelta&& rhs) noexcept = default;
 DoubleDelta DoubleDelta::Clone() const {
   DoubleDelta out;
   out.previous = previous;
@@ -1842,7 +1769,7 @@ bool DoubleDelta::Populate(
     {
       auto temp = (*previous_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.previous = absl::nullopt;
+        out.previous = std::nullopt;
         return false;
       }
       out.previous = *temp;
@@ -1854,7 +1781,7 @@ bool DoubleDelta::Populate(
     {
       auto temp = (*current_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.current = absl::nullopt;
+        out.current = std::nullopt;
         return false;
       }
       out.current = *temp;
@@ -1874,34 +1801,21 @@ bool DoubleDelta::Populate(
 }
 
 // static
-std::unique_ptr<DoubleDelta> DoubleDelta::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DoubleDelta>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DoubleDelta> DoubleDelta::FromValue(const base::Value::Dict& value) {
+  DoubleDelta out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DoubleDelta> DoubleDelta::FromValue(const base::Value::Dict& value) {
+std::optional<DoubleDelta> DoubleDelta::FromValue(const base::Value& value) {
   DoubleDelta out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DoubleDelta> DoubleDelta::FromValue(const base::Value& value) {
-  DoubleDelta out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1926,8 +1840,8 @@ BooleanDelta::BooleanDelta()
  {}
 
 BooleanDelta::~BooleanDelta() = default;
-BooleanDelta::BooleanDelta(BooleanDelta&& rhs) = default;
-BooleanDelta& BooleanDelta::operator=(BooleanDelta&& rhs) = default;
+BooleanDelta::BooleanDelta(BooleanDelta&& rhs) noexcept = default;
+BooleanDelta& BooleanDelta::operator=(BooleanDelta&& rhs) noexcept = default;
 BooleanDelta BooleanDelta::Clone() const {
   BooleanDelta out;
   out.previous = previous;
@@ -1943,7 +1857,7 @@ bool BooleanDelta::Populate(
     {
       auto temp = (*previous_value).GetIfBool();
       if (!temp.has_value()) {
-        out.previous = absl::nullopt;
+        out.previous = std::nullopt;
         return false;
       }
       out.previous = *temp;
@@ -1955,7 +1869,7 @@ bool BooleanDelta::Populate(
     {
       auto temp = (*current_value).GetIfBool();
       if (!temp.has_value()) {
-        out.current = absl::nullopt;
+        out.current = std::nullopt;
         return false;
       }
       out.current = *temp;
@@ -1975,34 +1889,21 @@ bool BooleanDelta::Populate(
 }
 
 // static
-std::unique_ptr<BooleanDelta> BooleanDelta::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BooleanDelta>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BooleanDelta> BooleanDelta::FromValue(const base::Value::Dict& value) {
+  BooleanDelta out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BooleanDelta> BooleanDelta::FromValue(const base::Value::Dict& value) {
+std::optional<BooleanDelta> BooleanDelta::FromValue(const base::Value& value) {
   BooleanDelta out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BooleanDelta> BooleanDelta::FromValue(const base::Value& value) {
-  BooleanDelta out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2027,8 +1928,8 @@ DownloadDelta::DownloadDelta()
 : id(0) {}
 
 DownloadDelta::~DownloadDelta() = default;
-DownloadDelta::DownloadDelta(DownloadDelta&& rhs) = default;
-DownloadDelta& DownloadDelta::operator=(DownloadDelta&& rhs) = default;
+DownloadDelta::DownloadDelta(DownloadDelta&& rhs) noexcept = default;
+DownloadDelta& DownloadDelta::operator=(DownloadDelta&& rhs) noexcept = default;
 DownloadDelta DownloadDelta::Clone() const {
   DownloadDelta out;
   out.id = id;
@@ -2315,34 +2216,21 @@ bool DownloadDelta::Populate(
 }
 
 // static
-std::unique_ptr<DownloadDelta> DownloadDelta::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DownloadDelta>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DownloadDelta> DownloadDelta::FromValue(const base::Value::Dict& value) {
+  DownloadDelta out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DownloadDelta> DownloadDelta::FromValue(const base::Value::Dict& value) {
+std::optional<DownloadDelta> DownloadDelta::FromValue(const base::Value& value) {
   DownloadDelta out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DownloadDelta> DownloadDelta::FromValue(const base::Value& value) {
-  DownloadDelta out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2417,8 +2305,8 @@ GetFileIconOptions::GetFileIconOptions()
  {}
 
 GetFileIconOptions::~GetFileIconOptions() = default;
-GetFileIconOptions::GetFileIconOptions(GetFileIconOptions&& rhs) = default;
-GetFileIconOptions& GetFileIconOptions::operator=(GetFileIconOptions&& rhs) = default;
+GetFileIconOptions::GetFileIconOptions(GetFileIconOptions&& rhs) noexcept = default;
+GetFileIconOptions& GetFileIconOptions::operator=(GetFileIconOptions&& rhs) noexcept = default;
 GetFileIconOptions GetFileIconOptions::Clone() const {
   GetFileIconOptions out;
   out.size = size;
@@ -2433,7 +2321,7 @@ bool GetFileIconOptions::Populate(
     {
       auto temp = (*size_value).GetIfInt();
       if (!temp.has_value()) {
-        out.size = absl::nullopt;
+        out.size = std::nullopt;
         return false;
       }
       out.size = *temp;
@@ -2453,34 +2341,21 @@ bool GetFileIconOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetFileIconOptions> GetFileIconOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetFileIconOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetFileIconOptions> GetFileIconOptions::FromValue(const base::Value::Dict& value) {
+  GetFileIconOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetFileIconOptions> GetFileIconOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetFileIconOptions> GetFileIconOptions::FromValue(const base::Value& value) {
   GetFileIconOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetFileIconOptions> GetFileIconOptions::FromValue(const base::Value& value) {
-  GetFileIconOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2501,8 +2376,8 @@ UiOptions::UiOptions()
 : enabled(false) {}
 
 UiOptions::~UiOptions() = default;
-UiOptions::UiOptions(UiOptions&& rhs) = default;
-UiOptions& UiOptions::operator=(UiOptions&& rhs) = default;
+UiOptions::UiOptions(UiOptions&& rhs) noexcept = default;
+UiOptions& UiOptions::operator=(UiOptions&& rhs) noexcept = default;
 UiOptions UiOptions::Clone() const {
   UiOptions out;
   out.enabled = enabled;
@@ -2537,34 +2412,21 @@ bool UiOptions::Populate(
 }
 
 // static
-std::unique_ptr<UiOptions> UiOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UiOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UiOptions> UiOptions::FromValue(const base::Value::Dict& value) {
+  UiOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UiOptions> UiOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UiOptions> UiOptions::FromValue(const base::Value& value) {
   UiOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UiOptions> UiOptions::FromValue(const base::Value& value) {
-  UiOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2588,13 +2450,13 @@ namespace Download {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2603,15 +2465,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DownloadOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2631,13 +2493,13 @@ namespace Search {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2646,15 +2508,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_value = args[0];
     {
       if (!query_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DownloadQuery::Populate(query_value.GetDict(), params.query)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2674,13 +2536,13 @@ namespace Pause {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2690,13 +2552,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2714,13 +2576,13 @@ namespace Resume {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2730,13 +2592,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2754,13 +2616,13 @@ namespace Cancel {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2770,13 +2632,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2794,13 +2656,13 @@ namespace GetFileIcon {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2810,13 +2672,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2824,12 +2686,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetFileIconOptions temp;
         if (!GetFileIconOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -2852,13 +2714,13 @@ namespace Open {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2868,13 +2730,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2887,13 +2749,13 @@ namespace Show {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2903,13 +2765,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2926,13 +2788,13 @@ namespace Erase {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2941,15 +2803,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_value = args[0];
     {
       if (!query_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DownloadQuery::Populate(query_value.GetDict(), params.query)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2969,13 +2831,13 @@ namespace RemoveFile {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2985,13 +2847,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3009,13 +2871,13 @@ namespace AcceptDanger {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3025,13 +2887,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = download_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.download_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3049,13 +2911,13 @@ namespace SetShelfEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3065,13 +2927,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3084,13 +2946,13 @@ namespace SetUiOptions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3099,15 +2961,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UiOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

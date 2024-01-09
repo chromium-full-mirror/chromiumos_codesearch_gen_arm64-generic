@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct Match {
   ~Match();
   Match(const Match&) = delete;
   Match& operator=(const Match&) = delete;
-  Match(Match&& rhs);
-  Match& operator=(Match&& rhs);
+  Match(Match&& rhs) noexcept;
+  Match& operator=(Match&& rhs) noexcept;
 
   // Populates a Match object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,14 +49,11 @@ struct Match {
   // Creates a deep copy of Match.
   Match Clone() const;
 
-  // Creates a Match object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Match> FromValueDeprecated(const base::Value& value);
-
   // Creates a Match object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Match> FromValue(const base::Value::Dict& value);
+  static std::optional<Match> FromValue(const base::Value::Dict& value);
 
   // Creates a Match object from a base::Value, or nullopt on failure.
-  static absl::optional<Match> FromValue(const base::Value& value);
+  static std::optional<Match> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMatch object.
@@ -70,8 +68,8 @@ struct Match {
     ~KeyAlgorithm();
     KeyAlgorithm(const KeyAlgorithm&) = delete;
     KeyAlgorithm& operator=(const KeyAlgorithm&) = delete;
-    KeyAlgorithm(KeyAlgorithm&& rhs);
-    KeyAlgorithm& operator=(KeyAlgorithm&& rhs);
+    KeyAlgorithm(KeyAlgorithm&& rhs) noexcept;
+    KeyAlgorithm& operator=(KeyAlgorithm&& rhs) noexcept;
 
     // Populates a KeyAlgorithm object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -86,10 +84,10 @@ struct Match {
 
     // Creates a KeyAlgorithm object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<KeyAlgorithm> FromValue(const base::Value::Dict& value);
+    static std::optional<KeyAlgorithm> FromValue(const base::Value::Dict& value);
 
     // Creates a KeyAlgorithm object from a base::Value, or nullopt on failure.
-    static absl::optional<KeyAlgorithm> FromValue(const base::Value& value);
+    static std::optional<KeyAlgorithm> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisKeyAlgorithm object.
@@ -110,11 +108,11 @@ struct Match {
 
 };
 
-enum  ClientCertificateType {
-  CLIENT_CERTIFICATE_TYPE_NONE = 0,
-  CLIENT_CERTIFICATE_TYPE_RSASIGN,
-  CLIENT_CERTIFICATE_TYPE_ECDSASIGN,
-  CLIENT_CERTIFICATE_TYPE_LAST = CLIENT_CERTIFICATE_TYPE_ECDSASIGN,
+enum class ClientCertificateType {
+  kNone = 0,
+  kRsaSign,
+  kEcdsaSign,
+  kMaxValue = kEcdsaSign,
 };
 
 
@@ -127,8 +125,8 @@ struct ClientCertificateRequest {
   ~ClientCertificateRequest();
   ClientCertificateRequest(const ClientCertificateRequest&) = delete;
   ClientCertificateRequest& operator=(const ClientCertificateRequest&) = delete;
-  ClientCertificateRequest(ClientCertificateRequest&& rhs);
-  ClientCertificateRequest& operator=(ClientCertificateRequest&& rhs);
+  ClientCertificateRequest(ClientCertificateRequest&& rhs) noexcept;
+  ClientCertificateRequest& operator=(ClientCertificateRequest&& rhs) noexcept;
 
   // Populates a ClientCertificateRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -141,17 +139,13 @@ struct ClientCertificateRequest {
   // Creates a deep copy of ClientCertificateRequest.
   ClientCertificateRequest Clone() const;
 
-  // Creates a ClientCertificateRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ClientCertificateRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a ClientCertificateRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ClientCertificateRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<ClientCertificateRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a ClientCertificateRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ClientCertificateRequest> FromValue(const base::Value& value);
+  static std::optional<ClientCertificateRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisClientCertificateRequest object.
@@ -174,8 +168,8 @@ struct SelectDetails {
   ~SelectDetails();
   SelectDetails(const SelectDetails&) = delete;
   SelectDetails& operator=(const SelectDetails&) = delete;
-  SelectDetails(SelectDetails&& rhs);
-  SelectDetails& operator=(SelectDetails&& rhs);
+  SelectDetails(SelectDetails&& rhs) noexcept;
+  SelectDetails& operator=(SelectDetails&& rhs) noexcept;
 
   // Populates a SelectDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -188,15 +182,12 @@ struct SelectDetails {
   // Creates a deep copy of SelectDetails.
   SelectDetails Clone() const;
 
-  // Creates a SelectDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SelectDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a SelectDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SelectDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<SelectDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a SelectDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<SelectDetails> FromValue(const base::Value& value);
+  static std::optional<SelectDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSelectDetails object.
@@ -210,7 +201,7 @@ struct SelectDetails {
   // certificate stores that are available to this extensions. Entries that the
   // extension doesn't have permission for or which doesn't match the request, are
   // removed.
-  absl::optional<std::vector<std::vector<uint8_t>>> client_certs;
+  std::optional<std::vector<std::vector<uint8_t>>> client_certs;
 
   // If true, the filtered list is presented to the user to manually select a
   // certificate and thereby granting the extension access to the certificate(s)
@@ -226,8 +217,8 @@ struct VerificationDetails {
   ~VerificationDetails();
   VerificationDetails(const VerificationDetails&) = delete;
   VerificationDetails& operator=(const VerificationDetails&) = delete;
-  VerificationDetails(VerificationDetails&& rhs);
-  VerificationDetails& operator=(VerificationDetails&& rhs);
+  VerificationDetails(VerificationDetails&& rhs) noexcept;
+  VerificationDetails& operator=(VerificationDetails&& rhs) noexcept;
 
   // Populates a VerificationDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -240,17 +231,13 @@ struct VerificationDetails {
   // Creates a deep copy of VerificationDetails.
   VerificationDetails Clone() const;
 
-  // Creates a VerificationDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<VerificationDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a VerificationDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<VerificationDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<VerificationDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a VerificationDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VerificationDetails> FromValue(const base::Value& value);
+  static std::optional<VerificationDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVerificationDetails object.
@@ -272,8 +259,8 @@ struct VerificationResult {
   ~VerificationResult();
   VerificationResult(const VerificationResult&) = delete;
   VerificationResult& operator=(const VerificationResult&) = delete;
-  VerificationResult(VerificationResult&& rhs);
-  VerificationResult& operator=(VerificationResult&& rhs);
+  VerificationResult(VerificationResult&& rhs) noexcept;
+  VerificationResult& operator=(VerificationResult&& rhs) noexcept;
 
   // Populates a VerificationResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -286,16 +273,13 @@ struct VerificationResult {
   // Creates a deep copy of VerificationResult.
   VerificationResult Clone() const;
 
-  // Creates a VerificationResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VerificationResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a VerificationResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<VerificationResult> FromValue(const base::Value::Dict& value);
+  static std::optional<VerificationResult> FromValue(const base::Value::Dict& value);
 
   // Creates a VerificationResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VerificationResult> FromValue(const base::Value& value);
+  static std::optional<VerificationResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVerificationResult object.
@@ -324,11 +308,11 @@ struct VerificationResult {
 namespace VerifyTLSServerCertificate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   VerificationDetails details;

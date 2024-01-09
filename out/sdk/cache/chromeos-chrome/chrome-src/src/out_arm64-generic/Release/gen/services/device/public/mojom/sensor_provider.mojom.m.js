@@ -459,18 +459,6 @@ export const SensorInitParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const NullableDoubleSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const NullableReportingModeSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const VirtualSensorMetadataSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -655,64 +643,6 @@ export class SensorInitParams {
 
 
 mojo.internal.Struct(
-    NullableDoubleSpec.$,
-    'NullableDouble',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojo.internal.Double,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class NullableDouble {
-  constructor() {
-    /** @type { !number } */
-    this.value;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    NullableReportingModeSpec.$,
-    'NullableReportingMode',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        device_mojom_ReportingModeSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class NullableReportingMode {
-  constructor() {
-    /** @type { !device_mojom_ReportingMode } */
-    this.value;
-  }
-}
-
-
-
-mojo.internal.Struct(
     VirtualSensorMetadataSpec.$,
     'VirtualSensorMetadata',
     [
@@ -725,31 +655,82 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'maximumFrequency', 8,
+        'maximum_frequency_$flag', 0,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
-        NullableDoubleSpec.$,
-        null,
-        true /* nullable */,
-        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "maximum_frequency_$value",
+          originalFieldName: "maximumFrequency",
+        }
       ),
       mojo.internal.StructField(
-        'minimumFrequency', 16,
+        'maximum_frequency_$value', 8,
         0,
-        NullableDoubleSpec.$,
-        null,
-        true /* nullable */,
+        mojo.internal.Double,
         0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "maximumFrequency",
+        }
       ),
       mojo.internal.StructField(
-        'reportingMode', 24,
+        'minimum_frequency_$flag', 0,
+        2,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
-        NullableReportingModeSpec.$,
-        null,
-        true /* nullable */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "minimum_frequency_$value",
+          originalFieldName: "minimumFrequency",
+        }
+      ),
+      mojo.internal.StructField(
+        'minimum_frequency_$value', 16,
         0,
+        mojo.internal.Double,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "minimumFrequency",
+        }
+      ),
+      mojo.internal.StructField(
+        'reporting_mode_$flag', 0,
+        3,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "reporting_mode_$value",
+          originalFieldName: "reportingMode",
+        }
+      ),
+      mojo.internal.StructField(
+        'reporting_mode_$value', 4,
+        0,
+        device_mojom_ReportingModeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "reportingMode",
+        }
       ),
     ],
-    [[0, 40],]);
+    [[0, 32],]);
 
 
 
@@ -760,11 +741,11 @@ export class VirtualSensorMetadata {
   constructor() {
     /** @type { !boolean } */
     this.available;
-    /** @type { (NullableDouble|undefined) } */
+    /** @type { (number|undefined) } */
     this.maximumFrequency;
-    /** @type { (NullableDouble|undefined) } */
+    /** @type { (number|undefined) } */
     this.minimumFrequency;
-    /** @type { (NullableReportingMode|undefined) } */
+    /** @type { (device_mojom_ReportingMode|undefined) } */
     this.reportingMode;
   }
 }

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/shill-dbus-client-0.0.1-r2046/work/shill-dbus-client-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,21 +21,15 @@ subninja toolchain.ninja
 build libshill-dbus-client: phony ./lib/libshill-dbus-client.so
 build libshill-dbus-client_deps: phony obj/shill/dbus/client/libshill-dbus-client_deps.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build shill/dbus/client$:all: phony obj/shill/dbus/client/all.stamp
 build shill/dbus/client$:libshill-dbus-client: phony ./lib/libshill-dbus-client.so
 build shill/dbus/client$:libshill-dbus-client_deps: phony obj/shill/dbus/client/libshill-dbus-client_deps.stamp
-build shill/dbus/client$:libshill-dbus-client_test: phony ./libshill-dbus-client_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/shill/dbus/client/all.stamp $
     ./lib/libshill-dbus-client.so $
-    obj/shill/dbus/client/libshill-dbus-client_deps.stamp $
-    ./libshill-dbus-client_test
+    obj/shill/dbus/client/libshill-dbus-client_deps.stamp
 
 default all

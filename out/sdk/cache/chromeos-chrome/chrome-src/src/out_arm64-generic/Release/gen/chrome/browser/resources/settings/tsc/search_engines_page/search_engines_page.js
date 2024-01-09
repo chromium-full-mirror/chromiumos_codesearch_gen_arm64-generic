@@ -110,7 +110,7 @@ export class SettingsSearchEnginesPageElement extends SettingsSearchEnginesPageE
         super.ready();
         this.browserProxy_.getSearchEnginesList().then(this.enginesChanged_.bind(this));
         this.addWebUiListener('search-engines-changed', this.enginesChanged_.bind(this));
-        this.addEventListener('edit-search-engine', e => this.onEditSearchEngine_(e));
+        this.addEventListener('view-or-edit-search-engine', e => this.onEditSearchEngine_(e));
         this.addEventListener('delete-search-engine', e => this.onDeleteSearchEngine_(e));
     }
     openEditDialog_(searchEngine, anchorElement) {
@@ -154,9 +154,8 @@ export class SettingsSearchEnginesPageElement extends SettingsSearchEnginesPageE
     }
     enginesChanged_(searchEnginesInfo) {
         this.defaultEngines = searchEnginesInfo.defaults;
-        // Sort |activeEngines| and |otherEngines| in alphabetical order.
-        this.activeEngines = searchEnginesInfo.actives.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()));
-        this.otherEngines = searchEnginesInfo.others.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()));
+        this.activeEngines = searchEnginesInfo.actives;
+        this.otherEngines = searchEnginesInfo.others;
         this.extensions = searchEnginesInfo.extensions;
     }
     onAddSearchEngineClick_(e) {

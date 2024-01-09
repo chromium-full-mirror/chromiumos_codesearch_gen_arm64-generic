@@ -2,11 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 export class TableModel {
+    cols;
+    sortIdx;
+    emptyRowText;
+    rowsChangedListeners = new Set();
     constructor(cols, sortIdx, emptyRowText) {
         this.cols = cols;
         this.sortIdx = sortIdx;
         this.emptyRowText = emptyRowText;
-        this.rowsChangedListeners = new Set();
     }
     styleRow(_tr, _data) { }
     notifyRowsChanged() {

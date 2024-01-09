@@ -119,10 +119,17 @@
     this.shortName = null;
     this.description = null;
     this.id = null;
-    this.startUrl = null;
+    this.hasCustomId = false;
+    this.preferRelatedApplications = false;
+    this.hasThemeColor = false;
+    this.hasBackgroundColor = false;
+    this.hasDarkThemeColor = false;
+    this.hasDarkBackgroundColor = false;
     this.display = 0;
-    this.orientation = 0;
+    this.startUrl = null;
     this.displayOverride = null;
+    this.orientation = 0;
+    this.themeColor = 0;
     this.icons = null;
     this.screenshots = null;
     this.shortcuts = null;
@@ -134,12 +141,6 @@
     this.lockScreen = null;
     this.noteTaking = null;
     this.relatedApplications = null;
-    this.preferRelatedApplications = false;
-    this.hasThemeColor = false;
-    this.hasBackgroundColor = false;
-    this.hasDarkThemeColor = false;
-    this.hasDarkBackgroundColor = false;
-    this.themeColor = 0;
     this.backgroundColor = 0;
     this.captureLinks = 0;
     this.gcmSenderId = null;
@@ -198,14 +199,15 @@
         return err;
 
 
+
     // validate Manifest.startUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, url$.Url, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, url$.Url, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.display
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, display_mode$.DisplayMode);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 36, display_mode$.DisplayMode);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -217,73 +219,73 @@
 
 
     // validate Manifest.orientation
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 44, screen_orientation_lock_types$.ScreenOrientationLockType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 56, screen_orientation_lock_types$.ScreenOrientationLockType);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.icons
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 56, 8, new codec.PointerTo(ManifestImageResource), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 64, 8, new codec.PointerTo(ManifestImageResource), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.screenshots
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 64, 8, new codec.PointerTo(ManifestScreenshot), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 72, 8, new codec.PointerTo(ManifestScreenshot), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.shortcuts
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 72, 8, new codec.PointerTo(ManifestShortcutItem), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 80, 8, new codec.PointerTo(ManifestShortcutItem), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.shareTarget
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, ManifestShareTarget, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, ManifestShareTarget, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.fileHandlers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 88, 8, new codec.PointerTo(ManifestFileHandler), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 96, 8, new codec.PointerTo(ManifestFileHandler), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.protocolHandlers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 96, 8, new codec.PointerTo(ManifestProtocolHandler), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 104, 8, new codec.PointerTo(ManifestProtocolHandler), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.urlHandlers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 104, 8, new codec.PointerTo(ManifestUrlHandler), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 112, 8, new codec.PointerTo(ManifestUrlHandler), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.scopeExtensions
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 112, 8, new codec.PointerTo(ManifestScopeExtension), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 120, 8, new codec.PointerTo(ManifestScopeExtension), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.lockScreen
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 120, ManifestLockScreen, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 128, ManifestLockScreen, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.noteTaking
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 128, ManifestNoteTaking, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 136, ManifestNoteTaking, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate Manifest.relatedApplications
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 136, 8, new codec.PointerTo(ManifestRelatedApplication), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 144, 8, new codec.PointerTo(ManifestRelatedApplication), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -368,14 +370,26 @@
         decoder.decodeStructPointer(string16$.String16);
     val.id =
         decoder.decodeStructPointer(url$.Url);
-    val.startUrl =
-        decoder.decodeStructPointer(url$.Url);
+    packed = decoder.readUint8();
+    val.hasCustomId = (packed >> 0) & 1 ? true : false;
+    val.preferRelatedApplications = (packed >> 1) & 1 ? true : false;
+    val.hasThemeColor = (packed >> 2) & 1 ? true : false;
+    val.hasBackgroundColor = (packed >> 3) & 1 ? true : false;
+    val.hasDarkThemeColor = (packed >> 4) & 1 ? true : false;
+    val.hasDarkBackgroundColor = (packed >> 5) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.display =
         decoder.decodeStruct(new codec.Enum(display_mode$.DisplayMode));
-    val.orientation =
-        decoder.decodeStruct(new codec.Enum(screen_orientation_lock_types$.ScreenOrientationLockType));
+    val.startUrl =
+        decoder.decodeStructPointer(url$.Url);
     val.displayOverride =
         decoder.decodeArrayPointer(new codec.Enum(display_mode$.DisplayMode));
+    val.orientation =
+        decoder.decodeStruct(new codec.Enum(screen_orientation_lock_types$.ScreenOrientationLockType));
+    val.themeColor =
+        decoder.decodeStruct(codec.Uint32);
     val.icons =
         decoder.decodeArrayPointer(new codec.PointerTo(ManifestImageResource));
     val.screenshots =
@@ -398,17 +412,6 @@
         decoder.decodeStructPointer(ManifestNoteTaking);
     val.relatedApplications =
         decoder.decodeArrayPointer(new codec.PointerTo(ManifestRelatedApplication));
-    packed = decoder.readUint8();
-    val.preferRelatedApplications = (packed >> 0) & 1 ? true : false;
-    val.hasThemeColor = (packed >> 1) & 1 ? true : false;
-    val.hasBackgroundColor = (packed >> 2) & 1 ? true : false;
-    val.hasDarkThemeColor = (packed >> 3) & 1 ? true : false;
-    val.hasDarkBackgroundColor = (packed >> 4) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    val.themeColor =
-        decoder.decodeStruct(codec.Uint32);
     val.backgroundColor =
         decoder.decodeStruct(codec.Uint32);
     val.captureLinks =
@@ -444,10 +447,22 @@
     encoder.encodeStructPointer(string16$.String16, val.shortName);
     encoder.encodeStructPointer(string16$.String16, val.description);
     encoder.encodeStructPointer(url$.Url, val.id);
-    encoder.encodeStructPointer(url$.Url, val.startUrl);
+    packed = 0;
+    packed |= (val.hasCustomId & 1) << 0
+    packed |= (val.preferRelatedApplications & 1) << 1
+    packed |= (val.hasThemeColor & 1) << 2
+    packed |= (val.hasBackgroundColor & 1) << 3
+    packed |= (val.hasDarkThemeColor & 1) << 4
+    packed |= (val.hasDarkBackgroundColor & 1) << 5
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.display);
-    encoder.encodeStruct(codec.Int32, val.orientation);
+    encoder.encodeStructPointer(url$.Url, val.startUrl);
     encoder.encodeArrayPointer(new codec.Enum(display_mode$.DisplayMode), val.displayOverride);
+    encoder.encodeStruct(codec.Int32, val.orientation);
+    encoder.encodeStruct(codec.Uint32, val.themeColor);
     encoder.encodeArrayPointer(new codec.PointerTo(ManifestImageResource), val.icons);
     encoder.encodeArrayPointer(new codec.PointerTo(ManifestScreenshot), val.screenshots);
     encoder.encodeArrayPointer(new codec.PointerTo(ManifestShortcutItem), val.shortcuts);
@@ -459,17 +474,6 @@
     encoder.encodeStructPointer(ManifestLockScreen, val.lockScreen);
     encoder.encodeStructPointer(ManifestNoteTaking, val.noteTaking);
     encoder.encodeArrayPointer(new codec.PointerTo(ManifestRelatedApplication), val.relatedApplications);
-    packed = 0;
-    packed |= (val.preferRelatedApplications & 1) << 0
-    packed |= (val.hasThemeColor & 1) << 1
-    packed |= (val.hasBackgroundColor & 1) << 2
-    packed |= (val.hasDarkThemeColor & 1) << 3
-    packed |= (val.hasDarkBackgroundColor & 1) << 4
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.encodeStruct(codec.Uint32, val.themeColor);
     encoder.encodeStruct(codec.Uint32, val.backgroundColor);
     encoder.encodeStruct(codec.Int32, val.captureLinks);
     encoder.encodeStructPointer(string16$.String16, val.gcmSenderId);

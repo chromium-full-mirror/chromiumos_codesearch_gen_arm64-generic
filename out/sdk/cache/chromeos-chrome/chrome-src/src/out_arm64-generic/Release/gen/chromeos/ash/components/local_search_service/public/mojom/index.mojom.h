@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/local_search_service/public/mojom/index.mojom-features.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/index.mojom-shared.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/index.mojom-forward.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/types.mojom.h"
@@ -127,7 +128,7 @@ class Index
   virtual void UpdateDocuments(const std::vector<::ash::local_search_service::Data>& data, UpdateDocumentsCallback callback) = 0;
 
 
-  using FindCallback = base::OnceCallback<void(::ash::local_search_service::ResponseStatus, const absl::optional<std::vector<::ash::local_search_service::Result>>&)>;
+  using FindCallback = base::OnceCallback<void(::ash::local_search_service::ResponseStatus, const std::optional<std::vector<::ash::local_search_service::Result>>&)>;
   
   virtual void Find(const ::std::u16string& query, uint32_t max_results, FindCallback callback) = 0;
 

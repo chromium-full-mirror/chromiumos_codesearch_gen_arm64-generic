@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GCObservation>::value,
     "GCObservation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GCObservation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GCObservation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,8 +77,9 @@ BLINK_BINDINGS_TRACE_EVENT("GCObservation.wasCollected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GCObservation* blink_receiver = V8GCObservation::ToWrappableUnsafe(v8_receiver);
+GCObservation* blink_receiver = V8GCObservation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wasCollected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

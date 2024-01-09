@@ -1,7 +1,7 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { isRTL } from 'chrome://resources/js/util_ts.js';
+import { isRTL } from 'chrome://resources/js/util.js';
 import { inDarkMode } from './dark_mode_mixin.js';
 /**
  * Returns true if the contents of the two page ranges are equal.

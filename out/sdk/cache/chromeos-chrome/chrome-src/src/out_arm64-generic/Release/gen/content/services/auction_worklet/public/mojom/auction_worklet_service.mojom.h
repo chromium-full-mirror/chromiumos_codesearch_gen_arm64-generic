@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/services/auction_worklet/public/mojom/auction_worklet_service.mojom-features.h"
 #include "content/services/auction_worklet/public/mojom/auction_worklet_service.mojom-shared.h"
 #include "content/services/auction_worklet/public/mojom/auction_worklet_service.mojom-forward.h"
 #include "content/services/auction_worklet/public/mojom/bidder_worklet.mojom-forward.h"
@@ -95,10 +96,10 @@ class CONTENT_EXPORT AuctionWorkletService
   virtual ~AuctionWorkletService() = default;
 
   
-  virtual void LoadBidderWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::BidderWorklet> bidder_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const absl::optional<::GURL>& wasm_helper_url, const absl::optional<::GURL>& trusted_bidding_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) = 0;
+  virtual void LoadBidderWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::BidderWorklet> bidder_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const std::optional<::GURL>& wasm_helper_url, const std::optional<::GURL>& trusted_bidding_signals_url, const std::string& trusted_bidding_signals_slot_size_param, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) = 0;
 
   
-  virtual void LoadSellerWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::SellerWorklet> seller_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const absl::optional<::GURL>& trusted_scoring_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) = 0;
+  virtual void LoadSellerWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::SellerWorklet> seller_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const std::optional<::GURL>& trusted_scoring_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) = 0;
 };
 
 
@@ -110,9 +111,9 @@ class CONTENT_EXPORT AuctionWorkletServiceProxy
 
   explicit AuctionWorkletServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void LoadBidderWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::BidderWorklet> bidder_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const absl::optional<::GURL>& wasm_helper_url, const absl::optional<::GURL>& trusted_bidding_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) final;
+  void LoadBidderWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::BidderWorklet> bidder_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const std::optional<::GURL>& wasm_helper_url, const std::optional<::GURL>& trusted_bidding_signals_url, const std::string& trusted_bidding_signals_slot_size_param, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) final;
   
-  void LoadSellerWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::SellerWorklet> seller_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const absl::optional<::GURL>& trusted_scoring_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) final;
+  void LoadSellerWorklet(::mojo::PendingReceiver<::auction_worklet::mojom::SellerWorklet> seller_worklet, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> shared_storage_host, bool pause_for_debugger_on_start, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, ::mojo::PendingRemote<::auction_worklet::mojom::AuctionNetworkEventsHandler> auction_network_events_handler, const ::GURL& script_source_url, const std::optional<::GURL>& trusted_scoring_signals_url, const ::url::Origin& top_window_origin, AuctionWorkletPermissionsPolicyStatePtr permissions_policy_state, bool has_experiment_group_id, uint16_t experiment_group_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

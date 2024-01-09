@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMStringMap>::value,
     "DOMStringMap inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMStringMap::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMStringMap is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8DOMStringMap::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMStringMap_NamedPropertyGetter");
@@ -81,9 +76,10 @@ void V8DOMStringMap::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->item(blink_property_name);
 if (return_value.IsNull()) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -95,7 +91,6 @@ return;  // Do not intercept.
 // "Otherwise, operation was defined with an identifier. Set value to the result
 //  of performing the steps listed in the description of operation with P as the
 //  only argument value."
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -110,14 +105,14 @@ if (info.Holder() == info.This()) {
 v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "DOMStringMap";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 
 // [CEReactions]
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(v8_receiver);
+DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& blink_property_value = NativeValueTraits<IDLString>::ArgumentValue(isolate, 1, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -143,14 +138,14 @@ void V8DOMStringMap::NamedPropertyDeleterCallback(v8::Local<v8::Name> v8_propert
 v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "DOMStringMap";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 
 // [CEReactions]
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(v8_receiver);
+DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->AnonymousNamedDeleter(blink_property_name);
 bindings::V8SetReturnValue(info, return_value);
 if (return_value == NamedPropertyDeleterResult::kDidNotDelete) {
@@ -177,7 +172,7 @@ if (v8_property_desc.has_get() || v8_property_desc.has_set()) {
 if (info.ShouldThrowOnError()) {
   const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "DOMStringMap";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Accessor properties are not allowed.");
 }
@@ -233,10 +228,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8DOMStringMap::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMStringMap_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "DOMStringMap";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -256,9 +251,9 @@ void V8DOMStringMap::NamedPropertyEnumeratorCallback(const v8::PropertyCallbackI
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMStringMap* blink_receiver = V8DOMStringMap::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "DOMStringMap";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);

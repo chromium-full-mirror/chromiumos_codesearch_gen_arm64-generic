@@ -1,4 +1,5 @@
 ./crashpad_tests
+../../../../../../../home/chrome-bot/chrome_root/src/testing/buildbot/filters/android.arm64_proguard_rel.crashpad_tests.filter
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/buildbot/filters/android.emulator.crashpad_tests.filter
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/buildbot/filters/android.pie_tot.crashpad_tests.filter
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/test_env.py

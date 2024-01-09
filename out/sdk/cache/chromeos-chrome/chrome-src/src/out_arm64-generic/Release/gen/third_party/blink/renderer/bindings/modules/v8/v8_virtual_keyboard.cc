@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VirtualKeyboard>::value,
     "VirtualKeyboard inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VirtualKeyboard::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VirtualKeyboard is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("VirtualKeyboard.boundingRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->boundingRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("VirtualKeyboard.overlaysContent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->overlaysContent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -118,9 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("VirtualKeyboard.overlaysContent.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VirtualKeyboard";
@@ -141,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("VirtualKeyboard.ongeometrychange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ongeometrychange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ongeometrychange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -157,8 +154,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOngeometrychange(event_handler);
 }
 
@@ -179,7 +177,7 @@ UseCounter::Count(current_execution_context, WebFeature::kVirtualKeyboardHide);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->hide();
 
 }
@@ -201,7 +199,7 @@ UseCounter::Count(current_execution_context, WebFeature::kVirtualKeyboardShow);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboard* blink_receiver = V8VirtualKeyboard::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->show();
 
 }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -227,14 +228,17 @@ void ServiceProxy::OnStart(
                         "<value of type ::service_manager::mojom::blink::IdentityPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kService_OnStart_Name, kFlags, 0, 0, nullptr);
@@ -282,14 +286,17 @@ void ServiceProxy::OnBindInterface(
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kService_OnBindInterface_Name, kFlags, 0, 0, nullptr);
@@ -354,14 +361,17 @@ void ServiceProxy::CreatePackagedServiceInstance(
                         "<value of type ::mojo::PendingRemote<::service_manager::mojom::blink::ProcessMetadata>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kService_CreatePackagedServiceInstance_Name, kFlags, 0, 0, nullptr);
@@ -504,7 +514,8 @@ void Service_OnStart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kService_OnStart_Name, kFlags, 0, 0, nullptr);
@@ -622,7 +633,8 @@ void Service_OnBindInterface_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kService_OnBindInterface_Name, kFlags, 0, 0, nullptr);
@@ -782,14 +794,14 @@ std::move(p_interface_pipe), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceValidationInfo[] = {
-    {&internal::Service_OnStart_Params_Data::Validate,
+    { &internal::Service_OnStart_Params_Data::Validate,
      &internal::Service_OnStart_ResponseParams_Data::Validate},
-    {&internal::Service_OnBindInterface_Params_Data::Validate,
+    { &internal::Service_OnBindInterface_Params_Data::Validate,
      &internal::Service_OnBindInterface_ResponseParams_Data::Validate},
-    {&internal::Service_CreatePackagedServiceInstance_Params_Data::Validate,
+    { &internal::Service_CreatePackagedServiceInstance_Params_Data::Validate,
      nullptr /* no response */},
 };
 

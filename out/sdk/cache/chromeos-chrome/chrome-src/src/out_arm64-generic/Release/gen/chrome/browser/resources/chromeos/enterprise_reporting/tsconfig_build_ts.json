@@ -44,8 +44,10 @@
   },
   "files": [
     "preprocessed/reporting_history.ts",
+    "preprocessed/device_info.ts",
     "preprocessed/browser_proxy.ts",
     "preprocessed/reporting_history.html.ts",
+    "preprocessed/device_info.html.ts",
     "preprocessed/enterprise_reporting.mojom-webui.ts"
   ],
   "references": [

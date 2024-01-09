@@ -866,8 +866,9 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     static constexpr uint32_t on_time_finish = 21;
     static constexpr uint32_t gpu_composition = 22;
     static constexpr uint32_t jank_type = 23;
-    static constexpr uint32_t prediction_type = 24;
-    static constexpr uint32_t jank_tag = 25;
+    static constexpr uint32_t jank_severity_type = 24;
+    static constexpr uint32_t prediction_type = 25;
+    static constexpr uint32_t jank_tag = 26;
   };
   struct ColumnType {
     using id = IdColumn<ActualFrameTimelineSliceTable::Id>;
@@ -894,6 +895,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     using on_time_finish = TypedColumn<int32_t>;
     using gpu_composition = TypedColumn<int32_t>;
     using jank_type = TypedColumn<StringPool::Id>;
+    using jank_severity_type = TypedColumn<StringPool::Id>;
     using prediction_type = TypedColumn<StringPool::Id>;
     using jank_tag = TypedColumn<StringPool::Id>;
   };
@@ -920,6 +922,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
         int32_t in_on_time_finish = {},
         int32_t in_gpu_composition = {},
         StringPool::Id in_jank_type = {},
+        StringPool::Id in_jank_severity_type = {},
         StringPool::Id in_prediction_type = {},
         StringPool::Id in_jank_tag = {},
         std::nullptr_t = nullptr)
@@ -932,6 +935,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
           on_time_finish(std::move(in_on_time_finish)),
           gpu_composition(std::move(in_gpu_composition)),
           jank_type(std::move(in_jank_type)),
+          jank_severity_type(std::move(in_jank_severity_type)),
           prediction_type(std::move(in_prediction_type)),
           jank_tag(std::move(in_jank_tag)) {
       type_ = "actual_frame_timeline_slice";
@@ -944,6 +948,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     int32_t on_time_finish;
     int32_t gpu_composition;
     StringPool::Id jank_type;
+    StringPool::Id jank_severity_type;
     StringPool::Id prediction_type;
     StringPool::Id jank_tag;
 
@@ -970,6 +975,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
        ColumnType::on_time_finish::Equals(on_time_finish, other.on_time_finish) &&
        ColumnType::gpu_composition::Equals(gpu_composition, other.gpu_composition) &&
        ColumnType::jank_type::Equals(jank_type, other.jank_type) &&
+       ColumnType::jank_severity_type::Equals(jank_severity_type, other.jank_severity_type) &&
        ColumnType::prediction_type::Equals(prediction_type, other.prediction_type) &&
        ColumnType::jank_tag::Equals(jank_tag, other.jank_tag);
     }
@@ -983,6 +989,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     static constexpr uint32_t on_time_finish = ColumnType::on_time_finish::default_flags();
     static constexpr uint32_t gpu_composition = ColumnType::gpu_composition::default_flags();
     static constexpr uint32_t jank_type = ColumnType::jank_type::default_flags();
+    static constexpr uint32_t jank_severity_type = ColumnType::jank_severity_type::default_flags();
     static constexpr uint32_t prediction_type = ColumnType::prediction_type::default_flags();
     static constexpr uint32_t jank_tag = ColumnType::jank_tag::default_flags();
   };
@@ -1077,6 +1084,9 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     }
     ColumnType::jank_type::type jank_type() const {
       return table_->jank_type()[row_number_];
+    }
+    ColumnType::jank_severity_type::type jank_severity_type() const {
+      return table_->jank_severity_type()[row_number_];
     }
     ColumnType::prediction_type::type prediction_type() const {
       return table_->prediction_type()[row_number_];
@@ -1179,6 +1189,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     void set_jank_type(
         ColumnType::jank_type::non_optional_type v) {
       return mutable_table()->mutable_jank_type()->Set(row_number_, v);
+    }
+    void set_jank_severity_type(
+        ColumnType::jank_severity_type::non_optional_type v) {
+      return mutable_table()->mutable_jank_severity_type()->Set(row_number_, v);
     }
     void set_prediction_type(
         ColumnType::prediction_type::non_optional_type v) {
@@ -1297,6 +1311,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
       const auto& col = table_->jank_type();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
+    ColumnType::jank_severity_type::type jank_severity_type() const {
+      const auto& col = table_->jank_severity_type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
     ColumnType::prediction_type::type prediction_type() const {
       const auto& col = table_->prediction_type();
       return col.GetAtIdx(its_[col.overlay_index()].index());
@@ -1410,6 +1428,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
         auto* col = mutable_table_->mutable_jank_type();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
+      void set_jank_severity_type(ColumnType::jank_severity_type::non_optional_type v) {
+        auto* col = mutable_table_->mutable_jank_severity_type();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
       void set_prediction_type(ColumnType::prediction_type::non_optional_type v) {
         auto* col = mutable_table_->mutable_prediction_type();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
@@ -1451,6 +1473,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
         on_time_finish_(ColumnStorage<ColumnType::on_time_finish::stored_type>::Create<false>()),
         gpu_composition_(ColumnStorage<ColumnType::gpu_composition::stored_type>::Create<false>()),
         jank_type_(ColumnStorage<ColumnType::jank_type::stored_type>::Create<false>()),
+        jank_severity_type_(ColumnStorage<ColumnType::jank_severity_type::stored_type>::Create<false>()),
         prediction_type_(ColumnStorage<ColumnType::prediction_type::stored_type>::Create<false>()),
         jank_tag_(ColumnStorage<ColumnType::jank_tag::stored_type>::Create<false>()) {
     static_assert(
@@ -1486,6 +1509,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
           ColumnFlag::jank_type),
         "Column type and flag combination is not valid");
       static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
+          ColumnFlag::jank_severity_type),
+        "Column type and flag combination is not valid");
+      static_assert(
         Column::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
           ColumnFlag::prediction_type),
         "Column type and flag combination is not valid");
@@ -1516,6 +1543,9 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("jank_type", &jank_type_, ColumnFlag::jank_type,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("jank_severity_type", &jank_severity_type_, ColumnFlag::jank_severity_type,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("prediction_type", &prediction_type_, ColumnFlag::prediction_type,
@@ -1646,6 +1676,11 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
         false,
         false});
     schema.columns.emplace_back(Table::Schema::Column{
+        "jank_severity_type", ColumnType::jank_severity_type::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
         "prediction_type", ColumnType::prediction_type::SqlValueType(), false,
         false,
         false,
@@ -1685,6 +1720,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     on_time_finish_.ShrinkToFit();
     gpu_composition_.ShrinkToFit();
     jank_type_.ShrinkToFit();
+    jank_severity_type_.ShrinkToFit();
     prediction_type_.ShrinkToFit();
     jank_tag_.ShrinkToFit();
   }
@@ -1712,6 +1748,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     mutable_on_time_finish()->Append(std::move(row.on_time_finish));
     mutable_gpu_composition()->Append(std::move(row.gpu_composition));
     mutable_jank_type()->Append(std::move(row.jank_type));
+    mutable_jank_severity_type()->Append(std::move(row.jank_severity_type));
     mutable_prediction_type()->Append(std::move(row.prediction_type));
     mutable_jank_tag()->Append(std::move(row.jank_tag));
     UpdateSelfOverlayAfterInsert();
@@ -1729,11 +1766,12 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::on_time_finish::stored_type> on_time_finish
 , ColumnStorage<ColumnType::gpu_composition::stored_type> gpu_composition
 , ColumnStorage<ColumnType::jank_type::stored_type> jank_type
+, ColumnStorage<ColumnType::jank_severity_type::stored_type> jank_severity_type
 , ColumnStorage<ColumnType::prediction_type::stored_type> prediction_type
 , ColumnStorage<ColumnType::jank_tag::stored_type> jank_tag) {
     return std::unique_ptr<Table>(new ActualFrameTimelineSliceTable(
         parent.string_pool(), parent, RowMap(0, parent.row_count()),
-        std::move(display_frame_token), std::move(surface_frame_token), std::move(upid), std::move(layer_name), std::move(present_type), std::move(on_time_finish), std::move(gpu_composition), std::move(jank_type), std::move(prediction_type), std::move(jank_tag)));
+        std::move(display_frame_token), std::move(surface_frame_token), std::move(upid), std::move(layer_name), std::move(present_type), std::move(on_time_finish), std::move(gpu_composition), std::move(jank_type), std::move(jank_severity_type), std::move(prediction_type), std::move(jank_tag)));
   }
 
   static std::unique_ptr<Table> SelectAndExtendParent(
@@ -1747,6 +1785,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::on_time_finish::stored_type> on_time_finish
 , ColumnStorage<ColumnType::gpu_composition::stored_type> gpu_composition
 , ColumnStorage<ColumnType::jank_type::stored_type> jank_type
+, ColumnStorage<ColumnType::jank_severity_type::stored_type> jank_severity_type
 , ColumnStorage<ColumnType::prediction_type::stored_type> prediction_type
 , ColumnStorage<ColumnType::jank_tag::stored_type> jank_tag) {
     std::vector<uint32_t> prs_untyped(parent_overlay.size());
@@ -1755,7 +1794,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     }
     return std::unique_ptr<Table>(new ActualFrameTimelineSliceTable(
         parent.string_pool(), parent, RowMap(std::move(prs_untyped)),
-        std::move(display_frame_token), std::move(surface_frame_token), std::move(upid), std::move(layer_name), std::move(present_type), std::move(on_time_finish), std::move(gpu_composition), std::move(jank_type), std::move(prediction_type), std::move(jank_tag)));
+        std::move(display_frame_token), std::move(surface_frame_token), std::move(upid), std::move(layer_name), std::move(present_type), std::move(on_time_finish), std::move(gpu_composition), std::move(jank_type), std::move(jank_severity_type), std::move(prediction_type), std::move(jank_tag)));
   }
 
   const IdColumn<ActualFrameTimelineSliceTable::Id>& id() const {
@@ -1829,6 +1868,9 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
   }
   const TypedColumn<StringPool::Id>& jank_type() const {
     return static_cast<const ColumnType::jank_type&>(columns_[ColumnIndex::jank_type]);
+  }
+  const TypedColumn<StringPool::Id>& jank_severity_type() const {
+    return static_cast<const ColumnType::jank_severity_type&>(columns_[ColumnIndex::jank_severity_type]);
   }
   const TypedColumn<StringPool::Id>& prediction_type() const {
     return static_cast<const ColumnType::prediction_type&>(columns_[ColumnIndex::prediction_type]);
@@ -1925,6 +1967,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     return static_cast<ColumnType::jank_type*>(
         &columns_[ColumnIndex::jank_type]);
   }
+  TypedColumn<StringPool::Id>* mutable_jank_severity_type() {
+    return static_cast<ColumnType::jank_severity_type*>(
+        &columns_[ColumnIndex::jank_severity_type]);
+  }
   TypedColumn<StringPool::Id>* mutable_prediction_type() {
     return static_cast<ColumnType::prediction_type*>(
         &columns_[ColumnIndex::prediction_type]);
@@ -1946,6 +1992,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::on_time_finish::stored_type> on_time_finish
 , ColumnStorage<ColumnType::gpu_composition::stored_type> gpu_composition
 , ColumnStorage<ColumnType::jank_type::stored_type> jank_type
+, ColumnStorage<ColumnType::jank_severity_type::stored_type> jank_severity_type
 , ColumnStorage<ColumnType::prediction_type::stored_type> prediction_type
 , ColumnStorage<ColumnType::jank_tag::stored_type> jank_tag)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
@@ -1982,6 +2029,10 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
           ColumnFlag::jank_type),
         "Column type and flag combination is not valid");
       static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
+          ColumnFlag::jank_severity_type),
+        "Column type and flag combination is not valid");
+      static_assert(
         Column::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
           ColumnFlag::prediction_type),
         "Column type and flag combination is not valid");
@@ -2005,6 +2056,8 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     gpu_composition_ = std::move(gpu_composition);
     PERFETTO_DCHECK(jank_type.size() == parent_overlay.size());
     jank_type_ = std::move(jank_type);
+    PERFETTO_DCHECK(jank_severity_type.size() == parent_overlay.size());
+    jank_severity_type_ = std::move(jank_severity_type);
     PERFETTO_DCHECK(prediction_type.size() == parent_overlay.size());
     prediction_type_ = std::move(prediction_type);
     PERFETTO_DCHECK(jank_tag.size() == parent_overlay.size());
@@ -2035,6 +2088,9 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
     columns_.emplace_back("jank_type", &jank_type_, ColumnFlag::jank_type,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
+    columns_.emplace_back("jank_severity_type", &jank_severity_type_, ColumnFlag::jank_severity_type,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
     columns_.emplace_back("prediction_type", &prediction_type_, ColumnFlag::prediction_type,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
@@ -2051,6 +2107,7 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
   ColumnStorage<ColumnType::on_time_finish::stored_type> on_time_finish_;
   ColumnStorage<ColumnType::gpu_composition::stored_type> gpu_composition_;
   ColumnStorage<ColumnType::jank_type::stored_type> jank_type_;
+  ColumnStorage<ColumnType::jank_severity_type::stored_type> jank_severity_type_;
   ColumnStorage<ColumnType::prediction_type::stored_type> prediction_type_;
   ColumnStorage<ColumnType::jank_tag::stored_type> jank_tag_;
 };

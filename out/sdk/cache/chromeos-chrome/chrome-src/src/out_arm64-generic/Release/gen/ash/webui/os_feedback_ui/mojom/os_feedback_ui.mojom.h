@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/os_feedback_ui/mojom/os_feedback_ui.mojom-features.h"
 #include "ash/webui/os_feedback_ui/mojom/os_feedback_ui.mojom-shared.h"
 #include "ash/webui/os_feedback_ui/mojom/os_feedback_ui.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -851,17 +852,18 @@ class  FeedbackContext {
   FeedbackContext();
 
   FeedbackContext(
-      const absl::optional<std::string>& email,
+      const std::optional<std::string>& email,
+      bool wifi_debug_logs_allowed,
       bool has_linked_cross_device_phone,
       bool is_internal_account,
       bool from_assistant,
       bool assistant_debug_info_allowed,
       bool from_settings_search,
       bool from_autofill,
-      const absl::optional<std::string>& autofill_metadata,
-      const absl::optional<::GURL>& page_url,
-      const absl::optional<std::string>& extra_diagnostics,
-      const absl::optional<std::string>& category_tag,
+      const std::optional<std::string>& autofill_metadata,
+      const std::optional<::GURL>& page_url,
+      const std::optional<std::string>& extra_diagnostics,
+      const std::optional<std::string>& category_tag,
       int32_t trace_id);
 
 
@@ -940,7 +942,9 @@ class  FeedbackContext {
   }
 
   
-  absl::optional<std::string> email;
+  std::optional<std::string> email;
+  
+  bool wifi_debug_logs_allowed;
   
   bool has_linked_cross_device_phone;
   
@@ -954,13 +958,13 @@ class  FeedbackContext {
   
   bool from_autofill;
   
-  absl::optional<std::string> autofill_metadata;
+  std::optional<std::string> autofill_metadata;
   
-  absl::optional<::GURL> page_url;
+  std::optional<::GURL> page_url;
   
-  absl::optional<std::string> extra_diagnostics;
+  std::optional<std::string> extra_diagnostics;
   
-  absl::optional<std::string> category_tag;
+  std::optional<std::string> category_tag;
   
   int32_t trace_id;
 
@@ -1171,6 +1175,7 @@ class  Report {
       bool include_screenshot,
       bool contact_user_consent_granted,
       bool send_bluetooth_logs,
+      bool send_wifi_debug_logs,
       bool include_autofill_metadata);
 
 Report(const Report&) = delete;
@@ -1259,6 +1264,8 @@ Report& operator=(const Report&) = delete;
   bool contact_user_consent_granted;
   
   bool send_bluetooth_logs;
+  
+  bool send_wifi_debug_logs;
   
   bool include_autofill_metadata;
 
@@ -1389,6 +1396,7 @@ template <typename StructPtrType>
 FeedbackContextPtr FeedbackContext::Clone() const {
   return New(
       mojo::Clone(email),
+      mojo::Clone(wifi_debug_logs_allowed),
       mojo::Clone(has_linked_cross_device_phone),
       mojo::Clone(is_internal_account),
       mojo::Clone(from_assistant),
@@ -1406,6 +1414,8 @@ FeedbackContextPtr FeedbackContext::Clone() const {
 template <typename T, FeedbackContext::EnableIfSame<T>*>
 bool FeedbackContext::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->email, other_struct.email))
+    return false;
+  if (!mojo::Equals(this->wifi_debug_logs_allowed, other_struct.wifi_debug_logs_allowed))
     return false;
   if (!mojo::Equals(this->has_linked_cross_device_phone, other_struct.has_linked_cross_device_phone))
     return false;
@@ -1437,6 +1447,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.email < rhs.email)
     return true;
   if (rhs.email < lhs.email)
+    return false;
+  if (lhs.wifi_debug_logs_allowed < rhs.wifi_debug_logs_allowed)
+    return true;
+  if (rhs.wifi_debug_logs_allowed < lhs.wifi_debug_logs_allowed)
     return false;
   if (lhs.has_linked_cross_device_phone < rhs.has_linked_cross_device_phone)
     return true;
@@ -1523,6 +1537,7 @@ ReportPtr Report::Clone() const {
       mojo::Clone(include_screenshot),
       mojo::Clone(contact_user_consent_granted),
       mojo::Clone(send_bluetooth_logs),
+      mojo::Clone(send_wifi_debug_logs),
       mojo::Clone(include_autofill_metadata)
   );
 }
@@ -1542,6 +1557,8 @@ bool Report::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->contact_user_consent_granted, other_struct.contact_user_consent_granted))
     return false;
   if (!mojo::Equals(this->send_bluetooth_logs, other_struct.send_bluetooth_logs))
+    return false;
+  if (!mojo::Equals(this->send_wifi_debug_logs, other_struct.send_wifi_debug_logs))
     return false;
   if (!mojo::Equals(this->include_autofill_metadata, other_struct.include_autofill_metadata))
     return false;
@@ -1577,6 +1594,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.send_bluetooth_logs < rhs.send_bluetooth_logs)
     return true;
   if (rhs.send_bluetooth_logs < lhs.send_bluetooth_logs)
+    return false;
+  if (lhs.send_wifi_debug_logs < rhs.send_wifi_debug_logs)
+    return true;
+  if (rhs.send_wifi_debug_logs < lhs.send_wifi_debug_logs)
     return false;
   if (lhs.include_autofill_metadata < rhs.include_autofill_metadata)
     return true;
@@ -1665,6 +1686,11 @@ struct  StructTraits<::ash::os_feedback_ui::mojom::FeedbackContext::DataView,
   static const decltype(::ash::os_feedback_ui::mojom::FeedbackContext::email)& email(
       const ::ash::os_feedback_ui::mojom::FeedbackContextPtr& input) {
     return input->email;
+  }
+
+  static decltype(::ash::os_feedback_ui::mojom::FeedbackContext::wifi_debug_logs_allowed) wifi_debug_logs_allowed(
+      const ::ash::os_feedback_ui::mojom::FeedbackContextPtr& input) {
+    return input->wifi_debug_logs_allowed;
   }
 
   static decltype(::ash::os_feedback_ui::mojom::FeedbackContext::has_linked_cross_device_phone) has_linked_cross_device_phone(
@@ -1785,6 +1811,11 @@ struct  StructTraits<::ash::os_feedback_ui::mojom::Report::DataView,
   static decltype(::ash::os_feedback_ui::mojom::Report::send_bluetooth_logs) send_bluetooth_logs(
       const ::ash::os_feedback_ui::mojom::ReportPtr& input) {
     return input->send_bluetooth_logs;
+  }
+
+  static decltype(::ash::os_feedback_ui::mojom::Report::send_wifi_debug_logs) send_wifi_debug_logs(
+      const ::ash::os_feedback_ui::mojom::ReportPtr& input) {
+    return input->send_wifi_debug_logs;
   }
 
   static decltype(::ash::os_feedback_ui::mojom::Report::include_autofill_metadata) include_autofill_metadata(

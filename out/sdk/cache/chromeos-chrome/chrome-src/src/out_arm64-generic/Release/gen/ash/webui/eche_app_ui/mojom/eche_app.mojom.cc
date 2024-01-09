@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -154,14 +155,17 @@ void SignalingMessageExchangerProxy::SendSignalingMessage(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSignalingMessageExchanger_SendSignalingMessage_Name, kFlags, 0, 0, nullptr);
@@ -204,14 +208,17 @@ void SignalingMessageExchangerProxy::SetSignalingMessageObserver(
                         "<value of type ::mojo::PendingRemote<SignalingMessageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSignalingMessageExchanger_SetSignalingMessageObserver_Name, kFlags, 0, 0, nullptr);
@@ -240,14 +247,17 @@ void SignalingMessageExchangerProxy::TearDownSignaling(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::SignalingMessageExchanger::TearDownSignaling");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSignalingMessageExchanger_TearDownSignaling_Name, kFlags, 0, 0, nullptr);
@@ -371,14 +381,14 @@ bool SignalingMessageExchangerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSignalingMessageExchangerValidationInfo[] = {
-    {&internal::SignalingMessageExchanger_SendSignalingMessage_Params_Data::Validate,
+    { &internal::SignalingMessageExchanger_SendSignalingMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SignalingMessageExchanger_SetSignalingMessageObserver_Params_Data::Validate,
+    { &internal::SignalingMessageExchanger_SetSignalingMessageObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SignalingMessageExchanger_TearDownSignaling_Params_Data::Validate,
+    { &internal::SignalingMessageExchanger_TearDownSignaling_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -458,14 +468,17 @@ void SignalingMessageObserverProxy::OnReceivedSignalingMessage(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSignalingMessageObserver_OnReceivedSignalingMessage_Name, kFlags, 0, 0, nullptr);
@@ -546,10 +559,10 @@ bool SignalingMessageObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSignalingMessageObserverValidationInfo[] = {
-    {&internal::SignalingMessageObserver_OnReceivedSignalingMessage_Params_Data::Validate,
+    { &internal::SignalingMessageObserver_OnReceivedSignalingMessage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -658,14 +671,17 @@ void SystemInfoProviderProxy::GetSystemInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::SystemInfoProvider::GetSystemInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoProvider_GetSystemInfo_Name, kFlags, 0, 0, nullptr);
@@ -696,14 +712,17 @@ void SystemInfoProviderProxy::SetSystemInfoObserver(
                         "<value of type ::mojo::PendingRemote<SystemInfoObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoProvider_SetSystemInfoObserver_Name, kFlags, 0, 0, nullptr);
@@ -818,7 +837,8 @@ void SystemInfoProvider_GetSystemInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoProvider_GetSystemInfo_Name, kFlags, 0, 0, nullptr);
@@ -935,12 +955,12 @@ bool SystemInfoProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSystemInfoProviderValidationInfo[] = {
-    {&internal::SystemInfoProvider_GetSystemInfo_Params_Data::Validate,
+    { &internal::SystemInfoProvider_GetSystemInfo_Params_Data::Validate,
      &internal::SystemInfoProvider_GetSystemInfo_ResponseParams_Data::Validate},
-    {&internal::SystemInfoProvider_SetSystemInfoObserver_Params_Data::Validate,
+    { &internal::SystemInfoProvider_SetSystemInfoObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1064,14 +1084,17 @@ void SystemInfoObserverProxy::OnScreenBacklightStateChanged(
                         "<value of type ::ash::ScreenBacklightState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoObserver_OnScreenBacklightStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1103,14 +1126,17 @@ void SystemInfoObserverProxy::OnReceivedTabletModeChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoObserver_OnReceivedTabletModeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1144,14 +1170,17 @@ void SystemInfoObserverProxy::OnAndroidDeviceNetworkInfoChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfoObserver_OnAndroidDeviceNetworkInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -1283,14 +1312,14 @@ bool SystemInfoObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSystemInfoObserverValidationInfo[] = {
-    {&internal::SystemInfoObserver_OnScreenBacklightStateChanged_Params_Data::Validate,
+    { &internal::SystemInfoObserver_OnScreenBacklightStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SystemInfoObserver_OnReceivedTabletModeChanged_Params_Data::Validate,
+    { &internal::SystemInfoObserver_OnReceivedTabletModeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SystemInfoObserver_OnAndroidDeviceNetworkInfoChanged_Params_Data::Validate,
+    { &internal::SystemInfoObserver_OnAndroidDeviceNetworkInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1426,14 +1455,17 @@ void AccessibilityProviderProxy::HandleAccessibilityEventReceived(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityProvider_HandleAccessibilityEventReceived_Name, kFlags, 0, 0, nullptr);
@@ -1476,14 +1508,17 @@ void AccessibilityProviderProxy::SetAccessibilityObserver(
                         "<value of type ::mojo::PendingRemote<AccessibilityObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityProvider_SetAccessibilityObserver_Name, kFlags, 0, 0, nullptr);
@@ -1512,14 +1547,17 @@ void AccessibilityProviderProxy::IsAccessibilityEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::AccessibilityProvider::IsAccessibilityEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityProvider_IsAccessibilityEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1629,7 +1667,8 @@ void AccessibilityProvider_IsAccessibilityEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityProvider_IsAccessibilityEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1765,14 +1804,14 @@ bool AccessibilityProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityProviderValidationInfo[] = {
-    {&internal::AccessibilityProvider_HandleAccessibilityEventReceived_Params_Data::Validate,
+    { &internal::AccessibilityProvider_HandleAccessibilityEventReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityProvider_SetAccessibilityObserver_Params_Data::Validate,
+    { &internal::AccessibilityProvider_SetAccessibilityObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityProvider_IsAccessibilityEnabled_Params_Data::Validate,
+    { &internal::AccessibilityProvider_IsAccessibilityEnabled_Params_Data::Validate,
      &internal::AccessibilityProvider_IsAccessibilityEnabled_ResponseParams_Data::Validate},
 };
 
@@ -1948,14 +1987,17 @@ void AccessibilityObserverProxy::EnableAccessibilityTreeStreaming(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_EnableAccessibilityTreeStreaming_Name, kFlags, 0, 0, nullptr);
@@ -1986,14 +2028,17 @@ void AccessibilityObserverProxy::EnableExploreByTouch(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_EnableExploreByTouch_Name, kFlags, 0, 0, nullptr);
@@ -2024,14 +2069,17 @@ void AccessibilityObserverProxy::PerformAction(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_PerformAction_Name, kFlags, 0, 0, nullptr);
@@ -2075,14 +2123,17 @@ void AccessibilityObserverProxy::RefreshWithExtraData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_RefreshWithExtraData_Name, kFlags, 0, 0, nullptr);
@@ -2205,7 +2256,8 @@ void AccessibilityObserver_PerformAction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_PerformAction_Name, kFlags, 0, 0, nullptr);
@@ -2277,7 +2329,7 @@ class AccessibilityObserver_RefreshWithExtraData_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      const absl::optional<std::vector<uint8_t>>& in_text_location_proto);
+      const std::optional<std::vector<uint8_t>>& in_text_location_proto);
 };
 
 bool AccessibilityObserver_RefreshWithExtraData_ForwardToCallback::Accept(
@@ -2290,7 +2342,7 @@ bool AccessibilityObserver_RefreshWithExtraData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<uint8_t>> p_text_location_proto{};
+  std::optional<std::vector<uint8_t>> p_text_location_proto{};
   AccessibilityObserver_RefreshWithExtraData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTextLocationProto(&p_text_location_proto))
@@ -2309,7 +2361,7 @@ std::move(p_text_location_proto));
 }
 
 void AccessibilityObserver_RefreshWithExtraData_ProxyToResponder::Run(
-    const absl::optional<std::vector<uint8_t>>& in_text_location_proto) {
+    const std::optional<std::vector<uint8_t>>& in_text_location_proto) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::eche_app::mojom::AccessibilityObserver::RefreshWithExtraData", "async_response_parameters",
@@ -2317,13 +2369,14 @@ void AccessibilityObserver_RefreshWithExtraData_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text_location_proto"), in_text_location_proto,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityObserver_RefreshWithExtraData_Name, kFlags, 0, 0, nullptr);
@@ -2501,16 +2554,16 @@ std::move(p_refresh_data_proto), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityObserverValidationInfo[] = {
-    {&internal::AccessibilityObserver_EnableAccessibilityTreeStreaming_Params_Data::Validate,
+    { &internal::AccessibilityObserver_EnableAccessibilityTreeStreaming_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityObserver_EnableExploreByTouch_Params_Data::Validate,
+    { &internal::AccessibilityObserver_EnableExploreByTouch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityObserver_PerformAction_Params_Data::Validate,
+    { &internal::AccessibilityObserver_PerformAction_Params_Data::Validate,
      &internal::AccessibilityObserver_PerformAction_ResponseParams_Data::Validate},
-    {&internal::AccessibilityObserver_RefreshWithExtraData_Params_Data::Validate,
+    { &internal::AccessibilityObserver_RefreshWithExtraData_Params_Data::Validate,
      &internal::AccessibilityObserver_RefreshWithExtraData_ResponseParams_Data::Validate},
 };
 
@@ -2603,14 +2656,17 @@ void UidGeneratorProxy::GetUid(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::UidGenerator::GetUid");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUidGenerator_GetUid_Name, kFlags, 0, 0, nullptr);
@@ -2720,7 +2776,8 @@ void UidGenerator_GetUid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUidGenerator_GetUid_Name, kFlags, 0, 0, nullptr);
@@ -2806,10 +2863,10 @@ bool UidGeneratorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUidGeneratorValidationInfo[] = {
-    {&internal::UidGenerator_GetUid_Params_Data::Validate,
+    { &internal::UidGenerator_GetUid_Params_Data::Validate,
      &internal::UidGenerator_GetUid_ResponseParams_Data::Validate},
 };
 
@@ -2919,14 +2976,17 @@ void NotificationGeneratorProxy::ShowNotification(
                         "<value of type WebNotificationType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationGenerator_ShowNotification_Name, kFlags, 0, 0, nullptr);
@@ -2980,14 +3040,17 @@ void NotificationGeneratorProxy::ShowToast(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationGenerator_ShowToast_Name, kFlags, 0, 0, nullptr);
@@ -3103,12 +3166,12 @@ bool NotificationGeneratorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNotificationGeneratorValidationInfo[] = {
-    {&internal::NotificationGenerator_ShowNotification_Params_Data::Validate,
+    { &internal::NotificationGenerator_ShowNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationGenerator_ShowToast_Params_Data::Validate,
+    { &internal::NotificationGenerator_ShowToast_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3221,14 +3284,17 @@ void DisplayStreamHandlerProxy::StartStreaming(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::DisplayStreamHandler::StartStreaming");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayStreamHandler_StartStreaming_Name, kFlags, 0, 0, nullptr);
@@ -3258,14 +3324,17 @@ void DisplayStreamHandlerProxy::OnStreamStatusChanged(
                         "<value of type StreamStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayStreamHandler_OnStreamStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -3297,14 +3366,17 @@ void DisplayStreamHandlerProxy::SetStreamActionObserver(
                         "<value of type ::mojo::PendingRemote<StreamActionObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayStreamHandler_SetStreamActionObserver_Name, kFlags, 0, 0, nullptr);
@@ -3434,14 +3506,14 @@ bool DisplayStreamHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDisplayStreamHandlerValidationInfo[] = {
-    {&internal::DisplayStreamHandler_StartStreaming_Params_Data::Validate,
+    { &internal::DisplayStreamHandler_StartStreaming_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayStreamHandler_OnStreamStatusChanged_Params_Data::Validate,
+    { &internal::DisplayStreamHandler_OnStreamStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayStreamHandler_SetStreamActionObserver_Params_Data::Validate,
+    { &internal::DisplayStreamHandler_SetStreamActionObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3521,14 +3593,17 @@ void StreamActionObserverProxy::OnStreamAction(
                         "<value of type StreamAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStreamActionObserver_OnStreamAction_Name, kFlags, 0, 0, nullptr);
@@ -3598,10 +3673,10 @@ bool StreamActionObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStreamActionObserverValidationInfo[] = {
-    {&internal::StreamActionObserver_OnStreamAction_Params_Data::Validate,
+    { &internal::StreamActionObserver_OnStreamAction_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3681,14 +3756,17 @@ void StreamOrientationObserverProxy::OnStreamOrientationChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStreamOrientationObserver_OnStreamOrientationChanged_Name, kFlags, 0, 0, nullptr);
@@ -3757,10 +3835,10 @@ bool StreamOrientationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStreamOrientationObserverValidationInfo[] = {
-    {&internal::StreamOrientationObserver_OnStreamOrientationChanged_Params_Data::Validate,
+    { &internal::StreamOrientationObserver_OnStreamOrientationChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3840,14 +3918,17 @@ void ConnectionStatusObserverProxy::OnConnectionStatusChanged(
                         "<value of type ConnectionStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionStatusObserver_OnConnectionStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -3917,10 +3998,10 @@ bool ConnectionStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConnectionStatusObserverValidationInfo[] = {
-    {&internal::ConnectionStatusObserver_OnConnectionStatusChanged_Params_Data::Validate,
+    { &internal::ConnectionStatusObserver_OnConnectionStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4013,14 +4094,17 @@ void KeyboardLayoutHandlerProxy::RequestCurrentKeyboardLayout(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::eche_app::mojom::KeyboardLayoutHandler::RequestCurrentKeyboardLayout");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardLayoutHandler_RequestCurrentKeyboardLayout_Name, kFlags, 0, 0, nullptr);
@@ -4050,14 +4134,17 @@ void KeyboardLayoutHandlerProxy::SetKeyboardLayoutObserver(
                         "<value of type ::mojo::PendingRemote<KeyboardLayoutObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardLayoutHandler_SetKeyboardLayoutObserver_Name, kFlags, 0, 0, nullptr);
@@ -4158,12 +4245,12 @@ bool KeyboardLayoutHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardLayoutHandlerValidationInfo[] = {
-    {&internal::KeyboardLayoutHandler_RequestCurrentKeyboardLayout_Params_Data::Validate,
+    { &internal::KeyboardLayoutHandler_RequestCurrentKeyboardLayout_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardLayoutHandler_SetKeyboardLayoutObserver_Params_Data::Validate,
+    { &internal::KeyboardLayoutHandler_SetKeyboardLayoutObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4252,14 +4339,17 @@ void KeyboardLayoutObserverProxy::OnKeyboardLayoutChanged(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardLayoutObserver_OnKeyboardLayoutChanged_Name, kFlags, 0, 0, nullptr);
@@ -4383,10 +4473,10 @@ bool KeyboardLayoutObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardLayoutObserverValidationInfo[] = {
-    {&internal::KeyboardLayoutObserver_OnKeyboardLayoutChanged_Params_Data::Validate,
+    { &internal::KeyboardLayoutObserver_OnKeyboardLayoutChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4575,14 +4665,14 @@ bool AccessibilityObserverAsyncWaiter::PerformAction(
 }
 
 void AccessibilityObserverAsyncWaiter::RefreshWithExtraData(
-    const std::vector<uint8_t>& refresh_data_proto, absl::optional<std::vector<uint8_t>>* out_text_location_proto) {
+    const std::vector<uint8_t>& refresh_data_proto, std::optional<std::vector<uint8_t>>* out_text_location_proto) {
   base::RunLoop loop;
   proxy_->RefreshWithExtraData(std::move(refresh_data_proto),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<uint8_t>>* out_text_location_proto
+             std::optional<std::vector<uint8_t>>* out_text_location_proto
 ,
-             const absl::optional<std::vector<uint8_t>>& text_location_proto) {*out_text_location_proto = std::move(text_location_proto);
+             const std::optional<std::vector<uint8_t>>& text_location_proto) {*out_text_location_proto = std::move(text_location_proto);
             loop->Quit();
           },
           &loop,
@@ -4590,9 +4680,9 @@ void AccessibilityObserverAsyncWaiter::RefreshWithExtraData(
   loop.Run();
 }
 
-absl::optional<std::vector<uint8_t>> AccessibilityObserverAsyncWaiter::RefreshWithExtraData(
+std::optional<std::vector<uint8_t>> AccessibilityObserverAsyncWaiter::RefreshWithExtraData(
     const std::vector<uint8_t>& refresh_data_proto) {
-  absl::optional<std::vector<uint8_t>> async_wait_result;
+  std::optional<std::vector<uint8_t>> async_wait_result;
   RefreshWithExtraData(std::move(refresh_data_proto),&async_wait_result);
   return async_wait_result;
 }

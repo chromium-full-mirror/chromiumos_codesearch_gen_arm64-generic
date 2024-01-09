@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, CacheStorage>::value,
     "CacheStorage does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&CacheStorage::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CacheStorage is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -115,7 +110,7 @@ return;
 
 
 
-CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(v8_receiver);
+CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -161,7 +156,7 @@ return;
 
 
 
-CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(v8_receiver);
+CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -203,7 +198,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCacheStorageRead);
 
 
 
-CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(v8_receiver);
+CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -245,7 +240,7 @@ return;
 
 
 
-CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(v8_receiver);
+CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -296,7 +291,7 @@ return;
 
 
 
-CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(v8_receiver);
+CacheStorage* blink_receiver = V8CacheStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

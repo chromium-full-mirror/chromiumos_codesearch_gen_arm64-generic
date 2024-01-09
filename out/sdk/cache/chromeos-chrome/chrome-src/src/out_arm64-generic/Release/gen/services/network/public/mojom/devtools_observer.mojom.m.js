@@ -103,6 +103,11 @@ import {
 } from './request_priority.mojom.m.js';
 
 import {
+  ServiceWorkerRouterInfo as network_mojom_ServiceWorkerRouterInfo,
+  ServiceWorkerRouterInfoSpec as network_mojom_ServiceWorkerRouterInfoSpec
+} from './service_worker_router_info.mojom.m.js';
+
+import {
   TrustTokenOperationResult as network_mojom_TrustTokenOperationResult,
   TrustTokenOperationResultSpec as network_mojom_TrustTokenOperationResultSpec,
   TrustTokenParams as network_mojom_TrustTokenParams,
@@ -1236,7 +1241,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sslInfo', 72,
+        'serviceWorkerRouterInfo', 72,
+        0,
+        network_mojom_ServiceWorkerRouterInfoSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'sslInfo', 80,
         0,
         network_mojom_SSLInfoSpec.$,
         null,
@@ -1244,7 +1257,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'remoteEndpoint', 80,
+        'remoteEndpoint', 88,
         0,
         network_mojom_IPEndPointSpec.$,
         null,
@@ -1260,7 +1273,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 96],]);
+    [[0, 104],]);
 
 
 
@@ -1295,6 +1308,8 @@ export class URLResponseHeadDevToolsInfo {
     this.wasFetchedViaSpdy;
     /** @type { !network_mojom_FetchResponseSource } */
     this.serviceWorkerResponseSource;
+    /** @type { (network_mojom_ServiceWorkerRouterInfo|undefined) } */
+    this.serviceWorkerRouterInfo;
     /** @type { (network_mojom_SSLInfo|undefined) } */
     this.sslInfo;
     /** @type { !network_mojom_IPEndPoint } */

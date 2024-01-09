@@ -1,8 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;padding:0 var(--cr-section-padding)}.icon-blue{fill:var(--google-blue-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block}.icon-blue{fill:var(--google-blue-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}}</style>
 
-<settings-safety-hub-module header="[[headerString_]]" header-icon="cr:extension">
+<settings-safety-hub-module header="[[headerString_]]" header-icon="settings20:my_extensions">
   <div slot="button-container">
     <cr-button id="reviewButton" on-click="onButtonClick_">
       $i18n{safetyCheckReview}

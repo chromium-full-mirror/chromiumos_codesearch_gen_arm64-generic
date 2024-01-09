@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -40,18 +41,22 @@
 
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-import-headers.h"
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-test-utils.h"
+#include "net/cert/cert_verify_result.h"
 
 
 namespace cert_verifier::mojom {
 CertVerifierCreationParams::CertVerifierCreationParams()
     : nss_path(),
-      username_hash() {}
+      username_hash(),
+      initial_additional_certificates() {}
 
 CertVerifierCreationParams::CertVerifierCreationParams(
-    const absl::optional<::base::FilePath>& nss_path_in,
-    const std::string& username_hash_in)
+    const std::optional<::base::FilePath>& nss_path_in,
+    const std::string& username_hash_in,
+    ::cert_verifier::mojom::AdditionalCertificatesPtr initial_additional_certificates_in)
     : nss_path(std::move(nss_path_in)),
-      username_hash(std::move(username_hash_in)) {}
+      username_hash(std::move(username_hash_in)),
+      initial_additional_certificates(std::move(initial_additional_certificates_in)) {}
 
 CertVerifierCreationParams::~CertVerifierCreationParams() = default;
 
@@ -62,7 +67,7 @@ void CertVerifierCreationParams::WriteIntoTrace(
     dict.AddItem(
       "nss_path"), this->nss_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -72,6 +77,15 @@ void CertVerifierCreationParams::WriteIntoTrace(
       "username_hash"), this->username_hash,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "initial_additional_certificates"), this->initial_additional_certificates,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::cert_verifier::mojom::AdditionalCertificatesPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -207,6 +221,9 @@ CertVerifierServiceFactory::IPCStableHashFunction CertVerifierServiceFactory::Me
     case internal::kCertVerifierServiceFactory_UpdateCRLSet_Name: {
       return &CertVerifierServiceFactory::UpdateCRLSet_Sym::IPCStableHash;
     }
+    case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name: {
+      return &CertVerifierServiceFactory::UpdateCtLogList_Sym::IPCStableHash;
+    }
     case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name: {
       return &CertVerifierServiceFactory::UpdateChromeRootStore_Sym::IPCStableHash;
     }
@@ -228,6 +245,8 @@ const char* CertVerifierServiceFactory::MessageToMethodName_(mojo::Message& mess
             return "Receive cert_verifier::mojom::CertVerifierServiceFactory::GetNewCertVerifier";
       case internal::kCertVerifierServiceFactory_UpdateCRLSet_Name:
             return "Receive cert_verifier::mojom::CertVerifierServiceFactory::UpdateCRLSet";
+      case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name:
+            return "Receive cert_verifier::mojom::CertVerifierServiceFactory::UpdateCtLogList";
       case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name:
             return "Receive cert_verifier::mojom::CertVerifierServiceFactory::UpdateChromeRootStore";
       case internal::kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name:
@@ -239,6 +258,8 @@ const char* CertVerifierServiceFactory::MessageToMethodName_(mojo::Message& mess
             return "Receive reply cert_verifier::mojom::CertVerifierServiceFactory::GetNewCertVerifier";
       case internal::kCertVerifierServiceFactory_UpdateCRLSet_Name:
             return "Receive reply cert_verifier::mojom::CertVerifierServiceFactory::UpdateCRLSet";
+      case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name:
+            return "Receive reply cert_verifier::mojom::CertVerifierServiceFactory::UpdateCtLogList";
       case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name:
             return "Receive reply cert_verifier::mojom::CertVerifierServiceFactory::UpdateChromeRootStore";
       case internal::kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name:
@@ -279,6 +300,19 @@ uint32_t CertVerifierServiceFactory::UpdateCRLSet_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cert_verifier::mojom::CertVerifierServiceFactory::UpdateCRLSet");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CertVerifierServiceFactory::UpdateCtLogList_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cert_verifier::mojom::CertVerifierServiceFactory::UpdateCtLogList");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -327,6 +361,22 @@ class CertVerifierServiceFactory_UpdateCRLSet_ForwardToCallback
   CertVerifierServiceFactory::UpdateCRLSetCallback callback_;
 };
 
+class CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback(
+      CertVerifierServiceFactory::UpdateCtLogListCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback(const CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback&) = delete;
+  CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback& operator=(const CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CertVerifierServiceFactory::UpdateCtLogListCallback callback_;
+};
+
 class CertVerifierServiceFactory_UpdateChromeRootStore_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -364,7 +414,7 @@ CertVerifierServiceFactoryProxy::CertVerifierServiceFactoryProxy(mojo::MessageRe
 }
 
 void CertVerifierServiceFactoryProxy::GetNewCertVerifier(
-    ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> in_receiver, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> in_client, CertVerifierCreationParamsPtr in_creation_params) {
+    ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> in_receiver, ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> in_updater, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> in_client, CertVerifierCreationParamsPtr in_creation_params) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cert_verifier::mojom::CertVerifierServiceFactory::GetNewCertVerifier", "input_parameters",
@@ -374,6 +424,9 @@ void CertVerifierServiceFactoryProxy::GetNewCertVerifier(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService>>");
       perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("updater"), in_updater,
+                        "<value of type ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater>>");
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient>>");
       perfetto::WriteIntoTracedValueWithFallback(
@@ -381,14 +434,17 @@ void CertVerifierServiceFactoryProxy::GetNewCertVerifier(
                         "<value of type CertVerifierCreationParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_GetNewCertVerifier_Name, kFlags, 0, 0, nullptr);
@@ -402,6 +458,8 @@ void CertVerifierServiceFactoryProxy::GetNewCertVerifier(
       !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
       "invalid receiver in CertVerifierServiceFactory.GetNewCertVerifier request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::cert_verifier::mojom::CertVerifierServiceUpdaterInterfaceBase>>(
+      in_updater, &params->updater, &params.message());
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::cert_verifier::mojom::CertVerifierServiceClientInterfaceBase>>(
       in_client, &params->client, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -437,14 +495,17 @@ void CertVerifierServiceFactoryProxy::UpdateCRLSet(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_UpdateCRLSet_Name, kFlags, 0, 0, nullptr);
@@ -472,6 +533,74 @@ void CertVerifierServiceFactoryProxy::UpdateCRLSet(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void CertVerifierServiceFactoryProxy::UpdateCtLogList(
+    std::vector<::network::mojom::CTLogInfoPtr> in_log_list, ::base::Time in_update_time, UpdateCtLogListCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cert_verifier::mojom::CertVerifierServiceFactory::UpdateCtLogList", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("log_list"), in_log_list,
+                        "<value of type std::vector<::network::mojom::CTLogInfoPtr>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("update_time"), in_update_time,
+                        "<value of type ::base::Time>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCertVerifierServiceFactory_UpdateCtLogList_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cert_verifier::mojom::internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->log_list)::BaseType>
+      log_list_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& log_list_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>>(
+      in_log_list, log_list_fragment, &log_list_validate_params);
+  params->log_list.Set(
+      log_list_fragment.is_null() ? nullptr : log_list_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->log_list.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null log_list in CertVerifierServiceFactory.UpdateCtLogList request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->update_time)::BaseType> update_time_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+      in_update_time, update_time_fragment);
+  params->update_time.Set(
+      update_time_fragment.is_null() ? nullptr : update_time_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->update_time.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null update_time in CertVerifierServiceFactory.UpdateCtLogList request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CertVerifierServiceFactory::Name_);
+  message.set_method_name("UpdateCtLogList");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void CertVerifierServiceFactoryProxy::UpdateChromeRootStore(
     ChromeRootStorePtr in_new_root_store, UpdateChromeRootStoreCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -484,14 +613,17 @@ void CertVerifierServiceFactoryProxy::UpdateChromeRootStore(
                         "<value of type ChromeRootStorePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name, kFlags, 0, 0, nullptr);
@@ -526,14 +658,17 @@ void CertVerifierServiceFactoryProxy::GetChromeRootStoreInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cert_verifier::mojom::CertVerifierServiceFactory::GetChromeRootStoreInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name, kFlags, 0, 0, nullptr);
@@ -632,7 +767,8 @@ void CertVerifierServiceFactory_UpdateCRLSet_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_UpdateCRLSet_Name, kFlags, 0, 0, nullptr);
@@ -644,6 +780,113 @@ void CertVerifierServiceFactory_UpdateCRLSet_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CertVerifierServiceFactory::Name_);
   message.set_method_name("UpdateCRLSet");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CertVerifierServiceFactory::UpdateCtLogListCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder> proxy(
+        new CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CertVerifierServiceFactory::UpdateCtLogListCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CertVerifierServiceFactory_UpdateCtLogList_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CertVerifierServiceFactory::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply cert_verifier::mojom::CertVerifierServiceFactory::UpdateCtLogList");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCertVerifierServiceFactory_UpdateCtLogList_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cert_verifier::mojom::internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CertVerifierServiceFactory::Name_);
+  message.set_method_name("UpdateCtLogList");
 #endif
 
   message.set_request_id(request_id_);
@@ -722,7 +965,7 @@ bool CertVerifierServiceFactory_UpdateChromeRootStore_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CertVerifierServiceFactory::Name_, 2, true);
+        CertVerifierServiceFactory::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -738,7 +981,8 @@ void CertVerifierServiceFactory_UpdateChromeRootStore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name, kFlags, 0, 0, nullptr);
@@ -831,7 +1075,7 @@ bool CertVerifierServiceFactory_GetChromeRootStoreInfo_ForwardToCallback::Accept
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CertVerifierServiceFactory::Name_, 3, true);
+        CertVerifierServiceFactory::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -855,7 +1099,8 @@ void CertVerifierServiceFactory_GetChromeRootStoreInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name, kFlags, 0, 0, nullptr);
@@ -906,6 +1151,7 @@ bool CertVerifierServiceFactoryStubDispatch::Accept(
       
       bool success = true;
       ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> p_receiver{};
+      ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> p_updater{};
       ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> p_client{};
       CertVerifierCreationParamsPtr p_creation_params{};
       CertVerifierServiceFactory_GetNewCertVerifier_ParamsDataView input_data_view(params, message);
@@ -913,6 +1159,10 @@ bool CertVerifierServiceFactoryStubDispatch::Accept(
       if (success) {
         p_receiver =
             input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (success) {
+        p_updater =
+            input_data_view.TakeUpdater<decltype(p_updater)>();
       }
       if (success) {
         p_client =
@@ -931,11 +1181,15 @@ bool CertVerifierServiceFactoryStubDispatch::Accept(
       DCHECK(impl);
       impl->GetNewCertVerifier(
 std::move(p_receiver), 
+std::move(p_updater), 
 std::move(p_client), 
 std::move(p_creation_params));
       return true;
     }
     case internal::kCertVerifierServiceFactory_UpdateCRLSet_Name: {
+      break;
+    }
+    case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name: {
       break;
     }
     case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name: {
@@ -989,6 +1243,39 @@ bool CertVerifierServiceFactoryStubDispatch::AcceptWithResponder(
 std::move(p_crl_set), std::move(callback));
       return true;
     }
+    case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name: {
+
+      internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data* params =
+          reinterpret_cast<
+              internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::vector<::network::mojom::CTLogInfoPtr> p_log_list{};
+      ::base::Time p_update_time{};
+      CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLogList(&p_log_list))
+        success = false;
+      if (success && !input_data_view.ReadUpdateTime(&p_update_time))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CertVerifierServiceFactory::Name_, 2, false);
+        return false;
+      }
+      CertVerifierServiceFactory::UpdateCtLogListCallback callback =
+          CertVerifierServiceFactory_UpdateCtLogList_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateCtLogList(
+std::move(p_log_list), 
+std::move(p_update_time), std::move(callback));
+      return true;
+    }
     case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name: {
 
       internal::CertVerifierServiceFactory_UpdateChromeRootStore_Params_Data* params =
@@ -1006,7 +1293,7 @@ std::move(p_crl_set), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CertVerifierServiceFactory::Name_, 2, false);
+            CertVerifierServiceFactory::Name_, 3, false);
         return false;
       }
       CertVerifierServiceFactory::UpdateChromeRootStoreCallback callback =
@@ -1032,7 +1319,7 @@ std::move(p_new_root_store), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CertVerifierServiceFactory::Name_, 3, false);
+            CertVerifierServiceFactory::Name_, 4, false);
         return false;
       }
       CertVerifierServiceFactory::GetChromeRootStoreInfoCallback callback =
@@ -1046,16 +1333,18 @@ std::move(p_new_root_store), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertVerifierServiceFactoryValidationInfo[] = {
-    {&internal::CertVerifierServiceFactory_GetNewCertVerifier_Params_Data::Validate,
+    { &internal::CertVerifierServiceFactory_GetNewCertVerifier_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CertVerifierServiceFactory_UpdateCRLSet_Params_Data::Validate,
+    { &internal::CertVerifierServiceFactory_UpdateCRLSet_Params_Data::Validate,
      &internal::CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data::Validate},
-    {&internal::CertVerifierServiceFactory_UpdateChromeRootStore_Params_Data::Validate,
+    { &internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data::Validate,
+     &internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data::Validate},
+    { &internal::CertVerifierServiceFactory_UpdateChromeRootStore_Params_Data::Validate,
      &internal::CertVerifierServiceFactory_UpdateChromeRootStore_ResponseParams_Data::Validate},
-    {&internal::CertVerifierServiceFactory_GetChromeRootStoreInfo_Params_Data::Validate,
+    { &internal::CertVerifierServiceFactory_GetChromeRootStoreInfo_Params_Data::Validate,
      &internal::CertVerifierServiceFactory_GetChromeRootStoreInfo_ResponseParams_Data::Validate},
 };
 
@@ -1086,6 +1375,8 @@ bool StructTraits<::cert_verifier::mojom::CertVerifierCreationParams::DataView, 
       if (success && !input.ReadNssPath(&result->nss_path))
         success = false;
       if (success && !input.ReadUsernameHash(&result->username_hash))
+        success = false;
+      if (success && !input.ReadInitialAdditionalCertificates(&result->initial_additional_certificates))
         success = false;
   *output = std::move(result);
   return success;
@@ -1147,11 +1438,14 @@ bool StructTraits<::cert_verifier::mojom::ChromeRootStoreInfo::DataView, ::cert_
 namespace cert_verifier::mojom {
 
 
-void CertVerifierServiceFactoryInterceptorForTesting::GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) {
-  GetForwardingInterface()->GetNewCertVerifier(std::move(receiver), std::move(client), std::move(creation_params));
+void CertVerifierServiceFactoryInterceptorForTesting::GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> updater, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) {
+  GetForwardingInterface()->GetNewCertVerifier(std::move(receiver), std::move(updater), std::move(client), std::move(creation_params));
 }
 void CertVerifierServiceFactoryInterceptorForTesting::UpdateCRLSet(::mojo_base::BigBuffer crl_set, UpdateCRLSetCallback callback) {
   GetForwardingInterface()->UpdateCRLSet(std::move(crl_set), std::move(callback));
+}
+void CertVerifierServiceFactoryInterceptorForTesting::UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) {
+  GetForwardingInterface()->UpdateCtLogList(std::move(log_list), std::move(update_time), std::move(callback));
 }
 void CertVerifierServiceFactoryInterceptorForTesting::UpdateChromeRootStore(ChromeRootStorePtr new_root_store, UpdateChromeRootStoreCallback callback) {
   GetForwardingInterface()->UpdateChromeRootStore(std::move(new_root_store), std::move(callback));
@@ -1168,6 +1462,20 @@ void CertVerifierServiceFactoryAsyncWaiter::UpdateCRLSet(
     ::mojo_base::BigBuffer crl_set) {
   base::RunLoop loop;
   proxy_->UpdateCRLSet(std::move(crl_set),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void CertVerifierServiceFactoryAsyncWaiter::UpdateCtLogList(
+    std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time) {
+  base::RunLoop loop;
+  proxy_->UpdateCtLogList(std::move(log_list),std::move(update_time),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();

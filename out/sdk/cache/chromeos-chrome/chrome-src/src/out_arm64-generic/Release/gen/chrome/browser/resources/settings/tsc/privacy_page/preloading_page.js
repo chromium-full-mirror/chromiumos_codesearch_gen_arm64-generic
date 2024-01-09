@@ -11,7 +11,6 @@ import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/pref
 import { CrSettingsPrefs } from 'chrome://resources/cr_components/settings_prefs/prefs_types.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { loadTimeData } from '../i18n_setup.js';
 import { NetworkPredictionOptions } from '../performance_page/constants.js';
 import { getTemplate } from './preloading_page.html.js';
 const PreloadingPageElementBase = PrefsMixin(PolymerElement);
@@ -28,10 +27,6 @@ export class PreloadingPageElement extends PreloadingPageElementBase {
             networkPredictionOptionsEnum_: {
                 type: Object,
                 value: NetworkPredictionOptions,
-            },
-            isEmbeddedOnPerformancePage_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled'),
             },
         };
     }

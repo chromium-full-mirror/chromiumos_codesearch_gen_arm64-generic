@@ -70,15 +70,13 @@ import {
   AuthChallengeInfoSpec as network_mojom_AuthChallengeInfoSpec,
   HttpResponseHeaders as network_mojom_HttpResponseHeaders,
   HttpResponseHeadersSpec as network_mojom_HttpResponseHeadersSpec,
-  ProxyServer as network_mojom_ProxyServer,
-  ProxyServerSpec as network_mojom_ProxyServerSpec,
+  ProxyChain as network_mojom_ProxyChain,
+  ProxyChainSpec as network_mojom_ProxyChainSpec,
   SSLInfo as network_mojom_SSLInfo,
   SSLInfoSpec as network_mojom_SSLInfoSpec
 } from './network_param.mojom.m.js';
 
 import {
-  CTPolicyCompliance as network_mojom_CTPolicyCompliance,
-  CTPolicyComplianceSpec as network_mojom_CTPolicyComplianceSpec,
   ConnectionInfo as network_mojom_ConnectionInfo,
   ConnectionInfoSpec as network_mojom_ConnectionInfoSpec
 } from './network_types.mojom.m.js';
@@ -87,6 +85,11 @@ import {
   ParsedHeaders as network_mojom_ParsedHeaders,
   ParsedHeadersSpec as network_mojom_ParsedHeadersSpec
 } from './parsed_headers.mojom.m.js';
+
+import {
+  ServiceWorkerRouterInfo as network_mojom_ServiceWorkerRouterInfo,
+  ServiceWorkerRouterInfoSpec as network_mojom_ServiceWorkerRouterInfoSpec
+} from './service_worker_router_info.mojom.m.js';
 
 
 /**
@@ -160,15 +163,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'ctPolicyCompliance', 40,
-        0,
-        network_mojom_CTPolicyComplianceSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'contentLength', 48,
+        'contentLength', 40,
         0,
         mojo.internal.Int64,
         BigInt('-1'),
@@ -176,7 +171,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'encodedDataLength', 56,
+        'encodedDataLength', 48,
         0,
         mojo.internal.Int64,
         BigInt('-1'),
@@ -184,7 +179,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'encodedBodyLength', 64,
+        'encodedBodyLength', 56,
         0,
         network_mojom_EncodedBodyLengthSpec.$,
         null,
@@ -192,7 +187,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'networkAccessed', 44,
+        'networkAccessed', 64,
         0,
         mojo.internal.Bool,
         false,
@@ -208,7 +203,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'emittedExtraInfo', 44,
+        'emittedExtraInfo', 64,
         1,
         mojo.internal.Bool,
         false,
@@ -216,7 +211,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasFetchedViaSpdy', 44,
+        'wasFetchedViaSpdy', 64,
         2,
         mojo.internal.Bool,
         false,
@@ -224,7 +219,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasAlpnNegotiated', 44,
+        'wasAlpnNegotiated', 64,
         3,
         mojo.internal.Bool,
         false,
@@ -232,7 +227,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasAlternateProtocolAvailable', 44,
+        'wasAlternateProtocolAvailable', 64,
         4,
         mojo.internal.Bool,
         false,
@@ -240,7 +235,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'connectionInfo', 80,
+        'connectionInfo', 68,
         0,
         network_mojom_ConnectionInfoSpec.$,
         0,
@@ -248,7 +243,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'alpnNegotiatedProtocol', 88,
+        'alpnNegotiatedProtocol', 80,
         0,
         mojo.internal.String,
         null,
@@ -256,7 +251,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'alternateProtocolUsage', 84,
+        'alternateProtocolUsage', 88,
         0,
         network_mojom_AlternateProtocolUsageSpec.$,
         0,
@@ -272,7 +267,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'clientAddressSpace', 104,
+        'clientAddressSpace', 92,
         0,
         network_mojom_IPAddressSpaceSpec.$,
         network_mojom_IPAddressSpace.kUnknown,
@@ -280,7 +275,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'responseAddressSpace', 108,
+        'responseAddressSpace', 104,
         0,
         network_mojom_IPAddressSpaceSpec.$,
         network_mojom_IPAddressSpace.kUnknown,
@@ -288,7 +283,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isValidated', 44,
+        'isValidated', 64,
         5,
         mojo.internal.Bool,
         false,
@@ -296,7 +291,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasFetchedViaCache', 44,
+        'wasFetchedViaCache', 64,
         6,
         mojo.internal.Bool,
         false,
@@ -304,7 +299,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'navigationDeliveryType', 112,
+        'navigationDeliveryType', 108,
         0,
         NavigationDeliveryTypeSpec.$,
         NavigationDeliveryType.kDefault,
@@ -312,15 +307,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'proxyServer', 120,
+        'proxyChain', 112,
         0,
-        network_mojom_ProxyServerSpec.$,
+        network_mojom_ProxyChainSpec.$,
         null,
         false /* nullable */,
         0,
       ),
       mojo.internal.StructField(
-        'wasFetchedViaServiceWorker', 44,
+        'wasFetchedViaServiceWorker', 64,
         7,
         mojo.internal.Bool,
         false,
@@ -328,7 +323,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'serviceWorkerResponseSource', 116,
+        'serviceWorkerResponseSource', 120,
         0,
         network_mojom_FetchResponseSourceSpec.$,
         network_mojom_FetchResponseSource.kUnspecified,
@@ -344,7 +339,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'responseType', 136,
+        'serviceWorkerRouterInfo', 136,
+        0,
+        network_mojom_ServiceWorkerRouterInfoSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'responseType', 124,
         0,
         network_mojom_FetchResponseTypeSpec.$,
         network_mojom_FetchResponseType.kDefault,
@@ -368,7 +371,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'certStatus', 140,
+        'certStatus', 160,
         0,
         mojo.internal.Uint32,
         0,
@@ -376,7 +379,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sslInfo', 160,
+        'sslInfo', 168,
         0,
         network_mojom_SSLInfoSpec.$,
         null,
@@ -384,7 +387,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'corsExposedHeaderNames', 168,
+        'corsExposedHeaderNames', 176,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -392,7 +395,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'didServiceWorkerNavigationPreload', 45,
+        'didServiceWorkerNavigationPreload', 65,
         0,
         mojo.internal.Bool,
         false,
@@ -400,7 +403,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'asyncRevalidationRequested', 45,
+        'asyncRevalidationRequested', 65,
         1,
         mojo.internal.Bool,
         false,
@@ -408,7 +411,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'didMimeSniff', 45,
+        'didMimeSniff', 65,
         2,
         mojo.internal.Bool,
         false,
@@ -416,7 +419,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isSignedExchangeInnerResponse', 45,
+        'isSignedExchangeInnerResponse', 65,
         3,
         mojo.internal.Bool,
         false,
@@ -424,7 +427,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasInPrefetchCache', 45,
+        'isWebBundleInnerResponse', 65,
         4,
         mojo.internal.Bool,
         false,
@@ -432,7 +435,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'wasCookieInRequest', 45,
+        'wasInPrefetchCache', 65,
         5,
         mojo.internal.Bool,
         false,
@@ -440,7 +443,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'interceptedByPlugin', 45,
+        'wasCookieInRequest', 65,
         6,
         mojo.internal.Bool,
         false,
@@ -448,7 +451,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hasRangeRequested', 45,
+        'interceptedByPlugin', 65,
         7,
         mojo.internal.Bool,
         false,
@@ -456,7 +459,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'timingAllowPassed', 46,
+        'hasRangeRequested', 66,
         0,
         mojo.internal.Bool,
         false,
@@ -464,63 +467,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'authChallengeInfo', 176,
-        0,
-        network_mojom_AuthChallengeInfoSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'requestStart', 184,
-        0,
-        mojoBase_mojom_TimeTicksSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'responseStart', 192,
-        0,
-        mojoBase_mojom_TimeTicksSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'parsedHeaders', 200,
-        0,
-        network_mojom_ParsedHeadersSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'recursivePrefetchToken', 208,
-        0,
-        mojoBase_mojom_UnguessableTokenSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'dnsAliases', 216,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'webBundleUrl', 224,
-        0,
-        url_mojom_UrlSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'hasAuthorizationCoveredByWildcardOnPreflight', 46,
+        'timingAllowPassed', 66,
         1,
         mojo.internal.Bool,
         false,
@@ -528,10 +475,74 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'requestIncludeCredentials', 46,
+        'authChallengeInfo', 184,
+        0,
+        network_mojom_AuthChallengeInfoSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'requestStart', 192,
+        0,
+        mojoBase_mojom_TimeTicksSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'responseStart', 200,
+        0,
+        mojoBase_mojom_TimeTicksSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'parsedHeaders', 208,
+        0,
+        network_mojom_ParsedHeadersSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'recursivePrefetchToken', 216,
+        0,
+        mojoBase_mojom_UnguessableTokenSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'dnsAliases', 224,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'hasAuthorizationCoveredByWildcardOnPreflight', 66,
         2,
         mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'requestIncludeCredentials', 66,
+        3,
+        mojo.internal.Bool,
         true,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'shouldUseSourceHashForJsCodeCache', 66,
+        4,
+        mojo.internal.Bool,
+        false,
         false /* nullable */,
         0,
       ),
@@ -544,7 +555,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'privateNetworkAccessPreflightResult', 240,
+        'privateNetworkAccessPreflightResult', 164,
         0,
         network_mojom_PrivateNetworkAccessPreflightResultSpec.$,
         network_mojom_PrivateNetworkAccessPreflightResult.kNone,
@@ -552,15 +563,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'didUseSharedDictionary', 46,
-        3,
+        'didUseSharedDictionary', 66,
+        5,
         mojo.internal.Bool,
         false,
         false /* nullable */,
         0,
       ),
     ],
-    [[0, 256],]);
+    [[0, 248],]);
 
 
 
@@ -579,8 +590,6 @@ export class URLResponseHead {
     this.mimeType;
     /** @type { !string } */
     this.charset;
-    /** @type { !network_mojom_CTPolicyCompliance } */
-    this.ctPolicyCompliance;
     /** @type { !bigint } */
     this.contentLength;
     /** @type { !bigint } */
@@ -617,14 +626,16 @@ export class URLResponseHead {
     this.wasFetchedViaCache;
     /** @type { !NavigationDeliveryType } */
     this.navigationDeliveryType;
-    /** @type { !network_mojom_ProxyServer } */
-    this.proxyServer;
+    /** @type { !network_mojom_ProxyChain } */
+    this.proxyChain;
     /** @type { !boolean } */
     this.wasFetchedViaServiceWorker;
     /** @type { !network_mojom_FetchResponseSource } */
     this.serviceWorkerResponseSource;
     /** @type { !Array<!url_mojom_Url> } */
     this.urlListViaServiceWorker;
+    /** @type { (network_mojom_ServiceWorkerRouterInfo|undefined) } */
+    this.serviceWorkerRouterInfo;
     /** @type { !network_mojom_FetchResponseType } */
     this.responseType;
     /** @type { !bigint } */
@@ -645,6 +656,8 @@ export class URLResponseHead {
     this.didMimeSniff;
     /** @type { !boolean } */
     this.isSignedExchangeInnerResponse;
+    /** @type { !boolean } */
+    this.isWebBundleInnerResponse;
     /** @type { !boolean } */
     this.wasInPrefetchCache;
     /** @type { !boolean } */
@@ -667,12 +680,12 @@ export class URLResponseHead {
     this.recursivePrefetchToken;
     /** @type { !Array<!string> } */
     this.dnsAliases;
-    /** @type { !url_mojom_Url } */
-    this.webBundleUrl;
     /** @type { !boolean } */
     this.hasAuthorizationCoveredByWildcardOnPreflight;
     /** @type { !boolean } */
     this.requestIncludeCredentials;
+    /** @type { !boolean } */
+    this.shouldUseSourceHashForJsCodeCache;
     /** @type { !Array<!network_mojom_TriggerVerification> } */
     this.triggerVerifications;
     /** @type { !network_mojom_PrivateNetworkAccessPreflightResult } */

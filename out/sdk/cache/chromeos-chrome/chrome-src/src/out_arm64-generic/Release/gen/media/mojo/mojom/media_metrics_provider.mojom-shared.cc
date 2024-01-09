@@ -387,6 +387,29 @@ MediaMetricsProvider_SetKeySystem_Params_Data::MediaMetricsProvider_SetKeySystem
 
 
 // static
+bool MediaMetricsProvider_SetHasWaitingForKey_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaMetricsProvider_SetHasWaitingForKey_Params_Data* object =
+      static_cast<const MediaMetricsProvider_SetHasWaitingForKey_Params_Data*>(data);
+
+  return true;
+}
+
+MediaMetricsProvider_SetHasWaitingForKey_Params_Data::MediaMetricsProvider_SetHasWaitingForKey_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool MediaMetricsProvider_SetIsHardwareSecure_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

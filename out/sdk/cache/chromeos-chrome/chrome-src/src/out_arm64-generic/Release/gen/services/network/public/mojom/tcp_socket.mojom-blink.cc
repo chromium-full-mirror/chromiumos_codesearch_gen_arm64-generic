@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -331,14 +332,17 @@ void TCPBoundSocketProxy::Listen(
                         "<value of type ::mojo::PendingReceiver<TCPServerSocket>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPBoundSocket_Listen_Name, kFlags, 0, 0, nullptr);
@@ -385,14 +389,17 @@ void TCPBoundSocketProxy::Connect(
                         "<value of type ::mojo::PendingRemote<SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPBoundSocket_Connect_Name, kFlags, 0, 0, nullptr);
@@ -528,7 +535,8 @@ void TCPBoundSocket_Listen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPBoundSocket_Listen_Name, kFlags, 0, 0, nullptr);
@@ -600,7 +608,7 @@ class TCPBoundSocket_Connect_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      int32_t in_net_error, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
+      int32_t in_net_error, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
 };
 
 bool TCPBoundSocket_Connect_ForwardToCallback::Accept(
@@ -614,8 +622,8 @@ bool TCPBoundSocket_Connect_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_net_error{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
-  absl::optional<::net::IPEndPoint> p_peer_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_peer_addr{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
   ::mojo::ScopedDataPipeProducerHandle p_send_stream{};
   TCPBoundSocket_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -648,7 +656,7 @@ std::move(p_send_stream));
 }
 
 void TCPBoundSocket_Connect_ProxyToResponder::Run(
-    int32_t in_net_error, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
+    int32_t in_net_error, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::TCPBoundSocket::Connect", "async_response_parameters",
@@ -659,10 +667,10 @@ void TCPBoundSocket_Connect_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peer_addr"), in_peer_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receive_stream"), in_receive_stream,
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
@@ -674,7 +682,8 @@ void TCPBoundSocket_Connect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPBoundSocket_Connect_Name, kFlags, 0, 0, nullptr);
@@ -826,12 +835,12 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTCPBoundSocketValidationInfo[] = {
-    {&internal::TCPBoundSocket_Listen_Params_Data::Validate,
+    { &internal::TCPBoundSocket_Listen_Params_Data::Validate,
      &internal::TCPBoundSocket_Listen_ResponseParams_Data::Validate},
-    {&internal::TCPBoundSocket_Connect_Params_Data::Validate,
+    { &internal::TCPBoundSocket_Connect_Params_Data::Validate,
      &internal::TCPBoundSocket_Connect_ResponseParams_Data::Validate},
 };
 
@@ -1087,14 +1096,17 @@ void TCPConnectedSocketProxy::UpgradeToTLS(
                         "<value of type ::mojo::PendingRemote<SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_UpgradeToTLS_Name, kFlags, 0, 0, nullptr);
@@ -1162,14 +1174,17 @@ void TCPConnectedSocketProxy::SetSendBufferSize(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetSendBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1201,14 +1216,17 @@ void TCPConnectedSocketProxy::SetReceiveBufferSize(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetReceiveBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1240,14 +1258,17 @@ void TCPConnectedSocketProxy::SetNoDelay(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetNoDelay_Name, kFlags, 0, 0, nullptr);
@@ -1282,14 +1303,17 @@ void TCPConnectedSocketProxy::SetKeepAlive(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetKeepAlive_Name, kFlags, 0, 0, nullptr);
@@ -1422,7 +1446,8 @@ void TCPConnectedSocket_UpgradeToTLS_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_UpgradeToTLS_Name, kFlags, 0, 0, nullptr);
@@ -1551,7 +1576,8 @@ void TCPConnectedSocket_SetSendBufferSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetSendBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1669,7 +1695,8 @@ void TCPConnectedSocket_SetReceiveBufferSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetReceiveBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1787,7 +1814,8 @@ void TCPConnectedSocket_SetNoDelay_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetNoDelay_Name, kFlags, 0, 0, nullptr);
@@ -1905,7 +1933,8 @@ void TCPConnectedSocket_SetKeepAlive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPConnectedSocket_SetKeepAlive_Name, kFlags, 0, 0, nullptr);
@@ -2137,18 +2166,18 @@ std::move(p_delay_secs), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTCPConnectedSocketValidationInfo[] = {
-    {&internal::TCPConnectedSocket_UpgradeToTLS_Params_Data::Validate,
+    { &internal::TCPConnectedSocket_UpgradeToTLS_Params_Data::Validate,
      &internal::TCPConnectedSocket_UpgradeToTLS_ResponseParams_Data::Validate},
-    {&internal::TCPConnectedSocket_SetSendBufferSize_Params_Data::Validate,
+    { &internal::TCPConnectedSocket_SetSendBufferSize_Params_Data::Validate,
      &internal::TCPConnectedSocket_SetSendBufferSize_ResponseParams_Data::Validate},
-    {&internal::TCPConnectedSocket_SetReceiveBufferSize_Params_Data::Validate,
+    { &internal::TCPConnectedSocket_SetReceiveBufferSize_Params_Data::Validate,
      &internal::TCPConnectedSocket_SetReceiveBufferSize_ResponseParams_Data::Validate},
-    {&internal::TCPConnectedSocket_SetNoDelay_Params_Data::Validate,
+    { &internal::TCPConnectedSocket_SetNoDelay_Params_Data::Validate,
      &internal::TCPConnectedSocket_SetNoDelay_ResponseParams_Data::Validate},
-    {&internal::TCPConnectedSocket_SetKeepAlive_Params_Data::Validate,
+    { &internal::TCPConnectedSocket_SetKeepAlive_Params_Data::Validate,
      &internal::TCPConnectedSocket_SetKeepAlive_ResponseParams_Data::Validate},
 };
 
@@ -2252,14 +2281,17 @@ void SocketObserverProxy::OnReadError(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSocketObserver_OnReadError_Name, kFlags, 0, 0, nullptr);
@@ -2290,14 +2322,17 @@ void SocketObserverProxy::OnWriteError(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSocketObserver_OnWriteError_Name, kFlags, 0, 0, nullptr);
@@ -2395,12 +2430,12 @@ bool SocketObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSocketObserverValidationInfo[] = {
-    {&internal::SocketObserver_OnReadError_Params_Data::Validate,
+    { &internal::SocketObserver_OnReadError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SocketObserver_OnWriteError_Params_Data::Validate,
+    { &internal::SocketObserver_OnWriteError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2496,14 +2531,17 @@ void TCPServerSocketProxy::Accept(
                         "<value of type ::mojo::PendingRemote<SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPServerSocket_Accept_Name, kFlags, 0, 0, nullptr);
@@ -2569,7 +2607,7 @@ class TCPServerSocket_Accept_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      int32_t in_net_error, const absl::optional<::net::IPEndPoint>& in_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket> in_connected_socket, ::mojo::ScopedDataPipeConsumerHandle in_send_stream, ::mojo::ScopedDataPipeProducerHandle in_receive_stream);
+      int32_t in_net_error, const std::optional<::net::IPEndPoint>& in_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket> in_connected_socket, ::mojo::ScopedDataPipeConsumerHandle in_send_stream, ::mojo::ScopedDataPipeProducerHandle in_receive_stream);
 };
 
 bool TCPServerSocket_Accept_ForwardToCallback::Accept(
@@ -2583,7 +2621,7 @@ bool TCPServerSocket_Accept_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_net_error{};
-  absl::optional<::net::IPEndPoint> p_remote_addr{};
+  std::optional<::net::IPEndPoint> p_remote_addr{};
   ::mojo::PendingRemote<TCPConnectedSocket> p_connected_socket{};
   ::mojo::ScopedDataPipeConsumerHandle p_send_stream{};
   ::mojo::ScopedDataPipeProducerHandle p_receive_stream{};
@@ -2619,7 +2657,7 @@ std::move(p_receive_stream));
 }
 
 void TCPServerSocket_Accept_ProxyToResponder::Run(
-    int32_t in_net_error, const absl::optional<::net::IPEndPoint>& in_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket> in_connected_socket, ::mojo::ScopedDataPipeConsumerHandle in_send_stream, ::mojo::ScopedDataPipeProducerHandle in_receive_stream) {
+    int32_t in_net_error, const std::optional<::net::IPEndPoint>& in_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket> in_connected_socket, ::mojo::ScopedDataPipeConsumerHandle in_send_stream, ::mojo::ScopedDataPipeProducerHandle in_receive_stream) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::TCPServerSocket::Accept", "async_response_parameters",
@@ -2630,7 +2668,7 @@ void TCPServerSocket_Accept_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote_addr"), in_remote_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("connected_socket"), in_connected_socket,
                         "<value of type ::mojo::PendingRemote<TCPConnectedSocket>>");
@@ -2645,7 +2683,8 @@ void TCPServerSocket_Accept_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTCPServerSocket_Accept_Name, kFlags, 0, 0, nullptr);
@@ -2740,10 +2779,10 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTCPServerSocketValidationInfo[] = {
-    {&internal::TCPServerSocket_Accept_Params_Data::Validate,
+    { &internal::TCPServerSocket_Accept_Params_Data::Validate,
      &internal::TCPServerSocket_Accept_ResponseParams_Data::Validate},
 };
 
@@ -2864,24 +2903,24 @@ int32_t TCPBoundSocketAsyncWaiter::Listen(
 }
 
 void TCPBoundSocketAsyncWaiter::Connect(
-    ::network::mojom::blink::AddressListPtr remote_addr_list, TCPConnectedSocketOptionsPtr tcp_connected_socket_options, ::mojo::PendingReceiver<TCPConnectedSocket> socket, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
+    ::network::mojom::blink::AddressListPtr remote_addr_list, TCPConnectedSocketOptionsPtr tcp_connected_socket_options, ::mojo::PendingReceiver<TCPConnectedSocket> socket, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
   base::RunLoop loop;
   proxy_->Connect(std::move(remote_addr_list),std::move(tcp_connected_socket_options),std::move(socket),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_net_error
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
-             absl::optional<::net::IPEndPoint>* out_peer_addr
+             std::optional<::net::IPEndPoint>* out_peer_addr
 ,
              ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream
 ,
              ::mojo::ScopedDataPipeProducerHandle* out_send_stream
 ,
              int32_t net_error,
-             const absl::optional<::net::IPEndPoint>& local_addr,
-             const absl::optional<::net::IPEndPoint>& peer_addr,
+             const std::optional<::net::IPEndPoint>& local_addr,
+             const std::optional<::net::IPEndPoint>& peer_addr,
              ::mojo::ScopedDataPipeConsumerHandle receive_stream,
              ::mojo::ScopedDataPipeProducerHandle send_stream) {*out_net_error = std::move(net_error);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);*out_receive_stream = std::move(receive_stream);*out_send_stream = std::move(send_stream);
             loop->Quit();
@@ -3068,14 +3107,14 @@ TCPServerSocketAsyncWaiter::TCPServerSocketAsyncWaiter(
 TCPServerSocketAsyncWaiter::~TCPServerSocketAsyncWaiter() = default;
 
 void TCPServerSocketAsyncWaiter::Accept(
-    ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, absl::optional<::net::IPEndPoint>* out_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket>* out_connected_socket, ::mojo::ScopedDataPipeConsumerHandle* out_send_stream, ::mojo::ScopedDataPipeProducerHandle* out_receive_stream) {
+    ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, std::optional<::net::IPEndPoint>* out_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket>* out_connected_socket, ::mojo::ScopedDataPipeConsumerHandle* out_send_stream, ::mojo::ScopedDataPipeProducerHandle* out_receive_stream) {
   base::RunLoop loop;
   proxy_->Accept(std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_net_error
 ,
-             absl::optional<::net::IPEndPoint>* out_remote_addr
+             std::optional<::net::IPEndPoint>* out_remote_addr
 ,
              ::mojo::PendingRemote<TCPConnectedSocket>* out_connected_socket
 ,
@@ -3084,7 +3123,7 @@ void TCPServerSocketAsyncWaiter::Accept(
              ::mojo::ScopedDataPipeProducerHandle* out_receive_stream
 ,
              int32_t net_error,
-             const absl::optional<::net::IPEndPoint>& remote_addr,
+             const std::optional<::net::IPEndPoint>& remote_addr,
              ::mojo::PendingRemote<TCPConnectedSocket> connected_socket,
              ::mojo::ScopedDataPipeConsumerHandle send_stream,
              ::mojo::ScopedDataPipeProducerHandle receive_stream) {*out_net_error = std::move(net_error);*out_remote_addr = std::move(remote_addr);*out_connected_socket = std::move(connected_socket);*out_send_stream = std::move(send_stream);*out_receive_stream = std::move(receive_stream);

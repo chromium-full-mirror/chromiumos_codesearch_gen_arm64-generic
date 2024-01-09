@@ -10,12 +10,12 @@ export function getTemplate() {
 </div>
 <div class="fragment-content">
   <settings-radio-group id="cookiesRadioGroup" pref="{{prefs.generated.cookie_primary_setting}}" selectable-elements="settings-collapse-radio-button">
-    <settings-collapse-radio-button id="block3PIncognito" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY_INCOGNITO]]" label="$i18n{privacyGuideCookiesCardBlockTpcIncognitoSubheader}" expand-aria-label="$i18n{cookiePageBlockThirdIncognitoExpandA11yLabel}" on-click="onCookies3pIncognitoClick_">
+    <settings-collapse-radio-button id="block3PIncognito" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY_INCOGNITO]]" label="$i18n{privacyGuideCookiesCardBlockTpcIncognitoSubheader}" expand-aria-label="$i18n{thirdPartyCookiesPageBlockIncognitoExpandA11yLabel}" on-click="onCookies3pIncognitoClick_">
       <div slot="collapse" class="settings-columned-section">
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideFeatureDescriptionHeader}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:shoppingcart" label="$i18n{privacyGuideCookiesCardBlockTpcIncognitoFeatureDescription1}">
             </privacy-guide-description-item>
@@ -24,9 +24,9 @@ export function getTemplate() {
           </div>
         </div>
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideThingsToConsider}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:block" label="$i18n{privacyGuideCookiesCardBlockTpcIncognitoPrivacyDescription1}">
             </privacy-guide-description-item>
@@ -36,12 +36,12 @@ export function getTemplate() {
         </div>
       </div>
     </settings-collapse-radio-button>
-    <settings-collapse-radio-button id="block3P" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY]]" label="$i18n{privacyGuideCookiesCardBlockTpcSubheader}" expand-aria-label="$i18n{cookiePageBlockThirdExpandA11yLabel}" on-click="onCookies3pClick_">
+    <settings-collapse-radio-button id="block3P" pref="[[prefs.generated.cookie_primary_setting]]" name="[[cookiePrimarySettingEnum_.BLOCK_THIRD_PARTY]]" label="$i18n{privacyGuideCookiesCardBlockTpcSubheader}" expand-aria-label="$i18n{thirdPartyCookiesPageBlockExpandA11yLabel}" on-click="onCookies3pClick_">
       <div slot="collapse" class="settings-columned-section">
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideFeatureDescriptionHeader}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:shoppingcart" label="$i18n{privacyGuideCookiesCardBlockTpcFeatureDescription1}">
             </privacy-guide-description-item>
@@ -50,9 +50,9 @@ export function getTemplate() {
           </div>
         </div>
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideThingsToConsider}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:block" label="$i18n{privacyGuideCookiesCardBlockTpcPrivacyDescription1}">
             </privacy-guide-description-item>

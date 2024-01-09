@@ -19,6 +19,12 @@ function getQueueFor(el) {
  * pseudo-elements.
  */
 function getAnimations(el) {
+    if (el.shadowRoot !== null) {
+        // The element is a custom web component, assuming that we want to wait for
+        // all inner animations to settle down when applying animation to the
+        // element.
+        return el.shadowRoot.getAnimations();
+    }
     return el.getAnimations({ subtree: true })
         .filter((a) => assertInstanceof(a.effect, KeyframeEffect).target === el);
 }

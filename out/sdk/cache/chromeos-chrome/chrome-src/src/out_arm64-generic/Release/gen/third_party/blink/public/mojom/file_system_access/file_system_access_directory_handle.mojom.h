@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file_system_access/file_system_access_directory_handle.mojom-features.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_directory_handle.mojom-shared.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_directory_handle.mojom-forward.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_cloud_identifier.mojom-forward.h"
@@ -223,7 +224,7 @@ class BLINK_COMMON_EXPORT FileSystemAccessDirectoryHandle
   virtual void RemoveEntry(const std::string& basename, bool recurse, RemoveEntryCallback callback) = 0;
 
 
-  using ResolveCallback = base::OnceCallback<void(::blink::mojom::FileSystemAccessErrorPtr, const absl::optional<std::vector<std::string>>&)>;
+  using ResolveCallback = base::OnceCallback<void(::blink::mojom::FileSystemAccessErrorPtr, const std::optional<std::vector<std::string>>&)>;
   
   virtual void Resolve(::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> possible_child, ResolveCallback callback) = 0;
 
@@ -413,17 +414,17 @@ class BLINK_COMMON_EXPORT FileSystemAccessHandle {
   // Construct an instance holding |file|.
   static FileSystemAccessHandlePtr
   NewFile(
-      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessFileHandle> file) {
+      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessFileHandle> value) {
     auto result = FileSystemAccessHandlePtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |directory|.
   static FileSystemAccessHandlePtr
   NewDirectory(
-      ::mojo::PendingRemote<FileSystemAccessDirectoryHandle> directory) {
+      ::mojo::PendingRemote<FileSystemAccessDirectoryHandle> value) {
     auto result = FileSystemAccessHandlePtr(absl::in_place);
-    result->set_directory(std::move(directory));
+    result->set_directory(std::move(value));
     return result;
   }
 

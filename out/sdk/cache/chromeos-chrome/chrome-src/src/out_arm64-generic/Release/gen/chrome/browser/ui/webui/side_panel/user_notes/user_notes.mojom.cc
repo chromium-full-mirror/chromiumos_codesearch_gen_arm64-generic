@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -281,14 +282,17 @@ void UserNotesPageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<UserNotesPageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -376,10 +380,10 @@ bool UserNotesPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserNotesPageHandlerFactoryValidationInfo[] = {
-    {&internal::UserNotesPageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::UserNotesPageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -804,14 +808,17 @@ void UserNotesPageHandlerProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::UserNotesPageHandler::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -841,14 +848,17 @@ void UserNotesPageHandlerProxy::GetNoteOverviews(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_GetNoteOverviews_Name, kFlags, 0, 0, nullptr);
@@ -883,14 +893,17 @@ void UserNotesPageHandlerProxy::GetNotesForCurrentTab(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::UserNotesPageHandler::GetNotesForCurrentTab");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_GetNotesForCurrentTab_Name, kFlags, 0, 0, nullptr);
@@ -921,14 +934,17 @@ void UserNotesPageHandlerProxy::NewNoteFinished(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_NewNoteFinished_Name, kFlags, 0, 0, nullptr);
@@ -973,14 +989,17 @@ void UserNotesPageHandlerProxy::UpdateNote(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_UpdateNote_Name, kFlags, 0, 0, nullptr);
@@ -1033,14 +1052,17 @@ void UserNotesPageHandlerProxy::DeleteNote(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_DeleteNote_Name, kFlags, 0, 0, nullptr);
@@ -1082,14 +1104,17 @@ void UserNotesPageHandlerProxy::DeleteNotesForUrl(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_DeleteNotesForUrl_Name, kFlags, 0, 0, nullptr);
@@ -1134,14 +1159,17 @@ void UserNotesPageHandlerProxy::NoteOverviewSelected(
                         "<value of type ::ui::mojom::ClickModifiersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_NoteOverviewSelected_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1221,17 @@ void UserNotesPageHandlerProxy::SetSortOrder(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_SetSortOrder_Name, kFlags, 0, 0, nullptr);
@@ -1224,14 +1255,17 @@ void UserNotesPageHandlerProxy::HasNotesInAnyPages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::UserNotesPageHandler::HasNotesInAnyPages");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_HasNotesInAnyPages_Name, kFlags, 0, 0, nullptr);
@@ -1262,14 +1296,17 @@ void UserNotesPageHandlerProxy::OpenInNewTab(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_OpenInNewTab_Name, kFlags, 0, 0, nullptr);
@@ -1310,14 +1347,17 @@ void UserNotesPageHandlerProxy::OpenInNewWindow(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_OpenInNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -1358,14 +1398,17 @@ void UserNotesPageHandlerProxy::OpenInIncognitoWindow(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_OpenInIncognitoWindow_Name, kFlags, 0, 0, nullptr);
@@ -1485,7 +1528,8 @@ void UserNotesPageHandler_GetNoteOverviews_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_GetNoteOverviews_Name, kFlags, 0, 0, nullptr);
@@ -1615,7 +1659,8 @@ void UserNotesPageHandler_GetNotesForCurrentTab_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_GetNotesForCurrentTab_Name, kFlags, 0, 0, nullptr);
@@ -1745,7 +1790,8 @@ void UserNotesPageHandler_NewNoteFinished_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_NewNoteFinished_Name, kFlags, 0, 0, nullptr);
@@ -1863,7 +1909,8 @@ void UserNotesPageHandler_UpdateNote_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_UpdateNote_Name, kFlags, 0, 0, nullptr);
@@ -1981,7 +2028,8 @@ void UserNotesPageHandler_DeleteNote_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_DeleteNote_Name, kFlags, 0, 0, nullptr);
@@ -2099,7 +2147,8 @@ void UserNotesPageHandler_DeleteNotesForUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_DeleteNotesForUrl_Name, kFlags, 0, 0, nullptr);
@@ -2217,7 +2266,8 @@ void UserNotesPageHandler_HasNotesInAnyPages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPageHandler_HasNotesInAnyPages_Name, kFlags, 0, 0, nullptr);
@@ -2659,34 +2709,34 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserNotesPageHandlerValidationInfo[] = {
-    {&internal::UserNotesPageHandler_ShowUI_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPageHandler_GetNoteOverviews_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_GetNoteOverviews_Params_Data::Validate,
      &internal::UserNotesPageHandler_GetNoteOverviews_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_GetNotesForCurrentTab_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_GetNotesForCurrentTab_Params_Data::Validate,
      &internal::UserNotesPageHandler_GetNotesForCurrentTab_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_NewNoteFinished_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_NewNoteFinished_Params_Data::Validate,
      &internal::UserNotesPageHandler_NewNoteFinished_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_UpdateNote_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_UpdateNote_Params_Data::Validate,
      &internal::UserNotesPageHandler_UpdateNote_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_DeleteNote_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_DeleteNote_Params_Data::Validate,
      &internal::UserNotesPageHandler_DeleteNote_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_DeleteNotesForUrl_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_DeleteNotesForUrl_Params_Data::Validate,
      &internal::UserNotesPageHandler_DeleteNotesForUrl_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_NoteOverviewSelected_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_NoteOverviewSelected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPageHandler_SetSortOrder_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_SetSortOrder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPageHandler_HasNotesInAnyPages_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_HasNotesInAnyPages_Params_Data::Validate,
      &internal::UserNotesPageHandler_HasNotesInAnyPages_ResponseParams_Data::Validate},
-    {&internal::UserNotesPageHandler_OpenInNewTab_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_OpenInNewTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPageHandler_OpenInNewWindow_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_OpenInNewWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPageHandler_OpenInIncognitoWindow_Params_Data::Validate,
+    { &internal::UserNotesPageHandler_OpenInIncognitoWindow_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2823,14 +2873,17 @@ void UserNotesPageProxy::NotesChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::UserNotesPage::NotesChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPage_NotesChanged_Name, kFlags, 0, 0, nullptr);
@@ -2860,14 +2913,17 @@ void UserNotesPageProxy::CurrentTabUrlChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPage_CurrentTabUrlChanged_Name, kFlags, 0, 0, nullptr);
@@ -2898,14 +2954,17 @@ void UserNotesPageProxy::SortByNewestPrefChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPage_SortByNewestPrefChanged_Name, kFlags, 0, 0, nullptr);
@@ -2929,14 +2988,17 @@ void UserNotesPageProxy::StartNoteCreation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::UserNotesPage::StartNoteCreation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserNotesPage_StartNoteCreation_Name, kFlags, 0, 0, nullptr);
@@ -3083,16 +3145,16 @@ bool UserNotesPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserNotesPageValidationInfo[] = {
-    {&internal::UserNotesPage_NotesChanged_Params_Data::Validate,
+    { &internal::UserNotesPage_NotesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPage_CurrentTabUrlChanged_Params_Data::Validate,
+    { &internal::UserNotesPage_CurrentTabUrlChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPage_SortByNewestPrefChanged_Params_Data::Validate,
+    { &internal::UserNotesPage_SortByNewestPrefChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserNotesPage_StartNoteCreation_Params_Data::Validate,
+    { &internal::UserNotesPage_StartNoteCreation_Params_Data::Validate,
      nullptr /* no response */},
 };
 

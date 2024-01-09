@@ -1,15 +1,17 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { AudioBroker } from './audio_broker.js';
 import { InputPage } from './input_page.js';
 import { OutputPage } from './output_page.js';
 import { Page } from './page.js';
 export class FeedbackPage extends Page {
+    audioInfoString = '';
+    inputFeedbackMap;
+    outputFeedbackMap;
     constructor() {
         super('feedback');
-        this.audioInfoString = '';
         this.inputFeedbackMap = InputPage.getInstance().testInputFeedback;
         this.outputFeedbackMap = OutputPage.getInstance().testOutputFeedback;
         this.registerButtons();

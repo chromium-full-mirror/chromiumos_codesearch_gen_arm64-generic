@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ ActivityName::ActivityName()
 
 ActivityName::ActivityName(
     const std::string& package_name_in,
-    const absl::optional<std::string>& activity_name_in)
+    const std::optional<std::string>& activity_name_in)
     : package_name(std::move(package_name_in)),
       activity_name(std::move(activity_name_in)) {}
 
@@ -71,7 +72,7 @@ void ActivityName::WriteIntoTrace(
     dict.AddItem(
       "activity_name"), this->activity_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -91,9 +92,9 @@ RawIconPngData::RawIconPngData()
 
 RawIconPngData::RawIconPngData(
     bool is_adaptive_icon_in,
-    absl::optional<std::vector<uint8_t>> icon_png_data_in,
-    absl::optional<std::vector<uint8_t>> foreground_icon_png_data_in,
-    absl::optional<std::vector<uint8_t>> background_icon_png_data_in)
+    std::optional<std::vector<uint8_t>> icon_png_data_in,
+    std::optional<std::vector<uint8_t>> foreground_icon_png_data_in,
+    std::optional<std::vector<uint8_t>> background_icon_png_data_in)
     : is_adaptive_icon(std::move(is_adaptive_icon_in)),
       icon_png_data(std::move(icon_png_data_in)),
       foreground_icon_png_data(std::move(foreground_icon_png_data_in)),
@@ -117,7 +118,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "icon_png_data"), this->icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -126,7 +127,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "foreground_icon_png_data"), this->foreground_icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -135,7 +136,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "background_icon_png_data"), this->background_icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -245,7 +246,7 @@ IntentHandlerInfo::IntentHandlerInfo(
     const std::string& package_name_in,
     const std::string& activity_name_in,
     bool is_preferred_in,
-    const absl::optional<std::string>& fallback_url_in)
+    const std::optional<std::string>& fallback_url_in)
     : name(std::move(name_in)),
       package_name(std::move(package_name_in)),
       activity_name(std::move(activity_name_in)),
@@ -297,7 +298,7 @@ void IntentHandlerInfo::WriteIntoTrace(
     dict.AddItem(
       "fallback_url"), this->fallback_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -319,11 +320,11 @@ IntentInfo::IntentInfo()
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in,
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in,
     bool ui_bypassed_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& extras_in)
+    const std::optional<base::flat_map<std::string, std::string>>& extras_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
       data(std::move(data_in)),
@@ -349,7 +350,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "categories"), this->categories,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -358,7 +359,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -367,7 +368,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -385,7 +386,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "extras"), this->extras,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -545,14 +546,17 @@ void ArcObserverProxy::OnIconInvalidated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcObserver_OnIconInvalidated_Name, kFlags, 0, 0, nullptr);
@@ -631,10 +635,10 @@ bool ArcObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kArcObserverValidationInfo[] = {
-    {&internal::ArcObserver_OnIconInvalidated_Params_Data::Validate,
+    { &internal::ArcObserver_OnIconInvalidated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -919,14 +923,17 @@ void ArcProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<ArcObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -965,14 +972,17 @@ void ArcProxy::RequestActivityIcons(
                         "<value of type ScaleFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestActivityIcons_Name, kFlags, 0, 0, nullptr);
@@ -1018,14 +1028,17 @@ void ArcProxy::RequestUrlHandlerList(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestUrlHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -1070,14 +1083,17 @@ void ArcProxy::RequestTextSelectionActions(
                         "<value of type ScaleFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestTextSelectionActions_Name, kFlags, 0, 0, nullptr);
@@ -1124,14 +1140,17 @@ void ArcProxy::HandleUrl(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_HandleUrl_Name, kFlags, 0, 0, nullptr);
@@ -1186,14 +1205,17 @@ void ArcProxy::HandleIntent(
                         "<value of type ActivityNamePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_HandleIntent_Name, kFlags, 0, 0, nullptr);
@@ -1245,14 +1267,17 @@ void ArcProxy::AddPreferredPackage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_AddPreferredPackage_Name, kFlags, 0, 0, nullptr);
@@ -1293,14 +1318,17 @@ void ArcProxy::IsInstallable(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_IsInstallable_Name, kFlags, 0, 0, nullptr);
@@ -1428,7 +1456,8 @@ void Arc_RequestActivityIcons_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestActivityIcons_Name, kFlags, 0, 0, nullptr);
@@ -1567,7 +1596,8 @@ void Arc_RequestUrlHandlerList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestUrlHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -1706,7 +1736,8 @@ void Arc_RequestTextSelectionActions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_RequestTextSelectionActions_Name, kFlags, 0, 0, nullptr);
@@ -1838,7 +1869,8 @@ void Arc_IsInstallable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArc_IsInstallable_Name, kFlags, 0, 0, nullptr);
@@ -2149,24 +2181,24 @@ std::move(p_package_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kArcValidationInfo[] = {
-    {&internal::Arc_AddObserver_Params_Data::Validate,
+    { &internal::Arc_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Arc_RequestActivityIcons_Params_Data::Validate,
+    { &internal::Arc_RequestActivityIcons_Params_Data::Validate,
      &internal::Arc_RequestActivityIcons_ResponseParams_Data::Validate},
-    {&internal::Arc_RequestUrlHandlerList_Params_Data::Validate,
+    { &internal::Arc_RequestUrlHandlerList_Params_Data::Validate,
      &internal::Arc_RequestUrlHandlerList_ResponseParams_Data::Validate},
-    {&internal::Arc_HandleUrl_Params_Data::Validate,
+    { &internal::Arc_HandleUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Arc_RequestTextSelectionActions_Params_Data::Validate,
+    { &internal::Arc_RequestTextSelectionActions_Params_Data::Validate,
      &internal::Arc_RequestTextSelectionActions_ResponseParams_Data::Validate},
-    {&internal::Arc_HandleIntent_Params_Data::Validate,
+    { &internal::Arc_HandleIntent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Arc_AddPreferredPackage_Params_Data::Validate,
+    { &internal::Arc_AddPreferredPackage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Arc_IsInstallable_Params_Data::Validate,
+    { &internal::Arc_IsInstallable_Params_Data::Validate,
      &internal::Arc_IsInstallable_ResponseParams_Data::Validate},
 };
 

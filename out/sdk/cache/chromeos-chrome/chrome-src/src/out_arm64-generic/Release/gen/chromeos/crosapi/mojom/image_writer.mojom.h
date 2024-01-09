@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/image_writer.mojom-features.h"
 #include "chromeos/crosapi/mojom/image_writer.mojom-shared.h"
 #include "chromeos/crosapi/mojom/image_writer.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -159,22 +160,22 @@ class ImageWriter
   virtual ~ImageWriter() = default;
 
 
-  using ListRemovableStorageDevicesCallback = base::OnceCallback<void(absl::optional<std::vector<RemovableStorageDevicePtr>>)>;
+  using ListRemovableStorageDevicesCallback = base::OnceCallback<void(std::optional<std::vector<RemovableStorageDevicePtr>>)>;
   
   virtual void ListRemovableStorageDevices(ListRemovableStorageDevicesCallback callback) = 0;
 
 
-  using DestroyPartitionsCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using DestroyPartitionsCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, DestroyPartitionsCallback callback) = 0;
 
 
-  using WriteFromUrlCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using WriteFromUrlCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
-  virtual void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) = 0;
+  virtual void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) = 0;
 
 
-  using WriteFromFileCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using WriteFromFileCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromFileCallback callback) = 0;
 };
@@ -211,7 +212,7 @@ class  ImageWriterProxy
   
   void DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, DestroyPartitionsCallback callback) final;
   
-  void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) final;
+  void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) final;
   
   void WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromFileCallback callback) final;
 

@@ -29,10 +29,6 @@
          clamp_texture_base_level_and_max_level)                            \
   GPU_OP(CLEAR_PIXEL_UNPACK_BUFFER_BEFORE_COPYTEXIMAGE,                     \
          clear_pixel_unpack_buffer_before_copyteximage)                     \
-  GPU_OP(COUNT_ALL_IN_VARYINGS_PACKING,                                     \
-         count_all_in_varyings_packing)                                     \
-  GPU_OP(DECODE_ENCODE_SRGB_FOR_GENERATEMIPMAP,                             \
-         decode_encode_srgb_for_generatemipmap)                             \
   GPU_OP(DISABLE_2D_CANVAS_AUTO_FLUSH,                                      \
          disable_2d_canvas_auto_flush)                                      \
   GPU_OP(DISABLE_ACCELERATED_AV1_DECODE,                                    \
@@ -125,6 +121,8 @@
          disable_skia_reduce_ops_task_splitting)                            \
   GPU_OP(DISABLE_SOFTWARE_TO_ACCELERATED_CANVAS_UPGRADE,                    \
          disable_software_to_accelerated_canvas_upgrade)                    \
+  GPU_OP(DISABLE_SVC_ENCODING,                                              \
+         disable_svc_encoding)                                              \
   GPU_OP(DISABLE_TEXTURE_STORAGE,                                           \
          disable_texture_storage)                                           \
   GPU_OP(DISABLE_TIMESTAMP_QUERIES,                                         \
@@ -137,14 +135,12 @@
          disable_vp_super_resolution)                                       \
   GPU_OP(DISABLE_WEBGL_RGB_MULTISAMPLING_USAGE,                             \
          disable_webgl_rgb_multisampling_usage)                             \
+  GPU_OP(DISABLE_WEBGPU_SHARED_IMAGES,                                      \
+         disable_webgpu_shared_images)                                      \
   GPU_OP(DISALLOW_LARGE_INSTANCED_DRAW,                                     \
          disallow_large_instanced_draw)                                     \
   GPU_OP(DONT_DELETE_SOURCE_TEXTURE_FOR_EGL_IMAGE,                          \
          dont_delete_source_texture_for_egl_image)                          \
-  GPU_OP(DONT_INITIALIZE_UNINITIALIZED_LOCALS,                              \
-         dont_initialize_uninitialized_locals)                              \
-  GPU_OP(DONT_USE_EGLCLIENTWAITSYNC_WITH_TIMEOUT,                           \
-         dont_use_eglclientwaitsync_with_timeout)                           \
   GPU_OP(DONT_USE_LOOPS_TO_INITIALIZE_VARIABLES,                            \
          dont_use_loops_to_initialize_variables)                            \
   GPU_OP(EMULATE_ABS_INT_FUNCTION,                                          \
@@ -171,8 +167,6 @@
          force_enable_color_buffer_float)                                   \
   GPU_OP(FORCE_ENABLE_COLOR_BUFFER_FLOAT_EXCEPT_RGB32F,                     \
          force_enable_color_buffer_float_except_rgb32f)                     \
-  GPU_OP(FORCE_GL_FLUSH_ON_SWAP_BUFFERS,                                    \
-         force_gl_flush_on_swap_buffers)                                    \
   GPU_OP(FORCE_HIGH_PERFORMANCE_GPU,                                        \
          force_high_performance_gpu)                                        \
   GPU_OP(FORCE_INT_OR_SRGB_CUBE_TEXTURE_COMPLETE,                           \
@@ -189,8 +183,6 @@
          gl_clear_broken)                                                   \
   GPU_OP(INIT_GL_POSITION_IN_VERTEX_SHADER,                                 \
          init_gl_position_in_vertex_shader)                                 \
-  GPU_OP(INIT_TEXTURE_MAX_ANISOTROPY,                                       \
-         init_texture_max_anisotropy)                                       \
   GPU_OP(LIMIT_D3D11_VIDEO_DECODER_TO_11_0,                                 \
          limit_d3d11_video_decoder_to_11_0)                                 \
   GPU_OP(MAX_3D_ARRAY_TEXTURE_SIZE_1024,                                    \
@@ -257,8 +249,6 @@
          use_non_zero_size_for_client_side_stream_buffers)                  \
   GPU_OP(USE_VIRTUALIZED_GL_CONTEXTS,                                       \
          use_virtualized_gl_contexts)                                       \
-  GPU_OP(VALIDATE_MULTISAMPLE_BUFFER_ALLOCATION,                            \
-         validate_multisample_buffer_allocation)                            \
   GPU_OP(WAKE_UP_GPU_BEFORE_DRAWING,                                        \
          wake_up_gpu_before_drawing)                                        \
   GPU_OP(WEBGL_OR_CAPS_MAX_TEXTURE_SIZE_LIMIT_4096,                         \

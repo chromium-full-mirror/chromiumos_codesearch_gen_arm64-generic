@@ -6,6 +6,8 @@
 
 #ifndef CHROMEOS_CROSAPI_MOJOM_DOWNLOAD_STATUS_UPDATER_MOJOM_IMPORT_HEADERS_H_
 #define CHROMEOS_CROSAPI_MOJOM_DOWNLOAD_STATUS_UPDATER_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/string16.mojom.h"
+#include "mojo/public/mojom/base/string16.mojom-import-headers.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"

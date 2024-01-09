@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBFactory>::value,
     "IDBFactory inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBFactory::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBFactory is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(v8_receiver);
+IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -148,7 +143,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8IDBFactory_Databases
 
 
 
-IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(v8_receiver);
+IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -184,7 +179,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(v8_receiver);
+IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -225,7 +220,7 @@ return;
 
 IDBOpenDBRequest* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(v8_receiver);
+IDBFactory* blink_receiver = V8IDBFactory::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();

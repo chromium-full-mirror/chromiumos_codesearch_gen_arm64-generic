@@ -44,6 +44,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WorkletGlobalScopeCreat
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> origin_trial_features;
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_token;
   mojo::internal::Interface_Data devtools_host;
+  uint8_t wait_for_debugger : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<WorkletGlobalScopeCreationParams_Data>;
@@ -51,7 +53,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WorkletGlobalScopeCreat
   WorkletGlobalScopeCreationParams_Data();
   ~WorkletGlobalScopeCreationParams_Data() = delete;
 };
-static_assert(sizeof(WorkletGlobalScopeCreationParams_Data) == 48,
+static_assert(sizeof(WorkletGlobalScopeCreationParams_Data) == 56,
               "Bad sizeof(WorkletGlobalScopeCreationParams_Data)");
 // Used by WorkletGlobalScopeCreationParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

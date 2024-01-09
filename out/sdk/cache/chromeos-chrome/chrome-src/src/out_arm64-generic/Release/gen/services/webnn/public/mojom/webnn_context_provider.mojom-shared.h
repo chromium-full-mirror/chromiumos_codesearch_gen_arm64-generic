@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-shared-internal.h"
+#include "components/ml/webnn/features.mojom-shared.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -454,10 +455,6 @@ struct Serializer<::webnn::mojom::CreateGraphResultDataView, MaybeConstUserType>
             in_graph_remote = Traits::graph_remote(input);
         mojo::internal::Serialize<mojo::InterfacePtrDataView<::webnn::mojom::WebNNGraphInterfaceBase>>(
             in_graph_remote, &fragment->data.f_graph_remote, &fragment.message());
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            !mojo::internal::IsHandleOrInterfaceValid(fragment->data.f_graph_remote),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-            "invalid graph_remote in CreateGraphResult union");
         break;
       }
       case ::webnn::mojom::CreateGraphResultDataView::Tag::kError: {
@@ -522,10 +519,6 @@ struct Serializer<::webnn::mojom::CreateContextResultDataView, MaybeConstUserTyp
             in_context_remote = Traits::context_remote(input);
         mojo::internal::Serialize<mojo::InterfacePtrDataView<::webnn::mojom::WebNNContextInterfaceBase>>(
             in_context_remote, &fragment->data.f_context_remote, &fragment.message());
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            !mojo::internal::IsHandleOrInterfaceValid(fragment->data.f_context_remote),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-            "invalid context_remote in CreateContextResult union");
         break;
       }
       case ::webnn::mojom::CreateContextResultDataView::Tag::kError: {

@@ -816,6 +816,7 @@ void AddCrosRefColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   mixer[kCrosRefNeutral0] = {SkColorSetRGB(0x0, 0x0, 0x0)};
   mixer[kCrosRefNeutral8] = {SkColorSetRGB(0x16, 0x18, 0x18)};
   mixer[kCrosRefNeutral10] = {SkColorSetRGB(0x1F, 0x1F, 0x1F)};
+  mixer[kCrosRefNeutral15] = {SkColorSetRGB(0x28, 0x28, 0x28)};
   mixer[kCrosRefNeutral20] = {SkColorSetRGB(0x30, 0x30, 0x30)};
   mixer[kCrosRefNeutral25] = {SkColorSetRGB(0x3C, 0x3C, 0x3C)};
   mixer[kCrosRefNeutral30] = {SkColorSetRGB(0x47, 0x47, 0x47)};
@@ -915,6 +916,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysOnPrimary] = {kCrosSysOnPrimaryDark};
   } else {
     mixer[kCrosSysOnPrimary] = {kCrosSysOnPrimaryLight};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysInverseOnPrimary] = {kCrosRefPrimary100};
+  } else {
+    mixer[kCrosSysInverseOnPrimary] = {kCrosRefPrimary20};
   }
   if (dark_mode) {
     mixer[kCrosSysPrimaryContainer] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefPrimary30}, 0x14), {kCrosRefSecondary30});
@@ -1044,6 +1050,16 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysAppBase] = {kCrosRefNeutral8};
   } else {
     mixer[kCrosSysAppBase] = {kCrosRefNeutral99};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysBaseHighlight] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefPrimary70}, 0x47), {kCrosRefNeutral15});
+  } else {
+    mixer[kCrosSysBaseHighlight] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefPrimary70}, 0x3D), {kCrosRefNeutral100});
+  }
+  if (dark_mode) {
+    mixer[kCrosSysOnBaseHighlight] = ui::SetAlpha({kCrosRefNeutral0}, 0x51);
+  } else {
+    mixer[kCrosSysOnBaseHighlight] = ui::SetAlpha({kCrosRefPrimary60}, 0x4C);
   }
   mixer[kCrosSysBaseElevatedLight] = {kCrosRefNeutralvariant100};
   mixer[kCrosSysBaseElevatedDark] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefPrimary80}, 0x1C), ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefNeutral80}, 0x5), {kCrosRefNeutral10}));
@@ -1200,6 +1216,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysSystemWarningContainer] = {kCrosRefYellow80};
   }
   if (dark_mode) {
+    mixer[kCrosSysSystemWarningInverse] = {kCrosRefYellow80};
+  } else {
+    mixer[kCrosSysSystemWarningInverse] = {kCrosRefYellow10};
+  }
+  if (dark_mode) {
     mixer[kCrosSysWarning] = {kCrosRefYellow80};
   } else {
     mixer[kCrosSysWarning] = {kCrosRefYellow50};
@@ -1268,6 +1289,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysHoverOnProminent] = ui::SetAlpha({kCrosRefNeutral99}, 0x19);
   }
   if (dark_mode) {
+    mixer[kCrosSysInverseHoverOnProminent] = ui::SetAlpha({kCrosRefNeutral99}, 0x19);
+  } else {
+    mixer[kCrosSysInverseHoverOnProminent] = ui::SetAlpha({kCrosRefNeutral10}, 0xF);
+  }
+  if (dark_mode) {
     mixer[kCrosSysHoverOnSubtle] = ui::SetAlpha({kCrosRefNeutral99}, 0x19);
   } else {
     mixer[kCrosSysHoverOnSubtle] = ui::SetAlpha({kCrosRefNeutral10}, 0xF);
@@ -1283,6 +1309,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysRipplePrimary] = ui::SetAlpha({kCrosRefPrimary70}, 0x51);
   }
   if (dark_mode) {
+    mixer[kCrosSysInverseRipplePrimary] = ui::SetAlpha({kCrosRefPrimary70}, 0x51);
+  } else {
+    mixer[kCrosSysInverseRipplePrimary] = ui::SetAlpha({kCrosRefPrimary60}, 0x51);
+  }
+  if (dark_mode) {
     mixer[kCrosSysRippleNeutralOnProminent] = ui::SetAlpha({kCrosRefNeutral10}, 0x14);
   } else {
     mixer[kCrosSysRippleNeutralOnProminent] = ui::SetAlpha({kCrosRefNeutral99}, 0x28);
@@ -1291,6 +1322,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysRippleNeutralOnSubtle] = ui::SetAlpha({kCrosRefNeutral90}, 0x28);
   } else {
     mixer[kCrosSysRippleNeutralOnSubtle] = ui::SetAlpha({kCrosRefNeutral10}, 0x1E);
+  }
+  if (dark_mode) {
+    mixer[kCrosSysInverseRippleNeutralOnSubtle] = ui::SetAlpha({kCrosRefNeutral10}, 0x1E);
+  } else {
+    mixer[kCrosSysInverseRippleNeutralOnSubtle] = ui::SetAlpha({kCrosRefNeutral90}, 0x28);
   }
   if (dark_mode) {
     mixer[kCrosSysHighlightShape] = ui::SetAlpha({kCrosRefPrimary70}, 0x4C);
@@ -1492,6 +1528,9 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   mixer[kCrosSysIlloElevatedColor12] = {kCrosSysIlloColor12};
   mixer[kCrosSysIlloElevatedBase] = {kCrosSysIlloBase};
   mixer[kCrosSysIlloElevatedSecondary] = {kCrosSysIlloSecondary};
+  mixer[kCrosSysGamingControlButtonDefault] = {SkColorSetRGB(0xA1, 0x0, 0xBC)};
+  mixer[kCrosSysGamingControlButtonHover] = {SkColorSetRGB(0xC9, 0x0, 0xEB)};
+  mixer[kCrosSysGamingControlButtonBorderHover] = {SkColorSetRGB(0xF9, 0xAC, 0xFF)};
   mixer[kCrosSysFileMsExcel] = {SkColorSetRGB(0x16, 0xA7, 0x65)};
   mixer[kCrosSysFileMsWord] = {SkColorSetRGB(0x49, 0x86, 0xE7)};
   mixer[kCrosSysFileMsPpt] = {SkColorSetRGB(0xFF, 0x76, 0x37)};
@@ -2228,6 +2267,8 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-ref-neutral8";
     case kCrosRefNeutral10:
       return "--cros-ref-neutral10";
+    case kCrosRefNeutral15:
+      return "--cros-ref-neutral15";
     case kCrosRefNeutral20:
       return "--cros-ref-neutral20";
     case kCrosRefNeutral25:
@@ -2396,6 +2437,8 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-on_primary-dark";
     case kCrosSysOnPrimary:
       return "--cros-sys-on_primary";
+    case kCrosSysInverseOnPrimary:
+      return "--cros-sys-inverse_on_primary";
     case kCrosSysPrimaryContainer:
       return "--cros-sys-primary_container";
     case kCrosSysOnPrimaryContainer:
@@ -2454,6 +2497,10 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-app_base_shaded";
     case kCrosSysAppBase:
       return "--cros-sys-app_base";
+    case kCrosSysBaseHighlight:
+      return "--cros-sys-base_highlight";
+    case kCrosSysOnBaseHighlight:
+      return "--cros-sys-on_base_highlight";
     case kCrosSysBaseElevatedLight:
       return "--cros-sys-base_elevated-light";
     case kCrosSysBaseElevatedDark:
@@ -2522,6 +2569,8 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-system_on_warning_container";
     case kCrosSysSystemWarningContainer:
       return "--cros-sys-system_warning_container";
+    case kCrosSysSystemWarningInverse:
+      return "--cros-sys-system_warning_inverse";
     case kCrosSysWarning:
       return "--cros-sys-warning";
     case kCrosSysOnProgressContainer:
@@ -2554,16 +2603,22 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-privacy_indicator";
     case kCrosSysHoverOnProminent:
       return "--cros-sys-hover_on_prominent";
+    case kCrosSysInverseHoverOnProminent:
+      return "--cros-sys-inverse_hover_on_prominent";
     case kCrosSysHoverOnSubtle:
       return "--cros-sys-hover_on_subtle";
     case kCrosSysInverseHoverOnSubtle:
       return "--cros-sys-inverse_hover_on_subtle";
     case kCrosSysRipplePrimary:
       return "--cros-sys-ripple_primary";
+    case kCrosSysInverseRipplePrimary:
+      return "--cros-sys-inverse_ripple_primary";
     case kCrosSysRippleNeutralOnProminent:
       return "--cros-sys-ripple_neutral_on_prominent";
     case kCrosSysRippleNeutralOnSubtle:
       return "--cros-sys-ripple_neutral_on_subtle";
+    case kCrosSysInverseRippleNeutralOnSubtle:
+      return "--cros-sys-inverse_ripple_neutral_on_subtle";
     case kCrosSysHighlightShape:
       return "--cros-sys-highlight_shape";
     case kCrosSysHighlightText:
@@ -2716,6 +2771,12 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-illo-elevated-base";
     case kCrosSysIlloElevatedSecondary:
       return "--cros-sys-illo-elevated-secondary";
+    case kCrosSysGamingControlButtonDefault:
+      return "--cros-sys-gaming_control_button_default";
+    case kCrosSysGamingControlButtonHover:
+      return "--cros-sys-gaming_control_button_hover";
+    case kCrosSysGamingControlButtonBorderHover:
+      return "--cros-sys-gaming_control_button_border_hover";
     case kCrosSysFileMsExcel:
       return "--cros-sys-file_ms_excel";
     case kCrosSysFileMsWord:

@@ -69,11 +69,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AudioScheduledSourceNode>::value,
     "AudioScheduledSourceNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AudioScheduledSourceNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioScheduledSourceNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioScheduledSourceNode.onended.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onended();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onended();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -102,8 +97,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnended(event_handler);
 }
 
@@ -126,7 +122,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->start(exception_state);
 break;
@@ -162,7 +158,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioScheduledSourceNode* blink_receiver = V8AudioScheduledSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->stop(exception_state);
 break;

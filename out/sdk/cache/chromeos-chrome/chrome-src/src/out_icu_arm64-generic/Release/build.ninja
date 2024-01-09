@@ -17,10 +17,10 @@ build build.ninja: phony build.ninja.stamp
   generator = 1
 
 pool build_toolchain_action_pool
-  depth = 32
+  depth = 64
 
 pool build_toolchain_link_pool
-  depth = 15
+  depth = 30
 
 subninja toolchain.ninja
 

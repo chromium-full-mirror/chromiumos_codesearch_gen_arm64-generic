@@ -7,6 +7,25 @@
 import {mojo} from '../../../../../mojo/public/js/bindings.js';
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const PortraitModeSegResultSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const PortraitModeSegResult = {
+  
+  kSuccess: 0,
+  kFailure: 1,
+  kTimeout: 2,
+  kNoFaces: 3,
+  kUnknown: 4,
+  MIN_VALUE: 0,
+  MAX_VALUE: 4,
+};
+
 
 /**
  * @const { {$:!mojo.internal.MojomType}}

@@ -34,12 +34,10 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/secanomalyd/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/secanomalyd/_secanomalyd-install_config.stamp: stamp
-build obj/secanomalyd/all.stamp: stamp obj/secanomalyd/install_minijail_conf.stamp obj/secanomalyd/install_upstart_config.stamp ./secanomalyd ./secanomalyd_testrunner
+build obj/secanomalyd/all.stamp: stamp obj/secanomalyd/install_minijail_conf.stamp obj/secanomalyd/install_upstart_config.stamp ./secanomalyd
 build obj/secanomalyd/install_minijail_conf.stamp: stamp
 build obj/secanomalyd/install_upstart_config.stamp: stamp
 subninja obj/secanomalyd/landlock.ninja
 subninja obj/secanomalyd/libsecanomaly.ninja
 subninja obj/secanomalyd/secanomalyd.ninja
-subninja obj/secanomalyd/secanomalyd_testrunner.ninja

@@ -4,7 +4,6 @@
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
-import { Url } from 'chrome://resources/mojo/url/mojom/url.mojom-webui.js';
 import { getTemplate } from './app.html.js';
 import { SiteEngagementDetailsProvider } from './site_engagement_details.mojom-webui.js';
 /**
@@ -33,22 +32,19 @@ function compareTableItem(sortKey, a, b) {
     assertNotReached('Unsupported sort key: ' + sortKey);
 }
 export class SiteEngagementAppElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.engagementTableBody = null;
-        this.info = null;
-        this.engagementDetailsProvider = SiteEngagementDetailsProvider.getRemote();
-        this.updateInterval = null;
-        this.sortKey = 'totalScore';
-        this.sortReverse = true;
-        this.whenPopulatedResolver = new PromiseResolver();
-    }
     static get is() {
         return 'site-engagement-app';
     }
     static get template() {
         return getTemplate();
     }
+    engagementTableBody = null;
+    info = null;
+    engagementDetailsProvider = SiteEngagementDetailsProvider.getRemote();
+    updateInterval = null;
+    sortKey = 'totalScore';
+    sortReverse = true;
+    whenPopulatedResolver = new PromiseResolver();
     connectedCallback() {
         const engagementTableHeader = this.getRequiredElement('#engagement-table-header');
         this.engagementTableBody =
@@ -153,8 +149,7 @@ export class SiteEngagementAppElement extends CustomElement {
         catch {
             return;
         }
-        const origin = new Url();
-        origin.url = originInput.value;
+        const origin = { url: originInput.value };
         const score = parseFloat(scoreInput.value);
         this.engagementDetailsProvider.setSiteEngagementBaseScoreForUrl(origin, score);
         scoreInput.blur();

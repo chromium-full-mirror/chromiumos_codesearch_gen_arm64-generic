@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/download/mhtml_file_writer.mojom-features.h"
 #include "content/common/download/mhtml_file_writer.mojom-shared.h"
 #include "content/common/download/mhtml_file_writer.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
@@ -177,17 +178,17 @@ class CONTENT_EXPORT MhtmlOutputHandle {
   // Construct an instance holding |file_handle|.
   static MhtmlOutputHandlePtr
   NewFileHandle(
-      ::base::File file_handle) {
+      ::base::File value) {
     auto result = MhtmlOutputHandlePtr(absl::in_place);
-    result->set_file_handle(std::move(file_handle));
+    result->set_file_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |producer_handle|.
   static MhtmlOutputHandlePtr
   NewProducerHandle(
-      ::mojo::ScopedDataPipeProducerHandle producer_handle) {
+      ::mojo::ScopedDataPipeProducerHandle value) {
     auto result = MhtmlOutputHandlePtr(absl::in_place);
-    result->set_producer_handle(std::move(producer_handle));
+    result->set_producer_handle(std::move(value));
     return result;
   }
 

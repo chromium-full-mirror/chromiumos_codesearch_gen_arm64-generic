@@ -60,6 +60,107 @@ bool ServiceWorker_UpdatePermissions_Params_Data::Validate(
 ServiceWorker_UpdatePermissions_Params_Data::ServiceWorker_UpdatePermissions_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool ServiceWorker_DispatchOnConnect_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ServiceWorker_DispatchOnConnect_Params_Data* object =
+      static_cast<const ServiceWorker_DispatchOnConnect_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->port_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->port_id, validation_context))
+    return false;
+
+
+  if (!::extensions::mojom::internal::ChannelType_Data
+        ::Validate(object->channel_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->channel_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& channel_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->channel_name, validation_context,
+                                         &channel_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->tab_info, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->tab_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->external_connection_info, 5, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->external_connection_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port_host, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port_host,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+ServiceWorker_DispatchOnConnect_Params_Data::ServiceWorker_DispatchOnConnect_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ServiceWorker_DispatchOnConnect_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ServiceWorker_DispatchOnConnect_ResponseParams_Data* object =
+      static_cast<const ServiceWorker_DispatchOnConnect_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+ServiceWorker_DispatchOnConnect_ResponseParams_Data::ServiceWorker_DispatchOnConnect_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace extensions

@@ -134,7 +134,7 @@ bool SpecMediaMetadata_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -172,6 +172,17 @@ bool SpecMediaMetadata_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->artwork, validation_context,
                                          &artwork_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->chapterInfo, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& chapterInfo_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->chapterInfo, validation_context,
+                                         &chapterInfo_validate_params)) {
     return false;
   }
 

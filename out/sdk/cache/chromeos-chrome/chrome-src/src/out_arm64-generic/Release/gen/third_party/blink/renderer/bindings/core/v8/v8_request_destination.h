@@ -23,9 +23,9 @@ class CORE_EXPORT V8RequestDestination final : public bindings::EnumerationBase 
   
   public:
 enum class Enum : enum_int_t {
-k, kAudio, kAudioworklet, kDocument, kEmbed, kFont, kFrame, kIFrame, kImage, kManifest, kObject, kPaintworklet, kReport, kScript, kSharedworker, kStyle, kTrack, kVideo, kWorker, kXslt
+k, kAudio, kAudioworklet, kDocument, kEmbed, kFont, kFrame, kIFrame, kImage, kManifest, kObject, kPaintworklet, kReport, kScript, kSharedworker, kStyle, kTrack, kVideo, kWorker, kXslt, kFencedframe, kDictionary, kSpeculationrules
 };
-static constexpr size_t kEnumSize = 20;
+static constexpr size_t kEnumSize = 23;
 
 static V8RequestDestination Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8RequestDestination> Create(const String& value);

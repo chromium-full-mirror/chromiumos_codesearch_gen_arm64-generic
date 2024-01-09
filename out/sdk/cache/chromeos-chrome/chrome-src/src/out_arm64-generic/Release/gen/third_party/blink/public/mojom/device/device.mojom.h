@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/device/device.mojom-features.h"
 #include "third_party/blink/public/mojom/device/device.mojom-shared.h"
 #include "third_party/blink/public/mojom/device/device.mojom-forward.h"
 #include <string>
@@ -215,7 +216,7 @@ class BLINK_COMMON_EXPORT ManagedConfigurationService
   virtual ~ManagedConfigurationService() = default;
 
 
-  using GetManagedConfigurationCallback = base::OnceCallback<void(const absl::optional<base::flat_map<std::string, std::string>>&)>;
+  using GetManagedConfigurationCallback = base::OnceCallback<void(const std::optional<base::flat_map<std::string, std::string>>&)>;
   
   virtual void GetManagedConfiguration(const std::vector<std::string>& keys, GetManagedConfigurationCallback callback) = 0;
 
@@ -444,17 +445,17 @@ class BLINK_COMMON_EXPORT DeviceAttributeResult {
   // Construct an instance holding |error_message|.
   static DeviceAttributeResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = DeviceAttributeResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |attribute|.
   static DeviceAttributeResultPtr
   NewAttribute(
-      const absl::optional<std::string>& attribute) {
+      const std::optional<std::string>& value) {
     auto result = DeviceAttributeResultPtr(absl::in_place);
-    result->set_attribute(std::move(attribute));
+    result->set_attribute(std::move(value));
     return result;
   }
 
@@ -515,14 +516,14 @@ class BLINK_COMMON_EXPORT DeviceAttributeResult {
   bool is_attribute() const { return tag_ == Tag::kAttribute; }
 
   
-  absl::optional<std::string>& get_attribute() const {
+  std::optional<std::string>& get_attribute() const {
     CHECK(tag_ == Tag::kAttribute);
     return *(data_.attribute);
   }
 
   
   void set_attribute(
-      const absl::optional<std::string>& attribute);
+      const std::optional<std::string>& attribute);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -542,7 +543,7 @@ class BLINK_COMMON_EXPORT DeviceAttributeResult {
     Union_() = default;
     ~Union_() = default;
     std::string* error_message;
-    absl::optional<std::string>* attribute;
+    std::optional<std::string>* attribute;
   };
 
   static bool Validate(const void* data,
@@ -603,7 +604,7 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::DeviceAttributeResult::Da
     return input->get_error_message();
   }
 
-  static const absl::optional<std::string>& attribute(const ::blink::mojom::DeviceAttributeResultPtr& input) {
+  static const std::optional<std::string>& attribute(const ::blink::mojom::DeviceAttributeResultPtr& input) {
     return input->get_attribute();
   }
 

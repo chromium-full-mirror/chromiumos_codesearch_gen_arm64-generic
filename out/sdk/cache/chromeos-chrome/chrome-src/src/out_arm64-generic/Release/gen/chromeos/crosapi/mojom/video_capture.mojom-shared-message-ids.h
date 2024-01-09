@@ -16,7 +16,8 @@ namespace internal {
 
 constexpr uint32_t kVideoFrameHandler_OnCaptureConfigurationChanged_Name = 11;
 constexpr uint32_t kVideoFrameHandler_OnNewBuffer_Name = 0;
-constexpr uint32_t kVideoFrameHandler_OnFrameReadyInBuffer_Name = 1;
+constexpr uint32_t kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name = 1;
+constexpr uint32_t kVideoFrameHandler_OnFrameReadyInBuffer_Name = 13;
 constexpr uint32_t kVideoFrameHandler_OnBufferRetired_Name = 2;
 constexpr uint32_t kVideoFrameHandler_OnError_Name = 3;
 constexpr uint32_t kVideoFrameHandler_OnFrameDropped_Name = 4;

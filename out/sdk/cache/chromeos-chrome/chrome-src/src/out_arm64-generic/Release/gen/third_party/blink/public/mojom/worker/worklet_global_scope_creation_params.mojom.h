@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/worker/worklet_global_scope_creation_params.mojom-features.h"
 #include "third_party/blink/public/mojom/worker/worklet_global_scope_creation_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/worker/worklet_global_scope_creation_params.mojom-forward.h"
 #include "third_party/blink/public/mojom/devtools/devtools_agent.mojom-forward.h"
@@ -187,7 +188,8 @@ class BLINK_COMMON_EXPORT WorkletGlobalScopeCreationParams {
       const ::url::Origin& starter_origin,
       std::vector<::blink::mojom::OriginTrialFeature> origin_trial_features,
       const ::base::UnguessableToken& devtools_token,
-      ::mojo::PendingRemote<WorkletDevToolsHost> devtools_host);
+      ::mojo::PendingRemote<WorkletDevToolsHost> devtools_host,
+      bool wait_for_debugger);
 
 WorkletGlobalScopeCreationParams(const WorkletGlobalScopeCreationParams&) = delete;
 WorkletGlobalScopeCreationParams& operator=(const WorkletGlobalScopeCreationParams&) = delete;
@@ -271,6 +273,8 @@ WorkletGlobalScopeCreationParams& operator=(const WorkletGlobalScopeCreationPara
   ::base::UnguessableToken devtools_token;
   
   ::mojo::PendingRemote<WorkletDevToolsHost> devtools_host;
+  
+  bool wait_for_debugger;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -308,7 +312,8 @@ WorkletGlobalScopeCreationParamsPtr WorkletGlobalScopeCreationParams::Clone() co
       mojo::Clone(starter_origin),
       mojo::Clone(origin_trial_features),
       mojo::Clone(devtools_token),
-      mojo::Clone(devtools_host)
+      mojo::Clone(devtools_host),
+      mojo::Clone(wait_for_debugger)
   );
 }
 
@@ -323,6 +328,8 @@ bool WorkletGlobalScopeCreationParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->devtools_token, other_struct.devtools_token))
     return false;
   if (!mojo::Equals(this->devtools_host, other_struct.devtools_host))
+    return false;
+  if (!mojo::Equals(this->wait_for_debugger, other_struct.wait_for_debugger))
     return false;
   return true;
 }
@@ -348,6 +355,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.devtools_host < rhs.devtools_host)
     return true;
   if (rhs.devtools_host < lhs.devtools_host)
+    return false;
+  if (lhs.wait_for_debugger < rhs.wait_for_debugger)
+    return true;
+  if (rhs.wait_for_debugger < lhs.wait_for_debugger)
     return false;
   return false;
 }
@@ -387,6 +398,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WorkletGlobalScopeCreati
   static  decltype(::blink::mojom::WorkletGlobalScopeCreationParams::devtools_host)& devtools_host(
        ::blink::mojom::WorkletGlobalScopeCreationParamsPtr& input) {
     return input->devtools_host;
+  }
+
+  static decltype(::blink::mojom::WorkletGlobalScopeCreationParams::wait_for_debugger) wait_for_debugger(
+      const ::blink::mojom::WorkletGlobalScopeCreationParamsPtr& input) {
+    return input->wait_for_debugger;
   }
 
   static bool Read(::blink::mojom::WorkletGlobalScopeCreationParams::DataView input, ::blink::mojom::WorkletGlobalScopeCreationParamsPtr* output);

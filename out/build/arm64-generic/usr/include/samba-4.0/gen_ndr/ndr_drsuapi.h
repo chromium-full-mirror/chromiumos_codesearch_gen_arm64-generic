@@ -182,10 +182,10 @@ enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesMSZIPCtr1(struct ndr_push *ndr,
 void ndr_print_drsuapi_DsGetNCChangesMSZIPCtr1(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesMSZIPCtr1 *r);
 enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesMSZIPCtr6(struct ndr_push *ndr, int ndr_flags, const struct drsuapi_DsGetNCChangesMSZIPCtr6 *r);
 void ndr_print_drsuapi_DsGetNCChangesMSZIPCtr6(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesMSZIPCtr6 *r);
-enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesXPRESSCtr1(struct ndr_push *ndr, int ndr_flags, const struct drsuapi_DsGetNCChangesXPRESSCtr1 *r);
-void ndr_print_drsuapi_DsGetNCChangesXPRESSCtr1(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesXPRESSCtr1 *r);
-enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesXPRESSCtr6(struct ndr_push *ndr, int ndr_flags, const struct drsuapi_DsGetNCChangesXPRESSCtr6 *r);
-void ndr_print_drsuapi_DsGetNCChangesXPRESSCtr6(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesXPRESSCtr6 *r);
+enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1(struct ndr_push *ndr, int ndr_flags, const struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1 *r);
+void ndr_print_drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1 *r);
+enum ndr_err_code ndr_push_drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6(struct ndr_push *ndr, int ndr_flags, const struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6 *r);
+void ndr_print_drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6 *r);
 void ndr_print_drsuapi_DsGetNCChangesCompressionType(struct ndr_print *ndr, const char *name, enum drsuapi_DsGetNCChangesCompressionType r);
 void ndr_print_drsuapi_DsGetNCChangesCompressedCtr(struct ndr_print *ndr, const char *name, const union drsuapi_DsGetNCChangesCompressedCtr *r);
 void ndr_print_drsuapi_DsGetNCChangesCtr2(struct ndr_print *ndr, const char *name, const struct drsuapi_DsGetNCChangesCtr2 *r);

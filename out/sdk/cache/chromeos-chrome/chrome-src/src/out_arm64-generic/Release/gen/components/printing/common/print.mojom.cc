@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -517,7 +518,8 @@ PrintParams::PrintParams()
       printed_doc_type(::printing::mojom::SkiaDocumentType::kPDF),
       prefer_css_page_size(false),
       pages_per_sheet(1U),
-      generate_tagged_pdf() {}
+      generate_tagged_pdf(),
+      generate_document_outline(false) {}
 
 PrintParams::PrintParams(
     const ::gfx::SizeF& page_size_in,
@@ -546,7 +548,8 @@ PrintParams::PrintParams(
     ::printing::mojom::SkiaDocumentType printed_doc_type_in,
     bool prefer_css_page_size_in,
     uint32_t pages_per_sheet_in,
-    absl::optional<bool> generate_tagged_pdf_in)
+    std::optional<bool> generate_tagged_pdf_in,
+    bool generate_document_outline_in)
     : page_size(std::move(page_size_in)),
       content_size(std::move(content_size_in)),
       printable_area(std::move(printable_area_in)),
@@ -573,7 +576,8 @@ PrintParams::PrintParams(
       printed_doc_type(std::move(printed_doc_type_in)),
       prefer_css_page_size(std::move(prefer_css_page_size_in)),
       pages_per_sheet(std::move(pages_per_sheet_in)),
-      generate_tagged_pdf(std::move(generate_tagged_pdf_in)) {}
+      generate_tagged_pdf(std::move(generate_tagged_pdf_in)),
+      generate_document_outline(std::move(generate_document_outline_in)) {}
 
 PrintParams::~PrintParams() = default;
 
@@ -818,7 +822,16 @@ void PrintParams::WriteIntoTrace(
     dict.AddItem(
       "generate_tagged_pdf"), this->generate_tagged_pdf,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "generate_document_outline"), this->generate_document_outline,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1204,14 +1217,17 @@ void PrintRendererProxy::CreatePreviewDocument(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderer_CreatePreviewDocument_Name, kFlags, 0, 0, nullptr);
@@ -1332,7 +1348,8 @@ void PrintRenderer_CreatePreviewDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderer_CreatePreviewDocument_Name, kFlags, 0, 0, nullptr);
@@ -1418,10 +1435,10 @@ std::move(p_job_settings), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintRendererValidationInfo[] = {
-    {&internal::PrintRenderer_CreatePreviewDocument_Params_Data::Validate,
+    { &internal::PrintRenderer_CreatePreviewDocument_Params_Data::Validate,
      &internal::PrintRenderer_CreatePreviewDocument_ResponseParams_Data::Validate},
 };
 
@@ -1668,14 +1685,17 @@ void PrintPreviewUIProxy::SetOptionsFromDocument(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_SetOptionsFromDocument_Name, kFlags, 0, 0, nullptr);
@@ -1720,14 +1740,17 @@ void PrintPreviewUIProxy::DidPrepareDocumentForPreview(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_DidPrepareDocumentForPreview_Name, kFlags, 0, 0, nullptr);
@@ -1762,14 +1785,17 @@ void PrintPreviewUIProxy::DidPreviewPage(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_DidPreviewPage_Name, kFlags, 0, 0, nullptr);
@@ -1814,14 +1840,17 @@ void PrintPreviewUIProxy::MetafileReadyForPrinting(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_MetafileReadyForPrinting_Name, kFlags, 0, 0, nullptr);
@@ -1866,14 +1895,17 @@ void PrintPreviewUIProxy::PrintPreviewFailed(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_PrintPreviewFailed_Name, kFlags, 0, 0, nullptr);
@@ -1908,14 +1940,17 @@ void PrintPreviewUIProxy::PrintPreviewCancelled(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_PrintPreviewCancelled_Name, kFlags, 0, 0, nullptr);
@@ -1950,14 +1985,17 @@ void PrintPreviewUIProxy::PrinterSettingsInvalid(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_PrinterSettingsInvalid_Name, kFlags, 0, 0, nullptr);
@@ -2001,14 +2039,17 @@ void PrintPreviewUIProxy::DidGetDefaultPageLayout(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_DidGetDefaultPageLayout_Name, kFlags, 0, 0, nullptr);
@@ -2066,14 +2107,17 @@ void PrintPreviewUIProxy::DidStartPreview(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintPreviewUI_DidStartPreview_Name, kFlags, 0, 0, nullptr);
@@ -2433,26 +2477,26 @@ bool PrintPreviewUIStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintPreviewUIValidationInfo[] = {
-    {&internal::PrintPreviewUI_SetOptionsFromDocument_Params_Data::Validate,
+    { &internal::PrintPreviewUI_SetOptionsFromDocument_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_DidPrepareDocumentForPreview_Params_Data::Validate,
+    { &internal::PrintPreviewUI_DidPrepareDocumentForPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_DidPreviewPage_Params_Data::Validate,
+    { &internal::PrintPreviewUI_DidPreviewPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_MetafileReadyForPrinting_Params_Data::Validate,
+    { &internal::PrintPreviewUI_MetafileReadyForPrinting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_PrintPreviewFailed_Params_Data::Validate,
+    { &internal::PrintPreviewUI_PrintPreviewFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_PrintPreviewCancelled_Params_Data::Validate,
+    { &internal::PrintPreviewUI_PrintPreviewCancelled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_PrinterSettingsInvalid_Params_Data::Validate,
+    { &internal::PrintPreviewUI_PrinterSettingsInvalid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_DidGetDefaultPageLayout_Params_Data::Validate,
+    { &internal::PrintPreviewUI_DidGetDefaultPageLayout_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintPreviewUI_DidStartPreview_Params_Data::Validate,
+    { &internal::PrintPreviewUI_DidStartPreview_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2499,9 +2543,6 @@ PrintRenderFrame::IPCStableHashFunction PrintRenderFrame::MessageToMethodInfo_(m
     case internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name: {
       return &PrintRenderFrame::PrintNodeUnderContextMenu_Sym::IPCStableHash;
     }
-    case internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name: {
-      return &PrintRenderFrame::SnapshotForContentAnalysis_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2535,8 +2576,6 @@ const char* PrintRenderFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive printing::mojom::PrintRenderFrame::PrintingDone";
       case internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name:
             return "Receive printing::mojom::PrintRenderFrame::PrintNodeUnderContextMenu";
-      case internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name:
-            return "Receive printing::mojom::PrintRenderFrame::SnapshotForContentAnalysis";
     }
   } else {
     switch (message.name()) {
@@ -2562,8 +2601,6 @@ const char* PrintRenderFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply printing::mojom::PrintRenderFrame::PrintingDone";
       case internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name:
             return "Receive reply printing::mojom::PrintRenderFrame::PrintNodeUnderContextMenu";
-      case internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name:
-            return "Receive reply printing::mojom::PrintRenderFrame::SnapshotForContentAnalysis";
     }
   }
   return "Receive unknown mojo message";
@@ -2721,19 +2758,6 @@ uint32_t PrintRenderFrame::PrintNodeUnderContextMenu_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PrintRenderFrame::SnapshotForContentAnalysis_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printing::mojom::PrintRenderFrame::SnapshotForContentAnalysis");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PrintRenderFrame_PrintWithParams_ForwardToCallback
@@ -2768,22 +2792,6 @@ class PrintRenderFrame_PrintFrameContent_ForwardToCallback
   PrintRenderFrame::PrintFrameContentCallback callback_;
 };
 
-class PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback(
-      PrintRenderFrame::SnapshotForContentAnalysisCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback(const PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback&) = delete;
-  PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback& operator=(const PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  PrintRenderFrame::SnapshotForContentAnalysisCallback callback_;
-};
-
 PrintRenderFrameProxy::PrintRenderFrameProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -2793,14 +2801,17 @@ void PrintRenderFrameProxy::PrintRequestedPages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::PrintRequestedPages");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintRequestedPages_Name, kFlags, 0, 0, nullptr);
@@ -2830,14 +2841,17 @@ void PrintRenderFrameProxy::PrintWithParams(
                         "<value of type PrintPagesParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintWithParams_Name, kFlags, 0, 0, nullptr);
@@ -2872,14 +2886,17 @@ void PrintRenderFrameProxy::PrintForSystemDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::PrintForSystemDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintForSystemDialog_Name, kFlags, 0, 0, nullptr);
@@ -2912,14 +2929,17 @@ void PrintRenderFrameProxy::InitiatePrintPreview(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_InitiatePrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -2952,14 +2972,17 @@ void PrintRenderFrameProxy::SetPrintPreviewUI(
                         "<value of type ::mojo::PendingAssociatedRemote<PrintPreviewUI>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_SetPrintPreviewUI_Name, kFlags, 0, 0, nullptr);
@@ -2995,14 +3018,17 @@ void PrintRenderFrameProxy::PrintPreview(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -3036,14 +3062,17 @@ void PrintRenderFrameProxy::OnPrintPreviewDialogClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::OnPrintPreviewDialogClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_OnPrintPreviewDialogClosed_Name, kFlags, 0, 0, nullptr);
@@ -3073,14 +3102,17 @@ void PrintRenderFrameProxy::PrintFrameContent(
                         "<value of type PrintFrameContentParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintFrameContent_Name, kFlags, 0, 0, nullptr);
@@ -3115,14 +3147,17 @@ void PrintRenderFrameProxy::ConnectToPdfRenderer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::ConnectToPdfRenderer");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_ConnectToPdfRenderer_Name, kFlags, 0, 0, nullptr);
@@ -3152,14 +3187,17 @@ void PrintRenderFrameProxy::PrintingDone(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintingDone_Name, kFlags, 0, 0, nullptr);
@@ -3183,14 +3221,17 @@ void PrintRenderFrameProxy::PrintNodeUnderContextMenu(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::PrintNodeUnderContextMenu");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -3206,37 +3247,6 @@ void PrintRenderFrameProxy::PrintNodeUnderContextMenu(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void PrintRenderFrameProxy::SnapshotForContentAnalysis(
-    SnapshotForContentAnalysisCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send printing::mojom::PrintRenderFrame::SnapshotForContentAnalysis");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(PrintRenderFrame::Name_);
-  message.set_method_name("SnapshotForContentAnalysis");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class PrintRenderFrame_PrintWithParams_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -3330,7 +3340,8 @@ void PrintRenderFrame_PrintWithParams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintWithParams_Name, kFlags, 0, 0, nullptr);
@@ -3463,7 +3474,8 @@ void PrintRenderFrame_PrintFrameContent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintRenderFrame_PrintFrameContent_Name, kFlags, 0, 0, nullptr);
@@ -3487,130 +3499,6 @@ void PrintRenderFrame_PrintFrameContent_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintRenderFrame::Name_);
   message.set_method_name("PrintFrameContent");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static PrintRenderFrame::SnapshotForContentAnalysisCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder> proxy(
-        new PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "PrintRenderFrame::SnapshotForContentAnalysisCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      DidPrintDocumentParamsPtr in_params);
-};
-
-bool PrintRenderFrame_SnapshotForContentAnalysis_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  DidPrintDocumentParamsPtr p_params{};
-  PrintRenderFrame_SnapshotForContentAnalysis_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadParams(&p_params))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PrintRenderFrame::Name_, 11, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_params));
-  return true;
-}
-
-void PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder::Run(
-    DidPrintDocumentParamsPtr in_params) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply printing::mojom::PrintRenderFrame::SnapshotForContentAnalysis", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("params"), in_params,
-                        "<value of type DidPrintDocumentParamsPtr>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printing::mojom::internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->params)::BaseType> params_fragment(
-          params.message());
-  mojo::internal::Serialize<::printing::mojom::DidPrintDocumentParamsDataView>(
-      in_params, params_fragment);
-  params->params.Set(
-      params_fragment.is_null() ? nullptr : params_fragment.data());
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(PrintRenderFrame::Name_);
-  message.set_method_name("SnapshotForContentAnalysis");
 #endif
 
   message.set_request_id(request_id_);
@@ -3858,9 +3746,6 @@ std::move(p_success));
       impl->PrintNodeUnderContextMenu();
       return true;
     }
-    case internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name: {
-      break;
-    }
   }
   return false;
 }
@@ -3959,61 +3844,34 @@ std::move(p_params), std::move(callback));
     case internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name: {
       break;
     }
-    case internal::kPrintRenderFrame_SnapshotForContentAnalysis_Name: {
-
-      internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data* params =
-          reinterpret_cast<
-              internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      PrintRenderFrame_SnapshotForContentAnalysis_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PrintRenderFrame::Name_, 11, false);
-        return false;
-      }
-      PrintRenderFrame::SnapshotForContentAnalysisCallback callback =
-          PrintRenderFrame_SnapshotForContentAnalysis_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SnapshotForContentAnalysis(std::move(callback));
-      return true;
-    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintRenderFrameValidationInfo[] = {
-    {&internal::PrintRenderFrame_PrintRequestedPages_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintRequestedPages_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_PrintWithParams_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintWithParams_Params_Data::Validate,
      &internal::PrintRenderFrame_PrintWithParams_ResponseParams_Data::Validate},
-    {&internal::PrintRenderFrame_PrintForSystemDialog_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintForSystemDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_InitiatePrintPreview_Params_Data::Validate,
+    { &internal::PrintRenderFrame_InitiatePrintPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_SetPrintPreviewUI_Params_Data::Validate,
+    { &internal::PrintRenderFrame_SetPrintPreviewUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_PrintPreview_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_OnPrintPreviewDialogClosed_Params_Data::Validate,
+    { &internal::PrintRenderFrame_OnPrintPreviewDialogClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_PrintFrameContent_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintFrameContent_Params_Data::Validate,
      &internal::PrintRenderFrame_PrintFrameContent_ResponseParams_Data::Validate},
-    {&internal::PrintRenderFrame_ConnectToPdfRenderer_Params_Data::Validate,
+    { &internal::PrintRenderFrame_ConnectToPdfRenderer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_PrintingDone_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintingDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data::Validate,
+    { &internal::PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data::Validate,
-     &internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data::Validate},
 };
 
 bool PrintRenderFrameRequestValidator::Accept(mojo::Message* message) {
@@ -4571,14 +4429,17 @@ void PrintManagerHostProxy::DidGetPrintedPagesCount(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_DidGetPrintedPagesCount_Name, kFlags, 0, 0, nullptr);
@@ -4604,15 +4465,18 @@ bool PrintManagerHostProxy::GetDefaultPrintSettings(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::GetDefaultPrintSettings");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_GetDefaultPrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -4649,14 +4513,17 @@ void PrintManagerHostProxy::GetDefaultPrintSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintManagerHost::GetDefaultPrintSettings");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_GetDefaultPrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -4680,14 +4547,17 @@ void PrintManagerHostProxy::DidShowPrintDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintManagerHost::DidShowPrintDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_DidShowPrintDialog_Name, kFlags, 0, 0, nullptr);
@@ -4718,15 +4588,18 @@ bool PrintManagerHostProxy::DidPrintDocument(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::DidPrintDocument");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_DidPrintDocument_Name, kFlags, 0, 0, nullptr);
@@ -4781,14 +4654,17 @@ void PrintManagerHostProxy::DidPrintDocument(
                         "<value of type DidPrintDocumentParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_DidPrintDocument_Name, kFlags, 0, 0, nullptr);
@@ -4824,15 +4700,18 @@ bool PrintManagerHostProxy::IsPrintingEnabled(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::IsPrintingEnabled");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_IsPrintingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -4869,14 +4748,17 @@ void PrintManagerHostProxy::IsPrintingEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintManagerHost::IsPrintingEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_IsPrintingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -4908,15 +4790,18 @@ bool PrintManagerHostProxy::ScriptedPrint(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::ScriptedPrint");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_ScriptedPrint_Name, kFlags, 0, 0, nullptr);
@@ -4971,14 +4856,17 @@ void PrintManagerHostProxy::ScriptedPrint(
                         "<value of type ScriptedPrintParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_ScriptedPrint_Name, kFlags, 0, 0, nullptr);
@@ -5023,14 +4911,17 @@ void PrintManagerHostProxy::PrintingFailed(
                         "<value of type PrintFailureReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_PrintingFailed_Name, kFlags, 0, 0, nullptr);
@@ -5064,15 +4955,18 @@ bool PrintManagerHostProxy::UpdatePrintSettings(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::UpdatePrintSettings");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_UpdatePrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -5127,14 +5021,17 @@ void PrintManagerHostProxy::UpdatePrintSettings(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_UpdatePrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -5169,14 +5066,17 @@ void PrintManagerHostProxy::SetupScriptedPrintPreview(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintManagerHost::SetupScriptedPrintPreview");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_SetupScriptedPrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -5207,14 +5107,17 @@ void PrintManagerHostProxy::ShowScriptedPrintPreview(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_ShowScriptedPrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -5245,14 +5148,17 @@ void PrintManagerHostProxy::RequestPrintPreview(
                         "<value of type RequestPrintPreviewParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_RequestPrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -5297,15 +5203,18 @@ bool PrintManagerHostProxy::CheckForCancel(
 #else
   TRACE_EVENT0("mojom", "PrintManagerHost::CheckForCancel");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_CheckForCancel_Name, kFlags, 0, 0, nullptr);
@@ -5354,14 +5263,17 @@ void PrintManagerHostProxy::CheckForCancel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_CheckForCancel_Name, kFlags, 0, 0, nullptr);
@@ -5397,14 +5309,17 @@ void PrintManagerHostProxy::SetAccessibilityTree(
                         "<value of type const ::ui::AXTreeUpdate&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_SetAccessibilityTree_Name, kFlags, 0, 0, nullptr);
@@ -5525,7 +5440,8 @@ void PrintManagerHost_GetDefaultPrintSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_GetDefaultPrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -5674,7 +5590,8 @@ void PrintManagerHost_DidPrintDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_DidPrintDocument_Name, kFlags, 0, 0, nullptr);
@@ -5817,7 +5734,8 @@ void PrintManagerHost_IsPrintingEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_IsPrintingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -5960,7 +5878,8 @@ void PrintManagerHost_ScriptedPrint_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_ScriptedPrint_Name, kFlags, 0, 0, nullptr);
@@ -6109,7 +6028,8 @@ void PrintManagerHost_UpdatePrintSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_UpdatePrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -6247,7 +6167,8 @@ void PrintManagerHost_SetupScriptedPrintPreview_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_SetupScriptedPrintPreview_Name, kFlags, 0, 0, nullptr);
@@ -6364,7 +6285,8 @@ void PrintManagerHost_CheckForCancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintManagerHost_CheckForCancel_Name, kFlags, 0, 0, nullptr);
@@ -6835,34 +6757,34 @@ std::move(p_request_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintManagerHostValidationInfo[] = {
-    {&internal::PrintManagerHost_DidGetPrintedPagesCount_Params_Data::Validate,
+    { &internal::PrintManagerHost_DidGetPrintedPagesCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintManagerHost_GetDefaultPrintSettings_Params_Data::Validate,
+    { &internal::PrintManagerHost_GetDefaultPrintSettings_Params_Data::Validate,
      &internal::PrintManagerHost_GetDefaultPrintSettings_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_DidShowPrintDialog_Params_Data::Validate,
+    { &internal::PrintManagerHost_DidShowPrintDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintManagerHost_DidPrintDocument_Params_Data::Validate,
+    { &internal::PrintManagerHost_DidPrintDocument_Params_Data::Validate,
      &internal::PrintManagerHost_DidPrintDocument_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_IsPrintingEnabled_Params_Data::Validate,
+    { &internal::PrintManagerHost_IsPrintingEnabled_Params_Data::Validate,
      &internal::PrintManagerHost_IsPrintingEnabled_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_ScriptedPrint_Params_Data::Validate,
+    { &internal::PrintManagerHost_ScriptedPrint_Params_Data::Validate,
      &internal::PrintManagerHost_ScriptedPrint_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_PrintingFailed_Params_Data::Validate,
+    { &internal::PrintManagerHost_PrintingFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintManagerHost_UpdatePrintSettings_Params_Data::Validate,
+    { &internal::PrintManagerHost_UpdatePrintSettings_Params_Data::Validate,
      &internal::PrintManagerHost_UpdatePrintSettings_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_SetupScriptedPrintPreview_Params_Data::Validate,
+    { &internal::PrintManagerHost_SetupScriptedPrintPreview_Params_Data::Validate,
      &internal::PrintManagerHost_SetupScriptedPrintPreview_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_ShowScriptedPrintPreview_Params_Data::Validate,
+    { &internal::PrintManagerHost_ShowScriptedPrintPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintManagerHost_RequestPrintPreview_Params_Data::Validate,
+    { &internal::PrintManagerHost_RequestPrintPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintManagerHost_CheckForCancel_Params_Data::Validate,
+    { &internal::PrintManagerHost_CheckForCancel_Params_Data::Validate,
      &internal::PrintManagerHost_CheckForCancel_ResponseParams_Data::Validate},
-    {&internal::PrintManagerHost_SetAccessibilityTree_Params_Data::Validate,
+    { &internal::PrintManagerHost_SetAccessibilityTree_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -7091,6 +7013,8 @@ bool StructTraits<::printing::mojom::PrintParams::DataView, ::printing::mojom::P
       if (success) {
         result->generate_tagged_pdf = input.generate_tagged_pdf();
       }
+      if (success)
+        result->generate_document_outline = input.generate_document_outline();
   *output = std::move(result);
   return success;
 }
@@ -7315,9 +7239,6 @@ void PrintRenderFrameInterceptorForTesting::PrintingDone(bool success) {
 void PrintRenderFrameInterceptorForTesting::PrintNodeUnderContextMenu() {
   GetForwardingInterface()->PrintNodeUnderContextMenu();
 }
-void PrintRenderFrameInterceptorForTesting::SnapshotForContentAnalysis(SnapshotForContentAnalysisCallback callback) {
-  GetForwardingInterface()->SnapshotForContentAnalysis(std::move(callback));
-}
 PrintRenderFrameAsyncWaiter::PrintRenderFrameAsyncWaiter(
     PrintRenderFrame* proxy) : proxy_(proxy) {}
 
@@ -7367,29 +7288,6 @@ void PrintRenderFrameAsyncWaiter::PrintFrameContent(
 }
 
 
-
-void PrintRenderFrameAsyncWaiter::SnapshotForContentAnalysis(
-    DidPrintDocumentParamsPtr* out_params) {
-  base::RunLoop loop;
-  proxy_->SnapshotForContentAnalysis(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             DidPrintDocumentParamsPtr* out_params
-,
-             DidPrintDocumentParamsPtr params) {*out_params = std::move(params);
-            loop->Quit();
-          },
-          &loop,
-          out_params));
-  loop.Run();
-}
-
-DidPrintDocumentParamsPtr PrintRenderFrameAsyncWaiter::SnapshotForContentAnalysis(
-    ) {
-  DidPrintDocumentParamsPtr async_wait_result;
-  SnapshotForContentAnalysis(&async_wait_result);
-  return async_wait_result;
-}
 
 
 

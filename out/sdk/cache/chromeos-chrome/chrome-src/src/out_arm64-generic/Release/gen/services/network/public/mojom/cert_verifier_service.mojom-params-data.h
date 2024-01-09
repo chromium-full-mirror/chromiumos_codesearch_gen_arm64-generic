@@ -90,6 +90,22 @@ class  CertVerifierService_SetConfig_Params_Data {
 };
 static_assert(sizeof(CertVerifierService_SetConfig_Params_Data) == 16,
               "Bad sizeof(CertVerifierService_SetConfig_Params_Data)");
+class  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::AdditionalCertificates_Data> certificates;
+
+ private:
+  friend class mojo::internal::MessageFragment<CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data>;
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data();
+  ~CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data() = delete;
+};
+static_assert(sizeof(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data) == 16,
+              "Bad sizeof(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data)");
 class  CertVerifierServiceClient_OnCertVerifierChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -257,6 +273,32 @@ class CertVerifierService_SetConfig_ParamsDataView {
 };
 
 
+class CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView {
+ public:
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView() = default;
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView(
+      internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCertificatesDataView(
+      AdditionalCertificatesDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCertificates(UserType* output) {
+    
+    auto* pointer = data_->certificates.Get();
+    return mojo::internal::Deserialize<::cert_verifier::mojom::AdditionalCertificatesDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CertVerifierServiceClient_OnCertVerifierChanged_ParamsDataView {
  public:
   CertVerifierServiceClient_OnCertVerifierChanged_ParamsDataView() = default;
@@ -320,6 +362,13 @@ inline void CertVerifierService_SetConfig_ParamsDataView::GetConfigDataView(
     CertVerifierConfigDataView* output) {
   auto pointer = data_->config.Get();
   *output = CertVerifierConfigDataView(pointer, message_);
+}
+
+
+inline void CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView::GetCertificatesDataView(
+    AdditionalCertificatesDataView* output) {
+  auto pointer = data_->certificates.Get();
+  *output = AdditionalCertificatesDataView(pointer, message_);
 }
 
 

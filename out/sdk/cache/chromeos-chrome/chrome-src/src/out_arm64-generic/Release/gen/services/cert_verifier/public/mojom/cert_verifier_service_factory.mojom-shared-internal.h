@@ -13,7 +13,10 @@
 #include "mojo/public/mojom/base/big_buffer.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "services/network/public/mojom/cert_verifier_service.mojom-shared-internal.h"
+#include "services/network/public/mojom/network_param.mojom-shared-internal.h"
+#include "services/network/public/mojom/ct_log_info.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -42,6 +45,7 @@ class  CertVerifierCreationParams_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> nss_path;
   mojo::internal::Pointer<mojo::internal::String_Data> username_hash;
+  mojo::internal::Pointer<::cert_verifier::mojom::internal::AdditionalCertificates_Data> initial_additional_certificates;
 
  private:
   friend class mojo::internal::MessageFragment<CertVerifierCreationParams_Data>;
@@ -49,7 +53,7 @@ class  CertVerifierCreationParams_Data {
   CertVerifierCreationParams_Data();
   ~CertVerifierCreationParams_Data() = delete;
 };
-static_assert(sizeof(CertVerifierCreationParams_Data) == 24,
+static_assert(sizeof(CertVerifierCreationParams_Data) == 32,
               "Bad sizeof(CertVerifierCreationParams_Data)");
 // Used by CertVerifierCreationParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

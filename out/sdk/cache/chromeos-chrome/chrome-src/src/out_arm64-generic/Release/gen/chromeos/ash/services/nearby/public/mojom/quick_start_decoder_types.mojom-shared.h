@@ -203,6 +203,19 @@ class BootstrapConfigurationsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  bool is_supervised_account() const {
+    return data_->is_supervised_account;
+  }
+  inline void GetEmailDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEmail(UserType* output) {
+    
+    auto* pointer = data_->email.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::BootstrapConfigurations_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -615,6 +628,19 @@ struct Serializer<::ash::quick_start::mojom::BootstrapConfigurationsDataView, Ma
         fragment->instance_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null instance_id in BootstrapConfigurations struct");
+    fragment->is_supervised_account = Traits::is_supervised_account(input);
+    decltype(Traits::email(input)) in_email = Traits::email(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->email)::BaseType> email_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_email, email_fragment);
+    fragment->email.Set(
+        email_fragment.is_null() ? nullptr : email_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->email.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null email in BootstrapConfigurations struct");
   }
 
   static bool Deserialize(::ash::quick_start::mojom::internal::BootstrapConfigurations_Data* input,
@@ -1046,6 +1072,11 @@ namespace ash::quick_start::mojom {
 inline void BootstrapConfigurationsDataView::GetInstanceIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->instance_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void BootstrapConfigurationsDataView::GetEmailDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->email.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

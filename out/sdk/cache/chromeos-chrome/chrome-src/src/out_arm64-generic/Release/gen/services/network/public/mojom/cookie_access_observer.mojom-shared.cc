@@ -55,7 +55,7 @@ bool CookieAccessDetails_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 72, validation_context)) {
     return false;
   }
 
@@ -77,14 +77,21 @@ bool CookieAccessDetails_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->site_for_cookies, 3, validation_context)) {
+          object->top_frame_origin, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->top_frame_origin, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->site_for_cookies, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->site_for_cookies, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->cookie_list, 4, validation_context)) {
+          object->cookie_list, 5, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& cookie_list_validate_params =
@@ -100,6 +107,13 @@ bool CookieAccessDetails_Data::Validate(
                                          &devtools_request_id_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->cookie_setting_overrides, 9, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->cookie_setting_overrides, validation_context))
+    return false;
 
   return true;
 }

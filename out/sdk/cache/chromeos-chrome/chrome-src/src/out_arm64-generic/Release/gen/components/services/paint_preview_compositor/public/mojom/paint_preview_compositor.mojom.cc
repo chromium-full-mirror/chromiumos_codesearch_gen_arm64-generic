@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -430,14 +431,17 @@ void PaintPreviewCompositorProxy::BeginSeparatedFrameComposite(
                         "<value of type PaintPreviewBeginCompositeRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BeginSeparatedFrameComposite_Name, kFlags, 0, 0, nullptr);
@@ -485,14 +489,17 @@ void PaintPreviewCompositorProxy::BitmapForSeparatedFrame(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BitmapForSeparatedFrame_Name, kFlags, 0, 0, nullptr);
@@ -546,14 +553,17 @@ void PaintPreviewCompositorProxy::BeginMainFrameComposite(
                         "<value of type PaintPreviewBeginCompositeRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BeginMainFrameComposite_Name, kFlags, 0, 0, nullptr);
@@ -598,14 +608,17 @@ void PaintPreviewCompositorProxy::BitmapForMainFrame(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BitmapForMainFrame_Name, kFlags, 0, 0, nullptr);
@@ -648,14 +661,17 @@ void PaintPreviewCompositorProxy::SetRootFrameUrl(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_SetRootFrameUrl_Name, kFlags, 0, 0, nullptr);
@@ -782,7 +798,8 @@ void PaintPreviewCompositor_BeginSeparatedFrameComposite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BeginSeparatedFrameComposite_Name, kFlags, 0, 0, nullptr);
@@ -915,7 +932,8 @@ void PaintPreviewCompositor_BitmapForSeparatedFrame_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BitmapForSeparatedFrame_Name, kFlags, 0, 0, nullptr);
@@ -1048,7 +1066,8 @@ void PaintPreviewCompositor_BeginMainFrameComposite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BeginMainFrameComposite_Name, kFlags, 0, 0, nullptr);
@@ -1181,7 +1200,8 @@ void PaintPreviewCompositor_BitmapForMainFrame_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositor_BitmapForMainFrame_Name, kFlags, 0, 0, nullptr);
@@ -1406,18 +1426,18 @@ std::move(p_scale_factor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPaintPreviewCompositorValidationInfo[] = {
-    {&internal::PaintPreviewCompositor_BeginSeparatedFrameComposite_Params_Data::Validate,
+    { &internal::PaintPreviewCompositor_BeginSeparatedFrameComposite_Params_Data::Validate,
      &internal::PaintPreviewCompositor_BeginSeparatedFrameComposite_ResponseParams_Data::Validate},
-    {&internal::PaintPreviewCompositor_BitmapForSeparatedFrame_Params_Data::Validate,
+    { &internal::PaintPreviewCompositor_BitmapForSeparatedFrame_Params_Data::Validate,
      &internal::PaintPreviewCompositor_BitmapForSeparatedFrame_ResponseParams_Data::Validate},
-    {&internal::PaintPreviewCompositor_BeginMainFrameComposite_Params_Data::Validate,
+    { &internal::PaintPreviewCompositor_BeginMainFrameComposite_Params_Data::Validate,
      &internal::PaintPreviewCompositor_BeginMainFrameComposite_ResponseParams_Data::Validate},
-    {&internal::PaintPreviewCompositor_BitmapForMainFrame_Params_Data::Validate,
+    { &internal::PaintPreviewCompositor_BitmapForMainFrame_Params_Data::Validate,
      &internal::PaintPreviewCompositor_BitmapForMainFrame_ResponseParams_Data::Validate},
-    {&internal::PaintPreviewCompositor_SetRootFrameUrl_Params_Data::Validate,
+    { &internal::PaintPreviewCompositor_SetRootFrameUrl_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1593,14 +1613,17 @@ void PaintPreviewCompositorCollectionProxy::SetDiscardableSharedMemoryManager(
                         "<value of type ::mojo::PendingRemote<::discardable_memory::mojom::DiscardableSharedMemoryManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_SetDiscardableSharedMemoryManager_Name, kFlags, 0, 0, nullptr);
@@ -1636,14 +1659,17 @@ void PaintPreviewCompositorCollectionProxy::CreateCompositor(
                         "<value of type ::mojo::PendingReceiver<PaintPreviewCompositor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_CreateCompositor_Name, kFlags, 0, 0, nullptr);
@@ -1680,14 +1706,17 @@ void PaintPreviewCompositorCollectionProxy::OnMemoryPressure(
                         "<value of type ::base::MemoryPressureListener::MemoryPressureLevel>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_OnMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -1712,14 +1741,17 @@ void PaintPreviewCompositorCollectionProxy::ListCompositors(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send paint_preview::mojom::PaintPreviewCompositorCollection::ListCompositors");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_ListCompositors_Name, kFlags, 0, 0, nullptr);
@@ -1829,7 +1861,8 @@ void PaintPreviewCompositorCollection_CreateCompositor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_CreateCompositor_Name, kFlags, 0, 0, nullptr);
@@ -1957,7 +1990,8 @@ void PaintPreviewCompositorCollection_ListCompositors_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaintPreviewCompositorCollection_ListCompositors_Name, kFlags, 0, 0, nullptr);
@@ -2139,16 +2173,16 @@ std::move(p_compositor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPaintPreviewCompositorCollectionValidationInfo[] = {
-    {&internal::PaintPreviewCompositorCollection_SetDiscardableSharedMemoryManager_Params_Data::Validate,
+    { &internal::PaintPreviewCompositorCollection_SetDiscardableSharedMemoryManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaintPreviewCompositorCollection_CreateCompositor_Params_Data::Validate,
+    { &internal::PaintPreviewCompositorCollection_CreateCompositor_Params_Data::Validate,
      &internal::PaintPreviewCompositorCollection_CreateCompositor_ResponseParams_Data::Validate},
-    {&internal::PaintPreviewCompositorCollection_OnMemoryPressure_Params_Data::Validate,
+    { &internal::PaintPreviewCompositorCollection_OnMemoryPressure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaintPreviewCompositorCollection_ListCompositors_Params_Data::Validate,
+    { &internal::PaintPreviewCompositorCollection_ListCompositors_Params_Data::Validate,
      &internal::PaintPreviewCompositorCollection_ListCompositors_ResponseParams_Data::Validate},
 };
 

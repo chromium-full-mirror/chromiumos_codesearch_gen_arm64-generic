@@ -43,6 +43,7 @@
   BillingResponseCode.kClientAppError = 6;
   BillingResponseCode.MIN_VALUE = 0;
   BillingResponseCode.MAX_VALUE = 6;
+  BillingResponseCode.DEFAULT_VALUE = 1;
 
   BillingResponseCode.isKnownEnumValue = function(value) {
     switch (value) {
@@ -59,7 +60,9 @@
   };
 
   BillingResponseCode.toKnownEnumValue = function(value) {
-    return value;
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
   };
 
   BillingResponseCode.validate = function(enumValue) {
@@ -75,6 +78,7 @@
   ItemType.kSubscription = 2;
   ItemType.MIN_VALUE = 0;
   ItemType.MAX_VALUE = 2;
+  ItemType.DEFAULT_VALUE = 0;
 
   ItemType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -87,7 +91,9 @@
   };
 
   ItemType.toKnownEnumValue = function(value) {
-    return value;
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
   };
 
   ItemType.validate = function(enumValue) {
@@ -104,6 +110,7 @@
   CreateDigitalGoodsResponseCode.kUnsupportedContext = 3;
   CreateDigitalGoodsResponseCode.MIN_VALUE = 0;
   CreateDigitalGoodsResponseCode.MAX_VALUE = 3;
+  CreateDigitalGoodsResponseCode.DEFAULT_VALUE = 1;
 
   CreateDigitalGoodsResponseCode.isKnownEnumValue = function(value) {
     switch (value) {
@@ -117,7 +124,9 @@
   };
 
   CreateDigitalGoodsResponseCode.toKnownEnumValue = function(value) {
-    return value;
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
   };
 
   CreateDigitalGoodsResponseCode.validate = function(enumValue) {

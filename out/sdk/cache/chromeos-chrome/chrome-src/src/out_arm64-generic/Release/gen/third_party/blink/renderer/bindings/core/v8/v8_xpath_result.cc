@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XPathResult>::value,
     "XPathResult inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XPathResult::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XPathResult is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.resultType.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->resultType();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -100,9 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.numberValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "numberValue";
@@ -122,9 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.stringValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "stringValue";
@@ -144,9 +140,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.booleanValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "booleanValue";
@@ -166,9 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.singleNodeValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "singleNodeValue";
@@ -188,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.invalidIteratorState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->invalidIteratorState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -202,9 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.snapshotLength.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "snapshotLength";
@@ -238,9 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("XPathResult.iterateNext");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XPathResult";
 const char* const property_name = "iterateNext";
@@ -273,7 +270,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(v8_receiver);
+XPathResult* blink_receiver = V8XPathResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

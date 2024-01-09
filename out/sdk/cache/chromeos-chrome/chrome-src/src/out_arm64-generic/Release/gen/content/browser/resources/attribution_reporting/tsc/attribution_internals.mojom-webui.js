@@ -7,12 +7,14 @@ import { AggregatableResultSpec as attributionReporting_mojom_AggregatableResult
 import { AttributionSupportSpec as network_mojom_AttributionSupportSpec, TriggerVerificationSpec as network_mojom_TriggerVerificationSpec } from './attribution.mojom-webui.js';
 import { OsRegistrationResultSpec as attributionReporting_mojom_OsRegistrationResultSpec, RegistrationTypeSpec as attributionReporting_mojom_RegistrationTypeSpec } from './attribution_reporting.mojom-webui.js';
 import { EventLevelResultSpec as attributionReporting_mojom_EventLevelResultSpec } from './event_level_result.mojom-webui.js';
-import { DebugKeySpec as attributionReporting_mojom_DebugKeySpec, DestinationSetSpec as attributionReporting_mojom_DestinationSetSpec, EventReportWindowsSpec as attributionReporting_mojom_EventReportWindowsSpec, TriggerConfigSpec as attributionReporting_mojom_TriggerConfigSpec } from './registration.mojom-webui.js';
+import { DestinationSetSpec as attributionReporting_mojom_DestinationSetSpec, FilterDataSpec as attributionReporting_mojom_FilterDataSpec } from './registration.mojom-webui.js';
 import { SourceTypeSpec as attributionReporting_mojom_SourceTypeSpec } from './source_type.mojom-webui.js';
 import { StoreSourceResultSpec as attributionReporting_mojom_StoreSourceResultSpec } from './store_source_result.mojom-webui.js';
+import { TriggerDataMatchingSpec as attributionReporting_mojom_TriggerDataMatchingSpec } from './trigger_data_matching.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class ObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -21,6 +23,9 @@ export class ObserverPendingReceiver {
     }
 }
 export class ObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(ObserverPendingReceiver, handle);
@@ -71,6 +76,9 @@ export class ObserverRemote {
  * interface.
  */
 export class ObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -107,6 +115,18 @@ export class Observer {
  * receiver can have any number of listeners added to it.
  */
 export class ObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onSourcesChanged;
+    onReportsChanged;
+    onSourceHandled;
+    onReportSent;
+    onDebugReportSent;
+    onReportDropped;
+    onTriggerHandled;
+    onOsRegistration;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -146,6 +166,7 @@ export class ObserverCallbackRouter {
     }
 }
 export class HandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -154,6 +175,9 @@ export class HandlerPendingReceiver {
     }
 }
 export class HandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(HandlerPendingReceiver, handle);
@@ -185,6 +209,9 @@ export class HandlerRemote {
  * interface.
  */
 export class HandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(HandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -218,6 +245,15 @@ export class Handler {
  * receiver can have any number of listeners added to it.
  */
 export class HandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    isAttributionReportingEnabled;
+    getActiveSources;
+    getReports;
+    sendReports;
+    clearStorage;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(HandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -248,6 +284,7 @@ export class HandlerCallbackRouter {
     }
 }
 export class FactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -256,6 +293,9 @@ export class FactoryPendingReceiver {
     }
 }
 export class FactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(FactoryPendingReceiver, handle);
@@ -276,6 +316,9 @@ export class FactoryRemote {
  * interface.
  */
 export class FactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -305,6 +348,11 @@ export class Factory {
  * receiver can have any number of listeners added to it.
  */
 export class FactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    create;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -406,27 +454,45 @@ mojo.internal.Struct(WebUISourceSpec.$, 'WebUISource', [
     mojo.internal.StructField('reportingOrigin', 24, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('sourceTime', 32, 0, mojo.internal.Double, 0, false /* nullable */, 0),
     mojo.internal.StructField('expiryTime', 40, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-    mojo.internal.StructField('eventReportWindows', 48, 0, attributionReporting_mojom_EventReportWindowsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('triggerSpecsJson', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('aggregatableReportWindowTime', 56, 0, mojo.internal.Double, 0, false /* nullable */, 0),
     mojo.internal.StructField('maxEventLevelReports', 64, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('sourceType', 68, 0, attributionReporting_mojom_SourceTypeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('priority', 72, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
-    mojo.internal.StructField('debugKey', 80, 0, attributionReporting_mojom_DebugKeySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('dedupKeys', 88, 0, mojo.internal.Array(mojo.internal.Uint64, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('filterData', 96, 0, mojo.internal.Map(mojo.internal.String, mojo.internal.Array(mojo.internal.String, false), false), null, false /* nullable */, 0),
-    mojo.internal.StructField('aggregationKeys', 104, 0, mojo.internal.Map(mojo.internal.String, mojo.internal.String, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('aggregatableBudgetConsumed', 112, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
-    mojo.internal.StructField('aggregatableDedupKeys', 120, 0, mojo.internal.Array(mojo.internal.Uint64, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('triggerConfig', 128, 0, attributionReporting_mojom_TriggerConfigSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('attributability', 136, 0, WebUISource_AttributabilitySpec.$, 0, false /* nullable */, 0),
-], [[0, 152],]);
+    mojo.internal.StructField('debug_key_$flag', 80, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "debug_key_$value",
+        originalFieldName: "debugKey",
+    }),
+    mojo.internal.StructField('debug_key_$value', 88, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "debugKey",
+    }),
+    mojo.internal.StructField('dedupKeys', 96, 0, mojo.internal.Array(mojo.internal.Uint64, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('filterData', 104, 0, attributionReporting_mojom_FilterDataSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('aggregationKeys', 112, 0, mojo.internal.Map(mojo.internal.String, mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('aggregatableBudgetConsumed', 120, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
+    mojo.internal.StructField('aggregatableDedupKeys', 128, 0, mojo.internal.Array(mojo.internal.Uint64, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('triggerDataMatching', 84, 0, attributionReporting_mojom_TriggerDataMatchingSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('eventLevelEpsilon', 136, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+    mojo.internal.StructField('debugCookieSet', 80, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('attributability', 144, 0, WebUISource_AttributabilitySpec.$, 0, false /* nullable */, 0),
+], [[0, 160],]);
 mojo.internal.Struct(WebUIRegistrationSpec.$, 'WebUIRegistration', [
     mojo.internal.StructField('time', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
     mojo.internal.StructField('contextOrigin', 8, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('reportingOrigin', 16, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('registrationJson', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('clearedDebugKey', 32, 0, attributionReporting_mojom_DebugKeySpec.$, null, true /* nullable */, 0),
-], [[0, 48],]);
+    mojo.internal.StructField('cleared_debug_key_$flag', 32, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "cleared_debug_key_$value",
+        originalFieldName: "clearedDebugKey",
+    }),
+    mojo.internal.StructField('cleared_debug_key_$value', 40, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "clearedDebugKey",
+    }),
+], [[0, 56],]);
 mojo.internal.Struct(WebUITriggerSpec.$, 'WebUITrigger', [
     mojo.internal.StructField('registration', 0, 0, WebUIRegistrationSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('verifications', 8, 0, mojo.internal.Array(network_mojom_TriggerVerificationSpec.$, false), null, false /* nullable */, 0),

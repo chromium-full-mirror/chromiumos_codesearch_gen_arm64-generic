@@ -7,6 +7,7 @@ import { StorageTypeSpec as blink_mojom_StorageTypeSpec } from './quota_types.mo
 import { TimeSpec as mojoBase_mojom_TimeSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
 export class QuotaInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -15,6 +16,9 @@ export class QuotaInternalsHandlerPendingReceiver {
     }
 }
 export class QuotaInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(QuotaInternalsHandlerPendingReceiver, handle);
@@ -51,6 +55,9 @@ export class QuotaInternalsHandlerRemote {
  * interface.
  */
 export class QuotaInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(QuotaInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -85,6 +92,16 @@ export class QuotaInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class QuotaInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getDiskAvailabilityAndTempPoolSize;
+    getStatistics;
+    simulateStoragePressure;
+    retrieveBucketsTable;
+    getGlobalUsageForInternals;
+    isSimulateStoragePressureAvailable;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(QuotaInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

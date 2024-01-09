@@ -9,18 +9,21 @@ import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { FocusOutlineManager } from 'chrome://resources/js/focus_outline_manager.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
-import { getDeepActiveElement } from 'chrome://resources/js/util_ts.js';
+import { getDeepActiveElement } from 'chrome://resources/js/util.js';
 import { getTemplate } from './app.html.js';
 import { FlagsBrowserProxyImpl } from './flags_browser_proxy.js';
 /**
  * Handles in page searching. Matches against the experiment flag name.
  */
 export class FlagSearch {
+    flagsAppElement;
+    initialized = false;
+    noMatchMsg;
+    searchIntervalId = null;
+    searchBox;
+    // Delay in ms following a keypress, before a search is made.
+    searchDebounceDelayMs = 150;
     constructor(el) {
-        this.initialized = false;
-        this.searchIntervalId = null;
-        // Delay in ms following a keypress, before a search is made.
-        this.searchDebounceDelayMs = 150;
         this.flagsAppElement = el;
         this.searchBox =
             this.flagsAppElement.getRequiredElement('#search');
@@ -138,36 +141,32 @@ export class FlagSearch {
     }
 }
 export class FlagsAppElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.announceStatusDelayMs = 100;
-        this.featuresResolver = new PromiseResolver();
-        this.flagSearch = new FlagSearch(this);
-        this.lastChanged = null;
-        // 
-        this.lastFocused = null;
-        this.restartButton = this.getRequiredElement('#experiment-restart-button');
-        // 
-        this.tabs = [
-            {
-                tabEl: this.getRequiredElement('#tab-available'),
-                panelEl: this.getRequiredElement('#tab-content-available'),
-            },
-            // 
-            {
-                tabEl: this.getRequiredElement('#tab-unavailable'),
-                panelEl: this.getRequiredElement('#tab-content-unavailable'),
-            },
-            // 
-        ];
-        // 
-    }
     static get is() {
         return 'flags-app';
     }
     static get template() {
         return getTemplate();
     }
+    announceStatusDelayMs = 100;
+    featuresResolver = new PromiseResolver();
+    flagSearch = new FlagSearch(this);
+    lastChanged = null;
+    // 
+    lastFocused = null;
+    restartButton = this.getRequiredElement('#experiment-restart-button');
+    // 
+    tabs = [
+        {
+            tabEl: this.getRequiredElement('#tab-available'),
+            panelEl: this.getRequiredElement('#tab-content-available'),
+        },
+        // 
+        {
+            tabEl: this.getRequiredElement('#tab-unavailable'),
+            panelEl: this.getRequiredElement('#tab-content-unavailable'),
+        },
+        // 
+    ];
     connectedCallback() {
         // Get and display the data upon loading.
         this.requestExperimentalFeaturesData();

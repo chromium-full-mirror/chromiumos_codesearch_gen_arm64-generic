@@ -2126,6 +2126,10 @@ class P2PDeviceProxyInterface {
       const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterGroupFormationFailureSignalHandler(
+      const base::RepeatingCallback<void(const std::string&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   static const char* P2PDeviceConfigName() { return "P2PDeviceConfig"; }
   virtual const brillo::VariantDictionary& p2_pdevice_config() const = 0;
   virtual bool is_p2_pdevice_config_valid() const = 0;
@@ -2208,6 +2212,17 @@ class P2PDeviceProxy final : public P2PDeviceProxyInterface {
         dbus_object_proxy_,
         "fi.w1.wpa_supplicant1.Interface.P2PDevice",
         "GroupFinished",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterGroupFormationFailureSignalHandler(
+      const base::RepeatingCallback<void(const std::string&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "GroupFormationFailure",
         signal_callback,
         std::move(on_connected_callback));
   }

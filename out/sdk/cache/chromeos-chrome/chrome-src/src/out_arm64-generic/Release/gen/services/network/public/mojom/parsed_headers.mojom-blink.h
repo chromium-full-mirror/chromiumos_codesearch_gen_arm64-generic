@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/parsed_headers.mojom-features.h"
 #include "services/network/public/mojom/parsed_headers.mojom-shared.h"
 #include "services/network/public/mojom/parsed_headers.mojom-blink-forward.h"
 #include "services/network/public/mojom/content_security_policy.mojom-blink.h"
@@ -47,18 +48,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::OriginAgentClusterValue>
-    : EnumHashTraits<::network::mojom::OriginAgentClusterValue, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -102,16 +91,16 @@ class BLINK_PLATFORM_EXPORT ParsedHeaders {
       const ::network::CrossOriginEmbedderPolicy& cross_origin_embedder_policy,
       const ::network::CrossOriginOpenerPolicy& cross_origin_opener_policy,
       OriginAgentClusterValue origin_agent_cluster,
-      absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch,
-      absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch,
+      std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch,
+      std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch,
       bool client_hints_ignored_due_to_clear_site_data_header,
       ::network::mojom::blink::XFrameOptionsValue xfo,
       WTF::Vector<::network::mojom::blink::LinkHeaderPtr> link_headers,
       ::network::mojom::blink::TimingAllowOriginPtr timing_allow_origin,
       WTF::Vector<::network::mojom::blink::LoadingMode> supports_loading_mode,
-      const absl::optional<WTF::HashMap<WTF::String, WTF::String>>& reporting_endpoints,
-      absl::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers,
-      absl::optional<WTF::Vector<WTF::String>> content_language,
+      const std::optional<WTF::HashMap<WTF::String, WTF::String>>& reporting_endpoints,
+      std::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers,
+      std::optional<WTF::Vector<WTF::String>> content_language,
       ::network::mojom::blink::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error,
       bool observe_browsing_topics);
 
@@ -203,9 +192,9 @@ ParsedHeaders& operator=(const ParsedHeaders&) = delete;
   
   OriginAgentClusterValue origin_agent_cluster;
   
-  absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch;
+  std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch;
   
-  absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch;
+  std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch;
   
   bool client_hints_ignored_due_to_clear_site_data_header;
   
@@ -217,11 +206,11 @@ ParsedHeaders& operator=(const ParsedHeaders&) = delete;
   
   WTF::Vector<::network::mojom::blink::LoadingMode> supports_loading_mode;
   
-  absl::optional<WTF::HashMap<WTF::String, WTF::String>> reporting_endpoints;
+  std::optional<WTF::HashMap<WTF::String, WTF::String>> reporting_endpoints;
   
-  absl::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers;
+  std::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers;
   
-  absl::optional<WTF::Vector<WTF::String>> content_language;
+  std::optional<WTF::Vector<WTF::String>> content_language;
   
   ::network::mojom::blink::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error;
   

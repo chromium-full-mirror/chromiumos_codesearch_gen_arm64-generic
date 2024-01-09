@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -48,8 +49,8 @@ struct MetricType {
   ~MetricType();
   MetricType(const MetricType&) = delete;
   MetricType& operator=(const MetricType&) = delete;
-  MetricType(MetricType&& rhs);
-  MetricType& operator=(MetricType&& rhs);
+  MetricType(MetricType&& rhs) noexcept;
+  MetricType& operator=(MetricType&& rhs) noexcept;
 
   // Populates a MetricType object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -62,15 +63,12 @@ struct MetricType {
   // Creates a deep copy of MetricType.
   MetricType Clone() const;
 
-  // Creates a MetricType object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MetricType> FromValueDeprecated(const base::Value& value);
-
   // Creates a MetricType object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MetricType> FromValue(const base::Value::Dict& value);
+  static std::optional<MetricType> FromValue(const base::Value::Dict& value);
 
   // Creates a MetricType object from a base::Value, or nullopt on failure.
-  static absl::optional<MetricType> FromValue(const base::Value& value);
+  static std::optional<MetricType> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMetricType object.
@@ -97,8 +95,8 @@ struct HistogramBucket {
   ~HistogramBucket();
   HistogramBucket(const HistogramBucket&) = delete;
   HistogramBucket& operator=(const HistogramBucket&) = delete;
-  HistogramBucket(HistogramBucket&& rhs);
-  HistogramBucket& operator=(HistogramBucket&& rhs);
+  HistogramBucket(HistogramBucket&& rhs) noexcept;
+  HistogramBucket& operator=(HistogramBucket&& rhs) noexcept;
 
   // Populates a HistogramBucket object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -111,15 +109,12 @@ struct HistogramBucket {
   // Creates a deep copy of HistogramBucket.
   HistogramBucket Clone() const;
 
-  // Creates a HistogramBucket object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HistogramBucket> FromValueDeprecated(const base::Value& value);
-
   // Creates a HistogramBucket object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HistogramBucket> FromValue(const base::Value::Dict& value);
+  static std::optional<HistogramBucket> FromValue(const base::Value::Dict& value);
 
   // Creates a HistogramBucket object from a base::Value, or nullopt on failure.
-  static absl::optional<HistogramBucket> FromValue(const base::Value& value);
+  static std::optional<HistogramBucket> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHistogramBucket object.
@@ -141,8 +136,8 @@ struct Histogram {
   ~Histogram();
   Histogram(const Histogram&) = delete;
   Histogram& operator=(const Histogram&) = delete;
-  Histogram(Histogram&& rhs);
-  Histogram& operator=(Histogram&& rhs);
+  Histogram(Histogram&& rhs) noexcept;
+  Histogram& operator=(Histogram&& rhs) noexcept;
 
   // Populates a Histogram object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -155,14 +150,11 @@ struct Histogram {
   // Creates a deep copy of Histogram.
   Histogram Clone() const;
 
-  // Creates a Histogram object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Histogram> FromValueDeprecated(const base::Value& value);
-
   // Creates a Histogram object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Histogram> FromValue(const base::Value::Dict& value);
+  static std::optional<Histogram> FromValue(const base::Value::Dict& value);
 
   // Creates a Histogram object from a base::Value, or nullopt on failure.
-  static absl::optional<Histogram> FromValue(const base::Value& value);
+  static std::optional<Histogram> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHistogram object.
@@ -184,11 +176,11 @@ struct Histogram {
 namespace GetHistogram {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Histogram name, e.g. 'Accessibility.CrosAutoclick'.
@@ -218,11 +210,11 @@ base::Value::List Create(bool is_enabled);
 namespace GetFieldTrial {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string name;
@@ -242,11 +234,11 @@ base::Value::List Create(const std::string& group);
 namespace GetVariationParams {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string name;
@@ -263,8 +255,8 @@ struct Params {
   ~Params();
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParams object.
@@ -282,11 +274,11 @@ base::Value::List Create(const Params& params);
 namespace RecordUserAction {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string name;
@@ -301,11 +293,11 @@ struct Params {
 namespace RecordPercentage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -322,11 +314,11 @@ struct Params {
 namespace RecordCount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -343,11 +335,11 @@ struct Params {
 namespace RecordSmallCount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -364,11 +356,11 @@ struct Params {
 namespace RecordMediumCount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -385,11 +377,11 @@ struct Params {
 namespace RecordTime {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -406,11 +398,11 @@ struct Params {
 namespace RecordMediumTime {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -427,11 +419,11 @@ struct Params {
 namespace RecordLongTime {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -448,11 +440,11 @@ struct Params {
 namespace RecordSparseValueWithHashMetricName {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -469,11 +461,11 @@ struct Params {
 namespace RecordSparseValueWithPersistentHash {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -490,11 +482,11 @@ struct Params {
 namespace RecordSparseValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -511,11 +503,11 @@ struct Params {
 namespace RecordValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   MetricType metric;
@@ -532,11 +524,11 @@ struct Params {
 namespace RecordBoolean {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;
@@ -553,11 +545,11 @@ struct Params {
 namespace RecordEnumerationValue {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string metric_name;

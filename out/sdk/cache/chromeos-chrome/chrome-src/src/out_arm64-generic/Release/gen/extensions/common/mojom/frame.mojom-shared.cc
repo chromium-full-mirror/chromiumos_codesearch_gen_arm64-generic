@@ -21,46 +21,6 @@
 namespace extensions {
 namespace mojom {
 
-NOINLINE static const char* ContextTypeToStringHelper(ContextType value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case ContextType::kPrivilegedExtension:
-      return "kPrivilegedExtension";
-    case ContextType::kUnprivilegedExtension:
-      return "kUnprivilegedExtension";
-    case ContextType::kContentScript:
-      return "kContentScript";
-    case ContextType::kWebPage:
-      return "kWebPage";
-    case ContextType::kPrivilegedWebPage:
-      return "kPrivilegedWebPage";
-    case ContextType::kWebUi:
-      return "kWebUi";
-    case ContextType::kUntrustedWebUi:
-      return "kUntrustedWebUi";
-    case ContextType::kLockscreenExtension:
-      return "kLockscreenExtension";
-    case ContextType::kOffscreenExtension:
-      return "kOffscreenExtension";
-    case ContextType::kUserScript:
-      return "kUserScript";
-    default:
-      return nullptr;
-  }
-}
-
-std::string ContextTypeToString(ContextType value) {
-  const char *str = ContextTypeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown ContextType value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, ContextType value) {
-  return os << ContextTypeToString(value);
-}
-
 namespace internal {
 
 
@@ -551,6 +511,107 @@ LocalFrame_UpdateBrowserWindowId_Params_Data::LocalFrame_UpdateBrowserWindowId_P
 
 
 // static
+bool LocalFrame_DispatchOnConnect_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrame_DispatchOnConnect_Params_Data* object =
+      static_cast<const LocalFrame_DispatchOnConnect_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->port_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->port_id, validation_context))
+    return false;
+
+
+  if (!::extensions::mojom::internal::ChannelType_Data
+        ::Validate(object->channel_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->channel_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& channel_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->channel_name, validation_context,
+                                         &channel_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->tab_info, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->tab_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->external_connection_info, 5, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->external_connection_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port_host, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port_host,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LocalFrame_DispatchOnConnect_Params_Data::LocalFrame_DispatchOnConnect_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrame_DispatchOnConnect_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrame_DispatchOnConnect_ResponseParams_Data* object =
+      static_cast<const LocalFrame_DispatchOnConnect_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+LocalFrame_DispatchOnConnect_ResponseParams_Data::LocalFrame_DispatchOnConnect_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool LocalFrameHost_RequestScriptInjectionPermission_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1015,16 +1076,207 @@ bool LocalFrameHost_AppWindowReady_Params_Data::Validate(
 LocalFrameHost_AppWindowReady_Params_Data::LocalFrameHost_AppWindowReady_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool LocalFrameHost_OpenChannelToExtension_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_OpenChannelToExtension_Params_Data* object =
+      static_cast<const LocalFrameHost_OpenChannelToExtension_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->info, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->info, validation_context))
+    return false;
+
+
+  if (!::extensions::mojom::internal::ChannelType_Data
+        ::Validate(object->channel_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->channel_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& channel_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->channel_name, validation_context,
+                                         &channel_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->port_id, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->port_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port, 5, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port_host, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port_host,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LocalFrameHost_OpenChannelToExtension_Params_Data::LocalFrameHost_OpenChannelToExtension_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrameHost_OpenChannelToNativeApp_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_OpenChannelToNativeApp_Params_Data* object =
+      static_cast<const LocalFrameHost_OpenChannelToNativeApp_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->native_app_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& native_app_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->native_app_name, validation_context,
+                                         &native_app_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->port_id, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->port_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port_host, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port_host,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LocalFrameHost_OpenChannelToNativeApp_Params_Data::LocalFrameHost_OpenChannelToNativeApp_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrameHost_OpenChannelToTab_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_OpenChannelToTab_Params_Data* object =
+      static_cast<const LocalFrameHost_OpenChannelToTab_Params_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& document_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->document_id, validation_context,
+                                         &document_id_validate_params)) {
+    return false;
+  }
+
+
+  if (!::extensions::mojom::internal::ChannelType_Data
+        ::Validate(object->channel_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->channel_name, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& channel_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->channel_name, validation_context,
+                                         &channel_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->port_id, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->port_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->port_host, 8, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->port_host,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LocalFrameHost_OpenChannelToTab_Params_Data::LocalFrameHost_OpenChannelToTab_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace extensions
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::extensions::mojom::ContextType>::WriteIntoTrace(
-   perfetto::TracedValue context, ::extensions::mojom::ContextType value) {
-  return std::move(context).WriteString(::extensions::mojom::ContextTypeToString(value));
-}
-
-} // namespace perfetto

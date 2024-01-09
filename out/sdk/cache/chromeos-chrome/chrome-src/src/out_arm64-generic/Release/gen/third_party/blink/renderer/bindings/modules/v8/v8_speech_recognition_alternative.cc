@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SpeechRecognitionAlternative>::value,
     "SpeechRecognitionAlternative inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SpeechRecognitionAlternative::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechRecognitionAlternative is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,10 +77,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognitionAlternative.transcript.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognitionAlternative* blink_receiver = V8SpeechRecognitionAlternative::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->transcript();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognitionAlternative* blink_receiver = V8SpeechRecognitionAlternative::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->transcript();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognitionAlternative.confidence.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognitionAlternative* blink_receiver = V8SpeechRecognitionAlternative::ToWrappableUnsafe(v8_receiver);
+SpeechRecognitionAlternative* blink_receiver = V8SpeechRecognitionAlternative::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->confidence();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

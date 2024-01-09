@@ -35,8 +35,8 @@ class BLINK_COMMON_EXPORT CookieManagerAutomationAsyncWaiter {
       std::vector<::net::CookieWithAccessResult>* out_cookies);
   std::vector<::net::CookieWithAccessResult> GetAllCookies();
   void GetNamedCookie(
-      const std::string& name, absl::optional<::net::CookieWithAccessResult>* out_cookie);
-  absl::optional<::net::CookieWithAccessResult> GetNamedCookie(const std::string& name);
+      const std::string& name, std::optional<::net::CookieWithAccessResult>* out_cookie);
+  std::optional<::net::CookieWithAccessResult> GetNamedCookie(const std::string& name);
 
  private:
   CookieManagerAutomation* const proxy_;

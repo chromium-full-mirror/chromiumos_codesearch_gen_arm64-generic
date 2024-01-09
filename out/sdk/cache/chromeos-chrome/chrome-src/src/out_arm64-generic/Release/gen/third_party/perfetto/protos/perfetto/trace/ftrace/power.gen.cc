@@ -14,6 +14,97 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 
+GpuWorkPeriodFtraceEvent::GpuWorkPeriodFtraceEvent() = default;
+GpuWorkPeriodFtraceEvent::~GpuWorkPeriodFtraceEvent() = default;
+GpuWorkPeriodFtraceEvent::GpuWorkPeriodFtraceEvent(const GpuWorkPeriodFtraceEvent&) = default;
+GpuWorkPeriodFtraceEvent& GpuWorkPeriodFtraceEvent::operator=(const GpuWorkPeriodFtraceEvent&) = default;
+GpuWorkPeriodFtraceEvent::GpuWorkPeriodFtraceEvent(GpuWorkPeriodFtraceEvent&&) noexcept = default;
+GpuWorkPeriodFtraceEvent& GpuWorkPeriodFtraceEvent::operator=(GpuWorkPeriodFtraceEvent&&) = default;
+
+bool GpuWorkPeriodFtraceEvent::operator==(const GpuWorkPeriodFtraceEvent& other) const {
+  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
+   && ::protozero::internal::gen_helpers::EqualsField(gpu_id_, other.gpu_id_)
+   && ::protozero::internal::gen_helpers::EqualsField(uid_, other.uid_)
+   && ::protozero::internal::gen_helpers::EqualsField(start_time_ns_, other.start_time_ns_)
+   && ::protozero::internal::gen_helpers::EqualsField(end_time_ns_, other.end_time_ns_)
+   && ::protozero::internal::gen_helpers::EqualsField(total_active_duration_ns_, other.total_active_duration_ns_);
+}
+
+bool GpuWorkPeriodFtraceEvent::ParseFromArray(const void* raw, size_t size) {
+  unknown_fields_.clear();
+  bool packed_error = false;
+
+  ::protozero::ProtoDecoder dec(raw, size);
+  for (auto field = dec.ReadField(); field.valid(); field = dec.ReadField()) {
+    if (field.id() < _has_field_.size()) {
+      _has_field_.set(field.id());
+    }
+    switch (field.id()) {
+      case 1 /* gpu_id */:
+        field.get(&gpu_id_);
+        break;
+      case 2 /* uid */:
+        field.get(&uid_);
+        break;
+      case 3 /* start_time_ns */:
+        field.get(&start_time_ns_);
+        break;
+      case 4 /* end_time_ns */:
+        field.get(&end_time_ns_);
+        break;
+      case 5 /* total_active_duration_ns */:
+        field.get(&total_active_duration_ns_);
+        break;
+      default:
+        field.SerializeAndAppendTo(&unknown_fields_);
+        break;
+    }
+  }
+  return !packed_error && !dec.bytes_left();
+}
+
+std::string GpuWorkPeriodFtraceEvent::SerializeAsString() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsString();
+}
+
+std::vector<uint8_t> GpuWorkPeriodFtraceEvent::SerializeAsArray() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsArray();
+}
+
+void GpuWorkPeriodFtraceEvent::Serialize(::protozero::Message* msg) const {
+  // Field 1: gpu_id
+  if (_has_field_[1]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(1, gpu_id_, msg);
+  }
+
+  // Field 2: uid
+  if (_has_field_[2]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(2, uid_, msg);
+  }
+
+  // Field 3: start_time_ns
+  if (_has_field_[3]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(3, start_time_ns_, msg);
+  }
+
+  // Field 4: end_time_ns
+  if (_has_field_[4]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(4, end_time_ns_, msg);
+  }
+
+  // Field 5: total_active_duration_ns
+  if (_has_field_[5]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(5, total_active_duration_ns_, msg);
+  }
+
+  protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
+}
+
+
 WakeupSourceDeactivateFtraceEvent::WakeupSourceDeactivateFtraceEvent() = default;
 WakeupSourceDeactivateFtraceEvent::~WakeupSourceDeactivateFtraceEvent() = default;
 WakeupSourceDeactivateFtraceEvent::WakeupSourceDeactivateFtraceEvent(const WakeupSourceDeactivateFtraceEvent&) = default;

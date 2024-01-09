@@ -8,9 +8,10 @@ const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const media_helpers_js_1 = require("../helpers/media-helpers.js");
 const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
-(0, mocha_extensions_js_1.describe)('Media Tab', () => {
+// These tests are causing emulation tests to fail
+mocha_extensions_js_1.describe.skip('[crbug.com/1501768] Media Tab', () => {
     // Skip until flake is fixed
-    mocha_extensions_js_1.it.skip('[crbug.com/1368558]: ensures video playback adds entry', async () => {
+    (0, mocha_extensions_js_1.it)('ensures video playback adds entry', async () => {
         await (0, settings_helpers_js_1.openPanelViaMoreTools)('Media');
         await (0, media_helpers_js_1.playMediaFile)('fisch.webm');
         const entryName = await (0, media_helpers_js_1.getPlayerButtonText)();

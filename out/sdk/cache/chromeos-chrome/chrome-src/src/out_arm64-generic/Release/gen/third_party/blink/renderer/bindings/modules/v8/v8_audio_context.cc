@@ -90,11 +90,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AudioContext>::value,
     "AudioContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AudioContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -115,7 +110,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextBaseLatenc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseLatency();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -138,7 +133,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextOutputLate
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->outputLatency();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -163,7 +158,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sinkId();
 if (!ToV8Traits<V8UnionAudioSinkInfoOrString>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -179,10 +174,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioContext.onsinkchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsinkchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsinkchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -195,8 +190,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsinkchange(event_handler);
 }
 
@@ -271,7 +267,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextClose);
 
 
 
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -307,7 +303,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_element = NativeValueTraits<HTMLMediaElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -336,7 +332,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextCreateMedi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AudioContext";
 const char* const property_name = "createMediaStreamDestination";
@@ -373,7 +369,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_stream = NativeValueTraits<MediaStream>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -406,7 +402,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getOutputTimestamp(script_state);
 if (!ToV8Traits<AudioTimestamp>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -441,7 +437,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextResume);
 
 
 
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -483,7 +479,7 @@ return;
 
 
 
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -525,7 +521,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAudioContextSuspend);
 
 
 
-AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(v8_receiver);
+AudioContext* blink_receiver = V8AudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

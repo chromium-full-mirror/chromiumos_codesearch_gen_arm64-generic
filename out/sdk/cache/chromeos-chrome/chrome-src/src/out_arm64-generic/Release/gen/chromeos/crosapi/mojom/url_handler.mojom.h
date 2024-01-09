@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/url_handler.mojom-features.h"
 #include "chromeos/crosapi/mojom/url_handler.mojom-shared.h"
 #include "chromeos/crosapi/mojom/url_handler.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -96,7 +97,7 @@ class UrlHandler
   virtual void OpenUrl(const ::GURL& url) = 0;
 
 
-  using GetExternalHandlerCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetExternalHandlerCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetExternalHandler(const ::GURL& url, GetExternalHandlerCallback callback) = 0;
 

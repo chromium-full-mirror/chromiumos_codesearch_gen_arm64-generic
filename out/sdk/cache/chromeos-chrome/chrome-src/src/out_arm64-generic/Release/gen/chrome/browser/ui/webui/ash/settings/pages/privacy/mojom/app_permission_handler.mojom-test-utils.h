@@ -17,6 +17,8 @@ class  AppPermissionsHandlerInterceptorForTesting : public AppPermissionsHandler
   virtual AppPermissionsHandler* GetForwardingInterface() = 0;
   void AddObserver(::mojo::PendingRemote<AppPermissionsObserver> observer) override;
   void GetApps(GetAppsCallback callback) override;
+  void OpenNativeSettings(const std::string& app_id) override;
+  void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) override;
 };
 class  AppPermissionsHandlerAsyncWaiter {
  public:

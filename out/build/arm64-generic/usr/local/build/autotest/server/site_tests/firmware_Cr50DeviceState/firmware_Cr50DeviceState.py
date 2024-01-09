@@ -22,7 +22,16 @@ class firmware_Cr50DeviceState(Cr50Test):
     """
     version = 1
 
+    # If the system boots, it should be in normal or dev mode. These are the
+    # only valid pcr0 values.
+    VALID_PCR0_VALUES = [
+            # Normal Mode
+            '89EAF35134B4B3C649F44C0C765B96AEAB8BB34EE83CC7A683C4E53D1581C8C7',
+            # Dev Mode
+            '23E14DD9BB51A50E16911F7E11DF1E1AAF0B17134DC739C5653607A1EC8DD37A',
+    ]
     DEEP_SLEEP_STEP_SUFFIX = ' Num Deep Sleep Steps'
+    BOARD_HAS_SBU_ISSUES = ['octopus']
 
     # Use negative numbers to keep track of counts not in the IRQ list. The
     # actual number don't matter too much. Just make sure deep sleep is the
@@ -171,9 +180,6 @@ class firmware_Cr50DeviceState(Cr50Test):
 
     def get_tpm_init_time(self):
         """If the AP is on, return the time it took the tpm to initialize."""
-        # The AP has to be on and have cbmem support to get `cbmem -t`.
-        if not self.gsc.ap_is_on():
-            return -1
         # The board may not support cbmem after suspend. Ignore errors on those
         # devices.
         ignore_status = not getattr(self.faft_config, 'suspend_cbmem', True)
@@ -253,6 +259,10 @@ class firmware_Cr50DeviceState(Cr50Test):
         # CCD will prevent sleep
         if self.ccd_enabled and (irq_key in self.SLEEP_KEYS or
             self.DEEP_SLEEP_STEP_SUFFIX in str(irq_key)):
+            # If the board has sbu issues, the device may enter sleep. Ignore
+            # it until the hardware is fixed.
+            if self.servo.get_board() in self.BOARD_HAS_SBU_ISSUES:
+                return self.DEFAULT_COUNTS
             return [0, 0]
         if irq_key == self.KEY_REGULAR_SLEEP:
             # If cr50_time is really low, we probably woke cr50 up using
@@ -449,7 +459,8 @@ class firmware_Cr50DeviceState(Cr50Test):
             return
         # Try a second time to see if the AP comes up.
         if not self.ap_is_on_after_power_button_press():
-            raise error.TestError('Could not wake the AP using power button')
+            raise error.TestError('Could not wake the AP using power button '
+                                  '%s' % self.try_to_get_ap_state())
         logging.warning('Had to press power button twice to wake the AP')
 
 
@@ -493,7 +504,8 @@ class firmware_Cr50DeviceState(Cr50Test):
         if target_state and not self.wait_power_state(
                 state, self.POWER_STATE_CHECK_TRIES):
             self._record_uart_capture()
-            raise error.TestFail('Platform failed to reach %s state.' % state)
+            raise error.TestFail('Platform failed to reach %s state. %s' %
+                                 (state, self.try_to_get_ap_state()))
         power_state = self.get_power_state()
         logging.info('%s: Entered %s', state, power_state)
         # If the target state is unknown, track it for logging.
@@ -559,6 +571,12 @@ class firmware_Cr50DeviceState(Cr50Test):
         # sleep_time.
         self.stage_irq_add('idle in %s' % (self._found_state or state))
 
+        # If the AP is off, the system will resume through firmware and run
+        # TPM init. Verify it doesn't take too long to initialize the TPM.
+        self.check_tpm_init = not self.gsc.ap_is_on()
+        logging.info('Check TPM init: %s',
+                     'yes' if self.check_tpm_init else 'no')
+
         # Return to S0
         self.enter_state('S0')
         self.stage_irq_add('entered S0')
@@ -570,15 +588,18 @@ class firmware_Cr50DeviceState(Cr50Test):
 
         # The DUT has already been up for 60 seconds. It should be pingable.
         if not self.host.ping_wait_up(self.faft_config.delay_reboot_to_ping):
-            raise error.TestFail('Unable to ping dut after %s resume' % state)
+            raise error.TestFail('Unable to ping dut after %s resume %s' %
+                                 (state, self.try_to_get_ap_state()))
 
         self.print_fwmp('%s resume' % state)
 
-        self.steps[-1][self.KEY_TPM_INIT] = self.get_tpm_init_time()
-        logging.info('Resume from %s tpm initialized in %dus', state,
-                      self.steps[-1][self.KEY_TPM_INIT])
+        # The AP has to be on and have cbmem support to get `cbmem -t`.
+        if self.check_tpm_init and self.gsc.ap_is_on():
+            self.steps[-1][self.KEY_TPM_INIT] = self.get_tpm_init_time()
+            logging.info('Resume from %s tpm initialized in %dus', state,
+                         self.steps[-1][self.KEY_TPM_INIT])
 
-    def print_fwmp(self, desc, initialized=True):
+    def print_fwmp(self, desc, initialized=True, check_pcr=True):
         """Print FWMP and PCR0 state for debugging."""
         result = self.host.run(
                 'cryptohome --action=get_firmware_management_parameters',
@@ -588,8 +609,14 @@ class firmware_Cr50DeviceState(Cr50Test):
         if result.exit_status and self.fwmp and initialized:
             raise error.TestFail('Error getting FWMP: %r' % result)
         result = self.host.run('trunks_client --read_pcr --index=0')
-        logging.info('PCR %r: %r', desc, result.stdout if result else None)
         self._record_uart_capture()
+        if not result:
+            return
+        pcr = result.stdout.split(':')[-1].strip()
+        logging.info('PCR %r: %r', desc, pcr)
+        if check_pcr and pcr not in self.VALID_PCR0_VALUES:
+            raise error.TestFail('%s: invalid pcr0 value. %s not found in %r' %
+                                 (desc, pcr, self.VALID_PCR0_VALUES))
 
     def verify_state(self, state):
         """Verify cr50 behavior while running through the power state"""
@@ -793,7 +820,9 @@ class firmware_Cr50DeviceState(Cr50Test):
             # value in nvmem
             self.host.run(
                     'trunks_send --raw 80 01 00 00 00 0c 00 00 01 45 00 01')
-            self.print_fwmp('Extended PCR0', initialized=False)
+            self.print_fwmp('Extended PCR0',
+                            initialized=False,
+                            check_pcr=False)
             self.host.reboot()
             self.print_fwmp('PCR0 after reboot', initialized=False)
         self.init_fwmp()

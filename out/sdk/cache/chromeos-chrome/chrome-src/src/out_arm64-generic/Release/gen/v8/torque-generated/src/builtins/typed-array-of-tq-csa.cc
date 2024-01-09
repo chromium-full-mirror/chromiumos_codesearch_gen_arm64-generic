@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-of-tq-csa.h"
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
@@ -163,7 +164,7 @@ TF_BUILTIN(TypedArrayOf, CodeStubAssembler) {
     ca_.Bind(&block7, &phi_bb7_12);
     tmp11 = CodeStubAssembler(state_).Signed(TNode<UintPtrT>{phi_bb7_12});
     tmp12 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp11});
-tmp13 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(3)).descriptor(), tmp8, parameter0, tmp4, phi_bb7_12, tmp12));
+tmp13 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(3)), tmp8, parameter0, tmp4, phi_bb7_12, tmp12));
     tmp14 = kStoreFailureArrayDetachedOrOutOfBounds_0(state_);
     tmp15 = CodeStubAssembler(state_).SmiEqual(TNode<Smi>{tmp13}, TNode<Smi>{tmp14});
     ca_.Branch(tmp15, &block12, std::vector<compiler::Node*>{phi_bb7_12, phi_bb7_12, phi_bb7_12}, &block13, std::vector<compiler::Node*>{phi_bb7_12, phi_bb7_12, phi_bb7_12});

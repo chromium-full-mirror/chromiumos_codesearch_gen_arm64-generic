@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-features.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-shared.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging_status.mojom-blink-forward.h"
@@ -41,18 +42,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PushErrorType>
-    : EnumHashTraits<::blink::mojom::PushErrorType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -370,7 +359,7 @@ class PLATFORM_EXPORT PushSubscription {
 
   PushSubscription(
       const ::blink::KURL& endpoint,
-      absl::optional<::base::Time> expirationTime,
+      std::optional<::base::Time> expirationTime,
       PushSubscriptionOptionsPtr options,
       WTF::Vector<uint8_t> p256dh,
       WTF::Vector<uint8_t> auth);
@@ -455,7 +444,7 @@ PushSubscription& operator=(const PushSubscription&) = delete;
   
   ::blink::KURL endpoint;
   
-  absl::optional<::base::Time> expirationTime;
+  std::optional<::base::Time> expirationTime;
   
   PushSubscriptionOptionsPtr options;
   

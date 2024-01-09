@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/web_request.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -369,8 +370,8 @@ RequestFilter::RequestFilter()
  {}
 
 RequestFilter::~RequestFilter() = default;
-RequestFilter::RequestFilter(RequestFilter&& rhs) = default;
-RequestFilter& RequestFilter::operator=(RequestFilter&& rhs) = default;
+RequestFilter::RequestFilter(RequestFilter&& rhs) noexcept = default;
+RequestFilter& RequestFilter::operator=(RequestFilter&& rhs) noexcept = default;
 RequestFilter RequestFilter::Clone() const {
   RequestFilter out;
   out.urls = urls;
@@ -427,7 +428,7 @@ bool RequestFilter::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -439,7 +440,7 @@ bool RequestFilter::Populate(
     {
       auto temp = (*window_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.window_id = absl::nullopt;
+        out.window_id = std::nullopt;
         return false;
       }
       out.window_id = *temp;
@@ -459,34 +460,21 @@ bool RequestFilter::Populate(
 }
 
 // static
-std::unique_ptr<RequestFilter> RequestFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestFilter> RequestFilter::FromValue(const base::Value::Dict& value) {
+  RequestFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestFilter> RequestFilter::FromValue(const base::Value::Dict& value) {
+std::optional<RequestFilter> RequestFilter::FromValue(const base::Value& value) {
   RequestFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestFilter> RequestFilter::FromValue(const base::Value& value) {
-  RequestFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -523,8 +511,8 @@ UploadData::UploadData()
  {}
 
 UploadData::~UploadData() = default;
-UploadData::UploadData(UploadData&& rhs) = default;
-UploadData& UploadData::operator=(UploadData&& rhs) = default;
+UploadData::UploadData(UploadData&& rhs) noexcept = default;
+UploadData& UploadData::operator=(UploadData&& rhs) noexcept = default;
 UploadData UploadData::Clone() const {
   UploadData out;
   if (bytes) {
@@ -549,7 +537,7 @@ bool UploadData::Populate(
     {
       auto* temp = (*file_value).GetIfString();
       if (!temp) {
-        out.file = absl::nullopt;
+        out.file = std::nullopt;
         return false;
       }
       out.file = *temp;
@@ -569,34 +557,21 @@ bool UploadData::Populate(
 }
 
 // static
-std::unique_ptr<UploadData> UploadData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UploadData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UploadData> UploadData::FromValue(const base::Value::Dict& value) {
+  UploadData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UploadData> UploadData::FromValue(const base::Value::Dict& value) {
+std::optional<UploadData> UploadData::FromValue(const base::Value& value) {
   UploadData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UploadData> UploadData::FromValue(const base::Value& value) {
-  UploadData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -621,8 +596,8 @@ FormDataItem::FormDataItem()
  {}
 
 FormDataItem::~FormDataItem() = default;
-FormDataItem::FormDataItem(FormDataItem&& rhs) = default;
-FormDataItem& FormDataItem::operator=(FormDataItem&& rhs) = default;
+FormDataItem::FormDataItem(FormDataItem&& rhs) noexcept = default;
+FormDataItem& FormDataItem::operator=(FormDataItem&& rhs) noexcept = default;
 FormDataItem FormDataItem::Clone() const {
   FormDataItem out;
   out.as_binary = as_binary;
@@ -648,7 +623,7 @@ bool FormDataItem::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -659,21 +634,11 @@ bool FormDataItem::Populate(
 }
 
 // static
-std::unique_ptr<FormDataItem> FormDataItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FormDataItem>();
-  bool result = Populate(value, *out);
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
-absl::optional<FormDataItem> FormDataItem::FromValue(const base::Value& value) {
+std::optional<FormDataItem> FormDataItem::FromValue(const base::Value& value) {
   FormDataItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -755,8 +720,8 @@ Details::RequestBody::FormData::FormData()
  {}
 
 Details::RequestBody::FormData::~FormData() = default;
-Details::RequestBody::FormData::FormData(FormData&& rhs) = default;
-Details::RequestBody::FormData& Details::RequestBody::FormData::operator=(FormData&& rhs) = default;
+Details::RequestBody::FormData::FormData(FormData&& rhs) noexcept = default;
+Details::RequestBody::FormData& Details::RequestBody::FormData::operator=(FormData&& rhs) noexcept = default;
 base::Value::Dict Details::RequestBody::FormData::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -774,8 +739,8 @@ Details::RequestBody::RequestBody()
  {}
 
 Details::RequestBody::~RequestBody() = default;
-Details::RequestBody::RequestBody(RequestBody&& rhs) = default;
-Details::RequestBody& Details::RequestBody::operator=(RequestBody&& rhs) = default;
+Details::RequestBody::RequestBody(RequestBody&& rhs) noexcept = default;
+Details::RequestBody& Details::RequestBody::operator=(RequestBody&& rhs) noexcept = default;
 base::Value::Dict Details::RequestBody::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -807,8 +772,8 @@ type(),
 time_stamp(0.0) {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -882,8 +847,8 @@ time_stamp(0.0),
 from_cache(false) {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -948,8 +913,8 @@ Details::Details()
 : action() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 

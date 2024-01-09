@@ -8,6 +8,7 @@
 #define CONTENT_PUBLIC_COMMON_DROP_DATA_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

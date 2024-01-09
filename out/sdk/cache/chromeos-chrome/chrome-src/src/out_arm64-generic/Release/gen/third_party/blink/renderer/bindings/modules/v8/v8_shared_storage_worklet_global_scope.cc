@@ -80,11 +80,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, SharedStorageWorkletGlobalScope>::value,
     "SharedStorageWorkletGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&SharedStorageWorkletGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SharedStorageWorkletGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,12 +92,12 @@ BLINK_BINDINGS_TRACE_EVENT("SharedStorageWorkletGlobalScope.sharedStorage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SharedStorageWorkletGlobalScope";
 const char* const property_name = "sharedStorage";
@@ -122,12 +117,12 @@ BLINK_BINDINGS_TRACE_EVENT("SharedStorageWorkletGlobalScope.privateAggregation.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SharedStorageWorkletGlobalScope";
 const char* const property_name = "privateAggregation";
@@ -147,12 +142,12 @@ BLINK_BINDINGS_TRACE_EVENT("SharedStorageWorkletGlobalScope.crypto.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SharedStorageWorkletGlobalScope";
 const char* const property_name = "crypto";
@@ -242,7 +237,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedStorageWorkletGlobalScope* blink_receiver = V8SharedStorageWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

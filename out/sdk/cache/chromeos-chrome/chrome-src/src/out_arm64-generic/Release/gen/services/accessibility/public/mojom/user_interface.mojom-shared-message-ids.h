@@ -16,9 +16,10 @@ namespace internal {
 
 constexpr uint32_t kUserInterface_DarkenScreen_Name = 0;
 constexpr uint32_t kUserInterface_OpenSettingsSubpage_Name = 1;
-constexpr uint32_t kUserInterface_SetFocusRings_Name = 2;
-constexpr uint32_t kUserInterface_SetHighlights_Name = 3;
-constexpr uint32_t kUserInterface_SetVirtualKeyboardVisible_Name = 4;
+constexpr uint32_t kUserInterface_ShowConfirmationDialog_Name = 2;
+constexpr uint32_t kUserInterface_SetFocusRings_Name = 3;
+constexpr uint32_t kUserInterface_SetHighlights_Name = 4;
+constexpr uint32_t kUserInterface_SetVirtualKeyboardVisible_Name = 5;
 
 }  // namespace internal
 

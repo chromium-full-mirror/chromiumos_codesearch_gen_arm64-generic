@@ -88,7 +88,8 @@ class InterpreterBuilder {
   InterpreterBuilder(const ::tflite::Model* model,
                      const OpResolver& op_resolver,
                      ErrorReporter* error_reporter = DefaultErrorReporter(),
-                     const InterpreterOptions* options_experimental = nullptr);
+                     const InterpreterOptions* options_experimental = nullptr,
+                     const Allocation* allocation = nullptr);
   ~InterpreterBuilder();
   InterpreterBuilder(const InterpreterBuilder&) = delete;
   InterpreterBuilder& operator=(const InterpreterBuilder&) = delete;
@@ -130,7 +131,7 @@ class InterpreterBuilder {
   TfLiteStatus BuildLocalIndexToRegistrationMapping();
   TfLiteStatus ParseNodes(
       const flatbuffers::Vector<flatbuffers::Offset<Operator>>* operators,
-      Subgraph* subgraph, TfLiteTelemetrySubgraphInfo* subgraph_info);
+      Subgraph* subgraph);
   TfLiteStatus ParseTensors(
       const flatbuffers::Vector<flatbuffers::Offset<Buffer>>* buffers,
       const flatbuffers::Vector<flatbuffers::Offset<Tensor>>* tensors,

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -743,7 +744,7 @@ BluetoothSdpAttribute::BluetoothSdpAttribute(
     ::bluez::BluetoothServiceAttributeValueBlueZ::Type type_in,
     uint32_t type_size_in,
     std::vector<BluetoothSdpAttributePtr> sequence_in,
-    const absl::optional<std::string>& deprecated_json_value_in)
+    const std::optional<std::string>& deprecated_json_value_in)
     : type(std::move(type_in)),
       type_size(std::move(type_size_in)),
       sequence(std::move(sequence_in)),
@@ -754,8 +755,8 @@ BluetoothSdpAttribute::BluetoothSdpAttribute(
     ::bluez::BluetoothServiceAttributeValueBlueZ::Type type_in,
     uint32_t type_size_in,
     std::vector<BluetoothSdpAttributePtr> sequence_in,
-    const absl::optional<std::string>& deprecated_json_value_in,
-    absl::optional<::base::Value> value_in)
+    const std::optional<std::string>& deprecated_json_value_in,
+    std::optional<::base::Value> value_in)
     : type(std::move(type_in)),
       type_size(std::move(type_size_in)),
       sequence(std::move(sequence_in)),
@@ -798,7 +799,7 @@ void BluetoothSdpAttribute::WriteIntoTrace(
     dict.AddItem(
       "deprecated_json_value"), this->deprecated_json_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -807,7 +808,7 @@ void BluetoothSdpAttribute::WriteIntoTrace(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Value>>"
+      "<value of type std::optional<::base::Value>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1467,14 +1468,17 @@ void RfcommListeningSocketClientProxy::OnAccepted(
                         "<value of type BluetoothRfcommConnectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRfcommListeningSocketClient_OnAccepted_Name, kFlags, 0, 0, nullptr);
@@ -1553,10 +1557,10 @@ bool RfcommListeningSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRfcommListeningSocketClientValidationInfo[] = {
-    {&internal::RfcommListeningSocketClient_OnAccepted_Params_Data::Validate,
+    { &internal::RfcommListeningSocketClient_OnAccepted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1656,14 +1660,17 @@ void RfcommConnectingSocketClientProxy::OnConnected(
                         "<value of type BluetoothRfcommConnectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRfcommConnectingSocketClient_OnConnected_Name, kFlags, 0, 0, nullptr);
@@ -1697,14 +1704,17 @@ void RfcommConnectingSocketClientProxy::OnConnectFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::RfcommConnectingSocketClient::OnConnectFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRfcommConnectingSocketClient_OnConnectFailed_Name, kFlags, 0, 0, nullptr);
@@ -1797,12 +1807,12 @@ bool RfcommConnectingSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRfcommConnectingSocketClientValidationInfo[] = {
-    {&internal::RfcommConnectingSocketClient_OnConnected_Params_Data::Validate,
+    { &internal::RfcommConnectingSocketClient_OnConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RfcommConnectingSocketClient_OnConnectFailed_Params_Data::Validate,
+    { &internal::RfcommConnectingSocketClient_OnConnectFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1882,14 +1892,17 @@ void BluetoothListenSocketClientProxy::OnAccepted(
                         "<value of type BluetoothSocketConnectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothListenSocketClient_OnAccepted_Name, kFlags, 0, 0, nullptr);
@@ -1968,10 +1981,10 @@ bool BluetoothListenSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBluetoothListenSocketClientValidationInfo[] = {
-    {&internal::BluetoothListenSocketClient_OnAccepted_Params_Data::Validate,
+    { &internal::BluetoothListenSocketClient_OnAccepted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2071,14 +2084,17 @@ void BluetoothConnectSocketClientProxy::OnConnected(
                         "<value of type BluetoothSocketConnectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothConnectSocketClient_OnConnected_Name, kFlags, 0, 0, nullptr);
@@ -2112,14 +2128,17 @@ void BluetoothConnectSocketClientProxy::OnConnectFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothConnectSocketClient::OnConnectFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothConnectSocketClient_OnConnectFailed_Name, kFlags, 0, 0, nullptr);
@@ -2212,12 +2231,12 @@ bool BluetoothConnectSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBluetoothConnectSocketClientValidationInfo[] = {
-    {&internal::BluetoothConnectSocketClient_OnConnected_Params_Data::Validate,
+    { &internal::BluetoothConnectSocketClient_OnConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothConnectSocketClient_OnConnectFailed_Params_Data::Validate,
+    { &internal::BluetoothConnectSocketClient_OnConnectFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3486,14 +3505,17 @@ void BluetoothHostProxy::EnableAdapter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::EnableAdapter");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_EnableAdapter_Name, kFlags, 0, 0, nullptr);
@@ -3517,14 +3539,17 @@ void BluetoothHostProxy::DisableAdapter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::DisableAdapter");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DisableAdapter_Name, kFlags, 0, 0, nullptr);
@@ -3555,14 +3580,17 @@ void BluetoothHostProxy::GetAdapterProperty(
                         "<value of type BluetoothPropertyType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_GetAdapterProperty_Name, kFlags, 0, 0, nullptr);
@@ -3594,14 +3622,17 @@ void BluetoothHostProxy::SetAdapterProperty(
                         "<value of type BluetoothPropertyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_SetAdapterProperty_Name, kFlags, 0, 0, nullptr);
@@ -3633,14 +3664,17 @@ void BluetoothHostProxy::StartDiscovery(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::StartDiscovery");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StartDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -3663,14 +3697,17 @@ void BluetoothHostProxy::CancelDiscovery(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::CancelDiscovery");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_CancelDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -3703,14 +3740,17 @@ void BluetoothHostProxy::CreateBond(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_CreateBond_Name, kFlags, 0, 0, nullptr);
@@ -3752,14 +3792,17 @@ void BluetoothHostProxy::RemoveBond(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_RemoveBond_Name, kFlags, 0, 0, nullptr);
@@ -3800,14 +3843,17 @@ void BluetoothHostProxy::CancelBond(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_CancelBond_Name, kFlags, 0, 0, nullptr);
@@ -3848,14 +3894,17 @@ void BluetoothHostProxy::GetConnectionState(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_GetConnectionState_Name, kFlags, 0, 0, nullptr);
@@ -3890,14 +3939,17 @@ void BluetoothHostProxy::StartLEScan(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::StartLEScan");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StartLEScan_Name, kFlags, 0, 0, nullptr);
@@ -3920,14 +3972,17 @@ void BluetoothHostProxy::StopLEScan(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::StopLEScan");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StopLEScan_Name, kFlags, 0, 0, nullptr);
@@ -3957,14 +4012,17 @@ void BluetoothHostProxy::ConnectLEDevice(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ConnectLEDevice_Name, kFlags, 0, 0, nullptr);
@@ -4005,14 +4063,17 @@ void BluetoothHostProxy::DisconnectLEDevice(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DisconnectLEDevice_Name, kFlags, 0, 0, nullptr);
@@ -4053,14 +4114,17 @@ void BluetoothHostProxy::SearchService(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_SearchService_Name, kFlags, 0, 0, nullptr);
@@ -4101,14 +4165,17 @@ void BluetoothHostProxy::GetGattDB(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_GetGattDB_Name, kFlags, 0, 0, nullptr);
@@ -4155,14 +4222,17 @@ void BluetoothHostProxy::ReadGattCharacteristic(
                         "<value of type BluetoothGattIDPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadGattCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -4238,14 +4308,17 @@ void BluetoothHostProxy::WriteGattCharacteristic(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_WriteGattCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -4330,14 +4403,17 @@ void BluetoothHostProxy::ReadGattDescriptor(
                         "<value of type BluetoothGattIDPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadGattDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -4424,14 +4500,17 @@ void BluetoothHostProxy::WriteGattDescriptor(
                         "<value of type BluetoothGattValuePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_WriteGattDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -4520,14 +4599,17 @@ void BluetoothHostProxy::ExecuteWrite(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ExecuteWrite_Name, kFlags, 0, 0, nullptr);
@@ -4576,14 +4658,17 @@ void BluetoothHostProxy::RegisterForGattNotification(
                         "<value of type BluetoothGattIDPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_RegisterForGattNotification_Name, kFlags, 0, 0, nullptr);
@@ -4653,14 +4738,17 @@ void BluetoothHostProxy::DeregisterForGattNotification(
                         "<value of type BluetoothGattIDPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DeregisterForGattNotification_Name, kFlags, 0, 0, nullptr);
@@ -4724,14 +4812,17 @@ void BluetoothHostProxy::ReadRemoteRssi(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadRemoteRssi_Name, kFlags, 0, 0, nullptr);
@@ -4776,14 +4867,17 @@ void BluetoothHostProxy::AddService(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddService_Name, kFlags, 0, 0, nullptr);
@@ -4835,14 +4929,17 @@ void BluetoothHostProxy::AddCharacteristic(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -4893,14 +4990,17 @@ void BluetoothHostProxy::AddDescriptor(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -4944,14 +5044,17 @@ void BluetoothHostProxy::StartService(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StartService_Name, kFlags, 0, 0, nullptr);
@@ -4983,14 +5086,17 @@ void BluetoothHostProxy::StopService(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StopService_Name, kFlags, 0, 0, nullptr);
@@ -5022,14 +5128,17 @@ void BluetoothHostProxy::DeleteService(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DeleteService_Name, kFlags, 0, 0, nullptr);
@@ -5070,14 +5179,17 @@ void BluetoothHostProxy::SendIndication(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_SendIndication_Name, kFlags, 0, 0, nullptr);
@@ -5137,14 +5249,17 @@ void BluetoothHostProxy::GetSdpRecords(
                         "<value of type const ::device::BluetoothUUID&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_GetSdpRecords_Name, kFlags, 0, 0, nullptr);
@@ -5196,14 +5311,17 @@ void BluetoothHostProxy::CreateSdpRecord(
                         "<value of type BluetoothSdpRecordPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_CreateSdpRecord_Name, kFlags, 0, 0, nullptr);
@@ -5245,14 +5363,17 @@ void BluetoothHostProxy::RemoveSdpRecord(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_RemoveSdpRecord_Name, kFlags, 0, 0, nullptr);
@@ -5277,14 +5398,17 @@ void BluetoothHostProxy::ReserveAdvertisementHandle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::BluetoothHost::ReserveAdvertisementHandle");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReserveAdvertisementHandle_Name, kFlags, 0, 0, nullptr);
@@ -5318,14 +5442,17 @@ void BluetoothHostProxy::EnableAdvertisement(
                         "<value of type ::std::unique_ptr<::device::BluetoothAdvertisement::Data>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_EnableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -5368,14 +5495,17 @@ void BluetoothHostProxy::ReleaseAdvertisementHandle(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReleaseAdvertisementHandle_Name, kFlags, 0, 0, nullptr);
@@ -5407,14 +5537,17 @@ void BluetoothHostProxy::DisableAdvertisement(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DisableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -5452,14 +5585,17 @@ void BluetoothHostProxy::BluetoothSocketListen(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_BluetoothSocketListen_Name, kFlags, 0, 0, nullptr);
@@ -5513,14 +5649,17 @@ void BluetoothHostProxy::BluetoothSocketConnect(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_BluetoothSocketConnect_Name, kFlags, 0, 0, nullptr);
@@ -5655,7 +5794,8 @@ void BluetoothHost_EnableAdapter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_EnableAdapter_Name, kFlags, 0, 0, nullptr);
@@ -5774,7 +5914,8 @@ void BluetoothHost_DisableAdapter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DisableAdapter_Name, kFlags, 0, 0, nullptr);
@@ -5893,7 +6034,8 @@ void BluetoothHost_GetConnectionState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_GetConnectionState_Name, kFlags, 0, 0, nullptr);
@@ -6011,7 +6153,8 @@ void BluetoothHost_ReadGattCharacteristic_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadGattCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -6139,7 +6282,8 @@ void BluetoothHost_WriteGattCharacteristic_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_WriteGattCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -6258,7 +6402,8 @@ void BluetoothHost_ReadGattDescriptor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadGattDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -6386,7 +6531,8 @@ void BluetoothHost_WriteGattDescriptor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_WriteGattDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -6505,7 +6651,8 @@ void BluetoothHost_ExecuteWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ExecuteWrite_Name, kFlags, 0, 0, nullptr);
@@ -6624,7 +6771,8 @@ void BluetoothHost_RegisterForGattNotification_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_RegisterForGattNotification_Name, kFlags, 0, 0, nullptr);
@@ -6743,7 +6891,8 @@ void BluetoothHost_DeregisterForGattNotification_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DeregisterForGattNotification_Name, kFlags, 0, 0, nullptr);
@@ -6862,7 +7011,8 @@ void BluetoothHost_ReadRemoteRssi_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReadRemoteRssi_Name, kFlags, 0, 0, nullptr);
@@ -6980,7 +7130,8 @@ void BluetoothHost_AddService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddService_Name, kFlags, 0, 0, nullptr);
@@ -7098,7 +7249,8 @@ void BluetoothHost_AddCharacteristic_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -7216,7 +7368,8 @@ void BluetoothHost_AddDescriptor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_AddDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -7334,7 +7487,8 @@ void BluetoothHost_StartService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StartService_Name, kFlags, 0, 0, nullptr);
@@ -7453,7 +7607,8 @@ void BluetoothHost_StopService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_StopService_Name, kFlags, 0, 0, nullptr);
@@ -7572,7 +7727,8 @@ void BluetoothHost_DeleteService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DeleteService_Name, kFlags, 0, 0, nullptr);
@@ -7691,7 +7847,8 @@ void BluetoothHost_SendIndication_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_SendIndication_Name, kFlags, 0, 0, nullptr);
@@ -7810,7 +7967,8 @@ void BluetoothHost_CreateSdpRecord_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_CreateSdpRecord_Name, kFlags, 0, 0, nullptr);
@@ -7938,7 +8096,8 @@ void BluetoothHost_RemoveSdpRecord_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_RemoveSdpRecord_Name, kFlags, 0, 0, nullptr);
@@ -8064,7 +8223,8 @@ void BluetoothHost_ReserveAdvertisementHandle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReserveAdvertisementHandle_Name, kFlags, 0, 0, nullptr);
@@ -8184,7 +8344,8 @@ void BluetoothHost_EnableAdvertisement_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_EnableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -8303,7 +8464,8 @@ void BluetoothHost_ReleaseAdvertisementHandle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_ReleaseAdvertisementHandle_Name, kFlags, 0, 0, nullptr);
@@ -8422,7 +8584,8 @@ void BluetoothHost_DisableAdvertisement_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_DisableAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -8557,7 +8720,8 @@ void BluetoothHost_BluetoothSocketListen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_BluetoothSocketListen_Name, kFlags, 0, 0, nullptr);
@@ -8688,7 +8852,8 @@ void BluetoothHost_BluetoothSocketConnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothHost_BluetoothSocketConnect_Name, kFlags, 0, 0, nullptr);
@@ -10089,97 +10254,97 @@ std::move(p_remote_port), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBluetoothHostValidationInfo[] = {
-    {&internal::BluetoothHost_EnableAdapter_Params_Data::Validate,
+    { &internal::BluetoothHost_EnableAdapter_Params_Data::Validate,
      &internal::BluetoothHost_EnableAdapter_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_DisableAdapter_Params_Data::Validate,
+    { &internal::BluetoothHost_DisableAdapter_Params_Data::Validate,
      &internal::BluetoothHost_DisableAdapter_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_GetAdapterProperty_Params_Data::Validate,
+    { &internal::BluetoothHost_GetAdapterProperty_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_SetAdapterProperty_Params_Data::Validate,
+    { &internal::BluetoothHost_SetAdapterProperty_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothHost_StartDiscovery_Params_Data::Validate,
+    { &internal::BluetoothHost_StartDiscovery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_CancelDiscovery_Params_Data::Validate,
+    { &internal::BluetoothHost_CancelDiscovery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_CreateBond_Params_Data::Validate,
+    { &internal::BluetoothHost_CreateBond_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_RemoveBond_Params_Data::Validate,
+    { &internal::BluetoothHost_RemoveBond_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_CancelBond_Params_Data::Validate,
+    { &internal::BluetoothHost_CancelBond_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_GetConnectionState_Params_Data::Validate,
+    { &internal::BluetoothHost_GetConnectionState_Params_Data::Validate,
      &internal::BluetoothHost_GetConnectionState_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_StartLEScan_Params_Data::Validate,
+    { &internal::BluetoothHost_StartLEScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_StopLEScan_Params_Data::Validate,
+    { &internal::BluetoothHost_StopLEScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_ConnectLEDevice_Params_Data::Validate,
+    { &internal::BluetoothHost_ConnectLEDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_DisconnectLEDevice_Params_Data::Validate,
+    { &internal::BluetoothHost_DisconnectLEDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_SearchService_Params_Data::Validate,
+    { &internal::BluetoothHost_SearchService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_GetGattDB_Params_Data::Validate,
+    { &internal::BluetoothHost_GetGattDB_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothHost_ReadGattCharacteristic_Params_Data::Validate,
+    { &internal::BluetoothHost_ReadGattCharacteristic_Params_Data::Validate,
      &internal::BluetoothHost_ReadGattCharacteristic_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_WriteGattCharacteristic_Params_Data::Validate,
+    { &internal::BluetoothHost_WriteGattCharacteristic_Params_Data::Validate,
      &internal::BluetoothHost_WriteGattCharacteristic_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_ReadGattDescriptor_Params_Data::Validate,
+    { &internal::BluetoothHost_ReadGattDescriptor_Params_Data::Validate,
      &internal::BluetoothHost_ReadGattDescriptor_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_WriteGattDescriptor_Params_Data::Validate,
+    { &internal::BluetoothHost_WriteGattDescriptor_Params_Data::Validate,
      &internal::BluetoothHost_WriteGattDescriptor_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_RegisterForGattNotification_Params_Data::Validate,
+    { &internal::BluetoothHost_RegisterForGattNotification_Params_Data::Validate,
      &internal::BluetoothHost_RegisterForGattNotification_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_DeregisterForGattNotification_Params_Data::Validate,
+    { &internal::BluetoothHost_DeregisterForGattNotification_Params_Data::Validate,
      &internal::BluetoothHost_DeregisterForGattNotification_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_ReadRemoteRssi_Params_Data::Validate,
+    { &internal::BluetoothHost_ReadRemoteRssi_Params_Data::Validate,
      &internal::BluetoothHost_ReadRemoteRssi_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothHost_AddService_Params_Data::Validate,
+    { &internal::BluetoothHost_AddService_Params_Data::Validate,
      &internal::BluetoothHost_AddService_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_AddCharacteristic_Params_Data::Validate,
+    { &internal::BluetoothHost_AddCharacteristic_Params_Data::Validate,
      &internal::BluetoothHost_AddCharacteristic_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_AddDescriptor_Params_Data::Validate,
+    { &internal::BluetoothHost_AddDescriptor_Params_Data::Validate,
      &internal::BluetoothHost_AddDescriptor_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_StartService_Params_Data::Validate,
+    { &internal::BluetoothHost_StartService_Params_Data::Validate,
      &internal::BluetoothHost_StartService_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_StopService_Params_Data::Validate,
+    { &internal::BluetoothHost_StopService_Params_Data::Validate,
      &internal::BluetoothHost_StopService_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_DeleteService_Params_Data::Validate,
+    { &internal::BluetoothHost_DeleteService_Params_Data::Validate,
      &internal::BluetoothHost_DeleteService_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_SendIndication_Params_Data::Validate,
+    { &internal::BluetoothHost_SendIndication_Params_Data::Validate,
      &internal::BluetoothHost_SendIndication_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_GetSdpRecords_Params_Data::Validate,
+    { &internal::BluetoothHost_GetSdpRecords_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothHost_CreateSdpRecord_Params_Data::Validate,
+    { &internal::BluetoothHost_CreateSdpRecord_Params_Data::Validate,
      &internal::BluetoothHost_CreateSdpRecord_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_RemoveSdpRecord_Params_Data::Validate,
+    { &internal::BluetoothHost_RemoveSdpRecord_Params_Data::Validate,
      &internal::BluetoothHost_RemoveSdpRecord_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_ReserveAdvertisementHandle_Params_Data::Validate,
+    { &internal::BluetoothHost_ReserveAdvertisementHandle_Params_Data::Validate,
      &internal::BluetoothHost_ReserveAdvertisementHandle_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_EnableAdvertisement_Params_Data::Validate,
+    { &internal::BluetoothHost_EnableAdvertisement_Params_Data::Validate,
      &internal::BluetoothHost_EnableAdvertisement_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_ReleaseAdvertisementHandle_Params_Data::Validate,
+    { &internal::BluetoothHost_ReleaseAdvertisementHandle_Params_Data::Validate,
      &internal::BluetoothHost_ReleaseAdvertisementHandle_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_DisableAdvertisement_Params_Data::Validate,
+    { &internal::BluetoothHost_DisableAdvertisement_Params_Data::Validate,
      &internal::BluetoothHost_DisableAdvertisement_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_ExecuteWrite_Params_Data::Validate,
+    { &internal::BluetoothHost_ExecuteWrite_Params_Data::Validate,
      &internal::BluetoothHost_ExecuteWrite_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothHost_BluetoothSocketListen_Params_Data::Validate,
+    { &internal::BluetoothHost_BluetoothSocketListen_Params_Data::Validate,
      &internal::BluetoothHost_BluetoothSocketListen_ResponseParams_Data::Validate},
-    {&internal::BluetoothHost_BluetoothSocketConnect_Params_Data::Validate,
+    { &internal::BluetoothHost_BluetoothSocketConnect_Params_Data::Validate,
      &internal::BluetoothHost_BluetoothSocketConnect_ResponseParams_Data::Validate},
 };
 
@@ -10687,14 +10852,17 @@ void BluetoothInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<BluetoothHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -10734,14 +10902,17 @@ void BluetoothInstanceProxy::OnAdapterProperties(
                         "<value of type std::vector<BluetoothPropertyPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnAdapterProperties_Name, kFlags, 0, 0, nullptr);
@@ -10786,14 +10957,17 @@ void BluetoothInstanceProxy::OnDeviceFound(
                         "<value of type std::vector<BluetoothPropertyPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnDeviceFound_Name, kFlags, 0, 0, nullptr);
@@ -10839,14 +11013,17 @@ void BluetoothInstanceProxy::OnDevicePropertiesChanged(
                         "<value of type std::vector<BluetoothPropertyPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnDevicePropertiesChanged_Name, kFlags, 0, 0, nullptr);
@@ -10900,14 +11077,17 @@ void BluetoothInstanceProxy::OnDiscoveryStateChanged(
                         "<value of type BluetoothDiscoveryState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnDiscoveryStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -10945,14 +11125,17 @@ void BluetoothInstanceProxy::OnBondStateChanged(
                         "<value of type BluetoothBondState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnBondStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -11003,14 +11186,17 @@ void BluetoothInstanceProxy::OnConnectionStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -11060,14 +11246,17 @@ void BluetoothInstanceProxy::OnLEDeviceFound(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnLEDeviceFound_Name, kFlags, 0, 0, nullptr);
@@ -11125,14 +11314,17 @@ void BluetoothInstanceProxy::OnLEConnectionStateChange(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnLEConnectionStateChange_Name, kFlags, 0, 0, nullptr);
@@ -11177,14 +11369,17 @@ void BluetoothInstanceProxy::OnLEDeviceAddressChange(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnLEDeviceAddressChange_Name, kFlags, 0, 0, nullptr);
@@ -11239,14 +11434,17 @@ void BluetoothInstanceProxy::OnSearchComplete(
                         "<value of type BluetoothGattStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnSearchComplete_Name, kFlags, 0, 0, nullptr);
@@ -11292,14 +11490,17 @@ void BluetoothInstanceProxy::OnGetGattDB(
                         "<value of type std::vector<BluetoothGattDBElementPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnGetGattDB_Name, kFlags, 0, 0, nullptr);
@@ -11365,14 +11566,17 @@ void BluetoothInstanceProxy::OnGattNotify(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnGattNotify_Name, kFlags, 0, 0, nullptr);
@@ -11449,14 +11653,17 @@ void BluetoothInstanceProxy::OnServiceChanged(
                         "<value of type BluetoothAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnServiceChanged_Name, kFlags, 0, 0, nullptr);
@@ -11509,14 +11716,17 @@ void BluetoothInstanceProxy::RequestGattRead(
                         "<value of type BluetoothGattDBAttributeType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattRead_Name, kFlags, 0, 0, nullptr);
@@ -11578,14 +11788,17 @@ void BluetoothInstanceProxy::RequestGattWrite(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattWrite_Name, kFlags, 0, 0, nullptr);
@@ -11648,14 +11861,17 @@ void BluetoothInstanceProxy::RequestGattExecuteWrite(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattExecuteWrite_Name, kFlags, 0, 0, nullptr);
@@ -11701,14 +11917,17 @@ void BluetoothInstanceProxy::OnMTUReceived(
                         "<value of type uint16_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnMTUReceived_Name, kFlags, 0, 0, nullptr);
@@ -11759,14 +11978,17 @@ void BluetoothInstanceProxy::OnGetSdpRecords(
                         "<value of type std::vector<BluetoothSdpRecordPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_OnGetSdpRecords_Name, kFlags, 0, 0, nullptr);
@@ -11901,7 +12123,8 @@ void BluetoothInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -12025,7 +12248,8 @@ void BluetoothInstance_RequestGattRead_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattRead_Name, kFlags, 0, 0, nullptr);
@@ -12157,7 +12381,8 @@ void BluetoothInstance_RequestGattWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattWrite_Name, kFlags, 0, 0, nullptr);
@@ -12276,7 +12501,8 @@ void BluetoothInstance_RequestGattExecuteWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInstance_RequestGattExecuteWrite_Name, kFlags, 0, 0, nullptr);
@@ -13010,52 +13236,52 @@ std::move(p_execute), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBluetoothInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothInstance_OnAdapterProperties_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnAdapterProperties_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothInstance_OnDeviceFound_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnDeviceFound_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnDiscoveryStateChanged_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnDiscoveryStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnBondStateChanged_Params_Data::Validate,
-     nullptr /* no response */},
-    {nullptr, nullptr},  // nonexistent
-    {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothInstance_OnLEConnectionStateChange_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::BluetoothInstance_OnSearchComplete_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::BluetoothInstance_OnGetGattDB_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnBondStateChanged_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::BluetoothInstance_OnGattNotify_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnLEConnectionStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_RequestGattRead_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnSearchComplete_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::BluetoothInstance_OnGetGattDB_Params_Data::Validate,
+     nullptr /* no response */},
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
+    { &internal::BluetoothInstance_OnGattNotify_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::BluetoothInstance_RequestGattRead_Params_Data::Validate,
      &internal::BluetoothInstance_RequestGattRead_ResponseParams_Data::Validate},
-    {&internal::BluetoothInstance_RequestGattWrite_Params_Data::Validate,
+    { &internal::BluetoothInstance_RequestGattWrite_Params_Data::Validate,
      &internal::BluetoothInstance_RequestGattWrite_ResponseParams_Data::Validate},
-    {&internal::BluetoothInstance_OnLEDeviceAddressChange_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnLEDeviceAddressChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnGetSdpRecords_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnGetSdpRecords_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_Init_Params_Data::Validate,
+    { &internal::BluetoothInstance_Init_Params_Data::Validate,
      &internal::BluetoothInstance_Init_ResponseParams_Data::Validate},
-    {&internal::BluetoothInstance_OnMTUReceived_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnMTUReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_RequestGattExecuteWrite_Params_Data::Validate,
+    { &internal::BluetoothInstance_RequestGattExecuteWrite_Params_Data::Validate,
      &internal::BluetoothInstance_RequestGattExecuteWrite_ResponseParams_Data::Validate},
-    {&internal::BluetoothInstance_OnLEDeviceFound_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnLEDeviceFound_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnDevicePropertiesChanged_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnDevicePropertiesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnConnectionStateChanged_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnConnectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BluetoothInstance_OnServiceChanged_Params_Data::Validate,
+    { &internal::BluetoothInstance_OnServiceChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

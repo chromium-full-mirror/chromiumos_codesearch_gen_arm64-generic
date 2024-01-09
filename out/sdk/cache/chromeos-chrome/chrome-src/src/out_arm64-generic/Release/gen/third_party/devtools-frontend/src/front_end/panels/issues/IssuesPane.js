@@ -6,12 +6,13 @@ import * as i18n from '../../core/i18n/i18n.js';
 import * as IssuesManager from '../../models/issues_manager/issues_manager.js';
 import * as IssueCounter from '../../ui/components/issue_counter/issue_counter.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { HiddenIssuesRow } from './HiddenIssuesRow.js';
+import { IssueAggregator, } from './IssueAggregator.js';
+import { getGroupIssuesByKindSetting, IssueKindView, issueKindViewSortPriority } from './IssueKindView.js';
 import issuesPaneStyles from './issuesPane.css.js';
 import issuesTreeStyles from './issuesTree.css.js';
-import { IssueAggregator, } from './IssueAggregator.js';
 import { IssueView } from './IssueView.js';
-import { IssueKindView, getGroupIssuesByKindSetting, issueKindViewSortPriority } from './IssueKindView.js';
 const UIStrings = {
     /**
      * @description Category title for a group of cross origin embedder policy (COEP) issues
@@ -149,7 +150,6 @@ class IssueCategoryView extends UI.TreeOutline.TreeElement {
 export function getGroupIssuesByCategorySetting() {
     return Common.Settings.Settings.instance().createSetting('groupIssuesByCategory', false);
 }
-let issuesPaneInstance;
 export class IssuesPane extends UI.Widget.VBox {
     #categoryViews;
     #issueViews;
@@ -163,6 +163,7 @@ export class IssuesPane extends UI.Widget.VBox {
     #issueViewUpdatePromise = Promise.resolve();
     constructor() {
         super(true);
+        this.element.setAttribute('jslog', `${VisualLogging.panel().context('issues')}`);
         this.contentElement.classList.add('issues-pane');
         this.#categoryViews = new Map();
         this.#kindViews = new Map();
@@ -185,13 +186,6 @@ export class IssuesPane extends UI.Widget.VBox {
         this.#hiddenIssuesRow.hidden = this.#issuesManager.numberOfHiddenIssues() === 0;
         this.#onFullUpdate();
         this.#issuesManager.addEventListener("IssuesCountUpdated" /* IssuesManager.IssuesManager.Events.IssuesCountUpdated */, this.#updateCounts, this);
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!issuesPaneInstance || forceNew) {
-            issuesPaneInstance = new IssuesPane();
-        }
-        return issuesPaneInstance;
     }
     elementsToRestoreScrollPositionsFor() {
         return [this.#issuesTree.element];

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSScopeRule>::value,
     "CSSScopeRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSScopeRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSScopeRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSScopeRule.start.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSScopeRule* blink_receiver = V8CSSScopeRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->start();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSScopeRule* blink_receiver = V8CSSScopeRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->start();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSScopeRule.end.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSScopeRule* blink_receiver = V8CSSScopeRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->end();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSScopeRule* blink_receiver = V8CSSScopeRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->end();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 

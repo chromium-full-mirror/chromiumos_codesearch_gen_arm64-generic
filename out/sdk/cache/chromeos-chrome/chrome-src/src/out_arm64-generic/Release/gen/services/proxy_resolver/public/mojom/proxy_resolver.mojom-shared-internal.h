@@ -64,7 +64,7 @@ class  ProxyInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::ProxyServer_Data>>> proxy_servers;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data>>> proxy_chains;
 
  private:
   friend class mojo::internal::MessageFragment<ProxyInfo_Data>;

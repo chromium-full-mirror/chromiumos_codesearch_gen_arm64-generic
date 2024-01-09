@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ResizeObserver>::value,
     "ResizeObserver does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ResizeObserver::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ResizeObserver is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -135,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("ResizeObserver.disconnect");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(v8_receiver);
+ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -159,7 +155,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(v8_receiver);
+ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -190,7 +186,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(v8_receiver);
+ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -247,7 +243,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(v8_receiver);
+ResizeObserver* blink_receiver = V8ResizeObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -1,15 +1,16 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/auth_factor.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/fido.proto
+// /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/recoverable_key_store.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/key.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/rpc.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/UserDataAuth.proto
@@ -25,6 +26,7 @@
 
 #include "cryptohome/common/print_auth_factor_proto.h"
 #include "cryptohome/common/print_fido_proto.h"
+#include "cryptohome/common/print_recoverable_key_store_proto.h"
 #include "cryptohome/common/print_rpc_proto.h"
 
 namespace user_data_auth {
@@ -472,33 +474,58 @@ std::string GetProtoDebugStringWithIndent(const CryptohomeErrorInfo& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error_id: ";
-  base::StringAppendF(&output, "%s", value.error_id().c_str());
-  output += "\n";
-
-  output += indent + "  readable_error_id: ";
-  base::StringAppendF(&output, "%s", value.readable_error_id().c_str());
-  output += "\n";
-
-  output += indent + "  primary_action: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.primary_action(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_id(); }) {
+      if (!value.has_error_id()) {
+        return;
+      }
+    }
+    output += indent + "  error_id: ";
+    base::StringAppendF(&output, "%s", value.error_id().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_readable_error_id(); }) {
+      if (!value.has_readable_error_id()) {
+        return;
+      }
+    }
+    output += indent + "  readable_error_id: ";
+    base::StringAppendF(&output, "%s", value.readable_error_id().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_primary_action(); }) {
+      if (!value.has_primary_action()) {
+        return;
+      }
+    }
+    output += indent + "  primary_action: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.primary_action(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  possible_actions: {";
   for (int i = 0; i < value.possible_actions_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(value.possible_actions(i),
-                                                      indent_size + 2)
+                                                      indent_size + 4)
                             .c_str());
+    if (i == value.possible_actions_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -512,11 +539,18 @@ std::string GetProtoDebugStringWithIndent(const IsMountedRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  username: ";
-  base::StringAppendF(&output, "%s", value.username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_username(); }) {
+      if (!value.has_username()) {
+        return;
+      }
+    }
+    output += indent + "  username: ";
+    base::StringAppendF(&output, "%s", value.username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -530,16 +564,30 @@ std::string GetProtoDebugStringWithIndent(const IsMountedReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  is_mounted: ";
-  base::StringAppendF(&output, "%s", value.is_mounted() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  is_ephemeral_mount: ";
-  base::StringAppendF(&output, "%s",
-                      value.is_ephemeral_mount() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_is_mounted(); }) {
+      if (!value.has_is_mounted()) {
+        return;
+      }
+    }
+    output += indent + "  is_mounted: ";
+    base::StringAppendF(&output, "%s", value.is_mounted() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_is_ephemeral_mount(); }) {
+      if (!value.has_is_ephemeral_mount()) {
+        return;
+      }
+    }
+    output += indent + "  is_ephemeral_mount: ";
+    base::StringAppendF(&output, "%s",
+                        value.is_ephemeral_mount() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -553,20 +601,34 @@ std::string GetProtoDebugStringWithIndent(const EvictDeviceKeyReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -580,11 +642,18 @@ std::string GetProtoDebugStringWithIndent(const EvictDeviceKeyRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  eviction_id: ";
-  base::StringAppendF(&output, "%" PRId64, value.eviction_id());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_eviction_id(); }) {
+      if (!value.has_eviction_id()) {
+        return;
+      }
+    }
+    output += indent + "  eviction_id: ";
+    base::StringAppendF(&output, "%" PRId64, value.eviction_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -598,14 +667,21 @@ std::string GetProtoDebugStringWithIndent(const RestoreDeviceKeyRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -619,20 +695,34 @@ std::string GetProtoDebugStringWithIndent(const RestoreDeviceKeyReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -646,7 +736,7 @@ std::string GetProtoDebugStringWithIndent(const UnmountRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -660,20 +750,34 @@ std::string GetProtoDebugStringWithIndent(const UnmountReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -687,21 +791,35 @@ std::string GetProtoDebugStringWithIndent(const RemoveRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  identifier: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.identifier(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_identifier(); }) {
+      if (!value.has_identifier()) {
+        return;
+      }
+    }
+    output += indent + "  identifier: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.identifier(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -715,73 +833,34 @@ std::string GetProtoDebugStringWithIndent(const RemoveReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const CheckKeyRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  authorization_request: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.authorization_request(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  unlock_webauthn_secret: ";
-  base::StringAppendF(&output, "%s",
-                      value.unlock_webauthn_secret() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const CheckKeyReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckKeyReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -797,14 +876,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -819,13 +905,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -840,7 +933,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -855,13 +948,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -875,14 +975,21 @@ std::string GetProtoDebugStringWithIndent(const GetWebAuthnSecretRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -896,20 +1003,34 @@ std::string GetProtoDebugStringWithIndent(const GetWebAuthnSecretReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  webauthn_secret: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.webauthn_secret().data(),
-                                      value.webauthn_secret().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_webauthn_secret(); }) {
+      if (!value.has_webauthn_secret()) {
+        return;
+      }
+    }
+    output += indent + "  webauthn_secret: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.webauthn_secret().data(),
+                                        value.webauthn_secret().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -924,14 +1045,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -946,20 +1074,34 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  webauthn_secret_hash: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.webauthn_secret_hash().data(),
-                                      value.webauthn_secret_hash().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_webauthn_secret_hash(); }) {
+      if (!value.has_webauthn_secret_hash()) {
+        return;
+      }
+    }
+    output += indent + "  webauthn_secret_hash: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.webauthn_secret_hash().data(),
+                                        value.webauthn_secret_hash().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -974,21 +1116,35 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1002,20 +1158,48 @@ std::string GetProtoDebugStringWithIndent(const GetHibernateSecretReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  hibernate_secret: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.hibernate_secret().data(),
-                                      value.hibernate_secret().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_hibernate_secret(); }) {
+      if (!value.has_hibernate_secret()) {
+        return;
+      }
+    }
+    output += indent + "  hibernate_secret: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.hibernate_secret().data(),
+                                        value.hibernate_secret().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1029,7 +1213,7 @@ std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -1043,18 +1227,32 @@ std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  keylocker_supported: ";
-  base::StringAppendF(&output, "%s",
-                      value.keylocker_supported() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_keylocker_supported(); }) {
+      if (!value.has_keylocker_supported()) {
+        return;
+      }
+    }
+    output += indent + "  keylocker_supported: ";
+    base::StringAppendF(&output, "%s",
+                        value.keylocker_supported() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1069,26 +1267,47 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  minimal_migration: ";
-  base::StringAppendF(&output, "%s",
-                      value.minimal_migration() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_minimal_migration(); }) {
+      if (!value.has_minimal_migration()) {
+        return;
+      }
+    }
+    output += indent + "  minimal_migration: ";
+    base::StringAppendF(&output, "%s",
+                        value.minimal_migration() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1103,13 +1322,34 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1124,23 +1364,44 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  status: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.status(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  current_bytes: ";
-  base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
-                      value.current_bytes(), value.current_bytes());
-  output += "\n";
-
-  output += indent + "  total_bytes: ";
-  base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
-                      value.total_bytes(), value.total_bytes());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_status(); }) {
+      if (!value.has_status()) {
+        return;
+      }
+    }
+    output += indent + "  status: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.status(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_current_bytes(); }) {
+      if (!value.has_current_bytes()) {
+        return;
+      }
+    }
+    output += indent + "  current_bytes: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.current_bytes(), value.current_bytes());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_total_bytes(); }) {
+      if (!value.has_total_bytes()) {
+        return;
+      }
+    }
+    output += indent + "  total_bytes: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.total_bytes(), value.total_bytes());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1155,14 +1416,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1177,18 +1445,32 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  needs_dircrypto_migration: ";
-  base::StringAppendF(&output, "%s",
-                      value.needs_dircrypto_migration() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_needs_dircrypto_migration(); }) {
+      if (!value.has_needs_dircrypto_migration()) {
+        return;
+      }
+    }
+    output += indent + "  needs_dircrypto_migration: ";
+    base::StringAppendF(&output, "%s",
+                        value.needs_dircrypto_migration() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1203,7 +1485,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -1218,13 +1500,22 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  low_entropy_credentials_supported: ";
-  base::StringAppendF(
-      &output, "%s",
-      value.low_entropy_credentials_supported() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) {
+                    t.has_low_entropy_credentials_supported();
+                  }) {
+      if (!value.has_low_entropy_credentials_supported()) {
+        return;
+      }
+    }
+    output += indent + "  low_entropy_credentials_supported: ";
+    base::StringAppendF(
+        &output, "%s",
+        value.low_entropy_credentials_supported() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1239,14 +1530,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  identifier: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.identifier(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_identifier(); }) {
+      if (!value.has_identifier()) {
+        return;
+      }
+    }
+    output += indent + "  identifier: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.identifier(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1260,17 +1558,31 @@ std::string GetProtoDebugStringWithIndent(const GetAccountDiskUsageReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  size: ";
-  base::StringAppendF(&output, "%" PRId64, value.size());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_size(); }) {
+      if (!value.has_size()) {
+        return;
+      }
+    }
+    output += indent + "  size: ";
+    base::StringAppendF(&output, "%" PRId64, value.size());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1284,12 +1596,19 @@ std::string GetProtoDebugStringWithIndent(const LowDiskSpace& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  disk_free_bytes: ";
-  base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
-                      value.disk_free_bytes(), value.disk_free_bytes());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_disk_free_bytes(); }) {
+      if (!value.has_disk_free_bytes()) {
+        return;
+      }
+    }
+    output += indent + "  disk_free_bytes: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.disk_free_bytes(), value.disk_free_bytes());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1303,25 +1622,46 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  flags: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.flags(),
-                      value.flags());
-  output += "\n";
-
-  output += indent + "  intent: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.intent(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_flags(); }) {
+      if (!value.has_flags()) {
+        return;
+      }
+    }
+    output += indent + "  flags: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.flags(),
+                        value.flags());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_intent(); }) {
+      if (!value.has_intent()) {
+        return;
+      }
+    }
+    output += indent + "  intent: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.intent(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1335,12 +1675,19 @@ std::string GetProtoDebugStringWithIndent(const StatusInfo& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  time_available_in: ";
-  base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
-                      value.time_available_in(), value.time_available_in());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_time_available_in(); }) {
+      if (!value.has_time_available_in()) {
+        return;
+      }
+    }
+    output += indent + "  time_available_in: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.time_available_in(), value.time_available_in());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1354,32 +1701,50 @@ std::string GetProtoDebugStringWithIndent(const AuthFactorWithStatus& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  available_for_intents: {";
   for (int i = 0; i < value.available_for_intents_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
-                            value.available_for_intents(i), indent_size + 2)
+                            value.available_for_intents(i), indent_size + 4)
                             .c_str());
+    if (i == value.available_for_intents_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "  status_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.status_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_status_info(); }) {
+      if (!value.has_status_info()) {
+        return;
+      }
+    }
+    output += indent + "  status_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.status_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1393,21 +1758,35 @@ std::string GetProtoDebugStringWithIndent(const AuthFactorStatusUpdate& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  broadcast_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.broadcast_id().data(), value.broadcast_id().size())
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_with_status: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.auth_factor_with_status(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_with_status(); }) {
+      if (!value.has_auth_factor_with_status()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_with_status: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.auth_factor_with_status(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1424,21 +1803,31 @@ std::string GetProtoDebugStringWithIndent(const AuthSessionProperties& value,
   output += indent + "  authorized_for: {";
   for (int i = 0; i < value.authorized_for_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 4)
             .c_str());
+    if (i == value.authorized_for_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  if (value.has_seconds_left()) {
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_seconds_left(); }) {
+      if (!value.has_seconds_left()) {
+        return;
+      }
+    }
     output += indent + "  seconds_left: ";
     base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
                         value.seconds_left(), value.seconds_left());
     output += "\n";
-  }
-  output += indent + "}\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1452,61 +1841,104 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  broadcast_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.broadcast_id().data(), value.broadcast_id().size())
-          .c_str());
-  output += "\n";
-
-  output += indent + "  user_exists: ";
-  base::StringAppendF(&output, "%s", value.user_exists() ? "true" : "false");
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_exists(); }) {
+      if (!value.has_user_exists()) {
+        return;
+      }
+    }
+    output += indent + "  user_exists: ";
+    base::StringAppendF(&output, "%s", value.user_exists() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  auth_factors: {";
   for (int i = 0; i < value.auth_factors_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.auth_factors(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.auth_factors(i), indent_size + 4)
             .c_str());
+    if (i == value.auth_factors_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  configured_auth_factors_with_status: {";
   for (int i = 0; i < value.configured_auth_factors_with_status_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
         GetProtoDebugStringWithIndent(
-            value.configured_auth_factors_with_status(i), indent_size + 2)
+            value.configured_auth_factors_with_status(i), indent_size + 4)
             .c_str());
+    if (i == value.configured_auth_factors_with_status_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -1521,14 +1953,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1543,20 +1982,34 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1570,19 +2023,33 @@ std::string GetProtoDebugStringWithIndent(const ExtendAuthSessionRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  extension_duration: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.extension_duration(), value.extension_duration());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_extension_duration(); }) {
+      if (!value.has_extension_duration()) {
+        return;
+      }
+    }
+    output += indent + "  extension_duration: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                        value.extension_duration(), value.extension_duration());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1596,26 +2063,46 @@ std::string GetProtoDebugStringWithIndent(const ExtendAuthSessionReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  if (value.has_seconds_left()) {
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_seconds_left(); }) {
+      if (!value.has_seconds_left()) {
+        return;
+      }
+    }
     output += indent + "  seconds_left: ";
     base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
                         value.seconds_left(), value.seconds_left());
     output += "\n";
-  }
-  output += indent + "}\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1630,14 +2117,187 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
 
-  output += indent + "}\n";
+std::string GetProtoDebugString(const AuthFactorAdded& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthFactorAdded& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const AuthFactorRemoved& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthFactorRemoved& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const AuthFactorUpdated& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthFactorUpdated& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const AuthSessionExpiring& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthSessionExpiring& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_broadcast_id(); }) {
+      if (!value.has_broadcast_id()) {
+        return;
+      }
+    }
+    output += indent + "  broadcast_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.broadcast_id().data(),
+                                        value.broadcast_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_time_left(); }) {
+      if (!value.has_time_left()) {
+        return;
+      }
+    }
+    output += indent + "  time_left: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                        value.time_left(), value.time_left());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1652,31 +2312,59 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "  auth_properties: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_properties(); }) {
+      if (!value.has_auth_properties()) {
+        return;
+      }
+    }
+    output += indent + "  auth_properties: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1690,7 +2378,7 @@ std::string GetProtoDebugStringWithIndent(const PrepareGuestVaultRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -1704,24 +2392,45 @@ std::string GetProtoDebugStringWithIndent(const PrepareGuestVaultReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1736,14 +2445,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1758,31 +2474,59 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "  auth_properties: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_properties(); }) {
+      if (!value.has_auth_properties()) {
+        return;
+      }
+    }
+    output += indent + "  auth_properties: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1797,14 +2541,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1819,49 +2570,88 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  status: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.status(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  time_left: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.time_left(), value.time_left());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_status(); }) {
+      if (!value.has_status()) {
+        return;
+      }
+    }
+    output += indent + "  status: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.status(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_time_left(); }) {
+      if (!value.has_time_left()) {
+        return;
+      }
+    }
+    output += indent + "  time_left: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                        value.time_left(), value.time_left());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  authorized_for: {";
   for (int i = 0; i < value.authorized_for_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 4)
             .c_str());
+    if (i == value.authorized_for_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "  auth_properties: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_properties(); }) {
+      if (!value.has_auth_properties()) {
+        return;
+      }
+    }
+    output += indent + "  auth_properties: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1876,25 +2666,47 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  block_ecryptfs: ";
-  base::StringAppendF(&output, "%s", value.block_ecryptfs() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  encryption_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.encryption_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_block_ecryptfs(); }) {
+      if (!value.has_block_ecryptfs()) {
+        return;
+      }
+    }
+    output += indent + "  block_ecryptfs: ";
+    base::StringAppendF(&output, "%s",
+                        value.block_ecryptfs() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_encryption_type(); }) {
+      if (!value.has_encryption_type()) {
+        return;
+      }
+    }
+    output += indent + "  encryption_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.encryption_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1909,24 +2721,45 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1941,14 +2774,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1963,24 +2803,45 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -1995,7 +2856,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2009,12 +2870,19 @@ std::string GetProtoDebugStringWithIndent(const GetArcDiskFeaturesReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  quota_supported: ";
-  base::StringAppendF(&output, "%s",
-                      value.quota_supported() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_quota_supported(); }) {
+      if (!value.has_quota_supported()) {
+        return;
+      }
+    }
+    output += indent + "  quota_supported: ";
+    base::StringAppendF(&output, "%s",
+                        value.quota_supported() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2028,19 +2896,40 @@ std::string GetProtoDebugStringWithIndent(const TpmTokenInfo& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  label: ";
-  base::StringAppendF(&output, "%s", value.label().c_str());
-  output += "\n";
-
-  output += indent + "  user_pin: ";
-  base::StringAppendF(&output, "%s", value.user_pin().c_str());
-  output += "\n";
-
-  output += indent + "  slot: ";
-  base::StringAppendF(&output, "%" PRId32, value.slot());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_label(); }) {
+      if (!value.has_label()) {
+        return;
+      }
+    }
+    output += indent + "  label: ";
+    base::StringAppendF(&output, "%s", value.label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_pin(); }) {
+      if (!value.has_user_pin()) {
+        return;
+      }
+    }
+    output += indent + "  user_pin: ";
+    base::StringAppendF(&output, "%s", value.user_pin().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_slot(); }) {
+      if (!value.has_slot()) {
+        return;
+      }
+    }
+    output += indent + "  slot: ";
+    base::StringAppendF(&output, "%" PRId32, value.slot());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2055,7 +2944,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2070,11 +2959,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  ready: ";
-  base::StringAppendF(&output, "%s", value.ready() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_ready(); }) {
+      if (!value.has_ready()) {
+        return;
+      }
+    }
+    output += indent + "  ready: ";
+    base::StringAppendF(&output, "%s", value.ready() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2089,11 +2985,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  username: ";
-  base::StringAppendF(&output, "%s", value.username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_username(); }) {
+      if (!value.has_username()) {
+        return;
+      }
+    }
+    output += indent + "  username: ";
+    base::StringAppendF(&output, "%s", value.username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2108,14 +3011,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  token_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.token_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_token_info(); }) {
+      if (!value.has_token_info()) {
+        return;
+      }
+    }
+    output += indent + "  token_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.token_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2129,11 +3039,18 @@ std::string GetProtoDebugStringWithIndent(const Pkcs11TerminateRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  username: ";
-  base::StringAppendF(&output, "%s", value.username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_username(); }) {
+      if (!value.has_username()) {
+        return;
+      }
+    }
+    output += indent + "  username: ";
+    base::StringAppendF(&output, "%s", value.username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2147,7 +3064,7 @@ std::string GetProtoDebugStringWithIndent(const Pkcs11TerminateReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2162,7 +3079,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2177,7 +3094,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2192,11 +3109,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  name: ";
-  base::StringAppendF(&output, "%s", value.name().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_name(); }) {
+      if (!value.has_name()) {
+        return;
+      }
+    }
+    output += indent + "  name: ";
+    base::StringAppendF(&output, "%s", value.name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2211,19 +3135,33 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  value: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.value().data(), value.value().size()).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_value(); }) {
+      if (!value.has_value()) {
+        return;
+      }
+    }
+    output += indent + "  value: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.value().data(), value.value().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2238,17 +3176,31 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  name: ";
-  base::StringAppendF(&output, "%s", value.name().c_str());
-  output += "\n";
-
-  output += indent + "  value: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.value().data(), value.value().size()).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_name(); }) {
+      if (!value.has_name()) {
+        return;
+      }
+    }
+    output += indent + "  name: ";
+    base::StringAppendF(&output, "%s", value.name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_value(); }) {
+      if (!value.has_value()) {
+        return;
+      }
+    }
+    output += indent + "  value: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.value().data(), value.value().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2263,13 +3215,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2284,7 +3243,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2299,13 +3258,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2321,7 +3287,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2336,27 +3302,55 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  count: ";
-  base::StringAppendF(&output, "%" PRId32, value.count());
-  output += "\n";
-
-  output += indent + "  is_secure: ";
-  base::StringAppendF(&output, "%s", value.is_secure() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  state: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.state(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_count(); }) {
+      if (!value.has_count()) {
+        return;
+      }
+    }
+    output += indent + "  count: ";
+    base::StringAppendF(&output, "%" PRId32, value.count());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_is_secure(); }) {
+      if (!value.has_is_secure()) {
+        return;
+      }
+    }
+    output += indent + "  is_secure: ";
+    base::StringAppendF(&output, "%s", value.is_secure() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_state(); }) {
+      if (!value.has_state()) {
+        return;
+      }
+    }
+    output += indent + "  state: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.state(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2371,19 +3365,33 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  flags: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.flags(),
-                      value.flags());
-  output += "\n";
-
-  output += indent + "  developer_key_hash: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.developer_key_hash().data(),
-                                      value.developer_key_hash().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_flags(); }) {
+      if (!value.has_flags()) {
+        return;
+      }
+    }
+    output += indent + "  flags: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.flags(),
+                        value.flags());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_developer_key_hash(); }) {
+      if (!value.has_developer_key_hash()) {
+        return;
+      }
+    }
+    output += indent + "  developer_key_hash: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.developer_key_hash().data(),
+                                        value.developer_key_hash().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2399,7 +3407,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2415,19 +3423,33 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  fwmp: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.fwmp(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fwmp(); }) {
+      if (!value.has_fwmp()) {
+        return;
+      }
+    }
+    output += indent + "  fwmp: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.fwmp(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2443,7 +3465,7 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2459,13 +3481,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2481,13 +3510,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  fwmp: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.fwmp(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fwmp(); }) {
+      if (!value.has_fwmp()) {
+        return;
+      }
+    }
+    output += indent + "  fwmp: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.fwmp(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2503,13 +3539,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2523,7 +3566,7 @@ std::string GetProtoDebugStringWithIndent(const GetSystemSaltRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2537,13 +3580,20 @@ std::string GetProtoDebugStringWithIndent(const GetSystemSaltReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  salt: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.salt().data(), value.salt().size()).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_salt(); }) {
+      if (!value.has_salt()) {
+        return;
+      }
+    }
+    output += indent + "  salt: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.salt().data(), value.salt().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2559,11 +3609,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  time_shift_sec: ";
-  base::StringAppendF(&output, "%" PRId32, value.time_shift_sec());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_time_shift_sec(); }) {
+      if (!value.has_time_shift_sec()) {
+        return;
+      }
+    }
+    output += indent + "  time_shift_sec: ";
+    base::StringAppendF(&output, "%" PRId32, value.time_shift_sec());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2579,13 +3636,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2600,11 +3664,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  username: ";
-  base::StringAppendF(&output, "%s", value.username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_username(); }) {
+      if (!value.has_username()) {
+        return;
+      }
+    }
+    output += indent + "  username: ";
+    base::StringAppendF(&output, "%s", value.username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2619,11 +3690,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_sanitized_username(); }) {
+      if (!value.has_sanitized_username()) {
+        return;
+      }
+    }
+    output += indent + "  sanitized_username: ";
+    base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2637,7 +3715,7 @@ std::string GetProtoDebugStringWithIndent(const GetLoginStatusRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2651,23 +3729,44 @@ std::string GetProtoDebugStringWithIndent(const GetLoginStatusReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  owner_user_exists: ";
-  base::StringAppendF(&output, "%s",
-                      value.owner_user_exists() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  is_locked_to_single_user: ";
-  base::StringAppendF(&output, "%s",
-                      value.is_locked_to_single_user() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_owner_user_exists(); }) {
+      if (!value.has_owner_user_exists()) {
+        return;
+      }
+    }
+    output += indent + "  owner_user_exists: ";
+    base::StringAppendF(&output, "%s",
+                        value.owner_user_exists() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_is_locked_to_single_user(); }) {
+      if (!value.has_is_locked_to_single_user()) {
+        return;
+      }
+    }
+    output += indent + "  is_locked_to_single_user: ";
+    base::StringAppendF(&output, "%s",
+                        value.is_locked_to_single_user() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2683,14 +3782,21 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2706,13 +3812,20 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2726,20 +3839,34 @@ std::string GetProtoDebugStringWithIndent(const GetRsuDeviceIdReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  rsu_device_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.rsu_device_id().data(),
-                                      value.rsu_device_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_rsu_device_id(); }) {
+      if (!value.has_rsu_device_id()) {
+        return;
+      }
+    }
+    output += indent + "  rsu_device_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.rsu_device_id().data(),
+                                        value.rsu_device_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2753,7 +3880,7 @@ std::string GetProtoDebugStringWithIndent(const GetRsuDeviceIdRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -2768,18 +3895,32 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  application_name: ";
-  base::StringAppendF(&output, "%s", value.application_name().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_application_name(); }) {
+      if (!value.has_application_name()) {
+        return;
+      }
+    }
+    output += indent + "  application_name: ";
+    base::StringAppendF(&output, "%s", value.application_name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2794,20 +3935,34 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2822,21 +3977,35 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  make_credential_options: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.make_credential_options(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_make_credential_options(); }) {
+      if (!value.has_make_credential_options()) {
+        return;
+      }
+    }
+    output += indent + "  make_credential_options: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.make_credential_options(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2850,20 +4019,34 @@ std::string GetProtoDebugStringWithIndent(const FidoMakeCredentialReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  make_credential_response: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.make_credential_response(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_make_credential_response(); }) {
+      if (!value.has_make_credential_response()) {
+        return;
+      }
+    }
+    output += indent + "  make_credential_response: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.make_credential_response(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2877,14 +4060,21 @@ std::string GetProtoDebugStringWithIndent(const FidoGetAssertionRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  get_assertion_options: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.get_assertion_options(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_get_assertion_options(); }) {
+      if (!value.has_get_assertion_options()) {
+        return;
+      }
+    }
+    output += indent + "  get_assertion_options: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.get_assertion_options(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2898,20 +4088,34 @@ std::string GetProtoDebugStringWithIndent(const FidoGetAssertionReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  get_assertion_response: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.get_assertion_response(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_get_assertion_response(); }) {
+      if (!value.has_get_assertion_response()) {
+        return;
+      }
+    }
+    output += indent + "  get_assertion_response: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.get_assertion_response(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2925,28 +4129,49 @@ std::string GetProtoDebugStringWithIndent(const AddAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_input(); }) {
+      if (!value.has_auth_input()) {
+        return;
+      }
+    }
+    output += indent + "  auth_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2960,27 +4185,48 @@ std::string GetProtoDebugStringWithIndent(const AddAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  added_auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.added_auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_added_auth_factor(); }) {
+      if (!value.has_added_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  added_auth_factor: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(value.added_auth_factor(),
+                                                      indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -2995,33 +4241,58 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  auth_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_input(); }) {
+      if (!value.has_auth_input()) {
+        return;
+      }
+    }
+    output += indent + "  auth_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  auth_factor_labels: {";
   for (int i = 0; i < value.auth_factor_labels_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s", value.auth_factor_labels(i).c_str());
+    if (i == value.auth_factor_labels_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -3036,44 +4307,75 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  authorized_for: {";
   for (int i = 0; i < value.authorized_for_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 4)
             .c_str());
+    if (i == value.authorized_for_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  if (value.has_seconds_left()) {
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_seconds_left(); }) {
+      if (!value.has_seconds_left()) {
+        return;
+      }
+    }
     output += indent + "  seconds_left: ";
     base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
                         value.seconds_left(), value.seconds_left());
     output += "\n";
-  }
-  output += indent + "  auth_properties: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_properties(); }) {
+      if (!value.has_auth_properties()) {
+        return;
+      }
+    }
+    output += indent + "  auth_properties: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_properties(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3087,32 +4389,60 @@ std::string GetProtoDebugStringWithIndent(const UpdateAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_input(); }) {
+      if (!value.has_auth_input()) {
+        return;
+      }
+    }
+    output += indent + "  auth_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3126,27 +4456,48 @@ std::string GetProtoDebugStringWithIndent(const UpdateAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  updated_auth_factor: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.updated_auth_factor(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_updated_auth_factor(); }) {
+      if (!value.has_updated_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  updated_auth_factor: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.updated_auth_factor(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3161,25 +4512,46 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3194,27 +4566,48 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  updated_auth_factor: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.updated_auth_factor(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_updated_auth_factor(); }) {
+      if (!value.has_updated_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  updated_auth_factor: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.updated_auth_factor(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3228,22 +4621,43 @@ std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  new_auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.new_auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_new_auth_factor_label(); }) {
+      if (!value.has_new_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  new_auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.new_auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3257,27 +4671,48 @@ std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  relabelled_auth_factor: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.relabelled_auth_factor(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_relabelled_auth_factor(); }) {
+      if (!value.has_relabelled_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  relabelled_auth_factor: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.relabelled_auth_factor(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3291,32 +4726,60 @@ std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_input: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_input(); }) {
+      if (!value.has_auth_input()) {
+        return;
+      }
+    }
+    output += indent + "  auth_input: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3330,27 +4793,48 @@ std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  replacement_auth_factor: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.replacement_auth_factor(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_replacement_auth_factor(); }) {
+      if (!value.has_replacement_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  replacement_auth_factor: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.replacement_auth_factor(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3364,18 +4848,32 @@ std::string GetProtoDebugStringWithIndent(const RemoveAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3389,20 +4887,34 @@ std::string GetProtoDebugStringWithIndent(const RemoveAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3417,46 +4929,65 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_type(); }) {
+      if (!value.has_type()) {
+        return;
+      }
+    }
+    output += indent + "  type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  current: {";
   for (int i = 0; i < value.current_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.current(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.current(i), indent_size + 4)
             .c_str());
+    if (i == value.current_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  minimum: {";
   for (int i = 0; i < value.minimum_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.minimum(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.minimum(i), indent_size + 4)
             .c_str());
+    if (i == value.minimum_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  maximum: {";
   for (int i = 0; i < value.maximum_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.maximum(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.maximum(i), indent_size + 4)
             .c_str());
+    if (i == value.maximum_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -3470,14 +5001,21 @@ std::string GetProtoDebugStringWithIndent(const ListAuthFactorsRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3491,65 +5029,95 @@ std::string GetProtoDebugStringWithIndent(const ListAuthFactorsReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  configured_auth_factors: {";
   for (int i = 0; i < value.configured_auth_factors_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
-                            value.configured_auth_factors(i), indent_size + 2)
+                            value.configured_auth_factors(i), indent_size + 4)
                             .c_str());
+    if (i == value.configured_auth_factors_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  configured_auth_factors_with_status: {";
   for (int i = 0; i < value.configured_auth_factors_with_status_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
         GetProtoDebugStringWithIndent(
-            value.configured_auth_factors_with_status(i), indent_size + 2)
+            value.configured_auth_factors_with_status(i), indent_size + 4)
             .c_str());
+    if (i == value.configured_auth_factors_with_status_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  supported_auth_factors: {";
   for (int i = 0; i < value.supported_auth_factors_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
-                            value.supported_auth_factors(i), indent_size + 2)
+                            value.supported_auth_factors(i), indent_size + 4)
                             .c_str());
+    if (i == value.supported_auth_factors_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
   output += indent + "  auth_intents_for_types: {";
   for (int i = 0; i < value.auth_intents_for_types_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
-                            value.auth_intents_for_types(i), indent_size + 2)
+                            value.auth_intents_for_types(i), indent_size + 4)
                             .c_str());
+    if (i == value.auth_intents_for_types_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -3564,12 +5132,19 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  max_depth: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.max_depth(), value.max_depth());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_max_depth(); }) {
+      if (!value.has_max_depth()) {
+        return;
+      }
+    }
+    output += indent + "  max_depth: ";
+    base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                        value.max_depth(), value.max_depth());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3587,12 +5162,16 @@ std::string GetProtoDebugStringWithIndent(
   output += indent + "  recovery_ids: {";
   for (int i = 0; i < value.recovery_ids_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(&output, "%s", value.recovery_ids(i).c_str());
+    if (i == value.recovery_ids_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -3607,25 +5186,46 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  recovery_info_request: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.recovery_info_request(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_recovery_info_request(); }) {
+      if (!value.has_recovery_info_request()) {
+        return;
+      }
+    }
+    output += indent + "  recovery_info_request: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.recovery_info_request(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3640,34 +5240,62 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  recovery_info_reply: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.recovery_info_reply(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor(); }) {
+      if (!value.has_auth_factor()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_recovery_info_reply(); }) {
+      if (!value.has_recovery_info_reply()) {
+        return;
+      }
+    }
+    output += indent + "  recovery_info_reply: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.recovery_info_reply(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3682,44 +5310,93 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_label: ";
-  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
-  output += "\n";
-
-  output += indent + "  requestor_user_id_type: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.requestor_user_id_type(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  requestor_user_id: ";
-  base::StringAppendF(&output, "%s", value.requestor_user_id().c_str());
-  output += "\n";
-
-  output += indent + "  gaia_access_token: ";
-  base::StringAppendF(&output, "%s", value.gaia_access_token().c_str());
-  output += "\n";
-
-  output += indent + "  gaia_reauth_proof_token: ";
-  base::StringAppendF(&output, "%s", value.gaia_reauth_proof_token().c_str());
-  output += "\n";
-
-  output += indent + "  epoch_response: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.epoch_response().data(),
-                                      value.epoch_response().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_label(); }) {
+      if (!value.has_auth_factor_label()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_label: ";
+    base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_requestor_user_id_type(); }) {
+      if (!value.has_requestor_user_id_type()) {
+        return;
+      }
+    }
+    output += indent + "  requestor_user_id_type: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.requestor_user_id_type(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_requestor_user_id(); }) {
+      if (!value.has_requestor_user_id()) {
+        return;
+      }
+    }
+    output += indent + "  requestor_user_id: ";
+    base::StringAppendF(&output, "%s", value.requestor_user_id().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_gaia_access_token(); }) {
+      if (!value.has_gaia_access_token()) {
+        return;
+      }
+    }
+    output += indent + "  gaia_access_token: ";
+    base::StringAppendF(&output, "%s", value.gaia_access_token().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_gaia_reauth_proof_token(); }) {
+      if (!value.has_gaia_reauth_proof_token()) {
+        return;
+      }
+    }
+    output += indent + "  gaia_reauth_proof_token: ";
+    base::StringAppendF(&output, "%s", value.gaia_reauth_proof_token().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_epoch_response(); }) {
+      if (!value.has_epoch_response()) {
+        return;
+      }
+    }
+    output += indent + "  epoch_response: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.epoch_response().data(),
+                                        value.epoch_response().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3733,27 +5410,48 @@ std::string GetProtoDebugStringWithIndent(const GetRecoveryRequestReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  recovery_request: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.recovery_request().data(),
-                                      value.recovery_request().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_recovery_request(); }) {
+      if (!value.has_recovery_request()) {
+        return;
+      }
+    }
+    output += indent + "  recovery_request: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.recovery_request().data(),
+                                        value.recovery_request().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3767,35 +5465,97 @@ std::string GetProtoDebugStringWithIndent(const CreateVaultKeysetRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  passkey: ";
-  base::StringAppendF(
-      &output, "%s",
-      base::HexEncode(value.passkey().data(), value.passkey().size()).c_str());
-  output += "\n";
-
-  output += indent + "  key_label: ";
-  base::StringAppendF(&output, "%s", value.key_label().c_str());
-  output += "\n";
-
-  output += indent + "  type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  disable_key_data: ";
-  base::StringAppendF(&output, "%s",
-                      value.disable_key_data() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_passkey(); }) {
+      if (!value.has_passkey()) {
+        return;
+      }
+    }
+    output += indent + "  passkey: ";
+    base::StringAppendF(
+        &output, "%s",
+        base::HexEncode(value.passkey().data(), value.passkey().size())
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_key_label(); }) {
+      if (!value.has_key_label()) {
+        return;
+      }
+    }
+    output += indent + "  key_label: ";
+    base::StringAppendF(&output, "%s", value.key_label().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_type(); }) {
+      if (!value.has_type()) {
+        return;
+      }
+    }
+    output += indent + "  type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_disable_key_data(); }) {
+      if (!value.has_disable_key_data()) {
+        return;
+      }
+    }
+    output += indent + "  disable_key_data: ";
+    base::StringAppendF(&output, "%s",
+                        value.disable_key_data() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_key_delegate_dbus_service_name(); }) {
+      if (!value.has_key_delegate_dbus_service_name()) {
+        return;
+      }
+    }
+    output += indent + "  key_delegate_dbus_service_name: ";
+    base::StringAppendF(&output, "%s",
+                        value.key_delegate_dbus_service_name().c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_public_key_spki_der(); }) {
+      if (!value.has_public_key_spki_der()) {
+        return;
+      }
+    }
+    output += indent + "  public_key_spki_der: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.public_key_spki_der().data(),
+                                        value.public_key_spki_der().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3809,20 +5569,34 @@ std::string GetProtoDebugStringWithIndent(const CreateVaultKeysetReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3836,27 +5610,49 @@ std::string GetProtoDebugStringWithIndent(const PrepareAuthFactorRequest& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  purpose: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_purpose(); }) {
+      if (!value.has_purpose()) {
+        return;
+      }
+    }
+    output += indent + "  purpose: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3870,20 +5666,34 @@ std::string GetProtoDebugStringWithIndent(const PrepareAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3898,21 +5708,35 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3926,20 +5750,34 @@ std::string GetProtoDebugStringWithIndent(const TerminateAuthFactorReply& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -3954,31 +5792,49 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
-  output += "\n";
-
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_session_id(); }) {
+      if (!value.has_auth_session_id()) {
+        return;
+      }
+    }
+    output += indent + "  auth_session_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.auth_session_id().data(),
+                                        value.auth_session_id().size())
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_type(); }) {
+      if (!value.has_type()) {
+        return;
+      }
+    }
+    output += indent + "  type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
   output += indent + "  intents: {";
   for (int i = 0; i < value.intents_size(); ++i) {
     if (i > 0) {
-      base::StringAppendF(&output, ", ");
+      output += ",";
     }
+    output += "\n    " + indent;
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.intents(i), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.intents(i), indent_size + 4)
             .c_str());
+    if (i == value.intents_size() - 1) {
+      output += "\n  " + indent;
+    }
   }
   output += "}\n";
-  output += indent + "}\n";
+  output += indent + "}";
   return output;
 }
 
@@ -3993,27 +5849,48 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_intents: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_intents(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_intents(); }) {
+      if (!value.has_auth_intents()) {
+        return;
+      }
+    }
+    output += indent + "  auth_intents: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_intents(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4027,14 +5904,21 @@ std::string GetProtoDebugStringWithIndent(const AuthScanResult& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  fingerprint_result: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.fingerprint_result(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fingerprint_result(); }) {
+      if (!value.has_fingerprint_result()) {
+        return;
+      }
+    }
+    output += indent + "  fingerprint_result: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.fingerprint_result(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4049,11 +5933,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  percent_complete: ";
-  base::StringAppendF(&output, "%" PRId32, value.percent_complete());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_percent_complete(); }) {
+      if (!value.has_percent_complete()) {
+        return;
+      }
+    }
+    output += indent + "  percent_complete: ";
+    base::StringAppendF(&output, "%" PRId32, value.percent_complete());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4067,25 +5958,46 @@ std::string GetProtoDebugStringWithIndent(const AuthEnrollmentProgress& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  scan_result: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.scan_result(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  done: ";
-  base::StringAppendF(&output, "%s", value.done() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  fingerprint_progress: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.fingerprint_progress(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_scan_result(); }) {
+      if (!value.has_scan_result()) {
+        return;
+      }
+    }
+    output += indent + "  scan_result: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.scan_result(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_done(); }) {
+      if (!value.has_done()) {
+        return;
+      }
+    }
+    output += indent + "  done: ";
+    base::StringAppendF(&output, "%s", value.done() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_fingerprint_progress(); }) {
+      if (!value.has_fingerprint_progress()) {
+        return;
+      }
+    }
+    output += indent + "  fingerprint_progress: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.fingerprint_progress(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4099,14 +6011,21 @@ std::string GetProtoDebugStringWithIndent(const AuthScanDone& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  scan_result: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.scan_result(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_scan_result(); }) {
+      if (!value.has_scan_result()) {
+        return;
+      }
+    }
+    output += indent + "  scan_result: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.scan_result(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4121,21 +6040,35 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  biometrics_progress: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.biometrics_progress(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_biometrics_progress(); }) {
+      if (!value.has_biometrics_progress()) {
+        return;
+      }
+    }
+    output += indent + "  biometrics_progress: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.biometrics_progress(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4150,21 +6083,35 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  biometrics_progress: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(value.biometrics_progress(),
-                                                    indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_biometrics_progress(); }) {
+      if (!value.has_biometrics_progress()) {
+        return;
+      }
+    }
+    output += indent + "  biometrics_progress: ";
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.biometrics_progress(), indent_size + 2)
+                            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4179,27 +6126,49 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  purpose: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  add_progress: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.add_progress(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_progress: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_progress(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_purpose(); }) {
+      if (!value.has_purpose()) {
+        return;
+      }
+    }
+    output += indent + "  purpose: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_add_progress(); }) {
+      if (!value.has_add_progress()) {
+        return;
+      }
+    }
+    output += indent + "  add_progress: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.add_progress(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_progress(); }) {
+      if (!value.has_auth_progress()) {
+        return;
+      }
+    }
+    output += indent + "  auth_progress: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_progress(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4214,27 +6183,60 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_creation(); }) {
+      if (!value.has_user_creation()) {
+        return;
+      }
+    }
+    output += indent + "  user_creation: ";
+    base::StringAppendF(&output, "%s",
+                        value.user_creation() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
   return output;
 }
 
@@ -4248,15 +6250,104 @@ std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  done: ";
-  base::StringAppendF(&output, "%s", value.done() ? "true" : "false");
-  output += "\n";
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_eviction_id(); }) {
+      if (!value.has_eviction_id()) {
+        return;
+      }
+    }
+    output += indent + "  eviction_id: ";
+    base::StringAppendF(&output, "%" PRId64, value.eviction_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
 
-  output += indent + "  eviction_id: ";
-  base::StringAppendF(&output, "%" PRId64, value.eviction_id());
-  output += "\n";
+std::string GetProtoDebugString(const GetRecoverableKeyStoresRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
 
-  output += indent + "}\n";
+std::string GetProtoDebugStringWithIndent(
+    const GetRecoverableKeyStoresRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_account_id(); }) {
+      if (!value.has_account_id()) {
+        return;
+      }
+    }
+    output += indent + "  account_id: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const GetRecoverableKeyStoresReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const GetRecoverableKeyStoresReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "  key_stores: {";
+  for (int i = 0; i < value.key_stores_size(); ++i) {
+    if (i > 0) {
+      output += ",";
+    }
+    output += "\n    " + indent;
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.key_stores(i), indent_size + 4)
+            .c_str());
+    if (i == value.key_stores_size() - 1) {
+      output += "\n  " + indent;
+    }
+  }
+  output += "}\n";
+  output += indent + "}";
   return output;
 }
 

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGPointTearOff>::value,
     "SVGPointTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGPointTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGPointTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGPoint.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(v8_receiver);
+SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -101,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGPoint.x.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGPoint";
@@ -127,8 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGPoint.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(v8_receiver);
+SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -140,9 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGPoint.y.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGPoint";
@@ -184,7 +181,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(v8_receiver);
+SVGPointTearOff* blink_receiver = V8SVGPoint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_matrix = NativeValueTraits<SVGMatrixTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

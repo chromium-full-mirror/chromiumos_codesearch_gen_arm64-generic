@@ -12,40 +12,40 @@ export function getLoggingConfig(element) {
 var VisualElements;
 (function (VisualElements) {
     VisualElements[VisualElements["TreeItem"] = 1] = "TreeItem";
-    VisualElements[VisualElements["AriaAttributes"] = 2] = "AriaAttributes";
-    VisualElements[VisualElements["AccessibilityComputedProperties"] = 3] = "AccessibilityComputedProperties";
-    VisualElements[VisualElements["AccessibilityPane"] = 4] = "AccessibilityPane";
-    VisualElements[VisualElements["AccessibilitySourceOrder"] = 5] = "AccessibilitySourceOrder";
+    /* 2 used to be AriaAttributes, but free to grab now */
+    /* 3 used to be AccessibilityComputedProperties, but free to grab now */
+    /* 4 used to be AccessibilityPane, but free to grab now */
+    /* 5 used to be AccessibilitySourceOrder, but free to grab now */
     VisualElements[VisualElements["Toggle"] = 6] = "Toggle";
-    VisualElements[VisualElements["AddStylesRule"] = 7] = "AddStylesRule";
-    VisualElements[VisualElements["FilterTextField"] = 8] = "FilterTextField";
+    VisualElements[VisualElements["Tree"] = 7] = "Tree";
+    VisualElements[VisualElements["TextField"] = 8] = "TextField";
     VisualElements[VisualElements["ShowAllStyleProperties"] = 9] = "ShowAllStyleProperties";
-    VisualElements[VisualElements["StylePropertiesSection"] = 10] = "StylePropertiesSection";
+    VisualElements[VisualElements["Section"] = 10] = "Section";
     VisualElements[VisualElements["StylePropertiesSectionSeparator"] = 11] = "StylePropertiesSectionSeparator";
-    VisualElements[VisualElements["StylesPane"] = 12] = "StylesPane";
+    /* 12 used to be StylesPane, but free to grab now */
     VisualElements[VisualElements["StylesSelector"] = 13] = "StylesSelector";
     VisualElements[VisualElements["TreeItemExpand"] = 14] = "TreeItemExpand";
     VisualElements[VisualElements["ToggleSubpane"] = 15] = "ToggleSubpane";
-    VisualElements[VisualElements["ElementClassesPane"] = 16] = "ElementClassesPane";
-    VisualElements[VisualElements["AddElementClassPrompt"] = 17] = "AddElementClassPrompt";
-    VisualElements[VisualElements["ElementStatesPan"] = 18] = "ElementStatesPan";
-    VisualElements[VisualElements["CssLayersPane"] = 19] = "CssLayersPane";
+    /* 16 used to be ElementClassesPane, but free to grab now */
+    /* 17 used to be AddElementClassPrompt, but free to grab now */
+    /* 18 used to be ElementStatesPan, but free to grab now */
+    /* 19 used to be CssLayersPane, but free to grab now */
     VisualElements[VisualElements["DropDown"] = 20] = "DropDown";
-    VisualElements[VisualElements["StylesMetricsPane"] = 21] = "StylesMetricsPane";
+    /* 21 used to be StylesMetricsPane, but free to grab now */
     VisualElements[VisualElements["JumpToSource"] = 22] = "JumpToSource";
     VisualElements[VisualElements["MetricsBox"] = 23] = "MetricsBox";
     VisualElements[VisualElements["MetricsBoxPart"] = 24] = "MetricsBoxPart";
-    VisualElements[VisualElements["DOMBreakpointsPane"] = 25] = "DOMBreakpointsPane";
+    /* 25 used to be DOMBreakpointsPane, but free to grab now */
     VisualElements[VisualElements["DOMBreakpoint"] = 26] = "DOMBreakpoint";
-    VisualElements[VisualElements["ElementPropertiesPane"] = 27] = "ElementPropertiesPane";
-    VisualElements[VisualElements["EventListenersPane"] = 28] = "EventListenersPane";
-    VisualElements[VisualElements["Refresh"] = 29] = "Refresh";
+    /* 27 used to be ElementPropertiesPane, but free to grab now */
+    /* 28 used to be EventListenersPane, but free to grab now */
+    VisualElements[VisualElements["Action"] = 29] = "Action";
     VisualElements[VisualElements["FilterDropdown"] = 30] = "FilterDropdown";
-    VisualElements[VisualElements["AddColor"] = 31] = "AddColor";
+    VisualElements[VisualElements["InfoBar"] = 31] = "InfoBar";
     VisualElements[VisualElements["BezierCurveEditor"] = 32] = "BezierCurveEditor";
     VisualElements[VisualElements["BezierEditor"] = 33] = "BezierEditor";
     VisualElements[VisualElements["BezierPresetCategory"] = 34] = "BezierPresetCategory";
-    VisualElements[VisualElements["BezierPreview"] = 35] = "BezierPreview";
+    VisualElements[VisualElements["Preview"] = 35] = "Preview";
     VisualElements[VisualElements["ColorCanvas"] = 36] = "ColorCanvas";
     VisualElements[VisualElements["ColorEyeDropper"] = 37] = "ColorEyeDropper";
     VisualElements[VisualElements["ColorPicker"] = 38] = "ColorPicker";
@@ -58,7 +58,7 @@ var VisualElements;
     VisualElements[VisualElements["Next"] = 45] = "Next";
     VisualElements[VisualElements["Item"] = 46] = "Item";
     VisualElements[VisualElements["PaletteColorShades"] = 47] = "PaletteColorShades";
-    VisualElements[VisualElements["PalettePanel"] = 48] = "PalettePanel";
+    VisualElements[VisualElements["Panel"] = 48] = "Panel";
     VisualElements[VisualElements["Previous"] = 49] = "Previous";
     VisualElements[VisualElements["ShowStyleEditor"] = 50] = "ShowStyleEditor";
     VisualElements[VisualElements["Slider"] = 51] = "Slider";
@@ -69,18 +69,28 @@ var VisualElements;
     VisualElements[VisualElements["FlexboxOverlays"] = 56] = "FlexboxOverlays";
     VisualElements[VisualElements["GridOverlays"] = 57] = "GridOverlays";
     VisualElements[VisualElements["JumpToElement"] = 58] = "JumpToElement";
-    VisualElements[VisualElements["ElementsPanel"] = 59] = "ElementsPanel";
-    VisualElements[VisualElements["ElementsTreeOutline"] = 60] = "ElementsTreeOutline";
-    VisualElements[VisualElements["Toolbar"] = 61] = "Toolbar";
+    VisualElements[VisualElements["PieChart"] = 59] = "PieChart";
+    VisualElements[VisualElements["PieChartSlice"] = 60] = "PieChartSlice";
+    VisualElements[VisualElements["PieChartTotal"] = 61] = "PieChartTotal";
     VisualElements[VisualElements["ElementsBreadcrumbs"] = 62] = "ElementsBreadcrumbs";
-    VisualElements[VisualElements["FullAccessibilityTree"] = 63] = "FullAccessibilityTree";
-    VisualElements[VisualElements["ToggleDeviceMode"] = 64] = "ToggleDeviceMode";
-    VisualElements[VisualElements["ToggleElementSearch"] = 65] = "ToggleElementSearch";
+    /* 63 used to be FullAccessibilityTree, but free to grab now */
+    /* 64 used to be ToggleDeviceMode, but free to grab now */
+    /* 65 used to be ToggleElementSearch, but free to grab now */
+    VisualElements[VisualElements["PanelTabHeader"] = 66] = "PanelTabHeader";
+    VisualElements[VisualElements["Menu"] = 67] = "Menu";
+    /* 68 used to be DeveloperResourcesPanel, but free to grab now */
+    VisualElements[VisualElements["TableHeader"] = 69] = "TableHeader";
+    VisualElements[VisualElements["TableCell"] = 70] = "TableCell";
+    VisualElements[VisualElements["StylesComputedPane"] = 71] = "StylesComputedPane";
+    VisualElements[VisualElements["Pane"] = 72] = "Pane";
+    VisualElements[VisualElements["ResponsivePresets"] = 73] = "ResponsivePresets";
+    VisualElements[VisualElements["DeviceModeRuler"] = 74] = "DeviceModeRuler";
+    VisualElements[VisualElements["MediaInspectorView"] = 75] = "MediaInspectorView";
 })(VisualElements || (VisualElements = {}));
 function resolveVe(ve) {
-    return VisualElements[ve] || 0;
+    return VisualElements[ve] ?? 0;
 }
-function parseJsLog(jslog) {
+export function parseJsLog(jslog) {
     const components = jslog.replace(/ /g, '').split(';');
     const getComponent = (name) => components.find(c => c.startsWith(name))?.substr(name.length);
     const ve = resolveVe(components[0]);
@@ -102,11 +112,26 @@ function parseJsLog(jslog) {
     }
     return config;
 }
+export function debugString(config) {
+    const components = [VisualElements[config.ve]];
+    if (config.context) {
+        components.push(`context: ${config.context}`);
+    }
+    if (config.parent) {
+        components.push(`parent: ${config.parent}`);
+    }
+    if (config.track?.size) {
+        components.push(`track: ${[...config.track?.entries()].map(([key, value]) => `${key}${value ? `: ${value}` : ''}`).join(', ')}`);
+    }
+    return components.join('; ');
+}
 export function makeConfigStringBuilder(veName) {
     const components = [veName];
     return {
         context: function (value) {
-            components.push(`context: ${value}`);
+            if (typeof value !== 'undefined') {
+                components.push(`context: ${value}`);
+            }
             return this;
         },
         parent: function (value) {

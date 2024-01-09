@@ -50,6 +50,8 @@ const char Internal[] = "internal";
 CRDTP_BEGIN_DESERIALIZER(VirtualAuthenticatorOptions)
     CRDTP_DESERIALIZE_FIELD_OPT("automaticPresenceSimulation", m_automaticPresenceSimulation),
     CRDTP_DESERIALIZE_FIELD_OPT("ctap2Version", m_ctap2Version),
+    CRDTP_DESERIALIZE_FIELD_OPT("defaultBackupEligibility", m_defaultBackupEligibility),
+    CRDTP_DESERIALIZE_FIELD_OPT("defaultBackupState", m_defaultBackupState),
     CRDTP_DESERIALIZE_FIELD_OPT("hasCredBlob", m_hasCredBlob),
     CRDTP_DESERIALIZE_FIELD_OPT("hasLargeBlob", m_hasLargeBlob),
     CRDTP_DESERIALIZE_FIELD_OPT("hasMinPinLength", m_hasMinPinLength),
@@ -73,6 +75,8 @@ CRDTP_BEGIN_SERIALIZER(VirtualAuthenticatorOptions)
     CRDTP_SERIALIZE_FIELD("hasPrf", m_hasPrf);
     CRDTP_SERIALIZE_FIELD("automaticPresenceSimulation", m_automaticPresenceSimulation);
     CRDTP_SERIALIZE_FIELD("isUserVerified", m_isUserVerified);
+    CRDTP_SERIALIZE_FIELD("defaultBackupEligibility", m_defaultBackupEligibility);
+    CRDTP_SERIALIZE_FIELD("defaultBackupState", m_defaultBackupState);
 CRDTP_END_SERIALIZER();
 
 

@@ -56,8 +56,9 @@ export const PermissionName = {
   LOCAL_FONTS: 21,
   DISPLAY_CAPTURE: 22,
   TOP_LEVEL_STORAGE_ACCESS: 23,
+  CAPTURED_SURFACE_CONTROL: 24,
   MIN_VALUE: 0,
-  MAX_VALUE: 23,
+  MAX_VALUE: 24,
 };
 
 /**
@@ -279,6 +280,16 @@ export class PermissionServiceInterface {
   hasPermission(permission) {}
   
   /**
+   * @param { !Array<!PermissionDescriptor> } permissions
+   * @return {!Promise<{
+        allowed: !boolean,
+        statuses: ?Array<!blink_mojom_PermissionStatus>,
+   *  }>}
+   */
+
+  registerPageEmbeddedPermissionControl(permissions) {}
+  
+  /**
    * @param { !EmbeddedPermissionRequestDescriptor } descriptor
    * @return {!Promise<{
         status: !EmbeddedPermissionControlResult,
@@ -377,6 +388,26 @@ export class PermissionServiceRemote {
 
   
   /**
+   * @param { !Array<!PermissionDescriptor> } permissions
+   * @return {!Promise<{
+        allowed: !boolean,
+        statuses: ?Array<!blink_mojom_PermissionStatus>,
+   *  }>}
+   */
+
+  registerPageEmbeddedPermissionControl(
+      permissions) {
+    return this.proxy.sendMessage(
+        1,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        [
+          permissions
+        ]);
+  }
+
+  
+  /**
    * @param { !EmbeddedPermissionRequestDescriptor } descriptor
    * @return {!Promise<{
         status: !EmbeddedPermissionControlResult,
@@ -386,7 +417,7 @@ export class PermissionServiceRemote {
   requestPageEmbeddedPermission(
       descriptor) {
     return this.proxy.sendMessage(
-        1,
+        2,
         PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         [
@@ -407,7 +438,7 @@ export class PermissionServiceRemote {
       permission,
       userGesture) {
     return this.proxy.sendMessage(
-        2,
+        3,
         PermissionService_RequestPermission_ParamsSpec.$,
         PermissionService_RequestPermission_ResponseParamsSpec.$,
         [
@@ -429,7 +460,7 @@ export class PermissionServiceRemote {
       permission,
       userGesture) {
     return this.proxy.sendMessage(
-        3,
+        4,
         PermissionService_RequestPermissions_ParamsSpec.$,
         PermissionService_RequestPermissions_ResponseParamsSpec.$,
         [
@@ -449,7 +480,7 @@ export class PermissionServiceRemote {
   revokePermission(
       permission) {
     return this.proxy.sendMessage(
-        4,
+        5,
         PermissionService_RevokePermission_ParamsSpec.$,
         PermissionService_RevokePermission_ResponseParamsSpec.$,
         [
@@ -469,7 +500,7 @@ export class PermissionServiceRemote {
       lastKnownStatus,
       observer) {
     this.proxy.sendMessage(
-        5,
+        6,
         PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         [
@@ -491,7 +522,7 @@ export class PermissionServiceRemote {
       eventType,
       isAdded) {
     this.proxy.sendMessage(
-        6,
+        7,
         PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         [
@@ -529,31 +560,36 @@ export class PermissionServiceReceiver {
         impl.hasPermission.bind(impl));
     this.helper_internal_.registerHandler(
         1,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        impl.registerPageEmbeddedPermissionControl.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
         PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         impl.requestPageEmbeddedPermission.bind(impl));
     this.helper_internal_.registerHandler(
-        2,
+        3,
         PermissionService_RequestPermission_ParamsSpec.$,
         PermissionService_RequestPermission_ResponseParamsSpec.$,
         impl.requestPermission.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         PermissionService_RequestPermissions_ParamsSpec.$,
         PermissionService_RequestPermissions_ResponseParamsSpec.$,
         impl.requestPermissions.bind(impl));
     this.helper_internal_.registerHandler(
-        4,
+        5,
         PermissionService_RevokePermission_ParamsSpec.$,
         PermissionService_RevokePermission_ResponseParamsSpec.$,
         impl.revokePermission.bind(impl));
     this.helper_internal_.registerHandler(
-        5,
+        6,
         PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         impl.addPermissionObserver.bind(impl));
     this.helper_internal_.registerHandler(
-        6,
+        7,
         PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         impl.notifyEventListener.bind(impl));
@@ -618,12 +654,24 @@ export class PermissionServiceCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.requestPageEmbeddedPermission =
+    this.registerPageEmbeddedPermissionControl =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         1,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        this.registerPageEmbeddedPermissionControl.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.requestPageEmbeddedPermission =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
         PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         this.requestPageEmbeddedPermission.createReceiverHandler(true /* expectsResponse */));
@@ -635,7 +683,7 @@ export class PermissionServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        2,
+        3,
         PermissionService_RequestPermission_ParamsSpec.$,
         PermissionService_RequestPermission_ResponseParamsSpec.$,
         this.requestPermission.createReceiverHandler(true /* expectsResponse */));
@@ -647,7 +695,7 @@ export class PermissionServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         PermissionService_RequestPermissions_ParamsSpec.$,
         PermissionService_RequestPermissions_ResponseParamsSpec.$,
         this.requestPermissions.createReceiverHandler(true /* expectsResponse */));
@@ -659,7 +707,7 @@ export class PermissionServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        4,
+        5,
         PermissionService_RevokePermission_ParamsSpec.$,
         PermissionService_RevokePermission_ResponseParamsSpec.$,
         this.revokePermission.createReceiverHandler(true /* expectsResponse */));
@@ -671,7 +719,7 @@ export class PermissionServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        5,
+        6,
         PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         this.addPermissionObserver.createReceiverHandler(false /* expectsResponse */));
@@ -683,7 +731,7 @@ export class PermissionServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        6,
+        7,
         PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         this.notifyEventListener.createReceiverHandler(false /* expectsResponse */));
@@ -752,6 +800,18 @@ export const PermissionService_HasPermission_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const PermissionService_HasPermission_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -1109,6 +1169,74 @@ export class PermissionService_HasPermission_ResponseParams {
   constructor() {
     /** @type { !blink_mojom_PermissionStatus } */
     this.status;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+    'PermissionService_RegisterPageEmbeddedPermissionControl_Params',
+    [
+      mojo.internal.StructField(
+        'permissions', 0,
+        0,
+        mojo.internal.Array(PermissionDescriptorSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class PermissionService_RegisterPageEmbeddedPermissionControl_Params {
+  constructor() {
+    /** @type { !Array<!PermissionDescriptor> } */
+    this.permissions;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+    'PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'allowed', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'statuses', 8,
+        0,
+        mojo.internal.Array(blink_mojom_PermissionStatusSpec.$, false),
+        null,
+        true /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.allowed;
+    /** @type { (Array<!blink_mojom_PermissionStatus>|undefined) } */
+    this.statuses;
   }
 }
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/permissions.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ Permissions::Permissions()
  {}
 
 Permissions::~Permissions() = default;
-Permissions::Permissions(Permissions&& rhs) = default;
-Permissions& Permissions::operator=(Permissions&& rhs) = default;
+Permissions::Permissions(Permissions&& rhs) noexcept = default;
+Permissions& Permissions::operator=(Permissions&& rhs) noexcept = default;
 Permissions Permissions::Clone() const {
   Permissions out;
   out.permissions = permissions;
@@ -89,34 +90,21 @@ bool Permissions::Populate(
 }
 
 // static
-std::unique_ptr<Permissions> Permissions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Permissions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Permissions> Permissions::FromValue(const base::Value::Dict& value) {
+  Permissions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Permissions> Permissions::FromValue(const base::Value::Dict& value) {
+std::optional<Permissions> Permissions::FromValue(const base::Value& value) {
   Permissions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Permissions> Permissions::FromValue(const base::Value& value) {
-  Permissions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -157,13 +145,13 @@ namespace Contains {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -172,15 +160,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& permissions_value = args[0];
     {
       if (!permissions_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Permissions::Populate(permissions_value.GetDict(), params.permissions)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -200,13 +188,13 @@ namespace Request {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -215,15 +203,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& permissions_value = args[0];
     {
       if (!permissions_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Permissions::Populate(permissions_value.GetDict(), params.permissions)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -243,13 +231,13 @@ namespace Remove {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -258,15 +246,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& permissions_value = args[0];
     {
       if (!permissions_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Permissions::Populate(permissions_value.GetDict(), params.permissions)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

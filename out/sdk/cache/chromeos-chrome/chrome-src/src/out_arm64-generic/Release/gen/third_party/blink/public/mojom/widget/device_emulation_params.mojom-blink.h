@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-features.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-blink-forward.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
 #include "ui/display/mojom/screen_orientation.mojom-blink-forward.h"
 
@@ -40,18 +42,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::EmulatedScreenType>
-    : EnumHashTraits<::blink::mojom::EmulatedScreenType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -92,7 +82,7 @@ class PLATFORM_EXPORT DeviceEmulationParams {
   DeviceEmulationParams(
       EmulatedScreenType screen_type,
       const ::gfx::Size& screen_size,
-      const absl::optional<::gfx::Point>& view_position,
+      const std::optional<::gfx::Point>& view_position,
       const ::gfx::Size& view_size,
       float device_scale_factor,
       float scale,
@@ -100,7 +90,8 @@ class PLATFORM_EXPORT DeviceEmulationParams {
       float viewport_scale,
       ::display::mojom::blink::ScreenOrientation screen_orientation_type,
       uint32_t screen_orientation_angle,
-      WTF::Vector<::gfx::Rect> window_segments);
+      WTF::Vector<::gfx::Rect> window_segments,
+      ::device::mojom::blink::DevicePostureType device_posture);
 
 
   ~DeviceEmulationParams();
@@ -182,7 +173,7 @@ class PLATFORM_EXPORT DeviceEmulationParams {
   
   ::gfx::Size screen_size;
   
-  absl::optional<::gfx::Point> view_position;
+  std::optional<::gfx::Point> view_position;
   
   ::gfx::Size view_size;
   
@@ -199,6 +190,8 @@ class PLATFORM_EXPORT DeviceEmulationParams {
   uint32_t screen_orientation_angle;
   
   WTF::Vector<::gfx::Rect> window_segments;
+  
+  ::device::mojom::blink::DevicePostureType device_posture;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -242,7 +235,8 @@ DeviceEmulationParamsPtr DeviceEmulationParams::Clone() const {
       mojo::Clone(viewport_scale),
       mojo::Clone(screen_orientation_type),
       mojo::Clone(screen_orientation_angle),
-      mojo::Clone(window_segments)
+      mojo::Clone(window_segments),
+      mojo::Clone(device_posture)
   );
 }
 
@@ -269,6 +263,8 @@ bool DeviceEmulationParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->screen_orientation_angle, other_struct.screen_orientation_angle))
     return false;
   if (!mojo::Equals(this->window_segments, other_struct.window_segments))
+    return false;
+  if (!mojo::Equals(this->device_posture, other_struct.device_posture))
     return false;
   return true;
 }
@@ -318,6 +314,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.window_segments < rhs.window_segments)
     return true;
   if (rhs.window_segments < lhs.window_segments)
+    return false;
+  if (lhs.device_posture < rhs.device_posture)
+    return true;
+  if (rhs.device_posture < lhs.device_posture)
     return false;
   return false;
 }
@@ -387,6 +387,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DeviceEmulationParams
   static const decltype(::blink::mojom::blink::DeviceEmulationParams::window_segments)& window_segments(
       const ::blink::mojom::blink::DeviceEmulationParamsPtr& input) {
     return input->window_segments;
+  }
+
+  static decltype(::blink::mojom::blink::DeviceEmulationParams::device_posture) device_posture(
+      const ::blink::mojom::blink::DeviceEmulationParamsPtr& input) {
+    return input->device_posture;
   }
 
   static bool Read(::blink::mojom::blink::DeviceEmulationParams::DataView input, ::blink::mojom::blink::DeviceEmulationParamsPtr* output);

@@ -120,21 +120,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PeerConnectionManager_G
 };
 static_assert(sizeof(PeerConnectionManager_GetStandardStats_Params_Data) == 8,
               "Bad sizeof(PeerConnectionManager_GetStandardStats_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PeerConnectionManager_GetLegacyStats_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<PeerConnectionManager_GetLegacyStats_Params_Data>;
-
-  PeerConnectionManager_GetLegacyStats_Params_Data();
-  ~PeerConnectionManager_GetLegacyStats_Params_Data() = delete;
-};
-static_assert(sizeof(PeerConnectionManager_GetLegacyStats_Params_Data) == 8,
-              "Bad sizeof(PeerConnectionManager_GetLegacyStats_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PeerConnectionManager_GetCurrentState_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -507,21 +492,6 @@ class PeerConnectionManager_GetStandardStats_ParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::PeerConnectionManager_GetStandardStats_Params_Data* data_ = nullptr;
-};
-
-
-class PeerConnectionManager_GetLegacyStats_ParamsDataView {
- public:
-  PeerConnectionManager_GetLegacyStats_ParamsDataView() = default;
-
-  PeerConnectionManager_GetLegacyStats_ParamsDataView(
-      internal::PeerConnectionManager_GetLegacyStats_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::PeerConnectionManager_GetLegacyStats_Params_Data* data_ = nullptr;
 };
 
 
@@ -1003,8 +973,6 @@ class PeerConnectionTrackerHost_AddLegacyStats_ParamsDataView {
   internal::PeerConnectionTrackerHost_AddLegacyStats_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
-
 
 
 

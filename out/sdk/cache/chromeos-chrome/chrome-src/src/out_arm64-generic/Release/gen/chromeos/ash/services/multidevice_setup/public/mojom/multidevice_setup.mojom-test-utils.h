@@ -37,7 +37,7 @@ class  AccountStatusChangeDelegateAsyncWaiter {
 
 class  HostStatusObserverInterceptorForTesting : public HostStatusObserver {
   virtual HostStatusObserver* GetForwardingInterface() = 0;
-  void OnHostStatusChanged(HostStatus host_status, const absl::optional<::ash::multidevice::RemoteDevice>& host_device) override;
+  void OnHostStatusChanged(HostStatus host_status, const std::optional<::ash::multidevice::RemoteDevice>& host_device) override;
 };
 class  HostStatusObserverAsyncWaiter {
  public:
@@ -81,7 +81,7 @@ class  MultiDeviceSetupInterceptorForTesting : public MultiDeviceSetup {
   void SetHostDevice(const std::string& instance_id_or_legacy_device_id, const std::string& auth_token, SetHostDeviceCallback callback) override;
   void RemoveHostDevice() override;
   void GetHostStatus(GetHostStatusCallback callback) override;
-  void SetFeatureEnabledState(Feature feature, bool enabled, const absl::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) override;
+  void SetFeatureEnabledState(Feature feature, bool enabled, const std::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) override;
   void GetFeatureStates(GetFeatureStatesCallback callback) override;
   void RetrySetHostNow(RetrySetHostNowCallback callback) override;
   void TriggerEventForDebugging(EventTypeForDebugging type, TriggerEventForDebuggingCallback callback) override;
@@ -106,11 +106,11 @@ class  MultiDeviceSetupAsyncWaiter {
       const std::string& instance_id_or_legacy_device_id, const std::string& auth_token, bool* out_success);
   bool SetHostDevice(const std::string& instance_id_or_legacy_device_id, const std::string& auth_token);
   void GetHostStatus(
-      HostStatus* out_host_status, absl::optional<::ash::multidevice::RemoteDevice>* out_host_device);
+      HostStatus* out_host_status, std::optional<::ash::multidevice::RemoteDevice>* out_host_device);
   
   void SetFeatureEnabledState(
-      Feature feature, bool enabled, const absl::optional<std::string>& auth_token, bool* out_success);
-  bool SetFeatureEnabledState(Feature feature, bool enabled, const absl::optional<std::string>& auth_token);
+      Feature feature, bool enabled, const std::optional<std::string>& auth_token, bool* out_success);
+  bool SetFeatureEnabledState(Feature feature, bool enabled, const std::optional<std::string>& auth_token);
   void GetFeatureStates(
       base::flat_map<Feature, FeatureState>* out_feature_states_map);
   base::flat_map<Feature, FeatureState> GetFeatureStates();
@@ -121,8 +121,8 @@ class  MultiDeviceSetupAsyncWaiter {
       EventTypeForDebugging type, bool* out_success);
   bool TriggerEventForDebugging(EventTypeForDebugging type);
   void GetQuickStartPhoneInstanceID(
-      absl::optional<std::string>* out_qs_phone_instance_id);
-  absl::optional<std::string> GetQuickStartPhoneInstanceID();
+      std::optional<std::string>* out_qs_phone_instance_id);
+  std::optional<std::string> GetQuickStartPhoneInstanceID();
 
  private:
   MultiDeviceSetup* const proxy_;

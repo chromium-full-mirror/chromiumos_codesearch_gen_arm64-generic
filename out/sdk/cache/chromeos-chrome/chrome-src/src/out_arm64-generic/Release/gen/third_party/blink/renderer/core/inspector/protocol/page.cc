@@ -93,6 +93,7 @@ const char Autoplay[] = "autoplay";
 const char Bluetooth[] = "bluetooth";
 const char BrowsingTopics[] = "browsing-topics";
 const char Camera[] = "camera";
+const char CapturedSurfaceControl[] = "captured-surface-control";
 const char ChDpr[] = "ch-dpr";
 const char ChDeviceMemory[] = "ch-device-memory";
 const char ChDownlink[] = "ch-downlink";
@@ -148,6 +149,7 @@ const char PictureInPicture[] = "picture-in-picture";
 const char PrivateAggregation[] = "private-aggregation";
 const char PrivateStateTokenIssuance[] = "private-state-token-issuance";
 const char PrivateStateTokenRedemption[] = "private-state-token-redemption";
+const char PublickeyCredentialsCreate[] = "publickey-credentials-create";
 const char PublickeyCredentialsGet[] = "publickey-credentials-get";
 const char RunAdAuction[] = "run-ad-auction";
 const char ScreenWakeLock[] = "screen-wake-lock";
@@ -157,10 +159,13 @@ const char SharedStorage[] = "shared-storage";
 const char SharedStorageSelectUrl[] = "shared-storage-select-url";
 const char SmartCard[] = "smart-card";
 const char StorageAccess[] = "storage-access";
+const char SubApps[] = "sub-apps";
 const char SyncXhr[] = "sync-xhr";
 const char Unload[] = "unload";
 const char Usb[] = "usb";
+const char UsbUnrestricted[] = "usb-unrestricted";
 const char VerticalScroll[] = "vertical-scroll";
+const char WebPrinting[] = "web-printing";
 const char WebShare[] = "web-share";
 const char WindowManagement[] = "window-management";
 const char WindowPlacement[] = "window-placement";
@@ -595,6 +600,8 @@ const char JsNetworkRequestReceivedCacheControlNoStoreResource[] = "JsNetworkReq
 const char WebRTCSticky[] = "WebRTCSticky";
 const char WebTransportSticky[] = "WebTransportSticky";
 const char WebSocketSticky[] = "WebSocketSticky";
+const char SmartCard[] = "SmartCard";
+const char LiveMediaStreamTrack[] = "LiveMediaStreamTrack";
 const char ContentSecurityHandler[] = "ContentSecurityHandler";
 const char ContentWebAuthenticationAPI[] = "ContentWebAuthenticationAPI";
 const char ContentFileChooser[] = "ContentFileChooser";
@@ -2272,7 +2279,6 @@ const std::vector<std::pair<crdtp::span<uint8_t>, crdtp::span<uint8_t>>>& Sorted
           { crdtp::SpanFrom("Page.clearDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.clearDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.clearGeolocationOverride"), crdtp::SpanFrom("Emulation.clearGeolocationOverride") },
           { crdtp::SpanFrom("Page.deleteCookie"), crdtp::SpanFrom("Network.deleteCookie") },
-          { crdtp::SpanFrom("Page.getCookies"), crdtp::SpanFrom("Network.getCookies") },
           { crdtp::SpanFrom("Page.setDeviceMetricsOverride"), crdtp::SpanFrom("Emulation.setDeviceMetricsOverride") },
           { crdtp::SpanFrom("Page.setDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.setDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.setGeolocationOverride"), crdtp::SpanFrom("Emulation.setGeolocationOverride") },

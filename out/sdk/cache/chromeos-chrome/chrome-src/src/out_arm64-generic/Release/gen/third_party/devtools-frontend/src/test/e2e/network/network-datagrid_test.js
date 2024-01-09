@@ -4,10 +4,10 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
+const hooks_js_1 = require("../../conductor/hooks.js");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const network_helpers_js_1 = require("../helpers/network-helpers.js");
-const hooks_js_1 = require("../../conductor/hooks.js");
 async function getRequestRowInfo(frontend, name) {
     const statusColumn = await frontend.evaluate(() => {
         return Array.from(document.querySelectorAll('.status-column')).map(node => node.textContent);
@@ -33,8 +33,6 @@ async function getRequestRowInfo(frontend, name) {
         return `${value}\xA0B`;
     };
     beforeEach(async () => {
-        // Automatic pretty printing doesn't play well with the assertions.
-        await (0, helper_js_1.disableExperiment)('sourcesPrettyPrint');
         await (0, network_helpers_js_1.navigateToNetworkTab)('empty.html');
         await (0, network_helpers_js_1.setCacheDisabled)(true);
         await (0, network_helpers_js_1.setPersistLog)(false);
@@ -113,10 +111,14 @@ async function getRequestRowInfo(frontend, name) {
         await (0, network_helpers_js_1.waitForSomeRequestsToAppear)(1);
         // Open the HTML file that was loaded
         await (0, helper_js_1.click)('td.name-column');
-        // Wait for the detailed network information pane to show up
-        await (0, helper_js_1.waitFor)('[aria-label="Response"]');
         // Open the raw response HTML
         await (0, helper_js_1.click)('[aria-label="Response"]');
+        // Disable pretty printing
+        await (0, helper_js_1.waitFor)('[aria-label="Pretty print"][aria-pressed="true"]');
+        await Promise.all([
+            (0, helper_js_1.click)('[aria-label="Pretty print"]'),
+            (0, helper_js_1.waitFor)('[aria-label="Pretty print"][aria-pressed="true"]'),
+        ]);
         // Wait for the raw response editor to show up
         const codeMirrorEditor = await (0, helper_js_1.waitFor)('[aria-label="Code editor"]');
         const htmlRawResponse = await codeMirrorEditor.evaluate(editor => editor.textContent);

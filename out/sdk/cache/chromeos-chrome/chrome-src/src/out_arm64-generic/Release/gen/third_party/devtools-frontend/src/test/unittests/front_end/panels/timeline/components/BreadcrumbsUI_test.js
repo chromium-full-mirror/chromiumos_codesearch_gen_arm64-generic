@@ -5,6 +5,9 @@ import * as TraceEngine from '../../../../../../front_end/models/trace/trace.js'
 import * as TimelineComponents from '../../../../../../front_end/panels/timeline/components/components.js';
 import * as Coordinator from '../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
 import { assertShadowRoot, renderElementIntoDOM } from '../../../helpers/DOMHelpers.js';
+function milliToMicro(x) {
+    return TraceEngine.Helpers.Timing.millisecondsToMicroseconds(TraceEngine.Types.Timing.MilliSeconds(x));
+}
 describe('BreadcrumbsUI', async () => {
     const { BreadcrumbsUI } = TimelineComponents.BreadcrumbsUI;
     function queryBreadcrumbs(component) {
@@ -19,9 +22,9 @@ describe('BreadcrumbsUI', async () => {
         const component = new BreadcrumbsUI();
         renderElementIntoDOM(component);
         const traceWindow = {
-            min: TraceEngine.Types.Timing.MicroSeconds(1),
-            max: TraceEngine.Types.Timing.MicroSeconds(10),
-            range: TraceEngine.Types.Timing.MicroSeconds(9),
+            min: milliToMicro(1),
+            max: milliToMicro(10),
+            range: milliToMicro(9),
         };
         const breadcrumb = {
             window: traceWindow,
@@ -38,14 +41,14 @@ describe('BreadcrumbsUI', async () => {
         const component = new BreadcrumbsUI();
         renderElementIntoDOM(component);
         const traceWindow2 = {
-            min: TraceEngine.Types.Timing.MicroSeconds(2),
-            max: TraceEngine.Types.Timing.MicroSeconds(9),
-            range: TraceEngine.Types.Timing.MicroSeconds(7),
+            min: milliToMicro(2),
+            max: milliToMicro(9),
+            range: milliToMicro(7),
         };
         const traceWindow = {
-            min: TraceEngine.Types.Timing.MicroSeconds(1),
-            max: TraceEngine.Types.Timing.MicroSeconds(10),
-            range: TraceEngine.Types.Timing.MicroSeconds(9),
+            min: milliToMicro(1),
+            max: milliToMicro(10),
+            range: milliToMicro(9),
         };
         const breadcrumb2 = {
             window: traceWindow2,

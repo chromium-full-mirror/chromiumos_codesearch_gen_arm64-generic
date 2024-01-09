@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/cross_origin_isolation.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -40,8 +41,8 @@ ResponseHeader::ResponseHeader()
  {}
 
 ResponseHeader::~ResponseHeader() = default;
-ResponseHeader::ResponseHeader(ResponseHeader&& rhs) = default;
-ResponseHeader& ResponseHeader::operator=(ResponseHeader&& rhs) = default;
+ResponseHeader::ResponseHeader(ResponseHeader&& rhs) noexcept = default;
+ResponseHeader& ResponseHeader::operator=(ResponseHeader&& rhs) noexcept = default;
 // static
 constexpr char ResponseHeader::kValue[];
 
@@ -59,7 +60,7 @@ bool ResponseHeader::Populate(
     {
       auto* temp = (*value_value).GetIfString();
       if (!temp) {
-        out.value = absl::nullopt;
+        out.value = std::nullopt;
         return false;
       }
       out.value = *temp;
@@ -79,34 +80,21 @@ bool ResponseHeader::Populate(
 }
 
 // static
-std::unique_ptr<ResponseHeader> ResponseHeader::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ResponseHeader>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ResponseHeader> ResponseHeader::FromValue(const base::Value::Dict& value) {
+  ResponseHeader out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ResponseHeader> ResponseHeader::FromValue(const base::Value::Dict& value) {
+std::optional<ResponseHeader> ResponseHeader::FromValue(const base::Value& value) {
   ResponseHeader out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ResponseHeader> ResponseHeader::FromValue(const base::Value& value) {
-  ResponseHeader out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -148,8 +136,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kCrossOriginEmbedderPolicy[];
 // static

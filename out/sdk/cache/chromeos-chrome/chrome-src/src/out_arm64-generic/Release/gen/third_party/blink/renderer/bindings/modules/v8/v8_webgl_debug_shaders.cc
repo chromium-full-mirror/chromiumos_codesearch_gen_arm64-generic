@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLDebugShaders>::value,
     "WebGLDebugShaders inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLDebugShaders::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLDebugShaders is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLDebugShaders* blink_receiver = V8WebGLDebugShaders::ToWrappableUnsafe(v8_receiver);
+WebGLDebugShaders* blink_receiver = V8WebGLDebugShaders::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

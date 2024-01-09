@@ -24,6 +24,12 @@ export function getTemplate() {
           $i18n{performancePageTitle}
           <paper-ripple></paper-ripple>
         </a>
+        <a role="menuitem" href="/ai" hidden="[[!showExperimentalMenuItem_(
+                showAdvancedFeaturesMainControl_, pageVisibility.ai)]]" class="cr-nav-menu-item">
+          <iron-icon icon="settings20:ai"></iron-icon>
+          $i18n{experimentalAdvancedPageTitle}
+          <paper-ripple></paper-ripple>
+        </a>
         <a role="menuitem" id="appearance" href="/appearance" hidden="[[!pageVisibility.appearance]]" class="cr-nav-menu-item">
           <iron-icon icon="settings:palette"></iron-icon>
           $i18n{appearancePageTitle}

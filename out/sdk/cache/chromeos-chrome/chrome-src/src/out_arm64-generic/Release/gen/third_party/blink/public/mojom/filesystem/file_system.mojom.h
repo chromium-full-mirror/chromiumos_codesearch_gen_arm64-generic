@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/filesystem/file_system.mojom-features.h"
 #include "third_party/blink/public/mojom/filesystem/file_system.mojom-shared.h"
 #include "third_party/blink/public/mojom/filesystem/file_system.mojom-forward.h"
 #include "components/services/filesystem/public/mojom/types.mojom-forward.h"
@@ -453,11 +454,11 @@ class BLINK_COMMON_EXPORT FileSystemManager
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob);
+  virtual bool RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob);
 
   using RegisterBlobCallback = base::OnceCallback<void(::blink::mojom::SerializedBlobPtr)>;
   
-  virtual void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) = 0;
+  virtual void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) = 0;
 };
 
 
@@ -576,9 +577,9 @@ class BLINK_COMMON_EXPORT FileSystemManagerProxy
   
   void GetPlatformPath(const ::GURL& file_path, GetPlatformPathCallback callback) final;
   
-  bool RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob) final;
+  bool RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob) final;
   
-  void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) final;
+  void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

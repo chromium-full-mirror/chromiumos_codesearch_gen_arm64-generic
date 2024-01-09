@@ -10,10 +10,12 @@ import 'chrome://resources/polymer/v3_0/iron-location/iron-query-params.js';
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { TopicSource } from './../personalization_app.mojom-webui.js';
+import { TopicSource } from '../personalization_app.mojom-webui.js';
 import { isAmbientModeAllowed } from './load_time_booleans.js';
 import { logPersonalizationPathUMA } from './personalization_metrics_logger.js';
 import { getTemplate } from './personalization_router_element.html.js';
+import { isSeaPenEnabled } from './wallpaper/sea_pen/load_time_booleans.js';
+import { WallpaperObserver } from './wallpaper/wallpaper_observer.js';
 export var Paths;
 (function (Paths) {
     Paths["AMBIENT"] = "/ambient";
@@ -24,6 +26,7 @@ export var Paths;
     Paths["LOCAL_COLLECTION"] = "/wallpaper/local";
     Paths["ROOT"] = "/";
     Paths["SEA_PEN_COLLECTION"] = "/wallpaper/sea-pen";
+    Paths["SEA_PEN_RESULTS"] = "/wallpaper/sea-pen/results";
     Paths["USER"] = "/user";
 })(Paths || (Paths = {}));
 export var ScrollableTarget;
@@ -41,6 +44,12 @@ export function isAmbientPathAllowed(path) {
 }
 export function isAmbientPathNotAllowed(path) {
     return isAmbientPath(path) && !isAmbientModeAllowed();
+}
+export function isSeaPenPath(path) {
+    return !!path && path.startsWith(Paths.SEA_PEN_COLLECTION);
+}
+export function isSeaPenPathNotAllowed(path) {
+    return isSeaPenPath(path) && !isSeaPenEnabled();
 }
 export class PersonalizationRouterElement extends PolymerElement {
     static get is() {
@@ -60,6 +69,12 @@ export class PersonalizationRouterElement extends PolymerElement {
             },
             queryParams_: {
                 type: Object,
+            },
+            seaPenBasePath_: {
+                type: String,
+                value() {
+                    return Paths.SEA_PEN_COLLECTION;
+                },
             },
         };
     }
@@ -83,6 +98,7 @@ export class PersonalizationRouterElement extends PolymerElement {
     }
     connectedCallback() {
         super.connectedCallback();
+        WallpaperObserver.initWallpaperObserverIfNeeded();
     }
     get collectionId() {
         if (this.path_ !== Paths.COLLECTION_IMAGES) {
@@ -110,9 +126,6 @@ export class PersonalizationRouterElement extends PolymerElement {
     selectAmbientAlbums(topicSource) {
         this.goToRoute(Paths.AMBIENT_ALBUMS, { topicSource: topicSource.toString() });
     }
-    selectSeaPenTemplate(templateId) {
-        this.goToRoute(Paths.SEA_PEN_COLLECTION, { seaPenTemplateId: templateId });
-    }
     goToRoute(path, queryParams = {}) {
         this.setProperties({ path_: path, queryParams_: queryParams });
     }
@@ -128,7 +141,11 @@ export class PersonalizationRouterElement extends PolymerElement {
         return path === Paths.USER;
     }
     shouldShowWallpaperSubpage_(path) {
-        return !!path && path.startsWith(Paths.COLLECTIONS);
+        return !!path && path.startsWith(Paths.COLLECTIONS) &&
+            !path.startsWith(Paths.SEA_PEN_COLLECTION);
+    }
+    shouldShowSeaPen_(path) {
+        return isSeaPenEnabled() && isSeaPenPath(path);
     }
     shouldShowBreadcrumb_(path) {
         return path !== Paths.ROOT;
@@ -140,7 +157,8 @@ export class PersonalizationRouterElement extends PolymerElement {
     onPathChanged_(path) {
         // Navigates to the top of the subpage.
         window.scrollTo(0, 0);
-        if (!isPathValid(path) || isAmbientPathNotAllowed(path)) {
+        if (!isPathValid(path) || isAmbientPathNotAllowed(path) ||
+            isSeaPenPathNotAllowed(path)) {
             // Reset the path to root.
             this.setProperties({ path_: Paths.ROOT, queryParams_: {} });
         }

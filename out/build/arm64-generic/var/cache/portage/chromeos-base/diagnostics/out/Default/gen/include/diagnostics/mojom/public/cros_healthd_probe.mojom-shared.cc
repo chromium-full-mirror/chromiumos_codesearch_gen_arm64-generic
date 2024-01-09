@@ -97,6 +97,8 @@ NOINLINE static const char* ProbeCategoryEnumToStringHelper(ProbeCategoryEnum va
       return "kAudioHardware";
     case ProbeCategoryEnum::kSensor:
       return "kSensor";
+    case ProbeCategoryEnum::kThermal:
+      return "kThermal";
     default:
       return nullptr;
   }
@@ -836,6 +838,32 @@ std::string Sensor_LocationToString(Sensor_Location value) {
 
 std::ostream& operator<<(std::ostream& os, Sensor_Location value) {
   return os << Sensor_LocationToString(value);
+}
+
+NOINLINE static const char* ThermalSensorInfo_ThermalSensorSourceToStringHelper(ThermalSensorInfo_ThermalSensorSource value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ThermalSensorInfo_ThermalSensorSource::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case ThermalSensorInfo_ThermalSensorSource::kEc:
+      return "kEc";
+    case ThermalSensorInfo_ThermalSensorSource::kSysFs:
+      return "kSysFs";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ThermalSensorInfo_ThermalSensorSourceToString(ThermalSensorInfo_ThermalSensorSource value) {
+  const char *str = ThermalSensorInfo_ThermalSensorSourceToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ThermalSensorInfo_ThermalSensorSource value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ThermalSensorInfo_ThermalSensorSource value) {
+  return os << ThermalSensorInfo_ThermalSensorSourceToString(value);
 }
 
 namespace internal {
@@ -2545,6 +2573,63 @@ bool SensorResult_Data::Validate(
     }
   }
 }
+// static
+bool ThermalResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const ThermalResult_Data* object = static_cast<const ThermalResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case ThermalResult_Tag::kThermalInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_thermal_info, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_thermal_info, validation_context))
+        return false;
+      return true;
+    }
+    case ThermalResult_Tag::kError: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in ThermalResult");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -3662,7 +3747,7 @@ bool BluetoothDeviceInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->rssi, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->mtu, validation_context))
+  if (!mojo::internal::ValidateStruct(object->deprecated_mtu, validation_context))
     return false;
 
   constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
@@ -5547,8 +5632,12 @@ bool InputInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 1, 32 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -5578,12 +5667,21 @@ bool InputInfo_Data::Validate(
                                          &touchscreen_devices_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& touchpad_devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->touchpad_devices, validation_context,
+                                         &touchpad_devices_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 InputInfo_Data::InputInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
@@ -5613,6 +5711,47 @@ bool TouchscreenDevice_Data::Validate(
 }
 
 TouchscreenDevice_Data::TouchscreenDevice_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchpadDevice_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchpadDevice_Data* object =
+      static_cast<const TouchpadDevice_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->input_device, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->input_device, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->driver_name, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& driver_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->driver_name, validation_context,
+                                         &driver_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TouchpadDevice_Data::TouchpadDevice_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -5746,6 +5885,79 @@ Sensor_Data::Sensor_Data()
 
 
 // static
+bool ThermalInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThermalInfo_Data* object =
+      static_cast<const ThermalInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->thermal_sensors, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& thermal_sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->thermal_sensors, validation_context,
+                                         &thermal_sensors_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+ThermalInfo_Data::ThermalInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ThermalSensorInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThermalSensorInfo_Data* object =
+      static_cast<const ThermalSensorInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::ThermalSensorInfo_ThermalSensorSource_Data
+        ::Validate(object->source, validation_context))
+    return false;
+
+  return true;
+}
+
+ThermalSensorInfo_Data::ThermalSensorInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool TelemetryInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -5758,6 +5970,7 @@ bool TelemetryInfo_Data::Validate(
     { 3, 328 },
     { 4, 344 },
     { 5, 360 },
+    { 6, 376 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -5844,12 +6057,17 @@ bool TelemetryInfo_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->sensor_result, validation_context))
     return false;
+  if (object->header_.version < 6)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->thermal_result, validation_context))
+    return false;
 
   return true;
 }
 
 TelemetryInfo_Data::TelemetryInfo_Data()
-    : header_({sizeof(*this), 5}) {}
+    : header_({sizeof(*this), 6}) {}
 
 }  // namespace internal
 }  // namespace mojom
@@ -6102,6 +6320,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Sensor_LocationToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSourceToString(value));
 }
 
 } // namespace perfetto

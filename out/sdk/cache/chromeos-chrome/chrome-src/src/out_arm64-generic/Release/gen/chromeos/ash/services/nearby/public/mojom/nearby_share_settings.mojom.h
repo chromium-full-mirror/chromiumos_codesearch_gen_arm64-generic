@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -742,25 +743,25 @@ class  ContactIdentifier {
   // Construct an instance holding |obfuscated_gaia|.
   static ContactIdentifierPtr
   NewObfuscatedGaia(
-      const std::string& obfuscated_gaia) {
+      const std::string& value) {
     auto result = ContactIdentifierPtr(absl::in_place);
-    result->set_obfuscated_gaia(std::move(obfuscated_gaia));
+    result->set_obfuscated_gaia(std::move(value));
     return result;
   }
   // Construct an instance holding |phone_number|.
   static ContactIdentifierPtr
   NewPhoneNumber(
-      const std::string& phone_number) {
+      const std::string& value) {
     auto result = ContactIdentifierPtr(absl::in_place);
-    result->set_phone_number(std::move(phone_number));
+    result->set_phone_number(std::move(value));
     return result;
   }
   // Construct an instance holding |account_name|.
   static ContactIdentifierPtr
   NewAccountName(
-      const std::string& account_name) {
+      const std::string& value) {
     auto result = ContactIdentifierPtr(absl::in_place);
-    result->set_account_name(std::move(account_name));
+    result->set_account_name(std::move(value));
     return result;
   }
 

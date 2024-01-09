@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/diagnostics_ui/mojom/network_health_provider.mojom-features.h"
 #include "ash/webui/diagnostics_ui/mojom/network_health_provider.mojom-shared.h"
 #include "ash/webui/diagnostics_ui/mojom/network_health_provider.mojom-forward.h"
 #include <string>
@@ -530,25 +531,25 @@ class  NetworkTypeProperties {
   // Construct an instance holding |cellular|.
   static NetworkTypePropertiesPtr
   NewCellular(
-      CellularStatePropertiesPtr cellular) {
+      CellularStatePropertiesPtr value) {
     auto result = NetworkTypePropertiesPtr(absl::in_place);
-    result->set_cellular(std::move(cellular));
+    result->set_cellular(std::move(value));
     return result;
   }
   // Construct an instance holding |ethernet|.
   static NetworkTypePropertiesPtr
   NewEthernet(
-      EthernetStatePropertiesPtr ethernet) {
+      EthernetStatePropertiesPtr value) {
     auto result = NetworkTypePropertiesPtr(absl::in_place);
-    result->set_ethernet(std::move(ethernet));
+    result->set_ethernet(std::move(value));
     return result;
   }
   // Construct an instance holding |wifi|.
   static NetworkTypePropertiesPtr
   NewWifi(
-      WiFiStatePropertiesPtr wifi) {
+      WiFiStatePropertiesPtr value) {
     auto result = NetworkTypePropertiesPtr(absl::in_place);
-    result->set_wifi(std::move(wifi));
+    result->set_wifi(std::move(value));
     return result;
   }
 
@@ -691,10 +692,10 @@ class  IPConfigProperties {
   IPConfigProperties();
 
   IPConfigProperties(
-      absl::optional<std::vector<std::string>> name_servers,
+      std::optional<std::vector<std::string>> name_servers,
       int32_t routing_prefix,
-      const absl::optional<std::string>& gateway,
-      const absl::optional<std::string>& ip_address);
+      const std::optional<std::string>& gateway,
+      const std::optional<std::string>& ip_address);
 
 
   ~IPConfigProperties();
@@ -772,13 +773,13 @@ class  IPConfigProperties {
   }
 
   
-  absl::optional<std::vector<std::string>> name_servers;
+  std::optional<std::vector<std::string>> name_servers;
   
   int32_t routing_prefix;
   
-  absl::optional<std::string> gateway;
+  std::optional<std::string> gateway;
   
-  absl::optional<std::string> ip_address;
+  std::optional<std::string> ip_address;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1160,7 +1161,7 @@ class  Network {
       NetworkTypePropertiesPtr type_properties,
       const std::string& observer_guid,
       const std::string& name,
-      const absl::optional<std::string>& mac_address,
+      const std::optional<std::string>& mac_address,
       IPConfigPropertiesPtr ip_config);
 
 Network(const Network&) = delete;
@@ -1251,7 +1252,7 @@ Network& operator=(const Network&) = delete;
   
   std::string name;
   
-  absl::optional<std::string> mac_address;
+  std::optional<std::string> mac_address;
   
   IPConfigPropertiesPtr ip_config;
 

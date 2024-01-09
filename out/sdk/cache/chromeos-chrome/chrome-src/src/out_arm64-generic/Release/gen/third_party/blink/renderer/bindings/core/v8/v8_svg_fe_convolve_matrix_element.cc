@@ -84,11 +84,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGFEConvolveMatrixElement>::value,
     "SVGFEConvolveMatrixElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGFEConvolveMatrixElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGFEConvolveMatrixElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,7 +102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->in1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -126,7 +121,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orderX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -145,7 +140,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orderY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -164,7 +159,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->kernelMatrix();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -183,7 +178,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->divisor();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -202,7 +197,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bias();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -221,7 +216,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->targetX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -240,7 +235,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->targetY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -259,7 +254,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->edgeMode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -278,7 +273,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->kernelUnitLengthX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -297,7 +292,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->kernelUnitLengthY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -316,7 +311,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGFEConvolveMatrixE
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAlpha();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -335,7 +330,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -354,7 +349,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -373,7 +368,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -392,7 +387,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -411,7 +406,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(v8_receiver);
+SVGFEConvolveMatrixElement* blink_receiver = V8SVGFEConvolveMatrixElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->result();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

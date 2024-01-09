@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BatteryManager>::value,
     "BatteryManager does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BatteryManager::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BatteryManager is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Charg
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->charging();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -121,7 +116,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Charg
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->chargingTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -142,7 +137,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Disch
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dischargingTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -163,7 +158,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Level
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->level();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -176,10 +171,10 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.onchargingchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchargingchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchargingchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -192,8 +187,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchargingchange(event_handler);
 }
 
@@ -204,10 +200,10 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.onchargingtimechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchargingtimechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchargingtimechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -220,8 +216,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchargingtimechange(event_handler);
 }
 
@@ -232,10 +229,10 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.ondischargingtimechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondischargingtimechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondischargingtimechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -248,8 +245,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndischargingtimechange(event_handler);
 }
 
@@ -260,10 +258,10 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.onlevelchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onlevelchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onlevelchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -276,8 +274,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(v8_receiver);
+BatteryManager* blink_receiver = V8BatteryManager::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnlevelchange(event_handler);
 }
 

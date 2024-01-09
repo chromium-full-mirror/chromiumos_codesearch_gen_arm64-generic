@@ -78,8 +78,9 @@ export class CrTabsElement extends PolymerElement {
     }
     onSelectedChanged_(newSelected, oldSelected) {
         const tabs = this.shadowRoot.querySelectorAll('.tab');
-        if (tabs.length === 0 || oldSelected === undefined) {
-            // Tabs are not rendered yet.
+        if (tabs.length === 0 || oldSelected === undefined ||
+            tabs.length <= newSelected || tabs.length <= oldSelected) {
+            // Tabs are not fully rendered yet.
             return;
         }
         const oldTabRect = tabs[oldSelected].getBoundingClientRect();

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -123,7 +124,7 @@ AXTreeData::AXTreeData(
     int32_t sel_focus_offset_in,
     ::ax::mojom::blink::TextAffinity sel_focus_affinity_in,
     int32_t root_scroller_id_in,
-    absl::optional<WTF::Vector<WTF::String>> metadata_in)
+    std::optional<WTF::Vector<WTF::String>> metadata_in)
     : tree_id(std::move(tree_id_in)),
       parent_tree_id(std::move(parent_tree_id_in)),
       focused_tree_id(std::move(focused_tree_id_in)),
@@ -315,7 +316,7 @@ void AXTreeData::WriteIntoTrace(
     dict.AddItem(
       "metadata"), this->metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<WTF::String>>&>"
+      "<value of type const std::optional<WTF::Vector<WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

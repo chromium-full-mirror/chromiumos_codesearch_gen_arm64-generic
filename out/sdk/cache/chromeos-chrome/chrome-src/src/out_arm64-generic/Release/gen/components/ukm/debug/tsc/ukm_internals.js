@@ -4,7 +4,7 @@
 // 
 import { assert } from 'chrome://resources/js/assert.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 /**
  * Stores source ID and number of events shown. If there is a new source ID
  * or there are new events in UKM recorder, then all the events for

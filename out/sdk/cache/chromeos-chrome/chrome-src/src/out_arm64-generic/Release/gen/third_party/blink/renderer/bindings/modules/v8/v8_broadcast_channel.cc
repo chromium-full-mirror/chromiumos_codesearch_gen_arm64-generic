@@ -72,11 +72,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BroadcastChannel>::value,
     "BroadcastChannel does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BroadcastChannel::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BroadcastChannel is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("BroadcastChannel.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -104,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("BroadcastChannel.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -120,8 +115,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -132,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("BroadcastChannel.onmessageerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessageerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessageerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -148,8 +144,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessageerror(event_handler);
 }
 
@@ -211,7 +208,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BroadcastChannel_Clo
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -241,7 +238,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(v8_receiver);
+BroadcastChannel* blink_receiver = V8BroadcastChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_message = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

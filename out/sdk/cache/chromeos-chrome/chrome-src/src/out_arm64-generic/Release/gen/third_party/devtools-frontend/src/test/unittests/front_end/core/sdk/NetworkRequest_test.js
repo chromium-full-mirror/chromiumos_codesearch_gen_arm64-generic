@@ -3,7 +3,10 @@
 // found in the LICENSE file.
 const { assert } = chai;
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
+import * as Platform from '../../../../../front_end/core/platform/platform.js';
 import { expectCookie } from '../../helpers/Cookies.js';
+import { createTarget } from '../../helpers/EnvironmentHelpers.js';
+import { describeWithMockConnection } from '../../helpers/MockConnection.js';
 describe('NetworkRequest', () => {
     it('can parse statusText from the first line of responseReceivedExtraInfo\'s headersText', () => {
         assert.strictEqual(SDK.NetworkRequest.NetworkRequest.parseStatusTextFromResponseHeadersText('HTTP/1.1 304 not modified'), 'not modified');
@@ -75,9 +78,12 @@ describe('NetworkRequest', () => {
         request.originalResponseHeaders =
             [{ name: 'one', value: 'first' }, { name: 'two', value: 'second' }, { name: 'two', value: 'second' }];
         assert.isTrue(request.hasOverriddenHeaders());
+    });
+    it('considers duplicate headers which only differ in the order of their values as overridden', () => {
+        const request = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('requestId', 'url', 'documentURL', null);
         request.responseHeaders = [{ name: 'duplicate', value: 'first' }, { name: 'duplicate', value: 'second' }];
-        request.originalResponseHeaders = [{ name: 'duplicate', value: 'second' }, { name: 'Duplicate', value: 'first' }];
-        assert.isFalse(request.hasOverriddenHeaders());
+        request.originalResponseHeaders = [{ name: 'duplicate', value: 'second' }, { name: 'duplicate', value: 'first' }];
+        assert.isTrue(request.hasOverriddenHeaders());
     });
     it('can handle the case of duplicate cookies with only 1 of them being blocked', async () => {
         const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'url', 'documentURL', null, null, null);
@@ -100,6 +106,51 @@ describe('NetworkRequest', () => {
                 cookieLine: 'foo=duplicate; Path=/',
             }]);
         assert.deepEqual(request.nonBlockedResponseCookies().map(cookie => cookie.getCookieLine()), ['foo=duplicate; Path=/']);
+    });
+    it('preserves order of headers in case of duplicates', () => {
+        const request = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('requestId', 'url', 'documentURL', null);
+        const responseHeaders = [{ name: '1ab', value: 'middle' }, { name: '1aB', value: 'last' }];
+        request.addExtraResponseInfo({
+            blockedResponseCookies: [],
+            responseHeaders,
+            resourceIPAddressSpace: 'Public',
+        });
+        assert.deepEqual(request.sortedResponseHeaders, responseHeaders);
+    });
+    it('treats multiple headers with the same name the same as single header with comma-separated values', () => {
+        const request = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('requestId', 'url', 'documentURL', null);
+        request.responseHeaders = [{ name: 'duplicate', value: 'first, second' }];
+        request.originalResponseHeaders = [{ name: 'duplicate', value: 'first' }, { name: 'duplicate', value: 'second' }];
+        assert.isFalse(request.hasOverriddenHeaders());
+    });
+});
+describeWithMockConnection('NetworkRequest', () => {
+    it('adds blocked cookies to cookieModel', () => {
+        const target = createTarget();
+        const networkManager = target.model(SDK.NetworkManager.NetworkManager);
+        const networkManagerForRequestStub = sinon.stub(SDK.NetworkManager.NetworkManager, 'forRequest').returns(networkManager);
+        const cookie = new SDK.Cookie.Cookie('name', 'value');
+        const cookieModel = target.model(SDK.CookieModel.CookieModel);
+        Platform.assertNotNullOrUndefined(cookieModel);
+        const addBlockedCookieSpy = sinon.spy(cookieModel, 'addBlockedCookie');
+        const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'url', 'documentURL', null, null, null);
+        request.addExtraResponseInfo({
+            responseHeaders: [{ name: 'Set-Cookie', value: 'name=value; Path=/' }],
+            blockedResponseCookies: [{
+                    blockedReasons: ["ThirdPartyPhaseout" /* Protocol.Network.SetCookieBlockedReason.ThirdPartyPhaseout */],
+                    cookie,
+                    cookieLine: 'name=value; Path=/',
+                }],
+            resourceIPAddressSpace: "Public" /* Protocol.Network.IPAddressSpace.Public */,
+            statusCode: undefined,
+            cookiePartitionKey: undefined,
+            cookiePartitionKeyOpaque: undefined,
+        });
+        assert.isTrue(addBlockedCookieSpy.calledOnceWith(cookie, [{
+                attribute: null,
+                uiString: 'Setting this cookie was blocked due to third-party cookie phaseout. Learn more in the Issues tab.',
+            }]));
+        networkManagerForRequestStub.restore();
     });
 });
 //# sourceMappingURL=NetworkRequest_test.js.map

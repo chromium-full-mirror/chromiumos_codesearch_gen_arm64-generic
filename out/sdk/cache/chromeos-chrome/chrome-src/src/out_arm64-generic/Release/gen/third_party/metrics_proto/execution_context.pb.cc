@@ -134,13 +134,15 @@ bool Thread_IsValid(int value) {
     case 23:
     case 24:
     case 25:
+    case 26:
+    case 27:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Thread_strings[26] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Thread_strings[28] = {};
 
 static const char Thread_names[] =
   "AUDIO_DEVICE_THREAD"
@@ -165,9 +167,11 @@ static const char Thread_names[] =
   "RENDER_THREAD"
   "SCHEDULER_WORKER_THREAD"
   "SERVICE_WORKER_THREAD"
+  "STACK_SAMPLING_THREAD"
   "THREAD_POOL_THREAD"
   "UNKNOWN_THREAD"
   "UTILITY_THREAD"
+  "VIDEO_FRAME_COMPOSITOR_THREAD"
   "WEBRTC_THREAD";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Thread_entries[] = {
@@ -193,14 +197,16 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Thread_entries[] = {
   { {Thread_names + 304, 13}, 9 },
   { {Thread_names + 317, 23}, 13 },
   { {Thread_names + 340, 21}, 15 },
-  { {Thread_names + 361, 18}, 16 },
-  { {Thread_names + 379, 14}, 0 },
-  { {Thread_names + 393, 14}, 10 },
-  { {Thread_names + 407, 13}, 21 },
+  { {Thread_names + 361, 21}, 26 },
+  { {Thread_names + 382, 18}, 16 },
+  { {Thread_names + 400, 14}, 0 },
+  { {Thread_names + 414, 14}, 10 },
+  { {Thread_names + 428, 29}, 27 },
+  { {Thread_names + 457, 13}, 21 },
 };
 
 static const int Thread_entries_by_number[] = {
-  23, // 0 -> UNKNOWN_THREAD
+  24, // 0 -> UNKNOWN_THREAD
   14, // 1 -> MAIN_THREAD
   9, // 2 -> FILE_THREAD
   10, // 3 -> FILE_USER_BLOCKING_THREAD
@@ -210,22 +216,24 @@ static const int Thread_entries_by_number[] = {
   6, // 7 -> DB_THREAD
   11, // 8 -> GPU_MAIN_THREAD
   19, // 9 -> RENDER_THREAD
-  24, // 10 -> UTILITY_THREAD
+  25, // 10 -> UTILITY_THREAD
   3, // 11 -> COMPOSITOR_THREAD
   17, // 12 -> OTHER_THREAD
   20, // 13 -> SCHEDULER_WORKER_THREAD
   4, // 14 -> COMPOSITOR_TILE_WORKER_THREAD
   21, // 15 -> SERVICE_WORKER_THREAD
-  22, // 16 -> THREAD_POOL_THREAD
+  23, // 16 -> THREAD_POOL_THREAD
   12, // 17 -> GPU_MEMORY_THREAD
   7, // 18 -> DEDICATED_WORKER_THREAD
   16, // 19 -> MEMORY_INFRA_THREAD
   15, // 20 -> MEDIA_THREAD
-  25, // 21 -> WEBRTC_THREAD
+  27, // 21 -> WEBRTC_THREAD
   8, // 22 -> DRM_THREAD
   0, // 23 -> AUDIO_DEVICE_THREAD
   1, // 24 -> AUDIO_THREAD
   5, // 25 -> DAV1D_WORKER_THREAD
+  22, // 26 -> STACK_SAMPLING_THREAD
+  26, // 27 -> VIDEO_FRAME_COMPOSITOR_THREAD
 };
 
 const std::string& Thread_Name(
@@ -234,12 +242,12 @@ const std::string& Thread_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Thread_entries,
           Thread_entries_by_number,
-          26, Thread_strings);
+          28, Thread_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Thread_entries,
       Thread_entries_by_number,
-      26, value);
+      28, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Thread_strings[idx].get();
 }
@@ -247,7 +255,7 @@ bool Thread_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Thread* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Thread_entries, 26, name, &int_value);
+      Thread_entries, 28, name, &int_value);
   if (success) {
     *value = static_cast<Thread>(int_value);
   }

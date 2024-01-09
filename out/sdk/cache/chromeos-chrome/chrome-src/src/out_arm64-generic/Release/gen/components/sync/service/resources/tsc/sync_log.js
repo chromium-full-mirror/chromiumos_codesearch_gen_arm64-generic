@@ -8,12 +8,12 @@ import { addWebUiListener } from 'chrome://resources/js/cr.js';
  * property and there is an 'append' event which can be listened to.
  */
 class Log extends EventTarget {
+    /** Must match the value in SyncInternalsMessageHandler::OnProtocolEvent(). */
+    protocolEventName_ = 'onProtocolEvent';
+    /** The recorded log entries. */
+    entries = [];
     constructor() {
         super();
-        /** Must match the value in SyncInternalsMessageHandler::OnProtocolEvent(). */
-        this.protocolEventName_ = 'onProtocolEvent';
-        /** The recorded log entries. */
-        this.entries = [];
         addWebUiListener(this.protocolEventName_, (response) => {
             this.log_(response);
         });

@@ -109,6 +109,17 @@ void PublicKeyCredentialCreationOptions::setExcludeCredentials(HeapVector<Member
 
 
 
+void PublicKeyCredentialCreationOptions::setHints(const Vector<String>& value) {
+  member_hints_ = value;
+}
+
+void PublicKeyCredentialCreationOptions::setHints(Vector<String>&& value) {
+  member_hints_ = std::move(value);
+}
+
+
+
+
 void PublicKeyCredentialCreationOptions::setPubKeyCredParams(const HeapVector<Member<PublicKeyCredentialParameters>>& value) {
   member_pub_key_cred_params_ = value;
 }
@@ -143,6 +154,7 @@ TraceIfNeeded<Member<AuthenticatorSelectionCriteria>>::Trace(visitor, member_aut
 TraceIfNeeded<Member<V8UnionArrayBufferOrArrayBufferView>>::Trace(visitor, member_challenge_);
 TraceIfNeeded<HeapVector<Member<PublicKeyCredentialDescriptor>>>::Trace(visitor, member_exclude_credentials_);
 TraceIfNeeded<Member<AuthenticationExtensionsClientInputs>>::Trace(visitor, member_extensions_);
+TraceIfNeeded<Vector<String>>::Trace(visitor, member_hints_);
 TraceIfNeeded<HeapVector<Member<PublicKeyCredentialParameters>>>::Trace(visitor, member_pub_key_cred_params_);
 TraceIfNeeded<Member<PublicKeyCredentialRpEntity>>::Trace(visitor, member_rp_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_timeout_);
@@ -196,11 +208,21 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].G
   return false;
 }
 }
+if (RuntimeEnabledFeatures::WebAuthenticationHintsEnabled()) {
+  if (hasHints()) {
+  if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_hints_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
 if (hasPubKeyCredParams()) {
   if (!ToV8Traits<IDLSequence<PublicKeyCredentialParameters>>::ToV8(script_state, member_pub_key_cred_params_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -208,7 +230,7 @@ if (hasRp()) {
   if (!ToV8Traits<PublicKeyCredentialRpEntity>::ToV8(script_state, member_rp_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -216,7 +238,7 @@ if (hasTimeout()) {
   if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_timeout_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -224,7 +246,7 @@ if (hasUser()) {
   if (!ToV8Traits<PublicKeyCredentialUserEntity>::ToV8(script_state, member_user_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -260,20 +282,26 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("extensions");
 if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsClientInputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_extensions_, member_extensions_, try_block, exception_state)) {
   return;
 }
+if (RuntimeEnabledFeatures::WebAuthenticationHintsEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("hints");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_hints_, try_block, exception_state)) {
+  return;
+}
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("pubKeyCredParams");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<PublicKeyCredentialParameters>, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_pub_key_cred_params_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<PublicKeyCredentialParameters>, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_pub_key_cred_params_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("rp");
-if (!bindings::GetDictionaryMemberFromV8Object<PublicKeyCredentialRpEntity, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_rp_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<PublicKeyCredentialRpEntity, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), fallback_presence_var, member_rp_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("timeout");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), has_timeout_, member_timeout_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[8].Get(isolate), has_timeout_, member_timeout_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("user");
-if (!bindings::GetDictionaryMemberFromV8Object<PublicKeyCredentialUserEntity, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[8].Get(isolate), fallback_presence_var, member_user_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<PublicKeyCredentialUserEntity, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[9].Get(isolate), fallback_presence_var, member_user_, try_block, exception_state)) {
   return;
 }
 }
@@ -285,6 +313,7 @@ const base::span<const v8::Eternal<v8::Name>> PublicKeyCredentialCreationOptions
 "challenge",
 "excludeCredentials",
 "extensions",
+"hints",
 "pubKeyCredParams",
 "rp",
 "timeout",

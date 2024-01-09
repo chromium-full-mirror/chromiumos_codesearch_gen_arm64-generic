@@ -5,6 +5,7 @@ import * as Common from '../../core/common/common.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import frameworkIgnoreListSettingsTabStyles from './frameworkIgnoreListSettingsTab.css.js';
 const UIStrings = {
     /**
@@ -76,13 +77,13 @@ const UIStrings = {
 };
 const str_ = i18n.i18n.registerUIStrings('panels/settings/FrameworkIgnoreListSettingsTab.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
-let frameworkIgnoreListSettingsTabInstance;
 export class FrameworkIgnoreListSettingsTab extends UI.Widget.VBox {
     list;
     setting;
     editor;
     constructor() {
         super(true);
+        this.element.setAttribute('jslog', `${VisualLogging.pane().context('blackbox')}`);
         const header = this.contentElement.createChild('div', 'header');
         header.textContent = i18nString(UIStrings.frameworkIgnoreList);
         UI.ARIAUtils.markAsHeading(header, 1);
@@ -98,7 +99,7 @@ export class FrameworkIgnoreListSettingsTab extends UI.Widget.VBox {
         ignoreListContentScripts.appendChild(UI.SettingsUI.createSettingCheckbox(i18nString(UIStrings.ignoreListContentScripts), Common.Settings.Settings.instance().moduleSetting('skipContentScripts'), true));
         const automaticallyIgnoreList = ignoreListOptions.createChild('div', 'ignore-list-option');
         automaticallyIgnoreList.appendChild(UI.SettingsUI.createSettingCheckbox(i18nString(UIStrings.automaticallyIgnoreListKnownThirdPartyScripts), Common.Settings.Settings.instance().moduleSetting('automaticallyIgnoreListKnownThirdPartyScripts'), true));
-        const automaticallyIgnoreLink = UI.XLink.XLink.create('http://goo.gle/skip-third-party');
+        const automaticallyIgnoreLink = UI.XLink.XLink.create('http://goo.gle/skip-third-party', undefined, undefined, undefined, 'learn-more');
         automaticallyIgnoreLink.textContent = '';
         automaticallyIgnoreLink.setAttribute('aria-label', i18nString(UIStrings.learnMore));
         const automaticallyIgnoreLinkIcon = new IconButton.Icon.Icon();
@@ -114,6 +115,7 @@ export class FrameworkIgnoreListSettingsTab extends UI.Widget.VBox {
         this.list.setEmptyPlaceholder(placeholder);
         this.list.show(ignoreListOptions);
         const addPatternButton = UI.UIUtils.createTextButton(i18nString(UIStrings.addPattern), this.addButtonClicked.bind(this), 'add-button');
+        addPatternButton.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('settings.add-ignore-list-pattern')}`);
         UI.ARIAUtils.setLabel(addPatternButton, i18nString(UIStrings.addFilenamePattern));
         ignoreListOptions.appendChild(addPatternButton);
         this.setting =
@@ -131,13 +133,6 @@ export class FrameworkIgnoreListSettingsTab extends UI.Widget.VBox {
                 ignoreListOptions.classList.add('ignore-listing-disabled');
             }
         }
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!frameworkIgnoreListSettingsTabInstance || forceNew) {
-            frameworkIgnoreListSettingsTabInstance = new FrameworkIgnoreListSettingsTab();
-        }
-        return frameworkIgnoreListSettingsTabInstance;
     }
     wasShown() {
         super.wasShown();
@@ -158,7 +153,7 @@ export class FrameworkIgnoreListSettingsTab extends UI.Widget.VBox {
     renderItem(item, _editable) {
         const element = document.createElement('div');
         const listSetting = this.setting;
-        const checkbox = UI.UIUtils.CheckboxLabel.create(item.pattern, !item.disabled);
+        const checkbox = UI.UIUtils.CheckboxLabel.create(item.pattern, !item.disabled, undefined, 'settings.ignore-list-pattern');
         const helpText = i18nString(UIStrings.ignoreScriptsWhoseNamesMatchS, { PH1: item.pattern });
         UI.Tooltip.Tooltip.install(checkbox, helpText);
         checkbox.checkboxElement.ariaLabel = helpText;

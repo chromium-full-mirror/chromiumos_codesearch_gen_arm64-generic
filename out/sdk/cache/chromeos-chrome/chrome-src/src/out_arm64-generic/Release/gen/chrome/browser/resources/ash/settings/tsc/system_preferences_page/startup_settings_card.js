@@ -11,9 +11,10 @@ import '../os_settings_page/settings_card.js';
 import '../settings_shared.css.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { getTemplate } from './startup_settings_card.html.js';
 const StartupSettingsCardElementBase = RouteObserverMixin(DeepLinkingMixin(PolymerElement));
@@ -36,6 +37,13 @@ export class StartupSettingsCardElement extends StartupSettingsCardElementBase {
             supportedSettingIds: {
                 type: Object,
                 value: () => new Set([Setting.kRestoreAppsAndPages]),
+            },
+            isRevampWayfindingEnabled_: {
+                type: Boolean,
+                value() {
+                    return isRevampWayfindingEnabled();
+                },
+                readOnly: true,
             },
             /**
              * List of options for the on startup dropdown menu.

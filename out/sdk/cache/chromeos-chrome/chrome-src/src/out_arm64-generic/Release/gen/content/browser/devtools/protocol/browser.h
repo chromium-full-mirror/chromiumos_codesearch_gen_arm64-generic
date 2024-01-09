@@ -29,6 +29,7 @@ CONTENT_EXPORT extern const char AccessibilityEvents[];
 CONTENT_EXPORT extern const char AudioCapture[];
 CONTENT_EXPORT extern const char BackgroundSync[];
 CONTENT_EXPORT extern const char BackgroundFetch[];
+CONTENT_EXPORT extern const char CapturedSurfaceControl[];
 CONTENT_EXPORT extern const char ClipboardReadWrite[];
 CONTENT_EXPORT extern const char ClipboardSanitizedWrite[];
 CONTENT_EXPORT extern const char DisplayCapture[];

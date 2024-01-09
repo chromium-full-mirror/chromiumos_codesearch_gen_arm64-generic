@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,12 +33,12 @@ namespace system_private {
 // State of system update.  NotAvailable when there is no available update or
 // the update system is in error state, Updating when a system update is in
 // progress, NeedRestart when a system update is finished and restart is needed.
-enum  UpdateStatusState {
-  UPDATE_STATUS_STATE_NONE = 0,
-  UPDATE_STATUS_STATE_NOTAVAILABLE,
-  UPDATE_STATUS_STATE_UPDATING,
-  UPDATE_STATUS_STATE_NEEDRESTART,
-  UPDATE_STATUS_STATE_LAST = UPDATE_STATUS_STATE_NEEDRESTART,
+enum class UpdateStatusState {
+  kNone = 0,
+  kNotAvailable,
+  kUpdating,
+  kNeedRestart,
+  kMaxValue = kNeedRestart,
 };
 
 
@@ -48,12 +49,12 @@ std::u16string GetUpdateStatusStateParseError(base::StringPiece as_string);
 // Exposes whether the incognito mode is available to windows. One of 'enabled',
 // 'disabled' (user cannot browse pages in Incognito mode), 'forced' (all
 // pages/sessions are forced into Incognito mode).
-enum  GetIncognitoModeAvailabilityValue {
-  GET_INCOGNITO_MODE_AVAILABILITY_VALUE_NONE = 0,
-  GET_INCOGNITO_MODE_AVAILABILITY_VALUE_ENABLED,
-  GET_INCOGNITO_MODE_AVAILABILITY_VALUE_DISABLED,
-  GET_INCOGNITO_MODE_AVAILABILITY_VALUE_FORCED,
-  GET_INCOGNITO_MODE_AVAILABILITY_VALUE_LAST = GET_INCOGNITO_MODE_AVAILABILITY_VALUE_FORCED,
+enum class GetIncognitoModeAvailabilityValue {
+  kNone = 0,
+  kEnabled,
+  kDisabled,
+  kForced,
+  kMaxValue = kForced,
 };
 
 
@@ -67,8 +68,8 @@ struct UpdateStatus {
   ~UpdateStatus();
   UpdateStatus(const UpdateStatus&) = delete;
   UpdateStatus& operator=(const UpdateStatus&) = delete;
-  UpdateStatus(UpdateStatus&& rhs);
-  UpdateStatus& operator=(UpdateStatus&& rhs);
+  UpdateStatus(UpdateStatus&& rhs) noexcept;
+  UpdateStatus& operator=(UpdateStatus&& rhs) noexcept;
 
   // Populates a UpdateStatus object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -81,15 +82,12 @@ struct UpdateStatus {
   // Creates a deep copy of UpdateStatus.
   UpdateStatus Clone() const;
 
-  // Creates a UpdateStatus object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UpdateStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a UpdateStatus object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UpdateStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<UpdateStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a UpdateStatus object from a base::Value, or nullopt on failure.
-  static absl::optional<UpdateStatus> FromValue(const base::Value& value);
+  static std::optional<UpdateStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUpdateStatus object.

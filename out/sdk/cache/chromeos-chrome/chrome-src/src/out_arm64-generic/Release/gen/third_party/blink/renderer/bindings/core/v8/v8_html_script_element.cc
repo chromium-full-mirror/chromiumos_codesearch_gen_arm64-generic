@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLScriptElement>::value,
     "HTMLScriptElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLScriptElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLScriptElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,10 +89,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,7 +112,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_value = NativeValueTraits<IDLUSVStringStringContextTrustedScriptURL>::NativeValue(isolate, v8_property_value, exception_state, execution_context_of_document_tree);
@@ -138,10 +133,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -162,8 +157,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.noModule.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kNomoduleAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -185,10 +181,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.charset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharsetAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharsetAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -209,8 +205,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.async.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->async();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -231,7 +228,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLBoolean>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -248,8 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.defer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kDeferAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -271,8 +269,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.crossOrigin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kCrossoriginAttr);
 
 // [ReflectOnly]
@@ -286,7 +285,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAnonymous;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -307,10 +305,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.text.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->text();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->text();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -330,7 +328,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_value = NativeValueTraits<IDLStringStringContextTrustedScript>::NativeValue(isolate, v8_property_value, exception_state, execution_context_of_document_tree);
@@ -348,8 +346,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.referrerPolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kReferrerpolicyAttr);
 
 // [ReflectOnly]
@@ -361,7 +360,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = g_empty_atom;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -388,7 +386,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPriorityHints);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kFetchpriorityAttr);
 
 // [ReflectOnly]
@@ -425,10 +423,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.event.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kEventAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kEventAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -449,10 +447,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.htmlFor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kForAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kForAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -473,10 +471,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.integrity.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kIntegrityAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kIntegrityAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -487,9 +485,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.integrity.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLScriptElement";
@@ -510,8 +508,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.blocking.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blocking();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -559,10 +558,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLScriptElement.attributionSrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAttributionsrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAttributionsrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -582,7 +581,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(v8_receiver);
+HTMLScriptElement* blink_receiver = V8HTMLScriptElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -640,11 +639,9 @@ return;
 
 
 
-ScriptState* current_script_state = ScriptState::From(current_context);
-ScriptState* script_state = current_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (LIKELY(info[0]->IsString())) {
-  arg1_type.Init(info[0].As<v8::String>());
+  arg1_type.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLScriptElement";
@@ -655,7 +652,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-auto&& return_value = HTMLScriptElement::supports(script_state, arg1_type);
+auto&& return_value = HTMLScriptElement::supports(arg1_type);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
@@ -685,12 +682,13 @@ interface_function_template->SetLength(0);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8HTMLScriptElement::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"src", SrcAttributeGetCallback, SrcAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -708,8 +706,6 @@ void V8HTMLScriptElement::InstallUnconditionalProperties(v8::Isolate* isolate, c
 {"integrity", IntegrityAttributeGetCallback, IntegrityAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"blocking", BlockingAttributeGetCallback, BlockingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
 
@@ -717,28 +713,17 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 
 
-
-
-}
-
-void V8HTMLScriptElement::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-
-
-
-
-if (RuntimeEnabledFeatures::ScriptElementSupportsEnabled()) {
+{
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"supports", SupportsStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
 
 
+
 }
+
 
 void V8HTMLScriptElement::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;

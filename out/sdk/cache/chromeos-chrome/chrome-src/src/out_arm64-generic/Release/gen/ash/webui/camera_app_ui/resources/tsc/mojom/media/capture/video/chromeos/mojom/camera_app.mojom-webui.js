@@ -6,7 +6,7 @@ import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { BlobSpec as media_mojom_BlobSpec } from '../../../mojom/image_capture.mojom-webui.js';
 import { CameraInfoSpec as cros_mojom_CameraInfoSpec } from './camera_common.mojom-webui.js';
 import { CameraMetadataSpec as cros_mojom_CameraMetadataSpec } from './camera_metadata.mojom-webui.js';
-import { PointFSpec as gfx_mojom_PointFSpec, SizeSpec as gfx_mojom_SizeSpec } from '//resources/mojo/ui/gfx/geometry/mojom/geometry.mojom-webui.js';
+import { PointFSpec as gfx_mojom_PointFSpec, RectSpec as gfx_mojom_RectSpec, SizeSpec as gfx_mojom_SizeSpec } from '//resources/mojo/ui/gfx/geometry/mojom/geometry.mojom-webui.js';
 import { RangeSpec as gfx_mojom_RangeSpec } from '//resources/mojo/ui/gfx/range/mojom/range.mojom-webui.js';
 export const EffectSpec = { $: mojo.internal.Enum() };
 export var Effect;
@@ -314,6 +314,14 @@ export class CameraAppDeviceRemote {
             observer
         ]);
     }
+    setCropRegion(cropRegion) {
+        return this.proxy.sendMessage(11, CameraAppDevice_SetCropRegion_ParamsSpec.$, CameraAppDevice_SetCropRegion_ResponseParamsSpec.$, [
+            cropRegion
+        ]);
+    }
+    resetCropRegion() {
+        return this.proxy.sendMessage(12, CameraAppDevice_ResetCropRegion_ParamsSpec.$, CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -336,6 +344,8 @@ export class CameraAppDeviceReceiver {
         this.helper_internal_.registerHandler(8, CameraAppDevice_RegisterDocumentCornersObserver_ParamsSpec.$, CameraAppDevice_RegisterDocumentCornersObserver_ResponseParamsSpec.$, impl.registerDocumentCornersObserver.bind(impl));
         this.helper_internal_.registerHandler(9, CameraAppDevice_SetMultipleStreamsEnabled_ParamsSpec.$, CameraAppDevice_SetMultipleStreamsEnabled_ResponseParamsSpec.$, impl.setMultipleStreamsEnabled.bind(impl));
         this.helper_internal_.registerHandler(10, CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$, CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$, impl.registerCameraInfoObserver.bind(impl));
+        this.helper_internal_.registerHandler(11, CameraAppDevice_SetCropRegion_ParamsSpec.$, CameraAppDevice_SetCropRegion_ResponseParamsSpec.$, impl.setCropRegion.bind(impl));
+        this.helper_internal_.registerHandler(12, CameraAppDevice_ResetCropRegion_ParamsSpec.$, CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$, impl.resetCropRegion.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -398,6 +408,12 @@ export class CameraAppDeviceCallbackRouter {
         this.registerCameraInfoObserver =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(10, CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$, CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$, this.registerCameraInfoObserver.createReceiverHandler(true /* expectsResponse */));
+        this.setCropRegion =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(11, CameraAppDevice_SetCropRegion_ParamsSpec.$, CameraAppDevice_SetCropRegion_ResponseParamsSpec.$, this.setCropRegion.createReceiverHandler(true /* expectsResponse */));
+        this.resetCropRegion =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(12, CameraAppDevice_ResetCropRegion_ParamsSpec.$, CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$, this.resetCropRegion.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -816,6 +832,10 @@ export const CameraAppDevice_SetMultipleStreamsEnabled_ParamsSpec = { $: {} };
 export const CameraAppDevice_SetMultipleStreamsEnabled_ResponseParamsSpec = { $: {} };
 export const CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec = { $: {} };
 export const CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec = { $: {} };
+export const CameraAppDevice_SetCropRegion_ParamsSpec = { $: {} };
+export const CameraAppDevice_SetCropRegion_ResponseParamsSpec = { $: {} };
+export const CameraAppDevice_ResetCropRegion_ParamsSpec = { $: {} };
+export const CameraAppDevice_ResetCropRegion_ResponseParamsSpec = { $: {} };
 export const ResultMetadataObserver_OnMetadataAvailable_ParamsSpec = { $: {} };
 export const CameraEventObserver_OnShutterDone_ParamsSpec = { $: {} };
 export const DocumentCornersObserver_OnDocumentCornersUpdated_ParamsSpec = { $: {} };
@@ -918,6 +938,12 @@ mojo.internal.Struct(CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$, 'C
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(CameraInfoObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$, 'CameraAppDevice_RegisterCameraInfoObserver_ResponseParams', [], [[0, 8],]);
+mojo.internal.Struct(CameraAppDevice_SetCropRegion_ParamsSpec.$, 'CameraAppDevice_SetCropRegion_Params', [
+    mojo.internal.StructField('cropRegion', 0, 0, gfx_mojom_RectSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(CameraAppDevice_SetCropRegion_ResponseParamsSpec.$, 'CameraAppDevice_SetCropRegion_ResponseParams', [], [[0, 8],]);
+mojo.internal.Struct(CameraAppDevice_ResetCropRegion_ParamsSpec.$, 'CameraAppDevice_ResetCropRegion_Params', [], [[0, 8],]);
+mojo.internal.Struct(CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$, 'CameraAppDevice_ResetCropRegion_ResponseParams', [], [[0, 8],]);
 mojo.internal.Struct(ResultMetadataObserver_OnMetadataAvailable_ParamsSpec.$, 'ResultMetadataObserver_OnMetadataAvailable_Params', [
     mojo.internal.StructField('cameraMetadata', 0, 0, cros_mojom_CameraMetadataSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);

@@ -16,12 +16,12 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT AbortableAdAuctionInterceptorForTesting : public AbortableAdAuction {
   virtual AbortableAdAuction* GetForwardingInterface() = 0;
-  void ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const absl::optional<std::string>& json_value) override;
-  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<base::flat_map<::url::Origin, std::string>>& per_buyer_signals) override;
+  void ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const std::optional<std::string>& json_value) override;
+  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<base::flat_map<::url::Origin, std::string>>& per_buyer_signals) override;
   void ResolvedBuyerTimeoutsPromise(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigBuyerTimeoutField field, const ::blink::AuctionConfig::BuyerTimeouts& buyer_timeouts) override;
   void ResolvedBuyerCurrenciesPromise(AuctionAdConfigAuctionIdPtr auction, const ::blink::AuctionConfig::BuyerCurrencies& per_buyer_currencies) override;
-  void ResolvedDirectFromSellerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<::blink::DirectFromSellerSignals>& direct_from_seller_signals) override;
-  void ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<std::string>& direct_from_seller_signals_header_ad_slot) override;
+  void ResolvedDirectFromSellerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<::blink::DirectFromSellerSignals>& direct_from_seller_signals) override;
+  void ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<std::string>& direct_from_seller_signals_header_ad_slot) override;
   void ResolvedAuctionAdResponsePromise(AuctionAdConfigAuctionIdPtr auction, ::mojo_base::BigBuffer result) override;
   void ResolvedAdditionalBids(AuctionAdConfigAuctionIdPtr auction) override;
   void Abort() override;
@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT AdAuctionServiceInterceptorForTesting : public AdAucti
   void UpdateAdInterestGroups() override;
   void DeprecatedGetURLFromURN(const ::GURL& uuid_url, bool send_reports, DeprecatedGetURLFromURNCallback callback) override;
   void DeprecatedReplaceInURN(const ::GURL& uuid_url, std::vector<AdKeywordReplacementPtr> replacements, DeprecatedReplaceInURNCallback callback) override;
-  void GetInterestGroupAdAuctionData(const ::url::Origin& seller, const absl::optional<::url::Origin>& coordinator, GetInterestGroupAdAuctionDataCallback callback) override;
+  void GetInterestGroupAdAuctionData(const ::url::Origin& seller, const std::optional<::url::Origin>& coordinator, GetInterestGroupAdAuctionDataCallback callback) override;
 };
 class BLINK_COMMON_EXPORT AdAuctionServiceAsyncWaiter {
  public:
@@ -64,16 +64,16 @@ class BLINK_COMMON_EXPORT AdAuctionServiceAsyncWaiter {
 
   ~AdAuctionServiceAsyncWaiter();
   void CreateAdRequest(
-      ::blink::mojom::AdRequestConfigPtr config, absl::optional<std::string>* out_ads_guid);
-  absl::optional<std::string> CreateAdRequest(::blink::mojom::AdRequestConfigPtr config);
+      ::blink::mojom::AdRequestConfigPtr config, std::optional<std::string>* out_ads_guid);
+  std::optional<std::string> CreateAdRequest(::blink::mojom::AdRequestConfigPtr config);
   void FinalizeAd(
-      const std::string& ads_guid, const ::blink::AuctionConfig& config, absl::optional<::GURL>* out_ad_display_url);
-  absl::optional<::GURL> FinalizeAd(const std::string& ads_guid, const ::blink::AuctionConfig& config);
+      const std::string& ads_guid, const ::blink::AuctionConfig& config, std::optional<::GURL>* out_ad_display_url);
+  std::optional<::GURL> FinalizeAd(const std::string& ads_guid, const ::blink::AuctionConfig& config);
   void CreateAuctionNonce(
       ::base::Uuid* out_nonce);
   ::base::Uuid CreateAuctionNonce();
   void RunAdAuction(
-      const ::blink::AuctionConfig& config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
+      const ::blink::AuctionConfig& config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
   
   void JoinInterestGroup(
       const ::blink::InterestGroup& group, bool* out_failed_well_known_check);
@@ -85,13 +85,13 @@ class BLINK_COMMON_EXPORT AdAuctionServiceAsyncWaiter {
       const ::url::Origin& owner, const std::vector<std::string>& interest_groups_to_keep, bool* out_failed_well_known_check);
   bool ClearOriginJoinedInterestGroups(const ::url::Origin& owner, const std::vector<std::string>& interest_groups_to_keep);
   void DeprecatedGetURLFromURN(
-      const ::GURL& uuid_url, bool send_reports, absl::optional<::GURL>* out_decoded_url);
-  absl::optional<::GURL> DeprecatedGetURLFromURN(const ::GURL& uuid_url, bool send_reports);
+      const ::GURL& uuid_url, bool send_reports, std::optional<::GURL>* out_decoded_url);
+  std::optional<::GURL> DeprecatedGetURLFromURN(const ::GURL& uuid_url, bool send_reports);
   void DeprecatedReplaceInURN(
       const ::GURL& uuid_url, std::vector<AdKeywordReplacementPtr> replacements);
   
   void GetInterestGroupAdAuctionData(
-      const ::url::Origin& seller, const absl::optional<::url::Origin>& coordinator, ::mojo_base::BigBuffer* out_request, absl::optional<::base::Uuid>* out_request_id, std::string* out_error_message);
+      const ::url::Origin& seller, const std::optional<::url::Origin>& coordinator, ::mojo_base::BigBuffer* out_request, std::optional<::base::Uuid>* out_request_id, std::string* out_error_message);
   
 
  private:

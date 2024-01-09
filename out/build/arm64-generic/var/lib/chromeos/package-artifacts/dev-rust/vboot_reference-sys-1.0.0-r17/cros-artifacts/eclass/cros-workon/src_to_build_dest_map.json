@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform/vboot_reference",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-rust/vboot_reference-sys-1.0.0-r17/work/vboot_reference-sys-1.0.0"
-    }
-  ]
-}

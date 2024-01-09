@@ -13,6 +13,45 @@
 namespace extensions::mojom {
 
 
+class  MessagePortInterceptorForTesting : public MessagePort {
+  virtual MessagePort* GetForwardingInterface() = 0;
+  void DispatchDisconnect(const std::string& error) override;
+  void DeliverMessage(::extensions::Message message) override;
+};
+class  MessagePortAsyncWaiter {
+ public:
+  explicit MessagePortAsyncWaiter(MessagePort* proxy);
+
+  MessagePortAsyncWaiter(const MessagePortAsyncWaiter&) = delete;
+  MessagePortAsyncWaiter& operator=(const MessagePortAsyncWaiter&) = delete;
+
+  ~MessagePortAsyncWaiter();
+
+ private:
+  MessagePort* const proxy_;
+};
+
+
+class  MessagePortHostInterceptorForTesting : public MessagePortHost {
+  virtual MessagePortHost* GetForwardingInterface() = 0;
+  void ClosePort(bool close_channel) override;
+  void PostMessage(::extensions::Message message) override;
+  void ResponsePending() override;
+};
+class  MessagePortHostAsyncWaiter {
+ public:
+  explicit MessagePortHostAsyncWaiter(MessagePortHost* proxy);
+
+  MessagePortHostAsyncWaiter(const MessagePortHostAsyncWaiter&) = delete;
+  MessagePortHostAsyncWaiter& operator=(const MessagePortHostAsyncWaiter&) = delete;
+
+  ~MessagePortHostAsyncWaiter();
+
+ private:
+  MessagePortHost* const proxy_;
+};
+
+
 
 
 }  // extensions::mojom

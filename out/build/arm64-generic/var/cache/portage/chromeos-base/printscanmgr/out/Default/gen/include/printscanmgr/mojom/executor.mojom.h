@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "printscanmgr/mojom/executor.mojom-features.h"
 #include "printscanmgr/mojom/executor.mojom-shared.h"
 #include "printscanmgr/mojom/executor.mojom-forward.h"
 #include <string>
@@ -69,12 +70,16 @@ class Executor
   using ResponseValidator_ = ExecutorResponseValidator;
   enum MethodMinVersions : uint32_t {
     kRestartUpstartJobMinVersion = 0,
+    kGetPpdFileMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct RestartUpstartJob_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetPpdFile_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -84,6 +89,11 @@ class Executor
   using RestartUpstartJobCallback = base::OnceCallback<void(bool, const std::string&)>;
   
   virtual void RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) = 0;
+
+
+  using GetPpdFileCallback = base::OnceCallback<void(const std::string&, bool)>;
+  
+  virtual void GetPpdFile(const std::string& fileName, GetPpdFileCallback callback) = 0;
 };
 
 
@@ -96,6 +106,8 @@ class  ExecutorProxy
   explicit ExecutorProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) final;
+  
+  void GetPpdFile(const std::string& fileName, GetPpdFileCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

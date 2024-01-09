@@ -19,7 +19,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { DeviceNameValidationResult, Visibility } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { NearbyShareOnboardingFinalState, processOnePageOnboardingCancelledMetrics, processOnePageOnboardingCompleteMetrics, processOnePageOnboardingInitiatedMetrics, processOnePageOnboardingVisibilityButtonOnInitialPageClickedMetrics } from './nearby_metrics_logger.js';
+import { getOnboardingEntryPoint, NearbyShareOnboardingEntryPoint, NearbyShareOnboardingFinalState, processOnePageOnboardingCancelledMetrics, processOnePageOnboardingCompleteMetrics, processOnePageOnboardingInitiatedMetrics, processOnePageOnboardingVisibilityButtonOnInitialPageClickedMetrics } from './nearby_metrics_logger.js';
 import { getTemplate } from './nearby_onboarding_one_page.html.js';
 import { getNearbyShareSettings } from './nearby_share_settings.js';
 const ONE_PAGE_ONBOARDING_SPLASH_LIGHT_ICON = 'nearby-images:nearby-onboarding-splash-light';
@@ -60,6 +60,13 @@ export class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageEleme
                         loadTimeData.getBoolean('isJellyEnabled');
                 },
             },
+            /**
+             * Onboarding page entry point
+             */
+            entryPoint_: {
+                type: NearbyShareOnboardingEntryPoint,
+                value: NearbyShareOnboardingEntryPoint.MAX,
+            },
         };
     }
     ready() {
@@ -73,7 +80,7 @@ export class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageEleme
         this.finishOnboarding_();
     }
     onClose_() {
-        processOnePageOnboardingCancelledMetrics(NearbyShareOnboardingFinalState.INITIAL_PAGE);
+        processOnePageOnboardingCancelledMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.INITIAL_PAGE);
         const onboardingCancelledEvent = new CustomEvent('onboarding-cancelled', {
             bubbles: true,
             composed: true,
@@ -89,7 +96,9 @@ export class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageEleme
     }
     onViewEnterStart_() {
         this.$.deviceName.focus();
-        processOnePageOnboardingInitiatedMetrics(new URL(document.URL));
+        const url = new URL(document.URL);
+        this.entryPoint_ = getOnboardingEntryPoint(url);
+        processOnePageOnboardingInitiatedMetrics(this.entryPoint_);
     }
     async onDeviceNameInput_() {
         const result = await getNearbyShareSettings().validateDeviceName(this.$.deviceName.value);
@@ -107,7 +116,7 @@ export class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageEleme
             this.set('settings.visibility', this.getDefaultVisibility_());
             this.set('settings.isOnboardingComplete', true);
             this.set('settings.enabled', true);
-            processOnePageOnboardingCompleteMetrics(NearbyShareOnboardingFinalState.INITIAL_PAGE, this.getDefaultVisibility_());
+            processOnePageOnboardingCompleteMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.INITIAL_PAGE, this.getDefaultVisibility_());
             const onboardingCompleteEvent = new CustomEvent('onboarding-complete', {
                 bubbles: true,
                 composed: true,

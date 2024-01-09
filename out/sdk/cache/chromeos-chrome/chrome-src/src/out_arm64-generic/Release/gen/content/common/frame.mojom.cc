@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -71,13 +72,15 @@ CreateViewParams::CreateViewParams()
       outermost_origin(),
       blink_page_broadcast(),
       base_background_color(),
-      browsing_context_group_info(mojo::internal::DefaultConstructTag()) {}
+      color_provider_colors(),
+      browsing_context_group_info(mojo::internal::DefaultConstructTag()),
+      attribution_support() {}
 
 CreateViewParams::CreateViewParams(
     const ::blink::RendererPreferences& renderer_preferences_in,
     const ::blink::web_pref::WebPreferences& web_preferences_in,
     const std::string& session_storage_namespace_id_in,
-    const absl::optional<::blink::FrameToken>& opener_frame_token_in,
+    const std::optional<::blink::FrameToken>& opener_frame_token_in,
     ::blink::mojom::FrameReplicationStatePtr replication_state_in,
     const ::base::UnguessableToken& devtools_main_frame_token_in,
     CreateMainFrameUnionPtr main_frame_in,
@@ -87,10 +90,12 @@ CreateViewParams::CreateViewParams(
     bool window_was_opened_by_another_window_in,
     ViewWidgetType type_in,
     ::blink::FencedFrame::DeprecatedFencedFrameMode fenced_frame_mode_in,
-    const absl::optional<::url::Origin>& outermost_origin_in,
+    const std::optional<::url::Origin>& outermost_origin_in,
     ::mojo::PendingAssociatedReceiver<::blink::mojom::PageBroadcast> blink_page_broadcast_in,
-    absl::optional<::SkColor> base_background_color_in,
-    const ::blink::BrowsingContextGroupInfo& browsing_context_group_info_in)
+    std::optional<::SkColor> base_background_color_in,
+    const ::blink::ColorProviderColorMaps& color_provider_colors_in,
+    const ::blink::BrowsingContextGroupInfo& browsing_context_group_info_in,
+    ::network::mojom::AttributionSupport attribution_support_in)
     : renderer_preferences(std::move(renderer_preferences_in)),
       web_preferences(std::move(web_preferences_in)),
       session_storage_namespace_id(std::move(session_storage_namespace_id_in)),
@@ -107,7 +112,9 @@ CreateViewParams::CreateViewParams(
       outermost_origin(std::move(outermost_origin_in)),
       blink_page_broadcast(std::move(blink_page_broadcast_in)),
       base_background_color(std::move(base_background_color_in)),
-      browsing_context_group_info(std::move(browsing_context_group_info_in)) {}
+      color_provider_colors(std::move(color_provider_colors_in)),
+      browsing_context_group_info(std::move(browsing_context_group_info_in)),
+      attribution_support(std::move(attribution_support_in)) {}
 
 CreateViewParams::~CreateViewParams() = default;
 
@@ -145,7 +152,7 @@ void CreateViewParams::WriteIntoTrace(
     dict.AddItem(
       "opener_frame_token"), this->opener_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -235,7 +242,7 @@ void CreateViewParams::WriteIntoTrace(
     dict.AddItem(
       "outermost_origin"), this->outermost_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -253,7 +260,16 @@ void CreateViewParams::WriteIntoTrace(
     dict.AddItem(
       "base_background_color"), this->base_background_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "color_provider_colors"), this->color_provider_colors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::blink::ColorProviderColorMaps&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,6 +279,15 @@ void CreateViewParams::WriteIntoTrace(
       "browsing_context_group_info"), this->browsing_context_group_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::blink::BrowsingContextGroupInfo&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "attribution_support"), this->attribution_support,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::AttributionSupport>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -298,7 +323,7 @@ CreateLocalMainFrameParams::CreateLocalMainFrameParams(
     ::blink::mojom::PolicyContainerPtr policy_container_in,
     CreateFrameWidgetParamsPtr widget_params_in,
     ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories_in,
-    const absl::optional<::blink::FrameToken>& previous_frame_token_in)
+    const std::optional<::blink::FrameToken>& previous_frame_token_in)
     : frame_token(std::move(frame_token_in)),
       routing_id(std::move(routing_id_in)),
       frame(std::move(frame_in)),
@@ -410,7 +435,7 @@ void CreateLocalMainFrameParams::WriteIntoTrace(
     dict.AddItem(
       "previous_frame_token"), this->previous_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -490,7 +515,7 @@ CreateFrameWidgetParams::CreateFrameWidgetParams(
     ::mojo::PendingAssociatedRemote<::blink::mojom::WidgetHost> widget_host_in,
     ::mojo::PendingAssociatedReceiver<::blink::mojom::Widget> widget_in,
     const ::blink::VisualProperties& visual_properties_in,
-    const absl::optional<::blink::FrameToken>& previous_frame_token_for_compositor_reuse_in)
+    const std::optional<::blink::FrameToken>& previous_frame_token_for_compositor_reuse_in)
     : routing_id(std::move(routing_id_in)),
       frame_widget_host(std::move(frame_widget_host_in)),
       frame_widget(std::move(frame_widget_in)),
@@ -562,7 +587,7 @@ void CreateFrameWidgetParams::WriteIntoTrace(
     dict.AddItem(
       "previous_frame_token_for_compositor_reuse"), this->previous_frame_token_for_compositor_reuse,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -591,15 +616,16 @@ CreateFrameParams::CreateFrameParams()
       document_token(),
       policy_container(),
       frame(),
-      associated_interface_provider_remote() {}
+      associated_interface_provider_remote(),
+      is_for_nested_main_frame() {}
 
 CreateFrameParams::CreateFrameParams(
     const ::blink::LocalFrameToken& frame_token_in,
     int32_t routing_id_in,
-    const absl::optional<::blink::FrameToken>& previous_frame_token_in,
-    const absl::optional<::blink::FrameToken>& opener_frame_token_in,
-    const absl::optional<::blink::FrameToken>& parent_frame_token_in,
-    const absl::optional<::blink::FrameToken>& previous_sibling_frame_token_in,
+    const std::optional<::blink::FrameToken>& previous_frame_token_in,
+    const std::optional<::blink::FrameToken>& opener_frame_token_in,
+    const std::optional<::blink::FrameToken>& parent_frame_token_in,
+    const std::optional<::blink::FrameToken>& previous_sibling_frame_token_in,
     ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker> interface_broker_in,
     ::blink::mojom::TreeScopeType tree_scope_type_in,
     ::blink::mojom::FrameReplicationStatePtr replication_state_in,
@@ -610,7 +636,8 @@ CreateFrameParams::CreateFrameParams(
     const ::blink::DocumentToken& document_token_in,
     ::blink::mojom::PolicyContainerPtr policy_container_in,
     ::mojo::PendingAssociatedReceiver<Frame> frame_in,
-    ::mojo::PendingAssociatedRemote<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider_remote_in)
+    ::mojo::PendingAssociatedRemote<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider_remote_in,
+    bool is_for_nested_main_frame_in)
     : frame_token(std::move(frame_token_in)),
       routing_id(std::move(routing_id_in)),
       previous_frame_token(std::move(previous_frame_token_in)),
@@ -627,7 +654,8 @@ CreateFrameParams::CreateFrameParams(
       document_token(std::move(document_token_in)),
       policy_container(std::move(policy_container_in)),
       frame(std::move(frame_in)),
-      associated_interface_provider_remote(std::move(associated_interface_provider_remote_in)) {}
+      associated_interface_provider_remote(std::move(associated_interface_provider_remote_in)),
+      is_for_nested_main_frame(std::move(is_for_nested_main_frame_in)) {}
 
 CreateFrameParams::~CreateFrameParams() = default;
 
@@ -656,7 +684,7 @@ void CreateFrameParams::WriteIntoTrace(
     dict.AddItem(
       "previous_frame_token"), this->previous_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -665,7 +693,7 @@ void CreateFrameParams::WriteIntoTrace(
     dict.AddItem(
       "opener_frame_token"), this->opener_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -674,7 +702,7 @@ void CreateFrameParams::WriteIntoTrace(
     dict.AddItem(
       "parent_frame_token"), this->parent_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -683,7 +711,7 @@ void CreateFrameParams::WriteIntoTrace(
     dict.AddItem(
       "previous_sibling_frame_token"), this->previous_sibling_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FrameToken>&>"
+      "<value of type const std::optional<::blink::FrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -787,6 +815,15 @@ void CreateFrameParams::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_for_nested_main_frame"), this->is_for_nested_main_frame,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool CreateFrameParams::Validate(
@@ -879,7 +916,7 @@ CreateNewWindowParams::CreateNewWindowParams(
     const ::GURL& target_url_in,
     ::blink::mojom::ReferrerPtr referrer_in,
     ::blink::mojom::WindowFeaturesPtr features_in,
-    const absl::optional<::blink::Impression>& impression_in,
+    const std::optional<::blink::Impression>& impression_in,
     const ::blink::NavigationDownloadPolicy& download_policy_in,
     ::blink::mojom::PictureInPictureWindowOptionsPtr pip_options_in,
     ::blink::mojom::NavigationInitiatorActivationAndAdStatus initiator_activation_and_ad_status_in)
@@ -1027,7 +1064,7 @@ void CreateNewWindowParams::WriteIntoTrace(
     dict.AddItem(
       "impression"), this->impression,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Impression>&>"
+      "<value of type const std::optional<::blink::Impression>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1079,7 +1116,8 @@ CreateNewWindowReply::CreateNewWindowReply()
       wait_for_debugger(),
       document_token(),
       policy_container(),
-      browsing_context_group_info(mojo::internal::DefaultConstructTag()) {}
+      browsing_context_group_info(mojo::internal::DefaultConstructTag()),
+      color_provider_colors() {}
 
 CreateNewWindowReply::CreateNewWindowReply(
     const ::blink::LocalFrameToken& main_frame_token_in,
@@ -1094,7 +1132,8 @@ CreateNewWindowReply::CreateNewWindowReply(
     bool wait_for_debugger_in,
     const ::blink::DocumentToken& document_token_in,
     ::blink::mojom::PolicyContainerPtr policy_container_in,
-    const ::blink::BrowsingContextGroupInfo& browsing_context_group_info_in)
+    const ::blink::BrowsingContextGroupInfo& browsing_context_group_info_in,
+    const ::blink::ColorProviderColorMaps& color_provider_colors_in)
     : main_frame_token(std::move(main_frame_token_in)),
       main_frame_route_id(std::move(main_frame_route_id_in)),
       frame(std::move(frame_in)),
@@ -1107,7 +1146,8 @@ CreateNewWindowReply::CreateNewWindowReply(
       wait_for_debugger(std::move(wait_for_debugger_in)),
       document_token(std::move(document_token_in)),
       policy_container(std::move(policy_container_in)),
-      browsing_context_group_info(std::move(browsing_context_group_info_in)) {}
+      browsing_context_group_info(std::move(browsing_context_group_info_in)),
+      color_provider_colors(std::move(color_provider_colors_in)) {}
 
 CreateNewWindowReply::~CreateNewWindowReply() = default;
 
@@ -1227,6 +1267,15 @@ void CreateNewWindowReply::WriteIntoTrace(
       "browsing_context_group_info"), this->browsing_context_group_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::blink::BrowsingContextGroupInfo&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "color_provider_colors"), this->color_provider_colors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::blink::ColorProviderColorMaps&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1380,14 +1429,17 @@ void FrameHTMLSerializerHandlerProxy::DidReceiveData(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHTMLSerializerHandler_DidReceiveData_Name, kFlags, 0, 0, nullptr);
@@ -1421,14 +1473,17 @@ void FrameHTMLSerializerHandlerProxy::Done(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::FrameHTMLSerializerHandler::Done");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHTMLSerializerHandler_Done_Name, kFlags, 0, 0, nullptr);
@@ -1521,12 +1576,12 @@ bool FrameHTMLSerializerHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameHTMLSerializerHandlerValidationInfo[] = {
-    {&internal::FrameHTMLSerializerHandler_DidReceiveData_Params_Data::Validate,
+    { &internal::FrameHTMLSerializerHandler_DidReceiveData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHTMLSerializerHandler_Done_Params_Data::Validate,
+    { &internal::FrameHTMLSerializerHandler_Done_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1821,14 +1876,18 @@ void FrameProxy::CommitSameDocumentNavigation(
                         "<value of type ::blink::mojom::CommitNavigationParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = mojo::UrgentMessageScope::IsInUrgentScope();
+
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_CommitSameDocumentNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1881,14 +1940,17 @@ void FrameProxy::UpdateSubresourceLoaderFactories(
                         "<value of type ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_UpdateSubresourceLoaderFactories_Name, kFlags, 0, 0, nullptr);
@@ -1922,14 +1984,17 @@ void FrameProxy::SetWantErrorMessageStackTrace(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::Frame::SetWantErrorMessageStackTrace");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_SetWantErrorMessageStackTrace_Name, kFlags, 0, 0, nullptr);
@@ -1971,14 +2036,17 @@ void FrameProxy::Unload(
                         "<value of type ::blink::mojom::RemoteMainFrameInterfacesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_Unload_Name, kFlags, 0, 0, nullptr);
@@ -2053,14 +2121,17 @@ void FrameProxy::Delete(
                         "<value of type FrameDeleteIntention>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_Delete_Name, kFlags, 0, 0, nullptr);
@@ -2104,14 +2175,17 @@ void FrameProxy::UndoCommitNavigation(
                         "<value of type ::blink::mojom::RemoteMainFrameInterfacesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_UndoCommitNavigation_Name, kFlags, 0, 0, nullptr);
@@ -2186,14 +2260,17 @@ void FrameProxy::GetInterfaceProvider(
                         "<value of type ::mojo::PendingReceiver<::service_manager::mojom::InterfaceProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_GetInterfaceProvider_Name, kFlags, 0, 0, nullptr);
@@ -2229,14 +2306,17 @@ void FrameProxy::SnapshotAccessibilityTree(
                         "<value of type SnapshotAccessibilityTreeParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_SnapshotAccessibilityTree_Name, kFlags, 0, 0, nullptr);
@@ -2287,14 +2367,17 @@ void FrameProxy::GetSerializedHtmlWithLocalLinks(
                         "<value of type ::mojo::PendingRemote<FrameHTMLSerializerHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_GetSerializedHtmlWithLocalLinks_Name, kFlags, 0, 0, nullptr);
@@ -2357,14 +2440,17 @@ void FrameProxy::SetResourceCache(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::ResourceCache>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_SetResourceCache_Name, kFlags, 0, 0, nullptr);
@@ -2479,7 +2565,8 @@ void Frame_CommitSameDocumentNavigation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_CommitSameDocumentNavigation_Name, kFlags, 0, 0, nullptr);
@@ -2598,7 +2685,8 @@ void Frame_SnapshotAccessibilityTree_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrame_SnapshotAccessibilityTree_Name, kFlags, 0, 0, nullptr);
@@ -3002,28 +3090,28 @@ std::move(p_params), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameValidationInfo[] = {
-    {&internal::Frame_CommitSameDocumentNavigation_Params_Data::Validate,
+    { &internal::Frame_CommitSameDocumentNavigation_Params_Data::Validate,
      &internal::Frame_CommitSameDocumentNavigation_ResponseParams_Data::Validate},
-    {&internal::Frame_UpdateSubresourceLoaderFactories_Params_Data::Validate,
+    { &internal::Frame_UpdateSubresourceLoaderFactories_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_SetWantErrorMessageStackTrace_Params_Data::Validate,
+    { &internal::Frame_SetWantErrorMessageStackTrace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_Unload_Params_Data::Validate,
+    { &internal::Frame_Unload_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_Delete_Params_Data::Validate,
+    { &internal::Frame_Delete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_UndoCommitNavigation_Params_Data::Validate,
+    { &internal::Frame_UndoCommitNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_GetInterfaceProvider_Params_Data::Validate,
+    { &internal::Frame_GetInterfaceProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_SnapshotAccessibilityTree_Params_Data::Validate,
+    { &internal::Frame_SnapshotAccessibilityTree_Params_Data::Validate,
      &internal::Frame_SnapshotAccessibilityTree_ResponseParams_Data::Validate},
-    {&internal::Frame_GetSerializedHtmlWithLocalLinks_Params_Data::Validate,
+    { &internal::Frame_GetSerializedHtmlWithLocalLinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Frame_SetResourceCache_Params_Data::Validate,
+    { &internal::Frame_SetResourceCache_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3167,14 +3255,17 @@ void FrameBindingsControlProxy::AllowBindings(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameBindingsControl_AllowBindings_Name, kFlags, 0, 0, nullptr);
@@ -3205,14 +3296,17 @@ void FrameBindingsControlProxy::EnableMojoJsBindings(
                         "<value of type ::content::mojom::ExtraMojoJsFeaturesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameBindingsControl_EnableMojoJsBindings_Name, kFlags, 0, 0, nullptr);
@@ -3249,14 +3343,17 @@ void FrameBindingsControlProxy::EnableMojoJsBindingsWithBroker(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameBindingsControl_EnableMojoJsBindingsWithBroker_Name, kFlags, 0, 0, nullptr);
@@ -3295,14 +3392,17 @@ void FrameBindingsControlProxy::BindWebUI(
                         "<value of type ::mojo::PendingAssociatedRemote<::content::mojom::WebUIHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameBindingsControl_BindWebUI_Name, kFlags, 0, 0, nullptr);
@@ -3479,16 +3579,16 @@ bool FrameBindingsControlStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameBindingsControlValidationInfo[] = {
-    {&internal::FrameBindingsControl_AllowBindings_Params_Data::Validate,
+    { &internal::FrameBindingsControl_AllowBindings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameBindingsControl_EnableMojoJsBindings_Params_Data::Validate,
+    { &internal::FrameBindingsControl_EnableMojoJsBindings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameBindingsControl_EnableMojoJsBindingsWithBroker_Params_Data::Validate,
+    { &internal::FrameBindingsControl_EnableMojoJsBindingsWithBroker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameBindingsControl_BindWebUI_Params_Data::Validate,
+    { &internal::FrameBindingsControl_BindWebUI_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3561,14 +3661,17 @@ void NavigationRendererCancellationListenerProxy::RendererCancellationWindowEnde
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::NavigationRendererCancellationListener::RendererCancellationWindowEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNavigationRendererCancellationListener_RendererCancellationWindowEnded_Name, kFlags, 0, 0, nullptr);
@@ -3632,10 +3735,10 @@ bool NavigationRendererCancellationListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNavigationRendererCancellationListenerValidationInfo[] = {
-    {&internal::NavigationRendererCancellationListener_RendererCancellationWindowEnded_Params_Data::Validate,
+    { &internal::NavigationRendererCancellationListener_RendererCancellationWindowEnded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4013,15 +4116,18 @@ bool FrameHostProxy::CreateNewWindow(
 #else
   TRACE_EVENT0("mojom", "FrameHost::CreateNewWindow");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_CreateNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -4079,14 +4185,17 @@ void FrameHostProxy::CreateNewWindow(
                         "<value of type CreateNewWindowParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_CreateNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -4117,15 +4226,15 @@ void FrameHostProxy::CreateNewWindow(
 }
 
 void FrameHostProxy::CreateChildFrame(
-    int32_t in_child_routing_id, ::mojo::PendingAssociatedRemote<Frame> in_frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> in_browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr in_policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> in_associated_interface_provider, ::blink::mojom::TreeScopeType in_scope, const std::string& in_frame_name, const std::string& in_frame_unique_name, bool in_is_created_by_script, const ::blink::FramePolicy& in_frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr in_frame_owner_properties, ::blink::FrameOwnerElementType in_child_frame_owner_element_type, int64_t in_document_ukm_source_id) {
+    const ::blink::LocalFrameToken& in_child_frame_token, ::mojo::PendingAssociatedRemote<Frame> in_frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> in_browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr in_policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> in_associated_interface_provider, ::blink::mojom::TreeScopeType in_scope, const std::string& in_frame_name, const std::string& in_frame_unique_name, bool in_is_created_by_script, const ::blink::FramePolicy& in_frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr in_frame_owner_properties, ::blink::FrameOwnerElementType in_child_frame_owner_element_type, int64_t in_document_ukm_source_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content::mojom::FrameHost::CreateChildFrame", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("child_routing_id"), in_child_routing_id,
-                        "<value of type int32_t>");
+           dict.AddItem("child_frame_token"), in_child_frame_token,
+                        "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("frame"), in_frame,
                         "<value of type ::mojo::PendingAssociatedRemote<Frame>>");
@@ -4164,14 +4273,17 @@ void FrameHostProxy::CreateChildFrame(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_CreateChildFrame_Name, kFlags, 0, 0, nullptr);
@@ -4179,7 +4291,17 @@ void FrameHostProxy::CreateChildFrame(
       ::content::mojom::internal::FrameHost_CreateChildFrame_Params_Data> params(
           message);
   params.Allocate();
-  params->child_routing_id = in_child_routing_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->child_frame_token)::BaseType> child_frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      in_child_frame_token, child_frame_token_fragment);
+  params->child_frame_token.Set(
+      child_frame_token_fragment.is_null() ? nullptr : child_frame_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->child_frame_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null child_frame_token in FrameHost.CreateChildFrame request");
   mojo::internal::Serialize<::content::mojom::FrameAssociatedPtrInfoDataView>(
       in_frame, &params->frame, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -4284,14 +4406,17 @@ void FrameHostProxy::DidCommitProvisionalLoad(
                         "<value of type ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_DidCommitProvisionalLoad_Name, kFlags, 0, 0, nullptr);
@@ -4342,14 +4467,17 @@ void FrameHostProxy::DidCommitSameDocumentNavigation(
                         "<value of type ::content::mojom::DidCommitSameDocumentNavigationParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_DidCommitSameDocumentNavigation_Name, kFlags, 0, 0, nullptr);
@@ -4401,14 +4529,17 @@ void FrameHostProxy::DidOpenDocumentInputStream(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_DidOpenDocumentInputStream_Name, kFlags, 0, 0, nullptr);
@@ -4464,14 +4595,17 @@ void FrameHostProxy::BeginNavigation(
                         "<value of type ::mojo::PendingReceiver<NavigationRendererCancellationListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_BeginNavigation_Name, kFlags, 0, 0, nullptr);
@@ -4538,14 +4672,17 @@ void FrameHostProxy::SubresourceResponseStarted(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_SubresourceResponseStarted_Name, kFlags, 0, 0, nullptr);
@@ -4587,14 +4724,17 @@ void FrameHostProxy::ResourceLoadComplete(
                         "<value of type ::blink::mojom::ResourceLoadInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_ResourceLoadComplete_Name, kFlags, 0, 0, nullptr);
@@ -4638,14 +4778,17 @@ void FrameHostProxy::DidChangeName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_DidChangeName_Name, kFlags, 0, 0, nullptr);
@@ -4690,14 +4833,17 @@ void FrameHostProxy::CancelInitialHistoryLoad(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::FrameHost::CancelInitialHistoryLoad");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_CancelInitialHistoryLoad_Name, kFlags, 0, 0, nullptr);
@@ -4727,14 +4873,17 @@ void FrameHostProxy::UpdateEncoding(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_UpdateEncoding_Name, kFlags, 0, 0, nullptr);
@@ -4775,14 +4924,17 @@ void FrameHostProxy::UpdateState(
                         "<value of type const ::blink::PageState&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_UpdateState_Name, kFlags, 0, 0,
@@ -4824,14 +4976,17 @@ void FrameHostProxy::OpenURL(
                         "<value of type ::blink::mojom::OpenURLParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_OpenURL_Name, kFlags, 0, 0, nullptr);
@@ -4865,14 +5020,17 @@ void FrameHostProxy::DidStopLoading(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::FrameHost::DidStopLoading");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_DidStopLoading_Name, kFlags, 0, 0, nullptr);
@@ -4988,7 +5146,8 @@ void FrameHost_CreateNewWindow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameHost_CreateNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -5068,7 +5227,7 @@ bool FrameHostStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_child_routing_id{};
+      ::blink::LocalFrameToken p_child_frame_token{};
       ::mojo::PendingAssociatedRemote<Frame> p_frame{};
       ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> p_browser_interface_broker{};
       ::blink::mojom::PolicyContainerBindParamsPtr p_policy_container_bind_params{};
@@ -5083,8 +5242,8 @@ bool FrameHostStubDispatch::Accept(
       int64_t p_document_ukm_source_id{};
       FrameHost_CreateChildFrame_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_child_routing_id = input_data_view.child_routing_id();
+      if (success && !input_data_view.ReadChildFrameToken(&p_child_frame_token))
+        success = false;
       if (success) {
         p_frame =
             input_data_view.TakeFrame<decltype(p_frame)>();
@@ -5125,7 +5284,7 @@ bool FrameHostStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->CreateChildFrame(
-std::move(p_child_routing_id), 
+std::move(p_child_frame_token), 
 std::move(p_frame), 
 std::move(p_browser_interface_broker), 
 std::move(p_policy_container_bind_params), 
@@ -5572,36 +5731,36 @@ std::move(p_params), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameHostValidationInfo[] = {
-    {&internal::FrameHost_CreateNewWindow_Params_Data::Validate,
+    { &internal::FrameHost_CreateNewWindow_Params_Data::Validate,
      &internal::FrameHost_CreateNewWindow_ResponseParams_Data::Validate},
-    {&internal::FrameHost_CreateChildFrame_Params_Data::Validate,
+    { &internal::FrameHost_CreateChildFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_DidCommitProvisionalLoad_Params_Data::Validate,
+    { &internal::FrameHost_DidCommitProvisionalLoad_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_DidCommitSameDocumentNavigation_Params_Data::Validate,
+    { &internal::FrameHost_DidCommitSameDocumentNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_DidOpenDocumentInputStream_Params_Data::Validate,
+    { &internal::FrameHost_DidOpenDocumentInputStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_BeginNavigation_Params_Data::Validate,
+    { &internal::FrameHost_BeginNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_SubresourceResponseStarted_Params_Data::Validate,
+    { &internal::FrameHost_SubresourceResponseStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_ResourceLoadComplete_Params_Data::Validate,
+    { &internal::FrameHost_ResourceLoadComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_DidChangeName_Params_Data::Validate,
+    { &internal::FrameHost_DidChangeName_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_CancelInitialHistoryLoad_Params_Data::Validate,
+    { &internal::FrameHost_CancelInitialHistoryLoad_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_UpdateEncoding_Params_Data::Validate,
+    { &internal::FrameHost_UpdateEncoding_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_UpdateState_Params_Data::Validate,
+    { &internal::FrameHost_UpdateState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_OpenURL_Params_Data::Validate,
+    { &internal::FrameHost_OpenURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameHost_DidStopLoading_Params_Data::Validate,
+    { &internal::FrameHost_DidStopLoading_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5663,7 +5822,11 @@ bool StructTraits<::content::mojom::CreateViewParams::DataView, ::content::mojom
       }
       if (success && !input.ReadBaseBackgroundColor(&result->base_background_color))
         success = false;
+      if (success && !input.ReadColorProviderColors(&result->color_provider_colors))
+        success = false;
       if (success && !input.ReadBrowsingContextGroupInfo(&result->browsing_context_group_info))
+        success = false;
+      if (success && !input.ReadAttributionSupport(&result->attribution_support))
         success = false;
   *output = std::move(result);
   return success;
@@ -5809,6 +5972,8 @@ bool StructTraits<::content::mojom::CreateFrameParams::DataView, ::content::mojo
         result->associated_interface_provider_remote =
             input.TakeAssociatedInterfaceProviderRemote<decltype(result->associated_interface_provider_remote)>();
       }
+      if (success)
+        result->is_for_nested_main_frame = input.is_for_nested_main_frame();
   *output = std::move(result);
   return success;
 }
@@ -5918,6 +6083,8 @@ bool StructTraits<::content::mojom::CreateNewWindowReply::DataView, ::content::m
       if (success && !input.ReadPolicyContainer(&result->policy_container))
         success = false;
       if (success && !input.ReadBrowsingContextGroupInfo(&result->browsing_context_group_info))
+        success = false;
+      if (success && !input.ReadColorProviderColors(&result->color_provider_colors))
         success = false;
   *output = std::move(result);
   return success;
@@ -6098,8 +6265,8 @@ NavigationRendererCancellationListenerAsyncWaiter::~NavigationRendererCancellati
 void FrameHostInterceptorForTesting::CreateNewWindow(CreateNewWindowParamsPtr params, CreateNewWindowCallback callback) {
   GetForwardingInterface()->CreateNewWindow(std::move(params), std::move(callback));
 }
-void FrameHostInterceptorForTesting::CreateChildFrame(int32_t child_routing_id, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) {
-  GetForwardingInterface()->CreateChildFrame(std::move(child_routing_id), std::move(frame), std::move(browser_interface_broker), std::move(policy_container_bind_params), std::move(associated_interface_provider), std::move(scope), std::move(frame_name), std::move(frame_unique_name), std::move(is_created_by_script), std::move(frame_policy), std::move(frame_owner_properties), std::move(child_frame_owner_element_type), std::move(document_ukm_source_id));
+void FrameHostInterceptorForTesting::CreateChildFrame(const ::blink::LocalFrameToken& child_frame_token, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) {
+  GetForwardingInterface()->CreateChildFrame(std::move(child_frame_token), std::move(frame), std::move(browser_interface_broker), std::move(policy_container_bind_params), std::move(associated_interface_provider), std::move(scope), std::move(frame_name), std::move(frame_unique_name), std::move(is_created_by_script), std::move(frame_policy), std::move(frame_owner_properties), std::move(child_frame_owner_element_type), std::move(document_ukm_source_id));
 }
 void FrameHostInterceptorForTesting::DidCommitProvisionalLoad(::content::mojom::DidCommitProvisionalLoadParamsPtr params, ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr interface_params) {
   GetForwardingInterface()->DidCommitProvisionalLoad(std::move(params), std::move(interface_params));

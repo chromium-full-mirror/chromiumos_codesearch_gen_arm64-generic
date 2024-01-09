@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioListener>::value,
     "AudioListener inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioListener::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioListener is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.positionX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.positionY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.positionZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->positionZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.forwardX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forwardX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.forwardY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forwardY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -158,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.forwardZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forwardZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -172,8 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.upX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->upX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -186,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.upY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->upY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -200,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioListener.upZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->upZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -232,7 +236,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -289,7 +293,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(v8_receiver);
+AudioListener* blink_receiver = V8AudioListener::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

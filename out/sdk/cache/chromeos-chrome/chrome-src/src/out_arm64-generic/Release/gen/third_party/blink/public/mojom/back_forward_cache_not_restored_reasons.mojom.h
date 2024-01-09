@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/back_forward_cache_not_restored_reasons.mojom-features.h"
 #include "third_party/blink/public/mojom/back_forward_cache_not_restored_reasons.mojom-shared.h"
 #include "third_party/blink/public/mojom/back_forward_cache_not_restored_reasons.mojom-forward.h"
 #include <string>
@@ -222,9 +223,9 @@ class BLINK_COMMON_EXPORT BackForwardCacheNotRestoredReasons {
 
   BackForwardCacheNotRestoredReasons(
       BFCacheBlocked blocked,
-      const absl::optional<std::string>& src,
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& src,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& name,
       SameOriginBfcacheNotRestoredDetailsPtr same_origin_details);
 
 BackForwardCacheNotRestoredReasons(const BackForwardCacheNotRestoredReasons&) = delete;
@@ -307,11 +308,11 @@ BackForwardCacheNotRestoredReasons& operator=(const BackForwardCacheNotRestoredR
   
   BFCacheBlocked blocked;
   
-  absl::optional<std::string> src;
+  std::optional<std::string> src;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   SameOriginBfcacheNotRestoredDetailsPtr same_origin_details;
 

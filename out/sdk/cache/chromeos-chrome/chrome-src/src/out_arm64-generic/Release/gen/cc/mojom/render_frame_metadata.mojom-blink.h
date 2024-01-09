@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "cc/mojom/render_frame_metadata.mojom-features.h"
 #include "cc/mojom/render_frame_metadata.mojom-shared.h"
 #include "cc/mojom/render_frame_metadata.mojom-blink-forward.h"
 #include "services/viz/public/mojom/compositing/local_surface_id.mojom-blink.h"
@@ -444,14 +445,14 @@ class BLINK_PLATFORM_EXPORT RenderFrameMetadata {
 
   RenderFrameMetadata(
       const ::SkColor4f& root_background_color,
-      const absl::optional<::gfx::PointF>& root_scroll_offset,
+      const std::optional<::gfx::PointF>& root_scroll_offset,
       bool is_scroll_offset_at_top,
       const ::viz::Selection<::gfx::SelectionBound>& selection,
       bool is_mobile_optimized,
       DelegatedInkBrowserMetadataPtr delegated_ink_metadata,
       float device_scale_factor,
       const ::gfx::Size& viewport_size_in_pixels,
-      const absl::optional<::viz::LocalSurfaceId>& local_surface_id,
+      const std::optional<::viz::LocalSurfaceId>& local_surface_id,
       float page_scale_factor,
       float external_page_scale_factor,
       float top_controls_height,
@@ -538,7 +539,7 @@ RenderFrameMetadata& operator=(const RenderFrameMetadata&) = delete;
   
   ::SkColor4f root_background_color;
   
-  absl::optional<::gfx::PointF> root_scroll_offset;
+  std::optional<::gfx::PointF> root_scroll_offset;
   
   bool is_scroll_offset_at_top;
   
@@ -552,7 +553,7 @@ RenderFrameMetadata& operator=(const RenderFrameMetadata&) = delete;
   
   ::gfx::Size viewport_size_in_pixels;
   
-  absl::optional<::viz::LocalSurfaceId> local_surface_id;
+  std::optional<::viz::LocalSurfaceId> local_surface_id;
   
   float page_scale_factor;
   

@@ -79,7 +79,7 @@ class HEADLESS_EXPORT TraceConfig {
   // Configuration for memory dump triggers. Used only when "memory-infra" category is enabled.
   bool HasMemoryDumpConfig() const { return !!memory_dump_config_; }
   const base::Value::Dict& GetMemoryDumpConfig() const { DCHECK(HasMemoryDumpConfig()); return *memory_dump_config_.value(); }
-  void SetMemoryDumpConfig(absl::optional<base::Value::Dict> value) { memory_dump_config_ = std::move(value); }
+  void SetMemoryDumpConfig(std::optional<base::Value::Dict> value) { memory_dump_config_ = std::move(value); }
 
   base::Value Serialize() const;
   std::unique_ptr<TraceConfig> Clone() const;
@@ -132,7 +132,7 @@ class HEADLESS_EXPORT TraceConfig {
       return *this;
     }
 
-    TraceConfigBuilder<STATE>& SetMemoryDumpConfig(absl::optional<base::Value::Dict> value) {
+    TraceConfigBuilder<STATE>& SetMemoryDumpConfig(std::optional<base::Value::Dict> value) {
       result_->SetMemoryDumpConfig(std::move(value));
       return *this;
     }
@@ -168,7 +168,7 @@ class HEADLESS_EXPORT TraceConfig {
   absl::optional<std::vector<std::string>> included_categories_;
   absl::optional<std::vector<std::string>> excluded_categories_;
   absl::optional<std::vector<std::string>> synthetic_delays_;
-  absl::optional<absl::optional<base::Value::Dict>> memory_dump_config_;
+  absl::optional<std::optional<base::Value::Dict>> memory_dump_config_;
 };
 
 

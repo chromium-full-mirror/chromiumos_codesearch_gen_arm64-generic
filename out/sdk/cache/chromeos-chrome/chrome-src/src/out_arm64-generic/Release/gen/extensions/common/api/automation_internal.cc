@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/automation_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ AXEventParams::AXEventParams()
  {}
 
 AXEventParams::~AXEventParams() = default;
-AXEventParams::AXEventParams(AXEventParams&& rhs) = default;
-AXEventParams& AXEventParams::operator=(AXEventParams&& rhs) = default;
+AXEventParams::AXEventParams(AXEventParams&& rhs) noexcept = default;
+AXEventParams& AXEventParams::operator=(AXEventParams&& rhs) noexcept = default;
 AXEventParams AXEventParams::Clone() const {
   AXEventParams out;
   return out;
@@ -59,34 +60,21 @@ bool AXEventParams::Populate(
 }
 
 // static
-std::unique_ptr<AXEventParams> AXEventParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AXEventParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AXEventParams> AXEventParams::FromValue(const base::Value::Dict& value) {
+  AXEventParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AXEventParams> AXEventParams::FromValue(const base::Value::Dict& value) {
+std::optional<AXEventParams> AXEventParams::FromValue(const base::Value& value) {
   AXEventParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AXEventParams> AXEventParams::FromValue(const base::Value& value) {
-  AXEventParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -109,8 +97,8 @@ height(0),
 request_id(0) {}
 
 AXTextLocationParams::~AXTextLocationParams() = default;
-AXTextLocationParams::AXTextLocationParams(AXTextLocationParams&& rhs) = default;
-AXTextLocationParams& AXTextLocationParams::operator=(AXTextLocationParams&& rhs) = default;
+AXTextLocationParams::AXTextLocationParams(AXTextLocationParams&& rhs) noexcept = default;
+AXTextLocationParams& AXTextLocationParams::operator=(AXTextLocationParams&& rhs) noexcept = default;
 AXTextLocationParams AXTextLocationParams::Clone() const {
   AXTextLocationParams out;
   out.tree_id = tree_id;
@@ -236,34 +224,21 @@ bool AXTextLocationParams::Populate(
 }
 
 // static
-std::unique_ptr<AXTextLocationParams> AXTextLocationParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AXTextLocationParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AXTextLocationParams> AXTextLocationParams::FromValue(const base::Value::Dict& value) {
+  AXTextLocationParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AXTextLocationParams> AXTextLocationParams::FromValue(const base::Value::Dict& value) {
+std::optional<AXTextLocationParams> AXTextLocationParams::FromValue(const base::Value& value) {
   AXTextLocationParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AXTextLocationParams> AXTextLocationParams::FromValue(const base::Value& value) {
-  AXTextLocationParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -296,8 +271,8 @@ PerformActionRequiredParams::PerformActionRequiredParams()
 : automation_node_id(0) {}
 
 PerformActionRequiredParams::~PerformActionRequiredParams() = default;
-PerformActionRequiredParams::PerformActionRequiredParams(PerformActionRequiredParams&& rhs) = default;
-PerformActionRequiredParams& PerformActionRequiredParams::operator=(PerformActionRequiredParams&& rhs) = default;
+PerformActionRequiredParams::PerformActionRequiredParams(PerformActionRequiredParams&& rhs) noexcept = default;
+PerformActionRequiredParams& PerformActionRequiredParams::operator=(PerformActionRequiredParams&& rhs) noexcept = default;
 PerformActionRequiredParams PerformActionRequiredParams::Clone() const {
   PerformActionRequiredParams out;
   out.tree_id = tree_id;
@@ -351,7 +326,7 @@ bool PerformActionRequiredParams::Populate(
     {
       auto temp = (*request_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.request_id = absl::nullopt;
+        out.request_id = std::nullopt;
         return false;
       }
       out.request_id = *temp;
@@ -371,34 +346,21 @@ bool PerformActionRequiredParams::Populate(
 }
 
 // static
-std::unique_ptr<PerformActionRequiredParams> PerformActionRequiredParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PerformActionRequiredParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PerformActionRequiredParams> PerformActionRequiredParams::FromValue(const base::Value::Dict& value) {
+  PerformActionRequiredParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PerformActionRequiredParams> PerformActionRequiredParams::FromValue(const base::Value::Dict& value) {
+std::optional<PerformActionRequiredParams> PerformActionRequiredParams::FromValue(const base::Value& value) {
   PerformActionRequiredParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PerformActionRequiredParams> PerformActionRequiredParams::FromValue(const base::Value& value) {
-  PerformActionRequiredParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -425,8 +387,8 @@ PerformCustomActionParams::PerformCustomActionParams()
 : custom_action_id(0) {}
 
 PerformCustomActionParams::~PerformCustomActionParams() = default;
-PerformCustomActionParams::PerformCustomActionParams(PerformCustomActionParams&& rhs) = default;
-PerformCustomActionParams& PerformCustomActionParams::operator=(PerformCustomActionParams&& rhs) = default;
+PerformCustomActionParams::PerformCustomActionParams(PerformCustomActionParams&& rhs) noexcept = default;
+PerformCustomActionParams& PerformCustomActionParams::operator=(PerformCustomActionParams&& rhs) noexcept = default;
 PerformCustomActionParams PerformCustomActionParams::Clone() const {
   PerformCustomActionParams out;
   out.custom_action_id = custom_action_id;
@@ -461,34 +423,21 @@ bool PerformCustomActionParams::Populate(
 }
 
 // static
-std::unique_ptr<PerformCustomActionParams> PerformCustomActionParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PerformCustomActionParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PerformCustomActionParams> PerformCustomActionParams::FromValue(const base::Value::Dict& value) {
+  PerformCustomActionParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PerformCustomActionParams> PerformCustomActionParams::FromValue(const base::Value::Dict& value) {
+std::optional<PerformCustomActionParams> PerformCustomActionParams::FromValue(const base::Value& value) {
   PerformCustomActionParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PerformCustomActionParams> PerformCustomActionParams::FromValue(const base::Value& value) {
-  PerformCustomActionParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -509,8 +458,8 @@ anchor_offset(0),
 focus_offset(0) {}
 
 SetSelectionParams::~SetSelectionParams() = default;
-SetSelectionParams::SetSelectionParams(SetSelectionParams&& rhs) = default;
-SetSelectionParams& SetSelectionParams::operator=(SetSelectionParams&& rhs) = default;
+SetSelectionParams::SetSelectionParams(SetSelectionParams&& rhs) noexcept = default;
+SetSelectionParams& SetSelectionParams::operator=(SetSelectionParams&& rhs) noexcept = default;
 SetSelectionParams SetSelectionParams::Clone() const {
   SetSelectionParams out;
   out.focus_node_id = focus_node_id;
@@ -571,34 +520,21 @@ bool SetSelectionParams::Populate(
 }
 
 // static
-std::unique_ptr<SetSelectionParams> SetSelectionParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SetSelectionParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SetSelectionParams> SetSelectionParams::FromValue(const base::Value::Dict& value) {
+  SetSelectionParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SetSelectionParams> SetSelectionParams::FromValue(const base::Value::Dict& value) {
+std::optional<SetSelectionParams> SetSelectionParams::FromValue(const base::Value& value) {
   SetSelectionParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SetSelectionParams> SetSelectionParams::FromValue(const base::Value& value) {
-  SetSelectionParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -621,8 +557,8 @@ ReplaceSelectedTextParams::ReplaceSelectedTextParams()
  {}
 
 ReplaceSelectedTextParams::~ReplaceSelectedTextParams() = default;
-ReplaceSelectedTextParams::ReplaceSelectedTextParams(ReplaceSelectedTextParams&& rhs) = default;
-ReplaceSelectedTextParams& ReplaceSelectedTextParams::operator=(ReplaceSelectedTextParams&& rhs) = default;
+ReplaceSelectedTextParams::ReplaceSelectedTextParams(ReplaceSelectedTextParams&& rhs) noexcept = default;
+ReplaceSelectedTextParams& ReplaceSelectedTextParams::operator=(ReplaceSelectedTextParams&& rhs) noexcept = default;
 ReplaceSelectedTextParams ReplaceSelectedTextParams::Clone() const {
   ReplaceSelectedTextParams out;
   out.value = value;
@@ -657,34 +593,21 @@ bool ReplaceSelectedTextParams::Populate(
 }
 
 // static
-std::unique_ptr<ReplaceSelectedTextParams> ReplaceSelectedTextParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReplaceSelectedTextParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReplaceSelectedTextParams> ReplaceSelectedTextParams::FromValue(const base::Value::Dict& value) {
+  ReplaceSelectedTextParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReplaceSelectedTextParams> ReplaceSelectedTextParams::FromValue(const base::Value::Dict& value) {
+std::optional<ReplaceSelectedTextParams> ReplaceSelectedTextParams::FromValue(const base::Value& value) {
   ReplaceSelectedTextParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReplaceSelectedTextParams> ReplaceSelectedTextParams::FromValue(const base::Value& value) {
-  ReplaceSelectedTextParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -703,8 +626,8 @@ SetValueParams::SetValueParams()
  {}
 
 SetValueParams::~SetValueParams() = default;
-SetValueParams::SetValueParams(SetValueParams&& rhs) = default;
-SetValueParams& SetValueParams::operator=(SetValueParams&& rhs) = default;
+SetValueParams::SetValueParams(SetValueParams&& rhs) noexcept = default;
+SetValueParams& SetValueParams::operator=(SetValueParams&& rhs) noexcept = default;
 SetValueParams SetValueParams::Clone() const {
   SetValueParams out;
   out.value = value;
@@ -739,34 +662,21 @@ bool SetValueParams::Populate(
 }
 
 // static
-std::unique_ptr<SetValueParams> SetValueParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SetValueParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SetValueParams> SetValueParams::FromValue(const base::Value::Dict& value) {
+  SetValueParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SetValueParams> SetValueParams::FromValue(const base::Value::Dict& value) {
+std::optional<SetValueParams> SetValueParams::FromValue(const base::Value& value) {
   SetValueParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SetValueParams> SetValueParams::FromValue(const base::Value& value) {
-  SetValueParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -786,8 +696,8 @@ ScrollToPointParams::ScrollToPointParams()
 y(0) {}
 
 ScrollToPointParams::~ScrollToPointParams() = default;
-ScrollToPointParams::ScrollToPointParams(ScrollToPointParams&& rhs) = default;
-ScrollToPointParams& ScrollToPointParams::operator=(ScrollToPointParams&& rhs) = default;
+ScrollToPointParams::ScrollToPointParams(ScrollToPointParams&& rhs) noexcept = default;
+ScrollToPointParams& ScrollToPointParams::operator=(ScrollToPointParams&& rhs) noexcept = default;
 ScrollToPointParams ScrollToPointParams::Clone() const {
   ScrollToPointParams out;
   out.x = x;
@@ -835,34 +745,21 @@ bool ScrollToPointParams::Populate(
 }
 
 // static
-std::unique_ptr<ScrollToPointParams> ScrollToPointParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScrollToPointParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScrollToPointParams> ScrollToPointParams::FromValue(const base::Value::Dict& value) {
+  ScrollToPointParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScrollToPointParams> ScrollToPointParams::FromValue(const base::Value::Dict& value) {
+std::optional<ScrollToPointParams> ScrollToPointParams::FromValue(const base::Value& value) {
   ScrollToPointParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScrollToPointParams> ScrollToPointParams::FromValue(const base::Value& value) {
-  ScrollToPointParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -884,8 +781,8 @@ ScrollToPositionAtRowColumnParams::ScrollToPositionAtRowColumnParams()
 column(0) {}
 
 ScrollToPositionAtRowColumnParams::~ScrollToPositionAtRowColumnParams() = default;
-ScrollToPositionAtRowColumnParams::ScrollToPositionAtRowColumnParams(ScrollToPositionAtRowColumnParams&& rhs) = default;
-ScrollToPositionAtRowColumnParams& ScrollToPositionAtRowColumnParams::operator=(ScrollToPositionAtRowColumnParams&& rhs) = default;
+ScrollToPositionAtRowColumnParams::ScrollToPositionAtRowColumnParams(ScrollToPositionAtRowColumnParams&& rhs) noexcept = default;
+ScrollToPositionAtRowColumnParams& ScrollToPositionAtRowColumnParams::operator=(ScrollToPositionAtRowColumnParams&& rhs) noexcept = default;
 ScrollToPositionAtRowColumnParams ScrollToPositionAtRowColumnParams::Clone() const {
   ScrollToPositionAtRowColumnParams out;
   out.row = row;
@@ -933,34 +830,21 @@ bool ScrollToPositionAtRowColumnParams::Populate(
 }
 
 // static
-std::unique_ptr<ScrollToPositionAtRowColumnParams> ScrollToPositionAtRowColumnParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScrollToPositionAtRowColumnParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScrollToPositionAtRowColumnParams> ScrollToPositionAtRowColumnParams::FromValue(const base::Value::Dict& value) {
+  ScrollToPositionAtRowColumnParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScrollToPositionAtRowColumnParams> ScrollToPositionAtRowColumnParams::FromValue(const base::Value::Dict& value) {
+std::optional<ScrollToPositionAtRowColumnParams> ScrollToPositionAtRowColumnParams::FromValue(const base::Value& value) {
   ScrollToPositionAtRowColumnParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScrollToPositionAtRowColumnParams> ScrollToPositionAtRowColumnParams::FromValue(const base::Value& value) {
-  ScrollToPositionAtRowColumnParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -982,8 +866,8 @@ SetScrollOffsetParams::SetScrollOffsetParams()
 y(0) {}
 
 SetScrollOffsetParams::~SetScrollOffsetParams() = default;
-SetScrollOffsetParams::SetScrollOffsetParams(SetScrollOffsetParams&& rhs) = default;
-SetScrollOffsetParams& SetScrollOffsetParams::operator=(SetScrollOffsetParams&& rhs) = default;
+SetScrollOffsetParams::SetScrollOffsetParams(SetScrollOffsetParams&& rhs) noexcept = default;
+SetScrollOffsetParams& SetScrollOffsetParams::operator=(SetScrollOffsetParams&& rhs) noexcept = default;
 SetScrollOffsetParams SetScrollOffsetParams::Clone() const {
   SetScrollOffsetParams out;
   out.x = x;
@@ -1031,34 +915,21 @@ bool SetScrollOffsetParams::Populate(
 }
 
 // static
-std::unique_ptr<SetScrollOffsetParams> SetScrollOffsetParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SetScrollOffsetParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SetScrollOffsetParams> SetScrollOffsetParams::FromValue(const base::Value::Dict& value) {
+  SetScrollOffsetParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SetScrollOffsetParams> SetScrollOffsetParams::FromValue(const base::Value::Dict& value) {
+std::optional<SetScrollOffsetParams> SetScrollOffsetParams::FromValue(const base::Value& value) {
   SetScrollOffsetParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SetScrollOffsetParams> SetScrollOffsetParams::FromValue(const base::Value& value) {
-  SetScrollOffsetParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1080,8 +951,8 @@ GetImageDataParams::GetImageDataParams()
 max_height(0) {}
 
 GetImageDataParams::~GetImageDataParams() = default;
-GetImageDataParams::GetImageDataParams(GetImageDataParams&& rhs) = default;
-GetImageDataParams& GetImageDataParams::operator=(GetImageDataParams&& rhs) = default;
+GetImageDataParams::GetImageDataParams(GetImageDataParams&& rhs) noexcept = default;
+GetImageDataParams& GetImageDataParams::operator=(GetImageDataParams&& rhs) noexcept = default;
 GetImageDataParams GetImageDataParams::Clone() const {
   GetImageDataParams out;
   out.max_width = max_width;
@@ -1129,34 +1000,21 @@ bool GetImageDataParams::Populate(
 }
 
 // static
-std::unique_ptr<GetImageDataParams> GetImageDataParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetImageDataParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetImageDataParams> GetImageDataParams::FromValue(const base::Value::Dict& value) {
+  GetImageDataParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetImageDataParams> GetImageDataParams::FromValue(const base::Value::Dict& value) {
+std::optional<GetImageDataParams> GetImageDataParams::FromValue(const base::Value& value) {
   GetImageDataParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetImageDataParams> GetImageDataParams::FromValue(const base::Value& value) {
-  GetImageDataParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1178,8 +1036,8 @@ HitTestParams::HitTestParams()
 y(0) {}
 
 HitTestParams::~HitTestParams() = default;
-HitTestParams::HitTestParams(HitTestParams&& rhs) = default;
-HitTestParams& HitTestParams::operator=(HitTestParams&& rhs) = default;
+HitTestParams::HitTestParams(HitTestParams&& rhs) noexcept = default;
+HitTestParams& HitTestParams::operator=(HitTestParams&& rhs) noexcept = default;
 HitTestParams HitTestParams::Clone() const {
   HitTestParams out;
   out.x = x;
@@ -1240,34 +1098,21 @@ bool HitTestParams::Populate(
 }
 
 // static
-std::unique_ptr<HitTestParams> HitTestParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HitTestParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HitTestParams> HitTestParams::FromValue(const base::Value::Dict& value) {
+  HitTestParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HitTestParams> HitTestParams::FromValue(const base::Value::Dict& value) {
+std::optional<HitTestParams> HitTestParams::FromValue(const base::Value& value) {
   HitTestParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HitTestParams> HitTestParams::FromValue(const base::Value& value) {
-  HitTestParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1291,8 +1136,8 @@ GetTextLocationDataParams::GetTextLocationDataParams()
 end_index(0) {}
 
 GetTextLocationDataParams::~GetTextLocationDataParams() = default;
-GetTextLocationDataParams::GetTextLocationDataParams(GetTextLocationDataParams&& rhs) = default;
-GetTextLocationDataParams& GetTextLocationDataParams::operator=(GetTextLocationDataParams&& rhs) = default;
+GetTextLocationDataParams::GetTextLocationDataParams(GetTextLocationDataParams&& rhs) noexcept = default;
+GetTextLocationDataParams& GetTextLocationDataParams::operator=(GetTextLocationDataParams&& rhs) noexcept = default;
 GetTextLocationDataParams GetTextLocationDataParams::Clone() const {
   GetTextLocationDataParams out;
   out.start_index = start_index;
@@ -1340,34 +1185,21 @@ bool GetTextLocationDataParams::Populate(
 }
 
 // static
-std::unique_ptr<GetTextLocationDataParams> GetTextLocationDataParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetTextLocationDataParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetTextLocationDataParams> GetTextLocationDataParams::FromValue(const base::Value::Dict& value) {
+  GetTextLocationDataParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetTextLocationDataParams> GetTextLocationDataParams::FromValue(const base::Value::Dict& value) {
+std::optional<GetTextLocationDataParams> GetTextLocationDataParams::FromValue(const base::Value& value) {
   GetTextLocationDataParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetTextLocationDataParams> GetTextLocationDataParams::FromValue(const base::Value& value) {
-  GetTextLocationDataParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1393,13 +1225,13 @@ namespace EnableTree {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1409,13 +1241,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = tree_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.tree_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1450,8 +1282,8 @@ Params::OptArgs::OptArgs()
  {}
 
 Params::OptArgs::~OptArgs() = default;
-Params::OptArgs::OptArgs(OptArgs&& rhs) = default;
-Params::OptArgs& Params::OptArgs::operator=(OptArgs&& rhs) = default;
+Params::OptArgs::OptArgs(OptArgs&& rhs) noexcept = default;
+Params::OptArgs& Params::OptArgs::operator=(OptArgs&& rhs) noexcept = default;
 Params::OptArgs Params::OptArgs::Clone() const {
   OptArgs out;
   return out;
@@ -1474,21 +1306,21 @@ bool Params::OptArgs::Populate(
 }
 
 // static
-absl::optional<Params::OptArgs> Params::OptArgs::FromValue(const base::Value::Dict& value) {
+std::optional<Params::OptArgs> Params::OptArgs::FromValue(const base::Value::Dict& value) {
   OptArgs out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::OptArgs> Params::OptArgs::FromValue(const base::Value& value) {
+std::optional<Params::OptArgs> Params::OptArgs::FromValue(const base::Value& value) {
   OptArgs out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1496,13 +1328,13 @@ absl::optional<Params::OptArgs> Params::OptArgs::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1511,15 +1343,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& args_value = args[0];
     {
       if (!args_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PerformActionRequiredParams::Populate(args_value.GetDict(), params.args)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1527,15 +1359,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& opt_args_value = args[1];
     {
       if (!opt_args_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OptArgs::Populate(opt_args_value.GetDict(), params.opt_args)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

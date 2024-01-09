@@ -30,12 +30,26 @@ class RenderFrameHostInfoDataView;
 
 class WebContentsInfoDataView;
 
+class EventDestinationDataView;
+
+class DlpEventDataView;
+
+class FileDatabaseEntryDataView;
+
 
 enum class EndpointType : int32_t;
 
 enum class ContentRestriction : int32_t;
 
 enum class Level : int32_t;
+
+enum class EventDestination_Component : int32_t;
+
+enum class DlpEvent_Restriction : int32_t;
+
+enum class DlpEvent_Mode : int32_t;
+
+enum class DlpEvent_UserType : int32_t;
 class DataTransferEndpoint;
 using DataTransferEndpointPtr = mojo::StructPtr<DataTransferEndpoint>;
 
@@ -47,6 +61,17 @@ using RenderFrameHostInfoPtr = mojo::StructPtr<RenderFrameHostInfo>;
 
 class WebContentsInfo;
 using WebContentsInfoPtr = mojo::StructPtr<WebContentsInfo>;
+
+class EventDestination;
+using EventDestinationPtr = mojo::InlinedStructPtr<EventDestination>;
+
+class DlpEvent;
+using DlpEventPtr = mojo::StructPtr<DlpEvent>;
+
+class FileDatabaseEntry;
+using FileDatabaseEntryPtr = mojo::InlinedStructPtr<FileDatabaseEntry>;
+
+class ReportingObserver;
 
 class PageHandler;
 

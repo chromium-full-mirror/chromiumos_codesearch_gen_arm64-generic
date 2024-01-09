@@ -102,6 +102,22 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Get the current config for the specified scanner.  The scanner must have
+  // been previously opened with OpenScanner.
+  virtual bool GetCurrentConfig(
+      const ::lorgnette::GetCurrentConfigRequest& in_request,
+      ::lorgnette::GetCurrentConfigResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get the current config for the specified scanner.  The scanner must have
+  // been previously opened with OpenScanner.
+  virtual void GetCurrentConfigAsync(
+      const ::lorgnette::GetCurrentConfigRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::GetCurrentConfigResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Starts a scan using the currently configured options.  Options should
   // be set with SetOptions first if needed.  If the result is successful,
   // the caller can read scanned data with ReadScanData.
@@ -469,6 +485,41 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.lorgnette.Manager",
         "SetOptions",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Get the current config for the specified scanner.  The scanner must have
+  // been previously opened with OpenScanner.
+  bool GetCurrentConfig(
+      const ::lorgnette::GetCurrentConfigRequest& in_request,
+      ::lorgnette::GetCurrentConfigResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "GetCurrentConfig",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Get the current config for the specified scanner.  The scanner must have
+  // been previously opened with OpenScanner.
+  void GetCurrentConfigAsync(
+      const ::lorgnette::GetCurrentConfigRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::GetCurrentConfigResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "GetCurrentConfig",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

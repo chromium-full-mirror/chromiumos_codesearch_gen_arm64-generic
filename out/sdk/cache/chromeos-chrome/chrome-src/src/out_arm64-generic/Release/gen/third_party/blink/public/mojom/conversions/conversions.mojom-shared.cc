@@ -136,6 +136,36 @@ bool AttributionHost_RegisterNavigationDataHost_Params_Data::Validate(
 AttributionHost_RegisterNavigationDataHost_Params_Data::AttributionHost_RegisterNavigationDataHost_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data* object =
+      static_cast<const AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->attribution_src_token, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->attribution_src_token, validation_context))
+    return false;
+
+  return true;
+}
+
+AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace blink

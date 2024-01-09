@@ -25,6 +25,7 @@
 
 #include "services/audio/public/mojom/debug_recording.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file.mojom-shared.h"
+#include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

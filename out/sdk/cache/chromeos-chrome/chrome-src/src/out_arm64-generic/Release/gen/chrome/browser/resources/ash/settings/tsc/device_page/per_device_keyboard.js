@@ -19,10 +19,10 @@ import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_eleme
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { DevicePageBrowserProxyImpl } from './device_page_browser_proxy.js';
 import { getDeviceStateChangesToAnnounce } from './input_device_settings_utils.js';
@@ -93,6 +93,7 @@ export class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardE
                 value: () => {
                     return isRevampWayfindingEnabled();
                 },
+                readOnly: true,
             },
             /**
              * Whether the setting for long press diacritics should be shown

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/user_agent/user_agent_metadata.mojom-features.h"
 #include "third_party/blink/public/mojom/user_agent/user_agent_metadata.mojom-shared.h"
 #include "third_party/blink/public/mojom/user_agent/user_agent_metadata.mojom-forward.h"
 #include <string>
@@ -389,7 +390,7 @@ class BLINK_COMMON_EXPORT UserAgentOverride {
 
   UserAgentOverride(
       const std::string& ua_string_override,
-      const absl::optional<::blink::UserAgentMetadata>& ua_metadata_override);
+      const std::optional<::blink::UserAgentMetadata>& ua_metadata_override);
 
 
   ~UserAgentOverride();
@@ -469,7 +470,7 @@ class BLINK_COMMON_EXPORT UserAgentOverride {
   
   std::string ua_string_override;
   
-  absl::optional<::blink::UserAgentMetadata> ua_metadata_override;
+  std::optional<::blink::UserAgentMetadata> ua_metadata_override;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

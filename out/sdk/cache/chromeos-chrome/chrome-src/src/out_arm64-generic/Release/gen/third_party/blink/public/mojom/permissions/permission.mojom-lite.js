@@ -52,8 +52,9 @@ blink.mojom.PermissionName = {
   LOCAL_FONTS: 21,
   DISPLAY_CAPTURE: 22,
   TOP_LEVEL_STORAGE_ACCESS: 23,
+  CAPTURED_SURFACE_CONTROL: 24,
   MIN_VALUE: 0,
-  MAX_VALUE: 23,
+  MAX_VALUE: 24,
 };
 
 
@@ -324,6 +325,26 @@ blink.mojom.PermissionServiceRemote = class {
 
   
   /**
+   * @param { !Array<!blink.mojom.PermissionDescriptor> } permissions
+   * @return {!Promise<{
+        allowed: !boolean,
+        statuses: ?Array<!blink.mojom.PermissionStatus>,
+   *  }>}
+   */
+
+  registerPageEmbeddedPermissionControl(
+      permissions) {
+    return this.proxy.sendMessage(
+        1,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        [
+          permissions
+        ]);
+  }
+
+  
+  /**
    * @param { !blink.mojom.EmbeddedPermissionRequestDescriptor } descriptor
    * @return {!Promise<{
         status: !blink.mojom.EmbeddedPermissionControlResult,
@@ -333,7 +354,7 @@ blink.mojom.PermissionServiceRemote = class {
   requestPageEmbeddedPermission(
       descriptor) {
     return this.proxy.sendMessage(
-        1,
+        2,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         [
@@ -354,7 +375,7 @@ blink.mojom.PermissionServiceRemote = class {
       permission,
       userGesture) {
     return this.proxy.sendMessage(
-        2,
+        3,
         blink.mojom.PermissionService_RequestPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermission_ResponseParamsSpec.$,
         [
@@ -376,7 +397,7 @@ blink.mojom.PermissionServiceRemote = class {
       permission,
       userGesture) {
     return this.proxy.sendMessage(
-        3,
+        4,
         blink.mojom.PermissionService_RequestPermissions_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermissions_ResponseParamsSpec.$,
         [
@@ -396,7 +417,7 @@ blink.mojom.PermissionServiceRemote = class {
   revokePermission(
       permission) {
     return this.proxy.sendMessage(
-        4,
+        5,
         blink.mojom.PermissionService_RevokePermission_ParamsSpec.$,
         blink.mojom.PermissionService_RevokePermission_ResponseParamsSpec.$,
         [
@@ -416,7 +437,7 @@ blink.mojom.PermissionServiceRemote = class {
       lastKnownStatus,
       observer) {
     this.proxy.sendMessage(
-        5,
+        6,
         blink.mojom.PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         [
@@ -438,7 +459,7 @@ blink.mojom.PermissionServiceRemote = class {
       eventType,
       isAdded) {
     this.proxy.sendMessage(
-        6,
+        7,
         blink.mojom.PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         [
@@ -478,31 +499,36 @@ blink.mojom.PermissionServiceReceiver = class {
         impl.hasPermission.bind(impl));
     this.helper_internal_.registerHandler(
         1,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        impl.registerPageEmbeddedPermissionControl.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         impl.requestPageEmbeddedPermission.bind(impl));
     this.helper_internal_.registerHandler(
-        2,
+        3,
         blink.mojom.PermissionService_RequestPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermission_ResponseParamsSpec.$,
         impl.requestPermission.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         blink.mojom.PermissionService_RequestPermissions_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermissions_ResponseParamsSpec.$,
         impl.requestPermissions.bind(impl));
     this.helper_internal_.registerHandler(
-        4,
+        5,
         blink.mojom.PermissionService_RevokePermission_ParamsSpec.$,
         blink.mojom.PermissionService_RevokePermission_ResponseParamsSpec.$,
         impl.revokePermission.bind(impl));
     this.helper_internal_.registerHandler(
-        5,
+        6,
         blink.mojom.PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         impl.addPermissionObserver.bind(impl));
     this.helper_internal_.registerHandler(
-        6,
+        7,
         blink.mojom.PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         impl.notifyEventListener.bind(impl));
@@ -573,12 +599,24 @@ blink.mojom.PermissionServiceCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.requestPageEmbeddedPermission =
+    this.registerPageEmbeddedPermissionControl =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         1,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        this.registerPageEmbeddedPermissionControl.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.requestPageEmbeddedPermission =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPageEmbeddedPermission_ResponseParamsSpec.$,
         this.requestPageEmbeddedPermission.createReceiverHandler(true /* expectsResponse */));
@@ -590,7 +628,7 @@ blink.mojom.PermissionServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        2,
+        3,
         blink.mojom.PermissionService_RequestPermission_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermission_ResponseParamsSpec.$,
         this.requestPermission.createReceiverHandler(true /* expectsResponse */));
@@ -602,7 +640,7 @@ blink.mojom.PermissionServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         blink.mojom.PermissionService_RequestPermissions_ParamsSpec.$,
         blink.mojom.PermissionService_RequestPermissions_ResponseParamsSpec.$,
         this.requestPermissions.createReceiverHandler(true /* expectsResponse */));
@@ -614,7 +652,7 @@ blink.mojom.PermissionServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        4,
+        5,
         blink.mojom.PermissionService_RevokePermission_ParamsSpec.$,
         blink.mojom.PermissionService_RevokePermission_ResponseParamsSpec.$,
         this.revokePermission.createReceiverHandler(true /* expectsResponse */));
@@ -626,7 +664,7 @@ blink.mojom.PermissionServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        5,
+        6,
         blink.mojom.PermissionService_AddPermissionObserver_ParamsSpec.$,
         null,
         this.addPermissionObserver.createReceiverHandler(false /* expectsResponse */));
@@ -638,7 +676,7 @@ blink.mojom.PermissionServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        6,
+        7,
         blink.mojom.PermissionService_NotifyEventListener_ParamsSpec.$,
         null,
         this.notifyEventListener.createReceiverHandler(false /* expectsResponse */));
@@ -727,6 +765,22 @@ blink.mojom.PermissionService_HasPermission_ParamsSpec =
  * @export
  */
 blink.mojom.PermissionService_HasPermission_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1106,6 +1160,74 @@ blink.mojom.PermissionService_HasPermission_ResponseParams = class {
   constructor() {
     /** @export { !blink.mojom.PermissionStatus } */
     this.status;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
+    'PermissionService_RegisterPageEmbeddedPermissionControl_Params',
+    [
+      mojo.internal.StructField(
+        'permissions', 0,
+        0,
+        mojo.internal.Array(blink.mojom.PermissionDescriptorSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_Params = class {
+  constructor() {
+    /** @export { !Array<!blink.mojom.PermissionDescriptor> } */
+    this.permissions;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+    'PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'allowed', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'statuses', 8,
+        0,
+        mojo.internal.Array(blink.mojom.PermissionStatusSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.allowed;
+    /** @export { (Array<!blink.mojom.PermissionStatus>|undefined) } */
+    this.statuses;
   }
 };
 

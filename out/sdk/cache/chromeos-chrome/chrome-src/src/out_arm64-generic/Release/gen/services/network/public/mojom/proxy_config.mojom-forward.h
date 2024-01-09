@@ -32,6 +32,8 @@ class ProxyConfigDataView;
 
 
 enum class ProxyRulesType : int32_t;
+
+enum class IpProtectionProxyBypassPolicy : int32_t;
 class ProxyBypassRules;
 using ProxyBypassRulesPtr = mojo::StructPtr<ProxyBypassRules>;
 

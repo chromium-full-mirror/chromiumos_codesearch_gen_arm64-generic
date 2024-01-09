@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -95,6 +96,9 @@ AttributionHost::IPCStableHashFunction AttributionHost::MessageToMethodInfo_(moj
     case internal::kAttributionHost_RegisterNavigationDataHost_Name: {
       return &AttributionHost::RegisterNavigationDataHost_Sym::IPCStableHash;
     }
+    case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name: {
+      return &AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -110,6 +114,8 @@ const char* AttributionHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::AttributionHost::RegisterDataHost";
       case internal::kAttributionHost_RegisterNavigationDataHost_Name:
             return "Receive blink::mojom::AttributionHost::RegisterNavigationDataHost";
+      case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name:
+            return "Receive blink::mojom::AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart";
     }
   } else {
     switch (message.name()) {
@@ -117,6 +123,8 @@ const char* AttributionHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::AttributionHost::RegisterDataHost";
       case internal::kAttributionHost_RegisterNavigationDataHost_Name:
             return "Receive reply blink::mojom::AttributionHost::RegisterNavigationDataHost";
+      case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name:
+            return "Receive reply blink::mojom::AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart";
     }
   }
   return "Receive unknown mojo message";
@@ -157,6 +165,19 @@ uint32_t AttributionHost::RegisterNavigationDataHost_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 AttributionHostProxy::AttributionHostProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -178,14 +199,17 @@ void AttributionHostProxy::RegisterDataHost(
                         "<value of type ::attribution_reporting::mojom::blink::RegistrationEligibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionHost_RegisterDataHost_Name, kFlags, 0, 0, nullptr);
@@ -226,14 +250,17 @@ void AttributionHostProxy::RegisterNavigationDataHost(
                         "<value of type const ::blink::AttributionSrcToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionHost_RegisterNavigationDataHost_Name, kFlags, 0, 0, nullptr);
@@ -262,6 +289,61 @@ void AttributionHostProxy::RegisterNavigationDataHost(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AttributionHost::Name_);
   message.set_method_name("RegisterNavigationDataHost");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AttributionHostProxy::NotifyNavigationWithBackgroundRegistrationsWillStart(
+    const ::blink::AttributionSrcToken& in_attribution_src_token, uint32_t in_expected_registrations) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::AttributionHost::NotifyNavigationWithBackgroundRegistrationsWillStart", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("attribution_src_token"), in_attribution_src_token,
+                        "<value of type const ::blink::AttributionSrcToken&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("expected_registrations"), in_expected_registrations,
+                        "<value of type uint32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->attribution_src_token)::BaseType> attribution_src_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::AttributionSrcTokenDataView>(
+      in_attribution_src_token, attribution_src_token_fragment);
+  params->attribution_src_token.Set(
+      attribution_src_token_fragment.is_null() ? nullptr : attribution_src_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->attribution_src_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null attribution_src_token in AttributionHost.NotifyNavigationWithBackgroundRegistrationsWillStart request");
+  params->expected_registrations = in_expected_registrations;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AttributionHost::Name_);
+  message.set_method_name("NotifyNavigationWithBackgroundRegistrationsWillStart");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -337,6 +419,36 @@ std::move(p_data_host),
 std::move(p_attribution_src_token));
       return true;
     }
+    case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data* params =
+          reinterpret_cast<internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::blink::AttributionSrcToken p_attribution_src_token{};
+      uint32_t p_expected_registrations{};
+      AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAttributionSrcToken(&p_attribution_src_token))
+        success = false;
+      if (success)
+        p_expected_registrations = input_data_view.expected_registrations();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AttributionHost::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->NotifyNavigationWithBackgroundRegistrationsWillStart(
+std::move(p_attribution_src_token), 
+std::move(p_expected_registrations));
+      return true;
+    }
   }
   return false;
 }
@@ -356,15 +468,20 @@ bool AttributionHostStubDispatch::AcceptWithResponder(
     case internal::kAttributionHost_RegisterNavigationDataHost_Name: {
       break;
     }
+    case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAttributionHostValidationInfo[] = {
-    {&internal::AttributionHost_RegisterDataHost_Params_Data::Validate,
+    { &internal::AttributionHost_RegisterDataHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AttributionHost_RegisterNavigationDataHost_Params_Data::Validate,
+    { &internal::AttributionHost_RegisterNavigationDataHost_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -411,6 +528,9 @@ void AttributionHostInterceptorForTesting::RegisterDataHost(::mojo::PendingRecei
 }
 void AttributionHostInterceptorForTesting::RegisterNavigationDataHost(::mojo::PendingReceiver<::blink::mojom::blink::AttributionDataHost> data_host, const ::blink::AttributionSrcToken& attribution_src_token) {
   GetForwardingInterface()->RegisterNavigationDataHost(std::move(data_host), std::move(attribution_src_token));
+}
+void AttributionHostInterceptorForTesting::NotifyNavigationWithBackgroundRegistrationsWillStart(const ::blink::AttributionSrcToken& attribution_src_token, uint32_t expected_registrations) {
+  GetForwardingInterface()->NotifyNavigationWithBackgroundRegistrationsWillStart(std::move(attribution_src_token), std::move(expected_registrations));
 }
 AttributionHostAsyncWaiter::AttributionHostAsyncWaiter(
     AttributionHost* proxy) : proxy_(proxy) {}

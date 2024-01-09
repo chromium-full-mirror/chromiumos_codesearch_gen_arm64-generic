@@ -40,7 +40,7 @@ export function getTemplate() {
     height: 222px;
   }
 
-  cr-lottie {
+  cros-lottie-renderer {
     height: 85%;
   }
 

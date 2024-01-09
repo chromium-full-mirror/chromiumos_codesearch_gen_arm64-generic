@@ -168,6 +168,12 @@ public:
     }
     void SetTargetId(const String& value) { m_targetId = value; }
 
+    bool HasRouterRules() { return m_routerRules.has_value(); }
+    String GetRouterRules(const String& defaultValue) const {
+       return m_routerRules.value_or(defaultValue);
+    }
+    void SetRouterRules(const String& value) { m_routerRules = value; }
+
     template<int STATE>
     class ServiceWorkerVersionBuilder {
     public:
@@ -240,6 +246,12 @@ public:
             return *this;
         }
 
+        ServiceWorkerVersionBuilder<STATE>& SetRouterRules(const String& value)
+        {
+            m_result->SetRouterRules(value);
+            return *this;
+        }
+
         std::unique_ptr<ServiceWorkerVersion> Build()
         {
             static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
@@ -279,6 +291,7 @@ private:
     Maybe<double> m_scriptResponseTime;
     Maybe<protocol::Array<String>> m_controlledClients;
     Maybe<String> m_targetId;
+    Maybe<String> m_routerRules;
 };
 
 

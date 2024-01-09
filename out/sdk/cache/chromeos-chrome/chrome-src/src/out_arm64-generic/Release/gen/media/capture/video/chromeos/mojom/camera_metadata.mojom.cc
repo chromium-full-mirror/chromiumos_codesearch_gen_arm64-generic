@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -133,7 +134,7 @@ CameraMetadata::CameraMetadata(
     uint32_t entry_capacity_in,
     uint32_t data_count_in,
     uint32_t data_capacity_in,
-    absl::optional<std::vector<CameraMetadataEntryPtr>> entries_in)
+    std::optional<std::vector<CameraMetadataEntryPtr>> entries_in)
     : size(std::move(size_in)),
       entry_count(std::move(entry_count_in)),
       entry_capacity(std::move(entry_capacity_in)),
@@ -195,7 +196,7 @@ void CameraMetadata::WriteIntoTrace(
     dict.AddItem(
       "entries"), this->entries,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<CameraMetadataEntryPtr>>>"
+      "<value of type std::optional<std::vector<CameraMetadataEntryPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

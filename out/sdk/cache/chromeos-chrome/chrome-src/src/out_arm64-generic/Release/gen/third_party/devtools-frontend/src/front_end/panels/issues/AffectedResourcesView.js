@@ -7,9 +7,10 @@ import * as i18n from '../../core/i18n/i18n.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as Logs from '../../models/logs/logs.js';
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
+import * as RequestLinkIcon from '../../ui/components/request_link_icon/request_link_icon.js';
 import * as Components from '../../ui/legacy/components/utils/utils.js';
 import * as UI from '../../ui/legacy/legacy.js';
-import * as RequestLinkIcon from '../../ui/components/request_link_icon/request_link_icon.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 const UIStrings = {
     /**
      *@description Text in Object Properties Section
@@ -198,6 +199,7 @@ export class AffectedResourcesView extends UI.TreeOutline.TreeElement {
             // TODO(crbug.com/1108503): Add some mechanism to be able to add telemetry to this element.
             const linkifier = new Components.Linkifier.Linkifier(maxLengthForDisplayedURLs);
             const sourceAnchor = linkifier.linkifyScriptLocation(target || null, sourceLocation.scriptId || null, sourceLocation.url, sourceLocation.lineNumber, { columnNumber: sourceLocation.columnNumber, inlineFrameIndex: 0 });
+            sourceAnchor.setAttribute('jslog', `${VisualLogging.link().track({ click: true }).context('source-location')}`);
             sourceCodeLocation.appendChild(sourceAnchor);
         }
         element.appendChild(sourceCodeLocation);

@@ -102,16 +102,16 @@ class FeatureFlagsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  bool qs_revamp() const {
-    return data_->qs_revamp;
+  bool deprecated_qs_revamp() const {
+    return data_->deprecated_qs_revamp;
   }
   bool jelly_colors() const {
     return data_->jelly_colors;
   }
-  bool trackpad_scroll_touchscreen_emulation() const {
+  bool deprecated_trackpad_scroll_touchscreen_emulation() const {
     if (data_->header_.version < 2)
       return bool{};
-    return data_->trackpad_scroll_touchscreen_emulation;
+    return data_->deprecated_trackpad_scroll_touchscreen_emulation;
   }
   bool touchscreen_emulation() const {
     if (data_->header_.version < 2)
@@ -145,6 +145,21 @@ class FeatureFlagsDataView {
     if (data_->header_.version < 5)
       return bool{};
     return data_->enable_pip_double_tap;
+  }
+  bool render_arc_notifications_by_chrome() const {
+    if (data_->header_.version < 6)
+      return bool{};
+    return data_->render_arc_notifications_by_chrome;
+  }
+  bool game_dashboard() const {
+    if (data_->header_.version < 7)
+      return bool{};
+    return data_->game_dashboard;
+  }
+  bool resize_compat() const {
+    if (data_->header_.version < 8)
+      return bool{};
+    return data_->resize_compat;
   }
  private:
   internal::FeatureFlags_Data* data_ = nullptr;
@@ -197,15 +212,18 @@ struct Serializer<::arc::mojom::FeatureFlagsDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->qs_revamp = Traits::qs_revamp(input);
+    fragment->deprecated_qs_revamp = Traits::deprecated_qs_revamp(input);
     fragment->jelly_colors = Traits::jelly_colors(input);
-    fragment->trackpad_scroll_touchscreen_emulation = Traits::trackpad_scroll_touchscreen_emulation(input);
+    fragment->deprecated_trackpad_scroll_touchscreen_emulation = Traits::deprecated_trackpad_scroll_touchscreen_emulation(input);
     fragment->touchscreen_emulation = Traits::touchscreen_emulation(input);
     mojo::internal::Serialize<::arc::mojom::RoundedWindowCompatStrategy>(
         Traits::rounded_window_compat_strategy(input), &fragment->rounded_window_compat_strategy);
     fragment->rounded_window_radius = Traits::rounded_window_radius(input);
     fragment->xdg_mode = Traits::xdg_mode(input);
     fragment->enable_pip_double_tap = Traits::enable_pip_double_tap(input);
+    fragment->render_arc_notifications_by_chrome = Traits::render_arc_notifications_by_chrome(input);
+    fragment->game_dashboard = Traits::game_dashboard(input);
+    fragment->resize_compat = Traits::resize_compat(input);
   }
 
   static bool Deserialize(::arc::mojom::internal::FeatureFlags_Data* input,

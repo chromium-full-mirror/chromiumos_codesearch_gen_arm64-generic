@@ -4,243 +4,304 @@
 #include "device_management_interface.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace device_management {
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesGetRequest::InstallAttributesGetRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesGetRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesGetRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesGetRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesGetRequestDefaultTypeInternal() {}
   union {
     InstallAttributesGetRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetRequestDefaultTypeInternal _InstallAttributesGetRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetRequestDefaultTypeInternal _InstallAttributesGetRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesGetReply::InstallAttributesGetReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesGetReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesGetReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesGetReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesGetReplyDefaultTypeInternal() {}
   union {
     InstallAttributesGetReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetReplyDefaultTypeInternal _InstallAttributesGetReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetReplyDefaultTypeInternal _InstallAttributesGetReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesSetRequest::InstallAttributesSetRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesSetRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesSetRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesSetRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesSetRequestDefaultTypeInternal() {}
   union {
     InstallAttributesSetRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesSetRequestDefaultTypeInternal _InstallAttributesSetRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesSetRequestDefaultTypeInternal _InstallAttributesSetRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesSetReply::InstallAttributesSetReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesSetReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesSetReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesSetReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesSetReplyDefaultTypeInternal() {}
   union {
     InstallAttributesSetReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesSetReplyDefaultTypeInternal _InstallAttributesSetReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesSetReplyDefaultTypeInternal _InstallAttributesSetReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesFinalizeRequest::InstallAttributesFinalizeRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesFinalizeRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesFinalizeRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesFinalizeRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesFinalizeRequestDefaultTypeInternal() {}
   union {
     InstallAttributesFinalizeRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesFinalizeRequestDefaultTypeInternal _InstallAttributesFinalizeRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesFinalizeRequestDefaultTypeInternal _InstallAttributesFinalizeRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesFinalizeReply::InstallAttributesFinalizeReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesFinalizeReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesFinalizeReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesFinalizeReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesFinalizeReplyDefaultTypeInternal() {}
   union {
     InstallAttributesFinalizeReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesFinalizeReplyDefaultTypeInternal _InstallAttributesFinalizeReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesFinalizeReplyDefaultTypeInternal _InstallAttributesFinalizeReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesGetStatusRequest::InstallAttributesGetStatusRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesGetStatusRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesGetStatusRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesGetStatusRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesGetStatusRequestDefaultTypeInternal() {}
   union {
     InstallAttributesGetStatusRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetStatusRequestDefaultTypeInternal _InstallAttributesGetStatusRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetStatusRequestDefaultTypeInternal _InstallAttributesGetStatusRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallAttributesGetStatusReply::InstallAttributesGetStatusReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
-  , /*decltype(_impl_.count_)*/0
-  , /*decltype(_impl_.is_secure_)*/false
-  , /*decltype(_impl_.state_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
+  , /*decltype(_impl_.count_)*/ 0
+
+  , /*decltype(_impl_.is_secure_)*/ false
+
+  , /*decltype(_impl_.state_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallAttributesGetStatusReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallAttributesGetStatusReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallAttributesGetStatusReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallAttributesGetStatusReplyDefaultTypeInternal() {}
   union {
     InstallAttributesGetStatusReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetStatusReplyDefaultTypeInternal _InstallAttributesGetStatusReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetStatusReplyDefaultTypeInternal _InstallAttributesGetStatusReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnterpriseOwnedGetStatusRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~EnterpriseOwnedGetStatusRequestDefaultTypeInternal() {}
   union {
     EnterpriseOwnedGetStatusRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusRequestDefaultTypeInternal _EnterpriseOwnedGetStatusRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusRequestDefaultTypeInternal _EnterpriseOwnedGetStatusRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnterpriseOwnedGetStatusReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~EnterpriseOwnedGetStatusReplyDefaultTypeInternal() {}
   union {
     EnterpriseOwnedGetStatusReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusReplyDefaultTypeInternal _EnterpriseOwnedGetStatusReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusReplyDefaultTypeInternal _EnterpriseOwnedGetStatusReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FirmwareManagementParameters::FirmwareManagementParameters(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.developer_key_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.flags_)*/0u
+    /*decltype(_impl_.developer_key_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.flags_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FirmwareManagementParametersDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FirmwareManagementParametersDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FirmwareManagementParametersDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FirmwareManagementParametersDefaultTypeInternal() {}
   union {
     FirmwareManagementParameters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FirmwareManagementParametersDefaultTypeInternal _FirmwareManagementParameters_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FirmwareManagementParametersDefaultTypeInternal _FirmwareManagementParameters_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR GetFirmwareManagementParametersRequest::GetFirmwareManagementParametersRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetFirmwareManagementParametersRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetFirmwareManagementParametersRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetFirmwareManagementParametersRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetFirmwareManagementParametersRequestDefaultTypeInternal() {}
   union {
     GetFirmwareManagementParametersRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFirmwareManagementParametersRequestDefaultTypeInternal _GetFirmwareManagementParametersRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFirmwareManagementParametersRequestDefaultTypeInternal _GetFirmwareManagementParametersRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR GetFirmwareManagementParametersReply::GetFirmwareManagementParametersReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.fwmp_)*/nullptr
-  , /*decltype(_impl_.error_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fwmp_)*/nullptr
+  , /*decltype(_impl_.error_)*/ 0
+} {}
 struct GetFirmwareManagementParametersReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetFirmwareManagementParametersReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetFirmwareManagementParametersReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetFirmwareManagementParametersReplyDefaultTypeInternal() {}
   union {
     GetFirmwareManagementParametersReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFirmwareManagementParametersReplyDefaultTypeInternal _GetFirmwareManagementParametersReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFirmwareManagementParametersReplyDefaultTypeInternal _GetFirmwareManagementParametersReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersRequest::RemoveFirmwareManagementParametersRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct RemoveFirmwareManagementParametersRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RemoveFirmwareManagementParametersRequestDefaultTypeInternal() {}
   union {
     RemoveFirmwareManagementParametersRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveFirmwareManagementParametersRequestDefaultTypeInternal _RemoveFirmwareManagementParametersRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveFirmwareManagementParametersRequestDefaultTypeInternal _RemoveFirmwareManagementParametersRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersReply::RemoveFirmwareManagementParametersReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RemoveFirmwareManagementParametersReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RemoveFirmwareManagementParametersReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RemoveFirmwareManagementParametersReplyDefaultTypeInternal() {}
   union {
     RemoveFirmwareManagementParametersReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveFirmwareManagementParametersReplyDefaultTypeInternal _RemoveFirmwareManagementParametersReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveFirmwareManagementParametersReplyDefaultTypeInternal _RemoveFirmwareManagementParametersReply_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SetFirmwareManagementParametersRequest::SetFirmwareManagementParametersRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.fwmp_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fwmp_)*/nullptr} {}
 struct SetFirmwareManagementParametersRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SetFirmwareManagementParametersRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetFirmwareManagementParametersRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetFirmwareManagementParametersRequestDefaultTypeInternal() {}
   union {
     SetFirmwareManagementParametersRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFirmwareManagementParametersRequestDefaultTypeInternal _SetFirmwareManagementParametersRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFirmwareManagementParametersRequestDefaultTypeInternal _SetFirmwareManagementParametersRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SetFirmwareManagementParametersReply::SetFirmwareManagementParametersReply(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/0
+    /*decltype(_impl_.error_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetFirmwareManagementParametersReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SetFirmwareManagementParametersReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetFirmwareManagementParametersReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetFirmwareManagementParametersReplyDefaultTypeInternal() {}
   union {
     SetFirmwareManagementParametersReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFirmwareManagementParametersReplyDefaultTypeInternal _SetFirmwareManagementParametersReply_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFirmwareManagementParametersReplyDefaultTypeInternal _SetFirmwareManagementParametersReply_default_instance_;
 }  // namespace device_management
 namespace device_management {
 bool DeviceManagementErrorCode_IsValid(int value) {
@@ -259,61 +320,61 @@ bool DeviceManagementErrorCode_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    DeviceManagementErrorCode_strings[9] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceManagementErrorCode_strings[9] = {};
+static const char DeviceManagementErrorCode_names[] = {
+    "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE"
+    "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE"
+    "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID"
+    "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED"
+    "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED"
+    "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED"
+    "DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED"
+    "DEVICE_MANAGEMENT_ERROR_NOT_SET"
+    "DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK"
+};
 
-static const char DeviceManagementErrorCode_names[] =
-  "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE"
-  "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE"
-  "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID"
-  "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED"
-  "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED"
-  "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED"
-  "DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED"
-  "DEVICE_MANAGEMENT_ERROR_NOT_SET"
-  "DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorCode_entries[] = {
-  { {DeviceManagementErrorCode_names + 0, 68}, 3 },
-  { {DeviceManagementErrorCode_names + 68, 67}, 2 },
-  { {DeviceManagementErrorCode_names + 135, 62}, 1 },
-  { {DeviceManagementErrorCode_names + 197, 58}, 6 },
-  { {DeviceManagementErrorCode_names + 255, 53}, 4 },
-  { {DeviceManagementErrorCode_names + 308, 53}, 5 },
-  { {DeviceManagementErrorCode_names + 361, 45}, 7 },
-  { {DeviceManagementErrorCode_names + 406, 31}, 0 },
-  { {DeviceManagementErrorCode_names + 437, 39}, 8 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorCode_entries[] =
+    {
+        {{&DeviceManagementErrorCode_names[0], 68}, 3},
+        {{&DeviceManagementErrorCode_names[68], 67}, 2},
+        {{&DeviceManagementErrorCode_names[135], 62}, 1},
+        {{&DeviceManagementErrorCode_names[197], 58}, 6},
+        {{&DeviceManagementErrorCode_names[255], 53}, 4},
+        {{&DeviceManagementErrorCode_names[308], 53}, 5},
+        {{&DeviceManagementErrorCode_names[361], 45}, 7},
+        {{&DeviceManagementErrorCode_names[406], 31}, 0},
+        {{&DeviceManagementErrorCode_names[437], 39}, 8},
 };
 
 static const int DeviceManagementErrorCode_entries_by_number[] = {
-  7, // 0 -> DEVICE_MANAGEMENT_ERROR_NOT_SET
-  2, // 1 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
-  1, // 2 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
-  0, // 3 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
-  4, // 4 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
-  5, // 5 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
-  3, // 6 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
-  6, // 7 -> DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED
-  8, // 8 -> DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK
+    7,  // 0 -> DEVICE_MANAGEMENT_ERROR_NOT_SET
+    2,  // 1 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
+    1,  // 2 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
+    0,  // 3 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
+    4,  // 4 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
+    5,  // 5 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
+    3,  // 6 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
+    6,  // 7 -> DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED
+    8,  // 8 -> DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK
 };
 
-const std::string& DeviceManagementErrorCode_Name(
-    DeviceManagementErrorCode value) {
-  static const bool dummy =
+const std::string& DeviceManagementErrorCode_Name(DeviceManagementErrorCode value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          DeviceManagementErrorCode_entries,
-          DeviceManagementErrorCode_entries_by_number,
+          DeviceManagementErrorCode_entries, DeviceManagementErrorCode_entries_by_number,
           9, DeviceManagementErrorCode_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      DeviceManagementErrorCode_entries,
-      DeviceManagementErrorCode_entries_by_number,
-      9, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     DeviceManagementErrorCode_strings[idx].get();
+      DeviceManagementErrorCode_entries, DeviceManagementErrorCode_entries_by_number, 9,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : DeviceManagementErrorCode_strings[idx].get();
 }
-bool DeviceManagementErrorCode_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceManagementErrorCode* value) {
+
+bool DeviceManagementErrorCode_Parse(absl::string_view name, DeviceManagementErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       DeviceManagementErrorCode_entries, 9, name, &int_value);
@@ -334,49 +395,49 @@ bool InstallAttributesState_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    InstallAttributesState_strings[5] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> InstallAttributesState_strings[5] = {};
+static const char InstallAttributesState_names[] = {
+    "FIRST_INSTALL"
+    "INVALID"
+    "TPM_NOT_OWNED"
+    "UNKNOWN"
+    "VALID"
+};
 
-static const char InstallAttributesState_names[] =
-  "FIRST_INSTALL"
-  "INVALID"
-  "TPM_NOT_OWNED"
-  "UNKNOWN"
-  "VALID";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InstallAttributesState_entries[] = {
-  { {InstallAttributesState_names + 0, 13}, 2 },
-  { {InstallAttributesState_names + 13, 7}, 4 },
-  { {InstallAttributesState_names + 20, 13}, 1 },
-  { {InstallAttributesState_names + 33, 7}, 0 },
-  { {InstallAttributesState_names + 40, 5}, 3 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InstallAttributesState_entries[] =
+    {
+        {{&InstallAttributesState_names[0], 13}, 2},
+        {{&InstallAttributesState_names[13], 7}, 4},
+        {{&InstallAttributesState_names[20], 13}, 1},
+        {{&InstallAttributesState_names[33], 7}, 0},
+        {{&InstallAttributesState_names[40], 5}, 3},
 };
 
 static const int InstallAttributesState_entries_by_number[] = {
-  3, // 0 -> UNKNOWN
-  2, // 1 -> TPM_NOT_OWNED
-  0, // 2 -> FIRST_INSTALL
-  4, // 3 -> VALID
-  1, // 4 -> INVALID
+    3,  // 0 -> UNKNOWN
+    2,  // 1 -> TPM_NOT_OWNED
+    0,  // 2 -> FIRST_INSTALL
+    4,  // 3 -> VALID
+    1,  // 4 -> INVALID
 };
 
-const std::string& InstallAttributesState_Name(
-    InstallAttributesState value) {
-  static const bool dummy =
+const std::string& InstallAttributesState_Name(InstallAttributesState value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          InstallAttributesState_entries,
-          InstallAttributesState_entries_by_number,
+          InstallAttributesState_entries, InstallAttributesState_entries_by_number,
           5, InstallAttributesState_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      InstallAttributesState_entries,
-      InstallAttributesState_entries_by_number,
-      5, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     InstallAttributesState_strings[idx].get();
+      InstallAttributesState_entries, InstallAttributesState_entries_by_number, 5,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : InstallAttributesState_strings[idx].get();
 }
-bool InstallAttributesState_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, InstallAttributesState* value) {
+
+bool InstallAttributesState_Parse(absl::string_view name, InstallAttributesState* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       InstallAttributesState_entries, 5, name, &int_value);
@@ -385,50 +446,47 @@ bool InstallAttributesState_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class InstallAttributesGetRequest::_Internal {
  public:
 };
 
-InstallAttributesGetRequest::InstallAttributesGetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesGetRequest::InstallAttributesGetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesGetRequest)
 }
 InstallAttributesGetRequest::InstallAttributesGetRequest(const InstallAttributesGetRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   InstallAttributesGetRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesGetRequest)
 }
 
-inline void InstallAttributesGetRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesGetRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallAttributesGetRequest::~InstallAttributesGetRequest() {
@@ -441,7 +499,7 @@ InstallAttributesGetRequest::~InstallAttributesGetRequest() {
 }
 
 inline void InstallAttributesGetRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -451,7 +509,7 @@ void InstallAttributesGetRequest::SetCachedSize(int size) const {
 
 void InstallAttributesGetRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesGetRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -462,18 +520,19 @@ void InstallAttributesGetRequest::Clear() {
 const char* InstallAttributesGetRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -498,20 +557,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesGetRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesGetRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesGetRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "device_management.InstallAttributesGetRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "device_management.InstallAttributesGetRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -522,19 +579,18 @@ uint8_t* InstallAttributesGetRequest::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesGetRequest::ByteSizeLong() const {
+::size_t InstallAttributesGetRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesGetRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -554,8 +610,8 @@ void InstallAttributesGetRequest::CheckTypeAndMergeFrom(
 void InstallAttributesGetRequest::MergeFrom(const InstallAttributesGetRequest& from) {
   InstallAttributesGetRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesGetRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -580,16 +636,13 @@ void InstallAttributesGetRequest::InternalSwap(InstallAttributesGetRequest* othe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
 }
 
 std::string InstallAttributesGetRequest::GetTypeName() const {
   return "device_management.InstallAttributesGetRequest";
 }
-
 
 // ===================================================================
 
@@ -597,46 +650,46 @@ class InstallAttributesGetReply::_Internal {
  public:
 };
 
-InstallAttributesGetReply::InstallAttributesGetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesGetReply::InstallAttributesGetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesGetReply)
 }
 InstallAttributesGetReply::InstallAttributesGetReply(const InstallAttributesGetReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   InstallAttributesGetReply* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.value_){}
-    , decltype(_impl_.error_){}
+      decltype(_impl_.value_) {}
+
+    , decltype(_impl_.error_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_value().empty()) {
-    _this->_impl_.value_.Set(from._internal_value(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), _this->GetArenaForAllocation());
   }
   _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesGetReply)
 }
 
-inline void InstallAttributesGetReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesGetReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.value_){}
-    , decltype(_impl_.error_){0}
+      decltype(_impl_.value_) {}
+
+    , decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallAttributesGetReply::~InstallAttributesGetReply() {
@@ -649,7 +702,7 @@ InstallAttributesGetReply::~InstallAttributesGetReply() {
 }
 
 inline void InstallAttributesGetReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.value_.Destroy();
 }
 
@@ -659,7 +712,7 @@ void InstallAttributesGetReply::SetCachedSize(int size) const {
 
 void InstallAttributesGetReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesGetReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -671,26 +724,28 @@ void InstallAttributesGetReply::Clear() {
 const char* InstallAttributesGetReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -715,23 +770,23 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesGetReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesGetReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesGetReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_value(), target);
+    const std::string& _s = this->_internal_value();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -742,25 +797,24 @@ uint8_t* InstallAttributesGetReply::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesGetReply::ByteSizeLong() const {
+::size_t InstallAttributesGetReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesGetReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_value());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_value());
   }
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -780,8 +834,8 @@ void InstallAttributesGetReply::CheckTypeAndMergeFrom(
 void InstallAttributesGetReply::MergeFrom(const InstallAttributesGetReply& from) {
   InstallAttributesGetReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesGetReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_value().empty()) {
@@ -809,10 +863,8 @@ void InstallAttributesGetReply::InternalSwap(InstallAttributesGetReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.value_, lhs_arena,
-      &other->_impl_.value_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, lhs_arena,
+                                       &other->_impl_.value_, rhs_arena);
   swap(_impl_.error_, other->_impl_.error_);
 }
 
@@ -820,64 +872,62 @@ std::string InstallAttributesGetReply::GetTypeName() const {
   return "device_management.InstallAttributesGetReply";
 }
 
-
 // ===================================================================
 
 class InstallAttributesSetRequest::_Internal {
  public:
 };
 
-InstallAttributesSetRequest::InstallAttributesSetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesSetRequest::InstallAttributesSetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesSetRequest)
 }
 InstallAttributesSetRequest::InstallAttributesSetRequest(const InstallAttributesSetRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   InstallAttributesSetRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.value_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.value_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_value().empty()) {
-    _this->_impl_.value_.Set(from._internal_value(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesSetRequest)
 }
 
-inline void InstallAttributesSetRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesSetRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.value_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.value_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallAttributesSetRequest::~InstallAttributesSetRequest() {
@@ -890,7 +940,7 @@ InstallAttributesSetRequest::~InstallAttributesSetRequest() {
 }
 
 inline void InstallAttributesSetRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   _impl_.value_.Destroy();
 }
@@ -901,7 +951,7 @@ void InstallAttributesSetRequest::SetCachedSize(int size) const {
 
 void InstallAttributesSetRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesSetRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -913,27 +963,29 @@ void InstallAttributesSetRequest::Clear() {
 const char* InstallAttributesSetRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -958,26 +1010,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesSetRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesSetRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesSetRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "device_management.InstallAttributesSetRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "device_management.InstallAttributesSetRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_value(), target);
+    const std::string& _s = this->_internal_value();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -988,26 +1038,24 @@ uint8_t* InstallAttributesSetRequest::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesSetRequest::ByteSizeLong() const {
+::size_t InstallAttributesSetRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesSetRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_value());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_value());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1027,8 +1075,8 @@ void InstallAttributesSetRequest::CheckTypeAndMergeFrom(
 void InstallAttributesSetRequest::MergeFrom(const InstallAttributesSetRequest& from) {
   InstallAttributesSetRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesSetRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -1056,20 +1104,15 @@ void InstallAttributesSetRequest::InternalSwap(InstallAttributesSetRequest* othe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.value_, lhs_arena,
-      &other->_impl_.value_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, lhs_arena,
+                                       &other->_impl_.value_, rhs_arena);
 }
 
 std::string InstallAttributesSetRequest::GetTypeName() const {
   return "device_management.InstallAttributesSetRequest";
 }
-
 
 // ===================================================================
 
@@ -1077,30 +1120,23 @@ class InstallAttributesSetReply::_Internal {
  public:
 };
 
-InstallAttributesSetReply::InstallAttributesSetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesSetReply::InstallAttributesSetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesSetReply)
 }
 InstallAttributesSetReply::InstallAttributesSetReply(const InstallAttributesSetReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InstallAttributesSetReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.error_ = from._impl_.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesSetReply)
 }
 
-inline void InstallAttributesSetReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesSetReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
+      decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1115,7 +1151,7 @@ InstallAttributesSetReply::~InstallAttributesSetReply() {
 }
 
 inline void InstallAttributesSetReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InstallAttributesSetReply::SetCachedSize(int size) const {
@@ -1124,7 +1160,7 @@ void InstallAttributesSetReply::SetCachedSize(int size) const {
 
 void InstallAttributesSetReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesSetReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1135,17 +1171,18 @@ void InstallAttributesSetReply::Clear() {
 const char* InstallAttributesSetReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1170,17 +1207,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesSetReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesSetReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesSetReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1191,18 +1228,18 @@ uint8_t* InstallAttributesSetReply::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesSetReply::ByteSizeLong() const {
+::size_t InstallAttributesSetReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesSetReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1222,8 +1259,8 @@ void InstallAttributesSetReply::CheckTypeAndMergeFrom(
 void InstallAttributesSetReply::MergeFrom(const InstallAttributesSetReply& from) {
   InstallAttributesSetReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesSetReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -1253,33 +1290,26 @@ std::string InstallAttributesSetReply::GetTypeName() const {
   return "device_management.InstallAttributesSetReply";
 }
 
-
 // ===================================================================
 
 class InstallAttributesFinalizeRequest::_Internal {
  public:
 };
 
-InstallAttributesFinalizeRequest::InstallAttributesFinalizeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesFinalizeRequest::InstallAttributesFinalizeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesFinalizeRequest)
 }
 InstallAttributesFinalizeRequest::InstallAttributesFinalizeRequest(const InstallAttributesFinalizeRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InstallAttributesFinalizeRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesFinalizeRequest)
 }
 
-inline void InstallAttributesFinalizeRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesFinalizeRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -1295,7 +1325,7 @@ InstallAttributesFinalizeRequest::~InstallAttributesFinalizeRequest() {
 }
 
 inline void InstallAttributesFinalizeRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InstallAttributesFinalizeRequest::SetCachedSize(int size) const {
@@ -1304,7 +1334,7 @@ void InstallAttributesFinalizeRequest::SetCachedSize(int size) const {
 
 void InstallAttributesFinalizeRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesFinalizeRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1314,7 +1344,7 @@ void InstallAttributesFinalizeRequest::Clear() {
 const char* InstallAttributesFinalizeRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -1335,10 +1365,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesFinalizeRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesFinalizeRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesFinalizeRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1349,11 +1379,11 @@ uint8_t* InstallAttributesFinalizeRequest::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesFinalizeRequest::ByteSizeLong() const {
+::size_t InstallAttributesFinalizeRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesFinalizeRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1374,8 +1404,8 @@ void InstallAttributesFinalizeRequest::CheckTypeAndMergeFrom(
 void InstallAttributesFinalizeRequest::MergeFrom(const InstallAttributesFinalizeRequest& from) {
   InstallAttributesFinalizeRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesFinalizeRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1401,37 +1431,29 @@ std::string InstallAttributesFinalizeRequest::GetTypeName() const {
   return "device_management.InstallAttributesFinalizeRequest";
 }
 
-
 // ===================================================================
 
 class InstallAttributesFinalizeReply::_Internal {
  public:
 };
 
-InstallAttributesFinalizeReply::InstallAttributesFinalizeReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesFinalizeReply::InstallAttributesFinalizeReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesFinalizeReply)
 }
 InstallAttributesFinalizeReply::InstallAttributesFinalizeReply(const InstallAttributesFinalizeReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InstallAttributesFinalizeReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.error_ = from._impl_.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesFinalizeReply)
 }
 
-inline void InstallAttributesFinalizeReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesFinalizeReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
+      decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1446,7 +1468,7 @@ InstallAttributesFinalizeReply::~InstallAttributesFinalizeReply() {
 }
 
 inline void InstallAttributesFinalizeReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InstallAttributesFinalizeReply::SetCachedSize(int size) const {
@@ -1455,7 +1477,7 @@ void InstallAttributesFinalizeReply::SetCachedSize(int size) const {
 
 void InstallAttributesFinalizeReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesFinalizeReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1466,17 +1488,18 @@ void InstallAttributesFinalizeReply::Clear() {
 const char* InstallAttributesFinalizeReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1501,17 +1524,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesFinalizeReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesFinalizeReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesFinalizeReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1522,18 +1545,18 @@ uint8_t* InstallAttributesFinalizeReply::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesFinalizeReply::ByteSizeLong() const {
+::size_t InstallAttributesFinalizeReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesFinalizeReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1553,8 +1576,8 @@ void InstallAttributesFinalizeReply::CheckTypeAndMergeFrom(
 void InstallAttributesFinalizeReply::MergeFrom(const InstallAttributesFinalizeReply& from) {
   InstallAttributesFinalizeReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesFinalizeReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -1584,33 +1607,26 @@ std::string InstallAttributesFinalizeReply::GetTypeName() const {
   return "device_management.InstallAttributesFinalizeReply";
 }
 
-
 // ===================================================================
 
 class InstallAttributesGetStatusRequest::_Internal {
  public:
 };
 
-InstallAttributesGetStatusRequest::InstallAttributesGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesGetStatusRequest::InstallAttributesGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesGetStatusRequest)
 }
 InstallAttributesGetStatusRequest::InstallAttributesGetStatusRequest(const InstallAttributesGetStatusRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InstallAttributesGetStatusRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesGetStatusRequest)
 }
 
-inline void InstallAttributesGetStatusRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesGetStatusRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -1626,7 +1642,7 @@ InstallAttributesGetStatusRequest::~InstallAttributesGetStatusRequest() {
 }
 
 inline void InstallAttributesGetStatusRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InstallAttributesGetStatusRequest::SetCachedSize(int size) const {
@@ -1635,7 +1651,7 @@ void InstallAttributesGetStatusRequest::SetCachedSize(int size) const {
 
 void InstallAttributesGetStatusRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesGetStatusRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1645,7 +1661,7 @@ void InstallAttributesGetStatusRequest::Clear() {
 const char* InstallAttributesGetStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -1666,10 +1682,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesGetStatusRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesGetStatusRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesGetStatusRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1680,11 +1696,11 @@ uint8_t* InstallAttributesGetStatusRequest::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesGetStatusRequest::ByteSizeLong() const {
+::size_t InstallAttributesGetStatusRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesGetStatusRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1705,8 +1721,8 @@ void InstallAttributesGetStatusRequest::CheckTypeAndMergeFrom(
 void InstallAttributesGetStatusRequest::MergeFrom(const InstallAttributesGetStatusRequest& from) {
   InstallAttributesGetStatusRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesGetStatusRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1732,45 +1748,35 @@ std::string InstallAttributesGetStatusRequest::GetTypeName() const {
   return "device_management.InstallAttributesGetStatusRequest";
 }
 
-
 // ===================================================================
 
 class InstallAttributesGetStatusReply::_Internal {
  public:
 };
 
-InstallAttributesGetStatusReply::InstallAttributesGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallAttributesGetStatusReply::InstallAttributesGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.InstallAttributesGetStatusReply)
 }
 InstallAttributesGetStatusReply::InstallAttributesGetStatusReply(const InstallAttributesGetStatusReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  InstallAttributesGetStatusReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , decltype(_impl_.count_){}
-    , decltype(_impl_.is_secure_){}
-    , decltype(_impl_.state_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.error_, &from._impl_.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.state_) -
-    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.state_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.InstallAttributesGetStatusReply)
 }
 
-inline void InstallAttributesGetStatusReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallAttributesGetStatusReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
-    , decltype(_impl_.count_){0}
-    , decltype(_impl_.is_secure_){false}
-    , decltype(_impl_.state_){0}
+      decltype(_impl_.error_) { 0 }
+
+    , decltype(_impl_.count_) { 0 }
+
+    , decltype(_impl_.is_secure_) { false }
+
+    , decltype(_impl_.state_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1785,7 +1791,7 @@ InstallAttributesGetStatusReply::~InstallAttributesGetStatusReply() {
 }
 
 inline void InstallAttributesGetStatusReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void InstallAttributesGetStatusReply::SetCachedSize(int size) const {
@@ -1794,11 +1800,11 @@ void InstallAttributesGetStatusReply::SetCachedSize(int size) const {
 
 void InstallAttributesGetStatusReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.InstallAttributesGetStatusReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.error_, 0, static_cast<size_t>(
+  ::memset(&_impl_.error_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.state_) -
       reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.state_));
   _internal_metadata_.Clear<std::string>();
@@ -1807,42 +1813,46 @@ void InstallAttributesGetStatusReply::Clear() {
 const char* InstallAttributesGetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 count = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool is_secure = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.is_secure_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .device_management.InstallAttributesState state = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_state(static_cast<::device_management::InstallAttributesState>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1867,36 +1877,38 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallAttributesGetStatusReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallAttributesGetStatusReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.InstallAttributesGetStatusReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   // int32 count = 2;
   if (this->_internal_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_count(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_count(), target);
   }
 
   // bool is_secure = 3;
   if (this->_internal_is_secure() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_is_secure(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_is_secure(), target);
   }
 
   // .device_management.InstallAttributesState state = 4;
   if (this->_internal_state() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_state(), target);
+        4, this->_internal_state(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1907,34 +1919,35 @@ uint8_t* InstallAttributesGetStatusReply::_InternalSerialize(
   return target;
 }
 
-size_t InstallAttributesGetStatusReply::ByteSizeLong() const {
+::size_t InstallAttributesGetStatusReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.InstallAttributesGetStatusReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   // int32 count = 2;
   if (this->_internal_count() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_count());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_count());
   }
 
   // bool is_secure = 3;
   if (this->_internal_is_secure() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   // .device_management.InstallAttributesState state = 4;
   if (this->_internal_state() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1954,8 +1967,8 @@ void InstallAttributesGetStatusReply::CheckTypeAndMergeFrom(
 void InstallAttributesGetStatusReply::MergeFrom(const InstallAttributesGetStatusReply& from) {
   InstallAttributesGetStatusReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.InstallAttributesGetStatusReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -1999,33 +2012,26 @@ std::string InstallAttributesGetStatusReply::GetTypeName() const {
   return "device_management.InstallAttributesGetStatusReply";
 }
 
-
 // ===================================================================
 
 class EnterpriseOwnedGetStatusRequest::_Internal {
  public:
 };
 
-EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.EnterpriseOwnedGetStatusRequest)
 }
 EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(const EnterpriseOwnedGetStatusRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  EnterpriseOwnedGetStatusRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.EnterpriseOwnedGetStatusRequest)
 }
 
-inline void EnterpriseOwnedGetStatusRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void EnterpriseOwnedGetStatusRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -2041,7 +2047,7 @@ EnterpriseOwnedGetStatusRequest::~EnterpriseOwnedGetStatusRequest() {
 }
 
 inline void EnterpriseOwnedGetStatusRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void EnterpriseOwnedGetStatusRequest::SetCachedSize(int size) const {
@@ -2050,7 +2056,7 @@ void EnterpriseOwnedGetStatusRequest::SetCachedSize(int size) const {
 
 void EnterpriseOwnedGetStatusRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.EnterpriseOwnedGetStatusRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2060,7 +2066,7 @@ void EnterpriseOwnedGetStatusRequest::Clear() {
 const char* EnterpriseOwnedGetStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -2081,10 +2087,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EnterpriseOwnedGetStatusRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* EnterpriseOwnedGetStatusRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.EnterpriseOwnedGetStatusRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2095,11 +2101,11 @@ uint8_t* EnterpriseOwnedGetStatusRequest::_InternalSerialize(
   return target;
 }
 
-size_t EnterpriseOwnedGetStatusRequest::ByteSizeLong() const {
+::size_t EnterpriseOwnedGetStatusRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.EnterpriseOwnedGetStatusRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2120,8 +2126,8 @@ void EnterpriseOwnedGetStatusRequest::CheckTypeAndMergeFrom(
 void EnterpriseOwnedGetStatusRequest::MergeFrom(const EnterpriseOwnedGetStatusRequest& from) {
   EnterpriseOwnedGetStatusRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.EnterpriseOwnedGetStatusRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2147,37 +2153,29 @@ std::string EnterpriseOwnedGetStatusRequest::GetTypeName() const {
   return "device_management.EnterpriseOwnedGetStatusRequest";
 }
 
-
 // ===================================================================
 
 class EnterpriseOwnedGetStatusReply::_Internal {
  public:
 };
 
-EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.EnterpriseOwnedGetStatusReply)
 }
 EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(const EnterpriseOwnedGetStatusReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  EnterpriseOwnedGetStatusReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.error_ = from._impl_.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.EnterpriseOwnedGetStatusReply)
 }
 
-inline void EnterpriseOwnedGetStatusReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void EnterpriseOwnedGetStatusReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
+      decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2192,7 +2190,7 @@ EnterpriseOwnedGetStatusReply::~EnterpriseOwnedGetStatusReply() {
 }
 
 inline void EnterpriseOwnedGetStatusReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void EnterpriseOwnedGetStatusReply::SetCachedSize(int size) const {
@@ -2201,7 +2199,7 @@ void EnterpriseOwnedGetStatusReply::SetCachedSize(int size) const {
 
 void EnterpriseOwnedGetStatusReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.EnterpriseOwnedGetStatusReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2212,17 +2210,18 @@ void EnterpriseOwnedGetStatusReply::Clear() {
 const char* EnterpriseOwnedGetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2247,17 +2246,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EnterpriseOwnedGetStatusReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* EnterpriseOwnedGetStatusReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.EnterpriseOwnedGetStatusReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2268,18 +2267,18 @@ uint8_t* EnterpriseOwnedGetStatusReply::_InternalSerialize(
   return target;
 }
 
-size_t EnterpriseOwnedGetStatusReply::ByteSizeLong() const {
+::size_t EnterpriseOwnedGetStatusReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.EnterpriseOwnedGetStatusReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2299,8 +2298,8 @@ void EnterpriseOwnedGetStatusReply::CheckTypeAndMergeFrom(
 void EnterpriseOwnedGetStatusReply::MergeFrom(const EnterpriseOwnedGetStatusReply& from) {
   EnterpriseOwnedGetStatusReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.EnterpriseOwnedGetStatusReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -2330,53 +2329,52 @@ std::string EnterpriseOwnedGetStatusReply::GetTypeName() const {
   return "device_management.EnterpriseOwnedGetStatusReply";
 }
 
-
 // ===================================================================
 
 class FirmwareManagementParameters::_Internal {
  public:
 };
 
-FirmwareManagementParameters::FirmwareManagementParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FirmwareManagementParameters::FirmwareManagementParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.FirmwareManagementParameters)
 }
 FirmwareManagementParameters::FirmwareManagementParameters(const FirmwareManagementParameters& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   FirmwareManagementParameters* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.developer_key_hash_){}
-    , decltype(_impl_.flags_){}
+      decltype(_impl_.developer_key_hash_) {}
+
+    , decltype(_impl_.flags_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.developer_key_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.developer_key_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.developer_key_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_developer_key_hash().empty()) {
-    _this->_impl_.developer_key_hash_.Set(from._internal_developer_key_hash(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.developer_key_hash_.Set(from._internal_developer_key_hash(), _this->GetArenaForAllocation());
   }
   _this->_impl_.flags_ = from._impl_.flags_;
   // @@protoc_insertion_point(copy_constructor:device_management.FirmwareManagementParameters)
 }
 
-inline void FirmwareManagementParameters::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FirmwareManagementParameters::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.developer_key_hash_){}
-    , decltype(_impl_.flags_){0u}
+      decltype(_impl_.developer_key_hash_) {}
+
+    , decltype(_impl_.flags_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.developer_key_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.developer_key_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.developer_key_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FirmwareManagementParameters::~FirmwareManagementParameters() {
@@ -2389,7 +2387,7 @@ FirmwareManagementParameters::~FirmwareManagementParameters() {
 }
 
 inline void FirmwareManagementParameters::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.developer_key_hash_.Destroy();
 }
 
@@ -2399,7 +2397,7 @@ void FirmwareManagementParameters::SetCachedSize(int size) const {
 
 void FirmwareManagementParameters::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.FirmwareManagementParameters)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2411,25 +2409,27 @@ void FirmwareManagementParameters::Clear() {
 const char* FirmwareManagementParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 flags = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes developer_key_hash = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_developer_key_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2454,22 +2454,23 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FirmwareManagementParameters::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FirmwareManagementParameters::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.FirmwareManagementParameters)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 flags = 1;
   if (this->_internal_flags() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_flags(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_flags(), target);
   }
 
   // bytes developer_key_hash = 2;
   if (!this->_internal_developer_key_hash().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_developer_key_hash(), target);
+    const std::string& _s = this->_internal_developer_key_hash();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2480,24 +2481,24 @@ uint8_t* FirmwareManagementParameters::_InternalSerialize(
   return target;
 }
 
-size_t FirmwareManagementParameters::ByteSizeLong() const {
+::size_t FirmwareManagementParameters::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.FirmwareManagementParameters)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes developer_key_hash = 2;
   if (!this->_internal_developer_key_hash().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_developer_key_hash());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_developer_key_hash());
   }
 
   // uint32 flags = 1;
   if (this->_internal_flags() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flags());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_flags());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2517,8 +2518,8 @@ void FirmwareManagementParameters::CheckTypeAndMergeFrom(
 void FirmwareManagementParameters::MergeFrom(const FirmwareManagementParameters& from) {
   FirmwareManagementParameters* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.FirmwareManagementParameters)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_developer_key_hash().empty()) {
@@ -2546,10 +2547,9 @@ void FirmwareManagementParameters::InternalSwap(FirmwareManagementParameters* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.developer_key_hash_, lhs_arena,
-      &other->_impl_.developer_key_hash_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.developer_key_hash_, lhs_arena,
+                                       &other->_impl_.developer_key_hash_, rhs_arena);
+
   swap(_impl_.flags_, other->_impl_.flags_);
 }
 
@@ -2557,33 +2557,26 @@ std::string FirmwareManagementParameters::GetTypeName() const {
   return "device_management.FirmwareManagementParameters";
 }
 
-
 // ===================================================================
 
 class GetFirmwareManagementParametersRequest::_Internal {
  public:
 };
 
-GetFirmwareManagementParametersRequest::GetFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GetFirmwareManagementParametersRequest::GetFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.GetFirmwareManagementParametersRequest)
 }
 GetFirmwareManagementParametersRequest::GetFirmwareManagementParametersRequest(const GetFirmwareManagementParametersRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GetFirmwareManagementParametersRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.GetFirmwareManagementParametersRequest)
 }
 
-inline void GetFirmwareManagementParametersRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void GetFirmwareManagementParametersRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -2599,7 +2592,7 @@ GetFirmwareManagementParametersRequest::~GetFirmwareManagementParametersRequest(
 }
 
 inline void GetFirmwareManagementParametersRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void GetFirmwareManagementParametersRequest::SetCachedSize(int size) const {
@@ -2608,7 +2601,7 @@ void GetFirmwareManagementParametersRequest::SetCachedSize(int size) const {
 
 void GetFirmwareManagementParametersRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.GetFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2618,7 +2611,7 @@ void GetFirmwareManagementParametersRequest::Clear() {
 const char* GetFirmwareManagementParametersRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -2639,10 +2632,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetFirmwareManagementParametersRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* GetFirmwareManagementParametersRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.GetFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2653,11 +2646,11 @@ uint8_t* GetFirmwareManagementParametersRequest::_InternalSerialize(
   return target;
 }
 
-size_t GetFirmwareManagementParametersRequest::ByteSizeLong() const {
+::size_t GetFirmwareManagementParametersRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.GetFirmwareManagementParametersRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2678,8 +2671,8 @@ void GetFirmwareManagementParametersRequest::CheckTypeAndMergeFrom(
 void GetFirmwareManagementParametersRequest::MergeFrom(const GetFirmwareManagementParametersRequest& from) {
   GetFirmwareManagementParametersRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.GetFirmwareManagementParametersRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2705,48 +2698,54 @@ std::string GetFirmwareManagementParametersRequest::GetTypeName() const {
   return "device_management.GetFirmwareManagementParametersRequest";
 }
 
-
 // ===================================================================
 
 class GetFirmwareManagementParametersReply::_Internal {
  public:
+  using HasBits = decltype(std::declval<GetFirmwareManagementParametersReply>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(GetFirmwareManagementParametersReply, _impl_._has_bits_);
   static const ::device_management::FirmwareManagementParameters& fwmp(const GetFirmwareManagementParametersReply* msg);
+  static void set_has_fwmp(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::device_management::FirmwareManagementParameters&
 GetFirmwareManagementParametersReply::_Internal::fwmp(const GetFirmwareManagementParametersReply* msg) {
   return *msg->_impl_.fwmp_;
 }
-GetFirmwareManagementParametersReply::GetFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GetFirmwareManagementParametersReply::GetFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.GetFirmwareManagementParametersReply)
 }
 GetFirmwareManagementParametersReply::GetFirmwareManagementParametersReply(const GetFirmwareManagementParametersReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   GetFirmwareManagementParametersReply* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.fwmp_){nullptr}
-    , decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fwmp_){nullptr}
+    , decltype(_impl_.error_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_fwmp()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.fwmp_ = new ::device_management::FirmwareManagementParameters(*from._impl_.fwmp_);
   }
   _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:device_management.GetFirmwareManagementParametersReply)
 }
 
-inline void GetFirmwareManagementParametersReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void GetFirmwareManagementParametersReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.fwmp_){nullptr}
-    , decltype(_impl_.error_){0}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fwmp_){nullptr}
+    , decltype(_impl_.error_) { 0 }
+
   };
 }
 
@@ -2760,7 +2759,7 @@ GetFirmwareManagementParametersReply::~GetFirmwareManagementParametersReply() {
 }
 
 inline void GetFirmwareManagementParametersReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.fwmp_;
 }
 
@@ -2770,40 +2769,45 @@ void GetFirmwareManagementParametersReply::SetCachedSize(int size) const {
 
 void GetFirmwareManagementParametersReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.GetFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.fwmp_ != nullptr) {
-    delete _impl_.fwmp_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.fwmp_ != nullptr);
+    _impl_.fwmp_->Clear();
   }
-  _impl_.fwmp_ = nullptr;
   _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* GetFirmwareManagementParametersReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .device_management.FirmwareManagementParameters fwmp = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_fwmp(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2821,6 +2825,7 @@ const char* GetFirmwareManagementParametersReply::_InternalParse(const char* ptr
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2828,21 +2833,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetFirmwareManagementParametersReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* GetFirmwareManagementParametersReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.GetFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .device_management.FirmwareManagementParameters fwmp = 2;
-  if (this->_internal_has_fwmp()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::fwmp(this),
         _Internal::fwmp(this).GetCachedSize(), target, stream);
@@ -2856,16 +2862,17 @@ uint8_t* GetFirmwareManagementParametersReply::_InternalSerialize(
   return target;
 }
 
-size_t GetFirmwareManagementParametersReply::ByteSizeLong() const {
+::size_t GetFirmwareManagementParametersReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.GetFirmwareManagementParametersReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.FirmwareManagementParameters fwmp = 2;
-  if (this->_internal_has_fwmp()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.fwmp_);
@@ -2874,7 +2881,7 @@ size_t GetFirmwareManagementParametersReply::ByteSizeLong() const {
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2894,11 +2901,11 @@ void GetFirmwareManagementParametersReply::CheckTypeAndMergeFrom(
 void GetFirmwareManagementParametersReply::MergeFrom(const GetFirmwareManagementParametersReply& from) {
   GetFirmwareManagementParametersReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.GetFirmwareManagementParametersReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_fwmp()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_fwmp()->::device_management::FirmwareManagementParameters::MergeFrom(
         from._internal_fwmp());
   }
@@ -2922,6 +2929,7 @@ bool GetFirmwareManagementParametersReply::IsInitialized() const {
 void GetFirmwareManagementParametersReply::InternalSwap(GetFirmwareManagementParametersReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(GetFirmwareManagementParametersReply, _impl_.error_)
       + sizeof(GetFirmwareManagementParametersReply::_impl_.error_)
@@ -2934,33 +2942,26 @@ std::string GetFirmwareManagementParametersReply::GetTypeName() const {
   return "device_management.GetFirmwareManagementParametersReply";
 }
 
-
 // ===================================================================
 
 class RemoveFirmwareManagementParametersRequest::_Internal {
  public:
 };
 
-RemoveFirmwareManagementParametersRequest::RemoveFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RemoveFirmwareManagementParametersRequest::RemoveFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.RemoveFirmwareManagementParametersRequest)
 }
 RemoveFirmwareManagementParametersRequest::RemoveFirmwareManagementParametersRequest(const RemoveFirmwareManagementParametersRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  RemoveFirmwareManagementParametersRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.RemoveFirmwareManagementParametersRequest)
 }
 
-inline void RemoveFirmwareManagementParametersRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RemoveFirmwareManagementParametersRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -2976,7 +2977,7 @@ RemoveFirmwareManagementParametersRequest::~RemoveFirmwareManagementParametersRe
 }
 
 inline void RemoveFirmwareManagementParametersRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void RemoveFirmwareManagementParametersRequest::SetCachedSize(int size) const {
@@ -2985,7 +2986,7 @@ void RemoveFirmwareManagementParametersRequest::SetCachedSize(int size) const {
 
 void RemoveFirmwareManagementParametersRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.RemoveFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2995,7 +2996,7 @@ void RemoveFirmwareManagementParametersRequest::Clear() {
 const char* RemoveFirmwareManagementParametersRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -3016,10 +3017,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RemoveFirmwareManagementParametersRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RemoveFirmwareManagementParametersRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.RemoveFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3030,11 +3031,11 @@ uint8_t* RemoveFirmwareManagementParametersRequest::_InternalSerialize(
   return target;
 }
 
-size_t RemoveFirmwareManagementParametersRequest::ByteSizeLong() const {
+::size_t RemoveFirmwareManagementParametersRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.RemoveFirmwareManagementParametersRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3055,8 +3056,8 @@ void RemoveFirmwareManagementParametersRequest::CheckTypeAndMergeFrom(
 void RemoveFirmwareManagementParametersRequest::MergeFrom(const RemoveFirmwareManagementParametersRequest& from) {
   RemoveFirmwareManagementParametersRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.RemoveFirmwareManagementParametersRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -3082,37 +3083,29 @@ std::string RemoveFirmwareManagementParametersRequest::GetTypeName() const {
   return "device_management.RemoveFirmwareManagementParametersRequest";
 }
 
-
 // ===================================================================
 
 class RemoveFirmwareManagementParametersReply::_Internal {
  public:
 };
 
-RemoveFirmwareManagementParametersReply::RemoveFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RemoveFirmwareManagementParametersReply::RemoveFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.RemoveFirmwareManagementParametersReply)
 }
 RemoveFirmwareManagementParametersReply::RemoveFirmwareManagementParametersReply(const RemoveFirmwareManagementParametersReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  RemoveFirmwareManagementParametersReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.error_ = from._impl_.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.RemoveFirmwareManagementParametersReply)
 }
 
-inline void RemoveFirmwareManagementParametersReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RemoveFirmwareManagementParametersReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
+      decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3127,7 +3120,7 @@ RemoveFirmwareManagementParametersReply::~RemoveFirmwareManagementParametersRepl
 }
 
 inline void RemoveFirmwareManagementParametersReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void RemoveFirmwareManagementParametersReply::SetCachedSize(int size) const {
@@ -3136,7 +3129,7 @@ void RemoveFirmwareManagementParametersReply::SetCachedSize(int size) const {
 
 void RemoveFirmwareManagementParametersReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.RemoveFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3147,17 +3140,18 @@ void RemoveFirmwareManagementParametersReply::Clear() {
 const char* RemoveFirmwareManagementParametersReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3182,17 +3176,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RemoveFirmwareManagementParametersReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RemoveFirmwareManagementParametersReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.RemoveFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3203,18 +3197,18 @@ uint8_t* RemoveFirmwareManagementParametersReply::_InternalSerialize(
   return target;
 }
 
-size_t RemoveFirmwareManagementParametersReply::ByteSizeLong() const {
+::size_t RemoveFirmwareManagementParametersReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.RemoveFirmwareManagementParametersReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3234,8 +3228,8 @@ void RemoveFirmwareManagementParametersReply::CheckTypeAndMergeFrom(
 void RemoveFirmwareManagementParametersReply::MergeFrom(const RemoveFirmwareManagementParametersReply& from) {
   RemoveFirmwareManagementParametersReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.RemoveFirmwareManagementParametersReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -3265,45 +3259,49 @@ std::string RemoveFirmwareManagementParametersReply::GetTypeName() const {
   return "device_management.RemoveFirmwareManagementParametersReply";
 }
 
-
 // ===================================================================
 
 class SetFirmwareManagementParametersRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<SetFirmwareManagementParametersRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SetFirmwareManagementParametersRequest, _impl_._has_bits_);
   static const ::device_management::FirmwareManagementParameters& fwmp(const SetFirmwareManagementParametersRequest* msg);
+  static void set_has_fwmp(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::device_management::FirmwareManagementParameters&
 SetFirmwareManagementParametersRequest::_Internal::fwmp(const SetFirmwareManagementParametersRequest* msg) {
   return *msg->_impl_.fwmp_;
 }
-SetFirmwareManagementParametersRequest::SetFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SetFirmwareManagementParametersRequest::SetFirmwareManagementParametersRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.SetFirmwareManagementParametersRequest)
 }
 SetFirmwareManagementParametersRequest::SetFirmwareManagementParametersRequest(const SetFirmwareManagementParametersRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   SetFirmwareManagementParametersRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.fwmp_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fwmp_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_fwmp()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.fwmp_ = new ::device_management::FirmwareManagementParameters(*from._impl_.fwmp_);
   }
   // @@protoc_insertion_point(copy_constructor:device_management.SetFirmwareManagementParametersRequest)
 }
 
-inline void SetFirmwareManagementParametersRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SetFirmwareManagementParametersRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.fwmp_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fwmp_){nullptr}
   };
 }
 
@@ -3317,7 +3315,7 @@ SetFirmwareManagementParametersRequest::~SetFirmwareManagementParametersRequest(
 }
 
 inline void SetFirmwareManagementParametersRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.fwmp_;
 }
 
@@ -3327,30 +3325,34 @@ void SetFirmwareManagementParametersRequest::SetCachedSize(int size) const {
 
 void SetFirmwareManagementParametersRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.SetFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.fwmp_ != nullptr) {
-    delete _impl_.fwmp_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.fwmp_ != nullptr);
+    _impl_.fwmp_->Clear();
   }
-  _impl_.fwmp_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* SetFirmwareManagementParametersRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.FirmwareManagementParameters fwmp = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_fwmp(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3368,6 +3370,7 @@ const char* SetFirmwareManagementParametersRequest::_InternalParse(const char* p
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3375,14 +3378,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SetFirmwareManagementParametersRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SetFirmwareManagementParametersRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.SetFirmwareManagementParametersRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .device_management.FirmwareManagementParameters fwmp = 1;
-  if (this->_internal_has_fwmp()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::fwmp(this),
         _Internal::fwmp(this).GetCachedSize(), target, stream);
@@ -3396,16 +3400,17 @@ uint8_t* SetFirmwareManagementParametersRequest::_InternalSerialize(
   return target;
 }
 
-size_t SetFirmwareManagementParametersRequest::ByteSizeLong() const {
+::size_t SetFirmwareManagementParametersRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.SetFirmwareManagementParametersRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.FirmwareManagementParameters fwmp = 1;
-  if (this->_internal_has_fwmp()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.fwmp_);
@@ -3428,11 +3433,11 @@ void SetFirmwareManagementParametersRequest::CheckTypeAndMergeFrom(
 void SetFirmwareManagementParametersRequest::MergeFrom(const SetFirmwareManagementParametersRequest& from) {
   SetFirmwareManagementParametersRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.SetFirmwareManagementParametersRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_fwmp()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_fwmp()->::device_management::FirmwareManagementParameters::MergeFrom(
         from._internal_fwmp());
   }
@@ -3453,6 +3458,7 @@ bool SetFirmwareManagementParametersRequest::IsInitialized() const {
 void SetFirmwareManagementParametersRequest::InternalSwap(SetFirmwareManagementParametersRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.fwmp_, other->_impl_.fwmp_);
 }
 
@@ -3460,37 +3466,29 @@ std::string SetFirmwareManagementParametersRequest::GetTypeName() const {
   return "device_management.SetFirmwareManagementParametersRequest";
 }
 
-
 // ===================================================================
 
 class SetFirmwareManagementParametersReply::_Internal {
  public:
 };
 
-SetFirmwareManagementParametersReply::SetFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SetFirmwareManagementParametersReply::SetFirmwareManagementParametersReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:device_management.SetFirmwareManagementParametersReply)
 }
 SetFirmwareManagementParametersReply::SetFirmwareManagementParametersReply(const SetFirmwareManagementParametersReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  SetFirmwareManagementParametersReply* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.error_ = from._impl_.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:device_management.SetFirmwareManagementParametersReply)
 }
 
-inline void SetFirmwareManagementParametersReply::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SetFirmwareManagementParametersReply::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.error_){0}
+      decltype(_impl_.error_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3505,7 +3503,7 @@ SetFirmwareManagementParametersReply::~SetFirmwareManagementParametersReply() {
 }
 
 inline void SetFirmwareManagementParametersReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SetFirmwareManagementParametersReply::SetCachedSize(int size) const {
@@ -3514,7 +3512,7 @@ void SetFirmwareManagementParametersReply::SetCachedSize(int size) const {
 
 void SetFirmwareManagementParametersReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:device_management.SetFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3525,17 +3523,18 @@ void SetFirmwareManagementParametersReply::Clear() {
 const char* SetFirmwareManagementParametersReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .device_management.DeviceManagementErrorCode error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3560,17 +3559,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SetFirmwareManagementParametersReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SetFirmwareManagementParametersReply::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:device_management.SetFirmwareManagementParametersReply)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
+        1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3581,18 +3580,18 @@ uint8_t* SetFirmwareManagementParametersReply::_InternalSerialize(
   return target;
 }
 
-size_t SetFirmwareManagementParametersReply::ByteSizeLong() const {
+::size_t SetFirmwareManagementParametersReply::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:device_management.SetFirmwareManagementParametersReply)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .device_management.DeviceManagementErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3612,8 +3611,8 @@ void SetFirmwareManagementParametersReply::CheckTypeAndMergeFrom(
 void SetFirmwareManagementParametersReply::MergeFrom(const SetFirmwareManagementParametersReply& from) {
   SetFirmwareManagementParametersReply* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:device_management.SetFirmwareManagementParametersReply)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
@@ -3642,7 +3641,6 @@ void SetFirmwareManagementParametersReply::InternalSwap(SetFirmwareManagementPar
 std::string SetFirmwareManagementParametersReply::GetTypeName() const {
   return "device_management.SetFirmwareManagementParametersReply";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace device_management
@@ -3716,6 +3714,5 @@ Arena::CreateMaybeMessage< ::device_management::SetFirmwareManagementParametersR
   return Arena::CreateMessageInternal< ::device_management::SetFirmwareManagementParametersReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

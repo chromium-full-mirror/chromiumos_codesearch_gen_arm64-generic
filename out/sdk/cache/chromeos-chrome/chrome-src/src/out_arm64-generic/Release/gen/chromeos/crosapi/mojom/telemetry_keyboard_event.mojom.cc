@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -58,12 +59,12 @@ TelemetryKeyboardInfo::TelemetryKeyboardInfo()
 TelemetryKeyboardInfo::TelemetryKeyboardInfo(
     ::crosapi::mojom::UInt32ValuePtr id_in,
     TelemetryKeyboardConnectionType connection_type_in,
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     TelemetryKeyboardPhysicalLayout physical_layout_in,
     TelemetryKeyboardMechanicalLayout mechanical_layout_in,
-    const absl::optional<std::string>& region_code_in,
+    const std::optional<std::string>& region_code_in,
     TelemetryKeyboardNumberPadPresence number_pad_present_in,
-    absl::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys_in,
+    std::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys_in,
     TelemetryKeyboardTopRightKey top_right_key_in,
     ::crosapi::mojom::BoolValuePtr has_assistant_key_in)
     : id(std::move(id_in)),
@@ -104,7 +105,7 @@ void TelemetryKeyboardInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -131,7 +132,7 @@ void TelemetryKeyboardInfo::WriteIntoTrace(
     dict.AddItem(
       "region_code"), this->region_code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -149,7 +150,7 @@ void TelemetryKeyboardInfo::WriteIntoTrace(
     dict.AddItem(
       "top_row_keys"), this->top_row_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<TelemetryKeyboardTopRowKey>>&>"
+      "<value of type const std::optional<std::vector<TelemetryKeyboardTopRowKey>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -186,8 +187,8 @@ TelemetryKeyboardDiagnosticEventInfo::TelemetryKeyboardDiagnosticEventInfo()
 
 TelemetryKeyboardDiagnosticEventInfo::TelemetryKeyboardDiagnosticEventInfo(
     TelemetryKeyboardInfoPtr keyboard_info_in,
-    absl::optional<std::vector<uint32_t>> tested_keys_in,
-    absl::optional<std::vector<uint32_t>> tested_top_row_keys_in)
+    std::optional<std::vector<uint32_t>> tested_keys_in,
+    std::optional<std::vector<uint32_t>> tested_top_row_keys_in)
     : keyboard_info(std::move(keyboard_info_in)),
       tested_keys(std::move(tested_keys_in)),
       tested_top_row_keys(std::move(tested_top_row_keys_in)) {}
@@ -210,7 +211,7 @@ void TelemetryKeyboardDiagnosticEventInfo::WriteIntoTrace(
     dict.AddItem(
       "tested_keys"), this->tested_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint32_t>>&>"
+      "<value of type const std::optional<std::vector<uint32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -219,7 +220,7 @@ void TelemetryKeyboardDiagnosticEventInfo::WriteIntoTrace(
     dict.AddItem(
       "tested_top_row_keys"), this->tested_top_row_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint32_t>>&>"
+      "<value of type const std::optional<std::vector<uint32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

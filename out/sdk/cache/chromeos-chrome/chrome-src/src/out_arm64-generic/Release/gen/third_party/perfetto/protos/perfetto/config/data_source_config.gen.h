@@ -81,6 +81,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
     kSurfaceflingerLayersConfigFieldNumber = 121,
     kSurfaceflingerTransactionsConfigFieldNumber = 123,
     kAndroidSdkSyspropGuardConfigFieldNumber = 124,
+    kEtwConfigFieldNumber = 125,
     kLegacyConfigFieldNumber = 1000,
     kForTestingFieldNumber = 1001,
   };
@@ -206,6 +207,9 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   const std::string& android_sdk_sysprop_guard_config_raw() const { return android_sdk_sysprop_guard_config_; }
   void set_android_sdk_sysprop_guard_config_raw(const std::string& raw) { android_sdk_sysprop_guard_config_ = raw; _has_field_.set(124); }
 
+  const std::string& etw_config_raw() const { return etw_config_; }
+  void set_etw_config_raw(const std::string& raw) { etw_config_ = raw; _has_field_.set(125); }
+
   bool has_legacy_config() const { return _has_field_[1000]; }
   const std::string& legacy_config() const { return legacy_config_; }
   void set_legacy_config(const std::string& value) { legacy_config_ = value; _has_field_.set(1000); }
@@ -247,6 +251,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   std::string surfaceflinger_layers_config_;  // [lazy=true]
   std::string surfaceflinger_transactions_config_;  // [lazy=true]
   std::string android_sdk_sysprop_guard_config_;  // [lazy=true]
+  std::string etw_config_;  // [lazy=true]
   std::string legacy_config_{};
   ::protozero::CopyablePtr<TestConfig> for_testing_;
 

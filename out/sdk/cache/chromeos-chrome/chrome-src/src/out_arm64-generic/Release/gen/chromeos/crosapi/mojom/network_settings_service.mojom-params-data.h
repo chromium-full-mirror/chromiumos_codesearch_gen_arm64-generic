@@ -38,6 +38,23 @@ class  NetworkSettingsObserver_OnProxyChanged_Params_Data {
 };
 static_assert(sizeof(NetworkSettingsObserver_OnProxyChanged_Params_Data) == 16,
               "Bad sizeof(NetworkSettingsObserver_OnProxyChanged_Params_Data)");
+class  NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enfoced : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data>;
+
+  NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data();
+  ~NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data() = delete;
+};
+static_assert(sizeof(NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data) == 16,
+              "Bad sizeof(NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data)");
 class  NetworkSettingsService_AddNetworkSettingsObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -116,6 +133,38 @@ class  NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data
 };
 static_assert(sizeof(NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data) == 8,
               "Bad sizeof(NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data)");
+class  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data>;
+
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data();
+  ~NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data() = delete;
+};
+static_assert(sizeof(NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data) == 8,
+              "Bad sizeof(NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data)");
+class  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data>;
+
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data();
+  ~NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data) == 16,
+              "Bad sizeof(NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -143,6 +192,24 @@ class NetworkSettingsObserver_OnProxyChanged_ParamsDataView {
  private:
   internal::NetworkSettingsObserver_OnProxyChanged_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_ParamsDataView {
+ public:
+  NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_ParamsDataView() = default;
+
+  NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_ParamsDataView(
+      internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enfoced() const {
+    return data_->enfoced;
+  }
+ private:
+  internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data* data_ = nullptr;
 };
 
 
@@ -252,11 +319,46 @@ class NetworkSettingsService_ClearExtensionControllingProxyMetadata_ParamsDataVi
   internal::NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data* data_ = nullptr;
 };
 
+
+class NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ParamsDataView {
+ public:
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ParamsDataView() = default;
+
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ParamsDataView(
+      internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data* data_ = nullptr;
+};
+
+
+class NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParamsDataView {
+ public:
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParamsDataView() = default;
+
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParamsDataView(
+      internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void NetworkSettingsObserver_OnProxyChanged_ParamsDataView::GetProxyConfigDataView(
     ProxyConfigDataView* output) {
   auto pointer = data_->proxy_config.Get();
   *output = ProxyConfigDataView(pointer, message_);
 }
+
+
 
 
 
@@ -275,6 +377,10 @@ inline void NetworkSettingsService_SetExtensionControllingProxyMetadata_ParamsDa
   auto pointer = data_->extension.Get();
   *output = ExtensionControllingProxyDataView(pointer, message_);
 }
+
+
+
+
 
 
 

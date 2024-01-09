@@ -60,11 +60,12 @@ enum AndroidPowerConfig_BatteryCounters : int {
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CHARGE = 1,
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT = 2,
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT = 3,
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG = 4
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG = 4,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE = 5
 };
 bool AndroidPowerConfig_BatteryCounters_IsValid(int value);
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig_BatteryCounters_BatteryCounters_MIN = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
-constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig_BatteryCounters_BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig_BatteryCounters_BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE;
 constexpr int AndroidPowerConfig_BatteryCounters_BatteryCounters_ARRAYSIZE = AndroidPowerConfig_BatteryCounters_BatteryCounters_MAX + 1;
 
 const std::string& AndroidPowerConfig_BatteryCounters_Name(AndroidPowerConfig_BatteryCounters value);
@@ -197,6 +198,8 @@ class AndroidPowerConfig final :
     AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT;
   static constexpr BatteryCounters BATTERY_COUNTER_CURRENT_AVG =
     AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+  static constexpr BatteryCounters BATTERY_COUNTER_VOLTAGE =
+    AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE;
   static inline bool BatteryCounters_IsValid(int value) {
     return AndroidPowerConfig_BatteryCounters_IsValid(value);
   }

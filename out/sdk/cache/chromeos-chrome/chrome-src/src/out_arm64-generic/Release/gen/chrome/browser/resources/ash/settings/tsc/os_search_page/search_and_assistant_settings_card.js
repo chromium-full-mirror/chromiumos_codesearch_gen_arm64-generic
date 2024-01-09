@@ -13,10 +13,10 @@ import './search_engine.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isAssistantAllowed, isRevampWayfindingEnabled, shouldShowQuickAnswersSettings } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './search_and_assistant_settings_card.html.js';
 const SearchAndAssistantSettingsCardElementBase = DeepLinkingMixin(RouteOriginMixin(I18nMixin(PolymerElement)));
@@ -59,6 +59,23 @@ export class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSet
                     return isRevampWayfindingEnabled();
                 },
                 readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            searchEngine: 'os-settings:explore',
+                            assistant: 'os-settings:assistant',
+                            contentRecommendations: 'os-settings:content-recommend',
+                        };
+                    }
+                    return {
+                        searchEngine: 'os-settings:google-drive',
+                        assistant: '',
+                        contentRecommendations: '',
+                    };
+                },
             },
         };
     }

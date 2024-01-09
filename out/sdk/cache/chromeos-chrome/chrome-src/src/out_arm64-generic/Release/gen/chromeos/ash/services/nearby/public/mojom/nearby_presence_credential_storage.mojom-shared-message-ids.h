@@ -17,6 +17,7 @@ namespace internal {
 constexpr uint32_t kNearbyPresenceCredentialStorage_SaveCredentials_Name = 0;
 constexpr uint32_t kNearbyPresenceCredentialStorage_GetPublicCredentials_Name = 1;
 constexpr uint32_t kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name = 2;
+constexpr uint32_t kNearbyPresenceCredentialStorage_UpdateLocalCredential_Name = 3;
 
 }  // namespace internal
 

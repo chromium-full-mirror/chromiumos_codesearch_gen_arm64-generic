@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -59,7 +60,6 @@ DisplaySnapshot::DisplaySnapshot()
       privacy_screen_state(),
       has_content_protection_key(),
       has_color_correction_matrix(),
-      color_correction_in_linear_space(),
       color_space(),
       bits_per_channel(),
       hdr_static_metadata(),
@@ -94,10 +94,9 @@ DisplaySnapshot::DisplaySnapshot(
     ::display::mojom::blink::PrivacyScreenState privacy_screen_state_in,
     bool has_content_protection_key_in,
     bool has_color_correction_matrix_in,
-    bool color_correction_in_linear_space_in,
     const ::gfx::ColorSpace& color_space_in,
     uint32_t bits_per_channel_in,
-    const absl::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata_in,
+    const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata_in,
     const WTF::String& display_name_in,
     const ::base::FilePath& sys_path_in,
     WTF::Vector<::display::mojom::blink::DisplayModePtr> modes_in,
@@ -127,7 +126,6 @@ DisplaySnapshot::DisplaySnapshot(
       privacy_screen_state(std::move(privacy_screen_state_in)),
       has_content_protection_key(std::move(has_content_protection_key_in)),
       has_color_correction_matrix(std::move(has_color_correction_matrix_in)),
-      color_correction_in_linear_space(std::move(color_correction_in_linear_space_in)),
       color_space(std::move(color_space_in)),
       bits_per_channel(std::move(bits_per_channel_in)),
       hdr_static_metadata(std::move(hdr_static_metadata_in)),
@@ -280,15 +278,6 @@ void DisplaySnapshot::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "color_correction_in_linear_space"), this->color_correction_in_linear_space,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "color_space"), this->color_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::gfx::ColorSpace&>"
@@ -309,7 +298,7 @@ void DisplaySnapshot::WriteIntoTrace(
     dict.AddItem(
       "hdr_static_metadata"), this->hdr_static_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HDRStaticMetadata>&>"
+      "<value of type const std::optional<::gfx::HDRStaticMetadata>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -499,8 +488,6 @@ bool StructTraits<::display::mojom::blink::DisplaySnapshot::DataView, ::display:
         result->has_content_protection_key = input.has_content_protection_key();
       if (success)
         result->has_color_correction_matrix = input.has_color_correction_matrix();
-      if (success)
-        result->color_correction_in_linear_space = input.color_correction_in_linear_space();
       if (success && !input.ReadColorSpace(&result->color_space))
         success = false;
       if (success)

@@ -8,6 +8,7 @@
 #define CHROME_BROWSER_UI_WEBUI_SEARCH_ENGINE_CHOICE_SEARCH_ENGINE_CHOICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

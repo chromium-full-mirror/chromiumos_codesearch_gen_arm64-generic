@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/fingerprint.mojom-features.h"
 #include "services/device/public/mojom/fingerprint.mojom-shared.h"
 #include "services/device/public/mojom/fingerprint.mojom-blink-forward.h"
 
@@ -38,54 +39,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::ScanResult>
-    : EnumHashTraits<::device::mojom::ScanResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::FingerprintError>
-    : EnumHashTraits<::device::mojom::FingerprintError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::BiometricType>
-    : EnumHashTraits<::device::mojom::BiometricType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::BiometricsManagerStatus>
-    : EnumHashTraits<::device::mojom::BiometricsManagerStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -470,17 +423,17 @@ class BLINK_PLATFORM_EXPORT FingerprintMessage {
   // Construct an instance holding |fingerprint_error|.
   static FingerprintMessagePtr
   NewFingerprintError(
-      FingerprintError fingerprint_error) {
+      FingerprintError value) {
     auto result = FingerprintMessagePtr(absl::in_place);
-    result->set_fingerprint_error(std::move(fingerprint_error));
+    result->set_fingerprint_error(std::move(value));
     return result;
   }
   // Construct an instance holding |scan_result|.
   static FingerprintMessagePtr
   NewScanResult(
-      ScanResult scan_result) {
+      ScanResult value) {
     auto result = FingerprintMessagePtr(absl::in_place);
-    result->set_scan_result(std::move(scan_result));
+    result->set_scan_result(std::move(value));
     return result;
   }
 

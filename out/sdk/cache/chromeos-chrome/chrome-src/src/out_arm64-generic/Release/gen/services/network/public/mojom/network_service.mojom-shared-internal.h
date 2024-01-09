@@ -28,6 +28,7 @@
 #include "services/network/public/mojom/network_context.mojom-shared-internal.h"
 #include "services/network/public/mojom/ip_address_space.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_interface.mojom-shared-internal.h"
+#include "services/network/public/mojom/proxy_config.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_interface_change_listener.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_param.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_quality_estimator_manager.mojom-shared-internal.h"
@@ -39,6 +40,7 @@
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-shared-internal.h"
 #include "services/network/public/mojom/url_response_head.mojom-shared-internal.h"
 #include "services/network/public/mojom/client_security_state.mojom-shared-internal.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-shared-internal.h"
 #include "url/mojom/origin.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "services/network/public/mojom/ct_log_info.mojom-shared-internal.h"
@@ -232,7 +234,7 @@ class  NetworkServiceParams_Data {
   uint8_t first_party_sets_enabled : 1;
   uint8_t pad4_[3];
   mojo::internal::Interface_Data system_dns_resolver;
-  uint8_t padfinal_[4];
+  int32_t ip_protection_proxy_bypass_policy;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkServiceParams_Data>;

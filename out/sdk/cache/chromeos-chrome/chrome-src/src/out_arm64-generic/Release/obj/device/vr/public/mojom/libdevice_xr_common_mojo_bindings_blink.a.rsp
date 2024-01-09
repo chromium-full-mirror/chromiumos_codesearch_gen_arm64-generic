@@ -1,1 +1,1 @@
-obj/device/vr/public/mojom/xr_common_blink/xr_device.mojom-blink.o obj/device/vr/public/mojom/xr_common_blink/xr_session.mojom-blink.o
+obj/device/vr/public/mojom/xr_common_blink/openxr_interaction_profile_type.mojom-blink.o obj/device/vr/public/mojom/xr_common_blink/xr_device.mojom-blink.o obj/device/vr/public/mojom/xr_common_blink/xr_session.mojom-blink.o

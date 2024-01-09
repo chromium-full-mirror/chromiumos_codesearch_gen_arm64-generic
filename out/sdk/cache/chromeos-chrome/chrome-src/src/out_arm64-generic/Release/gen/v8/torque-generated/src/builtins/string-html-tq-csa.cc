@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/string-html-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -185,7 +186,7 @@ TF_BUILTIN(StringPrototypeAnchor, CodeStubAssembler) {
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.anchor");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "a");
     tmp4 = FromConstexpr_String_constexpr_string_0(state_, "name");
-    tmp5 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
+    tmp5 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
     arguments.PopAndReturn(tmp5);
   }
 }
@@ -215,7 +216,7 @@ TF_BUILTIN(StringPrototypeBig, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.big");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "big");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -245,7 +246,7 @@ TF_BUILTIN(StringPrototypeBlink, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.blink");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "blink");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -275,7 +276,7 @@ TF_BUILTIN(StringPrototypeBold, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.bold");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "b");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -307,7 +308,7 @@ TF_BUILTIN(StringPrototypeFontcolor, CodeStubAssembler) {
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.fontcolor");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "font");
     tmp4 = FromConstexpr_String_constexpr_string_0(state_, "color");
-    tmp5 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
+    tmp5 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
     arguments.PopAndReturn(tmp5);
   }
 }
@@ -339,7 +340,7 @@ TF_BUILTIN(StringPrototypeFontsize, CodeStubAssembler) {
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.fontsize");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "font");
     tmp4 = FromConstexpr_String_constexpr_string_0(state_, "size");
-    tmp5 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
+    tmp5 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
     arguments.PopAndReturn(tmp5);
   }
 }
@@ -369,7 +370,7 @@ TF_BUILTIN(StringPrototypeFixed, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.fixed");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "tt");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -399,7 +400,7 @@ TF_BUILTIN(StringPrototypeItalics, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.italics");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "i");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -431,7 +432,7 @@ TF_BUILTIN(StringPrototypeLink, CodeStubAssembler) {
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.link");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "a");
     tmp4 = FromConstexpr_String_constexpr_string_0(state_, "href");
-    tmp5 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
+    tmp5 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp4, tmp1);
     arguments.PopAndReturn(tmp5);
   }
 }
@@ -461,7 +462,7 @@ TF_BUILTIN(StringPrototypeSmall, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.small");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "small");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -491,7 +492,7 @@ TF_BUILTIN(StringPrototypeStrike, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.strike");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "strike");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -521,7 +522,7 @@ TF_BUILTIN(StringPrototypeSub, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.sub");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "sub");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -551,7 +552,7 @@ TF_BUILTIN(StringPrototypeSup, CodeStubAssembler) {
     tmp1 = kEmptyString_0(state_);
     tmp2 = FromConstexpr_String_constexpr_string_0(state_, "String.prototype.sup");
     tmp3 = FromConstexpr_String_constexpr_string_0(state_, "sup");
-    tmp4 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kCreateHTML), parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
+    tmp4 = ca_.CallBuiltin<String>(Builtin::kCreateHTML, parameter0, parameter1, tmp2, tmp3, tmp0, tmp1);
     arguments.PopAndReturn(tmp4);
   }
 }

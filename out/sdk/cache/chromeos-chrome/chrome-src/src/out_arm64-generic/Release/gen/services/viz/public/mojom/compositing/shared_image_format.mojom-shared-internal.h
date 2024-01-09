@@ -61,6 +61,8 @@ struct Subsampling_Data {
   static bool IsKnownValue(int32_t value) {
     switch (value) {
       case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;

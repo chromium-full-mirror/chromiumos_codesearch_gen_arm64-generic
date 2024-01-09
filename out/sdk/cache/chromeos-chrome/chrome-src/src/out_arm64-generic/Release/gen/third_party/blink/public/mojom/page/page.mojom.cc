@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -140,7 +141,7 @@ PageRestoreParams::PageRestoreParams(
     ::base::TimeTicks navigation_start_in,
     int32_t pending_history_list_offset_in,
     int32_t current_history_list_length_in,
-    const absl::optional<::blink::ViewTransitionState>& view_transition_state_in)
+    const std::optional<::blink::ViewTransitionState>& view_transition_state_in)
     : navigation_start(std::move(navigation_start_in)),
       pending_history_list_offset(std::move(pending_history_list_offset_in)),
       current_history_list_length(std::move(current_history_list_length_in)),
@@ -182,7 +183,7 @@ void PageRestoreParams::WriteIntoTrace(
     dict.AddItem(
       "view_transition_state"), this->view_transition_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ViewTransitionState>&>"
+      "<value of type const std::optional<::blink::ViewTransitionState>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -190,6 +191,58 @@ void PageRestoreParams::WriteIntoTrace(
 }
 
 bool PageRestoreParams::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ColorProviderColorMaps::ColorProviderColorMaps()
+    : light_colors_map(),
+      dark_colors_map(),
+      forced_colors_map() {}
+
+ColorProviderColorMaps::ColorProviderColorMaps(
+    const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& light_colors_map_in,
+    const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& dark_colors_map_in,
+    const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& forced_colors_map_in)
+    : light_colors_map(std::move(light_colors_map_in)),
+      dark_colors_map(std::move(dark_colors_map_in)),
+      forced_colors_map(std::move(forced_colors_map_in)) {}
+
+ColorProviderColorMaps::~ColorProviderColorMaps() = default;
+
+void ColorProviderColorMaps::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "light_colors_map"), this->light_colors_map,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<::color::mojom::RendererColorId, ::SkColor>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "dark_colors_map"), this->dark_colors_map,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<::color::mojom::RendererColorId, ::SkColor>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "forced_colors_map"), this->forced_colors_map,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<::color::mojom::RendererColorId, ::SkColor>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ColorProviderColorMaps::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -202,7 +255,7 @@ PrerenderPageActivationParams::PrerenderPageActivationParams()
 PrerenderPageActivationParams::PrerenderPageActivationParams(
     ::blink::mojom::WasActivatedOption was_user_activated_in,
     ::base::TimeTicks activation_start_in,
-    const absl::optional<::blink::ViewTransitionState>& view_transition_state_in)
+    const std::optional<::blink::ViewTransitionState>& view_transition_state_in)
     : was_user_activated(std::move(was_user_activated_in)),
       activation_start(std::move(activation_start_in)),
       view_transition_state(std::move(view_transition_state_in)) {}
@@ -234,7 +287,7 @@ void PrerenderPageActivationParams::WriteIntoTrace(
     dict.AddItem(
       "view_transition_state"), this->view_transition_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ViewTransitionState>&>"
+      "<value of type const std::optional<::blink::ViewTransitionState>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -260,9 +313,6 @@ PageBroadcast::IPCStableHashFunction PageBroadcast::MessageToMethodInfo_(mojo::M
     case internal::kPageBroadcast_ActivatePrerenderedPage_Name: {
       return &PageBroadcast::ActivatePrerenderedPage_Sym::IPCStableHash;
     }
-    case internal::kPageBroadcast_SetInsidePortal_Name: {
-      return &PageBroadcast::SetInsidePortal_Sym::IPCStableHash;
-    }
     case internal::kPageBroadcast_UpdateWebPreferences_Name: {
       return &PageBroadcast::UpdateWebPreferences_Sym::IPCStableHash;
     }
@@ -281,6 +331,12 @@ PageBroadcast::IPCStableHashFunction PageBroadcast::MessageToMethodInfo_(mojo::M
     case internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name: {
       return &PageBroadcast::UpdatePageBrowsingContextGroup_Sym::IPCStableHash;
     }
+    case internal::kPageBroadcast_SetPageAttributionSupport_Name: {
+      return &PageBroadcast::SetPageAttributionSupport_Sym::IPCStableHash;
+    }
+    case internal::kPageBroadcast_UpdateColorProviders_Name: {
+      return &PageBroadcast::UpdateColorProviders_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -298,8 +354,6 @@ const char* PageBroadcast::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::PageBroadcast::AudioStateChanged";
       case internal::kPageBroadcast_ActivatePrerenderedPage_Name:
             return "Receive blink::mojom::PageBroadcast::ActivatePrerenderedPage";
-      case internal::kPageBroadcast_SetInsidePortal_Name:
-            return "Receive blink::mojom::PageBroadcast::SetInsidePortal";
       case internal::kPageBroadcast_UpdateWebPreferences_Name:
             return "Receive blink::mojom::PageBroadcast::UpdateWebPreferences";
       case internal::kPageBroadcast_UpdateRendererPreferences_Name:
@@ -312,6 +366,10 @@ const char* PageBroadcast::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::PageBroadcast::CreateRemoteMainFrame";
       case internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name:
             return "Receive blink::mojom::PageBroadcast::UpdatePageBrowsingContextGroup";
+      case internal::kPageBroadcast_SetPageAttributionSupport_Name:
+            return "Receive blink::mojom::PageBroadcast::SetPageAttributionSupport";
+      case internal::kPageBroadcast_UpdateColorProviders_Name:
+            return "Receive blink::mojom::PageBroadcast::UpdateColorProviders";
     }
   } else {
     switch (message.name()) {
@@ -321,8 +379,6 @@ const char* PageBroadcast::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::PageBroadcast::AudioStateChanged";
       case internal::kPageBroadcast_ActivatePrerenderedPage_Name:
             return "Receive reply blink::mojom::PageBroadcast::ActivatePrerenderedPage";
-      case internal::kPageBroadcast_SetInsidePortal_Name:
-            return "Receive reply blink::mojom::PageBroadcast::SetInsidePortal";
       case internal::kPageBroadcast_UpdateWebPreferences_Name:
             return "Receive reply blink::mojom::PageBroadcast::UpdateWebPreferences";
       case internal::kPageBroadcast_UpdateRendererPreferences_Name:
@@ -335,6 +391,10 @@ const char* PageBroadcast::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::PageBroadcast::CreateRemoteMainFrame";
       case internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name:
             return "Receive reply blink::mojom::PageBroadcast::UpdatePageBrowsingContextGroup";
+      case internal::kPageBroadcast_SetPageAttributionSupport_Name:
+            return "Receive reply blink::mojom::PageBroadcast::SetPageAttributionSupport";
+      case internal::kPageBroadcast_UpdateColorProviders_Name:
+            return "Receive reply blink::mojom::PageBroadcast::UpdateColorProviders";
     }
   }
   return "Receive unknown mojo message";
@@ -384,19 +444,6 @@ uint32_t PageBroadcast::ActivatePrerenderedPage_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::PageBroadcast::ActivatePrerenderedPage");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t PageBroadcast::SetInsidePortal_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::PageBroadcast::SetInsidePortal");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -479,6 +526,32 @@ uint32_t PageBroadcast::UpdatePageBrowsingContextGroup_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageBroadcast::SetPageAttributionSupport_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::PageBroadcast::SetPageAttributionSupport");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageBroadcast::UpdateColorProviders_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::PageBroadcast::UpdateColorProviders");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageBroadcast_SetPageLifecycleState_ForwardToCallback
@@ -532,14 +605,17 @@ void PageBroadcastProxy::SetPageLifecycleState(
                         "<value of type PageRestoreParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_SetPageLifecycleState_Name, kFlags, 0, 0, nullptr);
@@ -588,14 +664,17 @@ void PageBroadcastProxy::AudioStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_AudioStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -626,14 +705,17 @@ void PageBroadcastProxy::ActivatePrerenderedPage(
                         "<value of type PrerenderPageActivationParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_ActivatePrerenderedPage_Name, kFlags, 0, 0, nullptr);
@@ -663,44 +745,6 @@ void PageBroadcastProxy::ActivatePrerenderedPage(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void PageBroadcastProxy::SetInsidePortal(
-    bool in_is_inside_portal) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::PageBroadcast::SetInsidePortal", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("is_inside_portal"), in_is_inside_portal,
-                        "<value of type bool>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kPageBroadcast_SetInsidePortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::PageBroadcast_SetInsidePortal_Params_Data> params(
-          message);
-  params.Allocate();
-  params->is_inside_portal = in_is_inside_portal;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(PageBroadcast::Name_);
-  message.set_method_name("SetInsidePortal");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void PageBroadcastProxy::UpdateWebPreferences(
     const ::blink::web_pref::WebPreferences& in_preferences) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -713,14 +757,17 @@ void PageBroadcastProxy::UpdateWebPreferences(
                         "<value of type const ::blink::web_pref::WebPreferences&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_UpdateWebPreferences_Name, kFlags, 0, 0, nullptr);
@@ -761,14 +808,17 @@ void PageBroadcastProxy::UpdateRendererPreferences(
                         "<value of type const ::blink::RendererPreferences&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_UpdateRendererPreferences_Name, kFlags, 0, 0, nullptr);
@@ -812,14 +862,17 @@ void PageBroadcastProxy::SetHistoryOffsetAndLength(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_SetHistoryOffsetAndLength_Name, kFlags, 0, 0, nullptr);
@@ -840,7 +893,7 @@ void PageBroadcastProxy::SetHistoryOffsetAndLength(
 }
 
 void PageBroadcastProxy::SetPageBaseBackgroundColor(
-    absl::optional<::SkColor> in_color) {
+    std::optional<::SkColor> in_color) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::PageBroadcast::SetPageBaseBackgroundColor", "input_parameters",
@@ -848,17 +901,20 @@ void PageBroadcastProxy::SetPageBaseBackgroundColor(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
-                        "<value of type absl::optional<::SkColor>>");
+                        "<value of type std::optional<::SkColor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_SetPageBaseBackgroundColor_Name, kFlags, 0, 0, nullptr);
@@ -884,7 +940,7 @@ void PageBroadcastProxy::SetPageBaseBackgroundColor(
 }
 
 void PageBroadcastProxy::CreateRemoteMainFrame(
-    const ::blink::RemoteFrameToken& in_token, const absl::optional<::blink::FrameToken>& in_opener_frame_token, ::blink::mojom::FrameReplicationStatePtr in_replication_state, bool in_is_loading, const ::base::UnguessableToken& in_devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr in_remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr in_remote_main_frame_interfaces) {
+    const ::blink::RemoteFrameToken& in_token, const std::optional<::blink::FrameToken>& in_opener_frame_token, ::blink::mojom::FrameReplicationStatePtr in_replication_state, bool in_is_loading, const ::base::UnguessableToken& in_devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr in_remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr in_remote_main_frame_interfaces) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::PageBroadcast::CreateRemoteMainFrame", "input_parameters",
@@ -895,7 +951,7 @@ void PageBroadcastProxy::CreateRemoteMainFrame(
                         "<value of type const ::blink::RemoteFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame_token"), in_opener_frame_token,
-                        "<value of type const absl::optional<::blink::FrameToken>&>");
+                        "<value of type const std::optional<::blink::FrameToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("replication_state"), in_replication_state,
                         "<value of type ::blink::mojom::FrameReplicationStatePtr>");
@@ -913,14 +969,17 @@ void PageBroadcastProxy::CreateRemoteMainFrame(
                         "<value of type ::blink::mojom::RemoteMainFrameInterfacesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_CreateRemoteMainFrame_Name, kFlags, 0, 0, nullptr);
@@ -1011,14 +1070,17 @@ void PageBroadcastProxy::UpdatePageBrowsingContextGroup(
                         "<value of type const ::blink::BrowsingContextGroupInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name, kFlags, 0, 0, nullptr);
@@ -1041,6 +1103,99 @@ void PageBroadcastProxy::UpdatePageBrowsingContextGroup(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageBroadcast::Name_);
   message.set_method_name("UpdatePageBrowsingContextGroup");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageBroadcastProxy::SetPageAttributionSupport(
+    ::network::mojom::AttributionSupport in_support) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::PageBroadcast::SetPageAttributionSupport", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("support"), in_support,
+                        "<value of type ::network::mojom::AttributionSupport>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageBroadcast_SetPageAttributionSupport_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::PageBroadcast_SetPageAttributionSupport_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::network::mojom::AttributionSupport>(
+      in_support, &params->support);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageBroadcast::Name_);
+  message.set_method_name("SetPageAttributionSupport");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageBroadcastProxy::UpdateColorProviders(
+    const ::blink::ColorProviderColorMaps& in_color_provider_colors) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::PageBroadcast::UpdateColorProviders", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("color_provider_colors"), in_color_provider_colors,
+                        "<value of type const ::blink::ColorProviderColorMaps&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageBroadcast_UpdateColorProviders_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::PageBroadcast_UpdateColorProviders_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->color_provider_colors)::BaseType> color_provider_colors_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::ColorProviderColorMapsDataView>(
+      in_color_provider_colors, color_provider_colors_fragment);
+  params->color_provider_colors.Set(
+      color_provider_colors_fragment.is_null() ? nullptr : color_provider_colors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->color_provider_colors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null color_provider_colors in PageBroadcast.UpdateColorProviders request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageBroadcast::Name_);
+  message.set_method_name("UpdateColorProviders");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1127,7 +1282,8 @@ void PageBroadcast_SetPageLifecycleState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_SetPageLifecycleState_Name, kFlags, 0, 0, nullptr);
@@ -1233,7 +1389,8 @@ void PageBroadcast_ActivatePrerenderedPage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageBroadcast_ActivatePrerenderedPage_Name, kFlags, 0, 0, nullptr);
@@ -1296,32 +1453,6 @@ std::move(p_is_audio_playing));
     case internal::kPageBroadcast_ActivatePrerenderedPage_Name: {
       break;
     }
-    case internal::kPageBroadcast_SetInsidePortal_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::PageBroadcast_SetInsidePortal_Params_Data* params =
-          reinterpret_cast<internal::PageBroadcast_SetInsidePortal_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      bool p_is_inside_portal{};
-      PageBroadcast_SetInsidePortal_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_is_inside_portal = input_data_view.is_inside_portal();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 3, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetInsidePortal(
-std::move(p_is_inside_portal));
-      return true;
-    }
     case internal::kPageBroadcast_UpdateWebPreferences_Name: {
 
       DCHECK(message->is_serialized());
@@ -1339,7 +1470,7 @@ std::move(p_is_inside_portal));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 4, false);
+            PageBroadcast::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1365,7 +1496,7 @@ std::move(p_preferences));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 5, false);
+            PageBroadcast::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1394,7 +1525,7 @@ std::move(p_preferences));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 6, false);
+            PageBroadcast::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1412,7 +1543,7 @@ std::move(p_length));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::SkColor> p_color{};
+      std::optional<::SkColor> p_color{};
       PageBroadcast_SetPageBaseBackgroundColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadColor(&p_color))
@@ -1421,7 +1552,7 @@ std::move(p_length));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 7, false);
+            PageBroadcast::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1439,7 +1570,7 @@ std::move(p_color));
       
       bool success = true;
       ::blink::RemoteFrameToken p_token{};
-      absl::optional<::blink::FrameToken> p_opener_frame_token{};
+      std::optional<::blink::FrameToken> p_opener_frame_token{};
       ::blink::mojom::FrameReplicationStatePtr p_replication_state{};
       bool p_is_loading{};
       ::base::UnguessableToken p_devtools_frame_token{};
@@ -1465,7 +1596,7 @@ std::move(p_color));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 8, false);
+            PageBroadcast::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1497,13 +1628,65 @@ std::move(p_remote_main_frame_interfaces));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageBroadcast::Name_, 9, false);
+            PageBroadcast::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->UpdatePageBrowsingContextGroup(
 std::move(p_browsing_context_group_info));
+      return true;
+    }
+    case internal::kPageBroadcast_SetPageAttributionSupport_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageBroadcast_SetPageAttributionSupport_Params_Data* params =
+          reinterpret_cast<internal::PageBroadcast_SetPageAttributionSupport_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::network::mojom::AttributionSupport p_support{};
+      PageBroadcast_SetPageAttributionSupport_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadSupport(&p_support))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageBroadcast::Name_, 9, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetPageAttributionSupport(
+std::move(p_support));
+      return true;
+    }
+    case internal::kPageBroadcast_UpdateColorProviders_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageBroadcast_UpdateColorProviders_Params_Data* params =
+          reinterpret_cast<internal::PageBroadcast_UpdateColorProviders_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::blink::ColorProviderColorMaps p_color_provider_colors{};
+      PageBroadcast_UpdateColorProviders_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadColorProviderColors(&p_color_provider_colors))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageBroadcast::Name_, 10, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateColorProviders(
+std::move(p_color_provider_colors));
       return true;
     }
   }
@@ -1584,9 +1767,6 @@ std::move(p_page_restore_params), std::move(callback));
 std::move(p_prerender_page_activation_params), std::move(callback));
       return true;
     }
-    case internal::kPageBroadcast_SetInsidePortal_Name: {
-      break;
-    }
     case internal::kPageBroadcast_UpdateWebPreferences_Name: {
       break;
     }
@@ -1605,31 +1785,39 @@ std::move(p_prerender_page_activation_params), std::move(callback));
     case internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name: {
       break;
     }
+    case internal::kPageBroadcast_SetPageAttributionSupport_Name: {
+      break;
+    }
+    case internal::kPageBroadcast_UpdateColorProviders_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageBroadcastValidationInfo[] = {
-    {&internal::PageBroadcast_SetPageLifecycleState_Params_Data::Validate,
+    { &internal::PageBroadcast_SetPageLifecycleState_Params_Data::Validate,
      &internal::PageBroadcast_SetPageLifecycleState_ResponseParams_Data::Validate},
-    {&internal::PageBroadcast_AudioStateChanged_Params_Data::Validate,
+    { &internal::PageBroadcast_AudioStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_ActivatePrerenderedPage_Params_Data::Validate,
+    { &internal::PageBroadcast_ActivatePrerenderedPage_Params_Data::Validate,
      &internal::PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data::Validate},
-    {&internal::PageBroadcast_SetInsidePortal_Params_Data::Validate,
+    { &internal::PageBroadcast_UpdateWebPreferences_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_UpdateWebPreferences_Params_Data::Validate,
+    { &internal::PageBroadcast_UpdateRendererPreferences_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_UpdateRendererPreferences_Params_Data::Validate,
+    { &internal::PageBroadcast_SetHistoryOffsetAndLength_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_SetHistoryOffsetAndLength_Params_Data::Validate,
+    { &internal::PageBroadcast_SetPageBaseBackgroundColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_SetPageBaseBackgroundColor_Params_Data::Validate,
+    { &internal::PageBroadcast_CreateRemoteMainFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_CreateRemoteMainFrame_Params_Data::Validate,
+    { &internal::PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data::Validate,
+    { &internal::PageBroadcast_SetPageAttributionSupport_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageBroadcast_UpdateColorProviders_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1693,6 +1881,24 @@ bool StructTraits<::blink::mojom::PageRestoreParams::DataView, ::blink::mojom::P
 
 
 // static
+bool StructTraits<::blink::mojom::ColorProviderColorMaps::DataView, ::blink::mojom::ColorProviderColorMapsPtr>::Read(
+    ::blink::mojom::ColorProviderColorMaps::DataView input,
+    ::blink::mojom::ColorProviderColorMapsPtr* output) {
+  bool success = true;
+  ::blink::mojom::ColorProviderColorMapsPtr result(::blink::mojom::ColorProviderColorMaps::New());
+  
+      if (success && !input.ReadLightColorsMap(&result->light_colors_map))
+        success = false;
+      if (success && !input.ReadDarkColorsMap(&result->dark_colors_map))
+        success = false;
+      if (success && !input.ReadForcedColorsMap(&result->forced_colors_map))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::blink::mojom::PrerenderPageActivationParams::DataView, ::blink::mojom::PrerenderPageActivationParamsPtr>::Read(
     ::blink::mojom::PrerenderPageActivationParams::DataView input,
     ::blink::mojom::PrerenderPageActivationParamsPtr* output) {
@@ -1728,9 +1934,6 @@ void PageBroadcastInterceptorForTesting::AudioStateChanged(bool is_audio_playing
 void PageBroadcastInterceptorForTesting::ActivatePrerenderedPage(PrerenderPageActivationParamsPtr prerender_page_activation_params, ActivatePrerenderedPageCallback callback) {
   GetForwardingInterface()->ActivatePrerenderedPage(std::move(prerender_page_activation_params), std::move(callback));
 }
-void PageBroadcastInterceptorForTesting::SetInsidePortal(bool is_inside_portal) {
-  GetForwardingInterface()->SetInsidePortal(std::move(is_inside_portal));
-}
 void PageBroadcastInterceptorForTesting::UpdateWebPreferences(const ::blink::web_pref::WebPreferences& preferences) {
   GetForwardingInterface()->UpdateWebPreferences(std::move(preferences));
 }
@@ -1740,14 +1943,20 @@ void PageBroadcastInterceptorForTesting::UpdateRendererPreferences(const ::blink
 void PageBroadcastInterceptorForTesting::SetHistoryOffsetAndLength(int32_t offset, int32_t length) {
   GetForwardingInterface()->SetHistoryOffsetAndLength(std::move(offset), std::move(length));
 }
-void PageBroadcastInterceptorForTesting::SetPageBaseBackgroundColor(absl::optional<::SkColor> color) {
+void PageBroadcastInterceptorForTesting::SetPageBaseBackgroundColor(std::optional<::SkColor> color) {
   GetForwardingInterface()->SetPageBaseBackgroundColor(std::move(color));
 }
-void PageBroadcastInterceptorForTesting::CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) {
+void PageBroadcastInterceptorForTesting::CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) {
   GetForwardingInterface()->CreateRemoteMainFrame(std::move(token), std::move(opener_frame_token), std::move(replication_state), std::move(is_loading), std::move(devtools_frame_token), std::move(remote_frame_interfaces), std::move(remote_main_frame_interfaces));
 }
 void PageBroadcastInterceptorForTesting::UpdatePageBrowsingContextGroup(const ::blink::BrowsingContextGroupInfo& browsing_context_group_info) {
   GetForwardingInterface()->UpdatePageBrowsingContextGroup(std::move(browsing_context_group_info));
+}
+void PageBroadcastInterceptorForTesting::SetPageAttributionSupport(::network::mojom::AttributionSupport support) {
+  GetForwardingInterface()->SetPageAttributionSupport(std::move(support));
+}
+void PageBroadcastInterceptorForTesting::UpdateColorProviders(const ::blink::ColorProviderColorMaps& color_provider_colors) {
+  GetForwardingInterface()->UpdateColorProviders(std::move(color_provider_colors));
 }
 PageBroadcastAsyncWaiter::PageBroadcastAsyncWaiter(
     PageBroadcast* proxy) : proxy_(proxy) {}

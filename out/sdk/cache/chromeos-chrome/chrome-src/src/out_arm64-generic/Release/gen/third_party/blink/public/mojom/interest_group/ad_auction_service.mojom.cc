@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -364,7 +365,7 @@ AbortableAdAuctionProxy::AbortableAdAuctionProxy(mojo::MessageReceiverWithRespon
 }
 
 void AbortableAdAuctionProxy::ResolvedPromiseParam(
-    AuctionAdConfigAuctionIdPtr in_auction, AuctionAdConfigField in_field, const absl::optional<std::string>& in_json_value) {
+    AuctionAdConfigAuctionIdPtr in_auction, AuctionAdConfigField in_field, const std::optional<std::string>& in_json_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::AbortableAdAuction::ResolvedPromiseParam", "input_parameters",
@@ -378,17 +379,20 @@ void AbortableAdAuctionProxy::ResolvedPromiseParam(
                         "<value of type AuctionAdConfigField>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("json_value"), in_json_value,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedPromiseParam_Name, kFlags, 0, 0, nullptr);
@@ -425,7 +429,7 @@ void AbortableAdAuctionProxy::ResolvedPromiseParam(
 }
 
 void AbortableAdAuctionProxy::ResolvedPerBuyerSignalsPromise(
-    AuctionAdConfigAuctionIdPtr in_auction, const absl::optional<base::flat_map<::url::Origin, std::string>>& in_per_buyer_signals) {
+    AuctionAdConfigAuctionIdPtr in_auction, const std::optional<base::flat_map<::url::Origin, std::string>>& in_per_buyer_signals) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::AbortableAdAuction::ResolvedPerBuyerSignalsPromise", "input_parameters",
@@ -436,17 +440,20 @@ void AbortableAdAuctionProxy::ResolvedPerBuyerSignalsPromise(
                         "<value of type AuctionAdConfigAuctionIdPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("per_buyer_signals"), in_per_buyer_signals,
-                        "<value of type const absl::optional<base::flat_map<::url::Origin, std::string>>&>");
+                        "<value of type const std::optional<base::flat_map<::url::Origin, std::string>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedPerBuyerSignalsPromise_Name, kFlags, 0, 0, nullptr);
@@ -500,14 +507,17 @@ void AbortableAdAuctionProxy::ResolvedBuyerTimeoutsPromise(
                         "<value of type const ::blink::AuctionConfig::BuyerTimeouts&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedBuyerTimeoutsPromise_Name, kFlags, 0, 0, nullptr);
@@ -562,14 +572,17 @@ void AbortableAdAuctionProxy::ResolvedBuyerCurrenciesPromise(
                         "<value of type const ::blink::AuctionConfig::BuyerCurrencies&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedBuyerCurrenciesPromise_Name, kFlags, 0, 0, nullptr);
@@ -608,7 +621,7 @@ void AbortableAdAuctionProxy::ResolvedBuyerCurrenciesPromise(
 }
 
 void AbortableAdAuctionProxy::ResolvedDirectFromSellerSignalsPromise(
-    AuctionAdConfigAuctionIdPtr in_auction, const absl::optional<::blink::DirectFromSellerSignals>& in_direct_from_seller_signals) {
+    AuctionAdConfigAuctionIdPtr in_auction, const std::optional<::blink::DirectFromSellerSignals>& in_direct_from_seller_signals) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::AbortableAdAuction::ResolvedDirectFromSellerSignalsPromise", "input_parameters",
@@ -619,17 +632,20 @@ void AbortableAdAuctionProxy::ResolvedDirectFromSellerSignalsPromise(
                         "<value of type AuctionAdConfigAuctionIdPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("direct_from_seller_signals"), in_direct_from_seller_signals,
-                        "<value of type const absl::optional<::blink::DirectFromSellerSignals>&>");
+                        "<value of type const std::optional<::blink::DirectFromSellerSignals>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_Name, kFlags, 0, 0, nullptr);
@@ -664,7 +680,7 @@ void AbortableAdAuctionProxy::ResolvedDirectFromSellerSignalsPromise(
 }
 
 void AbortableAdAuctionProxy::ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(
-    AuctionAdConfigAuctionIdPtr in_auction, const absl::optional<std::string>& in_direct_from_seller_signals_header_ad_slot) {
+    AuctionAdConfigAuctionIdPtr in_auction, const std::optional<std::string>& in_direct_from_seller_signals_header_ad_slot) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::AbortableAdAuction::ResolvedDirectFromSellerSignalsHeaderAdSlotPromise", "input_parameters",
@@ -675,17 +691,20 @@ void AbortableAdAuctionProxy::ResolvedDirectFromSellerSignalsHeaderAdSlotPromise
                         "<value of type AuctionAdConfigAuctionIdPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("direct_from_seller_signals_header_ad_slot"), in_direct_from_seller_signals_header_ad_slot,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_Name, kFlags, 0, 0, nullptr);
@@ -734,14 +753,17 @@ void AbortableAdAuctionProxy::ResolvedAuctionAdResponsePromise(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedAuctionAdResponsePromise_Name, kFlags, 0, 0, nullptr);
@@ -789,14 +811,17 @@ void AbortableAdAuctionProxy::ResolvedAdditionalBids(
                         "<value of type AuctionAdConfigAuctionIdPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_ResolvedAdditionalBids_Name, kFlags, 0, 0, nullptr);
@@ -828,14 +853,17 @@ void AbortableAdAuctionProxy::Abort(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::AbortableAdAuction::Abort");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAbortableAdAuction_Abort_Name, kFlags, 0, 0, nullptr);
@@ -868,7 +896,7 @@ bool AbortableAdAuctionStubDispatch::Accept(
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       AuctionAdConfigField p_field{};
-      absl::optional<std::string> p_json_value{};
+      std::optional<std::string> p_json_value{};
       AbortableAdAuction_ResolvedPromiseParam_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAuction(&p_auction))
@@ -901,7 +929,7 @@ std::move(p_json_value));
       
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
-      absl::optional<base::flat_map<::url::Origin, std::string>> p_per_buyer_signals{};
+      std::optional<base::flat_map<::url::Origin, std::string>> p_per_buyer_signals{};
       AbortableAdAuction_ResolvedPerBuyerSignalsPromise_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAuction(&p_auction))
@@ -995,7 +1023,7 @@ std::move(p_per_buyer_currencies));
       
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
-      absl::optional<::blink::DirectFromSellerSignals> p_direct_from_seller_signals{};
+      std::optional<::blink::DirectFromSellerSignals> p_direct_from_seller_signals{};
       AbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAuction(&p_auction))
@@ -1025,7 +1053,7 @@ std::move(p_direct_from_seller_signals));
       
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
-      absl::optional<std::string> p_direct_from_seller_signals_header_ad_slot{};
+      std::optional<std::string> p_direct_from_seller_signals_header_ad_slot{};
       AbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAuction(&p_auction))
@@ -1167,26 +1195,26 @@ bool AbortableAdAuctionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAbortableAdAuctionValidationInfo[] = {
-    {&internal::AbortableAdAuction_ResolvedPromiseParam_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedPromiseParam_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedPerBuyerSignalsPromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedPerBuyerSignalsPromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedBuyerTimeoutsPromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedBuyerTimeoutsPromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedBuyerCurrenciesPromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedBuyerCurrenciesPromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedAuctionAdResponsePromise_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedAuctionAdResponsePromise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_ResolvedAdditionalBids_Params_Data::Validate,
+    { &internal::AbortableAdAuction_ResolvedAdditionalBids_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AbortableAdAuction_Abort_Params_Data::Validate,
+    { &internal::AbortableAdAuction_Abort_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1646,14 +1674,17 @@ void AdAuctionServiceProxy::CreateAdRequest(
                         "<value of type ::blink::mojom::AdRequestConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_CreateAdRequest_Name, kFlags, 0, 0, nullptr);
@@ -1698,14 +1729,17 @@ void AdAuctionServiceProxy::FinalizeAd(
                         "<value of type const ::blink::AuctionConfig&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_FinalizeAd_Name, kFlags, 0, 0, nullptr);
@@ -1751,14 +1785,17 @@ void AdAuctionServiceProxy::CreateAuctionNonce(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::AdAuctionService::CreateAuctionNonce");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_CreateAuctionNonce_Name, kFlags, 0, 0, nullptr);
@@ -1792,14 +1829,17 @@ void AdAuctionServiceProxy::RunAdAuction(
                         "<value of type ::mojo::PendingReceiver<AbortableAdAuction>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_RunAdAuction_Name, kFlags, 0, 0, nullptr);
@@ -1843,14 +1883,17 @@ void AdAuctionServiceProxy::JoinInterestGroup(
                         "<value of type const ::blink::InterestGroup&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_JoinInterestGroup_Name, kFlags, 0, 0, nullptr);
@@ -1895,14 +1938,17 @@ void AdAuctionServiceProxy::LeaveInterestGroup(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_LeaveInterestGroup_Name, kFlags, 0, 0, nullptr);
@@ -1948,14 +1994,17 @@ void AdAuctionServiceProxy::LeaveInterestGroupForDocument(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::AdAuctionService::LeaveInterestGroupForDocument");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_LeaveInterestGroupForDocument_Name, kFlags, 0, 0, nullptr);
@@ -1988,14 +2037,17 @@ void AdAuctionServiceProxy::ClearOriginJoinedInterestGroups(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_ClearOriginJoinedInterestGroups_Name, kFlags, 0, 0, nullptr);
@@ -2043,14 +2095,17 @@ void AdAuctionServiceProxy::UpdateAdInterestGroups(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::AdAuctionService::UpdateAdInterestGroups");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_UpdateAdInterestGroups_Name, kFlags, 0, 0, nullptr);
@@ -2083,14 +2138,17 @@ void AdAuctionServiceProxy::DeprecatedGetURLFromURN(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_DeprecatedGetURLFromURN_Name, kFlags, 0, 0, nullptr);
@@ -2136,14 +2194,17 @@ void AdAuctionServiceProxy::DeprecatedReplaceInURN(
                         "<value of type std::vector<AdKeywordReplacementPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_DeprecatedReplaceInURN_Name, kFlags, 0, 0, nullptr);
@@ -2187,7 +2248,7 @@ void AdAuctionServiceProxy::DeprecatedReplaceInURN(
 }
 
 void AdAuctionServiceProxy::GetInterestGroupAdAuctionData(
-    const ::url::Origin& in_seller, const absl::optional<::url::Origin>& in_coordinator, GetInterestGroupAdAuctionDataCallback callback) {
+    const ::url::Origin& in_seller, const std::optional<::url::Origin>& in_coordinator, GetInterestGroupAdAuctionDataCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::AdAuctionService::GetInterestGroupAdAuctionData", "input_parameters",
@@ -2198,17 +2259,20 @@ void AdAuctionServiceProxy::GetInterestGroupAdAuctionData(
                         "<value of type const ::url::Origin&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("coordinator"), in_coordinator,
-                        "<value of type const absl::optional<::url::Origin>&>");
+                        "<value of type const std::optional<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_GetInterestGroupAdAuctionData_Name, kFlags, 0, 0, nullptr);
@@ -2290,7 +2354,7 @@ class AdAuctionService_CreateAdRequest_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_ads_guid);
+      const std::optional<std::string>& in_ads_guid);
 };
 
 bool AdAuctionService_CreateAdRequest_ForwardToCallback::Accept(
@@ -2303,7 +2367,7 @@ bool AdAuctionService_CreateAdRequest_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_ads_guid{};
+  std::optional<std::string> p_ads_guid{};
   AdAuctionService_CreateAdRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAdsGuid(&p_ads_guid))
@@ -2322,7 +2386,7 @@ std::move(p_ads_guid));
 }
 
 void AdAuctionService_CreateAdRequest_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_ads_guid) {
+    const std::optional<std::string>& in_ads_guid) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::AdAuctionService::CreateAdRequest", "async_response_parameters",
@@ -2330,13 +2394,14 @@ void AdAuctionService_CreateAdRequest_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("ads_guid"), in_ads_guid,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_CreateAdRequest_Name, kFlags, 0, 0, nullptr);
@@ -2414,7 +2479,7 @@ class AdAuctionService_FinalizeAd_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      const absl::optional<::GURL>& in_ad_display_url);
+      const std::optional<::GURL>& in_ad_display_url);
 };
 
 bool AdAuctionService_FinalizeAd_ForwardToCallback::Accept(
@@ -2427,7 +2492,7 @@ bool AdAuctionService_FinalizeAd_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::GURL> p_ad_display_url{};
+  std::optional<::GURL> p_ad_display_url{};
   AdAuctionService_FinalizeAd_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAdDisplayUrl(&p_ad_display_url))
@@ -2446,7 +2511,7 @@ std::move(p_ad_display_url));
 }
 
 void AdAuctionService_FinalizeAd_ProxyToResponder::Run(
-    const absl::optional<::GURL>& in_ad_display_url) {
+    const std::optional<::GURL>& in_ad_display_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::AdAuctionService::FinalizeAd", "async_response_parameters",
@@ -2454,13 +2519,14 @@ void AdAuctionService_FinalizeAd_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("ad_display_url"), in_ad_display_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_FinalizeAd_Name, kFlags, 0, 0, nullptr);
@@ -2584,7 +2650,8 @@ void AdAuctionService_CreateAuctionNonce_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_CreateAuctionNonce_Name, kFlags, 0, 0, nullptr);
@@ -2666,7 +2733,7 @@ class AdAuctionService_RunAdAuction_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      bool in_aborted_by_script, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config);
+      bool in_aborted_by_script, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config);
 };
 
 bool AdAuctionService_RunAdAuction_ForwardToCallback::Accept(
@@ -2680,7 +2747,7 @@ bool AdAuctionService_RunAdAuction_ForwardToCallback::Accept(
   
   bool success = true;
   bool p_aborted_by_script{};
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig> p_config{};
+  std::optional<::blink::FencedFrame::RedactedFencedFrameConfig> p_config{};
   AdAuctionService_RunAdAuction_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2702,7 +2769,7 @@ std::move(p_config));
 }
 
 void AdAuctionService_RunAdAuction_ProxyToResponder::Run(
-    bool in_aborted_by_script, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config) {
+    bool in_aborted_by_script, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& in_config) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::AdAuctionService::RunAdAuction", "async_response_parameters",
@@ -2713,13 +2780,14 @@ void AdAuctionService_RunAdAuction_ProxyToResponder::Run(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("config"), in_config,
-                        "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&>");
+                        "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_RunAdAuction_Name, kFlags, 0, 0, nullptr);
@@ -2844,7 +2912,8 @@ void AdAuctionService_JoinInterestGroup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_JoinInterestGroup_Name, kFlags, 0, 0, nullptr);
@@ -2962,7 +3031,8 @@ void AdAuctionService_LeaveInterestGroup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_LeaveInterestGroup_Name, kFlags, 0, 0, nullptr);
@@ -3080,7 +3150,8 @@ void AdAuctionService_ClearOriginJoinedInterestGroups_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_ClearOriginJoinedInterestGroups_Name, kFlags, 0, 0, nullptr);
@@ -3152,7 +3223,7 @@ class AdAuctionService_DeprecatedGetURLFromURN_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      const absl::optional<::GURL>& in_decoded_url);
+      const std::optional<::GURL>& in_decoded_url);
 };
 
 bool AdAuctionService_DeprecatedGetURLFromURN_ForwardToCallback::Accept(
@@ -3165,7 +3236,7 @@ bool AdAuctionService_DeprecatedGetURLFromURN_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::GURL> p_decoded_url{};
+  std::optional<::GURL> p_decoded_url{};
   AdAuctionService_DeprecatedGetURLFromURN_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDecodedUrl(&p_decoded_url))
@@ -3184,7 +3255,7 @@ std::move(p_decoded_url));
 }
 
 void AdAuctionService_DeprecatedGetURLFromURN_ProxyToResponder::Run(
-    const absl::optional<::GURL>& in_decoded_url) {
+    const std::optional<::GURL>& in_decoded_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::AdAuctionService::DeprecatedGetURLFromURN", "async_response_parameters",
@@ -3192,13 +3263,14 @@ void AdAuctionService_DeprecatedGetURLFromURN_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("decoded_url"), in_decoded_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_DeprecatedGetURLFromURN_Name, kFlags, 0, 0, nullptr);
@@ -3311,7 +3383,8 @@ void AdAuctionService_DeprecatedReplaceInURN_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_DeprecatedReplaceInURN_Name, kFlags, 0, 0, nullptr);
@@ -3382,7 +3455,7 @@ class AdAuctionService_GetInterestGroupAdAuctionData_ProxyToResponder : public :
 #endif
 
   void Run(
-      ::mojo_base::BigBuffer in_request, const absl::optional<::base::Uuid>& in_request_id, const std::string& in_error_message);
+      ::mojo_base::BigBuffer in_request, const std::optional<::base::Uuid>& in_request_id, const std::string& in_error_message);
 };
 
 bool AdAuctionService_GetInterestGroupAdAuctionData_ForwardToCallback::Accept(
@@ -3396,7 +3469,7 @@ bool AdAuctionService_GetInterestGroupAdAuctionData_ForwardToCallback::Accept(
   
   bool success = true;
   ::mojo_base::BigBuffer p_request{};
-  absl::optional<::base::Uuid> p_request_id{};
+  std::optional<::base::Uuid> p_request_id{};
   std::string p_error_message{};
   AdAuctionService_GetInterestGroupAdAuctionData_ResponseParamsDataView input_data_view(params, message);
   
@@ -3422,7 +3495,7 @@ std::move(p_error_message));
 }
 
 void AdAuctionService_GetInterestGroupAdAuctionData_ProxyToResponder::Run(
-    ::mojo_base::BigBuffer in_request, const absl::optional<::base::Uuid>& in_request_id, const std::string& in_error_message) {
+    ::mojo_base::BigBuffer in_request, const std::optional<::base::Uuid>& in_request_id, const std::string& in_error_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::AdAuctionService::GetInterestGroupAdAuctionData", "async_response_parameters",
@@ -3433,7 +3506,7 @@ void AdAuctionService_GetInterestGroupAdAuctionData_ProxyToResponder::Run(
                         "<value of type ::mojo_base::BigBuffer>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
-                        "<value of type const absl::optional<::base::Uuid>&>");
+                        "<value of type const std::optional<::base::Uuid>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_message"), in_error_message,
                         "<value of type const std::string&>");
@@ -3442,7 +3515,8 @@ void AdAuctionService_GetInterestGroupAdAuctionData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdAuctionService_GetInterestGroupAdAuctionData_Name, kFlags, 0, 0, nullptr);
@@ -3885,7 +3959,7 @@ std::move(p_replacements), std::move(callback));
       
       bool success = true;
       ::url::Origin p_seller{};
-      absl::optional<::url::Origin> p_coordinator{};
+      std::optional<::url::Origin> p_coordinator{};
       AdAuctionService_GetInterestGroupAdAuctionData_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSeller(&p_seller))
@@ -3912,32 +3986,32 @@ std::move(p_coordinator), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAdAuctionServiceValidationInfo[] = {
-    {&internal::AdAuctionService_CreateAdRequest_Params_Data::Validate,
+    { &internal::AdAuctionService_CreateAdRequest_Params_Data::Validate,
      &internal::AdAuctionService_CreateAdRequest_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_FinalizeAd_Params_Data::Validate,
+    { &internal::AdAuctionService_FinalizeAd_Params_Data::Validate,
      &internal::AdAuctionService_FinalizeAd_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_CreateAuctionNonce_Params_Data::Validate,
+    { &internal::AdAuctionService_CreateAuctionNonce_Params_Data::Validate,
      &internal::AdAuctionService_CreateAuctionNonce_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_RunAdAuction_Params_Data::Validate,
+    { &internal::AdAuctionService_RunAdAuction_Params_Data::Validate,
      &internal::AdAuctionService_RunAdAuction_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_JoinInterestGroup_Params_Data::Validate,
+    { &internal::AdAuctionService_JoinInterestGroup_Params_Data::Validate,
      &internal::AdAuctionService_JoinInterestGroup_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_LeaveInterestGroup_Params_Data::Validate,
+    { &internal::AdAuctionService_LeaveInterestGroup_Params_Data::Validate,
      &internal::AdAuctionService_LeaveInterestGroup_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_LeaveInterestGroupForDocument_Params_Data::Validate,
+    { &internal::AdAuctionService_LeaveInterestGroupForDocument_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdAuctionService_ClearOriginJoinedInterestGroups_Params_Data::Validate,
+    { &internal::AdAuctionService_ClearOriginJoinedInterestGroups_Params_Data::Validate,
      &internal::AdAuctionService_ClearOriginJoinedInterestGroups_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_UpdateAdInterestGroups_Params_Data::Validate,
+    { &internal::AdAuctionService_UpdateAdInterestGroups_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdAuctionService_DeprecatedGetURLFromURN_Params_Data::Validate,
+    { &internal::AdAuctionService_DeprecatedGetURLFromURN_Params_Data::Validate,
      &internal::AdAuctionService_DeprecatedGetURLFromURN_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_DeprecatedReplaceInURN_Params_Data::Validate,
+    { &internal::AdAuctionService_DeprecatedReplaceInURN_Params_Data::Validate,
      &internal::AdAuctionService_DeprecatedReplaceInURN_ResponseParams_Data::Validate},
-    {&internal::AdAuctionService_GetInterestGroupAdAuctionData_Params_Data::Validate,
+    { &internal::AdAuctionService_GetInterestGroupAdAuctionData_Params_Data::Validate,
      &internal::AdAuctionService_GetInterestGroupAdAuctionData_ResponseParams_Data::Validate},
 };
 
@@ -4006,10 +4080,10 @@ bool UnionTraits<::blink::mojom::AuctionAdConfigAuctionId::DataView, ::blink::mo
 namespace blink::mojom {
 
 
-void AbortableAdAuctionInterceptorForTesting::ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const absl::optional<std::string>& json_value) {
+void AbortableAdAuctionInterceptorForTesting::ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const std::optional<std::string>& json_value) {
   GetForwardingInterface()->ResolvedPromiseParam(std::move(auction), std::move(field), std::move(json_value));
 }
-void AbortableAdAuctionInterceptorForTesting::ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<base::flat_map<::url::Origin, std::string>>& per_buyer_signals) {
+void AbortableAdAuctionInterceptorForTesting::ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<base::flat_map<::url::Origin, std::string>>& per_buyer_signals) {
   GetForwardingInterface()->ResolvedPerBuyerSignalsPromise(std::move(auction), std::move(per_buyer_signals));
 }
 void AbortableAdAuctionInterceptorForTesting::ResolvedBuyerTimeoutsPromise(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigBuyerTimeoutField field, const ::blink::AuctionConfig::BuyerTimeouts& buyer_timeouts) {
@@ -4018,10 +4092,10 @@ void AbortableAdAuctionInterceptorForTesting::ResolvedBuyerTimeoutsPromise(Aucti
 void AbortableAdAuctionInterceptorForTesting::ResolvedBuyerCurrenciesPromise(AuctionAdConfigAuctionIdPtr auction, const ::blink::AuctionConfig::BuyerCurrencies& per_buyer_currencies) {
   GetForwardingInterface()->ResolvedBuyerCurrenciesPromise(std::move(auction), std::move(per_buyer_currencies));
 }
-void AbortableAdAuctionInterceptorForTesting::ResolvedDirectFromSellerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<::blink::DirectFromSellerSignals>& direct_from_seller_signals) {
+void AbortableAdAuctionInterceptorForTesting::ResolvedDirectFromSellerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<::blink::DirectFromSellerSignals>& direct_from_seller_signals) {
   GetForwardingInterface()->ResolvedDirectFromSellerSignalsPromise(std::move(auction), std::move(direct_from_seller_signals));
 }
-void AbortableAdAuctionInterceptorForTesting::ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<std::string>& direct_from_seller_signals_header_ad_slot) {
+void AbortableAdAuctionInterceptorForTesting::ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<std::string>& direct_from_seller_signals_header_ad_slot) {
   GetForwardingInterface()->ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(std::move(auction), std::move(direct_from_seller_signals_header_ad_slot));
 }
 void AbortableAdAuctionInterceptorForTesting::ResolvedAuctionAdResponsePromise(AuctionAdConfigAuctionIdPtr auction, ::mojo_base::BigBuffer result) {
@@ -4074,7 +4148,7 @@ void AdAuctionServiceInterceptorForTesting::DeprecatedGetURLFromURN(const ::GURL
 void AdAuctionServiceInterceptorForTesting::DeprecatedReplaceInURN(const ::GURL& uuid_url, std::vector<AdKeywordReplacementPtr> replacements, DeprecatedReplaceInURNCallback callback) {
   GetForwardingInterface()->DeprecatedReplaceInURN(std::move(uuid_url), std::move(replacements), std::move(callback));
 }
-void AdAuctionServiceInterceptorForTesting::GetInterestGroupAdAuctionData(const ::url::Origin& seller, const absl::optional<::url::Origin>& coordinator, GetInterestGroupAdAuctionDataCallback callback) {
+void AdAuctionServiceInterceptorForTesting::GetInterestGroupAdAuctionData(const ::url::Origin& seller, const std::optional<::url::Origin>& coordinator, GetInterestGroupAdAuctionDataCallback callback) {
   GetForwardingInterface()->GetInterestGroupAdAuctionData(std::move(seller), std::move(coordinator), std::move(callback));
 }
 AdAuctionServiceAsyncWaiter::AdAuctionServiceAsyncWaiter(
@@ -4083,14 +4157,14 @@ AdAuctionServiceAsyncWaiter::AdAuctionServiceAsyncWaiter(
 AdAuctionServiceAsyncWaiter::~AdAuctionServiceAsyncWaiter() = default;
 
 void AdAuctionServiceAsyncWaiter::CreateAdRequest(
-    ::blink::mojom::AdRequestConfigPtr config, absl::optional<std::string>* out_ads_guid) {
+    ::blink::mojom::AdRequestConfigPtr config, std::optional<std::string>* out_ads_guid) {
   base::RunLoop loop;
   proxy_->CreateAdRequest(std::move(config),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_ads_guid
+             std::optional<std::string>* out_ads_guid
 ,
-             const absl::optional<std::string>& ads_guid) {*out_ads_guid = std::move(ads_guid);
+             const std::optional<std::string>& ads_guid) {*out_ads_guid = std::move(ads_guid);
             loop->Quit();
           },
           &loop,
@@ -4098,22 +4172,22 @@ void AdAuctionServiceAsyncWaiter::CreateAdRequest(
   loop.Run();
 }
 
-absl::optional<std::string> AdAuctionServiceAsyncWaiter::CreateAdRequest(
+std::optional<std::string> AdAuctionServiceAsyncWaiter::CreateAdRequest(
     ::blink::mojom::AdRequestConfigPtr config) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   CreateAdRequest(std::move(config),&async_wait_result);
   return async_wait_result;
 }
 
 void AdAuctionServiceAsyncWaiter::FinalizeAd(
-    const std::string& ads_guid, const ::blink::AuctionConfig& config, absl::optional<::GURL>* out_ad_display_url) {
+    const std::string& ads_guid, const ::blink::AuctionConfig& config, std::optional<::GURL>* out_ad_display_url) {
   base::RunLoop loop;
   proxy_->FinalizeAd(std::move(ads_guid),std::move(config),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::GURL>* out_ad_display_url
+             std::optional<::GURL>* out_ad_display_url
 ,
-             const absl::optional<::GURL>& ad_display_url) {*out_ad_display_url = std::move(ad_display_url);
+             const std::optional<::GURL>& ad_display_url) {*out_ad_display_url = std::move(ad_display_url);
             loop->Quit();
           },
           &loop,
@@ -4121,9 +4195,9 @@ void AdAuctionServiceAsyncWaiter::FinalizeAd(
   loop.Run();
 }
 
-absl::optional<::GURL> AdAuctionServiceAsyncWaiter::FinalizeAd(
+std::optional<::GURL> AdAuctionServiceAsyncWaiter::FinalizeAd(
     const std::string& ads_guid, const ::blink::AuctionConfig& config) {
-  absl::optional<::GURL> async_wait_result;
+  std::optional<::GURL> async_wait_result;
   FinalizeAd(std::move(ads_guid),std::move(config),&async_wait_result);
   return async_wait_result;
 }
@@ -4152,17 +4226,17 @@ void AdAuctionServiceAsyncWaiter::CreateAuctionNonce(
 }
 
 void AdAuctionServiceAsyncWaiter::RunAdAuction(
-    const ::blink::AuctionConfig& config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config) {
+    const ::blink::AuctionConfig& config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config) {
   base::RunLoop loop;
   proxy_->RunAdAuction(std::move(config),std::move(abort_receiver),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_aborted_by_script
 ,
-             absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config
+             std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config
 ,
              bool aborted_by_script,
-             const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& config) {*out_aborted_by_script = std::move(aborted_by_script);*out_config = std::move(config);
+             const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>& config) {*out_aborted_by_script = std::move(aborted_by_script);*out_config = std::move(config);
             loop->Quit();
           },
           &loop,
@@ -4243,14 +4317,14 @@ bool AdAuctionServiceAsyncWaiter::ClearOriginJoinedInterestGroups(
 }
 
 void AdAuctionServiceAsyncWaiter::DeprecatedGetURLFromURN(
-    const ::GURL& uuid_url, bool send_reports, absl::optional<::GURL>* out_decoded_url) {
+    const ::GURL& uuid_url, bool send_reports, std::optional<::GURL>* out_decoded_url) {
   base::RunLoop loop;
   proxy_->DeprecatedGetURLFromURN(std::move(uuid_url),std::move(send_reports),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::GURL>* out_decoded_url
+             std::optional<::GURL>* out_decoded_url
 ,
-             const absl::optional<::GURL>& decoded_url) {*out_decoded_url = std::move(decoded_url);
+             const std::optional<::GURL>& decoded_url) {*out_decoded_url = std::move(decoded_url);
             loop->Quit();
           },
           &loop,
@@ -4258,9 +4332,9 @@ void AdAuctionServiceAsyncWaiter::DeprecatedGetURLFromURN(
   loop.Run();
 }
 
-absl::optional<::GURL> AdAuctionServiceAsyncWaiter::DeprecatedGetURLFromURN(
+std::optional<::GURL> AdAuctionServiceAsyncWaiter::DeprecatedGetURLFromURN(
     const ::GURL& uuid_url, bool send_reports) {
-  absl::optional<::GURL> async_wait_result;
+  std::optional<::GURL> async_wait_result;
   DeprecatedGetURLFromURN(std::move(uuid_url),std::move(send_reports),&async_wait_result);
   return async_wait_result;
 }
@@ -4280,19 +4354,19 @@ void AdAuctionServiceAsyncWaiter::DeprecatedReplaceInURN(
 
 
 void AdAuctionServiceAsyncWaiter::GetInterestGroupAdAuctionData(
-    const ::url::Origin& seller, const absl::optional<::url::Origin>& coordinator, ::mojo_base::BigBuffer* out_request, absl::optional<::base::Uuid>* out_request_id, std::string* out_error_message) {
+    const ::url::Origin& seller, const std::optional<::url::Origin>& coordinator, ::mojo_base::BigBuffer* out_request, std::optional<::base::Uuid>* out_request_id, std::string* out_error_message) {
   base::RunLoop loop;
   proxy_->GetInterestGroupAdAuctionData(std::move(seller),std::move(coordinator),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo_base::BigBuffer* out_request
 ,
-             absl::optional<::base::Uuid>* out_request_id
+             std::optional<::base::Uuid>* out_request_id
 ,
              std::string* out_error_message
 ,
              ::mojo_base::BigBuffer request,
-             const absl::optional<::base::Uuid>& request_id,
+             const std::optional<::base::Uuid>& request_id,
              const std::string& error_message) {*out_request = std::move(request);*out_request_id = std::move(request_id);*out_error_message = std::move(error_message);
             loop->Quit();
           },

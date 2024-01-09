@@ -49,30 +49,6 @@ std::ostream& operator<<(std::ostream& os, MediaDeviceType value) {
   return os << MediaDeviceTypeToString(value);
 }
 
-NOINLINE static const char* SubCaptureTargetTypeToStringHelper(SubCaptureTargetType value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case SubCaptureTargetType::kCropTarget:
-      return "kCropTarget";
-    case SubCaptureTargetType::kRestrictionTarget:
-      return "kRestrictionTarget";
-    default:
-      return nullptr;
-  }
-}
-
-std::string SubCaptureTargetTypeToString(SubCaptureTargetType value) {
-  const char *str = SubCaptureTargetTypeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown SubCaptureTargetType value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, SubCaptureTargetType value) {
-  return os << SubCaptureTargetTypeToString(value);
-}
-
 NOINLINE static const char* FacingModeToStringHelper(FacingMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -113,7 +89,7 @@ bool MediaDeviceInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -155,6 +131,23 @@ bool MediaDeviceInfo_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->control_support, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->control_support, validation_context))
+    return false;
+
+
+  if (!::blink::mojom::internal::FacingMode_Data
+        ::Validate(object->facing_mode, validation_context))
+    return false;
+
+
+  if (!::media::mojom::internal::CameraAvailability_Data
+        ::Validate(object->availability_$value, validation_context))
+    return false;
+
   return true;
 }
 
@@ -169,7 +162,7 @@ bool VideoInputDeviceCapabilities_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -221,6 +214,11 @@ bool VideoInputDeviceCapabilities_Data::Validate(
 
   if (!::blink::mojom::internal::FacingMode_Data
         ::Validate(object->facing_mode, validation_context))
+    return false;
+
+
+  if (!::media::mojom::internal::CameraAvailability_Data
+        ::Validate(object->availability_$value, validation_context))
     return false;
 
   return true;
@@ -731,7 +729,7 @@ bool MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data::Validate(
       static_cast<const MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data*>(data);
 
 
-  if (!::blink::mojom::internal::SubCaptureTargetType_Data
+  if (!::media::mojom::internal::SubCaptureTargetType_Data
         ::Validate(object->type, validation_context))
     return false;
 
@@ -824,16 +822,6 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::MediaDeviceType>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::MediaDeviceType value) {
   return std::move(context).WriteString(::blink::mojom::MediaDeviceTypeToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::blink::mojom::SubCaptureTargetType>::WriteIntoTrace(
-   perfetto::TracedValue context, ::blink::mojom::SubCaptureTargetType value) {
-  return std::move(context).WriteString(::blink::mojom::SubCaptureTargetTypeToString(value));
 }
 
 } // namespace perfetto

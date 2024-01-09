@@ -6,9 +6,10 @@
  * personalization SWA.
  */
 import { WallpaperType } from '../../personalization_app.mojom-webui.js';
-import { isGooglePhotosIntegrationEnabled, isSeaPenEnabled } from '../load_time_booleans.js';
+import { isGooglePhotosIntegrationEnabled } from '../load_time_booleans.js';
 import { Paths, PersonalizationRouterElement } from '../personalization_router_element.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
+import { isSeaPenEnabled } from './sea_pen/load_time_booleans.js';
 import { getTemplate } from './wallpaper_subpage_element.html.js';
 export class WallpaperSubpageElement extends WithPersonalizationStore {
     static get is() {
@@ -57,9 +58,6 @@ export class WallpaperSubpageElement extends WithPersonalizationStore {
     computeIsGooglePhotosAlbumShared_(queryParams) {
         return !!queryParams && queryParams.googlePhotosAlbumIsShared === 'true';
     }
-    shouldShowWallpaperSelected_(path) {
-        return !this.shouldShowSeaPenCollection_(path);
-    }
     shouldShowCollections_(path) {
         return path === Paths.COLLECTIONS;
     }
@@ -72,9 +70,6 @@ export class WallpaperSubpageElement extends WithPersonalizationStore {
     }
     shouldShowLocalCollection_(path) {
         return path === Paths.LOCAL_COLLECTION;
-    }
-    shouldShowSeaPenCollection_(path) {
-        return this.isSeaPenEnabled_ && path === Paths.SEA_PEN_COLLECTION;
     }
 }
 customElements.define(WallpaperSubpageElement.is, WallpaperSubpageElement);

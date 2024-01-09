@@ -26,6 +26,8 @@ class PageLifecycleStateDataView;
 
 class PageRestoreParamsDataView;
 
+class ColorProviderColorMapsDataView;
+
 class PrerenderPageActivationParamsDataView;
 
 
@@ -35,6 +37,9 @@ using PageLifecycleStatePtr = mojo::StructPtr<PageLifecycleState>;
 
 class PageRestoreParams;
 using PageRestoreParamsPtr = mojo::StructPtr<PageRestoreParams>;
+
+class ColorProviderColorMaps;
+using ColorProviderColorMapsPtr = mojo::StructPtr<ColorProviderColorMaps>;
 
 class PrerenderPageActivationParams;
 using PrerenderPageActivationParamsPtr = mojo::StructPtr<PrerenderPageActivationParams>;

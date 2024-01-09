@@ -4,7 +4,7 @@
 import * as TextUtils from '../../models/text_utils/text_utils.js';
 import * as Platform from '../platform/platform.js';
 import { cssMetadata, VariableRegex } from './CSSMetadata.js';
-import { CSSKeyframesRule, CSSPositionFallbackRule, CSSPropertyRule, CSSStyleRule } from './CSSRule.js';
+import { CSSFontPaletteValuesRule, CSSKeyframesRule, CSSPositionFallbackRule, CSSPropertyRule, CSSStyleRule, } from './CSSRule.js';
 import { CSSStyleDeclaration, Type } from './CSSStyleDeclaration.js';
 export function parseCSSVariableNameAndFallback(cssVariableValue) {
     const match = cssVariableValue.match(/var\(\s*(--(?:[\s\w\P{ASCII}-]|\\.)+),?\s*(.*)\s*\)/u);
@@ -204,12 +204,13 @@ export class CSSMatchedStyles {
     #mainDOMCascade;
     #pseudoDOMCascades;
     #customHighlightPseudoDOMCascades;
+    #fontPaletteValuesRule;
     static async create(payload) {
         const cssMatchedStyles = new CSSMatchedStyles(payload);
         await cssMatchedStyles.init(payload);
         return cssMatchedStyles;
     }
-    constructor({ cssModel, node, animationsPayload, parentLayoutNodeId, positionFallbackRules, propertyRules, cssPropertyRegistrations, }) {
+    constructor({ cssModel, node, animationsPayload, parentLayoutNodeId, positionFallbackRules, propertyRules, cssPropertyRegistrations, fontPaletteValuesRule, }) {
         this.#cssModelInternal = cssModel;
         this.#nodeInternal = node;
         this.#addedStyles = new Map();
@@ -224,6 +225,8 @@ export class CSSMatchedStyles {
         }
         this.#positionFallbackRules = positionFallbackRules.map(rule => new CSSPositionFallbackRule(cssModel, rule));
         this.#parentLayoutNodeId = parentLayoutNodeId;
+        this.#fontPaletteValuesRule =
+            fontPaletteValuesRule ? new CSSFontPaletteValuesRule(cssModel, fontPaletteValuesRule) : undefined;
         this.#nodeForStyleInternal = new Map();
         this.#inheritedStyles = new Set();
         this.#styleToDOMCascade = new Map();
@@ -536,6 +539,9 @@ export class CSSMatchedStyles {
     getRegisteredProperty(name) {
         return this.#registeredPropertyMap.get(name);
     }
+    fontPaletteValuesRule() {
+        return this.#fontPaletteValuesRule;
+    }
     keyframes() {
         return this.#keyframesInternal;
     }
@@ -752,7 +758,10 @@ class DOMInheritanceCascade {
         }
         const computedValue = this.innerComputeValue(availableCSSVariables, computedCSSVariables, cssVariableValue);
         const { variableName } = parseCSSVariableNameAndFallback(cssVariableValue);
-        return { computedValue, fromFallback: variableName !== null && !availableCSSVariables.has(variableName) };
+        return {
+            computedValue: computedValue,
+            fromFallback: variableName !== null && !availableCSSVariables.has(variableName),
+        };
     }
     innerComputeCSSVariable(availableCSSVariables, computedCSSVariables, variableName) {
         if (!availableCSSVariables.has(variableName)) {
@@ -767,9 +776,10 @@ class DOMInheritanceCascade {
         if (definedValue === undefined || definedValue === null) {
             return null;
         }
-        const computedValue = this.innerComputeValue(availableCSSVariables, computedCSSVariables, definedValue);
-        computedCSSVariables.set(variableName, computedValue);
-        return computedValue;
+        const computedValue = this.innerComputeValue(availableCSSVariables, computedCSSVariables, definedValue.value);
+        const value = computedValue ? { value: computedValue, declaration: definedValue.declaration } : null;
+        computedCSSVariables.set(variableName, value);
+        return value;
     }
     innerComputeValue(availableCSSVariables, computedCSSVariables, value) {
         const results = TextUtils.TextUtils.Utils.splitStringByRegexes(value, [VariableRegex]);
@@ -792,7 +802,7 @@ class DOMInheritanceCascade {
                 tokens.push(fallback);
             }
             else {
-                tokens.push(computedValue);
+                tokens.push(computedValue.value);
             }
         }
         return tokens.map(token => token ? token.trim() : '').join(' ');
@@ -859,7 +869,10 @@ class DOMInheritanceCascade {
         }
         // Work inheritance chain backwards to compute visible CSS Variables.
         const accumulatedCSSVariables = new Map();
-        this.#registeredProperties.forEach(rule => accumulatedCSSVariables.set(rule.propertyName(), rule.initialValue()));
+        for (const rule of this.#registeredProperties) {
+            const initialValue = rule.initialValue();
+            accumulatedCSSVariables.set(rule.propertyName(), initialValue ? { value: initialValue, declaration: rule } : null);
+        }
         for (let i = this.#nodeCascades.length - 1; i >= 0; --i) {
             const nodeCascade = this.#nodeCascades[i];
             const variableNames = [];
@@ -867,7 +880,7 @@ class DOMInheritanceCascade {
                 const propertyName = entry[0];
                 const property = entry[1];
                 if (propertyName.startsWith('--')) {
-                    accumulatedCSSVariables.set(propertyName, property.value);
+                    accumulatedCSSVariables.set(propertyName, { value: property.value, declaration: property });
                     variableNames.push(propertyName);
                 }
             }
@@ -876,8 +889,13 @@ class DOMInheritanceCascade {
             this.#availableCSSVariables.set(nodeCascade, availableCSSVariablesMap);
             this.#computedCSSVariables.set(nodeCascade, computedVariablesMap);
             for (const variableName of variableNames) {
+                const prevValue = accumulatedCSSVariables.get(variableName);
                 accumulatedCSSVariables.delete(variableName);
-                accumulatedCSSVariables.set(variableName, this.innerComputeCSSVariable(availableCSSVariablesMap, computedVariablesMap, variableName));
+                const computedValue = this.innerComputeCSSVariable(availableCSSVariablesMap, computedVariablesMap, variableName);
+                if (prevValue && computedValue?.value === prevValue.value) {
+                    computedValue.declaration = prevValue.declaration;
+                }
+                accumulatedCSSVariables.set(variableName, computedValue);
             }
         }
     }

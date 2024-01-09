@@ -16,6 +16,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_auction_ad_config.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_auction_ad_interest_group_size.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_auction_report_buyers_config.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_protected_audience_private_aggregation_config.h"
 #include "third_party/blink/renderer/core/dom/abort_signal.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
@@ -56,28 +57,28 @@ return dictionary;
 
 
 
-String AuctionAdConfig::getAggregationCoordinatorOriginOr(const String& fallback_value) const {
-  if (!hasAggregationCoordinatorOrigin()) {
+HeapVector<Member<AuctionAdInterestGroupSize>> AuctionAdConfig::getAllSlotsRequestedSizesOr(const HeapVector<Member<AuctionAdInterestGroupSize>>& fallback_value) const {
+  if (!hasAllSlotsRequestedSizes()) {
   return fallback_value;
 }
-return member_aggregation_coordinator_origin_;
+return member_all_slots_requested_sizes_;
 }
 
-String AuctionAdConfig::getAggregationCoordinatorOriginOr(String&& fallback_value) const {
-  if (!hasAggregationCoordinatorOrigin()) {
+HeapVector<Member<AuctionAdInterestGroupSize>> AuctionAdConfig::getAllSlotsRequestedSizesOr(HeapVector<Member<AuctionAdInterestGroupSize>>&& fallback_value) const {
+  if (!hasAllSlotsRequestedSizes()) {
   return std::move(fallback_value);
 }
-return member_aggregation_coordinator_origin_;
+return member_all_slots_requested_sizes_;
 }
 
-void AuctionAdConfig::setAggregationCoordinatorOrigin(const String& value) {
-  member_aggregation_coordinator_origin_ = value;
-has_aggregation_coordinator_origin_ = true;
+void AuctionAdConfig::setAllSlotsRequestedSizes(const HeapVector<Member<AuctionAdInterestGroupSize>>& value) {
+  member_all_slots_requested_sizes_ = value;
+has_all_slots_requested_sizes_ = true;
 }
 
-void AuctionAdConfig::setAggregationCoordinatorOrigin(String&& value) {
-  member_aggregation_coordinator_origin_ = std::move(value);
-has_aggregation_coordinator_origin_ = true;
+void AuctionAdConfig::setAllSlotsRequestedSizes(HeapVector<Member<AuctionAdInterestGroupSize>>&& value) {
+  member_all_slots_requested_sizes_ = std::move(value);
+has_all_slots_requested_sizes_ = true;
 }
 
 
@@ -402,6 +403,13 @@ has_per_buyer_priority_signals_ = true;
 
 
 
+
+
+
+
+
+
+
 String AuctionAdConfig::getRequestIdOr(const String& fallback_value) const {
   if (!hasRequestId()) {
   return fallback_value;
@@ -599,7 +607,7 @@ has_trusted_scoring_signals_url_deprecated_ = true;
 
 void AuctionAdConfig::Trace(Visitor* visitor) const {
   TraceIfNeeded<ScriptPromise>::Trace(visitor, member_additional_bids_);
-TraceIfNeeded<String>::Trace(visitor, member_aggregation_coordinator_origin_);
+TraceIfNeeded<HeapVector<Member<AuctionAdInterestGroupSize>>>::Trace(visitor, member_all_slots_requested_sizes_);
 TraceIfNeeded<String>::Trace(visitor, member_auction_nonce_);
 TraceIfNeeded<Vector<BigInt>>::Trace(visitor, member_auction_report_buyer_keys_);
 TraceIfNeeded<HeapVector<std::pair<String, Member<AuctionReportBuyersConfig>>>>::Trace(visitor, member_auction_report_buyers_);
@@ -617,6 +625,7 @@ TraceIfNeeded<Vector<std::pair<String, uint16_t>>>::Trace(visitor, member_per_bu
 TraceIfNeeded<Vector<std::pair<String, Vector<std::pair<String, double>>>>>::Trace(visitor, member_per_buyer_priority_signals_);
 TraceIfNeeded<ScriptPromise>::Trace(visitor, member_per_buyer_signals_);
 TraceIfNeeded<ScriptPromise>::Trace(visitor, member_per_buyer_timeouts_);
+TraceIfNeeded<Member<ProtectedAudiencePrivateAggregationConfig>>::Trace(visitor, member_private_aggregation_config_);
 TraceIfNeeded<String>::Trace(visitor, member_request_id_);
 TraceIfNeeded<Member<AuctionAdInterestGroupSize>>::Trace(visitor, member_requested_size_);
 TraceIfNeeded<Vector<String>>::Trace(visitor, member_required_seller_capabilities_);
@@ -649,12 +658,14 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
 }
 }
 }
-if (hasAggregationCoordinatorOrigin()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_aggregation_coordinator_origin_).ToLocal(&v8_value)) {
+if (RuntimeEnabledFeatures::FledgeTrustedBiddingSignalsSlotSizeEnabled()) {
+  if (hasAllSlotsRequestedSizes()) {
+  if (!ToV8Traits<IDLSequence<AuctionAdInterestGroupSize>>::ToV8(script_state, member_all_slots_requested_sizes_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
+}
 }
 }
 if (RuntimeEnabledFeatures::FledgeNegativeTargetingEnabled()) {
@@ -797,11 +808,19 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].
   return false;
 }
 }
+if (hasPrivateAggregationConfig()) {
+  if (!ToV8Traits<ProtectedAudiencePrivateAggregationConfig>::ToV8(script_state, member_private_aggregation_config_.Get()).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasRequestId()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_request_id_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -809,7 +828,7 @@ if (hasRequestedSize()) {
   if (!ToV8Traits<AuctionAdInterestGroupSize>::ToV8(script_state, member_requested_size_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -817,7 +836,7 @@ if (hasRequiredSellerCapabilities()) {
   if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_required_seller_capabilities_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -825,7 +844,7 @@ if (hasResolveToConfig()) {
   if (!ToV8Traits<IDLPromise>::ToV8(script_state, member_resolve_to_config_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -833,7 +852,7 @@ if (hasSeller()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_seller_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -841,7 +860,7 @@ if (hasSellerCurrency()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_seller_currency_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -849,7 +868,7 @@ if (hasSellerExperimentGroupId()) {
   if (!ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_seller_experiment_group_id_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -857,7 +876,7 @@ if (hasSellerSignals()) {
   if (!ToV8Traits<IDLPromise>::ToV8(script_state, member_seller_signals_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -865,7 +884,7 @@ if (hasSellerTimeout()) {
   if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_seller_timeout_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -873,7 +892,7 @@ if (hasServerResponse()) {
   if (!ToV8Traits<IDLPromise>::ToV8(script_state, member_server_response_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -881,7 +900,7 @@ if (hasSignal()) {
   if (!ToV8Traits<IDLNullable<AbortSignal>>::ToV8(script_state, member_signal_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -889,7 +908,7 @@ if (hasTrustedScoringSignalsURL()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_scoring_signals_url_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -897,7 +916,7 @@ if (hasTrustedScoringSignalsUrlDeprecated()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_scoring_signals_url_deprecated_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -918,9 +937,11 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate,
   return;
 }
 }
-exception_context_scope.ChangePropertyNameAsOptimizationHack("aggregationCoordinatorOrigin");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_aggregation_coordinator_origin_, member_aggregation_coordinator_origin_, try_block, exception_state)) {
+if (RuntimeEnabledFeatures::FledgeTrustedBiddingSignalsSlotSizeEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("allSlotsRequestedSizes");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<AuctionAdInterestGroupSize>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_all_slots_requested_sizes_, member_all_slots_requested_sizes_, try_block, exception_state)) {
   return;
+}
 }
 if (RuntimeEnabledFeatures::FledgeNegativeTargetingEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("auctionNonce");
@@ -994,57 +1015,61 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("perBuyerTimeouts")
 if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[18].Get(isolate), fallback_presence_var, member_per_buyer_timeouts_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("privateAggregationConfig");
+if (!bindings::GetDictionaryMemberFromV8Object<ProtectedAudiencePrivateAggregationConfig, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[19].Get(isolate), has_private_aggregation_config_, member_private_aggregation_config_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("requestId");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[19].Get(isolate), has_request_id_, member_request_id_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[20].Get(isolate), has_request_id_, member_request_id_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("requestedSize");
-if (!bindings::GetDictionaryMemberFromV8Object<AuctionAdInterestGroupSize, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[20].Get(isolate), has_requested_size_, member_requested_size_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<AuctionAdInterestGroupSize, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[21].Get(isolate), has_requested_size_, member_requested_size_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("requiredSellerCapabilities");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[21].Get(isolate), has_required_seller_capabilities_, member_required_seller_capabilities_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[22].Get(isolate), has_required_seller_capabilities_, member_required_seller_capabilities_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("resolveToConfig");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[22].Get(isolate), fallback_presence_var, member_resolve_to_config_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[23].Get(isolate), fallback_presence_var, member_resolve_to_config_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("seller");
 constexpr bool is_required = true;
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[23].Get(isolate), fallback_presence_var, member_seller_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[24].Get(isolate), fallback_presence_var, member_seller_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sellerCurrency");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[24].Get(isolate), has_seller_currency_, member_seller_currency_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[25].Get(isolate), has_seller_currency_, member_seller_currency_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sellerExperimentGroupId");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShort, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[25].Get(isolate), has_seller_experiment_group_id_, member_seller_experiment_group_id_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShort, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[26].Get(isolate), has_seller_experiment_group_id_, member_seller_experiment_group_id_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sellerSignals");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[26].Get(isolate), fallback_presence_var, member_seller_signals_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[27].Get(isolate), fallback_presence_var, member_seller_signals_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sellerTimeout");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[27].Get(isolate), has_seller_timeout_, member_seller_timeout_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[28].Get(isolate), has_seller_timeout_, member_seller_timeout_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("serverResponse");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[28].Get(isolate), fallback_presence_var, member_server_response_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLPromise, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[29].Get(isolate), fallback_presence_var, member_server_response_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("signal");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<AbortSignal>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[29].Get(isolate), has_signal_, member_signal_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<AbortSignal>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[30].Get(isolate), has_signal_, member_signal_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("trustedScoringSignalsURL");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[30].Get(isolate), has_trusted_scoring_signals_url_, member_trusted_scoring_signals_url_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[31].Get(isolate), has_trusted_scoring_signals_url_, member_trusted_scoring_signals_url_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("trustedScoringSignalsUrl");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[31].Get(isolate), has_trusted_scoring_signals_url_deprecated_, member_trusted_scoring_signals_url_deprecated_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[32].Get(isolate), has_trusted_scoring_signals_url_deprecated_, member_trusted_scoring_signals_url_deprecated_, try_block, exception_state)) {
   return;
 }
 }
@@ -1052,7 +1077,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 const base::span<const v8::Eternal<v8::Name>> AuctionAdConfig::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "additionalBids",
-"aggregationCoordinatorOrigin",
+"allSlotsRequestedSizes",
 "auctionNonce",
 "auctionReportBuyerKeys",
 "auctionReportBuyers",
@@ -1070,6 +1095,7 @@ const base::span<const v8::Eternal<v8::Name>> AuctionAdConfig::GetV8OwnMemberNam
 "perBuyerPrioritySignals",
 "perBuyerSignals",
 "perBuyerTimeouts",
+"privateAggregationConfig",
 "requestId",
 "requestedSize",
 "requiredSellerCapabilities",

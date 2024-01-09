@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/private_network_device/private_network_device.mojom-features.h"
 #include "third_party/blink/public/mojom/private_network_device/private_network_device.mojom-shared.h"
 #include "third_party/blink/public/mojom/private_network_device/private_network_device.mojom-forward.h"
 #include "services/network/public/mojom/ip_address.mojom.h"
@@ -73,8 +74,8 @@ class BLINK_COMMON_EXPORT PrivateNetworkDevice {
   PrivateNetworkDevice();
 
   PrivateNetworkDevice(
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& name,
       const ::net::IPAddress& ip_address);
 
 
@@ -153,9 +154,9 @@ class BLINK_COMMON_EXPORT PrivateNetworkDevice {
   }
 
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   ::net::IPAddress ip_address;
 

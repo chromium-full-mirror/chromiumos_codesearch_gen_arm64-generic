@@ -3346,32 +3346,36 @@ bool UpgradeContainerRequest_Version_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UpgradeContainerRequest_Version_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UpgradeContainerRequest_Version_strings[5] = {};
 
 static const char UpgradeContainerRequest_Version_names[] =
+  "DEBIAN_BOOKWORM"
   "DEBIAN_BULLSEYE"
   "DEBIAN_BUSTER"
   "DEBIAN_STRETCH"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UpgradeContainerRequest_Version_entries[] = {
-  { {UpgradeContainerRequest_Version_names + 0, 15}, 3 },
-  { {UpgradeContainerRequest_Version_names + 15, 13}, 2 },
-  { {UpgradeContainerRequest_Version_names + 28, 14}, 1 },
-  { {UpgradeContainerRequest_Version_names + 42, 7}, 0 },
+  { {UpgradeContainerRequest_Version_names + 0, 15}, 4 },
+  { {UpgradeContainerRequest_Version_names + 15, 15}, 3 },
+  { {UpgradeContainerRequest_Version_names + 30, 13}, 2 },
+  { {UpgradeContainerRequest_Version_names + 43, 14}, 1 },
+  { {UpgradeContainerRequest_Version_names + 57, 7}, 0 },
 };
 
 static const int UpgradeContainerRequest_Version_entries_by_number[] = {
-  3, // 0 -> UNKNOWN
-  2, // 1 -> DEBIAN_STRETCH
-  1, // 2 -> DEBIAN_BUSTER
-  0, // 3 -> DEBIAN_BULLSEYE
+  4, // 0 -> UNKNOWN
+  3, // 1 -> DEBIAN_STRETCH
+  2, // 2 -> DEBIAN_BUSTER
+  1, // 3 -> DEBIAN_BULLSEYE
+  0, // 4 -> DEBIAN_BOOKWORM
 };
 
 const std::string& UpgradeContainerRequest_Version_Name(
@@ -3380,12 +3384,12 @@ const std::string& UpgradeContainerRequest_Version_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           UpgradeContainerRequest_Version_entries,
           UpgradeContainerRequest_Version_entries_by_number,
-          4, UpgradeContainerRequest_Version_strings);
+          5, UpgradeContainerRequest_Version_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       UpgradeContainerRequest_Version_entries,
       UpgradeContainerRequest_Version_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      UpgradeContainerRequest_Version_strings[idx].get();
 }
@@ -3393,7 +3397,7 @@ bool UpgradeContainerRequest_Version_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpgradeContainerRequest_Version* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      UpgradeContainerRequest_Version_entries, 4, name, &int_value);
+      UpgradeContainerRequest_Version_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<UpgradeContainerRequest_Version>(int_value);
   }
@@ -3404,6 +3408,7 @@ constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::UNKNOWN;
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::DEBIAN_STRETCH;
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::DEBIAN_BUSTER;
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::DEBIAN_BULLSEYE;
+constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::DEBIAN_BOOKWORM;
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::Version_MIN;
 constexpr UpgradeContainerRequest_Version UpgradeContainerRequest::Version_MAX;
 constexpr int UpgradeContainerRequest::Version_ARRAYSIZE;

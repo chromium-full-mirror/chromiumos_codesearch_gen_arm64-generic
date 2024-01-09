@@ -793,8 +793,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'includeLoggingOutput', 40,
+        2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],]);
+    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],]);
 
 
 
@@ -821,6 +829,8 @@ chromeos.machineLearning.mojom.SodaConfig = class {
     this.maskOffensiveWords;
     /** @export { !boolean } */
     this.speakerChangeDetection;
+    /** @export { !boolean } */
+    this.includeLoggingOutput;
   }
 };
 

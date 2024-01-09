@@ -53,10 +53,10 @@ class BLINK_COMMON_EXPORT BlobAsyncWaiter {
 
   ~BlobAsyncWaiter();
   void ReadSideData(
-      absl::optional<::mojo_base::BigBuffer>* out_data);
-  absl::optional<::mojo_base::BigBuffer> ReadSideData();
+      std::optional<::mojo_base::BigBuffer>* out_data);
+  std::optional<::mojo_base::BigBuffer> ReadSideData();
   void CaptureSnapshot(
-      uint64_t* out_length, absl::optional<::base::Time>* out_modification_time);
+      uint64_t* out_length, std::optional<::base::Time>* out_modification_time);
   
   void GetInternalUUID(
       std::string* out_uuid);

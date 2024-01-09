@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -46,8 +47,8 @@ struct SubmitJobRequest {
   ~SubmitJobRequest();
   SubmitJobRequest(const SubmitJobRequest&) = delete;
   SubmitJobRequest& operator=(const SubmitJobRequest&) = delete;
-  SubmitJobRequest(SubmitJobRequest&& rhs);
-  SubmitJobRequest& operator=(SubmitJobRequest&& rhs);
+  SubmitJobRequest(SubmitJobRequest&& rhs) noexcept;
+  SubmitJobRequest& operator=(SubmitJobRequest&& rhs) noexcept;
 
   // Populates a SubmitJobRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -60,39 +61,39 @@ struct SubmitJobRequest {
   // Creates a deep copy of SubmitJobRequest.
   SubmitJobRequest Clone() const;
 
-  // Creates a SubmitJobRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SubmitJobRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a SubmitJobRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SubmitJobRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<SubmitJobRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a SubmitJobRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SubmitJobRequest> FromValue(const base::Value& value);
+  static std::optional<SubmitJobRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSubmitJobRequest object.
   base::Value::Dict ToValue() const;
 
   // The print job to be submitted. The only supported content type is
-  // "application/pdf", and the CJT ticket shouldn't include FitToPageTicketItem,
-  // PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since
-  // they are irrelevant for native printing. All other fields must be present.
+  // "application/pdf", and the <a
+  // href="https://developers.google.com/cloud-print/docs/cdd#cjt">Cloud Job
+  // Ticket</a> shouldn't include <code>FitToPageTicketItem</code>,
+  // <code>PageRangeTicketItem</code>, <code>ReverseOrderTicketItem</code> and
+  // <code>VendorTicketItem</code> fields since they are irrelevant for native
+  // printing. All other fields must be present.
   extensions::api::printer_provider::PrintJob job;
 
   // Used internally to store the blob uuid after parameter customization and
   // shouldn't be populated by the extension.
-  absl::optional<std::string> document_blob_uuid;
+  std::optional<std::string> document_blob_uuid;
 
 };
 
 // The status of $(ref:submitJob) request.
-enum  SubmitJobStatus {
-  SUBMIT_JOB_STATUS_NONE = 0,
-  SUBMIT_JOB_STATUS_OK,
-  SUBMIT_JOB_STATUS_USER_REJECTED,
-  SUBMIT_JOB_STATUS_LAST = SUBMIT_JOB_STATUS_USER_REJECTED,
+enum class SubmitJobStatus {
+  kNone = 0,
+  kOk,
+  kUserRejected,
+  kMaxValue = kUserRejected,
 };
 
 
@@ -105,8 +106,8 @@ struct SubmitJobResponse {
   ~SubmitJobResponse();
   SubmitJobResponse(const SubmitJobResponse&) = delete;
   SubmitJobResponse& operator=(const SubmitJobResponse&) = delete;
-  SubmitJobResponse(SubmitJobResponse&& rhs);
-  SubmitJobResponse& operator=(SubmitJobResponse&& rhs);
+  SubmitJobResponse(SubmitJobResponse&& rhs) noexcept;
+  SubmitJobResponse& operator=(SubmitJobResponse&& rhs) noexcept;
 
   // Populates a SubmitJobResponse object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -119,16 +120,13 @@ struct SubmitJobResponse {
   // Creates a deep copy of SubmitJobResponse.
   SubmitJobResponse Clone() const;
 
-  // Creates a SubmitJobResponse object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SubmitJobResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a SubmitJobResponse object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SubmitJobResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<SubmitJobResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a SubmitJobResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SubmitJobResponse> FromValue(const base::Value& value);
+  static std::optional<SubmitJobResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSubmitJobResponse object.
@@ -139,16 +137,16 @@ struct SubmitJobResponse {
 
   // The id of created print job. This is a unique identifier among all print jobs
   // on the device. If status is not OK, jobId will be null.
-  absl::optional<std::string> job_id;
+  std::optional<std::string> job_id;
 
 };
 
 // The source of the printer.
-enum  PrinterSource {
-  PRINTER_SOURCE_NONE = 0,
-  PRINTER_SOURCE_USER,
-  PRINTER_SOURCE_POLICY,
-  PRINTER_SOURCE_LAST = PRINTER_SOURCE_POLICY,
+enum class PrinterSource {
+  kNone = 0,
+  kUser,
+  kPolicy,
+  kMaxValue = kPolicy,
 };
 
 
@@ -161,8 +159,8 @@ struct Printer {
   ~Printer();
   Printer(const Printer&) = delete;
   Printer& operator=(const Printer&) = delete;
-  Printer(Printer&& rhs);
-  Printer& operator=(Printer&& rhs);
+  Printer(Printer&& rhs) noexcept;
+  Printer& operator=(Printer&& rhs) noexcept;
 
   // Populates a Printer object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -175,14 +173,11 @@ struct Printer {
   // Creates a deep copy of Printer.
   Printer Clone() const;
 
-  // Creates a Printer object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Printer> FromValueDeprecated(const base::Value& value);
-
   // Creates a Printer object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value::Dict& value);
+  static std::optional<Printer> FromValue(const base::Value::Dict& value);
 
   // Creates a Printer object from a base::Value, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value& value);
+  static std::optional<Printer> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrinter object.
@@ -213,25 +208,25 @@ struct Printer {
   // The lower the value is the more recent the printer was used. The minimum
   // value is 0. Missing value indicates that the printer wasn't used recently.
   // This value is guaranteed to be unique amongst printers.
-  absl::optional<int> recently_used_rank;
+  std::optional<int> recently_used_rank;
 
 };
 
 // The status of the printer.
-enum  PrinterStatus {
-  PRINTER_STATUS_NONE = 0,
-  PRINTER_STATUS_DOOR_OPEN,
-  PRINTER_STATUS_TRAY_MISSING,
-  PRINTER_STATUS_OUT_OF_INK,
-  PRINTER_STATUS_OUT_OF_PAPER,
-  PRINTER_STATUS_OUTPUT_FULL,
-  PRINTER_STATUS_PAPER_JAM,
-  PRINTER_STATUS_GENERIC_ISSUE,
-  PRINTER_STATUS_STOPPED,
-  PRINTER_STATUS_UNREACHABLE,
-  PRINTER_STATUS_EXPIRED_CERTIFICATE,
-  PRINTER_STATUS_AVAILABLE,
-  PRINTER_STATUS_LAST = PRINTER_STATUS_AVAILABLE,
+enum class PrinterStatus {
+  kNone = 0,
+  kDoorOpen,
+  kTrayMissing,
+  kOutOfInk,
+  kOutOfPaper,
+  kOutputFull,
+  kPaperJam,
+  kGenericIssue,
+  kStopped,
+  kUnreachable,
+  kExpiredCertificate,
+  kAvailable,
+  kMaxValue = kAvailable,
 };
 
 
@@ -244,8 +239,8 @@ struct GetPrinterInfoResponse {
   ~GetPrinterInfoResponse();
   GetPrinterInfoResponse(const GetPrinterInfoResponse&) = delete;
   GetPrinterInfoResponse& operator=(const GetPrinterInfoResponse&) = delete;
-  GetPrinterInfoResponse(GetPrinterInfoResponse&& rhs);
-  GetPrinterInfoResponse& operator=(GetPrinterInfoResponse&& rhs);
+  GetPrinterInfoResponse(GetPrinterInfoResponse&& rhs) noexcept;
+  GetPrinterInfoResponse& operator=(GetPrinterInfoResponse&& rhs) noexcept;
 
   // Populates a GetPrinterInfoResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -258,17 +253,13 @@ struct GetPrinterInfoResponse {
   // Creates a deep copy of GetPrinterInfoResponse.
   GetPrinterInfoResponse Clone() const;
 
-  // Creates a GetPrinterInfoResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetPrinterInfoResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetPrinterInfoResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetPrinterInfoResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<GetPrinterInfoResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a GetPrinterInfoResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetPrinterInfoResponse> FromValue(const base::Value& value);
+  static std::optional<GetPrinterInfoResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetPrinterInfoResponse object.
@@ -282,8 +273,8 @@ struct GetPrinterInfoResponse {
     ~Capabilities();
     Capabilities(const Capabilities&) = delete;
     Capabilities& operator=(const Capabilities&) = delete;
-    Capabilities(Capabilities&& rhs);
-    Capabilities& operator=(Capabilities&& rhs);
+    Capabilities(Capabilities&& rhs) noexcept;
+    Capabilities& operator=(Capabilities&& rhs) noexcept;
 
     // Populates a Capabilities object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -298,10 +289,10 @@ struct GetPrinterInfoResponse {
 
     // Creates a Capabilities object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Capabilities> FromValue(const base::Value::Dict& value);
+    static std::optional<Capabilities> FromValue(const base::Value::Dict& value);
 
     // Creates a Capabilities object from a base::Value, or nullopt on failure.
-    static absl::optional<Capabilities> FromValue(const base::Value& value);
+    static std::optional<Capabilities> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisCapabilities object.
@@ -314,7 +305,7 @@ struct GetPrinterInfoResponse {
   // Printer capabilities in <a
   // href="https://developers.google.com/cloud-print/docs/cdd#cdd"> CDD
   // format</a>. The property may be missing.
-  absl::optional<Capabilities> capabilities;
+  std::optional<Capabilities> capabilities;
 
   // The status of the printer.
   PrinterStatus status;
@@ -322,14 +313,14 @@ struct GetPrinterInfoResponse {
 };
 
 // Status of the print job.
-enum  JobStatus {
-  JOB_STATUS_NONE = 0,
-  JOB_STATUS_PENDING,
-  JOB_STATUS_IN_PROGRESS,
-  JOB_STATUS_FAILED,
-  JOB_STATUS_CANCELED,
-  JOB_STATUS_PRINTED,
-  JOB_STATUS_LAST = JOB_STATUS_PRINTED,
+enum class JobStatus {
+  kNone = 0,
+  kPending,
+  kInProgress,
+  kFailed,
+  kCanceled,
+  kPrinted,
+  kMaxValue = kPrinted,
 };
 
 
@@ -345,11 +336,11 @@ std::u16string GetJobStatusParseError(base::StringPiece as_string);
 namespace SubmitJob {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SubmitJobRequest request;
@@ -369,11 +360,11 @@ base::Value::List Create(const SubmitJobResponse& response);
 namespace CancelJob {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the print job to cancel. This should be the same id received in a
@@ -404,11 +395,11 @@ base::Value::List Create(const std::vector<Printer>& printers);
 namespace GetPrinterInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string printer_id;

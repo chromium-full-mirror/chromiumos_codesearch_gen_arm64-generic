@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import {VolumeManagerCommon} from '../common/js/volume_manager_types.js';
+import {RootType} from '../common/js/volume_manager_types.js';
 
 /**
  * Location information which shows where the path points in FileManager's
@@ -13,13 +13,13 @@ export class EntryLocation {
   constructor() {
     /**
      * Volume information.
-     * @type {import("./volume_info.js").VolumeInfo}
+     * @type {?import("./volume_info.js").VolumeInfo}
      */
     this.volumeInfo;
 
     /**
      * Root type.
-     * @type {VolumeManagerCommon.RootType}
+     * @type {RootType}
      */
     this.rootType;
 

@@ -46,20 +46,22 @@ bool AndroidPowerConfig_BatteryCounters_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AndroidPowerConfig_BatteryCounters_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AndroidPowerConfig_BatteryCounters_strings[6] = {};
 
 static const char AndroidPowerConfig_BatteryCounters_names[] =
   "BATTERY_COUNTER_CAPACITY_PERCENT"
   "BATTERY_COUNTER_CHARGE"
   "BATTERY_COUNTER_CURRENT"
   "BATTERY_COUNTER_CURRENT_AVG"
-  "BATTERY_COUNTER_UNSPECIFIED";
+  "BATTERY_COUNTER_UNSPECIFIED"
+  "BATTERY_COUNTER_VOLTAGE";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AndroidPowerConfig_BatteryCounters_entries[] = {
   { {AndroidPowerConfig_BatteryCounters_names + 0, 32}, 2 },
@@ -67,6 +69,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AndroidPowerConfig_Bat
   { {AndroidPowerConfig_BatteryCounters_names + 54, 23}, 3 },
   { {AndroidPowerConfig_BatteryCounters_names + 77, 27}, 4 },
   { {AndroidPowerConfig_BatteryCounters_names + 104, 27}, 0 },
+  { {AndroidPowerConfig_BatteryCounters_names + 131, 23}, 5 },
 };
 
 static const int AndroidPowerConfig_BatteryCounters_entries_by_number[] = {
@@ -75,6 +78,7 @@ static const int AndroidPowerConfig_BatteryCounters_entries_by_number[] = {
   0, // 2 -> BATTERY_COUNTER_CAPACITY_PERCENT
   2, // 3 -> BATTERY_COUNTER_CURRENT
   3, // 4 -> BATTERY_COUNTER_CURRENT_AVG
+  5, // 5 -> BATTERY_COUNTER_VOLTAGE
 };
 
 const std::string& AndroidPowerConfig_BatteryCounters_Name(
@@ -83,12 +87,12 @@ const std::string& AndroidPowerConfig_BatteryCounters_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AndroidPowerConfig_BatteryCounters_entries,
           AndroidPowerConfig_BatteryCounters_entries_by_number,
-          5, AndroidPowerConfig_BatteryCounters_strings);
+          6, AndroidPowerConfig_BatteryCounters_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AndroidPowerConfig_BatteryCounters_entries,
       AndroidPowerConfig_BatteryCounters_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AndroidPowerConfig_BatteryCounters_strings[idx].get();
 }
@@ -96,7 +100,7 @@ bool AndroidPowerConfig_BatteryCounters_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AndroidPowerConfig_BatteryCounters* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AndroidPowerConfig_BatteryCounters_entries, 5, name, &int_value);
+      AndroidPowerConfig_BatteryCounters_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<AndroidPowerConfig_BatteryCounters>(int_value);
   }
@@ -108,6 +112,7 @@ constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BATTERY_COUNTER
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BATTERY_COUNTER_CAPACITY_PERCENT;
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BATTERY_COUNTER_CURRENT;
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BATTERY_COUNTER_CURRENT_AVG;
+constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BATTERY_COUNTER_VOLTAGE;
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BatteryCounters_MIN;
 constexpr AndroidPowerConfig_BatteryCounters AndroidPowerConfig::BatteryCounters_MAX;
 constexpr int AndroidPowerConfig::BatteryCounters_ARRAYSIZE;

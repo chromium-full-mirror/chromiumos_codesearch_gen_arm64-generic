@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/frame.mojom-features.h"
 #include "content/common/frame.mojom-shared.h"
 #include "content/common/frame.mojom-forward.h"
 #include "cc/mojom/browser_controls_state.mojom-forward.h"
@@ -36,6 +37,7 @@
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include "skia/public/mojom/skcolor.mojom.h"
+#include "services/network/public/mojom/attribution.mojom-forward.h"
 #include "services/network/public/mojom/content_security_policy.mojom-forward.h"
 #include "services/network/public/mojom/url_loader.mojom-forward.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-forward.h"
@@ -68,11 +70,10 @@
 #include "third_party/blink/public/mojom/navigation/navigation_params.mojom-forward.h"
 #include "third_party/blink/public/mojom/navigation/navigation_initiator_activation_and_ad_status.mojom-forward.h"
 #include "third_party/blink/public/mojom/page/browsing_context_group_info.mojom.h"
-#include "third_party/blink/public/mojom/page/page.mojom-forward.h"
+#include "third_party/blink/public/mojom/page/page.mojom.h"
 #include "third_party/blink/public/mojom/picture_in_picture_window_options/picture_in_picture_window_options.mojom.h"
 #include "third_party/blink/public/mojom/widget/platform_widget.mojom-forward.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-forward.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-forward.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-forward.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-forward.h"
@@ -497,7 +498,7 @@ class CONTENT_EXPORT FrameHost
   virtual void CreateNewWindow(CreateNewWindowParamsPtr params, CreateNewWindowCallback callback) = 0;
 
   
-  virtual void CreateChildFrame(int32_t child_routing_id, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) = 0;
+  virtual void CreateChildFrame(const ::blink::LocalFrameToken& child_frame_token, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) = 0;
 
   
   virtual void DidCommitProvisionalLoad(::content::mojom::DidCommitProvisionalLoadParamsPtr params, ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr interface_params) = 0;
@@ -635,7 +636,7 @@ class CONTENT_EXPORT FrameHostProxy
   
   void CreateNewWindow(CreateNewWindowParamsPtr params, CreateNewWindowCallback callback) final;
   
-  void CreateChildFrame(int32_t child_routing_id, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) final;
+  void CreateChildFrame(const ::blink::LocalFrameToken& child_frame_token, ::mojo::PendingAssociatedRemote<Frame> frame, ::mojo::PendingReceiver<::blink::mojom::BrowserInterfaceBroker> browser_interface_broker, ::blink::mojom::PolicyContainerBindParamsPtr policy_container_bind_params, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider, ::blink::mojom::TreeScopeType scope, const std::string& frame_name, const std::string& frame_unique_name, bool is_created_by_script, const ::blink::FramePolicy& frame_policy, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties, ::blink::FrameOwnerElementType child_frame_owner_element_type, int64_t document_ukm_source_id) final;
   
   void DidCommitProvisionalLoad(::content::mojom::DidCommitProvisionalLoadParamsPtr params, ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr interface_params) final;
   
@@ -929,17 +930,17 @@ class CONTENT_EXPORT CreateMainFrameUnion {
   // Construct an instance holding |local_params|.
   static CreateMainFrameUnionPtr
   NewLocalParams(
-      CreateLocalMainFrameParamsPtr local_params) {
+      CreateLocalMainFrameParamsPtr value) {
     auto result = CreateMainFrameUnionPtr(absl::in_place);
-    result->set_local_params(std::move(local_params));
+    result->set_local_params(std::move(value));
     return result;
   }
   // Construct an instance holding |remote_params|.
   static CreateMainFrameUnionPtr
   NewRemoteParams(
-      CreateRemoteMainFrameParamsPtr remote_params) {
+      CreateRemoteMainFrameParamsPtr value) {
     auto result = CreateMainFrameUnionPtr(absl::in_place);
-    result->set_remote_params(std::move(remote_params));
+    result->set_remote_params(std::move(value));
     return result;
   }
 
@@ -1072,7 +1073,7 @@ class CONTENT_EXPORT CreateViewParams {
       const ::blink::RendererPreferences& renderer_preferences,
       const ::blink::web_pref::WebPreferences& web_preferences,
       const std::string& session_storage_namespace_id,
-      const absl::optional<::blink::FrameToken>& opener_frame_token,
+      const std::optional<::blink::FrameToken>& opener_frame_token,
       ::blink::mojom::FrameReplicationStatePtr replication_state,
       const ::base::UnguessableToken& devtools_main_frame_token,
       CreateMainFrameUnionPtr main_frame,
@@ -1082,10 +1083,12 @@ class CONTENT_EXPORT CreateViewParams {
       bool window_was_opened_by_another_window,
       ViewWidgetType type,
       ::blink::FencedFrame::DeprecatedFencedFrameMode fenced_frame_mode,
-      const absl::optional<::url::Origin>& outermost_origin,
+      const std::optional<::url::Origin>& outermost_origin,
       ::mojo::PendingAssociatedReceiver<::blink::mojom::PageBroadcast> blink_page_broadcast,
-      absl::optional<::SkColor> base_background_color,
-      const ::blink::BrowsingContextGroupInfo& browsing_context_group_info);
+      std::optional<::SkColor> base_background_color,
+      const ::blink::ColorProviderColorMaps& color_provider_colors,
+      const ::blink::BrowsingContextGroupInfo& browsing_context_group_info,
+      ::network::mojom::AttributionSupport attribution_support);
 
 CreateViewParams(const CreateViewParams&) = delete;
 CreateViewParams& operator=(const CreateViewParams&) = delete;
@@ -1166,7 +1169,7 @@ CreateViewParams& operator=(const CreateViewParams&) = delete;
   
   std::string session_storage_namespace_id;
   
-  absl::optional<::blink::FrameToken> opener_frame_token;
+  std::optional<::blink::FrameToken> opener_frame_token;
   
   ::blink::mojom::FrameReplicationStatePtr replication_state;
   
@@ -1186,13 +1189,17 @@ CreateViewParams& operator=(const CreateViewParams&) = delete;
   
   ::blink::FencedFrame::DeprecatedFencedFrameMode fenced_frame_mode;
   
-  absl::optional<::url::Origin> outermost_origin;
+  std::optional<::url::Origin> outermost_origin;
   
   ::mojo::PendingAssociatedReceiver<::blink::mojom::PageBroadcast> blink_page_broadcast;
   
-  absl::optional<::SkColor> base_background_color;
+  std::optional<::SkColor> base_background_color;
+  
+  ::blink::ColorProviderColorMaps color_provider_colors;
   
   ::blink::BrowsingContextGroupInfo browsing_context_group_info;
+  
+  ::network::mojom::AttributionSupport attribution_support;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1264,7 +1271,7 @@ class CONTENT_EXPORT CreateLocalMainFrameParams {
       ::blink::mojom::PolicyContainerPtr policy_container,
       CreateFrameWidgetParamsPtr widget_params,
       ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories,
-      const absl::optional<::blink::FrameToken>& previous_frame_token);
+      const std::optional<::blink::FrameToken>& previous_frame_token);
 
 CreateLocalMainFrameParams(const CreateLocalMainFrameParams&) = delete;
 CreateLocalMainFrameParams& operator=(const CreateLocalMainFrameParams&) = delete;
@@ -1359,7 +1366,7 @@ CreateLocalMainFrameParams& operator=(const CreateLocalMainFrameParams&) = delet
   
   ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories;
   
-  absl::optional<::blink::FrameToken> previous_frame_token;
+  std::optional<::blink::FrameToken> previous_frame_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1570,7 +1577,7 @@ class CONTENT_EXPORT CreateFrameWidgetParams {
       ::mojo::PendingAssociatedRemote<::blink::mojom::WidgetHost> widget_host,
       ::mojo::PendingAssociatedReceiver<::blink::mojom::Widget> widget,
       const ::blink::VisualProperties& visual_properties,
-      const absl::optional<::blink::FrameToken>& previous_frame_token_for_compositor_reuse);
+      const std::optional<::blink::FrameToken>& previous_frame_token_for_compositor_reuse);
 
 CreateFrameWidgetParams(const CreateFrameWidgetParams&) = delete;
 CreateFrameWidgetParams& operator=(const CreateFrameWidgetParams&) = delete;
@@ -1657,7 +1664,7 @@ CreateFrameWidgetParams& operator=(const CreateFrameWidgetParams&) = delete;
   
   ::blink::VisualProperties visual_properties;
   
-  absl::optional<::blink::FrameToken> previous_frame_token_for_compositor_reuse;
+  std::optional<::blink::FrameToken> previous_frame_token_for_compositor_reuse;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1721,10 +1728,10 @@ class CONTENT_EXPORT CreateFrameParams {
   CreateFrameParams(
       const ::blink::LocalFrameToken& frame_token,
       int32_t routing_id,
-      const absl::optional<::blink::FrameToken>& previous_frame_token,
-      const absl::optional<::blink::FrameToken>& opener_frame_token,
-      const absl::optional<::blink::FrameToken>& parent_frame_token,
-      const absl::optional<::blink::FrameToken>& previous_sibling_frame_token,
+      const std::optional<::blink::FrameToken>& previous_frame_token,
+      const std::optional<::blink::FrameToken>& opener_frame_token,
+      const std::optional<::blink::FrameToken>& parent_frame_token,
+      const std::optional<::blink::FrameToken>& previous_sibling_frame_token,
       ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker> interface_broker,
       ::blink::mojom::TreeScopeType tree_scope_type,
       ::blink::mojom::FrameReplicationStatePtr replication_state,
@@ -1735,7 +1742,8 @@ class CONTENT_EXPORT CreateFrameParams {
       const ::blink::DocumentToken& document_token,
       ::blink::mojom::PolicyContainerPtr policy_container,
       ::mojo::PendingAssociatedReceiver<Frame> frame,
-      ::mojo::PendingAssociatedRemote<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider_remote);
+      ::mojo::PendingAssociatedRemote<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider_remote,
+      bool is_for_nested_main_frame);
 
 CreateFrameParams(const CreateFrameParams&) = delete;
 CreateFrameParams& operator=(const CreateFrameParams&) = delete;
@@ -1814,13 +1822,13 @@ CreateFrameParams& operator=(const CreateFrameParams&) = delete;
   
   int32_t routing_id;
   
-  absl::optional<::blink::FrameToken> previous_frame_token;
+  std::optional<::blink::FrameToken> previous_frame_token;
   
-  absl::optional<::blink::FrameToken> opener_frame_token;
+  std::optional<::blink::FrameToken> opener_frame_token;
   
-  absl::optional<::blink::FrameToken> parent_frame_token;
+  std::optional<::blink::FrameToken> parent_frame_token;
   
-  absl::optional<::blink::FrameToken> previous_sibling_frame_token;
+  std::optional<::blink::FrameToken> previous_sibling_frame_token;
   
   ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker> interface_broker;
   
@@ -1843,6 +1851,8 @@ CreateFrameParams& operator=(const CreateFrameParams&) = delete;
   ::mojo::PendingAssociatedReceiver<Frame> frame;
   
   ::mojo::PendingAssociatedRemote<::blink::mojom::AssociatedInterfaceProvider> associated_interface_provider_remote;
+  
+  bool is_for_nested_main_frame;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2063,7 +2073,7 @@ class CONTENT_EXPORT CreateNewWindowParams {
       const ::GURL& target_url,
       ::blink::mojom::ReferrerPtr referrer,
       ::blink::mojom::WindowFeaturesPtr features,
-      const absl::optional<::blink::Impression>& impression,
+      const std::optional<::blink::Impression>& impression,
       const ::blink::NavigationDownloadPolicy& download_policy,
       ::blink::mojom::PictureInPictureWindowOptionsPtr pip_options,
       ::blink::mojom::NavigationInitiatorActivationAndAdStatus initiator_activation_and_ad_status);
@@ -2167,7 +2177,7 @@ CreateNewWindowParams& operator=(const CreateNewWindowParams&) = delete;
   
   ::blink::mojom::WindowFeaturesPtr features;
   
-  absl::optional<::blink::Impression> impression;
+  std::optional<::blink::Impression> impression;
   
   ::blink::NavigationDownloadPolicy download_policy;
   
@@ -2247,7 +2257,8 @@ class CONTENT_EXPORT CreateNewWindowReply {
       bool wait_for_debugger,
       const ::blink::DocumentToken& document_token,
       ::blink::mojom::PolicyContainerPtr policy_container,
-      const ::blink::BrowsingContextGroupInfo& browsing_context_group_info);
+      const ::blink::BrowsingContextGroupInfo& browsing_context_group_info,
+      const ::blink::ColorProviderColorMaps& color_provider_colors);
 
 CreateNewWindowReply(const CreateNewWindowReply&) = delete;
 CreateNewWindowReply& operator=(const CreateNewWindowReply&) = delete;
@@ -2347,6 +2358,8 @@ CreateNewWindowReply& operator=(const CreateNewWindowReply&) = delete;
   ::blink::mojom::PolicyContainerPtr policy_container;
   
   ::blink::BrowsingContextGroupInfo browsing_context_group_info;
+  
+  ::blink::ColorProviderColorMaps color_provider_colors;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2425,7 +2438,9 @@ CreateViewParamsPtr CreateViewParams::Clone() const {
       mojo::Clone(outermost_origin),
       mojo::Clone(blink_page_broadcast),
       mojo::Clone(base_background_color),
-      mojo::Clone(browsing_context_group_info)
+      mojo::Clone(color_provider_colors),
+      mojo::Clone(browsing_context_group_info),
+      mojo::Clone(attribution_support)
   );
 }
 
@@ -2463,7 +2478,11 @@ bool CreateViewParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->base_background_color, other_struct.base_background_color))
     return false;
+  if (!mojo::Equals(this->color_provider_colors, other_struct.color_provider_colors))
+    return false;
   if (!mojo::Equals(this->browsing_context_group_info, other_struct.browsing_context_group_info))
+    return false;
+  if (!mojo::Equals(this->attribution_support, other_struct.attribution_support))
     return false;
   return true;
 }
@@ -2534,9 +2553,17 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.base_background_color < lhs.base_background_color)
     return false;
+  if (lhs.color_provider_colors < rhs.color_provider_colors)
+    return true;
+  if (rhs.color_provider_colors < lhs.color_provider_colors)
+    return false;
   if (lhs.browsing_context_group_info < rhs.browsing_context_group_info)
     return true;
   if (rhs.browsing_context_group_info < lhs.browsing_context_group_info)
+    return false;
+  if (lhs.attribution_support < rhs.attribution_support)
+    return true;
+  if (rhs.attribution_support < lhs.attribution_support)
     return false;
   return false;
 }
@@ -2751,7 +2778,8 @@ CreateFrameParamsPtr CreateFrameParams::Clone() const {
       mojo::Clone(document_token),
       mojo::Clone(policy_container),
       mojo::Clone(frame),
-      mojo::Clone(associated_interface_provider_remote)
+      mojo::Clone(associated_interface_provider_remote),
+      mojo::Clone(is_for_nested_main_frame)
   );
 }
 
@@ -2790,6 +2818,8 @@ bool CreateFrameParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->frame, other_struct.frame))
     return false;
   if (!mojo::Equals(this->associated_interface_provider_remote, other_struct.associated_interface_provider_remote))
+    return false;
+  if (!mojo::Equals(this->is_for_nested_main_frame, other_struct.is_for_nested_main_frame))
     return false;
   return true;
 }
@@ -2863,6 +2893,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.associated_interface_provider_remote < rhs.associated_interface_provider_remote)
     return true;
   if (rhs.associated_interface_provider_remote < lhs.associated_interface_provider_remote)
+    return false;
+  if (lhs.is_for_nested_main_frame < rhs.is_for_nested_main_frame)
+    return true;
+  if (rhs.is_for_nested_main_frame < lhs.is_for_nested_main_frame)
     return false;
   return false;
 }
@@ -3051,7 +3085,8 @@ CreateNewWindowReplyPtr CreateNewWindowReply::Clone() const {
       mojo::Clone(wait_for_debugger),
       mojo::Clone(document_token),
       mojo::Clone(policy_container),
-      mojo::Clone(browsing_context_group_info)
+      mojo::Clone(browsing_context_group_info),
+      mojo::Clone(color_provider_colors)
   );
 }
 
@@ -3082,6 +3117,8 @@ bool CreateNewWindowReply::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->policy_container, other_struct.policy_container))
     return false;
   if (!mojo::Equals(this->browsing_context_group_info, other_struct.browsing_context_group_info))
+    return false;
+  if (!mojo::Equals(this->color_provider_colors, other_struct.color_provider_colors))
     return false;
   return true;
 }
@@ -3139,6 +3176,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.browsing_context_group_info < rhs.browsing_context_group_info)
     return true;
   if (rhs.browsing_context_group_info < lhs.browsing_context_group_info)
+    return false;
+  if (lhs.color_provider_colors < rhs.color_provider_colors)
+    return true;
+  if (rhs.color_provider_colors < lhs.color_provider_colors)
     return false;
   return false;
 }
@@ -3235,9 +3276,19 @@ struct CONTENT_EXPORT StructTraits<::content::mojom::CreateViewParams::DataView,
     return input->base_background_color;
   }
 
+  static const decltype(::content::mojom::CreateViewParams::color_provider_colors)& color_provider_colors(
+      const ::content::mojom::CreateViewParamsPtr& input) {
+    return input->color_provider_colors;
+  }
+
   static const decltype(::content::mojom::CreateViewParams::browsing_context_group_info)& browsing_context_group_info(
       const ::content::mojom::CreateViewParamsPtr& input) {
     return input->browsing_context_group_info;
+  }
+
+  static decltype(::content::mojom::CreateViewParams::attribution_support) attribution_support(
+      const ::content::mojom::CreateViewParamsPtr& input) {
+    return input->attribution_support;
   }
 
   static bool Read(::content::mojom::CreateViewParams::DataView input, ::content::mojom::CreateViewParamsPtr* output);
@@ -3470,6 +3521,11 @@ struct CONTENT_EXPORT StructTraits<::content::mojom::CreateFrameParams::DataView
     return input->associated_interface_provider_remote;
   }
 
+  static decltype(::content::mojom::CreateFrameParams::is_for_nested_main_frame) is_for_nested_main_frame(
+      const ::content::mojom::CreateFrameParamsPtr& input) {
+    return input->is_for_nested_main_frame;
+  }
+
   static bool Read(::content::mojom::CreateFrameParams::DataView input, ::content::mojom::CreateFrameParamsPtr* output);
 };
 
@@ -3663,6 +3719,11 @@ struct CONTENT_EXPORT StructTraits<::content::mojom::CreateNewWindowReply::DataV
   static const decltype(::content::mojom::CreateNewWindowReply::browsing_context_group_info)& browsing_context_group_info(
       const ::content::mojom::CreateNewWindowReplyPtr& input) {
     return input->browsing_context_group_info;
+  }
+
+  static const decltype(::content::mojom::CreateNewWindowReply::color_provider_colors)& color_provider_colors(
+      const ::content::mojom::CreateNewWindowReplyPtr& input) {
+    return input->color_provider_colors;
   }
 
   static bool Read(::content::mojom::CreateNewWindowReply::DataView input, ::content::mojom::CreateNewWindowReplyPtr* output);

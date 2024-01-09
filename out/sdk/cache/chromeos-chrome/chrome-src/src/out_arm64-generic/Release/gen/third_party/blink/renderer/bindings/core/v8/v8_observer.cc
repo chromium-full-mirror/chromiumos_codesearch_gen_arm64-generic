@@ -15,7 +15,6 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_observer_callback.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_observer_complete_callback.h"
-#include "third_party/blink/renderer/core/dom/abort_signal.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
 #include "third_party/blink/renderer/platform/bindings/v8_per_isolate_data.h"
@@ -72,18 +71,10 @@ return dictionary;
 
 
 
-
-
-
-
-
-
-
 void Observer::Trace(Visitor* visitor) const {
   TraceIfNeeded<Member<V8ObserverCompleteCallback>>::Trace(visitor, member_complete_);
 TraceIfNeeded<Member<V8ObserverCallback>>::Trace(visitor, member_error_);
 TraceIfNeeded<Member<V8ObserverCallback>>::Trace(visitor, member_next_);
-TraceIfNeeded<Member<AbortSignal>>::Trace(visitor, member_signal_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -117,14 +108,6 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
   return false;
 }
 }
-if (hasSignal()) {
-  if (!ToV8Traits<AbortSignal>::ToV8(script_state, member_signal_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
 return true;
 }
 
@@ -147,10 +130,6 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("next");
 if (!bindings::GetDictionaryMemberFromV8Object<V8ObserverCallback, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_next_, member_next_, try_block, exception_state)) {
   return;
 }
-exception_context_scope.ChangePropertyNameAsOptimizationHack("signal");
-if (!bindings::GetDictionaryMemberFromV8Object<AbortSignal, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_signal_, member_signal_, try_block, exception_state)) {
-  return;
-}
 }
 
 const base::span<const v8::Eternal<v8::Name>> Observer::GetV8OwnMemberNames(v8::Isolate* isolate) {
@@ -158,7 +137,6 @@ const base::span<const v8::Eternal<v8::Name>> Observer::GetV8OwnMemberNames(v8::
 "complete",
 "error",
 "next",
-"signal",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

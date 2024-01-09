@@ -84,11 +84,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, Animation>::value,
     "Animation does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&Animation::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Animation is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,7 +102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Effect_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->effect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<AnimationEffect>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -150,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("Animation.timeline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeline();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,7 +169,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<AnimationTimeline>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -200,7 +196,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startTime();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -229,7 +225,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -259,7 +255,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -288,7 +284,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -314,7 +310,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_PlaybackRa
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playbackRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -332,7 +328,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_PlaybackRa
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Animation";
@@ -366,7 +362,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeStart();
 if (!ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -395,7 +391,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<V8UnionStringOrTimelineRangeOffset>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -425,7 +421,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeEnd();
 if (!ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -454,7 +450,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<V8UnionStringOrTimelineRangeOffset>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -480,7 +476,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_PlayState_
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -499,7 +495,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_ReplaceSta
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->replaceState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -518,7 +514,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Pending_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pending();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -537,7 +533,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Id_Attribu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -555,7 +551,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Id_Attribu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Animation";
@@ -582,7 +578,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Onfinish_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onfinish();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -602,7 +598,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfinish(event_handler);
 }
 
@@ -619,7 +615,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Oncancel_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->oncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -639,7 +635,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncancel(event_handler);
 }
 
@@ -656,7 +652,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Onremove_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onremove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -676,7 +672,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnremove(event_handler);
 }
 
@@ -699,7 +695,7 @@ BLINK_BINDINGS_TRACE_EVENT("Animation.finished.get");
 
 
 
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -727,7 +723,7 @@ BLINK_BINDINGS_TRACE_EVENT("Animation.ready.get");
 
 
 
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -803,7 +799,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Cancel_Met
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->cancel();
 
 }
@@ -832,7 +828,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->commitStyles(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -857,7 +853,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Finish_Met
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Animation";
 const char* const property_name = "finish";
@@ -886,7 +882,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Pause_Meth
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Animation";
 const char* const property_name = "pause";
@@ -915,7 +911,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Persist_Me
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->persist();
 
 }
@@ -937,7 +933,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Play_Metho
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Animation";
 const char* const property_name = "play";
@@ -966,7 +962,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Animation_Reverse_Me
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Animation";
 const char* const property_name = "reverse";
@@ -1003,7 +999,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Animation* blink_receiver = V8Animation::ToWrappableUnsafe(v8_receiver);
+Animation* blink_receiver = V8Animation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_playback_rate = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1052,14 +1048,19 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"effect", EffectAttributeGetCallback, EffectAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"timeline", TimelineAttributeGetCallback, TimelineAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"startTime", StartTimeAttributeGetCallback, StartTimeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"currentTime", CurrentTimeAttributeGetCallback, CurrentTimeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"playbackRate", PlaybackRateAttributeGetCallback, PlaybackRateAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"playState", PlayStateAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"replaceState", ReplaceStateAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"pending", PendingAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"id", IdAttributeGetCallback, IdAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onfinish", OnfinishAttributeGetCallback, OnfinishAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncancel", OncancelAttributeGetCallback, OncancelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"onremove", OnremoveAttributeGetCallback, OnremoveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"finished", FinishedAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"ready", ReadyAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
@@ -1071,8 +1072,10 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"cancel", CancelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"commitStyles", CommitStylesOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"finish", FinishOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"pause", PauseOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"persist", PersistOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"play", PlayOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"reverse", ReverseOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"updatePlaybackRate", UpdatePlaybackRateOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -1087,18 +1090,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8Animation::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"timeline", TimelineAttributeGetCallback, TimelineAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"replaceState", ReplaceStateAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"onremove", OnremoveAttributeGetCallback, OnremoveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"finished", FinishedAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"ready", ReadyAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::ScrollTimelineEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"rangeStart", RangeStartAttributeGetCallback, RangeStartAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -1112,15 +1103,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 
 
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"commitStyles", CommitStylesOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"persist", PersistOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
 
 
 }

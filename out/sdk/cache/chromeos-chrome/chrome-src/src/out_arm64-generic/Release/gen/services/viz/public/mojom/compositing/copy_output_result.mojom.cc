@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -58,9 +59,9 @@ CopyOutputResult::CopyOutputResult(
     CopyOutputResultDestination destination_in,
     const ::gfx::Rect& rect_in,
     ::viz::mojom::BitmapInSharedMemoryPtr bitmap_in,
-    const absl::optional<::gpu::Mailbox>& mailbox_in,
-    const absl::optional<::gpu::SyncToken>& sync_token_in,
-    const absl::optional<::gfx::ColorSpace>& color_space_in,
+    const std::optional<::gpu::Mailbox>& mailbox_in,
+    const std::optional<::gpu::SyncToken>& sync_token_in,
+    const std::optional<::gfx::ColorSpace>& color_space_in,
     ::mojo::PendingRemote<::viz::mojom::TextureReleaser> releaser_in)
     : format(std::move(format_in)),
       destination(std::move(destination_in)),
@@ -116,7 +117,7 @@ void CopyOutputResult::WriteIntoTrace(
     dict.AddItem(
       "mailbox"), this->mailbox,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gpu::Mailbox>&>"
+      "<value of type const std::optional<::gpu::Mailbox>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -125,7 +126,7 @@ void CopyOutputResult::WriteIntoTrace(
     dict.AddItem(
       "sync_token"), this->sync_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gpu::SyncToken>&>"
+      "<value of type const std::optional<::gpu::SyncToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -134,7 +135,7 @@ void CopyOutputResult::WriteIntoTrace(
     dict.AddItem(
       "color_space"), this->color_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::ColorSpace>&>"
+      "<value of type const std::optional<::gfx::ColorSpace>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

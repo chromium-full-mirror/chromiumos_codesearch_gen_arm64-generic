@@ -29,6 +29,10 @@
         "mojom": "network.mojom.HttpVersion"
       },
       {
+        "cpp": "::net::ProxyChain",
+        "mojom": "network.mojom.ProxyChain"
+      },
+      {
         "cpp": "::net::ProxyServer",
         "mojom": "network.mojom.ProxyServer"
       },

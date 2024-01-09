@@ -26,15 +26,22 @@ class RequestParamsDataView;
 
 class CertVerifierConfigDataView;
 
+class AdditionalCertificatesDataView;
+
 class RequestParams;
 using RequestParamsPtr = mojo::StructPtr<RequestParams>;
 
 class CertVerifierConfig;
-using CertVerifierConfigPtr = mojo::StructPtr<CertVerifierConfig>;
+using CertVerifierConfigPtr = mojo::InlinedStructPtr<CertVerifierConfig>;
+
+class AdditionalCertificates;
+using AdditionalCertificatesPtr = mojo::StructPtr<AdditionalCertificates>;
 
 class URLLoaderFactoryConnector;
 
 class CertVerifierService;
+
+class CertVerifierServiceUpdater;
 
 class CertVerifierServiceClient;
 

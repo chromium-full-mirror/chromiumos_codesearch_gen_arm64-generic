@@ -80,5 +80,28 @@
         "mojom": "extensions.mojom.StackFrame"
       }
     ]
+  },
+  {
+    "traits_headers": [
+      "extensions/common/mojom/message_port_mojom_traits.h"
+    ],
+    "traits_sources": [
+      "//extensions/common/mojom/message_port_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::extensions::Message",
+        "mojom": "extensions.mojom.Message",
+        "move_only": true
+      },
+      {
+        "cpp": "::extensions::PortId",
+        "mojom": "extensions.mojom.PortId"
+      },
+      {
+        "cpp": "::extensions::MessagingEndpoint",
+        "mojom": "extensions.mojom.MessagingEndpoint"
+      }
+    ]
   }
 ]

@@ -341,18 +341,18 @@ std::unique_ptr<SelectAccountResult> SelectAccountResult::Clone() const {
 }
 
 
-std::unique_ptr<ConfirmIdpLoginParams> ConfirmIdpLoginParams::Parse(const base::Value& value, ErrorReporter* errors) {
+std::unique_ptr<ClickDialogButtonParams> ClickDialogButtonParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
-  errors->SetName("ConfirmIdpLoginParams");
+  errors->SetName("ClickDialogButtonParams");
   if (!value.is_dict()) {
     errors->AddError("object expected");
     errors->Pop();
     return nullptr;
   }
 
-  std::unique_ptr<ConfirmIdpLoginParams> result(new ConfirmIdpLoginParams());
+  std::unique_ptr<ClickDialogButtonParams> result(new ClickDialogButtonParams());
   errors->Push();
-  errors->SetName("ConfirmIdpLoginParams");
+  errors->SetName("ClickDialogButtonParams");
   const base::Value::Dict& dict = value.GetDict();
   const base::Value* dialog_id_value = dict.Find("dialogId");
   if (dialog_id_value) {
@@ -361,6 +361,13 @@ std::unique_ptr<ConfirmIdpLoginParams> ConfirmIdpLoginParams::Parse(const base::
   } else {
     errors->AddError("required property missing: dialogId");
   }
+  const base::Value* dialog_button_value = dict.Find("dialogButton");
+  if (dialog_button_value) {
+    errors->SetName("dialogButton");
+    result->dialog_button_ = internal::FromValue<::headless::fed_cm::DialogButton>::Parse(*dialog_button_value, errors);
+  } else {
+    errors->AddError("required property missing: dialogButton");
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -368,32 +375,33 @@ std::unique_ptr<ConfirmIdpLoginParams> ConfirmIdpLoginParams::Parse(const base::
   return result;
 }
 
-base::Value ConfirmIdpLoginParams::Serialize() const {
+base::Value ClickDialogButtonParams::Serialize() const {
   base::Value::Dict result;
   result.Set("dialogId", internal::ToValue(dialog_id_));
+  result.Set("dialogButton", internal::ToValue(dialog_button_));
   return base::Value(std::move(result));
 }
 
-std::unique_ptr<ConfirmIdpLoginParams> ConfirmIdpLoginParams::Clone() const {
+std::unique_ptr<ClickDialogButtonParams> ClickDialogButtonParams::Clone() const {
   ErrorReporter errors;
-  std::unique_ptr<ConfirmIdpLoginParams> result = Parse(Serialize(), &errors);
+  std::unique_ptr<ClickDialogButtonParams> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }
 
 
-std::unique_ptr<ConfirmIdpLoginResult> ConfirmIdpLoginResult::Parse(const base::Value& value, ErrorReporter* errors) {
+std::unique_ptr<ClickDialogButtonResult> ClickDialogButtonResult::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
-  errors->SetName("ConfirmIdpLoginResult");
+  errors->SetName("ClickDialogButtonResult");
   if (!value.is_dict()) {
     errors->AddError("object expected");
     errors->Pop();
     return nullptr;
   }
 
-  std::unique_ptr<ConfirmIdpLoginResult> result(new ConfirmIdpLoginResult());
+  std::unique_ptr<ClickDialogButtonResult> result(new ClickDialogButtonResult());
   errors->Push();
-  errors->SetName("ConfirmIdpLoginResult");
+  errors->SetName("ClickDialogButtonResult");
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -401,14 +409,14 @@ std::unique_ptr<ConfirmIdpLoginResult> ConfirmIdpLoginResult::Parse(const base::
   return result;
 }
 
-base::Value ConfirmIdpLoginResult::Serialize() const {
+base::Value ClickDialogButtonResult::Serialize() const {
   base::Value::Dict result;
   return base::Value(std::move(result));
 }
 
-std::unique_ptr<ConfirmIdpLoginResult> ConfirmIdpLoginResult::Clone() const {
+std::unique_ptr<ClickDialogButtonResult> ClickDialogButtonResult::Clone() const {
   ErrorReporter errors;
-  std::unique_ptr<ConfirmIdpLoginResult> result = Parse(Serialize(), &errors);
+  std::unique_ptr<ClickDialogButtonResult> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }
@@ -625,6 +633,47 @@ base::Value DialogShownParams::Serialize() const {
 std::unique_ptr<DialogShownParams> DialogShownParams::Clone() const {
   ErrorReporter errors;
   std::unique_ptr<DialogShownParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<DialogClosedParams> DialogClosedParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("DialogClosedParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<DialogClosedParams> result(new DialogClosedParams());
+  errors->Push();
+  errors->SetName("DialogClosedParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* dialog_id_value = dict.Find("dialogId");
+  if (dialog_id_value) {
+    errors->SetName("dialogId");
+    result->dialog_id_ = internal::FromValue<std::string>::Parse(*dialog_id_value, errors);
+  } else {
+    errors->AddError("required property missing: dialogId");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value DialogClosedParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("dialogId", internal::ToValue(dialog_id_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<DialogClosedParams> DialogClosedParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<DialogClosedParams> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }

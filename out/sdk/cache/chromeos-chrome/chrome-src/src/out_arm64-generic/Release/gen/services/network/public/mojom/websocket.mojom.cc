@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -358,14 +359,17 @@ void WebSocketAuthenticationHandlerProxy::OnAuthRequired(
                         "<value of type const ::net::IPEndPoint&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketAuthenticationHandler_OnAuthRequired_Name, kFlags, 0, 0, nullptr);
@@ -462,7 +466,7 @@ class WebSocketAuthenticationHandler_OnAuthRequired_ProxyToResponder : public ::
 #endif
 
   void Run(
-      const absl::optional<::net::AuthCredentials>& in_credentials);
+      const std::optional<::net::AuthCredentials>& in_credentials);
 };
 
 bool WebSocketAuthenticationHandler_OnAuthRequired_ForwardToCallback::Accept(
@@ -475,7 +479,7 @@ bool WebSocketAuthenticationHandler_OnAuthRequired_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::net::AuthCredentials> p_credentials{};
+  std::optional<::net::AuthCredentials> p_credentials{};
   WebSocketAuthenticationHandler_OnAuthRequired_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCredentials(&p_credentials))
@@ -494,7 +498,7 @@ std::move(p_credentials));
 }
 
 void WebSocketAuthenticationHandler_OnAuthRequired_ProxyToResponder::Run(
-    const absl::optional<::net::AuthCredentials>& in_credentials) {
+    const std::optional<::net::AuthCredentials>& in_credentials) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::WebSocketAuthenticationHandler::OnAuthRequired", "async_response_parameters",
@@ -502,13 +506,14 @@ void WebSocketAuthenticationHandler_OnAuthRequired_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("credentials"), in_credentials,
-                        "<value of type const absl::optional<::net::AuthCredentials>&>");
+                        "<value of type const std::optional<::net::AuthCredentials>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketAuthenticationHandler_OnAuthRequired_Name, kFlags, 0, 0, nullptr);
@@ -602,10 +607,10 @@ std::move(p_remote_endpoint), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebSocketAuthenticationHandlerValidationInfo[] = {
-    {&internal::WebSocketAuthenticationHandler_OnAuthRequired_Params_Data::Validate,
+    { &internal::WebSocketAuthenticationHandler_OnAuthRequired_Params_Data::Validate,
      &internal::WebSocketAuthenticationHandler_OnAuthRequired_ResponseParams_Data::Validate},
 };
 
@@ -729,14 +734,17 @@ void WebSocketHandshakeClientProxy::OnOpeningHandshakeStarted(
                         "<value of type WebSocketHandshakeRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketHandshakeClient_OnOpeningHandshakeStarted_Name, kFlags, 0, 0, nullptr);
@@ -783,14 +791,17 @@ void WebSocketHandshakeClientProxy::OnFailure(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketHandshakeClient_OnFailure_Name, kFlags, 0, 0, nullptr);
@@ -845,14 +856,17 @@ void WebSocketHandshakeClientProxy::OnConnectionEstablished(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketHandshakeClient_OnConnectionEstablished_Name, kFlags, 0, 0, nullptr);
@@ -1041,14 +1055,14 @@ bool WebSocketHandshakeClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebSocketHandshakeClientValidationInfo[] = {
-    {&internal::WebSocketHandshakeClient_OnOpeningHandshakeStarted_Params_Data::Validate,
+    { &internal::WebSocketHandshakeClient_OnOpeningHandshakeStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocketHandshakeClient_OnFailure_Params_Data::Validate,
+    { &internal::WebSocketHandshakeClient_OnFailure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocketHandshakeClient_OnConnectionEstablished_Params_Data::Validate,
+    { &internal::WebSocketHandshakeClient_OnConnectionEstablished_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1174,14 +1188,17 @@ void WebSocketClientProxy::OnDataFrame(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketClient_OnDataFrame_Name, kFlags, 0, 0, nullptr);
@@ -1221,14 +1238,17 @@ void WebSocketClientProxy::OnDropChannel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketClient_OnDropChannel_Name, kFlags, 0, 0, nullptr);
@@ -1264,14 +1284,17 @@ void WebSocketClientProxy::OnClosingHandshake(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::WebSocketClient::OnClosingHandshake");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketClient_OnClosingHandshake_Name, kFlags, 0, 0, nullptr);
@@ -1409,14 +1432,14 @@ bool WebSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebSocketClientValidationInfo[] = {
-    {&internal::WebSocketClient_OnDataFrame_Params_Data::Validate,
+    { &internal::WebSocketClient_OnDataFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocketClient_OnDropChannel_Params_Data::Validate,
+    { &internal::WebSocketClient_OnDropChannel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocketClient_OnClosingHandshake_Params_Data::Validate,
+    { &internal::WebSocketClient_OnClosingHandshake_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1539,14 +1562,17 @@ void WebSocketProxy::SendMessage(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocket_SendMessage_Name, kFlags, 0, 0, nullptr);
@@ -1572,14 +1598,17 @@ void WebSocketProxy::StartReceiving(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::WebSocket::StartReceiving");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocket_StartReceiving_Name, kFlags, 0, 0, nullptr);
@@ -1612,14 +1641,17 @@ void WebSocketProxy::StartClosingHandshake(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocket_StartClosingHandshake_Name, kFlags, 0, 0, nullptr);
@@ -1761,14 +1793,14 @@ bool WebSocketStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebSocketValidationInfo[] = {
-    {&internal::WebSocket_SendMessage_Params_Data::Validate,
+    { &internal::WebSocket_SendMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocket_StartReceiving_Params_Data::Validate,
+    { &internal::WebSocket_StartReceiving_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebSocket_StartClosingHandshake_Params_Data::Validate,
+    { &internal::WebSocket_StartClosingHandshake_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1867,14 +1899,14 @@ WebSocketAuthenticationHandlerAsyncWaiter::WebSocketAuthenticationHandlerAsyncWa
 WebSocketAuthenticationHandlerAsyncWaiter::~WebSocketAuthenticationHandlerAsyncWaiter() = default;
 
 void WebSocketAuthenticationHandlerAsyncWaiter::OnAuthRequired(
-    const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint, absl::optional<::net::AuthCredentials>* out_credentials) {
+    const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint, std::optional<::net::AuthCredentials>* out_credentials) {
   base::RunLoop loop;
   proxy_->OnAuthRequired(std::move(info),std::move(headers),std::move(remote_endpoint),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::net::AuthCredentials>* out_credentials
+             std::optional<::net::AuthCredentials>* out_credentials
 ,
-             const absl::optional<::net::AuthCredentials>& credentials) {*out_credentials = std::move(credentials);
+             const std::optional<::net::AuthCredentials>& credentials) {*out_credentials = std::move(credentials);
             loop->Quit();
           },
           &loop,
@@ -1882,9 +1914,9 @@ void WebSocketAuthenticationHandlerAsyncWaiter::OnAuthRequired(
   loop.Run();
 }
 
-absl::optional<::net::AuthCredentials> WebSocketAuthenticationHandlerAsyncWaiter::OnAuthRequired(
+std::optional<::net::AuthCredentials> WebSocketAuthenticationHandlerAsyncWaiter::OnAuthRequired(
     const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint) {
-  absl::optional<::net::AuthCredentials> async_wait_result;
+  std::optional<::net::AuthCredentials> async_wait_result;
   OnAuthRequired(std::move(info),std::move(headers),std::move(remote_endpoint),&async_wait_result);
   return async_wait_result;
 }

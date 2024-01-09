@@ -302,6 +302,7 @@
     this.rawBodyBytes = 0;
     this.totalReceivedBytes = 0;
     this.redirectInfoChain = null;
+    this.httpStatusCode = 0;
   };
   ResourceLoadInfo.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -317,7 +318,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 112}
+      {version: 0, numBytes: 120}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -389,10 +390,11 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
-  ResourceLoadInfo.encodedSize = codec.kStructHeaderSize + 104;
+  ResourceLoadInfo.encodedSize = codec.kStructHeaderSize + 112;
 
   ResourceLoadInfo.decode = function(decoder) {
     var packed;
@@ -433,6 +435,12 @@
         decoder.decodeStruct(codec.Int64);
     val.redirectInfoChain =
         decoder.decodeArrayPointer(new codec.PointerTo(RedirectInfo));
+    val.httpStatusCode =
+        decoder.decodeStruct(codec.Int32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -461,6 +469,11 @@
     encoder.encodeStruct(codec.Int64, val.rawBodyBytes);
     encoder.encodeStruct(codec.Int64, val.totalReceivedBytes);
     encoder.encodeArrayPointer(new codec.PointerTo(RedirectInfo), val.redirectInfoChain);
+    encoder.encodeStruct(codec.Int32, val.httpStatusCode);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   exports.ResourceType = ResourceType;
   exports.CommonNetworkInfo = CommonNetworkInfo;

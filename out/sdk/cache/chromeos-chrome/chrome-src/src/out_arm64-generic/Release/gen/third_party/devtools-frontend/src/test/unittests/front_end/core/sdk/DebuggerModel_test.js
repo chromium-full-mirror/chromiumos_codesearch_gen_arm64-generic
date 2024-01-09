@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Common from '../../../../../front_end/core/common/common.js';
-import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../../front_end/models/bindings/bindings.js';
 import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
@@ -88,28 +87,6 @@ describeWithMockConnection('DebuggerModel', () => {
             Common.Settings.Settings.instance().moduleSetting('breakpointsActive').set(true);
             // Verify that the backend received the message.
             assert.isTrue(breakpointsActivated);
-        });
-    });
-    describe('constructor', () => {
-        it('disables the model after Debugger.enable error response', async () => {
-            const responseSentPromise = new Promise(resolve => {
-                setMockConnectionResponseHandler('Debugger.enable', () => {
-                    resolve();
-                    return {
-                        getError() {
-                            return 'FAIL';
-                        },
-                    };
-                });
-            });
-            const target = createTarget();
-            const debuggerModel = target.model(SDK.DebuggerModel.DebuggerModel);
-            assertNotNullOrUndefined(debuggerModel);
-            // Pump the microtask queue a bit after sending the response.
-            for (let i = 0; i < 10; i++) {
-                await responseSentPromise;
-            }
-            assert.isFalse(debuggerModel?.debuggerEnabled());
         });
     });
     describe('createRawLocationFromURL', () => {

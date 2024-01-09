@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -72,8 +73,8 @@ struct GalleryChangeDetails {
   ~GalleryChangeDetails();
   GalleryChangeDetails(const GalleryChangeDetails&) = delete;
   GalleryChangeDetails& operator=(const GalleryChangeDetails&) = delete;
-  GalleryChangeDetails(GalleryChangeDetails&& rhs);
-  GalleryChangeDetails& operator=(GalleryChangeDetails&& rhs);
+  GalleryChangeDetails(GalleryChangeDetails&& rhs) noexcept;
+  GalleryChangeDetails& operator=(GalleryChangeDetails&& rhs) noexcept;
 
   // Populates a GalleryChangeDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -86,17 +87,13 @@ struct GalleryChangeDetails {
   // Creates a deep copy of GalleryChangeDetails.
   GalleryChangeDetails Clone() const;
 
-  // Creates a GalleryChangeDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GalleryChangeDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a GalleryChangeDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GalleryChangeDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<GalleryChangeDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a GalleryChangeDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GalleryChangeDetails> FromValue(const base::Value& value);
+  static std::optional<GalleryChangeDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGalleryChangeDetails object.
@@ -115,8 +112,8 @@ struct MediaFileSystemsDetails {
   ~MediaFileSystemsDetails();
   MediaFileSystemsDetails(const MediaFileSystemsDetails&) = delete;
   MediaFileSystemsDetails& operator=(const MediaFileSystemsDetails&) = delete;
-  MediaFileSystemsDetails(MediaFileSystemsDetails&& rhs);
-  MediaFileSystemsDetails& operator=(MediaFileSystemsDetails&& rhs);
+  MediaFileSystemsDetails(MediaFileSystemsDetails&& rhs) noexcept;
+  MediaFileSystemsDetails& operator=(MediaFileSystemsDetails&& rhs) noexcept;
 
   // Populates a MediaFileSystemsDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -129,17 +126,13 @@ struct MediaFileSystemsDetails {
   // Creates a deep copy of MediaFileSystemsDetails.
   MediaFileSystemsDetails Clone() const;
 
-  // Creates a MediaFileSystemsDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MediaFileSystemsDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaFileSystemsDetails object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<MediaFileSystemsDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaFileSystemsDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaFileSystemsDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MediaFileSystemsDetails> FromValue(const base::Value& value);
+  static std::optional<MediaFileSystemsDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaFileSystemsDetails object.
@@ -159,8 +152,8 @@ struct MediaMetadataOptions {
   ~MediaMetadataOptions();
   MediaMetadataOptions(const MediaMetadataOptions&) = delete;
   MediaMetadataOptions& operator=(const MediaMetadataOptions&) = delete;
-  MediaMetadataOptions(MediaMetadataOptions&& rhs);
-  MediaMetadataOptions& operator=(MediaMetadataOptions&& rhs);
+  MediaMetadataOptions(MediaMetadataOptions&& rhs) noexcept;
+  MediaMetadataOptions& operator=(MediaMetadataOptions&& rhs) noexcept;
 
   // Populates a MediaMetadataOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -173,17 +166,13 @@ struct MediaMetadataOptions {
   // Creates a deep copy of MediaMetadataOptions.
   MediaMetadataOptions Clone() const;
 
-  // Creates a MediaMetadataOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MediaMetadataOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaMetadataOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MediaMetadataOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaMetadataOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaMetadataOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MediaMetadataOptions> FromValue(const base::Value& value);
+  static std::optional<MediaMetadataOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaMetadataOptions object.
@@ -200,8 +189,8 @@ struct MediaFileSystemMetadata {
   ~MediaFileSystemMetadata();
   MediaFileSystemMetadata(const MediaFileSystemMetadata&) = delete;
   MediaFileSystemMetadata& operator=(const MediaFileSystemMetadata&) = delete;
-  MediaFileSystemMetadata(MediaFileSystemMetadata&& rhs);
-  MediaFileSystemMetadata& operator=(MediaFileSystemMetadata&& rhs);
+  MediaFileSystemMetadata(MediaFileSystemMetadata&& rhs) noexcept;
+  MediaFileSystemMetadata& operator=(MediaFileSystemMetadata&& rhs) noexcept;
 
   // Populates a MediaFileSystemMetadata object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -214,17 +203,13 @@ struct MediaFileSystemMetadata {
   // Creates a deep copy of MediaFileSystemMetadata.
   MediaFileSystemMetadata Clone() const;
 
-  // Creates a MediaFileSystemMetadata object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MediaFileSystemMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaFileSystemMetadata object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<MediaFileSystemMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaFileSystemMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaFileSystemMetadata object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MediaFileSystemMetadata> FromValue(const base::Value& value);
+  static std::optional<MediaFileSystemMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaFileSystemMetadata object.
@@ -238,7 +223,7 @@ struct MediaFileSystemMetadata {
 
   // If the media gallery is on a removable device, a unique id for the device
   // while the device is online.
-  absl::optional<std::string> device_id;
+  std::optional<std::string> device_id;
 
   // True if the media gallery is on a removable device.
   bool is_removable;
@@ -257,8 +242,8 @@ struct StreamInfo {
   ~StreamInfo();
   StreamInfo(const StreamInfo&) = delete;
   StreamInfo& operator=(const StreamInfo&) = delete;
-  StreamInfo(StreamInfo&& rhs);
-  StreamInfo& operator=(StreamInfo&& rhs);
+  StreamInfo(StreamInfo&& rhs) noexcept;
+  StreamInfo& operator=(StreamInfo&& rhs) noexcept;
 
   // Populates a StreamInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -271,15 +256,12 @@ struct StreamInfo {
   // Creates a deep copy of StreamInfo.
   StreamInfo Clone() const;
 
-  // Creates a StreamInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StreamInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StreamInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StreamInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StreamInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value& value);
+  static std::optional<StreamInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStreamInfo object.
@@ -291,8 +273,8 @@ struct StreamInfo {
     ~Tags();
     Tags(const Tags&) = delete;
     Tags& operator=(const Tags&) = delete;
-    Tags(Tags&& rhs);
-    Tags& operator=(Tags&& rhs);
+    Tags(Tags&& rhs) noexcept;
+    Tags& operator=(Tags&& rhs) noexcept;
 
     // Populates a Tags object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -306,10 +288,10 @@ struct StreamInfo {
     Tags Clone() const;
 
     // Creates a Tags object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Tags> FromValue(const base::Value::Dict& value);
+    static std::optional<Tags> FromValue(const base::Value::Dict& value);
 
     // Creates a Tags object from a base::Value, or nullopt on failure.
-    static absl::optional<Tags> FromValue(const base::Value& value);
+    static std::optional<Tags> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisTags object.
@@ -332,8 +314,8 @@ struct MediaMetadata {
   ~MediaMetadata();
   MediaMetadata(const MediaMetadata&) = delete;
   MediaMetadata& operator=(const MediaMetadata&) = delete;
-  MediaMetadata(MediaMetadata&& rhs);
-  MediaMetadata& operator=(MediaMetadata&& rhs);
+  MediaMetadata(MediaMetadata&& rhs) noexcept;
+  MediaMetadata& operator=(MediaMetadata&& rhs) noexcept;
 
   // Populates a MediaMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -346,15 +328,12 @@ struct MediaMetadata {
   // Creates a deep copy of MediaMetadata.
   MediaMetadata Clone() const;
 
-  // Creates a MediaMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MediaMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MediaMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaMetadata object from a base::Value, or nullopt on failure.
-  static absl::optional<MediaMetadata> FromValue(const base::Value& value);
+  static std::optional<MediaMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaMetadata object.
@@ -365,8 +344,8 @@ struct MediaMetadata {
     ~AttachedImagesType();
     AttachedImagesType(const AttachedImagesType&) = delete;
     AttachedImagesType& operator=(const AttachedImagesType&) = delete;
-    AttachedImagesType(AttachedImagesType&& rhs);
-    AttachedImagesType& operator=(AttachedImagesType&& rhs);
+    AttachedImagesType(AttachedImagesType&& rhs) noexcept;
+    AttachedImagesType& operator=(AttachedImagesType&& rhs) noexcept;
 
     // Populates a AttachedImagesType object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -381,11 +360,11 @@ struct MediaMetadata {
 
     // Creates a AttachedImagesType object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<AttachedImagesType> FromValue(const base::Value::Dict& value);
+    static std::optional<AttachedImagesType> FromValue(const base::Value::Dict& value);
 
     // Creates a AttachedImagesType object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<AttachedImagesType> FromValue(const base::Value& value);
+    static std::optional<AttachedImagesType> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisAttachedImagesType object.
@@ -400,34 +379,34 @@ struct MediaMetadata {
   std::string mime_type;
 
   // Defined for video. In pixels.
-  absl::optional<int> height;
+  std::optional<int> height;
 
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // Defined for audio and video. In seconds.
-  absl::optional<double> duration;
+  std::optional<double> duration;
 
   // Defined for video. In degrees.
-  absl::optional<int> rotation;
+  std::optional<int> rotation;
 
   // Defined for audio and video.
-  absl::optional<std::string> album;
+  std::optional<std::string> album;
 
-  absl::optional<std::string> artist;
+  std::optional<std::string> artist;
 
-  absl::optional<std::string> comment;
+  std::optional<std::string> comment;
 
-  absl::optional<std::string> copyright;
+  std::optional<std::string> copyright;
 
-  absl::optional<int> disc;
+  std::optional<int> disc;
 
-  absl::optional<std::string> genre;
+  std::optional<std::string> genre;
 
-  absl::optional<std::string> language;
+  std::optional<std::string> language;
 
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
-  absl::optional<int> track;
+  std::optional<int> track;
 
   // All the metadata in the media file. For formats with multiple streams, stream
   // order will be preserved. Container metadata is the first element.
@@ -444,8 +423,8 @@ struct AddGalleryWatchResult {
   ~AddGalleryWatchResult();
   AddGalleryWatchResult(const AddGalleryWatchResult&) = delete;
   AddGalleryWatchResult& operator=(const AddGalleryWatchResult&) = delete;
-  AddGalleryWatchResult(AddGalleryWatchResult&& rhs);
-  AddGalleryWatchResult& operator=(AddGalleryWatchResult&& rhs);
+  AddGalleryWatchResult(AddGalleryWatchResult&& rhs) noexcept;
+  AddGalleryWatchResult& operator=(AddGalleryWatchResult&& rhs) noexcept;
 
   // Populates a AddGalleryWatchResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -458,17 +437,13 @@ struct AddGalleryWatchResult {
   // Creates a deep copy of AddGalleryWatchResult.
   AddGalleryWatchResult Clone() const;
 
-  // Creates a AddGalleryWatchResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AddGalleryWatchResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddGalleryWatchResult object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<AddGalleryWatchResult> FromValue(const base::Value::Dict& value);
+  static std::optional<AddGalleryWatchResult> FromValue(const base::Value::Dict& value);
 
   // Creates a AddGalleryWatchResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddGalleryWatchResult> FromValue(const base::Value& value);
+  static std::optional<AddGalleryWatchResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddGalleryWatchResult object.
@@ -488,14 +463,14 @@ struct AddGalleryWatchResult {
 namespace GetMediaFileSystems {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<MediaFileSystemsDetails> details;
+  std::optional<MediaFileSystemsDetails> details;
 
 
  private:
@@ -509,8 +484,8 @@ struct MediaFileSystemsType {
   ~MediaFileSystemsType();
   MediaFileSystemsType(const MediaFileSystemsType&) = delete;
   MediaFileSystemsType& operator=(const MediaFileSystemsType&) = delete;
-  MediaFileSystemsType(MediaFileSystemsType&& rhs);
-  MediaFileSystemsType& operator=(MediaFileSystemsType&& rhs);
+  MediaFileSystemsType(MediaFileSystemsType&& rhs) noexcept;
+  MediaFileSystemsType& operator=(MediaFileSystemsType&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaFileSystemsType object.
@@ -535,8 +510,8 @@ struct MediaFileSystemsType {
   ~MediaFileSystemsType();
   MediaFileSystemsType(const MediaFileSystemsType&) = delete;
   MediaFileSystemsType& operator=(const MediaFileSystemsType&) = delete;
-  MediaFileSystemsType(MediaFileSystemsType&& rhs);
-  MediaFileSystemsType& operator=(MediaFileSystemsType&& rhs);
+  MediaFileSystemsType(MediaFileSystemsType&& rhs) noexcept;
+  MediaFileSystemsType& operator=(MediaFileSystemsType&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaFileSystemsType object.
@@ -555,11 +530,11 @@ base::Value::List Create(const std::vector<MediaFileSystemsType>& media_file_sys
 namespace GetMetadata {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct MediaFile {
@@ -567,8 +542,8 @@ struct Params {
     ~MediaFile();
     MediaFile(const MediaFile&) = delete;
     MediaFile& operator=(const MediaFile&) = delete;
-    MediaFile(MediaFile&& rhs);
-    MediaFile& operator=(MediaFile&& rhs);
+    MediaFile(MediaFile&& rhs) noexcept;
+    MediaFile& operator=(MediaFile&& rhs) noexcept;
 
     // Populates a MediaFile object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -582,10 +557,10 @@ struct Params {
     MediaFile Clone() const;
 
     // Creates a MediaFile object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<MediaFile> FromValue(const base::Value::Dict& value);
+    static std::optional<MediaFile> FromValue(const base::Value::Dict& value);
 
     // Creates a MediaFile object from a base::Value, or nullopt on failure.
-    static absl::optional<MediaFile> FromValue(const base::Value& value);
+    static std::optional<MediaFile> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -593,7 +568,7 @@ struct Params {
 
   MediaFile media_file;
 
-  absl::optional<MediaMetadataOptions> options;
+  std::optional<MediaMetadataOptions> options;
 
 
  private:
@@ -610,11 +585,11 @@ base::Value::List Create(const MediaMetadata& metadata);
 namespace AddGalleryWatch {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string gallery_id;
@@ -634,11 +609,11 @@ base::Value::List Create(const AddGalleryWatchResult& result);
 namespace RemoveGalleryWatch {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string gallery_id;

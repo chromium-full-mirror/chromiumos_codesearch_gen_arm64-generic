@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -45,20 +46,25 @@
 namespace crosapi::mojom {
 FieldTrialGroupInfo::FieldTrialGroupInfo()
     : trial_name(),
-      group_name() {}
+      group_name(),
+      is_overridden() {}
 
 FieldTrialGroupInfo::FieldTrialGroupInfo(
     const std::string& trial_name_in,
     const std::string& group_name_in)
     : trial_name(std::move(trial_name_in)),
-      group_name(std::move(group_name_in)) {}
+      group_name(std::move(group_name_in)),
+      is_overridden() {}
+
+FieldTrialGroupInfo::FieldTrialGroupInfo(
+    const std::string& trial_name_in,
+    const std::string& group_name_in,
+    std::optional<bool> is_overridden_in)
+    : trial_name(std::move(trial_name_in)),
+      group_name(std::move(group_name_in)),
+      is_overridden(std::move(is_overridden_in)) {}
 
 FieldTrialGroupInfo::~FieldTrialGroupInfo() = default;
-size_t FieldTrialGroupInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->trial_name);
-  seed = mojo::internal::Hash(seed, this->group_name);
-  return seed;
-}
 
 void FieldTrialGroupInfo::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -77,6 +83,15 @@ void FieldTrialGroupInfo::WriteIntoTrace(
       "group_name"), this->group_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_overridden"), this->is_overridden,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -160,14 +175,17 @@ void FieldTrialObserverProxy::OnFieldTrialGroupActivated(
                         "<value of type std::vector<FieldTrialGroupInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFieldTrialObserver_OnFieldTrialGroupActivated_Name, kFlags, 0, 0, nullptr);
@@ -248,10 +266,10 @@ bool FieldTrialObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFieldTrialObserverValidationInfo[] = {
-    {&internal::FieldTrialObserver_OnFieldTrialGroupActivated_Params_Data::Validate,
+    { &internal::FieldTrialObserver_OnFieldTrialGroupActivated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -332,14 +350,17 @@ void FieldTrialServiceProxy::AddFieldTrialObserver(
                         "<value of type ::mojo::PendingRemote<FieldTrialObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFieldTrialService_AddFieldTrialObserver_Name, kFlags, 0, 0, nullptr);
@@ -415,10 +436,10 @@ bool FieldTrialServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFieldTrialServiceValidationInfo[] = {
-    {&internal::FieldTrialService_AddFieldTrialObserver_Params_Data::Validate,
+    { &internal::FieldTrialService_AddFieldTrialObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -446,6 +467,9 @@ bool StructTraits<::crosapi::mojom::FieldTrialGroupInfo::DataView, ::crosapi::mo
         success = false;
       if (success && !input.ReadGroupName(&result->group_name))
         success = false;
+      if (success) {
+        result->is_overridden = input.is_overridden();
+      }
   *output = std::move(result);
   return success;
 }

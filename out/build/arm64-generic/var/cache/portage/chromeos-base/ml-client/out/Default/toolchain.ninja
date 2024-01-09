@@ -36,10 +36,10 @@ rule copy
 build obj/common-mk/gn_root/root.stamp: stamp obj/ml/ml-client/all.stamp
 build obj/ml/ml-client/all.stamp: stamp obj/ml/ml-client/libml-client-headers.stamp
 rule __ml_ml-client_libml-client-headers___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/ml-client/out/Default/gen/include/ml/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/ml-client/out/Default/gen/include/ml/dbus-proxy-mocks.h -proxy-path-for-mocks=ml/dbus-proxies.h ../../../../../../../../../mnt/host/source/src/platform2/ml/dbus_bindings/org.chromium.MachineLearning.AdaptiveCharging.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/ml-client-0.0.1-r468/work/ml-client-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/ml-client/out/Default/gen/include/ml/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/ml-client/out/Default/gen/include/ml/dbus-proxy-mocks.h -proxy-path-for-mocks=ml/dbus-proxies.h ../../../../../../../tmp/portage/chromeos-base/ml-client-0.0.1-r468/work/ml-client-0.0.1/ml/dbus_bindings/org.chromium.MachineLearning.AdaptiveCharging.xml
   description = ACTION //ml/ml-client:libml-client-headers(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/ml/dbus-proxies.h gen/include/ml/dbus-proxy-mocks.h: __ml_ml-client_libml-client-headers___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/ml/dbus_bindings/org.chromium.MachineLearning.AdaptiveCharging.xml
+build gen/include/ml/dbus-proxies.h gen/include/ml/dbus-proxy-mocks.h: __ml_ml-client_libml-client-headers___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/ml-client-0.0.1-r468/work/ml-client-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/ml-client-0.0.1-r468/work/ml-client-0.0.1/ml/dbus_bindings/org.chromium.MachineLearning.AdaptiveCharging.xml
 
 build obj/ml/ml-client/libml-client-headers.stamp: stamp gen/include/ml/dbus-proxies.h gen/include/ml/dbus-proxy-mocks.h

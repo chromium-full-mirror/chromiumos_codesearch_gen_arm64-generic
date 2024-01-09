@@ -268,8 +268,12 @@ bool InstallationResult_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 62, 24 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -293,7 +297,7 @@ bool InstallationResult_Data::Validate(
 }
 
 InstallationResult_Data::InstallationResult_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 62}) {}
 
 
 // static
@@ -583,6 +587,7 @@ bool ArcPackageInfo_Data::Validate(
     { 55, 72 },
     { 56, 80 },
     { 60, 88 },
+    { 61, 88 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -653,7 +658,7 @@ bool ArcPackageInfo_Data::Validate(
 }
 
 ArcPackageInfo_Data::ArcPackageInfo_Data()
-    : header_({sizeof(*this), 60}) {}
+    : header_({sizeof(*this), 61}) {}
 
 
 // static
@@ -3138,6 +3143,51 @@ bool AppInstance_GetAppCategory_ResponseParams_Data::Validate(
 }
 
 AppInstance_GetAppCategory_ResponseParams_Data::AppInstance_GetAppCategory_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppInstance_SetAppLocale_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppInstance_SetAppLocale_Params_Data* object =
+      static_cast<const AppInstance_SetAppLocale_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->package_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& package_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->package_name, validation_context,
+                                         &package_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->locale_tag, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& locale_tag_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->locale_tag, validation_context,
+                                         &locale_tag_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppInstance_SetAppLocale_Params_Data::AppInstance_SetAppLocale_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

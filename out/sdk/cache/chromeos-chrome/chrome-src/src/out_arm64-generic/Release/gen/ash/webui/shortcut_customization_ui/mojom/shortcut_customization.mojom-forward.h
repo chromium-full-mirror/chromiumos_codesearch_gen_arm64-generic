@@ -28,6 +28,10 @@ class SimpleAcceleratorDataView;
 
 
 enum class UserAction : int32_t;
+
+enum class EditDialogCompletedActions : int32_t;
+
+enum class Subactions : int32_t;
 class AcceleratorResultData;
 using AcceleratorResultDataPtr = mojo::StructPtr<AcceleratorResultData>;
 

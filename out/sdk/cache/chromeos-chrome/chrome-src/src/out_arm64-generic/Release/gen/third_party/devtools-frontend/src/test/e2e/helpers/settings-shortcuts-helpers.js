@@ -18,7 +18,7 @@ exports.ADD_SHORTCUT_LINK_TEXT = 'Add a shortcut';
 exports.SHORTCUT_CHORD_TIMEOUT = 1000;
 exports.VS_CODE_SHORTCUTS_SHORTCUTS = ['CtrlKCtrlS'];
 exports.VS_CODE_SETTINGS_SHORTCUTS = ['Shift?', 'Ctrl,'];
-exports.VS_CODE_SHORTCUTS_QUICK_OPEN_TEXT = 'ShortcutsCtrl + K Ctrl + SSettings';
+exports.VS_CODE_SHORTCUTS_QUICK_OPEN_TEXT = 'Show ShortcutsCtrl + K Ctrl + SSettings';
 exports.VS_CODE_PAUSE_SHORTCUTS = ['Ctrl\\', 'F5', 'ShiftF5'];
 exports.CONTROL_1_CONTROL_2_SHORTCUT_INPUTS_TEXT = ['Ctrl + 1', 'Ctrl + 2'];
 exports.CONTROL_1_CONTROL_2_CHORD_INPUT_TEXT = ['Ctrl + 1 Ctrl + 2'];
@@ -32,7 +32,7 @@ exports.CONTROL_ALT_C_SHORTCUT_INPUT_TEXT = ['Ctrl + Alt + C'];
 if (helper_js_1.platform === 'mac') {
     exports.VS_CODE_SHORTCUTS_SHORTCUTS = ['⌘ K⌘ S'];
     exports.VS_CODE_SETTINGS_SHORTCUTS = ['⇧ ?', '⌘ ,'];
-    exports.VS_CODE_SHORTCUTS_QUICK_OPEN_TEXT = 'Shortcuts⌘ K ⌘ SSettings';
+    exports.VS_CODE_SHORTCUTS_QUICK_OPEN_TEXT = 'Show Shortcuts⌘ K ⌘ SSettings';
     exports.VS_CODE_PAUSE_SHORTCUTS = ['F5', '⇧ F5', '⌘ \\'];
     exports.CONTROL_1_CONTROL_2_SHORTCUT_INPUTS_TEXT = ['Ctrl 1', 'Ctrl 2'];
     exports.CONTROL_1_CONTROL_2_CHORD_INPUT_TEXT = ['Ctrl 1 Ctrl 2'];
@@ -69,7 +69,6 @@ exports.getShortcutListItemElement = getShortcutListItemElement;
 const editShortcutListItem = async (shortcutText) => {
     const listItemElement = await (0, exports.getShortcutListItemElement)(shortcutText);
     await (0, helper_js_1.clickElement)(listItemElement);
-    await (0, helper_js_1.waitFor)(EDIT_BUTTON_SELECTOR, listItemElement);
     await (0, helper_js_1.click)(EDIT_BUTTON_SELECTOR, { root: listItemElement });
     await (0, helper_js_1.waitFor)(RESET_BUTTON_SELECTOR);
 };

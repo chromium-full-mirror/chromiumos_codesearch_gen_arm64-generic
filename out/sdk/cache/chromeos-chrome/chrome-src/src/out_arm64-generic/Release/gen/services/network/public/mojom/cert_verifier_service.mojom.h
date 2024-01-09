@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cert_verifier_service.mojom-features.h"
 #include "services/network/public/mojom/cert_verifier_service.mojom-shared.h"
 #include "services/network/public/mojom/cert_verifier_service.mojom-forward.h"
 #include "mojo/public/mojom/base/byte_string.mojom.h"
@@ -147,6 +148,51 @@ class CertVerifierService
 
   
   virtual void SetConfig(const ::net::CertVerifier::Config& config) = 0;
+};
+
+class CertVerifierServiceUpdaterProxy;
+
+template <typename ImplRefTraits>
+class CertVerifierServiceUpdaterStub;
+
+class CertVerifierServiceUpdaterRequestValidator;
+
+
+class CertVerifierServiceUpdater
+    : public CertVerifierServiceUpdaterInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = CertVerifierServiceUpdaterInterfaceBase;
+  using Proxy_ = CertVerifierServiceUpdaterProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = CertVerifierServiceUpdaterStub<ImplRefTraits>;
+
+  using RequestValidator_ = CertVerifierServiceUpdaterRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kUpdateAdditionalCertificatesMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct UpdateAdditionalCertificates_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~CertVerifierServiceUpdater() = default;
+
+  
+  virtual void UpdateAdditionalCertificates(AdditionalCertificatesPtr certificates) = 0;
 };
 
 class CertVerifierServiceClientProxy;
@@ -275,6 +321,21 @@ class  CertVerifierServiceProxy
 
 
 
+class  CertVerifierServiceUpdaterProxy
+    : public CertVerifierServiceUpdater {
+ public:
+  using InterfaceType = CertVerifierServiceUpdater;
+
+  explicit CertVerifierServiceUpdaterProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void UpdateAdditionalCertificates(AdditionalCertificatesPtr certificates) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  CertVerifierServiceClientProxy
     : public CertVerifierServiceClient {
  public:
@@ -384,6 +445,47 @@ class CertVerifierServiceStub
  private:
   ImplPointerType sink_;
 };
+class  CertVerifierServiceUpdaterStubDispatch {
+ public:
+  static bool Accept(CertVerifierServiceUpdater* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      CertVerifierServiceUpdater* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<CertVerifierServiceUpdater>>
+class CertVerifierServiceUpdaterStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  CertVerifierServiceUpdaterStub() = default;
+  ~CertVerifierServiceUpdaterStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return CertVerifierServiceUpdaterStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return CertVerifierServiceUpdaterStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  CertVerifierServiceClientStubDispatch {
  public:
   static bool Accept(CertVerifierServiceClient* impl, mojo::Message* message);
@@ -474,6 +576,10 @@ class  CertVerifierServiceRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  CertVerifierServiceUpdaterRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  CertVerifierServiceClientRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -483,6 +589,155 @@ class  CertVerifierRequestRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 
+
+
+
+
+
+class  CertVerifierConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CertVerifierConfig, T>::value>;
+  using DataView = CertVerifierConfigDataView;
+  using Data_ = internal::CertVerifierConfig_Data;
+
+  template <typename... Args>
+  static CertVerifierConfigPtr New(Args&&... args) {
+    return CertVerifierConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CertVerifierConfigPtr From(const U& u) {
+    return mojo::TypeConverter<CertVerifierConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CertVerifierConfig>::Convert(*this);
+  }
+
+
+  CertVerifierConfig();
+
+  CertVerifierConfig(
+      bool enable_rev_checking,
+      bool require_rev_checking_local_anchors,
+      bool enable_sha1_local_anchors,
+      bool disable_symantec_enforcement);
+
+
+  ~CertVerifierConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CertVerifierConfigPtr>
+  CertVerifierConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CertVerifierConfig::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CertVerifierConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CertVerifierConfig_UnserializedMessageContext<
+            UserType, CertVerifierConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CertVerifierConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CertVerifierConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CertVerifierConfig_UnserializedMessageContext<
+            UserType, CertVerifierConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CertVerifierConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool enable_rev_checking;
+  
+  bool require_rev_checking_local_anchors;
+  
+  bool enable_sha1_local_anchors;
+  
+  bool disable_symantec_enforcement;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -643,70 +898,68 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  CertVerifierConfig {
+
+class  AdditionalCertificates {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<CertVerifierConfig, T>::value>;
-  using DataView = CertVerifierConfigDataView;
-  using Data_ = internal::CertVerifierConfig_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<AdditionalCertificates, T>::value>;
+  using DataView = AdditionalCertificatesDataView;
+  using Data_ = internal::AdditionalCertificates_Data;
 
   template <typename... Args>
-  static CertVerifierConfigPtr New(Args&&... args) {
-    return CertVerifierConfigPtr(
+  static AdditionalCertificatesPtr New(Args&&... args) {
+    return AdditionalCertificatesPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static CertVerifierConfigPtr From(const U& u) {
-    return mojo::TypeConverter<CertVerifierConfigPtr, U>::Convert(u);
+  static AdditionalCertificatesPtr From(const U& u) {
+    return mojo::TypeConverter<AdditionalCertificatesPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, CertVerifierConfig>::Convert(*this);
+    return mojo::TypeConverter<U, AdditionalCertificates>::Convert(*this);
   }
 
 
-  CertVerifierConfig();
+  AdditionalCertificates();
 
-  CertVerifierConfig(
-      bool enable_rev_checking,
-      bool require_rev_checking_local_anchors,
-      bool enable_sha1_local_anchors,
-      bool disable_symantec_enforcement,
-      std::vector<::scoped_refptr<::net::X509Certificate>> additional_trust_anchors,
-      std::vector<::scoped_refptr<::net::X509Certificate>> additional_untrusted_authorities);
+  AdditionalCertificates(
+      std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates,
+      std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors,
+      std::vector<std::vector<uint8_t>> distrusted_spkis);
 
 
-  ~CertVerifierConfig();
+  ~AdditionalCertificates();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = CertVerifierConfigPtr>
-  CertVerifierConfigPtr Clone() const;
+  template <typename StructPtrType = AdditionalCertificatesPtr>
+  AdditionalCertificatesPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        CertVerifierConfig::DataView, std::vector<uint8_t>>(input);
+        AdditionalCertificates::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        CertVerifierConfig::DataView>(input);
+        AdditionalCertificates::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -716,8 +969,8 @@ class  CertVerifierConfig {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::CertVerifierConfig_UnserializedMessageContext<
-            UserType, CertVerifierConfig::DataView>>(0, 0, std::move(input)),
+        internal::AdditionalCertificates_UnserializedMessageContext<
+            UserType, AdditionalCertificates::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -726,14 +979,14 @@ class  CertVerifierConfig {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<CertVerifierConfig::DataView>(
+    return mojo::internal::DeserializeImpl<AdditionalCertificates::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return CertVerifierConfig::Deserialize(
+    return AdditionalCertificates::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -741,29 +994,23 @@ class  CertVerifierConfig {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::CertVerifierConfig_UnserializedMessageContext<
-            UserType, CertVerifierConfig::DataView>>();
+        internal::AdditionalCertificates_UnserializedMessageContext<
+            UserType, AdditionalCertificates::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<CertVerifierConfig::DataView>(
+    return mojo::internal::DeserializeImpl<AdditionalCertificates::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  bool enable_rev_checking;
+  std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates;
   
-  bool require_rev_checking_local_anchors;
+  std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors;
   
-  bool enable_sha1_local_anchors;
-  
-  bool disable_symantec_enforcement;
-  
-  std::vector<::scoped_refptr<::net::X509Certificate>> additional_trust_anchors;
-  
-  std::vector<::scoped_refptr<::net::X509Certificate>> additional_untrusted_authorities;
+  std::vector<std::vector<uint8_t>> distrusted_spkis;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -776,20 +1023,20 @@ class  CertVerifierConfig {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, CertVerifierConfig::EnableIfSame<T>* = nullptr>
+template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -850,9 +1097,7 @@ CertVerifierConfigPtr CertVerifierConfig::Clone() const {
       mojo::Clone(enable_rev_checking),
       mojo::Clone(require_rev_checking_local_anchors),
       mojo::Clone(enable_sha1_local_anchors),
-      mojo::Clone(disable_symantec_enforcement),
-      mojo::Clone(additional_trust_anchors),
-      mojo::Clone(additional_untrusted_authorities)
+      mojo::Clone(disable_symantec_enforcement)
   );
 }
 
@@ -865,10 +1110,6 @@ bool CertVerifierConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->enable_sha1_local_anchors, other_struct.enable_sha1_local_anchors))
     return false;
   if (!mojo::Equals(this->disable_symantec_enforcement, other_struct.disable_symantec_enforcement))
-    return false;
-  if (!mojo::Equals(this->additional_trust_anchors, other_struct.additional_trust_anchors))
-    return false;
-  if (!mojo::Equals(this->additional_untrusted_authorities, other_struct.additional_untrusted_authorities))
     return false;
   return true;
 }
@@ -891,13 +1132,41 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.disable_symantec_enforcement < lhs.disable_symantec_enforcement)
     return false;
-  if (lhs.additional_trust_anchors < rhs.additional_trust_anchors)
-    return true;
-  if (rhs.additional_trust_anchors < lhs.additional_trust_anchors)
+  return false;
+}
+template <typename StructPtrType>
+AdditionalCertificatesPtr AdditionalCertificates::Clone() const {
+  return New(
+      mojo::Clone(all_certificates),
+      mojo::Clone(trust_anchors),
+      mojo::Clone(distrusted_spkis)
+  );
+}
+
+template <typename T, AdditionalCertificates::EnableIfSame<T>*>
+bool AdditionalCertificates::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->all_certificates, other_struct.all_certificates))
     return false;
-  if (lhs.additional_untrusted_authorities < rhs.additional_untrusted_authorities)
+  if (!mojo::Equals(this->trust_anchors, other_struct.trust_anchors))
+    return false;
+  if (!mojo::Equals(this->distrusted_spkis, other_struct.distrusted_spkis))
+    return false;
+  return true;
+}
+
+template <typename T, AdditionalCertificates::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.all_certificates < rhs.all_certificates)
     return true;
-  if (rhs.additional_untrusted_authorities < lhs.additional_untrusted_authorities)
+  if (rhs.all_certificates < lhs.all_certificates)
+    return false;
+  if (lhs.trust_anchors < rhs.trust_anchors)
+    return true;
+  if (rhs.trust_anchors < lhs.trust_anchors)
+    return false;
+  if (lhs.distrusted_spkis < rhs.distrusted_spkis)
+    return true;
+  if (rhs.distrusted_spkis < lhs.distrusted_spkis)
     return false;
   return false;
 }
@@ -969,17 +1238,32 @@ struct  StructTraits<::cert_verifier::mojom::CertVerifierConfig::DataView,
     return input->disable_symantec_enforcement;
   }
 
-  static const decltype(::cert_verifier::mojom::CertVerifierConfig::additional_trust_anchors)& additional_trust_anchors(
-      const ::cert_verifier::mojom::CertVerifierConfigPtr& input) {
-    return input->additional_trust_anchors;
-  }
-
-  static const decltype(::cert_verifier::mojom::CertVerifierConfig::additional_untrusted_authorities)& additional_untrusted_authorities(
-      const ::cert_verifier::mojom::CertVerifierConfigPtr& input) {
-    return input->additional_untrusted_authorities;
-  }
-
   static bool Read(::cert_verifier::mojom::CertVerifierConfig::DataView input, ::cert_verifier::mojom::CertVerifierConfigPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::cert_verifier::mojom::AdditionalCertificates::DataView,
+                                         ::cert_verifier::mojom::AdditionalCertificatesPtr> {
+  static bool IsNull(const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) { return !input; }
+  static void SetToNull(::cert_verifier::mojom::AdditionalCertificatesPtr* output) { output->reset(); }
+
+  static const decltype(::cert_verifier::mojom::AdditionalCertificates::all_certificates)& all_certificates(
+      const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
+    return input->all_certificates;
+  }
+
+  static const decltype(::cert_verifier::mojom::AdditionalCertificates::trust_anchors)& trust_anchors(
+      const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
+    return input->trust_anchors;
+  }
+
+  static const decltype(::cert_verifier::mojom::AdditionalCertificates::distrusted_spkis)& distrusted_spkis(
+      const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
+    return input->distrusted_spkis;
+  }
+
+  static bool Read(::cert_verifier::mojom::AdditionalCertificates::DataView input, ::cert_verifier::mojom::AdditionalCertificatesPtr* output);
 };
 
 }  // namespace mojo

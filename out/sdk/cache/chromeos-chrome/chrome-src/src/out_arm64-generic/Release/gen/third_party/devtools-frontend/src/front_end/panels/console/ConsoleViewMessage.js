@@ -150,6 +150,18 @@ const UIStrings = {
      *@description Message to indicate a console message with a stack table is collapsed
      */
     stackMessageCollapsed: 'Stack table collapsed',
+    /**
+     *@description Message to offer insights for a console error message
+     */
+    explainThisError: 'Explain this error',
+    /**
+     *@description Message to offer insights for a console warning message
+     */
+    explainThisWarning: 'Explain this warning',
+    /**
+     *@description Message to offer insights for a console message
+     */
+    explainThisMessage: 'Explain this message',
 };
 const str_ = i18n.i18n.registerUIStrings('panels/console/ConsoleViewMessage.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
@@ -172,6 +184,17 @@ const parameterToRemoteObject = (runtimeModel) => (parameter) => {
     }
     return runtimeModel.createRemoteObjectFromPrimitiveValue(parameter);
 };
+const EXPLAIN_HOVER_ACTION_ID = 'explain.consoleMessage:hover';
+const EXPLAIN_CONTEXT_ERROR_ACTION_ID = 'explain.consoleMessage:context:error';
+const EXPLAIN_CONTEXT_WARNING_ACTION_ID = 'explain.consoleMessage:context:warning';
+const EXPLAIN_CONTEXT_OTHER_ACTION_ID = 'explain.consoleMessage:context:other';
+const hoverButtonObserver = new IntersectionObserver(results => {
+    for (const result of results) {
+        if (result.intersectionRatio > 0) {
+            Host.userMetrics.actionTaken(Host.UserMetrics.Action.InsightHoverButtonShown);
+        }
+    }
+});
 export class ConsoleViewMessage {
     message;
     linkifier;
@@ -180,7 +203,10 @@ export class ConsoleViewMessage {
     consoleGroupInternal;
     selectableChildren;
     messageResized;
+    // The wrapper that contains consoleRowWrapper and other elements in a column.
     elementInternal;
+    // The element that wraps console message elements in a row.
+    consoleRowWrapper = null;
     previewFormatter;
     searchRegexInternal;
     messageIcon;
@@ -239,6 +265,16 @@ export class ConsoleViewMessage {
     setInsight(insight) {
         this.elementInternal?.querySelector('devtools-console-insight')?.remove();
         this.elementInternal?.append(insight);
+        this.elementInternal?.classList.toggle('has-insight', true);
+        insight.addEventListener('close', () => {
+            Host.userMetrics.actionTaken(Host.UserMetrics.Action.InsightClosed);
+            this.elementInternal?.classList.toggle('has-insight', false);
+            insight.addEventListener('animationend', () => {
+                this.elementInternal?.removeChild(insight);
+            }, {
+                once: true,
+            });
+        }, { once: true });
     }
     element() {
         return this.toMessageElement();
@@ -466,7 +502,7 @@ export class ConsoleViewMessage {
         toggleElement.classList.add('console-message-stack-trace-toggle');
         const contentElement = toggleElement.createChild('div', 'console-message-stack-trace-wrapper');
         const messageElement = this.buildMessage();
-        const icon = UI.Icon.Icon.create('triangle-right', 'console-message-expand-icon');
+        const icon = IconButton.Icon.create('triangle-right', 'console-message-expand-icon');
         const clickableElement = contentElement.createChild('div');
         UI.ARIAUtils.setExpanded(clickableElement, false);
         clickableElement.appendChild(icon);
@@ -494,7 +530,7 @@ export class ConsoleViewMessage {
             else {
                 clearTimeout(debounce);
             }
-            icon.setIconType(expand ? 'triangle-down' : 'triangle-right');
+            icon.name = expand ? 'triangle-down' : 'triangle-right';
             stackTraceElement.classList.toggle('hidden', !expand);
             const stackTableState = expand ? i18nString(UIStrings.stackMessageExpanded) : i18nString(UIStrings.stackMessageCollapsed);
             UI.ARIAUtils.setLabel(contentElement, `${messageElement.textContent} ${stackTableState}`);
@@ -904,7 +940,7 @@ export class ConsoleViewMessage {
         else if (this.elementInternal && !this.similarGroupMarker && inSimilarGroup) {
             this.similarGroupMarker = document.createElement('div');
             this.similarGroupMarker.classList.add('nesting-level-marker');
-            this.elementInternal.insertBefore(this.similarGroupMarker, this.elementInternal.firstChild);
+            this.consoleRowWrapper?.insertBefore(this.similarGroupMarker, this.consoleRowWrapper.firstChild);
             this.similarGroupMarker.classList.toggle('group-closed', this.lastInSimilarGroup);
         }
     }
@@ -1069,6 +1105,8 @@ export class ConsoleViewMessage {
         }
         this.elementInternal.className = 'console-message-wrapper';
         this.elementInternal.removeChildren();
+        this.consoleRowWrapper = this.elementInternal.createChild('div');
+        this.consoleRowWrapper.classList.add('console-row-wrapper');
         if (this.message.isGroupStartMessage()) {
             this.elementInternal.classList.add('console-group-title');
         }
@@ -1076,7 +1114,7 @@ export class ConsoleViewMessage {
             this.elementInternal.classList.add('console-from-api');
         }
         if (this.inSimilarGroup) {
-            this.similarGroupMarker = this.elementInternal.createChild('div', 'nesting-level-marker');
+            this.similarGroupMarker = this.consoleRowWrapper.createChild('div', 'nesting-level-marker');
             this.similarGroupMarker.classList.toggle('group-closed', this.lastInSimilarGroup);
         }
         this.nestingLevelMarkers = [];
@@ -1108,10 +1146,61 @@ export class ConsoleViewMessage {
         if (this.shouldRenderAsWarning()) {
             this.elementInternal.classList.add('console-warning-level');
         }
-        this.elementInternal.appendChild(this.contentElement());
+        this.consoleRowWrapper.appendChild(this.contentElement());
+        if (UI.ActionRegistry.ActionRegistry.instance().hasAction(EXPLAIN_HOVER_ACTION_ID) && this.shouldShowInsights()) {
+            Host.userMetrics.actionTaken(Host.UserMetrics.Action.InsightConsoleMessageShown);
+            this.consoleRowWrapper.append(this.#createHoverButton());
+        }
         if (this.repeatCountInternal > 1) {
             this.showRepeatCountElement();
         }
+    }
+    shouldShowInsights() {
+        return this.message.level === "error" /* Protocol.Log.LogEntryLevel.Error */ ||
+            this.message.level === "warning" /* Protocol.Log.LogEntryLevel.Warning */;
+    }
+    getExplainLabel() {
+        if (this.message.level === "error" /* Protocol.Log.LogEntryLevel.Error */) {
+            return i18nString(UIStrings.explainThisError);
+        }
+        if (this.message.level === "warning" /* Protocol.Log.LogEntryLevel.Warning */) {
+            return i18nString(UIStrings.explainThisWarning);
+        }
+        return i18nString(UIStrings.explainThisMessage);
+    }
+    getExplainActionId() {
+        if (this.message.level === "error" /* Protocol.Log.LogEntryLevel.Error */) {
+            return EXPLAIN_CONTEXT_ERROR_ACTION_ID;
+        }
+        if (this.message.level === "warning" /* Protocol.Log.LogEntryLevel.Warning */) {
+            return EXPLAIN_CONTEXT_WARNING_ACTION_ID;
+        }
+        return EXPLAIN_CONTEXT_OTHER_ACTION_ID;
+    }
+    #createHoverButton() {
+        const icon = new IconButton.Icon.Icon();
+        icon.data = {
+            iconName: 'spark-info',
+            color: 'var(--sys-color-primary)',
+            width: '16px',
+            height: '16px',
+        };
+        const button = document.createElement('button');
+        button.append(icon);
+        button.onclick = (event) => {
+            event.stopPropagation();
+            UI.Context.Context.instance().setFlavor(ConsoleViewMessage, this);
+            const action = UI.ActionRegistry.ActionRegistry.instance().getAction(EXPLAIN_HOVER_ACTION_ID);
+            void action.execute();
+        };
+        const text = document.createElement('span');
+        text.innerText = this.getExplainLabel();
+        button.append(text);
+        button.classList.add('hover-button');
+        button.ariaLabel = this.getExplainLabel();
+        button.tabIndex = 0;
+        hoverButtonObserver.observe(button);
+        return button;
     }
     shouldRenderAsWarning() {
         return (this.message.level === "verbose" /* Protocol.Log.LogEntryLevel.Verbose */ ||
@@ -1215,7 +1304,7 @@ export class ConsoleViewMessage {
             if (this.shouldRenderAsWarning()) {
                 this.repeatCountElement.type = 'warning';
             }
-            this.elementInternal.insertBefore(this.repeatCountElement, this.contentElementInternal);
+            this.consoleRowWrapper?.insertBefore(this.repeatCountElement, this.contentElementInternal);
             this.contentElement().classList.add('repeated-message');
         }
         this.repeatCountElement.textContent = `${this.repeatCountInternal}`;
@@ -1242,6 +1331,15 @@ export class ConsoleViewMessage {
             lines.push(messageContent);
         }
         return lines.join('\n');
+    }
+    toMessageTextString() {
+        const root = this.contentElement();
+        const consoleText = root.querySelector('.console-message-text');
+        if (consoleText) {
+            return consoleText.deepTextContent().trim();
+        }
+        // Fallback to SDK's message text.
+        return this.consoleMessage().messageText;
     }
     setSearchRegex(regex) {
         if (this.searchHighlightNodeChanges && this.searchHighlightNodeChanges.length) {
@@ -1276,15 +1374,13 @@ export class ConsoleViewMessage {
     }
     async getInlineFrames(debuggerModel, url, lineNumber, columnNumber) {
         const debuggerWorkspaceBinding = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance();
-        if (debuggerWorkspaceBinding.pluginManager) {
-            const projects = Workspace.Workspace.WorkspaceImpl.instance().projects();
-            const uiSourceCodes = projects.map(project => project.uiSourceCodeForURL(url)).flat().filter(f => Boolean(f));
-            const scripts = uiSourceCodes.map(uiSourceCode => debuggerWorkspaceBinding.scriptsForUISourceCode(uiSourceCode)).flat();
-            if (scripts.length) {
-                const location = new SDK.DebuggerModel.Location(debuggerModel, scripts[0].scriptId, lineNumber || 0, columnNumber);
-                const functionInfo = await debuggerWorkspaceBinding.pluginManager.getFunctionInfo(scripts[0], location);
-                return functionInfo && 'frames' in functionInfo ? functionInfo : { frames: [] };
-            }
+        const projects = Workspace.Workspace.WorkspaceImpl.instance().projects();
+        const uiSourceCodes = projects.map(project => project.uiSourceCodeForURL(url)).flat().filter(f => Boolean(f));
+        const scripts = uiSourceCodes.map(uiSourceCode => debuggerWorkspaceBinding.scriptsForUISourceCode(uiSourceCode)).flat();
+        if (scripts.length) {
+            const location = new SDK.DebuggerModel.Location(debuggerModel, scripts[0].scriptId, lineNumber || 0, columnNumber);
+            const functionInfo = await debuggerWorkspaceBinding.pluginManager.getFunctionInfo(scripts[0], location);
+            return functionInfo && 'frames' in functionInfo ? functionInfo : { frames: [] };
         }
         return { frames: [] };
     }
@@ -1524,7 +1620,7 @@ export class ConsoleGroupViewMessage extends ConsoleViewMessage {
     setCollapsed(collapsed) {
         this.collapsedInternal = collapsed;
         if (this.expandGroupIcon) {
-            this.expandGroupIcon.setIconType(this.collapsedInternal ? 'triangle-right' : 'triangle-down');
+            this.expandGroupIcon.name = this.collapsedInternal ? 'triangle-right' : 'triangle-down';
         }
         this.onToggle.call(null);
     }
@@ -1547,14 +1643,14 @@ export class ConsoleGroupViewMessage extends ConsoleViewMessage {
         if (!element) {
             element = super.toMessageElement();
             const iconType = this.collapsedInternal ? 'triangle-right' : 'triangle-down';
-            this.expandGroupIcon = UI.Icon.Icon.create(iconType, 'expand-group-icon');
+            this.expandGroupIcon = IconButton.Icon.create(iconType, 'expand-group-icon');
             // Intercept focus to avoid highlight on click.
             this.contentElement().tabIndex = -1;
             if (this.repeatCountElement) {
                 this.repeatCountElement.insertBefore(this.expandGroupIcon, this.repeatCountElement.firstChild);
             }
             else {
-                element.insertBefore(this.expandGroupIcon, this.contentElementInternal);
+                this.consoleRowWrapper?.insertBefore(this.expandGroupIcon, this.contentElementInternal);
             }
             element.addEventListener('click', () => this.setCollapsed(!this.collapsedInternal));
         }

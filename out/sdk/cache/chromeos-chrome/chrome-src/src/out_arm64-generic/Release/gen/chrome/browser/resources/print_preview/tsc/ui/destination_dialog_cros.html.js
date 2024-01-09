@@ -14,11 +14,10 @@ export function getTemplate() {
     <div class="throbber-container" hidden$="[[!showThrobber_]]">
       <div class="throbber"></div>
     </div>
-    <print-preview-search-box id="searchBox" hidden$="[[!getShowDestinations_(
-          showThrobber_, isShowingPrinterSetupAssistance)]]" label="$i18n{searchBoxPlaceholder}" search-query="{{searchQuery_}}" autofocus>
+    <print-preview-search-box id="searchBox" hidden$="[[!isShowingDestinationList]]" label="$i18n{searchBoxPlaceholder}" search-query="{{searchQuery_}}" autofocus>
     </print-preview-search-box>
-    <print-preview-destination-list id="printList" destinations="[[destinations_]]" hidden$="[[!getShowDestinations_(
-          showThrobber_, isShowingPrinterSetupAssistance)]]" loading-destinations="[[loadingAnyDestinations_]]" search-query="[[searchQuery_]]" on-destination-selected="onDestinationSelected_">
+    <print-preview-destination-list id="printList" destinations="[[destinations_]]" hidden$="[[!isShowingDestinationList]]" loading-destinations="[[showDestinationListThrobber(
+            loadingAnyDestinations_)]]" search-query="[[searchQuery_]]" on-destination-selected="onDestinationSelected_">
     </print-preview-destination-list>
     <print-preview-printer-setup-info-cros hidden$="[[!isShowingPrinterSetupAssistance]]" message-type="[[noPrinters_]]" metrics-source="[[destinationDialogCrosSource_]]">
     </print-preview-printer-setup-info-cros>

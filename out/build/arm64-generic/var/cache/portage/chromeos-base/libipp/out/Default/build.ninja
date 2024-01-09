@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r491/work/libipp-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -23,25 +23,19 @@ build _libipp-install_config: phony obj/libipp/_libipp-install_config.stamp
 build install_headers: phony obj/libipp/install_headers.stamp
 build install_pkgconfig: phony obj/libipp/install_pkgconfig.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libipp$:_libipp-install_config: phony obj/libipp/_libipp-install_config.stamp
 build libipp$:all: phony obj/libipp/all.stamp
 build libipp$:install_headers: phony obj/libipp/install_headers.stamp
 build libipp$:install_pkgconfig: phony obj/libipp/install_pkgconfig.stamp
 build libipp$:libipp: phony ./lib/libipp.so
-build libipp$:libipp_test: phony ./libipp_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libipp/_libipp-install_config.stamp $
     obj/libipp/all.stamp $
     obj/libipp/install_headers.stamp $
     obj/libipp/install_pkgconfig.stamp $
-    ./lib/libipp.so $
-    ./libipp_test
+    ./lib/libipp.so
 
 default all

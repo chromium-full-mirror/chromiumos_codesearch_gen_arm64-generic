@@ -68,8 +68,9 @@ export const SmartCardError = {
   kUnexpected: 28,
   kShutdown: 29,
   kUnknown: 30,
+  kPermissionDenied: 31,
   MIN_VALUE: 0,
-  MAX_VALUE: 30,
+  MAX_VALUE: 31,
 };
 
 /**

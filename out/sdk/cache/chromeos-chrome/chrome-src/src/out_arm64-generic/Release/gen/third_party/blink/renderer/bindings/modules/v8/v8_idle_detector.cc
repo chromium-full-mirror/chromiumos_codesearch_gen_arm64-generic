@@ -38,7 +38,7 @@ namespace blink {
 bool V8IdleDetector::IsExposed(ExecutionContext* execution_context) {
   
 const bool is_in_secure_context = execution_context->IsSecureContext();
-return is_in_secure_context && (execution_context->IsWindow() || execution_context->IsDedicatedWorkerGlobalScope()) && RuntimeEnabledFeatures::IdleDetectionEnabled();
+return is_in_secure_context && (execution_context->IsWindow() || execution_context->IsDedicatedWorkerGlobalScope());
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -76,11 +76,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, IdleDetector>::value,
     "IdleDetector does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&IdleDetector::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IdleDetector is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDetector.userState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->userState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->userState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -108,10 +103,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDetector.screenState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->screenState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->screenState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -123,10 +118,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDetector.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -139,8 +134,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(v8_receiver);
+IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -199,7 +195,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIdleDetectionStart);
 
 
 
-IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(v8_receiver);
+IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

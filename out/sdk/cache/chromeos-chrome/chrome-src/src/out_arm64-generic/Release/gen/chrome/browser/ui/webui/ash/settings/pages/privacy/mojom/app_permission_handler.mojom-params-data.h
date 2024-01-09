@@ -69,6 +69,39 @@ class  AppPermissionsHandler_GetApps_ResponseParams_Data {
 };
 static_assert(sizeof(AppPermissionsHandler_GetApps_ResponseParams_Data) == 16,
               "Bad sizeof(AppPermissionsHandler_GetApps_ResponseParams_Data)");
+class  AppPermissionsHandler_OpenNativeSettings_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> app_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_OpenNativeSettings_Params_Data>;
+
+  AppPermissionsHandler_OpenNativeSettings_Params_Data();
+  ~AppPermissionsHandler_OpenNativeSettings_Params_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_OpenNativeSettings_Params_Data) == 16,
+              "Bad sizeof(AppPermissionsHandler_OpenNativeSettings_Params_Data)");
+class  AppPermissionsHandler_SetPermission_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> app_id;
+  mojo::internal::Pointer<::app_management::mojom::internal::Permission_Data> permission;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_SetPermission_Params_Data>;
+
+  AppPermissionsHandler_SetPermission_Params_Data();
+  ~AppPermissionsHandler_SetPermission_Params_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_SetPermission_Params_Data) == 24,
+              "Bad sizeof(AppPermissionsHandler_SetPermission_Params_Data)");
 class  AppPermissionsObserver_OnAppRemoved_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -171,6 +204,68 @@ class AppPermissionsHandler_GetApps_ResponseParamsDataView {
 };
 
 
+class AppPermissionsHandler_OpenNativeSettings_ParamsDataView {
+ public:
+  AppPermissionsHandler_OpenNativeSettings_ParamsDataView() = default;
+
+  AppPermissionsHandler_OpenNativeSettings_ParamsDataView(
+      internal::AppPermissionsHandler_OpenNativeSettings_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) {
+    
+    auto* pointer = data_->app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppPermissionsHandler_OpenNativeSettings_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class AppPermissionsHandler_SetPermission_ParamsDataView {
+ public:
+  AppPermissionsHandler_SetPermission_ParamsDataView() = default;
+
+  AppPermissionsHandler_SetPermission_ParamsDataView(
+      internal::AppPermissionsHandler_SetPermission_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) {
+    
+    auto* pointer = data_->app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPermissionDataView(
+      ::app_management::mojom::PermissionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPermission(UserType* output) {
+    
+    auto* pointer = data_->permission.Get();
+    return mojo::internal::Deserialize<::app_management::mojom::PermissionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppPermissionsHandler_SetPermission_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AppPermissionsObserver_OnAppRemoved_ParamsDataView {
  public:
   AppPermissionsObserver_OnAppRemoved_ParamsDataView() = default;
@@ -230,6 +325,25 @@ inline void AppPermissionsHandler_GetApps_ResponseParamsDataView::GetAppsDataVie
     mojo::ArrayDataView<AppDataView>* output) {
   auto pointer = data_->apps.Get();
   *output = mojo::ArrayDataView<AppDataView>(pointer, message_);
+}
+
+
+inline void AppPermissionsHandler_OpenNativeSettings_ParamsDataView::GetAppIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void AppPermissionsHandler_SetPermission_ParamsDataView::GetAppIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AppPermissionsHandler_SetPermission_ParamsDataView::GetPermissionDataView(
+    ::app_management::mojom::PermissionDataView* output) {
+  auto pointer = data_->permission.Get();
+  *output = ::app_management::mojom::PermissionDataView(pointer, message_);
 }
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,9 +52,9 @@ WebMemoryAttribution::WebMemoryAttribution()
 
 WebMemoryAttribution::WebMemoryAttribution(
     WebMemoryAttribution::Scope scope_in,
-    const absl::optional<std::string>& url_in,
-    const absl::optional<std::string>& src_in,
-    const absl::optional<std::string>& id_in)
+    const std::optional<std::string>& url_in,
+    const std::optional<std::string>& src_in,
+    const std::optional<std::string>& id_in)
     : scope(std::move(scope_in)),
       url(std::move(url_in)),
       src(std::move(src_in)),
@@ -77,7 +78,7 @@ void WebMemoryAttribution::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void WebMemoryAttribution::WriteIntoTrace(
     dict.AddItem(
       "src"), this->src,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -95,7 +96,7 @@ void WebMemoryAttribution::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

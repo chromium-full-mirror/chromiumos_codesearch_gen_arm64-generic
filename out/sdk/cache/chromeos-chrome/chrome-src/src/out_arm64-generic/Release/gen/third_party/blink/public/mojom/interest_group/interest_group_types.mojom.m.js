@@ -175,7 +175,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'renderUrl', 0,
         0,
-        url_mojom_UrlSpec.$,
+        mojo.internal.String,
         null,
         false /* nullable */,
         0,
@@ -238,7 +238,7 @@ mojo.internal.Struct(
  */
 export class InterestGroupAd {
   constructor() {
-    /** @type { !url_mojom_Url } */
+    /** @type { !string } */
     this.renderUrl;
     /** @type { (string|undefined) } */
     this.sizeGroup;
@@ -351,6 +351,23 @@ export const InterestGroup_ExecutionMode = {
   MAX_VALUE: 2,
 };
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const InterestGroup_TrustedBiddingSignalsSlotSizeModeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const InterestGroup_TrustedBiddingSignalsSlotSizeMode = {
+  
+  kNone: 0,
+  kSlotSize: 1,
+  kAllSlotsRequestedSizes: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 
 mojo.internal.Struct(
     InterestGroupSpec.$,
@@ -437,7 +454,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'biddingUrl', 72,
+        'trustedBiddingSignalsSlotSizeMode', 72,
+        0,
+        InterestGroup_TrustedBiddingSignalsSlotSizeModeSpec.$,
+        InterestGroup_TrustedBiddingSignalsSlotSizeMode.kNone,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'biddingUrl', 80,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -445,7 +470,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'biddingWasmHelperUrl', 80,
+        'biddingWasmHelperUrl', 88,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -453,7 +478,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'updateUrl', 88,
+        'updateUrl', 96,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -461,7 +486,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'trustedBiddingSignalsUrl', 96,
+        'trustedBiddingSignalsUrl', 104,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -469,7 +494,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'trustedBiddingSignalsKeys', 104,
+        'trustedBiddingSignalsKeys', 112,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -477,7 +502,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'userBiddingSignals', 112,
+        'userBiddingSignals', 120,
         0,
         mojo.internal.String,
         null,
@@ -485,7 +510,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'ads', 120,
+        'ads', 128,
         0,
         mojo.internal.Array(InterestGroupAdSpec.$, false),
         null,
@@ -493,7 +518,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'adComponents', 128,
+        'adComponents', 136,
         0,
         mojo.internal.Array(InterestGroupAdSpec.$, false),
         null,
@@ -501,7 +526,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'adSizes', 136,
+        'adSizes', 144,
         0,
         mojo.internal.Map(mojo.internal.String, blink_mojom_AdSizeSpec.$, false),
         null,
@@ -509,7 +534,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sizeGroups', 144,
+        'sizeGroups', 152,
         0,
         mojo.internal.Map(mojo.internal.String, mojo.internal.Array(mojo.internal.String, false), false),
         null,
@@ -517,7 +542,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'auctionServerRequestFlags', 152,
+        'auctionServerRequestFlags', 160,
         0,
         AuctionServerRequestFlagsSpec.$,
         null,
@@ -525,7 +550,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'additionalBidKey', 160,
+        'additionalBidKey', 168,
         0,
         mojo.internal.Array(mojo.internal.Uint8, false),
         null,
@@ -533,7 +558,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'aggregationCoordinatorOrigin', 168,
+        'aggregationCoordinatorOrigin', 176,
         0,
         url_mojom_OriginSpec.$,
         null,
@@ -541,7 +566,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 184],]);
+    [[0, 192],]);
 
 
 
@@ -570,6 +595,8 @@ export class InterestGroup {
     this.allSellersCapabilities;
     /** @type { !InterestGroup_ExecutionMode } */
     this.executionMode;
+    /** @type { !InterestGroup_TrustedBiddingSignalsSlotSizeMode } */
+    this.trustedBiddingSignalsSlotSizeMode;
     /** @type { (url_mojom_Url|undefined) } */
     this.biddingUrl;
     /** @type { (url_mojom_Url|undefined) } */
@@ -1033,7 +1060,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'auctionNonce', 184,
+        'allSlotsRequestedSizes', 184,
+        0,
+        mojo.internal.Array(blink_mojom_AdSizeSpec.$, false),
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'auctionNonce', 192,
         0,
         mojoBase_mojom_UuidSpec.$,
         null,
@@ -1041,7 +1076,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'componentAuctions', 192,
+        'componentAuctions', 200,
         0,
         mojo.internal.Array(AuctionAdConfigSpec.$, false),
         null,
@@ -1049,7 +1084,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 208],]);
+    [[0, 216],]);
 
 
 
@@ -1092,6 +1127,8 @@ export class AuctionAdConfigNonSharedParams {
     this.requiredSellerCapabilities;
     /** @type { (blink_mojom_AdSize|undefined) } */
     this.requestedSize;
+    /** @type { (Array<!blink_mojom_AdSize>|undefined) } */
+    this.allSlotsRequestedSizes;
     /** @type { (mojoBase_mojom_Uuid|undefined) } */
     this.auctionNonce;
     /** @type { !Array<!AuctionAdConfig> } */

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -177,6 +178,7 @@ bool SearchResponse::Validate(
 }
 FeedbackContext::FeedbackContext()
     : email(),
+      wifi_debug_logs_allowed(),
       has_linked_cross_device_phone(),
       is_internal_account(),
       from_assistant(),
@@ -190,19 +192,21 @@ FeedbackContext::FeedbackContext()
       trace_id() {}
 
 FeedbackContext::FeedbackContext(
-    const absl::optional<std::string>& email_in,
+    const std::optional<std::string>& email_in,
+    bool wifi_debug_logs_allowed_in,
     bool has_linked_cross_device_phone_in,
     bool is_internal_account_in,
     bool from_assistant_in,
     bool assistant_debug_info_allowed_in,
     bool from_settings_search_in,
     bool from_autofill_in,
-    const absl::optional<std::string>& autofill_metadata_in,
-    const absl::optional<::GURL>& page_url_in,
-    const absl::optional<std::string>& extra_diagnostics_in,
-    const absl::optional<std::string>& category_tag_in,
+    const std::optional<std::string>& autofill_metadata_in,
+    const std::optional<::GURL>& page_url_in,
+    const std::optional<std::string>& extra_diagnostics_in,
+    const std::optional<std::string>& category_tag_in,
     int32_t trace_id_in)
     : email(std::move(email_in)),
+      wifi_debug_logs_allowed(std::move(wifi_debug_logs_allowed_in)),
       has_linked_cross_device_phone(std::move(has_linked_cross_device_phone_in)),
       is_internal_account(std::move(is_internal_account_in)),
       from_assistant(std::move(from_assistant_in)),
@@ -224,7 +228,16 @@ void FeedbackContext::WriteIntoTrace(
     dict.AddItem(
       "email"), this->email,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "wifi_debug_logs_allowed"), this->wifi_debug_logs_allowed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -287,7 +300,7 @@ void FeedbackContext::WriteIntoTrace(
     dict.AddItem(
       "autofill_metadata"), this->autofill_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -296,7 +309,7 @@ void FeedbackContext::WriteIntoTrace(
     dict.AddItem(
       "page_url"), this->page_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -305,7 +318,7 @@ void FeedbackContext::WriteIntoTrace(
     dict.AddItem(
       "extra_diagnostics"), this->extra_diagnostics,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -314,7 +327,7 @@ void FeedbackContext::WriteIntoTrace(
     dict.AddItem(
       "category_tag"), this->category_tag,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -383,6 +396,7 @@ Report::Report()
       include_screenshot(),
       contact_user_consent_granted(),
       send_bluetooth_logs(),
+      send_wifi_debug_logs(),
       include_autofill_metadata() {}
 
 Report::Report(
@@ -393,6 +407,7 @@ Report::Report(
     bool include_screenshot_in,
     bool contact_user_consent_granted_in,
     bool send_bluetooth_logs_in,
+    bool send_wifi_debug_logs_in,
     bool include_autofill_metadata_in)
     : feedback_context(std::move(feedback_context_in)),
       description(std::move(description_in)),
@@ -401,6 +416,7 @@ Report::Report(
       include_screenshot(std::move(include_screenshot_in)),
       contact_user_consent_granted(std::move(contact_user_consent_granted_in)),
       send_bluetooth_logs(std::move(send_bluetooth_logs_in)),
+      send_wifi_debug_logs(std::move(send_wifi_debug_logs_in)),
       include_autofill_metadata(std::move(include_autofill_metadata_in)) {}
 
 Report::~Report() = default;
@@ -465,6 +481,15 @@ void Report::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "send_bluetooth_logs"), this->send_bluetooth_logs,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "send_wifi_debug_logs"), this->send_wifi_debug_logs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -574,14 +599,17 @@ void HelpContentProviderProxy::GetHelpContents(
                         "<value of type SearchRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpContentProvider_GetHelpContents_Name, kFlags, 0, 0, nullptr);
@@ -702,7 +730,8 @@ void HelpContentProvider_GetHelpContents_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpContentProvider_GetHelpContents_Name, kFlags, 0, 0, nullptr);
@@ -792,10 +821,10 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHelpContentProviderValidationInfo[] = {
-    {&internal::HelpContentProvider_GetHelpContents_Params_Data::Validate,
+    { &internal::HelpContentProvider_GetHelpContents_Params_Data::Validate,
      &internal::HelpContentProvider_GetHelpContents_ResponseParams_Data::Validate},
 };
 
@@ -1160,14 +1189,17 @@ void FeedbackServiceProviderProxy::GetFeedbackContext(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::GetFeedbackContext");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_GetFeedbackContext_Name, kFlags, 0, 0, nullptr);
@@ -1191,14 +1223,17 @@ void FeedbackServiceProviderProxy::GetScreenshotPng(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::GetScreenshotPng");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_GetScreenshotPng_Name, kFlags, 0, 0, nullptr);
@@ -1229,14 +1264,17 @@ void FeedbackServiceProviderProxy::SendReport(
                         "<value of type ReportPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_SendReport_Name, kFlags, 0, 0, nullptr);
@@ -1271,14 +1309,17 @@ void FeedbackServiceProviderProxy::OpenDiagnosticsApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::OpenDiagnosticsApp");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_OpenDiagnosticsApp_Name, kFlags, 0, 0, nullptr);
@@ -1301,14 +1342,17 @@ void FeedbackServiceProviderProxy::OpenExploreApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::OpenExploreApp");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_OpenExploreApp_Name, kFlags, 0, 0, nullptr);
@@ -1331,14 +1375,17 @@ void FeedbackServiceProviderProxy::OpenMetricsDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::OpenMetricsDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_OpenMetricsDialog_Name, kFlags, 0, 0, nullptr);
@@ -1361,14 +1408,17 @@ void FeedbackServiceProviderProxy::OpenSystemInfoDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::os_feedback_ui::mojom::FeedbackServiceProvider::OpenSystemInfoDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_OpenSystemInfoDialog_Name, kFlags, 0, 0, nullptr);
@@ -1398,14 +1448,17 @@ void FeedbackServiceProviderProxy::OpenAutofillDialog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_OpenAutofillDialog_Name, kFlags, 0, 0, nullptr);
@@ -1446,14 +1499,17 @@ void FeedbackServiceProviderProxy::RecordPostSubmitAction(
                         "<value of type FeedbackAppPostSubmitAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_RecordPostSubmitAction_Name, kFlags, 0, 0, nullptr);
@@ -1485,14 +1541,17 @@ void FeedbackServiceProviderProxy::RecordPreSubmitAction(
                         "<value of type FeedbackAppPreSubmitAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_RecordPreSubmitAction_Name, kFlags, 0, 0, nullptr);
@@ -1524,14 +1583,17 @@ void FeedbackServiceProviderProxy::RecordExitPath(
                         "<value of type FeedbackAppExitPath>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_RecordExitPath_Name, kFlags, 0, 0, nullptr);
@@ -1563,14 +1625,17 @@ void FeedbackServiceProviderProxy::RecordHelpContentOutcome(
                         "<value of type FeedbackAppHelpContentOutcome>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_RecordHelpContentOutcome_Name, kFlags, 0, 0, nullptr);
@@ -1602,14 +1667,17 @@ void FeedbackServiceProviderProxy::RecordHelpContentSearchResultCount(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_RecordHelpContentSearchResultCount_Name, kFlags, 0, 0, nullptr);
@@ -1719,7 +1787,8 @@ void FeedbackServiceProvider_GetFeedbackContext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_GetFeedbackContext_Name, kFlags, 0, 0, nullptr);
@@ -1847,7 +1916,8 @@ void FeedbackServiceProvider_GetScreenshotPng_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_GetScreenshotPng_Name, kFlags, 0, 0, nullptr);
@@ -1977,7 +2047,8 @@ void FeedbackServiceProvider_SendReport_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedbackServiceProvider_SendReport_Name, kFlags, 0, 0, nullptr);
@@ -2388,34 +2459,34 @@ std::move(p_report), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFeedbackServiceProviderValidationInfo[] = {
-    {&internal::FeedbackServiceProvider_GetFeedbackContext_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_GetFeedbackContext_Params_Data::Validate,
      &internal::FeedbackServiceProvider_GetFeedbackContext_ResponseParams_Data::Validate},
-    {&internal::FeedbackServiceProvider_GetScreenshotPng_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_GetScreenshotPng_Params_Data::Validate,
      &internal::FeedbackServiceProvider_GetScreenshotPng_ResponseParams_Data::Validate},
-    {&internal::FeedbackServiceProvider_SendReport_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_SendReport_Params_Data::Validate,
      &internal::FeedbackServiceProvider_SendReport_ResponseParams_Data::Validate},
-    {&internal::FeedbackServiceProvider_OpenDiagnosticsApp_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_OpenDiagnosticsApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_OpenExploreApp_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_OpenExploreApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_OpenMetricsDialog_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_OpenMetricsDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_OpenSystemInfoDialog_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_OpenSystemInfoDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_OpenAutofillDialog_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_OpenAutofillDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_RecordPostSubmitAction_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_RecordPostSubmitAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_RecordPreSubmitAction_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_RecordPreSubmitAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_RecordExitPath_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_RecordExitPath_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_RecordHelpContentOutcome_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_RecordHelpContentOutcome_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FeedbackServiceProvider_RecordHelpContentSearchResultCount_Params_Data::Validate,
+    { &internal::FeedbackServiceProvider_RecordHelpContentSearchResultCount_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2496,6 +2567,8 @@ bool StructTraits<::ash::os_feedback_ui::mojom::FeedbackContext::DataView, ::ash
       if (success && !input.ReadEmail(&result->email))
         success = false;
       if (success)
+        result->wifi_debug_logs_allowed = input.wifi_debug_logs_allowed();
+      if (success)
         result->has_linked_cross_device_phone = input.has_linked_cross_device_phone();
       if (success)
         result->is_internal_account = input.is_internal_account();
@@ -2559,6 +2632,8 @@ bool StructTraits<::ash::os_feedback_ui::mojom::Report::DataView, ::ash::os_feed
         result->contact_user_consent_granted = input.contact_user_consent_granted();
       if (success)
         result->send_bluetooth_logs = input.send_bluetooth_logs();
+      if (success)
+        result->send_wifi_debug_logs = input.send_wifi_debug_logs();
       if (success)
         result->include_autofill_metadata = input.include_autofill_metadata();
   *output = std::move(result);

@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FontFaceSet>::value,
     "FontFaceSet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FontFaceSet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FontFaceSet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.onloading.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloading();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloading();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,8 +102,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloading(event_handler);
 }
 
@@ -119,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.onloadingdone.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadingdone();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadingdone();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -135,8 +131,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadingdone(event_handler);
 }
 
@@ -147,10 +144,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.onloadingerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadingerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadingerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -163,8 +160,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadingerror(event_handler);
 }
 
@@ -187,7 +185,7 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.ready.get");
 
 
 
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -203,10 +201,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.status.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->status();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->status();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -232,7 +230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_font = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -280,7 +278,7 @@ return;
 
 
 
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -308,8 +306,9 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -336,7 +335,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -362,12 +361,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FontFaceSet";
 const char* const property_name = "clear";
@@ -400,7 +399,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -426,12 +425,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FontFaceSet";
 const char* const property_name = "entries";
@@ -464,7 +463,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -509,7 +508,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -535,12 +534,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FontFaceSet";
 const char* const property_name = "keys";
@@ -563,12 +562,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFaceSet.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(v8_receiver);
+FontFaceSet* blink_receiver = V8FontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FontFaceSet";
 const char* const property_name = "values";

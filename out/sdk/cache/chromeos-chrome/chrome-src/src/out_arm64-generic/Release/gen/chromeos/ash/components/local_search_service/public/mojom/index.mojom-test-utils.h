@@ -44,7 +44,7 @@ class  IndexAsyncWaiter {
       const std::vector<::ash::local_search_service::Data>& data, uint32_t* out_num_deleted);
   uint32_t UpdateDocuments(const std::vector<::ash::local_search_service::Data>& data);
   void Find(
-      const ::std::u16string& query, uint32_t max_results, ::ash::local_search_service::ResponseStatus* out_status, absl::optional<std::vector<::ash::local_search_service::Result>>* out_results);
+      const ::std::u16string& query, uint32_t max_results, ::ash::local_search_service::ResponseStatus* out_status, std::optional<std::vector<::ash::local_search_service::Result>>* out_results);
   
   void ClearIndex(
       );

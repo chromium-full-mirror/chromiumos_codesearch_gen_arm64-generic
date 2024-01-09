@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -167,14 +168,17 @@ void StorageServiceProxy::EnableAggressiveDomStorageFlushing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::StorageService::EnableAggressiveDomStorageFlushing");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageService_EnableAggressiveDomStorageFlushing_Name, kFlags, 0, 0, nullptr);
@@ -207,14 +211,17 @@ void StorageServiceProxy::SetDataDirectory(
                         "<value of type ::mojo::PendingRemote<::storage::mojom::Directory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageService_SetDataDirectory_Name, kFlags, 0, 0, nullptr);
@@ -250,7 +257,7 @@ void StorageServiceProxy::SetDataDirectory(
 }
 
 void StorageServiceProxy::BindPartition(
-    const absl::optional<::base::FilePath>& in_path, ::mojo::PendingReceiver<::storage::mojom::Partition> in_receiver) {
+    const std::optional<::base::FilePath>& in_path, ::mojo::PendingReceiver<::storage::mojom::Partition> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send storage::mojom::StorageService::BindPartition", "input_parameters",
@@ -258,20 +265,23 @@ void StorageServiceProxy::BindPartition(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("path"), in_path,
-                        "<value of type const absl::optional<::base::FilePath>&>");
+                        "<value of type const std::optional<::base::FilePath>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::Partition>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageService_BindPartition_Name, kFlags, 0, 0, nullptr);
@@ -314,14 +324,17 @@ void StorageServiceProxy::BindTestApi(
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageService_BindTestApi_Name, kFlags, 0, 0, nullptr);
@@ -412,7 +425,7 @@ std::move(p_directory));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::FilePath> p_path{};
+      std::optional<::base::FilePath> p_path{};
       ::mojo::PendingReceiver<::storage::mojom::Partition> p_receiver{};
       StorageService_BindPartition_ParamsDataView input_data_view(params, message);
       
@@ -490,16 +503,16 @@ bool StorageServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStorageServiceValidationInfo[] = {
-    {&internal::StorageService_EnableAggressiveDomStorageFlushing_Params_Data::Validate,
+    { &internal::StorageService_EnableAggressiveDomStorageFlushing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageService_SetDataDirectory_Params_Data::Validate,
+    { &internal::StorageService_SetDataDirectory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageService_BindPartition_Params_Data::Validate,
+    { &internal::StorageService_BindPartition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageService_BindTestApi_Params_Data::Validate,
+    { &internal::StorageService_BindTestApi_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -531,7 +544,7 @@ void StorageServiceInterceptorForTesting::EnableAggressiveDomStorageFlushing() {
 void StorageServiceInterceptorForTesting::SetDataDirectory(const ::base::FilePath& path, ::mojo::PendingRemote<::storage::mojom::Directory> directory) {
   GetForwardingInterface()->SetDataDirectory(std::move(path), std::move(directory));
 }
-void StorageServiceInterceptorForTesting::BindPartition(const absl::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) {
+void StorageServiceInterceptorForTesting::BindPartition(const std::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) {
   GetForwardingInterface()->BindPartition(std::move(path), std::move(receiver));
 }
 void StorageServiceInterceptorForTesting::BindTestApi(::mojo::ScopedMessagePipeHandle test_api_receiver) {

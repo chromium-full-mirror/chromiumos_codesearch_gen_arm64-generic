@@ -32,9 +32,26 @@ class  SpellCheckerAsyncWaiter {
 };
 
 
+class  SpellCheckInitializationHostInterceptorForTesting : public SpellCheckInitializationHost {
+  virtual SpellCheckInitializationHost* GetForwardingInterface() = 0;
+  void RequestDictionary() override;
+};
+class  SpellCheckInitializationHostAsyncWaiter {
+ public:
+  explicit SpellCheckInitializationHostAsyncWaiter(SpellCheckInitializationHost* proxy);
+
+  SpellCheckInitializationHostAsyncWaiter(const SpellCheckInitializationHostAsyncWaiter&) = delete;
+  SpellCheckInitializationHostAsyncWaiter& operator=(const SpellCheckInitializationHostAsyncWaiter&) = delete;
+
+  ~SpellCheckInitializationHostAsyncWaiter();
+
+ private:
+  SpellCheckInitializationHost* const proxy_;
+};
+
+
 class  SpellCheckHostInterceptorForTesting : public SpellCheckHost {
   virtual SpellCheckHost* GetForwardingInterface() = 0;
-  void RequestDictionary() override;
   void NotifyChecked(const ::std::u16string& word, bool misspelled) override;
   void CallSpellingService(const ::std::u16string& text, CallSpellingServiceCallback callback) override;
 };

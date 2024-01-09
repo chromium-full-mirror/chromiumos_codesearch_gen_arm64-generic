@@ -29,7 +29,6 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
-#include "components/sync/protocol/user_consent_types.pb.h"
 #include "components/sync/protocol/gaia_password_reuse.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -66,9 +65,6 @@ extern UserEventSpecifics_TestDefaultTypeInternal _UserEventSpecifics_Test_defau
 class UserEventSpecifics_Translation;
 struct UserEventSpecifics_TranslationDefaultTypeInternal;
 extern UserEventSpecifics_TranslationDefaultTypeInternal _UserEventSpecifics_Translation_default_instance_;
-class UserEventSpecifics_UserConsent;
-struct UserEventSpecifics_UserConsentDefaultTypeInternal;
-extern UserEventSpecifics_UserConsentDefaultTypeInternal _UserEventSpecifics_UserConsent_default_instance_;
 }  // namespace sync_pb
 PROTOBUF_NAMESPACE_OPEN
 template<> ::sync_pb::UserEventSpecifics* Arena::CreateMaybeMessage<::sync_pb::UserEventSpecifics>(Arena*);
@@ -78,7 +74,6 @@ template<> ::sync_pb::UserEventSpecifics_LanguageDetection* Arena::CreateMaybeMe
 template<> ::sync_pb::UserEventSpecifics_LanguageDetection_Language* Arena::CreateMaybeMessage<::sync_pb::UserEventSpecifics_LanguageDetection_Language>(Arena*);
 template<> ::sync_pb::UserEventSpecifics_Test* Arena::CreateMaybeMessage<::sync_pb::UserEventSpecifics_Test>(Arena*);
 template<> ::sync_pb::UserEventSpecifics_Translation* Arena::CreateMaybeMessage<::sync_pb::UserEventSpecifics_Translation>(Arena*);
-template<> ::sync_pb::UserEventSpecifics_UserConsent* Arena::CreateMaybeMessage<::sync_pb::UserEventSpecifics_UserConsent>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace sync_pb {
 
@@ -109,30 +104,6 @@ inline const std::string& UserEventSpecifics_Translation_Interaction_Name(T enum
 }
 bool UserEventSpecifics_Translation_Interaction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserEventSpecifics_Translation_Interaction* value);
-enum UserEventSpecifics_UserConsent_Feature : int {
-  UserEventSpecifics_UserConsent_Feature_FEATURE_UNSPECIFIED = 0,
-  UserEventSpecifics_UserConsent_Feature_CHROME_SYNC = 1,
-  UserEventSpecifics_UserConsent_Feature_PLAY_STORE = 2,
-  UserEventSpecifics_UserConsent_Feature_BACKUP_AND_RESTORE = 3,
-  UserEventSpecifics_UserConsent_Feature_GOOGLE_LOCATION_SERVICE = 4,
-  UserEventSpecifics_UserConsent_Feature_CHROME_UNIFIED_CONSENT = 5,
-  UserEventSpecifics_UserConsent_Feature_ASSISTANT_ACTIVITY_CONTROL = 6
-};
-bool UserEventSpecifics_UserConsent_Feature_IsValid(int value);
-constexpr UserEventSpecifics_UserConsent_Feature UserEventSpecifics_UserConsent_Feature_Feature_MIN = UserEventSpecifics_UserConsent_Feature_FEATURE_UNSPECIFIED;
-constexpr UserEventSpecifics_UserConsent_Feature UserEventSpecifics_UserConsent_Feature_Feature_MAX = UserEventSpecifics_UserConsent_Feature_ASSISTANT_ACTIVITY_CONTROL;
-constexpr int UserEventSpecifics_UserConsent_Feature_Feature_ARRAYSIZE = UserEventSpecifics_UserConsent_Feature_Feature_MAX + 1;
-
-const std::string& UserEventSpecifics_UserConsent_Feature_Name(UserEventSpecifics_UserConsent_Feature value);
-template<typename T>
-inline const std::string& UserEventSpecifics_UserConsent_Feature_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, UserEventSpecifics_UserConsent_Feature>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function UserEventSpecifics_UserConsent_Feature_Name.");
-  return UserEventSpecifics_UserConsent_Feature_Name(static_cast<UserEventSpecifics_UserConsent_Feature>(enum_t_value));
-}
-bool UserEventSpecifics_UserConsent_Feature_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserEventSpecifics_UserConsent_Feature* value);
 enum UserEventSpecifics_GaiaPasswordCaptured_EventTrigger : int {
   UserEventSpecifics_GaiaPasswordCaptured_EventTrigger_UNSPECIFIED = 0,
   UserEventSpecifics_GaiaPasswordCaptured_EventTrigger_USER_LOGGED_IN = 1,
@@ -843,395 +814,6 @@ class UserEventSpecifics_Translation final :
 };
 // -------------------------------------------------------------------
 
-class UserEventSpecifics_UserConsent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:sync_pb.UserEventSpecifics.UserConsent) */ {
- public:
-  inline UserEventSpecifics_UserConsent() : UserEventSpecifics_UserConsent(nullptr) {}
-  ~UserEventSpecifics_UserConsent() override;
-  explicit PROTOBUF_CONSTEXPR UserEventSpecifics_UserConsent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  UserEventSpecifics_UserConsent(const UserEventSpecifics_UserConsent& from);
-  UserEventSpecifics_UserConsent(UserEventSpecifics_UserConsent&& from) noexcept
-    : UserEventSpecifics_UserConsent() {
-    *this = ::std::move(from);
-  }
-
-  inline UserEventSpecifics_UserConsent& operator=(const UserEventSpecifics_UserConsent& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline UserEventSpecifics_UserConsent& operator=(UserEventSpecifics_UserConsent&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const UserEventSpecifics_UserConsent& default_instance() {
-    return *internal_default_instance();
-  }
-  enum ConsentCase {
-    kSyncConsent = 7,
-    kArcBackupAndRestoreConsent = 8,
-    kArcLocationServiceConsent = 9,
-    kArcPlayTermsOfServiceConsent = 10,
-    kUnifiedConsent = 13,
-    CONSENT_NOT_SET = 0,
-  };
-
-  static inline const UserEventSpecifics_UserConsent* internal_default_instance() {
-    return reinterpret_cast<const UserEventSpecifics_UserConsent*>(
-               &_UserEventSpecifics_UserConsent_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  friend void swap(UserEventSpecifics_UserConsent& a, UserEventSpecifics_UserConsent& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(UserEventSpecifics_UserConsent* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(UserEventSpecifics_UserConsent* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  UserEventSpecifics_UserConsent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<UserEventSpecifics_UserConsent>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const UserEventSpecifics_UserConsent& from);
-  void MergeFrom(const UserEventSpecifics_UserConsent& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(UserEventSpecifics_UserConsent* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "sync_pb.UserEventSpecifics.UserConsent";
-  }
-  protected:
-  explicit UserEventSpecifics_UserConsent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  typedef UserEventSpecifics_UserConsent_Feature Feature;
-  static constexpr Feature FEATURE_UNSPECIFIED =
-    UserEventSpecifics_UserConsent_Feature_FEATURE_UNSPECIFIED;
-  static constexpr Feature CHROME_SYNC =
-    UserEventSpecifics_UserConsent_Feature_CHROME_SYNC;
-  static constexpr Feature PLAY_STORE =
-    UserEventSpecifics_UserConsent_Feature_PLAY_STORE;
-  static constexpr Feature BACKUP_AND_RESTORE =
-    UserEventSpecifics_UserConsent_Feature_BACKUP_AND_RESTORE;
-  static constexpr Feature GOOGLE_LOCATION_SERVICE =
-    UserEventSpecifics_UserConsent_Feature_GOOGLE_LOCATION_SERVICE;
-  static constexpr Feature CHROME_UNIFIED_CONSENT =
-    UserEventSpecifics_UserConsent_Feature_CHROME_UNIFIED_CONSENT;
-  static constexpr Feature ASSISTANT_ACTIVITY_CONTROL =
-    UserEventSpecifics_UserConsent_Feature_ASSISTANT_ACTIVITY_CONTROL;
-  static inline bool Feature_IsValid(int value) {
-    return UserEventSpecifics_UserConsent_Feature_IsValid(value);
-  }
-  static constexpr Feature Feature_MIN =
-    UserEventSpecifics_UserConsent_Feature_Feature_MIN;
-  static constexpr Feature Feature_MAX =
-    UserEventSpecifics_UserConsent_Feature_Feature_MAX;
-  static constexpr int Feature_ARRAYSIZE =
-    UserEventSpecifics_UserConsent_Feature_Feature_ARRAYSIZE;
-  template<typename T>
-  static inline const std::string& Feature_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, Feature>::value ||
-      ::std::is_integral<T>::value,
-      "Incorrect type passed to function Feature_Name.");
-    return UserEventSpecifics_UserConsent_Feature_Name(enum_t_value);
-  }
-  static inline bool Feature_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
-      Feature* value) {
-    return UserEventSpecifics_UserConsent_Feature_Parse(name, value);
-  }
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kDescriptionGrdIdsFieldNumber = 2,
-    kLocaleFieldNumber = 4,
-    kFeatureFieldNumber = 1,
-    kConfirmationGrdIdFieldNumber = 3,
-    kClientConsentTimeUsecFieldNumber = 12,
-    kStatusFieldNumber = 5,
-    kSyncConsentFieldNumber = 7,
-    kArcBackupAndRestoreConsentFieldNumber = 8,
-    kArcLocationServiceConsentFieldNumber = 9,
-    kArcPlayTermsOfServiceConsentFieldNumber = 10,
-    kUnifiedConsentFieldNumber = 13,
-  };
-  // repeated int32 description_grd_ids = 2 [deprecated = true];
-  PROTOBUF_DEPRECATED int description_grd_ids_size() const;
-  private:
-  int _internal_description_grd_ids_size() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_description_grd_ids();
-  private:
-  int32_t _internal_description_grd_ids(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
-      _internal_description_grd_ids() const;
-  void _internal_add_description_grd_ids(int32_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
-      _internal_mutable_description_grd_ids();
-  public:
-  PROTOBUF_DEPRECATED int32_t description_grd_ids(int index) const;
-  PROTOBUF_DEPRECATED void set_description_grd_ids(int index, int32_t value);
-  PROTOBUF_DEPRECATED void add_description_grd_ids(int32_t value);
-  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
-      description_grd_ids() const;
-  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
-      mutable_description_grd_ids();
-
-  // optional string locale = 4;
-  bool has_locale() const;
-  private:
-  bool _internal_has_locale() const;
-  public:
-  void clear_locale();
-  const std::string& locale() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_locale(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_locale();
-  PROTOBUF_NODISCARD std::string* release_locale();
-  void set_allocated_locale(std::string* locale);
-  private:
-  const std::string& _internal_locale() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_locale(const std::string& value);
-  std::string* _internal_mutable_locale();
-  public:
-
-  // optional .sync_pb.UserEventSpecifics.UserConsent.Feature feature = 1 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_feature() const;
-  private:
-  bool _internal_has_feature() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_feature();
-  PROTOBUF_DEPRECATED ::sync_pb::UserEventSpecifics_UserConsent_Feature feature() const;
-  PROTOBUF_DEPRECATED void set_feature(::sync_pb::UserEventSpecifics_UserConsent_Feature value);
-  private:
-  ::sync_pb::UserEventSpecifics_UserConsent_Feature _internal_feature() const;
-  void _internal_set_feature(::sync_pb::UserEventSpecifics_UserConsent_Feature value);
-  public:
-
-  // optional int32 confirmation_grd_id = 3 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_confirmation_grd_id() const;
-  private:
-  bool _internal_has_confirmation_grd_id() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_confirmation_grd_id();
-  PROTOBUF_DEPRECATED int32_t confirmation_grd_id() const;
-  PROTOBUF_DEPRECATED void set_confirmation_grd_id(int32_t value);
-  private:
-  int32_t _internal_confirmation_grd_id() const;
-  void _internal_set_confirmation_grd_id(int32_t value);
-  public:
-
-  // optional int64 client_consent_time_usec = 12;
-  bool has_client_consent_time_usec() const;
-  private:
-  bool _internal_has_client_consent_time_usec() const;
-  public:
-  void clear_client_consent_time_usec();
-  int64_t client_consent_time_usec() const;
-  void set_client_consent_time_usec(int64_t value);
-  private:
-  int64_t _internal_client_consent_time_usec() const;
-  void _internal_set_client_consent_time_usec(int64_t value);
-  public:
-
-  // optional .sync_pb.UserConsentTypes.ConsentStatus status = 5 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_status() const;
-  private:
-  bool _internal_has_status() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_status();
-  PROTOBUF_DEPRECATED ::sync_pb::UserConsentTypes_ConsentStatus status() const;
-  PROTOBUF_DEPRECATED void set_status(::sync_pb::UserConsentTypes_ConsentStatus value);
-  private:
-  ::sync_pb::UserConsentTypes_ConsentStatus _internal_status() const;
-  void _internal_set_status(::sync_pb::UserConsentTypes_ConsentStatus value);
-  public:
-
-  // .sync_pb.UserConsentTypes.SyncConsent sync_consent = 7;
-  bool has_sync_consent() const;
-  private:
-  bool _internal_has_sync_consent() const;
-  public:
-  void clear_sync_consent();
-  const ::sync_pb::UserConsentTypes_SyncConsent& sync_consent() const;
-  PROTOBUF_NODISCARD ::sync_pb::UserConsentTypes_SyncConsent* release_sync_consent();
-  ::sync_pb::UserConsentTypes_SyncConsent* mutable_sync_consent();
-  void set_allocated_sync_consent(::sync_pb::UserConsentTypes_SyncConsent* sync_consent);
-  private:
-  const ::sync_pb::UserConsentTypes_SyncConsent& _internal_sync_consent() const;
-  ::sync_pb::UserConsentTypes_SyncConsent* _internal_mutable_sync_consent();
-  public:
-  void unsafe_arena_set_allocated_sync_consent(
-      ::sync_pb::UserConsentTypes_SyncConsent* sync_consent);
-  ::sync_pb::UserConsentTypes_SyncConsent* unsafe_arena_release_sync_consent();
-
-  // .sync_pb.UserConsentTypes.ArcBackupAndRestoreConsent arc_backup_and_restore_consent = 8;
-  bool has_arc_backup_and_restore_consent() const;
-  private:
-  bool _internal_has_arc_backup_and_restore_consent() const;
-  public:
-  void clear_arc_backup_and_restore_consent();
-  const ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent& arc_backup_and_restore_consent() const;
-  PROTOBUF_NODISCARD ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* release_arc_backup_and_restore_consent();
-  ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* mutable_arc_backup_and_restore_consent();
-  void set_allocated_arc_backup_and_restore_consent(::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* arc_backup_and_restore_consent);
-  private:
-  const ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent& _internal_arc_backup_and_restore_consent() const;
-  ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* _internal_mutable_arc_backup_and_restore_consent();
-  public:
-  void unsafe_arena_set_allocated_arc_backup_and_restore_consent(
-      ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* arc_backup_and_restore_consent);
-  ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* unsafe_arena_release_arc_backup_and_restore_consent();
-
-  // .sync_pb.UserConsentTypes.ArcGoogleLocationServiceConsent arc_location_service_consent = 9;
-  bool has_arc_location_service_consent() const;
-  private:
-  bool _internal_has_arc_location_service_consent() const;
-  public:
-  void clear_arc_location_service_consent();
-  const ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent& arc_location_service_consent() const;
-  PROTOBUF_NODISCARD ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* release_arc_location_service_consent();
-  ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* mutable_arc_location_service_consent();
-  void set_allocated_arc_location_service_consent(::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* arc_location_service_consent);
-  private:
-  const ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent& _internal_arc_location_service_consent() const;
-  ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* _internal_mutable_arc_location_service_consent();
-  public:
-  void unsafe_arena_set_allocated_arc_location_service_consent(
-      ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* arc_location_service_consent);
-  ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* unsafe_arena_release_arc_location_service_consent();
-
-  // .sync_pb.UserConsentTypes.ArcPlayTermsOfServiceConsent arc_play_terms_of_service_consent = 10;
-  bool has_arc_play_terms_of_service_consent() const;
-  private:
-  bool _internal_has_arc_play_terms_of_service_consent() const;
-  public:
-  void clear_arc_play_terms_of_service_consent();
-  const ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent& arc_play_terms_of_service_consent() const;
-  PROTOBUF_NODISCARD ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* release_arc_play_terms_of_service_consent();
-  ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* mutable_arc_play_terms_of_service_consent();
-  void set_allocated_arc_play_terms_of_service_consent(::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* arc_play_terms_of_service_consent);
-  private:
-  const ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent& _internal_arc_play_terms_of_service_consent() const;
-  ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* _internal_mutable_arc_play_terms_of_service_consent();
-  public:
-  void unsafe_arena_set_allocated_arc_play_terms_of_service_consent(
-      ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* arc_play_terms_of_service_consent);
-  ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* unsafe_arena_release_arc_play_terms_of_service_consent();
-
-  // .sync_pb.UserConsentTypes.UnifiedConsent unified_consent = 13;
-  bool has_unified_consent() const;
-  private:
-  bool _internal_has_unified_consent() const;
-  public:
-  void clear_unified_consent();
-  const ::sync_pb::UserConsentTypes_UnifiedConsent& unified_consent() const;
-  PROTOBUF_NODISCARD ::sync_pb::UserConsentTypes_UnifiedConsent* release_unified_consent();
-  ::sync_pb::UserConsentTypes_UnifiedConsent* mutable_unified_consent();
-  void set_allocated_unified_consent(::sync_pb::UserConsentTypes_UnifiedConsent* unified_consent);
-  private:
-  const ::sync_pb::UserConsentTypes_UnifiedConsent& _internal_unified_consent() const;
-  ::sync_pb::UserConsentTypes_UnifiedConsent* _internal_mutable_unified_consent();
-  public:
-  void unsafe_arena_set_allocated_unified_consent(
-      ::sync_pb::UserConsentTypes_UnifiedConsent* unified_consent);
-  ::sync_pb::UserConsentTypes_UnifiedConsent* unsafe_arena_release_unified_consent();
-
-  void clear_consent();
-  ConsentCase consent_case() const;
-  // @@protoc_insertion_point(class_scope:sync_pb.UserEventSpecifics.UserConsent)
- private:
-  class _Internal;
-  void set_has_sync_consent();
-  void set_has_arc_backup_and_restore_consent();
-  void set_has_arc_location_service_consent();
-  void set_has_arc_play_terms_of_service_consent();
-  void set_has_unified_consent();
-
-  inline bool has_consent() const;
-  inline void clear_has_consent();
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > description_grd_ids_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr locale_;
-  int feature_;
-  int32_t confirmation_grd_id_;
-  int64_t client_consent_time_usec_;
-  int status_;
-  union ConsentUnion {
-    constexpr ConsentUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::sync_pb::UserConsentTypes_SyncConsent* sync_consent_;
-    ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* arc_backup_and_restore_consent_;
-    ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* arc_location_service_consent_;
-    ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* arc_play_terms_of_service_consent_;
-    ::sync_pb::UserConsentTypes_UnifiedConsent* unified_consent_;
-  } consent_;
-  uint32_t _oneof_case_[1];
-
-  friend struct ::TableStruct_components_2fsync_2fprotocol_2fuser_5fevent_5fspecifics_2eproto;
-};
-// -------------------------------------------------------------------
-
 class UserEventSpecifics_GaiaPasswordCaptured final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:sync_pb.UserEventSpecifics.GaiaPasswordCaptured) */ {
  public:
@@ -1278,7 +860,7 @@ class UserEventSpecifics_GaiaPasswordCaptured final :
                &_UserEventSpecifics_GaiaPasswordCaptured_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(UserEventSpecifics_GaiaPasswordCaptured& a, UserEventSpecifics_GaiaPasswordCaptured& b) {
     a.Swap(&b);
@@ -1445,7 +1027,7 @@ class UserEventSpecifics_FlocIdComputed final :
                &_UserEventSpecifics_FlocIdComputed_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(UserEventSpecifics_FlocIdComputed& a, UserEventSpecifics_FlocIdComputed& b) {
     a.Swap(&b);
@@ -1613,7 +1195,6 @@ class UserEventSpecifics final :
     kTestEvent = 8,
     kLanguageDetectionEvent = 10,
     kTranslationEvent = 11,
-    kUserConsent = 12,
     kGaiaPasswordReuseEvent = 104,
     kGaiaPasswordCapturedEvent = 15,
     kFlocIdComputedEvent = 16,
@@ -1625,7 +1206,7 @@ class UserEventSpecifics final :
                &_UserEventSpecifics_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(UserEventSpecifics& a, UserEventSpecifics& b) {
     a.Swap(&b);
@@ -1689,7 +1270,6 @@ class UserEventSpecifics final :
   typedef UserEventSpecifics_Test Test;
   typedef UserEventSpecifics_LanguageDetection LanguageDetection;
   typedef UserEventSpecifics_Translation Translation;
-  typedef UserEventSpecifics_UserConsent UserConsent;
   typedef UserEventSpecifics_GaiaPasswordCaptured GaiaPasswordCaptured;
   typedef UserEventSpecifics_FlocIdComputed FlocIdComputed;
 
@@ -1702,7 +1282,6 @@ class UserEventSpecifics final :
     kTestEventFieldNumber = 8,
     kLanguageDetectionEventFieldNumber = 10,
     kTranslationEventFieldNumber = 11,
-    kUserConsentFieldNumber = 12,
     kGaiaPasswordReuseEventFieldNumber = 104,
     kGaiaPasswordCapturedEventFieldNumber = 15,
     kFlocIdComputedEventFieldNumber = 16,
@@ -1800,24 +1379,6 @@ class UserEventSpecifics final :
       ::sync_pb::UserEventSpecifics_Translation* translation_event);
   PROTOBUF_DEPRECATED ::sync_pb::UserEventSpecifics_Translation* unsafe_arena_release_translation_event();
 
-  // .sync_pb.UserEventSpecifics.UserConsent user_consent = 12 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_user_consent() const;
-  private:
-  bool _internal_has_user_consent() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_user_consent();
-  PROTOBUF_DEPRECATED const ::sync_pb::UserEventSpecifics_UserConsent& user_consent() const;
-  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::sync_pb::UserEventSpecifics_UserConsent* release_user_consent();
-  PROTOBUF_DEPRECATED ::sync_pb::UserEventSpecifics_UserConsent* mutable_user_consent();
-  PROTOBUF_DEPRECATED void set_allocated_user_consent(::sync_pb::UserEventSpecifics_UserConsent* user_consent);
-  private:
-  const ::sync_pb::UserEventSpecifics_UserConsent& _internal_user_consent() const;
-  ::sync_pb::UserEventSpecifics_UserConsent* _internal_mutable_user_consent();
-  public:
-  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_user_consent(
-      ::sync_pb::UserEventSpecifics_UserConsent* user_consent);
-  PROTOBUF_DEPRECATED ::sync_pb::UserEventSpecifics_UserConsent* unsafe_arena_release_user_consent();
-
   // .sync_pb.GaiaPasswordReuse gaia_password_reuse_event = 104;
   bool has_gaia_password_reuse_event() const;
   private:
@@ -1880,7 +1441,6 @@ class UserEventSpecifics final :
   void set_has_test_event();
   void set_has_language_detection_event();
   void set_has_translation_event();
-  void set_has_user_consent();
   void set_has_gaia_password_reuse_event();
   void set_has_gaia_password_captured_event();
   void set_has_floc_id_computed_event();
@@ -1902,7 +1462,6 @@ class UserEventSpecifics final :
     ::sync_pb::UserEventSpecifics_Test* test_event_;
     ::sync_pb::UserEventSpecifics_LanguageDetection* language_detection_event_;
     ::sync_pb::UserEventSpecifics_Translation* translation_event_;
-    ::sync_pb::UserEventSpecifics_UserConsent* user_consent_;
     ::sync_pb::GaiaPasswordReuse* gaia_password_reuse_event_;
     ::sync_pb::UserEventSpecifics_GaiaPasswordCaptured* gaia_password_captured_event_;
     ::sync_pb::UserEventSpecifics_FlocIdComputed* floc_id_computed_event_;
@@ -2305,578 +1864,6 @@ inline void UserEventSpecifics_Translation::set_interaction(::sync_pb::UserEvent
 
 // -------------------------------------------------------------------
 
-// UserEventSpecifics_UserConsent
-
-// optional string locale = 4;
-inline bool UserEventSpecifics_UserConsent::_internal_has_locale() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool UserEventSpecifics_UserConsent::has_locale() const {
-  return _internal_has_locale();
-}
-inline void UserEventSpecifics_UserConsent::clear_locale() {
-  locale_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& UserEventSpecifics_UserConsent::locale() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.locale)
-  return _internal_locale();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void UserEventSpecifics_UserConsent::set_locale(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
- locale_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.locale)
-}
-inline std::string* UserEventSpecifics_UserConsent::mutable_locale() {
-  std::string* _s = _internal_mutable_locale();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.locale)
-  return _s;
-}
-inline const std::string& UserEventSpecifics_UserConsent::_internal_locale() const {
-  return locale_.Get();
-}
-inline void UserEventSpecifics_UserConsent::_internal_set_locale(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  locale_.Set(value, GetArenaForAllocation());
-}
-inline std::string* UserEventSpecifics_UserConsent::_internal_mutable_locale() {
-  _has_bits_[0] |= 0x00000001u;
-  return locale_.Mutable(GetArenaForAllocation());
-}
-inline std::string* UserEventSpecifics_UserConsent::release_locale() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.locale)
-  if (!_internal_has_locale()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  auto* p = locale_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (locale_.IsDefault()) {
-    locale_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void UserEventSpecifics_UserConsent::set_allocated_locale(std::string* locale) {
-  if (locale != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  locale_.SetAllocated(locale, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (locale_.IsDefault()) {
-    locale_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:sync_pb.UserEventSpecifics.UserConsent.locale)
-}
-
-// optional int64 client_consent_time_usec = 12;
-inline bool UserEventSpecifics_UserConsent::_internal_has_client_consent_time_usec() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool UserEventSpecifics_UserConsent::has_client_consent_time_usec() const {
-  return _internal_has_client_consent_time_usec();
-}
-inline void UserEventSpecifics_UserConsent::clear_client_consent_time_usec() {
-  client_consent_time_usec_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline int64_t UserEventSpecifics_UserConsent::_internal_client_consent_time_usec() const {
-  return client_consent_time_usec_;
-}
-inline int64_t UserEventSpecifics_UserConsent::client_consent_time_usec() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.client_consent_time_usec)
-  return _internal_client_consent_time_usec();
-}
-inline void UserEventSpecifics_UserConsent::_internal_set_client_consent_time_usec(int64_t value) {
-  _has_bits_[0] |= 0x00000008u;
-  client_consent_time_usec_ = value;
-}
-inline void UserEventSpecifics_UserConsent::set_client_consent_time_usec(int64_t value) {
-  _internal_set_client_consent_time_usec(value);
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.client_consent_time_usec)
-}
-
-// .sync_pb.UserConsentTypes.SyncConsent sync_consent = 7;
-inline bool UserEventSpecifics_UserConsent::_internal_has_sync_consent() const {
-  return consent_case() == kSyncConsent;
-}
-inline bool UserEventSpecifics_UserConsent::has_sync_consent() const {
-  return _internal_has_sync_consent();
-}
-inline void UserEventSpecifics_UserConsent::set_has_sync_consent() {
-  _oneof_case_[0] = kSyncConsent;
-}
-inline ::sync_pb::UserConsentTypes_SyncConsent* UserEventSpecifics_UserConsent::release_sync_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.sync_consent)
-  if (_internal_has_sync_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_SyncConsent* temp = consent_.sync_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    consent_.sync_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserConsentTypes_SyncConsent& UserEventSpecifics_UserConsent::_internal_sync_consent() const {
-  return _internal_has_sync_consent()
-      ? *consent_.sync_consent_
-      : reinterpret_cast< ::sync_pb::UserConsentTypes_SyncConsent&>(::sync_pb::_UserConsentTypes_SyncConsent_default_instance_);
-}
-inline const ::sync_pb::UserConsentTypes_SyncConsent& UserEventSpecifics_UserConsent::sync_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.sync_consent)
-  return _internal_sync_consent();
-}
-inline ::sync_pb::UserConsentTypes_SyncConsent* UserEventSpecifics_UserConsent::unsafe_arena_release_sync_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.UserConsent.sync_consent)
-  if (_internal_has_sync_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_SyncConsent* temp = consent_.sync_consent_;
-    consent_.sync_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics_UserConsent::unsafe_arena_set_allocated_sync_consent(::sync_pb::UserConsentTypes_SyncConsent* sync_consent) {
-  clear_consent();
-  if (sync_consent) {
-    set_has_sync_consent();
-    consent_.sync_consent_ = sync_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.UserConsent.sync_consent)
-}
-inline ::sync_pb::UserConsentTypes_SyncConsent* UserEventSpecifics_UserConsent::_internal_mutable_sync_consent() {
-  if (!_internal_has_sync_consent()) {
-    clear_consent();
-    set_has_sync_consent();
-    consent_.sync_consent_ = CreateMaybeMessage< ::sync_pb::UserConsentTypes_SyncConsent >(GetArenaForAllocation());
-  }
-  return consent_.sync_consent_;
-}
-inline ::sync_pb::UserConsentTypes_SyncConsent* UserEventSpecifics_UserConsent::mutable_sync_consent() {
-  ::sync_pb::UserConsentTypes_SyncConsent* _msg = _internal_mutable_sync_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.sync_consent)
-  return _msg;
-}
-
-// .sync_pb.UserConsentTypes.ArcBackupAndRestoreConsent arc_backup_and_restore_consent = 8;
-inline bool UserEventSpecifics_UserConsent::_internal_has_arc_backup_and_restore_consent() const {
-  return consent_case() == kArcBackupAndRestoreConsent;
-}
-inline bool UserEventSpecifics_UserConsent::has_arc_backup_and_restore_consent() const {
-  return _internal_has_arc_backup_and_restore_consent();
-}
-inline void UserEventSpecifics_UserConsent::set_has_arc_backup_and_restore_consent() {
-  _oneof_case_[0] = kArcBackupAndRestoreConsent;
-}
-inline ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* UserEventSpecifics_UserConsent::release_arc_backup_and_restore_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.arc_backup_and_restore_consent)
-  if (_internal_has_arc_backup_and_restore_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* temp = consent_.arc_backup_and_restore_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    consent_.arc_backup_and_restore_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent& UserEventSpecifics_UserConsent::_internal_arc_backup_and_restore_consent() const {
-  return _internal_has_arc_backup_and_restore_consent()
-      ? *consent_.arc_backup_and_restore_consent_
-      : reinterpret_cast< ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent&>(::sync_pb::_UserConsentTypes_ArcBackupAndRestoreConsent_default_instance_);
-}
-inline const ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent& UserEventSpecifics_UserConsent::arc_backup_and_restore_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.arc_backup_and_restore_consent)
-  return _internal_arc_backup_and_restore_consent();
-}
-inline ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* UserEventSpecifics_UserConsent::unsafe_arena_release_arc_backup_and_restore_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.UserConsent.arc_backup_and_restore_consent)
-  if (_internal_has_arc_backup_and_restore_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* temp = consent_.arc_backup_and_restore_consent_;
-    consent_.arc_backup_and_restore_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics_UserConsent::unsafe_arena_set_allocated_arc_backup_and_restore_consent(::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* arc_backup_and_restore_consent) {
-  clear_consent();
-  if (arc_backup_and_restore_consent) {
-    set_has_arc_backup_and_restore_consent();
-    consent_.arc_backup_and_restore_consent_ = arc_backup_and_restore_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.UserConsent.arc_backup_and_restore_consent)
-}
-inline ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* UserEventSpecifics_UserConsent::_internal_mutable_arc_backup_and_restore_consent() {
-  if (!_internal_has_arc_backup_and_restore_consent()) {
-    clear_consent();
-    set_has_arc_backup_and_restore_consent();
-    consent_.arc_backup_and_restore_consent_ = CreateMaybeMessage< ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent >(GetArenaForAllocation());
-  }
-  return consent_.arc_backup_and_restore_consent_;
-}
-inline ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* UserEventSpecifics_UserConsent::mutable_arc_backup_and_restore_consent() {
-  ::sync_pb::UserConsentTypes_ArcBackupAndRestoreConsent* _msg = _internal_mutable_arc_backup_and_restore_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.arc_backup_and_restore_consent)
-  return _msg;
-}
-
-// .sync_pb.UserConsentTypes.ArcGoogleLocationServiceConsent arc_location_service_consent = 9;
-inline bool UserEventSpecifics_UserConsent::_internal_has_arc_location_service_consent() const {
-  return consent_case() == kArcLocationServiceConsent;
-}
-inline bool UserEventSpecifics_UserConsent::has_arc_location_service_consent() const {
-  return _internal_has_arc_location_service_consent();
-}
-inline void UserEventSpecifics_UserConsent::set_has_arc_location_service_consent() {
-  _oneof_case_[0] = kArcLocationServiceConsent;
-}
-inline ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* UserEventSpecifics_UserConsent::release_arc_location_service_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.arc_location_service_consent)
-  if (_internal_has_arc_location_service_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* temp = consent_.arc_location_service_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    consent_.arc_location_service_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent& UserEventSpecifics_UserConsent::_internal_arc_location_service_consent() const {
-  return _internal_has_arc_location_service_consent()
-      ? *consent_.arc_location_service_consent_
-      : reinterpret_cast< ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent&>(::sync_pb::_UserConsentTypes_ArcGoogleLocationServiceConsent_default_instance_);
-}
-inline const ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent& UserEventSpecifics_UserConsent::arc_location_service_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.arc_location_service_consent)
-  return _internal_arc_location_service_consent();
-}
-inline ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* UserEventSpecifics_UserConsent::unsafe_arena_release_arc_location_service_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.UserConsent.arc_location_service_consent)
-  if (_internal_has_arc_location_service_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* temp = consent_.arc_location_service_consent_;
-    consent_.arc_location_service_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics_UserConsent::unsafe_arena_set_allocated_arc_location_service_consent(::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* arc_location_service_consent) {
-  clear_consent();
-  if (arc_location_service_consent) {
-    set_has_arc_location_service_consent();
-    consent_.arc_location_service_consent_ = arc_location_service_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.UserConsent.arc_location_service_consent)
-}
-inline ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* UserEventSpecifics_UserConsent::_internal_mutable_arc_location_service_consent() {
-  if (!_internal_has_arc_location_service_consent()) {
-    clear_consent();
-    set_has_arc_location_service_consent();
-    consent_.arc_location_service_consent_ = CreateMaybeMessage< ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent >(GetArenaForAllocation());
-  }
-  return consent_.arc_location_service_consent_;
-}
-inline ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* UserEventSpecifics_UserConsent::mutable_arc_location_service_consent() {
-  ::sync_pb::UserConsentTypes_ArcGoogleLocationServiceConsent* _msg = _internal_mutable_arc_location_service_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.arc_location_service_consent)
-  return _msg;
-}
-
-// .sync_pb.UserConsentTypes.ArcPlayTermsOfServiceConsent arc_play_terms_of_service_consent = 10;
-inline bool UserEventSpecifics_UserConsent::_internal_has_arc_play_terms_of_service_consent() const {
-  return consent_case() == kArcPlayTermsOfServiceConsent;
-}
-inline bool UserEventSpecifics_UserConsent::has_arc_play_terms_of_service_consent() const {
-  return _internal_has_arc_play_terms_of_service_consent();
-}
-inline void UserEventSpecifics_UserConsent::set_has_arc_play_terms_of_service_consent() {
-  _oneof_case_[0] = kArcPlayTermsOfServiceConsent;
-}
-inline ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* UserEventSpecifics_UserConsent::release_arc_play_terms_of_service_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.arc_play_terms_of_service_consent)
-  if (_internal_has_arc_play_terms_of_service_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* temp = consent_.arc_play_terms_of_service_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    consent_.arc_play_terms_of_service_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent& UserEventSpecifics_UserConsent::_internal_arc_play_terms_of_service_consent() const {
-  return _internal_has_arc_play_terms_of_service_consent()
-      ? *consent_.arc_play_terms_of_service_consent_
-      : reinterpret_cast< ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent&>(::sync_pb::_UserConsentTypes_ArcPlayTermsOfServiceConsent_default_instance_);
-}
-inline const ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent& UserEventSpecifics_UserConsent::arc_play_terms_of_service_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.arc_play_terms_of_service_consent)
-  return _internal_arc_play_terms_of_service_consent();
-}
-inline ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* UserEventSpecifics_UserConsent::unsafe_arena_release_arc_play_terms_of_service_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.UserConsent.arc_play_terms_of_service_consent)
-  if (_internal_has_arc_play_terms_of_service_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* temp = consent_.arc_play_terms_of_service_consent_;
-    consent_.arc_play_terms_of_service_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics_UserConsent::unsafe_arena_set_allocated_arc_play_terms_of_service_consent(::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* arc_play_terms_of_service_consent) {
-  clear_consent();
-  if (arc_play_terms_of_service_consent) {
-    set_has_arc_play_terms_of_service_consent();
-    consent_.arc_play_terms_of_service_consent_ = arc_play_terms_of_service_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.UserConsent.arc_play_terms_of_service_consent)
-}
-inline ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* UserEventSpecifics_UserConsent::_internal_mutable_arc_play_terms_of_service_consent() {
-  if (!_internal_has_arc_play_terms_of_service_consent()) {
-    clear_consent();
-    set_has_arc_play_terms_of_service_consent();
-    consent_.arc_play_terms_of_service_consent_ = CreateMaybeMessage< ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent >(GetArenaForAllocation());
-  }
-  return consent_.arc_play_terms_of_service_consent_;
-}
-inline ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* UserEventSpecifics_UserConsent::mutable_arc_play_terms_of_service_consent() {
-  ::sync_pb::UserConsentTypes_ArcPlayTermsOfServiceConsent* _msg = _internal_mutable_arc_play_terms_of_service_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.arc_play_terms_of_service_consent)
-  return _msg;
-}
-
-// .sync_pb.UserConsentTypes.UnifiedConsent unified_consent = 13;
-inline bool UserEventSpecifics_UserConsent::_internal_has_unified_consent() const {
-  return consent_case() == kUnifiedConsent;
-}
-inline bool UserEventSpecifics_UserConsent::has_unified_consent() const {
-  return _internal_has_unified_consent();
-}
-inline void UserEventSpecifics_UserConsent::set_has_unified_consent() {
-  _oneof_case_[0] = kUnifiedConsent;
-}
-inline ::sync_pb::UserConsentTypes_UnifiedConsent* UserEventSpecifics_UserConsent::release_unified_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.UserConsent.unified_consent)
-  if (_internal_has_unified_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_UnifiedConsent* temp = consent_.unified_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    consent_.unified_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserConsentTypes_UnifiedConsent& UserEventSpecifics_UserConsent::_internal_unified_consent() const {
-  return _internal_has_unified_consent()
-      ? *consent_.unified_consent_
-      : reinterpret_cast< ::sync_pb::UserConsentTypes_UnifiedConsent&>(::sync_pb::_UserConsentTypes_UnifiedConsent_default_instance_);
-}
-inline const ::sync_pb::UserConsentTypes_UnifiedConsent& UserEventSpecifics_UserConsent::unified_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.unified_consent)
-  return _internal_unified_consent();
-}
-inline ::sync_pb::UserConsentTypes_UnifiedConsent* UserEventSpecifics_UserConsent::unsafe_arena_release_unified_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.UserConsent.unified_consent)
-  if (_internal_has_unified_consent()) {
-    clear_has_consent();
-    ::sync_pb::UserConsentTypes_UnifiedConsent* temp = consent_.unified_consent_;
-    consent_.unified_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics_UserConsent::unsafe_arena_set_allocated_unified_consent(::sync_pb::UserConsentTypes_UnifiedConsent* unified_consent) {
-  clear_consent();
-  if (unified_consent) {
-    set_has_unified_consent();
-    consent_.unified_consent_ = unified_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.UserConsent.unified_consent)
-}
-inline ::sync_pb::UserConsentTypes_UnifiedConsent* UserEventSpecifics_UserConsent::_internal_mutable_unified_consent() {
-  if (!_internal_has_unified_consent()) {
-    clear_consent();
-    set_has_unified_consent();
-    consent_.unified_consent_ = CreateMaybeMessage< ::sync_pb::UserConsentTypes_UnifiedConsent >(GetArenaForAllocation());
-  }
-  return consent_.unified_consent_;
-}
-inline ::sync_pb::UserConsentTypes_UnifiedConsent* UserEventSpecifics_UserConsent::mutable_unified_consent() {
-  ::sync_pb::UserConsentTypes_UnifiedConsent* _msg = _internal_mutable_unified_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.UserConsent.unified_consent)
-  return _msg;
-}
-
-// optional .sync_pb.UserEventSpecifics.UserConsent.Feature feature = 1 [deprecated = true];
-inline bool UserEventSpecifics_UserConsent::_internal_has_feature() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool UserEventSpecifics_UserConsent::has_feature() const {
-  return _internal_has_feature();
-}
-inline void UserEventSpecifics_UserConsent::clear_feature() {
-  feature_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent_Feature UserEventSpecifics_UserConsent::_internal_feature() const {
-  return static_cast< ::sync_pb::UserEventSpecifics_UserConsent_Feature >(feature_);
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent_Feature UserEventSpecifics_UserConsent::feature() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.feature)
-  return _internal_feature();
-}
-inline void UserEventSpecifics_UserConsent::_internal_set_feature(::sync_pb::UserEventSpecifics_UserConsent_Feature value) {
-  assert(::sync_pb::UserEventSpecifics_UserConsent_Feature_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
-  feature_ = value;
-}
-inline void UserEventSpecifics_UserConsent::set_feature(::sync_pb::UserEventSpecifics_UserConsent_Feature value) {
-  _internal_set_feature(value);
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.feature)
-}
-
-// repeated int32 description_grd_ids = 2 [deprecated = true];
-inline int UserEventSpecifics_UserConsent::_internal_description_grd_ids_size() const {
-  return description_grd_ids_.size();
-}
-inline int UserEventSpecifics_UserConsent::description_grd_ids_size() const {
-  return _internal_description_grd_ids_size();
-}
-inline void UserEventSpecifics_UserConsent::clear_description_grd_ids() {
-  description_grd_ids_.Clear();
-}
-inline int32_t UserEventSpecifics_UserConsent::_internal_description_grd_ids(int index) const {
-  return description_grd_ids_.Get(index);
-}
-inline int32_t UserEventSpecifics_UserConsent::description_grd_ids(int index) const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.description_grd_ids)
-  return _internal_description_grd_ids(index);
-}
-inline void UserEventSpecifics_UserConsent::set_description_grd_ids(int index, int32_t value) {
-  description_grd_ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.description_grd_ids)
-}
-inline void UserEventSpecifics_UserConsent::_internal_add_description_grd_ids(int32_t value) {
-  description_grd_ids_.Add(value);
-}
-inline void UserEventSpecifics_UserConsent::add_description_grd_ids(int32_t value) {
-  _internal_add_description_grd_ids(value);
-  // @@protoc_insertion_point(field_add:sync_pb.UserEventSpecifics.UserConsent.description_grd_ids)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
-UserEventSpecifics_UserConsent::_internal_description_grd_ids() const {
-  return description_grd_ids_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
-UserEventSpecifics_UserConsent::description_grd_ids() const {
-  // @@protoc_insertion_point(field_list:sync_pb.UserEventSpecifics.UserConsent.description_grd_ids)
-  return _internal_description_grd_ids();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
-UserEventSpecifics_UserConsent::_internal_mutable_description_grd_ids() {
-  return &description_grd_ids_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
-UserEventSpecifics_UserConsent::mutable_description_grd_ids() {
-  // @@protoc_insertion_point(field_mutable_list:sync_pb.UserEventSpecifics.UserConsent.description_grd_ids)
-  return _internal_mutable_description_grd_ids();
-}
-
-// optional int32 confirmation_grd_id = 3 [deprecated = true];
-inline bool UserEventSpecifics_UserConsent::_internal_has_confirmation_grd_id() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool UserEventSpecifics_UserConsent::has_confirmation_grd_id() const {
-  return _internal_has_confirmation_grd_id();
-}
-inline void UserEventSpecifics_UserConsent::clear_confirmation_grd_id() {
-  confirmation_grd_id_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline int32_t UserEventSpecifics_UserConsent::_internal_confirmation_grd_id() const {
-  return confirmation_grd_id_;
-}
-inline int32_t UserEventSpecifics_UserConsent::confirmation_grd_id() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.confirmation_grd_id)
-  return _internal_confirmation_grd_id();
-}
-inline void UserEventSpecifics_UserConsent::_internal_set_confirmation_grd_id(int32_t value) {
-  _has_bits_[0] |= 0x00000004u;
-  confirmation_grd_id_ = value;
-}
-inline void UserEventSpecifics_UserConsent::set_confirmation_grd_id(int32_t value) {
-  _internal_set_confirmation_grd_id(value);
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.confirmation_grd_id)
-}
-
-// optional .sync_pb.UserConsentTypes.ConsentStatus status = 5 [deprecated = true];
-inline bool UserEventSpecifics_UserConsent::_internal_has_status() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
-  return value;
-}
-inline bool UserEventSpecifics_UserConsent::has_status() const {
-  return _internal_has_status();
-}
-inline void UserEventSpecifics_UserConsent::clear_status() {
-  status_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline ::sync_pb::UserConsentTypes_ConsentStatus UserEventSpecifics_UserConsent::_internal_status() const {
-  return static_cast< ::sync_pb::UserConsentTypes_ConsentStatus >(status_);
-}
-inline ::sync_pb::UserConsentTypes_ConsentStatus UserEventSpecifics_UserConsent::status() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.UserConsent.status)
-  return _internal_status();
-}
-inline void UserEventSpecifics_UserConsent::_internal_set_status(::sync_pb::UserConsentTypes_ConsentStatus value) {
-  assert(::sync_pb::UserConsentTypes_ConsentStatus_IsValid(value));
-  _has_bits_[0] |= 0x00000010u;
-  status_ = value;
-}
-inline void UserEventSpecifics_UserConsent::set_status(::sync_pb::UserConsentTypes_ConsentStatus value) {
-  _internal_set_status(value);
-  // @@protoc_insertion_point(field_set:sync_pb.UserEventSpecifics.UserConsent.status)
-}
-
-inline bool UserEventSpecifics_UserConsent::has_consent() const {
-  return consent_case() != CONSENT_NOT_SET;
-}
-inline void UserEventSpecifics_UserConsent::clear_has_consent() {
-  _oneof_case_[0] = CONSENT_NOT_SET;
-}
-inline UserEventSpecifics_UserConsent::ConsentCase UserEventSpecifics_UserConsent::consent_case() const {
-  return UserEventSpecifics_UserConsent::ConsentCase(_oneof_case_[0]);
-}
-// -------------------------------------------------------------------
-
 // UserEventSpecifics_GaiaPasswordCaptured
 
 // optional .sync_pb.UserEventSpecifics.GaiaPasswordCaptured.EventTrigger event_trigger = 1;
@@ -3250,80 +2237,6 @@ inline ::sync_pb::UserEventSpecifics_Translation* UserEventSpecifics::mutable_tr
   return _msg;
 }
 
-// .sync_pb.UserEventSpecifics.UserConsent user_consent = 12 [deprecated = true];
-inline bool UserEventSpecifics::_internal_has_user_consent() const {
-  return event_case() == kUserConsent;
-}
-inline bool UserEventSpecifics::has_user_consent() const {
-  return _internal_has_user_consent();
-}
-inline void UserEventSpecifics::set_has_user_consent() {
-  _oneof_case_[0] = kUserConsent;
-}
-inline void UserEventSpecifics::clear_user_consent() {
-  if (_internal_has_user_consent()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete event_.user_consent_;
-    }
-    clear_has_event();
-  }
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent* UserEventSpecifics::release_user_consent() {
-  // @@protoc_insertion_point(field_release:sync_pb.UserEventSpecifics.user_consent)
-  if (_internal_has_user_consent()) {
-    clear_has_event();
-    ::sync_pb::UserEventSpecifics_UserConsent* temp = event_.user_consent_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    event_.user_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::sync_pb::UserEventSpecifics_UserConsent& UserEventSpecifics::_internal_user_consent() const {
-  return _internal_has_user_consent()
-      ? *event_.user_consent_
-      : reinterpret_cast< ::sync_pb::UserEventSpecifics_UserConsent&>(::sync_pb::_UserEventSpecifics_UserConsent_default_instance_);
-}
-inline const ::sync_pb::UserEventSpecifics_UserConsent& UserEventSpecifics::user_consent() const {
-  // @@protoc_insertion_point(field_get:sync_pb.UserEventSpecifics.user_consent)
-  return _internal_user_consent();
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent* UserEventSpecifics::unsafe_arena_release_user_consent() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.UserEventSpecifics.user_consent)
-  if (_internal_has_user_consent()) {
-    clear_has_event();
-    ::sync_pb::UserEventSpecifics_UserConsent* temp = event_.user_consent_;
-    event_.user_consent_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void UserEventSpecifics::unsafe_arena_set_allocated_user_consent(::sync_pb::UserEventSpecifics_UserConsent* user_consent) {
-  clear_event();
-  if (user_consent) {
-    set_has_user_consent();
-    event_.user_consent_ = user_consent;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.UserEventSpecifics.user_consent)
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent* UserEventSpecifics::_internal_mutable_user_consent() {
-  if (!_internal_has_user_consent()) {
-    clear_event();
-    set_has_user_consent();
-    event_.user_consent_ = CreateMaybeMessage< ::sync_pb::UserEventSpecifics_UserConsent >(GetArenaForAllocation());
-  }
-  return event_.user_consent_;
-}
-inline ::sync_pb::UserEventSpecifics_UserConsent* UserEventSpecifics::mutable_user_consent() {
-  ::sync_pb::UserEventSpecifics_UserConsent* _msg = _internal_mutable_user_consent();
-  // @@protoc_insertion_point(field_mutable:sync_pb.UserEventSpecifics.user_consent)
-  return _msg;
-}
-
 // .sync_pb.GaiaPasswordReuse gaia_password_reuse_event = 104;
 inline bool UserEventSpecifics::_internal_has_gaia_password_reuse_event() const {
   return event_case() == kGaiaPasswordReuseEvent;
@@ -3562,8 +2475,6 @@ inline UserEventSpecifics::EventCase UserEventSpecifics::event_case() const {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -3572,7 +2483,6 @@ inline UserEventSpecifics::EventCase UserEventSpecifics::event_case() const {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::sync_pb::UserEventSpecifics_Translation_Interaction> : ::std::true_type {};
-template <> struct is_proto_enum< ::sync_pb::UserEventSpecifics_UserConsent_Feature> : ::std::true_type {};
 template <> struct is_proto_enum< ::sync_pb::UserEventSpecifics_GaiaPasswordCaptured_EventTrigger> : ::std::true_type {};
 template <> struct is_proto_enum< ::sync_pb::UserEventSpecifics_FlocIdComputed_EventTrigger> : ::std::true_type {};
 

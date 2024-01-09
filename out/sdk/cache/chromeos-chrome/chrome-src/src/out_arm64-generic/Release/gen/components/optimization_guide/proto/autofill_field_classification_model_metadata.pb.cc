@@ -22,7 +22,8 @@ namespace proto {
 PROTOBUF_CONSTEXPR AutofillFieldClassificationModelMetadata::AutofillFieldClassificationModelMetadata(
     ::_pbi::ConstantInitialized)
   : input_token_()
-  , output_type_(){}
+  , output_type_()
+  , confidence_threshold_(0){}
 struct AutofillFieldClassificationModelMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AutofillFieldClassificationModelMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -41,6 +42,10 @@ namespace proto {
 
 class AutofillFieldClassificationModelMetadata::_Internal {
  public:
+  using HasBits = decltype(std::declval<AutofillFieldClassificationModelMetadata>()._has_bits_);
+  static void set_has_confidence_threshold(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 AutofillFieldClassificationModelMetadata::AutofillFieldClassificationModelMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -53,13 +58,16 @@ AutofillFieldClassificationModelMetadata::AutofillFieldClassificationModelMetada
 }
 AutofillFieldClassificationModelMetadata::AutofillFieldClassificationModelMetadata(const AutofillFieldClassificationModelMetadata& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
       input_token_(from.input_token_),
       output_type_(from.output_type_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  confidence_threshold_ = from.confidence_threshold_;
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.AutofillFieldClassificationModelMetadata)
 }
 
 inline void AutofillFieldClassificationModelMetadata::SharedCtor() {
+confidence_threshold_ = 0;
 }
 
 AutofillFieldClassificationModelMetadata::~AutofillFieldClassificationModelMetadata() {
@@ -87,11 +95,14 @@ void AutofillFieldClassificationModelMetadata::Clear() {
 
   input_token_.Clear();
   output_type_.Clear();
+  confidence_threshold_ = 0;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* AutofillFieldClassificationModelMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
@@ -122,6 +133,15 @@ const char* AutofillFieldClassificationModelMetadata::_InternalParse(const char*
         } else
           goto handle_unusual;
         continue;
+      // optional float confidence_threshold = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+          _Internal::set_has_confidence_threshold(&has_bits);
+          confidence_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -138,6 +158,7 @@ const char* AutofillFieldClassificationModelMetadata::_InternalParse(const char*
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -164,6 +185,12 @@ uint8_t* AutofillFieldClassificationModelMetadata::_InternalSerialize(
   // repeated fixed32 output_type = 2;
   if (this->_internal_output_type_size() > 0) {
     target = stream->WriteFixedPacked(2, _internal_output_type(), target);
+  }
+
+  // optional float confidence_threshold = 3;
+  if (_internal_has_confidence_threshold()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_confidence_threshold(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -201,6 +228,12 @@ size_t AutofillFieldClassificationModelMetadata::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // optional float confidence_threshold = 3;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 4;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -223,6 +256,9 @@ void AutofillFieldClassificationModelMetadata::MergeFrom(const AutofillFieldClas
 
   input_token_.MergeFrom(from.input_token_);
   output_type_.MergeFrom(from.output_type_);
+  if (from._internal_has_confidence_threshold()) {
+    _internal_set_confidence_threshold(from._internal_confidence_threshold());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -240,8 +276,10 @@ bool AutofillFieldClassificationModelMetadata::IsInitialized() const {
 void AutofillFieldClassificationModelMetadata::InternalSwap(AutofillFieldClassificationModelMetadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   input_token_.InternalSwap(&other->input_token_);
   output_type_.InternalSwap(&other->output_type_);
+  swap(confidence_threshold_, other->confidence_threshold_);
 }
 
 std::string AutofillFieldClassificationModelMetadata::GetTypeName() const {

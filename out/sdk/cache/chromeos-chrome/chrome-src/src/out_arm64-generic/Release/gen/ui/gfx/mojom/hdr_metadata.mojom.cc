@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -210,10 +211,10 @@ HDRMetadata::HDRMetadata()
       extended_range() {}
 
 HDRMetadata::HDRMetadata(
-    const absl::optional<::gfx::HdrMetadataSmpteSt2086>& smpte_st_2086_in,
-    const absl::optional<::gfx::HdrMetadataCta861_3>& cta_861_3_in,
-    const absl::optional<::gfx::HdrMetadataNdwl>& ndwl_in,
-    const absl::optional<::gfx::HdrMetadataExtendedRange>& extended_range_in)
+    const std::optional<::gfx::HdrMetadataSmpteSt2086>& smpte_st_2086_in,
+    const std::optional<::gfx::HdrMetadataCta861_3>& cta_861_3_in,
+    const std::optional<::gfx::HdrMetadataNdwl>& ndwl_in,
+    const std::optional<::gfx::HdrMetadataExtendedRange>& extended_range_in)
     : smpte_st_2086(std::move(smpte_st_2086_in)),
       cta_861_3(std::move(cta_861_3_in)),
       ndwl(std::move(ndwl_in)),
@@ -228,7 +229,7 @@ void HDRMetadata::WriteIntoTrace(
     dict.AddItem(
       "smpte_st_2086"), this->smpte_st_2086,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HdrMetadataSmpteSt2086>&>"
+      "<value of type const std::optional<::gfx::HdrMetadataSmpteSt2086>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -237,7 +238,7 @@ void HDRMetadata::WriteIntoTrace(
     dict.AddItem(
       "cta_861_3"), this->cta_861_3,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HdrMetadataCta861_3>&>"
+      "<value of type const std::optional<::gfx::HdrMetadataCta861_3>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -246,7 +247,7 @@ void HDRMetadata::WriteIntoTrace(
     dict.AddItem(
       "ndwl"), this->ndwl,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HdrMetadataNdwl>&>"
+      "<value of type const std::optional<::gfx::HdrMetadataNdwl>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -255,7 +256,7 @@ void HDRMetadata::WriteIntoTrace(
     dict.AddItem(
       "extended_range"), this->extended_range,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HdrMetadataExtendedRange>&>"
+      "<value of type const std::optional<::gfx::HdrMetadataExtendedRange>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

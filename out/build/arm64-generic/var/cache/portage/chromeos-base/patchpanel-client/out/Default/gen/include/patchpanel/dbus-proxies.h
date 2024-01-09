@@ -121,6 +121,18 @@ class PatchPanelProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool ConfigureNetwork(
+      const patchpanel::ConfigureNetworkRequest& in_request,
+      patchpanel::ConfigureNetworkResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ConfigureNetworkAsync(
+      const patchpanel::ConfigureNetworkRequest& in_request,
+      base::OnceCallback<void(const patchpanel::ConfigureNetworkResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetDevices(
       const patchpanel::GetDevicesRequest& in_request,
       patchpanel::GetDevicesResponse* out_response,
@@ -214,6 +226,30 @@ class PatchPanelProxyInterface {
   virtual void BruschettaVmStartupAsync(
       const patchpanel::BruschettaVmStartupRequest& in_request,
       base::OnceCallback<void(const patchpanel::BruschettaVmStartupResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool BorealisVmShutdown(
+      const patchpanel::BorealisVmShutdownRequest& in_request,
+      patchpanel::BorealisVmShutdownResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void BorealisVmShutdownAsync(
+      const patchpanel::BorealisVmShutdownRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BorealisVmShutdownResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool BorealisVmStartup(
+      const patchpanel::BorealisVmStartupRequest& in_request,
+      patchpanel::BorealisVmStartupResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void BorealisVmStartupAsync(
+      const patchpanel::BorealisVmStartupRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BorealisVmStartupResponse& /*response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -640,6 +676,37 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         in_client_fd);
   }
 
+  bool ConfigureNetwork(
+      const patchpanel::ConfigureNetworkRequest& in_request,
+      patchpanel::ConfigureNetworkResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "ConfigureNetwork",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void ConfigureNetworkAsync(
+      const patchpanel::ConfigureNetworkRequest& in_request,
+      base::OnceCallback<void(const patchpanel::ConfigureNetworkResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "ConfigureNetwork",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
   bool GetDevices(
       const patchpanel::GetDevicesRequest& in_request,
       patchpanel::GetDevicesResponse* out_response,
@@ -883,6 +950,68 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PatchPanel",
         "BruschettaVmStartup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool BorealisVmShutdown(
+      const patchpanel::BorealisVmShutdownRequest& in_request,
+      patchpanel::BorealisVmShutdownResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BorealisVmShutdown",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void BorealisVmShutdownAsync(
+      const patchpanel::BorealisVmShutdownRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BorealisVmShutdownResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BorealisVmShutdown",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool BorealisVmStartup(
+      const patchpanel::BorealisVmStartupRequest& in_request,
+      patchpanel::BorealisVmStartupResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BorealisVmStartup",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void BorealisVmStartupAsync(
+      const patchpanel::BorealisVmStartupRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BorealisVmStartupResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BorealisVmStartup",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

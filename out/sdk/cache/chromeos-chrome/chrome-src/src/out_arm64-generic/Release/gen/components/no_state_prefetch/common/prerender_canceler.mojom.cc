@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -127,14 +128,17 @@ void PrerenderCancelerProxy::CancelPrerenderForUnsupportedScheme(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send prerender::mojom::PrerenderCanceler::CancelPrerenderForUnsupportedScheme");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrerenderCanceler_CancelPrerenderForUnsupportedScheme_Name, kFlags, 0, 0, nullptr);
@@ -157,14 +161,17 @@ void PrerenderCancelerProxy::CancelPrerenderForNoStatePrefetch(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send prerender::mojom::PrerenderCanceler::CancelPrerenderForNoStatePrefetch");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrerenderCanceler_CancelPrerenderForNoStatePrefetch_Name, kFlags, 0, 0, nullptr);
@@ -253,12 +260,12 @@ bool PrerenderCancelerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrerenderCancelerValidationInfo[] = {
-    {&internal::PrerenderCanceler_CancelPrerenderForUnsupportedScheme_Params_Data::Validate,
+    { &internal::PrerenderCanceler_CancelPrerenderForUnsupportedScheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrerenderCanceler_CancelPrerenderForNoStatePrefetch_Params_Data::Validate,
+    { &internal::PrerenderCanceler_CancelPrerenderForNoStatePrefetch_Params_Data::Validate,
      nullptr /* no response */},
 };
 

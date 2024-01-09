@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -33,8 +34,8 @@ struct Rule {
   ~Rule();
   Rule(const Rule&) = delete;
   Rule& operator=(const Rule&) = delete;
-  Rule(Rule&& rhs);
-  Rule& operator=(Rule&& rhs);
+  Rule(Rule&& rhs) noexcept;
+  Rule& operator=(Rule&& rhs) noexcept;
 
   // Populates a Rule object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -47,24 +48,21 @@ struct Rule {
   // Creates a deep copy of Rule.
   Rule Clone() const;
 
-  // Creates a Rule object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Rule> FromValueDeprecated(const base::Value& value);
-
   // Creates a Rule object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Rule> FromValue(const base::Value::Dict& value);
+  static std::optional<Rule> FromValue(const base::Value::Dict& value);
 
   // Creates a Rule object from a base::Value, or nullopt on failure.
-  static absl::optional<Rule> FromValue(const base::Value& value);
+  static std::optional<Rule> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRule object.
   base::Value::Dict ToValue() const;
 
   // Optional identifier that allows referencing this rule.
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // Tags can be used to annotate rules and perform operations on sets of rules.
-  absl::optional<std::vector<std::string>> tags;
+  std::optional<std::vector<std::string>> tags;
 
   // List of conditions that can trigger the actions.
   base::Value::List conditions;
@@ -73,7 +71,7 @@ struct Rule {
   base::Value::List actions;
 
   // Optional priority of this rule. Defaults to 100.
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
 };
 
@@ -82,11 +80,11 @@ namespace Event {
 namespace AddRules {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Name of the event this function affects.
@@ -115,11 +113,11 @@ base::Value::List Create(const std::vector<Rule>& rules);
 namespace GetRules {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Name of the event this function affects.
@@ -131,7 +129,7 @@ struct Params {
 
   // If an array is passed, only rules with identifiers contained in this array
   // are returned.
-  absl::optional<std::vector<std::string>> rule_identifiers;
+  std::optional<std::vector<std::string>> rule_identifiers;
 
 
  private:
@@ -149,11 +147,11 @@ base::Value::List Create(const std::vector<Rule>& rules);
 namespace RemoveRules {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Name of the event this function affects.
@@ -165,7 +163,7 @@ struct Params {
 
   // If an array is passed, only rules with identifiers contained in this array
   // are unregistered.
-  absl::optional<std::vector<std::string>> rule_identifiers;
+  std::optional<std::vector<std::string>> rule_identifiers;
 
 
  private:

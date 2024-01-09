@@ -15,6 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kServiceWorker_UpdatePermissions_Name = 0;
+constexpr uint32_t kServiceWorker_DispatchOnConnect_Name = 1;
 
 }  // namespace internal
 

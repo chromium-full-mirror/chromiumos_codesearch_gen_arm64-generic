@@ -6,12 +6,12 @@ import * as Platform from '../../core/platform/platform.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as SourceFrame from '../../ui/legacy/components/source_frame/source_frame.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { ApplicationPanelSidebar, StorageCategoryView } from './ApplicationPanelSidebar.js';
 import { CookieItemsView } from './CookieItemsView.js';
 import { DatabaseQueryView } from './DatabaseQueryView.js';
 import { DatabaseTableView } from './DatabaseTableView.js';
 import { DOMStorageItemsView } from './DOMStorageItemsView.js';
-import * as PreloadingHelper from './preloading/helper/helper.js';
 import resourcesPanelStyles from './resourcesPanel.css.js';
 import { StorageItemsView } from './StorageItemsView.js';
 const UIStrings = {
@@ -116,16 +116,20 @@ export class ResourcesPanel extends UI.Panel.PanelWithSidebar {
         return view;
     }
     showCategoryView(categoryName, categoryLink) {
+        function kebapCase(paneName) {
+            return paneName.replace(/[\s]+/g, '-').toLowerCase();
+        }
         if (!this.categoryView) {
             this.categoryView = new StorageCategoryView();
         }
+        this.categoryView.element.setAttribute('jslog', `${VisualLogging.pane().context(kebapCase(categoryName))}`);
         this.categoryView.setText(categoryName);
         this.categoryView.setLink(categoryLink);
         const categoryWarning = categoryName === 'Web SQL' ? UIStrings.webSqlDeprecation : null;
         const learnMoreLink = categoryName === 'Web SQL' ?
             'https://developer.chrome.com/blog/deprecating-web-sql/' :
             Platform.DevToolsPath.EmptyUrlString;
-        this.categoryView.setWarning(categoryWarning, learnMoreLink);
+        this.categoryView.setWarning(categoryWarning, learnMoreLink, categoryName === 'Web SQL' ? 'deprecation-warning' : undefined);
         this.showView(this.categoryView);
     }
     showDOMStorage(domStorage) {
@@ -169,70 +173,26 @@ export class ResourcesPanel extends UI.Panel.PanelWithSidebar {
         this.registerCSSFiles([resourcesPanelStyles]);
     }
 }
-let resourceRevealerInstance;
 export class ResourceRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!resourceRevealerInstance || forceNew) {
-            resourceRevealerInstance = new ResourceRevealer();
-        }
-        return resourceRevealerInstance;
-    }
     async reveal(resource) {
-        if (!(resource instanceof SDK.Resource.Resource)) {
-            throw new Error('Internal error: not a resource');
-        }
         const sidebar = await ResourcesPanel.showAndGetSidebar();
         await sidebar.showResource(resource);
     }
 }
-let frameDetailsRevealerInstance;
 export class FrameDetailsRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!frameDetailsRevealerInstance || forceNew) {
-            frameDetailsRevealerInstance = new FrameDetailsRevealer();
-        }
-        return frameDetailsRevealerInstance;
-    }
     async reveal(frame) {
-        if (!(frame instanceof SDK.ResourceTreeModel.ResourceTreeFrame)) {
-            throw new Error('Internal error: not a frame');
-        }
         const sidebar = await ResourcesPanel.showAndGetSidebar();
         sidebar.showFrame(frame);
     }
 }
-let ruleSetViewRevealerInstance;
 export class RuleSetViewRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!ruleSetViewRevealerInstance || forceNew) {
-            ruleSetViewRevealerInstance = new RuleSetViewRevealer();
-        }
-        return ruleSetViewRevealerInstance;
-    }
     async reveal(revealInfo) {
-        if (!(revealInfo instanceof PreloadingHelper.PreloadingForward.RuleSetView)) {
-            throw new Error('Internal error: not an RuleSetView');
-        }
         const sidebar = await ResourcesPanel.showAndGetSidebar();
         sidebar.showPreloadingRuleSetView(revealInfo);
     }
 }
-let attemptViewWithFilterRevealerInstance;
 export class AttemptViewWithFilterRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!attemptViewWithFilterRevealerInstance || forceNew) {
-            attemptViewWithFilterRevealerInstance = new AttemptViewWithFilterRevealer();
-        }
-        return attemptViewWithFilterRevealerInstance;
-    }
     async reveal(filter) {
-        if (!(filter instanceof PreloadingHelper.PreloadingForward.AttemptViewWithFilter)) {
-            throw new Error('Internal error: not an AttemptViewWithFilter');
-        }
         const sidebar = await ResourcesPanel.showAndGetSidebar();
         sidebar.showPreloadingAttemptViewWithFilter(filter);
     }

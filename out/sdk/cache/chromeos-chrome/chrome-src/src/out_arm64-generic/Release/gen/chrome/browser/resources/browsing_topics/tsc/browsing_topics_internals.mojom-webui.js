@@ -6,6 +6,7 @@ import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { String16Spec as mojoBase_mojom_String16Spec } from '//resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
 import { TimeSpec as mojoBase_mojom_TimeSpec, TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 export class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -14,6 +15,9 @@ export class PageHandlerPendingReceiver {
     }
 }
 export class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -44,6 +48,9 @@ export class PageHandlerRemote {
  * interface.
  */
 export class PageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -76,6 +83,14 @@ export class PageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getBrowsingTopicsConfiguration;
+    getBrowsingTopicsState;
+    getModelInfo;
+    classifyHosts;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -120,13 +135,11 @@ export const WebUIGetModelInfoResultSpec = { $: {} };
 mojo.internal.Struct(WebUIBrowsingTopicsConfigurationSpec.$, 'WebUIBrowsingTopicsConfiguration', [
     mojo.internal.StructField('browsingTopicsEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('privacySandboxAdsApisOverrideEnabled', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('privacySandboxSettings3Enabled', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('overridePrivacySandboxSettingsLocalTestingEnabled', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('browsingTopicsBypassIpIsPubliclyRoutableCheckEnabled', 0, 4, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('browsingTopicsXhrEnabled', 0, 5, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('browsingTopicsDocumentApiEnabled', 0, 6, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('overridePrivacySandboxSettingsLocalTestingEnabled', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('browsingTopicsBypassIpIsPubliclyRoutableCheckEnabled', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('browsingTopicsDocumentApiEnabled', 0, 4, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('configVersion', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('browsingTopicsParametersEnabled', 0, 7, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('browsingTopicsParametersEnabled', 0, 5, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('numberOfEpochsToExpose', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('timePeriodPerEpoch', 16, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('numberOfTopTopicsPerEpoch', 12, 0, mojo.internal.Int32, 0, false /* nullable */, 0),

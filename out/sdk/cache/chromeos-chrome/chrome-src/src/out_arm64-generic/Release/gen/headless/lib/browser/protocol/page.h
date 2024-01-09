@@ -105,7 +105,7 @@ public:
         virtual void fallThrough() = 0;
         virtual ~PrintToPDFCallback() { }
     };
-    virtual void PrintToPDF(Maybe<bool> in_landscape, Maybe<bool> in_displayHeaderFooter, Maybe<bool> in_printBackground, Maybe<double> in_scale, Maybe<double> in_paperWidth, Maybe<double> in_paperHeight, Maybe<double> in_marginTop, Maybe<double> in_marginBottom, Maybe<double> in_marginLeft, Maybe<double> in_marginRight, Maybe<String> in_pageRanges, Maybe<String> in_headerTemplate, Maybe<String> in_footerTemplate, Maybe<bool> in_preferCSSPageSize, Maybe<String> in_transferMode, Maybe<bool> in_generateTaggedPDF, std::unique_ptr<PrintToPDFCallback> callback) = 0;
+    virtual void PrintToPDF(Maybe<bool> in_landscape, Maybe<bool> in_displayHeaderFooter, Maybe<bool> in_printBackground, Maybe<double> in_scale, Maybe<double> in_paperWidth, Maybe<double> in_paperHeight, Maybe<double> in_marginTop, Maybe<double> in_marginBottom, Maybe<double> in_marginLeft, Maybe<double> in_marginRight, Maybe<String> in_pageRanges, Maybe<String> in_headerTemplate, Maybe<String> in_footerTemplate, Maybe<bool> in_preferCSSPageSize, Maybe<String> in_transferMode, Maybe<bool> in_generateTaggedPDF, Maybe<bool> in_generateDocumentOutline, std::unique_ptr<PrintToPDFCallback> callback) = 0;
 
     virtual DispatchResponse Disable()
     {

@@ -147,7 +147,7 @@ namespace dawn::wire::client {
             instance = nullptr;
         }
 
-        return DoInstanceRequestAdapterCallback(instance, cmd.requestSerial, cmd.status, cmd.message, cmd.properties, cmd.limits, cmd.featuresCount, cmd.features);
+        return DoInstanceRequestAdapterCallback(instance, cmd.future, cmd.status, cmd.message, cmd.properties, cmd.limits, cmd.featuresCount, cmd.features);
     }
     bool Client::HandleQueueWorkDoneCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnQueueWorkDoneCallbackCmd cmd;

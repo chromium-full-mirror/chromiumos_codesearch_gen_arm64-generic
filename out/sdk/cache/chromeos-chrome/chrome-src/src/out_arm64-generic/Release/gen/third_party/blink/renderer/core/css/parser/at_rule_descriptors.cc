@@ -64,32 +64,32 @@ AtRuleDescriptorHash::descriptor_hash_function (const char *str, size_t len)
 {
   static const unsigned char asso_values[] =
     {
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38,  0, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38,  0,  8,  3,
-       0,  1, 10,  1, 17,  0,  5,  0,  0,  6,
-       0,  0, 12, 38,  0,  2,  0,  0,  0,  0,
-      12,  0,  5, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38, 38, 38, 38, 38,
-      38, 38, 38, 38, 38, 38
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37,  1, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37,  0,  3,  0,
+       0,  1,  7,  1, 16,  0,  5,  6,  3,  8,
+       0,  0, 10, 37,  0,  0,  0,  3,  0,  1,
+      13,  0,  5, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37, 37, 37, 37, 37,
+      37, 37, 37, 37, 37, 37
     };
   unsigned int hval = 0;
 
@@ -188,66 +188,66 @@ AtRuleDescriptorHash::descriptor_hash_function (const char *str, size_t len)
 
 struct stringpool_t
   {
-    char stringpool_str0[sizeof("initial-value")];
-    char stringpool_str1[sizeof("range")];
-    char stringpool_str2[sizeof("negative")];
-    char stringpool_str3[sizeof("navigation-trigger")];
-    char stringpool_str4[sizeof("src")];
-    char stringpool_str5[sizeof("unicode-range")];
+    char stringpool_str0[sizeof("src")];
+    char stringpool_str1[sizeof("navigation")];
+    char stringpool_str2[sizeof("range")];
+    char stringpool_str3[sizeof("negative")];
+    char stringpool_str4[sizeof("ascent-override")];
+    char stringpool_str5[sizeof("descent-override")];
     char stringpool_str6[sizeof("override-colors")];
-    char stringpool_str7[sizeof("ascent-override")];
-    char stringpool_str8[sizeof("descent-override")];
-    char stringpool_str9[sizeof("font-variant")];
-    char stringpool_str10[sizeof("system")];
-    char stringpool_str11[sizeof("pad")];
+    char stringpool_str7[sizeof("unicode-range")];
+    char stringpool_str8[sizeof("font-variant")];
+    char stringpool_str9[sizeof("system")];
+    char stringpool_str10[sizeof("pad")];
+    char stringpool_str11[sizeof("initial-value")];
     char stringpool_str12[sizeof("font-style")];
     char stringpool_str13[sizeof("syntax")];
-    char stringpool_str14[sizeof("size-adjust")];
-    char stringpool_str15[sizeof("line-gap-override")];
-    char stringpool_str16[sizeof("speak-as")];
-    char stringpool_str17[sizeof("symbols")];
-    char stringpool_str18[sizeof("additive-symbols")];
-    char stringpool_str19[sizeof("inherits")];
-    char stringpool_str20[sizeof("fallback")];
+    char stringpool_str14[sizeof("symbols")];
+    char stringpool_str15[sizeof("size-adjust")];
+    char stringpool_str16[sizeof("additive-symbols")];
+    char stringpool_str17[sizeof("inherits")];
+    char stringpool_str18[sizeof("speak-as")];
+    char stringpool_str19[sizeof("line-gap-override")];
+    char stringpool_str20[sizeof("base-palette")];
     char stringpool_str21[sizeof("font-display")];
-    char stringpool_str22[sizeof("base-palette")];
-    char stringpool_str23[sizeof("font-family")];
-    char stringpool_str24[sizeof("font-feature-settings")];
-    char stringpool_str25[sizeof("font-weight")];
-    char stringpool_str26[sizeof("font-stretch")];
+    char stringpool_str22[sizeof("fallback")];
+    char stringpool_str23[sizeof("font-feature-settings")];
+    char stringpool_str24[sizeof("font-stretch")];
+    char stringpool_str25[sizeof("font-family")];
+    char stringpool_str26[sizeof("font-weight")];
     char stringpool_str27[sizeof("suffix")];
     char stringpool_str28[sizeof("prefix")];
     char stringpool_str29[sizeof("-webkit-font-feature-settings")];
   };
 static const struct stringpool_t stringpool_contents =
   {
-    "initial-value",
+    "src",
+    "navigation",
     "range",
     "negative",
-    "navigation-trigger",
-    "src",
-    "unicode-range",
-    "override-colors",
     "ascent-override",
     "descent-override",
+    "override-colors",
+    "unicode-range",
     "font-variant",
     "system",
     "pad",
+    "initial-value",
     "font-style",
     "syntax",
-    "size-adjust",
-    "line-gap-override",
-    "speak-as",
     "symbols",
+    "size-adjust",
     "additive-symbols",
     "inherits",
-    "fallback",
-    "font-display",
+    "speak-as",
+    "line-gap-override",
     "base-palette",
-    "font-family",
+    "font-display",
+    "fallback",
     "font-feature-settings",
-    "font-weight",
     "font-stretch",
+    "font-family",
+    "font-weight",
     "suffix",
     "prefix",
     "-webkit-font-feature-settings"
@@ -261,39 +261,39 @@ AtRuleDescriptorHash::findDescriptorImpl (const char *str, size_t len)
       TOTAL_KEYWORDS = 30,
       MIN_WORD_LENGTH = 3,
       MAX_WORD_LENGTH = 29,
-      MIN_HASH_VALUE = 1,
-      MAX_HASH_VALUE = 37
+      MIN_HASH_VALUE = 0,
+      MAX_HASH_VALUE = 36
     };
 
   static const struct Property descriptor_word_list[] =
     {
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str0, static_cast<int>(AtRuleDescriptorID::InitialValue)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str1, static_cast<int>(AtRuleDescriptorID::Range)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str2, static_cast<int>(AtRuleDescriptorID::Negative)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str3, static_cast<int>(AtRuleDescriptorID::NavigationTrigger)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str4, static_cast<int>(AtRuleDescriptorID::Src)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str5, static_cast<int>(AtRuleDescriptorID::UnicodeRange)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str0, static_cast<int>(AtRuleDescriptorID::Src)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str1, static_cast<int>(AtRuleDescriptorID::Navigation)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str2, static_cast<int>(AtRuleDescriptorID::Range)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str3, static_cast<int>(AtRuleDescriptorID::Negative)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str4, static_cast<int>(AtRuleDescriptorID::AscentOverride)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str5, static_cast<int>(AtRuleDescriptorID::DescentOverride)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str6, static_cast<int>(AtRuleDescriptorID::OverrideColors)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str7, static_cast<int>(AtRuleDescriptorID::AscentOverride)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str8, static_cast<int>(AtRuleDescriptorID::DescentOverride)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str9, static_cast<int>(AtRuleDescriptorID::FontVariant)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str10, static_cast<int>(AtRuleDescriptorID::System)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str11, static_cast<int>(AtRuleDescriptorID::Pad)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str7, static_cast<int>(AtRuleDescriptorID::UnicodeRange)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str8, static_cast<int>(AtRuleDescriptorID::FontVariant)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str9, static_cast<int>(AtRuleDescriptorID::System)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str10, static_cast<int>(AtRuleDescriptorID::Pad)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str11, static_cast<int>(AtRuleDescriptorID::InitialValue)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str12, static_cast<int>(AtRuleDescriptorID::FontStyle)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str13, static_cast<int>(AtRuleDescriptorID::Syntax)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str14, static_cast<int>(AtRuleDescriptorID::SizeAdjust)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str15, static_cast<int>(AtRuleDescriptorID::LineGapOverride)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str16, static_cast<int>(AtRuleDescriptorID::SpeakAs)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str17, static_cast<int>(AtRuleDescriptorID::Symbols)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str18, static_cast<int>(AtRuleDescriptorID::AdditiveSymbols)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str19, static_cast<int>(AtRuleDescriptorID::Inherits)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str20, static_cast<int>(AtRuleDescriptorID::Fallback)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str14, static_cast<int>(AtRuleDescriptorID::Symbols)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str15, static_cast<int>(AtRuleDescriptorID::SizeAdjust)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str16, static_cast<int>(AtRuleDescriptorID::AdditiveSymbols)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str17, static_cast<int>(AtRuleDescriptorID::Inherits)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str18, static_cast<int>(AtRuleDescriptorID::SpeakAs)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str19, static_cast<int>(AtRuleDescriptorID::LineGapOverride)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str20, static_cast<int>(AtRuleDescriptorID::BasePalette)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str21, static_cast<int>(AtRuleDescriptorID::FontDisplay)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str22, static_cast<int>(AtRuleDescriptorID::BasePalette)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str23, static_cast<int>(AtRuleDescriptorID::FontFamily)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str24, static_cast<int>(AtRuleDescriptorID::FontFeatureSettings)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str25, static_cast<int>(AtRuleDescriptorID::FontWeight)},
-      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str26, static_cast<int>(AtRuleDescriptorID::FontStretch)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str22, static_cast<int>(AtRuleDescriptorID::Fallback)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str23, static_cast<int>(AtRuleDescriptorID::FontFeatureSettings)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str24, static_cast<int>(AtRuleDescriptorID::FontStretch)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str25, static_cast<int>(AtRuleDescriptorID::FontFamily)},
+      {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str26, static_cast<int>(AtRuleDescriptorID::FontWeight)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str27, static_cast<int>(AtRuleDescriptorID::Suffix)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str28, static_cast<int>(AtRuleDescriptorID::Prefix)},
       {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str29, static_cast<int>(AtRuleDescriptorID::FontFeatureSettings)}
@@ -301,9 +301,9 @@ AtRuleDescriptorHash::findDescriptorImpl (const char *str, size_t len)
 
   static const signed char lookup[] =
     {
-      -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12,
-      13, 14, 15, 16, 17, 18, 19, 20, -1, -1, 21, 22, 23, -1,
-      24, 25, -1, -1, -1, 26, 27, 28, -1, 29
+       0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13,
+      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, -1, 24, 25, 26,
+      -1, -1, 27, 28, -1, -1, -1, -1, 29
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -408,8 +408,8 @@ CSSPropertyID AtRuleDescriptorIDAsCSSPropertyID(AtRuleDescriptorID id) {
     return CSSPropertyID::kPrefix;
   case AtRuleDescriptorID::Range:
     return CSSPropertyID::kRange;
-  case AtRuleDescriptorID::NavigationTrigger:
-    return CSSPropertyID::kNavigationTrigger;
+  case AtRuleDescriptorID::Navigation:
+    return CSSPropertyID::kNavigation;
   case AtRuleDescriptorID::SizeAdjust:
     return CSSPropertyID::kSizeAdjust;
   case AtRuleDescriptorID::SpeakAs:
@@ -474,8 +474,8 @@ AtRuleDescriptorID CSSPropertyIDAsAtRuleDescriptor(CSSPropertyID id) {
     return AtRuleDescriptorID::Prefix;
   case CSSPropertyID::kRange:
     return AtRuleDescriptorID::Range;
-  case CSSPropertyID::kNavigationTrigger:
-    return AtRuleDescriptorID::NavigationTrigger;
+  case CSSPropertyID::kNavigation:
+    return AtRuleDescriptorID::Navigation;
   case CSSPropertyID::kSizeAdjust:
     return AtRuleDescriptorID::SizeAdjust;
   case CSSPropertyID::kSpeakAs:

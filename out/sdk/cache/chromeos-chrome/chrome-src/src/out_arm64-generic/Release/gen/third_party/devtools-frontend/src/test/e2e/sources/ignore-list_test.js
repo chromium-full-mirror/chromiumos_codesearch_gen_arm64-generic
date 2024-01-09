@@ -66,6 +66,26 @@ const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
         await (0, helper_js_1.click)(sources_helpers_js_1.RESUME_BUTTON);
         await scriptEvaluation;
     });
+    (0, mocha_extensions_js_1.it)('skips instrumentation breakpoints', async function () {
+        await (0, settings_helpers_js_1.setIgnoreListPattern)('thirdparty');
+        const { target, frontend } = (0, helper_js_1.getBrowserAndPages)();
+        (0, helper_js_1.installEventListener)(frontend, sources_helpers_js_1.DEBUGGER_PAUSED_EVENT);
+        await (0, sources_helpers_js_1.openSourceCodeEditorForFile)('multi-files-mycode.js', 'multi-files.html');
+        await (0, sources_helpers_js_1.setEventListenerBreakpoint)('Timer', 'setTimeout');
+        const scriptEvaluation = target.evaluate('debugger; timeoutTestCase();');
+        await (0, helper_js_1.waitFor)(sources_helpers_js_1.RESUME_BUTTON);
+        await (0, helper_js_1.waitFor)(sources_helpers_js_1.PAUSE_INDICATOR_SELECTOR);
+        await (0, helper_js_1.waitForFunction)(async () => await (0, helper_js_1.getPendingEvents)(frontend, sources_helpers_js_1.DEBUGGER_PAUSED_EVENT));
+        chai_1.assert.deepEqual(await (0, sources_helpers_js_1.getCallFrameNames)(), ['(anonymous)']);
+        await (0, helper_js_1.click)(sources_helpers_js_1.RESUME_BUTTON);
+        await (0, helper_js_1.waitFor)('.call-frame-title-text[title="userTimeout"]');
+        await (0, helper_js_1.waitFor)(sources_helpers_js_1.RESUME_BUTTON);
+        await (0, helper_js_1.waitFor)(sources_helpers_js_1.PAUSE_INDICATOR_SELECTOR);
+        await (0, helper_js_1.waitForFunction)(async () => await (0, helper_js_1.getPendingEvents)(frontend, sources_helpers_js_1.DEBUGGER_PAUSED_EVENT));
+        chai_1.assert.deepEqual(await (0, sources_helpers_js_1.getCallFrameNames)(), ['userTimeout', 'Promise.then (async)', '(anonymous)']);
+        await (0, helper_js_1.click)(sources_helpers_js_1.RESUME_BUTTON);
+        await scriptEvaluation;
+    });
     (0, mocha_extensions_js_1.it)('indicates ignored sources in page source tree', async function () {
         await (0, settings_helpers_js_1.setIgnoreListPattern)('/sources/');
         await (0, helper_js_1.goToResource)('sources/multi-files.html');

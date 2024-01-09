@@ -27,6 +27,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
 #include "skia/public/mojom/skcolor.mojom-shared.h"
+#include "services/network/public/mojom/attribution.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/frame_replication_state.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/view_transition_state.mojom-shared.h"
@@ -36,6 +37,7 @@
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-shared.h"
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-shared.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-shared.h"
+#include "ui/color/color_id.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -49,6 +51,8 @@ namespace blink::mojom {
 class PageLifecycleStateDataView;
 
 class PageRestoreParamsDataView;
+
+class ColorProviderColorMapsDataView;
 
 class PrerenderPageActivationParamsDataView;
 
@@ -69,6 +73,13 @@ struct MojomTypeTraits<::blink::mojom::PageLifecycleStateDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::PageRestoreParamsDataView> {
   using Data = ::blink::mojom::internal::PageRestoreParams_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::ColorProviderColorMapsDataView> {
+  using Data = ::blink::mojom::internal::ColorProviderColorMaps_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -208,6 +219,52 @@ static_assert(
   }
  private:
   internal::PageRestoreParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ColorProviderColorMapsDataView {
+ public:
+  ColorProviderColorMapsDataView() = default;
+
+  ColorProviderColorMapsDataView(
+      internal::ColorProviderColorMaps_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLightColorsMapDataView(
+      mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLightColorsMap(UserType* output) {
+    
+    auto* pointer = data_->light_colors_map.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetDarkColorsMapDataView(
+      mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDarkColorsMap(UserType* output) {
+    
+    auto* pointer = data_->dark_colors_map.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetForcedColorsMapDataView(
+      mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadForcedColorsMap(UserType* output) {
+    
+    auto* pointer = data_->forced_colors_map.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ColorProviderColorMaps_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -391,6 +448,77 @@ struct Serializer<::blink::mojom::PageRestoreParamsDataView, MaybeConstUserType>
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::ColorProviderColorMapsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::ColorProviderColorMapsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::ColorProviderColorMaps_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::light_colors_map(input)) in_light_colors_map = Traits::light_colors_map(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->light_colors_map)::BaseType>
+        light_colors_map_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& light_colors_map_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        in_light_colors_map, light_colors_map_fragment, &light_colors_map_validate_params);
+    fragment->light_colors_map.Set(
+        light_colors_map_fragment.is_null() ? nullptr : light_colors_map_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->light_colors_map.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null light_colors_map in ColorProviderColorMaps struct");
+    decltype(Traits::dark_colors_map(input)) in_dark_colors_map = Traits::dark_colors_map(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->dark_colors_map)::BaseType>
+        dark_colors_map_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& dark_colors_map_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        in_dark_colors_map, dark_colors_map_fragment, &dark_colors_map_validate_params);
+    fragment->dark_colors_map.Set(
+        dark_colors_map_fragment.is_null() ? nullptr : dark_colors_map_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->dark_colors_map.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null dark_colors_map in ColorProviderColorMaps struct");
+    decltype(Traits::forced_colors_map(input)) in_forced_colors_map = Traits::forced_colors_map(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->forced_colors_map)::BaseType>
+        forced_colors_map_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& forced_colors_map_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>>(
+        in_forced_colors_map, forced_colors_map_fragment, &forced_colors_map_validate_params);
+    fragment->forced_colors_map.Set(
+        forced_colors_map_fragment.is_null() ? nullptr : forced_colors_map_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->forced_colors_map.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null forced_colors_map in ColorProviderColorMaps struct");
+  }
+
+  static bool Deserialize(::blink::mojom::internal::ColorProviderColorMaps_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::ColorProviderColorMapsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::PrerenderPageActivationParamsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::PrerenderPageActivationParamsDataView, UserType>;
@@ -454,6 +582,23 @@ inline void PageRestoreParamsDataView::GetViewTransitionStateDataView(
     ::blink::mojom::ViewTransitionStateDataView* output) {
   auto pointer = data_->view_transition_state.Get();
   *output = ::blink::mojom::ViewTransitionStateDataView(pointer, message_);
+}
+
+
+inline void ColorProviderColorMapsDataView::GetLightColorsMapDataView(
+    mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output) {
+  auto pointer = data_->light_colors_map.Get();
+  *output = mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>(pointer, message_);
+}
+inline void ColorProviderColorMapsDataView::GetDarkColorsMapDataView(
+    mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output) {
+  auto pointer = data_->dark_colors_map.Get();
+  *output = mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>(pointer, message_);
+}
+inline void ColorProviderColorMapsDataView::GetForcedColorsMapDataView(
+    mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output) {
+  auto pointer = data_->forced_colors_map.Get();
+  *output = mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>(pointer, message_);
 }
 
 

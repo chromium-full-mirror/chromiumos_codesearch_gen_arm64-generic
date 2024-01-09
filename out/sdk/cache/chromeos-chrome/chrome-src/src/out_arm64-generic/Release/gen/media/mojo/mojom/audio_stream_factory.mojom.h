@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/audio_stream_factory.mojom-features.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-forward.h"
 #include "media/mojo/mojom/audio_data_pipe.mojom-forward.h"
@@ -33,6 +34,7 @@
 #include "media/mojo/mojom/audio_processing.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -143,7 +145,7 @@ class AudioStreamFactory
   virtual ~AudioStreamFactory() = default;
 
 
-  using CreateInputStreamCallback = base::OnceCallback<void(::media::mojom::ReadOnlyAudioDataPipePtr, bool, const absl::optional<::base::UnguessableToken>&)>;
+  using CreateInputStreamCallback = base::OnceCallback<void(::media::mojom::ReadOnlyAudioDataPipePtr, bool, const std::optional<::base::UnguessableToken>&)>;
   
   virtual void CreateInputStream(::mojo::PendingReceiver<::media::mojom::AudioInputStream> stream, ::mojo::PendingRemote<::media::mojom::AudioInputStreamClient> client, ::mojo::PendingRemote<::media::mojom::AudioInputStreamObserver> observer, ::mojo::PendingRemote<::media::mojom::AudioLog> log, const std::string& device_id, const ::media::AudioParameters& params, uint32_t shared_memory_count, bool enable_agc, ::base::ReadOnlySharedMemoryRegion key_press_count_buffer, ::media::mojom::AudioProcessingConfigPtr processing_config, CreateInputStreamCallback callback) = 0;
 

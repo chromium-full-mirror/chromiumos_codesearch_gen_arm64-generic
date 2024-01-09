@@ -34,11 +34,11 @@ export class TabSearchItem extends TabSearchItemBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('useRipples'),
             },
-            hideTimestamp: {
+            index: Number,
+            inSuggestedGroup: {
                 type: Boolean,
                 value: false,
             },
-            index: Number,
         };
     }
     /**
@@ -98,6 +98,10 @@ export class TabSearchItem extends TabSearchItemBase {
         switch (alert) {
             case TabAlertState.kMediaRecording:
                 return 'media-recording';
+            case TabAlertState.kAudioRecording:
+                return 'audio-recording';
+            case TabAlertState.kVideoRecording:
+                return 'video-recording';
             case TabAlertState.kAudioPlaying:
                 return 'audio-playing';
             case TabAlertState.kAudioMuting:
@@ -134,7 +138,16 @@ export class TabSearchItem extends TabSearchItemBase {
         return ariaLabel(tabData);
     }
     ariaLabelForButton_(title) {
+        if (this.inSuggestedGroup) {
+            return loadTimeData.getStringF('tabOrganizationCloseTabAriaLabel', title);
+        }
         return `${loadTimeData.getString('closeTab')} ${title}`;
+    }
+    tooltipForButton_() {
+        if (this.inSuggestedGroup) {
+            return loadTimeData.getString('tabOrganizationCloseTabTooltip');
+        }
+        return loadTimeData.getString('closeTab');
     }
 }
 customElements.define(TabSearchItem.is, TabSearchItem);

@@ -44,6 +44,11 @@ import {
 } from '../../../../url/mojom/url.mojom.m.js';
 
 import {
+  CookieEncryptionProviderRemote as network_mojom_CookieEncryptionProviderRemote,
+  CookieEncryptionProviderPendingReceiver as network_mojom_CookieEncryptionProviderPendingReceiver
+} from './cookie_encryption_provider.mojom.m.js';
+
+import {
   CTLogInfo as network_mojom_CTLogInfo,
   CTLogInfoSpec as network_mojom_CTLogInfoSpec
 } from './ct_log_info.mojom.m.js';
@@ -121,6 +126,11 @@ import {
   ParsedHeaders as network_mojom_ParsedHeaders,
   ParsedHeadersSpec as network_mojom_ParsedHeadersSpec
 } from './parsed_headers.mojom.m.js';
+
+import {
+  IpProtectionProxyBypassPolicy as network_mojom_IpProtectionProxyBypassPolicy,
+  IpProtectionProxyBypassPolicySpec as network_mojom_IpProtectionProxyBypassPolicySpec
+} from './proxy_config.mojom.m.js';
 
 import {
   SystemDnsResolverRemote as network_mojom_SystemDnsResolverRemote,
@@ -287,12 +297,6 @@ export class NetworkServiceInterface {
   onPeerToPeerConnectionsCountChange(count) {}
   
   /**
-   * @param { !Array<!EnvironmentVariable> } environment
-   */
-
-  setEnvironment(environment) {}
-  
-  /**
    * @param { !string } rawCommitments
    * @return {!Promise}
    */
@@ -312,11 +316,10 @@ export class NetworkServiceInterface {
   
   /**
    * @param { !Array<!network_mojom_CTLogInfo> } logList
-   * @param { !mojoBase_mojom_Time } updateTime
    * @return {!Promise}
    */
 
-  updateCtLogList(logList, updateTime) {}
+  updateCtLogList(logList) {}
   
   /**
    * @param { !Array<!Array<!number>> } sctHashes
@@ -384,6 +387,12 @@ export class NetworkServiceInterface {
    */
 
   setIPv6ReachabilityOverride(reachabilityOverride) {}
+  
+  /**
+   * @param { !network_mojom_CookieEncryptionProviderRemote } provider
+   */
+
+  setCookieEncryptionProvider(provider) {}
 }
 
 /**
@@ -752,22 +761,6 @@ export class NetworkServiceRemote {
 
   
   /**
-   * @param { !Array<!EnvironmentVariable> } environment
-   */
-
-  setEnvironment(
-      environment) {
-    this.proxy.sendMessage(
-        20,
-        NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        [
-          environment
-        ]);
-  }
-
-  
-  /**
    * @param { !string } rawCommitments
    * @return {!Promise}
    */
@@ -775,7 +768,7 @@ export class NetworkServiceRemote {
   setTrustTokenKeyCommitments(
       rawCommitments) {
     return this.proxy.sendMessage(
-        21,
+        20,
         NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         [
@@ -789,7 +782,7 @@ export class NetworkServiceRemote {
 
   clearSCTAuditingCache() {
     this.proxy.sendMessage(
-        22,
+        21,
         NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         [
@@ -804,7 +797,7 @@ export class NetworkServiceRemote {
   configureSCTAuditing(
       configuration) {
     this.proxy.sendMessage(
-        23,
+        22,
         NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         [
@@ -815,20 +808,17 @@ export class NetworkServiceRemote {
   
   /**
    * @param { !Array<!network_mojom_CTLogInfo> } logList
-   * @param { !mojoBase_mojom_Time } updateTime
    * @return {!Promise}
    */
 
   updateCtLogList(
-      logList,
-      updateTime) {
+      logList) {
     return this.proxy.sendMessage(
-        24,
+        23,
         NetworkService_UpdateCtLogList_ParamsSpec.$,
         NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         [
-          logList,
-          updateTime
+          logList
         ]);
   }
 
@@ -841,7 +831,7 @@ export class NetworkServiceRemote {
   updateCtKnownPopularSCTs(
       sctHashes) {
     return this.proxy.sendMessage(
-        25,
+        24,
         NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         [
@@ -858,7 +848,7 @@ export class NetworkServiceRemote {
   setCtEnforcementEnabled(
       enabled) {
     return this.proxy.sendMessage(
-        26,
+        25,
         NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         [
@@ -876,7 +866,7 @@ export class NetworkServiceRemote {
       pinList,
       updateTime) {
     this.proxy.sendMessage(
-        27,
+        26,
         NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         [
@@ -893,7 +883,7 @@ export class NetworkServiceRemote {
   bindTestInterfaceForTesting(
       receiver) {
     this.proxy.sendMessage(
-        28,
+        27,
         NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         [
@@ -909,7 +899,7 @@ export class NetworkServiceRemote {
   setFirstPartySets(
       sets) {
     this.proxy.sendMessage(
-        29,
+        28,
         NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         [
@@ -925,7 +915,7 @@ export class NetworkServiceRemote {
   setExplicitlyAllowedPorts(
       ports) {
     this.proxy.sendMessage(
-        30,
+        29,
         NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         [
@@ -941,7 +931,7 @@ export class NetworkServiceRemote {
   updateMaskedDomainList(
       rawMdl) {
     this.proxy.sendMessage(
-        31,
+        30,
         NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         [
@@ -962,7 +952,7 @@ export class NetworkServiceRemote {
       url,
       headers) {
     return this.proxy.sendMessage(
-        32,
+        31,
         NetworkService_ParseHeaders_ParamsSpec.$,
         NetworkService_ParseHeaders_ResponseParamsSpec.$,
         [
@@ -979,7 +969,7 @@ export class NetworkServiceRemote {
   enableDataUseUpdates(
       enable) {
     this.proxy.sendMessage(
-        33,
+        32,
         NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         [
@@ -995,11 +985,27 @@ export class NetworkServiceRemote {
   setIPv6ReachabilityOverride(
       reachabilityOverride) {
     this.proxy.sendMessage(
-        34,
+        33,
         NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         [
           reachabilityOverride
+        ]);
+  }
+
+  
+  /**
+   * @param { !network_mojom_CookieEncryptionProviderRemote } provider
+   */
+
+  setCookieEncryptionProvider(
+      provider) {
+    this.proxy.sendMessage(
+        34,
+        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        [
+          provider
         ]);
   }
 }
@@ -1126,79 +1132,79 @@ export class NetworkServiceReceiver {
         impl.onPeerToPeerConnectionsCountChange.bind(impl));
     this.helper_internal_.registerHandler(
         20,
-        NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        impl.setEnvironment.bind(impl));
-    this.helper_internal_.registerHandler(
-        21,
         NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         impl.setTrustTokenKeyCommitments.bind(impl));
     this.helper_internal_.registerHandler(
-        22,
+        21,
         NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         impl.clearSCTAuditingCache.bind(impl));
     this.helper_internal_.registerHandler(
-        23,
+        22,
         NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         impl.configureSCTAuditing.bind(impl));
     this.helper_internal_.registerHandler(
-        24,
+        23,
         NetworkService_UpdateCtLogList_ParamsSpec.$,
         NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         impl.updateCtLogList.bind(impl));
     this.helper_internal_.registerHandler(
-        25,
+        24,
         NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         impl.updateCtKnownPopularSCTs.bind(impl));
     this.helper_internal_.registerHandler(
-        26,
+        25,
         NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         impl.setCtEnforcementEnabled.bind(impl));
     this.helper_internal_.registerHandler(
-        27,
+        26,
         NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         impl.updateKeyPinsList.bind(impl));
     this.helper_internal_.registerHandler(
-        28,
+        27,
         NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         impl.bindTestInterfaceForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        29,
+        28,
         NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         impl.setFirstPartySets.bind(impl));
     this.helper_internal_.registerHandler(
-        30,
+        29,
         NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         impl.setExplicitlyAllowedPorts.bind(impl));
     this.helper_internal_.registerHandler(
-        31,
+        30,
         NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         impl.updateMaskedDomainList.bind(impl));
     this.helper_internal_.registerHandler(
-        32,
+        31,
         NetworkService_ParseHeaders_ParamsSpec.$,
         NetworkService_ParseHeaders_ResponseParamsSpec.$,
         impl.parseHeaders.bind(impl));
     this.helper_internal_.registerHandler(
-        33,
+        32,
         NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         impl.enableDataUseUpdates.bind(impl));
     this.helper_internal_.registerHandler(
-        34,
+        33,
         NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         impl.setIPv6ReachabilityOverride.bind(impl));
+    this.helper_internal_.registerHandler(
+        34,
+        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        impl.setCookieEncryptionProvider.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1488,24 +1494,12 @@ export class NetworkServiceCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setEnvironment =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        20,
-        NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        this.setEnvironment.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setTrustTokenKeyCommitments =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        21,
+        20,
         NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         this.setTrustTokenKeyCommitments.createReceiverHandler(true /* expectsResponse */));
@@ -1517,7 +1511,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        22,
+        21,
         NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         this.clearSCTAuditingCache.createReceiverHandler(false /* expectsResponse */));
@@ -1529,7 +1523,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        23,
+        22,
         NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         this.configureSCTAuditing.createReceiverHandler(false /* expectsResponse */));
@@ -1541,7 +1535,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        24,
+        23,
         NetworkService_UpdateCtLogList_ParamsSpec.$,
         NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         this.updateCtLogList.createReceiverHandler(true /* expectsResponse */));
@@ -1553,7 +1547,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        25,
+        24,
         NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         this.updateCtKnownPopularSCTs.createReceiverHandler(true /* expectsResponse */));
@@ -1565,7 +1559,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        26,
+        25,
         NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         this.setCtEnforcementEnabled.createReceiverHandler(true /* expectsResponse */));
@@ -1577,7 +1571,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        27,
+        26,
         NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         this.updateKeyPinsList.createReceiverHandler(false /* expectsResponse */));
@@ -1589,7 +1583,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        28,
+        27,
         NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         this.bindTestInterfaceForTesting.createReceiverHandler(false /* expectsResponse */));
@@ -1601,7 +1595,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        29,
+        28,
         NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         this.setFirstPartySets.createReceiverHandler(false /* expectsResponse */));
@@ -1613,7 +1607,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        30,
+        29,
         NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         this.setExplicitlyAllowedPorts.createReceiverHandler(false /* expectsResponse */));
@@ -1625,7 +1619,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        31,
+        30,
         NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         this.updateMaskedDomainList.createReceiverHandler(false /* expectsResponse */));
@@ -1637,7 +1631,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        32,
+        31,
         NetworkService_ParseHeaders_ParamsSpec.$,
         NetworkService_ParseHeaders_ResponseParamsSpec.$,
         this.parseHeaders.createReceiverHandler(true /* expectsResponse */));
@@ -1649,7 +1643,7 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        33,
+        32,
         NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         this.enableDataUseUpdates.createReceiverHandler(false /* expectsResponse */));
@@ -1661,10 +1655,22 @@ export class NetworkServiceCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        34,
+        33,
         NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         this.setIPv6ReachabilityOverride.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setCookieEncryptionProvider =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        34,
+        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        this.setCookieEncryptionProvider.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1837,12 +1843,6 @@ export const NetworkService_OnPeerToPeerConnectionsCountChange_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const NetworkService_SetEnvironment_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const NetworkService_SetTrustTokenKeyCommitments_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1952,6 +1952,12 @@ export const NetworkService_EnableDataUseUpdates_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const NetworkService_SetIPv6ReachabilityOverride_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const NetworkService_SetCookieEncryptionProvider_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2206,6 +2212,14 @@ mojo.internal.Struct(
         true /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'ipProtectionProxyBypassPolicy', 36,
+        0,
+        network_mojom_IpProtectionProxyBypassPolicySpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
     ],
     [[0, 48],]);
 
@@ -2228,6 +2242,8 @@ export class NetworkServiceParams {
     this.firstPartySetsEnabled;
     /** @type { (network_mojom_SystemDnsResolverRemote|undefined) } */
     this.systemDnsResolver;
+    /** @type { !network_mojom_IpProtectionProxyBypassPolicy } */
+    this.ipProtectionProxyBypassPolicy;
   }
 }
 
@@ -2992,35 +3008,6 @@ export class NetworkService_OnPeerToPeerConnectionsCountChange_Params {
 
 
 mojo.internal.Struct(
-    NetworkService_SetEnvironment_ParamsSpec.$,
-    'NetworkService_SetEnvironment_Params',
-    [
-      mojo.internal.StructField(
-        'environment', 0,
-        0,
-        mojo.internal.Array(EnvironmentVariableSpec.$, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class NetworkService_SetEnvironment_Params {
-  constructor() {
-    /** @type { !Array<!EnvironmentVariable> } */
-    this.environment;
-  }
-}
-
-
-
-mojo.internal.Struct(
     NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
     'NetworkService_SetTrustTokenKeyCommitments_Params',
     [
@@ -3128,16 +3115,8 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
-      mojo.internal.StructField(
-        'updateTime', 8,
-        0,
-        mojoBase_mojom_TimeSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
@@ -3148,8 +3127,6 @@ export class NetworkService_UpdateCtLogList_Params {
   constructor() {
     /** @type { !Array<!network_mojom_CTLogInfo> } */
     this.logList;
-    /** @type { !mojoBase_mojom_Time } */
-    this.updateTime;
   }
 }
 
@@ -3546,6 +3523,35 @@ export class NetworkService_SetIPv6ReachabilityOverride_Params {
   constructor() {
     /** @type { !boolean } */
     this.reachabilityOverride;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+    'NetworkService_SetCookieEncryptionProvider_Params',
+    [
+      mojo.internal.StructField(
+        'provider', 0,
+        0,
+        mojo.internal.InterfaceProxy(network_mojom_CookieEncryptionProviderRemote),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class NetworkService_SetCookieEncryptionProvider_Params {
+  constructor() {
+    /** @type { !network_mojom_CookieEncryptionProviderRemote } */
+    this.provider;
   }
 }
 

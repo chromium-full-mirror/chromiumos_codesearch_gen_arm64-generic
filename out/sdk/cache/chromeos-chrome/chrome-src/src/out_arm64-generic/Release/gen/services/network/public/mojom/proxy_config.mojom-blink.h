@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/proxy_config.mojom-features.h"
 #include "services/network/public/mojom/proxy_config.mojom-shared.h"
 #include "services/network/public/mojom/proxy_config.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_string.mojom-blink.h"
@@ -38,18 +39,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ProxyRulesType>
-    : EnumHashTraits<::network::mojom::ProxyRulesType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -231,7 +220,7 @@ class  ProxyList {
   ProxyList();
 
   explicit ProxyList(
-      WTF::Vector<WTF::String> proxies);
+      WTF::Vector<WTF::Vector<WTF::String>> proxies);
 
 
   ~ProxyList();
@@ -309,7 +298,7 @@ class  ProxyList {
   }
 
   
-  WTF::Vector<WTF::String> proxies;
+  WTF::Vector<WTF::Vector<WTF::String>> proxies;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

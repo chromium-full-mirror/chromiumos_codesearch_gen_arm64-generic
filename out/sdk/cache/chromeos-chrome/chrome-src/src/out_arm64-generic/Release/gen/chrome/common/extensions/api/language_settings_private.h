@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,13 +30,13 @@ namespace language_settings_private {
 // Types
 //
 
-enum  MoveType {
-  MOVE_TYPE_NONE = 0,
-  MOVE_TYPE_TOP,
-  MOVE_TYPE_UP,
-  MOVE_TYPE_DOWN,
-  MOVE_TYPE_UNKNOWN,
-  MOVE_TYPE_LAST = MOVE_TYPE_UNKNOWN,
+enum class MoveType {
+  kNone = 0,
+  kTop,
+  kUp,
+  kDown,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -48,8 +49,8 @@ struct Language {
   ~Language();
   Language(const Language&) = delete;
   Language& operator=(const Language&) = delete;
-  Language(Language&& rhs);
-  Language& operator=(Language&& rhs);
+  Language(Language&& rhs) noexcept;
+  Language& operator=(Language&& rhs) noexcept;
 
   // Populates a Language object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -62,14 +63,11 @@ struct Language {
   // Creates a deep copy of Language.
   Language Clone() const;
 
-  // Creates a Language object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Language> FromValueDeprecated(const base::Value& value);
-
   // Creates a Language object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Language> FromValue(const base::Value::Dict& value);
+  static std::optional<Language> FromValue(const base::Value::Dict& value);
 
   // Creates a Language object from a base::Value, or nullopt on failure.
-  static absl::optional<Language> FromValue(const base::Value& value);
+  static std::optional<Language> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLanguage object.
@@ -85,18 +83,18 @@ struct Language {
   std::string native_display_name;
 
   // Whether the UI can be displayed in this language. Defaults to false.
-  absl::optional<bool> supports_ui;
+  std::optional<bool> supports_ui;
 
   // Whether this language can be used for spell checking. Defaults to false.
-  absl::optional<bool> supports_spellcheck;
+  std::optional<bool> supports_spellcheck;
 
   // Whether this language has translations for the current target language.
   // Defaults to false.
-  absl::optional<bool> supports_translate;
+  std::optional<bool> supports_translate;
 
   // Whether this language is prohibited as a UI locale (not in the list of the
   // 'AllowedLanguages' policy). Defaults to false.
-  absl::optional<bool> is_prohibited_language;
+  std::optional<bool> is_prohibited_language;
 
 };
 
@@ -105,8 +103,8 @@ struct SpellcheckDictionaryStatus {
   ~SpellcheckDictionaryStatus();
   SpellcheckDictionaryStatus(const SpellcheckDictionaryStatus&) = delete;
   SpellcheckDictionaryStatus& operator=(const SpellcheckDictionaryStatus&) = delete;
-  SpellcheckDictionaryStatus(SpellcheckDictionaryStatus&& rhs);
-  SpellcheckDictionaryStatus& operator=(SpellcheckDictionaryStatus&& rhs);
+  SpellcheckDictionaryStatus(SpellcheckDictionaryStatus&& rhs) noexcept;
+  SpellcheckDictionaryStatus& operator=(SpellcheckDictionaryStatus&& rhs) noexcept;
 
   // Populates a SpellcheckDictionaryStatus object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -119,17 +117,13 @@ struct SpellcheckDictionaryStatus {
   // Creates a deep copy of SpellcheckDictionaryStatus.
   SpellcheckDictionaryStatus Clone() const;
 
-  // Creates a SpellcheckDictionaryStatus object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SpellcheckDictionaryStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a SpellcheckDictionaryStatus object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SpellcheckDictionaryStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<SpellcheckDictionaryStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a SpellcheckDictionaryStatus object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SpellcheckDictionaryStatus> FromValue(const base::Value& value);
+  static std::optional<SpellcheckDictionaryStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSpellcheckDictionaryStatus object.
@@ -143,10 +137,10 @@ struct SpellcheckDictionaryStatus {
   bool is_ready;
 
   // Whether the dictionary is being downloaded. Defaults to false.
-  absl::optional<bool> is_downloading;
+  std::optional<bool> is_downloading;
 
   // Whether the dictionary download failed. Defaults to false.
-  absl::optional<bool> download_failed;
+  std::optional<bool> download_failed;
 
 };
 
@@ -155,8 +149,8 @@ struct InputMethod {
   ~InputMethod();
   InputMethod(const InputMethod&) = delete;
   InputMethod& operator=(const InputMethod&) = delete;
-  InputMethod(InputMethod&& rhs);
-  InputMethod& operator=(InputMethod&& rhs);
+  InputMethod(InputMethod&& rhs) noexcept;
+  InputMethod& operator=(InputMethod&& rhs) noexcept;
 
   // Populates a InputMethod object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -169,15 +163,12 @@ struct InputMethod {
   // Creates a deep copy of InputMethod.
   InputMethod Clone() const;
 
-  // Creates a InputMethod object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InputMethod> FromValueDeprecated(const base::Value& value);
-
   // Creates a InputMethod object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InputMethod> FromValue(const base::Value::Dict& value);
+  static std::optional<InputMethod> FromValue(const base::Value::Dict& value);
 
   // Creates a InputMethod object from a base::Value, or nullopt on failure.
-  static absl::optional<InputMethod> FromValue(const base::Value& value);
+  static std::optional<InputMethod> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputMethod object.
@@ -196,13 +187,13 @@ struct InputMethod {
   std::vector<std::string> tags;
 
   // True if the input method is enabled.
-  absl::optional<bool> enabled;
+  std::optional<bool> enabled;
 
   // True if the input method extension has an options page.
-  absl::optional<bool> has_options_page;
+  std::optional<bool> has_options_page;
 
   // True if the input method is not allowed by policy.
-  absl::optional<bool> is_prohibited_by_policy;
+  std::optional<bool> is_prohibited_by_policy;
 
 };
 
@@ -211,8 +202,8 @@ struct InputMethodLists {
   ~InputMethodLists();
   InputMethodLists(const InputMethodLists&) = delete;
   InputMethodLists& operator=(const InputMethodLists&) = delete;
-  InputMethodLists(InputMethodLists&& rhs);
-  InputMethodLists& operator=(InputMethodLists&& rhs);
+  InputMethodLists(InputMethodLists&& rhs) noexcept;
+  InputMethodLists& operator=(InputMethodLists&& rhs) noexcept;
 
   // Populates a InputMethodLists object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -225,16 +216,13 @@ struct InputMethodLists {
   // Creates a deep copy of InputMethodLists.
   InputMethodLists Clone() const;
 
-  // Creates a InputMethodLists object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InputMethodLists> FromValueDeprecated(const base::Value& value);
-
   // Creates a InputMethodLists object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InputMethodLists> FromValue(const base::Value::Dict& value);
+  static std::optional<InputMethodLists> FromValue(const base::Value::Dict& value);
 
   // Creates a InputMethodLists object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<InputMethodLists> FromValue(const base::Value& value);
+  static std::optional<InputMethodLists> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputMethodLists object.
@@ -265,11 +253,11 @@ base::Value::List Create(const std::vector<Language>& languages);
 namespace EnableLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -284,11 +272,11 @@ struct Params {
 namespace DisableLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -303,11 +291,11 @@ struct Params {
 namespace SetEnableTranslationForLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -324,11 +312,11 @@ struct Params {
 namespace MoveLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -354,11 +342,11 @@ base::Value::List Create(const std::vector<std::string>& language_codes);
 namespace SetLanguageAlwaysTranslateState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -402,11 +390,11 @@ base::Value::List Create(const std::vector<std::string>& words);
 namespace AddSpellcheckWord {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string word;
@@ -421,11 +409,11 @@ struct Params {
 namespace RemoveSpellcheckWord {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string word;
@@ -449,11 +437,11 @@ base::Value::List Create(const std::string& language_code);
 namespace SetTranslateTargetLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;
@@ -477,11 +465,11 @@ base::Value::List Create(const InputMethodLists& lists);
 namespace AddInputMethod {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string input_method_id;
@@ -496,11 +484,11 @@ struct Params {
 namespace RemoveInputMethod {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string input_method_id;
@@ -515,11 +503,11 @@ struct Params {
 namespace RetryDownloadDictionary {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string language_code;

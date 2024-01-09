@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -163,7 +164,7 @@ CrashCollectorHostProxy::CrashCollectorHostProxy(mojo::MessageReceiverWithRespon
 }
 
 void CrashCollectorHostProxy::DumpCrash(
-    const std::string& in_type, ::mojo::ScopedHandle in_pipe, absl::optional<::base::TimeDelta> in_uptime) {
+    const std::string& in_type, ::mojo::ScopedHandle in_pipe, std::optional<::base::TimeDelta> in_uptime) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::CrashCollectorHost::DumpCrash", "input_parameters",
@@ -177,17 +178,20 @@ void CrashCollectorHostProxy::DumpCrash(
                         "<value of type ::mojo::ScopedHandle>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("uptime"), in_uptime,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorHost_DumpCrash_Name, kFlags, 0, 0, nullptr);
@@ -230,7 +234,7 @@ void CrashCollectorHostProxy::DumpCrash(
 }
 
 void CrashCollectorHostProxy::SetBuildProperties(
-    const std::string& in_device, const std::string& in_board, const std::string& in_cpu_abi, const absl::optional<std::string>& in_fingerprint) {
+    const std::string& in_device, const std::string& in_board, const std::string& in_cpu_abi, const std::optional<std::string>& in_fingerprint) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::CrashCollectorHost::SetBuildProperties", "input_parameters",
@@ -247,17 +251,20 @@ void CrashCollectorHostProxy::SetBuildProperties(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("fingerprint"), in_fingerprint,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorHost_SetBuildProperties_Name, kFlags, 0, 0, nullptr);
@@ -336,14 +343,17 @@ void CrashCollectorHostProxy::DumpNativeCrash(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorHost_DumpNativeCrash_Name, kFlags, 0, 0, nullptr);
@@ -392,14 +402,17 @@ void CrashCollectorHostProxy::DumpKernelCrash(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorHost_DumpKernelCrash_Name, kFlags, 0, 0, nullptr);
@@ -438,7 +451,7 @@ bool CrashCollectorHostStubDispatch::Accept(
       bool success = true;
       std::string p_type{};
       ::mojo::ScopedHandle p_pipe{};
-      absl::optional<::base::TimeDelta> p_uptime{};
+      std::optional<::base::TimeDelta> p_uptime{};
       CrashCollectorHost_DumpCrash_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -473,7 +486,7 @@ std::move(p_uptime));
       std::string p_device{};
       std::string p_board{};
       std::string p_cpu_abi{};
-      absl::optional<std::string> p_fingerprint{};
+      std::optional<std::string> p_fingerprint{};
       CrashCollectorHost_SetBuildProperties_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDevice(&p_device))
@@ -592,16 +605,16 @@ bool CrashCollectorHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrashCollectorHostValidationInfo[] = {
-    {&internal::CrashCollectorHost_DumpCrash_Params_Data::Validate,
+    { &internal::CrashCollectorHost_DumpCrash_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrashCollectorHost_SetBuildProperties_Params_Data::Validate,
+    { &internal::CrashCollectorHost_SetBuildProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrashCollectorHost_DumpNativeCrash_Params_Data::Validate,
+    { &internal::CrashCollectorHost_DumpNativeCrash_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrashCollectorHost_DumpKernelCrash_Params_Data::Validate,
+    { &internal::CrashCollectorHost_DumpKernelCrash_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -697,14 +710,17 @@ void CrashCollectorInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<CrashCollectorHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -809,7 +825,8 @@ void CrashCollectorInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrashCollectorInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -890,11 +907,11 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrashCollectorInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::CrashCollectorInstance_Init_Params_Data::Validate,
+    { &internal::CrashCollectorInstance_Init_Params_Data::Validate,
      &internal::CrashCollectorInstance_Init_ResponseParams_Data::Validate},
 };
 
@@ -924,10 +941,10 @@ namespace mojo {
 namespace arc::mojom {
 
 
-void CrashCollectorHostInterceptorForTesting::DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, absl::optional<::base::TimeDelta> uptime) {
+void CrashCollectorHostInterceptorForTesting::DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, std::optional<::base::TimeDelta> uptime) {
   GetForwardingInterface()->DumpCrash(std::move(type), std::move(pipe), std::move(uptime));
 }
-void CrashCollectorHostInterceptorForTesting::SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const absl::optional<std::string>& fingerprint) {
+void CrashCollectorHostInterceptorForTesting::SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const std::optional<std::string>& fingerprint) {
   GetForwardingInterface()->SetBuildProperties(std::move(device), std::move(board), std::move(cpu_abi), std::move(fingerprint));
 }
 void CrashCollectorHostInterceptorForTesting::DumpNativeCrash(const std::string& exec_name, int32_t pid, int64_t timestamp, ::mojo::ScopedHandle minidump_fd) {

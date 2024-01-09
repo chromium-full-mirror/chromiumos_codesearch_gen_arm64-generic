@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OESVertexArrayObject>::value,
     "OESVertexArrayObject inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OESVertexArrayObject::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OESVertexArrayObject is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,12 +84,12 @@ BLINK_BINDINGS_TRACE_EVENT("OESVertexArrayObject.bindVertexArrayOES");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(v8_receiver);
+OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLNullable<WebGLVertexArrayObjectOES>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_array_object{nullptr};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OESVertexArrayObject";
 const char* const property_name = "bindVertexArrayOES";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -118,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("OESVertexArrayObject.createVertexArrayOES");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(v8_receiver);
+OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createVertexArrayOES();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,12 +131,12 @@ BLINK_BINDINGS_TRACE_EVENT("OESVertexArrayObject.deleteVertexArrayOES");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(v8_receiver);
+OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLNullable<WebGLVertexArrayObjectOES>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_array_object{nullptr};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OESVertexArrayObject";
 const char* const property_name = "deleteVertexArrayOES";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -164,12 +160,12 @@ BLINK_BINDINGS_TRACE_EVENT("OESVertexArrayObject.isVertexArrayOES");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(v8_receiver);
+OESVertexArrayObject* blink_receiver = V8OESVertexArrayObject::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLNullable<WebGLVertexArrayObjectOES>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_array_object{nullptr};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OESVertexArrayObject";
 const char* const property_name = "isVertexArrayOES";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

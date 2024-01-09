@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-shared-internal.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "ui/display/mojom/screen_orientation.mojom-shared.h"
 
@@ -176,6 +177,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::gfx::mojom::RectDataView>>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDevicePosture(UserType* output) const {
+    auto data_value = data_->device_posture;
+    return mojo::internal::Deserialize<::device::mojom::DevicePostureType>(
+        data_value, output);
+  }
+  ::device::mojom::DevicePostureType device_posture() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::device::mojom::DevicePostureType>(data_->device_posture));
+  }
  private:
   internal::DeviceEmulationParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -294,6 +305,8 @@ struct Serializer<::blink::mojom::DeviceEmulationParamsDataView, MaybeConstUserT
         fragment->window_segments.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null window_segments in DeviceEmulationParams struct");
+    mojo::internal::Serialize<::device::mojom::DevicePostureType>(
+        Traits::device_posture(input), &fragment->device_posture);
   }
 
   static bool Deserialize(::blink::mojom::internal::DeviceEmulationParams_Data* input,

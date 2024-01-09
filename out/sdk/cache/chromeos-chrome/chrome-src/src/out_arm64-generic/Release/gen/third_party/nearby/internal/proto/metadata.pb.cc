@@ -23,6 +23,7 @@ PROTOBUF_CONSTEXPR DeviceIdentityMetaData::DeviceIdentityMetaData(
     ::_pbi::ConstantInitialized)
   : device_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , bluetooth_mac_address_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , device_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , device_type_(0)
 
   , instance_type_(0)
@@ -234,6 +235,14 @@ DeviceIdentityMetaData::DeviceIdentityMetaData(const DeviceIdentityMetaData& fro
     bluetooth_mac_address_.Set(from._internal_bluetooth_mac_address(), 
       GetArenaForAllocation());
   }
+  device_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    device_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_device_id().empty()) {
+    device_id_.Set(from._internal_device_id(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&device_type_, &from.device_type_,
     static_cast<size_t>(reinterpret_cast<char*>(&instance_type_) -
     reinterpret_cast<char*>(&device_type_)) + sizeof(instance_type_));
@@ -248,6 +257,10 @@ device_name_.InitDefault();
 bluetooth_mac_address_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   bluetooth_mac_address_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+device_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  device_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_type_) - reinterpret_cast<char*>(this)),
@@ -268,6 +281,7 @@ inline void DeviceIdentityMetaData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   device_name_.Destroy();
   bluetooth_mac_address_.Destroy();
+  device_id_.Destroy();
 }
 
 void DeviceIdentityMetaData::SetCachedSize(int size) const {
@@ -282,6 +296,7 @@ void DeviceIdentityMetaData::Clear() {
 
   device_name_.ClearToEmpty();
   bluetooth_mac_address_.ClearToEmpty();
+  device_id_.ClearToEmpty();
   ::memset(&device_type_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&instance_type_) -
       reinterpret_cast<char*>(&device_type_)) + sizeof(instance_type_));
@@ -328,6 +343,15 @@ const char* DeviceIdentityMetaData::_InternalParse(const char* ptr, ::_pbi::Pars
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_instance_type(static_cast<::nearby::internal::InstanceType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes device_id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_device_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -390,6 +414,12 @@ uint8_t* DeviceIdentityMetaData::_InternalSerialize(
       4, this->_internal_instance_type(), target);
   }
 
+  // bytes device_id = 5;
+  if (!this->_internal_device_id().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_device_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -418,6 +448,13 @@ size_t DeviceIdentityMetaData::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_bluetooth_mac_address());
+  }
+
+  // bytes device_id = 5;
+  if (!this->_internal_device_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_device_id());
   }
 
   // .nearby.internal.DeviceType device_type = 1;
@@ -458,6 +495,9 @@ void DeviceIdentityMetaData::MergeFrom(const DeviceIdentityMetaData& from) {
   if (!from._internal_bluetooth_mac_address().empty()) {
     _internal_set_bluetooth_mac_address(from._internal_bluetooth_mac_address());
   }
+  if (!from._internal_device_id().empty()) {
+    _internal_set_device_id(from._internal_device_id());
+  }
   if (from._internal_device_type() != 0) {
     _internal_set_device_type(from._internal_device_type());
   }
@@ -490,6 +530,10 @@ void DeviceIdentityMetaData::InternalSwap(DeviceIdentityMetaData* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &bluetooth_mac_address_, lhs_arena,
       &other->bluetooth_mac_address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &device_id_, lhs_arena,
+      &other->device_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeviceIdentityMetaData, instance_type_)

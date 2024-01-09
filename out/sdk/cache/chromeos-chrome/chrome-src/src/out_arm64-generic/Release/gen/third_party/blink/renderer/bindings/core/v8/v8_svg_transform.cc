@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGTransformTearOff>::value,
     "SVGTransformTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGTransformTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGTransformTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTransform.type.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transformType();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTransform.matrix.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->matrix();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTransform.angle.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->angle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -149,7 +147,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_matrix = NativeValueTraits<SVGMatrixTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -182,7 +180,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -223,7 +221,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sx = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -260,7 +258,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -293,7 +291,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -326,7 +324,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(v8_receiver);
+SVGTransformTearOff* blink_receiver = V8SVGTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_tx = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

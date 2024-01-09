@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-features.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-forward.h"
 #include "services/network/public/mojom/fetch_api.mojom-forward.h"
@@ -111,7 +112,7 @@ class BLINK_COMMON_EXPORT ResourceLoadInfoNotifier
   virtual void NotifyResourceRedirectReceived(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr redirect_response) = 0;
 
   
-  virtual void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination) = 0;
+  virtual void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination, bool is_ad_resource) = 0;
 
   
   virtual void NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) = 0;
@@ -137,7 +138,7 @@ class BLINK_COMMON_EXPORT ResourceLoadInfoNotifierProxy
   
   void NotifyResourceRedirectReceived(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr redirect_response) final;
   
-  void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination) final;
+  void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination, bool is_ad_resource) final;
   
   void NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) final;
   

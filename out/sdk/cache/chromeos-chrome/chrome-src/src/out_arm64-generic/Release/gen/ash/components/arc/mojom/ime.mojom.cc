@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -494,14 +495,17 @@ void ImeHostProxy::OnTextInputTypeChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_OnTextInputTypeChanged_Name, kFlags, 0, 0, nullptr);
@@ -538,14 +542,17 @@ void ImeHostProxy::OnCursorRectChanged(
                         "<value of type CursorCoordinateSpace>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_OnCursorRectChanged_Name, kFlags, 0, 0, nullptr);
@@ -581,14 +588,17 @@ void ImeHostProxy::OnCancelComposition(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ImeHost::OnCancelComposition");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_OnCancelComposition_Name, kFlags, 0, 0, nullptr);
@@ -611,14 +621,17 @@ void ImeHostProxy::ShowVirtualKeyboardIfEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ImeHost::ShowVirtualKeyboardIfEnabled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_ShowVirtualKeyboardIfEnabled_Name, kFlags, 0, 0, nullptr);
@@ -660,14 +673,17 @@ void ImeHostProxy::OnCursorRectChangedWithSurroundingText(
                         "<value of type CursorCoordinateSpace>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_OnCursorRectChangedWithSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -743,14 +759,17 @@ void ImeHostProxy::SendKeyEvent(
                         "<value of type ::std::unique_ptr<::ui::KeyEvent>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_SendKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -871,7 +890,8 @@ void ImeHost_SendKeyEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeHost_SendKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -1116,24 +1136,24 @@ std::move(p_key_event_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImeHostValidationInfo[] = {
-    {&internal::ImeHost_OnTextInputTypeChanged_Params_Data::Validate,
+    { &internal::ImeHost_OnTextInputTypeChanged_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::ImeHost_OnCancelComposition_Params_Data::Validate,
+    { &internal::ImeHost_OnCancelComposition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeHost_ShowVirtualKeyboardIfEnabled_Params_Data::Validate,
+    { &internal::ImeHost_ShowVirtualKeyboardIfEnabled_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::ImeHost_SendKeyEvent_Params_Data::Validate,
+    { &internal::ImeHost_SendKeyEvent_Params_Data::Validate,
      &internal::ImeHost_SendKeyEvent_ResponseParams_Data::Validate},
-    {&internal::ImeHost_OnCursorRectChanged_Params_Data::Validate,
+    { &internal::ImeHost_OnCursorRectChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeHost_OnCursorRectChangedWithSurroundingText_Params_Data::Validate,
+    { &internal::ImeHost_OnCursorRectChangedWithSurroundingText_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1373,14 +1393,17 @@ void ImeInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<ImeHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1406,7 +1429,7 @@ void ImeInstanceProxy::Init(
 }
 
 void ImeInstanceProxy::SetCompositionText(
-    const std::string& in_text, std::vector<CompositionSegmentPtr> in_segments, const absl::optional<::gfx::Range>& in_selection_range) {
+    const std::string& in_text, std::vector<CompositionSegmentPtr> in_segments, const std::optional<::gfx::Range>& in_selection_range) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::ImeInstance::SetCompositionText", "input_parameters",
@@ -1420,17 +1443,20 @@ void ImeInstanceProxy::SetCompositionText(
                         "<value of type std::vector<CompositionSegmentPtr>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("selection_range"), in_selection_range,
-                        "<value of type const absl::optional<::gfx::Range>&>");
+                        "<value of type const std::optional<::gfx::Range>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_SetCompositionText_Name, kFlags, 0, 0, nullptr);
@@ -1491,14 +1517,17 @@ void ImeInstanceProxy::SetSelectionText(
                         "<value of type const ::gfx::Range&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_SetSelectionText_Name, kFlags, 0, 0, nullptr);
@@ -1532,14 +1561,17 @@ void ImeInstanceProxy::ConfirmCompositionText(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ImeInstance::ConfirmCompositionText");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_ConfirmCompositionText_Name, kFlags, 0, 0, nullptr);
@@ -1572,14 +1604,17 @@ void ImeInstanceProxy::InsertText(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_InsertText_Name, kFlags, 0, 0, nullptr);
@@ -1624,14 +1659,17 @@ void ImeInstanceProxy::OnKeyboardAppearanceChanging(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_OnKeyboardAppearanceChanging_Name, kFlags, 0, 0, nullptr);
@@ -1676,14 +1714,17 @@ void ImeInstanceProxy::ExtendSelectionAndDelete(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_ExtendSelectionAndDelete_Name, kFlags, 0, 0, nullptr);
@@ -1715,14 +1756,17 @@ void ImeInstanceProxy::SetComposingRegion(
                         "<value of type const ::gfx::Range&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_SetComposingRegion_Name, kFlags, 0, 0, nullptr);
@@ -1831,7 +1875,8 @@ void ImeInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImeInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1875,7 +1920,7 @@ bool ImeInstanceStubDispatch::Accept(
       bool success = true;
       std::string p_text{};
       std::vector<CompositionSegmentPtr> p_segments{};
-      absl::optional<::gfx::Range> p_selection_range{};
+      std::optional<::gfx::Range> p_selection_range{};
       ImeInstance_SetCompositionText_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadText(&p_text))
@@ -2131,25 +2176,25 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImeInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::ImeInstance_SetCompositionText_Params_Data::Validate,
+    { &internal::ImeInstance_SetCompositionText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_ConfirmCompositionText_Params_Data::Validate,
+    { &internal::ImeInstance_ConfirmCompositionText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_InsertText_Params_Data::Validate,
+    { &internal::ImeInstance_InsertText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_OnKeyboardAppearanceChanging_Params_Data::Validate,
+    { &internal::ImeInstance_OnKeyboardAppearanceChanging_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_ExtendSelectionAndDelete_Params_Data::Validate,
+    { &internal::ImeInstance_ExtendSelectionAndDelete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_Init_Params_Data::Validate,
+    { &internal::ImeInstance_Init_Params_Data::Validate,
      &internal::ImeInstance_Init_ResponseParams_Data::Validate},
-    {&internal::ImeInstance_SetSelectionText_Params_Data::Validate,
+    { &internal::ImeInstance_SetSelectionText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImeInstance_SetComposingRegion_Params_Data::Validate,
+    { &internal::ImeInstance_SetComposingRegion_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2281,7 +2326,7 @@ bool ImeHostAsyncWaiter::SendKeyEvent(
 void ImeInstanceInterceptorForTesting::Init(::mojo::PendingRemote<ImeHost> host_remote, InitCallback callback) {
   GetForwardingInterface()->Init(std::move(host_remote), std::move(callback));
 }
-void ImeInstanceInterceptorForTesting::SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const absl::optional<::gfx::Range>& selection_range) {
+void ImeInstanceInterceptorForTesting::SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const std::optional<::gfx::Range>& selection_range) {
   GetForwardingInterface()->SetCompositionText(std::move(text), std::move(segments), std::move(selection_range));
 }
 void ImeInstanceInterceptorForTesting::SetSelectionText(const ::gfx::Range& selection) {

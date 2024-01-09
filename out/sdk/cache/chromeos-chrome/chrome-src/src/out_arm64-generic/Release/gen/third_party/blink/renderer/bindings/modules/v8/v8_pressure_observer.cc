@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PressureObserver>::value,
     "PressureObserver inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PressureObserver::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PressureObserver is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -190,7 +185,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPressureObserver_Disco
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(v8_receiver);
+PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -226,7 +221,7 @@ return;
 
 
 
-PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(v8_receiver);
+PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -262,7 +257,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(v8_receiver);
+PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->takeRecords();
 if (!ToV8Traits<IDLSequence<PressureRecord>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -295,7 +290,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(v8_receiver);
+PressureObserver* blink_receiver = V8PressureObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<V8PressureSource>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMMimeTypeArray>::value,
     "DOMMimeTypeArray inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMMimeTypeArray::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMMimeTypeArray is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8MimeTypeArray::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMMimeTypeArray_NamedPropertyGetter");
@@ -82,9 +77,10 @@ void V8MimeTypeArray::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_propert
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->namedItem(blink_property_name);
 if (!return_value) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -114,7 +110,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "MimeTypeArray";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -134,10 +130,10 @@ void V8MimeTypeArray::NamedPropertyDeleterCallback(v8::Local<v8::Name> v8_proper
 //   is true, then:
 // step 2.1. If O does not implement an interface with a named property
 //   deleter, then return false.
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "MimeTypeArray";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -173,7 +169,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "MimeTypeArray";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -231,10 +227,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8MimeTypeArray::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMMimeTypeArray_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "MimeTypeArray";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -254,9 +250,9 @@ void V8MimeTypeArray::NamedPropertyEnumeratorCallback(const v8::PropertyCallback
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "MimeTypeArray";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);
@@ -273,8 +269,9 @@ bindings::V8SetReturnValue(
 void V8MimeTypeArray::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMMimeTypeArray_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -312,13 +309,13 @@ void V8MimeTypeArray::IndexedPropertyDeleterCallback(uint32_t index, const v8::P
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "MimeTypeArray";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -391,9 +388,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8MimeTypeArray::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMMimeTypeArray_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -418,8 +415,9 @@ BLINK_BINDINGS_TRACE_EVENT("MimeTypeArray.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -446,7 +444,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -463,9 +461,9 @@ BLINK_BINDINGS_TRACE_EVENT("MimeTypeArray.namedItem");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MimeTypeArray";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -476,13 +474,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(v8_receiver);
+DOMMimeTypeArray* blink_receiver = V8MimeTypeArray::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MimeTypeArray";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

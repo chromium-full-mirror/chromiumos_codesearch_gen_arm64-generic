@@ -94,6 +94,70 @@ inline bool IsKnownEnumValue(UserAction value) {
   return internal::UserAction_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class EditDialogCompletedActions : int32_t {
+  
+  kNoAction = 0,
+  
+  kAdd = 1,
+  
+  kEdit = 2,
+  
+  kEditAdd = 3,
+  
+  kRemove = 4,
+  
+  kRemoveAdd = 5,
+  
+  kRemoveEdit = 6,
+  
+  kRemoveEditAdd = 7,
+  
+  kReset = 8,
+  
+  kResetAdd = 9,
+  
+  kResetEdit = 10,
+  
+  kResetEditAdd = 11,
+  
+  kResetRemove = 12,
+  
+  kResetRemoveAdd = 13,
+  
+  kResetRemoveEdit = 14,
+  
+  kResetRemoveEditAdd = 15,
+  kMinValue = 0,
+  kMaxValue = 15,
+};
+
+ std::ostream& operator<<(std::ostream& os, EditDialogCompletedActions value);
+inline bool IsKnownEnumValue(EditDialogCompletedActions value) {
+  return internal::EditDialogCompletedActions_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Subactions : int32_t {
+  
+  kNoErrorCancel = 0,
+  
+  kNoErrorSuccess = 1,
+  
+  kErrorCancel = 2,
+  
+  kErrorSuccess = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, Subactions value);
+inline bool IsKnownEnumValue(Subactions value) {
+  return internal::Subactions_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class AcceleratorsUpdatedObserverInterfaceBase {};
 
@@ -219,6 +283,14 @@ template <>
 struct hash<::ash::shortcut_customization::mojom::UserAction>
     : public mojo::internal::EnumHashImpl<::ash::shortcut_customization::mojom::UserAction> {};
 
+template <>
+struct hash<::ash::shortcut_customization::mojom::EditDialogCompletedActions>
+    : public mojo::internal::EnumHashImpl<::ash::shortcut_customization::mojom::EditDialogCompletedActions> {};
+
+template <>
+struct hash<::ash::shortcut_customization::mojom::Subactions>
+    : public mojo::internal::EnumHashImpl<::ash::shortcut_customization::mojom::Subactions> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -238,6 +310,46 @@ struct Serializer<::ash::shortcut_customization::mojom::UserAction, MaybeConstUs
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::shortcut_customization::mojom::UserAction>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::shortcut_customization::mojom::EditDialogCompletedActions, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::shortcut_customization::mojom::EditDialogCompletedActions, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::shortcut_customization::mojom::EditDialogCompletedActions>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::shortcut_customization::mojom::Subactions, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::shortcut_customization::mojom::Subactions, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::shortcut_customization::mojom::Subactions>(input)), output);
   }
 };
 
@@ -341,6 +453,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::shortcut_customization::mojom::UserAction> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::shortcut_customization::mojom::UserAction value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::shortcut_customization::mojom::EditDialogCompletedActions> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::shortcut_customization::mojom::EditDialogCompletedActions value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::shortcut_customization::mojom::Subactions> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::shortcut_customization::mojom::Subactions value);
 };
 
 } // namespace perfetto

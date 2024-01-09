@@ -94,6 +94,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetRecoverableKeyStores(
+      const user_data_auth::GetRecoverableKeyStoresRequest& in_request,
+      user_data_auth::GetRecoverableKeyStoresReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetRecoverableKeyStoresAsync(
+      const user_data_auth::GetRecoverableKeyStoresRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetRecoverableKeyStoresReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetHibernateSecret(
       const user_data_auth::GetHibernateSecretRequest& in_request,
       user_data_auth::GetHibernateSecretReply* out_reply,
@@ -502,6 +514,26 @@ class UserDataAuthInterfaceProxyInterface {
       const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterAuthFactorAddedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorAdded&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterAuthFactorRemovedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorRemoved&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterAuthFactorUpdatedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorUpdated&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterAuthSessionExpiringSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthSessionExpiring&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterEvictedKeyRestoredSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::EvictedKeyRestored&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -589,6 +621,61 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "AuthenticateAuthFactorCompleted",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthFactorAddedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorAdded&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthFactorAdded",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthFactorRemovedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorRemoved&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthFactorRemoved",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthFactorUpdatedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorUpdated&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthFactorUpdated",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthSessionExpiringSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthSessionExpiring&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthSessionExpiring",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterEvictedKeyRestoredSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::EvictedKeyRestored&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "EvictedKeyRestored",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -755,6 +842,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "GetWebAuthnSecretHash",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool GetRecoverableKeyStores(
+      const user_data_auth::GetRecoverableKeyStoresRequest& in_request,
+      user_data_auth::GetRecoverableKeyStoresReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetRecoverableKeyStores",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void GetRecoverableKeyStoresAsync(
+      const user_data_auth::GetRecoverableKeyStoresRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetRecoverableKeyStoresReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetRecoverableKeyStores",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

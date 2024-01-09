@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,7 +52,7 @@ CookiePartitionKey::CookiePartitionKey()
 CookiePartitionKey::CookiePartitionKey(
     const ::net::SchemefulSite& site_in,
     bool from_script_in,
-    const absl::optional<::base::UnguessableToken>& nonce_in)
+    const std::optional<::base::UnguessableToken>& nonce_in)
     : site(std::move(site_in)),
       from_script(std::move(from_script_in)),
       nonce(std::move(nonce_in)) {}
@@ -83,7 +84,7 @@ void CookiePartitionKey::WriteIntoTrace(
     dict.AddItem(
       "nonce"), this->nonce,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

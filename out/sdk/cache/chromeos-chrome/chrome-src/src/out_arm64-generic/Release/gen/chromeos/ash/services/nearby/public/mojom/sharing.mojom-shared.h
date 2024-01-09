@@ -33,6 +33,7 @@
 #include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom-shared.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-shared.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-shared.h"
 #include "device/bluetooth/public/mojom/adapter.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -180,6 +181,15 @@ static_assert(
         pointer, output, message_);
   }
   template <typename UserType>
+  UserType TakeNearbyPresenceCredentialStorage() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorageInterfaceBase>>(
+            &data_->nearby_presence_credential_storage, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
   [[nodiscard]] bool ReadMinLogSeverity(UserType* output) const {
     auto data_value = data_->min_log_severity;
     return mojo::internal::Deserialize<::nearby::connections::mojom::LogSeverity>(
@@ -290,6 +300,9 @@ struct Serializer<::sharing::mojom::NearbyDependenciesDataView, MaybeConstUserTy
         in_wifilan_dependencies, wifilan_dependencies_fragment);
     fragment->wifilan_dependencies.Set(
         wifilan_dependencies_fragment.is_null() ? nullptr : wifilan_dependencies_fragment.data());
+    decltype(Traits::nearby_presence_credential_storage(input)) in_nearby_presence_credential_storage = Traits::nearby_presence_credential_storage(input);
+    mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorageInterfaceBase>>(
+        in_nearby_presence_credential_storage, &fragment->nearby_presence_credential_storage, &fragment.message());
     mojo::internal::Serialize<::nearby::connections::mojom::LogSeverity>(
         Traits::min_log_severity(input), &fragment->min_log_severity);
   }

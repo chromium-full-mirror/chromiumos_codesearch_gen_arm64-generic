@@ -13,7 +13,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-enums.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-enums.h" */
 GType mbim_cellular_class_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_CELLULAR_CLASS (mbim_cellular_class_get_type ())
 

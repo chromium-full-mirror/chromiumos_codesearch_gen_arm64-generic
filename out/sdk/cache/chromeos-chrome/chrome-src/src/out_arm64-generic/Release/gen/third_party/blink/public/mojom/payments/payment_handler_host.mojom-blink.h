@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_handler_host.mojom-blink-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom-blink.h"
@@ -503,8 +504,8 @@ class PLATFORM_EXPORT PaymentRequestDetailsUpdate {
 
   PaymentRequestDetailsUpdate(
       ::payments::mojom::blink::PaymentCurrencyAmountPtr total,
-      absl::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options,
-      absl::optional<WTF::Vector<PaymentHandlerModifierPtr>> modifiers,
+      std::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options,
+      std::optional<WTF::Vector<PaymentHandlerModifierPtr>> modifiers,
       const WTF::String& error,
       const WTF::String& stringified_payment_method_errors,
       ::payments::mojom::blink::AddressErrorsPtr shipping_address_errors);
@@ -589,9 +590,9 @@ PaymentRequestDetailsUpdate& operator=(const PaymentRequestDetailsUpdate&) = del
   
   ::payments::mojom::blink::PaymentCurrencyAmountPtr total;
   
-  absl::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options;
+  std::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options;
   
-  absl::optional<WTF::Vector<PaymentHandlerModifierPtr>> modifiers;
+  std::optional<WTF::Vector<PaymentHandlerModifierPtr>> modifiers;
   
   WTF::String error;
   

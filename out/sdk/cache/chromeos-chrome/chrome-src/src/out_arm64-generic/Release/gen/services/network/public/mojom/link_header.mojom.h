@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/link_header.mojom-features.h"
 #include "services/network/public/mojom/link_header.mojom-shared.h"
 #include "services/network/public/mojom/link_header.mojom-forward.h"
 #include "services/network/public/mojom/request_priority.mojom-forward.h"
@@ -78,7 +79,7 @@ class  LinkHeader {
       LinkAsAttribute as,
       CrossOriginAttribute cross_origin,
       ::network::mojom::FetchPriorityAttribute fetch_priority,
-      const absl::optional<std::string>& mime_type);
+      const std::optional<std::string>& mime_type);
 
 
   ~LinkHeader();
@@ -166,7 +167,7 @@ class  LinkHeader {
   
   ::network::mojom::FetchPriorityAttribute fetch_priority;
   
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

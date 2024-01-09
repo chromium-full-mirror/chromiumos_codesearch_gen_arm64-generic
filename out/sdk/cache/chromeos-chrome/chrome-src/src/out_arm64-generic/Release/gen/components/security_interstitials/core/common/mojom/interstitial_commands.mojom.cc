@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -367,14 +368,17 @@ void InterstitialCommandsProxy::DontProceed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::DontProceed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_DontProceed_Name, kFlags, 0, 0, nullptr);
@@ -397,14 +401,17 @@ void InterstitialCommandsProxy::Proceed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::Proceed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_Proceed_Name, kFlags, 0, 0, nullptr);
@@ -427,14 +434,17 @@ void InterstitialCommandsProxy::ShowMoreSection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::ShowMoreSection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_ShowMoreSection_Name, kFlags, 0, 0, nullptr);
@@ -457,14 +467,17 @@ void InterstitialCommandsProxy::OpenHelpCenter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenHelpCenter");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenHelpCenter_Name, kFlags, 0, 0, nullptr);
@@ -487,14 +500,17 @@ void InterstitialCommandsProxy::OpenDiagnostic(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenDiagnostic");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenDiagnostic_Name, kFlags, 0, 0, nullptr);
@@ -517,14 +533,17 @@ void InterstitialCommandsProxy::Reload(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::Reload");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_Reload_Name, kFlags, 0, 0, nullptr);
@@ -547,14 +566,17 @@ void InterstitialCommandsProxy::OpenDateSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenDateSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenDateSettings_Name, kFlags, 0, 0, nullptr);
@@ -577,14 +599,17 @@ void InterstitialCommandsProxy::OpenLogin(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenLogin");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenLogin_Name, kFlags, 0, 0, nullptr);
@@ -607,14 +632,17 @@ void InterstitialCommandsProxy::DoReport(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::DoReport");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_DoReport_Name, kFlags, 0, 0, nullptr);
@@ -637,14 +665,17 @@ void InterstitialCommandsProxy::DontReport(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::DontReport");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_DontReport_Name, kFlags, 0, 0, nullptr);
@@ -667,14 +698,17 @@ void InterstitialCommandsProxy::OpenReportingPrivacy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenReportingPrivacy");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenReportingPrivacy_Name, kFlags, 0, 0, nullptr);
@@ -697,14 +731,17 @@ void InterstitialCommandsProxy::OpenWhitepaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenWhitepaper");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenWhitepaper_Name, kFlags, 0, 0, nullptr);
@@ -727,14 +764,17 @@ void InterstitialCommandsProxy::ReportPhishingError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::ReportPhishingError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_ReportPhishingError_Name, kFlags, 0, 0, nullptr);
@@ -757,14 +797,17 @@ void InterstitialCommandsProxy::OpenEnhancedProtectionSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send security_interstitials::mojom::InterstitialCommands::OpenEnhancedProtectionSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInterstitialCommands_OpenEnhancedProtectionSettings_Name, kFlags, 0, 0, nullptr);
@@ -1153,36 +1196,36 @@ bool InterstitialCommandsStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInterstitialCommandsValidationInfo[] = {
-    {&internal::InterstitialCommands_DontProceed_Params_Data::Validate,
+    { &internal::InterstitialCommands_DontProceed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_Proceed_Params_Data::Validate,
+    { &internal::InterstitialCommands_Proceed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_ShowMoreSection_Params_Data::Validate,
+    { &internal::InterstitialCommands_ShowMoreSection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenHelpCenter_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenHelpCenter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenDiagnostic_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenDiagnostic_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_Reload_Params_Data::Validate,
+    { &internal::InterstitialCommands_Reload_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenDateSettings_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenDateSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenLogin_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenLogin_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_DoReport_Params_Data::Validate,
+    { &internal::InterstitialCommands_DoReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_DontReport_Params_Data::Validate,
+    { &internal::InterstitialCommands_DontReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenReportingPrivacy_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenReportingPrivacy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenWhitepaper_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenWhitepaper_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_ReportPhishingError_Params_Data::Validate,
+    { &internal::InterstitialCommands_ReportPhishingError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InterstitialCommands_OpenEnhancedProtectionSettings_Params_Data::Validate,
+    { &internal::InterstitialCommands_OpenEnhancedProtectionSettings_Params_Data::Validate,
      nullptr /* no response */},
 };
 

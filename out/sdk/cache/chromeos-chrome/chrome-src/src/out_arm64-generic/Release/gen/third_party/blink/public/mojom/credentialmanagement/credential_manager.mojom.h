@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/credentialmanagement/credential_manager.mojom-features.h"
 #include "third_party/blink/public/mojom/credentialmanagement/credential_manager.mojom-shared.h"
 #include "third_party/blink/public/mojom/credentialmanagement/credential_manager.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -104,7 +105,7 @@ class BLINK_COMMON_EXPORT CredentialManager
   virtual void PreventSilentAccess(PreventSilentAccessCallback callback) = 0;
 
 
-  using GetCallback = base::OnceCallback<void(::password_manager::CredentialManagerError, const absl::optional<::password_manager::CredentialInfo>&)>;
+  using GetCallback = base::OnceCallback<void(::password_manager::CredentialManagerError, const std::optional<::password_manager::CredentialInfo>&)>;
   
   virtual void Get(::password_manager::CredentialMediationRequirement mediation, bool include_passwords, const std::vector<::GURL>& federations, GetCallback callback) = 0;
 };
@@ -212,10 +213,10 @@ class BLINK_COMMON_EXPORT CredentialInfo {
 
   CredentialInfo(
       ::password_manager::CredentialType type,
-      const absl::optional<::std::u16string>& id,
-      const absl::optional<::std::u16string>& name,
+      const std::optional<::std::u16string>& id,
+      const std::optional<::std::u16string>& name,
       const ::GURL& icon,
-      const absl::optional<::std::u16string>& password,
+      const std::optional<::std::u16string>& password,
       const ::url::Origin& federation);
 
 
@@ -296,13 +297,13 @@ class BLINK_COMMON_EXPORT CredentialInfo {
   
   ::password_manager::CredentialType type;
   
-  absl::optional<::std::u16string> id;
+  std::optional<::std::u16string> id;
   
-  absl::optional<::std::u16string> name;
+  std::optional<::std::u16string> name;
   
   ::GURL icon;
   
-  absl::optional<::std::u16string> password;
+  std::optional<::std::u16string> password;
   
   ::url::Origin federation;
 

@@ -49,7 +49,7 @@ return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFe
 const WrapperTypeInfo V8IdentityProvider::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8IdentityProvider::InstallInterfaceTemplate,
-    V8IdentityProvider::InstallContextDependentProperties,
+    nullptr,
     "IdentityProvider",
     nullptr,
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -70,11 +70,6 @@ const WrapperTypeInfo& IdentityProvider::wrapper_type_info_ =
 static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IdentityProvider>::value,
     "IdentityProvider inherits from ActiveScriptWrappable<> without "
-    "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IdentityProvider::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IdentityProvider is overriding hasPendingActivity() without "
     "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
@@ -287,6 +282,14 @@ void V8IdentityProvider::InstallContextIndependentProperties(v8::Isolate* isolat
 
 
 
+if (RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"close", CloseStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
 if (RuntimeEnabledFeatures::FedCmIdPRegistrationEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"register", RegisterStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -308,27 +311,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
-void V8IdentityProvider::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
-  using bindings::IDLMemberInstaller;
-
-
-
-
-
-ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus)) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"close", CloseStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
-
-
-}
 
 
 }  // namespace blink

@@ -141,15 +141,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'colorSpaceWhenSampled', 56,
-        0,
-        gfx.mojom.ColorSpaceSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'hdrMetadata', 64,
+        'hdrMetadata', 56,
         0,
         gfx.mojom.HDRMetadataSpec.$,
         null,
@@ -157,7 +149,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'ycbcrInfo', 72,
+        'ycbcrInfo', 64,
         0,
         gpu.mojom.VulkanYCbCrInfoSpec.$,
         null,
@@ -165,7 +157,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 88],]);
+    [[0, 80],]);
 
 
 
@@ -194,8 +186,6 @@ viz.mojom.TransferableResource = class {
     this.wantsPromotionHint;
     /** @export { !gfx.mojom.ColorSpace } */
     this.colorSpace;
-    /** @export { (gfx.mojom.ColorSpace|undefined) } */
-    this.colorSpaceWhenSampled;
     /** @export { !gfx.mojom.HDRMetadata } */
     this.hdrMetadata;
     /** @export { (gpu.mojom.VulkanYCbCrInfo|undefined) } */

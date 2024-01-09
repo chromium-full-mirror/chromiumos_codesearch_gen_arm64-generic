@@ -28,6 +28,8 @@ class KeyEventDataView;
 
 class InputMethodDataView;
 
+class IsolatedWebAppLocationDataView;
+class InstallWebAppResultDataView;
 
 enum class ShelfItemState : int32_t;
 
@@ -46,6 +48,16 @@ using KeyEventPtr = mojo::StructPtr<KeyEvent>;
 
 class InputMethod;
 using InputMethodPtr = mojo::InlinedStructPtr<InputMethod>;
+
+class IsolatedWebAppLocation;
+
+using IsolatedWebAppLocationPtr = mojo::StructPtr<IsolatedWebAppLocation>;
+
+class InstallWebAppResult;
+
+using InstallWebAppResultPtr = mojo::StructPtr<InstallWebAppResult>;
+
+class DomMessageObserver;
 
 class StandaloneBrowserTestController;
 

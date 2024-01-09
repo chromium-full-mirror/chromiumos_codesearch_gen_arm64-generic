@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,9 +53,9 @@ ServiceFilter::ServiceFilter()
 
 ServiceFilter::ServiceFilter(
     const WTF::String& service_name_in,
-    const absl::optional<::base::Token>& instance_group_in,
-    const absl::optional<::base::Token>& instance_id_in,
-    const absl::optional<::base::Token>& globally_unique_id_in)
+    const std::optional<::base::Token>& instance_group_in,
+    const std::optional<::base::Token>& instance_id_in,
+    const std::optional<::base::Token>& globally_unique_id_in)
     : service_name(std::move(service_name_in)),
       instance_group(std::move(instance_group_in)),
       instance_id(std::move(instance_id_in)),
@@ -78,7 +79,7 @@ void ServiceFilter::WriteIntoTrace(
     dict.AddItem(
       "instance_group"), this->instance_group,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Token>&>"
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -87,7 +88,7 @@ void ServiceFilter::WriteIntoTrace(
     dict.AddItem(
       "instance_id"), this->instance_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Token>&>"
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -96,7 +97,7 @@ void ServiceFilter::WriteIntoTrace(
     dict.AddItem(
       "globally_unique_id"), this->globally_unique_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Token>&>"
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

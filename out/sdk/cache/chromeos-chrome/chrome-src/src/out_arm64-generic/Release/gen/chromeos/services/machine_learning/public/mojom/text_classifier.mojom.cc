@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -165,12 +166,12 @@ TextAnnotationRequest::TextAnnotationRequest()
 
 TextAnnotationRequest::TextAnnotationRequest(
     const std::string& text_in,
-    const absl::optional<std::string>& default_locales_in,
-    const absl::optional<std::string>& detected_text_language_tags_in,
+    const std::optional<std::string>& default_locales_in,
+    const std::optional<std::string>& detected_text_language_tags_in,
     AnnotationUsecase annotation_usecase_in,
-    absl::optional<::base::Time> reference_time_in,
-    const absl::optional<std::string>& reference_timezone_in,
-    absl::optional<std::vector<std::string>> enabled_entities_in)
+    std::optional<::base::Time> reference_time_in,
+    const std::optional<std::string>& reference_timezone_in,
+    std::optional<std::vector<std::string>> enabled_entities_in)
     : text(std::move(text_in)),
       default_locales(std::move(default_locales_in)),
       detected_text_language_tags(std::move(detected_text_language_tags_in)),
@@ -182,12 +183,12 @@ TextAnnotationRequest::TextAnnotationRequest(
 
 TextAnnotationRequest::TextAnnotationRequest(
     const std::string& text_in,
-    const absl::optional<std::string>& default_locales_in,
-    const absl::optional<std::string>& detected_text_language_tags_in,
+    const std::optional<std::string>& default_locales_in,
+    const std::optional<std::string>& detected_text_language_tags_in,
     AnnotationUsecase annotation_usecase_in,
-    absl::optional<::base::Time> reference_time_in,
-    const absl::optional<std::string>& reference_timezone_in,
-    absl::optional<std::vector<std::string>> enabled_entities_in,
+    std::optional<::base::Time> reference_time_in,
+    const std::optional<std::string>& reference_timezone_in,
+    std::optional<std::vector<std::string>> enabled_entities_in,
     bool trigger_dictionary_on_beginner_words_in)
     : text(std::move(text_in)),
       default_locales(std::move(default_locales_in)),
@@ -216,7 +217,7 @@ void TextAnnotationRequest::WriteIntoTrace(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -225,7 +226,7 @@ void TextAnnotationRequest::WriteIntoTrace(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -243,7 +244,7 @@ void TextAnnotationRequest::WriteIntoTrace(
     dict.AddItem(
       "reference_time"), this->reference_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -252,7 +253,7 @@ void TextAnnotationRequest::WriteIntoTrace(
     dict.AddItem(
       "reference_timezone"), this->reference_timezone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -261,7 +262,7 @@ void TextAnnotationRequest::WriteIntoTrace(
     dict.AddItem(
       "enabled_entities"), this->enabled_entities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -382,8 +383,8 @@ REMOVED_TextSuggestSelectionRequest::REMOVED_TextSuggestSelectionRequest()
 REMOVED_TextSuggestSelectionRequest::REMOVED_TextSuggestSelectionRequest(
     const std::string& text_in,
     CodepointSpanPtr user_selection_in,
-    const absl::optional<std::string>& default_locales_in,
-    const absl::optional<std::string>& detected_text_language_tags_in,
+    const std::optional<std::string>& default_locales_in,
+    const std::optional<std::string>& detected_text_language_tags_in,
     AnnotationUsecase annotation_usecase_in)
     : text(std::move(text_in)),
       user_selection(std::move(user_selection_in)),
@@ -418,7 +419,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -427,7 +428,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -667,14 +668,17 @@ void TextClassifierProxy::Annotate(
                         "<value of type TextAnnotationRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_Annotate_Name, kFlags, 0, 0, nullptr);
@@ -716,14 +720,17 @@ void TextClassifierProxy::FindLanguages(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_FindLanguages_Name, kFlags, 0, 0, nullptr);
@@ -765,14 +772,17 @@ void TextClassifierProxy::REMOVED_1(
                         "<value of type REMOVED_TextSuggestSelectionRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_REMOVED_1_Name, kFlags, 0, 0, nullptr);
@@ -893,7 +903,8 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_Annotate_Name, kFlags, 0, 0, nullptr);
@@ -1023,7 +1034,8 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_FindLanguages_Name, kFlags, 0, 0, nullptr);
@@ -1153,7 +1165,8 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextClassifier_REMOVED_1_Name, kFlags, 0, 0, nullptr);
@@ -1307,14 +1320,14 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextClassifierValidationInfo[] = {
-    {&internal::TextClassifier_Annotate_Params_Data::Validate,
+    { &internal::TextClassifier_Annotate_Params_Data::Validate,
      &internal::TextClassifier_Annotate_ResponseParams_Data::Validate},
-    {&internal::TextClassifier_REMOVED_1_Params_Data::Validate,
+    { &internal::TextClassifier_REMOVED_1_Params_Data::Validate,
      &internal::TextClassifier_REMOVED_1_ResponseParams_Data::Validate},
-    {&internal::TextClassifier_FindLanguages_Params_Data::Validate,
+    { &internal::TextClassifier_FindLanguages_Params_Data::Validate,
      &internal::TextClassifier_FindLanguages_ResponseParams_Data::Validate},
 };
 

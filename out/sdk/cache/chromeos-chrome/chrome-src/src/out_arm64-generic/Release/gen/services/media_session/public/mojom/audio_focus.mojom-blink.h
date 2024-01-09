@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/audio_focus.mojom-features.h"
 #include "services/media_session/public/mojom/audio_focus.mojom-shared.h"
 #include "services/media_session/public/mojom/audio_focus.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -41,30 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::EnforcementMode>
-    : EnumHashTraits<::media_session::mojom::EnforcementMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::AudioFocusType>
-    : EnumHashTraits<::media_session::mojom::AudioFocusType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media_session::mojom::blink {
@@ -674,14 +651,14 @@ class BLINK_PLATFORM_EXPORT AudioFocusRequestState {
       ::media_session::mojom::blink::MediaSessionInfoPtr session_info,
       AudioFocusType audio_focus_type,
       const WTF::String& source_name,
-      const absl::optional<::base::UnguessableToken>& request_id);
+      const std::optional<::base::UnguessableToken>& request_id);
 
   AudioFocusRequestState(
       ::media_session::mojom::blink::MediaSessionInfoPtr session_info,
       AudioFocusType audio_focus_type,
       const WTF::String& source_name,
-      const absl::optional<::base::UnguessableToken>& request_id,
-      const absl::optional<::base::UnguessableToken>& source_id);
+      const std::optional<::base::UnguessableToken>& request_id,
+      const std::optional<::base::UnguessableToken>& source_id);
 
 AudioFocusRequestState(const AudioFocusRequestState&) = delete;
 AudioFocusRequestState& operator=(const AudioFocusRequestState&) = delete;
@@ -767,9 +744,9 @@ AudioFocusRequestState& operator=(const AudioFocusRequestState&) = delete;
   
   WTF::String source_name;
   
-  absl::optional<::base::UnguessableToken> request_id;
+  std::optional<::base::UnguessableToken> request_id;
   
-  absl::optional<::base::UnguessableToken> source_id;
+  std::optional<::base::UnguessableToken> source_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#timezoneSelectorContainer{padding-block-end:var(--cr-section-vertical-padding);padding-inline-start:var(--cr-section-indent-padding)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#timezoneSelectorContainer{padding-block-end:var(--cr-section-vertical-padding);padding-inline-start:var(--cr-section-indent-padding)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <settings-card header-text="$i18n{dateTimePageTitle}">
   <template is="dom-if" if="[[!prefs.cros.flags.fine_grained_time_zone_detection_enabled.value]]" restamp>
     <settings-toggle-button id="timeZoneAutoDetectToggle" label="$i18n{timeZoneGeolocation}" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
@@ -8,7 +8,7 @@ export function getTemplate() {
     <div class="hr"></div>
   </template>
   <template is="dom-if" if="[[prefs.cros.flags.fine_grained_time_zone_detection_enabled.value]]" restamp>
-    <cr-link-row id="timeZoneSettingsTrigger" on-click="openTimeZoneSubpage_" label="$i18n{timeZoneButton}" sub-label="[[timeZoneSettingSublabel_]]" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="timeZoneSettingsTrigger" start-icon="[[rowIcons_.timezone]]" on-click="openTimeZoneSubpage_" label="$i18n{timeZoneButton}" sub-label="[[timeZoneSettingSublabel_]]" role-description="$i18n{subpageArrowRoleDescription}">
       <cr-policy-pref-indicator pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]">
       </cr-policy-pref-indicator>
     </cr-link-row>
@@ -17,9 +17,9 @@ export function getTemplate() {
     <timezone-selector prefs="{{prefs}}" active-time-zone-display-name="{{activeTimeZoneDisplayName}}">
     </timezone-selector>
   </div>
-  <settings-toggle-button class="hr" pref="{{prefs.settings.clock.use_24hour_clock}}" label="$i18n{use24HourClock}" deep-link-focus-id$="[[Setting.k24HourClock]]">
+  <settings-toggle-button class="hr" icon="[[rowIcons_.use24hour]]" pref="{{prefs.settings.clock.use_24hour_clock}}" label="$i18n{use24HourClock}" deep-link-focus-id$="[[Setting.k24HourClock]]">
   </settings-toggle-button>
-  <cr-link-row class="hr" id="setDateTimeRow" on-click="onSetDateTimeClick_" label="$i18n{setDateTime}" hidden$="[[!canSetDateTime_]]">
+  <cr-link-row class="hr" id="setDateTimeRow" start-icon="[[rowIcons_.setDateTime]]" on-click="onSetDateTimeClick_" label="$i18n{setDateTime}" hidden$="[[!canSetDateTime_]]">
     <template is="dom-if" if="[[shouldShowManagedByParentIcon_]]">
       <cr-policy-indicator indicator-type="parent"></cr-policy-indicator>
     </template>

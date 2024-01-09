@@ -19,16 +19,13 @@ constexpr uint32_t kDirectory_Clone_Name = 0;
 constexpr uint32_t kDirectory_PathExists_Name = 1;
 constexpr uint32_t kDirectory_GetEntries_Name = 2;
 constexpr uint32_t kDirectory_OpenFile_Name = 3;
-constexpr uint32_t kDirectory_WriteFileAtomically_Name = 4;
-constexpr uint32_t kDirectory_CreateDirectory_Name = 5;
-constexpr uint32_t kDirectory_DeleteFile_Name = 6;
-constexpr uint32_t kDirectory_DeletePathRecursively_Name = 7;
-constexpr uint32_t kDirectory_GetFileInfo_Name = 8;
-constexpr uint32_t kDirectory_GetPathAccess_Name = 9;
-constexpr uint32_t kDirectory_GetMaximumPathComponentLength_Name = 10;
-constexpr uint32_t kDirectory_RenameFile_Name = 11;
-constexpr uint32_t kDirectory_LockFile_Name = 12;
-constexpr uint32_t kDirectory_SetOpenedFileLength_Name = 13;
+constexpr uint32_t kDirectory_CreateDirectory_Name = 4;
+constexpr uint32_t kDirectory_DeleteFile_Name = 5;
+constexpr uint32_t kDirectory_GetFileInfo_Name = 6;
+constexpr uint32_t kDirectory_GetPathAccess_Name = 7;
+constexpr uint32_t kDirectory_RenameFile_Name = 8;
+constexpr uint32_t kDirectory_LockFile_Name = 9;
+constexpr uint32_t kDirectory_SetOpenedFileLength_Name = 10;
 
 }  // namespace internal
 

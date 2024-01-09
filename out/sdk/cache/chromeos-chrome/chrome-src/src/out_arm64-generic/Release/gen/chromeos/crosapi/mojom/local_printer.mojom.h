@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/local_printer.mojom-features.h"
 #include "chromeos/crosapi/mojom/local_printer.mojom-shared.h"
 #include "chromeos/crosapi/mojom/local_printer.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -209,7 +210,7 @@ class LocalPrinter
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 9344590950320263048ULL,
                                       9239017121958547230ULL };
-  static constexpr uint32_t Version_ = 6;
+  static constexpr uint32_t Version_ = 7;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -238,7 +239,7 @@ class LocalPrinter
     kAddPrintJobObserverMinVersion = 3,
     kGetOAuthAccessTokenMinVersion = 4,
     kGetIppClientInfoMinVersion = 5,
-    kAddLocalPrintersObserverMinVersion = 6,
+    kAddLocalPrintersObserverMinVersion = 7,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -354,7 +355,7 @@ class LocalPrinter
   virtual void GetPolicies(GetPoliciesCallback callback) = 0;
 
 
-  using GetUsernamePerPolicyCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetUsernamePerPolicyCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetUsernamePerPolicy(GetUsernamePerPolicyCallback callback) = 0;
 
@@ -1251,25 +1252,25 @@ class  GetOAuthAccessTokenResult {
   // Construct an instance holding |none|.
   static GetOAuthAccessTokenResultPtr
   NewNone(
-      OAuthNotNeededPtr none) {
+      OAuthNotNeededPtr value) {
     auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
-    result->set_none(std::move(none));
+    result->set_none(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GetOAuthAccessTokenResultPtr
   NewError(
-      OAuthErrorPtr error) {
+      OAuthErrorPtr value) {
     auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |token|.
   static GetOAuthAccessTokenResultPtr
   NewToken(
-      OAuthAccessTokenPtr token) {
+      OAuthAccessTokenPtr value) {
     auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
-    result->set_token(std::move(token));
+    result->set_token(std::move(value));
     return result;
   }
 
@@ -1423,14 +1424,14 @@ class  LocalDestinationInfo {
       const std::string& name,
       const std::string& description,
       bool configured_via_policy,
-      const absl::optional<std::string>& uri);
+      const std::optional<std::string>& uri);
 
   LocalDestinationInfo(
       const std::string& id,
       const std::string& name,
       const std::string& description,
       bool configured_via_policy,
-      const absl::optional<std::string>& uri,
+      const std::optional<std::string>& uri,
       PrinterStatusPtr printer_status);
 
 LocalDestinationInfo(const LocalDestinationInfo&) = delete;
@@ -1519,7 +1520,7 @@ LocalDestinationInfo& operator=(const LocalDestinationInfo&) = delete;
   
   bool configured_via_policy;
   
-  absl::optional<std::string> uri;
+  std::optional<std::string> uri;
   
   PrinterStatusPtr printer_status;
 
@@ -2198,7 +2199,7 @@ class  CapabilitiesResponse {
   CapabilitiesResponse(
       LocalDestinationInfoPtr basic_info,
       bool has_secure_protocol,
-      const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities,
+      const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities,
       uint32_t allowed_color_modes_deprecated,
       uint32_t allowed_duplex_modes_deprecated,
       uint32_t allowed_pin_modes_deprecated_version_0,
@@ -2209,7 +2210,7 @@ class  CapabilitiesResponse {
   CapabilitiesResponse(
       LocalDestinationInfoPtr basic_info,
       bool has_secure_protocol,
-      const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities,
+      const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities,
       uint32_t allowed_color_modes_deprecated,
       uint32_t allowed_duplex_modes_deprecated,
       uint32_t allowed_pin_modes_deprecated_version_0,
@@ -2300,7 +2301,7 @@ CapabilitiesResponse& operator=(const CapabilitiesResponse&) = delete;
   
   bool has_secure_protocol;
   
-  absl::optional<::printing::PrinterSemanticCapsAndDefaults> capabilities;
+  std::optional<::printing::PrinterSemanticCapsAndDefaults> capabilities;
   
   uint32_t allowed_color_modes_deprecated;
   
@@ -2382,7 +2383,7 @@ class  Policies {
       Policies::OptionalBool print_header_footer_default,
       Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes,
       Policies::BackgroundGraphicsModeRestriction background_graphics_default,
-      const absl::optional<::gfx::Size>& paper_size_default,
+      const std::optional<::gfx::Size>& paper_size_default,
       uint32_t max_sheets_allowed,
       bool max_sheets_allowed_has_value);
 
@@ -2391,7 +2392,7 @@ class  Policies {
       Policies::OptionalBool print_header_footer_default,
       Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes,
       Policies::BackgroundGraphicsModeRestriction background_graphics_default,
-      const absl::optional<::gfx::Size>& paper_size_default,
+      const std::optional<::gfx::Size>& paper_size_default,
       uint32_t max_sheets_allowed,
       bool max_sheets_allowed_has_value,
       uint32_t allowed_color_modes,
@@ -2406,7 +2407,7 @@ class  Policies {
       Policies::OptionalBool print_header_footer_default,
       Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes,
       Policies::BackgroundGraphicsModeRestriction background_graphics_default,
-      const absl::optional<::gfx::Size>& paper_size_default,
+      const std::optional<::gfx::Size>& paper_size_default,
       uint32_t max_sheets_allowed,
       bool max_sheets_allowed_has_value,
       uint32_t allowed_color_modes,
@@ -2501,7 +2502,7 @@ class  Policies {
   
   Policies::BackgroundGraphicsModeRestriction background_graphics_default;
   
-  absl::optional<::gfx::Size> paper_size_default;
+  std::optional<::gfx::Size> paper_size_default;
   
   uint32_t max_sheets_allowed;
   

@@ -21,11 +21,39 @@
 namespace on_device_model {
 namespace mojom {
 
+NOINLINE static const char* ResponseStatusToStringHelper(ResponseStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ResponseStatus::kOk:
+      return "kOk";
+    case ResponseStatus::kRetracted:
+      return "kRetracted";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ResponseStatusToString(ResponseStatus value) {
+  const char *str = ResponseStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ResponseStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ResponseStatus value) {
+  return os << ResponseStatusToString(value);
+}
+
 NOINLINE static const char* PerformanceClassToStringHelper(PerformanceClass value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case PerformanceClass::kError:
       return "kError";
+    case PerformanceClass::kGpuBlocked:
+      return "kGpuBlocked";
+    case PerformanceClass::kFailedToLoadLibrary:
+      return "kFailedToLoadLibrary";
     case PerformanceClass::kVeryLow:
       return "kVeryLow";
     case PerformanceClass::kLow:
@@ -53,74 +81,37 @@ std::ostream& operator<<(std::ostream& os, PerformanceClass value) {
   return os << PerformanceClassToString(value);
 }
 
-namespace internal {
-// static
-bool LoadModelResult_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context,
-    bool inlined) {
-  if (!data) {
-    DCHECK(!inlined);
-    return true;
-  }
-
-  // If it is inlined, the alignment is already enforced by its enclosing
-  // object. We don't have to validate that.
-  DCHECK(!inlined || mojo::internal::IsAligned(data));
-
-  if (!inlined &&
-      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
-          data, validation_context)) {
-    return false;
-  }
-
-  const LoadModelResult_Data* object = static_cast<const LoadModelResult_Data*>(data);
-
-  if (inlined && object->is_null())
-    return true;
-
-  switch (object->tag) {
-
-    case LoadModelResult_Tag::kModel: {
-
-      if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-              object->data.f_model, 1, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateHandleOrInterface(object->data.f_model,
-                                                     validation_context)) {
-        return false;
-      }
-      return true;
-    }
-    case LoadModelResult_Tag::kError: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 2, validation_context)) {
-        return false;
-      }
-      constexpr const mojo::internal::ContainerValidateParams& error_validate_params =
-          mojo::internal::GetArrayValidator<0, false, nullptr>();
-      if (!mojo::internal::ValidateContainer(object->data.f_error, validation_context,
-                                             &error_validate_params)) {
-        return false;
-      }
-      return true;
-    }
-    default: {
-
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in LoadModelResult");
-      return false;
-    }
+NOINLINE static const char* LoadModelResultToStringHelper(LoadModelResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LoadModelResult::kSuccess:
+      return "kSuccess";
+    case LoadModelResult::kGpuBlocked:
+      return "kGpuBlocked";
+    case LoadModelResult::kFailedToLoadLibrary:
+      return "kFailedToLoadLibrary";
+    default:
+      return nullptr;
   }
 }
 
+std::string LoadModelResultToString(LoadModelResult value) {
+  const char *str = LoadModelResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LoadModelResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LoadModelResult value) {
+  return os << LoadModelResultToString(value);
+}
+
+namespace internal {
+
 
 // static
-bool ModelAssets_Data::Validate(
+bool InputOptions_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -132,22 +123,24 @@ bool ModelAssets_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const ModelAssets_Data* object =
-      static_cast<const ModelAssets_Data*>(data);
+  [[maybe_unused]] const InputOptions_Data* object =
+      static_cast<const InputOptions_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->sp_model, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->text, 1, validation_context)) {
     return false;
-
-  if (!mojo::internal::ValidateStruct(object->model, validation_context))
+  }
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->text, validation_context,
+                                         &text_validate_params)) {
     return false;
-
-  if (!mojo::internal::ValidateStruct(object->weights, validation_context))
-    return false;
+  }
 
   return true;
 }
 
-ModelAssets_Data::ModelAssets_Data()
+InputOptions_Data::InputOptions_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -192,7 +185,7 @@ bool StreamingResponder_OnComplete_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -200,6 +193,11 @@ bool StreamingResponder_OnComplete_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const StreamingResponder_OnComplete_Params_Data* object =
       static_cast<const StreamingResponder_OnComplete_Params_Data*>(data);
+
+
+  if (!::on_device_model::mojom::internal::ResponseStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
 
   return true;
 }
@@ -209,7 +207,30 @@ StreamingResponder_OnComplete_Params_Data::StreamingResponder_OnComplete_Params_
 
 
 // static
-bool OnDeviceModel_Execute_Params_Data::Validate(
+bool ContextClient_OnComplete_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ContextClient_OnComplete_Params_Data* object =
+      static_cast<const ContextClient_OnComplete_Params_Data*>(data);
+
+  return true;
+}
+
+ContextClient_OnComplete_Params_Data::ContextClient_OnComplete_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Session_AddContext_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -221,19 +242,50 @@ bool OnDeviceModel_Execute_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const OnDeviceModel_Execute_Params_Data* object =
-      static_cast<const OnDeviceModel_Execute_Params_Data*>(data);
+  [[maybe_unused]] const Session_AddContext_Params_Data* object =
+      static_cast<const Session_AddContext_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->input, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& input_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->input, validation_context,
-                                         &input_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->input, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterface(object->client,
+                                                 validation_context)) {
     return false;
   }
+
+  return true;
+}
+
+Session_AddContext_Params_Data::Session_AddContext_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Session_Execute_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Session_Execute_Params_Data* object =
+      static_cast<const Session_Execute_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->input, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->input, validation_context))
+    return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->response, 2, validation_context)) {
@@ -247,12 +299,12 @@ bool OnDeviceModel_Execute_Params_Data::Validate(
   return true;
 }
 
-OnDeviceModel_Execute_Params_Data::OnDeviceModel_Execute_Params_Data()
+Session_Execute_Params_Data::Session_Execute_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool OnDeviceModelService_LoadModel_Params_Data::Validate(
+bool OnDeviceModel_StartSession_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -264,101 +316,22 @@ bool OnDeviceModelService_LoadModel_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const OnDeviceModelService_LoadModel_Params_Data* object =
-      static_cast<const OnDeviceModelService_LoadModel_Params_Data*>(data);
+  [[maybe_unused]] const OnDeviceModel_StartSession_Params_Data* object =
+      static_cast<const OnDeviceModel_StartSession_Params_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->assets, 1, validation_context)) {
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->session, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->assets, validation_context))
+  if (!mojo::internal::ValidateHandleOrInterface(object->session,
+                                                 validation_context)) {
     return false;
+  }
 
   return true;
 }
 
-OnDeviceModelService_LoadModel_Params_Data::OnDeviceModelService_LoadModel_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool OnDeviceModelService_LoadModel_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const OnDeviceModelService_LoadModel_ResponseParams_Data* object =
-      static_cast<const OnDeviceModelService_LoadModel_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidateInlinedUnionNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-OnDeviceModelService_LoadModel_ResponseParams_Data::OnDeviceModelService_LoadModel_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* object =
-      static_cast<const OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data*>(data);
-
-  return true;
-}
-
-OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* object =
-      static_cast<const OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data*>(data);
-
-
-  if (!::on_device_model::mojom::internal::PerformanceClass_Data
-        ::Validate(object->performance_class, validation_context))
-    return false;
-
-  return true;
-}
-
-OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data()
+OnDeviceModel_StartSession_Params_Data::OnDeviceModel_StartSession_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
@@ -368,9 +341,29 @@ OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data::OnDeviceM
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::on_device_model::mojom::ResponseStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::on_device_model::mojom::ResponseStatus value) {
+  return std::move(context).WriteString(::on_device_model::mojom::ResponseStatusToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::on_device_model::mojom::PerformanceClass>::WriteIntoTrace(
    perfetto::TracedValue context, ::on_device_model::mojom::PerformanceClass value) {
   return std::move(context).WriteString(::on_device_model::mojom::PerformanceClassToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::on_device_model::mojom::LoadModelResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::on_device_model::mojom::LoadModelResult value) {
+  return std::move(context).WriteString(::on_device_model::mojom::LoadModelResultToString(value));
 }
 
 } // namespace perfetto

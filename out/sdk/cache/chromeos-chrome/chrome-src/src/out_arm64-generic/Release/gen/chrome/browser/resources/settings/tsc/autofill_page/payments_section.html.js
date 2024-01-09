@@ -93,7 +93,7 @@ export function getTemplate() {
 </cr-lazy-render>
 
 <template is="dom-if" if="[[showCreditCardDialog_]]" restamp>
-  <settings-credit-card-edit-dialog credit-card="[[activeCreditCard_]]" on-close="onCreditCardDialogClose_" on-save-credit-card="saveCreditCard_">
+  <settings-credit-card-edit-dialog credit-card="[[activeCreditCard_]]" on-close="onCreditCardDialogClose_" on-save-credit-card="saveCreditCard_" prefs="{{prefs}}">
   </settings-credit-card-edit-dialog>
 </template>
 <template is="dom-if" if="[[showIbanDialog_]]" restamp>

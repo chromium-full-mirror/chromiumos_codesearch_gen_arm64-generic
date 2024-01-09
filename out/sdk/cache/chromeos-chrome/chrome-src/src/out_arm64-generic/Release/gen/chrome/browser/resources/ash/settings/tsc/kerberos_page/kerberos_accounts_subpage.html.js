@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.account-icon{background:center no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}#account-list-header{padding-bottom:1em}#remove-account-policy-indicator,.account-toolbar{margin-inline-start:1em}#add-account-policy-indicator{margin-inline-end:1em}#add-account-icon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;margin-inline-end:.5em;width:24px}#remove-account-container{align-items:center;display:flex}.error-badge{left:60%;position:relative;top:60%}.warning{color:var(--cros-text-color-alert)}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.account-icon{background:center no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}#account-list-header{padding-bottom:1em}#remove-account-policy-indicator,.account-toolbar{margin-inline-start:1em}#add-account-policy-indicator{margin-inline-end:1em}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}#remove-account-container{align-items:center;display:flex}.error-badge{left:60%;position:relative;top:60%}.warning{color:var(--cros-text-color-alert)}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}</style>
 
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
@@ -22,7 +22,7 @@ export function getTemplate() {
     </cr-policy-indicator>
   </template>
   <cr-button id="add-account-button" on-click="onAddAccountClick_" disabled="[[!addAccountsAllowed_]]" deep-link-focus-id$="[[Setting.kAddKerberosTicketV2]]">
-    <div id="add-account-icon"></div>
+    <div id="addAccountIcon" slot="prefix-icon"></div>
     $i18n{kerberosAccountsAddAccountLabel}
   </cr-button>
 </div>

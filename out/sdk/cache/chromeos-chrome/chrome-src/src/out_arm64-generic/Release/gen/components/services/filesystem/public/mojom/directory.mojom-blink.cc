@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -455,7 +456,7 @@ uint32_t Directory::WriteFile_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool Directory::Read(::base::File::Error* out_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) {
+bool Directory::Read(::base::File::Error* out_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) {
   NOTREACHED();
   return false;
 }
@@ -511,7 +512,7 @@ class Directory_Read_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   Directory_Read_HandleSyncResponse(
-      bool* result, ::base::File::Error* out_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents)
+      bool* result, ::base::File::Error* out_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents)
       : result_(result), out_error_(out_error), out_directory_contents_(out_directory_contents) {
     DCHECK(!*result_);
   }
@@ -523,7 +524,7 @@ class Directory_Read_HandleSyncResponse
  private:
   bool* result_;
   ::base::File::Error* out_error_;
-  absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents_;};
+  std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents_;};
 
 class Directory_Read_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -934,21 +935,24 @@ DirectoryProxy::DirectoryProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 bool DirectoryProxy::Read(
-    ::base::File::Error* out_param_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_param_directory_contents) {
+    ::base::File::Error* out_param_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_param_directory_contents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN0("mojom", "Call filesystem::mojom::Directory::Read (sync)");
 #else
   TRACE_EVENT0("mojom", "Directory::Read");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Read_Name, kFlags, 0, 0, nullptr);
@@ -977,7 +981,7 @@ bool DirectoryProxy::Read(
                         "<value of type ::base::File::Error>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("directory_contents"), out_param_directory_contents,
-                        "<value of type absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>>");
+                        "<value of type std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>>");
    });
 #endif
   return result;
@@ -988,14 +992,17 @@ void DirectoryProxy::Read(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send filesystem::mojom::Directory::Read");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Read_Name, kFlags, 0, 0, nullptr);
@@ -1030,15 +1037,18 @@ bool DirectoryProxy::OpenFileHandle(
 #else
   TRACE_EVENT0("mojom", "Directory::OpenFileHandle");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandle_Name, kFlags, 0, 0, nullptr);
@@ -1100,14 +1110,17 @@ void DirectoryProxy::OpenFileHandle(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandle_Name, kFlags, 0, 0, nullptr);
@@ -1151,15 +1164,18 @@ bool DirectoryProxy::OpenFileHandles(
 #else
   TRACE_EVENT0("mojom", "Directory::OpenFileHandles");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandles_Name, kFlags, 0, 0, nullptr);
@@ -1216,14 +1232,17 @@ void DirectoryProxy::OpenFileHandles(
                         "<value of type WTF::Vector<FileOpenDetailsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandles_Name, kFlags, 0, 0, nullptr);
@@ -1274,15 +1293,18 @@ bool DirectoryProxy::OpenDirectory(
 #else
   TRACE_EVENT0("mojom", "Directory::OpenDirectory");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1346,14 +1368,17 @@ void DirectoryProxy::OpenDirectory(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1402,15 +1427,18 @@ bool DirectoryProxy::Rename(
 #else
   TRACE_EVENT0("mojom", "Directory::Rename");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Rename_Name, kFlags, 0, 0, nullptr);
@@ -1479,14 +1507,17 @@ void DirectoryProxy::Rename(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Rename_Name, kFlags, 0, 0, nullptr);
@@ -1543,15 +1574,18 @@ bool DirectoryProxy::Replace(
 #else
   TRACE_EVENT0("mojom", "Directory::Replace");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Replace_Name, kFlags, 0, 0, nullptr);
@@ -1620,14 +1654,17 @@ void DirectoryProxy::Replace(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Replace_Name, kFlags, 0, 0, nullptr);
@@ -1684,15 +1721,18 @@ bool DirectoryProxy::Delete(
 #else
   TRACE_EVENT0("mojom", "Directory::Delete");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1751,14 +1791,17 @@ void DirectoryProxy::Delete(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1802,15 +1845,18 @@ bool DirectoryProxy::Exists(
 #else
   TRACE_EVENT0("mojom", "Directory::Exists");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Exists_Name, kFlags, 0, 0, nullptr);
@@ -1868,14 +1914,17 @@ void DirectoryProxy::Exists(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Exists_Name, kFlags, 0, 0, nullptr);
@@ -1918,15 +1967,18 @@ bool DirectoryProxy::IsWritable(
 #else
   TRACE_EVENT0("mojom", "Directory::IsWritable");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_IsWritable_Name, kFlags, 0, 0, nullptr);
@@ -1984,14 +2036,17 @@ void DirectoryProxy::IsWritable(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_IsWritable_Name, kFlags, 0, 0, nullptr);
@@ -2027,15 +2082,18 @@ bool DirectoryProxy::Flush(
 #else
   TRACE_EVENT0("mojom", "Directory::Flush");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Flush_Name, kFlags, 0, 0, nullptr);
@@ -2072,14 +2130,17 @@ void DirectoryProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send filesystem::mojom::Directory::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Flush_Name, kFlags, 0, 0, nullptr);
@@ -2111,15 +2172,18 @@ bool DirectoryProxy::StatFile(
 #else
   TRACE_EVENT0("mojom", "Directory::StatFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_StatFile_Name, kFlags, 0, 0, nullptr);
@@ -2177,14 +2241,17 @@ void DirectoryProxy::StatFile(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_StatFile_Name, kFlags, 0, 0, nullptr);
@@ -2226,14 +2293,17 @@ void DirectoryProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<Directory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Clone_Name, kFlags, 0, 0, nullptr);
@@ -2270,15 +2340,18 @@ bool DirectoryProxy::ReadEntireFile(
 #else
   TRACE_EVENT0("mojom", "Directory::ReadEntireFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_ReadEntireFile_Name, kFlags, 0, 0, nullptr);
@@ -2336,14 +2409,17 @@ void DirectoryProxy::ReadEntireFile(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_ReadEntireFile_Name, kFlags, 0, 0, nullptr);
@@ -2389,15 +2465,18 @@ bool DirectoryProxy::WriteFile(
 #else
   TRACE_EVENT0("mojom", "Directory::WriteFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_WriteFile_Name, kFlags, 0, 0, nullptr);
@@ -2468,14 +2547,17 @@ void DirectoryProxy::WriteFile(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_WriteFile_Name, kFlags, 0, 0, nullptr);
@@ -2563,7 +2645,7 @@ class Directory_Read_ProxyToResponder : public ::mojo::internal::ProxyToResponde
 #endif
 
   void Run(
-      ::base::File::Error in_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> in_directory_contents);
+      ::base::File::Error in_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> in_directory_contents);
 };
 
 bool Directory_Read_ForwardToCallback::Accept(
@@ -2577,7 +2659,7 @@ bool Directory_Read_ForwardToCallback::Accept(
   
   bool success = true;
   ::base::File::Error p_error{};
-  absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> p_directory_contents{};
+  std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> p_directory_contents{};
   Directory_Read_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2599,7 +2681,7 @@ std::move(p_directory_contents));
 }
 
 void Directory_Read_ProxyToResponder::Run(
-    ::base::File::Error in_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> in_directory_contents) {
+    ::base::File::Error in_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> in_directory_contents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply filesystem::mojom::Directory::Read", "async_response_parameters",
@@ -2610,13 +2692,14 @@ void Directory_Read_ProxyToResponder::Run(
                         "<value of type ::base::File::Error>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("directory_contents"), in_directory_contents,
-                        "<value of type absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>>");
+                        "<value of type std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Read_Name, kFlags, 0, 0, nullptr);
@@ -2662,7 +2745,7 @@ bool Directory_Read_HandleSyncResponse::Accept(
   
   bool success = true;
   ::base::File::Error p_error{};
-  absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> p_directory_contents{};
+  std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> p_directory_contents{};
   Directory_Read_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2780,7 +2863,8 @@ void Directory_OpenFileHandle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandle_Name, kFlags, 0, 0, nullptr);
@@ -2935,7 +3019,8 @@ void Directory_OpenFileHandles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFileHandles_Name, kFlags, 0, 0, nullptr);
@@ -3090,7 +3175,8 @@ void Directory_OpenDirectory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenDirectory_Name, kFlags, 0, 0, nullptr);
@@ -3234,7 +3320,8 @@ void Directory_Rename_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Rename_Name, kFlags, 0, 0, nullptr);
@@ -3378,7 +3465,8 @@ void Directory_Replace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Replace_Name, kFlags, 0, 0, nullptr);
@@ -3522,7 +3610,8 @@ void Directory_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Delete_Name, kFlags, 0, 0, nullptr);
@@ -3673,7 +3762,8 @@ void Directory_Exists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Exists_Name, kFlags, 0, 0, nullptr);
@@ -3829,7 +3919,8 @@ void Directory_IsWritable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_IsWritable_Name, kFlags, 0, 0, nullptr);
@@ -3978,7 +4069,8 @@ void Directory_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Flush_Name, kFlags, 0, 0, nullptr);
@@ -4129,7 +4221,8 @@ void Directory_StatFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_StatFile_Name, kFlags, 0, 0, nullptr);
@@ -4291,7 +4384,8 @@ void Directory_ReadEntireFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_ReadEntireFile_Name, kFlags, 0, 0, nullptr);
@@ -4452,7 +4546,8 @@ void Directory_WriteFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_WriteFile_Name, kFlags, 0, 0, nullptr);
@@ -4995,36 +5090,36 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDirectoryValidationInfo[] = {
-    {&internal::Directory_Read_Params_Data::Validate,
+    { &internal::Directory_Read_Params_Data::Validate,
      &internal::Directory_Read_ResponseParams_Data::Validate},
-    {&internal::Directory_OpenFileHandle_Params_Data::Validate,
+    { &internal::Directory_OpenFileHandle_Params_Data::Validate,
      &internal::Directory_OpenFileHandle_ResponseParams_Data::Validate},
-    {&internal::Directory_OpenFileHandles_Params_Data::Validate,
+    { &internal::Directory_OpenFileHandles_Params_Data::Validate,
      &internal::Directory_OpenFileHandles_ResponseParams_Data::Validate},
-    {&internal::Directory_OpenDirectory_Params_Data::Validate,
+    { &internal::Directory_OpenDirectory_Params_Data::Validate,
      &internal::Directory_OpenDirectory_ResponseParams_Data::Validate},
-    {&internal::Directory_Rename_Params_Data::Validate,
+    { &internal::Directory_Rename_Params_Data::Validate,
      &internal::Directory_Rename_ResponseParams_Data::Validate},
-    {&internal::Directory_Replace_Params_Data::Validate,
+    { &internal::Directory_Replace_Params_Data::Validate,
      &internal::Directory_Replace_ResponseParams_Data::Validate},
-    {&internal::Directory_Delete_Params_Data::Validate,
+    { &internal::Directory_Delete_Params_Data::Validate,
      &internal::Directory_Delete_ResponseParams_Data::Validate},
-    {&internal::Directory_Exists_Params_Data::Validate,
+    { &internal::Directory_Exists_Params_Data::Validate,
      &internal::Directory_Exists_ResponseParams_Data::Validate},
-    {&internal::Directory_IsWritable_Params_Data::Validate,
+    { &internal::Directory_IsWritable_Params_Data::Validate,
      &internal::Directory_IsWritable_ResponseParams_Data::Validate},
-    {&internal::Directory_Flush_Params_Data::Validate,
+    { &internal::Directory_Flush_Params_Data::Validate,
      &internal::Directory_Flush_ResponseParams_Data::Validate},
-    {&internal::Directory_StatFile_Params_Data::Validate,
+    { &internal::Directory_StatFile_Params_Data::Validate,
      &internal::Directory_StatFile_ResponseParams_Data::Validate},
-    {&internal::Directory_Clone_Params_Data::Validate,
+    { &internal::Directory_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Directory_ReadEntireFile_Params_Data::Validate,
+    { &internal::Directory_ReadEntireFile_Params_Data::Validate,
      &internal::Directory_ReadEntireFile_ResponseParams_Data::Validate},
-    {&internal::Directory_WriteFile_Params_Data::Validate,
+    { &internal::Directory_WriteFile_Params_Data::Validate,
      &internal::Directory_WriteFile_ResponseParams_Data::Validate},
 };
 
@@ -5136,17 +5231,17 @@ DirectoryAsyncWaiter::DirectoryAsyncWaiter(
 DirectoryAsyncWaiter::~DirectoryAsyncWaiter() = default;
 
 void DirectoryAsyncWaiter::Read(
-    ::base::File::Error* out_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) {
+    ::base::File::Error* out_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) {
   base::RunLoop loop;
   proxy_->Read(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::base::File::Error* out_error
 ,
-             absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents
+             std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents
 ,
              ::base::File::Error error,
-             absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> directory_contents) {*out_error = std::move(error);*out_directory_contents = std::move(directory_contents);
+             std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>> directory_contents) {*out_error = std::move(error);*out_directory_contents = std::move(directory_contents);
             loop->Quit();
           },
           &loop,

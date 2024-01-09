@@ -42,6 +42,10 @@ class ManagerInterface {
   // previously opened with OpenScanner.
   virtual ::lorgnette::SetOptionsResponse SetOptions(
       const ::lorgnette::SetOptionsRequest& in_request) = 0;
+  // Get the current config for the specified scanner.  The scanner must have
+  // been previously opened with OpenScanner.
+  virtual ::lorgnette::GetCurrentConfigResponse GetCurrentConfig(
+      const ::lorgnette::GetCurrentConfigRequest& in_request) = 0;
   // Starts a scan using the currently configured options.  Options should
   // be set with SetOptions first if needed.  If the result is successful,
   // the caller can read scanned data with ReadScanData.
@@ -115,6 +119,10 @@ class ManagerAdaptor {
         base::Unretained(interface_),
         &ManagerInterface::SetOptions);
     itf->AddSimpleMethodHandler(
+        "GetCurrentConfig",
+        base::Unretained(interface_),
+        &ManagerInterface::GetCurrentConfig);
+    itf->AddSimpleMethodHandler(
         "StartPreparedScan",
         base::Unretained(interface_),
         &ManagerInterface::StartPreparedScan);
@@ -187,6 +195,10 @@ class ManagerAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SetOptions\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetCurrentConfig\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

@@ -52,7 +52,7 @@ describe('SettingDeprecationWarning', () => {
         TestRevealer.install(callback);
         assertNotNullOrUndefined(element);
         element.click();
-        assert.isTrue(callback.calledOnceWithExactly(experiment, undefined), 'Revealer was either not called or was called with unexpected arguments');
+        assert.isTrue(callback.calledOnceWithExactly(experiment), 'Revealer was either not called or was called with unexpected arguments');
         TestRevealer.reset();
     });
 });

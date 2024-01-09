@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -58,14 +58,13 @@ struct ToFlatBuffer<::cryptohome::TpmBoundToPcrAuthBlockState> {
     auto scrypt_derived =
         ToFlatBuffer<std::optional<bool>>()(builder, object.scrypt_derived);
     auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
-    auto tpm_key = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.tpm_key);
-    auto extended_tpm_key = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.salt);
+    auto tpm_key =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.tpm_key);
+    auto extended_tpm_key = ToFlatBuffer<std::optional<brillo::Blob>>()(
         builder, object.extended_tpm_key);
-    auto tpm_public_key_hash =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            builder, object.tpm_public_key_hash);
+    auto tpm_public_key_hash = ToFlatBuffer<std::optional<brillo::Blob>>()(
+        builder, object.tpm_public_key_hash);
 
     return ::cryptohome::_serialized_::CreateTpmBoundToPcrAuthBlockState(
         *builder, scrypt_derived, salt, tpm_key, extended_tpm_key,
@@ -88,15 +87,13 @@ struct FromFlatBuffer<::cryptohome::TpmBoundToPcrAuthBlockState> {
     return ::cryptohome::TpmBoundToPcrAuthBlockState{
         .scrypt_derived =
             FromFlatBuffer<std::optional<bool>>()(object->scrypt_derived()),
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
-        .tpm_key = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->tpm_key()),
-        .extended_tpm_key = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        .salt = FromFlatBuffer<std::optional<brillo::Blob>>()(object->salt()),
+        .tpm_key =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->tpm_key()),
+        .extended_tpm_key = FromFlatBuffer<std::optional<brillo::Blob>>()(
             object->extended_tpm_key()),
-        .tpm_public_key_hash =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->tpm_public_key_hash()),
+        .tpm_public_key_hash = FromFlatBuffer<std::optional<brillo::Blob>>()(
+            object->tpm_public_key_hash()),
     };
   }
 };
@@ -116,14 +113,13 @@ struct ToFlatBuffer<::cryptohome::TpmNotBoundToPcrAuthBlockState> {
     auto scrypt_derived =
         ToFlatBuffer<std::optional<bool>>()(builder, object.scrypt_derived);
     auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.salt);
     auto password_rounds = ToFlatBuffer<std::optional<uint32_t>>()(
         builder, object.password_rounds);
-    auto tpm_key = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.tpm_key);
-    auto tpm_public_key_hash =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            builder, object.tpm_public_key_hash);
+    auto tpm_key =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.tpm_key);
+    auto tpm_public_key_hash = ToFlatBuffer<std::optional<brillo::Blob>>()(
+        builder, object.tpm_public_key_hash);
 
     return ::cryptohome::_serialized_::CreateTpmNotBoundToPcrAuthBlockState(
         *builder, scrypt_derived, salt, password_rounds, tpm_key,
@@ -146,15 +142,13 @@ struct FromFlatBuffer<::cryptohome::TpmNotBoundToPcrAuthBlockState> {
     return ::cryptohome::TpmNotBoundToPcrAuthBlockState{
         .scrypt_derived =
             FromFlatBuffer<std::optional<bool>>()(object->scrypt_derived()),
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
+        .salt = FromFlatBuffer<std::optional<brillo::Blob>>()(object->salt()),
         .password_rounds = FromFlatBuffer<std::optional<uint32_t>>()(
             object->password_rounds()),
-        .tpm_key = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->tpm_key()),
-        .tpm_public_key_hash =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->tpm_public_key_hash()),
+        .tpm_key =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->tpm_key()),
+        .tpm_public_key_hash = FromFlatBuffer<std::optional<brillo::Blob>>()(
+            object->tpm_public_key_hash()),
     };
   }
 };
@@ -174,13 +168,13 @@ struct ToFlatBuffer<::cryptohome::PinWeaverAuthBlockState> {
     auto le_label =
         ToFlatBuffer<std::optional<uint64_t>>()(builder, object.le_label);
     auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
-    auto chaps_iv = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.chaps_iv);
-    auto fek_iv = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.fek_iv);
-    auto reset_salt = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.reset_salt);
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.salt);
+    auto chaps_iv =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.chaps_iv);
+    auto fek_iv =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.fek_iv);
+    auto reset_salt =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.reset_salt);
 
     return ::cryptohome::_serialized_::CreatePinWeaverAuthBlockState(
         *builder, le_label, salt, chaps_iv, fek_iv, reset_salt);
@@ -201,14 +195,13 @@ struct FromFlatBuffer<::cryptohome::PinWeaverAuthBlockState> {
     return ::cryptohome::PinWeaverAuthBlockState{
         .le_label =
             FromFlatBuffer<std::optional<uint64_t>>()(object->le_label()),
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
-        .chaps_iv = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->chaps_iv()),
-        .fek_iv = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->fek_iv()),
-        .reset_salt = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->reset_salt()),
+        .salt = FromFlatBuffer<std::optional<brillo::Blob>>()(object->salt()),
+        .chaps_iv =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->chaps_iv()),
+        .fek_iv =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->fek_iv()),
+        .reset_salt =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->reset_salt()),
     };
   }
 };
@@ -226,10 +219,10 @@ struct ToFlatBuffer<::cryptohome::ScryptAuthBlockState> {
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::ScryptAuthBlockState& object) const {
     auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
-    auto chaps_salt = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.chaps_salt);
-    auto reset_seed_salt = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.salt);
+    auto chaps_salt =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.chaps_salt);
+    auto reset_seed_salt = ToFlatBuffer<std::optional<brillo::Blob>>()(
         builder, object.reset_seed_salt);
     auto work_factor =
         ToFlatBuffer<std::optional<int32_t>>()(builder, object.work_factor);
@@ -256,11 +249,10 @@ struct FromFlatBuffer<::cryptohome::ScryptAuthBlockState> {
       return ::cryptohome::ScryptAuthBlockState();
     }
     return ::cryptohome::ScryptAuthBlockState{
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
-        .chaps_salt = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->chaps_salt()),
-        .reset_seed_salt = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        .salt = FromFlatBuffer<std::optional<brillo::Blob>>()(object->salt()),
+        .chaps_salt =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->chaps_salt()),
+        .reset_seed_salt = FromFlatBuffer<std::optional<brillo::Blob>>()(
             object->reset_seed_salt()),
         .work_factor =
             FromFlatBuffer<std::optional<int32_t>>()(object->work_factor()),
@@ -375,18 +367,17 @@ struct ToFlatBuffer<::cryptohome::CryptohomeRecoveryAuthBlockState> {
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::CryptohomeRecoveryAuthBlockState& object) const {
     auto hsm_payload =
-        ToFlatBuffer<brillo::SecureBlob>()(builder, object.hsm_payload);
-    auto encrypted_destination_share = ToFlatBuffer<brillo::SecureBlob>()(
+        ToFlatBuffer<brillo::Blob>()(builder, object.hsm_payload);
+    auto encrypted_destination_share = ToFlatBuffer<brillo::Blob>()(
         builder, object.encrypted_destination_share);
-    auto extended_pcr_bound_destination_share =
-        ToFlatBuffer<brillo::SecureBlob>()(
-            builder, object.extended_pcr_bound_destination_share);
+    auto extended_pcr_bound_destination_share = ToFlatBuffer<brillo::Blob>()(
+        builder, object.extended_pcr_bound_destination_share);
     auto channel_pub_key =
-        ToFlatBuffer<brillo::SecureBlob>()(builder, object.channel_pub_key);
-    auto encrypted_channel_priv_key = ToFlatBuffer<brillo::SecureBlob>()(
+        ToFlatBuffer<brillo::Blob>()(builder, object.channel_pub_key);
+    auto encrypted_channel_priv_key = ToFlatBuffer<brillo::Blob>()(
         builder, object.encrypted_channel_priv_key);
-    auto encrypted_rsa_priv_key = ToFlatBuffer<brillo::SecureBlob>()(
-        builder, object.encrypted_rsa_priv_key);
+    auto encrypted_rsa_priv_key =
+        ToFlatBuffer<brillo::Blob>()(builder, object.encrypted_rsa_priv_key);
 
     return ::cryptohome::_serialized_::CreateCryptohomeRecoveryAuthBlockState(
         *builder, hsm_payload, encrypted_destination_share,
@@ -408,19 +399,17 @@ struct FromFlatBuffer<::cryptohome::CryptohomeRecoveryAuthBlockState> {
       return ::cryptohome::CryptohomeRecoveryAuthBlockState();
     }
     return ::cryptohome::CryptohomeRecoveryAuthBlockState{
-        .hsm_payload =
-            FromFlatBuffer<brillo::SecureBlob>()(object->hsm_payload()),
-        .encrypted_destination_share = FromFlatBuffer<brillo::SecureBlob>()(
+        .hsm_payload = FromFlatBuffer<brillo::Blob>()(object->hsm_payload()),
+        .encrypted_destination_share = FromFlatBuffer<brillo::Blob>()(
             object->encrypted_destination_share()),
-        .extended_pcr_bound_destination_share =
-            FromFlatBuffer<brillo::SecureBlob>()(
-                object->extended_pcr_bound_destination_share()),
+        .extended_pcr_bound_destination_share = FromFlatBuffer<brillo::Blob>()(
+            object->extended_pcr_bound_destination_share()),
         .channel_pub_key =
-            FromFlatBuffer<brillo::SecureBlob>()(object->channel_pub_key()),
-        .encrypted_channel_priv_key = FromFlatBuffer<brillo::SecureBlob>()(
+            FromFlatBuffer<brillo::Blob>()(object->channel_pub_key()),
+        .encrypted_channel_priv_key = FromFlatBuffer<brillo::Blob>()(
             object->encrypted_channel_priv_key()),
-        .encrypted_rsa_priv_key = FromFlatBuffer<brillo::SecureBlob>()(
-            object->encrypted_rsa_priv_key()),
+        .encrypted_rsa_priv_key =
+            FromFlatBuffer<brillo::Blob>()(object->encrypted_rsa_priv_key()),
     };
   }
 };
@@ -438,20 +427,18 @@ struct ToFlatBuffer<::cryptohome::TpmEccAuthBlockState> {
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::TpmEccAuthBlockState& object) const {
     auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
-    auto vkk_iv = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.vkk_iv);
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.salt);
+    auto vkk_iv =
+        ToFlatBuffer<std::optional<brillo::Blob>>()(builder, object.vkk_iv);
     auto auth_value_rounds = ToFlatBuffer<std::optional<uint32_t>>()(
         builder, object.auth_value_rounds);
-    auto sealed_hvkkm = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+    auto sealed_hvkkm = ToFlatBuffer<std::optional<brillo::Blob>>()(
         builder, object.sealed_hvkkm);
-    auto extended_sealed_hvkkm =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            builder, object.extended_sealed_hvkkm);
-    auto tpm_public_key_hash =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            builder, object.tpm_public_key_hash);
-    auto wrapped_reset_seed = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+    auto extended_sealed_hvkkm = ToFlatBuffer<std::optional<brillo::Blob>>()(
+        builder, object.extended_sealed_hvkkm);
+    auto tpm_public_key_hash = ToFlatBuffer<std::optional<brillo::Blob>>()(
+        builder, object.tpm_public_key_hash);
+    auto wrapped_reset_seed = ToFlatBuffer<std::optional<brillo::Blob>>()(
         builder, object.wrapped_reset_seed);
 
     return ::cryptohome::_serialized_::CreateTpmEccAuthBlockState(
@@ -472,23 +459,19 @@ struct FromFlatBuffer<::cryptohome::TpmEccAuthBlockState> {
       return ::cryptohome::TpmEccAuthBlockState();
     }
     return ::cryptohome::TpmEccAuthBlockState{
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
-        .vkk_iv = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->vkk_iv()),
+        .salt = FromFlatBuffer<std::optional<brillo::Blob>>()(object->salt()),
+        .vkk_iv =
+            FromFlatBuffer<std::optional<brillo::Blob>>()(object->vkk_iv()),
         .auth_value_rounds = FromFlatBuffer<std::optional<uint32_t>>()(
             object->auth_value_rounds()),
-        .sealed_hvkkm = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        .sealed_hvkkm = FromFlatBuffer<std::optional<brillo::Blob>>()(
             object->sealed_hvkkm()),
-        .extended_sealed_hvkkm =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->extended_sealed_hvkkm()),
-        .tpm_public_key_hash =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->tpm_public_key_hash()),
-        .wrapped_reset_seed =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->wrapped_reset_seed()),
+        .extended_sealed_hvkkm = FromFlatBuffer<std::optional<brillo::Blob>>()(
+            object->extended_sealed_hvkkm()),
+        .tpm_public_key_hash = FromFlatBuffer<std::optional<brillo::Blob>>()(
+            object->tpm_public_key_hash()),
+        .wrapped_reset_seed = FromFlatBuffer<std::optional<brillo::Blob>>()(
+            object->wrapped_reset_seed()),
     };
   }
 };
@@ -679,6 +662,45 @@ struct FromFlatBuffer<::cryptohome::AuthBlockStateUnion> {
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::RecoverableKeyStoreState> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::RecoverableKeyStoreState>;
+
+  ResultType operator()(
+      flatbuffers::FlatBufferBuilder* builder,
+      const ::cryptohome::RecoverableKeyStoreState& object) const {
+    auto key_store_proto =
+        ToFlatBuffer<brillo::Blob>()(builder, object.key_store_proto);
+
+    return ::cryptohome::_serialized_::CreateRecoverableKeyStoreState(
+        *builder, key_store_proto);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::RecoverableKeyStoreState> {
+  ::cryptohome::RecoverableKeyStoreState operator()(
+      const ::cryptohome::_serialized_::RecoverableKeyStoreState* object)
+      const {
+    if (object == nullptr) {
+      return ::cryptohome::RecoverableKeyStoreState();
+    }
+    return ::cryptohome::RecoverableKeyStoreState{
+        .key_store_proto =
+            FromFlatBuffer<brillo::Blob>()(object->key_store_proto()),
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::RevocationState> {
   using ResultType =
       flatbuffers::Offset<::cryptohome::_serialized_::RevocationState>;
@@ -730,9 +752,13 @@ struct ToFlatBuffer<::cryptohome::AuthBlockState> {
     auto revocation_state =
         ToFlatBuffer<std::optional<::cryptohome::RevocationState>>()(
             builder, object.revocation_state);
+    auto recoverable_key_store_state =
+        ToFlatBuffer<std::optional<::cryptohome::RecoverableKeyStoreState>>()(
+            builder, object.recoverable_key_store_state);
 
     return ::cryptohome::_serialized_::CreateAuthBlockState(
-        *builder, state_type, state, revocation_state);
+        *builder, state_type, state, revocation_state,
+        recoverable_key_store_state);
   }
 };
 
@@ -753,6 +779,9 @@ struct FromFlatBuffer<::cryptohome::AuthBlockState> {
         .revocation_state =
             FromFlatBuffer<std::optional<::cryptohome::RevocationState>>()(
                 object->revocation_state()),
+        .recoverable_key_store_state = FromFlatBuffer<
+            std::optional<::cryptohome::RecoverableKeyStoreState>>()(
+            object->recoverable_key_store_state()),
     };
   }
 };

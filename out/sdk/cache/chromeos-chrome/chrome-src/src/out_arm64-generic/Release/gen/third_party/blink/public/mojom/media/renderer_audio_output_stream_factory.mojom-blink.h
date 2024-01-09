@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/media/renderer_audio_output_stream_factory.mojom-features.h"
 #include "third_party/blink/public/mojom/media/renderer_audio_output_stream_factory.mojom-shared.h"
 #include "third_party/blink/public/mojom/media/renderer_audio_output_stream_factory.mojom-blink-forward.h"
 #include "media/mojo/mojom/audio_output_stream.mojom-blink-forward.h"
@@ -91,7 +92,7 @@ class PLATFORM_EXPORT RendererAudioOutputStreamFactory
 
   using RequestDeviceAuthorizationCallback = base::OnceCallback<void(::media::mojom::blink::OutputDeviceStatus, const ::media::AudioParameters&, const WTF::String&)>;
   
-  virtual void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const absl::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) = 0;
+  virtual void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const std::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) = 0;
 };
 
 
@@ -103,7 +104,7 @@ class PLATFORM_EXPORT RendererAudioOutputStreamFactoryProxy
 
   explicit RendererAudioOutputStreamFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const absl::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) final;
+  void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const std::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

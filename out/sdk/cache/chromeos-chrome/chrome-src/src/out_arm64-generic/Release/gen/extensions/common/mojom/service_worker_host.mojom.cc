@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -63,6 +64,15 @@ ServiceWorkerHost::IPCStableHashFunction ServiceWorkerHost::MessageToMethodInfo_
     case internal::kServiceWorkerHost_WorkerResponseAck_Name: {
       return &ServiceWorkerHost::WorkerResponseAck_Sym::IPCStableHash;
     }
+    case internal::kServiceWorkerHost_OpenChannelToExtension_Name: {
+      return &ServiceWorkerHost::OpenChannelToExtension_Sym::IPCStableHash;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name: {
+      return &ServiceWorkerHost::OpenChannelToNativeApp_Sym::IPCStableHash;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToTab_Name: {
+      return &ServiceWorkerHost::OpenChannelToTab_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -84,6 +94,12 @@ const char* ServiceWorkerHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive extensions::mojom::ServiceWorkerHost::RequestWorker";
       case internal::kServiceWorkerHost_WorkerResponseAck_Name:
             return "Receive extensions::mojom::ServiceWorkerHost::WorkerResponseAck";
+      case internal::kServiceWorkerHost_OpenChannelToExtension_Name:
+            return "Receive extensions::mojom::ServiceWorkerHost::OpenChannelToExtension";
+      case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name:
+            return "Receive extensions::mojom::ServiceWorkerHost::OpenChannelToNativeApp";
+      case internal::kServiceWorkerHost_OpenChannelToTab_Name:
+            return "Receive extensions::mojom::ServiceWorkerHost::OpenChannelToTab";
     }
   } else {
     switch (message.name()) {
@@ -97,6 +113,12 @@ const char* ServiceWorkerHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply extensions::mojom::ServiceWorkerHost::RequestWorker";
       case internal::kServiceWorkerHost_WorkerResponseAck_Name:
             return "Receive reply extensions::mojom::ServiceWorkerHost::WorkerResponseAck";
+      case internal::kServiceWorkerHost_OpenChannelToExtension_Name:
+            return "Receive reply extensions::mojom::ServiceWorkerHost::OpenChannelToExtension";
+      case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name:
+            return "Receive reply extensions::mojom::ServiceWorkerHost::OpenChannelToNativeApp";
+      case internal::kServiceWorkerHost_OpenChannelToTab_Name:
+            return "Receive reply extensions::mojom::ServiceWorkerHost::OpenChannelToTab";
     }
   }
   return "Receive unknown mojo message";
@@ -176,6 +198,45 @@ uint32_t ServiceWorkerHost::WorkerResponseAck_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t ServiceWorkerHost::OpenChannelToExtension_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::ServiceWorkerHost::OpenChannelToExtension");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ServiceWorkerHost::OpenChannelToNativeApp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::ServiceWorkerHost::OpenChannelToNativeApp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ServiceWorkerHost::OpenChannelToTab_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::ServiceWorkerHost::OpenChannelToTab");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ServiceWorkerHost_RequestWorker_ForwardToCallback
@@ -219,14 +280,17 @@ void ServiceWorkerHostProxy::DidInitializeServiceWorkerContext(
                         "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::EventDispatcher>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_DidInitializeServiceWorkerContext_Name, kFlags, 0, 0, nullptr);
@@ -287,14 +351,17 @@ void ServiceWorkerHostProxy::DidStartServiceWorkerContext(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_DidStartServiceWorkerContext_Name, kFlags, 0, 0, nullptr);
@@ -371,14 +438,17 @@ void ServiceWorkerHostProxy::DidStopServiceWorkerContext(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_DidStopServiceWorkerContext_Name, kFlags, 0, 0, nullptr);
@@ -443,14 +513,17 @@ void ServiceWorkerHostProxy::RequestWorker(
                         "<value of type ::extensions::mojom::RequestParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_RequestWorker_Name, kFlags, 0, 0,
@@ -493,14 +566,17 @@ void ServiceWorkerHostProxy::WorkerResponseAck(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_WorkerResponseAck_Name, kFlags, 0, 0, nullptr);
@@ -523,6 +599,297 @@ void ServiceWorkerHostProxy::WorkerResponseAck(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ServiceWorkerHost::Name_);
   message.set_method_name("WorkerResponseAck");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ServiceWorkerHostProxy::OpenChannelToExtension(
+    ::extensions::mojom::ExternalConnectionInfoPtr in_info, ::extensions::mojom::ChannelType in_channel_type, const std::string& in_channel_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::ServiceWorkerHost::OpenChannelToExtension", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("info"), in_info,
+                        "<value of type ::extensions::mojom::ExternalConnectionInfoPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_type"), in_channel_type,
+                        "<value of type ::extensions::mojom::ChannelType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_name"), in_channel_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kServiceWorkerHost_OpenChannelToExtension_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::ServiceWorkerHost_OpenChannelToExtension_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->info)::BaseType> info_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+      in_info, info_fragment);
+  params->info.Set(
+      info_fragment.is_null() ? nullptr : info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null info in ServiceWorkerHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::ChannelType>(
+      in_channel_type, &params->channel_type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->channel_name)::BaseType> channel_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_channel_name, channel_name_fragment);
+  params->channel_name.Set(
+      channel_name_fragment.is_null() ? nullptr : channel_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->channel_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null channel_name in ServiceWorkerHost.OpenChannelToExtension request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in ServiceWorkerHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in ServiceWorkerHost.OpenChannelToExtension request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in ServiceWorkerHost.OpenChannelToExtension request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ServiceWorkerHost::Name_);
+  message.set_method_name("OpenChannelToExtension");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ServiceWorkerHostProxy::OpenChannelToNativeApp(
+    const std::string& in_native_app_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::ServiceWorkerHost::OpenChannelToNativeApp", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("native_app_name"), in_native_app_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kServiceWorkerHost_OpenChannelToNativeApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::ServiceWorkerHost_OpenChannelToNativeApp_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->native_app_name)::BaseType> native_app_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_native_app_name, native_app_name_fragment);
+  params->native_app_name.Set(
+      native_app_name_fragment.is_null() ? nullptr : native_app_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->native_app_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null native_app_name in ServiceWorkerHost.OpenChannelToNativeApp request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in ServiceWorkerHost.OpenChannelToNativeApp request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in ServiceWorkerHost.OpenChannelToNativeApp request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in ServiceWorkerHost.OpenChannelToNativeApp request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ServiceWorkerHost::Name_);
+  message.set_method_name("OpenChannelToNativeApp");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ServiceWorkerHostProxy::OpenChannelToTab(
+    int32_t in_tab_id, int32_t in_frame_id, const std::optional<std::string>& in_document_id, ::extensions::mojom::ChannelType in_channel_type, const std::string& in_channel_name, const ::extensions::PortId& in_port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> in_port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> in_port_host) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::ServiceWorkerHost::OpenChannelToTab", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("tab_id"), in_tab_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("frame_id"), in_frame_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("document_id"), in_document_id,
+                        "<value of type const std::optional<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_type"), in_channel_type,
+                        "<value of type ::extensions::mojom::ChannelType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("channel_name"), in_channel_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_id"), in_port_id,
+                        "<value of type const ::extensions::PortId&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port"), in_port,
+                        "<value of type ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("port_host"), in_port_host,
+                        "<value of type ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kServiceWorkerHost_OpenChannelToTab_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::ServiceWorkerHost_OpenChannelToTab_Params_Data> params(
+          message);
+  params.Allocate();
+  params->tab_id = in_tab_id;
+  params->frame_id = in_frame_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->document_id)::BaseType> document_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_document_id, document_id_fragment);
+  params->document_id.Set(
+      document_id_fragment.is_null() ? nullptr : document_id_fragment.data());
+  mojo::internal::Serialize<::extensions::mojom::ChannelType>(
+      in_channel_type, &params->channel_type);
+  mojo::internal::MessageFragment<
+      typename decltype(params->channel_name)::BaseType> channel_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_channel_name, channel_name_fragment);
+  params->channel_name.Set(
+      channel_name_fragment.is_null() ? nullptr : channel_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->channel_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null channel_name in ServiceWorkerHost.OpenChannelToTab request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->port_id)::BaseType> port_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::PortIdDataView>(
+      in_port_id, port_id_fragment);
+  params->port_id.Set(
+      port_id_fragment.is_null() ? nullptr : port_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->port_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null port_id in ServiceWorkerHost.OpenChannelToTab request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+      in_port, &params->port, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port in ServiceWorkerHost.OpenChannelToTab request");
+  mojo::internal::Serialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+      in_port_host, &params->port_host, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->port_host),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
+      "invalid port_host in ServiceWorkerHost.OpenChannelToTab request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ServiceWorkerHost::Name_);
+  message.set_method_name("OpenChannelToTab");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -641,7 +1008,8 @@ void ServiceWorkerHost_RequestWorker_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_RequestWorker_Name, kFlags, 0, 0,
@@ -856,6 +1224,156 @@ std::move(p_worker_thread_id));
 std::move(p_request_uuid));
       return true;
     }
+    case internal::kServiceWorkerHost_OpenChannelToExtension_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ServiceWorkerHost_OpenChannelToExtension_Params_Data* params =
+          reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToExtension_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::extensions::mojom::ExternalConnectionInfoPtr p_info{};
+      ::extensions::mojom::ChannelType p_channel_type{};
+      std::string p_channel_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      ServiceWorkerHost_OpenChannelToExtension_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadInfo(&p_info))
+        success = false;
+      if (success && !input_data_view.ReadChannelType(&p_channel_type))
+        success = false;
+      if (success && !input_data_view.ReadChannelName(&p_channel_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ServiceWorkerHost::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToExtension(
+std::move(p_info), 
+std::move(p_channel_type), 
+std::move(p_channel_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ServiceWorkerHost_OpenChannelToNativeApp_Params_Data* params =
+          reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToNativeApp_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_native_app_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      ServiceWorkerHost_OpenChannelToNativeApp_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadNativeAppName(&p_native_app_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ServiceWorkerHost::Name_, 6, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToNativeApp(
+std::move(p_native_app_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToTab_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ServiceWorkerHost_OpenChannelToTab_Params_Data* params =
+          reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToTab_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int32_t p_tab_id{};
+      int32_t p_frame_id{};
+      std::optional<std::string> p_document_id{};
+      ::extensions::mojom::ChannelType p_channel_type{};
+      std::string p_channel_name{};
+      ::extensions::PortId p_port_id{};
+      ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> p_port{};
+      ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> p_port_host{};
+      ServiceWorkerHost_OpenChannelToTab_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_tab_id = input_data_view.tab_id();
+      if (success)
+        p_frame_id = input_data_view.frame_id();
+      if (success && !input_data_view.ReadDocumentId(&p_document_id))
+        success = false;
+      if (success && !input_data_view.ReadChannelType(&p_channel_type))
+        success = false;
+      if (success && !input_data_view.ReadChannelName(&p_channel_name))
+        success = false;
+      if (success && !input_data_view.ReadPortId(&p_port_id))
+        success = false;
+      if (success) {
+        p_port =
+            input_data_view.TakePort<decltype(p_port)>();
+      }
+      if (success) {
+        p_port_host =
+            input_data_view.TakePortHost<decltype(p_port_host)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ServiceWorkerHost::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenChannelToTab(
+std::move(p_tab_id), 
+std::move(p_frame_id), 
+std::move(p_document_id), 
+std::move(p_channel_type), 
+std::move(p_channel_name), 
+std::move(p_port_id), 
+std::move(p_port), 
+std::move(p_port_host));
+      return true;
+    }
   }
   return false;
 }
@@ -910,21 +1428,36 @@ std::move(p_params), std::move(callback));
     case internal::kServiceWorkerHost_WorkerResponseAck_Name: {
       break;
     }
+    case internal::kServiceWorkerHost_OpenChannelToExtension_Name: {
+      break;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name: {
+      break;
+    }
+    case internal::kServiceWorkerHost_OpenChannelToTab_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerHostValidationInfo[] = {
-    {&internal::ServiceWorkerHost_DidInitializeServiceWorkerContext_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_DidInitializeServiceWorkerContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_DidStartServiceWorkerContext_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_DidStartServiceWorkerContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_DidStopServiceWorkerContext_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_DidStopServiceWorkerContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_RequestWorker_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_RequestWorker_Params_Data::Validate,
      &internal::ServiceWorkerHost_RequestWorker_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_WorkerResponseAck_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_WorkerResponseAck_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ServiceWorkerHost_OpenChannelToExtension_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ServiceWorkerHost_OpenChannelToNativeApp_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ServiceWorkerHost_OpenChannelToTab_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -968,6 +1501,15 @@ void ServiceWorkerHostInterceptorForTesting::RequestWorker(::extensions::mojom::
 }
 void ServiceWorkerHostInterceptorForTesting::WorkerResponseAck(const ::base::Uuid& request_uuid) {
   GetForwardingInterface()->WorkerResponseAck(std::move(request_uuid));
+}
+void ServiceWorkerHostInterceptorForTesting::OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToExtension(std::move(info), std::move(channel_type), std::move(channel_name), std::move(port_id), std::move(port), std::move(port_host));
+}
+void ServiceWorkerHostInterceptorForTesting::OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToNativeApp(std::move(native_app_name), std::move(port_id), std::move(port), std::move(port_host));
+}
+void ServiceWorkerHostInterceptorForTesting::OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) {
+  GetForwardingInterface()->OpenChannelToTab(std::move(tab_id), std::move(frame_id), std::move(document_id), std::move(channel_type), std::move(channel_name), std::move(port_id), std::move(port), std::move(port_host));
 }
 ServiceWorkerHostAsyncWaiter::ServiceWorkerHostAsyncWaiter(
     ServiceWorkerHost* proxy) : proxy_(proxy) {}

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/networking_private.mojom-features.h"
 #include "chromeos/crosapi/mojom/networking_private.mojom-shared.h"
 #include "chromeos/crosapi/mojom/networking_private.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -314,17 +315,17 @@ class NetworkingPrivate
   virtual void SelectCellularMobileNetwork(const std::string& guid, const std::string& network_id, SelectCellularMobileNetworkCallback callback) = 0;
 
 
-  using GetEnabledNetworkTypesCallback = base::OnceCallback<void(absl::optional<::base::Value::List>)>;
+  using GetEnabledNetworkTypesCallback = base::OnceCallback<void(std::optional<::base::Value::List>)>;
   
   virtual void GetEnabledNetworkTypes(GetEnabledNetworkTypesCallback callback) = 0;
 
 
-  using GetDeviceStateListCallback = base::OnceCallback<void(absl::optional<std::vector<absl::optional<::base::Value::Dict>>>)>;
+  using GetDeviceStateListCallback = base::OnceCallback<void(std::optional<std::vector<std::optional<::base::Value::Dict>>>)>;
   
   virtual void GetDeviceStateList(GetDeviceStateListCallback callback) = 0;
 
 
-  using GetGlobalPolicyCallback = base::OnceCallback<void(absl::optional<::base::Value::Dict>)>;
+  using GetGlobalPolicyCallback = base::OnceCallback<void(std::optional<::base::Value::Dict>)>;
   
   virtual void GetGlobalPolicy(GetGlobalPolicyCallback callback) = 0;
 
@@ -549,17 +550,17 @@ class  StringSuccessOrErrorReturn {
   // Construct an instance holding |error|.
   static StringSuccessOrErrorReturnPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = StringSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |success_result|.
   static StringSuccessOrErrorReturnPtr
   NewSuccessResult(
-      const std::string& success_result) {
+      const std::string& value) {
     auto result = StringSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_success_result(std::move(success_result));
+    result->set_success_result(std::move(value));
     return result;
   }
 
@@ -680,17 +681,17 @@ class  DictionarySuccessOrErrorReturn {
   // Construct an instance holding |error|.
   static DictionarySuccessOrErrorReturnPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = DictionarySuccessOrErrorReturnPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |success_result|.
   static DictionarySuccessOrErrorReturnPtr
   NewSuccessResult(
-      ::base::Value::Dict success_result) {
+      ::base::Value::Dict value) {
     auto result = DictionarySuccessOrErrorReturnPtr(absl::in_place);
-    result->set_success_result(std::move(success_result));
+    result->set_success_result(std::move(value));
     return result;
   }
 
@@ -810,17 +811,17 @@ class  ListValueSuccessOrErrorReturn {
   // Construct an instance holding |error|.
   static ListValueSuccessOrErrorReturnPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = ListValueSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |success_result|.
   static ListValueSuccessOrErrorReturnPtr
   NewSuccessResult(
-      ::base::Value::List success_result) {
+      ::base::Value::List value) {
     auto result = ListValueSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_success_result(std::move(success_result));
+    result->set_success_result(std::move(value));
     return result;
   }
 
@@ -940,17 +941,17 @@ class  PropertiesSuccessOrErrorReturn {
   // Construct an instance holding |error|.
   static PropertiesSuccessOrErrorReturnPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = PropertiesSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |success_result|.
   static PropertiesSuccessOrErrorReturnPtr
   NewSuccessResult(
-      ::base::Value success_result) {
+      ::base::Value value) {
     auto result = PropertiesSuccessOrErrorReturnPtr(absl::in_place);
-    result->set_success_result(std::move(success_result));
+    result->set_success_result(std::move(value));
     return result;
   }
 

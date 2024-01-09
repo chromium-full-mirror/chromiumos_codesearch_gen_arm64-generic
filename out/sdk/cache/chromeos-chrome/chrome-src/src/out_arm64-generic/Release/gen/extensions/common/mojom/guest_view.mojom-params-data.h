@@ -28,9 +28,8 @@ class  GuestView_ReadyToCreateMimeHandlerView_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t routing_id;
   uint8_t success : 1;
-  uint8_t padfinal_[3];
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<GuestView_ReadyToCreateMimeHandlerView_Params_Data>;
@@ -46,8 +45,6 @@ class  GuestView_CanExecuteContentScript_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t routing_id;
-  uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> script_id;
 
  private:
@@ -56,7 +53,7 @@ class  GuestView_CanExecuteContentScript_Params_Data {
   GuestView_CanExecuteContentScript_Params_Data();
   ~GuestView_CanExecuteContentScript_Params_Data() = delete;
 };
-static_assert(sizeof(GuestView_CanExecuteContentScript_Params_Data) == 24,
+static_assert(sizeof(GuestView_CanExecuteContentScript_Params_Data) == 16,
               "Bad sizeof(GuestView_CanExecuteContentScript_Params_Data)");
 class  GuestView_CanExecuteContentScript_ResponseParams_Data {
  public:
@@ -171,9 +168,6 @@ class GuestView_ReadyToCreateMimeHandlerView_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  int32_t routing_id() const {
-    return data_->routing_id;
-  }
   bool success() const {
     return data_->success;
   }
@@ -192,9 +186,6 @@ class GuestView_CanExecuteContentScript_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t routing_id() const {
-    return data_->routing_id;
-  }
   inline void GetScriptIdDataView(
       mojo::StringDataView* output);
 

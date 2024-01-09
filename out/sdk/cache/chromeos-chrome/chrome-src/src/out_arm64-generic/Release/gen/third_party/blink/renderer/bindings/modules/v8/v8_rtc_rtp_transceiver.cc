@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCRtpTransceiver>::value,
     "RTCRtpTransceiver inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCRtpTransceiver::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCRtpTransceiver is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.mid.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mid();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mid();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -108,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.sender.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sender();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.receiver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->receiver();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -142,7 +139,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_St
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->stopped();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -161,7 +158,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Di
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->direction();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -179,7 +176,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Di
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "RTCRtpTransceiver";
@@ -216,10 +213,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.currentDirection.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->currentDirection();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->currentDirection();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -240,7 +237,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHeaderExtensionsToNegotiate();
 if (!ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -264,7 +262,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNegotiatedHeaderExtensions();
 if (!ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -293,7 +292,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_codecs = NativeValueTraits<IDLSequence<RTCRtpCodecCapability>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -326,7 +325,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_extensions = NativeValueTraits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -355,7 +354,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_St
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(v8_receiver);
+RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCRtpTransceiver";
 const char* const property_name = "stop";

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BackForwardCacheRestoration>::value,
     "BackForwardCacheRestoration inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BackForwardCacheRestoration::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BackForwardCacheRestoration is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackForwardCacheRestoration.pageshowEventStart.get")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(v8_receiver);
+BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageshowEventStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -99,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackForwardCacheRestoration.pageshowEventEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(v8_receiver);
+BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageshowEventEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackForwardCacheRestoration.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(v8_receiver);
+BackForwardCacheRestoration* blink_receiver = V8BackForwardCacheRestoration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

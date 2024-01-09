@@ -36,14 +36,12 @@ rule copy
 build obj/common-mk/gn_root/root.stamp: stamp obj/croslog/all.stamp
 build obj/croslog/_croslog-install_config.stamp: stamp
 build obj/croslog/_log-metrics-collector-install_config.stamp: stamp
-build obj/croslog/all.stamp: stamp ./croslog ./log-metrics-collector ./log_rotator ./croslog_testrunner ./log_rotator_testrunner
+build obj/croslog/all.stamp: stamp ./croslog ./log-metrics-collector ./log_rotator
 subninja obj/croslog/croslog.ninja
-subninja obj/croslog/croslog_testrunner.ninja
 subninja obj/croslog/libcroslog_static.ninja
 subninja obj/croslog/log-metrics-collector.ninja
 subninja obj/croslog/log_constants.ninja
 build obj/croslog/log_rotator/_log_rotator-install_config.stamp: stamp
-build obj/croslog/log_rotator/all.stamp: stamp ./log_rotator ./log_rotator_testrunner
+build obj/croslog/log_rotator/all.stamp: stamp ./log_rotator
 subninja obj/croslog/log_rotator/log_rotator.ninja
 subninja obj/croslog/log_rotator/log_rotator_static.ninja
-subninja obj/croslog/log_rotator/log_rotator_testrunner.ninja

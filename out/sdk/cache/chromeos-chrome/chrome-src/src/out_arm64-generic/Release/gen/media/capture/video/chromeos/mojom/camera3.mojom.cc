@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -147,7 +148,7 @@ Camera3Stream::Camera3Stream(
     uint32_t data_space_in,
     Camera3StreamRotation rotation_in,
     CropRotateScaleInfoPtr crop_rotate_scale_info_in,
-    const absl::optional<std::string>& physical_camera_id_in)
+    const std::optional<std::string>& physical_camera_id_in)
     : id(std::move(id_in)),
       stream_type(std::move(stream_type_in)),
       width(std::move(width_in)),
@@ -172,8 +173,8 @@ Camera3Stream::Camera3Stream(
     uint32_t data_space_in,
     Camera3StreamRotation rotation_in,
     CropRotateScaleInfoPtr crop_rotate_scale_info_in,
-    const absl::optional<std::string>& physical_camera_id_in,
-    absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects_in)
+    const std::optional<std::string>& physical_camera_id_in,
+    std::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects_in)
     : id(std::move(id_in)),
       stream_type(std::move(stream_type_in)),
       width(std::move(width_in)),
@@ -286,7 +287,7 @@ void Camera3Stream::WriteIntoTrace(
     dict.AddItem(
       "physical_camera_id"), this->physical_camera_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -295,7 +296,7 @@ void Camera3Stream::WriteIntoTrace(
     dict.AddItem(
       "effects"), this->effects,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>>>"
+      "<value of type std::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -409,7 +410,7 @@ CameraBufferHandle::CameraBufferHandle(
     uint32_t height_in,
     std::vector<uint32_t> strides_in,
     std::vector<uint32_t> offsets_in,
-    absl::optional<std::vector<uint32_t>> sizes_in)
+    std::optional<std::vector<uint32_t>> sizes_in)
     : buffer_id(std::move(buffer_id_in)),
       fds(std::move(fds_in)),
       drm_format(std::move(drm_format_in)),
@@ -431,7 +432,7 @@ CameraBufferHandle::CameraBufferHandle(
     uint32_t height_in,
     std::vector<uint32_t> strides_in,
     std::vector<uint32_t> offsets_in,
-    absl::optional<std::vector<uint32_t>> sizes_in,
+    std::optional<std::vector<uint32_t>> sizes_in,
     bool has_modifier_in,
     uint64_t modifier_in)
     : buffer_id(std::move(buffer_id_in)),
@@ -527,7 +528,7 @@ void CameraBufferHandle::WriteIntoTrace(
     dict.AddItem(
       "sizes"), this->sizes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint32_t>>&>"
+      "<value of type const std::optional<std::vector<uint32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -854,7 +855,7 @@ Camera3StreamBufferRet::Camera3StreamBufferRet()
 Camera3StreamBufferRet::Camera3StreamBufferRet(
     uint64_t stream_id_in,
     Camera3StreamBufferReqStatus status_in,
-    absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in)
+    std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in)
     : stream_id(std::move(stream_id_in)),
       status(std::move(status_in)),
       output_buffers(std::move(output_buffers_in)) {}
@@ -886,7 +887,7 @@ void Camera3StreamBufferRet::WriteIntoTrace(
     dict.AddItem(
       "output_buffers"), this->output_buffers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<Camera3StreamBufferPtr>>>"
+      "<value of type std::optional<std::vector<Camera3StreamBufferPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -961,7 +962,7 @@ Camera3CaptureRequest::Camera3CaptureRequest(
     ::cros::mojom::CameraMetadataPtr settings_in,
     Camera3StreamBufferPtr input_buffer_in,
     std::vector<Camera3StreamBufferPtr> output_buffers_in,
-    absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings_in)
+    std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings_in)
     : frame_number(std::move(frame_number_in)),
       settings(std::move(settings_in)),
       input_buffer(std::move(input_buffer_in)),
@@ -1013,7 +1014,7 @@ void Camera3CaptureRequest::WriteIntoTrace(
     dict.AddItem(
       "physcam_settings"), this->physcam_settings,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<Camera3PhyscamMetadataPtr>>>"
+      "<value of type std::optional<std::vector<Camera3PhyscamMetadataPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1036,7 +1037,7 @@ Camera3CaptureResult::Camera3CaptureResult()
 Camera3CaptureResult::Camera3CaptureResult(
     uint32_t frame_number_in,
     ::cros::mojom::CameraMetadataPtr result_in,
-    absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in,
+    std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in,
     Camera3StreamBufferPtr input_buffer_in,
     uint32_t partial_result_in)
     : frame_number(std::move(frame_number_in)),
@@ -1049,10 +1050,10 @@ Camera3CaptureResult::Camera3CaptureResult(
 Camera3CaptureResult::Camera3CaptureResult(
     uint32_t frame_number_in,
     ::cros::mojom::CameraMetadataPtr result_in,
-    absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in,
+    std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers_in,
     Camera3StreamBufferPtr input_buffer_in,
     uint32_t partial_result_in,
-    absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata_in)
+    std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata_in)
     : frame_number(std::move(frame_number_in)),
       result(std::move(result_in)),
       output_buffers(std::move(output_buffers_in)),
@@ -1087,7 +1088,7 @@ void Camera3CaptureResult::WriteIntoTrace(
     dict.AddItem(
       "output_buffers"), this->output_buffers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<Camera3StreamBufferPtr>>>"
+      "<value of type std::optional<std::vector<Camera3StreamBufferPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1114,7 +1115,7 @@ void Camera3CaptureResult::WriteIntoTrace(
     dict.AddItem(
       "physcam_metadata"), this->physcam_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<Camera3PhyscamMetadataPtr>>>"
+      "<value of type std::optional<std::vector<Camera3PhyscamMetadataPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1339,14 +1340,17 @@ void Camera3CallbackOpsProxy::ProcessCaptureResult(
                         "<value of type Camera3CaptureResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3CallbackOps_ProcessCaptureResult_Name, kFlags, 0, 0, nullptr);
@@ -1387,14 +1391,17 @@ void Camera3CallbackOpsProxy::Notify(
                         "<value of type Camera3NotifyMsgPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3CallbackOps_Notify_Name, kFlags, 0, 0, nullptr);
@@ -1435,14 +1442,17 @@ void Camera3CallbackOpsProxy::RequestStreamBuffers(
                         "<value of type std::vector<Camera3BufferRequestPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr);
@@ -1486,14 +1496,17 @@ void Camera3CallbackOpsProxy::ReturnStreamBuffers(
                         "<value of type std::vector<Camera3StreamBufferPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3CallbackOps_ReturnStreamBuffers_Name, kFlags, 0, 0, nullptr);
@@ -1622,7 +1635,8 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3CallbackOps_RequestStreamBuffers_Name, kFlags, 0, 0, nullptr);
@@ -1803,16 +1817,16 @@ std::move(p_buffer_reqs), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCamera3CallbackOpsValidationInfo[] = {
-    {&internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data::Validate,
+    { &internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Camera3CallbackOps_Notify_Params_Data::Validate,
+    { &internal::Camera3CallbackOps_Notify_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data::Validate,
+    { &internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data::Validate,
      &internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data::Validate},
-    {&internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data::Validate,
+    { &internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2204,14 +2218,17 @@ void Camera3DeviceOpsProxy::Initialize(
                         "<value of type ::mojo::PendingRemote<Camera3CallbackOps>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -2248,14 +2265,17 @@ void Camera3DeviceOpsProxy::ConfigureStreams(
                         "<value of type Camera3StreamConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr);
@@ -2297,14 +2317,17 @@ void Camera3DeviceOpsProxy::ConstructDefaultRequestSettings(
                         "<value of type Camera3RequestTemplate>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr);
@@ -2337,14 +2360,17 @@ void Camera3DeviceOpsProxy::ProcessCaptureRequest(
                         "<value of type Camera3CaptureRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr);
@@ -2386,14 +2412,17 @@ void Camera3DeviceOpsProxy::Dump(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Dump_Name, kFlags, 0, 0, nullptr);
@@ -2422,14 +2451,17 @@ void Camera3DeviceOpsProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::Camera3DeviceOps::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr);
@@ -2484,14 +2516,17 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
                         "<value of type const std::vector<uint32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
@@ -2562,14 +2597,17 @@ void Camera3DeviceOpsProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::Camera3DeviceOps::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr);
@@ -2600,14 +2638,17 @@ void Camera3DeviceOpsProxy::ConfigureStreamsAndGetAllocatedBuffers(
                         "<value of type Camera3StreamConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr);
@@ -2649,14 +2690,17 @@ void Camera3DeviceOpsProxy::SignalStreamFlush(
                         "<value of type const std::vector<uint64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_SignalStreamFlush_Name, kFlags, 0, 0, nullptr);
@@ -2778,7 +2822,8 @@ void Camera3DeviceOps_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -2903,7 +2948,8 @@ void Camera3DeviceOps_ConfigureStreams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConfigureStreams_Name, kFlags, 0, 0, nullptr);
@@ -3028,7 +3074,8 @@ void Camera3DeviceOps_ConstructDefaultRequestSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name, kFlags, 0, 0, nullptr);
@@ -3152,7 +3199,8 @@ void Camera3DeviceOps_ProcessCaptureRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ProcessCaptureRequest_Name, kFlags, 0, 0, nullptr);
@@ -3270,7 +3318,8 @@ void Camera3DeviceOps_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Flush_Name, kFlags, 0, 0, nullptr);
@@ -3388,7 +3437,8 @@ void Camera3DeviceOps_RegisterBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
@@ -3506,7 +3556,8 @@ void Camera3DeviceOps_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_Close_Name, kFlags, 0, 0, nullptr);
@@ -3638,7 +3689,8 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name, kFlags, 0, 0, nullptr);
@@ -4046,28 +4098,28 @@ std::move(p_config), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCamera3DeviceOpsValidationInfo[] = {
-    {&internal::Camera3DeviceOps_Initialize_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_Initialize_Params_Data::Validate,
      &internal::Camera3DeviceOps_Initialize_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_ConfigureStreams_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_ConfigureStreams_Params_Data::Validate,
      &internal::Camera3DeviceOps_ConfigureStreams_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data::Validate,
      &internal::Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data::Validate,
      &internal::Camera3DeviceOps_ProcessCaptureRequest_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_Dump_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_Dump_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Camera3DeviceOps_Flush_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_Flush_Params_Data::Validate,
      &internal::Camera3DeviceOps_Flush_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_RegisterBuffer_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_RegisterBuffer_Params_Data::Validate,
      &internal::Camera3DeviceOps_RegisterBuffer_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_Close_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_Close_Params_Data::Validate,
      &internal::Camera3DeviceOps_Close_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data::Validate,
      &internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data::Validate},
-    {&internal::Camera3DeviceOps_SignalStreamFlush_Params_Data::Validate,
+    { &internal::Camera3DeviceOps_SignalStreamFlush_Params_Data::Validate,
      nullptr /* no response */},
 };
 

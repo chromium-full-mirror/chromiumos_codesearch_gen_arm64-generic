@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MIDIPort>::value,
     "MIDIPort does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MIDIPort::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIPort is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.connection.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->connection();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->connection();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.manufacturer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->manufacturer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->manufacturer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -135,10 +130,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -150,10 +145,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -165,10 +160,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -180,10 +175,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.version.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->version();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->version();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -195,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIPort.onstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -211,8 +206,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstatechange(event_handler);
 }
 
@@ -239,7 +235,7 @@ return;
 
 
 
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -270,7 +266,7 @@ return;
 
 
 
-MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(v8_receiver);
+MIDIPort* blink_receiver = V8MIDIPort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

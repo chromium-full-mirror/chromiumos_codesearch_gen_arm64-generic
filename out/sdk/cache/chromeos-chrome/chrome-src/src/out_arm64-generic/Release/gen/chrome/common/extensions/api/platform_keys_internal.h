@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,11 +33,11 @@ namespace platform_keys_internal {
 namespace SelectClientCertificates {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::platform_keys::SelectDetails details;
@@ -56,11 +57,11 @@ base::Value::List Create(const std::vector<extensions::api::platform_keys::Match
 namespace Sign {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string token_id;
@@ -88,11 +89,11 @@ base::Value::List Create(const std::vector<uint8_t>& signature);
 namespace GetPublicKey {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<uint8_t> certificate;
@@ -111,8 +112,8 @@ struct Algorithm {
   ~Algorithm();
   Algorithm(const Algorithm&) = delete;
   Algorithm& operator=(const Algorithm&) = delete;
-  Algorithm(Algorithm&& rhs);
-  Algorithm& operator=(Algorithm&& rhs);
+  Algorithm(Algorithm&& rhs) noexcept;
+  Algorithm& operator=(Algorithm&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlgorithm object.
@@ -130,11 +131,11 @@ base::Value::List Create(const std::vector<uint8_t>& public_key, const Algorithm
 namespace GetPublicKeyBySpki {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<uint8_t> public_key_spki_der;
@@ -153,8 +154,8 @@ struct Algorithm {
   ~Algorithm();
   Algorithm(const Algorithm&) = delete;
   Algorithm& operator=(const Algorithm&) = delete;
-  Algorithm(Algorithm&& rhs);
-  Algorithm& operator=(Algorithm&& rhs);
+  Algorithm(Algorithm&& rhs) noexcept;
+  Algorithm& operator=(Algorithm&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlgorithm object.

@@ -8,6 +8,7 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_PEERCONNECTION_PEER_CONNECTION_TRACKER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

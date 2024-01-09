@@ -17,7 +17,6 @@ describeWithMockConnection('AccessibilitySidebarView', () => {
         target = createTarget();
         setMockConnectionResponseHandler('DOM.getDocument', () => ({ root: { nodeId: NODE_ID } }));
         setMockConnectionResponseHandler('DOM.getNodesForSubtreeByStyle', () => ({ nodeIds: [] }));
-        Root.Runtime.experiments.register('sourceOrderViewer', '');
         Root.Runtime.experiments.register(Root.Runtime.ExperimentName.FULL_ACCESSIBILITY_TREE, '');
     });
     afterEach(() => {

@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { AudioBroker } from './audio_broker.js';
 import { AudioPlayer } from './audio_player.js';
 import { Page } from './page.js';
@@ -43,6 +43,7 @@ const audiosSamples = [
     },
 ];
 export class OutputPage extends Page {
+    testOutputFeedback;
     constructor() {
         super('output');
         this.testOutputFeedback = new Map();

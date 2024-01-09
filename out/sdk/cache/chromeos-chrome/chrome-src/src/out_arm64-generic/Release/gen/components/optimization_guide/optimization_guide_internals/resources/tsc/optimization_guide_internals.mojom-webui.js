@@ -6,6 +6,7 @@ import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { LogSourceSpec as optimizationGuideCommon_mojom_LogSourceSpec } from './optimization_guide_common.mojom-webui.js';
 import { TimeSpec as mojoBase_mojom_TimeSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 export class PageHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -14,6 +15,9 @@ export class PageHandlerFactoryPendingReceiver {
     }
 }
 export class PageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
@@ -28,6 +32,9 @@ export class PageHandlerFactoryRemote {
     requestDownloadedModelsInfo() {
         return this.proxy.sendMessage(1, PageHandlerFactory_RequestDownloadedModelsInfo_ParamsSpec.$, PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsSpec.$, []);
     }
+    requestLoggedModelQualityClientIds() {
+        return this.proxy.sendMessage(2, PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsSpec.$, PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -36,11 +43,15 @@ export class PageHandlerFactoryRemote {
  * interface.
  */
 export class PageHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandlerFactory_CreatePageHandler_ParamsSpec.$, null, impl.createPageHandler.bind(impl));
         this.helper_internal_.registerHandler(1, PageHandlerFactory_RequestDownloadedModelsInfo_ParamsSpec.$, PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsSpec.$, impl.requestDownloadedModelsInfo.bind(impl));
+        this.helper_internal_.registerHandler(2, PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsSpec.$, PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsSpec.$, impl.requestLoggedModelQualityClientIds.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -66,6 +77,13 @@ export class PageHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createPageHandler;
+    requestDownloadedModelsInfo;
+    requestLoggedModelQualityClientIds;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -76,6 +94,9 @@ export class PageHandlerFactoryCallbackRouter {
         this.requestDownloadedModelsInfo =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, PageHandlerFactory_RequestDownloadedModelsInfo_ParamsSpec.$, PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsSpec.$, this.requestDownloadedModelsInfo.createReceiverHandler(true /* expectsResponse */));
+        this.requestLoggedModelQualityClientIds =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsSpec.$, PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsSpec.$, this.requestLoggedModelQualityClientIds.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -87,6 +108,7 @@ export class PageHandlerFactoryCallbackRouter {
     }
 }
 export class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -95,6 +117,9 @@ export class PagePendingReceiver {
     }
 }
 export class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
@@ -118,6 +143,9 @@ export class PageRemote {
  * interface.
  */
 export class PageReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -147,6 +175,11 @@ export class Page {
  * receiver can have any number of listeners added to it.
  */
 export class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onLogMessageAdded;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -165,21 +198,31 @@ export class PageCallbackRouter {
     }
 }
 export const DownloadedModelInfoSpec = { $: {} };
+export const LoggedClientIdsSpec = { $: {} };
 export const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
 export const PageHandlerFactory_RequestDownloadedModelsInfo_ParamsSpec = { $: {} };
 export const PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsSpec = { $: {} };
+export const PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsSpec = { $: {} };
+export const PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsSpec = { $: {} };
 export const Page_OnLogMessageAdded_ParamsSpec = { $: {} };
 mojo.internal.Struct(DownloadedModelInfoSpec.$, 'DownloadedModelInfo', [
     mojo.internal.StructField('optimizationTarget', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('version', 8, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
     mojo.internal.StructField('filePath', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 32],]);
+mojo.internal.Struct(LoggedClientIdsSpec.$, 'LoggedClientIds', [
+    mojo.internal.StructField('clientId', 0, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
     mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandlerFactory_RequestDownloadedModelsInfo_ParamsSpec.$, 'PageHandlerFactory_RequestDownloadedModelsInfo_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsSpec.$, 'PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams', [
     mojo.internal.StructField('downloadedModelsInfo', 0, 0, mojo.internal.Array(DownloadedModelInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsSpec.$, 'PageHandlerFactory_RequestLoggedModelQualityClientIds_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsSpec.$, 'PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams', [
+    mojo.internal.StructField('loggedClientIds', 0, 0, mojo.internal.Array(LoggedClientIdsSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(Page_OnLogMessageAdded_ParamsSpec.$, 'Page_OnLogMessageAdded_Params', [
     mojo.internal.StructField('eventTime', 0, 0, mojoBase_mojom_TimeSpec.$, null, false /* nullable */, 0),

@@ -1,14 +1,33 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import { calculateBulkPinRequiredSpace } from '../common/js/api.js';
 import { RateLimiter } from '../common/js/async_util.js';
-import { str, strf, util } from '../common/js/util.js';
-import '../externs/ts/state.js';
+import { bytesToString, getCurrentLocaleOrDefault, str, strf } from '../common/js/translations.js';
+import { visitURL } from '../common/js/util.js';
+import { State as AppState } from '../externs/ts/state.js';
 import { getStore } from '../state/store.js';
 import { css, customElement, html, query, XfBase } from './xf_base.js';
+// Different flavors of the XfBulkPinningDialog.
+var DialogState;
+(function (DialogState) {
+    // The dialog is not displayed.
+    DialogState[DialogState["CLOSED"] = 0] = "CLOSED";
+    // Currently offline. Cannot compute space requirement for the time being.
+    DialogState[DialogState["OFFLINE"] = 1] = "OFFLINE";
+    // Currently not running due to battery saver mode active.
+    DialogState[DialogState["BATTERY_SAVER"] = 2] = "BATTERY_SAVER";
+    // Listing files and computing space requirements.
+    DialogState[DialogState["LISTING"] = 3] = "LISTING";
+    // An error occurred while computing the space requirements.
+    DialogState[DialogState["ERROR"] = 4] = "ERROR";
+    // There isn't enough space to activate the bulk-pinning feature.
+    DialogState[DialogState["NOT_ENOUGH_SPACE"] = 5] = "NOT_ENOUGH_SPACE";
+    // Computed space requirements and ready to activate the bulk-pinning feature.
+    DialogState[DialogState["READY"] = 6] = "READY";
+})(DialogState || (DialogState = {}));
 export const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
 /**
  * Dialog that shows the benefits of enabling bulk pinning along with storage
@@ -33,7 +52,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
                 str('BULK_PINNING_LISTING_WITH_SINGLE_ITEM');
         }
         else {
-            this.$listingFilesText_.innerText = strf('BULK_PINNING_LISTING_WITH_MULTIPLE_ITEMS', this.listedFiles_.toLocaleString(util.getCurrentLocaleOrDefault()));
+            this.$listingFilesText_.innerText = strf('BULK_PINNING_LISTING_WITH_MULTIPLE_ITEMS', this.listedFiles_.toLocaleString(getCurrentLocaleOrDefault()));
         }
     }
     // Called when the app has changed state.
@@ -53,7 +72,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
             this.requiredBytes_ !== bpp.requiredSpaceBytes) {
             this.freeBytes_ = bpp.freeSpaceBytes;
             this.requiredBytes_ = bpp.requiredSpaceBytes;
-            this.$readyFooter_.innerText = strf('BULK_PINNING_SPACE', util.bytesToString(this.requiredBytes_), util.bytesToString(this.freeBytes_));
+            this.$readyFooter_.innerText = strf('BULK_PINNING_SPACE', bytesToString(this.requiredBytes_), bytesToString(this.freeBytes_));
         }
         if (bpp.stage === BulkPinStage.LISTING_FILES && bpp.listedFiles > 0 &&
             bpp.listedFiles !== this.listedFiles_) {
@@ -66,27 +85,27 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
         this.stage_ = bpp.stage;
         switch (bpp.stage) {
             case BulkPinStage.PAUSED_OFFLINE:
-                this.state = 1 /* DialogState.OFFLINE */;
+                this.state = DialogState.OFFLINE;
                 break;
             case BulkPinStage.PAUSED_BATTERY_SAVER:
-                this.state = 2 /* DialogState.BATTERY_SAVER */;
+                this.state = DialogState.BATTERY_SAVER;
                 break;
             case BulkPinStage.GETTING_FREE_SPACE:
             case BulkPinStage.LISTING_FILES:
-                this.state = 3 /* DialogState.LISTING */;
+                this.state = DialogState.LISTING;
                 break;
             case BulkPinStage.SUCCESS:
-                this.state = 6 /* DialogState.READY */;
+                this.state = DialogState.READY;
                 break;
             case BulkPinStage.SYNCING:
                 this.$dialog_.close();
                 break;
             case BulkPinStage.NOT_ENOUGH_SPACE:
-                this.state = 5 /* DialogState.NOT_ENOUGH_SPACE */;
+                this.state = DialogState.NOT_ENOUGH_SPACE;
                 break;
             default:
                 console.warn(`Cannot calculate bulk-pinning space requirements: ${this.stage_}`);
-                this.state = 4 /* DialogState.ERROR */;
+                this.state = DialogState.ERROR;
                 break;
         }
     }
@@ -94,18 +113,18 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // Enables or disables the 'Continue' button according to the given state.
     set state(s) {
         this.$offlineFooter_.style.display =
-            s === 1 /* DialogState.OFFLINE */ ? 'initial' : 'none';
+            s === DialogState.OFFLINE ? 'initial' : 'none';
         this.$batterySaverFooter_.style.display =
-            s === 2 /* DialogState.BATTERY_SAVER */ ? 'initial' : 'none';
+            s === DialogState.BATTERY_SAVER ? 'initial' : 'none';
         this.$listingFooter_.style.display =
-            s === 3 /* DialogState.LISTING */ ? 'flex' : 'none';
+            s === DialogState.LISTING ? 'flex' : 'none';
         this.$errorFooter_.style.display =
-            s === 4 /* DialogState.ERROR */ ? 'initial' : 'none';
+            s === DialogState.ERROR ? 'initial' : 'none';
         this.$notEnoughSpaceFooter_.style.display =
-            s === 5 /* DialogState.NOT_ENOUGH_SPACE */ ? 'initial' : 'none';
+            s === DialogState.NOT_ENOUGH_SPACE ? 'initial' : 'none';
         this.$readyFooter_.style.display =
-            s === 6 /* DialogState.READY */ ? 'initial' : 'none';
-        this.$button_.disabled = s !== 6 /* DialogState.READY */;
+            s === DialogState.READY ? 'initial' : 'none';
+        this.$button_.disabled = s !== DialogState.READY;
     }
     // Indicates if this dialog is currently open.
     get is_open() {
@@ -115,7 +134,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // bulk-pinning.
     async show() {
         this.stage_ = BulkPinStage.LISTING_FILES;
-        this.state = 3 /* DialogState.LISTING */;
+        this.state = DialogState.LISTING;
         this.$dialog_.showModal();
         this.store_.subscribe(this);
         try {
@@ -123,11 +142,11 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
         }
         catch (e) {
             console.error('Cannot calculate required space for bulk-pinning:', e);
-            this.state = 4 /* DialogState.ERROR */;
+            this.state = DialogState.ERROR;
         }
     }
     onClose(_) {
-        this.state = 0 /* DialogState.CLOSED */;
+        this.state = DialogState.CLOSED;
         this.listedFiles_ = 0;
         this.updateListedFilesDebounced_.runImmediately();
         this.store_.unsubscribe(this);
@@ -144,7 +163,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // Called when the "Learn more" link is clicked.
     onLearnMore(e) {
         e.preventDefault();
-        util.visitURL('https://support.google.com/chromebook?p=my_drive_cbx');
+        visitURL('https://support.google.com/chromebook?p=my_drive_cbx');
     }
     // Called when the "View storage" link is clicked.
     onViewStorage(e) {

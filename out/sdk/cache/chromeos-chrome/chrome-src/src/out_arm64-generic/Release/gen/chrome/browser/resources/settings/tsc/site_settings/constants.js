@@ -37,6 +37,7 @@ export var ContentSettingsTypes;
     ContentSettingsTypes["MIXEDSCRIPT"] = "mixed-script";
     ContentSettingsTypes["NOTIFICATIONS"] = "notifications";
     ContentSettingsTypes["PAYMENT_HANDLER"] = "payment-handler";
+    ContentSettingsTypes["PERFORMANCE"] = "performance";
     ContentSettingsTypes["POPUPS"] = "popups";
     ContentSettingsTypes["PRIVATE_NETWORK_DEVICES"] = "private-network-devices";
     ContentSettingsTypes["PROTECTED_CONTENT"] = "protected-content";

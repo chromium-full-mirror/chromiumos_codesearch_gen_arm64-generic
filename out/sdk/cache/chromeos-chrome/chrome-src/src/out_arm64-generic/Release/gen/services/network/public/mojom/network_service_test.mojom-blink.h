@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_service_test.mojom-features.h"
 #include "services/network/public/mojom/network_service_test.mojom-shared.h"
 #include "services/network/public/mojom/network_service_test.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file.mojom-blink-forward.h"
@@ -51,30 +52,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ResolverType>
-    : EnumHashTraits<::network::mojom::ResolverType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::NetworkServiceTest_RequireCT>
-    : EnumHashTraits<::network::mojom::NetworkServiceTest_RequireCT, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -604,11 +581,11 @@ class BLINK_PLATFORM_EXPORT NetworkServiceTest
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay);
+  virtual bool SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay);
 
   using SetSCTAuditingRetryDelayCallback = base::OnceCallback<void()>;
   
-  virtual void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) = 0;
+  virtual void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) = 0;
 
 
   using OpenFileCallback = base::OnceCallback<void(bool)>;
@@ -784,9 +761,9 @@ class BLINK_PLATFORM_EXPORT NetworkServiceTestProxy
   
   void ActivateFieldTrial(const WTF::String& field_trial_name) final;
   
-  bool SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay) final;
+  bool SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay) final;
   
-  void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) final;
+  void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) final;
   
   void OpenFile(const ::base::FilePath& path, OpenFileCallback callback) final;
   

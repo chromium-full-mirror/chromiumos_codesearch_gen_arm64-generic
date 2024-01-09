@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/base/mojom/window_open_disposition.mojom-features.h"
 #include "ui/base/mojom/window_open_disposition.mojom-shared.h"
 #include "ui/base/mojom/window_open_disposition.mojom-blink-forward.h"
 
@@ -37,18 +38,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::WindowOpenDisposition>
-    : EnumHashTraits<::ui::mojom::WindowOpenDisposition, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace ui::mojom::blink {

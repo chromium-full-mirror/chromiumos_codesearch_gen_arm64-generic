@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGTextPathElement>::value,
     "SVGTextPathElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGTextPathElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGTextPathElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startOffset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->method();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -137,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->spacing();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -156,7 +151,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPathElement* blink_receiver = V8SVGTextPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

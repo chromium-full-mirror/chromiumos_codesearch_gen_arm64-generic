@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -53,18 +54,18 @@ std::u16string GetPrintErrorParseError(base::StringPiece as_string);
 namespace ReportPrinters {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Parameter identifying the event instance for which the     callback is run.
   int request_id;
 
   // List of printers reported by the extension.
-  absl::optional<std::vector<extensions::api::printer_provider::PrinterInfo>> printers;
+  std::optional<std::vector<extensions::api::printer_provider::PrinterInfo>> printers;
 
 
  private:
@@ -76,18 +77,18 @@ struct Params {
 namespace ReportUsbPrinterInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Parameter identifying the event instance for which the     callback is run.
   int request_id;
 
   // Printer information reported by the extension.
-  absl::optional<extensions::api::printer_provider::PrinterInfo> printer_info;
+  std::optional<extensions::api::printer_provider::PrinterInfo> printer_info;
 
 
  private:
@@ -99,11 +100,11 @@ struct Params {
 namespace ReportPrinterCapability {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Capability {
@@ -111,8 +112,8 @@ struct Params {
     ~Capability();
     Capability(const Capability&) = delete;
     Capability& operator=(const Capability&) = delete;
-    Capability(Capability&& rhs);
-    Capability& operator=(Capability&& rhs);
+    Capability(Capability&& rhs) noexcept;
+    Capability& operator=(Capability&& rhs) noexcept;
 
     // Populates a Capability object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -127,10 +128,10 @@ struct Params {
 
     // Creates a Capability object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Capability> FromValue(const base::Value::Dict& value);
+    static std::optional<Capability> FromValue(const base::Value::Dict& value);
 
     // Creates a Capability object from a base::Value, or nullopt on failure.
-    static absl::optional<Capability> FromValue(const base::Value& value);
+    static std::optional<Capability> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -138,7 +139,7 @@ struct Params {
 
   int request_id;
 
-  absl::optional<Capability> capability;
+  std::optional<Capability> capability;
 
 
  private:
@@ -150,11 +151,11 @@ struct Params {
 namespace ReportPrintResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int request_id;
@@ -172,11 +173,11 @@ struct Params {
 namespace GetPrintData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The request id for the print request for which data is     needed.
@@ -194,8 +195,8 @@ struct Blob {
   ~Blob();
   Blob(const Blob&) = delete;
   Blob& operator=(const Blob&) = delete;
-  Blob(Blob&& rhs);
-  Blob& operator=(Blob&& rhs);
+  Blob(Blob&& rhs) noexcept;
+  Blob& operator=(Blob&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBlob object.

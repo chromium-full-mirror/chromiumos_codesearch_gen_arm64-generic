@@ -8,14 +8,6 @@
     ],
     "types": [
       {
-        "cpp": "uint64_t",
-        "mojom": "attribution_reporting.mojom.DebugKey"
-      },
-      {
-        "cpp": "uint64_t",
-        "mojom": "attribution_reporting.mojom.TriggerDedupKey"
-      },
-      {
         "cpp": "::attribution_reporting::SuitableOrigin",
         "default_constructible": false,
         "forward_declaration": "namespace attribution_reporting { class SuitableOrigin; }",
@@ -86,9 +78,14 @@
         "mojom": "attribution_reporting.mojom.EventReportWindows"
       },
       {
-        "cpp": "::attribution_reporting::TriggerConfig",
-        "forward_declaration": "namespace attribution_reporting { class TriggerConfig; }",
-        "mojom": "attribution_reporting.mojom.TriggerConfig"
+        "cpp": "::attribution_reporting::TriggerSpec",
+        "forward_declaration": "namespace attribution_reporting { class TriggerSpec; }",
+        "mojom": "attribution_reporting.mojom.TriggerSpec"
+      },
+      {
+        "cpp": "::attribution_reporting::TriggerSpecs",
+        "forward_declaration": "namespace attribution_reporting { class TriggerSpecs; }",
+        "mojom": "attribution_reporting.mojom.TriggerSpecs"
       }
     ]
   }

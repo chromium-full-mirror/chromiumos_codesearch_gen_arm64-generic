@@ -4,157 +4,197 @@
 #include "ipc.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace patchpanel {
+template <typename>
 PROTOBUF_CONSTEXPR SubprocessMessage::SubprocessMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct SubprocessMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SubprocessMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SubprocessMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SubprocessMessageDefaultTypeInternal() {}
   union {
     SubprocessMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubprocessMessageDefaultTypeInternal _SubprocessMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubprocessMessageDefaultTypeInternal _SubprocessMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ControlMessage::ControlMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ControlMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ControlMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ControlMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ControlMessageDefaultTypeInternal() {}
   union {
     ControlMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControlMessageDefaultTypeInternal _ControlMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControlMessageDefaultTypeInternal _ControlMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FeedbackMessage::FeedbackMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct FeedbackMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeedbackMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeedbackMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeedbackMessageDefaultTypeInternal() {}
   union {
     FeedbackMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeedbackMessageDefaultTypeInternal _FeedbackMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeedbackMessageDefaultTypeInternal _FeedbackMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DeviceMessage::DeviceMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.dev_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.br_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.teardown_)*/false
-  , /*decltype(_impl_.force_local_next_hop_)*/false} {}
+  , /*decltype(_impl_.dev_ifname_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.br_ifname_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.teardown_)*/ false
+
+  , /*decltype(_impl_.force_local_next_hop_)*/ false
+} {}
 struct DeviceMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DeviceMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DeviceMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeviceMessageDefaultTypeInternal() {}
   union {
     DeviceMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceMessageDefaultTypeInternal _DeviceMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceMessageDefaultTypeInternal _DeviceMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR GuestMessage::GuestMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.type_)*/0
-  , /*decltype(_impl_.event_)*/0
-  , /*decltype(_impl_.arc_pid_)*/0
-  , /*decltype(_impl_.arcvm_vsock_cid_)*/0u} {}
+  , /*decltype(_impl_.type_)*/ 0
+
+  , /*decltype(_impl_.event_)*/ 0
+
+  , /*decltype(_impl_.arc_pid_)*/ 0
+
+  , /*decltype(_impl_.arcvm_vsock_cid_)*/ 0u
+} {}
 struct GuestMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GuestMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GuestMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GuestMessageDefaultTypeInternal() {}
   union {
     GuestMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NDProxyControlMessage::NDProxyControlMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.type_)*/0
-  , /*decltype(_impl_.if_id_primary_)*/0
-  , /*decltype(_impl_.if_id_secondary_)*/0} {}
+  , /*decltype(_impl_.type_)*/ 0
+
+  , /*decltype(_impl_.if_id_primary_)*/ 0
+
+  , /*decltype(_impl_.if_id_secondary_)*/ 0
+} {}
 struct NDProxyControlMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NDProxyControlMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NDProxyControlMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NDProxyControlMessageDefaultTypeInternal() {}
   union {
     NDProxyControlMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NDProxySignalMessage::NDProxySignalMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.event_type_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct NDProxySignalMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NDProxySignalMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NDProxySignalMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NDProxySignalMessageDefaultTypeInternal() {}
   union {
     NDProxySignalMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxySignalMessageDefaultTypeInternal _NDProxySignalMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxySignalMessageDefaultTypeInternal _NDProxySignalMessage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NeighborDetectedSignal::NeighborDetectedSignal(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.if_id_)*/0} {}
+  , /*decltype(_impl_.ip_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.if_id_)*/ 0
+} {}
 struct NeighborDetectedSignalDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NeighborDetectedSignalDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NeighborDetectedSignalDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NeighborDetectedSignalDefaultTypeInternal() {}
   union {
     NeighborDetectedSignal _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NeighborDetectedSignalDefaultTypeInternal _NeighborDetectedSignal_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NeighborDetectedSignalDefaultTypeInternal _NeighborDetectedSignal_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RouterDetectedSignal::RouterDetectedSignal(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.if_id_)*/0
-  , /*decltype(_impl_.prefix_len_)*/0} {}
+  , /*decltype(_impl_.ip_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.if_id_)*/ 0
+
+  , /*decltype(_impl_.prefix_len_)*/ 0
+} {}
 struct RouterDetectedSignalDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RouterDetectedSignalDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RouterDetectedSignalDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RouterDetectedSignalDefaultTypeInternal() {}
   union {
     RouterDetectedSignal _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RouterDetectedSignalDefaultTypeInternal _RouterDetectedSignal_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RouterDetectedSignalDefaultTypeInternal _RouterDetectedSignal_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool GuestMessage_GuestType_IsValid(int value) {
@@ -171,55 +211,55 @@ bool GuestMessage_GuestType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    GuestMessage_GuestType_strings[7] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GuestMessage_GuestType_strings[7] = {};
+static const char GuestMessage_GuestType_names[] = {
+    "ARC"
+    "ARC_VM"
+    "BOREALIS_VM"
+    "BRUSCHETTA_VM"
+    "PARALLELS_VM"
+    "TERMINA_VM"
+    "UNKNOWN_GUEST"
+};
 
-static const char GuestMessage_GuestType_names[] =
-  "ARC"
-  "ARC_VM"
-  "BOREALIS_VM"
-  "BRUSCHETTA_VM"
-  "PARALLELS_VM"
-  "TERMINA_VM"
-  "UNKNOWN_GUEST";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestMessage_GuestType_entries[] = {
-  { {GuestMessage_GuestType_names + 0, 3}, 1 },
-  { {GuestMessage_GuestType_names + 3, 6}, 2 },
-  { {GuestMessage_GuestType_names + 9, 11}, 6 },
-  { {GuestMessage_GuestType_names + 20, 13}, 5 },
-  { {GuestMessage_GuestType_names + 33, 12}, 4 },
-  { {GuestMessage_GuestType_names + 45, 10}, 3 },
-  { {GuestMessage_GuestType_names + 55, 13}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestMessage_GuestType_entries[] =
+    {
+        {{&GuestMessage_GuestType_names[0], 3}, 1},
+        {{&GuestMessage_GuestType_names[3], 6}, 2},
+        {{&GuestMessage_GuestType_names[9], 11}, 6},
+        {{&GuestMessage_GuestType_names[20], 13}, 5},
+        {{&GuestMessage_GuestType_names[33], 12}, 4},
+        {{&GuestMessage_GuestType_names[45], 10}, 3},
+        {{&GuestMessage_GuestType_names[55], 13}, 0},
 };
 
 static const int GuestMessage_GuestType_entries_by_number[] = {
-  6, // 0 -> UNKNOWN_GUEST
-  0, // 1 -> ARC
-  1, // 2 -> ARC_VM
-  5, // 3 -> TERMINA_VM
-  4, // 4 -> PARALLELS_VM
-  3, // 5 -> BRUSCHETTA_VM
-  2, // 6 -> BOREALIS_VM
+    6,  // 0 -> UNKNOWN_GUEST
+    0,  // 1 -> ARC
+    1,  // 2 -> ARC_VM
+    5,  // 3 -> TERMINA_VM
+    4,  // 4 -> PARALLELS_VM
+    3,  // 5 -> BRUSCHETTA_VM
+    2,  // 6 -> BOREALIS_VM
 };
 
-const std::string& GuestMessage_GuestType_Name(
-    GuestMessage_GuestType value) {
-  static const bool dummy =
+const std::string& GuestMessage_GuestType_Name(GuestMessage_GuestType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          GuestMessage_GuestType_entries,
-          GuestMessage_GuestType_entries_by_number,
+          GuestMessage_GuestType_entries, GuestMessage_GuestType_entries_by_number,
           7, GuestMessage_GuestType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      GuestMessage_GuestType_entries,
-      GuestMessage_GuestType_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     GuestMessage_GuestType_strings[idx].get();
+      GuestMessage_GuestType_entries, GuestMessage_GuestType_entries_by_number, 7,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : GuestMessage_GuestType_strings[idx].get();
 }
-bool GuestMessage_GuestType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GuestMessage_GuestType* value) {
+
+bool GuestMessage_GuestType_Parse(absl::string_view name, GuestMessage_GuestType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       GuestMessage_GuestType_entries, 7, name, &int_value);
@@ -228,7 +268,9 @@ bool GuestMessage_GuestType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr GuestMessage_GuestType GuestMessage::UNKNOWN_GUEST;
 constexpr GuestMessage_GuestType GuestMessage::ARC;
 constexpr GuestMessage_GuestType GuestMessage::ARC_VM;
@@ -239,7 +281,9 @@ constexpr GuestMessage_GuestType GuestMessage::BOREALIS_VM;
 constexpr GuestMessage_GuestType GuestMessage::GuestType_MIN;
 constexpr GuestMessage_GuestType GuestMessage::GuestType_MAX;
 constexpr int GuestMessage::GuestType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool GuestMessage_GuestEvent_IsValid(int value) {
   switch (value) {
     case 0:
@@ -250,43 +294,43 @@ bool GuestMessage_GuestEvent_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    GuestMessage_GuestEvent_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GuestMessage_GuestEvent_strings[3] = {};
+static const char GuestMessage_GuestEvent_names[] = {
+    "START"
+    "STOP"
+    "UNKNOWN_EVENT"
+};
 
-static const char GuestMessage_GuestEvent_names[] =
-  "START"
-  "STOP"
-  "UNKNOWN_EVENT";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestMessage_GuestEvent_entries[] = {
-  { {GuestMessage_GuestEvent_names + 0, 5}, 1 },
-  { {GuestMessage_GuestEvent_names + 5, 4}, 2 },
-  { {GuestMessage_GuestEvent_names + 9, 13}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestMessage_GuestEvent_entries[] =
+    {
+        {{&GuestMessage_GuestEvent_names[0], 5}, 1},
+        {{&GuestMessage_GuestEvent_names[5], 4}, 2},
+        {{&GuestMessage_GuestEvent_names[9], 13}, 0},
 };
 
 static const int GuestMessage_GuestEvent_entries_by_number[] = {
-  2, // 0 -> UNKNOWN_EVENT
-  0, // 1 -> START
-  1, // 2 -> STOP
+    2,  // 0 -> UNKNOWN_EVENT
+    0,  // 1 -> START
+    1,  // 2 -> STOP
 };
 
-const std::string& GuestMessage_GuestEvent_Name(
-    GuestMessage_GuestEvent value) {
-  static const bool dummy =
+const std::string& GuestMessage_GuestEvent_Name(GuestMessage_GuestEvent value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          GuestMessage_GuestEvent_entries,
-          GuestMessage_GuestEvent_entries_by_number,
+          GuestMessage_GuestEvent_entries, GuestMessage_GuestEvent_entries_by_number,
           3, GuestMessage_GuestEvent_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      GuestMessage_GuestEvent_entries,
-      GuestMessage_GuestEvent_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     GuestMessage_GuestEvent_strings[idx].get();
+      GuestMessage_GuestEvent_entries, GuestMessage_GuestEvent_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : GuestMessage_GuestEvent_strings[idx].get();
 }
-bool GuestMessage_GuestEvent_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GuestMessage_GuestEvent* value) {
+
+bool GuestMessage_GuestEvent_Parse(absl::string_view name, GuestMessage_GuestEvent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       GuestMessage_GuestEvent_entries, 3, name, &int_value);
@@ -295,14 +339,18 @@ bool GuestMessage_GuestEvent_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr GuestMessage_GuestEvent GuestMessage::UNKNOWN_EVENT;
 constexpr GuestMessage_GuestEvent GuestMessage::START;
 constexpr GuestMessage_GuestEvent GuestMessage::STOP;
 constexpr GuestMessage_GuestEvent GuestMessage::GuestEvent_MIN;
 constexpr GuestMessage_GuestEvent GuestMessage::GuestEvent_MAX;
 constexpr int GuestMessage::GuestEvent_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -317,55 +365,55 @@ bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    NDProxyControlMessage_NDProxyRequestType_strings[7] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NDProxyControlMessage_NDProxyRequestType_strings[7] = {};
+static const char NDProxyControlMessage_NDProxyRequestType_names[] = {
+    "START_NEIGHBOR_MONITOR"
+    "START_NS_NA"
+    "START_NS_NA_RS_RA"
+    "START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS"
+    "STOP_NEIGHBOR_MONITOR"
+    "STOP_PROXY"
+    "UNKNOWN"
+};
 
-static const char NDProxyControlMessage_NDProxyRequestType_names[] =
-  "START_NEIGHBOR_MONITOR"
-  "START_NS_NA"
-  "START_NS_NA_RS_RA"
-  "START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS"
-  "STOP_NEIGHBOR_MONITOR"
-  "STOP_PROXY"
-  "UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NDProxyControlMessage_NDProxyRequestType_entries[] = {
-  { {NDProxyControlMessage_NDProxyRequestType_names + 0, 22}, 5 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 22, 11}, 1 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 33, 17}, 2 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 50, 42}, 3 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 92, 21}, 6 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 113, 10}, 4 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 123, 7}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NDProxyControlMessage_NDProxyRequestType_entries[] =
+    {
+        {{&NDProxyControlMessage_NDProxyRequestType_names[0], 22}, 5},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[22], 11}, 1},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[33], 17}, 2},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[50], 42}, 3},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[92], 21}, 6},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[113], 10}, 4},
+        {{&NDProxyControlMessage_NDProxyRequestType_names[123], 7}, 0},
 };
 
 static const int NDProxyControlMessage_NDProxyRequestType_entries_by_number[] = {
-  6, // 0 -> UNKNOWN
-  1, // 1 -> START_NS_NA
-  2, // 2 -> START_NS_NA_RS_RA
-  3, // 3 -> START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS
-  5, // 4 -> STOP_PROXY
-  0, // 5 -> START_NEIGHBOR_MONITOR
-  4, // 6 -> STOP_NEIGHBOR_MONITOR
+    6,  // 0 -> UNKNOWN
+    1,  // 1 -> START_NS_NA
+    2,  // 2 -> START_NS_NA_RS_RA
+    3,  // 3 -> START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS
+    5,  // 4 -> STOP_PROXY
+    0,  // 5 -> START_NEIGHBOR_MONITOR
+    4,  // 6 -> STOP_NEIGHBOR_MONITOR
 };
 
-const std::string& NDProxyControlMessage_NDProxyRequestType_Name(
-    NDProxyControlMessage_NDProxyRequestType value) {
-  static const bool dummy =
+const std::string& NDProxyControlMessage_NDProxyRequestType_Name(NDProxyControlMessage_NDProxyRequestType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          NDProxyControlMessage_NDProxyRequestType_entries,
-          NDProxyControlMessage_NDProxyRequestType_entries_by_number,
+          NDProxyControlMessage_NDProxyRequestType_entries, NDProxyControlMessage_NDProxyRequestType_entries_by_number,
           7, NDProxyControlMessage_NDProxyRequestType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      NDProxyControlMessage_NDProxyRequestType_entries,
-      NDProxyControlMessage_NDProxyRequestType_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     NDProxyControlMessage_NDProxyRequestType_strings[idx].get();
+      NDProxyControlMessage_NDProxyRequestType_entries, NDProxyControlMessage_NDProxyRequestType_entries_by_number, 7,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : NDProxyControlMessage_NDProxyRequestType_strings[idx].get();
 }
-bool NDProxyControlMessage_NDProxyRequestType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NDProxyControlMessage_NDProxyRequestType* value) {
+
+bool NDProxyControlMessage_NDProxyRequestType_Parse(absl::string_view name, NDProxyControlMessage_NDProxyRequestType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       NDProxyControlMessage_NDProxyRequestType_entries, 7, name, &int_value);
@@ -374,7 +422,9 @@ bool NDProxyControlMessage_NDProxyRequestType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::UNKNOWN;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_NS_NA;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_NS_NA_RS_RA;
@@ -385,12 +435,15 @@ constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::STOP_N
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::NDProxyRequestType_MIN;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::NDProxyRequestType_MAX;
 constexpr int NDProxyControlMessage::NDProxyRequestType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class SubprocessMessage::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::patchpanel::SubprocessMessage, _impl_._oneof_case_);
   static const ::patchpanel::ControlMessage& control_message(const SubprocessMessage* msg);
   static const ::patchpanel::FeedbackMessage& feedback_message(const SubprocessMessage* msg);
 };
@@ -433,10 +486,9 @@ void SubprocessMessage::set_allocated_feedback_message(::patchpanel::FeedbackMes
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.SubprocessMessage.feedback_message)
 }
-SubprocessMessage::SubprocessMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SubprocessMessage::SubprocessMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.SubprocessMessage)
 }
 SubprocessMessage::SubprocessMessage(const SubprocessMessage& from)
@@ -467,10 +519,8 @@ SubprocessMessage::SubprocessMessage(const SubprocessMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.SubprocessMessage)
 }
 
-inline void SubprocessMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SubprocessMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -489,7 +539,7 @@ SubprocessMessage::~SubprocessMessage() {
 }
 
 inline void SubprocessMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_message_type()) {
     clear_message_type();
   }
@@ -524,7 +574,7 @@ void SubprocessMessage::clear_message_type() {
 
 void SubprocessMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.SubprocessMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -535,24 +585,26 @@ void SubprocessMessage::Clear() {
 const char* SubprocessMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.ControlMessage control_message = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_control_message(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .patchpanel.FeedbackMessage feedback_message = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_feedback_message(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -577,10 +629,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SubprocessMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SubprocessMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.SubprocessMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (message_type_case()) {
@@ -606,11 +658,11 @@ uint8_t* SubprocessMessage::_InternalSerialize(
   return target;
 }
 
-size_t SubprocessMessage::ByteSizeLong() const {
+::size_t SubprocessMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.SubprocessMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -650,8 +702,8 @@ void SubprocessMessage::CheckTypeAndMergeFrom(
 void SubprocessMessage::MergeFrom(const SubprocessMessage& from) {
   SubprocessMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SubprocessMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
@@ -682,13 +734,13 @@ void SubprocessMessage::CopyFrom(const SubprocessMessage& from) {
 bool SubprocessMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kControlMessage: {
-      if (_internal_has_control_message()) {
+      if (message_type_case() == kControlMessage) {
         if (!_impl_.message_type_.control_message_->IsInitialized()) return false;
       }
       break;
     }
     case kFeedbackMessage: {
-      if (_internal_has_feedback_message()) {
+      if (message_type_case() == kFeedbackMessage) {
         if (!_impl_.message_type_.feedback_message_->IsInitialized()) return false;
       }
       break;
@@ -711,11 +763,12 @@ std::string SubprocessMessage::GetTypeName() const {
   return "patchpanel.SubprocessMessage";
 }
 
-
 // ===================================================================
 
 class ControlMessage::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::patchpanel::ControlMessage, _impl_._oneof_case_);
   static const ::patchpanel::GuestMessage& guest_message(const ControlMessage* msg);
   static const ::patchpanel::DeviceMessage& device_message(const ControlMessage* msg);
   static const ::patchpanel::NDProxyControlMessage& ndproxy_control(const ControlMessage* msg);
@@ -778,10 +831,9 @@ void ControlMessage::set_allocated_ndproxy_control(::patchpanel::NDProxyControlM
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.ControlMessage.ndproxy_control)
 }
-ControlMessage::ControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ControlMessage::ControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.ControlMessage)
 }
 ControlMessage::ControlMessage(const ControlMessage& from)
@@ -817,10 +869,8 @@ ControlMessage::ControlMessage(const ControlMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.ControlMessage)
 }
 
-inline void ControlMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ControlMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -839,7 +889,7 @@ ControlMessage::~ControlMessage() {
 }
 
 inline void ControlMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_message_type()) {
     clear_message_type();
   }
@@ -880,7 +930,7 @@ void ControlMessage::clear_message_type() {
 
 void ControlMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.ControlMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -891,32 +941,35 @@ void ControlMessage::Clear() {
 const char* ControlMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.GuestMessage guest_message = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_guest_message(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .patchpanel.DeviceMessage device_message = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_message(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .patchpanel.NDProxyControlMessage ndproxy_control = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_ndproxy_control(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -941,10 +994,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ControlMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ControlMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.ControlMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (message_type_case()) {
@@ -976,11 +1029,11 @@ uint8_t* ControlMessage::_InternalSerialize(
   return target;
 }
 
-size_t ControlMessage::ByteSizeLong() const {
+::size_t ControlMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.ControlMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1027,8 +1080,8 @@ void ControlMessage::CheckTypeAndMergeFrom(
 void ControlMessage::MergeFrom(const ControlMessage& from) {
   ControlMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ControlMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
@@ -1064,19 +1117,19 @@ void ControlMessage::CopyFrom(const ControlMessage& from) {
 bool ControlMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kGuestMessage: {
-      if (_internal_has_guest_message()) {
+      if (message_type_case() == kGuestMessage) {
         if (!_impl_.message_type_.guest_message_->IsInitialized()) return false;
       }
       break;
     }
     case kDeviceMessage: {
-      if (_internal_has_device_message()) {
+      if (message_type_case() == kDeviceMessage) {
         if (!_impl_.message_type_.device_message_->IsInitialized()) return false;
       }
       break;
     }
     case kNdproxyControl: {
-      if (_internal_has_ndproxy_control()) {
+      if (message_type_case() == kNdproxyControl) {
         if (!_impl_.message_type_.ndproxy_control_->IsInitialized()) return false;
       }
       break;
@@ -1099,11 +1152,12 @@ std::string ControlMessage::GetTypeName() const {
   return "patchpanel.ControlMessage";
 }
 
-
 // ===================================================================
 
 class FeedbackMessage::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::patchpanel::FeedbackMessage, _impl_._oneof_case_);
   static const ::patchpanel::NDProxySignalMessage& ndproxy_signal(const FeedbackMessage* msg);
 };
 
@@ -1126,10 +1180,9 @@ void FeedbackMessage::set_allocated_ndproxy_signal(::patchpanel::NDProxySignalMe
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.FeedbackMessage.ndproxy_signal)
 }
-FeedbackMessage::FeedbackMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FeedbackMessage::FeedbackMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.FeedbackMessage)
 }
 FeedbackMessage::FeedbackMessage(const FeedbackMessage& from)
@@ -1155,10 +1208,8 @@ FeedbackMessage::FeedbackMessage(const FeedbackMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.FeedbackMessage)
 }
 
-inline void FeedbackMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FeedbackMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1177,7 +1228,7 @@ FeedbackMessage::~FeedbackMessage() {
 }
 
 inline void FeedbackMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_message_type()) {
     clear_message_type();
   }
@@ -1206,7 +1257,7 @@ void FeedbackMessage::clear_message_type() {
 
 void FeedbackMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.FeedbackMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1217,16 +1268,17 @@ void FeedbackMessage::Clear() {
 const char* FeedbackMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_ndproxy_signal(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1251,14 +1303,14 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeedbackMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FeedbackMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.FeedbackMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
-  if (_internal_has_ndproxy_signal()) {
+  if (message_type_case() == kNdproxySignal) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::ndproxy_signal(this),
         _Internal::ndproxy_signal(this).GetCachedSize(), target, stream);
@@ -1272,11 +1324,11 @@ uint8_t* FeedbackMessage::_InternalSerialize(
   return target;
 }
 
-size_t FeedbackMessage::ByteSizeLong() const {
+::size_t FeedbackMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.FeedbackMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1309,8 +1361,8 @@ void FeedbackMessage::CheckTypeAndMergeFrom(
 void FeedbackMessage::MergeFrom(const FeedbackMessage& from) {
   FeedbackMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.FeedbackMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
@@ -1336,7 +1388,7 @@ void FeedbackMessage::CopyFrom(const FeedbackMessage& from) {
 bool FeedbackMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kNdproxySignal: {
-      if (_internal_has_ndproxy_signal()) {
+      if (message_type_case() == kNdproxySignal) {
         if (!_impl_.message_type_.ndproxy_signal_->IsInitialized()) return false;
       }
       break;
@@ -1359,12 +1411,13 @@ std::string FeedbackMessage::GetTypeName() const {
   return "patchpanel.FeedbackMessage";
 }
 
-
 // ===================================================================
 
 class DeviceMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceMessage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_._has_bits_);
   static void set_has_dev_ifname(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1382,10 +1435,9 @@ class DeviceMessage::_Internal {
   }
 };
 
-DeviceMessage::DeviceMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DeviceMessage::DeviceMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.DeviceMessage)
 }
 DeviceMessage::DeviceMessage(const DeviceMessage& from)
@@ -1394,54 +1446,58 @@ DeviceMessage::DeviceMessage(const DeviceMessage& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dev_ifname_){}
-    , decltype(_impl_.br_ifname_){}
-    , decltype(_impl_.teardown_){}
-    , decltype(_impl_.force_local_next_hop_){}};
+    , decltype(_impl_.dev_ifname_) {}
+
+    , decltype(_impl_.br_ifname_) {}
+
+    , decltype(_impl_.teardown_) {}
+
+    , decltype(_impl_.force_local_next_hop_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.dev_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.dev_ifname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_dev_ifname()) {
-    _this->_impl_.dev_ifname_.Set(from._internal_dev_ifname(), 
-      _this->GetArenaForAllocation());
+        _impl_.dev_ifname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.dev_ifname_.Set(from._internal_dev_ifname(), _this->GetArenaForAllocation());
   }
   _impl_.br_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.br_ifname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_br_ifname()) {
-    _this->_impl_.br_ifname_.Set(from._internal_br_ifname(), 
-      _this->GetArenaForAllocation());
+        _impl_.br_ifname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.br_ifname_.Set(from._internal_br_ifname(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.teardown_, &from._impl_.teardown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
     reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.DeviceMessage)
 }
 
-inline void DeviceMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DeviceMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dev_ifname_){}
-    , decltype(_impl_.br_ifname_){}
-    , decltype(_impl_.teardown_){false}
-    , decltype(_impl_.force_local_next_hop_){false}
+    , decltype(_impl_.dev_ifname_) {}
+
+    , decltype(_impl_.br_ifname_) {}
+
+    , decltype(_impl_.teardown_) { false }
+
+    , decltype(_impl_.force_local_next_hop_) { false }
+
   };
   _impl_.dev_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.dev_ifname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.dev_ifname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.br_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.br_ifname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.br_ifname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeviceMessage::~DeviceMessage() {
@@ -1454,7 +1510,7 @@ DeviceMessage::~DeviceMessage() {
 }
 
 inline void DeviceMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.dev_ifname_.Destroy();
   _impl_.br_ifname_.Destroy();
 }
@@ -1465,7 +1521,7 @@ void DeviceMessage::SetCachedSize(int size) const {
 
 void DeviceMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.DeviceMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1478,7 +1534,7 @@ void DeviceMessage::Clear() {
       _impl_.br_ifname_.ClearNonDefaultToEmpty();
     }
   }
-  ::memset(&_impl_.teardown_, 0, static_cast<size_t>(
+  ::memset(&_impl_.teardown_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
       reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
   _impl_._has_bits_.Clear();
@@ -1489,44 +1545,48 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string dev_ifname = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_dev_ifname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string br_ifname = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_br_ifname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool teardown = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_teardown(&has_bits);
           _impl_.teardown_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool force_local_next_hop = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_force_local_next_hop(&has_bits);
           _impl_.force_local_next_hop_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1552,35 +1612,37 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DeviceMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DeviceMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DeviceMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required string dev_ifname = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_dev_ifname(), target);
+    const std::string& _s = this->_internal_dev_ifname();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional string br_ifname = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_br_ifname(), target);
+    const std::string& _s = this->_internal_br_ifname();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional bool teardown = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_teardown(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_teardown(), target);
   }
 
   // optional bool force_local_next_hop = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_force_local_next_hop(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_force_local_next_hop(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1591,17 +1653,16 @@ uint8_t* DeviceMessage::_InternalSerialize(
   return target;
 }
 
-size_t DeviceMessage::ByteSizeLong() const {
+::size_t DeviceMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.DeviceMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required string dev_ifname = 1;
-  if (_internal_has_dev_ifname()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_dev_ifname());
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_dev_ifname());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1609,19 +1670,18 @@ size_t DeviceMessage::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000eu) {
     // optional string br_ifname = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_br_ifname());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_br_ifname());
     }
 
     // optional bool teardown = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool force_local_next_hop = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -1642,8 +1702,8 @@ void DeviceMessage::CheckTypeAndMergeFrom(
 void DeviceMessage::MergeFrom(const DeviceMessage& from) {
   DeviceMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DeviceMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1683,14 +1743,10 @@ void DeviceMessage::InternalSwap(DeviceMessage* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.dev_ifname_, lhs_arena,
-      &other->_impl_.dev_ifname_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.br_ifname_, lhs_arena,
-      &other->_impl_.br_ifname_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.dev_ifname_, lhs_arena,
+                                       &other->_impl_.dev_ifname_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.br_ifname_, lhs_arena,
+                                       &other->_impl_.br_ifname_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.force_local_next_hop_)
       + sizeof(DeviceMessage::_impl_.force_local_next_hop_)
@@ -1703,12 +1759,13 @@ std::string DeviceMessage::GetTypeName() const {
   return "patchpanel.DeviceMessage";
 }
 
-
 // ===================================================================
 
 class GuestMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<GuestMessage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(GuestMessage, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1726,41 +1783,31 @@ class GuestMessage::_Internal {
   }
 };
 
-GuestMessage::GuestMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GuestMessage::GuestMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.GuestMessage)
 }
 GuestMessage::GuestMessage(const GuestMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GuestMessage* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.event_){}
-    , decltype(_impl_.arc_pid_){}
-    , decltype(_impl_.arcvm_vsock_cid_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.arcvm_vsock_cid_) -
-    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.arcvm_vsock_cid_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:patchpanel.GuestMessage)
 }
 
-inline void GuestMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void GuestMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){0}
-    , decltype(_impl_.event_){0}
-    , decltype(_impl_.arc_pid_){0}
-    , decltype(_impl_.arcvm_vsock_cid_){0u}
+    , decltype(_impl_.type_) { 0 }
+
+    , decltype(_impl_.event_) { 0 }
+
+    , decltype(_impl_.arc_pid_) { 0 }
+
+    , decltype(_impl_.arcvm_vsock_cid_) { 0u }
+
   };
 }
 
@@ -1774,7 +1821,7 @@ GuestMessage::~GuestMessage() {
 }
 
 inline void GuestMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void GuestMessage::SetCachedSize(int size) const {
@@ -1783,13 +1830,13 @@ void GuestMessage::SetCachedSize(int size) const {
 
 void GuestMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.GuestMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.arcvm_vsock_cid_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.arcvm_vsock_cid_));
   }
@@ -1801,52 +1848,56 @@ const char* GuestMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .patchpanel.GuestMessage.GuestType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::patchpanel::GuestMessage_GuestType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::patchpanel::GuestMessage_GuestType_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::patchpanel::GuestMessage_GuestType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required .patchpanel.GuestMessage.GuestEvent event = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::patchpanel::GuestMessage_GuestEvent_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::patchpanel::GuestMessage_GuestEvent_IsValid(static_cast<int>(val)))) {
             _internal_set_event(static_cast<::patchpanel::GuestMessage_GuestEvent>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 arc_pid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_arc_pid(&has_bits);
           _impl_.arc_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 arcvm_vsock_cid = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_arcvm_vsock_cid(&has_bits);
           _impl_.arcvm_vsock_cid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1872,10 +1923,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GuestMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* GuestMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.GuestMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -1883,26 +1934,28 @@ uint8_t* GuestMessage::_InternalSerialize(
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // required .patchpanel.GuestMessage.GuestEvent event = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_event(), target);
+        2, this->_internal_event(), target);
   }
 
   // optional int32 arc_pid = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_arc_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_arc_pid(), target);
   }
 
   // optional uint32 arcvm_vsock_cid = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_arcvm_vsock_cid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_arcvm_vsock_cid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1913,41 +1966,41 @@ uint8_t* GuestMessage::_InternalSerialize(
   return target;
 }
 
-size_t GuestMessage::RequiredFieldsByteSizeFallback() const {
+::size_t GuestMessage::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.GuestMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_type()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required .patchpanel.GuestMessage.GuestType type = 1;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
-  if (_internal_has_event()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required .patchpanel.GuestMessage.GuestEvent event = 2;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
   }
 
   return total_size;
 }
-size_t GuestMessage::ByteSizeLong() const {
+::size_t GuestMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.GuestMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required .patchpanel.GuestMessage.GuestType type = 1;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
 
     // required .patchpanel.GuestMessage.GuestEvent event = 2;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1955,12 +2008,14 @@ size_t GuestMessage::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000cu) {
     // optional int32 arc_pid = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_arc_pid());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_arc_pid());
     }
 
     // optional uint32 arcvm_vsock_cid = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_arcvm_vsock_cid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_arcvm_vsock_cid());
     }
 
   }
@@ -1981,8 +2036,8 @@ void GuestMessage::CheckTypeAndMergeFrom(
 void GuestMessage::MergeFrom(const GuestMessage& from) {
   GuestMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.GuestMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2032,12 +2087,13 @@ std::string GuestMessage::GetTypeName() const {
   return "patchpanel.GuestMessage";
 }
 
-
 // ===================================================================
 
 class NDProxyControlMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<NDProxyControlMessage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NDProxyControlMessage, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2052,39 +2108,29 @@ class NDProxyControlMessage::_Internal {
   }
 };
 
-NDProxyControlMessage::NDProxyControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NDProxyControlMessage::NDProxyControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxyControlMessage)
 }
 NDProxyControlMessage::NDProxyControlMessage(const NDProxyControlMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  NDProxyControlMessage* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.if_id_primary_){}
-    , decltype(_impl_.if_id_secondary_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.if_id_secondary_) -
-    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.if_id_secondary_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxyControlMessage)
 }
 
-inline void NDProxyControlMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NDProxyControlMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){0}
-    , decltype(_impl_.if_id_primary_){0}
-    , decltype(_impl_.if_id_secondary_){0}
+    , decltype(_impl_.type_) { 0 }
+
+    , decltype(_impl_.if_id_primary_) { 0 }
+
+    , decltype(_impl_.if_id_secondary_) { 0 }
+
   };
 }
 
@@ -2098,7 +2144,7 @@ NDProxyControlMessage::~NDProxyControlMessage() {
 }
 
 inline void NDProxyControlMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void NDProxyControlMessage::SetCachedSize(int size) const {
@@ -2107,13 +2153,13 @@ void NDProxyControlMessage::SetCachedSize(int size) const {
 
 void NDProxyControlMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.NDProxyControlMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.if_id_secondary_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.if_id_secondary_));
   }
@@ -2125,39 +2171,42 @@ const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::patchpanel::NDProxyControlMessage_NDProxyRequestType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::patchpanel::NDProxyControlMessage_NDProxyRequestType_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::patchpanel::NDProxyControlMessage_NDProxyRequestType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required int32 if_id_primary = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_if_id_primary(&has_bits);
           _impl_.if_id_primary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 if_id_secondary = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_if_id_secondary(&has_bits);
           _impl_.if_id_secondary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2183,10 +2232,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NDProxyControlMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NDProxyControlMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NDProxyControlMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -2194,19 +2243,21 @@ uint8_t* NDProxyControlMessage::_InternalSerialize(
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // required int32 if_id_primary = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_if_id_primary(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_if_id_primary(), target);
   }
 
   // optional int32 if_id_secondary = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_if_id_secondary(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_if_id_secondary(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2217,46 +2268,49 @@ uint8_t* NDProxyControlMessage::_InternalSerialize(
   return target;
 }
 
-size_t NDProxyControlMessage::RequiredFieldsByteSizeFallback() const {
+::size_t NDProxyControlMessage::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.NDProxyControlMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_type()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
-  if (_internal_has_if_id_primary()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required int32 if_id_primary = 2;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id_primary());
   }
 
   return total_size;
 }
-size_t NDProxyControlMessage::ByteSizeLong() const {
+::size_t NDProxyControlMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.NDProxyControlMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
 
     // required int32 if_id_primary = 2;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id_primary());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional int32 if_id_secondary = 3;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000004u) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_secondary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id_secondary());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2276,8 +2330,8 @@ void NDProxyControlMessage::CheckTypeAndMergeFrom(
 void NDProxyControlMessage::MergeFrom(const NDProxyControlMessage& from) {
   NDProxyControlMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxyControlMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2324,11 +2378,12 @@ std::string NDProxyControlMessage::GetTypeName() const {
   return "patchpanel.NDProxyControlMessage";
 }
 
-
 // ===================================================================
 
 class NDProxySignalMessage::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::patchpanel::NDProxySignalMessage, _impl_._oneof_case_);
   static const ::patchpanel::NeighborDetectedSignal& neighbor_detected_signal(const NDProxySignalMessage* msg);
   static const ::patchpanel::RouterDetectedSignal& router_detected_signal(const NDProxySignalMessage* msg);
 };
@@ -2371,10 +2426,9 @@ void NDProxySignalMessage::set_allocated_router_detected_signal(::patchpanel::Ro
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxySignalMessage.router_detected_signal)
 }
-NDProxySignalMessage::NDProxySignalMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NDProxySignalMessage::NDProxySignalMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxySignalMessage)
 }
 NDProxySignalMessage::NDProxySignalMessage(const NDProxySignalMessage& from)
@@ -2405,10 +2459,8 @@ NDProxySignalMessage::NDProxySignalMessage(const NDProxySignalMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxySignalMessage)
 }
 
-inline void NDProxySignalMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NDProxySignalMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.event_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2427,7 +2479,7 @@ NDProxySignalMessage::~NDProxySignalMessage() {
 }
 
 inline void NDProxySignalMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_event_type()) {
     clear_event_type();
   }
@@ -2462,7 +2514,7 @@ void NDProxySignalMessage::clear_event_type() {
 
 void NDProxySignalMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.NDProxySignalMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2473,24 +2525,26 @@ void NDProxySignalMessage::Clear() {
 const char* NDProxySignalMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.NeighborDetectedSignal neighbor_detected_signal = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_neighbor_detected_signal(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .patchpanel.RouterDetectedSignal router_detected_signal = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_router_detected_signal(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2515,10 +2569,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NDProxySignalMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NDProxySignalMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NDProxySignalMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (event_type_case()) {
@@ -2544,11 +2598,11 @@ uint8_t* NDProxySignalMessage::_InternalSerialize(
   return target;
 }
 
-size_t NDProxySignalMessage::ByteSizeLong() const {
+::size_t NDProxySignalMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.NDProxySignalMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2588,8 +2642,8 @@ void NDProxySignalMessage::CheckTypeAndMergeFrom(
 void NDProxySignalMessage::MergeFrom(const NDProxySignalMessage& from) {
   NDProxySignalMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxySignalMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.event_type_case()) {
@@ -2620,13 +2674,13 @@ void NDProxySignalMessage::CopyFrom(const NDProxySignalMessage& from) {
 bool NDProxySignalMessage::IsInitialized() const {
   switch (event_type_case()) {
     case kNeighborDetectedSignal: {
-      if (_internal_has_neighbor_detected_signal()) {
+      if (event_type_case() == kNeighborDetectedSignal) {
         if (!_impl_.event_type_.neighbor_detected_signal_->IsInitialized()) return false;
       }
       break;
     }
     case kRouterDetectedSignal: {
-      if (_internal_has_router_detected_signal()) {
+      if (event_type_case() == kRouterDetectedSignal) {
         if (!_impl_.event_type_.router_detected_signal_->IsInitialized()) return false;
       }
       break;
@@ -2649,12 +2703,13 @@ std::string NDProxySignalMessage::GetTypeName() const {
   return "patchpanel.NDProxySignalMessage";
 }
 
-
 // ===================================================================
 
 class NeighborDetectedSignal::_Internal {
  public:
   using HasBits = decltype(std::declval<NeighborDetectedSignal>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NeighborDetectedSignal, _impl_._has_bits_);
   static void set_has_if_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -2666,10 +2721,9 @@ class NeighborDetectedSignal::_Internal {
   }
 };
 
-NeighborDetectedSignal::NeighborDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NeighborDetectedSignal::NeighborDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NeighborDetectedSignal)
 }
 NeighborDetectedSignal::NeighborDetectedSignal(const NeighborDetectedSignal& from)
@@ -2678,36 +2732,37 @@ NeighborDetectedSignal::NeighborDetectedSignal(const NeighborDetectedSignal& fro
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.if_id_){}};
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.if_id_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_ip()) {
-    _this->_impl_.ip_.Set(from._internal_ip(), 
-      _this->GetArenaForAllocation());
+        _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.ip_.Set(from._internal_ip(), _this->GetArenaForAllocation());
   }
   _this->_impl_.if_id_ = from._impl_.if_id_;
   // @@protoc_insertion_point(copy_constructor:patchpanel.NeighborDetectedSignal)
 }
 
-inline void NeighborDetectedSignal::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NeighborDetectedSignal::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.if_id_){0}
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.if_id_) { 0 }
+
   };
   _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 NeighborDetectedSignal::~NeighborDetectedSignal() {
@@ -2720,7 +2775,7 @@ NeighborDetectedSignal::~NeighborDetectedSignal() {
 }
 
 inline void NeighborDetectedSignal::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.ip_.Destroy();
 }
 
@@ -2730,7 +2785,7 @@ void NeighborDetectedSignal::SetCachedSize(int size) const {
 
 void NeighborDetectedSignal::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.NeighborDetectedSignal)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2747,26 +2802,28 @@ const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required int32 if_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_if_id(&has_bits);
           _impl_.if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required bytes ip = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_ip();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2792,23 +2849,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NeighborDetectedSignal::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NeighborDetectedSignal::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NeighborDetectedSignal)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required int32 if_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_if_id(), target);
   }
 
   // required bytes ip = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_ip(), target);
+    const std::string& _s = this->_internal_ip();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2819,41 +2877,41 @@ uint8_t* NeighborDetectedSignal::_InternalSerialize(
   return target;
 }
 
-size_t NeighborDetectedSignal::RequiredFieldsByteSizeFallback() const {
+::size_t NeighborDetectedSignal::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.NeighborDetectedSignal)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_ip()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required bytes ip = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ip());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ip());
   }
 
-  if (_internal_has_if_id()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required int32 if_id = 1;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id());
   }
 
   return total_size;
 }
-size_t NeighborDetectedSignal::ByteSizeLong() const {
+::size_t NeighborDetectedSignal::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.NeighborDetectedSignal)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required bytes ip = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ip());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ip());
 
     // required int32 if_id = 1;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2874,8 +2932,8 @@ void NeighborDetectedSignal::CheckTypeAndMergeFrom(
 void NeighborDetectedSignal::MergeFrom(const NeighborDetectedSignal& from) {
   NeighborDetectedSignal* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NeighborDetectedSignal)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2909,10 +2967,9 @@ void NeighborDetectedSignal::InternalSwap(NeighborDetectedSignal* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.ip_, lhs_arena,
-      &other->_impl_.ip_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.ip_, lhs_arena,
+                                       &other->_impl_.ip_, rhs_arena);
+
   swap(_impl_.if_id_, other->_impl_.if_id_);
 }
 
@@ -2920,12 +2977,13 @@ std::string NeighborDetectedSignal::GetTypeName() const {
   return "patchpanel.NeighborDetectedSignal";
 }
 
-
 // ===================================================================
 
 class RouterDetectedSignal::_Internal {
  public:
   using HasBits = decltype(std::declval<RouterDetectedSignal>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, _impl_._has_bits_);
   static void set_has_if_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -2940,10 +2998,9 @@ class RouterDetectedSignal::_Internal {
   }
 };
 
-RouterDetectedSignal::RouterDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RouterDetectedSignal::RouterDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:patchpanel.RouterDetectedSignal)
 }
 RouterDetectedSignal::RouterDetectedSignal(const RouterDetectedSignal& from)
@@ -2952,40 +3009,43 @@ RouterDetectedSignal::RouterDetectedSignal(const RouterDetectedSignal& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.if_id_){}
-    , decltype(_impl_.prefix_len_){}};
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.if_id_) {}
+
+    , decltype(_impl_.prefix_len_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_ip()) {
-    _this->_impl_.ip_.Set(from._internal_ip(), 
-      _this->GetArenaForAllocation());
+        _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.ip_.Set(from._internal_ip(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.if_id_, &from._impl_.if_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.prefix_len_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.prefix_len_) -
     reinterpret_cast<char*>(&_impl_.if_id_)) + sizeof(_impl_.prefix_len_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.RouterDetectedSignal)
 }
 
-inline void RouterDetectedSignal::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RouterDetectedSignal::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.if_id_){0}
-    , decltype(_impl_.prefix_len_){0}
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.if_id_) { 0 }
+
+    , decltype(_impl_.prefix_len_) { 0 }
+
   };
   _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RouterDetectedSignal::~RouterDetectedSignal() {
@@ -2998,7 +3058,7 @@ RouterDetectedSignal::~RouterDetectedSignal() {
 }
 
 inline void RouterDetectedSignal::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.ip_.Destroy();
 }
 
@@ -3008,7 +3068,7 @@ void RouterDetectedSignal::SetCachedSize(int size) const {
 
 void RouterDetectedSignal::Clear() {
 // @@protoc_insertion_point(message_clear_start:patchpanel.RouterDetectedSignal)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3017,7 +3077,7 @@ void RouterDetectedSignal::Clear() {
     _impl_.ip_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.if_id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.if_id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.prefix_len_) -
         reinterpret_cast<char*>(&_impl_.if_id_)) + sizeof(_impl_.prefix_len_));
   }
@@ -3029,35 +3089,38 @@ const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::_pbi::ParseC
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required int32 if_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_if_id(&has_bits);
           _impl_.if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required bytes ip = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_ip();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required int32 prefix_len = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_prefix_len(&has_bits);
           _impl_.prefix_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3083,29 +3146,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RouterDetectedSignal::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RouterDetectedSignal::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:patchpanel.RouterDetectedSignal)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required int32 if_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_if_id(), target);
   }
 
   // required bytes ip = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_ip(), target);
+    const std::string& _s = this->_internal_ip();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // required int32 prefix_len = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_prefix_len(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_prefix_len(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3116,49 +3181,51 @@ uint8_t* RouterDetectedSignal::_InternalSerialize(
   return target;
 }
 
-size_t RouterDetectedSignal::RequiredFieldsByteSizeFallback() const {
+::size_t RouterDetectedSignal::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.RouterDetectedSignal)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_ip()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required bytes ip = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ip());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ip());
   }
 
-  if (_internal_has_if_id()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required int32 if_id = 1;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id());
   }
 
-  if (_internal_has_prefix_len()) {
+  if ((_impl_._has_bits_[0] & 0x00000004u) != 0) {
     // required int32 prefix_len = 3;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_prefix_len());
   }
 
   return total_size;
 }
-size_t RouterDetectedSignal::ByteSizeLong() const {
+::size_t RouterDetectedSignal::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.RouterDetectedSignal)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required bytes ip = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ip());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ip());
 
     // required int32 if_id = 1;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_if_id());
 
     // required int32 prefix_len = 3;
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_prefix_len());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3179,8 +3246,8 @@ void RouterDetectedSignal::CheckTypeAndMergeFrom(
 void RouterDetectedSignal::MergeFrom(const RouterDetectedSignal& from) {
   RouterDetectedSignal* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.RouterDetectedSignal)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -3217,10 +3284,8 @@ void RouterDetectedSignal::InternalSwap(RouterDetectedSignal* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.ip_, lhs_arena,
-      &other->_impl_.ip_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.ip_, lhs_arena,
+                                       &other->_impl_.ip_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, _impl_.prefix_len_)
       + sizeof(RouterDetectedSignal::_impl_.prefix_len_)
@@ -3232,7 +3297,6 @@ void RouterDetectedSignal::InternalSwap(RouterDetectedSignal* other) {
 std::string RouterDetectedSignal::GetTypeName() const {
   return "patchpanel.RouterDetectedSignal";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
@@ -3274,6 +3338,5 @@ Arena::CreateMaybeMessage< ::patchpanel::RouterDetectedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::RouterDetectedSignal >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

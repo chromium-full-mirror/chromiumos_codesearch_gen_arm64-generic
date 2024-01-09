@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void IndexedDBObserverProxy::OnIndexedDBListChanged(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBObserver_OnIndexedDBListChanged_Name, kFlags, 0, 0, nullptr);
@@ -188,14 +192,17 @@ void IndexedDBObserverProxy::OnIndexedDBContentChanged(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBObserver_OnIndexedDBContentChanged_Name, kFlags, 0, 0, nullptr);
@@ -333,12 +340,12 @@ bool IndexedDBObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIndexedDBObserverValidationInfo[] = {
-    {&internal::IndexedDBObserver_OnIndexedDBListChanged_Params_Data::Validate,
+    { &internal::IndexedDBObserver_OnIndexedDBListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBObserver_OnIndexedDBContentChanged_Params_Data::Validate,
+    { &internal::IndexedDBObserver_OnIndexedDBContentChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -355,17 +362,11 @@ IndexedDBControl::IPCStableHashFunction IndexedDBControl::MessageToMethodInfo_(m
     case internal::kIndexedDBControl_BindIndexedDB_Name: {
       return &IndexedDBControl::BindIndexedDB_Sym::IPCStableHash;
     }
-    case internal::kIndexedDBControl_GetUsage_Name: {
-      return &IndexedDBControl::GetUsage_Sym::IPCStableHash;
-    }
     case internal::kIndexedDBControl_DeleteForStorageKey_Name: {
       return &IndexedDBControl::DeleteForStorageKey_Sym::IPCStableHash;
     }
     case internal::kIndexedDBControl_ForceClose_Name: {
       return &IndexedDBControl::ForceClose_Sym::IPCStableHash;
-    }
-    case internal::kIndexedDBControl_GetConnectionCount_Name: {
-      return &IndexedDBControl::GetConnectionCount_Sym::IPCStableHash;
     }
     case internal::kIndexedDBControl_DownloadBucketData_Name: {
       return &IndexedDBControl::DownloadBucketData_Sym::IPCStableHash;
@@ -398,14 +399,10 @@ const char* IndexedDBControl::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kIndexedDBControl_BindIndexedDB_Name:
             return "Receive storage::mojom::IndexedDBControl::BindIndexedDB";
-      case internal::kIndexedDBControl_GetUsage_Name:
-            return "Receive storage::mojom::IndexedDBControl::GetUsage";
       case internal::kIndexedDBControl_DeleteForStorageKey_Name:
             return "Receive storage::mojom::IndexedDBControl::DeleteForStorageKey";
       case internal::kIndexedDBControl_ForceClose_Name:
             return "Receive storage::mojom::IndexedDBControl::ForceClose";
-      case internal::kIndexedDBControl_GetConnectionCount_Name:
-            return "Receive storage::mojom::IndexedDBControl::GetConnectionCount";
       case internal::kIndexedDBControl_DownloadBucketData_Name:
             return "Receive storage::mojom::IndexedDBControl::DownloadBucketData";
       case internal::kIndexedDBControl_GetAllBucketsDetails_Name:
@@ -423,14 +420,10 @@ const char* IndexedDBControl::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kIndexedDBControl_BindIndexedDB_Name:
             return "Receive reply storage::mojom::IndexedDBControl::BindIndexedDB";
-      case internal::kIndexedDBControl_GetUsage_Name:
-            return "Receive reply storage::mojom::IndexedDBControl::GetUsage";
       case internal::kIndexedDBControl_DeleteForStorageKey_Name:
             return "Receive reply storage::mojom::IndexedDBControl::DeleteForStorageKey";
       case internal::kIndexedDBControl_ForceClose_Name:
             return "Receive reply storage::mojom::IndexedDBControl::ForceClose";
-      case internal::kIndexedDBControl_GetConnectionCount_Name:
-            return "Receive reply storage::mojom::IndexedDBControl::GetConnectionCount";
       case internal::kIndexedDBControl_DownloadBucketData_Name:
             return "Receive reply storage::mojom::IndexedDBControl::DownloadBucketData";
       case internal::kIndexedDBControl_GetAllBucketsDetails_Name:
@@ -470,19 +463,6 @@ uint32_t IndexedDBControl::BindIndexedDB_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t IndexedDBControl::GetUsage_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::IndexedDBControl::GetUsage");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t IndexedDBControl::DeleteForStorageKey_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -505,19 +485,6 @@ uint32_t IndexedDBControl::ForceClose_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)storage::mojom::IndexedDBControl::ForceClose");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t IndexedDBControl::GetConnectionCount_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::IndexedDBControl::GetConnectionCount");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -602,22 +569,6 @@ uint32_t IndexedDBControl::BindTestInterface_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class IndexedDBControl_GetUsage_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  IndexedDBControl_GetUsage_ForwardToCallback(
-      IndexedDBControl::GetUsageCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  IndexedDBControl_GetUsage_ForwardToCallback(const IndexedDBControl_GetUsage_ForwardToCallback&) = delete;
-  IndexedDBControl_GetUsage_ForwardToCallback& operator=(const IndexedDBControl_GetUsage_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  IndexedDBControl::GetUsageCallback callback_;
-};
-
 class IndexedDBControl_DeleteForStorageKey_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -648,22 +599,6 @@ class IndexedDBControl_ForceClose_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   IndexedDBControl::ForceCloseCallback callback_;
-};
-
-class IndexedDBControl_GetConnectionCount_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  IndexedDBControl_GetConnectionCount_ForwardToCallback(
-      IndexedDBControl::GetConnectionCountCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  IndexedDBControl_GetConnectionCount_ForwardToCallback(const IndexedDBControl_GetConnectionCount_ForwardToCallback&) = delete;
-  IndexedDBControl_GetConnectionCount_ForwardToCallback& operator=(const IndexedDBControl_GetConnectionCount_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  IndexedDBControl::GetConnectionCountCallback callback_;
 };
 
 class IndexedDBControl_DownloadBucketData_ForwardToCallback
@@ -720,14 +655,17 @@ void IndexedDBControlProxy::BindIndexedDB(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::IDBFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_BindIndexedDB_Name, kFlags, 0, 0, nullptr);
@@ -768,37 +706,6 @@ void IndexedDBControlProxy::BindIndexedDB(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void IndexedDBControlProxy::GetUsage(
-    GetUsageCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControl::GetUsage");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kIndexedDBControl_GetUsage_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControl_GetUsage_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControl::Name_);
-  message.set_method_name("GetUsage");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new IndexedDBControl_GetUsage_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void IndexedDBControlProxy::DeleteForStorageKey(
     const ::blink::StorageKey& in_storage_key, DeleteForStorageKeyCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -811,14 +718,17 @@ void IndexedDBControlProxy::DeleteForStorageKey(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_DeleteForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -863,14 +773,17 @@ void IndexedDBControlProxy::ForceClose(
                         "<value of type ForceCloseReason>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_ForceClose_Name, kFlags, 0, 0, nullptr);
@@ -902,55 +815,6 @@ void IndexedDBControlProxy::ForceClose(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void IndexedDBControlProxy::GetConnectionCount(
-    ::storage::BucketId in_bucket_id, GetConnectionCountCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::IndexedDBControl::GetConnectionCount", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bucket_id"), in_bucket_id,
-                        "<value of type ::storage::BucketId>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kIndexedDBControl_GetConnectionCount_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControl_GetConnectionCount_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->bucket_id)::BaseType> bucket_id_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::BucketIdDataView>(
-      in_bucket_id, bucket_id_fragment);
-  params->bucket_id.Set(
-      bucket_id_fragment.is_null() ? nullptr : bucket_id_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bucket_id.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bucket_id in IndexedDBControl.GetConnectionCount request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControl::Name_);
-  message.set_method_name("GetConnectionCount");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new IndexedDBControl_GetConnectionCount_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void IndexedDBControlProxy::DownloadBucketData(
     ::storage::BucketId in_bucket_id, DownloadBucketDataCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -963,14 +827,17 @@ void IndexedDBControlProxy::DownloadBucketData(
                         "<value of type ::storage::BucketId>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_DownloadBucketData_Name, kFlags, 0, 0, nullptr);
@@ -1005,14 +872,17 @@ void IndexedDBControlProxy::GetAllBucketsDetails(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControl::GetAllBucketsDetails");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_GetAllBucketsDetails_Name, kFlags, 0, 0, nullptr);
@@ -1036,14 +906,17 @@ void IndexedDBControlProxy::SetForceKeepSessionState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControl::SetForceKeepSessionState");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_SetForceKeepSessionState_Name, kFlags, 0, 0, nullptr);
@@ -1073,14 +946,17 @@ void IndexedDBControlProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<IndexedDBObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1116,14 +992,17 @@ void IndexedDBControlProxy::ApplyPolicyUpdates(
                         "<value of type std::vector<::storage::mojom::StoragePolicyUpdatePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_ApplyPolicyUpdates_Name, kFlags, 0, 0, nullptr);
@@ -1166,14 +1045,17 @@ void IndexedDBControlProxy::BindTestInterface(
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::IndexedDBControlTest>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_BindTestInterface_Name, kFlags, 0, 0, nullptr);
@@ -1195,136 +1077,6 @@ void IndexedDBControlProxy::BindTestInterface(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-class IndexedDBControl_GetUsage_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static IndexedDBControl::GetUsageCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<IndexedDBControl_GetUsage_ProxyToResponder> proxy(
-        new IndexedDBControl_GetUsage_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&IndexedDBControl_GetUsage_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~IndexedDBControl_GetUsage_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  IndexedDBControl_GetUsage_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "IndexedDBControl::GetUsageCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      std::vector<::storage::mojom::StorageUsageInfoPtr> in_info);
-};
-
-bool IndexedDBControl_GetUsage_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::IndexedDBControl_GetUsage_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::IndexedDBControl_GetUsage_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::vector<::storage::mojom::StorageUsageInfoPtr> p_info{};
-  IndexedDBControl_GetUsage_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadInfo(&p_info))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_info));
-  return true;
-}
-
-void IndexedDBControl_GetUsage_ProxyToResponder::Run(
-    std::vector<::storage::mojom::StorageUsageInfoPtr> in_info) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::IndexedDBControl::GetUsage", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("info"), in_info,
-                        "<value of type std::vector<::storage::mojom::StorageUsageInfoPtr>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kIndexedDBControl_GetUsage_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControl_GetUsage_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->info)::BaseType>
-      info_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& info_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::storage::mojom::StorageUsageInfoDataView>>(
-      in_info, info_fragment, &info_validate_params);
-  params->info.Set(
-      info_fragment.is_null() ? nullptr : info_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->info.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null info in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControl::Name_);
-  message.set_method_name("GetUsage");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
 }
 class IndexedDBControl_DeleteForStorageKey_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1394,7 +1146,7 @@ bool IndexedDBControl_DeleteForStorageKey_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 2, true);
+        IndexedDBControl::Name_, 1, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1418,7 +1170,8 @@ void IndexedDBControl_DeleteForStorageKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_DeleteForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -1509,7 +1262,7 @@ bool IndexedDBControl_ForceClose_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 3, true);
+        IndexedDBControl::Name_, 2, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1525,7 +1278,8 @@ void IndexedDBControl_ForceClose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_ForceClose_Name, kFlags, 0, 0, nullptr);
@@ -1537,124 +1291,6 @@ void IndexedDBControl_ForceClose_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(IndexedDBControl::Name_);
   message.set_method_name("ForceClose");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class IndexedDBControl_GetConnectionCount_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static IndexedDBControl::GetConnectionCountCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<IndexedDBControl_GetConnectionCount_ProxyToResponder> proxy(
-        new IndexedDBControl_GetConnectionCount_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&IndexedDBControl_GetConnectionCount_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~IndexedDBControl_GetConnectionCount_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  IndexedDBControl_GetConnectionCount_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "IndexedDBControl::GetConnectionCountCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      uint64_t in_connection_count);
-};
-
-bool IndexedDBControl_GetConnectionCount_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  uint64_t p_connection_count{};
-  IndexedDBControl_GetConnectionCount_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_connection_count = input_data_view.connection_count();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_connection_count));
-  return true;
-}
-
-void IndexedDBControl_GetConnectionCount_ProxyToResponder::Run(
-    uint64_t in_connection_count) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::IndexedDBControl::GetConnectionCount", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("connection_count"), in_connection_count,
-                        "<value of type uint64_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kIndexedDBControl_GetConnectionCount_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->connection_count = in_connection_count;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IndexedDBControl::Name_);
-  message.set_method_name("GetConnectionCount");
 #endif
 
   message.set_request_id(request_id_);
@@ -1742,7 +1378,7 @@ bool IndexedDBControl_DownloadBucketData_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 5, true);
+        IndexedDBControl::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1774,7 +1410,8 @@ void IndexedDBControl_DownloadBucketData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_DownloadBucketData_Name, kFlags, 0, 0, nullptr);
@@ -1893,7 +1530,7 @@ bool IndexedDBControl_GetAllBucketsDetails_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControl::Name_, 6, true);
+        IndexedDBControl::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1921,7 +1558,8 @@ void IndexedDBControl_GetAllBucketsDetails_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControl_GetAllBucketsDetails_Name, kFlags, 0, 0, nullptr);
@@ -2004,16 +1642,10 @@ std::move(p_client_state_checker_remote),
 std::move(p_receiver));
       return true;
     }
-    case internal::kIndexedDBControl_GetUsage_Name: {
-      break;
-    }
     case internal::kIndexedDBControl_DeleteForStorageKey_Name: {
       break;
     }
     case internal::kIndexedDBControl_ForceClose_Name: {
-      break;
-    }
-    case internal::kIndexedDBControl_GetConnectionCount_Name: {
       break;
     }
     case internal::kIndexedDBControl_DownloadBucketData_Name: {
@@ -2036,7 +1668,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 7, false);
+            IndexedDBControl::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2063,7 +1695,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 8, false);
+            IndexedDBControl::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2089,7 +1721,7 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 9, false);
+            IndexedDBControl::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2117,7 +1749,7 @@ std::move(p_policy_updates));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 10, false);
+            IndexedDBControl::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2142,31 +1774,6 @@ bool IndexedDBControlStubDispatch::AcceptWithResponder(
     case internal::kIndexedDBControl_BindIndexedDB_Name: {
       break;
     }
-    case internal::kIndexedDBControl_GetUsage_Name: {
-
-      internal::IndexedDBControl_GetUsage_Params_Data* params =
-          reinterpret_cast<
-              internal::IndexedDBControl_GetUsage_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      IndexedDBControl_GetUsage_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 1, false);
-        return false;
-      }
-      IndexedDBControl::GetUsageCallback callback =
-          IndexedDBControl_GetUsage_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetUsage(std::move(callback));
-      return true;
-    }
     case internal::kIndexedDBControl_DeleteForStorageKey_Name: {
 
       internal::IndexedDBControl_DeleteForStorageKey_Params_Data* params =
@@ -2184,7 +1791,7 @@ bool IndexedDBControlStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 2, false);
+            IndexedDBControl::Name_, 1, false);
         return false;
       }
       IndexedDBControl::DeleteForStorageKeyCallback callback =
@@ -2216,7 +1823,7 @@ std::move(p_storage_key), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 3, false);
+            IndexedDBControl::Name_, 2, false);
         return false;
       }
       IndexedDBControl::ForceCloseCallback callback =
@@ -2227,35 +1834,6 @@ std::move(p_storage_key), std::move(callback));
       impl->ForceClose(
 std::move(p_bucket_id), 
 std::move(p_reason), std::move(callback));
-      return true;
-    }
-    case internal::kIndexedDBControl_GetConnectionCount_Name: {
-
-      internal::IndexedDBControl_GetConnectionCount_Params_Data* params =
-          reinterpret_cast<
-              internal::IndexedDBControl_GetConnectionCount_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::storage::BucketId p_bucket_id{};
-      IndexedDBControl_GetConnectionCount_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadBucketId(&p_bucket_id))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 4, false);
-        return false;
-      }
-      IndexedDBControl::GetConnectionCountCallback callback =
-          IndexedDBControl_GetConnectionCount_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetConnectionCount(
-std::move(p_bucket_id), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControl_DownloadBucketData_Name: {
@@ -2275,7 +1853,7 @@ std::move(p_bucket_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 5, false);
+            IndexedDBControl::Name_, 3, false);
         return false;
       }
       IndexedDBControl::DownloadBucketDataCallback callback =
@@ -2301,7 +1879,7 @@ std::move(p_bucket_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControl::Name_, 6, false);
+            IndexedDBControl::Name_, 4, false);
         return false;
       }
       IndexedDBControl::GetAllBucketsDetailsCallback callback =
@@ -2327,30 +1905,26 @@ std::move(p_bucket_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIndexedDBControlValidationInfo[] = {
-    {&internal::IndexedDBControl_BindIndexedDB_Params_Data::Validate,
+    { &internal::IndexedDBControl_BindIndexedDB_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBControl_GetUsage_Params_Data::Validate,
-     &internal::IndexedDBControl_GetUsage_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_DeleteForStorageKey_Params_Data::Validate,
+    { &internal::IndexedDBControl_DeleteForStorageKey_Params_Data::Validate,
      &internal::IndexedDBControl_DeleteForStorageKey_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_ForceClose_Params_Data::Validate,
+    { &internal::IndexedDBControl_ForceClose_Params_Data::Validate,
      &internal::IndexedDBControl_ForceClose_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_GetConnectionCount_Params_Data::Validate,
-     &internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_DownloadBucketData_Params_Data::Validate,
+    { &internal::IndexedDBControl_DownloadBucketData_Params_Data::Validate,
      &internal::IndexedDBControl_DownloadBucketData_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_GetAllBucketsDetails_Params_Data::Validate,
+    { &internal::IndexedDBControl_GetAllBucketsDetails_Params_Data::Validate,
      &internal::IndexedDBControl_GetAllBucketsDetails_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControl_SetForceKeepSessionState_Params_Data::Validate,
+    { &internal::IndexedDBControl_SetForceKeepSessionState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBControl_AddObserver_Params_Data::Validate,
+    { &internal::IndexedDBControl_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBControl_ApplyPolicyUpdates_Params_Data::Validate,
+    { &internal::IndexedDBControl_ApplyPolicyUpdates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBControl_BindTestInterface_Params_Data::Validate,
+    { &internal::IndexedDBControl_BindTestInterface_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2397,17 +1971,11 @@ IndexedDBObserverAsyncWaiter::~IndexedDBObserverAsyncWaiter() = default;
 void IndexedDBControlInterceptorForTesting::BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) {
   GetForwardingInterface()->BindIndexedDB(std::move(bucket_locator), std::move(client_state_checker_remote), std::move(receiver));
 }
-void IndexedDBControlInterceptorForTesting::GetUsage(GetUsageCallback callback) {
-  GetForwardingInterface()->GetUsage(std::move(callback));
-}
 void IndexedDBControlInterceptorForTesting::DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) {
   GetForwardingInterface()->DeleteForStorageKey(std::move(storage_key), std::move(callback));
 }
 void IndexedDBControlInterceptorForTesting::ForceClose(::storage::BucketId bucket_id, ForceCloseReason reason, ForceCloseCallback callback) {
   GetForwardingInterface()->ForceClose(std::move(bucket_id), std::move(reason), std::move(callback));
-}
-void IndexedDBControlInterceptorForTesting::GetConnectionCount(::storage::BucketId bucket_id, GetConnectionCountCallback callback) {
-  GetForwardingInterface()->GetConnectionCount(std::move(bucket_id), std::move(callback));
 }
 void IndexedDBControlInterceptorForTesting::DownloadBucketData(::storage::BucketId bucket_id, DownloadBucketDataCallback callback) {
   GetForwardingInterface()->DownloadBucketData(std::move(bucket_id), std::move(callback));
@@ -2431,29 +1999,6 @@ IndexedDBControlAsyncWaiter::IndexedDBControlAsyncWaiter(
     IndexedDBControl* proxy) : proxy_(proxy) {}
 
 IndexedDBControlAsyncWaiter::~IndexedDBControlAsyncWaiter() = default;
-
-void IndexedDBControlAsyncWaiter::GetUsage(
-    std::vector<::storage::mojom::StorageUsageInfoPtr>* out_info) {
-  base::RunLoop loop;
-  proxy_->GetUsage(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::vector<::storage::mojom::StorageUsageInfoPtr>* out_info
-,
-             std::vector<::storage::mojom::StorageUsageInfoPtr> info) {*out_info = std::move(info);
-            loop->Quit();
-          },
-          &loop,
-          out_info));
-  loop.Run();
-}
-
-std::vector<::storage::mojom::StorageUsageInfoPtr> IndexedDBControlAsyncWaiter::GetUsage(
-    ) {
-  std::vector<::storage::mojom::StorageUsageInfoPtr> async_wait_result;
-  GetUsage(&async_wait_result);
-  return async_wait_result;
-}
 
 void IndexedDBControlAsyncWaiter::DeleteForStorageKey(
     const ::blink::StorageKey& storage_key, bool* out_success) {
@@ -2491,29 +2036,6 @@ void IndexedDBControlAsyncWaiter::ForceClose(
 }
 
 
-
-void IndexedDBControlAsyncWaiter::GetConnectionCount(
-    ::storage::BucketId bucket_id, uint64_t* out_connection_count) {
-  base::RunLoop loop;
-  proxy_->GetConnectionCount(std::move(bucket_id),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             uint64_t* out_connection_count
-,
-             uint64_t connection_count) {*out_connection_count = std::move(connection_count);
-            loop->Quit();
-          },
-          &loop,
-          out_connection_count));
-  loop.Run();
-}
-
-uint64_t IndexedDBControlAsyncWaiter::GetConnectionCount(
-    ::storage::BucketId bucket_id) {
-  uint64_t async_wait_result;
-  GetConnectionCount(std::move(bucket_id),&async_wait_result);
-  return async_wait_result;
-}
 
 void IndexedDBControlAsyncWaiter::DownloadBucketData(
     ::storage::BucketId bucket_id, bool* out_success, ::base::FilePath* out_temp_path, ::base::FilePath* out_zip_path) {

@@ -8,6 +8,7 @@
 #define COMPONENTS_CONTENT_SETTINGS_COMMON_CONTENT_SETTINGS_MANAGER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

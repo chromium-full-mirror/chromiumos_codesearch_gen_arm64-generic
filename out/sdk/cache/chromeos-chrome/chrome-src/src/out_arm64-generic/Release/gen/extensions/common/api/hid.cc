@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/hid.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,8 +38,8 @@ HidCollectionInfo::HidCollectionInfo()
 usage(0) {}
 
 HidCollectionInfo::~HidCollectionInfo() = default;
-HidCollectionInfo::HidCollectionInfo(HidCollectionInfo&& rhs) = default;
-HidCollectionInfo& HidCollectionInfo::operator=(HidCollectionInfo&& rhs) = default;
+HidCollectionInfo::HidCollectionInfo(HidCollectionInfo&& rhs) noexcept = default;
+HidCollectionInfo& HidCollectionInfo::operator=(HidCollectionInfo&& rhs) noexcept = default;
 HidCollectionInfo HidCollectionInfo::Clone() const {
   HidCollectionInfo out;
   out.usage_page = usage_page;
@@ -102,34 +103,21 @@ bool HidCollectionInfo::Populate(
 }
 
 // static
-std::unique_ptr<HidCollectionInfo> HidCollectionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HidCollectionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HidCollectionInfo> HidCollectionInfo::FromValue(const base::Value::Dict& value) {
+  HidCollectionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HidCollectionInfo> HidCollectionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<HidCollectionInfo> HidCollectionInfo::FromValue(const base::Value& value) {
   HidCollectionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HidCollectionInfo> HidCollectionInfo::FromValue(const base::Value& value) {
-  HidCollectionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -157,8 +145,8 @@ max_output_report_size(0),
 max_feature_report_size(0) {}
 
 HidDeviceInfo::~HidDeviceInfo() = default;
-HidDeviceInfo::HidDeviceInfo(HidDeviceInfo&& rhs) = default;
-HidDeviceInfo& HidDeviceInfo::operator=(HidDeviceInfo&& rhs) = default;
+HidDeviceInfo::HidDeviceInfo(HidDeviceInfo&& rhs) noexcept = default;
+HidDeviceInfo& HidDeviceInfo::operator=(HidDeviceInfo&& rhs) noexcept = default;
 HidDeviceInfo HidDeviceInfo::Clone() const {
   HidDeviceInfo out;
   out.device_id = device_id;
@@ -317,34 +305,21 @@ bool HidDeviceInfo::Populate(
 }
 
 // static
-std::unique_ptr<HidDeviceInfo> HidDeviceInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HidDeviceInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HidDeviceInfo> HidDeviceInfo::FromValue(const base::Value::Dict& value) {
+  HidDeviceInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HidDeviceInfo> HidDeviceInfo::FromValue(const base::Value::Dict& value) {
+std::optional<HidDeviceInfo> HidDeviceInfo::FromValue(const base::Value& value) {
   HidDeviceInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HidDeviceInfo> HidDeviceInfo::FromValue(const base::Value& value) {
-  HidDeviceInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -381,8 +356,8 @@ HidConnectInfo::HidConnectInfo()
 : connection_id(0) {}
 
 HidConnectInfo::~HidConnectInfo() = default;
-HidConnectInfo::HidConnectInfo(HidConnectInfo&& rhs) = default;
-HidConnectInfo& HidConnectInfo::operator=(HidConnectInfo&& rhs) = default;
+HidConnectInfo::HidConnectInfo(HidConnectInfo&& rhs) noexcept = default;
+HidConnectInfo& HidConnectInfo::operator=(HidConnectInfo&& rhs) noexcept = default;
 HidConnectInfo HidConnectInfo::Clone() const {
   HidConnectInfo out;
   out.connection_id = connection_id;
@@ -417,34 +392,21 @@ bool HidConnectInfo::Populate(
 }
 
 // static
-std::unique_ptr<HidConnectInfo> HidConnectInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HidConnectInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HidConnectInfo> HidConnectInfo::FromValue(const base::Value::Dict& value) {
+  HidConnectInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HidConnectInfo> HidConnectInfo::FromValue(const base::Value::Dict& value) {
+std::optional<HidConnectInfo> HidConnectInfo::FromValue(const base::Value& value) {
   HidConnectInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HidConnectInfo> HidConnectInfo::FromValue(const base::Value& value) {
-  HidConnectInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -463,8 +425,8 @@ DeviceFilter::DeviceFilter()
  {}
 
 DeviceFilter::~DeviceFilter() = default;
-DeviceFilter::DeviceFilter(DeviceFilter&& rhs) = default;
-DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) = default;
+DeviceFilter::DeviceFilter(DeviceFilter&& rhs) noexcept = default;
+DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) noexcept = default;
 DeviceFilter DeviceFilter::Clone() const {
   DeviceFilter out;
   out.vendor_id = vendor_id;
@@ -482,7 +444,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*vendor_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -494,7 +456,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -506,7 +468,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*usage_page_value).GetIfInt();
       if (!temp.has_value()) {
-        out.usage_page = absl::nullopt;
+        out.usage_page = std::nullopt;
         return false;
       }
       out.usage_page = *temp;
@@ -518,7 +480,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*usage_value).GetIfInt();
       if (!temp.has_value()) {
-        out.usage = absl::nullopt;
+        out.usage = std::nullopt;
         return false;
       }
       out.usage = *temp;
@@ -538,34 +500,21 @@ bool DeviceFilter::Populate(
 }
 
 // static
-std::unique_ptr<DeviceFilter> DeviceFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+  DeviceFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
   DeviceFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
-  DeviceFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -598,8 +547,8 @@ GetDevicesOptions::GetDevicesOptions()
  {}
 
 GetDevicesOptions::~GetDevicesOptions() = default;
-GetDevicesOptions::GetDevicesOptions(GetDevicesOptions&& rhs) = default;
-GetDevicesOptions& GetDevicesOptions::operator=(GetDevicesOptions&& rhs) = default;
+GetDevicesOptions::GetDevicesOptions(GetDevicesOptions&& rhs) noexcept = default;
+GetDevicesOptions& GetDevicesOptions::operator=(GetDevicesOptions&& rhs) noexcept = default;
 GetDevicesOptions GetDevicesOptions::Clone() const {
   GetDevicesOptions out;
   out.vendor_id = vendor_id;
@@ -622,7 +571,7 @@ bool GetDevicesOptions::Populate(
     {
       auto temp = (*vendor_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -634,7 +583,7 @@ bool GetDevicesOptions::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -668,34 +617,21 @@ bool GetDevicesOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetDevicesOptions> GetDevicesOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetDevicesOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetDevicesOptions> GetDevicesOptions::FromValue(const base::Value::Dict& value) {
+  GetDevicesOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetDevicesOptions> GetDevicesOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetDevicesOptions> GetDevicesOptions::FromValue(const base::Value& value) {
   GetDevicesOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetDevicesOptions> GetDevicesOptions::FromValue(const base::Value& value) {
-  GetDevicesOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -729,13 +665,13 @@ namespace GetDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -744,15 +680,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetDevicesOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -772,13 +708,13 @@ namespace Connect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -788,13 +724,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = device_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -814,13 +750,13 @@ namespace Disconnect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -830,13 +766,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = connection_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.connection_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -854,13 +790,13 @@ namespace Receive {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -870,13 +806,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = connection_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.connection_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -898,13 +834,13 @@ namespace Send {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -914,13 +850,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = connection_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.connection_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -929,13 +865,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = report_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.report_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -943,7 +879,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[2];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -951,7 +887,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -969,13 +905,13 @@ namespace ReceiveFeatureReport {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -985,13 +921,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = connection_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.connection_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1000,13 +936,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = report_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.report_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1026,13 +962,13 @@ namespace SendFeatureReport {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1042,13 +978,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = connection_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.connection_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1057,13 +993,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = report_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.report_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1071,7 +1007,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[2];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -1079,7 +1015,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

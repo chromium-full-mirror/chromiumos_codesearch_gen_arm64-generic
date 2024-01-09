@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ ActivityName::ActivityName()
 
 ActivityName::ActivityName(
     const std::string& package_name_in,
-    const absl::optional<std::string>& activity_name_in)
+    const std::optional<std::string>& activity_name_in)
     : package_name(std::move(package_name_in)),
       activity_name(std::move(activity_name_in)) {}
 
@@ -71,7 +72,7 @@ void ActivityName::WriteIntoTrace(
     dict.AddItem(
       "activity_name"), this->activity_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

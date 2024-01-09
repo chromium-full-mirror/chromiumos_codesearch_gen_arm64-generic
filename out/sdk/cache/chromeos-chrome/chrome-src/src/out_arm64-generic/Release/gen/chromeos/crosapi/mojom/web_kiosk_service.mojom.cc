@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -166,14 +167,17 @@ void WebKioskInstallerProxy::GetWebKioskInstallState(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebKioskInstaller_GetWebKioskInstallState_Name, kFlags, 0, 0, nullptr);
@@ -215,14 +219,17 @@ void WebKioskInstallerProxy::InstallWebKiosk(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebKioskInstaller_InstallWebKiosk_Name, kFlags, 0, 0, nullptr);
@@ -297,7 +304,7 @@ class WebKioskInstaller_GetWebKioskInstallState_ProxyToResponder : public ::mojo
 #endif
 
   void Run(
-      WebKioskInstallState in_state, const absl::optional<std::string>& in_app_id);
+      WebKioskInstallState in_state, const std::optional<std::string>& in_app_id);
 };
 
 bool WebKioskInstaller_GetWebKioskInstallState_ForwardToCallback::Accept(
@@ -311,7 +318,7 @@ bool WebKioskInstaller_GetWebKioskInstallState_ForwardToCallback::Accept(
   
   bool success = true;
   WebKioskInstallState p_state{};
-  absl::optional<std::string> p_app_id{};
+  std::optional<std::string> p_app_id{};
   WebKioskInstaller_GetWebKioskInstallState_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -333,7 +340,7 @@ std::move(p_app_id));
 }
 
 void WebKioskInstaller_GetWebKioskInstallState_ProxyToResponder::Run(
-    WebKioskInstallState in_state, const absl::optional<std::string>& in_app_id) {
+    WebKioskInstallState in_state, const std::optional<std::string>& in_app_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::WebKioskInstaller::GetWebKioskInstallState", "async_response_parameters",
@@ -344,13 +351,14 @@ void WebKioskInstaller_GetWebKioskInstallState_ProxyToResponder::Run(
                         "<value of type WebKioskInstallState>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("app_id"), in_app_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebKioskInstaller_GetWebKioskInstallState_Name, kFlags, 0, 0, nullptr);
@@ -430,7 +438,7 @@ class WebKioskInstaller_InstallWebKiosk_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_app_id);
+      const std::optional<std::string>& in_app_id);
 };
 
 bool WebKioskInstaller_InstallWebKiosk_ForwardToCallback::Accept(
@@ -443,7 +451,7 @@ bool WebKioskInstaller_InstallWebKiosk_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_app_id{};
+  std::optional<std::string> p_app_id{};
   WebKioskInstaller_InstallWebKiosk_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAppId(&p_app_id))
@@ -462,7 +470,7 @@ std::move(p_app_id));
 }
 
 void WebKioskInstaller_InstallWebKiosk_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_app_id) {
+    const std::optional<std::string>& in_app_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::WebKioskInstaller::InstallWebKiosk", "async_response_parameters",
@@ -470,13 +478,14 @@ void WebKioskInstaller_InstallWebKiosk_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("app_id"), in_app_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebKioskInstaller_InstallWebKiosk_Name, kFlags, 0, 0, nullptr);
@@ -594,12 +603,12 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebKioskInstallerValidationInfo[] = {
-    {&internal::WebKioskInstaller_GetWebKioskInstallState_Params_Data::Validate,
+    { &internal::WebKioskInstaller_GetWebKioskInstallState_Params_Data::Validate,
      &internal::WebKioskInstaller_GetWebKioskInstallState_ResponseParams_Data::Validate},
-    {&internal::WebKioskInstaller_InstallWebKiosk_Params_Data::Validate,
+    { &internal::WebKioskInstaller_InstallWebKiosk_Params_Data::Validate,
      &internal::WebKioskInstaller_InstallWebKiosk_ResponseParams_Data::Validate},
 };
 
@@ -684,14 +693,17 @@ void WebKioskServiceProxy::BindInstaller(
                         "<value of type ::mojo::PendingRemote<WebKioskInstaller>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebKioskService_BindInstaller_Name, kFlags, 0, 0, nullptr);
@@ -767,10 +779,10 @@ bool WebKioskServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebKioskServiceValidationInfo[] = {
-    {&internal::WebKioskService_BindInstaller_Params_Data::Validate,
+    { &internal::WebKioskService_BindInstaller_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -808,17 +820,17 @@ WebKioskInstallerAsyncWaiter::WebKioskInstallerAsyncWaiter(
 WebKioskInstallerAsyncWaiter::~WebKioskInstallerAsyncWaiter() = default;
 
 void WebKioskInstallerAsyncWaiter::GetWebKioskInstallState(
-    const ::GURL& url, WebKioskInstallState* out_state, absl::optional<std::string>* out_app_id) {
+    const ::GURL& url, WebKioskInstallState* out_state, std::optional<std::string>* out_app_id) {
   base::RunLoop loop;
   proxy_->GetWebKioskInstallState(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
              WebKioskInstallState* out_state
 ,
-             absl::optional<std::string>* out_app_id
+             std::optional<std::string>* out_app_id
 ,
              WebKioskInstallState state,
-             const absl::optional<std::string>& app_id) {*out_state = std::move(state);*out_app_id = std::move(app_id);
+             const std::optional<std::string>& app_id) {*out_state = std::move(state);*out_app_id = std::move(app_id);
             loop->Quit();
           },
           &loop,
@@ -830,14 +842,14 @@ void WebKioskInstallerAsyncWaiter::GetWebKioskInstallState(
 
 
 void WebKioskInstallerAsyncWaiter::InstallWebKiosk(
-    const ::GURL& url, absl::optional<std::string>* out_app_id) {
+    const ::GURL& url, std::optional<std::string>* out_app_id) {
   base::RunLoop loop;
   proxy_->InstallWebKiosk(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_app_id
+             std::optional<std::string>* out_app_id
 ,
-             const absl::optional<std::string>& app_id) {*out_app_id = std::move(app_id);
+             const std::optional<std::string>& app_id) {*out_app_id = std::move(app_id);
             loop->Quit();
           },
           &loop,
@@ -845,9 +857,9 @@ void WebKioskInstallerAsyncWaiter::InstallWebKiosk(
   loop.Run();
 }
 
-absl::optional<std::string> WebKioskInstallerAsyncWaiter::InstallWebKiosk(
+std::optional<std::string> WebKioskInstallerAsyncWaiter::InstallWebKiosk(
     const ::GURL& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   InstallWebKiosk(std::move(url),&async_wait_result);
   return async_wait_result;
 }

@@ -51,16 +51,21 @@ blink.mojom.AuthenticatorStatus = {
   OPAQUE_DOMAIN: 14,
   INVALID_PROTOCOL: 15,
   BAD_RELYING_PARTY_ID: 16,
-  CANNOT_READ_AND_WRITE_LARGE_BLOB: 17,
-  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB: 18,
-  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION: 19,
-  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED: 20,
-  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED: 21,
-  CERTIFICATE_ERROR: 22,
-  ERROR_WITH_DOM_EXCEPTION_DETAILS: 23,
-  UNKNOWN_ERROR: 24,
+  BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH: 17,
+  BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE: 18,
+  BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR: 19,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH: 20,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS: 21,
+  CANNOT_READ_AND_WRITE_LARGE_BLOB: 22,
+  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB: 23,
+  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION: 24,
+  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED: 25,
+  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED: 26,
+  CERTIFICATE_ERROR: 27,
+  ERROR_WITH_DOM_EXCEPTION_DETAILS: 28,
+  UNKNOWN_ERROR: 29,
   MIN_VALUE: 0,
-  MAX_VALUE: 24,
+  MAX_VALUE: 29,
 };
 
 
@@ -83,6 +88,26 @@ blink.mojom.AuthenticatorTransport = {
   INTERNAL: 4,
   MIN_VALUE: 0,
   MAX_VALUE: 4,
+};
+
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.mojom.HintSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.mojom.Hint = {
+  
+  SECURITY_KEY: 0,
+  CLIENT_DEVICE: 1,
+  HYBRID: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
 };
 
 
@@ -552,7 +577,7 @@ blink.mojom.CommonCredentialInfoSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.DevicePublicKeyResponseSpec =
+blink.mojom.SupplementalPubKeysResponseSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -648,7 +673,7 @@ blink.mojom.RemoteDesktopClientOverrideSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.DevicePublicKeyRequestSpec =
+blink.mojom.SupplementalPubKeysRequestSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -834,39 +859,29 @@ blink.mojom.CommonCredentialInfo = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.DevicePublicKeyResponseSpec.$,
-    'DevicePublicKeyResponse',
+    blink.mojom.SupplementalPubKeysResponseSpec.$,
+    'SupplementalPubKeysResponse',
     [
       mojo.internal.StructField(
-        'authenticatorOutput', 0,
+        'signatures', 0,
         0,
-        mojo.internal.Array(mojo.internal.Uint8, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'signature', 8,
-        0,
-        mojo.internal.Array(mojo.internal.Uint8, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
 
 
 /** @record */
-blink.mojom.DevicePublicKeyResponse = class {
+blink.mojom.SupplementalPubKeysResponse = class {
   constructor() {
-    /** @export { !Array<!number> } */
-    this.authenticatorOutput;
-    /** @export { !Array<!number> } */
-    this.signature;
+    /** @export { !Array<!Array<!number>> } */
+    this.signatures;
   }
 };
 
@@ -1021,9 +1036,9 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 56,
+        'supplementalPubKeys', 56,
         0,
-        blink.mojom.DevicePublicKeyResponseSpec.$,
+        blink.mojom.SupplementalPubKeysResponseSpec.$,
         null,
         true, /* nullable */
         0 /* minVersion */,
@@ -1074,8 +1089,8 @@ blink.mojom.MakeCredentialAuthenticatorResponse = class {
     this.echoLargeBlob;
     /** @export { !boolean } */
     this.supportsLargeBlob;
-    /** @export { (blink.mojom.DevicePublicKeyResponse|undefined) } */
-    this.devicePublicKey;
+    /** @export { (blink.mojom.SupplementalPubKeysResponse|undefined) } */
+    this.supplementalPubKeys;
   }
 };
 
@@ -1235,9 +1250,9 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 32,
+        'supplementalPubKeys', 32,
         0,
-        blink.mojom.DevicePublicKeyResponseSpec.$,
+        blink.mojom.SupplementalPubKeysResponseSpec.$,
         null,
         true, /* nullable */
         0 /* minVersion */,
@@ -1272,8 +1287,8 @@ blink.mojom.AuthenticationExtensionsClientOutputs = class {
     this.largeBlobWritten;
     /** @export { (Array<!number>|undefined) } */
     this.getCredBlob;
-    /** @export { (blink.mojom.DevicePublicKeyResponse|undefined) } */
-    this.devicePublicKey;
+    /** @export { (blink.mojom.SupplementalPubKeysResponse|undefined) } */
+    this.supplementalPubKeys;
   }
 };
 
@@ -1682,11 +1697,27 @@ blink.mojom.RemoteDesktopClientOverride = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.DevicePublicKeyRequestSpec.$,
-    'DevicePublicKeyRequest',
+    blink.mojom.SupplementalPubKeysRequestSpec.$,
+    'SupplementalPubKeysRequest',
     [
       mojo.internal.StructField(
-        'attestation', 0,
+        'deviceScopeRequested', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'providerScopeRequested', 0,
+        1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'attestation', 4,
         0,
         blink.mojom.AttestationConveyancePreferenceSpec.$,
         0,
@@ -1709,8 +1740,12 @@ mojo.internal.Struct(
 
 
 /** @record */
-blink.mojom.DevicePublicKeyRequest = class {
+blink.mojom.SupplementalPubKeysRequest = class {
   constructor() {
+    /** @export { !boolean } */
+    this.deviceScopeRequested;
+    /** @export { !boolean } */
+    this.providerScopeRequested;
     /** @export { !blink.mojom.AttestationConveyancePreference } */
     this.attestation;
     /** @export { !Array<!string> } */
@@ -1765,6 +1800,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'hints', 40,
+        0,
+        mojo.internal.Array(blink.mojom.HintSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'userVerification', 4,
         0,
         blink.mojom.UserVerificationRequirementSpec.$,
@@ -1773,7 +1816,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'extensions', 40,
+        'extensions', 48,
         0,
         blink.mojom.AuthenticationExtensionsClientInputsSpec.$,
         null,
@@ -1781,7 +1824,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 56],]);
+    [[0, 64],]);
 
 
 
@@ -1800,6 +1843,8 @@ blink.mojom.PublicKeyCredentialRequestOptions = class {
     this.relyingPartyId;
     /** @export { !Array<!blink.mojom.PublicKeyCredentialDescriptor> } */
     this.allowCredentials;
+    /** @export { !Array<!blink.mojom.Hint> } */
+    this.hints;
     /** @export { !blink.mojom.UserVerificationRequirement } */
     this.userVerification;
     /** @export { !blink.mojom.AuthenticationExtensionsClientInputs } */
@@ -1886,9 +1931,9 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 48,
+        'supplementalPubKeys', 48,
         0,
-        blink.mojom.DevicePublicKeyRequestSpec.$,
+        blink.mojom.SupplementalPubKeysRequestSpec.$,
         null,
         true, /* nullable */
         0 /* minVersion */,
@@ -1921,8 +1966,8 @@ blink.mojom.AuthenticationExtensionsClientInputs = class {
     this.getCredBlob;
     /** @export { (blink.mojom.RemoteDesktopClientOverride|undefined) } */
     this.remoteDesktopClientOverride;
-    /** @export { (blink.mojom.DevicePublicKeyRequest|undefined) } */
-    this.devicePublicKey;
+    /** @export { (blink.mojom.SupplementalPubKeysRequest|undefined) } */
+    this.supplementalPubKeys;
   }
 };
 
@@ -2038,7 +2083,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'attestation', 56,
+        'hints', 56,
+        0,
+        mojo.internal.Array(blink.mojom.HintSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'attestation', 64,
         0,
         blink.mojom.AttestationConveyancePreferenceSpec.$,
         0,
@@ -2046,7 +2099,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hmacCreateSecret', 60,
+        'hmacCreateSecret', 68,
         0,
         mojo.internal.Bool,
         false,
@@ -2054,7 +2107,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'prfEnable', 60,
+        'prfEnable', 68,
         1,
         mojo.internal.Bool,
         false,
@@ -2062,7 +2115,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'prfInput', 64,
+        'prfInput', 72,
         0,
         blink.mojom.PRFValuesSpec.$,
         null,
@@ -2070,7 +2123,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'protectionPolicy', 72,
+        'protectionPolicy', 80,
         0,
         blink.mojom.ProtectionPolicySpec.$,
         0,
@@ -2078,7 +2131,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'enforceProtectionPolicy', 60,
+        'enforceProtectionPolicy', 68,
         2,
         mojo.internal.Bool,
         false,
@@ -2086,7 +2139,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'appidExclude', 80,
+        'appidExclude', 88,
         0,
         mojo.internal.String,
         null,
@@ -2094,7 +2147,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'credProps', 60,
+        'credProps', 68,
         3,
         mojo.internal.Bool,
         false,
@@ -2102,7 +2155,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'largeBlobEnable', 76,
+        'largeBlobEnable', 84,
         0,
         blink.mojom.LargeBlobSupportSpec.$,
         0,
@@ -2110,7 +2163,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isPaymentCredentialCreation', 60,
+        'isPaymentCredentialCreation', 68,
         4,
         mojo.internal.Bool,
         false,
@@ -2118,7 +2171,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'credBlob', 88,
+        'credBlob', 96,
         0,
         mojo.internal.Array(mojo.internal.Uint8, false),
         null,
@@ -2126,7 +2179,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'minPinLengthRequested', 60,
+        'minPinLengthRequested', 68,
         5,
         mojo.internal.Bool,
         false,
@@ -2134,7 +2187,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'remoteDesktopClientOverride', 96,
+        'remoteDesktopClientOverride', 104,
         0,
         blink.mojom.RemoteDesktopClientOverrideSpec.$,
         null,
@@ -2142,15 +2195,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 104,
+        'supplementalPubKeys', 112,
         0,
-        blink.mojom.DevicePublicKeyRequestSpec.$,
+        blink.mojom.SupplementalPubKeysRequestSpec.$,
         null,
         true, /* nullable */
         0 /* minVersion */,
       ),
     ],
-    [[0, 120],]);
+    [[0, 128],]);
 
 
 
@@ -2173,6 +2226,8 @@ blink.mojom.PublicKeyCredentialCreationOptions = class {
     this.excludeCredentials;
     /** @export { (blink.mojom.AuthenticatorSelectionCriteria|undefined) } */
     this.authenticatorSelection;
+    /** @export { !Array<!blink.mojom.Hint> } */
+    this.hints;
     /** @export { !blink.mojom.AttestationConveyancePreference } */
     this.attestation;
     /** @export { !boolean } */
@@ -2199,8 +2254,8 @@ blink.mojom.PublicKeyCredentialCreationOptions = class {
     this.minPinLengthRequested;
     /** @export { (blink.mojom.RemoteDesktopClientOverride|undefined) } */
     this.remoteDesktopClientOverride;
-    /** @export { (blink.mojom.DevicePublicKeyRequest|undefined) } */
-    this.devicePublicKey;
+    /** @export { (blink.mojom.SupplementalPubKeysRequest|undefined) } */
+    this.supplementalPubKeys;
   }
 };
 

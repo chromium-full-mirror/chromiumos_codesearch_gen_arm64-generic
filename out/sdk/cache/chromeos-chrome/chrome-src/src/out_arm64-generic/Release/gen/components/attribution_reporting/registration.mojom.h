@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/attribution_reporting/registration.mojom-features.h"
 #include "components/attribution_reporting/registration.mojom-shared.h"
 #include "components/attribution_reporting/registration.mojom-forward.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-forward.h"
@@ -49,430 +50,11 @@ namespace attribution_reporting::mojom {
 
 
 
-class  DebugKey {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DebugKey, T>::value>;
-  using DataView = DebugKeyDataView;
-  using Data_ = internal::DebugKey_Data;
 
-  template <typename... Args>
-  static DebugKeyPtr New(Args&&... args) {
-    return DebugKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
 
-  template <typename U>
-  static DebugKeyPtr From(const U& u) {
-    return mojo::TypeConverter<DebugKeyPtr, U>::Convert(u);
-  }
 
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DebugKey>::Convert(*this);
-  }
 
 
-  DebugKey();
-
-  explicit DebugKey(
-      uint64_t value);
-
-
-  ~DebugKey();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DebugKeyPtr>
-  DebugKeyPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DebugKey::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DebugKey::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DebugKey_UnserializedMessageContext<
-            UserType, DebugKey::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DebugKey::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DebugKey::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DebugKey_UnserializedMessageContext<
-            UserType, DebugKey::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DebugKey::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  uint64_t value;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DebugKey::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-class  TriggerConfig {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<TriggerConfig, T>::value>;
-  using DataView = TriggerConfigDataView;
-  using Data_ = internal::TriggerConfig_Data;
-
-  template <typename... Args>
-  static TriggerConfigPtr New(Args&&... args) {
-    return TriggerConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static TriggerConfigPtr From(const U& u) {
-    return mojo::TypeConverter<TriggerConfigPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, TriggerConfig>::Convert(*this);
-  }
-
-
-  TriggerConfig();
-
-  explicit TriggerConfig(
-      ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching);
-
-
-  ~TriggerConfig();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = TriggerConfigPtr>
-  TriggerConfigPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        TriggerConfig::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        TriggerConfig::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::TriggerConfig_UnserializedMessageContext<
-            UserType, TriggerConfig::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<TriggerConfig::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return TriggerConfig::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::TriggerConfig_UnserializedMessageContext<
-            UserType, TriggerConfig::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<TriggerConfig::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-
-class  TriggerDedupKey {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<TriggerDedupKey, T>::value>;
-  using DataView = TriggerDedupKeyDataView;
-  using Data_ = internal::TriggerDedupKey_Data;
-
-  template <typename... Args>
-  static TriggerDedupKeyPtr New(Args&&... args) {
-    return TriggerDedupKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static TriggerDedupKeyPtr From(const U& u) {
-    return mojo::TypeConverter<TriggerDedupKeyPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, TriggerDedupKey>::Convert(*this);
-  }
-
-
-  TriggerDedupKey();
-
-  explicit TriggerDedupKey(
-      uint64_t value);
-
-
-  ~TriggerDedupKey();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = TriggerDedupKeyPtr>
-  TriggerDedupKeyPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        TriggerDedupKey::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        TriggerDedupKey::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::TriggerDedupKey_UnserializedMessageContext<
-            UserType, TriggerDedupKey::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<TriggerDedupKey::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return TriggerDedupKey::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::TriggerDedupKey_UnserializedMessageContext<
-            UserType, TriggerDedupKey::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<TriggerDedupKey::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  uint64_t value;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, TriggerDedupKey::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -793,7 +375,7 @@ class  FilterConfig {
   FilterConfig();
 
   FilterConfig(
-      absl::optional<::base::TimeDelta> lookback_window,
+      std::optional<::base::TimeDelta> lookback_window,
       const base::flat_map<std::string, std::vector<std::string>>& filter_values);
 
 
@@ -872,7 +454,7 @@ class  FilterConfig {
   }
 
   
-  absl::optional<::base::TimeDelta> lookback_window;
+  std::optional<::base::TimeDelta> lookback_window;
   
   base::flat_map<std::string, std::vector<std::string>> filter_values;
 
@@ -1623,6 +1205,288 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  TriggerSpec {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TriggerSpec, T>::value>;
+  using DataView = TriggerSpecDataView;
+  using Data_ = internal::TriggerSpec_Data;
+
+  template <typename... Args>
+  static TriggerSpecPtr New(Args&&... args) {
+    return TriggerSpecPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TriggerSpecPtr From(const U& u) {
+    return mojo::TypeConverter<TriggerSpecPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TriggerSpec>::Convert(*this);
+  }
+
+
+  TriggerSpec();
+
+  explicit TriggerSpec(
+      const ::attribution_reporting::EventReportWindows& event_report_windows);
+
+
+  ~TriggerSpec();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TriggerSpecPtr>
+  TriggerSpecPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TriggerSpec::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TriggerSpec::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TriggerSpec_UnserializedMessageContext<
+            UserType, TriggerSpec::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TriggerSpec::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TriggerSpec::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TriggerSpec_UnserializedMessageContext<
+            UserType, TriggerSpec::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TriggerSpec::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::attribution_reporting::EventReportWindows event_report_windows;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TriggerSpec::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  TriggerSpecs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TriggerSpecs, T>::value>;
+  using DataView = TriggerSpecsDataView;
+  using Data_ = internal::TriggerSpecs_Data;
+
+  template <typename... Args>
+  static TriggerSpecsPtr New(Args&&... args) {
+    return TriggerSpecsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TriggerSpecsPtr From(const U& u) {
+    return mojo::TypeConverter<TriggerSpecsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TriggerSpecs>::Convert(*this);
+  }
+
+
+  TriggerSpecs();
+
+  TriggerSpecs(
+      std::vector<::attribution_reporting::TriggerSpec> specs,
+      const base::flat_map<uint32_t, uint8_t>& trigger_data_indices);
+
+
+  ~TriggerSpecs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TriggerSpecsPtr>
+  TriggerSpecsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TriggerSpecs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TriggerSpecs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TriggerSpecs_UnserializedMessageContext<
+            UserType, TriggerSpecs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TriggerSpecs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TriggerSpecs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TriggerSpecs_UnserializedMessageContext<
+            UserType, TriggerSpecs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TriggerSpecs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<::attribution_reporting::TriggerSpec> specs;
+  
+  base::flat_map<uint32_t, uint8_t> trigger_data_indices;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TriggerSpecs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
 
 class  SourceRegistration {
  public:
@@ -1658,11 +1522,12 @@ class  SourceRegistration {
       ::base::TimeDelta aggregatable_report_window,
       int32_t max_event_level_reports,
       int64_t priority,
-      const absl::optional<uint64_t>& debug_key,
+      std::optional<uint64_t> debug_key,
       const ::attribution_reporting::FilterData& filter_data,
       const ::attribution_reporting::AggregationKeys& aggregation_keys,
       bool debug_reporting,
-      const ::attribution_reporting::TriggerConfig& trigger_config);
+      ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching,
+      double event_level_epsilon);
 
 
   ~SourceRegistration();
@@ -1754,7 +1619,7 @@ class  SourceRegistration {
   
   int64_t priority;
   
-  absl::optional<uint64_t> debug_key;
+  std::optional<uint64_t> debug_key;
   
   ::attribution_reporting::FilterData filter_data;
   
@@ -1762,7 +1627,9 @@ class  SourceRegistration {
   
   bool debug_reporting;
   
-  ::attribution_reporting::TriggerConfig trigger_config;
+  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching;
+  
+  double event_level_epsilon;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1797,7 +1664,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
 class  EventTriggerData {
  public:
   template <typename T>
@@ -1827,7 +1693,7 @@ class  EventTriggerData {
   EventTriggerData(
       uint64_t data,
       int64_t priority,
-      const absl::optional<uint64_t>& dedup_key,
+      std::optional<uint64_t> dedup_key,
       const ::attribution_reporting::FilterPair& filters);
 
 
@@ -1910,7 +1776,7 @@ class  EventTriggerData {
   
   int64_t priority;
   
-  absl::optional<uint64_t> dedup_key;
+  std::optional<uint64_t> dedup_key;
   
   ::attribution_reporting::FilterPair filters;
 
@@ -1974,7 +1840,7 @@ class  AggregatableDedupKey {
   AggregatableDedupKey();
 
   AggregatableDedupKey(
-      const absl::optional<uint64_t>& dedup_key,
+      std::optional<uint64_t> dedup_key,
       const ::attribution_reporting::FilterPair& filters);
 
 
@@ -2053,7 +1919,7 @@ class  AggregatableDedupKey {
   }
 
   
-  absl::optional<uint64_t> dedup_key;
+  std::optional<uint64_t> dedup_key;
   
   ::attribution_reporting::FilterPair filters;
 
@@ -2121,11 +1987,12 @@ class  TriggerRegistration {
       const ::attribution_reporting::FilterPair& filters,
       std::vector<::attribution_reporting::AggregatableTriggerData> aggregatable_trigger_data,
       const base::flat_map<std::string, uint32_t>& aggregatable_values,
-      const absl::optional<uint64_t>& debug_key,
+      std::optional<uint64_t> debug_key,
       std::vector<::attribution_reporting::AggregatableDedupKey> aggregatable_dedup_keys,
       bool debug_reporting,
-      absl::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin,
-      ::attribution_reporting::mojom::SourceRegistrationTimeConfig source_registration_time_config);
+      std::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin,
+      ::attribution_reporting::mojom::SourceRegistrationTimeConfig source_registration_time_config,
+      const std::optional<std::string>& trigger_context_id);
 
 TriggerRegistration(const TriggerRegistration&) = delete;
 TriggerRegistration& operator=(const TriggerRegistration&) = delete;
@@ -2213,15 +2080,17 @@ TriggerRegistration& operator=(const TriggerRegistration&) = delete;
   
   base::flat_map<std::string, uint32_t> aggregatable_values;
   
-  absl::optional<uint64_t> debug_key;
+  std::optional<uint64_t> debug_key;
   
   std::vector<::attribution_reporting::AggregatableDedupKey> aggregatable_dedup_keys;
   
   bool debug_reporting;
   
-  absl::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin;
+  std::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin;
   
   ::attribution_reporting::mojom::SourceRegistrationTimeConfig source_registration_time_config;
+  
+  std::optional<std::string> trigger_context_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2536,28 +2405,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
-DebugKeyPtr DebugKey::Clone() const {
-  return New(
-      mojo::Clone(value)
-  );
-}
-
-template <typename T, DebugKey::EnableIfSame<T>*>
-bool DebugKey::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->value, other_struct.value))
-    return false;
-  return true;
-}
-
-template <typename T, DebugKey::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.value < rhs.value)
-    return true;
-  if (rhs.value < lhs.value)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
 SuitableOriginPtr SuitableOrigin::Clone() const {
   return New(
       mojo::Clone(origin)
@@ -2769,24 +2616,53 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-TriggerConfigPtr TriggerConfig::Clone() const {
+TriggerSpecPtr TriggerSpec::Clone() const {
   return New(
-      mojo::Clone(trigger_data_matching)
+      mojo::Clone(event_report_windows)
   );
 }
 
-template <typename T, TriggerConfig::EnableIfSame<T>*>
-bool TriggerConfig::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->trigger_data_matching, other_struct.trigger_data_matching))
+template <typename T, TriggerSpec::EnableIfSame<T>*>
+bool TriggerSpec::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->event_report_windows, other_struct.event_report_windows))
     return false;
   return true;
 }
 
-template <typename T, TriggerConfig::EnableIfSame<T>*>
+template <typename T, TriggerSpec::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.trigger_data_matching < rhs.trigger_data_matching)
+  if (lhs.event_report_windows < rhs.event_report_windows)
     return true;
-  if (rhs.trigger_data_matching < lhs.trigger_data_matching)
+  if (rhs.event_report_windows < lhs.event_report_windows)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TriggerSpecsPtr TriggerSpecs::Clone() const {
+  return New(
+      mojo::Clone(specs),
+      mojo::Clone(trigger_data_indices)
+  );
+}
+
+template <typename T, TriggerSpecs::EnableIfSame<T>*>
+bool TriggerSpecs::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->specs, other_struct.specs))
+    return false;
+  if (!mojo::Equals(this->trigger_data_indices, other_struct.trigger_data_indices))
+    return false;
+  return true;
+}
+
+template <typename T, TriggerSpecs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.specs < rhs.specs)
+    return true;
+  if (rhs.specs < lhs.specs)
+    return false;
+  if (lhs.trigger_data_indices < rhs.trigger_data_indices)
+    return true;
+  if (rhs.trigger_data_indices < lhs.trigger_data_indices)
     return false;
   return false;
 }
@@ -2804,7 +2680,8 @@ SourceRegistrationPtr SourceRegistration::Clone() const {
       mojo::Clone(filter_data),
       mojo::Clone(aggregation_keys),
       mojo::Clone(debug_reporting),
-      mojo::Clone(trigger_config)
+      mojo::Clone(trigger_data_matching),
+      mojo::Clone(event_level_epsilon)
   );
 }
 
@@ -2832,7 +2709,9 @@ bool SourceRegistration::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->debug_reporting, other_struct.debug_reporting))
     return false;
-  if (!mojo::Equals(this->trigger_config, other_struct.trigger_config))
+  if (!mojo::Equals(this->trigger_data_matching, other_struct.trigger_data_matching))
+    return false;
+  if (!mojo::Equals(this->event_level_epsilon, other_struct.event_level_epsilon))
     return false;
   return true;
 }
@@ -2883,31 +2762,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.debug_reporting < lhs.debug_reporting)
     return false;
-  if (lhs.trigger_config < rhs.trigger_config)
+  if (lhs.trigger_data_matching < rhs.trigger_data_matching)
     return true;
-  if (rhs.trigger_config < lhs.trigger_config)
+  if (rhs.trigger_data_matching < lhs.trigger_data_matching)
     return false;
-  return false;
-}
-template <typename StructPtrType>
-TriggerDedupKeyPtr TriggerDedupKey::Clone() const {
-  return New(
-      mojo::Clone(value)
-  );
-}
-
-template <typename T, TriggerDedupKey::EnableIfSame<T>*>
-bool TriggerDedupKey::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->value, other_struct.value))
-    return false;
-  return true;
-}
-
-template <typename T, TriggerDedupKey::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.value < rhs.value)
+  if (lhs.event_level_epsilon < rhs.event_level_epsilon)
     return true;
-  if (rhs.value < lhs.value)
+  if (rhs.event_level_epsilon < lhs.event_level_epsilon)
     return false;
   return false;
 }
@@ -2994,7 +2855,8 @@ TriggerRegistrationPtr TriggerRegistration::Clone() const {
       mojo::Clone(aggregatable_dedup_keys),
       mojo::Clone(debug_reporting),
       mojo::Clone(aggregation_coordinator_origin),
-      mojo::Clone(source_registration_time_config)
+      mojo::Clone(source_registration_time_config),
+      mojo::Clone(trigger_context_id)
   );
 }
 
@@ -3017,6 +2879,8 @@ bool TriggerRegistration::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->aggregation_coordinator_origin, other_struct.aggregation_coordinator_origin))
     return false;
   if (!mojo::Equals(this->source_registration_time_config, other_struct.source_registration_time_config))
+    return false;
+  if (!mojo::Equals(this->trigger_context_id, other_struct.trigger_context_id))
     return false;
   return true;
 }
@@ -3058,6 +2922,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.source_registration_time_config < rhs.source_registration_time_config)
     return true;
   if (rhs.source_registration_time_config < lhs.source_registration_time_config)
+    return false;
+  if (lhs.trigger_context_id < rhs.trigger_context_id)
+    return true;
+  if (rhs.trigger_context_id < lhs.trigger_context_id)
     return false;
   return false;
 }
@@ -3117,21 +2985,6 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // attribution_reporting::mojom
 
 namespace mojo {
-
-
-template <>
-struct  StructTraits<::attribution_reporting::mojom::DebugKey::DataView,
-                                         ::attribution_reporting::mojom::DebugKeyPtr> {
-  static bool IsNull(const ::attribution_reporting::mojom::DebugKeyPtr& input) { return !input; }
-  static void SetToNull(::attribution_reporting::mojom::DebugKeyPtr* output) { output->reset(); }
-
-  static decltype(::attribution_reporting::mojom::DebugKey::value) value(
-      const ::attribution_reporting::mojom::DebugKeyPtr& input) {
-    return input->value;
-  }
-
-  static bool Read(::attribution_reporting::mojom::DebugKey::DataView input, ::attribution_reporting::mojom::DebugKeyPtr* output);
-};
 
 
 template <>
@@ -3280,17 +3133,37 @@ struct  StructTraits<::attribution_reporting::mojom::EventReportWindows::DataVie
 
 
 template <>
-struct  StructTraits<::attribution_reporting::mojom::TriggerConfig::DataView,
-                                         ::attribution_reporting::mojom::TriggerConfigPtr> {
-  static bool IsNull(const ::attribution_reporting::mojom::TriggerConfigPtr& input) { return !input; }
-  static void SetToNull(::attribution_reporting::mojom::TriggerConfigPtr* output) { output->reset(); }
+struct  StructTraits<::attribution_reporting::mojom::TriggerSpec::DataView,
+                                         ::attribution_reporting::mojom::TriggerSpecPtr> {
+  static bool IsNull(const ::attribution_reporting::mojom::TriggerSpecPtr& input) { return !input; }
+  static void SetToNull(::attribution_reporting::mojom::TriggerSpecPtr* output) { output->reset(); }
 
-  static decltype(::attribution_reporting::mojom::TriggerConfig::trigger_data_matching) trigger_data_matching(
-      const ::attribution_reporting::mojom::TriggerConfigPtr& input) {
-    return input->trigger_data_matching;
+  static const decltype(::attribution_reporting::mojom::TriggerSpec::event_report_windows)& event_report_windows(
+      const ::attribution_reporting::mojom::TriggerSpecPtr& input) {
+    return input->event_report_windows;
   }
 
-  static bool Read(::attribution_reporting::mojom::TriggerConfig::DataView input, ::attribution_reporting::mojom::TriggerConfigPtr* output);
+  static bool Read(::attribution_reporting::mojom::TriggerSpec::DataView input, ::attribution_reporting::mojom::TriggerSpecPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::attribution_reporting::mojom::TriggerSpecs::DataView,
+                                         ::attribution_reporting::mojom::TriggerSpecsPtr> {
+  static bool IsNull(const ::attribution_reporting::mojom::TriggerSpecsPtr& input) { return !input; }
+  static void SetToNull(::attribution_reporting::mojom::TriggerSpecsPtr* output) { output->reset(); }
+
+  static const decltype(::attribution_reporting::mojom::TriggerSpecs::specs)& specs(
+      const ::attribution_reporting::mojom::TriggerSpecsPtr& input) {
+    return input->specs;
+  }
+
+  static const decltype(::attribution_reporting::mojom::TriggerSpecs::trigger_data_indices)& trigger_data_indices(
+      const ::attribution_reporting::mojom::TriggerSpecsPtr& input) {
+    return input->trigger_data_indices;
+  }
+
+  static bool Read(::attribution_reporting::mojom::TriggerSpecs::DataView input, ::attribution_reporting::mojom::TriggerSpecsPtr* output);
 };
 
 
@@ -3335,7 +3208,7 @@ struct  StructTraits<::attribution_reporting::mojom::SourceRegistration::DataVie
     return input->priority;
   }
 
-  static const decltype(::attribution_reporting::mojom::SourceRegistration::debug_key)& debug_key(
+  static decltype(::attribution_reporting::mojom::SourceRegistration::debug_key) debug_key(
       const ::attribution_reporting::mojom::SourceRegistrationPtr& input) {
     return input->debug_key;
   }
@@ -3355,27 +3228,17 @@ struct  StructTraits<::attribution_reporting::mojom::SourceRegistration::DataVie
     return input->debug_reporting;
   }
 
-  static const decltype(::attribution_reporting::mojom::SourceRegistration::trigger_config)& trigger_config(
+  static decltype(::attribution_reporting::mojom::SourceRegistration::trigger_data_matching) trigger_data_matching(
       const ::attribution_reporting::mojom::SourceRegistrationPtr& input) {
-    return input->trigger_config;
+    return input->trigger_data_matching;
+  }
+
+  static decltype(::attribution_reporting::mojom::SourceRegistration::event_level_epsilon) event_level_epsilon(
+      const ::attribution_reporting::mojom::SourceRegistrationPtr& input) {
+    return input->event_level_epsilon;
   }
 
   static bool Read(::attribution_reporting::mojom::SourceRegistration::DataView input, ::attribution_reporting::mojom::SourceRegistrationPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::attribution_reporting::mojom::TriggerDedupKey::DataView,
-                                         ::attribution_reporting::mojom::TriggerDedupKeyPtr> {
-  static bool IsNull(const ::attribution_reporting::mojom::TriggerDedupKeyPtr& input) { return !input; }
-  static void SetToNull(::attribution_reporting::mojom::TriggerDedupKeyPtr* output) { output->reset(); }
-
-  static decltype(::attribution_reporting::mojom::TriggerDedupKey::value) value(
-      const ::attribution_reporting::mojom::TriggerDedupKeyPtr& input) {
-    return input->value;
-  }
-
-  static bool Read(::attribution_reporting::mojom::TriggerDedupKey::DataView input, ::attribution_reporting::mojom::TriggerDedupKeyPtr* output);
 };
 
 
@@ -3395,7 +3258,7 @@ struct  StructTraits<::attribution_reporting::mojom::EventTriggerData::DataView,
     return input->priority;
   }
 
-  static const decltype(::attribution_reporting::mojom::EventTriggerData::dedup_key)& dedup_key(
+  static decltype(::attribution_reporting::mojom::EventTriggerData::dedup_key) dedup_key(
       const ::attribution_reporting::mojom::EventTriggerDataPtr& input) {
     return input->dedup_key;
   }
@@ -3415,7 +3278,7 @@ struct  StructTraits<::attribution_reporting::mojom::AggregatableDedupKey::DataV
   static bool IsNull(const ::attribution_reporting::mojom::AggregatableDedupKeyPtr& input) { return !input; }
   static void SetToNull(::attribution_reporting::mojom::AggregatableDedupKeyPtr* output) { output->reset(); }
 
-  static const decltype(::attribution_reporting::mojom::AggregatableDedupKey::dedup_key)& dedup_key(
+  static decltype(::attribution_reporting::mojom::AggregatableDedupKey::dedup_key) dedup_key(
       const ::attribution_reporting::mojom::AggregatableDedupKeyPtr& input) {
     return input->dedup_key;
   }
@@ -3455,7 +3318,7 @@ struct  StructTraits<::attribution_reporting::mojom::TriggerRegistration::DataVi
     return input->aggregatable_values;
   }
 
-  static const decltype(::attribution_reporting::mojom::TriggerRegistration::debug_key)& debug_key(
+  static decltype(::attribution_reporting::mojom::TriggerRegistration::debug_key) debug_key(
       const ::attribution_reporting::mojom::TriggerRegistrationPtr& input) {
     return input->debug_key;
   }
@@ -3478,6 +3341,11 @@ struct  StructTraits<::attribution_reporting::mojom::TriggerRegistration::DataVi
   static decltype(::attribution_reporting::mojom::TriggerRegistration::source_registration_time_config) source_registration_time_config(
       const ::attribution_reporting::mojom::TriggerRegistrationPtr& input) {
     return input->source_registration_time_config;
+  }
+
+  static const decltype(::attribution_reporting::mojom::TriggerRegistration::trigger_context_id)& trigger_context_id(
+      const ::attribution_reporting::mojom::TriggerRegistrationPtr& input) {
+    return input->trigger_context_id;
   }
 
   static bool Read(::attribution_reporting::mojom::TriggerRegistration::DataView input, ::attribution_reporting::mojom::TriggerRegistrationPtr* output);

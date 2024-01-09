@@ -15,6 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kAppWindow_SetVisuallyDeemphasized_Name = 0;
+constexpr uint32_t kAppWindow_SetSupportsAppRegion_Name = 1;
 
 }  // namespace internal
 

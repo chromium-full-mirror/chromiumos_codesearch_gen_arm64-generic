@@ -35,15 +35,7 @@ export class RecorderPanel extends UI.Panel.Panel {
         return this.#controller.isActionPossible(actionId);
     }
 }
-let recorderActionDelegateInstance;
 export class ActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!recorderActionDelegateInstance || forceNew) {
-            recorderActionDelegateInstance = new ActionDelegate();
-        }
-        return recorderActionDelegateInstance;
-    }
     handleAction(_context, actionId) {
         void (async () => {
             await UI.ViewManager.ViewManager.instance().showView(RecorderPanel.panelName);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/privileged/mojom/indexed_db_control_test.mojom-features.h"
 #include "components/services/storage/privileged/mojom/indexed_db_control_test.mojom-shared.h"
 #include "components/services/storage/privileged/mojom/indexed_db_control_test.mojom-forward.h"
 #include "components/services/storage/public/mojom/buckets/bucket_locator.mojom.h"
@@ -128,6 +129,7 @@ class IndexedDBControlTest
     kGetNextBlobNumberForTestingMinVersion = 0,
     kGetPathForBlobForTestingMinVersion = 0,
     kCompactBackingStoreForTestingMinVersion = 0,
+    kGetUsageForTestingMinVersion = 0,
     kBindMockFailureSingletonForTestingMinVersion = 0,
     kGetDatabaseKeysForTestingMinVersion = 0,
     kForceInitializeFromFilesForTestingMinVersion = 0,
@@ -164,6 +166,9 @@ class IndexedDBControlTest
     NOINLINE static uint32_t IPCStableHash();
   };
   struct CompactBackingStoreForTesting_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetUsageForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindMockFailureSingletonForTesting_Sym {
@@ -228,6 +233,11 @@ class IndexedDBControlTest
   
   virtual void CompactBackingStoreForTesting(const ::storage::BucketLocator& bucket_locator, CompactBackingStoreForTestingCallback callback) = 0;
 
+
+  using GetUsageForTestingCallback = base::OnceCallback<void(int64_t)>;
+  
+  virtual void GetUsageForTesting(GetUsageForTestingCallback callback) = 0;
+
   
   virtual void BindMockFailureSingletonForTesting(::mojo::PendingReceiver<MockFailureInjector> receiver) = 0;
 
@@ -285,6 +295,8 @@ class  IndexedDBControlTestProxy
   void GetPathForBlobForTesting(const ::storage::BucketLocator& bucket_locator, int64_t database_id, int64_t blob_number, GetPathForBlobForTestingCallback callback) final;
   
   void CompactBackingStoreForTesting(const ::storage::BucketLocator& bucket_locator, CompactBackingStoreForTestingCallback callback) final;
+  
+  void GetUsageForTesting(GetUsageForTestingCallback callback) final;
   
   void BindMockFailureSingletonForTesting(::mojo::PendingReceiver<MockFailureInjector> receiver) final;
   

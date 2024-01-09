@@ -21,6 +21,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared-internal.h"
 #include "skia/public/mojom/skcolor.mojom-shared-internal.h"
+#include "services/network/public/mojom/attribution.mojom-shared-internal.h"
 #include "services/network/public/mojom/content_security_policy.mojom-shared-internal.h"
 #include "services/network/public/mojom/url_loader.mojom-shared-internal.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-shared-internal.h"
@@ -57,7 +58,6 @@
 #include "third_party/blink/public/mojom/picture_in_picture_window_options/picture_in_picture_window_options.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/widget/platform_widget.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-shared-internal.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-shared-internal.h"
@@ -104,7 +104,6 @@ struct ViewWidgetType_Data {
       case 0:
       case 1:
       case 2:
-      case 3:
         return true;
     }
     return false;
@@ -274,7 +273,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) CreateViewParams_Data {
   mojo::internal::AssociatedEndpointHandle_Data blink_page_broadcast;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> outermost_origin;
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> base_background_color;
+  mojo::internal::Pointer<::blink::mojom::internal::ColorProviderColorMaps_Data> color_provider_colors;
   mojo::internal::Pointer<::blink::mojom::internal::BrowsingContextGroupInfo_Data> browsing_context_group_info;
+  int32_t attribution_support;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<CreateViewParams_Data>;
@@ -282,7 +284,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) CreateViewParams_Data {
   CreateViewParams_Data();
   ~CreateViewParams_Data() = delete;
 };
-static_assert(sizeof(CreateViewParams_Data) == 120,
+static_assert(sizeof(CreateViewParams_Data) == 136,
               "Bad sizeof(CreateViewParams_Data)");
 // Used by CreateViewParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -499,7 +501,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) CreateFrameParams_Data {
   mojo::internal::Pointer<::blink::mojom::internal::FrameOwnerProperties_Data> frame_owner_properties;
   mojo::internal::Pointer<internal::CreateFrameWidgetParams_Data> widget_params;
   uint8_t is_on_initial_empty_document : 1;
-  uint8_t pad12_[3];
+  uint8_t is_for_nested_main_frame : 1;
+  uint8_t pad13_[3];
   mojo::internal::AssociatedEndpointHandle_Data frame;
   mojo::internal::Pointer<::blink::mojom::internal::DocumentToken_Data> document_token;
   mojo::internal::Pointer<::blink::mojom::internal::PolicyContainer_Data> policy_container;
@@ -681,6 +684,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) CreateNewWindowReply_Data {
   mojo::internal::Pointer<::blink::mojom::internal::DocumentToken_Data> document_token;
   mojo::internal::Pointer<::blink::mojom::internal::PolicyContainer_Data> policy_container;
   mojo::internal::Pointer<::blink::mojom::internal::BrowsingContextGroupInfo_Data> browsing_context_group_info;
+  mojo::internal::Pointer<::blink::mojom::internal::ColorProviderColorMaps_Data> color_provider_colors;
 
  private:
   friend class mojo::internal::MessageFragment<CreateNewWindowReply_Data>;
@@ -688,7 +692,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) CreateNewWindowReply_Data {
   CreateNewWindowReply_Data();
   ~CreateNewWindowReply_Data() = delete;
 };
-static_assert(sizeof(CreateNewWindowReply_Data) == 96,
+static_assert(sizeof(CreateNewWindowReply_Data) == 104,
               "Bad sizeof(CreateNewWindowReply_Data)");
 // Used by CreateNewWindowReply::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

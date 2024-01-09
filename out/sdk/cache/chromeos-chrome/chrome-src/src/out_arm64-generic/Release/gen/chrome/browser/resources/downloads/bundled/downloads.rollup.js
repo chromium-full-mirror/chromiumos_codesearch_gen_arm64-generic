@@ -1,216 +1,19 @@
 import './strings.m.js';
-import { Polymer, dom, html, PolymerElement, FlattenedNodesObserver, mixinBehaviors, Base, dedupingMixin, afterNextRender, beforeNextRender, useShadow, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin, afterNextRender, beforeNextRender, useShadow, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-
-class IronMeta {
-  /**
-   * @param {{
-   *   type: (string|null|undefined),
-   *   key: (string|null|undefined),
-   *   value: *,
-   * }=} options
-   */
-  constructor(options) {
-    IronMeta[' '](options);
-
-    /** @type {string} */
-    this.type = (options && options.type) || 'default';
-    /** @type {string|null|undefined} */
-    this.key = options && options.key;
-    if (options && 'value' in options) {
-      /** @type {*} */
-      this.value = options.value;
-    }
-  }
-
-  /** @return {*} */
-  get value() {
-    var type = this.type;
-    var key = this.key;
-
-    if (type && key) {
-      return IronMeta.types[type] && IronMeta.types[type][key];
-    }
-  }
-
-  /** @param {*} value */
-  set value(value) {
-    var type = this.type;
-    var key = this.key;
-
-    if (type && key) {
-      type = IronMeta.types[type] = IronMeta.types[type] || {};
-      if (value == null) {
-        delete type[key];
-      } else {
-        type[key] = value;
-      }
-    }
-  }
-
-  /** @return {!Array<*>} */
-  get list() {
-    var type = this.type;
-
-    if (type) {
-      var items = IronMeta.types[this.type];
-      if (!items) {
-        return [];
-      }
-
-      return Object.keys(items).map(function(key) {
-        return metaDatas[this.type][key];
-      }, this);
-    }
-  }
-
-  /**
-   * @param {string} key
-   * @return {*}
-   */
-  byKey(key) {
-    this.key = key;
-    return this.value;
-  }
-}
-// This function is used to convince Closure not to remove constructor calls
-// for instances that are not held anywhere. For example, when
-// `new IronMeta({...})` is used only for the side effect of adding a value.
-IronMeta[' '] = function() {};
-
-IronMeta.types = {};
-
-var metaDatas = IronMeta.types;
-
-/**
-`iron-meta` is a generic element you can use for sharing information across the
-DOM tree. It uses [monostate pattern](http://c2.com/cgi/wiki?MonostatePattern)
-such that any instance of iron-meta has access to the shared information. You
-can use `iron-meta` to share whatever you want (or create an extension [like
-x-meta] for enhancements).
-
-The `iron-meta` instances containing your actual data can be loaded in an
-import, or constructed in any way you see fit. The only requirement is that you
-create them before you try to access them.
-
-Examples:
-
-If I create an instance like this:
-
-    <iron-meta key="info" value="foo/bar"></iron-meta>
-
-Note that value="foo/bar" is the metadata I've defined. I could define more
-attributes or use child nodes to define additional metadata.
-
-Now I can access that element (and it's metadata) from any iron-meta instance
-via the byKey method, e.g.
-
-    meta.byKey('info');
-
-Pure imperative form would be like:
-
-    document.createElement('iron-meta').byKey('info');
-
-Or, in a Polymer element, you can include a meta in your template:
-
-    <iron-meta id="meta"></iron-meta>
-    ...
-    this.$.meta.byKey('info');
-
-@group Iron Elements
-@demo demo/index.html
-@element iron-meta
-*/
-Polymer({
-
-  is: 'iron-meta',
-
-  properties: {
-
-    /**
-     * The type of meta-data.  All meta-data of the same type is stored
-     * together.
-     * @type {string}
-     */
-    type: {
-      type: String,
-      value: 'default',
-    },
-
-    /**
-     * The key used to store `value` under the `type` namespace.
-     * @type {?string}
-     */
-    key: {
-      type: String,
-    },
-
-    /**
-     * The meta-data to store or retrieve.
-     * @type {*}
-     */
-    value: {
-      type: String,
-      notify: true,
-    },
-
-    /**
-     * If true, `value` is set to the iron-meta instance itself.
-     */
-    self: {type: Boolean, observer: '_selfChanged'},
-
-    __meta: {type: Boolean, computed: '__computeMeta(type, key, value)'}
-  },
-
-  hostAttributes: {hidden: true},
-
-  __computeMeta: function(type, key, value) {
-    var meta = new IronMeta({type: type, key: key});
-
-    if (value !== undefined && value !== meta.value) {
-      meta.value = value;
-    } else if (this.value !== meta.value) {
-      this.value = meta.value;
-    }
-
-    return meta;
-  },
-
-  get list() {
-    return this.__meta && this.__meta.list;
-  },
-
-  _selfChanged: function(self) {
-    if (self) {
-      this.value = this;
-    }
-  },
-
-  /**
-   * Retrieves meta data value by key.
-   *
-   * @method byKey
-   * @param {string} key The key of the meta-data to be returned.
-   * @return {*}
-   */
-  byKey: function(key) {
-    return new IronMeta({type: this.type, key: key}).value;
-  }
-});
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
+  <template>
+    <style>
+:host([hidden]),[hidden]{display:none!important}
+    </style>
+  </template>
+`.content);
+styleMod$4.register('cr-hidden-style');
 
 /**
 @license
@@ -222,287 +25,8 @@ found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
 part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
-/**
- * The `iron-iconset-svg` element allows users to define their own icon sets
- * that contain svg icons. The svg icon elements should be children of the
- * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
- *
- * Using svg elements to create icons has a few advantages over traditional
- * bitmap graphics like jpg or png. Icons that use svg are vector based so
- * they are resolution independent and should look good on any device. They
- * are stylable via css. Icons can be themed, colorized, and even animated.
- *
- * Example:
- *
- *     <iron-iconset-svg name="my-svg-icons" size="24">
- *       <svg>
- *         <defs>
- *           <g id="shape">
- *             <rect x="12" y="0" width="12" height="24" />
- *             <circle cx="12" cy="12" r="12" />
- *           </g>
- *         </defs>
- *       </svg>
- *     </iron-iconset-svg>
- *
- * This will automatically register the icon set "my-svg-icons" to the iconset
- * database.  To use these icons from within another element, make a
- * `iron-iconset` element and call the `byId` method
- * to retrieve a given iconset. To apply a particular icon inside an
- * element use the `applyIcon` method. For example:
- *
- *     iconset.applyIcon(iconNode, 'car');
- *
- * @element iron-iconset-svg
- * @demo demo/index.html
- * @implements {Polymer.Iconset}
- */
-Polymer({
-  is: 'iron-iconset-svg',
 
-  properties: {
-
-    /**
-     * The name of the iconset.
-     */
-    name: {type: String, observer: '_nameChanged'},
-
-    /**
-     * The size of an individual icon. Note that icons must be square.
-     */
-    size: {type: Number, value: 24},
-
-    /**
-     * Set to true to enable mirroring of icons where specified when they are
-     * stamped. Icons that should be mirrored should be decorated with a
-     * `mirror-in-rtl` attribute.
-     *
-     * NOTE: For performance reasons, direction will be resolved once per
-     * document per iconset, so moving icons in and out of RTL subtrees will
-     * not cause their mirrored state to change.
-     */
-    rtlMirroring: {type: Boolean, value: false},
-
-    /**
-     * Set to true to measure RTL based on the dir attribute on the body or
-     * html elements (measured on document.body or document.documentElement as
-     * available).
-     */
-    useGlobalRtlAttribute: {type: Boolean, value: false}
-  },
-
-  created: function() {
-    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
-  },
-
-  attached: function() {
-    this.style.display = 'none';
-  },
-
-  /**
-   * Construct an array of all icon names in this iconset.
-   *
-   * @return {!Array} Array of icon names.
-   */
-  getIconNames: function() {
-    this._icons = this._createIconMap();
-    return Object.keys(this._icons).map(function(n) {
-      return this.name + ':' + n;
-    }, this);
-  },
-
-  /**
-   * Applies an icon to the given element.
-   *
-   * An svg icon is prepended to the element's shadowRoot if it exists,
-   * otherwise to the element itself.
-   *
-   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
-   * RTL, the element will be tested (once and only once ever for each
-   * iconset) to determine the direction of the subtree the element is in.
-   * This direction will apply to all future icon applications, although only
-   * icons marked to be mirrored will be affected.
-   *
-   * @method applyIcon
-   * @param {Element} element Element to which the icon is applied.
-   * @param {string} iconName Name of the icon to apply.
-   * @return {?Element} The svg element which renders the icon.
-   */
-  applyIcon: function(element, iconName) {
-    // Remove old svg element
-    this.removeIcon(element);
-    // install new svg element
-    var svg = this._cloneIcon(
-        iconName, this.rtlMirroring && this._targetIsRTL(element));
-    if (svg) {
-      // insert svg element into shadow root, if it exists
-      var pde = dom(element.root || element);
-      pde.insertBefore(svg, pde.childNodes[0]);
-      return element._svgIcon = svg;
-    }
-    return null;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   * @param {string} iconName Name of the icon to apply.
-   * @param {boolean} targetIsRTL Whether the target element is RTL.
-   * @return {Element} Returns an installable clone of the SVG element
-   *     matching `id`.
-   */
-  createIcon: function(iconName, targetIsRTL) {
-    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
-  },
-
-  /**
-   * Remove an icon from the given element by undoing the changes effected
-   * by `applyIcon`.
-   *
-   * @param {Element} element The element from which the icon is removed.
-   */
-  removeIcon: function(element) {
-    // Remove old svg element
-    if (element._svgIcon) {
-      dom(element.root || element).removeChild(element._svgIcon);
-      element._svgIcon = null;
-    }
-  },
-
-  /**
-   * Measures and memoizes the direction of the element. Note that this
-   * measurement is only done once and the result is memoized for future
-   * invocations.
-   */
-  _targetIsRTL: function(target) {
-    if (this.__targetIsRTL == null) {
-      if (this.useGlobalRtlAttribute) {
-        var globalElement =
-            (document.body && document.body.hasAttribute('dir')) ?
-            document.body :
-            document.documentElement;
-
-        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
-      } else {
-        if (target && target.nodeType !== Node.ELEMENT_NODE) {
-          target = target.host;
-        }
-
-        this.__targetIsRTL =
-            target && window.getComputedStyle(target)['direction'] === 'rtl';
-      }
-    }
-
-    return this.__targetIsRTL;
-  },
-
-  /**
-   *
-   * When name is changed, register iconset metadata
-   *
-   */
-  _nameChanged: function() {
-    this._meta.value = null;
-    this._meta.key = this.name;
-    this._meta.value = this;
-
-    this.async(function() {
-      this.fire('iron-iconset-added', this, {node: window});
-    });
-  },
-
-  /**
-   * Create a map of child SVG elements by id.
-   *
-   * @return {!Object} Map of id's to SVG elements.
-   */
-  _createIconMap: function() {
-    // Objects chained to Object.prototype (`{}`) have members. Specifically,
-    // on FF there is a `watch` method that confuses the icon map, so we
-    // need to use a null-based object here.
-    var icons = Object.create(null);
-    dom(this).querySelectorAll('[id]').forEach(function(icon) {
-      icons[icon.id] = icon;
-    });
-    return icons;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   *
-   * @return {Element} Returns an installable clone of the SVG element
-   * matching `id`.
-   */
-  _cloneIcon: function(id, mirrorAllowed) {
-    // create the icon map on-demand, since the iconset itself has no discrete
-    // signal to know when it's children are fully parsed
-    this._icons = this._icons || this._createIconMap();
-    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
-  },
-
-  /**
-   * @param {Element} sourceSvg
-   * @param {number} size
-   * @param {Boolean} mirrorAllowed
-   * @return {Element}
-   */
-  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
-    if (sourceSvg) {
-      var content = sourceSvg.cloneNode(true),
-          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-          viewBox =
-              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
-          cssText =
-              'pointer-events: none; display: block; width: 100%; height: 100%;';
-
-      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
-        cssText +=
-            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
-      }
-
-      svg.setAttribute('viewBox', viewBox);
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      svg.setAttribute('focusable', 'false');
-      // TODO(dfreedm): `pointer-events: none` works around
-      // https://crbug.com/370136
-      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
-      // shadow-root
-      svg.style.cssText = cssText;
-      svg.appendChild(content).removeAttribute('id');
-      return svg;
-    }
-    return null;
-  }
-
-});
-
-const template$5 = html `<iron-iconset-svg name="downloads" size="24">
-  <svg>
-    <defs>
-      
-      <g id="dangerous">
-        <path d="M 8.25 21 L 3 15.75 L 3 8.25 L 8.25 3 L 15.75 3 L 21 8.25 L 21 15.75 L 15.75 21 Z M 9.148438 16.25 L 12 13.398438 L 14.851562 16.25 L 16.25 14.851562 L 13.398438 12 L 16.25 9.148438 L 14.851562 7.75 L 12 10.601562 L 9.148438 7.75 L 7.75 9.148438 L 10.601562 12 L 7.75 14.851562 Z M 9.148438 16.25">
-        </path>
-      </g>
-    </defs>
-  </svg>
-</iron-iconset-svg>
-`;
-document.head.appendChild(template$5.content);
-
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-
-const template$4 = html`
+const template$5 = html`
 <custom-style>
   <style is="custom-style">
     html {
@@ -655,12 +179,11 @@ const template$4 = html`
   </style>
 </custom-style>
 `;
-template$4.setAttribute('style', 'display: none;');
-document.head.appendChild(template$4.content);
+template$5.setAttribute('style', 'display: none;');
+document.head.appendChild(template$5.content);
 
-const template$3 = html `
-<custom-style>
-  <style>
+const template$4 = html `
+<style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
       var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
@@ -684,53 +207,9 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
       var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
-  </style>
-</custom-style>
+</style>
 `;
-document.head.appendChild(template$3.content);
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Verify |value| is truthy.
- * @param value A value to check for truthiness. Note that this
- *     may be used to test whether |value| is defined or not, and we don't want
- *     to force a cast to boolean.
- */
-function assert(value, message) {
-    if (value) {
-        return;
-    }
-    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
-}
-function assertInstanceof(value, type, message) {
-    if (value instanceof type) {
-        return;
-    }
-    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
-}
-/**
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- */
-function assertNotReached(message = 'Unreachable code hit') {
-    assert(false, message);
-}
+document.head.appendChild(template$4.content);
 
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -755,19 +234,26 @@ const docsToManager = new Map();
  *
  */
 class FocusOutlineManager {
+    // Whether focus change is triggered by a keyboard event.
+    focusByKeyboard_ = true;
+    classList_;
     /**
      * @param doc The document to attach the focus outline manager to.
      */
     constructor(doc) {
-        // Whether focus change is triggered by a keyboard event.
-        this.focusByKeyboard_ = true;
         this.classList_ = doc.documentElement.classList;
-        doc.addEventListener('keydown', () => this.onEvent_(true), true);
-        doc.addEventListener('mousedown', () => this.onEvent_(false), true);
+        doc.addEventListener('keydown', (e) => this.onEvent_(true, e), true);
+        doc.addEventListener('mousedown', (e) => this.onEvent_(false, e), true);
         this.updateVisibility();
     }
-    onEvent_(focusByKeyboard) {
+    onEvent_(focusByKeyboard, e) {
         if (this.focusByKeyboard_ === focusByKeyboard) {
+            return;
+        }
+        if (e instanceof KeyboardEvent && e.repeat) {
+            // A repeated keydown should not trigger the focus state. For example,
+            // there is a repeated ALT keydown if ALT+CLICK is used to open the
+            // context menu and ALT is not released.
             return;
         }
         this.focusByKeyboard_ = focusByKeyboard;
@@ -799,808 +285,6 @@ class FocusOutlineManager {
         return manager;
     }
 }
-
-// Copyright 2011 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview EventTracker is a simple class that manages the addition and
- * removal of DOM event listeners. In particular, it keeps track of all
- * listeners that have been added and makes it easy to remove some or all of
- * them without requiring all the information again. This is particularly handy
- * when the listener is a generated function such as a lambda or the result of
- * calling Function.bind.
- */
-class EventTracker {
-    constructor() {
-        this.listeners_ = [];
-    }
-    /**
-     * Add an event listener - replacement for EventTarget.addEventListener.
-     * @param target The DOM target to add a listener to.
-     * @param eventType The type of event to subscribe to.
-     * @param listener The listener to add.
-     * @param capture Whether to invoke during the capture phase. Defaults to
-     *     false.
-     */
-    add(target, eventType, listener, capture = false) {
-        const h = {
-            target: target,
-            eventType: eventType,
-            listener: listener,
-            capture: capture,
-        };
-        this.listeners_.push(h);
-        target.addEventListener(eventType, listener, capture);
-    }
-    /**
-     * Remove any specified event listeners added with this EventTracker.
-     * @param target The DOM target to remove a listener from.
-     * @param eventType The type of event to remove.
-     */
-    remove(target, eventType) {
-        this.listeners_ = this.listeners_.filter(listener => {
-            if (listener.target === target &&
-                (!eventType || (listener.eventType === eventType))) {
-                EventTracker.removeEventListener(listener);
-                return false;
-            }
-            return true;
-        });
-    }
-    /** Remove all event listeners added with this EventTracker. */
-    removeAll() {
-        this.listeners_.forEach(listener => EventTracker.removeEventListener(listener));
-        this.listeners_ = [];
-    }
-    /**
-     * Remove a single event listener given it's tracking entry. It's up to the
-     * caller to ensure the entry is removed from listeners_.
-     * @param entry The entry describing the listener to
-     * remove.
-     */
-    static removeEventListener(entry) {
-        entry.target.removeEventListener(entry.eventType, entry.listener, entry.capture);
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return The currently focused element (including elements that are
- *     behind a shadow root), or null if nothing is focused.
- */
-function getDeepActiveElement() {
-    let a = document.activeElement;
-    while (a && a.shadowRoot && a.shadowRoot.activeElement) {
-        a = a.shadowRoot.activeElement;
-    }
-    return a;
-}
-/**
- * Check the directionality of the page.
- * @return True if Chrome is running an RTL UI.
- */
-function isRTL() {
-    return document.documentElement.dir === 'rtl';
-}
-/**
- * Replaces '&', '<', '>', '"', and ''' characters with their HTML encoding.
- * @param original The original string.
- * @return The string with all the characters mentioned above replaced.
- */
-function htmlEscape(original) {
-    return original.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
-/**
- * @return Whether a modifier key was down when processing |e|.
- */
-function hasKeyModifiers(e) {
-    return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// clang-format off
-// clang-format on
-const ACTIVE_CLASS = 'focus-row-active';
-/**
- * A class to manage focus between given horizontally arranged elements.
- *
- * Pressing left cycles backward and pressing right cycles forward in item
- * order. Pressing Home goes to the beginning of the list and End goes to the
- * end of the list.
- *
- * If an item in this row is focused, it'll stay active (accessible via tab).
- * If no items in this row are focused, the row can stay active until focus
- * changes to a node inside |this.boundary_|. If |boundary| isn't specified,
- * any focus change deactivates the row.
- */
-class FocusRow {
-    /**
-     * @param root The root of this focus row. Focus classes are
-     *     applied to |root| and all added elements must live within |root|.
-     * @param boundary Focus events are ignored outside of this element.
-     * @param delegate An optional event delegate.
-     */
-    constructor(root, boundary, delegate) {
-        this.eventTracker = new EventTracker();
-        this.root = root;
-        this.boundary_ = boundary || document.documentElement;
-        this.delegate = delegate;
-    }
-    /**
-     * Whether it's possible that |element| can be focused.
-     */
-    static isFocusable(element) {
-        if (!element || element.disabled) {
-            return false;
-        }
-        // We don't check that element.tabIndex >= 0 here because inactive rows
-        // set a tabIndex of -1.
-        let current = element;
-        while (true) {
-            assertInstanceof(current, Element);
-            const style = window.getComputedStyle(current);
-            if (style.visibility === 'hidden' || style.display === 'none') {
-                return false;
-            }
-            const parent = current.parentNode;
-            if (!parent) {
-                return false;
-            }
-            if (parent === current.ownerDocument ||
-                parent instanceof DocumentFragment) {
-                return true;
-            }
-            current = parent;
-        }
-    }
-    /**
-     * A focus override is a function that returns an element that should gain
-     * focus. The element may not be directly selectable for example the element
-     * that can gain focus is in a shadow DOM. Allowing an override via a
-     * function leaves the details of how the element is retrieved to the
-     * component.
-     */
-    static getFocusableElement(element) {
-        const withFocusable = element;
-        if (withFocusable.getFocusableElement) {
-            return withFocusable.getFocusableElement();
-        }
-        return element;
-    }
-    /**
-     * Register a new type of focusable element (or add to an existing one).
-     *
-     * Example: an (X) button might be 'delete' or 'close'.
-     *
-     * When FocusRow is used within a FocusGrid, these types are used to
-     * determine equivalent controls when Up/Down are pressed to change rows.
-     *
-     * Another example: mutually exclusive controls that hide each other on
-     * activation (i.e. Play/Pause) could use the same type (i.e. 'play-pause')
-     * to indicate they're equivalent.
-     *
-     * @param type The type of element to track focus of.
-     * @param selectorOrElement The selector of the element
-     *    from this row's root, or the element itself.
-     * @return Whether a new item was added.
-     */
-    addItem(type, selectorOrElement) {
-        assert(type);
-        let element;
-        if (typeof selectorOrElement === 'string') {
-            element = this.root.querySelector(selectorOrElement);
-        }
-        else {
-            element = selectorOrElement;
-        }
-        if (!element) {
-            return false;
-        }
-        element.setAttribute('focus-type', type);
-        element.tabIndex = this.isActive() ? 0 : -1;
-        this.eventTracker.add(element, 'blur', this.onBlur_.bind(this));
-        this.eventTracker.add(element, 'focus', this.onFocus_.bind(this));
-        this.eventTracker.add(element, 'keydown', this.onKeydown_.bind(this));
-        this.eventTracker.add(element, 'mousedown', this.onMousedown_.bind(this));
-        return true;
-    }
-    /** Dereferences nodes and removes event handlers. */
-    destroy() {
-        this.eventTracker.removeAll();
-    }
-    /**
-     * @param sampleElement An element for to find an equivalent
-     *     for.
-     * @return An equivalent element to focus for
-     *     |sampleElement|.
-     */
-    getCustomEquivalent(_sampleElement) {
-        const focusable = this.getFirstFocusable();
-        assert(focusable);
-        return focusable;
-    }
-    /**
-     * @return All registered elements (regardless of focusability).
-     */
-    getElements() {
-        return Array.from(this.root.querySelectorAll('[focus-type]'))
-            .map(FocusRow.getFocusableElement);
-    }
-    /**
-     * Find the element that best matches |sampleElement|.
-     * @param sampleElement An element from a row of the same
-     *     type which previously held focus.
-     * @return The element that best matches sampleElement.
-     */
-    getEquivalentElement(sampleElement) {
-        if (this.getFocusableElements().indexOf(sampleElement) >= 0) {
-            return sampleElement;
-        }
-        const sampleFocusType = this.getTypeForElement(sampleElement);
-        if (sampleFocusType) {
-            const sameType = this.getFirstFocusable(sampleFocusType);
-            if (sameType) {
-                return sameType;
-            }
-        }
-        return this.getCustomEquivalent(sampleElement);
-    }
-    /**
-     * @param type An optional type to search for.
-     * @return The first focusable element with |type|.
-     */
-    getFirstFocusable(type) {
-        const element = this.getFocusableElements().find(el => !type || el.getAttribute('focus-type') === type);
-        return element || null;
-    }
-    /** @return Registered, focusable elements. */
-    getFocusableElements() {
-        return this.getElements().filter(FocusRow.isFocusable);
-    }
-    /**
-     * @param element An element to determine a focus type for.
-     * @return The focus type for |element| or '' if none.
-     */
-    getTypeForElement(element) {
-        return element.getAttribute('focus-type') || '';
-    }
-    /** @return Whether this row is currently active. */
-    isActive() {
-        return this.root.classList.contains(ACTIVE_CLASS);
-    }
-    /**
-     * Enables/disables the tabIndex of the focusable elements in the FocusRow.
-     * tabIndex can be set properly.
-     * @param active True if tab is allowed for this row.
-     */
-    makeActive(active) {
-        if (active === this.isActive()) {
-            return;
-        }
-        this.getElements().forEach(function (element) {
-            element.tabIndex = active ? 0 : -1;
-        });
-        this.root.classList.toggle(ACTIVE_CLASS, active);
-    }
-    onBlur_(e) {
-        if (!this.boundary_.contains(e.relatedTarget)) {
-            return;
-        }
-        const currentTarget = e.currentTarget;
-        if (this.getFocusableElements().indexOf(currentTarget) >= 0) {
-            this.makeActive(false);
-        }
-    }
-    onFocus_(e) {
-        if (this.delegate) {
-            this.delegate.onFocus(this, e);
-        }
-    }
-    onMousedown_(e) {
-        // Only accept left mouse clicks.
-        if (e.button) {
-            return;
-        }
-        // Allow the element under the mouse cursor to be focusable.
-        const target = e.currentTarget;
-        if (!target.disabled) {
-            target.tabIndex = 0;
-        }
-    }
-    onKeydown_(e) {
-        const elements = this.getFocusableElements();
-        const currentElement = FocusRow.getFocusableElement(e.currentTarget);
-        const elementIndex = elements.indexOf(currentElement);
-        assert(elementIndex >= 0);
-        if (this.delegate && this.delegate.onKeydown(this, e)) {
-            return;
-        }
-        const isShiftTab = !e.altKey && !e.ctrlKey && !e.metaKey && e.shiftKey &&
-            e.key === 'Tab';
-        if (hasKeyModifiers(e) && !isShiftTab) {
-            return;
-        }
-        let index = -1;
-        let shouldStopPropagation = true;
-        if (isShiftTab) {
-            // This always moves back one element, even in RTL.
-            index = elementIndex - 1;
-            if (index < 0) {
-                // Bubble up to focus on the previous element outside the row.
-                return;
-            }
-        }
-        else if (e.key === 'ArrowLeft') {
-            index = elementIndex + (isRTL() ? 1 : -1);
-        }
-        else if (e.key === 'ArrowRight') {
-            index = elementIndex + (isRTL() ? -1 : 1);
-        }
-        else if (e.key === 'Home') {
-            index = 0;
-        }
-        else if (e.key === 'End') {
-            index = elements.length - 1;
-        }
-        else {
-            shouldStopPropagation = false;
-        }
-        const elementToFocus = elements[index];
-        if (elementToFocus) {
-            this.getEquivalentElement(elementToFocus).focus();
-            e.preventDefault();
-        }
-        if (shouldStopPropagation) {
-            e.stopPropagation();
-        }
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/* @fileoverview Utilities for determining the current platform. */
-/** Whether we are using a Mac or not. */
-const isMac = /Mac/.test(navigator.platform);
-/** Whether this is on the Windows platform or not. */
-const isWindows = /Win/.test(navigator.platform);
-/** Whether this is on iOS. */
-const isIOS = /CriOS/.test(navigator.userAgent);
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// clang-format off
-// clang-format on
-let hideInk = false;
-assert(!isIOS, 'pointerdown doesn\'t work on iOS');
-document.addEventListener('pointerdown', function () {
-    hideInk = true;
-}, true);
-document.addEventListener('keydown', function () {
-    hideInk = false;
-}, true);
-/**
- * Attempts to track whether focus outlines should be shown, and if they
- * shouldn't, removes the "ink" (ripple) from a control while focusing it.
- * This is helpful when a user is clicking/touching, because it's not super
- * helpful to show focus ripples in that case. This is Polymer-specific.
- */
-function focusWithoutInk(toFocus) {
-    // |toFocus| does not have a 'noink' property, so it's unclear whether the
-    // element has "ink" and/or whether it can be suppressed. Just focus().
-    if (!('noink' in toFocus) || !hideInk) {
-        toFocus.focus();
-        return;
-    }
-    const toFocusWithNoInk = toFocus;
-    // Make sure the element is in the document we're listening to events on.
-    assert(document === toFocusWithNoInk.ownerDocument);
-    const { noink } = toFocusWithNoInk;
-    toFocusWithNoInk.noink = true;
-    toFocusWithNoInk.focus();
-    toFocusWithNoInk.noink = noink;
-}
-
-function getTemplate$b() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode"></slot>
-      </div>
-    </dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-var AnchorAlignment;
-(function (AnchorAlignment) {
-    AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
-    AnchorAlignment[AnchorAlignment["AFTER_START"] = -1] = "AFTER_START";
-    AnchorAlignment[AnchorAlignment["CENTER"] = 0] = "CENTER";
-    AnchorAlignment[AnchorAlignment["BEFORE_END"] = 1] = "BEFORE_END";
-    AnchorAlignment[AnchorAlignment["AFTER_END"] = 2] = "AFTER_END";
-})(AnchorAlignment || (AnchorAlignment = {}));
-const DROPDOWN_ITEM_CLASS = 'dropdown-item';
-const SELECTABLE_DROPDOWN_ITEM_QUERY = `.${DROPDOWN_ITEM_CLASS}:not([hidden]):not([disabled])`;
-const AFTER_END_OFFSET = 10;
-/**
- * Returns the point to start along the X or Y axis given a start and end
- * point to anchor to, the length of the target and the direction to anchor
- * in. If honoring the anchor would force the menu outside of min/max, this
- * will ignore the anchor position and try to keep the menu within min/max.
- */
-function getStartPointWithAnchor(start, end, menuLength, anchorAlignment, min, max) {
-    let startPoint = 0;
-    switch (anchorAlignment) {
-        case AnchorAlignment.BEFORE_START:
-            startPoint = start - menuLength;
-            break;
-        case AnchorAlignment.AFTER_START:
-            startPoint = start;
-            break;
-        case AnchorAlignment.CENTER:
-            startPoint = (start + end - menuLength) / 2;
-            break;
-        case AnchorAlignment.BEFORE_END:
-            startPoint = end - menuLength;
-            break;
-        case AnchorAlignment.AFTER_END:
-            startPoint = end;
-            break;
-    }
-    if (startPoint + menuLength > max) {
-        startPoint = end - menuLength;
-    }
-    if (startPoint < min) {
-        startPoint = start;
-    }
-    startPoint = Math.max(min, Math.min(startPoint, max - menuLength));
-    return startPoint;
-}
-function getDefaultShowConfig() {
-    return {
-        top: 0,
-        left: 0,
-        height: 0,
-        width: 0,
-        anchorAlignmentX: AnchorAlignment.AFTER_START,
-        anchorAlignmentY: AnchorAlignment.AFTER_START,
-        minX: 0,
-        minY: 0,
-        maxX: 0,
-        maxY: 0,
-    };
-}
-class CrActionMenuElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        this.boundClose_ = null;
-        this.contentObserver_ = null;
-        this.resizeObserver_ = null;
-        this.hasMousemoveListener_ = false;
-        this.anchorElement_ = null;
-        this.lastConfig_ = null;
-    }
-    static get is() {
-        return 'cr-action-menu';
-    }
-    static get template() {
-        return getTemplate$b();
-    }
-    static get properties() {
-        return {
-            // Accessibility text of the menu. Should be something along the lines of
-            // "actions", or "more actions".
-            accessibilityLabel: String,
-            // Setting this flag will make the menu listen for content size changes
-            // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
-            // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
-        };
-    }
-    ready() {
-        super.ready();
-        this.addEventListener('keydown', this.onKeyDown_.bind(this));
-        this.addEventListener('mouseover', this.onMouseover_);
-        this.addEventListener('click', this.onClick_);
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.removeListeners_();
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
-    }
-    /**
-     * Exposing internal <dialog> elements for tests.
-     */
-    getDialog() {
-        return this.$.dialog;
-    }
-    removeListeners_() {
-        window.removeEventListener('resize', this.boundClose_);
-        window.removeEventListener('popstate', this.boundClose_);
-        if (this.contentObserver_) {
-            this.contentObserver_.disconnect();
-            this.contentObserver_ = null;
-        }
-        if (this.resizeObserver_) {
-            this.resizeObserver_.disconnect();
-            this.resizeObserver_ = null;
-        }
-    }
-    onNativeDialogClose_(e) {
-        // Ignore any 'close' events not fired directly by the <dialog> element.
-        if (e.target !== this.$.dialog) {
-            return;
-        }
-        // Catch and re-fire the 'close' event such that it bubbles across Shadow
-        // DOM v1.
-        this.fire_('close');
-    }
-    onClick_(e) {
-        if (e.target === this) {
-            this.close();
-            e.stopPropagation();
-        }
-    }
-    onKeyDown_(e) {
-        e.stopPropagation();
-        if (e.key === 'Tab' || e.key === 'Escape') {
-            this.close();
-            if (e.key === 'Tab') {
-                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
-            }
-            e.preventDefault();
-            return;
-        }
-        if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
-            return;
-        }
-        const options = Array.from(this.querySelectorAll(SELECTABLE_DROPDOWN_ITEM_QUERY));
-        if (options.length === 0) {
-            return;
-        }
-        const focused = getDeepActiveElement();
-        const index = options.findIndex(option => FocusRow.getFocusableElement(option) === focused);
-        if (e.key === 'Enter') {
-            // If a menu item has focus, don't change focus or close menu on 'Enter'.
-            if (index !== -1) {
-                return;
-            }
-            if (isWindows || isMac) {
-                this.close();
-                e.preventDefault();
-                return;
-            }
-        }
-        e.preventDefault();
-        this.updateFocus_(options, index, e.key !== 'ArrowUp');
-        if (!this.hasMousemoveListener_) {
-            this.hasMousemoveListener_ = true;
-            this.addEventListener('mousemove', e => {
-                this.onMouseover_(e);
-                this.hasMousemoveListener_ = false;
-            }, { once: true });
-        }
-    }
-    onMouseover_(e) {
-        const item = e.composedPath()
-            .find(el => el.matches && el.matches(SELECTABLE_DROPDOWN_ITEM_QUERY));
-        (item || this.$.wrapper).focus();
-    }
-    updateFocus_(options, focusedIndex, next) {
-        const numOptions = options.length;
-        assert(numOptions > 0);
-        let index;
-        if (focusedIndex === -1) {
-            index = next ? 0 : numOptions - 1;
-        }
-        else {
-            const delta = next ? 1 : -1;
-            index = (numOptions + focusedIndex + delta) % numOptions;
-        }
-        options[index].focus();
-    }
-    close() {
-        // Removing 'resize' and 'popstate' listeners when dialog is closed.
-        this.removeListeners_();
-        this.$.dialog.close();
-        this.open = false;
-        if (this.anchorElement_) {
-            assert(this.anchorElement_);
-            focusWithoutInk(this.anchorElement_);
-            this.anchorElement_ = null;
-        }
-        if (this.lastConfig_) {
-            this.lastConfig_ = null;
-        }
-    }
-    /**
-     * Shows the menu anchored to the given element.
-     */
-    showAt(anchorElement, config) {
-        this.anchorElement_ = anchorElement;
-        // Scroll the anchor element into view so that the bounding rect will be
-        // accurate for where the menu should be shown.
-        this.anchorElement_.scrollIntoViewIfNeeded();
-        const rect = this.anchorElement_.getBoundingClientRect();
-        let height = rect.height;
-        if (config && !config.noOffset &&
-            config.anchorAlignmentY === AnchorAlignment.AFTER_END) {
-            // When an action menu is positioned after the end of an element, the
-            // action menu can appear too far away from the anchor element, typically
-            // because anchors tend to have padding. So we offset the height a bit
-            // so the menu shows up slightly closer to the content of anchor.
-            height -= AFTER_END_OFFSET;
-        }
-        this.showAtPosition(Object.assign({
-            top: rect.top,
-            left: rect.left,
-            height: height,
-            width: rect.width,
-            // Default to anchoring towards the left.
-            anchorAlignmentX: AnchorAlignment.BEFORE_END,
-        }, config));
-        this.$.wrapper.focus();
-    }
-    /**
-     * Shows the menu anchored to the given box. The anchor alignment is
-     * specified as an X and Y alignment which represents a point in the anchor
-     * where the menu will align to, which can have the menu either before or
-     * after the given point in each axis. Center alignment places the center of
-     * the menu in line with the center of the anchor. Coordinates are relative to
-     * the top-left of the viewport.
-     *
-     *            y-start
-     *         _____________
-     *         |           |
-     *         |           |
-     *         |   CENTER  |
-     * x-start |     x     | x-end
-     *         |           |
-     *         |anchor box |
-     *         |___________|
-     *
-     *             y-end
-     *
-     * For example, aligning the menu to the inside of the top-right edge of
-     * the anchor, extending towards the bottom-left would use a alignment of
-     * (BEFORE_END, AFTER_START), whereas centering the menu below the bottom
-     * edge of the anchor would use (CENTER, AFTER_END).
-     */
-    showAtPosition(config) {
-        // Save the scroll position of the viewport.
-        const doc = document.scrollingElement;
-        const scrollLeft = doc.scrollLeft;
-        const scrollTop = doc.scrollTop;
-        // Reset position so that layout isn't affected by the previous position,
-        // and so that the dialog is positioned at the top-start corner of the
-        // document.
-        this.resetStyle_();
-        this.$.dialog.showModal();
-        this.open = true;
-        config.top += scrollTop;
-        config.left += scrollLeft;
-        this.positionDialog_(Object.assign({
-            minX: scrollLeft,
-            minY: scrollTop,
-            maxX: scrollLeft + doc.clientWidth,
-            maxY: scrollTop + doc.clientHeight,
-        }, config));
-        // Restore the scroll position.
-        doc.scrollTop = scrollTop;
-        doc.scrollLeft = scrollLeft;
-        this.addListeners_();
-        // Focus the first selectable item.
-        const openedByKey = FocusOutlineManager.forDocument(document).visible;
-        if (openedByKey) {
-            const firstSelectableItem = this.querySelector(SELECTABLE_DROPDOWN_ITEM_QUERY);
-            if (firstSelectableItem) {
-                requestAnimationFrame(() => {
-                    // Wait for the next animation frame for the dialog to become visible.
-                    firstSelectableItem.focus();
-                });
-            }
-        }
-    }
-    resetStyle_() {
-        this.$.dialog.style.left = '';
-        this.$.dialog.style.right = '';
-        this.$.dialog.style.top = '0';
-    }
-    /**
-     * Position the dialog using the coordinates in config. Coordinates are
-     * relative to the top-left of the viewport when scrolled to (0, 0).
-     */
-    positionDialog_(config) {
-        this.lastConfig_ = config;
-        const c = Object.assign(getDefaultShowConfig(), config);
-        const top = c.top;
-        const left = c.left;
-        const bottom = top + c.height;
-        const right = left + c.width;
-        // Flip the X anchor in RTL.
-        const rtl = getComputedStyle(this).direction === 'rtl';
-        if (rtl) {
-            c.anchorAlignmentX *= -1;
-        }
-        const offsetWidth = this.$.dialog.offsetWidth;
-        const menuLeft = getStartPointWithAnchor(left, right, offsetWidth, c.anchorAlignmentX, c.minX, c.maxX);
-        if (rtl) {
-            const menuRight = document.scrollingElement.clientWidth - menuLeft - offsetWidth;
-            this.$.dialog.style.right = menuRight + 'px';
-        }
-        else {
-            this.$.dialog.style.left = menuLeft + 'px';
-        }
-        const menuTop = getStartPointWithAnchor(top, bottom, this.$.dialog.offsetHeight, c.anchorAlignmentY, c.minY, c.maxY);
-        this.$.dialog.style.top = menuTop + 'px';
-    }
-    addListeners_() {
-        this.boundClose_ = this.boundClose_ || (() => {
-            if (this.$.dialog.open) {
-                this.close();
-            }
-        });
-        window.addEventListener('resize', this.boundClose_);
-        window.addEventListener('popstate', this.boundClose_);
-        this.contentObserver_ = new FlattenedNodesObserver(this.$.contentNode, (info) => {
-            info.addedNodes.forEach(node => {
-                if (node.classList &&
-                    node.classList.contains(DROPDOWN_ITEM_CLASS) &&
-                    !node.getAttribute('role')) {
-                    node.setAttribute('role', 'menuitem');
-                }
-            });
-        });
-        if (this.autoReposition) {
-            this.resizeObserver_ = new ResizeObserver(() => {
-                if (this.lastConfig_) {
-                    this.positionDialog_(this.lastConfig_);
-                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
-                }
-            });
-            this.resizeObserver_.observe(this.$.dialog);
-        }
-    }
-}
-customElements.define(CrActionMenuElement.is, CrActionMenuElement);
-
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
-  <template>
-    <style>
-:host([hidden]),[hidden]{display:none!important}
-    </style>
-  </template>
-`.content);
-styleMod$4.register('cr-hidden-style');
 
 /**
 @license
@@ -2662,7 +1346,7 @@ const PaperRippleBehavior = {
   }
 };
 
-function getTemplate$a() {
+function getTemplate$d() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -2698,7 +1382,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -2871,6 +1555,213 @@ class CrButtonElement extends CrButtonElementBase {
     }
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
+
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+
+class IronMeta {
+  /**
+   * @param {{
+   *   type: (string|null|undefined),
+   *   key: (string|null|undefined),
+   *   value: *,
+   * }=} options
+   */
+  constructor(options) {
+    IronMeta[' '](options);
+
+    /** @type {string} */
+    this.type = (options && options.type) || 'default';
+    /** @type {string|null|undefined} */
+    this.key = options && options.key;
+    if (options && 'value' in options) {
+      /** @type {*} */
+      this.value = options.value;
+    }
+  }
+
+  /** @return {*} */
+  get value() {
+    var type = this.type;
+    var key = this.key;
+
+    if (type && key) {
+      return IronMeta.types[type] && IronMeta.types[type][key];
+    }
+  }
+
+  /** @param {*} value */
+  set value(value) {
+    var type = this.type;
+    var key = this.key;
+
+    if (type && key) {
+      type = IronMeta.types[type] = IronMeta.types[type] || {};
+      if (value == null) {
+        delete type[key];
+      } else {
+        type[key] = value;
+      }
+    }
+  }
+
+  /** @return {!Array<*>} */
+  get list() {
+    var type = this.type;
+
+    if (type) {
+      var items = IronMeta.types[this.type];
+      if (!items) {
+        return [];
+      }
+
+      return Object.keys(items).map(function(key) {
+        return metaDatas[this.type][key];
+      }, this);
+    }
+  }
+
+  /**
+   * @param {string} key
+   * @return {*}
+   */
+  byKey(key) {
+    this.key = key;
+    return this.value;
+  }
+}
+// This function is used to convince Closure not to remove constructor calls
+// for instances that are not held anywhere. For example, when
+// `new IronMeta({...})` is used only for the side effect of adding a value.
+IronMeta[' '] = function() {};
+
+IronMeta.types = {};
+
+var metaDatas = IronMeta.types;
+
+/**
+`iron-meta` is a generic element you can use for sharing information across the
+DOM tree. It uses [monostate pattern](http://c2.com/cgi/wiki?MonostatePattern)
+such that any instance of iron-meta has access to the shared information. You
+can use `iron-meta` to share whatever you want (or create an extension [like
+x-meta] for enhancements).
+
+The `iron-meta` instances containing your actual data can be loaded in an
+import, or constructed in any way you see fit. The only requirement is that you
+create them before you try to access them.
+
+Examples:
+
+If I create an instance like this:
+
+    <iron-meta key="info" value="foo/bar"></iron-meta>
+
+Note that value="foo/bar" is the metadata I've defined. I could define more
+attributes or use child nodes to define additional metadata.
+
+Now I can access that element (and it's metadata) from any iron-meta instance
+via the byKey method, e.g.
+
+    meta.byKey('info');
+
+Pure imperative form would be like:
+
+    document.createElement('iron-meta').byKey('info');
+
+Or, in a Polymer element, you can include a meta in your template:
+
+    <iron-meta id="meta"></iron-meta>
+    ...
+    this.$.meta.byKey('info');
+
+@group Iron Elements
+@demo demo/index.html
+@element iron-meta
+*/
+Polymer({
+
+  is: 'iron-meta',
+
+  properties: {
+
+    /**
+     * The type of meta-data.  All meta-data of the same type is stored
+     * together.
+     * @type {string}
+     */
+    type: {
+      type: String,
+      value: 'default',
+    },
+
+    /**
+     * The key used to store `value` under the `type` namespace.
+     * @type {?string}
+     */
+    key: {
+      type: String,
+    },
+
+    /**
+     * The meta-data to store or retrieve.
+     * @type {*}
+     */
+    value: {
+      type: String,
+      notify: true,
+    },
+
+    /**
+     * If true, `value` is set to the iron-meta instance itself.
+     */
+    self: {type: Boolean, observer: '_selfChanged'},
+
+    __meta: {type: Boolean, computed: '__computeMeta(type, key, value)'}
+  },
+
+  hostAttributes: {hidden: true},
+
+  __computeMeta: function(type, key, value) {
+    var meta = new IronMeta({type: type, key: key});
+
+    if (value !== undefined && value !== meta.value) {
+      meta.value = value;
+    } else if (this.value !== meta.value) {
+      this.value = meta.value;
+    }
+
+    return meta;
+  },
+
+  get list() {
+    return this.__meta && this.__meta.list;
+  },
+
+  _selfChanged: function(self) {
+    if (self) {
+      this.value = this;
+    }
+  },
+
+  /**
+   * Retrieves meta data value by key.
+   *
+   * @method byKey
+   * @param {string} key The key of the meta-data to be returned.
+   * @return {*}
+   */
+  byKey: function(key) {
+    return new IronMeta({type: this.type, key: key}).value;
+  }
+});
 
 /**
 @license
@@ -3066,7 +1957,7 @@ Polymer({
   }
 });
 
-function getTemplate$9() {
+function getTemplate$c() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -3124,7 +2015,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -3265,11 +2156,1623 @@ const styleMod$3 = document.createElement('dom-module');
 styleMod$3.appendChild(html `
   <template>
     <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
 styleMod$3.register('cr-icons');
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
+ */
+function assert(value, message) {
+    if (value) {
+        return;
+    }
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
+}
+function assertInstanceof(value, type, message) {
+    if (value instanceof type) {
+        return;
+    }
+    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
+}
+/**
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ */
+function assertNotReached(message = 'Unreachable code hit') {
+    assert(false, message);
+}
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert(!this.intersectionObserver_);
+            assert(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
+
+function getTemplate$b() {
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
+    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
+    
+      <div id="content-wrapper" part="wrapper">
+        <div class="top-container">
+          <h2 id="title" class="title-container" tabindex="-1">
+            <slot name="title"></slot>
+          </h2>
+          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
+          </cr-icon-button>
+        </div>
+        <slot name="header"></slot>
+        <div class="body-container" id="container" show-bottom-shadow part="body-container">
+          <slot name="body"></slot>
+        </div>
+        <slot name="button-container"></slot>
+        <slot name="footer"></slot>
+      </div>
+    </dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'cr-dialog' is a component for showing a modal dialog. If the
+ * dialog is closed via close(), a 'close' event is fired. If the dialog is
+ * canceled via cancel(), a 'cancel' event is fired followed by a 'close' event.
+ *
+ * Additionally clients can get a reference to the internal native <dialog> via
+ * calling getNative() and inspecting the |returnValue| property inside
+ * the 'close' event listener to determine whether it was canceled or just
+ * closed, where a truthy value means success, and a falsy value means it was
+ * canceled.
+ *
+ * Note that <cr-dialog> wrapper itself always has 0x0 dimensions, and
+ * specifying width/height on <cr-dialog> directly will have no effect on the
+ * internal native <dialog>. Instead use cr-dialog::part(dialog) to specify
+ * width/height (as well as other available mixins to style other parts of the
+ * dialog contents).
+ */
+const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+class CrDialogElement extends CrDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.intersectionObserver_ = null;
+        this.mutationObserver_ = null;
+        this.boundKeydown_ = null;
+    }
+    static get is() {
+        return 'cr-dialog';
+    }
+    static get template() {
+        return getTemplate$b();
+    }
+    static get properties() {
+        return {
+            open: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            /**
+             * Alt-text for the dialog close button.
+             */
+            closeText: String,
+            /**
+             * True if the dialog should remain open on 'popstate' events. This is
+             * used for navigable dialogs that have their separate navigation handling
+             * code.
+             */
+            ignorePopstate: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should ignore 'Enter' keypresses.
+             */
+            ignoreEnterKey: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should consume 'keydown' events. If ignoreEnterKey
+             * is true, 'Enter' key won't be consumed.
+             */
+            consumeKeydownEvent: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should not be able to be cancelled, which will
+             * prevent 'Escape' key presses from closing the dialog.
+             */
+            noCancel: {
+                type: Boolean,
+                value: false,
+            },
+            // True if dialog should show the 'X' close button.
+            showCloseButton: {
+                type: Boolean,
+                value: false,
+            },
+            showOnAttach: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Text for the aria description.
+             */
+            ariaDescriptionText: String,
+        };
+    }
+    ready() {
+        super.ready();
+        // If the active history entry changes (i.e. user clicks back button),
+        // all open dialogs should be cancelled.
+        window.addEventListener('popstate', () => {
+            if (!this.ignorePopstate && this.$.dialog.open) {
+                this.cancel();
+            }
+        });
+        if (!this.ignoreEnterKey) {
+            this.addEventListener('keypress', this.onKeypress_.bind(this));
+        }
+        this.addEventListener('pointerdown', e => this.onPointerdown_(e));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const mutationObserverCallback = () => {
+            if (this.$.dialog.open) {
+                this.enableShadowBehavior(true);
+                this.addKeydownListener_();
+            }
+            else {
+                this.enableShadowBehavior(false);
+                this.removeKeydownListener_();
+            }
+        };
+        this.mutationObserver_ = new MutationObserver(mutationObserverCallback);
+        this.mutationObserver_.observe(this.$.dialog, {
+            attributes: true,
+            attributeFilter: ['open'],
+        });
+        // In some cases dialog already has the 'open' attribute by this point.
+        mutationObserverCallback();
+        if (this.showOnAttach) {
+            this.showModal();
+        }
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeKeydownListener_();
+        if (this.mutationObserver_) {
+            this.mutationObserver_.disconnect();
+            this.mutationObserver_ = null;
+        }
+    }
+    addKeydownListener_() {
+        if (!this.consumeKeydownEvent) {
+            return;
+        }
+        this.boundKeydown_ = this.boundKeydown_ || this.onKeydown_.bind(this);
+        this.addEventListener('keydown', this.boundKeydown_);
+        // Sometimes <body> is key event's target and in that case the event
+        // will bypass cr-dialog. We should consume those events too in order to
+        // behave modally. This prevents accidentally triggering keyboard commands.
+        document.body.addEventListener('keydown', this.boundKeydown_);
+    }
+    removeKeydownListener_() {
+        if (!this.boundKeydown_) {
+            return;
+        }
+        this.removeEventListener('keydown', this.boundKeydown_);
+        document.body.removeEventListener('keydown', this.boundKeydown_);
+        this.boundKeydown_ = null;
+    }
+    showModal() {
+        this.$.dialog.showModal();
+        assert(this.$.dialog.open);
+        this.open = true;
+        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+    }
+    cancel() {
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.$.dialog.close();
+        assert(!this.$.dialog.open);
+        this.open = false;
+    }
+    close() {
+        this.$.dialog.close('success');
+        assert(!this.$.dialog.open);
+        this.open = false;
+    }
+    /**
+     * Set the title of the dialog for a11y reader.
+     * @param title Title of the dialog.
+     */
+    setTitleAriaLabel(title) {
+        this.$.dialog.removeAttribute('aria-labelledby');
+        this.$.dialog.setAttribute('aria-label', title);
+    }
+    onCloseKeypress_(e) {
+        // Because the dialog may have a default Enter key handler, prevent
+        // keypress events from bubbling up from this element.
+        e.stopPropagation();
+    }
+    onNativeDialogClose_(e) {
+        // Ignore any 'close' events not fired directly by the <dialog> element.
+        if (e.target !== this.getNative()) {
+            return;
+        }
+        // Catch and re-fire the 'close' event such that it bubbles across Shadow
+        // DOM v1.
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+    }
+    onNativeDialogCancel_(e) {
+        // Ignore any 'cancel' events not fired directly by the <dialog> element.
+        if (e.target !== this.getNative()) {
+            return;
+        }
+        if (this.noCancel) {
+            e.preventDefault();
+            return;
+        }
+        // When the dialog is dismissed using the 'Esc' key, need to manually update
+        // the |open| property (since close() is not called).
+        this.open = false;
+        // Catch and re-fire the native 'cancel' event such that it bubbles across
+        // Shadow DOM v1.
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+    }
+    /**
+     * Expose the inner native <dialog> for some rare cases where it needs to be
+     * directly accessed (for example to programmatically setheight/width, which
+     * would not work on the wrapper).
+     */
+    getNative() {
+        return this.$.dialog;
+    }
+    onKeypress_(e) {
+        if (e.key !== 'Enter') {
+            return;
+        }
+        // Accept Enter keys from either the dialog itself, or a child cr-input,
+        // considering that the event may have been retargeted, for example if the
+        // cr-input is nested inside another element. Also exclude inputs of type
+        // 'search', since hitting 'Enter' on a search field most likely intends to
+        // trigger searching.
+        const accept = e.target === this ||
+            e.composedPath().some(el => el.tagName === 'CR-INPUT' &&
+                el.type !== 'search');
+        if (!accept) {
+            return;
+        }
+        const actionButton = this.querySelector('.action-button:not([disabled]):not([hidden])');
+        if (actionButton) {
+            actionButton.click();
+            e.preventDefault();
+        }
+    }
+    onKeydown_(e) {
+        assert(this.consumeKeydownEvent);
+        if (!this.getNative().open) {
+            return;
+        }
+        if (this.ignoreEnterKey && e.key === 'Enter') {
+            return;
+        }
+        // Stop propagation to behave modally.
+        e.stopPropagation();
+    }
+    onPointerdown_(e) {
+        // Only show pulse animation if user left-clicked outside of the dialog
+        // contents.
+        if (e.button !== 0 ||
+            e.composedPath()[0].tagName !== 'DIALOG') {
+            return;
+        }
+        this.$.dialog.animate([
+            { transform: 'scale(1)', offset: 0 },
+            { transform: 'scale(1.02)', offset: 0.4 },
+            { transform: 'scale(1.02)', offset: 0.6 },
+            { transform: 'scale(1)', offset: 1 },
+        ], {
+            duration: 180,
+            easing: 'ease-in-out',
+            iterations: 1,
+        });
+        // Prevent any text from being selected within the dialog when clicking in
+        // the backdrop area.
+        e.preventDefault();
+    }
+    focus() {
+        const titleContainer = this.shadowRoot.querySelector('.title-container');
+        assert(titleContainer);
+        titleContainer.focus();
+    }
+}
+customElements.define(CrDialogElement.is, CrDialogElement);
+
+function getTemplate$a() {
+    return html `<!--_html_template_start_--><style>#body{display:flex}.tonal-button{margin-inline-end:8px}#icon-wrapper,iron-icon{height:var(--cr-icon-size);width:var(--cr-icon-size);color:var(--google-red-700)}@media (prefers-color-scheme:dark){#icon-wrapper,iron-icon{color:var(--google-red-300)}}#icon-wrapper{margin-inline-end:8px}#body-text{color:var(--cr-primary-text-color)}#file-name{font-weight:700}</style>
+<cr-dialog show-on-attach id="dialog">
+  <div slot="title">$i18n{warningBypassDialogTitle}</div>
+  <div slot="body" id="body">
+    <div id="icon-wrapper" role="img" aria-label="$i18n{accessibleLabelDangerous}">
+      <iron-icon icon="downloads:dangerous"></iron-icon>
+    </div>
+    <div id="body-text">
+      <div id="file-name">[[fileName]]</div>
+      <div id="danger-description">$i18n{warningBypassDialogDescription}</div>
+      <div id="learn-more-link">
+        
+        <a href="$i18n{blockedLearnMoreUrl}" target="_blank" rel="noopener">
+          $i18n{warningBypassDialogLearnMoreLink}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button class="tonal-button" on-click="onDownloadDangerousClick_" id="download-dangerous-button">
+      $i18n{controlKeepDangerous}
+    </cr-button>
+    
+    <cr-button class="action-button" on-click="onCancelClick_" id="cancel-button">
+      $i18n{warningBypassDialogCancel}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'bypass-warning-confirmation-dialog' is the dialog that allows
+ * bypassing a download warning (keeping a file flagged as dangerous). A
+ * 'success' indicates the warning bypass was confirmed and the dangerous file
+ * was downloaded.
+ */
+const DownloadBypassWarningConfirmationDialogBase = PolymerElement;
+class DownloadBypassWarningConfirmationDialogElement extends DownloadBypassWarningConfirmationDialogBase {
+    static get is() {
+        return 'download-bypass-warning-confirmation-dialog';
+    }
+    static get template() {
+        return getTemplate$a();
+    }
+    static get properties() {
+        return {
+            fileName: String,
+        };
+    }
+    wasConfirmed() {
+        return this.$.dialog.getNative().returnValue === 'success';
+    }
+    onDownloadDangerousClick_() {
+        this.$.dialog.close();
+    }
+    onCancelClick_() {
+        this.$.dialog.cancel();
+    }
+}
+customElements.define(DownloadBypassWarningConfirmationDialogElement.is, DownloadBypassWarningConfirmationDialogElement);
+
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+/**
+ * The `iron-iconset-svg` element allows users to define their own icon sets
+ * that contain svg icons. The svg icon elements should be children of the
+ * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
+ *
+ * Using svg elements to create icons has a few advantages over traditional
+ * bitmap graphics like jpg or png. Icons that use svg are vector based so
+ * they are resolution independent and should look good on any device. They
+ * are stylable via css. Icons can be themed, colorized, and even animated.
+ *
+ * Example:
+ *
+ *     <iron-iconset-svg name="my-svg-icons" size="24">
+ *       <svg>
+ *         <defs>
+ *           <g id="shape">
+ *             <rect x="12" y="0" width="12" height="24" />
+ *             <circle cx="12" cy="12" r="12" />
+ *           </g>
+ *         </defs>
+ *       </svg>
+ *     </iron-iconset-svg>
+ *
+ * This will automatically register the icon set "my-svg-icons" to the iconset
+ * database.  To use these icons from within another element, make a
+ * `iron-iconset` element and call the `byId` method
+ * to retrieve a given iconset. To apply a particular icon inside an
+ * element use the `applyIcon` method. For example:
+ *
+ *     iconset.applyIcon(iconNode, 'car');
+ *
+ * @element iron-iconset-svg
+ * @demo demo/index.html
+ * @implements {Polymer.Iconset}
+ */
+Polymer({
+  is: 'iron-iconset-svg',
+
+  properties: {
+
+    /**
+     * The name of the iconset.
+     */
+    name: {type: String, observer: '_nameChanged'},
+
+    /**
+     * The size of an individual icon. Note that icons must be square.
+     */
+    size: {type: Number, value: 24},
+
+    /**
+     * Set to true to enable mirroring of icons where specified when they are
+     * stamped. Icons that should be mirrored should be decorated with a
+     * `mirror-in-rtl` attribute.
+     *
+     * NOTE: For performance reasons, direction will be resolved once per
+     * document per iconset, so moving icons in and out of RTL subtrees will
+     * not cause their mirrored state to change.
+     */
+    rtlMirroring: {type: Boolean, value: false},
+
+    /**
+     * Set to true to measure RTL based on the dir attribute on the body or
+     * html elements (measured on document.body or document.documentElement as
+     * available).
+     */
+    useGlobalRtlAttribute: {type: Boolean, value: false}
+  },
+
+  created: function() {
+    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
+  },
+
+  attached: function() {
+    this.style.display = 'none';
+  },
+
+  /**
+   * Construct an array of all icon names in this iconset.
+   *
+   * @return {!Array} Array of icon names.
+   */
+  getIconNames: function() {
+    this._icons = this._createIconMap();
+    return Object.keys(this._icons).map(function(n) {
+      return this.name + ':' + n;
+    }, this);
+  },
+
+  /**
+   * Applies an icon to the given element.
+   *
+   * An svg icon is prepended to the element's shadowRoot if it exists,
+   * otherwise to the element itself.
+   *
+   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
+   * RTL, the element will be tested (once and only once ever for each
+   * iconset) to determine the direction of the subtree the element is in.
+   * This direction will apply to all future icon applications, although only
+   * icons marked to be mirrored will be affected.
+   *
+   * @method applyIcon
+   * @param {Element} element Element to which the icon is applied.
+   * @param {string} iconName Name of the icon to apply.
+   * @return {?Element} The svg element which renders the icon.
+   */
+  applyIcon: function(element, iconName) {
+    // Remove old svg element
+    this.removeIcon(element);
+    // install new svg element
+    var svg = this._cloneIcon(
+        iconName, this.rtlMirroring && this._targetIsRTL(element));
+    if (svg) {
+      // insert svg element into shadow root, if it exists
+      var pde = dom(element.root || element);
+      pde.insertBefore(svg, pde.childNodes[0]);
+      return element._svgIcon = svg;
+    }
+    return null;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   * @param {string} iconName Name of the icon to apply.
+   * @param {boolean} targetIsRTL Whether the target element is RTL.
+   * @return {Element} Returns an installable clone of the SVG element
+   *     matching `id`.
+   */
+  createIcon: function(iconName, targetIsRTL) {
+    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
+  },
+
+  /**
+   * Remove an icon from the given element by undoing the changes effected
+   * by `applyIcon`.
+   *
+   * @param {Element} element The element from which the icon is removed.
+   */
+  removeIcon: function(element) {
+    // Remove old svg element
+    if (element._svgIcon) {
+      dom(element.root || element).removeChild(element._svgIcon);
+      element._svgIcon = null;
+    }
+  },
+
+  /**
+   * Measures and memoizes the direction of the element. Note that this
+   * measurement is only done once and the result is memoized for future
+   * invocations.
+   */
+  _targetIsRTL: function(target) {
+    if (this.__targetIsRTL == null) {
+      if (this.useGlobalRtlAttribute) {
+        var globalElement =
+            (document.body && document.body.hasAttribute('dir')) ?
+            document.body :
+            document.documentElement;
+
+        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
+      } else {
+        if (target && target.nodeType !== Node.ELEMENT_NODE) {
+          target = target.host;
+        }
+
+        this.__targetIsRTL =
+            target && window.getComputedStyle(target)['direction'] === 'rtl';
+      }
+    }
+
+    return this.__targetIsRTL;
+  },
+
+  /**
+   *
+   * When name is changed, register iconset metadata
+   *
+   */
+  _nameChanged: function() {
+    this._meta.value = null;
+    this._meta.key = this.name;
+    this._meta.value = this;
+
+    this.async(function() {
+      this.fire('iron-iconset-added', this, {node: window});
+    });
+  },
+
+  /**
+   * Create a map of child SVG elements by id.
+   *
+   * @return {!Object} Map of id's to SVG elements.
+   */
+  _createIconMap: function() {
+    // Objects chained to Object.prototype (`{}`) have members. Specifically,
+    // on FF there is a `watch` method that confuses the icon map, so we
+    // need to use a null-based object here.
+    var icons = Object.create(null);
+    dom(this).querySelectorAll('[id]').forEach(function(icon) {
+      icons[icon.id] = icon;
+    });
+    return icons;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   *
+   * @return {Element} Returns an installable clone of the SVG element
+   * matching `id`.
+   */
+  _cloneIcon: function(id, mirrorAllowed) {
+    // create the icon map on-demand, since the iconset itself has no discrete
+    // signal to know when it's children are fully parsed
+    this._icons = this._icons || this._createIconMap();
+    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
+  },
+
+  /**
+   * @param {Element} sourceSvg
+   * @param {number} size
+   * @param {Boolean} mirrorAllowed
+   * @return {Element}
+   */
+  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
+    if (sourceSvg) {
+      var content = sourceSvg.cloneNode(true),
+          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+          viewBox =
+              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
+          cssText =
+              'pointer-events: none; display: block; width: 100%; height: 100%;';
+
+      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
+        cssText +=
+            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
+      }
+
+      svg.setAttribute('viewBox', viewBox);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.setAttribute('focusable', 'false');
+      // TODO(dfreedm): `pointer-events: none` works around
+      // https://crbug.com/370136
+      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
+      // shadow-root
+      svg.style.cssText = cssText;
+      svg.appendChild(content).removeAttribute('id');
+      return svg;
+    }
+    return null;
+  }
+
+});
+
+const template$3 = html `<iron-iconset-svg name="downloads" size="24">
+  <svg>
+    <defs>
+      
+      <g id="dangerous">
+        <path d="M 8.25 21 L 3 15.75 L 3 8.25 L 8.25 3 L 15.75 3 L 21 8.25 L 21 15.75 L 15.75 21 Z M 9.148438 16.25 L 12 13.398438 L 14.851562 16.25 L 16.25 14.851562 L 13.398438 12 L 16.25 9.148438 L 14.851562 7.75 L 12 10.601562 L 9.148438 7.75 L 7.75 9.148438 L 10.601562 12 L 7.75 14.851562 Z M 9.148438 16.25">
+        </path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template$3.content);
+
+// Copyright 2011 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview EventTracker is a simple class that manages the addition and
+ * removal of DOM event listeners. In particular, it keeps track of all
+ * listeners that have been added and makes it easy to remove some or all of
+ * them without requiring all the information again. This is particularly handy
+ * when the listener is a generated function such as a lambda or the result of
+ * calling Function.bind.
+ */
+class EventTracker {
+    listeners_ = [];
+    /**
+     * Add an event listener - replacement for EventTarget.addEventListener.
+     * @param target The DOM target to add a listener to.
+     * @param eventType The type of event to subscribe to.
+     * @param listener The listener to add.
+     * @param capture Whether to invoke during the capture phase. Defaults to
+     *     false.
+     */
+    add(target, eventType, listener, capture = false) {
+        const h = {
+            target: target,
+            eventType: eventType,
+            listener: listener,
+            capture: capture,
+        };
+        this.listeners_.push(h);
+        target.addEventListener(eventType, listener, capture);
+    }
+    /**
+     * Remove any specified event listeners added with this EventTracker.
+     * @param target The DOM target to remove a listener from.
+     * @param eventType The type of event to remove.
+     */
+    remove(target, eventType) {
+        this.listeners_ = this.listeners_.filter(listener => {
+            if (listener.target === target &&
+                (!eventType || (listener.eventType === eventType))) {
+                EventTracker.removeEventListener(listener);
+                return false;
+            }
+            return true;
+        });
+    }
+    /** Remove all event listeners added with this EventTracker. */
+    removeAll() {
+        this.listeners_.forEach(listener => EventTracker.removeEventListener(listener));
+        this.listeners_ = [];
+    }
+    /**
+     * Remove a single event listener given it's tracking entry. It's up to the
+     * caller to ensure the entry is removed from listeners_.
+     * @param entry The entry describing the listener to
+     * remove.
+     */
+    static removeEventListener(entry) {
+        entry.target.removeEventListener(entry.eventType, entry.listener, entry.capture);
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return The currently focused element (including elements that are
+ *     behind a shadow root), or null if nothing is focused.
+ */
+function getDeepActiveElement() {
+    let a = document.activeElement;
+    while (a && a.shadowRoot && a.shadowRoot.activeElement) {
+        a = a.shadowRoot.activeElement;
+    }
+    return a;
+}
+/**
+ * Check the directionality of the page.
+ * @return True if Chrome is running an RTL UI.
+ */
+function isRTL() {
+    return document.documentElement.dir === 'rtl';
+}
+/**
+ * Replaces '&', '<', '>', '"', and ''' characters with their HTML encoding.
+ * @param original The original string.
+ * @return The string with all the characters mentioned above replaced.
+ */
+function htmlEscape(original) {
+    return original.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+/**
+ * @return Whether a modifier key was down when processing |e|.
+ */
+function hasKeyModifiers(e) {
+    return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// clang-format off
+// clang-format on
+const ACTIVE_CLASS = 'focus-row-active';
+/**
+ * A class to manage focus between given horizontally arranged elements.
+ *
+ * Pressing left cycles backward and pressing right cycles forward in item
+ * order. Pressing Home goes to the beginning of the list and End goes to the
+ * end of the list.
+ *
+ * If an item in this row is focused, it'll stay active (accessible via tab).
+ * If no items in this row are focused, the row can stay active until focus
+ * changes to a node inside |this.boundary_|. If |boundary| isn't specified,
+ * any focus change deactivates the row.
+ */
+class FocusRow {
+    root;
+    delegate;
+    eventTracker = new EventTracker();
+    boundary_;
+    /**
+     * @param root The root of this focus row. Focus classes are
+     *     applied to |root| and all added elements must live within |root|.
+     * @param boundary Focus events are ignored outside of this element.
+     * @param delegate An optional event delegate.
+     */
+    constructor(root, boundary, delegate) {
+        this.root = root;
+        this.boundary_ = boundary || document.documentElement;
+        this.delegate = delegate;
+    }
+    /**
+     * Whether it's possible that |element| can be focused.
+     */
+    static isFocusable(element) {
+        if (!element || element.disabled) {
+            return false;
+        }
+        // We don't check that element.tabIndex >= 0 here because inactive rows
+        // set a tabIndex of -1.
+        let current = element;
+        while (true) {
+            assertInstanceof(current, Element);
+            const style = window.getComputedStyle(current);
+            if (style.visibility === 'hidden' || style.display === 'none') {
+                return false;
+            }
+            const parent = current.parentNode;
+            if (!parent) {
+                return false;
+            }
+            if (parent === current.ownerDocument ||
+                parent instanceof DocumentFragment) {
+                return true;
+            }
+            current = parent;
+        }
+    }
+    /**
+     * A focus override is a function that returns an element that should gain
+     * focus. The element may not be directly selectable for example the element
+     * that can gain focus is in a shadow DOM. Allowing an override via a
+     * function leaves the details of how the element is retrieved to the
+     * component.
+     */
+    static getFocusableElement(element) {
+        const withFocusable = element;
+        if (withFocusable.getFocusableElement) {
+            return withFocusable.getFocusableElement();
+        }
+        return element;
+    }
+    /**
+     * Register a new type of focusable element (or add to an existing one).
+     *
+     * Example: an (X) button might be 'delete' or 'close'.
+     *
+     * When FocusRow is used within a FocusGrid, these types are used to
+     * determine equivalent controls when Up/Down are pressed to change rows.
+     *
+     * Another example: mutually exclusive controls that hide each other on
+     * activation (i.e. Play/Pause) could use the same type (i.e. 'play-pause')
+     * to indicate they're equivalent.
+     *
+     * @param type The type of element to track focus of.
+     * @param selectorOrElement The selector of the element
+     *    from this row's root, or the element itself.
+     * @return Whether a new item was added.
+     */
+    addItem(type, selectorOrElement) {
+        assert(type);
+        let element;
+        if (typeof selectorOrElement === 'string') {
+            element = this.root.querySelector(selectorOrElement);
+        }
+        else {
+            element = selectorOrElement;
+        }
+        if (!element) {
+            return false;
+        }
+        element.setAttribute('focus-type', type);
+        element.tabIndex = this.isActive() ? 0 : -1;
+        this.eventTracker.add(element, 'blur', this.onBlur_.bind(this));
+        this.eventTracker.add(element, 'focus', this.onFocus_.bind(this));
+        this.eventTracker.add(element, 'keydown', this.onKeydown_.bind(this));
+        this.eventTracker.add(element, 'mousedown', this.onMousedown_.bind(this));
+        return true;
+    }
+    /** Dereferences nodes and removes event handlers. */
+    destroy() {
+        this.eventTracker.removeAll();
+    }
+    /**
+     * @param sampleElement An element for to find an equivalent
+     *     for.
+     * @return An equivalent element to focus for
+     *     |sampleElement|.
+     */
+    getCustomEquivalent(_sampleElement) {
+        const focusable = this.getFirstFocusable();
+        assert(focusable);
+        return focusable;
+    }
+    /**
+     * @return All registered elements (regardless of focusability).
+     */
+    getElements() {
+        return Array.from(this.root.querySelectorAll('[focus-type]'))
+            .map(FocusRow.getFocusableElement);
+    }
+    /**
+     * Find the element that best matches |sampleElement|.
+     * @param sampleElement An element from a row of the same
+     *     type which previously held focus.
+     * @return The element that best matches sampleElement.
+     */
+    getEquivalentElement(sampleElement) {
+        if (this.getFocusableElements().indexOf(sampleElement) >= 0) {
+            return sampleElement;
+        }
+        const sampleFocusType = this.getTypeForElement(sampleElement);
+        if (sampleFocusType) {
+            const sameType = this.getFirstFocusable(sampleFocusType);
+            if (sameType) {
+                return sameType;
+            }
+        }
+        return this.getCustomEquivalent(sampleElement);
+    }
+    /**
+     * @param type An optional type to search for.
+     * @return The first focusable element with |type|.
+     */
+    getFirstFocusable(type) {
+        const element = this.getFocusableElements().find(el => !type || el.getAttribute('focus-type') === type);
+        return element || null;
+    }
+    /** @return Registered, focusable elements. */
+    getFocusableElements() {
+        return this.getElements().filter(FocusRow.isFocusable);
+    }
+    /**
+     * @param element An element to determine a focus type for.
+     * @return The focus type for |element| or '' if none.
+     */
+    getTypeForElement(element) {
+        return element.getAttribute('focus-type') || '';
+    }
+    /** @return Whether this row is currently active. */
+    isActive() {
+        return this.root.classList.contains(ACTIVE_CLASS);
+    }
+    /**
+     * Enables/disables the tabIndex of the focusable elements in the FocusRow.
+     * tabIndex can be set properly.
+     * @param active True if tab is allowed for this row.
+     */
+    makeActive(active) {
+        if (active === this.isActive()) {
+            return;
+        }
+        this.getElements().forEach(function (element) {
+            element.tabIndex = active ? 0 : -1;
+        });
+        this.root.classList.toggle(ACTIVE_CLASS, active);
+    }
+    onBlur_(e) {
+        if (!this.boundary_.contains(e.relatedTarget)) {
+            return;
+        }
+        const currentTarget = e.currentTarget;
+        if (this.getFocusableElements().indexOf(currentTarget) >= 0) {
+            this.makeActive(false);
+        }
+    }
+    onFocus_(e) {
+        if (this.delegate) {
+            this.delegate.onFocus(this, e);
+        }
+    }
+    onMousedown_(e) {
+        // Only accept left mouse clicks.
+        if (e.button) {
+            return;
+        }
+        // Allow the element under the mouse cursor to be focusable.
+        const target = e.currentTarget;
+        if (!target.disabled) {
+            target.tabIndex = 0;
+        }
+    }
+    onKeydown_(e) {
+        const elements = this.getFocusableElements();
+        const currentElement = FocusRow.getFocusableElement(e.currentTarget);
+        const elementIndex = elements.indexOf(currentElement);
+        assert(elementIndex >= 0);
+        if (this.delegate && this.delegate.onKeydown(this, e)) {
+            return;
+        }
+        const isShiftTab = !e.altKey && !e.ctrlKey && !e.metaKey && e.shiftKey &&
+            e.key === 'Tab';
+        if (hasKeyModifiers(e) && !isShiftTab) {
+            return;
+        }
+        let index = -1;
+        let shouldStopPropagation = true;
+        if (isShiftTab) {
+            // This always moves back one element, even in RTL.
+            index = elementIndex - 1;
+            if (index < 0) {
+                // Bubble up to focus on the previous element outside the row.
+                return;
+            }
+        }
+        else if (e.key === 'ArrowLeft') {
+            index = elementIndex + (isRTL() ? 1 : -1);
+        }
+        else if (e.key === 'ArrowRight') {
+            index = elementIndex + (isRTL() ? -1 : 1);
+        }
+        else if (e.key === 'Home') {
+            index = 0;
+        }
+        else if (e.key === 'End') {
+            index = elements.length - 1;
+        }
+        else {
+            shouldStopPropagation = false;
+        }
+        const elementToFocus = elements[index];
+        if (elementToFocus) {
+            this.getEquivalentElement(elementToFocus).focus();
+            e.preventDefault();
+        }
+        if (shouldStopPropagation) {
+            e.stopPropagation();
+        }
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/* @fileoverview Utilities for determining the current platform. */
+/** Whether we are using a Mac or not. */
+const isMac = /Mac/.test(navigator.platform);
+/** Whether this is on the Windows platform or not. */
+const isWindows = /Win/.test(navigator.platform);
+/** Whether this is on iOS. */
+const isIOS = /CriOS/.test(navigator.userAgent);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// clang-format off
+// clang-format on
+let hideInk = false;
+assert(!isIOS, 'pointerdown doesn\'t work on iOS');
+document.addEventListener('pointerdown', function () {
+    hideInk = true;
+}, true);
+document.addEventListener('keydown', function () {
+    hideInk = false;
+}, true);
+/**
+ * Attempts to track whether focus outlines should be shown, and if they
+ * shouldn't, removes the "ink" (ripple) from a control while focusing it.
+ * This is helpful when a user is clicking/touching, because it's not super
+ * helpful to show focus ripples in that case. This is Polymer-specific.
+ */
+function focusWithoutInk(toFocus) {
+    // |toFocus| does not have a 'noink' property, so it's unclear whether the
+    // element has "ink" and/or whether it can be suppressed. Just focus().
+    if (!('noink' in toFocus) || !hideInk) {
+        toFocus.focus();
+        return;
+    }
+    const toFocusWithNoInk = toFocus;
+    // Make sure the element is in the document we're listening to events on.
+    assert(document === toFocusWithNoInk.ownerDocument);
+    const { noink } = toFocusWithNoInk;
+    toFocusWithNoInk.noink = true;
+    toFocusWithNoInk.focus();
+    toFocusWithNoInk.noink = noink;
+}
+
+function getTemplate$9() {
+    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
+    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
+      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
+        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
+      </div>
+    </dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var AnchorAlignment;
+(function (AnchorAlignment) {
+    AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
+    AnchorAlignment[AnchorAlignment["AFTER_START"] = -1] = "AFTER_START";
+    AnchorAlignment[AnchorAlignment["CENTER"] = 0] = "CENTER";
+    AnchorAlignment[AnchorAlignment["BEFORE_END"] = 1] = "BEFORE_END";
+    AnchorAlignment[AnchorAlignment["AFTER_END"] = 2] = "AFTER_END";
+})(AnchorAlignment || (AnchorAlignment = {}));
+const DROPDOWN_ITEM_CLASS = 'dropdown-item';
+const SELECTABLE_DROPDOWN_ITEM_QUERY = `.${DROPDOWN_ITEM_CLASS}:not([hidden]):not([disabled])`;
+const AFTER_END_OFFSET = 10;
+/**
+ * Returns the point to start along the X or Y axis given a start and end
+ * point to anchor to, the length of the target and the direction to anchor
+ * in. If honoring the anchor would force the menu outside of min/max, this
+ * will ignore the anchor position and try to keep the menu within min/max.
+ */
+function getStartPointWithAnchor(start, end, menuLength, anchorAlignment, min, max) {
+    let startPoint = 0;
+    switch (anchorAlignment) {
+        case AnchorAlignment.BEFORE_START:
+            startPoint = start - menuLength;
+            break;
+        case AnchorAlignment.AFTER_START:
+            startPoint = start;
+            break;
+        case AnchorAlignment.CENTER:
+            startPoint = (start + end - menuLength) / 2;
+            break;
+        case AnchorAlignment.BEFORE_END:
+            startPoint = end - menuLength;
+            break;
+        case AnchorAlignment.AFTER_END:
+            startPoint = end;
+            break;
+    }
+    if (startPoint + menuLength > max) {
+        startPoint = end - menuLength;
+    }
+    if (startPoint < min) {
+        startPoint = start;
+    }
+    startPoint = Math.max(min, Math.min(startPoint, max - menuLength));
+    return startPoint;
+}
+function getDefaultShowConfig() {
+    return {
+        top: 0,
+        left: 0,
+        height: 0,
+        width: 0,
+        anchorAlignmentX: AnchorAlignment.AFTER_START,
+        anchorAlignmentY: AnchorAlignment.AFTER_START,
+        minX: 0,
+        minY: 0,
+        maxX: 0,
+        maxY: 0,
+    };
+}
+class CrActionMenuElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.boundClose_ = null;
+        this.resizeObserver_ = null;
+        this.hasMousemoveListener_ = false;
+        this.anchorElement_ = null;
+        this.lastConfig_ = null;
+    }
+    static get is() {
+        return 'cr-action-menu';
+    }
+    static get template() {
+        return getTemplate$9();
+    }
+    static get properties() {
+        return {
+            // Accessibility text of the menu. Should be something along the lines of
+            // "actions", or "more actions".
+            accessibilityLabel: String,
+            // Setting this flag will make the menu listen for content size changes
+            // and reposition to its anchor accordingly.
+            autoReposition: {
+                type: Boolean,
+                value: false,
+            },
+            open: {
+                type: Boolean,
+                notify: true,
+                value: false,
+            },
+            // Descriptor of the menu. Should be something along the lines of "menu"
+            roleDescription: String,
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('keydown', this.onKeyDown_.bind(this));
+        this.addEventListener('mouseover', this.onMouseover_);
+        this.addEventListener('click', this.onClick_);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeListeners_();
+    }
+    fire_(eventName, detail) {
+        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
+    }
+    /**
+     * Exposing internal <dialog> elements for tests.
+     */
+    getDialog() {
+        return this.$.dialog;
+    }
+    removeListeners_() {
+        window.removeEventListener('resize', this.boundClose_);
+        window.removeEventListener('popstate', this.boundClose_);
+        if (this.resizeObserver_) {
+            this.resizeObserver_.disconnect();
+            this.resizeObserver_ = null;
+        }
+    }
+    onNativeDialogClose_(e) {
+        // Ignore any 'close' events not fired directly by the <dialog> element.
+        if (e.target !== this.$.dialog) {
+            return;
+        }
+        // Catch and re-fire the 'close' event such that it bubbles across Shadow
+        // DOM v1.
+        this.fire_('close');
+    }
+    onClick_(e) {
+        if (e.target === this) {
+            this.close();
+            e.stopPropagation();
+        }
+    }
+    onKeyDown_(e) {
+        e.stopPropagation();
+        if (e.key === 'Tab' || e.key === 'Escape') {
+            this.close();
+            if (e.key === 'Tab') {
+                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+            }
+            e.preventDefault();
+            return;
+        }
+        if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+            return;
+        }
+        const options = Array.from(this.querySelectorAll(SELECTABLE_DROPDOWN_ITEM_QUERY));
+        if (options.length === 0) {
+            return;
+        }
+        const focused = getDeepActiveElement();
+        const index = options.findIndex(option => FocusRow.getFocusableElement(option) === focused);
+        if (e.key === 'Enter') {
+            // If a menu item has focus, don't change focus or close menu on 'Enter'.
+            if (index !== -1) {
+                return;
+            }
+            if (isWindows || isMac) {
+                this.close();
+                e.preventDefault();
+                return;
+            }
+        }
+        e.preventDefault();
+        this.updateFocus_(options, index, e.key !== 'ArrowUp');
+        if (!this.hasMousemoveListener_) {
+            this.hasMousemoveListener_ = true;
+            this.addEventListener('mousemove', e => {
+                this.onMouseover_(e);
+                this.hasMousemoveListener_ = false;
+            }, { once: true });
+        }
+    }
+    onMouseover_(e) {
+        const item = e.composedPath()
+            .find(el => el.matches && el.matches(SELECTABLE_DROPDOWN_ITEM_QUERY));
+        (item || this.$.wrapper).focus();
+    }
+    updateFocus_(options, focusedIndex, next) {
+        const numOptions = options.length;
+        assert(numOptions > 0);
+        let index;
+        if (focusedIndex === -1) {
+            index = next ? 0 : numOptions - 1;
+        }
+        else {
+            const delta = next ? 1 : -1;
+            index = (numOptions + focusedIndex + delta) % numOptions;
+        }
+        options[index].focus();
+    }
+    close() {
+        // Removing 'resize' and 'popstate' listeners when dialog is closed.
+        this.removeListeners_();
+        this.$.dialog.close();
+        this.open = false;
+        if (this.anchorElement_) {
+            assert(this.anchorElement_);
+            focusWithoutInk(this.anchorElement_);
+            this.anchorElement_ = null;
+        }
+        if (this.lastConfig_) {
+            this.lastConfig_ = null;
+        }
+    }
+    /**
+     * Shows the menu anchored to the given element.
+     */
+    showAt(anchorElement, config) {
+        this.anchorElement_ = anchorElement;
+        // Scroll the anchor element into view so that the bounding rect will be
+        // accurate for where the menu should be shown.
+        this.anchorElement_.scrollIntoViewIfNeeded();
+        const rect = this.anchorElement_.getBoundingClientRect();
+        let height = rect.height;
+        if (config && !config.noOffset &&
+            config.anchorAlignmentY === AnchorAlignment.AFTER_END) {
+            // When an action menu is positioned after the end of an element, the
+            // action menu can appear too far away from the anchor element, typically
+            // because anchors tend to have padding. So we offset the height a bit
+            // so the menu shows up slightly closer to the content of anchor.
+            height -= AFTER_END_OFFSET;
+        }
+        this.showAtPosition(Object.assign({
+            top: rect.top,
+            left: rect.left,
+            height: height,
+            width: rect.width,
+            // Default to anchoring towards the left.
+            anchorAlignmentX: AnchorAlignment.BEFORE_END,
+        }, config));
+        this.$.wrapper.focus();
+    }
+    /**
+     * Shows the menu anchored to the given box. The anchor alignment is
+     * specified as an X and Y alignment which represents a point in the anchor
+     * where the menu will align to, which can have the menu either before or
+     * after the given point in each axis. Center alignment places the center of
+     * the menu in line with the center of the anchor. Coordinates are relative to
+     * the top-left of the viewport.
+     *
+     *            y-start
+     *         _____________
+     *         |           |
+     *         |           |
+     *         |   CENTER  |
+     * x-start |     x     | x-end
+     *         |           |
+     *         |anchor box |
+     *         |___________|
+     *
+     *             y-end
+     *
+     * For example, aligning the menu to the inside of the top-right edge of
+     * the anchor, extending towards the bottom-left would use a alignment of
+     * (BEFORE_END, AFTER_START), whereas centering the menu below the bottom
+     * edge of the anchor would use (CENTER, AFTER_END).
+     */
+    showAtPosition(config) {
+        // Save the scroll position of the viewport.
+        const doc = document.scrollingElement;
+        const scrollLeft = doc.scrollLeft;
+        const scrollTop = doc.scrollTop;
+        // Reset position so that layout isn't affected by the previous position,
+        // and so that the dialog is positioned at the top-start corner of the
+        // document.
+        this.resetStyle_();
+        this.$.dialog.showModal();
+        this.open = true;
+        config.top += scrollTop;
+        config.left += scrollLeft;
+        this.positionDialog_(Object.assign({
+            minX: scrollLeft,
+            minY: scrollTop,
+            maxX: scrollLeft + doc.clientWidth,
+            maxY: scrollTop + doc.clientHeight,
+        }, config));
+        // Restore the scroll position.
+        doc.scrollTop = scrollTop;
+        doc.scrollLeft = scrollLeft;
+        this.addListeners_();
+        // Focus the first selectable item.
+        const openedByKey = FocusOutlineManager.forDocument(document).visible;
+        if (openedByKey) {
+            const firstSelectableItem = this.querySelector(SELECTABLE_DROPDOWN_ITEM_QUERY);
+            if (firstSelectableItem) {
+                requestAnimationFrame(() => {
+                    // Wait for the next animation frame for the dialog to become visible.
+                    firstSelectableItem.focus();
+                });
+            }
+        }
+    }
+    resetStyle_() {
+        this.$.dialog.style.left = '';
+        this.$.dialog.style.right = '';
+        this.$.dialog.style.top = '0';
+    }
+    /**
+     * Position the dialog using the coordinates in config. Coordinates are
+     * relative to the top-left of the viewport when scrolled to (0, 0).
+     */
+    positionDialog_(config) {
+        this.lastConfig_ = config;
+        const c = Object.assign(getDefaultShowConfig(), config);
+        const top = c.top;
+        const left = c.left;
+        const bottom = top + c.height;
+        const right = left + c.width;
+        // Flip the X anchor in RTL.
+        const rtl = getComputedStyle(this).direction === 'rtl';
+        if (rtl) {
+            c.anchorAlignmentX *= -1;
+        }
+        const offsetWidth = this.$.dialog.offsetWidth;
+        const menuLeft = getStartPointWithAnchor(left, right, offsetWidth, c.anchorAlignmentX, c.minX, c.maxX);
+        if (rtl) {
+            const menuRight = document.scrollingElement.clientWidth - menuLeft - offsetWidth;
+            this.$.dialog.style.right = menuRight + 'px';
+        }
+        else {
+            this.$.dialog.style.left = menuLeft + 'px';
+        }
+        const menuTop = getStartPointWithAnchor(top, bottom, this.$.dialog.offsetHeight, c.anchorAlignmentY, c.minY, c.maxY);
+        this.$.dialog.style.top = menuTop + 'px';
+    }
+    onSlotchange_() {
+        for (const node of this.$.contentNode.assignedElements({ flatten: true })) {
+            if (node.classList.contains(DROPDOWN_ITEM_CLASS) &&
+                !node.getAttribute('role')) {
+                node.setAttribute('role', 'menuitem');
+            }
+        }
+    }
+    addListeners_() {
+        this.boundClose_ = this.boundClose_ || (() => {
+            if (this.$.dialog.open) {
+                this.close();
+            }
+        });
+        window.addEventListener('resize', this.boundClose_);
+        window.addEventListener('popstate', this.boundClose_);
+        if (this.autoReposition) {
+            this.resizeObserver_ = new ResizeObserver(() => {
+                if (this.lastConfig_) {
+                    this.positionDialog_(this.lastConfig_);
+                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                }
+            });
+            this.resizeObserver_.observe(this.$.dialog);
+        }
+    }
+}
+customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
 const template$2 = html `
 <iron-iconset-svg name="cr20" size="20">
@@ -3522,10 +4025,17 @@ const template$2 = html `
         <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
         </path>
       </g>
+      <g id="thumbs-down-filled">
+        <path d="M6 3h10v13l-7 7-1.25-1.25a1.336 1.336 0 0 1-.29-.477 1.66 1.66 0 0 1-.108-.574v-.347L8.449 16H3c-.535 0-1-.2-1.398-.602C1.199 15 1 14.535 1 14v-2c0-.117.012-.242.04-.375.022-.133.062-.258.108-.375l3-7.05c.153-.333.403-.618.75-.848A1.957 1.957 0 0 1 6 3Zm12 13V3h4v13Zm0 0">
+        </path>
+      </g>
       <g id="thumbs-up">
         <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
         </path>
       </g>
+      <g id="thumbs-up-filled">
+        <path d="M18 21H8V8l7-7 1.25 1.25c.117.117.21.273.29.477.073.199.108.39.108.574v.347L15.551 8H21c.535 0 1 .2 1.398.602C22.801 9 23 9.465 23 10v2c0 .117-.012.242-.04.375a1.897 1.897 0 0 1-.108.375l-3 7.05a2.037 2.037 0 0 1-.75.848A1.957 1.957 0 0 1 18 21ZM6 8v13H2V8Zm0 0">
+      </path></g>
       <g id="videocam">
         <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
         </path>
@@ -3567,12 +4077,9 @@ document.head.appendChild(template$2.content);
 //
 // NOTE: <action-link> and document.createElement('action-link') don't work.
 class ActionLink extends HTMLAnchorElement {
-    constructor() {
-        super(...arguments);
-        this.boundOnKeyDown_ = null;
-        this.boundOnMouseDown_ = null;
-        this.boundOnBlur_ = null;
-    }
+    boundOnKeyDown_ = null;
+    boundOnMouseDown_ = null;
+    boundOnBlur_ = null;
     connectedCallback() {
         // Action links can start disabled (e.g. <a is="action-link" disabled>).
         this.tabIndex = this.disabled ? -1 : 0;
@@ -4800,8 +5307,10 @@ const I18nMixin = dedupingMixin((superClass) => {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Convert a javascript string into a Mojo String16.
+// Convert a Mojo String16 into a javascript string.
 function mojoString16ToString(str16) {
-    return str16.data.map((ch) => String.fromCodePoint(ch)).join('');
+    return String.fromCharCode(...str16.data);
 }
 
 // mojom-webui/mojo/public/mojom/base/big_buffer.mojom-webui.js is auto generated by mojom_bindings_generator.py, do not edit
@@ -4874,7 +5383,7 @@ const DangerTypeSpec = { $: mojo.internal.Enum() };
 var DangerType;
 (function (DangerType) {
     DangerType[DangerType["MIN_VALUE"] = 0] = "MIN_VALUE";
-    DangerType[DangerType["MAX_VALUE"] = 15] = "MAX_VALUE";
+    DangerType[DangerType["MAX_VALUE"] = 16] = "MAX_VALUE";
     DangerType[DangerType["kNoApplicableDangerType"] = 0] = "kNoApplicableDangerType";
     DangerType[DangerType["kDangerousFile"] = 1] = "kDangerousFile";
     DangerType[DangerType["kDangerousUrl"] = 2] = "kDangerousUrl";
@@ -4883,20 +5392,21 @@ var DangerType;
     DangerType[DangerType["kDangerousHost"] = 5] = "kDangerousHost";
     DangerType[DangerType["kPotentiallyUnwanted"] = 6] = "kPotentiallyUnwanted";
     DangerType[DangerType["kAsyncScanning"] = 7] = "kAsyncScanning";
-    DangerType[DangerType["kBlockedPasswordProtected"] = 8] = "kBlockedPasswordProtected";
-    DangerType[DangerType["kBlockedTooLarge"] = 9] = "kBlockedTooLarge";
-    DangerType[DangerType["kSensitiveContentWarning"] = 10] = "kSensitiveContentWarning";
-    DangerType[DangerType["kSensitiveContentBlock"] = 11] = "kSensitiveContentBlock";
-    DangerType[DangerType["kDeepScannedFailed"] = 12] = "kDeepScannedFailed";
-    DangerType[DangerType["kDeepScannedSafe"] = 13] = "kDeepScannedSafe";
-    DangerType[DangerType["kDeepScannedOpenedDangerous"] = 14] = "kDeepScannedOpenedDangerous";
-    DangerType[DangerType["kBlockedUnsupportedFileType"] = 15] = "kBlockedUnsupportedFileType";
+    DangerType[DangerType["kAsyncLocalPasswordScanning"] = 8] = "kAsyncLocalPasswordScanning";
+    DangerType[DangerType["kBlockedPasswordProtected"] = 9] = "kBlockedPasswordProtected";
+    DangerType[DangerType["kBlockedTooLarge"] = 10] = "kBlockedTooLarge";
+    DangerType[DangerType["kSensitiveContentWarning"] = 11] = "kSensitiveContentWarning";
+    DangerType[DangerType["kSensitiveContentBlock"] = 12] = "kSensitiveContentBlock";
+    DangerType[DangerType["kDeepScannedFailed"] = 13] = "kDeepScannedFailed";
+    DangerType[DangerType["kDeepScannedSafe"] = 14] = "kDeepScannedSafe";
+    DangerType[DangerType["kDeepScannedOpenedDangerous"] = 15] = "kDeepScannedOpenedDangerous";
+    DangerType[DangerType["kBlockedUnsupportedFileType"] = 16] = "kBlockedUnsupportedFileType";
 })(DangerType || (DangerType = {}));
 const StateSpec = { $: mojo.internal.Enum() };
 var State;
 (function (State) {
     State[State["MIN_VALUE"] = 0] = "MIN_VALUE";
-    State[State["MAX_VALUE"] = 8] = "MAX_VALUE";
+    State[State["MAX_VALUE"] = 9] = "MAX_VALUE";
     State[State["kInProgress"] = 0] = "kInProgress";
     State[State["kCancelled"] = 1] = "kCancelled";
     State[State["kComplete"] = 2] = "kComplete";
@@ -4906,6 +5416,7 @@ var State;
     State[State["kInsecure"] = 6] = "kInsecure";
     State[State["kAsyncScanning"] = 7] = "kAsyncScanning";
     State[State["kPromptForScanning"] = 8] = "kPromptForScanning";
+    State[State["kPromptForLocalPasswordScanning"] = 9] = "kPromptForLocalPasswordScanning";
 })(State || (State = {}));
 const SafeBrowsingStateSpec = { $: mojo.internal.Enum() };
 var SafeBrowsingState;
@@ -4988,67 +5499,87 @@ class PageHandlerRemote {
             id
         ]);
     }
+    saveSuspiciousRequiringGesture(id) {
+        this.proxy.sendMessage(4, PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    recordOpenBypassWarningPrompt(id) {
+        this.proxy.sendMessage(5, PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    saveDangerousFromPromptRequiringGesture(id) {
+        this.proxy.sendMessage(6, PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    recordCancelBypassWarningPrompt(id) {
+        this.proxy.sendMessage(7, PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, null, [
+            id
+        ]);
+    }
     discardDangerous(id) {
-        this.proxy.sendMessage(4, PageHandler_DiscardDangerous_ParamsSpec.$, null, [
+        this.proxy.sendMessage(8, PageHandler_DiscardDangerous_ParamsSpec.$, null, [
             id
         ]);
     }
     retryDownload(id) {
-        this.proxy.sendMessage(5, PageHandler_RetryDownload_ParamsSpec.$, null, [
+        this.proxy.sendMessage(9, PageHandler_RetryDownload_ParamsSpec.$, null, [
             id
         ]);
     }
     show(id) {
-        this.proxy.sendMessage(6, PageHandler_Show_ParamsSpec.$, null, [
+        this.proxy.sendMessage(10, PageHandler_Show_ParamsSpec.$, null, [
             id
         ]);
     }
     pause(id) {
-        this.proxy.sendMessage(7, PageHandler_Pause_ParamsSpec.$, null, [
+        this.proxy.sendMessage(11, PageHandler_Pause_ParamsSpec.$, null, [
             id
         ]);
     }
     resume(id) {
-        this.proxy.sendMessage(8, PageHandler_Resume_ParamsSpec.$, null, [
+        this.proxy.sendMessage(12, PageHandler_Resume_ParamsSpec.$, null, [
             id
         ]);
     }
     remove(id) {
-        this.proxy.sendMessage(9, PageHandler_Remove_ParamsSpec.$, null, [
+        this.proxy.sendMessage(13, PageHandler_Remove_ParamsSpec.$, null, [
             id
         ]);
     }
     undo() {
-        this.proxy.sendMessage(10, PageHandler_Undo_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(14, PageHandler_Undo_ParamsSpec.$, null, []);
     }
     cancel(id) {
-        this.proxy.sendMessage(11, PageHandler_Cancel_ParamsSpec.$, null, [
+        this.proxy.sendMessage(15, PageHandler_Cancel_ParamsSpec.$, null, [
             id
         ]);
     }
     clearAll() {
-        this.proxy.sendMessage(12, PageHandler_ClearAll_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(16, PageHandler_ClearAll_ParamsSpec.$, null, []);
     }
     openDownloadsFolderRequiringGesture() {
-        this.proxy.sendMessage(13, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(17, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, []);
     }
     openDuringScanningRequiringGesture(id) {
-        this.proxy.sendMessage(14, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(18, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
     reviewDangerousRequiringGesture(id) {
-        this.proxy.sendMessage(15, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(19, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
     deepScan(id) {
-        this.proxy.sendMessage(16, PageHandler_DeepScan_ParamsSpec.$, null, [
+        this.proxy.sendMessage(20, PageHandler_DeepScan_ParamsSpec.$, null, [
             id
         ]);
     }
     bypassDeepScanRequiringGesture(id) {
-        this.proxy.sendMessage(17, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(21, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
@@ -5128,6 +5659,10 @@ const PageHandler_GetDownloads_ParamsSpec = { $: {} };
 const PageHandler_OpenFileRequiringGesture_ParamsSpec = { $: {} };
 const PageHandler_Drag_ParamsSpec = { $: {} };
 const PageHandler_SaveDangerousRequiringGesture_ParamsSpec = { $: {} };
+const PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec = { $: {} };
+const PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec = { $: {} };
+const PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec = { $: {} };
+const PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec = { $: {} };
 const PageHandler_DiscardDangerous_ParamsSpec = { $: {} };
 const PageHandler_RetryDownload_ParamsSpec = { $: {} };
 const PageHandler_Show_ParamsSpec = { $: {} };
@@ -5189,6 +5724,18 @@ mojo.internal.Struct(PageHandler_Drag_ParamsSpec.$, 'PageHandler_Drag_Params', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_SaveDangerousRequiringGesture_ParamsSpec.$, 'PageHandler_SaveDangerousRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, 'PageHandler_SaveSuspiciousRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, 'PageHandler_RecordOpenBypassWarningPrompt_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, 'PageHandler_SaveDangerousFromPromptRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, 'PageHandler_RecordCancelBypassWarningPrompt_Params', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_DiscardDangerous_ParamsSpec.$, 'PageHandler_DiscardDangerous_Params', [
@@ -5289,10 +5836,11 @@ function getFileIconUrl(filePath) {
  *  resolver.resolve({hello: 'world'});
  */
 class PromiseResolver {
+    resolve_ = () => { };
+    reject_ = () => { };
+    isFulfilled_ = false;
+    promise_;
     constructor() {
-        this.resolve_ = () => { };
-        this.reject_ = () => { };
-        this.isFulfilled_ = false;
         this.promise_ = new Promise((resolve, reject) => {
             this.resolve_ = (resolution) => {
                 resolve(resolution);
@@ -5359,7 +5907,7 @@ class IconLoaderImpl {
 let instance$1 = null;
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{-webkit-filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:8px;margin-top:8px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
+    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:8px;margin-top:8px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
 
 <div id="date" role="heading" aria-level="2">[[computeDate_(data.hideDate,
     data.sinceString,
@@ -5368,11 +5916,11 @@ function getTemplate$6() {
 <div id="content" on-dragstart="onDragStart_" class$="[[computeClass_(isActive_, isDangerous_, showProgress_)]]" focus-row-container>
   <div id="file-icon-wrapper" class="icon-wrapper" role="img" aria-label="[[iconAriaLabel_]]" aria-hidden="[[computeIconAriaHidden_(iconAriaLabel_)]]">
     <img class="icon" id="file-icon" alt="" hidden="[[!useFileIcon_]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
-        useFileIcon_, updateDeepScanningUx_, improvedDownloadWarningsUx_,
+        useFileIcon_, improvedDownloadWarningsUx_,
         displayType_)]]">
     <iron-icon class="icon" hidden="[[useFileIcon_]]" icon$="[[computeIcon_(isDangerous_, data.dangerType, useFileIcon_,
-            updateDeepScanningUx_, improvedDownloadWarningsUx_, displayType_)]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
-            useFileIcon_, updateDeepScanningUx_, improvedDownloadWarningsUx_,
+            improvedDownloadWarningsUx_, displayType_)]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
+            useFileIcon_, improvedDownloadWarningsUx_,
             displayType_)]]"></iron-icon>
   </div>
 
@@ -5389,26 +5937,23 @@ function getTemplate$6() {
 
     <div class="description" role="gridcell" description-color$="[[iconAndDescriptionColor_(displayType_,
             improvedDownloadWarningsUx_)]]" hidden$="[[!computeDescriptionVisible_(data.*, displayType_,
-            updateDeepScanningUx_, improvedDownloadWarningsUx_)]]">
+            improvedDownloadWarningsUx_)]]">
       [[computeDescription_(
           data.state,
           data.dangerType,
           data.fileName,
           data.progressStatusText,
           displayType_,
-          updateDeepScanningUx_,
           improvedDownloadWarningsUx_)]]
     </div>
 
-    <div class="description" role="gridcell" hidden="[[!computeSecondLineVisible_(data.state,
-        updateDeepScanningUx_)]]">
+    <div class="description" role="gridcell" hidden="[[!computeSecondLineVisible_(data.state)]]">
       $i18n{asyncScanningDownloadDescSecond}
     </div>
 
     <template is="dom-if" if="[[showProgress_]]">
       <div role="gridcell">
-        <paper-progress id="progress" indeterminate="[[isIndeterminate_(data.percent,
-            updateDeepScanningUx_)]]" value="[[data.percent]]">
+        <paper-progress id="progress" indeterminate="[[isIndeterminate_(data.percent)]]" value="[[data.percent]]">
         </paper-progress>
       </div>
     </template>
@@ -5435,17 +5980,10 @@ function getTemplate$6() {
             </cr-button>
           </span>
         </template>
-        <template is="dom-if" if="[[showOpenNow_]]" restamp>
-          <span role="gridcell">
-            <cr-button on-click="onOpenNowClick_" id="openNow" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlOpenNow}
-            </cr-button>
-          </span>
-        </template>
         <template is="dom-if" if="[[showDeepScan_]]" restamp>
           <span role="gridcell">
             <cr-button on-click="onDeepScanClick_" id="deepScan" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlDeepScan}
+              [[computeDeepScanControlText_(data.state)]]
             </cr-button>
           </span>
           <span role="gridcell">
@@ -5476,7 +6014,7 @@ function getTemplate$6() {
         <template is="dom-if" if="[[showDeepScan_]]" restamp>
           <span role="gridcell">
             <cr-button on-click="onDeepScanClick_" id="deepScan" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlDeepScan}
+              [[computeDeepScanControlText_(data.state)]]
             </cr-button>
           </span>
         </template>
@@ -5562,9 +6100,6 @@ function getTemplate$6() {
         </button>
         <button class="dropdown-item" on-click="onRetryClick_" hidden="[[!data.retry]]" id="retry">
           $i18n{controlRetry}
-        </button>
-        <button class="dropdown-item" on-click="onOpenNowClick_" hidden="[[!showOpenNow_]]" id="open-now">
-          $i18n{controlOpenNow}
         </button>
         <button class="dropdown-item" on-click="onDeepScanClick_" hidden="[[!showDeepScan_]]" id="deep-scan">
           $i18n{controlDeepScan}
@@ -5686,18 +6221,12 @@ class DownloadsItemElement extends DownloadsItemElementBase {
                 type: String,
             },
             showCancel_: {
-                computed: 'computeShowCancel_(data.state, updateDeepScanningUx_)',
+                computed: 'computeShowCancel_(data.state)',
                 type: Boolean,
                 value: false,
             },
             showProgress_: {
-                computed: 'computeShowProgress_(showCancel_, data.percent,' +
-                    'updateDeepScanningUx_)',
-                type: Boolean,
-                value: false,
-            },
-            showOpenNow_: {
-                computed: 'computeShowOpenNow_(data.state, updateDeepScanningUx_)',
+                computed: 'computeShowProgress_(showCancel_, data.percent)',
                 type: Boolean,
                 value: false,
             },
@@ -5717,10 +6246,6 @@ class DownloadsItemElement extends DownloadsItemElementBase {
                     'data.hasSafeBrowsingVerdict)',
                 type: DisplayType,
                 value: DisplayType.NORMAL,
-            },
-            updateDeepScanningUx_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('updateDeepScanningUX'),
             },
             improvedDownloadWarningsUx_: {
                 type: Boolean,
@@ -5746,7 +6271,6 @@ class DownloadsItemElement extends DownloadsItemElementBase {
         /** Used by FocusRowMixin. */
         this.overrideCustomEquivalent = true;
     }
-    /** @override */
     ready() {
         super.ready();
         this.setAttribute('role', 'row');
@@ -5836,8 +6360,7 @@ class DownloadsItemElement extends DownloadsItemElementBase {
         return this.computeDescription_() !== '';
     }
     computeSecondLineVisible_() {
-        return this.updateDeepScanningUx_ && this.data &&
-            this.data.state === State.kAsyncScanning;
+        return this.data && this.data.state === State.kAsyncScanning;
     }
     computeDisplayType_() {
         // Most downloads are normal. If we don't have data, don't assume danger.
@@ -5848,7 +6371,8 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             return DisplayType.INSECURE;
         }
         if (this.data.state === State.kAsyncScanning ||
-            this.data.state === State.kPromptForScanning) {
+            this.data.state === State.kPromptForScanning ||
+            this.data.state === State.kPromptForLocalPasswordScanning) {
             return DisplayType.SUSPICIOUS;
         }
         // Enterprise AP verdicts.
@@ -5861,11 +6385,8 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             // Mimics logic in download_ui_model.cc for downloads with danger_type
             // DOWNLOAD_DANGER_TYPE_DANGEROUS_FILE.
             case DangerType.kDangerousFile:
-                return this.data.safeBrowsingState ===
-                    SafeBrowsingState.kNoSafeBrowsing ?
-                    DisplayType.UNVERIFIED :
-                    (this.data.hasSafeBrowsingVerdict ? DisplayType.SUSPICIOUS :
-                        DisplayType.UNVERIFIED);
+                return this.data.hasSafeBrowsingVerdict ? DisplayType.SUSPICIOUS :
+                    DisplayType.UNVERIFIED;
             case DangerType.kDangerousUrl:
             case DangerType.kDangerousContent:
             case DangerType.kDangerousHost:
@@ -5881,6 +6402,15 @@ class DownloadsItemElement extends DownloadsItemElementBase {
                 return DisplayType.ERROR;
         }
         return DisplayType.NORMAL;
+    }
+    computeDeepScanControlText_() {
+        if (this.data.state === State.kPromptForScanning) {
+            return loadTimeData.getString('controlDeepScan');
+        }
+        else if (this.data.state === State.kPromptForLocalPasswordScanning) {
+            return loadTimeData.getString('controlLocalPasswordScan');
+        }
+        return '';
     }
     computeSaveDangerousLabel_() {
         switch (this.displayType_) {
@@ -5904,9 +6434,7 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             case State.kComplete:
                 switch (data.dangerType) {
                     case DangerType.kDeepScannedSafe:
-                        return this.updateDeepScanningUx_ ?
-                            '' :
-                            loadTimeData.getString('deepScannedSafeDesc');
+                        return '';
                     case DangerType.kDeepScannedOpenedDangerous:
                         return loadTimeData.getString('deepScannedOpenedDangerousDesc');
                     case DangerType.kDeepScannedFailed:
@@ -5938,6 +6466,8 @@ class DownloadsItemElement extends DownloadsItemElementBase {
                 return loadTimeData.getString('asyncScanningDownloadDesc');
             case State.kPromptForScanning:
                 return loadTimeData.getString('promptForScanningDesc');
+            case State.kPromptForLocalPasswordScanning:
+                return loadTimeData.getString('promptForLocalPasswordScanningDesc');
             case State.kInProgress:
             case State.kPaused: // Fallthrough.
                 return data.progressStatusText;
@@ -6016,10 +6546,9 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             if (ERROR_TYPES.includes(dangerType)) {
                 return 'cr:error';
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return this.updateDeepScanningUx_ ? 'cr:warning' : 'cr:info';
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return 'cr:warning';
             }
         }
@@ -6052,10 +6581,9 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             if (WARNING_TYPES.includes(dangerType)) {
                 return 'red';
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return this.updateDeepScanningUx_ ? 'yellow' : 'grey';
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return 'yellow';
             }
         }
@@ -6129,24 +6657,19 @@ class DownloadsItemElement extends DownloadsItemElementBase {
     computeShowCancel_() {
         return !!this.data &&
             (this.data.state === State.kInProgress ||
-                this.data.state === State.kPaused ||
-                (this.data.state === State.kAsyncScanning &&
-                    !this.updateDeepScanningUx_));
+                this.data.state === State.kPaused);
     }
     computeShowProgress_() {
         if (this.data && this.data.state === State.kAsyncScanning) {
             return true;
         }
         return this.showCancel_ && this.data.percent >= -1 &&
-            this.data.state !== State.kPromptForScanning;
-    }
-    computeShowOpenNow_() {
-        const allowOpenNow = loadTimeData.getBoolean('allowOpenNow');
-        return !!this.data && this.data.state === State.kAsyncScanning &&
-            allowOpenNow && !this.updateDeepScanningUx_;
+            this.data.state !== State.kPromptForScanning &&
+            this.data.state !== State.kPromptForLocalPasswordScanning;
     }
     computeShowDeepScan_() {
-        return this.data.state === State.kPromptForScanning;
+        return this.data.state === State.kPromptForScanning ||
+            this.data.state === State.kPromptForLocalPasswordScanning;
     }
     computeShowOpenAnyway_() {
         return this.data.dangerType === DangerType.kDeepScannedFailed;
@@ -6207,10 +6730,9 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             if (OVERRIDDEN_ICON_TYPES.includes(this.data.dangerType)) {
                 return false;
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return false;
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return false;
             }
             return true;
@@ -6332,11 +6854,34 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             this.getMoreActionsMenu().close();
         }
     }
+    notifySaveDangerousClick_() {
+        this.dispatchEvent(new CustomEvent('save-dangerous-click', {
+            bubbles: true,
+            composed: true,
+            detail: { id: this.data.id },
+        }));
+    }
     onSaveDangerousClick_() {
-        this.mojoHandler_.saveDangerousRequiringGesture(this.data.id);
-        if (this.improvedDownloadWarningsUx_) {
-            this.getMoreActionsMenu().close();
+        if (!this.improvedDownloadWarningsUx_) {
+            // TODO(chlily): Clean up old paths that show the DownloadDangerPrompt.
+            assert(!!this.mojoHandler_);
+            this.mojoHandler_.saveDangerousRequiringGesture(this.data.id);
+            return;
         }
+        this.getMoreActionsMenu().close();
+        if (this.displayType_ === DisplayType.DANGEROUS) {
+            this.notifySaveDangerousClick_();
+            return;
+        }
+        // "Suspicious" types which show up in grey can be validated directly.
+        const SAVED_FROM_PAGE_TYPES = [
+            DisplayType.SUSPICIOUS,
+            DisplayType.UNVERIFIED,
+            DisplayType.INSECURE,
+        ];
+        assert(SAVED_FROM_PAGE_TYPES.includes(this.displayType_));
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.saveSuspiciousRequiringGesture(this.data.id);
     }
     onShowClick_() {
         this.mojoHandler_.show(this.data.id);
@@ -7074,7 +7619,8 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -7084,7 +7630,7 @@ function getTemplate$5() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){background:0 0;border-radius:100px;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--color-toolbar-search-field-background-hover,var(--cr-hover-background-color));z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -10195,8 +10741,97 @@ Polymer({
   }
 });
 
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Base class for Web Components that don't use Polymer.
+ * See the following file for usage:
+ * chrome/test/data/webui/js/custom_element_test.js
+ */
+function emptyHTML() {
+    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
+}
+class CustomElement extends HTMLElement {
+    static get template() {
+        return emptyHTML();
+    }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        const template = document.createElement('template');
+        template.innerHTML =
+            this.constructor.template || emptyHTML();
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+    $(query) {
+        return this.shadowRoot.querySelector(query);
+    }
+    $all(query) {
+        return this.shadowRoot.querySelectorAll(query);
+    }
+    getRequiredElement(query) {
+        const el = this.shadowRoot.querySelector(query);
+        assert(el);
+        assert(el instanceof HTMLElement);
+        return el;
+    }
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return Whether the passed tagged template literal is a valid array.
+ */
+function isValidArray(arr) {
+    if (arr instanceof Array && Object.isFrozen(arr)) {
+        return true;
+    }
+    return false;
+}
+/**
+ * Checks if the passed tagged template literal only contains static string.
+ * And return the string in the literal if so.
+ * Throws an Error if the passed argument is not supported literals.
+ */
+function getStaticString(literal) {
+    const isStaticString = isValidArray(literal) && !!literal.raw &&
+        isValidArray(literal.raw) && literal.length === literal.raw.length &&
+        literal.length === 1;
+    assert(isStaticString, 'static_types.js only allows static strings');
+    return literal.join('');
+}
+function createTypes(_ignore, literal) {
+    return getStaticString(literal);
+}
+/**
+ * Rules used to enforce static literal checks.
+ */
+const rules = {
+    createHTML: createTypes,
+    createScript: createTypes,
+    createScriptURL: createTypes,
+};
+/**
+ * This policy returns Trusted Types if the passed literal is static.
+ */
+let staticPolicy;
+if (window.trustedTypes) {
+    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
+}
+else {
+    staticPolicy = rules;
+}
+/**
+ * Returns TrustedHTML if the passed literal is static.
+ */
+function getTrustedHTML(literal) {
+    return staticPolicy.createHTML('', literal);
+}
+
 function getTemplate$1() {
-    return html `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
+    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
 </div>
@@ -10229,7 +10864,7 @@ function getInstance(container = document.body) {
     instances.set(container, instance);
     return instance;
 }
-class CrA11yAnnouncerElement extends PolymerElement {
+class CrA11yAnnouncerElement extends CustomElement {
     constructor() {
         super(...arguments);
         this.currentTimeout_ = null;
@@ -10242,7 +10877,6 @@ class CrA11yAnnouncerElement extends PolymerElement {
         return getTemplate$1();
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
         if (this.currentTimeout_ !== null) {
             clearTimeout(this.currentTimeout_);
             this.currentTimeout_ = null;
@@ -10284,15 +10918,15 @@ customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 // found in the LICENSE file.
 /** This is used to identify keyboard shortcuts. */
 class KeyboardShortcut {
+    useKeyCode_ = false;
+    mods_ = {};
+    key_ = null;
+    keyCode_ = null;
     /**
      * @param shortcut The text used to describe the keys for this
      *     keyboard shortcut.
      */
     constructor(shortcut) {
-        this.useKeyCode_ = false;
-        this.mods_ = {};
-        this.key_ = null;
-        this.keyCode_ = null;
         shortcut.split('|').forEach((part) => {
             const partLc = part.toLowerCase();
             switch (partLc) {
@@ -10336,6 +10970,7 @@ class KeyboardShortcut {
 }
 /** A list of keyboard shortcuts which all perform one command. */
 class KeyboardShortcutList {
+    shortcuts_;
     /**
      * @param shortcuts Text-based representation of one or more
      *     keyboard shortcuts, separated by spaces.
@@ -10468,7 +11103,7 @@ function getTemplate() {
 <downloads-toolbar id="toolbar" items="[[items_]]" spinner-active="{{spinnerActive_}}" role="none" on-search-changed="onSearchChanged_">
 </downloads-toolbar>
 <div id="drop-shadow" class="cr-container-shadow"></div>
-<div id="mainContainer" on-scroll="onScroll_">
+<div id="mainContainer" on-scroll="onScroll_" on-save-dangerous-click="onSaveDangerousClick_">
   <managed-footnote hidden="[[inSearchMode_]]"></managed-footnote>
   <iron-list id="downloadsList" items="[[items_]]" role="grid" aria-rowcount$="[[items_.length]]" hidden="[[!hasDownloads_]]" scroll-target="mainContainer" preserve-focus>
     <template>
@@ -10488,6 +11123,10 @@ function getTemplate() {
     $i18n{undo}
   </cr-button>
 </cr-toast-manager>
+<template is="dom-if" if="[[shouldShowBypassWarningDialog_(bypassDialogItemId_)]]" restamp>
+  <download-bypass-warning-confirmation-dialog file-name="[[computeBypassWarningDialogFileName_(bypassDialogItemId_)]]" on-close="onBypassWarningConfirmationDialogClose_">
+  </download-bypass-warning-confirmation-dialog>
+</template>
 <!--_html_template_end_-->`;
 }
 
@@ -10527,6 +11166,10 @@ class DownloadsManagerElement extends DownloadsManagerElementBase {
                 type: Boolean,
                 notify: true,
             },
+            bypassDialogItemId_: {
+                type: String,
+                value: '',
+            },
             lastFocused_: Object,
             listBlurred_: Boolean,
         };
@@ -10551,7 +11194,6 @@ class DownloadsManagerElement extends DownloadsManagerElementBase {
             window.history.replaceState(undefined /* stateObject */, '', '/');
         }
     }
-    /** @override */
     connectedCallback() {
         super.connectedCallback();
         // TODO(dbeam): this should use a class instead.
@@ -10577,11 +11219,43 @@ class DownloadsManagerElement extends DownloadsManagerElementBase {
         toastManager.shadowRoot.querySelector('#toast').onclick =
             e => this.onToastClicked_(e);
     }
-    /** @override */
     disconnectedCallback() {
         super.disconnectedCallback();
         this.listenerIds_.forEach(id => assert(this.mojoEventTarget_.removeListener(id)));
         this.eventTracker_.removeAll();
+    }
+    onSaveDangerousClick_(e) {
+        const bypassItem = this.items_.find(item => item.id === e.detail.id);
+        if (bypassItem) {
+            this.bypassDialogItemId_ = bypassItem.id;
+            assert(!!this.mojoHandler_);
+            this.mojoHandler_.recordOpenBypassWarningPrompt(this.bypassDialogItemId_);
+        }
+    }
+    shouldShowBypassWarningDialog_() {
+        return this.bypassDialogItemId_ !== '';
+    }
+    computeBypassWarningDialogFileName_() {
+        const bypassItem = this.items_.find(item => item.id === this.bypassDialogItemId_);
+        return bypassItem?.fileName || '';
+    }
+    hideBypassWarningDialog_() {
+        this.bypassDialogItemId_ = '';
+    }
+    onBypassWarningConfirmationDialogClose_() {
+        const dialog = this.shadowRoot.querySelector('download-bypass-warning-confirmation-dialog');
+        assert(dialog);
+        assert(this.bypassDialogItemId_ !== '');
+        assert(!!this.mojoHandler_);
+        if (dialog.wasConfirmed()) {
+            this.mojoHandler_.saveDangerousFromPromptRequiringGesture(this.bypassDialogItemId_);
+        }
+        else {
+            // Closing the dialog by clicking cancel is treated the same as closing
+            // the dialog by pressing Esc. Both are treated as CANCEL, not CLOSE.
+            this.mojoHandler_.recordCancelBypassWarningPrompt(this.bypassDialogItemId_);
+        }
+        this.hideBypassWarningDialog_();
     }
     clearAll_() {
         this.set('items_', []);
@@ -10694,6 +11368,9 @@ class DownloadsManagerElement extends DownloadsManagerElementBase {
     removeItem_(index) {
         const removed = this.items_.splice(index, 1);
         this.updateHideDates_(index, index);
+        if (removed.some(item => item.id === this.bypassDialogItemId_)) {
+            this.hideBypassWarningDialog_();
+        }
         this.notifySplices('items_', [{
                 index: index,
                 addedCount: 0,

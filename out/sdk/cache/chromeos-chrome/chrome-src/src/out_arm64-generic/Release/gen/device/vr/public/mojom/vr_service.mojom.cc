@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -326,7 +327,7 @@ XRInputSourceDescription::XRInputSourceDescription()
 XRInputSourceDescription::XRInputSourceDescription(
     XRTargetRayMode target_ray_mode_in,
     XRHandedness handedness_in,
-    const absl::optional<::gfx::Transform>& input_from_pointer_in,
+    const std::optional<::gfx::Transform>& input_from_pointer_in,
     std::vector<std::string> profiles_in)
     : target_ray_mode(std::move(target_ray_mode_in)),
       handedness(std::move(handedness_in)),
@@ -360,7 +361,7 @@ void XRInputSourceDescription::WriteIntoTrace(
     dict.AddItem(
       "input_from_pointer"), this->input_from_pointer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Transform>&>"
+      "<value of type const std::optional<::gfx::Transform>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -388,7 +389,7 @@ XRHandJointData::XRHandJointData()
 
 XRHandJointData::XRHandJointData(
     XRHandJoint joint_in,
-    const absl::optional<::gfx::Transform>& mojo_from_joint_in,
+    const std::optional<::gfx::Transform>& mojo_from_joint_in,
     float radius_in)
     : joint(std::move(joint_in)),
       mojo_from_joint(std::move(mojo_from_joint_in)),
@@ -412,7 +413,7 @@ void XRHandJointData::WriteIntoTrace(
     dict.AddItem(
       "mojo_from_joint"), this->mojo_from_joint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Transform>&>"
+      "<value of type const std::optional<::gfx::Transform>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -478,15 +479,15 @@ XRInputSourceState::XRInputSourceState()
 XRInputSourceState::XRInputSourceState(
     uint32_t source_id_in,
     XRInputSourceDescriptionPtr description_in,
-    const absl::optional<::gfx::Transform>& mojo_from_input_in,
+    const std::optional<::gfx::Transform>& mojo_from_input_in,
     bool emulated_position_in,
     bool is_auxiliary_in,
     bool primary_input_pressed_in,
     bool primary_input_clicked_in,
     bool primary_squeeze_pressed_in,
     bool primary_squeeze_clicked_in,
-    const absl::optional<::device::Gamepad>& gamepad_in,
-    const absl::optional<::gfx::PointF>& overlay_pointer_position_in,
+    const std::optional<::device::Gamepad>& gamepad_in,
+    const std::optional<::gfx::PointF>& overlay_pointer_position_in,
     XRHandTrackingDataPtr hand_tracking_data_in)
     : source_id(std::move(source_id_in)),
       description(std::move(description_in)),
@@ -528,7 +529,7 @@ void XRInputSourceState::WriteIntoTrace(
     dict.AddItem(
       "mojo_from_input"), this->mojo_from_input,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Transform>&>"
+      "<value of type const std::optional<::gfx::Transform>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -591,7 +592,7 @@ void XRInputSourceState::WriteIntoTrace(
     dict.AddItem(
       "gamepad"), this->gamepad,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::Gamepad>&>"
+      "<value of type const std::optional<::device::Gamepad>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -600,7 +601,7 @@ void XRInputSourceState::WriteIntoTrace(
     dict.AddItem(
       "overlay_pointer_position"), this->overlay_pointer_position,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::PointF>&>"
+      "<value of type const std::optional<::gfx::PointF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -698,8 +699,8 @@ VRPose::VRPose()
       emulated_position() {}
 
 VRPose::VRPose(
-    const absl::optional<::gfx::Quaternion>& orientation_in,
-    const absl::optional<::gfx::Point3F>& position_in,
+    const std::optional<::gfx::Quaternion>& orientation_in,
+    const std::optional<::gfx::Point3F>& position_in,
     bool emulated_position_in)
     : orientation(std::move(orientation_in)),
       position(std::move(position_in)),
@@ -714,7 +715,7 @@ void VRPose::WriteIntoTrace(
     dict.AddItem(
       "orientation"), this->orientation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Quaternion>&>"
+      "<value of type const std::optional<::gfx::Quaternion>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -723,7 +724,7 @@ void VRPose::WriteIntoTrace(
     dict.AddItem(
       "position"), this->position,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Point3F>&>"
+      "<value of type const std::optional<::gfx::Point3F>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -946,7 +947,7 @@ VRStageParameters::VRStageParameters()
 
 VRStageParameters::VRStageParameters(
     const ::gfx::Transform& mojo_from_floor_in,
-    absl::optional<std::vector<::gfx::Point3F>> bounds_in)
+    std::optional<std::vector<::gfx::Point3F>> bounds_in)
     : mojo_from_floor(std::move(mojo_from_floor_in)),
       bounds(std::move(bounds_in)) {}
 
@@ -968,7 +969,7 @@ void VRStageParameters::WriteIntoTrace(
     dict.AddItem(
       "bounds"), this->bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::gfx::Point3F>>&>"
+      "<value of type const std::optional<std::vector<::gfx::Point3F>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1195,7 +1196,7 @@ XRPlaneData::XRPlaneData()
 XRPlaneData::XRPlaneData(
     uint64_t id_in,
     XRPlaneOrientation orientation_in,
-    const absl::optional<::device::Pose>& mojo_from_plane_in,
+    const std::optional<::device::Pose>& mojo_from_plane_in,
     std::vector<XRPlanePointDataPtr> polygon_in)
     : id(std::move(id_in)),
       orientation(std::move(orientation_in)),
@@ -1229,7 +1230,7 @@ void XRPlaneData::WriteIntoTrace(
     dict.AddItem(
       "mojo_from_plane"), this->mojo_from_plane,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::Pose>&>"
+      "<value of type const std::optional<::device::Pose>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1296,7 +1297,7 @@ XRAnchorData::XRAnchorData()
 
 XRAnchorData::XRAnchorData(
     uint64_t id_in,
-    const absl::optional<::device::Pose>& mojo_from_anchor_in)
+    const std::optional<::device::Pose>& mojo_from_anchor_in)
     : id(std::move(id_in)),
       mojo_from_anchor(std::move(mojo_from_anchor_in)) {}
 
@@ -1318,7 +1319,7 @@ void XRAnchorData::WriteIntoTrace(
     dict.AddItem(
       "mojo_from_anchor"), this->mojo_from_anchor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::Pose>&>"
+      "<value of type const std::optional<::device::Pose>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2017,7 +2018,7 @@ XRTrackedImagesData::XRTrackedImagesData()
 
 XRTrackedImagesData::XRTrackedImagesData(
     std::vector<XRTrackedImageDataPtr> images_data_in,
-    absl::optional<std::vector<bool>> image_trackable_scores_in)
+    std::optional<std::vector<bool>> image_trackable_scores_in)
     : images_data(std::move(images_data_in)),
       image_trackable_scores(std::move(image_trackable_scores_in)) {}
 
@@ -2039,7 +2040,7 @@ void XRTrackedImagesData::WriteIntoTrace(
     dict.AddItem(
       "image_trackable_scores"), this->image_trackable_scores,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<bool>>&>"
+      "<value of type const std::optional<std::vector<bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2074,14 +2075,14 @@ XRFrameData::XRFrameData()
 XRFrameData::XRFrameData(
     VRPosePtr mojo_from_viewer_in,
     ::base::TimeDelta time_delta_in,
-    const absl::optional<::gpu::MailboxHolder>& buffer_holder_in,
-    const absl::optional<::gpu::MailboxHolder>& camera_image_buffer_holder_in,
-    const absl::optional<::gfx::Size>& camera_image_size_in,
+    const std::optional<::gpu::MailboxHolder>& buffer_holder_in,
+    const std::optional<::gpu::MailboxHolder>& camera_image_buffer_holder_in,
+    const std::optional<::gfx::Size>& camera_image_size_in,
     XRDepthDataPtr depth_data_in,
     bool mojo_space_reset_in,
     int16_t frame_id_in,
     std::vector<XRViewPtr> views_in,
-    absl::optional<std::vector<XRInputSourceStatePtr>> input_state_in,
+    std::optional<std::vector<XRInputSourceStatePtr>> input_state_in,
     uint32_t stage_parameters_id_in,
     VRStageParametersPtr stage_parameters_in,
     XRPlaneDetectionDataPtr detected_planes_data_in,
@@ -2136,7 +2137,7 @@ void XRFrameData::WriteIntoTrace(
     dict.AddItem(
       "buffer_holder"), this->buffer_holder,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gpu::MailboxHolder>&>"
+      "<value of type const std::optional<::gpu::MailboxHolder>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2145,7 +2146,7 @@ void XRFrameData::WriteIntoTrace(
     dict.AddItem(
       "camera_image_buffer_holder"), this->camera_image_buffer_holder,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gpu::MailboxHolder>&>"
+      "<value of type const std::optional<::gpu::MailboxHolder>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2154,7 +2155,7 @@ void XRFrameData::WriteIntoTrace(
     dict.AddItem(
       "camera_image_size"), this->camera_image_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2199,7 +2200,7 @@ void XRFrameData::WriteIntoTrace(
     dict.AddItem(
       "input_state"), this->input_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<XRInputSourceStatePtr>>>"
+      "<value of type std::optional<std::vector<XRInputSourceStatePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2837,14 +2838,17 @@ void VRServiceProxy::SetClient(
                         "<value of type ::mojo::PendingRemote<VRServiceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -2880,14 +2884,17 @@ void VRServiceProxy::RequestSession(
                         "<value of type ::device::mojom::XRSessionOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_RequestSession_Name, kFlags, 0, 0, nullptr);
@@ -2929,14 +2936,17 @@ void VRServiceProxy::SupportsSession(
                         "<value of type ::device::mojom::XRSessionOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_SupportsSession_Name, kFlags, 0, 0, nullptr);
@@ -2971,14 +2981,17 @@ void VRServiceProxy::ExitPresent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::VRService::ExitPresent");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_ExitPresent_Name, kFlags, 0, 0, nullptr);
@@ -3009,14 +3022,17 @@ void VRServiceProxy::SetFramesThrottled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_SetFramesThrottled_Name, kFlags, 0, 0, nullptr);
@@ -3041,15 +3057,18 @@ bool VRServiceProxy::MakeXrCompatible(
 #else
   TRACE_EVENT0("mojom", "VRService::MakeXrCompatible");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_MakeXrCompatible_Name, kFlags, 0, 0, nullptr);
@@ -3086,14 +3105,17 @@ void VRServiceProxy::MakeXrCompatible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::VRService::MakeXrCompatible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_MakeXrCompatible_Name, kFlags, 0, 0, nullptr);
@@ -3203,7 +3225,8 @@ void VRService_RequestSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_RequestSession_Name, kFlags, 0, 0, nullptr);
@@ -3329,7 +3352,8 @@ void VRService_SupportsSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_SupportsSession_Name, kFlags, 0, 0, nullptr);
@@ -3436,7 +3460,8 @@ void VRService_ExitPresent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_ExitPresent_Name, kFlags, 0, 0, nullptr);
@@ -3553,7 +3578,8 @@ void VRService_MakeXrCompatible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRService_MakeXrCompatible_Name, kFlags, 0, 0, nullptr);
@@ -3807,20 +3833,20 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVRServiceValidationInfo[] = {
-    {&internal::VRService_SetClient_Params_Data::Validate,
+    { &internal::VRService_SetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VRService_RequestSession_Params_Data::Validate,
+    { &internal::VRService_RequestSession_Params_Data::Validate,
      &internal::VRService_RequestSession_ResponseParams_Data::Validate},
-    {&internal::VRService_SupportsSession_Params_Data::Validate,
+    { &internal::VRService_SupportsSession_Params_Data::Validate,
      &internal::VRService_SupportsSession_ResponseParams_Data::Validate},
-    {&internal::VRService_ExitPresent_Params_Data::Validate,
+    { &internal::VRService_ExitPresent_Params_Data::Validate,
      &internal::VRService_ExitPresent_ResponseParams_Data::Validate},
-    {&internal::VRService_SetFramesThrottled_Params_Data::Validate,
+    { &internal::VRService_SetFramesThrottled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VRService_MakeXrCompatible_Params_Data::Validate,
+    { &internal::VRService_MakeXrCompatible_Params_Data::Validate,
      &internal::VRService_MakeXrCompatible_ResponseParams_Data::Validate},
 };
 
@@ -3904,14 +3930,17 @@ void XRSessionMetricsRecorderProxy::ReportFeatureUsed(
                         "<value of type ::device::mojom::XRSessionFeature>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRSessionMetricsRecorder_ReportFeatureUsed_Name, kFlags, 0, 0, nullptr);
@@ -3981,10 +4010,10 @@ bool XRSessionMetricsRecorderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRSessionMetricsRecorderValidationInfo[] = {
-    {&internal::XRSessionMetricsRecorder_ReportFeatureUsed_Params_Data::Validate,
+    { &internal::XRSessionMetricsRecorder_ReportFeatureUsed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4057,14 +4086,17 @@ void VRServiceClientProxy::OnDeviceChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::VRServiceClient::OnDeviceChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVRServiceClient_OnDeviceChanged_Name, kFlags, 0, 0, nullptr);
@@ -4128,10 +4160,10 @@ bool VRServiceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVRServiceClientValidationInfo[] = {
-    {&internal::VRServiceClient_OnDeviceChanged_Params_Data::Validate,
+    { &internal::VRServiceClient_OnDeviceChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4381,14 +4413,17 @@ void XREnvironmentIntegrationProviderProxy::SubscribeToHitTest(
                         "<value of type XRRayPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_SubscribeToHitTest_Name, kFlags, 0, 0, nullptr);
@@ -4458,14 +4493,17 @@ void XREnvironmentIntegrationProviderProxy::SubscribeToHitTestForTransientInput(
                         "<value of type XRRayPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Name, kFlags, 0, 0, nullptr);
@@ -4531,14 +4569,17 @@ void XREnvironmentIntegrationProviderProxy::UnsubscribeFromHitTest(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_UnsubscribeFromHitTest_Name, kFlags, 0, 0, nullptr);
@@ -4572,14 +4613,17 @@ void XREnvironmentIntegrationProviderProxy::CreateAnchor(
                         "<value of type const ::device::Pose&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_CreateAnchor_Name, kFlags, 0, 0, nullptr);
@@ -4636,14 +4680,17 @@ void XREnvironmentIntegrationProviderProxy::CreatePlaneAnchor(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_CreatePlaneAnchor_Name, kFlags, 0, 0, nullptr);
@@ -4695,14 +4742,17 @@ void XREnvironmentIntegrationProviderProxy::DetachAnchor(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_DetachAnchor_Name, kFlags, 0, 0, nullptr);
@@ -4819,7 +4869,8 @@ void XREnvironmentIntegrationProvider_SubscribeToHitTest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_SubscribeToHitTest_Name, kFlags, 0, 0, nullptr);
@@ -4946,7 +4997,8 @@ void XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_ProxyT
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Name, kFlags, 0, 0, nullptr);
@@ -5073,7 +5125,8 @@ void XREnvironmentIntegrationProvider_CreateAnchor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_CreateAnchor_Name, kFlags, 0, 0, nullptr);
@@ -5200,7 +5253,8 @@ void XREnvironmentIntegrationProvider_CreatePlaneAnchor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXREnvironmentIntegrationProvider_CreatePlaneAnchor_Name, kFlags, 0, 0, nullptr);
@@ -5464,20 +5518,20 @@ std::move(p_plane_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXREnvironmentIntegrationProviderValidationInfo[] = {
-    {&internal::XREnvironmentIntegrationProvider_SubscribeToHitTest_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_SubscribeToHitTest_Params_Data::Validate,
      &internal::XREnvironmentIntegrationProvider_SubscribeToHitTest_ResponseParams_Data::Validate},
-    {&internal::XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Params_Data::Validate,
      &internal::XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_ResponseParams_Data::Validate},
-    {&internal::XREnvironmentIntegrationProvider_UnsubscribeFromHitTest_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_UnsubscribeFromHitTest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XREnvironmentIntegrationProvider_CreateAnchor_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_CreateAnchor_Params_Data::Validate,
      &internal::XREnvironmentIntegrationProvider_CreateAnchor_ResponseParams_Data::Validate},
-    {&internal::XREnvironmentIntegrationProvider_CreatePlaneAnchor_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_CreatePlaneAnchor_Params_Data::Validate,
      &internal::XREnvironmentIntegrationProvider_CreatePlaneAnchor_ResponseParams_Data::Validate},
-    {&internal::XREnvironmentIntegrationProvider_DetachAnchor_Params_Data::Validate,
+    { &internal::XREnvironmentIntegrationProvider_DetachAnchor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5597,14 +5651,17 @@ void XRFrameDataProviderProxy::GetFrameData(
                         "<value of type XRFrameDataRequestOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRFrameDataProvider_GetFrameData_Name, kFlags, 0, 0, nullptr);
@@ -5642,14 +5699,17 @@ void XRFrameDataProviderProxy::GetEnvironmentIntegrationProvider(
                         "<value of type ::mojo::PendingAssociatedReceiver<XREnvironmentIntegrationProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRFrameDataProvider_GetEnvironmentIntegrationProvider_Name, kFlags, 0, 0, nullptr);
@@ -5764,7 +5824,8 @@ void XRFrameDataProvider_GetFrameData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRFrameDataProvider_GetFrameData_Name, kFlags, 0, 0, nullptr);
@@ -5881,12 +5942,12 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRFrameDataProviderValidationInfo[] = {
-    {&internal::XRFrameDataProvider_GetFrameData_Params_Data::Validate,
+    { &internal::XRFrameDataProvider_GetFrameData_Params_Data::Validate,
      &internal::XRFrameDataProvider_GetFrameData_ResponseParams_Data::Validate},
-    {&internal::XRFrameDataProvider_GetEnvironmentIntegrationProvider_Params_Data::Validate,
+    { &internal::XRFrameDataProvider_GetEnvironmentIntegrationProvider_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6039,14 +6100,17 @@ void XRPresentationProviderProxy::UpdateLayerBounds(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationProvider_UpdateLayerBounds_Name, kFlags, 0, 0, nullptr);
@@ -6113,14 +6177,17 @@ void XRPresentationProviderProxy::SubmitFrameMissing(
                         "<value of type const ::gpu::SyncToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationProvider_SubmitFrameMissing_Name, kFlags, 0, 0, nullptr);
@@ -6168,14 +6235,17 @@ void XRPresentationProviderProxy::SubmitFrame(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationProvider_SubmitFrame_Name, kFlags, 0, 0, nullptr);
@@ -6234,14 +6304,17 @@ void XRPresentationProviderProxy::SubmitFrameDrawnIntoTexture(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationProvider_SubmitFrameDrawnIntoTexture_Name, kFlags, 0, 0, nullptr);
@@ -6451,16 +6524,16 @@ bool XRPresentationProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRPresentationProviderValidationInfo[] = {
-    {&internal::XRPresentationProvider_UpdateLayerBounds_Params_Data::Validate,
+    { &internal::XRPresentationProvider_UpdateLayerBounds_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRPresentationProvider_SubmitFrameMissing_Params_Data::Validate,
+    { &internal::XRPresentationProvider_SubmitFrameMissing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRPresentationProvider_SubmitFrame_Params_Data::Validate,
+    { &internal::XRPresentationProvider_SubmitFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRPresentationProvider_SubmitFrameDrawnIntoTexture_Params_Data::Validate,
+    { &internal::XRPresentationProvider_SubmitFrameDrawnIntoTexture_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6580,14 +6653,17 @@ void XRPresentationClientProxy::OnSubmitFrameTransferred(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationClient_OnSubmitFrameTransferred_Name, kFlags, 0, 0, nullptr);
@@ -6611,14 +6687,17 @@ void XRPresentationClientProxy::OnSubmitFrameRendered(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::XRPresentationClient::OnSubmitFrameRendered");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationClient_OnSubmitFrameRendered_Name, kFlags, 0, 0, nullptr);
@@ -6648,14 +6727,17 @@ void XRPresentationClientProxy::OnSubmitFrameGpuFence(
                         "<value of type ::gfx::GpuFenceHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRPresentationClient_OnSubmitFrameGpuFence_Name, kFlags, 0, 0, nullptr);
@@ -6788,14 +6870,14 @@ bool XRPresentationClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRPresentationClientValidationInfo[] = {
-    {&internal::XRPresentationClient_OnSubmitFrameTransferred_Params_Data::Validate,
+    { &internal::XRPresentationClient_OnSubmitFrameTransferred_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRPresentationClient_OnSubmitFrameRendered_Params_Data::Validate,
+    { &internal::XRPresentationClient_OnSubmitFrameRendered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRPresentationClient_OnSubmitFrameGpuFence_Params_Data::Validate,
+    { &internal::XRPresentationClient_OnSubmitFrameGpuFence_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6888,14 +6970,17 @@ void XRSessionClientProxy::OnExitPresent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::XRSessionClient::OnExitPresent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRSessionClient_OnExitPresent_Name, kFlags, 0, 0, nullptr);
@@ -6925,14 +7010,17 @@ void XRSessionClientProxy::OnVisibilityStateChanged(
                         "<value of type XRVisibilityState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRSessionClient_OnVisibilityStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -7027,12 +7115,12 @@ bool XRSessionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRSessionClientValidationInfo[] = {
-    {&internal::XRSessionClient_OnExitPresent_Params_Data::Validate,
+    { &internal::XRSessionClient_OnExitPresent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRSessionClient_OnVisibilityStateChanged_Params_Data::Validate,
+    { &internal::XRSessionClient_OnVisibilityStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

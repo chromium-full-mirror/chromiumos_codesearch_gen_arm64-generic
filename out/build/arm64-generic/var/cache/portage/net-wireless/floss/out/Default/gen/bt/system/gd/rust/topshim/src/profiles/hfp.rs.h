@@ -716,6 +716,7 @@ namespace bluetooth {
     namespace rust {
       struct TelephonyDeviceStatus;
       enum class CallState : ::std::uint8_t;
+      enum class CallSource : ::std::uint8_t;
       struct CallInfo;
       struct PhoneState;
       enum class CallHoldCommand : ::std::uint8_t;
@@ -751,11 +752,20 @@ enum class CallState : ::std::uint8_t {
 };
 #endif // CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallState
 
+#ifndef CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+#define CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+enum class CallSource : ::std::uint8_t {
+  CRAS = 0,
+  HID = 1,
+};
+#endif // CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+
 #ifndef CXXBRIDGE1_STRUCT_bluetooth$topshim$rust$CallInfo
 #define CXXBRIDGE1_STRUCT_bluetooth$topshim$rust$CallInfo
 struct CallInfo final {
   ::std::int32_t index;
   bool dir_incoming;
+  ::bluetooth::topshim::rust::CallSource source;
   ::bluetooth::topshim::rust::CallState state;
   ::rust::String number;
 
@@ -789,6 +799,8 @@ void hfp_connection_state_callback(::std::uint32_t state, ::bluetooth::topshim::
 void hfp_audio_state_callback(::std::uint32_t state, ::bluetooth::topshim::rust::RawAddress addr) noexcept;
 
 void hfp_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress addr) noexcept;
+
+void hfp_mic_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress addr) noexcept;
 
 void hfp_vendor_specific_at_command_callback(::rust::String at_string, ::bluetooth::topshim::rust::RawAddress addr) noexcept;
 

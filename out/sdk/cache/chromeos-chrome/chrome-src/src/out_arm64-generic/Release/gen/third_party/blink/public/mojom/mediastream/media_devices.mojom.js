@@ -75,32 +75,6 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
-  var SubCaptureTargetType = {};
-  SubCaptureTargetType.kCropTarget = 0;
-  SubCaptureTargetType.kRestrictionTarget = 1;
-  SubCaptureTargetType.MIN_VALUE = 0;
-  SubCaptureTargetType.MAX_VALUE = 1;
-
-  SubCaptureTargetType.isKnownEnumValue = function(value) {
-    switch (value) {
-    case 0:
-    case 1:
-      return true;
-    }
-    return false;
-  };
-
-  SubCaptureTargetType.toKnownEnumValue = function(value) {
-    return value;
-  };
-
-  SubCaptureTargetType.validate = function(enumValue) {
-    const isExtensible = false;
-    if (isExtensible || this.isKnownEnumValue(enumValue))
-      return validator.validationError.NONE;
-
-    return validator.validationError.UNKNOWN_ENUM_VALUE;
-  };
   var FacingMode = {};
   FacingMode.kNone = 0;
   FacingMode.kUser = 1;
@@ -144,6 +118,10 @@
     this.deviceId = null;
     this.label = null;
     this.groupId = null;
+    this.controlSupport = null;
+    this.facingMode = 0;
+    this.availability_$flag = false;
+    this.availability_$value = 0;
   };
   MediaDeviceInfo.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -159,7 +137,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -183,10 +161,29 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate MediaDeviceInfo.controlSupport
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, video_capture_types$.VideoCaptureControlSupport, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MediaDeviceInfo.facingMode
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, FacingMode);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate MediaDeviceInfo.availability_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, video_capture_types$.CameraAvailability);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  MediaDeviceInfo.encodedSize = codec.kStructHeaderSize + 24;
+  MediaDeviceInfo.encodedSize = codec.kStructHeaderSize + 48;
 
   MediaDeviceInfo.decode = function(decoder) {
     var packed;
@@ -199,6 +196,21 @@
         decoder.decodeStruct(codec.String);
     val.groupId =
         decoder.decodeStruct(codec.String);
+    val.controlSupport =
+        decoder.decodeStructPointer(video_capture_types$.VideoCaptureControlSupport);
+    val.facingMode =
+        decoder.decodeStruct(new codec.Enum(FacingMode));
+    packed = decoder.readUint8();
+    val.availability_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.availability_$value =
+        decoder.decodeStruct(new codec.Enum(video_capture_types$.CameraAvailability));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -209,6 +221,19 @@
     encoder.encodeStruct(codec.String, val.deviceId);
     encoder.encodeStruct(codec.String, val.label);
     encoder.encodeStruct(codec.String, val.groupId);
+    encoder.encodeStructPointer(video_capture_types$.VideoCaptureControlSupport, val.controlSupport);
+    encoder.encodeStruct(codec.Int32, val.facingMode);
+    packed = 0;
+    packed |= (val.availability_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.availability_$value);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   function VideoInputDeviceCapabilities(values) {
     this.initDefaults_();
@@ -222,6 +247,8 @@
     this.controlSupport = null;
     this.formats = null;
     this.facingMode = 0;
+    this.availability_$flag = false;
+    this.availability_$value = 0;
   };
   VideoInputDeviceCapabilities.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -237,7 +264,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 48}
+      {version: 0, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -273,10 +300,17 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+    // validate VideoInputDeviceCapabilities.availability_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, video_capture_types$.CameraAvailability);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  VideoInputDeviceCapabilities.encodedSize = codec.kStructHeaderSize + 40;
+  VideoInputDeviceCapabilities.encodedSize = codec.kStructHeaderSize + 48;
 
   VideoInputDeviceCapabilities.decode = function(decoder) {
     var packed;
@@ -293,6 +327,13 @@
         decoder.decodeArrayPointer(new codec.PointerTo(video_capture_types$.VideoCaptureFormat));
     val.facingMode =
         decoder.decodeStruct(new codec.Enum(FacingMode));
+    packed = decoder.readUint8();
+    val.availability_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.availability_$value =
+        decoder.decodeStruct(new codec.Enum(video_capture_types$.CameraAvailability));
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -309,6 +350,13 @@
     encoder.encodeStructPointer(video_capture_types$.VideoCaptureControlSupport, val.controlSupport);
     encoder.encodeArrayPointer(new codec.PointerTo(video_capture_types$.VideoCaptureFormat), val.formats);
     encoder.encodeStruct(codec.Int32, val.facingMode);
+    packed = 0;
+    packed |= (val.availability_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.availability_$value);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -1246,7 +1294,7 @@
 
 
     // validate MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params.type
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, SubCaptureTargetType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, video_capture_types$.SubCaptureTargetType);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1261,7 +1309,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.type =
-        decoder.decodeStruct(new codec.Enum(SubCaptureTargetType));
+        decoder.decodeStruct(new codec.Enum(video_capture_types$.SubCaptureTargetType));
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1982,7 +2030,6 @@
   MediaDevicesListenerStub.prototype.validator = validateMediaDevicesListenerRequest;
   MediaDevicesListenerProxy.prototype.validator = null;
   exports.MediaDeviceType = MediaDeviceType;
-  exports.SubCaptureTargetType = SubCaptureTargetType;
   exports.FacingMode = FacingMode;
   exports.MediaDeviceInfo = MediaDeviceInfo;
   exports.VideoInputDeviceCapabilities = VideoInputDeviceCapabilities;

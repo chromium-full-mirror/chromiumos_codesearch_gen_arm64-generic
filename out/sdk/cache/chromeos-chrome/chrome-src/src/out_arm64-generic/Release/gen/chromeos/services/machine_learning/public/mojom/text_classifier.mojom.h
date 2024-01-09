@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/text_classifier.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/text_classifier.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/text_classifier.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -489,17 +490,17 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextEntityData {
   // Construct an instance holding |numeric_value|.
   static TextEntityDataPtr
   NewNumericValue(
-      double numeric_value) {
+      double value) {
     auto result = TextEntityDataPtr(absl::in_place);
-    result->set_numeric_value(std::move(numeric_value));
+    result->set_numeric_value(std::move(value));
     return result;
   }
   // Construct an instance holding |string_value|.
   static TextEntityDataPtr
   NewStringValue(
-      const std::string& string_value) {
+      const std::string& value) {
     auto result = TextEntityDataPtr(absl::in_place);
-    result->set_string_value(std::move(string_value));
+    result->set_string_value(std::move(value));
     return result;
   }
 
@@ -928,21 +929,21 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextAnnotationRequest {
 
   TextAnnotationRequest(
       const std::string& text,
-      const absl::optional<std::string>& default_locales,
-      const absl::optional<std::string>& detected_text_language_tags,
+      const std::optional<std::string>& default_locales,
+      const std::optional<std::string>& detected_text_language_tags,
       AnnotationUsecase annotation_usecase,
-      absl::optional<::base::Time> reference_time,
-      const absl::optional<std::string>& reference_timezone,
-      absl::optional<std::vector<std::string>> enabled_entities);
+      std::optional<::base::Time> reference_time,
+      const std::optional<std::string>& reference_timezone,
+      std::optional<std::vector<std::string>> enabled_entities);
 
   TextAnnotationRequest(
       const std::string& text,
-      const absl::optional<std::string>& default_locales,
-      const absl::optional<std::string>& detected_text_language_tags,
+      const std::optional<std::string>& default_locales,
+      const std::optional<std::string>& detected_text_language_tags,
       AnnotationUsecase annotation_usecase,
-      absl::optional<::base::Time> reference_time,
-      const absl::optional<std::string>& reference_timezone,
-      absl::optional<std::vector<std::string>> enabled_entities,
+      std::optional<::base::Time> reference_time,
+      const std::optional<std::string>& reference_timezone,
+      std::optional<std::vector<std::string>> enabled_entities,
       bool trigger_dictionary_on_beginner_words);
 
 
@@ -1023,17 +1024,17 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextAnnotationRequest {
   
   std::string text;
   
-  absl::optional<std::string> default_locales;
+  std::optional<std::string> default_locales;
   
-  absl::optional<std::string> detected_text_language_tags;
+  std::optional<std::string> detected_text_language_tags;
   
   AnnotationUsecase annotation_usecase;
   
-  absl::optional<::base::Time> reference_time;
+  std::optional<::base::Time> reference_time;
   
-  absl::optional<std::string> reference_timezone;
+  std::optional<std::string> reference_timezone;
   
-  absl::optional<std::vector<std::string>> enabled_entities;
+  std::optional<std::vector<std::string>> enabled_entities;
   
   bool trigger_dictionary_on_beginner_words;
 
@@ -1101,8 +1102,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) REMOVED_TextSuggestSelectionRequest {
   REMOVED_TextSuggestSelectionRequest(
       const std::string& text,
       CodepointSpanPtr user_selection,
-      const absl::optional<std::string>& default_locales,
-      const absl::optional<std::string>& detected_text_language_tags,
+      const std::optional<std::string>& default_locales,
+      const std::optional<std::string>& detected_text_language_tags,
       AnnotationUsecase annotation_usecase);
 
 REMOVED_TextSuggestSelectionRequest(const REMOVED_TextSuggestSelectionRequest&) = delete;
@@ -1187,9 +1188,9 @@ REMOVED_TextSuggestSelectionRequest& operator=(const REMOVED_TextSuggestSelectio
   
   CodepointSpanPtr user_selection;
   
-  absl::optional<std::string> default_locales;
+  std::optional<std::string> default_locales;
   
-  absl::optional<std::string> detected_text_language_tags;
+  std::optional<std::string> detected_text_language_tags;
   
   AnnotationUsecase annotation_usecase;
 

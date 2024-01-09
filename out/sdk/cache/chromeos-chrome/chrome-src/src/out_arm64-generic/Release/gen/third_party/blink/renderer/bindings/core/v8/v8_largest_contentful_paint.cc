@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, LargestContentfulPaint>::value,
     "LargestContentfulPaint inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&LargestContentfulPaint::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "LargestContentfulPaint is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.renderTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->renderTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.loadTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loadTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.firstAnimatedFrameTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstAnimatedFrameTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -129,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -143,10 +142,10 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -158,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -173,8 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.element.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->element();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -191,8 +191,9 @@ BLINK_BINDINGS_TRACE_EVENT("LargestContentfulPaint.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(v8_receiver);
+LargestContentfulPaint* blink_receiver = V8LargestContentfulPaint::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

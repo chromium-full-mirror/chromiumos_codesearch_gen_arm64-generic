@@ -1,0 +1,156 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
+import 'chrome://resources/cr_elements/cr_lazy_render/cr_lazy_render.js';
+import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
+import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
+import 'chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
+import '../../settings_shared.css.js';
+import './exception_add_dialog.js';
+import './exception_edit_dialog.js';
+import './exception_entry.js';
+import './exception_tabbed_add_dialog.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
+import { ListPropertyUpdateMixin } from 'chrome://resources/cr_elements/list_property_update_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { TooltipMixin } from '../../tooltip_mixin.js';
+import { MemorySaverModeExceptionListAction, PerformanceMetricsProxyImpl } from '../performance_metrics_proxy.js';
+import { getTemplate } from './exception_list.html.js';
+import { TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_PREF } from './exception_validation_mixin.js';
+export const TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE = 5;
+const ExceptionListElementBase = TooltipMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
+export class ExceptionListElement extends ExceptionListElementBase {
+    constructor() {
+        super(...arguments);
+        this.metricsProxy_ = PerformanceMetricsProxyImpl.getInstance();
+    }
+    static get is() {
+        return 'tab-discard-exception-list';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            siteList_: {
+                type: Array,
+                value: [],
+            },
+            overflowSiteListExpanded: { type: Boolean, value: false },
+            /**
+             * Rule corresponding to the last more actions menu opened. Indicates to
+             * this element and its dialog which rule to edit or if a new one should
+             * be added.
+             */
+            selectedRule_: {
+                type: String,
+                value: '',
+            },
+            isDiscardExceptionsImprovementsEnabled_: {
+                readOnly: true,
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isDiscardExceptionsImprovementsEnabled');
+                },
+            },
+            showAddDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            showTabbedAddDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            showEditDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            tooltipText_: String,
+        };
+    }
+    static get observers() {
+        return [
+            `onPrefsChanged_(prefs.${TAB_DISCARD_EXCEPTIONS_PREF}.value.*,` +
+                `prefs.${TAB_DISCARD_EXCEPTIONS_MANAGED_PREF}.value.*)`,
+        ];
+    }
+    hasSites_() {
+        return this.siteList_.length > 0;
+    }
+    hasOverflowSites_() {
+        return this.siteList_.length > TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE;
+    }
+    getSiteList_() {
+        return this.siteList_.slice(-TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE)
+            .reverse();
+    }
+    getOverflowSiteList_() {
+        return this.siteList_.slice(0, -TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE)
+            .reverse();
+    }
+    onAddClick_() {
+        assert(!this.showEditDialog_);
+        if (this.isDiscardExceptionsImprovementsEnabled_) {
+            this.showTabbedAddDialog_ = true;
+        }
+        else {
+            this.showAddDialog_ = true;
+        }
+    }
+    onMenuClick_(e) {
+        e.stopPropagation();
+        this.selectedRule_ = e.detail.site;
+        this.$.menu.get().showAt(e.detail.target);
+    }
+    onEditClick_() {
+        assert(this.selectedRule_);
+        assert(!this.showAddDialog_);
+        assert(!this.showTabbedAddDialog_);
+        this.showEditDialog_ = true;
+        this.$.menu.get().close();
+    }
+    onDeleteClick_() {
+        this.deletePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
+        this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.REMOVE);
+        this.$.menu.get().close();
+    }
+    onAddDialogClose_() {
+        this.showAddDialog_ = false;
+    }
+    onTabbedAddDialogClose_() {
+        this.showTabbedAddDialog_ = false;
+    }
+    onEditDialogClose_() {
+        this.showEditDialog_ = false;
+    }
+    onPrefsChanged_() {
+        const newSites = [];
+        for (const pref of [TAB_DISCARD_EXCEPTIONS_MANAGED_PREF,
+            TAB_DISCARD_EXCEPTIONS_PREF]) {
+            // Annotate sites with their managed status and append them to newSites
+            // with managed sites first.
+            const { value: sites, enforcement } = this.getPref(pref);
+            const siteToExceptionEntry = (site) => ({
+                site,
+                managed: enforcement === chrome.settingsPrivate.Enforcement.ENFORCED,
+            });
+            newSites.push(...sites.map(siteToExceptionEntry));
+        }
+        // Optimizes updates by keeping existing references and minimizes splices
+        this.updateList('siteList_', (entry) => entry.site, newSites);
+    }
+    /**
+     * Need to use common tooltip since the tooltip in the entry is cut off from
+     * the iron-list.
+     */
+    onShowTooltip_(e) {
+        this.tooltipText_ = e.detail.text;
+        this.showTooltipAtTarget(this.$.tooltip, e.detail.target);
+    }
+}
+customElements.define(ExceptionListElement.is, ExceptionListElement);

@@ -239,6 +239,7 @@ class G2dTracingMarkWriteFtraceEvent;
 class GenericFtraceEvent;
 class GpuFrequencyFtraceEvent;
 class GpuMemTotalFtraceEvent;
+class GpuWorkPeriodFtraceEvent;
 class HostHcallFtraceEvent;
 class HostMemAbortFtraceEvent;
 class HostSmcFtraceEvent;
@@ -408,6 +409,7 @@ class SchedProcessFreeFtraceEvent;
 class SchedProcessHangFtraceEvent;
 class SchedProcessWaitFtraceEvent;
 class SchedSwitchFtraceEvent;
+class SchedSwitchWithCtrsFtraceEvent;
 class SchedWakeupFtraceEvent;
 class SchedWakeupNewFtraceEvent;
 class SchedWakingFtraceEvent;
@@ -482,7 +484,7 @@ class WorkqueueExecuteStartFtraceEvent;
 class WorkqueueQueueWorkFtraceEvent;
 class ZeroFtraceEvent;
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/486, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/488, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -1423,6 +1425,10 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes binder_command() const { return at<485>().as_bytes(); }
   bool has_binder_return() const { return at<486>().valid(); }
   ::protozero::ConstBytes binder_return() const { return at<486>().as_bytes(); }
+  bool has_sched_switch_with_ctrs() const { return at<487>().valid(); }
+  ::protozero::ConstBytes sched_switch_with_ctrs() const { return at<487>().as_bytes(); }
+  bool has_gpu_work_period() const { return at<488>().valid(); }
+  ::protozero::ConstBytes gpu_work_period() const { return at<488>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -1897,6 +1903,8 @@ class FtraceEvent : public ::protozero::Message {
     kSamsungTracingMarkWriteFieldNumber = 484,
     kBinderCommandFieldNumber = 485,
     kBinderReturnFieldNumber = 486,
+    kSchedSwitchWithCtrsFieldNumber = 487,
+    kGpuWorkPeriodFieldNumber = 488,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -8462,6 +8470,34 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_BinderReturn kBinderReturn{};
   template <typename T = BinderReturnFtraceEvent> T* set_binder_return() {
     return BeginNestedMessage<T>(486);
+  }
+
+
+  using FieldMetadata_SchedSwitchWithCtrs =
+    ::protozero::proto_utils::FieldMetadata<
+      487,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SchedSwitchWithCtrsFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_SchedSwitchWithCtrs kSchedSwitchWithCtrs{};
+  template <typename T = SchedSwitchWithCtrsFtraceEvent> T* set_sched_switch_with_ctrs() {
+    return BeginNestedMessage<T>(487);
+  }
+
+
+  using FieldMetadata_GpuWorkPeriod =
+    ::protozero::proto_utils::FieldMetadata<
+      488,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      GpuWorkPeriodFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_GpuWorkPeriod kGpuWorkPeriod{};
+  template <typename T = GpuWorkPeriodFtraceEvent> T* set_gpu_work_period() {
+    return BeginNestedMessage<T>(488);
   }
 
 };

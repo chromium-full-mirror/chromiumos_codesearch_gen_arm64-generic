@@ -71,7 +71,7 @@ enum class VseSubeventCode : uint8_t {BLE_THRESHOLD = 0x54,BLE_STCHANGE = 0x55,B
 enum class FeatureFlag : uint8_t {UNSUPPORTED = 0x0,SUPPORTED = 0x1,};
 
 
-enum class ErrorCode : uint8_t {SUCCESS = 0x0,UNKNOWN_HCI_COMMAND = 0x1,UNKNOWN_CONNECTION = 0x2,HARDWARE_FAILURE = 0x3,PAGE_TIMEOUT = 0x4,AUTHENTICATION_FAILURE = 0x5,PIN_OR_KEY_MISSING = 0x6,MEMORY_CAPACITY_EXCEEDED = 0x7,CONNECTION_TIMEOUT = 0x8,CONNECTION_LIMIT_EXCEEDED = 0x9,SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED = 0xa,CONNECTION_ALREADY_EXISTS = 0xb,COMMAND_DISALLOWED = 0xc,CONNECTION_REJECTED_LIMITED_RESOURCES = 0xd,CONNECTION_REJECTED_SECURITY_REASONS = 0xe,CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR = 0xf,CONNECTION_ACCEPT_TIMEOUT = 0x10,UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE = 0x11,INVALID_HCI_COMMAND_PARAMETERS = 0x12,REMOTE_USER_TERMINATED_CONNECTION = 0x13,REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES = 0x14,REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF = 0x15,CONNECTION_TERMINATED_BY_LOCAL_HOST = 0x16,REPEATED_ATTEMPTS = 0x17,PAIRING_NOT_ALLOWED = 0x18,UNKNOWN_LMP_PDU = 0x19,UNSUPPORTED_REMOTE_OR_LMP_FEATURE = 0x1a,SCO_OFFSET_REJECTED = 0x1b,SCO_INTERVAL_REJECTED = 0x1c,SCO_AIR_MODE_REJECTED = 0x1d,INVALID_LMP_OR_LL_PARAMETERS = 0x1e,UNSPECIFIED_ERROR = 0x1f,UNSUPPORTED_LMP_OR_LL_PARAMETER = 0x20,ROLE_CHANGE_NOT_ALLOWED = 0x21,TRANSACTION_RESPONSE_TIMEOUT = 0x22,LINK_LAYER_COLLISION = 0x23,ENCRYPTION_MODE_NOT_ACCEPTABLE = 0x25,ROLE_SWITCH_FAILED = 0x35,HOST_BUSY = 0x38,CONTROLLER_BUSY = 0x3a,ADVERTISING_TIMEOUT = 0x3c,CONNECTION_FAILED_ESTABLISHMENT = 0x3e,UNKNOWN_ADVERTISING_IDENTIFIER = 0x42,LIMIT_REACHED = 0x43,OPERATION_CANCELLED_BY_HOST = 0x44,PACKET_TOO_LONG = 0x45,STATUS_UNKNOWN = 0xff,};
+enum class ErrorCode : uint8_t {SUCCESS = 0x0,UNKNOWN_HCI_COMMAND = 0x1,UNKNOWN_CONNECTION = 0x2,HARDWARE_FAILURE = 0x3,PAGE_TIMEOUT = 0x4,AUTHENTICATION_FAILURE = 0x5,PIN_OR_KEY_MISSING = 0x6,MEMORY_CAPACITY_EXCEEDED = 0x7,CONNECTION_TIMEOUT = 0x8,CONNECTION_LIMIT_EXCEEDED = 0x9,SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED = 0xa,CONNECTION_ALREADY_EXISTS = 0xb,COMMAND_DISALLOWED = 0xc,CONNECTION_REJECTED_LIMITED_RESOURCES = 0xd,CONNECTION_REJECTED_SECURITY_REASONS = 0xe,CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR = 0xf,CONNECTION_ACCEPT_TIMEOUT = 0x10,UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE = 0x11,INVALID_HCI_COMMAND_PARAMETERS = 0x12,REMOTE_USER_TERMINATED_CONNECTION = 0x13,REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES = 0x14,REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF = 0x15,CONNECTION_TERMINATED_BY_LOCAL_HOST = 0x16,REPEATED_ATTEMPTS = 0x17,PAIRING_NOT_ALLOWED = 0x18,UNKNOWN_LMP_PDU = 0x19,UNSUPPORTED_REMOTE_OR_LMP_FEATURE = 0x1a,SCO_OFFSET_REJECTED = 0x1b,SCO_INTERVAL_REJECTED = 0x1c,SCO_AIR_MODE_REJECTED = 0x1d,INVALID_LMP_OR_LL_PARAMETERS = 0x1e,UNSPECIFIED_ERROR = 0x1f,UNSUPPORTED_LMP_OR_LL_PARAMETER = 0x20,ROLE_CHANGE_NOT_ALLOWED = 0x21,TRANSACTION_RESPONSE_TIMEOUT = 0x22,LINK_LAYER_COLLISION = 0x23,LMP_PDU_NOT_ALLOWED = 0x24,ENCRYPTION_MODE_NOT_ACCEPTABLE = 0x25,LINK_KEY_CANNOT_BE_CHANGED = 0x26,REQUESTED_QOS_NOT_SUPPORTED = 0x27,INSTANT_PASSED = 0x28,PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED = 0x29,DIFFERENT_TRANSACTION_COLLISION = 0x2a,QOS_UNACCEPTABLE_PARAMETERS = 0x2c,QOS_REJECTED = 0x2d,CHANNEL_ASSESSMENT_NOT_SUPPORTED = 0x2e,INSUFFICIENT_SECURITY = 0x2f,PARAMETER_OUT_OF_MANDATORY_RANGE = 0x30,ROLE_SWITCH_PENDING = 0x32,RESERVED_SLOT_VIOLATION = 0x34,ROLE_SWITCH_FAILED = 0x35,EXTENDED_INQUIRY_RESPONSE_TOO_LARGE = 0x36,SECURE_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST = 0x37,HOST_BUSY_PAIRING = 0x38,CONNECTION_REJECTED_NO_SUITABLE_CHANNEL_FOUND = 0x39,CONTROLLER_BUSY = 0x3a,UNACCEPTABLE_CONNECTION_PARAMETERS = 0x3b,ADVERTISING_TIMEOUT = 0x3c,CONNECTION_TERMINATED_DUE_TO_MIC_FAILURE = 0x3d,CONNECTION_FAILED_ESTABLISHMENT = 0x3e,COARSE_CLOCK_ADJUSTMENT_REJECTED = 0x40,TYPE0_SUBMAP_NOT_DEFINED = 0x41,UNKNOWN_ADVERTISING_IDENTIFIER = 0x42,LIMIT_REACHED = 0x43,OPERATION_CANCELLED_BY_HOST = 0x44,PACKET_TOO_LONG = 0x45,STATUS_UNKNOWN = 0xff,};
 
 
 enum class PageScanRepetitionMode : uint8_t {R0 = 0x0,R1 = 0x1,R2 = 0x2,};
@@ -413,9 +413,6 @@ enum class CsRttType : uint8_t {RTT_AA_ONLY = 0x0,RTT_WITH_32_BIT_SOUNDING_SEQUE
 enum class CsAction : uint8_t {CONFIG_REMOVED = 0x0,CONFIG_CREATED = 0x1,};
 
 
-enum class CsProcedureState : uint8_t {DISABLED = 0x0,ENABLED = 0x1,};
-
-
 enum class CsProcedureDoneStatus : uint8_t {ALL_RESULTS_COMPLETE = 0x0,PARTIAL_RESULTS = 0x1,ABORTED = 0xf,};
 
 
@@ -513,7 +510,7 @@ inline std::string FeatureFlagText(const FeatureFlag& param) {switch (param) {ca
 inline std::ostream& operator<<(std::ostream& os, const FeatureFlag& param) {  return os << FeatureFlagText(param);}
 
 
-inline std::string ErrorCodeText(const ErrorCode& param) {switch (param) {case ErrorCode::SUCCESS:  return "SUCCESS";case ErrorCode::UNKNOWN_HCI_COMMAND:  return "UNKNOWN_HCI_COMMAND";case ErrorCode::UNKNOWN_CONNECTION:  return "UNKNOWN_CONNECTION";case ErrorCode::HARDWARE_FAILURE:  return "HARDWARE_FAILURE";case ErrorCode::PAGE_TIMEOUT:  return "PAGE_TIMEOUT";case ErrorCode::AUTHENTICATION_FAILURE:  return "AUTHENTICATION_FAILURE";case ErrorCode::PIN_OR_KEY_MISSING:  return "PIN_OR_KEY_MISSING";case ErrorCode::MEMORY_CAPACITY_EXCEEDED:  return "MEMORY_CAPACITY_EXCEEDED";case ErrorCode::CONNECTION_TIMEOUT:  return "CONNECTION_TIMEOUT";case ErrorCode::CONNECTION_LIMIT_EXCEEDED:  return "CONNECTION_LIMIT_EXCEEDED";case ErrorCode::SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED:  return "SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED";case ErrorCode::CONNECTION_ALREADY_EXISTS:  return "CONNECTION_ALREADY_EXISTS";case ErrorCode::COMMAND_DISALLOWED:  return "COMMAND_DISALLOWED";case ErrorCode::CONNECTION_REJECTED_LIMITED_RESOURCES:  return "CONNECTION_REJECTED_LIMITED_RESOURCES";case ErrorCode::CONNECTION_REJECTED_SECURITY_REASONS:  return "CONNECTION_REJECTED_SECURITY_REASONS";case ErrorCode::CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR:  return "CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR";case ErrorCode::CONNECTION_ACCEPT_TIMEOUT:  return "CONNECTION_ACCEPT_TIMEOUT";case ErrorCode::UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE:  return "UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE";case ErrorCode::INVALID_HCI_COMMAND_PARAMETERS:  return "INVALID_HCI_COMMAND_PARAMETERS";case ErrorCode::REMOTE_USER_TERMINATED_CONNECTION:  return "REMOTE_USER_TERMINATED_CONNECTION";case ErrorCode::REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES:  return "REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES";case ErrorCode::REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF:  return "REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF";case ErrorCode::CONNECTION_TERMINATED_BY_LOCAL_HOST:  return "CONNECTION_TERMINATED_BY_LOCAL_HOST";case ErrorCode::REPEATED_ATTEMPTS:  return "REPEATED_ATTEMPTS";case ErrorCode::PAIRING_NOT_ALLOWED:  return "PAIRING_NOT_ALLOWED";case ErrorCode::UNKNOWN_LMP_PDU:  return "UNKNOWN_LMP_PDU";case ErrorCode::UNSUPPORTED_REMOTE_OR_LMP_FEATURE:  return "UNSUPPORTED_REMOTE_OR_LMP_FEATURE";case ErrorCode::SCO_OFFSET_REJECTED:  return "SCO_OFFSET_REJECTED";case ErrorCode::SCO_INTERVAL_REJECTED:  return "SCO_INTERVAL_REJECTED";case ErrorCode::SCO_AIR_MODE_REJECTED:  return "SCO_AIR_MODE_REJECTED";case ErrorCode::INVALID_LMP_OR_LL_PARAMETERS:  return "INVALID_LMP_OR_LL_PARAMETERS";case ErrorCode::UNSPECIFIED_ERROR:  return "UNSPECIFIED_ERROR";case ErrorCode::UNSUPPORTED_LMP_OR_LL_PARAMETER:  return "UNSUPPORTED_LMP_OR_LL_PARAMETER";case ErrorCode::ROLE_CHANGE_NOT_ALLOWED:  return "ROLE_CHANGE_NOT_ALLOWED";case ErrorCode::TRANSACTION_RESPONSE_TIMEOUT:  return "TRANSACTION_RESPONSE_TIMEOUT";case ErrorCode::LINK_LAYER_COLLISION:  return "LINK_LAYER_COLLISION";case ErrorCode::ENCRYPTION_MODE_NOT_ACCEPTABLE:  return "ENCRYPTION_MODE_NOT_ACCEPTABLE";case ErrorCode::ROLE_SWITCH_FAILED:  return "ROLE_SWITCH_FAILED";case ErrorCode::HOST_BUSY:  return "HOST_BUSY";case ErrorCode::CONTROLLER_BUSY:  return "CONTROLLER_BUSY";case ErrorCode::ADVERTISING_TIMEOUT:  return "ADVERTISING_TIMEOUT";case ErrorCode::CONNECTION_FAILED_ESTABLISHMENT:  return "CONNECTION_FAILED_ESTABLISHMENT";case ErrorCode::UNKNOWN_ADVERTISING_IDENTIFIER:  return "UNKNOWN_ADVERTISING_IDENTIFIER";case ErrorCode::LIMIT_REACHED:  return "LIMIT_REACHED";case ErrorCode::OPERATION_CANCELLED_BY_HOST:  return "OPERATION_CANCELLED_BY_HOST";case ErrorCode::PACKET_TOO_LONG:  return "PACKET_TOO_LONG";case ErrorCode::STATUS_UNKNOWN:  return "STATUS_UNKNOWN";default:  return std::string("Unknown ErrorCode: ") + std::to_string(static_cast<int>(param));}}
+inline std::string ErrorCodeText(const ErrorCode& param) {switch (param) {case ErrorCode::SUCCESS:  return "SUCCESS";case ErrorCode::UNKNOWN_HCI_COMMAND:  return "UNKNOWN_HCI_COMMAND";case ErrorCode::UNKNOWN_CONNECTION:  return "UNKNOWN_CONNECTION";case ErrorCode::HARDWARE_FAILURE:  return "HARDWARE_FAILURE";case ErrorCode::PAGE_TIMEOUT:  return "PAGE_TIMEOUT";case ErrorCode::AUTHENTICATION_FAILURE:  return "AUTHENTICATION_FAILURE";case ErrorCode::PIN_OR_KEY_MISSING:  return "PIN_OR_KEY_MISSING";case ErrorCode::MEMORY_CAPACITY_EXCEEDED:  return "MEMORY_CAPACITY_EXCEEDED";case ErrorCode::CONNECTION_TIMEOUT:  return "CONNECTION_TIMEOUT";case ErrorCode::CONNECTION_LIMIT_EXCEEDED:  return "CONNECTION_LIMIT_EXCEEDED";case ErrorCode::SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED:  return "SYNCHRONOUS_CONNECTION_LIMIT_EXCEEDED";case ErrorCode::CONNECTION_ALREADY_EXISTS:  return "CONNECTION_ALREADY_EXISTS";case ErrorCode::COMMAND_DISALLOWED:  return "COMMAND_DISALLOWED";case ErrorCode::CONNECTION_REJECTED_LIMITED_RESOURCES:  return "CONNECTION_REJECTED_LIMITED_RESOURCES";case ErrorCode::CONNECTION_REJECTED_SECURITY_REASONS:  return "CONNECTION_REJECTED_SECURITY_REASONS";case ErrorCode::CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR:  return "CONNECTION_REJECTED_UNACCEPTABLE_BD_ADDR";case ErrorCode::CONNECTION_ACCEPT_TIMEOUT:  return "CONNECTION_ACCEPT_TIMEOUT";case ErrorCode::UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE:  return "UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE";case ErrorCode::INVALID_HCI_COMMAND_PARAMETERS:  return "INVALID_HCI_COMMAND_PARAMETERS";case ErrorCode::REMOTE_USER_TERMINATED_CONNECTION:  return "REMOTE_USER_TERMINATED_CONNECTION";case ErrorCode::REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES:  return "REMOTE_DEVICE_TERMINATED_CONNECTION_LOW_RESOURCES";case ErrorCode::REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF:  return "REMOTE_DEVICE_TERMINATED_CONNECTION_POWER_OFF";case ErrorCode::CONNECTION_TERMINATED_BY_LOCAL_HOST:  return "CONNECTION_TERMINATED_BY_LOCAL_HOST";case ErrorCode::REPEATED_ATTEMPTS:  return "REPEATED_ATTEMPTS";case ErrorCode::PAIRING_NOT_ALLOWED:  return "PAIRING_NOT_ALLOWED";case ErrorCode::UNKNOWN_LMP_PDU:  return "UNKNOWN_LMP_PDU";case ErrorCode::UNSUPPORTED_REMOTE_OR_LMP_FEATURE:  return "UNSUPPORTED_REMOTE_OR_LMP_FEATURE";case ErrorCode::SCO_OFFSET_REJECTED:  return "SCO_OFFSET_REJECTED";case ErrorCode::SCO_INTERVAL_REJECTED:  return "SCO_INTERVAL_REJECTED";case ErrorCode::SCO_AIR_MODE_REJECTED:  return "SCO_AIR_MODE_REJECTED";case ErrorCode::INVALID_LMP_OR_LL_PARAMETERS:  return "INVALID_LMP_OR_LL_PARAMETERS";case ErrorCode::UNSPECIFIED_ERROR:  return "UNSPECIFIED_ERROR";case ErrorCode::UNSUPPORTED_LMP_OR_LL_PARAMETER:  return "UNSUPPORTED_LMP_OR_LL_PARAMETER";case ErrorCode::ROLE_CHANGE_NOT_ALLOWED:  return "ROLE_CHANGE_NOT_ALLOWED";case ErrorCode::TRANSACTION_RESPONSE_TIMEOUT:  return "TRANSACTION_RESPONSE_TIMEOUT";case ErrorCode::LINK_LAYER_COLLISION:  return "LINK_LAYER_COLLISION";case ErrorCode::LMP_PDU_NOT_ALLOWED:  return "LMP_PDU_NOT_ALLOWED";case ErrorCode::ENCRYPTION_MODE_NOT_ACCEPTABLE:  return "ENCRYPTION_MODE_NOT_ACCEPTABLE";case ErrorCode::LINK_KEY_CANNOT_BE_CHANGED:  return "LINK_KEY_CANNOT_BE_CHANGED";case ErrorCode::REQUESTED_QOS_NOT_SUPPORTED:  return "REQUESTED_QOS_NOT_SUPPORTED";case ErrorCode::INSTANT_PASSED:  return "INSTANT_PASSED";case ErrorCode::PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED:  return "PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED";case ErrorCode::DIFFERENT_TRANSACTION_COLLISION:  return "DIFFERENT_TRANSACTION_COLLISION";case ErrorCode::QOS_UNACCEPTABLE_PARAMETERS:  return "QOS_UNACCEPTABLE_PARAMETERS";case ErrorCode::QOS_REJECTED:  return "QOS_REJECTED";case ErrorCode::CHANNEL_ASSESSMENT_NOT_SUPPORTED:  return "CHANNEL_ASSESSMENT_NOT_SUPPORTED";case ErrorCode::INSUFFICIENT_SECURITY:  return "INSUFFICIENT_SECURITY";case ErrorCode::PARAMETER_OUT_OF_MANDATORY_RANGE:  return "PARAMETER_OUT_OF_MANDATORY_RANGE";case ErrorCode::ROLE_SWITCH_PENDING:  return "ROLE_SWITCH_PENDING";case ErrorCode::RESERVED_SLOT_VIOLATION:  return "RESERVED_SLOT_VIOLATION";case ErrorCode::ROLE_SWITCH_FAILED:  return "ROLE_SWITCH_FAILED";case ErrorCode::EXTENDED_INQUIRY_RESPONSE_TOO_LARGE:  return "EXTENDED_INQUIRY_RESPONSE_TOO_LARGE";case ErrorCode::SECURE_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST:  return "SECURE_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST";case ErrorCode::HOST_BUSY_PAIRING:  return "HOST_BUSY_PAIRING";case ErrorCode::CONNECTION_REJECTED_NO_SUITABLE_CHANNEL_FOUND:  return "CONNECTION_REJECTED_NO_SUITABLE_CHANNEL_FOUND";case ErrorCode::CONTROLLER_BUSY:  return "CONTROLLER_BUSY";case ErrorCode::UNACCEPTABLE_CONNECTION_PARAMETERS:  return "UNACCEPTABLE_CONNECTION_PARAMETERS";case ErrorCode::ADVERTISING_TIMEOUT:  return "ADVERTISING_TIMEOUT";case ErrorCode::CONNECTION_TERMINATED_DUE_TO_MIC_FAILURE:  return "CONNECTION_TERMINATED_DUE_TO_MIC_FAILURE";case ErrorCode::CONNECTION_FAILED_ESTABLISHMENT:  return "CONNECTION_FAILED_ESTABLISHMENT";case ErrorCode::COARSE_CLOCK_ADJUSTMENT_REJECTED:  return "COARSE_CLOCK_ADJUSTMENT_REJECTED";case ErrorCode::TYPE0_SUBMAP_NOT_DEFINED:  return "TYPE0_SUBMAP_NOT_DEFINED";case ErrorCode::UNKNOWN_ADVERTISING_IDENTIFIER:  return "UNKNOWN_ADVERTISING_IDENTIFIER";case ErrorCode::LIMIT_REACHED:  return "LIMIT_REACHED";case ErrorCode::OPERATION_CANCELLED_BY_HOST:  return "OPERATION_CANCELLED_BY_HOST";case ErrorCode::PACKET_TOO_LONG:  return "PACKET_TOO_LONG";case ErrorCode::STATUS_UNKNOWN:  return "STATUS_UNKNOWN";default:  return std::string("Unknown ErrorCode: ") + std::to_string(static_cast<int>(param));}}
 
 inline std::ostream& operator<<(std::ostream& os, const ErrorCode& param) {  return os << ErrorCodeText(param);}
 
@@ -1081,11 +1078,6 @@ inline std::ostream& operator<<(std::ostream& os, const CsRttType& param) {  ret
 inline std::string CsActionText(const CsAction& param) {switch (param) {case CsAction::CONFIG_REMOVED:  return "CONFIG_REMOVED";case CsAction::CONFIG_CREATED:  return "CONFIG_CREATED";default:  return std::string("Unknown CsAction: ") + std::to_string(static_cast<int>(param));}}
 
 inline std::ostream& operator<<(std::ostream& os, const CsAction& param) {  return os << CsActionText(param);}
-
-
-inline std::string CsProcedureStateText(const CsProcedureState& param) {switch (param) {case CsProcedureState::DISABLED:  return "DISABLED";case CsProcedureState::ENABLED:  return "ENABLED";default:  return std::string("Unknown CsProcedureState: ") + std::to_string(static_cast<int>(param));}}
-
-inline std::ostream& operator<<(std::ostream& os, const CsProcedureState& param) {  return os << CsProcedureStateText(param);}
 
 
 inline std::string CsProcedureDoneStatusText(const CsProcedureDoneStatus& param) {switch (param) {case CsProcedureDoneStatus::ALL_RESULTS_COMPLETE:  return "ALL_RESULTS_COMPLETE";case CsProcedureDoneStatus::PARTIAL_RESULTS:  return "PARTIAL_RESULTS";case CsProcedureDoneStatus::ABORTED:  return "ABORTED";default:  return std::string("Unknown CsProcedureDoneStatus: ") + std::to_string(static_cast<int>(param));}}
@@ -2687,7 +2679,7 @@ return true;}
 explicit LeIsoCommandView(CommandView parent) : CommandView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsCommandView : public CommandView { public:static LeCsCommandView Create(CommandView parent){ return LeCsCommandView(std::move(parent)); }static std::optional<LeCsCommandView> CreateOptional(CommandView parent){ auto to_validate = LeCsCommandView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
+class DistanceMeasurementCommandView : public CommandView { public:static DistanceMeasurementCommandView Create(CommandView parent){ return DistanceMeasurementCommandView(std::move(parent)); }static std::optional<DistanceMeasurementCommandView> CreateOptional(CommandView parent){ auto to_validate = DistanceMeasurementCommandView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
 
 
 protected:
@@ -2698,10 +2690,10 @@ bool Validate() const override {
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 0 /* Total size of the fixed fields */;if (it > end()) return false;
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsCommand { ";ss << ""  << "payload = " << "PAYLOAD[]";ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "DistanceMeasurementCommand { ";ss << ""  << "payload = " << "PAYLOAD[]";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsCommandView(CommandView parent) : CommandView(std::move(parent)) { was_validated_ = false; }};
+explicit DistanceMeasurementCommandView(CommandView parent) : CommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class VendorCommandView : public CommandView { public:static VendorCommandView Create(CommandView parent){ return VendorCommandView(std::move(parent)); }static std::optional<VendorCommandView> CreateOptional(CommandView parent){ auto to_validate = VendorCommandView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
@@ -10016,16 +10008,17 @@ Operation GetOperation() const {ASSERT(was_validated_);auto to_bound = begin();a
 
 FragmentPreference GetFragmentPreference() const {ASSERT(was_validated_);auto to_bound = begin();auto fragment_preference_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;FragmentPreference fragment_preference_value{};FragmentPreference* fragment_preference_ptr = &fragment_preference_value;auto extracted_value = fragment_preference_it.extract<uint8_t>();extracted_value &= 0x1;*fragment_preference_ptr = static_cast<FragmentPreference>(extracted_value);return fragment_preference_value;}
 
-protected:uint8_t GetAdvertisingDataSize() const {ASSERT(was_validated_);auto to_bound = begin();auto advertising_data_size_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t advertising_data_size_value{};uint8_t* advertising_data_size_ptr = &advertising_data_size_value;auto extracted_value = advertising_data_size_it.extract<uint8_t>();*advertising_data_size_ptr = static_cast<uint8_t>(extracted_value);return advertising_data_size_value;}public:
+protected:uint8_t GetPayloadSize() const {ASSERT(was_validated_);auto to_bound = begin();auto payload_size_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t payload_size_value{};uint8_t* payload_size_ptr = &payload_size_value;auto extracted_value = payload_size_it.extract<uint8_t>();*payload_size_ptr = static_cast<uint8_t>(extracted_value);return payload_size_value;}public:
 
-std::vector<uint8_t> GetAdvertisingData() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(GetAdvertisingDataSize()) * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto advertising_data_it = to_bound.Subrange(field_begin, field_end - field_begin); std::vector<uint8_t> advertising_data_value{};std::vector<uint8_t>* advertising_data_ptr = &advertising_data_value;auto val_it = advertising_data_it;while (val_it.NumBytesRemaining() >= 1) {uint8_t val_value;uint8_t* val_ptr = &val_value;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);if (val_ptr != nullptr) { advertising_data_ptr->push_back(val_value);}}return advertising_data_value;}
+PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (GetPayloadSize() * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
+
 
 protected:
 bool Validate() const override {
   if (!LeAdvertisingCommandView::Validate()) {
     return false;
   }
-auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total size of the fixed fields */;if (it > end()) return false;it += ((static_cast<size_t>(GetAdvertisingDataSize()) * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_EXTENDED_ADVERTISING_DATA) return false;
+auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total size of the fixed fields */;if (it > end()) return false;it += ((GetPayloadSize() * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_EXTENDED_ADVERTISING_DATA) return false;
 
 
 
@@ -10034,7 +10027,7 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total siz
 
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetExtendedAdvertisingDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", fragment_preference = " << FragmentPreferenceText(GetFragmentPreference()) << ", advertising_data_size = " << GetAdvertisingDataSize() << ", advertising_data = " << "VECTOR[";for (size_t index = 0; index < GetAdvertisingData().size(); index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetAdvertisingData()[index]));}ss << "]";ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetExtendedAdvertisingDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", fragment_preference = " << FragmentPreferenceText(GetFragmentPreference()) << ", payload_size = " << GetPayloadSize() << ", payload = " << "PAYLOAD[]";ss << " }";return ss.str();}
 
  protected:
 explicit LeSetExtendedAdvertisingDataRawView(LeAdvertisingCommandView parent) : LeAdvertisingCommandView(std::move(parent)) { was_validated_ = false; }};
@@ -10089,16 +10082,17 @@ Operation GetOperation() const {ASSERT(was_validated_);auto to_bound = begin();a
 
 FragmentPreference GetFragmentPreference() const {ASSERT(was_validated_);auto to_bound = begin();auto fragment_preference_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;FragmentPreference fragment_preference_value{};FragmentPreference* fragment_preference_ptr = &fragment_preference_value;auto extracted_value = fragment_preference_it.extract<uint8_t>();extracted_value &= 0x1;*fragment_preference_ptr = static_cast<FragmentPreference>(extracted_value);return fragment_preference_value;}
 
-protected:uint8_t GetScanResponseDataSize() const {ASSERT(was_validated_);auto to_bound = begin();auto scan_response_data_size_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t scan_response_data_size_value{};uint8_t* scan_response_data_size_ptr = &scan_response_data_size_value;auto extracted_value = scan_response_data_size_it.extract<uint8_t>();*scan_response_data_size_ptr = static_cast<uint8_t>(extracted_value);return scan_response_data_size_value;}public:
+protected:uint8_t GetPayloadSize() const {ASSERT(was_validated_);auto to_bound = begin();auto payload_size_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t payload_size_value{};uint8_t* payload_size_ptr = &payload_size_value;auto extracted_value = payload_size_it.extract<uint8_t>();*payload_size_ptr = static_cast<uint8_t>(extracted_value);return payload_size_value;}public:
 
-std::vector<uint8_t> GetScanResponseData() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(GetScanResponseDataSize()) * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto scan_response_data_it = to_bound.Subrange(field_begin, field_end - field_begin); std::vector<uint8_t> scan_response_data_value{};std::vector<uint8_t>* scan_response_data_ptr = &scan_response_data_value;auto val_it = scan_response_data_it;while (val_it.NumBytesRemaining() >= 1) {uint8_t val_value;uint8_t* val_ptr = &val_value;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);if (val_ptr != nullptr) { scan_response_data_ptr->push_back(val_value);}}return scan_response_data_value;}
+PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (GetPayloadSize() * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
+
 
 protected:
 bool Validate() const override {
   if (!LeAdvertisingCommandView::Validate()) {
     return false;
   }
-auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total size of the fixed fields */;if (it > end()) return false;it += ((static_cast<size_t>(GetScanResponseDataSize()) * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_EXTENDED_SCAN_RESPONSE_DATA) return false;
+auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total size of the fixed fields */;if (it > end()) return false;it += ((GetPayloadSize() * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_EXTENDED_SCAN_RESPONSE_DATA) return false;
 
 
 
@@ -10107,7 +10101,7 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total siz
 
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetExtendedScanResponseDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", fragment_preference = " << FragmentPreferenceText(GetFragmentPreference()) << ", scan_response_data_size = " << GetScanResponseDataSize() << ", scan_response_data = " << "VECTOR[";for (size_t index = 0; index < GetScanResponseData().size(); index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetScanResponseData()[index]));}ss << "]";ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetExtendedScanResponseDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", fragment_preference = " << FragmentPreferenceText(GetFragmentPreference()) << ", payload_size = " << GetPayloadSize() << ", payload = " << "PAYLOAD[]";ss << " }";return ss.str();}
 
  protected:
 explicit LeSetExtendedScanResponseDataRawView(LeAdvertisingCommandView parent) : LeAdvertisingCommandView(std::move(parent)) { was_validated_ = false; }};
@@ -10393,23 +10387,24 @@ explicit LeSetPeriodicAdvertisingDataView(LeAdvertisingCommandView parent) : LeA
 class LeSetPeriodicAdvertisingDataRawView : public LeAdvertisingCommandView { public:static LeSetPeriodicAdvertisingDataRawView Create(LeAdvertisingCommandView parent){ return LeSetPeriodicAdvertisingDataRawView(std::move(parent)); }static std::optional<LeSetPeriodicAdvertisingDataRawView> CreateOptional(LeAdvertisingCommandView parent){ auto to_validate = LeSetPeriodicAdvertisingDataRawView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint8_t GetAdvertisingHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto advertising_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint8_t advertising_handle_value{};uint8_t* advertising_handle_ptr = &advertising_handle_value;auto extracted_value = advertising_handle_it.extract<uint8_t>();*advertising_handle_ptr = static_cast<uint8_t>(extracted_value);return advertising_handle_value;}
 Operation GetOperation() const {ASSERT(was_validated_);auto to_bound = begin();auto operation_it = to_bound + (/* Bits: */ 32 + /* Dynamic: */ 0) / 8;Operation operation_value{};Operation* operation_ptr = &operation_value;auto extracted_value = operation_it.extract<uint8_t>();extracted_value &= 0x7;*operation_ptr = static_cast<Operation>(extracted_value);return operation_value;}
 
-protected:uint8_t GetAdvertisingDataSize() const {ASSERT(was_validated_);auto to_bound = begin();auto advertising_data_size_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t advertising_data_size_value{};uint8_t* advertising_data_size_ptr = &advertising_data_size_value;auto extracted_value = advertising_data_size_it.extract<uint8_t>();*advertising_data_size_ptr = static_cast<uint8_t>(extracted_value);return advertising_data_size_value;}public:
+protected:uint8_t GetPayloadSize() const {ASSERT(was_validated_);auto to_bound = begin();auto payload_size_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t payload_size_value{};uint8_t* payload_size_ptr = &payload_size_value;auto extracted_value = payload_size_it.extract<uint8_t>();*payload_size_ptr = static_cast<uint8_t>(extracted_value);return payload_size_value;}public:
 
-std::vector<uint8_t> GetAdvertisingData() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(GetAdvertisingDataSize()) * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto advertising_data_it = to_bound.Subrange(field_begin, field_end - field_begin); std::vector<uint8_t> advertising_data_value{};std::vector<uint8_t>* advertising_data_ptr = &advertising_data_value;auto val_it = advertising_data_it;while (val_it.NumBytesRemaining() >= 1) {uint8_t val_value;uint8_t* val_ptr = &val_value;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);if (val_ptr != nullptr) { advertising_data_ptr->push_back(val_value);}}return advertising_data_value;}
+PacketView<kLittleEndian> GetPayload() const {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 0 + /* Dynamic: */ (GetPayloadSize() * 8)) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto payload_it = to_bound.Subrange(field_begin, field_end - field_begin); return GetLittleEndianSubview(field_begin, field_end);}
+
 
 protected:
 bool Validate() const override {
   if (!LeAdvertisingCommandView::Validate()) {
     return false;
   }
-auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 3 /* Total size of the fixed fields */;if (it > end()) return false;it += ((static_cast<size_t>(GetAdvertisingDataSize()) * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_PERIODIC_ADVERTISING_DATA) return false;
+auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 3 /* Total size of the fixed fields */;if (it > end()) return false;it += ((GetPayloadSize() * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_SET_PERIODIC_ADVERTISING_DATA) return false;
 
 
 
 
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetPeriodicAdvertisingDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", advertising_data_size = " << GetAdvertisingDataSize() << ", advertising_data = " << "VECTOR[";for (size_t index = 0; index < GetAdvertisingData().size(); index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetAdvertisingData()[index]));}ss << "]";ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeSetPeriodicAdvertisingDataRaw { ";ss << ""  << "advertising_handle = " << static_cast<uint64_t>(GetAdvertisingHandle()) << ", operation = " << OperationText(GetOperation()) << ", payload_size = " << GetPayloadSize() << ", payload = " << "PAYLOAD[]";ss << " }";return ss.str();}
 
  protected:
 explicit LeSetPeriodicAdvertisingDataRawView(LeAdvertisingCommandView parent) : LeAdvertisingCommandView(std::move(parent)) { was_validated_ = false; }};
@@ -12210,9 +12205,9 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeSubrateRequestStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsReadLocalSupportedCapabilitiesView : public LeCsCommandView { public:static LeCsReadLocalSupportedCapabilitiesView Create(LeCsCommandView parent){ return LeCsReadLocalSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsReadLocalSupportedCapabilitiesView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsReadLocalSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
+class LeCsReadLocalSupportedCapabilitiesView : public DistanceMeasurementCommandView { public:static LeCsReadLocalSupportedCapabilitiesView Create(DistanceMeasurementCommandView parent){ return LeCsReadLocalSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsReadLocalSupportedCapabilitiesView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsReadLocalSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 0 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_READ_LOCAL_SUPPORTED_CAPABILITIES) return false;return true;}
@@ -12220,7 +12215,7 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsReadLocalSupportedCapabilities { ";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsReadLocalSupportedCapabilitiesView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsReadLocalSupportedCapabilitiesView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsReadLocalSupportedCapabilitiesCompleteView : public CommandCompleteView { public:static LeCsReadLocalSupportedCapabilitiesCompleteView Create(CommandCompleteView parent){ return LeCsReadLocalSupportedCapabilitiesCompleteView(std::move(parent)); }static std::optional<LeCsReadLocalSupportedCapabilitiesCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsReadLocalSupportedCapabilitiesCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12287,11 +12282,11 @@ return true;}
 explicit LeCsReadLocalSupportedCapabilitiesCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsReadRemoteSupportedCapabilitiesView : public LeCsCommandView { public:static LeCsReadRemoteSupportedCapabilitiesView Create(LeCsCommandView parent){ return LeCsReadRemoteSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsReadRemoteSupportedCapabilitiesView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsReadRemoteSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsReadRemoteSupportedCapabilitiesView : public DistanceMeasurementCommandView { public:static LeCsReadRemoteSupportedCapabilitiesView Create(DistanceMeasurementCommandView parent){ return LeCsReadRemoteSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsReadRemoteSupportedCapabilitiesView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsReadRemoteSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 2 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_READ_REMOTE_SUPPORTED_CAPABILITIES) return false;
@@ -12301,7 +12296,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsReadRemoteSupportedCapabilities { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsReadRemoteSupportedCapabilitiesView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsReadRemoteSupportedCapabilitiesView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsReadRemoteSupportedCapabilitiesStatusView : public CommandStatusView { public:static LeCsReadRemoteSupportedCapabilitiesStatusView Create(CommandStatusView parent){ return LeCsReadRemoteSupportedCapabilitiesStatusView(std::move(parent)); }static std::optional<LeCsReadRemoteSupportedCapabilitiesStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsReadRemoteSupportedCapabilitiesStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12317,7 +12312,7 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsReadRemoteSupportedCapabilitiesStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsWriteCachedRemoteSupportedCapabilitiesView : public LeCsCommandView { public:static LeCsWriteCachedRemoteSupportedCapabilitiesView Create(LeCsCommandView parent){ return LeCsWriteCachedRemoteSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteSupportedCapabilitiesView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsWriteCachedRemoteSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsWriteCachedRemoteSupportedCapabilitiesView : public DistanceMeasurementCommandView { public:static LeCsWriteCachedRemoteSupportedCapabilitiesView Create(DistanceMeasurementCommandView parent){ return LeCsWriteCachedRemoteSupportedCapabilitiesView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteSupportedCapabilitiesView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsWriteCachedRemoteSupportedCapabilitiesView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 uint8_t GetNumConfigSupported() const {ASSERT(was_validated_);auto to_bound = begin();auto num_config_supported_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t num_config_supported_value{};uint8_t* num_config_supported_ptr = &num_config_supported_value;auto extracted_value = num_config_supported_it.extract<uint8_t>();*num_config_supported_ptr = static_cast<uint8_t>(extracted_value);return num_config_supported_value;}
 uint16_t GetMaxConsecutiveProceduresSupported() const {ASSERT(was_validated_);auto to_bound = begin();auto max_consecutive_procedures_supported_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint16_t max_consecutive_procedures_supported_value{};uint16_t* max_consecutive_procedures_supported_ptr = &max_consecutive_procedures_supported_value;auto extracted_value = max_consecutive_procedures_supported_it.extract<uint16_t>();*max_consecutive_procedures_supported_ptr = static_cast<uint16_t>(extracted_value);return max_consecutive_procedures_supported_value;}
@@ -12351,7 +12346,7 @@ CsOptionalTPmTimesSupported GetOptionalTPmTimesSupported() const {ASSERT(was_val
 uint8_t GetTSwTimeSupported() const {ASSERT(was_validated_);auto to_bound = begin();auto t_sw_time_supported_it = to_bound + (/* Bits: */ 248 + /* Dynamic: */ 0) / 8;uint8_t t_sw_time_supported_value{};uint8_t* t_sw_time_supported_ptr = &t_sw_time_supported_value;auto extracted_value = t_sw_time_supported_it.extract<uint8_t>();*t_sw_time_supported_ptr = static_cast<uint8_t>(extracted_value);return t_sw_time_supported_value;}
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 29 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_WRITE_CACHED_REMOTE_SUPPORTED_CAPABILITIES) return false;
@@ -12380,7 +12375,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsWriteCachedRemoteSupportedCapabilities { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", num_config_supported = " << static_cast<uint64_t>(GetNumConfigSupported()) << ", max_consecutive_procedures_supported = " << static_cast<uint64_t>(GetMaxConsecutiveProceduresSupported()) << ", num_antennas_supported = " << static_cast<uint64_t>(GetNumAntennasSupported()) << ", max_antenna_paths_supported = " << static_cast<uint64_t>(GetMaxAntennaPathsSupported()) << ", roles_supported = " << GetRolesSupported().ToString() << ", optional_modes_supported = " << GetOptionalModesSupported().ToString() << ", rtt_capability = " << GetRttCapability().ToString() << ", rtt_aa_only_n = " << static_cast<uint64_t>(GetRttAaOnlyN()) << ", rtt_sounding_n = " << static_cast<uint64_t>(GetRttSoundingN()) << ", rtt_random_payload_n = " << static_cast<uint64_t>(GetRttRandomPayloadN()) << ", optional_nadm_sounding_capability = " << GetOptionalNadmSoundingCapability().ToString() << ", optional_nadm_random_capability = " << GetOptionalNadmRandomCapability().ToString() << ", optional_cs_sync_phys_supported = " << GetOptionalCsSyncPhysSupported().ToString() << ", optional_subfeatures_supported = " << GetOptionalSubfeaturesSupported().ToString() << ", optional_t_ip1_times_supported = " << GetOptionalTIp1TimesSupported().ToString() << ", optional_t_ip2_times_supported = " << GetOptionalTIp2TimesSupported().ToString() << ", optional_t_fcs_times_supported = " << GetOptionalTFcsTimesSupported().ToString() << ", optional_t_pm_times_supported = " << GetOptionalTPmTimesSupported().ToString() << ", t_sw_time_supported = " << static_cast<uint64_t>(GetTSwTimeSupported());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsWriteCachedRemoteSupportedCapabilitiesView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsWriteCachedRemoteSupportedCapabilitiesView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView : public CommandCompleteView { public:static LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView Create(CommandCompleteView parent){ return LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12402,11 +12397,11 @@ return true;}
 explicit LeCsWriteCachedRemoteSupportedCapabilitiesCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsSecurityEnableView : public LeCsCommandView { public:static LeCsSecurityEnableView Create(LeCsCommandView parent){ return LeCsSecurityEnableView(std::move(parent)); }static std::optional<LeCsSecurityEnableView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsSecurityEnableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsSecurityEnableView : public DistanceMeasurementCommandView { public:static LeCsSecurityEnableView Create(DistanceMeasurementCommandView parent){ return LeCsSecurityEnableView(std::move(parent)); }static std::optional<LeCsSecurityEnableView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsSecurityEnableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 2 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_SECURITY_ENABLE) return false;
@@ -12416,7 +12411,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsSecurityEnable { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsSecurityEnableView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsSecurityEnableView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsSecurityEnableStatusView : public CommandStatusView { public:static LeCsSecurityEnableStatusView Create(CommandStatusView parent){ return LeCsSecurityEnableStatusView(std::move(parent)); }static std::optional<LeCsSecurityEnableStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsSecurityEnableStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12432,14 +12427,14 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsSecurityEnableStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsSetDefaultSettingsView : public LeCsCommandView { public:static LeCsSetDefaultSettingsView Create(LeCsCommandView parent){ return LeCsSetDefaultSettingsView(std::move(parent)); }static std::optional<LeCsSetDefaultSettingsView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsSetDefaultSettingsView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsSetDefaultSettingsView : public DistanceMeasurementCommandView { public:static LeCsSetDefaultSettingsView Create(DistanceMeasurementCommandView parent){ return LeCsSetDefaultSettingsView(std::move(parent)); }static std::optional<LeCsSetDefaultSettingsView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsSetDefaultSettingsView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 uint8_t GetRoleEnable() const {ASSERT(was_validated_);auto to_bound = begin();auto role_enable_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t role_enable_value{};uint8_t* role_enable_ptr = &role_enable_value;auto extracted_value = role_enable_it.extract<uint8_t>();*role_enable_ptr = static_cast<uint8_t>(extracted_value);return role_enable_value;}
 CsSyncAntennaSelection GetCsSyncAntennaSelection() const {ASSERT(was_validated_);auto to_bound = begin();auto cs_sync_antenna_selection_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;CsSyncAntennaSelection cs_sync_antenna_selection_value{};CsSyncAntennaSelection* cs_sync_antenna_selection_ptr = &cs_sync_antenna_selection_value;auto extracted_value = cs_sync_antenna_selection_it.extract<uint8_t>();*cs_sync_antenna_selection_ptr = static_cast<CsSyncAntennaSelection>(extracted_value);return cs_sync_antenna_selection_value;}
 uint8_t GetMaxTxPower() const {ASSERT(was_validated_);auto to_bound = begin();auto max_tx_power_it = to_bound + (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;uint8_t max_tx_power_value{};uint8_t* max_tx_power_ptr = &max_tx_power_value;auto extracted_value = max_tx_power_it.extract<uint8_t>();*max_tx_power_ptr = static_cast<uint8_t>(extracted_value);return max_tx_power_value;}
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 5 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_SET_DEFAULT_SETTINGS) return false;
@@ -12452,7 +12447,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsSetDefaultSettings { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", role_enable = " << static_cast<uint64_t>(GetRoleEnable()) << ", cs_sync_antenna_selection = " << CsSyncAntennaSelectionText(GetCsSyncAntennaSelection()) << ", max_tx_power = " << static_cast<uint64_t>(GetMaxTxPower());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsSetDefaultSettingsView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsSetDefaultSettingsView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsSetDefaultSettingsCompleteView : public CommandCompleteView { public:static LeCsSetDefaultSettingsCompleteView Create(CommandCompleteView parent){ return LeCsSetDefaultSettingsCompleteView(std::move(parent)); }static std::optional<LeCsSetDefaultSettingsCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsSetDefaultSettingsCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12474,11 +12469,11 @@ return true;}
 explicit LeCsSetDefaultSettingsCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsReadRemoteFaeTableView : public LeCsCommandView { public:static LeCsReadRemoteFaeTableView Create(LeCsCommandView parent){ return LeCsReadRemoteFaeTableView(std::move(parent)); }static std::optional<LeCsReadRemoteFaeTableView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsReadRemoteFaeTableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsReadRemoteFaeTableView : public DistanceMeasurementCommandView { public:static LeCsReadRemoteFaeTableView Create(DistanceMeasurementCommandView parent){ return LeCsReadRemoteFaeTableView(std::move(parent)); }static std::optional<LeCsReadRemoteFaeTableView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsReadRemoteFaeTableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 2 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_READ_REMOTE_FAE_TABLE) return false;
@@ -12488,7 +12483,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsReadRemoteFaeTable { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsReadRemoteFaeTableView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsReadRemoteFaeTableView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsReadRemoteFaeTableStatusView : public CommandStatusView { public:static LeCsReadRemoteFaeTableStatusView Create(CommandStatusView parent){ return LeCsReadRemoteFaeTableStatusView(std::move(parent)); }static std::optional<LeCsReadRemoteFaeTableStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsReadRemoteFaeTableStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12504,13 +12499,13 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsReadRemoteFaeTableStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsWriteCachedRemoteFaeTableView : public LeCsCommandView { public:static LeCsWriteCachedRemoteFaeTableView Create(LeCsCommandView parent){ return LeCsWriteCachedRemoteFaeTableView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteFaeTableView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsWriteCachedRemoteFaeTableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsWriteCachedRemoteFaeTableView : public DistanceMeasurementCommandView { public:static LeCsWriteCachedRemoteFaeTableView Create(DistanceMeasurementCommandView parent){ return LeCsWriteCachedRemoteFaeTableView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteFaeTableView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsWriteCachedRemoteFaeTableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 std::array<uint8_t,9> GetRemoteFaeTable() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 72 + /* Dynamic: */ 0) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto remote_fae_table_it = to_bound.Subrange(field_begin, field_end - field_begin); std::array<uint8_t,9> remote_fae_table_value{};std::array<uint8_t,9>* remote_fae_table_ptr = &remote_fae_table_value;std::array<uint8_t,9>::iterator ret_it = remote_fae_table_ptr->begin();auto val_it = remote_fae_table_it;while (val_it.NumBytesRemaining() >= 1 && ret_it < remote_fae_table_ptr->end()) {auto val_ptr = ret_it;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);ret_it++;}return remote_fae_table_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 11 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_WRITE_CACHED_REMOTE_FAE_TABLE) return false;
@@ -12521,7 +12516,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsWriteCachedRemoteFaeTable { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", remote_fae_table = " << "ARRAY[";/* uint8_t   ScalarField */for (size_t index = 0; index < 9; index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetRemoteFaeTable()[index]));}ss << "]";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsWriteCachedRemoteFaeTableView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsWriteCachedRemoteFaeTableView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsWriteCachedRemoteFaeTableCompleteView : public CommandCompleteView { public:static LeCsWriteCachedRemoteFaeTableCompleteView Create(CommandCompleteView parent){ return LeCsWriteCachedRemoteFaeTableCompleteView(std::move(parent)); }static std::optional<LeCsWriteCachedRemoteFaeTableCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsWriteCachedRemoteFaeTableCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12543,7 +12538,7 @@ return true;}
 explicit LeCsWriteCachedRemoteFaeTableCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsCreateConfigView : public LeCsCommandView { public:static LeCsCreateConfigView Create(LeCsCommandView parent){ return LeCsCreateConfigView(std::move(parent)); }static std::optional<LeCsCreateConfigView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsCreateConfigView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsCreateConfigView : public DistanceMeasurementCommandView { public:static LeCsCreateConfigView Create(DistanceMeasurementCommandView parent){ return LeCsCreateConfigView(std::move(parent)); }static std::optional<LeCsCreateConfigView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsCreateConfigView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
 
@@ -12568,7 +12563,7 @@ uint8_t GetCh3cJump() const {ASSERT(was_validated_);auto to_bound = begin();auto
 Enable GetCompanionSignalEnable() const {ASSERT(was_validated_);auto to_bound = begin();auto companion_signal_enable_it = to_bound + (/* Bits: */ 240 + /* Dynamic: */ 0) / 8;Enable companion_signal_enable_value{};Enable* companion_signal_enable_ptr = &companion_signal_enable_value;auto extracted_value = companion_signal_enable_it.extract<uint8_t>();*companion_signal_enable_ptr = static_cast<Enable>(extracted_value);return companion_signal_enable_value;}
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 28 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_CREATE_CONFIG) return false;
@@ -12598,7 +12593,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsCreateConfig { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId()) << ", create_context = " << CsCreateContextText(GetCreateContext()) << ", main_mode_type = " << CsMainModeTypeText(GetMainModeType()) << ", sub_mode_type = " << CsSubModeTypeText(GetSubModeType()) << ", main_mode_min_steps = " << static_cast<uint64_t>(GetMainModeMinSteps()) << ", main_mode_max_steps = " << static_cast<uint64_t>(GetMainModeMaxSteps()) << ", main_mode_repetition = " << static_cast<uint64_t>(GetMainModeRepetition()) << ", mode_0_steps = " << static_cast<uint64_t>(GetMode0Steps()) << ", role = " << CsRoleText(GetRole()) << ", rtt_type = " << CsConfigRttTypeText(GetRttType()) << ", cs_sync_phy = " << CsSyncPhyText(GetCsSyncPhy()) << ", channel_map = " << "ARRAY[";/* uint8_t   ScalarField */for (size_t index = 0; index < 10; index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetChannelMap()[index]));}ss << "]" << ", channel_map_repetition = " << static_cast<uint64_t>(GetChannelMapRepetition()) << ", channel_selection_type = " << CsChannelSelectionTypeText(GetChannelSelectionType()) << ", ch3c_shape = " << CsCh3cShapeText(GetCh3cShape()) << ", ch3c_jump = " << static_cast<uint64_t>(GetCh3cJump()) << ", companion_signal_enable = " << EnableText(GetCompanionSignalEnable());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsCreateConfigView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsCreateConfigView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsCreateConfigStatusView : public CommandStatusView { public:static LeCsCreateConfigStatusView Create(CommandStatusView parent){ return LeCsCreateConfigStatusView(std::move(parent)); }static std::optional<LeCsCreateConfigStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsCreateConfigStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12614,13 +12609,13 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsCreateConfigStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsRemoveConfigView : public LeCsCommandView { public:static LeCsRemoveConfigView Create(LeCsCommandView parent){ return LeCsRemoveConfigView(std::move(parent)); }static std::optional<LeCsRemoveConfigView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsRemoveConfigView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsRemoveConfigView : public DistanceMeasurementCommandView { public:static LeCsRemoveConfigView Create(DistanceMeasurementCommandView parent){ return LeCsRemoveConfigView(std::move(parent)); }static std::optional<LeCsRemoveConfigView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsRemoveConfigView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 3 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_REMOVE_CONFIG) return false;
@@ -12632,7 +12627,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsRemoveConfig { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsRemoveConfigView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsRemoveConfigView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsRemoveConfigStatusView : public CommandStatusView { public:static LeCsRemoveConfigStatusView Create(CommandStatusView parent){ return LeCsRemoveConfigStatusView(std::move(parent)); }static std::optional<LeCsRemoveConfigStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsRemoveConfigStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12648,11 +12643,11 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsRemoveConfigStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsSetChannelClassificationView : public LeCsCommandView { public:static LeCsSetChannelClassificationView Create(LeCsCommandView parent){ return LeCsSetChannelClassificationView(std::move(parent)); }static std::optional<LeCsSetChannelClassificationView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsSetChannelClassificationView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}std::array<uint8_t,10> GetChannelClassification() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 80 + /* Dynamic: */ 0) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto channel_classification_it = to_bound.Subrange(field_begin, field_end - field_begin); std::array<uint8_t,10> channel_classification_value{};std::array<uint8_t,10>* channel_classification_ptr = &channel_classification_value;std::array<uint8_t,10>::iterator ret_it = channel_classification_ptr->begin();auto val_it = channel_classification_it;while (val_it.NumBytesRemaining() >= 1 && ret_it < channel_classification_ptr->end()) {auto val_ptr = ret_it;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);ret_it++;}return channel_classification_value;}
+class LeCsSetChannelClassificationView : public DistanceMeasurementCommandView { public:static LeCsSetChannelClassificationView Create(DistanceMeasurementCommandView parent){ return LeCsSetChannelClassificationView(std::move(parent)); }static std::optional<LeCsSetChannelClassificationView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsSetChannelClassificationView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}std::array<uint8_t,10> GetChannelClassification() {ASSERT(was_validated_);size_t end_index = size();auto to_bound = begin();size_t field_begin = (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;size_t field_end = end_index - (/* Bits: */ 0 + /* Dynamic: */ 0) / 8;size_t field_sized_end = field_begin + (/* Bits: */ 80 + /* Dynamic: */ 0) / 8;if (field_sized_end < field_end) { field_end = field_sized_end; }auto channel_classification_it = to_bound.Subrange(field_begin, field_end - field_begin); std::array<uint8_t,10> channel_classification_value{};std::array<uint8_t,10>* channel_classification_ptr = &channel_classification_value;std::array<uint8_t,10>::iterator ret_it = channel_classification_ptr->begin();auto val_it = channel_classification_it;while (val_it.NumBytesRemaining() >= 1 && ret_it < channel_classification_ptr->end()) {auto val_ptr = ret_it;auto extracted_value = val_it.extract<uint8_t>();*val_ptr = static_cast<uint8_t>(extracted_value);ret_it++;}return channel_classification_value;}
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 10 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_SET_CHANNEL_CLASSIFICATION) return false;
@@ -12661,7 +12656,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsSetChannelClassification { ";ss << ""  << "channel_classification = " << "ARRAY[";/* uint8_t   ScalarField */for (size_t index = 0; index < 10; index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetChannelClassification()[index]));}ss << "]";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsSetChannelClassificationView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsSetChannelClassificationView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsSetChannelClassificationCompleteView : public CommandCompleteView { public:static LeCsSetChannelClassificationCompleteView Create(CommandCompleteView parent){ return LeCsSetChannelClassificationCompleteView(std::move(parent)); }static std::optional<LeCsSetChannelClassificationCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsSetChannelClassificationCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12677,7 +12672,7 @@ auto it = begin() + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsSetChannelClassificationCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsSetProcedureParametersView : public LeCsCommandView { public:static LeCsSetProcedureParametersView Create(LeCsCommandView parent){ return LeCsSetProcedureParametersView(std::move(parent)); }static std::optional<LeCsSetProcedureParametersView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsSetProcedureParametersView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsSetProcedureParametersView : public DistanceMeasurementCommandView { public:static LeCsSetProcedureParametersView Create(DistanceMeasurementCommandView parent){ return LeCsSetProcedureParametersView(std::move(parent)); }static std::optional<LeCsSetProcedureParametersView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsSetProcedureParametersView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
 uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
 
@@ -12694,7 +12689,7 @@ CsPreferredPeerAntenna GetPreferredPeerAntenna() const {ASSERT(was_validated_);s
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 21 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_SET_PROCEDURE_PARAMETERS) return false;
@@ -12716,7 +12711,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsSetProcedureParameters { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId()) << ", max_procedure_duration = " << static_cast<uint64_t>(GetMaxProcedureDuration()) << ", min_procedure_interval = " << static_cast<uint64_t>(GetMinProcedureInterval()) << ", max_procedure_interval = " << static_cast<uint64_t>(GetMaxProcedureInterval()) << ", max_procedure_count = " << static_cast<uint64_t>(GetMaxProcedureCount()) << ", min_subevent_len = " << static_cast<uint64_t>(GetMinSubeventLen()) << ", max_subevent_len = " << static_cast<uint64_t>(GetMaxSubeventLen()) << ", tone_antenna_config_selection = " << static_cast<uint64_t>(GetToneAntennaConfigSelection()) << ", phy = " << CsPhyText(GetPhy()) << ", tx_pwr_delta = " << static_cast<uint64_t>(GetTxPwrDelta()) << ", preferred_peer_antenna = " << GetPreferredPeerAntenna().ToString();ss << " }";return ss.str();}
 
  protected:
-explicit LeCsSetProcedureParametersView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsSetProcedureParametersView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsSetProcedureParametersCompleteView : public CommandCompleteView { public:static LeCsSetProcedureParametersCompleteView Create(CommandCompleteView parent){ return LeCsSetProcedureParametersCompleteView(std::move(parent)); }static std::optional<LeCsSetProcedureParametersCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsSetProcedureParametersCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12738,14 +12733,14 @@ return true;}
 explicit LeCsSetProcedureParametersCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsProcedureEnableView : public LeCsCommandView { public:static LeCsProcedureEnableView Create(LeCsCommandView parent){ return LeCsProcedureEnableView(std::move(parent)); }static std::optional<LeCsProcedureEnableView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsProcedureEnableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
+class LeCsProcedureEnableView : public DistanceMeasurementCommandView { public:static LeCsProcedureEnableView Create(DistanceMeasurementCommandView parent){ return LeCsProcedureEnableView(std::move(parent)); }static std::optional<LeCsProcedureEnableView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsProcedureEnableView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = begin();auto connection_handle_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint16_t connection_handle_value{};uint16_t* connection_handle_ptr = &connection_handle_value;auto extracted_value = connection_handle_it.extract<uint16_t>();extracted_value &= 0xfff;*connection_handle_ptr = static_cast<uint16_t>(extracted_value);return connection_handle_value;}
 
-uint8_t GetProcedureEnable() const {ASSERT(was_validated_);auto to_bound = begin();auto procedure_enable_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t procedure_enable_value{};uint8_t* procedure_enable_ptr = &procedure_enable_value;auto extracted_value = procedure_enable_it.extract<uint8_t>();*procedure_enable_ptr = static_cast<uint8_t>(extracted_value);return procedure_enable_value;}
-uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
+uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
 
+Enable GetProcedureEnable() const {ASSERT(was_validated_);auto to_bound = begin();auto procedure_enable_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;Enable procedure_enable_value{};Enable* procedure_enable_ptr = &procedure_enable_value;auto extracted_value = procedure_enable_it.extract<uint8_t>();*procedure_enable_ptr = static_cast<Enable>(extracted_value);return procedure_enable_value;}
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_PROCEDURE_ENABLE) return false;
@@ -12755,10 +12750,10 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 4 /* Total siz
 
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsProcedureEnable { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", procedure_enable = " << static_cast<uint64_t>(GetProcedureEnable()) << ", config_id = " << static_cast<uint64_t>(GetConfigId());ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsProcedureEnable { ";ss << ""  << "connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId()) << ", procedure_enable = " << EnableText(GetProcedureEnable());ss << " }";return ss.str();}
 
  protected:
-explicit LeCsProcedureEnableView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsProcedureEnableView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsProcedureEnableStatusView : public CommandStatusView { public:static LeCsProcedureEnableStatusView Create(CommandStatusView parent){ return LeCsProcedureEnableStatusView(std::move(parent)); }static std::optional<LeCsProcedureEnableStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsProcedureEnableStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -12774,7 +12769,7 @@ auto it = begin() + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
 explicit LeCsProcedureEnableStatusView(CommandStatusView parent) : CommandStatusView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsTestView : public LeCsCommandView { public:static LeCsTestView Create(LeCsCommandView parent){ return LeCsTestView(std::move(parent)); }static std::optional<LeCsTestView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsTestView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint8_t GetMainModeType() const {ASSERT(was_validated_);auto to_bound = begin();auto main_mode_type_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint8_t main_mode_type_value{};uint8_t* main_mode_type_ptr = &main_mode_type_value;auto extracted_value = main_mode_type_it.extract<uint8_t>();*main_mode_type_ptr = static_cast<uint8_t>(extracted_value);return main_mode_type_value;}
+class LeCsTestView : public DistanceMeasurementCommandView { public:static LeCsTestView Create(DistanceMeasurementCommandView parent){ return LeCsTestView(std::move(parent)); }static std::optional<LeCsTestView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsTestView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}uint8_t GetMainModeType() const {ASSERT(was_validated_);auto to_bound = begin();auto main_mode_type_it = to_bound + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;uint8_t main_mode_type_value{};uint8_t* main_mode_type_ptr = &main_mode_type_value;auto extracted_value = main_mode_type_it.extract<uint8_t>();*main_mode_type_ptr = static_cast<uint8_t>(extracted_value);return main_mode_type_value;}
 uint8_t GetSubModeType() const {ASSERT(was_validated_);auto to_bound = begin();auto sub_mode_type_it = to_bound + (/* Bits: */ 32 + /* Dynamic: */ 0) / 8;uint8_t sub_mode_type_value{};uint8_t* sub_mode_type_ptr = &sub_mode_type_value;auto extracted_value = sub_mode_type_it.extract<uint8_t>();*sub_mode_type_ptr = static_cast<uint8_t>(extracted_value);return sub_mode_type_value;}
 uint8_t GetMainModeSteps() const {ASSERT(was_validated_);auto to_bound = begin();auto main_mode_steps_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;uint8_t main_mode_steps_value{};uint8_t* main_mode_steps_ptr = &main_mode_steps_value;auto extracted_value = main_mode_steps_it.extract<uint8_t>();*main_mode_steps_ptr = static_cast<uint8_t>(extracted_value);return main_mode_steps_value;}
 uint8_t GetMainModeRepetition() const {ASSERT(was_validated_);auto to_bound = begin();auto main_mode_repetition_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t main_mode_repetition_value{};uint8_t* main_mode_repetition_ptr = &main_mode_repetition_value;auto extracted_value = main_mode_repetition_it.extract<uint8_t>();*main_mode_repetition_ptr = static_cast<uint8_t>(extracted_value);return main_mode_repetition_value;}
@@ -12810,7 +12805,7 @@ std::vector<uint8_t> GetChannel() {ASSERT(was_validated_);size_t end_index = siz
 
 protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 54 /* Total size of the fixed fields */;if (it > end()) return false;it += ((static_cast<size_t>(GetChannelSize()) * 8)) / 8;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_TEST) return false;
@@ -12849,7 +12844,7 @@ return true;}
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsTest { ";ss << ""  << "main_mode_type = " << static_cast<uint64_t>(GetMainModeType()) << ", sub_mode_type = " << static_cast<uint64_t>(GetSubModeType()) << ", main_mode_steps = " << static_cast<uint64_t>(GetMainModeSteps()) << ", main_mode_repetition = " << static_cast<uint64_t>(GetMainModeRepetition()) << ", mode_0_steps = " << static_cast<uint64_t>(GetMode0Steps()) << ", role = " << static_cast<uint64_t>(GetRole()) << ", rtt_type = " << static_cast<uint64_t>(GetRttType()) << ", cs_sync_phy = " << static_cast<uint64_t>(GetCsSyncPhy()) << ", cs_sync_antenna_selection = " << static_cast<uint64_t>(GetCsSyncAntennaSelection()) << ", cs_sync_aa_initiator = " << static_cast<uint64_t>(GetCsSyncAaInitiator()) << ", cs_sync_aa_reflector = " << static_cast<uint64_t>(GetCsSyncAaReflector()) << ", cs_sync_random = " << "ARRAY[";/* uint8_t   ScalarField */for (size_t index = 0; index < 16; index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetCsSyncRandom()[index]));}ss << "]" << ", cs_sync_user_payload_pattern = " << static_cast<uint64_t>(GetCsSyncUserPayloadPattern()) << ", cs_subevent_length = " << static_cast<uint64_t>(GetCsSubeventLength()) << ", cs_subevent_interval = " << static_cast<uint64_t>(GetCsSubeventInterval()) << ", transmit_power_level = " << static_cast<uint64_t>(GetTransmitPowerLevel()) << ", t_ip1_time = " << static_cast<uint64_t>(GetTIp1Time()) << ", t_ip2_time = " << static_cast<uint64_t>(GetTIp2Time()) << ", t_fcs_time = " << static_cast<uint64_t>(GetTFcsTime()) << ", t_pm_time = " << static_cast<uint64_t>(GetTPmTime()) << ", t_sw_time = " << static_cast<uint64_t>(GetTSwTime()) << ", t_pm_tone_ext = " << static_cast<uint64_t>(GetTPmToneExt()) << ", ss_marker1_position = " << static_cast<uint64_t>(GetSsMarker1Position()) << ", ss_marker2_position = " << static_cast<uint64_t>(GetSsMarker2Position()) << ", ss_marker_value = " << static_cast<uint64_t>(GetSsMarkerValue()) << ", companion_signal_enable = " << static_cast<uint64_t>(GetCompanionSignalEnable()) << ", tone_antenna_config = " << static_cast<uint64_t>(GetToneAntennaConfig()) << ", tone_antenna_permutation = " << static_cast<uint64_t>(GetToneAntennaPermutation()) << ", channel_map_repetition = " << static_cast<uint64_t>(GetChannelMapRepetition()) << ", channel_size = " << GetChannelSize() << ", channel = " << "VECTOR[";for (size_t index = 0; index < GetChannel().size(); index++) {ss << ((index == 0) ? "" : ", ") << static_cast<uint64_t>((GetChannel()[index]));}ss << "]";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsTestView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsTestView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsTestCompleteView : public CommandCompleteView { public:static LeCsTestCompleteView Create(CommandCompleteView parent){ return LeCsTestCompleteView(std::move(parent)); }static std::optional<LeCsTestCompleteView> CreateOptional(CommandCompleteView parent){ auto to_validate = LeCsTestCompleteView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}ErrorCode GetStatus() const {ASSERT(was_validated_);auto to_bound = begin();auto status_it = to_bound + (/* Bits: */ 40 + /* Dynamic: */ 0) / 8;ErrorCode status_value{};ErrorCode* status_ptr = &status_value;auto extracted_value = status_it.extract<uint8_t>();*status_ptr = static_cast<ErrorCode>(extracted_value);return status_value;}
@@ -12867,9 +12862,9 @@ return true;}
 explicit LeCsTestCompleteView(CommandCompleteView parent) : CommandCompleteView(std::move(parent)) { was_validated_ = false; }};
 
 
-class LeCsTestEndView : public LeCsCommandView { public:static LeCsTestEndView Create(LeCsCommandView parent){ return LeCsTestEndView(std::move(parent)); }static std::optional<LeCsTestEndView> CreateOptional(LeCsCommandView parent){ auto to_validate = LeCsTestEndView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
+class LeCsTestEndView : public DistanceMeasurementCommandView { public:static LeCsTestEndView Create(DistanceMeasurementCommandView parent){ return LeCsTestEndView(std::move(parent)); }static std::optional<LeCsTestEndView> CreateOptional(DistanceMeasurementCommandView parent){ auto to_validate = LeCsTestEndView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
 bool Validate() const override {
-  if (!LeCsCommandView::Validate()) {
+  if (!DistanceMeasurementCommandView::Validate()) {
     return false;
   }
 auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 0 /* Total size of the fixed fields */;if (it > end()) return false;if (GetOpCode() != OpCode::LE_CS_TEST_END) return false;return true;}
@@ -12877,7 +12872,7 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 0 /* Total siz
  public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsTestEnd { ";ss << " }";return ss.str();}
 
  protected:
-explicit LeCsTestEndView(LeCsCommandView parent) : LeCsCommandView(std::move(parent)) { was_validated_ = false; }};
+explicit LeCsTestEndView(DistanceMeasurementCommandView parent) : DistanceMeasurementCommandView(std::move(parent)) { was_validated_ = false; }};
 
 
 class LeCsTestEndStatusView : public CommandStatusView { public:static LeCsTestEndStatusView Create(CommandStatusView parent){ return LeCsTestEndStatusView(std::move(parent)); }static std::optional<LeCsTestEndStatusView> CreateOptional(CommandStatusView parent){ auto to_validate = LeCsTestEndStatusView::Create(std::move(parent));if (to_validate.IsValid()) { return to_validate; }else {return {};}}protected:
@@ -16360,7 +16355,7 @@ uint16_t GetConnectionHandle() const {ASSERT(was_validated_);auto to_bound = beg
 
 uint8_t GetConfigId() const {ASSERT(was_validated_);auto to_bound = begin();auto config_id_it = to_bound + (/* Bits: */ 48 + /* Dynamic: */ 0) / 8;uint8_t config_id_value{};uint8_t* config_id_ptr = &config_id_value;auto extracted_value = config_id_it.extract<uint8_t>();extracted_value &= 0x3;*config_id_ptr = static_cast<uint8_t>(extracted_value);return config_id_value;}
 
-CsProcedureState GetState() const {ASSERT(was_validated_);auto to_bound = begin();auto state_it = to_bound + (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;CsProcedureState state_value{};CsProcedureState* state_ptr = &state_value;auto extracted_value = state_it.extract<uint8_t>();*state_ptr = static_cast<CsProcedureState>(extracted_value);return state_value;}
+Enable GetState() const {ASSERT(was_validated_);auto to_bound = begin();auto state_it = to_bound + (/* Bits: */ 56 + /* Dynamic: */ 0) / 8;Enable state_value{};Enable* state_ptr = &state_value;auto extracted_value = state_it.extract<uint8_t>();*state_ptr = static_cast<Enable>(extracted_value);return state_value;}
 uint8_t GetToneAntennaConfigSelection() const {ASSERT(was_validated_);auto to_bound = begin();auto tone_antenna_config_selection_it = to_bound + (/* Bits: */ 64 + /* Dynamic: */ 0) / 8;uint8_t tone_antenna_config_selection_value{};uint8_t* tone_antenna_config_selection_ptr = &tone_antenna_config_selection_value;auto extracted_value = tone_antenna_config_selection_it.extract<uint8_t>();*tone_antenna_config_selection_ptr = static_cast<uint8_t>(extracted_value);return tone_antenna_config_selection_value;}
 uint8_t GetSelectedTxPower() const {ASSERT(was_validated_);auto to_bound = begin();auto selected_tx_power_it = to_bound + (/* Bits: */ 72 + /* Dynamic: */ 0) / 8;uint8_t selected_tx_power_value{};uint8_t* selected_tx_power_ptr = &selected_tx_power_value;auto extracted_value = selected_tx_power_it.extract<uint8_t>();*selected_tx_power_ptr = static_cast<uint8_t>(extracted_value);return selected_tx_power_value;}
 uint32_t GetSubeventLen() const {ASSERT(was_validated_);auto to_bound = begin();auto subevent_len_it = to_bound + (/* Bits: */ 80 + /* Dynamic: */ 0) / 8;uint32_t subevent_len_value{};uint32_t* subevent_len_ptr = &subevent_len_value;auto extracted_value = subevent_len_it.extract<uint32_t>();extracted_value &= 0xffffff;*subevent_len_ptr = static_cast<uint32_t>(extracted_value);return subevent_len_value;}
@@ -16390,7 +16385,7 @@ auto it = begin() + (/* Bits: */ 24 + /* Dynamic: */ 0) / 8;it += 19 /* Total si
 
 return true;}
 
- public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsProcedureEnableComplete { ";ss << ""  << "status = " << ErrorCodeText(GetStatus()) << ", connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId()) << ", state = " << CsProcedureStateText(GetState()) << ", tone_antenna_config_selection = " << static_cast<uint64_t>(GetToneAntennaConfigSelection()) << ", selected_tx_power = " << static_cast<uint64_t>(GetSelectedTxPower()) << ", subevent_len = " << static_cast<uint64_t>(GetSubeventLen()) << ", subevents_per_event = " << static_cast<uint64_t>(GetSubeventsPerEvent()) << ", subevent_interval = " << static_cast<uint64_t>(GetSubeventInterval()) << ", event_interval = " << static_cast<uint64_t>(GetEventInterval()) << ", procedure_interval = " << static_cast<uint64_t>(GetProcedureInterval()) << ", procedure_count = " << static_cast<uint64_t>(GetProcedureCount());ss << " }";return ss.str();}
+ public:virtual std::string ToString()  override {std::stringstream ss;ss << std::showbase << std::hex << "LeCsProcedureEnableComplete { ";ss << ""  << "status = " << ErrorCodeText(GetStatus()) << ", connection_handle = " << static_cast<uint64_t>(GetConnectionHandle()) << ", config_id = " << static_cast<uint64_t>(GetConfigId()) << ", state = " << EnableText(GetState()) << ", tone_antenna_config_selection = " << static_cast<uint64_t>(GetToneAntennaConfigSelection()) << ", selected_tx_power = " << static_cast<uint64_t>(GetSelectedTxPower()) << ", subevent_len = " << static_cast<uint64_t>(GetSubeventLen()) << ", subevents_per_event = " << static_cast<uint64_t>(GetSubeventsPerEvent()) << ", subevent_interval = " << static_cast<uint64_t>(GetSubeventInterval()) << ", event_interval = " << static_cast<uint64_t>(GetEventInterval()) << ", procedure_interval = " << static_cast<uint64_t>(GetProcedureInterval()) << ", procedure_count = " << static_cast<uint64_t>(GetProcedureCount());ss << " }";return ss.str();}
 
  protected:
 explicit LeCsProcedureEnableCompleteView(LeMetaEventView parent) : LeMetaEventView(std::move(parent)) { was_validated_ = false; }};
@@ -17538,7 +17533,7 @@ explicit LeIsoCommandBuilder(OpCode op_code) :CommandBuilder(op_code)  {}
 std::unique_ptr<BasePacketBuilder> payload_{};};
 
 
-class LeCsCommandBuilder : public CommandBuilder { public:  virtual ~LeCsCommandBuilder() = default;static std::unique_ptr<LeCsCommandBuilder> Create(OpCode op_code, std::unique_ptr<BasePacketBuilder> payload) {auto builder = std::unique_ptr<LeCsCommandBuilder>(new LeCsCommandBuilder(op_code));builder->payload_ = std::move(payload);return builder;}
+class DistanceMeasurementCommandBuilder : public CommandBuilder { public:  virtual ~DistanceMeasurementCommandBuilder() = default;static std::unique_ptr<DistanceMeasurementCommandBuilder> Create(OpCode op_code, std::unique_ptr<BasePacketBuilder> payload) {auto builder = std::unique_ptr<DistanceMeasurementCommandBuilder>(new DistanceMeasurementCommandBuilder(op_code));builder->payload_ = std::move(payload);return builder;}
 
 protected:void SerializeHeader(BitInserter& i ) const {CommandBuilder::SerializeHeader(i);}
 
@@ -17555,7 +17550,7 @@ size_t GetPayloadSize() const {if (payload_ != nullptr) {return payload_->size()
 public:virtual size_t size() const override {return (BitsOfHeader() / 8)+ payload_->size() + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsCommandBuilder(OpCode op_code) :CommandBuilder(op_code)  {}
+explicit DistanceMeasurementCommandBuilder(OpCode op_code) :CommandBuilder(op_code)  {}
 
 
 std::unique_ptr<BasePacketBuilder> payload_{};};
@@ -26702,28 +26697,29 @@ explicit LeSetExtendedAdvertisingDataBuilder(uint8_t advertising_handle, Operati
 uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::vector<GapData> advertising_data_{};};
 
 
-class LeSetExtendedAdvertisingDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetExtendedAdvertisingDataRawBuilder() = default;static std::unique_ptr<LeSetExtendedAdvertisingDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, const std::vector<uint8_t>& advertising_data) {auto builder = std::unique_ptr<LeSetExtendedAdvertisingDataRawBuilder>(new LeSetExtendedAdvertisingDataRawBuilder(advertising_handle, operation, fragment_preference, advertising_data));return builder;}
+class LeSetExtendedAdvertisingDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetExtendedAdvertisingDataRawBuilder() = default;static std::unique_ptr<LeSetExtendedAdvertisingDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, std::unique_ptr<BasePacketBuilder> payload) {auto builder = std::unique_ptr<LeSetExtendedAdvertisingDataRawBuilder>(new LeSetExtendedAdvertisingDataRawBuilder(advertising_handle, operation, fragment_preference));builder->payload_ = std::move(payload);return builder;}
 
 protected:void SerializeHeader(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeHeader(i);i.insert_byte(advertising_handle_);insert(static_cast<uint8_t>(operation_), i, 3);insert(static_cast<uint8_t>(0) /* Reserved */, i, 5 );
 insert(static_cast<uint8_t>(fragment_preference_), i, 1);insert(static_cast<uint8_t>(0) /* Reserved */, i, 7 );
-size_t advertising_data_bytes = 0;advertising_data_bytes = advertising_data_.size() * ((/* Bits: */ 8 + /* Dynamic: */ 0) / 8);ASSERT(advertising_data_bytes < (1 << 8));insert(advertising_data_bytes, i, 8);for (const auto& val_ : advertising_data_) {i.insert_byte(val_);}
-}
+size_t payload_bytes = GetPayloadSize();ASSERT(payload_bytes < (static_cast<size_t>(1) << 8));insert(static_cast<uint8_t>(payload_bytes), i,8);}
 
 void SerializeFooter(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeFooter(i);}
 
-public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
+public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);payload_->Serialize(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 1 + /* Dynamic: */ 0 + /* Bits: */ 7 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(advertising_data_.size()) * 8);}
+protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 1 + /* Dynamic: */ 0 + /* Bits: */ 7 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
 size_t BitsOfFooter() const {return 0 + LeAdvertisingCommandBuilder::BitsOfFooter() ;}
 
-public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
+size_t GetPayloadSize() const {if (payload_ != nullptr) {return payload_->size();}else { return size() - (BitsOfHeader() + BitsOfFooter()) / 8;};}
+
+public:virtual size_t size() const override {return (BitsOfHeader() / 8)+ payload_->size() + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeSetExtendedAdvertisingDataRawBuilder(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, const std::vector<uint8_t>& advertising_data) :LeAdvertisingCommandBuilder(OpCode::LE_SET_EXTENDED_ADVERTISING_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation),fragment_preference_(fragment_preference),advertising_data_(advertising_data) {}
+explicit LeSetExtendedAdvertisingDataRawBuilder(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference) :LeAdvertisingCommandBuilder(OpCode::LE_SET_EXTENDED_ADVERTISING_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation),fragment_preference_(fragment_preference) {}
 
 
-uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::vector<uint8_t> advertising_data_{};};
+uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::unique_ptr<BasePacketBuilder> payload_{};};
 
 
 class LeSetExtendedAdvertisingDataCompleteBuilder : public CommandCompleteBuilder { public:  virtual ~LeSetExtendedAdvertisingDataCompleteBuilder() = default;static std::unique_ptr<LeSetExtendedAdvertisingDataCompleteBuilder> Create(uint8_t num_hci_command_packets, ErrorCode status) {auto builder = std::unique_ptr<LeSetExtendedAdvertisingDataCompleteBuilder>(new LeSetExtendedAdvertisingDataCompleteBuilder(num_hci_command_packets, status));return builder;}
@@ -26771,28 +26767,29 @@ explicit LeSetExtendedScanResponseDataBuilder(uint8_t advertising_handle, Operat
 uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::vector<GapData> scan_response_data_{};};
 
 
-class LeSetExtendedScanResponseDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetExtendedScanResponseDataRawBuilder() = default;static std::unique_ptr<LeSetExtendedScanResponseDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, const std::vector<uint8_t>& scan_response_data) {auto builder = std::unique_ptr<LeSetExtendedScanResponseDataRawBuilder>(new LeSetExtendedScanResponseDataRawBuilder(advertising_handle, operation, fragment_preference, scan_response_data));return builder;}
+class LeSetExtendedScanResponseDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetExtendedScanResponseDataRawBuilder() = default;static std::unique_ptr<LeSetExtendedScanResponseDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, std::unique_ptr<BasePacketBuilder> payload) {auto builder = std::unique_ptr<LeSetExtendedScanResponseDataRawBuilder>(new LeSetExtendedScanResponseDataRawBuilder(advertising_handle, operation, fragment_preference));builder->payload_ = std::move(payload);return builder;}
 
 protected:void SerializeHeader(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeHeader(i);i.insert_byte(advertising_handle_);insert(static_cast<uint8_t>(operation_), i, 3);insert(static_cast<uint8_t>(0) /* Reserved */, i, 5 );
 insert(static_cast<uint8_t>(fragment_preference_), i, 1);insert(static_cast<uint8_t>(0) /* Reserved */, i, 7 );
-size_t scan_response_data_bytes = 0;scan_response_data_bytes = scan_response_data_.size() * ((/* Bits: */ 8 + /* Dynamic: */ 0) / 8);ASSERT(scan_response_data_bytes < (1 << 8));insert(scan_response_data_bytes, i, 8);for (const auto& val_ : scan_response_data_) {i.insert_byte(val_);}
-}
+size_t payload_bytes = GetPayloadSize();ASSERT(payload_bytes < (static_cast<size_t>(1) << 8));insert(static_cast<uint8_t>(payload_bytes), i,8);}
 
 void SerializeFooter(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeFooter(i);}
 
-public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
+public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);payload_->Serialize(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 1 + /* Dynamic: */ 0 + /* Bits: */ 7 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(scan_response_data_.size()) * 8);}
+protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 1 + /* Dynamic: */ 0 + /* Bits: */ 7 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
 size_t BitsOfFooter() const {return 0 + LeAdvertisingCommandBuilder::BitsOfFooter() ;}
 
-public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
+size_t GetPayloadSize() const {if (payload_ != nullptr) {return payload_->size();}else { return size() - (BitsOfHeader() + BitsOfFooter()) / 8;};}
+
+public:virtual size_t size() const override {return (BitsOfHeader() / 8)+ payload_->size() + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeSetExtendedScanResponseDataRawBuilder(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference, const std::vector<uint8_t>& scan_response_data) :LeAdvertisingCommandBuilder(OpCode::LE_SET_EXTENDED_SCAN_RESPONSE_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation),fragment_preference_(fragment_preference),scan_response_data_(scan_response_data) {}
+explicit LeSetExtendedScanResponseDataRawBuilder(uint8_t advertising_handle, Operation operation, FragmentPreference fragment_preference) :LeAdvertisingCommandBuilder(OpCode::LE_SET_EXTENDED_SCAN_RESPONSE_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation),fragment_preference_(fragment_preference) {}
 
 
-uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::vector<uint8_t> scan_response_data_{};};
+uint8_t advertising_handle_{};Operation operation_{};FragmentPreference fragment_preference_{};std::unique_ptr<BasePacketBuilder> payload_{};};
 
 
 class LeSetExtendedScanResponseDataCompleteBuilder : public CommandCompleteBuilder { public:  virtual ~LeSetExtendedScanResponseDataCompleteBuilder() = default;static std::unique_ptr<LeSetExtendedScanResponseDataCompleteBuilder> Create(uint8_t num_hci_command_packets, ErrorCode status) {auto builder = std::unique_ptr<LeSetExtendedScanResponseDataCompleteBuilder>(new LeSetExtendedScanResponseDataCompleteBuilder(num_hci_command_packets, status));return builder;}
@@ -27138,27 +27135,28 @@ explicit LeSetPeriodicAdvertisingDataBuilder(uint8_t advertising_handle, Operati
 uint8_t advertising_handle_{};Operation operation_{};std::vector<GapData> advertising_data_{};};
 
 
-class LeSetPeriodicAdvertisingDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetPeriodicAdvertisingDataRawBuilder() = default;static std::unique_ptr<LeSetPeriodicAdvertisingDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, const std::vector<uint8_t>& advertising_data) {auto builder = std::unique_ptr<LeSetPeriodicAdvertisingDataRawBuilder>(new LeSetPeriodicAdvertisingDataRawBuilder(advertising_handle, operation, advertising_data));return builder;}
+class LeSetPeriodicAdvertisingDataRawBuilder : public LeAdvertisingCommandBuilder { public:  virtual ~LeSetPeriodicAdvertisingDataRawBuilder() = default;static std::unique_ptr<LeSetPeriodicAdvertisingDataRawBuilder> Create(uint8_t advertising_handle, Operation operation, std::unique_ptr<BasePacketBuilder> payload) {auto builder = std::unique_ptr<LeSetPeriodicAdvertisingDataRawBuilder>(new LeSetPeriodicAdvertisingDataRawBuilder(advertising_handle, operation));builder->payload_ = std::move(payload);return builder;}
 
 protected:void SerializeHeader(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeHeader(i);i.insert_byte(advertising_handle_);insert(static_cast<uint8_t>(operation_), i, 3);insert(static_cast<uint8_t>(0) /* Reserved */, i, 5 );
-size_t advertising_data_bytes = 0;advertising_data_bytes = advertising_data_.size() * ((/* Bits: */ 8 + /* Dynamic: */ 0) / 8);ASSERT(advertising_data_bytes < (1 << 8));insert(advertising_data_bytes, i, 8);for (const auto& val_ : advertising_data_) {i.insert_byte(val_);}
-}
+size_t payload_bytes = GetPayloadSize();ASSERT(payload_bytes < (static_cast<size_t>(1) << 8));insert(static_cast<uint8_t>(payload_bytes), i,8);}
 
 void SerializeFooter(BitInserter& i ) const {LeAdvertisingCommandBuilder::SerializeFooter(i);}
 
-public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
+public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);payload_->Serialize(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(advertising_data_.size()) * 8);}
+protected:size_t BitsOfHeader() const {return 0 + LeAdvertisingCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 3 + /* Dynamic: */ 0 + /* Bits: */ 5 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
 size_t BitsOfFooter() const {return 0 + LeAdvertisingCommandBuilder::BitsOfFooter() ;}
 
-public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
+size_t GetPayloadSize() const {if (payload_ != nullptr) {return payload_->size();}else { return size() - (BitsOfHeader() + BitsOfFooter()) / 8;};}
+
+public:virtual size_t size() const override {return (BitsOfHeader() / 8)+ payload_->size() + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeSetPeriodicAdvertisingDataRawBuilder(uint8_t advertising_handle, Operation operation, const std::vector<uint8_t>& advertising_data) :LeAdvertisingCommandBuilder(OpCode::LE_SET_PERIODIC_ADVERTISING_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation),advertising_data_(advertising_data) {}
+explicit LeSetPeriodicAdvertisingDataRawBuilder(uint8_t advertising_handle, Operation operation) :LeAdvertisingCommandBuilder(OpCode::LE_SET_PERIODIC_ADVERTISING_DATA/* op_code_ */) ,advertising_handle_(advertising_handle),operation_(operation) {}
 
 
-uint8_t advertising_handle_{};Operation operation_{};std::vector<uint8_t> advertising_data_{};};
+uint8_t advertising_handle_{};Operation operation_{};std::unique_ptr<BasePacketBuilder> payload_{};};
 
 
 class LeSetPeriodicAdvertisingDataCompleteBuilder : public CommandCompleteBuilder { public:  virtual ~LeSetPeriodicAdvertisingDataCompleteBuilder() = default;static std::unique_ptr<LeSetPeriodicAdvertisingDataCompleteBuilder> Create(uint8_t num_hci_command_packets, ErrorCode status) {auto builder = std::unique_ptr<LeSetPeriodicAdvertisingDataCompleteBuilder>(new LeSetPeriodicAdvertisingDataCompleteBuilder(num_hci_command_packets, status));return builder;}
@@ -29249,22 +29247,22 @@ explicit LeSubrateRequestStatusBuilder(ErrorCode status, uint8_t num_hci_command
 };
 
 
-class LeCsReadLocalSupportedCapabilitiesBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsReadLocalSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsReadLocalSupportedCapabilitiesBuilder> Create() {auto builder = std::unique_ptr<LeCsReadLocalSupportedCapabilitiesBuilder>(new LeCsReadLocalSupportedCapabilitiesBuilder());return builder;}
+class LeCsReadLocalSupportedCapabilitiesBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsReadLocalSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsReadLocalSupportedCapabilitiesBuilder> Create() {auto builder = std::unique_ptr<LeCsReadLocalSupportedCapabilitiesBuilder>(new LeCsReadLocalSupportedCapabilitiesBuilder());return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);}
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader() ;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader() ;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsReadLocalSupportedCapabilitiesBuilder() :LeCsCommandBuilder(OpCode::LE_CS_READ_LOCAL_SUPPORTED_CAPABILITIES/* op_code_ */)  {}
+explicit LeCsReadLocalSupportedCapabilitiesBuilder() :DistanceMeasurementCommandBuilder(OpCode::LE_CS_READ_LOCAL_SUPPORTED_CAPABILITIES/* op_code_ */)  {}
 
 
 };
@@ -29291,23 +29289,23 @@ explicit LeCsReadLocalSupportedCapabilitiesCompleteBuilder(uint8_t num_hci_comma
 ErrorCode status_{};uint8_t num_config_supported_{};uint16_t max_consecutive_procedures_supported_{};uint8_t num_antennas_supported_{};uint8_t max_antenna_paths_supported_{};CsRoleSupported roles_supported_{};CsOptionalModesSupported optional_modes_supported_{};CsRttCapability rtt_capability_{};uint8_t rtt_aa_only_n_{};uint8_t rtt_sounding_n_{};uint8_t rtt_random_payload_n_{};CsOptionalNadmSoundingCapability optional_nadm_sounding_capability_{};CsOptionalNadmRandomCapability optional_nadm_random_capability_{};CsOptionalCsSyncPhysSupported optional_cs_sync_phys_supported_{};CsOptionalSubfeaturesSupported optional_subfeatures_supported_{};CsOptionalTIp1TimesSupported optional_t_ip1_times_supported_{};CsOptionalTIp2TimesSupported optional_t_ip2_times_supported_{};CsOptionalTFcsTimesSupported optional_t_fcs_times_supported_{};CsOptionalTPmTimesSupported optional_t_pm_times_supported_{};uint8_t t_sw_time_supported_{};};
 
 
-class LeCsReadRemoteSupportedCapabilitiesBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsReadRemoteSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsReadRemoteSupportedCapabilitiesBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsReadRemoteSupportedCapabilitiesBuilder>(new LeCsReadRemoteSupportedCapabilitiesBuilder(connection_handle));return builder;}
+class LeCsReadRemoteSupportedCapabilitiesBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsReadRemoteSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsReadRemoteSupportedCapabilitiesBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsReadRemoteSupportedCapabilitiesBuilder>(new LeCsReadRemoteSupportedCapabilitiesBuilder(connection_handle));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsReadRemoteSupportedCapabilitiesBuilder(uint16_t connection_handle) :LeCsCommandBuilder(OpCode::LE_CS_READ_REMOTE_SUPPORTED_CAPABILITIES/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
+explicit LeCsReadRemoteSupportedCapabilitiesBuilder(uint16_t connection_handle) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_READ_REMOTE_SUPPORTED_CAPABILITIES/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29335,23 +29333,23 @@ explicit LeCsReadRemoteSupportedCapabilitiesStatusBuilder(ErrorCode status, uint
 };
 
 
-class LeCsWriteCachedRemoteSupportedCapabilitiesBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsWriteCachedRemoteSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsWriteCachedRemoteSupportedCapabilitiesBuilder> Create(uint16_t connection_handle, uint8_t num_config_supported, uint16_t max_consecutive_procedures_supported, uint8_t num_antennas_supported, uint8_t max_antenna_paths_supported, CsRoleSupported roles_supported, CsOptionalModesSupported optional_modes_supported, CsRttCapability rtt_capability, uint8_t rtt_aa_only_n, uint8_t rtt_sounding_n, uint8_t rtt_random_payload_n, CsOptionalNadmSoundingCapability optional_nadm_sounding_capability, CsOptionalNadmRandomCapability optional_nadm_random_capability, CsOptionalCsSyncPhysSupported optional_cs_sync_phys_supported, CsOptionalSubfeaturesSupported optional_subfeatures_supported, CsOptionalTIp1TimesSupported optional_t_ip1_times_supported, CsOptionalTIp2TimesSupported optional_t_ip2_times_supported, CsOptionalTFcsTimesSupported optional_t_fcs_times_supported, CsOptionalTPmTimesSupported optional_t_pm_times_supported, uint8_t t_sw_time_supported) {auto builder = std::unique_ptr<LeCsWriteCachedRemoteSupportedCapabilitiesBuilder>(new LeCsWriteCachedRemoteSupportedCapabilitiesBuilder(connection_handle, num_config_supported, max_consecutive_procedures_supported, num_antennas_supported, max_antenna_paths_supported, roles_supported, optional_modes_supported, rtt_capability, rtt_aa_only_n, rtt_sounding_n, rtt_random_payload_n, optional_nadm_sounding_capability, optional_nadm_random_capability, optional_cs_sync_phys_supported, optional_subfeatures_supported, optional_t_ip1_times_supported, optional_t_ip2_times_supported, optional_t_fcs_times_supported, optional_t_pm_times_supported, t_sw_time_supported));return builder;}
+class LeCsWriteCachedRemoteSupportedCapabilitiesBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsWriteCachedRemoteSupportedCapabilitiesBuilder() = default;static std::unique_ptr<LeCsWriteCachedRemoteSupportedCapabilitiesBuilder> Create(uint16_t connection_handle, uint8_t num_config_supported, uint16_t max_consecutive_procedures_supported, uint8_t num_antennas_supported, uint8_t max_antenna_paths_supported, CsRoleSupported roles_supported, CsOptionalModesSupported optional_modes_supported, CsRttCapability rtt_capability, uint8_t rtt_aa_only_n, uint8_t rtt_sounding_n, uint8_t rtt_random_payload_n, CsOptionalNadmSoundingCapability optional_nadm_sounding_capability, CsOptionalNadmRandomCapability optional_nadm_random_capability, CsOptionalCsSyncPhysSupported optional_cs_sync_phys_supported, CsOptionalSubfeaturesSupported optional_subfeatures_supported, CsOptionalTIp1TimesSupported optional_t_ip1_times_supported, CsOptionalTIp2TimesSupported optional_t_ip2_times_supported, CsOptionalTFcsTimesSupported optional_t_fcs_times_supported, CsOptionalTPmTimesSupported optional_t_pm_times_supported, uint8_t t_sw_time_supported) {auto builder = std::unique_ptr<LeCsWriteCachedRemoteSupportedCapabilitiesBuilder>(new LeCsWriteCachedRemoteSupportedCapabilitiesBuilder(connection_handle, num_config_supported, max_consecutive_procedures_supported, num_antennas_supported, max_antenna_paths_supported, roles_supported, optional_modes_supported, rtt_capability, rtt_aa_only_n, rtt_sounding_n, rtt_random_payload_n, optional_nadm_sounding_capability, optional_nadm_random_capability, optional_cs_sync_phys_supported, optional_subfeatures_supported, optional_t_ip1_times_supported, optional_t_ip2_times_supported, optional_t_fcs_times_supported, optional_t_pm_times_supported, t_sw_time_supported));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 i.insert_byte(num_config_supported_);insert(max_consecutive_procedures_supported_, i,16);i.insert_byte(num_antennas_supported_);i.insert_byte(max_antenna_paths_supported_);roles_supported_.Serialize(i);optional_modes_supported_.Serialize(i);rtt_capability_.Serialize(i);i.insert_byte(rtt_aa_only_n_);i.insert_byte(rtt_sounding_n_);i.insert_byte(rtt_random_payload_n_);optional_nadm_sounding_capability_.Serialize(i);optional_nadm_random_capability_.Serialize(i);optional_cs_sync_phys_supported_.Serialize(i);optional_subfeatures_supported_.Serialize(i);optional_t_ip1_times_supported_.Serialize(i);optional_t_ip2_times_supported_.Serialize(i);optional_t_fcs_times_supported_.Serialize(i);optional_t_pm_times_supported_.Serialize(i);i.insert_byte(t_sw_time_supported_);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (roles_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_modes_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (rtt_capability_.size() * 8) + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (optional_nadm_sounding_capability_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_nadm_random_capability_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_cs_sync_phys_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_subfeatures_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_ip1_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_ip2_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_fcs_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_pm_times_supported_.size() * 8) + /* Bits: */ 8 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (roles_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_modes_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (rtt_capability_.size() * 8) + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (optional_nadm_sounding_capability_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_nadm_random_capability_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_cs_sync_phys_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_subfeatures_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_ip1_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_ip2_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_fcs_times_supported_.size() * 8) + /* Bits: */ 0 + /* Dynamic: */ (optional_t_pm_times_supported_.size() * 8) + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsWriteCachedRemoteSupportedCapabilitiesBuilder(uint16_t connection_handle, uint8_t num_config_supported, uint16_t max_consecutive_procedures_supported, uint8_t num_antennas_supported, uint8_t max_antenna_paths_supported, CsRoleSupported roles_supported, CsOptionalModesSupported optional_modes_supported, CsRttCapability rtt_capability, uint8_t rtt_aa_only_n, uint8_t rtt_sounding_n, uint8_t rtt_random_payload_n, CsOptionalNadmSoundingCapability optional_nadm_sounding_capability, CsOptionalNadmRandomCapability optional_nadm_random_capability, CsOptionalCsSyncPhysSupported optional_cs_sync_phys_supported, CsOptionalSubfeaturesSupported optional_subfeatures_supported, CsOptionalTIp1TimesSupported optional_t_ip1_times_supported, CsOptionalTIp2TimesSupported optional_t_ip2_times_supported, CsOptionalTFcsTimesSupported optional_t_fcs_times_supported, CsOptionalTPmTimesSupported optional_t_pm_times_supported, uint8_t t_sw_time_supported) :LeCsCommandBuilder(OpCode::LE_CS_WRITE_CACHED_REMOTE_SUPPORTED_CAPABILITIES/* op_code_ */) ,connection_handle_(connection_handle),num_config_supported_(num_config_supported),max_consecutive_procedures_supported_(max_consecutive_procedures_supported),num_antennas_supported_(num_antennas_supported),max_antenna_paths_supported_(max_antenna_paths_supported),roles_supported_(roles_supported),optional_modes_supported_(optional_modes_supported),rtt_capability_(rtt_capability),rtt_aa_only_n_(rtt_aa_only_n),rtt_sounding_n_(rtt_sounding_n),rtt_random_payload_n_(rtt_random_payload_n),optional_nadm_sounding_capability_(optional_nadm_sounding_capability),optional_nadm_random_capability_(optional_nadm_random_capability),optional_cs_sync_phys_supported_(optional_cs_sync_phys_supported),optional_subfeatures_supported_(optional_subfeatures_supported),optional_t_ip1_times_supported_(optional_t_ip1_times_supported),optional_t_ip2_times_supported_(optional_t_ip2_times_supported),optional_t_fcs_times_supported_(optional_t_fcs_times_supported),optional_t_pm_times_supported_(optional_t_pm_times_supported),t_sw_time_supported_(t_sw_time_supported) {CheckParameterValues(connection_handle_);}
+explicit LeCsWriteCachedRemoteSupportedCapabilitiesBuilder(uint16_t connection_handle, uint8_t num_config_supported, uint16_t max_consecutive_procedures_supported, uint8_t num_antennas_supported, uint8_t max_antenna_paths_supported, CsRoleSupported roles_supported, CsOptionalModesSupported optional_modes_supported, CsRttCapability rtt_capability, uint8_t rtt_aa_only_n, uint8_t rtt_sounding_n, uint8_t rtt_random_payload_n, CsOptionalNadmSoundingCapability optional_nadm_sounding_capability, CsOptionalNadmRandomCapability optional_nadm_random_capability, CsOptionalCsSyncPhysSupported optional_cs_sync_phys_supported, CsOptionalSubfeaturesSupported optional_subfeatures_supported, CsOptionalTIp1TimesSupported optional_t_ip1_times_supported, CsOptionalTIp2TimesSupported optional_t_ip2_times_supported, CsOptionalTFcsTimesSupported optional_t_fcs_times_supported, CsOptionalTPmTimesSupported optional_t_pm_times_supported, uint8_t t_sw_time_supported) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_WRITE_CACHED_REMOTE_SUPPORTED_CAPABILITIES/* op_code_ */) ,connection_handle_(connection_handle),num_config_supported_(num_config_supported),max_consecutive_procedures_supported_(max_consecutive_procedures_supported),num_antennas_supported_(num_antennas_supported),max_antenna_paths_supported_(max_antenna_paths_supported),roles_supported_(roles_supported),optional_modes_supported_(optional_modes_supported),rtt_capability_(rtt_capability),rtt_aa_only_n_(rtt_aa_only_n),rtt_sounding_n_(rtt_sounding_n),rtt_random_payload_n_(rtt_random_payload_n),optional_nadm_sounding_capability_(optional_nadm_sounding_capability),optional_nadm_random_capability_(optional_nadm_random_capability),optional_cs_sync_phys_supported_(optional_cs_sync_phys_supported),optional_subfeatures_supported_(optional_subfeatures_supported),optional_t_ip1_times_supported_(optional_t_ip1_times_supported),optional_t_ip2_times_supported_(optional_t_ip2_times_supported),optional_t_fcs_times_supported_(optional_t_fcs_times_supported),optional_t_pm_times_supported_(optional_t_pm_times_supported),t_sw_time_supported_(t_sw_time_supported) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29381,23 +29379,23 @@ void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle 
 ErrorCode status_{};uint16_t connection_handle_{};};
 
 
-class LeCsSecurityEnableBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsSecurityEnableBuilder() = default;static std::unique_ptr<LeCsSecurityEnableBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsSecurityEnableBuilder>(new LeCsSecurityEnableBuilder(connection_handle));return builder;}
+class LeCsSecurityEnableBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsSecurityEnableBuilder() = default;static std::unique_ptr<LeCsSecurityEnableBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsSecurityEnableBuilder>(new LeCsSecurityEnableBuilder(connection_handle));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsSecurityEnableBuilder(uint16_t connection_handle) :LeCsCommandBuilder(OpCode::LE_CS_SECURITY_ENABLE/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
+explicit LeCsSecurityEnableBuilder(uint16_t connection_handle) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_SECURITY_ENABLE/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29425,23 +29423,23 @@ explicit LeCsSecurityEnableStatusBuilder(ErrorCode status, uint8_t num_hci_comma
 };
 
 
-class LeCsSetDefaultSettingsBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsSetDefaultSettingsBuilder() = default;static std::unique_ptr<LeCsSetDefaultSettingsBuilder> Create(uint16_t connection_handle, uint8_t role_enable, CsSyncAntennaSelection cs_sync_antenna_selection, uint8_t max_tx_power) {auto builder = std::unique_ptr<LeCsSetDefaultSettingsBuilder>(new LeCsSetDefaultSettingsBuilder(connection_handle, role_enable, cs_sync_antenna_selection, max_tx_power));return builder;}
+class LeCsSetDefaultSettingsBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsSetDefaultSettingsBuilder() = default;static std::unique_ptr<LeCsSetDefaultSettingsBuilder> Create(uint16_t connection_handle, uint8_t role_enable, CsSyncAntennaSelection cs_sync_antenna_selection, uint8_t max_tx_power) {auto builder = std::unique_ptr<LeCsSetDefaultSettingsBuilder>(new LeCsSetDefaultSettingsBuilder(connection_handle, role_enable, cs_sync_antenna_selection, max_tx_power));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 i.insert_byte(role_enable_);insert(static_cast<uint8_t>(cs_sync_antenna_selection_), i, 8);i.insert_byte(max_tx_power_);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsSetDefaultSettingsBuilder(uint16_t connection_handle, uint8_t role_enable, CsSyncAntennaSelection cs_sync_antenna_selection, uint8_t max_tx_power) :LeCsCommandBuilder(OpCode::LE_CS_SET_DEFAULT_SETTINGS/* op_code_ */) ,connection_handle_(connection_handle),role_enable_(role_enable),cs_sync_antenna_selection_(cs_sync_antenna_selection),max_tx_power_(max_tx_power) {CheckParameterValues(connection_handle_);}
+explicit LeCsSetDefaultSettingsBuilder(uint16_t connection_handle, uint8_t role_enable, CsSyncAntennaSelection cs_sync_antenna_selection, uint8_t max_tx_power) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_SET_DEFAULT_SETTINGS/* op_code_ */) ,connection_handle_(connection_handle),role_enable_(role_enable),cs_sync_antenna_selection_(cs_sync_antenna_selection),max_tx_power_(max_tx_power) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29471,23 +29469,23 @@ void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle 
 ErrorCode status_{};uint16_t connection_handle_{};};
 
 
-class LeCsReadRemoteFaeTableBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsReadRemoteFaeTableBuilder() = default;static std::unique_ptr<LeCsReadRemoteFaeTableBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsReadRemoteFaeTableBuilder>(new LeCsReadRemoteFaeTableBuilder(connection_handle));return builder;}
+class LeCsReadRemoteFaeTableBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsReadRemoteFaeTableBuilder() = default;static std::unique_ptr<LeCsReadRemoteFaeTableBuilder> Create(uint16_t connection_handle) {auto builder = std::unique_ptr<LeCsReadRemoteFaeTableBuilder>(new LeCsReadRemoteFaeTableBuilder(connection_handle));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsReadRemoteFaeTableBuilder(uint16_t connection_handle) :LeCsCommandBuilder(OpCode::LE_CS_READ_REMOTE_FAE_TABLE/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
+explicit LeCsReadRemoteFaeTableBuilder(uint16_t connection_handle) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_READ_REMOTE_FAE_TABLE/* op_code_ */) ,connection_handle_(connection_handle) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29515,24 +29513,24 @@ explicit LeCsReadRemoteFaeTableStatusBuilder(ErrorCode status, uint8_t num_hci_c
 };
 
 
-class LeCsWriteCachedRemoteFaeTableBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsWriteCachedRemoteFaeTableBuilder() = default;static std::unique_ptr<LeCsWriteCachedRemoteFaeTableBuilder> Create(uint16_t connection_handle, const std::array<uint8_t,9>& remote_fae_table) {auto builder = std::unique_ptr<LeCsWriteCachedRemoteFaeTableBuilder>(new LeCsWriteCachedRemoteFaeTableBuilder(connection_handle, remote_fae_table));return builder;}
+class LeCsWriteCachedRemoteFaeTableBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsWriteCachedRemoteFaeTableBuilder() = default;static std::unique_ptr<LeCsWriteCachedRemoteFaeTableBuilder> Create(uint16_t connection_handle, const std::array<uint8_t,9>& remote_fae_table) {auto builder = std::unique_ptr<LeCsWriteCachedRemoteFaeTableBuilder>(new LeCsWriteCachedRemoteFaeTableBuilder(connection_handle, remote_fae_table));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 for (const auto& val_ : remote_fae_table_) {i.insert_byte(val_);}
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 72 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 72 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsWriteCachedRemoteFaeTableBuilder(uint16_t connection_handle, const std::array<uint8_t,9>& remote_fae_table) :LeCsCommandBuilder(OpCode::LE_CS_WRITE_CACHED_REMOTE_FAE_TABLE/* op_code_ */) ,connection_handle_(connection_handle),remote_fae_table_(remote_fae_table) {CheckParameterValues(connection_handle_);}
+explicit LeCsWriteCachedRemoteFaeTableBuilder(uint16_t connection_handle, const std::array<uint8_t,9>& remote_fae_table) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_WRITE_CACHED_REMOTE_FAE_TABLE/* op_code_ */) ,connection_handle_(connection_handle),remote_fae_table_(remote_fae_table) {CheckParameterValues(connection_handle_);}
 
 void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));}
 
@@ -29562,27 +29560,27 @@ void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle 
 ErrorCode status_{};uint16_t connection_handle_{};};
 
 
-class LeCsCreateConfigBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsCreateConfigBuilder() = default;static std::unique_ptr<LeCsCreateConfigBuilder> Create(uint16_t connection_handle, uint8_t config_id, CsCreateContext create_context, CsMainModeType main_mode_type, CsSubModeType sub_mode_type, uint8_t main_mode_min_steps, uint8_t main_mode_max_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, CsRole role, CsConfigRttType rtt_type, CsSyncPhy cs_sync_phy, const std::array<uint8_t,10>& channel_map, uint8_t channel_map_repetition, CsChannelSelectionType channel_selection_type, CsCh3cShape ch3c_shape, uint8_t ch3c_jump, Enable companion_signal_enable) {auto builder = std::unique_ptr<LeCsCreateConfigBuilder>(new LeCsCreateConfigBuilder(connection_handle, config_id, create_context, main_mode_type, sub_mode_type, main_mode_min_steps, main_mode_max_steps, main_mode_repetition, mode_0_steps, role, rtt_type, cs_sync_phy, channel_map, channel_map_repetition, channel_selection_type, ch3c_shape, ch3c_jump, companion_signal_enable));return builder;}
+class LeCsCreateConfigBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsCreateConfigBuilder() = default;static std::unique_ptr<LeCsCreateConfigBuilder> Create(uint16_t connection_handle, uint8_t config_id, CsCreateContext create_context, CsMainModeType main_mode_type, CsSubModeType sub_mode_type, uint8_t main_mode_min_steps, uint8_t main_mode_max_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, CsRole role, CsConfigRttType rtt_type, CsSyncPhy cs_sync_phy, const std::array<uint8_t,10>& channel_map, uint8_t channel_map_repetition, CsChannelSelectionType channel_selection_type, CsCh3cShape ch3c_shape, uint8_t ch3c_jump, Enable companion_signal_enable) {auto builder = std::unique_ptr<LeCsCreateConfigBuilder>(new LeCsCreateConfigBuilder(connection_handle, config_id, create_context, main_mode_type, sub_mode_type, main_mode_min_steps, main_mode_max_steps, main_mode_repetition, mode_0_steps, role, rtt_type, cs_sync_phy, channel_map, channel_map_repetition, channel_selection_type, ch3c_shape, ch3c_jump, companion_signal_enable));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
 insert(static_cast<uint8_t>(create_context_), i, 8);insert(static_cast<uint8_t>(main_mode_type_), i, 8);insert(static_cast<uint8_t>(sub_mode_type_), i, 8);i.insert_byte(main_mode_min_steps_);i.insert_byte(main_mode_max_steps_);insert(main_mode_repetition_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
 insert(mode_0_steps_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
 insert(static_cast<uint8_t>(role_), i, 8);insert(static_cast<uint8_t>(rtt_type_), i, 8);insert(static_cast<uint8_t>(cs_sync_phy_), i, 8);for (const auto& val_ : channel_map_) {i.insert_byte(val_);}
 i.insert_byte(channel_map_repetition_);insert(static_cast<uint8_t>(channel_selection_type_), i, 8);insert(static_cast<uint8_t>(ch3c_shape_), i, 8);i.insert_byte(ch3c_jump_);insert(static_cast<uint8_t>(companion_signal_enable_), i, 8);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 80 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 80 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsCreateConfigBuilder(uint16_t connection_handle, uint8_t config_id, CsCreateContext create_context, CsMainModeType main_mode_type, CsSubModeType sub_mode_type, uint8_t main_mode_min_steps, uint8_t main_mode_max_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, CsRole role, CsConfigRttType rtt_type, CsSyncPhy cs_sync_phy, const std::array<uint8_t,10>& channel_map, uint8_t channel_map_repetition, CsChannelSelectionType channel_selection_type, CsCh3cShape ch3c_shape, uint8_t ch3c_jump, Enable companion_signal_enable) :LeCsCommandBuilder(OpCode::LE_CS_CREATE_CONFIG/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id),create_context_(create_context),main_mode_type_(main_mode_type),sub_mode_type_(sub_mode_type),main_mode_min_steps_(main_mode_min_steps),main_mode_max_steps_(main_mode_max_steps),main_mode_repetition_(main_mode_repetition),mode_0_steps_(mode_0_steps),role_(role),rtt_type_(rtt_type),cs_sync_phy_(cs_sync_phy),channel_map_(channel_map),channel_map_repetition_(channel_map_repetition),channel_selection_type_(channel_selection_type),ch3c_shape_(ch3c_shape),ch3c_jump_(ch3c_jump),companion_signal_enable_(companion_signal_enable) {CheckParameterValues(connection_handle_, config_id_, main_mode_repetition_, mode_0_steps_);}
+explicit LeCsCreateConfigBuilder(uint16_t connection_handle, uint8_t config_id, CsCreateContext create_context, CsMainModeType main_mode_type, CsSubModeType sub_mode_type, uint8_t main_mode_min_steps, uint8_t main_mode_max_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, CsRole role, CsConfigRttType rtt_type, CsSyncPhy cs_sync_phy, const std::array<uint8_t,10>& channel_map, uint8_t channel_map_repetition, CsChannelSelectionType channel_selection_type, CsCh3cShape ch3c_shape, uint8_t ch3c_jump, Enable companion_signal_enable) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_CREATE_CONFIG/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id),create_context_(create_context),main_mode_type_(main_mode_type),sub_mode_type_(sub_mode_type),main_mode_min_steps_(main_mode_min_steps),main_mode_max_steps_(main_mode_max_steps),main_mode_repetition_(main_mode_repetition),mode_0_steps_(mode_0_steps),role_(role),rtt_type_(rtt_type),cs_sync_phy_(cs_sync_phy),channel_map_(channel_map),channel_map_repetition_(channel_map_repetition),channel_selection_type_(channel_selection_type),ch3c_shape_(ch3c_shape),ch3c_jump_(ch3c_jump),companion_signal_enable_(companion_signal_enable) {CheckParameterValues(connection_handle_, config_id_, main_mode_repetition_, mode_0_steps_);}
 
 void CheckParameterValues(uint16_t connection_handle, uint8_t config_id, uint8_t main_mode_repetition, uint8_t mode_0_steps) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));ASSERT(config_id < (static_cast<uint64_t>(1) << 2));ASSERT(main_mode_repetition < (static_cast<uint64_t>(1) << 2));ASSERT(mode_0_steps < (static_cast<uint64_t>(1) << 2));}
 
@@ -29610,24 +29608,24 @@ explicit LeCsCreateConfigStatusBuilder(ErrorCode status, uint8_t num_hci_command
 };
 
 
-class LeCsRemoveConfigBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsRemoveConfigBuilder() = default;static std::unique_ptr<LeCsRemoveConfigBuilder> Create(uint16_t connection_handle, uint8_t config_id) {auto builder = std::unique_ptr<LeCsRemoveConfigBuilder>(new LeCsRemoveConfigBuilder(connection_handle, config_id));return builder;}
+class LeCsRemoveConfigBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsRemoveConfigBuilder() = default;static std::unique_ptr<LeCsRemoveConfigBuilder> Create(uint16_t connection_handle, uint8_t config_id) {auto builder = std::unique_ptr<LeCsRemoveConfigBuilder>(new LeCsRemoveConfigBuilder(connection_handle, config_id));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsRemoveConfigBuilder(uint16_t connection_handle, uint8_t config_id) :LeCsCommandBuilder(OpCode::LE_CS_REMOVE_CONFIG/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id) {CheckParameterValues(connection_handle_, config_id_);}
+explicit LeCsRemoveConfigBuilder(uint16_t connection_handle, uint8_t config_id) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_REMOVE_CONFIG/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id) {CheckParameterValues(connection_handle_, config_id_);}
 
 void CheckParameterValues(uint16_t connection_handle, uint8_t config_id) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));ASSERT(config_id < (static_cast<uint64_t>(1) << 2));}
 
@@ -29655,23 +29653,23 @@ explicit LeCsRemoveConfigStatusBuilder(ErrorCode status, uint8_t num_hci_command
 };
 
 
-class LeCsSetChannelClassificationBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsSetChannelClassificationBuilder() = default;static std::unique_ptr<LeCsSetChannelClassificationBuilder> Create(const std::array<uint8_t,10>& channel_classification) {auto builder = std::unique_ptr<LeCsSetChannelClassificationBuilder>(new LeCsSetChannelClassificationBuilder(channel_classification));return builder;}
+class LeCsSetChannelClassificationBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsSetChannelClassificationBuilder() = default;static std::unique_ptr<LeCsSetChannelClassificationBuilder> Create(const std::array<uint8_t,10>& channel_classification) {auto builder = std::unique_ptr<LeCsSetChannelClassificationBuilder>(new LeCsSetChannelClassificationBuilder(channel_classification));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);for (const auto& val_ : channel_classification_) {i.insert_byte(val_);}
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);for (const auto& val_ : channel_classification_) {i.insert_byte(val_);}
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 80 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 80 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsSetChannelClassificationBuilder(const std::array<uint8_t,10>& channel_classification) :LeCsCommandBuilder(OpCode::LE_CS_SET_CHANNEL_CLASSIFICATION/* op_code_ */) ,channel_classification_(channel_classification) {}
+explicit LeCsSetChannelClassificationBuilder(const std::array<uint8_t,10>& channel_classification) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_SET_CHANNEL_CLASSIFICATION/* op_code_ */) ,channel_classification_(channel_classification) {}
 
 
 std::array<uint8_t,10> channel_classification_{};};
@@ -29698,24 +29696,24 @@ explicit LeCsSetChannelClassificationCompleteBuilder(uint8_t num_hci_command_pac
 };
 
 
-class LeCsSetProcedureParametersBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsSetProcedureParametersBuilder() = default;static std::unique_ptr<LeCsSetProcedureParametersBuilder> Create(uint16_t connection_handle, uint8_t config_id, uint16_t max_procedure_duration, uint16_t min_procedure_interval, uint16_t max_procedure_interval, uint16_t max_procedure_count, uint32_t min_subevent_len, uint32_t max_subevent_len, uint8_t tone_antenna_config_selection, CsPhy phy, uint8_t tx_pwr_delta, CsPreferredPeerAntenna preferred_peer_antenna) {auto builder = std::unique_ptr<LeCsSetProcedureParametersBuilder>(new LeCsSetProcedureParametersBuilder(connection_handle, config_id, max_procedure_duration, min_procedure_interval, max_procedure_interval, max_procedure_count, min_subevent_len, max_subevent_len, tone_antenna_config_selection, phy, tx_pwr_delta, preferred_peer_antenna));return builder;}
+class LeCsSetProcedureParametersBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsSetProcedureParametersBuilder() = default;static std::unique_ptr<LeCsSetProcedureParametersBuilder> Create(uint16_t connection_handle, uint8_t config_id, uint16_t max_procedure_duration, uint16_t min_procedure_interval, uint16_t max_procedure_interval, uint16_t max_procedure_count, uint32_t min_subevent_len, uint32_t max_subevent_len, uint8_t tone_antenna_config_selection, CsPhy phy, uint8_t tx_pwr_delta, CsPreferredPeerAntenna preferred_peer_antenna) {auto builder = std::unique_ptr<LeCsSetProcedureParametersBuilder>(new LeCsSetProcedureParametersBuilder(connection_handle, config_id, max_procedure_duration, min_procedure_interval, max_procedure_interval, max_procedure_count, min_subevent_len, max_subevent_len, tone_antenna_config_selection, phy, tx_pwr_delta, preferred_peer_antenna));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
 insert(max_procedure_duration_, i,16);insert(min_procedure_interval_, i,16);insert(max_procedure_interval_, i,16);insert(max_procedure_count_, i,16);insert(min_subevent_len_, i,24);insert(max_subevent_len_, i,24);i.insert_byte(tone_antenna_config_selection_);insert(static_cast<uint8_t>(phy_), i, 8);i.insert_byte(tx_pwr_delta_);preferred_peer_antenna_.Serialize(i);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (preferred_peer_antenna_.size() * 8);}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (preferred_peer_antenna_.size() * 8);}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsSetProcedureParametersBuilder(uint16_t connection_handle, uint8_t config_id, uint16_t max_procedure_duration, uint16_t min_procedure_interval, uint16_t max_procedure_interval, uint16_t max_procedure_count, uint32_t min_subevent_len, uint32_t max_subevent_len, uint8_t tone_antenna_config_selection, CsPhy phy, uint8_t tx_pwr_delta, CsPreferredPeerAntenna preferred_peer_antenna) :LeCsCommandBuilder(OpCode::LE_CS_SET_PROCEDURE_PARAMETERS/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id),max_procedure_duration_(max_procedure_duration),min_procedure_interval_(min_procedure_interval),max_procedure_interval_(max_procedure_interval),max_procedure_count_(max_procedure_count),min_subevent_len_(min_subevent_len),max_subevent_len_(max_subevent_len),tone_antenna_config_selection_(tone_antenna_config_selection),phy_(phy),tx_pwr_delta_(tx_pwr_delta),preferred_peer_antenna_(preferred_peer_antenna) {CheckParameterValues(connection_handle_, config_id_, min_subevent_len_, max_subevent_len_);}
+explicit LeCsSetProcedureParametersBuilder(uint16_t connection_handle, uint8_t config_id, uint16_t max_procedure_duration, uint16_t min_procedure_interval, uint16_t max_procedure_interval, uint16_t max_procedure_count, uint32_t min_subevent_len, uint32_t max_subevent_len, uint8_t tone_antenna_config_selection, CsPhy phy, uint8_t tx_pwr_delta, CsPreferredPeerAntenna preferred_peer_antenna) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_SET_PROCEDURE_PARAMETERS/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id),max_procedure_duration_(max_procedure_duration),min_procedure_interval_(min_procedure_interval),max_procedure_interval_(max_procedure_interval),max_procedure_count_(max_procedure_count),min_subevent_len_(min_subevent_len),max_subevent_len_(max_subevent_len),tone_antenna_config_selection_(tone_antenna_config_selection),phy_(phy),tx_pwr_delta_(tx_pwr_delta),preferred_peer_antenna_(preferred_peer_antenna) {CheckParameterValues(connection_handle_, config_id_, min_subevent_len_, max_subevent_len_);}
 
 void CheckParameterValues(uint16_t connection_handle, uint8_t config_id, uint32_t min_subevent_len, uint32_t max_subevent_len) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));ASSERT(config_id < (static_cast<uint64_t>(1) << 2));ASSERT(min_subevent_len < (static_cast<uint64_t>(1) << 24));ASSERT(max_subevent_len < (static_cast<uint64_t>(1) << 24));}
 
@@ -29745,28 +29743,28 @@ void CheckParameterValues(uint16_t connection_handle) {ASSERT(connection_handle 
 ErrorCode status_{};uint16_t connection_handle_{};};
 
 
-class LeCsProcedureEnableBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsProcedureEnableBuilder() = default;static std::unique_ptr<LeCsProcedureEnableBuilder> Create(uint16_t connection_handle, uint8_t procedure_enable, uint8_t config_id) {auto builder = std::unique_ptr<LeCsProcedureEnableBuilder>(new LeCsProcedureEnableBuilder(connection_handle, procedure_enable, config_id));return builder;}
+class LeCsProcedureEnableBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsProcedureEnableBuilder() = default;static std::unique_ptr<LeCsProcedureEnableBuilder> Create(uint16_t connection_handle, uint8_t config_id, Enable procedure_enable) {auto builder = std::unique_ptr<LeCsProcedureEnableBuilder>(new LeCsProcedureEnableBuilder(connection_handle, config_id, procedure_enable));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
-i.insert_byte(procedure_enable_);insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
-}
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
+insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
+insert(static_cast<uint8_t>(procedure_enable_), i, 8);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 12 + /* Dynamic: */ 0 + /* Bits: */ 4 + /* Dynamic: */ 0 + /* Bits: */ 2 + /* Dynamic: */ 0 + /* Bits: */ 6 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsProcedureEnableBuilder(uint16_t connection_handle, uint8_t procedure_enable, uint8_t config_id) :LeCsCommandBuilder(OpCode::LE_CS_PROCEDURE_ENABLE/* op_code_ */) ,connection_handle_(connection_handle),procedure_enable_(procedure_enable),config_id_(config_id) {CheckParameterValues(connection_handle_, config_id_);}
+explicit LeCsProcedureEnableBuilder(uint16_t connection_handle, uint8_t config_id, Enable procedure_enable) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_PROCEDURE_ENABLE/* op_code_ */) ,connection_handle_(connection_handle),config_id_(config_id),procedure_enable_(procedure_enable) {CheckParameterValues(connection_handle_, config_id_);}
 
 void CheckParameterValues(uint16_t connection_handle, uint8_t config_id) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));ASSERT(config_id < (static_cast<uint64_t>(1) << 2));}
 
-uint16_t connection_handle_{};uint8_t procedure_enable_{};uint8_t config_id_{};};
+uint16_t connection_handle_{};uint8_t config_id_{};Enable procedure_enable_{};};
 
 
 class LeCsProcedureEnableStatusBuilder : public CommandStatusBuilder { public:  virtual ~LeCsProcedureEnableStatusBuilder() = default;static std::unique_ptr<LeCsProcedureEnableStatusBuilder> Create(ErrorCode status, uint8_t num_hci_command_packets) {auto builder = std::unique_ptr<LeCsProcedureEnableStatusBuilder>(new LeCsProcedureEnableStatusBuilder(status, num_hci_command_packets));return builder;}
@@ -29790,24 +29788,24 @@ explicit LeCsProcedureEnableStatusBuilder(ErrorCode status, uint8_t num_hci_comm
 };
 
 
-class LeCsTestBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsTestBuilder() = default;static std::unique_ptr<LeCsTestBuilder> Create(uint8_t main_mode_type, uint8_t sub_mode_type, uint8_t main_mode_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, uint8_t role, uint8_t rtt_type, uint8_t cs_sync_phy, uint8_t cs_sync_antenna_selection, uint32_t cs_sync_aa_initiator, uint32_t cs_sync_aa_reflector, const std::array<uint8_t,16>& cs_sync_random, uint8_t cs_sync_user_payload_pattern, uint32_t cs_subevent_length, uint16_t cs_subevent_interval, uint8_t transmit_power_level, uint8_t t_ip1_time, uint8_t t_ip2_time, uint8_t t_fcs_time, uint8_t t_pm_time, uint8_t t_sw_time, uint8_t t_pm_tone_ext, uint8_t ss_marker1_position, uint8_t ss_marker2_position, uint8_t ss_marker_value, uint8_t companion_signal_enable, uint8_t tone_antenna_config, uint8_t tone_antenna_permutation, uint8_t channel_map_repetition, const std::vector<uint8_t>& channel) {auto builder = std::unique_ptr<LeCsTestBuilder>(new LeCsTestBuilder(main_mode_type, sub_mode_type, main_mode_steps, main_mode_repetition, mode_0_steps, role, rtt_type, cs_sync_phy, cs_sync_antenna_selection, cs_sync_aa_initiator, cs_sync_aa_reflector, cs_sync_random, cs_sync_user_payload_pattern, cs_subevent_length, cs_subevent_interval, transmit_power_level, t_ip1_time, t_ip2_time, t_fcs_time, t_pm_time, t_sw_time, t_pm_tone_ext, ss_marker1_position, ss_marker2_position, ss_marker_value, companion_signal_enable, tone_antenna_config, tone_antenna_permutation, channel_map_repetition, channel));return builder;}
+class LeCsTestBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsTestBuilder() = default;static std::unique_ptr<LeCsTestBuilder> Create(uint8_t main_mode_type, uint8_t sub_mode_type, uint8_t main_mode_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, uint8_t role, uint8_t rtt_type, uint8_t cs_sync_phy, uint8_t cs_sync_antenna_selection, uint32_t cs_sync_aa_initiator, uint32_t cs_sync_aa_reflector, const std::array<uint8_t,16>& cs_sync_random, uint8_t cs_sync_user_payload_pattern, uint32_t cs_subevent_length, uint16_t cs_subevent_interval, uint8_t transmit_power_level, uint8_t t_ip1_time, uint8_t t_ip2_time, uint8_t t_fcs_time, uint8_t t_pm_time, uint8_t t_sw_time, uint8_t t_pm_tone_ext, uint8_t ss_marker1_position, uint8_t ss_marker2_position, uint8_t ss_marker_value, uint8_t companion_signal_enable, uint8_t tone_antenna_config, uint8_t tone_antenna_permutation, uint8_t channel_map_repetition, const std::vector<uint8_t>& channel) {auto builder = std::unique_ptr<LeCsTestBuilder>(new LeCsTestBuilder(main_mode_type, sub_mode_type, main_mode_steps, main_mode_repetition, mode_0_steps, role, rtt_type, cs_sync_phy, cs_sync_antenna_selection, cs_sync_aa_initiator, cs_sync_aa_reflector, cs_sync_random, cs_sync_user_payload_pattern, cs_subevent_length, cs_subevent_interval, transmit_power_level, t_ip1_time, t_ip2_time, t_fcs_time, t_pm_time, t_sw_time, t_pm_tone_ext, ss_marker1_position, ss_marker2_position, ss_marker_value, companion_signal_enable, tone_antenna_config, tone_antenna_permutation, channel_map_repetition, channel));return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);i.insert_byte(main_mode_type_);i.insert_byte(sub_mode_type_);i.insert_byte(main_mode_steps_);i.insert_byte(main_mode_repetition_);i.insert_byte(mode_0_steps_);i.insert_byte(role_);i.insert_byte(rtt_type_);i.insert_byte(cs_sync_phy_);i.insert_byte(cs_sync_antenna_selection_);insert(cs_sync_aa_initiator_, i,32);insert(cs_sync_aa_reflector_, i,32);for (const auto& val_ : cs_sync_random_) {i.insert_byte(val_);}
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);i.insert_byte(main_mode_type_);i.insert_byte(sub_mode_type_);i.insert_byte(main_mode_steps_);i.insert_byte(main_mode_repetition_);i.insert_byte(mode_0_steps_);i.insert_byte(role_);i.insert_byte(rtt_type_);i.insert_byte(cs_sync_phy_);i.insert_byte(cs_sync_antenna_selection_);insert(cs_sync_aa_initiator_, i,32);insert(cs_sync_aa_reflector_, i,32);for (const auto& val_ : cs_sync_random_) {i.insert_byte(val_);}
 i.insert_byte(cs_sync_user_payload_pattern_);insert(cs_subevent_length_, i,24);insert(cs_subevent_interval_, i,16);i.insert_byte(transmit_power_level_);i.insert_byte(t_ip1_time_);i.insert_byte(t_ip2_time_);i.insert_byte(t_fcs_time_);i.insert_byte(t_pm_time_);i.insert_byte(t_sw_time_);i.insert_byte(t_pm_tone_ext_);i.insert_byte(ss_marker1_position_);i.insert_byte(ss_marker2_position_);i.insert_byte(ss_marker_value_);i.insert_byte(companion_signal_enable_);i.insert_byte(tone_antenna_config_);i.insert_byte(tone_antenna_permutation_);i.insert_byte(channel_map_repetition_);size_t channel_bytes = 0;channel_bytes = channel_.size() * ((/* Bits: */ 8 + /* Dynamic: */ 0) / 8);ASSERT(channel_bytes < (1 << 8));insert(channel_bytes, i, 8);for (const auto& val_ : channel_) {i.insert_byte(val_);}
 }
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 32 + /* Dynamic: */ 0 + /* Bits: */ 32 + /* Dynamic: */ 0 + /* Bits: */ 128 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(channel_.size()) * 8);}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader()  + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 32 + /* Dynamic: */ 0 + /* Bits: */ 32 + /* Dynamic: */ 0 + /* Bits: */ 128 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 24 + /* Dynamic: */ 0 + /* Bits: */ 16 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 8 + /* Dynamic: */ 0 + /* Bits: */ 0 + /* Dynamic: */ (static_cast<size_t>(channel_.size()) * 8);}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsTestBuilder(uint8_t main_mode_type, uint8_t sub_mode_type, uint8_t main_mode_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, uint8_t role, uint8_t rtt_type, uint8_t cs_sync_phy, uint8_t cs_sync_antenna_selection, uint32_t cs_sync_aa_initiator, uint32_t cs_sync_aa_reflector, const std::array<uint8_t,16>& cs_sync_random, uint8_t cs_sync_user_payload_pattern, uint32_t cs_subevent_length, uint16_t cs_subevent_interval, uint8_t transmit_power_level, uint8_t t_ip1_time, uint8_t t_ip2_time, uint8_t t_fcs_time, uint8_t t_pm_time, uint8_t t_sw_time, uint8_t t_pm_tone_ext, uint8_t ss_marker1_position, uint8_t ss_marker2_position, uint8_t ss_marker_value, uint8_t companion_signal_enable, uint8_t tone_antenna_config, uint8_t tone_antenna_permutation, uint8_t channel_map_repetition, const std::vector<uint8_t>& channel) :LeCsCommandBuilder(OpCode::LE_CS_TEST/* op_code_ */) ,main_mode_type_(main_mode_type),sub_mode_type_(sub_mode_type),main_mode_steps_(main_mode_steps),main_mode_repetition_(main_mode_repetition),mode_0_steps_(mode_0_steps),role_(role),rtt_type_(rtt_type),cs_sync_phy_(cs_sync_phy),cs_sync_antenna_selection_(cs_sync_antenna_selection),cs_sync_aa_initiator_(cs_sync_aa_initiator),cs_sync_aa_reflector_(cs_sync_aa_reflector),cs_sync_random_(cs_sync_random),cs_sync_user_payload_pattern_(cs_sync_user_payload_pattern),cs_subevent_length_(cs_subevent_length),cs_subevent_interval_(cs_subevent_interval),transmit_power_level_(transmit_power_level),t_ip1_time_(t_ip1_time),t_ip2_time_(t_ip2_time),t_fcs_time_(t_fcs_time),t_pm_time_(t_pm_time),t_sw_time_(t_sw_time),t_pm_tone_ext_(t_pm_tone_ext),ss_marker1_position_(ss_marker1_position),ss_marker2_position_(ss_marker2_position),ss_marker_value_(ss_marker_value),companion_signal_enable_(companion_signal_enable),tone_antenna_config_(tone_antenna_config),tone_antenna_permutation_(tone_antenna_permutation),channel_map_repetition_(channel_map_repetition),channel_(channel) {CheckParameterValues(cs_subevent_length_);}
+explicit LeCsTestBuilder(uint8_t main_mode_type, uint8_t sub_mode_type, uint8_t main_mode_steps, uint8_t main_mode_repetition, uint8_t mode_0_steps, uint8_t role, uint8_t rtt_type, uint8_t cs_sync_phy, uint8_t cs_sync_antenna_selection, uint32_t cs_sync_aa_initiator, uint32_t cs_sync_aa_reflector, const std::array<uint8_t,16>& cs_sync_random, uint8_t cs_sync_user_payload_pattern, uint32_t cs_subevent_length, uint16_t cs_subevent_interval, uint8_t transmit_power_level, uint8_t t_ip1_time, uint8_t t_ip2_time, uint8_t t_fcs_time, uint8_t t_pm_time, uint8_t t_sw_time, uint8_t t_pm_tone_ext, uint8_t ss_marker1_position, uint8_t ss_marker2_position, uint8_t ss_marker_value, uint8_t companion_signal_enable, uint8_t tone_antenna_config, uint8_t tone_antenna_permutation, uint8_t channel_map_repetition, const std::vector<uint8_t>& channel) :DistanceMeasurementCommandBuilder(OpCode::LE_CS_TEST/* op_code_ */) ,main_mode_type_(main_mode_type),sub_mode_type_(sub_mode_type),main_mode_steps_(main_mode_steps),main_mode_repetition_(main_mode_repetition),mode_0_steps_(mode_0_steps),role_(role),rtt_type_(rtt_type),cs_sync_phy_(cs_sync_phy),cs_sync_antenna_selection_(cs_sync_antenna_selection),cs_sync_aa_initiator_(cs_sync_aa_initiator),cs_sync_aa_reflector_(cs_sync_aa_reflector),cs_sync_random_(cs_sync_random),cs_sync_user_payload_pattern_(cs_sync_user_payload_pattern),cs_subevent_length_(cs_subevent_length),cs_subevent_interval_(cs_subevent_interval),transmit_power_level_(transmit_power_level),t_ip1_time_(t_ip1_time),t_ip2_time_(t_ip2_time),t_fcs_time_(t_fcs_time),t_pm_time_(t_pm_time),t_sw_time_(t_sw_time),t_pm_tone_ext_(t_pm_tone_ext),ss_marker1_position_(ss_marker1_position),ss_marker2_position_(ss_marker2_position),ss_marker_value_(ss_marker_value),companion_signal_enable_(companion_signal_enable),tone_antenna_config_(tone_antenna_config),tone_antenna_permutation_(tone_antenna_permutation),channel_map_repetition_(channel_map_repetition),channel_(channel) {CheckParameterValues(cs_subevent_length_);}
 
 void CheckParameterValues(uint32_t cs_subevent_length) {ASSERT(cs_subevent_length < (static_cast<uint64_t>(1) << 24));}
 
@@ -29835,22 +29833,22 @@ explicit LeCsTestCompleteBuilder(uint8_t num_hci_command_packets, ErrorCode stat
 ErrorCode status_{};};
 
 
-class LeCsTestEndBuilder : public LeCsCommandBuilder { public:  virtual ~LeCsTestEndBuilder() = default;static std::unique_ptr<LeCsTestEndBuilder> Create() {auto builder = std::unique_ptr<LeCsTestEndBuilder>(new LeCsTestEndBuilder());return builder;}
+class LeCsTestEndBuilder : public DistanceMeasurementCommandBuilder { public:  virtual ~LeCsTestEndBuilder() = default;static std::unique_ptr<LeCsTestEndBuilder> Create() {auto builder = std::unique_ptr<LeCsTestEndBuilder>(new LeCsTestEndBuilder());return builder;}
 
-protected:void SerializeHeader(BitInserter& i ) const {LeCsCommandBuilder::SerializeHeader(i);}
+protected:void SerializeHeader(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeHeader(i);}
 
-void SerializeFooter(BitInserter& i ) const {LeCsCommandBuilder::SerializeFooter(i);}
+void SerializeFooter(BitInserter& i ) const {DistanceMeasurementCommandBuilder::SerializeFooter(i);}
 
 public:virtual void Serialize(BitInserter& i) const override {SerializeHeader(i);SerializeFooter(i);}
 
-protected:size_t BitsOfHeader() const {return 0 + LeCsCommandBuilder::BitsOfHeader() ;}
+protected:size_t BitsOfHeader() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfHeader() ;}
 
-size_t BitsOfFooter() const {return 0 + LeCsCommandBuilder::BitsOfFooter() ;}
+size_t BitsOfFooter() const {return 0 + DistanceMeasurementCommandBuilder::BitsOfFooter() ;}
 
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsTestEndBuilder() :LeCsCommandBuilder(OpCode::LE_CS_TEST_END/* op_code_ */)  {}
+explicit LeCsTestEndBuilder() :DistanceMeasurementCommandBuilder(OpCode::LE_CS_TEST_END/* op_code_ */)  {}
 
 
 };
@@ -33497,7 +33495,7 @@ void CheckParameterValues(uint16_t connection_handle, uint8_t config_id, uint8_t
 ErrorCode status_{};uint16_t connection_handle_{};uint8_t config_id_{};CsAction action_{};CsMainModeType main_mode_type_{};CsSubModeType sub_mode_type_{};uint8_t min_main_mode_steps_{};uint8_t max_main_mode_steps_{};uint8_t main_mode_repetition_{};uint8_t mode_0_steps_{};CsRole role_{};CsRttType rtt_type_{};CsSyncPhy cs_sync_phy_{};std::array<uint8_t,10> channel_map_{};uint8_t channel_map_repetition_{};CsChannelSelectionType channel_selection_type_{};CsCh3cShape ch3c_shape_{};uint8_t ch3c_jump_{};Enable companion_signal_enable_{};uint8_t t_ip1_time_{};uint8_t t_ip2_time_{};uint8_t t_fcs_time_{};uint8_t t_pm_time_{};};
 
 
-class LeCsProcedureEnableCompleteBuilder : public LeMetaEventBuilder { public:  virtual ~LeCsProcedureEnableCompleteBuilder() = default;static std::unique_ptr<LeCsProcedureEnableCompleteBuilder> Create(ErrorCode status, uint16_t connection_handle, uint8_t config_id, CsProcedureState state, uint8_t tone_antenna_config_selection, uint8_t selected_tx_power, uint32_t subevent_len, uint8_t subevents_per_event, uint16_t subevent_interval, uint16_t event_interval, uint16_t procedure_interval, uint16_t procedure_count) {auto builder = std::unique_ptr<LeCsProcedureEnableCompleteBuilder>(new LeCsProcedureEnableCompleteBuilder(status, connection_handle, config_id, state, tone_antenna_config_selection, selected_tx_power, subevent_len, subevents_per_event, subevent_interval, event_interval, procedure_interval, procedure_count));return builder;}
+class LeCsProcedureEnableCompleteBuilder : public LeMetaEventBuilder { public:  virtual ~LeCsProcedureEnableCompleteBuilder() = default;static std::unique_ptr<LeCsProcedureEnableCompleteBuilder> Create(ErrorCode status, uint16_t connection_handle, uint8_t config_id, Enable state, uint8_t tone_antenna_config_selection, uint8_t selected_tx_power, uint32_t subevent_len, uint8_t subevents_per_event, uint16_t subevent_interval, uint16_t event_interval, uint16_t procedure_interval, uint16_t procedure_count) {auto builder = std::unique_ptr<LeCsProcedureEnableCompleteBuilder>(new LeCsProcedureEnableCompleteBuilder(status, connection_handle, config_id, state, tone_antenna_config_selection, selected_tx_power, subevent_len, subevents_per_event, subevent_interval, event_interval, procedure_interval, procedure_count));return builder;}
 
 protected:void SerializeHeader(BitInserter& i ) const {LeMetaEventBuilder::SerializeHeader(i);insert(static_cast<uint8_t>(status_), i, 8);insert(connection_handle_, i,12);insert(static_cast<uint8_t>(0) /* Reserved */, i, 4 );
 insert(config_id_, i,2);insert(static_cast<uint8_t>(0) /* Reserved */, i, 6 );
@@ -33514,11 +33512,11 @@ size_t BitsOfFooter() const {return 0 + LeMetaEventBuilder::BitsOfFooter() ;}
 public:virtual size_t size() const override {return (BitsOfHeader() / 8) + (BitsOfFooter() / 8);}
 
  protected:
-explicit LeCsProcedureEnableCompleteBuilder(ErrorCode status, uint16_t connection_handle, uint8_t config_id, CsProcedureState state, uint8_t tone_antenna_config_selection, uint8_t selected_tx_power, uint32_t subevent_len, uint8_t subevents_per_event, uint16_t subevent_interval, uint16_t event_interval, uint16_t procedure_interval, uint16_t procedure_count) :LeMetaEventBuilder(SubeventCode::LE_CS_PROCEDURE_ENABLE_COMPLETE/* subevent_code_ */) ,status_(status),connection_handle_(connection_handle),config_id_(config_id),state_(state),tone_antenna_config_selection_(tone_antenna_config_selection),selected_tx_power_(selected_tx_power),subevent_len_(subevent_len),subevents_per_event_(subevents_per_event),subevent_interval_(subevent_interval),event_interval_(event_interval),procedure_interval_(procedure_interval),procedure_count_(procedure_count) {CheckParameterValues(connection_handle_, config_id_, subevent_len_);}
+explicit LeCsProcedureEnableCompleteBuilder(ErrorCode status, uint16_t connection_handle, uint8_t config_id, Enable state, uint8_t tone_antenna_config_selection, uint8_t selected_tx_power, uint32_t subevent_len, uint8_t subevents_per_event, uint16_t subevent_interval, uint16_t event_interval, uint16_t procedure_interval, uint16_t procedure_count) :LeMetaEventBuilder(SubeventCode::LE_CS_PROCEDURE_ENABLE_COMPLETE/* subevent_code_ */) ,status_(status),connection_handle_(connection_handle),config_id_(config_id),state_(state),tone_antenna_config_selection_(tone_antenna_config_selection),selected_tx_power_(selected_tx_power),subevent_len_(subevent_len),subevents_per_event_(subevents_per_event),subevent_interval_(subevent_interval),event_interval_(event_interval),procedure_interval_(procedure_interval),procedure_count_(procedure_count) {CheckParameterValues(connection_handle_, config_id_, subevent_len_);}
 
 void CheckParameterValues(uint16_t connection_handle, uint8_t config_id, uint32_t subevent_len) {ASSERT(connection_handle < (static_cast<uint64_t>(1) << 12));ASSERT(config_id < (static_cast<uint64_t>(1) << 2));ASSERT(subevent_len < (static_cast<uint64_t>(1) << 24));}
 
-ErrorCode status_{};uint16_t connection_handle_{};uint8_t config_id_{};CsProcedureState state_{};uint8_t tone_antenna_config_selection_{};uint8_t selected_tx_power_{};uint32_t subevent_len_{};uint8_t subevents_per_event_{};uint16_t subevent_interval_{};uint16_t event_interval_{};uint16_t procedure_interval_{};uint16_t procedure_count_{};};
+ErrorCode status_{};uint16_t connection_handle_{};uint8_t config_id_{};Enable state_{};uint8_t tone_antenna_config_selection_{};uint8_t selected_tx_power_{};uint32_t subevent_len_{};uint8_t subevents_per_event_{};uint16_t subevent_interval_{};uint16_t event_interval_{};uint16_t procedure_interval_{};uint16_t procedure_count_{};};
 
 
 class LeCsSubeventResultBuilder : public LeMetaEventBuilder { public:  virtual ~LeCsSubeventResultBuilder() = default;static std::unique_ptr<LeCsSubeventResultBuilder> Create(uint16_t connection_handle, uint8_t config_id, uint16_t start_acl_conn_event, uint16_t procedure_counter, uint16_t frequency_compensation, uint8_t reference_power_level, CsProcedureDoneStatus procedure_done_status, CsSubeventDoneStatus subevent_done_status, uint8_t abort_reason, uint8_t num_antenna_paths, const std::vector<LeCsResultDataStructure>& result_data_structures) {auto builder = std::unique_ptr<LeCsSubeventResultBuilder>(new LeCsSubeventResultBuilder(connection_handle, config_id, start_acl_conn_event, procedure_counter, frequency_compensation, reference_power_level, procedure_done_status, subevent_done_status, abort_reason, num_antenna_paths, result_data_structures));return builder;}

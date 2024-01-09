@@ -9,6 +9,7 @@ import * as Workspace from '../../models/workspace/workspace.js';
 import * as DataGrid from '../../ui/legacy/components/data_grid/data_grid.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import coverageListViewStyles from './coverageListView.css.js';
+import { SourceURLCoverageInfo, } from './CoverageModel.js';
 const UIStrings = {
     /**
      *@description Text that appears on a button for the css resource type filter.
@@ -125,7 +126,15 @@ export class CoverageListView extends UI.Widget.VBox {
         this.isVisibleFilter = isVisibleFilter;
         this.highlightRegExp = null;
         const columns = [
-            { id: 'url', title: i18nString(UIStrings.url), width: '250px', weight: 3, fixedWidth: false, sortable: true },
+            {
+                id: 'url',
+                title: i18nString(UIStrings.url),
+                width: '250px',
+                weight: 3,
+                fixedWidth: false,
+                sortable: true,
+                disclosure: true,
+            },
             { id: 'type', title: i18nString(UIStrings.type), width: '45px', weight: 1, fixedWidth: true, sortable: true },
             {
                 id: 'size',
@@ -180,6 +189,9 @@ export class CoverageListView extends UI.Widget.VBox {
             if (node) {
                 if (this.isVisibleFilter(node.coverageInfo)) {
                     hadUpdates = node.refreshIfNeeded(maxSize) || hadUpdates;
+                    if (entry.sourcesURLCoverageInfo.size > 0) {
+                        this.updateSourceNodes(entry.sourcesURLCoverageInfo, maxSize, node);
+                    }
                 }
                 continue;
             }
@@ -187,11 +199,37 @@ export class CoverageListView extends UI.Widget.VBox {
             this.nodeForCoverageInfo.set(entry, node);
             if (this.isVisibleFilter(node.coverageInfo)) {
                 rootNode.appendChild(node);
+                if (entry.sourcesURLCoverageInfo.size > 0) {
+                    void this.createSourceNodes(entry.sourcesURLCoverageInfo, maxSize, node);
+                }
                 hadUpdates = true;
             }
         }
         if (hadUpdates) {
             this.sortingChanged();
+        }
+    }
+    updateSourceNodes(sourcesURLCoverageInfo, maxSize, node) {
+        let shouldCreateSourceNodes = false;
+        for (const coverageInfo of sourcesURLCoverageInfo.values()) {
+            const sourceNode = this.nodeForCoverageInfo.get(coverageInfo);
+            if (sourceNode) {
+                sourceNode.refreshIfNeeded(maxSize);
+            }
+            else {
+                shouldCreateSourceNodes = true;
+                break;
+            }
+        }
+        if (shouldCreateSourceNodes) {
+            void this.createSourceNodes(sourcesURLCoverageInfo, maxSize, node);
+        }
+    }
+    async createSourceNodes(sourcesURLCoverageInfo, maxSize, node) {
+        for (const coverageInfo of sourcesURLCoverageInfo.values()) {
+            const sourceNode = new GridNode(coverageInfo, maxSize);
+            node.appendChild(sourceNode);
+            this.nodeForCoverageInfo.set(coverageInfo, sourceNode);
         }
     }
     reset() {
@@ -215,11 +253,20 @@ export class CoverageListView extends UI.Widget.VBox {
                 node.remove();
             }
             else {
-                this.dataGrid.rootNode().appendChild(node);
+                this.appendNodeByType(node);
             }
         }
         if (hadTreeUpdates) {
             this.sortingChanged();
+        }
+    }
+    appendNodeByType(node) {
+        if (node.coverageInfo instanceof SourceURLCoverageInfo) {
+            const parentNode = this.nodeForCoverageInfo.get(node.coverageInfo.generatedURLCoverageInfo);
+            parentNode?.appendChild(node);
+        }
+        else {
+            this.dataGrid.rootNode().appendChild(node);
         }
     }
     selectByUrl(url) {

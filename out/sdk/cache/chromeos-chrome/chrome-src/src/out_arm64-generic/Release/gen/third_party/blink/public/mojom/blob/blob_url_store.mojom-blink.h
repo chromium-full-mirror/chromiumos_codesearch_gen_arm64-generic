@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/blob/blob_url_store.mojom-features.h"
 #include "third_party/blink/public/mojom/blob/blob_url_store.mojom-shared.h"
 #include "third_party/blink/public/mojom/blob/blob_url_store.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -111,27 +112,27 @@ class PLATFORM_EXPORT BlobURLStore
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site);
+  virtual bool Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site);
 
   using RegisterCallback = base::OnceCallback<void()>;
   
-  virtual void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) = 0;
+  virtual void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) = 0;
 
   
   virtual void Revoke(const ::blink::KURL& url) = 0;
 
 
-  using ResolveCallback = base::OnceCallback<void(::mojo::PendingRemote<::blink::mojom::blink::Blob>, const absl::optional<::base::UnguessableToken>&)>;
+  using ResolveCallback = base::OnceCallback<void(::mojo::PendingRemote<::blink::mojom::blink::Blob>, const std::optional<::base::UnguessableToken>&)>;
   
   virtual void Resolve(const ::blink::KURL& url, ResolveCallback callback) = 0;
 
 
-  using ResolveAsURLLoaderFactoryCallback = base::OnceCallback<void(const absl::optional<::base::UnguessableToken>&, const absl::optional<::blink::BlinkSchemefulSite>&)>;
+  using ResolveAsURLLoaderFactoryCallback = base::OnceCallback<void(const std::optional<::base::UnguessableToken>&, const std::optional<::blink::BlinkSchemefulSite>&)>;
   
   virtual void ResolveAsURLLoaderFactory(const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, ResolveAsURLLoaderFactoryCallback callback) = 0;
 
 
-  using ResolveForNavigationCallback = base::OnceCallback<void(const absl::optional<::base::UnguessableToken>&)>;
+  using ResolveForNavigationCallback = base::OnceCallback<void(const std::optional<::base::UnguessableToken>&)>;
   
   virtual void ResolveForNavigation(const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token, ResolveForNavigationCallback callback) = 0;
 };
@@ -200,9 +201,9 @@ class PLATFORM_EXPORT BlobURLStoreProxy
 
   explicit BlobURLStoreProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  bool Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) final;
+  bool Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) final;
   
-  void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) final;
+  void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) final;
   
   void Revoke(const ::blink::KURL& url) final;
   

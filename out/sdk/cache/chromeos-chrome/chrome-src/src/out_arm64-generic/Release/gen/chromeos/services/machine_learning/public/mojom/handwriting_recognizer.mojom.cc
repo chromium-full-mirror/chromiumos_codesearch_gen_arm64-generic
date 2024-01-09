@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,7 +52,7 @@ InkPoint::InkPoint()
 InkPoint::InkPoint(
     float x_in,
     float y_in,
-    absl::optional<::base::TimeDelta> t_in)
+    std::optional<::base::TimeDelta> t_in)
     : x(std::move(x_in)),
       y(std::move(y_in)),
       t(std::move(t_in)) {}
@@ -83,7 +84,7 @@ void InkPoint::WriteIntoTrace(
     dict.AddItem(
       "t"), this->t,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -174,7 +175,7 @@ RecognitionContext::RecognitionContext()
 
 RecognitionContext::RecognitionContext(
     WritingGuidePtr writing_guide_in,
-    const absl::optional<std::string>& pre_context_in)
+    const std::optional<std::string>& pre_context_in)
     : writing_guide(std::move(writing_guide_in)),
       pre_context(std::move(pre_context_in)) {}
 
@@ -196,7 +197,7 @@ void RecognitionContext::WriteIntoTrace(
     dict.AddItem(
       "pre_context"), this->pre_context,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -516,15 +517,15 @@ HandwritingRecognizerSpec::HandwritingRecognizerSpec(
 
 HandwritingRecognizerSpec::HandwritingRecognizerSpec(
     const std::string& language_in,
-    const absl::optional<std::string>& language_pack_path_in)
+    const std::optional<std::string>& language_pack_path_in)
     : language(std::move(language_in)),
       language_pack_path(std::move(language_pack_path_in)),
       library_dlc_path() {}
 
 HandwritingRecognizerSpec::HandwritingRecognizerSpec(
     const std::string& language_in,
-    const absl::optional<std::string>& language_pack_path_in,
-    const absl::optional<std::string>& library_dlc_path_in)
+    const std::optional<std::string>& language_pack_path_in,
+    const std::optional<std::string>& library_dlc_path_in)
     : language(std::move(language_in)),
       language_pack_path(std::move(language_pack_path_in)),
       library_dlc_path(std::move(library_dlc_path_in)) {}
@@ -547,7 +548,7 @@ void HandwritingRecognizerSpec::WriteIntoTrace(
     dict.AddItem(
       "language_pack_path"), this->language_pack_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -556,7 +557,7 @@ void HandwritingRecognizerSpec::WriteIntoTrace(
     dict.AddItem(
       "library_dlc_path"), this->library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -655,14 +656,17 @@ void HandwritingRecognizerProxy::Recognize(
                         "<value of type HandwritingRecognitionQueryPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandwritingRecognizer_Recognize_Name, kFlags, 0, 0, nullptr);
@@ -783,7 +787,8 @@ void HandwritingRecognizer_Recognize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHandwritingRecognizer_Recognize_Name, kFlags, 0, 0, nullptr);
@@ -873,10 +878,10 @@ std::move(p_query), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHandwritingRecognizerValidationInfo[] = {
-    {&internal::HandwritingRecognizer_Recognize_Params_Data::Validate,
+    { &internal::HandwritingRecognizer_Recognize_Params_Data::Validate,
      &internal::HandwritingRecognizer_Recognize_ResponseParams_Data::Validate},
 };
 

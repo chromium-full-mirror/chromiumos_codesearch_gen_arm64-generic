@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -107,16 +108,16 @@ ConfiguredNetworkDetails::ConfiguredNetworkDetails()
       bssid() {}
 
 ConfiguredNetworkDetails::ConfiguredNetworkDetails(
-    const absl::optional<std::string>& passphrase_in,
+    const std::optional<std::string>& passphrase_in,
     bool autoconnect_in)
     : passphrase(std::move(passphrase_in)),
       autoconnect(std::move(autoconnect_in)),
       bssid() {}
 
 ConfiguredNetworkDetails::ConfiguredNetworkDetails(
-    const absl::optional<std::string>& passphrase_in,
+    const std::optional<std::string>& passphrase_in,
     bool autoconnect_in,
-    const absl::optional<std::string>& bssid_in)
+    const std::optional<std::string>& bssid_in)
     : passphrase(std::move(passphrase_in)),
       autoconnect(std::move(autoconnect_in)),
       bssid(std::move(bssid_in)) {}
@@ -130,7 +131,7 @@ void ConfiguredNetworkDetails::WriteIntoTrace(
     dict.AddItem(
       "passphrase"), this->passphrase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -148,7 +149,7 @@ void ConfiguredNetworkDetails::WriteIntoTrace(
     dict.AddItem(
       "bssid"), this->bssid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -201,7 +202,7 @@ PasspointCredentials::PasspointCredentials(
     EapCredentialsPtr eap_in,
     bool metered_in,
     const std::string& package_name_in,
-    const absl::optional<std::string>& friendly_name_in,
+    const std::optional<std::string>& friendly_name_in,
     int64_t subscription_expiration_time_ms_in)
     : domains(std::move(domains_in)),
       realm(std::move(realm_in)),
@@ -295,7 +296,7 @@ void PasspointCredentials::WriteIntoTrace(
     dict.AddItem(
       "friendly_name"), this->friendly_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -321,8 +322,8 @@ PasspointRemovalProperties::PasspointRemovalProperties()
       package_name() {}
 
 PasspointRemovalProperties::PasspointRemovalProperties(
-    const absl::optional<std::string>& fqdn_in,
-    const absl::optional<std::string>& package_name_in)
+    const std::optional<std::string>& fqdn_in,
+    const std::optional<std::string>& package_name_in)
     : fqdn(std::move(fqdn_in)),
       package_name(std::move(package_name_in)) {}
 
@@ -335,7 +336,7 @@ void PasspointRemovalProperties::WriteIntoTrace(
     dict.AddItem(
       "fqdn"), this->fqdn,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -344,7 +345,7 @@ void PasspointRemovalProperties::WriteIntoTrace(
     dict.AddItem(
       "package_name"), this->package_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -377,17 +378,17 @@ EapCredentials::EapCredentials()
 EapCredentials::EapCredentials(
     EapMethod method_in,
     EapPhase2Method phase2_method_in,
-    const absl::optional<std::string>& anonymous_identity_in,
-    const absl::optional<std::string>& identity_in,
-    const absl::optional<std::string>& password_in,
+    const std::optional<std::string>& anonymous_identity_in,
+    const std::optional<std::string>& identity_in,
+    const std::optional<std::string>& password_in,
     KeyManagement key_management_in,
-    absl::optional<std::vector<std::string>> ca_certificate_pem_in,
-    absl::optional<std::vector<std::string>> client_certificate_pem_in,
-    const absl::optional<std::string>& client_certificate_key_in,
-    const absl::optional<std::string>& subject_match_in,
-    absl::optional<std::vector<std::string>> subject_alternative_name_match_list_in,
-    absl::optional<std::vector<std::string>> domain_suffix_match_list_in,
-    const absl::optional<std::string>& tls_version_max_in,
+    std::optional<std::vector<std::string>> ca_certificate_pem_in,
+    std::optional<std::vector<std::string>> client_certificate_pem_in,
+    const std::optional<std::string>& client_certificate_key_in,
+    const std::optional<std::string>& subject_match_in,
+    std::optional<std::vector<std::string>> subject_alternative_name_match_list_in,
+    std::optional<std::vector<std::string>> domain_suffix_match_list_in,
+    const std::optional<std::string>& tls_version_max_in,
     bool use_system_cas_in,
     bool use_proactive_key_caching_in,
     bool use_login_password_in)
@@ -435,7 +436,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "anonymous_identity"), this->anonymous_identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -444,7 +445,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "identity"), this->identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -453,7 +454,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -471,7 +472,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "ca_certificate_pem"), this->ca_certificate_pem,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -480,7 +481,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "client_certificate_pem"), this->client_certificate_pem,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -489,7 +490,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "client_certificate_key"), this->client_certificate_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -498,7 +499,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "subject_match"), this->subject_match,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -507,7 +508,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "subject_alternative_name_match_list"), this->subject_alternative_name_match_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -516,7 +517,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "domain_suffix_match_list"), this->domain_suffix_match_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -525,7 +526,7 @@ void EapCredentials::WriteIntoTrace(
     dict.AddItem(
       "tls_version_max"), this->tls_version_max,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -676,7 +677,7 @@ WiFi::WiFi(
     SecurityType security_in,
     int32_t signal_strength_in,
     bool is_passpoint_in,
-    const absl::optional<std::string>& fqdn_in)
+    const std::optional<std::string>& fqdn_in)
     : bssid(std::move(bssid_in)),
       frequency(std::move(frequency_in)),
       hex_ssid(std::move(hex_ssid_in)),
@@ -695,7 +696,7 @@ WiFi::WiFi(
     SecurityType security_in,
     int32_t signal_strength_in,
     bool is_passpoint_in,
-    const absl::optional<std::string>& fqdn_in,
+    const std::optional<std::string>& fqdn_in,
     int16_t rssi_in)
     : bssid(std::move(bssid_in)),
       frequency(std::move(frequency_in)),
@@ -779,7 +780,7 @@ void WiFi::WriteIntoTrace(
     dict.AddItem(
       "fqdn"), this->fqdn,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -833,8 +834,8 @@ NetworkConfiguration::NetworkConfiguration()
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in)
     : connection_state(std::move(connection_state_in)),
@@ -869,8 +870,8 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in)
@@ -906,12 +907,12 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in)
+    const std::optional<std::string>& network_interface_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
       deprecated_ip_configs(std::move(deprecated_ip_configs_in)),
@@ -944,12 +945,12 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
@@ -983,14 +984,14 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in)
+    const std::optional<std::string>& service_name_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
       deprecated_ip_configs(std::move(deprecated_ip_configs_in)),
@@ -1023,27 +1024,27 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in,
+    const std::optional<std::string>& service_name_in,
     uint32_t host_mtu_in,
     uint32_t host_ipv4_prefix_length_in,
-    const absl::optional<std::string>& host_ipv4_address_in,
-    const absl::optional<std::string>& host_ipv4_gateway_in,
+    const std::optional<std::string>& host_ipv4_address_in,
+    const std::optional<std::string>& host_ipv4_gateway_in,
     uint32_t host_ipv6_prefix_length_in,
-    absl::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
-    const absl::optional<std::string>& host_ipv6_gateway_in,
-    absl::optional<std::vector<std::string>> host_dns_addresses_in,
-    absl::optional<std::vector<std::string>> host_search_domains_in,
+    std::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
+    const std::optional<std::string>& host_ipv6_gateway_in,
+    std::optional<std::vector<std::string>> host_dns_addresses_in,
+    std::optional<std::vector<std::string>> host_search_domains_in,
     uint32_t arc_ipv4_prefix_length_in,
-    const absl::optional<std::string>& arc_ipv4_address_in,
-    const absl::optional<std::string>& arc_ipv4_gateway_in,
-    const absl::optional<std::string>& arc_network_interface_in)
+    const std::optional<std::string>& arc_ipv4_address_in,
+    const std::optional<std::string>& arc_ipv4_gateway_in,
+    const std::optional<std::string>& arc_network_interface_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
       deprecated_ip_configs(std::move(deprecated_ip_configs_in)),
@@ -1076,27 +1077,27 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in,
+    const std::optional<std::string>& service_name_in,
     uint32_t host_mtu_in,
     uint32_t host_ipv4_prefix_length_in,
-    const absl::optional<std::string>& host_ipv4_address_in,
-    const absl::optional<std::string>& host_ipv4_gateway_in,
+    const std::optional<std::string>& host_ipv4_address_in,
+    const std::optional<std::string>& host_ipv4_gateway_in,
     uint32_t host_ipv6_prefix_length_in,
-    absl::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
-    const absl::optional<std::string>& host_ipv6_gateway_in,
-    absl::optional<std::vector<std::string>> host_dns_addresses_in,
-    absl::optional<std::vector<std::string>> host_search_domains_in,
+    std::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
+    const std::optional<std::string>& host_ipv6_gateway_in,
+    std::optional<std::vector<std::string>> host_dns_addresses_in,
+    std::optional<std::vector<std::string>> host_search_domains_in,
     uint32_t arc_ipv4_prefix_length_in,
-    const absl::optional<std::string>& arc_ipv4_address_in,
-    const absl::optional<std::string>& arc_ipv4_gateway_in,
-    const absl::optional<std::string>& arc_network_interface_in,
+    const std::optional<std::string>& arc_ipv4_address_in,
+    const std::optional<std::string>& arc_ipv4_gateway_in,
+    const std::optional<std::string>& arc_network_interface_in,
     bool is_metered_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
@@ -1130,30 +1131,30 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in,
+    const std::optional<std::string>& service_name_in,
     uint32_t host_mtu_in,
     uint32_t host_ipv4_prefix_length_in,
-    const absl::optional<std::string>& host_ipv4_address_in,
-    const absl::optional<std::string>& host_ipv4_gateway_in,
+    const std::optional<std::string>& host_ipv4_address_in,
+    const std::optional<std::string>& host_ipv4_gateway_in,
     uint32_t host_ipv6_prefix_length_in,
-    absl::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
-    const absl::optional<std::string>& host_ipv6_gateway_in,
-    absl::optional<std::vector<std::string>> host_dns_addresses_in,
-    absl::optional<std::vector<std::string>> host_search_domains_in,
+    std::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
+    const std::optional<std::string>& host_ipv6_gateway_in,
+    std::optional<std::vector<std::string>> host_dns_addresses_in,
+    std::optional<std::vector<std::string>> host_search_domains_in,
     uint32_t arc_ipv4_prefix_length_in,
-    const absl::optional<std::string>& arc_ipv4_address_in,
-    const absl::optional<std::string>& arc_ipv4_gateway_in,
-    const absl::optional<std::string>& arc_network_interface_in,
+    const std::optional<std::string>& arc_ipv4_address_in,
+    const std::optional<std::string>& arc_ipv4_gateway_in,
+    const std::optional<std::string>& arc_network_interface_in,
     bool is_metered_in,
-    absl::optional<std::vector<std::string>> include_routes_in,
-    absl::optional<std::vector<std::string>> exclude_routes_in)
+    std::optional<std::vector<std::string>> include_routes_in,
+    std::optional<std::vector<std::string>> exclude_routes_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
       deprecated_ip_configs(std::move(deprecated_ip_configs_in)),
@@ -1186,31 +1187,31 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in,
+    const std::optional<std::string>& service_name_in,
     uint32_t host_mtu_in,
     uint32_t host_ipv4_prefix_length_in,
-    const absl::optional<std::string>& host_ipv4_address_in,
-    const absl::optional<std::string>& host_ipv4_gateway_in,
+    const std::optional<std::string>& host_ipv4_address_in,
+    const std::optional<std::string>& host_ipv4_gateway_in,
     uint32_t host_ipv6_prefix_length_in,
-    absl::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
-    const absl::optional<std::string>& host_ipv6_gateway_in,
-    absl::optional<std::vector<std::string>> host_dns_addresses_in,
-    absl::optional<std::vector<std::string>> host_search_domains_in,
+    std::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
+    const std::optional<std::string>& host_ipv6_gateway_in,
+    std::optional<std::vector<std::string>> host_dns_addresses_in,
+    std::optional<std::vector<std::string>> host_search_domains_in,
     uint32_t arc_ipv4_prefix_length_in,
-    const absl::optional<std::string>& arc_ipv4_address_in,
-    const absl::optional<std::string>& arc_ipv4_gateway_in,
-    const absl::optional<std::string>& arc_network_interface_in,
+    const std::optional<std::string>& arc_ipv4_address_in,
+    const std::optional<std::string>& arc_ipv4_gateway_in,
+    const std::optional<std::string>& arc_network_interface_in,
     bool is_metered_in,
-    absl::optional<std::vector<std::string>> include_routes_in,
-    absl::optional<std::vector<std::string>> exclude_routes_in,
-    absl::optional<std::vector<std::string>> dns_proxy_addresses_in)
+    std::optional<std::vector<std::string>> include_routes_in,
+    std::optional<std::vector<std::string>> exclude_routes_in,
+    std::optional<std::vector<std::string>> dns_proxy_addresses_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
       deprecated_ip_configs(std::move(deprecated_ip_configs_in)),
@@ -1243,31 +1244,31 @@ NetworkConfiguration::NetworkConfiguration(
 NetworkConfiguration::NetworkConfiguration(
     ConnectionStateType connection_state_in,
     const std::string& guid_in,
-    absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
-    const absl::optional<std::string>& deprecated_mac_address_in,
+    std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs_in,
+    const std::optional<std::string>& deprecated_mac_address_in,
     NetworkType type_in,
     WiFiPtr wifi_in,
     TetheringClientState deprecated_tethering_client_state_in,
-    const absl::optional<std::string>& network_interface_in,
+    const std::optional<std::string>& network_interface_in,
     bool is_default_network_in,
-    const absl::optional<std::string>& service_name_in,
+    const std::optional<std::string>& service_name_in,
     uint32_t host_mtu_in,
     uint32_t host_ipv4_prefix_length_in,
-    const absl::optional<std::string>& host_ipv4_address_in,
-    const absl::optional<std::string>& host_ipv4_gateway_in,
+    const std::optional<std::string>& host_ipv4_address_in,
+    const std::optional<std::string>& host_ipv4_gateway_in,
     uint32_t host_ipv6_prefix_length_in,
-    absl::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
-    const absl::optional<std::string>& host_ipv6_gateway_in,
-    absl::optional<std::vector<std::string>> host_dns_addresses_in,
-    absl::optional<std::vector<std::string>> host_search_domains_in,
+    std::optional<std::vector<std::string>> host_ipv6_global_addresses_in,
+    const std::optional<std::string>& host_ipv6_gateway_in,
+    std::optional<std::vector<std::string>> host_dns_addresses_in,
+    std::optional<std::vector<std::string>> host_search_domains_in,
     uint32_t arc_ipv4_prefix_length_in,
-    const absl::optional<std::string>& arc_ipv4_address_in,
-    const absl::optional<std::string>& arc_ipv4_gateway_in,
-    const absl::optional<std::string>& arc_network_interface_in,
+    const std::optional<std::string>& arc_ipv4_address_in,
+    const std::optional<std::string>& arc_ipv4_gateway_in,
+    const std::optional<std::string>& arc_network_interface_in,
     bool is_metered_in,
-    absl::optional<std::vector<std::string>> include_routes_in,
-    absl::optional<std::vector<std::string>> exclude_routes_in,
-    absl::optional<std::vector<std::string>> dns_proxy_addresses_in,
+    std::optional<std::vector<std::string>> include_routes_in,
+    std::optional<std::vector<std::string>> exclude_routes_in,
+    std::optional<std::vector<std::string>> dns_proxy_addresses_in,
     LinkSpeedPtr link_speed_in)
     : connection_state(std::move(connection_state_in)),
       guid(std::move(guid_in)),
@@ -1325,7 +1326,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "deprecated_ip_configs"), this->deprecated_ip_configs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<IPConfigurationPtr>>>"
+      "<value of type std::optional<std::vector<IPConfigurationPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1334,7 +1335,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "deprecated_mac_address"), this->deprecated_mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1370,7 +1371,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "network_interface"), this->network_interface,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1388,7 +1389,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "service_name"), this->service_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1415,7 +1416,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_ipv4_address"), this->host_ipv4_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1424,7 +1425,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_ipv4_gateway"), this->host_ipv4_gateway,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1442,7 +1443,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_ipv6_global_addresses"), this->host_ipv6_global_addresses,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1451,7 +1452,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_ipv6_gateway"), this->host_ipv6_gateway,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1460,7 +1461,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_dns_addresses"), this->host_dns_addresses,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1469,7 +1470,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "host_search_domains"), this->host_search_domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1487,7 +1488,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "arc_ipv4_address"), this->arc_ipv4_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1496,7 +1497,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "arc_ipv4_gateway"), this->arc_ipv4_gateway,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1505,7 +1506,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "arc_network_interface"), this->arc_network_interface,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1523,7 +1524,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "include_routes"), this->include_routes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1532,7 +1533,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "exclude_routes"), this->exclude_routes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1541,7 +1542,7 @@ void NetworkConfiguration::WriteIntoTrace(
     dict.AddItem(
       "dns_proxy_addresses"), this->dns_proxy_addresses,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1647,7 +1648,7 @@ WifiConfiguration::WifiConfiguration(
       bssid_allowlist() {}
 
 WifiConfiguration::WifiConfiguration(
-    const absl::optional<std::string>& guid_in,
+    const std::optional<std::string>& guid_in,
     const std::string& security_in,
     int32_t frequency_in,
     int32_t signal_strength_in,
@@ -1670,8 +1671,8 @@ WifiConfiguration::WifiConfiguration(
       bssid_allowlist() {}
 
 WifiConfiguration::WifiConfiguration(
-    const absl::optional<std::string>& hexssid_in,
-    const absl::optional<std::string>& guid_in,
+    const std::optional<std::string>& hexssid_in,
+    const std::optional<std::string>& guid_in,
     const std::string& security_in,
     NetworkDetailsPtr details_in,
     int32_t frequency_in,
@@ -1695,8 +1696,8 @@ WifiConfiguration::WifiConfiguration(
       bssid_allowlist() {}
 
 WifiConfiguration::WifiConfiguration(
-    const absl::optional<std::string>& hexssid_in,
-    const absl::optional<std::string>& guid_in,
+    const std::optional<std::string>& hexssid_in,
+    const std::optional<std::string>& guid_in,
     const std::string& security_in,
     NetworkDetailsPtr details_in,
     int32_t frequency_in,
@@ -1721,8 +1722,8 @@ WifiConfiguration::WifiConfiguration(
       bssid_allowlist() {}
 
 WifiConfiguration::WifiConfiguration(
-    const absl::optional<std::string>& hexssid_in,
-    const absl::optional<std::string>& guid_in,
+    const std::optional<std::string>& hexssid_in,
+    const std::optional<std::string>& guid_in,
     const std::string& security_in,
     NetworkDetailsPtr details_in,
     int32_t frequency_in,
@@ -1733,8 +1734,8 @@ WifiConfiguration::WifiConfiguration(
     MeteredOverride metered_override_in,
     ArcProxyInfoPtr http_proxy_in,
     StaticIpv4ConfigurationPtr static_ipv4_config_in,
-    absl::optional<std::vector<std::string>> domains_in,
-    absl::optional<std::vector<std::string>> dns_servers_in)
+    std::optional<std::vector<std::string>> domains_in,
+    std::optional<std::vector<std::string>> dns_servers_in)
     : hexssid(std::move(hexssid_in)),
       guid(std::move(guid_in)),
       security(std::move(security_in)),
@@ -1752,8 +1753,8 @@ WifiConfiguration::WifiConfiguration(
       bssid_allowlist() {}
 
 WifiConfiguration::WifiConfiguration(
-    const absl::optional<std::string>& hexssid_in,
-    const absl::optional<std::string>& guid_in,
+    const std::optional<std::string>& hexssid_in,
+    const std::optional<std::string>& guid_in,
     const std::string& security_in,
     NetworkDetailsPtr details_in,
     int32_t frequency_in,
@@ -1764,9 +1765,9 @@ WifiConfiguration::WifiConfiguration(
     MeteredOverride metered_override_in,
     ArcProxyInfoPtr http_proxy_in,
     StaticIpv4ConfigurationPtr static_ipv4_config_in,
-    absl::optional<std::vector<std::string>> domains_in,
-    absl::optional<std::vector<std::string>> dns_servers_in,
-    absl::optional<std::vector<std::string>> bssid_allowlist_in)
+    std::optional<std::vector<std::string>> domains_in,
+    std::optional<std::vector<std::string>> dns_servers_in,
+    std::optional<std::vector<std::string>> bssid_allowlist_in)
     : hexssid(std::move(hexssid_in)),
       guid(std::move(guid_in)),
       security(std::move(security_in)),
@@ -1792,7 +1793,7 @@ void WifiConfiguration::WriteIntoTrace(
     dict.AddItem(
       "hexssid"), this->hexssid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1801,7 +1802,7 @@ void WifiConfiguration::WriteIntoTrace(
     dict.AddItem(
       "guid"), this->guid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1900,7 +1901,7 @@ void WifiConfiguration::WriteIntoTrace(
     dict.AddItem(
       "domains"), this->domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1909,7 +1910,7 @@ void WifiConfiguration::WriteIntoTrace(
     dict.AddItem(
       "dns_servers"), this->dns_servers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1918,7 +1919,7 @@ void WifiConfiguration::WriteIntoTrace(
     dict.AddItem(
       "bssid_allowlist"), this->bssid_allowlist,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1936,8 +1937,8 @@ StaticIpv4Configuration::StaticIpv4Configuration()
       prefix_length() {}
 
 StaticIpv4Configuration::StaticIpv4Configuration(
-    const absl::optional<std::string>& ipv4_addr_in,
-    const absl::optional<std::string>& gateway_ipv4_addr_in,
+    const std::optional<std::string>& ipv4_addr_in,
+    const std::optional<std::string>& gateway_ipv4_addr_in,
     int32_t prefix_length_in)
     : ipv4_addr(std::move(ipv4_addr_in)),
       gateway_ipv4_addr(std::move(gateway_ipv4_addr_in)),
@@ -1952,7 +1953,7 @@ void StaticIpv4Configuration::WriteIntoTrace(
     dict.AddItem(
       "ipv4_addr"), this->ipv4_addr,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1961,7 +1962,7 @@ void StaticIpv4Configuration::WriteIntoTrace(
     dict.AddItem(
       "gateway_ipv4_addr"), this->gateway_ipv4_addr,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2436,7 +2437,7 @@ LohsConfig::LohsConfig(
     WifiBand band_in,
     SecurityType security_type_in,
     const std::string& hexssid_in,
-    const absl::optional<std::string>& passphrase_in)
+    const std::optional<std::string>& passphrase_in)
     : band(std::move(band_in)),
       security_type(std::move(security_type_in)),
       hexssid(std::move(hexssid_in)),
@@ -2478,7 +2479,7 @@ void LohsConfig::WriteIntoTrace(
     dict.AddItem(
       "passphrase"), this->passphrase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2507,7 +2508,7 @@ PasspointApprovalRequest::PasspointApprovalRequest(
 PasspointApprovalRequest::PasspointApprovalRequest(
     const std::string& package_name_in,
     const std::string& app_name_in,
-    const absl::optional<std::string>& friendly_name_in,
+    const std::optional<std::string>& friendly_name_in,
     int64_t subscription_expiration_time_ms_in)
     : package_name(std::move(package_name_in)),
       app_name(std::move(app_name_in)),
@@ -2541,7 +2542,7 @@ void PasspointApprovalRequest::WriteIntoTrace(
     dict.AddItem(
       "friendly_name"), this->friendly_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3412,14 +3413,17 @@ void NetHostProxy::GetWifiEnabledState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetHost::GetWifiEnabledState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_GetWifiEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -3443,14 +3447,17 @@ void NetHostProxy::StartScan(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetHost::StartScan");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartScan_Name, kFlags, 0, 0, nullptr);
@@ -3480,14 +3487,17 @@ void NetHostProxy::SetWifiEnabledState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_SetWifiEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -3519,14 +3529,17 @@ void NetHostProxy::CreateNetwork(
                         "<value of type WifiConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_CreateNetwork_Name, kFlags, 0, 0, nullptr);
@@ -3568,14 +3581,17 @@ void NetHostProxy::ForgetNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -3620,14 +3636,17 @@ void NetHostProxy::UpdateWifiNetwork(
                         "<value of type WifiConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_UpdateWifiNetwork_Name, kFlags, 0, 0, nullptr);
@@ -3680,14 +3699,17 @@ void NetHostProxy::StartConnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -3729,14 +3751,17 @@ void NetHostProxy::StartDisconnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -3778,14 +3803,17 @@ void NetHostProxy::GetNetworks(
                         "<value of type GetNetworksRequestType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_GetNetworks_Name, kFlags, 0, 0, nullptr);
@@ -3818,14 +3846,17 @@ void NetHostProxy::AndroidVpnConnected(
                         "<value of type AndroidVpnConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_AndroidVpnConnected_Name, kFlags, 0, 0, nullptr);
@@ -3866,14 +3897,17 @@ void NetHostProxy::AndroidVpnStateChanged(
                         "<value of type ConnectionStateType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_AndroidVpnStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -3908,14 +3942,17 @@ void NetHostProxy::SetAlwaysOnVpn(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_SetAlwaysOnVpn_Name, kFlags, 0, 0, nullptr);
@@ -3957,14 +3994,17 @@ void NetHostProxy::RequestPasspointAppApproval(
                         "<value of type PasspointApprovalRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_RequestPasspointAppApproval_Name, kFlags, 0, 0, nullptr);
@@ -4006,14 +4046,17 @@ void NetHostProxy::AddPasspointCredentials(
                         "<value of type PasspointCredentialsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_AddPasspointCredentials_Name, kFlags, 0, 0, nullptr);
@@ -4054,14 +4097,17 @@ void NetHostProxy::RemovePasspointCredentials(
                         "<value of type PasspointRemovalPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_RemovePasspointCredentials_Name, kFlags, 0, 0, nullptr);
@@ -4095,14 +4141,17 @@ void NetHostProxy::DisconnectHostVpn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetHost::DisconnectHostVpn");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_DisconnectHostVpn_Name, kFlags, 0, 0, nullptr);
@@ -4132,14 +4181,17 @@ void NetHostProxy::StartLohs(
                         "<value of type LohsConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartLohs_Name, kFlags, 0, 0, nullptr);
@@ -4174,14 +4226,17 @@ void NetHostProxy::StopLohs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetHost::StopLohs");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StopLohs_Name, kFlags, 0, 0, nullptr);
@@ -4211,14 +4266,17 @@ void NetHostProxy::NotifyAndroidWifiMulticastLockChange(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_NotifyAndroidWifiMulticastLockChange_Name, kFlags, 0, 0, nullptr);
@@ -4249,14 +4307,17 @@ void NetHostProxy::NotifySocketConnectionEvent(
                         "<value of type SocketConnectionEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_NotifySocketConnectionEvent_Name, kFlags, 0, 0, nullptr);
@@ -4376,7 +4437,8 @@ void NetHost_GetWifiEnabledState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_GetWifiEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -4494,7 +4556,8 @@ void NetHost_SetWifiEnabledState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_SetWifiEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -4612,7 +4675,8 @@ void NetHost_CreateNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_CreateNetwork_Name, kFlags, 0, 0, nullptr);
@@ -4740,7 +4804,8 @@ void NetHost_ForgetNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -4859,7 +4924,8 @@ void NetHost_UpdateWifiNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_UpdateWifiNetwork_Name, kFlags, 0, 0, nullptr);
@@ -4978,7 +5044,8 @@ void NetHost_StartConnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -5097,7 +5164,8 @@ void NetHost_StartDisconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -5216,7 +5284,8 @@ void NetHost_GetNetworks_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_GetNetworks_Name, kFlags, 0, 0, nullptr);
@@ -5344,7 +5413,8 @@ void NetHost_RequestPasspointAppApproval_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_RequestPasspointAppApproval_Name, kFlags, 0, 0, nullptr);
@@ -5472,7 +5542,8 @@ void NetHost_StartLohs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetHost_StartLohs_Name, kFlags, 0, 0, nullptr);
@@ -6123,52 +6194,52 @@ std::move(p_config), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetHostValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetHost_GetWifiEnabledState_Params_Data::Validate,
+    { &internal::NetHost_GetWifiEnabledState_Params_Data::Validate,
      &internal::NetHost_GetWifiEnabledState_ResponseParams_Data::Validate},
-    {&internal::NetHost_StartScan_Params_Data::Validate,
+    { &internal::NetHost_StartScan_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetHost_SetWifiEnabledState_Params_Data::Validate,
+    { &internal::NetHost_SetWifiEnabledState_Params_Data::Validate,
      &internal::NetHost_SetWifiEnabledState_ResponseParams_Data::Validate},
-    {&internal::NetHost_CreateNetwork_Params_Data::Validate,
+    { &internal::NetHost_CreateNetwork_Params_Data::Validate,
      &internal::NetHost_CreateNetwork_ResponseParams_Data::Validate},
-    {&internal::NetHost_ForgetNetwork_Params_Data::Validate,
+    { &internal::NetHost_ForgetNetwork_Params_Data::Validate,
      &internal::NetHost_ForgetNetwork_ResponseParams_Data::Validate},
-    {&internal::NetHost_StartConnect_Params_Data::Validate,
+    { &internal::NetHost_StartConnect_Params_Data::Validate,
      &internal::NetHost_StartConnect_ResponseParams_Data::Validate},
-    {&internal::NetHost_StartDisconnect_Params_Data::Validate,
+    { &internal::NetHost_StartDisconnect_Params_Data::Validate,
      &internal::NetHost_StartDisconnect_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetHost_GetNetworks_Params_Data::Validate,
+    { &internal::NetHost_GetNetworks_Params_Data::Validate,
      &internal::NetHost_GetNetworks_ResponseParams_Data::Validate},
-    {&internal::NetHost_AndroidVpnConnected_Params_Data::Validate,
+    { &internal::NetHost_AndroidVpnConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_AndroidVpnStateChanged_Params_Data::Validate,
+    { &internal::NetHost_AndroidVpnStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_SetAlwaysOnVpn_Params_Data::Validate,
+    { &internal::NetHost_SetAlwaysOnVpn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_AddPasspointCredentials_Params_Data::Validate,
+    { &internal::NetHost_AddPasspointCredentials_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetHost_RemovePasspointCredentials_Params_Data::Validate,
+    { &internal::NetHost_RemovePasspointCredentials_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_DisconnectHostVpn_Params_Data::Validate,
+    { &internal::NetHost_DisconnectHostVpn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_StartLohs_Params_Data::Validate,
+    { &internal::NetHost_StartLohs_Params_Data::Validate,
      &internal::NetHost_StartLohs_ResponseParams_Data::Validate},
-    {&internal::NetHost_StopLohs_Params_Data::Validate,
+    { &internal::NetHost_StopLohs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_UpdateWifiNetwork_Params_Data::Validate,
+    { &internal::NetHost_UpdateWifiNetwork_Params_Data::Validate,
      &internal::NetHost_UpdateWifiNetwork_ResponseParams_Data::Validate},
-    {&internal::NetHost_RequestPasspointAppApproval_Params_Data::Validate,
+    { &internal::NetHost_RequestPasspointAppApproval_Params_Data::Validate,
      &internal::NetHost_RequestPasspointAppApproval_ResponseParams_Data::Validate},
-    {&internal::NetHost_NotifyAndroidWifiMulticastLockChange_Params_Data::Validate,
+    { &internal::NetHost_NotifyAndroidWifiMulticastLockChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetHost_NotifySocketConnectionEvent_Params_Data::Validate,
+    { &internal::NetHost_NotifySocketConnectionEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6496,14 +6567,17 @@ void NetInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<NetHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -6533,14 +6607,17 @@ void NetInstanceProxy::ScanCompleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetInstance::ScanCompleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_ScanCompleted_Name, kFlags, 0, 0, nullptr);
@@ -6570,14 +6647,17 @@ void NetInstanceProxy::WifiEnabledStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_WifiEnabledStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -6601,14 +6681,17 @@ void NetInstanceProxy::DisconnectAndroidVpn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetInstance::DisconnectAndroidVpn");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_DisconnectAndroidVpn_Name, kFlags, 0, 0, nullptr);
@@ -6631,14 +6714,17 @@ void NetInstanceProxy::ConfigureAndroidVpn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NetInstance::ConfigureAndroidVpn");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_ConfigureAndroidVpn_Name, kFlags, 0, 0, nullptr);
@@ -6668,14 +6754,17 @@ void NetInstanceProxy::ActiveNetworksChanged(
                         "<value of type std::vector<NetworkConfigurationPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_ActiveNetworksChanged_Name, kFlags, 0, 0, nullptr);
@@ -6721,14 +6810,17 @@ void NetInstanceProxy::DnsResolutionTest(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_DnsResolutionTest_Name, kFlags, 0, 0, nullptr);
@@ -6784,14 +6876,17 @@ void NetInstanceProxy::HttpTest(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_HttpTest_Name, kFlags, 0, 0, nullptr);
@@ -6847,14 +6942,17 @@ void NetInstanceProxy::PingTest(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_PingTest_Name, kFlags, 0, 0, nullptr);
@@ -6910,14 +7008,17 @@ void NetInstanceProxy::SetUpFlag(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_SetUpFlag_Name, kFlags, 0, 0, nullptr);
@@ -7018,7 +7119,8 @@ void NetInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -7135,7 +7237,8 @@ void NetInstance_DnsResolutionTest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_DnsResolutionTest_Name, kFlags, 0, 0, nullptr);
@@ -7263,7 +7366,8 @@ void NetInstance_HttpTest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_HttpTest_Name, kFlags, 0, 0, nullptr);
@@ -7391,7 +7495,8 @@ void NetInstance_PingTest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetInstance_PingTest_Name, kFlags, 0, 0, nullptr);
@@ -7757,30 +7862,30 @@ std::move(p_ip_address), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetInstance_ScanCompleted_Params_Data::Validate,
+    { &internal::NetInstance_ScanCompleted_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetInstance_WifiEnabledStateChanged_Params_Data::Validate,
+    { &internal::NetInstance_WifiEnabledStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetInstance_DisconnectAndroidVpn_Params_Data::Validate,
+    { &internal::NetInstance_DisconnectAndroidVpn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetInstance_ConfigureAndroidVpn_Params_Data::Validate,
+    { &internal::NetInstance_ConfigureAndroidVpn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetInstance_Init_Params_Data::Validate,
+    { &internal::NetInstance_Init_Params_Data::Validate,
      &internal::NetInstance_Init_ResponseParams_Data::Validate},
-    {&internal::NetInstance_ActiveNetworksChanged_Params_Data::Validate,
+    { &internal::NetInstance_ActiveNetworksChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetInstance_DnsResolutionTest_Params_Data::Validate,
+    { &internal::NetInstance_DnsResolutionTest_Params_Data::Validate,
      &internal::NetInstance_DnsResolutionTest_ResponseParams_Data::Validate},
-    {&internal::NetInstance_HttpTest_Params_Data::Validate,
+    { &internal::NetInstance_HttpTest_Params_Data::Validate,
      &internal::NetInstance_HttpTest_ResponseParams_Data::Validate},
-    {&internal::NetInstance_PingTest_Params_Data::Validate,
+    { &internal::NetInstance_PingTest_Params_Data::Validate,
      &internal::NetInstance_PingTest_ResponseParams_Data::Validate},
-    {&internal::NetInstance_SetUpFlag_Params_Data::Validate,
+    { &internal::NetInstance_SetUpFlag_Params_Data::Validate,
      nullptr /* no response */},
 };
 

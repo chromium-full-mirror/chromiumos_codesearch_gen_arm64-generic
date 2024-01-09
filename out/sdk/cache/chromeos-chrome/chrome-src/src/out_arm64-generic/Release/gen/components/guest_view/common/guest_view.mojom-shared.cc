@@ -31,7 +31,7 @@ bool GuestViewHost_AttachToEmbedderFrame_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -41,7 +41,7 @@ bool GuestViewHost_AttachToEmbedderFrame_Params_Data::Validate(
       static_cast<const GuestViewHost_AttachToEmbedderFrame_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->params, 4, validation_context)) {
+          object->params, 3, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->params, validation_context))
@@ -104,33 +104,19 @@ bool GuestViewHost_ViewCreated_Params_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->keep_alive_handle_receiver, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->keep_alive_handle_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
   return true;
 }
 
 GuestViewHost_ViewCreated_Params_Data::GuestViewHost_ViewCreated_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool GuestViewHost_ViewGarbageCollected_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const GuestViewHost_ViewGarbageCollected_Params_Data* object =
-      static_cast<const GuestViewHost_ViewGarbageCollected_Params_Data*>(data);
-
-  return true;
-}
-
-GuestViewHost_ViewGarbageCollected_Params_Data::GuestViewHost_ViewGarbageCollected_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

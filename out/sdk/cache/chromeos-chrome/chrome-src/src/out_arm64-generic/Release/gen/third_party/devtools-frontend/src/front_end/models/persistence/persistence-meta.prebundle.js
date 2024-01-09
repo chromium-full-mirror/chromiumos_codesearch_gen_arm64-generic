@@ -66,7 +66,7 @@ UI.ViewManager.registerViewExtension({
     order: 1,
     async loadView() {
         const Persistence = await loadPersistenceModule();
-        return Persistence.WorkspaceSettingsTab.WorkspaceSettingsTab.instance();
+        return new Persistence.WorkspaceSettingsTab.WorkspaceSettingsTab();
     },
 });
 Common.Settings.registerSettingExtension({
@@ -103,7 +103,7 @@ UI.ContextMenu.registerProvider({
     },
     async loadProvider() {
         const Persistence = await loadPersistenceModule();
-        return Persistence.PersistenceActions.ContextMenuProvider.instance();
+        return new Persistence.PersistenceActions.ContextMenuProvider();
     },
     experiment: undefined,
 });

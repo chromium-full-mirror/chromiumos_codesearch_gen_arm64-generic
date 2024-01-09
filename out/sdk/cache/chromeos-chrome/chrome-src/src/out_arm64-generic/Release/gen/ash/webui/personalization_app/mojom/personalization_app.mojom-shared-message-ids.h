@@ -42,6 +42,7 @@ constexpr uint32_t kWallpaperProvider_UpdateDailyRefreshWallpaper_Name = 21;
 constexpr uint32_t kWallpaperProvider_IsInTabletMode_Name = 22;
 constexpr uint32_t kWallpaperProvider_ConfirmPreviewWallpaper_Name = 23;
 constexpr uint32_t kWallpaperProvider_CancelPreviewWallpaper_Name = 24;
+constexpr uint32_t kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name = 25;
 constexpr uint32_t kThemeObserver_OnColorModeChanged_Name = 0;
 constexpr uint32_t kThemeObserver_OnColorModeAutoScheduleChanged_Name = 1;
 constexpr uint32_t kThemeObserver_OnColorSchemeChanged_Name = 2;

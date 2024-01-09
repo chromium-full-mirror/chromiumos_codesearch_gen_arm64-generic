@@ -22,6 +22,22 @@ class ValidationContext;
 
 namespace crosapi::mojom {
 namespace internal {
+class  DomMessageObserver_OnMessage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> message;
+
+ private:
+  friend class mojo::internal::MessageFragment<DomMessageObserver_OnMessage_Params_Data>;
+
+  DomMessageObserver_OnMessage_Params_Data();
+  ~DomMessageObserver_OnMessage_Params_Data() = delete;
+};
+static_assert(sizeof(DomMessageObserver_OnMessage_Params_Data) == 16,
+              "Bad sizeof(DomMessageObserver_OnMessage_Params_Data)");
 class  StandaloneBrowserTestController_InstallWebApp_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -174,7 +190,7 @@ class  StandaloneBrowserTestController_InstallSubApp_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> parent_app_id;
-  mojo::internal::Pointer<mojo::internal::String_Data> sub_app_start_url;
+  mojo::internal::Pointer<mojo::internal::String_Data> sub_app_path;
 
  private:
   friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_InstallSubApp_Params_Data>;
@@ -200,6 +216,200 @@ class  StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data {
 };
 static_assert(sizeof(StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data) == 16,
               "Bad sizeof(StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data)");
+class  StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::IsolatedWebAppLocation_Data location;
+  uint8_t dev_mode : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data>;
+
+  StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data();
+  ~StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data) == 32,
+              "Bad sizeof(StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data)");
+class  StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::InstallWebAppResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data();
+  ~StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data) == 24,
+              "Bad sizeof(StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data)");
+class  StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> policy;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data>;
+
+  StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data();
+  ~StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data)");
+class  StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data();
+  ~StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data)");
+class  StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> path;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data>;
+
+  StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data();
+  ~StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data)");
+class  StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> extension_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data();
+  ~StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data)");
+class  StandaloneBrowserTestController_RemoveComponentExtension_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> extension_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_RemoveComponentExtension_Params_Data>;
+
+  StandaloneBrowserTestController_RemoveComponentExtension_Params_Data();
+  ~StandaloneBrowserTestController_RemoveComponentExtension_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_RemoveComponentExtension_Params_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_RemoveComponentExtension_Params_Data)");
+class  StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data();
+  ~StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data) == 8,
+              "Bad sizeof(StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data)");
+class  StandaloneBrowserTestController_ObserveDomMessages_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_ObserveDomMessages_Params_Data>;
+
+  StandaloneBrowserTestController_ObserveDomMessages_Params_Data();
+  ~StandaloneBrowserTestController_ObserveDomMessages_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_ObserveDomMessages_Params_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_ObserveDomMessages_Params_Data)");
+class  StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data();
+  ~StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data) == 8,
+              "Bad sizeof(StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data)");
+class  StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> policy;
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data>;
+
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data();
+  ~StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data)");
+class  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data>;
+
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data();
+  ~StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data) == 16,
+              "Bad sizeof(StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data)");
 class  TestShillController_OnPacketReceived_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2119,8 +2329,96 @@ class  TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data {
 };
 static_assert(sizeof(TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data) == 16,
               "Bad sizeof(TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data)");
+class  TestController_GetAllOpenTabURLs_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_GetAllOpenTabURLs_Params_Data>;
+
+  TestController_GetAllOpenTabURLs_Params_Data();
+  ~TestController_GetAllOpenTabURLs_Params_Data() = delete;
+};
+static_assert(sizeof(TestController_GetAllOpenTabURLs_Params_Data) == 8,
+              "Bad sizeof(TestController_GetAllOpenTabURLs_Params_Data)");
+class  TestController_GetAllOpenTabURLs_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> urls;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_GetAllOpenTabURLs_ResponseParams_Data>;
+
+  TestController_GetAllOpenTabURLs_ResponseParams_Data();
+  ~TestController_GetAllOpenTabURLs_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TestController_GetAllOpenTabURLs_ResponseParams_Data) == 16,
+              "Bad sizeof(TestController_GetAllOpenTabURLs_ResponseParams_Data)");
+class  TestController_SetAlmanacEndpointUrlForTesting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> override;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_SetAlmanacEndpointUrlForTesting_Params_Data>;
+
+  TestController_SetAlmanacEndpointUrlForTesting_Params_Data();
+  ~TestController_SetAlmanacEndpointUrlForTesting_Params_Data() = delete;
+};
+static_assert(sizeof(TestController_SetAlmanacEndpointUrlForTesting_Params_Data) == 16,
+              "Bad sizeof(TestController_SetAlmanacEndpointUrlForTesting_Params_Data)");
+class  TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data>;
+
+  TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data();
+  ~TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data) == 8,
+              "Bad sizeof(TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data)");
 
 }  // namespace internal
+
+
+class DomMessageObserver_OnMessage_ParamsDataView {
+ public:
+  DomMessageObserver_OnMessage_ParamsDataView() = default;
+
+  DomMessageObserver_OnMessage_ParamsDataView(
+      internal::DomMessageObserver_OnMessage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessage(UserType* output) {
+    
+    auto* pointer = data_->message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DomMessageObserver_OnMessage_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class StandaloneBrowserTestController_InstallWebApp_ParamsDataView {
@@ -2374,13 +2672,13 @@ class StandaloneBrowserTestController_InstallSubApp_ParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  inline void GetSubAppStartUrlDataView(
+  inline void GetSubAppPathDataView(
       mojo::StringDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadSubAppStartUrl(UserType* output) {
+  [[nodiscard]] bool ReadSubAppPath(UserType* output) {
     
-    auto* pointer = data_->sub_app_start_url.Get();
+    auto* pointer = data_->sub_app_path.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -2413,6 +2711,282 @@ class StandaloneBrowserTestController_InstallSubApp_ResponseParamsDataView {
  private:
   internal::StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_InstallIsolatedWebApp_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ParamsDataView(
+      internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocationDataView(
+      IsolatedWebAppLocationDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocation(UserType* output) {
+    
+    auto* pointer = !data_->location.is_null() ? &data_->location : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::IsolatedWebAppLocationDataView>(
+        pointer, output, message_);
+  }
+  bool dev_mode() const {
+    return data_->dev_mode;
+  }
+ private:
+  internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      InstallWebAppResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::InstallWebAppResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView(
+      internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPolicyDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPolicy(UserType* output) {
+    
+    auto* pointer = data_->policy.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView(
+      internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPathDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPath(UserType* output) {
+    
+    auto* pointer = data_->path.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExtensionIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+    
+    auto* pointer = data_->extension_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView(
+      internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExtensionIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+    
+    auto* pointer = data_->extension_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_RemoveComponentExtension_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_RemoveComponentExtension_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_RemoveComponentExtension_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_ObserveDomMessages_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_ObserveDomMessages_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_ObserveDomMessages_ParamsDataView(
+      internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::crosapi::mojom::DomMessageObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_ObserveDomMessages_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_ObserveDomMessages_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_ObserveDomMessages_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView {
+ public:
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView() = default;
+
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView(
+      internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPolicyDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPolicy(UserType* output) {
+    
+    auto* pointer = data_->policy.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParamsDataView {
+ public:
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParamsDataView() = default;
+
+  StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParamsDataView(
+      internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -5050,6 +5624,105 @@ class TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParamsDataView 
   internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class TestController_GetAllOpenTabURLs_ParamsDataView {
+ public:
+  TestController_GetAllOpenTabURLs_ParamsDataView() = default;
+
+  TestController_GetAllOpenTabURLs_ParamsDataView(
+      internal::TestController_GetAllOpenTabURLs_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TestController_GetAllOpenTabURLs_Params_Data* data_ = nullptr;
+};
+
+
+class TestController_GetAllOpenTabURLs_ResponseParamsDataView {
+ public:
+  TestController_GetAllOpenTabURLs_ResponseParamsDataView() = default;
+
+  TestController_GetAllOpenTabURLs_ResponseParamsDataView(
+      internal::TestController_GetAllOpenTabURLs_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlsDataView(
+      mojo::ArrayDataView<::url::mojom::UrlDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrls(UserType* output) {
+    
+    auto* pointer = data_->urls.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TestController_GetAllOpenTabURLs_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView {
+ public:
+  TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView() = default;
+
+  TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView(
+      internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetOverrideDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOverride(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `override` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOverride` instead "
+    "of `ReadOverride if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->override.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView {
+ public:
+  TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView() = default;
+
+  TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView(
+      internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data* data_ = nullptr;
+};
+
+inline void DomMessageObserver_OnMessage_ParamsDataView::GetMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void StandaloneBrowserTestController_InstallWebApp_ParamsDataView::GetStartUrlDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->start_url.Get();
@@ -5108,9 +5781,9 @@ inline void StandaloneBrowserTestController_InstallSubApp_ParamsDataView::GetPar
   auto pointer = data_->parent_app_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void StandaloneBrowserTestController_InstallSubApp_ParamsDataView::GetSubAppStartUrlDataView(
+inline void StandaloneBrowserTestController_InstallSubApp_ParamsDataView::GetSubAppPathDataView(
     mojo::StringDataView* output) {
-  auto pointer = data_->sub_app_start_url.Get();
+  auto pointer = data_->sub_app_path.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
@@ -5120,6 +5793,65 @@ inline void StandaloneBrowserTestController_InstallSubApp_ResponseParamsDataView
   auto pointer = data_->sub_app_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+inline void StandaloneBrowserTestController_InstallIsolatedWebApp_ParamsDataView::GetLocationDataView(
+    IsolatedWebAppLocationDataView* output) {
+  auto pointer = &data_->location;
+  *output = IsolatedWebAppLocationDataView(pointer, message_);
+}
+
+
+inline void StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView::GetResultDataView(
+    InstallWebAppResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = InstallWebAppResultDataView(pointer, message_);
+}
+
+
+inline void StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView::GetPolicyDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->policy.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView::GetPathDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->path.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView::GetExtensionIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->extension_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView::GetExtensionIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->extension_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+
+
+
+
+inline void StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView::GetPolicyDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->policy.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 
 inline void TestShillController_OnPacketReceived_ParamsDataView::GetExtensionIdDataView(
@@ -5666,6 +6398,24 @@ inline void TestController_SetAppListItemAttributes_ParamsDataView::GetAttribute
 
 
 
+
+
+
+
+
+
+inline void TestController_GetAllOpenTabURLs_ResponseParamsDataView::GetUrlsDataView(
+    mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
+  auto pointer = data_->urls.Get();
+  *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
+}
+
+
+inline void TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView::GetOverrideDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->override.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1286,14 +1287,17 @@ void DesktopSessionRequestHandlerProxy::ConnectDesktopChannel(
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionRequestHandler_ConnectDesktopChannel_Name, kFlags, 0, 0, nullptr);
@@ -1322,14 +1326,17 @@ void DesktopSessionRequestHandlerProxy::InjectSecureAttentionSequence(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionRequestHandler::InjectSecureAttentionSequence");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionRequestHandler_InjectSecureAttentionSequence_Name, kFlags, 0, 0, nullptr);
@@ -1352,14 +1359,17 @@ void DesktopSessionRequestHandlerProxy::CrashNetworkProcess(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionRequestHandler::CrashNetworkProcess");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionRequestHandler_CrashNetworkProcess_Name, kFlags, 0, 0, nullptr);
@@ -1477,14 +1487,14 @@ bool DesktopSessionRequestHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionRequestHandlerValidationInfo[] = {
-    {&internal::DesktopSessionRequestHandler_ConnectDesktopChannel_Params_Data::Validate,
+    { &internal::DesktopSessionRequestHandler_ConnectDesktopChannel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionRequestHandler_InjectSecureAttentionSequence_Params_Data::Validate,
+    { &internal::DesktopSessionRequestHandler_InjectSecureAttentionSequence_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionRequestHandler_CrashNetworkProcess_Params_Data::Validate,
+    { &internal::DesktopSessionRequestHandler_CrashNetworkProcess_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1610,14 +1620,17 @@ void DesktopSessionManagerProxy::CreateDesktopSession(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionManager_CreateDesktopSession_Name, kFlags, 0, 0, nullptr);
@@ -1660,14 +1673,17 @@ void DesktopSessionManagerProxy::CloseDesktopSession(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionManager_CloseDesktopSession_Name, kFlags, 0, 0, nullptr);
@@ -1701,14 +1717,17 @@ void DesktopSessionManagerProxy::SetScreenResolution(
                         "<value of type const ::remoting::ScreenResolution&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionManager_SetScreenResolution_Name, kFlags, 0, 0, nullptr);
@@ -1858,14 +1877,14 @@ bool DesktopSessionManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionManagerValidationInfo[] = {
-    {&internal::DesktopSessionManager_CreateDesktopSession_Params_Data::Validate,
+    { &internal::DesktopSessionManager_CreateDesktopSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionManager_CloseDesktopSession_Params_Data::Validate,
+    { &internal::DesktopSessionManager_CloseDesktopSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionManager_SetScreenResolution_Params_Data::Validate,
+    { &internal::DesktopSessionManager_SetScreenResolution_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1967,14 +1986,17 @@ void DesktopSessionAgentProxy::Start(
                         "<value of type const ::remoting::DesktopEnvironmentOptions&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionAgent_Start_Name, kFlags, 0, 0, nullptr);
@@ -2119,7 +2141,8 @@ void DesktopSessionAgent_Start_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionAgent_Start_Name, kFlags, 0, 0, nullptr);
@@ -2212,10 +2235,10 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionAgentValidationInfo[] = {
-    {&internal::DesktopSessionAgent_Start_Params_Data::Validate,
+    { &internal::DesktopSessionAgent_Start_Params_Data::Validate,
      &internal::DesktopSessionAgent_Start_ResponseParams_Data::Validate},
 };
 
@@ -2351,14 +2374,17 @@ void FileWriterProxy::WriteChunk(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileWriter_WriteChunk_Name, kFlags, 0, 0, nullptr);
@@ -2395,14 +2421,17 @@ void FileWriterProxy::CloseFile(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::FileWriter::CloseFile");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileWriter_CloseFile_Name, kFlags, 0, 0, nullptr);
@@ -2466,7 +2495,7 @@ class FileWriter_WriteChunk_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      const absl::optional<::remoting::protocol::FileTransfer_Error>& in_error);
+      const std::optional<::remoting::protocol::FileTransfer_Error>& in_error);
 };
 
 bool FileWriter_WriteChunk_ForwardToCallback::Accept(
@@ -2479,7 +2508,7 @@ bool FileWriter_WriteChunk_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::remoting::protocol::FileTransfer_Error> p_error{};
+  std::optional<::remoting::protocol::FileTransfer_Error> p_error{};
   FileWriter_WriteChunk_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2498,7 +2527,7 @@ std::move(p_error));
 }
 
 void FileWriter_WriteChunk_ProxyToResponder::Run(
-    const absl::optional<::remoting::protocol::FileTransfer_Error>& in_error) {
+    const std::optional<::remoting::protocol::FileTransfer_Error>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply remoting::mojom::FileWriter::WriteChunk", "async_response_parameters",
@@ -2506,13 +2535,14 @@ void FileWriter_WriteChunk_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<::remoting::protocol::FileTransfer_Error>&>");
+                        "<value of type const std::optional<::remoting::protocol::FileTransfer_Error>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileWriter_WriteChunk_Name, kFlags, 0, 0, nullptr);
@@ -2590,7 +2620,7 @@ class FileWriter_CloseFile_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      const absl::optional<::remoting::protocol::FileTransfer_Error>& in_error);
+      const std::optional<::remoting::protocol::FileTransfer_Error>& in_error);
 };
 
 bool FileWriter_CloseFile_ForwardToCallback::Accept(
@@ -2603,7 +2633,7 @@ bool FileWriter_CloseFile_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::remoting::protocol::FileTransfer_Error> p_error{};
+  std::optional<::remoting::protocol::FileTransfer_Error> p_error{};
   FileWriter_CloseFile_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2622,7 +2652,7 @@ std::move(p_error));
 }
 
 void FileWriter_CloseFile_ProxyToResponder::Run(
-    const absl::optional<::remoting::protocol::FileTransfer_Error>& in_error) {
+    const std::optional<::remoting::protocol::FileTransfer_Error>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply remoting::mojom::FileWriter::CloseFile", "async_response_parameters",
@@ -2630,13 +2660,14 @@ void FileWriter_CloseFile_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<::remoting::protocol::FileTransfer_Error>&>");
+                        "<value of type const std::optional<::remoting::protocol::FileTransfer_Error>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileWriter_CloseFile_Name, kFlags, 0, 0, nullptr);
@@ -2750,12 +2781,12 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileWriterValidationInfo[] = {
-    {&internal::FileWriter_WriteChunk_Params_Data::Validate,
+    { &internal::FileWriter_WriteChunk_Params_Data::Validate,
      &internal::FileWriter_WriteChunk_ResponseParams_Data::Validate},
-    {&internal::FileWriter_CloseFile_Params_Data::Validate,
+    { &internal::FileWriter_CloseFile_Params_Data::Validate,
      &internal::FileWriter_CloseFile_ResponseParams_Data::Validate},
 };
 
@@ -2855,14 +2886,17 @@ void FileReaderProxy::ReadChunk(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileReader_ReadChunk_Name, kFlags, 0, 0, nullptr);
@@ -2973,7 +3007,8 @@ void FileReader_ReadChunk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileReader_ReadChunk_Name, kFlags, 0, 0, nullptr);
@@ -3061,10 +3096,10 @@ std::move(p_bytes_to_read), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileReaderValidationInfo[] = {
-    {&internal::FileReader_ReadChunk_Params_Data::Validate,
+    { &internal::FileReader_ReadChunk_Params_Data::Validate,
      &internal::FileReader_ReadChunk_ResponseParams_Data::Validate},
 };
 
@@ -3433,14 +3468,17 @@ void DesktopSessionControlProxy::CaptureFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::CaptureFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_CaptureFrame_Name, kFlags, 0, 0, nullptr);
@@ -3470,14 +3508,17 @@ void DesktopSessionControlProxy::SelectSource(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_SelectSource_Name, kFlags, 0, 0, nullptr);
@@ -3508,14 +3549,17 @@ void DesktopSessionControlProxy::SetScreenResolution(
                         "<value of type const ::remoting::ScreenResolution&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_SetScreenResolution_Name, kFlags, 0, 0, nullptr);
@@ -3549,14 +3593,17 @@ void DesktopSessionControlProxy::LockWorkstation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::LockWorkstation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_LockWorkstation_Name, kFlags, 0, 0, nullptr);
@@ -3579,14 +3626,17 @@ void DesktopSessionControlProxy::InjectSendAttentionSequence(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::InjectSendAttentionSequence");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectSendAttentionSequence_Name, kFlags, 0, 0, nullptr);
@@ -3616,14 +3666,17 @@ void DesktopSessionControlProxy::InjectClipboardEvent(
                         "<value of type const ::remoting::protocol::ClipboardEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectClipboardEvent_Name, kFlags, 0, 0, nullptr);
@@ -3664,14 +3717,17 @@ void DesktopSessionControlProxy::InjectKeyEvent(
                         "<value of type const ::remoting::protocol::KeyEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -3712,14 +3768,17 @@ void DesktopSessionControlProxy::InjectMouseEvent(
                         "<value of type const ::remoting::protocol::MouseEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectMouseEvent_Name, kFlags, 0, 0, nullptr);
@@ -3760,14 +3819,17 @@ void DesktopSessionControlProxy::InjectTextEvent(
                         "<value of type const ::remoting::protocol::TextEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectTextEvent_Name, kFlags, 0, 0, nullptr);
@@ -3808,14 +3870,17 @@ void DesktopSessionControlProxy::InjectTouchEvent(
                         "<value of type const ::remoting::protocol::TouchEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_InjectTouchEvent_Name, kFlags, 0, 0, nullptr);
@@ -3849,14 +3914,17 @@ void DesktopSessionControlProxy::SetUpUrlForwarder(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::SetUpUrlForwarder");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_SetUpUrlForwarder_Name, kFlags, 0, 0, nullptr);
@@ -3879,14 +3947,17 @@ void DesktopSessionControlProxy::SignalWebAuthnExtension(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::SignalWebAuthnExtension");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_SignalWebAuthnExtension_Name, kFlags, 0, 0, nullptr);
@@ -3909,14 +3980,17 @@ void DesktopSessionControlProxy::BeginFileRead(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::DesktopSessionControl::BeginFileRead");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_BeginFileRead_Name, kFlags, 0, 0, nullptr);
@@ -3947,14 +4021,17 @@ void DesktopSessionControlProxy::BeginFileWrite(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_BeginFileWrite_Name, kFlags, 0, 0, nullptr);
@@ -4075,7 +4152,8 @@ void DesktopSessionControl_BeginFileRead_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_BeginFileRead_Name, kFlags, 0, 0, nullptr);
@@ -4201,7 +4279,8 @@ void DesktopSessionControl_BeginFileWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionControl_BeginFileWrite_Name, kFlags, 0, 0, nullptr);
@@ -4645,36 +4724,36 @@ std::move(p_file_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionControlValidationInfo[] = {
-    {&internal::DesktopSessionControl_CaptureFrame_Params_Data::Validate,
+    { &internal::DesktopSessionControl_CaptureFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_SelectSource_Params_Data::Validate,
+    { &internal::DesktopSessionControl_SelectSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_SetScreenResolution_Params_Data::Validate,
+    { &internal::DesktopSessionControl_SetScreenResolution_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_LockWorkstation_Params_Data::Validate,
+    { &internal::DesktopSessionControl_LockWorkstation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectSendAttentionSequence_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectSendAttentionSequence_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectClipboardEvent_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectClipboardEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectKeyEvent_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectKeyEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectMouseEvent_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectMouseEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectTextEvent_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectTextEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_InjectTouchEvent_Params_Data::Validate,
+    { &internal::DesktopSessionControl_InjectTouchEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_SetUpUrlForwarder_Params_Data::Validate,
+    { &internal::DesktopSessionControl_SetUpUrlForwarder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_SignalWebAuthnExtension_Params_Data::Validate,
+    { &internal::DesktopSessionControl_SignalWebAuthnExtension_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionControl_BeginFileRead_Params_Data::Validate,
+    { &internal::DesktopSessionControl_BeginFileRead_Params_Data::Validate,
      &internal::DesktopSessionControl_BeginFileRead_ResponseParams_Data::Validate},
-    {&internal::DesktopSessionControl_BeginFileWrite_Params_Data::Validate,
+    { &internal::DesktopSessionControl_BeginFileWrite_Params_Data::Validate,
      &internal::DesktopSessionControl_BeginFileWrite_ResponseParams_Data::Validate},
 };
 
@@ -4918,14 +4997,17 @@ void DesktopSessionEventHandlerProxy::OnClipboardEvent(
                         "<value of type const ::remoting::protocol::ClipboardEvent&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnClipboardEvent_Name, kFlags, 0, 0, nullptr);
@@ -4966,14 +5048,17 @@ void DesktopSessionEventHandlerProxy::OnUrlForwarderStateChange(
                         "<value of type UrlForwarderState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnUrlForwarderStateChange_Name, kFlags, 0, 0, nullptr);
@@ -5005,14 +5090,17 @@ void DesktopSessionEventHandlerProxy::OnAudioPacket(
                         "<value of type ::std::unique_ptr<::remoting::AudioPacket>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnAudioPacket_Name, kFlags, 0, 0, nullptr);
@@ -5059,14 +5147,17 @@ void DesktopSessionEventHandlerProxy::OnSharedMemoryRegionCreated(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnSharedMemoryRegionCreated_Name, kFlags, 0, 0, nullptr);
@@ -5109,14 +5200,17 @@ void DesktopSessionEventHandlerProxy::OnSharedMemoryRegionReleased(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnSharedMemoryRegionReleased_Name, kFlags, 0, 0, nullptr);
@@ -5147,14 +5241,17 @@ void DesktopSessionEventHandlerProxy::OnCaptureResult(
                         "<value of type CaptureResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnCaptureResult_Name, kFlags, 0, 0, nullptr);
@@ -5193,14 +5290,17 @@ void DesktopSessionEventHandlerProxy::OnDesktopDisplayChanged(
                         "<value of type const ::remoting::protocol::VideoLayout&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnDesktopDisplayChanged_Name, kFlags, 0, 0, nullptr);
@@ -5241,14 +5341,17 @@ void DesktopSessionEventHandlerProxy::OnMouseCursorChanged(
                         "<value of type const ::webrtc::MouseCursor&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnMouseCursorChanged_Name, kFlags, 0, 0, nullptr);
@@ -5289,14 +5392,17 @@ void DesktopSessionEventHandlerProxy::OnKeyboardLayoutChanged(
                         "<value of type const ::remoting::protocol::KeyboardLayout&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionEventHandler_OnKeyboardLayoutChanged_Name, kFlags, 0, 0, nullptr);
@@ -5615,26 +5721,26 @@ bool DesktopSessionEventHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionEventHandlerValidationInfo[] = {
-    {&internal::DesktopSessionEventHandler_OnClipboardEvent_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnClipboardEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnUrlForwarderStateChange_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnUrlForwarderStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnAudioPacket_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnAudioPacket_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnSharedMemoryRegionCreated_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnSharedMemoryRegionCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnSharedMemoryRegionReleased_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnSharedMemoryRegionReleased_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnCaptureResult_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnCaptureResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnDesktopDisplayChanged_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnDesktopDisplayChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnMouseCursorChanged_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnMouseCursorChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DesktopSessionEventHandler_OnKeyboardLayoutChanged_Params_Data::Validate,
+    { &internal::DesktopSessionEventHandler_OnKeyboardLayoutChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5714,14 +5820,17 @@ void DesktopSessionStateHandlerProxy::DisconnectSession(
                         "<value of type ::remoting::protocol::ErrorCode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesktopSessionStateHandler_DisconnectSession_Name, kFlags, 0, 0, nullptr);
@@ -5791,10 +5900,10 @@ bool DesktopSessionStateHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDesktopSessionStateHandlerValidationInfo[] = {
-    {&internal::DesktopSessionStateHandler_DisconnectSession_Params_Data::Validate,
+    { &internal::DesktopSessionStateHandler_DisconnectSession_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5880,14 +5989,17 @@ void WorkerProcessControlProxy::CrashProcess(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWorkerProcessControl_CrashProcess_Name, kFlags, 0, 0, nullptr);
@@ -5986,10 +6098,10 @@ bool WorkerProcessControlStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWorkerProcessControlValidationInfo[] = {
-    {&internal::WorkerProcessControl_CrashProcess_Params_Data::Validate,
+    { &internal::WorkerProcessControl_CrashProcess_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6516,14 +6628,14 @@ FileWriterAsyncWaiter::FileWriterAsyncWaiter(
 FileWriterAsyncWaiter::~FileWriterAsyncWaiter() = default;
 
 void FileWriterAsyncWaiter::WriteChunk(
-    const std::vector<uint8_t>& data, absl::optional<::remoting::protocol::FileTransfer_Error>* out_error) {
+    const std::vector<uint8_t>& data, std::optional<::remoting::protocol::FileTransfer_Error>* out_error) {
   base::RunLoop loop;
   proxy_->WriteChunk(std::move(data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::remoting::protocol::FileTransfer_Error>* out_error
+             std::optional<::remoting::protocol::FileTransfer_Error>* out_error
 ,
-             const absl::optional<::remoting::protocol::FileTransfer_Error>& error) {*out_error = std::move(error);
+             const std::optional<::remoting::protocol::FileTransfer_Error>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -6531,22 +6643,22 @@ void FileWriterAsyncWaiter::WriteChunk(
   loop.Run();
 }
 
-absl::optional<::remoting::protocol::FileTransfer_Error> FileWriterAsyncWaiter::WriteChunk(
+std::optional<::remoting::protocol::FileTransfer_Error> FileWriterAsyncWaiter::WriteChunk(
     const std::vector<uint8_t>& data) {
-  absl::optional<::remoting::protocol::FileTransfer_Error> async_wait_result;
+  std::optional<::remoting::protocol::FileTransfer_Error> async_wait_result;
   WriteChunk(std::move(data),&async_wait_result);
   return async_wait_result;
 }
 
 void FileWriterAsyncWaiter::CloseFile(
-    absl::optional<::remoting::protocol::FileTransfer_Error>* out_error) {
+    std::optional<::remoting::protocol::FileTransfer_Error>* out_error) {
   base::RunLoop loop;
   proxy_->CloseFile(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::remoting::protocol::FileTransfer_Error>* out_error
+             std::optional<::remoting::protocol::FileTransfer_Error>* out_error
 ,
-             const absl::optional<::remoting::protocol::FileTransfer_Error>& error) {*out_error = std::move(error);
+             const std::optional<::remoting::protocol::FileTransfer_Error>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -6554,9 +6666,9 @@ void FileWriterAsyncWaiter::CloseFile(
   loop.Run();
 }
 
-absl::optional<::remoting::protocol::FileTransfer_Error> FileWriterAsyncWaiter::CloseFile(
+std::optional<::remoting::protocol::FileTransfer_Error> FileWriterAsyncWaiter::CloseFile(
     ) {
-  absl::optional<::remoting::protocol::FileTransfer_Error> async_wait_result;
+  std::optional<::remoting::protocol::FileTransfer_Error> async_wait_result;
   CloseFile(&async_wait_result);
   return async_wait_result;
 }

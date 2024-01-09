@@ -4,122 +4,161 @@
 #include "perf_stat.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace quipper {
+template <typename>
 PROTOBUF_CONSTEXPR PerfStatProto_PerfStatLine::PerfStatProto_PerfStatLine(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.event_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.time_ms_)*/uint64_t{0u}
-  , /*decltype(_impl_.count_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.event_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.time_ms_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.count_)*/ ::uint64_t{0u}
+} {}
 struct PerfStatProto_PerfStatLineDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfStatProto_PerfStatLineDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfStatProto_PerfStatLineDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfStatProto_PerfStatLineDefaultTypeInternal() {}
   union {
     PerfStatProto_PerfStatLine _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfStatProto_PerfStatLineDefaultTypeInternal _PerfStatProto_PerfStatLine_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfStatProto_PerfStatLineDefaultTypeInternal _PerfStatProto_PerfStatLine_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfStatProto::PerfStatProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.line_)*/{}
-  , /*decltype(_impl_.command_line_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.command_line_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct PerfStatProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfStatProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfStatProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfStatProtoDefaultTypeInternal() {}
   union {
     PerfStatProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfStatProtoDefaultTypeInternal _PerfStatProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfStatProtoDefaultTypeInternal _PerfStatProto_default_instance_;
 }  // namespace quipper
 static ::_pb::Metadata file_level_metadata_perf_5fstat_2eproto[2];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_perf_5fstat_2eproto = nullptr;
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_perf_5fstat_2eproto = nullptr;
-
-const uint32_t TableStruct_perf_5fstat_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.time_ms_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.count_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.event_name_),
-  1,
-  2,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_.line_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_.command_line_),
-  ~0u,
-  0,
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_perf_5fstat_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_perf_5fstat_2eproto = nullptr;
+const ::uint32_t TableStruct_perf_5fstat_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.time_ms_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.count_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto_PerfStatLine, _impl_.event_name_),
+    1,
+    2,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_.line_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfStatProto, _impl_.command_line_),
+    ~0u,
+    0,
 };
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, -1, sizeof(::quipper::PerfStatProto_PerfStatLine)},
-  { 12, 20, -1, sizeof(::quipper::PerfStatProto)},
+
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, 11, -1, sizeof(::quipper::PerfStatProto_PerfStatLine)},
+        { 14, 24, -1, sizeof(::quipper::PerfStatProto)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::quipper::_PerfStatProto_PerfStatLine_default_instance_._instance,
-  &::quipper::_PerfStatProto_default_instance_._instance,
+    &::quipper::_PerfStatProto_PerfStatLine_default_instance_._instance,
+    &::quipper::_PerfStatProto_default_instance_._instance,
 };
-
-const char descriptor_table_protodef_perf_5fstat_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\017perf_stat.proto\022\007quipper\"\234\001\n\rPerfStatP"
-  "roto\0221\n\004line\030\001 \003(\0132#.quipper.PerfStatPro"
-  "to.PerfStatLine\022\024\n\014command_line\030\002 \001(\t\032B\n"
-  "\014PerfStatLine\022\017\n\007time_ms\030\001 \001(\004\022\r\n\005count\030"
-  "\002 \001(\004\022\022\n\nevent_name\030\003 \001(\t"
-  ;
-static ::_pbi::once_flag descriptor_table_perf_5fstat_2eproto_once;
+const char descriptor_table_protodef_perf_5fstat_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\017perf_stat.proto\022\007quipper\"\234\001\n\rPerfStatP"
+    "roto\0221\n\004line\030\001 \003(\0132#.quipper.PerfStatPro"
+    "to.PerfStatLine\022\024\n\014command_line\030\002 \001(\t\032B\n"
+    "\014PerfStatLine\022\017\n\007time_ms\030\001 \001(\004\022\r\n\005count\030"
+    "\002 \001(\004\022\022\n\nevent_name\030\003 \001(\t"
+};
+static ::absl::once_flag descriptor_table_perf_5fstat_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_perf_5fstat_2eproto = {
-    false, false, 185, descriptor_table_protodef_perf_5fstat_2eproto,
+    false,
+    false,
+    185,
+    descriptor_table_protodef_perf_5fstat_2eproto,
     "perf_stat.proto",
-    &descriptor_table_perf_5fstat_2eproto_once, nullptr, 0, 2,
-    schemas, file_default_instances, TableStruct_perf_5fstat_2eproto::offsets,
-    file_level_metadata_perf_5fstat_2eproto, file_level_enum_descriptors_perf_5fstat_2eproto,
+    &descriptor_table_perf_5fstat_2eproto_once,
+    nullptr,
+    0,
+    2,
+    schemas,
+    file_default_instances,
+    TableStruct_perf_5fstat_2eproto::offsets,
+    file_level_metadata_perf_5fstat_2eproto,
+    file_level_enum_descriptors_perf_5fstat_2eproto,
     file_level_service_descriptors_perf_5fstat_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_perf_5fstat_2eproto_getter() {
   return &descriptor_table_perf_5fstat_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fstat_2eproto(&descriptor_table_perf_5fstat_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fstat_2eproto(&descriptor_table_perf_5fstat_2eproto);
 namespace quipper {
-
 // ===================================================================
 
 class PerfStatProto_PerfStatLine::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfStatProto_PerfStatLine>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfStatProto_PerfStatLine, _impl_._has_bits_);
   static void set_has_time_ms(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -131,10 +170,9 @@ class PerfStatProto_PerfStatLine::_Internal {
   }
 };
 
-PerfStatProto_PerfStatLine::PerfStatProto_PerfStatLine(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfStatProto_PerfStatLine::PerfStatProto_PerfStatLine(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfStatProto.PerfStatLine)
 }
 PerfStatProto_PerfStatLine::PerfStatProto_PerfStatLine(const PerfStatProto_PerfStatLine& from)
@@ -143,40 +181,43 @@ PerfStatProto_PerfStatLine::PerfStatProto_PerfStatLine(const PerfStatProto_PerfS
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.event_name_){}
-    , decltype(_impl_.time_ms_){}
-    , decltype(_impl_.count_){}};
+    , decltype(_impl_.event_name_) {}
+
+    , decltype(_impl_.time_ms_) {}
+
+    , decltype(_impl_.count_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.event_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.event_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_event_name()) {
-    _this->_impl_.event_name_.Set(from._internal_event_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.event_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.event_name_.Set(from._internal_event_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.time_ms_, &from._impl_.time_ms_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.count_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.count_) -
     reinterpret_cast<char*>(&_impl_.time_ms_)) + sizeof(_impl_.count_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfStatProto.PerfStatLine)
 }
 
-inline void PerfStatProto_PerfStatLine::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfStatProto_PerfStatLine::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.event_name_){}
-    , decltype(_impl_.time_ms_){uint64_t{0u}}
-    , decltype(_impl_.count_){uint64_t{0u}}
+    , decltype(_impl_.event_name_) {}
+
+    , decltype(_impl_.time_ms_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.count_) { ::uint64_t{0u} }
+
   };
   _impl_.event_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.event_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.event_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfStatProto_PerfStatLine::~PerfStatProto_PerfStatLine() {
@@ -189,7 +230,7 @@ PerfStatProto_PerfStatLine::~PerfStatProto_PerfStatLine() {
 }
 
 inline void PerfStatProto_PerfStatLine::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.event_name_.Destroy();
 }
 
@@ -199,7 +240,7 @@ void PerfStatProto_PerfStatLine::SetCachedSize(int size) const {
 
 void PerfStatProto_PerfStatLine::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfStatProto.PerfStatLine)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -208,7 +249,7 @@ void PerfStatProto_PerfStatLine::Clear() {
     _impl_.event_name_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.time_ms_, 0, static_cast<size_t>(
+    ::memset(&_impl_.time_ms_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.count_) -
         reinterpret_cast<char*>(&_impl_.time_ms_)) + sizeof(_impl_.count_));
   }
@@ -220,38 +261,41 @@ const char* PerfStatProto_PerfStatLine::_InternalParse(const char* ptr, ::_pbi::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 time_ms = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_time_ms(&has_bits);
           _impl_.time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 count = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_count(&has_bits);
           _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string event_name = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_event_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfStatProto.PerfStatLine.event_name");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -277,33 +321,33 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfStatProto_PerfStatLine::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfStatProto_PerfStatLine::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfStatProto.PerfStatLine)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 time_ms = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_time_ms(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_time_ms(), target);
   }
 
   // optional uint64 count = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_count(), target);
   }
 
   // optional string event_name = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_event_name().data(), static_cast<int>(this->_internal_event_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfStatProto.PerfStatLine.event_name");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_event_name(), target);
+    const std::string& _s = this->_internal_event_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfStatProto.PerfStatLine.event_name");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -314,11 +358,11 @@ uint8_t* PerfStatProto_PerfStatLine::_InternalSerialize(
   return target;
 }
 
-size_t PerfStatProto_PerfStatLine::ByteSizeLong() const {
+::size_t PerfStatProto_PerfStatLine::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfStatProto.PerfStatLine)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -326,19 +370,20 @@ size_t PerfStatProto_PerfStatLine::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string event_name = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_event_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_event_name());
     }
 
     // optional uint64 time_ms = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_ms());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_ms());
     }
 
     // optional uint64 count = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_count());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_count());
     }
 
   }
@@ -356,8 +401,8 @@ void PerfStatProto_PerfStatLine::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
   auto* const _this = static_cast<PerfStatProto_PerfStatLine*>(&to_msg);
   auto& from = static_cast<const PerfStatProto_PerfStatLine&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfStatProto.PerfStatLine)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -393,10 +438,8 @@ void PerfStatProto_PerfStatLine::InternalSwap(PerfStatProto_PerfStatLine* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.event_name_, lhs_arena,
-      &other->_impl_.event_name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.event_name_, lhs_arena,
+                                       &other->_impl_.event_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfStatProto_PerfStatLine, _impl_.count_)
       + sizeof(PerfStatProto_PerfStatLine::_impl_.count_)
@@ -410,21 +453,21 @@ void PerfStatProto_PerfStatLine::InternalSwap(PerfStatProto_PerfStatLine* other)
       &descriptor_table_perf_5fstat_2eproto_getter, &descriptor_table_perf_5fstat_2eproto_once,
       file_level_metadata_perf_5fstat_2eproto[0]);
 }
-
 // ===================================================================
 
 class PerfStatProto::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfStatProto>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfStatProto, _impl_._has_bits_);
   static void set_has_command_line(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-PerfStatProto::PerfStatProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfStatProto::PerfStatProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfStatProto)
 }
 PerfStatProto::PerfStatProto(const PerfStatProto& from)
@@ -434,34 +477,33 @@ PerfStatProto::PerfStatProto(const PerfStatProto& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.line_){from._impl_.line_}
-    , decltype(_impl_.command_line_){}};
+    , decltype(_impl_.command_line_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.command_line_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.command_line_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_command_line()) {
-    _this->_impl_.command_line_.Set(from._internal_command_line(), 
-      _this->GetArenaForAllocation());
+        _impl_.command_line_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.command_line_.Set(from._internal_command_line(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:quipper.PerfStatProto)
 }
 
-inline void PerfStatProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfStatProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.line_){arena}
-    , decltype(_impl_.command_line_){}
+    , decltype(_impl_.command_line_) {}
+
   };
   _impl_.command_line_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.command_line_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.command_line_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfStatProto::~PerfStatProto() {
@@ -474,8 +516,8 @@ PerfStatProto::~PerfStatProto() {
 }
 
 inline void PerfStatProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.line_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_line()->~RepeatedPtrField();
   _impl_.command_line_.Destroy();
 }
 
@@ -485,11 +527,11 @@ void PerfStatProto::SetCachedSize(int size) const {
 
 void PerfStatProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfStatProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.line_.Clear();
+  _internal_mutable_line()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     _impl_.command_line_.ClearNonDefaultToEmpty();
@@ -502,12 +544,12 @@ const char* PerfStatProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .quipper.PerfStatProto.PerfStatLine line = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -515,20 +557,22 @@ const char* PerfStatProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string command_line = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_command_line();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfStatProto.command_line");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -554,10 +598,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfStatProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfStatProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfStatProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .quipper.PerfStatProto.PerfStatLine line = 1;
@@ -571,12 +615,10 @@ uint8_t* PerfStatProto::_InternalSerialize(
   cached_has_bits = _impl_._has_bits_[0];
   // optional string command_line = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_command_line().data(), static_cast<int>(this->_internal_command_line().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfStatProto.command_line");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_command_line(), target);
+    const std::string& _s = this->_internal_command_line();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfStatProto.command_line");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -587,17 +629,17 @@ uint8_t* PerfStatProto::_InternalSerialize(
   return target;
 }
 
-size_t PerfStatProto::ByteSizeLong() const {
+::size_t PerfStatProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfStatProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfStatProto.PerfStatLine line = 1;
   total_size += 1UL * this->_internal_line_size();
-  for (const auto& msg : this->_impl_.line_) {
+  for (const auto& msg : this->_internal_line()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -605,9 +647,8 @@ size_t PerfStatProto::ByteSizeLong() const {
   // optional string command_line = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_command_line());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_command_line());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -624,12 +665,12 @@ void PerfStatProto::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   auto* const _this = static_cast<PerfStatProto*>(&to_msg);
   auto& from = static_cast<const PerfStatProto&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfStatProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.line_.MergeFrom(from._impl_.line_);
-  if (from._internal_has_command_line()) {
+  _this->_internal_mutable_line()->MergeFrom(from._internal_line());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_command_line(from._internal_command_line());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -652,11 +693,9 @@ void PerfStatProto::InternalSwap(PerfStatProto* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.line_.InternalSwap(&other->_impl_.line_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.command_line_, lhs_arena,
-      &other->_impl_.command_line_, rhs_arena
-  );
+  _internal_mutable_line()->InternalSwap(other->_internal_mutable_line());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.command_line_, lhs_arena,
+                                       &other->_impl_.command_line_, rhs_arena);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfStatProto::GetMetadata() const {
@@ -664,7 +703,6 @@ void PerfStatProto::InternalSwap(PerfStatProto* other) {
       &descriptor_table_perf_5fstat_2eproto_getter, &descriptor_table_perf_5fstat_2eproto_once,
       file_level_metadata_perf_5fstat_2eproto[1]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace quipper
 PROTOBUF_NAMESPACE_OPEN
@@ -677,6 +715,5 @@ Arena::CreateMaybeMessage< ::quipper::PerfStatProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::quipper::PerfStatProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

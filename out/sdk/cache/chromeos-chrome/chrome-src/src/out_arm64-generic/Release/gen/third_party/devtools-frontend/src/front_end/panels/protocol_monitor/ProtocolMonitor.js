@@ -14,6 +14,7 @@ import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as SourceFrame from '../../ui/legacy/components/source_frame/source_frame.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import * as LitHtml from '../../ui/lit-html/lit-html.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import * as Components from './components/components.js';
 import protocolMonitorStyles from './protocolMonitor.css.js';
 const UIStrings = {
@@ -143,8 +144,6 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
     filterParser;
     suggestionBuilder;
     textFilterUI;
-    messages = [];
-    isRecording = false;
     selector;
     #commandAutocompleteSuggestionProvider = new CommandAutocompleteSuggestionProvider();
     #selectedTargetId;
@@ -157,7 +156,7 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         this.requestTimeForId = new Map();
         const topToolbar = new UI.Toolbar.Toolbar('protocol-monitor-toolbar', this.contentElement);
         this.contentElement.classList.add('protocol-monitor');
-        const recordButton = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.record), 'record-start', 'record-stop');
+        const recordButton = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.record), 'record-start', 'record-stop', 'protocol-monitor.toggle-recording');
         recordButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
             recordButton.setToggled(!recordButton.toggled());
             this.setRecording(recordButton.toggled());
@@ -165,14 +164,13 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         recordButton.setToggleWithRedColor(true);
         topToolbar.appendToolbarItem(recordButton);
         recordButton.setToggled(true);
-        const clearButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clearAll), 'clear');
+        const clearButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clearAll), 'clear', undefined, 'protocol-monitor.clear-all');
         clearButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
-            this.messages = [];
             this.dataGridIntegrator.update({ ...this.dataGridIntegrator.data(), rows: [] });
             this.infoWidget.render(null);
         });
         topToolbar.appendToolbarItem(clearButton);
-        const saveButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.save), 'download');
+        const saveButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.save), 'download', undefined, 'protocol-monitor.save');
         saveButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
             void this.saveAsFile();
         });
@@ -305,6 +303,9 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
                 response: DataGrid.DataGridUtils.getRowEntryForColumnId(focusedRow, 'response'),
                 target: DataGrid.DataGridUtils.getRowEntryForColumnId(focusedRow, 'target'),
                 type: DataGrid.DataGridUtils.getRowEntryForColumnId(focusedRow, 'type').title,
+                selectedTab: event.data.cell.columnId === 'request' ? 'request' :
+                    event.data.cell.columnId === 'response' ? 'response' :
+                        undefined,
             };
             this.infoWidget.render(infoWidgetData);
         });
@@ -318,14 +319,14 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         const keys = ['method', 'request', 'response', 'type', 'target', 'session'];
         this.filterParser = new TextUtils.TextUtils.FilterParser(keys);
         this.suggestionBuilder = new UI.FilterSuggestionBuilder.FilterSuggestionBuilder(keys);
-        this.textFilterUI = new UI.Toolbar.ToolbarInput(i18nString(UIStrings.filter), '', 1, .2, '', this.suggestionBuilder.completions.bind(this.suggestionBuilder), true);
+        this.textFilterUI = new UI.Toolbar.ToolbarInput(i18nString(UIStrings.filter), '', 1, .2, '', this.suggestionBuilder.completions.bind(this.suggestionBuilder), true, 'filter');
         this.textFilterUI.addEventListener(UI.Toolbar.ToolbarInput.Event.TextChanged, event => {
             const query = event.data;
             const filters = this.filterParser.parse(query);
             this.dataGridIntegrator.update({ ...this.dataGridIntegrator.data(), filters });
         });
         const bottomToolbar = new UI.Toolbar.Toolbar('protocol-monitor-bottom-toolbar', this.contentElement);
-        bottomToolbar.appendToolbarItem(splitWidget.createShowHideSidebarButton(i18nString(UIStrings.showCDPCommandEditor), i18nString(UIStrings.hideCDPCommandEditor), i18nString(UIStrings.CDPCommandEditorShown), i18nString(UIStrings.CDPCommandEditorHidden)));
+        bottomToolbar.appendToolbarItem(splitWidget.createShowHideSidebarButton(i18nString(UIStrings.showCDPCommandEditor), i18nString(UIStrings.hideCDPCommandEditor), i18nString(UIStrings.CDPCommandEditorShown), i18nString(UIStrings.CDPCommandEditorHidden), 'protocol-monitor.toggle-command-editor'));
         this.#commandInput = this.#createCommandInput();
         bottomToolbar.appendToolbarItem(this.#commandInput);
         bottomToolbar.appendToolbarItem(this.selector);
@@ -371,7 +372,7 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         const growFactor = 1;
         const shrinkFactor = 0.2;
         const tooltip = i18nString(UIStrings.sendRawCDPCommandExplanation);
-        const input = new UI.Toolbar.ToolbarInput(placeholder, accessiblePlaceholder, growFactor, shrinkFactor, tooltip, this.#commandAutocompleteSuggestionProvider.buildTextPromptCompletions, false);
+        const input = new UI.Toolbar.ToolbarInput(placeholder, accessiblePlaceholder, growFactor, shrinkFactor, tooltip, this.#commandAutocompleteSuggestionProvider.buildTextPromptCompletions, false, 'command-input');
         input.addEventListener(UI.Toolbar.ToolbarInput.Event.EnterPressed, () => {
             this.#commandAutocompleteSuggestionProvider.addEntry(input.value());
             const { command, parameters } = parseCommandInput(input.value());
@@ -382,7 +383,7 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
     #createTargetSelector() {
         const selector = new UI.Toolbar.ToolbarComboBox(() => {
             this.#selectedTargetId = selector.selectedOption()?.value;
-        }, i18nString(UIStrings.selectTarget));
+        }, i18nString(UIStrings.selectTarget), undefined, 'target-selector');
         selector.setMaxWidth(120);
         const targetManager = SDK.TargetManager.TargetManager.instance();
         const syncTargets = () => {
@@ -405,13 +406,6 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         // @ts-ignore
         test.sendRawMessage(command, parameters, () => { }, sessionId);
     }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!protocolMonitorImplInstance || forceNew) {
-            protocolMonitorImplInstance = new ProtocolMonitorImpl();
-        }
-        return protocolMonitorImplInstance;
-    }
     wasShown() {
         if (this.started) {
             return;
@@ -422,7 +416,6 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         this.setRecording(true);
     }
     setRecording(recording) {
-        this.isRecording = recording;
         const test = ProtocolClient.InspectorBackend.test;
         if (recording) {
             // TODO: TS thinks that properties are read-only because
@@ -445,11 +438,7 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         }
         return target.decorateLabel(`${target.name()} ${target === SDK.TargetManager.TargetManager.instance().rootTarget() ? '' : target.id()}`);
     }
-    // eslint-disable
     messageReceived(message, target) {
-        if (this.isRecording) {
-            this.messages.push({ ...message, type: 'recv', domain: '-' });
-        }
         if ('id' in message && message.id) {
             const existingRow = this.dataGridRowForId.get(message.id);
             if (!existingRow) {
@@ -519,9 +508,6 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         });
     }
     messageSent(message, target) {
-        if (this.isRecording) {
-            this.messages.push({ ...message, type: 'send' });
-        }
         const sdkTarget = target;
         const requestResponseIcon = new IconButton.Icon.Icon();
         requestResponseIcon
@@ -570,11 +556,15 @@ export class ProtocolMonitorDataGrid extends Common.ObjectWrapper.eventMixin(UI.
         if (!accepted) {
             return;
         }
-        void stream.write(JSON.stringify(this.messages, null, '  '));
+        const rowEntries = [];
+        for (const row of this.dataGridIntegrator.data().rows) {
+            const rowEntry = Object.fromEntries(row.cells.map(cell => ([cell.columnId, cell.value])));
+            rowEntries.push(rowEntry);
+        }
+        void stream.write(JSON.stringify(rowEntries, null, '  '));
         void stream.close();
     }
 }
-let protocolMonitorImplInstance;
 export class ProtocolMonitorImpl extends UI.Widget.VBox {
     #split;
     #editorWidget = new EditorWidget();
@@ -584,6 +574,7 @@ export class ProtocolMonitorImpl extends UI.Widget.VBox {
     #sideBarMinWidth = 400;
     constructor() {
         super(true);
+        this.element.setAttribute('jslog', `${VisualLogging.panel().context('protocol-monitor')}`);
         this.#split =
             new UI.SplitWidget.SplitWidget(true, false, 'protocol-monitor-split-container', this.#sideBarMinWidth);
         this.#split.show(this.contentElement);
@@ -598,13 +589,6 @@ export class ProtocolMonitorImpl extends UI.Widget.VBox {
         this.#editorWidget.addEventListener(Events.CommandSent, event => {
             this.#protocolMonitorDataGrid.onCommandSend(event.data.command, event.data.parameters, event.data.targetId);
         });
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!protocolMonitorImplInstance || forceNew) {
-            protocolMonitorImplInstance = new ProtocolMonitorImpl();
-        }
-        return protocolMonitorImplInstance;
     }
 }
 export class CommandAutocompleteSuggestionProvider {
@@ -667,6 +651,9 @@ export class InfoWidget extends UI.Widget.VBox {
         this.tabbedPane.changeTabView('request', SourceFrame.JSONView.JSONView.createViewSync(requestParsed));
         const responseParsed = data.response.value === '(pending)' ? null : JSON.parse(String(data.response.value) || 'null');
         this.tabbedPane.changeTabView('response', SourceFrame.JSONView.JSONView.createViewSync(responseParsed));
+        if (data.selectedTab) {
+            this.tabbedPane.selectTab(data.selectedTab);
+        }
     }
 }
 // TODO(crbug.com/1167717): Make this a const enum again
@@ -680,6 +667,7 @@ export class EditorWidget extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
     jsonEditor;
     constructor() {
         super();
+        this.element.setAttribute('jslog', `${VisualLogging.pane().context('command-editor')}`);
         this.jsonEditor = new Components.JSONEditor.JSONEditor();
         this.jsonEditor.metadataByCommand = metadataByCommand;
         this.jsonEditor.typesByName = typesByName;

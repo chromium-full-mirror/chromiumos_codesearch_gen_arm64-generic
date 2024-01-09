@@ -30,9 +30,9 @@
 import * as Common from '../../core/common/common.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
-import layers3DViewStyles from './layers3DView.css.js';
 import * as UI from '../../ui/legacy/legacy.js';
-import { LayerSelection, Selection, SnapshotSelection, ScrollRectSelection, } from './LayerViewHost.js';
+import layers3DViewStyles from './layers3DView.css.js';
+import { LayerSelection, ScrollRectSelection, Selection, SnapshotSelection, } from './LayerViewHost.js';
 import { Events as TransformControllerEvents, TransformController } from './TransformController.js';
 const UIStrings = {
     /**
@@ -674,7 +674,7 @@ export class Layers3DView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
         const fragment = this.contentElement.ownerDocument.createDocumentFragment();
         fragment.createChild('div').textContent = i18nString(UIStrings.cantDisplayLayers);
         fragment.createChild('div').textContent = i18nString(UIStrings.webglSupportIsDisabledInYour);
-        fragment.appendChild(i18n.i18n.getFormatLocalizedString(str_, UIStrings.checkSForPossibleReasons, { PH1: UI.XLink.XLink.create('about:gpu') }));
+        fragment.appendChild(i18n.i18n.getFormatLocalizedString(str_, UIStrings.checkSForPossibleReasons, { PH1: UI.XLink.XLink.create('about:gpu', undefined, undefined, undefined, 'about-gpu') }));
         return fragment;
     }
     selectionFromEventPoint(event) {
@@ -720,10 +720,10 @@ export class Layers3DView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
     }
     onContextMenu(event) {
         const contextMenu = new UI.ContextMenu.ContextMenu(event);
-        contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetView), () => this.transformController.resetAndNotify(), false);
+        contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetView), () => this.transformController.resetAndNotify());
         const selection = this.selectionFromEventPoint(event);
         if (selection && selection.type() === "Snapshot" /* Type.Snapshot */) {
-            contextMenu.defaultSection().appendItem(i18nString(UIStrings.showPaintProfiler), () => this.dispatchEventToListeners(Events.PaintProfilerRequested, selection), false);
+            contextMenu.defaultSection().appendItem(i18nString(UIStrings.showPaintProfiler), () => this.dispatchEventToListeners(Events.PaintProfilerRequested, selection));
         }
         this.layerViewHost.showContextMenu(contextMenu, selection);
     }

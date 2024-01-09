@@ -16,6 +16,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_abort_signal.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_void_function.h"
 #include "third_party/blink/renderer/core/dom/abort_signal.h"
 #include "third_party/blink/renderer/core/dom/subscriber.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -69,15 +70,25 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Subscriber>::value,
     "Subscriber inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Subscriber::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Subscriber is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
 namespace v8_subscriber {
+
+void ActiveAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Subscriber_active_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Subscriber.active.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->active();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
 
 void SignalAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
@@ -86,12 +97,52 @@ BLINK_BINDINGS_TRACE_EVENT("Subscriber.signal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(v8_receiver);
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->signal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
+
+void AddTeardownOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Subscriber_addTeardown");
+BLINK_BINDINGS_TRACE_EVENT("Subscriber.addTeardown");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+if (UNLIKELY(info.Length() < 1)) {
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Subscriber";
+const char* const property_name = "addTeardown";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<V8VoidFunction>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_teardown;
+if (LIKELY(info[0]->IsFunction())) {
+  arg1_teardown = V8VoidFunction::Create(info[0].As<v8::Function>());
+} else {
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Subscriber";
+const char* const property_name = "addTeardown";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+arg1_teardown = NativeValueTraits<V8VoidFunction>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+blink_receiver->addTeardown(arg1_teardown);
+
+}
 
 void CompleteOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Subscriber_complete");
@@ -104,9 +155,13 @@ BLINK_BINDINGS_TRACE_EVENT("Subscriber.complete");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(v8_receiver);
-blink_receiver->complete();
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+blink_receiver->complete(script_state);
 
 }
 
@@ -131,7 +186,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(v8_receiver);
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -164,7 +219,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(v8_receiver);
+Subscriber* blink_receiver = V8Subscriber::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_result = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -205,6 +260,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"active", ActiveAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"signal", SignalAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
@@ -216,6 +272,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"addTeardown", AddTeardownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"complete", CompleteOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"error", ErrorOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"next", NextOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

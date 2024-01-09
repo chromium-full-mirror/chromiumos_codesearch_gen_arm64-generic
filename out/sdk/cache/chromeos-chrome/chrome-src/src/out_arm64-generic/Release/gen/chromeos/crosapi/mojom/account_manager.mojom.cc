@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -156,7 +157,7 @@ GoogleServiceAuthError::GoogleServiceAuthError(
     int64_t network_error_in,
     const std::string& error_message_in,
     GoogleServiceAuthError::InvalidGaiaCredentialsReason invalid_gaia_credentials_reason_in,
-    const absl::optional<std::string>& token_binding_challenge_in)
+    const std::optional<std::string>& token_binding_challenge_in)
     : state(std::move(state_in)),
       network_error(std::move(network_error_in)),
       error_message(std::move(error_message_in)),
@@ -208,7 +209,7 @@ void GoogleServiceAuthError::WriteIntoTrace(
     dict.AddItem(
       "token_binding_challenge"), this->token_binding_challenge,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -552,14 +553,17 @@ void AccountManagerObserverProxy::OnTokenUpserted(
                         "<value of type AccountPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManagerObserver_OnTokenUpserted_Name, kFlags, 0, 0, nullptr);
@@ -600,14 +604,17 @@ void AccountManagerObserverProxy::OnAccountRemoved(
                         "<value of type AccountPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManagerObserver_OnAccountRemoved_Name, kFlags, 0, 0, nullptr);
@@ -651,14 +658,17 @@ void AccountManagerObserverProxy::OnAuthErrorChanged(
                         "<value of type GoogleServiceAuthErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManagerObserver_OnAuthErrorChanged_Name, kFlags, 0, 0, nullptr);
@@ -703,14 +713,17 @@ void AccountManagerObserverProxy::OnSigninDialogClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AccountManagerObserver::OnSigninDialogClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManagerObserver_OnSigninDialogClosed_Name, kFlags, 0, 0, nullptr);
@@ -865,16 +878,16 @@ bool AccountManagerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccountManagerObserverValidationInfo[] = {
-    {&internal::AccountManagerObserver_OnTokenUpserted_Params_Data::Validate,
+    { &internal::AccountManagerObserver_OnTokenUpserted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountManagerObserver_OnAccountRemoved_Params_Data::Validate,
+    { &internal::AccountManagerObserver_OnAccountRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountManagerObserver_OnAuthErrorChanged_Params_Data::Validate,
+    { &internal::AccountManagerObserver_OnAuthErrorChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountManagerObserver_OnSigninDialogClosed_Params_Data::Validate,
+    { &internal::AccountManagerObserver_OnSigninDialogClosed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1220,14 +1233,17 @@ void AccountManagerProxy::IsInitialized(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AccountManager::IsInitialized");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_IsInitialized_Name, kFlags, 0, 0, nullptr);
@@ -1251,14 +1267,17 @@ void AccountManagerProxy::AddObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AccountManager::AddObserver");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1282,14 +1301,17 @@ void AccountManagerProxy::GetAccounts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AccountManager::GetAccounts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_GetAccounts_Name, kFlags, 0, 0, nullptr);
@@ -1320,14 +1342,17 @@ void AccountManagerProxy::ShowAddAccountDialog(
                         "<value of type AccountAdditionOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ShowAddAccountDialog_Name, kFlags, 0, 0, nullptr);
@@ -1365,14 +1390,17 @@ void AccountManagerProxy::ShowReauthAccountDialog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ShowReauthAccountDialog_Name, kFlags, 0, 0, nullptr);
@@ -1407,14 +1435,17 @@ void AccountManagerProxy::ShowManageAccountsSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AccountManager::ShowManageAccountsSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ShowManageAccountsSettings_Name, kFlags, 0, 0, nullptr);
@@ -1444,14 +1475,17 @@ void AccountManagerProxy::GetPersistentErrorForAccount(
                         "<value of type AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_GetPersistentErrorForAccount_Name, kFlags, 0, 0, nullptr);
@@ -1496,14 +1530,17 @@ void AccountManagerProxy::CreateAccessTokenFetcher(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_CreateAccessTokenFetcher_Name, kFlags, 0, 0, nullptr);
@@ -1559,14 +1596,17 @@ void AccountManagerProxy::ReportAuthError(
                         "<value of type GoogleServiceAuthErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ReportAuthError_Name, kFlags, 0, 0, nullptr);
@@ -1697,7 +1737,8 @@ void AccountManager_IsInitialized_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_IsInitialized_Name, kFlags, 0, 0, nullptr);
@@ -1817,7 +1858,8 @@ void AccountManager_AddObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1940,7 +1982,8 @@ void AccountManager_GetAccounts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_GetAccounts_Name, kFlags, 0, 0, nullptr);
@@ -2070,7 +2113,8 @@ void AccountManager_ShowAddAccountDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ShowAddAccountDialog_Name, kFlags, 0, 0, nullptr);
@@ -2198,7 +2242,8 @@ void AccountManager_ShowReauthAccountDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_ShowReauthAccountDialog_Name, kFlags, 0, 0, nullptr);
@@ -2322,7 +2367,8 @@ void AccountManager_GetPersistentErrorForAccount_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_GetPersistentErrorForAccount_Name, kFlags, 0, 0, nullptr);
@@ -2452,7 +2498,8 @@ void AccountManager_CreateAccessTokenFetcher_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountManager_CreateAccessTokenFetcher_Name, kFlags, 0, 0, nullptr);
@@ -2779,26 +2826,26 @@ std::move(p_oauth_consumer_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccountManagerValidationInfo[] = {
-    {&internal::AccountManager_IsInitialized_Params_Data::Validate,
+    { &internal::AccountManager_IsInitialized_Params_Data::Validate,
      &internal::AccountManager_IsInitialized_ResponseParams_Data::Validate},
-    {&internal::AccountManager_AddObserver_Params_Data::Validate,
+    { &internal::AccountManager_AddObserver_Params_Data::Validate,
      &internal::AccountManager_AddObserver_ResponseParams_Data::Validate},
-    {&internal::AccountManager_GetAccounts_Params_Data::Validate,
+    { &internal::AccountManager_GetAccounts_Params_Data::Validate,
      &internal::AccountManager_GetAccounts_ResponseParams_Data::Validate},
-    {&internal::AccountManager_ShowAddAccountDialog_Params_Data::Validate,
+    { &internal::AccountManager_ShowAddAccountDialog_Params_Data::Validate,
      &internal::AccountManager_ShowAddAccountDialog_ResponseParams_Data::Validate},
-    {&internal::AccountManager_ShowReauthAccountDialog_Params_Data::Validate,
+    { &internal::AccountManager_ShowReauthAccountDialog_Params_Data::Validate,
      &internal::AccountManager_ShowReauthAccountDialog_ResponseParams_Data::Validate},
-    {&internal::AccountManager_ShowManageAccountsSettings_Params_Data::Validate,
+    { &internal::AccountManager_ShowManageAccountsSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountManager_GetPersistentErrorForAccount_Params_Data::Validate,
+    { &internal::AccountManager_GetPersistentErrorForAccount_Params_Data::Validate,
      &internal::AccountManager_GetPersistentErrorForAccount_ResponseParams_Data::Validate},
-    {&internal::AccountManager_CreateAccessTokenFetcher_Params_Data::Validate,
+    { &internal::AccountManager_CreateAccessTokenFetcher_Params_Data::Validate,
      &internal::AccountManager_CreateAccessTokenFetcher_ResponseParams_Data::Validate},
-    {&internal::AccountManager_ReportAuthError_Params_Data::Validate,
+    { &internal::AccountManager_ReportAuthError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2899,14 +2946,17 @@ void AccessTokenFetcherProxy::Start(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessTokenFetcher_Start_Name, kFlags, 0, 0, nullptr);
@@ -3029,7 +3079,8 @@ void AccessTokenFetcher_Start_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessTokenFetcher_Start_Name, kFlags, 0, 0, nullptr);
@@ -3117,10 +3168,10 @@ std::move(p_scopes), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessTokenFetcherValidationInfo[] = {
-    {&internal::AccessTokenFetcher_Start_Params_Data::Validate,
+    { &internal::AccessTokenFetcher_Start_Params_Data::Validate,
      &internal::AccessTokenFetcher_Start_ResponseParams_Data::Validate},
 };
 

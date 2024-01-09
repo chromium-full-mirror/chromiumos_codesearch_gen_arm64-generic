@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ServiceWorker>::value,
     "ServiceWorker does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ServiceWorker::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ServiceWorker is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorker.scriptURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->scriptURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->scriptURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorker.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorker.onstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -136,8 +131,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstatechange(event_handler);
 }
 
@@ -148,10 +144,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorker.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -164,8 +160,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -187,7 +184,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -224,7 +221,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(v8_receiver);
+ServiceWorker* blink_receiver = V8ServiceWorker::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

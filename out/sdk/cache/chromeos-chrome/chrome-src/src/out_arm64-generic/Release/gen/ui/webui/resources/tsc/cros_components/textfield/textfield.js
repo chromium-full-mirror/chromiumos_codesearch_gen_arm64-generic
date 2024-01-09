@@ -5,6 +5,7 @@
  */
 import 'chrome://resources/mwc/@material/web/textfield/outlined-text-field.js';
 import { css, html, LitElement, nothing } from '//resources/mwc/lit/index.js';
+import { ifDefined } from '//resources/mwc/lit/index.js';
 /**
  * Textfields have two variants that differ only by the container background,
  * designed to improve contrast depending on the color of the surface behind it:
@@ -36,6 +37,8 @@ const MD_FIELD_LEFT_RIGHT_SPACE_PX = css `${DEFAULT_LEFT_RIGHT_SPACE + MD_TEXTFI
  * focus outline, we have to increase the corner radius by the outline width.
  */
 const MD_TEXTFIELD_CONTAINER_CORNER_RADIUS = css `${8 + MD_TEXTFIELD_OUTLINE_WIDTH}px`;
+/** Regex used for automatically stripping non numeric characters from input. */
+const NON_INTEGER_REGEX = /\D/g;
 /**
  * Textfield component. See the specs here:
  * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=3227%3A25882&t=50tDpMdSJky6eT9O-0
@@ -122,8 +125,13 @@ export class Textfield extends LitElement {
       color: var(--cros-sys-primary);
     }
 
-    :host(.error) .text-labels {
-      color: var(--cros-sys-error)
+    /**
+     * The .error class is applied on native constraint invalidation, and the
+     * error attribute is set by clients, so we need to use both to style the
+     * label correctly.
+    */
+    :host(:is(.error, [error])) .text-labels {
+      color: var(--cros-sys-error);
     }
 
     #visible-label {
@@ -183,11 +191,29 @@ export class Textfield extends LitElement {
         hint: { type: String, attribute: true },
         maxLength: { type: Number, attribute: true },
         placeholder: { type: String, attribute: true },
+        min: { type: Number, attribute: true },
+        max: { type: Number, attribute: true },
+        autoValidate: { type: Boolean, attribute: true },
+        errorMessage: { type: String, attribute: true },
+        error: { type: Boolean, attribute: true },
+        pattern: { type: String, attribute: true },
+        autofix: { type: String, attribute: true },
+        required: { type: Boolean, attribute: true },
     }; }
     /** @nocollapse */
     static { this.events = {
-        /** The textfield value changed via user input. */
+        /**
+         * The textfield value changed via user input. Dispatched on blur/when a
+         * changed value is committed.
+         */
         CHANGE: 'change',
+        /**
+         * The textfield value changed via user input, but dispatched immediately on
+         * keystroke/every value change.
+         */
+        INPUT: 'input',
+        /** The entered textfield value is invalid.  */
+        INVALID: 'invalid',
     }; }
     /** @export */
     get value() {
@@ -195,10 +221,11 @@ export class Textfield extends LitElement {
     }
     set value(value) {
         // On first render the initial value is lost because mwcTextfield is not yet
-        // rendered. Store it in `valueInternal` and set it in firstUpdated().
-        this.valueInternal = value;
+        // rendered. Store it in `valueInitial` and set it in firstUpdated().
+        this.valueInitial = value;
         if (this.mdTextfield) {
-            this.mdTextfield.value = this.valueInternal;
+            this.mdTextfield.value = this.valueInitial;
+            this.checkAndUpdateValidity();
         }
     }
     get mdTextfield() {
@@ -207,9 +234,6 @@ export class Textfield extends LitElement {
     }
     constructor() {
         super();
-        this.valueInternal = '';
-        /** @export */
-        this.type = 'text';
         /**
          * When false, will use the darker container designed to sit on app-base. When
          * true, will use the lighter container colored designed for use with
@@ -218,14 +242,15 @@ export class Textfield extends LitElement {
          */
         this.shaded = false;
         /**
-         * Max length of the textfield value. If set to -1 or less, md-textfield will
-         * ignore this value when restricting the length of the textfield, and also
-         * not render the charCounter.
-         * @export
+         * A copy of the value on initialization to ensure mdTextfield has the
+         * correct value on first render.
          */
-        this.maxLength = -1;
-        /** @export */
-        this.placeholder = '';
+        this.valueInitial = '';
+        /**
+         * A copy of the last valid value we had, updated on change events. Used to
+         * restore the textfield value when `autofix=preserve` is used.
+         */
+        this.lastValidValue = '';
         this.type = 'text';
         this.shaded = false;
         this.label = '';
@@ -233,43 +258,58 @@ export class Textfield extends LitElement {
         this.disabled = false;
         this.hint = '';
         this.maxLength = -1;
+        this.autoValidate = false;
+        this.min = -1;
+        this.max = -1;
+        this.errorMessage = '';
+        this.error = false;
+        this.pattern = '';
+        this.placeholder = '';
+        this.autofix = 'preserve';
+        this.required = false;
     }
     async firstUpdated() {
-        this.mdTextfield.value = this.valueInternal;
+        this.mdTextfield.value = this.valueInitial;
         // Run the logic to forward any slotted icons to the md-text-field internal
         // icon slots.
         this.handleIconChange();
     }
     update(changedProperties) {
-        // There is no corresponding 'valid' event to match md-textfield's
-        // 'invalid' event, so just check on every update to see if it's still
-        // invalid and remove the class if not. It's possible to also just
-        // toggleErrorStyle() on update exclusively, but listening for the invalid
-        // event allows us to sync the style update with MD's style update.
-        if (this.mdTextfield && this.classList.contains('error')) {
-            this.toggleErrorStyles(this.mdTextfield.error);
+        if (changedProperties.has('disabled')) {
+            // Work around for b/315384008.
+            this.renderRoot.querySelector('md-outlined-text-field')?.requestUpdate();
         }
         super.update(changedProperties);
     }
     render() {
         const ariaLabel = this.ariaLabel || this.label;
+        const errorTextOrUndef = this.error && this.errorMessage ? this.errorMessage : undefined;
+        const mdType = this.type === 'integer' ? 'number' : this.type;
         return html `
       ${this.maybeRenderLabel()}
       <div id="main-container">
         <div id="textfield-background"></div>
         <md-outlined-text-field
             ?disabled=${this.disabled}
-            type=${this.type}
+            type=${mdType}
             aria-label=${ariaLabel}
             value=${this.value}
             suffix-text=${this.suffix}
             maxLength=${this.maxLength}
+            min=${this.min > -1 ? this.min : nothing}
+            max=${this.max > -1 ? this.max : nothing}
+            ?required=${this.required}
             supporting-text=${this.hint}
+            ?error=${this.error ?? nothing}
+            error-text=${ifDefined(errorTextOrUndef)}
+            pattern=${this.pattern}
+            step=1
             placeholder=${this.placeholder}
             @focus=${this.toggleFocusStyle}
             @blur=${this.toggleFocusStyle}
             @change=${this.onChange}
-            @invalid=${() => void this.toggleErrorStyles(true)}>
+            @input=${this.onInput}
+            @invalid=${this.onInvalid}>
           <slot name="leading" @slotchange=${this.handleIconChange}></slot>
           <slot
               name="trailing"
@@ -282,10 +322,13 @@ export class Textfield extends LitElement {
     focusTextfield() {
         this.mdTextfield.focus();
     }
-    async getUpdateComplete() {
-        const result = await super.getUpdateComplete();
-        await this.mdTextfield?.updateComplete;
-        return result;
+    blurTextfield() {
+        this.mdTextfield.blur();
+    }
+    reportValidity() {
+        const valid = this.mdTextfield.reportValidity();
+        this.toggleErrorStyles(!valid);
+        return valid;
     }
     maybeRenderLabel() {
         return this.label ?
@@ -322,9 +365,36 @@ export class Textfield extends LitElement {
     toggleFocusStyle() {
         this.classList.toggle('focused');
     }
+    // Sync the validity state here to ensure our visible label has the correct
+    // styling, as there is no corresponding `valid` event dispatched.
     onChange() {
+        // If the last committed value contained non numeric characters, we can
+        // strip them out here.
+        if (this.type === 'integer' && this.value.match(NON_INTEGER_REGEX)) {
+            switch (this.autofix) {
+                case 'clear':
+                    this.value = '';
+                    break;
+                case 'strip':
+                    this.value = this.value.replace(NON_INTEGER_REGEX, '');
+                    break;
+                case 'preserve':
+                default:
+                    this.value = this.lastValidValue;
+            }
+        }
         this.checkAndUpdateValidity();
         this.dispatchEvent(new Event('change', { bubbles: true }));
+        this.lastValidValue = this.value;
+    }
+    onInput() {
+        if (this.autoValidate) {
+            this.checkAndUpdateValidity();
+        }
+    }
+    onInvalid() {
+        this.toggleErrorStyles(true);
+        this.dispatchEvent(new Event('invalid', { bubbles: true }));
     }
     getSlottedIcon(slotName) {
         return this.querySelector(`*[slot="${slotName}"]`) !== null;

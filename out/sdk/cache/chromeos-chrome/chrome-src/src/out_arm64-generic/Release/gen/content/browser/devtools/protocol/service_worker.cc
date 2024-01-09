@@ -60,6 +60,7 @@ const char Redundant[] = "redundant";
 CRDTP_BEGIN_DESERIALIZER(ServiceWorkerVersion)
     CRDTP_DESERIALIZE_FIELD_OPT("controlledClients", m_controlledClients),
     CRDTP_DESERIALIZE_FIELD("registrationId", m_registrationId),
+    CRDTP_DESERIALIZE_FIELD_OPT("routerRules", m_routerRules),
     CRDTP_DESERIALIZE_FIELD("runningStatus", m_runningStatus),
     CRDTP_DESERIALIZE_FIELD_OPT("scriptLastModified", m_scriptLastModified),
     CRDTP_DESERIALIZE_FIELD_OPT("scriptResponseTime", m_scriptResponseTime),
@@ -79,6 +80,7 @@ CRDTP_BEGIN_SERIALIZER(ServiceWorkerVersion)
     CRDTP_SERIALIZE_FIELD("scriptResponseTime", m_scriptResponseTime);
     CRDTP_SERIALIZE_FIELD("controlledClients", m_controlledClients);
     CRDTP_SERIALIZE_FIELD("targetId", m_targetId);
+    CRDTP_SERIALIZE_FIELD("routerRules", m_routerRules);
 CRDTP_END_SERIALIZER();
 
 

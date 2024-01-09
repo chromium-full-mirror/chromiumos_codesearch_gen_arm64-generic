@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/personalization_app/mojom/personalization_app.mojom-features.h"
 #include "ash/webui/personalization_app/mojom/personalization_app.mojom-shared.h"
 #include "ash/webui/personalization_app/mojom/personalization_app.mojom-forward.h"
 #include "ash/style/mojom/color_scheme.mojom-forward.h"
@@ -160,6 +161,7 @@ class WallpaperProvider
     kIsInTabletModeMinVersion = 0,
     kConfirmPreviewWallpaperMinVersion = 0,
     kCancelPreviewWallpaperMinVersion = 0,
+    kShouldShowTimeOfDayWallpaperDialogMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -240,6 +242,9 @@ class WallpaperProvider
   struct CancelPreviewWallpaper_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct ShouldShowTimeOfDayWallpaperDialog_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WallpaperProvider() = default;
 
@@ -250,24 +255,24 @@ class WallpaperProvider
   virtual void MakeOpaque() = 0;
 
 
-  using FetchCollectionsCallback = base::OnceCallback<void(const absl::optional<std::vector<::backdrop::Collection>>&)>;
+  using FetchCollectionsCallback = base::OnceCallback<void(const std::optional<std::vector<::backdrop::Collection>>&)>;
   
   virtual void FetchCollections(FetchCollectionsCallback callback) = 0;
 
 
-  using FetchImagesForCollectionCallback = base::OnceCallback<void(const absl::optional<std::vector<::backdrop::Image>>&)>;
+  using FetchImagesForCollectionCallback = base::OnceCallback<void(const std::optional<std::vector<::backdrop::Image>>&)>;
   
   virtual void FetchImagesForCollection(const std::string& collection_id, FetchImagesForCollectionCallback callback) = 0;
 
 
   using FetchGooglePhotosAlbumsCallback = base::OnceCallback<void(FetchGooglePhotosAlbumsResponsePtr)>;
   
-  virtual void FetchGooglePhotosAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) = 0;
+  virtual void FetchGooglePhotosAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) = 0;
 
 
   using FetchGooglePhotosSharedAlbumsCallback = base::OnceCallback<void(FetchGooglePhotosAlbumsResponsePtr)>;
   
-  virtual void FetchGooglePhotosSharedAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) = 0;
+  virtual void FetchGooglePhotosSharedAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) = 0;
 
 
   using FetchGooglePhotosEnabledCallback = base::OnceCallback<void(GooglePhotosEnablementState)>;
@@ -277,10 +282,10 @@ class WallpaperProvider
 
   using FetchGooglePhotosPhotosCallback = base::OnceCallback<void(FetchGooglePhotosPhotosResponsePtr)>;
   
-  virtual void FetchGooglePhotosPhotos(const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) = 0;
+  virtual void FetchGooglePhotosPhotos(const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) = 0;
 
 
-  using GetLocalImagesCallback = base::OnceCallback<void(const absl::optional<std::vector<::base::FilePath>>&)>;
+  using GetLocalImagesCallback = base::OnceCallback<void(const std::optional<std::vector<::base::FilePath>>&)>;
   
   virtual void GetLocalImages(GetLocalImagesCallback callback) = 0;
 
@@ -355,6 +360,11 @@ class WallpaperProvider
 
   
   virtual void CancelPreviewWallpaper() = 0;
+
+
+  using ShouldShowTimeOfDayWallpaperDialogCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void ShouldShowTimeOfDayWallpaperDialog(ShouldShowTimeOfDayWallpaperDialogCallback callback) = 0;
 };
 
 class ThemeObserverProxy;
@@ -427,7 +437,7 @@ class ThemeObserver
   virtual void OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) = 0;
 
   
-  virtual void OnStaticColorChanged(absl::optional<::SkColor> color) = 0;
+  virtual void OnStaticColorChanged(std::optional<::SkColor> color) = 0;
 };
 
 class ThemeProviderProxy;
@@ -529,7 +539,7 @@ class ThemeProvider
   virtual void GetColorScheme(GetColorSchemeCallback callback) = 0;
 
 
-  using GetStaticColorCallback = base::OnceCallback<void(absl::optional<::SkColor>)>;
+  using GetStaticColorCallback = base::OnceCallback<void(std::optional<::SkColor>)>;
   
   virtual void GetStaticColor(GetStaticColorCallback callback) = 0;
 
@@ -1106,13 +1116,13 @@ class  WallpaperProviderProxy
   
   void FetchImagesForCollection(const std::string& collection_id, FetchImagesForCollectionCallback callback) final;
   
-  void FetchGooglePhotosAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) final;
+  void FetchGooglePhotosAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) final;
   
-  void FetchGooglePhotosSharedAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) final;
+  void FetchGooglePhotosSharedAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) final;
   
   void FetchGooglePhotosEnabled(FetchGooglePhotosEnabledCallback callback) final;
   
-  void FetchGooglePhotosPhotos(const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) final;
+  void FetchGooglePhotosPhotos(const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) final;
   
   void GetLocalImages(GetLocalImagesCallback callback) final;
   
@@ -1147,6 +1157,8 @@ class  WallpaperProviderProxy
   void ConfirmPreviewWallpaper() final;
   
   void CancelPreviewWallpaper() final;
+  
+  void ShouldShowTimeOfDayWallpaperDialog(ShouldShowTimeOfDayWallpaperDialogCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1169,7 +1181,7 @@ class  ThemeObserverProxy
   
   void OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) final;
   
-  void OnStaticColorChanged(absl::optional<::SkColor> color) final;
+  void OnStaticColorChanged(std::optional<::SkColor> color) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -2286,33 +2298,33 @@ class  UserImage {
   // Construct an instance holding |default_image|.
   static UserImagePtr
   NewDefaultImage(
-      ::ash::default_user_image::DefaultUserImage default_image) {
+      ::ash::default_user_image::DefaultUserImage value) {
     auto result = UserImagePtr(absl::in_place);
-    result->set_default_image(std::move(default_image));
+    result->set_default_image(std::move(value));
     return result;
   }
   // Construct an instance holding |external_image|.
   static UserImagePtr
   NewExternalImage(
-      ::mojo_base::BigBuffer external_image) {
+      ::mojo_base::BigBuffer value) {
     auto result = UserImagePtr(absl::in_place);
-    result->set_external_image(std::move(external_image));
+    result->set_external_image(std::move(value));
     return result;
   }
   // Construct an instance holding |profile_image|.
   static UserImagePtr
   NewProfileImage(
-      ProfileImagePtr profile_image) {
+      ProfileImagePtr value) {
     auto result = UserImagePtr(absl::in_place);
-    result->set_profile_image(std::move(profile_image));
+    result->set_profile_image(std::move(value));
     return result;
   }
   // Construct an instance holding |invalid_image|.
   static UserImagePtr
   NewInvalidImage(
-      InvalidImagePtr invalid_image) {
+      InvalidImagePtr value) {
     auto result = UserImagePtr(absl::in_place);
-    result->set_invalid_image(std::move(invalid_image));
+    result->set_invalid_image(std::move(value));
     return result;
   }
 
@@ -2458,17 +2470,17 @@ class  CurrentBacklightState {
   // Construct an instance holding |color|.
   static CurrentBacklightStatePtr
   NewColor(
-      BacklightColor color) {
+      BacklightColor value) {
     auto result = CurrentBacklightStatePtr(absl::in_place);
-    result->set_color(std::move(color));
+    result->set_color(std::move(value));
     return result;
   }
   // Construct an instance holding |zone_colors|.
   static CurrentBacklightStatePtr
   NewZoneColors(
-      std::vector<BacklightColor> zone_colors) {
+      std::vector<BacklightColor> value) {
     auto result = CurrentBacklightStatePtr(absl::in_place);
-    result->set_zone_colors(std::move(zone_colors));
+    result->set_zone_colors(std::move(value));
     return result;
   }
 
@@ -2902,8 +2914,8 @@ class  FetchGooglePhotosAlbumsResponse {
   FetchGooglePhotosAlbumsResponse();
 
   FetchGooglePhotosAlbumsResponse(
-      absl::optional<std::vector<GooglePhotosAlbumPtr>> albums,
-      const absl::optional<std::string>& resume_token);
+      std::optional<std::vector<GooglePhotosAlbumPtr>> albums,
+      const std::optional<std::string>& resume_token);
 
 FetchGooglePhotosAlbumsResponse(const FetchGooglePhotosAlbumsResponse&) = delete;
 FetchGooglePhotosAlbumsResponse& operator=(const FetchGooglePhotosAlbumsResponse&) = delete;
@@ -2983,9 +2995,9 @@ FetchGooglePhotosAlbumsResponse& operator=(const FetchGooglePhotosAlbumsResponse
   }
 
   
-  absl::optional<std::vector<GooglePhotosAlbumPtr>> albums;
+  std::optional<std::vector<GooglePhotosAlbumPtr>> albums;
   
-  absl::optional<std::string> resume_token;
+  std::optional<std::string> resume_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3200,11 +3212,11 @@ class  GooglePhotosPhoto {
 
   GooglePhotosPhoto(
       const std::string& id,
-      const absl::optional<std::string>& dedup_key,
+      const std::optional<std::string>& dedup_key,
       const std::string& name,
       const ::std::u16string& date,
       const ::GURL& url,
-      const absl::optional<std::string>& location);
+      const std::optional<std::string>& location);
 
 
   ~GooglePhotosPhoto();
@@ -3284,7 +3296,7 @@ class  GooglePhotosPhoto {
   
   std::string id;
   
-  absl::optional<std::string> dedup_key;
+  std::optional<std::string> dedup_key;
   
   std::string name;
   
@@ -3292,7 +3304,7 @@ class  GooglePhotosPhoto {
   
   ::GURL url;
   
-  absl::optional<std::string> location;
+  std::optional<std::string> location;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3354,8 +3366,8 @@ class  FetchGooglePhotosPhotosResponse {
   FetchGooglePhotosPhotosResponse();
 
   FetchGooglePhotosPhotosResponse(
-      absl::optional<std::vector<GooglePhotosPhotoPtr>> photos,
-      const absl::optional<std::string>& resume_token);
+      std::optional<std::vector<GooglePhotosPhotoPtr>> photos,
+      const std::optional<std::string>& resume_token);
 
 FetchGooglePhotosPhotosResponse(const FetchGooglePhotosPhotosResponse&) = delete;
 FetchGooglePhotosPhotosResponse& operator=(const FetchGooglePhotosPhotosResponse&) = delete;
@@ -3435,9 +3447,9 @@ FetchGooglePhotosPhotosResponse& operator=(const FetchGooglePhotosPhotosResponse
   }
 
   
-  absl::optional<std::vector<GooglePhotosPhotoPtr>> photos;
+  std::optional<std::vector<GooglePhotosPhotoPtr>> photos;
   
-  absl::optional<std::string> resume_token;
+  std::optional<std::string> resume_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -4090,7 +4102,7 @@ class  DefaultUserImage {
       int32_t index,
       const ::std::u16string& title,
       const ::GURL& url,
-      absl::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info);
+      std::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info);
 
 DefaultUserImage(const DefaultUserImage&) = delete;
 DefaultUserImage& operator=(const DefaultUserImage&) = delete;
@@ -4176,7 +4188,7 @@ DefaultUserImage& operator=(const DefaultUserImage&) = delete;
   
   ::GURL url;
   
-  absl::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info;
+  std::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-features.h"
 #include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-shared.h"
 #include "third_party/blink/public/mojom/devtools/inspector_issue.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -222,7 +223,7 @@ class BLINK_COMMON_EXPORT AffectedRequest {
 
   AffectedRequest(
       const std::string& request_id,
-      const absl::optional<std::string>& url);
+      const std::optional<std::string>& url);
 
 
   ~AffectedRequest();
@@ -302,7 +303,7 @@ class BLINK_COMMON_EXPORT AffectedRequest {
   
   std::string request_id;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -505,8 +506,8 @@ class BLINK_COMMON_EXPORT AffectedLocation {
   AffectedLocation();
 
   AffectedLocation(
-      const absl::optional<std::string>& script_id,
-      const absl::optional<std::string>& url,
+      const std::optional<std::string>& script_id,
+      const std::optional<std::string>& url,
       uint32_t line,
       uint32_t column);
 
@@ -586,9 +587,9 @@ class BLINK_COMMON_EXPORT AffectedLocation {
   }
 
   
-  absl::optional<std::string> script_id;
+  std::optional<std::string> script_id;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
   
   uint32_t line;
   
@@ -947,9 +948,9 @@ class BLINK_COMMON_EXPORT GenericIssueDetails {
 
   GenericIssueDetails(
       GenericIssueErrorType error_type,
-      const absl::optional<std::string>& frame_id,
+      const std::optional<std::string>& frame_id,
       int32_t violating_node_id,
-      const absl::optional<std::string>& violating_node_attribute);
+      const std::optional<std::string>& violating_node_attribute);
 
 
   ~GenericIssueDetails();
@@ -1029,11 +1030,11 @@ class BLINK_COMMON_EXPORT GenericIssueDetails {
   
   GenericIssueErrorType error_type;
   
-  absl::optional<std::string> frame_id;
+  std::optional<std::string> frame_id;
   
   int32_t violating_node_id;
   
-  absl::optional<std::string> violating_node_attribute;
+  std::optional<std::string> violating_node_attribute;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1406,7 +1407,7 @@ class BLINK_COMMON_EXPORT AttributionReportingIssueDetails {
   AttributionReportingIssueDetails(
       AttributionReportingIssueType violation_type,
       AffectedRequestPtr request,
-      const absl::optional<std::string>& invalid_parameter);
+      const std::optional<std::string>& invalid_parameter);
 
 AttributionReportingIssueDetails(const AttributionReportingIssueDetails&) = delete;
 AttributionReportingIssueDetails& operator=(const AttributionReportingIssueDetails&) = delete;
@@ -1490,7 +1491,7 @@ AttributionReportingIssueDetails& operator=(const AttributionReportingIssueDetai
   
   AffectedRequestPtr request;
   
-  absl::optional<std::string> invalid_parameter;
+  std::optional<std::string> invalid_parameter;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1709,7 +1710,7 @@ class BLINK_COMMON_EXPORT ContentSecurityPolicyIssueDetails {
   ContentSecurityPolicyIssueDetails();
 
   ContentSecurityPolicyIssueDetails(
-      const absl::optional<::GURL>& blocked_url,
+      const std::optional<::GURL>& blocked_url,
       const std::string& violated_directive,
       bool is_report_only,
       ContentSecurityPolicyViolationType content_security_policy_violation_type,
@@ -1795,7 +1796,7 @@ ContentSecurityPolicyIssueDetails& operator=(const ContentSecurityPolicyIssueDet
   }
 
   
-  absl::optional<::GURL> blocked_url;
+  std::optional<::GURL> blocked_url;
   
   std::string violated_directive;
   
@@ -1873,8 +1874,8 @@ class BLINK_COMMON_EXPORT CookieIssueDetails {
       std::vector<CookieExclusionReason> exclusion_reason,
       std::vector<CookieWarningReason> warning_reason,
       CookieOperation operation,
-      const absl::optional<::GURL>& site_for_cookies,
-      const absl::optional<::GURL>& cookie_url,
+      const std::optional<::GURL>& site_for_cookies,
+      const std::optional<::GURL>& cookie_url,
       AffectedRequestPtr request);
 
 CookieIssueDetails(const CookieIssueDetails&) = delete;
@@ -1963,9 +1964,9 @@ CookieIssueDetails& operator=(const CookieIssueDetails&) = delete;
   
   CookieOperation operation;
   
-  absl::optional<::GURL> site_for_cookies;
+  std::optional<::GURL> site_for_cookies;
   
-  absl::optional<::GURL> cookie_url;
+  std::optional<::GURL> cookie_url;
   
   AffectedRequestPtr request;
 
@@ -2778,7 +2779,7 @@ class BLINK_COMMON_EXPORT InspectorIssueDetails {
       GenericIssueDetailsPtr generic_issue_details,
       DeprecationIssueDetailsPtr deprecation_issue_details,
       FederatedAuthUserInfoRequestIssueDetailsPtr federated_auth_user_info_request_details,
-      const absl::optional<::base::UnguessableToken>& issue_id);
+      const std::optional<::base::UnguessableToken>& issue_id);
 
 InspectorIssueDetails(const InspectorIssueDetails&) = delete;
 InspectorIssueDetails& operator=(const InspectorIssueDetails&) = delete;
@@ -2886,7 +2887,7 @@ InspectorIssueDetails& operator=(const InspectorIssueDetails&) = delete;
   
   FederatedAuthUserInfoRequestIssueDetailsPtr federated_auth_user_info_request_details;
   
-  absl::optional<::base::UnguessableToken> issue_id;
+  std::optional<::base::UnguessableToken> issue_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StyleMedia>::value,
     "StyleMedia inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StyleMedia::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StyleMedia is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,7 +86,7 @@ UseCounter::Count(current_execution_context, WebFeature::kStyleMediaType);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleMedia* blink_receiver = V8StyleMedia::ToWrappableUnsafe(v8_receiver);
+StyleMedia* blink_receiver = V8StyleMedia::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -114,10 +109,10 @@ UseCounter::Count(current_execution_context, WebFeature::kStyleMediaMatchMedium)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleMedia* blink_receiver = V8StyleMedia::ToWrappableUnsafe(v8_receiver);
+StyleMedia* blink_receiver = V8StyleMedia::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_mediaquery;
 if (LIKELY(info[0]->IsString())) {
-  arg1_mediaquery.Init(info[0].As<v8::String>());
+  arg1_mediaquery.Init(isolate, info[0].As<v8::String>());
 } else {
   if (info[0]->IsUndefined()) {
   arg1_mediaquery = "undefined";

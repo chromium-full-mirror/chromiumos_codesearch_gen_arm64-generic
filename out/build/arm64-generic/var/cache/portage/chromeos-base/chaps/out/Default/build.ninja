@@ -20,11 +20,8 @@ subninja toolchain.ninja
 
 build _chaps_client-install_config: phony obj/chaps/_chaps_client-install_config.stamp
 build _chapsd-install_config: phony obj/chaps/_chapsd-install_config.stamp
-build _chapsd_test-install_config: phony obj/chaps/_chapsd_test-install_config.stamp
 build _libchaps-install_config: phony obj/chaps/_libchaps-install_config.stamp
 build _p11_replay-install_config: phony obj/chaps/_p11_replay-install_config.stamp
-build chaps-protos: phony ./libchaps-protos.a
-build chaps-protos_gen: phony obj/chaps/chaps-protos_gen.stamp
 build chaps_common: phony obj/chaps/chaps_common.stamp
 build dbus_conf: phony obj/chaps/dbus_conf.stamp
 build install_chapsd_conf: phony obj/chaps/install_chapsd_conf.stamp
@@ -33,23 +30,15 @@ build install_pkcs11_header: phony obj/chaps/install_pkcs11_header.stamp
 build install_tmpfiles_config: phony obj/chaps/install_tmpfiles_config.stamp
 build libchaps: phony ./lib/libchaps.so
 build libchaps_source_set: phony obj/chaps/libchaps_source_set.stamp
-build libchaps_test: phony obj/chaps/libchaps_test.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build chaps$:_chaps_client-install_config: phony obj/chaps/_chaps_client-install_config.stamp
 build chaps$:_chapsd-install_config: phony obj/chaps/_chapsd-install_config.stamp
-build chaps$:_chapsd_test-install_config: phony obj/chaps/_chapsd_test-install_config.stamp
 build chaps$:_libchaps-install_config: phony obj/chaps/_libchaps-install_config.stamp
 build chaps$:_p11_replay-install_config: phony obj/chaps/_p11_replay-install_config.stamp
 build chaps$:all: phony obj/chaps/all.stamp
-build chaps$:chaps-protos: phony ./libchaps-protos.a
-build chaps$:chaps-protos_gen: phony obj/chaps/chaps-protos_gen.stamp
 build chaps$:chaps_client: phony ./chaps_client
 build chaps$:chaps_common: phony obj/chaps/chaps_common.stamp
-build chaps$:chaps_service_test: phony ./chaps_service_test
-build chaps$:chaps_test: phony ./chaps_test
 build chaps$:chapsd: phony ./chapsd
-build chaps$:chapsd_test: phony ./chapsd_test
 build chaps$:dbus_conf: phony obj/chaps/dbus_conf.stamp
 build chaps$:install_chapsd_conf: phony obj/chaps/install_chapsd_conf.stamp
 build chaps$:install_client_headers: phony obj/chaps/install_client_headers.stamp
@@ -57,34 +46,18 @@ build chaps$:install_pkcs11_header: phony obj/chaps/install_pkcs11_header.stamp
 build chaps$:install_tmpfiles_config: phony obj/chaps/install_tmpfiles_config.stamp
 build chaps$:libchaps: phony ./lib/libchaps.so
 build chaps$:libchaps_source_set: phony obj/chaps/libchaps_source_set.stamp
-build chaps$:libchaps_test: phony obj/chaps/libchaps_test.stamp
-build chaps$:object_policy_test: phony ./object_policy_test
-build chaps$:object_pool_test: phony ./object_pool_test
-build chaps$:object_store_test: phony ./object_store_test
-build chaps$:object_test: phony ./object_test
 build chaps$:p11_replay: phony ./p11_replay
-build chaps$:session_test: phony ./session_test
-build chaps$:slot_manager_test: phony ./slot_manager_test
-build chaps$:slot_policy_test: phony ./slot_policy_test
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 
 build all: phony $
     obj/chaps/_chaps_client-install_config.stamp $
     obj/chaps/_chapsd-install_config.stamp $
-    obj/chaps/_chapsd_test-install_config.stamp $
     obj/chaps/_libchaps-install_config.stamp $
     obj/chaps/_p11_replay-install_config.stamp $
     obj/chaps/all.stamp $
-    ./libchaps-protos.a $
-    obj/chaps/chaps-protos_gen.stamp $
     ./chaps_client $
     obj/chaps/chaps_common.stamp $
-    ./chaps_service_test $
-    ./chaps_test $
     ./chapsd $
-    ./chapsd_test $
     obj/chaps/dbus_conf.stamp $
     obj/chaps/install_chapsd_conf.stamp $
     obj/chaps/install_client_headers.stamp $
@@ -92,16 +65,7 @@ build all: phony $
     obj/chaps/install_tmpfiles_config.stamp $
     ./lib/libchaps.so $
     obj/chaps/libchaps_source_set.stamp $
-    obj/chaps/libchaps_test.stamp $
-    ./object_policy_test $
-    ./object_pool_test $
-    ./object_store_test $
-    ./object_test $
     ./p11_replay $
-    ./session_test $
-    ./slot_manager_test $
-    ./slot_policy_test $
-    obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a
+    obj/common-mk/gn_root/root.stamp
 
 default all

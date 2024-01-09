@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/idle/idle_manager.mojom-features.h"
 #include "third_party/blink/public/mojom/idle/idle_manager.mojom-shared.h"
 #include "third_party/blink/public/mojom/idle/idle_manager.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -39,18 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IdleManagerError>
-    : EnumHashTraits<::blink::mojom::IdleManagerError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -308,7 +297,7 @@ class PLATFORM_EXPORT IdleState {
   IdleState();
 
   IdleState(
-      absl::optional<::base::TimeDelta> idle_time,
+      std::optional<::base::TimeDelta> idle_time,
       bool screen_locked);
 
 
@@ -387,7 +376,7 @@ class PLATFORM_EXPORT IdleState {
   }
 
   
-  absl::optional<::base::TimeDelta> idle_time;
+  std::optional<::base::TimeDelta> idle_time;
   
   bool screen_locked;
 

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "protoc-gen-go-grpc", "version": "1.42.0", "revision": 2, "fullname": "dev-go/protoc-gen-go-grpc", "fullnamerev": "dev-go/protoc-gen-go-grpc-1.42.0-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://grpc.io/"], "skip": false, "tainted": false, "ebuild_path": null}

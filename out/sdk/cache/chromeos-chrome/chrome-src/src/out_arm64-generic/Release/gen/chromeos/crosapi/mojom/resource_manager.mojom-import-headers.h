@@ -6,5 +6,7 @@
 
 #ifndef CHROMEOS_CROSAPI_MOJOM_RESOURCE_MANAGER_MOJOM_IMPORT_HEADERS_H_
 #define CHROMEOS_CROSAPI_MOJOM_RESOURCE_MANAGER_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/time.mojom.h"
+#include "mojo/public/mojom/base/time.mojom-import-headers.h"
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_RESOURCE_MANAGER_MOJOM_IMPORT_HEADERS_H_

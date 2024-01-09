@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ IdleState::IdleState()
       screen_locked() {}
 
 IdleState::IdleState(
-    absl::optional<::base::TimeDelta> idle_time_in,
+    std::optional<::base::TimeDelta> idle_time_in,
     bool screen_locked_in)
     : idle_time(std::move(idle_time_in)),
       screen_locked(std::move(screen_locked_in)) {}
@@ -63,7 +64,7 @@ void IdleState::WriteIntoTrace(
     dict.AddItem(
       "idle_time"), this->idle_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -158,14 +159,17 @@ void IdleMonitorProxy::Update(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdleMonitor_Update_Name, kFlags, 0, 0, nullptr);
@@ -249,10 +253,10 @@ bool IdleMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIdleMonitorValidationInfo[] = {
-    {&internal::IdleMonitor_Update_Params_Data::Validate,
+    { &internal::IdleMonitor_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -349,14 +353,17 @@ void IdleManagerProxy::AddMonitor(
                         "<value of type ::mojo::PendingRemote<IdleMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdleManager_AddMonitor_Name, kFlags, 0, 0, nullptr);
@@ -479,7 +486,8 @@ void IdleManager_AddMonitor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIdleManager_AddMonitor_Name, kFlags, 0, 0, nullptr);
@@ -569,10 +577,10 @@ std::move(p_monitor), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIdleManagerValidationInfo[] = {
-    {&internal::IdleManager_AddMonitor_Params_Data::Validate,
+    { &internal::IdleManager_AddMonitor_Params_Data::Validate,
      &internal::IdleManager_AddMonitor_ResponseParams_Data::Validate},
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_loader_network_service_observer.mojom-features.h"
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-shared.h"
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -47,18 +48,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SharedStorageOperationType>
-    : EnumHashTraits<::network::mojom::SharedStorageOperationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -295,10 +284,10 @@ class BLINK_PLATFORM_EXPORT URLLoaderNetworkServiceObserver
   virtual void OnSSLCertificateError(const ::blink::KURL& url, int32_t net_error, ::network::mojom::blink::SSLInfoPtr ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) = 0;
 
   
-  virtual void OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) = 0;
+  virtual void OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) = 0;
 
   
-  virtual void OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) = 0;
+  virtual void OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) = 0;
 
 
   using OnPrivateNetworkAccessPermissionRequiredCallback = base::OnceCallback<void(bool)>;
@@ -387,9 +376,9 @@ class BLINK_PLATFORM_EXPORT URLLoaderNetworkServiceObserverProxy
   
   void OnSSLCertificateError(const ::blink::KURL& url, int32_t net_error, ::network::mojom::blink::SSLInfoPtr ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) final;
   
-  void OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) final;
+  void OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) final;
   
-  void OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) final;
+  void OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) final;
   
   void OnPrivateNetworkAccessPermissionRequired(const ::blink::KURL& url, const ::net::IPAddress& ip_address, const WTF::String& private_network_device_id, const WTF::String& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) final;
   

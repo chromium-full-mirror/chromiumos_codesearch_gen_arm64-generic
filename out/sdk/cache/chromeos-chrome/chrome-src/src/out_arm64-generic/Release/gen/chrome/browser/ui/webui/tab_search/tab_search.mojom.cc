@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -191,11 +192,11 @@ Tab::Tab(
     std::vector<::TabAlertState> alert_states_in,
     int32_t index_in,
     int32_t tab_id_in,
-    const absl::optional<::base::Token>& group_id_in,
+    const std::optional<::base::Token>& group_id_in,
     bool pinned_in,
     const std::string& title_in,
     const ::GURL& url_in,
-    const absl::optional<::GURL>& favicon_url_in,
+    const std::optional<::GURL>& favicon_url_in,
     bool is_default_favicon_in,
     bool show_icon_in,
     ::base::TimeTicks last_active_time_ticks_in,
@@ -259,7 +260,7 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "group_id"), this->group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Token>&>"
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -295,7 +296,7 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "favicon_url"), this->favicon_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -353,7 +354,7 @@ RecentlyClosedTab::RecentlyClosedTab()
 
 RecentlyClosedTab::RecentlyClosedTab(
     int32_t tab_id_in,
-    const absl::optional<::base::Token>& group_id_in,
+    const std::optional<::base::Token>& group_id_in,
     const std::string& title_in,
     const ::GURL& url_in,
     ::base::Time last_active_time_in,
@@ -383,7 +384,7 @@ void RecentlyClosedTab::WriteIntoTrace(
     dict.AddItem(
       "group_id"), this->group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Token>&>"
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -623,7 +624,7 @@ TabOrganization::TabOrganization()
 TabOrganization::TabOrganization(
     int32_t organization_id_in,
     std::vector<TabPtr> tabs_in,
-    const std::string& name_in)
+    const ::std::u16string& name_in)
     : organization_id(std::move(organization_id_in)),
       tabs(std::move(tabs_in)),
       name(std::move(name_in)) {}
@@ -655,7 +656,7 @@ void TabOrganization::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
+      "<value of type const ::std::u16string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -885,14 +886,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -980,10 +984,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1021,11 +1025,38 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_RequestTabOrganization_Name: {
       return &PageHandler::RequestTabOrganization_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_RemoveTabFromOrganization_Name: {
+      return &PageHandler::RemoveTabFromOrganization_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_ResetSession_Name: {
+      return &PageHandler::ResetSession_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
       return &PageHandler::SaveRecentlyClosedExpandedPref_Sym::IPCStableHash;
     }
     case internal::kPageHandler_SetTabIndex_Name: {
       return &PageHandler::SetTabIndex_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_StartTabGroupTutorial_Name: {
+      return &PageHandler::StartTabGroupTutorial_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_TriggerFeedback_Name: {
+      return &PageHandler::TriggerFeedback_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_TriggerSync_Name: {
+      return &PageHandler::TriggerSync_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_TriggerSignIn_Name: {
+      return &PageHandler::TriggerSignIn_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_OpenHelpPage_Name: {
+      return &PageHandler::OpenHelpPage_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_OpenSyncSettings_Name: {
+      return &PageHandler::OpenSyncSettings_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_SetUserFeedback_Name: {
+      return &PageHandler::SetUserFeedback_Sym::IPCStableHash;
     }
     case internal::kPageHandler_ShowUI_Name: {
       return &PageHandler::ShowUI_Sym::IPCStableHash;
@@ -1057,10 +1088,28 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive tab_search::mojom::PageHandler::OpenRecentlyClosedEntry";
       case internal::kPageHandler_RequestTabOrganization_Name:
             return "Receive tab_search::mojom::PageHandler::RequestTabOrganization";
+      case internal::kPageHandler_RemoveTabFromOrganization_Name:
+            return "Receive tab_search::mojom::PageHandler::RemoveTabFromOrganization";
+      case internal::kPageHandler_ResetSession_Name:
+            return "Receive tab_search::mojom::PageHandler::ResetSession";
       case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name:
             return "Receive tab_search::mojom::PageHandler::SaveRecentlyClosedExpandedPref";
       case internal::kPageHandler_SetTabIndex_Name:
             return "Receive tab_search::mojom::PageHandler::SetTabIndex";
+      case internal::kPageHandler_StartTabGroupTutorial_Name:
+            return "Receive tab_search::mojom::PageHandler::StartTabGroupTutorial";
+      case internal::kPageHandler_TriggerFeedback_Name:
+            return "Receive tab_search::mojom::PageHandler::TriggerFeedback";
+      case internal::kPageHandler_TriggerSync_Name:
+            return "Receive tab_search::mojom::PageHandler::TriggerSync";
+      case internal::kPageHandler_TriggerSignIn_Name:
+            return "Receive tab_search::mojom::PageHandler::TriggerSignIn";
+      case internal::kPageHandler_OpenHelpPage_Name:
+            return "Receive tab_search::mojom::PageHandler::OpenHelpPage";
+      case internal::kPageHandler_OpenSyncSettings_Name:
+            return "Receive tab_search::mojom::PageHandler::OpenSyncSettings";
+      case internal::kPageHandler_SetUserFeedback_Name:
+            return "Receive tab_search::mojom::PageHandler::SetUserFeedback";
       case internal::kPageHandler_ShowUI_Name:
             return "Receive tab_search::mojom::PageHandler::ShowUI";
     }
@@ -1082,10 +1131,28 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply tab_search::mojom::PageHandler::OpenRecentlyClosedEntry";
       case internal::kPageHandler_RequestTabOrganization_Name:
             return "Receive reply tab_search::mojom::PageHandler::RequestTabOrganization";
+      case internal::kPageHandler_RemoveTabFromOrganization_Name:
+            return "Receive reply tab_search::mojom::PageHandler::RemoveTabFromOrganization";
+      case internal::kPageHandler_ResetSession_Name:
+            return "Receive reply tab_search::mojom::PageHandler::ResetSession";
       case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name:
             return "Receive reply tab_search::mojom::PageHandler::SaveRecentlyClosedExpandedPref";
       case internal::kPageHandler_SetTabIndex_Name:
             return "Receive reply tab_search::mojom::PageHandler::SetTabIndex";
+      case internal::kPageHandler_StartTabGroupTutorial_Name:
+            return "Receive reply tab_search::mojom::PageHandler::StartTabGroupTutorial";
+      case internal::kPageHandler_TriggerFeedback_Name:
+            return "Receive reply tab_search::mojom::PageHandler::TriggerFeedback";
+      case internal::kPageHandler_TriggerSync_Name:
+            return "Receive reply tab_search::mojom::PageHandler::TriggerSync";
+      case internal::kPageHandler_TriggerSignIn_Name:
+            return "Receive reply tab_search::mojom::PageHandler::TriggerSignIn";
+      case internal::kPageHandler_OpenHelpPage_Name:
+            return "Receive reply tab_search::mojom::PageHandler::OpenHelpPage";
+      case internal::kPageHandler_OpenSyncSettings_Name:
+            return "Receive reply tab_search::mojom::PageHandler::OpenSyncSettings";
+      case internal::kPageHandler_SetUserFeedback_Name:
+            return "Receive reply tab_search::mojom::PageHandler::SetUserFeedback";
       case internal::kPageHandler_ShowUI_Name:
             return "Receive reply tab_search::mojom::PageHandler::ShowUI";
     }
@@ -1206,6 +1273,32 @@ uint32_t PageHandler::RequestTabOrganization_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::RemoveTabFromOrganization_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::RemoveTabFromOrganization");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::ResetSession_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::ResetSession");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PageHandler::SaveRecentlyClosedExpandedPref_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1228,6 +1321,97 @@ uint32_t PageHandler::SetTabIndex_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)tab_search::mojom::PageHandler::SetTabIndex");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::StartTabGroupTutorial_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::StartTabGroupTutorial");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::TriggerFeedback_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::TriggerFeedback");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::TriggerSync_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::TriggerSync");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::TriggerSignIn_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::TriggerSignIn");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::OpenHelpPage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::OpenHelpPage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::OpenSyncSettings_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::OpenSyncSettings");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::SetUserFeedback_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::PageHandler::SetUserFeedback");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1295,14 +1479,17 @@ void PageHandlerProxy::CloseTab(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_CloseTab_Name, kFlags, 0, 0, nullptr);
@@ -1322,7 +1509,7 @@ void PageHandlerProxy::CloseTab(
 }
 
 void PageHandlerProxy::AcceptTabOrganization(
-    int32_t in_session_id, int32_t in_organization_id, const std::string& in_name, std::vector<TabPtr> in_tabs) {
+    int32_t in_session_id, int32_t in_organization_id, const ::std::u16string& in_name, std::vector<TabPtr> in_tabs) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send tab_search::mojom::PageHandler::AcceptTabOrganization", "input_parameters",
@@ -1336,20 +1523,23 @@ void PageHandlerProxy::AcceptTabOrganization(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type const std::string&>");
+                        "<value of type const ::std::u16string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("tabs"), in_tabs,
                         "<value of type std::vector<TabPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_AcceptTabOrganization_Name, kFlags, 0, 0, nullptr);
@@ -1362,7 +1552,7 @@ void PageHandlerProxy::AcceptTabOrganization(
   mojo::internal::MessageFragment<
       typename decltype(params->name)::BaseType> name_fragment(
           params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
+  mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
       in_name, name_fragment);
   params->name.Set(
       name_fragment.is_null() ? nullptr : name_fragment.data());
@@ -1408,14 +1598,17 @@ void PageHandlerProxy::RejectTabOrganization(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RejectTabOrganization_Name, kFlags, 0, 0, nullptr);
@@ -1440,14 +1633,17 @@ void PageHandlerProxy::GetProfileData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::GetProfileData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetProfileData_Name, kFlags, 0, 0, nullptr);
@@ -1471,14 +1667,17 @@ void PageHandlerProxy::GetTabOrganizationSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::GetTabOrganizationSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetTabOrganizationSession_Name, kFlags, 0, 0, nullptr);
@@ -1509,14 +1708,17 @@ void PageHandlerProxy::SwitchToTab(
                         "<value of type SwitchToTabInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SwitchToTab_Name, kFlags, 0, 0, nullptr);
@@ -1557,14 +1759,17 @@ void PageHandlerProxy::OpenRecentlyClosedEntry(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenRecentlyClosedEntry_Name, kFlags, 0, 0, nullptr);
@@ -1588,14 +1793,17 @@ void PageHandlerProxy::RequestTabOrganization(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::RequestTabOrganization");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RequestTabOrganization_Name, kFlags, 0, 0, nullptr);
@@ -1607,6 +1815,98 @@ void PageHandlerProxy::RequestTabOrganization(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
   message.set_method_name("RequestTabOrganization");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::RemoveTabFromOrganization(
+    int32_t in_session_id, int32_t in_organization_id, TabPtr in_tab) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send tab_search::mojom::PageHandler::RemoveTabFromOrganization", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("session_id"), in_session_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("organization_id"), in_organization_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("tab"), in_tab,
+                        "<value of type TabPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_RemoveTabFromOrganization_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_RemoveTabFromOrganization_Params_Data> params(
+          message);
+  params.Allocate();
+  params->session_id = in_session_id;
+  params->organization_id = in_organization_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->tab)::BaseType> tab_fragment(
+          params.message());
+  mojo::internal::Serialize<::tab_search::mojom::TabDataView>(
+      in_tab, tab_fragment);
+  params->tab.Set(
+      tab_fragment.is_null() ? nullptr : tab_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->tab.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null tab in PageHandler.RemoveTabFromOrganization request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("RemoveTabFromOrganization");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::ResetSession(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::ResetSession");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_ResetSession_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_ResetSession_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("ResetSession");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1625,14 +1925,17 @@ void PageHandlerProxy::SaveRecentlyClosedExpandedPref(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name, kFlags, 0, 0, nullptr);
@@ -1663,14 +1966,17 @@ void PageHandlerProxy::SetTabIndex(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetTabIndex_Name, kFlags, 0, 0, nullptr);
@@ -1689,19 +1995,278 @@ void PageHandlerProxy::SetTabIndex(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageHandlerProxy::StartTabGroupTutorial(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::StartTabGroupTutorial");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_StartTabGroupTutorial_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_StartTabGroupTutorial_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("StartTabGroupTutorial");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::TriggerFeedback(
+    int32_t in_session_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send tab_search::mojom::PageHandler::TriggerFeedback", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("session_id"), in_session_id,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_TriggerFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_TriggerFeedback_Params_Data> params(
+          message);
+  params.Allocate();
+  params->session_id = in_session_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("TriggerFeedback");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::TriggerSync(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::TriggerSync");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_TriggerSync_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_TriggerSync_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("TriggerSync");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::TriggerSignIn(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::TriggerSignIn");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_TriggerSignIn_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_TriggerSignIn_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("TriggerSignIn");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::OpenHelpPage(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::OpenHelpPage");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_OpenHelpPage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_OpenHelpPage_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("OpenHelpPage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::OpenSyncSettings(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::OpenSyncSettings");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_OpenSyncSettings_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_OpenSyncSettings_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("OpenSyncSettings");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::SetUserFeedback(
+    int32_t in_session_id, int32_t in_organization_id, UserFeedback in_feedback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send tab_search::mojom::PageHandler::SetUserFeedback", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("session_id"), in_session_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("organization_id"), in_organization_id,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("feedback"), in_feedback,
+                        "<value of type UserFeedback>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SetUserFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::PageHandler_SetUserFeedback_Params_Data> params(
+          message);
+  params.Allocate();
+  params->session_id = in_session_id;
+  params->organization_id = in_organization_id;
+  mojo::internal::Serialize<::tab_search::mojom::UserFeedback>(
+      in_feedback, &params->feedback);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SetUserFeedback");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageHandlerProxy::ShowUI(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -1810,7 +2375,8 @@ void PageHandler_GetProfileData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetProfileData_Name, kFlags, 0, 0, nullptr);
@@ -1938,7 +2504,8 @@ void PageHandler_GetTabOrganizationSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetTabOrganizationSession_Name, kFlags, 0, 0, nullptr);
@@ -2016,7 +2583,7 @@ std::move(p_tab_id));
       bool success = true;
       int32_t p_session_id{};
       int32_t p_organization_id{};
-      std::string p_name{};
+      ::std::u16string p_name{};
       std::vector<TabPtr> p_tabs{};
       PageHandler_AcceptTabOrganization_ParamsDataView input_data_view(params, message);
       
@@ -2154,6 +2721,62 @@ std::move(p_session_id));
       impl->RequestTabOrganization();
       return true;
     }
+    case internal::kPageHandler_RemoveTabFromOrganization_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_RemoveTabFromOrganization_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RemoveTabFromOrganization_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int32_t p_session_id{};
+      int32_t p_organization_id{};
+      TabPtr p_tab{};
+      PageHandler_RemoveTabFromOrganization_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_session_id = input_data_view.session_id();
+      if (success)
+        p_organization_id = input_data_view.organization_id();
+      if (success && !input_data_view.ReadTab(&p_tab))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RemoveTabFromOrganization(
+std::move(p_session_id), 
+std::move(p_organization_id), 
+std::move(p_tab));
+      return true;
+    }
+    case internal::kPageHandler_ResetSession_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_ResetSession_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_ResetSession_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_ResetSession_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 9, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ResetSession();
+      return true;
+    }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
 
       DCHECK(message->is_serialized());
@@ -2171,7 +2794,7 @@ std::move(p_session_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 8, false);
+            PageHandler::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2197,13 +2820,183 @@ std::move(p_expanded));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 9, false);
+            PageHandler::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetTabIndex(
 std::move(p_index));
+      return true;
+    }
+    case internal::kPageHandler_StartTabGroupTutorial_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_StartTabGroupTutorial_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_StartTabGroupTutorial_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_StartTabGroupTutorial_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 12, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->StartTabGroupTutorial();
+      return true;
+    }
+    case internal::kPageHandler_TriggerFeedback_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_TriggerFeedback_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_TriggerFeedback_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int32_t p_session_id{};
+      PageHandler_TriggerFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_session_id = input_data_view.session_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->TriggerFeedback(
+std::move(p_session_id));
+      return true;
+    }
+    case internal::kPageHandler_TriggerSync_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_TriggerSync_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_TriggerSync_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_TriggerSync_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 14, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->TriggerSync();
+      return true;
+    }
+    case internal::kPageHandler_TriggerSignIn_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_TriggerSignIn_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_TriggerSignIn_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_TriggerSignIn_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 15, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->TriggerSignIn();
+      return true;
+    }
+    case internal::kPageHandler_OpenHelpPage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_OpenHelpPage_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_OpenHelpPage_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_OpenHelpPage_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 16, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenHelpPage();
+      return true;
+    }
+    case internal::kPageHandler_OpenSyncSettings_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_OpenSyncSettings_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_OpenSyncSettings_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_OpenSyncSettings_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 17, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenSyncSettings();
+      return true;
+    }
+    case internal::kPageHandler_SetUserFeedback_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SetUserFeedback_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SetUserFeedback_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int32_t p_session_id{};
+      int32_t p_organization_id{};
+      UserFeedback p_feedback{};
+      PageHandler_SetUserFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_session_id = input_data_view.session_id();
+      if (success)
+        p_organization_id = input_data_view.organization_id();
+      if (success && !input_data_view.ReadFeedback(&p_feedback))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 18, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetUserFeedback(
+std::move(p_session_id), 
+std::move(p_organization_id), 
+std::move(p_feedback));
       return true;
     }
     case internal::kPageHandler_ShowUI_Name: {
@@ -2220,7 +3013,7 @@ std::move(p_index));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 10, false);
+            PageHandler::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2309,10 +3102,37 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_RequestTabOrganization_Name: {
       break;
     }
+    case internal::kPageHandler_RemoveTabFromOrganization_Name: {
+      break;
+    }
+    case internal::kPageHandler_ResetSession_Name: {
+      break;
+    }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
       break;
     }
     case internal::kPageHandler_SetTabIndex_Name: {
+      break;
+    }
+    case internal::kPageHandler_StartTabGroupTutorial_Name: {
+      break;
+    }
+    case internal::kPageHandler_TriggerFeedback_Name: {
+      break;
+    }
+    case internal::kPageHandler_TriggerSync_Name: {
+      break;
+    }
+    case internal::kPageHandler_TriggerSignIn_Name: {
+      break;
+    }
+    case internal::kPageHandler_OpenHelpPage_Name: {
+      break;
+    }
+    case internal::kPageHandler_OpenSyncSettings_Name: {
+      break;
+    }
+    case internal::kPageHandler_SetUserFeedback_Name: {
       break;
     }
     case internal::kPageHandler_ShowUI_Name: {
@@ -2321,30 +3141,48 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_CloseTab_Params_Data::Validate,
+    { &internal::PageHandler_CloseTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_AcceptTabOrganization_Params_Data::Validate,
+    { &internal::PageHandler_AcceptTabOrganization_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RejectTabOrganization_Params_Data::Validate,
+    { &internal::PageHandler_RejectTabOrganization_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetProfileData_Params_Data::Validate,
+    { &internal::PageHandler_GetProfileData_Params_Data::Validate,
      &internal::PageHandler_GetProfileData_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetTabOrganizationSession_Params_Data::Validate,
+    { &internal::PageHandler_GetTabOrganizationSession_Params_Data::Validate,
      &internal::PageHandler_GetTabOrganizationSession_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SwitchToTab_Params_Data::Validate,
+    { &internal::PageHandler_SwitchToTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenRecentlyClosedEntry_Params_Data::Validate,
+    { &internal::PageHandler_OpenRecentlyClosedEntry_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RequestTabOrganization_Params_Data::Validate,
+    { &internal::PageHandler_RequestTabOrganization_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SaveRecentlyClosedExpandedPref_Params_Data::Validate,
+    { &internal::PageHandler_RemoveTabFromOrganization_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetTabIndex_Params_Data::Validate,
+    { &internal::PageHandler_ResetSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowUI_Params_Data::Validate,
+    { &internal::PageHandler_SaveRecentlyClosedExpandedPref_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_SetTabIndex_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_StartTabGroupTutorial_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_TriggerFeedback_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_TriggerSync_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_TriggerSignIn_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_OpenHelpPage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_OpenSyncSettings_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_SetUserFeedback_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2488,14 +3326,17 @@ void PageProxy::TabOrganizationSessionUpdated(
                         "<value of type TabOrganizationSessionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabOrganizationSessionUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2536,14 +3377,17 @@ void PageProxy::TabsChanged(
                         "<value of type ProfileDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabsChanged_Name, kFlags, 0, 0, nullptr);
@@ -2584,14 +3428,17 @@ void PageProxy::TabUpdated(
                         "<value of type TabUpdateInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2632,14 +3479,17 @@ void PageProxy::TabsRemoved(
                         "<value of type TabsRemovedInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabsRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2805,16 +3655,16 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_TabOrganizationSessionUpdated_Params_Data::Validate,
+    { &internal::Page_TabOrganizationSessionUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabsChanged_Params_Data::Validate,
+    { &internal::Page_TabsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabUpdated_Params_Data::Validate,
+    { &internal::Page_TabUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabsRemoved_Params_Data::Validate,
+    { &internal::Page_TabsRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3084,7 +3934,7 @@ PageHandlerFactoryAsyncWaiter::~PageHandlerFactoryAsyncWaiter() = default;
 void PageHandlerInterceptorForTesting::CloseTab(int32_t tab_id) {
   GetForwardingInterface()->CloseTab(std::move(tab_id));
 }
-void PageHandlerInterceptorForTesting::AcceptTabOrganization(int32_t session_id, int32_t organization_id, const std::string& name, std::vector<TabPtr> tabs) {
+void PageHandlerInterceptorForTesting::AcceptTabOrganization(int32_t session_id, int32_t organization_id, const ::std::u16string& name, std::vector<TabPtr> tabs) {
   GetForwardingInterface()->AcceptTabOrganization(std::move(session_id), std::move(organization_id), std::move(name), std::move(tabs));
 }
 void PageHandlerInterceptorForTesting::RejectTabOrganization(int32_t session_id, int32_t organization_id) {
@@ -3105,11 +3955,38 @@ void PageHandlerInterceptorForTesting::OpenRecentlyClosedEntry(int32_t session_i
 void PageHandlerInterceptorForTesting::RequestTabOrganization() {
   GetForwardingInterface()->RequestTabOrganization();
 }
+void PageHandlerInterceptorForTesting::RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) {
+  GetForwardingInterface()->RemoveTabFromOrganization(std::move(session_id), std::move(organization_id), std::move(tab));
+}
+void PageHandlerInterceptorForTesting::ResetSession() {
+  GetForwardingInterface()->ResetSession();
+}
 void PageHandlerInterceptorForTesting::SaveRecentlyClosedExpandedPref(bool expanded) {
   GetForwardingInterface()->SaveRecentlyClosedExpandedPref(std::move(expanded));
 }
 void PageHandlerInterceptorForTesting::SetTabIndex(int32_t index) {
   GetForwardingInterface()->SetTabIndex(std::move(index));
+}
+void PageHandlerInterceptorForTesting::StartTabGroupTutorial() {
+  GetForwardingInterface()->StartTabGroupTutorial();
+}
+void PageHandlerInterceptorForTesting::TriggerFeedback(int32_t session_id) {
+  GetForwardingInterface()->TriggerFeedback(std::move(session_id));
+}
+void PageHandlerInterceptorForTesting::TriggerSync() {
+  GetForwardingInterface()->TriggerSync();
+}
+void PageHandlerInterceptorForTesting::TriggerSignIn() {
+  GetForwardingInterface()->TriggerSignIn();
+}
+void PageHandlerInterceptorForTesting::OpenHelpPage() {
+  GetForwardingInterface()->OpenHelpPage();
+}
+void PageHandlerInterceptorForTesting::OpenSyncSettings() {
+  GetForwardingInterface()->OpenSyncSettings();
+}
+void PageHandlerInterceptorForTesting::SetUserFeedback(int32_t session_id, int32_t organization_id, UserFeedback feedback) {
+  GetForwardingInterface()->SetUserFeedback(std::move(session_id), std::move(organization_id), std::move(feedback));
 }
 void PageHandlerInterceptorForTesting::ShowUI() {
   GetForwardingInterface()->ShowUI();

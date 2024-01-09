@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_context.mojom-features.h"
 #include "services/network/public/mojom/network_context.mojom-shared.h"
 #include "services/network/public/mojom/network_context.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
@@ -108,54 +109,6 @@
 namespace network { struct ResourceRequest; }
 
 
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::TrustTokenOperationPolicyVerdict>
-    : EnumHashTraits<::network::mojom::TrustTokenOperationPolicyVerdict, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SCTAuditingMode>
-    : EnumHashTraits<::network::mojom::SCTAuditingMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::IpProtectionProxyLayer>
-    : EnumHashTraits<::network::mojom::IpProtectionProxyLayer, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::NetworkContext_DomainReliabilityClearMode>
-    : EnumHashTraits<::network::mojom::NetworkContext_DomainReliabilityClearMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
 namespace network::mojom::blink {
 
 class CustomProxyConnectionObserverProxy;
@@ -204,10 +157,10 @@ class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserver
   virtual ~CustomProxyConnectionObserver() = default;
 
   
-  virtual void OnFallback(::network::mojom::blink::ProxyServerPtr bad_proxy, int32_t net_error) = 0;
+  virtual void OnFallback(::network::mojom::blink::ProxyChainPtr bad_chain, int32_t net_error) = 0;
 
   
-  virtual void OnTunnelHeadersReceived(::network::mojom::blink::ProxyServerPtr proxy_server, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) = 0;
+  virtual void OnTunnelHeadersReceived(::network::mojom::blink::ProxyChainPtr proxy_chain, uint64_t chain_index, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) = 0;
 };
 
 class CustomProxyConfigClientProxy;
@@ -321,12 +274,12 @@ class BLINK_PLATFORM_EXPORT TrustedHeaderClient
   virtual ~TrustedHeaderClient() = default;
 
 
-  using OnBeforeSendHeadersCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::HttpRequestHeaders>&)>;
+  using OnBeforeSendHeadersCallback = base::OnceCallback<void(int32_t, const std::optional<::net::HttpRequestHeaders>&)>;
   
   virtual void OnBeforeSendHeaders(const ::net::HttpRequestHeaders& headers, OnBeforeSendHeadersCallback callback) = 0;
 
 
-  using OnHeadersReceivedCallback = base::OnceCallback<void(int32_t, const WTF::String&, const absl::optional<::blink::KURL>&)>;
+  using OnHeadersReceivedCallback = base::OnceCallback<void(int32_t, const WTF::String&, const std::optional<::blink::KURL>&)>;
   
   virtual void OnHeadersReceived(const WTF::String& headers, const ::net::IPEndPoint& remote_endpoint, OnHeadersReceivedCallback callback) = 0;
 };
@@ -519,12 +472,12 @@ class BLINK_PLATFORM_EXPORT IpProtectionConfigGetter
   virtual ~IpProtectionConfigGetter() = default;
 
 
-  using TryGetAuthTokensCallback = base::OnceCallback<void(absl::optional<WTF::Vector<BlindSignedAuthTokenPtr>>, absl::optional<::base::Time>)>;
+  using TryGetAuthTokensCallback = base::OnceCallback<void(std::optional<WTF::Vector<BlindSignedAuthTokenPtr>>, std::optional<::base::Time>)>;
   
   virtual void TryGetAuthTokens(uint32_t batch_size, IpProtectionProxyLayer proxy_layer, TryGetAuthTokensCallback callback) = 0;
 
 
-  using GetProxyListCallback = base::OnceCallback<void(const absl::optional<WTF::Vector<WTF::String>>&)>;
+  using GetProxyListCallback = base::OnceCallback<void(const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>&)>;
   
   virtual void GetProxyList(GetProxyListCallback callback) = 0;
 };
@@ -549,9 +502,9 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    68, 
-    70, 
-    71
+    67, 
+    69, 
+    70
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -598,7 +551,6 @@ class BLINK_PLATFORM_EXPORT NetworkContext
     kSetNetworkConditionsMinVersion = 0,
     kSetAcceptLanguageMinVersion = 0,
     kSetEnableReferrersMinVersion = 0,
-    kUpdateAdditionalCertificatesMinVersion = 0,
     kSetCTPolicyMinVersion = 0,
     kCreateUDPSocketMinVersion = 0,
     kCreateRestrictedUDPSocketMinVersion = 0,
@@ -636,7 +588,6 @@ class BLINK_PLATFORM_EXPORT NetworkContext
     kVerifyCertificateForTestingMinVersion = 0,
     kAddDomainReliabilityContextForTestingMinVersion = 0,
     kForceDomainReliabilityUploadsForTestingMinVersion = 0,
-    kSetCTLogListAlwaysTimelyForTestingMinVersion = 0,
     kSetSCTAuditingModeMinVersion = 0,
     kAddReportingApiObserverMinVersion = 0,
     kGetSharedDictionaryUsageInfoMinVersion = 0,
@@ -753,9 +704,6 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   struct SetEnableReferrers_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct UpdateAdditionalCertificates_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct SetCTPolicy_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -865,9 +813,6 @@ class BLINK_PLATFORM_EXPORT NetworkContext
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ForceDomainReliabilityUploadsForTesting_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetCTLogListAlwaysTimelyForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetSCTAuditingMode_Sym {
@@ -1016,7 +961,7 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   virtual void SendReportsAndRemoveSource(const ::base::UnguessableToken& reporting_source) = 0;
 
   
-  virtual void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const absl::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) = 0;
+  virtual void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const std::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) = 0;
 
   
   virtual void QueueSignedExchangeReport(SignedExchangeReportPtr report, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key) = 0;
@@ -1041,31 +986,28 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   virtual void SetEnableReferrers(bool enable_referrers) = 0;
 
   
-  virtual void UpdateAdditionalCertificates(AdditionalCertificatesPtr additional_certificates) = 0;
-
-  
   virtual void SetCTPolicy(CTPolicyPtr ct_policy) = 0;
 
   
   virtual void CreateUDPSocket(::mojo::PendingReceiver<::network::mojom::blink::UDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener) = 0;
 
 
-  using CreateRestrictedUDPSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using CreateRestrictedUDPSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void CreateRestrictedUDPSocket(const ::net::IPEndPoint& addr, ::network::mojom::blink::RestrictedUDPSocketMode mode, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::network::mojom::blink::RestrictedUDPSocketParamsPtr params, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, CreateRestrictedUDPSocketCallback callback) = 0;
 
 
-  using CreateTCPServerSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using CreateTCPServerSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void CreateTCPServerSocket(const ::net::IPEndPoint& local_addr, ::network::mojom::blink::TCPServerSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) = 0;
 
 
-  using CreateTCPConnectedSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using CreateTCPConnectedSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
-  virtual void CreateTCPConnectedSocket(const absl::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) = 0;
+  virtual void CreateTCPConnectedSocket(const std::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) = 0;
 
 
-  using CreateTCPBoundSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using CreateTCPBoundSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void CreateTCPBoundSocket(const ::net::IPEndPoint& local_addr, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPBoundSocket> socket, CreateTCPBoundSocketCallback callback) = 0;
 
@@ -1086,7 +1028,7 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   virtual void ClearBadProxiesCache(ClearBadProxiesCacheCallback callback) = 0;
 
   
-  virtual void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) = 0;
+  virtual void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, bool has_storage_access, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) = 0;
 
   
   virtual void CreateWebTransport(const ::blink::KURL& url, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, WTF::Vector<::network::mojom::blink::WebTransportCertificateFingerprintPtr> fingerprints, ::mojo::PendingRemote<::network::mojom::blink::WebTransportHandshakeClient> handshake_client) = 0;
@@ -1110,12 +1052,12 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   virtual void CreateHostResolver(::network::mojom::blink::DnsConfigOverridesPtr config_overrides, ::mojo::PendingReceiver<::network::mojom::blink::HostResolver> host_resolver) = 0;
 
 
-  using VerifyCertForSignedExchangeCallback = base::OnceCallback<void(int32_t, ::network::mojom::blink::CertVerifyResultPtr, bool, const WTF::String&)>;
+  using VerifyCertForSignedExchangeCallback = base::OnceCallback<void(int32_t, ::network::mojom::blink::CertVerifyResultPtr, bool)>;
   
-  virtual void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) = 0;
+  virtual void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) = 0;
 
 
-  using VerifyIpProtectionConfigGetterForTestingCallback = base::OnceCallback<void(BlindSignedAuthTokenPtr, absl::optional<::base::Time>)>;
+  using VerifyIpProtectionConfigGetterForTestingCallback = base::OnceCallback<void(BlindSignedAuthTokenPtr, std::optional<::base::Time>)>;
   
   virtual void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) = 0;
 
@@ -1211,9 +1153,6 @@ class BLINK_PLATFORM_EXPORT NetworkContext
   virtual void ForceDomainReliabilityUploadsForTesting(ForceDomainReliabilityUploadsForTestingCallback callback) = 0;
 
   
-  virtual void SetCTLogListAlwaysTimelyForTesting() = 0;
-
-  
   virtual void SetSCTAuditingMode(SCTAuditingMode mode) = 0;
 
   
@@ -1256,9 +1195,9 @@ class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverProxy
 
   explicit CustomProxyConnectionObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnFallback(::network::mojom::blink::ProxyServerPtr bad_proxy, int32_t net_error) final;
+  void OnFallback(::network::mojom::blink::ProxyChainPtr bad_chain, int32_t net_error) final;
   
-  void OnTunnelHeadersReceived(::network::mojom::blink::ProxyServerPtr proxy_server, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) final;
+  void OnTunnelHeadersReceived(::network::mojom::blink::ProxyChainPtr proxy_chain, uint64_t chain_index, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1422,7 +1361,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   
   void SendReportsAndRemoveSource(const ::base::UnguessableToken& reporting_source) final;
   
-  void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const absl::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) final;
+  void QueueReport(const WTF::String& type, const WTF::String& group, const ::blink::KURL& url, const std::optional<::base::UnguessableToken>& reporting_source, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& user_agent, ::base::Value::Dict body) final;
   
   void QueueSignedExchangeReport(SignedExchangeReportPtr report, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key) final;
   
@@ -1436,8 +1375,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   
   void SetEnableReferrers(bool enable_referrers) final;
   
-  void UpdateAdditionalCertificates(AdditionalCertificatesPtr additional_certificates) final;
-  
   void SetCTPolicy(CTPolicyPtr ct_policy) final;
   
   void CreateUDPSocket(::mojo::PendingReceiver<::network::mojom::blink::UDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener) final;
@@ -1446,7 +1383,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   
   void CreateTCPServerSocket(const ::net::IPEndPoint& local_addr, ::network::mojom::blink::TCPServerSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) final;
   
-  void CreateTCPConnectedSocket(const absl::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) final;
+  void CreateTCPConnectedSocket(const std::optional<::net::IPEndPoint>& local_addr, ::network::mojom::blink::AddressListPtr remote_addr_list, ::network::mojom::blink::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) final;
   
   void CreateTCPBoundSocket(const ::net::IPEndPoint& local_addr, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::blink::TCPBoundSocket> socket, CreateTCPBoundSocketCallback callback) final;
   
@@ -1458,7 +1395,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   
   void ClearBadProxiesCache(ClearBadProxiesCacheCallback callback) final;
   
-  void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) final;
+  void CreateWebSocket(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, bool has_storage_access, const ::net::IsolationInfo& isolation_info, WTF::Vector<::network::mojom::blink::HttpHeaderPtr> additional_headers, int32_t process_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, uint32_t options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> url_loader_network_observer, ::mojo::PendingRemote<::network::mojom::blink::WebSocketAuthenticationHandler> auth_handler, ::mojo::PendingRemote<TrustedHeaderClient> header_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) final;
   
   void CreateWebTransport(const ::blink::KURL& url, const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, WTF::Vector<::network::mojom::blink::WebTransportCertificateFingerprintPtr> fingerprints, ::mojo::PendingRemote<::network::mojom::blink::WebTransportHandshakeClient> handshake_client) final;
   
@@ -1474,7 +1411,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   
   void CreateHostResolver(::network::mojom::blink::DnsConfigOverridesPtr config_overrides, ::mojo::PendingReceiver<::network::mojom::blink::HostResolver> host_resolver) final;
   
-  void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) final;
+  void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) final;
   
   void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) final;
   
@@ -1517,8 +1454,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextProxy
   bool ForceDomainReliabilityUploadsForTesting() final;
   
   void ForceDomainReliabilityUploadsForTesting(ForceDomainReliabilityUploadsForTestingCallback callback) final;
-  
-  void SetCTLogListAlwaysTimelyForTesting() final;
   
   void SetSCTAuditingMode(SCTAuditingMode mode) final;
   
@@ -1876,7 +1811,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextResponseValidator : public mojo::Messa
  public:
   bool Accept(mojo::Message* message) override;
 };
-
 
 
 
@@ -2330,151 +2264,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class BLINK_PLATFORM_EXPORT AdditionalCertificates {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<AdditionalCertificates, T>::value>;
-  using DataView = AdditionalCertificatesDataView;
-  using Data_ = internal::AdditionalCertificates_Data;
-
-  template <typename... Args>
-  static AdditionalCertificatesPtr New(Args&&... args) {
-    return AdditionalCertificatesPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static AdditionalCertificatesPtr From(const U& u) {
-    return mojo::TypeConverter<AdditionalCertificatesPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, AdditionalCertificates>::Convert(*this);
-  }
-
-
-  AdditionalCertificates();
-
-  AdditionalCertificates(
-      WTF::Vector<::network::mojom::blink::X509CertificatePtr> all_certificates,
-      WTF::Vector<::network::mojom::blink::X509CertificatePtr> trust_anchors);
-
-AdditionalCertificates(const AdditionalCertificates&) = delete;
-AdditionalCertificates& operator=(const AdditionalCertificates&) = delete;
-
-  ~AdditionalCertificates();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = AdditionalCertificatesPtr>
-  AdditionalCertificatesPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static WTF::Vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        AdditionalCertificates::DataView, WTF::Vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        AdditionalCertificates::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::AdditionalCertificates_UnserializedMessageContext<
-            UserType, AdditionalCertificates::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<AdditionalCertificates::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const WTF::Vector<uint8_t>& input,
-                          UserType* output) {
-    return AdditionalCertificates::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::AdditionalCertificates_UnserializedMessageContext<
-            UserType, AdditionalCertificates::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<AdditionalCertificates::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  WTF::Vector<::network::mojom::blink::X509CertificatePtr> all_certificates;
-  
-  WTF::Vector<::network::mojom::blink::X509CertificatePtr> trust_anchors;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, AdditionalCertificates::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 
 class BLINK_PLATFORM_EXPORT CTPolicy {
  public:
@@ -2652,13 +2441,13 @@ class BLINK_PLATFORM_EXPORT NetworkContextFilePaths {
       ::network::mojom::blink::TransferableDirectoryPtr shared_dictionary_directory,
       ::network::mojom::blink::TransferableDirectoryPtr http_cache_directory,
       ::network::mojom::blink::TransferableDirectoryPtr data_directory,
-      const absl::optional<::base::FilePath>& unsandboxed_data_path,
-      const absl::optional<::base::FilePath>& cookie_database_name,
-      const absl::optional<::base::FilePath>& trust_token_database_name,
-      const absl::optional<::base::FilePath>& http_server_properties_file_name,
-      const absl::optional<::base::FilePath>& transport_security_persister_file_name,
-      const absl::optional<::base::FilePath>& reporting_and_nel_store_database_name,
-      const absl::optional<::base::FilePath>& sct_auditing_pending_reports_file_name,
+      const std::optional<::base::FilePath>& unsandboxed_data_path,
+      const std::optional<::base::FilePath>& cookie_database_name,
+      const std::optional<::base::FilePath>& trust_token_database_name,
+      const std::optional<::base::FilePath>& http_server_properties_file_name,
+      const std::optional<::base::FilePath>& transport_security_persister_file_name,
+      const std::optional<::base::FilePath>& reporting_and_nel_store_database_name,
+      const std::optional<::base::FilePath>& sct_auditing_pending_reports_file_name,
       bool trigger_migration);
 
 NetworkContextFilePaths(const NetworkContextFilePaths&) = delete;
@@ -2740,19 +2529,19 @@ NetworkContextFilePaths& operator=(const NetworkContextFilePaths&) = delete;
   
   ::network::mojom::blink::TransferableDirectoryPtr data_directory;
   
-  absl::optional<::base::FilePath> unsandboxed_data_path;
+  std::optional<::base::FilePath> unsandboxed_data_path;
   
-  absl::optional<::base::FilePath> cookie_database_name;
+  std::optional<::base::FilePath> cookie_database_name;
   
-  absl::optional<::base::FilePath> trust_token_database_name;
+  std::optional<::base::FilePath> trust_token_database_name;
   
-  absl::optional<::base::FilePath> http_server_properties_file_name;
+  std::optional<::base::FilePath> http_server_properties_file_name;
   
-  absl::optional<::base::FilePath> transport_security_persister_file_name;
+  std::optional<::base::FilePath> transport_security_persister_file_name;
   
-  absl::optional<::base::FilePath> reporting_and_nel_store_database_name;
+  std::optional<::base::FilePath> reporting_and_nel_store_database_name;
   
-  absl::optional<::base::FilePath> sct_auditing_pending_reports_file_name;
+  std::optional<::base::FilePath> sct_auditing_pending_reports_file_name;
   
   bool trigger_migration;
 
@@ -2847,12 +2636,11 @@ class BLINK_PLATFORM_EXPORT NetworkContextParams {
       SCTAuditingMode sct_auditing_mode,
       CTPolicyPtr ct_policy,
       CertVerifierServiceRemoteParamsPtr cert_verifier_params,
-      AdditionalCertificatesPtr initial_additional_certificates,
       ::network::mojom::blink::CookieManagerParamsPtr cookie_manager_params,
       bool enable_domain_reliability,
       const WTF::String& domain_reliability_upload_reporter,
       bool discard_domain_reliablity_uploads,
-      absl::optional<::base::TimeDelta> reporting_delivery_interval,
+      std::optional<::base::TimeDelta> reporting_delivery_interval,
       bool skip_reporting_send_permission_check,
       WTF::Vector<::network::mojom::blink::CorsOriginAccessPatternsPtr> cors_origin_access_list,
       WTF::Vector<WTF::String> cors_exempt_header_list,
@@ -3007,8 +2795,6 @@ NetworkContextParams& operator=(const NetworkContextParams&) = delete;
   
   CertVerifierServiceRemoteParamsPtr cert_verifier_params;
   
-  AdditionalCertificatesPtr initial_additional_certificates;
-  
   ::network::mojom::blink::CookieManagerParamsPtr cookie_manager_params;
   
   bool enable_domain_reliability;
@@ -3017,7 +2803,7 @@ NetworkContextParams& operator=(const NetworkContextParams&) = delete;
   
   bool discard_domain_reliablity_uploads;
   
-  absl::optional<::base::TimeDelta> reporting_delivery_interval;
+  std::optional<::base::TimeDelta> reporting_delivery_interval;
   
   bool skip_reporting_send_permission_check;
   
@@ -3749,7 +3535,7 @@ class BLINK_PLATFORM_EXPORT URLLoaderFactoryParams {
       bool is_trusted,
       bool automatically_assign_isolation_info,
       bool provide_loading_state_updates,
-      const absl::optional<::base::UnguessableToken>& top_frame_id,
+      const std::optional<::base::UnguessableToken>& top_frame_id,
       URLLoaderFactoryOverridePtr factory_override,
       ::network::mojom::blink::ClientSecurityStatePtr client_security_state,
       ::mojo::PendingRemote<::network::mojom::blink::CrossOriginEmbedderPolicyReporter> coep_reporter,
@@ -3860,7 +3646,7 @@ URLLoaderFactoryParams& operator=(const URLLoaderFactoryParams&) = delete;
   
   bool provide_loading_state_updates;
   
-  absl::optional<::base::UnguessableToken> top_frame_id;
+  std::optional<::base::UnguessableToken> top_frame_id;
   
   URLLoaderFactoryOverridePtr factory_override;
   
@@ -4138,35 +3924,6 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-AdditionalCertificatesPtr AdditionalCertificates::Clone() const {
-  return New(
-      mojo::Clone(all_certificates),
-      mojo::Clone(trust_anchors)
-  );
-}
-
-template <typename T, AdditionalCertificates::EnableIfSame<T>*>
-bool AdditionalCertificates::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->all_certificates, other_struct.all_certificates))
-    return false;
-  if (!mojo::Equals(this->trust_anchors, other_struct.trust_anchors))
-    return false;
-  return true;
-}
-
-template <typename T, AdditionalCertificates::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.all_certificates < rhs.all_certificates)
-    return true;
-  if (rhs.all_certificates < lhs.all_certificates)
-    return false;
-  if (lhs.trust_anchors < rhs.trust_anchors)
-    return true;
-  if (rhs.trust_anchors < lhs.trust_anchors)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
 HttpAuthStaticNetworkContextParamsPtr HttpAuthStaticNetworkContextParams::Clone() const {
   return New(
       mojo::Clone(allow_default_credentials)
@@ -4350,7 +4107,6 @@ NetworkContextParamsPtr NetworkContextParams::Clone() const {
       mojo::Clone(sct_auditing_mode),
       mojo::Clone(ct_policy),
       mojo::Clone(cert_verifier_params),
-      mojo::Clone(initial_additional_certificates),
       mojo::Clone(cookie_manager_params),
       mojo::Clone(enable_domain_reliability),
       mojo::Clone(domain_reliability_upload_reporter),
@@ -4440,8 +4196,6 @@ bool NetworkContextParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->ct_policy, other_struct.ct_policy))
     return false;
   if (!mojo::Equals(this->cert_verifier_params, other_struct.cert_verifier_params))
-    return false;
-  if (!mojo::Equals(this->initial_additional_certificates, other_struct.initial_additional_certificates))
     return false;
   if (!mojo::Equals(this->cookie_manager_params, other_struct.cookie_manager_params))
     return false;
@@ -4617,10 +4371,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.cert_verifier_params < rhs.cert_verifier_params)
     return true;
   if (rhs.cert_verifier_params < lhs.cert_verifier_params)
-    return false;
-  if (lhs.initial_additional_certificates < rhs.initial_additional_certificates)
-    return true;
-  if (rhs.initial_additional_certificates < lhs.initial_additional_certificates)
     return false;
   if (lhs.cookie_manager_params < rhs.cookie_manager_params)
     return true;
@@ -5233,26 +4983,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::CertVerifierS
 
 
 template <>
-struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::AdditionalCertificates::DataView,
-                                         ::network::mojom::blink::AdditionalCertificatesPtr> {
-  static bool IsNull(const ::network::mojom::blink::AdditionalCertificatesPtr& input) { return !input; }
-  static void SetToNull(::network::mojom::blink::AdditionalCertificatesPtr* output) { output->reset(); }
-
-  static const decltype(::network::mojom::blink::AdditionalCertificates::all_certificates)& all_certificates(
-      const ::network::mojom::blink::AdditionalCertificatesPtr& input) {
-    return input->all_certificates;
-  }
-
-  static const decltype(::network::mojom::blink::AdditionalCertificates::trust_anchors)& trust_anchors(
-      const ::network::mojom::blink::AdditionalCertificatesPtr& input) {
-    return input->trust_anchors;
-  }
-
-  static bool Read(::network::mojom::blink::AdditionalCertificates::DataView input, ::network::mojom::blink::AdditionalCertificatesPtr* output);
-};
-
-
-template <>
 struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::HttpAuthStaticNetworkContextParams::DataView,
                                          ::network::mojom::blink::HttpAuthStaticNetworkContextParamsPtr> {
   static bool IsNull(const ::network::mojom::blink::HttpAuthStaticNetworkContextParamsPtr& input) { return !input; }
@@ -5516,11 +5246,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::NetworkContex
   static  decltype(::network::mojom::blink::NetworkContextParams::cert_verifier_params)& cert_verifier_params(
        ::network::mojom::blink::NetworkContextParamsPtr& input) {
     return input->cert_verifier_params;
-  }
-
-  static const decltype(::network::mojom::blink::NetworkContextParams::initial_additional_certificates)& initial_additional_certificates(
-      const ::network::mojom::blink::NetworkContextParamsPtr& input) {
-    return input->initial_additional_certificates;
   }
 
   static const decltype(::network::mojom::blink::NetworkContextParams::cookie_manager_params)& cookie_manager_params(

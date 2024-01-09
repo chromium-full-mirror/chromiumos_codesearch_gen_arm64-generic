@@ -22,8 +22,8 @@ import {
 } from '../../../network/public/mojom/network_anonymization_key.mojom.m.js';
 
 import {
-  ProxyServer as network_mojom_ProxyServer,
-  ProxyServerSpec as network_mojom_ProxyServerSpec
+  ProxyChain as network_mojom_ProxyChain,
+  ProxyChainSpec as network_mojom_ProxyChainSpec
 } from '../../../network/public/mojom/network_param.mojom.m.js';
 
 
@@ -1246,9 +1246,9 @@ mojo.internal.Struct(
     'ProxyInfo',
     [
       mojo.internal.StructField(
-        'proxyServers', 0,
+        'proxyChains', 0,
         0,
-        mojo.internal.Array(network_mojom_ProxyServerSpec.$, false),
+        mojo.internal.Array(network_mojom_ProxyChainSpec.$, false),
         null,
         false /* nullable */,
         0,
@@ -1263,8 +1263,8 @@ mojo.internal.Struct(
  */
 export class ProxyInfo {
   constructor() {
-    /** @type { !Array<!network_mojom_ProxyServer> } */
-    this.proxyServers;
+    /** @type { !Array<!network_mojom_ProxyChain> } */
+    this.proxyChains;
   }
 }
 

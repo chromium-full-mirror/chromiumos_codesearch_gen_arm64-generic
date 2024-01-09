@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Text>::value,
     "Text inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Text::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Text is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ UseCounter::Count(current_execution_context, WebFeature::kTextWholeText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Text* blink_receiver = V8Text::ToWrappableUnsafe(v8_receiver);
+Text* blink_receiver = V8Text::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wholeText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -109,8 +104,9 @@ BLINK_BINDINGS_TRACE_EVENT("Text.assignedSlot.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Text* blink_receiver = V8Text::ToWrappableUnsafe(v8_receiver);
+Text* blink_receiver = V8Text::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->assignedSlotForBinding();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -177,7 +173,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Text* blink_receiver = V8Text::ToWrappableUnsafe(v8_receiver);
+Text* blink_receiver = V8Text::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

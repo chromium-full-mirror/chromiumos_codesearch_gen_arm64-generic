@@ -60,24 +60,6 @@ template<> ::masked_domain_list::ResourceOwner* Arena::CreateMaybeMessage<::mask
 PROTOBUF_NAMESPACE_CLOSE
 namespace masked_domain_list {
 
-enum Resource_Category : int {
-  Resource_Category_CATEGORY_UNKNOWN = 0
-};
-bool Resource_Category_IsValid(int value);
-constexpr Resource_Category Resource_Category_Category_MIN = Resource_Category_CATEGORY_UNKNOWN;
-constexpr Resource_Category Resource_Category_Category_MAX = Resource_Category_CATEGORY_UNKNOWN;
-constexpr int Resource_Category_Category_ARRAYSIZE = Resource_Category_Category_MAX + 1;
-
-const std::string& Resource_Category_Name(Resource_Category value);
-template<typename T>
-inline const std::string& Resource_Category_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, Resource_Category>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function Resource_Category_Name.");
-  return Resource_Category_Name(static_cast<Resource_Category>(enum_t_value));
-}
-bool Resource_Category_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Resource_Category* value);
 enum Resource_Experiment : int {
   Resource_Experiment_EXPERIMENT_UNKNOWN = 0,
   Resource_Experiment_EXPERIMENT_AFP = 1
@@ -206,30 +188,6 @@ class Resource final :
 
   // nested types ----------------------------------------------------
 
-  typedef Resource_Category Category;
-  static constexpr Category CATEGORY_UNKNOWN =
-    Resource_Category_CATEGORY_UNKNOWN;
-  static inline bool Category_IsValid(int value) {
-    return Resource_Category_IsValid(value);
-  }
-  static constexpr Category Category_MIN =
-    Resource_Category_Category_MIN;
-  static constexpr Category Category_MAX =
-    Resource_Category_Category_MAX;
-  static constexpr int Category_ARRAYSIZE =
-    Resource_Category_Category_ARRAYSIZE;
-  template<typename T>
-  static inline const std::string& Category_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, Category>::value ||
-      ::std::is_integral<T>::value,
-      "Incorrect type passed to function Category_Name.");
-    return Resource_Category_Name(enum_t_value);
-  }
-  static inline bool Category_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
-      Category* value) {
-    return Resource_Category_Parse(name, value);
-  }
-
   typedef Resource_Experiment Experiment;
   static constexpr Experiment EXPERIMENT_UNKNOWN =
     Resource_Experiment_EXPERIMENT_UNKNOWN;
@@ -259,27 +217,11 @@ class Resource final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCategoriesFieldNumber = 2,
     kExperimentsFieldNumber = 3,
+    kExperimentGroupIdsFieldNumber = 5,
     kDomainFieldNumber = 1,
+    kExcludeDefaultGroupFieldNumber = 4,
   };
-  // repeated .masked_domain_list.Resource.Category categories = 2 [packed = true];
-  int categories_size() const;
-  private:
-  int _internal_categories_size() const;
-  public:
-  void clear_categories();
-  private:
-  ::masked_domain_list::Resource_Category _internal_categories(int index) const;
-  void _internal_add_categories(::masked_domain_list::Resource_Category value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_categories();
-  public:
-  ::masked_domain_list::Resource_Category categories(int index) const;
-  void set_categories(int index, ::masked_domain_list::Resource_Category value);
-  void add_categories(::masked_domain_list::Resource_Category value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& categories() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_categories();
-
   // repeated .masked_domain_list.Resource.Experiment experiments = 3 [packed = true];
   int experiments_size() const;
   private:
@@ -296,6 +238,28 @@ class Resource final :
   void add_experiments(::masked_domain_list::Resource_Experiment value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& experiments() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_experiments();
+
+  // repeated int64 experiment_group_ids = 5;
+  int experiment_group_ids_size() const;
+  private:
+  int _internal_experiment_group_ids_size() const;
+  public:
+  void clear_experiment_group_ids();
+  private:
+  int64_t _internal_experiment_group_ids(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      _internal_experiment_group_ids() const;
+  void _internal_add_experiment_group_ids(int64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      _internal_mutable_experiment_group_ids();
+  public:
+  int64_t experiment_group_ids(int index) const;
+  void set_experiment_group_ids(int index, int64_t value);
+  void add_experiment_group_ids(int64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      experiment_group_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      mutable_experiment_group_ids();
 
   // optional string domain = 1;
   bool has_domain() const;
@@ -315,6 +279,19 @@ class Resource final :
   std::string* _internal_mutable_domain();
   public:
 
+  // optional bool exclude_default_group = 4;
+  bool has_exclude_default_group() const;
+  private:
+  bool _internal_has_exclude_default_group() const;
+  public:
+  void clear_exclude_default_group();
+  bool exclude_default_group() const;
+  void set_exclude_default_group(bool value);
+  private:
+  bool _internal_exclude_default_group() const;
+  void _internal_set_exclude_default_group(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:masked_domain_list.Resource)
  private:
   class _Internal;
@@ -324,11 +301,11 @@ class Resource final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> categories_;
-  mutable std::atomic<int> _categories_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> experiments_;
   mutable std::atomic<int> _experiments_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > experiment_group_ids_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr domain_;
+  bool exclude_default_group_;
   friend struct ::TableStruct_masked_5fdomain_5flist_2eproto;
 };
 // -------------------------------------------------------------------
@@ -743,51 +720,6 @@ inline void Resource::set_allocated_domain(std::string* domain) {
   // @@protoc_insertion_point(field_set_allocated:masked_domain_list.Resource.domain)
 }
 
-// repeated .masked_domain_list.Resource.Category categories = 2 [packed = true];
-inline int Resource::_internal_categories_size() const {
-  return categories_.size();
-}
-inline int Resource::categories_size() const {
-  return _internal_categories_size();
-}
-inline void Resource::clear_categories() {
-  categories_.Clear();
-}
-inline ::masked_domain_list::Resource_Category Resource::_internal_categories(int index) const {
-  return static_cast< ::masked_domain_list::Resource_Category >(categories_.Get(index));
-}
-inline ::masked_domain_list::Resource_Category Resource::categories(int index) const {
-  // @@protoc_insertion_point(field_get:masked_domain_list.Resource.categories)
-  return _internal_categories(index);
-}
-inline void Resource::set_categories(int index, ::masked_domain_list::Resource_Category value) {
-  assert(::masked_domain_list::Resource_Category_IsValid(value));
-  categories_.Set(index, value);
-  // @@protoc_insertion_point(field_set:masked_domain_list.Resource.categories)
-}
-inline void Resource::_internal_add_categories(::masked_domain_list::Resource_Category value) {
-  assert(::masked_domain_list::Resource_Category_IsValid(value));
-  categories_.Add(value);
-}
-inline void Resource::add_categories(::masked_domain_list::Resource_Category value) {
-  _internal_add_categories(value);
-  // @@protoc_insertion_point(field_add:masked_domain_list.Resource.categories)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-Resource::categories() const {
-  // @@protoc_insertion_point(field_list:masked_domain_list.Resource.categories)
-  return categories_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-Resource::_internal_mutable_categories() {
-  return &categories_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-Resource::mutable_categories() {
-  // @@protoc_insertion_point(field_mutable_list:masked_domain_list.Resource.categories)
-  return _internal_mutable_categories();
-}
-
 // repeated .masked_domain_list.Resource.Experiment experiments = 3 [packed = true];
 inline int Resource::_internal_experiments_size() const {
   return experiments_.size();
@@ -831,6 +763,81 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
 Resource::mutable_experiments() {
   // @@protoc_insertion_point(field_mutable_list:masked_domain_list.Resource.experiments)
   return _internal_mutable_experiments();
+}
+
+// optional bool exclude_default_group = 4;
+inline bool Resource::_internal_has_exclude_default_group() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Resource::has_exclude_default_group() const {
+  return _internal_has_exclude_default_group();
+}
+inline void Resource::clear_exclude_default_group() {
+  exclude_default_group_ = false;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline bool Resource::_internal_exclude_default_group() const {
+  return exclude_default_group_;
+}
+inline bool Resource::exclude_default_group() const {
+  // @@protoc_insertion_point(field_get:masked_domain_list.Resource.exclude_default_group)
+  return _internal_exclude_default_group();
+}
+inline void Resource::_internal_set_exclude_default_group(bool value) {
+  _has_bits_[0] |= 0x00000002u;
+  exclude_default_group_ = value;
+}
+inline void Resource::set_exclude_default_group(bool value) {
+  _internal_set_exclude_default_group(value);
+  // @@protoc_insertion_point(field_set:masked_domain_list.Resource.exclude_default_group)
+}
+
+// repeated int64 experiment_group_ids = 5;
+inline int Resource::_internal_experiment_group_ids_size() const {
+  return experiment_group_ids_.size();
+}
+inline int Resource::experiment_group_ids_size() const {
+  return _internal_experiment_group_ids_size();
+}
+inline void Resource::clear_experiment_group_ids() {
+  experiment_group_ids_.Clear();
+}
+inline int64_t Resource::_internal_experiment_group_ids(int index) const {
+  return experiment_group_ids_.Get(index);
+}
+inline int64_t Resource::experiment_group_ids(int index) const {
+  // @@protoc_insertion_point(field_get:masked_domain_list.Resource.experiment_group_ids)
+  return _internal_experiment_group_ids(index);
+}
+inline void Resource::set_experiment_group_ids(int index, int64_t value) {
+  experiment_group_ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:masked_domain_list.Resource.experiment_group_ids)
+}
+inline void Resource::_internal_add_experiment_group_ids(int64_t value) {
+  experiment_group_ids_.Add(value);
+}
+inline void Resource::add_experiment_group_ids(int64_t value) {
+  _internal_add_experiment_group_ids(value);
+  // @@protoc_insertion_point(field_add:masked_domain_list.Resource.experiment_group_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+Resource::_internal_experiment_group_ids() const {
+  return experiment_group_ids_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+Resource::experiment_group_ids() const {
+  // @@protoc_insertion_point(field_list:masked_domain_list.Resource.experiment_group_ids)
+  return _internal_experiment_group_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+Resource::_internal_mutable_experiment_group_ids() {
+  return &experiment_group_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+Resource::mutable_experiment_group_ids() {
+  // @@protoc_insertion_point(field_mutable_list:masked_domain_list.Resource.experiment_group_ids)
+  return _internal_mutable_experiment_group_ids();
 }
 
 // -------------------------------------------------------------------
@@ -1078,7 +1085,6 @@ MaskedDomainList::resource_owners() const {
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::masked_domain_list::Resource_Category> : ::std::true_type {};
 template <> struct is_proto_enum< ::masked_domain_list::Resource_Experiment> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

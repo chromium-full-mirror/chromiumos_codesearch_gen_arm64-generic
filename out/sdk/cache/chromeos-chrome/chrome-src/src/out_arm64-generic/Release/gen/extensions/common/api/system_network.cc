@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/system_network.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ NetworkInterface::NetworkInterface()
 : prefix_length(0) {}
 
 NetworkInterface::~NetworkInterface() = default;
-NetworkInterface::NetworkInterface(NetworkInterface&& rhs) = default;
-NetworkInterface& NetworkInterface::operator=(NetworkInterface&& rhs) = default;
+NetworkInterface::NetworkInterface(NetworkInterface&& rhs) noexcept = default;
+NetworkInterface& NetworkInterface::operator=(NetworkInterface&& rhs) noexcept = default;
 NetworkInterface NetworkInterface::Clone() const {
   NetworkInterface out;
   out.name = name;
@@ -98,34 +99,21 @@ bool NetworkInterface::Populate(
 }
 
 // static
-std::unique_ptr<NetworkInterface> NetworkInterface::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkInterface>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value::Dict& value) {
+  NetworkInterface out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value& value) {
   NetworkInterface out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value& value) {
-  NetworkInterface out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

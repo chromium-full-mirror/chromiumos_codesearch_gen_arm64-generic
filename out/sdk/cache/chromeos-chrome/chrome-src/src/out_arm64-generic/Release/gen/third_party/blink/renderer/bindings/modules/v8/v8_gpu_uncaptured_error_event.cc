@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUUncapturedErrorEvent>::value,
     "GPUUncapturedErrorEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUUncapturedErrorEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUUncapturedErrorEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUUncapturedErrorEvent.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUUncapturedErrorEvent* blink_receiver = V8GPUUncapturedErrorEvent::ToWrappableUnsafe(v8_receiver);
+GPUUncapturedErrorEvent* blink_receiver = V8GPUUncapturedErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUUncapturedErrorEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUUncapturedErrorEvent* blink_receiver = V8GPUUncapturedErrorEvent::ToWrappableUnsafe(v8_receiver);
+GPUUncapturedErrorEvent* blink_receiver = V8GPUUncapturedErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

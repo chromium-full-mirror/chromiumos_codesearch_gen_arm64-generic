@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/printer_provider.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -73,8 +74,8 @@ PrinterInfo::PrinterInfo()
  {}
 
 PrinterInfo::~PrinterInfo() = default;
-PrinterInfo::PrinterInfo(PrinterInfo&& rhs) = default;
-PrinterInfo& PrinterInfo::operator=(PrinterInfo&& rhs) = default;
+PrinterInfo::PrinterInfo(PrinterInfo&& rhs) noexcept = default;
+PrinterInfo& PrinterInfo::operator=(PrinterInfo&& rhs) noexcept = default;
 PrinterInfo PrinterInfo::Clone() const {
   PrinterInfo out;
   out.id = id;
@@ -115,7 +116,7 @@ bool PrinterInfo::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -135,34 +136,21 @@ bool PrinterInfo::Populate(
 }
 
 // static
-std::unique_ptr<PrinterInfo> PrinterInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PrinterInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PrinterInfo> PrinterInfo::FromValue(const base::Value::Dict& value) {
+  PrinterInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrinterInfo> PrinterInfo::FromValue(const base::Value::Dict& value) {
+std::optional<PrinterInfo> PrinterInfo::FromValue(const base::Value& value) {
   PrinterInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PrinterInfo> PrinterInfo::FromValue(const base::Value& value) {
-  PrinterInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -187,8 +175,8 @@ PrintJob::Ticket::Ticket()
  {}
 
 PrintJob::Ticket::~Ticket() = default;
-PrintJob::Ticket::Ticket(Ticket&& rhs) = default;
-PrintJob::Ticket& PrintJob::Ticket::operator=(Ticket&& rhs) = default;
+PrintJob::Ticket::Ticket(Ticket&& rhs) noexcept = default;
+PrintJob::Ticket& PrintJob::Ticket::operator=(Ticket&& rhs) noexcept = default;
 PrintJob::Ticket PrintJob::Ticket::Clone() const {
   Ticket out;
   return out;
@@ -211,21 +199,21 @@ bool PrintJob::Ticket::Populate(
 }
 
 // static
-absl::optional<PrintJob::Ticket> PrintJob::Ticket::FromValue(const base::Value::Dict& value) {
+std::optional<PrintJob::Ticket> PrintJob::Ticket::FromValue(const base::Value::Dict& value) {
   Ticket out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrintJob::Ticket> PrintJob::Ticket::FromValue(const base::Value& value) {
+std::optional<PrintJob::Ticket> PrintJob::Ticket::FromValue(const base::Value& value) {
   Ticket out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -243,8 +231,8 @@ PrintJob::Document::Document()
  {}
 
 PrintJob::Document::~Document() = default;
-PrintJob::Document::Document(Document&& rhs) = default;
-PrintJob::Document& PrintJob::Document::operator=(Document&& rhs) = default;
+PrintJob::Document::Document(Document&& rhs) noexcept = default;
+PrintJob::Document& PrintJob::Document::operator=(Document&& rhs) noexcept = default;
 PrintJob::Document PrintJob::Document::Clone() const {
   Document out;
   return out;
@@ -267,21 +255,21 @@ bool PrintJob::Document::Populate(
 }
 
 // static
-absl::optional<PrintJob::Document> PrintJob::Document::FromValue(const base::Value::Dict& value) {
+std::optional<PrintJob::Document> PrintJob::Document::FromValue(const base::Value::Dict& value) {
   Document out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrintJob::Document> PrintJob::Document::FromValue(const base::Value& value) {
+std::optional<PrintJob::Document> PrintJob::Document::FromValue(const base::Value& value) {
   Document out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -300,8 +288,8 @@ PrintJob::PrintJob()
  {}
 
 PrintJob::~PrintJob() = default;
-PrintJob::PrintJob(PrintJob&& rhs) = default;
-PrintJob& PrintJob::operator=(PrintJob&& rhs) = default;
+PrintJob::PrintJob(PrintJob&& rhs) noexcept = default;
+PrintJob& PrintJob::operator=(PrintJob&& rhs) noexcept = default;
 PrintJob PrintJob::Clone() const {
   PrintJob out;
   out.printer_id = printer_id;
@@ -390,34 +378,21 @@ bool PrintJob::Populate(
 }
 
 // static
-std::unique_ptr<PrintJob> PrintJob::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PrintJob>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PrintJob> PrintJob::FromValue(const base::Value::Dict& value) {
+  PrintJob out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrintJob> PrintJob::FromValue(const base::Value::Dict& value) {
+std::optional<PrintJob> PrintJob::FromValue(const base::Value& value) {
   PrintJob out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PrintJob> PrintJob::FromValue(const base::Value& value) {
-  PrintJob out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

@@ -62,6 +62,9 @@ bool FeatureFlags_Data::Validate(
     { 3, 24 },
     { 4, 24 },
     { 5, 24 },
+    { 6, 24 },
+    { 7, 24 },
+    { 8, 24 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -84,7 +87,7 @@ bool FeatureFlags_Data::Validate(
 }
 
 FeatureFlags_Data::FeatureFlags_Data()
-    : header_({sizeof(*this), 5}) {}
+    : header_({sizeof(*this), 8}) {}
 
 
 // static

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/chromeos/extensions/api/events.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -142,8 +143,8 @@ EventSupportStatusInfo::EventSupportStatusInfo()
 : status() {}
 
 EventSupportStatusInfo::~EventSupportStatusInfo() = default;
-EventSupportStatusInfo::EventSupportStatusInfo(EventSupportStatusInfo&& rhs) = default;
-EventSupportStatusInfo& EventSupportStatusInfo::operator=(EventSupportStatusInfo&& rhs) = default;
+EventSupportStatusInfo::EventSupportStatusInfo(EventSupportStatusInfo&& rhs) noexcept = default;
+EventSupportStatusInfo& EventSupportStatusInfo::operator=(EventSupportStatusInfo&& rhs) noexcept = default;
 EventSupportStatusInfo EventSupportStatusInfo::Clone() const {
   EventSupportStatusInfo out;
   out.status = status;
@@ -183,34 +184,21 @@ bool EventSupportStatusInfo::Populate(
 }
 
 // static
-std::unique_ptr<EventSupportStatusInfo> EventSupportStatusInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EventSupportStatusInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EventSupportStatusInfo> EventSupportStatusInfo::FromValue(const base::Value::Dict& value) {
+  EventSupportStatusInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EventSupportStatusInfo> EventSupportStatusInfo::FromValue(const base::Value::Dict& value) {
+std::optional<EventSupportStatusInfo> EventSupportStatusInfo::FromValue(const base::Value& value) {
   EventSupportStatusInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EventSupportStatusInfo> EventSupportStatusInfo::FromValue(const base::Value& value) {
-  EventSupportStatusInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -555,8 +543,8 @@ number_pad_present(),
 top_right_key() {}
 
 KeyboardInfo::~KeyboardInfo() = default;
-KeyboardInfo::KeyboardInfo(KeyboardInfo&& rhs) = default;
-KeyboardInfo& KeyboardInfo::operator=(KeyboardInfo&& rhs) = default;
+KeyboardInfo::KeyboardInfo(KeyboardInfo&& rhs) noexcept = default;
+KeyboardInfo& KeyboardInfo::operator=(KeyboardInfo&& rhs) noexcept = default;
 KeyboardInfo KeyboardInfo::Clone() const {
   KeyboardInfo out;
   out.id = id;
@@ -585,7 +573,7 @@ bool KeyboardInfo::Populate(
     {
       auto temp = (*id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -613,7 +601,7 @@ bool KeyboardInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -657,7 +645,7 @@ bool KeyboardInfo::Populate(
     {
       auto* temp = (*region_code_value).GetIfString();
       if (!temp) {
-        out.region_code = absl::nullopt;
+        out.region_code = std::nullopt;
         return false;
       }
       out.region_code = *temp;
@@ -725,7 +713,7 @@ bool KeyboardInfo::Populate(
     {
       auto temp = (*has_assistant_key_value).GetIfBool();
       if (!temp.has_value()) {
-        out.has_assistant_key = absl::nullopt;
+        out.has_assistant_key = std::nullopt;
         return false;
       }
       out.has_assistant_key = *temp;
@@ -745,34 +733,21 @@ bool KeyboardInfo::Populate(
 }
 
 // static
-std::unique_ptr<KeyboardInfo> KeyboardInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<KeyboardInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<KeyboardInfo> KeyboardInfo::FromValue(const base::Value::Dict& value) {
+  KeyboardInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<KeyboardInfo> KeyboardInfo::FromValue(const base::Value::Dict& value) {
+std::optional<KeyboardInfo> KeyboardInfo::FromValue(const base::Value& value) {
   KeyboardInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<KeyboardInfo> KeyboardInfo::FromValue(const base::Value& value) {
-  KeyboardInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -833,8 +808,8 @@ KeyboardDiagnosticEventInfo::KeyboardDiagnosticEventInfo()
  {}
 
 KeyboardDiagnosticEventInfo::~KeyboardDiagnosticEventInfo() = default;
-KeyboardDiagnosticEventInfo::KeyboardDiagnosticEventInfo(KeyboardDiagnosticEventInfo&& rhs) = default;
-KeyboardDiagnosticEventInfo& KeyboardDiagnosticEventInfo::operator=(KeyboardDiagnosticEventInfo&& rhs) = default;
+KeyboardDiagnosticEventInfo::KeyboardDiagnosticEventInfo(KeyboardDiagnosticEventInfo&& rhs) noexcept = default;
+KeyboardDiagnosticEventInfo& KeyboardDiagnosticEventInfo::operator=(KeyboardDiagnosticEventInfo&& rhs) noexcept = default;
 KeyboardDiagnosticEventInfo KeyboardDiagnosticEventInfo::Clone() const {
   KeyboardDiagnosticEventInfo out;
   if (keyboard_info) {
@@ -906,34 +881,21 @@ bool KeyboardDiagnosticEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<KeyboardDiagnosticEventInfo> KeyboardDiagnosticEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<KeyboardDiagnosticEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<KeyboardDiagnosticEventInfo> KeyboardDiagnosticEventInfo::FromValue(const base::Value::Dict& value) {
+  KeyboardDiagnosticEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<KeyboardDiagnosticEventInfo> KeyboardDiagnosticEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<KeyboardDiagnosticEventInfo> KeyboardDiagnosticEventInfo::FromValue(const base::Value& value) {
   KeyboardDiagnosticEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<KeyboardDiagnosticEventInfo> KeyboardDiagnosticEventInfo::FromValue(const base::Value& value) {
-  KeyboardDiagnosticEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1123,8 +1085,8 @@ AudioJackEventInfo::AudioJackEventInfo()
 device_type() {}
 
 AudioJackEventInfo::~AudioJackEventInfo() = default;
-AudioJackEventInfo::AudioJackEventInfo(AudioJackEventInfo&& rhs) = default;
-AudioJackEventInfo& AudioJackEventInfo::operator=(AudioJackEventInfo&& rhs) = default;
+AudioJackEventInfo::AudioJackEventInfo(AudioJackEventInfo&& rhs) noexcept = default;
+AudioJackEventInfo& AudioJackEventInfo::operator=(AudioJackEventInfo&& rhs) noexcept = default;
 AudioJackEventInfo AudioJackEventInfo::Clone() const {
   AudioJackEventInfo out;
   out.event = event;
@@ -1182,34 +1144,21 @@ bool AudioJackEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<AudioJackEventInfo> AudioJackEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioJackEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioJackEventInfo> AudioJackEventInfo::FromValue(const base::Value::Dict& value) {
+  AudioJackEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioJackEventInfo> AudioJackEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AudioJackEventInfo> AudioJackEventInfo::FromValue(const base::Value& value) {
   AudioJackEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioJackEventInfo> AudioJackEventInfo::FromValue(const base::Value& value) {
-  AudioJackEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1234,8 +1183,8 @@ LidEventInfo::LidEventInfo()
 : event() {}
 
 LidEventInfo::~LidEventInfo() = default;
-LidEventInfo::LidEventInfo(LidEventInfo&& rhs) = default;
-LidEventInfo& LidEventInfo::operator=(LidEventInfo&& rhs) = default;
+LidEventInfo::LidEventInfo(LidEventInfo&& rhs) noexcept = default;
+LidEventInfo& LidEventInfo::operator=(LidEventInfo&& rhs) noexcept = default;
 LidEventInfo LidEventInfo::Clone() const {
   LidEventInfo out;
   out.event = event;
@@ -1275,34 +1224,21 @@ bool LidEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<LidEventInfo> LidEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LidEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LidEventInfo> LidEventInfo::FromValue(const base::Value::Dict& value) {
+  LidEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LidEventInfo> LidEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<LidEventInfo> LidEventInfo::FromValue(const base::Value& value) {
   LidEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LidEventInfo> LidEventInfo::FromValue(const base::Value& value) {
-  LidEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1323,8 +1259,8 @@ UsbEventInfo::UsbEventInfo()
 : event() {}
 
 UsbEventInfo::~UsbEventInfo() = default;
-UsbEventInfo::UsbEventInfo(UsbEventInfo&& rhs) = default;
-UsbEventInfo& UsbEventInfo::operator=(UsbEventInfo&& rhs) = default;
+UsbEventInfo::UsbEventInfo(UsbEventInfo&& rhs) noexcept = default;
+UsbEventInfo& UsbEventInfo::operator=(UsbEventInfo&& rhs) noexcept = default;
 UsbEventInfo UsbEventInfo::Clone() const {
   UsbEventInfo out;
   out.vendor = vendor;
@@ -1345,7 +1281,7 @@ bool UsbEventInfo::Populate(
     {
       auto* temp = (*vendor_value).GetIfString();
       if (!temp) {
-        out.vendor = absl::nullopt;
+        out.vendor = std::nullopt;
         return false;
       }
       out.vendor = *temp;
@@ -1357,7 +1293,7 @@ bool UsbEventInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -1369,7 +1305,7 @@ bool UsbEventInfo::Populate(
     {
       auto temp = (*vid_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vid = absl::nullopt;
+        out.vid = std::nullopt;
         return false;
       }
       out.vid = *temp;
@@ -1381,7 +1317,7 @@ bool UsbEventInfo::Populate(
     {
       auto temp = (*pid_value).GetIfInt();
       if (!temp.has_value()) {
-        out.pid = absl::nullopt;
+        out.pid = std::nullopt;
         return false;
       }
       out.pid = *temp;
@@ -1432,34 +1368,21 @@ bool UsbEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<UsbEventInfo> UsbEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UsbEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UsbEventInfo> UsbEventInfo::FromValue(const base::Value::Dict& value) {
+  UsbEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UsbEventInfo> UsbEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<UsbEventInfo> UsbEventInfo::FromValue(const base::Value& value) {
   UsbEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UsbEventInfo> UsbEventInfo::FromValue(const base::Value& value) {
-  UsbEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1528,8 +1451,8 @@ ExternalDisplayInfo::ExternalDisplayInfo()
 : input_type() {}
 
 ExternalDisplayInfo::~ExternalDisplayInfo() = default;
-ExternalDisplayInfo::ExternalDisplayInfo(ExternalDisplayInfo&& rhs) = default;
-ExternalDisplayInfo& ExternalDisplayInfo::operator=(ExternalDisplayInfo&& rhs) = default;
+ExternalDisplayInfo::ExternalDisplayInfo(ExternalDisplayInfo&& rhs) noexcept = default;
+ExternalDisplayInfo& ExternalDisplayInfo::operator=(ExternalDisplayInfo&& rhs) noexcept = default;
 ExternalDisplayInfo ExternalDisplayInfo::Clone() const {
   ExternalDisplayInfo out;
   out.display_width = display_width;
@@ -1556,7 +1479,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*display_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_width = absl::nullopt;
+        out.display_width = std::nullopt;
         return false;
       }
       out.display_width = *temp;
@@ -1568,7 +1491,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*display_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_height = absl::nullopt;
+        out.display_height = std::nullopt;
         return false;
       }
       out.display_height = *temp;
@@ -1580,7 +1503,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*resolution_horizontal_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_horizontal = absl::nullopt;
+        out.resolution_horizontal = std::nullopt;
         return false;
       }
       out.resolution_horizontal = *temp;
@@ -1592,7 +1515,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*resolution_vertical_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_vertical = absl::nullopt;
+        out.resolution_vertical = std::nullopt;
         return false;
       }
       out.resolution_vertical = *temp;
@@ -1604,7 +1527,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*refresh_rate_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.refresh_rate = absl::nullopt;
+        out.refresh_rate = std::nullopt;
         return false;
       }
       out.refresh_rate = *temp;
@@ -1616,7 +1539,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*manufacturer_value).GetIfString();
       if (!temp) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -1628,7 +1551,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*model_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.model_id = absl::nullopt;
+        out.model_id = std::nullopt;
         return false;
       }
       out.model_id = *temp;
@@ -1640,7 +1563,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*serial_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.serial_number = absl::nullopt;
+        out.serial_number = std::nullopt;
         return false;
       }
       out.serial_number = *temp;
@@ -1652,7 +1575,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*manufacture_week_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_week = absl::nullopt;
+        out.manufacture_week = std::nullopt;
         return false;
       }
       out.manufacture_week = *temp;
@@ -1664,7 +1587,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*manufacture_year_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_year = absl::nullopt;
+        out.manufacture_year = std::nullopt;
         return false;
       }
       out.manufacture_year = *temp;
@@ -1676,7 +1599,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*edid_version_value).GetIfString();
       if (!temp) {
-        out.edid_version = absl::nullopt;
+        out.edid_version = std::nullopt;
         return false;
       }
       out.edid_version = *temp;
@@ -1703,7 +1626,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*display_name_value).GetIfString();
       if (!temp) {
-        out.display_name = absl::nullopt;
+        out.display_name = std::nullopt;
         return false;
       }
       out.display_name = *temp;
@@ -1723,34 +1646,21 @@ bool ExternalDisplayInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExternalDisplayInfo> ExternalDisplayInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExternalDisplayInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value::Dict& value) {
+  ExternalDisplayInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value& value) {
   ExternalDisplayInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value& value) {
-  ExternalDisplayInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1817,8 +1727,8 @@ ExternalDisplayEventInfo::ExternalDisplayEventInfo()
 : event() {}
 
 ExternalDisplayEventInfo::~ExternalDisplayEventInfo() = default;
-ExternalDisplayEventInfo::ExternalDisplayEventInfo(ExternalDisplayEventInfo&& rhs) = default;
-ExternalDisplayEventInfo& ExternalDisplayEventInfo::operator=(ExternalDisplayEventInfo&& rhs) = default;
+ExternalDisplayEventInfo::ExternalDisplayEventInfo(ExternalDisplayEventInfo&& rhs) noexcept = default;
+ExternalDisplayEventInfo& ExternalDisplayEventInfo::operator=(ExternalDisplayEventInfo&& rhs) noexcept = default;
 ExternalDisplayEventInfo ExternalDisplayEventInfo::Clone() const {
   ExternalDisplayEventInfo out;
   out.event = event;
@@ -1876,34 +1786,21 @@ bool ExternalDisplayEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExternalDisplayEventInfo> ExternalDisplayEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExternalDisplayEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExternalDisplayEventInfo> ExternalDisplayEventInfo::FromValue(const base::Value::Dict& value) {
+  ExternalDisplayEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExternalDisplayEventInfo> ExternalDisplayEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExternalDisplayEventInfo> ExternalDisplayEventInfo::FromValue(const base::Value& value) {
   ExternalDisplayEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExternalDisplayEventInfo> ExternalDisplayEventInfo::FromValue(const base::Value& value) {
-  ExternalDisplayEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1928,8 +1825,8 @@ SdCardEventInfo::SdCardEventInfo()
 : event() {}
 
 SdCardEventInfo::~SdCardEventInfo() = default;
-SdCardEventInfo::SdCardEventInfo(SdCardEventInfo&& rhs) = default;
-SdCardEventInfo& SdCardEventInfo::operator=(SdCardEventInfo&& rhs) = default;
+SdCardEventInfo::SdCardEventInfo(SdCardEventInfo&& rhs) noexcept = default;
+SdCardEventInfo& SdCardEventInfo::operator=(SdCardEventInfo&& rhs) noexcept = default;
 SdCardEventInfo SdCardEventInfo::Clone() const {
   SdCardEventInfo out;
   out.event = event;
@@ -1969,34 +1866,21 @@ bool SdCardEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<SdCardEventInfo> SdCardEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SdCardEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SdCardEventInfo> SdCardEventInfo::FromValue(const base::Value::Dict& value) {
+  SdCardEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SdCardEventInfo> SdCardEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<SdCardEventInfo> SdCardEventInfo::FromValue(const base::Value& value) {
   SdCardEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SdCardEventInfo> SdCardEventInfo::FromValue(const base::Value& value) {
-  SdCardEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2017,8 +1901,8 @@ PowerEventInfo::PowerEventInfo()
 : event() {}
 
 PowerEventInfo::~PowerEventInfo() = default;
-PowerEventInfo::PowerEventInfo(PowerEventInfo&& rhs) = default;
-PowerEventInfo& PowerEventInfo::operator=(PowerEventInfo&& rhs) = default;
+PowerEventInfo::PowerEventInfo(PowerEventInfo&& rhs) noexcept = default;
+PowerEventInfo& PowerEventInfo::operator=(PowerEventInfo&& rhs) noexcept = default;
 PowerEventInfo PowerEventInfo::Clone() const {
   PowerEventInfo out;
   out.event = event;
@@ -2058,34 +1942,21 @@ bool PowerEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<PowerEventInfo> PowerEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PowerEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PowerEventInfo> PowerEventInfo::FromValue(const base::Value::Dict& value) {
+  PowerEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PowerEventInfo> PowerEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<PowerEventInfo> PowerEventInfo::FromValue(const base::Value& value) {
   PowerEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PowerEventInfo> PowerEventInfo::FromValue(const base::Value& value) {
-  PowerEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2106,8 +1977,8 @@ StylusGarageEventInfo::StylusGarageEventInfo()
 : event() {}
 
 StylusGarageEventInfo::~StylusGarageEventInfo() = default;
-StylusGarageEventInfo::StylusGarageEventInfo(StylusGarageEventInfo&& rhs) = default;
-StylusGarageEventInfo& StylusGarageEventInfo::operator=(StylusGarageEventInfo&& rhs) = default;
+StylusGarageEventInfo::StylusGarageEventInfo(StylusGarageEventInfo&& rhs) noexcept = default;
+StylusGarageEventInfo& StylusGarageEventInfo::operator=(StylusGarageEventInfo&& rhs) noexcept = default;
 StylusGarageEventInfo StylusGarageEventInfo::Clone() const {
   StylusGarageEventInfo out;
   out.event = event;
@@ -2147,34 +2018,21 @@ bool StylusGarageEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<StylusGarageEventInfo> StylusGarageEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StylusGarageEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StylusGarageEventInfo> StylusGarageEventInfo::FromValue(const base::Value::Dict& value) {
+  StylusGarageEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StylusGarageEventInfo> StylusGarageEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StylusGarageEventInfo> StylusGarageEventInfo::FromValue(const base::Value& value) {
   StylusGarageEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StylusGarageEventInfo> StylusGarageEventInfo::FromValue(const base::Value& value) {
-  StylusGarageEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2252,8 +2110,8 @@ TouchpadButtonEventInfo::TouchpadButtonEventInfo()
 state() {}
 
 TouchpadButtonEventInfo::~TouchpadButtonEventInfo() = default;
-TouchpadButtonEventInfo::TouchpadButtonEventInfo(TouchpadButtonEventInfo&& rhs) = default;
-TouchpadButtonEventInfo& TouchpadButtonEventInfo::operator=(TouchpadButtonEventInfo&& rhs) = default;
+TouchpadButtonEventInfo::TouchpadButtonEventInfo(TouchpadButtonEventInfo&& rhs) noexcept = default;
+TouchpadButtonEventInfo& TouchpadButtonEventInfo::operator=(TouchpadButtonEventInfo&& rhs) noexcept = default;
 TouchpadButtonEventInfo TouchpadButtonEventInfo::Clone() const {
   TouchpadButtonEventInfo out;
   out.button = button;
@@ -2311,34 +2169,21 @@ bool TouchpadButtonEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchpadButtonEventInfo> TouchpadButtonEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchpadButtonEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchpadButtonEventInfo> TouchpadButtonEventInfo::FromValue(const base::Value::Dict& value) {
+  TouchpadButtonEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchpadButtonEventInfo> TouchpadButtonEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchpadButtonEventInfo> TouchpadButtonEventInfo::FromValue(const base::Value& value) {
   TouchpadButtonEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchpadButtonEventInfo> TouchpadButtonEventInfo::FromValue(const base::Value& value) {
-  TouchpadButtonEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2363,8 +2208,8 @@ TouchPointInfo::TouchPointInfo()
  {}
 
 TouchPointInfo::~TouchPointInfo() = default;
-TouchPointInfo::TouchPointInfo(TouchPointInfo&& rhs) = default;
-TouchPointInfo& TouchPointInfo::operator=(TouchPointInfo&& rhs) = default;
+TouchPointInfo::TouchPointInfo(TouchPointInfo&& rhs) noexcept = default;
+TouchPointInfo& TouchPointInfo::operator=(TouchPointInfo&& rhs) noexcept = default;
 TouchPointInfo TouchPointInfo::Clone() const {
   TouchPointInfo out;
   out.tracking_id = tracking_id;
@@ -2384,7 +2229,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*tracking_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tracking_id = absl::nullopt;
+        out.tracking_id = std::nullopt;
         return false;
       }
       out.tracking_id = *temp;
@@ -2396,7 +2241,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.x = absl::nullopt;
+        out.x = std::nullopt;
         return false;
       }
       out.x = *temp;
@@ -2408,7 +2253,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.y = absl::nullopt;
+        out.y = std::nullopt;
         return false;
       }
       out.y = *temp;
@@ -2420,7 +2265,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*pressure_value).GetIfInt();
       if (!temp.has_value()) {
-        out.pressure = absl::nullopt;
+        out.pressure = std::nullopt;
         return false;
       }
       out.pressure = *temp;
@@ -2432,7 +2277,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*touch_major_value).GetIfInt();
       if (!temp.has_value()) {
-        out.touch_major = absl::nullopt;
+        out.touch_major = std::nullopt;
         return false;
       }
       out.touch_major = *temp;
@@ -2444,7 +2289,7 @@ bool TouchPointInfo::Populate(
     {
       auto temp = (*touch_minor_value).GetIfInt();
       if (!temp.has_value()) {
-        out.touch_minor = absl::nullopt;
+        out.touch_minor = std::nullopt;
         return false;
       }
       out.touch_minor = *temp;
@@ -2464,34 +2309,21 @@ bool TouchPointInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchPointInfo> TouchPointInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchPointInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchPointInfo> TouchPointInfo::FromValue(const base::Value::Dict& value) {
+  TouchPointInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchPointInfo> TouchPointInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchPointInfo> TouchPointInfo::FromValue(const base::Value& value) {
   TouchPointInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchPointInfo> TouchPointInfo::FromValue(const base::Value& value) {
-  TouchPointInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2532,8 +2364,8 @@ TouchpadTouchEventInfo::TouchpadTouchEventInfo()
  {}
 
 TouchpadTouchEventInfo::~TouchpadTouchEventInfo() = default;
-TouchpadTouchEventInfo::TouchpadTouchEventInfo(TouchpadTouchEventInfo&& rhs) = default;
-TouchpadTouchEventInfo& TouchpadTouchEventInfo::operator=(TouchpadTouchEventInfo&& rhs) = default;
+TouchpadTouchEventInfo::TouchpadTouchEventInfo(TouchpadTouchEventInfo&& rhs) noexcept = default;
+TouchpadTouchEventInfo& TouchpadTouchEventInfo::operator=(TouchpadTouchEventInfo&& rhs) noexcept = default;
 TouchpadTouchEventInfo TouchpadTouchEventInfo::Clone() const {
   TouchpadTouchEventInfo out;
   out.touch_points.reserve(touch_points.size());
@@ -2574,34 +2406,21 @@ bool TouchpadTouchEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchpadTouchEventInfo> TouchpadTouchEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchpadTouchEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchpadTouchEventInfo> TouchpadTouchEventInfo::FromValue(const base::Value::Dict& value) {
+  TouchpadTouchEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchpadTouchEventInfo> TouchpadTouchEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchpadTouchEventInfo> TouchpadTouchEventInfo::FromValue(const base::Value& value) {
   TouchpadTouchEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchpadTouchEventInfo> TouchpadTouchEventInfo::FromValue(const base::Value& value) {
-  TouchpadTouchEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2620,8 +2439,8 @@ TouchpadConnectedEventInfo::TouchpadConnectedEventInfo()
  {}
 
 TouchpadConnectedEventInfo::~TouchpadConnectedEventInfo() = default;
-TouchpadConnectedEventInfo::TouchpadConnectedEventInfo(TouchpadConnectedEventInfo&& rhs) = default;
-TouchpadConnectedEventInfo& TouchpadConnectedEventInfo::operator=(TouchpadConnectedEventInfo&& rhs) = default;
+TouchpadConnectedEventInfo::TouchpadConnectedEventInfo(TouchpadConnectedEventInfo&& rhs) noexcept = default;
+TouchpadConnectedEventInfo& TouchpadConnectedEventInfo::operator=(TouchpadConnectedEventInfo&& rhs) noexcept = default;
 TouchpadConnectedEventInfo TouchpadConnectedEventInfo::Clone() const {
   TouchpadConnectedEventInfo out;
   out.max_x = max_x;
@@ -2639,7 +2458,7 @@ bool TouchpadConnectedEventInfo::Populate(
     {
       auto temp = (*max_x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_x = absl::nullopt;
+        out.max_x = std::nullopt;
         return false;
       }
       out.max_x = *temp;
@@ -2651,7 +2470,7 @@ bool TouchpadConnectedEventInfo::Populate(
     {
       auto temp = (*max_y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_y = absl::nullopt;
+        out.max_y = std::nullopt;
         return false;
       }
       out.max_y = *temp;
@@ -2663,7 +2482,7 @@ bool TouchpadConnectedEventInfo::Populate(
     {
       auto temp = (*max_pressure_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_pressure = absl::nullopt;
+        out.max_pressure = std::nullopt;
         return false;
       }
       out.max_pressure = *temp;
@@ -2707,34 +2526,21 @@ bool TouchpadConnectedEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchpadConnectedEventInfo> TouchpadConnectedEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchpadConnectedEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchpadConnectedEventInfo> TouchpadConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+  TouchpadConnectedEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchpadConnectedEventInfo> TouchpadConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchpadConnectedEventInfo> TouchpadConnectedEventInfo::FromValue(const base::Value& value) {
   TouchpadConnectedEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchpadConnectedEventInfo> TouchpadConnectedEventInfo::FromValue(const base::Value& value) {
-  TouchpadConnectedEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2771,8 +2577,8 @@ TouchscreenTouchEventInfo::TouchscreenTouchEventInfo()
  {}
 
 TouchscreenTouchEventInfo::~TouchscreenTouchEventInfo() = default;
-TouchscreenTouchEventInfo::TouchscreenTouchEventInfo(TouchscreenTouchEventInfo&& rhs) = default;
-TouchscreenTouchEventInfo& TouchscreenTouchEventInfo::operator=(TouchscreenTouchEventInfo&& rhs) = default;
+TouchscreenTouchEventInfo::TouchscreenTouchEventInfo(TouchscreenTouchEventInfo&& rhs) noexcept = default;
+TouchscreenTouchEventInfo& TouchscreenTouchEventInfo::operator=(TouchscreenTouchEventInfo&& rhs) noexcept = default;
 TouchscreenTouchEventInfo TouchscreenTouchEventInfo::Clone() const {
   TouchscreenTouchEventInfo out;
   out.touch_points.reserve(touch_points.size());
@@ -2813,34 +2619,21 @@ bool TouchscreenTouchEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchscreenTouchEventInfo> TouchscreenTouchEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchscreenTouchEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchscreenTouchEventInfo> TouchscreenTouchEventInfo::FromValue(const base::Value::Dict& value) {
+  TouchscreenTouchEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchscreenTouchEventInfo> TouchscreenTouchEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchscreenTouchEventInfo> TouchscreenTouchEventInfo::FromValue(const base::Value& value) {
   TouchscreenTouchEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchscreenTouchEventInfo> TouchscreenTouchEventInfo::FromValue(const base::Value& value) {
-  TouchscreenTouchEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2859,8 +2652,8 @@ TouchscreenConnectedEventInfo::TouchscreenConnectedEventInfo()
  {}
 
 TouchscreenConnectedEventInfo::~TouchscreenConnectedEventInfo() = default;
-TouchscreenConnectedEventInfo::TouchscreenConnectedEventInfo(TouchscreenConnectedEventInfo&& rhs) = default;
-TouchscreenConnectedEventInfo& TouchscreenConnectedEventInfo::operator=(TouchscreenConnectedEventInfo&& rhs) = default;
+TouchscreenConnectedEventInfo::TouchscreenConnectedEventInfo(TouchscreenConnectedEventInfo&& rhs) noexcept = default;
+TouchscreenConnectedEventInfo& TouchscreenConnectedEventInfo::operator=(TouchscreenConnectedEventInfo&& rhs) noexcept = default;
 TouchscreenConnectedEventInfo TouchscreenConnectedEventInfo::Clone() const {
   TouchscreenConnectedEventInfo out;
   out.max_x = max_x;
@@ -2877,7 +2670,7 @@ bool TouchscreenConnectedEventInfo::Populate(
     {
       auto temp = (*max_x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_x = absl::nullopt;
+        out.max_x = std::nullopt;
         return false;
       }
       out.max_x = *temp;
@@ -2889,7 +2682,7 @@ bool TouchscreenConnectedEventInfo::Populate(
     {
       auto temp = (*max_y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_y = absl::nullopt;
+        out.max_y = std::nullopt;
         return false;
       }
       out.max_y = *temp;
@@ -2901,7 +2694,7 @@ bool TouchscreenConnectedEventInfo::Populate(
     {
       auto temp = (*max_pressure_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_pressure = absl::nullopt;
+        out.max_pressure = std::nullopt;
         return false;
       }
       out.max_pressure = *temp;
@@ -2921,34 +2714,21 @@ bool TouchscreenConnectedEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<TouchscreenConnectedEventInfo> TouchscreenConnectedEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchscreenConnectedEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchscreenConnectedEventInfo> TouchscreenConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+  TouchscreenConnectedEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchscreenConnectedEventInfo> TouchscreenConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TouchscreenConnectedEventInfo> TouchscreenConnectedEventInfo::FromValue(const base::Value& value) {
   TouchscreenConnectedEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchscreenConnectedEventInfo> TouchscreenConnectedEventInfo::FromValue(const base::Value& value) {
-  TouchscreenConnectedEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2977,8 +2757,8 @@ StylusTouchPointInfo::StylusTouchPointInfo()
  {}
 
 StylusTouchPointInfo::~StylusTouchPointInfo() = default;
-StylusTouchPointInfo::StylusTouchPointInfo(StylusTouchPointInfo&& rhs) = default;
-StylusTouchPointInfo& StylusTouchPointInfo::operator=(StylusTouchPointInfo&& rhs) = default;
+StylusTouchPointInfo::StylusTouchPointInfo(StylusTouchPointInfo&& rhs) noexcept = default;
+StylusTouchPointInfo& StylusTouchPointInfo::operator=(StylusTouchPointInfo&& rhs) noexcept = default;
 StylusTouchPointInfo StylusTouchPointInfo::Clone() const {
   StylusTouchPointInfo out;
   out.x = x;
@@ -2995,7 +2775,7 @@ bool StylusTouchPointInfo::Populate(
     {
       auto temp = (*x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.x = absl::nullopt;
+        out.x = std::nullopt;
         return false;
       }
       out.x = *temp;
@@ -3007,7 +2787,7 @@ bool StylusTouchPointInfo::Populate(
     {
       auto temp = (*y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.y = absl::nullopt;
+        out.y = std::nullopt;
         return false;
       }
       out.y = *temp;
@@ -3019,7 +2799,7 @@ bool StylusTouchPointInfo::Populate(
     {
       auto temp = (*pressure_value).GetIfInt();
       if (!temp.has_value()) {
-        out.pressure = absl::nullopt;
+        out.pressure = std::nullopt;
         return false;
       }
       out.pressure = *temp;
@@ -3039,34 +2819,21 @@ bool StylusTouchPointInfo::Populate(
 }
 
 // static
-std::unique_ptr<StylusTouchPointInfo> StylusTouchPointInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StylusTouchPointInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StylusTouchPointInfo> StylusTouchPointInfo::FromValue(const base::Value::Dict& value) {
+  StylusTouchPointInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StylusTouchPointInfo> StylusTouchPointInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StylusTouchPointInfo> StylusTouchPointInfo::FromValue(const base::Value& value) {
   StylusTouchPointInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StylusTouchPointInfo> StylusTouchPointInfo::FromValue(const base::Value& value) {
-  StylusTouchPointInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3095,8 +2862,8 @@ StylusTouchEventInfo::StylusTouchEventInfo()
  {}
 
 StylusTouchEventInfo::~StylusTouchEventInfo() = default;
-StylusTouchEventInfo::StylusTouchEventInfo(StylusTouchEventInfo&& rhs) = default;
-StylusTouchEventInfo& StylusTouchEventInfo::operator=(StylusTouchEventInfo&& rhs) = default;
+StylusTouchEventInfo::StylusTouchEventInfo(StylusTouchEventInfo&& rhs) noexcept = default;
+StylusTouchEventInfo& StylusTouchEventInfo::operator=(StylusTouchEventInfo&& rhs) noexcept = default;
 StylusTouchEventInfo StylusTouchEventInfo::Clone() const {
   StylusTouchEventInfo out;
   if (touch_point) {
@@ -3136,34 +2903,21 @@ bool StylusTouchEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<StylusTouchEventInfo> StylusTouchEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StylusTouchEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StylusTouchEventInfo> StylusTouchEventInfo::FromValue(const base::Value::Dict& value) {
+  StylusTouchEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StylusTouchEventInfo> StylusTouchEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StylusTouchEventInfo> StylusTouchEventInfo::FromValue(const base::Value& value) {
   StylusTouchEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StylusTouchEventInfo> StylusTouchEventInfo::FromValue(const base::Value& value) {
-  StylusTouchEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3184,8 +2938,8 @@ StylusConnectedEventInfo::StylusConnectedEventInfo()
  {}
 
 StylusConnectedEventInfo::~StylusConnectedEventInfo() = default;
-StylusConnectedEventInfo::StylusConnectedEventInfo(StylusConnectedEventInfo&& rhs) = default;
-StylusConnectedEventInfo& StylusConnectedEventInfo::operator=(StylusConnectedEventInfo&& rhs) = default;
+StylusConnectedEventInfo::StylusConnectedEventInfo(StylusConnectedEventInfo&& rhs) noexcept = default;
+StylusConnectedEventInfo& StylusConnectedEventInfo::operator=(StylusConnectedEventInfo&& rhs) noexcept = default;
 StylusConnectedEventInfo StylusConnectedEventInfo::Clone() const {
   StylusConnectedEventInfo out;
   out.max_x = max_x;
@@ -3202,7 +2956,7 @@ bool StylusConnectedEventInfo::Populate(
     {
       auto temp = (*max_x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_x = absl::nullopt;
+        out.max_x = std::nullopt;
         return false;
       }
       out.max_x = *temp;
@@ -3214,7 +2968,7 @@ bool StylusConnectedEventInfo::Populate(
     {
       auto temp = (*max_y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_y = absl::nullopt;
+        out.max_y = std::nullopt;
         return false;
       }
       out.max_y = *temp;
@@ -3226,7 +2980,7 @@ bool StylusConnectedEventInfo::Populate(
     {
       auto temp = (*max_pressure_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_pressure = absl::nullopt;
+        out.max_pressure = std::nullopt;
         return false;
       }
       out.max_pressure = *temp;
@@ -3246,34 +3000,21 @@ bool StylusConnectedEventInfo::Populate(
 }
 
 // static
-std::unique_ptr<StylusConnectedEventInfo> StylusConnectedEventInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StylusConnectedEventInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StylusConnectedEventInfo> StylusConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+  StylusConnectedEventInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StylusConnectedEventInfo> StylusConnectedEventInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StylusConnectedEventInfo> StylusConnectedEventInfo::FromValue(const base::Value& value) {
   StylusConnectedEventInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StylusConnectedEventInfo> StylusConnectedEventInfo::FromValue(const base::Value& value) {
-  StylusConnectedEventInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3307,13 +3048,13 @@ namespace IsEventSupported {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3323,16 +3064,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* event_category_as_string = category_value.GetIfString();
       if (!event_category_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.category = ParseEventCategory(*event_category_as_string);
       if (params.category == EventCategory()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3352,13 +3093,13 @@ namespace StartCapturingEvents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3368,16 +3109,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* event_category_as_string = category_value.GetIfString();
       if (!event_category_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.category = ParseEventCategory(*event_category_as_string);
       if (params.category == EventCategory()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3395,13 +3136,13 @@ namespace StopCapturingEvents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3411,16 +3152,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* event_category_as_string = category_value.GetIfString();
       if (!event_category_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.category = ParseEventCategory(*event_category_as_string);
       if (params.category == EventCategory()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

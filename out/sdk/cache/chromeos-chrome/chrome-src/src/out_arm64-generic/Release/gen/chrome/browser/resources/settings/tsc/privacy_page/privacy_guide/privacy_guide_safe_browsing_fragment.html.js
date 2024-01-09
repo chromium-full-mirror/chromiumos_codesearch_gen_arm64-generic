@@ -18,9 +18,9 @@ export function getTemplate() {
         <template is="dom-if" if="[[!enableFriendlierSafeBrowsingSettings_]]">
           <div slot="collapse" class="settings-columned-section">
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideFeatureDescriptionHeader}
-              </div>
+              </h3>
               <div role="list">
                 <privacy-guide-description-item role="listitem" icon="settings20:security" label="$i18n{safeBrowsingEnhancedBulOne}">
                 </privacy-guide-description-item>
@@ -33,9 +33,9 @@ export function getTemplate() {
               </div>
             </div>
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideThingsToConsider}
-              </div>
+              </h3>
               <div role="list">
                 <privacy-guide-description-item role="listitem" icon="settings20:data" label="$i18n{privacyGuideSafeBrowsingCardEnhancedProtectionPrivacyDescription1}">
                 </privacy-guide-description-item>
@@ -50,9 +50,9 @@ export function getTemplate() {
         <template is="dom-if" if="[[enableFriendlierSafeBrowsingSettings_]]">
           <div slot="collapse" class="settings-columned-section">
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideFeatureDescriptionHeader}
-              </div>
+              </h3>
               <div id="updatedDescItemContainer" role="list">
                 <privacy-guide-description-item role="listitem" icon="settings20:data" label="$i18n{safeBrowsingEnhancedWhenOnBulOne}">
                 </privacy-guide-description-item>
@@ -67,9 +67,9 @@ export function getTemplate() {
               </div>
             </div>
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideThingsToConsider}
-              </div>
+              </h3>
               <div role="list">
                 <privacy-guide-description-item role="listitem" icon="settings20:link" label="$i18n{safeBrowsingEnhancedThingsToConsiderBulOne}">
                 </privacy-guide-description-item>
@@ -88,9 +88,9 @@ export function getTemplate() {
         <template is="dom-if" if="[[!enableFriendlierSafeBrowsingSettings_]]">
           <div slot="collapse" class="settings-columned-section" id="whenOnThingsToConsiderStandardProtection">
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideFeatureDescriptionHeader}
-              </div>
+              </h3>
               <div role="list">
                 <privacy-guide-description-item role="listitem" icon="settings20:security" label="$i18n{privacyGuideSafeBrowsingCardStandardProtectionFeatureDescription1}">
                 </privacy-guide-description-item>
@@ -100,9 +100,9 @@ export function getTemplate() {
               </div>
             </div>
             <div class="column">
-              <div class="description-header">
+              <h3 class="description-header">
                 $i18n{privacyGuideThingsToConsider}
-              </div>
+              </h3>
               <div role="list">
                 <privacy-guide-description-item id="standardProtectionPrivacyDescription1" role="listitem" icon="settings20:data" label="[[getStandardProtectionPrivacyDescription1_(
                             enableHashPrefixRealTimeLookups_)]]">

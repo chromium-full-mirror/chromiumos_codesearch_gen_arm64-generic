@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TransformStream>::value,
     "TransformStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TransformStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TransformStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("TransformStream.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TransformStream* blink_receiver = V8TransformStream::ToWrappableUnsafe(v8_receiver);
+TransformStream* blink_receiver = V8TransformStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("TransformStream.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TransformStream* blink_receiver = V8TransformStream::ToWrappableUnsafe(v8_receiver);
+TransformStream* blink_receiver = V8TransformStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

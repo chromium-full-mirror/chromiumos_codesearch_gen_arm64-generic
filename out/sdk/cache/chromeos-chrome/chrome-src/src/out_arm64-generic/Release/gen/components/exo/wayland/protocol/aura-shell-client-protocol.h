@@ -1814,6 +1814,20 @@ enum zaura_toplevel_state {
 	 * @since 54
 	 */
 	ZAURA_TOPLEVEL_STATE_PIP = 105,
+	/**
+	 * window is pinned
+	 *
+	 * The window is pinned.
+	 * @since 64
+	 */
+	ZAURA_TOPLEVEL_STATE_PINNED = 106,
+	/**
+	 * window is trusted pinned
+	 *
+	 * The window is trusted pinned.
+	 * @since 64
+	 */
+	ZAURA_TOPLEVEL_STATE_TRUSTED_PINNED = 107,
 };
 /**
  * @ingroup iface_zaura_toplevel
@@ -1839,6 +1853,14 @@ enum zaura_toplevel_state {
  * @ingroup iface_zaura_toplevel
  */
 #define ZAURA_TOPLEVEL_STATE_PIP_SINCE_VERSION 54
+/**
+ * @ingroup iface_zaura_toplevel
+ */
+#define ZAURA_TOPLEVEL_STATE_PINNED_SINCE_VERSION 64
+/**
+ * @ingroup iface_zaura_toplevel
+ */
+#define ZAURA_TOPLEVEL_STATE_TRUSTED_PINNED_SINCE_VERSION 64
 #endif /* ZAURA_TOPLEVEL_STATE_ENUM */
 
 #ifndef ZAURA_TOPLEVEL_DECORATION_TYPE_ENUM
@@ -2164,6 +2186,7 @@ zaura_toplevel_add_listener(struct zaura_toplevel *zaura_toplevel,
 #define ZAURA_TOPLEVEL_UNSET_CAN_FULLSCREEN 29
 #define ZAURA_TOPLEVEL_SET_FLOAT_TO_LOCATION 30
 #define ZAURA_TOPLEVEL_SET_WINDOW_CORNER_RADII 31
+#define ZAURA_TOPLEVEL_SET_SHADOW_CORNER_RADII 32
 
 /**
  * @ingroup iface_zaura_toplevel
@@ -2314,6 +2337,10 @@ zaura_toplevel_add_listener(struct zaura_toplevel *zaura_toplevel,
  * @ingroup iface_zaura_toplevel
  */
 #define ZAURA_TOPLEVEL_SET_WINDOW_CORNER_RADII_SINCE_VERSION 60
+/**
+ * @ingroup iface_zaura_toplevel
+ */
+#define ZAURA_TOPLEVEL_SET_SHADOW_CORNER_RADII_SINCE_VERSION 63
 
 /** @ingroup iface_zaura_toplevel */
 static inline void
@@ -2813,6 +2840,22 @@ zaura_toplevel_set_window_corner_radii(struct zaura_toplevel *zaura_toplevel, ui
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) zaura_toplevel,
 			 ZAURA_TOPLEVEL_SET_WINDOW_CORNER_RADII, NULL, wl_proxy_get_version((struct wl_proxy *) zaura_toplevel), 0, upper_left_radius, upper_right_radius, lower_right_radius, lower_left_radius);
+}
+
+/**
+ * @ingroup iface_zaura_toplevel
+ *
+ * The client specifies the radius of each corner to be applied to the shadow
+ * associated with the aura toplevel surface in device independent pixels (DPs).
+ *
+ * The shadow radius is double buffered, and will be applied at the
+ * time wl_surface.commit of the corresponding wl_surface is called.
+ */
+static inline void
+zaura_toplevel_set_shadow_corner_radii(struct zaura_toplevel *zaura_toplevel, uint32_t upper_left_radius, uint32_t upper_right_radius, uint32_t lower_right_radius, uint32_t lower_left_radius)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zaura_toplevel,
+			 ZAURA_TOPLEVEL_SET_SHADOW_CORNER_RADII, NULL, wl_proxy_get_version((struct wl_proxy *) zaura_toplevel), 0, upper_left_radius, upper_right_radius, lower_right_radius, lower_left_radius);
 }
 
 #ifndef ZAURA_POPUP_DECORATION_TYPE_ENUM

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/omnibox/omnibox.mojom-features.h"
 #include "chrome/browser/ui/webui/omnibox/omnibox.mojom-shared.h"
 #include "chrome/browser/ui/webui/omnibox/omnibox.mojom-forward.h"
 #include <string>
@@ -638,30 +639,30 @@ class  Signals {
   Signals();
 
   Signals(
-      absl::optional<int32_t> typed_count,
-      absl::optional<int32_t> visit_count,
-      absl::optional<int64_t> elapsed_time_last_visit_secs,
-      absl::optional<int32_t> shortcut_visit_count,
-      absl::optional<int32_t> shortest_shortcut_len,
-      absl::optional<int64_t> elapsed_time_last_shortcut_visit_sec,
-      absl::optional<bool> is_host_only,
-      absl::optional<int32_t> num_bookmarks_of_url,
-      absl::optional<int32_t> first_bookmark_title_match_position,
-      absl::optional<int32_t> total_bookmark_title_match_length,
-      absl::optional<int32_t> num_input_terms_matched_by_bookmark_title,
-      absl::optional<int32_t> first_url_match_position,
-      absl::optional<int32_t> total_url_match_length,
-      absl::optional<bool> host_match_at_word_boundary,
-      absl::optional<int32_t> total_host_match_length,
-      absl::optional<int32_t> total_path_match_length,
-      absl::optional<int32_t> total_query_or_ref_match_length,
-      absl::optional<int32_t> total_title_match_length,
-      absl::optional<bool> has_non_scheme_www_match,
-      absl::optional<int32_t> num_input_terms_matched_by_title,
-      absl::optional<int32_t> num_input_terms_matched_by_url,
-      absl::optional<int32_t> length_of_url,
-      absl::optional<float> site_engagement,
-      absl::optional<bool> allowed_to_be_default_match);
+      std::optional<int32_t> typed_count,
+      std::optional<int32_t> visit_count,
+      std::optional<int64_t> elapsed_time_last_visit_secs,
+      std::optional<int32_t> shortcut_visit_count,
+      std::optional<int32_t> shortest_shortcut_len,
+      std::optional<int64_t> elapsed_time_last_shortcut_visit_sec,
+      std::optional<bool> is_host_only,
+      std::optional<int32_t> num_bookmarks_of_url,
+      std::optional<int32_t> first_bookmark_title_match_position,
+      std::optional<int32_t> total_bookmark_title_match_length,
+      std::optional<int32_t> num_input_terms_matched_by_bookmark_title,
+      std::optional<int32_t> first_url_match_position,
+      std::optional<int32_t> total_url_match_length,
+      std::optional<bool> host_match_at_word_boundary,
+      std::optional<int32_t> total_host_match_length,
+      std::optional<int32_t> total_path_match_length,
+      std::optional<int32_t> total_query_or_ref_match_length,
+      std::optional<int32_t> total_title_match_length,
+      std::optional<bool> has_non_scheme_www_match,
+      std::optional<int32_t> num_input_terms_matched_by_title,
+      std::optional<int32_t> num_input_terms_matched_by_url,
+      std::optional<int32_t> length_of_url,
+      std::optional<float> site_engagement,
+      std::optional<bool> allowed_to_be_default_match);
 
 
   ~Signals();
@@ -739,53 +740,53 @@ class  Signals {
   }
 
   
-  absl::optional<int32_t> typed_count;
+  std::optional<int32_t> typed_count;
   
-  absl::optional<int32_t> visit_count;
+  std::optional<int32_t> visit_count;
   
-  absl::optional<int64_t> elapsed_time_last_visit_secs;
+  std::optional<int64_t> elapsed_time_last_visit_secs;
   
-  absl::optional<int32_t> shortcut_visit_count;
+  std::optional<int32_t> shortcut_visit_count;
   
-  absl::optional<int32_t> shortest_shortcut_len;
+  std::optional<int32_t> shortest_shortcut_len;
   
-  absl::optional<int64_t> elapsed_time_last_shortcut_visit_sec;
+  std::optional<int64_t> elapsed_time_last_shortcut_visit_sec;
   
-  absl::optional<bool> is_host_only;
+  std::optional<bool> is_host_only;
   
-  absl::optional<int32_t> num_bookmarks_of_url;
+  std::optional<int32_t> num_bookmarks_of_url;
   
-  absl::optional<int32_t> first_bookmark_title_match_position;
+  std::optional<int32_t> first_bookmark_title_match_position;
   
-  absl::optional<int32_t> total_bookmark_title_match_length;
+  std::optional<int32_t> total_bookmark_title_match_length;
   
-  absl::optional<int32_t> num_input_terms_matched_by_bookmark_title;
+  std::optional<int32_t> num_input_terms_matched_by_bookmark_title;
   
-  absl::optional<int32_t> first_url_match_position;
+  std::optional<int32_t> first_url_match_position;
   
-  absl::optional<int32_t> total_url_match_length;
+  std::optional<int32_t> total_url_match_length;
   
-  absl::optional<bool> host_match_at_word_boundary;
+  std::optional<bool> host_match_at_word_boundary;
   
-  absl::optional<int32_t> total_host_match_length;
+  std::optional<int32_t> total_host_match_length;
   
-  absl::optional<int32_t> total_path_match_length;
+  std::optional<int32_t> total_path_match_length;
   
-  absl::optional<int32_t> total_query_or_ref_match_length;
+  std::optional<int32_t> total_query_or_ref_match_length;
   
-  absl::optional<int32_t> total_title_match_length;
+  std::optional<int32_t> total_title_match_length;
   
-  absl::optional<bool> has_non_scheme_www_match;
+  std::optional<bool> has_non_scheme_www_match;
   
-  absl::optional<int32_t> num_input_terms_matched_by_title;
+  std::optional<int32_t> num_input_terms_matched_by_title;
   
-  absl::optional<int32_t> num_input_terms_matched_by_url;
+  std::optional<int32_t> num_input_terms_matched_by_url;
   
-  absl::optional<int32_t> length_of_url;
+  std::optional<int32_t> length_of_url;
   
-  absl::optional<float> site_engagement;
+  std::optional<float> site_engagement;
   
-  absl::optional<bool> allowed_to_be_default_match;
+  std::optional<bool> allowed_to_be_default_match;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -91,7 +92,6 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus()
       ssl_info(),
       blocked_by_response_reason(),
       should_report_corb_blocking(false),
-      proxy_server(),
       resolve_error_info(),
       should_collapse_initiator(false) {}
 
@@ -104,13 +104,12 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus(
     int64_t encoded_data_length_in,
     int64_t encoded_body_length_in,
     int64_t decoded_body_length_in,
-    const absl::optional<::network::CorsErrorStatus>& cors_error_status_in,
+    const std::optional<::network::CorsErrorStatus>& cors_error_status_in,
     ::network::mojom::PrivateNetworkAccessPreflightResult private_network_access_preflight_result_in,
     ::network::mojom::TrustTokenOperationStatus trust_token_operation_status_in,
-    const absl::optional<::net::SSLInfo>& ssl_info_in,
+    const std::optional<::net::SSLInfo>& ssl_info_in,
     BlockedByResponseReasonWrapperPtr blocked_by_response_reason_in,
     bool should_report_corb_blocking_in,
-    const ::net::ProxyServer& proxy_server_in,
     const ::net::ResolveErrorInfo& resolve_error_info_in,
     bool should_collapse_initiator_in)
     : error_code(std::move(error_code_in)),
@@ -127,7 +126,6 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus(
       ssl_info(std::move(ssl_info_in)),
       blocked_by_response_reason(std::move(blocked_by_response_reason_in)),
       should_report_corb_blocking(std::move(should_report_corb_blocking_in)),
-      proxy_server(std::move(proxy_server_in)),
       resolve_error_info(std::move(resolve_error_info_in)),
       should_collapse_initiator(std::move(should_collapse_initiator_in)) {}
 
@@ -212,7 +210,7 @@ void URLLoaderCompletionStatus::WriteIntoTrace(
     dict.AddItem(
       "cors_error_status"), this->cors_error_status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::network::CorsErrorStatus>&>"
+      "<value of type const std::optional<::network::CorsErrorStatus>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -239,7 +237,7 @@ void URLLoaderCompletionStatus::WriteIntoTrace(
     dict.AddItem(
       "ssl_info"), this->ssl_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::SSLInfo>&>"
+      "<value of type const std::optional<::net::SSLInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -258,15 +256,6 @@ void URLLoaderCompletionStatus::WriteIntoTrace(
       "should_report_corb_blocking"), this->should_report_corb_blocking,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "proxy_server"), this->proxy_server,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::net::ProxyServer&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -353,8 +342,6 @@ bool StructTraits<::network::mojom::URLLoaderCompletionStatus::DataView, ::netwo
         success = false;
       if (success)
         result->should_report_corb_blocking = input.should_report_corb_blocking();
-      if (success && !input.ReadProxyServer(&result->proxy_server))
-        success = false;
       if (success && !input.ReadResolveErrorInfo(&result->resolve_error_info))
         success = false;
       if (success)

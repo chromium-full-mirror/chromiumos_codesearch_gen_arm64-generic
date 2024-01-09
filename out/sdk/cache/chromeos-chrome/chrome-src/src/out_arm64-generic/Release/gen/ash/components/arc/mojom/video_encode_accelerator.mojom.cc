@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -247,7 +248,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     uint8_t h264_output_level_in,
     bool has_h264_output_level_in,
     ::media::VideoEncodeAccelerator::Config::StorageType storage_type_in,
-    const absl::optional<::media::Bitrate>& bitrate_in)
+    const std::optional<::media::Bitrate>& bitrate_in)
     : input_format(std::move(input_format_in)),
       input_visible_size(std::move(input_visible_size_in)),
       output_profile(std::move(output_profile_in)),
@@ -349,7 +350,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "bitrate"), this->bitrate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::Bitrate>&>"
+      "<value of type const std::optional<::media::Bitrate>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -689,14 +690,17 @@ void VideoEncodeAcceleratorProxy::GetSupportedProfiles(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::VideoEncodeAccelerator::GetSupportedProfiles");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr);
@@ -730,14 +734,17 @@ void VideoEncodeAcceleratorProxy::Initialize(
                         "<value of type ::mojo::PendingRemote<VideoEncodeClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -797,14 +804,17 @@ void VideoEncodeAcceleratorProxy::Encode(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr);
@@ -864,14 +874,17 @@ void VideoEncodeAcceleratorProxy::UseBitstreamBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr);
@@ -913,14 +926,17 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChange(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name, kFlags, 0, 0, nullptr);
@@ -963,14 +979,17 @@ void VideoEncodeAcceleratorProxy::RequestEncodingParametersChangeDeprecated(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -995,14 +1014,17 @@ void VideoEncodeAcceleratorProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::VideoEncodeAccelerator::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr);
@@ -1112,7 +1134,8 @@ void VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_GetSupportedProfiles_Name, kFlags, 0, 0, nullptr);
@@ -1242,7 +1265,8 @@ void VideoEncodeAccelerator_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -1350,7 +1374,8 @@ void VideoEncodeAccelerator_Encode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Encode_Name, kFlags, 0, 0, nullptr);
@@ -1481,7 +1506,8 @@ void VideoEncodeAccelerator_UseBitstreamBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1601,7 +1627,8 @@ void VideoEncodeAccelerator_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeAccelerator_Flush_Name, kFlags, 0, 0, nullptr);
@@ -1897,26 +1924,26 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoEncodeAcceleratorValidationInfo[] = {
-    {&internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data::Validate,
      &internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data::Validate,
      &internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data::Validate},
-    {&internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoEncodeAccelerator_Flush_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_Flush_Params_Data::Validate,
      &internal::VideoEncodeAccelerator_Flush_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::VideoEncodeAccelerator_Encode_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_Encode_Params_Data::Validate,
      &internal::VideoEncodeAccelerator_Encode_ResponseParams_Data::Validate},
-    {&internal::VideoEncodeAccelerator_Initialize_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_Initialize_Params_Data::Validate,
      &internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data::Validate},
-    {&internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data::Validate,
+    { &internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2026,14 +2053,17 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeClient_RequireBitstreamBuffers_Name, kFlags, 0, 0, nullptr);
@@ -2076,14 +2106,17 @@ void VideoEncodeClientProxy::NotifyError(
                         "<value of type VideoEncodeAccelerator::Error>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoEncodeClient_NotifyError_Name, kFlags, 0, 0, nullptr);
@@ -2190,13 +2223,13 @@ bool VideoEncodeClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoEncodeClientValidationInfo[] = {
-    {&internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data::Validate,
+    { &internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::VideoEncodeClient_NotifyError_Params_Data::Validate,
+    { &internal::VideoEncodeClient_NotifyError_Params_Data::Validate,
      nullptr /* no response */},
 };
 

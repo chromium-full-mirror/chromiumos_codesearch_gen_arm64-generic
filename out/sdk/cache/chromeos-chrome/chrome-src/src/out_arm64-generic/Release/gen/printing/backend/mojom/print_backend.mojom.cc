@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -154,7 +155,7 @@ Paper::Paper(
     const std::string& display_name_in,
     const std::string& vendor_id_in,
     const ::gfx::Size& size_um_in,
-    const absl::optional<::gfx::Rect>& printable_area_um_in)
+    const std::optional<::gfx::Rect>& printable_area_um_in)
     : display_name(std::move(display_name_in)),
       vendor_id(std::move(vendor_id_in)),
       size_um(std::move(size_um_in)),
@@ -166,7 +167,7 @@ Paper::Paper(
     const std::string& display_name_in,
     const std::string& vendor_id_in,
     const ::gfx::Size& size_um_in,
-    const absl::optional<::gfx::Rect>& printable_area_um_in,
+    const std::optional<::gfx::Rect>& printable_area_um_in,
     int32_t max_height_um_in)
     : display_name(std::move(display_name_in)),
       vendor_id(std::move(vendor_id_in)),
@@ -179,7 +180,7 @@ Paper::Paper(
     const std::string& display_name_in,
     const std::string& vendor_id_in,
     const ::gfx::Size& size_um_in,
-    const absl::optional<::gfx::Rect>& printable_area_um_in,
+    const std::optional<::gfx::Rect>& printable_area_um_in,
     int32_t max_height_um_in,
     bool has_borderless_variant_in)
     : display_name(std::move(display_name_in)),
@@ -225,7 +226,7 @@ void Paper::WriteIntoTrace(
     dict.AddItem(
       "printable_area_um"), this->printable_area_um,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -489,7 +490,7 @@ PrinterSemanticCapsAndDefaults::PrinterSemanticCapsAndDefaults(
     const ::gfx::Size& default_dpi_in,
     bool pin_supported_in,
     std::vector<::printing::AdvancedCapability> advanced_capabilities_in,
-    absl::optional<std::vector<MediaTypePtr>> media_types_in,
+    std::optional<std::vector<MediaTypePtr>> media_types_in,
     MediaTypePtr default_media_type_in)
     : collate_capable(std::move(collate_capable_in)),
       collate_default(std::move(collate_default_in)),
@@ -663,7 +664,7 @@ void PrinterSemanticCapsAndDefaults::WriteIntoTrace(
     dict.AddItem(
       "media_types"), this->media_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<MediaTypePtr>>>"
+      "<value of type std::optional<std::vector<MediaTypePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -195,6 +195,16 @@ class SpecMediaMetadataDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::media_session::mojom::MediaImageDataView>>(
         pointer, output, message_);
   }
+  inline void GetChapterInfoDataView(
+      mojo::ArrayDataView<::media_session::mojom::ChapterInformationDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChapterInfo(UserType* output) {
+    
+    auto* pointer = data_->chapterInfo.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::media_session::mojom::ChapterInformationDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::SpecMediaMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -376,6 +386,20 @@ struct Serializer<::blink::mojom::SpecMediaMetadataDataView, MaybeConstUserType>
         fragment->artwork.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null artwork in SpecMediaMetadata struct");
+    decltype(Traits::chapterInfo(input)) in_chapterInfo = Traits::chapterInfo(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->chapterInfo)::BaseType>
+        chapterInfo_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& chapterInfo_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::media_session::mojom::ChapterInformationDataView>>(
+        in_chapterInfo, chapterInfo_fragment, &chapterInfo_validate_params);
+    fragment->chapterInfo.Set(
+        chapterInfo_fragment.is_null() ? nullptr : chapterInfo_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->chapterInfo.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null chapterInfo in SpecMediaMetadata struct");
   }
 
   static bool Deserialize(::blink::mojom::internal::SpecMediaMetadata_Data* input,
@@ -479,6 +503,11 @@ inline void SpecMediaMetadataDataView::GetArtworkDataView(
     mojo::ArrayDataView<::media_session::mojom::MediaImageDataView>* output) {
   auto pointer = data_->artwork.Get();
   *output = mojo::ArrayDataView<::media_session::mojom::MediaImageDataView>(pointer, message_);
+}
+inline void SpecMediaMetadataDataView::GetChapterInfoDataView(
+    mojo::ArrayDataView<::media_session::mojom::ChapterInformationDataView>* output) {
+  auto pointer = data_->chapterInfo.Get();
+  *output = mojo::ArrayDataView<::media_session::mojom::ChapterInformationDataView>(pointer, message_);
 }
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -97,7 +98,7 @@ uint32_t FileUtilitiesHost::GetFileInfo_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool FileUtilitiesHost::GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_result) {
+bool FileUtilitiesHost::GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_result) {
   NOTREACHED();
   return false;
 }
@@ -105,7 +106,7 @@ class FileUtilitiesHost_GetFileInfo_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   FileUtilitiesHost_GetFileInfo_HandleSyncResponse(
-      bool* result, absl::optional<::base::File::Info>* out_result)
+      bool* result, std::optional<::base::File::Info>* out_result)
       : result_(result), out_result_(out_result) {
     DCHECK(!*result_);
   }
@@ -116,7 +117,7 @@ class FileUtilitiesHost_GetFileInfo_HandleSyncResponse
   bool Accept(mojo::Message* message) override;
  private:
   bool* result_;
-  absl::optional<::base::File::Info>* out_result_;};
+  std::optional<::base::File::Info>* out_result_;};
 
 class FileUtilitiesHost_GetFileInfo_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -138,7 +139,7 @@ FileUtilitiesHostProxy::FileUtilitiesHostProxy(mojo::MessageReceiverWithResponde
     : receiver_(receiver) {
 }
 bool FileUtilitiesHostProxy::GetFileInfo(
-    const ::base::FilePath& param_path, absl::optional<::base::File::Info>* out_param_result) {
+    const ::base::FilePath& param_path, std::optional<::base::File::Info>* out_param_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call blink::mojom::FileUtilitiesHost::GetFileInfo (sync)", "input_parameters",
@@ -151,15 +152,18 @@ bool FileUtilitiesHostProxy::GetFileInfo(
 #else
   TRACE_EVENT0("mojom", "FileUtilitiesHost::GetFileInfo");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileUtilitiesHost_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -196,7 +200,7 @@ bool FileUtilitiesHostProxy::GetFileInfo(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), out_param_result,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   return result;
@@ -214,14 +218,17 @@ void FileUtilitiesHostProxy::GetFileInfo(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileUtilitiesHost_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -296,7 +303,7 @@ class FileUtilitiesHost_GetFileInfo_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<::base::File::Info>& in_result);
+      const std::optional<::base::File::Info>& in_result);
 };
 
 bool FileUtilitiesHost_GetFileInfo_ForwardToCallback::Accept(
@@ -309,7 +316,7 @@ bool FileUtilitiesHost_GetFileInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_result{};
+  std::optional<::base::File::Info> p_result{};
   FileUtilitiesHost_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -328,7 +335,7 @@ std::move(p_result));
 }
 
 void FileUtilitiesHost_GetFileInfo_ProxyToResponder::Run(
-    const absl::optional<::base::File::Info>& in_result) {
+    const std::optional<::base::File::Info>& in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FileUtilitiesHost::GetFileInfo", "async_response_parameters",
@@ -336,13 +343,14 @@ void FileUtilitiesHost_GetFileInfo_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileUtilitiesHost_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -383,7 +391,7 @@ bool FileUtilitiesHost_GetFileInfo_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_result{};
+  std::optional<::base::File::Info> p_result{};
   FileUtilitiesHost_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -453,10 +461,10 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileUtilitiesHostValidationInfo[] = {
-    {&internal::FileUtilitiesHost_GetFileInfo_Params_Data::Validate,
+    { &internal::FileUtilitiesHost_GetFileInfo_Params_Data::Validate,
      &internal::FileUtilitiesHost_GetFileInfo_ResponseParams_Data::Validate},
 };
 
@@ -495,14 +503,14 @@ FileUtilitiesHostAsyncWaiter::FileUtilitiesHostAsyncWaiter(
 FileUtilitiesHostAsyncWaiter::~FileUtilitiesHostAsyncWaiter() = default;
 
 void FileUtilitiesHostAsyncWaiter::GetFileInfo(
-    const ::base::FilePath& path, absl::optional<::base::File::Info>* out_result) {
+    const ::base::FilePath& path, std::optional<::base::File::Info>* out_result) {
   base::RunLoop loop;
   proxy_->GetFileInfo(std::move(path),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::File::Info>* out_result
+             std::optional<::base::File::Info>* out_result
 ,
-             const absl::optional<::base::File::Info>& result) {*out_result = std::move(result);
+             const std::optional<::base::File::Info>& result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -510,9 +518,9 @@ void FileUtilitiesHostAsyncWaiter::GetFileInfo(
   loop.Run();
 }
 
-absl::optional<::base::File::Info> FileUtilitiesHostAsyncWaiter::GetFileInfo(
+std::optional<::base::File::Info> FileUtilitiesHostAsyncWaiter::GetFileInfo(
     const ::base::FilePath& path) {
-  absl::optional<::base::File::Info> async_wait_result;
+  std::optional<::base::File::Info> async_wait_result;
   GetFileInfo(std::move(path),&async_wait_result);
   return async_wait_result;
 }

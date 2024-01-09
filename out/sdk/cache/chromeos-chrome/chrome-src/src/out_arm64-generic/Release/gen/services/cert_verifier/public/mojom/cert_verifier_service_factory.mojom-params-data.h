@@ -29,8 +29,8 @@ class  CertVerifierServiceFactory_GetNewCertVerifier_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Handle_Data receiver;
+  mojo::internal::Handle_Data updater;
   mojo::internal::Interface_Data client;
-  uint8_t pad1_[4];
   mojo::internal::Pointer<internal::CertVerifierCreationParams_Data> creation_params;
 
  private:
@@ -72,6 +72,38 @@ class  CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data {
 };
 static_assert(sizeof(CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data) == 8,
               "Bad sizeof(CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data)");
+class  CertVerifierServiceFactory_UpdateCtLogList_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::CTLogInfo_Data>>> log_list;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> update_time;
+
+ private:
+  friend class mojo::internal::MessageFragment<CertVerifierServiceFactory_UpdateCtLogList_Params_Data>;
+
+  CertVerifierServiceFactory_UpdateCtLogList_Params_Data();
+  ~CertVerifierServiceFactory_UpdateCtLogList_Params_Data() = delete;
+};
+static_assert(sizeof(CertVerifierServiceFactory_UpdateCtLogList_Params_Data) == 24,
+              "Bad sizeof(CertVerifierServiceFactory_UpdateCtLogList_Params_Data)");
+class  CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data>;
+
+  CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data();
+  ~CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data) == 8,
+              "Bad sizeof(CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data)");
 class  CertVerifierServiceFactory_UpdateChromeRootStore_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -158,6 +190,15 @@ class CertVerifierServiceFactory_GetNewCertVerifier_ParamsDataView {
     return result;
   }
   template <typename UserType>
+  UserType TakeUpdater() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::cert_verifier::mojom::CertVerifierServiceUpdaterInterfaceBase>>(
+            &data_->updater, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
   UserType TakeClient() {
     UserType result;
     bool ret =
@@ -230,6 +271,57 @@ class CertVerifierServiceFactory_UpdateCRLSet_ResponseParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView {
+ public:
+  CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView() = default;
+
+  CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView(
+      internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLogListDataView(
+      mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLogList(UserType* output) {
+    
+    auto* pointer = data_->log_list.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetUpdateTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUpdateTime(UserType* output) {
+    
+    auto* pointer = data_->update_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CertVerifierServiceFactory_UpdateCtLogList_ResponseParamsDataView {
+ public:
+  CertVerifierServiceFactory_UpdateCtLogList_ResponseParamsDataView() = default;
+
+  CertVerifierServiceFactory_UpdateCtLogList_ResponseParamsDataView(
+      internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -325,6 +417,20 @@ inline void CertVerifierServiceFactory_UpdateCRLSet_ParamsDataView::GetCrlSetDat
     ::mojo_base::mojom::BigBufferDataView* output) {
   auto pointer = &data_->crl_set;
   *output = ::mojo_base::mojom::BigBufferDataView(pointer, message_);
+}
+
+
+
+
+inline void CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView::GetLogListDataView(
+    mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>* output) {
+  auto pointer = data_->log_list.Get();
+  *output = mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>(pointer, message_);
+}
+inline void CertVerifierServiceFactory_UpdateCtLogList_ParamsDataView::GetUpdateTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->update_time.Get();
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 
 

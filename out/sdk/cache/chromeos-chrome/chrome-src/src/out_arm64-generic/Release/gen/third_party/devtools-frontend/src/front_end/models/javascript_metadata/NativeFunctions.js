@@ -156,7 +156,7 @@ export const NativeFunctions = [
     {
         name: 'set',
         signatures: [['key', 'value']],
-        receivers: ['Map', 'WeakMap', 'CSSToggleMap']
+        receivers: ['Map', 'WeakMap']
     },
     {
         name: 'set',
@@ -501,7 +501,7 @@ export const NativeFunctions = [
     {
         name: 'log',
         signatures: [['x']],
-        receivers: ['Math']
+        receivers: ['Math', 'MLGraphBuilder']
     },
     {
         name: 'log',
@@ -530,7 +530,13 @@ export const NativeFunctions = [
     },
     {
         name: 'pow',
-        signatures: [['x', 'y']]
+        signatures: [['x', 'y']],
+        receivers: ['Math']
+    },
+    {
+        name: 'pow',
+        signatures: [['a', 'b']],
+        receivers: ['MLGraphBuilder']
     },
     {
         name: 'round',
@@ -643,7 +649,7 @@ export const NativeFunctions = [
     },
     {
         name: 'UTC',
-        signatures: [['year', 'monthIndex', '?date', '?hours', '?minutes', '?seconds', '?ms']]
+        signatures: [['year', '?monthIndex', '?date', '?hours', '?minutes', '?seconds', '?ms']]
     },
     {
         name: 'exec',
@@ -804,7 +810,7 @@ export const NativeFunctions = [
     },
     {
         name: 'copyWithin',
-        signatures: [['target', '?start', '?end']]
+        signatures: [['target', 'start', '?end']]
     },
     {
         name: 'fill',
@@ -923,7 +929,7 @@ export const NativeFunctions = [
     {
         name: 'cancel',
         signatures: [['?reason']],
-        receivers: ['ReadableStream', 'ReadableStreamBYOBReader', 'ReadableStreamDefaultReader', 'UnderlyingSourceBase']
+        receivers: ['ReadableStream', 'ReadableStreamBYOBReader', 'ReadableStreamDefaultReader']
     },
     {
         name: 'finish',
@@ -985,11 +991,6 @@ export const NativeFunctions = [
     },
     {
         name: 'start',
-        signatures: [['stream']],
-        receivers: ['UnderlyingSourceBase']
-    },
-    {
-        name: 'start',
         signatures: [['?options']],
         receivers: ['IdleDetector']
     },
@@ -1006,7 +1007,7 @@ export const NativeFunctions = [
     {
         name: 'close',
         signatures: [['?closeInfo']],
-        receivers: ['WebSocketStream', 'WebTransport']
+        receivers: ['WebTransport', 'WebSocketStream']
     },
     {
         name: 'createMediaElementSource',
@@ -1157,14 +1158,9 @@ export const NativeFunctions = [
         receivers: ['Window']
     },
     {
-        name: 'postMessage',
-        signatures: [['message', '?options']],
-        receivers: ['HTMLPortalElement', 'PortalHost']
-    },
-    {
         name: 'deleteRule',
         signatures: [['index']],
-        receivers: ['CSSGroupingRule', 'CSSStyleSheet', 'CSSStyleRule']
+        receivers: ['CSSGroupingRule', 'CSSStyleRule', 'CSSStyleSheet']
     },
     {
         name: 'deleteRule',
@@ -2088,7 +2084,7 @@ export const NativeFunctions = [
     {
         name: 'supports',
         signatures: [['type']],
-        receivers: ['HTMLScriptElement']
+        receivers: ['HTMLScriptElement', 'ClipboardItem']
     },
     {
         name: 'toggle',
@@ -2235,6 +2231,10 @@ export const NativeFunctions = [
     {
         name: 'queryCommandValue',
         signatures: [['commandId']]
+    },
+    {
+        name: 'requestStorageAccess',
+        signatures: [['?types']]
     },
     {
         name: 'writeln',
@@ -2669,6 +2669,10 @@ export const NativeFunctions = [
         receivers: ['PaymentRequest']
     },
     {
+        name: 'togglePopover',
+        signatures: [['?force']]
+    },
+    {
         name: 'requestSubmit',
         signatures: [['?submitter']]
     },
@@ -2685,7 +2689,7 @@ export const NativeFunctions = [
     {
         name: 'decode',
         signatures: [['chunk']],
-        receivers: ['VideoDecoder']
+        receivers: ['VideoDecoder', 'AudioDecoder']
     },
     {
         name: 'decode',
@@ -2919,6 +2923,11 @@ export const NativeFunctions = [
         signatures: [['bitmap']]
     },
     {
+        name: 'getCapabilities',
+        signatures: [['kind']],
+        receivers: ['RTCRtpReceiver', 'RTCRtpSender']
+    },
+    {
         name: 'observe',
         signatures: [['target']],
         receivers: ['IntersectionObserver']
@@ -3095,6 +3104,11 @@ export const NativeFunctions = [
         receivers: ['RTCPeerConnection']
     },
     {
+        name: 'clone',
+        signatures: [['?options']],
+        receivers: ['DocumentPartRoot', 'ChildNodePart']
+    },
+    {
         name: 'getTrackById',
         signatures: [['trackId']],
         receivers: ['MediaStream']
@@ -3117,11 +3131,6 @@ export const NativeFunctions = [
     {
         name: 'applyConstraints',
         signatures: [['?constraints']]
-    },
-    {
-        name: 'getCapabilities',
-        signatures: [['kind']],
-        receivers: ['RTCRtpReceiver', 'RTCRtpSender']
     },
     {
         name: 'initMessageEvent',
@@ -3420,6 +3429,11 @@ export const NativeFunctions = [
     },
     {
         name: 'subscribe',
+        signatures: [['?observer', '?options']],
+        receivers: ['Observable']
+    },
+    {
+        name: 'subscribe',
         signatures: [['subscriptions']],
         receivers: ['CookieStoreManager']
     },
@@ -3584,6 +3598,11 @@ export const NativeFunctions = [
         name: 'error',
         signatures: [['...data']],
         receivers: ['Console', 'console']
+    },
+    {
+        name: 'error',
+        signatures: [['error']],
+        receivers: ['Subscriber']
     },
     {
         name: 'getReader',
@@ -3791,16 +3810,6 @@ export const NativeFunctions = [
         signatures: [['tx', 'ty']]
     },
     {
-        name: 'lock',
-        signatures: [['orientation']],
-        receivers: ['ScreenOrientation']
-    },
-    {
-        name: 'lock',
-        signatures: [['?keyCodes']],
-        receivers: ['Keyboard']
-    },
-    {
         name: 'addRange',
         signatures: [['range']]
     },
@@ -3981,6 +3990,11 @@ export const NativeFunctions = [
         receivers: ['VideoEncoder']
     },
     {
+        name: 'encode',
+        signatures: [['data']],
+        receivers: ['AudioEncoder']
+    },
+    {
         name: 'encodeInto',
         signatures: [['source', 'destination']]
     },
@@ -4008,7 +4022,7 @@ export const NativeFunctions = [
     {
         name: 'configure',
         signatures: [['config']],
-        receivers: ['VideoDecoder', 'VideoEncoder']
+        receivers: ['VideoDecoder', 'VideoEncoder', 'AudioDecoder', 'AudioEncoder']
     },
     {
         name: 'configure',
@@ -5101,6 +5115,14 @@ export const NativeFunctions = [
         signatures: [['x', 'y', 'width', 'height']]
     },
     {
+        name: 'createBidirectionalStream',
+        signatures: [['?options']]
+    },
+    {
+        name: 'createUnidirectionalStream',
+        signatures: [['?options']]
+    },
+    {
         name: 'alert',
         signatures: [['?message']]
     },
@@ -5380,6 +5402,11 @@ export const NativeFunctions = [
         receivers: ['Generator', 'Iterator', 'AsyncIterator', 'AsyncGenerator']
     },
     {
+        name: 'next',
+        signatures: [['result']],
+        receivers: ['Subscriber']
+    },
+    {
         name: 'return',
         signatures: [['value']],
         receivers: ['Generator', 'AsyncGenerator']
@@ -5541,6 +5568,35 @@ export const NativeFunctions = [
     {
         name: 'at',
         signatures: [['index']]
+    },
+    {
+        name: 'use',
+        signatures: [['value']]
+    },
+    {
+        name: 'adopt',
+        signatures: [['value', 'onDispose']],
+        receivers: ['DisposableStack']
+    },
+    {
+        name: 'adopt',
+        signatures: [['value', 'onDisposeAsync']],
+        receivers: ['AsyncDisposableStack']
+    },
+    {
+        name: 'defer',
+        signatures: [['onDispose']],
+        receivers: ['DisposableStack']
+    },
+    {
+        name: 'defer',
+        signatures: [['onDisposeAsync']],
+        receivers: ['AsyncDisposableStack']
+    },
+    {
+        name: 'move',
+        signatures: [['new_entry_name'], ['destination_directory', '?new_entry_name']],
+        receivers: ['FileSystemFileHandle', 'FileSystemHandle']
     },
     {
         name: 'addInitializer',
@@ -5715,6 +5771,18 @@ export const NativeFunctions = [
     {
         name: 'findLastIndex',
         signatures: [['predicate', '?thisArg']]
+    },
+    {
+        name: 'toSorted',
+        signatures: [['?compareFn']]
+    },
+    {
+        name: 'toSpliced',
+        signatures: [['start', '?deleteCount', '...items']]
+    },
+    {
+        name: 'with',
+        signatures: [['index', 'value']]
     },
     {
         name: 'openWindow',
@@ -6217,6 +6285,10 @@ export const NativeFunctions = [
         signatures: [['milliseconds']]
     },
     {
+        name: 'AttributePart',
+        signatures: [['root', 'element', 'localName', 'automatic', '?init']]
+    },
+    {
         name: 'ChildNodePart',
         signatures: [['root', 'previousSibling', 'nextSibling', '?init']]
     },
@@ -6225,12 +6297,8 @@ export const NativeFunctions = [
         signatures: [['?data']]
     },
     {
-        name: 'CSSToggleEvent',
-        signatures: [['type', '?eventInitDict']]
-    },
-    {
-        name: 'CSSToggle',
-        signatures: [['?options']]
+        name: 'parseHTMLUnsafe',
+        signatures: [['html']]
     },
     {
         name: 'requestStorageAccessFor',
@@ -6257,6 +6325,10 @@ export const NativeFunctions = [
         signatures: [['?message', '?name']]
     },
     {
+        name: 'setHTMLUnsafe',
+        signatures: [['html']]
+    },
+    {
         name: 'getInnerHTML',
         signatures: [['?options']]
     },
@@ -6281,20 +6353,30 @@ export const NativeFunctions = [
         signatures: [['root', 'node', '?init']]
     },
     {
-        name: 'setApplyScroll',
-        signatures: [['scrollStateCallback', 'nativeScrollBehavior']]
+        name: 'Observable',
+        signatures: [['callback']]
     },
     {
-        name: 'setDistributeScroll',
-        signatures: [['scrollStateCallback', 'nativeScrollBehavior']]
+        name: 'getPartNode',
+        signatures: [['index']]
     },
     {
         name: 'expand',
-        signatures: [['?unit']]
+        signatures: [['?unit']],
+        receivers: ['Range']
+    },
+    {
+        name: 'expand',
+        signatures: [['input', 'newShape']],
+        receivers: ['MLGraphBuilder']
     },
     {
         name: 'StaticRange',
         signatures: [['init']]
+    },
+    {
+        name: 'addTeardown',
+        signatures: [['teardown']]
     },
     {
         name: 'Text',
@@ -6374,6 +6456,10 @@ export const NativeFunctions = [
     },
     {
         name: 'InputEvent',
+        signatures: [['type', '?eventInitDict']]
+    },
+    {
+        name: 'InvokeEvent',
         signatures: [['type', '?eventInitDict']]
     },
     {
@@ -6470,7 +6556,13 @@ export const NativeFunctions = [
     },
     {
         name: 'createObjectURL',
-        signatures: [['blob'], ['source']]
+        signatures: [['blob'], ['source']],
+        receivers: ['URL']
+    },
+    {
+        name: 'createObjectURL',
+        signatures: [['blob']],
+        receivers: ['StorageAccessHandle']
     },
     {
         name: 'revokeObjectURL',
@@ -6507,6 +6599,10 @@ export const NativeFunctions = [
     {
         name: 'isInputPending',
         signatures: [['?options']]
+    },
+    {
+        name: 'setResizable',
+        signatures: [['resizable']]
     },
     {
         name: 'getComputedAccessibleNode',
@@ -6626,18 +6722,6 @@ export const NativeFunctions = [
     },
     {
         name: 'SubmitEvent',
-        signatures: [['type', '?eventInitDict']]
-    },
-    {
-        name: 'togglePopover',
-        signatures: [['?force']]
-    },
-    {
-        name: 'activate',
-        signatures: [['?options']]
-    },
-    {
-        name: 'PortalActivateEvent',
         signatures: [['type', '?eventInitDict']]
     },
     {
@@ -6785,20 +6869,16 @@ export const NativeFunctions = [
         signatures: [['options_bounds']]
     },
     {
-        name: 'ScrollState',
-        signatures: [['?scrollStateInit']]
-    },
-    {
-        name: 'consumeDelta',
-        signatures: [['x', 'y']]
-    },
-    {
         name: 'allowsFeature',
         signatures: [['feature', '?origin']]
     },
     {
         name: 'getAllowlistForFeature',
         signatures: [['feature']]
+    },
+    {
+        name: 'requestOverride',
+        signatures: [['value']]
     },
     {
         name: 'ResizeObserver',
@@ -6905,8 +6985,12 @@ export const NativeFunctions = [
         signatures: [['url', '?base']]
     },
     {
+        name: 'canParse',
+        signatures: [['url', '?base']]
+    },
+    {
         name: 'startViewTransition',
-        signatures: [['?callback']]
+        signatures: [['?update'], ['opts']]
     },
     {
         name: 'SharedWorker',
@@ -7096,8 +7180,16 @@ export const NativeFunctions = [
         signatures: [['type', 'init']]
     },
     {
+        name: 'requestIdentity',
+        signatures: [['options']]
+    },
+    {
         name: 'FederatedCredential',
         signatures: [['data']]
+    },
+    {
+        name: 'IdentityCredentialError',
+        signatures: [['?message', '?options']]
     },
     {
         name: 'getUserInfo',
@@ -7182,16 +7274,8 @@ export const NativeFunctions = [
         signatures: [['policy']]
     },
     {
-        name: 'getEnvironmentIntegrity',
-        signatures: [['contentBinding']]
-    },
-    {
         name: 'EventSource',
         signatures: [['url', '?eventSourceInitDict']]
-    },
-    {
-        name: 'move',
-        signatures: [['new_entry_name'], ['destination_directory', '?new_entry_name']]
     },
     {
         name: 'queryPermission',
@@ -7346,6 +7430,16 @@ export const NativeFunctions = [
         signatures: [['type', '?eventInitDict']]
     },
     {
+        name: 'lock',
+        signatures: [['?keyCodes']],
+        receivers: ['Keyboard']
+    },
+    {
+        name: 'lock',
+        signatures: [['orientation']],
+        receivers: ['ScreenOrientation']
+    },
+    {
         name: 'setConsumer',
         signatures: [['consumer']]
     },
@@ -7390,8 +7484,8 @@ export const NativeFunctions = [
         signatures: [['crop_id']]
     },
     {
-        name: 'setFocusBehavior',
-        signatures: [['focusBehavior']]
+        name: 'restrictTo',
+        signatures: [['target']]
     },
     {
         name: 'CapturedMouseEvent',
@@ -7464,6 +7558,10 @@ export const NativeFunctions = [
         signatures: [['desc', 'bufferView']]
     },
     {
+        name: 'batchNormalization',
+        signatures: [['input', 'mean', 'variance', '?options']]
+    },
+    {
         name: 'clamp',
         signatures: [['?options'], ['input', '?options']]
     },
@@ -7476,12 +7574,48 @@ export const NativeFunctions = [
         signatures: [['input', 'filter', '?options']]
     },
     {
+        name: 'equal',
+        signatures: [['a', 'b']]
+    },
+    {
+        name: 'greater',
+        signatures: [['a', 'b']]
+    },
+    {
+        name: 'lesser',
+        signatures: [['a', 'b']]
+    },
+    {
         name: 'neg',
         signatures: [['x']]
     },
     {
+        name: 'erf',
+        signatures: [['x']]
+    },
+    {
+        name: 'identity',
+        signatures: [['x']]
+    },
+    {
+        name: 'logicalNot',
+        signatures: [['x']]
+    },
+    {
+        name: 'reciprocal',
+        signatures: [['x']]
+    },
+    {
+        name: 'cast',
+        signatures: [['input', 'outputDataType']]
+    },
+    {
         name: 'elu',
         signatures: [['?options'], ['x', '?options']]
+    },
+    {
+        name: 'gather',
+        signatures: [['input', 'indices', '?options']]
     },
     {
         name: 'gemm',
@@ -7492,8 +7626,20 @@ export const NativeFunctions = [
         signatures: [['?x']]
     },
     {
+        name: 'matmul',
+        signatures: [['a', 'b']]
+    },
+    {
+        name: 'layerNormalization',
+        signatures: [['input', '?options']]
+    },
+    {
         name: 'leakyRelu',
         signatures: [['?options'], ['x', '?options']]
+    },
+    {
+        name: 'linear',
+        signatures: [['?options'], ['input', '?options']]
     },
     {
         name: 'pad',
@@ -7512,11 +7658,43 @@ export const NativeFunctions = [
         signatures: [['x', 'slope']]
     },
     {
-        name: 'reduceSum',
+        name: 'reduceL1',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceL2',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceLogSum',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceLogSumExp',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceMax',
         signatures: [['input', '?options']]
     },
     {
         name: 'reduceMean',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceMin',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceProduct',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceSum',
+        signatures: [['input', '?options']]
+    },
+    {
+        name: 'reduceSumSquare',
         signatures: [['input', '?options']]
     },
     {
@@ -7536,12 +7714,20 @@ export const NativeFunctions = [
         signatures: [['?input']]
     },
     {
+        name: 'softmax',
+        signatures: [['?input']]
+    },
+    {
+        name: 'softsign',
+        signatures: [['?input']]
+    },
+    {
         name: 'transpose',
         signatures: [['input', '?options']]
     },
     {
-        name: 'softmax',
-        signatures: [['input']]
+        name: 'where',
+        signatures: [['condition', 'true_value', 'false_value']]
     },
     {
         name: 'build',
@@ -7744,6 +7930,10 @@ export const NativeFunctions = [
         signatures: [['id']]
     },
     {
+        name: 'printJob',
+        signatures: [['job_name', 'document', 'attributes']]
+    },
+    {
         name: 'getEncryptedMatchKey',
         signatures: [['reportCollector', 'options']]
     },
@@ -7866,6 +8056,10 @@ export const NativeFunctions = [
     {
         name: 'InstallEvent',
         signatures: [['type', '?eventInitDict']]
+    },
+    {
+        name: 'addRoutes',
+        signatures: [['rules']]
     },
     {
         name: 'registerRouter',
@@ -8056,6 +8250,18 @@ export const NativeFunctions = [
         signatures: [['init']]
     },
     {
+        name: 'AudioDecoder',
+        signatures: [['init']]
+    },
+    {
+        name: 'isConfigSupported',
+        signatures: [['config']]
+    },
+    {
+        name: 'AudioEncoder',
+        signatures: [['init']]
+    },
+    {
         name: 'EncodedAudioChunk',
         signatures: [['init']]
     },
@@ -8070,6 +8276,14 @@ export const NativeFunctions = [
     {
         name: 'VideoColorSpace',
         signatures: [['?init']]
+    },
+    {
+        name: 'VideoDecoder',
+        signatures: [['init']]
+    },
+    {
+        name: 'VideoEncoder',
+        signatures: [['init']]
     },
     {
         name: 'VideoFrame',
@@ -8186,18 +8400,6 @@ export const NativeFunctions = [
     {
         name: 'getFramebufferPixelLocalStorageParameterWEBGL',
         signatures: [['plane', 'pname']]
-    },
-    {
-        name: 'shareVideoImageWEBGL',
-        signatures: [['target', 'video']]
-    },
-    {
-        name: 'releaseVideoImageWEBGL',
-        signatures: [['target']]
-    },
-    {
-        name: 'requestAdapterInfo',
-        signatures: [['?unmaskHints']]
     },
     {
         name: 'mapAsync',

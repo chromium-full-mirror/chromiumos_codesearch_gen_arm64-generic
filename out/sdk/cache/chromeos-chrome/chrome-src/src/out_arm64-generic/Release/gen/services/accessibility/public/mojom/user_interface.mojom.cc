@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,11 +56,11 @@ FocusRingInfo::FocusRingInfo()
 FocusRingInfo::FocusRingInfo(
     std::vector<::gfx::Rect> rects_in,
     FocusType type_in,
-    absl::optional<::SkColor> color_in,
-    absl::optional<::SkColor> secondary_color_in,
-    absl::optional<::SkColor> background_color_in,
-    absl::optional<FocusRingStackingOrder> stacking_order_in,
-    const absl::optional<std::string>& id_in)
+    std::optional<::SkColor> color_in,
+    std::optional<::SkColor> secondary_color_in,
+    std::optional<::SkColor> background_color_in,
+    std::optional<FocusRingStackingOrder> stacking_order_in,
+    const std::optional<std::string>& id_in)
     : rects(std::move(rects_in)),
       type(std::move(type_in)),
       color(std::move(color_in)),
@@ -95,7 +96,7 @@ void FocusRingInfo::WriteIntoTrace(
     dict.AddItem(
       "color"), this->color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -104,7 +105,7 @@ void FocusRingInfo::WriteIntoTrace(
     dict.AddItem(
       "secondary_color"), this->secondary_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,7 +114,7 @@ void FocusRingInfo::WriteIntoTrace(
     dict.AddItem(
       "background_color"), this->background_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -122,7 +123,7 @@ void FocusRingInfo::WriteIntoTrace(
     dict.AddItem(
       "stacking_order"), this->stacking_order,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<FocusRingStackingOrder>>"
+      "<value of type std::optional<FocusRingStackingOrder>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -131,7 +132,7 @@ void FocusRingInfo::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -153,6 +154,9 @@ UserInterface::IPCStableHashFunction UserInterface::MessageToMethodInfo_(mojo::M
     }
     case internal::kUserInterface_OpenSettingsSubpage_Name: {
       return &UserInterface::OpenSettingsSubpage_Sym::IPCStableHash;
+    }
+    case internal::kUserInterface_ShowConfirmationDialog_Name: {
+      return &UserInterface::ShowConfirmationDialog_Sym::IPCStableHash;
     }
     case internal::kUserInterface_SetFocusRings_Name: {
       return &UserInterface::SetFocusRings_Sym::IPCStableHash;
@@ -178,6 +182,8 @@ const char* UserInterface::MessageToMethodName_(mojo::Message& message) {
             return "Receive ax::mojom::UserInterface::DarkenScreen";
       case internal::kUserInterface_OpenSettingsSubpage_Name:
             return "Receive ax::mojom::UserInterface::OpenSettingsSubpage";
+      case internal::kUserInterface_ShowConfirmationDialog_Name:
+            return "Receive ax::mojom::UserInterface::ShowConfirmationDialog";
       case internal::kUserInterface_SetFocusRings_Name:
             return "Receive ax::mojom::UserInterface::SetFocusRings";
       case internal::kUserInterface_SetHighlights_Name:
@@ -191,6 +197,8 @@ const char* UserInterface::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ax::mojom::UserInterface::DarkenScreen";
       case internal::kUserInterface_OpenSettingsSubpage_Name:
             return "Receive reply ax::mojom::UserInterface::OpenSettingsSubpage";
+      case internal::kUserInterface_ShowConfirmationDialog_Name:
+            return "Receive reply ax::mojom::UserInterface::ShowConfirmationDialog";
       case internal::kUserInterface_SetFocusRings_Name:
             return "Receive reply ax::mojom::UserInterface::SetFocusRings";
       case internal::kUserInterface_SetHighlights_Name:
@@ -237,6 +245,19 @@ uint32_t UserInterface::OpenSettingsSubpage_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t UserInterface::ShowConfirmationDialog_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ax::mojom::UserInterface::ShowConfirmationDialog");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t UserInterface::SetFocusRings_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -278,6 +299,22 @@ uint32_t UserInterface::SetVirtualKeyboardVisible_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+class UserInterface_ShowConfirmationDialog_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  UserInterface_ShowConfirmationDialog_ForwardToCallback(
+      UserInterface::ShowConfirmationDialogCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  UserInterface_ShowConfirmationDialog_ForwardToCallback(const UserInterface_ShowConfirmationDialog_ForwardToCallback&) = delete;
+  UserInterface_ShowConfirmationDialog_ForwardToCallback& operator=(const UserInterface_ShowConfirmationDialog_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  UserInterface::ShowConfirmationDialogCallback callback_;
+};
+
 UserInterfaceProxy::UserInterfaceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -294,14 +331,17 @@ void UserInterfaceProxy::DarkenScreen(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserInterface_DarkenScreen_Name, kFlags, 0, 0, nullptr);
@@ -332,14 +372,17 @@ void UserInterfaceProxy::OpenSettingsSubpage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserInterface_OpenSettingsSubpage_Name, kFlags, 0, 0, nullptr);
@@ -368,6 +411,82 @@ void UserInterfaceProxy::OpenSettingsSubpage(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void UserInterfaceProxy::ShowConfirmationDialog(
+    const std::string& in_title, const std::string& in_description, const std::optional<std::string>& in_cancelName, ShowConfirmationDialogCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ax::mojom::UserInterface::ShowConfirmationDialog", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("title"), in_title,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("description"), in_description,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cancelName"), in_cancelName,
+                        "<value of type const std::optional<std::string>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserInterface_ShowConfirmationDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::UserInterface_ShowConfirmationDialog_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->title)::BaseType> title_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_title, title_fragment);
+  params->title.Set(
+      title_fragment.is_null() ? nullptr : title_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->title.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null title in UserInterface.ShowConfirmationDialog request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->description)::BaseType> description_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_description, description_fragment);
+  params->description.Set(
+      description_fragment.is_null() ? nullptr : description_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->description.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null description in UserInterface.ShowConfirmationDialog request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->cancelName)::BaseType> cancelName_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_cancelName, cancelName_fragment);
+  params->cancelName.Set(
+      cancelName_fragment.is_null() ? nullptr : cancelName_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserInterface::Name_);
+  message.set_method_name("ShowConfirmationDialog");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new UserInterface_ShowConfirmationDialog_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void UserInterfaceProxy::SetFocusRings(
     std::vector<FocusRingInfoPtr> in_focus_rings, ::ax::mojom::AssistiveTechnologyType in_at_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -383,14 +502,17 @@ void UserInterfaceProxy::SetFocusRings(
                         "<value of type ::ax::mojom::AssistiveTechnologyType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserInterface_SetFocusRings_Name, kFlags, 0, 0, nullptr);
@@ -438,14 +560,17 @@ void UserInterfaceProxy::SetHighlights(
                         "<value of type ::SkColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserInterface_SetHighlights_Name, kFlags, 0, 0, nullptr);
@@ -499,14 +624,17 @@ void UserInterfaceProxy::SetVirtualKeyboardVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserInterface_SetVirtualKeyboardVisible_Name, kFlags, 0, 0, nullptr);
@@ -523,6 +651,125 @@ void UserInterfaceProxy::SetVirtualKeyboardVisible(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+class UserInterface_ShowConfirmationDialog_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static UserInterface::ShowConfirmationDialogCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<UserInterface_ShowConfirmationDialog_ProxyToResponder> proxy(
+        new UserInterface_ShowConfirmationDialog_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&UserInterface_ShowConfirmationDialog_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~UserInterface_ShowConfirmationDialog_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  UserInterface_ShowConfirmationDialog_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "UserInterface::ShowConfirmationDialogCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_confirmed);
+};
+
+bool UserInterface_ShowConfirmationDialog_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_confirmed{};
+  UserInterface_ShowConfirmationDialog_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_confirmed = input_data_view.confirmed();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        UserInterface::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_confirmed));
+  return true;
+}
+
+void UserInterface_ShowConfirmationDialog_ProxyToResponder::Run(
+    bool in_confirmed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ax::mojom::UserInterface::ShowConfirmationDialog", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("confirmed"), in_confirmed,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserInterface_ShowConfirmationDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->confirmed = in_confirmed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserInterface::Name_);
+  message.set_method_name("ShowConfirmationDialog");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -582,6 +829,9 @@ std::move(p_darken));
 std::move(p_subpage));
       return true;
     }
+    case internal::kUserInterface_ShowConfirmationDialog_Name: {
+      break;
+    }
     case internal::kUserInterface_SetFocusRings_Name: {
 
       DCHECK(message->is_serialized());
@@ -602,7 +852,7 @@ std::move(p_subpage));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UserInterface::Name_, 2, false);
+            UserInterface::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -632,7 +882,7 @@ std::move(p_at_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UserInterface::Name_, 3, false);
+            UserInterface::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -659,7 +909,7 @@ std::move(p_color));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UserInterface::Name_, 4, false);
+            UserInterface::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -687,6 +937,43 @@ bool UserInterfaceStubDispatch::AcceptWithResponder(
     case internal::kUserInterface_OpenSettingsSubpage_Name: {
       break;
     }
+    case internal::kUserInterface_ShowConfirmationDialog_Name: {
+
+      internal::UserInterface_ShowConfirmationDialog_Params_Data* params =
+          reinterpret_cast<
+              internal::UserInterface_ShowConfirmationDialog_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_title{};
+      std::string p_description{};
+      std::optional<std::string> p_cancelName{};
+      UserInterface_ShowConfirmationDialog_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadTitle(&p_title))
+        success = false;
+      if (success && !input_data_view.ReadDescription(&p_description))
+        success = false;
+      if (success && !input_data_view.ReadCancelName(&p_cancelName))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UserInterface::Name_, 2, false);
+        return false;
+      }
+      UserInterface::ShowConfirmationDialogCallback callback =
+          UserInterface_ShowConfirmationDialog_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShowConfirmationDialog(
+std::move(p_title), 
+std::move(p_description), 
+std::move(p_cancelName), std::move(callback));
+      return true;
+    }
     case internal::kUserInterface_SetFocusRings_Name: {
       break;
     }
@@ -699,18 +986,20 @@ bool UserInterfaceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserInterfaceValidationInfo[] = {
-    {&internal::UserInterface_DarkenScreen_Params_Data::Validate,
+    { &internal::UserInterface_DarkenScreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserInterface_OpenSettingsSubpage_Params_Data::Validate,
+    { &internal::UserInterface_OpenSettingsSubpage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserInterface_SetFocusRings_Params_Data::Validate,
+    { &internal::UserInterface_ShowConfirmationDialog_Params_Data::Validate,
+     &internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data::Validate},
+    { &internal::UserInterface_SetFocusRings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserInterface_SetHighlights_Params_Data::Validate,
+    { &internal::UserInterface_SetHighlights_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserInterface_SetVirtualKeyboardVisible_Params_Data::Validate,
+    { &internal::UserInterface_SetVirtualKeyboardVisible_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -719,6 +1008,10 @@ bool UserInterfaceRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kUserInterfaceValidationInfo);
 }
 
+bool UserInterfaceResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ax::mojom::UserInterface::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kUserInterfaceValidationInfo);
+}
 
 
 }  // ax::mojom
@@ -769,6 +1062,9 @@ void UserInterfaceInterceptorForTesting::DarkenScreen(bool darken) {
 void UserInterfaceInterceptorForTesting::OpenSettingsSubpage(const std::string& subpage) {
   GetForwardingInterface()->OpenSettingsSubpage(std::move(subpage));
 }
+void UserInterfaceInterceptorForTesting::ShowConfirmationDialog(const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, ShowConfirmationDialogCallback callback) {
+  GetForwardingInterface()->ShowConfirmationDialog(std::move(title), std::move(description), std::move(cancelName), std::move(callback));
+}
 void UserInterfaceInterceptorForTesting::SetFocusRings(std::vector<FocusRingInfoPtr> focus_rings, ::ax::mojom::AssistiveTechnologyType at_type) {
   GetForwardingInterface()->SetFocusRings(std::move(focus_rings), std::move(at_type));
 }
@@ -782,6 +1078,29 @@ UserInterfaceAsyncWaiter::UserInterfaceAsyncWaiter(
     UserInterface* proxy) : proxy_(proxy) {}
 
 UserInterfaceAsyncWaiter::~UserInterfaceAsyncWaiter() = default;
+
+void UserInterfaceAsyncWaiter::ShowConfirmationDialog(
+    const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, bool* out_confirmed) {
+  base::RunLoop loop;
+  proxy_->ShowConfirmationDialog(std::move(title),std::move(description),std::move(cancelName),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_confirmed
+,
+             bool confirmed) {*out_confirmed = std::move(confirmed);
+            loop->Quit();
+          },
+          &loop,
+          out_confirmed));
+  loop.Run();
+}
+
+bool UserInterfaceAsyncWaiter::ShowConfirmationDialog(
+    const std::string& title, const std::string& description, const std::optional<std::string>& cancelName) {
+  bool async_wait_result;
+  ShowConfirmationDialog(std::move(title),std::move(description),std::move(cancelName),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

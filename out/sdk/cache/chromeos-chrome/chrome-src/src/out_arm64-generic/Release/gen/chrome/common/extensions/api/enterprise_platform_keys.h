@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct Token {
   ~Token();
   Token(const Token&) = delete;
   Token& operator=(const Token&) = delete;
-  Token(Token&& rhs);
-  Token& operator=(Token&& rhs);
+  Token(Token&& rhs) noexcept;
+  Token& operator=(Token&& rhs) noexcept;
 
   // Populates a Token object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,14 +49,11 @@ struct Token {
   // Creates a deep copy of Token.
   Token Clone() const;
 
-  // Creates a Token object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Token> FromValueDeprecated(const base::Value& value);
-
   // Creates a Token object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Token> FromValue(const base::Value::Dict& value);
+  static std::optional<Token> FromValue(const base::Value::Dict& value);
 
   // Creates a Token object from a base::Value, or nullopt on failure.
-  static absl::optional<Token> FromValue(const base::Value& value);
+  static std::optional<Token> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisToken object.
@@ -64,11 +62,11 @@ struct Token {
 };
 
 // Whether to use the Enterprise User Key or the Enterprise Machine Key.
-enum  Scope {
-  SCOPE_NONE = 0,
-  SCOPE_USER,
-  SCOPE_MACHINE,
-  SCOPE_LAST = SCOPE_MACHINE,
+enum class Scope {
+  kNone = 0,
+  kUser,
+  kMachine,
+  kMaxValue = kMachine,
 };
 
 
@@ -77,11 +75,11 @@ Scope ParseScope(base::StringPiece as_string);
 std::u16string GetScopeParseError(base::StringPiece as_string);
 
 // Type of key to generate.
-enum  Algorithm {
-  ALGORITHM_NONE = 0,
-  ALGORITHM_RSA,
-  ALGORITHM_ECDSA,
-  ALGORITHM_LAST = ALGORITHM_ECDSA,
+enum class Algorithm {
+  kNone = 0,
+  kRsa,
+  kEcdsa,
+  kMaxValue = kEcdsa,
 };
 
 
@@ -94,8 +92,8 @@ struct RegisterKeyOptions {
   ~RegisterKeyOptions();
   RegisterKeyOptions(const RegisterKeyOptions&) = delete;
   RegisterKeyOptions& operator=(const RegisterKeyOptions&) = delete;
-  RegisterKeyOptions(RegisterKeyOptions&& rhs);
-  RegisterKeyOptions& operator=(RegisterKeyOptions&& rhs);
+  RegisterKeyOptions(RegisterKeyOptions&& rhs) noexcept;
+  RegisterKeyOptions& operator=(RegisterKeyOptions&& rhs) noexcept;
 
   // Populates a RegisterKeyOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -108,16 +106,13 @@ struct RegisterKeyOptions {
   // Creates a deep copy of RegisterKeyOptions.
   RegisterKeyOptions Clone() const;
 
-  // Creates a RegisterKeyOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RegisterKeyOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RegisterKeyOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RegisterKeyOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RegisterKeyOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RegisterKeyOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RegisterKeyOptions> FromValue(const base::Value& value);
+  static std::optional<RegisterKeyOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRegisterKeyOptions object.
@@ -133,8 +128,8 @@ struct ChallengeKeyOptions {
   ~ChallengeKeyOptions();
   ChallengeKeyOptions(const ChallengeKeyOptions&) = delete;
   ChallengeKeyOptions& operator=(const ChallengeKeyOptions&) = delete;
-  ChallengeKeyOptions(ChallengeKeyOptions&& rhs);
-  ChallengeKeyOptions& operator=(ChallengeKeyOptions&& rhs);
+  ChallengeKeyOptions(ChallengeKeyOptions&& rhs) noexcept;
+  ChallengeKeyOptions& operator=(ChallengeKeyOptions&& rhs) noexcept;
 
   // Populates a ChallengeKeyOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -147,17 +142,13 @@ struct ChallengeKeyOptions {
   // Creates a deep copy of ChallengeKeyOptions.
   ChallengeKeyOptions Clone() const;
 
-  // Creates a ChallengeKeyOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ChallengeKeyOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ChallengeKeyOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ChallengeKeyOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ChallengeKeyOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ChallengeKeyOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ChallengeKeyOptions> FromValue(const base::Value& value);
+  static std::optional<ChallengeKeyOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChallengeKeyOptions object.
@@ -171,7 +162,7 @@ struct ChallengeKeyOptions {
   // certificate and used like any other signing key.  Subsequent calls to this
   // function will then generate a new Enterprise Key in the specified
   // <code>scope</code>.
-  absl::optional<RegisterKeyOptions> register_key;
+  std::optional<RegisterKeyOptions> register_key;
 
   // Which Enterprise Key to challenge.
   Scope scope;
@@ -186,11 +177,11 @@ struct ChallengeKeyOptions {
 namespace GetCertificates {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of a Token returned by <code>getTokens</code>.
@@ -212,11 +203,11 @@ base::Value::List Create(const std::vector<std::vector<uint8_t>>& certificates);
 namespace ImportCertificate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of a Token returned by <code>getTokens</code>.
@@ -240,11 +231,11 @@ base::Value::List Create();
 namespace RemoveCertificate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of a Token returned by <code>getTokens</code>.
@@ -268,11 +259,11 @@ base::Value::List Create();
 namespace ChallengeKey {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Object containing the fields defined in
@@ -295,11 +286,11 @@ base::Value::List Create(const std::vector<uint8_t>& response);
 namespace ChallengeMachineKey {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A challenge as emitted by the Verified Access Web API.
@@ -311,7 +302,7 @@ struct Params {
   // with a certificate and used like any other                signing key. This
   // key is 2048-bit RSA. Subsequent calls                to this function will
   // then generate a new Enterprise                Machine Key.
-  absl::optional<bool> register_key;
+  std::optional<bool> register_key;
 
 
  private:
@@ -329,11 +320,11 @@ base::Value::List Create(const std::vector<uint8_t>& response);
 namespace ChallengeUserKey {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A challenge as emitted by the Verified Access Web API.

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ AccessPointData::AccessPointData(
     int32_t radio_signal_strength_in,
     int32_t channel_in,
     int32_t signal_to_noise_in,
-    absl::optional<::base::Time> timestamp_in)
+    std::optional<::base::Time> timestamp_in)
     : mac_address(std::move(mac_address_in)),
       radio_signal_strength(std::move(radio_signal_strength_in)),
       channel(std::move(channel_in)),
@@ -107,7 +108,7 @@ void AccessPointData::WriteIntoTrace(
     dict.AddItem(
       "timestamp"), this->timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -125,7 +126,7 @@ NetworkLocationDiagnostics::NetworkLocationDiagnostics()
 
 NetworkLocationDiagnostics::NetworkLocationDiagnostics(
     std::vector<AccessPointDataPtr> access_point_data_in,
-    absl::optional<::base::Time> wifi_timestamp_in)
+    std::optional<::base::Time> wifi_timestamp_in)
     : access_point_data(std::move(access_point_data_in)),
       wifi_timestamp(std::move(wifi_timestamp_in)) {}
 
@@ -147,7 +148,7 @@ void NetworkLocationDiagnostics::WriteIntoTrace(
     dict.AddItem(
       "wifi_timestamp"), this->wifi_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -168,9 +169,9 @@ PositionCacheDiagnostics::PositionCacheDiagnostics()
 
 PositionCacheDiagnostics::PositionCacheDiagnostics(
     uint32_t cache_size_in,
-    absl::optional<::base::Time> last_hit_in,
-    absl::optional<::base::Time> last_miss_in,
-    absl::optional<double> hit_rate_in,
+    std::optional<::base::Time> last_hit_in,
+    std::optional<::base::Time> last_miss_in,
+    std::optional<double> hit_rate_in,
     ::device::mojom::GeopositionResultPtr last_network_result_in)
     : cache_size(std::move(cache_size_in)),
       last_hit(std::move(last_hit_in)),
@@ -196,7 +197,7 @@ void PositionCacheDiagnostics::WriteIntoTrace(
     dict.AddItem(
       "last_hit"), this->last_hit,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -205,7 +206,7 @@ void PositionCacheDiagnostics::WriteIntoTrace(
     dict.AddItem(
       "last_miss"), this->last_miss,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -214,7 +215,7 @@ void PositionCacheDiagnostics::WriteIntoTrace(
     dict.AddItem(
       "hit_rate"), this->hit_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -245,7 +246,7 @@ WifiPollingPolicyDiagnostics::WifiPollingPolicyDiagnostics()
       no_wifi_interval() {}
 
 WifiPollingPolicyDiagnostics::WifiPollingPolicyDiagnostics(
-    absl::optional<::base::Time> interval_start_in,
+    std::optional<::base::Time> interval_start_in,
     ::base::TimeDelta interval_duration_in,
     ::base::TimeDelta polling_interval_in,
     ::base::TimeDelta default_interval_in,
@@ -269,7 +270,7 @@ void WifiPollingPolicyDiagnostics::WriteIntoTrace(
     dict.AddItem(
       "interval_start"), this->interval_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -407,7 +408,7 @@ NetworkLocationResponse::NetworkLocationResponse()
 NetworkLocationResponse::NetworkLocationResponse(
     double latitude_in,
     double longitude_in,
-    absl::optional<double> accuracy_in)
+    std::optional<double> accuracy_in)
     : latitude(std::move(latitude_in)),
       longitude(std::move(longitude_in)),
       accuracy(std::move(accuracy_in)) {}
@@ -439,7 +440,7 @@ void NetworkLocationResponse::WriteIntoTrace(
     dict.AddItem(
       "accuracy"), this->accuracy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<double>>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -562,14 +563,17 @@ void GeolocationInternalsObserverProxy::OnDiagnosticsChanged(
                         "<value of type GeolocationDiagnosticsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationInternalsObserver_OnDiagnosticsChanged_Name, kFlags, 0, 0, nullptr);
@@ -610,14 +614,17 @@ void GeolocationInternalsObserverProxy::OnNetworkLocationRequested(
                         "<value of type std::vector<AccessPointDataPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationInternalsObserver_OnNetworkLocationRequested_Name, kFlags, 0, 0, nullptr);
@@ -660,14 +667,17 @@ void GeolocationInternalsObserverProxy::OnNetworkLocationReceived(
                         "<value of type NetworkLocationResponsePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationInternalsObserver_OnNetworkLocationReceived_Name, kFlags, 0, 0, nullptr);
@@ -800,14 +810,14 @@ bool GeolocationInternalsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGeolocationInternalsObserverValidationInfo[] = {
-    {&internal::GeolocationInternalsObserver_OnDiagnosticsChanged_Params_Data::Validate,
+    { &internal::GeolocationInternalsObserver_OnDiagnosticsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GeolocationInternalsObserver_OnNetworkLocationRequested_Params_Data::Validate,
+    { &internal::GeolocationInternalsObserver_OnNetworkLocationRequested_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GeolocationInternalsObserver_OnNetworkLocationReceived_Params_Data::Validate,
+    { &internal::GeolocationInternalsObserver_OnNetworkLocationReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -903,14 +913,17 @@ void GeolocationInternalsProxy::AddInternalsObserver(
                         "<value of type ::mojo::PendingRemote<GeolocationInternalsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationInternals_AddInternalsObserver_Name, kFlags, 0, 0, nullptr);
@@ -1026,7 +1039,8 @@ void GeolocationInternals_AddInternalsObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGeolocationInternals_AddInternalsObserver_Name, kFlags, 0, 0, nullptr);
@@ -1114,10 +1128,10 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGeolocationInternalsValidationInfo[] = {
-    {&internal::GeolocationInternals_AddInternalsObserver_Params_Data::Validate,
+    { &internal::GeolocationInternals_AddInternalsObserver_Params_Data::Validate,
      &internal::GeolocationInternals_AddInternalsObserver_ResponseParams_Data::Validate},
 };
 

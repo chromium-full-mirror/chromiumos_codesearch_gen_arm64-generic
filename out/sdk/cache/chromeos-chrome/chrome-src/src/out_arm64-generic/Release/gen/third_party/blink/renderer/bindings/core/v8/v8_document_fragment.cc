@@ -82,11 +82,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentFragment>::value,
     "DocumentFragment inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentFragment::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentFragment is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.children.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->children();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -113,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.children.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->children();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -127,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.firstElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstElementChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -141,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.firstElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstElementChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -155,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.lastElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastElementChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -169,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.lastElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastElementChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -183,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.childElementCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->childElementCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -238,7 +240,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -258,9 +260,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.getElementById");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DocumentFragment";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -271,13 +273,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_id.Init(info[0].As<v8::String>());
+  arg1_element_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DocumentFragment";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -298,9 +299,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.getElementById");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DocumentFragment";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -311,13 +312,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_id.Init(info[0].As<v8::String>());
+  arg1_element_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DocumentFragment";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -341,8 +341,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentFragment.getPartRoot");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getPartRoot();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -367,7 +368,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -400,7 +401,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selectors = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -433,7 +434,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selectors = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -465,7 +466,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(v8_receiver);
+DocumentFragment* blink_receiver = V8DocumentFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

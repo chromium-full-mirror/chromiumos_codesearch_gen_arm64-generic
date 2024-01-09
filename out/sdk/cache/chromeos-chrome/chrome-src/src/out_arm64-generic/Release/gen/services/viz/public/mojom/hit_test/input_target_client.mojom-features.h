@@ -8,6 +8,7 @@
 #define SERVICES_VIZ_PUBLIC_MOJOM_HIT_TEST_INPUT_TARGET_CLIENT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -13,33 +13,33 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   }
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/array.tq?l=64&c=1
   void EnsureArrayLengthWritable(TNode<Context> p_context, TNode<Map> p_map, compiler::CodeAssemblerLabel* label_Bailout);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=679&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=697&c=1
   TNode<Number> ToInteger_Inline(TNode<Context> p_context, TNode<Object> p_input);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1539&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1561&c=1
   TNode<Object> RequireObjectCoercible(TNode<Context> p_context, TNode<Object> p_value, const char* p_name);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1651&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1673&c=1
   TNode<UintPtrT> ChangeUintPtrNumberToUintPtr(TNode<Number> p_value);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1661&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1683&c=1
   TNode<UintPtrT> ChangeSafeIntegerNumberToUintPtr(TNode<Number> p_value, compiler::CodeAssemblerLabel* label_IfUIntPtrOverflow);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1685&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1707&c=1
   TNode<UintPtrT> ToIndex(TNode<Context> p_context, TNode<Object> p_value, compiler::CodeAssemblerLabel* label_IfRangeError);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1784&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1806&c=1
   TNode<UintPtrT> ConvertAndClampRelativeIndex(TNode<Context> p_context, TNode<Object> p_index, TNode<UintPtrT> p_length);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1793&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1815&c=1
   TNode<UintPtrT> ConvertAndClampRelativeIndex(TNode<Number> p_indexNumber, TNode<UintPtrT> p_length);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1852&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1874&c=1
   TNode<UintPtrT> ClampToIndexRange(TNode<Context> p_context, TNode<Object> p_index, TNode<UintPtrT> p_limit);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1861&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1883&c=1
   TNode<UintPtrT> ClampToIndexRange(TNode<Number> p_indexNumber, TNode<UintPtrT> p_limit);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1898&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1920&c=1
   TNode<BoolT> IsFastJSArray(TNode<Object> p_o, TNode<Context> p_context);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1906&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1928&c=1
   void BranchIfFastJSArray(TNode<Object> p_o, TNode<Context> p_context, compiler::CodeAssemblerLabel* label_True, compiler::CodeAssemblerLabel* label_False);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1916&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1938&c=1
   void BranchIfFastJSArrayForRead(TNode<Object> p_o, TNode<Context> p_context, compiler::CodeAssemblerLabel* label_True, compiler::CodeAssemblerLabel* label_False);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1929&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1951&c=1
   TNode<BoolT> IsFastJSArrayWithNoCustomIteration(TNode<Context> p_context, TNode<Object> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1934&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=1956&c=1
   TNode<BoolT> IsFastJSArrayForReadWithNoCustomIteration(TNode<Context> p_context, TNode<Object> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/builtins-string.tq?l=13&c=1
   TNode<String> ToStringImpl(TNode<Context> p_context, TNode<Object> p_o);
@@ -101,19 +101,19 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   void CollectConstructFeedback(TNode<Context> p_context, TNode<Object> p_target, TNode<Object> p_newTarget, TNode<HeapObject> p_maybeFeedbackVector, TNode<UintPtrT> p_slotId, UpdateFeedbackMode p_updateFeedbackMode, compiler::CodeAssemblerLabel* label_ConstructGeneric, compiler::CodeAssemblerLabel* label_ConstructArray, compiler::TypedCodeAssemblerVariable<AllocationSite>* label_ConstructArray_parameter_0);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/internal.tq?l=49&c=1
   TNode<Object> ForInNextSlow(TNode<Context> p_context, TNode<UintPtrT> p_slot, TNode<HeapObject> p_receiver, TNode<Object> p_key, TNode<Object> p_cacheType, TNode<HeapObject> p_maybeFeedbackVector, UpdateFeedbackMode p_guaranteedFeedback);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=104&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=107&c=1
   TorqueStructIteratorRecord GetIteratorRecordAfterCreateAsyncFromSyncIterator(TNode<Context> p_context, TorqueStructIteratorRecord p_asyncIterator);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=138&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=141&c=1
   void IteratorCloseOnException(TNode<Context> p_context, TorqueStructIteratorRecord p_iterator);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=160&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=163&c=1
   void IteratorClose(TNode<Context> p_context, TorqueStructIteratorRecord p_iterator);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/math.tq?l=119&c=1
   TNode<Number> MathPowImpl(TNode<Context> p_context, TNode<Object> p_base, TNode<Object> p_exponent);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/number.tq?l=105&c=1
   TNode<String> IntToDecimalString(TNode<Int32T> p_x);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=319&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=321&c=1
   TNode<HeapObject> ToPropertyDescriptor(TNode<Context> p_context, TNode<Object> p_object);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=339&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=341&c=1
   TNode<Object> FromPropertyDescriptor(TNode<Context> p_context, TNode<Object> p_object);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-abstract-operations.tq?l=279&c=1
   TNode<Context> CreatePromiseCapabilitiesExecutorContext(TNode<NativeContext> p_nativeContext, TNode<PromiseCapability> p_capability);
@@ -123,31 +123,31 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TorqueStructPromiseResolvingFunctions CreatePromiseResolvingFunctions(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<Boolean> p_debugEvent, TNode<NativeContext> p_nativeContext);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-abstract-operations.tq?l=438&c=1
   void PerformPromiseThenImpl(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<HeapObject> p_onFulfilled, TNode<HeapObject> p_onRejected, TNode<HeapObject> p_resultPromiseOrCapability);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-all.tq?l=61&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-all.tq?l=59&c=1
   TNode<Context> CreatePromiseResolvingFunctionsContext(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<Boolean> p_debugEvent, TNode<NativeContext> p_nativeContext);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=36&c=1
   TNode<BoolT> PromiseHasHandler(TNode<JSPromise> p_promise);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=41&c=1
   void PromiseInit(TNode<JSPromise> p_promise);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=110&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=140&c=1
   void RunContextPromiseHookInit(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<Object> p_parent);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=126&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=156&c=1
   void RunContextPromiseHookResolve(TNode<Context> p_context, TNode<JSPromise> p_promise);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=138&c=1
-  void RunContextPromiseHookResolve(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<Uint32T> p_flags);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=145&c=1
-  void RunContextPromiseHookBefore(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=158&c=1
-  void RunContextPromiseHookBefore(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability, TNode<Uint32T> p_flags);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=168&c=1
+  void RunContextPromiseHookResolve(TNode<Context> p_context, TNode<JSPromise> p_promise, TNode<Uint32T> p_flags);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=175&c=1
+  void RunContextPromiseHookBefore(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=188&c=1
+  void RunContextPromiseHookBefore(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability, TNode<Uint32T> p_flags);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=198&c=1
   void RunContextPromiseHookAfter(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=181&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=211&c=1
   void RunContextPromiseHookAfter(TNode<Context> p_context, TNode<HeapObject> p_promiseOrCapability, TNode<Uint32T> p_flags);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=245&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=275&c=1
   TNode<JSPromise> NewJSPromise(TNode<Context> p_context, TNode<Object> p_parent);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=256&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=286&c=1
   TNode<JSPromise> NewJSPromise(TNode<Context> p_context);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=263&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-misc.tq?l=293&c=1
   TNode<JSPromise> NewJSPromise(TNode<Context> p_context, Promise::PromiseState p_status, TNode<Object> p_result);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/regexp-exec.tq?l=9&c=1
   TNode<Object> RegExpPrototypeExecBodyFast(TNode<Context> p_context, TNode<JSReceiver> p_receiver, TNode<String> p_string);
@@ -195,17 +195,17 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Object> SloppyArgumentsStore(TNode<JSObject> p_receiver, TNode<Object> p_keyObject, TNode<Object> p_value, compiler::CodeAssemblerLabel* label_Bailout);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=39&c=1
   TNode<Context> AllocateSyntheticFunctionContext(TNode<NativeContext> p_nativeContext, int31_t p_slots);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=187&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=189&c=1
   TNode<Object> LoadContextElement(TNode<Context> p_c, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=192&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=194&c=1
   TNode<Object> LoadContextElement(TNode<Context> p_c, TNode<Smi> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=197&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=199&c=1
   TNode<Object> LoadContextElement(TNode<Context> p_c, int32_t p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=202&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=204&c=1
   void StoreContextElement(TNode<Context> p_c, TNode<IntPtrT> p_i, TNode<Object> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=207&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=209&c=1
   void StoreContextElement(TNode<Context> p_c, TNode<Smi> p_i, TNode<Object> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=212&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=214&c=1
   void StoreContextElement(TNode<Context> p_c, int32_t p_i, TNode<Object> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-array-buffer.tq?l=37&c=1
   TNode<BoolT> IsDetachedBuffer(TNode<JSArrayBuffer> p_buffer);
@@ -237,15 +237,15 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   void CompletePropertyDescriptor(TNode<PropertyDescriptorObject> p_desc);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=200&c=1
   TNode<IntPtrT> IndexOfLocalName(TNode<ScopeInfo> p_scopeInfo, TNode<Name> p_name, compiler::CodeAssemblerLabel* label_NotFound);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=92&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=110&c=1
   TNode<Uint16T> LoadSharedFunctionInfoFormalParameterCountWithoutReceiver(TNode<SharedFunctionInfo> p_sfi);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=103&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=121&c=1
   TNode<Uint16T> LoadSharedFunctionInfoFormalParameterCountWithReceiver(TNode<SharedFunctionInfo> p_sfi);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=109&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=127&c=1
   TNode<BoolT> IsSharedFunctionInfoDontAdaptArguments(TNode<SharedFunctionInfo> p_sfi);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=200&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=208&c=1
   TNode<String> AllocateSeqOneByteString(TNode<Uint32T> p_length);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=206&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=214&c=1
   TNode<String> AllocateSeqTwoByteString(TNode<Uint32T> p_length);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/swiss-name-dictionary.tq?l=62&c=1
   TNode<IntPtrT> SwissNameDictionaryCapacityFor(TNode<IntPtrT> p_atLeastSpaceFor);
@@ -427,31 +427,31 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> TestRunLazyTwice(std::function<TNode<Smi>()> p_lazySmi);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/test/torque/test-torque.tq?l=1322&c=1
   void TestCreateLazyNodeFromTorque();
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-to-js.tq?l=34&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-to-js.tq?l=56&c=1
   TorqueStructWasmToJSResult WasmToJSWrapper(TNode<WasmApiFunctionRef> p_ref);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-object.tq?l=9&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-object.tq?l=10&c=9
   TNode<Map> LoadHeapObjectMap(TNode<HeapObject> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=9&c=3
   TNode<Object> LoadJSReceiverPropertiesOrHash(TNode<JSReceiver> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=9&c=3
   void StoreJSReceiverPropertiesOrHash(TNode<JSReceiver> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=10&c=20
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
   TNode<Float64T> LoadHeapNumberValue(TNode<HeapNumber> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=10&c=20
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
   void StoreHeapNumberValue(TNode<HeapNumber> p_o, TNode<Float64T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=7&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=8&c=3
   TNode<Uint32T> LoadNameRawHashField(TNode<Name> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=7&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=8&c=3
   void StoreNameRawHashField(TNode<Name> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=46&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=47&c=9
   TNode<Int32T> LoadStringLength(TNode<String> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=32&c=3
   TNode<Uint32T> LoadSymbolFlags(TNode<Symbol> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=32&c=3
   void StoreSymbolFlags(TNode<Symbol> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=31&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=33&c=3
   TNode<PrimitiveHeapObject> LoadSymbolDescription(TNode<Symbol> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=31&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=33&c=3
   void StoreSymbolDescription(TNode<Symbol> p_o, TNode<PrimitiveHeapObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/oddball.tq?l=9&c=3
   TNode<Float64T> LoadOddballToNumberRaw(TNode<Oddball> p_o);
@@ -521,13 +521,13 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Object> LoadFixedArrayObjects(TNode<FixedArray> p_o, TNode<IntPtrT> p_i);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=14&c=3
   void StoreFixedArrayObjects(TNode<FixedArray> p_o, TNode<IntPtrT> p_i, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=26&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=32&c=9
   TNode<Smi> LoadWeakFixedArrayLength(TNode<WeakFixedArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
   TorqueStructSlice_MaybeObject_MutableReference_MaybeObject_0 FieldSliceWeakFixedArrayObjects(TNode<WeakFixedArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
   TNode<MaybeObject> LoadWeakFixedArrayObjects(TNode<WeakFixedArray> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
   void StoreWeakFixedArrayObjects(TNode<WeakFixedArray> p_o, TNode<IntPtrT> p_i, TNode<MaybeObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/foreign.tq?l=7&c=3
   TNode<ExternalPointerT> LoadForeignForeignAddress(TNode<Foreign> p_o);
@@ -662,17 +662,21 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=44&c=3
   void StoreWasmInternalFunctionExternal(TNode<WasmInternalFunction> p_o, TNode<HeapObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=46&c=3
-  TNode<Code> LoadWasmInternalFunctionCode(TNode<WasmInternalFunction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=46&c=3
-  void StoreWasmInternalFunctionCode(TNode<WasmInternalFunction> p_o, TNode<Code> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=48&c=3
   TNode<Smi> LoadWasmInternalFunctionFunctionIndex(TNode<WasmInternalFunction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=46&c=3
   void StoreWasmInternalFunctionFunctionIndex(TNode<WasmInternalFunction> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=50&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=48&c=26
+  TNode<IndirectPointerHandleT> LoadWasmInternalFunctionCode(TNode<WasmInternalFunction> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=48&c=26
+  void StoreWasmInternalFunctionCode(TNode<WasmInternalFunction> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=51&c=3
   TNode<ExternalPointerT> LoadWasmInternalFunctionCallTarget(TNode<WasmInternalFunction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=50&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=51&c=3
   void StoreWasmInternalFunctionCallTarget(TNode<WasmInternalFunction> p_o, TNode<ExternalPointerT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
+  TNode<Object> LoadJSCollectionTable(TNode<JSCollection> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
+  void StoreJSCollectionTable(TNode<JSCollection> p_o, TNode<Object> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=6&c=3
   TNode<HeapObject> LoadPromiseCapabilityPromise(TNode<PromiseCapability> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=6&c=3
@@ -749,77 +753,77 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<ExternalPointerT> LoadCallHandlerInfoMaybeRedirectedCallback(TNode<CallHandlerInfo> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=12&c=3
   void StoreCallHandlerInfoMaybeRedirectedCallback(TNode<CallHandlerInfo> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=23&c=3
   TNode<Object> LoadInterceptorInfoGetter(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=23&c=3
   void StoreInterceptorInfoGetter(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=25&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=24&c=3
   TNode<Object> LoadInterceptorInfoSetter(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=25&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=24&c=3
   void StoreInterceptorInfoSetter(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=25&c=3
   TNode<Object> LoadInterceptorInfoQuery(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=25&c=3
   void StoreInterceptorInfoQuery(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=27&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=26&c=3
   TNode<Object> LoadInterceptorInfoDescriptor(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=27&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=26&c=3
   void StoreInterceptorInfoDescriptor(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=28&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=27&c=3
   TNode<Object> LoadInterceptorInfoDeleter(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=28&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=27&c=3
   void StoreInterceptorInfoDeleter(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=29&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=28&c=3
   TNode<Object> LoadInterceptorInfoEnumerator(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=29&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=28&c=3
   void StoreInterceptorInfoEnumerator(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=29&c=3
   TNode<Object> LoadInterceptorInfoDefiner(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=29&c=3
   void StoreInterceptorInfoDefiner(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=31&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=30&c=3
   TNode<Object> LoadInterceptorInfoData(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=31&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=30&c=3
   void StoreInterceptorInfoData(TNode<InterceptorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=31&c=3
   TNode<Smi> LoadInterceptorInfoFlags(TNode<InterceptorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=31&c=3
   void StoreInterceptorInfoFlags(TNode<InterceptorInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=36&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=35&c=3
   TNode<Object> LoadAccessCheckInfoCallback(TNode<AccessCheckInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=36&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=35&c=3
   void StoreAccessCheckInfoCallback(TNode<AccessCheckInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=36&c=3
   TNode<Object> LoadAccessCheckInfoNamedInterceptor(TNode<AccessCheckInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=36&c=3
   void StoreAccessCheckInfoNamedInterceptor(TNode<AccessCheckInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=37&c=3
   TNode<Object> LoadAccessCheckInfoIndexedInterceptor(TNode<AccessCheckInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=37&c=3
   void StoreAccessCheckInfoIndexedInterceptor(TNode<AccessCheckInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=39&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=38&c=3
   TNode<Object> LoadAccessCheckInfoData(TNode<AccessCheckInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=39&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=38&c=3
   void StoreAccessCheckInfoData(TNode<AccessCheckInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=53&c=3
   TNode<Name> LoadAccessorInfoName(TNode<AccessorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=53&c=3
   void StoreAccessorInfoName(TNode<AccessorInfo> p_o, TNode<Name> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=54&c=3
   TNode<Object> LoadAccessorInfoData(TNode<AccessorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=54&c=3
   void StoreAccessorInfoData(TNode<AccessorInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=61&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=58&c=3
   TNode<ExternalPointerT> LoadAccessorInfoMaybeRedirectedGetter(TNode<AccessorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=61&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=58&c=3
   void StoreAccessorInfoMaybeRedirectedGetter(TNode<AccessorInfo> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=59&c=3
   TNode<ExternalPointerT> LoadAccessorInfoSetter(TNode<AccessorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=59&c=3
   void StoreAccessorInfoSetter(TNode<AccessorInfo> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=63&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=60&c=3
   TNode<Uint32T> LoadAccessorInfoFlags(TNode<AccessorInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=63&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/api-callbacks.tq?l=60&c=3
   void StoreAccessorInfoFlags(TNode<AccessorInfo> p_o, TNode<Uint32T> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=18&c=3
   TNode<Object> LoadJSSloppyArgumentsObjectLength(TNode<JSArgumentsObject> p_o);
@@ -851,45 +855,45 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadAliasedArgumentsEntryAliasedContextSlot(TNode<AliasedArgumentsEntry> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=42&c=3
   void StoreAliasedArgumentsEntryAliasedContextSlot(TNode<AliasedArgumentsEntry> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=19&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=26
+  TNode<IndirectPointerHandleT> LoadCallSiteInfoCodeObject(TNode<CallSiteInfo> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=26
+  void StoreCallSiteInfoCodeObject(TNode<CallSiteInfo> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
   TNode<Object> LoadCallSiteInfoReceiverOrInstance(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=19&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
   void StoreCallSiteInfoReceiverOrInstance(TNode<CallSiteInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=20&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
   TNode<Object> LoadCallSiteInfoFunction(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=20&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
   void StoreCallSiteInfoFunction(TNode<CallSiteInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=3
-  TNode<HeapObject> LoadCallSiteInfoCodeObject(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=3
-  void StoreCallSiteInfoCodeObject(TNode<CallSiteInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=22&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=25&c=3
   TNode<Smi> LoadCallSiteInfoCodeOffsetOrSourcePosition(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=22&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=25&c=3
   void StoreCallSiteInfoCodeOffsetOrSourcePosition(TNode<CallSiteInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=26&c=3
   TNode<Smi> LoadCallSiteInfoFlags(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=26&c=3
   void StoreCallSiteInfoFlags(TNode<CallSiteInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=27&c=3
   TNode<FixedArray> LoadCallSiteInfoParameters(TNode<CallSiteInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=27&c=3
   void StoreCallSiteInfoParameters(TNode<CallSiteInfo> p_o, TNode<FixedArray> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/cell.tq?l=6&c=3
   TNode<Object> LoadCellValue(TNode<Cell> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/cell.tq?l=6&c=3
   void StoreCellValue(TNode<Cell> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=51&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=63&c=9
   TNode<Smi> LoadWeakArrayListCapacity(TNode<WeakArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=52&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=64&c=3
   TNode<Smi> LoadWeakArrayListLength(TNode<WeakArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=52&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=64&c=3
   void StoreWeakArrayListLength(TNode<WeakArrayList> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=53&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=65&c=19
   TorqueStructSlice_MaybeObject_MutableReference_MaybeObject_0 FieldSliceWeakArrayListObjects(TNode<WeakArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=53&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=65&c=19
   TNode<MaybeObject> LoadWeakArrayListObjects(TNode<WeakArrayList> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=53&c=19
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=65&c=19
   void StoreWeakArrayListObjects(TNode<WeakArrayList> p_o, TNode<IntPtrT> p_i, TNode<MaybeObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/trusted-object.tq?l=12&c=26
   TNode<IndirectPointerHandleT> LoadExposedTrustedObjectSelfIndirectPointer(TNode<ExposedTrustedObject> p_o);
@@ -906,21 +910,37 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=11&c=3
   void StoreBytecodeArrayHandlerTable(TNode<BytecodeArray> p_o, TNode<ByteArray> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=12&c=3
-  TNode<HeapObject> LoadBytecodeArraySourcePositionTable(TNode<BytecodeArray> p_o);
+  TNode<BytecodeWrapper> LoadBytecodeArrayWrapper(TNode<BytecodeArray> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=12&c=3
+  void StoreBytecodeArrayWrapper(TNode<BytecodeArray> p_o, TNode<BytecodeWrapper> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
+  TNode<HeapObject> LoadBytecodeArraySourcePositionTable(TNode<BytecodeArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
   void StoreBytecodeArraySourcePositionTable(TNode<BytecodeArray> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=14&c=3
   TNode<Int32T> LoadBytecodeArrayFrameSize(TNode<BytecodeArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=14&c=3
   void StoreBytecodeArrayFrameSize(TNode<BytecodeArray> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=14&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=15&c=3
   TNode<Int32T> LoadBytecodeArrayParameterSize(TNode<BytecodeArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=14&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=15&c=3
   void StoreBytecodeArrayParameterSize(TNode<BytecodeArray> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=15&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=16&c=3
   TNode<Int32T> LoadBytecodeArrayIncomingNewTargetOrGeneratorRegister(TNode<BytecodeArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=15&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=16&c=3
   void StoreBytecodeArrayIncomingNewTargetOrGeneratorRegister(TNode<BytecodeArray> p_o, TNode<Int32T> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=24&c=3
+  TNode<IndirectPointerHandleT> LoadBytecodeWrapperBytecode(TNode<BytecodeWrapper> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=24&c=3
+  void StoreBytecodeWrapperBytecode(TNode<BytecodeWrapper> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=25&c=3
+  TNode<Int32T> LoadBytecodeWrapperPadding1(TNode<BytecodeWrapper> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=25&c=3
+  void StoreBytecodeWrapperPadding1(TNode<BytecodeWrapper> p_o, TNode<Int32T> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=26&c=3
+  TNode<Int32T> LoadBytecodeWrapperPadding2(TNode<BytecodeWrapper> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=26&c=3
+  void StoreBytecodeWrapperPadding2(TNode<BytecodeWrapper> p_o, TNode<Int32T> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=19&c=9
   TNode<Smi> LoadScriptContextTableCapacity(TNode<ScriptContextTable> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/contexts.tq?l=20&c=3
@@ -1003,7 +1023,7 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadScopeInfoModuleVariableCount(TNode<ScopeInfo> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/scope-info.tq?l=180&c=3
   TorqueStructSlice_ModuleVariable_MutableReference_ModuleVariable_0 FieldSliceScopeInfoModuleVariables(TNode<ScopeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=21&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=3
   TorqueStructSlice_float64_or_hole_MutableReference_float64_or_hole_0 FieldSliceFixedDoubleArrayFloats(TNode<FixedDoubleArray> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/regexp-match-info.tq?l=14&c=9
   TNode<Smi> LoadRegExpMatchInfoLength(TNode<RegExpMatchInfo> p_o);
@@ -1049,57 +1069,57 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadDebugInfoDebuggerHints(TNode<DebugInfo> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=36&c=3
   void StoreDebugInfoDebuggerHints(TNode<DebugInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=41&c=3
-  TNode<HeapObject> LoadDebugInfoOriginalBytecodeArray(TNode<DebugInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=41&c=3
-  void StoreDebugInfoOriginalBytecodeArray(TNode<DebugInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=46&c=3
-  TNode<HeapObject> LoadDebugInfoDebugBytecodeArray(TNode<DebugInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=46&c=3
-  void StoreDebugInfoDebugBytecodeArray(TNode<DebugInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=38&c=3
   TNode<FixedArray> LoadDebugInfoBreakPoints(TNode<DebugInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=38&c=3
   void StoreDebugInfoBreakPoints(TNode<DebugInfo> p_o, TNode<FixedArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=50&c=36
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=40&c=36
   TNode<Smi> LoadDebugInfoFlags(TNode<DebugInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=50&c=36
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=40&c=36
   void StoreDebugInfoFlags(TNode<DebugInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=51&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=41&c=3
   TNode<HeapObject> LoadDebugInfoCoverageInfo(TNode<DebugInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=51&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=41&c=3
   void StoreDebugInfoCoverageInfo(TNode<DebugInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=65&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=48&c=26
+  TNode<IndirectPointerHandleT> LoadDebugInfoOriginalBytecodeArray(TNode<DebugInfo> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=48&c=26
+  void StoreDebugInfoOriginalBytecodeArray(TNode<DebugInfo> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=55&c=26
+  TNode<IndirectPointerHandleT> LoadDebugInfoDebugBytecodeArray(TNode<DebugInfo> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=55&c=26
+  void StoreDebugInfoDebugBytecodeArray(TNode<DebugInfo> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=70&c=9
   TNode<Int32T> LoadCoverageInfoSlotCount(TNode<CoverageInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=66&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=71&c=3
   TorqueStructSlice_CoverageInfoSlot_MutableReference_CoverageInfoSlot_0 FieldSliceCoverageInfoSlots(TNode<CoverageInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=81&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=86&c=3
   TNode<HeapObject> LoadStackFrameInfoSharedOrScript(TNode<StackFrameInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=81&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=86&c=3
   void StoreStackFrameInfoSharedOrScript(TNode<StackFrameInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=87&c=3
   TNode<String> LoadStackFrameInfoFunctionName(TNode<StackFrameInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=87&c=3
   void StoreStackFrameInfoFunctionName(TNode<StackFrameInfo> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=83&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=88&c=3
   TNode<Smi> LoadStackFrameInfoFlags(TNode<StackFrameInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=83&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=88&c=3
   void StoreStackFrameInfoFlags(TNode<StackFrameInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=119&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=124&c=3
   TNode<Object> LoadErrorStackDataCallSiteInfosOrFormattedStack(TNode<ErrorStackData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=119&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=124&c=3
   void StoreErrorStackDataCallSiteInfosOrFormattedStack(TNode<ErrorStackData> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=126&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=131&c=3
   TNode<Object> LoadErrorStackDataLimitOrStackFrameInfos(TNode<ErrorStackData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=126&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=131&c=3
   void StoreErrorStackDataLimitOrStackFrameInfos(TNode<ErrorStackData> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=130&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=135&c=3
   TNode<Object> LoadPromiseOnStackPrev(TNode<PromiseOnStack> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=130&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=135&c=3
   void StorePromiseOnStackPrev(TNode<PromiseOnStack> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=136&c=3
   TNode<MaybeObject> LoadPromiseOnStackPromise(TNode<PromiseOnStack> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=136&c=3
   void StorePromiseOnStackPromise(TNode<PromiseOnStack> p_o, TNode<MaybeObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=6&c=3
   TNode<FixedArray> LoadEnumCacheKeys(TNode<EnumCache> p_o);
@@ -1125,21 +1145,21 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadClassPositionsEnd(TNode<ClassPositions> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/struct.tq?l=15&c=3
   void StoreClassPositionsEnd(TNode<ClassPositions> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=20&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=21&c=9
   TNode<Uint16T> LoadDescriptorArrayNumberOfAllDescriptors(TNode<DescriptorArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=21&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=22&c=3
   TNode<Uint16T> LoadDescriptorArrayNumberOfDescriptors(TNode<DescriptorArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=21&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=22&c=3
   void StoreDescriptorArrayNumberOfDescriptors(TNode<DescriptorArray> p_o, TNode<Uint16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=25&c=3
   TNode<Uint32T> LoadDescriptorArrayRawGcState(TNode<DescriptorArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=24&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=25&c=3
   void StoreDescriptorArrayRawGcState(TNode<DescriptorArray> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=25&c=3
-  TNode<EnumCache> LoadDescriptorArrayEnumCache(TNode<DescriptorArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=25&c=3
-  void StoreDescriptorArrayEnumCache(TNode<DescriptorArray> p_o, TNode<EnumCache> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=26&c=3
+  TNode<EnumCache> LoadDescriptorArrayEnumCache(TNode<DescriptorArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=26&c=3
+  void StoreDescriptorArrayEnumCache(TNode<DescriptorArray> p_o, TNode<EnumCache> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=27&c=3
   TorqueStructSlice_DescriptorEntry_MutableReference_DescriptorEntry_0 FieldSliceDescriptorArrayDescriptors(TNode<DescriptorArray> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/embedder-data-array.tq?l=7&c=3
   TNode<Smi> LoadEmbedderDataArrayLength(TNode<EmbedderDataArray> p_o);
@@ -1153,24 +1173,24 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Int32T> LoadFeedbackCellInterruptBudget(TNode<FeedbackCell> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-cell.tq?l=7&c=3
   void StoreFeedbackCellInterruptBudget(TNode<FeedbackCell> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=37&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=9
   TNode<Smi> LoadClosureFeedbackCellArrayCapacity(TNode<ClosureFeedbackCellArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=39&c=3
   TorqueStructSlice_FeedbackCell_MutableReference_FeedbackCell_0 FieldSliceClosureFeedbackCellArrayObjects(TNode<ClosureFeedbackCellArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=39&c=3
   TNode<FeedbackCell> LoadClosureFeedbackCellArrayObjects(TNode<ClosureFeedbackCellArray> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=39&c=3
   void StoreClosureFeedbackCellArrayObjects(TNode<ClosureFeedbackCellArray> p_o, TNode<IntPtrT> p_i, TNode<FeedbackCell> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=43&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=9
   TNode<Int32T> LoadFeedbackVectorLength(TNode<FeedbackVector> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=45&c=3
   TNode<Int32T> LoadFeedbackVectorInvocationCount(TNode<FeedbackVector> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=45&c=3
   void StoreFeedbackVectorInvocationCount(TNode<FeedbackVector> p_o, TNode<Int32T> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=47&c=3
-  TNode<Uint8T> LoadFeedbackVectorPlaceholder0(TNode<FeedbackVector> p_o);
+  TNode<Uint8T> LoadFeedbackVectorInvocationCountBeforeStable(TNode<FeedbackVector> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=47&c=3
-  void StoreFeedbackVectorPlaceholder0(TNode<FeedbackVector> p_o, TNode<Uint8T> p_v);
+  void StoreFeedbackVectorInvocationCountBeforeStable(TNode<FeedbackVector> p_o, TNode<Uint8T> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=48&c=3
   TNode<Uint8T> LoadFeedbackVectorOsrState(TNode<FeedbackVector> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=48&c=3
@@ -1201,29 +1221,45 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<MaybeObject> LoadFeedbackVectorRawFeedbackSlots(TNode<FeedbackVector> p_o, TNode<IntPtrT> p_i);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=54&c=19
   void StoreFeedbackVectorRawFeedbackSlots(TNode<FeedbackVector> p_o, TNode<IntPtrT> p_i, TNode<MaybeObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=21&c=9
+  TNode<Smi> LoadTrustedFixedArrayLength(TNode<TrustedFixedArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=22&c=3
+  TorqueStructSlice_Object_MutableReference_Object_0 FieldSliceTrustedFixedArrayObjects(TNode<TrustedFixedArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=22&c=3
+  TNode<Object> LoadTrustedFixedArrayObjects(TNode<TrustedFixedArray> p_o, TNode<IntPtrT> p_i);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=22&c=3
+  void StoreTrustedFixedArrayObjects(TNode<TrustedFixedArray> p_o, TNode<IntPtrT> p_i, TNode<Object> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=38&c=3
   TorqueStructSlice_uint8_MutableReference_uint8_0 FieldSliceByteArrayBytes(TNode<ByteArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=38&c=3
   TNode<Uint8T> LoadByteArrayBytes(TNode<ByteArray> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=38&c=3
   void StoreByteArrayBytes(TNode<ByteArray> p_o, TNode<IntPtrT> p_i, TNode<Uint8T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=43&c=9
+  TNode<Smi> LoadTrustedByteArrayLength(TNode<TrustedByteArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=3
+  TorqueStructSlice_uint8_MutableReference_uint8_0 FieldSliceTrustedByteArrayBytes(TNode<TrustedByteArray> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=3
+  TNode<Uint8T> LoadTrustedByteArrayBytes(TNode<TrustedByteArray> p_o, TNode<IntPtrT> p_i);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=3
+  void StoreTrustedByteArrayBytes(TNode<TrustedByteArray> p_o, TNode<IntPtrT> p_i, TNode<Uint8T> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=49&c=3
   TorqueStructSlice_ExternalPointer_MutableReference_ExternalPointer_0 FieldSliceExternalPointerArrayPointers(TNode<ExternalPointerArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=49&c=3
   TNode<ExternalPointerT> LoadExternalPointerArrayPointers(TNode<ExternalPointerArray> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=49&c=3
   void StoreExternalPointerArrayPointers(TNode<ExternalPointerArray> p_o, TNode<IntPtrT> p_i, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=56&c=9
   TNode<Smi> LoadArrayListCapacity(TNode<ArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=45&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=57&c=3
   TNode<Smi> LoadArrayListLength(TNode<ArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=45&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=57&c=3
   void StoreArrayListLength(TNode<ArrayList> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=58&c=3
   TorqueStructSlice_Object_MutableReference_Object_0 FieldSliceArrayListObjects(TNode<ArrayList> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=58&c=3
   TNode<Object> LoadArrayListObjects(TNode<ArrayList> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=58&c=3
   void StoreArrayListObjects(TNode<ArrayList> p_o, TNode<IntPtrT> p_i, TNode<Object> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/free-space.tq?l=6&c=3
   TNode<Smi> LoadFreeSpaceSize(TNode<FreeSpace> p_o);
@@ -1305,13 +1341,9 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Object> LoadJSCollectionIteratorIndex(TNode<JSCollectionIterator> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection-iterator.tq?l=10&c=3
   void StoreJSCollectionIteratorIndex(TNode<JSCollectionIterator> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
-  TNode<Object> LoadJSCollectionTable(TNode<JSCollection> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
-  void StoreJSCollectionTable(TNode<JSCollection> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
   TNode<Object> LoadJSWeakCollectionTable(TNode<JSWeakCollection> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
   void StoreJSWeakCollectionTable(TNode<JSWeakCollection> p_o, TNode<Object> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-generator.tq?l=6&c=3
   TNode<JSFunction> LoadJSGeneratorObjectFunction(TNode<JSGeneratorObject> p_o);
@@ -1963,61 +1995,69 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Uint8T> LoadSmallOrderedNameDictionaryChainTable(TNode<SmallOrderedNameDictionary> p_o, TNode<IntPtrT> p_i);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/ordered-hash-table.tq?l=114&c=3
   void StoreSmallOrderedNameDictionaryChainTable(TNode<SmallOrderedNameDictionary> p_o, TNode<IntPtrT> p_i, TNode<Uint8T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=40&c=3
   TNode<Object> LoadPromiseReactionNext(TNode<PromiseReaction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=32&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=40&c=3
   void StorePromiseReactionNext(TNode<PromiseReaction> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=33&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=41&c=3
   TNode<HeapObject> LoadPromiseReactionRejectHandler(TNode<PromiseReaction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=33&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=41&c=3
   void StorePromiseReactionRejectHandler(TNode<PromiseReaction> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=34&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=42&c=3
   TNode<HeapObject> LoadPromiseReactionFulfillHandler(TNode<PromiseReaction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=34&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=42&c=3
   void StorePromiseReactionFulfillHandler(TNode<PromiseReaction> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=45&c=3
   TNode<HeapObject> LoadPromiseReactionPromiseOrCapability(TNode<PromiseReaction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=37&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=45&c=3
   void StorePromiseReactionPromiseOrCapability(TNode<PromiseReaction> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=38&c=3
-  TNode<Object> LoadPromiseReactionContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=38&c=3
-  void StorePromiseReactionContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=55&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=47&c=3
+  TNode<Object> LoadPromiseReactionIsolateContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=47&c=3
+  void StorePromiseReactionIsolateContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o, TNode<Object> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=49&c=3
+  TNode<Object> LoadPromiseReactionContextContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=49&c=3
+  void StorePromiseReactionContextContinuationPreservedEmbedderData(TNode<PromiseReaction> p_o, TNode<Object> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
   TNode<Object> LoadPromiseReactionJobTaskArgument(TNode<PromiseReactionJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=55&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
   void StorePromiseReactionJobTaskArgument(TNode<PromiseReactionJobTask> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=73&c=3
   TNode<Context> LoadPromiseReactionJobTaskContext(TNode<PromiseReactionJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=73&c=3
   void StorePromiseReactionJobTaskContext(TNode<PromiseReactionJobTask> p_o, TNode<Context> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=74&c=3
   TNode<HeapObject> LoadPromiseReactionJobTaskHandler(TNode<PromiseReactionJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=74&c=3
   void StorePromiseReactionJobTaskHandler(TNode<PromiseReactionJobTask> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=60&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=77&c=3
   TNode<HeapObject> LoadPromiseReactionJobTaskPromiseOrCapability(TNode<PromiseReactionJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=60&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=77&c=3
   void StorePromiseReactionJobTaskPromiseOrCapability(TNode<PromiseReactionJobTask> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=61&c=3
-  TNode<Object> LoadPromiseReactionJobTaskContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=61&c=3
-  void StorePromiseReactionJobTaskContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=79&c=3
+  TNode<Object> LoadPromiseReactionJobTaskIsolateContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=79&c=3
+  void StorePromiseReactionJobTaskIsolateContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o, TNode<Object> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=81&c=3
+  TNode<Object> LoadPromiseReactionJobTaskContextContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=81&c=3
+  void StorePromiseReactionJobTaskContextContinuationPreservedEmbedderData(TNode<PromiseReactionJobTask> p_o, TNode<Object> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=89&c=3
   TNode<Context> LoadPromiseResolveThenableJobTaskContext(TNode<PromiseResolveThenableJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=89&c=3
   void StorePromiseResolveThenableJobTaskContext(TNode<PromiseResolveThenableJobTask> p_o, TNode<Context> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=90&c=3
   TNode<JSPromise> LoadPromiseResolveThenableJobTaskPromiseToResolve(TNode<PromiseResolveThenableJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=90&c=3
   void StorePromiseResolveThenableJobTaskPromiseToResolve(TNode<PromiseResolveThenableJobTask> p_o, TNode<JSPromise> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=71&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=91&c=3
   TNode<JSReceiver> LoadPromiseResolveThenableJobTaskThenable(TNode<PromiseResolveThenableJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=71&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=91&c=3
   void StorePromiseResolveThenableJobTaskThenable(TNode<PromiseResolveThenableJobTask> p_o, TNode<JSReceiver> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=92&c=3
   TNode<JSReceiver> LoadPromiseResolveThenableJobTaskThen(TNode<PromiseResolveThenableJobTask> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=92&c=3
   void StorePromiseResolveThenableJobTaskThen(TNode<PromiseResolveThenableJobTask> p_o, TNode<JSReceiver> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/property-array.tq?l=6&c=3
   TNode<Smi> LoadPropertyArrayLengthAndHash(TNode<PropertyArray> p_o);
@@ -2075,77 +2115,77 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadPrototypeInfoBitField(TNode<PrototypeInfo> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=26&c=3
   void StorePrototypeInfoBitField(TNode<PrototypeInfo> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  TNode<MaybeObject> LoadPrototypeInfoObjectCreateMap(TNode<PrototypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  void StorePrototypeInfoObjectCreateMap(TNode<PrototypeInfo> p_o, TNode<MaybeObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=20&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  TNode<HeapObject> LoadPrototypeInfoDerivedMaps(TNode<PrototypeInfo> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  void StorePrototypeInfoDerivedMaps(TNode<PrototypeInfo> p_o, TNode<HeapObject> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=21&c=3
   TNode<PrimitiveHeapObject> LoadScriptSource(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=20&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=21&c=3
   void StoreScriptSource(TNode<Script> p_o, TNode<PrimitiveHeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=23&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=24&c=3
   TNode<Object> LoadScriptName(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=23&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=24&c=3
   void StoreScriptName(TNode<Script> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=27&c=3
   TNode<Smi> LoadScriptLineOffset(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=27&c=3
   void StoreScriptLineOffset(TNode<Script> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=31&c=3
   TNode<Smi> LoadScriptColumnOffset(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=30&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=31&c=3
   void StoreScriptColumnOffset(TNode<Script> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=33&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=34&c=3
   TNode<Object> LoadScriptContextData(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=33&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=34&c=3
   void StoreScriptContextData(TNode<Script> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=35&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=36&c=3
   TNode<Smi> LoadScriptScriptType(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=35&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=36&c=3
   void StoreScriptScriptType(TNode<Script> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=39&c=3
   TNode<Object> LoadScriptLineEnds(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=39&c=3
   void StoreScriptLineEnds(TNode<Script> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=41&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=42&c=3
   TNode<Smi> LoadScriptId(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=41&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=42&c=3
   void StoreScriptId(TNode<Script> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=47&c=3
   TNode<HeapObject> LoadScriptEvalFromSharedOrWrappedArguments(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=47&c=3
   void StoreScriptEvalFromSharedOrWrappedArguments(TNode<Script> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=49&c=3
   TNode<Object> LoadScriptEvalFromPosition(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=49&c=3
   void StoreScriptEvalFromPosition(TNode<Script> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=49&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=50&c=3
   TNode<HeapObject> LoadScriptSharedFunctionInfos(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=49&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=50&c=3
   void StoreScriptSharedFunctionInfos(TNode<Script> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=53&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=54&c=3
   TNode<HeapObject> LoadScriptCompiledLazyFunctionPositions(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=53&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=54&c=3
   void StoreScriptCompiledLazyFunctionPositions(TNode<Script> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=57&c=3
   TNode<Smi> LoadScriptFlags(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=57&c=3
   void StoreScriptFlags(TNode<Script> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=59&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=60&c=3
   TNode<PrimitiveHeapObject> LoadScriptSourceUrl(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=59&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=60&c=3
   void StoreScriptSourceUrl(TNode<Script> p_o, TNode<PrimitiveHeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=63&c=3
   TNode<Object> LoadScriptSourceMappingUrl(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=63&c=3
   void StoreScriptSourceMappingUrl(TNode<Script> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=65&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=66&c=3
   TNode<FixedArray> LoadScriptHostDefinedOptions(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=65&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=66&c=3
   void StoreScriptHostDefinedOptions(TNode<Script> p_o, TNode<FixedArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=75&c=3
   TNode<PrimitiveHeapObject> LoadScriptSourceHash(TNode<Script> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/script.tq?l=75&c=3
   void StoreScriptSourceHash(TNode<Script> p_o, TNode<PrimitiveHeapObject> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=7&c=3
   TNode<Int32T> LoadPreparseDataDataLength(TNode<PreparseData> p_o);
@@ -2155,121 +2195,125 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Int32T> LoadPreparseDataChildrenLength(TNode<PreparseData> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=8&c=3
   void StorePreparseDataChildrenLength(TNode<PreparseData> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=12&c=3
-  TNode<BytecodeArray> LoadInterpreterDataBytecodeArray(TNode<InterpreterData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=12&c=3
-  void StoreInterpreterDataBytecodeArray(TNode<InterpreterData> p_o, TNode<BytecodeArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=13&c=3
-  TNode<Code> LoadInterpreterDataInterpreterTrampoline(TNode<InterpreterData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=13&c=3
-  void StoreInterpreterDataInterpreterTrampoline(TNode<InterpreterData> p_o, TNode<Code> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=54&c=22
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=16&c=26
+  TNode<IndirectPointerHandleT> LoadInterpreterDataBytecodeArray(TNode<InterpreterData> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=16&c=26
+  void StoreInterpreterDataBytecodeArray(TNode<InterpreterData> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=18&c=26
+  TNode<IndirectPointerHandleT> LoadInterpreterDataInterpreterTrampoline(TNode<InterpreterData> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=18&c=26
+  void StoreInterpreterDataInterpreterTrampoline(TNode<InterpreterData> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=71&c=26
+  TNode<IndirectPointerHandleT> LoadSharedFunctionInfoTrustedFunctionData(TNode<SharedFunctionInfo> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=71&c=26
+  void StoreSharedFunctionInfoTrustedFunctionData(TNode<SharedFunctionInfo> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=72&c=22
   TNode<Object> LoadSharedFunctionInfoFunctionData(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=54&c=22
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=72&c=22
   void StoreSharedFunctionInfoFunctionData(TNode<SharedFunctionInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=55&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=73&c=3
   TNode<Object> LoadSharedFunctionInfoNameOrScopeInfo(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=55&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=73&c=3
   void StoreSharedFunctionInfoNameOrScopeInfo(TNode<SharedFunctionInfo> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=74&c=3
   TNode<HeapObject> LoadSharedFunctionInfoOuterScopeInfoOrFeedbackMetadata(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=56&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=74&c=3
   void StoreSharedFunctionInfoOuterScopeInfoOrFeedbackMetadata(TNode<SharedFunctionInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=75&c=3
   TNode<HeapObject> LoadSharedFunctionInfoScript(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=75&c=3
   void StoreSharedFunctionInfoScript(TNode<SharedFunctionInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=63&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=81&c=3
   TNode<Int16T> LoadSharedFunctionInfoLength(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=63&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=81&c=3
   void StoreSharedFunctionInfoLength(TNode<SharedFunctionInfo> p_o, TNode<Int16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=68&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=86&c=3
   TNode<Uint16T> LoadSharedFunctionInfoFormalParameterCount(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=68&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=86&c=3
   void StoreSharedFunctionInfoFormalParameterCount(TNode<SharedFunctionInfo> p_o, TNode<Uint16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=87&c=3
   TNode<Uint16T> LoadSharedFunctionInfoFunctionTokenOffset(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=87&c=3
   void StoreSharedFunctionInfoFunctionTokenOffset(TNode<SharedFunctionInfo> p_o, TNode<Uint16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=90&c=3
   TNode<Uint8T> LoadSharedFunctionInfoExpectedNofProperties(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=90&c=3
   void StoreSharedFunctionInfoExpectedNofProperties(TNode<SharedFunctionInfo> p_o, TNode<Uint8T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=73&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=91&c=3
   TNode<Uint8T> LoadSharedFunctionInfoFlags2(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=73&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=91&c=3
   void StoreSharedFunctionInfoFlags2(TNode<SharedFunctionInfo> p_o, TNode<Uint8T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=92&c=3
   TNode<Uint32T> LoadSharedFunctionInfoFlags(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=92&c=3
   void StoreSharedFunctionInfoFlags(TNode<SharedFunctionInfo> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=78&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=96&c=3
   TNode<Int32T> LoadSharedFunctionInfoFunctionLiteralId(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=78&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=96&c=3
   void StoreSharedFunctionInfoFunctionLiteralId(TNode<SharedFunctionInfo> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=100&c=3
   TNode<Int32T> LoadSharedFunctionInfoUniqueId(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=100&c=3
   void StoreSharedFunctionInfoUniqueId(TNode<SharedFunctionInfo> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=85&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=103&c=3
   TNode<Uint16T> LoadSharedFunctionInfoAge(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=85&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=103&c=3
   void StoreSharedFunctionInfoAge(TNode<SharedFunctionInfo> p_o, TNode<Uint16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=86&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=104&c=3
   TNode<Uint16T> LoadSharedFunctionInfoPadding(TNode<SharedFunctionInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=86&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=104&c=3
   void StoreSharedFunctionInfoPadding(TNode<SharedFunctionInfo> p_o, TNode<Uint16T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=117&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=135&c=3
   TNode<String> LoadUncompiledDataInferredName(TNode<UncompiledData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=117&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=135&c=3
   void StoreUncompiledDataInferredName(TNode<UncompiledData> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=118&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=136&c=3
   TNode<Int32T> LoadUncompiledDataStartPosition(TNode<UncompiledData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=118&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=136&c=3
   void StoreUncompiledDataStartPosition(TNode<UncompiledData> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=119&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=137&c=3
   TNode<Int32T> LoadUncompiledDataEndPosition(TNode<UncompiledData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=119&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=137&c=3
   void StoreUncompiledDataEndPosition(TNode<UncompiledData> p_o, TNode<Int32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=149&c=3
   TNode<PreparseData> LoadUncompiledDataWithPreparseDataPreparseData(TNode<UncompiledDataWithPreparseData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=149&c=3
   void StoreUncompiledDataWithPreparseDataPreparseData(TNode<UncompiledDataWithPreparseData> p_o, TNode<PreparseData> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=140&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=158&c=3
   TNode<RawPtrT> LoadUncompiledDataWithoutPreparseDataWithJobJob(TNode<UncompiledDataWithoutPreparseDataWithJob> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=140&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=158&c=3
   void StoreUncompiledDataWithoutPreparseDataWithJobJob(TNode<UncompiledDataWithoutPreparseDataWithJob> p_o, TNode<RawPtrT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=149&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=167&c=3
   TNode<RawPtrT> LoadUncompiledDataWithPreparseDataAndJobJob(TNode<UncompiledDataWithPreparseDataAndJob> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=149&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=167&c=3
   void StoreUncompiledDataWithPreparseDataAndJobJob(TNode<UncompiledDataWithPreparseDataAndJob> p_o, TNode<RawPtrT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=164&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=182&c=3
   TNode<ByteArray> LoadOnHeapBasicBlockProfilerDataBlockIds(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=164&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=182&c=3
   void StoreOnHeapBasicBlockProfilerDataBlockIds(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=165&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=183&c=3
   TNode<ByteArray> LoadOnHeapBasicBlockProfilerDataCounts(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=165&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=183&c=3
   void StoreOnHeapBasicBlockProfilerDataCounts(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=166&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=184&c=3
   TNode<ByteArray> LoadOnHeapBasicBlockProfilerDataBranches(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=166&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=184&c=3
   void StoreOnHeapBasicBlockProfilerDataBranches(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=167&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=185&c=3
   TNode<String> LoadOnHeapBasicBlockProfilerDataName(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=167&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=185&c=3
   void StoreOnHeapBasicBlockProfilerDataName(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=168&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=186&c=3
   TNode<String> LoadOnHeapBasicBlockProfilerDataSchedule(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=168&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=186&c=3
   void StoreOnHeapBasicBlockProfilerDataSchedule(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=169&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=187&c=3
   TNode<String> LoadOnHeapBasicBlockProfilerDataCode(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=169&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=187&c=3
   void StoreOnHeapBasicBlockProfilerDataCode(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=170&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=188&c=3
   TNode<Smi> LoadOnHeapBasicBlockProfilerDataHash(TNode<OnHeapBasicBlockProfilerData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=170&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=188&c=3
   void StoreOnHeapBasicBlockProfilerDataHash(TNode<OnHeapBasicBlockProfilerData> p_o, TNode<Smi> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=14&c=3
   TNode<HeapObject> LoadSourceTextModuleCode(TNode<SourceTextModule> p_o);
@@ -2355,41 +2399,41 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Smi> LoadSourceTextModuleInfoEntryEndPos(TNode<SourceTextModuleInfoEntry> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=68&c=3
   void StoreSourceTextModuleInfoEntryEndPos(TNode<SourceTextModuleInfoEntry> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=77&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=78&c=3
   TNode<String> LoadConsStringFirst(TNode<ConsString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=77&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=78&c=3
   void StoreConsStringFirst(TNode<ConsString> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=78&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=79&c=3
   TNode<String> LoadConsStringSecond(TNode<ConsString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=78&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=79&c=3
   void StoreConsStringSecond(TNode<ConsString> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=84&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=86&c=3
   TNode<ExternalPointerT> LoadExternalStringResource(TNode<ExternalString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=84&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=86&c=3
   void StoreExternalStringResource(TNode<ExternalString> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=86&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=88&c=3
   TNode<ExternalPointerT> LoadExternalStringResourceData(TNode<ExternalString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=86&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=88&c=3
   void StoreExternalStringResourceData(TNode<ExternalString> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=134&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=141&c=9
   TorqueStructSlice_char8_ConstReference_char8_0 FieldSliceSeqOneByteStringChars(TNode<SeqOneByteString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=134&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=141&c=9
   TNode<Uint8T> LoadSeqOneByteStringChars(TNode<SeqOneByteString> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=139&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=147&c=9
   TorqueStructSlice_char16_ConstReference_char16_0 FieldSliceSeqTwoByteStringChars(TNode<SeqTwoByteString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=139&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=147&c=9
   TNode<Uint16T> LoadSeqTwoByteStringChars(TNode<SeqTwoByteString> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=145&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=153&c=3
   TNode<String> LoadSlicedStringParent(TNode<SlicedString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=145&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=153&c=3
   void StoreSlicedStringParent(TNode<SlicedString> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=146&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=154&c=3
   TNode<Smi> LoadSlicedStringOffset(TNode<SlicedString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=146&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=154&c=3
   void StoreSlicedStringOffset(TNode<SlicedString> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=152&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=160&c=3
   TNode<String> LoadThinStringActual(TNode<ThinString> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=152&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/string.tq?l=160&c=3
   void StoreThinStringActual(TNode<ThinString> p_o, TNode<String> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/struct.tq?l=9&c=3
   TNode<Object> LoadTuple2Value1(TNode<Tuple2> p_o);
@@ -2579,75 +2623,75 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<Float64T> LoadTurbofanOtherNumberConstantTypeConstant(TNode<TurbofanOtherNumberConstantType> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=84&c=3
   void StoreTurbofanOtherNumberConstantTypeConstant(TNode<TurbofanOtherNumberConstantType> p_o, TNode<Float64T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=3
   TNode<Uint32T> LoadTurboshaftWord32RangeTypeFrom(TNode<TurboshaftWord32RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=3
   void StoreTurboshaftWord32RangeTypeFrom(TNode<TurboshaftWord32RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=30&c=3
   TNode<Uint32T> LoadTurboshaftWord32RangeTypeTo(TNode<TurboshaftWord32RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=26&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=30&c=3
   void StoreTurboshaftWord32RangeTypeTo(TNode<TurboshaftWord32RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=33&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=37&c=9
   TNode<Uint32T> LoadTurboshaftWord32SetTypeSetSize(TNode<TurboshaftWord32SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
   TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord32SetTypeElements(TNode<TurboshaftWord32SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
   TNode<Uint32T> LoadTurboshaftWord32SetTypeElements(TNode<TurboshaftWord32SetType> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
   void StoreTurboshaftWord32SetTypeElements(TNode<TurboshaftWord32SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=50&c=3
   TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromHigh(TNode<TurboshaftWord64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=50&c=3
   void StoreTurboshaftWord64RangeTypeFromHigh(TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=47&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=51&c=3
   TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromLow(TNode<TurboshaftWord64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=47&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=51&c=3
   void StoreTurboshaftWord64RangeTypeFromLow(TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=3
   TNode<Uint32T> LoadTurboshaftWord64RangeTypeToHigh(TNode<TurboshaftWord64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=48&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=3
   void StoreTurboshaftWord64RangeTypeToHigh(TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=49&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=53&c=3
   TNode<Uint32T> LoadTurboshaftWord64RangeTypeToLow(TNode<TurboshaftWord64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=49&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=53&c=3
   void StoreTurboshaftWord64RangeTypeToLow(TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=60&c=9
   TNode<Uint32T> LoadTurboshaftWord64SetTypeSetSize(TNode<TurboshaftWord64SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
   TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64SetTypeElementsHigh(TNode<TurboshaftWord64SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
   TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsHigh(TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
   void StoreTurboshaftWord64SetTypeElementsHigh(TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
   TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64SetTypeElementsLow(TNode<TurboshaftWord64SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
   TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsLow(TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
   void StoreTurboshaftWord64SetTypeElementsLow(TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=69&c=3
   TNode<Uint32T> LoadTurboshaftFloat64TypeSpecialValues(TNode<TurboshaftFloat64Type> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=69&c=3
   void StoreTurboshaftFloat64TypeSpecialValues(TNode<TurboshaftFloat64Type> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=76&c=3
   TNode<Uint32T> LoadTurboshaftFloat64RangeTypePadding(TNode<TurboshaftFloat64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=76&c=3
   void StoreTurboshaftFloat64RangeTypePadding(TNode<TurboshaftFloat64RangeType> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=73&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=3
   TNode<Float64T> LoadTurboshaftFloat64RangeTypeMin(TNode<TurboshaftFloat64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=73&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=3
   void StoreTurboshaftFloat64RangeTypeMin(TNode<TurboshaftFloat64RangeType> p_o, TNode<Float64T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=78&c=3
   TNode<Float64T> LoadTurboshaftFloat64RangeTypeMax(TNode<TurboshaftFloat64RangeType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=74&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=78&c=3
   void StoreTurboshaftFloat64RangeTypeMax(TNode<TurboshaftFloat64RangeType> p_o, TNode<Float64T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=81&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=85&c=9
   TNode<Uint32T> LoadTurboshaftFloat64SetTypeSetSize(TNode<TurboshaftFloat64SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
   TorqueStructSlice_float64_MutableReference_float64_0 FieldSliceTurboshaftFloat64SetTypeElements(TNode<TurboshaftFloat64SetType> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
   TNode<Float64T> LoadTurboshaftFloat64SetTypeElements(TNode<TurboshaftFloat64SetType> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
   void StoreTurboshaftFloat64SetTypeElements(TNode<TurboshaftFloat64SetType> p_o, TNode<IntPtrT> p_i, TNode<Float64T> p_v);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/test/torque/test-torque.tq?l=765&c=3
   TNode<Smi> LoadInternalClassA(TNode<InternalClass> p_o);
@@ -3019,249 +3063,249 @@ class V8_EXPORT_PRIVATE TorqueGeneratedExportedMacrosAssembler {
   TNode<ByteArray> LoadWasmApiFunctionRefSig(TNode<WasmApiFunctionRef> p_o);
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=30&c=3
   void StoreWasmApiFunctionRefSig(TNode<WasmApiFunctionRef> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=59&c=26
+  TNode<IndirectPointerHandleT> LoadWasmFunctionDataWrapperCode(TNode<WasmFunctionData> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=59&c=26
+  void StoreWasmFunctionDataWrapperCode(TNode<WasmFunctionData> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=62&c=3
   TNode<WasmInternalFunction> LoadWasmFunctionDataInternal(TNode<WasmFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=62&c=3
   void StoreWasmFunctionDataInternal(TNode<WasmFunctionData> p_o, TNode<WasmInternalFunction> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=60&c=3
-  TNode<Code> LoadWasmFunctionDataWrapperCode(TNode<WasmFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=60&c=3
-  void StoreWasmFunctionDataWrapperCode(TNode<WasmFunctionData> p_o, TNode<Code> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=64&c=3
   TNode<Smi> LoadWasmFunctionDataJsPromiseFlags(TNode<WasmFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=62&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=64&c=3
   void StoreWasmFunctionDataJsPromiseFlags(TNode<WasmFunctionData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=71&c=3
   TNode<WasmInstanceObject> LoadWasmExportedFunctionDataInstance(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=69&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=71&c=3
   void StoreWasmExportedFunctionDataInstance(TNode<WasmExportedFunctionData> p_o, TNode<WasmInstanceObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=70&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=72&c=3
   TNode<Smi> LoadWasmExportedFunctionDataFunctionIndex(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=70&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=72&c=3
   void StoreWasmExportedFunctionDataFunctionIndex(TNode<WasmExportedFunctionData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=71&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=73&c=3
   TNode<Smi> LoadWasmExportedFunctionDataWrapperBudget(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=71&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=73&c=3
   void StoreWasmExportedFunctionDataWrapperBudget(TNode<WasmExportedFunctionData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=74&c=3
-  TNode<Code> LoadWasmExportedFunctionDataCWrapperCode(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=74&c=3
-  void StoreWasmExportedFunctionDataCWrapperCode(TNode<WasmExportedFunctionData> p_o, TNode<Code> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=75&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=76&c=3
   TNode<Smi> LoadWasmExportedFunctionDataPackedArgsSize(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=75&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=76&c=3
   void StoreWasmExportedFunctionDataPackedArgsSize(TNode<WasmExportedFunctionData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=76&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=77&c=3
   TNode<Smi> LoadWasmExportedFunctionDataCanonicalTypeIndex(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=76&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=77&c=3
   void StoreWasmExportedFunctionDataCanonicalTypeIndex(TNode<WasmExportedFunctionData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=77&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=78&c=26
+  TNode<IndirectPointerHandleT> LoadWasmExportedFunctionDataCWrapperCode(TNode<WasmExportedFunctionData> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=78&c=26
+  void StoreWasmExportedFunctionDataCWrapperCode(TNode<WasmExportedFunctionData> p_o, TNode<IndirectPointerHandleT> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=80&c=3
   TNode<ExternalPointerT> LoadWasmExportedFunctionDataSig(TNode<WasmExportedFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=77&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=80&c=3
   void StoreWasmExportedFunctionDataSig(TNode<WasmExportedFunctionData> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=84&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=87&c=3
   TNode<ByteArray> LoadWasmJSFunctionDataSerializedSignature(TNode<WasmJSFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=84&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=87&c=3
   void StoreWasmJSFunctionDataSerializedSignature(TNode<WasmJSFunctionData> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=88&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=91&c=3
   TNode<Foreign> LoadWasmCapiFunctionDataEmbedderData(TNode<WasmCapiFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=88&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=91&c=3
   void StoreWasmCapiFunctionDataEmbedderData(TNode<WasmCapiFunctionData> p_o, TNode<Foreign> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=89&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=92&c=3
   TNode<ByteArray> LoadWasmCapiFunctionDataSerializedSignature(TNode<WasmCapiFunctionData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=89&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=92&c=3
   void StoreWasmCapiFunctionDataSerializedSignature(TNode<WasmCapiFunctionData> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=93&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=96&c=3
   TNode<WasmSuspenderObject> LoadWasmResumeDataSuspender(TNode<WasmResumeData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=93&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=96&c=3
   void StoreWasmResumeDataSuspender(TNode<WasmResumeData> p_o, TNode<WasmSuspenderObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=94&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=97&c=3
   TNode<Smi> LoadWasmResumeDataOnResume(TNode<WasmResumeData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=94&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=97&c=3
   void StoreWasmResumeDataOnResume(TNode<WasmResumeData> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=98&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=101&c=3
   TNode<ByteArray> LoadWasmIndirectFunctionTableSigIds(TNode<WasmIndirectFunctionTable> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=98&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=101&c=3
   void StoreWasmIndirectFunctionTableSigIds(TNode<WasmIndirectFunctionTable> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=99&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=102&c=3
   TNode<ExternalPointerArray> LoadWasmIndirectFunctionTableTargets(TNode<WasmIndirectFunctionTable> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=99&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=102&c=3
   void StoreWasmIndirectFunctionTableTargets(TNode<WasmIndirectFunctionTable> p_o, TNode<ExternalPointerArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=100&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=103&c=3
   TNode<FixedArray> LoadWasmIndirectFunctionTableRefs(TNode<WasmIndirectFunctionTable> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=100&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=103&c=3
   void StoreWasmIndirectFunctionTableRefs(TNode<WasmIndirectFunctionTable> p_o, TNode<FixedArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=101&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=104&c=3
   TNode<Uint32T> LoadWasmIndirectFunctionTableSize(TNode<WasmIndirectFunctionTable> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=101&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=104&c=3
   void StoreWasmIndirectFunctionTableSize(TNode<WasmIndirectFunctionTable> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=107&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=110&c=3
   TNode<Foreign> LoadWasmContinuationObjectStack(TNode<WasmContinuationObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=107&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=110&c=3
   void StoreWasmContinuationObjectStack(TNode<WasmContinuationObject> p_o, TNode<Foreign> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=108&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=111&c=3
   TNode<HeapObject> LoadWasmContinuationObjectParent(TNode<WasmContinuationObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=108&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=111&c=3
   void StoreWasmContinuationObjectParent(TNode<WasmContinuationObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=109&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=112&c=3
   TNode<ExternalPointerT> LoadWasmContinuationObjectJmpbuf(TNode<WasmContinuationObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=109&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=112&c=3
   void StoreWasmContinuationObjectJmpbuf(TNode<WasmContinuationObject> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=113&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=116&c=3
   TNode<HeapObject> LoadWasmSuspenderObjectContinuation(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=113&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=116&c=3
   void StoreWasmSuspenderObjectContinuation(TNode<WasmSuspenderObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=114&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=117&c=3
   TNode<HeapObject> LoadWasmSuspenderObjectParent(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=114&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=117&c=3
   void StoreWasmSuspenderObjectParent(TNode<WasmSuspenderObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=115&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=118&c=3
   TNode<JSPromise> LoadWasmSuspenderObjectPromise(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=115&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=118&c=3
   void StoreWasmSuspenderObjectPromise(TNode<WasmSuspenderObject> p_o, TNode<JSPromise> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=116&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=119&c=3
   TNode<HeapObject> LoadWasmSuspenderObjectResume(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=116&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=119&c=3
   void StoreWasmSuspenderObjectResume(TNode<WasmSuspenderObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=117&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=120&c=3
   TNode<HeapObject> LoadWasmSuspenderObjectReject(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=117&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=120&c=3
   void StoreWasmSuspenderObjectReject(TNode<WasmSuspenderObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=118&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=121&c=3
   TNode<Smi> LoadWasmSuspenderObjectState(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=118&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=121&c=3
   void StoreWasmSuspenderObjectState(TNode<WasmSuspenderObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=122&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=125&c=3
   TNode<Uint32T> LoadWasmSuspenderObjectWasmToJsCounter(TNode<WasmSuspenderObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=122&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=125&c=3
   void StoreWasmSuspenderObjectWasmToJsCounter(TNode<WasmSuspenderObject> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=134&c=3
   TNode<Smi> LoadWasmExceptionTagIndex(TNode<WasmExceptionTag> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=131&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=134&c=3
   void StoreWasmExceptionTagIndex(TNode<WasmExceptionTag> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=137&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=140&c=3
   TNode<Foreign> LoadWasmModuleObjectManagedNativeModule(TNode<WasmModuleObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=137&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=140&c=3
   void StoreWasmModuleObjectManagedNativeModule(TNode<WasmModuleObject> p_o, TNode<Foreign> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=138&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=141&c=3
   TNode<Script> LoadWasmModuleObjectScript(TNode<WasmModuleObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=138&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=141&c=3
   void StoreWasmModuleObjectScript(TNode<WasmModuleObject> p_o, TNode<Script> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=146&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=148&c=3
   TNode<HeapObject> LoadWasmTableObjectInstance(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=146&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=148&c=3
   void StoreWasmTableObjectInstance(TNode<WasmTableObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=149&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=3
   TNode<FixedArray> LoadWasmTableObjectEntries(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=149&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=3
   void StoreWasmTableObjectEntries(TNode<WasmTableObject> p_o, TNode<FixedArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=150&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=152&c=3
   TNode<Smi> LoadWasmTableObjectCurrentLength(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=150&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=152&c=3
   void StoreWasmTableObjectCurrentLength(TNode<WasmTableObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
   TNode<Object> LoadWasmTableObjectMaximumLength(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
   void StoreWasmTableObjectMaximumLength(TNode<WasmTableObject> p_o, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=152&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=154&c=3
   TNode<FixedArray> LoadWasmTableObjectDispatchTables(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=152&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=154&c=3
   void StoreWasmTableObjectDispatchTables(TNode<WasmTableObject> p_o, TNode<FixedArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
   TNode<Smi> LoadWasmTableObjectRawType(TNode<WasmTableObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
   void StoreWasmTableObjectRawType(TNode<WasmTableObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=157&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=159&c=3
   TNode<JSArrayBuffer> LoadWasmMemoryObjectArrayBuffer(TNode<WasmMemoryObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=157&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=159&c=3
   void StoreWasmMemoryObjectArrayBuffer(TNode<WasmMemoryObject> p_o, TNode<JSArrayBuffer> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=158&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=160&c=3
   TNode<Smi> LoadWasmMemoryObjectMaximumPages(TNode<WasmMemoryObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=158&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=160&c=3
   void StoreWasmMemoryObjectMaximumPages(TNode<WasmMemoryObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=159&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=161&c=3
   TNode<Smi> LoadWasmMemoryObjectIsMemory64(TNode<WasmMemoryObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=159&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=161&c=3
   void StoreWasmMemoryObjectIsMemory64(TNode<WasmMemoryObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=160&c=3
-  TNode<HeapObject> LoadWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=160&c=3
-  void StoreWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+  TNode<WeakArrayList> LoadWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+  void StoreWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o, TNode<WeakArrayList> p_v);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
   TNode<HeapObject> LoadWasmGlobalObjectInstance(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
   void StoreWasmGlobalObjectInstance(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=3
   TNode<HeapObject> LoadWasmGlobalObjectUntaggedBuffer(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=3
   void StoreWasmGlobalObjectUntaggedBuffer(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
   TNode<HeapObject> LoadWasmGlobalObjectTaggedBuffer(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
   void StoreWasmGlobalObjectTaggedBuffer(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
   TNode<Smi> LoadWasmGlobalObjectOffset(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
   void StoreWasmGlobalObjectOffset(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
   TNode<Smi> LoadWasmGlobalObjectRawType(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
   void StoreWasmGlobalObjectRawType(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
   TNode<Smi> LoadWasmGlobalObjectIsMutable(TNode<WasmGlobalObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
   void StoreWasmGlobalObjectIsMutable(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=179&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=181&c=3
   TNode<ByteArray> LoadWasmTagObjectSerializedSignature(TNode<WasmTagObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=179&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=181&c=3
   void StoreWasmTagObjectSerializedSignature(TNode<WasmTagObject> p_o, TNode<ByteArray> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=180&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=182&c=3
   TNode<HeapObject> LoadWasmTagObjectTag(TNode<WasmTagObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=180&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=182&c=3
   void StoreWasmTagObjectTag(TNode<WasmTagObject> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=181&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
   TNode<Smi> LoadWasmTagObjectCanonicalTypeIndex(TNode<WasmTagObject> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=181&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
   void StoreWasmTagObjectCanonicalTypeIndex(TNode<WasmTagObject> p_o, TNode<Smi> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
   TNode<Foreign> LoadAsmWasmDataManagedNativeModule(TNode<AsmWasmData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
   void StoreAsmWasmDataManagedNativeModule(TNode<AsmWasmData> p_o, TNode<Foreign> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
   TNode<HeapNumber> LoadAsmWasmDataUsesBitset(TNode<AsmWasmData> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
   void StoreAsmWasmDataUsesBitset(TNode<AsmWasmData> p_o, TNode<HeapNumber> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=200&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
   TNode<ExternalPointerT> LoadWasmTypeInfoNativeType(TNode<WasmTypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=200&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
   void StoreWasmTypeInfoNativeType(TNode<WasmTypeInfo> p_o, TNode<ExternalPointerT> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=201&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
   TNode<Uint32T> LoadWasmTypeInfoTypeIndex(TNode<WasmTypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=201&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
   void StoreWasmTypeInfoTypeIndex(TNode<WasmTypeInfo> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=207&c=3
   TNode<HeapObject> LoadWasmTypeInfoInstance(TNode<WasmTypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=207&c=3
   void StoreWasmTypeInfoInstance(TNode<WasmTypeInfo> p_o, TNode<HeapObject> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=206&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=208&c=9
   TNode<Smi> LoadWasmTypeInfoSupertypesLength(TNode<WasmTypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=207&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=209&c=3
   TorqueStructSlice_Object_MutableReference_Object_0 FieldSliceWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=207&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=209&c=3
   TNode<Object> LoadWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o, TNode<IntPtrT> p_i);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=207&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=209&c=3
   void StoreWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o, TNode<IntPtrT> p_i, TNode<Object> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
   TNode<Uint32T> LoadWasmArrayLength(TNode<WasmArray> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
   void StoreWasmArrayLength(TNode<WasmArray> p_o, TNode<Uint32T> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=229&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=3
   TNode<String> LoadWasmStringViewIterString(TNode<WasmStringViewIter> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=229&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=3
   void StoreWasmStringViewIterString(TNode<WasmStringViewIter> p_o, TNode<String> p_v);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=230&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=3
   TNode<Uint32T> LoadWasmStringViewIterOffset(TNode<WasmStringViewIter> p_o);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=230&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=3
   void StoreWasmStringViewIterOffset(TNode<WasmStringViewIter> p_o, TNode<Uint32T> p_v);
  private:
   compiler::CodeAssemblerState* state_;

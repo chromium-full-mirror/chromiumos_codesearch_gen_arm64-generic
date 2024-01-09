@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGClipPathElement>::value,
     "SVGClipPathElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGClipPathElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGClipPathElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGClipPathElement_C
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGClipPathElement* blink_receiver = V8SVGClipPathElement::ToWrappableUnsafe(v8_receiver);
+SVGClipPathElement* blink_receiver = V8SVGClipPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clipPathUnits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -110,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGClipPathElement.transform.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGClipPathElement* blink_receiver = V8SVGClipPathElement::ToWrappableUnsafe(v8_receiver);
+SVGClipPathElement* blink_receiver = V8SVGClipPathElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transform();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

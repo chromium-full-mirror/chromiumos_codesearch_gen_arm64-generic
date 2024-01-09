@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import * as TimelineModel from '../../../../front_end/models/timeline_model/timeline_model.js';
 import * as TraceEngine from '../../../../front_end/models/trace/trace.js';
 import * as Timeline from '../../../../front_end/panels/timeline/timeline.js';
 import * as TraceBounds from '../../../../front_end/services/trace_bounds/trace_bounds.js';
@@ -42,6 +43,9 @@ export class TraceLoader {
      * The context might be null when we only render a component example.
      **/
     static setTestTimeout(context) {
+        if (!context || context.timeout() >= 10_000) {
+            return;
+        }
         context?.timeout(10_000);
     }
     /**
@@ -133,7 +137,11 @@ export class TraceLoader {
             return fromCache;
         }
         // Load the contents of the file and get the array of all the events.
-        const fileContents = await TraceLoader.fixtureContents(context, name);
+        let fileContents = await TraceLoader.fixtureContents(context, name);
+        if (name.endsWith('.cpuprofile.gz')) {
+            const rawEvents = await TraceLoader.rawCPUProfile(context, name);
+            fileContents = TimelineModel.TimelineJSProfile.TimelineJSProfileProcessor.createFakeTraceFromCpuProfile(rawEvents, 1, true);
+        }
         const events = 'traceEvents' in fileContents ? fileContents.traceEvents : fileContents;
         // Execute the new trace engine
         const traceEngineData = await TraceLoader.executeTraceEngineOnFileContents(fileContents);
@@ -144,10 +152,11 @@ export class TraceLoader {
         tracingModel.tracingComplete();
         await performanceModel.setTracingModel(tracingModel);
         const timelineModel = performanceModel.timelineModel();
-        TraceBounds.TraceBounds.BoundsManager.instance({
+        TraceBounds.TraceBounds.BoundsManager
+            .instance({
             forceNew: true,
-            initialBounds: traceEngineData.traceParsedData.Meta.traceBounds,
-        });
+        })
+            .resetWithNewBounds(traceEngineData.traceParsedData.Meta.traceBounds);
         const result = {
             tracingModel,
             timelineModel,

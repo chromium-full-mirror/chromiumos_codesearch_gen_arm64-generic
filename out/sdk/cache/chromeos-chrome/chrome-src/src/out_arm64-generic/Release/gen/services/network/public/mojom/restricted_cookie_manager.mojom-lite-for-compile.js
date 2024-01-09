@@ -117,12 +117,13 @@ network.mojom.RestrictedCookieManagerInterface = class {
    * @param { !url.mojom.Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !network.mojom.CookieManagerGetOptions } options
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         cookies: !Array<!network.mojom.CookieWithAccessResult>,
    *  }>}
    */
 
-  getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options) {}
+  getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options, isAdTagged) {}
   
   /**
    * @param { !network.mojom.CanonicalCookie } cookie
@@ -166,6 +167,7 @@ network.mojom.RestrictedCookieManagerInterface = class {
    * @param { !url.mojom.Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !boolean } getVersionSharedMemory
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         version: !bigint,
         versionBuffer: ?mojoBase.mojom.ReadOnlySharedMemoryRegion,
@@ -173,7 +175,7 @@ network.mojom.RestrictedCookieManagerInterface = class {
    *  }>}
    */
 
-  getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory) {}
+  getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory, isAdTagged) {}
   
   /**
    * @param { !url.mojom.Url } url
@@ -219,6 +221,7 @@ network.mojom.RestrictedCookieManagerRemote = class {
    * @param { !url.mojom.Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !network.mojom.CookieManagerGetOptions } options
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         cookies: !Array<!network.mojom.CookieWithAccessResult>,
    *  }>}
@@ -229,7 +232,8 @@ network.mojom.RestrictedCookieManagerRemote = class {
       siteForCookies,
       topFrameOrigin,
       hasStorageAccess,
-      options) {
+      options,
+      isAdTagged) {
     return this.proxy.sendMessage(
         0,
         network.mojom.RestrictedCookieManager_GetAllForUrl_ParamsSpec.$,
@@ -239,7 +243,8 @@ network.mojom.RestrictedCookieManagerRemote = class {
           siteForCookies,
           topFrameOrigin,
           hasStorageAccess,
-          options
+          options,
+          isAdTagged
         ]);
   }
 
@@ -342,6 +347,7 @@ network.mojom.RestrictedCookieManagerRemote = class {
    * @param { !url.mojom.Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !boolean } getVersionSharedMemory
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         version: !bigint,
         versionBuffer: ?mojoBase.mojom.ReadOnlySharedMemoryRegion,
@@ -354,7 +360,8 @@ network.mojom.RestrictedCookieManagerRemote = class {
       siteForCookies,
       topFrameOrigin,
       hasStorageAccess,
-      getVersionSharedMemory) {
+      getVersionSharedMemory,
+      isAdTagged) {
     return this.proxy.sendMessage(
         4,
         network.mojom.RestrictedCookieManager_GetCookiesString_ParamsSpec.$,
@@ -364,7 +371,8 @@ network.mojom.RestrictedCookieManagerRemote = class {
           siteForCookies,
           topFrameOrigin,
           hasStorageAccess,
-          getVersionSharedMemory
+          getVersionSharedMemory,
+          isAdTagged
         ]);
   }
 
@@ -778,6 +786,14 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 24,
+        1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 48],]);
 
@@ -798,6 +814,8 @@ network.mojom.RestrictedCookieManager_GetAllForUrl_Params = class {
     this.hasStorageAccess;
     /** @export { !network.mojom.CookieManagerGetOptions } */
     this.options;
+    /** @export { !boolean } */
+    this.isAdTagged;
   }
 };
 
@@ -1160,6 +1178,14 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 24,
+        2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 40],]);
 
@@ -1180,6 +1206,8 @@ network.mojom.RestrictedCookieManager_GetCookiesString_Params = class {
     this.hasStorageAccess;
     /** @export { !boolean } */
     this.getVersionSharedMemory;
+    /** @export { !boolean } */
+    this.isAdTagged;
   }
 };
 

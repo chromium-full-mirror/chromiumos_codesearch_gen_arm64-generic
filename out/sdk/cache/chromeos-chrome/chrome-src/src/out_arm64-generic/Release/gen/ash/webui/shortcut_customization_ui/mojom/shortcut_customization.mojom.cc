@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,7 +49,7 @@ AcceleratorResultData::AcceleratorResultData()
       result() {}
 
 AcceleratorResultData::AcceleratorResultData(
-    const absl::optional<::std::u16string>& shortcut_name_in,
+    const std::optional<::std::u16string>& shortcut_name_in,
     ::ash::mojom::AcceleratorConfigResult result_in)
     : shortcut_name(std::move(shortcut_name_in)),
       result(std::move(result_in)) {}
@@ -62,7 +63,7 @@ void AcceleratorResultData::WriteIntoTrace(
     dict.AddItem(
       "shortcut_name"), this->shortcut_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -206,14 +207,17 @@ void AcceleratorsUpdatedObserverProxy::OnAcceleratorsUpdated(
                         "<value of type base::flat_map<::ash::mojom::AcceleratorSource, base::flat_map<uint32_t, std::vector<::ash::mojom::AcceleratorInfoPtr>>>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorsUpdatedObserver_OnAcceleratorsUpdated_Name, kFlags, 0, 0, nullptr);
@@ -294,10 +298,10 @@ bool AcceleratorsUpdatedObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAcceleratorsUpdatedObserverValidationInfo[] = {
-    {&internal::AcceleratorsUpdatedObserver_OnAcceleratorsUpdated_Params_Data::Validate,
+    { &internal::AcceleratorsUpdatedObserver_OnAcceleratorsUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -370,14 +374,17 @@ void PolicyUpdatedObserverProxy::OnCustomizationPolicyUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::PolicyUpdatedObserver::OnCustomizationPolicyUpdated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyUpdatedObserver_OnCustomizationPolicyUpdated_Name, kFlags, 0, 0, nullptr);
@@ -441,10 +448,10 @@ bool PolicyUpdatedObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPolicyUpdatedObserverValidationInfo[] = {
-    {&internal::PolicyUpdatedObserver_OnCustomizationPolicyUpdated_Params_Data::Validate,
+    { &internal::PolicyUpdatedObserver_OnCustomizationPolicyUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -509,6 +516,12 @@ AcceleratorConfigurationProvider::IPCStableHashFunction AcceleratorConfiguration
     case internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name: {
       return &AcceleratorConfigurationProvider::RecordMainCategoryNavigation_Sym::IPCStableHash;
     }
+    case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name: {
+      return &AcceleratorConfigurationProvider::RecordEditDialogCompletedActions_Sym::IPCStableHash;
+    }
+    case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name: {
+      return &AcceleratorConfigurationProvider::RecordAddOrEditSubactions_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -554,6 +567,10 @@ const char* AcceleratorConfigurationProvider::MessageToMethodName_(mojo::Message
             return "Receive ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordUserAction";
       case internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name:
             return "Receive ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordMainCategoryNavigation";
+      case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name:
+            return "Receive ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordEditDialogCompletedActions";
+      case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name:
+            return "Receive ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordAddOrEditSubactions";
     }
   } else {
     switch (message.name()) {
@@ -591,6 +608,10 @@ const char* AcceleratorConfigurationProvider::MessageToMethodName_(mojo::Message
             return "Receive reply ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordUserAction";
       case internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name:
             return "Receive reply ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordMainCategoryNavigation";
+      case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name:
+            return "Receive reply ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordEditDialogCompletedActions";
+      case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name:
+            return "Receive reply ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordAddOrEditSubactions";
     }
   }
   return "Receive unknown mojo message";
@@ -826,6 +847,32 @@ uint32_t AcceleratorConfigurationProvider::RecordMainCategoryNavigation_Sym::IPC
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AcceleratorConfigurationProvider::RecordEditDialogCompletedActions_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordEditDialogCompletedActions");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AcceleratorConfigurationProvider::RecordAddOrEditSubactions_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordAddOrEditSubactions");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AcceleratorConfigurationProvider_IsMutable_ForwardToCallback
@@ -1052,14 +1099,17 @@ void AcceleratorConfigurationProviderProxy::IsMutable(
                         "<value of type ::ash::mojom::AcceleratorSource>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_IsMutable_Name, kFlags, 0, 0, nullptr);
@@ -1085,14 +1135,17 @@ void AcceleratorConfigurationProviderProxy::IsCustomizationAllowedByPolicy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::IsCustomizationAllowedByPolicy");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Name, kFlags, 0, 0, nullptr);
@@ -1116,14 +1169,17 @@ void AcceleratorConfigurationProviderProxy::HasLauncherButton(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::HasLauncherButton");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_HasLauncherButton_Name, kFlags, 0, 0, nullptr);
@@ -1160,14 +1216,17 @@ void AcceleratorConfigurationProviderProxy::GetConflictAccelerator(
                         "<value of type const ::ui::Accelerator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetConflictAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1212,14 +1271,17 @@ void AcceleratorConfigurationProviderProxy::GetDefaultAcceleratorsForId(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Name, kFlags, 0, 0, nullptr);
@@ -1244,14 +1306,17 @@ void AcceleratorConfigurationProviderProxy::GetAccelerators(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::GetAccelerators");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetAccelerators_Name, kFlags, 0, 0, nullptr);
@@ -1282,14 +1347,17 @@ void AcceleratorConfigurationProviderProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<AcceleratorsUpdatedObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1325,14 +1393,17 @@ void AcceleratorConfigurationProviderProxy::AddPolicyObserver(
                         "<value of type ::mojo::PendingRemote<PolicyUpdatedObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_AddPolicyObserver_Name, kFlags, 0, 0, nullptr);
@@ -1361,14 +1432,17 @@ void AcceleratorConfigurationProviderProxy::GetAcceleratorLayoutInfos(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::GetAcceleratorLayoutInfos");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Name, kFlags, 0, 0, nullptr);
@@ -1399,14 +1473,17 @@ void AcceleratorConfigurationProviderProxy::PreventProcessingAccelerators(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_PreventProcessingAccelerators_Name, kFlags, 0, 0, nullptr);
@@ -1444,14 +1521,17 @@ void AcceleratorConfigurationProviderProxy::AddAccelerator(
                         "<value of type const ::ui::Accelerator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_AddAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1502,14 +1582,17 @@ void AcceleratorConfigurationProviderProxy::RemoveAccelerator(
                         "<value of type const ::ui::Accelerator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RemoveAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1563,14 +1646,17 @@ void AcceleratorConfigurationProviderProxy::ReplaceAccelerator(
                         "<value of type const ::ui::Accelerator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_ReplaceAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1629,14 +1715,17 @@ void AcceleratorConfigurationProviderProxy::RestoreDefault(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RestoreDefault_Name, kFlags, 0, 0, nullptr);
@@ -1663,14 +1752,17 @@ void AcceleratorConfigurationProviderProxy::RestoreAllDefaults(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RestoreAllDefaults");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RestoreAllDefaults_Name, kFlags, 0, 0, nullptr);
@@ -1701,14 +1793,17 @@ void AcceleratorConfigurationProviderProxy::RecordUserAction(
                         "<value of type UserAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RecordUserAction_Name, kFlags, 0, 0, nullptr);
@@ -1740,14 +1835,17 @@ void AcceleratorConfigurationProviderProxy::RecordMainCategoryNavigation(
                         "<value of type ::ash::mojom::AcceleratorCategory>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1761,6 +1859,94 @@ void AcceleratorConfigurationProviderProxy::RecordMainCategoryNavigation(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AcceleratorConfigurationProvider::Name_);
   message.set_method_name("RecordMainCategoryNavigation");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AcceleratorConfigurationProviderProxy::RecordEditDialogCompletedActions(
+    EditDialogCompletedActions in_completed_actions) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordEditDialogCompletedActions", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("completed_actions"), in_completed_actions,
+                        "<value of type EditDialogCompletedActions>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::shortcut_customization::mojom::internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::shortcut_customization::mojom::EditDialogCompletedActions>(
+      in_completed_actions, &params->completed_actions);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AcceleratorConfigurationProvider::Name_);
+  message.set_method_name("RecordEditDialogCompletedActions");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AcceleratorConfigurationProviderProxy::RecordAddOrEditSubactions(
+    bool in_is_add, Subactions in_subactions) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::shortcut_customization::mojom::AcceleratorConfigurationProvider::RecordAddOrEditSubactions", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_add"), in_is_add,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("subactions"), in_subactions,
+                        "<value of type Subactions>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::shortcut_customization::mojom::internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data> params(
+          message);
+  params.Allocate();
+  params->is_add = in_is_add;
+  mojo::internal::Serialize<::ash::shortcut_customization::mojom::Subactions>(
+      in_subactions, &params->subactions);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AcceleratorConfigurationProvider::Name_);
+  message.set_method_name("RecordAddOrEditSubactions");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1858,7 +2044,8 @@ void AcceleratorConfigurationProvider_IsMutable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_IsMutable_Name, kFlags, 0, 0, nullptr);
@@ -1976,7 +2163,8 @@ void AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ProxyToResp
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Name, kFlags, 0, 0, nullptr);
@@ -2094,7 +2282,8 @@ void AcceleratorConfigurationProvider_HasLauncherButton_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_HasLauncherButton_Name, kFlags, 0, 0, nullptr);
@@ -2212,7 +2401,8 @@ void AcceleratorConfigurationProvider_GetConflictAccelerator_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetConflictAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -2340,7 +2530,8 @@ void AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ProxyToRespond
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Name, kFlags, 0, 0, nullptr);
@@ -2470,7 +2661,8 @@ void AcceleratorConfigurationProvider_GetAccelerators_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetAccelerators_Name, kFlags, 0, 0, nullptr);
@@ -2600,7 +2792,8 @@ void AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Name, kFlags, 0, 0, nullptr);
@@ -2719,7 +2912,8 @@ void AcceleratorConfigurationProvider_PreventProcessingAccelerators_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_PreventProcessingAccelerators_Name, kFlags, 0, 0, nullptr);
@@ -2836,7 +3030,8 @@ void AcceleratorConfigurationProvider_AddAccelerator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_AddAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -2964,7 +3159,8 @@ void AcceleratorConfigurationProvider_RemoveAccelerator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RemoveAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -3092,7 +3288,8 @@ void AcceleratorConfigurationProvider_ReplaceAccelerator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_ReplaceAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -3220,7 +3417,8 @@ void AcceleratorConfigurationProvider_RestoreDefault_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RestoreDefault_Name, kFlags, 0, 0, nullptr);
@@ -3348,7 +3546,8 @@ void AcceleratorConfigurationProvider_RestoreAllDefaults_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorConfigurationProvider_RestoreAllDefaults_Name, kFlags, 0, 0, nullptr);
@@ -3535,6 +3734,62 @@ std::move(p_user_action));
       DCHECK(impl);
       impl->RecordMainCategoryNavigation(
 std::move(p_category));
+      return true;
+    }
+    case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data* params =
+          reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      EditDialogCompletedActions p_completed_actions{};
+      AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCompletedActions(&p_completed_actions))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AcceleratorConfigurationProvider::Name_, 17, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordEditDialogCompletedActions(
+std::move(p_completed_actions));
+      return true;
+    }
+    case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data* params =
+          reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_is_add{};
+      Subactions p_subactions{};
+      AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_is_add = input_data_view.is_add();
+      if (success && !input_data_view.ReadSubactions(&p_subactions))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AcceleratorConfigurationProvider::Name_, 18, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordAddOrEditSubactions(
+std::move(p_is_add), 
+std::move(p_subactions));
       return true;
     }
   }
@@ -3959,45 +4214,55 @@ std::move(p_action_id), std::move(callback));
     case internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name: {
       break;
     }
+    case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name: {
+      break;
+    }
+    case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAcceleratorConfigurationProviderValidationInfo[] = {
-    {&internal::AcceleratorConfigurationProvider_IsMutable_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_IsMutable_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_IsMutable_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_HasLauncherButton_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_HasLauncherButton_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_HasLauncherButton_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_GetConflictAccelerator_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_GetConflictAccelerator_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_GetConflictAccelerator_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_GetAccelerators_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_GetAccelerators_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_GetAccelerators_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_AddObserver_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AcceleratorConfigurationProvider_AddPolicyObserver_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_AddPolicyObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_PreventProcessingAccelerators_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_PreventProcessingAccelerators_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_PreventProcessingAccelerators_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_AddAccelerator_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_AddAccelerator_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_AddAccelerator_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_RemoveAccelerator_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_RemoveAccelerator_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_RemoveAccelerator_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_ReplaceAccelerator_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_ReplaceAccelerator_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_ReplaceAccelerator_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_RestoreDefault_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_RestoreDefault_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_RestoreDefault_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_RestoreAllDefaults_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_RestoreAllDefaults_Params_Data::Validate,
      &internal::AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParams_Data::Validate},
-    {&internal::AcceleratorConfigurationProvider_RecordUserAction_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_RecordUserAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data::Validate,
+    { &internal::AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4133,6 +4398,12 @@ void AcceleratorConfigurationProviderInterceptorForTesting::RecordUserAction(Use
 }
 void AcceleratorConfigurationProviderInterceptorForTesting::RecordMainCategoryNavigation(::ash::mojom::AcceleratorCategory category) {
   GetForwardingInterface()->RecordMainCategoryNavigation(std::move(category));
+}
+void AcceleratorConfigurationProviderInterceptorForTesting::RecordEditDialogCompletedActions(EditDialogCompletedActions completed_actions) {
+  GetForwardingInterface()->RecordEditDialogCompletedActions(std::move(completed_actions));
+}
+void AcceleratorConfigurationProviderInterceptorForTesting::RecordAddOrEditSubactions(bool is_add, Subactions subactions) {
+  GetForwardingInterface()->RecordAddOrEditSubactions(std::move(is_add), std::move(subactions));
 }
 AcceleratorConfigurationProviderAsyncWaiter::AcceleratorConfigurationProviderAsyncWaiter(
     AcceleratorConfigurationProvider* proxy) : proxy_(proxy) {}

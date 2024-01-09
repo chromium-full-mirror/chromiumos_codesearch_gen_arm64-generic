@@ -1,73 +1,49 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { SelectToSpeakConstants } from './select_to_speak_constants.js';
 /**
  * Manages getting and storing user preferences.
  */
 export class PrefsManager {
     /** Please keep fields in alphabetical order. */
-    constructor() {
-        /** @private {boolean} */
-        this.backgroundShadingEnabled_ = false;
-        /** @const {string} */
-        this.color_ = '#da36e8';
-        /**
-         * Whether to allow enhanced network voices in Select-to-Speak. Unlike
-         * |this.enhancedNetworkVoicesEnabled_|, which represents the user's
-         * preference, |this.enhancedNetworkVoicesAllowed_| is set by admin via
-         * policy. |this.enhancedNetworkVoicesAllowed_| does not override
-         * |this.enhancedNetworkVoicesEnabled_| but changes
-         * this.enhancedNetworkVoicesEnabled().
-         * @private {boolean}
-         */
-        this.enhancedNetworkVoicesAllowed_ = true;
-        /**
-         * A pref indicating whether the user enables the network voices. The pref
-         * is synced to local storage as "enhancedNetworkVoices". Use
-         * this.enhancedNetworkVoicesEnabled() to refer whether to enable the
-         * network voices instead of using this pref directly.
-         * @private {boolean}
-         */
-        this.enhancedNetworkVoicesEnabled_ = false;
-        /** @private {?string} */
-        this.enhancedVoiceName_ = PrefsManager.DEFAULT_NETWORK_VOICE;
-        /** @private {boolean} */
-        this.enhancedVoicesDialogShown_ = false;
-        /** @private {Map<string, string>} */
-        this.extensionForVoice_ = new Map();
-        /** @private {string} */
-        this.highlightColor_ = '#5e9bff';
-        /** @private {boolean} */
-        this.migrationInProgress_ = false;
-        /** @private {boolean} */
-        this.navigationControlsEnabled_ = true;
-        /** @private {number} */
-        this.speechPitch_ = 1.0;
-        /** @private {number} */
-        this.speechRate_ = 1.0;
-        /** @private {Set<string>} */
-        this.validVoiceNames_ = new Set();
-        /** @private {?string} */
-        this.voiceNameFromLocale_ = null;
-        /** @private {?string} */
-        this.voiceNameFromPrefs_ = null;
-        /** @private {boolean} */
-        this.wordHighlight_ = true;
-        /**
-         * TODO(crbug.com/950391): Ask UX about the default value here.
-         * @private {boolean}
-         */
-        this.voiceSwitching_ = false;
-        /**
-         * Used by tests to wait for settings changes to be propagated.
-         * @protected {?function()}
-         */
-        this.updateSettingsPrefsCallbackForTest_ = null;
-    }
+    backgroundShadingEnabled_ = false;
+    color_ = '#da36e8';
+    /**
+     * Whether to allow enhanced network voices in Select-to-Speak. Unlike
+     * |this.enhancedNetworkVoicesEnabled_|, which represents the user's
+     * preference, |this.enhancedNetworkVoicesAllowed_| is set by admin via
+     * policy. |this.enhancedNetworkVoicesAllowed_| does not override
+     * |this.enhancedNetworkVoicesEnabled_| but changes
+     * this.enhancedNetworkVoicesEnabled().
+     */
+    enhancedNetworkVoicesAllowed_ = true;
+    /**
+     * A pref indicating whether the user enables the network voices. The pref
+     * is synced to local storage as "enhancedNetworkVoices". Use
+     * this.enhancedNetworkVoicesEnabled() to refer whether to enable the
+     * network voices instead of using this pref directly.
+     */
+    enhancedNetworkVoicesEnabled_ = false;
+    enhancedVoiceName_ = PrefsManager.DEFAULT_NETWORK_VOICE;
+    enhancedVoicesDialogShown_ = false;
+    extensionForVoice_ = new Map();
+    highlightColor_ = '#5e9bff';
+    migrationInProgress_ = false;
+    navigationControlsEnabled_ = true;
+    speechRate_ = 1.0;
+    validVoiceNames_ = new Set();
+    voiceNameFromLocale_ = null;
+    voiceNameFromPrefs_ = null;
+    wordHighlight_ = true;
+    /** TODO(crbug.com/950391): Ask UX about the default value here. */
+    voiceSwitching_ = false;
+    /**
+     * Used by tests to wait for settings changes to be propagated.
+     */
+    updateSettingsPrefsCallbackForTest_ = null;
+    constructor() { }
     /**
      * Get the list of TTS voices, and set the default voice if not already set.
-     * @private
      */
     updateDefaultVoice_() {
         var uiLocale = chrome.i18n.getMessage('@@ui_locale');
@@ -78,6 +54,7 @@ export class PrefsManager {
                 return;
             }
             voices.forEach(voice => {
+                // TODO(b/270623046): voice.eventTypes may be undefined.
                 if (!voice.eventTypes.includes(chrome.tts.EventType.START) ||
                     !voice.eventTypes.includes(chrome.tts.EventType.END) ||
                     !voice.eventTypes.includes(chrome.tts.EventType.WORD) ||
@@ -120,9 +97,6 @@ export class PrefsManager {
      * Migrates Select-to-Speak rate and pitch settings to global Text-to-Speech
      * settings. This is a one-time migration that happens on upgrade to M70.
      * See http://crbug.com/866550.
-     * @param {string} rateStr
-     * @param {string} pitchStr
-     * @private
      */
     migrateToGlobalTtsSettings_(rateStr, pitchStr) {
         if (this.migrationInProgress_) {
@@ -217,7 +191,6 @@ export class PrefsManager {
     /**
      * When TTS settings are successfully migrated, removes rate and pitch from
      * chrome.storage.sync.
-     * @private
      */
     onTtsSettingsMigrationSuccess_() {
         chrome.storage.sync.remove('rate');
@@ -226,7 +199,6 @@ export class PrefsManager {
     }
     /**
      * Loads prefs and policy from chrome.settingsPrivate.
-     * @private
      */
     updateSettingsPrefs_(prefs) {
         for (const pref of prefs) {
@@ -275,16 +247,14 @@ export class PrefsManager {
      * enable us to move Select-to-speak options into the Chrome OS Settings app.
      * This should only occur once per pref, as we remove the chrome.storage pref
      * after we copy it over.
-     * @private
      */
-    async migrateStorageToSettingsPref_(storagePrefName, settingsPrefName, value) {
+    migrateStorageToSettingsPref_(storagePrefName, settingsPrefName, value) {
         chrome.settingsPrivate.setPref(settingsPrefName, value);
         chrome.storage.sync.remove(storagePrefName);
     }
     /**
      * Loads prefs from chrome.storage and sets values in settings prefs if
      * necessary.
-     * @private
      */
     async updateStoragePrefs_() {
         const prefs = await new Promise(resolve => chrome.storage.sync.get([
@@ -362,7 +332,7 @@ export class PrefsManager {
     }
     /**
      * Get the voice name of the user's preferred local voice.
-     * @return {string|undefined} Name of preferred local voice.
+     * @return Name of preferred local voice.
      */
     getLocalVoice() {
         // To use the default (system) voice: don't specify options['voiceName'].
@@ -387,12 +357,13 @@ export class PrefsManager {
     /**
      * Generates the basic speech options for Select-to-Speak based on user
      * preferences. Call for each chrome.tts.speak.
-     * @param {?SelectToSpeakConstants.VoiceSwitchingData} voiceSwitchingData
-     * @return {!chrome.tts.TtsOptions} options The TTS options.
      */
     getSpeechOptions(voiceSwitchingData) {
-        const options = /** @type {!chrome.tts.TtsOptions} */ ({});
-        const data = voiceSwitchingData || {};
+        const options = {};
+        const data = voiceSwitchingData || {
+            language: undefined,
+            useVoiceSwitching: false,
+        };
         const useEnhancedVoices = this.enhancedNetworkVoicesEnabled() && navigator.onLine;
         if (useEnhancedVoices) {
             options['voiceName'] = this.enhancedVoiceName_;
@@ -414,8 +385,8 @@ export class PrefsManager {
     }
     /**
      * Returns extension ID of the TTS engine for given voice name.
-     * @param {string} voiceName Voice name specified in TTS options
-     * @returns {string} extension ID of TTS engine
+     * @param voiceName Voice name specified in TTS options
+     * @return extension ID of TTS engine
      */
     ttsExtensionForVoice(voiceName) {
         return this.extensionForVoice_.get(voiceName) || '';
@@ -430,14 +401,14 @@ export class PrefsManager {
     }
     /**
      * Gets the user's word highlighting enabled preference.
-     * @return {boolean} True if word highlighting is enabled.
+     * @return True if word highlighting is enabled.
      */
     wordHighlightingEnabled() {
         return this.wordHighlight_;
     }
     /**
      * Gets the user's word highlighting color preference.
-     * @return {string} Highlight color.
+     * @return Highlight color.
      */
     highlightColor() {
         return this.highlightColor_;
@@ -445,7 +416,7 @@ export class PrefsManager {
     /**
      * Gets the focus ring color. This is not currently a user preference but it
      * could be in the future; stored here for similarity to highlight color.
-     * @return {string} Highlight color.
+     * @return Highlight color.
      */
     focusRingColor() {
         return this.color_;
@@ -453,7 +424,7 @@ export class PrefsManager {
     /**
      * Gets the user's focus ring background color. If the user disabled greying
      * out the background, alpha will be set to fully transparent.
-     * @return {boolean} True if the background shade should be drawn.
+     * @return True if the background shade should be drawn.
      */
     backgroundShadingEnabled() {
         return this.backgroundShadingEnabled_;
@@ -461,7 +432,7 @@ export class PrefsManager {
     /**
      * Gets the user's preference for showing navigation controls that allow them
      * to navigate to next/previous sentences, paragraphs, and more.
-     * @return {boolean} True if navigation controls should be shown when STS is
+     * @return True if navigation controls should be shown when STS is
      *     active.
      */
     navigationControlsEnabled() {
@@ -469,7 +440,7 @@ export class PrefsManager {
     }
     /**
      * Gets the user's preference for speech rate.
-     * @return {number} Current TTS speech rate.
+     * @return Current TTS speech rate.
      */
     speechRate() {
         return this.speechRate_;
@@ -477,7 +448,7 @@ export class PrefsManager {
     /**
      * Gets the user's preference for whether enhanced network TTS voices are
      * enabled. Always returns false if the policy disallows the feature.
-     * @return {boolean} True if enhanced TTS voices are enabled.
+     * @return True if enhanced TTS voices are enabled.
      */
     enhancedNetworkVoicesEnabled() {
         return this.enhancedNetworkVoicesAllowed_ ?
@@ -487,7 +458,7 @@ export class PrefsManager {
     /**
      * Gets the admin's policy for whether enhanced network TTS voices are
      * allowed.
-     * @return {boolean} True if enhanced TTS voices are allowed.
+     * @return True if enhanced TTS voices are allowed.
      */
     enhancedNetworkVoicesAllowed() {
         return this.enhancedNetworkVoicesAllowed_;
@@ -496,14 +467,14 @@ export class PrefsManager {
      * Gets whether the initial popup authorizing enhanced network voices has been
      * shown to the user or not.
      *
-     * @returns {boolean} True if the initial popup dialog has been shown already.
+     * @returns True if the initial popup dialog has been shown already.
      */
     enhancedVoicesDialogShown() {
         return this.enhancedVoicesDialogShown_;
     }
     /**
      * Sets whether enhanced network voices are enabled or not from initial popup.
-     * @param {boolean} enabled Specifies if the user enabled enhanced voices in
+     * @param enabled Specifies if the user enabled enhanced voices in
      *     the popup.
      */
     setEnhancedNetworkVoicesFromDialog(enabled) {
@@ -521,122 +492,100 @@ export class PrefsManager {
     /**
      * Gets the user's preference for whether automatic voice switching between
      * languages is enabled.
-     * @return {boolean}
      */
     voiceSwitchingEnabled() {
         return this.voiceSwitching_;
     }
 }
-/**
- * Constant used as the value for a menu option representing the current device
- * language.
- * @type {string}
- */
-PrefsManager.USE_DEVICE_LANGUAGE = 'select_to_speak_device_language';
-/**
- * Constant representing the system TTS voice.
- * @type {string}
- */
-PrefsManager.SYSTEM_VOICE = 'select_to_speak_system_voice';
-/**
- * Constant representing the voice name for the default (server-selected)
- * network TTS voice.
- * @type {string}
- */
-PrefsManager.DEFAULT_NETWORK_VOICE = 'default-wavenet';
-/**
- * Extension ID of the enhanced network TTS voices extension.
- * @const {string}
- */
-PrefsManager.ENHANCED_TTS_EXTENSION_ID = 'jacnkoglebceckolkoapelihnglgaicd';
-/**
- * Extension ID of the Google TTS voices extension.
- * @const {string}
- */
-PrefsManager.GOOGLE_TTS_EXTENSION_ID = 'gjjabgpgjpampikjhjpfhneeoapjbjaf';
-/**
- * Extension ID of the eSpeak TTS voices extension.
- * @const {string}
- */
-PrefsManager.ESPEAK_EXTENSION_ID = 'dakbfdmgjiabojdgbiljlhgjbokobjpg';
-/**
- * Default speech rate for both Select-to-Speak and global prefs.
- * @type {number}
- */
-PrefsManager.DEFAULT_RATE = 1.0;
-/**
- * Default speech pitch for both Select-to-Speak and global prefs.
- * @type {number}
- */
-PrefsManager.DEFAULT_PITCH = 1.0;
-/**
- * Settings key for the pref for whether to shade the background area of the
- * screen (where text isn't currently being spoken).
- * @type {string}
- */
-PrefsManager.BACKGROUND_SHADING_KEY =
-    'settings.a11y.select_to_speak_background_shading';
-/**
- * Settings key for the pref for whether enhanced network TTS voices are
- * enabled.
- * @type {string}
- */
-PrefsManager.ENHANCED_NETWORK_VOICES_KEY =
-    'settings.a11y.select_to_speak_enhanced_network_voices';
-/**
- * Settings key for the pref indicating the user's enhanced voice preference.
- * @type {string}
- */
-PrefsManager.ENHANCED_VOICE_NAME_KEY =
-    'settings.a11y.select_to_speak_enhanced_voice_name';
-/**
- * Settings key for the pref indicating whether initial popup authorizing
- * enhanced network voices has been shown to the user or not.
- * @type {string}
- */
-PrefsManager.ENHANCED_VOICES_DIALOG_SHOWN_KEY =
-    'settings.a11y.select_to_speak_enhanced_voices_dialog_shown';
-/**
- * Settings key for the policy indicating whether to allow enhanced network
- * voices.
- * @type {string}
- */
-PrefsManager.ENHANCED_VOICES_POLICY_KEY =
-    'settings.a11y.enhanced_network_voices_in_select_to_speak_allowed';
-/**
- * Settings key for the pref indicating the user's word highlighting color
- * preference.
- * @type {string}
- */
-PrefsManager.HIGHLIGHT_COLOR_KEY =
-    'settings.a11y.select_to_speak_highlight_color';
-/**
- * Settings key for the pref for showing navigation controls.
- * @type {string}
- */
-PrefsManager.NAVIGATION_CONTROLS_KEY =
-    'settings.a11y.select_to_speak_navigation_controls';
-/**
- * Settings key for the pref indicating the user's system-wide preference TTS
- * speech rate.
- * @type {string}
- */
-PrefsManager.SPEECH_RATE_KEY = 'settings.tts.speech_rate';
-/**
- * Settings key for the pref indicating the user's voice preference.
- * @type {string}
- */
-PrefsManager.VOICE_NAME_KEY = 'settings.a11y.select_to_speak_voice_name';
-/**
- * Settings key for the pref for enabling automatic voice switching between
- * languages.
- * @type {string}
- */
-PrefsManager.VOICE_SWITCHING_KEY =
-    'settings.a11y.select_to_speak_voice_switching';
-/**
- * Settings key for the pref indicating whether to enable word highlighting.
- * @type {string}
- */
-PrefsManager.WORD_HIGHLIGHT_KEY =
-    'settings.a11y.select_to_speak_word_highlight';
+(function (PrefsManager) {
+    /**
+     * Constant used as the value for a menu option representing the current
+     * device language.
+     */
+    PrefsManager.USE_DEVICE_LANGUAGE = 'select_to_speak_device_language';
+    /**
+     * Constant representing the system TTS voice.
+     */
+    PrefsManager.SYSTEM_VOICE = 'select_to_speak_system_voice';
+    /**
+     * Constant representing the voice name for the default (server-selected)
+     * network TTS voice.
+     */
+    PrefsManager.DEFAULT_NETWORK_VOICE = 'default-wavenet';
+    /**
+     * Extension ID of the enhanced network TTS voices extension.
+     * @const {string}
+     */
+    PrefsManager.ENHANCED_TTS_EXTENSION_ID = 'jacnkoglebceckolkoapelihnglgaicd';
+    /**
+     * Extension ID of the Google TTS voices extension.
+     * @const {string}
+     */
+    PrefsManager.GOOGLE_TTS_EXTENSION_ID = 'gjjabgpgjpampikjhjpfhneeoapjbjaf';
+    /**
+     * Extension ID of the eSpeak TTS voices extension.
+     * @const {string}
+     */
+    PrefsManager.ESPEAK_EXTENSION_ID = 'dakbfdmgjiabojdgbiljlhgjbokobjpg';
+    /**
+     * Default speech rate for both Select-to-Speak and global prefs.
+     * @type {number}
+     */
+    PrefsManager.DEFAULT_RATE = 1.0;
+    /**
+     * Default speech pitch for both Select-to-Speak and global prefs.
+     * @type {number}
+     */
+    PrefsManager.DEFAULT_PITCH = 1.0;
+    /**
+     * Settings key for the pref for whether to shade the background area of the
+     * screen (where text isn't currently being spoken).
+     */
+    PrefsManager.BACKGROUND_SHADING_KEY = 'settings.a11y.select_to_speak_background_shading';
+    /**
+     * Settings key for the pref for whether enhanced network TTS voices are
+     * enabled.
+     */
+    PrefsManager.ENHANCED_NETWORK_VOICES_KEY = 'settings.a11y.select_to_speak_enhanced_network_voices';
+    /**
+     * Settings key for the pref indicating the user's enhanced voice preference.
+     */
+    PrefsManager.ENHANCED_VOICE_NAME_KEY = 'settings.a11y.select_to_speak_enhanced_voice_name';
+    /**
+     * Settings key for the pref indicating whether initial popup authorizing
+     * enhanced network voices has been shown to the user or not.
+     */
+    PrefsManager.ENHANCED_VOICES_DIALOG_SHOWN_KEY = 'settings.a11y.select_to_speak_enhanced_voices_dialog_shown';
+    /**
+     * Settings key for the policy indicating whether to allow enhanced network
+     * voices.
+     */
+    PrefsManager.ENHANCED_VOICES_POLICY_KEY = 'settings.a11y.enhanced_network_voices_in_select_to_speak_allowed';
+    /**
+     * Settings key for the pref indicating the user's word highlighting color
+     * preference.
+     */
+    PrefsManager.HIGHLIGHT_COLOR_KEY = 'settings.a11y.select_to_speak_highlight_color';
+    /**
+     * Settings key for the pref for showing navigation controls.
+     */
+    PrefsManager.NAVIGATION_CONTROLS_KEY = 'settings.a11y.select_to_speak_navigation_controls';
+    /**
+     * Settings key for the pref indicating the user's system-wide preference TTS
+     * speech rate.
+     */
+    PrefsManager.SPEECH_RATE_KEY = 'settings.tts.speech_rate';
+    /**
+     * Settings key for the pref indicating the user's voice preference.
+     */
+    PrefsManager.VOICE_NAME_KEY = 'settings.a11y.select_to_speak_voice_name';
+    /**
+     * Settings key for the pref for enabling automatic voice switching between
+     * languages.
+     */
+    PrefsManager.VOICE_SWITCHING_KEY = 'settings.a11y.select_to_speak_voice_switching';
+    /**
+     * Settings key for the pref indicating whether to enable word highlighting.
+     */
+    PrefsManager.WORD_HIGHLIGHT_KEY = 'settings.a11y.select_to_speak_word_highlight';
+})(PrefsManager || (PrefsManager = {}));

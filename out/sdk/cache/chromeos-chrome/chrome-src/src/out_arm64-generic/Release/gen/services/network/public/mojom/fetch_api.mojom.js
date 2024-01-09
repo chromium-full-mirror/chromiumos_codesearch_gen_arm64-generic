@@ -79,8 +79,9 @@
   RequestDestination.kFencedframe = 22;
   RequestDestination.kWebIdentity = 23;
   RequestDestination.kDictionary = 24;
+  RequestDestination.kSpeculationRules = 25;
   RequestDestination.MIN_VALUE = 0;
-  RequestDestination.MAX_VALUE = 24;
+  RequestDestination.MAX_VALUE = 25;
 
   RequestDestination.isKnownEnumValue = function(value) {
     switch (value) {
@@ -109,6 +110,7 @@
     case 22:
     case 23:
     case 24:
+    case 25:
       return true;
     }
     return false;

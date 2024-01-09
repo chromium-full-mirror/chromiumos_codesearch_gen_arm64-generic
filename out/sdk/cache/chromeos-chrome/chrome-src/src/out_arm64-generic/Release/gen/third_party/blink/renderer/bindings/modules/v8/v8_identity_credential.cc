@@ -16,7 +16,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_credential_logout_r_ps_request.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_credential_disconnect_options.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/credentialmanagement/identity_credential.h"
@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IdentityCredential>::value,
     "IdentityCredential inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IdentityCredential::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IdentityCredential is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.token.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdentityCredential* blink_receiver = V8IdentityCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->token();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdentityCredential* blink_receiver = V8IdentityCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->token();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -104,23 +99,24 @@ BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.isAutoSelected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IdentityCredential* blink_receiver = V8IdentityCredential::ToWrappableUnsafe(v8_receiver);
+IdentityCredential* blink_receiver = V8IdentityCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isAutoSelected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
 
-void LogoutRPsStaticOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_IdentityCredential_logoutRPs");
-BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.logoutRPs");
+void DisconnectStaticOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_IdentityCredential_disconnect");
+BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.disconnect");
 
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
 // [Measure], [MeasureAs]
-UseCounter::Count(current_execution_context, WebFeature::kFedCmLogoutRps);
+UseCounter::Count(current_execution_context, WebFeature::kFedCmDisconnect);
 
 
 
@@ -129,19 +125,24 @@ UseCounter::Count(current_execution_context, WebFeature::kFedCmLogoutRps);
 
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
-decltype(NativeValueTraits<IDLSequence<IdentityCredentialLogoutRPsRequest>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_logout_requests;
-if (!info[0]->IsUndefined()) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+decltype(NativeValueTraits<IdentityCredentialDisconnectOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IdentityCredential";
-const char* const property_name = "logoutRPs";
+const char* const property_name = "disconnect";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-arg1_logout_requests = NativeValueTraits<IDLSequence<IdentityCredentialLogoutRPsRequest>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (info[0]->IsUndefined()) {
+  arg1_options = IdentityCredentialDisconnectOptions::Create();
+} else {
+  arg1_options = NativeValueTraits<IdentityCredentialDisconnectOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-auto&& return_value = IdentityCredential::logoutRPs(script_state, arg1_logout_requests);
+auto&& return_value = IdentityCredential::disconnect(script_state, arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -206,9 +207,9 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 
 
-if (RuntimeEnabledFeatures::FedCmIdpSignoutEnabled()) {
+if (RuntimeEnabledFeatures::FedCmDisconnectEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"logoutRPs", LogoutRPsStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"disconnect", DisconnectStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

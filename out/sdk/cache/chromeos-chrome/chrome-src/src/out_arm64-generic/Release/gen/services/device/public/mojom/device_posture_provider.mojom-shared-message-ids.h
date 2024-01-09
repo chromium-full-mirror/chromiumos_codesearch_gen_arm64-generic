@@ -16,6 +16,8 @@ namespace internal {
 
 constexpr uint32_t kDevicePostureProvider_AddListenerAndGetCurrentPosture_Name = 0;
 constexpr uint32_t kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name = 1;
+constexpr uint32_t kDevicePostureProvider_OverrideDevicePostureForEmulation_Name = 2;
+constexpr uint32_t kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name = 3;
 constexpr uint32_t kDevicePostureClient_OnPostureChanged_Name = 0;
 constexpr uint32_t kDeviceViewportSegmentsClient_OnViewportSegmentsChanged_Name = 0;
 

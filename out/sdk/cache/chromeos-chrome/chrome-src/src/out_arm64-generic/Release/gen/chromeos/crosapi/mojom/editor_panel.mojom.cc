@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -181,6 +182,9 @@ EditorPanelManager::IPCStableHashFunction EditorPanelManager::MessageToMethodInf
     case internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name: {
       return &EditorPanelManager::OnEditorMenuVisibilityChanged_Sym::IPCStableHash;
     }
+    case internal::kEditorPanelManager_LogEditorMode_Name: {
+      return &EditorPanelManager::LogEditorMode_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -206,6 +210,8 @@ const char* EditorPanelManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::EditorPanelManager::StartEditingFlowWithFreeform";
       case internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name:
             return "Receive crosapi::mojom::EditorPanelManager::OnEditorMenuVisibilityChanged";
+      case internal::kEditorPanelManager_LogEditorMode_Name:
+            return "Receive crosapi::mojom::EditorPanelManager::LogEditorMode";
     }
   } else {
     switch (message.name()) {
@@ -223,6 +229,8 @@ const char* EditorPanelManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::EditorPanelManager::StartEditingFlowWithFreeform";
       case internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name:
             return "Receive reply crosapi::mojom::EditorPanelManager::OnEditorMenuVisibilityChanged";
+      case internal::kEditorPanelManager_LogEditorMode_Name:
+            return "Receive reply crosapi::mojom::EditorPanelManager::LogEditorMode";
     }
   }
   return "Receive unknown mojo message";
@@ -328,6 +336,19 @@ uint32_t EditorPanelManager::OnEditorMenuVisibilityChanged_Sym::IPCStableHash() 
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t EditorPanelManager::LogEditorMode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::EditorPanelManager::LogEditorMode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class EditorPanelManager_GetEditorPanelContext_ForwardToCallback
@@ -355,14 +376,17 @@ void EditorPanelManagerProxy::GetEditorPanelContext(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EditorPanelManager::GetEditorPanelContext");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_GetEditorPanelContext_Name, kFlags, 0, 0, nullptr);
@@ -386,14 +410,17 @@ void EditorPanelManagerProxy::OnPromoCardDismissed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EditorPanelManager::OnPromoCardDismissed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_OnPromoCardDismissed_Name, kFlags, 0, 0, nullptr);
@@ -416,14 +443,17 @@ void EditorPanelManagerProxy::OnPromoCardDeclined(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EditorPanelManager::OnPromoCardDeclined");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_OnPromoCardDeclined_Name, kFlags, 0, 0, nullptr);
@@ -446,14 +476,17 @@ void EditorPanelManagerProxy::StartEditingFlow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EditorPanelManager::StartEditingFlow");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_StartEditingFlow_Name, kFlags, 0, 0, nullptr);
@@ -483,14 +516,17 @@ void EditorPanelManagerProxy::StartEditingFlowWithPreset(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_StartEditingFlowWithPreset_Name, kFlags, 0, 0, nullptr);
@@ -531,14 +567,17 @@ void EditorPanelManagerProxy::StartEditingFlowWithFreeform(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_StartEditingFlowWithFreeform_Name, kFlags, 0, 0, nullptr);
@@ -579,14 +618,17 @@ void EditorPanelManagerProxy::OnEditorMenuVisibilityChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -599,6 +641,48 @@ void EditorPanelManagerProxy::OnEditorMenuVisibilityChanged(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(EditorPanelManager::Name_);
   message.set_method_name("OnEditorMenuVisibilityChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void EditorPanelManagerProxy::LogEditorMode(
+    EditorPanelMode in_mode) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::EditorPanelManager::LogEditorMode", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("mode"), in_mode,
+                        "<value of type EditorPanelMode>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kEditorPanelManager_LogEditorMode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::EditorPanelManager_LogEditorMode_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::crosapi::mojom::EditorPanelMode>(
+      in_mode, &params->mode);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EditorPanelManager::Name_);
+  message.set_method_name("LogEditorMode");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -696,7 +780,8 @@ void EditorPanelManager_GetEditorPanelContext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorPanelManager_GetEditorPanelContext_Name, kFlags, 0, 0, nullptr);
@@ -885,6 +970,32 @@ std::move(p_text));
 std::move(p_visible));
       return true;
     }
+    case internal::kEditorPanelManager_LogEditorMode_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::EditorPanelManager_LogEditorMode_Params_Data* params =
+          reinterpret_cast<internal::EditorPanelManager_LogEditorMode_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      EditorPanelMode p_mode{};
+      EditorPanelManager_LogEditorMode_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMode(&p_mode))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            EditorPanelManager::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LogEditorMode(
+std::move(p_mode));
+      return true;
+    }
   }
   return false;
 }
@@ -941,25 +1052,30 @@ bool EditorPanelManagerStubDispatch::AcceptWithResponder(
     case internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name: {
       break;
     }
+    case internal::kEditorPanelManager_LogEditorMode_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEditorPanelManagerValidationInfo[] = {
-    {&internal::EditorPanelManager_GetEditorPanelContext_Params_Data::Validate,
+    { &internal::EditorPanelManager_GetEditorPanelContext_Params_Data::Validate,
      &internal::EditorPanelManager_GetEditorPanelContext_ResponseParams_Data::Validate},
-    {&internal::EditorPanelManager_OnPromoCardDismissed_Params_Data::Validate,
+    { &internal::EditorPanelManager_OnPromoCardDismissed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorPanelManager_OnPromoCardDeclined_Params_Data::Validate,
+    { &internal::EditorPanelManager_OnPromoCardDeclined_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorPanelManager_StartEditingFlow_Params_Data::Validate,
+    { &internal::EditorPanelManager_StartEditingFlow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorPanelManager_StartEditingFlowWithPreset_Params_Data::Validate,
+    { &internal::EditorPanelManager_StartEditingFlowWithPreset_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorPanelManager_StartEditingFlowWithFreeform_Params_Data::Validate,
+    { &internal::EditorPanelManager_StartEditingFlowWithFreeform_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data::Validate,
+    { &internal::EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::EditorPanelManager_LogEditorMode_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1045,6 +1161,9 @@ void EditorPanelManagerInterceptorForTesting::StartEditingFlowWithFreeform(const
 }
 void EditorPanelManagerInterceptorForTesting::OnEditorMenuVisibilityChanged(bool visible) {
   GetForwardingInterface()->OnEditorMenuVisibilityChanged(std::move(visible));
+}
+void EditorPanelManagerInterceptorForTesting::LogEditorMode(EditorPanelMode mode) {
+  GetForwardingInterface()->LogEditorMode(std::move(mode));
 }
 EditorPanelManagerAsyncWaiter::EditorPanelManagerAsyncWaiter(
     EditorPanelManager* proxy) : proxy_(proxy) {}

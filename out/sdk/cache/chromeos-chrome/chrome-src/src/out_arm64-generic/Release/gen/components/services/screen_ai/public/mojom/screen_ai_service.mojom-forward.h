@@ -47,8 +47,6 @@ class OCRService;
 
 class MainContentExtractionService;
 
-class ScreenAIServiceFactory;
-
 
 
 

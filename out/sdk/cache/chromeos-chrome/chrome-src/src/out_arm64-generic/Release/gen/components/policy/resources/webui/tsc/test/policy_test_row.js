@@ -9,13 +9,15 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { LevelNamesToValues, PolicyLevel, PolicyScope, PolicySource, Presets, ScopeNamesToValues, SourceNamesToValues } from './policy_test_browser_proxy.js';
 import { getTemplate } from './policy_test_row.html.js';
 export class PolicyTestRowElement extends CustomElement {
+    hasAnError_ = false;
+    errorEvents_ = new EventTracker();
+    inputType_;
+    policyNamesToTypes_;
     static get template() {
         return getTemplate();
     }
     constructor() {
         super();
-        this.hasAnError_ = false;
-        this.errorEvents_ = new EventTracker();
         this.initialize_();
     }
     getErrorState() {
@@ -70,8 +72,16 @@ export class PolicyTestRowElement extends CustomElement {
                 break;
             case 'integer':
                 this.inputType_ = Number;
+                const intInput = document.createElement('input');
+                intInput.type = 'number';
+                intInput.classList.add('value');
+                inputElementCell.appendChild(intInput);
+                break;
+            case 'number':
+                this.inputType_ = Number;
                 const numInput = document.createElement('input');
                 numInput.type = 'number';
+                numInput.step = 'any';
                 numInput.classList.add('value');
                 inputElementCell.appendChild(numInput);
                 break;

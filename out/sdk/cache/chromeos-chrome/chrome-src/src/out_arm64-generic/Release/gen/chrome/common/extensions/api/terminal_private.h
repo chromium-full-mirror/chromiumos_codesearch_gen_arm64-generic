@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -31,12 +32,12 @@ namespace terminal_private {
 
 // Type of the output stream from which output came. When process exits, output
 // type will be set to exit
-enum  OutputType {
-  OUTPUT_TYPE_NONE = 0,
-  OUTPUT_TYPE_STDOUT,
-  OUTPUT_TYPE_STDERR,
-  OUTPUT_TYPE_EXIT,
-  OUTPUT_TYPE_LAST = OUTPUT_TYPE_EXIT,
+enum class OutputType {
+  kNone = 0,
+  kStdout,
+  kStderr,
+  kExit,
+  kMaxValue = kExit,
 };
 
 
@@ -52,18 +53,18 @@ std::u16string GetOutputTypeParseError(base::StringPiece as_string);
 namespace OpenTerminalProcess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Name of the process to open. May be 'crosh' or 'vmshell'.
   std::string process_name;
 
   // Command line arguments to pass to the process.
-  absl::optional<std::vector<std::string>> args;
+  std::optional<std::vector<std::string>> args;
 
 
  private:
@@ -81,15 +82,15 @@ base::Value::List Create(const std::string& id);
 namespace OpenVmshellProcess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Command line arguments to pass to vmshell.
-  absl::optional<std::vector<std::string>> args;
+  std::optional<std::vector<std::string>> args;
 
 
  private:
@@ -107,11 +108,11 @@ base::Value::List Create(const std::string& id);
 namespace CloseTerminalProcess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Unique id of the process we want to close.
@@ -132,11 +133,11 @@ base::Value::List Create(bool success);
 namespace SendInput {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the process to which we want to send input.
@@ -160,11 +161,11 @@ base::Value::List Create(bool success);
 namespace OnTerminalResize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the process.
@@ -191,11 +192,11 @@ base::Value::List Create(bool success);
 namespace AckOutput {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the process to which |onProcessOutput| was dispatched.
@@ -211,11 +212,11 @@ struct Params {
 namespace OpenWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Data {
@@ -223,8 +224,8 @@ struct Params {
     ~Data();
     Data(const Data&) = delete;
     Data& operator=(const Data&) = delete;
-    Data(Data&& rhs);
-    Data& operator=(Data&& rhs);
+    Data(Data&& rhs) noexcept;
+    Data& operator=(Data&& rhs) noexcept;
 
     // Populates a Data object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -238,22 +239,22 @@ struct Params {
     Data Clone() const;
 
     // Creates a Data object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Data> FromValue(const base::Value::Dict& value);
+    static std::optional<Data> FromValue(const base::Value::Dict& value);
 
     // Creates a Data object from a base::Value, or nullopt on failure.
-    static absl::optional<Data> FromValue(const base::Value& value);
+    static std::optional<Data> FromValue(const base::Value& value);
 
     // The url for the new Terminal window.
-    absl::optional<std::string> url;
+    std::optional<std::string> url;
 
     // Instead of openning a new window, open it as a new tab in the current app
     // window.
-    absl::optional<bool> as_tab;
+    std::optional<bool> as_tab;
 
   };
 
 
-  absl::optional<Data> data;
+  std::optional<Data> data;
 
 
  private:
@@ -274,11 +275,11 @@ base::Value::List Create();
 namespace OpenSettingsSubpage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Name of subpage to open.  Currently only 'crostini' supported.
@@ -306,8 +307,8 @@ struct Info {
   ~Info();
   Info(const Info&) = delete;
   Info& operator=(const Info&) = delete;
-  Info(Info&& rhs);
-  Info& operator=(Info&& rhs);
+  Info(Info&& rhs) noexcept;
+  Info& operator=(Info&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInfo object.
@@ -331,11 +332,11 @@ base::Value::List Create(const Info& info);
 namespace GetPrefs {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Paths of prefs to fetch.
@@ -354,8 +355,8 @@ struct Prefs {
   ~Prefs();
   Prefs(const Prefs&) = delete;
   Prefs& operator=(const Prefs&) = delete;
-  Prefs(Prefs&& rhs);
-  Prefs& operator=(Prefs&& rhs);
+  Prefs(Prefs&& rhs) noexcept;
+  Prefs& operator=(Prefs&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrefs object.
@@ -374,11 +375,11 @@ base::Value::List Create(const Prefs& prefs);
 namespace SetPrefs {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Prefs to update keyed by paths.
@@ -387,8 +388,8 @@ struct Params {
     ~Prefs();
     Prefs(const Prefs&) = delete;
     Prefs& operator=(const Prefs&) = delete;
-    Prefs(Prefs&& rhs);
-    Prefs& operator=(Prefs&& rhs);
+    Prefs(Prefs&& rhs) noexcept;
+    Prefs& operator=(Prefs&& rhs) noexcept;
 
     // Populates a Prefs object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -402,10 +403,10 @@ struct Params {
     Prefs Clone() const;
 
     // Creates a Prefs object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Prefs> FromValue(const base::Value::Dict& value);
+    static std::optional<Prefs> FromValue(const base::Value::Dict& value);
 
     // Creates a Prefs object from a base::Value, or nullopt on failure.
-    static absl::optional<Prefs> FromValue(const base::Value& value);
+    static std::optional<Prefs> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -451,8 +452,8 @@ struct Prefs {
   ~Prefs();
   Prefs(const Prefs&) = delete;
   Prefs& operator=(const Prefs&) = delete;
-  Prefs(Prefs&& rhs);
-  Prefs& operator=(Prefs&& rhs);
+  Prefs(Prefs&& rhs) noexcept;
+  Prefs& operator=(Prefs&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrefs object.

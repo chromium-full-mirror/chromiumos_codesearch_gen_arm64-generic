@@ -37,7 +37,7 @@ class  EventObserverForExtensionInterceptorForTesting : public EventObserverForE
   void OnAddDialog() override;
   void OnConfigureDialog(const std::string& configuration_name) override;
   void OnConfigRemoved(const std::string& configuration_name) override;
-  void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const absl::optional<std::string>& error) override;
+  void OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const std::optional<std::string>& error) override;
   void OnPacketReceived(const std::vector<uint8_t>& data) override;
 };
 class  EventObserverForExtensionAsyncWaiter {

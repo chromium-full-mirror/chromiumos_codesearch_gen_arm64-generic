@@ -41,7 +41,7 @@ struct _FwupdReportClass {
  *
  * Since: 1.9.1
  */
-#define FWUPD_REPORT_FLAG_FROM_OEM (1llu << 0)
+#define FWUPD_REPORT_FLAG_FROM_OEM (1ull << 0)
 
 /**
  * FWUPD_REPORT_FLAG_UNKNOWN:
@@ -124,7 +124,7 @@ fwupd_report_add_flag(FwupdReport *self, FwupdReportFlags flag);
 void
 fwupd_report_remove_flag(FwupdReport *self, FwupdReportFlags flag);
 gboolean
-fwupd_report_has_flag(FwupdReport *self, FwupdReportFlags flag);
+fwupd_report_has_flag(FwupdReport *self, FwupdReportFlags flag) G_GNUC_WARN_UNUSED_RESULT;
 
 const gchar *
 fwupd_report_flag_to_string(FwupdReportFlags report_flag);

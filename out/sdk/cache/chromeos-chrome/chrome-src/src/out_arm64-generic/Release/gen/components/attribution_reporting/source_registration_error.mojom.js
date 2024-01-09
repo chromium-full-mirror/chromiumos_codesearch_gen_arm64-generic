@@ -33,6 +33,7 @@
   SourceRegistrationError.kFilterDataHasSourceTypeKey = 7;
   SourceRegistrationError.kFilterDataHasLookbackWindowKey = 24;
   SourceRegistrationError.kFilterDataKeyTooLong = 8;
+  SourceRegistrationError.kFilterDataKeyReserved = 49;
   SourceRegistrationError.kFilterDataListWrongType = 9;
   SourceRegistrationError.kFilterDataListTooLong = 10;
   SourceRegistrationError.kFilterDataValueWrongType = 11;
@@ -61,8 +62,28 @@
   SourceRegistrationError.kBothEventReportWindowFieldsFound = 36;
   SourceRegistrationError.kTriggerDataMatchingWrongType = 37;
   SourceRegistrationError.kTriggerDataMatchingUnknownValue = 38;
+  SourceRegistrationError.kTriggerSpecsWrongType = 39;
+  SourceRegistrationError.kTriggerSpecWrongType = 40;
+  SourceRegistrationError.kTriggerSpecTriggerDataMissing = 41;
+  SourceRegistrationError.kTriggerSpecTriggerDataWrongType = 42;
+  SourceRegistrationError.kTriggerSpecTriggerDataEmpty = 43;
+  SourceRegistrationError.kTriggerSpecTriggerDataValueWrongType = 44;
+  SourceRegistrationError.kTriggerSpecTriggerDataValueOutOfRange = 45;
+  SourceRegistrationError.kExcessiveTriggerData = 46;
+  SourceRegistrationError.kDuplicateTriggerData = 47;
+  SourceRegistrationError.kInvalidTriggerDataForMatchingMode = 48;
+  SourceRegistrationError.kSummaryWindowOperatorWrongType = 50;
+  SourceRegistrationError.kSummaryWindowOperatorUnknownValue = 51;
+  SourceRegistrationError.kSummaryBucketsWrongType = 52;
+  SourceRegistrationError.kSummaryBucketsEmpty = 53;
+  SourceRegistrationError.kSummaryBucketsTooLong = 54;
+  SourceRegistrationError.kSummaryBucketsValueWrongType = 55;
+  SourceRegistrationError.kSummaryBucketsValueOutOfRange = 56;
+  SourceRegistrationError.kSummaryBucketsNonIncreasing = 57;
+  SourceRegistrationError.kEventLevelEpsilonWrongType = 58;
+  SourceRegistrationError.kEventLevelEpsilonValueInvalid = 59;
   SourceRegistrationError.MIN_VALUE = 0;
-  SourceRegistrationError.MAX_VALUE = 38;
+  SourceRegistrationError.MAX_VALUE = 59;
 
   SourceRegistrationError.isKnownEnumValue = function(value) {
     switch (value) {
@@ -105,6 +126,27 @@
     case 36:
     case 37:
     case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
       return true;
     }
     return false;

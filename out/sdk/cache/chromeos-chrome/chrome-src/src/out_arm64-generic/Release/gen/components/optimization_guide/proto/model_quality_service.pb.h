@@ -29,8 +29,10 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include "components/optimization_guide/proto/model_quality_metadata.pb.h"
-#include "components/optimization_guide/proto/features/default_feature_ai_logging_data.pb.h"
-#include "components/optimization_guide/proto/features/compose_ai_logging_data.pb.h"
+#include "components/optimization_guide/proto/features/default.pb.h"
+#include "components/optimization_guide/proto/features/compose.pb.h"
+#include "components/optimization_guide/proto/features/tab_organization.pb.h"
+#include "components/optimization_guide/proto/features/wallpaper_search.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5fservice_2eproto
@@ -46,9 +48,6 @@ struct TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5
 };
 namespace optimization_guide {
 namespace proto {
-class AiLoggingData;
-struct AiLoggingDataDefaultTypeInternal;
-extern AiLoggingDataDefaultTypeInternal _AiLoggingData_default_instance_;
 class LogAiDataRequest;
 struct LogAiDataRequestDefaultTypeInternal;
 extern LogAiDataRequestDefaultTypeInternal _LogAiDataRequest_default_instance_;
@@ -58,7 +57,6 @@ extern LogAiDataResponseDefaultTypeInternal _LogAiDataResponse_default_instance_
 }  // namespace proto
 }  // namespace optimization_guide
 PROTOBUF_NAMESPACE_OPEN
-template<> ::optimization_guide::proto::AiLoggingData* Arena::CreateMaybeMessage<::optimization_guide::proto::AiLoggingData>(Arena*);
 template<> ::optimization_guide::proto::LogAiDataRequest* Arena::CreateMaybeMessage<::optimization_guide::proto::LogAiDataRequest>(Arena*);
 template<> ::optimization_guide::proto::LogAiDataResponse* Arena::CreateMaybeMessage<::optimization_guide::proto::LogAiDataResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -101,6 +99,14 @@ class LogAiDataRequest final :
   static const LogAiDataRequest& default_instance() {
     return *internal_default_instance();
   }
+  enum FeatureCase {
+    kCompose = 3,
+    kTabOrganization = 4,
+    kWallpaperSearch = 5,
+    kDefault = 1000,
+    FEATURE_NOT_SET = 0,
+  };
+
   static inline const LogAiDataRequest* internal_default_instance() {
     return reinterpret_cast<const LogAiDataRequest*>(
                &_LogAiDataRequest_default_instance_);
@@ -170,55 +176,150 @@ class LogAiDataRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAiLoggingDataFieldNumber = 2,
-    kBatchedMetadataFieldNumber = 1,
+    kLoggingMetadataFieldNumber = 1,
+    kModelExecutionInfoFieldNumber = 2,
+    kComposeFieldNumber = 3,
+    kTabOrganizationFieldNumber = 4,
+    kWallpaperSearchFieldNumber = 5,
+    kDefaultFieldNumber = 1000,
   };
-  // repeated .optimization_guide.proto.AiLoggingData ai_logging_data = 2;
-  int ai_logging_data_size() const;
+  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
+  bool has_logging_metadata() const;
   private:
-  int _internal_ai_logging_data_size() const;
+  bool _internal_has_logging_metadata() const;
   public:
-  void clear_ai_logging_data();
-  ::optimization_guide::proto::AiLoggingData* mutable_ai_logging_data(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::AiLoggingData >*
-      mutable_ai_logging_data();
+  void clear_logging_metadata();
+  const ::optimization_guide::proto::LoggingMetadata& logging_metadata() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::LoggingMetadata* release_logging_metadata();
+  ::optimization_guide::proto::LoggingMetadata* mutable_logging_metadata();
+  void set_allocated_logging_metadata(::optimization_guide::proto::LoggingMetadata* logging_metadata);
   private:
-  const ::optimization_guide::proto::AiLoggingData& _internal_ai_logging_data(int index) const;
-  ::optimization_guide::proto::AiLoggingData* _internal_add_ai_logging_data();
+  const ::optimization_guide::proto::LoggingMetadata& _internal_logging_metadata() const;
+  ::optimization_guide::proto::LoggingMetadata* _internal_mutable_logging_metadata();
   public:
-  const ::optimization_guide::proto::AiLoggingData& ai_logging_data(int index) const;
-  ::optimization_guide::proto::AiLoggingData* add_ai_logging_data();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::AiLoggingData >&
-      ai_logging_data() const;
+  void unsafe_arena_set_allocated_logging_metadata(
+      ::optimization_guide::proto::LoggingMetadata* logging_metadata);
+  ::optimization_guide::proto::LoggingMetadata* unsafe_arena_release_logging_metadata();
 
-  // .optimization_guide.proto.BatchedLoggingMetadata batched_metadata = 1;
-  bool has_batched_metadata() const;
+  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
+  bool has_model_execution_info() const;
   private:
-  bool _internal_has_batched_metadata() const;
+  bool _internal_has_model_execution_info() const;
   public:
-  void clear_batched_metadata();
-  const ::optimization_guide::proto::BatchedLoggingMetadata& batched_metadata() const;
-  PROTOBUF_NODISCARD ::optimization_guide::proto::BatchedLoggingMetadata* release_batched_metadata();
-  ::optimization_guide::proto::BatchedLoggingMetadata* mutable_batched_metadata();
-  void set_allocated_batched_metadata(::optimization_guide::proto::BatchedLoggingMetadata* batched_metadata);
+  void clear_model_execution_info();
+  const ::optimization_guide::proto::ModelExecutionInfo& model_execution_info() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ModelExecutionInfo* release_model_execution_info();
+  ::optimization_guide::proto::ModelExecutionInfo* mutable_model_execution_info();
+  void set_allocated_model_execution_info(::optimization_guide::proto::ModelExecutionInfo* model_execution_info);
   private:
-  const ::optimization_guide::proto::BatchedLoggingMetadata& _internal_batched_metadata() const;
-  ::optimization_guide::proto::BatchedLoggingMetadata* _internal_mutable_batched_metadata();
+  const ::optimization_guide::proto::ModelExecutionInfo& _internal_model_execution_info() const;
+  ::optimization_guide::proto::ModelExecutionInfo* _internal_mutable_model_execution_info();
   public:
-  void unsafe_arena_set_allocated_batched_metadata(
-      ::optimization_guide::proto::BatchedLoggingMetadata* batched_metadata);
-  ::optimization_guide::proto::BatchedLoggingMetadata* unsafe_arena_release_batched_metadata();
+  void unsafe_arena_set_allocated_model_execution_info(
+      ::optimization_guide::proto::ModelExecutionInfo* model_execution_info);
+  ::optimization_guide::proto::ModelExecutionInfo* unsafe_arena_release_model_execution_info();
 
+  // .optimization_guide.proto.ComposeLoggingData compose = 3;
+  bool has_compose() const;
+  private:
+  bool _internal_has_compose() const;
+  public:
+  void clear_compose();
+  const ::optimization_guide::proto::ComposeLoggingData& compose() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ComposeLoggingData* release_compose();
+  ::optimization_guide::proto::ComposeLoggingData* mutable_compose();
+  void set_allocated_compose(::optimization_guide::proto::ComposeLoggingData* compose);
+  private:
+  const ::optimization_guide::proto::ComposeLoggingData& _internal_compose() const;
+  ::optimization_guide::proto::ComposeLoggingData* _internal_mutable_compose();
+  public:
+  void unsafe_arena_set_allocated_compose(
+      ::optimization_guide::proto::ComposeLoggingData* compose);
+  ::optimization_guide::proto::ComposeLoggingData* unsafe_arena_release_compose();
+
+  // .optimization_guide.proto.TabOrganizationLoggingData tab_organization = 4;
+  bool has_tab_organization() const;
+  private:
+  bool _internal_has_tab_organization() const;
+  public:
+  void clear_tab_organization();
+  const ::optimization_guide::proto::TabOrganizationLoggingData& tab_organization() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::TabOrganizationLoggingData* release_tab_organization();
+  ::optimization_guide::proto::TabOrganizationLoggingData* mutable_tab_organization();
+  void set_allocated_tab_organization(::optimization_guide::proto::TabOrganizationLoggingData* tab_organization);
+  private:
+  const ::optimization_guide::proto::TabOrganizationLoggingData& _internal_tab_organization() const;
+  ::optimization_guide::proto::TabOrganizationLoggingData* _internal_mutable_tab_organization();
+  public:
+  void unsafe_arena_set_allocated_tab_organization(
+      ::optimization_guide::proto::TabOrganizationLoggingData* tab_organization);
+  ::optimization_guide::proto::TabOrganizationLoggingData* unsafe_arena_release_tab_organization();
+
+  // .optimization_guide.proto.WallpaperSearchLoggingData wallpaper_search = 5;
+  bool has_wallpaper_search() const;
+  private:
+  bool _internal_has_wallpaper_search() const;
+  public:
+  void clear_wallpaper_search();
+  const ::optimization_guide::proto::WallpaperSearchLoggingData& wallpaper_search() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::WallpaperSearchLoggingData* release_wallpaper_search();
+  ::optimization_guide::proto::WallpaperSearchLoggingData* mutable_wallpaper_search();
+  void set_allocated_wallpaper_search(::optimization_guide::proto::WallpaperSearchLoggingData* wallpaper_search);
+  private:
+  const ::optimization_guide::proto::WallpaperSearchLoggingData& _internal_wallpaper_search() const;
+  ::optimization_guide::proto::WallpaperSearchLoggingData* _internal_mutable_wallpaper_search();
+  public:
+  void unsafe_arena_set_allocated_wallpaper_search(
+      ::optimization_guide::proto::WallpaperSearchLoggingData* wallpaper_search);
+  ::optimization_guide::proto::WallpaperSearchLoggingData* unsafe_arena_release_wallpaper_search();
+
+  // .optimization_guide.proto.DefaultLoggingData default = 1000;
+  bool has_default_() const;
+  private:
+  bool _internal_has_default_() const;
+  public:
+  void clear_default_();
+  const ::optimization_guide::proto::DefaultLoggingData& default_() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::DefaultLoggingData* release_default_();
+  ::optimization_guide::proto::DefaultLoggingData* mutable_default_();
+  void set_allocated_default_(::optimization_guide::proto::DefaultLoggingData* default_);
+  private:
+  const ::optimization_guide::proto::DefaultLoggingData& _internal_default_() const;
+  ::optimization_guide::proto::DefaultLoggingData* _internal_mutable_default_();
+  public:
+  void unsafe_arena_set_allocated_default_(
+      ::optimization_guide::proto::DefaultLoggingData* default_);
+  ::optimization_guide::proto::DefaultLoggingData* unsafe_arena_release_default_();
+
+  void clear_feature();
+  FeatureCase feature_case() const;
   // @@protoc_insertion_point(class_scope:optimization_guide.proto.LogAiDataRequest)
  private:
   class _Internal;
+  void set_has_compose();
+  void set_has_tab_organization();
+  void set_has_wallpaper_search();
+  void set_has_default_();
+
+  inline bool has_feature() const;
+  inline void clear_has_feature();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::AiLoggingData > ai_logging_data_;
-  ::optimization_guide::proto::BatchedLoggingMetadata* batched_metadata_;
+  ::optimization_guide::proto::LoggingMetadata* logging_metadata_;
+  ::optimization_guide::proto::ModelExecutionInfo* model_execution_info_;
+  union FeatureUnion {
+    constexpr FeatureUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::optimization_guide::proto::ComposeLoggingData* compose_;
+    ::optimization_guide::proto::TabOrganizationLoggingData* tab_organization_;
+    ::optimization_guide::proto::WallpaperSearchLoggingData* wallpaper_search_;
+    ::optimization_guide::proto::DefaultLoggingData* default__;
+  } feature_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -335,221 +436,6 @@ class LogAiDataResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5fservice_2eproto;
 };
-// -------------------------------------------------------------------
-
-class AiLoggingData final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.AiLoggingData) */ {
- public:
-  inline AiLoggingData() : AiLoggingData(nullptr) {}
-  ~AiLoggingData() override;
-  explicit PROTOBUF_CONSTEXPR AiLoggingData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  AiLoggingData(const AiLoggingData& from);
-  AiLoggingData(AiLoggingData&& from) noexcept
-    : AiLoggingData() {
-    *this = ::std::move(from);
-  }
-
-  inline AiLoggingData& operator=(const AiLoggingData& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline AiLoggingData& operator=(AiLoggingData&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const AiLoggingData& default_instance() {
-    return *internal_default_instance();
-  }
-  enum FeatureCase {
-    kCompose = 3,
-    kDefault = 1000,
-    FEATURE_NOT_SET = 0,
-  };
-
-  static inline const AiLoggingData* internal_default_instance() {
-    return reinterpret_cast<const AiLoggingData*>(
-               &_AiLoggingData_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(AiLoggingData& a, AiLoggingData& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(AiLoggingData* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(AiLoggingData* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  AiLoggingData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<AiLoggingData>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const AiLoggingData& from);
-  void MergeFrom(const AiLoggingData& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(AiLoggingData* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "optimization_guide.proto.AiLoggingData";
-  }
-  protected:
-  explicit AiLoggingData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kLoggingMetadataFieldNumber = 1,
-    kModelExecutionInfoFieldNumber = 2,
-    kComposeFieldNumber = 3,
-    kDefaultFieldNumber = 1000,
-  };
-  // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
-  bool has_logging_metadata() const;
-  private:
-  bool _internal_has_logging_metadata() const;
-  public:
-  void clear_logging_metadata();
-  const ::optimization_guide::proto::LoggingMetadata& logging_metadata() const;
-  PROTOBUF_NODISCARD ::optimization_guide::proto::LoggingMetadata* release_logging_metadata();
-  ::optimization_guide::proto::LoggingMetadata* mutable_logging_metadata();
-  void set_allocated_logging_metadata(::optimization_guide::proto::LoggingMetadata* logging_metadata);
-  private:
-  const ::optimization_guide::proto::LoggingMetadata& _internal_logging_metadata() const;
-  ::optimization_guide::proto::LoggingMetadata* _internal_mutable_logging_metadata();
-  public:
-  void unsafe_arena_set_allocated_logging_metadata(
-      ::optimization_guide::proto::LoggingMetadata* logging_metadata);
-  ::optimization_guide::proto::LoggingMetadata* unsafe_arena_release_logging_metadata();
-
-  // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
-  bool has_model_execution_info() const;
-  private:
-  bool _internal_has_model_execution_info() const;
-  public:
-  void clear_model_execution_info();
-  const ::optimization_guide::proto::ModelExecutionInfo& model_execution_info() const;
-  PROTOBUF_NODISCARD ::optimization_guide::proto::ModelExecutionInfo* release_model_execution_info();
-  ::optimization_guide::proto::ModelExecutionInfo* mutable_model_execution_info();
-  void set_allocated_model_execution_info(::optimization_guide::proto::ModelExecutionInfo* model_execution_info);
-  private:
-  const ::optimization_guide::proto::ModelExecutionInfo& _internal_model_execution_info() const;
-  ::optimization_guide::proto::ModelExecutionInfo* _internal_mutable_model_execution_info();
-  public:
-  void unsafe_arena_set_allocated_model_execution_info(
-      ::optimization_guide::proto::ModelExecutionInfo* model_execution_info);
-  ::optimization_guide::proto::ModelExecutionInfo* unsafe_arena_release_model_execution_info();
-
-  // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
-  bool has_compose() const;
-  private:
-  bool _internal_has_compose() const;
-  public:
-  void clear_compose();
-  const ::optimization_guide::proto::ComposeAiLoggingData& compose() const;
-  PROTOBUF_NODISCARD ::optimization_guide::proto::ComposeAiLoggingData* release_compose();
-  ::optimization_guide::proto::ComposeAiLoggingData* mutable_compose();
-  void set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose);
-  private:
-  const ::optimization_guide::proto::ComposeAiLoggingData& _internal_compose() const;
-  ::optimization_guide::proto::ComposeAiLoggingData* _internal_mutable_compose();
-  public:
-  void unsafe_arena_set_allocated_compose(
-      ::optimization_guide::proto::ComposeAiLoggingData* compose);
-  ::optimization_guide::proto::ComposeAiLoggingData* unsafe_arena_release_compose();
-
-  // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
-  bool has_default_() const;
-  private:
-  bool _internal_has_default_() const;
-  public:
-  void clear_default_();
-  const ::optimization_guide::proto::DefaultFeatureAiLoggingData& default_() const;
-  PROTOBUF_NODISCARD ::optimization_guide::proto::DefaultFeatureAiLoggingData* release_default_();
-  ::optimization_guide::proto::DefaultFeatureAiLoggingData* mutable_default_();
-  void set_allocated_default_(::optimization_guide::proto::DefaultFeatureAiLoggingData* default_);
-  private:
-  const ::optimization_guide::proto::DefaultFeatureAiLoggingData& _internal_default_() const;
-  ::optimization_guide::proto::DefaultFeatureAiLoggingData* _internal_mutable_default_();
-  public:
-  void unsafe_arena_set_allocated_default_(
-      ::optimization_guide::proto::DefaultFeatureAiLoggingData* default_);
-  ::optimization_guide::proto::DefaultFeatureAiLoggingData* unsafe_arena_release_default_();
-
-  void clear_feature();
-  FeatureCase feature_case() const;
-  // @@protoc_insertion_point(class_scope:optimization_guide.proto.AiLoggingData)
- private:
-  class _Internal;
-  void set_has_compose();
-  void set_has_default_();
-
-  inline bool has_feature() const;
-  inline void clear_has_feature();
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::optimization_guide::proto::LoggingMetadata* logging_metadata_;
-  ::optimization_guide::proto::ModelExecutionInfo* model_execution_info_;
-  union FeatureUnion {
-    constexpr FeatureUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::optimization_guide::proto::ComposeAiLoggingData* compose_;
-    ::optimization_guide::proto::DefaultFeatureAiLoggingData* default__;
-  } feature_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[1];
-
-  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5fservice_2eproto;
-};
 // ===================================================================
 
 
@@ -561,156 +447,23 @@ class AiLoggingData final :
 #endif  // __GNUC__
 // LogAiDataRequest
 
-// .optimization_guide.proto.BatchedLoggingMetadata batched_metadata = 1;
-inline bool LogAiDataRequest::_internal_has_batched_metadata() const {
-  return this != internal_default_instance() && batched_metadata_ != nullptr;
-}
-inline bool LogAiDataRequest::has_batched_metadata() const {
-  return _internal_has_batched_metadata();
-}
-inline const ::optimization_guide::proto::BatchedLoggingMetadata& LogAiDataRequest::_internal_batched_metadata() const {
-  const ::optimization_guide::proto::BatchedLoggingMetadata* p = batched_metadata_;
-  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::BatchedLoggingMetadata&>(
-      ::optimization_guide::proto::_BatchedLoggingMetadata_default_instance_);
-}
-inline const ::optimization_guide::proto::BatchedLoggingMetadata& LogAiDataRequest::batched_metadata() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.batched_metadata)
-  return _internal_batched_metadata();
-}
-inline void LogAiDataRequest::unsafe_arena_set_allocated_batched_metadata(
-    ::optimization_guide::proto::BatchedLoggingMetadata* batched_metadata) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(batched_metadata_);
-  }
-  batched_metadata_ = batched_metadata;
-  if (batched_metadata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.batched_metadata)
-}
-inline ::optimization_guide::proto::BatchedLoggingMetadata* LogAiDataRequest::release_batched_metadata() {
-  
-  ::optimization_guide::proto::BatchedLoggingMetadata* temp = batched_metadata_;
-  batched_metadata_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::optimization_guide::proto::BatchedLoggingMetadata* LogAiDataRequest::unsafe_arena_release_batched_metadata() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.batched_metadata)
-  
-  ::optimization_guide::proto::BatchedLoggingMetadata* temp = batched_metadata_;
-  batched_metadata_ = nullptr;
-  return temp;
-}
-inline ::optimization_guide::proto::BatchedLoggingMetadata* LogAiDataRequest::_internal_mutable_batched_metadata() {
-  
-  if (batched_metadata_ == nullptr) {
-    auto* p = CreateMaybeMessage<::optimization_guide::proto::BatchedLoggingMetadata>(GetArenaForAllocation());
-    batched_metadata_ = p;
-  }
-  return batched_metadata_;
-}
-inline ::optimization_guide::proto::BatchedLoggingMetadata* LogAiDataRequest::mutable_batched_metadata() {
-  ::optimization_guide::proto::BatchedLoggingMetadata* _msg = _internal_mutable_batched_metadata();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.batched_metadata)
-  return _msg;
-}
-inline void LogAiDataRequest::set_allocated_batched_metadata(::optimization_guide::proto::BatchedLoggingMetadata* batched_metadata) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(batched_metadata_);
-  }
-  if (batched_metadata) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(batched_metadata));
-    if (message_arena != submessage_arena) {
-      batched_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, batched_metadata, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  batched_metadata_ = batched_metadata;
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.batched_metadata)
-}
-
-// repeated .optimization_guide.proto.AiLoggingData ai_logging_data = 2;
-inline int LogAiDataRequest::_internal_ai_logging_data_size() const {
-  return ai_logging_data_.size();
-}
-inline int LogAiDataRequest::ai_logging_data_size() const {
-  return _internal_ai_logging_data_size();
-}
-inline void LogAiDataRequest::clear_ai_logging_data() {
-  ai_logging_data_.Clear();
-}
-inline ::optimization_guide::proto::AiLoggingData* LogAiDataRequest::mutable_ai_logging_data(int index) {
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.ai_logging_data)
-  return ai_logging_data_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::AiLoggingData >*
-LogAiDataRequest::mutable_ai_logging_data() {
-  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.LogAiDataRequest.ai_logging_data)
-  return &ai_logging_data_;
-}
-inline const ::optimization_guide::proto::AiLoggingData& LogAiDataRequest::_internal_ai_logging_data(int index) const {
-  return ai_logging_data_.Get(index);
-}
-inline const ::optimization_guide::proto::AiLoggingData& LogAiDataRequest::ai_logging_data(int index) const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.ai_logging_data)
-  return _internal_ai_logging_data(index);
-}
-inline ::optimization_guide::proto::AiLoggingData* LogAiDataRequest::_internal_add_ai_logging_data() {
-  return ai_logging_data_.Add();
-}
-inline ::optimization_guide::proto::AiLoggingData* LogAiDataRequest::add_ai_logging_data() {
-  ::optimization_guide::proto::AiLoggingData* _add = _internal_add_ai_logging_data();
-  // @@protoc_insertion_point(field_add:optimization_guide.proto.LogAiDataRequest.ai_logging_data)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::AiLoggingData >&
-LogAiDataRequest::ai_logging_data() const {
-  // @@protoc_insertion_point(field_list:optimization_guide.proto.LogAiDataRequest.ai_logging_data)
-  return ai_logging_data_;
-}
-
-// -------------------------------------------------------------------
-
-// LogAiDataResponse
-
-// -------------------------------------------------------------------
-
-// AiLoggingData
-
 // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
-inline bool AiLoggingData::_internal_has_logging_metadata() const {
+inline bool LogAiDataRequest::_internal_has_logging_metadata() const {
   return this != internal_default_instance() && logging_metadata_ != nullptr;
 }
-inline bool AiLoggingData::has_logging_metadata() const {
+inline bool LogAiDataRequest::has_logging_metadata() const {
   return _internal_has_logging_metadata();
 }
-inline const ::optimization_guide::proto::LoggingMetadata& AiLoggingData::_internal_logging_metadata() const {
+inline const ::optimization_guide::proto::LoggingMetadata& LogAiDataRequest::_internal_logging_metadata() const {
   const ::optimization_guide::proto::LoggingMetadata* p = logging_metadata_;
   return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::LoggingMetadata&>(
       ::optimization_guide::proto::_LoggingMetadata_default_instance_);
 }
-inline const ::optimization_guide::proto::LoggingMetadata& AiLoggingData::logging_metadata() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.AiLoggingData.logging_metadata)
+inline const ::optimization_guide::proto::LoggingMetadata& LogAiDataRequest::logging_metadata() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.logging_metadata)
   return _internal_logging_metadata();
 }
-inline void AiLoggingData::unsafe_arena_set_allocated_logging_metadata(
+inline void LogAiDataRequest::unsafe_arena_set_allocated_logging_metadata(
     ::optimization_guide::proto::LoggingMetadata* logging_metadata) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(logging_metadata_);
@@ -721,9 +474,9 @@ inline void AiLoggingData::unsafe_arena_set_allocated_logging_metadata(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.AiLoggingData.logging_metadata)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.logging_metadata)
 }
-inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::release_logging_metadata() {
+inline ::optimization_guide::proto::LoggingMetadata* LogAiDataRequest::release_logging_metadata() {
   
   ::optimization_guide::proto::LoggingMetadata* temp = logging_metadata_;
   logging_metadata_ = nullptr;
@@ -738,14 +491,14 @@ inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::release_logg
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::unsafe_arena_release_logging_metadata() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.AiLoggingData.logging_metadata)
+inline ::optimization_guide::proto::LoggingMetadata* LogAiDataRequest::unsafe_arena_release_logging_metadata() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.logging_metadata)
   
   ::optimization_guide::proto::LoggingMetadata* temp = logging_metadata_;
   logging_metadata_ = nullptr;
   return temp;
 }
-inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::_internal_mutable_logging_metadata() {
+inline ::optimization_guide::proto::LoggingMetadata* LogAiDataRequest::_internal_mutable_logging_metadata() {
   
   if (logging_metadata_ == nullptr) {
     auto* p = CreateMaybeMessage<::optimization_guide::proto::LoggingMetadata>(GetArenaForAllocation());
@@ -753,12 +506,12 @@ inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::_internal_mu
   }
   return logging_metadata_;
 }
-inline ::optimization_guide::proto::LoggingMetadata* AiLoggingData::mutable_logging_metadata() {
+inline ::optimization_guide::proto::LoggingMetadata* LogAiDataRequest::mutable_logging_metadata() {
   ::optimization_guide::proto::LoggingMetadata* _msg = _internal_mutable_logging_metadata();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.AiLoggingData.logging_metadata)
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.logging_metadata)
   return _msg;
 }
-inline void AiLoggingData::set_allocated_logging_metadata(::optimization_guide::proto::LoggingMetadata* logging_metadata) {
+inline void LogAiDataRequest::set_allocated_logging_metadata(::optimization_guide::proto::LoggingMetadata* logging_metadata) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(logging_metadata_);
@@ -776,26 +529,26 @@ inline void AiLoggingData::set_allocated_logging_metadata(::optimization_guide::
     
   }
   logging_metadata_ = logging_metadata;
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.logging_metadata)
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.logging_metadata)
 }
 
 // .optimization_guide.proto.ModelExecutionInfo model_execution_info = 2;
-inline bool AiLoggingData::_internal_has_model_execution_info() const {
+inline bool LogAiDataRequest::_internal_has_model_execution_info() const {
   return this != internal_default_instance() && model_execution_info_ != nullptr;
 }
-inline bool AiLoggingData::has_model_execution_info() const {
+inline bool LogAiDataRequest::has_model_execution_info() const {
   return _internal_has_model_execution_info();
 }
-inline const ::optimization_guide::proto::ModelExecutionInfo& AiLoggingData::_internal_model_execution_info() const {
+inline const ::optimization_guide::proto::ModelExecutionInfo& LogAiDataRequest::_internal_model_execution_info() const {
   const ::optimization_guide::proto::ModelExecutionInfo* p = model_execution_info_;
   return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::ModelExecutionInfo&>(
       ::optimization_guide::proto::_ModelExecutionInfo_default_instance_);
 }
-inline const ::optimization_guide::proto::ModelExecutionInfo& AiLoggingData::model_execution_info() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.AiLoggingData.model_execution_info)
+inline const ::optimization_guide::proto::ModelExecutionInfo& LogAiDataRequest::model_execution_info() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.model_execution_info)
   return _internal_model_execution_info();
 }
-inline void AiLoggingData::unsafe_arena_set_allocated_model_execution_info(
+inline void LogAiDataRequest::unsafe_arena_set_allocated_model_execution_info(
     ::optimization_guide::proto::ModelExecutionInfo* model_execution_info) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(model_execution_info_);
@@ -806,9 +559,9 @@ inline void AiLoggingData::unsafe_arena_set_allocated_model_execution_info(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.AiLoggingData.model_execution_info)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.model_execution_info)
 }
-inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::release_model_execution_info() {
+inline ::optimization_guide::proto::ModelExecutionInfo* LogAiDataRequest::release_model_execution_info() {
   
   ::optimization_guide::proto::ModelExecutionInfo* temp = model_execution_info_;
   model_execution_info_ = nullptr;
@@ -823,14 +576,14 @@ inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::release_m
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::unsafe_arena_release_model_execution_info() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.AiLoggingData.model_execution_info)
+inline ::optimization_guide::proto::ModelExecutionInfo* LogAiDataRequest::unsafe_arena_release_model_execution_info() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.model_execution_info)
   
   ::optimization_guide::proto::ModelExecutionInfo* temp = model_execution_info_;
   model_execution_info_ = nullptr;
   return temp;
 }
-inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::_internal_mutable_model_execution_info() {
+inline ::optimization_guide::proto::ModelExecutionInfo* LogAiDataRequest::_internal_mutable_model_execution_info() {
   
   if (model_execution_info_ == nullptr) {
     auto* p = CreateMaybeMessage<::optimization_guide::proto::ModelExecutionInfo>(GetArenaForAllocation());
@@ -838,12 +591,12 @@ inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::_internal
   }
   return model_execution_info_;
 }
-inline ::optimization_guide::proto::ModelExecutionInfo* AiLoggingData::mutable_model_execution_info() {
+inline ::optimization_guide::proto::ModelExecutionInfo* LogAiDataRequest::mutable_model_execution_info() {
   ::optimization_guide::proto::ModelExecutionInfo* _msg = _internal_mutable_model_execution_info();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.AiLoggingData.model_execution_info)
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.model_execution_info)
   return _msg;
 }
-inline void AiLoggingData::set_allocated_model_execution_info(::optimization_guide::proto::ModelExecutionInfo* model_execution_info) {
+inline void LogAiDataRequest::set_allocated_model_execution_info(::optimization_guide::proto::ModelExecutionInfo* model_execution_info) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(model_execution_info_);
@@ -861,24 +614,24 @@ inline void AiLoggingData::set_allocated_model_execution_info(::optimization_gui
     
   }
   model_execution_info_ = model_execution_info;
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.model_execution_info)
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.LogAiDataRequest.model_execution_info)
 }
 
-// .optimization_guide.proto.ComposeAiLoggingData compose = 3;
-inline bool AiLoggingData::_internal_has_compose() const {
+// .optimization_guide.proto.ComposeLoggingData compose = 3;
+inline bool LogAiDataRequest::_internal_has_compose() const {
   return feature_case() == kCompose;
 }
-inline bool AiLoggingData::has_compose() const {
+inline bool LogAiDataRequest::has_compose() const {
   return _internal_has_compose();
 }
-inline void AiLoggingData::set_has_compose() {
+inline void LogAiDataRequest::set_has_compose() {
   _oneof_case_[0] = kCompose;
 }
-inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::release_compose() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.AiLoggingData.compose)
+inline ::optimization_guide::proto::ComposeLoggingData* LogAiDataRequest::release_compose() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.compose)
   if (_internal_has_compose()) {
     clear_has_feature();
-    ::optimization_guide::proto::ComposeAiLoggingData* temp = feature_.compose_;
+    ::optimization_guide::proto::ComposeLoggingData* temp = feature_.compose_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -888,63 +641,195 @@ inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::release
     return nullptr;
   }
 }
-inline const ::optimization_guide::proto::ComposeAiLoggingData& AiLoggingData::_internal_compose() const {
+inline const ::optimization_guide::proto::ComposeLoggingData& LogAiDataRequest::_internal_compose() const {
   return _internal_has_compose()
       ? *feature_.compose_
-      : reinterpret_cast< ::optimization_guide::proto::ComposeAiLoggingData&>(::optimization_guide::proto::_ComposeAiLoggingData_default_instance_);
+      : reinterpret_cast< ::optimization_guide::proto::ComposeLoggingData&>(::optimization_guide::proto::_ComposeLoggingData_default_instance_);
 }
-inline const ::optimization_guide::proto::ComposeAiLoggingData& AiLoggingData::compose() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.AiLoggingData.compose)
+inline const ::optimization_guide::proto::ComposeLoggingData& LogAiDataRequest::compose() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.compose)
   return _internal_compose();
 }
-inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::unsafe_arena_release_compose() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.AiLoggingData.compose)
+inline ::optimization_guide::proto::ComposeLoggingData* LogAiDataRequest::unsafe_arena_release_compose() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.LogAiDataRequest.compose)
   if (_internal_has_compose()) {
     clear_has_feature();
-    ::optimization_guide::proto::ComposeAiLoggingData* temp = feature_.compose_;
+    ::optimization_guide::proto::ComposeLoggingData* temp = feature_.compose_;
     feature_.compose_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void AiLoggingData::unsafe_arena_set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose) {
+inline void LogAiDataRequest::unsafe_arena_set_allocated_compose(::optimization_guide::proto::ComposeLoggingData* compose) {
   clear_feature();
   if (compose) {
     set_has_compose();
     feature_.compose_ = compose;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.AiLoggingData.compose)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.compose)
 }
-inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::_internal_mutable_compose() {
+inline ::optimization_guide::proto::ComposeLoggingData* LogAiDataRequest::_internal_mutable_compose() {
   if (!_internal_has_compose()) {
     clear_feature();
     set_has_compose();
-    feature_.compose_ = CreateMaybeMessage< ::optimization_guide::proto::ComposeAiLoggingData >(GetArenaForAllocation());
+    feature_.compose_ = CreateMaybeMessage< ::optimization_guide::proto::ComposeLoggingData >(GetArenaForAllocation());
   }
   return feature_.compose_;
 }
-inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::mutable_compose() {
-  ::optimization_guide::proto::ComposeAiLoggingData* _msg = _internal_mutable_compose();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.AiLoggingData.compose)
+inline ::optimization_guide::proto::ComposeLoggingData* LogAiDataRequest::mutable_compose() {
+  ::optimization_guide::proto::ComposeLoggingData* _msg = _internal_mutable_compose();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.compose)
   return _msg;
 }
 
-// .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
-inline bool AiLoggingData::_internal_has_default_() const {
+// .optimization_guide.proto.TabOrganizationLoggingData tab_organization = 4;
+inline bool LogAiDataRequest::_internal_has_tab_organization() const {
+  return feature_case() == kTabOrganization;
+}
+inline bool LogAiDataRequest::has_tab_organization() const {
+  return _internal_has_tab_organization();
+}
+inline void LogAiDataRequest::set_has_tab_organization() {
+  _oneof_case_[0] = kTabOrganization;
+}
+inline ::optimization_guide::proto::TabOrganizationLoggingData* LogAiDataRequest::release_tab_organization() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.tab_organization)
+  if (_internal_has_tab_organization()) {
+    clear_has_feature();
+    ::optimization_guide::proto::TabOrganizationLoggingData* temp = feature_.tab_organization_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    feature_.tab_organization_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::optimization_guide::proto::TabOrganizationLoggingData& LogAiDataRequest::_internal_tab_organization() const {
+  return _internal_has_tab_organization()
+      ? *feature_.tab_organization_
+      : reinterpret_cast< ::optimization_guide::proto::TabOrganizationLoggingData&>(::optimization_guide::proto::_TabOrganizationLoggingData_default_instance_);
+}
+inline const ::optimization_guide::proto::TabOrganizationLoggingData& LogAiDataRequest::tab_organization() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.tab_organization)
+  return _internal_tab_organization();
+}
+inline ::optimization_guide::proto::TabOrganizationLoggingData* LogAiDataRequest::unsafe_arena_release_tab_organization() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.LogAiDataRequest.tab_organization)
+  if (_internal_has_tab_organization()) {
+    clear_has_feature();
+    ::optimization_guide::proto::TabOrganizationLoggingData* temp = feature_.tab_organization_;
+    feature_.tab_organization_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void LogAiDataRequest::unsafe_arena_set_allocated_tab_organization(::optimization_guide::proto::TabOrganizationLoggingData* tab_organization) {
+  clear_feature();
+  if (tab_organization) {
+    set_has_tab_organization();
+    feature_.tab_organization_ = tab_organization;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.tab_organization)
+}
+inline ::optimization_guide::proto::TabOrganizationLoggingData* LogAiDataRequest::_internal_mutable_tab_organization() {
+  if (!_internal_has_tab_organization()) {
+    clear_feature();
+    set_has_tab_organization();
+    feature_.tab_organization_ = CreateMaybeMessage< ::optimization_guide::proto::TabOrganizationLoggingData >(GetArenaForAllocation());
+  }
+  return feature_.tab_organization_;
+}
+inline ::optimization_guide::proto::TabOrganizationLoggingData* LogAiDataRequest::mutable_tab_organization() {
+  ::optimization_guide::proto::TabOrganizationLoggingData* _msg = _internal_mutable_tab_organization();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.tab_organization)
+  return _msg;
+}
+
+// .optimization_guide.proto.WallpaperSearchLoggingData wallpaper_search = 5;
+inline bool LogAiDataRequest::_internal_has_wallpaper_search() const {
+  return feature_case() == kWallpaperSearch;
+}
+inline bool LogAiDataRequest::has_wallpaper_search() const {
+  return _internal_has_wallpaper_search();
+}
+inline void LogAiDataRequest::set_has_wallpaper_search() {
+  _oneof_case_[0] = kWallpaperSearch;
+}
+inline ::optimization_guide::proto::WallpaperSearchLoggingData* LogAiDataRequest::release_wallpaper_search() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+  if (_internal_has_wallpaper_search()) {
+    clear_has_feature();
+    ::optimization_guide::proto::WallpaperSearchLoggingData* temp = feature_.wallpaper_search_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    feature_.wallpaper_search_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::optimization_guide::proto::WallpaperSearchLoggingData& LogAiDataRequest::_internal_wallpaper_search() const {
+  return _internal_has_wallpaper_search()
+      ? *feature_.wallpaper_search_
+      : reinterpret_cast< ::optimization_guide::proto::WallpaperSearchLoggingData&>(::optimization_guide::proto::_WallpaperSearchLoggingData_default_instance_);
+}
+inline const ::optimization_guide::proto::WallpaperSearchLoggingData& LogAiDataRequest::wallpaper_search() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+  return _internal_wallpaper_search();
+}
+inline ::optimization_guide::proto::WallpaperSearchLoggingData* LogAiDataRequest::unsafe_arena_release_wallpaper_search() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+  if (_internal_has_wallpaper_search()) {
+    clear_has_feature();
+    ::optimization_guide::proto::WallpaperSearchLoggingData* temp = feature_.wallpaper_search_;
+    feature_.wallpaper_search_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void LogAiDataRequest::unsafe_arena_set_allocated_wallpaper_search(::optimization_guide::proto::WallpaperSearchLoggingData* wallpaper_search) {
+  clear_feature();
+  if (wallpaper_search) {
+    set_has_wallpaper_search();
+    feature_.wallpaper_search_ = wallpaper_search;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+}
+inline ::optimization_guide::proto::WallpaperSearchLoggingData* LogAiDataRequest::_internal_mutable_wallpaper_search() {
+  if (!_internal_has_wallpaper_search()) {
+    clear_feature();
+    set_has_wallpaper_search();
+    feature_.wallpaper_search_ = CreateMaybeMessage< ::optimization_guide::proto::WallpaperSearchLoggingData >(GetArenaForAllocation());
+  }
+  return feature_.wallpaper_search_;
+}
+inline ::optimization_guide::proto::WallpaperSearchLoggingData* LogAiDataRequest::mutable_wallpaper_search() {
+  ::optimization_guide::proto::WallpaperSearchLoggingData* _msg = _internal_mutable_wallpaper_search();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.wallpaper_search)
+  return _msg;
+}
+
+// .optimization_guide.proto.DefaultLoggingData default = 1000;
+inline bool LogAiDataRequest::_internal_has_default_() const {
   return feature_case() == kDefault;
 }
-inline bool AiLoggingData::has_default_() const {
+inline bool LogAiDataRequest::has_default_() const {
   return _internal_has_default_();
 }
-inline void AiLoggingData::set_has_default_() {
+inline void LogAiDataRequest::set_has_default_() {
   _oneof_case_[0] = kDefault;
 }
-inline ::optimization_guide::proto::DefaultFeatureAiLoggingData* AiLoggingData::release_default_() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.AiLoggingData.default)
+inline ::optimization_guide::proto::DefaultLoggingData* LogAiDataRequest::release_default_() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.LogAiDataRequest.default)
   if (_internal_has_default_()) {
     clear_has_feature();
-    ::optimization_guide::proto::DefaultFeatureAiLoggingData* temp = feature_.default__;
+    ::optimization_guide::proto::DefaultLoggingData* temp = feature_.default__;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -954,62 +839,64 @@ inline ::optimization_guide::proto::DefaultFeatureAiLoggingData* AiLoggingData::
     return nullptr;
   }
 }
-inline const ::optimization_guide::proto::DefaultFeatureAiLoggingData& AiLoggingData::_internal_default_() const {
+inline const ::optimization_guide::proto::DefaultLoggingData& LogAiDataRequest::_internal_default_() const {
   return _internal_has_default_()
       ? *feature_.default__
-      : reinterpret_cast< ::optimization_guide::proto::DefaultFeatureAiLoggingData&>(::optimization_guide::proto::_DefaultFeatureAiLoggingData_default_instance_);
+      : reinterpret_cast< ::optimization_guide::proto::DefaultLoggingData&>(::optimization_guide::proto::_DefaultLoggingData_default_instance_);
 }
-inline const ::optimization_guide::proto::DefaultFeatureAiLoggingData& AiLoggingData::default_() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.AiLoggingData.default)
+inline const ::optimization_guide::proto::DefaultLoggingData& LogAiDataRequest::default_() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.LogAiDataRequest.default)
   return _internal_default_();
 }
-inline ::optimization_guide::proto::DefaultFeatureAiLoggingData* AiLoggingData::unsafe_arena_release_default_() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.AiLoggingData.default)
+inline ::optimization_guide::proto::DefaultLoggingData* LogAiDataRequest::unsafe_arena_release_default_() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.LogAiDataRequest.default)
   if (_internal_has_default_()) {
     clear_has_feature();
-    ::optimization_guide::proto::DefaultFeatureAiLoggingData* temp = feature_.default__;
+    ::optimization_guide::proto::DefaultLoggingData* temp = feature_.default__;
     feature_.default__ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void AiLoggingData::unsafe_arena_set_allocated_default_(::optimization_guide::proto::DefaultFeatureAiLoggingData* default_) {
+inline void LogAiDataRequest::unsafe_arena_set_allocated_default_(::optimization_guide::proto::DefaultLoggingData* default_) {
   clear_feature();
   if (default_) {
     set_has_default_();
     feature_.default__ = default_;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.AiLoggingData.default)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.LogAiDataRequest.default)
 }
-inline ::optimization_guide::proto::DefaultFeatureAiLoggingData* AiLoggingData::_internal_mutable_default_() {
+inline ::optimization_guide::proto::DefaultLoggingData* LogAiDataRequest::_internal_mutable_default_() {
   if (!_internal_has_default_()) {
     clear_feature();
     set_has_default_();
-    feature_.default__ = CreateMaybeMessage< ::optimization_guide::proto::DefaultFeatureAiLoggingData >(GetArenaForAllocation());
+    feature_.default__ = CreateMaybeMessage< ::optimization_guide::proto::DefaultLoggingData >(GetArenaForAllocation());
   }
   return feature_.default__;
 }
-inline ::optimization_guide::proto::DefaultFeatureAiLoggingData* AiLoggingData::mutable_default_() {
-  ::optimization_guide::proto::DefaultFeatureAiLoggingData* _msg = _internal_mutable_default_();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.AiLoggingData.default)
+inline ::optimization_guide::proto::DefaultLoggingData* LogAiDataRequest::mutable_default_() {
+  ::optimization_guide::proto::DefaultLoggingData* _msg = _internal_mutable_default_();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.LogAiDataRequest.default)
   return _msg;
 }
 
-inline bool AiLoggingData::has_feature() const {
+inline bool LogAiDataRequest::has_feature() const {
   return feature_case() != FEATURE_NOT_SET;
 }
-inline void AiLoggingData::clear_has_feature() {
+inline void LogAiDataRequest::clear_has_feature() {
   _oneof_case_[0] = FEATURE_NOT_SET;
 }
-inline AiLoggingData::FeatureCase AiLoggingData::feature_case() const {
-  return AiLoggingData::FeatureCase(_oneof_case_[0]);
+inline LogAiDataRequest::FeatureCase LogAiDataRequest::feature_case() const {
+  return LogAiDataRequest::FeatureCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// LogAiDataResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 

@@ -260,7 +260,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->start_url, 5, validation_context)) {
+          object->start_url, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->start_url, validation_context))
@@ -272,7 +272,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->display_override, 7, validation_context)) {
+          object->display_override, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& display_override_validate_params =
@@ -288,7 +288,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->icons, 9, validation_context)) {
+          object->icons, 10, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& icons_validate_params =
@@ -299,7 +299,7 @@ bool Manifest_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->screenshots, 10, validation_context)) {
+          object->screenshots, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& screenshots_validate_params =
@@ -310,7 +310,7 @@ bool Manifest_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->shortcuts, 11, validation_context)) {
+          object->shortcuts, 12, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& shortcuts_validate_params =
@@ -324,7 +324,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->file_handlers, 13, validation_context)) {
+          object->file_handlers, 14, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& file_handlers_validate_params =
@@ -335,7 +335,7 @@ bool Manifest_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->protocol_handlers, 14, validation_context)) {
+          object->protocol_handlers, 15, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& protocol_handlers_validate_params =
@@ -346,7 +346,7 @@ bool Manifest_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->url_handlers, 15, validation_context)) {
+          object->url_handlers, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& url_handlers_validate_params =
@@ -357,7 +357,7 @@ bool Manifest_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->scope_extensions, 16, validation_context)) {
+          object->scope_extensions, 17, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& scope_extensions_validate_params =
@@ -374,7 +374,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->related_applications, 19, validation_context)) {
+          object->related_applications, 20, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& related_applications_validate_params =
@@ -388,7 +388,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->scope, 26, validation_context)) {
+          object->scope, 27, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->scope, validation_context))
@@ -400,7 +400,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->permissions_policy, 28, validation_context)) {
+          object->permissions_policy, 29, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& permissions_policy_validate_params =
@@ -414,7 +414,7 @@ bool Manifest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->translations, 30, validation_context)) {
+          object->translations, 31, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& translations_validate_params =

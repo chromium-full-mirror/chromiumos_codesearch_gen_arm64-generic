@@ -1,0 +1,175 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/customize_themes/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_themes/*"
+      ],
+      "chrome://resources/cr_components/customize_themes/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_themes/*"
+      ],
+      "//resources/cr_components/help_bubble/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "chrome://resources/cr_components/help_bubble/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "//resources/cr_components/history_clusters/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/history_clusters/*"
+      ],
+      "chrome://resources/cr_components/history_clusters/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/history_clusters/*"
+      ],
+      "//resources/cr_components/most_visited/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/most_visited/*"
+      ],
+      "chrome://resources/cr_components/most_visited/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/most_visited/*"
+      ],
+      "//resources/cr_components/omnibox/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/omnibox/*"
+      ],
+      "chrome://resources/cr_components/omnibox/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/omnibox/*"
+      ],
+      "//resources/cr_components/page_image_service/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/page_image_service/*"
+      ],
+      "chrome://resources/cr_components/page_image_service/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/page_image_service/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://new-tab-page/*": [
+        "./../../../../browser/resources/new_tab_page/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/app_test.ts",
+    "preprocessed/background_manager_test.ts",
+    "preprocessed/customize_backgrounds_test.ts",
+    "preprocessed/customize_dialog_focus_test.ts",
+    "preprocessed/customize_dialog_test.ts",
+    "preprocessed/customize_modules_test.ts",
+    "preprocessed/customize_shortcuts_test.ts",
+    "preprocessed/doodle_share_dialog_focus_test.ts",
+    "preprocessed/doodle_share_dialog_test.ts",
+    "preprocessed/image_processor_test.ts",
+    "preprocessed/image_processor_test_support.ts",
+    "preprocessed/lens_form_test.ts",
+    "preprocessed/lens_upload_dialog_test.ts",
+    "preprocessed/logo_test.ts",
+    "preprocessed/metrics_utils_test.ts",
+    "preprocessed/middle_slot_promo_test.ts",
+    "preprocessed/test_support.ts",
+    "preprocessed/transparency_test.ts",
+    "preprocessed/transparency_test_support.ts",
+    "preprocessed/utils_test.ts",
+    "preprocessed/voice_search_overlay_test.ts",
+    "preprocessed/modules/info_dialog_test.ts",
+    "preprocessed/modules/module_descriptor_test.ts",
+    "preprocessed/modules/module_header_test.ts",
+    "preprocessed/modules/module_registry_test.ts",
+    "preprocessed/modules/module_wrapper_test.ts",
+    "preprocessed/modules/modules_test.ts",
+    "preprocessed/modules/v2/modules_test.ts",
+    "preprocessed/modules/v2/module_header_test.ts",
+    "preprocessed/modules/cart/discount_consent_card_test.ts",
+    "preprocessed/modules/cart/discount_consent_card_test_utils.ts",
+    "preprocessed/modules/cart/discount_consent_dialog_test.ts",
+    "preprocessed/modules/cart/module_test.ts",
+    "preprocessed/modules/drive/module_test.ts",
+    "preprocessed/modules/v2/drive/module_test.ts",
+    "preprocessed/modules/feed/module_test.ts",
+    "preprocessed/modules/photos/module_test.ts",
+    "preprocessed/modules/recipes/module_test.ts",
+    "preprocessed/modules/history_clusters/module_test.ts",
+    "preprocessed/modules/history_clusters/suggest_tile_test.ts",
+    "preprocessed/modules/history_clusters/test_support.ts",
+    "preprocessed/modules/history_clusters/tile_test.ts",
+    "preprocessed/modules/history_clusters/cart/cart_tile_test.ts",
+    "preprocessed/modules/v2/history_clusters/module_test.ts",
+    "preprocessed/modules/v2/history_clusters/cart/cart_tile_test.ts",
+    "preprocessed/modules/v2/tab_resumption/module_test.ts",
+    "preprocessed/realbox/lens_test.ts",
+    "preprocessed/realbox/realbox_test.ts",
+    "preprocessed/realbox/test_realbox_browser_proxy.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/new_tab_page/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/customize_themes/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/help_bubble/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/history_clusters/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/most_visited/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/omnibox/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/page_image_service/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

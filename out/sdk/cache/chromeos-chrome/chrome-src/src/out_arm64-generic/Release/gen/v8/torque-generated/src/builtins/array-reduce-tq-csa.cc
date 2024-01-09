@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-reduce-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -156,7 +157,7 @@ TF_BUILTIN(ArrayReducePreLoopEagerDeoptContinuation, CodeStubAssembler) {
     ca_.Bind(&block11);
     tmp6 = TheHole_0(state_);
     tmp7 = FromConstexpr_Number_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp8 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayReduceLoopContinuation), parameter0, tmp0, tmp2, tmp6, tmp0, tmp7, tmp4);
+    tmp8 = ca_.CallBuiltin<Object>(Builtin::kArrayReduceLoopContinuation, parameter0, tmp0, tmp2, tmp6, tmp0, tmp7, tmp4);
     CodeStubAssembler(state_).Return(tmp8);
   }
 }
@@ -257,7 +258,7 @@ TF_BUILTIN(ArrayReduceLoopEagerDeoptContinuation, CodeStubAssembler) {
   TNode<Object> tmp8;
   if (block15.is_used()) {
     ca_.Bind(&block15);
-    tmp8 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayReduceLoopContinuation), parameter0, tmp0, tmp2, parameter5, tmp0, tmp4, tmp6);
+    tmp8 = ca_.CallBuiltin<Object>(Builtin::kArrayReduceLoopContinuation, parameter0, tmp0, tmp2, parameter5, tmp0, tmp4, tmp6);
     CodeStubAssembler(state_).Return(tmp8);
   }
 }
@@ -358,7 +359,7 @@ TF_BUILTIN(ArrayReduceLoopLazyDeoptContinuation, CodeStubAssembler) {
   TNode<Object> tmp8;
   if (block15.is_used()) {
     ca_.Bind(&block15);
-    tmp8 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayReduceLoopContinuation), parameter0, tmp0, tmp2, parameter5, tmp0, tmp4, tmp6);
+    tmp8 = ca_.CallBuiltin<Object>(Builtin::kArrayReduceLoopContinuation, parameter0, tmp0, tmp2, parameter5, tmp0, tmp4, tmp6);
     CodeStubAssembler(state_).Return(tmp8);
   }
 }
@@ -973,7 +974,7 @@ TF_BUILTIN(ArrayReduce, CodeStubAssembler) {
   TNode<Object> tmp18;
   if (block14.is_used()) {
     ca_.Bind(&block14);
-    tmp18 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayReduceLoopContinuation), parameter0, tmp1, tmp7, tmp17.value(), tmp1, tmp16.value(), tmp2);
+    tmp18 = ca_.CallBuiltin<Object>(Builtin::kArrayReduceLoopContinuation, parameter0, tmp1, tmp7, tmp17.value(), tmp1, tmp16.value(), tmp2);
     arguments.PopAndReturn(tmp18);
   }
 

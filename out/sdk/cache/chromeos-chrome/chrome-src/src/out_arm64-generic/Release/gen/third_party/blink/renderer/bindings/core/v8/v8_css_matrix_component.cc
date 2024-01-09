@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSMatrixComponent>::value,
     "CSSMatrixComponent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSMatrixComponent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSMatrixComponent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSMatrixComponent.matrix.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSMatrixComponent* blink_receiver = V8CSSMatrixComponent::ToWrappableUnsafe(v8_receiver);
+CSSMatrixComponent* blink_receiver = V8CSSMatrixComponent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->matrix();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,9 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSMatrixComponent.matrix.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSMatrixComponent* blink_receiver = V8CSSMatrixComponent::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSMatrixComponent* blink_receiver = V8CSSMatrixComponent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSMatrixComponent";

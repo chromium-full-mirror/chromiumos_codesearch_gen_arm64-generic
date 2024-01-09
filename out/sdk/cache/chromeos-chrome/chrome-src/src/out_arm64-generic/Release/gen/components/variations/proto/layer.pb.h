@@ -66,11 +66,12 @@ namespace variations {
 
 enum Layer_EntropyMode : int {
   Layer_EntropyMode_DEFAULT = 0,
-  Layer_EntropyMode_LOW = 1
+  Layer_EntropyMode_LOW = 1,
+  Layer_EntropyMode_LIMITED = 2
 };
 bool Layer_EntropyMode_IsValid(int value);
 constexpr Layer_EntropyMode Layer_EntropyMode_EntropyMode_MIN = Layer_EntropyMode_DEFAULT;
-constexpr Layer_EntropyMode Layer_EntropyMode_EntropyMode_MAX = Layer_EntropyMode_LOW;
+constexpr Layer_EntropyMode Layer_EntropyMode_EntropyMode_MAX = Layer_EntropyMode_LIMITED;
 constexpr int Layer_EntropyMode_EntropyMode_ARRAYSIZE = Layer_EntropyMode_EntropyMode_MAX + 1;
 
 const std::string& Layer_EntropyMode_Name(Layer_EntropyMode value);
@@ -514,6 +515,8 @@ class Layer final :
     Layer_EntropyMode_DEFAULT;
   static constexpr EntropyMode LOW =
     Layer_EntropyMode_LOW;
+  static constexpr EntropyMode LIMITED =
+    Layer_EntropyMode_LIMITED;
   static inline bool EntropyMode_IsValid(int value) {
     return Layer_EntropyMode_IsValid(value);
   }

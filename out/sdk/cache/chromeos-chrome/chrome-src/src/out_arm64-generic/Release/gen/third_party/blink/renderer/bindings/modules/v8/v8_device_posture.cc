@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DevicePosture>::value,
     "DevicePosture inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DevicePosture::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DevicePosture is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("DevicePosture.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("DevicePosture.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -119,8 +114,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(v8_receiver);
+DevicePosture* blink_receiver = V8DevicePosture::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 

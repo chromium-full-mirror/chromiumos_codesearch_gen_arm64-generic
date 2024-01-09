@@ -587,6 +587,23 @@ class  MetricsHost_ReportQosSocketPercentage_Params_Data {
 };
 static_assert(sizeof(MetricsHost_ReportQosSocketPercentage_Params_Data) == 16,
               "Bad sizeof(MetricsHost_ReportQosSocketPercentage_Params_Data)");
+class  MetricsHost_ReportArcKeyMintError_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t error;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MetricsHost_ReportArcKeyMintError_Params_Data>;
+
+  MetricsHost_ReportArcKeyMintError_Params_Data();
+  ~MetricsHost_ReportArcKeyMintError_Params_Data() = delete;
+};
+static_assert(sizeof(MetricsHost_ReportArcKeyMintError_Params_Data) == 16,
+              "Bad sizeof(MetricsHost_ReportArcKeyMintError_Params_Data)");
 class  MetricsInstance_Init_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1504,6 +1521,31 @@ class MetricsHost_ReportQosSocketPercentage_ParamsDataView {
 };
 
 
+class MetricsHost_ReportArcKeyMintError_ParamsDataView {
+ public:
+  MetricsHost_ReportArcKeyMintError_ParamsDataView() = default;
+
+  MetricsHost_ReportArcKeyMintError_ParamsDataView(
+      internal::MetricsHost_ReportArcKeyMintError_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    auto data_value = data_->error;
+    return mojo::internal::Deserialize<::arc::mojom::ArcKeyMintError>(
+        data_value, output);
+  }
+  ArcKeyMintError error() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::arc::mojom::ArcKeyMintError>(data_->error));
+  }
+ private:
+  internal::MetricsHost_ReportArcKeyMintError_Params_Data* data_ = nullptr;
+};
+
+
 class MetricsInstance_Init_ParamsDataView {
  public:
   MetricsInstance_Init_ParamsDataView() = default;
@@ -1719,6 +1761,8 @@ inline void MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView::Ge
   auto pointer = data_->duration.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
+
+
 
 
 

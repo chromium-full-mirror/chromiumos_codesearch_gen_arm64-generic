@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1131,14 +1132,17 @@ void KeymasterHostProxy::GetServer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::KeymasterHost::GetServer");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterHost_GetServer_Name, kFlags, 0, 0, nullptr);
@@ -1250,7 +1254,8 @@ void KeymasterHost_GetServer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterHost_GetServer_Name, kFlags, 0, 0, nullptr);
@@ -1327,10 +1332,10 @@ bool KeymasterHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeymasterHostValidationInfo[] = {
-    {&internal::KeymasterHost_GetServer_Params_Data::Validate,
+    { &internal::KeymasterHost_GetServer_Params_Data::Validate,
      &internal::KeymasterHost_GetServer_ResponseParams_Data::Validate},
 };
 
@@ -1430,14 +1435,17 @@ void KeymasterInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<KeymasterHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1542,7 +1550,8 @@ void KeymasterInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1623,10 +1632,10 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeymasterInstanceValidationInfo[] = {
-    {&internal::KeymasterInstance_Init_Params_Data::Validate,
+    { &internal::KeymasterInstance_Init_Params_Data::Validate,
      &internal::KeymasterInstance_Init_ResponseParams_Data::Validate},
 };
 
@@ -2181,14 +2190,17 @@ void KeymasterServerProxy::SetSystemVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_SetSystemVersion_Name, kFlags, 0, 0, nullptr);
@@ -2220,14 +2232,17 @@ void KeymasterServerProxy::AddRngEntropy(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_AddRngEntropy_Name, kFlags, 0, 0, nullptr);
@@ -2271,14 +2286,17 @@ void KeymasterServerProxy::GetKeyCharacteristics(
                         "<value of type GetKeyCharacteristicsRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_GetKeyCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -2320,14 +2338,17 @@ void KeymasterServerProxy::GenerateKey(
                         "<value of type std::vector<KeyParameterPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -2371,14 +2392,17 @@ void KeymasterServerProxy::ImportKey(
                         "<value of type ImportKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_ImportKey_Name, kFlags, 0, 0, nullptr);
@@ -2420,14 +2444,17 @@ void KeymasterServerProxy::ExportKey(
                         "<value of type ExportKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_ExportKey_Name, kFlags, 0, 0, nullptr);
@@ -2469,14 +2496,17 @@ void KeymasterServerProxy::AttestKey(
                         "<value of type AttestKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_AttestKey_Name, kFlags, 0, 0, nullptr);
@@ -2518,14 +2548,17 @@ void KeymasterServerProxy::UpgradeKey(
                         "<value of type UpgradeKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_UpgradeKey_Name, kFlags, 0, 0, nullptr);
@@ -2567,14 +2600,17 @@ void KeymasterServerProxy::DeleteKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_DeleteKey_Name, kFlags, 0, 0, nullptr);
@@ -2611,14 +2647,17 @@ void KeymasterServerProxy::DeleteAllKeys(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::KeymasterServer::DeleteAllKeys");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_DeleteAllKeys_Name, kFlags, 0, 0, nullptr);
@@ -2649,14 +2688,17 @@ void KeymasterServerProxy::Begin(
                         "<value of type BeginRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Begin_Name, kFlags, 0, 0, nullptr);
@@ -2698,14 +2740,17 @@ void KeymasterServerProxy::Update(
                         "<value of type UpdateRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Update_Name, kFlags, 0, 0, nullptr);
@@ -2747,14 +2792,17 @@ void KeymasterServerProxy::Finish(
                         "<value of type FinishRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Finish_Name, kFlags, 0, 0, nullptr);
@@ -2796,14 +2844,17 @@ void KeymasterServerProxy::Abort(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Abort_Name, kFlags, 0, 0, nullptr);
@@ -2914,7 +2965,8 @@ void KeymasterServer_AddRngEntropy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_AddRngEntropy_Name, kFlags, 0, 0, nullptr);
@@ -3032,7 +3084,8 @@ void KeymasterServer_GetKeyCharacteristics_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_GetKeyCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -3160,7 +3213,8 @@ void KeymasterServer_GenerateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -3288,7 +3342,8 @@ void KeymasterServer_ImportKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_ImportKey_Name, kFlags, 0, 0, nullptr);
@@ -3416,7 +3471,8 @@ void KeymasterServer_ExportKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_ExportKey_Name, kFlags, 0, 0, nullptr);
@@ -3544,7 +3600,8 @@ void KeymasterServer_AttestKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_AttestKey_Name, kFlags, 0, 0, nullptr);
@@ -3672,7 +3729,8 @@ void KeymasterServer_UpgradeKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_UpgradeKey_Name, kFlags, 0, 0, nullptr);
@@ -3800,7 +3858,8 @@ void KeymasterServer_DeleteKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_DeleteKey_Name, kFlags, 0, 0, nullptr);
@@ -3918,7 +3977,8 @@ void KeymasterServer_DeleteAllKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_DeleteAllKeys_Name, kFlags, 0, 0, nullptr);
@@ -4036,7 +4096,8 @@ void KeymasterServer_Begin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Begin_Name, kFlags, 0, 0, nullptr);
@@ -4164,7 +4225,8 @@ void KeymasterServer_Update_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Update_Name, kFlags, 0, 0, nullptr);
@@ -4292,7 +4354,8 @@ void KeymasterServer_Finish_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Finish_Name, kFlags, 0, 0, nullptr);
@@ -4420,7 +4483,8 @@ void KeymasterServer_Abort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeymasterServer_Abort_Name, kFlags, 0, 0, nullptr);
@@ -4913,36 +4977,36 @@ std::move(p_op_handle), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeymasterServerValidationInfo[] = {
-    {&internal::KeymasterServer_SetSystemVersion_Params_Data::Validate,
+    { &internal::KeymasterServer_SetSystemVersion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeymasterServer_AddRngEntropy_Params_Data::Validate,
+    { &internal::KeymasterServer_AddRngEntropy_Params_Data::Validate,
      &internal::KeymasterServer_AddRngEntropy_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_GetKeyCharacteristics_Params_Data::Validate,
+    { &internal::KeymasterServer_GetKeyCharacteristics_Params_Data::Validate,
      &internal::KeymasterServer_GetKeyCharacteristics_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_GenerateKey_Params_Data::Validate,
+    { &internal::KeymasterServer_GenerateKey_Params_Data::Validate,
      &internal::KeymasterServer_GenerateKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_ImportKey_Params_Data::Validate,
+    { &internal::KeymasterServer_ImportKey_Params_Data::Validate,
      &internal::KeymasterServer_ImportKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_ExportKey_Params_Data::Validate,
+    { &internal::KeymasterServer_ExportKey_Params_Data::Validate,
      &internal::KeymasterServer_ExportKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_AttestKey_Params_Data::Validate,
+    { &internal::KeymasterServer_AttestKey_Params_Data::Validate,
      &internal::KeymasterServer_AttestKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_UpgradeKey_Params_Data::Validate,
+    { &internal::KeymasterServer_UpgradeKey_Params_Data::Validate,
      &internal::KeymasterServer_UpgradeKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_DeleteKey_Params_Data::Validate,
+    { &internal::KeymasterServer_DeleteKey_Params_Data::Validate,
      &internal::KeymasterServer_DeleteKey_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_DeleteAllKeys_Params_Data::Validate,
+    { &internal::KeymasterServer_DeleteAllKeys_Params_Data::Validate,
      &internal::KeymasterServer_DeleteAllKeys_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_Begin_Params_Data::Validate,
+    { &internal::KeymasterServer_Begin_Params_Data::Validate,
      &internal::KeymasterServer_Begin_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_Update_Params_Data::Validate,
+    { &internal::KeymasterServer_Update_Params_Data::Validate,
      &internal::KeymasterServer_Update_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_Finish_Params_Data::Validate,
+    { &internal::KeymasterServer_Finish_Params_Data::Validate,
      &internal::KeymasterServer_Finish_ResponseParams_Data::Validate},
-    {&internal::KeymasterServer_Abort_Params_Data::Validate,
+    { &internal::KeymasterServer_Abort_Params_Data::Validate,
      &internal::KeymasterServer_Abort_ResponseParams_Data::Validate},
 };
 

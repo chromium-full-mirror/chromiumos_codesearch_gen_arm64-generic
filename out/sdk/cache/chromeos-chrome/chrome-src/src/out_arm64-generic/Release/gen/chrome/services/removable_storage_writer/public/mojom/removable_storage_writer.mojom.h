@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/services/removable_storage_writer/public/mojom/removable_storage_writer.mojom-features.h"
 #include "chrome/services/removable_storage_writer/public/mojom/removable_storage_writer.mojom-shared.h"
 #include "chrome/services/removable_storage_writer/public/mojom/removable_storage_writer.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -146,7 +147,7 @@ class RemovableStorageWriterClient
   virtual void Progress(int64_t progress) = 0;
 
   
-  virtual void Complete(const absl::optional<std::string>& error) = 0;
+  virtual void Complete(const std::optional<std::string>& error) = 0;
 };
 
 
@@ -177,7 +178,7 @@ class  RemovableStorageWriterClientProxy
   
   void Progress(int64_t progress) final;
   
-  void Complete(const absl::optional<std::string>& error) final;
+  void Complete(const std::optional<std::string>& error) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

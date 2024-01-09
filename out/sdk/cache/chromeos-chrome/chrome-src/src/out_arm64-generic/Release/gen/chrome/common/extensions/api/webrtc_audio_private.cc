@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/webrtc_audio_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ is_ready(false),
 is_default(false) {}
 
 SinkInfo::~SinkInfo() = default;
-SinkInfo::SinkInfo(SinkInfo&& rhs) = default;
-SinkInfo& SinkInfo::operator=(SinkInfo&& rhs) = default;
+SinkInfo::SinkInfo(SinkInfo&& rhs) noexcept = default;
+SinkInfo& SinkInfo::operator=(SinkInfo&& rhs) noexcept = default;
 SinkInfo SinkInfo::Clone() const {
   SinkInfo out;
   out.sink_id = sink_id;
@@ -126,34 +127,21 @@ bool SinkInfo::Populate(
 }
 
 // static
-std::unique_ptr<SinkInfo> SinkInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SinkInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SinkInfo> SinkInfo::FromValue(const base::Value::Dict& value) {
+  SinkInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SinkInfo> SinkInfo::FromValue(const base::Value::Dict& value) {
+std::optional<SinkInfo> SinkInfo::FromValue(const base::Value& value) {
   SinkInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SinkInfo> SinkInfo::FromValue(const base::Value& value) {
-  SinkInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -196,13 +184,13 @@ namespace GetAssociatedSink {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -212,13 +200,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -227,13 +215,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = source_id_in_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.source_id_in_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

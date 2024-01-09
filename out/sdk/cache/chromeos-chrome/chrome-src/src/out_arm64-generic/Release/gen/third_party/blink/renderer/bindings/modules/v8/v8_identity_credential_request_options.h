@@ -22,7 +22,7 @@
 namespace blink {
 
 class ExceptionState;
-class IdentityProviderConfig;
+class IdentityProviderRequestOptions;
 class IdentityStandardClaims;
 
 class MODULES_EXPORT IdentityCredentialRequestOptions : public bindings::DictionaryBase {
@@ -87,11 +87,11 @@ void setMode(V8IdentityCredentialRequestOptionsMode::Enum value) {
 bool hasProviders() const {
   return true;
 }
-const HeapVector<Member<IdentityProviderConfig>>& providers() const {
+const HeapVector<Member<IdentityProviderRequestOptions>>& providers() const {
   return member_providers_;
 }
-void setProviders(const HeapVector<Member<IdentityProviderConfig>>& value);
-void setProviders(HeapVector<Member<IdentityProviderConfig>>&& value);
+void setProviders(const HeapVector<Member<IdentityProviderRequestOptions>>& value);
+void setProviders(HeapVector<Member<IdentityProviderRequestOptions>>&& value);
 
 
 // Obsolete accessor functions
@@ -119,7 +119,7 @@ bool has_claims_ = false;
 Member<IdentityStandardClaims> member_claims_;
 V8IdentityCredentialRequestOptionsContext member_context_{V8IdentityCredentialRequestOptionsContext::Enum::kSignin};
 V8IdentityCredentialRequestOptionsMode member_mode_{V8IdentityCredentialRequestOptionsMode::Enum::kWidget};
-HeapVector<Member<IdentityProviderConfig>> member_providers_;
+HeapVector<Member<IdentityProviderRequestOptions>> member_providers_;
 
 
   

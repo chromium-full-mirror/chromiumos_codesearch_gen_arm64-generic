@@ -112,9 +112,9 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
     }
     onAddressRemoveConfirmationDialogClose_() {
         // Check if the dialog was confirmed before closing it.
-        if (this.shadowRoot
-            .querySelector('settings-address-remove-confirmation-dialog')
-            .wasConfirmed()) {
+        const wasDeletionConfirmed = this.shadowRoot
+            .querySelector('settings-address-remove-confirmation-dialog').wasConfirmed();
+        if (wasDeletionConfirmed) {
             // Two corner cases are handled:
             // 1. removing the only address: the focus goes to the Add button
             // 2. removing the last address: the focus goes to the previous address
@@ -132,6 +132,9 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
             this.autofillManager_.removeAddress(this.activeAddress.guid);
             getAnnouncerInstance().announce(loadTimeData.getString('addressRemovedMessage'));
         }
+        chrome.metricsPrivate.recordBoolean('Autofill.ProfileDeleted.Settings', 
+        /*confirmed=*/ wasDeletionConfirmed);
+        chrome.metricsPrivate.recordBoolean('Autofill.ProfileDeleted.Any', /*confirmed=*/ wasDeletionConfirmed);
         this.showAddressRemoveConfirmationDialog_ = false;
     }
     /**
@@ -164,8 +167,7 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
         if (accountInfo.isSyncEnabledForAutofillProfiles) {
             return false;
         }
-        if (!loadTimeData.getBoolean('autofillAccountProfileStorage') ||
-            !loadTimeData.getBoolean('syncEnableContactInfoDataTypeInTransportMode')) {
+        if (!loadTimeData.getBoolean('syncEnableContactInfoDataTypeInTransportMode')) {
             return false;
         }
         // Local profile of a logged-in user with disabled address sync and

@@ -15,7 +15,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_union_object_objectarray.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_union_object_objectarray_string.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_filter.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CanvasFilter>::value,
     "CanvasFilter inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CanvasFilter::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CanvasFilter is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -106,7 +101,7 @@ return;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
-auto&& arg1_init = NativeValueTraits<V8UnionObjectOrObjectArray>::ArgumentValue(isolate, 0, info[0], exception_state);
+auto&& arg1_init = NativeValueTraits<V8UnionObjectOrObjectArrayOrString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }

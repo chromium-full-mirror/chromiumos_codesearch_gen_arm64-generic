@@ -28,11 +28,12 @@ class ValidationContext;
 
 namespace blink::mojom {
 namespace internal {
-class LogoutRpsRequest_Data;
 class DigitalCredentialProvider_Data;
 class DigitalCredentialSelector_Data;
 class DigitalCredentialFieldRequirement_Data;
 class IdentityProviderConfig_Data;
+class IdentityProviderRequestOptions_Data;
+class IdentityCredentialDisconnectOptions_Data;
 class IdentityUserInfo_Data;
 class IdentityProviderGetParameters_Data;
 class TokenError_Data;
@@ -89,7 +90,7 @@ struct RequestUserInfoStatus_Data {
   }
 };
 
-struct LogoutRpsStatus_Data {
+struct DisconnectStatus_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -230,7 +231,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityProvider_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    mojo::internal::Pointer<internal::IdentityProviderConfig_Data> f_federated;
+    mojo::internal::Pointer<internal::IdentityProviderRequestOptions_Data> f_federated;
     mojo::internal::Pointer<internal::DigitalCredentialProvider_Data> f_holder;
     uint64_t unknown;
   };
@@ -241,55 +242,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityProvider_Data {
 };
 static_assert(sizeof(IdentityProvider_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(IdentityProvider_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LogoutRpsRequest_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
-  mojo::internal::Pointer<mojo::internal::String_Data> account_id;
-
- private:
-  friend class mojo::internal::MessageFragment<LogoutRpsRequest_Data>;
-
-  LogoutRpsRequest_Data();
-  ~LogoutRpsRequest_Data() = delete;
-};
-static_assert(sizeof(LogoutRpsRequest_Data) == 24,
-              "Bad sizeof(LogoutRpsRequest_Data)");
-// Used by LogoutRpsRequest::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct LogoutRpsRequest_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  LogoutRpsRequest_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~LogoutRpsRequest_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<LogoutRpsRequest_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    LogoutRpsRequest_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialProvider_Data {
  public:
   static bool Validate(const void* data,
@@ -298,6 +250,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialProvid
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> params;
   mojo::internal::Pointer<internal::DigitalCredentialSelector_Data> selector;
+  mojo::internal::Pointer<mojo::internal::String_Data> protocol;
+  mojo::internal::Pointer<mojo::internal::String_Data> request;
+  mojo::internal::Pointer<mojo::internal::String_Data> publicKey;
 
  private:
   friend class mojo::internal::MessageFragment<DigitalCredentialProvider_Data>;
@@ -305,7 +260,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DigitalCredentialProvid
   DigitalCredentialProvider_Data();
   ~DigitalCredentialProvider_Data() = delete;
 };
-static_assert(sizeof(DigitalCredentialProvider_Data) == 24,
+static_assert(sizeof(DigitalCredentialProvider_Data) == 48,
               "Bad sizeof(DigitalCredentialProvider_Data)");
 // Used by DigitalCredentialProvider::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -445,13 +400,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityProviderConfig_
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> config_url;
+  uint8_t use_registered_config_urls : 1;
+  uint8_t pad1_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> client_id;
-  mojo::internal::Pointer<mojo::internal::String_Data> nonce;
-  mojo::internal::Pointer<mojo::internal::String_Data> login_hint;
-  mojo::internal::Pointer<mojo::internal::String_Data> hosted_domain;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> scope;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> responseType;
-  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> params;
 
  private:
   friend class mojo::internal::MessageFragment<IdentityProviderConfig_Data>;
@@ -459,7 +410,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityProviderConfig_
   IdentityProviderConfig_Data();
   ~IdentityProviderConfig_Data() = delete;
 };
-static_assert(sizeof(IdentityProviderConfig_Data) == 72,
+static_assert(sizeof(IdentityProviderConfig_Data) == 32,
               "Bad sizeof(IdentityProviderConfig_Data)");
 // Used by IdentityProviderConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -493,6 +444,109 @@ struct IdentityProviderConfig_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     IdentityProviderConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityProviderRequestOptions_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::IdentityProviderConfig_Data> config;
+  mojo::internal::Pointer<mojo::internal::String_Data> nonce;
+  mojo::internal::Pointer<mojo::internal::String_Data> login_hint;
+  mojo::internal::Pointer<mojo::internal::String_Data> domain_hint;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> scope;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> responseType;
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> params;
+
+ private:
+  friend class mojo::internal::MessageFragment<IdentityProviderRequestOptions_Data>;
+
+  IdentityProviderRequestOptions_Data();
+  ~IdentityProviderRequestOptions_Data() = delete;
+};
+static_assert(sizeof(IdentityProviderRequestOptions_Data) == 64,
+              "Bad sizeof(IdentityProviderRequestOptions_Data)");
+// Used by IdentityProviderRequestOptions::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct IdentityProviderRequestOptions_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  IdentityProviderRequestOptions_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~IdentityProviderRequestOptions_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<IdentityProviderRequestOptions_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    IdentityProviderRequestOptions_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityCredentialDisconnectOptions_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::IdentityProviderConfig_Data> config;
+  mojo::internal::Pointer<mojo::internal::String_Data> account_hint;
+
+ private:
+  friend class mojo::internal::MessageFragment<IdentityCredentialDisconnectOptions_Data>;
+
+  IdentityCredentialDisconnectOptions_Data();
+  ~IdentityCredentialDisconnectOptions_Data() = delete;
+};
+static_assert(sizeof(IdentityCredentialDisconnectOptions_Data) == 24,
+              "Bad sizeof(IdentityCredentialDisconnectOptions_Data)");
+// Used by IdentityCredentialDisconnectOptions::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct IdentityCredentialDisconnectOptions_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  IdentityCredentialDisconnectOptions_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~IdentityCredentialDisconnectOptions_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<IdentityCredentialDisconnectOptions_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    IdentityCredentialDisconnectOptions_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IdentityUserInfo_Data {
  public:
   static bool Validate(const void* data,

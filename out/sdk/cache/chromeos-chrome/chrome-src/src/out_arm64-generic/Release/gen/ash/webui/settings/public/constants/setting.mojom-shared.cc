@@ -89,6 +89,8 @@ NOINLINE static const char* SettingToStringHelper(Setting value) {
       return "kHotspotOnOff";
     case Setting::kHotspotAutoDisabled:
       return "kHotspotAutoDisabled";
+    case Setting::kCellularAddApn:
+      return "kCellularAddApn";
     case Setting::kBluetoothOnOff:
       return "kBluetoothOnOff";
     case Setting::kBluetoothPairDevice:

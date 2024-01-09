@@ -11,20 +11,38 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from components.optimization_guide.proto import model_execution_pb2 as components_dot_optimization__guide_dot_proto_dot_model__execution__pb2
+from third_party.metrics_proto import system_profile_pb2 as third__party_dot_metrics__proto_dot_system__profile__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n@components/optimization_guide/proto/model_quality_metadata.proto\x12\x18optimization_guide.proto\"\x11\n\x0fLoggingMetadata\"\x18\n\x16\x42\x61tchedLoggingMetadata\"\x14\n\x12ModelExecutionInfoBG\n0org.chromium.components.optimization_guide.protoB\x11\x41IUMMetadataProtoH\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n@components/optimization_guide/proto/model_quality_metadata.proto\x12\x18optimization_guide.proto\x1a\x39\x63omponents/optimization_guide/proto/model_execution.proto\x1a.third_party/metrics_proto/system_profile.proto\"\xac\x01\n\x0fLoggingMetadata\x12\x33\n\x0esystem_profile\x18\x01 \x01(\x0b\x32\x1b.metrics.SystemProfileProto\x12Q\n\x18on_device_system_profile\x18\x02 \x01(\x0b\x32/.optimization_guide.proto.OnDeviceSystemProfile\x12\x11\n\tclient_id\x18\x03 \x01(\x03\"^\n\x15OnDeviceSystemProfile\x12\x45\n\x11performance_class\x18\x01 \x01(\x0e\x32*.optimization_guide.proto.PerformanceClass\"\xd0\x01\n\x12ModelExecutionInfo\x12\x1b\n\x13server_execution_id\x18\x01 \x01(\t\x12\\\n\x1eon_device_model_execution_info\x18\x02 \x01(\x0b\x32\x34.optimization_guide.proto.OnDeviceModelExecutionInfo\x12?\n\x0e\x65rror_response\x18\x03 \x01(\x0b\x32\'.optimization_guide.proto.ErrorResponse\"\xca\x01\n\x1aOnDeviceModelExecutionInfo\x12U\n\x0e\x66\x65\x61ture_config\x18\x01 \x01(\x0b\x32=.optimization_guide.proto.OnDeviceModelExecutionFeatureConfig\x12U\n\x0f\x65xecution_infos\x18\x02 \x03(\x0b\x32<.optimization_guide.proto.InternalOnDeviceModelExecutionInfo\"\xae\x01\n\"InternalOnDeviceModelExecutionInfo\x12\x42\n\x07request\x18\x01 \x01(\x0b\x32\x31.optimization_guide.proto.InternalOnDeviceRequest\x12\x44\n\x08response\x18\x02 \x01(\x0b\x32\x32.optimization_guide.proto.InternalOnDeviceResponse\"\x86\x01\n\x17InternalOnDeviceRequest\x12`\n\x1fon_device_model_service_request\x18\x01 \x01(\x0b\x32\x35.optimization_guide.proto.OnDeviceModelServiceRequestH\x00\x42\t\n\x07request\"\x8a\x01\n\x18InternalOnDeviceResponse\x12\x62\n on_device_model_service_response\x18\x01 \x01(\x0b\x32\x36.optimization_guide.proto.OnDeviceModelServiceResponseH\x00\x42\n\n\x08response\"\xf0\x01\n\x1bOnDeviceModelServiceRequest\x12\x1c\n\x14input_context_string\x18\x01 \x01(\t\x12*\n\"input_context_num_tokens_processed\x18\x02 \x01(\r\x12\x18\n\x10\x65xecution_string\x18\x03 \x01(\t\x12&\n\x1e\x65xecution_num_tokens_processed\x18\x04 \x01(\r\x12\x45\n=time_from_input_context_processed_to_request_initiated_millis\x18\x05 \x01(\x03\"\xcd\x01\n\x1cOnDeviceModelServiceResponse\x12\x15\n\routput_string\x18\x01 \x01(\t\x12%\n\x1dtime_to_first_response_millis\x18\x02 \x01(\x03\x12!\n\x19time_to_completion_millis\x18\x03 \x01(\x03\x12L\n\x06status\x18\x04 \x01(\x0e\x32<.optimization_guide.proto.OnDeviceModelServiceResponseStatus*\xcb\x01\n\x10PerformanceClass\x12!\n\x1dPERFORMANCE_CLASS_UNSPECIFIED\x10\x00\x12\x1e\n\x1aPERFORMANCE_CLASS_VERY_LOW\x10\x01\x12\x19\n\x15PERFORMANCE_CLASS_LOW\x10\x02\x12\x1c\n\x18PERFORMANCE_CLASS_MEDIUM\x10\x03\x12\x1a\n\x16PERFORMANCE_CLASS_HIGH\x10\x04\x12\x1f\n\x1bPERFORMANCE_CLASS_VERY_HIGH\x10\x05*\xc9\x01\n\"OnDeviceModelServiceResponseStatus\x12\x37\n3ON_DEVICE_MODEL_SERVICE_RESPONSE_STATUS_UNSPECIFIED\x10\x00\x12\x33\n/ON_DEVICE_MODEL_SERVICE_RESPONSE_STATUS_SUCCESS\x10\x01\x12\x35\n1ON_DEVICE_MODEL_SERVICE_RESPONSE_STATUS_RETRACTED\x10\x02\x42O\n0org.chromium.components.optimization_guide.protoB\x19ModelQualityMetadataProtoH\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.optimization_guide.proto.model_quality_metadata_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n0org.chromium.components.optimization_guide.protoB\021AIUMMetadataProtoH\003'
-  _LOGGINGMETADATA._serialized_start=94
-  _LOGGINGMETADATA._serialized_end=111
-  _BATCHEDLOGGINGMETADATA._serialized_start=113
-  _BATCHEDLOGGINGMETADATA._serialized_end=137
-  _MODELEXECUTIONINFO._serialized_start=139
-  _MODELEXECUTIONINFO._serialized_end=159
+  DESCRIPTOR._serialized_options = b'\n0org.chromium.components.optimization_guide.protoB\031ModelQualityMetadataProtoH\003'
+  _PERFORMANCECLASS._serialized_start=1795
+  _PERFORMANCECLASS._serialized_end=1998
+  _ONDEVICEMODELSERVICERESPONSESTATUS._serialized_start=2001
+  _ONDEVICEMODELSERVICERESPONSESTATUS._serialized_end=2202
+  _LOGGINGMETADATA._serialized_start=202
+  _LOGGINGMETADATA._serialized_end=374
+  _ONDEVICESYSTEMPROFILE._serialized_start=376
+  _ONDEVICESYSTEMPROFILE._serialized_end=470
+  _MODELEXECUTIONINFO._serialized_start=473
+  _MODELEXECUTIONINFO._serialized_end=681
+  _ONDEVICEMODELEXECUTIONINFO._serialized_start=684
+  _ONDEVICEMODELEXECUTIONINFO._serialized_end=886
+  _INTERNALONDEVICEMODELEXECUTIONINFO._serialized_start=889
+  _INTERNALONDEVICEMODELEXECUTIONINFO._serialized_end=1063
+  _INTERNALONDEVICEREQUEST._serialized_start=1066
+  _INTERNALONDEVICEREQUEST._serialized_end=1200
+  _INTERNALONDEVICERESPONSE._serialized_start=1203
+  _INTERNALONDEVICERESPONSE._serialized_end=1341
+  _ONDEVICEMODELSERVICEREQUEST._serialized_start=1344
+  _ONDEVICEMODELSERVICEREQUEST._serialized_end=1584
+  _ONDEVICEMODELSERVICERESPONSE._serialized_start=1587
+  _ONDEVICEMODELSERVICERESPONSE._serialized_end=1792
 # @@protoc_insertion_point(module_scope)

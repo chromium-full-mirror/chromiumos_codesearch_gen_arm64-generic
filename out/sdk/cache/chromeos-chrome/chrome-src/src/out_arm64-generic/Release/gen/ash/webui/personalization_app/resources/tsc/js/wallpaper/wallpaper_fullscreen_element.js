@@ -8,10 +8,11 @@
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../../common/icons.html.js';
+import { isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { WallpaperLayout } from '../../personalization_app.mojom-webui.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { getWallpaperLayoutEnum, isFilePath, isGooglePhotosPhoto } from './utils.js';
+import { getWallpaperLayoutEnum, isGooglePhotosPhoto } from './utils.js';
 import { setFullscreenEnabledAction } from './wallpaper_actions.js';
 import { cancelPreviewWallpaper, confirmPreviewWallpaper, selectWallpaper } from './wallpaper_controller.js';
 import { getTemplate } from './wallpaper_fullscreen_element.html.js';
@@ -72,7 +73,7 @@ export class WallpaperFullscreenElement extends WithPersonalizationStore {
         this.$.container.addEventListener('fullscreenchange', this.onFullscreenChange_.bind(this));
         this.watch('visible_', state => state.wallpaper.fullscreen);
         this.watch('showLayoutOptions_', state => !!state.wallpaper.pendingSelected &&
-            (isFilePath(state.wallpaper.pendingSelected) ||
+            (isNonEmptyFilePath(state.wallpaper.pendingSelected) ||
                 isGooglePhotosPhoto(state.wallpaper.pendingSelected)));
         this.watch('currentSelected_', state => state.wallpaper.currentSelected);
         this.watch('pendingSelected_', state => state.wallpaper.pendingSelected);
@@ -134,7 +135,7 @@ export class WallpaperFullscreenElement extends WithPersonalizationStore {
         await this.exitFullscreen();
     }
     async onClickLayout_(event) {
-        assert(isFilePath(this.pendingSelected_) ||
+        assert(isNonEmptyFilePath(this.pendingSelected_) ||
             isGooglePhotosPhoto(this.pendingSelected_), 'pendingSelected must be a local image or a Google Photos image to set layout');
         const layout = getWallpaperLayoutEnum(event.currentTarget.dataset['layout']);
         await selectWallpaper(this.pendingSelected_, getWallpaperProvider(), this.getStore(), layout);

@@ -270,11 +270,13 @@ class  AutocompleteMatch_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> a11y_label;
   uint8_t allowed_to_be_default_match : 1;
+  uint8_t is_weather_answer_suggestion_$flag : 1;
+  uint8_t is_weather_answer_suggestion_$value : 1;
   uint8_t is_rich_suggestion : 1;
   uint8_t is_search_type : 1;
   uint8_t swap_contents_and_description : 1;
   uint8_t supports_deletion : 1;
-  uint8_t pad5_[3];
+  uint8_t pad7_[3];
   int32_t suggestion_group_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Action_Data>>> actions;
   mojo::internal::Pointer<internal::SuggestionAnswer_Data> answer;

@@ -56,6 +56,10 @@ class PayloadDataView;
 
 class PayloadTransferUpdateDataView;
 
+class InitialConnectionInfoV3DataView;
+
+class BandwidthInfoDataView;
+
 class PayloadContentDataView;
 
 
@@ -130,6 +134,20 @@ struct MojomTypeTraits<::nearby::connections::mojom::PayloadDataView> {
 template <>
 struct MojomTypeTraits<::nearby::connections::mojom::PayloadTransferUpdateDataView> {
   using Data = ::nearby::connections::mojom::internal::PayloadTransferUpdate_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::nearby::connections::mojom::InitialConnectionInfoV3DataView> {
+  using Data = ::nearby::connections::mojom::internal::InitialConnectionInfoV3_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::nearby::connections::mojom::BandwidthInfoDataView> {
+  using Data = ::nearby::connections::mojom::internal::BandwidthInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -312,6 +330,24 @@ enum class LogSeverity : int32_t {
  std::ostream& operator<<(std::ostream& os, LogSeverity value);
 inline bool IsKnownEnumValue(LogSeverity value) {
   return internal::LogSeverity_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AuthenticationStatus : int32_t {
+  
+  kUnknown = 0,
+  
+  kSuccess = 1,
+  
+  kFailure = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, AuthenticationStatus value);
+inline bool IsKnownEnumValue(AuthenticationStatus value) {
+  return internal::AuthenticationStatus_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -746,6 +782,90 @@ class PayloadTransferUpdateDataView {
 };
 
 
+class InitialConnectionInfoV3DataView {
+ public:
+  InitialConnectionInfoV3DataView() = default;
+
+  InitialConnectionInfoV3DataView(
+      internal::InitialConnectionInfoV3_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAuthenticationDigitsDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAuthenticationDigits(UserType* output) {
+    
+    auto* pointer = data_->authentication_digits.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRawAuthenticationTokenDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRawAuthenticationToken(UserType* output) {
+    
+    auto* pointer = data_->raw_authentication_token.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  bool is_incoming_connection() const {
+    return data_->is_incoming_connection;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAuthenticationStatus(UserType* output) const {
+    auto data_value = data_->authentication_status;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::AuthenticationStatus>(
+        data_value, output);
+  }
+  AuthenticationStatus authentication_status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::AuthenticationStatus>(data_->authentication_status));
+  }
+ private:
+  internal::InitialConnectionInfoV3_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BandwidthInfoDataView {
+ public:
+  BandwidthInfoDataView() = default;
+
+  BandwidthInfoDataView(
+      internal::BandwidthInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadQuality(UserType* output) const {
+    auto data_value = data_->quality;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::BandwidthQuality>(
+        data_value, output);
+  }
+  BandwidthQuality quality() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::BandwidthQuality>(data_->quality));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadMedium(UserType* output) const {
+    auto data_value = data_->medium;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::Medium>(
+        data_value, output);
+  }
+  Medium medium() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::Medium>(data_->medium));
+  }
+ private:
+  internal::BandwidthInfo_Data* data_ = nullptr;
+};
+
+
 class PayloadContentDataView {
  public:
   using Tag = internal::PayloadContent_Data::PayloadContent_Tag;
@@ -821,6 +941,10 @@ struct hash<::nearby::connections::mojom::Medium>
 template <>
 struct hash<::nearby::connections::mojom::LogSeverity>
     : public mojo::internal::EnumHashImpl<::nearby::connections::mojom::LogSeverity> {};
+
+template <>
+struct hash<::nearby::connections::mojom::AuthenticationStatus>
+    : public mojo::internal::EnumHashImpl<::nearby::connections::mojom::AuthenticationStatus> {};
 
 }  // namespace std
 
@@ -941,6 +1065,26 @@ struct Serializer<::nearby::connections::mojom::LogSeverity, MaybeConstUserType>
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::nearby::connections::mojom::LogSeverity>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::nearby::connections::mojom::AuthenticationStatus, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::nearby::connections::mojom::AuthenticationStatus, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::nearby::connections::mojom::AuthenticationStatus>(input)), output);
   }
 };
 
@@ -1444,6 +1588,95 @@ struct Serializer<::nearby::connections::mojom::PayloadTransferUpdateDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::nearby::connections::mojom::InitialConnectionInfoV3DataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::nearby::connections::mojom::InitialConnectionInfoV3DataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::nearby::connections::mojom::internal::InitialConnectionInfoV3_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::authentication_digits(input)) in_authentication_digits = Traits::authentication_digits(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->authentication_digits)::BaseType> authentication_digits_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_authentication_digits, authentication_digits_fragment);
+    fragment->authentication_digits.Set(
+        authentication_digits_fragment.is_null() ? nullptr : authentication_digits_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->authentication_digits.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null authentication_digits in InitialConnectionInfoV3 struct");
+    decltype(Traits::raw_authentication_token(input)) in_raw_authentication_token = Traits::raw_authentication_token(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->raw_authentication_token)::BaseType> raw_authentication_token_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_raw_authentication_token, raw_authentication_token_fragment);
+    fragment->raw_authentication_token.Set(
+        raw_authentication_token_fragment.is_null() ? nullptr : raw_authentication_token_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->raw_authentication_token.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null raw_authentication_token in InitialConnectionInfoV3 struct");
+    fragment->is_incoming_connection = Traits::is_incoming_connection(input);
+    mojo::internal::Serialize<::nearby::connections::mojom::AuthenticationStatus>(
+        Traits::authentication_status(input), &fragment->authentication_status);
+  }
+
+  static bool Deserialize(::nearby::connections::mojom::internal::InitialConnectionInfoV3_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::nearby::connections::mojom::InitialConnectionInfoV3DataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::nearby::connections::mojom::BandwidthInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::nearby::connections::mojom::BandwidthInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::nearby::connections::mojom::internal::BandwidthInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::nearby::connections::mojom::BandwidthQuality>(
+        Traits::quality(input), &fragment->quality);
+    mojo::internal::Serialize<::nearby::connections::mojom::Medium>(
+        Traits::medium(input), &fragment->medium);
+  }
+
+  static bool Deserialize(::nearby::connections::mojom::internal::BandwidthInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::nearby::connections::mojom::BandwidthInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::nearby::connections::mojom::PayloadContentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::nearby::connections::mojom::PayloadContentDataView, UserType>;
@@ -1618,6 +1851,20 @@ inline void PayloadDataView::GetContentDataView(
 
 
 
+inline void InitialConnectionInfoV3DataView::GetAuthenticationDigitsDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->authentication_digits.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void InitialConnectionInfoV3DataView::GetRawAuthenticationTokenDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->raw_authentication_token.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
 inline void PayloadContentDataView::GetBytesDataView(
     BytesPayloadDataView* output) const {
   CHECK(is_bytes());
@@ -1685,6 +1932,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::nearby::connections::mojom::LogSeverity> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::nearby::connections::mojom::LogSeverity value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::nearby::connections::mojom::AuthenticationStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::nearby::connections::mojom::AuthenticationStatus value);
 };
 
 } // namespace perfetto

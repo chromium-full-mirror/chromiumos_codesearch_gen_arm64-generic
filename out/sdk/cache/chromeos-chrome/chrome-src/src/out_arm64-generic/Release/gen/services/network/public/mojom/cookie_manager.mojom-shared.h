@@ -463,6 +463,9 @@ class CookieManagerParamsDataView {
   bool block_truncated_cookies() const {
     return data_->block_truncated_cookies;
   }
+  bool tracking_protection_enabled_for_3pcd() const {
+    return data_->tracking_protection_enabled_for_3pcd;
+  }
   bool mitigations_enabled_for_3pcd() const {
     return data_->mitigations_enabled_for_3pcd;
   }
@@ -786,9 +789,6 @@ class CanonicalCookieDataView {
   CookieSourceScheme source_scheme() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::CookieSourceScheme>(data_->source_scheme));
-  }
-  bool same_party() const {
-    return data_->same_party;
   }
   inline void GetPartitionKeyDataView(
       ::network::mojom::CookiePartitionKeyDataView* output);
@@ -1612,6 +1612,7 @@ struct Serializer<::network::mojom::CookieManagerParamsDataView, MaybeConstUserT
     fragment.Allocate();
     fragment->block_third_party_cookies = Traits::block_third_party_cookies(input);
     fragment->block_truncated_cookies = Traits::block_truncated_cookies(input);
+    fragment->tracking_protection_enabled_for_3pcd = Traits::tracking_protection_enabled_for_3pcd(input);
     fragment->mitigations_enabled_for_3pcd = Traits::mitigations_enabled_for_3pcd(input);
     decltype(Traits::content_settings(input)) in_content_settings = Traits::content_settings(input);
     mojo::internal::MessageFragment<
@@ -1941,7 +1942,6 @@ struct Serializer<::network::mojom::CanonicalCookieDataView, MaybeConstUserType>
         Traits::priority(input), &fragment->priority);
     mojo::internal::Serialize<::network::mojom::CookieSourceScheme>(
         Traits::source_scheme(input), &fragment->source_scheme);
-    fragment->same_party = Traits::same_party(input);
     decltype(Traits::partition_key(input)) in_partition_key = Traits::partition_key(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->partition_key)::BaseType> partition_key_fragment(

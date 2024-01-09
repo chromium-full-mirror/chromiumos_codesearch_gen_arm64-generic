@@ -83,6 +83,8 @@ struct DownloadDangerType_Data {
       case 18:
       case 19:
       case 20:
+      case 21:
+      case 22:
         return true;
     }
     return false;

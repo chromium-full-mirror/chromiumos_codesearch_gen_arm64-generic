@@ -91,7 +91,7 @@ class BLINK_COMMON_EXPORT FileSystemManagerInterceptorForTesting : public FileSy
   void TruncateSync(const ::GURL& file_path, int64_t length, TruncateSyncCallback callback) override;
   void CreateSnapshotFile(const ::GURL& file_path, CreateSnapshotFileCallback callback) override;
   void GetPlatformPath(const ::GURL& file_path, GetPlatformPathCallback callback) override;
-  void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) override;
+  void RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) override;
 };
 class BLINK_COMMON_EXPORT FileSystemManagerAsyncWaiter {
  public:
@@ -144,8 +144,8 @@ class BLINK_COMMON_EXPORT FileSystemManagerAsyncWaiter {
       const ::GURL& file_path, ::base::FilePath* out_platform_path);
   ::base::FilePath GetPlatformPath(const ::GURL& file_path);
   void RegisterBlob(
-      const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob);
-  ::blink::mojom::SerializedBlobPtr RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time);
+      const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::blink::mojom::SerializedBlobPtr* out_blob);
+  ::blink::mojom::SerializedBlobPtr RegisterBlob(const std::string& content_type, const ::GURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time);
 
  private:
   FileSystemManager* const proxy_;

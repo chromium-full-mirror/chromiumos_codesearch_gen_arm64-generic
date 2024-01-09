@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/installedapp/related_application.mojom-features.h"
 #include "third_party/blink/public/mojom/installedapp/related_application.mojom-shared.h"
 #include "third_party/blink/public/mojom/installedapp/related_application.mojom-forward.h"
 #include <string>
@@ -70,9 +71,9 @@ class BLINK_COMMON_EXPORT RelatedApplication {
 
   RelatedApplication(
       const std::string& platform,
-      const absl::optional<std::string>& url,
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& version);
+      const std::optional<std::string>& url,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& version);
 
 
   ~RelatedApplication();
@@ -152,11 +153,11 @@ class BLINK_COMMON_EXPORT RelatedApplication {
   
   std::string platform;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

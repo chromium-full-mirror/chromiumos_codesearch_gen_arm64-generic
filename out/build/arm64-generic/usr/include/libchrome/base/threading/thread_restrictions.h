@@ -145,6 +145,9 @@ namespace base {
 class Environment;
 class File;
 class FilePath;
+namespace sequence_manager::internal {
+class WorkTracker;
+}  // namespace sequence_manager::internal
 }  // namespace base
 
 bool EnsureBrowserStateDirectoriesCreated(const base::FilePath&,
@@ -178,7 +181,6 @@ class OutputDevice;
 namespace blink {
 class AudioDestination;
 class DiskDataAllocator;
-class IdentifiabilityActiveSampler;
 class RTCVideoDecoderAdapter;
 class RTCVideoEncoder;
 class SourceStream;
@@ -211,10 +213,6 @@ bool IsCoreSchedulingAvailable();
 int NumberOfPhysicalCores();
 }  // namespace system
 }  // namespace chromeos
-namespace chrome_cleaner {
-class ResetShortcutsComponent;
-class SystemReportComponent;
-}  // namespace chrome_cleaner
 namespace content {
 class BrowserGpuChannelHostFactory;
 class BrowserMainLoop;
@@ -314,6 +312,7 @@ class BlockingUrlProtocol;
 class FileVideoCaptureDeviceFactory;
 class MojoVideoEncodeAccelerator;
 class PaintCanvasVideoRenderer;
+class VpxChangeStateScopedAllowBaseSyncPrimitives;
 }  // namespace media
 namespace memory_instrumentation {
 class OSMetrics;
@@ -359,6 +358,7 @@ class LocalPrinterHandlerDefault;
 class PrintBackendServiceImpl;
 #endif
 class PrintBackendServiceManager;
+class PrintPreviewUIUntrusted;
 class PrinterQuery;
 }  // namespace printing
 namespace proxy_resolver {
@@ -459,6 +459,7 @@ class PlatformSharedMemoryRegion;
 
 namespace win {
 class OSInfo;
+class ObjectWatcher;
 class ScopedAllowBlockingForUserAccountControl;
 }  // namespace win
 
@@ -618,6 +619,7 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBlocking {
       ScopedAllowBlockingForSettingGetter;  // http://crbug.com/69057
   friend class printing::LocalPrinterHandlerDefault;
   friend class printing::PrintBackendServiceManager;
+  friend class printing::PrintPreviewUIUntrusted;
   friend class printing::PrinterQuery;
   friend class remote_cocoa::
       DroppedScreenShotCopierMac;  // https://crbug.com/1148078
@@ -731,15 +733,12 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBaseSyncPrimitives {
   friend class android_webview::JsSandboxIsolate;
   friend class base::SimpleThread;
   friend class base::internal::GetAppOutputScopedAllowBaseSyncPrimitives;
-  friend class blink::IdentifiabilityActiveSampler;
   friend class blink::SourceStream;
   friend class blink::VideoTrackRecorderImplContextProvider;
   friend class blink::WorkerThread;
   friend class blink::scheduler::NonMainThreadImpl;
   friend class cc::CategorizedWorkerPoolImpl;
   friend class cc::CategorizedWorkerPoolJob;
-  friend class chrome_cleaner::ResetShortcutsComponent;
-  friend class chrome_cleaner::SystemReportComponent;
   friend class content::BrowserMainLoop;
   friend class content::BrowserProcessIOThread;
   friend class content::DWriteFontCollectionProxy;
@@ -752,6 +751,7 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBaseSyncPrimitives {
   friend class leveldb::port::CondVar;
   friend class nearby::chrome::ScheduledExecutor;
   friend class nearby::chrome::SubmittableExecutor;
+  friend class media::VpxChangeStateScopedAllowBaseSyncPrimitives;
   friend class media::AudioOutputDevice;
   friend class media::BlockingUrlProtocol;
   friend class media::MojoVideoEncodeAccelerator;
@@ -815,6 +815,8 @@ class BASE_EXPORT
   friend class base::StackSamplingProfiler;
   friend class base::internal::JobTaskSource;
   friend class base::sequence_manager::internal::TaskQueueImpl;
+  friend class base::sequence_manager::internal::WorkTracker;
+  friend class base::win::ObjectWatcher;
   friend class blink::AudioDestination;
   friend class blink::RTCVideoDecoderAdapter;
   friend class blink::RTCVideoEncoder;

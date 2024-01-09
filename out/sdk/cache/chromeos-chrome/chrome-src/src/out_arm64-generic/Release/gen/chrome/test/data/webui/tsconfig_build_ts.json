@@ -1,0 +1,71 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui",
+    "outDir": "tsc",
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chai_assert.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chrome_timeticks_test.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/fake_chrome_event.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/fake_settings_private.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/metrics_test_support.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mocha_adapter_simple.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mock_controller.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mocked_metrics_reporter.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mock_timer_test.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mock_timer.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/polymer_test_util.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_api.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_browser_proxy.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_mock.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_open_window_proxy.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_plural_string_proxy.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_store.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_util.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/trusted_html.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mocha_adapter.js",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/bluetooth_internals/bluetooth_internals_test.js",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/bluetooth_internals/test_utils.js",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_timeticks.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/dom_automation_controller.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/settings_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

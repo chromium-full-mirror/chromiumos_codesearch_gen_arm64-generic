@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/frame_sink_bundle.mojom-features.h"
 #include "services/viz/public/mojom/compositing/frame_sink_bundle.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/frame_sink_bundle.mojom-forward.h"
 #include "gpu/ipc/common/mailbox.mojom.h"
@@ -79,6 +80,7 @@ class FrameSinkBundle
   enum MethodMinVersions : uint32_t {
     kInitializeCompositorFrameSinkTypeMinVersion = 0,
     kSetNeedsBeginFrameMinVersion = 0,
+    kSetWantsBeginFrameAcksMinVersion = 0,
     kSubmitMinVersion = 0,
     kDidAllocateSharedBitmapMinVersion = 0,
   };
@@ -90,6 +92,9 @@ class FrameSinkBundle
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetNeedsBeginFrame_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetWantsBeginFrameAcks_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct Submit_Sym {
@@ -106,6 +111,9 @@ class FrameSinkBundle
 
   
   virtual void SetNeedsBeginFrame(uint32_t sink_id, bool needs_begin_frame) = 0;
+
+  
+  virtual void SetWantsBeginFrameAcks(uint32_t sink_id) = 0;
 
   
   virtual void Submit(std::vector<BundledFrameSubmissionPtr> submissions) = 0;
@@ -185,6 +193,8 @@ class  FrameSinkBundleProxy
   void InitializeCompositorFrameSinkType(uint32_t sink_id, ::viz::mojom::CompositorFrameSinkType type) final;
   
   void SetNeedsBeginFrame(uint32_t sink_id, bool needs_begin_frame) final;
+  
+  void SetWantsBeginFrameAcks(uint32_t sink_id) final;
   
   void Submit(std::vector<BundledFrameSubmissionPtr> submissions) final;
   
@@ -330,25 +340,25 @@ class  BundledFrameSubmissionData {
   // Construct an instance holding |frame|.
   static BundledFrameSubmissionDataPtr
   NewFrame(
-      BundledCompositorFramePtr frame) {
+      BundledCompositorFramePtr value) {
     auto result = BundledFrameSubmissionDataPtr(absl::in_place);
-    result->set_frame(std::move(frame));
+    result->set_frame(std::move(value));
     return result;
   }
   // Construct an instance holding |did_not_produce_frame|.
   static BundledFrameSubmissionDataPtr
   NewDidNotProduceFrame(
-      const ::viz::BeginFrameAck& did_not_produce_frame) {
+      const ::viz::BeginFrameAck& value) {
     auto result = BundledFrameSubmissionDataPtr(absl::in_place);
-    result->set_did_not_produce_frame(std::move(did_not_produce_frame));
+    result->set_did_not_produce_frame(std::move(value));
     return result;
   }
   // Construct an instance holding |did_delete_shared_bitmap|.
   static BundledFrameSubmissionDataPtr
   NewDidDeleteSharedBitmap(
-      const ::gpu::Mailbox& did_delete_shared_bitmap) {
+      const ::gpu::Mailbox& value) {
     auto result = BundledFrameSubmissionDataPtr(absl::in_place);
-    result->set_did_delete_shared_bitmap(std::move(did_delete_shared_bitmap));
+    result->set_did_delete_shared_bitmap(std::move(value));
     return result;
   }
 
@@ -633,7 +643,7 @@ class  BundledCompositorFrame {
   BundledCompositorFrame(
       const ::viz::LocalSurfaceId& local_surface_id,
       ::viz::CompositorFrame frame,
-      absl::optional<::viz::HitTestRegionList> hit_test_region_list,
+      std::optional<::viz::HitTestRegionList> hit_test_region_list,
       uint64_t submit_time);
 
 BundledCompositorFrame(const BundledCompositorFrame&) = delete;
@@ -713,7 +723,7 @@ BundledCompositorFrame& operator=(const BundledCompositorFrame&) = delete;
   
   ::viz::CompositorFrame frame;
   
-  absl::optional<::viz::HitTestRegionList> hit_test_region_list;
+  std::optional<::viz::HitTestRegionList> hit_test_region_list;
   
   uint64_t submit_time;
 

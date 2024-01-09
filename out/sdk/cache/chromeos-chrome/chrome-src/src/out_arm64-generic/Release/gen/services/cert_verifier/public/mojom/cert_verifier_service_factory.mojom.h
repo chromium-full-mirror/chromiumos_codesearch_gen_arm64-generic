@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,12 +23,16 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-features.h"
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-shared.h"
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-forward.h"
-#include "services/network/public/mojom/cert_verifier_service.mojom-forward.h"
+#include "mojo/public/mojom/base/time.mojom.h"
+#include "services/network/public/mojom/cert_verifier_service.mojom.h"
+#include "services/network/public/mojom/network_param.mojom-forward.h"
+#include "services/network/public/mojom/ct_log_info.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -36,6 +40,8 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
+#include "mojo/public/cpp/bindings/lib/native_enum_serialization.h"
+#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 
@@ -74,6 +80,7 @@ class CertVerifierServiceFactory
   enum MethodMinVersions : uint32_t {
     kGetNewCertVerifierMinVersion = 0,
     kUpdateCRLSetMinVersion = 0,
+    kUpdateCtLogListMinVersion = 0,
     kUpdateChromeRootStoreMinVersion = 0,
     kGetChromeRootStoreInfoMinVersion = 0,
   };
@@ -87,6 +94,9 @@ class CertVerifierServiceFactory
   struct UpdateCRLSet_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdateCtLogList_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct UpdateChromeRootStore_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -97,12 +107,17 @@ class CertVerifierServiceFactory
   virtual ~CertVerifierServiceFactory() = default;
 
   
-  virtual void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) = 0;
+  virtual void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> updater, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) = 0;
 
 
   using UpdateCRLSetCallback = base::OnceCallback<void()>;
   
   virtual void UpdateCRLSet(::mojo_base::BigBuffer crl_set, UpdateCRLSetCallback callback) = 0;
+
+
+  using UpdateCtLogListCallback = base::OnceCallback<void()>;
+  
+  virtual void UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) = 0;
 
 
   using UpdateChromeRootStoreCallback = base::OnceCallback<void()>;
@@ -124,9 +139,11 @@ class  CertVerifierServiceFactoryProxy
 
   explicit CertVerifierServiceFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) final;
+  void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> updater, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) final;
   
   void UpdateCRLSet(::mojo_base::BigBuffer crl_set, UpdateCRLSetCallback callback) final;
+  
+  void UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) final;
   
   void UpdateChromeRootStore(ChromeRootStorePtr new_root_store, UpdateChromeRootStoreCallback callback) final;
   
@@ -365,9 +382,12 @@ class  CertVerifierCreationParams {
   CertVerifierCreationParams();
 
   CertVerifierCreationParams(
-      const absl::optional<::base::FilePath>& nss_path,
-      const std::string& username_hash);
+      const std::optional<::base::FilePath>& nss_path,
+      const std::string& username_hash,
+      ::cert_verifier::mojom::AdditionalCertificatesPtr initial_additional_certificates);
 
+CertVerifierCreationParams(const CertVerifierCreationParams&) = delete;
+CertVerifierCreationParams& operator=(const CertVerifierCreationParams&) = delete;
 
   ~CertVerifierCreationParams();
 
@@ -444,9 +464,11 @@ class  CertVerifierCreationParams {
   }
 
   
-  absl::optional<::base::FilePath> nss_path;
+  std::optional<::base::FilePath> nss_path;
   
   std::string username_hash;
+  
+  ::cert_verifier::mojom::AdditionalCertificatesPtr initial_additional_certificates;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -764,7 +786,8 @@ template <typename StructPtrType>
 CertVerifierCreationParamsPtr CertVerifierCreationParams::Clone() const {
   return New(
       mojo::Clone(nss_path),
-      mojo::Clone(username_hash)
+      mojo::Clone(username_hash),
+      mojo::Clone(initial_additional_certificates)
   );
 }
 
@@ -773,6 +796,8 @@ bool CertVerifierCreationParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->nss_path, other_struct.nss_path))
     return false;
   if (!mojo::Equals(this->username_hash, other_struct.username_hash))
+    return false;
+  if (!mojo::Equals(this->initial_additional_certificates, other_struct.initial_additional_certificates))
     return false;
   return true;
 }
@@ -786,6 +811,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.username_hash < rhs.username_hash)
     return true;
   if (rhs.username_hash < lhs.username_hash)
+    return false;
+  if (lhs.initial_additional_certificates < rhs.initial_additional_certificates)
+    return true;
+  if (rhs.initial_additional_certificates < lhs.initial_additional_certificates)
     return false;
   return false;
 }
@@ -890,6 +919,11 @@ struct  StructTraits<::cert_verifier::mojom::CertVerifierCreationParams::DataVie
   static const decltype(::cert_verifier::mojom::CertVerifierCreationParams::username_hash)& username_hash(
       const ::cert_verifier::mojom::CertVerifierCreationParamsPtr& input) {
     return input->username_hash;
+  }
+
+  static const decltype(::cert_verifier::mojom::CertVerifierCreationParams::initial_additional_certificates)& initial_additional_certificates(
+      const ::cert_verifier::mojom::CertVerifierCreationParamsPtr& input) {
+    return input->initial_additional_certificates;
   }
 
   static bool Read(::cert_verifier::mojom::CertVerifierCreationParams::DataView input, ::cert_verifier::mojom::CertVerifierCreationParamsPtr* output);

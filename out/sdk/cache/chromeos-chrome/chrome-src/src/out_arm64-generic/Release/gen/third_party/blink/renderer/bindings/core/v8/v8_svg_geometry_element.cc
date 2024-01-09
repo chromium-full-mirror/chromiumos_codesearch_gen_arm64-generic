@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGGeometryElement>::value,
     "SVGGeometryElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGGeometryElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGGeometryElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGeometryElement.pathLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(v8_receiver);
+SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pathLength();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -126,7 +122,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(v8_receiver);
+SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_distance = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -157,7 +153,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGGeometryElement_G
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(v8_receiver);
+SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGGeometryElement";
 const char* const property_name = "getTotalLength";
@@ -196,7 +192,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(v8_receiver);
+SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_point = NativeValueTraits<SVGPointTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -232,7 +228,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(v8_receiver);
+SVGGeometryElement* blink_receiver = V8SVGGeometryElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_point = NativeValueTraits<SVGPointTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -148,6 +148,7 @@ async function targetTextContent(selector) {
         const finishAddText = await elementTextContent(finishAdd);
         chai_1.assert.strictEqual(finishAddText, 'Add');
         await (0, helper_js_1.clickElement)(finishAdd);
+        await (0, helper_js_1.waitForNone)(FOCUSED_DEVICE_NAME_FIELD_SELECTOR);
         // Select the device in the menu.
         await (0, emulation_helpers_js_1.selectDevice)('Prime numbers');
         const zoomButton = await (0, helper_js_1.waitForAria)('Zoom');

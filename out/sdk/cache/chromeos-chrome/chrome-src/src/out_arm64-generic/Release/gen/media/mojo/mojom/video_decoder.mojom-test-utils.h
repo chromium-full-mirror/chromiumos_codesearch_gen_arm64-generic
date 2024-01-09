@@ -15,7 +15,7 @@ namespace media::mojom {
 
 class  VideoFrameHandleReleaserInterceptorForTesting : public VideoFrameHandleReleaser {
   virtual VideoFrameHandleReleaser* GetForwardingInterface() = 0;
-  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) override;
+  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) override;
 };
 class  VideoFrameHandleReleaserAsyncWaiter {
  public:
@@ -35,7 +35,7 @@ class  VideoDecoderInterceptorForTesting : public VideoDecoder {
   virtual VideoDecoder* GetForwardingInterface() = 0;
   void GetSupportedConfigs(GetSupportedConfigsCallback callback) override;
   void Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) override;
-  void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
+  void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
   void Decode(::media::mojom::DecoderBufferPtr buffer, DecodeCallback callback) override;
   void Reset(ResetCallback callback) override;
   void OnOverlayInfoChanged(const ::media::OverlayInfo& overlay_info) override;
@@ -52,7 +52,7 @@ class  VideoDecoderAsyncWaiter {
       std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type);
   
   void Initialize(
-      const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::VideoDecoderType* out_decoder_type);
+      const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::VideoDecoderType* out_decoder_type);
   
   void Decode(
       ::media::mojom::DecoderBufferPtr buffer, ::media::DecoderStatus* out_status);
@@ -68,7 +68,7 @@ class  VideoDecoderAsyncWaiter {
 
 class  VideoDecoderClientInterceptorForTesting : public VideoDecoderClient {
   virtual VideoDecoderClient* GetForwardingInterface() = 0;
-  void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) override;
+  void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) override;
   void OnWaiting(::media::WaitingReason reason) override;
   void RequestOverlayInfo(bool restart_for_transitions) override;
 };

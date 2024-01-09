@@ -679,6 +679,14 @@ AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetLoadI
   return *this;
 }
 
+const char AdsInterestGroup_AuctionLatency_V2::kMaxAdditionalBidDecodeLatencyInMillisName[] = "MaxAdditionalBidDecodeLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMaxAdditionalBidDecodeLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMaxAdditionalBidDecodeLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMaxAdditionalBidDecodeLatencyInMillisNameHash, value);
+  return *this;
+}
+
 const char AdsInterestGroup_AuctionLatency_V2::kMaxBidForOneInterestGroupLatencyInMillisName[] = "MaxBidForOneInterestGroupLatencyInMillis";
 const uint64_t AdsInterestGroup_AuctionLatency_V2::kMaxBidForOneInterestGroupLatencyInMillisNameHash;
 
@@ -692,6 +700,22 @@ const uint64_t AdsInterestGroup_AuctionLatency_V2::kMaxComponentAuctionLatencyIn
 
 AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMaxComponentAuctionLatencyInMillis(int64_t value) {
   SetMetricInternal(kMaxComponentAuctionLatencyInMillisNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedCriticalPathLatencyInMillisName[] = "MaxConfigPromisesResolvedCriticalPathLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedCriticalPathLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMaxConfigPromisesResolvedCriticalPathLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMaxConfigPromisesResolvedCriticalPathLatencyInMillisNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedLatencyInMillisName[] = "MaxConfigPromisesResolvedLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMaxConfigPromisesResolvedLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMaxConfigPromisesResolvedLatencyInMillisNameHash, value);
   return *this;
 }
 
@@ -775,6 +799,14 @@ AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMaxSc
   return *this;
 }
 
+const char AdsInterestGroup_AuctionLatency_V2::kMeanAdditionalBidDecodeLatencyInMillisName[] = "MeanAdditionalBidDecodeLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMeanAdditionalBidDecodeLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMeanAdditionalBidDecodeLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMeanAdditionalBidDecodeLatencyInMillisNameHash, value);
+  return *this;
+}
+
 const char AdsInterestGroup_AuctionLatency_V2::kMeanBidForOneInterestGroupLatencyInMillisName[] = "MeanBidForOneInterestGroupLatencyInMillis";
 const uint64_t AdsInterestGroup_AuctionLatency_V2::kMeanBidForOneInterestGroupLatencyInMillisNameHash;
 
@@ -788,6 +820,22 @@ const uint64_t AdsInterestGroup_AuctionLatency_V2::kMeanComponentAuctionLatencyI
 
 AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMeanComponentAuctionLatencyInMillis(int64_t value) {
   SetMetricInternal(kMeanComponentAuctionLatencyInMillisNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedCriticalPathLatencyInMillisName[] = "MeanConfigPromisesResolvedCriticalPathLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedCriticalPathLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMeanConfigPromisesResolvedCriticalPathLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMeanConfigPromisesResolvedCriticalPathLatencyInMillisNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedLatencyInMillisName[] = "MeanConfigPromisesResolvedLatencyInMillis";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedLatencyInMillisNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMeanConfigPromisesResolvedLatencyInMillis(int64_t value) {
+  SetMetricInternal(kMeanConfigPromisesResolvedLatencyInMillisNameHash, value);
   return *this;
 }
 
@@ -959,6 +1007,86 @@ AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetMeanT
   return *this;
 }
 
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsNegativeTargetedName[] = "NumAdditionalBidsNegativeTargeted";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsNegativeTargetedNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsNegativeTargeted(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsNegativeTargetedNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToBuyerNotAllowedName[] = "NumAdditionalBidsRejectedDueToBuyerNotAllowed";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToBuyerNotAllowedNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToBuyerNotAllowed(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToBuyerNotAllowedNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToCurrencyMismatchName[] = "NumAdditionalBidsRejectedDueToCurrencyMismatch";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToCurrencyMismatchNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToCurrencyMismatch(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToCurrencyMismatchNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToDecodeErrorName[] = "NumAdditionalBidsRejectedDueToDecodeError";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToDecodeErrorNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToDecodeError(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToDecodeErrorNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToInvalidBase64Name[] = "NumAdditionalBidsRejectedDueToInvalidBase64";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToInvalidBase64NameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToInvalidBase64(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToInvalidBase64NameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToJsonParseErrorName[] = "NumAdditionalBidsRejectedDueToJsonParseError";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToJsonParseErrorNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToJsonParseError(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToJsonParseErrorNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorName[] = "NumAdditionalBidsRejectedDueToSignedBidDecodeError";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToSignedBidDecodeError(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorName[] = "NumAdditionalBidsRejectedDueToSignedBidJsonParseError";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsRejectedDueToSignedBidJsonParseError(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsSentForScoringName[] = "NumAdditionalBidsSentForScoring";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsSentForScoringNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAdditionalBidsSentForScoring(int64_t value) {
+  SetMetricInternal(kNumAdditionalBidsSentForScoringNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumAuctionsWithConfigPromisesName[] = "NumAuctionsWithConfigPromises";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumAuctionsWithConfigPromisesNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumAuctionsWithConfigPromises(int64_t value) {
+  SetMetricInternal(kNumAuctionsWithConfigPromisesNameHash, value);
+  return *this;
+}
+
 const char AdsInterestGroup_AuctionLatency_V2::kNumBidderWorkletsName[] = "NumBidderWorklets";
 const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumBidderWorkletsNameHash;
 
@@ -1108,6 +1236,30 @@ const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumInterestGroupsWithSeparat
 
 AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnon(int64_t value) {
   SetMetricInternal(kNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnonNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsName[] = "NumNegativeInterestGroups";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumNegativeInterestGroups(int64_t value) {
+  SetMetricInternal(kNumNegativeInterestGroupsNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureName[] = "NumNegativeInterestGroupsIgnoredDueToInvalidSignature";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumNegativeInterestGroupsIgnoredDueToInvalidSignature(int64_t value) {
+  SetMetricInternal(kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureNameHash, value);
+  return *this;
+}
+
+const char AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchName[] = "NumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatch";
+const uint64_t AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchNameHash;
+
+AdsInterestGroup_AuctionLatency_V2& AdsInterestGroup_AuctionLatency_V2::SetNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatch(int64_t value) {
+  SetMetricInternal(kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchNameHash, value);
   return *this;
 }
 
@@ -3160,6 +3312,14 @@ Autofill2_FieldInfo& Autofill2_FieldInfo::SetAutofillStatusVector(int64_t value)
   return *this;
 }
 
+const char Autofill2_FieldInfo::kFieldLogEventCountName[] = "FieldLogEventCount";
+const uint64_t Autofill2_FieldInfo::kFieldLogEventCountNameHash;
+
+Autofill2_FieldInfo& Autofill2_FieldInfo::SetFieldLogEventCount(int64_t value) {
+  SetMetricInternal(kFieldLogEventCountNameHash, value);
+  return *this;
+}
+
 const char Autofill2_FieldInfo::kFieldSessionIdentifierName[] = "FieldSessionIdentifier";
 const uint64_t Autofill2_FieldInfo::kFieldSessionIdentifierNameHash;
 
@@ -3176,11 +3336,11 @@ Autofill2_FieldInfo& Autofill2_FieldInfo::SetFieldSignature(int64_t value) {
   return *this;
 }
 
-const char Autofill2_FieldInfo::kFormControlTypeName[] = "FormControlType";
-const uint64_t Autofill2_FieldInfo::kFormControlTypeNameHash;
+const char Autofill2_FieldInfo::kFormControlType2Name[] = "FormControlType2";
+const uint64_t Autofill2_FieldInfo::kFormControlType2NameHash;
 
-Autofill2_FieldInfo& Autofill2_FieldInfo::SetFormControlType(int64_t value) {
-  SetMetricInternal(kFormControlTypeNameHash, value);
+Autofill2_FieldInfo& Autofill2_FieldInfo::SetFormControlType2(int64_t value) {
+  SetMetricInternal(kFormControlType2NameHash, value);
   return *this;
 }
 
@@ -3867,6 +4027,38 @@ Blink_FedCm& Blink_FedCm::SetAutoReauthn_TimeFromEmbargoWhenBlocked(int64_t valu
   return *this;
 }
 
+const char Blink_FedCm::kDisconnect_FrameTypeName[] = "Disconnect.FrameType";
+const uint64_t Blink_FedCm::kDisconnect_FrameTypeNameHash;
+
+Blink_FedCm& Blink_FedCm::SetDisconnect_FrameType(int64_t value) {
+  SetMetricInternal(kDisconnect_FrameTypeNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCm::kError_ErrorDialogResultName[] = "Error.ErrorDialogResult";
+const uint64_t Blink_FedCm::kError_ErrorDialogResultNameHash;
+
+Blink_FedCm& Blink_FedCm::SetError_ErrorDialogResult(int64_t value) {
+  SetMetricInternal(kError_ErrorDialogResultNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCm::kError_ErrorDialogTypeName[] = "Error.ErrorDialogType";
+const uint64_t Blink_FedCm::kError_ErrorDialogTypeNameHash;
+
+Blink_FedCm& Blink_FedCm::SetError_ErrorDialogType(int64_t value) {
+  SetMetricInternal(kError_ErrorDialogTypeNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCm::kError_TokenResponseTypeName[] = "Error.TokenResponseType";
+const uint64_t Blink_FedCm::kError_TokenResponseTypeNameHash;
+
+Blink_FedCm& Blink_FedCm::SetError_TokenResponseType(int64_t value) {
+  SetMetricInternal(kError_TokenResponseTypeNameHash, value);
+  return *this;
+}
+
 const char Blink_FedCm::kFedCmSessionIDName[] = "FedCmSessionID";
 const uint64_t Blink_FedCm::kFedCmSessionIDNameHash;
 
@@ -3899,6 +4091,14 @@ Blink_FedCm& Blink_FedCm::SetPreventSilentAccessFrameType(int64_t value) {
   return *this;
 }
 
+const char Blink_FedCm::kStatus_DisconnectName[] = "Status.Disconnect";
+const uint64_t Blink_FedCm::kStatus_DisconnectNameHash;
+
+Blink_FedCm& Blink_FedCm::SetStatus_Disconnect(int64_t value) {
+  SetMetricInternal(kStatus_DisconnectNameHash, value);
+  return *this;
+}
+
 const char Blink_FedCm::kStatus_MediationRequirementName[] = "Status.MediationRequirement";
 const uint64_t Blink_FedCm::kStatus_MediationRequirementNameHash;
 
@@ -3912,6 +4112,14 @@ const uint64_t Blink_FedCm::kStatus_RequestIdTokenNameHash;
 
 Blink_FedCm& Blink_FedCm::SetStatus_RequestIdToken(int64_t value) {
   SetMetricInternal(kStatus_RequestIdTokenNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCm::kStatus_SignInStateMatchName[] = "Status.SignInStateMatch";
+const uint64_t Blink_FedCm::kStatus_SignInStateMatchNameHash;
+
+Blink_FedCm& Blink_FedCm::SetStatus_SignInStateMatch(int64_t value) {
+  SetMetricInternal(kStatus_SignInStateMatchNameHash, value);
   return *this;
 }
 
@@ -3936,6 +4144,14 @@ const uint64_t Blink_FedCm::kTiming_ContinueOnDialogNameHash;
 
 Blink_FedCm& Blink_FedCm::SetTiming_ContinueOnDialog(int64_t value) {
   SetMetricInternal(kTiming_ContinueOnDialogNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCm::kTiming_DisconnectName[] = "Timing.Disconnect";
+const uint64_t Blink_FedCm::kTiming_DisconnectNameHash;
+
+Blink_FedCm& Blink_FedCm::SetTiming_Disconnect(int64_t value) {
+  SetMetricInternal(kTiming_DisconnectNameHash, value);
   return *this;
 }
 
@@ -4002,6 +4218,46 @@ Blink_FedCmIdp& Blink_FedCmIdp::SetAccountsRequestSent(int64_t value) {
   return *this;
 }
 
+const char Blink_FedCmIdp::kDisconnect_FrameTypeName[] = "Disconnect.FrameType";
+const uint64_t Blink_FedCmIdp::kDisconnect_FrameTypeNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetDisconnect_FrameType(int64_t value) {
+  SetMetricInternal(kDisconnect_FrameTypeNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kError_ErrorDialogResultName[] = "Error.ErrorDialogResult";
+const uint64_t Blink_FedCmIdp::kError_ErrorDialogResultNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetError_ErrorDialogResult(int64_t value) {
+  SetMetricInternal(kError_ErrorDialogResultNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kError_ErrorDialogTypeName[] = "Error.ErrorDialogType";
+const uint64_t Blink_FedCmIdp::kError_ErrorDialogTypeNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetError_ErrorDialogType(int64_t value) {
+  SetMetricInternal(kError_ErrorDialogTypeNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kError_ErrorUrlTypeName[] = "Error.ErrorUrlType";
+const uint64_t Blink_FedCmIdp::kError_ErrorUrlTypeNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetError_ErrorUrlType(int64_t value) {
+  SetMetricInternal(kError_ErrorUrlTypeNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kError_TokenResponseTypeName[] = "Error.TokenResponseType";
+const uint64_t Blink_FedCmIdp::kError_TokenResponseTypeNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetError_TokenResponseType(int64_t value) {
+  SetMetricInternal(kError_TokenResponseTypeNameHash, value);
+  return *this;
+}
+
 const char Blink_FedCmIdp::kFedCmSessionIDName[] = "FedCmSessionID";
 const uint64_t Blink_FedCmIdp::kFedCmSessionIDNameHash;
 
@@ -4015,6 +4271,14 @@ const uint64_t Blink_FedCmIdp::kMismatchDialogShownNameHash;
 
 Blink_FedCmIdp& Blink_FedCmIdp::SetMismatchDialogShown(int64_t value) {
   SetMetricInternal(kMismatchDialogShownNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kStatus_DisconnectName[] = "Status.Disconnect";
+const uint64_t Blink_FedCmIdp::kStatus_DisconnectNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetStatus_Disconnect(int64_t value) {
+  SetMetricInternal(kStatus_DisconnectNameHash, value);
   return *this;
 }
 
@@ -4063,6 +4327,14 @@ const uint64_t Blink_FedCmIdp::kTiming_ContinueOnDialogNameHash;
 
 Blink_FedCmIdp& Blink_FedCmIdp::SetTiming_ContinueOnDialog(int64_t value) {
   SetMetricInternal(kTiming_ContinueOnDialogNameHash, value);
+  return *this;
+}
+
+const char Blink_FedCmIdp::kTiming_DisconnectName[] = "Timing.Disconnect";
+const uint64_t Blink_FedCmIdp::kTiming_DisconnectNameHash;
+
+Blink_FedCmIdp& Blink_FedCmIdp::SetTiming_Disconnect(int64_t value) {
+  SetMetricInternal(kTiming_DisconnectNameHash, value);
   return *this;
 }
 
@@ -4475,6 +4747,14 @@ const uint64_t Blink_PageLoad::kParseStyleSheetNameHash;
 
 Blink_PageLoad& Blink_PageLoad::SetParseStyleSheet(int64_t value) {
   SetMetricInternal(kParseStyleSheetNameHash, value);
+  return *this;
+}
+
+const char Blink_PageLoad::kPossibleSynchronizedScrollCountName[] = "PossibleSynchronizedScrollCount";
+const uint64_t Blink_PageLoad::kPossibleSynchronizedScrollCountNameHash;
+
+Blink_PageLoad& Blink_PageLoad::SetPossibleSynchronizedScrollCount(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCountNameHash, value);
   return *this;
 }
 
@@ -4952,6 +5232,22 @@ const uint64_t Blink_UpdateTime::kParseStyleSheetBeginMainFrameNameHash;
 
 Blink_UpdateTime& Blink_UpdateTime::SetParseStyleSheetBeginMainFrame(int64_t value) {
   SetMetricInternal(kParseStyleSheetBeginMainFrameNameHash, value);
+  return *this;
+}
+
+const char Blink_UpdateTime::kPossibleSynchronizedScrollCountName[] = "PossibleSynchronizedScrollCount";
+const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCountNameHash;
+
+Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCount(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCountNameHash, value);
+  return *this;
+}
+
+const char Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameName[] = "PossibleSynchronizedScrollCountBeginMainFrame";
+const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameNameHash;
+
+Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCountBeginMainFrame(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCountBeginMainFrameNameHash, value);
   return *this;
 }
 
@@ -6311,6 +6607,53 @@ Companion_PageView& Companion_PageView::SetVQS_VisualSearchTriggeredCount(int64_
 }
 
 
+const char Compose_TextElementUsage::kEntryName[] = "Compose.TextElementUsage";
+const uint64_t Compose_TextElementUsage::kEntryNameHash;
+
+Compose_TextElementUsage::Compose_TextElementUsage(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_TextElementUsage::Compose_TextElementUsage(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_TextElementUsage::~Compose_TextElementUsage() = default;
+
+
+const char Compose_TextElementUsage::kAutofillFormControlTypeName[] = "AutofillFormControlType";
+const uint64_t Compose_TextElementUsage::kAutofillFormControlTypeNameHash;
+
+Compose_TextElementUsage& Compose_TextElementUsage::SetAutofillFormControlType(int64_t value) {
+  SetMetricInternal(kAutofillFormControlTypeNameHash, value);
+  return *this;
+}
+
+const char Compose_TextElementUsage::kIsAutofillFieldTypeName[] = "IsAutofillFieldType";
+const uint64_t Compose_TextElementUsage::kIsAutofillFieldTypeNameHash;
+
+Compose_TextElementUsage& Compose_TextElementUsage::SetIsAutofillFieldType(int64_t value) {
+  SetMetricInternal(kIsAutofillFieldTypeNameHash, value);
+  return *this;
+}
+
+const char Compose_TextElementUsage::kTypedCharacterCountName[] = "TypedCharacterCount";
+const uint64_t Compose_TextElementUsage::kTypedCharacterCountNameHash;
+
+Compose_TextElementUsage& Compose_TextElementUsage::SetTypedCharacterCount(int64_t value) {
+  SetMetricInternal(kTypedCharacterCountNameHash, value);
+  return *this;
+}
+
+const char Compose_TextElementUsage::kTypedWordCountName[] = "TypedWordCount";
+const uint64_t Compose_TextElementUsage::kTypedWordCountNameHash;
+
+Compose_TextElementUsage& Compose_TextElementUsage::SetTypedWordCount(int64_t value) {
+  SetMetricInternal(kTypedWordCountNameHash, value);
+  return *this;
+}
+
+
 const char Compositor_Rendering::kEntryName[] = "Compositor.Rendering";
 const uint64_t Compositor_Rendering::kEntryNameHash;
 
@@ -6872,6 +7215,29 @@ DataReductionProxy& DataReductionProxy::SetEstimatedOriginalNetworkBytes(int64_t
 }
 
 
+const char DevTools_Opened::kEntryName[] = "DevTools.Opened";
+const uint64_t DevTools_Opened::kEntryNameHash;
+
+DevTools_Opened::DevTools_Opened(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+DevTools_Opened::DevTools_Opened(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+DevTools_Opened::~DevTools_Opened() = default;
+
+
+const char DevTools_Opened::kHasOccurredName[] = "HasOccurred";
+const uint64_t DevTools_Opened::kHasOccurredNameHash;
+
+DevTools_Opened& DevTools_Opened::SetHasOccurred(int64_t value) {
+  SetMetricInternal(kHasOccurredNameHash, value);
+  return *this;
+}
+
+
 const char DIPS_Deletion::kEntryName[] = "DIPS.Deletion";
 const uint64_t DIPS_Deletion::kEntryNameHash;
 
@@ -7308,6 +7674,69 @@ const uint64_t Download_Started::kIsSameHostDownloadNameHash;
 
 Download_Started& Download_Started::SetIsSameHostDownload(int64_t value) {
   SetMetricInternal(kIsSameHostDownloadNameHash, value);
+  return *this;
+}
+
+
+const char Event_Scroll::kEntryName[] = "Event.Scroll";
+const uint64_t Event_Scroll::kEntryNameHash;
+
+Event_Scroll::Event_Scroll(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Event_Scroll::Event_Scroll(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Event_Scroll::~Event_Scroll() = default;
+
+
+const char Event_Scroll::kFrameCountName[] = "FrameCount";
+const uint64_t Event_Scroll::kFrameCountNameHash;
+
+Event_Scroll& Event_Scroll::SetFrameCount(int64_t value) {
+  SetMetricInternal(kFrameCountNameHash, value);
+  return *this;
+}
+
+const char Event_Scroll::kPredictorJankyFrameCountName[] = "PredictorJankyFrameCount";
+const uint64_t Event_Scroll::kPredictorJankyFrameCountNameHash;
+
+Event_Scroll& Event_Scroll::SetPredictorJankyFrameCount(int64_t value) {
+  SetMetricInternal(kPredictorJankyFrameCountNameHash, value);
+  return *this;
+}
+
+const char Event_Scroll::kScrollJank_DelayedFrameCountName[] = "ScrollJank.DelayedFrameCount";
+const uint64_t Event_Scroll::kScrollJank_DelayedFrameCountNameHash;
+
+Event_Scroll& Event_Scroll::SetScrollJank_DelayedFrameCount(int64_t value) {
+  SetMetricInternal(kScrollJank_DelayedFrameCountNameHash, value);
+  return *this;
+}
+
+const char Event_Scroll::kScrollJank_MissedVsyncsMaxName[] = "ScrollJank.MissedVsyncsMax";
+const uint64_t Event_Scroll::kScrollJank_MissedVsyncsMaxNameHash;
+
+Event_Scroll& Event_Scroll::SetScrollJank_MissedVsyncsMax(int64_t value) {
+  SetMetricInternal(kScrollJank_MissedVsyncsMaxNameHash, value);
+  return *this;
+}
+
+const char Event_Scroll::kScrollJank_MissedVsyncsSumName[] = "ScrollJank.MissedVsyncsSum";
+const uint64_t Event_Scroll::kScrollJank_MissedVsyncsSumNameHash;
+
+Event_Scroll& Event_Scroll::SetScrollJank_MissedVsyncsSum(int64_t value) {
+  SetMetricInternal(kScrollJank_MissedVsyncsSumNameHash, value);
+  return *this;
+}
+
+const char Event_Scroll::kVsyncCountName[] = "VsyncCount";
+const uint64_t Event_Scroll::kVsyncCountNameHash;
+
+Event_Scroll& Event_Scroll::SetVsyncCount(int64_t value) {
+  SetMetricInternal(kVsyncCountNameHash, value);
   return *this;
 }
 
@@ -10010,6 +10439,29 @@ MainFrameNavigation& MainFrameNavigation::SetDidCommit(int64_t value) {
 }
 
 
+const char MainFrameNavigation_ZstdContentEncoding::kEntryName[] = "MainFrameNavigation.ZstdContentEncoding";
+const uint64_t MainFrameNavigation_ZstdContentEncoding::kEntryNameHash;
+
+MainFrameNavigation_ZstdContentEncoding::MainFrameNavigation_ZstdContentEncoding(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+MainFrameNavigation_ZstdContentEncoding::MainFrameNavigation_ZstdContentEncoding(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+MainFrameNavigation_ZstdContentEncoding::~MainFrameNavigation_ZstdContentEncoding() = default;
+
+
+const char MainFrameNavigation_ZstdContentEncoding::kUsedZstdName[] = "UsedZstd";
+const uint64_t MainFrameNavigation_ZstdContentEncoding::kUsedZstdNameHash;
+
+MainFrameNavigation_ZstdContentEncoding& MainFrameNavigation_ZstdContentEncoding::SetUsedZstd(int64_t value) {
+  SetMetricInternal(kUsedZstdNameHash, value);
+  return *this;
+}
+
+
 const char Media_Autoplay_Attempt::kEntryName[] = "Media.Autoplay.Attempt";
 const uint64_t Media_Autoplay_Attempt::kEntryNameHash;
 
@@ -11180,6 +11632,14 @@ const uint64_t Media_WebMediaPlayerState::kFinalPipelineStatusNameHash;
 
 Media_WebMediaPlayerState& Media_WebMediaPlayerState::SetFinalPipelineStatus(int64_t value) {
   SetMetricInternal(kFinalPipelineStatusNameHash, value);
+  return *this;
+}
+
+const char Media_WebMediaPlayerState::kHasWaitingForKeyName[] = "HasWaitingForKey";
+const uint64_t Media_WebMediaPlayerState::kHasWaitingForKeyNameHash;
+
+Media_WebMediaPlayerState& Media_WebMediaPlayerState::SetHasWaitingForKey(int64_t value) {
+  SetMetricInternal(kHasWaitingForKeyNameHash, value);
   return *this;
 }
 
@@ -13481,6 +13941,14 @@ OpenerHeuristic_TopLevel& OpenerHeuristic_TopLevel::SetHasSameSiteIframe(int64_t
   return *this;
 }
 
+const char OpenerHeuristic_TopLevel::kIsAdTaggedPopupClickName[] = "IsAdTaggedPopupClick";
+const uint64_t OpenerHeuristic_TopLevel::kIsAdTaggedPopupClickNameHash;
+
+OpenerHeuristic_TopLevel& OpenerHeuristic_TopLevel::SetIsAdTaggedPopupClick(int64_t value) {
+  SetMetricInternal(kIsAdTaggedPopupClickNameHash, value);
+  return *this;
+}
+
 const char OpenerHeuristic_TopLevel::kPopupIdName[] = "PopupId";
 const uint64_t OpenerHeuristic_TopLevel::kPopupIdNameHash;
 
@@ -13771,6 +14239,22 @@ PageLoad& PageLoad::SetInteractiveTiming_FirstScrollTimestamp(int64_t value) {
   return *this;
 }
 
+const char PageLoad::kInteractiveTiming_INPOffsetName[] = "InteractiveTiming.INPOffset";
+const uint64_t PageLoad::kInteractiveTiming_INPOffsetNameHash;
+
+PageLoad& PageLoad::SetInteractiveTiming_INPOffset(int64_t value) {
+  SetMetricInternal(kInteractiveTiming_INPOffsetNameHash, value);
+  return *this;
+}
+
+const char PageLoad::kInteractiveTiming_INPTimeName[] = "InteractiveTiming.INPTime";
+const uint64_t PageLoad::kInteractiveTiming_INPTimeNameHash;
+
+PageLoad& PageLoad::SetInteractiveTiming_INPTime(int64_t value) {
+  SetMetricInternal(kInteractiveTiming_INPTimeNameHash, value);
+  return *this;
+}
+
 const char PageLoad::kInteractiveTiming_NumInteractionsName[] = "InteractiveTiming.NumInteractions";
 const uint64_t PageLoad::kInteractiveTiming_NumInteractionsNameHash;
 
@@ -13800,6 +14284,22 @@ const uint64_t PageLoad::kInteractiveTiming_WorstUserInteractionLatency_MaxEvent
 
 PageLoad& PageLoad::SetInteractiveTiming_WorstUserInteractionLatency_MaxEventDuration(int64_t value) {
   SetMetricInternal(kInteractiveTiming_WorstUserInteractionLatency_MaxEventDurationNameHash, value);
+  return *this;
+}
+
+const char PageLoad::kInteractiveTimingBeforeSoftNavigation_INPOffsetName[] = "InteractiveTimingBeforeSoftNavigation.INPOffset";
+const uint64_t PageLoad::kInteractiveTimingBeforeSoftNavigation_INPOffsetNameHash;
+
+PageLoad& PageLoad::SetInteractiveTimingBeforeSoftNavigation_INPOffset(int64_t value) {
+  SetMetricInternal(kInteractiveTimingBeforeSoftNavigation_INPOffsetNameHash, value);
+  return *this;
+}
+
+const char PageLoad::kInteractiveTimingBeforeSoftNavigation_INPTimeName[] = "InteractiveTimingBeforeSoftNavigation.INPTime";
+const uint64_t PageLoad::kInteractiveTimingBeforeSoftNavigation_INPTimeNameHash;
+
+PageLoad& PageLoad::SetInteractiveTimingBeforeSoftNavigation_INPTime(int64_t value) {
+  SetMetricInternal(kInteractiveTimingBeforeSoftNavigation_INPTimeNameHash, value);
   return *this;
 }
 
@@ -14889,53 +15389,6 @@ PasswordManager_LeakWarningDialog& PasswordManager_LeakWarningDialog::SetPasswor
 }
 
 
-const char PasswordManager_PasswordChangeFlowDuration::kEntryName[] = "PasswordManager.PasswordChangeFlowDuration";
-const uint64_t PasswordManager_PasswordChangeFlowDuration::kEntryNameHash;
-
-PasswordManager_PasswordChangeFlowDuration::PasswordManager_PasswordChangeFlowDuration(ukm::SourceId source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-PasswordManager_PasswordChangeFlowDuration::PasswordManager_PasswordChangeFlowDuration(ukm::SourceIdObj source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-PasswordManager_PasswordChangeFlowDuration::~PasswordManager_PasswordChangeFlowDuration() = default;
-
-
-const char PasswordManager_PasswordChangeFlowDuration::kDurationName[] = "Duration";
-const uint64_t PasswordManager_PasswordChangeFlowDuration::kDurationNameHash;
-
-PasswordManager_PasswordChangeFlowDuration& PasswordManager_PasswordChangeFlowDuration::SetDuration(int64_t value) {
-  SetMetricInternal(kDurationNameHash, value);
-  return *this;
-}
-
-const char PasswordManager_PasswordChangeFlowDuration::kEndEventName[] = "EndEvent";
-const uint64_t PasswordManager_PasswordChangeFlowDuration::kEndEventNameHash;
-
-PasswordManager_PasswordChangeFlowDuration& PasswordManager_PasswordChangeFlowDuration::SetEndEvent(int64_t value) {
-  SetMetricInternal(kEndEventNameHash, value);
-  return *this;
-}
-
-const char PasswordManager_PasswordChangeFlowDuration::kEntryPointName[] = "EntryPoint";
-const uint64_t PasswordManager_PasswordChangeFlowDuration::kEntryPointNameHash;
-
-PasswordManager_PasswordChangeFlowDuration& PasswordManager_PasswordChangeFlowDuration::SetEntryPoint(int64_t value) {
-  SetMetricInternal(kEntryPointNameHash, value);
-  return *this;
-}
-
-const char PasswordManager_PasswordChangeFlowDuration::kStartEventName[] = "StartEvent";
-const uint64_t PasswordManager_PasswordChangeFlowDuration::kStartEventNameHash;
-
-PasswordManager_PasswordChangeFlowDuration& PasswordManager_PasswordChangeFlowDuration::SetStartEvent(int64_t value) {
-  SetMetricInternal(kStartEventNameHash, value);
-  return *this;
-}
-
-
 const char PasswordManager_PasswordChangeTriggered::kEntryName[] = "PasswordManager.PasswordChangeTriggered";
 const uint64_t PasswordManager_PasswordChangeTriggered::kEntryNameHash;
 
@@ -15403,6 +15856,14 @@ PerformanceManager_PageResourceUsage2& PerformanceManager_PageResourceUsage2::Se
   return *this;
 }
 
+const char PerformanceManager_PageResourceUsage2::kMeasurementAlgorithmName[] = "MeasurementAlgorithm";
+const uint64_t PerformanceManager_PageResourceUsage2::kMeasurementAlgorithmNameHash;
+
+PerformanceManager_PageResourceUsage2& PerformanceManager_PageResourceUsage2::SetMeasurementAlgorithm(int64_t value) {
+  SetMetricInternal(kMeasurementAlgorithmNameHash, value);
+  return *this;
+}
+
 const char PerformanceManager_PageResourceUsage2::kPrivateFootprintEstimateName[] = "PrivateFootprintEstimate";
 const uint64_t PerformanceManager_PageResourceUsage2::kPrivateFootprintEstimateNameHash;
 
@@ -15432,157 +15893,6 @@ const uint64_t PerformanceManager_PageResourceUsage2::kTotalRecentCPUUsageAllPag
 
 PerformanceManager_PageResourceUsage2& PerformanceManager_PageResourceUsage2::SetTotalRecentCPUUsageAllPages(int64_t value) {
   SetMetricInternal(kTotalRecentCPUUsageAllPagesNameHash, value);
-  return *this;
-}
-
-
-const char PerformanceManager_PageTimelineState::kEntryName[] = "PerformanceManager.PageTimelineState";
-const uint64_t PerformanceManager_PageTimelineState::kEntryNameHash;
-
-PerformanceManager_PageTimelineState::PerformanceManager_PageTimelineState(ukm::SourceId source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-PerformanceManager_PageTimelineState::PerformanceManager_PageTimelineState(ukm::SourceIdObj source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-PerformanceManager_PageTimelineState::~PerformanceManager_PageTimelineState() = default;
-
-
-const char PerformanceManager_PageTimelineState::kBatterySaverModeName[] = "BatterySaverMode";
-const uint64_t PerformanceManager_PageTimelineState::kBatterySaverModeNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetBatterySaverMode(int64_t value) {
-  SetMetricInternal(kBatterySaverModeNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kChangedFaviconOrTitleInBackgroundName[] = "ChangedFaviconOrTitleInBackground";
-const uint64_t PerformanceManager_PageTimelineState::kChangedFaviconOrTitleInBackgroundNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetChangedFaviconOrTitleInBackground(int64_t value) {
-  SetMetricInternal(kChangedFaviconOrTitleInBackgroundNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kCurrentStateName[] = "CurrentState";
-const uint64_t PerformanceManager_PageTimelineState::kCurrentStateNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetCurrentState(int64_t value) {
-  SetMetricInternal(kCurrentStateNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kHasNotificationPermissionName[] = "HasNotificationPermission";
-const uint64_t PerformanceManager_PageTimelineState::kHasNotificationPermissionNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetHasNotificationPermission(int64_t value) {
-  SetMetricInternal(kHasNotificationPermissionNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kHighEfficiencyModeName[] = "HighEfficiencyMode";
-const uint64_t PerformanceManager_PageTimelineState::kHighEfficiencyModeNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetHighEfficiencyMode(int64_t value) {
-  SetMetricInternal(kHighEfficiencyModeNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kIsActiveTabName[] = "IsActiveTab";
-const uint64_t PerformanceManager_PageTimelineState::kIsActiveTabNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetIsActiveTab(int64_t value) {
-  SetMetricInternal(kIsActiveTabNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kIsCapturingMediaName[] = "IsCapturingMedia";
-const uint64_t PerformanceManager_PageTimelineState::kIsCapturingMediaNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetIsCapturingMedia(int64_t value) {
-  SetMetricInternal(kIsCapturingMediaNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kIsConnectedToDeviceName[] = "IsConnectedToDevice";
-const uint64_t PerformanceManager_PageTimelineState::kIsConnectedToDeviceNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetIsConnectedToDevice(int64_t value) {
-  SetMetricInternal(kIsConnectedToDeviceNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kIsPlayingAudioName[] = "IsPlayingAudio";
-const uint64_t PerformanceManager_PageTimelineState::kIsPlayingAudioNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetIsPlayingAudio(int64_t value) {
-  SetMetricInternal(kIsPlayingAudioNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kPrivateFootprintName[] = "PrivateFootprint";
-const uint64_t PerformanceManager_PageTimelineState::kPrivateFootprintNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetPrivateFootprint(int64_t value) {
-  SetMetricInternal(kPrivateFootprintNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kResidentSetSizeName[] = "ResidentSetSize";
-const uint64_t PerformanceManager_PageTimelineState::kResidentSetSizeNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetResidentSetSize(int64_t value) {
-  SetMetricInternal(kResidentSetSizeNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kSliceIdName[] = "SliceId";
-const uint64_t PerformanceManager_PageTimelineState::kSliceIdNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetSliceId(int64_t value) {
-  SetMetricInternal(kSliceIdNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kTabIdName[] = "TabId";
-const uint64_t PerformanceManager_PageTimelineState::kTabIdNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetTabId(int64_t value) {
-  SetMetricInternal(kTabIdNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kTimeInCurrentStateName[] = "TimeInCurrentState";
-const uint64_t PerformanceManager_PageTimelineState::kTimeInCurrentStateNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetTimeInCurrentState(int64_t value) {
-  SetMetricInternal(kTimeInCurrentStateNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kTimeSinceCreationName[] = "TimeSinceCreation";
-const uint64_t PerformanceManager_PageTimelineState::kTimeSinceCreationNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetTimeSinceCreation(int64_t value) {
-  SetMetricInternal(kTimeSinceCreationNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kTimeSinceLastSliceName[] = "TimeSinceLastSlice";
-const uint64_t PerformanceManager_PageTimelineState::kTimeSinceLastSliceNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetTimeSinceLastSlice(int64_t value) {
-  SetMetricInternal(kTimeSinceLastSliceNameHash, value);
-  return *this;
-}
-
-const char PerformanceManager_PageTimelineState::kTotalForegroundTimeName[] = "TotalForegroundTime";
-const uint64_t PerformanceManager_PageTimelineState::kTotalForegroundTimeNameHash;
-
-PerformanceManager_PageTimelineState& PerformanceManager_PageTimelineState::SetTotalForegroundTime(int64_t value) {
-  SetMetricInternal(kTotalForegroundTimeNameHash, value);
   return *this;
 }
 
@@ -19404,6 +19714,29 @@ Shopping_MerchantTrust_RowSeen& Shopping_MerchantTrust_RowSeen::SetHasOccurred(i
 }
 
 
+const char Shopping_PDPStateWithLocalInfo::kEntryName[] = "Shopping.PDPStateWithLocalInfo";
+const uint64_t Shopping_PDPStateWithLocalInfo::kEntryNameHash;
+
+Shopping_PDPStateWithLocalInfo::Shopping_PDPStateWithLocalInfo(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Shopping_PDPStateWithLocalInfo::Shopping_PDPStateWithLocalInfo(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Shopping_PDPStateWithLocalInfo::~Shopping_PDPStateWithLocalInfo() = default;
+
+
+const char Shopping_PDPStateWithLocalInfo::kPDPStateName[] = "PDPState";
+const uint64_t Shopping_PDPStateWithLocalInfo::kPDPStateNameHash;
+
+Shopping_PDPStateWithLocalInfo& Shopping_PDPStateWithLocalInfo::SetPDPState(int64_t value) {
+  SetMetricInternal(kPDPStateNameHash, value);
+  return *this;
+}
+
+
 const char Shopping_WillSendRequest::kEntryName[] = "Shopping.WillSendRequest";
 const uint64_t Shopping_WillSendRequest::kEntryNameHash;
 
@@ -19580,6 +19913,29 @@ const uint64_t Site_Quality::kServiceWorkerScriptSizeNameHash;
 
 Site_Quality& Site_Quality::SetServiceWorkerScriptSize(int64_t value) {
   SetMetricInternal(kServiceWorkerScriptSizeNameHash, value);
+  return *this;
+}
+
+
+const char SiteInstance::kEntryName[] = "SiteInstance";
+const uint64_t SiteInstance::kEntryNameHash;
+
+SiteInstance::SiteInstance(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+SiteInstance::SiteInstance(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+SiteInstance::~SiteInstance() = default;
+
+
+const char SiteInstance::kNewProcessUsedForNavigationWhenSameSiteProcessExistsName[] = "NewProcessUsedForNavigationWhenSameSiteProcessExists";
+const uint64_t SiteInstance::kNewProcessUsedForNavigationWhenSameSiteProcessExistsNameHash;
+
+SiteInstance& SiteInstance::SetNewProcessUsedForNavigationWhenSameSiteProcessExists(int64_t value) {
+  SetMetricInternal(kNewProcessUsedForNavigationWhenSameSiteProcessExistsNameHash, value);
   return *this;
 }
 
@@ -19868,6 +20224,22 @@ SoftNavigation::SoftNavigation(ukm::SourceIdObj source_id) :
 SoftNavigation::~SoftNavigation() = default;
 
 
+const char SoftNavigation::kInteractiveTiming_INPOffsetName[] = "InteractiveTiming.INPOffset";
+const uint64_t SoftNavigation::kInteractiveTiming_INPOffsetNameHash;
+
+SoftNavigation& SoftNavigation::SetInteractiveTiming_INPOffset(int64_t value) {
+  SetMetricInternal(kInteractiveTiming_INPOffsetNameHash, value);
+  return *this;
+}
+
+const char SoftNavigation::kInteractiveTiming_INPTimeName[] = "InteractiveTiming.INPTime";
+const uint64_t SoftNavigation::kInteractiveTiming_INPTimeNameHash;
+
+SoftNavigation& SoftNavigation::SetInteractiveTiming_INPTime(int64_t value) {
+  SetMetricInternal(kInteractiveTiming_INPTimeNameHash, value);
+  return *this;
+}
+
 const char SoftNavigation::kInteractiveTiming_NumInteractionsName[] = "InteractiveTiming.NumInteractions";
 const uint64_t SoftNavigation::kInteractiveTiming_NumInteractionsNameHash;
 
@@ -20000,6 +20372,29 @@ const uint64_t SubresourceFilter::kEnforcementRedirectPositionNameHash;
 
 SubresourceFilter& SubresourceFilter::SetEnforcementRedirectPosition(int64_t value) {
   SetMetricInternal(kEnforcementRedirectPositionNameHash, value);
+  return *this;
+}
+
+
+const char SubresourceLoad_ZstdContentEncoding::kEntryName[] = "SubresourceLoad.ZstdContentEncoding";
+const uint64_t SubresourceLoad_ZstdContentEncoding::kEntryNameHash;
+
+SubresourceLoad_ZstdContentEncoding::SubresourceLoad_ZstdContentEncoding(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+SubresourceLoad_ZstdContentEncoding::SubresourceLoad_ZstdContentEncoding(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+SubresourceLoad_ZstdContentEncoding::~SubresourceLoad_ZstdContentEncoding() = default;
+
+
+const char SubresourceLoad_ZstdContentEncoding::kUsedZstdName[] = "UsedZstd";
+const uint64_t SubresourceLoad_ZstdContentEncoding::kUsedZstdNameHash;
+
+SubresourceLoad_ZstdContentEncoding& SubresourceLoad_ZstdContentEncoding::SetUsedZstd(int64_t value) {
+  SetMetricInternal(kUsedZstdNameHash, value);
   return *this;
 }
 
@@ -30651,6 +31046,29 @@ const uint64_t VirtualKeyboard_Open::kTextInputTypeNameHash;
 
 VirtualKeyboard_Open& VirtualKeyboard_Open::SetTextInputType(int64_t value) {
   SetMetricInternal(kTextInputTypeNameHash, value);
+  return *this;
+}
+
+
+const char Wallet_BoardingPassDetect::kEntryName[] = "Wallet.BoardingPassDetect";
+const uint64_t Wallet_BoardingPassDetect::kEntryNameHash;
+
+Wallet_BoardingPassDetect::Wallet_BoardingPassDetect(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Wallet_BoardingPassDetect::Wallet_BoardingPassDetect(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Wallet_BoardingPassDetect::~Wallet_BoardingPassDetect() = default;
+
+
+const char Wallet_BoardingPassDetect::kDetectedName[] = "Detected";
+const uint64_t Wallet_BoardingPassDetect::kDetectedNameHash;
+
+Wallet_BoardingPassDetect& Wallet_BoardingPassDetect::SetDetected(int64_t value) {
+  SetMetricInternal(kDetectedNameHash, value);
   return *this;
 }
 

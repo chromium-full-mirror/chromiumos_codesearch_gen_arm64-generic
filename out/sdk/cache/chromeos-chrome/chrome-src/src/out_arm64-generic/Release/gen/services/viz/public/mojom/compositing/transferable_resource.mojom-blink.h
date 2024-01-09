@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/transferable_resource.mojom-features.h"
 #include "services/viz/public/mojom/compositing/transferable_resource.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/transferable_resource.mojom-blink-forward.h"
 #include "gpu/ipc/common/mailbox_holder.mojom-blink.h"
@@ -44,18 +45,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::SynchronizationType>
-    : EnumHashTraits<::viz::mojom::SynchronizationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {
@@ -104,7 +93,6 @@ class BLINK_PLATFORM_EXPORT TransferableResource {
       bool is_backed_by_surface_texture,
       bool wants_promotion_hint,
       const ::gfx::ColorSpace& color_space,
-      const absl::optional<::gfx::ColorSpace>& color_space_when_sampled,
       ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata,
       ::gpu::mojom::blink::VulkanYCbCrInfoPtr ycbcr_info);
 
@@ -206,8 +194,6 @@ TransferableResource& operator=(const TransferableResource&) = delete;
   
   ::gfx::ColorSpace color_space;
   
-  absl::optional<::gfx::ColorSpace> color_space_when_sampled;
-  
   ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata;
   
   ::gpu::mojom::blink::VulkanYCbCrInfoPtr ycbcr_info;
@@ -254,7 +240,6 @@ TransferableResourcePtr TransferableResource::Clone() const {
       mojo::Clone(is_backed_by_surface_texture),
       mojo::Clone(wants_promotion_hint),
       mojo::Clone(color_space),
-      mojo::Clone(color_space_when_sampled),
       mojo::Clone(hdr_metadata),
       mojo::Clone(ycbcr_info)
   );
@@ -281,8 +266,6 @@ bool TransferableResource::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->wants_promotion_hint, other_struct.wants_promotion_hint))
     return false;
   if (!mojo::Equals(this->color_space, other_struct.color_space))
-    return false;
-  if (!mojo::Equals(this->color_space_when_sampled, other_struct.color_space_when_sampled))
     return false;
   if (!mojo::Equals(this->hdr_metadata, other_struct.hdr_metadata))
     return false;
@@ -332,10 +315,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.color_space < rhs.color_space)
     return true;
   if (rhs.color_space < lhs.color_space)
-    return false;
-  if (lhs.color_space_when_sampled < rhs.color_space_when_sampled)
-    return true;
-  if (rhs.color_space_when_sampled < lhs.color_space_when_sampled)
     return false;
   if (lhs.hdr_metadata < rhs.hdr_metadata)
     return true;
@@ -408,11 +387,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::viz::mojom::blink::TransferableResou
   static const decltype(::viz::mojom::blink::TransferableResource::color_space)& color_space(
       const ::viz::mojom::blink::TransferableResourcePtr& input) {
     return input->color_space;
-  }
-
-  static const decltype(::viz::mojom::blink::TransferableResource::color_space_when_sampled)& color_space_when_sampled(
-      const ::viz::mojom::blink::TransferableResourcePtr& input) {
-    return input->color_space_when_sampled;
   }
 
   static const decltype(::viz::mojom::blink::TransferableResource::hdr_metadata)& hdr_metadata(

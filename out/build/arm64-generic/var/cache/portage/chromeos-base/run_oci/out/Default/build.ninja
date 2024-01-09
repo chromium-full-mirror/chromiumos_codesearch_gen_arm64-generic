@@ -21,25 +21,17 @@ subninja toolchain.ninja
 build _run_oci-install_config: phony obj/run_oci/_run_oci-install_config.stamp
 build container_config_parser: phony ./lib/libcontainer_config_parser.so
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build run_oci$:_run_oci-install_config: phony obj/run_oci/_run_oci-install_config.stamp
 build run_oci$:all: phony obj/run_oci/all.stamp
 build run_oci$:container_config_parser: phony ./lib/libcontainer_config_parser.so
-build run_oci$:container_config_parser_test: phony ./container_config_parser_test
 build run_oci$:run_oci: phony ./run_oci
-build run_oci$:run_oci_test: phony ./run_oci_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/run_oci/_run_oci-install_config.stamp $
     obj/run_oci/all.stamp $
     ./lib/libcontainer_config_parser.so $
-    ./container_config_parser_test $
-    ./run_oci $
-    ./run_oci_test
+    ./run_oci
 
 default all

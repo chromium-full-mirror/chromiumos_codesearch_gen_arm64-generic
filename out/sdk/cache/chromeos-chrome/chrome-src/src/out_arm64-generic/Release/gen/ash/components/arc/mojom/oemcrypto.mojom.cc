@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -3658,14 +3659,17 @@ void OemCryptoServiceProxy::InitializeDeprecated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::InitializeDeprecated");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_InitializeDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -3696,14 +3700,17 @@ void OemCryptoServiceProxy::Initialize(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -3728,14 +3735,17 @@ void OemCryptoServiceProxy::Terminate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::Terminate");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_Terminate_Name, kFlags, 0, 0, nullptr);
@@ -3759,14 +3769,17 @@ void OemCryptoServiceProxy::OpenSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::OpenSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_OpenSession_Name, kFlags, 0, 0, nullptr);
@@ -3797,14 +3810,17 @@ void OemCryptoServiceProxy::CloseSession(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CloseSession_Name, kFlags, 0, 0, nullptr);
@@ -3842,14 +3858,17 @@ void OemCryptoServiceProxy::GenerateDerivedKeys(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateDerivedKeys_Name, kFlags, 0, 0, nullptr);
@@ -3907,14 +3926,17 @@ void OemCryptoServiceProxy::GenerateNonce(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateNonce_Name, kFlags, 0, 0, nullptr);
@@ -3949,14 +3971,17 @@ void OemCryptoServiceProxy::GenerateSignature(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateSignature_Name, kFlags, 0, 0, nullptr);
@@ -4025,14 +4050,17 @@ void OemCryptoServiceProxy::LoadKeysV11OrV12(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeysV11OrV12_Name, kFlags, 0, 0, nullptr);
@@ -4117,14 +4145,17 @@ void OemCryptoServiceProxy::RefreshKeysV14(
                         "<value of type std::vector<OemCryptoKeyRefreshObjectV14Ptr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RefreshKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -4198,14 +4229,17 @@ void OemCryptoServiceProxy::QueryKeyControl(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_QueryKeyControl_Name, kFlags, 0, 0, nullptr);
@@ -4253,14 +4287,17 @@ void OemCryptoServiceProxy::SelectKeyV13(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SelectKeyV13_Name, kFlags, 0, 0, nullptr);
@@ -4323,14 +4360,17 @@ void OemCryptoServiceProxy::DecryptCencV15(
                         "<value of type OemCryptoCencEncryptPatternDescPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DecryptCencV15_Name, kFlags, 0, 0, nullptr);
@@ -4417,14 +4457,17 @@ void OemCryptoServiceProxy::GenericEncrypt(
                         "<value of type OemCryptoAlgorithm>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericEncrypt_Name, kFlags, 0, 0, nullptr);
@@ -4493,14 +4536,17 @@ void OemCryptoServiceProxy::GenericDecrypt(
                         "<value of type OemCryptoAlgorithm>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericDecrypt_Name, kFlags, 0, 0, nullptr);
@@ -4566,14 +4612,17 @@ void OemCryptoServiceProxy::GenericSign(
                         "<value of type OemCryptoAlgorithm>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericSign_Name, kFlags, 0, 0, nullptr);
@@ -4629,14 +4678,17 @@ void OemCryptoServiceProxy::GenericVerify(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericVerify_Name, kFlags, 0, 0, nullptr);
@@ -4699,14 +4751,17 @@ void OemCryptoServiceProxy::CopyBufferV14(
                         "<value of type OemCryptoSecureBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyBufferV14_Name, kFlags, 0, 0, nullptr);
@@ -4754,14 +4809,17 @@ void OemCryptoServiceProxy::LoadTestKeyboxV13(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::LoadTestKeyboxV13");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadTestKeyboxV13_Name, kFlags, 0, 0, nullptr);
@@ -4785,14 +4843,17 @@ void OemCryptoServiceProxy::IsRootKeyCertificateValid(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::IsRootKeyCertificateValid");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsRootKeyCertificateValid_Name, kFlags, 0, 0, nullptr);
@@ -4816,14 +4877,17 @@ void OemCryptoServiceProxy::GetDeviceId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetDeviceId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetDeviceId_Name, kFlags, 0, 0, nullptr);
@@ -4847,14 +4911,17 @@ void OemCryptoServiceProxy::GetKeyData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetKeyData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetKeyData_Name, kFlags, 0, 0, nullptr);
@@ -4885,14 +4952,17 @@ void OemCryptoServiceProxy::GetRandom(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetRandom_Name, kFlags, 0, 0, nullptr);
@@ -4917,14 +4987,17 @@ void OemCryptoServiceProxy::GetNumberOfOpenSessions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetNumberOfOpenSessions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetNumberOfOpenSessions_Name, kFlags, 0, 0, nullptr);
@@ -4948,14 +5021,17 @@ void OemCryptoServiceProxy::GetMaxNumberOfSessions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetMaxNumberOfSessions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetMaxNumberOfSessions_Name, kFlags, 0, 0, nullptr);
@@ -5004,14 +5080,17 @@ void OemCryptoServiceProxy::RewrapDeviceRsaKey(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RewrapDeviceRsaKey_Name, kFlags, 0, 0, nullptr);
@@ -5076,14 +5155,17 @@ void OemCryptoServiceProxy::LoadDeviceRsaKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadDeviceRsaKey_Name, kFlags, 0, 0, nullptr);
@@ -5134,14 +5216,17 @@ void OemCryptoServiceProxy::GenerateRsaSignature(
                         "<value of type OemCryptoRsaPaddingScheme>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateRsaSignature_Name, kFlags, 0, 0, nullptr);
@@ -5197,14 +5282,17 @@ void OemCryptoServiceProxy::DeriveKeysFromSessionKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeriveKeysFromSessionKey_Name, kFlags, 0, 0, nullptr);
@@ -5268,14 +5356,17 @@ void OemCryptoServiceProxy::SecurityPatchLevel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::SecurityPatchLevel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SecurityPatchLevel_Name, kFlags, 0, 0, nullptr);
@@ -5299,14 +5390,17 @@ void OemCryptoServiceProxy::GetHdcpCapability(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetHdcpCapability");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetHdcpCapability_Name, kFlags, 0, 0, nullptr);
@@ -5330,14 +5424,17 @@ void OemCryptoServiceProxy::UpdateUsageTable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::UpdateUsageTable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_UpdateUsageTable_Name, kFlags, 0, 0, nullptr);
@@ -5368,14 +5465,17 @@ void OemCryptoServiceProxy::DeactivateUsageEntryV12(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeactivateUsageEntryV12_Name, kFlags, 0, 0, nullptr);
@@ -5422,14 +5522,17 @@ void OemCryptoServiceProxy::ReportUsage(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ReportUsage_Name, kFlags, 0, 0, nullptr);
@@ -5486,14 +5589,17 @@ void OemCryptoServiceProxy::DeleteUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeleteUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -5553,14 +5659,17 @@ void OemCryptoServiceProxy::ForceDeleteUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ForceDeleteUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -5597,14 +5706,17 @@ void OemCryptoServiceProxy::DeleteOldUsageTable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::DeleteOldUsageTable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeleteOldUsageTable_Name, kFlags, 0, 0, nullptr);
@@ -5628,14 +5740,17 @@ void OemCryptoServiceProxy::GetProvisioningMethod(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetProvisioningMethod");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetProvisioningMethod_Name, kFlags, 0, 0, nullptr);
@@ -5659,14 +5774,17 @@ void OemCryptoServiceProxy::SupportedCertificates(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::SupportedCertificates");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SupportedCertificates_Name, kFlags, 0, 0, nullptr);
@@ -5690,14 +5808,17 @@ void OemCryptoServiceProxy::IsSrmUpdateSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::IsSrmUpdateSupported");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsSrmUpdateSupported_Name, kFlags, 0, 0, nullptr);
@@ -5721,14 +5842,17 @@ void OemCryptoServiceProxy::GetCurrentSrmVersion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetCurrentSrmVersion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetCurrentSrmVersion_Name, kFlags, 0, 0, nullptr);
@@ -5759,14 +5883,17 @@ void OemCryptoServiceProxy::LoadSrm(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadSrm_Name, kFlags, 0, 0, nullptr);
@@ -5803,14 +5930,17 @@ void OemCryptoServiceProxy::RemoveSrm(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::RemoveSrm");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RemoveSrm_Name, kFlags, 0, 0, nullptr);
@@ -5841,14 +5971,17 @@ void OemCryptoServiceProxy::CreateUsageTableHeader(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -5880,14 +6013,17 @@ void OemCryptoServiceProxy::LoadUsageTableHeader(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -5931,14 +6067,17 @@ void OemCryptoServiceProxy::CreateNewUsageEntry(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateNewUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -5976,14 +6115,17 @@ void OemCryptoServiceProxy::LoadUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -6035,14 +6177,17 @@ void OemCryptoServiceProxy::UpdateUsageEntry(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_UpdateUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -6079,14 +6224,17 @@ void OemCryptoServiceProxy::DeactivateUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeactivateUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -6134,14 +6282,17 @@ void OemCryptoServiceProxy::ShrinkUsageTableHeader(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ShrinkUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -6177,14 +6328,17 @@ void OemCryptoServiceProxy::MoveEntry(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MoveEntry_Name, kFlags, 0, 0, nullptr);
@@ -6220,14 +6374,17 @@ void OemCryptoServiceProxy::CopyOldUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyOldUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -6290,14 +6447,17 @@ void OemCryptoServiceProxy::CreateOldUsageEntry(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateOldUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -6365,14 +6525,17 @@ void OemCryptoServiceProxy::GetAnalogOutputFlags(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetAnalogOutputFlags");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetAnalogOutputFlags_Name, kFlags, 0, 0, nullptr);
@@ -6403,14 +6566,17 @@ void OemCryptoServiceProxy::LoadTestKeybox(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadTestKeybox_Name, kFlags, 0, 0, nullptr);
@@ -6457,14 +6623,17 @@ void OemCryptoServiceProxy::LoadEntitledContentKeysV14(
                         "<value of type std::vector<OemCryptoEntitledContentKeyObjectV14Ptr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadEntitledContentKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -6515,14 +6684,17 @@ void OemCryptoServiceProxy::SelectKey(
                         "<value of type OemCryptoCipherMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SelectKey_Name, kFlags, 0, 0, nullptr);
@@ -6599,14 +6771,17 @@ void OemCryptoServiceProxy::LoadKeysV14(
                         "<value of type OemCryptoLicenseType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -6721,14 +6896,17 @@ void OemCryptoServiceProxy::LoadKeys(
                         "<value of type OemCryptoLicenseType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeys_Name, kFlags, 0, 0, nullptr);
@@ -6838,14 +7016,17 @@ void OemCryptoServiceProxy::ResourceRatingTier(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::ResourceRatingTier");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ResourceRatingTier_Name, kFlags, 0, 0, nullptr);
@@ -6869,14 +7050,17 @@ void OemCryptoServiceProxy::BuildInformation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::BuildInformation");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_BuildInformation_Name, kFlags, 0, 0, nullptr);
@@ -6916,14 +7100,17 @@ void OemCryptoServiceProxy::RefreshKeys(
                         "<value of type std::vector<OemCryptoKeyRefreshObjectPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RefreshKeys_Name, kFlags, 0, 0, nullptr);
@@ -7000,14 +7187,17 @@ void OemCryptoServiceProxy::LoadEntitledContentKeys(
                         "<value of type std::vector<OemCryptoEntitledContentKeyObjectPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadEntitledContentKeys_Name, kFlags, 0, 0, nullptr);
@@ -7058,14 +7248,17 @@ void OemCryptoServiceProxy::GetOemPublicCertificate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::GetOemPublicCertificate");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetOemPublicCertificate_Name, kFlags, 0, 0, nullptr);
@@ -7089,14 +7282,17 @@ void OemCryptoServiceProxy::MaximumUsageTableHeaderSize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::MaximumUsageTableHeaderSize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MaximumUsageTableHeaderSize_Name, kFlags, 0, 0, nullptr);
@@ -7120,14 +7316,17 @@ void OemCryptoServiceProxy::IsAntiRollbackHwPresent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::IsAntiRollbackHwPresent");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsAntiRollbackHwPresent_Name, kFlags, 0, 0, nullptr);
@@ -7151,14 +7350,17 @@ void OemCryptoServiceProxy::MinorApiVersion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::OemCryptoService::MinorApiVersion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MinorApiVersion_Name, kFlags, 0, 0, nullptr);
@@ -7198,14 +7400,17 @@ void OemCryptoServiceProxy::PrepAndSignLicenseRequest(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignLicenseRequest_Name, kFlags, 0, 0, nullptr);
@@ -7261,14 +7466,17 @@ void OemCryptoServiceProxy::PrepAndSignRenewalRequest(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignRenewalRequest_Name, kFlags, 0, 0, nullptr);
@@ -7324,14 +7532,17 @@ void OemCryptoServiceProxy::PrepAndSignProvisioningRequest(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignProvisioningRequest_Name, kFlags, 0, 0, nullptr);
@@ -7387,14 +7598,17 @@ void OemCryptoServiceProxy::LoadLicense(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadLicense_Name, kFlags, 0, 0, nullptr);
@@ -7462,14 +7676,17 @@ void OemCryptoServiceProxy::LoadRenewal(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadRenewal_Name, kFlags, 0, 0, nullptr);
@@ -7540,14 +7757,17 @@ void OemCryptoServiceProxy::LoadProvisioning(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadProvisioning_Name, kFlags, 0, 0, nullptr);
@@ -7607,14 +7827,17 @@ void OemCryptoServiceProxy::LoadOemPrivateKey(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadOemPrivateKey_Name, kFlags, 0, 0, nullptr);
@@ -7652,14 +7875,17 @@ void OemCryptoServiceProxy::LoadDrmPrivateKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadDrmPrivateKey_Name, kFlags, 0, 0, nullptr);
@@ -7721,14 +7947,17 @@ void OemCryptoServiceProxy::DecryptCenc(
                         "<value of type OemCryptoSecureBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DecryptCenc_Name, kFlags, 0, 0, nullptr);
@@ -7826,14 +8055,17 @@ void OemCryptoServiceProxy::CopyBuffer(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyBuffer_Name, kFlags, 0, 0, nullptr);
@@ -7969,7 +8201,8 @@ void OemCryptoService_InitializeDeprecated_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_InitializeDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -8088,7 +8321,8 @@ void OemCryptoService_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -8207,7 +8441,8 @@ void OemCryptoService_Terminate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_Terminate_Name, kFlags, 0, 0, nullptr);
@@ -8333,7 +8568,8 @@ void OemCryptoService_OpenSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_OpenSession_Name, kFlags, 0, 0, nullptr);
@@ -8453,7 +8689,8 @@ void OemCryptoService_CloseSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CloseSession_Name, kFlags, 0, 0, nullptr);
@@ -8572,7 +8809,8 @@ void OemCryptoService_GenerateDerivedKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateDerivedKeys_Name, kFlags, 0, 0, nullptr);
@@ -8698,7 +8936,8 @@ void OemCryptoService_GenerateNonce_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateNonce_Name, kFlags, 0, 0, nullptr);
@@ -8772,7 +9011,7 @@ class OemCryptoService_GenerateSignature_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_GenerateSignature_ForwardToCallback::Accept(
@@ -8786,7 +9025,7 @@ bool OemCryptoService_GenerateSignature_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_GenerateSignature_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -8808,7 +9047,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_GenerateSignature_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GenerateSignature", "async_response_parameters",
@@ -8819,13 +9058,14 @@ void OemCryptoService_GenerateSignature_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateSignature_Name, kFlags, 0, 0, nullptr);
@@ -8953,7 +9193,8 @@ void OemCryptoService_LoadKeysV11OrV12_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeysV11OrV12_Name, kFlags, 0, 0, nullptr);
@@ -9072,7 +9313,8 @@ void OemCryptoService_RefreshKeysV14_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RefreshKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -9145,7 +9387,7 @@ class OemCryptoService_QueryKeyControl_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_key_control_block);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_key_control_block);
 };
 
 bool OemCryptoService_QueryKeyControl_ForwardToCallback::Accept(
@@ -9159,7 +9401,7 @@ bool OemCryptoService_QueryKeyControl_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_key_control_block{};
+  std::optional<std::vector<uint8_t>> p_key_control_block{};
   OemCryptoService_QueryKeyControl_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -9181,7 +9423,7 @@ std::move(p_key_control_block));
 }
 
 void OemCryptoService_QueryKeyControl_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_key_control_block) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_key_control_block) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::QueryKeyControl", "async_response_parameters",
@@ -9192,13 +9434,14 @@ void OemCryptoService_QueryKeyControl_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("key_control_block"), in_key_control_block,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_QueryKeyControl_Name, kFlags, 0, 0, nullptr);
@@ -9326,7 +9569,8 @@ void OemCryptoService_SelectKeyV13_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SelectKeyV13_Name, kFlags, 0, 0, nullptr);
@@ -9399,7 +9643,7 @@ class OemCryptoService_DecryptCencV15_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data);
 };
 
 bool OemCryptoService_DecryptCencV15_ForwardToCallback::Accept(
@@ -9413,7 +9657,7 @@ bool OemCryptoService_DecryptCencV15_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_decrypted_data{};
+  std::optional<std::vector<uint8_t>> p_decrypted_data{};
   OemCryptoService_DecryptCencV15_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -9435,7 +9679,7 @@ std::move(p_decrypted_data));
 }
 
 void OemCryptoService_DecryptCencV15_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::DecryptCencV15", "async_response_parameters",
@@ -9446,13 +9690,14 @@ void OemCryptoService_DecryptCencV15_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("decrypted_data"), in_decrypted_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DecryptCencV15_Name, kFlags, 0, 0, nullptr);
@@ -9534,7 +9779,7 @@ class OemCryptoService_GenericEncrypt_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_encrypted_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_encrypted_data);
 };
 
 bool OemCryptoService_GenericEncrypt_ForwardToCallback::Accept(
@@ -9548,7 +9793,7 @@ bool OemCryptoService_GenericEncrypt_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_encrypted_data{};
+  std::optional<std::vector<uint8_t>> p_encrypted_data{};
   OemCryptoService_GenericEncrypt_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -9570,7 +9815,7 @@ std::move(p_encrypted_data));
 }
 
 void OemCryptoService_GenericEncrypt_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_encrypted_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_encrypted_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GenericEncrypt", "async_response_parameters",
@@ -9581,13 +9826,14 @@ void OemCryptoService_GenericEncrypt_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("encrypted_data"), in_encrypted_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericEncrypt_Name, kFlags, 0, 0, nullptr);
@@ -9669,7 +9915,7 @@ class OemCryptoService_GenericDecrypt_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data);
 };
 
 bool OemCryptoService_GenericDecrypt_ForwardToCallback::Accept(
@@ -9683,7 +9929,7 @@ bool OemCryptoService_GenericDecrypt_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_decrypted_data{};
+  std::optional<std::vector<uint8_t>> p_decrypted_data{};
   OemCryptoService_GenericDecrypt_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -9705,7 +9951,7 @@ std::move(p_decrypted_data));
 }
 
 void OemCryptoService_GenericDecrypt_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GenericDecrypt", "async_response_parameters",
@@ -9716,13 +9962,14 @@ void OemCryptoService_GenericDecrypt_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("decrypted_data"), in_decrypted_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericDecrypt_Name, kFlags, 0, 0, nullptr);
@@ -9804,7 +10051,7 @@ class OemCryptoService_GenericSign_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_GenericSign_ForwardToCallback::Accept(
@@ -9818,7 +10065,7 @@ bool OemCryptoService_GenericSign_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_GenericSign_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -9840,7 +10087,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_GenericSign_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GenericSign", "async_response_parameters",
@@ -9851,13 +10098,14 @@ void OemCryptoService_GenericSign_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericSign_Name, kFlags, 0, 0, nullptr);
@@ -9985,7 +10233,8 @@ void OemCryptoService_GenericVerify_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenericVerify_Name, kFlags, 0, 0, nullptr);
@@ -10104,7 +10353,8 @@ void OemCryptoService_CopyBufferV14_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyBufferV14_Name, kFlags, 0, 0, nullptr);
@@ -10223,7 +10473,8 @@ void OemCryptoService_LoadTestKeyboxV13_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadTestKeyboxV13_Name, kFlags, 0, 0, nullptr);
@@ -10342,7 +10593,8 @@ void OemCryptoService_IsRootKeyCertificateValid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsRootKeyCertificateValid_Name, kFlags, 0, 0, nullptr);
@@ -10415,7 +10667,7 @@ class OemCryptoService_GetDeviceId_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_device_id);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_device_id);
 };
 
 bool OemCryptoService_GetDeviceId_ForwardToCallback::Accept(
@@ -10429,7 +10681,7 @@ bool OemCryptoService_GetDeviceId_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_device_id{};
+  std::optional<std::vector<uint8_t>> p_device_id{};
   OemCryptoService_GetDeviceId_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -10451,7 +10703,7 @@ std::move(p_device_id));
 }
 
 void OemCryptoService_GetDeviceId_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_device_id) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_device_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GetDeviceId", "async_response_parameters",
@@ -10462,13 +10714,14 @@ void OemCryptoService_GetDeviceId_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_id"), in_device_id,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetDeviceId_Name, kFlags, 0, 0, nullptr);
@@ -10550,7 +10803,7 @@ class OemCryptoService_GetKeyData_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_key_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_key_data);
 };
 
 bool OemCryptoService_GetKeyData_ForwardToCallback::Accept(
@@ -10564,7 +10817,7 @@ bool OemCryptoService_GetKeyData_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_key_data{};
+  std::optional<std::vector<uint8_t>> p_key_data{};
   OemCryptoService_GetKeyData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -10586,7 +10839,7 @@ std::move(p_key_data));
 }
 
 void OemCryptoService_GetKeyData_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_key_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_key_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GetKeyData", "async_response_parameters",
@@ -10597,13 +10850,14 @@ void OemCryptoService_GetKeyData_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("key_data"), in_key_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetKeyData_Name, kFlags, 0, 0, nullptr);
@@ -10685,7 +10939,7 @@ class OemCryptoService_GetRandom_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_data);
 };
 
 bool OemCryptoService_GetRandom_ForwardToCallback::Accept(
@@ -10699,7 +10953,7 @@ bool OemCryptoService_GetRandom_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_data{};
+  std::optional<std::vector<uint8_t>> p_data{};
   OemCryptoService_GetRandom_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -10721,7 +10975,7 @@ std::move(p_data));
 }
 
 void OemCryptoService_GetRandom_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GetRandom", "async_response_parameters",
@@ -10732,13 +10986,14 @@ void OemCryptoService_GetRandom_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetRandom_Name, kFlags, 0, 0, nullptr);
@@ -10873,7 +11128,8 @@ void OemCryptoService_GetNumberOfOpenSessions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetNumberOfOpenSessions_Name, kFlags, 0, 0, nullptr);
@@ -11000,7 +11256,8 @@ void OemCryptoService_GetMaxNumberOfSessions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetMaxNumberOfSessions_Name, kFlags, 0, 0, nullptr);
@@ -11074,7 +11331,7 @@ class OemCryptoService_RewrapDeviceRsaKey_ProxyToResponder : public ::mojo::inte
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_wrapped_key);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_wrapped_key);
 };
 
 bool OemCryptoService_RewrapDeviceRsaKey_ForwardToCallback::Accept(
@@ -11088,7 +11345,7 @@ bool OemCryptoService_RewrapDeviceRsaKey_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_wrapped_key{};
+  std::optional<std::vector<uint8_t>> p_wrapped_key{};
   OemCryptoService_RewrapDeviceRsaKey_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -11110,7 +11367,7 @@ std::move(p_wrapped_key));
 }
 
 void OemCryptoService_RewrapDeviceRsaKey_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_wrapped_key) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_wrapped_key) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::RewrapDeviceRsaKey", "async_response_parameters",
@@ -11121,13 +11378,14 @@ void OemCryptoService_RewrapDeviceRsaKey_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("wrapped_key"), in_wrapped_key,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RewrapDeviceRsaKey_Name, kFlags, 0, 0, nullptr);
@@ -11255,7 +11513,8 @@ void OemCryptoService_LoadDeviceRsaKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadDeviceRsaKey_Name, kFlags, 0, 0, nullptr);
@@ -11328,7 +11587,7 @@ class OemCryptoService_GenerateRsaSignature_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_GenerateRsaSignature_ForwardToCallback::Accept(
@@ -11342,7 +11601,7 @@ bool OemCryptoService_GenerateRsaSignature_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_GenerateRsaSignature_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -11364,7 +11623,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_GenerateRsaSignature_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GenerateRsaSignature", "async_response_parameters",
@@ -11375,13 +11634,14 @@ void OemCryptoService_GenerateRsaSignature_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GenerateRsaSignature_Name, kFlags, 0, 0, nullptr);
@@ -11509,7 +11769,8 @@ void OemCryptoService_DeriveKeysFromSessionKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeriveKeysFromSessionKey_Name, kFlags, 0, 0, nullptr);
@@ -11628,7 +11889,8 @@ void OemCryptoService_SecurityPatchLevel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SecurityPatchLevel_Name, kFlags, 0, 0, nullptr);
@@ -11760,7 +12022,8 @@ void OemCryptoService_GetHdcpCapability_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetHdcpCapability_Name, kFlags, 0, 0, nullptr);
@@ -11883,7 +12146,8 @@ void OemCryptoService_UpdateUsageTable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_UpdateUsageTable_Name, kFlags, 0, 0, nullptr);
@@ -12002,7 +12266,8 @@ void OemCryptoService_DeactivateUsageEntryV12_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeactivateUsageEntryV12_Name, kFlags, 0, 0, nullptr);
@@ -12128,7 +12393,8 @@ void OemCryptoService_ReportUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ReportUsage_Name, kFlags, 0, 0, nullptr);
@@ -12254,7 +12520,8 @@ void OemCryptoService_DeleteUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeleteUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -12373,7 +12640,8 @@ void OemCryptoService_ForceDeleteUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ForceDeleteUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -12492,7 +12760,8 @@ void OemCryptoService_DeleteOldUsageTable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeleteOldUsageTable_Name, kFlags, 0, 0, nullptr);
@@ -12611,7 +12880,8 @@ void OemCryptoService_GetProvisioningMethod_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetProvisioningMethod_Name, kFlags, 0, 0, nullptr);
@@ -12730,7 +13000,8 @@ void OemCryptoService_SupportedCertificates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SupportedCertificates_Name, kFlags, 0, 0, nullptr);
@@ -12848,7 +13119,8 @@ void OemCryptoService_IsSrmUpdateSupported_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsSrmUpdateSupported_Name, kFlags, 0, 0, nullptr);
@@ -12973,7 +13245,8 @@ void OemCryptoService_GetCurrentSrmVersion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetCurrentSrmVersion_Name, kFlags, 0, 0, nullptr);
@@ -13093,7 +13366,8 @@ void OemCryptoService_LoadSrm_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadSrm_Name, kFlags, 0, 0, nullptr);
@@ -13212,7 +13486,8 @@ void OemCryptoService_RemoveSrm_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RemoveSrm_Name, kFlags, 0, 0, nullptr);
@@ -13285,7 +13560,7 @@ class OemCryptoService_CreateUsageTableHeader_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header);
 };
 
 bool OemCryptoService_CreateUsageTableHeader_ForwardToCallback::Accept(
@@ -13299,7 +13574,7 @@ bool OemCryptoService_CreateUsageTableHeader_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_header{};
+  std::optional<std::vector<uint8_t>> p_header{};
   OemCryptoService_CreateUsageTableHeader_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -13321,7 +13596,7 @@ std::move(p_header));
 }
 
 void OemCryptoService_CreateUsageTableHeader_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::CreateUsageTableHeader", "async_response_parameters",
@@ -13332,13 +13607,14 @@ void OemCryptoService_CreateUsageTableHeader_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("header"), in_header,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -13466,7 +13742,8 @@ void OemCryptoService_LoadUsageTableHeader_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -13592,7 +13869,8 @@ void OemCryptoService_CreateNewUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateNewUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -13712,7 +13990,8 @@ void OemCryptoService_LoadUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -13785,7 +14064,7 @@ class OemCryptoService_UpdateUsageEntry_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header, const absl::optional<std::vector<uint8_t>>& in_entry);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header, const std::optional<std::vector<uint8_t>>& in_entry);
 };
 
 bool OemCryptoService_UpdateUsageEntry_ForwardToCallback::Accept(
@@ -13799,8 +14078,8 @@ bool OemCryptoService_UpdateUsageEntry_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_header{};
-  absl::optional<std::vector<uint8_t>> p_entry{};
+  std::optional<std::vector<uint8_t>> p_header{};
+  std::optional<std::vector<uint8_t>> p_entry{};
   OemCryptoService_UpdateUsageEntry_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -13825,7 +14104,7 @@ std::move(p_entry));
 }
 
 void OemCryptoService_UpdateUsageEntry_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header, const absl::optional<std::vector<uint8_t>>& in_entry) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header, const std::optional<std::vector<uint8_t>>& in_entry) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::UpdateUsageEntry", "async_response_parameters",
@@ -13836,16 +14115,17 @@ void OemCryptoService_UpdateUsageEntry_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("header"), in_header,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("entry"), in_entry,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_UpdateUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -13982,7 +14262,8 @@ void OemCryptoService_DeactivateUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DeactivateUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -14055,7 +14336,7 @@ class OemCryptoService_ShrinkUsageTableHeader_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header);
 };
 
 bool OemCryptoService_ShrinkUsageTableHeader_ForwardToCallback::Accept(
@@ -14069,7 +14350,7 @@ bool OemCryptoService_ShrinkUsageTableHeader_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_header{};
+  std::optional<std::vector<uint8_t>> p_header{};
   OemCryptoService_ShrinkUsageTableHeader_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -14091,7 +14372,7 @@ std::move(p_header));
 }
 
 void OemCryptoService_ShrinkUsageTableHeader_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_header) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_header) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::ShrinkUsageTableHeader", "async_response_parameters",
@@ -14102,13 +14383,14 @@ void OemCryptoService_ShrinkUsageTableHeader_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("header"), in_header,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ShrinkUsageTableHeader_Name, kFlags, 0, 0, nullptr);
@@ -14236,7 +14518,8 @@ void OemCryptoService_MoveEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MoveEntry_Name, kFlags, 0, 0, nullptr);
@@ -14355,7 +14638,8 @@ void OemCryptoService_CopyOldUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyOldUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -14474,7 +14758,8 @@ void OemCryptoService_CreateOldUsageEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CreateOldUsageEntry_Name, kFlags, 0, 0, nullptr);
@@ -14593,7 +14878,8 @@ void OemCryptoService_GetAnalogOutputFlags_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetAnalogOutputFlags_Name, kFlags, 0, 0, nullptr);
@@ -14711,7 +14997,8 @@ void OemCryptoService_LoadTestKeybox_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadTestKeybox_Name, kFlags, 0, 0, nullptr);
@@ -14830,7 +15117,8 @@ void OemCryptoService_LoadEntitledContentKeysV14_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadEntitledContentKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -14949,7 +15237,8 @@ void OemCryptoService_SelectKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_SelectKey_Name, kFlags, 0, 0, nullptr);
@@ -15068,7 +15357,8 @@ void OemCryptoService_LoadKeysV14_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeysV14_Name, kFlags, 0, 0, nullptr);
@@ -15187,7 +15477,8 @@ void OemCryptoService_LoadKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadKeys_Name, kFlags, 0, 0, nullptr);
@@ -15306,7 +15597,8 @@ void OemCryptoService_ResourceRatingTier_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_ResourceRatingTier_Name, kFlags, 0, 0, nullptr);
@@ -15424,7 +15716,8 @@ void OemCryptoService_BuildInformation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_BuildInformation_Name, kFlags, 0, 0, nullptr);
@@ -15552,7 +15845,8 @@ void OemCryptoService_RefreshKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_RefreshKeys_Name, kFlags, 0, 0, nullptr);
@@ -15671,7 +15965,8 @@ void OemCryptoService_LoadEntitledContentKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadEntitledContentKeys_Name, kFlags, 0, 0, nullptr);
@@ -15744,7 +16039,7 @@ class OemCryptoService_GetOemPublicCertificate_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_public_cert);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_public_cert);
 };
 
 bool OemCryptoService_GetOemPublicCertificate_ForwardToCallback::Accept(
@@ -15758,7 +16053,7 @@ bool OemCryptoService_GetOemPublicCertificate_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_public_cert{};
+  std::optional<std::vector<uint8_t>> p_public_cert{};
   OemCryptoService_GetOemPublicCertificate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -15780,7 +16075,7 @@ std::move(p_public_cert));
 }
 
 void OemCryptoService_GetOemPublicCertificate_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_public_cert) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_public_cert) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::GetOemPublicCertificate", "async_response_parameters",
@@ -15791,13 +16086,14 @@ void OemCryptoService_GetOemPublicCertificate_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("public_cert"), in_public_cert,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_GetOemPublicCertificate_Name, kFlags, 0, 0, nullptr);
@@ -15925,7 +16221,8 @@ void OemCryptoService_MaximumUsageTableHeaderSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MaximumUsageTableHeaderSize_Name, kFlags, 0, 0, nullptr);
@@ -16043,7 +16340,8 @@ void OemCryptoService_IsAntiRollbackHwPresent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_IsAntiRollbackHwPresent_Name, kFlags, 0, 0, nullptr);
@@ -16161,7 +16459,8 @@ void OemCryptoService_MinorApiVersion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_MinorApiVersion_Name, kFlags, 0, 0, nullptr);
@@ -16233,7 +16532,7 @@ class OemCryptoService_PrepAndSignLicenseRequest_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_PrepAndSignLicenseRequest_ForwardToCallback::Accept(
@@ -16248,8 +16547,8 @@ bool OemCryptoService_PrepAndSignLicenseRequest_ForwardToCallback::Accept(
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
-  absl::optional<std::vector<uint8_t>> p_message{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_message{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_PrepAndSignLicenseRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -16277,7 +16576,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_PrepAndSignLicenseRequest_ProxyToResponder::Run(
-    OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::PrepAndSignLicenseRequest", "async_response_parameters",
@@ -16291,16 +16590,17 @@ void OemCryptoService_PrepAndSignLicenseRequest_ProxyToResponder::Run(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignLicenseRequest_Name, kFlags, 0, 0, nullptr);
@@ -16392,7 +16692,7 @@ class OemCryptoService_PrepAndSignRenewalRequest_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_PrepAndSignRenewalRequest_ForwardToCallback::Accept(
@@ -16407,8 +16707,8 @@ bool OemCryptoService_PrepAndSignRenewalRequest_ForwardToCallback::Accept(
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
-  absl::optional<std::vector<uint8_t>> p_message{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_message{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_PrepAndSignRenewalRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -16436,7 +16736,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_PrepAndSignRenewalRequest_ProxyToResponder::Run(
-    OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::PrepAndSignRenewalRequest", "async_response_parameters",
@@ -16450,16 +16750,17 @@ void OemCryptoService_PrepAndSignRenewalRequest_ProxyToResponder::Run(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignRenewalRequest_Name, kFlags, 0, 0, nullptr);
@@ -16551,7 +16852,7 @@ class OemCryptoService_PrepAndSignProvisioningRequest_ProxyToResponder : public 
 #endif
 
   void Run(
-      OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature);
+      OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature);
 };
 
 bool OemCryptoService_PrepAndSignProvisioningRequest_ForwardToCallback::Accept(
@@ -16566,8 +16867,8 @@ bool OemCryptoService_PrepAndSignProvisioningRequest_ForwardToCallback::Accept(
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
-  absl::optional<std::vector<uint8_t>> p_message{};
-  absl::optional<std::vector<uint8_t>> p_signature{};
+  std::optional<std::vector<uint8_t>> p_message{};
+  std::optional<std::vector<uint8_t>> p_signature{};
   OemCryptoService_PrepAndSignProvisioningRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -16595,7 +16896,7 @@ std::move(p_signature));
 }
 
 void OemCryptoService_PrepAndSignProvisioningRequest_ProxyToResponder::Run(
-    OemCryptoResult in_result, uint32_t in_core_message_size, const absl::optional<std::vector<uint8_t>>& in_message, const absl::optional<std::vector<uint8_t>>& in_signature) {
+    OemCryptoResult in_result, uint32_t in_core_message_size, const std::optional<std::vector<uint8_t>>& in_message, const std::optional<std::vector<uint8_t>>& in_signature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::PrepAndSignProvisioningRequest", "async_response_parameters",
@@ -16609,16 +16910,17 @@ void OemCryptoService_PrepAndSignProvisioningRequest_ProxyToResponder::Run(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signature"), in_signature,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_PrepAndSignProvisioningRequest_Name, kFlags, 0, 0, nullptr);
@@ -16756,7 +17058,8 @@ void OemCryptoService_LoadLicense_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadLicense_Name, kFlags, 0, 0, nullptr);
@@ -16875,7 +17178,8 @@ void OemCryptoService_LoadRenewal_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadRenewal_Name, kFlags, 0, 0, nullptr);
@@ -16948,7 +17252,7 @@ class OemCryptoService_LoadProvisioning_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_wrapped_private_key);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_wrapped_private_key);
 };
 
 bool OemCryptoService_LoadProvisioning_ForwardToCallback::Accept(
@@ -16962,7 +17266,7 @@ bool OemCryptoService_LoadProvisioning_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_wrapped_private_key{};
+  std::optional<std::vector<uint8_t>> p_wrapped_private_key{};
   OemCryptoService_LoadProvisioning_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -16984,7 +17288,7 @@ std::move(p_wrapped_private_key));
 }
 
 void OemCryptoService_LoadProvisioning_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_wrapped_private_key) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_wrapped_private_key) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::LoadProvisioning", "async_response_parameters",
@@ -16995,13 +17299,14 @@ void OemCryptoService_LoadProvisioning_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("wrapped_private_key"), in_wrapped_private_key,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadProvisioning_Name, kFlags, 0, 0, nullptr);
@@ -17129,7 +17434,8 @@ void OemCryptoService_LoadOemPrivateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadOemPrivateKey_Name, kFlags, 0, 0, nullptr);
@@ -17248,7 +17554,8 @@ void OemCryptoService_LoadDrmPrivateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_LoadDrmPrivateKey_Name, kFlags, 0, 0, nullptr);
@@ -17321,7 +17628,7 @@ class OemCryptoService_DecryptCenc_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data);
+      OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data);
 };
 
 bool OemCryptoService_DecryptCenc_ForwardToCallback::Accept(
@@ -17335,7 +17642,7 @@ bool OemCryptoService_DecryptCenc_ForwardToCallback::Accept(
   
   bool success = true;
   OemCryptoResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_decrypted_data{};
+  std::optional<std::vector<uint8_t>> p_decrypted_data{};
   OemCryptoService_DecryptCenc_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -17357,7 +17664,7 @@ std::move(p_decrypted_data));
 }
 
 void OemCryptoService_DecryptCenc_ProxyToResponder::Run(
-    OemCryptoResult in_result, const absl::optional<std::vector<uint8_t>>& in_decrypted_data) {
+    OemCryptoResult in_result, const std::optional<std::vector<uint8_t>>& in_decrypted_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::OemCryptoService::DecryptCenc", "async_response_parameters",
@@ -17368,13 +17675,14 @@ void OemCryptoService_DecryptCenc_ProxyToResponder::Run(
                         "<value of type OemCryptoResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("decrypted_data"), in_decrypted_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_DecryptCenc_Name, kFlags, 0, 0, nullptr);
@@ -17502,7 +17810,8 @@ void OemCryptoService_CopyBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoService_CopyBuffer_Name, kFlags, 0, 0, nullptr);
@@ -20395,162 +20704,162 @@ std::move(p_subsample_flags), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOemCryptoServiceValidationInfo[] = {
-    {&internal::OemCryptoService_InitializeDeprecated_Params_Data::Validate,
+    { &internal::OemCryptoService_InitializeDeprecated_Params_Data::Validate,
      &internal::OemCryptoService_InitializeDeprecated_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_Terminate_Params_Data::Validate,
+    { &internal::OemCryptoService_Terminate_Params_Data::Validate,
      &internal::OemCryptoService_Terminate_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_OpenSession_Params_Data::Validate,
+    { &internal::OemCryptoService_OpenSession_Params_Data::Validate,
      &internal::OemCryptoService_OpenSession_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CloseSession_Params_Data::Validate,
+    { &internal::OemCryptoService_CloseSession_Params_Data::Validate,
      &internal::OemCryptoService_CloseSession_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenerateDerivedKeys_Params_Data::Validate,
+    { &internal::OemCryptoService_GenerateDerivedKeys_Params_Data::Validate,
      &internal::OemCryptoService_GenerateDerivedKeys_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenerateNonce_Params_Data::Validate,
+    { &internal::OemCryptoService_GenerateNonce_Params_Data::Validate,
      &internal::OemCryptoService_GenerateNonce_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenerateSignature_Params_Data::Validate,
+    { &internal::OemCryptoService_GenerateSignature_Params_Data::Validate,
      &internal::OemCryptoService_GenerateSignature_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadKeysV11OrV12_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadKeysV11OrV12_Params_Data::Validate,
      &internal::OemCryptoService_LoadKeysV11OrV12_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_RefreshKeysV14_Params_Data::Validate,
+    { &internal::OemCryptoService_RefreshKeysV14_Params_Data::Validate,
      &internal::OemCryptoService_RefreshKeysV14_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_QueryKeyControl_Params_Data::Validate,
+    { &internal::OemCryptoService_QueryKeyControl_Params_Data::Validate,
      &internal::OemCryptoService_QueryKeyControl_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_SelectKeyV13_Params_Data::Validate,
+    { &internal::OemCryptoService_SelectKeyV13_Params_Data::Validate,
      &internal::OemCryptoService_SelectKeyV13_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DecryptCencV15_Params_Data::Validate,
+    { &internal::OemCryptoService_DecryptCencV15_Params_Data::Validate,
      &internal::OemCryptoService_DecryptCencV15_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenericEncrypt_Params_Data::Validate,
+    { &internal::OemCryptoService_GenericEncrypt_Params_Data::Validate,
      &internal::OemCryptoService_GenericEncrypt_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenericDecrypt_Params_Data::Validate,
+    { &internal::OemCryptoService_GenericDecrypt_Params_Data::Validate,
      &internal::OemCryptoService_GenericDecrypt_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenericSign_Params_Data::Validate,
+    { &internal::OemCryptoService_GenericSign_Params_Data::Validate,
      &internal::OemCryptoService_GenericSign_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenericVerify_Params_Data::Validate,
+    { &internal::OemCryptoService_GenericVerify_Params_Data::Validate,
      &internal::OemCryptoService_GenericVerify_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CopyBufferV14_Params_Data::Validate,
+    { &internal::OemCryptoService_CopyBufferV14_Params_Data::Validate,
      &internal::OemCryptoService_CopyBufferV14_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadTestKeyboxV13_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadTestKeyboxV13_Params_Data::Validate,
      &internal::OemCryptoService_LoadTestKeyboxV13_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_IsRootKeyCertificateValid_Params_Data::Validate,
+    { &internal::OemCryptoService_IsRootKeyCertificateValid_Params_Data::Validate,
      &internal::OemCryptoService_IsRootKeyCertificateValid_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetDeviceId_Params_Data::Validate,
+    { &internal::OemCryptoService_GetDeviceId_Params_Data::Validate,
      &internal::OemCryptoService_GetDeviceId_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetKeyData_Params_Data::Validate,
+    { &internal::OemCryptoService_GetKeyData_Params_Data::Validate,
      &internal::OemCryptoService_GetKeyData_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetRandom_Params_Data::Validate,
+    { &internal::OemCryptoService_GetRandom_Params_Data::Validate,
      &internal::OemCryptoService_GetRandom_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetNumberOfOpenSessions_Params_Data::Validate,
+    { &internal::OemCryptoService_GetNumberOfOpenSessions_Params_Data::Validate,
      &internal::OemCryptoService_GetNumberOfOpenSessions_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetMaxNumberOfSessions_Params_Data::Validate,
+    { &internal::OemCryptoService_GetMaxNumberOfSessions_Params_Data::Validate,
      &internal::OemCryptoService_GetMaxNumberOfSessions_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_RewrapDeviceRsaKey_Params_Data::Validate,
+    { &internal::OemCryptoService_RewrapDeviceRsaKey_Params_Data::Validate,
      &internal::OemCryptoService_RewrapDeviceRsaKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadDeviceRsaKey_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadDeviceRsaKey_Params_Data::Validate,
      &internal::OemCryptoService_LoadDeviceRsaKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GenerateRsaSignature_Params_Data::Validate,
+    { &internal::OemCryptoService_GenerateRsaSignature_Params_Data::Validate,
      &internal::OemCryptoService_GenerateRsaSignature_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DeriveKeysFromSessionKey_Params_Data::Validate,
+    { &internal::OemCryptoService_DeriveKeysFromSessionKey_Params_Data::Validate,
      &internal::OemCryptoService_DeriveKeysFromSessionKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_SecurityPatchLevel_Params_Data::Validate,
+    { &internal::OemCryptoService_SecurityPatchLevel_Params_Data::Validate,
      &internal::OemCryptoService_SecurityPatchLevel_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetHdcpCapability_Params_Data::Validate,
+    { &internal::OemCryptoService_GetHdcpCapability_Params_Data::Validate,
      &internal::OemCryptoService_GetHdcpCapability_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_UpdateUsageTable_Params_Data::Validate,
+    { &internal::OemCryptoService_UpdateUsageTable_Params_Data::Validate,
      &internal::OemCryptoService_UpdateUsageTable_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DeactivateUsageEntryV12_Params_Data::Validate,
+    { &internal::OemCryptoService_DeactivateUsageEntryV12_Params_Data::Validate,
      &internal::OemCryptoService_DeactivateUsageEntryV12_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_ReportUsage_Params_Data::Validate,
+    { &internal::OemCryptoService_ReportUsage_Params_Data::Validate,
      &internal::OemCryptoService_ReportUsage_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DeleteUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_DeleteUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_DeleteUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_ForceDeleteUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_ForceDeleteUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_ForceDeleteUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DeleteOldUsageTable_Params_Data::Validate,
+    { &internal::OemCryptoService_DeleteOldUsageTable_Params_Data::Validate,
      &internal::OemCryptoService_DeleteOldUsageTable_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_Initialize_Params_Data::Validate,
+    { &internal::OemCryptoService_Initialize_Params_Data::Validate,
      &internal::OemCryptoService_Initialize_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetProvisioningMethod_Params_Data::Validate,
+    { &internal::OemCryptoService_GetProvisioningMethod_Params_Data::Validate,
      &internal::OemCryptoService_GetProvisioningMethod_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_SupportedCertificates_Params_Data::Validate,
+    { &internal::OemCryptoService_SupportedCertificates_Params_Data::Validate,
      &internal::OemCryptoService_SupportedCertificates_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_IsSrmUpdateSupported_Params_Data::Validate,
+    { &internal::OemCryptoService_IsSrmUpdateSupported_Params_Data::Validate,
      &internal::OemCryptoService_IsSrmUpdateSupported_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetCurrentSrmVersion_Params_Data::Validate,
+    { &internal::OemCryptoService_GetCurrentSrmVersion_Params_Data::Validate,
      &internal::OemCryptoService_GetCurrentSrmVersion_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadSrm_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadSrm_Params_Data::Validate,
      &internal::OemCryptoService_LoadSrm_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_RemoveSrm_Params_Data::Validate,
+    { &internal::OemCryptoService_RemoveSrm_Params_Data::Validate,
      &internal::OemCryptoService_RemoveSrm_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CreateUsageTableHeader_Params_Data::Validate,
+    { &internal::OemCryptoService_CreateUsageTableHeader_Params_Data::Validate,
      &internal::OemCryptoService_CreateUsageTableHeader_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadUsageTableHeader_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadUsageTableHeader_Params_Data::Validate,
      &internal::OemCryptoService_LoadUsageTableHeader_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CreateNewUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_CreateNewUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_CreateNewUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_LoadUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_UpdateUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_UpdateUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_UpdateUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DeactivateUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_DeactivateUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_DeactivateUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_ShrinkUsageTableHeader_Params_Data::Validate,
+    { &internal::OemCryptoService_ShrinkUsageTableHeader_Params_Data::Validate,
      &internal::OemCryptoService_ShrinkUsageTableHeader_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_MoveEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_MoveEntry_Params_Data::Validate,
      &internal::OemCryptoService_MoveEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CopyOldUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_CopyOldUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_CopyOldUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CreateOldUsageEntry_Params_Data::Validate,
+    { &internal::OemCryptoService_CreateOldUsageEntry_Params_Data::Validate,
      &internal::OemCryptoService_CreateOldUsageEntry_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetAnalogOutputFlags_Params_Data::Validate,
+    { &internal::OemCryptoService_GetAnalogOutputFlags_Params_Data::Validate,
      &internal::OemCryptoService_GetAnalogOutputFlags_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadTestKeybox_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadTestKeybox_Params_Data::Validate,
      &internal::OemCryptoService_LoadTestKeybox_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadEntitledContentKeysV14_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadEntitledContentKeysV14_Params_Data::Validate,
      &internal::OemCryptoService_LoadEntitledContentKeysV14_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_SelectKey_Params_Data::Validate,
+    { &internal::OemCryptoService_SelectKey_Params_Data::Validate,
      &internal::OemCryptoService_SelectKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadKeysV14_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadKeysV14_Params_Data::Validate,
      &internal::OemCryptoService_LoadKeysV14_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadKeys_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadKeys_Params_Data::Validate,
      &internal::OemCryptoService_LoadKeys_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_ResourceRatingTier_Params_Data::Validate,
+    { &internal::OemCryptoService_ResourceRatingTier_Params_Data::Validate,
      &internal::OemCryptoService_ResourceRatingTier_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_BuildInformation_Params_Data::Validate,
+    { &internal::OemCryptoService_BuildInformation_Params_Data::Validate,
      &internal::OemCryptoService_BuildInformation_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_RefreshKeys_Params_Data::Validate,
+    { &internal::OemCryptoService_RefreshKeys_Params_Data::Validate,
      &internal::OemCryptoService_RefreshKeys_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadEntitledContentKeys_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadEntitledContentKeys_Params_Data::Validate,
      &internal::OemCryptoService_LoadEntitledContentKeys_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_GetOemPublicCertificate_Params_Data::Validate,
+    { &internal::OemCryptoService_GetOemPublicCertificate_Params_Data::Validate,
      &internal::OemCryptoService_GetOemPublicCertificate_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_MaximumUsageTableHeaderSize_Params_Data::Validate,
+    { &internal::OemCryptoService_MaximumUsageTableHeaderSize_Params_Data::Validate,
      &internal::OemCryptoService_MaximumUsageTableHeaderSize_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_IsAntiRollbackHwPresent_Params_Data::Validate,
+    { &internal::OemCryptoService_IsAntiRollbackHwPresent_Params_Data::Validate,
      &internal::OemCryptoService_IsAntiRollbackHwPresent_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_MinorApiVersion_Params_Data::Validate,
+    { &internal::OemCryptoService_MinorApiVersion_Params_Data::Validate,
      &internal::OemCryptoService_MinorApiVersion_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_PrepAndSignLicenseRequest_Params_Data::Validate,
+    { &internal::OemCryptoService_PrepAndSignLicenseRequest_Params_Data::Validate,
      &internal::OemCryptoService_PrepAndSignLicenseRequest_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_PrepAndSignRenewalRequest_Params_Data::Validate,
+    { &internal::OemCryptoService_PrepAndSignRenewalRequest_Params_Data::Validate,
      &internal::OemCryptoService_PrepAndSignRenewalRequest_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_PrepAndSignProvisioningRequest_Params_Data::Validate,
+    { &internal::OemCryptoService_PrepAndSignProvisioningRequest_Params_Data::Validate,
      &internal::OemCryptoService_PrepAndSignProvisioningRequest_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadLicense_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadLicense_Params_Data::Validate,
      &internal::OemCryptoService_LoadLicense_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadRenewal_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadRenewal_Params_Data::Validate,
      &internal::OemCryptoService_LoadRenewal_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadProvisioning_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadProvisioning_Params_Data::Validate,
      &internal::OemCryptoService_LoadProvisioning_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadOemPrivateKey_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadOemPrivateKey_Params_Data::Validate,
      &internal::OemCryptoService_LoadOemPrivateKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_LoadDrmPrivateKey_Params_Data::Validate,
+    { &internal::OemCryptoService_LoadDrmPrivateKey_Params_Data::Validate,
      &internal::OemCryptoService_LoadDrmPrivateKey_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_DecryptCenc_Params_Data::Validate,
+    { &internal::OemCryptoService_DecryptCenc_Params_Data::Validate,
      &internal::OemCryptoService_DecryptCenc_ResponseParams_Data::Validate},
-    {&internal::OemCryptoService_CopyBuffer_Params_Data::Validate,
+    { &internal::OemCryptoService_CopyBuffer_Params_Data::Validate,
      &internal::OemCryptoService_CopyBuffer_ResponseParams_Data::Validate},
 };
 
@@ -20634,14 +20943,17 @@ void OemCryptoHostProxy::Connect(
                         "<value of type ::mojo::PendingReceiver<OemCryptoService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoHost_Connect_Name, kFlags, 0, 0, nullptr);
@@ -20717,10 +21029,10 @@ bool OemCryptoHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOemCryptoHostValidationInfo[] = {
-    {&internal::OemCryptoHost_Connect_Params_Data::Validate,
+    { &internal::OemCryptoHost_Connect_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -20816,14 +21128,17 @@ void OemCryptoInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<OemCryptoHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -20928,7 +21243,8 @@ void OemCryptoInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOemCryptoInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -21009,11 +21325,11 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOemCryptoInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::OemCryptoInstance_Init_Params_Data::Validate,
+    { &internal::OemCryptoInstance_Init_Params_Data::Validate,
      &internal::OemCryptoInstance_Init_ResponseParams_Data::Validate},
 };
 
@@ -21665,17 +21981,17 @@ void OemCryptoServiceAsyncWaiter::GenerateNonce(
 
 
 void OemCryptoServiceAsyncWaiter::GenerateSignature(
-    uint32_t session, const std::vector<uint8_t>& message, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& message, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->GenerateSignature(std::move(session),std::move(message),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -21733,17 +22049,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::RefreshKeysV14(
 }
 
 void OemCryptoServiceAsyncWaiter::QueryKeyControl(
-    uint32_t session, const std::vector<uint8_t>& key_id, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_key_control_block) {
+    uint32_t session, const std::vector<uint8_t>& key_id, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_key_control_block) {
   base::RunLoop loop;
   proxy_->QueryKeyControl(std::move(session),std::move(key_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_key_control_block
+             std::optional<std::vector<uint8_t>>* out_key_control_block
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& key_control_block) {*out_result = std::move(result);*out_key_control_block = std::move(key_control_block);
+             const std::optional<std::vector<uint8_t>>& key_control_block) {*out_result = std::move(result);*out_key_control_block = std::move(key_control_block);
             loop->Quit();
           },
           &loop,
@@ -21778,17 +22094,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::SelectKeyV13(
 }
 
 void OemCryptoServiceAsyncWaiter::DecryptCencV15(
-    uint32_t session, const std::vector<uint8_t>& data, bool is_encrypted, const std::vector<uint8_t>& iv, uint32_t block_offset, OemCryptoSecureBufferPtr secure_buffer, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data) {
+    uint32_t session, const std::vector<uint8_t>& data, bool is_encrypted, const std::vector<uint8_t>& iv, uint32_t block_offset, OemCryptoSecureBufferPtr secure_buffer, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data) {
   base::RunLoop loop;
   proxy_->DecryptCencV15(std::move(session),std::move(data),std::move(is_encrypted),std::move(iv),std::move(block_offset),std::move(secure_buffer),std::move(pattern),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_decrypted_data
+             std::optional<std::vector<uint8_t>>* out_decrypted_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
+             const std::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
             loop->Quit();
           },
           &loop,
@@ -21800,17 +22116,17 @@ void OemCryptoServiceAsyncWaiter::DecryptCencV15(
 
 
 void OemCryptoServiceAsyncWaiter::GenericEncrypt(
-    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_encrypted_data) {
+    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_encrypted_data) {
   base::RunLoop loop;
   proxy_->GenericEncrypt(std::move(session),std::move(data),std::move(iv),std::move(algorithm),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_encrypted_data
+             std::optional<std::vector<uint8_t>>* out_encrypted_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& encrypted_data) {*out_result = std::move(result);*out_encrypted_data = std::move(encrypted_data);
+             const std::optional<std::vector<uint8_t>>& encrypted_data) {*out_result = std::move(result);*out_encrypted_data = std::move(encrypted_data);
             loop->Quit();
           },
           &loop,
@@ -21822,17 +22138,17 @@ void OemCryptoServiceAsyncWaiter::GenericEncrypt(
 
 
 void OemCryptoServiceAsyncWaiter::GenericDecrypt(
-    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data) {
+    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data) {
   base::RunLoop loop;
   proxy_->GenericDecrypt(std::move(session),std::move(data),std::move(iv),std::move(algorithm),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_decrypted_data
+             std::optional<std::vector<uint8_t>>* out_decrypted_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
+             const std::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
             loop->Quit();
           },
           &loop,
@@ -21844,17 +22160,17 @@ void OemCryptoServiceAsyncWaiter::GenericDecrypt(
 
 
 void OemCryptoServiceAsyncWaiter::GenericSign(
-    uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->GenericSign(std::move(session),std::move(data),std::move(algorithm),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -21958,17 +22274,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::IsRootKeyCertificateValid(
 }
 
 void OemCryptoServiceAsyncWaiter::GetDeviceId(
-    OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_device_id) {
+    OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_device_id) {
   base::RunLoop loop;
   proxy_->GetDeviceId(
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_device_id
+             std::optional<std::vector<uint8_t>>* out_device_id
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& device_id) {*out_result = std::move(result);*out_device_id = std::move(device_id);
+             const std::optional<std::vector<uint8_t>>& device_id) {*out_result = std::move(result);*out_device_id = std::move(device_id);
             loop->Quit();
           },
           &loop,
@@ -21980,17 +22296,17 @@ void OemCryptoServiceAsyncWaiter::GetDeviceId(
 
 
 void OemCryptoServiceAsyncWaiter::GetKeyData(
-    OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_key_data) {
+    OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_key_data) {
   base::RunLoop loop;
   proxy_->GetKeyData(
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_key_data
+             std::optional<std::vector<uint8_t>>* out_key_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& key_data) {*out_result = std::move(result);*out_key_data = std::move(key_data);
+             const std::optional<std::vector<uint8_t>>& key_data) {*out_result = std::move(result);*out_key_data = std::move(key_data);
             loop->Quit();
           },
           &loop,
@@ -22002,17 +22318,17 @@ void OemCryptoServiceAsyncWaiter::GetKeyData(
 
 
 void OemCryptoServiceAsyncWaiter::GetRandom(
-    uint32_t length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_data) {
+    uint32_t length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_data) {
   base::RunLoop loop;
   proxy_->GetRandom(std::move(length),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_data
+             std::optional<std::vector<uint8_t>>* out_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& data) {*out_result = std::move(result);*out_data = std::move(data);
+             const std::optional<std::vector<uint8_t>>& data) {*out_result = std::move(result);*out_data = std::move(data);
             loop->Quit();
           },
           &loop,
@@ -22068,17 +22384,17 @@ void OemCryptoServiceAsyncWaiter::GetMaxNumberOfSessions(
 
 
 void OemCryptoServiceAsyncWaiter::RewrapDeviceRsaKey(
-    uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, uint32_t nonce_offset, uint32_t enc_rsa_key_offset, uint32_t enc_rsa_key_length, uint32_t enc_rsa_key_iv_offset, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_wrapped_key) {
+    uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, uint32_t nonce_offset, uint32_t enc_rsa_key_offset, uint32_t enc_rsa_key_length, uint32_t enc_rsa_key_iv_offset, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_wrapped_key) {
   base::RunLoop loop;
   proxy_->RewrapDeviceRsaKey(std::move(session),std::move(message),std::move(signature),std::move(nonce_offset),std::move(enc_rsa_key_offset),std::move(enc_rsa_key_length),std::move(enc_rsa_key_iv_offset),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_wrapped_key
+             std::optional<std::vector<uint8_t>>* out_wrapped_key
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& wrapped_key) {*out_result = std::move(result);*out_wrapped_key = std::move(wrapped_key);
+             const std::optional<std::vector<uint8_t>>& wrapped_key) {*out_result = std::move(result);*out_wrapped_key = std::move(wrapped_key);
             loop->Quit();
           },
           &loop,
@@ -22113,17 +22429,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::LoadDeviceRsaKey(
 }
 
 void OemCryptoServiceAsyncWaiter::GenerateRsaSignature(
-    uint32_t session, const std::vector<uint8_t>& message, OemCryptoRsaPaddingScheme padding_scheme, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& message, OemCryptoRsaPaddingScheme padding_scheme, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->GenerateRsaSignature(std::move(session),std::move(message),std::move(padding_scheme),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -22481,17 +22797,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::RemoveSrm(
 }
 
 void OemCryptoServiceAsyncWaiter::CreateUsageTableHeader(
-    uint32_t avail_header_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header) {
+    uint32_t avail_header_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header) {
   base::RunLoop loop;
   proxy_->CreateUsageTableHeader(std::move(avail_header_length),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_header
+             std::optional<std::vector<uint8_t>>* out_header
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& header) {*out_result = std::move(result);*out_header = std::move(header);
+             const std::optional<std::vector<uint8_t>>& header) {*out_result = std::move(result);*out_header = std::move(header);
             loop->Quit();
           },
           &loop,
@@ -22571,20 +22887,20 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::LoadUsageEntry(
 }
 
 void OemCryptoServiceAsyncWaiter::UpdateUsageEntry(
-    uint32_t session, uint32_t avail_header_length, uint32_t avail_entry_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header, absl::optional<std::vector<uint8_t>>* out_entry) {
+    uint32_t session, uint32_t avail_header_length, uint32_t avail_entry_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header, std::optional<std::vector<uint8_t>>* out_entry) {
   base::RunLoop loop;
   proxy_->UpdateUsageEntry(std::move(session),std::move(avail_header_length),std::move(avail_entry_length),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_header
+             std::optional<std::vector<uint8_t>>* out_header
 ,
-             absl::optional<std::vector<uint8_t>>* out_entry
+             std::optional<std::vector<uint8_t>>* out_entry
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& header,
-             const absl::optional<std::vector<uint8_t>>& entry) {*out_result = std::move(result);*out_header = std::move(header);*out_entry = std::move(entry);
+             const std::optional<std::vector<uint8_t>>& header,
+             const std::optional<std::vector<uint8_t>>& entry) {*out_result = std::move(result);*out_header = std::move(header);*out_entry = std::move(entry);
             loop->Quit();
           },
           &loop,
@@ -22620,17 +22936,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::DeactivateUsageEntry(
 }
 
 void OemCryptoServiceAsyncWaiter::ShrinkUsageTableHeader(
-    uint32_t new_entry_count, uint32_t avail_header_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header) {
+    uint32_t new_entry_count, uint32_t avail_header_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header) {
   base::RunLoop loop;
   proxy_->ShrinkUsageTableHeader(std::move(new_entry_count),std::move(avail_header_length),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_header
+             std::optional<std::vector<uint8_t>>* out_header
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& header) {*out_result = std::move(result);*out_header = std::move(header);
+             const std::optional<std::vector<uint8_t>>& header) {*out_result = std::move(result);*out_header = std::move(header);
             loop->Quit();
           },
           &loop,
@@ -22941,17 +23257,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::LoadEntitledContentKeys(
 }
 
 void OemCryptoServiceAsyncWaiter::GetOemPublicCertificate(
-    OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_public_cert) {
+    OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_public_cert) {
   base::RunLoop loop;
   proxy_->GetOemPublicCertificate(
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_public_cert
+             std::optional<std::vector<uint8_t>>* out_public_cert
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& public_cert) {*out_result = std::move(result);*out_public_cert = std::move(public_cert);
+             const std::optional<std::vector<uint8_t>>& public_cert) {*out_result = std::move(result);*out_public_cert = std::move(public_cert);
             loop->Quit();
           },
           &loop,
@@ -23032,7 +23348,7 @@ uint32_t OemCryptoServiceAsyncWaiter::MinorApiVersion(
 }
 
 void OemCryptoServiceAsyncWaiter::PrepAndSignLicenseRequest(
-    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->PrepAndSignLicenseRequest(std::move(session),std::move(message),std::move(core_message_size),std::move(avail_signature_size),
       base::BindOnce(
@@ -23041,14 +23357,14 @@ void OemCryptoServiceAsyncWaiter::PrepAndSignLicenseRequest(
 ,
              uint32_t* out_core_message_size
 ,
-             absl::optional<std::vector<uint8_t>>* out_message
+             std::optional<std::vector<uint8_t>>* out_message
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
              uint32_t core_message_size,
-             const absl::optional<std::vector<uint8_t>>& message,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& message,
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -23062,7 +23378,7 @@ void OemCryptoServiceAsyncWaiter::PrepAndSignLicenseRequest(
 
 
 void OemCryptoServiceAsyncWaiter::PrepAndSignRenewalRequest(
-    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->PrepAndSignRenewalRequest(std::move(session),std::move(message),std::move(core_message_size),std::move(avail_signature_size),
       base::BindOnce(
@@ -23071,14 +23387,14 @@ void OemCryptoServiceAsyncWaiter::PrepAndSignRenewalRequest(
 ,
              uint32_t* out_core_message_size
 ,
-             absl::optional<std::vector<uint8_t>>* out_message
+             std::optional<std::vector<uint8_t>>* out_message
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
              uint32_t core_message_size,
-             const absl::optional<std::vector<uint8_t>>& message,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& message,
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -23092,7 +23408,7 @@ void OemCryptoServiceAsyncWaiter::PrepAndSignRenewalRequest(
 
 
 void OemCryptoServiceAsyncWaiter::PrepAndSignProvisioningRequest(
-    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature) {
+    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature) {
   base::RunLoop loop;
   proxy_->PrepAndSignProvisioningRequest(std::move(session),std::move(message),std::move(core_message_size),std::move(avail_signature_size),
       base::BindOnce(
@@ -23101,14 +23417,14 @@ void OemCryptoServiceAsyncWaiter::PrepAndSignProvisioningRequest(
 ,
              uint32_t* out_core_message_size
 ,
-             absl::optional<std::vector<uint8_t>>* out_message
+             std::optional<std::vector<uint8_t>>* out_message
 ,
-             absl::optional<std::vector<uint8_t>>* out_signature
+             std::optional<std::vector<uint8_t>>* out_signature
 ,
              OemCryptoResult result,
              uint32_t core_message_size,
-             const absl::optional<std::vector<uint8_t>>& message,
-             const absl::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
+             const std::optional<std::vector<uint8_t>>& message,
+             const std::optional<std::vector<uint8_t>>& signature) {*out_result = std::move(result);*out_core_message_size = std::move(core_message_size);*out_message = std::move(message);*out_signature = std::move(signature);
             loop->Quit();
           },
           &loop,
@@ -23168,17 +23484,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::LoadRenewal(
 }
 
 void OemCryptoServiceAsyncWaiter::LoadProvisioning(
-    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, uint32_t avail_wrapped_private_key_size, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_wrapped_private_key) {
+    uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, uint32_t avail_wrapped_private_key_size, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_wrapped_private_key) {
   base::RunLoop loop;
   proxy_->LoadProvisioning(std::move(session),std::move(message),std::move(core_message_length),std::move(signature),std::move(avail_wrapped_private_key_size),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_wrapped_private_key
+             std::optional<std::vector<uint8_t>>* out_wrapped_private_key
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& wrapped_private_key) {*out_result = std::move(result);*out_wrapped_private_key = std::move(wrapped_private_key);
+             const std::optional<std::vector<uint8_t>>& wrapped_private_key) {*out_result = std::move(result);*out_wrapped_private_key = std::move(wrapped_private_key);
             loop->Quit();
           },
           &loop,
@@ -23236,17 +23552,17 @@ OemCryptoResult OemCryptoServiceAsyncWaiter::LoadDrmPrivateKey(
 }
 
 void OemCryptoServiceAsyncWaiter::DecryptCenc(
-    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, std::vector<SubSampleDescriptionPtr> sub_samples, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoSecureBufferPtr secure_buffer, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data) {
+    uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, std::vector<SubSampleDescriptionPtr> sub_samples, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoSecureBufferPtr secure_buffer, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data) {
   base::RunLoop loop;
   proxy_->DecryptCenc(std::move(session),std::move(data),std::move(iv),std::move(sub_samples),std::move(pattern),std::move(secure_buffer),
       base::BindOnce(
           [](base::RunLoop* loop,
              OemCryptoResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_decrypted_data
+             std::optional<std::vector<uint8_t>>* out_decrypted_data
 ,
              OemCryptoResult result,
-             const absl::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
+             const std::optional<std::vector<uint8_t>>& decrypted_data) {*out_result = std::move(result);*out_decrypted_data = std::move(decrypted_data);
             loop->Quit();
           },
           &loop,

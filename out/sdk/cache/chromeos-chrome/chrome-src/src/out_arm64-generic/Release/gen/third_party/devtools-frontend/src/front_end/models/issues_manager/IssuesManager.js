@@ -7,6 +7,7 @@ import { AttributionReportingIssue } from './AttributionReportingIssue.js';
 import { BounceTrackingIssue } from './BounceTrackingIssue.js';
 import { ClientHintIssue } from './ClientHintIssue.js';
 import { ContentSecurityPolicyIssue } from './ContentSecurityPolicyIssue.js';
+import { CookieDeprecationMetadataIssue } from './CookieDeprecationMetadataIssue.js';
 import { CookieIssue } from './CookieIssue.js';
 import { CorsIssue } from './CorsIssue.js';
 import { CrossOriginEmbedderPolicyIssue, isCrossOriginEmbedderPolicyIssue } from './CrossOriginEmbedderPolicyIssue.js';
@@ -98,6 +99,10 @@ const issueCodeHandlers = new Map([
     [
         "PropertyRuleIssue" /* Protocol.Audits.InspectorIssueCode.PropertyRuleIssue */,
         PropertyRuleIssue.fromInspectorIssue,
+    ],
+    [
+        "CookieDeprecationMetadataIssue" /* Protocol.Audits.InspectorIssueCode.CookieDeprecationMetadataIssue */,
+        CookieDeprecationMetadataIssue.fromInspectorIssue,
     ],
 ]);
 /**

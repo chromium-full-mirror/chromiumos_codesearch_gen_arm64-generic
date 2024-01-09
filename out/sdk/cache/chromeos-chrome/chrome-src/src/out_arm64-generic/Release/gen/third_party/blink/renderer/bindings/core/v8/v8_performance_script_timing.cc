@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PerformanceScriptTiming>::value,
     "PerformanceScriptTiming inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PerformanceScriptTiming::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PerformanceScriptTiming is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -104,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.windowAttribution.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->windowAttribution();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->windowAttribution();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -119,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.executionStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->executionStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -133,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.forcedStyleAndLayoutDuration
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forcedStyleAndLayoutDuration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -147,23 +144,10 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.pauseDuration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pauseDuration();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
-}
-
-
-void DesiredExecutionStartAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PerformanceScriptTiming_desiredExecutionStart_Getter");
-BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.desiredExecutionStart.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->desiredExecutionStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
 
@@ -175,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.window.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->window();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -189,11 +174,11 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.sourceLocation.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sourceLocation();
 v8::Isolate* isolate = info.GetIsolate();
-bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
+v8::Local<v8::Object> v8_receiver = info.This();
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sourceLocation();
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
 
@@ -208,8 +193,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceScriptTiming.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceScriptTiming* blink_receiver = V8PerformanceScriptTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -254,7 +240,6 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"executionStart", ExecutionStartAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"forcedStyleAndLayoutDuration", ForcedStyleAndLayoutDurationAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"pauseDuration", PauseDurationAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"desiredExecutionStart", DesiredExecutionStartAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"window", WindowAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"sourceLocation", SourceLocationAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };

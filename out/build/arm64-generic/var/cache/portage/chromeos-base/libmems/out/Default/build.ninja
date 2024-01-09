@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libmems-0.0.1-r513/work/libmems-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -24,42 +24,33 @@ build _libmems_pkg_config-install_config: phony obj/libmems/_libmems_pkg_config-
 build _libmems_test_support-install_config: phony obj/libmems/_libmems_test_support-install_config.stamp
 build _libmems_test_support_pkg_config-install_config: phony obj/libmems/_libmems_test_support_pkg_config-install_config.stamp
 build install_headers: phony obj/libmems/install_headers.stamp
-build install_test_pkg_config: phony obj/libmems/install_test_pkg_config.stamp
 build libmems_pkg_config: phony obj/libmems/libmems_pkg_config.stamp
 build libmems_test_support: phony ./lib/libmems_test_support.so
 build libmems_test_support_pkg_config: phony obj/libmems/libmems_test_support_pkg_config.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libmems$:_libmems-install_config: phony obj/libmems/_libmems-install_config.stamp
 build libmems$:_libmems_pkg_config-install_config: phony obj/libmems/_libmems_pkg_config-install_config.stamp
 build libmems$:_libmems_test_support-install_config: phony obj/libmems/_libmems_test_support-install_config.stamp
 build libmems$:_libmems_test_support_pkg_config-install_config: phony obj/libmems/_libmems_test_support_pkg_config-install_config.stamp
 build libmems$:all: phony obj/libmems/all.stamp
 build libmems$:install_headers: phony obj/libmems/install_headers.stamp
-build libmems$:install_test_pkg_config: phony obj/libmems/install_test_pkg_config.stamp
 build libmems$:libmems: phony ./lib/libmems.so
 build libmems$:libmems_pkg_config: phony obj/libmems/libmems_pkg_config.stamp
 build libmems$:libmems_test_support: phony ./lib/libmems_test_support.so
 build libmems$:libmems_test_support_pkg_config: phony obj/libmems/libmems_test_support_pkg_config.stamp
-build libmems$:libmems_testrunner: phony ./libmems_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libmems/_libmems-install_config.stamp $
     obj/libmems/_libmems_pkg_config-install_config.stamp $
     obj/libmems/_libmems_test_support-install_config.stamp $
     obj/libmems/_libmems_test_support_pkg_config-install_config.stamp $
     obj/libmems/all.stamp $
     obj/libmems/install_headers.stamp $
-    obj/libmems/install_test_pkg_config.stamp $
     ./lib/libmems.so $
     obj/libmems/libmems_pkg_config.stamp $
     ./lib/libmems_test_support.so $
-    obj/libmems/libmems_test_support_pkg_config.stamp $
-    ./libmems_testrunner
+    obj/libmems/libmems_test_support_pkg_config.stamp
 
 default all

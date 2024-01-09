@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/patch/public/mojom/file_patcher.mojom-features.h"
 #include "components/services/patch/public/mojom/file_patcher.mojom-shared.h"
 #include "components/services/patch/public/mojom/file_patcher.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
@@ -72,35 +73,17 @@ class FilePatcher
   using RequestValidator_ = FilePatcherRequestValidator;
   using ResponseValidator_ = FilePatcherResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kPatchFileBsdiffMinVersion = 0,
-    kPatchFileCourgetteMinVersion = 0,
     kPatchFilePuffPatchMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct PatchFileBsdiff_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct PatchFileCourgette_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct PatchFilePuffPatch_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~FilePatcher() = default;
-
-
-  using PatchFileBsdiffCallback = base::OnceCallback<void(int32_t)>;
-  
-  virtual void PatchFileBsdiff(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileBsdiffCallback callback) = 0;
-
-
-  using PatchFileCourgetteCallback = base::OnceCallback<void(int32_t)>;
-  
-  virtual void PatchFileCourgette(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileCourgetteCallback callback) = 0;
 
 
   using PatchFilePuffPatchCallback = base::OnceCallback<void(int32_t)>;
@@ -116,10 +99,6 @@ class  FilePatcherProxy
   using InterfaceType = FilePatcher;
 
   explicit FilePatcherProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void PatchFileBsdiff(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileBsdiffCallback callback) final;
-  
-  void PatchFileCourgette(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileCourgetteCallback callback) final;
   
   void PatchFilePuffPatch(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFilePuffPatchCallback callback) final;
 

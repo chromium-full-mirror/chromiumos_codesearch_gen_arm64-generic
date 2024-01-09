@@ -30,7 +30,7 @@ class PLATFORM_EXPORT FileSystemAccessFileDelegateHostAsyncWaiter {
 
   ~FileSystemAccessFileDelegateHostAsyncWaiter();
   void Read(
-      int64_t offset, int32_t bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read);
+      int64_t offset, int32_t bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read);
   
   void Write(
       int64_t offset, ::mojo::ScopedDataPipeConsumerHandle data, ::base::File::Error* out_error, int32_t* out_bytes_written);

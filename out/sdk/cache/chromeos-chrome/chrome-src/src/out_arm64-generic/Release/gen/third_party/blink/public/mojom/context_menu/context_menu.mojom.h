@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/context_menu/context_menu.mojom-features.h"
 #include "third_party/blink/public/mojom/context_menu/context_menu.mojom-shared.h"
 #include "third_party/blink/public/mojom/context_menu/context_menu.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -654,7 +655,7 @@ class BLINK_COMMON_EXPORT UntrustworthyContextMenuParams {
       int32_t y,
       const ::GURL& link_url,
       const ::std::u16string& link_text,
-      const absl::optional<::blink::Impression>& impression,
+      const std::optional<::blink::Impression>& impression,
       const ::GURL& unfiltered_link_url,
       const ::GURL& src_url,
       bool has_image_contents,
@@ -679,7 +680,7 @@ class BLINK_COMMON_EXPORT UntrustworthyContextMenuParams {
       const ::gfx::Rect& selection_rect,
       int32_t selection_start_offset,
       bool opened_from_highlight,
-      absl::optional<::blink::mojom::FormControlType> form_control_type,
+      std::optional<::blink::mojom::FormControlType> form_control_type,
       bool is_content_editable_for_autofill,
       FieldRendererIdPtr field_renderer_id,
       FormRendererIdPtr form_renderer_id,
@@ -773,7 +774,7 @@ UntrustworthyContextMenuParams& operator=(const UntrustworthyContextMenuParams&)
   
   ::std::u16string link_text;
   
-  absl::optional<::blink::Impression> impression;
+  std::optional<::blink::Impression> impression;
   
   ::GURL unfiltered_link_url;
   
@@ -823,7 +824,7 @@ UntrustworthyContextMenuParams& operator=(const UntrustworthyContextMenuParams&)
   
   bool opened_from_highlight;
   
-  absl::optional<::blink::mojom::FormControlType> form_control_type;
+  std::optional<::blink::mojom::FormControlType> form_control_type;
   
   bool is_content_editable_for_autofill;
   

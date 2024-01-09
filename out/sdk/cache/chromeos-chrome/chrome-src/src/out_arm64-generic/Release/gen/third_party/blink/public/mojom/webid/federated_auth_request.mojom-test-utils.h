@@ -20,12 +20,12 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestInterceptorForTesting : public Fed
   void RequestUserInfo(IdentityProviderConfigPtr provider, RequestUserInfoCallback callback) override;
   void CancelTokenRequest() override;
   void ResolveTokenRequest(const std::string& token, ResolveTokenRequestCallback callback) override;
-  void LogoutRps(std::vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsCallback callback) override;
   void SetIdpSigninStatus(const ::url::Origin& origin, IdpSigninStatus status) override;
   void RegisterIdP(const ::GURL& url, RegisterIdPCallback callback) override;
   void UnregisterIdP(const ::GURL& url, UnregisterIdPCallback callback) override;
   void CloseModalDialogView() override;
   void PreventSilentAccess(PreventSilentAccessCallback callback) override;
+  void Disconnect(IdentityCredentialDisconnectOptionsPtr options, DisconnectCallback callback) override;
 };
 class BLINK_COMMON_EXPORT FederatedAuthRequestAsyncWaiter {
  public:
@@ -36,17 +36,14 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAsyncWaiter {
 
   ~FederatedAuthRequestAsyncWaiter();
   void RequestToken(
-      std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::GURL>* out_selected_identity_provider_config_url, absl::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
+      std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, std::optional<::GURL>* out_selected_identity_provider_config_url, std::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
   
   void RequestUserInfo(
-      IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, absl::optional<std::vector<IdentityUserInfoPtr>>* out_user_info);
+      IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, std::optional<std::vector<IdentityUserInfoPtr>>* out_user_info);
   
   void ResolveTokenRequest(
       const std::string& token, bool* out_success);
   bool ResolveTokenRequest(const std::string& token);
-  void LogoutRps(
-      std::vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsStatus* out_status);
-  LogoutRpsStatus LogoutRps(std::vector<LogoutRpsRequestPtr> rp_logout_requests);
   void RegisterIdP(
       const ::GURL& url, bool* out_accepted);
   bool RegisterIdP(const ::GURL& url);
@@ -56,6 +53,9 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAsyncWaiter {
   void PreventSilentAccess(
       );
   
+  void Disconnect(
+      IdentityCredentialDisconnectOptionsPtr options, DisconnectStatus* out_status);
+  DisconnectStatus Disconnect(IdentityCredentialDisconnectOptionsPtr options);
 
  private:
   FederatedAuthRequest* const proxy_;

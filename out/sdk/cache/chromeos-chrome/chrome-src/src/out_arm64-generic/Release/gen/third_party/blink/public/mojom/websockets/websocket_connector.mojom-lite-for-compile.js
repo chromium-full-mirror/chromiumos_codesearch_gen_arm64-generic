@@ -60,11 +60,12 @@ blink.mojom.WebSocketConnectorInterface = class {
    * @param { !Array<!string> } requestedProtocols
    * @param { !network.mojom.SiteForCookies } siteForCookies
    * @param { ?string } userAgent
+   * @param { !boolean } hasStorageAccess
    * @param { !network.mojom.WebSocketHandshakeClientRemote } handshakeClient
    * @param { ?mojoBase.mojom.UnguessableToken } throttlingProfileId
    */
 
-  connect(url, requestedProtocols, siteForCookies, userAgent, handshakeClient, throttlingProfileId) {}
+  connect(url, requestedProtocols, siteForCookies, userAgent, hasStorageAccess, handshakeClient, throttlingProfileId) {}
 };
 
 /**
@@ -97,6 +98,7 @@ blink.mojom.WebSocketConnectorRemote = class {
    * @param { !Array<!string> } requestedProtocols
    * @param { !network.mojom.SiteForCookies } siteForCookies
    * @param { ?string } userAgent
+   * @param { !boolean } hasStorageAccess
    * @param { !network.mojom.WebSocketHandshakeClientRemote } handshakeClient
    * @param { ?mojoBase.mojom.UnguessableToken } throttlingProfileId
    */
@@ -106,6 +108,7 @@ blink.mojom.WebSocketConnectorRemote = class {
       requestedProtocols,
       siteForCookies,
       userAgent,
+      hasStorageAccess,
       handshakeClient,
       throttlingProfileId) {
     this.proxy.sendMessage(
@@ -117,6 +120,7 @@ blink.mojom.WebSocketConnectorRemote = class {
           requestedProtocols,
           siteForCookies,
           userAgent,
+          hasStorageAccess,
           handshakeClient,
           throttlingProfileId
         ]);
@@ -277,7 +281,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'handshakeClient', 32,
+        'hasStorageAccess', 32,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'handshakeClient', 36,
         0,
         mojo.internal.InterfaceProxy(network.mojom.WebSocketHandshakeClientRemote),
         null,
@@ -285,7 +297,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'throttlingProfileId', 40,
+        'throttlingProfileId', 48,
         0,
         mojoBase.mojom.UnguessableTokenSpec.$,
         null,
@@ -293,7 +305,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 56],]);
+    [[0, 64],]);
 
 
 
@@ -310,6 +322,8 @@ blink.mojom.WebSocketConnector_Connect_Params = class {
     this.siteForCookies;
     /** @export { (string|undefined) } */
     this.userAgent;
+    /** @export { !boolean } */
+    this.hasStorageAccess;
     /** @export { !network.mojom.WebSocketHandshakeClientRemote } */
     this.handshakeClient;
     /** @export { (mojoBase.mojom.UnguessableToken|undefined) } */

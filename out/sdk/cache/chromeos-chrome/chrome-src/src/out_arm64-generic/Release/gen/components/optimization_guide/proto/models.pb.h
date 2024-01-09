@@ -119,11 +119,12 @@ enum OptimizationTarget : int {
   OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION = 36,
   OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER = 37,
   OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE = 38,
-  OPTIMIZATION_TARGET_PRELOADING_HEURISTICS = 39
+  OPTIMIZATION_TARGET_PRELOADING_HEURISTICS = 39,
+  OPTIMIZATION_TARGET_TEXT_SAFETY = 40
 };
 bool OptimizationTarget_IsValid(int value);
 constexpr OptimizationTarget OptimizationTarget_MIN = OPTIMIZATION_TARGET_UNKNOWN;
-constexpr OptimizationTarget OptimizationTarget_MAX = OPTIMIZATION_TARGET_PRELOADING_HEURISTICS;
+constexpr OptimizationTarget OptimizationTarget_MAX = OPTIMIZATION_TARGET_TEXT_SAFETY;
 constexpr int OptimizationTarget_ARRAYSIZE = OptimizationTarget_MAX + 1;
 
 const std::string& OptimizationTarget_Name(OptimizationTarget value);
@@ -150,11 +151,12 @@ enum ModelEngineVersion : int {
   MODEL_ENGINE_VERSION_TFLITE_2_12 = 11,
   MODEL_ENGINE_VERSION_TFLITE_2_13 = 12,
   MODEL_ENGINE_VERSION_TFLITE_2_14 = 13,
-  MODEL_ENGINE_VERSION_TFLITE_2_14_1 = 14
+  MODEL_ENGINE_VERSION_TFLITE_2_14_1 = 14,
+  MODEL_ENGINE_VERSION_TFLITE_2_16 = 15
 };
 bool ModelEngineVersion_IsValid(int value);
 constexpr ModelEngineVersion ModelEngineVersion_MIN = MODEL_ENGINE_VERSION_UNKNOWN;
-constexpr ModelEngineVersion ModelEngineVersion_MAX = MODEL_ENGINE_VERSION_TFLITE_2_14_1;
+constexpr ModelEngineVersion ModelEngineVersion_MAX = MODEL_ENGINE_VERSION_TFLITE_2_16;
 constexpr int ModelEngineVersion_ARRAYSIZE = ModelEngineVersion_MAX + 1;
 
 const std::string& ModelEngineVersion_Name(ModelEngineVersion value);

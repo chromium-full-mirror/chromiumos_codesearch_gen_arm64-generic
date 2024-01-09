@@ -30,6 +30,8 @@ class ScreenShareAreaDataView;
 
 
 enum class DlpRestrictionLevel : int32_t;
+
+enum class FileAction : int32_t;
 class DlpRestrictionLevelAndUrl;
 using DlpRestrictionLevelAndUrlPtr = mojo::StructPtr<DlpRestrictionLevelAndUrl>;
 

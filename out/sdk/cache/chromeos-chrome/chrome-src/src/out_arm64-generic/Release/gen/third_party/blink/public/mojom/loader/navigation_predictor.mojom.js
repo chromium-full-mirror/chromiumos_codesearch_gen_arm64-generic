@@ -1307,6 +1307,119 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(AnchorElementPointerEventForMLModel, val.pointerEvent);
   };
+  function AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.prototype.initDefaults_ = function() {
+  };
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.decode = function(decoder) {
+    var packed;
+    var val = new AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.prototype.initDefaults_ = function() {
+    this.shouldSkipForTesting = false;
+  };
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.shouldSkipForTesting = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.shouldSkipForTesting & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   var kAnchorElementMetricsHost_ReportAnchorElementClick_Name = 0;
   var kAnchorElementMetricsHost_ReportNewAnchorElements_Name = 1;
   var kAnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Name = 2;
@@ -1316,6 +1429,7 @@
   var kAnchorElementMetricsHost_ReportAnchorElementPointerDown_Name = 6;
   var kAnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Name = 7;
   var kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name = 8;
+  var kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name = 9;
 
   function AnchorElementMetricsHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(AnchorElementMetricsHost,
@@ -1470,6 +1584,30 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  AnchorElementMetricsHostPtr.prototype.shouldSkipUpdateDelays = function() {
+    return AnchorElementMetricsHostProxy.prototype.shouldSkipUpdateDelays
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  AnchorElementMetricsHostProxy.prototype.shouldSkipUpdateDelays = function() {
+    var params_ = new AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params();
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name,
+          codec.align(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function AnchorElementMetricsHostStub(delegate) {
     this.delegate_ = delegate;
@@ -1500,6 +1638,9 @@
   }
   AnchorElementMetricsHostStub.prototype.processPointerEventUsingMLModel = function(pointerEvent) {
     return this.delegate_ && this.delegate_.processPointerEventUsingMLModel && this.delegate_.processPointerEventUsingMLModel(pointerEvent);
+  }
+  AnchorElementMetricsHostStub.prototype.shouldSkipUpdateDelays = function() {
+    return this.delegate_ && this.delegate_.shouldSkipUpdateDelays && this.delegate_.shouldSkipUpdateDelays();
   }
 
   AnchorElementMetricsHostStub.prototype.accept = function(message) {
@@ -1550,6 +1691,22 @@
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name:
+      var params = reader.decodeStruct(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params);
+      this.shouldSkipUpdateDelays().then(function(response) {
+        var responseParams =
+            new AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams();
+        responseParams.shouldSkipForTesting = response.shouldSkipForTesting;
+        var builder = new codec.MessageV1Builder(
+            kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name,
+            codec.align(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -1595,6 +1752,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params;
       break;
+      case kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name:
+        if (message.expectsResponse())
+          paramsClass = AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -1602,7 +1763,17 @@
   }
 
   function validateAnchorElementMetricsHostResponse(messageValidator) {
-    return validator.validationError.NONE;
+   var message = messageValidator.message;
+   var paramsClass = null;
+   switch (message.getName()) {
+      case kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name:
+        if (message.isResponse())
+          paramsClass = AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams;
+        break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
   var AnchorElementMetricsHost = {
@@ -1612,10 +1783,10 @@
     proxyClass: AnchorElementMetricsHostProxy,
     stubClass: AnchorElementMetricsHostStub,
     validateRequest: validateAnchorElementMetricsHostRequest,
-    validateResponse: null,
+    validateResponse: validateAnchorElementMetricsHostResponse,
   };
   AnchorElementMetricsHostStub.prototype.validator = validateAnchorElementMetricsHostRequest;
-  AnchorElementMetricsHostProxy.prototype.validator = null;
+  AnchorElementMetricsHostProxy.prototype.validator = validateAnchorElementMetricsHostResponse;
   exports.AnchorElementUserInteractionEventForMLModelType = AnchorElementUserInteractionEventForMLModelType;
   exports.AnchorElementMetrics = AnchorElementMetrics;
   exports.AnchorElementClick = AnchorElementClick;

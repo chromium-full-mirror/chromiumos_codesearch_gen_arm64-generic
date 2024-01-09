@@ -14,7 +14,7 @@ template <class D, class P>
 class TorqueGeneratedExposedTrustedObjectAsserts {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/trusted-object.tq?l=12&c=26
   static constexpr int kSelfIndirectPointerOffset = P::kHeaderSize;
-  static constexpr int kSelfIndirectPointerOffsetEnd = kSelfIndirectPointerOffset + kIndirectPointerSlotSize - 1;
+  static constexpr int kSelfIndirectPointerOffsetEnd = kSelfIndirectPointerOffset + kIndirectPointerSize - 1;
   static constexpr int kStartOfWeakFieldsOffset = kSelfIndirectPointerOffsetEnd + 1;
   static constexpr int kEndOfWeakFieldsOffset = kSelfIndirectPointerOffsetEnd + 1;
   static constexpr int kStartOfStrongFieldsOffset = kSelfIndirectPointerOffsetEnd + 1;

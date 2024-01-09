@@ -2,14 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { getFileTasks } from '../../common/js/api.js';
-import { DialogType } from '../../common/js/dialog_type.js';
 import { getNativeEntry } from '../../common/js/entry_utils.js';
 import { annotateTasks, getDefaultTask, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR } from '../../common/js/file_tasks.js';
-import { util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/files_app_entry_interfaces.js';
-import { PropStatus } from '../../externs/ts/state.js';
-import { constants } from '../../foreground/js/constants.js';
+import { descriptorEqual } from '../../common/js/util.js';
+import { RootType } from '../../common/js/volume_manager_types.js';
+import { FakeEntry, FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { CurrentDirectory, DialogType, DirectoryContent, FileData, FileKey, FileTask, FileTasks, PropStatus, Selection, State } from '../../externs/ts/state.js';
+import { DEFAULT_CROSTINI_VM } from '../../foreground/js/constants.js';
 import { PathComponent } from '../../foreground/js/path_component.js';
 import { Slice } from '../../lib/base_store.js';
 import { keyedKeepFirst } from '../../lib/concurrency_models.js';
@@ -17,7 +16,6 @@ import { getStore } from '../store.js';
 import { cacheEntries } from './all_entries.js';
 /**
  * @fileoverview Current directory slice of the store.
- * @suppress {checkTypes}
  */
 const slice = new Slice('currentDirectory');
 export { slice as currentDirectorySlice };
@@ -79,7 +77,7 @@ function changeDirectoryReducer(currentState, payload) {
             dirCount: 0,
             fileCount: 0,
             hostedCount: undefined,
-            offlineCachedCount: undefined,
+            offlineCachedCount: 0,
             fileTasks: {
                 tasks: [],
                 policyDefaultHandlerStatus: undefined,
@@ -123,7 +121,7 @@ function changeDirectoryReducer(currentState, payload) {
                 return {
                     name: c.name,
                     label: c.name,
-                    key: c.url_,
+                    key: c.getKey(),
                 };
             });
             const locationInfo = volumeManager.getLocationInfo(fileData.entry);
@@ -176,9 +174,10 @@ function updateSelectionReducer(currentState, payload) {
         else {
             selection.fileCount++;
         }
+        const metadata = fileData.metadata;
         // Update hostedCount to undefined if any entry doesn't have the metadata
         // yet.
-        const isHosted = fileData.metadata?.hosted;
+        const isHosted = metadata?.hosted;
         if (isHosted === undefined) {
             selection.hostedCount = undefined;
         }
@@ -187,16 +186,11 @@ function updateSelectionReducer(currentState, payload) {
                 selection.hostedCount++;
             }
         }
-        // Update offlineCachedCount to undefined if any entry doesn't have the
-        // metadata yet.
-        const isOfflineCached = fileData.metadata?.offlineCached;
-        if (isOfflineCached === undefined) {
-            selection.offlineCachedCount = undefined;
-        }
-        else {
-            if (selection.offlineCachedCount !== undefined && isOfflineCached) {
-                selection.offlineCachedCount++;
-            }
+        // If no availableOffline property, then assume it's available.
+        const isOfflineCached = (metadata?.availableOffline === undefined ||
+            metadata?.availableOffline);
+        if (isOfflineCached) {
+            selection.offlineCachedCount++;
         }
     }
     const currentDirectory = {
@@ -276,11 +270,11 @@ function allowCrostiniTask(filesData) {
     }
     const fileData = filesData[0];
     const rootType = fileData.entry.rootType;
-    if (rootType !== VolumeManagerCommon.RootType.CROSTINI) {
+    if (rootType !== RootType.CROSTINI) {
         return false;
     }
     const crostini = window.fileManager.crostini;
-    return crostini.canSharePath(constants.DEFAULT_CROSTINI_VM, fileData.entry, 
+    return crostini.canSharePath(DEFAULT_CROSTINI_VM, fileData.entry, 
     /*persiste=*/ false);
 }
 const emptyAction = (status) => updateFileTasks({
@@ -299,8 +293,7 @@ export async function* fetchFileTasksInternal(filesData) {
     // File Picker/Save As doesn't show the "Open" button.
     dialogType !== DialogType.FULL_PAGE ||
         // The list of available tasks should not be available to trashed items.
-        currentRootType === VolumeManagerCommon.RootType.TRASH ||
-        filesData.length === 0);
+        currentRootType === RootType.TRASH || filesData.length === 0);
     if (shouldDisableTasks) {
         yield emptyAction(PropStatus.SUCCESS);
         return;
@@ -320,7 +313,7 @@ export async function* fetchFileTasksInternal(filesData) {
             return;
         }
         if (!allowCrostiniTask(filesData)) {
-            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !util.descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
+            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
         }
         const tasks = annotateTasks(resultingTasks.tasks, filesData);
         resultingTasks.tasks = tasks;
@@ -329,7 +322,7 @@ export async function* fetchFileTasksInternal(filesData) {
         const defaultTask = getDefaultTask(tasks, resultingTasks.policyDefaultHandlerStatus, taskHistory) ??
             undefined;
         yield updateFileTasks({
-            tasks,
+            tasks: tasks,
             policyDefaultHandlerStatus: resultingTasks.policyDefaultHandlerStatus,
             defaultTask: defaultTask,
             status: PropStatus.SUCCESS,

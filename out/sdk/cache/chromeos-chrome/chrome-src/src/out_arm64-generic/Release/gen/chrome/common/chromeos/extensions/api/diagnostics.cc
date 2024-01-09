@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/chromeos/extensions/api/diagnostics.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -370,8 +371,8 @@ GetAvailableRoutinesResponse::GetAvailableRoutinesResponse()
  {}
 
 GetAvailableRoutinesResponse::~GetAvailableRoutinesResponse() = default;
-GetAvailableRoutinesResponse::GetAvailableRoutinesResponse(GetAvailableRoutinesResponse&& rhs) = default;
-GetAvailableRoutinesResponse& GetAvailableRoutinesResponse::operator=(GetAvailableRoutinesResponse&& rhs) = default;
+GetAvailableRoutinesResponse::GetAvailableRoutinesResponse(GetAvailableRoutinesResponse&& rhs) noexcept = default;
+GetAvailableRoutinesResponse& GetAvailableRoutinesResponse::operator=(GetAvailableRoutinesResponse&& rhs) noexcept = default;
 GetAvailableRoutinesResponse GetAvailableRoutinesResponse::Clone() const {
   GetAvailableRoutinesResponse out;
   out.routines = routines;
@@ -418,34 +419,21 @@ bool GetAvailableRoutinesResponse::Populate(
 }
 
 // static
-std::unique_ptr<GetAvailableRoutinesResponse> GetAvailableRoutinesResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetAvailableRoutinesResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetAvailableRoutinesResponse> GetAvailableRoutinesResponse::FromValue(const base::Value::Dict& value) {
+  GetAvailableRoutinesResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetAvailableRoutinesResponse> GetAvailableRoutinesResponse::FromValue(const base::Value::Dict& value) {
+std::optional<GetAvailableRoutinesResponse> GetAvailableRoutinesResponse::FromValue(const base::Value& value) {
   GetAvailableRoutinesResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetAvailableRoutinesResponse> GetAvailableRoutinesResponse::FromValue(const base::Value& value) {
-  GetAvailableRoutinesResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -471,8 +459,8 @@ GetRoutineUpdateRequest::GetRoutineUpdateRequest()
 command() {}
 
 GetRoutineUpdateRequest::~GetRoutineUpdateRequest() = default;
-GetRoutineUpdateRequest::GetRoutineUpdateRequest(GetRoutineUpdateRequest&& rhs) = default;
-GetRoutineUpdateRequest& GetRoutineUpdateRequest::operator=(GetRoutineUpdateRequest&& rhs) = default;
+GetRoutineUpdateRequest::GetRoutineUpdateRequest(GetRoutineUpdateRequest&& rhs) noexcept = default;
+GetRoutineUpdateRequest& GetRoutineUpdateRequest::operator=(GetRoutineUpdateRequest&& rhs) noexcept = default;
 GetRoutineUpdateRequest GetRoutineUpdateRequest::Clone() const {
   GetRoutineUpdateRequest out;
   out.id = id;
@@ -523,34 +511,21 @@ bool GetRoutineUpdateRequest::Populate(
 }
 
 // static
-std::unique_ptr<GetRoutineUpdateRequest> GetRoutineUpdateRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetRoutineUpdateRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetRoutineUpdateRequest> GetRoutineUpdateRequest::FromValue(const base::Value::Dict& value) {
+  GetRoutineUpdateRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetRoutineUpdateRequest> GetRoutineUpdateRequest::FromValue(const base::Value::Dict& value) {
+std::optional<GetRoutineUpdateRequest> GetRoutineUpdateRequest::FromValue(const base::Value& value) {
   GetRoutineUpdateRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetRoutineUpdateRequest> GetRoutineUpdateRequest::FromValue(const base::Value& value) {
-  GetRoutineUpdateRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -573,8 +548,8 @@ status(),
 user_message() {}
 
 GetRoutineUpdateResponse::~GetRoutineUpdateResponse() = default;
-GetRoutineUpdateResponse::GetRoutineUpdateResponse(GetRoutineUpdateResponse&& rhs) = default;
-GetRoutineUpdateResponse& GetRoutineUpdateResponse::operator=(GetRoutineUpdateResponse&& rhs) = default;
+GetRoutineUpdateResponse::GetRoutineUpdateResponse(GetRoutineUpdateResponse&& rhs) noexcept = default;
+GetRoutineUpdateResponse& GetRoutineUpdateResponse::operator=(GetRoutineUpdateResponse&& rhs) noexcept = default;
 GetRoutineUpdateResponse GetRoutineUpdateResponse::Clone() const {
   GetRoutineUpdateResponse out;
   out.progress_percent = progress_percent;
@@ -606,7 +581,7 @@ bool GetRoutineUpdateResponse::Populate(
     {
       auto* temp = (*output_value).GetIfString();
       if (!temp) {
-        out.output = absl::nullopt;
+        out.output = std::nullopt;
         return false;
       }
       out.output = *temp;
@@ -669,34 +644,21 @@ bool GetRoutineUpdateResponse::Populate(
 }
 
 // static
-std::unique_ptr<GetRoutineUpdateResponse> GetRoutineUpdateResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetRoutineUpdateResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetRoutineUpdateResponse> GetRoutineUpdateResponse::FromValue(const base::Value::Dict& value) {
+  GetRoutineUpdateResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetRoutineUpdateResponse> GetRoutineUpdateResponse::FromValue(const base::Value::Dict& value) {
+std::optional<GetRoutineUpdateResponse> GetRoutineUpdateResponse::FromValue(const base::Value& value) {
   GetRoutineUpdateResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetRoutineUpdateResponse> GetRoutineUpdateResponse::FromValue(const base::Value& value) {
-  GetRoutineUpdateResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -727,8 +689,8 @@ RunAcPowerRoutineRequest::RunAcPowerRoutineRequest()
 : expected_status() {}
 
 RunAcPowerRoutineRequest::~RunAcPowerRoutineRequest() = default;
-RunAcPowerRoutineRequest::RunAcPowerRoutineRequest(RunAcPowerRoutineRequest&& rhs) = default;
-RunAcPowerRoutineRequest& RunAcPowerRoutineRequest::operator=(RunAcPowerRoutineRequest&& rhs) = default;
+RunAcPowerRoutineRequest::RunAcPowerRoutineRequest(RunAcPowerRoutineRequest&& rhs) noexcept = default;
+RunAcPowerRoutineRequest& RunAcPowerRoutineRequest::operator=(RunAcPowerRoutineRequest&& rhs) noexcept = default;
 RunAcPowerRoutineRequest RunAcPowerRoutineRequest::Clone() const {
   RunAcPowerRoutineRequest out;
   out.expected_status = expected_status;
@@ -759,7 +721,7 @@ bool RunAcPowerRoutineRequest::Populate(
     {
       auto* temp = (*expected_power_type_value).GetIfString();
       if (!temp) {
-        out.expected_power_type = absl::nullopt;
+        out.expected_power_type = std::nullopt;
         return false;
       }
       out.expected_power_type = *temp;
@@ -779,34 +741,21 @@ bool RunAcPowerRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunAcPowerRoutineRequest> RunAcPowerRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunAcPowerRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunAcPowerRoutineRequest> RunAcPowerRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunAcPowerRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunAcPowerRoutineRequest> RunAcPowerRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunAcPowerRoutineRequest> RunAcPowerRoutineRequest::FromValue(const base::Value& value) {
   RunAcPowerRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunAcPowerRoutineRequest> RunAcPowerRoutineRequest::FromValue(const base::Value& value) {
-  RunAcPowerRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -830,8 +779,8 @@ RunBatteryChargeRoutineRequest::RunBatteryChargeRoutineRequest()
 minimum_charge_percent_required(0) {}
 
 RunBatteryChargeRoutineRequest::~RunBatteryChargeRoutineRequest() = default;
-RunBatteryChargeRoutineRequest::RunBatteryChargeRoutineRequest(RunBatteryChargeRoutineRequest&& rhs) = default;
-RunBatteryChargeRoutineRequest& RunBatteryChargeRoutineRequest::operator=(RunBatteryChargeRoutineRequest&& rhs) = default;
+RunBatteryChargeRoutineRequest::RunBatteryChargeRoutineRequest(RunBatteryChargeRoutineRequest&& rhs) noexcept = default;
+RunBatteryChargeRoutineRequest& RunBatteryChargeRoutineRequest::operator=(RunBatteryChargeRoutineRequest&& rhs) noexcept = default;
 RunBatteryChargeRoutineRequest RunBatteryChargeRoutineRequest::Clone() const {
   RunBatteryChargeRoutineRequest out;
   out.length_seconds = length_seconds;
@@ -879,34 +828,21 @@ bool RunBatteryChargeRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunBatteryChargeRoutineRequest> RunBatteryChargeRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunBatteryChargeRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunBatteryChargeRoutineRequest> RunBatteryChargeRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunBatteryChargeRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunBatteryChargeRoutineRequest> RunBatteryChargeRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunBatteryChargeRoutineRequest> RunBatteryChargeRoutineRequest::FromValue(const base::Value& value) {
   RunBatteryChargeRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunBatteryChargeRoutineRequest> RunBatteryChargeRoutineRequest::FromValue(const base::Value& value) {
-  RunBatteryChargeRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -928,8 +864,8 @@ RunBatteryDischargeRoutineRequest::RunBatteryDischargeRoutineRequest()
 maximum_discharge_percent_allowed(0) {}
 
 RunBatteryDischargeRoutineRequest::~RunBatteryDischargeRoutineRequest() = default;
-RunBatteryDischargeRoutineRequest::RunBatteryDischargeRoutineRequest(RunBatteryDischargeRoutineRequest&& rhs) = default;
-RunBatteryDischargeRoutineRequest& RunBatteryDischargeRoutineRequest::operator=(RunBatteryDischargeRoutineRequest&& rhs) = default;
+RunBatteryDischargeRoutineRequest::RunBatteryDischargeRoutineRequest(RunBatteryDischargeRoutineRequest&& rhs) noexcept = default;
+RunBatteryDischargeRoutineRequest& RunBatteryDischargeRoutineRequest::operator=(RunBatteryDischargeRoutineRequest&& rhs) noexcept = default;
 RunBatteryDischargeRoutineRequest RunBatteryDischargeRoutineRequest::Clone() const {
   RunBatteryDischargeRoutineRequest out;
   out.length_seconds = length_seconds;
@@ -977,34 +913,21 @@ bool RunBatteryDischargeRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunBatteryDischargeRoutineRequest> RunBatteryDischargeRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunBatteryDischargeRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunBatteryDischargeRoutineRequest> RunBatteryDischargeRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunBatteryDischargeRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunBatteryDischargeRoutineRequest> RunBatteryDischargeRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunBatteryDischargeRoutineRequest> RunBatteryDischargeRoutineRequest::FromValue(const base::Value& value) {
   RunBatteryDischargeRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunBatteryDischargeRoutineRequest> RunBatteryDischargeRoutineRequest::FromValue(const base::Value& value) {
-  RunBatteryDischargeRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1025,8 +948,8 @@ RunBluetoothPairingRoutineRequest::RunBluetoothPairingRoutineRequest()
  {}
 
 RunBluetoothPairingRoutineRequest::~RunBluetoothPairingRoutineRequest() = default;
-RunBluetoothPairingRoutineRequest::RunBluetoothPairingRoutineRequest(RunBluetoothPairingRoutineRequest&& rhs) = default;
-RunBluetoothPairingRoutineRequest& RunBluetoothPairingRoutineRequest::operator=(RunBluetoothPairingRoutineRequest&& rhs) = default;
+RunBluetoothPairingRoutineRequest::RunBluetoothPairingRoutineRequest(RunBluetoothPairingRoutineRequest&& rhs) noexcept = default;
+RunBluetoothPairingRoutineRequest& RunBluetoothPairingRoutineRequest::operator=(RunBluetoothPairingRoutineRequest&& rhs) noexcept = default;
 RunBluetoothPairingRoutineRequest RunBluetoothPairingRoutineRequest::Clone() const {
   RunBluetoothPairingRoutineRequest out;
   out.peripheral_id = peripheral_id;
@@ -1061,34 +984,21 @@ bool RunBluetoothPairingRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunBluetoothPairingRoutineRequest> RunBluetoothPairingRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunBluetoothPairingRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunBluetoothPairingRoutineRequest> RunBluetoothPairingRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunBluetoothPairingRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunBluetoothPairingRoutineRequest> RunBluetoothPairingRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunBluetoothPairingRoutineRequest> RunBluetoothPairingRoutineRequest::FromValue(const base::Value& value) {
   RunBluetoothPairingRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunBluetoothPairingRoutineRequest> RunBluetoothPairingRoutineRequest::FromValue(const base::Value& value) {
-  RunBluetoothPairingRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1107,8 +1017,8 @@ RunBluetoothScanningRoutineRequest::RunBluetoothScanningRoutineRequest()
 : length_seconds(0) {}
 
 RunBluetoothScanningRoutineRequest::~RunBluetoothScanningRoutineRequest() = default;
-RunBluetoothScanningRoutineRequest::RunBluetoothScanningRoutineRequest(RunBluetoothScanningRoutineRequest&& rhs) = default;
-RunBluetoothScanningRoutineRequest& RunBluetoothScanningRoutineRequest::operator=(RunBluetoothScanningRoutineRequest&& rhs) = default;
+RunBluetoothScanningRoutineRequest::RunBluetoothScanningRoutineRequest(RunBluetoothScanningRoutineRequest&& rhs) noexcept = default;
+RunBluetoothScanningRoutineRequest& RunBluetoothScanningRoutineRequest::operator=(RunBluetoothScanningRoutineRequest&& rhs) noexcept = default;
 RunBluetoothScanningRoutineRequest RunBluetoothScanningRoutineRequest::Clone() const {
   RunBluetoothScanningRoutineRequest out;
   out.length_seconds = length_seconds;
@@ -1143,34 +1053,21 @@ bool RunBluetoothScanningRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunBluetoothScanningRoutineRequest> RunBluetoothScanningRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunBluetoothScanningRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunBluetoothScanningRoutineRequest> RunBluetoothScanningRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunBluetoothScanningRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunBluetoothScanningRoutineRequest> RunBluetoothScanningRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunBluetoothScanningRoutineRequest> RunBluetoothScanningRoutineRequest::FromValue(const base::Value& value) {
   RunBluetoothScanningRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunBluetoothScanningRoutineRequest> RunBluetoothScanningRoutineRequest::FromValue(const base::Value& value) {
-  RunBluetoothScanningRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1189,8 +1086,8 @@ RunCpuRoutineRequest::RunCpuRoutineRequest()
 : length_seconds(0) {}
 
 RunCpuRoutineRequest::~RunCpuRoutineRequest() = default;
-RunCpuRoutineRequest::RunCpuRoutineRequest(RunCpuRoutineRequest&& rhs) = default;
-RunCpuRoutineRequest& RunCpuRoutineRequest::operator=(RunCpuRoutineRequest&& rhs) = default;
+RunCpuRoutineRequest::RunCpuRoutineRequest(RunCpuRoutineRequest&& rhs) noexcept = default;
+RunCpuRoutineRequest& RunCpuRoutineRequest::operator=(RunCpuRoutineRequest&& rhs) noexcept = default;
 RunCpuRoutineRequest RunCpuRoutineRequest::Clone() const {
   RunCpuRoutineRequest out;
   out.length_seconds = length_seconds;
@@ -1225,34 +1122,21 @@ bool RunCpuRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunCpuRoutineRequest> RunCpuRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunCpuRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunCpuRoutineRequest> RunCpuRoutineRequest::FromValue(const base::Value::Dict& value) {
+  RunCpuRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunCpuRoutineRequest> RunCpuRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunCpuRoutineRequest> RunCpuRoutineRequest::FromValue(const base::Value& value) {
   RunCpuRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunCpuRoutineRequest> RunCpuRoutineRequest::FromValue(const base::Value& value) {
-  RunCpuRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1273,8 +1157,8 @@ length_seconds(0),
 file_size_mb(0) {}
 
 RunDiskReadRequest::~RunDiskReadRequest() = default;
-RunDiskReadRequest::RunDiskReadRequest(RunDiskReadRequest&& rhs) = default;
-RunDiskReadRequest& RunDiskReadRequest::operator=(RunDiskReadRequest&& rhs) = default;
+RunDiskReadRequest::RunDiskReadRequest(RunDiskReadRequest&& rhs) noexcept = default;
+RunDiskReadRequest& RunDiskReadRequest::operator=(RunDiskReadRequest&& rhs) noexcept = default;
 RunDiskReadRequest RunDiskReadRequest::Clone() const {
   RunDiskReadRequest out;
   out.type = type;
@@ -1338,34 +1222,21 @@ bool RunDiskReadRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunDiskReadRequest> RunDiskReadRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunDiskReadRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunDiskReadRequest> RunDiskReadRequest::FromValue(const base::Value::Dict& value) {
+  RunDiskReadRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunDiskReadRequest> RunDiskReadRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunDiskReadRequest> RunDiskReadRequest::FromValue(const base::Value& value) {
   RunDiskReadRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunDiskReadRequest> RunDiskReadRequest::FromValue(const base::Value& value) {
-  RunDiskReadRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1414,8 +1285,8 @@ RunNvmeSelfTestRequest::RunNvmeSelfTestRequest()
 : test_type() {}
 
 RunNvmeSelfTestRequest::~RunNvmeSelfTestRequest() = default;
-RunNvmeSelfTestRequest::RunNvmeSelfTestRequest(RunNvmeSelfTestRequest&& rhs) = default;
-RunNvmeSelfTestRequest& RunNvmeSelfTestRequest::operator=(RunNvmeSelfTestRequest&& rhs) = default;
+RunNvmeSelfTestRequest::RunNvmeSelfTestRequest(RunNvmeSelfTestRequest&& rhs) noexcept = default;
+RunNvmeSelfTestRequest& RunNvmeSelfTestRequest::operator=(RunNvmeSelfTestRequest&& rhs) noexcept = default;
 RunNvmeSelfTestRequest RunNvmeSelfTestRequest::Clone() const {
   RunNvmeSelfTestRequest out;
   out.test_type = test_type;
@@ -1453,34 +1324,21 @@ bool RunNvmeSelfTestRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunNvmeSelfTestRequest> RunNvmeSelfTestRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunNvmeSelfTestRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunNvmeSelfTestRequest> RunNvmeSelfTestRequest::FromValue(const base::Value::Dict& value) {
+  RunNvmeSelfTestRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunNvmeSelfTestRequest> RunNvmeSelfTestRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunNvmeSelfTestRequest> RunNvmeSelfTestRequest::FromValue(const base::Value& value) {
   RunNvmeSelfTestRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunNvmeSelfTestRequest> RunNvmeSelfTestRequest::FromValue(const base::Value& value) {
-  RunNvmeSelfTestRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1499,8 +1357,8 @@ RunNvmeWearLevelRequest::RunNvmeWearLevelRequest()
 : wear_level_threshold(0) {}
 
 RunNvmeWearLevelRequest::~RunNvmeWearLevelRequest() = default;
-RunNvmeWearLevelRequest::RunNvmeWearLevelRequest(RunNvmeWearLevelRequest&& rhs) = default;
-RunNvmeWearLevelRequest& RunNvmeWearLevelRequest::operator=(RunNvmeWearLevelRequest&& rhs) = default;
+RunNvmeWearLevelRequest::RunNvmeWearLevelRequest(RunNvmeWearLevelRequest&& rhs) noexcept = default;
+RunNvmeWearLevelRequest& RunNvmeWearLevelRequest::operator=(RunNvmeWearLevelRequest&& rhs) noexcept = default;
 RunNvmeWearLevelRequest RunNvmeWearLevelRequest::Clone() const {
   RunNvmeWearLevelRequest out;
   out.wear_level_threshold = wear_level_threshold;
@@ -1535,34 +1393,21 @@ bool RunNvmeWearLevelRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunNvmeWearLevelRequest> RunNvmeWearLevelRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunNvmeWearLevelRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunNvmeWearLevelRequest> RunNvmeWearLevelRequest::FromValue(const base::Value::Dict& value) {
+  RunNvmeWearLevelRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunNvmeWearLevelRequest> RunNvmeWearLevelRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunNvmeWearLevelRequest> RunNvmeWearLevelRequest::FromValue(const base::Value& value) {
   RunNvmeWearLevelRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunNvmeWearLevelRequest> RunNvmeWearLevelRequest::FromValue(const base::Value& value) {
-  RunNvmeWearLevelRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1581,8 +1426,8 @@ RunSmartctlCheckRequest::RunSmartctlCheckRequest()
  {}
 
 RunSmartctlCheckRequest::~RunSmartctlCheckRequest() = default;
-RunSmartctlCheckRequest::RunSmartctlCheckRequest(RunSmartctlCheckRequest&& rhs) = default;
-RunSmartctlCheckRequest& RunSmartctlCheckRequest::operator=(RunSmartctlCheckRequest&& rhs) = default;
+RunSmartctlCheckRequest::RunSmartctlCheckRequest(RunSmartctlCheckRequest&& rhs) noexcept = default;
+RunSmartctlCheckRequest& RunSmartctlCheckRequest::operator=(RunSmartctlCheckRequest&& rhs) noexcept = default;
 RunSmartctlCheckRequest RunSmartctlCheckRequest::Clone() const {
   RunSmartctlCheckRequest out;
   out.percentage_used_threshold = percentage_used_threshold;
@@ -1597,7 +1442,7 @@ bool RunSmartctlCheckRequest::Populate(
     {
       auto temp = (*percentage_used_threshold_value).GetIfInt();
       if (!temp.has_value()) {
-        out.percentage_used_threshold = absl::nullopt;
+        out.percentage_used_threshold = std::nullopt;
         return false;
       }
       out.percentage_used_threshold = *temp;
@@ -1617,34 +1462,21 @@ bool RunSmartctlCheckRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunSmartctlCheckRequest> RunSmartctlCheckRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunSmartctlCheckRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunSmartctlCheckRequest> RunSmartctlCheckRequest::FromValue(const base::Value::Dict& value) {
+  RunSmartctlCheckRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunSmartctlCheckRequest> RunSmartctlCheckRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunSmartctlCheckRequest> RunSmartctlCheckRequest::FromValue(const base::Value& value) {
   RunSmartctlCheckRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunSmartctlCheckRequest> RunSmartctlCheckRequest::FromValue(const base::Value& value) {
-  RunSmartctlCheckRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1665,8 +1497,8 @@ RunPowerButtonRequest::RunPowerButtonRequest()
 : timeout_seconds(0) {}
 
 RunPowerButtonRequest::~RunPowerButtonRequest() = default;
-RunPowerButtonRequest::RunPowerButtonRequest(RunPowerButtonRequest&& rhs) = default;
-RunPowerButtonRequest& RunPowerButtonRequest::operator=(RunPowerButtonRequest&& rhs) = default;
+RunPowerButtonRequest::RunPowerButtonRequest(RunPowerButtonRequest&& rhs) noexcept = default;
+RunPowerButtonRequest& RunPowerButtonRequest::operator=(RunPowerButtonRequest&& rhs) noexcept = default;
 RunPowerButtonRequest RunPowerButtonRequest::Clone() const {
   RunPowerButtonRequest out;
   out.timeout_seconds = timeout_seconds;
@@ -1701,34 +1533,21 @@ bool RunPowerButtonRequest::Populate(
 }
 
 // static
-std::unique_ptr<RunPowerButtonRequest> RunPowerButtonRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunPowerButtonRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunPowerButtonRequest> RunPowerButtonRequest::FromValue(const base::Value::Dict& value) {
+  RunPowerButtonRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunPowerButtonRequest> RunPowerButtonRequest::FromValue(const base::Value::Dict& value) {
+std::optional<RunPowerButtonRequest> RunPowerButtonRequest::FromValue(const base::Value& value) {
   RunPowerButtonRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunPowerButtonRequest> RunPowerButtonRequest::FromValue(const base::Value& value) {
-  RunPowerButtonRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1748,8 +1567,8 @@ RunRoutineResponse::RunRoutineResponse()
 status() {}
 
 RunRoutineResponse::~RunRoutineResponse() = default;
-RunRoutineResponse::RunRoutineResponse(RunRoutineResponse&& rhs) = default;
-RunRoutineResponse& RunRoutineResponse::operator=(RunRoutineResponse&& rhs) = default;
+RunRoutineResponse::RunRoutineResponse(RunRoutineResponse&& rhs) noexcept = default;
+RunRoutineResponse& RunRoutineResponse::operator=(RunRoutineResponse&& rhs) noexcept = default;
 RunRoutineResponse RunRoutineResponse::Clone() const {
   RunRoutineResponse out;
   out.id = id;
@@ -1800,34 +1619,21 @@ bool RunRoutineResponse::Populate(
 }
 
 // static
-std::unique_ptr<RunRoutineResponse> RunRoutineResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunRoutineResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunRoutineResponse> RunRoutineResponse::FromValue(const base::Value::Dict& value) {
+  RunRoutineResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunRoutineResponse> RunRoutineResponse::FromValue(const base::Value::Dict& value) {
+std::optional<RunRoutineResponse> RunRoutineResponse::FromValue(const base::Value& value) {
   RunRoutineResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunRoutineResponse> RunRoutineResponse::FromValue(const base::Value& value) {
-  RunRoutineResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1848,8 +1654,8 @@ RoutineInitializedInfo::RoutineInitializedInfo()
  {}
 
 RoutineInitializedInfo::~RoutineInitializedInfo() = default;
-RoutineInitializedInfo::RoutineInitializedInfo(RoutineInitializedInfo&& rhs) = default;
-RoutineInitializedInfo& RoutineInitializedInfo::operator=(RoutineInitializedInfo&& rhs) = default;
+RoutineInitializedInfo::RoutineInitializedInfo(RoutineInitializedInfo&& rhs) noexcept = default;
+RoutineInitializedInfo& RoutineInitializedInfo::operator=(RoutineInitializedInfo&& rhs) noexcept = default;
 RoutineInitializedInfo RoutineInitializedInfo::Clone() const {
   RoutineInitializedInfo out;
   out.uuid = uuid;
@@ -1864,7 +1670,7 @@ bool RoutineInitializedInfo::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -1884,34 +1690,21 @@ bool RoutineInitializedInfo::Populate(
 }
 
 // static
-std::unique_ptr<RoutineInitializedInfo> RoutineInitializedInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RoutineInitializedInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RoutineInitializedInfo> RoutineInitializedInfo::FromValue(const base::Value::Dict& value) {
+  RoutineInitializedInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RoutineInitializedInfo> RoutineInitializedInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RoutineInitializedInfo> RoutineInitializedInfo::FromValue(const base::Value& value) {
   RoutineInitializedInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RoutineInitializedInfo> RoutineInitializedInfo::FromValue(const base::Value& value) {
-  RoutineInitializedInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1932,8 +1725,8 @@ RoutineRunningInfo::RoutineRunningInfo()
  {}
 
 RoutineRunningInfo::~RoutineRunningInfo() = default;
-RoutineRunningInfo::RoutineRunningInfo(RoutineRunningInfo&& rhs) = default;
-RoutineRunningInfo& RoutineRunningInfo::operator=(RoutineRunningInfo&& rhs) = default;
+RoutineRunningInfo::RoutineRunningInfo(RoutineRunningInfo&& rhs) noexcept = default;
+RoutineRunningInfo& RoutineRunningInfo::operator=(RoutineRunningInfo&& rhs) noexcept = default;
 RoutineRunningInfo RoutineRunningInfo::Clone() const {
   RoutineRunningInfo out;
   out.uuid = uuid;
@@ -1949,7 +1742,7 @@ bool RoutineRunningInfo::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -1961,7 +1754,7 @@ bool RoutineRunningInfo::Populate(
     {
       auto temp = (*percentage_value).GetIfInt();
       if (!temp.has_value()) {
-        out.percentage = absl::nullopt;
+        out.percentage = std::nullopt;
         return false;
       }
       out.percentage = *temp;
@@ -1981,34 +1774,21 @@ bool RoutineRunningInfo::Populate(
 }
 
 // static
-std::unique_ptr<RoutineRunningInfo> RoutineRunningInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RoutineRunningInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RoutineRunningInfo> RoutineRunningInfo::FromValue(const base::Value::Dict& value) {
+  RoutineRunningInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RoutineRunningInfo> RoutineRunningInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RoutineRunningInfo> RoutineRunningInfo::FromValue(const base::Value& value) {
   RoutineRunningInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RoutineRunningInfo> RoutineRunningInfo::FromValue(const base::Value& value) {
-  RoutineRunningInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2059,8 +1839,8 @@ RoutineWaitingInfo::RoutineWaitingInfo()
 : reason() {}
 
 RoutineWaitingInfo::~RoutineWaitingInfo() = default;
-RoutineWaitingInfo::RoutineWaitingInfo(RoutineWaitingInfo&& rhs) = default;
-RoutineWaitingInfo& RoutineWaitingInfo::operator=(RoutineWaitingInfo&& rhs) = default;
+RoutineWaitingInfo::RoutineWaitingInfo(RoutineWaitingInfo&& rhs) noexcept = default;
+RoutineWaitingInfo& RoutineWaitingInfo::operator=(RoutineWaitingInfo&& rhs) noexcept = default;
 RoutineWaitingInfo RoutineWaitingInfo::Clone() const {
   RoutineWaitingInfo out;
   out.uuid = uuid;
@@ -2079,7 +1859,7 @@ bool RoutineWaitingInfo::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -2091,7 +1871,7 @@ bool RoutineWaitingInfo::Populate(
     {
       auto temp = (*percentage_value).GetIfInt();
       if (!temp.has_value()) {
-        out.percentage = absl::nullopt;
+        out.percentage = std::nullopt;
         return false;
       }
       out.percentage = *temp;
@@ -2119,7 +1899,7 @@ bool RoutineWaitingInfo::Populate(
     {
       auto* temp = (*message_value).GetIfString();
       if (!temp) {
-        out.message = absl::nullopt;
+        out.message = std::nullopt;
         return false;
       }
       out.message = *temp;
@@ -2139,34 +1919,21 @@ bool RoutineWaitingInfo::Populate(
 }
 
 // static
-std::unique_ptr<RoutineWaitingInfo> RoutineWaitingInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RoutineWaitingInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RoutineWaitingInfo> RoutineWaitingInfo::FromValue(const base::Value::Dict& value) {
+  RoutineWaitingInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RoutineWaitingInfo> RoutineWaitingInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RoutineWaitingInfo> RoutineWaitingInfo::FromValue(const base::Value& value) {
   RoutineWaitingInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RoutineWaitingInfo> RoutineWaitingInfo::FromValue(const base::Value& value) {
-  RoutineWaitingInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2233,8 +2000,8 @@ ExceptionInfo::ExceptionInfo()
 : reason() {}
 
 ExceptionInfo::~ExceptionInfo() = default;
-ExceptionInfo::ExceptionInfo(ExceptionInfo&& rhs) = default;
-ExceptionInfo& ExceptionInfo::operator=(ExceptionInfo&& rhs) = default;
+ExceptionInfo::ExceptionInfo(ExceptionInfo&& rhs) noexcept = default;
+ExceptionInfo& ExceptionInfo::operator=(ExceptionInfo&& rhs) noexcept = default;
 ExceptionInfo ExceptionInfo::Clone() const {
   ExceptionInfo out;
   out.uuid = uuid;
@@ -2251,7 +2018,7 @@ bool ExceptionInfo::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -2278,7 +2045,7 @@ bool ExceptionInfo::Populate(
     {
       auto* temp = (*debug_message_value).GetIfString();
       if (!temp) {
-        out.debug_message = absl::nullopt;
+        out.debug_message = std::nullopt;
         return false;
       }
       out.debug_message = *temp;
@@ -2298,34 +2065,21 @@ bool ExceptionInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExceptionInfo> ExceptionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExceptionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExceptionInfo> ExceptionInfo::FromValue(const base::Value::Dict& value) {
+  ExceptionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExceptionInfo> ExceptionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExceptionInfo> ExceptionInfo::FromValue(const base::Value& value) {
   ExceptionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExceptionInfo> ExceptionInfo::FromValue(const base::Value& value) {
-  ExceptionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2446,8 +2200,8 @@ MemtesterResult::MemtesterResult()
  {}
 
 MemtesterResult::~MemtesterResult() = default;
-MemtesterResult::MemtesterResult(MemtesterResult&& rhs) = default;
-MemtesterResult& MemtesterResult::operator=(MemtesterResult&& rhs) = default;
+MemtesterResult::MemtesterResult(MemtesterResult&& rhs) noexcept = default;
+MemtesterResult& MemtesterResult::operator=(MemtesterResult&& rhs) noexcept = default;
 MemtesterResult MemtesterResult::Clone() const {
   MemtesterResult out;
   out.passed_items = passed_items;
@@ -2519,34 +2273,21 @@ bool MemtesterResult::Populate(
 }
 
 // static
-std::unique_ptr<MemtesterResult> MemtesterResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MemtesterResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MemtesterResult> MemtesterResult::FromValue(const base::Value::Dict& value) {
+  MemtesterResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MemtesterResult> MemtesterResult::FromValue(const base::Value::Dict& value) {
+std::optional<MemtesterResult> MemtesterResult::FromValue(const base::Value& value) {
   MemtesterResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MemtesterResult> MemtesterResult::FromValue(const base::Value& value) {
-  MemtesterResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2579,8 +2320,8 @@ MemoryRoutineFinishedInfo::MemoryRoutineFinishedInfo()
  {}
 
 MemoryRoutineFinishedInfo::~MemoryRoutineFinishedInfo() = default;
-MemoryRoutineFinishedInfo::MemoryRoutineFinishedInfo(MemoryRoutineFinishedInfo&& rhs) = default;
-MemoryRoutineFinishedInfo& MemoryRoutineFinishedInfo::operator=(MemoryRoutineFinishedInfo&& rhs) = default;
+MemoryRoutineFinishedInfo::MemoryRoutineFinishedInfo(MemoryRoutineFinishedInfo&& rhs) noexcept = default;
+MemoryRoutineFinishedInfo& MemoryRoutineFinishedInfo::operator=(MemoryRoutineFinishedInfo&& rhs) noexcept = default;
 MemoryRoutineFinishedInfo MemoryRoutineFinishedInfo::Clone() const {
   MemoryRoutineFinishedInfo out;
   out.uuid = uuid;
@@ -2600,7 +2341,7 @@ bool MemoryRoutineFinishedInfo::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -2612,7 +2353,7 @@ bool MemoryRoutineFinishedInfo::Populate(
     {
       auto temp = (*has_passed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.has_passed = absl::nullopt;
+        out.has_passed = std::nullopt;
         return false;
       }
       out.has_passed = *temp;
@@ -2624,7 +2365,7 @@ bool MemoryRoutineFinishedInfo::Populate(
     {
       auto temp = (*bytes_tested_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.bytes_tested = absl::nullopt;
+        out.bytes_tested = std::nullopt;
         return false;
       }
       out.bytes_tested = *temp;
@@ -2659,34 +2400,21 @@ bool MemoryRoutineFinishedInfo::Populate(
 }
 
 // static
-std::unique_ptr<MemoryRoutineFinishedInfo> MemoryRoutineFinishedInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MemoryRoutineFinishedInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MemoryRoutineFinishedInfo> MemoryRoutineFinishedInfo::FromValue(const base::Value::Dict& value) {
+  MemoryRoutineFinishedInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MemoryRoutineFinishedInfo> MemoryRoutineFinishedInfo::FromValue(const base::Value::Dict& value) {
+std::optional<MemoryRoutineFinishedInfo> MemoryRoutineFinishedInfo::FromValue(const base::Value& value) {
   MemoryRoutineFinishedInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MemoryRoutineFinishedInfo> MemoryRoutineFinishedInfo::FromValue(const base::Value& value) {
-  MemoryRoutineFinishedInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2719,8 +2447,8 @@ RunMemoryRoutineArguments::RunMemoryRoutineArguments()
  {}
 
 RunMemoryRoutineArguments::~RunMemoryRoutineArguments() = default;
-RunMemoryRoutineArguments::RunMemoryRoutineArguments(RunMemoryRoutineArguments&& rhs) = default;
-RunMemoryRoutineArguments& RunMemoryRoutineArguments::operator=(RunMemoryRoutineArguments&& rhs) = default;
+RunMemoryRoutineArguments::RunMemoryRoutineArguments(RunMemoryRoutineArguments&& rhs) noexcept = default;
+RunMemoryRoutineArguments& RunMemoryRoutineArguments::operator=(RunMemoryRoutineArguments&& rhs) noexcept = default;
 RunMemoryRoutineArguments RunMemoryRoutineArguments::Clone() const {
   RunMemoryRoutineArguments out;
   out.max_testing_mem_kib = max_testing_mem_kib;
@@ -2735,7 +2463,7 @@ bool RunMemoryRoutineArguments::Populate(
     {
       auto temp = (*max_testing_mem_kib_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_testing_mem_kib = absl::nullopt;
+        out.max_testing_mem_kib = std::nullopt;
         return false;
       }
       out.max_testing_mem_kib = *temp;
@@ -2755,34 +2483,21 @@ bool RunMemoryRoutineArguments::Populate(
 }
 
 // static
-std::unique_ptr<RunMemoryRoutineArguments> RunMemoryRoutineArguments::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RunMemoryRoutineArguments>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RunMemoryRoutineArguments> RunMemoryRoutineArguments::FromValue(const base::Value::Dict& value) {
+  RunMemoryRoutineArguments out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RunMemoryRoutineArguments> RunMemoryRoutineArguments::FromValue(const base::Value::Dict& value) {
+std::optional<RunMemoryRoutineArguments> RunMemoryRoutineArguments::FromValue(const base::Value& value) {
   RunMemoryRoutineArguments out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RunMemoryRoutineArguments> RunMemoryRoutineArguments::FromValue(const base::Value& value) {
-  RunMemoryRoutineArguments out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2799,12 +2514,446 @@ base::Value::Dict RunMemoryRoutineArguments::ToValue() const {
 }
 
 
+const char* ToString(VolumeButtonType enum_param) {
+  switch (enum_param) {
+    case VolumeButtonType::kVolumeUp:
+      return "volume_up";
+    case VolumeButtonType::kVolumeDown:
+      return "volume_down";
+    case VolumeButtonType::kNone:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+VolumeButtonType ParseVolumeButtonType(base::StringPiece enum_string) {
+  if (enum_string == "volume_up")
+    return VolumeButtonType::kVolumeUp;
+  if (enum_string == "volume_down")
+    return VolumeButtonType::kVolumeDown;
+  return VolumeButtonType::kNone;
+}
+
+std::u16string GetVolumeButtonTypeParseError(base::StringPiece enum_string) {
+  return u"expected \"volume_up\" or \"volume_down\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+}
+
+
+VolumeButtonRoutineFinishedInfo::VolumeButtonRoutineFinishedInfo()
+ {}
+
+VolumeButtonRoutineFinishedInfo::~VolumeButtonRoutineFinishedInfo() = default;
+VolumeButtonRoutineFinishedInfo::VolumeButtonRoutineFinishedInfo(VolumeButtonRoutineFinishedInfo&& rhs) noexcept = default;
+VolumeButtonRoutineFinishedInfo& VolumeButtonRoutineFinishedInfo::operator=(VolumeButtonRoutineFinishedInfo&& rhs) noexcept = default;
+VolumeButtonRoutineFinishedInfo VolumeButtonRoutineFinishedInfo::Clone() const {
+  VolumeButtonRoutineFinishedInfo out;
+  out.uuid = uuid;
+  out.has_passed = has_passed;
+  return out;
+}
+
+// static
+bool VolumeButtonRoutineFinishedInfo::Populate(
+    const base::Value::Dict& dict, VolumeButtonRoutineFinishedInfo& out) {
+  const base::Value* uuid_value = dict.Find("uuid");
+  if (uuid_value) {
+    {
+      auto* temp = (*uuid_value).GetIfString();
+      if (!temp) {
+        out.uuid = std::nullopt;
+        return false;
+      }
+      out.uuid = *temp;
+    }
+  }
+
+  const base::Value* has_passed_value = dict.Find("has_passed");
+  if (has_passed_value) {
+    {
+      auto temp = (*has_passed_value).GetIfBool();
+      if (!temp.has_value()) {
+        out.has_passed = std::nullopt;
+        return false;
+      }
+      out.has_passed = *temp;
+    }
+  }
+
+  return true;
+}
+
+// static
+bool VolumeButtonRoutineFinishedInfo::Populate(
+    const base::Value& value, VolumeButtonRoutineFinishedInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<VolumeButtonRoutineFinishedInfo> VolumeButtonRoutineFinishedInfo::FromValue(const base::Value::Dict& value) {
+  VolumeButtonRoutineFinishedInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<VolumeButtonRoutineFinishedInfo> VolumeButtonRoutineFinishedInfo::FromValue(const base::Value& value) {
+  VolumeButtonRoutineFinishedInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict VolumeButtonRoutineFinishedInfo::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  if (this->uuid) {
+    to_value_result.Set("uuid", *this->uuid);
+
+  }
+  if (this->has_passed) {
+    to_value_result.Set("has_passed", *this->has_passed);
+
+  }
+
+  return to_value_result;
+}
+
+
+RunVolumeButtonRoutineArguments::RunVolumeButtonRoutineArguments()
+: button_type(),
+timeout_seconds(0) {}
+
+RunVolumeButtonRoutineArguments::~RunVolumeButtonRoutineArguments() = default;
+RunVolumeButtonRoutineArguments::RunVolumeButtonRoutineArguments(RunVolumeButtonRoutineArguments&& rhs) noexcept = default;
+RunVolumeButtonRoutineArguments& RunVolumeButtonRoutineArguments::operator=(RunVolumeButtonRoutineArguments&& rhs) noexcept = default;
+RunVolumeButtonRoutineArguments RunVolumeButtonRoutineArguments::Clone() const {
+  RunVolumeButtonRoutineArguments out;
+  out.button_type = button_type;
+  out.timeout_seconds = timeout_seconds;
+  return out;
+}
+
+// static
+bool RunVolumeButtonRoutineArguments::Populate(
+    const base::Value::Dict& dict, RunVolumeButtonRoutineArguments& out) {
+  const base::Value* button_type_value = dict.Find("button_type");
+  if (!button_type_value) {
+    return false;
+  }
+  {
+    const std::string* volume_button_type_as_string = (*button_type_value).GetIfString();
+    if (!volume_button_type_as_string) {
+      return false;
+    }
+    out.button_type = ParseVolumeButtonType(*volume_button_type_as_string);
+    if (out.button_type == VolumeButtonType()) {
+      return false;
+    }
+  }
+
+  const base::Value* timeout_seconds_value = dict.Find("timeout_seconds");
+  if (!timeout_seconds_value) {
+    return false;
+  }
+  {
+    auto temp = (*timeout_seconds_value).GetIfInt();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.timeout_seconds = *temp;
+  }
+
+  return true;
+}
+
+// static
+bool RunVolumeButtonRoutineArguments::Populate(
+    const base::Value& value, RunVolumeButtonRoutineArguments& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<RunVolumeButtonRoutineArguments> RunVolumeButtonRoutineArguments::FromValue(const base::Value::Dict& value) {
+  RunVolumeButtonRoutineArguments out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<RunVolumeButtonRoutineArguments> RunVolumeButtonRoutineArguments::FromValue(const base::Value& value) {
+  RunVolumeButtonRoutineArguments out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict RunVolumeButtonRoutineArguments::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("button_type", os_diagnostics::ToString(this->button_type));
+
+  to_value_result.Set("timeout_seconds", this->timeout_seconds);
+
+
+  return to_value_result;
+}
+
+
+const char* ToString(HardwarePresenceStatus enum_param) {
+  switch (enum_param) {
+    case HardwarePresenceStatus::kMatched:
+      return "matched";
+    case HardwarePresenceStatus::kNotMatched:
+      return "not_matched";
+    case HardwarePresenceStatus::kNotConfigured:
+      return "not_configured";
+    case HardwarePresenceStatus::kNone:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+HardwarePresenceStatus ParseHardwarePresenceStatus(base::StringPiece enum_string) {
+  if (enum_string == "matched")
+    return HardwarePresenceStatus::kMatched;
+  if (enum_string == "not_matched")
+    return HardwarePresenceStatus::kNotMatched;
+  if (enum_string == "not_configured")
+    return HardwarePresenceStatus::kNotConfigured;
+  return HardwarePresenceStatus::kNone;
+}
+
+std::u16string GetHardwarePresenceStatusParseError(base::StringPiece enum_string) {
+  return u"expected \"matched\" or \"not_matched\" or \"not_configured\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+}
+
+
+FanRoutineFinishedInfo::FanRoutineFinishedInfo()
+: fan_count_status() {}
+
+FanRoutineFinishedInfo::~FanRoutineFinishedInfo() = default;
+FanRoutineFinishedInfo::FanRoutineFinishedInfo(FanRoutineFinishedInfo&& rhs) noexcept = default;
+FanRoutineFinishedInfo& FanRoutineFinishedInfo::operator=(FanRoutineFinishedInfo&& rhs) noexcept = default;
+FanRoutineFinishedInfo FanRoutineFinishedInfo::Clone() const {
+  FanRoutineFinishedInfo out;
+  out.uuid = uuid;
+  out.has_passed = has_passed;
+  out.passed_fan_ids = passed_fan_ids;
+  out.failed_fan_ids = failed_fan_ids;
+  out.fan_count_status = fan_count_status;
+  return out;
+}
+
+// static
+bool FanRoutineFinishedInfo::Populate(
+    const base::Value::Dict& dict, FanRoutineFinishedInfo& out) {
+  out.fan_count_status = HardwarePresenceStatus();
+  const base::Value* uuid_value = dict.Find("uuid");
+  if (uuid_value) {
+    {
+      auto* temp = (*uuid_value).GetIfString();
+      if (!temp) {
+        out.uuid = std::nullopt;
+        return false;
+      }
+      out.uuid = *temp;
+    }
+  }
+
+  const base::Value* has_passed_value = dict.Find("has_passed");
+  if (has_passed_value) {
+    {
+      auto temp = (*has_passed_value).GetIfBool();
+      if (!temp.has_value()) {
+        out.has_passed = std::nullopt;
+        return false;
+      }
+      out.has_passed = *temp;
+    }
+  }
+
+  const base::Value* passed_fan_ids_value = dict.Find("passed_fan_ids");
+  if (passed_fan_ids_value) {
+    {
+      if (!(*passed_fan_ids_value).is_list()) {
+        return false;
+      }
+      else {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*passed_fan_ids_value).GetList(), out.passed_fan_ids)) {
+          return false;
+        }
+      }
+    }
+  }
+
+  const base::Value* failed_fan_ids_value = dict.Find("failed_fan_ids");
+  if (failed_fan_ids_value) {
+    {
+      if (!(*failed_fan_ids_value).is_list()) {
+        return false;
+      }
+      else {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*failed_fan_ids_value).GetList(), out.failed_fan_ids)) {
+          return false;
+        }
+      }
+    }
+  }
+
+  const base::Value* fan_count_status_value = dict.Find("fan_count_status");
+  if (fan_count_status_value) {
+    {
+      const std::string* hardware_presence_status_as_string = (*fan_count_status_value).GetIfString();
+      if (!hardware_presence_status_as_string) {
+        return false;
+      }
+      out.fan_count_status = ParseHardwarePresenceStatus(*hardware_presence_status_as_string);
+      if (out.fan_count_status == HardwarePresenceStatus()) {
+        return false;
+      }
+    }
+    } else {
+    out.fan_count_status = HardwarePresenceStatus();
+  }
+
+  return true;
+}
+
+// static
+bool FanRoutineFinishedInfo::Populate(
+    const base::Value& value, FanRoutineFinishedInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<FanRoutineFinishedInfo> FanRoutineFinishedInfo::FromValue(const base::Value::Dict& value) {
+  FanRoutineFinishedInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<FanRoutineFinishedInfo> FanRoutineFinishedInfo::FromValue(const base::Value& value) {
+  FanRoutineFinishedInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict FanRoutineFinishedInfo::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  if (this->uuid) {
+    to_value_result.Set("uuid", *this->uuid);
+
+  }
+  if (this->has_passed) {
+    to_value_result.Set("has_passed", *this->has_passed);
+
+  }
+  if (this->passed_fan_ids) {
+    to_value_result.Set("passed_fan_ids", json_schema_compiler::util::CreateValueFromArray(*this->passed_fan_ids));
+
+  }
+  if (this->failed_fan_ids) {
+    to_value_result.Set("failed_fan_ids", json_schema_compiler::util::CreateValueFromArray(*this->failed_fan_ids));
+
+  }
+  if (this->fan_count_status != HardwarePresenceStatus()) {
+    to_value_result.Set("fan_count_status", os_diagnostics::ToString(this->fan_count_status));
+
+  }
+
+  return to_value_result;
+}
+
+
+RunFanRoutineArguments::RunFanRoutineArguments()
+ {}
+
+RunFanRoutineArguments::~RunFanRoutineArguments() = default;
+RunFanRoutineArguments::RunFanRoutineArguments(RunFanRoutineArguments&& rhs) noexcept = default;
+RunFanRoutineArguments& RunFanRoutineArguments::operator=(RunFanRoutineArguments&& rhs) noexcept = default;
+RunFanRoutineArguments RunFanRoutineArguments::Clone() const {
+  RunFanRoutineArguments out;
+  return out;
+}
+
+// static
+bool RunFanRoutineArguments::Populate(
+    const base::Value::Dict& dict, RunFanRoutineArguments& out) {
+  return true;
+}
+
+// static
+bool RunFanRoutineArguments::Populate(
+    const base::Value& value, RunFanRoutineArguments& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<RunFanRoutineArguments> RunFanRoutineArguments::FromValue(const base::Value::Dict& value) {
+  RunFanRoutineArguments out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<RunFanRoutineArguments> RunFanRoutineArguments::FromValue(const base::Value& value) {
+  RunFanRoutineArguments out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict RunFanRoutineArguments::ToValue() const {
+  base::Value::Dict to_value_result;
+
+
+  return to_value_result;
+}
+
+
 CreateRoutineResponse::CreateRoutineResponse()
  {}
 
 CreateRoutineResponse::~CreateRoutineResponse() = default;
-CreateRoutineResponse::CreateRoutineResponse(CreateRoutineResponse&& rhs) = default;
-CreateRoutineResponse& CreateRoutineResponse::operator=(CreateRoutineResponse&& rhs) = default;
+CreateRoutineResponse::CreateRoutineResponse(CreateRoutineResponse&& rhs) noexcept = default;
+CreateRoutineResponse& CreateRoutineResponse::operator=(CreateRoutineResponse&& rhs) noexcept = default;
 CreateRoutineResponse CreateRoutineResponse::Clone() const {
   CreateRoutineResponse out;
   out.uuid = uuid;
@@ -2819,7 +2968,7 @@ bool CreateRoutineResponse::Populate(
     {
       auto* temp = (*uuid_value).GetIfString();
       if (!temp) {
-        out.uuid = absl::nullopt;
+        out.uuid = std::nullopt;
         return false;
       }
       out.uuid = *temp;
@@ -2839,34 +2988,21 @@ bool CreateRoutineResponse::Populate(
 }
 
 // static
-std::unique_ptr<CreateRoutineResponse> CreateRoutineResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateRoutineResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateRoutineResponse> CreateRoutineResponse::FromValue(const base::Value::Dict& value) {
+  CreateRoutineResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateRoutineResponse> CreateRoutineResponse::FromValue(const base::Value::Dict& value) {
+std::optional<CreateRoutineResponse> CreateRoutineResponse::FromValue(const base::Value& value) {
   CreateRoutineResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateRoutineResponse> CreateRoutineResponse::FromValue(const base::Value& value) {
-  CreateRoutineResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2913,8 +3049,8 @@ RoutineSupportStatusInfo::RoutineSupportStatusInfo()
 : status() {}
 
 RoutineSupportStatusInfo::~RoutineSupportStatusInfo() = default;
-RoutineSupportStatusInfo::RoutineSupportStatusInfo(RoutineSupportStatusInfo&& rhs) = default;
-RoutineSupportStatusInfo& RoutineSupportStatusInfo::operator=(RoutineSupportStatusInfo&& rhs) = default;
+RoutineSupportStatusInfo::RoutineSupportStatusInfo(RoutineSupportStatusInfo&& rhs) noexcept = default;
+RoutineSupportStatusInfo& RoutineSupportStatusInfo::operator=(RoutineSupportStatusInfo&& rhs) noexcept = default;
 RoutineSupportStatusInfo RoutineSupportStatusInfo::Clone() const {
   RoutineSupportStatusInfo out;
   out.status = status;
@@ -2954,34 +3090,21 @@ bool RoutineSupportStatusInfo::Populate(
 }
 
 // static
-std::unique_ptr<RoutineSupportStatusInfo> RoutineSupportStatusInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RoutineSupportStatusInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RoutineSupportStatusInfo> RoutineSupportStatusInfo::FromValue(const base::Value::Dict& value) {
+  RoutineSupportStatusInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RoutineSupportStatusInfo> RoutineSupportStatusInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RoutineSupportStatusInfo> RoutineSupportStatusInfo::FromValue(const base::Value& value) {
   RoutineSupportStatusInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RoutineSupportStatusInfo> RoutineSupportStatusInfo::FromValue(const base::Value& value) {
-  RoutineSupportStatusInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3002,8 +3125,8 @@ StartRoutineRequest::StartRoutineRequest()
  {}
 
 StartRoutineRequest::~StartRoutineRequest() = default;
-StartRoutineRequest::StartRoutineRequest(StartRoutineRequest&& rhs) = default;
-StartRoutineRequest& StartRoutineRequest::operator=(StartRoutineRequest&& rhs) = default;
+StartRoutineRequest::StartRoutineRequest(StartRoutineRequest&& rhs) noexcept = default;
+StartRoutineRequest& StartRoutineRequest::operator=(StartRoutineRequest&& rhs) noexcept = default;
 StartRoutineRequest StartRoutineRequest::Clone() const {
   StartRoutineRequest out;
   out.uuid = uuid;
@@ -3038,34 +3161,21 @@ bool StartRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<StartRoutineRequest> StartRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StartRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StartRoutineRequest> StartRoutineRequest::FromValue(const base::Value::Dict& value) {
+  StartRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StartRoutineRequest> StartRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<StartRoutineRequest> StartRoutineRequest::FromValue(const base::Value& value) {
   StartRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StartRoutineRequest> StartRoutineRequest::FromValue(const base::Value& value) {
-  StartRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3084,8 +3194,8 @@ CancelRoutineRequest::CancelRoutineRequest()
  {}
 
 CancelRoutineRequest::~CancelRoutineRequest() = default;
-CancelRoutineRequest::CancelRoutineRequest(CancelRoutineRequest&& rhs) = default;
-CancelRoutineRequest& CancelRoutineRequest::operator=(CancelRoutineRequest&& rhs) = default;
+CancelRoutineRequest::CancelRoutineRequest(CancelRoutineRequest&& rhs) noexcept = default;
+CancelRoutineRequest& CancelRoutineRequest::operator=(CancelRoutineRequest&& rhs) noexcept = default;
 CancelRoutineRequest CancelRoutineRequest::Clone() const {
   CancelRoutineRequest out;
   out.uuid = uuid;
@@ -3120,34 +3230,21 @@ bool CancelRoutineRequest::Populate(
 }
 
 // static
-std::unique_ptr<CancelRoutineRequest> CancelRoutineRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CancelRoutineRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CancelRoutineRequest> CancelRoutineRequest::FromValue(const base::Value::Dict& value) {
+  CancelRoutineRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CancelRoutineRequest> CancelRoutineRequest::FromValue(const base::Value::Dict& value) {
+std::optional<CancelRoutineRequest> CancelRoutineRequest::FromValue(const base::Value& value) {
   CancelRoutineRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CancelRoutineRequest> CancelRoutineRequest::FromValue(const base::Value& value) {
-  CancelRoutineRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3182,13 +3279,13 @@ namespace GetRoutineUpdate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3197,15 +3294,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetRoutineUpdateRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3225,13 +3322,13 @@ namespace RunAcPowerRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3240,15 +3337,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunAcPowerRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3279,13 +3376,13 @@ namespace RunBatteryChargeRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3294,15 +3391,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunBatteryChargeRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3322,13 +3419,13 @@ namespace RunBatteryDischargeRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3337,15 +3434,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunBatteryDischargeRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3387,13 +3484,13 @@ namespace RunBluetoothPairingRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3402,15 +3499,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunBluetoothPairingRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3441,13 +3538,13 @@ namespace RunBluetoothScanningRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3456,15 +3553,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunBluetoothScanningRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3484,13 +3581,13 @@ namespace RunCpuCacheRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3499,15 +3596,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunCpuRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3527,13 +3624,13 @@ namespace RunCpuFloatingPointAccuracyRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3542,15 +3639,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunCpuRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3570,13 +3667,13 @@ namespace RunCpuPrimeSearchRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3585,15 +3682,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunCpuRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3613,13 +3710,13 @@ namespace RunCpuStressRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3628,15 +3725,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunCpuRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3656,13 +3753,13 @@ namespace RunDiskReadRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3671,15 +3768,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunDiskReadRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3776,13 +3873,13 @@ namespace RunNvmeSelfTestRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3791,15 +3888,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunNvmeSelfTestRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3819,13 +3916,13 @@ namespace RunNvmeWearLevelRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3834,15 +3931,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunNvmeWearLevelRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3884,13 +3981,13 @@ namespace RunSmartctlCheckRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3899,12 +3996,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         RunSmartctlCheckRequest temp;
         if (!RunSmartctlCheckRequest::Populate(request_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.request = std::move(temp);
       }
     }
@@ -3938,13 +4035,13 @@ namespace RunPowerButtonRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3953,15 +4050,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunPowerButtonRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4003,13 +4100,13 @@ namespace StartRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4018,15 +4115,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!StartRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4044,13 +4141,13 @@ namespace CancelRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4059,15 +4156,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CancelRoutineRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4085,13 +4182,13 @@ namespace CreateMemoryRoutine {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4100,15 +4197,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& args_value = args[0];
     {
       if (!args_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunMemoryRoutineArguments::Populate(args_value.GetDict(), params.args)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4128,13 +4225,13 @@ namespace IsMemoryRoutineArgumentSupported {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4143,15 +4240,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& args_value = args[0];
     {
       if (!args_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RunMemoryRoutineArguments::Populate(args_value.GetDict(), params.args)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4166,6 +4263,178 @@ base::Value::List Results::Create(const RoutineSupportStatusInfo& info) {
   return create_results;
 }
 }  // namespace IsMemoryRoutineArgumentSupported
+
+namespace CreateVolumeButtonRoutine {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& args_value = args[0];
+    {
+      if (!args_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!RunVolumeButtonRoutineArguments::Populate(args_value.GetDict(), params.args)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const CreateRoutineResponse& response) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((response).ToValue());
+
+  return create_results;
+}
+}  // namespace CreateVolumeButtonRoutine
+
+namespace IsVolumeButtonRoutineArgumentSupported {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& args_value = args[0];
+    {
+      if (!args_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!RunVolumeButtonRoutineArguments::Populate(args_value.GetDict(), params.args)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const RoutineSupportStatusInfo& info) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((info).ToValue());
+
+  return create_results;
+}
+}  // namespace IsVolumeButtonRoutineArgumentSupported
+
+namespace CreateFanRoutine {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& args_value = args[0];
+    {
+      if (!args_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!RunFanRoutineArguments::Populate(args_value.GetDict(), params.args)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const CreateRoutineResponse& response) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((response).ToValue());
+
+  return create_results;
+}
+}  // namespace CreateFanRoutine
+
+namespace IsFanRoutineArgumentSupported {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& args_value = args[0];
+    {
+      if (!args_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!RunFanRoutineArguments::Populate(args_value.GetDict(), params.args)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const RoutineSupportStatusInfo& info) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((info).ToValue());
+
+  return create_results;
+}
+}  // namespace IsFanRoutineArgumentSupported
 
 //
 // Events
@@ -4226,6 +4495,34 @@ base::Value::List Create(const MemoryRoutineFinishedInfo& finished_info) {
 }
 
 }  // namespace OnMemoryRoutineFinished
+
+namespace OnVolumeButtonRoutineFinished {
+
+const char kEventName[] = "os.diagnostics.onVolumeButtonRoutineFinished";
+
+base::Value::List Create(const VolumeButtonRoutineFinishedInfo& finished_info) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((finished_info).ToValue());
+
+  return create_results;
+}
+
+}  // namespace OnVolumeButtonRoutineFinished
+
+namespace OnFanRoutineFinished {
+
+const char kEventName[] = "os.diagnostics.onFanRoutineFinished";
+
+base::Value::List Create(const FanRoutineFinishedInfo& finished_info) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((finished_info).ToValue());
+
+  return create_results;
+}
+
+}  // namespace OnFanRoutineFinished
 
 namespace OnRoutineException {
 

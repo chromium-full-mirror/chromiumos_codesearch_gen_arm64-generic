@@ -35,7 +35,6 @@ void ndr_print_nbt_rdata_data(struct ndr_print *ndr, const char *name, const str
 enum ndr_err_code ndr_push_nbt_rdata(struct ndr_push *ndr, int ndr_flags, const union nbt_rdata *r);
 enum ndr_err_code ndr_pull_nbt_rdata(struct ndr_pull *ndr, int ndr_flags, union nbt_rdata *r);
 void ndr_print_nbt_rdata(struct ndr_print *ndr, const char *name, const union nbt_rdata *r);
-enum ndr_err_code ndr_push_nbt_res_rec(struct ndr_push *ndr, int ndr_flags, const struct nbt_res_rec *r);
 void ndr_print_nbt_res_rec(struct ndr_print *ndr, const char *name, const struct nbt_res_rec *r);
 enum ndr_err_code ndr_push_nbt_name_packet(struct ndr_push *ndr, int ndr_flags, const struct nbt_name_packet *r);
 enum ndr_err_code ndr_pull_nbt_name_packet(struct ndr_pull *ndr, int ndr_flags, struct nbt_name_packet *r);

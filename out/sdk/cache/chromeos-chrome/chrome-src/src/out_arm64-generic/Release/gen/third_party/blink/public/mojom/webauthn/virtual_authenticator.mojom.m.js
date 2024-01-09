@@ -1064,6 +1064,22 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'defaultBackupEligibility', 16,
+        7,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'defaultBackupState', 17,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
     [[0, 32],]);
 
@@ -1096,6 +1112,10 @@ export class VirtualAuthenticatorOptions {
     this.hasMinPinLength;
     /** @type { !boolean } */
     this.hasPrf;
+    /** @type { !boolean } */
+    this.defaultBackupEligibility;
+    /** @type { !boolean } */
+    this.defaultBackupState;
   }
 }
 

@@ -8,12 +8,14 @@ import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
 import 'chrome://resources/polymer/v3_0/iron-scroll-threshold/iron-scroll-threshold.js';
 import '../../css/wallpaper.css.js';
 import '../../css/common.css.js';
+import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { WallpaperType } from '../../personalization_app.mojom-webui.js';
 import { dismissErrorAction, setErrorAction } from '../personalization_actions.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { getNumberOfGridItemsPerRow, isNonEmptyArray } from '../utils.js';
+import { getNumberOfGridItemsPerRow } from '../utils.js';
 import { recordWallpaperGooglePhotosSourceUMA, WallpaperGooglePhotosSource } from './google_photos_metrics_logger.js';
 import { getTemplate } from './google_photos_photos_element.html.js';
 import { getLoadingPlaceholders, isGooglePhotosPhoto, isImageAMatchForKey, isImageEqualToSelected } from './utils.js';
@@ -344,7 +346,7 @@ export class GooglePhotosPhotosElement extends WithPersonalizationStore {
         }
         const sections = [];
         photos.forEach((photo, i) => {
-            const date = photo.date.data.map(c => String.fromCodePoint(c)).join('');
+            const date = mojoString16ToString(photo.date);
             // Find/create the appropriate |section| in which to insert |photo|.
             let section = sections[sections.length - 1];
             if (!section || section.date !== date) {

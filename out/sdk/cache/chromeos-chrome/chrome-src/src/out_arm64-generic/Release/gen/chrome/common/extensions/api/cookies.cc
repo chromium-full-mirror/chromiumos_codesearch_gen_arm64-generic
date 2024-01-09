@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/cookies.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -72,8 +73,8 @@ CookiePartitionKey::CookiePartitionKey()
  {}
 
 CookiePartitionKey::~CookiePartitionKey() = default;
-CookiePartitionKey::CookiePartitionKey(CookiePartitionKey&& rhs) = default;
-CookiePartitionKey& CookiePartitionKey::operator=(CookiePartitionKey&& rhs) = default;
+CookiePartitionKey::CookiePartitionKey(CookiePartitionKey&& rhs) noexcept = default;
+CookiePartitionKey& CookiePartitionKey::operator=(CookiePartitionKey&& rhs) noexcept = default;
 CookiePartitionKey CookiePartitionKey::Clone() const {
   CookiePartitionKey out;
   out.top_level_site = top_level_site;
@@ -88,7 +89,7 @@ bool CookiePartitionKey::Populate(
     {
       auto* temp = (*top_level_site_value).GetIfString();
       if (!temp) {
-        out.top_level_site = absl::nullopt;
+        out.top_level_site = std::nullopt;
         return false;
       }
       out.top_level_site = *temp;
@@ -108,34 +109,21 @@ bool CookiePartitionKey::Populate(
 }
 
 // static
-std::unique_ptr<CookiePartitionKey> CookiePartitionKey::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CookiePartitionKey>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CookiePartitionKey> CookiePartitionKey::FromValue(const base::Value::Dict& value) {
+  CookiePartitionKey out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CookiePartitionKey> CookiePartitionKey::FromValue(const base::Value::Dict& value) {
+std::optional<CookiePartitionKey> CookiePartitionKey::FromValue(const base::Value& value) {
   CookiePartitionKey out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CookiePartitionKey> CookiePartitionKey::FromValue(const base::Value& value) {
-  CookiePartitionKey out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -160,8 +148,8 @@ same_site(),
 session(false) {}
 
 Cookie::~Cookie() = default;
-Cookie::Cookie(Cookie&& rhs) = default;
-Cookie& Cookie::operator=(Cookie&& rhs) = default;
+Cookie::Cookie(Cookie&& rhs) noexcept = default;
+Cookie& Cookie::operator=(Cookie&& rhs) noexcept = default;
 Cookie Cookie::Clone() const {
   Cookie out;
   out.name = name;
@@ -300,7 +288,7 @@ bool Cookie::Populate(
     {
       auto temp = (*expiration_date_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.expiration_date = absl::nullopt;
+        out.expiration_date = std::nullopt;
         return false;
       }
       out.expiration_date = *temp;
@@ -347,34 +335,21 @@ bool Cookie::Populate(
 }
 
 // static
-std::unique_ptr<Cookie> Cookie::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Cookie>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Cookie> Cookie::FromValue(const base::Value::Dict& value) {
+  Cookie out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Cookie> Cookie::FromValue(const base::Value::Dict& value) {
+std::optional<Cookie> Cookie::FromValue(const base::Value& value) {
   Cookie out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Cookie> Cookie::FromValue(const base::Value& value) {
-  Cookie out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -419,8 +394,8 @@ CookieStore::CookieStore()
  {}
 
 CookieStore::~CookieStore() = default;
-CookieStore::CookieStore(CookieStore&& rhs) = default;
-CookieStore& CookieStore::operator=(CookieStore&& rhs) = default;
+CookieStore::CookieStore(CookieStore&& rhs) noexcept = default;
+CookieStore& CookieStore::operator=(CookieStore&& rhs) noexcept = default;
 CookieStore CookieStore::Clone() const {
   CookieStore out;
   out.id = id;
@@ -471,34 +446,21 @@ bool CookieStore::Populate(
 }
 
 // static
-std::unique_ptr<CookieStore> CookieStore::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CookieStore>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CookieStore> CookieStore::FromValue(const base::Value::Dict& value) {
+  CookieStore out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CookieStore> CookieStore::FromValue(const base::Value::Dict& value) {
+std::optional<CookieStore> CookieStore::FromValue(const base::Value& value) {
   CookieStore out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CookieStore> CookieStore::FromValue(const base::Value& value) {
-  CookieStore out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -557,8 +519,8 @@ CookieDetails::CookieDetails()
  {}
 
 CookieDetails::~CookieDetails() = default;
-CookieDetails::CookieDetails(CookieDetails&& rhs) = default;
-CookieDetails& CookieDetails::operator=(CookieDetails&& rhs) = default;
+CookieDetails::CookieDetails(CookieDetails&& rhs) noexcept = default;
+CookieDetails& CookieDetails::operator=(CookieDetails&& rhs) noexcept = default;
 CookieDetails CookieDetails::Clone() const {
   CookieDetails out;
   out.url = url;
@@ -602,7 +564,7 @@ bool CookieDetails::Populate(
     {
       auto* temp = (*store_id_value).GetIfString();
       if (!temp) {
-        out.store_id = absl::nullopt;
+        out.store_id = std::nullopt;
         return false;
       }
       out.store_id = *temp;
@@ -637,34 +599,21 @@ bool CookieDetails::Populate(
 }
 
 // static
-std::unique_ptr<CookieDetails> CookieDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CookieDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CookieDetails> CookieDetails::FromValue(const base::Value::Dict& value) {
+  CookieDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CookieDetails> CookieDetails::FromValue(const base::Value::Dict& value) {
+std::optional<CookieDetails> CookieDetails::FromValue(const base::Value& value) {
   CookieDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CookieDetails> CookieDetails::FromValue(const base::Value& value) {
-  CookieDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -698,13 +647,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -713,15 +662,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CookieDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -743,8 +692,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.url = url;
@@ -768,7 +717,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -780,7 +729,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -792,7 +741,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*domain_value).GetIfString();
       if (!temp) {
-        out.domain = absl::nullopt;
+        out.domain = std::nullopt;
         return false;
       }
       out.domain = *temp;
@@ -804,7 +753,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*path_value).GetIfString();
       if (!temp) {
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -816,7 +765,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*secure_value).GetIfBool();
       if (!temp.has_value()) {
-        out.secure = absl::nullopt;
+        out.secure = std::nullopt;
         return false;
       }
       out.secure = *temp;
@@ -828,7 +777,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*session_value).GetIfBool();
       if (!temp.has_value()) {
-        out.session = absl::nullopt;
+        out.session = std::nullopt;
         return false;
       }
       out.session = *temp;
@@ -840,7 +789,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*store_id_value).GetIfString();
       if (!temp) {
-        out.store_id = absl::nullopt;
+        out.store_id = std::nullopt;
         return false;
       }
       out.store_id = *temp;
@@ -875,21 +824,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -897,13 +846,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -912,15 +861,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -942,8 +891,8 @@ Params::Details::Details()
 : same_site() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.url = url;
@@ -983,7 +932,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -995,7 +944,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*value_value).GetIfString();
       if (!temp) {
-        out.value = absl::nullopt;
+        out.value = std::nullopt;
         return false;
       }
       out.value = *temp;
@@ -1007,7 +956,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*domain_value).GetIfString();
       if (!temp) {
-        out.domain = absl::nullopt;
+        out.domain = std::nullopt;
         return false;
       }
       out.domain = *temp;
@@ -1019,7 +968,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*path_value).GetIfString();
       if (!temp) {
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -1031,7 +980,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*secure_value).GetIfBool();
       if (!temp.has_value()) {
-        out.secure = absl::nullopt;
+        out.secure = std::nullopt;
         return false;
       }
       out.secure = *temp;
@@ -1043,7 +992,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*http_only_value).GetIfBool();
       if (!temp.has_value()) {
-        out.http_only = absl::nullopt;
+        out.http_only = std::nullopt;
         return false;
       }
       out.http_only = *temp;
@@ -1071,7 +1020,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*expiration_date_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.expiration_date = absl::nullopt;
+        out.expiration_date = std::nullopt;
         return false;
       }
       out.expiration_date = *temp;
@@ -1083,7 +1032,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*store_id_value).GetIfString();
       if (!temp) {
-        out.store_id = absl::nullopt;
+        out.store_id = std::nullopt;
         return false;
       }
       out.store_id = *temp;
@@ -1118,21 +1067,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1140,13 +1089,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1155,15 +1104,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1183,13 +1132,13 @@ namespace Remove {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1198,15 +1147,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CookieDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1217,8 +1166,8 @@ Results::Details::Details()
  {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1270,8 +1219,8 @@ ChangeInfo::ChangeInfo()
 cause() {}
 
 ChangeInfo::~ChangeInfo() = default;
-ChangeInfo::ChangeInfo(ChangeInfo&& rhs) = default;
-ChangeInfo& ChangeInfo::operator=(ChangeInfo&& rhs) = default;
+ChangeInfo::ChangeInfo(ChangeInfo&& rhs) noexcept = default;
+ChangeInfo& ChangeInfo::operator=(ChangeInfo&& rhs) noexcept = default;
 base::Value::Dict ChangeInfo::ToValue() const {
   base::Value::Dict to_value_result;
 

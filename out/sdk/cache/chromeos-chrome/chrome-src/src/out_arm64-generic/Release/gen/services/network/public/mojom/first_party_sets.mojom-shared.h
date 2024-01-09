@@ -400,6 +400,16 @@ class GlobalFirstPartySetsDataView {
     return mojo::internal::Deserialize<::network::mojom::FirstPartySetsContextConfigDataView>(
         pointer, output, message_);
   }
+  inline void GetManualAliasesDataView(
+      mojo::MapDataView<::network::mojom::SchemefulSiteDataView, ::network::mojom::SchemefulSiteDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadManualAliases(UserType* output) {
+    
+    auto* pointer = data_->manual_aliases.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<::network::mojom::SchemefulSiteDataView, ::network::mojom::SchemefulSiteDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::GlobalFirstPartySets_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -754,6 +764,20 @@ struct Serializer<::network::mojom::GlobalFirstPartySetsDataView, MaybeConstUser
         fragment->manual_config.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null manual_config in GlobalFirstPartySets struct");
+    decltype(Traits::manual_aliases(input)) in_manual_aliases = Traits::manual_aliases(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->manual_aliases)::BaseType>
+        manual_aliases_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& manual_aliases_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::MapDataView<::network::mojom::SchemefulSiteDataView, ::network::mojom::SchemefulSiteDataView>>(
+        in_manual_aliases, manual_aliases_fragment, &manual_aliases_validate_params);
+    fragment->manual_aliases.Set(
+        manual_aliases_fragment.is_null() ? nullptr : manual_aliases_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->manual_aliases.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null manual_aliases in GlobalFirstPartySets struct");
   }
 
   static bool Deserialize(::network::mojom::internal::GlobalFirstPartySets_Data* input,
@@ -840,6 +864,11 @@ inline void GlobalFirstPartySetsDataView::GetManualConfigDataView(
     FirstPartySetsContextConfigDataView* output) {
   auto pointer = data_->manual_config.Get();
   *output = FirstPartySetsContextConfigDataView(pointer, message_);
+}
+inline void GlobalFirstPartySetsDataView::GetManualAliasesDataView(
+    mojo::MapDataView<::network::mojom::SchemefulSiteDataView, ::network::mojom::SchemefulSiteDataView>* output) {
+  auto pointer = data_->manual_aliases.Get();
+  *output = mojo::MapDataView<::network::mojom::SchemefulSiteDataView, ::network::mojom::SchemefulSiteDataView>(pointer, message_);
 }
 
 

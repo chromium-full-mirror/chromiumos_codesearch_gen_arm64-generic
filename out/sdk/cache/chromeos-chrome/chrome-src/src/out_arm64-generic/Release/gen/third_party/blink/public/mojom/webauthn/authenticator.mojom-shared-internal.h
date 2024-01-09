@@ -31,7 +31,7 @@ class ValidationContext;
 namespace blink::mojom {
 namespace internal {
 class CommonCredentialInfo_Data;
-class DevicePublicKeyResponse_Data;
+class SupplementalPubKeysResponse_Data;
 class MakeCredentialAuthenticatorResponse_Data;
 class GetAssertionAuthenticatorResponse_Data;
 class AuthenticationExtensionsClientOutputs_Data;
@@ -43,7 +43,7 @@ class PRFValues_Data;
 class PaymentOptions_Data;
 class PaymentCredentialInstrument_Data;
 class RemoteDesktopClientOverride_Data;
-class DevicePublicKeyRequest_Data;
+class SupplementalPubKeysRequest_Data;
 class PublicKeyCredentialRequestOptions_Data;
 class AuthenticationExtensionsClientInputs_Data;
 class AuthenticatorSelectionCriteria_Data;
@@ -82,6 +82,11 @@ struct AuthenticatorStatus_Data {
       case 22:
       case 23:
       case 24:
+      case 25:
+      case 26:
+      case 27:
+      case 28:
+      case 29:
         return true;
     }
     return false;
@@ -109,6 +114,31 @@ struct AuthenticatorTransport_Data {
       case 2:
       case 3:
       case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Hint_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -352,37 +382,36 @@ struct CommonCredentialInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CommonCredentialInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevicePublicKeyResponse_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SupplementalPubKeysResponse_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> authenticator_output;
-  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> signature;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> signatures;
 
  private:
-  friend class mojo::internal::MessageFragment<DevicePublicKeyResponse_Data>;
+  friend class mojo::internal::MessageFragment<SupplementalPubKeysResponse_Data>;
 
-  DevicePublicKeyResponse_Data();
-  ~DevicePublicKeyResponse_Data() = delete;
+  SupplementalPubKeysResponse_Data();
+  ~SupplementalPubKeysResponse_Data() = delete;
 };
-static_assert(sizeof(DevicePublicKeyResponse_Data) == 24,
-              "Bad sizeof(DevicePublicKeyResponse_Data)");
-// Used by DevicePublicKeyResponse::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(SupplementalPubKeysResponse_Data) == 16,
+              "Bad sizeof(SupplementalPubKeysResponse_Data)");
+// Used by SupplementalPubKeysResponse::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct DevicePublicKeyResponse_UnserializedMessageContext
+struct SupplementalPubKeysResponse_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  DevicePublicKeyResponse_UnserializedMessageContext(
+  SupplementalPubKeysResponse_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~DevicePublicKeyResponse_UnserializedMessageContext() override = default;
+  ~SupplementalPubKeysResponse_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -391,7 +420,7 @@ struct DevicePublicKeyResponse_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DevicePublicKeyResponse_Data> fragment(message);
+    mojo::internal::MessageFragment<SupplementalPubKeysResponse_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -400,7 +429,7 @@ struct DevicePublicKeyResponse_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    DevicePublicKeyResponse_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    SupplementalPubKeysResponse_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MakeCredentialAuthenticatorResponse_Data {
  public:
   static bool Validate(const void* data,
@@ -427,7 +456,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MakeCredentialAuthentic
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> public_key_der;
   int32_t public_key_algo;
   uint8_t pad17_[4];
-  mojo::internal::Pointer<internal::DevicePublicKeyResponse_Data> device_public_key;
+  mojo::internal::Pointer<internal::SupplementalPubKeysResponse_Data> supplemental_pub_keys;
 
  private:
   friend class mojo::internal::MessageFragment<MakeCredentialAuthenticatorResponse_Data>;
@@ -539,7 +568,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuthenticationExtension
   mojo::internal::Pointer<internal::PRFValues_Data> prf_results;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> large_blob;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> get_cred_blob;
-  mojo::internal::Pointer<internal::DevicePublicKeyResponse_Data> device_public_key;
+  mojo::internal::Pointer<internal::SupplementalPubKeysResponse_Data> supplemental_pub_keys;
 
  private:
   friend class mojo::internal::MessageFragment<AuthenticationExtensionsClientOutputs_Data>;
@@ -985,38 +1014,40 @@ struct RemoteDesktopClientOverride_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     RemoteDesktopClientOverride_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevicePublicKeyRequest_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SupplementalPubKeysRequest_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t device_scope_requested : 1;
+  uint8_t provider_scope_requested : 1;
+  uint8_t pad1_[3];
   int32_t attestation;
-  uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> attestation_formats;
 
  private:
-  friend class mojo::internal::MessageFragment<DevicePublicKeyRequest_Data>;
+  friend class mojo::internal::MessageFragment<SupplementalPubKeysRequest_Data>;
 
-  DevicePublicKeyRequest_Data();
-  ~DevicePublicKeyRequest_Data() = delete;
+  SupplementalPubKeysRequest_Data();
+  ~SupplementalPubKeysRequest_Data() = delete;
 };
-static_assert(sizeof(DevicePublicKeyRequest_Data) == 24,
-              "Bad sizeof(DevicePublicKeyRequest_Data)");
-// Used by DevicePublicKeyRequest::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(SupplementalPubKeysRequest_Data) == 24,
+              "Bad sizeof(SupplementalPubKeysRequest_Data)");
+// Used by SupplementalPubKeysRequest::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct DevicePublicKeyRequest_UnserializedMessageContext
+struct SupplementalPubKeysRequest_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  DevicePublicKeyRequest_UnserializedMessageContext(
+  SupplementalPubKeysRequest_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~DevicePublicKeyRequest_UnserializedMessageContext() override = default;
+  ~SupplementalPubKeysRequest_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -1025,7 +1056,7 @@ struct DevicePublicKeyRequest_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DevicePublicKeyRequest_Data> fragment(message);
+    mojo::internal::MessageFragment<SupplementalPubKeysRequest_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -1034,7 +1065,7 @@ struct DevicePublicKeyRequest_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    DevicePublicKeyRequest_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    SupplementalPubKeysRequest_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialRequestOptions_Data {
  public:
   static bool Validate(const void* data,
@@ -1048,6 +1079,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialRequ
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timeout;
   mojo::internal::Pointer<mojo::internal::String_Data> relying_party_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PublicKeyCredentialDescriptor_Data>>> allow_credentials;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> hints;
   mojo::internal::Pointer<internal::AuthenticationExtensionsClientInputs_Data> extensions;
 
  private:
@@ -1056,7 +1088,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialRequ
   PublicKeyCredentialRequestOptions_Data();
   ~PublicKeyCredentialRequestOptions_Data() = delete;
 };
-static_assert(sizeof(PublicKeyCredentialRequestOptions_Data) == 56,
+static_assert(sizeof(PublicKeyCredentialRequestOptions_Data) == 64,
               "Bad sizeof(PublicKeyCredentialRequestOptions_Data)");
 // Used by PublicKeyCredentialRequestOptions::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1106,7 +1138,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuthenticationExtension
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PRFValues_Data>>> prf_inputs;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> large_blob_write;
   mojo::internal::Pointer<internal::RemoteDesktopClientOverride_Data> remote_desktop_client_override;
-  mojo::internal::Pointer<internal::DevicePublicKeyRequest_Data> device_public_key;
+  mojo::internal::Pointer<internal::SupplementalPubKeysRequest_Data> supplemental_pub_keys;
 
  private:
   friend class mojo::internal::MessageFragment<AuthenticationExtensionsClientInputs_Data>;
@@ -1212,6 +1244,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialCrea
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timeout;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PublicKeyCredentialDescriptor_Data>>> exclude_credentials;
   mojo::internal::Pointer<internal::AuthenticatorSelectionCriteria_Data> authenticator_selection;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> hints;
   int32_t attestation;
   uint8_t hmac_create_secret : 1;
   uint8_t prf_enable : 1;
@@ -1219,14 +1252,14 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialCrea
   uint8_t cred_props : 1;
   uint8_t is_payment_credential_creation : 1;
   uint8_t min_pin_length_requested : 1;
-  uint8_t pad13_[3];
+  uint8_t pad14_[3];
   mojo::internal::Pointer<internal::PRFValues_Data> prf_input;
   int32_t protection_policy;
   int32_t large_blob_enable;
   mojo::internal::Pointer<mojo::internal::String_Data> appid_exclude;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> cred_blob;
   mojo::internal::Pointer<internal::RemoteDesktopClientOverride_Data> remote_desktop_client_override;
-  mojo::internal::Pointer<internal::DevicePublicKeyRequest_Data> device_public_key;
+  mojo::internal::Pointer<internal::SupplementalPubKeysRequest_Data> supplemental_pub_keys;
 
  private:
   friend class mojo::internal::MessageFragment<PublicKeyCredentialCreationOptions_Data>;
@@ -1234,7 +1267,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PublicKeyCredentialCrea
   PublicKeyCredentialCreationOptions_Data();
   ~PublicKeyCredentialCreationOptions_Data() = delete;
 };
-static_assert(sizeof(PublicKeyCredentialCreationOptions_Data) == 120,
+static_assert(sizeof(PublicKeyCredentialCreationOptions_Data) == 128,
               "Bad sizeof(PublicKeyCredentialCreationOptions_Data)");
 // Used by PublicKeyCredentialCreationOptions::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

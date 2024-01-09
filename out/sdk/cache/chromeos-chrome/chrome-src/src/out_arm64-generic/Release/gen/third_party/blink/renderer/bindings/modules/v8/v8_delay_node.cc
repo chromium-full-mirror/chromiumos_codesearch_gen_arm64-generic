@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DelayNode>::value,
     "DelayNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DelayNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DelayNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("DelayNode.delayTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DelayNode* blink_receiver = V8DelayNode::ToWrappableUnsafe(v8_receiver);
+DelayNode* blink_receiver = V8DelayNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->delayTime();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

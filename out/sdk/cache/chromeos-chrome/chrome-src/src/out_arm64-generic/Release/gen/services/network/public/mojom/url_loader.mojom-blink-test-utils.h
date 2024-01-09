@@ -16,7 +16,7 @@ namespace network::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT URLLoaderInterceptorForTesting : public URLLoader {
   virtual URLLoader* GetForwardingInterface() = 0;
-  void FollowRedirect(const WTF::Vector<WTF::String>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const absl::optional<::blink::KURL>& new_url) override;
+  void FollowRedirect(const WTF::Vector<WTF::String>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const std::optional<::blink::KURL>& new_url) override;
   void SetPriority(::net::RequestPriority priority, int32_t intra_priority_value) override;
   void PauseReadingBodyFromNet() override;
   void ResumeReadingBodyFromNet() override;
@@ -38,7 +38,7 @@ class BLINK_PLATFORM_EXPORT URLLoaderAsyncWaiter {
 class BLINK_PLATFORM_EXPORT URLLoaderClientInterceptorForTesting : public URLLoaderClient {
   virtual URLLoaderClient* GetForwardingInterface() = 0;
   void OnReceiveEarlyHints(::network::mojom::blink::EarlyHintsPtr early_hints) override;
-  void OnReceiveResponse(::network::mojom::blink::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, absl::optional<::mojo_base::BigBuffer> cached_metadata) override;
+  void OnReceiveResponse(::network::mojom::blink::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, std::optional<::mojo_base::BigBuffer> cached_metadata) override;
   void OnReceiveRedirect(URLRequestRedirectInfoPtr redirect_info, ::network::mojom::blink::URLResponseHeadPtr head) override;
   void OnUploadProgress(int64_t current_position, int64_t total_size, OnUploadProgressCallback callback) override;
   void OnTransferSizeUpdated(int32_t transfer_size_diff) override;

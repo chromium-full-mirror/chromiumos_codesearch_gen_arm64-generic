@@ -20,7 +20,7 @@ class  DiagnosticsServiceInterceptorForTesting : public DiagnosticsService {
   void RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) override;
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) override;
   void RunSmartctlCheckRoutine(::crosapi::mojom::UInt32ValuePtr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) override;
-  void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
+  void RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
   void RunCpuCacheRoutine(uint32_t length_seconds, RunCpuCacheRoutineCallback callback) override;
   void RunCpuStressRoutine(uint32_t length_seconds, RunCpuStressRoutineCallback callback) override;
   void RunFloatingPointAccuracyRoutine(uint32_t length_seconds, RunFloatingPointAccuracyRoutineCallback callback) override;
@@ -72,8 +72,8 @@ class  DiagnosticsServiceAsyncWaiter {
       ::crosapi::mojom::UInt32ValuePtr percentage_used_threshold, DiagnosticsRunRoutineResponsePtr* out_response);
   DiagnosticsRunRoutineResponsePtr RunSmartctlCheckRoutine(::crosapi::mojom::UInt32ValuePtr percentage_used_threshold);
   void RunAcPowerRoutine(
-      DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, DiagnosticsRunRoutineResponsePtr* out_response);
-  DiagnosticsRunRoutineResponsePtr RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);
+      DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, DiagnosticsRunRoutineResponsePtr* out_response);
+  DiagnosticsRunRoutineResponsePtr RunAcPowerRoutine(DiagnosticsAcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type);
   void RunCpuCacheRoutine(
       uint32_t length_seconds, DiagnosticsRunRoutineResponsePtr* out_response);
   DiagnosticsRunRoutineResponsePtr RunCpuCacheRoutine(uint32_t length_seconds);

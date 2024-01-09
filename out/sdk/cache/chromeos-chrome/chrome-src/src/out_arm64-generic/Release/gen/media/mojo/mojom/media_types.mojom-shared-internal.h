@@ -169,6 +169,18 @@ struct SVCScalabilityMode_Data {
       case 7:
       case 8:
       case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
         return true;
     }
     return false;
@@ -881,7 +893,8 @@ class  VideoFrameMetadata_Data {
   uint8_t has_root_scroll_offset_y : 1;
   uint8_t has_top_controls_visible_height : 1;
   uint8_t has_rtp_timestamp : 1;
-  uint8_t pad19_[1];
+  uint8_t frame_sequence_$flag : 1;
+  uint8_t pad20_[1];
   int32_t capture_counter;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> capture_begin_time;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> capture_end_time;
@@ -889,7 +902,7 @@ class  VideoFrameMetadata_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> source_size;
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> region_capture_rect;
   uint32_t sub_capture_target_version;
-  uint8_t pad26_[4];
+  uint8_t pad27_[4];
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> frame_duration;
   double frame_rate;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> reference_time;
@@ -906,6 +919,7 @@ class  VideoFrameMetadata_Data {
   double rtp_timestamp;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> receive_time;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> wallclock_frame_duration;
+  uint64_t frame_sequence_$value;
 
  private:
   friend class mojo::internal::MessageFragment<VideoFrameMetadata_Data>;
@@ -913,7 +927,7 @@ class  VideoFrameMetadata_Data {
   VideoFrameMetadata_Data();
   ~VideoFrameMetadata_Data() = delete;
 };
-static_assert(sizeof(VideoFrameMetadata_Data) == 192,
+static_assert(sizeof(VideoFrameMetadata_Data) == 200,
               "Bad sizeof(VideoFrameMetadata_Data)");
 // Used by VideoFrameMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

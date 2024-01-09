@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -78,13 +79,13 @@ ServiceWorkerRegistrationData::ServiceWorkerRegistrationData(
     ::blink::mojom::ServiceWorkerFetchHandlerType fetch_handler_type_in,
     ::base::Time last_update_check_in,
     ::base::Time script_response_time_in,
-    const absl::optional<base::flat_map<std::string, std::vector<std::string>>>& origin_trial_tokens_in,
+    const std::optional<base::flat_map<std::string, std::vector<std::string>>>& origin_trial_tokens_in,
     ::blink::mojom::NavigationPreloadStatePtr navigation_preload_state_in,
     std::vector<::blink::mojom::WebFeature> used_features_in,
     int64_t resources_total_size_bytes_in,
     ::blink::mojom::PolicyContainerPoliciesPtr policy_container_policies_in,
     ::blink::mojom::AncestorFrameType ancestor_frame_type_in,
-    const absl::optional<::blink::ServiceWorkerRouterRules>& router_rules_in,
+    const std::optional<::blink::ServiceWorkerRouterRules>& router_rules_in,
     bool has_hid_event_handlers_in,
     bool has_usb_event_handlers_in)
     : registration_id(std::move(registration_id_in)),
@@ -216,7 +217,7 @@ void ServiceWorkerRegistrationData::WriteIntoTrace(
     dict.AddItem(
       "origin_trial_tokens"), this->origin_trial_tokens,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::vector<std::string>>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::vector<std::string>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -270,7 +271,7 @@ void ServiceWorkerRegistrationData::WriteIntoTrace(
     dict.AddItem(
       "router_rules"), this->router_rules,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ServiceWorkerRouterRules>&>"
+      "<value of type const std::optional<::blink::ServiceWorkerRouterRules>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -310,7 +311,7 @@ ServiceWorkerResourceRecord::ServiceWorkerResourceRecord(
     int64_t resource_id_in,
     const ::GURL& url_in,
     int64_t size_bytes_in,
-    const absl::optional<std::string>& sha256_checksum_in)
+    const std::optional<std::string>& sha256_checksum_in)
     : resource_id(std::move(resource_id_in)),
       url(std::move(url_in)),
       size_bytes(std::move(size_bytes_in)),
@@ -352,7 +353,7 @@ void ServiceWorkerResourceRecord::WriteIntoTrace(
     dict.AddItem(
       "sha256_checksum"), this->sha256_checksum,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

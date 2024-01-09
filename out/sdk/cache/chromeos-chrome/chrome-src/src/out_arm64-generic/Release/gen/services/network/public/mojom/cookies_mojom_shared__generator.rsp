@@ -1,5 +1,6 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_access_observer.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_manager.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_partition_key.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_setting_overrides.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/restricted_cookie_manager.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/site_for_cookies.mojom

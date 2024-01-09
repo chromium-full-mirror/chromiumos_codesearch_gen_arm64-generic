@@ -66,6 +66,8 @@ enum class MainAccountHashMigrationStatus : int32_t;
 enum class AndroidDataSubdirectory : int32_t;
 
 enum class WaylandTimingEvent : int32_t;
+
+enum class ArcKeyMintError : int32_t;
 class BootProgressEvent;
 using BootProgressEventPtr = mojo::InlinedStructPtr<BootProgressEvent>;
 

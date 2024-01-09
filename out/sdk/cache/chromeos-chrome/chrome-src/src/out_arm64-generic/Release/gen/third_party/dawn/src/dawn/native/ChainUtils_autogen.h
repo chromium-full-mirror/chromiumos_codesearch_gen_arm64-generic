@@ -29,8 +29,6 @@
 #define DAWNNATIVE_CHAIN_UTILS_H_
 
 #include <tuple>
-#include <type_traits>
-#include <unordered_set>
 
 #include "absl/strings/str_format.h"
 #include "dawn/native/dawn_platform.h"
@@ -38,277 +36,209 @@
 #include "dawn/native/wgpu_structs_autogen.h"
 
 namespace dawn::native {
-
 namespace detail {
 
-    // SType for implementation details. Kept inside the detail namespace for extensibility.
-    template <typename T>
-    inline wgpu::SType STypeForImpl;
+// SType for implementation details. Kept inside the detail namespace for extensibility.
+template <typename T>
+inline wgpu::SType STypeForImpl;
 
-    // Specialize STypeFor to map from native struct types to their SType.
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromMetalLayer> = wgpu::SType::SurfaceDescriptorFromMetalLayer;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsHWND> = wgpu::SType::SurfaceDescriptorFromWindowsHWND;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromXlibWindow> = wgpu::SType::SurfaceDescriptorFromXlibWindow;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromCanvasHTMLSelector> = wgpu::SType::SurfaceDescriptorFromCanvasHTMLSelector;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<ShaderModuleSPIRVDescriptor> = wgpu::SType::ShaderModuleSPIRVDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<ShaderModuleWGSLDescriptor> = wgpu::SType::ShaderModuleWGSLDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<PrimitiveDepthClipControl> = wgpu::SType::PrimitiveDepthClipControl;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWaylandSurface> = wgpu::SType::SurfaceDescriptorFromWaylandSurface;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromAndroidNativeWindow> = wgpu::SType::SurfaceDescriptorFromAndroidNativeWindow;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsCoreWindow> = wgpu::SType::SurfaceDescriptorFromWindowsCoreWindow;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<ExternalTextureBindingEntry> = wgpu::SType::ExternalTextureBindingEntry;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<ExternalTextureBindingLayout> = wgpu::SType::ExternalTextureBindingLayout;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsSwapChainPanel> = wgpu::SType::SurfaceDescriptorFromWindowsSwapChainPanel;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<RenderPassDescriptorMaxDrawCount> = wgpu::SType::RenderPassDescriptorMaxDrawCount;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DepthStencilStateDepthWriteDefinedDawn> = wgpu::SType::DepthStencilStateDepthWriteDefinedDawn;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnTextureInternalUsageDescriptor> = wgpu::SType::DawnTextureInternalUsageDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnEncoderInternalUsageDescriptor> = wgpu::SType::DawnEncoderInternalUsageDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnCacheDeviceDescriptor> = wgpu::SType::DawnCacheDeviceDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnAdapterPropertiesPowerPreference> = wgpu::SType::DawnAdapterPropertiesPowerPreference;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnBufferDescriptorErrorInfoFromWireClient> = wgpu::SType::DawnBufferDescriptorErrorInfoFromWireClient;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnTogglesDescriptor> = wgpu::SType::DawnTogglesDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnShaderModuleSPIRVOptionsDescriptor> = wgpu::SType::DawnShaderModuleSPIRVOptionsDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnMultisampleStateRenderToSingleSampled> = wgpu::SType::DawnMultisampleStateRenderToSingleSampled;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnRenderPassColorAttachmentRenderToSingleSampled> = wgpu::SType::DawnRenderPassColorAttachmentRenderToSingleSampled;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<RenderPassPixelLocalStorage> = wgpu::SType::RenderPassPixelLocalStorage;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<PipelineLayoutPixelLocalStorage> = wgpu::SType::PipelineLayoutPixelLocalStorage;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<BufferHostMappedPointer> = wgpu::SType::BufferHostMappedPointer;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<DawnExperimentalSubgroupLimits> = wgpu::SType::DawnExperimentalSubgroupLimits;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageDescriptor> = wgpu::SType::SharedTextureMemoryVkImageDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkDedicatedAllocationDescriptor> = wgpu::SType::SharedTextureMemoryVkDedicatedAllocationDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryAHardwareBufferDescriptor> = wgpu::SType::SharedTextureMemoryAHardwareBufferDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryDmaBufDescriptor> = wgpu::SType::SharedTextureMemoryDmaBufDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryOpaqueFDDescriptor> = wgpu::SType::SharedTextureMemoryOpaqueFDDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryZirconHandleDescriptor> = wgpu::SType::SharedTextureMemoryZirconHandleDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryDXGISharedHandleDescriptor> = wgpu::SType::SharedTextureMemoryDXGISharedHandleDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryIOSurfaceDescriptor> = wgpu::SType::SharedTextureMemoryIOSurfaceDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryEGLImageDescriptor> = wgpu::SType::SharedTextureMemoryEGLImageDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageLayoutBeginState> = wgpu::SType::SharedTextureMemoryVkImageLayoutBeginState;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageLayoutEndState> = wgpu::SType::SharedTextureMemoryVkImageLayoutEndState;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreOpaqueFDDescriptor> = wgpu::SType::SharedFenceVkSemaphoreOpaqueFDDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreOpaqueFDExportInfo> = wgpu::SType::SharedFenceVkSemaphoreOpaqueFDExportInfo;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreSyncFDDescriptor> = wgpu::SType::SharedFenceVkSemaphoreSyncFDDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreSyncFDExportInfo> = wgpu::SType::SharedFenceVkSemaphoreSyncFDExportInfo;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreZirconHandleDescriptor> = wgpu::SType::SharedFenceVkSemaphoreZirconHandleDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreZirconHandleExportInfo> = wgpu::SType::SharedFenceVkSemaphoreZirconHandleExportInfo;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceDXGISharedHandleDescriptor> = wgpu::SType::SharedFenceDXGISharedHandleDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceDXGISharedHandleExportInfo> = wgpu::SType::SharedFenceDXGISharedHandleExportInfo;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceMTLSharedEventDescriptor> = wgpu::SType::SharedFenceMTLSharedEventDescriptor;
-    template <>
-    constexpr inline wgpu::SType STypeForImpl<SharedFenceMTLSharedEventExportInfo> = wgpu::SType::SharedFenceMTLSharedEventExportInfo;
+// Specialize STypeFor to map from native struct types to their SType.
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromMetalLayer> =
+    wgpu::SType::SurfaceDescriptorFromMetalLayer;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsHWND> =
+    wgpu::SType::SurfaceDescriptorFromWindowsHWND;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromXlibWindow> =
+    wgpu::SType::SurfaceDescriptorFromXlibWindow;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromCanvasHTMLSelector> =
+    wgpu::SType::SurfaceDescriptorFromCanvasHTMLSelector;
+template <>
+constexpr inline wgpu::SType STypeForImpl<ShaderModuleSPIRVDescriptor> =
+    wgpu::SType::ShaderModuleSPIRVDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<ShaderModuleWGSLDescriptor> =
+    wgpu::SType::ShaderModuleWGSLDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<PrimitiveDepthClipControl> =
+    wgpu::SType::PrimitiveDepthClipControl;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWaylandSurface> =
+    wgpu::SType::SurfaceDescriptorFromWaylandSurface;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromAndroidNativeWindow> =
+    wgpu::SType::SurfaceDescriptorFromAndroidNativeWindow;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsCoreWindow> =
+    wgpu::SType::SurfaceDescriptorFromWindowsCoreWindow;
+template <>
+constexpr inline wgpu::SType STypeForImpl<ExternalTextureBindingEntry> =
+    wgpu::SType::ExternalTextureBindingEntry;
+template <>
+constexpr inline wgpu::SType STypeForImpl<ExternalTextureBindingLayout> =
+    wgpu::SType::ExternalTextureBindingLayout;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SurfaceDescriptorFromWindowsSwapChainPanel> =
+    wgpu::SType::SurfaceDescriptorFromWindowsSwapChainPanel;
+template <>
+constexpr inline wgpu::SType STypeForImpl<RenderPassDescriptorMaxDrawCount> =
+    wgpu::SType::RenderPassDescriptorMaxDrawCount;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DepthStencilStateDepthWriteDefinedDawn> =
+    wgpu::SType::DepthStencilStateDepthWriteDefinedDawn;
+template <>
+constexpr inline wgpu::SType STypeForImpl<TextureBindingViewDimensionDescriptor> =
+    wgpu::SType::TextureBindingViewDimensionDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnTextureInternalUsageDescriptor> =
+    wgpu::SType::DawnTextureInternalUsageDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnEncoderInternalUsageDescriptor> =
+    wgpu::SType::DawnEncoderInternalUsageDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnCacheDeviceDescriptor> =
+    wgpu::SType::DawnCacheDeviceDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnAdapterPropertiesPowerPreference> =
+    wgpu::SType::DawnAdapterPropertiesPowerPreference;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnBufferDescriptorErrorInfoFromWireClient> =
+    wgpu::SType::DawnBufferDescriptorErrorInfoFromWireClient;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnTogglesDescriptor> =
+    wgpu::SType::DawnTogglesDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnShaderModuleSPIRVOptionsDescriptor> =
+    wgpu::SType::DawnShaderModuleSPIRVOptionsDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnMultisampleStateRenderToSingleSampled> =
+    wgpu::SType::DawnMultisampleStateRenderToSingleSampled;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnRenderPassColorAttachmentRenderToSingleSampled> =
+    wgpu::SType::DawnRenderPassColorAttachmentRenderToSingleSampled;
+template <>
+constexpr inline wgpu::SType STypeForImpl<RenderPassPixelLocalStorage> =
+    wgpu::SType::RenderPassPixelLocalStorage;
+template <>
+constexpr inline wgpu::SType STypeForImpl<PipelineLayoutPixelLocalStorage> =
+    wgpu::SType::PipelineLayoutPixelLocalStorage;
+template <>
+constexpr inline wgpu::SType STypeForImpl<BufferHostMappedPointer> =
+    wgpu::SType::BufferHostMappedPointer;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnExperimentalSubgroupLimits> =
+    wgpu::SType::DawnExperimentalSubgroupLimits;
+template <>
+constexpr inline wgpu::SType STypeForImpl<AdapterPropertiesMemoryHeaps> =
+    wgpu::SType::AdapterPropertiesMemoryHeaps;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnComputePipelineFullSubgroups> =
+    wgpu::SType::DawnComputePipelineFullSubgroups;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnWireWGSLControl> =
+    wgpu::SType::DawnWireWGSLControl;
+template <>
+constexpr inline wgpu::SType STypeForImpl<DawnWGSLBlocklist> =
+    wgpu::SType::DawnWGSLBlocklist;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageDescriptor> =
+    wgpu::SType::SharedTextureMemoryVkImageDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkDedicatedAllocationDescriptor> =
+    wgpu::SType::SharedTextureMemoryVkDedicatedAllocationDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryAHardwareBufferDescriptor> =
+    wgpu::SType::SharedTextureMemoryAHardwareBufferDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryDmaBufDescriptor> =
+    wgpu::SType::SharedTextureMemoryDmaBufDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryOpaqueFDDescriptor> =
+    wgpu::SType::SharedTextureMemoryOpaqueFDDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryZirconHandleDescriptor> =
+    wgpu::SType::SharedTextureMemoryZirconHandleDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryDXGISharedHandleDescriptor> =
+    wgpu::SType::SharedTextureMemoryDXGISharedHandleDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryIOSurfaceDescriptor> =
+    wgpu::SType::SharedTextureMemoryIOSurfaceDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryEGLImageDescriptor> =
+    wgpu::SType::SharedTextureMemoryEGLImageDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageLayoutBeginState> =
+    wgpu::SType::SharedTextureMemoryVkImageLayoutBeginState;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedTextureMemoryVkImageLayoutEndState> =
+    wgpu::SType::SharedTextureMemoryVkImageLayoutEndState;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreOpaqueFDDescriptor> =
+    wgpu::SType::SharedFenceVkSemaphoreOpaqueFDDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreOpaqueFDExportInfo> =
+    wgpu::SType::SharedFenceVkSemaphoreOpaqueFDExportInfo;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreSyncFDDescriptor> =
+    wgpu::SType::SharedFenceVkSemaphoreSyncFDDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreSyncFDExportInfo> =
+    wgpu::SType::SharedFenceVkSemaphoreSyncFDExportInfo;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreZirconHandleDescriptor> =
+    wgpu::SType::SharedFenceVkSemaphoreZirconHandleDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceVkSemaphoreZirconHandleExportInfo> =
+    wgpu::SType::SharedFenceVkSemaphoreZirconHandleExportInfo;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceDXGISharedHandleDescriptor> =
+    wgpu::SType::SharedFenceDXGISharedHandleDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceDXGISharedHandleExportInfo> =
+    wgpu::SType::SharedFenceDXGISharedHandleExportInfo;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceMTLSharedEventDescriptor> =
+    wgpu::SType::SharedFenceMTLSharedEventDescriptor;
+template <>
+constexpr inline wgpu::SType STypeForImpl<SharedFenceMTLSharedEventExportInfo> =
+    wgpu::SType::SharedFenceMTLSharedEventExportInfo;
 
-    template <typename Arg, typename... Rest>
-    std::string STypesToString() {
-        if constexpr (sizeof...(Rest)) {
-            return absl::StrFormat("%s, ", STypeForImpl<Arg>) + STypesToString<Rest...>();
-        } else {
-            return absl::StrFormat("%s", STypeForImpl<Arg>);
-        }
+template <typename Arg, typename... Rest>
+std::string STypesToString() {
+    if constexpr (sizeof...(Rest)) {
+        return absl::StrFormat("%s, ", STypeForImpl<Arg>) + STypesToString<Rest...>();
+    } else {
+        return absl::StrFormat("%s", STypeForImpl<Arg>);
     }
+}
 
-    //
-    // Unpacked chain types structs and helpers.
-    //   Note that unpacked types are tuples to enable further templating extensions based on
-    //   typing via something like std::get<const Extension*> in templated functions.
-    //
+// Typelist type used to further add extensions to chain roots when they are not in the json.
+template <typename... Exts>
+struct AdditionalExtensionsList;
 
-    // Typelist type used to further add extensions to chain roots when they are not in the json.
-    template <typename... Exts>
-    struct AdditionalExtensionsList;
+// Root specializations for adding additional extensions.
+template <typename Root>
+struct AdditionalExtensions {
+    using List = AdditionalExtensionsList<>;
+};
 
-    // Root specializations for adding additional extensions.
-    template <typename Root>
-    struct AdditionalExtensions {
-        using List = AdditionalExtensionsList<>;
-    };
-
-    // Template structs to get the typing for the unpacked chains.
-    template <typename...>
-    struct UnpackedChain;
-    template <typename... Additionals, typename... Ts>
-    struct UnpackedChain<AdditionalExtensionsList<Additionals...>, Ts...> {
-        using Type = std::tuple<Ts..., Additionals...>;
-    };
-
-    // Template function that returns a string of the non-nullptr STypes from an unpacked chain.
-    template <typename Unpacked>
-    std::string UnpackedChainToString(const Unpacked& unpacked) {
-        std::string result = "( ";
-        std::apply(
-            [&](const auto*... args) {
-                (([&](const auto* arg) {
-                    if (arg != nullptr) {
-                        // reinterpret_cast because this chained struct might be forward-declared
-                        // without a definition. The definition may only be available on a
-                        // particular backend.
-                        const auto* chainedStruct = reinterpret_cast<const wgpu::ChainedStruct*>(arg);
-                        result += absl::StrFormat("%s, ", chainedStruct->sType);
-                    }
-                }(args)), ...);}, unpacked);
-        result += " )";
-        return result;
-    }
+// Template structs to get the typing for the unpacked chains.
+template <typename...>
+struct UnpackedPtrChain;
+template <typename... Additionals, typename... Ts>
+struct UnpackedPtrChain<AdditionalExtensionsList<Additionals...>, Ts...> {
+    using Type = std::tuple<Ts..., Additionals...>;
+};
 
 }  // namespace detail
 
-    template <typename T>
-    constexpr inline wgpu::SType STypeFor = detail::STypeForImpl<T>;
-    template <typename T>
-    constexpr inline wgpu::SType STypeFor<const T*> = detail::STypeForImpl<T>;
-
-    template <typename T>
-    void FindInChain(const ChainedStruct* chain, const T** out) {
-        for (; chain; chain = chain->nextInChain) {
-            if (chain->sType == STypeFor<T>) {
-                *out = static_cast<const T*>(chain);
-                break;
-            }
-        }
-    }
-    template <typename T>
-    void FindInChain(ChainedStructOut* chain, T** out) {
-        for (; chain; chain = chain->nextInChain) {
-            if (chain->sType == STypeFor<T>) {
-                *out = static_cast<T*>(chain);
-                break;
-            }
-        }
-    }
-
-    // Verifies that |chain| only contains ChainedStructs of types enumerated in
-    // |oneOfConstraints| and contains no duplicate sTypes. Each vector in
-    // |oneOfConstraints| defines a set of sTypes that cannot coexist in the same chain.
-    // For example:
-    //   ValidateSTypes(chain, { { ShaderModuleSPIRVDescriptor, ShaderModuleWGSLDescriptor } }))
-    //   ValidateSTypes(chain, { { Extension1 }, { Extension2 } })
-    MaybeError ValidateSTypes(const ChainedStruct* chain,
-                              std::vector<std::vector<wgpu::SType>> oneOfConstraints);
-    MaybeError ValidateSTypes(const ChainedStructOut* chain,
-                              std::vector<std::vector<wgpu::SType>> oneOfConstraints);
-
-    template <typename T>
-    MaybeError ValidateSingleSTypeInner(const ChainedStruct* chain, T sType) {
-        DAWN_INVALID_IF(chain->sType != sType,
-            "Unsupported sType (%s). Expected (%s)", chain->sType, sType);
-        return {};
-    }
-    template <typename T>
-    MaybeError ValidateSingleSTypeInner(const ChainedStructOut* chain, T sType) {
-        DAWN_INVALID_IF(chain->sType != sType,
-            "Unsupported sType (%s). Expected (%s)", chain->sType, sType);
-        return {};
-    }
-
-    template <typename T, typename... Args>
-    MaybeError ValidateSingleSTypeInner(const ChainedStruct* chain, T sType, Args... sTypes) {
-        if (chain->sType == sType) {
-            return {};
-        }
-        return ValidateSingleSTypeInner(chain, sTypes...);
-    }
-    template <typename T, typename... Args>
-    MaybeError ValidateSingleSTypeInner(const ChainedStructOut* chain, T sType, Args... sTypes) {
-        if (chain->sType == sType) {
-            return {};
-        }
-        return ValidateSingleSTypeInner(chain, sTypes...);
-    }
-
-    // Verifies that |chain| contains a single ChainedStruct of type |sType| or no ChainedStructs
-    // at all.
-    template <typename T>
-    MaybeError ValidateSingleSType(const ChainedStruct* chain, T sType) {
-        if (chain == nullptr) {
-            return {};
-        }
-        DAWN_INVALID_IF(chain->nextInChain != nullptr,
-            "Chain can only contain a single chained struct.");
-        return ValidateSingleSTypeInner(chain, sType);
-    }
-    template <typename T>
-    MaybeError ValidateSingleSType(const ChainedStructOut* chain, T sType) {
-        if (chain == nullptr) {
-            return {};
-        }
-        DAWN_INVALID_IF(chain->nextInChain != nullptr,
-            "Chain can only contain a single chained struct.");
-        return ValidateSingleSTypeInner(chain, sType);
-    }
-
-    // Verifies that |chain| contains a single ChainedStruct with a type enumerated in the
-    // parameter pack or no ChainedStructs at all.
-    template <typename T, typename... Args>
-    MaybeError ValidateSingleSType(const ChainedStruct* chain, T sType, Args... sTypes) {
-        if (chain == nullptr) {
-            return {};
-        }
-        DAWN_INVALID_IF(chain->nextInChain != nullptr,
-            "Chain can only contain a single chained struct.");
-        return ValidateSingleSTypeInner(chain, sType, sTypes...);
-    }
-    template <typename T, typename... Args>
-    MaybeError ValidateSingleSType(const ChainedStructOut* chain, T sType, Args... sTypes) {
-        if (chain == nullptr) {
-            return {};
-        }
-        DAWN_INVALID_IF(chain->nextInChain != nullptr,
-            "Chain can only contain a single chained struct.");
-        return ValidateSingleSTypeInner(chain, sType, sTypes...);
-    }
-
-    // Template type to get root type from the unpacked chain and vice-versa.
-    template <typename Unpacked>
-    struct RootTypeFor;
-    template <typename Root>
-    struct UnpackedTypeFor;
+template <typename T>
+constexpr inline wgpu::SType STypeFor = detail::STypeForImpl<T>;
+template <typename T>
+constexpr inline wgpu::SType STypeFor<const T*> = detail::STypeForImpl<T>;
 
 }  // namespace dawn::native
 
@@ -316,545 +246,624 @@ namespace detail {
 #include "dawn/native/ChainUtilsImpl.inl"
 
 namespace dawn::native {
+namespace detail {
 
-    using UnpackedBindGroupEntryChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BindGroupEntry>::List,
-        const ExternalTextureBindingEntry*
+// Template type to get the unpacked chain type from the root type.
+template <typename Root>
+struct UnpackedPtrTypeFor;
+
+// Template for extensible structures typing.
+enum class Extensibility { In, Out };
+template <typename T>
+inline Extensibility ExtensibilityFor;
+
+template <>
+struct UnpackedPtrTypeFor<AdapterProperties> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<AdapterProperties>::List
+        , DawnAdapterPropertiesPowerPreference*
+        , AdapterPropertiesMemoryHeaps*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BindGroupEntry> {
-        using Type = UnpackedBindGroupEntryChain;
-    };
-    ResultOrError<UnpackedBindGroupEntryChain> ValidateAndUnpackChain(const BindGroupEntry* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<AdapterProperties> = Extensibility::Out;
 
-    using UnpackedBufferBindingLayoutChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BufferBindingLayout>::List
+template <>
+struct UnpackedPtrTypeFor<BindGroupEntry> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BindGroupEntry>::List
+        , const ExternalTextureBindingEntry*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BufferBindingLayout> {
-        using Type = UnpackedBufferBindingLayoutChain;
-    };
-    ResultOrError<UnpackedBufferBindingLayoutChain> ValidateAndUnpackChain(const BufferBindingLayout* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BindGroupEntry> = Extensibility::In;
 
-    using UnpackedBufferDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BufferDescriptor>::List,
-        const BufferHostMappedPointer*,
-        const DawnBufferDescriptorErrorInfoFromWireClient*
+template <>
+struct UnpackedPtrTypeFor<BufferBindingLayout> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BufferBindingLayout>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BufferDescriptor> {
-        using Type = UnpackedBufferDescriptorChain;
-    };
-    ResultOrError<UnpackedBufferDescriptorChain> ValidateAndUnpackChain(const BufferDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BufferBindingLayout> = Extensibility::In;
 
-    using UnpackedBufferMapCallbackInfoChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BufferMapCallbackInfo>::List
+template <>
+struct UnpackedPtrTypeFor<BufferDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BufferDescriptor>::List
+        , const BufferHostMappedPointer*
+        , const DawnBufferDescriptorErrorInfoFromWireClient*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BufferMapCallbackInfo> {
-        using Type = UnpackedBufferMapCallbackInfoChain;
-    };
-    ResultOrError<UnpackedBufferMapCallbackInfoChain> ValidateAndUnpackChain(const BufferMapCallbackInfo* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BufferDescriptor> = Extensibility::In;
 
-    using UnpackedCommandBufferDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<CommandBufferDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<BufferMapCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BufferMapCallbackInfo>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<CommandBufferDescriptor> {
-        using Type = UnpackedCommandBufferDescriptorChain;
-    };
-    ResultOrError<UnpackedCommandBufferDescriptorChain> ValidateAndUnpackChain(const CommandBufferDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BufferMapCallbackInfo> = Extensibility::In;
 
-    using UnpackedCommandEncoderDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<CommandEncoderDescriptor>::List,
-        const DawnEncoderInternalUsageDescriptor*
+template <>
+struct UnpackedPtrTypeFor<CommandBufferDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CommandBufferDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<CommandEncoderDescriptor> {
-        using Type = UnpackedCommandEncoderDescriptorChain;
-    };
-    ResultOrError<UnpackedCommandEncoderDescriptorChain> ValidateAndUnpackChain(const CommandEncoderDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CommandBufferDescriptor> = Extensibility::In;
 
-    using UnpackedCompilationMessageChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<CompilationMessage>::List
+template <>
+struct UnpackedPtrTypeFor<CommandEncoderDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CommandEncoderDescriptor>::List
+        , const DawnEncoderInternalUsageDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<CompilationMessage> {
-        using Type = UnpackedCompilationMessageChain;
-    };
-    ResultOrError<UnpackedCompilationMessageChain> ValidateAndUnpackChain(const CompilationMessage* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CommandEncoderDescriptor> = Extensibility::In;
 
-    using UnpackedConstantEntryChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ConstantEntry>::List
+template <>
+struct UnpackedPtrTypeFor<CompilationMessage> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CompilationMessage>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ConstantEntry> {
-        using Type = UnpackedConstantEntryChain;
-    };
-    ResultOrError<UnpackedConstantEntryChain> ValidateAndUnpackChain(const ConstantEntry* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CompilationMessage> = Extensibility::In;
 
-    using UnpackedCopyTextureForBrowserOptionsChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<CopyTextureForBrowserOptions>::List
+template <>
+struct UnpackedPtrTypeFor<ConstantEntry> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ConstantEntry>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<CopyTextureForBrowserOptions> {
-        using Type = UnpackedCopyTextureForBrowserOptionsChain;
-    };
-    ResultOrError<UnpackedCopyTextureForBrowserOptionsChain> ValidateAndUnpackChain(const CopyTextureForBrowserOptions* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ConstantEntry> = Extensibility::In;
 
-    using UnpackedInstanceFeaturesChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<InstanceFeatures>::List
+template <>
+struct UnpackedPtrTypeFor<CopyTextureForBrowserOptions> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CopyTextureForBrowserOptions>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<InstanceFeatures> {
-        using Type = UnpackedInstanceFeaturesChain;
-    };
-    ResultOrError<UnpackedInstanceFeaturesChain> ValidateAndUnpackChain(const InstanceFeatures* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CopyTextureForBrowserOptions> = Extensibility::In;
 
-    using UnpackedMultisampleStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<MultisampleState>::List,
-        const DawnMultisampleStateRenderToSingleSampled*
+template <>
+struct UnpackedPtrTypeFor<InstanceFeatures> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<InstanceFeatures>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<MultisampleState> {
-        using Type = UnpackedMultisampleStateChain;
-    };
-    ResultOrError<UnpackedMultisampleStateChain> ValidateAndUnpackChain(const MultisampleState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<InstanceFeatures> = Extensibility::In;
 
-    using UnpackedPipelineLayoutDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<PipelineLayoutDescriptor>::List,
-        const PipelineLayoutPixelLocalStorage*
+template <>
+struct UnpackedPtrTypeFor<MultisampleState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<MultisampleState>::List
+        , const DawnMultisampleStateRenderToSingleSampled*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<PipelineLayoutDescriptor> {
-        using Type = UnpackedPipelineLayoutDescriptorChain;
-    };
-    ResultOrError<UnpackedPipelineLayoutDescriptorChain> ValidateAndUnpackChain(const PipelineLayoutDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<MultisampleState> = Extensibility::In;
 
-    using UnpackedPipelineLayoutStorageAttachmentChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<PipelineLayoutStorageAttachment>::List
+template <>
+struct UnpackedPtrTypeFor<PipelineLayoutDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<PipelineLayoutDescriptor>::List
+        , const PipelineLayoutPixelLocalStorage*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<PipelineLayoutStorageAttachment> {
-        using Type = UnpackedPipelineLayoutStorageAttachmentChain;
-    };
-    ResultOrError<UnpackedPipelineLayoutStorageAttachmentChain> ValidateAndUnpackChain(const PipelineLayoutStorageAttachment* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<PipelineLayoutDescriptor> = Extensibility::In;
 
-    using UnpackedPrimitiveStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<PrimitiveState>::List,
-        const PrimitiveDepthClipControl*
+template <>
+struct UnpackedPtrTypeFor<PipelineLayoutStorageAttachment> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<PipelineLayoutStorageAttachment>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<PrimitiveState> {
-        using Type = UnpackedPrimitiveStateChain;
-    };
-    ResultOrError<UnpackedPrimitiveStateChain> ValidateAndUnpackChain(const PrimitiveState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<PipelineLayoutStorageAttachment> = Extensibility::In;
 
-    using UnpackedQuerySetDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<QuerySetDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<PrimitiveState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<PrimitiveState>::List
+        , const PrimitiveDepthClipControl*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<QuerySetDescriptor> {
-        using Type = UnpackedQuerySetDescriptorChain;
-    };
-    ResultOrError<UnpackedQuerySetDescriptorChain> ValidateAndUnpackChain(const QuerySetDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<PrimitiveState> = Extensibility::In;
 
-    using UnpackedQueueDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<QueueDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<QuerySetDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<QuerySetDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<QueueDescriptor> {
-        using Type = UnpackedQueueDescriptorChain;
-    };
-    ResultOrError<UnpackedQueueDescriptorChain> ValidateAndUnpackChain(const QueueDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<QuerySetDescriptor> = Extensibility::In;
 
-    using UnpackedQueueWorkDoneCallbackInfoChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<QueueWorkDoneCallbackInfo>::List
+template <>
+struct UnpackedPtrTypeFor<QueueDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<QueueDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<QueueWorkDoneCallbackInfo> {
-        using Type = UnpackedQueueWorkDoneCallbackInfoChain;
-    };
-    ResultOrError<UnpackedQueueWorkDoneCallbackInfoChain> ValidateAndUnpackChain(const QueueWorkDoneCallbackInfo* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<QueueDescriptor> = Extensibility::In;
 
-    using UnpackedRenderBundleDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderBundleDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<QueueWorkDoneCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<QueueWorkDoneCallbackInfo>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderBundleDescriptor> {
-        using Type = UnpackedRenderBundleDescriptorChain;
-    };
-    ResultOrError<UnpackedRenderBundleDescriptorChain> ValidateAndUnpackChain(const RenderBundleDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<QueueWorkDoneCallbackInfo> = Extensibility::In;
 
-    using UnpackedRenderBundleEncoderDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderBundleEncoderDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<RenderBundleDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderBundleDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderBundleEncoderDescriptor> {
-        using Type = UnpackedRenderBundleEncoderDescriptorChain;
-    };
-    ResultOrError<UnpackedRenderBundleEncoderDescriptorChain> ValidateAndUnpackChain(const RenderBundleEncoderDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderBundleDescriptor> = Extensibility::In;
 
-    using UnpackedRequestAdapterOptionsChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RequestAdapterOptions>::List,
-        const DawnTogglesDescriptor*
+template <>
+struct UnpackedPtrTypeFor<RenderBundleEncoderDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderBundleEncoderDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RequestAdapterOptions> {
-        using Type = UnpackedRequestAdapterOptionsChain;
-    };
-    ResultOrError<UnpackedRequestAdapterOptionsChain> ValidateAndUnpackChain(const RequestAdapterOptions* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderBundleEncoderDescriptor> = Extensibility::In;
 
-    using UnpackedSamplerBindingLayoutChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SamplerBindingLayout>::List
+template <>
+struct UnpackedPtrTypeFor<RequestAdapterCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RequestAdapterCallbackInfo>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SamplerBindingLayout> {
-        using Type = UnpackedSamplerBindingLayoutChain;
-    };
-    ResultOrError<UnpackedSamplerBindingLayoutChain> ValidateAndUnpackChain(const SamplerBindingLayout* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RequestAdapterCallbackInfo> = Extensibility::In;
 
-    using UnpackedSamplerDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SamplerDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<RequestAdapterOptions> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RequestAdapterOptions>::List
+        , const DawnTogglesDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SamplerDescriptor> {
-        using Type = UnpackedSamplerDescriptorChain;
-    };
-    ResultOrError<UnpackedSamplerDescriptorChain> ValidateAndUnpackChain(const SamplerDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RequestAdapterOptions> = Extensibility::In;
 
-    using UnpackedShaderModuleDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ShaderModuleDescriptor>::List,
-        const ShaderModuleSPIRVDescriptor*,
-        const ShaderModuleWGSLDescriptor*,
-        const DawnShaderModuleSPIRVOptionsDescriptor*
+template <>
+struct UnpackedPtrTypeFor<SamplerBindingLayout> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SamplerBindingLayout>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ShaderModuleDescriptor> {
-        using Type = UnpackedShaderModuleDescriptorChain;
-    };
-    ResultOrError<UnpackedShaderModuleDescriptorChain> ValidateAndUnpackChain(const ShaderModuleDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SamplerBindingLayout> = Extensibility::In;
 
-    using UnpackedSharedFenceDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SharedFenceDescriptor>::List,
-        const SharedFenceVkSemaphoreOpaqueFDDescriptor*,
-        const SharedFenceVkSemaphoreSyncFDDescriptor*,
-        const SharedFenceVkSemaphoreZirconHandleDescriptor*,
-        const SharedFenceDXGISharedHandleDescriptor*,
-        const SharedFenceMTLSharedEventDescriptor*
+template <>
+struct UnpackedPtrTypeFor<SamplerDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SamplerDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SharedFenceDescriptor> {
-        using Type = UnpackedSharedFenceDescriptorChain;
-    };
-    ResultOrError<UnpackedSharedFenceDescriptorChain> ValidateAndUnpackChain(const SharedFenceDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SamplerDescriptor> = Extensibility::In;
 
-    using UnpackedSharedTextureMemoryBeginAccessDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SharedTextureMemoryBeginAccessDescriptor>::List,
-        const SharedTextureMemoryVkImageLayoutBeginState*
+template <>
+struct UnpackedPtrTypeFor<ShaderModuleDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ShaderModuleDescriptor>::List
+        , const ShaderModuleSPIRVDescriptor*
+        , const ShaderModuleWGSLDescriptor*
+        , const DawnShaderModuleSPIRVOptionsDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SharedTextureMemoryBeginAccessDescriptor> {
-        using Type = UnpackedSharedTextureMemoryBeginAccessDescriptorChain;
-    };
-    ResultOrError<UnpackedSharedTextureMemoryBeginAccessDescriptorChain> ValidateAndUnpackChain(const SharedTextureMemoryBeginAccessDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ShaderModuleDescriptor> = Extensibility::In;
 
-    using UnpackedSharedTextureMemoryDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SharedTextureMemoryDescriptor>::List,
-        const SharedTextureMemoryVkImageDescriptor*,
-        const SharedTextureMemoryVkDedicatedAllocationDescriptor*,
-        const SharedTextureMemoryAHardwareBufferDescriptor*,
-        const SharedTextureMemoryDmaBufDescriptor*,
-        const SharedTextureMemoryOpaqueFDDescriptor*,
-        const SharedTextureMemoryZirconHandleDescriptor*,
-        const SharedTextureMemoryDXGISharedHandleDescriptor*,
-        const SharedTextureMemoryIOSurfaceDescriptor*,
-        const SharedTextureMemoryEGLImageDescriptor*
+template <>
+struct UnpackedPtrTypeFor<SharedFenceDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedFenceDescriptor>::List
+        , const SharedFenceVkSemaphoreOpaqueFDDescriptor*
+        , const SharedFenceVkSemaphoreSyncFDDescriptor*
+        , const SharedFenceVkSemaphoreZirconHandleDescriptor*
+        , const SharedFenceDXGISharedHandleDescriptor*
+        , const SharedFenceMTLSharedEventDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SharedTextureMemoryDescriptor> {
-        using Type = UnpackedSharedTextureMemoryDescriptorChain;
-    };
-    ResultOrError<UnpackedSharedTextureMemoryDescriptorChain> ValidateAndUnpackChain(const SharedTextureMemoryDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedFenceDescriptor> = Extensibility::In;
 
-    using UnpackedStorageTextureBindingLayoutChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<StorageTextureBindingLayout>::List
+template <>
+struct UnpackedPtrTypeFor<SharedFenceExportInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedFenceExportInfo>::List
+        , SharedFenceVkSemaphoreOpaqueFDExportInfo*
+        , SharedFenceVkSemaphoreSyncFDExportInfo*
+        , SharedFenceVkSemaphoreZirconHandleExportInfo*
+        , SharedFenceDXGISharedHandleExportInfo*
+        , SharedFenceMTLSharedEventExportInfo*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<StorageTextureBindingLayout> {
-        using Type = UnpackedStorageTextureBindingLayoutChain;
-    };
-    ResultOrError<UnpackedStorageTextureBindingLayoutChain> ValidateAndUnpackChain(const StorageTextureBindingLayout* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedFenceExportInfo> = Extensibility::Out;
 
-    using UnpackedSurfaceDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SurfaceDescriptor>::List,
-        const SurfaceDescriptorFromAndroidNativeWindow*,
-        const SurfaceDescriptorFromCanvasHTMLSelector*,
-        const SurfaceDescriptorFromMetalLayer*,
-        const SurfaceDescriptorFromWindowsHWND*,
-        const SurfaceDescriptorFromXlibWindow*,
-        const SurfaceDescriptorFromWaylandSurface*,
-        const SurfaceDescriptorFromWindowsCoreWindow*,
-        const SurfaceDescriptorFromWindowsSwapChainPanel*
+template <>
+struct UnpackedPtrTypeFor<SharedTextureMemoryBeginAccessDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedTextureMemoryBeginAccessDescriptor>::List
+        , const SharedTextureMemoryVkImageLayoutBeginState*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SurfaceDescriptor> {
-        using Type = UnpackedSurfaceDescriptorChain;
-    };
-    ResultOrError<UnpackedSurfaceDescriptorChain> ValidateAndUnpackChain(const SurfaceDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedTextureMemoryBeginAccessDescriptor> = Extensibility::In;
 
-    using UnpackedSwapChainDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<SwapChainDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<SharedTextureMemoryDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedTextureMemoryDescriptor>::List
+        , const SharedTextureMemoryVkImageDescriptor*
+        , const SharedTextureMemoryVkDedicatedAllocationDescriptor*
+        , const SharedTextureMemoryAHardwareBufferDescriptor*
+        , const SharedTextureMemoryDmaBufDescriptor*
+        , const SharedTextureMemoryOpaqueFDDescriptor*
+        , const SharedTextureMemoryZirconHandleDescriptor*
+        , const SharedTextureMemoryDXGISharedHandleDescriptor*
+        , const SharedTextureMemoryIOSurfaceDescriptor*
+        , const SharedTextureMemoryEGLImageDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<SwapChainDescriptor> {
-        using Type = UnpackedSwapChainDescriptorChain;
-    };
-    ResultOrError<UnpackedSwapChainDescriptorChain> ValidateAndUnpackChain(const SwapChainDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedTextureMemoryDescriptor> = Extensibility::In;
 
-    using UnpackedTextureBindingLayoutChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<TextureBindingLayout>::List
+template <>
+struct UnpackedPtrTypeFor<SharedTextureMemoryEndAccessState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedTextureMemoryEndAccessState>::List
+        , SharedTextureMemoryVkImageLayoutEndState*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<TextureBindingLayout> {
-        using Type = UnpackedTextureBindingLayoutChain;
-    };
-    ResultOrError<UnpackedTextureBindingLayoutChain> ValidateAndUnpackChain(const TextureBindingLayout* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedTextureMemoryEndAccessState> = Extensibility::Out;
 
-    using UnpackedTextureDataLayoutChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<TextureDataLayout>::List
+template <>
+struct UnpackedPtrTypeFor<StorageTextureBindingLayout> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<StorageTextureBindingLayout>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<TextureDataLayout> {
-        using Type = UnpackedTextureDataLayoutChain;
-    };
-    ResultOrError<UnpackedTextureDataLayoutChain> ValidateAndUnpackChain(const TextureDataLayout* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<StorageTextureBindingLayout> = Extensibility::In;
 
-    using UnpackedTextureViewDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<TextureViewDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<SurfaceDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SurfaceDescriptor>::List
+        , const SurfaceDescriptorFromAndroidNativeWindow*
+        , const SurfaceDescriptorFromCanvasHTMLSelector*
+        , const SurfaceDescriptorFromMetalLayer*
+        , const SurfaceDescriptorFromWindowsHWND*
+        , const SurfaceDescriptorFromXlibWindow*
+        , const SurfaceDescriptorFromWaylandSurface*
+        , const SurfaceDescriptorFromWindowsCoreWindow*
+        , const SurfaceDescriptorFromWindowsSwapChainPanel*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<TextureViewDescriptor> {
-        using Type = UnpackedTextureViewDescriptorChain;
-    };
-    ResultOrError<UnpackedTextureViewDescriptorChain> ValidateAndUnpackChain(const TextureViewDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SurfaceDescriptor> = Extensibility::In;
 
-    using UnpackedBindGroupDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BindGroupDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<SwapChainDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SwapChainDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BindGroupDescriptor> {
-        using Type = UnpackedBindGroupDescriptorChain;
-    };
-    ResultOrError<UnpackedBindGroupDescriptorChain> ValidateAndUnpackChain(const BindGroupDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SwapChainDescriptor> = Extensibility::In;
 
-    using UnpackedBindGroupLayoutEntryChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BindGroupLayoutEntry>::List,
-        const ExternalTextureBindingLayout*
+template <>
+struct UnpackedPtrTypeFor<TextureBindingLayout> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<TextureBindingLayout>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BindGroupLayoutEntry> {
-        using Type = UnpackedBindGroupLayoutEntryChain;
-    };
-    ResultOrError<UnpackedBindGroupLayoutEntryChain> ValidateAndUnpackChain(const BindGroupLayoutEntry* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<TextureBindingLayout> = Extensibility::In;
 
-    using UnpackedCompilationInfoChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<CompilationInfo>::List
+template <>
+struct UnpackedPtrTypeFor<TextureDataLayout> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<TextureDataLayout>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<CompilationInfo> {
-        using Type = UnpackedCompilationInfoChain;
-    };
-    ResultOrError<UnpackedCompilationInfoChain> ValidateAndUnpackChain(const CompilationInfo* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<TextureDataLayout> = Extensibility::In;
 
-    using UnpackedComputePassDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ComputePassDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<TextureViewDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<TextureViewDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ComputePassDescriptor> {
-        using Type = UnpackedComputePassDescriptorChain;
-    };
-    ResultOrError<UnpackedComputePassDescriptorChain> ValidateAndUnpackChain(const ComputePassDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<TextureViewDescriptor> = Extensibility::In;
 
-    using UnpackedDepthStencilStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<DepthStencilState>::List,
-        const DepthStencilStateDepthWriteDefinedDawn*
+template <>
+struct UnpackedPtrTypeFor<BindGroupDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BindGroupDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<DepthStencilState> {
-        using Type = UnpackedDepthStencilStateChain;
-    };
-    ResultOrError<UnpackedDepthStencilStateChain> ValidateAndUnpackChain(const DepthStencilState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BindGroupDescriptor> = Extensibility::In;
 
-    using UnpackedExternalTextureDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ExternalTextureDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<BindGroupLayoutEntry> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BindGroupLayoutEntry>::List
+        , const ExternalTextureBindingLayout*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ExternalTextureDescriptor> {
-        using Type = UnpackedExternalTextureDescriptorChain;
-    };
-    ResultOrError<UnpackedExternalTextureDescriptorChain> ValidateAndUnpackChain(const ExternalTextureDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BindGroupLayoutEntry> = Extensibility::In;
 
-    using UnpackedImageCopyBufferChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ImageCopyBuffer>::List
+template <>
+struct UnpackedPtrTypeFor<CompilationInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CompilationInfo>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ImageCopyBuffer> {
-        using Type = UnpackedImageCopyBufferChain;
-    };
-    ResultOrError<UnpackedImageCopyBufferChain> ValidateAndUnpackChain(const ImageCopyBuffer* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CompilationInfo> = Extensibility::In;
 
-    using UnpackedImageCopyExternalTextureChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ImageCopyExternalTexture>::List
+template <>
+struct UnpackedPtrTypeFor<ComputePassDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ComputePassDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ImageCopyExternalTexture> {
-        using Type = UnpackedImageCopyExternalTextureChain;
-    };
-    ResultOrError<UnpackedImageCopyExternalTextureChain> ValidateAndUnpackChain(const ImageCopyExternalTexture* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ComputePassDescriptor> = Extensibility::In;
 
-    using UnpackedImageCopyTextureChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ImageCopyTexture>::List
+template <>
+struct UnpackedPtrTypeFor<DepthStencilState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<DepthStencilState>::List
+        , const DepthStencilStateDepthWriteDefinedDawn*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ImageCopyTexture> {
-        using Type = UnpackedImageCopyTextureChain;
-    };
-    ResultOrError<UnpackedImageCopyTextureChain> ValidateAndUnpackChain(const ImageCopyTexture* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<DepthStencilState> = Extensibility::In;
 
-    using UnpackedInstanceDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<InstanceDescriptor>::List,
-        const DawnTogglesDescriptor*
+template <>
+struct UnpackedPtrTypeFor<ExternalTextureDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ExternalTextureDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<InstanceDescriptor> {
-        using Type = UnpackedInstanceDescriptorChain;
-    };
-    ResultOrError<UnpackedInstanceDescriptorChain> ValidateAndUnpackChain(const InstanceDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ExternalTextureDescriptor> = Extensibility::In;
 
-    using UnpackedProgrammableStageDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ProgrammableStageDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<ImageCopyBuffer> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ImageCopyBuffer>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ProgrammableStageDescriptor> {
-        using Type = UnpackedProgrammableStageDescriptorChain;
-    };
-    ResultOrError<UnpackedProgrammableStageDescriptorChain> ValidateAndUnpackChain(const ProgrammableStageDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ImageCopyBuffer> = Extensibility::In;
 
-    using UnpackedRenderPassColorAttachmentChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderPassColorAttachment>::List,
-        const DawnRenderPassColorAttachmentRenderToSingleSampled*
+template <>
+struct UnpackedPtrTypeFor<ImageCopyExternalTexture> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ImageCopyExternalTexture>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderPassColorAttachment> {
-        using Type = UnpackedRenderPassColorAttachmentChain;
-    };
-    ResultOrError<UnpackedRenderPassColorAttachmentChain> ValidateAndUnpackChain(const RenderPassColorAttachment* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ImageCopyExternalTexture> = Extensibility::In;
 
-    using UnpackedRenderPassStorageAttachmentChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderPassStorageAttachment>::List
+template <>
+struct UnpackedPtrTypeFor<ImageCopyTexture> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ImageCopyTexture>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderPassStorageAttachment> {
-        using Type = UnpackedRenderPassStorageAttachmentChain;
-    };
-    ResultOrError<UnpackedRenderPassStorageAttachmentChain> ValidateAndUnpackChain(const RenderPassStorageAttachment* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ImageCopyTexture> = Extensibility::In;
 
-    using UnpackedRequiredLimitsChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RequiredLimits>::List
+template <>
+struct UnpackedPtrTypeFor<InstanceDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<InstanceDescriptor>::List
+        , const DawnTogglesDescriptor*
+        , const DawnWGSLBlocklist*
+        , const DawnWireWGSLControl*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RequiredLimits> {
-        using Type = UnpackedRequiredLimitsChain;
-    };
-    ResultOrError<UnpackedRequiredLimitsChain> ValidateAndUnpackChain(const RequiredLimits* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<InstanceDescriptor> = Extensibility::In;
 
-    using UnpackedTextureDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<TextureDescriptor>::List,
-        const DawnTextureInternalUsageDescriptor*
+template <>
+struct UnpackedPtrTypeFor<ProgrammableStageDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ProgrammableStageDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<TextureDescriptor> {
-        using Type = UnpackedTextureDescriptorChain;
-    };
-    ResultOrError<UnpackedTextureDescriptorChain> ValidateAndUnpackChain(const TextureDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ProgrammableStageDescriptor> = Extensibility::In;
 
-    using UnpackedBindGroupLayoutDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<BindGroupLayoutDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<RenderPassColorAttachment> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderPassColorAttachment>::List
+        , const DawnRenderPassColorAttachmentRenderToSingleSampled*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<BindGroupLayoutDescriptor> {
-        using Type = UnpackedBindGroupLayoutDescriptorChain;
-    };
-    ResultOrError<UnpackedBindGroupLayoutDescriptorChain> ValidateAndUnpackChain(const BindGroupLayoutDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderPassColorAttachment> = Extensibility::In;
 
-    using UnpackedColorTargetStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ColorTargetState>::List
+template <>
+struct UnpackedPtrTypeFor<RenderPassStorageAttachment> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderPassStorageAttachment>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ColorTargetState> {
-        using Type = UnpackedColorTargetStateChain;
-    };
-    ResultOrError<UnpackedColorTargetStateChain> ValidateAndUnpackChain(const ColorTargetState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderPassStorageAttachment> = Extensibility::In;
 
-    using UnpackedComputePipelineDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<ComputePipelineDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<RequiredLimits> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RequiredLimits>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<ComputePipelineDescriptor> {
-        using Type = UnpackedComputePipelineDescriptorChain;
-    };
-    ResultOrError<UnpackedComputePipelineDescriptorChain> ValidateAndUnpackChain(const ComputePipelineDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RequiredLimits> = Extensibility::In;
 
-    using UnpackedDeviceDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<DeviceDescriptor>::List,
-        const DawnTogglesDescriptor*,
-        const DawnCacheDeviceDescriptor*
+template <>
+struct UnpackedPtrTypeFor<SharedTextureMemoryProperties> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SharedTextureMemoryProperties>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<DeviceDescriptor> {
-        using Type = UnpackedDeviceDescriptorChain;
-    };
-    ResultOrError<UnpackedDeviceDescriptorChain> ValidateAndUnpackChain(const DeviceDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SharedTextureMemoryProperties> = Extensibility::Out;
 
-    using UnpackedRenderPassDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderPassDescriptor>::List,
-        const RenderPassDescriptorMaxDrawCount*,
-        const RenderPassPixelLocalStorage*
+template <>
+struct UnpackedPtrTypeFor<SupportedLimits> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<SupportedLimits>::List
+        , DawnExperimentalSubgroupLimits*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderPassDescriptor> {
-        using Type = UnpackedRenderPassDescriptorChain;
-    };
-    ResultOrError<UnpackedRenderPassDescriptorChain> ValidateAndUnpackChain(const RenderPassDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<SupportedLimits> = Extensibility::Out;
 
-    using UnpackedVertexStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<VertexState>::List
+template <>
+struct UnpackedPtrTypeFor<TextureDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<TextureDescriptor>::List
+        , const TextureBindingViewDimensionDescriptor*
+        , const DawnTextureInternalUsageDescriptor*
     >::Type;
-    template <>
-    struct UnpackedTypeFor<VertexState> {
-        using Type = UnpackedVertexStateChain;
-    };
-    ResultOrError<UnpackedVertexStateChain> ValidateAndUnpackChain(const VertexState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<TextureDescriptor> = Extensibility::In;
 
-    using UnpackedFragmentStateChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<FragmentState>::List
+template <>
+struct UnpackedPtrTypeFor<BindGroupLayoutDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<BindGroupLayoutDescriptor>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<FragmentState> {
-        using Type = UnpackedFragmentStateChain;
-    };
-    ResultOrError<UnpackedFragmentStateChain> ValidateAndUnpackChain(const FragmentState* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<BindGroupLayoutDescriptor> = Extensibility::In;
 
-    using UnpackedRenderPipelineDescriptorChain = detail::UnpackedChain<
-        detail::AdditionalExtensions<RenderPipelineDescriptor>::List
+template <>
+struct UnpackedPtrTypeFor<ColorTargetState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ColorTargetState>::List
     >::Type;
-    template <>
-    struct UnpackedTypeFor<RenderPipelineDescriptor> {
-        using Type = UnpackedRenderPipelineDescriptorChain;
-    };
-    ResultOrError<UnpackedRenderPipelineDescriptorChain> ValidateAndUnpackChain(const RenderPipelineDescriptor* chain);
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ColorTargetState> = Extensibility::In;
 
+template <>
+struct UnpackedPtrTypeFor<ComputePipelineDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<ComputePipelineDescriptor>::List
+        , const DawnComputePipelineFullSubgroups*
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<ComputePipelineDescriptor> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<DeviceDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<DeviceDescriptor>::List
+        , const DawnTogglesDescriptor*
+        , const DawnCacheDeviceDescriptor*
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<DeviceDescriptor> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<RenderPassDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderPassDescriptor>::List
+        , const RenderPassDescriptorMaxDrawCount*
+        , const RenderPassPixelLocalStorage*
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderPassDescriptor> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<VertexState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<VertexState>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<VertexState> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<FragmentState> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<FragmentState>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<FragmentState> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<RenderPipelineDescriptor> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RenderPipelineDescriptor>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RenderPipelineDescriptor> = Extensibility::In;
+
+
+}  // namespace detail
 
 }  // namespace dawn::native
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -193,9 +194,9 @@ IntentInfo::IntentInfo()
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in)
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
       data(std::move(data_in)),
@@ -207,10 +208,10 @@ IntentInfo::IntentInfo(
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in,
-    const absl::optional<std::string>& clip_data_uri_in)
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in,
+    const std::optional<std::string>& clip_data_uri_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
       data(std::move(data_in)),
@@ -222,10 +223,10 @@ IntentInfo::IntentInfo(
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in,
-    const absl::optional<std::string>& clip_data_uri_in,
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in,
+    const std::optional<std::string>& clip_data_uri_in,
     bool ui_bypassed_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
@@ -238,12 +239,12 @@ IntentInfo::IntentInfo(
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in,
-    const absl::optional<std::string>& clip_data_uri_in,
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in,
+    const std::optional<std::string>& clip_data_uri_in,
     bool ui_bypassed_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& extras_in)
+    const std::optional<base::flat_map<std::string, std::string>>& extras_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
       data(std::move(data_in)),
@@ -255,12 +256,12 @@ IntentInfo::IntentInfo(
 
 IntentInfo::IntentInfo(
     const std::string& action_in,
-    absl::optional<std::vector<std::string>> categories_in,
-    const absl::optional<std::string>& data_in,
-    const absl::optional<std::string>& type_in,
-    const absl::optional<std::string>& clip_data_uri_in,
+    std::optional<std::vector<std::string>> categories_in,
+    const std::optional<std::string>& data_in,
+    const std::optional<std::string>& type_in,
+    const std::optional<std::string>& clip_data_uri_in,
     bool ui_bypassed_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& extras_in,
+    const std::optional<base::flat_map<std::string, std::string>>& extras_in,
     UriComponentsPtr uri_components_in)
     : action(std::move(action_in)),
       categories(std::move(categories_in)),
@@ -289,7 +290,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "categories"), this->categories,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -298,7 +299,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -307,7 +308,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -316,7 +317,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "clip_data_uri"), this->clip_data_uri,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -334,7 +335,7 @@ void IntentInfo::WriteIntoTrace(
     dict.AddItem(
       "extras"), this->extras,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -386,9 +387,9 @@ IntentFilter::IntentFilter(
     std::vector<std::string> actions_in,
     std::vector<std::string> categories_in,
     std::vector<std::string> data_schemes_in,
-    absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in)
+    std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in)
     : actions(std::move(actions_in)),
       categories(std::move(categories_in)),
       data_schemes(std::move(data_schemes_in)),
@@ -404,10 +405,10 @@ IntentFilter::IntentFilter(
     std::vector<std::string> actions_in,
     std::vector<std::string> categories_in,
     std::vector<std::string> data_schemes_in,
-    absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
-    const absl::optional<std::string>& package_name_in)
+    std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
+    const std::optional<std::string>& package_name_in)
     : actions(std::move(actions_in)),
       categories(std::move(categories_in)),
       data_schemes(std::move(data_schemes_in)),
@@ -423,11 +424,11 @@ IntentFilter::IntentFilter(
     std::vector<std::string> actions_in,
     std::vector<std::string> categories_in,
     std::vector<std::string> data_schemes_in,
-    absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
-    const absl::optional<std::string>& package_name_in,
-    absl::optional<std::vector<std::string>> mime_types_in)
+    std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
+    const std::optional<std::string>& package_name_in,
+    std::optional<std::vector<std::string>> mime_types_in)
     : actions(std::move(actions_in)),
       categories(std::move(categories_in)),
       data_schemes(std::move(data_schemes_in)),
@@ -443,12 +444,12 @@ IntentFilter::IntentFilter(
     std::vector<std::string> actions_in,
     std::vector<std::string> categories_in,
     std::vector<std::string> data_schemes_in,
-    absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
-    const absl::optional<std::string>& package_name_in,
-    absl::optional<std::vector<std::string>> mime_types_in,
-    const absl::optional<std::string>& activity_name_in)
+    std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
+    const std::optional<std::string>& package_name_in,
+    std::optional<std::vector<std::string>> mime_types_in,
+    const std::optional<std::string>& activity_name_in)
     : actions(std::move(actions_in)),
       categories(std::move(categories_in)),
       data_schemes(std::move(data_schemes_in)),
@@ -464,13 +465,13 @@ IntentFilter::IntentFilter(
     std::vector<std::string> actions_in,
     std::vector<std::string> categories_in,
     std::vector<std::string> data_schemes_in,
-    absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
-    absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
-    const absl::optional<std::string>& package_name_in,
-    absl::optional<std::vector<std::string>> mime_types_in,
-    const absl::optional<std::string>& activity_name_in,
-    const absl::optional<std::string>& activity_label_in)
+    std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths_in,
+    std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts_in,
+    const std::optional<std::string>& package_name_in,
+    std::optional<std::vector<std::string>> mime_types_in,
+    const std::optional<std::string>& activity_name_in,
+    const std::optional<std::string>& activity_label_in)
     : actions(std::move(actions_in)),
       categories(std::move(categories_in)),
       data_schemes(std::move(data_schemes_in)),
@@ -518,7 +519,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "data_authorities"), this->data_authorities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>>>"
+      "<value of type std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -527,7 +528,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "data_paths"), this->data_paths,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>>>"
+      "<value of type std::optional<std::vector<::arc::IntentFilter::PatternMatcher>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -536,7 +537,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "deprecated_data_scheme_specific_parts"), this->deprecated_data_scheme_specific_parts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>>>"
+      "<value of type std::optional<std::vector<::arc::IntentFilter::PatternMatcher>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -545,7 +546,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "package_name"), this->package_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -554,7 +555,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "mime_types"), this->mime_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -563,7 +564,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "activity_name"), this->activity_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -572,7 +573,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "activity_label"), this->activity_label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -638,7 +639,7 @@ IntentHandlerInfo::IntentHandlerInfo(
     const std::string& activity_name_in,
     ::arc::mojom::ActionType action_type_in,
     bool is_preferred_in,
-    const absl::optional<std::string>& action_in)
+    const std::optional<std::string>& action_in)
     : name(std::move(name_in)),
       package_name(std::move(package_name_in)),
       activity_name(std::move(activity_name_in)),
@@ -653,8 +654,8 @@ IntentHandlerInfo::IntentHandlerInfo(
     const std::string& activity_name_in,
     ::arc::mojom::ActionType action_type_in,
     bool is_preferred_in,
-    const absl::optional<std::string>& action_in,
-    const absl::optional<std::string>& fallback_url_in)
+    const std::optional<std::string>& action_in,
+    const std::optional<std::string>& fallback_url_in)
     : name(std::move(name_in)),
       package_name(std::move(package_name_in)),
       activity_name(std::move(activity_name_in)),
@@ -717,7 +718,7 @@ void IntentHandlerInfo::WriteIntoTrace(
     dict.AddItem(
       "action"), this->action,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -726,7 +727,7 @@ void IntentHandlerInfo::WriteIntoTrace(
     dict.AddItem(
       "fallback_url"), this->fallback_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -896,7 +897,7 @@ TextSelectionAction::TextSelectionAction(
     const std::string& title_in,
     IntentInfoPtr action_intent_in,
     bool text_classifier_action_in,
-    const absl::optional<::SkBitmap>& bitmap_icon_in)
+    const std::optional<::SkBitmap>& bitmap_icon_in)
     : icon(std::move(icon_in)),
       activity(std::move(activity_in)),
       title(std::move(title_in)),
@@ -958,7 +959,7 @@ void TextSelectionAction::WriteIntoTrace(
     dict.AddItem(
       "bitmap_icon"), this->bitmap_icon,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -993,7 +994,7 @@ LaunchFileInfo::LaunchFileInfo(
     const std::string& type_in,
     const std::string& removed_name_in,
     uint64_t size_in,
-    const absl::optional<::base::SafeBaseName>& name_in)
+    const std::optional<::base::SafeBaseName>& name_in)
     : content_uri(std::move(content_uri_in)),
       type(std::move(type_in)),
       removed_name(std::move(removed_name_in)),
@@ -1045,7 +1046,7 @@ void LaunchFileInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::SafeBaseName>&>"
+      "<value of type const std::optional<::base::SafeBaseName>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1067,11 +1068,11 @@ LaunchIntent::LaunchIntent()
 
 LaunchIntent::LaunchIntent(
     const std::string& action_in,
-    const absl::optional<::GURL>& data_in,
-    const absl::optional<std::string>& type_in,
-    const absl::optional<std::string>& extra_subject_in,
-    const absl::optional<std::string>& extra_text_in,
-    absl::optional<std::vector<LaunchFileInfoPtr>> files_in)
+    const std::optional<::GURL>& data_in,
+    const std::optional<std::string>& type_in,
+    const std::optional<std::string>& extra_subject_in,
+    const std::optional<std::string>& extra_text_in,
+    std::optional<std::vector<LaunchFileInfoPtr>> files_in)
     : action(std::move(action_in)),
       data(std::move(data_in)),
       type(std::move(type_in)),
@@ -1097,7 +1098,7 @@ void LaunchIntent::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1106,7 +1107,7 @@ void LaunchIntent::WriteIntoTrace(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1115,7 +1116,7 @@ void LaunchIntent::WriteIntoTrace(
     dict.AddItem(
       "extra_subject"), this->extra_subject,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1124,7 +1125,7 @@ void LaunchIntent::WriteIntoTrace(
     dict.AddItem(
       "extra_text"), this->extra_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1133,7 +1134,7 @@ void LaunchIntent::WriteIntoTrace(
     dict.AddItem(
       "files"), this->files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<LaunchFileInfoPtr>>>"
+      "<value of type std::optional<std::vector<LaunchFileInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1151,7 +1152,7 @@ SupportedLinksPackage::SupportedLinksPackage()
 
 SupportedLinksPackage::SupportedLinksPackage(
     const std::string& package_name_in,
-    absl::optional<std::vector<::arc::IntentFilter>> deprecated_filters_in)
+    std::optional<std::vector<::arc::IntentFilter>> deprecated_filters_in)
     : package_name(std::move(package_name_in)),
       deprecated_filters(std::move(deprecated_filters_in)) {}
 
@@ -1173,7 +1174,7 @@ void SupportedLinksPackage::WriteIntoTrace(
     dict.AddItem(
       "deprecated_filters"), this->deprecated_filters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::arc::IntentFilter>>>"
+      "<value of type std::optional<std::vector<::arc::IntentFilter>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1493,14 +1494,17 @@ void CustomTabSessionProxy::OnOpenInChromeClicked(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CustomTabSession::OnOpenInChromeClicked");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomTabSession_OnOpenInChromeClicked_Name, kFlags, 0, 0, nullptr);
@@ -1564,10 +1568,10 @@ bool CustomTabSessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCustomTabSessionValidationInfo[] = {
-    {&internal::CustomTabSession_OnOpenInChromeClicked_Params_Data::Validate,
+    { &internal::CustomTabSession_OnOpenInChromeClicked_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2059,14 +2063,17 @@ void IntentHelperHostProxy::OnIconInvalidated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnIconInvalidated_Name, kFlags, 0, 0, nullptr);
@@ -2107,14 +2114,17 @@ void IntentHelperHostProxy::OnIntentFiltersUpdated(
                         "<value of type std::vector<::arc::IntentFilter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnIntentFiltersUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2150,14 +2160,17 @@ void IntentHelperHostProxy::OnOpenDownloads(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::OnOpenDownloads");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenDownloads_Name, kFlags, 0, 0, nullptr);
@@ -2187,14 +2200,17 @@ void IntentHelperHostProxy::OnOpenUrl(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenUrl_Name, kFlags, 0, 0, nullptr);
@@ -2238,14 +2254,17 @@ void IntentHelperHostProxy::OnOpenCustomTab(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenCustomTab_Name, kFlags, 0, 0, nullptr);
@@ -2281,14 +2300,17 @@ void IntentHelperHostProxy::OpenWallpaperPicker(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::OpenWallpaperPicker");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OpenWallpaperPicker_Name, kFlags, 0, 0, nullptr);
@@ -2311,14 +2333,17 @@ void IntentHelperHostProxy::OpenVolumeControl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::OpenVolumeControl");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OpenVolumeControl_Name, kFlags, 0, 0, nullptr);
@@ -2348,14 +2373,17 @@ void IntentHelperHostProxy::OnOpenChromePage(
                         "<value of type ChromePage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenChromePage_Name, kFlags, 0, 0, nullptr);
@@ -2387,14 +2415,17 @@ void IntentHelperHostProxy::OnOpenWebApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenWebApp_Name, kFlags, 0, 0, nullptr);
@@ -2428,14 +2459,17 @@ void IntentHelperHostProxy::FactoryResetArc(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::FactoryResetArc");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_FactoryResetArc_Name, kFlags, 0, 0, nullptr);
@@ -2480,14 +2514,17 @@ void IntentHelperHostProxy::LaunchCameraApp(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_LaunchCameraApp_Name, kFlags, 0, 0, nullptr);
@@ -2527,14 +2564,17 @@ void IntentHelperHostProxy::OnIntentFiltersUpdatedForPackage(
                         "<value of type std::vector<::arc::IntentFilter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnIntentFiltersUpdatedForPackage_Name, kFlags, 0, 0, nullptr);
@@ -2581,14 +2621,17 @@ void IntentHelperHostProxy::CloseCameraApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::CloseCameraApp");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_CloseCameraApp_Name, kFlags, 0, 0, nullptr);
@@ -2618,14 +2661,17 @@ void IntentHelperHostProxy::IsChromeAppEnabled(
                         "<value of type ChromeApp>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_IsChromeAppEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2664,14 +2710,17 @@ void IntentHelperHostProxy::OnSupportedLinksChanged(
                         "<value of type SupportedLinkChangeSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnSupportedLinksChanged_Name, kFlags, 0, 0, nullptr);
@@ -2732,14 +2781,17 @@ void IntentHelperHostProxy::OnDownloadAddedDeprecated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnDownloadAddedDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -2794,14 +2846,17 @@ void IntentHelperHostProxy::OnOpenAppWithIntent(
                         "<value of type LaunchIntentPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenAppWithIntent_Name, kFlags, 0, 0, nullptr);
@@ -2846,14 +2901,17 @@ void IntentHelperHostProxy::OnOpenGlobalActions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::OnOpenGlobalActions");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenGlobalActions_Name, kFlags, 0, 0, nullptr);
@@ -2876,14 +2934,17 @@ void IntentHelperHostProxy::OnCloseSystemDialogs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperHost::OnCloseSystemDialogs");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnCloseSystemDialogs_Name, kFlags, 0, 0, nullptr);
@@ -2916,14 +2977,17 @@ void IntentHelperHostProxy::OnAndroidSettingChange(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnAndroidSettingChange_Name, kFlags, 0, 0, nullptr);
@@ -3037,7 +3101,8 @@ void IntentHelperHost_OnOpenCustomTab_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_OnOpenCustomTab_Name, kFlags, 0, 0, nullptr);
@@ -3156,7 +3221,8 @@ void IntentHelperHost_IsChromeAppEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperHost_IsChromeAppEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3810,52 +3876,52 @@ std::move(p_app), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIntentHelperHostValidationInfo[] = {
-    {&internal::IntentHelperHost_OnOpenUrl_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnOpenUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnIconInvalidated_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnIconInvalidated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnOpenDownloads_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnOpenDownloads_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OpenWallpaperPicker_Params_Data::Validate,
-     nullptr /* no response */},
-    {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperHost_OnIntentFiltersUpdated_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::IntentHelperHost_OpenVolumeControl_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::IntentHelperHost_OnOpenChromePage_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::IntentHelperHost_OnOpenWebApp_Params_Data::Validate,
+    { &internal::IntentHelperHost_OpenWallpaperPicker_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
+    { &internal::IntentHelperHost_OnIntentFiltersUpdated_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::IntentHelperHost_OpenVolumeControl_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::IntentHelperHost_OnOpenChromePage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::IntentHelperHost_OnOpenWebApp_Params_Data::Validate,
+     nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperHost_FactoryResetArc_Params_Data::Validate,
+    {nullptr, nullptr},  // nonexistent
+    { &internal::IntentHelperHost_FactoryResetArc_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_LaunchCameraApp_Params_Data::Validate,
+    { &internal::IntentHelperHost_LaunchCameraApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnIntentFiltersUpdatedForPackage_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnIntentFiltersUpdatedForPackage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_CloseCameraApp_Params_Data::Validate,
+    { &internal::IntentHelperHost_CloseCameraApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_IsChromeAppEnabled_Params_Data::Validate,
+    { &internal::IntentHelperHost_IsChromeAppEnabled_Params_Data::Validate,
      &internal::IntentHelperHost_IsChromeAppEnabled_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperHost_OnOpenCustomTab_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnOpenCustomTab_Params_Data::Validate,
      &internal::IntentHelperHost_OnOpenCustomTab_ResponseParams_Data::Validate},
-    {&internal::IntentHelperHost_OnDownloadAddedDeprecated_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnDownloadAddedDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnOpenAppWithIntent_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnOpenAppWithIntent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnSupportedLinksChanged_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnSupportedLinksChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnOpenGlobalActions_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnOpenGlobalActions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnCloseSystemDialogs_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnCloseSystemDialogs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperHost_OnAndroidSettingChange_Params_Data::Validate,
+    { &internal::IntentHelperHost_OnAndroidSettingChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4351,14 +4417,17 @@ void IntentHelperInstanceProxy::AddPreferredPackage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_AddPreferredPackage_Name, kFlags, 0, 0, nullptr);
@@ -4402,14 +4471,17 @@ void IntentHelperInstanceProxy::SetVerifiedLinks(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_SetVerifiedLinks_Name, kFlags, 0, 0, nullptr);
@@ -4456,14 +4528,17 @@ void IntentHelperInstanceProxy::HandleIntent(
                         "<value of type ::arc::mojom::ActivityNamePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_HandleIntent_Name, kFlags, 0, 0, nullptr);
@@ -4521,14 +4596,17 @@ void IntentHelperInstanceProxy::HandleIntentWithWindowInfo(
                         "<value of type ::arc::mojom::WindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_HandleIntentWithWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -4594,14 +4672,17 @@ void IntentHelperInstanceProxy::HandleUrl(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_HandleUrl_Name, kFlags, 0, 0, nullptr);
@@ -4653,14 +4734,17 @@ void IntentHelperInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<IntentHelperHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -4700,14 +4784,17 @@ void IntentHelperInstanceProxy::RequestActivityIcons(
                         "<value of type ::arc::mojom::ScaleFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestActivityIcons_Name, kFlags, 0, 0, nullptr);
@@ -4753,14 +4840,17 @@ void IntentHelperInstanceProxy::RequestIntentHandlerList(
                         "<value of type IntentInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestIntentHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -4802,14 +4892,17 @@ void IntentHelperInstanceProxy::RequestUrlHandlerList(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestUrlHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -4851,14 +4944,17 @@ void IntentHelperInstanceProxy::RequestUrlListHandlerList(
                         "<value of type std::vector<UrlWithMimeTypePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestUrlListHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -4911,14 +5007,17 @@ void IntentHelperInstanceProxy::SendBroadcast(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_SendBroadcast_Name, kFlags, 0, 0, nullptr);
@@ -4995,14 +5094,17 @@ void IntentHelperInstanceProxy::RequestTextSelectionActions(
                         "<value of type ::arc::mojom::ScaleFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestTextSelectionActions_Name, kFlags, 0, 0, nullptr);
@@ -5052,14 +5154,17 @@ void IntentHelperInstanceProxy::HandleCameraResult(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_HandleCameraResult_Name, kFlags, 0, 0, nullptr);
@@ -5099,14 +5204,17 @@ void IntentHelperInstanceProxy::RequestDomainVerificationStatusUpdate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::IntentHelperInstance::RequestDomainVerificationStatusUpdate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestDomainVerificationStatusUpdate_Name, kFlags, 0, 0, nullptr);
@@ -5136,14 +5244,17 @@ void IntentHelperInstanceProxy::SetCaptionStyle(
                         "<value of type CaptionStylePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_SetCaptionStyle_Name, kFlags, 0, 0, nullptr);
@@ -5184,14 +5295,17 @@ void IntentHelperInstanceProxy::EnableAccessibilityFeatures(
                         "<value of type AccessibilityFeaturesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_EnableAccessibilityFeatures_Name, kFlags, 0, 0, nullptr);
@@ -5300,7 +5414,8 @@ void IntentHelperInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -5417,7 +5532,8 @@ void IntentHelperInstance_RequestActivityIcons_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestActivityIcons_Name, kFlags, 0, 0, nullptr);
@@ -5547,7 +5663,8 @@ void IntentHelperInstance_RequestIntentHandlerList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestIntentHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -5677,7 +5794,8 @@ void IntentHelperInstance_RequestUrlHandlerList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestUrlHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -5807,7 +5925,8 @@ void IntentHelperInstance_RequestUrlListHandlerList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestUrlListHandlerList_Name, kFlags, 0, 0, nullptr);
@@ -5937,7 +6056,8 @@ void IntentHelperInstance_RequestTextSelectionActions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_RequestTextSelectionActions_Name, kFlags, 0, 0, nullptr);
@@ -6067,7 +6187,8 @@ void IntentHelperInstance_HandleCameraResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIntentHelperInstance_HandleCameraResult_Name, kFlags, 0, 0, nullptr);
@@ -6646,48 +6767,48 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIntentHelperInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_SendBroadcast_Params_Data::Validate,
+    { &internal::IntentHelperInstance_SendBroadcast_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_HandleUrl_Params_Data::Validate,
+    { &internal::IntentHelperInstance_HandleUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_RequestUrlHandlerList_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestUrlHandlerList_Params_Data::Validate,
      &internal::IntentHelperInstance_RequestUrlHandlerList_ResponseParams_Data::Validate},
-    {&internal::IntentHelperInstance_RequestActivityIcons_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestActivityIcons_Params_Data::Validate,
      &internal::IntentHelperInstance_RequestActivityIcons_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_RequestUrlListHandlerList_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestUrlListHandlerList_Params_Data::Validate,
      &internal::IntentHelperInstance_RequestUrlListHandlerList_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_AddPreferredPackage_Params_Data::Validate,
+    { &internal::IntentHelperInstance_AddPreferredPackage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_RequestIntentHandlerList_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestIntentHandlerList_Params_Data::Validate,
      &internal::IntentHelperInstance_RequestIntentHandlerList_ResponseParams_Data::Validate},
-    {&internal::IntentHelperInstance_HandleIntent_Params_Data::Validate,
+    { &internal::IntentHelperInstance_HandleIntent_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_Init_Params_Data::Validate,
+    { &internal::IntentHelperInstance_Init_Params_Data::Validate,
      &internal::IntentHelperInstance_Init_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_RequestTextSelectionActions_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestTextSelectionActions_Params_Data::Validate,
      &internal::IntentHelperInstance_RequestTextSelectionActions_ResponseParams_Data::Validate},
-    {&internal::IntentHelperInstance_HandleCameraResult_Params_Data::Validate,
+    { &internal::IntentHelperInstance_HandleCameraResult_Params_Data::Validate,
      &internal::IntentHelperInstance_HandleCameraResult_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::IntentHelperInstance_RequestDomainVerificationStatusUpdate_Params_Data::Validate,
+    { &internal::IntentHelperInstance_RequestDomainVerificationStatusUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_HandleIntentWithWindowInfo_Params_Data::Validate,
+    { &internal::IntentHelperInstance_HandleIntentWithWindowInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_SetVerifiedLinks_Params_Data::Validate,
+    { &internal::IntentHelperInstance_SetVerifiedLinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_SetCaptionStyle_Params_Data::Validate,
+    { &internal::IntentHelperInstance_SetCaptionStyle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IntentHelperInstance_EnableAccessibilityFeatures_Params_Data::Validate,
+    { &internal::IntentHelperInstance_EnableAccessibilityFeatures_Params_Data::Validate,
      nullptr /* no response */},
 };
 

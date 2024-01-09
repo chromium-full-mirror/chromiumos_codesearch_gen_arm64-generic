@@ -16,12 +16,6 @@ export class DriveSyncHandler extends EventTarget {
         return '';
     }
     /**
-     * @return {boolean} Whether the handler is syncing items or not.
-     */
-    get syncing() {
-        return false;
-    }
-    /**
      * @param {Object} model
      */
     // @ts-ignore: error TS6133: 'model' is declared but its value is never read.

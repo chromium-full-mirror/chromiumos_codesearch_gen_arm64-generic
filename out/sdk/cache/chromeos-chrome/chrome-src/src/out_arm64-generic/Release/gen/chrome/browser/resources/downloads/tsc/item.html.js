@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{-webkit-filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:8px;margin-top:8px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
+    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:8px;margin-top:8px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
 
 <div id="date" role="heading" aria-level="2">[[computeDate_(data.hideDate,
     data.sinceString,
@@ -9,11 +9,11 @@ export function getTemplate() {
 <div id="content" on-dragstart="onDragStart_" class$="[[computeClass_(isActive_, isDangerous_, showProgress_)]]" focus-row-container>
   <div id="file-icon-wrapper" class="icon-wrapper" role="img" aria-label="[[iconAriaLabel_]]" aria-hidden="[[computeIconAriaHidden_(iconAriaLabel_)]]">
     <img class="icon" id="file-icon" alt="" hidden="[[!useFileIcon_]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
-        useFileIcon_, updateDeepScanningUx_, improvedDownloadWarningsUx_,
+        useFileIcon_, improvedDownloadWarningsUx_,
         displayType_)]]">
     <iron-icon class="icon" hidden="[[useFileIcon_]]" icon$="[[computeIcon_(isDangerous_, data.dangerType, useFileIcon_,
-            updateDeepScanningUx_, improvedDownloadWarningsUx_, displayType_)]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
-            useFileIcon_, updateDeepScanningUx_, improvedDownloadWarningsUx_,
+            improvedDownloadWarningsUx_, displayType_)]]" icon-color$="[[computeIconColor_(isDangerous_, data.dangerType,
+            useFileIcon_, improvedDownloadWarningsUx_,
             displayType_)]]"></iron-icon>
   </div>
 
@@ -30,26 +30,23 @@ export function getTemplate() {
 
     <div class="description" role="gridcell" description-color$="[[iconAndDescriptionColor_(displayType_,
             improvedDownloadWarningsUx_)]]" hidden$="[[!computeDescriptionVisible_(data.*, displayType_,
-            updateDeepScanningUx_, improvedDownloadWarningsUx_)]]">
+            improvedDownloadWarningsUx_)]]">
       [[computeDescription_(
           data.state,
           data.dangerType,
           data.fileName,
           data.progressStatusText,
           displayType_,
-          updateDeepScanningUx_,
           improvedDownloadWarningsUx_)]]
     </div>
 
-    <div class="description" role="gridcell" hidden="[[!computeSecondLineVisible_(data.state,
-        updateDeepScanningUx_)]]">
+    <div class="description" role="gridcell" hidden="[[!computeSecondLineVisible_(data.state)]]">
       $i18n{asyncScanningDownloadDescSecond}
     </div>
 
     <template is="dom-if" if="[[showProgress_]]">
       <div role="gridcell">
-        <paper-progress id="progress" indeterminate="[[isIndeterminate_(data.percent,
-            updateDeepScanningUx_)]]" value="[[data.percent]]">
+        <paper-progress id="progress" indeterminate="[[isIndeterminate_(data.percent)]]" value="[[data.percent]]">
         </paper-progress>
       </div>
     </template>
@@ -76,17 +73,10 @@ export function getTemplate() {
             </cr-button>
           </span>
         </template>
-        <template is="dom-if" if="[[showOpenNow_]]" restamp>
-          <span role="gridcell">
-            <cr-button on-click="onOpenNowClick_" id="openNow" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlOpenNow}
-            </cr-button>
-          </span>
-        </template>
         <template is="dom-if" if="[[showDeepScan_]]" restamp>
           <span role="gridcell">
             <cr-button on-click="onDeepScanClick_" id="deepScan" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlDeepScan}
+              [[computeDeepScanControlText_(data.state)]]
             </cr-button>
           </span>
           <span role="gridcell">
@@ -117,7 +107,7 @@ export function getTemplate() {
         <template is="dom-if" if="[[showDeepScan_]]" restamp>
           <span role="gridcell">
             <cr-button on-click="onDeepScanClick_" id="deepScan" class="action-button" focus-row-control focus-type="open">
-              $i18n{controlDeepScan}
+              [[computeDeepScanControlText_(data.state)]]
             </cr-button>
           </span>
         </template>
@@ -203,9 +193,6 @@ export function getTemplate() {
         </button>
         <button class="dropdown-item" on-click="onRetryClick_" hidden="[[!data.retry]]" id="retry">
           $i18n{controlRetry}
-        </button>
-        <button class="dropdown-item" on-click="onOpenNowClick_" hidden="[[!showOpenNow_]]" id="open-now">
-          $i18n{controlOpenNow}
         </button>
         <button class="dropdown-item" on-click="onDeepScanClick_" hidden="[[!showDeepScan_]]" id="deep-scan">
           $i18n{controlDeepScan}

@@ -44,7 +44,7 @@ const char kTraceMetadata[] = R"_d3l1m1t3r_(--
 
 -- Expose all clock snapshots as instant events.
 DROP VIEW IF EXISTS trace_metadata_event;
-CREATE VIEW trace_metadata_event AS
+CREATE PERFETTO VIEW trace_metadata_event AS
 SELECT
   'slice' AS track_type,
   'Clock Snapshots' AS track_name,
@@ -55,11 +55,11 @@ FROM clock_snapshot
 GROUP BY ts;
 
 DROP VIEW IF EXISTS trace_metadata_output;
-CREATE VIEW trace_metadata_output AS
+CREATE PERFETTO VIEW trace_metadata_output AS
 SELECT TraceMetadata(
-  'trace_duration_ns', CAST((SELECT end_ts - start_ts FROM trace_bounds) AS INT),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  'trace_uuid', (SELECT str_value FROM metadata WHERE name = 'trace_uuid'),
+R"_d3l1m1t3r_(  'trace_duration_ns', CAST((SELECT end_ts - start_ts FROM trace_bounds) AS INT),
+  'trace_uuid', (SELECT str_value FROM metadata WHERE name = 'trace_uuid'),
   'android_build_fingerprint', (
     SELECT str_value FROM metadata WHERE name = 'android_build_fingerprint'
   ),
@@ -89,7 +89,8 @@ R"_d3l1m1t3r_(  'trace_uuid', (SELECT str_value FROM metadata WHERE name = 'trac
   ),
   'tracing_started_ns', (
     SELECT int_value FROM metadata
-    WHERE name='tracing_started_ns'
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    WHERE name='tracing_started_ns'
   )
 );
 
@@ -113,7 +114,7 @@ const char kTraceStats[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS trace_stats_output;
-CREATE VIEW trace_stats_output AS
+CREATE PERFETTO VIEW trace_stats_output AS
 SELECT TraceAnalysisStats(
   'stat', (
     SELECT RepeatedField(TraceAnalysisStats_Stat(
@@ -125,9 +126,9 @@ SELECT TraceAnalysisStats(
         WHEN 'analysis' THEN 'SOURCE_ANALYSIS'
         ELSE 'SOURCE_UNKNOWN'
       END,
-      'severity', CASE severity
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(        WHEN 'info' THEN 'SEVERITY_INFO'
+R"_d3l1m1t3r_(      'severity', CASE severity
+        WHEN 'info' THEN 'SEVERITY_INFO'
         WHEN 'data_loss' THEN 'SEVERITY_DATA_LOSS'
         WHEN 'error' THEN 'SEVERITY_ERROR'
         ELSE 'SEVERITY_UNKNOWN'
@@ -158,7 +159,7 @@ const char kAndroidAndroidAnr[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.anrs;
 
 DROP VIEW IF EXISTS android_anr_output;
-CREATE VIEW android_anr_output AS
+CREATE PERFETTO VIEW android_anr_output AS
 SELECT
   AndroidAnrMetric(
     'anr', (
@@ -170,10 +171,10 @@ SELECT
           'error_id', error_id,
           'ts', ts))
       FROM android_anrs
-    )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    )
   );
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_()_d3l1m1t3r_"
 ;
 
 const char kAndroidAdServicesMetric[] = R"_d3l1m1t3r_(--
@@ -202,7 +203,7 @@ WHERE
   name = $event_name;
 
 DROP VIEW IF EXISTS ad_services_metric_output;
-CREATE VIEW ad_services_metric_output AS
+CREATE PERFETTO VIEW ad_services_metric_output AS
 SELECT
   AdServicesMetric(
     'ui_metric',
@@ -259,7 +260,7 @@ INCLUDE PERFETTO MODULE android.battery;
 INCLUDE PERFETTO MODULE android.battery_stats;
 
 DROP VIEW IF EXISTS battery_view;
-CREATE VIEW battery_view AS
+CREATE PERFETTO VIEW battery_view AS
 SELECT * FROM android_battery_charge;
 
 DROP TABLE IF EXISTS android_batt_wakelocks_merged;
@@ -294,7 +295,7 @@ R"_d3l1m1t3r_(    FROM (
 GROUP BY group_id;
 
 DROP VIEW IF EXISTS suspend_slice_from_minimal;
-CREATE VIEW suspend_slice_from_minimal AS
+CREATE PERFETTO VIEW suspend_slice_from_minimal AS
 SELECT ts, dur
 FROM track t JOIN slice s ON s.track_id = t.id
 WHERE t.name = 'Suspend/Resume Minimal';
@@ -305,10 +306,10 @@ SELECT ts, dur FROM suspend_slice_from_minimal
 UNION ALL
 SELECT
   ts,
-  dur
-FROM
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  slice
+R"_d3l1m1t3r_(  dur
+FROM
+  slice
 JOIN
   track
   ON slice.track_id = track.id
@@ -346,7 +347,7 @@ CREATE VIRTUAL TABLE screen_state_span_with_suspend
 R"_d3l1m1t3r_(USING span_join(screen_state_span, suspend_slice_);
 
 DROP VIEW IF EXISTS android_batt_event;
-CREATE VIEW android_batt_event AS
+CREATE PERFETTO VIEW android_batt_event AS
 SELECT
   ts,
   dur,
@@ -452,7 +453,7 @@ FROM (
 WHERE track_name IS NOT NULL;
 
 DROP VIEW IF EXISTS android_batt_output;
-CREATE VIEW android_batt_output AS
+CREATE PERFETTO VIEW android_batt_output AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT AndroidBatteryMetric(
   'battery_counters', (
@@ -529,17 +530,17 @@ INCLUDE PERFETTO MODULE android.binder;
 
 -- Count Binder transactions per process
 DROP VIEW IF EXISTS binder_metrics_by_process;
-CREATE VIEW binder_metrics_by_process AS
+CREATE PERFETTO VIEW binder_metrics_by_process AS
 SELECT * FROM android_binder_metrics_by_process;
 
 DROP VIEW IF EXISTS android_binder_output;
-CREATE VIEW android_binder_output AS
+CREATE PERFETTO VIEW android_binder_output AS
 SELECT AndroidBinderMetric(
   'process_breakdown', (
     SELECT RepeatedField(
-      AndroidBinderMetric_PerProcessBreakdown(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'process_name', process_name,
+R"_d3l1m1t3r_(      AndroidBinderMetric_PerProcessBreakdown(
+        'process_name', process_name,
         'pid', pid,
         'slice_name', slice_name,
         'count', event_count
@@ -569,9 +570,9 @@ R"_d3l1m1t3r_(        'process_name', process_name,
         'is_sync', is_sync,
         'thread_states', (
           SELECT RepeatedField(
-            AndroidBinderMetric_ThreadStateBreakdown(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(              'thread_state_type', thread_state_type,
+R"_d3l1m1t3r_(            AndroidBinderMetric_ThreadStateBreakdown(
+              'thread_state_type', thread_state_type,
               'thread_state', thread_state,
               'thread_state_dur', thread_state_dur,
               'thread_state_count', thread_state_count
@@ -715,19 +716,38 @@ R"_d3l1m1t3r_(        s.ts,
                s.name = 'measure'
             OR s.name = 'layout'
             OR s.name = 'configChanged'
+            OR s.name = 'animation'
+            OR s.name = 'input'
+            OR s.name = 'traversal'
             OR s.name = 'Contending for pthread mutex'
+            OR s.name = 'postAndWait'
             OR s.name GLOB 'monitor contention with*'
             OR s.name GLOB 'SuspendThreadByThreadId*'
             OR s.name GLOB 'LoadApkAssetsFd*'
             OR s.name GLOB '*binder transaction*'
             OR s.name GLOB 'inflate*'
             OR s.name GLOB 'Lock contention on*'
-            OR s.name GLOB '*CancellableContinuationImpl*'
+            OR s.name GLOB 'android.os.Handler: kotlinx.coroutines*'
             OR s.name GLOB 'relayoutWindow*'
-            OR s.name GLOB 'ImageDecoder#decode*'
-            OR s.name GLOB 'NotificationStackScrollLayout#onMeasure'
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(            OR s.name GLOB 'ExpNotRow#*'
+R"_d3l1m1t3r_(            OR s.name GLOB 'ImageDecoder#decode*'
+            OR s.name GLOB 'NotificationStackScrollLayout#onMeasure'
+            OR s.name GLOB 'ExpNotRow#*'
+            OR s.name GLOB 'GC: Wait For*'
+            OR (
+                -- Some top level handler slices
+                    s.depth = 0
+                AND s.name NOT GLOB '*Choreographer*'
+                AND s.name NOT GLOB '*Input*'
+                AND s.name NOT GLOB '*input*'
+                AND s.name NOT GLOB 'android.os.Handler: #*'
+                AND (
+                   -- Handler pattern heuristics
+                      s.name GLOB '*Handler: *$*'
+                   OR s.name GLOB '*.*.*: *$*'
+                   OR s.name GLOB '*.*$*: #*'
+                )
+            )
         )
     UNION ALL
     SELECT
@@ -743,7 +763,8 @@ R"_d3l1m1t3r_(            OR s.name GLOB 'ExpNotRow#*'
 ),
 -- Now we have:
 --  (1) a list of slices from the main thread of each process
---  (2) a list of android cuj with beginning, end, and process
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(--  (2) a list of android cuj with beginning, end, and process
 -- It's needed to:
 --  (1) assign a cuj to each slice. If there are multiple cujs going on during a
 --      slice, there needs to be 2 entries for that slice, one for each cuj id.
@@ -763,8 +784,7 @@ SELECT
     s.process_name,
     s.upid,
     s.utid
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM all_main_thread_relevant_slices s
+FROM all_main_thread_relevant_slices s
     JOIN  android_cujs cuj
     -- only when there is an overlap
     ON s.ts + s.dur > cuj.ts AND s.ts < cuj.ts_end
@@ -776,7 +796,8 @@ SELECT
     COUNT(*) AS occurrences,
     MAX(dur) AS max_dur_ns,
     MIN(dur) AS min_dur_ns,
-    SUM(dur) AS total_dur_ns,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    SUM(dur) AS total_dur_ns,
     upid,
     cuj_id,
     cuj_name,
@@ -788,7 +809,7 @@ ORDER BY cuj_id;
 
 
 DROP VIEW IF EXISTS android_blocking_calls_cuj_metric_output;
-CREATE VIEW android_blocking_calls_cuj_metric_output AS
+CREATE PERFETTO VIEW android_blocking_calls_cuj_metric_output AS
 SELECT AndroidBlockingCallsCujMetric('cuj', (
     SELECT RepeatedField(
         AndroidBlockingCallsCujMetric_Cuj(
@@ -800,14 +821,14 @@ SELECT AndroidBlockingCallsCujMetric('cuj', (
             'blocking_calls', (
                 SELECT RepeatedField(
                     AndroidBlockingCall(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(                        'name', b.name,
+                        'name', b.name,
                         'cnt', b.occurrences,
                         'total_dur_ms', CAST(total_dur_ns / 1e6 AS INT),
                         'max_dur_ms', CAST(max_dur_ns / 1e6 AS INT),
                         'min_dur_ms', CAST(min_dur_ns / 1e6 AS INT),
                         'total_dur_ns', b.total_dur_ns,
-                        'max_dur_ns', b.max_dur_ns,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(                        'max_dur_ns', b.max_dur_ns,
                         'min_dur_ns', b.min_dur_ns
                     )
                 )
@@ -821,6 +842,256 @@ R"_d3l1m1t3r_(                        'name', b.name,
     ORDER BY cuj.cuj_id ASC
 ));
 
+)_d3l1m1t3r_"
+;
+
+const char kAndroidSysuiNotifShadeListBuilderMetric[] = R"_d3l1m1t3r_(--
+-- Copyright 2023 The Android Open Source Project
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     https://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+INCLUDE PERFETTO MODULE android.slices;
+
+SELECT RUN_METRIC('android/sysui_notif_shade_list_builder_slices.sql');
+
+-- Get statics of all ShadeListBuilder.buildList slices
+DROP TABLE IF EXISTS shade_list_builder_all;
+CREATE PERFETTO TABLE shade_list_builder_all AS
+SELECT
+  s.name name,
+  COUNT(s.name) AS count,
+  cast(avg(dur) as int) average_dur_ns,
+  max(dur) maximum_dur_ns,
+  s.id id
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM shade_list_builder_build_list_slices s
+GROUP BY s.name;
+
+-- Id of shade_list_builder slices that has a descendant of inflation
+DROP VIEW IF EXISTS slices_id_with_inflation_descendants;
+CREATE PERFETTO VIEW slices_id_with_inflation_descendants AS
+SELECT DISTINCT id
+  FROM slices_and_descendants
+  WHERE
+    descendant_name = 'HybridGroupManager#inflateHybridView' OR
+    descendant_name = 'NotifChildCont#recreateHeader';
+
+-- Id of shade_list_builder slices that has a descendant of ShadeNode modification
+DROP VIEW IF EXISTS slices_id_with_modification_descendants;
+CREATE PERFETTO VIEW slices_id_with_modification_descendants AS
+SELECT DISTINCT id
+  FROM slices_and_descendants
+  WHERE
+    descendant_name = 'ShadeNode#addChildAt' OR
+    descendant_name = 'ShadeNode#removeChildAt' OR
+    descendant_name = 'ShadeNode#moveChildTo';
+
+DROP TABLE IF EXISTS shade_list_builder_slices_with_inflation;
+CREATE PERFETTO TABLE shade_list_builder_slices_with_inflation AS
+SELECT
+  s.name || "_with_inflation" name,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  COUNT(s.name) AS count,
+  cast(avg(dur) as int) average_dur_ns,
+  max(dur) maximum_dur_ns
+FROM shade_list_builder_build_list_slices s
+WHERE s.id IN slices_id_with_inflation_descendants
+GROUP BY s.name;
+
+DROP TABLE IF EXISTS shade_list_builder_slices_with_modification;
+CREATE PERFETTO TABLE shade_list_builder_slices_with_modification AS
+SELECT
+  s.name || "_with_node_modification" name,
+  COUNT(s.name) AS count,
+  cast(avg(dur) as int) average_dur_ns,
+  max(dur) maximum_dur_ns
+FROM shade_list_builder_build_list_slices s
+WHERE s.id IN slices_id_with_modification_descendants
+GROUP BY s.name;
+
+
+DROP VIEW IF EXISTS sysui_notif_shade_list_builder_metric_output;
+CREATE PERFETTO VIEW sysui_notif_shade_list_builder_metric_output AS
+SELECT SysuiNotifShadeListBuilderMetric(
+        'all_slices_performance', (
+            SELECT SysUiSlicePerformanceStatisticalData(
+                'name', a.name,
+                'cnt', a.count,
+                'avg_dur_ms', cast (a.average_dur_ns / 1000000 as int),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(                'max_dur_ms', cast (a.maximum_dur_ns / 1000000 as int),
+                'avg_dur_ns', a.average_dur_ns,
+                'max_dur_ns', a.maximum_dur_ns
+            )
+            FROM shade_list_builder_all a
+        ),
+        'slices_with_inflation_performance', (
+            SELECT SysUiSlicePerformanceStatisticalData(
+                'name', a.name,
+                'cnt', a.count,
+                'avg_dur_ms', cast (a.average_dur_ns / 1000000 as int),
+                'max_dur_ms', cast (a.maximum_dur_ns / 1000000 as int),
+                'avg_dur_ns', a.average_dur_ns,
+                'max_dur_ns', a.maximum_dur_ns
+            )
+            FROM shade_list_builder_slices_with_inflation a
+        ),
+        'slices_with_modification_performance', (
+            SELECT SysUiSlicePerformanceStatisticalData(
+                'name', a.name,
+                'cnt', a.count,
+                'avg_dur_ms', cast (a.average_dur_ns / 1000000 as int),
+                'max_dur_ms', cast (a.maximum_dur_ns / 1000000 as int),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(                'avg_dur_ns', a.average_dur_ns,
+                'max_dur_ns', a.maximum_dur_ns
+            )
+            FROM shade_list_builder_slices_with_modification a
+        ),
+        'slice', (
+            SELECT RepeatedField(
+                SysuiNotifShadeListBuilderMetric_SliceDuration(
+                    'name', a.name,
+                    'dur_ms', cast (a.dur / 1000000 as int),
+                    'dur_ns', a.dur
+                )
+            )
+            FROM shade_list_builder_build_list_slices a
+            ORDER BY dur DESC
+        )
+);
+)_d3l1m1t3r_"
+;
+
+const char kAndroidSysuiNotifShadeListBuilderSlices[] = R"_d3l1m1t3r_(--
+-- Copyright 2023 The Android Open Source Project
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     https://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+INCLUDE PERFETTO MODULE android.slices;
+
+-- Table of ShadeListBuilder.buildList slices
+DROP TABLE IF EXISTS shade_list_builder_build_list_slices;
+CREATE PERFETTO TABLE shade_list_builder_build_list_slices AS
+SELECT
+  s.name name,
+  dur,
+  s.id id
+FROM slice s
+  JOIN thread_track ON thread_track.id = s.track_id
+  JOIN thread USING (utid)
+WHERE
+  thread.is_main_thread AND
+  s.dur > 0 AND (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    s.name GLOB 'ShadeListBuilder.buildList'
+  );
+
+-- Table of ShadeListBuilder.buildList slices with the descendants
+DROP TABLE IF EXISTS slices_and_descendants;
+CREATE PERFETTO TABLE slices_and_descendants AS
+SELECT
+  parent.name name,
+  descendant.name descendant_name,
+  parent.dur dur_ns,
+  parent.id id
+FROM shade_list_builder_build_list_slices parent
+LEFT JOIN descendant_slice(parent.id) AS descendant;
+)_d3l1m1t3r_"
+;
+
+const char kAndroidSysuiUpdateNotifOnUiModeChangedMetric[] = R"_d3l1m1t3r_(--
+-- Copyright 2023 The Android Open Source Project
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     https://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+INCLUDE PERFETTO MODULE android.slices;
+
+-- Table of updateNotifOnUiModeChanged slices
+DROP TABLE IF EXISTS sysui_update_notif_on_ui_mode_changed_slices;
+CREATE PERFETTO TABLE sysui_update_notif_on_ui_mode_changed_slices AS
+SELECT
+  s.name name,
+  dur,
+  s.id id
+FROM slice s
+  JOIN thread_track ON thread_track.id = s.track_id
+  JOIN thread USING (utid)
+WHERE
+  thread.is_main_thread AND
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  s.dur > 0 AND (
+    s.name GLOB 'updateNotifOnUiModeChanged'
+  );
+
+-- Table of updateNotifOnUiModeChanged slices statistical performance information
+DROP TABLE IF EXISTS sysui_update_notif_on_ui_mode_changed_metric;
+CREATE PERFETTO TABLE sysui_update_notif_on_ui_mode_changed_metric AS
+SELECT
+  s.name name,
+  COUNT(s.name) AS count,
+  cast(avg(dur) as int) average_dur_ns,
+  max(dur) maximum_dur_ns
+FROM sysui_update_notif_on_ui_mode_changed_slices s
+GROUP BY s.name;
+
+DROP VIEW IF EXISTS sysui_update_notif_on_ui_mode_changed_metric_output;
+CREATE PERFETTO VIEW sysui_update_notif_on_ui_mode_changed_metric_output AS
+SELECT SysuiUpdateNotifOnUiModeChangedMetric(
+        'all_slices_performance', (
+            SELECT SysUiSlicePerformanceStatisticalData(
+                'name', a.name,
+                'cnt', a.count,
+                'avg_dur_ms', cast (a.average_dur_ns / 1000000 as int),
+                'max_dur_ms', cast (a.maximum_dur_ns / 1000000 as int),
+                'avg_dur_ns', a.average_dur_ns,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(                'max_dur_ns', a.maximum_dur_ns
+            )
+            FROM sysui_update_notif_on_ui_mode_changed_metric a
+        ),
+        'slice', (
+            SELECT RepeatedField(
+                SysuiUpdateNotifOnUiModeChangedMetric_SliceDuration(
+                    'name', a.name,
+                    'dur_ms', cast (a.dur / 1000000 as int),
+                    'dur_ns', a.dur
+                )
+            )
+            FROM sysui_update_notif_on_ui_mode_changed_slices a
+            ORDER BY dur DESC
+        )
+);
 )_d3l1m1t3r_"
 ;
 
@@ -842,7 +1113,7 @@ const char kAndroidAndroidBoot[] = R"_d3l1m1t3r_(--
 
 INCLUDE PERFETTO MODULE android.process_metadata;
 
-CREATE PERFETTO FUNCTION get_durations(process_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION get_durations(process_name STRING)
 RETURNS TABLE(uint_sleep_dur LONG, total_dur LONG) AS
 SELECT
     SUM(CASE WHEN thread_state.state="D" then thread_state.dur ELSE 0 END) AS uint_sleep_dur,
@@ -853,7 +1124,7 @@ INNER JOIN thread ON thread.upid=android_process_metadata.upid
 R"_d3l1m1t3r_(INNER JOIN thread_state ON thread.utid=thread_state.utid WHERE android_process_metadata.process_name=$process_name;
 
 DROP VIEW IF EXISTS android_boot_output;
-CREATE VIEW android_boot_output AS
+CREATE PERFETTO VIEW android_boot_output AS
 SELECT AndroidBootMetric(
     'system_server_durations', (
         SELECT NULL_IF_EMPTY(ProcessStateDurations(
@@ -911,7 +1182,7 @@ SELECT RUN_METRIC('android/global_counter_span_view.sql',
 
 -- RSS of GCA.
 DROP VIEW IF EXISTS rss_gca;
-CREATE VIEW rss_gca AS
+CREATE PERFETTO VIEW rss_gca AS
 SELECT ts, dur, rss_val AS gca_rss_val
 FROM rss_and_swap_span
 JOIN (
@@ -924,7 +1195,7 @@ R"_d3l1m1t3r_(  FROM process
 
 -- RSS of camera HAL.
 DROP VIEW IF EXISTS rss_camera_hal;
-CREATE VIEW rss_camera_hal AS
+CREATE PERFETTO VIEW rss_camera_hal AS
 SELECT ts, dur, rss_val AS hal_rss_val
 FROM rss_and_swap_span
 JOIN (
@@ -936,7 +1207,7 @@ JOIN (
 
 -- RSS of cameraserver.
 DROP VIEW IF EXISTS rss_cameraserver;
-CREATE VIEW rss_cameraserver AS
+CREATE PERFETTO VIEW rss_cameraserver AS
 SELECT ts, dur, rss_val AS cameraserver_rss_val
 FROM rss_and_swap_span
 JOIN (
@@ -957,13 +1228,13 @@ CREATE VIRTUAL TABLE rss_all_camera
 USING SPAN_OUTER_JOIN(rss_gca_hal, rss_cameraserver);
 
 -- RSS of GCA + HAL + cameraserver + DMA.
-DROP TABLE IF EXISTS rss_and_dma_all_camera_join;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIRTUAL TABLE rss_and_dma_all_camera_join
+R"_d3l1m1t3r_(DROP TABLE IF EXISTS rss_and_dma_all_camera_join;
+CREATE VIRTUAL TABLE rss_and_dma_all_camera_join
 USING SPAN_OUTER_JOIN(dma_span, rss_all_camera);
 
 DROP VIEW IF EXISTS rss_and_dma_all_camera_span;
-CREATE VIEW rss_and_dma_all_camera_span AS
+CREATE PERFETTO VIEW rss_and_dma_all_camera_span AS
 SELECT
   ts,
   dur,
@@ -981,16 +1252,16 @@ FROM rss_and_dma_all_camera_join;
 -- we are dividing and casting to real when calculating avg_value
 -- to avoid issues such as the one in b/203613535
 DROP VIEW IF EXISTS rss_and_dma_all_camera_stats;
-CREATE VIEW rss_and_dma_all_camera_stats AS
+CREATE PERFETTO VIEW rss_and_dma_all_camera_stats AS
 SELECT
   MIN(rss_and_dma_val) AS min_value,
   MAX(rss_and_dma_val) AS max_value,
   SUM(rss_and_dma_val * dur / 1e3) / SUM(dur / 1e3) AS avg_value
 FROM rss_and_dma_all_camera_span;
-
-DROP VIEW IF EXISTS android_camera_event;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW android_camera_event AS
+R"_d3l1m1t3r_(
+DROP VIEW IF EXISTS android_camera_event;
+CREATE PERFETTO VIEW android_camera_event AS
 SELECT
   'counter' AS track_type,
   'Camera Memory' AS track_name,
@@ -999,7 +1270,7 @@ SELECT
 FROM rss_and_dma_all_camera_span;
 
 DROP VIEW IF EXISTS android_camera_output;
-CREATE VIEW android_camera_output AS
+CREATE PERFETTO VIEW android_camera_output AS
 SELECT
   AndroidCameraMetric(
     'gc_rss_and_dma', AndroidCameraMetric_Counter(
@@ -1033,7 +1304,7 @@ const char kAndroidAndroidCameraUnagg[] = R"_d3l1m1t3r_(--
 SELECT RUN_METRIC('android/android_camera.sql');
 
 DROP VIEW IF EXISTS android_camera_unagg_output;
-CREATE VIEW android_camera_unagg_output AS
+CREATE PERFETTO VIEW android_camera_unagg_output AS
 SELECT
   AndroidCameraUnaggregatedMetric(
     'gc_rss_and_dma', (
@@ -1079,7 +1350,7 @@ SELECT RUN_METRIC('android/android_cpu_raw_metrics_per_core.sql',
 SELECT RUN_METRIC('android/process_metadata.sql');
 
 DROP VIEW IF EXISTS metrics_per_core_type;
-CREATE VIEW metrics_per_core_type AS
+CREATE PERFETTO VIEW metrics_per_core_type AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   utid,
@@ -1100,7 +1371,7 @@ GROUP BY utid, core_type;
 
 -- Aggregate everything per thread.
 DROP VIEW IF EXISTS core_proto_per_thread;
-CREATE VIEW core_proto_per_thread AS
+CREATE PERFETTO VIEW core_proto_per_thread AS
 SELECT
   utid,
   RepeatedField(
@@ -1120,7 +1391,7 @@ FROM raw_metrics_per_core
 GROUP BY utid;
 
 DROP VIEW IF EXISTS core_type_proto_per_thread;
-CREATE VIEW core_type_proto_per_thread AS
+CREATE PERFETTO VIEW core_type_proto_per_thread AS
 SELECT
   utid,
   RepeatedField(
@@ -1133,7 +1404,7 @@ FROM metrics_per_core_type
 GROUP BY utid;
 
 DROP VIEW IF EXISTS metrics_proto_per_thread;
-CREATE VIEW metrics_proto_per_thread AS
+CREATE PERFETTO VIEW metrics_proto_per_thread AS
 SELECT
   utid,
   AndroidCpuMetric_Metrics(
@@ -1150,12 +1421,12 @@ GROUP BY utid;
 
 -- Aggregate everything per perocess
 DROP VIEW IF EXISTS thread_proto_per_process;
-CREATE VIEW thread_proto_per_process AS
-SELECT
+CREATE PERFETTO VIEW thread_proto_per_process AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   upid,
   RepeatedField(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AndroidCpuMetric_Thread(
+    AndroidCpuMetric_Thread(
       'name', thread.name,
       'metrics', metrics_proto_per_thread.proto,
       'core', core_proto_per_thread.proto,
@@ -1169,7 +1440,7 @@ LEFT JOIN metrics_proto_per_thread USING(utid)
 GROUP BY upid;
 
 DROP VIEW IF EXISTS core_metrics_per_process;
-CREATE VIEW core_metrics_per_process AS
+CREATE PERFETTO VIEW core_metrics_per_process AS
 SELECT
   upid,
   cpu,
@@ -1183,14 +1454,14 @@ SELECT
     -- kcycles). In total, this means we need to multiply the expression as
     -- a whole by 1e3.
     'avg_freq_khz', CAST((SUM(millicycles) / SUM(runtime_ns)) * 1000 AS INT)
-  ) AS proto
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM raw_metrics_per_core
+R"_d3l1m1t3r_(  ) AS proto
+FROM raw_metrics_per_core
 JOIN thread USING (utid)
 GROUP BY upid, cpu;
 
 DROP VIEW IF EXISTS core_proto_per_process;
-CREATE VIEW core_proto_per_process AS
+CREATE PERFETTO VIEW core_proto_per_process AS
 SELECT
   upid,
   RepeatedField(
@@ -1203,7 +1474,7 @@ FROM core_metrics_per_process
 GROUP BY upid;
 
 DROP VIEW IF EXISTS core_type_metrics_per_process;
-CREATE VIEW core_type_metrics_per_process AS
+CREATE PERFETTO VIEW core_type_metrics_per_process AS
 SELECT
   upid,
   core_type,
@@ -1218,13 +1489,13 @@ SELECT
     -- a whole by 1e3.
     'avg_freq_khz', CAST((SUM(millicycles) / SUM(runtime_ns)) * 1000 AS INT)
   ) AS proto
-FROM raw_metrics_per_core
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN thread USING (utid)
+R"_d3l1m1t3r_(FROM raw_metrics_per_core
+JOIN thread USING (utid)
 GROUP BY upid, core_type;
 
 DROP VIEW IF EXISTS core_type_proto_per_process;
-CREATE VIEW core_type_proto_per_process AS
+CREATE PERFETTO VIEW core_type_proto_per_process AS
 SELECT
   upid,
   RepeatedField(
@@ -1237,7 +1508,7 @@ FROM core_type_metrics_per_process
 GROUP BY upid;
 
 DROP VIEW IF EXISTS metrics_proto_per_process;
-CREATE VIEW metrics_proto_per_process AS
+CREATE PERFETTO VIEW metrics_proto_per_process AS
 SELECT
   upid,
   AndroidCpuMetric_Metrics(
@@ -1254,11 +1525,11 @@ JOIN thread USING (utid)
 GROUP BY upid;
 
 DROP VIEW IF EXISTS android_cpu_output;
-CREATE VIEW android_cpu_output AS
-SELECT AndroidCpuMetric(
-  'process_info', (
+CREATE PERFETTO VIEW android_cpu_output AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    SELECT RepeatedField(
+R"_d3l1m1t3r_(SELECT AndroidCpuMetric(
+  'process_info', (
+    SELECT RepeatedField(
       AndroidCpuMetric_Process(
         'name', process.name,
         'process', process_metadata.metadata,
@@ -1299,7 +1570,7 @@ const char kAndroidAndroidCpuAgg[] = R"_d3l1m1t3r_(--
 -- Create all the views used to aggregate CPU data.
 -- View with start and end ts for each cpu frequency, per cpu.
 DROP VIEW IF EXISTS cpu_freq_view;
-CREATE VIEW cpu_freq_view AS
+CREATE PERFETTO VIEW cpu_freq_view AS
 SELECT
   cpu,
   ts,
@@ -1383,7 +1654,7 @@ const char kAndroidAndroidDmaHeap[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS dma_heap_timeline;
-CREATE VIEW dma_heap_timeline AS
+CREATE PERFETTO VIEW dma_heap_timeline AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts FROM trace_bounds))
@@ -1395,16 +1666,16 @@ FROM counter JOIN counter_track
 WHERE (name = 'mem.dma_heap');
 
 DROP VIEW IF EXISTS dma_heap_stats;
-CREATE VIEW dma_heap_stats AS
-SELECT
+CREATE PERFETTO VIEW dma_heap_stats AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  SUM(value * dur) / SUM(dur) AS avg_size,
+R"_d3l1m1t3r_(SELECT
+  SUM(value * dur) / SUM(dur) AS avg_size,
   MIN(value) AS min_size,
   MAX(value) AS max_size
 FROM dma_heap_timeline;
 
 DROP VIEW IF EXISTS dma_heap_raw_allocs;
-CREATE VIEW dma_heap_raw_allocs AS
+CREATE PERFETTO VIEW dma_heap_raw_allocs AS
 SELECT
   ts,
   value AS instant_value,
@@ -1417,7 +1688,7 @@ WINDOW win AS (
 );
 
 DROP VIEW IF EXISTS dma_heap_total_stats;
-CREATE VIEW dma_heap_total_stats AS
+CREATE PERFETTO VIEW dma_heap_total_stats AS
 SELECT
   SUM(instant_value) AS total_alloc_size_bytes
 FROM dma_heap_raw_allocs;
@@ -1427,18 +1698,18 @@ FROM dma_heap_raw_allocs;
 -- max as this will take both allocations into account at that
 -- timestamp.
 DROP VIEW IF EXISTS android_dma_heap_event;
-CREATE VIEW android_dma_heap_event AS
+CREATE PERFETTO VIEW android_dma_heap_event AS
 SELECT
   'counter' AS track_type,
-  printf('Buffers created from DMA-BUF heaps: ') AS track_name,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ts,
+R"_d3l1m1t3r_(  printf('Buffers created from DMA-BUF heaps: ') AS track_name,
+  ts,
   MAX(value) AS value
 FROM dma_heap_raw_allocs
 GROUP BY 1, 2, 3;
 
 DROP VIEW IF EXISTS android_dma_heap_output;
-CREATE VIEW android_dma_heap_output AS
+CREATE PERFETTO VIEW android_dma_heap_output AS
 SELECT AndroidDmaHeapMetric(
   'avg_size_bytes', avg_size,
   'min_size_bytes', min_size,
@@ -1467,7 +1738,7 @@ const char kAndroidAndroidDvfs[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS freq_slice;
 
-CREATE VIEW freq_slice AS
+CREATE PERFETTO VIEW freq_slice AS
 SELECT
   counter.track_id AS track_id,
   track.name AS freq_name,
@@ -1483,7 +1754,7 @@ ORDER BY ts;
 DROP VIEW IF EXISTS freq_total_duration;
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(
-CREATE VIEW freq_total_duration AS
+CREATE PERFETTO VIEW freq_total_duration AS
 SELECT
   track_id,
   freq_name,
@@ -1494,7 +1765,7 @@ GROUP BY track_id, freq_name;
 
 DROP VIEW IF EXISTS dvfs_per_band_view;
 
-CREATE VIEW dvfs_per_band_view AS
+CREATE PERFETTO VIEW dvfs_per_band_view AS
 WITH
 freq_duration AS (
   SELECT
@@ -1520,13 +1791,13 @@ LEFT JOIN freq_total_duration
 ORDER BY freq_duration.freq_name, freq_duration.freq_value;
 
 DROP VIEW IF EXISTS dvfs_per_freq_view;
-CREATE VIEW dvfs_per_freq_view AS
+CREATE PERFETTO VIEW dvfs_per_freq_view AS
 SELECT
   AndroidDvfsMetric_FrequencyResidency(
     'freq_name', freq_total_duration.freq_name,
-    'band_stat', (
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      SELECT
+R"_d3l1m1t3r_(    'band_stat', (
+      SELECT
         RepeatedField(proto)
       FROM dvfs_per_band_view
       WHERE dvfs_per_band_view.track_id = freq_total_duration.track_id
@@ -1537,7 +1808,7 @@ GROUP BY track_id, freq_name
 ORDER BY freq_name;
 
 DROP VIEW IF EXISTS android_dvfs_output;
-CREATE VIEW android_dvfs_output AS
+CREATE PERFETTO VIEW android_dvfs_output AS
 SELECT AndroidDVFSMetric(
     'freq_residencies', (
       SELECT
@@ -1550,7 +1821,7 @@ SELECT AndroidDVFSMetric(
 ;
 
 const char kAndroidAndroidFastrpc[] = R"_d3l1m1t3r_(DROP VIEW IF EXISTS fastrpc_timeline;
-CREATE VIEW fastrpc_timeline AS
+CREATE PERFETTO VIEW fastrpc_timeline AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts FROM trace_bounds))
@@ -1563,7 +1834,7 @@ FROM counter JOIN counter_track
 WHERE (name GLOB 'mem.fastrpc[[]*');
 
 DROP VIEW IF EXISTS fastrpc_subsystem_stats;
-CREATE VIEW fastrpc_subsystem_stats AS
+CREATE PERFETTO VIEW fastrpc_subsystem_stats AS
 SELECT
   subsystem_name,
   SUM(value * dur) / SUM(dur) AS avg_size,
@@ -1573,7 +1844,7 @@ FROM fastrpc_timeline
 GROUP BY 1;
 
 DROP VIEW IF EXISTS fastrpc_raw_allocs;
-CREATE VIEW fastrpc_raw_allocs AS
+CREATE PERFETTO VIEW fastrpc_raw_allocs AS
 SELECT
   RTRIM(SUBSTR(name, 20), ']') AS subsystem_name,
   ts,
@@ -1588,7 +1859,7 @@ WINDOW win AS (
 R"_d3l1m1t3r_();
 
 DROP VIEW IF EXISTS fastrpc_alloc_stats;
-CREATE VIEW fastrpc_alloc_stats AS
+CREATE PERFETTO VIEW fastrpc_alloc_stats AS
 SELECT
   subsystem_name,
   SUM(instant_value) AS total_alloc_size_bytes
@@ -1600,7 +1871,7 @@ GROUP BY 1;
 -- max as this will take both allocations into account at that
 -- timestamp.
 DROP VIEW IF EXISTS android_fastrpc_event;
-CREATE VIEW android_fastrpc_event AS
+CREATE PERFETTO VIEW android_fastrpc_event AS
 SELECT
   'counter' AS track_type,
   printf('fastrpc allocations (subsystem: %s)', subsystem_name) AS track_name,
@@ -1610,7 +1881,7 @@ FROM fastrpc_raw_allocs
 GROUP BY 1, 2, 3;
 
 DROP VIEW IF EXISTS android_fastrpc_output;
-CREATE VIEW android_fastrpc_output AS
+CREATE PERFETTO VIEW android_fastrpc_output AS
 SELECT AndroidFastrpcMetric(
   'subsystem', RepeatedField(
     AndroidFastrpcMetric_Subsystem(
@@ -1645,7 +1916,7 @@ const char kAndroidAndroidFrameTimelineMetric[] = R"_d3l1m1t3r_(--
 SELECT RUN_METRIC('android/process_metadata.sql');
 
 DROP VIEW IF EXISTS splitted_jank_type_timeline;
-CREATE VIEW splitted_jank_type_timeline AS
+CREATE PERFETTO VIEW splitted_jank_type_timeline AS
 WITH RECURSIVE split_jank_type AS (
   SELECT
     upid,
@@ -1674,7 +1945,7 @@ FROM split_jank_type
 WHERE jank_type != '';
 
 DROP VIEW IF EXISTS android_frame_timeline_metric_per_process;
-CREATE VIEW android_frame_timeline_metric_per_process AS
+CREATE PERFETTO VIEW android_frame_timeline_metric_per_process AS
 WITH frames AS (
   SELECT
     process.upid,
@@ -1725,7 +1996,7 @@ JOIN process_metadata USING (upid)
 GROUP BY upid, process_name;
 
 DROP VIEW IF EXISTS android_frame_timeline_metric_output;
-CREATE VIEW android_frame_timeline_metric_output AS
+CREATE PERFETTO VIEW android_frame_timeline_metric_output AS
 WITH per_jank_type_metric AS (
   SELECT
     jank_type,
@@ -1850,7 +2121,7 @@ SELECT RUN_METRIC('android/process_counter_span_view.sql',
   'counter_name', 'GPU Memory');
 
 DROP VIEW IF EXISTS proc_gpu_memory_view;
-CREATE VIEW proc_gpu_memory_view AS
+CREATE PERFETTO VIEW proc_gpu_memory_view AS
 SELECT
   upid,
   MAX(proc_gpu_memory_val) AS mem_max,
@@ -1862,7 +2133,7 @@ FROM proc_gpu_memory_span
 GROUP BY upid;
 
 DROP VIEW IF EXISTS agg_proc_gpu_view;
-CREATE VIEW agg_proc_gpu_view AS
+CREATE PERFETTO VIEW agg_proc_gpu_view AS
 SELECT
   name,
   MAX(mem_max) AS mem_max,
@@ -1874,7 +2145,7 @@ JOIN proc_gpu_memory_view
 GROUP BY name;
 
 DROP VIEW IF EXISTS proc_gpu_view;
-CREATE VIEW proc_gpu_view AS
+CREATE PERFETTO VIEW proc_gpu_view AS
 SELECT
   AndroidGpuMetric_Process(
     'name', name,
@@ -1889,7 +2160,7 @@ SELECT RUN_METRIC('android/gpu_counter_span_view.sql',
   'counter_name', 'gpufreq');
 
 DROP VIEW IF EXISTS metrics_per_freq_view;
-CREATE VIEW metrics_per_freq_view AS
+CREATE PERFETTO VIEW metrics_per_freq_view AS
 WITH
 total_dur_per_freq AS (
   SELECT
@@ -1897,9 +2168,9 @@ total_dur_per_freq AS (
     gpu_freq_val AS freq,
     SUM(dur) AS dur_ns
   FROM gpu_freq_span
-  GROUP BY gpu_id, gpu_freq_val
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(),
+R"_d3l1m1t3r_(  GROUP BY gpu_id, gpu_freq_val
+),
 total_dur_per_gpu AS (
   SELECT
     gpu_id,
@@ -1917,7 +2188,7 @@ SELECT
 FROM total_dur_per_freq f LEFT JOIN total_dur_per_gpu g USING (gpu_id);
 
 DROP VIEW IF EXISTS gpu_freq_metrics_view;
-CREATE VIEW gpu_freq_metrics_view AS
+CREATE PERFETTO VIEW gpu_freq_metrics_view AS
 SELECT
   AndroidGpuMetric_FrequencyMetric(
     'gpu_id', gpu_id,
@@ -1931,11 +2202,11 @@ FROM gpu_freq_span
 GROUP BY gpu_id;
 
 DROP VIEW IF EXISTS android_gpu_output;
-CREATE VIEW android_gpu_output AS
+CREATE PERFETTO VIEW android_gpu_output AS
 SELECT AndroidGpuMetric(
-  'processes', (SELECT RepeatedField(proto) FROM proc_gpu_view),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  'mem_max', CAST(MAX(global_gpu_memory_val) AS INT64),
+R"_d3l1m1t3r_(  'processes', (SELECT RepeatedField(proto) FROM proc_gpu_view),
+  'mem_max', CAST(MAX(global_gpu_memory_val) AS INT64),
   'mem_min', CAST(MIN(global_gpu_memory_val) AS INT64),
   'mem_avg', CAST(SUM(global_gpu_memory_val * dur) / SUM(dur) AS INT64),
   'freq_metrics', (SELECT RepeatedField(proto) FROM gpu_freq_metrics_view)
@@ -2004,7 +2275,7 @@ SELECT RUN_METRIC(
 
 
 DROP VIEW IF EXISTS display_ids;
-CREATE VIEW display_ids AS
+CREATE PERFETTO VIEW display_ids AS
 SELECT DISTINCT display_id
 FROM (
   SELECT display_id FROM total_layers
@@ -2023,7 +2294,7 @@ FROM (
 );
 
 DROP VIEW IF EXISTS metrics_per_display;
-CREATE VIEW metrics_per_display AS
+CREATE PERFETTO VIEW metrics_per_display AS
 SELECT AndroidHwcomposerMetrics_MetricsPerDisplay(
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(  'display_id', display_id,
@@ -2089,7 +2360,7 @@ SELECT RUN_METRIC('android/process_counter_span_view.sql',
 );
 
 DROP VIEW IF EXISTS dpu_vote_process;
-CREATE VIEW dpu_vote_process AS
+CREATE PERFETTO VIEW dpu_vote_process AS
 SELECT DISTINCT p.upid, p.pid
 FROM (
   SELECT upid FROM dpu_vote_clock_span
@@ -2102,12 +2373,12 @@ FROM (
 -- These systrace counters are coming from dedicated kernel threads, so we can
 -- assume pid = tid.
 DROP VIEW IF EXISTS dpu_vote_metrics;
-CREATE VIEW dpu_vote_metrics AS
+CREATE PERFETTO VIEW dpu_vote_metrics AS
 SELECT AndroidHwcomposerMetrics_DpuVoteMetrics(
   'tid', pid,
-  'avg_dpu_vote_clock',
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  (SELECT SUM(dpu_vote_clock_val * dur) / SUM(dur)
+R"_d3l1m1t3r_(  'avg_dpu_vote_clock',
+  (SELECT SUM(dpu_vote_clock_val * dur) / SUM(dur)
     FROM dpu_vote_clock_span s WHERE s.upid = p.upid),
   'avg_dpu_vote_avg_bw',
   (SELECT SUM(dpu_vote_avg_bw_val * dur) / SUM(dur)
@@ -2123,7 +2394,7 @@ FROM dpu_vote_process p
 ORDER BY pid;
 
 DROP VIEW IF EXISTS android_hwcomposer_output;
-CREATE VIEW android_hwcomposer_output AS
+CREATE PERFETTO VIEW android_hwcomposer_output AS
 SELECT AndroidHwcomposerMetrics(
   'composition_total_layers', (SELECT AVG(value) FROM total_layers),
   'composition_dpu_layers', (SELECT AVG(value) FROM dpu_layers),
@@ -2183,7 +2454,7 @@ const char kAndroidAndroidHwuiMetric[] = R"_d3l1m1t3r_(--
 
 -- TOP processes that have a RenderThread, sorted by CPU time on RT
 DROP VIEW IF EXISTS hwui_processes;
-CREATE VIEW hwui_processes AS
+CREATE PERFETTO VIEW hwui_processes AS
 SELECT
   process.name AS process_name,
   process.upid AS process_upid,
@@ -2191,13 +2462,13 @@ SELECT
   thread.utid AS render_thread_id
 FROM sched
 JOIN thread ON (thread.utid = sched.utid AND thread.name = 'RenderThread')
-JOIN process ON (process.upid = thread.upid)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(GROUP BY process.name
+R"_d3l1m1t3r_(JOIN process ON (process.upid = thread.upid)
+GROUP BY process.name
 ORDER BY rt_cpu_time_ms DESC;
 
 DROP VIEW IF EXISTS hwui_draw_frame;
-CREATE VIEW hwui_draw_frame AS
+CREATE PERFETTO VIEW hwui_draw_frame AS
 SELECT
   count(*) AS draw_frame_count,
   max(dur) AS draw_frame_max,
@@ -2210,7 +2481,7 @@ WHERE slice.name GLOB 'DrawFrame*' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_flush_commands;
-CREATE VIEW hwui_flush_commands AS
+CREATE PERFETTO VIEW hwui_flush_commands AS
 SELECT
   count(*) AS flush_count,
   max(dur) AS flush_max,
@@ -2223,21 +2494,21 @@ WHERE slice.name = 'flush commands' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_prepare_tree;
-CREATE VIEW hwui_prepare_tree AS
+CREATE PERFETTO VIEW hwui_prepare_tree AS
 SELECT
   count(*) AS prepare_tree_count,
-  max(dur) AS prepare_tree_max,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  max(dur) AS prepare_tree_max,
   min(dur) AS prepare_tree_min,
   avg(dur) AS prepare_tree_avg,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  thread_track.utid AS render_thread_id
+  thread_track.utid AS render_thread_id
 FROM slice
 JOIN thread_track ON (thread_track.id = slice.track_id)
 WHERE slice.name = 'prepareTree' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_gpu_completion;
-CREATE VIEW hwui_gpu_completion AS
+CREATE PERFETTO VIEW hwui_gpu_completion AS
 SELECT
   count(*) AS gpu_completion_count,
   max(dur) AS gpu_completion_max,
@@ -2251,23 +2522,23 @@ WHERE slice.name GLOB 'waiting for GPU completion*' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_ui_record;
-CREATE VIEW hwui_ui_record AS
+CREATE PERFETTO VIEW hwui_ui_record AS
 SELECT
   count(*) AS ui_record_count,
   max(dur) AS ui_record_max,
   min(dur) AS ui_record_min,
   avg(dur) AS ui_record_avg,
   thread.upid AS process_upid
-FROM slice
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM slice
 JOIN thread_track ON (thread_track.id = slice.track_id)
 JOIN thread ON (thread.name = substr(process.name, -15) AND thread.utid = thread_track.utid)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN process ON (process.upid = thread.upid)
+JOIN process ON (process.upid = thread.upid)
 WHERE slice.name = 'Record View#draw()' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_shader_compile;
-CREATE VIEW hwui_shader_compile AS
+CREATE PERFETTO VIEW hwui_shader_compile AS
 SELECT
   count(*) AS shader_compile_count,
   sum(dur) AS shader_compile_time,
@@ -2279,7 +2550,7 @@ WHERE slice.name = 'shader_compile' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_cache_hit;
-CREATE VIEW hwui_cache_hit AS
+CREATE PERFETTO VIEW hwui_cache_hit AS
 SELECT
   count(*) AS cache_hit_count,
   sum(dur) AS cache_hit_time,
@@ -2288,23 +2559,23 @@ SELECT
 FROM slice
 JOIN thread_track ON (thread_track.id = slice.track_id)
 WHERE slice.name = 'cache_hit' AND slice.dur >= 0
-GROUP BY thread_track.utid;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_cache_miss;
-CREATE VIEW hwui_cache_miss AS
+CREATE PERFETTO VIEW hwui_cache_miss AS
 SELECT
   count(*) AS cache_miss_count,
   sum(dur) AS cache_miss_time,
   avg(dur) AS cache_miss_avg,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  thread_track.utid AS render_thread_id
+  thread_track.utid AS render_thread_id
 FROM slice
 JOIN thread_track ON (thread_track.id = slice.track_id)
 WHERE slice.name = 'cache_miss' AND slice.dur >= 0
 GROUP BY thread_track.utid;
 
 DROP VIEW IF EXISTS hwui_graphics_cpu_mem;
-CREATE VIEW hwui_graphics_cpu_mem AS
+CREATE PERFETTO VIEW hwui_graphics_cpu_mem AS
 SELECT
   max(value) AS graphics_cpu_mem_max,
   min(value) AS graphics_cpu_mem_min,
@@ -2316,20 +2587,20 @@ WHERE name = 'HWUI CPU Memory' AND counter.value >= 0
 GROUP BY process_counter_track.upid;
 
 DROP VIEW IF EXISTS hwui_graphics_gpu_mem;
-CREATE VIEW hwui_graphics_gpu_mem AS
+CREATE PERFETTO VIEW hwui_graphics_gpu_mem AS
 SELECT
   max(value) AS graphics_gpu_mem_max,
   min(value) AS graphics_gpu_mem_min,
-  avg(value) AS graphics_gpu_mem_avg,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  avg(value) AS graphics_gpu_mem_avg,
   process_counter_track.upid AS process_upid
 FROM counter
 JOIN process_counter_track ON (counter.track_id = process_counter_track.id)
 WHERE name = 'HWUI Misc Memory' AND counter.value >= 0
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(GROUP BY process_counter_track.upid;
+GROUP BY process_counter_track.upid;
 
 DROP VIEW IF EXISTS hwui_texture_mem;
-CREATE VIEW hwui_texture_mem AS
+CREATE PERFETTO VIEW hwui_texture_mem AS
 SELECT
   max(value) AS texture_mem_max,
   min(value) AS texture_mem_min,
@@ -2341,7 +2612,7 @@ WHERE name = 'HWUI Texture Memory' AND counter.value >= 0
 GROUP BY process_counter_track.upid;
 
 DROP VIEW IF EXISTS hwui_all_mem;
-CREATE VIEW hwui_all_mem AS
+CREATE PERFETTO VIEW hwui_all_mem AS
 SELECT
   max(value) AS all_mem_max,
   min(value) AS all_mem_min,
@@ -2350,16 +2621,16 @@ SELECT
 FROM counter
 JOIN process_counter_track ON (counter.track_id = process_counter_track.id)
 WHERE name = 'HWUI All Memory' AND counter.value >= 0
-GROUP BY process_counter_track.upid;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(GROUP BY process_counter_track.upid;
 
 DROP VIEW IF EXISTS android_hwui_metric_output;
-CREATE VIEW android_hwui_metric_output AS
+CREATE PERFETTO VIEW android_hwui_metric_output AS
 SELECT AndroidHwuiMetric(
   'process_info', (
     SELECT RepeatedField(
       ProcessRenderInfo(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'process_name', process_name,
+        'process_name', process_name,
         'rt_cpu_time_ms', rt_cpu_time_ms,
 
         'draw_frame_count', hwui_draw_frame.draw_frame_count,
@@ -2376,12 +2647,12 @@ R"_d3l1m1t3r_(        'process_name', process_name,
         'prepare_tree_max', hwui_prepare_tree.prepare_tree_max,
         'prepare_tree_min', hwui_prepare_tree.prepare_tree_min,
         'prepare_tree_avg', hwui_prepare_tree.prepare_tree_avg,
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
         'gpu_completion_count', hwui_gpu_completion.gpu_completion_count,
         'gpu_completion_max', hwui_gpu_completion.gpu_completion_max,
         'gpu_completion_min', hwui_gpu_completion.gpu_completion_min,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'gpu_completion_avg', hwui_gpu_completion.gpu_completion_avg,
+        'gpu_completion_avg', hwui_gpu_completion.gpu_completion_avg,
 
         'ui_record_count', hwui_ui_record.ui_record_count,
         'ui_record_max', hwui_ui_record.ui_record_max,
@@ -2398,12 +2669,12 @@ R"_d3l1m1t3r_(        'gpu_completion_avg', hwui_gpu_completion.gpu_completion_a
 
         'cache_miss_count', hwui_cache_miss.cache_miss_count,
         'cache_miss_time', hwui_cache_miss.cache_miss_time,
-        'cache_miss_avg', hwui_cache_miss.cache_miss_avg,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        'cache_miss_avg', hwui_cache_miss.cache_miss_avg,
 
         'graphics_cpu_mem_max', CAST(hwui_graphics_cpu_mem.graphics_cpu_mem_max AS INT64),
         'graphics_cpu_mem_min', CAST(hwui_graphics_cpu_mem.graphics_cpu_mem_min AS INT64),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'graphics_cpu_mem_avg', hwui_graphics_cpu_mem.graphics_cpu_mem_avg,
+        'graphics_cpu_mem_avg', hwui_graphics_cpu_mem.graphics_cpu_mem_avg,
 
         'graphics_gpu_mem_max', CAST(hwui_graphics_gpu_mem.graphics_gpu_mem_max AS INT64),
         'graphics_gpu_mem_min', CAST(hwui_graphics_gpu_mem.graphics_gpu_mem_min AS INT64),
@@ -2419,18 +2690,19 @@ R"_d3l1m1t3r_(        'graphics_cpu_mem_avg', hwui_graphics_cpu_mem.graphics_cpu
       )
     )
     FROM hwui_processes
-    LEFT JOIN hwui_draw_frame ON (hwui_draw_frame.render_thread_id = hwui_processes.render_thread_id)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    LEFT JOIN hwui_draw_frame ON (hwui_draw_frame.render_thread_id = hwui_processes.render_thread_id)
     LEFT JOIN hwui_flush_commands ON (hwui_flush_commands.render_thread_id = hwui_processes.render_thread_id)
     LEFT JOIN hwui_prepare_tree ON (hwui_prepare_tree.render_thread_id = hwui_processes.render_thread_id)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    LEFT JOIN hwui_gpu_completion ON (hwui_gpu_completion.process_upid = hwui_processes.process_upid)
+    LEFT JOIN hwui_gpu_completion ON (hwui_gpu_completion.process_upid = hwui_processes.process_upid)
     LEFT JOIN hwui_ui_record ON (hwui_ui_record.process_upid = hwui_processes.process_upid)
     LEFT JOIN hwui_shader_compile ON (hwui_shader_compile.render_thread_id = hwui_processes.render_thread_id)
     LEFT JOIN hwui_cache_hit ON (hwui_cache_hit.render_thread_id = hwui_processes.render_thread_id)
     LEFT JOIN hwui_cache_miss ON (hwui_cache_miss.render_thread_id = hwui_processes.render_thread_id)
     LEFT JOIN hwui_graphics_cpu_mem ON (hwui_graphics_cpu_mem.process_upid = hwui_processes.process_upid)
     LEFT JOIN hwui_graphics_gpu_mem ON (hwui_graphics_gpu_mem.process_upid = hwui_processes.process_upid)
-    LEFT JOIN hwui_texture_mem ON (hwui_texture_mem.process_upid = hwui_processes.process_upid)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    LEFT JOIN hwui_texture_mem ON (hwui_texture_mem.process_upid = hwui_processes.process_upid)
     LEFT JOIN hwui_all_mem ON (hwui_all_mem.process_upid = hwui_processes.process_upid)
   )
 );
@@ -2456,7 +2728,7 @@ const char kAndroidAndroidHwuiThreads[] = R"_d3l1m1t3r_(--
 
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_main_thread;
-CREATE VIEW {{table_name_prefix}}_main_thread AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_main_thread AS
 SELECT
   process.name AS process_name,
   thread.utid
@@ -2466,7 +2738,7 @@ JOIN process USING (upid)
 WHERE thread.is_main_thread;
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_render_thread;
-CREATE VIEW {{table_name_prefix}}_render_thread AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_render_thread AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   process.name AS process_name,
@@ -2477,7 +2749,7 @@ JOIN process USING (upid)
 WHERE thread.name = 'RenderThread';
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_gpu_completion_thread;
-CREATE VIEW {{table_name_prefix}}_gpu_completion_thread AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_gpu_completion_thread AS
 SELECT
   process.name AS process_name,
   thread.utid
@@ -2487,7 +2759,7 @@ JOIN process USING (upid)
 WHERE thread.name = 'GPU completion';
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_hwc_release_thread;
-CREATE VIEW {{table_name_prefix}}_hwc_release_thread AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_hwc_release_thread AS
 SELECT
   process.name AS process_name,
   thread.utid
@@ -2501,16 +2773,16 @@ CREATE PERFETTO TABLE {{table_name_prefix}}_main_thread_slices AS
 SELECT
   process_name,
   thread.utid,
-  slice.*,
-  ts + dur AS ts_end
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM slice
+R"_d3l1m1t3r_(  slice.*,
+  ts + dur AS ts_end
+FROM slice
 JOIN thread_track ON slice.track_id = thread_track.id
 JOIN {{table_name_prefix}}_main_thread thread USING (utid)
 WHERE dur > 0;
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_do_frame_slices;
-CREATE VIEW {{table_name_prefix}}_do_frame_slices AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_do_frame_slices AS
 SELECT
   *,
   CAST(STR_SPLIT(name, ' ', 1) AS INTEGER) AS vsync
@@ -2530,16 +2802,16 @@ JOIN {{table_name_prefix}}_render_thread thread USING (utid)
 WHERE dur > 0;
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_draw_frame_slices;
-CREATE VIEW {{table_name_prefix}}_draw_frame_slices AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_draw_frame_slices AS
 SELECT
   *,
   CAST(STR_SPLIT(name, ' ', 1) AS INTEGER) AS vsync
 FROM {{table_name_prefix}}_render_thread_slices
-WHERE name GLOB 'DrawFrame*';
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(WHERE name GLOB 'DrawFrame*';
+
 DROP VIEW IF EXISTS {{table_name_prefix}}_gpu_completion_slices;
-CREATE VIEW {{table_name_prefix}}_gpu_completion_slices AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_gpu_completion_slices AS
 SELECT
   process_name,
   thread.utid,
@@ -2554,7 +2826,7 @@ WHERE slice.name GLOB 'waiting for GPU completion *'
   AND dur > 0;
 
 DROP VIEW IF EXISTS {{table_name_prefix}}_hwc_release_slices;
-CREATE VIEW {{table_name_prefix}}_hwc_release_slices AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_hwc_release_slices AS
 SELECT
   process_name,
   thread.utid,
@@ -2566,9 +2838,9 @@ FROM slice
 JOIN thread_track ON slice.track_id = thread_track.id
 JOIN {{table_name_prefix}}_hwc_release_thread thread USING (utid)
 WHERE slice.name GLOB 'waiting for HWC release *'
-  AND dur > 0;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(  AND dur > 0;
+
 )_d3l1m1t3r_"
 ;
 
@@ -2591,7 +2863,7 @@ const char kAndroidAndroidIo[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.io;
 
 DROP VIEW IF EXISTS android_io_output;
-CREATE VIEW android_io_output AS
+CREATE PERFETTO VIEW android_io_output AS
 SELECT AndroidIo(
     'f2fs_counter_stats', (
         SELECT RepeatedField(
@@ -2644,7 +2916,7 @@ const char kAndroidAndroidIoUnagg[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.io;
 
 DROP VIEW IF EXISTS android_io_unagg_output;
-CREATE VIEW android_io_unagg_output AS
+CREATE PERFETTO VIEW android_io_unagg_output AS
 SELECT AndroidIoUnaggregated(
     'f2fs_write_unaggregated_stats', (
         SELECT RepeatedField(
@@ -2652,9 +2924,9 @@ SELECT AndroidIoUnaggregated(
                 'tid', tid,
                 'thread_name', thread_name,
                 'pid', pid,
-                'process_name', process_name,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(                'ino', ino,
+R"_d3l1m1t3r_(                'process_name', process_name,
+                'ino', ino,
                 'dev', dev
             )
         )
@@ -2681,7 +2953,7 @@ const char kAndroidAndroidIon[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS ion_timeline;
-CREATE VIEW ion_timeline AS
+CREATE PERFETTO VIEW ion_timeline AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts FROM trace_bounds))
@@ -2698,7 +2970,7 @@ WHERE (name GLOB 'mem.ion.*' OR name = 'mem.ion');
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(
 DROP VIEW IF EXISTS ion_heap_stats;
-CREATE VIEW ion_heap_stats AS
+CREATE PERFETTO VIEW ion_heap_stats AS
 SELECT
   heap_name,
   SUM(value * dur) / SUM(dur) AS avg_size,
@@ -2708,7 +2980,7 @@ FROM ion_timeline
 GROUP BY 1;
 
 DROP VIEW IF EXISTS ion_raw_allocs;
-CREATE VIEW ion_raw_allocs AS
+CREATE PERFETTO VIEW ion_raw_allocs AS
 SELECT
   CASE name
     WHEN 'mem.ion_change' THEN 'all'
@@ -2725,7 +2997,7 @@ WINDOW win AS (
 );
 
 DROP VIEW IF EXISTS ion_alloc_stats;
-CREATE VIEW ion_alloc_stats AS
+CREATE PERFETTO VIEW ion_alloc_stats AS
 SELECT
   heap_name,
   SUM(instant_value) AS total_alloc_size_bytes
@@ -2734,11 +3006,11 @@ GROUP BY 1;
 
 -- We need to group by ts here as we can have two ion events from
 -- different processes occurring at the same timestamp. We take the
--- max as this will take both allocations into account at that
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- timestamp.
+R"_d3l1m1t3r_(-- max as this will take both allocations into account at that
+-- timestamp.
 DROP VIEW IF EXISTS android_ion_event;
-CREATE VIEW android_ion_event AS
+CREATE PERFETTO VIEW android_ion_event AS
 SELECT
   'counter' AS track_type,
   printf('ION allocations (heap: %s)', heap_name) AS track_name,
@@ -2748,7 +3020,7 @@ FROM ion_raw_allocs
 GROUP BY 1, 2, 3;
 
 DROP VIEW IF EXISTS android_ion_output;
-CREATE VIEW android_ion_output AS
+CREATE PERFETTO VIEW android_ion_output AS
 SELECT AndroidIonMetric(
   'buffer', RepeatedField(
     AndroidIonMetric_Buffer(
@@ -2781,7 +3053,7 @@ const char kAndroidAndroidIrqRuntime[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS irq_runtime_all;
 
-CREATE VIEW irq_runtime_all
+CREATE PERFETTO VIEW irq_runtime_all
 AS
 SELECT ts, dur, name
 FROM slice
@@ -2789,7 +3061,7 @@ WHERE category = 'irq';
 
 DROP VIEW IF EXISTS hw_irq_runtime;
 
-CREATE VIEW hw_irq_runtime
+CREATE PERFETTO VIEW hw_irq_runtime
 AS
 SELECT ts, dur, name
 FROM irq_runtime_all
@@ -2798,17 +3070,17 @@ ORDER BY dur DESC;
 
 DROP VIEW IF EXISTS hw_irq_runtime_statistics;
 
-CREATE VIEW hw_irq_runtime_statistics
-AS
+CREATE PERFETTO VIEW hw_irq_runtime_statistics
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(AS
 SELECT
   MAX(dur) AS max_runtime,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  COUNT(IIF(dur > 1e6, 1, NULL)) AS over_threshold_count,
+  COUNT(IIF(dur > 1e6, 1, NULL)) AS over_threshold_count,
   COUNT(*) AS total_count
 FROM hw_irq_runtime;
 
 DROP VIEW IF EXISTS sw_irq_runtime;
-CREATE VIEW sw_irq_runtime
+CREATE PERFETTO VIEW sw_irq_runtime
 AS
 SELECT ts, dur, name
 FROM irq_runtime_all
@@ -2816,7 +3088,7 @@ WHERE name NOT GLOB 'IRQ (*)'
 ORDER BY dur DESC;
 
 DROP VIEW IF EXISTS sw_irq_runtime_statistics;
-CREATE VIEW sw_irq_runtime_statistics
+CREATE PERFETTO VIEW sw_irq_runtime_statistics
 AS
 SELECT
   MAX(dur) AS max_runtime,
@@ -2826,7 +3098,7 @@ FROM sw_irq_runtime;
 
 DROP VIEW IF EXISTS android_irq_runtime_output;
 
-CREATE VIEW android_irq_runtime_output
+CREATE PERFETTO VIEW android_irq_runtime_output
 AS
 SELECT
   AndroidIrqRuntimeMetric(
@@ -2843,10 +3115,10 @@ SELECT
             'threshold',
             '1ms',
             'over_threshold_count',
-            over_threshold_count,
-            'anomaly_ratio',
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(            CAST(
+R"_d3l1m1t3r_(            over_threshold_count,
+            'anomaly_ratio',
+            CAST(
               over_threshold_count AS DOUBLE)
             / CAST(
               total_count AS DOUBLE)),
@@ -2879,9 +3151,9 @@ R"_d3l1m1t3r_(            CAST(
               over_threshold_count AS DOUBLE)
             / CAST(
               total_count AS DOUBLE)),
-          'longest_irq_slices',
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(          (
+R"_d3l1m1t3r_(          'longest_irq_slices',
+          (
             SELECT
               RepeatedField(
                 AndroidIrqRuntimeMetric_IrqSlice(
@@ -2983,7 +3255,7 @@ SELECT RUN_METRIC('android/jank/internal/derived_events.sql');
 
 DROP VIEW IF EXISTS android_jank_cuj_output;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW android_jank_cuj_output AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW android_jank_cuj_output AS
 SELECT
   AndroidJankCujMetric(
     'cuj', (
@@ -3128,7 +3400,7 @@ LEFT JOIN oom_score_span oom_scores
 ORDER BY 1;
 
 DROP VIEW IF EXISTS android_lmk_event;
-CREATE VIEW android_lmk_event AS
+CREATE PERFETTO VIEW android_lmk_event AS
 WITH raw_events AS (
   SELECT
     ts,
@@ -3158,9 +3430,9 @@ lmks_with_proc_name AS (
 )
 SELECT
   'slice' AS track_type,
-  'Low Memory Kills (LMKs)' AS track_name,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ts,
+R"_d3l1m1t3r_(  'Low Memory Kills (LMKs)' AS track_name,
+  ts,
   dur,
   CASE
     WHEN process_name IS NULL THEN printf('Process %d', lmk.pid)
@@ -3169,7 +3441,7 @@ R"_d3l1m1t3r_(  ts,
 FROM lmks_with_proc_name AS lmk;
 
 DROP VIEW IF EXISTS android_lmk_output;
-CREATE VIEW android_lmk_output AS
+CREATE PERFETTO VIEW android_lmk_output AS
 WITH lmk_counts AS (
   SELECT score, COUNT(1) AS count
   FROM lmk_events
@@ -3218,7 +3490,7 @@ SELECT RUN_METRIC('android/process_mem.sql');
 SELECT RUN_METRIC('android/process_metadata.sql');
 
 DROP VIEW IF EXISTS android_lmk_reason_output;
-CREATE VIEW android_lmk_reason_output AS
+CREATE PERFETTO VIEW android_lmk_reason_output AS
 WITH
 total_ion_name AS (
   SELECT
@@ -3343,7 +3615,7 @@ SELECT RUN_METRIC('android/mem_stats_priority_breakdown.sql', 'table_name', 'jav
 
 -- Find out all process + priority pairs with data to drive the joins (no outer join in sqlite).
 DROP VIEW IF EXISTS mem_all_processes;
-CREATE VIEW mem_all_processes AS
+CREATE PERFETTO VIEW mem_all_processes AS
 SELECT DISTINCT process_name
 FROM
   (
@@ -3360,7 +3632,7 @@ FROM
 
 DROP VIEW IF EXISTS mem_all_process_priorities;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW mem_all_process_priorities AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW mem_all_process_priorities AS
 SELECT DISTINCT process_name, priority
 FROM
   (
@@ -3376,7 +3648,7 @@ FROM
   );
 
 DROP VIEW IF EXISTS process_priority_view;
-CREATE VIEW process_priority_view AS
+CREATE PERFETTO VIEW process_priority_view AS
 SELECT
   process_name,
   AndroidMemoryMetric_PriorityBreakdown(
@@ -3398,7 +3670,7 @@ LEFT JOIN anon_and_swap_by_priority_stats_proto USING (process_name, priority)
 LEFT JOIN java_heap_by_priority_stats_proto USING (process_name, priority);
 
 DROP VIEW IF EXISTS process_metrics_view;
-CREATE VIEW process_metrics_view AS
+CREATE PERFETTO VIEW process_metrics_view AS
 SELECT
   AndroidMemoryMetric_ProcessMetrics(
     'process_name', process_name,
@@ -3425,7 +3697,7 @@ LEFT JOIN anon_and_swap_stats_proto USING (process_name)
 LEFT JOIN java_heap_stats_proto USING (process_name);
 
 DROP VIEW IF EXISTS android_mem_output;
-CREATE VIEW android_mem_output AS
+CREATE PERFETTO VIEW android_mem_output AS
 SELECT
   AndroidMemoryMetric(
     'process_metrics',
@@ -3467,7 +3739,7 @@ SELECT RUN_METRIC('android/process_unagg_mem_view.sql',
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(
 DROP VIEW IF EXISTS process_unagg_metrics_view;
-CREATE VIEW process_unagg_metrics_view AS
+CREATE PERFETTO VIEW process_unagg_metrics_view AS
 SELECT
   AndroidMemoryUnaggregatedMetric_ProcessValues(
     'process_name', process.name,
@@ -3492,7 +3764,7 @@ WHERE
   process.name IS NOT NULL;
 
 DROP VIEW IF EXISTS android_mem_unagg_output;
-CREATE VIEW android_mem_unagg_output AS
+CREATE PERFETTO VIEW android_mem_unagg_output AS
 SELECT
   AndroidMemoryUnaggregatedMetric(
     'process_values',
@@ -3521,7 +3793,7 @@ const char kAndroidAndroidMonitorContention[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.monitor_contention;
 
 DROP VIEW IF EXISTS android_monitor_contention_output;
-CREATE VIEW android_monitor_contention_output AS
+CREATE PERFETTO VIEW android_monitor_contention_output AS
 SELECT AndroidMonitorContentionMetric(
   'node', (
     SELECT RepeatedField(
@@ -3596,7 +3868,7 @@ const char kAndroidAndroidMonitorContentionAgg[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.monitor_contention;
 
 DROP VIEW IF EXISTS amc_process_agg;
-CREATE VIEW amc_process_agg AS
+CREATE PERFETTO VIEW amc_process_agg AS
 WITH full_contention AS (
   Select process_name, COUNT(*) as total_contention_count, SUM(dur)
   as total_contention_dur from android_monitor_contention group by process_name
@@ -3613,7 +3885,7 @@ SELECT f.process_name, total_contention_count, total_contention_dur,
  from full_contention as f left join main_thread_contention as m on f.process_name = m.process_name;
 
 DROP VIEW IF EXISTS android_monitor_contention_agg_output;
-CREATE VIEW android_monitor_contention_agg_output AS
+CREATE PERFETTO VIEW android_monitor_contention_agg_output AS
 SELECT AndroidMonitorContentionAggMetric(
   'process_aggregation', (
     SELECT RepeatedField(
@@ -3653,7 +3925,7 @@ SELECT RUN_METRIC('android/android_multiuser_populator.sql',
     'end_event', 'launcher_end');
 
 DROP VIEW IF EXISTS android_multiuser_output;
-CREATE VIEW android_multiuser_output AS
+CREATE PERFETTO VIEW android_multiuser_output AS
 SELECT AndroidMultiuserMetric(
   'user_switch', (SELECT * FROM event_user_switch)
 );
@@ -3682,7 +3954,7 @@ INCLUDE PERFETTO MODULE android.startup.startups;
 
 -- Collect the important timestamps for Multiuser events.
 DROP VIEW IF EXISTS multiuser_events;
-CREATE VIEW multiuser_events AS
+CREATE PERFETTO VIEW multiuser_events AS
 SELECT
   {{start_event}}_time_ns AS event_start_time_ns,
   {{end_event}}_time_ns AS event_end_time_ns
@@ -3715,7 +3987,7 @@ R"_d3l1m1t3r_(    FROM slice
 
 -- Calculation of the duration of the Multiuser event of interest.
 DROP VIEW IF EXISTS multiuser_timing;
-CREATE VIEW multiuser_timing AS
+CREATE PERFETTO VIEW multiuser_timing AS
 SELECT
   CAST((event_end_time_ns - event_start_time_ns) / 1e6 + 0.5 AS INT) AS duration_ms
 FROM
@@ -3727,12 +3999,12 @@ R"_d3l1m1t3r_(
 
 -- Get all the scheduling slices.
 DROP VIEW IF EXISTS sp_sched;
-CREATE VIEW sp_sched AS
+CREATE PERFETTO VIEW sp_sched AS
 SELECT ts, dur, cpu, utid
 FROM sched;
 -- Get all the cpu frequency slices.
 DROP VIEW IF EXISTS sp_frequency;
-CREATE VIEW sp_frequency AS
+CREATE PERFETTO VIEW sp_frequency AS
 SELECT
   ts,
   lead(ts) OVER (PARTITION BY track_id ORDER BY ts) - ts AS dur,
@@ -3747,16 +4019,16 @@ USING SPAN_JOIN(sp_sched PARTITIONED cpu, sp_frequency PARTITIONED cpu);
 
 -- Calculate the CPU cycles spent per process during the duration.
 DROP VIEW IF EXISTS cpu_usage_all;
-CREATE VIEW cpu_usage_all AS
+CREATE PERFETTO VIEW cpu_usage_all AS
 SELECT
   process.uid / 100000 AS user_id,
   process.name AS process_name,
   SUM(dur * freq_khz) / 1e9 AS cpu_kcycles
 FROM
   sched_with_frequency
-JOIN thread USING (utid)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN process USING (upid)
+R"_d3l1m1t3r_(JOIN thread USING (utid)
+JOIN process USING (upid)
 WHERE
   ts >= (SELECT event_start_time_ns FROM multiuser_events)
   AND
@@ -3766,7 +4038,7 @@ ORDER BY cpu_kcycles DESC;
 
 -- Get the data from cpu_usage_all, but also with the percentage.
 DROP VIEW IF EXISTS cpu_usage;
-CREATE VIEW cpu_usage AS
+CREATE PERFETTO VIEW cpu_usage AS
 SELECT
   user_id,
   process_name,
@@ -3780,7 +4052,7 @@ ORDER BY cpu_mcycles DESC LIMIT 25;
 
 -- Record the output for populating the proto.
 DROP VIEW IF EXISTS {{output_table_name}};
-CREATE VIEW {{output_table_name}} AS
+CREATE PERFETTO VIEW {{output_table_name}} AS
 SELECT AndroidMultiuserMetric_EventData(
   'duration_ms', (
     SELECT duration_ms
@@ -3789,9 +4061,9 @@ SELECT AndroidMultiuserMetric_EventData(
   'cpu_usage', (
     SELECT RepeatedField(
       AndroidMultiuserMetric_EventData_CpuUsage(
-        'identifier', identifier,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'user_id', user_id,
+R"_d3l1m1t3r_(        'identifier', identifier,
+        'user_id', user_id,
         'process_name', process_name,
         'cpu_mcycles', cpu_mcycles,
         'cpu_percentage', cpu_percentage
@@ -3820,7 +4092,7 @@ const char kAndroidAndroidNetperf[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS rx_packets;
-CREATE VIEW rx_packets AS
+CREATE PERFETTO VIEW rx_packets AS
 SELECT
   ts,
   REPLACE(name, " Received KB", "") AS dev,
@@ -3833,10 +4105,10 @@ WHERE name GLOB "* Received KB"
 ORDER BY ts DESC;
 
 DROP VIEW IF EXISTS gro_rx_packet_count;
-CREATE VIEW gro_rx_packet_count AS
-SELECT
+CREATE PERFETTO VIEW gro_rx_packet_count AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  s.name AS dev,
+R"_d3l1m1t3r_(SELECT
+  s.name AS dev,
   COUNT(1) AS cnt
 FROM slice s
 LEFT JOIN track t
@@ -3845,7 +4117,7 @@ WHERE t.name GLOB "Napi Gro Cpu *"
 GROUP BY s.name;
 
 DROP VIEW IF EXISTS tx_packets;
-CREATE VIEW tx_packets AS
+CREATE PERFETTO VIEW tx_packets AS
 SELECT
   ts,
   REPLACE(name, " Transmitted KB", "") AS dev,
@@ -3858,7 +4130,7 @@ WHERE name GLOB "* Transmitted KB"
 ORDER BY ts DESC;
 
 DROP VIEW IF EXISTS net_devices;
-CREATE VIEW net_devices AS
+CREATE PERFETTO VIEW net_devices AS
 SELECT DISTINCT dev
 FROM tx_packets
 UNION
@@ -3866,7 +4138,7 @@ SELECT DISTINCT dev
 FROM rx_packets;
 
 DROP VIEW IF EXISTS tcp_retransmitted_count;
-CREATE VIEW tcp_retransmitted_count AS
+CREATE PERFETTO VIEW tcp_retransmitted_count AS
 SELECT
   COUNT(1) AS cnt
 FROM slice s
@@ -3876,18 +4148,18 @@ WHERE
   t.name = "TCP Retransmit Skb";
 
 DROP VIEW IF EXISTS kfree_skb_count;
-CREATE VIEW kfree_skb_count AS
+CREATE PERFETTO VIEW kfree_skb_count AS
 SELECT
   MAX(value) AS cnt
 FROM counter c
 LEFT JOIN track t
   ON c.track_id = t.id
 WHERE
-  t.name = "Kfree Skb IP Prot";
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  t.name = "Kfree Skb IP Prot";
 
 DROP VIEW IF EXISTS device_per_core_ingress_traffic;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW device_per_core_ingress_traffic AS
+CREATE PERFETTO VIEW device_per_core_ingress_traffic AS
 SELECT
   dev,
   AndroidNetworkMetric_CorePacketStatistic(
@@ -3905,7 +4177,7 @@ FROM rx_packets
 GROUP BY dev, cpu;
 
 DROP VIEW IF EXISTS device_per_core_egress_traffic;
-CREATE VIEW device_per_core_egress_traffic AS
+CREATE PERFETTO VIEW device_per_core_egress_traffic AS
 SELECT
   dev,
   AndroidNetworkMetric_CorePacketStatistic(
@@ -3914,17 +4186,17 @@ SELECT
       'packets', COUNT(1),
       'bytes', SUM(len),
       'first_packet_timestamp_ns', MIN(ts),
-      'last_packet_timestamp_ns', MAX(ts),
-      'interval_ns', IIF((MAX(ts) - MIN(ts)) > 10000000, MAX(ts) - MIN(ts), 10000000),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      'data_rate_kbps', (SUM(len) * 8) / (IIF((MAX(ts) - MIN(ts)) > 10000000, MAX(ts) - MIN(ts), 10000000) / 1e9) / 1024
+R"_d3l1m1t3r_(      'last_packet_timestamp_ns', MAX(ts),
+      'interval_ns', IIF((MAX(ts) - MIN(ts)) > 10000000, MAX(ts) - MIN(ts), 10000000),
+      'data_rate_kbps', (SUM(len) * 8) / (IIF((MAX(ts) - MIN(ts)) > 10000000, MAX(ts) - MIN(ts), 10000000) / 1e9) / 1024
     )
   ) AS proto
 FROM tx_packets
 GROUP BY dev, cpu;
 
 DROP VIEW IF EXISTS device_total_ingress_traffic;
-CREATE VIEW device_total_ingress_traffic AS
+CREATE PERFETTO VIEW device_total_ingress_traffic AS
 SELECT
   dev,
   MIN(ts) AS start_ts,
@@ -3936,7 +4208,7 @@ FROM rx_packets
 GROUP BY dev;
 
 DROP VIEW IF EXISTS device_total_egress_traffic;
-CREATE VIEW device_total_egress_traffic AS
+CREATE PERFETTO VIEW device_total_egress_traffic AS
 SELECT
   dev,
   MIN(ts) AS start_ts,
@@ -3948,16 +4220,16 @@ FROM tx_packets
 GROUP BY dev;
 
 DROP VIEW IF EXISTS device_traffic_statistic;
-CREATE VIEW device_traffic_statistic AS
-SELECT
+CREATE PERFETTO VIEW device_traffic_statistic AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   AndroidNetworkMetric_NetDevice(
     'name', net_devices.dev,
     'rx', (
       SELECT
         AndroidNetworkMetric_Rx(
           'total', AndroidNetworkMetric_PacketStatistic(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(            'packets', packets,
+            'packets', packets,
             'bytes', bytes,
             'first_packet_timestamp_ns', start_ts,
             'last_packet_timestamp_ns', end_ts,
@@ -3979,7 +4251,8 @@ R"_d3l1m1t3r_(            'packets', packets,
             FROM gro_rx_packet_count
             WHERE gro_rx_packet_count.dev = net_devices.dev
           )
-        )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        )
       FROM device_total_ingress_traffic
       WHERE device_total_ingress_traffic.dev = net_devices.dev
     ),
@@ -3987,8 +4260,7 @@ R"_d3l1m1t3r_(            'packets', packets,
       SELECT
         AndroidNetworkMetric_Tx(
           'total', AndroidNetworkMetric_PacketStatistic(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(            'packets', packets,
+            'packets', packets,
             'bytes', bytes,
             'first_packet_timestamp_ns', start_ts,
             'last_packet_timestamp_ns', end_ts,
@@ -4010,18 +4282,7 @@ FROM net_devices
 ORDER BY dev;
 
 DROP VIEW IF EXISTS net_rx_actions;
-CREATE VIEW net_rx_actions AS
-SELECT
-  s.ts,
-  s.dur,
-  CAST(SUBSTR(t.name, 13, 1) AS int) AS cpu
-FROM slice s
-LEFT JOIN track t
-  ON s.track_id = t.id
-WHERE s.name = "NET_RX";
-
-DROP VIEW IF EXISTS net_tx_actions;
-CREATE VIEW net_tx_actions AS
+CREATE PERFETTO VIEW net_rx_actions AS
 SELECT
   s.ts,
   s.dur,
@@ -4030,10 +4291,21 @@ SELECT
 R"_d3l1m1t3r_(FROM slice s
 LEFT JOIN track t
   ON s.track_id = t.id
+WHERE s.name = "NET_RX";
+
+DROP VIEW IF EXISTS net_tx_actions;
+CREATE PERFETTO VIEW net_tx_actions AS
+SELECT
+  s.ts,
+  s.dur,
+  CAST(SUBSTR(t.name, 13, 1) AS int) AS cpu
+FROM slice s
+LEFT JOIN track t
+  ON s.track_id = t.id
 WHERE s.name = "NET_TX";
 
 DROP VIEW IF EXISTS ipi_actions;
-CREATE VIEW ipi_actions AS
+CREATE PERFETTO VIEW ipi_actions AS
 SELECT
   s.ts,
   s.dur,
@@ -4044,7 +4316,7 @@ LEFT JOIN track t
 WHERE s.name = "IRQ (IPI)";
 
 DROP VIEW IF EXISTS cpu_freq_view;
-CREATE VIEW cpu_freq_view AS
+CREATE PERFETTO VIEW cpu_freq_view AS
 SELECT
   cpu,
   ts,
@@ -4058,14 +4330,14 @@ WHERE name = 'cpufreq';
 DROP TABLE IF EXISTS cpu_freq_net_rx_action_per_core;
 CREATE VIRTUAL TABLE cpu_freq_net_rx_action_per_core
 USING SPAN_LEFT_JOIN(net_rx_actions PARTITIONED cpu, cpu_freq_view PARTITIONED cpu);
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
 DROP TABLE IF EXISTS cpu_freq_net_tx_action_per_core;
 CREATE VIRTUAL TABLE cpu_freq_net_tx_action_per_core
 USING SPAN_LEFT_JOIN(net_tx_actions PARTITIONED cpu, cpu_freq_view PARTITIONED cpu);
 
 DROP VIEW IF EXISTS total_net_rx_action_statistic;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW total_net_rx_action_statistic AS
+CREATE PERFETTO VIEW total_net_rx_action_statistic AS
 SELECT
   COUNT(1) AS times,
   SUM(dur) AS runtime,
@@ -4074,7 +4346,7 @@ SELECT
 FROM net_rx_actions;
 
 DROP VIEW IF EXISTS total_net_tx_action_statistic;
-CREATE VIEW total_net_tx_action_statistic AS
+CREATE PERFETTO VIEW total_net_tx_action_statistic AS
 SELECT
   COUNT(1) AS times,
   SUM(dur) AS runtime,
@@ -4082,7 +4354,7 @@ SELECT
 FROM net_tx_actions;
 
 DROP VIEW IF EXISTS total_ipi_action_statistic;
-CREATE VIEW total_ipi_action_statistic AS
+CREATE PERFETTO VIEW total_ipi_action_statistic AS
 SELECT
   COUNT(1) AS times,
   SUM(dur) AS runtime,
@@ -4090,24 +4362,24 @@ SELECT
 FROM ipi_actions;
 
 DROP VIEW IF EXISTS activated_cores_net_rx;
-CREATE VIEW activated_cores_net_rx AS
+CREATE PERFETTO VIEW activated_cores_net_rx AS
 SELECT DISTINCT
   cpu
 FROM net_rx_actions;
 
 DROP VIEW IF EXISTS activated_cores_net_tx;
-CREATE VIEW activated_cores_net_tx AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW activated_cores_net_tx AS
 SELECT DISTINCT
   cpu
 FROM net_tx_actions;
 
 DROP VIEW IF EXISTS per_core_net_rx_action_statistic;
-CREATE VIEW per_core_net_rx_action_statistic AS
+CREATE PERFETTO VIEW per_core_net_rx_action_statistic AS
 SELECT
   AndroidNetworkMetric_CoreNetRxActionStatistic(
     'id', cpu,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    'net_rx_action_statistic', AndroidNetworkMetric_NetRxActionStatistic(
+    'net_rx_action_statistic', AndroidNetworkMetric_NetRxActionStatistic(
       'count', (SELECT COUNT(1) FROM net_rx_actions AS na WHERE na.cpu = ac.cpu),
       'runtime_ms', (SELECT SUM(dur) / 1e6 FROM net_rx_actions AS na WHERE na.cpu = ac.cpu),
       'avg_runtime_ms', (SELECT AVG(dur) / 1e6 FROM net_rx_actions AS na WHERE na.cpu = ac.cpu),
@@ -4118,15 +4390,15 @@ R"_d3l1m1t3r_(    'net_rx_action_statistic', AndroidNetworkMetric_NetRxActionSta
 FROM activated_cores_net_rx AS ac;
 
 DROP VIEW IF EXISTS per_core_net_tx_action_statistic;
-CREATE VIEW per_core_net_tx_action_statistic AS
-SELECT
+CREATE PERFETTO VIEW per_core_net_tx_action_statistic AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   AndroidNetworkMetric_CoreNetTxActionStatistic(
     'id', cpu,
     'net_tx_action_statistic', AndroidNetworkMetric_NetTxActionStatistic(
       'count', (SELECT COUNT(1) FROM net_tx_actions AS na WHERE na.cpu = ac.cpu),
       'runtime_ms', (SELECT SUM(dur) / 1e6 FROM net_tx_actions AS na WHERE na.cpu = ac.cpu),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      'avg_runtime_ms', (SELECT AVG(dur) / 1e6 FROM net_tx_actions AS na WHERE na.cpu = ac.cpu),
+      'avg_runtime_ms', (SELECT AVG(dur) / 1e6 FROM net_tx_actions AS na WHERE na.cpu = ac.cpu),
       'avg_freq_khz', (SELECT SUM(dur * freq_khz) / SUM(dur) FROM cpu_freq_net_tx_action_per_core AS cc WHERE cc.cpu = ac.cpu),
       'mcycles', (SELECT CAST(SUM(dur * freq_khz / 1000) / 1e9 AS INT) FROM cpu_freq_net_tx_action_per_core AS cc WHERE cc.cpu = ac.cpu)
     )
@@ -4134,7 +4406,7 @@ R"_d3l1m1t3r_(      'avg_runtime_ms', (SELECT AVG(dur) / 1e6 FROM net_tx_actions
 FROM activated_cores_net_tx AS ac;
 
 DROP VIEW IF EXISTS android_netperf_output;
-CREATE VIEW android_netperf_output AS
+CREATE PERFETTO VIEW android_netperf_output AS
 SELECT AndroidNetworkMetric(
     'net_devices', (
       SELECT
@@ -4142,13 +4414,13 @@ SELECT AndroidNetworkMetric(
       FROM device_traffic_statistic
     ),
     'net_rx_action', AndroidNetworkMetric_NetRxAction(
-      'total', AndroidNetworkMetric_NetRxActionStatistic(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      'total', AndroidNetworkMetric_NetRxActionStatistic(
         'count', (SELECT times FROM total_net_rx_action_statistic),
         'runtime_ms', (SELECT runtime / 1e6 FROM total_net_rx_action_statistic),
         'avg_runtime_ms', (SELECT avg_runtime / 1e6 FROM total_net_rx_action_statistic),
         'avg_freq_khz', (SELECT SUM(dur * freq_khz) / SUM(dur) FROM cpu_freq_net_rx_action_per_core),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'mcycles', (SELECT CAST(SUM(dur * freq_khz / 1000) / 1e9 AS INT) FROM cpu_freq_net_rx_action_per_core)
+        'mcycles', (SELECT CAST(SUM(dur * freq_khz / 1000) / 1e9 AS INT) FROM cpu_freq_net_rx_action_per_core)
       ),
       'core', (
         SELECT
@@ -4169,15 +4441,15 @@ R"_d3l1m1t3r_(        'mcycles', (SELECT CAST(SUM(dur * freq_khz / 1000) / 1e9 A
     'kfree_skb_rate', (
       SELECT
         cnt * 100.0 / ((SELECT count(1) FROM rx_packets) + (SELECT count(1) FROM tx_packets))
-      FROM kfree_skb_count
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      FROM kfree_skb_count
     ),
     'net_tx_action', AndroidNetworkMetric_NetTxAction(
       'total', AndroidNetworkMetric_NetTxActionStatistic(
         'count', (SELECT times FROM total_net_tx_action_statistic),
         'runtime_ms', (SELECT runtime / 1e6 FROM total_net_tx_action_statistic),
         'avg_runtime_ms', (SELECT avg_runtime / 1e6 FROM total_net_tx_action_statistic),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'avg_freq_khz', (SELECT SUM(dur * freq_khz) / SUM(dur) FROM cpu_freq_net_tx_action_per_core),
+        'avg_freq_khz', (SELECT SUM(dur * freq_khz) / SUM(dur) FROM cpu_freq_net_tx_action_per_core),
         'mcycles', (SELECT CAST(SUM(dur * freq_khz / 1000) / 1e9 AS INT) FROM cpu_freq_net_tx_action_per_core)
       ),
       'core', (
@@ -4191,7 +4463,8 @@ R"_d3l1m1t3r_(        'avg_freq_khz', (SELECT SUM(dur * freq_khz) / SUM(dur) FRO
         'count', (SELECT times FROM total_ipi_action_statistic),
         'runtime_ms', (SELECT runtime / 1e6 FROM total_ipi_action_statistic),
         'avg_runtime_ms', (SELECT avg_runtime / 1e6 FROM total_ipi_action_statistic)
-      )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      )
     )
   );
 
@@ -4215,7 +4488,7 @@ const char kAndroidAndroidOtherTraces[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS android_other_traces_view;
-CREATE VIEW android_other_traces_view AS
+CREATE PERFETTO VIEW android_other_traces_view AS
 SELECT
   ts,
   dur,
@@ -4228,7 +4501,7 @@ WHERE
   slice.name GLOB 'finalize-uuid-*';
 
 DROP VIEW IF EXISTS android_other_traces_event;
-CREATE VIEW android_other_traces_event AS
+CREATE PERFETTO VIEW android_other_traces_event AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   'slice' AS track_type,
@@ -4239,7 +4512,7 @@ R"_d3l1m1t3r_(SELECT
 FROM android_other_traces_view;
 
 DROP VIEW IF EXISTS android_other_traces_output;
-CREATE VIEW android_other_traces_output AS
+CREATE PERFETTO VIEW android_other_traces_output AS
 SELECT AndroidOtherTracesMetric(
     'finalized_traces_uuid', (
       SELECT RepeatedField(uuid)
@@ -4267,7 +4540,7 @@ const char kAndroidAndroidPackageList[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS android_package_list_output;
-CREATE VIEW android_package_list_output AS
+CREATE PERFETTO VIEW android_package_list_output AS
 SELECT AndroidPackageList(
   'packages', (
     SELECT RepeatedField(AndroidPackageList_Package(
@@ -4299,20 +4572,20 @@ const char kAndroidAndroidPowrails[] = R"_d3l1m1t3r_(--
 
 -- View of Power Rail counters with ts converted from ns to ms.
 DROP VIEW IF EXISTS power_rails_counters;
-CREATE VIEW power_rails_counters AS
+CREATE PERFETTO VIEW power_rails_counters AS
 SELECT value, ts / 1000000 AS ts, name
 FROM counter c
 JOIN counter_track t ON c.track_id = t.id
 WHERE name GLOB 'power.*';
 
 DROP VIEW IF EXISTS avg_used_powers;
-CREATE VIEW avg_used_powers AS
+CREATE PERFETTO VIEW avg_used_powers AS
 SELECT
   name,
   avg_used_power,
-  tot_used_power,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  powrail_start_ts,
+R"_d3l1m1t3r_(  tot_used_power,
+  powrail_start_ts,
   powrail_end_ts
 FROM (
   SELECT
@@ -4335,7 +4608,7 @@ FROM (
 ) WHERE avg_used_power IS NOT NULL;
 
 DROP VIEW IF EXISTS power_rails_view;
-CREATE VIEW power_rails_view AS
+CREATE PERFETTO VIEW power_rails_view AS
 WITH RECURSIVE name AS (SELECT DISTINCT name FROM power_rails_counters)
 SELECT
   name,
@@ -4346,18 +4619,18 @@ SELECT
       AndroidPowerRails_EnergyData(
         'timestamp_ms', ts,
         'energy_uws', value
-      )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      )
     ),
     'avg_used_power_mw', (SELECT avg_used_power FROM avg_used_powers
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      WHERE avg_used_powers.name = power_rails_counters.name)
+      WHERE avg_used_powers.name = power_rails_counters.name)
   ) AS power_rails_proto
 FROM power_rails_counters
 GROUP BY name
 ORDER BY ts ASC;
 
 DROP VIEW IF EXISTS android_powrails_output;
-CREATE VIEW android_powrails_output AS
+CREATE PERFETTO VIEW android_powrails_output AS
 SELECT AndroidPowerRails(
   'power_rails', (
     SELECT RepeatedField(power_rails_proto)
@@ -4400,7 +4673,7 @@ R"_d3l1m1t3r_(--         utid,
 --     FROM power_per_thread
 --     GROUP BY utid;
 -- 2) Compute the total power cost of all slices from a table 'my_slice':
---     CREATE VIEW my_slice_utid AS
+--     CREATE PERFETTO VIEW my_slice_utid AS
 --     SELECT ts, dur, utid
 --     FROM my_slice
 --     JOIN thread_track ON track_id = thread_track.id;
@@ -4417,7 +4690,7 @@ SELECT RUN_METRIC('android/android_cpu_agg.sql');
 SELECT RUN_METRIC('android/power_profile_data.sql');
 
 DROP VIEW IF EXISTS device;
-CREATE VIEW device AS
+CREATE PERFETTO VIEW device AS
 WITH
 after_first_slash(str) AS (
   SELECT SUBSTR(str_value, INSTR(str_value, '/') + 1)
@@ -4426,13 +4699,13 @@ after_first_slash(str) AS (
 ),
 before_second_slash(str) AS (
   SELECT SUBSTR(str, 0, INSTR(str, '/'))
-  FROM after_first_slash
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_()
+R"_d3l1m1t3r_(  FROM after_first_slash
+)
 SELECT str AS name FROM before_second_slash;
 
 DROP VIEW IF EXISTS power_view;
-CREATE VIEW power_view AS
+CREATE PERFETTO VIEW power_view AS
 SELECT
   cpu_freq_view.cpu AS cpu,
   ts,
@@ -4448,7 +4721,7 @@ JOIN power_profile ON (
 -- utid = 0 is a reserved value used to mark sched slices where CPU was idle.
 -- It doesn't correspond to any real thread.
 DROP VIEW IF EXISTS sched_real_threads;
-CREATE VIEW sched_real_threads AS
+CREATE PERFETTO VIEW sched_real_threads AS
 SELECT *
 FROM sched
 WHERE utid != 0;
@@ -4477,7 +4750,7 @@ const char kAndroidAndroidRtRuntime[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS rt_runtime_all;
 
-CREATE VIEW rt_runtime_all
+CREATE PERFETTO VIEW rt_runtime_all
 AS
 SELECT ts, dur, thread.name AS tname
 FROM sched_slice
@@ -4490,7 +4763,7 @@ ORDER BY dur DESC;
 
 DROP VIEW IF EXISTS android_rt_runtime_output;
 
-CREATE VIEW android_rt_runtime_output
+CREATE PERFETTO VIEW android_rt_runtime_output
 AS
 SELECT
   AndroidRtRuntimeMetric(
@@ -4529,7 +4802,7 @@ const char kAndroidAndroidSimpleperf[] = R"_d3l1m1t3r_(--
 
 -- Find all counters from track that satisfies regex 'slc/qurg2_(wr|rd):lvl=0x(0|1|3|7)%'
 DROP VIEW IF EXISTS all_qurg2;
-CREATE VIEW all_qurg2 AS
+CREATE PERFETTO VIEW all_qurg2 AS
 SELECT
   ts,
   track_id,
@@ -4540,7 +4813,7 @@ WHERE name GLOB 'slc/qurg2_??:lvl=0x_*';
 
 -- Find all counters from track that satisfies regex 'slc/qurg2_(wr|rd):lvl=0x(1|3|7)%'
 DROP VIEW IF EXISTS non_zero_qurg2;
-CREATE VIEW non_zero_qurg2 AS
+CREATE PERFETTO VIEW non_zero_qurg2 AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   *
@@ -4550,7 +4823,7 @@ WHERE name NOT GLOB 'slc/qurg2_??:lvl=0x0*';
 -- Find all event counters from simpleperf in the form of
 -- (<event_name> + '_tid' + <tid> + '_cpu' + <cpu_id>)
 DROP VIEW IF EXISTS simpleperf_event_raw;
-CREATE VIEW simpleperf_event_raw AS
+CREATE PERFETTO VIEW simpleperf_event_raw AS
 SELECT
   SUBSTR(name, 0, tid_pos) AS name,
   CAST(SUBSTR(name, tid_pos + 4, cpu_pos - tid_pos - 4) AS INT) AS tid,
@@ -4568,7 +4841,7 @@ FROM (
 );
 
 DROP VIEW IF EXISTS simpleperf_event_per_process;
-CREATE VIEW simpleperf_event_per_process AS
+CREATE PERFETTO VIEW simpleperf_event_per_process AS
 SELECT
   e.name,
   t.upid,
@@ -4582,12 +4855,12 @@ SELECT
   ) AS threads,
   SUM(e.total) AS total
 FROM simpleperf_event_raw e JOIN thread t USING (tid)
-GROUP BY e.name, t.upid;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(GROUP BY e.name, t.upid;
+
 
 DROP VIEW IF EXISTS simpleperf_event_metric;
-CREATE VIEW simpleperf_event_metric AS
+CREATE PERFETTO VIEW simpleperf_event_metric AS
 SELECT
   AndroidSimpleperfMetric_PerfEventMetric(
     'name', e.name,
@@ -4605,7 +4878,7 @@ FROM simpleperf_event_per_process e JOIN process p USING (upid)
 GROUP BY e.name;
 
 DROP VIEW IF EXISTS android_simpleperf_output;
-CREATE VIEW android_simpleperf_output AS
+CREATE PERFETTO VIEW android_simpleperf_output AS
 SELECT AndroidSimpleperfMetric(
   'urgent_ratio', (SELECT sum(value) FROM non_zero_qurg2) / (SELECT sum(value) FROM all_qurg2),
   'events', (SELECT RepeatedField(proto) FROM simpleperf_event_metric)
@@ -4630,6 +4903,8 @@ const char kAndroidAndroidStartup[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 --
 
+SELECT RUN_METRIC('android/cpu_info.sql');
+
 -- Create the base tables and views containing the launch spans.
 INCLUDE PERFETTO MODULE android.startup.startups;
 SELECT RUN_METRIC('android/process_metadata.sql');
@@ -4638,10 +4913,13 @@ SELECT RUN_METRIC('android/process_metadata.sql');
 -- of the metric.
 SELECT RUN_METRIC('android/startup/slice_functions.sql');
 INCLUDE PERFETTO MODULE common.timestamps;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
+-- Define helper functions related to slow start reasons
+SELECT RUN_METRIC('android/startup/slow_start_reasons.sql');
 
 -- Run all the HSC metrics.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT RUN_METRIC('android/startup/hsc.sql');
+SELECT RUN_METRIC('android/startup/hsc.sql');
 
 -- Define some helper functions related to breaking down thread state
 -- for launches.
@@ -4664,16 +4942,16 @@ CREATE OR REPLACE PERFETTO FUNCTION zygote_fork_for_launch(startup_id INT)
 RETURNS TABLE(ts INT, dur INT) AS
 SELECT slice.ts, slice.dur
 FROM android_startups l
-JOIN slice ON (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(JOIN slice ON (
   l.ts < slice.ts AND
   slice.ts + slice.dur < l.ts_end AND
   STR_SPLIT(slice.name, ': ', 1) = l.package
 )
 WHERE l.startup_id = $startup_id AND slice.name GLOB 'Start proc: *';
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 -- Returns the fully drawn slice proto given a launch id.
-CREATE PERFETTO FUNCTION report_fully_drawn_for_launch(startup_id INT)
+CREATE OR REPLACE PERFETTO FUNCTION report_fully_drawn_for_launch(startup_id INT)
 RETURNS PROTO AS
 SELECT
   startup_slice_proto(report_fully_drawn_ts - launch_ts)
@@ -4694,18 +4972,24 @@ FROM (
 
 -- Given a launch id and GLOB for a slice name, returns the N longest slice name and duration.
 CREATE OR REPLACE PERFETTO FUNCTION get_long_slices_for_launch(
-  startup_id INT, slice_name STRING, top_n INT)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  startup_id INT, slice_name STRING, top_n INT)
 RETURNS TABLE(slice_name STRING, slice_dur INT) AS
 SELECT slice_name, slice_dur
 FROM android_thread_slices_for_all_startups s
 WHERE s.startup_id = $startup_id AND s.slice_name GLOB $slice_name
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(ORDER BY slice_dur DESC
+ORDER BY slice_dur DESC
 LIMIT $top_n;
+
+-- Returns the number of CPUs.
+CREATE OR REPLACE PERFETTO FUNCTION get_number_of_cpus()
+RETURNS INT AS
+SELECT COUNT(DISTINCT cpu)
+FROM core_type_per_cpu;
 
 -- Define the view
 DROP VIEW IF EXISTS startup_view;
-CREATE VIEW startup_view AS
+CREATE PERFETTO VIEW startup_view AS
 SELECT
   AndroidStartupMetric_Startup(
     'startup_id',launches.startup_id,
@@ -4725,7 +5009,8 @@ SELECT
     ),
     'process', (
       SELECT m.metadata
-      FROM process_metadata m
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      FROM process_metadata m
       JOIN android_startup_processes p USING (upid)
       WHERE p.startup_id =launches.startup_id
       LIMIT 1
@@ -4735,8 +5020,7 @@ SELECT
         'name', (SELECT STR_SPLIT(s.slice_name, ':', 1)),
         'method', (SELECT STR_SPLIT(s.slice_name, ':', 0)),
         'ts_method_start', s.slice_ts
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        ))
+        ))
       FROM thread_slices_for_all_launches s
       WHERE
         s.startup_id =launches.startup_id
@@ -4751,7 +5035,8 @@ R"_d3l1m1t3r_(        ))
           "destination_process", s.process,
           "flags", EXTRACT_ARG(s.arg_set_id, "flags"),
           "code", EXTRACT_ARG(s.arg_set_id, "code"),
-          "data_size", EXTRACT_ARG(s.arg_set_id, "data_size")
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(          "data_size", EXTRACT_ARG(s.arg_set_id, "data_size")
         )
       )
       FROM ANDROID_BINDER_TRANSACTION_SLICES_FOR_STARTUP(launches.startup_id, 2e7) s
@@ -4760,8 +5045,7 @@ R"_d3l1m1t3r_(        ))
     'activity_hosting_process_count', (
       SELECT COUNT(1) FROM android_startup_processes p
       WHERE p.startup_id =launches.startup_id
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    ),
+    ),
     'event_timestamps', AndroidStartupMetric_EventTimestamps(
       'intent_received', launches.ts,
       'first_frame', launches.ts_end
@@ -4775,7 +5059,8 @@ R"_d3l1m1t3r_(    ),
         ),
         'runnable_dur_ns', IFNULL(
           main_thread_time_for_launch_in_runnable_state(launches.startup_id), 0
-        ),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        ),
         'uninterruptible_sleep_dur_ns', IFNULL(
           main_thread_time_for_launch_and_state(launches.startup_id, 'D*'), 0
         ),
@@ -4784,8 +5069,7 @@ R"_d3l1m1t3r_(    ),
         ),
         'uninterruptible_io_sleep_dur_ns', IFNULL(
           main_thread_time_for_launch_state_and_io_wait(launches.startup_id, 'D*', TRUE), 0
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        ),
+        ),
         'uninterruptible_non_io_sleep_dur_ns', IFNULL(
           main_thread_time_for_launch_state_and_io_wait(launches.startup_id, 'D*', FALSE), 0
         )
@@ -4796,7 +5080,8 @@ R"_d3l1m1t3r_(        ),
         'big', mcycles_for_launch_and_core_type(launches.startup_id, 'big'),
         'bigger', mcycles_for_launch_and_core_type(launches.startup_id, 'bigger'),
         'unknown', mcycles_for_launch_and_core_type(launches.startup_id, 'unknown')
-      )),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      )),
       'to_post_fork',
       launch_to_main_thread_slice_proto(launches.startup_id, 'PostFork'),
       'to_activity_thread_main',
@@ -4805,8 +5090,7 @@ R"_d3l1m1t3r_(        ),
       launch_to_main_thread_slice_proto(launches.startup_id, 'bindApplication'),
       'time_activity_manager', (
         SELECT startup_slice_proto(l.ts - launches.ts)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        FROM internal_startup_events l
+        FROM internal_startup_events l
         WHERE l.ts BETWEEN launches.ts AND launches.ts + launches.dur
       ),
       'time_post_fork',
@@ -4819,7 +5103,8 @@ R"_d3l1m1t3r_(        FROM internal_startup_events l
       dur_sum_slice_proto_for_launch(launches.startup_id, 'activityStart'),
       'time_activity_resume',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'activityResume'),
-      'time_activity_restart',
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      'time_activity_restart',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'activityRestart'),
       'time_choreographer',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'Choreographer#doFrame*'),
@@ -4827,8 +5112,7 @@ R"_d3l1m1t3r_(        FROM internal_startup_events l
       dur_sum_slice_proto_for_launch(launches.startup_id, 'inflate'),
       'time_get_resources',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'ResourcesManager#getResources'),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      'time_dex_open',
+      'time_dex_open',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'OpenDexFilesFromOat*'),
       'time_verify_class',
       dur_sum_slice_proto_for_launch(launches.startup_id, 'VerifyClass*'),
@@ -4841,7 +5125,8 @@ R"_d3l1m1t3r_(      'time_dex_open',
         'OpenDexFilesFromOat*'),
       'time_dlopen_thread_main',
       dur_sum_main_thread_slice_proto_for_launch(
-        launches.startup_id,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        launches.startup_id,
         'dlopen:*.so'),
       'time_lock_contention_thread_main',
       dur_sum_main_thread_slice_proto_for_launch(
@@ -4855,8 +5140,7 @@ R"_d3l1m1t3r_(      'time_dex_open',
       ),
       'time_before_start_process', (
         SELECT startup_slice_proto(ts - launches.ts)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        FROM ZYGOTE_FORK_FOR_LAUNCH(launches.startup_id)
+        FROM ZYGOTE_FORK_FOR_LAUNCH(launches.startup_id)
       ),
       'time_to_running_state',
       time_to_running_state_for_launch(launches.startup_id),
@@ -4871,7 +5155,8 @@ R"_d3l1m1t3r_(        FROM ZYGOTE_FORK_FOR_LAUNCH(launches.startup_id)
         SELECT startup_slice_proto(sum_dur)
         FROM running_gc_slices_materialized
         WHERE launches.startup_id = startup_id
-      ),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      ),
       'time_during_start_process', (
         SELECT startup_slice_proto(dur)
         FROM ZYGOTE_FORK_FOR_LAUNCH(launches.startup_id)
@@ -4884,8 +5169,7 @@ R"_d3l1m1t3r_(        FROM ZYGOTE_FORK_FOR_LAUNCH(launches.startup_id)
       'other_processes_spawned_count', (
         SELECT COUNT(1)
         FROM process
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        WHERE
+        WHERE
           process.start_ts BETWEEN launches.ts AND launches.ts + launches.dur
           AND process.upid NOT IN (
             SELECT upid FROM android_startup_processes
@@ -4901,14 +5185,14 @@ R"_d3l1m1t3r_(        WHERE
       )
     )),
     'report_fully_drawn', NULL_IF_EMPTY(report_fully_drawn_for_launch(launches.startup_id)),
-    'optimization_status', (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'optimization_status', (
       SELECT RepeatedField(AndroidStartupMetric_OptimizationStatus(
         'location', SUBSTR(STR_SPLIT(slice_name, ' status=', 0), LENGTH('location=') + 1),
         'odex_status', STR_SPLIT(STR_SPLIT(slice_name, ' status=', 1), ' filter=', 0),
         'compilation_filter', STR_SPLIT(STR_SPLIT(slice_name, ' filter=', 1), ' reason=', 0),
         'compilation_reason', STR_SPLIT(slice_name, ' reason=', 1),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        'summary',
+        'summary',
         summary_for_optimization_status(
           SUBSTR(STR_SPLIT(slice_name, ' status=', 0), LENGTH('location=') + 1),
           STR_SPLIT(STR_SPLIT(slice_name, ' status=', 1), ' filter=', 0),
@@ -4924,7 +5208,8 @@ R"_d3l1m1t3r_(        'summary',
         ORDER BY slice_name
       )
     ),
-    'verify_class', (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'verify_class', (
       SELECT RepeatedField(AndroidStartupMetric_VerifyClass(
         'name', STR_SPLIT(slice_name, "VerifyClass ", 1),
         'dur_ns', slice_dur))
@@ -4935,8 +5220,7 @@ R"_d3l1m1t3r_(        'summary',
       FROM android_startups l
       WHERE l.startup_id != launches.startup_id
         AND is_spans_overlapping(l.ts, l.ts_end, launches.ts, launches.ts_end)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    ),
+    ),
     'dlopen_file', (
       SELECT RepeatedField(STR_SPLIT(slice_name, "dlopen: ", 1))
       FROM android_thread_slices_for_all_startups s
@@ -4947,7 +5231,8 @@ R"_d3l1m1t3r_(    ),
       dur_of_process_running_concurrent_to_launch(launches.startup_id, '*dex2oat64') > 0,
       'installd_running',
       dur_of_process_running_concurrent_to_launch(launches.startup_id, '*installd') > 0,
-      'broadcast_dispatched_count',
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      'broadcast_dispatched_count',
       count_slices_concurrent_to_launch(launches.startup_id, 'Broadcast dispatched*'),
       'broadcast_received_count',
       count_slices_concurrent_to_launch(launches.startup_id, 'broadcastReceiveReg*'),
@@ -4956,9 +5241,10 @@ R"_d3l1m1t3r_(    ),
       'installd_dur_ns',
       dur_of_process_running_concurrent_to_launch(launches.startup_id, '*installd'),
       'dex2oat_dur_ns',
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      dur_of_process_running_concurrent_to_launch(launches.startup_id, '*dex2oat64')
+      dur_of_process_running_concurrent_to_launch(launches.startup_id, '*dex2oat64')
     ),
+    -- Remove slow_start_reason implementation once slow_start_reason_detailed
+    -- is added to slow_start dashboards. (b/308460401)
     'slow_start_reason', (SELECT RepeatedField(slow_cause)
       FROM (
         SELECT 'No baseline or cloud profiles' AS slow_cause
@@ -4966,7 +5252,8 @@ R"_d3l1m1t3r_(      dur_of_process_running_concurrent_to_launch(launches.startup
 
         UNION ALL
         SELECT 'Optimized artifacts missing, run from apk'
-        WHERE  run_from_apk_for_launch(launches.startup_id)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        WHERE  run_from_apk_for_launch(launches.startup_id)
 
         UNION ALL
         SELECT 'Unlock running during launch'
@@ -4986,8 +5273,7 @@ R"_d3l1m1t3r_(      dur_of_process_running_concurrent_to_launch(launches.startup
           dur_of_process_running_concurrent_to_launch(launches.startup_id, '*dex2oat64') > 0
 
         UNION ALL
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        SELECT 'installd running during launch' AS slow_cause
+        SELECT 'installd running during launch' AS slow_cause
         WHERE
           dur_of_process_running_concurrent_to_launch(launches.startup_id, '*installd') > 0
 
@@ -4995,8 +5281,10 @@ R"_d3l1m1t3r_(        SELECT 'installd running during launch' AS slow_cause
         SELECT 'Main Thread - Time spent in Runnable state'
           AS slow_cause
         WHERE
+          get_number_of_cpus() > 2 AND
           main_thread_time_for_launch_in_runnable_state(launches.startup_id) > launches.dur * 0.15
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
         UNION ALL
         SELECT 'Main Thread - Time spent in interruptible sleep state'
           AS slow_cause
@@ -5011,8 +5299,7 @@ R"_d3l1m1t3r_(        SELECT 'installd running during launch' AS slow_cause
           AS slow_cause
         WHERE android_sum_dur_on_main_thread_for_startup_and_slice(
           launches.startup_id, 'OpenDexFilesFromOat*') > launches.dur * 0.2
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
         UNION ALL
         SELECT 'Time spent in bindApplication'
           AS slow_cause
@@ -5022,7 +5309,8 @@ R"_d3l1m1t3r_(
         SELECT 'Time spent in view inflation'
           AS slow_cause
         WHERE android_sum_dur_for_startup_and_slice(launches.startup_id, 'inflate') > 450e6
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
         UNION ALL
         SELECT 'Time spent in ResourcesManager#getResources'
           AS slow_cause
@@ -5038,9 +5326,10 @@ R"_d3l1m1t3r_(
 
         UNION ALL
         SELECT 'Potential CPU contention with another process' AS slow_cause
-        WHERE main_thread_time_for_launch_in_runnable_state(launches.startup_id) > 100e6
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(          AND most_active_process_for_launch(launches.startup_id) IS NOT NULL
+        WHERE
+          get_number_of_cpus() > 2 AND
+          main_thread_time_for_launch_in_runnable_state(launches.startup_id) > 100e6 AND
+          most_active_process_for_launch(launches.startup_id) IS NOT NULL
 
         UNION ALL
         SELECT 'JIT Activity'
@@ -5052,7 +5341,8 @@ R"_d3l1m1t3r_(          AND most_active_process_for_launch(launches.startup_id) 
         ) > 100e6
 
         UNION ALL
-        SELECT 'Main Thread - Lock contention'
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        SELECT 'Main Thread - Lock contention'
           AS slow_cause
         WHERE android_sum_dur_on_main_thread_for_startup_and_slice(
           launches.startup_id,
@@ -5072,8 +5362,7 @@ R"_d3l1m1t3r_(          AND most_active_process_for_launch(launches.startup_id) 
         WHERE (
           SELECT COUNT(1)
           FROM ANDROID_SLICES_FOR_STARTUP_AND_SLICE_NAME(launches.startup_id, 'JIT compiling*')
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(          WHERE thread_name = 'Jit thread pool'
+          WHERE thread_name = 'Jit thread pool'
         ) > 65
 
         UNION ALL
@@ -5085,7 +5374,8 @@ R"_d3l1m1t3r_(          WHERE thread_name = 'Jit thread pool'
 
         UNION ALL
         SELECT 'Broadcast received count'
-        WHERE count_slices_concurrent_to_launch(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        WHERE count_slices_concurrent_to_launch(
           launches.startup_id,
           'broadcastReceiveReg*'
         ) > 50
@@ -5103,27 +5393,28 @@ R"_d3l1m1t3r_(          WHERE thread_name = 'Jit thread pool'
         SELECT 'Main Thread - Binder transactions blocked'
         WHERE (
           SELECT COUNT(1)
-          FROM BINDER_TRANSACTION_REPLY_SLICES_FOR_LAUNCH(launches.startup_id, 2e7)
+          FROM binder_transaction_reply_slices_for_launch(launches.startup_id, 2e7)
         ) > 0
 
       )
-    )
+    ),
+    'slow_start_reason_detailed', get_slow_start_reason_detailed(launches.startup_id)
   ) AS startup
 FROM android_startups launches;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 DROP VIEW IF EXISTS android_startup_event;
-CREATE VIEW android_startup_event AS
+CREATE PERFETTO VIEW android_startup_event AS
 SELECT
   'slice' AS track_type,
   'Android App Startups' AS track_name,
   l.ts AS ts,
   l.dur AS dur,
   l.package AS slice_name
-FROM android_startups l;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM android_startups l;
 
 DROP VIEW IF EXISTS android_startup_output;
-CREATE VIEW android_startup_output AS
+CREATE PERFETTO VIEW android_startup_output AS
 SELECT
   AndroidStartupMetric(
     'startup', (
@@ -5167,7 +5458,7 @@ SELECT RUN_METRIC(
 
 DROP VIEW IF EXISTS android_surfaceflinger_event;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW android_surfaceflinger_event AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW android_surfaceflinger_event AS
 SELECT
   'slice' AS track_type,
   'Android Missed Frames' AS track_name,
@@ -5178,14 +5469,14 @@ FROM frame_missed
 WHERE value = 1 AND ts IS NOT NULL;
 
 DROP VIEW IF EXISTS surfaceflinger_track;
-CREATE VIEW surfaceflinger_track AS
+CREATE PERFETTO VIEW surfaceflinger_track AS
 SELECT tr.id AS track_id, t.utid, t.tid
 FROM process p JOIN thread t ON p.upid = t.upid
 JOIN thread_track tr ON tr.utid = t.utid
 WHERE p.cmdline = '/system/bin/surfaceflinger';
 
 DROP VIEW IF EXISTS gpu_waiting_start;
-CREATE VIEW gpu_waiting_start AS
+CREATE PERFETTO VIEW gpu_waiting_start AS
 SELECT
   CAST(SUBSTR(s.name, 28) AS UINT32) AS fence_id,
   ts AS start_ts
@@ -5193,7 +5484,7 @@ FROM slices s JOIN surfaceflinger_track t ON s.track_id = t.track_id
 WHERE s.name GLOB 'Trace GPU completion fence *';
 
 DROP VIEW IF EXISTS gpu_waiting_end;
-CREATE VIEW gpu_waiting_end AS
+CREATE PERFETTO VIEW gpu_waiting_end AS
 SELECT
   CAST(SUBSTR(s.name, 28) AS UINT32) AS fence_id,
   dur,
@@ -5203,7 +5494,7 @@ WHERE s.name GLOB 'waiting for GPU completion *';
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(
 DROP VIEW IF EXISTS gpu_waiting_span;
-CREATE VIEW gpu_waiting_span AS
+CREATE PERFETTO VIEW gpu_waiting_span AS
 SELECT
   fence_id,
   ts,
@@ -5226,7 +5517,7 @@ WHERE event_type = 0 AND fence_id = next_fence_id;
 
 
 DROP VIEW IF EXISTS display_ids;
-CREATE VIEW display_ids AS
+CREATE PERFETTO VIEW display_ids AS
 SELECT DISTINCT display_id
 FROM (
   SELECT display_id FROM frame_missed
@@ -5237,7 +5528,7 @@ FROM (
 );
 
 DROP VIEW IF EXISTS metrics_per_display;
-CREATE VIEW metrics_per_display AS
+CREATE PERFETTO VIEW metrics_per_display AS
 SELECT AndroidSurfaceflingerMetric_MetricsPerDisplay(
   'display_id', d.display_id,
   'missed_frames',
@@ -5257,16 +5548,16 @@ R"_d3l1m1t3r_(  'missed_hwc_frames',
 FROM display_ids d;
 
 DROP VIEW IF EXISTS android_surfaceflinger_output;
-CREATE VIEW android_surfaceflinger_output AS
+CREATE PERFETTO VIEW android_surfaceflinger_output AS
 SELECT
   AndroidSurfaceflingerMetric(
     'missed_frames', (SELECT COUNT(1) FROM frame_missed WHERE value = 1),
     'missed_hwc_frames', (SELECT COUNT(1) FROM hwc_frame_missed WHERE value = 1),
     'missed_gpu_frames', (SELECT COUNT(1) FROM gpu_frame_missed WHERE value = 1),
     'missed_frame_rate', (SELECT AVG(value) FROM frame_missed),
-    'missed_hwc_frame_rate', (SELECT AVG(value) FROM hwc_frame_missed),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    'missed_gpu_frame_rate', (SELECT AVG(value) FROM gpu_frame_missed),
+R"_d3l1m1t3r_(    'missed_hwc_frame_rate', (SELECT AVG(value) FROM hwc_frame_missed),
+    'missed_gpu_frame_rate', (SELECT AVG(value) FROM gpu_frame_missed),
     'gpu_invocations', (SELECT COUNT(1) FROM gpu_waiting_end),
     'avg_gpu_waiting_dur_ms', (SELECT AVG(dur) / 1e6 FROM gpu_waiting_span),
     'total_non_empty_gpu_waiting_dur_ms',
@@ -5318,7 +5609,7 @@ R"_d3l1m1t3r_(WHERE
 GROUP BY s.name;
 
 DROP VIEW IF EXISTS android_sysui_notifications_blocking_calls_metric_output;
-CREATE VIEW android_sysui_notifications_blocking_calls_metric_output AS
+CREATE PERFETTO VIEW android_sysui_notifications_blocking_calls_metric_output AS
 SELECT AndroidSysUINotificationsBlockingCallsMetric('blocking_calls', (
         SELECT RepeatedField(
             AndroidBlockingCall(
@@ -5356,7 +5647,7 @@ const char kAndroidAndroidTaskNames[] = R"_d3l1m1t3r_(--
 SELECT RUN_METRIC('android/process_metadata.sql');
 
 DROP VIEW IF EXISTS android_task_names_output;
-CREATE VIEW android_task_names_output AS
+CREATE PERFETTO VIEW android_task_names_output AS
 WITH
 -- Process to thread name
 threads_by_upid AS (
@@ -5413,7 +5704,7 @@ const char kAndroidAndroidTraceQuality[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS android_trace_quality_failures;
-CREATE VIEW android_trace_quality_failures AS
+CREATE PERFETTO VIEW android_trace_quality_failures AS
 -- Check that all the sched slices are less than 1 week long.
 SELECT
   'sched_slice_too_long' AS name,
@@ -5421,10 +5712,10 @@ SELECT
 FROM sched;
 
 DROP VIEW IF EXISTS android_trace_quality_output;
-CREATE VIEW android_trace_quality_output AS
-SELECT AndroidTraceQualityMetric(
+CREATE PERFETTO VIEW android_trace_quality_output AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  'failures', (
+R"_d3l1m1t3r_(SELECT AndroidTraceQualityMetric(
+  'failures', (
     SELECT RepeatedField(AndroidTraceQualityMetric_Failure(
       'name', name
       ))
@@ -5440,7 +5731,7 @@ const char kAndroidAndroidTrustyWorkqueues[] = R"_d3l1m1t3r_(-- Gather the `nop_
 -- information to generate a metric that displays just the Trusty workqueue
 -- events grouped by CPU.
 DROP VIEW IF EXISTS android_trusty_workqueues_event;
-CREATE VIEW android_trusty_workqueues_event AS
+CREATE PERFETTO VIEW android_trusty_workqueues_event AS
 SELECT
   'slice' AS track_type,
   name AS slice_name,
@@ -5455,7 +5746,7 @@ WHERE slice.name GLOB 'nop_work_func*';
 -- metric to generate custom tracks, and so don't have any aggregate data to
 -- generate.
 DROP VIEW IF EXISTS android_trusty_workqueues_output;
-CREATE VIEW android_trusty_workqueues_output AS
+CREATE PERFETTO VIEW android_trusty_workqueues_output AS
 SELECT AndroidTrustyWorkqueues();
 
 )_d3l1m1t3r_"
@@ -5481,7 +5772,7 @@ SELECT RUN_METRIC('android/android_cpu.sql');
 
 -- Attaching thread proto with media thread name
 DROP VIEW IF EXISTS core_type_proto_per_thread_name;
-CREATE VIEW core_type_proto_per_thread_name AS
+CREATE PERFETTO VIEW core_type_proto_per_thread_name AS
 SELECT
 thread.name as thread_name,
 core_type_proto_per_thread.proto AS proto
@@ -5494,7 +5785,7 @@ R"_d3l1m1t3r_(GROUP BY thread.name;
 
 -- aggregate all cpu the codec threads
 DROP VIEW IF EXISTS codec_per_thread_cpu_use;
-CREATE VIEW codec_per_thread_cpu_use AS
+CREATE PERFETTO VIEW codec_per_thread_cpu_use AS
 SELECT
   upid,
   process.name AS process_name,
@@ -5510,7 +5801,7 @@ GROUP BY process.name, thread.name;
 
 -- All process that has codec thread
 DROP VIEW IF EXISTS android_codec_process;
-CREATE VIEW android_codec_process AS
+CREATE PERFETTO VIEW android_codec_process AS
 SELECT
   upid,
   process.name as process_name
@@ -5523,7 +5814,7 @@ GROUP BY process_name;
 
 -- Total cpu for a process
 DROP VIEW IF EXISTS codec_total_per_process_cpu_use;
-CREATE VIEW codec_total_per_process_cpu_use AS
+CREATE PERFETTO VIEW codec_total_per_process_cpu_use AS
 SELECT
   upid,
   process_name,
@@ -5536,7 +5827,7 @@ GROUP BY process_name;
 
 -- Joining total process with media thread table
 DROP VIEW IF EXISTS codec_per_process_thread_cpu_use;
-CREATE VIEW codec_per_process_thread_cpu_use AS
+CREATE PERFETTO VIEW codec_per_process_thread_cpu_use AS
 SELECT
   *
 FROM codec_total_per_process_cpu_use
@@ -5548,7 +5839,7 @@ JOIN codec_per_thread_cpu_use using(process_name);
 
 -- Utility function to trim codec trace string: extract the string demilited
 -- by the limiter.
-CREATE PERFETTO FUNCTION extract_codec_string(slice_name STRING, limiter STRING)
+CREATE OR REPLACE PERFETTO FUNCTION extract_codec_string(slice_name STRING, limiter STRING)
 RETURNS STRING AS
 SELECT CASE
   -- Delimit with the first occurrence
@@ -5575,7 +5866,7 @@ insert into trace_trait_table (trace_trait) values
 -- the same trace with different information.Hence those strings are delimited
 -- using '@' and considered as part of single trace.
 DROP VIEW IF EXISTS codec_slices;
-CREATE VIEW codec_slices AS
+CREATE PERFETTO VIEW codec_slices AS
 SELECT
   DISTINCT extract_codec_string(slice.name, '@') as codec_slice_string
 FROM slice
@@ -5583,7 +5874,7 @@ JOIN trace_trait_table ON slice.name glob  '*' || trace_trait || '*';
 
 -- combine slice and thread info
 DROP VIEW IF EXISTS slice_with_utid;
-CREATE VIEW slice_with_utid AS
+CREATE PERFETTO VIEW slice_with_utid AS
 SELECT
   extract_codec_string(slice.name, '@') as codec_string,
   ts,
@@ -5607,7 +5898,7 @@ USING SPAN_LEFT_JOIN(
 
 -- Get cpu_running_time for all the slices of interest
 DROP VIEW IF EXISTS slice_cpu_running;
-CREATE VIEW slice_cpu_running AS
+CREATE PERFETTO VIEW slice_cpu_running AS
 SELECT
   codec_string,
   sum(dur) as cpu_time,
@@ -5624,7 +5915,7 @@ GROUP BY codec_string, thread_name, process_name;
 
 -- Generate proto for the trace
 DROP VIEW IF EXISTS metrics_per_slice_type;
-CREATE VIEW metrics_per_slice_type AS
+CREATE PERFETTO VIEW metrics_per_slice_type AS
 SELECT
   process_name,
   codec_string,
@@ -5638,7 +5929,7 @@ FROM slice_cpu_running;
 
 -- Generating codec framework cpu metric
 DROP VIEW IF EXISTS codec_metrics_output;
-CREATE VIEW codec_metrics_output AS
+CREATE PERFETTO VIEW codec_metrics_output AS
 SELECT AndroidCodecMetrics(
   'cpu_usage', (
     SELECT RepeatedField(
@@ -5691,7 +5982,7 @@ const char kAndroidComposerExecution[] = R"_d3l1m1t3r_(--
 -- 3. HwcValidateDisplay and then HwcPresentDisplay
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(DROP VIEW IF EXISTS raw_hwc_function_spans;
-CREATE VIEW raw_hwc_function_spans AS
+CREATE PERFETTO VIEW raw_hwc_function_spans AS
 SELECT
   id,
   display_id,
@@ -5720,7 +6011,7 @@ FROM(
 ORDER BY ts;
 
 DROP VIEW IF EXISTS {{output}};
-CREATE VIEW {{output}} AS
+CREATE PERFETTO VIEW {{output}} AS
 SELECT
   id,
   display_id,
@@ -5759,7 +6050,7 @@ const char kAndroidCompositionLayers[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS {{output}};
-CREATE VIEW {{output}} AS
+CREATE PERFETTO VIEW {{output}} AS
 WITH composition_layer_counts AS (
   SELECT
     LAG(ts) OVER (ORDER BY ts) AS ts,
@@ -5811,7 +6102,7 @@ const char kAndroidCounterSpanViewMerged[] = R"_d3l1m1t3r_(--
 R"_d3l1m1t3r_(-- identical values.
 
 DROP VIEW IF EXISTS {{table_name}}_span;
-CREATE VIEW {{table_name}}_span AS
+CREATE PERFETTO VIEW {{table_name}}_span AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts + 1 FROM trace_bounds))
@@ -5855,7 +6146,7 @@ UNION ALL
 SELECT 2, 'bigger';
 
 DROP VIEW IF EXISTS device_power_profile;
-CREATE VIEW device_power_profile AS
+CREATE PERFETTO VIEW device_power_profile AS
 SELECT cpu, cluster, freq, power
 FROM power_profile pp
 WHERE EXISTS (
@@ -5864,19 +6155,19 @@ R"_d3l1m1t3r_(  SELECT 1 FROM metadata
   WHERE name = 'android_build_fingerprint' AND str_value GLOB '*' || pp.device || '*');
 
 DROP VIEW IF EXISTS core_cluster_per_cpu;
-CREATE VIEW core_cluster_per_cpu AS
+CREATE PERFETTO VIEW core_cluster_per_cpu AS
 SELECT DISTINCT cpu, cluster
 FROM device_power_profile;
 
 DROP VIEW IF EXISTS core_type_per_cpu;
-CREATE VIEW core_type_per_cpu AS
+CREATE PERFETTO VIEW core_type_per_cpu AS
 SELECT
   cpu,
   core_type
 FROM core_cluster_per_cpu JOIN cluster_core_type USING(cluster);
 
 DROP VIEW IF EXISTS cpu_cluster_power;
-CREATE VIEW cpu_cluster_power AS
+CREATE PERFETTO VIEW cpu_cluster_power AS
 SELECT DISTINCT core_type, freq, power
 FROM device_power_profile pp JOIN cluster_core_type USING(cluster);
 
@@ -5899,28 +6190,28 @@ const char kAndroidDisplayMetrics[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 --
 DROP VIEW IF EXISTS same_frame;
-CREATE VIEW same_frame AS
+CREATE PERFETTO VIEW same_frame AS
 SELECT COUNT(name) AS total_duplicate_frames
 FROM counters
 WHERE name = 'SAME_FRAME'
   AND value = 1;
 
 DROP VIEW IF EXISTS duplicate_frames_logged;
-CREATE VIEW duplicate_frames_logged AS
+CREATE PERFETTO VIEW duplicate_frames_logged AS
 SELECT CASE WHEN COUNT(name) > 0 THEN 1 ELSE 0 END AS logs_found
 FROM counters
 WHERE name = 'SAME_FRAME' AND value = 0;
 
 DROP VIEW IF EXISTS dpu_underrun;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW dpu_underrun AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW dpu_underrun AS
 SELECT COUNT(name) AS total_dpu_underrun_count
 FROM counters
 WHERE name = 'DPU_UNDERRUN'
   AND value = 1;
 
 DROP VIEW IF EXISTS non_repeated_panel_fps;
-CREATE VIEW non_repeated_panel_fps AS
+CREATE PERFETTO VIEW non_repeated_panel_fps AS
 SELECT *
 FROM (
   SELECT
@@ -5935,7 +6226,7 @@ FROM (
 WHERE prev_value != value;
 
 DROP VIEW IF EXISTS panel_fps_spans;
-CREATE VIEW panel_fps_spans AS
+CREATE PERFETTO VIEW panel_fps_spans AS
 SELECT *
 FROM (
   SELECT
@@ -5948,7 +6239,7 @@ FROM (
 WHERE dur > 0;
 
 DROP VIEW IF EXISTS update_power_state_stats;
-CREATE VIEW update_power_state_stats AS
+CREATE PERFETTO VIEW update_power_state_stats AS
 SELECT
   CAST(AVG(dur) / 1e3 AS INT64) AS avg_runtime_micro_secs
 FROM slice
@@ -5956,7 +6247,7 @@ WHERE slice.name = 'DisplayPowerController#updatePowerState' AND slice.dur >= 0;
 
 DROP VIEW IF EXISTS display_metrics_output;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW display_metrics_output AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW display_metrics_output AS
 SELECT AndroidDisplayMetrics(
   'total_duplicate_frames', (SELECT total_duplicate_frames
     FROM same_frame),
@@ -6006,7 +6297,7 @@ const char kAndroidFrameMissed[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS {{output}};
-CREATE VIEW {{output}} AS
+CREATE PERFETTO VIEW {{output}} AS
 WITH frame_missed_counters AS (
   SELECT
     LAG(ts) OVER (ORDER BY ts) AS ts,
@@ -6016,9 +6307,9 @@ WITH frame_missed_counters AS (
     ts - LAG(ts) OVER (ORDER BY ts) AS dur,
     name,
     INSTR(name, ' ') AS separator_pos,
-    value
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  FROM counter c
+R"_d3l1m1t3r_(    value
+  FROM counter c
   JOIN process_counter_track t ON c.track_id = t.id
   WHERE t.name GLOB '{{track_name}}*'
 )
@@ -6064,7 +6355,7 @@ SELECT RUN_METRIC(
 );
 
 DROP VIEW IF EXISTS g2d_output;
-CREATE VIEW g2d_output AS
+CREATE PERFETTO VIEW g2d_output AS
 SELECT G2dMetrics(
   'g2d_hw', (SELECT metric FROM g2d_hw_duration_metric),
   'g2d_sw', (SELECT metric FROM g2d_sw_duration_metric)
@@ -6090,7 +6381,7 @@ const char kAndroidG2dDuration[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS raw_g2d_{{g2d_type}}_spans;
-CREATE VIEW raw_g2d_{{g2d_type}}_spans AS
+CREATE PERFETTO VIEW raw_g2d_{{g2d_type}}_spans AS
 SELECT
   ts,
   pct.name AS track_name,
@@ -6104,21 +6395,21 @@ R"_d3l1m1t3r_(WHERE pct.name GLOB 'g2d_frame_{{g2d_type}}*';
 
 
 DROP VIEW IF EXISTS g2d_{{g2d_type}}_spans;
-CREATE VIEW g2d_{{g2d_type}}_spans AS
+CREATE PERFETTO VIEW g2d_{{g2d_type}}_spans AS
 SELECT ts, track_name, dur
 FROM raw_g2d_{{g2d_type}}_spans
 WHERE g2d_value = 1 AND next_g2d_value = 0;
 
 
 DROP VIEW IF EXISTS g2d_{{g2d_type}}_errors;
-CREATE VIEW g2d_{{g2d_type}}_errors AS
+CREATE PERFETTO VIEW g2d_{{g2d_type}}_errors AS
 SELECT ts, track_name, g2d_value
 FROM raw_g2d_{{g2d_type}}_spans
 WHERE (g2d_value = 1 AND next_g2d_value = 1) OR (prev_g2d_value = 0 AND g2d_value = 0);
 
 
 DROP VIEW IF EXISTS g2d_{{g2d_type}}_instances;
-CREATE VIEW g2d_{{g2d_type}}_instances AS
+CREATE PERFETTO VIEW g2d_{{g2d_type}}_instances AS
 SELECT
   G2dMetrics_G2dInstance(
     'name', g.track_name,
@@ -6132,10 +6423,10 @@ FROM g2d_{{g2d_type}}_spans g GROUP BY g.track_name;
 
 
 DROP VIEW IF EXISTS {{output_table}};
-CREATE VIEW {{output_table}} AS
-SELECT
+CREATE PERFETTO VIEW {{output_table}} AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  G2dMetrics_G2dMetric(
+R"_d3l1m1t3r_(SELECT
+  G2dMetrics_G2dMetric(
     'instances', (SELECT RepeatedField(instance) FROM g2d_{{g2d_type}}_instances),
     'max_dur_ms', MAX(dur) / 1e6,
     'min_dur_ms', MIN(dur) / 1e6,
@@ -6165,7 +6456,7 @@ const char kAndroidGlobalCounterSpanView[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS {{table_name}}_span;
-CREATE VIEW {{table_name}}_span AS
+CREATE PERFETTO VIEW {{table_name}}_span AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts + 1 FROM trace_bounds))
@@ -6196,7 +6487,7 @@ const char kAndroidGpuCounterSpanView[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS {{table_name}}_span;
-CREATE VIEW {{table_name}}_span AS
+CREATE PERFETTO VIEW {{table_name}}_span AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts + 1 FROM trace_bounds))
@@ -6859,7 +7150,7 @@ SELECT
 FROM counter
 JOIN cuj_counter_track ON counter.track_id = cuj_counter_track.track_id;
 
-CREATE PERFETTO FUNCTION android_jank_cuj_counter_value(cuj_name STRING,
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_counter_value(cuj_name STRING,
                                                         counter_name STRING,
                                                         ts_min INT,
                                                         ts_max INT)
@@ -6884,7 +7175,7 @@ JOIN track marker_track on  marker_track.id = marker.track_id
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(WHERE marker.name GLOB '*FT#Missed*';
 
-CREATE PERFETTO FUNCTION android_missed_vsyncs_for_callback(
+CREATE OR REPLACE PERFETTO FUNCTION android_missed_vsyncs_for_callback(
   cuj_slice_name STRING,
   ts_min INT,
   ts_max INT,
@@ -6960,7 +7251,7 @@ const char kAndroidJankInternalDerivedEvents[] = R"_d3l1m1t3r_(--
 
 
 DROP VIEW IF EXISTS android_jank_cuj_event;
-CREATE VIEW android_jank_cuj_event AS
+CREATE PERFETTO VIEW android_jank_cuj_event AS
 -- Computed CUJ boundaries.
 SELECT
   'slice' AS track_type,
@@ -6971,9 +7262,9 @@ SELECT
   'CUJ Boundaries' AS group_name
 FROM android_jank_cuj cuj
 JOIN android_jank_cuj_boundary boundary USING (cuj_id)
-UNION ALL
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Computed frame boundaries on the Main Thread.
+R"_d3l1m1t3r_(UNION ALL
+-- Computed frame boundaries on the Main Thread.
 SELECT
   'slice' AS track_type,
   cuj.cuj_name || ' MT ' || vsync AS track_name,
@@ -7100,13 +7391,13 @@ R"_d3l1m1t3r_(('SF RenderEngine',
 
 -- Functions below retrieve specific columns for a given table set.
 
-CREATE PERFETTO FUNCTION android_jank_cuj_table_set_slice(table_set STRING)
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_table_set_slice(table_set STRING)
 RETURNS STRING AS
 SELECT slice_table_name
 FROM android_jank_cuj_table_set ts
 WHERE ts.name = $table_set;
 
-CREATE PERFETTO FUNCTION android_jank_cuj_table_set_frame_boundary(
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_table_set_frame_boundary(
   table_set STRING
 )
 RETURNS STRING AS
@@ -7114,7 +7405,7 @@ SELECT frame_boundary_table_name
 FROM android_jank_cuj_table_set ts
 WHERE ts.name = $table_set;
 
-CREATE PERFETTO FUNCTION android_jank_cuj_table_set_cuj_boundary(
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_table_set_cuj_boundary(
   table_set STRING
 )
 RETURNS STRING AS
@@ -7122,16 +7413,16 @@ SELECT cuj_boundary_table_name
 FROM android_jank_cuj_table_set ts
 WHERE ts.name = $table_set;
 
-CREATE PERFETTO FUNCTION android_jank_cuj_table_set_frame(table_set STRING)
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_table_set_frame(table_set STRING)
 RETURNS STRING AS
 SELECT frame_table_name
-FROM android_jank_cuj_table_set ts
-WHERE ts.name = $table_set;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(FROM android_jank_cuj_table_set ts
+WHERE ts.name = $table_set;
+
 -- Checks if two slices, described by ts and dur, ts_second and dur_second, overlap.
 -- Does not handle cases where slices are unfinished (dur = -1).
-CREATE PERFETTO FUNCTION android_jank_cuj_slice_overlaps(ts LONG,
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_cuj_slice_overlaps(ts LONG,
                                                         dur LONG,
                                                         ts_second LONG,
                                                         dur_second LONG)
@@ -7224,7 +7515,7 @@ JOIN {{slice_table_name}} android_jank_cuj_slice_table
 
 -- Flat view of frames and slices matched and "trimmed" to each frame boundaries.
 DROP VIEW IF EXISTS {{table_name_prefix}}_slice_in_frame;
-CREATE VIEW {{table_name_prefix}}_slice_in_frame AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_slice_in_frame AS
 SELECT
   frame.*,
   query_slice.id AS slice_id,
@@ -7232,9 +7523,9 @@ SELECT
   query_slice.name AS slice_name,
   MAX(query_slice.ts, frame_boundary.ts) AS slice_ts,
   MIN(query_slice.ts_end, frame_boundary.ts_end) AS slice_ts_end,
-  MIN(query_slice.ts_end, frame_boundary.ts_end) - MAX(query_slice.ts, frame_boundary.ts) AS slice_dur,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  query_slice.ts_end AS ts_end_original
+R"_d3l1m1t3r_(  MIN(query_slice.ts_end, frame_boundary.ts_end) - MAX(query_slice.ts, frame_boundary.ts) AS slice_dur,
+  query_slice.ts_end AS ts_end_original
 FROM {{frame_table_name}} frame
 -- We want to use different boundaries depending on which thread's slices the query is targetting.
 JOIN {{frame_boundary_table_name}} frame_boundary USING (cuj_id, vsync)
@@ -7244,7 +7535,7 @@ JOIN {{table_name_prefix}}_query_slice query_slice
 
 -- Aggregated view of frames and slices overall durations within each frame boundaries.
 DROP VIEW IF EXISTS {{table_name_prefix}}_slice_in_frame_agg;
-CREATE VIEW {{table_name_prefix}}_slice_in_frame_agg AS
+CREATE PERFETTO VIEW {{table_name_prefix}}_slice_in_frame_agg AS
 SELECT
   cuj_id,
   frame_number,
@@ -7255,10 +7546,10 @@ SELECT
   1.0 * SUM(slice_dur) / dur_expected AS slice_dur_div_frame_dur_expected,
   SUM(slice_dur) AS slice_dur_sum,
   MAX(slice_dur) AS slice_dur_max
-FROM {{table_name_prefix}}_slice_in_frame
-GROUP BY cuj_id, frame_number, vsync, dur_expected, app_missed, sf_missed;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(FROM {{table_name_prefix}}_slice_in_frame
+GROUP BY cuj_id, frame_number, vsync, dur_expected, app_missed, sf_missed;
+
 )_d3l1m1t3r_"
 ;
 
@@ -7312,7 +7603,7 @@ R"_d3l1m1t3r_(-- frames missing their expected deadlines.
 --
 -- Example usage:
 --
--- CREATE VIEW example_table AS
+-- CREATE PERFETTO VIEW example_table AS
 -- SELECT * FROM android_jank_cuj_slice WHERE name = 'binder transaction';
 -- SELECT android_jank_correlate_frame_slice_impl('MainThread',
 --                                                'example_table',
@@ -7332,7 +7623,7 @@ R"_d3l1m1t3r_(-- frames missing their expected deadlines.
 --                     value will be used as a prefx for their names to avoid
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(--                     name collisions with other tables.
-CREATE PERFETTO FUNCTION android_jank_correlate_frame_slice_impl(
+CREATE OR REPLACE PERFETTO FUNCTION android_jank_correlate_frame_slice_impl(
   table_set STRING,
   relevant_slice_table_name STRING,
   table_name_prefix STRING
@@ -7355,7 +7646,7 @@ SELECT COALESCE(
 -- android_jank_correlate_frame_slice_impl.
 -- See documentation for android_jank_correlate_frame_slice_impl.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE PERFETTO FUNCTION android_jank_correlate_frame_slice(
+R"_d3l1m1t3r_(CREATE OR REPLACE PERFETTO FUNCTION android_jank_correlate_frame_slice(
   table_set STRING,
   relevant_slice_table_name STRING
 )
@@ -7384,11 +7675,11 @@ const char kAndroidJankRelevantSlices[] = R"_d3l1m1t3r_(--
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-CREATE PERFETTO FUNCTION vsync_from_name(slice_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION vsync_from_name(slice_name STRING)
 RETURNS STRING AS
 SELECT CAST(STR_SPLIT($slice_name, " ", 1) AS INTEGER);
 
-CREATE PERFETTO FUNCTION gpu_completion_fence_id_from_name(slice_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION gpu_completion_fence_id_from_name(slice_name STRING)
 RETURNS STRING AS
 SELECT
   CASE
@@ -7397,9 +7688,9 @@ SELECT
     THEN
       CAST(STR_SPLIT($slice_name, " ", 3) AS INTEGER)
     WHEN
-      $slice_name GLOB "Trace GPU completion fence *"
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    THEN
+R"_d3l1m1t3r_(      $slice_name GLOB "Trace GPU completion fence *"
+    THEN
       CAST(STR_SPLIT($slice_name, " ", 4) AS INTEGER)
     WHEN
       $slice_name GLOB "waiting for GPU completion *"
@@ -7429,10 +7720,10 @@ SELECT
   slice.ts + slice.dur AS ts_end,
   vsync_from_name(slice.name) AS vsync
 FROM android_jank_cuj cuj
-JOIN slice
-  ON slice.ts + slice.dur >= cuj.ts AND slice.ts <= cuj.ts_end
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN android_jank_cuj_main_thread main_thread
+R"_d3l1m1t3r_(JOIN slice
+  ON slice.ts + slice.dur >= cuj.ts AND slice.ts <= cuj.ts_end
+JOIN android_jank_cuj_main_thread main_thread
   ON cuj.cuj_id = main_thread.cuj_id
     AND main_thread.track_id = slice.track_id
 WHERE
@@ -7455,9 +7746,9 @@ WHERE
 -- Store render thread DrawFrames by matching in the vsync IDs extracted from
 -- doFrame slices. In case of multiple layers being drawn, there might be
 -- multiple DrawFrames for a single vsync.
-DROP TABLE IF EXISTS android_jank_cuj_draw_frame_slice;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE PERFETTO TABLE android_jank_cuj_draw_frame_slice AS
+R"_d3l1m1t3r_(DROP TABLE IF EXISTS android_jank_cuj_draw_frame_slice;
+CREATE PERFETTO TABLE android_jank_cuj_draw_frame_slice AS
 SELECT
   cuj_id,
   render_thread.upid,
@@ -7484,9 +7775,9 @@ SELECT
   gpu_completion_fence_id_from_name(fence.name) AS fence_idx
 FROM android_jank_cuj_draw_frame_slice draw_frame
 JOIN descendant_slice(draw_frame.id) fence
-  ON fence.name GLOB '*GPU completion fence*';
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(  ON fence.name GLOB '*GPU completion fence*';
+
 -- Similarly find descendants of DrawFrames which have the HWC release fence ID
 DROP TABLE IF EXISTS android_jank_cuj_hwc_release_fence;
 CREATE PERFETTO TABLE android_jank_cuj_hwc_release_fence AS
@@ -7513,9 +7804,9 @@ FROM android_jank_cuj_hwc_release_thread hwc_release_thread
 JOIN slice USING (track_id)
 JOIN android_jank_cuj_hwc_release_fence fence
   ON fence.cuj_id = hwc_release_thread.cuj_id
-    AND fence.fence_idx = gpu_completion_fence_id_from_name(slice.name)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(WHERE
+R"_d3l1m1t3r_(    AND fence.fence_idx = gpu_completion_fence_id_from_name(slice.name)
+WHERE
   slice.name GLOB 'waiting for HWC release *'
   AND slice.dur > 0;
 
@@ -7541,10 +7832,10 @@ WHERE
   AND slice.dur > 0;
 
 -- Match the frame timeline on the app side with the frame timeline on the SF side.
--- This way we get the vsyncs IDs of SF frames within the CUJ.
--- Note that there might be multiple SF vsync IDs that match a single App vsync ID, e.g.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- if one App layer produced a frame later and it was picked up by the next SF frame.
+R"_d3l1m1t3r_(-- This way we get the vsyncs IDs of SF frames within the CUJ.
+-- Note that there might be multiple SF vsync IDs that match a single App vsync ID, e.g.
+-- if one App layer produced a frame later and it was picked up by the next SF frame.
 DROP TABLE IF EXISTS android_jank_cuj_app_to_sf_match;
 CREATE PERFETTO TABLE android_jank_cuj_app_to_sf_match AS
 SELECT
@@ -7564,10 +7855,10 @@ JOIN actual_frame_timeline_slice sf_timeline
 JOIN android_jank_cuj_sf_process sf_process
   ON sf_timeline.upid = sf_process.upid
 -- In cases where there are multiple layers drawn we would have separate frame timeline
--- slice for each of the layers. GROUP BY to deduplicate these rows.
-GROUP BY cuj_id, app_upid, app_vsync, sf_upid, sf_vsync;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(-- slice for each of the layers. GROUP BY to deduplicate these rows.
+GROUP BY cuj_id, app_upid, app_vsync, sf_upid, sf_vsync;
+
 CREATE OR REPLACE PERFETTO FUNCTION find_android_jank_cuj_sf_main_thread_slice(
   slice_name_glob STRING)
 RETURNS TABLE(
@@ -7598,17 +7889,17 @@ CREATE PERFETTO TABLE android_jank_cuj_sf_commit_slice AS
 SELECT * FROM FIND_ANDROID_JANK_CUJ_SF_MAIN_THREAD_SLICE('commit *');
 
 DROP TABLE IF EXISTS android_jank_cuj_sf_composite_slice;
-CREATE PERFETTO TABLE android_jank_cuj_sf_composite_slice AS
-SELECT * FROM FIND_ANDROID_JANK_CUJ_SF_MAIN_THREAD_SLICE('composite *');
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(CREATE PERFETTO TABLE android_jank_cuj_sf_composite_slice AS
+SELECT * FROM FIND_ANDROID_JANK_CUJ_SF_MAIN_THREAD_SLICE('composite *');
+
 -- Older builds do not have the commit/composite but onMessageInvalidate instead
 DROP TABLE IF EXISTS android_jank_cuj_sf_on_message_invalidate_slice;
 CREATE PERFETTO TABLE android_jank_cuj_sf_on_message_invalidate_slice AS
 SELECT * FROM FIND_ANDROID_JANK_CUJ_SF_MAIN_THREAD_SLICE('onMessageInvalidate *');
 
 DROP VIEW IF EXISTS android_jank_cuj_sf_root_slice;
-CREATE VIEW android_jank_cuj_sf_root_slice AS
+CREATE PERFETTO VIEW android_jank_cuj_sf_root_slice AS
 SELECT * FROM android_jank_cuj_sf_commit_slice
 UNION ALL
 SELECT * FROM android_jank_cuj_sf_composite_slice
@@ -7619,14 +7910,14 @@ SELECT * FROM android_jank_cuj_sf_on_message_invalidate_slice;
 -- is used for signaling that the GPU finished drawing.
 DROP TABLE IF EXISTS android_jank_cuj_sf_gpu_completion_fence;
 CREATE PERFETTO TABLE android_jank_cuj_sf_gpu_completion_fence AS
-SELECT
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   cuj_id,
   vsync,
   sf_root_slice.id AS sf_root_slice_id,
   gpu_completion_fence_id_from_name(fence.name) AS fence_idx
 FROM android_jank_cuj_sf_root_slice sf_root_slice
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN descendant_slice(sf_root_slice.id) fence
+JOIN descendant_slice(sf_root_slice.id) fence
   ON fence.name GLOB '*GPU completion fence*';
 
 -- Find GPU completion slices which indicate when the GPU finished drawing.
@@ -7650,11 +7941,11 @@ WHERE
 
 -- Find REThreaded::drawLayers on RenderEngine thread.
 -- These will be only relevant if SF is doing client composition so we check if
--- the drawLayers slice is completely within the bounds of composeSurfaces on SF
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- the drawLayers slice is completely within the bounds of composeSurfaces on SF
 -- main thread.
 DROP TABLE IF EXISTS android_jank_cuj_sf_draw_layers_slice;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE PERFETTO TABLE android_jank_cuj_sf_draw_layers_slice AS
+CREATE PERFETTO TABLE android_jank_cuj_sf_draw_layers_slice AS
 WITH compose_surfaces AS (
   SELECT
     cuj_id,
@@ -7680,7 +7971,8 @@ JOIN slice draw_layers
   ON draw_layers.track_id = re_thread.track_id
     AND draw_layers.ts >= compose_surfaces.ts
     AND draw_layers.ts + draw_layers.dur <= compose_surfaces.ts_end
-WHERE
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(WHERE
   draw_layers.name = 'REThreaded::drawLayers'
   AND draw_layers.dur > 0;
 
@@ -7791,7 +8083,7 @@ const char kAndroidJankSlices[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS android_jank_cuj_slice;
-CREATE VIEW android_jank_cuj_slice AS
+CREATE PERFETTO VIEW android_jank_cuj_slice AS
 SELECT
   cuj_id,
   process.upid,
@@ -7852,7 +8144,7 @@ JOIN slice
 WHERE slice.dur > 0;
 
 DROP VIEW IF EXISTS android_jank_cuj_sf_slice;
-CREATE VIEW android_jank_cuj_sf_slice AS
+CREATE PERFETTO VIEW android_jank_cuj_sf_slice AS
 SELECT
   cuj_id,
   upid,
@@ -7973,7 +8265,7 @@ GROUP BY 1, 2, 3
 ORDER BY 1, 2, 3;
 
 DROP VIEW IF EXISTS java_heap_histogram_output;
-CREATE VIEW java_heap_histogram_output AS
+CREATE PERFETTO VIEW java_heap_histogram_output AS
 WITH
 -- Group by to build the repeated field by upid, ts
 heap_obj_histogram_count_protos AS (
@@ -8039,7 +8331,7 @@ SELECT RUN_METRIC('android/process_metadata.sql');
 SELECT RUN_METRIC('android/process_mem.sql');
 
 DROP VIEW IF EXISTS java_heap_stats_output;
-CREATE VIEW java_heap_stats_output AS
+CREATE PERFETTO VIEW java_heap_stats_output AS
 WITH
 -- Base view
 base_stat_counts AS (
@@ -8205,7 +8497,7 @@ GROUP BY 1, 2
 ORDER BY 1, 2;
 
 DROP VIEW IF EXISTS {{table_name}}_by_priority_stats_proto;
-CREATE VIEW {{table_name}}_by_priority_stats_proto AS
+CREATE PERFETTO VIEW {{table_name}}_by_priority_stats_proto AS
 SELECT
   process_name,
   priority,
@@ -8257,14 +8549,14 @@ R"_d3l1m1t3r_(-- activity of the underlying interface.
 -- @column packet_count  The total number of packets in this segment.
 -- @column packet_length The total number of bytes for packets in this segment.
 DROP VIEW IF EXISTS {{view_name}};
-CREATE VIEW {{view_name}} AS
+CREATE PERFETTO VIEW {{view_name}} AS
 WITH quantized AS (
   SELECT
     {{group_by}},
     MIN(ts) AS ts,
-    MAX(ts+dur)-MIN(ts) AS dur,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    SUM(packet_count) AS packet_count,
+R"_d3l1m1t3r_(    MAX(ts+dur)-MIN(ts) AS dur,
+    SUM(packet_count) AS packet_count,
     SUM(packet_length) AS packet_length
   FROM android_network_packets
   WHERE {{filter}}
@@ -8318,7 +8610,7 @@ const char kAndroidPState[] = R"_d3l1m1t3r_(--
 SELECT RUN_METRIC("android/android_cpu_agg.sql");
 
 DROP VIEW IF EXISTS p_state_cpu_idle_counter;
-CREATE VIEW p_state_cpu_idle_counter AS
+CREATE PERFETTO VIEW p_state_cpu_idle_counter AS
 SELECT
   ts,
   ts - LAG(ts) OVER (
@@ -8435,7 +8727,7 @@ R"_d3l1m1t3r_(-- start timestamp, duration and the average power drain during it
 -- take into account the value after it. This underestimates the actual power
 -- drain between those counters.
 DROP VIEW IF EXISTS drain_in_watts;
-CREATE VIEW drain_in_watts AS
+CREATE PERFETTO VIEW drain_in_watts AS
 SELECT name,
   ts,
   LEAD(ts) OVER (
@@ -10790,7 +11082,7 @@ const char kAndroidProcessCounterSpanView[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS {{table_name}}_span;
-CREATE VIEW {{table_name}}_span AS
+CREATE PERFETTO VIEW {{table_name}}_span AS
 SELECT
   ts,
   LEAD(ts, 1, (
@@ -10856,7 +11148,7 @@ CREATE VIRTUAL TABLE anon_and_swap_join
 USING SPAN_OUTER_JOIN(anon_rss_span PARTITIONED upid, swap_span PARTITIONED upid);
 
 DROP VIEW IF EXISTS anon_and_swap_span;
-CREATE VIEW anon_and_swap_span AS
+CREATE PERFETTO VIEW anon_and_swap_span AS
 SELECT
   ts, dur, upid,
   IFNULL(anon_rss_val, 0) + IFNULL(swap_val, 0) AS anon_and_swap_val
@@ -10880,7 +11172,7 @@ R"_d3l1m1t3r_(  shmem_rss_span PARTITIONED upid
 );
 
 DROP VIEW IF EXISTS rss_and_swap_span;
-CREATE VIEW rss_and_swap_span AS
+CREATE PERFETTO VIEW rss_and_swap_span AS
 SELECT
   ts, dur, upid,
   CAST(IFNULL(file_rss_val, 0) AS INT) AS file_rss_val,
@@ -10904,7 +11196,7 @@ SELECT RUN_METRIC('android/process_counter_span_view.sql',
   'counter_name', 'Heap size (KB)');
 
 DROP VIEW IF EXISTS java_heap_span;
-CREATE VIEW java_heap_span AS
+CREATE PERFETTO VIEW java_heap_span AS
 SELECT ts, dur, upid, java_heap_kb_val * 1024 AS java_heap_val
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(FROM java_heap_kb_span;
@@ -10951,18 +11243,18 @@ const char kAndroidProcessMetadata[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.process_metadata;
 
 DROP VIEW IF EXISTS process_metadata_table;
-CREATE VIEW process_metadata_table AS
+CREATE PERFETTO VIEW process_metadata_table AS
 SELECT android_process_metadata.*, pid FROM android_process_metadata
 JOIN process USING(upid);
 
 DROP VIEW IF EXISTS uid_package_count;
-CREATE VIEW uid_package_count AS
+CREATE PERFETTO VIEW uid_package_count AS
 SELECT * FROM internal_uid_package_count;
 
 DROP VIEW IF EXISTS process_metadata;
-CREATE VIEW process_metadata AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(WITH upid_packages AS (
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW process_metadata AS
+WITH upid_packages AS (
   SELECT
     upid,
     RepeatedField(AndroidProcessMetadata_Package(
@@ -10991,13 +11283,13 @@ FROM process_metadata_table
 LEFT JOIN upid_packages USING (upid);
 
 -- Given a process name, return if it is debuggable.
-CREATE PERFETTO FUNCTION is_process_debuggable(process_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION is_process_debuggable(process_name STRING)
 RETURNS BOOL AS
 SELECT p.debuggable
 FROM process_metadata_table p
-WHERE p.process_name = $process_name
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(LIMIT 1;
+R"_d3l1m1t3r_(WHERE p.process_name = $process_name
+LIMIT 1;
 
 )_d3l1m1t3r_"
 ;
@@ -11020,7 +11312,7 @@ const char kAndroidProcessOomScore[] = R"_d3l1m1t3r_(--
 
 -- Create a track for process OOM scores.
 DROP VIEW IF EXISTS oom_score_span;
-CREATE VIEW oom_score_span AS
+CREATE PERFETTO VIEW oom_score_span AS
 SELECT
   ts,
   LEAD(ts, 1, (SELECT end_ts + 1 FROM trace_bounds))
@@ -11087,7 +11379,7 @@ const char kAndroidProfilerSmaps[] = R"_d3l1m1t3r_(--
 SELECT RUN_METRIC('android/process_metadata.sql') AS unused;
 
 DROP VIEW IF EXISTS profiler_smaps_output;
-CREATE VIEW profiler_smaps_output AS
+CREATE PERFETTO VIEW profiler_smaps_output AS
 WITH base_stat_counts AS (
   SELECT
     ts,
@@ -11180,7 +11472,7 @@ GROUP BY 1
 ORDER BY 1;
 
 DROP VIEW IF EXISTS {{table_name}}_stats_proto;
-CREATE VIEW {{table_name}}_stats_proto AS
+CREATE PERFETTO VIEW {{table_name}}_stats_proto AS
 SELECT
   process_name,
   AndroidMemoryMetric_Counter(
@@ -11211,7 +11503,7 @@ const char kAndroidStartupGcSlices[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS gc_slices;
-CREATE VIEW gc_slices AS
+CREATE PERFETTO VIEW gc_slices AS
 SELECT slice_ts AS ts, slice_dur AS dur, utid, startup_id AS launch_id
 FROM thread_slices_for_all_launches
 WHERE
@@ -11254,7 +11546,7 @@ INCLUDE PERFETTO MODULE android.startup.startups;
 
 -- Must be invoked after populating launches table in android_startup.
 DROP VIEW IF EXISTS functions;
-CREATE VIEW functions AS
+CREATE PERFETTO VIEW functions AS
 SELECT
   slices.ts AS ts,
   slices.dur AS dur,
@@ -11269,7 +11561,7 @@ JOIN process USING(upid);
 
 -- Animators don't occur on threads, so add them here.
 DROP VIEW IF EXISTS animators;
-CREATE VIEW animators AS
+CREATE PERFETTO VIEW animators AS
 SELECT
   slices.ts AS ts,
   slices.dur AS dur,
@@ -11281,7 +11573,7 @@ JOIN thread USING(upid)
 WHERE slices.name GLOB "animator*";
 
 DROP VIEW IF EXISTS android_frame_times;
-CREATE VIEW android_frame_times AS
+CREATE PERFETTO VIEW android_frame_times AS
 SELECT
   functions.ts AS ts,
   functions.ts + functions.dur AS ts_end,
@@ -11293,11 +11585,11 @@ JOIN android_startups launches ON launches.package GLOB '*' || functions.process
 WHERE functions.function_name GLOB "Choreographer#doFrame*" AND functions.ts > launches.ts;
 
 DROP VIEW IF EXISTS android_render_frame_times;
-CREATE VIEW android_render_frame_times AS
-SELECT
-  functions.ts AS ts,
+CREATE PERFETTO VIEW android_render_frame_times AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  functions.ts + functions.dur AS ts_end,
+R"_d3l1m1t3r_(SELECT
+  functions.ts AS ts,
+  functions.ts + functions.dur AS ts_end,
   launches.package AS name,
   launches.startup_id,
   ROW_NUMBER() OVER(PARTITION BY launches.startup_id ORDER BY functions.ts ASC) AS number
@@ -11306,7 +11598,7 @@ JOIN android_startups launches ON launches.package GLOB '*' || functions.process
 WHERE functions.function_name GLOB "DrawFrame*" AND functions.ts > launches.ts;
 
 DROP VIEW IF EXISTS frame_times;
-CREATE VIEW frame_times AS
+CREATE PERFETTO VIEW frame_times AS
 SELECT startup_id AS launch_id, * FROM android_frame_times;
 
 DROP TABLE IF EXISTS hsc_based_startup_times;
@@ -11553,20 +11845,20 @@ INCLUDE PERFETTO MODULE android.startup.startups;
 
 
 DROP VIEW IF EXISTS launches;
-CREATE VIEW launches AS
+CREATE PERFETTO VIEW launches AS
 SELECT startup_id AS launch_id, *, startup_type as launch_type FROM android_startups;
 
 DROP VIEW IF EXISTS launch_processes;
-CREATE VIEW launch_processes AS
+CREATE PERFETTO VIEW launch_processes AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT startup_id AS launch_id, * FROM android_startup_processes;
 
 DROP VIEW IF EXISTS launch_threads;
-CREATE VIEW launch_threads AS
+CREATE PERFETTO VIEW launch_threads AS
 SELECT startup_id AS launch_id, * FROM android_startup_threads;
 
 DROP VIEW IF EXISTS launching_events;
-CREATE VIEW launching_events AS
+CREATE PERFETTO VIEW launching_events AS
 SELECT * FROM internal_startup_events;
 
 )_d3l1m1t3r_"
@@ -11625,7 +11917,7 @@ const char kAndroidStartupLaunchesMinsdk29[] = R"_d3l1m1t3r_(--
 -- Marks the beginning of the trace and is equivalent to when the statsd launch
 -- logging begins.
 DROP VIEW IF EXISTS activity_intent_received;
-CREATE VIEW activity_intent_received AS
+CREATE PERFETTO VIEW activity_intent_received AS
 SELECT ts FROM slice
 WHERE name = 'MetricsLogger:launchObserverNotifyIntentStarted';
 
@@ -11648,7 +11940,7 @@ ORDER BY ts;
 -- Filter activity_intent_recv_spans, keeping only the ones that triggered
 -- a launch.
 DROP VIEW IF EXISTS launch_partitions;
-CREATE VIEW launch_partitions AS
+CREATE PERFETTO VIEW launch_partitions AS
 SELECT * FROM activity_intent_recv_spans AS spans
 WHERE 1 = (
   SELECT COUNT(1)
@@ -11658,11 +11950,11 @@ WHERE 1 = (
 -- Successful activity launch. The end of the 'launching' event is not related
 -- to whether it actually succeeded or not.
 DROP VIEW IF EXISTS activity_intent_launch_successful;
-CREATE VIEW activity_intent_launch_successful AS
+CREATE PERFETTO VIEW activity_intent_launch_successful AS
 SELECT ts FROM slice
-WHERE name = 'MetricsLogger:launchObserverNotifyActivityLaunchFinished';
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(WHERE name = 'MetricsLogger:launchObserverNotifyActivityLaunchFinished';
+
 -- Use the starting event package name. The finish event package name
 -- is not reliable in the case of failed launches.
 INSERT INTO launches(id, ts, ts_end, dur, package, launch_type)
@@ -11703,7 +11995,7 @@ const char kAndroidStartupLaunchesMinsdk33[] = R"_d3l1m1t3r_(--
 --
 
 DROP VIEW IF EXISTS launch_async_events;
-CREATE VIEW launch_async_events AS
+CREATE PERFETTO VIEW launch_async_events AS
 SELECT
   ts,
   dur,
@@ -11715,7 +12007,7 @@ WHERE
   AND INSTR(name, ':') = 0;
 
 DROP VIEW IF EXISTS launch_complete_events;
-CREATE VIEW launch_complete_events AS
+CREATE PERFETTO VIEW launch_complete_events AS
 SELECT
   STR_SPLIT(completed, ':', 0) AS id,
   STR_SPLIT(completed, ':', 2) AS package_name,
@@ -11779,12 +12071,12 @@ SELECT RUN_METRIC('android/cpu_info.sql');
 -- the id column for launches to disambiguate the two.
 DROP VIEW IF EXISTS android_launches_span_join_safe;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW android_launches_span_join_safe AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW android_launches_span_join_safe AS
 SELECT ts, dur, startup_id
 FROM android_startups;
 
 DROP VIEW IF EXISTS launches_span_join_safe;
-CREATE VIEW launches_span_join_safe AS
+CREATE PERFETTO VIEW launches_span_join_safe AS
 SELECT startup_id AS launch_id, * FROM android_launches_span_join_safe;
 
 -- Span join the CPU table with the launches table to get the
@@ -11807,11 +12099,11 @@ FROM cpu_freq_sched_per_thread_per_launch
 LEFT JOIN core_type_per_cpu USING (cpu)
 WHERE utid != 0
 GROUP BY 1, 2;
-
--- Given a launch id and core type, returns the number of mcycles consumed
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- on CPUs of that core type during the launch.
-CREATE PERFETTO FUNCTION mcycles_for_launch_and_core_type(startup_id INT, core_type STRING)
+R"_d3l1m1t3r_(
+-- Given a launch id and core type, returns the number of mcycles consumed
+-- on CPUs of that core type during the launch.
+CREATE OR REPLACE PERFETTO FUNCTION mcycles_for_launch_and_core_type(startup_id INT, core_type STRING)
 RETURNS INT AS
 SELECT mcycles
 FROM mcycles_per_core_type_per_launch m
@@ -11835,7 +12127,8 @@ WITH mcycles_per_launch_and_process AS MATERIALIZED (
     AND upid NOT IN (
       SELECT upid
       FROM android_startup_processes l
-    )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    )
   GROUP BY startup_id, upid
 )
 SELECT *
@@ -11843,14 +12136,13 @@ FROM (
   SELECT
     *,
     ROW_NUMBER() OVER (PARTITION BY startup_id ORDER BY mcycles DESC) AS mcycles_rank
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  FROM mcycles_per_launch_and_process
+  FROM mcycles_per_launch_and_process
 )
 WHERE mcycles_rank <= 5;
 
 -- Given a launch id, returns the name of the processes consuming the most
 -- mcycles during the launch excluding the process being started.
-CREATE PERFETTO FUNCTION n_most_active_process_names_for_launch(startup_id INT)
+CREATE OR REPLACE PERFETTO FUNCTION n_most_active_process_names_for_launch(startup_id INT)
 RETURNS STRING AS
 SELECT RepeatedField(process_name)
 FROM (
@@ -11862,13 +12154,14 @@ FROM (
 );
 
 -- Given a launch id, returns the most active process name.
-CREATE PERFETTO FUNCTION most_active_process_for_launch(startup_id INT)
+CREATE OR REPLACE PERFETTO FUNCTION most_active_process_for_launch(startup_id INT)
 RETURNS STRING AS
 SELECT process.name AS process_name
 FROM top_mcyles_process_excluding_started_per_launch
 JOIN process USING (upid)
 WHERE startup_id = $startup_id
-ORDER BY mcycles DESC
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(ORDER BY mcycles DESC
 LIMIT 1;
 
 )_d3l1m1t3r_"
@@ -11893,7 +12186,7 @@ const char kAndroidStartupSliceFunctions[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.startup.startups;
 
 -- Helper function to build a Slice proto from a duration.
-CREATE PERFETTO FUNCTION startup_slice_proto(dur INT)
+CREATE OR REPLACE PERFETTO FUNCTION startup_slice_proto(dur INT)
 RETURNS PROTO AS
 SELECT AndroidStartupMetric_Slice(
   "dur_ns", $dur,
@@ -11905,12 +12198,12 @@ SELECT AndroidStartupMetric_Slice(
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- this view should be used.
 DROP VIEW IF EXISTS thread_slices_for_all_launches;
-CREATE VIEW thread_slices_for_all_launches AS
+CREATE PERFETTO VIEW thread_slices_for_all_launches AS
 SELECT * FROM android_thread_slices_for_all_startups;
 
 -- Given a launch id and GLOB for a slice name, returns the startup slice proto,
 -- summing the slice durations across the whole startup.
-CREATE PERFETTO FUNCTION dur_sum_slice_proto_for_launch(startup_id LONG, slice_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION dur_sum_slice_proto_for_launch(startup_id LONG, slice_name STRING)
 RETURNS PROTO AS
 SELECT NULL_IF_EMPTY(
   startup_slice_proto(
@@ -11920,7 +12213,7 @@ SELECT NULL_IF_EMPTY(
 
 -- Same as |dur_sum_slice_proto_for_launch| except only counting slices happening
 -- on the main thread.
-CREATE PERFETTO FUNCTION dur_sum_main_thread_slice_proto_for_launch(startup_id LONG, slice_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION dur_sum_main_thread_slice_proto_for_launch(startup_id LONG, slice_name STRING)
 RETURNS PROTO AS
 SELECT NULL_IF_EMPTY(
   startup_slice_proto(
@@ -11929,10 +12222,10 @@ SELECT NULL_IF_EMPTY(
 );
 
 -- Given a launch id and GLOB for a slice name, returns the startup slice proto by
--- taking the duration between the start of the launch and start of the slice.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- If multiple slices match, picks the latest one which started during the launch.
-CREATE PERFETTO FUNCTION launch_to_main_thread_slice_proto(startup_id INT, slice_name STRING)
+R"_d3l1m1t3r_(-- taking the duration between the start of the launch and start of the slice.
+-- If multiple slices match, picks the latest one which started during the launch.
+CREATE OR REPLACE PERFETTO FUNCTION launch_to_main_thread_slice_proto(startup_id INT, slice_name STRING)
 RETURNS PROTO AS
 SELECT NULL_IF_EMPTY(startup_slice_proto(MAX(slice_ts) - startup_ts))
 FROM android_thread_slices_for_all_startups s
@@ -11944,7 +12237,7 @@ WHERE
   (t.end_ts IS NULL OR t.end_ts >= s.startup_ts_end);
 
 -- Given a lauch id, returns the total time spent in GC
-CREATE PERFETTO FUNCTION total_gc_time_by_launch(startup_id LONG)
+CREATE OR REPLACE PERFETTO FUNCTION total_gc_time_by_launch(startup_id LONG)
 RETURNS INT AS
 SELECT SUM(slice_dur)
 FROM android_thread_slices_for_all_startups slice
@@ -11957,9 +12250,9 @@ WHERE
   );
 
 -- Given a launch id and package name, returns if baseline or cloud profile is missing.
-CREATE PERFETTO FUNCTION missing_baseline_profile_for_launch(startup_id LONG, pkg_name STRING)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(RETURNS BOOL AS
+R"_d3l1m1t3r_(CREATE OR REPLACE PERFETTO FUNCTION missing_baseline_profile_for_launch(startup_id LONG, pkg_name STRING)
+RETURNS BOOL AS
 SELECT (COUNT(slice_name) > 0)
 FROM (
   SELECT *
@@ -11979,20 +12272,20 @@ WHERE
   AND STR_SPLIT(STR_SPLIT(slice_name, " filter=", 1), " reason=", 0) != "speed-profile";
 
 -- Given a launch id, returns if there is a main thread run-from-apk slice.
-CREATE PERFETTO FUNCTION run_from_apk_for_launch(launch_id LONG)
+CREATE OR REPLACE PERFETTO FUNCTION run_from_apk_for_launch(launch_id LONG)
 RETURNS BOOL AS
 SELECT EXISTS(
   SELECT slice_name, startup_id, is_main_thread
-  FROM android_thread_slices_for_all_startups
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  FROM android_thread_slices_for_all_startups
   WHERE
     startup_id = $launch_id AND is_main_thread AND
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    slice_name GLOB "location=* status=* filter=* reason=*" AND
+    slice_name GLOB "location=* status=* filter=* reason=*" AND
     STR_SPLIT(STR_SPLIT(slice_name, " filter=", 1), " reason=", 0)
       GLOB ("*" || "run-from-apk" || "*")
 );
 
-CREATE PERFETTO FUNCTION summary_for_optimization_status(
+CREATE OR REPLACE PERFETTO FUNCTION summary_for_optimization_status(
   loc STRING,
   status STRING,
   filter_str STRING,
@@ -12017,13 +12310,13 @@ CREATE OR REPLACE PERFETTO FUNCTION binder_transaction_reply_slices_for_launch(
 RETURNS TABLE(name STRING) AS
 SELECT reply.name AS name
 FROM android_binder_transaction_slices_for_startup($startup_id, $threshold) request
-JOIN following_flow(request.id) arrow
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(JOIN following_flow(request.id) arrow
 JOIN slice reply ON reply.id = arrow.slice_in
 WHERE reply.dur > $threshold AND request.is_main_thread;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 -- Given a launch id, return if unlock is running by systemui during the launch.
-CREATE PERFETTO FUNCTION is_unlock_running_during_launch(startup_id LONG)
+CREATE OR REPLACE PERFETTO FUNCTION is_unlock_running_during_launch(startup_id LONG)
 RETURNS BOOL AS
 SELECT EXISTS(
   SELECT slice.name
@@ -12037,6 +12330,416 @@ SELECT EXISTS(
   AND slice.ts >= launches.ts
   AND (slice.ts + slice.dur) <= launches.ts_end
 );
+
+)_d3l1m1t3r_"
+;
+
+const char kAndroidStartupSlowStartReasons[] = R"_d3l1m1t3r_(--
+-- Copyright 2022 The Android Open Source Project
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     https://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
+INCLUDE PERFETTO MODULE android.startup.startups;
+
+SELECT RUN_METRIC('android/startup/thread_state_breakdown.sql');
+SELECT RUN_METRIC('android/startup/system_state.sql');
+SELECT RUN_METRIC('android/startup/mcycles_per_launch.sql');
+
+CREATE OR REPLACE PERFETTO FUNCTION get_percent(num LONG, total LONG)
+RETURNS STRING AS
+  SELECT SUBSTRING(CAST(($num * 100 + 0.0) / $total AS STRING), 1, 5);
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
+CREATE OR REPLACE PERFETTO FUNCTION get_ns_to_s(ns LONG)
+RETURNS STRING AS
+  SELECT CAST(($ns + 0.0) / 1e9 AS STRING);
+
+CREATE OR REPLACE PERFETTO FUNCTION get_ns_to_ms(ns LONG)
+RETURNS STRING AS
+  SELECT SUBSTRING(CAST(($ns + 0.0) / 1e6 AS STRING), 1, 6);
+
+CREATE OR REPLACE PERFETTO FUNCTION get_longest_chunk(start_ns LONG, dur_ns LONG, tid LONG, name STRING)
+RETURNS STRING AS
+  SELECT " [ longest_chunk:"
+    || " start_s " || get_ns_to_s($start_ns - TRACE_START())
+    || " dur_ms " || get_ns_to_ms($dur_ns)
+    || " thread_id " || $tid
+    || " thread_name " || $name
+    || " ]";
+
+CREATE OR REPLACE PERFETTO FUNCTION get_main_thread_time_for_launch_in_runnable_state(
+  startup_id LONG, launches_dur LONG)
+RETURNS STRING AS
+  SELECT
+    " target" || " 15%"
+    || " actual "
+    || get_percent(main_thread_time_for_launch_in_runnable_state($startup_id), $launches_dur)
+    || "%"
+    || get_longest_chunk(ts, dur, tid, name)
+    || " [ extra_info: "
+    || " launches_dur_ms " || get_ns_to_ms($launches_dur)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    || " runnable_dur_ms "
+    || get_ns_to_ms(main_thread_time_for_launch_in_runnable_state($startup_id))
+    || " R_sum_dur_ms "
+    || get_ns_to_ms(IFNULL(main_thread_time_for_launch_and_state($startup_id, "R"), 0))
+    || " R+(Preempted)_sum_dur_ms "
+    || get_ns_to_ms(IFNULL(main_thread_time_for_launch_and_state($startup_id, "R+"), 0))
+    || " ]"
+  FROM launch_threads_by_thread_state l
+  JOIN thread USING (utid)
+  WHERE l.startup_id = $startup_id AND (state GLOB "R" OR state GLOB "R+") AND l.is_main_thread
+  ORDER BY dur DESC
+  LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_android_sum_dur_on_main_thread_for_startup_and_slice(
+  startup_id LONG, slice_name STRING, launches_dur LONG)
+RETURNS STRING AS
+  SELECT
+    " target" || " 20%"
+    || " actual "
+    || get_percent(android_sum_dur_on_main_thread_for_startup_and_slice(
+          $startup_id, $slice_name), $launches_dur) || "%"
+    || get_longest_chunk(slice_ts, slice_dur, tid, name)
+    || " [ extra_info: "
+    || " launches_dur_ms " || get_ns_to_ms($launches_dur)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    || " sum_dur_ms "
+    || get_ns_to_ms(android_sum_dur_on_main_thread_for_startup_and_slice($startup_id, $slice_name))
+    || " ]"
+    FROM android_thread_slices_for_all_startups slices
+    JOIN thread USING (utid)
+    WHERE startup_id = $startup_id AND slice_name GLOB $slice_name AND slices.is_main_thread
+    ORDER BY slice_dur DESC
+    LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_android_sum_dur_for_startup_and_slice(
+  startup_id LONG, slice_name STRING, target_ms LONG)
+RETURNS STRING AS
+  SELECT
+    " target " || $target_ms || "ms"
+    || " actual "
+    || get_ns_to_ms(android_sum_dur_for_startup_and_slice($startup_id, $slice_name)) || "ms"
+    || get_longest_chunk(slice_ts, slice_dur, tid, name)
+    FROM android_thread_slices_for_all_startups
+    JOIN thread USING (utid)
+    WHERE startup_id = $startup_id AND slice_name GLOB $slice_name
+    ORDER BY slice_dur DESC
+    LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_potential_cpu_contention_with_another_process(startup_id LONG)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(RETURNS STRING AS
+  SELECT
+    " target" || " 100ms"
+    || " actual "
+    || get_ns_to_ms(main_thread_time_for_launch_in_runnable_state($startup_id)) || "ms"
+    || " most_active_process_for_launch " || most_active_process_for_launch($startup_id)
+    || get_longest_chunk(ts, dur, tid, name)
+    || " [ extra_info: "
+    || " runnable_dur_ms "
+    || get_ns_to_ms(main_thread_time_for_launch_in_runnable_state($startup_id))
+    || " R_sum_dur_ms "
+    || get_ns_to_ms(IFNULL(main_thread_time_for_launch_and_state($startup_id, "R"), 0))
+    || " R+(Preempted)_sum_dur "
+    || IFNULL(main_thread_time_for_launch_and_state($startup_id, "R+"), 0)
+    || " ]"
+  FROM launch_threads_by_thread_state l
+  JOIN thread USING (utid)
+  WHERE l.startup_id = $startup_id AND (state GLOB "R" OR state GLOB "R+") AND l.is_main_thread
+  ORDER BY dur DESC
+  LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_jit_activity(startup_id LONG)
+RETURNS STRING AS
+  SELECT
+    " target" || " 100ms"
+    || " actual "
+    || get_ns_to_ms(thread_time_for_launch_state_and_thread(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      $startup_id, 'Running', 'Jit thread pool'))
+    || "ms"
+    || get_longest_chunk(ts, dur, tid, name)
+  FROM launch_threads_by_thread_state l
+  JOIN thread USING (utid)
+  WHERE l.startup_id = $startup_id AND state GLOB 'Running' AND thread_name = 'Jit thread pool'
+  ORDER BY dur DESC
+  LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_main_thread_binder_transactions_blocked(
+  startup_id LONG, threshold DOUBLE)
+RETURNS STRING AS
+  SELECT
+    " per_instance_target" || " 20ms"
+    || " per_instance_actual " || get_ns_to_ms(request.slice_dur) || "ms"
+    || get_longest_chunk(request.slice_ts, request.slice_dur, tid, request.thread_name)
+    || " [ extra_info: "
+    || " reply.dur_ms " || get_ns_to_ms(reply.dur)
+    || " ]"
+  FROM (
+    SELECT slice_id as id, slice_dur, thread_name, process.name as process,
+      s.arg_set_id, is_main_thread,
+      slice_ts, s.utid
+    FROM android_thread_slices_for_all_startups s
+    JOIN process ON (
+      EXTRACT_ARG(s.arg_set_id, "destination process") = process.pid
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    )
+    WHERE startup_id = $startup_id AND slice_name GLOB "binder transaction"
+      AND slice_dur > $threshold
+  ) request
+  JOIN following_flow(request.id) arrow
+  JOIN slice reply ON reply.id = arrow.slice_in
+  JOIN thread USING (utid)
+  WHERE reply.dur > $threshold AND request.is_main_thread
+  ORDER BY request.slice_dur DESC
+  LIMIT 1;
+
+CREATE OR REPLACE PERFETTO FUNCTION get_missing_baseline_profile_for_launch(
+  startup_id LONG, pkg_name STRING)
+RETURNS STRING AS
+  SELECT
+    " target " || "FALSE"
+    || " actual " || "TRUE"
+    || get_longest_chunk(slice_ts, slice_dur, -1, thread_name)
+    || " [ extra_info: "
+    || " slice_name " || slice_name
+    || " ]"
+    FROM (
+      SELECT *
+      FROM ANDROID_SLICES_FOR_STARTUP_AND_SLICE_NAME(
+        $startup_id,
+        "location=* status=* filter=* reason=*"
+      )
+      ORDER BY slice_name
+    )
+    WHERE
+      -- when location is the package odex file and the reason is "install" or "install-dm",
+      -- if the compilation filter is not "speed-profile", baseline/cloud profile is missing.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      SUBSTR(STR_SPLIT(slice_name, " status=", 0), LENGTH("location=") + 1)
+        GLOB ("*" || $pkg_name || "*odex")
+      AND (STR_SPLIT(slice_name, " reason=", 1) = "install"
+        OR STR_SPLIT(slice_name, " reason=", 1) = "install-dm")
+    ORDER BY slice_dur DESC
+    LIMIT 1;
+
+
+CREATE OR REPLACE PERFETTO FUNCTION get_slow_start_reason_detailed(startup_id LONG)
+RETURNS PROTO AS
+      SELECT RepeatedField(AndroidStartupMetric_SlowStartReasonDetailed(
+        'reason', slow_cause,
+        'details', details))
+      FROM (
+        SELECT 'No baseline or cloud profiles' AS slow_cause,
+          get_missing_baseline_profile_for_launch(launch.startup_id, launch.package) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND missing_baseline_profile_for_launch(launch.startup_id, launch.package)
+
+        UNION ALL
+        SELECT 'Optimized artifacts missing, run from apk' as slow_cause, NULL as details
+        FROM android_startups launch
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        WHERE launch.startup_id = $startup_id
+          AND  run_from_apk_for_launch(launch.startup_id)
+
+        UNION ALL
+        SELECT 'Unlock running during launch' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+         AND is_unlock_running_during_launch(launch.startup_id)
+
+        UNION ALL
+        SELECT 'App in debuggable mode' as slow_cause, NULL as details
+       	FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND is_process_debuggable(launch.package)
+
+        UNION ALL
+        SELECT 'GC Activity' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND total_gc_time_by_launch(launch.startup_id) > 0
+
+        UNION ALL
+        SELECT 'dex2oat running during launch' AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id AND
+          dur_of_process_running_concurrent_to_launch(launch.startup_id, '*dex2oat64') > 0
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
+        UNION ALL
+        SELECT 'installd running during launch' AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id AND
+          dur_of_process_running_concurrent_to_launch(launch.startup_id, '*installd') > 0
+
+        UNION ALL
+        SELECT 'Main Thread - Time spent in Runnable state' as slow_cause,
+          get_main_thread_time_for_launch_in_runnable_state(
+            launch.startup_id, launch.dur) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND main_thread_time_for_launch_in_runnable_state(launch.startup_id) > launch.dur * 0.15
+
+        UNION ALL
+        SELECT 'Main Thread - Time spent in interruptible sleep state'
+          AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND main_thread_time_for_launch_and_state(launch.startup_id, 'S') > 2900e6
+
+        UNION ALL
+        SELECT 'Main Thread - Time spent in Blocking I/O' as slow_cause, NULL as details
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND main_thread_time_for_launch_state_and_io_wait(launch.startup_id, 'D*', TRUE) > 450e6
+
+        UNION ALL
+        SELECT 'Main Thread - Time spent in OpenDexFilesFromOat*' as slow_cause,
+          get_android_sum_dur_on_main_thread_for_startup_and_slice(
+            launch.startup_id, 'OpenDexFilesFromOat*', launch.dur) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id AND
+          android_sum_dur_on_main_thread_for_startup_and_slice(
+          launch.startup_id, 'OpenDexFilesFromOat*') > launch.dur * 0.2
+
+        UNION ALL
+        SELECT 'Time spent in bindApplication'
+          AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND android_sum_dur_for_startup_and_slice(launch.startup_id, 'bindApplication') > 1250e6
+
+        UNION ALL
+        SELECT 'Time spent in view inflation' as slow_cause, NULL as details
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND android_sum_dur_for_startup_and_slice(launch.startup_id, 'inflate') > 450e6
+
+        UNION ALL
+        SELECT 'Time spent in ResourcesManager#getResources' as slow_cause,
+          get_android_sum_dur_for_startup_and_slice(
+            launch.startup_id, 'ResourcesManager#getResources', 130) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND android_sum_dur_for_startup_and_slice(
+          launch.startup_id, 'ResourcesManager#getResources') > 130e6
+
+        UNION ALL
+        SELECT 'Time spent verifying classes'
+          AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id AND
+          android_sum_dur_for_startup_and_slice(launch.startup_id, 'VerifyClass*')
+            > launch.dur * 0.15
+
+        UNION ALL
+        SELECT 'Potential CPU contention with another process' AS slow_cause,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(          get_potential_cpu_contention_with_another_process(launch.startup_id) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id AND
+          main_thread_time_for_launch_in_runnable_state(launch.startup_id) > 100e6 AND
+          most_active_process_for_launch(launch.startup_id) IS NOT NULL
+
+        UNION ALL
+        SELECT 'JIT Activity' as slow_cause,
+          get_jit_activity(launch.startup_id) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+        AND thread_time_for_launch_state_and_thread(
+          launch.startup_id,
+          'Running',
+          'Jit thread pool'
+        ) > 100e6
+
+        UNION ALL
+        SELECT 'Main Thread - Lock contention'
+          AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND android_sum_dur_on_main_thread_for_startup_and_slice(
+          launch.startup_id,
+          'Lock contention on*'
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        ) > launch.dur * 0.2
+
+        UNION ALL
+        SELECT 'Main Thread - Monitor contention'
+          AS slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND android_sum_dur_on_main_thread_for_startup_and_slice(
+          launch.startup_id,
+          'Lock contention on a monitor*'
+        ) > launch.dur * 0.15
+
+        UNION ALL
+        SELECT 'JIT compiled methods' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND (
+          SELECT COUNT(1)
+          FROM ANDROID_SLICES_FOR_STARTUP_AND_SLICE_NAME(launch.startup_id, 'JIT compiling*')
+          WHERE thread_name = 'Jit thread pool'
+        ) > 65
+
+        UNION ALL
+        SELECT 'Broadcast dispatched count' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND count_slices_concurrent_to_launch(
+          launch.startup_id,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(          'Broadcast dispatched*'
+        ) > 15
+
+        UNION ALL
+        SELECT 'Broadcast received count' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND count_slices_concurrent_to_launch(
+          launch.startup_id,
+          'broadcastReceiveReg*'
+        ) > 50
+
+        UNION ALL
+        SELECT 'Startup running concurrent to launch' as slow_cause, NULL as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+          AND EXISTS(
+          SELECT package
+          FROM android_startups l
+          WHERE l.startup_id != launch.startup_id
+            AND is_spans_overlapping(l.ts, l.ts_end, launch.ts, launch.ts_end)
+        )
+
+        UNION ALL
+        SELECT 'Main Thread - Binder transactions blocked' as slow_cause,
+          get_main_thread_binder_transactions_blocked(launch.startup_id, 2e7) as details
+        FROM android_startups launch
+        WHERE launch.startup_id = $startup_id
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(          AND (
+          SELECT COUNT(1)
+          FROM BINDER_TRANSACTION_REPLY_SLICES_FOR_LAUNCH(launch.startup_id, 2e7)
+        ) > 0
+      );
 
 )_d3l1m1t3r_"
 ;
@@ -12064,7 +12767,7 @@ INCLUDE PERFETTO MODULE android.startup.startups;
 
 -- Given a launch id and process name glob, returns the sched.dur if a process with
 -- that name was running on a CPU concurrent to that launch.
-CREATE PERFETTO FUNCTION dur_of_process_running_concurrent_to_launch(
+CREATE OR REPLACE PERFETTO FUNCTION dur_of_process_running_concurrent_to_launch(
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(  startup_id INT,
   process_glob STRING
@@ -12085,7 +12788,7 @@ WHERE
 
 -- Given a launch id and slice name glob, returns the number of slices with that
 -- name which start concurrent to that launch.
-CREATE PERFETTO FUNCTION count_slices_concurrent_to_launch(startup_id INT, slice_glob STRING)
+CREATE OR REPLACE PERFETTO FUNCTION count_slices_concurrent_to_launch(startup_id INT, slice_glob STRING)
 RETURNS INT AS
 SELECT COUNT(1)
 FROM slice
@@ -12120,7 +12823,7 @@ const char kAndroidStartupThreadStateBreakdown[] = R"_d3l1m1t3r_(--
 INCLUDE PERFETTO MODULE android.startup.startups;
 
 DROP VIEW IF EXISTS thread_state_extended;
-CREATE VIEW thread_state_extended AS
+CREATE PERFETTO VIEW thread_state_extended AS
 SELECT
   ts,
   IIF(dur = -1, (SELECT end_ts FROM trace_bounds), dur) AS dur,
@@ -12132,9 +12835,9 @@ FROM thread_state;
 DROP TABLE IF EXISTS launch_threads_by_thread_state;
 CREATE VIRTUAL TABLE launch_threads_by_thread_state
 USING SPAN_JOIN(
-  android_startup_threads PARTITIONED utid,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  thread_state_extended PARTITIONED utid
+R"_d3l1m1t3r_(  android_startup_threads PARTITIONED utid,
+  thread_state_extended PARTITIONED utid
 );
 
 -- Materialized to avoid repeatedly span joining per each thread state.
@@ -12155,15 +12858,15 @@ WHERE
 GROUP BY 1, 2, 3, 4, 5;
 
 DROP VIEW IF EXISTS launch_thread_state_dur_sum;
-CREATE VIEW launch_thread_state_dur_sum AS
+CREATE PERFETTO VIEW launch_thread_state_dur_sum AS
 SELECT startup_id, state, is_main_thread, thread_name, SUM(dur) AS dur
 FROM launch_thread_state_io_wait_dur_sum
-GROUP BY 1, 2, 3, 4;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(GROUP BY 1, 2, 3, 4;
+
 -- Given a launch id and thread state value, returns the aggregate sum
 -- of time spent in that state by the main thread of the process being started up.
-CREATE PERFETTO FUNCTION main_thread_time_for_launch_and_state(startup_id INT, state STRING)
+CREATE OR REPLACE PERFETTO FUNCTION main_thread_time_for_launch_and_state(startup_id INT, state STRING)
 RETURNS INT AS
 SELECT SUM(dur)
 FROM launch_thread_state_dur_sum l
@@ -12171,14 +12874,14 @@ WHERE l.startup_id = $startup_id AND state GLOB $state AND is_main_thread;
 
 -- Given a launch id, returns the aggregate sum of time spent in runnable state
 -- by the main thread of the process being started up.
-CREATE PERFETTO FUNCTION main_thread_time_for_launch_in_runnable_state(startup_id INT)
+CREATE OR REPLACE PERFETTO FUNCTION main_thread_time_for_launch_in_runnable_state(startup_id INT)
 RETURNS INT AS
 SELECT IFNULL(main_thread_time_for_launch_and_state($startup_id, "R"), 0)
       + IFNULL(main_thread_time_for_launch_and_state($startup_id, "R+"), 0);
 
 -- Given a launch id, thread state  and io_wait value, returns the aggregate sum
 -- of time spent in that state by the main thread of the process being started up.
-CREATE PERFETTO FUNCTION main_thread_time_for_launch_state_and_io_wait(startup_id INT, state STRING, io_wait BOOL)
+CREATE OR REPLACE PERFETTO FUNCTION main_thread_time_for_launch_state_and_io_wait(startup_id INT, state STRING, io_wait BOOL)
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(RETURNS INT AS
 SELECT SUM(dur)
@@ -12191,7 +12894,7 @@ WHERE l.startup_id = $startup_id AND state GLOB $state
 -- of time spent in that state by that thread. Note: only threads of the processes
 -- being started are considered by this function - if a thread from a different name
 -- happens to match the name passed, it will *not* be included.
-CREATE PERFETTO FUNCTION thread_time_for_launch_state_and_thread(startup_id INT, state STRING, thread_name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION thread_time_for_launch_state_and_thread(startup_id INT, state STRING, thread_name STRING)
 RETURNS INT AS
 SELECT SUM(dur)
 FROM launch_thread_state_dur_sum l
@@ -12200,12 +12903,12 @@ WHERE l.startup_id = $startup_id AND state GLOB $state AND thread_name = $thread
 
 -- Given a launch id, returns the duration between the launch and a running state thread of
 -- startup process.
-CREATE PERFETTO FUNCTION time_to_running_state_for_launch(startup_id LONG)
+CREATE OR REPLACE PERFETTO FUNCTION time_to_running_state_for_launch(startup_id LONG)
 RETURNS PROTO AS
   SELECT NULL_IF_EMPTY(
-    STARTUP_SLICE_PROTO(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      IIF(MIN(l.ts) > launches.ts, MIN(l.ts) - launches.ts, NULL)))
+R"_d3l1m1t3r_(    STARTUP_SLICE_PROTO(
+      IIF(MIN(l.ts) > launches.ts, MIN(l.ts) - launches.ts, NULL)))
   FROM launch_threads_by_thread_state l
   JOIN android_startups launches USING(startup_id)
   WHERE l.startup_id = $startup_id AND l.state = "Running";
@@ -12243,7 +12946,7 @@ R"_d3l1m1t3r_(--                    module_id->substr(2, 2), module_id->substr(0
 -- See also https://source.chromium.org/chromium/chromium/src/+/main:services/tracing/public/cpp/stack_sampling/tracing_sampler_profiler.cc;l=603;drc=cba00174ca338153b9c4f0c31ddbabaac7dd38c7
 -- Note that in SQL SUBSTR() indexes are 1-based, not 0 based.
 DROP VIEW IF EXISTS mangled_stack_profile_mapping;
-CREATE VIEW mangled_stack_profile_mapping AS
+CREATE PERFETTO VIEW mangled_stack_profile_mapping AS
 SELECT
   id,
   name,
@@ -12271,7 +12974,7 @@ R"_d3l1m1t3r_(    || SUBSTR(build_id, 1, 2)
 FROM stack_profile_mapping;
 
 DROP VIEW IF EXISTS unsymbolized_frames_view;
-CREATE VIEW unsymbolized_frames_view AS
+CREATE PERFETTO VIEW unsymbolized_frames_view AS
 SELECT UnsymbolizedFrames_Frame(
     'module', spm.name,
     'build_id', spm.build_id,
@@ -12285,7 +12988,7 @@ WHERE spm.build_id != ''
   AND spf.symbol_set_id IS NULL;
 
 DROP VIEW IF EXISTS unsymbolized_frames_output;
-CREATE VIEW unsymbolized_frames_output AS
+CREATE PERFETTO VIEW unsymbolized_frames_output AS
 SELECT UnsymbolizedFrames(
   'frames',
   (SELECT RepeatedField(frame_proto) FROM unsymbolized_frames_view)
@@ -12330,7 +13033,7 @@ SELECT DISTINCT name,
 FROM drain_in_watts;
 
 DROP VIEW IF EXISTS mapped_drain_in_watts;
-CREATE VIEW mapped_drain_in_watts AS
+CREATE PERFETTO VIEW mapped_drain_in_watts AS
 SELECT d.name, ts, dur, drain_w, idx
 FROM drain_in_watts d
 JOIN power_rail_name_mapping p ON d.name = p.name;
@@ -12344,7 +13047,7 @@ CREATE VIRTUAL TABLE real_{{input}}_power USING SPAN_JOIN(
 -- Actual power usage for chrome across the categorised slices contained in the
 -- input table broken down by subsystem.
 DROP VIEW IF EXISTS {{output}};
-CREATE VIEW {{output}} AS
+CREATE PERFETTO VIEW {{output}} AS
 SELECT s.id,
   ts,
   dur,
@@ -12429,7 +13132,7 @@ const char kChromeChromeArgsClassNames[] = R"_d3l1m1t3r_(--
 -- |package_name| and |version_code| can be NULL.
 
 DROP VIEW IF EXISTS chrome_args_class_names_per_version;
-CREATE VIEW chrome_args_class_names_per_version AS
+CREATE PERFETTO VIEW chrome_args_class_names_per_version AS
 WITH class_info AS (
   SELECT
     package_list.package_name AS package_name,
@@ -12459,7 +13162,7 @@ SELECT
 FROM class_info;
 
 DROP VIEW IF EXISTS chrome_args_class_names_output;
-CREATE VIEW chrome_args_class_names_output
+CREATE PERFETTO VIEW chrome_args_class_names_output
 AS
 SELECT
   ChromeArgsClassNames(
@@ -12490,7 +13193,7 @@ const char kChromeChromeEventMetadata[] = R"_d3l1m1t3r_(--
 -- chrome_event.metadata. Some names can have multiple values:
 -- e.g. trace-category
 DROP VIEW IF EXISTS chrome_event_metadata;
-CREATE VIEW chrome_event_metadata AS
+CREATE PERFETTO VIEW chrome_event_metadata AS
 WITH metadata (arg_set_id) AS (
   SELECT arg_set_id
   FROM raw
@@ -12531,7 +13234,7 @@ const char kChromeChromeHistogramHashes[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS chrome_histogram_hashes_output;
 
-CREATE VIEW chrome_histogram_hashes_output AS
+CREATE PERFETTO VIEW chrome_histogram_hashes_output AS
 SELECT ChromeHistogramHashes(
   'hash', (
     SELECT RepeatedField(int_value)
@@ -12603,13 +13306,13 @@ const char kChromeChromeInputToBrowserIntervalsBase[] = R"_d3l1m1t3r_(--
 R"_d3l1m1t3r_(-- We need this for flings (generated by the GPU process) and blocked
 -- touch moves that are forwarded from the renderer.
 -- Returning the slice id for the flow_out on the chrome IO thread.
-CREATE PERFETTO FUNCTION {{function_prefix}}PRECEDING_IO_THREAD_EVENT_FLOW_ID(id LONG)
+CREATE OR REPLACE PERFETTO FUNCTION {{function_prefix}}PRECEDING_IO_THREAD_EVENT_FLOW_ID(id LONG)
 RETURNS LONG AS
 SELECT MAX(flow.slice_out) AS id
 FROM PRECEDING_FLOW(($id)) flow;
 
 -- Returns a Chrome task which contains the given slice.
-CREATE PERFETTO FUNCTION {{function_prefix}}GET_ENCLOSING_CHROME_TASK_NAME(
+CREATE OR REPLACE PERFETTO FUNCTION {{function_prefix}}GET_ENCLOSING_CHROME_TASK_NAME(
   slice_id LONG
 )
 RETURNS STRING AS
@@ -12619,7 +13322,7 @@ FROM ancestor_slice($slice_id)
 JOIN chrome_tasks task USING (id)
 LIMIT 1;
 
-CREATE PERFETTO FUNCTION {{function_prefix}}GET_SCROLL_TYPE(
+CREATE OR REPLACE PERFETTO FUNCTION {{function_prefix}}GET_SCROLL_TYPE(
   blocked_gesture BOOL,
   task_name STRING
 )
@@ -12631,15 +13334,15 @@ SELECT
           THEN "fling"
           WHEN ($task_name) glob "blink.mojom.WidgetInputHandler *"
           THEN "blocking_touch_move"
-          ELSE "unknown" END)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ELSE "regular" END AS delay_type;
+R"_d3l1m1t3r_(          ELSE "unknown" END)
+  ELSE "regular" END AS delay_type;
 
 -- Get all InputLatency::GestureScrollUpdate events, to use their
 -- flows later on to decide how much time we waited from queueing the event
 -- until we started processing it.
 DROP VIEW IF EXISTS chrome_valid_gesture_updates;
-CREATE VIEW chrome_valid_gesture_updates
+CREATE PERFETTO VIEW chrome_valid_gesture_updates
 AS
 SELECT
   name,
@@ -12661,15 +13364,15 @@ ORDER BY trace_id;
 -- as those are faulty, then join with the GestureScrollUpdate table to get
 -- only slices associated with update events.
 DROP VIEW IF EXISTS chrome_flow_slices_for_gestures;
-CREATE VIEW chrome_flow_slices_for_gestures
+CREATE PERFETTO VIEW chrome_flow_slices_for_gestures
 AS
 SELECT
   s.ts,
   EXTRACT_ARG(
     s.arg_set_id, 'chrome_latency_info.trace_id') AS trace_id,
-  s.arg_set_id,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  s.id,
+R"_d3l1m1t3r_(  s.arg_set_id,
+  s.id,
   s.track_id,
   s.dur
 FROM
@@ -12689,7 +13392,7 @@ WHERE
 -- calculating intervals per process as multiple chrome instances can be up
 -- on system traces.
 DROP VIEW IF EXISTS chrome_flow_slices_for_gestures_tied_process;
-CREATE VIEW chrome_flow_slices_for_gestures_tied_process
+CREATE PERFETTO VIEW chrome_flow_slices_for_gestures_tied_process
 AS
 SELECT
   ts,
@@ -12703,10 +13406,10 @@ FROM
 JOIN thread_track ON chrome_flow_slices_for_gestures.track_id = thread_track.id
 JOIN thread ON thread_track.utid = thread.utid
   AND is_main_thread;
-
--- Index all flows per trace_id, to get the first flow event per input
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- GestureScrollUpdate, this will later be used to calculate the time
+R"_d3l1m1t3r_(
+-- Index all flows per trace_id, to get the first flow event per input
+-- GestureScrollUpdate, this will later be used to calculate the time
 -- from receiving input to the first flow event appearing.
 DROP TABLE IF EXISTS chrome_indexed_flow_per_gesture;
 CREATE PERFETTO TABLE chrome_indexed_flow_per_gesture
@@ -12733,7 +13436,7 @@ FROM
 -- other.
 -- Get the first flow event per gesture.
 DROP VIEW IF EXISTS chrome_first_flow_per_gesture;
-CREATE VIEW chrome_first_flow_per_gesture
+CREATE PERFETTO VIEW chrome_first_flow_per_gesture
 AS
 SELECT
   *
@@ -12743,13 +13446,13 @@ WHERE
   flow_order = 1;
 
 -- The decision for processing on the browser main thread for a frame can be
--- instant, or delayed by the renderer in cases where the renderer needs to
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- decide whether the touch move is an ScrollUpdate or not, and in other cases
+R"_d3l1m1t3r_(-- instant, or delayed by the renderer in cases where the renderer needs to
+-- decide whether the touch move is an ScrollUpdate or not, and in other cases
 -- for flings, the scroll itself will be generated by the viz compositor thread
 -- on each vsync interval.
 DROP VIEW IF EXISTS chrome_categorized_first_flow_events;
-CREATE VIEW chrome_categorized_first_flow_events
+CREATE PERFETTO VIEW chrome_categorized_first_flow_events
 AS
 SELECT
   *,
@@ -12770,11 +13473,11 @@ FROM
 -- For cases where it's not blocked, get the timestamp of input as the
 -- beginning of time we theoretically could have started processing
 -- the input event, which is the timestamp of the GestureScrollUpdate event
--- otherwise fall back to the top level slice to check the timestamp
--- of it's calling flow
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS chrome_input_to_browser_interval_slice_ids;
-CREATE VIEW chrome_input_to_browser_interval_slice_ids
+R"_d3l1m1t3r_(-- otherwise fall back to the top level slice to check the timestamp
+-- of it's calling flow
+DROP VIEW IF EXISTS chrome_input_to_browser_interval_slice_ids;
+CREATE PERFETTO VIEW chrome_input_to_browser_interval_slice_ids
 AS
 SELECT
   chrome_categorized_first_flow_events.id AS window_end_id,
@@ -12796,9 +13499,9 @@ SELECT
         WHERE
           chrome_gestures.trace_id = chrome_categorized_first_flow_events.trace_id
           AND chrome_gestures.ts <= chrome_categorized_first_flow_events.ts
-          AND chrome_gestures.ts + chrome_gestures.dur >= chrome_categorized_first_flow_events.ts
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(          + chrome_categorized_first_flow_events.dur
+R"_d3l1m1t3r_(          AND chrome_gestures.ts + chrome_gestures.dur >= chrome_categorized_first_flow_events.ts
+          + chrome_categorized_first_flow_events.dur
       )
   END AS window_start_id,
   blocked_gesture,
@@ -12914,7 +13617,7 @@ SELECT
   printf("%s %s(hash=%s)", interface_name, message_type, ipc_hash) as task_name
 FROM slices_with_mojo_data;
 
-CREATE PERFETTO FUNCTION is_long_choreographer_task(dur LONG)
+CREATE OR REPLACE PERFETTO FUNCTION is_long_choreographer_task(dur LONG)
 RETURNS BOOL AS
 SELECT $dur >= 4 * 1e6;
 
@@ -12960,7 +13663,7 @@ FROM raw_extracted_values;
 -- chrome_slices_with_java_views_internal, differing only in how a
 -- descendent is calculated.
 DROP VIEW IF EXISTS long_task_slices_with_java_views;
-CREATE VIEW long_task_slices_with_java_views AS
+CREATE PERFETTO VIEW long_task_slices_with_java_views AS
 WITH
   -- Select UI thread BeginMainFrames frames.
   root_slices AS (
@@ -12992,7 +13695,7 @@ LEFT JOIN root_slice_and_java_view_not_grouped s2
 GROUP BY s1.id;
 
 DROP VIEW IF EXISTS chrome_long_tasks_internal;
-CREATE VIEW chrome_long_tasks_internal AS
+CREATE PERFETTO VIEW chrome_long_tasks_internal AS
 WITH -- Generate full names for tasks with java views.
   java_views_tasks AS (
     SELECT
@@ -13043,7 +13746,7 @@ FROM long_task_slices_with_java_views
 WHERE kind = "Choreographer";
 
 DROP VIEW IF EXISTS chrome_long_tasks;
-CREATE VIEW chrome_long_tasks AS
+CREATE PERFETTO VIEW chrome_long_tasks AS
 SELECT
   full_name,
   task_type,
@@ -13155,7 +13858,7 @@ const char kChromeChromePerformanceMarkHashes[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS chrome_performance_mark_hashes_output;
 
-CREATE VIEW chrome_performance_mark_hashes_output AS
+CREATE PERFETTO VIEW chrome_performance_mark_hashes_output AS
 SELECT ChromePerformanceMarkHashes(
   'site_hash', (
     SELECT RepeatedField(int_value)
@@ -13194,7 +13897,7 @@ const char kChromeChromeProcesses[] = R"_d3l1m1t3r_(--
 -- Table to map any of the various chrome process names to a type (e.g. Browser,
 -- Renderer, GPU Process, etc).
 DROP VIEW IF EXISTS all_chrome_processes;
-CREATE VIEW all_chrome_processes AS
+CREATE PERFETTO VIEW all_chrome_processes AS
 SELECT upid, IFNULL(pt.string_value, '') AS process_type
 FROM process
 -- A process is a Chrome process if it has a chrome.process_type arg.
@@ -13211,7 +13914,7 @@ JOIN
 
 -- A view of all Chrome threads.
 DROP VIEW IF EXISTS all_chrome_threads;
-CREATE VIEW all_chrome_threads AS
+CREATE PERFETTO VIEW all_chrome_threads AS
 SELECT utid, thread.upid, thread.name
 FROM thread, all_chrome_processes
 WHERE thread.upid = all_chrome_processes.upid;
@@ -13219,7 +13922,7 @@ WHERE thread.upid = all_chrome_processes.upid;
 -- For sandboxed and privileged processes (found in Android system traces), use
 -- the main thread name to type of process.
 DROP VIEW IF EXISTS chrome_subprocess_types;
-CREATE VIEW chrome_subprocess_types AS
+CREATE PERFETTO VIEW chrome_subprocess_types AS
 -- Sometimes you can get multiple threads in a trace marked main_thread, but
 -- they appear to have the same name so just use one of them.
 SELECT DISTINCT p.upid,
@@ -13233,7 +13936,7 @@ R"_d3l1m1t3r_(WHERE process_type IN ("Sandboxed", "Privileged")
 -- Contains all the chrome processes from process with an extra column,
 -- process_type.
 DROP VIEW IF EXISTS chrome_process;
-CREATE VIEW chrome_process AS
+CREATE PERFETTO VIEW chrome_process AS
 SELECT PROCESS.*,
   IIF(sandbox_type IS NULL, process_type, sandbox_type) AS process_type
 FROM PROCESS
@@ -13250,7 +13953,7 @@ JOIN (
 -- and system traces.
 DROP VIEW IF EXISTS chrome_thread;
 
-CREATE VIEW chrome_thread AS
+CREATE PERFETTO VIEW chrome_thread AS
 SELECT thread.*,
   CASE
     WHEN thread.name GLOB "Cr*Main" THEN "CrProcessMain"
@@ -13261,9 +13964,9 @@ FROM (
     SELECT t.utid,
       p.*
     FROM all_chrome_threads t
-    JOIN chrome_process p ON t.upid = p.upid
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ) c
+R"_d3l1m1t3r_(    JOIN chrome_process p ON t.upid = p.upid
+  ) c
 JOIN thread ON thread.utid = c.utid;
 
 )_d3l1m1t3r_"
@@ -13297,7 +14000,7 @@ INCLUDE PERFETTO MODULE common.metadata;
 
 DROP VIEW IF EXISTS chrome_event_stats_per_thread;
 
-CREATE VIEW chrome_event_stats_per_thread
+CREATE PERFETTO VIEW chrome_event_stats_per_thread
 AS
 SELECT
   COUNT(*) AS cnt, CAST(COUNT(*) AS DOUBLE) / (MAX(ts + dur) - MIN(ts)) AS rate, utid
@@ -13313,13 +14016,13 @@ DROP VIEW IF EXISTS chrome_event_cnt_cutoff;
 -- cutoff at around 10 events for a typical trace, and threads with fewer events are usually:
 -- 1. Not particularly interesting for the reliable range definition.
 -- 2. Create a lot of noise for other metrics, such as event rate.
-CREATE VIEW chrome_event_cnt_cutoff
+CREATE PERFETTO VIEW chrome_event_cnt_cutoff
 AS
 SELECT cnt
 FROM
-  chrome_event_stats_per_thread
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(ORDER BY
+R"_d3l1m1t3r_(  chrome_event_stats_per_thread
+ORDER BY
   cnt
 LIMIT
   1
@@ -13331,7 +14034,7 @@ DROP VIEW IF EXISTS chrome_event_rate_cutoff;
 -- Choose the top 25% event rate. 25% is a somewhat arbitrary number. The goal is to strike
 -- balance between not cropping too many events and making sure that the chance of data loss in the
 -- range declared "reliable" is low.
-CREATE VIEW chrome_event_rate_cutoff
+CREATE PERFETTO VIEW chrome_event_rate_cutoff
 AS
 SELECT rate
 FROM
@@ -13349,14 +14052,14 @@ DROP VIEW IF EXISTS chrome_reliable_range_per_thread;
 -- above.
 -- See b/239830951 for the analysis showing why we don't want to include all threads here
 -- (TL;DR - it makes the "reliable range" too short for a typical trace).
-CREATE VIEW chrome_reliable_range_per_thread
+CREATE PERFETTO VIEW chrome_reliable_range_per_thread
 AS
 SELECT
   utid,
-  MIN(ts) AS start,
-  MAX(IFNULL(EXTRACT_ARG(source_arg_set_id, 'has_first_packet_on_sequence'), 0))
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  AS has_first_packet_on_sequence
+R"_d3l1m1t3r_(  MIN(ts) AS start,
+  MAX(IFNULL(EXTRACT_ARG(source_arg_set_id, 'has_first_packet_on_sequence'), 0))
+  AS has_first_packet_on_sequence
 FROM thread_track
 JOIN slice
   ON thread_track.id = slice.track_id
@@ -13381,8 +14084,9 @@ GROUP BY utid;
 -- Renderer main thread (assuming that the corresponding process is present).
 DROP VIEW IF EXISTS chrome_processes_with_missing_main;
 
-CREATE VIEW chrome_processes_with_missing_main
-AS
+CREATE PERFETTO VIEW chrome_processes_with_missing_main
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(AS
 SELECT
   upid
 FROM (
@@ -13390,8 +14094,7 @@ FROM (
   FROM process
   LEFT JOIN
     -- We can't use is_main_thread column for Chrome traces - Renderer
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    -- processes have is_main_thread = 0 for the logical main thread.
+    -- processes have is_main_thread = 0 for the logical main thread.
     (SELECT utid, upid FROM thread WHERE thread.name GLOB '*[Mm]ain*')
   USING (upid)
   WHERE
@@ -13402,7 +14105,7 @@ WHERE utid is NULL;
 
 DROP VIEW IF EXISTS chrome_processes_data_loss_free_period;
 
-CREATE VIEW chrome_processes_data_loss_free_period
+CREATE PERFETTO VIEW chrome_processes_data_loss_free_period
 AS
 SELECT
   upid AS limiting_upid,
@@ -13417,16 +14120,16 @@ FROM
     -- entire duration of the trace.
     SELECT upid, NULL AS reliable_from
     FROM chrome_processes_with_missing_main
-  )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  )
 ORDER BY start DESC
 LIMIT 1;
 
 DROP VIEW IF EXISTS chrome_reliable_range;
 
-CREATE VIEW chrome_reliable_range
+CREATE PERFETTO VIEW chrome_reliable_range
 AS
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+SELECT
   -- If the trace has a cropping packet, we don't want to recompute the reliable
   -- based on cropped track events - the result might be incorrect.
   IFNULL(extract_int_metadata('range_of_interest_start_us') * 1000,
@@ -13444,10 +14147,10 @@ FROM
   (SELECT
     COALESCE(MAX(start), 0) AS thread_start,
     utid AS limiting_utid,
-    COALESCE((SELECT start FROM chrome_processes_data_loss_free_period), 0) AS data_loss_free_start,
-    (SELECT limiting_upid FROM chrome_processes_data_loss_free_period) AS limiting_upid
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    FROM chrome_reliable_range_per_thread
+R"_d3l1m1t3r_(    COALESCE((SELECT start FROM chrome_processes_data_loss_free_period), 0) AS data_loss_free_start,
+    (SELECT limiting_upid FROM chrome_processes_data_loss_free_period) AS limiting_upid
+    FROM chrome_reliable_range_per_thread
     WHERE has_first_packet_on_sequence = 0);
 
 )_d3l1m1t3r_"
@@ -13478,7 +14181,7 @@ const char kChromeChromeScrollInputsPerFrame[] = R"_d3l1m1t3r_(--
 -- Grab all GestureScrollUpdate slices.
 DROP VIEW IF EXISTS chrome_all_scroll_updates;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW chrome_all_scroll_updates AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW chrome_all_scroll_updates AS
 SELECT
   id,
   EXTRACT_ARG(arg_set_id, 'chrome_latency_info.gesture_scroll_id') AS scroll_id,
@@ -13491,7 +14194,7 @@ WHERE name = "InputLatency::GestureScrollUpdate";
 
 -- Count number of input GestureScrollUpdates per scroll.
 DROP VIEW IF EXISTS chrome_update_count_per_scroll;
-CREATE VIEW chrome_update_count_per_scroll AS
+CREATE PERFETTO VIEW chrome_update_count_per_scroll AS
 SELECT
   CAST(COUNT() AS FLOAT) AS count,
   scroll_id,
@@ -13503,7 +14206,7 @@ GROUP BY scroll_id;
 -- Count the number of input GestureScrollUpdates that were converted
 -- frames per scroll.
 DROP VIEW IF EXISTS chrome_non_coalesced_update_count_per_scroll;
-CREATE VIEW chrome_non_coalesced_update_count_per_scroll AS
+CREATE PERFETTO VIEW chrome_non_coalesced_update_count_per_scroll AS
 SELECT
   CAST(COUNT() AS FLOAT) AS non_coalesced_count,
   scroll_id,
@@ -13517,7 +14220,7 @@ GROUP BY scroll_id;
 -- Get the average number of inputs per frame per scroll.
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(DROP VIEW IF EXISTS chrome_avg_scroll_inputs_per_frame;
-CREATE VIEW chrome_avg_scroll_inputs_per_frame AS
+CREATE PERFETTO VIEW chrome_avg_scroll_inputs_per_frame AS
 SELECT
   count / non_coalesced_count AS avg_inputs_per_frame_per_scroll,
   scroll_id,
@@ -13528,7 +14231,7 @@ JOIN chrome_update_count_per_scroll USING(scroll_id);
 -- Get the last scroll update event that wasn't coalesced before the
 -- current scroll update.
 DROP VIEW IF EXISTS chrome_frame_main_input_id;
-CREATE VIEW chrome_frame_main_input_id AS
+CREATE PERFETTO VIEW chrome_frame_main_input_id AS
 SELECT
   id,
   scroll_id,
@@ -13545,15 +14248,15 @@ FROM chrome_all_scroll_updates scrolls;
 
 -- Count the number of inputs per presented frame.
 DROP VIEW IF EXISTS chrome_scroll_inputs_per_frame;
-CREATE VIEW chrome_scroll_inputs_per_frame AS
+CREATE PERFETTO VIEW chrome_scroll_inputs_per_frame AS
 SELECT
   COUNT() AS count_for_frame,
   presented_scroll_id,
-  ts,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  ts,
   dur,
   id AS slice_id,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  track_id
+  track_id
 FROM
   chrome_frame_main_input_id
 GROUP BY presented_scroll_id;
@@ -13584,7 +14287,7 @@ SELECT RUN_METRIC('chrome/chrome_input_to_browser_intervals.sql');
 
 -- Filter intervals to only durations longer than {{dur_causes_jank_ms}}.
 DROP VIEW IF EXISTS chrome_input_to_browser_longer_intervals;
-CREATE VIEW chrome_input_to_browser_longer_intervals AS
+CREATE PERFETTO VIEW chrome_input_to_browser_longer_intervals AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   *
@@ -13600,7 +14303,7 @@ WHERE
 -- than 8ms here as those are handled separately and are not regarded
 -- as scheduling issues.
 DROP VIEW IF EXISTS chrome_task_barrages_per_interval;
-CREATE VIEW chrome_task_barrages_per_interval AS
+CREATE PERFETTO VIEW chrome_task_barrages_per_interval AS
 SELECT
   GROUP_CONCAT(DISTINCT full_name) AS full_name,
   SUM(dur / 1e6) AS total_duration_ms,
@@ -13649,7 +14352,7 @@ R"_d3l1m1t3r_(
 -- Filter to task barrages that took more than 8ms, as barrages
 -- that lasted less than that are unlikely to have caused jank.
 DROP VIEW IF EXISTS chrome_scroll_jank_caused_by_scheduling;
-CREATE VIEW chrome_scroll_jank_caused_by_scheduling AS
+CREATE PERFETTO VIEW chrome_scroll_jank_caused_by_scheduling AS
 SELECT *
 FROM chrome_task_barrages_per_interval
 WHERE total_duration_ms > {{dur_causes_jank_ms}} AND count > 1
@@ -13689,7 +14392,7 @@ R"_d3l1m1t3r_(-- @column vsync_interval            The standard vsync interval.
 --                                   janky frames, percent of janky frames,
 --                                   maximum presentation delay, and the causes
 --                                   of jank (cause, sub-cause, delay).
-CREATE VIEW chrome_scroll_jank_v3_intermediate AS
+CREATE PERFETTO VIEW chrome_scroll_jank_v3_intermediate AS
 SELECT
   -- MAX does not matter for these aggregations, since the values are the
   -- same across rows.
@@ -13727,7 +14430,7 @@ DROP VIEW IF EXISTS chrome_scroll_jank_v3_output;
 --                                 frames, vsync interval, and a summary of this
 --                                 data (including individual causes) for each
 --                                 scroll.
-CREATE VIEW chrome_scroll_jank_v3_output AS
+CREATE PERFETTO VIEW chrome_scroll_jank_v3_output AS
 SELECT
   ChromeScrollJankV3(
     'trace_num_frames',
@@ -13765,7 +14468,7 @@ const char kChromeChromeSliceNames[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS chrome_slice_names_output;
 
-CREATE VIEW chrome_slice_names_output AS
+CREATE PERFETTO VIEW chrome_slice_names_output AS
 SELECT ChromeSliceNames(
   'chrome_version_code', (
     SELECT RepeatedField(int_value)
@@ -13812,10 +14515,10 @@ const char kChromeChromeStackSamplesForTask[] = R"_d3l1m1t3r_(--
 
 INCLUDE PERFETTO MODULE chrome.tasks;
 
-CREATE PERFETTO FUNCTION describe_symbol(symbol STRING, frame_name STRING)
-RETURNS STRING AS
+CREATE OR REPLACE PERFETTO FUNCTION describe_symbol(symbol STRING, frame_name STRING)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT COALESCE($symbol,
+R"_d3l1m1t3r_(RETURNS STRING AS
+SELECT COALESCE($symbol,
   CASE WHEN demangle($frame_name) IS NULL
   THEN $frame_name
   ELSE demangle($frame_name)
@@ -13825,7 +14528,7 @@ R"_d3l1m1t3r_(SELECT COALESCE($symbol,
 -- The timestamps for those tasks are going to be used later on to gather
 -- information about stack traces that were collected during running them.
 DROP VIEW IF EXISTS chrome_targeted_task;
-CREATE VIEW chrome_targeted_task AS
+CREATE PERFETTO VIEW chrome_targeted_task AS
 SELECT
   chrome_tasks.full_name AS full_name,
   chrome_tasks.dur AS dur,
@@ -13844,11 +14547,11 @@ WHERE
 -- reused between stack frames, callsite ids are unique per
 -- stack sample.
 DROP VIEW IF EXISTS chrome_non_symbolized_frames;
-CREATE VIEW chrome_non_symbolized_frames AS
-SELECT
-  frames.name AS frame_name,
+CREATE PERFETTO VIEW chrome_non_symbolized_frames AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  callsite.id AS callsite_id,
+R"_d3l1m1t3r_(SELECT
+  frames.name AS frame_name,
+  callsite.id AS callsite_id,
   *
 FROM
   stack_profile_frame frames
@@ -13858,7 +14561,7 @@ JOIN stack_profile_callsite callsite
 -- Only lowest child frames are join-able with chrome_non_symbolized_frames
 -- which we need for the time at which the callstack was taken.
 DROP VIEW IF EXISTS chrome_symbolized_child_frames;
-CREATE VIEW chrome_symbolized_child_frames AS
+CREATE PERFETTO VIEW chrome_symbolized_child_frames AS
 SELECT
   thread.name AS thread_name,
   sample.utid AS sample_utid,
@@ -13873,23 +14576,23 @@ JOIN process USING(upid);
 -- are not symbolized, use the file name as it is usually descriptive
 -- of the function.
 DROP VIEW IF EXISTS chrome_thread_symbolized_child_frames;
-CREATE VIEW chrome_thread_symbolized_child_frames AS
+CREATE PERFETTO VIEW chrome_thread_symbolized_child_frames AS
 SELECT
   describe_symbol(symbol.name, frame_name) AS description,
   depth,
   ts,
   callsite_id,
-  sample_utid
-FROM chrome_symbolized_child_frames
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(LEFT JOIN stack_profile_symbol symbol USING(symbol_set_id)
+R"_d3l1m1t3r_(  sample_utid
+FROM chrome_symbolized_child_frames
+LEFT JOIN stack_profile_symbol symbol USING(symbol_set_id)
 WHERE thread_name = {{thread_name}} ORDER BY ts DESC;
 
 -- Since only leaf stack frames have a timestamp, let's export this
 -- timestamp to all it's ancestor frames to use it later on for
 -- filtering frames within specific windows
 DROP VIEW IF EXISTS chrome_non_symbolized_frames_timed;
-CREATE VIEW chrome_non_symbolized_frames_timed AS
+CREATE PERFETTO VIEW chrome_non_symbolized_frames_timed AS
 SELECT
   chrome_non_symbolized_frames.frame_name,
   chrome_non_symbolized_frames.depth,
@@ -13905,9 +14608,9 @@ JOIN chrome_non_symbolized_frames
   ON chrome_non_symbolized_frames.callsite_id = child.id;
 
 DROP VIEW IF EXISTS chrome_frames_timed_and_symbolized;
-CREATE VIEW chrome_frames_timed_and_symbolized AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW chrome_frames_timed_and_symbolized AS
+SELECT
   describe_symbol(symbol.name, frame_name) AS description,
   ts,
   depth,
@@ -13921,7 +14624,7 @@ ORDER BY DEPTH ASC;
 -- Union leaf stack frames with all stack frames after the timestamp
 -- is attached to get a view of all frames timestamped.
 DROP VIEW IF EXISTS all_frames;
-CREATE VIEW all_frames AS
+CREATE PERFETTO VIEW all_frames AS
 SELECT
   *
 FROM
@@ -13941,16 +14644,16 @@ ORDER BY depth ASC;
 -- Filter stack samples that happened only during the specified
 -- task on the specified thread.
 DROP VIEW IF EXISTS chrome_stack_samples_for_task;
-CREATE VIEW chrome_stack_samples_for_task AS
+CREATE PERFETTO VIEW chrome_stack_samples_for_task AS
 SELECT
   all_frames.*
 FROM
   all_frames JOIN
   chrome_targeted_task ON
-    all_frames.sample_utid = chrome_targeted_task.utid
-    AND all_frames.ts >= chrome_targeted_task.ts
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AND all_frames.ts <= chrome_targeted_task.ts + chrome_targeted_task.dur;
+R"_d3l1m1t3r_(    all_frames.sample_utid = chrome_targeted_task.utid
+    AND all_frames.ts >= chrome_targeted_task.ts
+    AND all_frames.ts <= chrome_targeted_task.ts + chrome_targeted_task.dur;
 
 )_d3l1m1t3r_"
 ;
@@ -14052,7 +14755,7 @@ WHERE
 -- that we could have started processing input but did not on the
 -- main thread, because it was blocked by those tasks.
 DROP VIEW IF EXISTS chrome_tasks_delaying_input_processing_unaggregated;
-CREATE VIEW chrome_tasks_delaying_input_processing_unaggregated AS
+CREATE PERFETTO VIEW chrome_tasks_delaying_input_processing_unaggregated AS
 SELECT
   tasks.full_name AS full_name,
   tasks.dur / 1e6 AS duration_ms,
@@ -14070,7 +14773,7 @@ JOIN {{input_browser_interval_table_name}} input_tbl
 -- Same task can delay multiple GestureUpdates, this step dedups
 -- multiple occrences of the same slice_id
 DROP VIEW IF EXISTS chrome_tasks_delaying_input_processing;
-CREATE VIEW chrome_tasks_delaying_input_processing AS
+CREATE PERFETTO VIEW chrome_tasks_delaying_input_processing AS
 SELECT
   full_name,
   duration_ms,
@@ -14083,7 +14786,7 @@ GROUP BY slice_id;
 -- that we could have started processing input but did not on the
 -- main thread, because it was blocked by those tasks.
 DROP VIEW IF EXISTS chrome_tasks_delaying_input_processing_summary;
-CREATE VIEW chrome_tasks_delaying_input_processing_summary AS
+CREATE PERFETTO VIEW chrome_tasks_delaying_input_processing_summary AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   full_name AS full_name,
@@ -14160,7 +14863,7 @@ SELECT RUN_METRIC('chrome/chrome_processes.sql');
 
 -- Grab all the thread tracks which are found in chrome threads.
 DROP VIEW IF EXISTS chrome_track;
-CREATE VIEW chrome_track AS
+CREATE PERFETTO VIEW chrome_track AS
 SELECT
   *
 FROM thread_track
@@ -14170,7 +14873,7 @@ WHERE utid IN (SELECT utid FROM chrome_thread);
 -- slices.
 DROP VIEW IF EXISTS chrome_thread_slice;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW chrome_thread_slice AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW chrome_thread_slice AS
 SELECT
   slice.*
 FROM
@@ -14204,16 +14907,16 @@ SELECT RUN_METRIC('android/unsymbolized_frames.sql');
 
 DROP VIEW IF EXISTS chrome_unsymbolized_args_view;
 
-CREATE VIEW chrome_unsymbolized_args_view AS
+CREATE PERFETTO VIEW chrome_unsymbolized_args_view AS
 SELECT ChromeUnsymbolizedArgs_Arg(
     'module', spm.name,
     'build_id', spm.build_id,
     'address', unsymbolized_arg.rel_pc,
     'google_lookup_id', spm.google_lookup_id
 ) AS arg_proto
-FROM
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  (
+R"_d3l1m1t3r_(FROM
+  (
     SELECT arg_rel_pc.rel_pc AS rel_pc, arg_mapping_id.mapping_id AS mapping_id
     FROM
       (
@@ -14237,7 +14940,7 @@ WHERE spm.build_id != '';
 
 DROP VIEW IF EXISTS chrome_unsymbolized_args_output;
 
-CREATE VIEW chrome_unsymbolized_args_output AS
+CREATE PERFETTO VIEW chrome_unsymbolized_args_output AS
 SELECT ChromeUnsymbolizedArgs(
     'args',
     (SELECT RepeatedField(arg_proto) FROM chrome_unsymbolized_args_view)
@@ -14263,7 +14966,7 @@ const char kChromeChromeUserEventHashes[] = R"_d3l1m1t3r_(--
 
 DROP VIEW IF EXISTS chrome_user_event_hashes_output;
 
-CREATE VIEW chrome_user_event_hashes_output AS
+CREATE PERFETTO VIEW chrome_user_event_hashes_output AS
 SELECT ChromeUserEventHashes(
   'action_hash', (
     SELECT RepeatedField(int_value)
@@ -14304,7 +15007,7 @@ SELECT RUN_METRIC('chrome/chrome_processes.sql');
 -- CPU time slices for Chrome threads.
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(DROP VIEW IF EXISTS chrome_cpu_slices;
-CREATE VIEW chrome_cpu_slices AS
+CREATE PERFETTO VIEW chrome_cpu_slices AS
 SELECT counters.id AS counter_id,
   track_id,
   ts,
@@ -14339,7 +15042,7 @@ CREATE VIRTUAL TABLE {{input}}_cpu_time USING SPAN_JOIN(
 -- CPU slices are small enough this makes very little difference.
 DROP VIEW IF EXISTS {{output}};
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW {{output}} AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW {{output}} AS
 SELECT s.id,
   s.ts,
   s.dur,
@@ -14411,7 +15114,7 @@ SELECT RUN_METRIC('android/android_proxy_power.sql');
 R"_d3l1m1t3r_(
 -- View containing estimated power slices broken down by cpu.
 DROP VIEW IF EXISTS power_per_chrome_thread;
-CREATE VIEW power_per_chrome_thread AS
+CREATE PERFETTO VIEW power_per_chrome_thread AS
 SELECT ts,
   dur,
   cpu,
@@ -14436,7 +15139,7 @@ CREATE VIRTUAL TABLE {{input}}_power USING SPAN_JOIN(
 -- Estimated power usage for chrome across the categroy slices contained in
 -- input.
 DROP VIEW IF EXISTS {{output}};
-CREATE VIEW {{output}} AS
+CREATE PERFETTO VIEW {{output}} AS
 SELECT id,
   ts,
   dur,
@@ -14511,7 +15214,7 @@ SELECT RUN_METRIC('chrome/chrome_reliable_range.sql') AS suppress_query_output;
 
 DROP VIEW IF EXISTS chrome_reliable_slice;
 
-CREATE VIEW chrome_reliable_slice AS
+CREATE PERFETTO VIEW chrome_reliable_slice AS
 SELECT *
 FROM slice
 WHERE ts + dur >= (SELECT start FROM chrome_reliable_range);
@@ -14563,7 +15266,7 @@ SELECT RUN_METRIC('chrome/{{prefix}}_jank.sql');
 -- (especially if {{gesture_update}} flows end up getting -1). so ignore them
 -- for this table.
 DROP VIEW IF EXISTS {{prefix}}_latency_info_flow_step_and_ancestors;
-CREATE VIEW {{prefix}}_latency_info_flow_step_and_ancestors AS
+CREATE PERFETTO VIEW {{prefix}}_latency_info_flow_step_and_ancestors AS
 SELECT
   *
 FROM (
@@ -14575,9 +15278,9 @@ FROM (
       slice.track_id,
       EXTRACT_ARG(slice.arg_set_id, 'chrome_latency_info.trace_id') AS trace_id,
       EXTRACT_ARG(slice.arg_set_id, 'chrome_latency_info.step') AS step,
-      COALESCE(ancestor_zero.name, slice.name) AS ancestor_name_zero,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      COALESCE(ancestor_zero.id, slice.id) AS ancestor_id_zero,
+R"_d3l1m1t3r_(      COALESCE(ancestor_zero.name, slice.name) AS ancestor_name_zero,
+      COALESCE(ancestor_zero.id, slice.id) AS ancestor_id_zero,
       COALESCE(ancestor_zero.ts, slice.ts) AS ancestor_ts_zero,
       COALESCE(ancestor_zero.dur, slice.dur) AS ancestor_dur_zero,
       COALESCE(ancestor_one.name, slice.name) AS ancestor_name_one,
@@ -14599,11 +15302,11 @@ R"_d3l1m1t3r_(      COALESCE(ancestor_zero.id, slice.id) AS ancestor_id_zero,
       dur AS {{prefix}}_dur,
       track_id AS gesture_track_id,
       trace_id AS {{prefix}}_trace_id,
-      jank,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      jank,
       {{id_field}},
       avg_vsync_interval
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    FROM {{prefix}}_jank
+    FROM {{prefix}}_jank
   ) gesture ON
     flow.trace_id = gesture.{{prefix}}_trace_id
 UNION ALL
@@ -14637,9 +15340,9 @@ ORDER BY {{id_field}} ASC, trace_id ASC, ts ASC;
 -- See b/184134310, but "ThreadController active" spans multiple tasks and when
 -- the top level parent is this event we should use the second event instead.
 DROP VIEW IF EXISTS {{prefix}}_latency_info_flow_step;
-CREATE VIEW {{prefix}}_latency_info_flow_step AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW {{prefix}}_latency_info_flow_step AS
+SELECT
   *,
   CASE WHEN ancestor_name_zero != "ThreadController active" THEN
       ancestor_name_zero ELSE ancestor_name_one END AS ancestor_name,
@@ -14658,9 +15361,9 @@ FROM {{prefix}}_latency_info_flow_step_and_ancestors;
 -- We select the first |ts| from a flow event after its corresponding
 -- {{gesture_update}} has ended. This allows us to use this |ts| to contain all
 -- flow events from the start of a particular gesture_slice_id (the slice id of
--- the async event) to that |ts|.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--
+R"_d3l1m1t3r_(-- the async event) to that |ts|.
+--
 -- The reason for this is if these flow events share the same trace_id which can
 -- occur if multiple chrome browsers are in the trace (webview & chrome for
 -- example). We would normally add flow events from different gestures, but by
@@ -14668,7 +15371,7 @@ R"_d3l1m1t3r_(--
 -- This breaks of course if the same trace_id happens at the exact same time in
 -- both browsers but this is hopefully unlikely.
 DROP VIEW IF EXISTS {{prefix}}_max_latency_info_ts_per_trace_id;
-CREATE VIEW {{prefix}}_max_latency_info_ts_per_trace_id AS
+CREATE PERFETTO VIEW {{prefix}}_max_latency_info_ts_per_trace_id AS
 SELECT
   gesture_slice_id,
   MIN(ts) AS max_flow_ts
@@ -14763,7 +15466,7 @@ R"_d3l1m1t3r_(          OR next.trace_id IS NULL THEN
 -- next step so we can compute the difference between the end of the current
 -- step and the beginning of the next step.
 DROP VIEW IF EXISTS {{prefix}}_flow_event;
-CREATE VIEW {{prefix}}_flow_event AS
+CREATE PERFETTO VIEW {{prefix}}_flow_event AS
 SELECT
   curr.trace_id,
   curr.id,
@@ -14833,7 +15536,7 @@ SELECT RUN_METRIC('chrome/{{prefix}}_flow_event.sql');
 -- the metric name as well as compute the time between.
 DROP VIEW IF EXISTS {{prefix}}_flow_event_queuing_delay;
 
-CREATE VIEW {{prefix}}_flow_event_queuing_delay AS
+CREATE PERFETTO VIEW {{prefix}}_flow_event_queuing_delay AS
 SELECT
   trace_id,
   id,
@@ -14872,9 +15575,9 @@ SELECT
   CASE WHEN maybe_next_ancestor_ts IS NULL THEN
       NULL
     ELSE
-      CASE WHEN maybe_next_ancestor_ts > ancestor_end THEN
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(        (maybe_next_ancestor_ts - ancestor_end)
+R"_d3l1m1t3r_(      CASE WHEN maybe_next_ancestor_ts > ancestor_end THEN
+        (maybe_next_ancestor_ts - ancestor_end)
         ELSE
           0
       END
@@ -14925,7 +15628,7 @@ INCLUDE PERFETTO MODULE chrome.vsync_intervals;
 -- together into gestures later and the timestamp and duration to compute the
 -- duration of the gesture.
 DROP VIEW IF EXISTS {{prefix}}_begin_and_end;
-CREATE VIEW {{prefix}}_begin_and_end AS
+CREATE PERFETTO VIEW {{prefix}}_begin_and_end AS
 SELECT
   slice.name,
   slice.id,
@@ -14952,7 +15655,7 @@ ORDER BY ts;
 -- TraceEvent we just fall back on assuming its 60 FPS (this is the 1.6e+7 in
 -- the COALESCE which corresponds to 16 ms or 60 FPS).
 DROP VIEW IF EXISTS joined_{{prefix}}_begin_and_end;
-CREATE VIEW joined_{{prefix}}_begin_and_end AS
+CREATE PERFETTO VIEW joined_{{prefix}}_begin_and_end AS
 SELECT
   begin.id AS begin_id,
   begin.ts AS begin_ts,
@@ -14964,10 +15667,10 @@ SELECT
   end.ts AS end_ts,
   end.ts + end.dur AS end_ts_and_dur,
   end.trace_id AS end_trace_id,
-  calculate_avg_vsync_interval(begin.ts, end.ts) AS avg_vsync_interval
-FROM {{prefix}}_begin_and_end begin JOIN {{prefix}}_begin_and_end end ON
+  chrome_calculate_avg_vsync_interval(begin.ts, end.ts) AS avg_vsync_interval
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    begin.trace_id < end.trace_id
+R"_d3l1m1t3r_(FROM {{prefix}}_begin_and_end begin JOIN {{prefix}}_begin_and_end end ON
+    begin.trace_id < end.trace_id
     AND begin.name = 'InputLatency::{{gesture_start}}'
     AND end.name = 'InputLatency::{{gesture_end}}' AND (
       (
@@ -14987,7 +15690,7 @@ ORDER BY begin.ts;
 -- Prepare all gesture updates that were not coalesced to be joined with their
 -- respective scrolls to calculate jank
 DROP VIEW IF EXISTS gesture_update;
-CREATE VIEW gesture_update AS
+CREATE PERFETTO VIEW gesture_update AS
 SELECT
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.trace_id") AS trace_id,
   EXTRACT_ARG(arg_set_id, 'chrome_latency_info.{{id_field}}')
@@ -14997,10 +15700,10 @@ FROM
   slice JOIN track ON slice.track_id = track.id
 WHERE
   slice.name = 'InputLatency::{{gesture_update}}'
-  AND slice.dur != -1
-  AND NOT COALESCE(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    EXTRACT_ARG(arg_set_id, "chrome_latency_info.is_coalesced"),
+R"_d3l1m1t3r_(  AND slice.dur != -1
+  AND NOT COALESCE(
+    EXTRACT_ARG(arg_set_id, "chrome_latency_info.is_coalesced"),
     TRUE)
   AND slice.arg_set_id IN (
     SELECT arg_set_id
@@ -15020,9 +15723,9 @@ R"_d3l1m1t3r_(    EXTRACT_ARG(arg_set_id, "chrome_latency_info.is_coalesced"),
 -- We remove updates with |dur| = -1 because this means we have no "end" event
 -- and can't reasonably determine what it should be. We have separate tracking
 -- to ensure this only happens at the end of the trace where its expected.
-DROP VIEW IF EXISTS {{id_field}}_update;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW {{id_field}}_update AS
+R"_d3l1m1t3r_(DROP VIEW IF EXISTS {{id_field}}_update;
+CREATE PERFETTO VIEW {{id_field}}_update AS
 SELECT
   begin_id,
   begin_ts,
@@ -15098,13 +15801,13 @@ ORDER BY {{id_field}} ASC, ts ASC;
 -- Note: Logic is inside the is_janky_frame function found in jank_utilities.sql.
 DROP VIEW IF EXISTS {{prefix}}_jank_maybe_null_prev_and_next;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW {{prefix}}_jank_maybe_null_prev_and_next AS
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW {{prefix}}_jank_maybe_null_prev_and_next AS
 SELECT
   *,
-  is_janky_frame({{id_field}}, prev_{{id_field}},
+  internal_is_janky_frame({{id_field}}, prev_{{id_field}},
     prev_ts, begin_ts, maybe_gesture_end,
     gesture_frames_exact, prev_gesture_frames_exact) AS prev_jank,
-  is_janky_frame({{id_field}}, next_{{id_field}},
+  internal_is_janky_frame({{id_field}}, next_{{id_field}},
     next_ts, begin_ts, maybe_gesture_end,
     gesture_frames_exact, next_gesture_frames_exact) AS next_jank
 FROM {{prefix}}_jank_maybe_null_prev_and_next_without_precompute
@@ -15120,23 +15823,23 @@ ORDER BY {{id_field}} ASC, ts ASC;
 -- For jank_budget we use the frames_exact of current, previous and next to find
 -- the jank budget in exact frame count. We then multiply by avg_vsync_internal
 -- to get the jank budget time.
--- Note: Logic is inside the jank_budget function found in jank_utilities.sql.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS {{prefix}}_jank;
-CREATE VIEW {{prefix}}_jank AS
+R"_d3l1m1t3r_(-- Note: Logic is inside the jank_budget function found in jank_utilities.sql.
+DROP VIEW IF EXISTS {{prefix}}_jank;
+CREATE PERFETTO VIEW {{prefix}}_jank AS
 SELECT
   id AS slice_id,
   (next_jank IS NOT NULL AND next_jank)
   OR (prev_jank IS NOT NULL AND prev_jank)
   AS jank,
-  jank_budget(gesture_frames_exact, prev_gesture_frames_exact,
+  internal_jank_budget(gesture_frames_exact, prev_gesture_frames_exact,
     next_gesture_frames_exact) * avg_vsync_interval AS jank_budget,
   *
 FROM {{prefix}}_jank_maybe_null_prev_and_next
 ORDER BY {{id_field}} ASC, ts ASC;
 
 DROP VIEW IF EXISTS {{prefix}}_jank_output;
-CREATE VIEW {{prefix}}_jank_output AS
+CREATE PERFETTO VIEW {{prefix}}_jank_output AS
 SELECT
   {{proto_name}}(
     '{{prefix}}_jank_percentage', (
@@ -15154,12 +15857,12 @@ SELECT
           MAX({{prefix}}_dur) AS {{prefix}}_dur
         FROM {{prefix}}_jank
         GROUP BY {{id_field}}
-      )
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      )
     ),
     '{{prefix}}_processing_ms', CAST(SUM(dur) / 1e6 AS REAL),
     '{{prefix}}_jank_processing_ms', (
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      SELECT CAST(SUM(dur) / 1e6 AS REAL) FROM {{prefix}}_jank WHERE jank
+      SELECT CAST(SUM(dur) / 1e6 AS REAL) FROM {{prefix}}_jank WHERE jank
     ),
     'num_{{prefix}}_update_count', COUNT(*),
     'num_{{prefix}}_update_jank_count', SUM(jank),
@@ -15247,7 +15950,7 @@ GROUP BY upid;
 -- View containing all Scheduler.RAILMode slices across all Chrome renderer
 -- processes.
 DROP VIEW IF EXISTS original_rail_mode_slices;
-CREATE VIEW original_rail_mode_slices AS
+CREATE PERFETTO VIEW original_rail_mode_slices AS
 SELECT slice.id,
   slice.ts,
   CASE
@@ -15273,14 +15976,14 @@ R"_d3l1m1t3r_(
 -- means some trace events have faulty timestamps and which could throw off any
 -- metrics that use the trace.
 DROP VIEW IF EXISTS trace_has_realistic_length;
-CREATE VIEW trace_has_realistic_length AS
+CREATE PERFETTO VIEW trace_has_realistic_length AS
 SELECT (end_ts - start_ts) < 1e9 * 60 * 10 AS value
 FROM trace_bounds;
 
 -- RAIL_MODE_LOAD seems to get stuck which makes it not very useful so remap it
 -- to RAIL_MODE_ANIMATION so it doesn't dominate the overall RAIL mode.
 DROP VIEW IF EXISTS rail_mode_slices;
-CREATE VIEW rail_mode_slices AS
+CREATE PERFETTO VIEW rail_mode_slices AS
 SELECT ts, dur, track_id,
   CASE
     WHEN rail_mode = "RAIL_MODE_LOAD" THEN "RAIL_MODE_ANIMATION"
@@ -15292,7 +15995,7 @@ FROM original_rail_mode_slices;
 -- RAIL mode active at a given time. The mode is derived using the priority
 -- order in rail_modes.
 DROP VIEW IF EXISTS overall_rail_mode_slices;
-CREATE VIEW overall_rail_mode_slices AS
+CREATE PERFETTO VIEW overall_rail_mode_slices AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT s.ts,
   s.end_ts,
@@ -15367,10 +16070,10 @@ R"_d3l1m1t3r_(      l.rail_mode
 -- The value in "not_animating" is always 1. It's just there to be a non-NULL
 -- value so the later SPAN_JOIN can find the set-difference.
 DROP VIEW IF EXISTS not_animating_slices;
-CREATE VIEW not_animating_slices AS
-WITH const (vsync_padding, large_gap) AS (
+CREATE PERFETTO VIEW not_animating_slices AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  SELECT
+R"_d3l1m1t3r_(WITH const (vsync_padding, large_gap) AS (
+  SELECT
     -- Pad 50ms either side of a vsync
     50000000,
     -- A gap of >200ms between the adjacent vsyncs is treated as a gap in
@@ -15410,10 +16113,10 @@ SELECT last_vsync AS ts,
   1
 FROM (
     SELECT MAX(ts) + const.vsync_padding AS last_vsync
-    FROM slice, const
-    WHERE name = "VSync"
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ),
+R"_d3l1m1t3r_(    FROM slice, const
+    WHERE name = "VSync"
+  ),
   trace_bounds
 WHERE last_vsync < end_ts;
 
@@ -15435,10 +16138,10 @@ DROP TABLE IF EXISTS input_latency_begin_end_names;
 CREATE TABLE input_latency_begin_end_names
 (
   full_name TEXT UNIQUE,
-  prefix TEXT,
-  scroll_increment INT,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  pinch_increment INT,
+R"_d3l1m1t3r_(  prefix TEXT,
+  scroll_increment INT,
+  pinch_increment INT,
   touch_increment INT,
   fling_increment INT,
   pointer_increment INT,
@@ -15468,15 +16171,15 @@ VALUES
   "InputLatency::Pointer", 0, 0, 0, 0, 1, 0),
 ("InputLatency::PointerUp",
   "InputLatency::Pointer", 0, 0, 0, 0, -1, 1),
-("InputLatency::PointerCancel",
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  "InputLatency::Pointer", 0, 0, 0, 0, -1, 1);
+R"_d3l1m1t3r_(("InputLatency::PointerCancel",
+  "InputLatency::Pointer", 0, 0, 0, 0, -1, 1);
 
 -- Find all the slices that have split "begin" and "end" slices and maintain a
 -- running total for each type, where >0 means that type of input event is
 -- ongoing.
 DROP VIEW IF EXISTS input_begin_end_slices;
-CREATE VIEW input_begin_end_slices AS
+CREATE PERFETTO VIEW input_begin_end_slices AS
 SELECT prefix,
   -- Mark the change at the start of "start" slices and the end of "end" slices.
   ts + dur * dur_multiplier AS ts,
@@ -15492,7 +16195,7 @@ ORDER BY ts;
 -- Combine all the paired input events to get an indication of when any paired
 -- input event is ongoing.
 DROP VIEW IF EXISTS unified_input_pair_increments;
-CREATE VIEW unified_input_pair_increments AS
+CREATE PERFETTO VIEW unified_input_pair_increments AS
 SELECT ts,
   scroll_increment
   + pinch_increment
@@ -15500,17 +16203,17 @@ SELECT ts,
   + fling_increment
   + pointer_increment AS increment
 FROM input_begin_end_slices;
-
--- It's possible there's an end slice without a start slice (as it occurred
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- before the trace started) which would result in (starts - ends) going
+R"_d3l1m1t3r_(
+-- It's possible there's an end slice without a start slice (as it occurred
+-- before the trace started) which would result in (starts - ends) going
 -- negative at some point. So find an offset that shifts up all counts so the
 -- lowest values becomes zero. It's possible this could still do the wrong thing
 -- if there were start AND end slices that are outside the trace bounds, in
 -- which case it should count as covering the entire trace, but it's impossible
 -- to compensate for that without augmenting the trace events themselves.
 DROP VIEW IF EXISTS initial_paired_increment;
-CREATE VIEW initial_paired_increment AS
+CREATE PERFETTO VIEW initial_paired_increment AS
 SELECT ts,
   MIN(0, MIN(scroll_total))
   + MIN(0, MIN(pinch_total))
@@ -15522,16 +16225,16 @@ FROM (
       SUM(scroll_increment) OVER(ROWS UNBOUNDED PRECEDING) AS scroll_total,
       SUM(pinch_increment) OVER(ROWS UNBOUNDED PRECEDING) AS pinch_total,
       SUM(touch_increment) OVER(ROWS UNBOUNDED PRECEDING) AS touch_total,
-      SUM(fling_increment) OVER(ROWS UNBOUNDED PRECEDING) AS fling_total,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      SUM(pointer_increment) OVER(ROWS UNBOUNDED PRECEDING) AS pointer_total
+R"_d3l1m1t3r_(      SUM(fling_increment) OVER(ROWS UNBOUNDED PRECEDING) AS fling_total,
+      SUM(pointer_increment) OVER(ROWS UNBOUNDED PRECEDING) AS pointer_total
     FROM input_begin_end_slices
   );
 
 -- Now find all the simple input slices that fully enclose the input they're
 -- marking (i.e. not the start or end of a pair).
 DROP VIEW IF EXISTS simple_input_slices;
-CREATE VIEW simple_input_slices AS
+CREATE PERFETTO VIEW simple_input_slices AS
 SELECT id,
   name,
   ts,
@@ -15548,7 +16251,7 @@ WHERE name GLOB "InputLatency::*"
 -- Turn the simple input slices into +1s and -1s at the start and end of each
 -- slice.
 DROP VIEW IF EXISTS simple_input_increments;
-CREATE VIEW simple_input_increments AS
+CREATE PERFETTO VIEW simple_input_increments AS
 SELECT ts,
   1 AS increment
 FROM simple_input_slices
@@ -15561,11 +16264,11 @@ ORDER BY ts;
 -- Combine simple and paired inputs into one, summing all the increments at a
 -- given ts.
 DROP VIEW IF EXISTS all_input_increments;
-CREATE VIEW all_input_increments AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW all_input_increments AS
 SELECT ts,
   SUM(increment) AS increment
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM (
+FROM (
     SELECT *
     FROM simple_input_increments
     UNION ALL
@@ -15578,7 +16281,7 @@ GROUP BY ts;
 -- Now calculate the cumulative sum of the increments as each ts, giving the
 -- total number of outstanding input events at a given time.
 DROP VIEW IF EXISTS all_input_totals;
-CREATE VIEW all_input_totals AS
+CREATE PERFETTO VIEW all_input_totals AS
 SELECT ts,
   SUM(increment) OVER(ROWS UNBOUNDED PRECEDING) > 0 AS input_total
 FROM all_input_increments;
@@ -15588,20 +16291,20 @@ FROM all_input_increments;
 -- is there so that the SPAN_JOIN_LEFT can put NULL in it for RAIL Mode slices
 -- that do not have corresponding input events.
 DROP VIEW IF EXISTS all_input_slices;
-CREATE VIEW all_input_slices AS
+CREATE PERFETTO VIEW all_input_slices AS
 SELECT ts,
   dur,
   input_active
 FROM (
     SELECT ts,
       lead(ts, 1, end_ts) OVER() - ts AS dur,
-      input_active
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      input_active
     FROM trace_bounds,
       (
         SELECT ts,
           input_total > 0 AS input_active
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        FROM (
+        FROM (
             SELECT ts,
               input_total,
               lag(input_total) OVER() AS prev_input_total
@@ -15619,16 +16322,16 @@ WHERE input_active > 0;
 -- So instead we try to divide up animation in other buckets based on other
 -- trace events.
 DROP VIEW IF EXISTS rail_mode_animation_slices;
-CREATE VIEW rail_mode_animation_slices AS
+CREATE PERFETTO VIEW rail_mode_animation_slices AS
 SELECT * FROM combined_overall_rail_slices WHERE rail_mode = "animation";
 
 -- Left-join rail mode animation slices with all_input_slices to find all
 -- "animation" slices that should actually be labelled "response".
 DROP TABLE IF EXISTS rail_mode_join_inputs;
-CREATE VIRTUAL TABLE rail_mode_join_inputs
-USING SPAN_LEFT_JOIN(rail_mode_animation_slices, all_input_slices);
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(CREATE VIRTUAL TABLE rail_mode_join_inputs
+USING SPAN_LEFT_JOIN(rail_mode_animation_slices, all_input_slices);
+
 -- Left-join rail mode animation slices with not_animating_slices which is
 -- based on the gaps between vsync events.
 DROP TABLE IF EXISTS rail_mode_join_inputs_join_animation;
@@ -15636,7 +16339,7 @@ CREATE VIRTUAL TABLE rail_mode_join_inputs_join_animation
 USING SPAN_LEFT_JOIN(rail_mode_join_inputs, not_animating_slices);
 
 DROP VIEW IF EXISTS has_modified_rail_slices;
-CREATE VIEW has_modified_rail_slices AS
+CREATE PERFETTO VIEW has_modified_rail_slices AS
 SELECT (
     SELECT value
     FROM chrome_event_metadata
@@ -15655,13 +16358,13 @@ VALUES ("background", "Background"),
 ("foreground_idle", "ForegroundIdle"),
 ("animation", "Animation"),
 ("load", "Load"),
-("response", "Response");
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(("response", "Response");
 
 -- When the RAIL mode is animation, use input/vsync data to conditionally change
 -- the mode to response or foreground_idle.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS unmerged_modified_rail_slices;
-CREATE VIEW unmerged_modified_rail_slices AS
+DROP VIEW IF EXISTS unmerged_modified_rail_slices;
+CREATE PERFETTO VIEW unmerged_modified_rail_slices AS
 SELECT ROW_NUMBER() OVER () AS id,
   ts,
   dur,
@@ -15687,14 +16390,14 @@ FROM (
 -- don't output anything on other platforms. This will result in all the power
 -- and cpu time tables being empty rather than containing bogus results.
 WHERE (
-    SELECT value
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    SELECT value
     FROM has_modified_rail_slices
   );
 
 -- The previous query creating unmerged_modified_rail_slices, can create
 -- adjacent slices with the same mode. This merges them together as well as
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- adding a unique id to each slice. Rather than directly merging slices
+-- adding a unique id to each slice. Rather than directly merging slices
 -- together, this instead looks for all the transitions and uses this to
 -- reconstruct the slices that should occur between them.
 DROP TABLE IF EXISTS modified_rail_slices;
@@ -15713,7 +16416,8 @@ FROM (
     --
     -- Transition row at the beginning. "mode" is invalid, so a transition will
     -- always be recorded.
-    SELECT *
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    SELECT *
     FROM (SELECT
           0 AS ts,
           ts AS dur,
@@ -15722,8 +16426,7 @@ FROM (
           dur AS next_dur,
           mode AS next_mode
         FROM unmerged_modified_rail_slices
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(        LIMIT 1
+        LIMIT 1
       )
     UNION ALL
     SELECT ts,
@@ -15899,15 +16602,15 @@ SELECT RUN_METRIC('chrome/scroll_jank_cause_blocking_task.sql');
 SELECT RUN_METRIC('chrome/scroll_jank_cause_get_bitmap.sql');
 
 DROP VIEW IF EXISTS scroll_jank_cause_joined;
-CREATE VIEW scroll_jank_cause_joined AS
+CREATE PERFETTO VIEW scroll_jank_cause_joined AS
 SELECT
   COALESCE(move.blocking_touch_move, 0) AS blocking_touch_move,
   COALESCE(task.blocked_by_language_detection, 0)
   AS blocked_by_language_detection,
   COALESCE(task.blocked_by_copy_request, 0) AS blocked_by_copy_request,
-  COALESCE(bitmap.blocked_by_bitmap, 0) AS blocked_by_bitmap,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  COALESCE(bitmap.blocked_by_toolbar, 0) AS blocked_by_toolbar,
+R"_d3l1m1t3r_(  COALESCE(bitmap.blocked_by_bitmap, 0) AS blocked_by_bitmap,
+  COALESCE(bitmap.blocked_by_toolbar, 0) AS blocked_by_toolbar,
   COALESCE(bitmap.blocked_by_bitmap_no_toolbar, 0)
   AS blocked_by_bitmap_no_toolbar,
   jank.*
@@ -15921,7 +16624,7 @@ FROM
   ON jank.id = bitmap.scroll_id;
 
 DROP VIEW IF EXISTS scroll_jank_cause_explained_jank;
-CREATE VIEW scroll_jank_cause_explained_jank AS
+CREATE PERFETTO VIEW scroll_jank_cause_explained_jank AS
 SELECT
   CASE WHEN
       NOT jank
@@ -15937,10 +16640,11 @@ SELECT
 FROM scroll_jank_cause_joined jank;
 
 DROP VIEW IF EXISTS scroll_jank_cause;
-CREATE VIEW scroll_jank_cause AS
+CREATE PERFETTO VIEW scroll_jank_cause AS
 SELECT
   jank AND NOT explained_jank AS unexplained_jank,
-  jank.*
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  jank.*
 FROM scroll_jank_cause_explained_jank jank;
 
 )_d3l1m1t3r_"
@@ -15973,7 +16677,7 @@ SELECT RUN_METRIC('chrome/scroll_jank.sql');
 R"_d3l1m1t3r_(-- only occurs on the browser. This saves us the trouble of dealing with all the
 -- different possible names of the browser (when including system tracing).
 DROP VIEW IF EXISTS browser_main_track_id;
-CREATE VIEW browser_main_track_id AS
+CREATE PERFETTO VIEW browser_main_track_id AS
 SELECT
   track_id AS id
 FROM slice
@@ -15982,7 +16686,7 @@ WHERE
 LIMIT 1;
 
 DROP VIEW IF EXISTS viz_compositor_track_id;
-CREATE VIEW viz_compositor_track_id AS
+CREATE PERFETTO VIEW viz_compositor_track_id AS
 SELECT
   id
 FROM thread_track
@@ -16001,7 +16705,7 @@ LIMIT 1;
 -- all the different possible names of the GPU process (when including system
 -- tracing).
 DROP VIEW IF EXISTS gpu_main_track_id;
-CREATE VIEW gpu_main_track_id AS
+CREATE PERFETTO VIEW gpu_main_track_id AS
 SELECT
   track_id AS id
 FROM slice
@@ -16021,7 +16725,7 @@ R"_d3l1m1t3r_(LIMIT 1;
 -- Grab the last LatencyInfo.Flow for each trace_id on the browser main.
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS browser_flows;
-CREATE VIEW browser_flows AS
+CREATE PERFETTO VIEW browser_flows AS
 SELECT
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.trace_id") AS trace_id,
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.step") AS flow_step,
@@ -16034,11 +16738,11 @@ WHERE
   )
   AND name = "LatencyInfo.Flow"
 GROUP BY trace_id;
-
--- Grab the last LatencyInfo.Flow for each trace_id on the VizCompositor.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS viz_flows;
-CREATE VIEW viz_flows AS
+R"_d3l1m1t3r_(
+-- Grab the last LatencyInfo.Flow for each trace_id on the VizCompositor.
+DROP VIEW IF EXISTS viz_flows;
+CREATE PERFETTO VIEW viz_flows AS
 SELECT
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.trace_id") AS trace_id,
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.step") AS flow_step,
@@ -16054,7 +16758,7 @@ GROUP BY trace_id;
 
 -- Grab the last LatencyInfo.Flow for each trace_id on the GPU main.
 DROP VIEW IF EXISTS gpu_flows;
-CREATE VIEW gpu_flows AS
+CREATE PERFETTO VIEW gpu_flows AS
 SELECT
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.trace_id") AS trace_id,
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.step") AS flow_step,
@@ -16070,13 +16774,13 @@ GROUP BY trace_id;
 
 --------------------------------------------------------------------------------
 -- Finally join the relevant tracks/flows to the individual scrolls.
---------------------------------------------------------------------------------
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(--------------------------------------------------------------------------------
+
 -- Keeping only the GestureScrollUpdates join the maximum flows with their
 -- associated scrolls. We only keep non-coalesced scrolls.
 DROP VIEW IF EXISTS scroll_with_browser_gpu_and_viz_flows;
-CREATE VIEW scroll_with_browser_gpu_and_viz_flows AS
+CREATE PERFETTO VIEW scroll_with_browser_gpu_and_viz_flows AS
 SELECT
   scroll.trace_id,
   scroll.scroll_id,
@@ -16103,11 +16807,11 @@ FROM (
 ) scroll JOIN browser_flows ON
   scroll.trace_id = browser_flows.trace_id
 JOIN viz_flows ON viz_flows.trace_id = scroll.trace_id
-JOIN gpu_flows ON gpu_flows.trace_id = scroll.trace_id;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(JOIN gpu_flows ON gpu_flows.trace_id = scroll.trace_id;
 
 --------------------------------------------------------------------------------
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Below we determine individual causes of blocking tasks.
+-- Below we determine individual causes of blocking tasks.
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -16116,7 +16820,7 @@ R"_d3l1m1t3r_(-- Below we determine individual causes of blocking tasks.
 
 -- These are the events that block the Browser Main or the VizCompositor thread.
 DROP VIEW IF EXISTS blocking_browser_gpu_and_viz_copies;
-CREATE VIEW blocking_browser_gpu_and_viz_copies AS
+CREATE PERFETTO VIEW blocking_browser_gpu_and_viz_copies AS
 SELECT
   id,
   ts,
@@ -16132,18 +16836,18 @@ WHERE
     AND track_id = (SELECT id FROM browser_main_track_id)
   ) OR (
     EXTRACT_ARG(arg_set_id, "task.posted_from.file_name") GLOB
-    "*components/viz/common/frame_sinks/copy_output_request.cc"
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    "*components/viz/common/frame_sinks/copy_output_request.cc"
     AND track_id = (SELECT id FROM viz_compositor_track_id)
   ) OR (
     name = "SkiaOutputSurfaceImplOnGpu::CopyOutput"
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AND track_id = (SELECT id FROM gpu_main_track_id)
+    AND track_id = (SELECT id FROM gpu_main_track_id)
   );
 
 -- Determine based on the LatencyInfo.Flow timestamp and the copy task overlap
 -- if this scroll might have been delayed because of the copy.
 DROP VIEW IF EXISTS blocking_copy_tasks;
-CREATE VIEW blocking_copy_tasks AS
+CREATE PERFETTO VIEW blocking_copy_tasks AS
 SELECT
   scroll.scroll_id,
   scroll.trace_id,
@@ -16163,14 +16867,14 @@ SELECT
 FROM
   scroll_with_browser_gpu_and_viz_flows scroll JOIN
   blocking_browser_gpu_and_viz_copies copy ON
-    scroll.ts + scroll.dur >= copy.ts
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    scroll.ts + scroll.dur >= copy.ts
     AND copy.ts + copy.dur >= scroll.ts;
 
 -- Group by scroll so we can equally join one reply to the ScrollJankAndCauses
 -- view.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS screenshot_overlapping_scrolls;
-CREATE VIEW screenshot_overlapping_scrolls AS
+DROP VIEW IF EXISTS screenshot_overlapping_scrolls;
+CREATE PERFETTO VIEW screenshot_overlapping_scrolls AS
 SELECT
   scroll_id, trace_id, SUM(blocked_by_copy) > 0 AS blocked_by_copy_request
 FROM blocking_copy_tasks
@@ -16180,7 +16884,7 @@ GROUP BY 1, 2;
 -- Check for blocking language_detection on the browser thread
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS blocking_browser_language_detection;
-CREATE VIEW blocking_browser_language_detection AS
+CREATE PERFETTO VIEW blocking_browser_language_detection AS
 SELECT
   id,
   ts,
@@ -16194,8 +16898,9 @@ WHERE
   );
 
 DROP VIEW IF EXISTS blocking_language_detection_tasks;
-CREATE VIEW blocking_language_detection_tasks AS
-SELECT
+CREATE PERFETTO VIEW blocking_language_detection_tasks AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   scroll.scroll_id,
   scroll.trace_id,
   lang.id,
@@ -16204,8 +16909,7 @@ SELECT
   lang.track_id,
   CASE WHEN lang.track_id = scroll.browser_track_id THEN
     COALESCE(lang.ts < scroll.browser_flow_ts, FALSE)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  END AS blocked_by_language_detection
+  END AS blocked_by_language_detection
 FROM
   scroll_with_browser_gpu_and_viz_flows scroll JOIN
   blocking_browser_language_detection lang ON
@@ -16213,7 +16917,7 @@ FROM
     AND lang.ts + lang.dur >= scroll.ts;
 
 DROP VIEW IF EXISTS language_detection_overlapping_scrolls;
-CREATE VIEW language_detection_overlapping_scrolls AS
+CREATE PERFETTO VIEW language_detection_overlapping_scrolls AS
 SELECT
   scroll_id, trace_id,
   SUM(blocked_by_language_detection) > 0 AS blocked_by_language_detection
@@ -16224,16 +16928,16 @@ GROUP BY 1, 2;
 -- Finally join the causes together for easy grouping.
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS scroll_jank_cause_blocking_task;
-CREATE VIEW scroll_jank_cause_blocking_task AS
-SELECT
+CREATE PERFETTO VIEW scroll_jank_cause_blocking_task AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   lang.scroll_id,
   lang.blocked_by_language_detection,
   copy.blocked_by_copy_request
 FROM
   language_detection_overlapping_scrolls lang JOIN
   screenshot_overlapping_scrolls copy ON copy.scroll_id = lang.scroll_id;
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 )_d3l1m1t3r_"
 ;
 
@@ -16387,7 +17091,7 @@ WHERE scroll.scroll_id IS NOT NULL;
 -- the other ones will be null anyway since they won't have
 -- GestureScrollUpdates.
 DROP VIEW IF EXISTS scroll_jank_cause_blocking_touch_move;
-CREATE VIEW scroll_jank_cause_blocking_touch_move AS
+CREATE PERFETTO VIEW scroll_jank_cause_blocking_touch_move AS
 SELECT
   id,
   ts,
@@ -16404,7 +17108,8 @@ FROM joined_scroll_begin_and_end begin_and_end JOIN (
     AND touch.ts > begin_and_end.begin_ts + begin_and_end.begin_dur
     AND touch.trace_id > begin_and_end.begin_trace_id
     AND touch.trace_id < begin_and_end.end_trace_id;
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
 )_d3l1m1t3r_"
 ;
 
@@ -16435,7 +17140,7 @@ SELECT RUN_METRIC('chrome/scroll_jank.sql');
 R"_d3l1m1t3r_(-- only occurs on the browser. This saves us the trouble of dealing with all the
 -- different possible names of the browser (when including system tracing).
 DROP VIEW IF EXISTS browser_main_track_id;
-CREATE VIEW browser_main_track_id AS
+CREATE PERFETTO VIEW browser_main_track_id AS
 SELECT
   track_id AS id
 FROM slice
@@ -16447,7 +17152,7 @@ LIMIT 1;
 -- Grab the last LatencyInfo.Flow for each trace_id on the browser main.
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS browser_flows;
-CREATE VIEW browser_flows AS
+CREATE PERFETTO VIEW browser_flows AS
 SELECT
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.trace_id") AS trace_id,
   EXTRACT_ARG(arg_set_id, "chrome_latency_info.step") AS flow_step,
@@ -16462,14 +17167,14 @@ WHERE
 GROUP BY trace_id;
 
 --------------------------------------------------------------------------------
--- Join the relevant tracks/flows to the individual scrolls.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--------------------------------------------------------------------------------
+R"_d3l1m1t3r_(-- Join the relevant tracks/flows to the individual scrolls.
+--------------------------------------------------------------------------------
 
 -- Keeping only the GestureScrollUpdates join the maximum flows on the browser
 -- thread.
 DROP VIEW IF EXISTS scroll_with_browser_flows;
-CREATE VIEW scroll_with_browser_flows AS
+CREATE PERFETTO VIEW scroll_with_browser_flows AS
 SELECT
   scroll.trace_id,
   scroll.scroll_id,
@@ -16494,20 +17199,20 @@ FROM (
 -- Below we determine if there was any bitmaps taken on the browser main.
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS get_bitmap_calls;
-CREATE VIEW get_bitmap_calls AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW get_bitmap_calls AS
 SELECT
   id,
   ts,
   dur,
   track_id
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM slice
+FROM slice
 WHERE
   slice.name = "ViewResourceAdapter:getBitmap"
   AND track_id = (SELECT id FROM browser_main_track_id);
 
 DROP VIEW IF EXISTS toolbar_bitmaps;
-CREATE VIEW toolbar_bitmaps AS
+CREATE PERFETTO VIEW toolbar_bitmaps AS
 SELECT
   slice.id,
   slice.ts,
@@ -16524,7 +17229,7 @@ WHERE
   AND slice.track_id = (SELECT id FROM browser_main_track_id);
 
 DROP VIEW IF EXISTS get_bitmaps_and_toolbar;
-CREATE VIEW get_bitmaps_and_toolbar AS
+CREATE PERFETTO VIEW get_bitmaps_and_toolbar AS
 SELECT
   bitmap.id AS id,
   bitmap.ts AS ts,
@@ -16537,17 +17242,17 @@ SELECT
 FROM
   get_bitmap_calls bitmap LEFT JOIN
   toolbar_bitmaps toolbar ON
-    toolbar.ancestor_id = bitmap.id;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    toolbar.ancestor_id = bitmap.id;
 
 --------------------------------------------------------------------------------
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Take bitmaps and determine if it could have been blocked by a scroll. I.E. if
+-- Take bitmaps and determine if it could have been blocked by a scroll. I.E. if
 -- the bitmap occurred after the start of the GestureScrollUpdate but before the
 -- last flow on the browser thread (the GestureScrollUpdate can't be blocked
 -- by a browser thread slice once its done on the browser thread).
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS blocking_bitmap_tasks;
-CREATE VIEW blocking_bitmap_tasks AS
+CREATE PERFETTO VIEW blocking_bitmap_tasks AS
 SELECT
   scroll.scroll_id,
   scroll.trace_id,
@@ -16561,10 +17266,10 @@ SELECT
     AND bitmap.toolbar_id IS NOT NULL
     AND bitmap.ts < scroll.browser_flow_ts, FALSE) AS blocked_by_toolbar,
   COALESCE(bitmap.track_id = scroll.browser_track_id
-    AND bitmap.toolbar_id IS NULL
-    AND bitmap.ts < scroll.browser_flow_ts, FALSE) AS blocked_by_bitmap_no_toolbar
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM
+R"_d3l1m1t3r_(    AND bitmap.toolbar_id IS NULL
+    AND bitmap.ts < scroll.browser_flow_ts, FALSE) AS blocked_by_bitmap_no_toolbar
+FROM
   scroll_with_browser_flows scroll JOIN
   get_bitmaps_and_toolbar bitmap ON
     scroll.ts + scroll.dur >= bitmap.ts
@@ -16576,7 +17281,7 @@ R"_d3l1m1t3r_(FROM
 -- scroll_id.
 --------------------------------------------------------------------------------
 DROP VIEW IF EXISTS scroll_jank_cause_get_bitmap;
-CREATE VIEW scroll_jank_cause_get_bitmap AS
+CREATE PERFETTO VIEW scroll_jank_cause_get_bitmap AS
 SELECT
   scroll_id,
   trace_id,
@@ -16609,7 +17314,7 @@ SELECT RUN_METRIC('chrome/scroll_flow_event_queuing_delay.sql');
 
 -- See b/184134310 why we remove ThreadController active.
 DROP VIEW IF EXISTS blocking_tasks_no_threadcontroller_active;
-CREATE VIEW blocking_tasks_no_threadcontroller_active AS
+CREATE PERFETTO VIEW blocking_tasks_no_threadcontroller_active AS
 SELECT
   slice.*,
   ancestor.id AS task_ancestor_id,
@@ -16719,13 +17424,13 @@ WHERE
 -- Additionally for mojo events we replace the descendant_name with just the
 -- "interface_name" since that is more descriptive for our jank purposes.
 DROP VIEW IF EXISTS all_descendant_blocking_tasks_queuing_delay;
-CREATE VIEW all_descendant_blocking_tasks_queuing_delay AS
+CREATE PERFETTO VIEW all_descendant_blocking_tasks_queuing_delay AS
 SELECT
   descendant.id AS descendant_id,
   descendant.ts AS descendant_ts,
-  descendant.dur AS descendant_dur,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  COALESCE(
+R"_d3l1m1t3r_(  descendant.dur AS descendant_dur,
+  COALESCE(
     IIF(descendant.arg_set_id IS NOT NULL,
       EXTRACT_ARG(descendant.arg_set_id,
         "chrome_mojo_event_info.watcher_notify_interface_tag"),
@@ -16750,9 +17455,9 @@ CREATE PERFETTO TABLE all_descendant_blocking_tasks_queuing_delay_with_cpu_time 
 SELECT
   cpu.thread_dur AS descendant_thread_dur,
   CAST(cpu.thread_dur AS REAL) / descendant.thread_dur
-  AS descendant_cpu_percentage,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  CAST(cpu.thread_dur AS REAL)
+R"_d3l1m1t3r_(  AS descendant_cpu_percentage,
+  CAST(cpu.thread_dur AS REAL)
   / (descendant.thread_dur
     / (1 << (descendant.descendant_depth - 1))) > 0.5
   AS descendant_cpu_time_above_relative_threshold,
@@ -16775,9 +17480,9 @@ FROM
 -- siblings if it has no descendants (which is true), and otherwise we will
 -- compute the siblings as the count of all slices with the same parent minus
 -- the current slice.
-DROP VIEW IF EXISTS counted_descendant_blocking_tasks_queuing_delay;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW counted_descendant_blocking_tasks_queuing_delay AS
+R"_d3l1m1t3r_(DROP VIEW IF EXISTS counted_descendant_blocking_tasks_queuing_delay;
+CREATE PERFETTO VIEW counted_descendant_blocking_tasks_queuing_delay AS
 SELECT
   base.*,
   COALESCE(single_descendant.number_of_siblings, 0) AS number_of_siblings
@@ -16797,13 +17502,13 @@ FROM
 -- to include single descendant slices in our metric name to keep it easy to
 -- reason about what that code is doing.
 DROP VIEW IF EXISTS blocking_tasks_queuing_delay_with_invalid_depth;
-CREATE VIEW blocking_tasks_queuing_delay_with_invalid_depth AS
-SELECT
+CREATE PERFETTO VIEW blocking_tasks_queuing_delay_with_invalid_depth AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   base.*,
   (
     descendant_cpu_time_above_relative_threshold
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AND descendant_cpu_percentage > 0.05
+    AND descendant_cpu_percentage > 0.05
   ) OR (
     descendant_dur_above_relative_threshold
     AND descendant_dur_percentage > 0.05
@@ -16828,14 +17533,14 @@ ORDER BY
 -- descendant if their depth is less than the first depth with siblings (the
 -- |invalid_depth|).
 DROP VIEW IF EXISTS descendant_blocking_tasks_queuing_delay;
-CREATE VIEW descendant_blocking_tasks_queuing_delay AS
-SELECT
+CREATE PERFETTO VIEW descendant_blocking_tasks_queuing_delay AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   id,
   ts,
   dur,
   track_id,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  trace_id,
+  trace_id,
   name,
   category,
   scroll_slice_id AS scroll_id,
@@ -16876,10 +17581,10 @@ R"_d3l1m1t3r_(  trace_id,
     CASE WHEN descendant_depth < invalid_depth OR descendant_major_slice THEN
         descendant_name
       ELSE
-        NULL
-    END, "-") AS descendant_name,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  GROUP_CONCAT(
+R"_d3l1m1t3r_(        NULL
+    END, "-") AS descendant_name,
+  GROUP_CONCAT(
     CASE WHEN descendant_depth < invalid_depth OR descendant_major_slice THEN
         descendant_thread_dur
       ELSE
@@ -16914,12 +17619,12 @@ R"_d3l1m1t3r_(  GROUP_CONCAT(
   GROUP_CONCAT(
     CASE WHEN descendant_category = "Java" THEN
         descendant_name
-      ELSE
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      ELSE
         NULL
     END,
     "-") AS java_name
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM
+FROM
   blocking_tasks_queuing_delay_with_invalid_depth
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
 ORDER BY descendant_cpu_percentage DESC;
@@ -16927,7 +17632,7 @@ ORDER BY descendant_cpu_percentage DESC;
 -- Function prototype: takes a - separated list of slice names (formed by
 -- the GROUP_CONCAT above) and returns the first slice if any or NULL
 -- otherwise.
-CREATE PERFETTO FUNCTION get_first_slice_name_or_null(name STRING)
+CREATE OR REPLACE PERFETTO FUNCTION get_first_slice_name_or_null(name STRING)
 -- Returns the first slice name or NULL
 RETURNS STRING AS
 -- Performs the actual string modification, takes the either the whole string
@@ -16942,9 +17647,9 @@ SELECT SUBSTR($name, 0,
 -- Function prototype: takes a - separated list of slice names (formed by
 -- the GROUP_CONCAT above) and checks for certain important view names and
 -- falls back on get_first_slice_name_or_null if it can't find one.
-CREATE PERFETTO FUNCTION get_java_slice_summary_or_null(name STRING)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Returns the summary of the provided list of java slice names.
+R"_d3l1m1t3r_(CREATE OR REPLACE PERFETTO FUNCTION get_java_slice_summary_or_null(name STRING)
+-- Returns the summary of the provided list of java slice names.
 RETURNS STRING AS
 -- Performs a bunch of GLOB matches in an order, now there could be multiple
 -- matches (both Toolbar & TabList could be true) so the order matters in
@@ -16967,10 +17672,10 @@ SELECT
   WHEN $name GLOB "*BottomContainer*" THEN
     "BottomContainer"
   WHEN $name GLOB "*FeedSwipeRefreshLayout*" THEN
-    "FeedSwipeRefreshLayout"
-  WHEN $name GLOB "*AutocompleteEditText*" THEN
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    "AutocompleteEditText"
+R"_d3l1m1t3r_(    "FeedSwipeRefreshLayout"
+  WHEN $name GLOB "*AutocompleteEditText*" THEN
+    "AutocompleteEditText"
   WHEN $name GLOB "*HomeButton*" THEN
     "HomeButton"
   WHEN $name GLOB "*ToggleTabStackButton*" THEN
@@ -16997,11 +17702,11 @@ R"_d3l1m1t3r_(    "AutocompleteEditText"
 -- determines if this event should be classified as unknown or not.
 --
 -- Returns either "-UnknownEvent" or "".
-CREATE PERFETTO FUNCTION unknown_event_or_empty_string(name STRING,
-                                                   cat STRING,
-                                                   has_descendant STRING)
+CREATE OR REPLACE PERFETTO FUNCTION unknown_event_or_empty_string(name STRING,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(RETURNS STRING AS
+R"_d3l1m1t3r_(                                                   cat STRING,
+                                                   has_descendant STRING)
+RETURNS STRING AS
 -- If our current event has a posted from we consider it already categorized
 -- even if we dont have events underneath it. If its java often we wont have
 -- sub events, and finally if its a single event we just use its name there
@@ -17019,13 +17724,13 @@ SELECT
 -- if we should use the slice name, or if its a RunTask event uses the
 -- function & file name, however if the RunTask posted from is one of the
 -- simple_watcher paths we collapse them for attributation.
-CREATE PERFETTO FUNCTION top_level_name(name STRING, function STRING, file STRING)
+CREATE OR REPLACE PERFETTO FUNCTION top_level_name(name STRING, function STRING, file STRING)
 RETURNS STRING AS
--- The difference for the mojom functions are:
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- The difference for the mojom functions are:
 --  1) PostDispatchNextMessageFromPipe:
 --         We knew that there is a message in the pipe, didnt try to set up a
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(--         SimpleWatcher to monitor when a new one arrives.
+--         SimpleWatcher to monitor when a new one arrives.
 --  2) ArmOrNotify:
 --         We tried to set up SimpleWatcher, but the setup failed as the
 --         message arrived as we were setting this up, so we posted a task
@@ -17048,12 +17753,12 @@ SELECT
   END;
 
 -- Create a common name for each "cause" based on the slice stack we found.
-DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_temp;
-CREATE VIEW scroll_jank_cause_queuing_delay_temp AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_temp;
+CREATE PERFETTO VIEW scroll_jank_cause_queuing_delay_temp AS
 SELECT
   top_level_name(name, function, file) || COALESCE(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    "-" || descendant_name, "") AS location,
+    "-" || descendant_name, "") AS location,
   top_level_name(name, function, file) || COALESCE(
     "-" || get_first_slice_name_or_null(mojom_name)
     || COALESCE("(ipc=" || mojom_ipc_hash || ")", ""),
@@ -17068,19 +17773,19 @@ FROM descendant_blocking_tasks_queuing_delay base;
 -- Figure out the average time taken during non-janky scrolls updates for each
 -- TraceEvent (metric_name) stack.
 DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_average_no_jank_time;
-CREATE VIEW scroll_jank_cause_queuing_delay_average_no_jank_time AS
+CREATE PERFETTO VIEW scroll_jank_cause_queuing_delay_average_no_jank_time AS
 SELECT
   location,
   AVG(dur_overlapping_ns) AS avg_dur_overlapping_ns
-FROM scroll_jank_cause_queuing_delay_temp
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM scroll_jank_cause_queuing_delay_temp
 WHERE NOT jank
 GROUP BY 1;
 
 -- Again figure out the average time, but based on a more restricted set of
 -- trace events.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_average_no_jank_time_restricted;
-CREATE VIEW scroll_jank_cause_queuing_delay_average_no_jank_time_restricted AS
+DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_average_no_jank_time_restricted;
+CREATE PERFETTO VIEW scroll_jank_cause_queuing_delay_average_no_jank_time_restricted AS
 SELECT
   restricted_location,
   AVG(dur_overlapping_ns) AS avg_dur_overlapping_ns_restricted
@@ -17092,7 +17797,7 @@ GROUP BY 1;
 -- Join every row (jank and non-jank with the average non-jank time for the
 -- given metric_name).
 DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay_unannotated;
-CREATE VIEW scroll_jank_cause_queuing_delay_unannotated AS
+CREATE PERFETTO VIEW scroll_jank_cause_queuing_delay_unannotated AS
 SELECT
   base.*,
   'InputLatency.LatencyInfo.Flow.QueuingDelay.'
@@ -17102,13 +17807,13 @@ SELECT
   AS avg_no_jank_dur_overlapping_ns
 FROM
   scroll_jank_cause_queuing_delay_temp base LEFT JOIN
-  scroll_jank_cause_queuing_delay_average_no_jank_time avg_no_jank ON
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  scroll_jank_cause_queuing_delay_average_no_jank_time avg_no_jank ON
     base.location = avg_no_jank.location;
 
 -- Join in the restricted set of trace events average as well to form the final output.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay;
-CREATE VIEW scroll_jank_cause_queuing_delay AS
+DROP VIEW IF EXISTS scroll_jank_cause_queuing_delay;
+CREATE PERFETTO VIEW scroll_jank_cause_queuing_delay AS
 SELECT
   base.*,
   'QueuingDelay.'
@@ -17152,7 +17857,7 @@ R"_d3l1m1t3r_(-- and GPU names on android are quite complicated, but this should
 --
 -- See b/151077536 for historical context.
 DROP VIEW IF EXISTS sufficient_chrome_processes;
-CREATE VIEW sufficient_chrome_processes AS
+CREATE PERFETTO VIEW sufficient_chrome_processes AS
 SELECT
   CASE WHEN (
       SELECT COUNT(*) FROM chrome_process) = 0
@@ -17193,7 +17898,7 @@ const char kChromeTestChromeMetric[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS test_chrome_metric_output;
-CREATE VIEW test_chrome_metric_output AS
+CREATE PERFETTO VIEW test_chrome_metric_output AS
 SELECT TestChromeMetric('test_value', 1);
 
 )_d3l1m1t3r_"
@@ -17342,7 +18047,7 @@ const char kExperimentalChromeDroppedFrames[] = R"_d3l1m1t3r_(--
 -- Find all dropped frames, i.e. all PipelineReporters slices whose
 -- state is 'STATE_DROPPED'.
 DROP VIEW IF EXISTS dropped_pipeline_reporter_slice;
-CREATE VIEW dropped_pipeline_reporter_slice AS
+CREATE PERFETTO VIEW dropped_pipeline_reporter_slice AS
 SELECT slice.* FROM slice
 JOIN args
   ON slice.arg_set_id = args.arg_set_id
@@ -17353,7 +18058,7 @@ WHERE
 -- Find the upid of the proccesses where the dropped frames occur.
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(DROP VIEW IF EXISTS dropped_frames_with_upid;
-CREATE VIEW dropped_frames_with_upid AS
+CREATE PERFETTO VIEW dropped_frames_with_upid AS
 SELECT
   dropped_pipeline_reporter_slice.ts,
   process_track.upid
@@ -17365,7 +18070,7 @@ JOIN process_track
 -- If the process name represents a file's pathname, the path part will be
 -- removed from the display name of the process.
 DROP VIEW IF EXISTS dropped_frames_with_process_info;
-CREATE VIEW dropped_frames_with_process_info AS
+CREATE PERFETTO VIEW dropped_frames_with_process_info AS
 SELECT
   dropped_frames_with_upid.ts,
   REPLACE(
@@ -17388,7 +18093,7 @@ R"_d3l1m1t3r_(-- track is the first track ('All Processes') in chrome_dropped_fr
 -- Note that the 'All Processes' track is generated only when dropped frames
 -- come from more than one origin process.
 DROP VIEW IF EXISTS chrome_dropped_frames_event;
-CREATE VIEW chrome_dropped_frames_event AS
+CREATE PERFETTO VIEW chrome_dropped_frames_event AS
 SELECT
   'slice' AS track_type,
   'All Processes' AS track_name,
@@ -17413,10 +18118,10 @@ GROUP BY process_id, ts;
 
 -- Create the dropped frames metric output.
 DROP VIEW IF EXISTS chrome_dropped_frames_output;
-CREATE VIEW chrome_dropped_frames_output AS
-SELECT ChromeDroppedFrames(
+CREATE PERFETTO VIEW chrome_dropped_frames_output AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  'dropped_frame', (
+R"_d3l1m1t3r_(SELECT ChromeDroppedFrames(
+  'dropped_frame', (
     SELECT RepeatedField(
       ChromeDroppedFrames_DroppedFrame(
         'ts', ts,
@@ -17454,7 +18159,7 @@ const char kExperimentalChromeLongLatency[] = R"_d3l1m1t3r_(--
 -- of an EventLatency slice, i.e. the timestamp of the frame presentation
 -- that reflects the event.
 DROP VIEW IF EXISTS long_eventlatency_slice;
-CREATE VIEW long_eventlatency_slice AS
+CREATE PERFETTO VIEW long_eventlatency_slice AS
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(SELECT
   ts + dur AS ts,
@@ -17466,7 +18171,7 @@ FROM slice WHERE name = 'EventLatency' AND dur > 100000000;
 
 -- Find the upid of the proccesses where the long latency occur.
 DROP VIEW IF EXISTS long_latency_with_upid;
-CREATE VIEW long_latency_with_upid AS
+CREATE PERFETTO VIEW long_latency_with_upid AS
 SELECT
   long_eventlatency_slice.ts,
   long_eventlatency_slice.event_type,
@@ -17481,7 +18186,7 @@ JOIN process_track
 -- If the process name represents a file's pathname, the path part will be
 -- removed from the display name of the process.
 DROP VIEW IF EXISTS long_latency_with_process_info;
-CREATE VIEW long_latency_with_process_info AS
+CREATE PERFETTO VIEW long_latency_with_process_info AS
 SELECT
   long_latency_with_upid.ts,
   GROUP_CONCAT(DISTINCT long_latency_with_upid.event_type) AS event_type,
@@ -17506,7 +18211,7 @@ GROUP BY ts, process.pid;
 -- Note that the 'All Processes' track is generated only when there are more
 -- than one source of long latency events.
 DROP VIEW IF EXISTS chrome_long_latency_event;
-CREATE VIEW chrome_long_latency_event AS
+CREATE PERFETTO VIEW chrome_long_latency_event AS
 SELECT
   'slice' AS track_type,
   'All Processes' AS track_name,
@@ -17532,7 +18237,7 @@ GROUP BY ts;
 
 -- Create the long latency metric output.
 DROP VIEW IF EXISTS chrome_long_latency_output;
-CREATE VIEW chrome_long_latency_output AS
+CREATE PERFETTO VIEW chrome_long_latency_output AS
 SELECT ChromeLongLatency(
   'long_latency', (
     SELECT RepeatedField(
@@ -17567,13 +18272,13 @@ const char kExperimentalFrameTimes[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 
 DROP VIEW IF EXISTS InteractionEvents;
-CREATE VIEW InteractionEvents AS
+CREATE PERFETTO VIEW InteractionEvents AS
 SELECT
   ts, dur, ts AS ts_ir, dur AS dur_ir
 FROM slice WHERE name GLOB 'Interaction.*';
 
 DROP VIEW IF EXISTS GestureLegacyEvents;
-CREATE VIEW GestureLegacyEvents AS
+CREATE PERFETTO VIEW GestureLegacyEvents AS
 SELECT
   ts,
   EXTRACT_ARG(arg_set_id, 'legacy_event.phase') AS phase
@@ -17583,7 +18288,7 @@ WHERE EXTRACT_ARG(arg_set_id, 'legacy_event.name') = 'SyntheticGestureController
 R"_d3l1m1t3r_(
 -- Convert pairs of 'S' and 'F' events into slices with ts and dur.
 DROP VIEW IF EXISTS GestureEvents;
-CREATE VIEW GestureEvents AS
+CREATE PERFETTO VIEW GestureEvents AS
 SELECT
   ts, dur, ts AS ts_ge, dur AS dur_ge
 FROM (
@@ -17605,7 +18310,7 @@ USING SPAN_LEFT_JOIN(InteractionEvents, GestureEvents);
 -- 2) Else, interaction's range.
 
 DROP VIEW IF EXISTS InterestingSegments;
-CREATE VIEW InterestingSegments AS
+CREATE PERFETTO VIEW InterestingSegments AS
 SELECT  -- 1) Gestures overlapping interactions.
   ts_ge AS ts,
   dur_ge AS dur
@@ -17614,9 +18319,9 @@ WHERE ts_ge IS NOT NULL
 GROUP BY ts_ge
 UNION ALL
 SELECT  -- 2) Interactions without gestures.
-  ts_ir AS ts,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  dur_ir AS dur
+R"_d3l1m1t3r_(  ts_ir AS ts,
+  dur_ir AS dur
 FROM InteractionEventsJoinGestureEvents
 WHERE ts_ge IS NULL
 GROUP BY ts_ir
@@ -17660,7 +18365,7 @@ WHERE name = 'Display::FrameDisplayed'
 GROUP BY ts;
 
 DROP VIEW IF EXISTS FrameSegments;
-CREATE VIEW FrameSegments AS
+CREATE PERFETTO VIEW FrameSegments AS
 SELECT
   ts,
   LEAD(ts) OVER wnd - ts AS dur,
@@ -17675,7 +18380,7 @@ CREATE VIRTUAL TABLE FrameSegmentsJoinInterestingSegments USING
 SPAN_JOIN(FrameSegments, InterestingSegments);
 
 DROP VIEW IF EXISTS FrameTimes;
-CREATE VIEW FrameTimes AS
+CREATE PERFETTO VIEW FrameTimes AS
 SELECT dur / 1e6 AS dur_ms, exp
 FROM FrameSegmentsJoinInterestingSegments
 WHERE ts = ts_fs AND dur = dur_fs;
@@ -17684,13 +18389,13 @@ WHERE ts = ts_fs AND dur = dur_fs;
 -- Determine frame rate
 
 DROP VIEW IF EXISTS RefreshPeriodAndroid;
-CREATE VIEW RefreshPeriodAndroid AS
--- Not implemented yet.
+CREATE PERFETTO VIEW RefreshPeriodAndroid AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT NULL AS interval_ms;
+R"_d3l1m1t3r_(-- Not implemented yet.
+SELECT NULL AS interval_ms;
 
 DROP VIEW IF EXISTS RefreshPeriodNonAndroid;
-CREATE VIEW RefreshPeriodNonAndroid AS
+CREATE PERFETTO VIEW RefreshPeriodNonAndroid AS
 SELECT EXTRACT_ARG(arg_set_id, 'debug.args.interval_us') / 1e3 AS interval_ms
 FROM slice
 JOIN thread_track ON (slice.track_id = thread_track.id)
@@ -17699,7 +18404,7 @@ WHERE thread.name = 'Compositor' AND slice.name = 'Scheduler::BeginFrame'
 LIMIT 1;
 
 DROP VIEW IF EXISTS RefreshPeriodDefault;
-CREATE VIEW RefreshPeriodDefault AS
+CREATE PERFETTO VIEW RefreshPeriodDefault AS
 SELECT 1000.0 / 60 AS interval_ms;
 
 DROP TABLE IF EXISTS RefreshPeriod;
@@ -17714,7 +18419,7 @@ SELECT COALESCE(
 -- Compute average FPS
 
 DROP VIEW IF EXISTS ValidFrameTimes;
-CREATE VIEW ValidFrameTimes AS
+CREATE PERFETTO VIEW ValidFrameTimes AS
 SELECT
   dur_ms / (SELECT interval_ms FROM RefreshPeriod) AS length,
 )_d3l1m1t3r_"
@@ -17723,7 +18428,7 @@ FROM FrameTimes
 WHERE dur_ms / (SELECT interval_ms FROM RefreshPeriod) >= 0.5;
 
 DROP VIEW IF EXISTS AvgSurfaceFps;
-CREATE VIEW AvgSurfaceFps AS
+CREATE PERFETTO VIEW AvgSurfaceFps AS
 SELECT
   exp,
   1e3 * COUNT(*) / (SELECT SUM(dur_ms) FROM FrameTimes WHERE exp = valid.exp) AS fps
@@ -17731,7 +18436,7 @@ FROM ValidFrameTimes valid
 GROUP BY exp;
 
 DROP VIEW IF EXISTS frame_times_output;
-CREATE VIEW frame_times_output AS
+CREATE PERFETTO VIEW frame_times_output AS
 SELECT FrameTimes(
   'frame_time', (SELECT RepeatedField(dur_ms) FROM FrameTimes WHERE NOT exp),
   'exp_frame_time', (SELECT RepeatedField(dur_ms) FROM FrameTimes WHERE exp),
@@ -17761,7 +18466,7 @@ SELECT RUN_METRIC('chrome/chrome_processes.sql');
 
 -- Helper for thread slices
 DROP VIEW IF EXISTS thread_slice;
-CREATE VIEW thread_slice AS
+CREATE PERFETTO VIEW thread_slice AS
 SELECT s.*, thread.utid, thread.upid
 FROM slice s
 JOIN thread_track ON s.track_id = thread_track.id
@@ -17772,7 +18477,7 @@ JOIN thread USING(utid);
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(
 DROP VIEW IF EXISTS PlaybackStart;
-CREATE VIEW PlaybackStart AS
+CREATE PERFETTO VIEW PlaybackStart AS
 SELECT
   EXTRACT_ARG(s.arg_set_id, 'debug.id') AS playback_id,
   s.ts AS playback_start,
@@ -17789,7 +18494,7 @@ WHERE
 -- time_to_video_play.
 
 DROP VIEW IF EXISTS VideoStart;
-CREATE VIEW VideoStart AS
+CREATE PERFETTO VIEW VideoStart AS
 SELECT
   playback_id,
   playback_start,
@@ -17808,7 +18513,7 @@ GROUP BY playback_id, playback_start, PlaybackStart.upid;
 R"_d3l1m1t3r_(-- time_to_audio_play.
 
 DROP VIEW IF EXISTS AudioStart;
-CREATE VIEW AudioStart AS
+CREATE PERFETTO VIEW AudioStart AS
 SELECT
   playback_id,
   playback_start,
@@ -17826,7 +18531,7 @@ GROUP BY playback_id, playback_start, PlaybackStart.upid;
 -- compute dropped_frame_count.
 
 DROP VIEW IF EXISTS DroppedFrameCount;
-CREATE VIEW DroppedFrameCount AS
+CREATE PERFETTO VIEW DroppedFrameCount AS
 SELECT
   playback_id,
   vs.upid,
@@ -17840,15 +18545,15 @@ LEFT JOIN thread_slice s ON
   s.name = 'VideoFramesDropped'
   AND EXTRACT_ARG(s.arg_set_id, 'debug.id') = playback_id
   AND s.upid = vs.upid
-GROUP BY playback_id, vs.upid;
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+R"_d3l1m1t3r_(GROUP BY playback_id, vs.upid;
+
 --------------------------------------------------------------------------------
 -- Compute seek times.
 
 -- Find the seeks.
 DROP VIEW IF EXISTS SeekStart;
-CREATE VIEW SeekStart AS
+CREATE PERFETTO VIEW SeekStart AS
 SELECT
   playback_id,
   PlaybackStart.upid,
@@ -17864,7 +18569,7 @@ WHERE
 -- Partition by the next seek's ts, so that we can filter for events occurring
 -- within each seek's window below.
 DROP VIEW IF EXISTS SeekPartitioned;
-CREATE VIEW SeekPartitioned AS
+CREATE PERFETTO VIEW SeekPartitioned AS
 SELECT
   *,
   LEAD(seek_start) OVER (
@@ -17875,14 +18580,14 @@ FROM SeekStart;
 
 -- Find the subsequent matching pipeline seeks that occur before the next seek.
 DROP VIEW IF EXISTS PipelineSeek;
-CREATE VIEW PipelineSeek AS
-SELECT
+CREATE PERFETTO VIEW PipelineSeek AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   seek.*,
   (
     SELECT MIN(s.ts)
     FROM thread_slice s
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    WHERE
+    WHERE
       s.name = 'WebMediaPlayerImpl::OnPipelineSeeked'
       AND EXTRACT_ARG(s.arg_set_id, 'debug.id') = seek.playback_id
       AND EXTRACT_ARG(s.arg_set_id, 'debug.target') = seek.seek_target
@@ -17894,7 +18599,7 @@ FROM SeekPartitioned seek;
 
 -- Find the subsequent buffering events that occur before the next seek.
 DROP VIEW IF EXISTS SeekComplete;
-CREATE VIEW SeekComplete AS
+CREATE PERFETTO VIEW SeekComplete AS
 SELECT
   seek.*,
   (
@@ -17910,10 +18615,10 @@ SELECT
 FROM PipelineSeek seek;
 
 -- Find the subsequent buffering events that occur before the next seek.
-DROP VIEW IF EXISTS ValidSeek;
-CREATE VIEW ValidSeek AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+R"_d3l1m1t3r_(DROP VIEW IF EXISTS ValidSeek;
+CREATE PERFETTO VIEW ValidSeek AS
+SELECT
   s.*
 FROM SeekComplete s
 WHERE
@@ -17926,7 +18631,7 @@ WHERE
 
 -- Helper view that shows either video or audio start for each playback
 DROP VIEW IF EXISTS AVStart;
-CREATE VIEW AVStart AS
+CREATE PERFETTO VIEW AVStart AS
 SELECT
   v.playback_id,
   v.playback_start,
@@ -17944,17 +18649,17 @@ WHERE a.playback_id NOT IN (SELECT playback_id FROM VideoStart);
 
 -- Find the corresponding media end events and their reported duration.
 DROP VIEW IF EXISTS PlaybackEnd;
-CREATE VIEW PlaybackEnd AS
+CREATE PERFETTO VIEW PlaybackEnd AS
 SELECT
   AVStart.*,
   slice.ts AS playback_end,
   EXTRACT_ARG(slice.arg_set_id, 'debug.duration') * 1e9 AS duration
-FROM AVStart
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM AVStart
 JOIN slice ON slice.id = (
   SELECT s.id
   FROM thread_slice s
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  WHERE
+  WHERE
     s.name = 'WebMediaPlayerImpl::OnEnded'
     AND EXTRACT_ARG(s.arg_set_id, 'debug.id') = AVStart.playback_id
     AND s.upid = AVStart.upid
@@ -17970,7 +18675,7 @@ WHERE NOT EXISTS (
 -- Find maximum video roughness and freezing events per playback.
 
 DROP VIEW IF EXISTS VideoRoughness;
-CREATE VIEW VideoRoughness AS
+CREATE PERFETTO VIEW VideoRoughness AS
 SELECT
   playback_id,
   playback_start,
@@ -17985,14 +18690,14 @@ WHERE
 GROUP BY playback_id, playback_start, PlaybackStart.upid;
 
 DROP VIEW IF EXISTS VideoFreezing;
-CREATE VIEW VideoFreezing AS
-SELECT
+CREATE PERFETTO VIEW VideoFreezing AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(SELECT
   playback_id,
   playback_start,
   PlaybackStart.upid,
   MAX(EXTRACT_ARG(s.arg_set_id, 'debug.freezing')) AS freezing
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM PlaybackStart
+FROM PlaybackStart
 JOIN thread_slice s
 WHERE
   s.name = 'VideoPlaybackFreezing'
@@ -18004,7 +18709,7 @@ GROUP BY playback_id, playback_start, PlaybackStart.upid;
 -- Output to proto
 
 DROP VIEW IF EXISTS media_metric_output;
-CREATE VIEW media_metric_output AS
+CREATE PERFETTO VIEW media_metric_output AS
 SELECT MediaMetric(
   'time_to_video_play', (
     SELECT RepeatedField((video_start - playback_start) / 1e6)
@@ -18020,7 +18725,8 @@ SELECT MediaMetric(
   ),
   'buffering_time', (
     SELECT RepeatedField((playback_end - duration - av_start) / 1e6)
-    FROM PlaybackEnd
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    FROM PlaybackEnd
   ),
   'roughness', (
     SELECT RepeatedField(roughness / 1e0)
@@ -18028,8 +18734,7 @@ SELECT MediaMetric(
   ),
   'freezing', (
     SELECT RepeatedField(freezing / 1e0)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    FROM VideoFreezing
+    FROM VideoFreezing
   ),
   'seek_time', (
     SELECT RepeatedField((seek_complete - seek_start) / 1e6)
@@ -18065,7 +18770,7 @@ const char kExperimentalReportedByPage[] = R"_d3l1m1t3r_(--
 -- corresponding events.
 
 DROP VIEW IF EXISTS page_reported_events;
-CREATE VIEW page_reported_events AS
+CREATE PERFETTO VIEW page_reported_events AS
 SELECT ts, name, EXTRACT_ARG(arg_set_id, "debug.data.navigationId") AS nav_id
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(FROM slice
@@ -18078,7 +18783,7 @@ ORDER BY nav_id, ts ASC;
 -- reported event.
 
 DROP VIEW IF EXISTS page_reported_durations;
-CREATE VIEW page_reported_durations AS
+CREATE PERFETTO VIEW page_reported_durations AS
 SELECT p.name, (p.ts - (
     SELECT MAX(ts) FROM page_reported_events
     WHERE
@@ -18100,7 +18805,7 @@ R"_d3l1m1t3r_(FROM page_reported_events p;
 -- Combine results into the output table.
 
 DROP VIEW IF EXISTS reported_by_page_output;
-CREATE VIEW reported_by_page_output AS
+CREATE PERFETTO VIEW reported_by_page_output AS
 SELECT ReportedByPage(
   'time_to_viewable', (
     SELECT RepeatedField(dur_ms) FROM page_reported_durations
@@ -18136,7 +18841,7 @@ const char kWebviewWebviewJankApproximation[] = R"_d3l1m1t3r_(--
 
 -- Select all WebView processes
 DROP VIEW IF EXISTS webview_processes;
-CREATE VIEW webview_processes AS
+CREATE PERFETTO VIEW webview_processes AS
 SELECT * FROM process
 WHERE name IN ('com.google.android.gm',
   'com.google.android.googlequicksearchbox',
@@ -18146,7 +18851,7 @@ R"_d3l1m1t3r_(  'com.google.android.apps.magazines');
 
 -- Select all system processes
 DROP VIEW IF EXISTS system_processes;
-CREATE VIEW system_processes AS
+CREATE PERFETTO VIEW system_processes AS
 SELECT * FROM process
 WHERE name IN ('com.android.systemui',
   '/system/bin/surfaceflinger',
@@ -18184,7 +18889,7 @@ R"_d3l1m1t3r_(WHERE jank_type NOT IN ('None', 'Buffer Stuffing')
 -- @column ts Timestamp of the start of jank slice in a WebView process (in nanoseconds)
 -- @column dur Duration of jank slice in a WebView process (in nanoseconds)
 DROP VIEW IF EXISTS webview_app_jank_slices;
-CREATE VIEW webview_app_jank_slices AS
+CREATE PERFETTO VIEW webview_app_jank_slices AS
 SELECT * FROM all_self_jank_slices
 WHERE upid IN (SELECT upid FROM webview_processes);
 
@@ -18193,7 +18898,7 @@ WHERE upid IN (SELECT upid FROM webview_processes);
 -- @column ts Timestamp of the start of jank slice from all processes except system processes (in nanoseconds)
 -- @column dur Duration of the jank slice from all processes except system processes (in nanoseconds)
 DROP VIEW IF EXISTS webview_all_app_jank_slices;
-CREATE VIEW webview_all_app_jank_slices AS
+CREATE PERFETTO VIEW webview_all_app_jank_slices AS
 SELECT * FROM all_self_jank_slices
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(WHERE upid NOT IN (SELECT upid FROM system_processes);
@@ -18235,7 +18940,7 @@ USING SPAN_JOIN(webview_renderer_slices,
 R"_d3l1m1t3r_(-- @column ts Timestamp of the start of jank slice from WebView processes overlapping WebView renderer scheduler slices excluding WebView startup slices (in nanoseconds)
 -- @column dur Duration of jank slice from WebView processes overlapping WebView renderer scheduler slices excluding WebView startup slices (in nanoseconds)
 DROP VIEW IF EXISTS webview_janks_slices_without_startup;
-CREATE VIEW webview_janks_slices_without_startup AS
+CREATE PERFETTO VIEW webview_janks_slices_without_startup AS
 SELECT * FROM webview_jank_slices
 WHERE id NOT IN (SELECT id FROM webview_browser_startup_jank_slices);
 
@@ -18246,9 +18951,9 @@ WHERE id NOT IN (SELECT id FROM webview_browser_startup_jank_slices);
 -- @column webview_total_janks janks in all apps (except system) that overlap with WebView renderer
 -- @column total_janks janks in all apps (except system)
 DROP VIEW IF EXISTS webview_jank_approximation_summary;
-CREATE VIEW webview_jank_approximation_summary AS
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(WITH wvj AS (SELECT COUNT(DISTINCT(id)) AS webview_janks
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW webview_jank_approximation_summary AS
+WITH wvj AS (SELECT COUNT(DISTINCT(id)) AS webview_janks
   FROM webview_jank_slices),
 wvjwos AS (SELECT COUNT(DISTINCT(id))
   AS webview_janks_without_startup FROM webview_janks_slices_without_startup),
@@ -18262,14 +18967,14 @@ SELECT *
 from wvj, wvjwos, wvaj, wvtj, tj;
 
 DROP VIEW IF EXISTS webview_jank_approximation_output;
-CREATE VIEW webview_jank_approximation_output AS
+CREATE PERFETTO VIEW webview_jank_approximation_output AS
 SELECT WebViewJankApproximation(
   'webview_janks', (SELECT webview_janks FROM webview_jank_approximation_summary),
   'webview_janks_without_startup', (SELECT webview_janks_without_startup FROM webview_jank_approximation_summary),
   'webview_app_janks', (SELECT webview_app_janks FROM webview_jank_approximation_summary),
-  'webview_total_janks', (SELECT webview_total_janks FROM webview_jank_approximation_summary),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  'total_janks', (SELECT total_janks FROM webview_jank_approximation_summary)
+R"_d3l1m1t3r_(  'webview_total_janks', (SELECT webview_total_janks FROM webview_jank_approximation_summary),
+  'total_janks', (SELECT total_janks FROM webview_jank_approximation_summary)
 );
 )_d3l1m1t3r_"
 ;
@@ -18585,6 +19290,12 @@ const FileToSql kFileToSql[] = {
 
   {"android/android_blocking_calls_cuj_metric.sql", kAndroidAndroidBlockingCallsCujMetric},
 
+  {"android/sysui_notif_shade_list_builder_metric.sql", kAndroidSysuiNotifShadeListBuilderMetric},
+
+  {"android/sysui_notif_shade_list_builder_slices.sql", kAndroidSysuiNotifShadeListBuilderSlices},
+
+  {"android/sysui_update_notif_on_ui_mode_changed_metric.sql", kAndroidSysuiUpdateNotifOnUiModeChangedMetric},
+
   {"android/android_boot.sql", kAndroidAndroidBoot},
 
   {"android/android_camera.sql", kAndroidAndroidCamera},
@@ -18786,6 +19497,8 @@ const FileToSql kFileToSql[] = {
   {"android/startup/mcycles_per_launch.sql", kAndroidStartupMcyclesPerLaunch},
 
   {"android/startup/slice_functions.sql", kAndroidStartupSliceFunctions},
+
+  {"android/startup/slow_start_reasons.sql", kAndroidStartupSlowStartReasons},
 
   {"android/startup/system_state.sql", kAndroidStartupSystemState},
 

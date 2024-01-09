@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,9 @@
 #include "extensions/common/features/feature_provider.h"
 #include "extensions/common/features/manifest_feature.h"
 #include "extensions/common/features/permission_feature.h"
+#include "extensions/common/mojom/context_type.mojom.h"
 #include "extensions/common/mojom/feature_session_type.mojom.h"
+#include "printing/buildflags/buildflags.h"
 
 namespace extensions {
 
@@ -65,10 +67,27 @@ void AddCoreManifestFeatures(FeatureProvider* provider) {
   }
   {
     ManifestFeature* feature = new ManifestFeature();
+    feature->set_name("background.page");
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_extension_types({Manifest::TYPE_EXTENSION,Manifest::TYPE_LEGACY_PACKAGED_APP,Manifest::TYPE_HOSTED_APP,Manifest::TYPE_LOGIN_SCREEN_EXTENSION,Manifest::TYPE_CHROMEOS_SYSTEM_EXTENSION});
+    feature->set_max_manifest_version(2);
+    provider->AddFeature("background.page", feature);
+  }
+  {
+    ManifestFeature* feature = new ManifestFeature();
     feature->set_name("background.persistent");
     feature->set_channel(version_info::Channel::STABLE);
     feature->set_extension_types({Manifest::TYPE_EXTENSION,Manifest::TYPE_LEGACY_PACKAGED_APP,Manifest::TYPE_LOGIN_SCREEN_EXTENSION});
+    feature->set_max_manifest_version(2);
     provider->AddFeature("background.persistent", feature);
+  }
+  {
+    ManifestFeature* feature = new ManifestFeature();
+    feature->set_name("background.scripts");
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_extension_types({Manifest::TYPE_EXTENSION,Manifest::TYPE_LEGACY_PACKAGED_APP,Manifest::TYPE_HOSTED_APP,Manifest::TYPE_LOGIN_SCREEN_EXTENSION,Manifest::TYPE_CHROMEOS_SYSTEM_EXTENSION});
+    feature->set_max_manifest_version(2);
+    provider->AddFeature("background.scripts", feature);
   }
   {
     ManifestFeature* feature = new ManifestFeature();
@@ -229,9 +248,10 @@ void AddCoreManifestFeatures(FeatureProvider* provider) {
     {
       ManifestFeature* feature = new ManifestFeature();
       feature->set_name("file_handlers");
-      feature->set_channel(version_info::Channel::BETA);
+      feature->set_channel(version_info::Channel::STABLE);
       feature->set_extension_types({Manifest::TYPE_EXTENSION});
       feature->set_min_manifest_version(3);
+      feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
       features.push_back(feature);
     }
     ComplexFeature* feature(new ComplexFeature(&features));
@@ -478,6 +498,13 @@ void AddCoreManifestFeatures(FeatureProvider* provider) {
     ComplexFeature* feature(new ComplexFeature(&features));
     feature->set_name("sockets");
     provider->AddFeature("sockets", feature);
+  }
+  {
+    ManifestFeature* feature = new ManifestFeature();
+    feature->set_name("trial_tokens");
+    feature->set_channel(version_info::Channel::CANARY);
+    feature->set_extension_types({Manifest::TYPE_EXTENSION});
+    provider->AddFeature("trial_tokens", feature);
   }
   {
     ManifestFeature* feature = new ManifestFeature();

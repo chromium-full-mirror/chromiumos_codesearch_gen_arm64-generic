@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ImageData>::value,
     "ImageData inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ImageData::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ImageData is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageData.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(v8_receiver);
+ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageData.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(v8_receiver);
+ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -117,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("ImageData.colorSpace.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->colorSpace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->colorSpace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -132,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("ImageData.storageFormat.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->storageFormat();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->storageFormat();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -152,7 +149,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ImageData* blink_receiver = V8ImageData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->data();
 if (!ToV8Traits<V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

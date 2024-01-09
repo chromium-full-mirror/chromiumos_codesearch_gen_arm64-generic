@@ -10,6 +10,8 @@
 #include "components/attribution_reporting/registration.mojom-import-headers.h"
 #include "components/attribution_reporting/source_type.mojom.h"
 #include "components/attribution_reporting/source_type.mojom-import-headers.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-import-headers.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-import-headers.h"
 #include "content/browser/attribution_reporting/attribution_reporting.mojom.h"

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -124,23 +125,17 @@ CertVerifierConfig::CertVerifierConfig()
     : enable_rev_checking(),
       require_rev_checking_local_anchors(),
       enable_sha1_local_anchors(),
-      disable_symantec_enforcement(),
-      additional_trust_anchors(),
-      additional_untrusted_authorities() {}
+      disable_symantec_enforcement() {}
 
 CertVerifierConfig::CertVerifierConfig(
     bool enable_rev_checking_in,
     bool require_rev_checking_local_anchors_in,
     bool enable_sha1_local_anchors_in,
-    bool disable_symantec_enforcement_in,
-    std::vector<::scoped_refptr<::net::X509Certificate>> additional_trust_anchors_in,
-    std::vector<::scoped_refptr<::net::X509Certificate>> additional_untrusted_authorities_in)
+    bool disable_symantec_enforcement_in)
     : enable_rev_checking(std::move(enable_rev_checking_in)),
       require_rev_checking_local_anchors(std::move(require_rev_checking_local_anchors_in)),
       enable_sha1_local_anchors(std::move(enable_sha1_local_anchors_in)),
-      disable_symantec_enforcement(std::move(disable_symantec_enforcement_in)),
-      additional_trust_anchors(std::move(additional_trust_anchors_in)),
-      additional_untrusted_authorities(std::move(additional_untrusted_authorities_in)) {}
+      disable_symantec_enforcement(std::move(disable_symantec_enforcement_in)) {}
 
 CertVerifierConfig::~CertVerifierConfig() = default;
 
@@ -183,9 +178,34 @@ void CertVerifierConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+}
+
+bool CertVerifierConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+AdditionalCertificates::AdditionalCertificates()
+    : all_certificates(),
+      trust_anchors(),
+      distrusted_spkis() {}
+
+AdditionalCertificates::AdditionalCertificates(
+    std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates_in,
+    std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors_in,
+    std::vector<std::vector<uint8_t>> distrusted_spkis_in)
+    : all_certificates(std::move(all_certificates_in)),
+      trust_anchors(std::move(trust_anchors_in)),
+      distrusted_spkis(std::move(distrusted_spkis_in)) {}
+
+AdditionalCertificates::~AdditionalCertificates() = default;
+
+void AdditionalCertificates::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "additional_trust_anchors"), this->additional_trust_anchors,
+      "all_certificates"), this->all_certificates,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::scoped_refptr<::net::X509Certificate>>&>"
 #else
@@ -194,16 +214,25 @@ void CertVerifierConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "additional_untrusted_authorities"), this->additional_untrusted_authorities,
+      "trust_anchors"), this->trust_anchors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::scoped_refptr<::net::X509Certificate>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "distrusted_spkis"), this->distrusted_spkis,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool CertVerifierConfig::Validate(
+bool AdditionalCertificates::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -279,14 +308,17 @@ void URLLoaderFactoryConnectorProxy::CreateURLLoaderFactory(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::URLLoaderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderFactoryConnector_CreateURLLoaderFactory_Name, kFlags, 0, 0, nullptr);
@@ -362,10 +394,10 @@ bool URLLoaderFactoryConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kURLLoaderFactoryConnectorValidationInfo[] = {
-    {&internal::URLLoaderFactoryConnector_CreateURLLoaderFactory_Params_Data::Validate,
+    { &internal::URLLoaderFactoryConnector_CreateURLLoaderFactory_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -488,14 +520,17 @@ void CertVerifierServiceProxy::EnableNetworkAccess(
                         "<value of type ::mojo::PendingRemote<URLLoaderFactoryConnector>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierService_EnableNetworkAccess_Name, kFlags, 0, 0, nullptr);
@@ -539,14 +574,17 @@ void CertVerifierServiceProxy::Verify(
                         "<value of type ::mojo::PendingRemote<CertVerifierRequest>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierService_Verify_Name, kFlags, 0, 0, nullptr);
@@ -604,14 +642,17 @@ void CertVerifierServiceProxy::SetConfig(
                         "<value of type const ::net::CertVerifier::Config&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierService_SetConfig_Name, kFlags, 0, 0, nullptr);
@@ -766,20 +807,192 @@ bool CertVerifierServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertVerifierServiceValidationInfo[] = {
-    {&internal::CertVerifierService_EnableNetworkAccess_Params_Data::Validate,
+    { &internal::CertVerifierService_EnableNetworkAccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CertVerifierService_Verify_Params_Data::Validate,
+    { &internal::CertVerifierService_Verify_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CertVerifierService_SetConfig_Params_Data::Validate,
+    { &internal::CertVerifierService_SetConfig_Params_Data::Validate,
      nullptr /* no response */},
 };
 
 bool CertVerifierServiceRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::cert_verifier::mojom::CertVerifierService::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCertVerifierServiceValidationInfo);
+}
+
+const char CertVerifierServiceUpdater::Name_[] = "cert_verifier.mojom.CertVerifierServiceUpdater";
+
+CertVerifierServiceUpdater::IPCStableHashFunction CertVerifierServiceUpdater::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name: {
+      return &CertVerifierServiceUpdater::UpdateAdditionalCertificates_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* CertVerifierServiceUpdater::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name:
+            return "Receive cert_verifier::mojom::CertVerifierServiceUpdater::UpdateAdditionalCertificates";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name:
+            return "Receive reply cert_verifier::mojom::CertVerifierServiceUpdater::UpdateAdditionalCertificates";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CertVerifierServiceUpdater::UpdateAdditionalCertificates_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cert_verifier::mojom::CertVerifierServiceUpdater::UpdateAdditionalCertificates");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+CertVerifierServiceUpdaterProxy::CertVerifierServiceUpdaterProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void CertVerifierServiceUpdaterProxy::UpdateAdditionalCertificates(
+    AdditionalCertificatesPtr in_certificates) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cert_verifier::mojom::CertVerifierServiceUpdater::UpdateAdditionalCertificates", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("certificates"), in_certificates,
+                        "<value of type AdditionalCertificatesPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cert_verifier::mojom::internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->certificates)::BaseType> certificates_fragment(
+          params.message());
+  mojo::internal::Serialize<::cert_verifier::mojom::AdditionalCertificatesDataView>(
+      in_certificates, certificates_fragment);
+  params->certificates.Set(
+      certificates_fragment.is_null() ? nullptr : certificates_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->certificates.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null certificates in CertVerifierServiceUpdater.UpdateAdditionalCertificates request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CertVerifierServiceUpdater::Name_);
+  message.set_method_name("UpdateAdditionalCertificates");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool CertVerifierServiceUpdaterStubDispatch::Accept(
+    CertVerifierServiceUpdater* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data* params =
+          reinterpret_cast<internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      AdditionalCertificatesPtr p_certificates{};
+      CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCertificates(&p_certificates))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CertVerifierServiceUpdater::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateAdditionalCertificates(
+std::move(p_certificates));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool CertVerifierServiceUpdaterStubDispatch::AcceptWithResponder(
+    CertVerifierServiceUpdater* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kCertVerifierServiceUpdaterValidationInfo[] = {
+    { &internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool CertVerifierServiceUpdaterRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::cert_verifier::mojom::CertVerifierServiceUpdater::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kCertVerifierServiceUpdaterValidationInfo);
 }
 
 const char CertVerifierServiceClient::Name_[] = "cert_verifier.mojom.CertVerifierServiceClient";
@@ -846,14 +1059,17 @@ void CertVerifierServiceClientProxy::OnCertVerifierChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cert_verifier::mojom::CertVerifierServiceClient::OnCertVerifierChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierServiceClient_OnCertVerifierChanged_Name, kFlags, 0, 0, nullptr);
@@ -917,10 +1133,10 @@ bool CertVerifierServiceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertVerifierServiceClientValidationInfo[] = {
-    {&internal::CertVerifierServiceClient_OnCertVerifierChanged_Params_Data::Validate,
+    { &internal::CertVerifierServiceClient_OnCertVerifierChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1003,14 +1219,17 @@ void CertVerifierRequestProxy::Complete(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertVerifierRequest_Complete_Name, kFlags, 0, 0, nullptr);
@@ -1094,10 +1313,10 @@ bool CertVerifierRequestStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertVerifierRequestValidationInfo[] = {
-    {&internal::CertVerifierRequest_Complete_Params_Data::Validate,
+    { &internal::CertVerifierRequest_Complete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1151,9 +1370,23 @@ bool StructTraits<::cert_verifier::mojom::CertVerifierConfig::DataView, ::cert_v
         result->enable_sha1_local_anchors = input.enable_sha1_local_anchors();
       if (success)
         result->disable_symantec_enforcement = input.disable_symantec_enforcement();
-      if (success && !input.ReadAdditionalTrustAnchors(&result->additional_trust_anchors))
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::cert_verifier::mojom::AdditionalCertificates::DataView, ::cert_verifier::mojom::AdditionalCertificatesPtr>::Read(
+    ::cert_verifier::mojom::AdditionalCertificates::DataView input,
+    ::cert_verifier::mojom::AdditionalCertificatesPtr* output) {
+  bool success = true;
+  ::cert_verifier::mojom::AdditionalCertificatesPtr result(::cert_verifier::mojom::AdditionalCertificates::New());
+  
+      if (success && !input.ReadAllCertificates(&result->all_certificates))
         success = false;
-      if (success && !input.ReadAdditionalUntrustedAuthorities(&result->additional_untrusted_authorities))
+      if (success && !input.ReadTrustAnchors(&result->trust_anchors))
+        success = false;
+      if (success && !input.ReadDistrustedSpkis(&result->distrusted_spkis))
         success = false;
   *output = std::move(result);
   return success;
@@ -1193,6 +1426,17 @@ CertVerifierServiceAsyncWaiter::CertVerifierServiceAsyncWaiter(
     CertVerifierService* proxy) : proxy_(proxy) {}
 
 CertVerifierServiceAsyncWaiter::~CertVerifierServiceAsyncWaiter() = default;
+
+
+
+
+void CertVerifierServiceUpdaterInterceptorForTesting::UpdateAdditionalCertificates(AdditionalCertificatesPtr certificates) {
+  GetForwardingInterface()->UpdateAdditionalCertificates(std::move(certificates));
+}
+CertVerifierServiceUpdaterAsyncWaiter::CertVerifierServiceUpdaterAsyncWaiter(
+    CertVerifierServiceUpdater* proxy) : proxy_(proxy) {}
+
+CertVerifierServiceUpdaterAsyncWaiter::~CertVerifierServiceUpdaterAsyncWaiter() = default;
 
 
 

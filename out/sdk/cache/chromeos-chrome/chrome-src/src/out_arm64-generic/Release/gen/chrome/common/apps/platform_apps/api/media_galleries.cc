@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/apps/platform_apps/api/media_galleries.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -124,8 +125,8 @@ GalleryChangeDetails::GalleryChangeDetails()
 : type() {}
 
 GalleryChangeDetails::~GalleryChangeDetails() = default;
-GalleryChangeDetails::GalleryChangeDetails(GalleryChangeDetails&& rhs) = default;
-GalleryChangeDetails& GalleryChangeDetails::operator=(GalleryChangeDetails&& rhs) = default;
+GalleryChangeDetails::GalleryChangeDetails(GalleryChangeDetails&& rhs) noexcept = default;
+GalleryChangeDetails& GalleryChangeDetails::operator=(GalleryChangeDetails&& rhs) noexcept = default;
 GalleryChangeDetails GalleryChangeDetails::Clone() const {
   GalleryChangeDetails out;
   out.type = type;
@@ -176,34 +177,21 @@ bool GalleryChangeDetails::Populate(
 }
 
 // static
-std::unique_ptr<GalleryChangeDetails> GalleryChangeDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GalleryChangeDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GalleryChangeDetails> GalleryChangeDetails::FromValue(const base::Value::Dict& value) {
+  GalleryChangeDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GalleryChangeDetails> GalleryChangeDetails::FromValue(const base::Value::Dict& value) {
+std::optional<GalleryChangeDetails> GalleryChangeDetails::FromValue(const base::Value& value) {
   GalleryChangeDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GalleryChangeDetails> GalleryChangeDetails::FromValue(const base::Value& value) {
-  GalleryChangeDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -224,8 +212,8 @@ MediaFileSystemsDetails::MediaFileSystemsDetails()
 : interactive() {}
 
 MediaFileSystemsDetails::~MediaFileSystemsDetails() = default;
-MediaFileSystemsDetails::MediaFileSystemsDetails(MediaFileSystemsDetails&& rhs) = default;
-MediaFileSystemsDetails& MediaFileSystemsDetails::operator=(MediaFileSystemsDetails&& rhs) = default;
+MediaFileSystemsDetails::MediaFileSystemsDetails(MediaFileSystemsDetails&& rhs) noexcept = default;
+MediaFileSystemsDetails& MediaFileSystemsDetails::operator=(MediaFileSystemsDetails&& rhs) noexcept = default;
 MediaFileSystemsDetails MediaFileSystemsDetails::Clone() const {
   MediaFileSystemsDetails out;
   out.interactive = interactive;
@@ -265,34 +253,21 @@ bool MediaFileSystemsDetails::Populate(
 }
 
 // static
-std::unique_ptr<MediaFileSystemsDetails> MediaFileSystemsDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaFileSystemsDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaFileSystemsDetails> MediaFileSystemsDetails::FromValue(const base::Value::Dict& value) {
+  MediaFileSystemsDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaFileSystemsDetails> MediaFileSystemsDetails::FromValue(const base::Value::Dict& value) {
+std::optional<MediaFileSystemsDetails> MediaFileSystemsDetails::FromValue(const base::Value& value) {
   MediaFileSystemsDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaFileSystemsDetails> MediaFileSystemsDetails::FromValue(const base::Value& value) {
-  MediaFileSystemsDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -313,8 +288,8 @@ MediaMetadataOptions::MediaMetadataOptions()
 : metadata_type() {}
 
 MediaMetadataOptions::~MediaMetadataOptions() = default;
-MediaMetadataOptions::MediaMetadataOptions(MediaMetadataOptions&& rhs) = default;
-MediaMetadataOptions& MediaMetadataOptions::operator=(MediaMetadataOptions&& rhs) = default;
+MediaMetadataOptions::MediaMetadataOptions(MediaMetadataOptions&& rhs) noexcept = default;
+MediaMetadataOptions& MediaMetadataOptions::operator=(MediaMetadataOptions&& rhs) noexcept = default;
 MediaMetadataOptions MediaMetadataOptions::Clone() const {
   MediaMetadataOptions out;
   out.metadata_type = metadata_type;
@@ -354,34 +329,21 @@ bool MediaMetadataOptions::Populate(
 }
 
 // static
-std::unique_ptr<MediaMetadataOptions> MediaMetadataOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaMetadataOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaMetadataOptions> MediaMetadataOptions::FromValue(const base::Value::Dict& value) {
+  MediaMetadataOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaMetadataOptions> MediaMetadataOptions::FromValue(const base::Value::Dict& value) {
+std::optional<MediaMetadataOptions> MediaMetadataOptions::FromValue(const base::Value& value) {
   MediaMetadataOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaMetadataOptions> MediaMetadataOptions::FromValue(const base::Value& value) {
-  MediaMetadataOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -404,8 +366,8 @@ is_media_device(false),
 is_available(false) {}
 
 MediaFileSystemMetadata::~MediaFileSystemMetadata() = default;
-MediaFileSystemMetadata::MediaFileSystemMetadata(MediaFileSystemMetadata&& rhs) = default;
-MediaFileSystemMetadata& MediaFileSystemMetadata::operator=(MediaFileSystemMetadata&& rhs) = default;
+MediaFileSystemMetadata::MediaFileSystemMetadata(MediaFileSystemMetadata&& rhs) noexcept = default;
+MediaFileSystemMetadata& MediaFileSystemMetadata::operator=(MediaFileSystemMetadata&& rhs) noexcept = default;
 MediaFileSystemMetadata MediaFileSystemMetadata::Clone() const {
   MediaFileSystemMetadata out;
   out.name = name;
@@ -449,7 +411,7 @@ bool MediaFileSystemMetadata::Populate(
     {
       auto* temp = (*device_id_value).GetIfString();
       if (!temp) {
-        out.device_id = absl::nullopt;
+        out.device_id = std::nullopt;
         return false;
       }
       out.device_id = *temp;
@@ -505,34 +467,21 @@ bool MediaFileSystemMetadata::Populate(
 }
 
 // static
-std::unique_ptr<MediaFileSystemMetadata> MediaFileSystemMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaFileSystemMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaFileSystemMetadata> MediaFileSystemMetadata::FromValue(const base::Value::Dict& value) {
+  MediaFileSystemMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaFileSystemMetadata> MediaFileSystemMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<MediaFileSystemMetadata> MediaFileSystemMetadata::FromValue(const base::Value& value) {
   MediaFileSystemMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaFileSystemMetadata> MediaFileSystemMetadata::FromValue(const base::Value& value) {
-  MediaFileSystemMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -563,8 +512,8 @@ StreamInfo::Tags::Tags()
  {}
 
 StreamInfo::Tags::~Tags() = default;
-StreamInfo::Tags::Tags(Tags&& rhs) = default;
-StreamInfo::Tags& StreamInfo::Tags::operator=(Tags&& rhs) = default;
+StreamInfo::Tags::Tags(Tags&& rhs) noexcept = default;
+StreamInfo::Tags& StreamInfo::Tags::operator=(Tags&& rhs) noexcept = default;
 StreamInfo::Tags StreamInfo::Tags::Clone() const {
   Tags out;
   return out;
@@ -587,21 +536,21 @@ bool StreamInfo::Tags::Populate(
 }
 
 // static
-absl::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value::Dict& value) {
   Tags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value& value) {
+std::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value& value) {
   Tags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -620,8 +569,8 @@ StreamInfo::StreamInfo()
  {}
 
 StreamInfo::~StreamInfo() = default;
-StreamInfo::StreamInfo(StreamInfo&& rhs) = default;
-StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) = default;
+StreamInfo::StreamInfo(StreamInfo&& rhs) noexcept = default;
+StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) noexcept = default;
 StreamInfo StreamInfo::Clone() const {
   StreamInfo out;
   out.type = type;
@@ -670,34 +619,21 @@ bool StreamInfo::Populate(
 }
 
 // static
-std::unique_ptr<StreamInfo> StreamInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StreamInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+  StreamInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
   StreamInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
-  StreamInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -718,8 +654,8 @@ MediaMetadata::AttachedImagesType::AttachedImagesType()
  {}
 
 MediaMetadata::AttachedImagesType::~AttachedImagesType() = default;
-MediaMetadata::AttachedImagesType::AttachedImagesType(AttachedImagesType&& rhs) = default;
-MediaMetadata::AttachedImagesType& MediaMetadata::AttachedImagesType::operator=(AttachedImagesType&& rhs) = default;
+MediaMetadata::AttachedImagesType::AttachedImagesType(AttachedImagesType&& rhs) noexcept = default;
+MediaMetadata::AttachedImagesType& MediaMetadata::AttachedImagesType::operator=(AttachedImagesType&& rhs) noexcept = default;
 MediaMetadata::AttachedImagesType MediaMetadata::AttachedImagesType::Clone() const {
   AttachedImagesType out;
   return out;
@@ -742,21 +678,21 @@ bool MediaMetadata::AttachedImagesType::Populate(
 }
 
 // static
-absl::optional<MediaMetadata::AttachedImagesType> MediaMetadata::AttachedImagesType::FromValue(const base::Value::Dict& value) {
+std::optional<MediaMetadata::AttachedImagesType> MediaMetadata::AttachedImagesType::FromValue(const base::Value::Dict& value) {
   AttachedImagesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaMetadata::AttachedImagesType> MediaMetadata::AttachedImagesType::FromValue(const base::Value& value) {
+std::optional<MediaMetadata::AttachedImagesType> MediaMetadata::AttachedImagesType::FromValue(const base::Value& value) {
   AttachedImagesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -776,8 +712,8 @@ MediaMetadata::MediaMetadata()
  {}
 
 MediaMetadata::~MediaMetadata() = default;
-MediaMetadata::MediaMetadata(MediaMetadata&& rhs) = default;
-MediaMetadata& MediaMetadata::operator=(MediaMetadata&& rhs) = default;
+MediaMetadata::MediaMetadata(MediaMetadata&& rhs) noexcept = default;
+MediaMetadata& MediaMetadata::operator=(MediaMetadata&& rhs) noexcept = default;
 MediaMetadata MediaMetadata::Clone() const {
   MediaMetadata out;
   out.mime_type = mime_type;
@@ -825,7 +761,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -837,7 +773,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -849,7 +785,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*duration_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.duration = absl::nullopt;
+        out.duration = std::nullopt;
         return false;
       }
       out.duration = *temp;
@@ -861,7 +797,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*rotation_value).GetIfInt();
       if (!temp.has_value()) {
-        out.rotation = absl::nullopt;
+        out.rotation = std::nullopt;
         return false;
       }
       out.rotation = *temp;
@@ -873,7 +809,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*album_value).GetIfString();
       if (!temp) {
-        out.album = absl::nullopt;
+        out.album = std::nullopt;
         return false;
       }
       out.album = *temp;
@@ -885,7 +821,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*artist_value).GetIfString();
       if (!temp) {
-        out.artist = absl::nullopt;
+        out.artist = std::nullopt;
         return false;
       }
       out.artist = *temp;
@@ -897,7 +833,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*comment_value).GetIfString();
       if (!temp) {
-        out.comment = absl::nullopt;
+        out.comment = std::nullopt;
         return false;
       }
       out.comment = *temp;
@@ -909,7 +845,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*copyright_value).GetIfString();
       if (!temp) {
-        out.copyright = absl::nullopt;
+        out.copyright = std::nullopt;
         return false;
       }
       out.copyright = *temp;
@@ -921,7 +857,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*disc_value).GetIfInt();
       if (!temp.has_value()) {
-        out.disc = absl::nullopt;
+        out.disc = std::nullopt;
         return false;
       }
       out.disc = *temp;
@@ -933,7 +869,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*genre_value).GetIfString();
       if (!temp) {
-        out.genre = absl::nullopt;
+        out.genre = std::nullopt;
         return false;
       }
       out.genre = *temp;
@@ -945,7 +881,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*language_value).GetIfString();
       if (!temp) {
-        out.language = absl::nullopt;
+        out.language = std::nullopt;
         return false;
       }
       out.language = *temp;
@@ -957,7 +893,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -969,7 +905,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*track_value).GetIfInt();
       if (!temp.has_value()) {
-        out.track = absl::nullopt;
+        out.track = std::nullopt;
         return false;
       }
       out.track = *temp;
@@ -1019,34 +955,21 @@ bool MediaMetadata::Populate(
 }
 
 // static
-std::unique_ptr<MediaMetadata> MediaMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value::Dict& value) {
+  MediaMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value& value) {
   MediaMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value& value) {
-  MediaMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1121,8 +1044,8 @@ AddGalleryWatchResult::AddGalleryWatchResult()
 : success(false) {}
 
 AddGalleryWatchResult::~AddGalleryWatchResult() = default;
-AddGalleryWatchResult::AddGalleryWatchResult(AddGalleryWatchResult&& rhs) = default;
-AddGalleryWatchResult& AddGalleryWatchResult::operator=(AddGalleryWatchResult&& rhs) = default;
+AddGalleryWatchResult::AddGalleryWatchResult(AddGalleryWatchResult&& rhs) noexcept = default;
+AddGalleryWatchResult& AddGalleryWatchResult::operator=(AddGalleryWatchResult&& rhs) noexcept = default;
 AddGalleryWatchResult AddGalleryWatchResult::Clone() const {
   AddGalleryWatchResult out;
   out.gallery_id = gallery_id;
@@ -1170,34 +1093,21 @@ bool AddGalleryWatchResult::Populate(
 }
 
 // static
-std::unique_ptr<AddGalleryWatchResult> AddGalleryWatchResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddGalleryWatchResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddGalleryWatchResult> AddGalleryWatchResult::FromValue(const base::Value::Dict& value) {
+  AddGalleryWatchResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddGalleryWatchResult> AddGalleryWatchResult::FromValue(const base::Value::Dict& value) {
+std::optional<AddGalleryWatchResult> AddGalleryWatchResult::FromValue(const base::Value& value) {
   AddGalleryWatchResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddGalleryWatchResult> AddGalleryWatchResult::FromValue(const base::Value& value) {
-  AddGalleryWatchResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1223,13 +1133,13 @@ namespace GetMediaFileSystems {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1238,12 +1148,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         MediaFileSystemsDetails temp;
         if (!MediaFileSystemsDetails::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1257,8 +1167,8 @@ Results::MediaFileSystemsType::MediaFileSystemsType()
  {}
 
 Results::MediaFileSystemsType::~MediaFileSystemsType() = default;
-Results::MediaFileSystemsType::MediaFileSystemsType(MediaFileSystemsType&& rhs) = default;
-Results::MediaFileSystemsType& Results::MediaFileSystemsType::operator=(MediaFileSystemsType&& rhs) = default;
+Results::MediaFileSystemsType::MediaFileSystemsType(MediaFileSystemsType&& rhs) noexcept = default;
+Results::MediaFileSystemsType& Results::MediaFileSystemsType::operator=(MediaFileSystemsType&& rhs) noexcept = default;
 base::Value::Dict Results::MediaFileSystemsType::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1284,8 +1194,8 @@ Results::MediaFileSystemsType::MediaFileSystemsType()
  {}
 
 Results::MediaFileSystemsType::~MediaFileSystemsType() = default;
-Results::MediaFileSystemsType::MediaFileSystemsType(MediaFileSystemsType&& rhs) = default;
-Results::MediaFileSystemsType& Results::MediaFileSystemsType::operator=(MediaFileSystemsType&& rhs) = default;
+Results::MediaFileSystemsType::MediaFileSystemsType(MediaFileSystemsType&& rhs) noexcept = default;
+Results::MediaFileSystemsType& Results::MediaFileSystemsType::operator=(MediaFileSystemsType&& rhs) noexcept = default;
 base::Value::Dict Results::MediaFileSystemsType::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1313,8 +1223,8 @@ Params::MediaFile::MediaFile()
  {}
 
 Params::MediaFile::~MediaFile() = default;
-Params::MediaFile::MediaFile(MediaFile&& rhs) = default;
-Params::MediaFile& Params::MediaFile::operator=(MediaFile&& rhs) = default;
+Params::MediaFile::MediaFile(MediaFile&& rhs) noexcept = default;
+Params::MediaFile& Params::MediaFile::operator=(MediaFile&& rhs) noexcept = default;
 Params::MediaFile Params::MediaFile::Clone() const {
   MediaFile out;
   return out;
@@ -1337,21 +1247,21 @@ bool Params::MediaFile::Populate(
 }
 
 // static
-absl::optional<Params::MediaFile> Params::MediaFile::FromValue(const base::Value::Dict& value) {
+std::optional<Params::MediaFile> Params::MediaFile::FromValue(const base::Value::Dict& value) {
   MediaFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::MediaFile> Params::MediaFile::FromValue(const base::Value& value) {
+std::optional<Params::MediaFile> Params::MediaFile::FromValue(const base::Value& value) {
   MediaFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1359,13 +1269,13 @@ absl::optional<Params::MediaFile> Params::MediaFile::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1374,15 +1284,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& media_file_value = args[0];
     {
       if (!media_file_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MediaFile::Populate(media_file_value.GetDict(), params.media_file)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1390,12 +1300,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         MediaMetadataOptions temp;
         if (!MediaMetadataOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -1418,13 +1328,13 @@ namespace AddGalleryWatch {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1434,13 +1344,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = gallery_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.gallery_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1460,13 +1370,13 @@ namespace RemoveGalleryWatch {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1476,13 +1386,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = gallery_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.gallery_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

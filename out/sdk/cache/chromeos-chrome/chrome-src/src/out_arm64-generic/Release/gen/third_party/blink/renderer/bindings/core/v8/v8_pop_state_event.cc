@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PopStateEvent>::value,
     "PopStateEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PopStateEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PopStateEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,7 +83,7 @@ BLINK_BINDINGS_TRACE_EVENT("PopStateEvent.state.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(v8_receiver);
+PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -129,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("PopStateEvent.hasUAVisualTransition.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(v8_receiver);
+PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasUAVisualTransition();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -143,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("PopStateEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(v8_receiver);
+PopStateEvent* blink_receiver = V8PopStateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

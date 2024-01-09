@@ -1,26 +1,26 @@
-import { cu as PaperRippleBehavior, e as assert, cv as validateExternalDriveName, bn as isSinglePartitionFormatEnabled, n as str, l as strf, u as util, X as XfBase } from './shared.rollup.js';
+import { dC as PaperRippleBehavior, w as assert, dD as validateExternalDriveName, bP as isSinglePartitionFormatEnabled, j as str, h as strf, c9 as bytesToString, bt as getTrustedHTML, a1 as XfBase } from './shared.rollup.js';
 import { html, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { property, customElement, svg, html as html$1, css } from 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/ash/common/load_time_data.m.js';
 
-function getTemplate$2() {
+function getTemplate$3() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
                 var(--cr-fallback-color-surface-variant));--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off,
-                var(--cr-fallback-color-outline));--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-width_:26px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
+                var(--cr-fallback-color-outline));--cr-toggle-disabled-opacity:1;--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);--cr-toggle-bar-border:1px solid var(--cr-toggle-bar-border-color);--cr-toggle-bar-width:26px;--cr-toggle-knob-diameter:8px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host-context([chrome-refresh-2023]):host(:active){--cr-toggle-knob-diameter:10px}:host-context([chrome-refresh-2023]):host([checked]){--cr-toggle-bar-border-color:var(--cr-toggle-checked-bar-color);--cr-toggle-knob-diameter:12px}:host-context([chrome-refresh-2023]):host([checked]:active){--cr-toggle-knob-diameter:14px}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
                 var(--cr-fallback-color-disabled-background));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-disabled, var(--cr-fallback-color-surface));--cr-toggle-unchecked-bar-color:transparent;--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off-disabled,
-                var(--cr-fallback-color-disabled-foreground));opacity:1}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:1px solid var(--cr-toggle-unchecked-button-color);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width_)}:host-context([chrome-refresh-2023]):host([checked]) #bar{border-color:var(--cr-toggle-checked-bar-color)}:host-context([chrome-refresh-2023]):host([disabled]) #bar{border-color:var(--cr-toggle-unchecked-button-color)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #bar{border:none}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-diameter_:8px;--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
-            0.5 * var(--cr-toggle-bar-width_) -
+                var(--cr-fallback-color-disabled-foreground));--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);opacity:var(--cr-toggle-disabled-opacity)}:host-context([chrome-refresh-2023]):host([checked][disabled]){--cr-toggle-bar-border:none}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:var(--cr-toggle-bar-border);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width)}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
+            0.5 * var(--cr-toggle-bar-width) -
             var(--cr-toggle-knob-center-edge-distance_));--cr-toggle-knob-position-center_:calc(
-            0.5 * var(--cr-toggle-bar-width_) + -50%);--cr-toggle-knob-position-start_:calc(
+            0.5 * var(--cr-toggle-bar-width) + -50%);--cr-toggle-knob-position-start_:calc(
             var(--cr-toggle-knob-position-center_) -
             var(--cr-toggle-knob-direction_) *
             var(--cr-toggle-knob-travel-distance_));--cr-toggle-knob-position-end_:calc(
             var(--cr-toggle-knob-position-center_) +
             var(--cr-toggle-knob-direction_) *
-            var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter_);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter_)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host(:active) #knob{--cr-toggle-knob-diameter_:10px}:host-context([chrome-refresh-2023]):host([checked]) #knob{--cr-toggle-knob-diameter_:12px;transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob{--cr-toggle-knob-diameter_:14px}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
-                var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter_)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter_)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
+            var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host([checked]) #knob{transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
+                var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
     <span id="bar"></span>
     <span id="knob"></span>
 <!--_html_template_end_-->`;
@@ -50,7 +50,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$2();
+        return getTemplate$3();
     }
     static get properties() {
         return {
@@ -457,10 +457,17 @@ const template = html `
         <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
         </path>
       </g>
+      <g id="thumbs-down-filled">
+        <path d="M6 3h10v13l-7 7-1.25-1.25a1.336 1.336 0 0 1-.29-.477 1.66 1.66 0 0 1-.108-.574v-.347L8.449 16H3c-.535 0-1-.2-1.398-.602C1.199 15 1 14.535 1 14v-2c0-.117.012-.242.04-.375.022-.133.062-.258.108-.375l3-7.05c.153-.333.403-.618.75-.848A1.957 1.957 0 0 1 6 3Zm12 13V3h4v13Zm0 0">
+        </path>
+      </g>
       <g id="thumbs-up">
         <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
         </path>
       </g>
+      <g id="thumbs-up-filled">
+        <path d="M18 21H8V8l7-7 1.25 1.25c.117.117.21.273.29.477.073.199.108.39.108.574v.347L15.551 8H21c.535 0 1 .2 1.398.602C22.801 9 23 9.465 23 10v2c0 .117-.012.242-.04.375a1.897 1.897 0 0 1-.108.375l-3 7.05a2.037 2.037 0 0 1-.75.848A1.957 1.957 0 0 1 18 21ZM6 8v13H2V8Zm0 0">
+      </path></g>
       <g id="videocam">
         <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
         </path>
@@ -484,7 +491,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('md-select');
 
-function getTemplate$1() {
+function getTemplate$2() {
     return html `<!--_html_template_start_-->
 <style include="cr-shared-style md-select">[slot=body]>div{font:var(--cros-body-1-font);margin-bottom:var(--cr-form-field-bottom-spacing)}[slot=body]>#disk-format{margin-bottom:0;padding:0 2px 2px}[slot=button-container]{--cr-dialog-button-container-padding-bottom:0;--cr-dialog-button-container-padding-horizontal:0;padding-top:32px}#warning-icon{--iron-icon-fill-color:var(--cros-sys-error)}#warning-message{color:var(--cros-sys-error);display:inline-block;margin-inline-start:8px}cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-dialog_container);border-radius:20px}cr-dialog::part(dialog)::backdrop{background-color:var(--cros-sys-scrim)}cr-dialog::part(wrapper){padding:32px;padding-bottom:28px}[slot=title]{--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:0;--cr-dialog-title-slot-padding-start:0;--cr-dialog-title-slot-padding-top:0;--cr-primary-text-color:var(--cros-sys-on_surface);font:var(--cros-display-7-font)}[slot=body]{--cr-dialog-body-padding-horizontal:0;--cr-secondary-text-color:var(--cros-sys-on_surface_variant);font:var(--cros-body-1-font)}.md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-focus_ring);--md-select-text-color:var(--cros-sys-on_surface);--md-select-side-padding:16px;border-radius:8px;height:36px;width:100%}cr-input{--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border-radius:8px;--cr-input-color:var(--cros-sys-on_surface);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-min-height:36px;--cr-input-padding-end:16px;--cr-input-padding-start:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);font:var(--cros-body-2-font)}cr-button{--active-bg:transparent;--active-shadow:none;--active-shadow-action:none;--bg-action:var(--cros-sys-primary);--cr-button-height:36px;--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-bg:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);--hover-bg-action:var(--cros-sys-primary);--hover-bg-color:var(--cros-sys-primary_container);--ink-color:var(--cros-sys-ripple_primary);--ripple-opacity-action:1;--ripple-opacity:1;--text-color-action:var(--cros-sys-on_primary);--text-color:var(--cros-sys-on_primary_container);border:none;border-radius:18px;box-shadow:none;font:var(--cros-button-2-font);position:relative}cr-button.cancel-button{background-color:var(--cros-sys-primary_container)}cr-button.cancel-button:hover::part(hoverBackground){background-color:var(--cros-sys-hover_on_subtle);display:block}cr-button.action-button:hover::part(hoverBackground){background-color:var(--cros-sys-hover_on_prominent);display:block}:host-context(.focus-outline-visible) cr-button:focus{outline:2px solid var(--cros-sys-focus_ring);outline-offset:2px}</style>
 
@@ -528,11 +535,6 @@ function getTemplate$1() {
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 function getVolumeInfoDisplayRoot(entry) {
     if ('volumeInfo' in entry) {
         return entry.volumeInfo.displayRoot || null;
@@ -549,7 +551,7 @@ class FilesFormatDialog extends PolymerElement {
         return 'files-format-dialog';
     }
     static get template() {
-        return getTemplate$1();
+        return getTemplate$2();
     }
     static get properties() {
         return {
@@ -647,7 +649,7 @@ class FilesFormatDialog extends PolymerElement {
         if (volumeInfo.displayRoot) {
             chrome.fileManagerPrivate.getDirectorySize(volumeInfo.displayRoot, (spaceUsed) => {
                 if (spaceUsed > 0 && volumeInfo === this.volumeInfo_) {
-                    this.spaceUsed_ = util.bytesToString(spaceUsed);
+                    this.spaceUsed_ = bytesToString(spaceUsed);
                 }
                 if (window.IN_TEST) {
                     this.$['warning-container'].setAttribute('fully-initialized', '');
@@ -666,7 +668,7 @@ class FilesFormatDialog extends PolymerElement {
         this.spaceUsed_ = '';
         this.root_ = root;
         this.title = root.label;
-        const childVolumes = this.root_.getUIChildren();
+        const childVolumes = this.root_.getUiChildren();
         let totalSpaceUsed = 0;
         const getSpaceUsedRequests = childVolumes.map((childVolume) => {
             return new Promise((resolve) => {
@@ -675,7 +677,7 @@ class FilesFormatDialog extends PolymerElement {
                     chrome.fileManagerPrivate.getDirectorySize(displayRoot, (spaceUsed) => {
                         totalSpaceUsed += spaceUsed;
                         if (totalSpaceUsed > 0) {
-                            this.spaceUsed_ = util.bytesToString(totalSpaceUsed);
+                            this.spaceUsed_ = bytesToString(totalSpaceUsed);
                         }
                         resolve();
                     });
@@ -692,12 +694,8 @@ class FilesFormatDialog extends PolymerElement {
 }
 customElements.define(FilesFormatDialog.is, FilesFormatDialog);
 
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate = html `<!--_html_template_start_-->
-<!--
+function getTemplate$1() {
+    return getTrustedHTML `<!--_html_template_start_--><!--
 Copyright 2020 The Chromium Authors
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
@@ -756,14 +754,21 @@ found in the LICENSE file.
   <circle cx='12' cy='12' r='10' fill='none'></circle>
 </svg>
 <!--_html_template_end_-->`;
-/**
- * FilesSpinner.
- */
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 class FilesSpinner extends HTMLElement {
     constructor() {
         super();
-        const fragment = htmlTemplate.content.cloneNode(true);
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate$1();
+        const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
+    }
+    static get is() {
+        return 'files-spinner';
     }
     /**
      * DOM connected: set aria attributes.
@@ -772,15 +777,14 @@ class FilesSpinner extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-        const host = /** @type {!HTMLElement} */ (this.shadowRoot.host);
+        const host = this.shadowRoot.host;
         host.setAttribute('role', 'progressbar');
         host.setAttribute('aria-disabled', 'false');
         host.setAttribute('aria-valuemin', '0');
         host.setAttribute('aria-valuemax', '1');
     }
 }
-customElements.define('files-spinner', FilesSpinner);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/files_spinner.js
+customElements.define(FilesSpinner.is, FilesSpinner);
 
 function getTemplate() {
     return html `<!--_html_template_start_-->
@@ -855,7 +859,7 @@ class FilesTooltip extends PolymerElement {
              */
             showTimeout: {
                 type: Number,
-                value: 500,
+                value: 500, // ms
                 readOnly: true,
             },
             /**
@@ -863,7 +867,7 @@ class FilesTooltip extends PolymerElement {
              */
             hideTimeout: {
                 type: Number,
-                value: 500,
+                value: 500, // ms
                 readOnly: true,
             },
         };

@@ -232,6 +232,22 @@ blink.mojom.AnchorElementMetricsHostRemote = class {
           pointerEvent
         ]);
   }
+
+  
+  /**
+   * @return {!Promise<{
+        shouldSkipForTesting: !boolean,
+   *  }>}
+   */
+
+  shouldSkipUpdateDelays() {
+    return this.proxy.sendMessage(
+        9,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        [
+        ]);
+  }
 };
 
 /**
@@ -301,6 +317,11 @@ blink.mojom.AnchorElementMetricsHostReceiver = class {
         blink.mojom.AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec.$,
         null,
         impl.processPointerEventUsingMLModel.bind(impl));
+    this.helper_internal_.registerHandler(
+        9,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        impl.shouldSkipUpdateDelays.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -461,6 +482,18 @@ blink.mojom.AnchorElementMetricsHostCallbackRouter = class {
         blink.mojom.AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec.$,
         null,
         this.processPointerEventUsingMLModel.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.shouldSkipUpdateDelays =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        9,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        this.shouldSkipUpdateDelays.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -618,6 +651,22 @@ blink.mojom.AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerF
  * @export
  */
 blink.mojom.AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1400,6 +1449,54 @@ blink.mojom.AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params = cl
   constructor() {
     /** @export { !blink.mojom.AnchorElementPointerEventForMLModel } */
     this.pointerEvent;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+    'AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+
+
+/** @record */
+blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+    'AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'shouldSkipForTesting', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+blink.mojom.AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.shouldSkipForTesting;
   }
 };
 

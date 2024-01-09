@@ -3,6 +3,31 @@
 
 namespace dawn::native {
 
+    MaybeError ValidateWGSLFeatureName(wgpu::WGSLFeatureName value) {
+        switch (value) {
+            case wgpu::WGSLFeatureName::ReadonlyAndReadwriteStorageTextures:
+                return {};
+            case wgpu::WGSLFeatureName::Packed4x8IntegerDotProduct:
+                return {};
+            case wgpu::WGSLFeatureName::UnrestrictedPointerParameters:
+                return {};
+            case wgpu::WGSLFeatureName::PointerCompositeAccess:
+                return {};
+            case wgpu::WGSLFeatureName::ChromiumTestingUnimplemented:
+                return {};
+            case wgpu::WGSLFeatureName::ChromiumTestingUnsafeExperimental:
+                return {};
+            case wgpu::WGSLFeatureName::ChromiumTestingExperimental:
+                return {};
+            case wgpu::WGSLFeatureName::ChromiumTestingShippedWithKillswitch:
+                return {};
+            case wgpu::WGSLFeatureName::ChromiumTestingShipped:
+                return {};
+            default:
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUWGSLFeatureName.", value);
+        }
+    }
+
     MaybeError ValidateAdapterType(wgpu::AdapterType value) {
         switch (value) {
             case wgpu::AdapterType::DiscreteGPU:
@@ -14,7 +39,7 @@ namespace dawn::native {
             case wgpu::AdapterType::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAdapterType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAdapterType.", value);
         }
     }
 
@@ -27,20 +52,20 @@ namespace dawn::native {
             case wgpu::AddressMode::ClampToEdge:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAddressMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAddressMode.", value);
         }
     }
 
     MaybeError ValidateAlphaMode(wgpu::AlphaMode value) {
         switch (value) {
+            case wgpu::AlphaMode::Opaque:
+                return {};
             case wgpu::AlphaMode::Premultiplied:
                 return {};
             case wgpu::AlphaMode::Unpremultiplied:
                 return {};
-            case wgpu::AlphaMode::Opaque:
-                return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAlphaMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAlphaMode.", value);
         }
     }
 
@@ -63,7 +88,7 @@ namespace dawn::native {
             case wgpu::BackendType::OpenGLES:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBackendType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBackendType.", value);
         }
     }
 
@@ -104,7 +129,7 @@ namespace dawn::native {
             case wgpu::BlendFactor::OneMinusSrc1Alpha:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBlendFactor.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBlendFactor.", value);
         }
     }
 
@@ -121,7 +146,7 @@ namespace dawn::native {
             case wgpu::BlendOperation::Max:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBlendOperation.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBlendOperation.", value);
         }
     }
 
@@ -134,7 +159,7 @@ namespace dawn::native {
             case wgpu::BufferBindingType::ReadOnlyStorage:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferBindingType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferBindingType.", value);
         }
     }
 
@@ -159,7 +184,7 @@ namespace dawn::native {
             case wgpu::BufferMapAsyncStatus::SizeOutOfRange:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferMapAsyncStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferMapAsyncStatus.", value);
         }
     }
 
@@ -172,7 +197,7 @@ namespace dawn::native {
             case wgpu::BufferMapState::Mapped:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferMapState.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferMapState.", value);
         }
     }
 
@@ -185,7 +210,7 @@ namespace dawn::native {
             case wgpu::CallbackMode::AllowSpontaneous:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCallbackMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCallbackMode.", value);
         }
     }
 
@@ -195,20 +220,20 @@ namespace dawn::native {
                 return {};
             case wgpu::CompareFunction::Less:
                 return {};
+            case wgpu::CompareFunction::Equal:
+                return {};
             case wgpu::CompareFunction::LessEqual:
                 return {};
             case wgpu::CompareFunction::Greater:
                 return {};
-            case wgpu::CompareFunction::GreaterEqual:
-                return {};
-            case wgpu::CompareFunction::Equal:
-                return {};
             case wgpu::CompareFunction::NotEqual:
+                return {};
+            case wgpu::CompareFunction::GreaterEqual:
                 return {};
             case wgpu::CompareFunction::Always:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompareFunction.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompareFunction.", value);
         }
     }
 
@@ -223,7 +248,7 @@ namespace dawn::native {
             case wgpu::CompilationInfoRequestStatus::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompilationInfoRequestStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompilationInfoRequestStatus.", value);
         }
     }
 
@@ -236,7 +261,7 @@ namespace dawn::native {
             case wgpu::CompilationMessageType::Info:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompilationMessageType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCompilationMessageType.", value);
         }
     }
 
@@ -255,7 +280,7 @@ namespace dawn::native {
             case wgpu::CreatePipelineAsyncStatus::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCreatePipelineAsyncStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCreatePipelineAsyncStatus.", value);
         }
     }
 
@@ -268,7 +293,7 @@ namespace dawn::native {
             case wgpu::CullMode::Back:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCullMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUCullMode.", value);
         }
     }
 
@@ -279,7 +304,7 @@ namespace dawn::native {
             case wgpu::DeviceLostReason::Destroyed:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUDeviceLostReason.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUDeviceLostReason.", value);
         }
     }
 
@@ -292,7 +317,7 @@ namespace dawn::native {
             case wgpu::ErrorFilter::Internal:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUErrorFilter.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUErrorFilter.", value);
         }
     }
 
@@ -311,7 +336,7 @@ namespace dawn::native {
             case wgpu::ErrorType::DeviceLost:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUErrorType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUErrorType.", value);
         }
     }
 
@@ -326,7 +351,7 @@ namespace dawn::native {
             case wgpu::ExternalTextureRotation::Rotate270Degrees:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUExternalTextureRotation.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUExternalTextureRotation.", value);
         }
     }
 
@@ -360,8 +385,6 @@ namespace dawn::native {
                 return {};
             case wgpu::FeatureName::DawnNative:
                 return {};
-            case wgpu::FeatureName::ChromiumExperimentalDp4a:
-                return {};
             case wgpu::FeatureName::ChromiumExperimentalTimestampQueryInsidePasses:
                 return {};
             case wgpu::FeatureName::ImplicitDeviceSynchronization:
@@ -382,8 +405,6 @@ namespace dawn::native {
                 return {};
             case wgpu::FeatureName::ChromiumExperimentalSubgroupUniformControlFlow:
                 return {};
-            case wgpu::FeatureName::ChromiumExperimentalReadWriteStorageTexture:
-                return {};
             case wgpu::FeatureName::PixelLocalStorageCoherent:
                 return {};
             case wgpu::FeatureName::PixelLocalStorageNonCoherent:
@@ -397,6 +418,14 @@ namespace dawn::native {
             case wgpu::FeatureName::HostMappedPointer:
                 return {};
             case wgpu::FeatureName::MultiPlanarRenderTargets:
+                return {};
+            case wgpu::FeatureName::MultiPlanarFormatNv12a:
+                return {};
+            case wgpu::FeatureName::FramebufferFetch:
+                return {};
+            case wgpu::FeatureName::BufferMapExtendedUsages:
+                return {};
+            case wgpu::FeatureName::AdapterPropertiesMemoryHeaps:
                 return {};
             case wgpu::FeatureName::SharedTextureMemoryVkDedicatedAllocation:
                 return {};
@@ -427,7 +456,7 @@ namespace dawn::native {
             case wgpu::FeatureName::SharedFenceMTLSharedEvent:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFeatureName.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFeatureName.", value);
         }
     }
 
@@ -438,7 +467,7 @@ namespace dawn::native {
             case wgpu::FilterMode::Linear:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFilterMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFilterMode.", value);
         }
     }
 
@@ -449,7 +478,7 @@ namespace dawn::native {
             case wgpu::FrontFace::CW:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFrontFace.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUFrontFace.", value);
         }
     }
 
@@ -462,7 +491,7 @@ namespace dawn::native {
             case wgpu::IndexFormat::Uint32:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUIndexFormat.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUIndexFormat.", value);
         }
     }
 
@@ -475,7 +504,7 @@ namespace dawn::native {
             case wgpu::LoadOp::Load:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPULoadOp.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPULoadOp.", value);
         }
     }
 
@@ -490,7 +519,7 @@ namespace dawn::native {
             case wgpu::LoggingType::Error:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPULoggingType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPULoggingType.", value);
         }
     }
 
@@ -501,7 +530,7 @@ namespace dawn::native {
             case wgpu::MipmapFilterMode::Linear:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUMipmapFilterMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUMipmapFilterMode.", value);
         }
     }
 
@@ -514,7 +543,7 @@ namespace dawn::native {
             case wgpu::PowerPreference::HighPerformance:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPowerPreference.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPowerPreference.", value);
         }
     }
 
@@ -527,7 +556,7 @@ namespace dawn::native {
             case wgpu::PresentMode::Mailbox:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPresentMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPresentMode.", value);
         }
     }
 
@@ -544,7 +573,7 @@ namespace dawn::native {
             case wgpu::PrimitiveTopology::TriangleStrip:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPrimitiveTopology.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPrimitiveTopology.", value);
         }
     }
 
@@ -555,7 +584,7 @@ namespace dawn::native {
             case wgpu::QueryType::Timestamp:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUQueryType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUQueryType.", value);
         }
     }
 
@@ -570,7 +599,7 @@ namespace dawn::native {
             case wgpu::QueueWorkDoneStatus::DeviceLost:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUQueueWorkDoneStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUQueueWorkDoneStatus.", value);
         }
     }
 
@@ -585,7 +614,7 @@ namespace dawn::native {
             case wgpu::RequestAdapterStatus::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPURequestAdapterStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPURequestAdapterStatus.", value);
         }
     }
 
@@ -598,7 +627,7 @@ namespace dawn::native {
             case wgpu::RequestDeviceStatus::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPURequestDeviceStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPURequestDeviceStatus.", value);
         }
     }
 
@@ -634,6 +663,8 @@ namespace dawn::native {
                 return {};
             case wgpu::SType::DepthStencilStateDepthWriteDefinedDawn:
                 return {};
+            case wgpu::SType::TextureBindingViewDimensionDescriptor:
+                return {};
             case wgpu::SType::DawnTextureInternalUsageDescriptor:
                 return {};
             case wgpu::SType::DawnEncoderInternalUsageDescriptor:
@@ -654,6 +685,8 @@ namespace dawn::native {
                 return {};
             case wgpu::SType::RequestAdapterOptionsGetGLProc:
                 return {};
+            case wgpu::SType::RequestAdapterOptionsD3D11Device:
+                return {};
             case wgpu::SType::DawnMultisampleStateRenderToSingleSampled:
                 return {};
             case wgpu::SType::DawnRenderPassColorAttachmentRenderToSingleSampled:
@@ -665,6 +698,14 @@ namespace dawn::native {
             case wgpu::SType::BufferHostMappedPointer:
                 return {};
             case wgpu::SType::DawnExperimentalSubgroupLimits:
+                return {};
+            case wgpu::SType::AdapterPropertiesMemoryHeaps:
+                return {};
+            case wgpu::SType::DawnComputePipelineFullSubgroups:
+                return {};
+            case wgpu::SType::DawnWireWGSLControl:
+                return {};
+            case wgpu::SType::DawnWGSLBlocklist:
                 return {};
             case wgpu::SType::SharedTextureMemoryVkImageDescriptor:
                 return {};
@@ -715,7 +756,7 @@ namespace dawn::native {
             case wgpu::SType::SharedFenceMTLSharedEventExportInfo:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSType.", value);
         }
     }
 
@@ -728,7 +769,7 @@ namespace dawn::native {
             case wgpu::SamplerBindingType::Comparison:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSamplerBindingType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSamplerBindingType.", value);
         }
     }
 
@@ -745,7 +786,7 @@ namespace dawn::native {
             case wgpu::SharedFenceType::MTLSharedEvent:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSharedFenceType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUSharedFenceType.", value);
         }
     }
 
@@ -768,7 +809,7 @@ namespace dawn::native {
             case wgpu::StencilOperation::DecrementWrap:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStencilOperation.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStencilOperation.", value);
         }
     }
 
@@ -781,7 +822,7 @@ namespace dawn::native {
             case wgpu::StorageTextureAccess::ReadWrite:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStorageTextureAccess.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStorageTextureAccess.", value);
         }
     }
 
@@ -794,7 +835,7 @@ namespace dawn::native {
             case wgpu::StoreOp::Discard:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStoreOp.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUStoreOp.", value);
         }
     }
 
@@ -810,8 +851,10 @@ namespace dawn::native {
                 return {};
             case wgpu::TextureAspect::Plane1Only:
                 return {};
+            case wgpu::TextureAspect::Plane2Only:
+                return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureAspect.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureAspect.", value);
         }
     }
 
@@ -824,7 +867,7 @@ namespace dawn::native {
             case wgpu::TextureDimension::e3D:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureDimension.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureDimension.", value);
         }
     }
 
@@ -1036,8 +1079,10 @@ namespace dawn::native {
                 return {};
             case wgpu::TextureFormat::R10X6BG10X6Biplanar420Unorm:
                 return {};
+            case wgpu::TextureFormat::R8BG8A8Triplanar420Unorm:
+                return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureFormat.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureFormat.", value);
         }
     }
 
@@ -1054,7 +1099,7 @@ namespace dawn::native {
             case wgpu::TextureSampleType::Uint:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureSampleType.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureSampleType.", value);
         }
     }
 
@@ -1073,7 +1118,7 @@ namespace dawn::native {
             case wgpu::TextureViewDimension::e3D:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureViewDimension.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureViewDimension.", value);
         }
     }
 
@@ -1142,7 +1187,7 @@ namespace dawn::native {
             case wgpu::VertexFormat::Unorm10_10_10_2:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUVertexFormat.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUVertexFormat.", value);
         }
     }
 
@@ -1155,7 +1200,7 @@ namespace dawn::native {
             case wgpu::VertexStepMode::VertexBufferNotUsed:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUVertexStepMode.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUVertexStepMode.", value);
         }
     }
 
@@ -1174,7 +1219,7 @@ namespace dawn::native {
             case wgpu::WaitStatus::Unknown:
                 return {};
             default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUWaitStatus.", static_cast<uint32_t>(value));
+                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUWaitStatus.", value);
         }
     }
 
@@ -1183,35 +1228,42 @@ namespace dawn::native {
         if ((value & static_cast<wgpu::BufferUsage>(~1023)) == 0) {
             return {};
         }
-        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferUsage.", static_cast<uint32_t>(value));
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUBufferUsage.", value);
     }
 
     MaybeError ValidateColorWriteMask(wgpu::ColorWriteMask value) {
         if ((value & static_cast<wgpu::ColorWriteMask>(~15)) == 0) {
             return {};
         }
-        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUColorWriteMask.", static_cast<uint32_t>(value));
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUColorWriteMask.", value);
+    }
+
+    MaybeError ValidateHeapProperty(wgpu::HeapProperty value) {
+        if ((value & static_cast<wgpu::HeapProperty>(~31)) == 0) {
+            return {};
+        }
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUHeapProperty.", value);
     }
 
     MaybeError ValidateMapMode(wgpu::MapMode value) {
         if ((value & static_cast<wgpu::MapMode>(~3)) == 0) {
             return {};
         }
-        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUMapMode.", static_cast<uint32_t>(value));
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUMapMode.", value);
     }
 
     MaybeError ValidateShaderStage(wgpu::ShaderStage value) {
         if ((value & static_cast<wgpu::ShaderStage>(~7)) == 0) {
             return {};
         }
-        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUShaderStage.", static_cast<uint32_t>(value));
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUShaderStage.", value);
     }
 
     MaybeError ValidateTextureUsage(wgpu::TextureUsage value) {
         if ((value & static_cast<wgpu::TextureUsage>(~127)) == 0) {
             return {};
         }
-        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureUsage.", static_cast<uint32_t>(value));
+        return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUTextureUsage.", value);
     }
 
 

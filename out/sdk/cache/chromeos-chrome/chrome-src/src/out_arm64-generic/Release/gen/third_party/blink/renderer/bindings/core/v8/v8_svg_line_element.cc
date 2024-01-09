@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGLineElement>::value,
     "SVGLineElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGLineElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGLineElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(v8_receiver);
+SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(v8_receiver);
+SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(v8_receiver);
+SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -152,7 +147,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(v8_receiver);
+SVGLineElement* blink_receiver = V8SVGLineElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

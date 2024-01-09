@@ -31,25 +31,6 @@ nullptr,  // intel_gpu_series
 },
 };
 
-const GpuControlList::Conditions kExceptionsForEntry192[1] = {
-{
-GpuControlList::kOsMacosx,  // os_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
-0x00,  // vendor_id
-0,  // Devices size
-nullptr,  // Devices
-GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
-GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
-nullptr,  // driver info
-nullptr,  // GL strings
-nullptr,  // machine model info
-0,  // intel_gpu_series size
-nullptr,  // intel_gpu_series
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
-&kMoreForEntry192_619971032Exception0,  // more data
-},
-};
-
 const GpuControlList::Conditions kExceptionsForEntry256[1] = {
 {
 GpuControlList::kOsAndroid,  // os_type

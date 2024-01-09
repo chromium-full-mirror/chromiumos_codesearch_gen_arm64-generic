@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GamepadButton>::value,
     "GamepadButton inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GamepadButton::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GamepadButton is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("GamepadButton.pressed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(v8_receiver);
+GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pressed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -106,7 +102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadButtonTouched);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(v8_receiver);
+GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->touched();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("GamepadButton.value.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(v8_receiver);
+GamepadButton* blink_receiver = V8GamepadButton::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

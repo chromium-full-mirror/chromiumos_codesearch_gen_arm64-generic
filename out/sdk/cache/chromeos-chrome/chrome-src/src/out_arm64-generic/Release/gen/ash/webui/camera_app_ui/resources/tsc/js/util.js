@@ -86,11 +86,11 @@ const KEYBOARD_KEYS = [
     'AudioVolumeUp',
     'AudioVolumeDown',
     'BrowserBack',
-    'Delete',
-    'End',
+    'Delete', // Alt + Backspace
+    'End', // Ctrl + Alt + ArrowDown
     'Enter',
     'Escape',
-    'Home',
+    'Home', // Ctrl + Alt + ArrowUp
     'Tab',
 ];
 const KEYBOARD_KEY_SET = new Set(KEYBOARD_KEYS);
@@ -155,12 +155,6 @@ export function setupI18nElements(rootElement) {
             }
         }
         element.append(getMessage(element, 'i18n-text'));
-    }
-    for (const element of getElements('i18n-tooltip-true')) {
-        element.setAttribute('tooltip-true', getMessage(element, 'i18n-tooltip-true'));
-    }
-    for (const element of getElements('i18n-tooltip-false')) {
-        element.setAttribute('tooltip-false', getMessage(element, 'i18n-tooltip-false'));
     }
     for (const attribute of ['i18n-aria', 'i18n-label']) {
         for (const element of getElements(attribute)) {

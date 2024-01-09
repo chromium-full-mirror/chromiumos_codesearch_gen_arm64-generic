@@ -34,8 +34,6 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libchromeos-ui/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/libchromeos-ui/all.stamp: stamp ./lib/libchromeos-ui.so ./libchromeos-ui-test
+build obj/libchromeos-ui/all.stamp: stamp ./lib/libchromeos-ui.so
 subninja obj/libchromeos-ui/libchromeos-ui.ninja
-subninja obj/libchromeos-ui/libchromeos-ui-test.ninja
 subninja obj/libchromeos-ui/libchromeos-ui_source_set.ninja

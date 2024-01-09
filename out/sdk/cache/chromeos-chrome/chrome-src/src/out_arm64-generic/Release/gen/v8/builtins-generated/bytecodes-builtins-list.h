@@ -118,6 +118,7 @@ namespace internal {
   V(InvokeIntrinsicHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kInvokeIntrinsic) \
   V(ConstructHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kConstruct) \
   V(ConstructWithSpreadHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kConstructWithSpread) \
+  V(ConstructForwardAllArgsHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kConstructForwardAllArgs) \
   V(TestEqualHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kTestEqual) \
   V(TestEqualStrictHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kTestEqualStrict) \
   V(TestLessThanHandler, interpreter::OperandScale::kSingle, interpreter::Bytecode::kTestLessThan) \
@@ -284,6 +285,7 @@ namespace internal {
   V(InvokeIntrinsicWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kInvokeIntrinsic) \
   V(ConstructWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kConstruct) \
   V(ConstructWithSpreadWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kConstructWithSpread) \
+  V(ConstructForwardAllArgsWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kConstructForwardAllArgs) \
   V(TestEqualWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kTestEqual) \
   V(TestEqualStrictWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kTestEqualStrict) \
   V(TestLessThanWideHandler, interpreter::OperandScale::kDouble, interpreter::Bytecode::kTestLessThan) \
@@ -433,6 +435,7 @@ namespace internal {
   V(InvokeIntrinsicExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kInvokeIntrinsic) \
   V(ConstructExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kConstruct) \
   V(ConstructWithSpreadExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kConstructWithSpread) \
+  V(ConstructForwardAllArgsExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kConstructForwardAllArgs) \
   V(TestEqualExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kTestEqual) \
   V(TestEqualStrictExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kTestEqualStrict) \
   V(TestLessThanExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kTestLessThan) \
@@ -494,15 +497,15 @@ namespace internal {
   V(IncBlockCounterExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kIncBlockCounter) \
   V(AbortExtraWideHandler, interpreter::OperandScale::kQuadruple, interpreter::Bytecode::kAbort)
 
-constexpr int kNumberOfBytecodeHandlers = 184;
-constexpr int kNumberOfWideBytecodeHandlers = 149;
+constexpr int kNumberOfBytecodeHandlers = 185;
+constexpr int kNumberOfWideBytecodeHandlers = 150;
 
 constexpr uint8_t kIllegalBytecodeHandlerEncoding = 255;
 
 // Mapping from Bytecode to a dense form with all the illegal
 // wide Bytecodes removed. Used to index into the builtins table.
-constexpr uint8_t kWideBytecodeToBuiltinsMapping[199] = {    
-255, 255, 255, 255, 255, 0, 1, 2, 3, 4, 5, 6, 255, 7, 255, 255, 255, 255, 255, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 255, 255, 255, 255, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 255, 255, 255, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 255, 97, 98, 99, 255, 255, 100, 101, 255, 102, 103, 255, 104, 105, 106, 107, 108, 109, 110, 111, 255, 255, 255, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 255, 255, 255, 255, 141, 255, 255, 142, 143, 144, 145, 146, 255, 147, 148, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, };
+constexpr uint8_t kWideBytecodeToBuiltinsMapping[200] = {    
+255, 255, 255, 255, 255, 0, 1, 2, 3, 4, 5, 6, 255, 7, 255, 255, 255, 255, 255, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 255, 255, 255, 255, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 255, 255, 255, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 255, 98, 99, 100, 255, 255, 101, 102, 255, 103, 104, 255, 105, 106, 107, 108, 109, 110, 111, 112, 255, 255, 255, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 255, 255, 255, 255, 142, 255, 255, 143, 144, 145, 146, 147, 255, 148, 149, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, };
 
 }  // namespace internal
 }  // namespace v8

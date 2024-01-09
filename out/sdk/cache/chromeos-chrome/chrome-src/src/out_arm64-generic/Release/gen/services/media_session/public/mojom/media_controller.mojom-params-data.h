@@ -399,6 +399,21 @@ class  MediaController_EnterAutoPictureInPicture_Params_Data {
 };
 static_assert(sizeof(MediaController_EnterAutoPictureInPicture_Params_Data) == 8,
               "Bad sizeof(MediaController_EnterAutoPictureInPicture_Params_Data)");
+class  MediaController_SkipAd_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaController_SkipAd_Params_Data>;
+
+  MediaController_SkipAd_Params_Data();
+  ~MediaController_SkipAd_Params_Data() = delete;
+};
+static_assert(sizeof(MediaController_SkipAd_Params_Data) == 8,
+              "Bad sizeof(MediaController_SkipAd_Params_Data)");
 class  MediaControllerObserver_MediaSessionInfoChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -984,6 +999,21 @@ class MediaController_EnterAutoPictureInPicture_ParamsDataView {
 };
 
 
+class MediaController_SkipAd_ParamsDataView {
+ public:
+  MediaController_SkipAd_ParamsDataView() = default;
+
+  MediaController_SkipAd_ParamsDataView(
+      internal::MediaController_SkipAd_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::MediaController_SkipAd_Params_Data* data_ = nullptr;
+};
+
+
 class MediaControllerObserver_MediaSessionInfoChanged_ParamsDataView {
  public:
   MediaControllerObserver_MediaSessionInfoChanged_ParamsDataView() = default;
@@ -1256,6 +1286,8 @@ inline void MediaController_SetAudioSinkId_ParamsDataView::GetIdDataView(
   auto pointer = data_->id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

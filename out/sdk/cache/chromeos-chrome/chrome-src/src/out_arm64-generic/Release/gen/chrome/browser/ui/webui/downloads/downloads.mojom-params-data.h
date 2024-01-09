@@ -104,6 +104,70 @@ class  PageHandler_SaveDangerousRequiringGesture_Params_Data {
 };
 static_assert(sizeof(PageHandler_SaveDangerousRequiringGesture_Params_Data) == 16,
               "Bad sizeof(PageHandler_SaveDangerousRequiringGesture_Params_Data)");
+class  PageHandler_SaveSuspiciousRequiringGesture_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SaveSuspiciousRequiringGesture_Params_Data>;
+
+  PageHandler_SaveSuspiciousRequiringGesture_Params_Data();
+  ~PageHandler_SaveSuspiciousRequiringGesture_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SaveSuspiciousRequiringGesture_Params_Data) == 16,
+              "Bad sizeof(PageHandler_SaveSuspiciousRequiringGesture_Params_Data)");
+class  PageHandler_RecordOpenBypassWarningPrompt_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_RecordOpenBypassWarningPrompt_Params_Data>;
+
+  PageHandler_RecordOpenBypassWarningPrompt_Params_Data();
+  ~PageHandler_RecordOpenBypassWarningPrompt_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_RecordOpenBypassWarningPrompt_Params_Data) == 16,
+              "Bad sizeof(PageHandler_RecordOpenBypassWarningPrompt_Params_Data)");
+class  PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data>;
+
+  PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data();
+  ~PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data) == 16,
+              "Bad sizeof(PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data)");
+class  PageHandler_RecordCancelBypassWarningPrompt_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_RecordCancelBypassWarningPrompt_Params_Data>;
+
+  PageHandler_RecordCancelBypassWarningPrompt_Params_Data();
+  ~PageHandler_RecordCancelBypassWarningPrompt_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_RecordCancelBypassWarningPrompt_Params_Data) == 16,
+              "Bad sizeof(PageHandler_RecordCancelBypassWarningPrompt_Params_Data)");
 class  PageHandler_DiscardDangerous_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -531,6 +595,110 @@ class PageHandler_SaveDangerousRequiringGesture_ParamsDataView {
   }
  private:
   internal::PageHandler_SaveDangerousRequiringGesture_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_SaveSuspiciousRequiringGesture_ParamsDataView {
+ public:
+  PageHandler_SaveSuspiciousRequiringGesture_ParamsDataView() = default;
+
+  PageHandler_SaveSuspiciousRequiringGesture_ParamsDataView(
+      internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_RecordOpenBypassWarningPrompt_ParamsDataView {
+ public:
+  PageHandler_RecordOpenBypassWarningPrompt_ParamsDataView() = default;
+
+  PageHandler_RecordOpenBypassWarningPrompt_ParamsDataView(
+      internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsDataView {
+ public:
+  PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsDataView() = default;
+
+  PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsDataView(
+      internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_RecordCancelBypassWarningPrompt_ParamsDataView {
+ public:
+  PageHandler_RecordCancelBypassWarningPrompt_ParamsDataView() = default;
+
+  PageHandler_RecordCancelBypassWarningPrompt_ParamsDataView(
+      internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -980,6 +1148,34 @@ inline void PageHandler_Drag_ParamsDataView::GetIdDataView(
 
 
 inline void PageHandler_SaveDangerousRequiringGesture_ParamsDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_SaveSuspiciousRequiringGesture_ParamsDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_RecordOpenBypassWarningPrompt_ParamsDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_RecordCancelBypassWarningPrompt_ParamsDataView::GetIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->id.Get();
   *output = mojo::StringDataView(pointer, message_);

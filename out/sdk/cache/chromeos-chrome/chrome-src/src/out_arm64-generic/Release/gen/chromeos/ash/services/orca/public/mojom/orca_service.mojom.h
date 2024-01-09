@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/orca/public/mojom/orca_service.mojom-features.h"
 #include "chromeos/ash/services/orca/public/mojom/orca_service.mojom-shared.h"
 #include "chromeos/ash/services/orca/public/mojom/orca_service.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
@@ -143,12 +144,12 @@ class EditorClient
 
   using RequestPresetRewriteCallback = base::OnceCallback<void(TextQueryResponsePtr)>;
   
-  virtual void RequestPresetRewrite(const std::string& text_query_id, const absl::optional<std::string>& text_override, RequestPresetRewriteCallback callback) = 0;
+  virtual void RequestPresetRewrite(const std::string& text_query_id, const std::optional<std::string>& text_override, RequestPresetRewriteCallback callback) = 0;
 
 
   using RequestFreeformRewriteCallback = base::OnceCallback<void(TextQueryResponsePtr)>;
   
-  virtual void RequestFreeformRewrite(const std::string& input, const absl::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) = 0;
+  virtual void RequestFreeformRewrite(const std::string& input, const std::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) = 0;
 
 
   using RequestFreeformWriteCallback = base::OnceCallback<void(TextQueryResponsePtr)>;
@@ -470,9 +471,9 @@ class  EditorClientProxy
   
   void GetPresetTextQueries(GetPresetTextQueriesCallback callback) final;
   
-  void RequestPresetRewrite(const std::string& text_query_id, const absl::optional<std::string>& text_override, RequestPresetRewriteCallback callback) final;
+  void RequestPresetRewrite(const std::string& text_query_id, const std::optional<std::string>& text_override, RequestPresetRewriteCallback callback) final;
   
-  void RequestFreeformRewrite(const std::string& input, const absl::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) final;
+  void RequestFreeformRewrite(const std::string& input, const std::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) final;
   
   void RequestFreeformWrite(const std::string& input, RequestFreeformWriteCallback callback) final;
   
@@ -1329,17 +1330,17 @@ class  TextQueryResponse {
   // Construct an instance holding |results|.
   static TextQueryResponsePtr
   NewResults(
-      std::vector<TextQueryResultPtr> results) {
+      std::vector<TextQueryResultPtr> value) {
     auto result = TextQueryResponsePtr(absl::in_place);
-    result->set_results(std::move(results));
+    result->set_results(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static TextQueryResponsePtr
   NewError(
-      TextQueryErrorPtr error) {
+      TextQueryErrorPtr value) {
     auto result = TextQueryResponsePtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

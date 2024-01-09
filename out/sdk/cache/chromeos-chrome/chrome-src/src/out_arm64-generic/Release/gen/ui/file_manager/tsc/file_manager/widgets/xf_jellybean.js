@@ -3,8 +3,6 @@
 // found in the LICENSE file.
 /**
  * @fileoverview Element which controls pre- and post-jellybean migration UI.
- * Disable type checking for closure, as it is done by the typescript compiler.
- * @suppress{missingProperties}
  */
 import { isCrosComponentsEnabled } from '../common/js/flags.js';
 import { customElement, html, XfBase } from './xf_base.js';

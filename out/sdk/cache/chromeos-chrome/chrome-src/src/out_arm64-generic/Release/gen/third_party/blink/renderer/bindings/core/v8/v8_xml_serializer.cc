@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XMLSerializer>::value,
     "XMLSerializer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XMLSerializer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XMLSerializer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -126,7 +121,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLSerializer* blink_receiver = V8XMLSerializer::ToWrappableUnsafe(v8_receiver);
+XMLSerializer* blink_receiver = V8XMLSerializer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

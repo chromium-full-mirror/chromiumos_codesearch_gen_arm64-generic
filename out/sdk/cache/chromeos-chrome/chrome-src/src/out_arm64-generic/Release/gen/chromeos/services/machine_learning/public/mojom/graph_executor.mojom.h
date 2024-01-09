@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/graph_executor.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/graph_executor.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/graph_executor.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/tensor.mojom-forward.h"
@@ -83,7 +84,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GraphExecutor
   virtual ~GraphExecutor() = default;
 
 
-  using ExecuteCallback = base::OnceCallback<void(ExecuteResult, absl::optional<std::vector<::chromeos::machine_learning::mojom::TensorPtr>>)>;
+  using ExecuteCallback = base::OnceCallback<void(ExecuteResult, std::optional<std::vector<::chromeos::machine_learning::mojom::TensorPtr>>)>;
   
   virtual void Execute(base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> inputs, const std::vector<std::string>& output_names, ExecuteCallback callback) = 0;
 };

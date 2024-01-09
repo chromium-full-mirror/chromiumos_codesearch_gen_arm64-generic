@@ -325,7 +325,7 @@ const configureAndCheckHeaderOverrides = async () => {
             'Keep-Alive: timeout=5',
             'Transfer-Encoding: chunked',
         ].join('\r\n');
-        const rawHeaders = await (0, helper_js_1.$)('.raw-headers', section);
+        const rawHeaders = await (0, helper_js_1.waitFor)('.raw-headers', section);
         const rawHeadersText = await rawHeaders.evaluate(el => el.textContent || '');
         assertOutlineMatches([expectedRawHeadersContent], [rawHeadersText]);
         const expectedHeadersContent = [
@@ -412,14 +412,12 @@ const configureAndCheckHeaderOverrides = async () => {
         await target.evaluate(async () => await fetch('/?send_delayed'));
     });
     (0, mocha_extensions_js_1.it)('can create header overrides via request\'s context menu', async () => {
-        await (0, helper_js_1.enableExperiment)('headerOverrides');
         await (0, network_helpers_js_1.navigateToNetworkTab)('hello.html');
         await (0, network_helpers_js_1.selectRequestByName)('hello.html', { button: 'right' });
         await (0, helper_js_1.click)('aria/Override headers');
         await configureAndCheckHeaderOverrides();
     });
     (0, mocha_extensions_js_1.it)('can create header overrides via header\'s pencil icon', async () => {
-        await (0, helper_js_1.enableExperiment)('headerOverrides');
         await (0, network_helpers_js_1.navigateToNetworkTab)('hello.html');
         await (0, network_helpers_js_1.selectRequestByName)('hello.html');
         const networkView = await (0, helper_js_1.waitFor)('.network-item-view');

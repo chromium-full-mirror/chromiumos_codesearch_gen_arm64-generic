@@ -43,7 +43,6 @@ build attestation$:_pca_agent_client-install_config: phony obj/attestation/_pca_
 build attestation$:_pca_agentd-install_config: phony obj/attestation/_pca_agentd-install_config.stamp
 build attestation$:all: phony obj/attestation/all.stamp
 build attestation$:attestation_client: phony ./attestation_client
-build attestation$:attestation_testrunner: phony ./attestation_testrunner
 build attestation$:attestationd: phony ./attestationd
 build attestation$:common_library: phony obj/attestation/common_library.stamp
 build attestation$:install_init: phony obj/attestation/install_init.stamp
@@ -69,7 +68,6 @@ build all: phony $
     obj/attestation/_pca_agentd-install_config.stamp $
     obj/attestation/all.stamp $
     ./attestation_client $
-    ./attestation_testrunner $
     ./attestationd $
     obj/attestation/common_library.stamp $
     obj/attestation/install_init.stamp $

@@ -15,6 +15,7 @@ export class BrowserCommandProxy {
     static setInstance(newInstance) {
         instance = newInstance;
     }
+    handler;
     constructor() {
         this.handler = new CommandHandlerRemote();
         const factory = CommandHandlerFactory.getRemote();

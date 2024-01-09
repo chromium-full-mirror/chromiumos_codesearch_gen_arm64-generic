@@ -77,15 +77,16 @@ async function getStyleRuleProperties(selector, count) {
         {
             const section = await (0, helper_js_1.waitForElementWithTextContent)('@property', stylesPane);
             chai_1.assert.deepStrictEqual(await section.evaluate(e => e.ariaExpanded), 'false');
-            const rule = await (0, elements_helpers_js_1.getStyleRule)('--my-color');
+            // Pick the style rule added last to ensure the sections are fully drawn
+            const rule = await (0, elements_helpers_js_1.getStyleRule)('--custom-prop-4');
             chai_1.assert.isTrue(await rule.evaluate(e => e.classList.contains('hidden')));
         }
-        {
+        await (0, helper_js_1.waitForFunction)(async () => {
             const section = await (0, helper_js_1.click)('pierceShadowText/@property', { root: stylesPane });
             await (0, helper_js_1.waitForFunction)(async () => 'true' === await section.evaluate(e => e.ariaExpanded));
-            const rule = await (0, elements_helpers_js_1.getStyleRule)('--my-color');
-            await (0, helper_js_1.waitForFunction)(() => rule.evaluate(e => !e.classList.contains('hidden')));
-        }
+            const rule = await (0, elements_helpers_js_1.getStyleRule)('--custom-prop-4');
+            return rule.evaluate(e => !e.classList.contains('hidden'));
+        });
     });
     (0, mocha_extensions_js_1.it)('shows registration information in a variable popover', async () => {
         async function hoverVariable(label) {

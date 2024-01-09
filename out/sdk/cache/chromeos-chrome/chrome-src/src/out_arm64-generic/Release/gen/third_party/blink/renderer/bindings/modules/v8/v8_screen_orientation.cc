@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ScreenOrientation>::value,
     "ScreenOrientation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ScreenOrientation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScreenOrientation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ UseCounter::Count(current_execution_context, WebFeature::kScreenOrientationAngle
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->angle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 // [HighEntropy=Direct]
@@ -121,7 +116,7 @@ UseCounter::Count(current_execution_context, WebFeature::kScreenOrientationType)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -136,10 +131,10 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenOrientation.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -152,8 +147,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -188,7 +184,7 @@ return;
 
 
 
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -220,7 +216,7 @@ UseCounter::Count(current_execution_context, WebFeature::kScreenOrientationUnloc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(v8_receiver);
+ScreenOrientation* blink_receiver = V8ScreenOrientation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->unlock();
 
 }

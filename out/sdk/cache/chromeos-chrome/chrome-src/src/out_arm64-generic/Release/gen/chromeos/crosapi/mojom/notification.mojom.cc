@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,8 +55,8 @@ NotifierId::NotifierId()
 NotifierId::NotifierId(
     NotifierType type_in,
     const std::string& id_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<::std::u16string>& title_in,
+    const std::optional<::GURL>& url_in,
+    const std::optional<::std::u16string>& title_in,
     const std::string& profile_id_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
@@ -67,10 +68,10 @@ NotifierId::NotifierId(
 NotifierId::NotifierId(
     NotifierType type_in,
     const std::string& id_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<::std::u16string>& title_in,
+    const std::optional<::GURL>& url_in,
+    const std::optional<::std::u16string>& title_in,
     const std::string& profile_id_in,
-    const absl::optional<std::string>& group_key_in)
+    const std::optional<std::string>& group_key_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
       url(std::move(url_in)),
@@ -105,7 +106,7 @@ void NotifierId::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -114,7 +115,7 @@ void NotifierId::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +133,7 @@ void NotifierId::WriteIntoTrace(
     dict.AddItem(
       "group_key"), this->group_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -195,7 +196,7 @@ ButtonInfo::ButtonInfo(
 
 ButtonInfo::ButtonInfo(
     const ::std::u16string& title_in,
-    const absl::optional<::std::u16string>& placeholder_in)
+    const std::optional<::std::u16string>& placeholder_in)
     : title(std::move(title_in)),
       placeholder(std::move(placeholder_in)) {}
 
@@ -217,7 +218,7 @@ void ButtonInfo::WriteIntoTrace(
     dict.AddItem(
       "placeholder"), this->placeholder,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -266,7 +267,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -318,7 +319,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -373,7 +374,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -430,7 +431,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -451,7 +452,7 @@ Notification::Notification(
     const ::gfx::ImageSkia& badge_in,
     bool badge_needs_additional_masking_has_value_in,
     bool badge_needs_additional_masking_in,
-    absl::optional<::SkColor> accent_color_in)
+    std::optional<::SkColor> accent_color_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
       title(std::move(title_in)),
@@ -488,7 +489,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -509,7 +510,7 @@ Notification::Notification(
     const ::gfx::ImageSkia& badge_in,
     bool badge_needs_additional_masking_has_value_in,
     bool badge_needs_additional_masking_in,
-    absl::optional<::SkColor> accent_color_in,
+    std::optional<::SkColor> accent_color_in,
     NotifierIdPtr notifier_id_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
@@ -547,7 +548,7 @@ Notification::Notification(
     const ::std::u16string& title_in,
     const ::std::u16string& message_in,
     const ::std::u16string& display_source_in,
-    const absl::optional<::GURL>& origin_url_in,
+    const std::optional<::GURL>& origin_url_in,
     ::crosapi::mojom::BitmapPtr deprecated_icon_in,
     int32_t priority_in,
     bool require_interaction_in,
@@ -568,9 +569,9 @@ Notification::Notification(
     const ::gfx::ImageSkia& badge_in,
     bool badge_needs_additional_masking_has_value_in,
     bool badge_needs_additional_masking_in,
-    absl::optional<::SkColor> accent_color_in,
+    std::optional<::SkColor> accent_color_in,
     NotifierIdPtr notifier_id_in,
-    const absl::optional<::base::FilePath>& image_path_in)
+    const std::optional<::base::FilePath>& image_path_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
       title(std::move(title_in)),
@@ -655,7 +656,7 @@ void Notification::WriteIntoTrace(
     dict.AddItem(
       "origin_url"), this->origin_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -844,7 +845,7 @@ void Notification::WriteIntoTrace(
     dict.AddItem(
       "accent_color"), this->accent_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -862,7 +863,7 @@ void Notification::WriteIntoTrace(
     dict.AddItem(
       "image_path"), this->image_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

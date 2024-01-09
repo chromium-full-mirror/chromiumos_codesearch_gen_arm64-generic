@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/media_controller.mojom-features.h"
 #include "services/media_session/public/mojom/media_controller.mojom-shared.h"
 #include "services/media_session/public/mojom/media_controller.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -119,7 +120,7 @@ class MediaController
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -153,6 +154,7 @@ class MediaController
     kSetMuteMinVersion = 3,
     kRequestMediaRemotingMinVersion = 4,
     kEnterAutoPictureInPictureMinVersion = 5,
+    kSkipAdMinVersion = 6,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -221,6 +223,9 @@ class MediaController
   struct EnterAutoPictureInPicture_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SkipAd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~MediaController() = default;
 
@@ -264,7 +269,7 @@ class MediaController
   virtual void ExitPictureInPicture() = 0;
 
   
-  virtual void SetAudioSinkId(const absl::optional<std::string>& id) = 0;
+  virtual void SetAudioSinkId(const std::optional<std::string>& id) = 0;
 
   
   virtual void ToggleMicrophone() = 0;
@@ -286,6 +291,9 @@ class MediaController
 
   
   virtual void EnterAutoPictureInPicture() = 0;
+
+  
+  virtual void SkipAd() = 0;
 };
 
 class MediaControllerObserverProxy;
@@ -349,16 +357,16 @@ class MediaControllerObserver
   virtual void MediaSessionInfoChanged(::media_session::mojom::MediaSessionInfoPtr info) = 0;
 
   
-  virtual void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) = 0;
+  virtual void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) = 0;
 
   
   virtual void MediaSessionActionsChanged(const std::vector<::media_session::mojom::MediaSessionAction>& action) = 0;
 
   
-  virtual void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) = 0;
+  virtual void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) = 0;
 
   
-  virtual void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) = 0;
+  virtual void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) = 0;
 };
 
 class MediaControllerImageObserverProxy;
@@ -460,7 +468,7 @@ class  MediaControllerProxy
   
   void ExitPictureInPicture() final;
   
-  void SetAudioSinkId(const absl::optional<std::string>& id) final;
+  void SetAudioSinkId(const std::optional<std::string>& id) final;
   
   void ToggleMicrophone() final;
   
@@ -475,6 +483,8 @@ class  MediaControllerProxy
   void RequestMediaRemoting() final;
   
   void EnterAutoPictureInPicture() final;
+  
+  void SkipAd() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -491,13 +501,13 @@ class  MediaControllerObserverProxy
   
   void MediaSessionInfoChanged(::media_session::mojom::MediaSessionInfoPtr info) final;
   
-  void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) final;
+  void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) final;
   
   void MediaSessionActionsChanged(const std::vector<::media_session::mojom::MediaSessionAction>& action) final;
   
-  void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) final;
+  void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) final;
   
-  void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) final;
+  void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -27,9 +27,6 @@ namespace attribution_reporting::mojom {
 
 
 namespace attribution_reporting::mojom::blink {
-class DebugKey;
-using DebugKeyPtr = mojo::InlinedStructPtr<DebugKey>;
-
 class SuitableOrigin;
 using SuitableOriginPtr = mojo::StructPtr<SuitableOrigin>;
 
@@ -54,14 +51,14 @@ using DestinationSetPtr = mojo::StructPtr<DestinationSet>;
 class EventReportWindows;
 using EventReportWindowsPtr = mojo::StructPtr<EventReportWindows>;
 
-class TriggerConfig;
-using TriggerConfigPtr = mojo::InlinedStructPtr<TriggerConfig>;
+class TriggerSpec;
+using TriggerSpecPtr = mojo::StructPtr<TriggerSpec>;
+
+class TriggerSpecs;
+using TriggerSpecsPtr = mojo::StructPtr<TriggerSpecs>;
 
 class SourceRegistration;
 using SourceRegistrationPtr = mojo::StructPtr<SourceRegistration>;
-
-class TriggerDedupKey;
-using TriggerDedupKeyPtr = mojo::InlinedStructPtr<TriggerDedupKey>;
 
 class EventTriggerData;
 using EventTriggerDataPtr = mojo::StructPtr<EventTriggerData>;

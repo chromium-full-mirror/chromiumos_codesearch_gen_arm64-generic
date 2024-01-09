@@ -26,13 +26,14 @@ describeWithLocale('CSSVarSwatch', () => {
         renderElementIntoDOM(component);
         assert.instanceOf(component, HTMLElement, 'The swatch is an instance of HTMLElement');
     });
-    it('renders a simple var function', () => {
+    it('renders a var function without fallback', () => {
         const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
         renderElementIntoDOM(component);
         component.data = {
-            text: 'var(--test)',
+            variableName: '--test',
             computedValue: '2px',
             fromFallback: false,
+            fallbackHtml: null,
             onLinkActivate: () => { },
         };
         assertVarSwatch(component, {
@@ -42,29 +43,14 @@ describeWithLocale('CSSVarSwatch', () => {
             varText: '--test',
         });
     });
-    it('renders a simple var function with newlines', () => {
+    it('renders a var function with an undefined property without fallback', () => {
         const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
         renderElementIntoDOM(component);
         component.data = {
-            text: 'var(\n--test\n)',
-            computedValue: '2px',
-            fromFallback: false,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: '2px',
-            linkTooltip: '2px',
-            isDefined: true,
-            varText: '--test',
-        });
-    });
-    it('renders a var function with an undefined property', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var(--undefined)',
+            variableName: '--undefined',
             computedValue: null,
             fromFallback: false,
+            fallbackHtml: null,
             onLinkActivate: () => { },
         };
         assertVarSwatch(component, {
@@ -74,13 +60,14 @@ describeWithLocale('CSSVarSwatch', () => {
             varText: '--undefined',
         });
     });
-    it('renders a var function with an undefined property but a fallback value', () => {
+    it('renders a var function with an undefined property but a fallback node', () => {
         const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
         renderElementIntoDOM(component);
         component.data = {
-            text: 'var(--undefined, 3px)',
+            variableName: '--undefined',
             computedValue: '3px',
             fromFallback: true,
+            fallbackHtml: document.createTextNode('3px'),
             onLinkActivate: () => { },
         };
         assertVarSwatch(component, {
@@ -88,86 +75,6 @@ describeWithLocale('CSSVarSwatch', () => {
             linkTooltip: '--undefined is not defined',
             isDefined: false,
             varText: '--undefined',
-        });
-    });
-    it('renders a var() function with an color property but a fallback value', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var(--undefined-color, green)',
-            computedValue: 'green',
-            fromFallback: true,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: 'green',
-            linkTooltip: '--undefined-color is not defined',
-            isDefined: false,
-            varText: '--undefined-color',
-        });
-    });
-    it('render the var() function and the fallback value contains spaces', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var(--undefined-color,    green   )',
-            computedValue: 'green',
-            fromFallback: true,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: 'green',
-            linkTooltip: '--undefined-color is not defined',
-            isDefined: false,
-            varText: '--undefined-color',
-        });
-    });
-    it('renders a var() function with an color property', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var(--test, green)',
-            computedValue: 'red',
-            fromFallback: false,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: 'red',
-            linkTooltip: 'red',
-            isDefined: true,
-            varText: '--test',
-        });
-    });
-    it('renders a var() function with spaces', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var( --test     )',
-            computedValue: 'red',
-            fromFallback: false,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: 'red',
-            linkTooltip: 'red',
-            isDefined: true,
-            varText: '--test',
-        });
-    });
-    it('renders a var() function with spaces and fallback value', () => {
-        const component = new InlineEditor.LinkSwatch.CSSVarSwatch();
-        renderElementIntoDOM(component);
-        component.data = {
-            text: 'var( --f\ oo  ,  blue )',
-            computedValue: 'red',
-            fromFallback: false,
-            onLinkActivate: () => { },
-        };
-        assertVarSwatch(component, {
-            valueTooltip: 'red',
-            linkTooltip: 'red',
-            isDefined: true,
-            varText: '--f\ oo',
         });
     });
 });

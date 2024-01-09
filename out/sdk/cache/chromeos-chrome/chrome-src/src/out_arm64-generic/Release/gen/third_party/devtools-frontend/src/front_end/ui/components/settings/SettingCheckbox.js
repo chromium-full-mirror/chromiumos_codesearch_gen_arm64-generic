@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import * as ComponentHelpers from '../../components/helpers/helpers.js';
 import * as LitHtml from '../../lit-html/lit-html.js';
+import * as VisualLogging from '../../visual_logging/visual_logging.js';
 import * as Input from '../input/input.js';
 import settingCheckboxStyles from './settingCheckbox.css.js';
 import { SettingDeprecationWarning } from './SettingDeprecationWarning.js';
@@ -43,7 +44,14 @@ export class SettingCheckbox extends HTMLElement {
         LitHtml.render(LitHtml.html `
       <p>
         <label>
-          <input type="checkbox" .checked=${this.#setting.get()} ?disabled=${this.#disabled || this.#setting.disabled()} @change=${this.#checkboxChanged} aria-label=${this.#setting.title()} /> ${this.#setting.title()}${icon}
+          <input
+            type="checkbox"
+            .checked=${this.#setting.get()}
+            ?disabled=${this.#disabled || this.#setting.disabled()}
+            @change=${this.#checkboxChanged}
+            jslog=${VisualLogging.toggle().track({ click: true }).context(this.#setting.name)}
+            aria-label=${this.#setting.title()}/>
+          ${this.#setting.title()}${icon}
         </label>
       </p>`, this.#shadow, { host: this });
     }

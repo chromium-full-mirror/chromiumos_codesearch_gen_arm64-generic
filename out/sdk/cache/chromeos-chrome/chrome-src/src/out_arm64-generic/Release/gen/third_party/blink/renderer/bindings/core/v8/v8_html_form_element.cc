@@ -83,11 +83,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFormElement>::value,
     "HTMLFormElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFormElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFormElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8HTMLFormElement::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormElement_NamedPropertyGetter");
@@ -96,9 +91,10 @@ void V8HTMLFormElement::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_prope
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->AnonymousNamedGetter(blink_property_name);
 if (!return_value) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -142,7 +138,7 @@ if (!is_creating) {
 if (info.ShouldThrowOnError()) {
   const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "HTMLFormElement";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -183,7 +179,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "HTMLFormElement";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -231,8 +227,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8HTMLFormElement::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormElement_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -270,13 +267,13 @@ void V8HTMLFormElement::IndexedPropertyDeleterCallback(uint32_t index, const v8:
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "HTMLFormElement";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -349,9 +346,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8HTMLFormElement::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormElement_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -376,10 +373,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.acceptCharset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAcceptCharsetAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAcceptCharsetAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -400,10 +397,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.action.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->action();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->action();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -423,7 +420,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -440,8 +437,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.autocomplete.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kAutocompleteAttr);
 
 // [ReflectOnly]
@@ -453,7 +451,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kOn;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -474,10 +471,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.enctype.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->enctype();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->enctype();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -497,7 +494,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -514,10 +511,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.encoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->encoding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->encoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -537,7 +534,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -554,10 +551,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.method.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->method();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->method();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -577,7 +574,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -594,10 +591,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -618,8 +615,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.noValidate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kNovalidateAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -641,10 +639,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.target.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTargetAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTargetAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -665,10 +663,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.rel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kRelAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kRelAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -689,8 +687,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.relList.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->relList();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -738,8 +737,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.elements.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->elements();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -752,8 +752,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -794,8 +795,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.checkValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->checkValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -811,8 +813,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.reportValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reportValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -828,10 +831,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.requestSubmit");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLNullable<HTMLElement>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_submitter{nullptr};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLNullable<HTMLElement>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_submitter{nullptr};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLFormElement";
 const char* const property_name = "requestSubmit";
@@ -863,8 +866,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.reset");
 CEReactionsScope ce_reactions_scope;
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->reset();
 
 }
@@ -880,8 +884,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormElement.submit");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(v8_receiver);
+HTMLFormElement* blink_receiver = V8HTMLFormElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->submitFromJavaScript();
 
 }
@@ -940,7 +945,6 @@ prototype_template->SetIntrinsicDataProperty(
 
 v8::Local<v8::Template> instance_template = instance_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8HTMLFormElement::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -959,6 +963,8 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"name", NameAttributeGetCallback, NameAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"noValidate", NoValidateAttributeGetCallback, NoValidateAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"target", TargetAttributeGetCallback, TargetAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"rel", RelAttributeGetCallback, RelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"relList", RelListAttributeGetCallback, RelListAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"elements", ElementsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"length", LengthAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
@@ -984,25 +990,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
-void V8HTMLFormElement::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-if (RuntimeEnabledFeatures::FormRelAttributeEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"rel", RelAttributeGetCallback, RelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"relList", RelListAttributeGetCallback, RelListAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-
-
-
-
-
-
-}
 
 
 

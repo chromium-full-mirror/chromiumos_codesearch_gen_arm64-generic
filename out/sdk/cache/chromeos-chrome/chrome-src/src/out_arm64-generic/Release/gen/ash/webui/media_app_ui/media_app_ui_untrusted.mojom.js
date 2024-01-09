@@ -19,27 +19,33 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('ash.mediaAppUi.mojom');
+  var geometry$ =
+      mojo.internal.exposeNamespace('gfx.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'ui/gfx/geometry/mojom/geometry.mojom', '../../../ui/gfx/geometry/mojom/geometry.mojom.js');
+  }
 
 
 
-  function UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params(values) {
+  function UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.prototype.initDefaults_ = function() {
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.prototype.initDefaults_ = function() {
     this.receiver = new bindings.InterfaceRequest();
-    this.page = new UntrustedPagePtr();
+    this.page = new OcrUntrustedPagePtr();
   };
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.prototype.initFields_ = function(fields) {
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.validate = function(messageValidator, offset) {
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -53,13 +59,13 @@
         return err;
 
 
-    // validate UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.receiver
+    // validate UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.receiver
     err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.page
+    // validate UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.page
     err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 4, false);
     if (err !== validator.validationError.NONE)
         return err;
@@ -67,17 +73,17 @@
     return validator.validationError.NONE;
   };
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.encodedSize = codec.kStructHeaderSize + 16;
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.encodedSize = codec.kStructHeaderSize + 16;
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.decode = function(decoder) {
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.decode = function(decoder) {
     var packed;
-    var val = new UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params();
+    var val = new UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.receiver =
         decoder.decodeStruct(codec.InterfaceRequest);
     val.page =
-        decoder.decodeStruct(new codec.Interface(UntrustedPagePtr));
+        decoder.decodeStruct(new codec.Interface(OcrUntrustedPagePtr));
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -85,18 +91,143 @@
     return val;
   };
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.encode = function(encoder, val) {
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.encodedSize);
+    encoder.writeUint32(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.InterfaceRequest, val.receiver);
-    encoder.encodeStruct(new codec.Interface(UntrustedPagePtr), val.page);
+    encoder.encodeStruct(new codec.Interface(OcrUntrustedPagePtr), val.page);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
   };
-  var kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name = 0;
+  function OcrUntrustedPageHandler_ViewportUpdated_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params.prototype.initDefaults_ = function() {
+    this.viewportBox = null;
+    this.scaleFactor = 0;
+  };
+  OcrUntrustedPageHandler_ViewportUpdated_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate OcrUntrustedPageHandler_ViewportUpdated_Params.viewportBox
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, geometry$.RectF, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params.decode = function(decoder) {
+    var packed;
+    var val = new OcrUntrustedPageHandler_ViewportUpdated_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.viewportBox =
+        decoder.decodeStructPointer(geometry$.RectF);
+    val.scaleFactor =
+        decoder.decodeStruct(codec.Float);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(OcrUntrustedPageHandler_ViewportUpdated_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(geometry$.RectF, val.viewportBox);
+    encoder.encodeStruct(codec.Float, val.scaleFactor);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function OcrUntrustedPage_SetViewport_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  OcrUntrustedPage_SetViewport_Params.prototype.initDefaults_ = function() {
+    this.viewportBox = null;
+  };
+  OcrUntrustedPage_SetViewport_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  OcrUntrustedPage_SetViewport_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate OcrUntrustedPage_SetViewport_Params.viewportBox
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, geometry$.RectF, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  OcrUntrustedPage_SetViewport_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  OcrUntrustedPage_SetViewport_Params.decode = function(decoder) {
+    var packed;
+    var val = new OcrUntrustedPage_SetViewport_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.viewportBox =
+        decoder.decodeStructPointer(geometry$.RectF);
+    return val;
+  };
+
+  OcrUntrustedPage_SetViewport_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(OcrUntrustedPage_SetViewport_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(geometry$.RectF, val.viewportBox);
+  };
+  var kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name = 0;
 
   function UntrustedPageHandlerFactoryPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(UntrustedPageHandlerFactory,
@@ -116,19 +247,19 @@
   function UntrustedPageHandlerFactoryProxy(receiver) {
     this.receiver_ = receiver;
   }
-  UntrustedPageHandlerFactoryPtr.prototype.createUntrustedPageHandler = function() {
-    return UntrustedPageHandlerFactoryProxy.prototype.createUntrustedPageHandler
+  UntrustedPageHandlerFactoryPtr.prototype.createOcrUntrustedPageHandler = function() {
+    return UntrustedPageHandlerFactoryProxy.prototype.createOcrUntrustedPageHandler
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  UntrustedPageHandlerFactoryProxy.prototype.createUntrustedPageHandler = function(receiver, page) {
-    var params_ = new UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params();
+  UntrustedPageHandlerFactoryProxy.prototype.createOcrUntrustedPageHandler = function(receiver, page) {
+    var params_ = new UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params();
     params_.receiver = receiver;
     params_.page = page;
     var builder = new codec.MessageV0Builder(
-        kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name,
-        codec.align(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params.encodedSize));
-    builder.encodeStruct(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params, params_);
+        kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name,
+        codec.align(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params.encodedSize));
+    builder.encodeStruct(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -136,16 +267,16 @@
   function UntrustedPageHandlerFactoryStub(delegate) {
     this.delegate_ = delegate;
   }
-  UntrustedPageHandlerFactoryStub.prototype.createUntrustedPageHandler = function(receiver, page) {
-    return this.delegate_ && this.delegate_.createUntrustedPageHandler && this.delegate_.createUntrustedPageHandler(receiver, page);
+  UntrustedPageHandlerFactoryStub.prototype.createOcrUntrustedPageHandler = function(receiver, page) {
+    return this.delegate_ && this.delegate_.createOcrUntrustedPageHandler && this.delegate_.createOcrUntrustedPageHandler(receiver, page);
   }
 
   UntrustedPageHandlerFactoryStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
-      var params = reader.decodeStruct(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params);
-      this.createUntrustedPageHandler(params.receiver, params.page);
+    case kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name:
+      var params = reader.decodeStruct(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params);
+      this.createOcrUntrustedPageHandler(params.receiver, params.page);
       return true;
     default:
       return false;
@@ -165,9 +296,9 @@
     var message = messageValidator.message;
     var paramsClass = null;
     switch (message.getName()) {
-      case kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
+      case kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params;
+          paramsClass = UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params;
       break;
     }
     if (paramsClass === null)
@@ -190,39 +321,63 @@
   };
   UntrustedPageHandlerFactoryStub.prototype.validator = validateUntrustedPageHandlerFactoryRequest;
   UntrustedPageHandlerFactoryProxy.prototype.validator = null;
+  var kOcrUntrustedPageHandler_ViewportUpdated_Name = 0;
 
-  function UntrustedPageHandlerPtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(UntrustedPageHandler,
+  function OcrUntrustedPageHandlerPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(OcrUntrustedPageHandler,
                                                    handleOrPtrInfo);
   }
 
-  function UntrustedPageHandlerAssociatedPtr(associatedInterfacePtrInfo) {
+  function OcrUntrustedPageHandlerAssociatedPtr(associatedInterfacePtrInfo) {
     this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        UntrustedPageHandler, associatedInterfacePtrInfo);
+        OcrUntrustedPageHandler, associatedInterfacePtrInfo);
   }
 
-  UntrustedPageHandlerAssociatedPtr.prototype =
-      Object.create(UntrustedPageHandlerPtr.prototype);
-  UntrustedPageHandlerAssociatedPtr.prototype.constructor =
-      UntrustedPageHandlerAssociatedPtr;
+  OcrUntrustedPageHandlerAssociatedPtr.prototype =
+      Object.create(OcrUntrustedPageHandlerPtr.prototype);
+  OcrUntrustedPageHandlerAssociatedPtr.prototype.constructor =
+      OcrUntrustedPageHandlerAssociatedPtr;
 
-  function UntrustedPageHandlerProxy(receiver) {
+  function OcrUntrustedPageHandlerProxy(receiver) {
     this.receiver_ = receiver;
   }
+  OcrUntrustedPageHandlerPtr.prototype.viewportUpdated = function() {
+    return OcrUntrustedPageHandlerProxy.prototype.viewportUpdated
+        .apply(this.ptr.getProxy(), arguments);
+  };
 
-  function UntrustedPageHandlerStub(delegate) {
+  OcrUntrustedPageHandlerProxy.prototype.viewportUpdated = function(viewportBox, scaleFactor) {
+    var params_ = new OcrUntrustedPageHandler_ViewportUpdated_Params();
+    params_.viewportBox = viewportBox;
+    params_.scaleFactor = scaleFactor;
+    var builder = new codec.MessageV0Builder(
+        kOcrUntrustedPageHandler_ViewportUpdated_Name,
+        codec.align(OcrUntrustedPageHandler_ViewportUpdated_Params.encodedSize));
+    builder.encodeStruct(OcrUntrustedPageHandler_ViewportUpdated_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function OcrUntrustedPageHandlerStub(delegate) {
     this.delegate_ = delegate;
   }
+  OcrUntrustedPageHandlerStub.prototype.viewportUpdated = function(viewportBox, scaleFactor) {
+    return this.delegate_ && this.delegate_.viewportUpdated && this.delegate_.viewportUpdated(viewportBox, scaleFactor);
+  }
 
-  UntrustedPageHandlerStub.prototype.accept = function(message) {
+  OcrUntrustedPageHandlerStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kOcrUntrustedPageHandler_ViewportUpdated_Name:
+      var params = reader.decodeStruct(OcrUntrustedPageHandler_ViewportUpdated_Params);
+      this.viewportUpdated(params.viewportBox, params.scaleFactor);
+      return true;
     default:
       return false;
     }
   };
 
-  UntrustedPageHandlerStub.prototype.acceptWithResponder =
+  OcrUntrustedPageHandlerStub.prototype.acceptWithResponder =
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
@@ -231,58 +386,91 @@
     }
   };
 
-  function validateUntrustedPageHandlerRequest(messageValidator) {
+  function validateOcrUntrustedPageHandlerRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kOcrUntrustedPageHandler_ViewportUpdated_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = OcrUntrustedPageHandler_ViewportUpdated_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateOcrUntrustedPageHandlerResponse(messageValidator) {
     return validator.validationError.NONE;
   }
 
-  function validateUntrustedPageHandlerResponse(messageValidator) {
-    return validator.validationError.NONE;
-  }
-
-  var UntrustedPageHandler = {
-    name: 'ash.media_app_ui.mojom.UntrustedPageHandler',
+  var OcrUntrustedPageHandler = {
+    name: 'ash.media_app_ui.mojom.OcrUntrustedPageHandler',
     kVersion: 0,
-    ptrClass: UntrustedPageHandlerPtr,
-    proxyClass: UntrustedPageHandlerProxy,
-    stubClass: UntrustedPageHandlerStub,
-    validateRequest: validateUntrustedPageHandlerRequest,
+    ptrClass: OcrUntrustedPageHandlerPtr,
+    proxyClass: OcrUntrustedPageHandlerProxy,
+    stubClass: OcrUntrustedPageHandlerStub,
+    validateRequest: validateOcrUntrustedPageHandlerRequest,
     validateResponse: null,
   };
-  UntrustedPageHandlerStub.prototype.validator = validateUntrustedPageHandlerRequest;
-  UntrustedPageHandlerProxy.prototype.validator = null;
+  OcrUntrustedPageHandlerStub.prototype.validator = validateOcrUntrustedPageHandlerRequest;
+  OcrUntrustedPageHandlerProxy.prototype.validator = null;
+  var kOcrUntrustedPage_SetViewport_Name = 0;
 
-  function UntrustedPagePtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(UntrustedPage,
+  function OcrUntrustedPagePtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(OcrUntrustedPage,
                                                    handleOrPtrInfo);
   }
 
-  function UntrustedPageAssociatedPtr(associatedInterfacePtrInfo) {
+  function OcrUntrustedPageAssociatedPtr(associatedInterfacePtrInfo) {
     this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        UntrustedPage, associatedInterfacePtrInfo);
+        OcrUntrustedPage, associatedInterfacePtrInfo);
   }
 
-  UntrustedPageAssociatedPtr.prototype =
-      Object.create(UntrustedPagePtr.prototype);
-  UntrustedPageAssociatedPtr.prototype.constructor =
-      UntrustedPageAssociatedPtr;
+  OcrUntrustedPageAssociatedPtr.prototype =
+      Object.create(OcrUntrustedPagePtr.prototype);
+  OcrUntrustedPageAssociatedPtr.prototype.constructor =
+      OcrUntrustedPageAssociatedPtr;
 
-  function UntrustedPageProxy(receiver) {
+  function OcrUntrustedPageProxy(receiver) {
     this.receiver_ = receiver;
   }
+  OcrUntrustedPagePtr.prototype.setViewport = function() {
+    return OcrUntrustedPageProxy.prototype.setViewport
+        .apply(this.ptr.getProxy(), arguments);
+  };
 
-  function UntrustedPageStub(delegate) {
+  OcrUntrustedPageProxy.prototype.setViewport = function(viewportBox) {
+    var params_ = new OcrUntrustedPage_SetViewport_Params();
+    params_.viewportBox = viewportBox;
+    var builder = new codec.MessageV0Builder(
+        kOcrUntrustedPage_SetViewport_Name,
+        codec.align(OcrUntrustedPage_SetViewport_Params.encodedSize));
+    builder.encodeStruct(OcrUntrustedPage_SetViewport_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function OcrUntrustedPageStub(delegate) {
     this.delegate_ = delegate;
   }
+  OcrUntrustedPageStub.prototype.setViewport = function(viewportBox) {
+    return this.delegate_ && this.delegate_.setViewport && this.delegate_.setViewport(viewportBox);
+  }
 
-  UntrustedPageStub.prototype.accept = function(message) {
+  OcrUntrustedPageStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kOcrUntrustedPage_SetViewport_Name:
+      var params = reader.decodeStruct(OcrUntrustedPage_SetViewport_Params);
+      this.setViewport(params.viewportBox);
+      return true;
     default:
       return false;
     }
   };
 
-  UntrustedPageStub.prototype.acceptWithResponder =
+  OcrUntrustedPageStub.prototype.acceptWithResponder =
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
@@ -291,32 +479,42 @@
     }
   };
 
-  function validateUntrustedPageRequest(messageValidator) {
+  function validateOcrUntrustedPageRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kOcrUntrustedPage_SetViewport_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = OcrUntrustedPage_SetViewport_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateOcrUntrustedPageResponse(messageValidator) {
     return validator.validationError.NONE;
   }
 
-  function validateUntrustedPageResponse(messageValidator) {
-    return validator.validationError.NONE;
-  }
-
-  var UntrustedPage = {
-    name: 'ash.media_app_ui.mojom.UntrustedPage',
+  var OcrUntrustedPage = {
+    name: 'ash.media_app_ui.mojom.OcrUntrustedPage',
     kVersion: 0,
-    ptrClass: UntrustedPagePtr,
-    proxyClass: UntrustedPageProxy,
-    stubClass: UntrustedPageStub,
-    validateRequest: validateUntrustedPageRequest,
+    ptrClass: OcrUntrustedPagePtr,
+    proxyClass: OcrUntrustedPageProxy,
+    stubClass: OcrUntrustedPageStub,
+    validateRequest: validateOcrUntrustedPageRequest,
     validateResponse: null,
   };
-  UntrustedPageStub.prototype.validator = validateUntrustedPageRequest;
-  UntrustedPageProxy.prototype.validator = null;
+  OcrUntrustedPageStub.prototype.validator = validateOcrUntrustedPageRequest;
+  OcrUntrustedPageProxy.prototype.validator = null;
   exports.UntrustedPageHandlerFactory = UntrustedPageHandlerFactory;
   exports.UntrustedPageHandlerFactoryPtr = UntrustedPageHandlerFactoryPtr;
   exports.UntrustedPageHandlerFactoryAssociatedPtr = UntrustedPageHandlerFactoryAssociatedPtr;
-  exports.UntrustedPageHandler = UntrustedPageHandler;
-  exports.UntrustedPageHandlerPtr = UntrustedPageHandlerPtr;
-  exports.UntrustedPageHandlerAssociatedPtr = UntrustedPageHandlerAssociatedPtr;
-  exports.UntrustedPage = UntrustedPage;
-  exports.UntrustedPagePtr = UntrustedPagePtr;
-  exports.UntrustedPageAssociatedPtr = UntrustedPageAssociatedPtr;
+  exports.OcrUntrustedPageHandler = OcrUntrustedPageHandler;
+  exports.OcrUntrustedPageHandlerPtr = OcrUntrustedPageHandlerPtr;
+  exports.OcrUntrustedPageHandlerAssociatedPtr = OcrUntrustedPageHandlerAssociatedPtr;
+  exports.OcrUntrustedPage = OcrUntrustedPage;
+  exports.OcrUntrustedPagePtr = OcrUntrustedPagePtr;
+  exports.OcrUntrustedPageAssociatedPtr = OcrUntrustedPageAssociatedPtr;
 })();

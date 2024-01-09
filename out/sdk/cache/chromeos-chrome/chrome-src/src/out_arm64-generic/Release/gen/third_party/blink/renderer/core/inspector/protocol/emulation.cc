@@ -57,6 +57,18 @@ CRDTP_BEGIN_SERIALIZER(DisplayFeature)
 CRDTP_END_SERIALIZER();
 
 
+
+const char* DevicePosture::TypeEnum::Continuous = "continuous";
+const char* DevicePosture::TypeEnum::Folded = "folded";
+CRDTP_BEGIN_DESERIALIZER(DevicePosture)
+    CRDTP_DESERIALIZE_FIELD("type", m_type),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(DevicePosture)
+    CRDTP_SERIALIZE_FIELD("type", m_type);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(MediaFeature)
     CRDTP_DESERIALIZE_FIELD("name", m_name),
     CRDTP_DESERIALIZE_FIELD("value", m_value),
@@ -504,10 +516,12 @@ struct setDeviceMetricsOverrideParams : public crdtp::DeserializableProtocolObje
     Maybe<protocol::Emulation::ScreenOrientation> screenOrientation;
     Maybe<protocol::Page::Viewport> viewport;
     Maybe<protocol::Emulation::DisplayFeature> displayFeature;
+    Maybe<protocol::Emulation::DevicePosture> devicePosture;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
 CRDTP_BEGIN_DESERIALIZER(setDeviceMetricsOverrideParams)
+    CRDTP_DESERIALIZE_FIELD_OPT("devicePosture", devicePosture),
     CRDTP_DESERIALIZE_FIELD("deviceScaleFactor", deviceScaleFactor),
     CRDTP_DESERIALIZE_FIELD_OPT("displayFeature", displayFeature),
     CRDTP_DESERIALIZE_FIELD_OPT("dontSetVisibleSize", dontSetVisibleSize),
@@ -536,7 +550,7 @@ void DomainDispatcherImpl::setDeviceMetricsOverride(const crdtp::Dispatchable& d
     }
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->setDeviceMetricsOverride(params.width, params.height, params.deviceScaleFactor, params.mobile, std::move(params.scale), std::move(params.screenWidth), std::move(params.screenHeight), std::move(params.positionX), std::move(params.positionY), std::move(params.dontSetVisibleSize), std::move(params.screenOrientation), std::move(params.viewport), std::move(params.displayFeature));
+    DispatchResponse response = m_backend->setDeviceMetricsOverride(params.width, params.height, params.deviceScaleFactor, params.mobile, std::move(params.scale), std::move(params.screenWidth), std::move(params.screenHeight), std::move(params.positionX), std::move(params.positionY), std::move(params.dontSetVisibleSize), std::move(params.screenOrientation), std::move(params.viewport), std::move(params.displayFeature), std::move(params.devicePosture));
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Emulation.setDeviceMetricsOverride"), dispatchable.Serialized());
         return;

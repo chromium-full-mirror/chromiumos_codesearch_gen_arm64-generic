@@ -4,11 +4,6 @@
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 /**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-/**
  * Quick view model that doesn't fit into properties of quick view element.
  */
 export class QuickViewModel extends EventTarget {

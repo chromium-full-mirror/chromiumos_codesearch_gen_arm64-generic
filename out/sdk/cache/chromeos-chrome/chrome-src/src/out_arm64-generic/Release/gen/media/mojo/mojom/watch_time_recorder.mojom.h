@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/watch_time_recorder.mojom-features.h"
 #include "media/mojo/mojom/watch_time_recorder.mojom-shared.h"
 #include "media/mojo/mojom/watch_time_recorder.mojom-forward.h"
 #include "media/mojo/mojom/media_types.mojom.h"
@@ -81,7 +82,6 @@ class WatchTimeRecorder
     kUpdateVideoDecodeStatsMinVersion = 0,
     kUpdateUnderflowCountMinVersion = 0,
     kUpdateUnderflowDurationMinVersion = 0,
-    kOnCurrentTimestampChangedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -114,9 +114,6 @@ class WatchTimeRecorder
   struct UpdateUnderflowDuration_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnCurrentTimestampChanged_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WatchTimeRecorder() = default;
 
@@ -146,9 +143,6 @@ class WatchTimeRecorder
 
   
   virtual void UpdateUnderflowDuration(int32_t total_completed_count, ::base::TimeDelta total_duration) = 0;
-
-  
-  virtual void OnCurrentTimestampChanged(::base::TimeDelta last_timestamp) = 0;
 };
 
 
@@ -177,8 +171,6 @@ class  WatchTimeRecorderProxy
   void UpdateUnderflowCount(int32_t total_count) final;
   
   void UpdateUnderflowDuration(int32_t total_completed_count, ::base::TimeDelta total_duration) final;
-  
-  void OnCurrentTimestampChanged(::base::TimeDelta last_timestamp) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

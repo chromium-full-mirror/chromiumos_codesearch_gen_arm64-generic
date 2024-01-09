@@ -97,6 +97,32 @@ std::ostream& operator<<(std::ostream& os, Opaque value) {
   return os << OpaqueToString(value);
 }
 
+NOINLINE static const char* AutomaticBeaconTypeToStringHelper(AutomaticBeaconType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AutomaticBeaconType::kDeprecatedTopNavigation:
+      return "kDeprecatedTopNavigation";
+    case AutomaticBeaconType::kTopNavigationStart:
+      return "kTopNavigationStart";
+    case AutomaticBeaconType::kTopNavigationCommit:
+      return "kTopNavigationCommit";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AutomaticBeaconTypeToString(AutomaticBeaconType value) {
+  const char *str = AutomaticBeaconTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AutomaticBeaconType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AutomaticBeaconType value) {
+  return os << AutomaticBeaconTypeToString(value);
+}
+
 namespace internal {
 // static
 bool PotentiallyOpaqueURL_Data::Validate(
@@ -751,6 +777,16 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::Opaque>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::Opaque value) {
   return std::move(context).WriteString(::blink::mojom::OpaqueToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::AutomaticBeaconType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::AutomaticBeaconType value) {
+  return std::move(context).WriteString(::blink::mojom::AutomaticBeaconTypeToString(value));
 }
 
 } // namespace perfetto

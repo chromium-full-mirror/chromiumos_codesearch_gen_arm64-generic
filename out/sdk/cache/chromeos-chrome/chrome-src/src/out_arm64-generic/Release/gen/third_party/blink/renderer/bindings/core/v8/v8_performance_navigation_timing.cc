@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PerformanceNavigationTiming>::value,
     "PerformanceNavigationTiming inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PerformanceNavigationTiming::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PerformanceNavigationTiming is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.unloadEventStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unloadEventStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.unloadEventEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unloadEventEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.domInteractive.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->domInteractive();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -132,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.domContentLoadedEventSta
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->domContentLoadedEventStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -146,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.domContentLoadedEventEnd
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->domContentLoadedEventEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -160,8 +160,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.domComplete.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->domComplete();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -174,8 +175,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.loadEventStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loadEventStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -188,8 +190,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.loadEventEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loadEventEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -202,10 +205,10 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -217,8 +220,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.redirectCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->redirectCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -231,8 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.notRestoredReasons.get")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->notRestoredReasons();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -245,10 +250,10 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.systemEntropy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->systemEntropy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->systemEntropy();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -260,8 +265,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.criticalCHRestart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -277,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.activationStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = PerformanceNavigationTimingActivationStart::activationStart(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -295,8 +302,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceNavigationTiming.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceNavigationTiming* blink_receiver = V8PerformanceNavigationTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

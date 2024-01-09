@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/downloads/downloads.mojom-features.h"
 #include "chrome/browser/ui/webui/downloads/downloads.mojom-shared.h"
 #include "chrome/browser/ui/webui/downloads/downloads.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -118,6 +119,10 @@ class PageHandler
     kOpenFileRequiringGestureMinVersion = 0,
     kDragMinVersion = 0,
     kSaveDangerousRequiringGestureMinVersion = 0,
+    kSaveSuspiciousRequiringGestureMinVersion = 0,
+    kRecordOpenBypassWarningPromptMinVersion = 0,
+    kSaveDangerousFromPromptRequiringGestureMinVersion = 0,
+    kRecordCancelBypassWarningPromptMinVersion = 0,
     kDiscardDangerousMinVersion = 0,
     kRetryDownloadMinVersion = 0,
     kShowMinVersion = 0,
@@ -147,6 +152,18 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SaveDangerousRequiringGesture_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SaveSuspiciousRequiringGesture_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordOpenBypassWarningPrompt_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SaveDangerousFromPromptRequiringGesture_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordCancelBypassWarningPrompt_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct DiscardDangerous_Sym {
@@ -205,6 +222,18 @@ class PageHandler
 
   
   virtual void SaveDangerousRequiringGesture(const std::string& id) = 0;
+
+  
+  virtual void SaveSuspiciousRequiringGesture(const std::string& id) = 0;
+
+  
+  virtual void RecordOpenBypassWarningPrompt(const std::string& id) = 0;
+
+  
+  virtual void SaveDangerousFromPromptRequiringGesture(const std::string& id) = 0;
+
+  
+  virtual void RecordCancelBypassWarningPrompt(const std::string& id) = 0;
 
   
   virtual void DiscardDangerous(const std::string& id) = 0;
@@ -346,6 +375,14 @@ class  PageHandlerProxy
   void Drag(const std::string& id) final;
   
   void SaveDangerousRequiringGesture(const std::string& id) final;
+  
+  void SaveSuspiciousRequiringGesture(const std::string& id) final;
+  
+  void RecordOpenBypassWarningPrompt(const std::string& id) final;
+  
+  void SaveDangerousFromPromptRequiringGesture(const std::string& id) final;
+  
+  void RecordCancelBypassWarningPrompt(const std::string& id) final;
   
   void DiscardDangerous(const std::string& id) final;
   
@@ -592,7 +629,7 @@ class  Data {
       const std::string& show_in_folder_text,
       const std::string& since_string,
       State state,
-      const absl::optional<::GURL>& url,
+      const std::optional<::GURL>& url,
       const ::std::u16string& display_url,
       SafeBrowsingState safe_browsing_state,
       bool has_safe_browsing_verdict);
@@ -719,7 +756,7 @@ class  Data {
   
   State state;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
   ::std::u16string display_url;
   

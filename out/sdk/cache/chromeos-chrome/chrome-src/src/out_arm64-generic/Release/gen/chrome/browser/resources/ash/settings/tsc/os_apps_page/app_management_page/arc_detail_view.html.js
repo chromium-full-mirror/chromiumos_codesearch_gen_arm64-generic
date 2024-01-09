@@ -31,6 +31,8 @@ export function getTemplate() {
       </template>
     </div>
   </div>
+  <app-management-app-language-item class="permission-card-row separated-row" app="[[app_]]" prefs="{{prefs}}">
+  </app-management-app-language-item>
   <app-management-more-permissions-item id="managePermissions" hidden$="[[!hasReadOnlyPermissions_]]" class="permission-card-row separated-row" app="[[app_]]" more-permissions-label="$i18n{appManagementArcManagePermissionsLabel}">
   </app-management-more-permissions-item>
   <app-management-resize-lock-item id="resizeLockSetting" class="permission-card-row separated-row row-with-description" app="[[app_]]">

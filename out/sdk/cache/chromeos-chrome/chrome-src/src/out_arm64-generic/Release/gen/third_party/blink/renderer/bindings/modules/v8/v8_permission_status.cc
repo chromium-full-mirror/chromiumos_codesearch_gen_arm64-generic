@@ -71,11 +71,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, PermissionStatus>::value,
     "PermissionStatus does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&PermissionStatus::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PermissionStatus is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("PermissionStatus.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("PermissionStatus.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("PermissionStatus.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -134,8 +129,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(v8_receiver);
+PermissionStatus* blink_receiver = V8PermissionStatus::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 

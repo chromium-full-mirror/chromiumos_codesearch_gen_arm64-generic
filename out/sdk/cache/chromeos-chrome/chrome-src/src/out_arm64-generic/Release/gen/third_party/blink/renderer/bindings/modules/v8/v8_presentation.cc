@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Presentation>::value,
     "Presentation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Presentation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Presentation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPresentationDefaultReq
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(v8_receiver);
+Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->defaultRequest();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -123,7 +118,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(v8_receiver);
+Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<PresentationRequest>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -140,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("Presentation.receiver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(v8_receiver);
+Presentation* blink_receiver = V8Presentation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->receiver();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

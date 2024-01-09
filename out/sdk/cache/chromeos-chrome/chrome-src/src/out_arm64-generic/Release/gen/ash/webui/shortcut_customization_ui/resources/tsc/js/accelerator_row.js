@@ -7,6 +7,7 @@ import '../strings.m.js';
 import '../css/shortcut_customization_shared.css.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './accelerator_row.html.js';
@@ -54,10 +55,6 @@ export class AcceleratorRowElement extends AcceleratorRowElementBase {
                 type: Number,
                 value: 0,
                 observer: AcceleratorRowElement.prototype.onSourceChanged,
-            },
-            selected: {
-                type: Boolean,
-                reflectToAttribute: true,
             },
         };
     }
@@ -114,11 +111,8 @@ export class AcceleratorRowElement extends AcceleratorRowElementBase {
         // If customization is disabled, this element should not be tab-focusable.
         return !isCustomizationAllowed() ? -1 : 0;
     }
-    onRowFocused() {
-        this.selected = true;
-    }
-    onRowBlur() {
-        this.selected = false;
+    onFocusOrMouseEnter() {
+        strictQuery('#container', this.shadowRoot, HTMLTableRowElement).focus();
     }
     getAriaLabel() {
         let acceleratorText;

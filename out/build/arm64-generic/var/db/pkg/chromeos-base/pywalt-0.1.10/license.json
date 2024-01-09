@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "pywalt", "version": "0.1.10", "revision": 0, "fullname": "chromeos-base/pywalt", "fullnamerev": "chromeos-base/pywalt-0.1.10", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/walt"], "skip": false, "tainted": false, "ebuild_path": null}

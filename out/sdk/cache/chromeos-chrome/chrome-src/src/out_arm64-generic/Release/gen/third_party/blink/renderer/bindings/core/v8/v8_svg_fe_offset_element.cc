@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGFEOffsetElement>::value,
     "SVGFEOffsetElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGFEOffsetElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGFEOffsetElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->in1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dx();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -137,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -156,7 +151,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -175,7 +170,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -194,7 +189,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -213,7 +208,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -232,7 +227,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(v8_receiver);
+SVGFEOffsetElement* blink_receiver = V8SVGFEOffsetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->result();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

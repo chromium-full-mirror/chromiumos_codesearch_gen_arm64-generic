@@ -7,7 +7,7 @@
 
 #include <gmock/gmock.h>
 
-#include <vector>
+#include <brillo/secure_blob.h>
 
 #include "libhwsec-foundation/hwsec-foundation_export.h"
 #include "libhwsec-foundation/tlcl_wrapper/tlcl_wrapper.h"
@@ -27,8 +27,10 @@ class HWSEC_FOUNDATION_EXPORT MockTlclWrapper : public TlclWrapper {
 
   MOCK_METHOD(uint32_t,
               Extend,
-              (int pcr_num, const std::vector<uint8_t>, std::vector<uint8_t>*),
+              (int pcr_num, const brillo::Blob&, brillo::Blob*),
               (override));
+
+  MOCK_METHOD(uint32_t, GetOwnership, (bool*), (override));
 };
 
 }  // namespace hwsec_foundation

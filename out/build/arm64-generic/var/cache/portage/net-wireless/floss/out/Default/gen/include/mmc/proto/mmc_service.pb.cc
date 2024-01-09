@@ -4,114 +4,67 @@
 #include "mmc_service.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace mmc {
+template <typename>
 PROTOBUF_CONSTEXPR CodecInitRequest::CodecInitRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.config_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.config_)*/nullptr} {}
 struct CodecInitRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CodecInitRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CodecInitRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CodecInitRequestDefaultTypeInternal() {}
   union {
     CodecInitRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CodecInitRequestDefaultTypeInternal _CodecInitRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CodecInitRequestDefaultTypeInternal _CodecInitRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CodecInitResponse::CodecInitResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.socket_token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.input_frame_size_)*/0
+    /*decltype(_impl_.socket_token_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.input_frame_size_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CodecInitResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CodecInitResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CodecInitResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CodecInitResponseDefaultTypeInternal() {}
   union {
     CodecInitResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CodecInitResponseDefaultTypeInternal _CodecInitResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CodecInitResponseDefaultTypeInternal _CodecInitResponse_default_instance_;
 }  // namespace mmc
-static ::_pb::Metadata file_level_metadata_mmc_5fservice_2eproto[2];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_mmc_5fservice_2eproto = nullptr;
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_mmc_5fservice_2eproto = nullptr;
-
-const uint32_t TableStruct_mmc_5fservice_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::CodecInitRequest, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::CodecInitRequest, _impl_.config_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::CodecInitResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::CodecInitResponse, _impl_.socket_token_),
-  PROTOBUF_FIELD_OFFSET(::mmc::CodecInitResponse, _impl_.input_frame_size_),
-};
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::mmc::CodecInitRequest)},
-  { 7, -1, -1, sizeof(::mmc::CodecInitResponse)},
-};
-
-static const ::_pb::Message* const file_default_instances[] = {
-  &::mmc::_CodecInitRequest_default_instance_._instance,
-  &::mmc::_CodecInitResponse_default_instance_._instance,
-};
-
-const char descriptor_table_protodef_mmc_5fservice_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021mmc_service.proto\022\003mmc\032\020mmc_config.pro"
-  "to\"4\n\020CodecInitRequest\022 \n\006config\030\001 \001(\0132\020"
-  ".mmc.ConfigParam\"C\n\021CodecInitResponse\022\024\n"
-  "\014socket_token\030\001 \001(\t\022\030\n\020input_frame_size\030"
-  "\002 \001(\005B\002H\003b\006proto3"
-  ;
-static const ::_pbi::DescriptorTable* const descriptor_table_mmc_5fservice_2eproto_deps[1] = {
-  &::descriptor_table_mmc_5fconfig_2eproto,
-};
-static ::_pbi::once_flag descriptor_table_mmc_5fservice_2eproto_once;
-const ::_pbi::DescriptorTable descriptor_table_mmc_5fservice_2eproto = {
-    false, false, 177, descriptor_table_protodef_mmc_5fservice_2eproto,
-    "mmc_service.proto",
-    &descriptor_table_mmc_5fservice_2eproto_once, descriptor_table_mmc_5fservice_2eproto_deps, 1, 2,
-    schemas, file_default_instances, TableStruct_mmc_5fservice_2eproto::offsets,
-    file_level_metadata_mmc_5fservice_2eproto, file_level_enum_descriptors_mmc_5fservice_2eproto,
-    file_level_service_descriptors_mmc_5fservice_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_mmc_5fservice_2eproto_getter() {
-  return &descriptor_table_mmc_5fservice_2eproto;
-}
-
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_mmc_5fservice_2eproto(&descriptor_table_mmc_5fservice_2eproto);
 namespace mmc {
-
 // ===================================================================
 
 class CodecInitRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<CodecInitRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CodecInitRequest, _impl_._has_bits_);
   static const ::mmc::ConfigParam& config(const CodecInitRequest* msg);
+  static void set_has_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::mmc::ConfigParam&
@@ -119,44 +72,41 @@ CodecInitRequest::_Internal::config(const CodecInitRequest* msg) {
   return *msg->_impl_.config_;
 }
 void CodecInitRequest::clear_config() {
-  if (GetArenaForAllocation() == nullptr && _impl_.config_ != nullptr) {
-    delete _impl_.config_;
-  }
-  _impl_.config_ = nullptr;
+  if (_impl_.config_ != nullptr) _impl_.config_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-CodecInitRequest::CodecInitRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CodecInitRequest::CodecInitRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.CodecInitRequest)
 }
 CodecInitRequest::CodecInitRequest(const CodecInitRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CodecInitRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.config_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.config_){nullptr}};
 
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_config()) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.config_ = new ::mmc::ConfigParam(*from._impl_.config_);
   }
   // @@protoc_insertion_point(copy_constructor:mmc.CodecInitRequest)
 }
 
-inline void CodecInitRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CodecInitRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.config_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.config_){nullptr}
   };
 }
 
 CodecInitRequest::~CodecInitRequest() {
   // @@protoc_insertion_point(destructor:mmc.CodecInitRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -164,7 +114,7 @@ CodecInitRequest::~CodecInitRequest() {
 }
 
 inline void CodecInitRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.config_;
 }
 
@@ -174,30 +124,34 @@ void CodecInitRequest::SetCachedSize(int size) const {
 
 void CodecInitRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.CodecInitRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.config_ != nullptr) {
-    delete _impl_.config_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.config_ != nullptr);
+    _impl_.config_->Clear();
   }
-  _impl_.config_ = nullptr;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* CodecInitRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mmc.ConfigParam config = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_config(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -210,11 +164,12 @@ const char* CodecInitRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -222,65 +177,70 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CodecInitRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CodecInitRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.CodecInitRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mmc.ConfigParam config = 1;
-  if (this->_internal_has_config()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::config(this),
         _Internal::config(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.CodecInitRequest)
   return target;
 }
 
-size_t CodecInitRequest::ByteSizeLong() const {
+::size_t CodecInitRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.CodecInitRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .mmc.ConfigParam config = 1;
-  if (this->_internal_has_config()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.config_);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CodecInitRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CodecInitRequest::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CodecInitRequest::GetClassData() const { return &_class_data_; }
+void CodecInitRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CodecInitRequest*>(
+      &from));
+}
 
-
-void CodecInitRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CodecInitRequest*>(&to_msg);
-  auto& from = static_cast<const CodecInitRequest&>(from_msg);
+void CodecInitRequest::MergeFrom(const CodecInitRequest& from) {
+  CodecInitRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.CodecInitRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_config()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_config()->::mmc::ConfigParam::MergeFrom(
         from._internal_config());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CodecInitRequest::CopyFrom(const CodecInitRequest& from) {
@@ -297,13 +257,12 @@ bool CodecInitRequest::IsInitialized() const {
 void CodecInitRequest::InternalSwap(CodecInitRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.config_, other->_impl_.config_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CodecInitRequest::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fservice_2eproto_getter, &descriptor_table_mmc_5fservice_2eproto_once,
-      file_level_metadata_mmc_5fservice_2eproto[0]);
+std::string CodecInitRequest::GetTypeName() const {
+  return "mmc.CodecInitRequest";
 }
 
 // ===================================================================
@@ -312,51 +271,51 @@ class CodecInitResponse::_Internal {
  public:
 };
 
-CodecInitResponse::CodecInitResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CodecInitResponse::CodecInitResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.CodecInitResponse)
 }
 CodecInitResponse::CodecInitResponse(const CodecInitResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CodecInitResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.socket_token_){}
-    , decltype(_impl_.input_frame_size_){}
+      decltype(_impl_.socket_token_) {}
+
+    , decltype(_impl_.input_frame_size_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.socket_token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.socket_token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.socket_token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_socket_token().empty()) {
-    _this->_impl_.socket_token_.Set(from._internal_socket_token(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.socket_token_.Set(from._internal_socket_token(), _this->GetArenaForAllocation());
   }
   _this->_impl_.input_frame_size_ = from._impl_.input_frame_size_;
   // @@protoc_insertion_point(copy_constructor:mmc.CodecInitResponse)
 }
 
-inline void CodecInitResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CodecInitResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.socket_token_){}
-    , decltype(_impl_.input_frame_size_){0}
+      decltype(_impl_.socket_token_) {}
+
+    , decltype(_impl_.input_frame_size_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.socket_token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.socket_token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.socket_token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CodecInitResponse::~CodecInitResponse() {
   // @@protoc_insertion_point(destructor:mmc.CodecInitResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -364,7 +323,7 @@ CodecInitResponse::~CodecInitResponse() {
 }
 
 inline void CodecInitResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.socket_token_.Destroy();
 }
 
@@ -374,38 +333,40 @@ void CodecInitResponse::SetCachedSize(int size) const {
 
 void CodecInitResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.CodecInitResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.socket_token_.ClearToEmpty();
   _impl_.input_frame_size_ = 0;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* CodecInitResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string socket_token = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_socket_token();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "mmc.CodecInitResponse.socket_token"));
-        } else
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 input_frame_size = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.input_frame_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -418,7 +379,7 @@ const char* CodecInitResponse::_InternalParse(const char* ptr, ::_pbi::ParseCont
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -430,72 +391,74 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CodecInitResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CodecInitResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.CodecInitResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string socket_token = 1;
   if (!this->_internal_socket_token().empty()) {
+    const std::string& _s = this->_internal_socket_token();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_socket_token().data(), static_cast<int>(this->_internal_socket_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mmc.CodecInitResponse.socket_token");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_socket_token(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "mmc.CodecInitResponse.socket_token");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // int32 input_frame_size = 2;
   if (this->_internal_input_frame_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_input_frame_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_input_frame_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.CodecInitResponse)
   return target;
 }
 
-size_t CodecInitResponse::ByteSizeLong() const {
+::size_t CodecInitResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.CodecInitResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string socket_token = 1;
   if (!this->_internal_socket_token().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_socket_token());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_socket_token());
   }
 
   // int32 input_frame_size = 2;
   if (this->_internal_input_frame_size() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_input_frame_size());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_input_frame_size());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CodecInitResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CodecInitResponse::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CodecInitResponse::GetClassData() const { return &_class_data_; }
+void CodecInitResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CodecInitResponse*>(
+      &from));
+}
 
-
-void CodecInitResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CodecInitResponse*>(&to_msg);
-  auto& from = static_cast<const CodecInitResponse&>(from_msg);
+void CodecInitResponse::MergeFrom(const CodecInitResponse& from) {
+  CodecInitResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.CodecInitResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_socket_token().empty()) {
@@ -504,7 +467,7 @@ void CodecInitResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_input_frame_size() != 0) {
     _this->_internal_set_input_frame_size(from._internal_input_frame_size());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CodecInitResponse::CopyFrom(const CodecInitResponse& from) {
@@ -523,17 +486,14 @@ void CodecInitResponse::InternalSwap(CodecInitResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.socket_token_, lhs_arena,
-      &other->_impl_.socket_token_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.socket_token_, lhs_arena,
+                                       &other->_impl_.socket_token_, rhs_arena);
+
   swap(_impl_.input_frame_size_, other->_impl_.input_frame_size_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CodecInitResponse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fservice_2eproto_getter, &descriptor_table_mmc_5fservice_2eproto_once,
-      file_level_metadata_mmc_5fservice_2eproto[1]);
+std::string CodecInitResponse::GetTypeName() const {
+  return "mmc.CodecInitResponse";
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -548,6 +508,5 @@ Arena::CreateMaybeMessage< ::mmc::CodecInitResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mmc::CodecInitResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

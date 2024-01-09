@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,13 +135,16 @@ bool NavigationApiHistoryEntry::Validate(
 }
 NavigationApiHistoryEntryArrays::NavigationApiHistoryEntryArrays()
     : back_entries(),
-      forward_entries() {}
+      forward_entries(),
+      previous_entry() {}
 
 NavigationApiHistoryEntryArrays::NavigationApiHistoryEntryArrays(
     WTF::Vector<NavigationApiHistoryEntryPtr> back_entries_in,
-    WTF::Vector<NavigationApiHistoryEntryPtr> forward_entries_in)
+    WTF::Vector<NavigationApiHistoryEntryPtr> forward_entries_in,
+    NavigationApiHistoryEntryPtr previous_entry_in)
     : back_entries(std::move(back_entries_in)),
-      forward_entries(std::move(forward_entries_in)) {}
+      forward_entries(std::move(forward_entries_in)),
+      previous_entry(std::move(previous_entry_in)) {}
 
 NavigationApiHistoryEntryArrays::~NavigationApiHistoryEntryArrays() = default;
 
@@ -161,6 +165,15 @@ void NavigationApiHistoryEntryArrays::WriteIntoTrace(
       "forward_entries"), this->forward_entries,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type WTF::Vector<NavigationApiHistoryEntryPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "previous_entry"), this->previous_entry,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type NavigationApiHistoryEntryPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -214,6 +227,8 @@ bool StructTraits<::blink::mojom::blink::NavigationApiHistoryEntryArrays::DataVi
       if (success && !input.ReadBackEntries(&result->back_entries))
         success = false;
       if (success && !input.ReadForwardEntries(&result->forward_entries))
+        success = false;
+      if (success && !input.ReadPreviousEntry(&result->previous_entry))
         success = false;
   *output = std::move(result);
   return success;

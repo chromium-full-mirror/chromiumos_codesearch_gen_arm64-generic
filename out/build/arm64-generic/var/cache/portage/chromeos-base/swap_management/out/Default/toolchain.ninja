@@ -34,9 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/swap_management/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/swap_management/_swap_management-install_config.stamp: stamp
-build obj/swap_management/all.stamp: stamp obj/swap_management/install_dbus_config.stamp obj/swap_management/install_init.stamp obj/swap_management/install_minijail_conf.stamp obj/swap_management/install_tmpfiles_config.stamp obj/swap_management/install_udev_rule.stamp ./swap_management ./swap_tool_test
+build obj/swap_management/all.stamp: stamp obj/swap_management/install_dbus_config.stamp obj/swap_management/install_init.stamp obj/swap_management/install_minijail_conf.stamp obj/swap_management/install_tmpfiles_config.stamp obj/swap_management/install_udev_rule.stamp ./swap_management
 build obj/swap_management/install_dbus_config.stamp: stamp
 build obj/swap_management/install_init.stamp: stamp
 build obj/swap_management/install_minijail_conf.stamp: stamp
@@ -53,4 +52,3 @@ build gen/include/swap_management/dbus_adaptors/org.chromium.SwapManagement.h: _
 
 build obj/swap_management/swap-management-adaptors.stamp: stamp gen/include/swap_management/dbus_adaptors/org.chromium.SwapManagement.h
 subninja obj/swap_management/swap_management.ninja
-subninja obj/swap_management/swap_tool_test.ninja

@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGTextContentElement>::value,
     "SVGTextContentElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGTextContentElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGTextContentElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textLength();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -121,7 +116,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lengthAdjust();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -184,7 +179,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_point = NativeValueTraits<SVGPointTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -215,7 +210,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElemen
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getComputedTextLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -247,7 +242,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -286,7 +281,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -309,8 +304,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getNumberOfChars");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNumberOfChars();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -336,7 +332,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -375,7 +371,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -414,7 +410,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -451,7 +447,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(v8_receiver);
+SVGTextContentElement* blink_receiver = V8SVGTextContentElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_charnum = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

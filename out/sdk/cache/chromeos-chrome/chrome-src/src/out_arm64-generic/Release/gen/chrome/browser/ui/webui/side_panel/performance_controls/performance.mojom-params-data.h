@@ -55,6 +55,42 @@ class  PerformancePageHandler_ShowUI_Params_Data {
 };
 static_assert(sizeof(PerformancePageHandler_ShowUI_Params_Data) == 8,
               "Bad sizeof(PerformancePageHandler_ShowUI_Params_Data)");
+class  BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data page;
+  mojo::internal::Handle_Data handler;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data>;
+
+  BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data();
+  ~BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data() = delete;
+};
+static_assert(sizeof(BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data) == 24,
+              "Bad sizeof(BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data)");
+class  MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data page;
+  mojo::internal::Handle_Data handler;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data>;
+
+  MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data();
+  ~MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data() = delete;
+};
+static_assert(sizeof(MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data) == 24,
+              "Bad sizeof(MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data)");
 
 }  // namespace internal
 
@@ -106,6 +142,78 @@ class PerformancePageHandler_ShowUI_ParamsDataView {
  private:
   internal::PerformancePageHandler_ShowUI_Params_Data* data_ = nullptr;
 };
+
+
+class BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_ParamsDataView {
+ public:
+  BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_ParamsDataView() = default;
+
+  BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_ParamsDataView(
+      internal::BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakePage() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::side_panel::mojom::BatterySaverCardInterfaceBase>>(
+            &data_->page, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeHandler() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::side_panel::mojom::BatterySaverCardHandlerInterfaceBase>>(
+            &data_->handler, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_ParamsDataView {
+ public:
+  MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_ParamsDataView() = default;
+
+  MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_ParamsDataView(
+      internal::MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakePage() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::side_panel::mojom::MemorySaverCardInterfaceBase>>(
+            &data_->page, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeHandler() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::side_panel::mojom::MemorySaverCardHandlerInterfaceBase>>(
+            &data_->handler, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+
 
 
 

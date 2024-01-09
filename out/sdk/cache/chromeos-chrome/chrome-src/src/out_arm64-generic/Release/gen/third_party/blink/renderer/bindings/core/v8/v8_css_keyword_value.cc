@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSKeywordValue>::value,
     "CSSKeywordValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSKeywordValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSKeywordValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSKeywordValue.value.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSKeywordValue* blink_receiver = V8CSSKeywordValue::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->value();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSKeywordValue* blink_receiver = V8CSSKeywordValue::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,9 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSKeywordValue.value.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSKeywordValue* blink_receiver = V8CSSKeywordValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSKeywordValue* blink_receiver = V8CSSKeywordValue::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSKeywordValue";

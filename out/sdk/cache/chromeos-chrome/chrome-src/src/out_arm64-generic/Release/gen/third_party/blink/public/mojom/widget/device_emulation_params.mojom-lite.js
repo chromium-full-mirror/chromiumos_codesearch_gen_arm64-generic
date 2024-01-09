@@ -139,8 +139,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'devicePosture', 64,
+        0,
+        device.mojom.DevicePostureTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 72],]);
+    [[0, 80],]);
 
 
 
@@ -171,6 +179,8 @@ blink.mojom.DeviceEmulationParams = class {
     this.screenOrientationAngle;
     /** @export { !Array<!gfx.mojom.Rect> } */
     this.windowSegments;
+    /** @export { !device.mojom.DevicePostureType } */
+    this.devicePosture;
   }
 };
 

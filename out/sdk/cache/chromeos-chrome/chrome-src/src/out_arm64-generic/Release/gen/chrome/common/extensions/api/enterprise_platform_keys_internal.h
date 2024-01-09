@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct Hash {
   ~Hash();
   Hash(const Hash&) = delete;
   Hash& operator=(const Hash&) = delete;
-  Hash(Hash&& rhs);
-  Hash& operator=(Hash&& rhs);
+  Hash(Hash&& rhs) noexcept;
+  Hash& operator=(Hash&& rhs) noexcept;
 
   // Populates a Hash object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -46,14 +47,11 @@ struct Hash {
   // Creates a deep copy of Hash.
   Hash Clone() const;
 
-  // Creates a Hash object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Hash> FromValueDeprecated(const base::Value& value);
-
   // Creates a Hash object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Hash> FromValue(const base::Value::Dict& value);
+  static std::optional<Hash> FromValue(const base::Value::Dict& value);
 
   // Creates a Hash object from a base::Value, or nullopt on failure.
-  static absl::optional<Hash> FromValue(const base::Value& value);
+  static std::optional<Hash> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHash object.
@@ -68,8 +66,8 @@ struct Algorithm {
   ~Algorithm();
   Algorithm(const Algorithm&) = delete;
   Algorithm& operator=(const Algorithm&) = delete;
-  Algorithm(Algorithm&& rhs);
-  Algorithm& operator=(Algorithm&& rhs);
+  Algorithm(Algorithm&& rhs) noexcept;
+  Algorithm& operator=(Algorithm&& rhs) noexcept;
 
   // Populates a Algorithm object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -82,14 +80,11 @@ struct Algorithm {
   // Creates a deep copy of Algorithm.
   Algorithm Clone() const;
 
-  // Creates a Algorithm object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Algorithm> FromValueDeprecated(const base::Value& value);
-
   // Creates a Algorithm object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Algorithm> FromValue(const base::Value::Dict& value);
+  static std::optional<Algorithm> FromValue(const base::Value::Dict& value);
 
   // Creates a Algorithm object from a base::Value, or nullopt on failure.
-  static absl::optional<Algorithm> FromValue(const base::Value& value);
+  static std::optional<Algorithm> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlgorithm object.
@@ -99,14 +94,14 @@ struct Algorithm {
   std::string name;
 
   // Provided in case of RSASSA-PKCS1-v1_5.
-  absl::optional<int> modulus_length;
+  std::optional<int> modulus_length;
 
-  absl::optional<std::vector<uint8_t>> public_exponent;
+  std::optional<std::vector<uint8_t>> public_exponent;
 
-  absl::optional<Hash> hash;
+  std::optional<Hash> hash;
 
   // Provided in case of ECDSA.
-  absl::optional<std::string> named_curve;
+  std::optional<std::string> named_curve;
 
 };
 
@@ -127,11 +122,11 @@ base::Value::List Create(const std::vector<std::string>& token_ids);
 namespace GenerateKey {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string token_id;

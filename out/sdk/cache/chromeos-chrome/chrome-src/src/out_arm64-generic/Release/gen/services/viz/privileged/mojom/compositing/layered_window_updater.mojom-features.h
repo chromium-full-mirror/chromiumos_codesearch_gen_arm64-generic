@@ -8,6 +8,7 @@
 #define SERVICES_VIZ_PRIVILEGED_MOJOM_COMPOSITING_LAYERED_WINDOW_UPDATER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -20,7 +20,7 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomationInterceptorForTesting : 
   void GetFedCmDialogTitle(GetFedCmDialogTitleCallback callback) override;
   void SelectFedCmAccount(uint32_t account_index, SelectFedCmAccountCallback callback) override;
   void DismissFedCmDialog(DismissFedCmDialogCallback callback) override;
-  void ConfirmIdpLogin(ConfirmIdpLoginCallback callback) override;
+  void ClickFedCmDialogButton(DialogButton dialog_button, ClickFedCmDialogButtonCallback callback) override;
 };
 class BLINK_COMMON_EXPORT FederatedAuthRequestAutomationAsyncWaiter {
  public:
@@ -31,20 +31,20 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomationAsyncWaiter {
 
   ~FederatedAuthRequestAutomationAsyncWaiter();
   void GetDialogType(
-      absl::optional<std::string>* out_title);
-  absl::optional<std::string> GetDialogType();
+      std::optional<std::string>* out_title);
+  std::optional<std::string> GetDialogType();
   void GetFedCmDialogTitle(
-      absl::optional<std::string>* out_title);
-  absl::optional<std::string> GetFedCmDialogTitle();
+      std::optional<std::string>* out_title);
+  std::optional<std::string> GetFedCmDialogTitle();
   void SelectFedCmAccount(
       uint32_t account_index, bool* out_success);
   bool SelectFedCmAccount(uint32_t account_index);
   void DismissFedCmDialog(
       bool* out_success);
   bool DismissFedCmDialog();
-  void ConfirmIdpLogin(
-      bool* out_success);
-  bool ConfirmIdpLogin();
+  void ClickFedCmDialogButton(
+      DialogButton dialog_button, bool* out_success);
+  bool ClickFedCmDialogButton(DialogButton dialog_button);
 
  private:
   FederatedAuthRequestAutomation* const proxy_;

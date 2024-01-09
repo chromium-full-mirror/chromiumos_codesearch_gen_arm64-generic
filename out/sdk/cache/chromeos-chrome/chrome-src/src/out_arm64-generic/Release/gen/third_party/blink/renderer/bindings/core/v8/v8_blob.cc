@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Blob>::value,
     "Blob inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Blob::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Blob is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("Blob.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -103,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("Blob.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -186,7 +182,7 @@ return;
 
 
 
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -206,9 +202,9 @@ BLINK_BINDINGS_TRACE_EVENT("Blob.slice");
 
 
 Blob* return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Blob";
 const char* const property_name = "slice";
@@ -258,8 +254,9 @@ BLINK_BINDINGS_TRACE_EVENT("Blob.stream");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -290,7 +287,7 @@ return;
 
 
 
-Blob* blink_receiver = V8Blob::ToWrappableUnsafe(v8_receiver);
+Blob* blink_receiver = V8Blob::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

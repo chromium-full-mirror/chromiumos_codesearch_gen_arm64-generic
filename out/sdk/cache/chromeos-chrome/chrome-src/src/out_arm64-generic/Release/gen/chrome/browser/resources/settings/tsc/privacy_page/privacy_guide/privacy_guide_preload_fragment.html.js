@@ -13,9 +13,9 @@ export function getTemplate() {
     <settings-collapse-radio-button id="preloadRadioStandard" pref="[[prefs.net.network_prediction_options]]" name="[[networkPredictionOptionsEnum_.STANDARD]]" label="$i18n{preloadingPageStandardPreloadingTitle}" sub-label="$i18n{preloadingPageStandardPreloadingSummary}">
       <div slot="collapse" class="settings-columned-section">
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideFeatureDescriptionHeader}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings20:bolt" label="$i18n{preloadingPageStandardPreloadingWhenOnBulletOne}">
             </privacy-guide-description-item>
@@ -24,9 +24,9 @@ export function getTemplate() {
           </div>
         </div>
         <div class="column">
-          <div class="description-header">
+          <h3 class="description-header">
             $i18n{privacyGuideThingsToConsider}
-          </div>
+          </h3>
           <div role="list">
             <privacy-guide-description-item role="listitem" icon="settings:cookie" label="$i18n{preloadingPageThingsToConsiderBulletOne}">
             </privacy-guide-description-item>

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/digital_goods/mojom/digital_goods.mojom-features.h"
 #include "components/digital_goods/mojom/digital_goods.mojom-shared.h"
 #include "components/digital_goods/mojom/digital_goods.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -221,23 +222,23 @@ class  ItemDetails {
       const std::string& title,
       const std::string& description,
       ::payments::mojom::PaymentCurrencyAmountPtr price,
-      const absl::optional<std::string>& subscription_period,
-      const absl::optional<std::string>& free_trial_period,
+      const std::optional<std::string>& subscription_period,
+      const std::optional<std::string>& free_trial_period,
       ::payments::mojom::PaymentCurrencyAmountPtr introductory_price,
-      const absl::optional<std::string>& introductory_price_period);
+      const std::optional<std::string>& introductory_price_period);
 
   ItemDetails(
       const std::string& item_id,
       const std::string& title,
       const std::string& description,
       ::payments::mojom::PaymentCurrencyAmountPtr price,
-      const absl::optional<std::string>& subscription_period,
-      const absl::optional<std::string>& free_trial_period,
+      const std::optional<std::string>& subscription_period,
+      const std::optional<std::string>& free_trial_period,
       ::payments::mojom::PaymentCurrencyAmountPtr introductory_price,
-      const absl::optional<std::string>& introductory_price_period,
+      const std::optional<std::string>& introductory_price_period,
       uint32_t introductory_price_cycles,
       ItemType type,
-      absl::optional<std::vector<::GURL>> icon_urls);
+      std::optional<std::vector<::GURL>> icon_urls);
 
 ItemDetails(const ItemDetails&) = delete;
 ItemDetails& operator=(const ItemDetails&) = delete;
@@ -325,19 +326,19 @@ ItemDetails& operator=(const ItemDetails&) = delete;
   
   ::payments::mojom::PaymentCurrencyAmountPtr price;
   
-  absl::optional<std::string> subscription_period;
+  std::optional<std::string> subscription_period;
   
-  absl::optional<std::string> free_trial_period;
+  std::optional<std::string> free_trial_period;
   
   ::payments::mojom::PaymentCurrencyAmountPtr introductory_price;
   
-  absl::optional<std::string> introductory_price_period;
+  std::optional<std::string> introductory_price_period;
   
   uint32_t introductory_price_cycles;
   
   ItemType type;
   
-  absl::optional<std::vector<::GURL>> icon_urls;
+  std::optional<std::vector<::GURL>> icon_urls;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

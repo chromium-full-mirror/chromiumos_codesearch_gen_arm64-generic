@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -223,7 +224,7 @@ StorageAreaObserverProxy::StorageAreaObserverProxy(mojo::MessageReceiverWithResp
 }
 
 void StorageAreaObserverProxy::KeyChanged(
-    const std::vector<uint8_t>& in_key, const std::vector<uint8_t>& in_new_value, const absl::optional<std::vector<uint8_t>>& in_old_value, const std::string& in_source) {
+    const std::vector<uint8_t>& in_key, const std::vector<uint8_t>& in_new_value, const std::optional<std::vector<uint8_t>>& in_old_value, const std::string& in_source) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::StorageAreaObserver::KeyChanged", "input_parameters",
@@ -237,20 +238,23 @@ void StorageAreaObserverProxy::KeyChanged(
                         "<value of type const std::vector<uint8_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("old_value"), in_old_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source"), in_source,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageAreaObserver_KeyChanged_Name, kFlags, 0, 0, nullptr);
@@ -329,14 +333,17 @@ void StorageAreaObserverProxy::KeyChangeFailed(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageAreaObserver_KeyChangeFailed_Name, kFlags, 0, 0, nullptr);
@@ -379,7 +386,7 @@ void StorageAreaObserverProxy::KeyChangeFailed(
 }
 
 void StorageAreaObserverProxy::KeyDeleted(
-    const std::vector<uint8_t>& in_key, const absl::optional<std::vector<uint8_t>>& in_old_value, const std::string& in_source) {
+    const std::vector<uint8_t>& in_key, const std::optional<std::vector<uint8_t>>& in_old_value, const std::string& in_source) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::StorageAreaObserver::KeyDeleted", "input_parameters",
@@ -390,20 +397,23 @@ void StorageAreaObserverProxy::KeyDeleted(
                         "<value of type const std::vector<uint8_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("old_value"), in_old_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source"), in_source,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageAreaObserver_KeyDeleted_Name, kFlags, 0, 0, nullptr);
@@ -469,14 +479,17 @@ void StorageAreaObserverProxy::AllDeleted(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageAreaObserver_AllDeleted_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +531,17 @@ void StorageAreaObserverProxy::ShouldSendOldValueOnMutations(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageAreaObserver_ShouldSendOldValueOnMutations_Name, kFlags, 0, 0, nullptr);
@@ -559,7 +575,7 @@ bool StorageAreaObserverStubDispatch::Accept(
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::vector<uint8_t> p_new_value{};
-      absl::optional<std::vector<uint8_t>> p_old_value{};
+      std::optional<std::vector<uint8_t>> p_old_value{};
       std::string p_source{};
       StorageAreaObserver_KeyChanged_ParamsDataView input_data_view(params, message);
       
@@ -626,7 +642,7 @@ std::move(p_source));
       
       bool success = true;
       std::vector<uint8_t> p_key{};
-      absl::optional<std::vector<uint8_t>> p_old_value{};
+      std::optional<std::vector<uint8_t>> p_old_value{};
       std::string p_source{};
       StorageAreaObserver_KeyDeleted_ParamsDataView input_data_view(params, message);
       
@@ -738,18 +754,18 @@ bool StorageAreaObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStorageAreaObserverValidationInfo[] = {
-    {&internal::StorageAreaObserver_KeyChanged_Params_Data::Validate,
+    { &internal::StorageAreaObserver_KeyChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageAreaObserver_KeyChangeFailed_Params_Data::Validate,
+    { &internal::StorageAreaObserver_KeyChangeFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageAreaObserver_KeyDeleted_Params_Data::Validate,
+    { &internal::StorageAreaObserver_KeyDeleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageAreaObserver_AllDeleted_Params_Data::Validate,
+    { &internal::StorageAreaObserver_AllDeleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageAreaObserver_ShouldSendOldValueOnMutations_Params_Data::Validate,
+    { &internal::StorageAreaObserver_ShouldSendOldValueOnMutations_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1031,14 +1047,17 @@ void StorageAreaProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<StorageAreaObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1063,7 +1082,7 @@ void StorageAreaProxy::AddObserver(
 }
 
 void StorageAreaProxy::Put(
-    const std::vector<uint8_t>& in_key, const std::vector<uint8_t>& in_value, const absl::optional<std::vector<uint8_t>>& in_client_old_value, const std::string& in_source, PutCallback callback) {
+    const std::vector<uint8_t>& in_key, const std::vector<uint8_t>& in_value, const std::optional<std::vector<uint8_t>>& in_client_old_value, const std::string& in_source, PutCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::StorageArea::Put", "input_parameters",
@@ -1077,20 +1096,23 @@ void StorageAreaProxy::Put(
                         "<value of type const std::vector<uint8_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_old_value"), in_client_old_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source"), in_source,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Put_Name, kFlags, 0, 0, nullptr);
@@ -1156,7 +1178,7 @@ void StorageAreaProxy::Put(
 }
 
 void StorageAreaProxy::Delete(
-    const std::vector<uint8_t>& in_key, const absl::optional<std::vector<uint8_t>>& in_client_old_value, const std::string& in_source, DeleteCallback callback) {
+    const std::vector<uint8_t>& in_key, const std::optional<std::vector<uint8_t>>& in_client_old_value, const std::string& in_source, DeleteCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::StorageArea::Delete", "input_parameters",
@@ -1167,20 +1189,23 @@ void StorageAreaProxy::Delete(
                         "<value of type const std::vector<uint8_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_old_value"), in_client_old_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source"), in_source,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1247,14 +1272,17 @@ void StorageAreaProxy::DeleteAll(
                         "<value of type ::mojo::PendingRemote<StorageAreaObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_DeleteAll_Name, kFlags, 0, 0, nullptr);
@@ -1298,14 +1326,17 @@ void StorageAreaProxy::Get(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Get_Name, kFlags, 0, 0, nullptr);
@@ -1350,15 +1381,18 @@ bool StorageAreaProxy::GetAll(
 #else
   TRACE_EVENT0("mojom", "StorageArea::GetAll");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -1404,14 +1438,17 @@ void StorageAreaProxy::GetAll(
                         "<value of type ::mojo::PendingRemote<StorageAreaObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -1523,7 +1560,8 @@ void StorageArea_Put_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Put_Name, kFlags, 0, 0, nullptr);
@@ -1641,7 +1679,8 @@ void StorageArea_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1759,7 +1798,8 @@ void StorageArea_DeleteAll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_DeleteAll_Name, kFlags, 0, 0, nullptr);
@@ -1884,7 +1924,8 @@ void StorageArea_Get_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_Get_Name, kFlags, 0, 0, nullptr);
@@ -2015,7 +2056,8 @@ void StorageArea_GetAll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStorageArea_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -2153,7 +2195,7 @@ bool StorageAreaStubDispatch::AcceptWithResponder(
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::vector<uint8_t> p_value{};
-      absl::optional<std::vector<uint8_t>> p_client_old_value{};
+      std::optional<std::vector<uint8_t>> p_client_old_value{};
       std::string p_source{};
       StorageArea_Put_ParamsDataView input_data_view(params, message);
       
@@ -2193,7 +2235,7 @@ std::move(p_source), std::move(callback));
       
       bool success = true;
       std::vector<uint8_t> p_key{};
-      absl::optional<std::vector<uint8_t>> p_client_old_value{};
+      std::optional<std::vector<uint8_t>> p_client_old_value{};
       std::string p_source{};
       StorageArea_Delete_ParamsDataView input_data_view(params, message);
       
@@ -2319,20 +2361,20 @@ std::move(p_new_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStorageAreaValidationInfo[] = {
-    {&internal::StorageArea_AddObserver_Params_Data::Validate,
+    { &internal::StorageArea_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StorageArea_Put_Params_Data::Validate,
+    { &internal::StorageArea_Put_Params_Data::Validate,
      &internal::StorageArea_Put_ResponseParams_Data::Validate},
-    {&internal::StorageArea_Delete_Params_Data::Validate,
+    { &internal::StorageArea_Delete_Params_Data::Validate,
      &internal::StorageArea_Delete_ResponseParams_Data::Validate},
-    {&internal::StorageArea_DeleteAll_Params_Data::Validate,
+    { &internal::StorageArea_DeleteAll_Params_Data::Validate,
      &internal::StorageArea_DeleteAll_ResponseParams_Data::Validate},
-    {&internal::StorageArea_Get_Params_Data::Validate,
+    { &internal::StorageArea_Get_Params_Data::Validate,
      &internal::StorageArea_Get_ResponseParams_Data::Validate},
-    {&internal::StorageArea_GetAll_Params_Data::Validate,
+    { &internal::StorageArea_GetAll_Params_Data::Validate,
      &internal::StorageArea_GetAll_ResponseParams_Data::Validate},
 };
 
@@ -2378,13 +2420,13 @@ bool StructTraits<::blink::mojom::KeyValue::DataView, ::blink::mojom::KeyValuePt
 namespace blink::mojom {
 
 
-void StorageAreaObserverInterceptorForTesting::KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) {
+void StorageAreaObserverInterceptorForTesting::KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) {
   GetForwardingInterface()->KeyChanged(std::move(key), std::move(new_value), std::move(old_value), std::move(source));
 }
 void StorageAreaObserverInterceptorForTesting::KeyChangeFailed(const std::vector<uint8_t>& key, const std::string& source) {
   GetForwardingInterface()->KeyChangeFailed(std::move(key), std::move(source));
 }
-void StorageAreaObserverInterceptorForTesting::KeyDeleted(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) {
+void StorageAreaObserverInterceptorForTesting::KeyDeleted(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) {
   GetForwardingInterface()->KeyDeleted(std::move(key), std::move(old_value), std::move(source));
 }
 void StorageAreaObserverInterceptorForTesting::AllDeleted(bool was_nonempty, const std::string& source) {
@@ -2404,10 +2446,10 @@ StorageAreaObserverAsyncWaiter::~StorageAreaObserverAsyncWaiter() = default;
 void StorageAreaInterceptorForTesting::AddObserver(::mojo::PendingRemote<StorageAreaObserver> observer) {
   GetForwardingInterface()->AddObserver(std::move(observer));
 }
-void StorageAreaInterceptorForTesting::Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) {
+void StorageAreaInterceptorForTesting::Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) {
   GetForwardingInterface()->Put(std::move(key), std::move(value), std::move(client_old_value), std::move(source), std::move(callback));
 }
-void StorageAreaInterceptorForTesting::Delete(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) {
+void StorageAreaInterceptorForTesting::Delete(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) {
   GetForwardingInterface()->Delete(std::move(key), std::move(client_old_value), std::move(source), std::move(callback));
 }
 void StorageAreaInterceptorForTesting::DeleteAll(const std::string& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, DeleteAllCallback callback) {
@@ -2425,7 +2467,7 @@ StorageAreaAsyncWaiter::StorageAreaAsyncWaiter(
 StorageAreaAsyncWaiter::~StorageAreaAsyncWaiter() = default;
 
 void StorageAreaAsyncWaiter::Put(
-    const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success) {
+    const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success) {
   base::RunLoop loop;
   proxy_->Put(std::move(key),std::move(value),std::move(client_old_value),std::move(source),
       base::BindOnce(
@@ -2441,14 +2483,14 @@ void StorageAreaAsyncWaiter::Put(
 }
 
 bool StorageAreaAsyncWaiter::Put(
-    const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source) {
+    const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source) {
   bool async_wait_result;
   Put(std::move(key),std::move(value),std::move(client_old_value),std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void StorageAreaAsyncWaiter::Delete(
-    const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success) {
+    const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success) {
   base::RunLoop loop;
   proxy_->Delete(std::move(key),std::move(client_old_value),std::move(source),
       base::BindOnce(
@@ -2464,7 +2506,7 @@ void StorageAreaAsyncWaiter::Delete(
 }
 
 bool StorageAreaAsyncWaiter::Delete(
-    const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source) {
+    const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source) {
   bool async_wait_result;
   Delete(std::move(key),std::move(client_old_value),std::move(source),&async_wait_result);
   return async_wait_result;

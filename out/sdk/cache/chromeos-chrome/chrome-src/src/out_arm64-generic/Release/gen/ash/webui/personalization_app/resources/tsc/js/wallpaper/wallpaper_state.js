@@ -1,4 +1,5 @@
 import { kDefaultImageSymbol } from './constants.js';
+import { emptyState as emptySeaPenState } from './sea_pen/sea_pen_state.js';
 export var DailyRefreshType;
 (function (DailyRefreshType) {
     DailyRefreshType["GOOGLE_PHOTOS"] = "daily_refresh_google_photos";
@@ -31,6 +32,7 @@ export function emptyState() {
         pendingSelected: null,
         dailyRefresh: null,
         fullscreen: false,
+        shouldShowTimeOfDayWallpaperDialog: false,
         googlePhotos: {
             enabled: undefined,
             albums: undefined,
@@ -39,10 +41,6 @@ export function emptyState() {
             photosByAlbumId: {},
             resumeTokens: { albums: null, albumsShared: null, photos: null, photosByAlbumId: {} },
         },
-        seaPen: {
-            query: null,
-            thumbnails: null,
-            thumbnailsLoading: false,
-        },
+        seaPen: emptySeaPenState(),
     };
 }

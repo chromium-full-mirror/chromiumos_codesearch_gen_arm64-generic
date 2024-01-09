@@ -154,6 +154,26 @@ class  Dlp_OnScreenShareStopped_Params_Data {
 };
 static_assert(sizeof(Dlp_OnScreenShareStopped_Params_Data) == 24,
               "Bad sizeof(Dlp_OnScreenShareStopped_Params_Data)");
+class  Dlp_ShowBlockedFiles_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t task_id_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t action;
+  uint64_t task_id_$value;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data>>> files;
+
+ private:
+  friend class mojo::internal::MessageFragment<Dlp_ShowBlockedFiles_Params_Data>;
+
+  Dlp_ShowBlockedFiles_Params_Data();
+  ~Dlp_ShowBlockedFiles_Params_Data() = delete;
+};
+static_assert(sizeof(Dlp_ShowBlockedFiles_Params_Data) == 32,
+              "Bad sizeof(Dlp_ShowBlockedFiles_Params_Data)");
 
 }  // namespace internal
 
@@ -384,6 +404,48 @@ class Dlp_OnScreenShareStopped_ParamsDataView {
 };
 
 
+class Dlp_ShowBlockedFiles_ParamsDataView {
+ public:
+  Dlp_ShowBlockedFiles_ParamsDataView() = default;
+
+  Dlp_ShowBlockedFiles_ParamsDataView(
+      internal::Dlp_ShowBlockedFiles_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<uint64_t> task_id() const {
+
+    return data_->task_id_$flag
+        ? absl::make_optional(data_->task_id_$value)
+        : absl::nullopt;
+  }
+  inline void GetFilesDataView(
+      mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFiles(UserType* output) {
+    
+    auto* pointer = data_->files.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAction(UserType* output) const {
+    auto data_value = data_->action;
+    return mojo::internal::Deserialize<::crosapi::mojom::FileAction>(
+        data_value, output);
+  }
+  FileAction action() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::FileAction>(data_->action));
+  }
+ private:
+  internal::Dlp_ShowBlockedFiles_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -441,6 +503,13 @@ inline void Dlp_OnScreenShareStopped_ParamsDataView::GetAreaDataView(
     ScreenShareAreaDataView* output) {
   auto pointer = data_->area.Get();
   *output = ScreenShareAreaDataView(pointer, message_);
+}
+
+
+inline void Dlp_ShowBlockedFiles_ParamsDataView::GetFilesDataView(
+    mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>* output) {
+  auto pointer = data_->files.Get();
+  *output = mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>(pointer, message_);
 }
 
 

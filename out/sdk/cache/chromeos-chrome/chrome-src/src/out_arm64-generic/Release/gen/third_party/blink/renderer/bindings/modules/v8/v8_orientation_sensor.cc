@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, OrientationSensor>::value,
     "OrientationSensor does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&OrientationSensor::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OrientationSensor is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,7 +87,7 @@ BLINK_BINDINGS_TRACE_EVENT("OrientationSensor.quaternion.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OrientationSensor* blink_receiver = V8OrientationSensor::ToWrappableUnsafe(v8_receiver);
+OrientationSensor* blink_receiver = V8OrientationSensor::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -148,7 +143,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OrientationSensor* blink_receiver = V8OrientationSensor::ToWrappableUnsafe(v8_receiver);
+OrientationSensor* blink_receiver = V8OrientationSensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target_buffer = NativeValueTraits<V8UnionDOMMatrixOrFloat32ArrayOrFloat64Array>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

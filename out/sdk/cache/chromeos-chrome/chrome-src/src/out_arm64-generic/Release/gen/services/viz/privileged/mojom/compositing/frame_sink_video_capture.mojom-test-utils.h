@@ -61,7 +61,7 @@ class  FrameSinkVideoCapturerInterceptorForTesting : public FrameSinkVideoCaptur
   void SetMinSizeChangePeriod(::base::TimeDelta min_period) override;
   void SetResolutionConstraints(const ::gfx::Size& min_size, const ::gfx::Size& max_size, bool use_fixed_aspect_ratio) override;
   void SetAutoThrottlingEnabled(bool enabled) override;
-  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) override;
+  void ChangeTarget(const std::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) override;
   void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) override;
   void Stop() override;
   void RequestRefreshFrame() override;
@@ -85,6 +85,7 @@ class  FrameSinkVideoCaptureOverlayInterceptorForTesting : public FrameSinkVideo
   virtual FrameSinkVideoCaptureOverlay* GetForwardingInterface() = 0;
   void SetImageAndBounds(const ::SkBitmap& image, const ::gfx::RectF& bounds) override;
   void SetBounds(const ::gfx::RectF& bounds) override;
+  void OnCapturedMouseEvent(const ::gfx::Point& coordinates) override;
 };
 class  FrameSinkVideoCaptureOverlayAsyncWaiter {
  public:

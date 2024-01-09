@@ -13,7 +13,7 @@ import * as UI from '../../ui/legacy/legacy.js';
 import { BottomUpProfileDataGridTree } from './BottomUpProfileDataGrid.js';
 import { CPUProfileFlameChart } from './CPUProfileFlameChart.js';
 import { ProfileDataGridTree } from './ProfileDataGrid.js';
-import { Events, ProfileHeader } from './ProfileHeader.js';
+import { ProfileHeader } from './ProfileHeader.js';
 import { ProfileSidebarTreeElement } from './ProfileSidebarTreeElement.js';
 import { TopDownProfileDataGridTree } from './TopDownProfileDataGrid.js';
 const UIStrings = {
@@ -191,15 +191,14 @@ export class ProfileView extends UI.View.SimpleView {
         this.dataGrid.addEventListener(DataGrid.DataGrid.Events.SelectedNode, this.nodeSelected.bind(this, true));
         this.dataGrid.addEventListener(DataGrid.DataGrid.Events.DeselectedNode, this.nodeSelected.bind(this, false));
         this.dataGrid.setRowContextMenuCallback(this.populateContextMenu.bind(this));
-        this.viewSelectComboBox =
-            new UI.Toolbar.ToolbarComboBox(this.changeView.bind(this), i18nString(UIStrings.profileViewMode));
-        this.focusButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.focusSelectedFunction), 'eye');
+        this.viewSelectComboBox = new UI.Toolbar.ToolbarComboBox(this.changeView.bind(this), i18nString(UIStrings.profileViewMode), undefined, 'profile-view.selected-view');
+        this.focusButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.focusSelectedFunction), 'eye', undefined, 'profile-view.focus-selected-function');
         this.focusButton.setEnabled(false);
         this.focusButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.focusClicked, this);
-        this.excludeButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.excludeSelectedFunction), 'cross');
+        this.excludeButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.excludeSelectedFunction), 'cross', undefined, 'profile-view.exclude-selected-function');
         this.excludeButton.setEnabled(false);
         this.excludeButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.excludeClicked, this);
-        this.resetButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.restoreAllFunctions), 'refresh');
+        this.resetButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.restoreAllFunctions), 'refresh', undefined, 'profile-view.restore-all-functions');
         this.resetButton.setEnabled(false);
         this.resetButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.resetClicked, this);
         this.linkifierInternal = new Components.Linkifier.Linkifier(maxLinkLength);
@@ -465,9 +464,14 @@ export class WritableProfileHeader extends ProfileHeader {
     jsonifiedProfile;
     profile;
     protocolProfileInternal;
+    #profileReceivedPromise;
+    #profileReceivedFulfill = () => { };
     constructor(debuggerModel, type, title) {
         super(type, title || i18nString(UIStrings.profileD, { PH1: type.nextProfileUid() }));
         this.debuggerModel = debuggerModel;
+        this.#profileReceivedPromise = new Promise(resolve => {
+            this.#profileReceivedFulfill = resolve;
+        });
     }
     onChunkTransferred(_reader) {
         if (this.jsonifiedProfile) {
@@ -493,9 +497,10 @@ export class WritableProfileHeader extends ProfileHeader {
         return new ProfileSidebarTreeElement(panel, this, 'profile-sidebar-tree-item');
     }
     canSaveToFile() {
-        return !this.fromFile() && Boolean(this.protocolProfileInternal);
+        return !this.fromFile();
     }
     async saveToFile() {
+        await this.#profileReceivedPromise;
         const fileOutputStream = new Bindings.FileUtils.FileOutputStream();
         if (!this.fileName) {
             const now = Platform.DateUtilities.toISO8601Compact(new Date());
@@ -543,9 +548,7 @@ export class WritableProfileHeader extends ProfileHeader {
         this.protocolProfileInternal = profile;
         this.tempFile = new Bindings.TempFile.TempFile();
         this.tempFile.write([JSON.stringify(profile)]);
-        if (this.canSaveToFile()) {
-            this.dispatchEventToListeners(Events.ProfileReceived);
-        }
+        this.#profileReceivedFulfill();
     }
 }
 //# sourceMappingURL=ProfileView.js.map

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -174,14 +175,17 @@ void MessageCenterProxy::DisplayNotification(
                         "<value of type ::mojo::PendingRemote<NotificationDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMessageCenter_DisplayNotification_Name, kFlags, 0, 0, nullptr);
@@ -228,14 +232,17 @@ void MessageCenterProxy::CloseNotification(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMessageCenter_CloseNotification_Name, kFlags, 0, 0, nullptr);
@@ -269,14 +276,17 @@ void MessageCenterProxy::GetDisplayedNotifications(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::MessageCenter::GetDisplayedNotifications");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMessageCenter_GetDisplayedNotifications_Name, kFlags, 0, 0, nullptr);
@@ -386,7 +396,8 @@ void MessageCenter_GetDisplayedNotifications_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMessageCenter_GetDisplayedNotifications_Name, kFlags, 0, 0, nullptr);
@@ -538,14 +549,14 @@ bool MessageCenterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMessageCenterValidationInfo[] = {
-    {&internal::MessageCenter_DisplayNotification_Params_Data::Validate,
+    { &internal::MessageCenter_DisplayNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MessageCenter_CloseNotification_Params_Data::Validate,
+    { &internal::MessageCenter_CloseNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MessageCenter_GetDisplayedNotifications_Params_Data::Validate,
+    { &internal::MessageCenter_GetDisplayedNotifications_Params_Data::Validate,
      &internal::MessageCenter_GetDisplayedNotifications_ResponseParams_Data::Validate},
 };
 
@@ -710,14 +721,17 @@ void NotificationDelegateProxy::OnNotificationClosed(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationDelegate_OnNotificationClosed_Name, kFlags, 0, 0, nullptr);
@@ -741,14 +755,17 @@ void NotificationDelegateProxy::OnNotificationClicked(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NotificationDelegate::OnNotificationClicked");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationDelegate_OnNotificationClicked_Name, kFlags, 0, 0, nullptr);
@@ -767,7 +784,7 @@ void NotificationDelegateProxy::OnNotificationClicked(
 }
 
 void NotificationDelegateProxy::OnNotificationButtonClicked(
-    uint32_t in_button_index, const absl::optional<::std::u16string>& in_reply) {
+    uint32_t in_button_index, const std::optional<::std::u16string>& in_reply) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::NotificationDelegate::OnNotificationButtonClicked", "input_parameters",
@@ -778,17 +795,20 @@ void NotificationDelegateProxy::OnNotificationButtonClicked(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("reply"), in_reply,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationDelegate_OnNotificationButtonClicked_Name, kFlags, 0, 0, nullptr);
@@ -819,14 +839,17 @@ void NotificationDelegateProxy::OnNotificationSettingsButtonClicked(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NotificationDelegate::OnNotificationSettingsButtonClicked");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationDelegate_OnNotificationSettingsButtonClicked_Name, kFlags, 0, 0, nullptr);
@@ -849,14 +872,17 @@ void NotificationDelegateProxy::OnNotificationDisabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NotificationDelegate::OnNotificationDisabled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationDelegate_OnNotificationDisabled_Name, kFlags, 0, 0, nullptr);
@@ -936,7 +962,7 @@ std::move(p_by_user));
       
       bool success = true;
       uint32_t p_button_index{};
-      absl::optional<::std::u16string> p_reply{};
+      std::optional<::std::u16string> p_reply{};
       NotificationDelegate_OnNotificationButtonClicked_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1032,18 +1058,18 @@ bool NotificationDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNotificationDelegateValidationInfo[] = {
-    {&internal::NotificationDelegate_OnNotificationClosed_Params_Data::Validate,
+    { &internal::NotificationDelegate_OnNotificationClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationDelegate_OnNotificationClicked_Params_Data::Validate,
+    { &internal::NotificationDelegate_OnNotificationClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationDelegate_OnNotificationButtonClicked_Params_Data::Validate,
+    { &internal::NotificationDelegate_OnNotificationButtonClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationDelegate_OnNotificationSettingsButtonClicked_Params_Data::Validate,
+    { &internal::NotificationDelegate_OnNotificationSettingsButtonClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationDelegate_OnNotificationDisabled_Params_Data::Validate,
+    { &internal::NotificationDelegate_OnNotificationDisabled_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1115,7 +1141,7 @@ void NotificationDelegateInterceptorForTesting::OnNotificationClosed(bool by_use
 void NotificationDelegateInterceptorForTesting::OnNotificationClicked() {
   GetForwardingInterface()->OnNotificationClicked();
 }
-void NotificationDelegateInterceptorForTesting::OnNotificationButtonClicked(uint32_t button_index, const absl::optional<::std::u16string>& reply) {
+void NotificationDelegateInterceptorForTesting::OnNotificationButtonClicked(uint32_t button_index, const std::optional<::std::u16string>& reply) {
   GetForwardingInterface()->OnNotificationButtonClicked(std::move(button_index), std::move(reply));
 }
 void NotificationDelegateInterceptorForTesting::OnNotificationSettingsButtonClicked() {

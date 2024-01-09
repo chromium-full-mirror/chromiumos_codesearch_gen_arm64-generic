@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StylePropertyMapReadOnly>::value,
     "StylePropertyMapReadOnly inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StylePropertyMapReadOnly::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StylePropertyMapReadOnly is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("StylePropertyMapReadOnly.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -116,7 +112,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -156,7 +152,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -194,7 +190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -220,12 +216,12 @@ BLINK_BINDINGS_TRACE_EVENT("StylePropertyMapReadOnly.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "StylePropertyMapReadOnly";
 const char* const property_name = "entries";
@@ -258,7 +254,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -293,12 +289,12 @@ BLINK_BINDINGS_TRACE_EVENT("StylePropertyMapReadOnly.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "StylePropertyMapReadOnly";
 const char* const property_name = "keys";
@@ -321,12 +317,12 @@ BLINK_BINDINGS_TRACE_EVENT("StylePropertyMapReadOnly.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(v8_receiver);
+StylePropertyMapReadOnly* blink_receiver = V8StylePropertyMapReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "StylePropertyMapReadOnly";
 const char* const property_name = "values";

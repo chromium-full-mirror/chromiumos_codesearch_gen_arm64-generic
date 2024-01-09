@@ -39,6 +39,10 @@ EXPECT_PEER_WAKE_SUSPEND_SEC = 60
 EXPECT_PEER_WAKE_RESUME_BY = 30
 
 
+get_num_devices = bluetooth_adapter_tests.get_num_devices
+calc_total_num_devices = bluetooth_adapter_tests.calc_total_num_devices
+
+
 class BluetoothAdapterQuickTests(
         bluetooth_adapter_tests.BluetoothAdapterTests,
         bluetooth_quick_tests_base.BluetoothQuickTestsBase):
@@ -48,7 +52,13 @@ class BluetoothAdapterQuickTests(
 
 
     def restart_peers(self):
-        """Restart and clear peer devices"""
+        """Restart and clear peer devices
+
+        This method is called when the peers have to be restarted in
+        the middle of a test. For example, auto_reconnect_loop() in
+        bluetooth_adapter_pairing_tests.py calls this method to
+        restart peers to verify reconnection.
+        """
         # Restart the link to device
         logging.info('Restarting peer devices...')
 
@@ -60,15 +70,23 @@ class BluetoothAdapterQuickTests(
             for device in device_list:
                 if device is not None:
                     logging.info('Restarting %s', device_type)
-                    self.get_device(device_type, on_start=False)
+                    self.get_device(device_type,
+                                    device.cap_reqs,
+                                    on_start=False)
 
+    def start_peers(self, device_configs):
+        """Start peer devices
 
-    def start_peers(self, devices):
-        """Start peer devices"""
+        This method is called when a test is just started in the beginning.
+
+        @param device_configs: a dict which specifies either the number of
+                devices needed for each device_type, or the capability
+                requirements of the btpeer.
+        """
         # Start the link to devices
         if self.use_btpeer:
             logging.info('Starting peer devices...')
-            self.get_device_rasp(devices)
+            self.get_device_rasp(device_configs)
 
             # Grab all the devices to verify RSSI
             devices = []
@@ -144,14 +162,20 @@ class BluetoothAdapterQuickTests(
         self.floss_lm_quirk = floss_lm_quirk
         self.args_dict = args_dict if args_dict else {}
 
-        logging.info("Initialize dark resume utils.")
-        self._dr_utils = DarkResumeUtils(self.host)
-        # Bluetooth should lead to a full resume, but if dark resume is on,
-        # it may go into dark suspend again in case the test fails, so the
-        # DUT may not wake up.
-        # This function is to prevent the DUT from dark suspend.
-        self._dr_utils.stop_resuspend_on_dark_resume()
-        self._ec = chrome_ec.ChromeEC(self.host.servo)
+        try:
+            logging.info("Initialize dark resume utils.")
+            self._dr_utils = DarkResumeUtils(self.host)
+            # Bluetooth should lead to a full resume, but if dark resume is on,
+            # it may go into dark suspend again in case the test fails, so the
+            # DUT may not wake up.
+            # This function is to prevent the DUT from dark suspend.
+            self._dr_utils.stop_resuspend_on_dark_resume()
+            self._ec = chrome_ec.ChromeEC(self.host.servo)
+        except Exception as e:
+            logging.error('Exception %s while initializing dark resume utils',
+                          str(e))
+            self._dr_utils = None
+            self._ec = None
 
         logging.debug('args_dict %s', args_dict)
         update_btpeers = self._get_bool_arg('update_btpeers', args_dict, True)
@@ -366,15 +390,22 @@ class BluetoothAdapterQuickTests(
 
     def quick_test_test_pretest(self,
                                 test_name=None,
-                                devices={},
+                                device_configs={},
                                 use_all_peers=False,
                                 supports_floss=False):
         """Runs pretest checks and resets DUT's adapter and peer devices.
 
            @param test_name: the name of the test to log.
-           @param devices: map of the device types and the quantities needed for
-                           the test.
-                           For example, {'BLE_KEYBOARD':1, 'BLE_MOUSE':1}.
+           @param device_configs: map of the device types and values
+                           There are two possibilities of the values
+                           (1) the quantities needed for the test.
+                               For example, {'BLE_KEYBOARD':1, 'BLE_MOUSE':1}.
+                           (2) a tuple of tuples of required capabilities, e.g.,
+                               devices={'BLUETOOTH_AUDIO':
+                                            (('PIPEWIRE', 'LE_AUDIO'),)}
+                               which requires a BLUETOOTH_AUDIO device with
+                               the capabilities of support PIPEWIRE and LE_AUDIO
+                               adapter.
            @param use_all_peers: Set number of devices to be used to the
                                  maximum available. This is used for tests
                                  like bluetooth_PeerVerify which uses all
@@ -387,7 +418,8 @@ class BluetoothAdapterQuickTests(
             """Checks if enough peer devices are available."""
 
             # Check that btpeer has all required devices before running
-            for device_type, number in devices.items():
+            for device_type, cap_reqs in device_configs.items():
+                number = get_num_devices(cap_reqs)
                 if self.available_devices.get(device_type, 0) < number:
                     logging.info('SKIPPING TEST %s', test_name)
                     logging.info('%s not available', device_type)
@@ -395,7 +427,7 @@ class BluetoothAdapterQuickTests(
                     return False
 
             # Check if there are enough peers
-            total_num_devices = sum(devices.values())
+            total_num_devices = calc_total_num_devices(device_configs)
             if total_num_devices > len(self.host.btpeer_list):
                 logging.info('SKIPPING TEST %s', test_name)
                 logging.info(
@@ -407,8 +439,9 @@ class BluetoothAdapterQuickTests(
             return True
 
         if use_all_peers:
-            if devices != {}:
-                devices[list(devices.keys())[0]] = len(self.host.btpeer_list)
+            if device_configs != {}:
+                device_configs[list(device_configs.keys())[0]] = len(
+                        self.host.btpeer_list)
 
         if not _is_enough_peers_present(self):
             logging.info('Not enough peer available')
@@ -434,6 +467,17 @@ class BluetoothAdapterQuickTests(
             raise error.TestError('Failed to set LL privacy to {}'.format(
                     self.llprivacy))
 
+        # b/317736407 Reset the adapter, otherwise the test_start_discovery
+        # fails when the LL privacy is enabled.
+        if self.llprivacy:
+            self.test_reset_on_adapter()
+
+        # Initialize bluetooth_adapter_tests class (also clears self.fails)
+        self.initialize()
+
+        # Start and emulate the peer devices
+        self.start_peers(device_configs)
+
         # Reset the adapter
         self.test_reset_on_adapter()
 
@@ -442,11 +486,6 @@ class BluetoothAdapterQuickTests(
 
         # Reset power/wakeup to disabled.
         self.test_adapter_set_wake_disabled()
-
-        # Initialize bluetooth_adapter_tests class (also clears self.fails)
-        self.initialize()
-        # Start and peer HID devices
-        self.start_peers(devices)
 
         time.sleep(self.TEST_SLEEP_SECS)
         self.log_message('Starting test: %s' % test_name)
@@ -549,8 +588,9 @@ class BluetoothAdapterQuickTests(
 
         logging.info("Clean up dark resume utils.")
         try:
-            self._dr_utils.stop_resuspend_on_dark_resume(False)
-            self._dr_utils.teardown()
+            if self._dr_utils:
+                self._dr_utils.stop_resuspend_on_dark_resume(False)
+                self._dr_utils.teardown()
         # Unhandled exception would cause test failure.
         except (OSError, ConnectionRefusedError) as e:
             # The error "errno 99" means "Cannot assign requested address".
@@ -714,6 +754,10 @@ class BluetoothAdapterQuickTests(
         @param keep_paired: Keep the paried devices after test.
         @param dark_resume: Enable dark resume.
         """
+
+        if dark_resume and self._dr_utils is None:
+            raise error.TestNAError('Dark resume utils are not initialized.')
+
         boot_id = self.host.get_boot_id()
 
         if should_wake:

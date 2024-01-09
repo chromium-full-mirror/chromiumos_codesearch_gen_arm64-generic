@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -31,11 +32,11 @@ namespace user_scripts {
 //
 
 // The JavaScript world for a user script to execute within.
-enum  ExecutionWorld {
-  EXECUTION_WORLD_NONE = 0,
-  EXECUTION_WORLD_MAIN,
-  EXECUTION_WORLD_USER_SCRIPT,
-  EXECUTION_WORLD_LAST = EXECUTION_WORLD_USER_SCRIPT,
+enum class ExecutionWorld {
+  kNone = 0,
+  kMain,
+  kUserScript,
+  kMaxValue = kUserScript,
 };
 
 
@@ -48,8 +49,8 @@ struct ScriptSource {
   ~ScriptSource();
   ScriptSource(const ScriptSource&) = delete;
   ScriptSource& operator=(const ScriptSource&) = delete;
-  ScriptSource(ScriptSource&& rhs);
-  ScriptSource& operator=(ScriptSource&& rhs);
+  ScriptSource(ScriptSource&& rhs) noexcept;
+  ScriptSource& operator=(ScriptSource&& rhs) noexcept;
 
   // Populates a ScriptSource object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -62,15 +63,12 @@ struct ScriptSource {
   // Creates a deep copy of ScriptSource.
   ScriptSource Clone() const;
 
-  // Creates a ScriptSource object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ScriptSource> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScriptSource object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ScriptSource> FromValue(const base::Value::Dict& value);
+  static std::optional<ScriptSource> FromValue(const base::Value::Dict& value);
 
   // Creates a ScriptSource object from a base::Value, or nullopt on failure.
-  static absl::optional<ScriptSource> FromValue(const base::Value& value);
+  static std::optional<ScriptSource> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScriptSource object.
@@ -78,12 +76,12 @@ struct ScriptSource {
 
   // A string containing the JavaScript code to inject. Exactly one of
   // <code>file</code> or <code>code</code> must be specified.
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
 
   // The path of the JavaScript file to inject relative to the extension's root
   // directory. Exactly one of <code>file</code> or <code>code</code> must be
   // specified.
-  absl::optional<std::string> file;
+  std::optional<std::string> file;
 
 };
 
@@ -92,8 +90,8 @@ struct RegisteredUserScript {
   ~RegisteredUserScript();
   RegisteredUserScript(const RegisteredUserScript&) = delete;
   RegisteredUserScript& operator=(const RegisteredUserScript&) = delete;
-  RegisteredUserScript(RegisteredUserScript&& rhs);
-  RegisteredUserScript& operator=(RegisteredUserScript&& rhs);
+  RegisteredUserScript(RegisteredUserScript&& rhs) noexcept;
+  RegisteredUserScript& operator=(RegisteredUserScript&& rhs) noexcept;
 
   // Populates a RegisteredUserScript object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -106,17 +104,13 @@ struct RegisteredUserScript {
   // Creates a deep copy of RegisteredUserScript.
   RegisteredUserScript Clone() const;
 
-  // Creates a RegisteredUserScript object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RegisteredUserScript> FromValueDeprecated(const base::Value& value);
-
   // Creates a RegisteredUserScript object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<RegisteredUserScript> FromValue(const base::Value::Dict& value);
+  static std::optional<RegisteredUserScript> FromValue(const base::Value::Dict& value);
 
   // Creates a RegisteredUserScript object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RegisteredUserScript> FromValue(const base::Value& value);
+  static std::optional<RegisteredUserScript> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRegisteredUserScript object.
@@ -126,23 +120,23 @@ struct RegisteredUserScript {
   // top-most frame in the tab. Each frame is checked independently for URL
   // requirements; it will not inject into child frames if the URL requirements
   // are not met. Defaults to false, meaning that only the top frame is matched.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // Excludes pages that this user script would otherwise be injected into. See <a
   // href="match_patterns">Match Patterns</a> for more details on the syntax of
   // these strings.
-  absl::optional<std::vector<std::string>> exclude_matches;
+  std::optional<std::vector<std::string>> exclude_matches;
 
   // The ID of the user script specified in the API call. This property must not
   // start with a '_' as it's reserved as a prefix for generated script IDs.
   std::string id;
 
   // Specifies wildcard patterns for pages this user script will be injected into.
-  absl::optional<std::vector<std::string>> include_globs;
+  std::optional<std::vector<std::string>> include_globs;
 
   // Specifies wildcard patterns for pages this user script will NOT be injected
   // into.
-  absl::optional<std::vector<std::string>> exclude_globs;
+  std::optional<std::vector<std::string>> exclude_globs;
 
   // The list of ScriptSource objects defining sources of scripts to be injected
   // into matching pages.
@@ -151,7 +145,7 @@ struct RegisteredUserScript {
   // Specifies which pages this user script will be injected into. See <a
   // href="match_patterns">Match Patterns</a> for more details on the syntax of
   // these strings. This property must be specified for ${ref:register}.
-  absl::optional<std::vector<std::string>> matches;
+  std::optional<std::vector<std::string>> matches;
 
   // Specifies when JavaScript files are injected into the web page. The preferred
   // and default value is <code>document_idle</code>.
@@ -168,8 +162,8 @@ struct UserScriptFilter {
   ~UserScriptFilter();
   UserScriptFilter(const UserScriptFilter&) = delete;
   UserScriptFilter& operator=(const UserScriptFilter&) = delete;
-  UserScriptFilter(UserScriptFilter&& rhs);
-  UserScriptFilter& operator=(UserScriptFilter&& rhs);
+  UserScriptFilter(UserScriptFilter&& rhs) noexcept;
+  UserScriptFilter& operator=(UserScriptFilter&& rhs) noexcept;
 
   // Populates a UserScriptFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -182,23 +176,60 @@ struct UserScriptFilter {
   // Creates a deep copy of UserScriptFilter.
   UserScriptFilter Clone() const;
 
-  // Creates a UserScriptFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UserScriptFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a UserScriptFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UserScriptFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<UserScriptFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a UserScriptFilter object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UserScriptFilter> FromValue(const base::Value& value);
+  static std::optional<UserScriptFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUserScriptFilter object.
   base::Value::Dict ToValue() const;
 
   // $(ref:getScripts) only returns scripts with the IDs specified in this list.
-  absl::optional<std::vector<std::string>> ids;
+  std::optional<std::vector<std::string>> ids;
+
+};
+
+struct WorldProperties {
+  WorldProperties();
+  ~WorldProperties();
+  WorldProperties(const WorldProperties&) = delete;
+  WorldProperties& operator=(const WorldProperties&) = delete;
+  WorldProperties(WorldProperties&& rhs) noexcept;
+  WorldProperties& operator=(WorldProperties&& rhs) noexcept;
+
+  // Populates a WorldProperties object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, WorldProperties& out);
+
+  // Populates a WorldProperties object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, WorldProperties& out);
+
+  // Creates a deep copy of WorldProperties.
+  WorldProperties Clone() const;
+
+  // Creates a WorldProperties object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<WorldProperties> FromValue(const base::Value::Dict& value);
+
+  // Creates a WorldProperties object from a base::Value, or nullopt on failure.
+  static std::optional<WorldProperties> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisWorldProperties object.
+  base::Value::Dict ToValue() const;
+
+  // Specifies the world csp. The default is the <code>`ISOLATED`</code> world
+  // csp.
+  std::optional<std::string> csp;
+
+  // Specifies whether messaging APIs are exposed. The default is
+  // <code>false</code>.
+  std::optional<bool> messaging;
 
 };
 
@@ -210,11 +241,11 @@ struct UserScriptFilter {
 namespace Register {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Contains a list of user scripts to be registered.
@@ -235,15 +266,15 @@ base::Value::List Create();
 namespace GetScripts {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If specified, this method returns only the user scripts that match it.
-  absl::optional<UserScriptFilter> filter;
+  std::optional<UserScriptFilter> filter;
 
 
  private:
@@ -260,15 +291,15 @@ base::Value::List Create(const std::vector<RegisteredUserScript>& scripts);
 namespace Unregister {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If specified, this method unregisters only the user scripts that match it.
-  absl::optional<UserScriptFilter> filter;
+  std::optional<UserScriptFilter> filter;
 
 
  private:
@@ -285,11 +316,11 @@ base::Value::List Create();
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Contains a list of user scripts to be updated. A property is only updated for
@@ -309,6 +340,31 @@ base::Value::List Create();
 }  // namespace Results
 
 }  // namespace Update
+
+namespace ConfigureWorld {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  // Contains the user script world configuration.
+  WorldProperties properties;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create();
+}  // namespace Results
+
+}  // namespace ConfigureWorld
 
 }  // namespace user_scripts
 }  // namespace api

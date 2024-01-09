@@ -53,14 +53,6 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
-      mojo.internal.StructField(
-        'allowAutoDark', 0,
-        4,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
     ],
     [[0, 16],]);
 
@@ -79,8 +71,6 @@ export class RendererContentSettings {
     this.allowPopup;
     /** @type { !boolean } */
     this.allowMixedContent;
-    /** @type { !boolean } */
-    this.allowAutoDark;
   }
 }
 

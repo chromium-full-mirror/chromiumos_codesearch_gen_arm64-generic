@@ -14,7 +14,7 @@
  */
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router } from '../router.js';
 let scrollTargetResolver = new PromiseResolver();
 export const GlobalScrollTargetMixin = dedupingMixin((superClass) => {

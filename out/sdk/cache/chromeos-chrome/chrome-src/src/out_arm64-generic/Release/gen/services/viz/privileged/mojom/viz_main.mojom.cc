@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -222,14 +223,17 @@ void VizMainProxy::CreateFrameSinkManager(
                         "<value of type FrameSinkManagerParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVizMain_CreateFrameSinkManager_Name, kFlags, 0, 0, nullptr);
@@ -282,14 +286,17 @@ void VizMainProxy::CreateGpuService(
                         "<value of type ::gfx::FontRenderParams::SubpixelRendering>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVizMain_CreateGpuService_Name, kFlags, 0, 0, nullptr);
@@ -435,12 +442,12 @@ bool VizMainStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVizMainValidationInfo[] = {
-    {&internal::VizMain_CreateFrameSinkManager_Params_Data::Validate,
+    { &internal::VizMain_CreateFrameSinkManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VizMain_CreateGpuService_Params_Data::Validate,
+    { &internal::VizMain_CreateGpuService_Params_Data::Validate,
      nullptr /* no response */},
 };
 

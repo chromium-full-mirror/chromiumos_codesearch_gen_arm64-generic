@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TaskPriorityChangeEvent>::value,
     "TaskPriorityChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TaskPriorityChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TaskPriorityChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskPriorityChangeEvent.previousPriority.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TaskPriorityChangeEvent* blink_receiver = V8TaskPriorityChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->previousPriority();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TaskPriorityChangeEvent* blink_receiver = V8TaskPriorityChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->previousPriority();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("TaskPriorityChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TaskPriorityChangeEvent* blink_receiver = V8TaskPriorityChangeEvent::ToWrappableUnsafe(v8_receiver);
+TaskPriorityChangeEvent* blink_receiver = V8TaskPriorityChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

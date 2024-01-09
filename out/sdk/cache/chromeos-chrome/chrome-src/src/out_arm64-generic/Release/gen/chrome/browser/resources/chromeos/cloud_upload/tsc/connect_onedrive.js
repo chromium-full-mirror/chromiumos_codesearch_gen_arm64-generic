@@ -1,7 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { UserAction } from './cloud_upload.mojom-webui.js';
@@ -13,15 +13,25 @@ import { getTemplate } from './connect_onedrive.html.js';
  * setup flow.
  */
 export class ConnectOneDriveElement extends HTMLElement {
+    proxy = CloudUploadBrowserProxy.getInstance();
+    // Save reference to listener so it can be removed from the document in
+    // disconnectedCallback().
+    boundKeyDownListener_;
     constructor() {
         super();
-        this.proxy = CloudUploadBrowserProxy.getInstance();
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = getTemplate();
         const connectButton = this.$('.action-button');
         const closeButton = this.$('.cancel-button');
         connectButton.addEventListener('click', () => this.onConnectButtonClick());
         closeButton.addEventListener('click', () => this.onCloseButtonClick());
+        this.boundKeyDownListener_ = this.onKeyDown.bind(this);
+    }
+    connectedCallback() {
+        document.addEventListener('keydown', this.boundKeyDownListener_);
+    }
+    disconnectedCallback() {
+        document.removeEventListener('keydown', this.boundKeyDownListener_);
     }
     $(query) {
         return this.shadowRoot.querySelector(query);
@@ -44,6 +54,15 @@ export class ConnectOneDriveElement extends HTMLElement {
     }
     onCloseButtonClick() {
         this.proxy.handler.respondWithUserActionAndClose(UserAction.kCancel);
+    }
+    onKeyDown(e) {
+        if (e.key === 'Escape') {
+            // Handle Escape as a "cancel".
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            this.onCloseButtonClick();
+            return;
+        }
     }
 }
 customElements.define('connect-onedrive', ConnectOneDriveElement);

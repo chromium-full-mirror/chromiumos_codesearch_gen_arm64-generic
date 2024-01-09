@@ -69,6 +69,17 @@ export class DevicePostureProviderInterface {
    */
 
   addListenerAndGetCurrentViewportSegments(client) {}
+  
+  /**
+   * @param { !DevicePostureType } posture
+   */
+
+  overrideDevicePostureForEmulation(posture) {}
+  
+  /**
+   */
+
+  disableDevicePostureOverrideForEmulation() {}
 }
 
 /**
@@ -131,6 +142,35 @@ export class DevicePostureProviderRemote {
           client
         ]);
   }
+
+  
+  /**
+   * @param { !DevicePostureType } posture
+   */
+
+  overrideDevicePostureForEmulation(
+      posture) {
+    this.proxy.sendMessage(
+        2,
+        DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsSpec.$,
+        null,
+        [
+          posture
+        ]);
+  }
+
+  
+  /**
+   */
+
+  disableDevicePostureOverrideForEmulation() {
+    this.proxy.sendMessage(
+        3,
+        DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsSpec.$,
+        null,
+        [
+        ]);
+  }
 }
 
 /**
@@ -163,6 +203,16 @@ export class DevicePostureProviderReceiver {
         DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ParamsSpec.$,
         DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParamsSpec.$,
         impl.addListenerAndGetCurrentViewportSegments.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
+        DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsSpec.$,
+        null,
+        impl.overrideDevicePostureForEmulation.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsSpec.$,
+        null,
+        impl.disableDevicePostureOverrideForEmulation.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -233,6 +283,30 @@ export class DevicePostureProviderCallbackRouter {
         DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ParamsSpec.$,
         DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParamsSpec.$,
         this.addListenerAndGetCurrentViewportSegments.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.overrideDevicePostureForEmulation =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
+        DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsSpec.$,
+        null,
+        this.overrideDevicePostureForEmulation.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.disableDevicePostureOverrideForEmulation =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsSpec.$,
+        null,
+        this.disableDevicePostureOverrideForEmulation.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -605,6 +679,18 @@ export const DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Resp
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const DevicePostureClient_OnPostureChanged_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -728,6 +814,54 @@ export class DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Resp
   constructor() {
     /** @type { !Array<!gfx_mojom_Rect> } */
     this.segments;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsSpec.$,
+    'DevicePostureProvider_OverrideDevicePostureForEmulation_Params',
+    [
+      mojo.internal.StructField(
+        'posture', 0,
+        0,
+        DevicePostureTypeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class DevicePostureProvider_OverrideDevicePostureForEmulation_Params {
+  constructor() {
+    /** @type { !DevicePostureType } */
+    this.posture;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsSpec.$,
+    'DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params {
+  constructor() {
   }
 }
 

@@ -218,6 +218,14 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
             const { data } = event;
             swatch.firstElementChild && swatch.firstElementChild.remove();
             swatch.createChild('span').textContent = data.text;
+            // This is a terrible hack to make sure that color swatch works for CSS variable usages with
+            // variable fallbacks. The issue is `StylesSidebarPropertyRenderer` renders CSS variables with var() fallbacks
+            // with two additions to the value element: CSS var swatch that renders `var(--red, var(--blue)` part -- without the last parens
+            // and a text node with a closing parenthesis. If the color is changed through color swatch, the value becomes invalid with an
+            // additional parenthesis like `#000)`; so in here, we explicitly remove the last parenthesis.
+            if (swatch.nextSibling?.textContent === ')') {
+                swatch.nextSibling.textContent = '';
+            }
             void this.applyStyleText(this.renderedPropertyText(), false);
         };
         swatch.addEventListener(InlineEditor.ColorSwatch.ClickEvent.eventName, () => {
@@ -313,6 +321,22 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
                 this.parentPaneInternal.jumpToSectionBlock(`@position-fallback ${propertyText}`);
             },
             jslogContext: 'cssPositionFallback',
+        };
+        contentChild.appendChild(swatch);
+        return contentChild;
+    }
+    processFontPalette(propertyText) {
+        const contentChild = document.createElement('span');
+        const swatch = new InlineEditor.LinkSwatch.LinkSwatch();
+        UI.UIUtils.createTextChild(swatch, propertyText);
+        const isDefined = this.matchedStylesInternal.fontPaletteValuesRule()?.name().text === propertyText;
+        swatch.data = {
+            text: propertyText,
+            isDefined,
+            onLinkActivate: () => {
+                this.parentPaneInternal.jumpToSectionBlock(`@font-palette-values ${propertyText}`);
+            },
+            jslogContext: 'cssFontPalette',
         };
         contentChild.appendChild(swatch);
         return contentChild;
@@ -420,34 +444,63 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
         swatch.setColorMixText(colorMixText);
         return swatch;
     }
-    processVar(text) {
-        const computedSingleValue = this.matchedStylesInternal.computeSingleVariableValue(this.style, text);
-        if (!computedSingleValue) {
-            return document.createTextNode(text);
+    processVar(text, { shouldShowColorSwatch = true } = {}) {
+        // The regex that matches to variables in `StylesSidebarPropertyRenderer`
+        // uses a lazy match. Because of this, when there are multiple right parantheses inside the
+        // var() function, it stops the match. So, for a match like `var(--a, var(--b))`, the text
+        // corresponds to `var(--a, var(--b)`; before processing it, we make sure that parantheses
+        // are matched.
+        const parenthesesBalancedText = text + ')'.repeat(Platform.StringUtilities.countUnmatchedLeftParentheses(text));
+        const computedSingleValue = this.matchedStylesInternal.computeSingleVariableValue(this.style, parenthesesBalancedText);
+        const { variableName, fallback } = SDK.CSSMatchedStyles.parseCSSVariableNameAndFallback(parenthesesBalancedText);
+        if (!computedSingleValue || !variableName) {
+            return document.createTextNode(parenthesesBalancedText);
         }
+        const { declaration } = this.matchedStylesInternal.computeCSSVariable(this.style, variableName) ?? {};
         const { computedValue, fromFallback } = computedSingleValue;
+        let fallbackHtml = null;
+        if (fromFallback && fallback?.startsWith('var(')) {
+            fallbackHtml = this.processVar(fallback, { shouldShowColorSwatch: false });
+        }
+        else if (fallback) {
+            fallbackHtml = document.createTextNode(fallback);
+        }
         const varSwatch = new InlineEditor.LinkSwatch.CSSVarSwatch();
         UI.UIUtils.createTextChild(varSwatch, text);
         varSwatch.data = {
-            text,
             computedValue,
+            variableName,
             fromFallback,
-            onLinkActivate: this.handleVarDefinitionActivate.bind(this),
+            fallbackHtml,
+            onLinkActivate: name => this.handleVarDefinitionActivate(declaration ?? name),
         };
         if (varSwatch.link?.linkElement) {
             const { textContent } = varSwatch.link.linkElement;
-            this.parentPaneInternal.addPopover(varSwatch.link, () => textContent ? this.#getVariablePopoverContents(textContent, computedValue) : undefined);
+            if (textContent) {
+                const computedValueOfLink = textContent ?
+                    this.matchedStylesInternal.computeSingleVariableValue(this.style, `var(${textContent})`) :
+                    null;
+                this.parentPaneInternal.addPopover(varSwatch.link, () => this.#getVariablePopoverContents(textContent, computedValueOfLink?.computedValue ?? null));
+            }
         }
-        if (!computedValue || !Common.Color.parse(computedValue)) {
+        if (!computedValue || !Common.Color.parse(computedValue) || !shouldShowColorSwatch) {
             return varSwatch;
         }
         return this.processColor(computedValue, varSwatch);
     }
-    handleVarDefinitionActivate(variableName) {
+    handleVarDefinitionActivate(variable) {
         Host.userMetrics.actionTaken(Host.UserMetrics.Action.CustomPropertyLinkClicked);
         Host.userMetrics.swatchActivated(0 /* Host.UserMetrics.SwatchType.VarLink */);
-        this.parentPaneInternal.jumpToProperty(variableName) ||
-            this.parentPaneInternal.jumpToProperty('initial-value', variableName, REGISTERED_PROPERTY_SECTION_NAME);
+        if (variable instanceof SDK.CSSProperty.CSSProperty) {
+            this.parentPaneInternal.revealProperty(variable);
+        }
+        else if (variable instanceof SDK.CSSMatchedStyles.CSSRegisteredProperty) {
+            this.parentPaneInternal.jumpToProperty('initial-value', variable.propertyName(), REGISTERED_PROPERTY_SECTION_NAME);
+        }
+        else {
+            this.parentPaneInternal.jumpToProperty(variable) ||
+                this.parentPaneInternal.jumpToProperty('initial-value', variable, REGISTERED_PROPERTY_SECTION_NAME);
+        }
     }
     async addColorContrastInfo(swatchIcon) {
         if (this.property.name !== 'color' || !this.parentPaneInternal.cssModel() || !this.node()) {
@@ -764,10 +817,10 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
             return;
         }
         if (this.expanded) {
-            this.expandElement.setIconType('triangle-down');
+            this.expandElement.name = 'triangle-down';
         }
         else {
-            this.expandElement.setIconType('triangle-right');
+            this.expandElement.name = 'triangle-right';
         }
     }
     #getRegisteredPropertyDetails(variableName) {
@@ -776,11 +829,11 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
         return registration ? { registration, goToDefinition } : undefined;
     }
     #getVariablePopoverContents(variableName, computedValue) {
-        const registrationDetails = this.#getRegisteredPropertyDetails(variableName);
-        if (!registrationDetails && !computedValue) {
-            return undefined;
-        }
-        return new ElementsComponents.CSSVariableValueView.CSSVariableValueView(computedValue ?? '', registrationDetails);
+        return new ElementsComponents.CSSVariableValueView.CSSVariableValueView({
+            variableName,
+            value: computedValue ?? undefined,
+            details: this.#getRegisteredPropertyDetails(variableName),
+        });
     }
     updateTitleIfComputedValueChanged() {
         const computedValue = this.matchedStylesInternal.computeValue(this.property.ownerStyle, this.property.value);
@@ -797,7 +850,7 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
     innerUpdateTitle() {
         this.updateState();
         if (this.isExpandable()) {
-            this.expandElement = UI.Icon.Icon.create('triangle-right', 'expand-icon');
+            this.expandElement = IconButton.Icon.create('triangle-right', 'expand-icon');
             this.expandElement.setAttribute('jslog', `${VisualLogging.treeItemExpand().track({ click: true })}`);
         }
         const propertyRenderer = new StylesSidebarPropertyRenderer(this.style.parentRule, this.node(), this.name, this.value);
@@ -814,11 +867,12 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
             propertyRenderer.setAngleHandler(this.processAngle.bind(this));
             propertyRenderer.setLengthHandler(this.processLength.bind(this));
             propertyRenderer.setPositionFallbackHandler(this.processPositionFallback.bind(this));
+            propertyRenderer.setFontPaletteHandler(this.processFontPalette.bind(this));
         }
         this.listItemElement.removeChildren();
         this.nameElement = propertyRenderer.renderName();
         if (this.property.name.startsWith('--') && this.nameElement) {
-            this.parentPaneInternal.addPopover(this.nameElement, () => this.#getVariablePopoverContents(this.property.name, this.matchedStylesInternal.computeCSSVariable(this.style, this.property.name)));
+            this.parentPaneInternal.addPopover(this.nameElement, () => this.#getVariablePopoverContents(this.property.name, this.matchedStylesInternal.computeCSSVariable(this.style, this.property.name)?.value ?? null));
         }
         this.valueElement = propertyRenderer.renderValue();
         if (!this.treeOutline) {
@@ -1051,9 +1105,8 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
         }
         const regex = new RegExp(propertyNamePattern, 'i');
         await computedStyleWidget.filterComputedStyles(regex);
-        const filterInput = computedStyleWidget.input;
-        filterInput.value = this.property.name;
-        filterInput.focus();
+        computedStyleWidget.input.setValue(this.property.name);
+        computedStyleWidget.input.element.focus();
     }
     copyCssDeclarationAsJs() {
         const cssDeclarationValue = getCssDeclarationAsJavascriptProperty(this.property);
@@ -1568,6 +1621,7 @@ export class StylePropertyTreeElement extends UI.TreeOutline.TreeElement {
         const currentNode = this.parentPaneInternal.node();
         this.parentPaneInternal.setUserOperation(true);
         styleText += Platform.StringUtilities.findUnclosedCssQuote(styleText);
+        styleText += ')'.repeat(Platform.StringUtilities.countUnmatchedLeftParentheses(styleText));
         // Append a ";" if the new text does not end in ";".
         // FIXME: this does not handle trailing comments.
         if (styleText.length && !/;\s*$/.test(styleText)) {

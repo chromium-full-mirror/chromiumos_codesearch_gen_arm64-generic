@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/enterprise_networking_attributes.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ NetworkDetails::NetworkDetails()
  {}
 
 NetworkDetails::~NetworkDetails() = default;
-NetworkDetails::NetworkDetails(NetworkDetails&& rhs) = default;
-NetworkDetails& NetworkDetails::operator=(NetworkDetails&& rhs) = default;
+NetworkDetails::NetworkDetails(NetworkDetails&& rhs) noexcept = default;
+NetworkDetails& NetworkDetails::operator=(NetworkDetails&& rhs) noexcept = default;
 NetworkDetails NetworkDetails::Clone() const {
   NetworkDetails out;
   out.mac_address = mac_address;
@@ -66,7 +67,7 @@ bool NetworkDetails::Populate(
     {
       auto* temp = (*ipv4_value).GetIfString();
       if (!temp) {
-        out.ipv4 = absl::nullopt;
+        out.ipv4 = std::nullopt;
         return false;
       }
       out.ipv4 = *temp;
@@ -78,7 +79,7 @@ bool NetworkDetails::Populate(
     {
       auto* temp = (*ipv6_value).GetIfString();
       if (!temp) {
-        out.ipv6 = absl::nullopt;
+        out.ipv6 = std::nullopt;
         return false;
       }
       out.ipv6 = *temp;
@@ -98,34 +99,21 @@ bool NetworkDetails::Populate(
 }
 
 // static
-std::unique_ptr<NetworkDetails> NetworkDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkDetails> NetworkDetails::FromValue(const base::Value::Dict& value) {
+  NetworkDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkDetails> NetworkDetails::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkDetails> NetworkDetails::FromValue(const base::Value& value) {
   NetworkDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkDetails> NetworkDetails::FromValue(const base::Value& value) {
-  NetworkDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

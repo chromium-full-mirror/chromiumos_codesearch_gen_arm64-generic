@@ -3,6 +3,9 @@
   "compilerOptions": {
     "rootDir": "preprocessed",
     "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
       "//resources/cr_elements/*": [
         "./../../../../ui/webui/resources/tsc/cr_elements/*"

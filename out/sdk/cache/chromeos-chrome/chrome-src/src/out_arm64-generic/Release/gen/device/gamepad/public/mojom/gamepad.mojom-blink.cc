@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -972,14 +973,17 @@ void GamepadObserverProxy::GamepadConnected(
                         "<value of type const ::device::Gamepad&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadObserver_GamepadConnected_Name, kFlags, 0, 0, nullptr);
@@ -1024,14 +1028,17 @@ void GamepadObserverProxy::GamepadDisconnected(
                         "<value of type const ::device::Gamepad&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadObserver_GamepadDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -1073,14 +1080,17 @@ void GamepadObserverProxy::GamepadChanged(
                         "<value of type GamepadChangesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadObserver_GamepadChanged_Name, kFlags, 0, 0, nullptr);
@@ -1225,14 +1235,14 @@ bool GamepadObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGamepadObserverValidationInfo[] = {
-    {&internal::GamepadObserver_GamepadConnected_Params_Data::Validate,
+    { &internal::GamepadObserver_GamepadConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GamepadObserver_GamepadDisconnected_Params_Data::Validate,
+    { &internal::GamepadObserver_GamepadDisconnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GamepadObserver_GamepadChanged_Params_Data::Validate,
+    { &internal::GamepadObserver_GamepadChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1417,15 +1427,18 @@ bool GamepadMonitorProxy::GamepadStartPolling(
 #else
   TRACE_EVENT0("mojom", "GamepadMonitor::GamepadStartPolling");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStartPolling_Name, kFlags, 0, 0, nullptr);
@@ -1462,14 +1475,17 @@ void GamepadMonitorProxy::GamepadStartPolling(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::GamepadMonitor::GamepadStartPolling");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStartPolling_Name, kFlags, 0, 0, nullptr);
@@ -1494,15 +1510,18 @@ bool GamepadMonitorProxy::GamepadStopPolling(
 #else
   TRACE_EVENT0("mojom", "GamepadMonitor::GamepadStopPolling");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStopPolling_Name, kFlags, 0, 0, nullptr);
@@ -1532,14 +1551,17 @@ void GamepadMonitorProxy::GamepadStopPolling(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::GamepadMonitor::GamepadStopPolling");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStopPolling_Name, kFlags, 0, 0, nullptr);
@@ -1570,14 +1592,17 @@ void GamepadMonitorProxy::SetObserver(
                         "<value of type ::mojo::PendingRemote<GamepadObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_SetObserver_Name, kFlags, 0, 0, nullptr);
@@ -1692,7 +1717,8 @@ void GamepadMonitor_GamepadStartPolling_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStartPolling_Name, kFlags, 0, 0, nullptr);
@@ -1834,7 +1860,8 @@ void GamepadMonitor_GamepadStopPolling_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadMonitor_GamepadStopPolling_Name, kFlags, 0, 0, nullptr);
@@ -1989,14 +2016,14 @@ bool GamepadMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGamepadMonitorValidationInfo[] = {
-    {&internal::GamepadMonitor_GamepadStartPolling_Params_Data::Validate,
+    { &internal::GamepadMonitor_GamepadStartPolling_Params_Data::Validate,
      &internal::GamepadMonitor_GamepadStartPolling_ResponseParams_Data::Validate},
-    {&internal::GamepadMonitor_GamepadStopPolling_Params_Data::Validate,
+    { &internal::GamepadMonitor_GamepadStopPolling_Params_Data::Validate,
      &internal::GamepadMonitor_GamepadStopPolling_ResponseParams_Data::Validate},
-    {&internal::GamepadMonitor_SetObserver_Params_Data::Validate,
+    { &internal::GamepadMonitor_SetObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2138,14 +2165,17 @@ void GamepadHapticsManagerProxy::PlayVibrationEffectOnce(
                         "<value of type GamepadEffectParametersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadHapticsManager_PlayVibrationEffectOnce_Name, kFlags, 0, 0, nullptr);
@@ -2190,14 +2220,17 @@ void GamepadHapticsManagerProxy::ResetVibrationActuator(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadHapticsManager_ResetVibrationActuator_Name, kFlags, 0, 0, nullptr);
@@ -2308,7 +2341,8 @@ void GamepadHapticsManager_PlayVibrationEffectOnce_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadHapticsManager_PlayVibrationEffectOnce_Name, kFlags, 0, 0, nullptr);
@@ -2427,7 +2461,8 @@ void GamepadHapticsManager_ResetVibrationActuator_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGamepadHapticsManager_ResetVibrationActuator_Name, kFlags, 0, 0, nullptr);
@@ -2548,12 +2583,12 @@ std::move(p_pad_index), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGamepadHapticsManagerValidationInfo[] = {
-    {&internal::GamepadHapticsManager_PlayVibrationEffectOnce_Params_Data::Validate,
+    { &internal::GamepadHapticsManager_PlayVibrationEffectOnce_Params_Data::Validate,
      &internal::GamepadHapticsManager_PlayVibrationEffectOnce_ResponseParams_Data::Validate},
-    {&internal::GamepadHapticsManager_ResetVibrationActuator_Params_Data::Validate,
+    { &internal::GamepadHapticsManager_ResetVibrationActuator_Params_Data::Validate,
      &internal::GamepadHapticsManager_ResetVibrationActuator_ResponseParams_Data::Validate},
 };
 

@@ -12,6 +12,10 @@ export function getTemplate() {
       </template>
     </iron-list>
   </template>
+  <template is="dom-if" if="[[pendingTimeOfDayWallpaper_]]" restamp>
+    <time-of-day-wallpaper-dialog on-time-of-day-wallpaper-dialog-accept="onConfirmTimeOfDayDialog_" on-cancel="onCloseTimeOfDayDialog_">
+    </time-of-day-wallpaper-dialog>
+  </template>
 </main>
 <!--_html_template_end_-->`;
 }

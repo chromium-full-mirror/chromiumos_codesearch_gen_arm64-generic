@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DirectoryEntrySync>::value,
     "DirectoryEntrySync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DirectoryEntrySync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DirectoryEntrySync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("DirectoryEntrySync.createReader");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(v8_receiver);
+DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createReader();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,7 +115,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(v8_receiver);
+DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_path = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -156,7 +152,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(v8_receiver);
+DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_path = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -183,9 +179,9 @@ BLINK_BINDINGS_TRACE_EVENT("DirectoryEntrySync.removeRecursively");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DirectoryEntrySync* blink_receiver = V8DirectoryEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DirectoryEntrySync";
 const char* const property_name = "removeRecursively";

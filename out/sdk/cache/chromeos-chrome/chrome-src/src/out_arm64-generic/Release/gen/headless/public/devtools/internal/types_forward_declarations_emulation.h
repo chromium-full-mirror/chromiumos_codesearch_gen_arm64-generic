@@ -14,6 +14,7 @@ namespace headless {
 namespace emulation {
 class ScreenOrientation;
 class DisplayFeature;
+class DevicePosture;
 class MediaFeature;
 class UserAgentBrandVersion;
 class UserAgentMetadata;
@@ -121,6 +122,11 @@ enum class ScreenOrientationType {
 enum class DisplayFeatureOrientation {
   VERTICAL,
   HORIZONTAL
+};
+
+enum class DevicePostureType {
+  CONTINUOUS,
+  FOLDED
 };
 
 enum class SetEmitTouchEventsForMouseConfiguration {

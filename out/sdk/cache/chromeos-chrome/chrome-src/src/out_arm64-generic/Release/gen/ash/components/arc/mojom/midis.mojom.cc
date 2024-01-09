@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -289,14 +290,17 @@ void MidisClientProxy::OnDeviceAdded(
                         "<value of type MidisDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisClient_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -337,14 +341,17 @@ void MidisClientProxy::OnDeviceRemoved(
                         "<value of type MidisDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisClient_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -452,12 +459,12 @@ bool MidisClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidisClientValidationInfo[] = {
-    {&internal::MidisClient_OnDeviceAdded_Params_Data::Validate,
+    { &internal::MidisClient_OnDeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidisClient_OnDeviceRemoved_Params_Data::Validate,
+    { &internal::MidisClient_OnDeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -602,14 +609,17 @@ void MidisServerProxy::ListDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::MidisServer::ListDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisServer_ListDevices_Name, kFlags, 0, 0, nullptr);
@@ -640,14 +650,17 @@ void MidisServerProxy::RequestPort(
                         "<value of type MidisRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisServer_RequestPort_Name, kFlags, 0, 0, nullptr);
@@ -689,14 +702,17 @@ void MidisServerProxy::CloseDevice(
                         "<value of type MidisRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisServer_CloseDevice_Name, kFlags, 0, 0, nullptr);
@@ -816,7 +832,8 @@ void MidisServer_ListDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisServer_ListDevices_Name, kFlags, 0, 0, nullptr);
@@ -946,7 +963,8 @@ void MidisServer_RequestPort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisServer_RequestPort_Name, kFlags, 0, 0, nullptr);
@@ -1084,15 +1102,15 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidisServerValidationInfo[] = {
-    {&internal::MidisServer_ListDevices_Params_Data::Validate,
+    { &internal::MidisServer_ListDevices_Params_Data::Validate,
      &internal::MidisServer_ListDevices_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::MidisServer_CloseDevice_Params_Data::Validate,
+    { &internal::MidisServer_CloseDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidisServer_RequestPort_Params_Data::Validate,
+    { &internal::MidisServer_RequestPort_Params_Data::Validate,
      &internal::MidisServer_RequestPort_ResponseParams_Data::Validate},
 };
 
@@ -1179,14 +1197,17 @@ void MidisHostProxy::Connect(
                         "<value of type ::mojo::PendingRemote<MidisClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisHost_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1274,10 +1295,10 @@ bool MidisHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidisHostValidationInfo[] = {
-    {&internal::MidisHost_Connect_Params_Data::Validate,
+    { &internal::MidisHost_Connect_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1373,14 +1394,17 @@ void MidisInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<MidisHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1485,7 +1509,8 @@ void MidisInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidisInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1566,11 +1591,11 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidisInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::MidisInstance_Init_Params_Data::Validate,
+    { &internal::MidisInstance_Init_Params_Data::Validate,
      &internal::MidisInstance_Init_ResponseParams_Data::Validate},
 };
 

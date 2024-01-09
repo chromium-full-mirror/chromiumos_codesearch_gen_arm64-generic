@@ -25,7 +25,7 @@ class BRILLO_EXPORT FakeClient : public Client {
 
   // Client overrides.
   void RegisterOnAvailableCallback(
-      base::RepeatingCallback<void(bool)> callback) override;
+      base::OnceCallback<void(bool)> callback) override;
   void RegisterProcessChangedCallback(
       base::RepeatingCallback<void(bool)> callback) override;
 
@@ -47,6 +47,10 @@ class BRILLO_EXPORT FakeClient : public Client {
   std::optional<Client::BruschettaAllocation> NotifyBruschettaVmStartup(
       uint64_t vm_id) override;
   bool NotifyBruschettaVmShutdown(uint64_t vm_id) override;
+
+  std::optional<Client::BorealisAllocation> NotifyBorealisVmStartup(
+      uint32_t vm_id) override;
+  bool NotifyBorealisVmShutdown(uint32_t vm_id) override;
 
   bool DefaultVpnRouting(const base::ScopedFD& socket) override;
 
@@ -105,6 +109,14 @@ class BRILLO_EXPORT FakeClient : public Client {
   bool GetDownstreamNetworkInfo(
       const std::string& ifname,
       Client::GetDownstreamNetworkInfoCallback callback) override;
+
+  bool ConfigureNetwork(int interface_index,
+                        std::string_view interface_name,
+                        uint32_t area,
+                        const net_base::NetworkConfig& network_config,
+                        net_base::NetworkPriority priority,
+                        NetworkTechnology technology,
+                        ConfigureNetworkCallback callback) override;
 
   bool SendSetFeatureFlagRequest(Client::FeatureFlag flag,
                                  bool enable) override;

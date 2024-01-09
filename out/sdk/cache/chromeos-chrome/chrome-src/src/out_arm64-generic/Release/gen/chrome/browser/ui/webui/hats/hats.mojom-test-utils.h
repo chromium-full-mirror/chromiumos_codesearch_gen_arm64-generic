@@ -33,7 +33,8 @@ class  PageHandlerFactoryAsyncWaiter {
 
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
-  void GetApiKey(GetApiKeyCallback callback) override;
+  void OnSurveyLoaded() override;
+  void OnSurveyClosed() override;
 };
 class  PageHandlerAsyncWaiter {
  public:
@@ -43,9 +44,6 @@ class  PageHandlerAsyncWaiter {
   PageHandlerAsyncWaiter& operator=(const PageHandlerAsyncWaiter&) = delete;
 
   ~PageHandlerAsyncWaiter();
-  void GetApiKey(
-      std::string* out_api_key);
-  std::string GetApiKey();
 
  private:
   PageHandler* const proxy_;
@@ -54,6 +52,7 @@ class  PageHandlerAsyncWaiter {
 
 class  PageInterceptorForTesting : public Page {
   virtual Page* GetForwardingInterface() = 0;
+  void RequestSurvey(const std::string& api_key, const std::string& trigger_id, bool enable_testing, const std::vector<std::string>& language_list, const std::string& product_specific_data_json) override;
 };
 class  PageAsyncWaiter {
  public:

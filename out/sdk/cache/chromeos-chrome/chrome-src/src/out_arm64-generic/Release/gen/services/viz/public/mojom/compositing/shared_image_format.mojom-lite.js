@@ -50,8 +50,10 @@ viz.mojom.SubsamplingSpec = { $: mojo.internal.Enum() };
 viz.mojom.Subsampling = {
   
   k420: 0,
+  k422: 1,
+  k444: 2,
   MIN_VALUE: 0,
-  MAX_VALUE: 0,
+  MAX_VALUE: 2,
 };
 
 

@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MouseEvent>::value,
     "MouseEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MouseEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MouseEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -104,7 +99,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventScreenX);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -125,7 +120,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventScreenY);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -138,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.clientX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clientX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -152,8 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.clientY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clientY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -166,8 +163,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.ctrlKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ctrlKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -180,8 +178,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.shiftKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shiftKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -194,8 +193,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.altKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -208,8 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.metaKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->metaKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -222,8 +223,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.button.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->button();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int16_t>());
 }
@@ -236,8 +238,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.buttons.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->buttons();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -250,8 +253,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.relatedTarget.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->relatedTarget();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -264,8 +268,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.pageX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -278,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.pageY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -298,7 +304,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventX);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -317,7 +323,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventY);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -336,7 +342,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventOffsetX);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offsetX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -355,7 +361,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventOffsetY);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offsetY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -374,7 +380,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventMovementX);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->movementX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -393,7 +399,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventMovementY);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->movementY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -412,7 +418,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventFromElement)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fromElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -431,7 +437,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMouseEventToElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -450,7 +456,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MouseEvent_LayerX_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->layerX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -469,7 +475,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MouseEvent_LayerY_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->layerY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -482,8 +488,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -542,9 +549,9 @@ BLINK_BINDINGS_TRACE_EVENT("MouseEvent.getModifierState");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MouseEvent";
 const char* const property_name = "getModifierState";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -555,13 +562,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_key_arg;
 if (LIKELY(info[0]->IsString())) {
-  arg1_key_arg.Init(info[0].As<v8::String>());
+  arg1_key_arg.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MouseEvent";
 const char* const property_name = "getModifierState";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -599,7 +605,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(v8_receiver);
+MouseEvent* blink_receiver = V8MouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

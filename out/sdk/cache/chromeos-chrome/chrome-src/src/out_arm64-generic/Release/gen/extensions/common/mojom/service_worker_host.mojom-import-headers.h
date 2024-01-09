@@ -18,6 +18,8 @@
 #include "extensions/common/mojom/frame.mojom-import-headers.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
+#include "extensions/common/mojom/message_port.mojom.h"
+#include "extensions/common/mojom/message_port.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
 

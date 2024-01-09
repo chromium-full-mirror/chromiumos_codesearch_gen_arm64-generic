@@ -7,11 +7,12 @@ export const LogSourceSpec = { $: mojo.internal.Enum() };
 export var LogSource;
 (function (LogSource) {
     LogSource[LogSource["MIN_VALUE"] = 0] = "MIN_VALUE";
-    LogSource[LogSource["MAX_VALUE"] = 5] = "MAX_VALUE";
+    LogSource[LogSource["MAX_VALUE"] = 6] = "MAX_VALUE";
     LogSource[LogSource["SERVICE_AND_SETTINGS"] = 0] = "SERVICE_AND_SETTINGS";
     LogSource[LogSource["HINTS"] = 1] = "HINTS";
     LogSource[LogSource["MODEL_MANAGEMENT"] = 2] = "MODEL_MANAGEMENT";
     LogSource[LogSource["PAGE_CONTENT_ANNOTATIONS"] = 3] = "PAGE_CONTENT_ANNOTATIONS";
     LogSource[LogSource["HINTS_NOTIFICATIONS"] = 4] = "HINTS_NOTIFICATIONS";
     LogSource[LogSource["TEXT_CLASSIFIER"] = 5] = "TEXT_CLASSIFIER";
+    LogSource[LogSource["MODEL_EXECUTION"] = 6] = "MODEL_EXECUTION";
 })(LogSource || (LogSource = {}));

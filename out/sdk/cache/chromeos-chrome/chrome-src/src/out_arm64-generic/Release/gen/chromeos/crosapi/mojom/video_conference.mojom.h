@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/video_conference.mojom-features.h"
 #include "chromeos/crosapi/mojom/video_conference.mojom-shared.h"
 #include "chromeos/crosapi/mojom/video_conference.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -822,7 +823,7 @@ class  VideoConferenceMediaAppInfo {
       bool is_capturing_microphone,
       bool is_capturing_screen,
       const ::std::u16string& title,
-      const absl::optional<::GURL>& url);
+      const std::optional<::GURL>& url);
 
   VideoConferenceMediaAppInfo(
       const ::base::UnguessableToken& id,
@@ -831,7 +832,7 @@ class  VideoConferenceMediaAppInfo {
       bool is_capturing_microphone,
       bool is_capturing_screen,
       const ::std::u16string& title,
-      const absl::optional<::GURL>& url,
+      const std::optional<::GURL>& url,
       VideoConferenceAppType app_type);
 
 
@@ -922,7 +923,7 @@ class  VideoConferenceMediaAppInfo {
   
   ::std::u16string title;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
   VideoConferenceAppType app_type;
 

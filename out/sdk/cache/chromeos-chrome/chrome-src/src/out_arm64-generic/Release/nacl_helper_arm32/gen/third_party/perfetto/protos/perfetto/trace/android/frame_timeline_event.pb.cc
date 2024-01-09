@@ -49,6 +49,8 @@ PROTOBUF_CONSTEXPR FrameTimelineEvent_ActualSurfaceFrameStart::FrameTimelineEven
   , is_buffer_(false)
   , jank_type_(0)
   , prediction_type_(0)
+
+  , jank_severity_type_(0)
 {}
 struct FrameTimelineEvent_ActualSurfaceFrameStartDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FrameTimelineEvent_ActualSurfaceFrameStartDefaultTypeInternal()
@@ -84,6 +86,8 @@ PROTOBUF_CONSTEXPR FrameTimelineEvent_ActualDisplayFrameStart::FrameTimelineEven
   , gpu_composition_(false)
   , jank_type_(0)
   , prediction_type_(0)
+
+  , jank_severity_type_(0)
 {}
 struct FrameTimelineEvent_ActualDisplayFrameStartDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FrameTimelineEvent_ActualDisplayFrameStartDefaultTypeInternal()
@@ -229,6 +233,74 @@ constexpr FrameTimelineEvent_JankType FrameTimelineEvent::JANK_DROPPED;
 constexpr FrameTimelineEvent_JankType FrameTimelineEvent::JankType_MIN;
 constexpr FrameTimelineEvent_JankType FrameTimelineEvent::JankType_MAX;
 constexpr int FrameTimelineEvent::JankType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool FrameTimelineEvent_JankSeverityType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FrameTimelineEvent_JankSeverityType_strings[4] = {};
+
+static const char FrameTimelineEvent_JankSeverityType_names[] =
+  "SEVERITY_FULL"
+  "SEVERITY_NONE"
+  "SEVERITY_PARTIAL"
+  "SEVERITY_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FrameTimelineEvent_JankSeverityType_entries[] = {
+  { {FrameTimelineEvent_JankSeverityType_names + 0, 13}, 3 },
+  { {FrameTimelineEvent_JankSeverityType_names + 13, 13}, 1 },
+  { {FrameTimelineEvent_JankSeverityType_names + 26, 16}, 2 },
+  { {FrameTimelineEvent_JankSeverityType_names + 42, 16}, 0 },
+};
+
+static const int FrameTimelineEvent_JankSeverityType_entries_by_number[] = {
+  3, // 0 -> SEVERITY_UNKNOWN
+  1, // 1 -> SEVERITY_NONE
+  2, // 2 -> SEVERITY_PARTIAL
+  0, // 3 -> SEVERITY_FULL
+};
+
+const std::string& FrameTimelineEvent_JankSeverityType_Name(
+    FrameTimelineEvent_JankSeverityType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FrameTimelineEvent_JankSeverityType_entries,
+          FrameTimelineEvent_JankSeverityType_entries_by_number,
+          4, FrameTimelineEvent_JankSeverityType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FrameTimelineEvent_JankSeverityType_entries,
+      FrameTimelineEvent_JankSeverityType_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     FrameTimelineEvent_JankSeverityType_strings[idx].get();
+}
+bool FrameTimelineEvent_JankSeverityType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FrameTimelineEvent_JankSeverityType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FrameTimelineEvent_JankSeverityType_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<FrameTimelineEvent_JankSeverityType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::SEVERITY_UNKNOWN;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::SEVERITY_NONE;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::SEVERITY_PARTIAL;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::SEVERITY_FULL;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::JankSeverityType_MIN;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent::JankSeverityType_MAX;
+constexpr int FrameTimelineEvent::JankSeverityType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool FrameTimelineEvent_PresentType_IsValid(int value) {
   switch (value) {
@@ -744,6 +816,9 @@ class FrameTimelineEvent_ActualSurfaceFrameStart::_Internal {
   static void set_has_is_buffer(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
   }
+  static void set_has_jank_severity_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
+  }
 };
 
 FrameTimelineEvent_ActualSurfaceFrameStart::FrameTimelineEvent_ActualSurfaceFrameStart(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -765,8 +840,8 @@ FrameTimelineEvent_ActualSurfaceFrameStart::FrameTimelineEvent_ActualSurfaceFram
       GetArenaForAllocation());
   }
   ::memcpy(&cookie_, &from.cookie_,
-    static_cast<size_t>(reinterpret_cast<char*>(&prediction_type_) -
-    reinterpret_cast<char*>(&cookie_)) + sizeof(prediction_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&jank_severity_type_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(jank_severity_type_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.FrameTimelineEvent.ActualSurfaceFrameStart)
 }
 
@@ -777,8 +852,8 @@ layer_name_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&cookie_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&prediction_type_) -
-    reinterpret_cast<char*>(&cookie_)) + sizeof(prediction_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&jank_severity_type_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(jank_severity_type_));
 }
 
 FrameTimelineEvent_ActualSurfaceFrameStart::~FrameTimelineEvent_ActualSurfaceFrameStart() {
@@ -814,10 +889,10 @@ void FrameTimelineEvent_ActualSurfaceFrameStart::Clear() {
         reinterpret_cast<char*>(&gpu_composition_) -
         reinterpret_cast<char*>(&cookie_)) + sizeof(gpu_composition_));
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00000f00u) {
     ::memset(&is_buffer_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&prediction_type_) -
-        reinterpret_cast<char*>(&is_buffer_)) + sizeof(prediction_type_));
+        reinterpret_cast<char*>(&jank_severity_type_) -
+        reinterpret_cast<char*>(&is_buffer_)) + sizeof(jank_severity_type_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -937,6 +1012,19 @@ const char* FrameTimelineEvent_ActualSurfaceFrameStart::_InternalParse(const cha
         } else
           goto handle_unusual;
         continue;
+      // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::perfetto::protos::FrameTimelineEvent_JankSeverityType_IsValid(val))) {
+            _internal_set_jank_severity_type(static_cast<::perfetto::protos::FrameTimelineEvent_JankSeverityType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(12, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1036,6 +1124,13 @@ uint8_t* FrameTimelineEvent_ActualSurfaceFrameStart::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_is_buffer(), target);
   }
 
+  // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 12;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      12, this->_internal_jank_severity_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1098,7 +1193,7 @@ size_t FrameTimelineEvent_ActualSurfaceFrameStart::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00000f00u) {
     // optional bool is_buffer = 11;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 + 1;
@@ -1113,6 +1208,12 @@ size_t FrameTimelineEvent_ActualSurfaceFrameStart::ByteSizeLong() const {
     if (cached_has_bits & 0x00000400u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_prediction_type());
+    }
+
+    // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 12;
+    if (cached_has_bits & 0x00000800u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_jank_severity_type());
     }
 
   }
@@ -1164,7 +1265,7 @@ void FrameTimelineEvent_ActualSurfaceFrameStart::MergeFrom(const FrameTimelineEv
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
       is_buffer_ = from.is_buffer_;
     }
@@ -1173,6 +1274,9 @@ void FrameTimelineEvent_ActualSurfaceFrameStart::MergeFrom(const FrameTimelineEv
     }
     if (cached_has_bits & 0x00000400u) {
       prediction_type_ = from.prediction_type_;
+    }
+    if (cached_has_bits & 0x00000800u) {
+      jank_severity_type_ = from.jank_severity_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1201,8 +1305,8 @@ void FrameTimelineEvent_ActualSurfaceFrameStart::InternalSwap(FrameTimelineEvent
       &other->layer_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualSurfaceFrameStart, prediction_type_)
-      + sizeof(FrameTimelineEvent_ActualSurfaceFrameStart::prediction_type_)
+      PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualSurfaceFrameStart, jank_severity_type_)
+      + sizeof(FrameTimelineEvent_ActualSurfaceFrameStart::jank_severity_type_)
       - PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualSurfaceFrameStart, cookie_)>(
           reinterpret_cast<char*>(&cookie_),
           reinterpret_cast<char*>(&other->cookie_));
@@ -1495,6 +1599,9 @@ class FrameTimelineEvent_ActualDisplayFrameStart::_Internal {
   static void set_has_prediction_type(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
+  static void set_has_jank_severity_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
 };
 
 FrameTimelineEvent_ActualDisplayFrameStart::FrameTimelineEvent_ActualDisplayFrameStart(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1508,16 +1615,16 @@ FrameTimelineEvent_ActualDisplayFrameStart::FrameTimelineEvent_ActualDisplayFram
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&cookie_, &from.cookie_,
-    static_cast<size_t>(reinterpret_cast<char*>(&prediction_type_) -
-    reinterpret_cast<char*>(&cookie_)) + sizeof(prediction_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&jank_severity_type_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(jank_severity_type_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.FrameTimelineEvent.ActualDisplayFrameStart)
 }
 
 inline void FrameTimelineEvent_ActualDisplayFrameStart::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&cookie_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&prediction_type_) -
-    reinterpret_cast<char*>(&cookie_)) + sizeof(prediction_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&jank_severity_type_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(jank_severity_type_));
 }
 
 FrameTimelineEvent_ActualDisplayFrameStart::~FrameTimelineEvent_ActualDisplayFrameStart() {
@@ -1549,6 +1656,7 @@ void FrameTimelineEvent_ActualDisplayFrameStart::Clear() {
         reinterpret_cast<char*>(&prediction_type_) -
         reinterpret_cast<char*>(&cookie_)) + sizeof(prediction_type_));
   }
+  jank_severity_type_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1640,6 +1748,19 @@ const char* FrameTimelineEvent_ActualDisplayFrameStart::_InternalParse(const cha
         } else
           goto handle_unusual;
         continue;
+      // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::perfetto::protos::FrameTimelineEvent_JankSeverityType_IsValid(val))) {
+            _internal_set_jank_severity_type(static_cast<::perfetto::protos::FrameTimelineEvent_JankSeverityType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(9, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1721,6 +1842,13 @@ uint8_t* FrameTimelineEvent_ActualDisplayFrameStart::_InternalSerialize(
       8, this->_internal_prediction_type(), target);
   }
 
+  // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 9;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      9, this->_internal_jank_severity_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1782,6 +1910,12 @@ size_t FrameTimelineEvent_ActualDisplayFrameStart::ByteSizeLong() const {
     }
 
   }
+  // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 9;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_jank_severity_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1830,6 +1964,9 @@ void FrameTimelineEvent_ActualDisplayFrameStart::MergeFrom(const FrameTimelineEv
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_jank_severity_type(from._internal_jank_severity_type());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1849,8 +1986,8 @@ void FrameTimelineEvent_ActualDisplayFrameStart::InternalSwap(FrameTimelineEvent
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualDisplayFrameStart, prediction_type_)
-      + sizeof(FrameTimelineEvent_ActualDisplayFrameStart::prediction_type_)
+      PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualDisplayFrameStart, jank_severity_type_)
+      + sizeof(FrameTimelineEvent_ActualDisplayFrameStart::jank_severity_type_)
       - PROTOBUF_FIELD_OFFSET(FrameTimelineEvent_ActualDisplayFrameStart, cookie_)>(
           reinterpret_cast<char*>(&cookie_),
           reinterpret_cast<char*>(&other->cookie_));

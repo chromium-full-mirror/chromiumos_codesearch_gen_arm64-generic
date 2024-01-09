@@ -25,52 +25,6 @@ namespace internal {
 
 
 // static
-bool RenderMessageFilter_GenerateRoutingID_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const RenderMessageFilter_GenerateRoutingID_Params_Data* object =
-      static_cast<const RenderMessageFilter_GenerateRoutingID_Params_Data*>(data);
-
-  return true;
-}
-
-RenderMessageFilter_GenerateRoutingID_Params_Data::RenderMessageFilter_GenerateRoutingID_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool RenderMessageFilter_GenerateRoutingID_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const RenderMessageFilter_GenerateRoutingID_ResponseParams_Data* object =
-      static_cast<const RenderMessageFilter_GenerateRoutingID_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-RenderMessageFilter_GenerateRoutingID_ResponseParams_Data::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool RenderMessageFilter_GenerateFrameRoutingID_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

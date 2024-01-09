@@ -95,25 +95,32 @@ export class DiagnoseInfoViewElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    watchPositionSuccess = (position) => {
+        const data = {};
+        data['timestamp'] = new Date(position.timestamp).toLocaleString();
+        for (const key in position.coords) {
+            const value = position.coords[key];
+            if (typeof value === 'number' || typeof value === 'string') {
+                data[key] = value.toString();
+            }
+        }
+        this.updateWatchPositionTable(data);
+    };
+    watchPositionError = (error) => {
+        const data = {};
+        data['timestamp'] = new Date().toLocaleString();
+        data['fail reason'] = `${error.message}, code: ${error.code}`;
+        this.updateWatchPositionTable(data);
+    };
+    providerStateTable_;
+    wifiDataTable_;
+    positionCacheTable_;
+    watchPositionTable_;
+    wifiPollingPolicyTable_;
+    lastNetworkRequestTable_;
+    lastNetworkResponseTable_;
     constructor() {
         super();
-        this.watchPositionSuccess = (position) => {
-            const data = {};
-            data['timestamp'] = new Date(position.timestamp).toLocaleString();
-            for (const key in position.coords) {
-                const value = position.coords[key];
-                if (typeof value === 'number' || typeof value === 'string') {
-                    data[key] = value.toString();
-                }
-            }
-            this.updateWatchPositionTable(data);
-        };
-        this.watchPositionError = (error) => {
-            const data = {};
-            data['timestamp'] = new Date().toLocaleString();
-            data['fail reason'] = `${error.message}, code: ${error.code}`;
-            this.updateWatchPositionTable(data);
-        };
         this.providerStateTable_ =
             this.getRequiredElement(`#${PROVIDER_STATE_TABLE_ID}`);
         this.wifiDataTable_ = this.getRequiredElement(`#${WIFI_DATA_TABLE_ID}`);

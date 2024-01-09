@@ -48,14 +48,6 @@ class CollectionImageDataView;
 
 class ModuleSettingsDataView;
 
-class DescriptorADataView;
-
-class DescriptorBDataView;
-
-class DescriptorsDataView;
-
-class WallpaperSearchResultDataView;
-
 
 
 }  // side_panel::mojom
@@ -101,34 +93,6 @@ struct MojomTypeTraits<::side_panel::mojom::CollectionImageDataView> {
 template <>
 struct MojomTypeTraits<::side_panel::mojom::ModuleSettingsDataView> {
   using Data = ::side_panel::mojom::internal::ModuleSettings_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::side_panel::mojom::DescriptorADataView> {
-  using Data = ::side_panel::mojom::internal::DescriptorA_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::side_panel::mojom::DescriptorBDataView> {
-  using Data = ::side_panel::mojom::internal::DescriptorB_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::side_panel::mojom::DescriptorsDataView> {
-  using Data = ::side_panel::mojom::internal::Descriptors_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::side_panel::mojom::WallpaperSearchResultDataView> {
-  using Data = ::side_panel::mojom::internal::WallpaperSearchResult_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -221,6 +185,26 @@ class BackgroundImageDataView {
   }
   bool is_uploaded_image() const {
     return data_->is_uploaded_image;
+  }
+  inline void GetLocalBackgroundIdDataView(
+      ::mojo_base::mojom::TokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalBackgroundId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TokenDataView, UserType>(),
+    "Attempting to read the optional `local_background_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLocalBackgroundId` instead "
+    "of `ReadLocalBackgroundId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->local_background_id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
+        pointer, output, message_);
   }
   inline void GetTitleDataView(
       mojo::StringDataView* output);
@@ -540,160 +524,6 @@ class ModuleSettingsDataView {
 };
 
 
-class DescriptorADataView {
- public:
-  DescriptorADataView() = default;
-
-  DescriptorADataView(
-      internal::DescriptorA_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetCategoryDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadCategory(UserType* output) {
-    
-    auto* pointer = data_->category.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetLabelsDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLabels(UserType* output) {
-    
-    auto* pointer = data_->labels.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::DescriptorA_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class DescriptorBDataView {
- public:
-  DescriptorBDataView() = default;
-
-  DescriptorBDataView(
-      internal::DescriptorB_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetLabelDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLabel(UserType* output) {
-    
-    auto* pointer = data_->label.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetImagePathDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadImagePath(UserType* output) {
-    
-    auto* pointer = data_->image_path.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::DescriptorB_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class DescriptorsDataView {
- public:
-  DescriptorsDataView() = default;
-
-  DescriptorsDataView(
-      internal::Descriptors_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetDescriptorADataView(
-      mojo::ArrayDataView<DescriptorADataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorA(UserType* output) {
-    
-    auto* pointer = data_->descriptor_a.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::side_panel::mojom::DescriptorADataView>>(
-        pointer, output, message_);
-  }
-  inline void GetDescriptorBDataView(
-      mojo::ArrayDataView<DescriptorBDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorB(UserType* output) {
-    
-    auto* pointer = data_->descriptor_b.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::side_panel::mojom::DescriptorBDataView>>(
-        pointer, output, message_);
-  }
-  inline void GetDescriptorCDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorC(UserType* output) {
-    
-    auto* pointer = data_->descriptor_c.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::Descriptors_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class WallpaperSearchResultDataView {
- public:
-  WallpaperSearchResultDataView() = default;
-
-  WallpaperSearchResultDataView(
-      internal::WallpaperSearchResult_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetIdDataView(
-      ::mojo_base::mojom::TokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadId(UserType* output) {
-    
-    auto* pointer = data_->id.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetImageDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadImage(UserType* output) {
-    
-    auto* pointer = data_->image.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::WallpaperSearchResult_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 }  // side_panel::mojom
 
 namespace std {
@@ -765,6 +595,14 @@ struct Serializer<::side_panel::mojom::BackgroundImageDataView, MaybeConstUserTy
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null snapshot_url in BackgroundImage struct");
     fragment->is_uploaded_image = Traits::is_uploaded_image(input);
+    decltype(Traits::local_background_id(input)) in_local_background_id = Traits::local_background_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->local_background_id)::BaseType> local_background_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
+        in_local_background_id, local_background_id_fragment);
+    fragment->local_background_id.Set(
+        local_background_id_fragment.is_null() ? nullptr : local_background_id_fragment.data());
     decltype(Traits::title(input)) in_title = Traits::title(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->title)::BaseType> title_fragment(
@@ -1145,238 +983,6 @@ struct Serializer<::side_panel::mojom::ModuleSettingsDataView, MaybeConstUserTyp
 
 }  // namespace internal
 
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::side_panel::mojom::DescriptorADataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::side_panel::mojom::DescriptorADataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::side_panel::mojom::internal::DescriptorA_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::category(input)) in_category = Traits::category(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->category)::BaseType> category_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_category, category_fragment);
-    fragment->category.Set(
-        category_fragment.is_null() ? nullptr : category_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->category.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null category in DescriptorA struct");
-    decltype(Traits::labels(input)) in_labels = Traits::labels(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->labels)::BaseType>
-        labels_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& labels_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
-        in_labels, labels_fragment, &labels_validate_params);
-    fragment->labels.Set(
-        labels_fragment.is_null() ? nullptr : labels_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->labels.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null labels in DescriptorA struct");
-  }
-
-  static bool Deserialize(::side_panel::mojom::internal::DescriptorA_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::side_panel::mojom::DescriptorADataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::side_panel::mojom::DescriptorBDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::side_panel::mojom::DescriptorBDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::side_panel::mojom::internal::DescriptorB_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::label(input)) in_label = Traits::label(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->label)::BaseType> label_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_label, label_fragment);
-    fragment->label.Set(
-        label_fragment.is_null() ? nullptr : label_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->label.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null label in DescriptorB struct");
-    decltype(Traits::image_path(input)) in_image_path = Traits::image_path(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->image_path)::BaseType> image_path_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_image_path, image_path_fragment);
-    fragment->image_path.Set(
-        image_path_fragment.is_null() ? nullptr : image_path_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->image_path.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null image_path in DescriptorB struct");
-  }
-
-  static bool Deserialize(::side_panel::mojom::internal::DescriptorB_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::side_panel::mojom::DescriptorBDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::side_panel::mojom::DescriptorsDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::side_panel::mojom::DescriptorsDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::side_panel::mojom::internal::Descriptors_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::descriptor_a(input)) in_descriptor_a = Traits::descriptor_a(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->descriptor_a)::BaseType>
-        descriptor_a_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& descriptor_a_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::side_panel::mojom::DescriptorADataView>>(
-        in_descriptor_a, descriptor_a_fragment, &descriptor_a_validate_params);
-    fragment->descriptor_a.Set(
-        descriptor_a_fragment.is_null() ? nullptr : descriptor_a_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->descriptor_a.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null descriptor_a in Descriptors struct");
-    decltype(Traits::descriptor_b(input)) in_descriptor_b = Traits::descriptor_b(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->descriptor_b)::BaseType>
-        descriptor_b_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& descriptor_b_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::side_panel::mojom::DescriptorBDataView>>(
-        in_descriptor_b, descriptor_b_fragment, &descriptor_b_validate_params);
-    fragment->descriptor_b.Set(
-        descriptor_b_fragment.is_null() ? nullptr : descriptor_b_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->descriptor_b.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null descriptor_b in Descriptors struct");
-    decltype(Traits::descriptor_c(input)) in_descriptor_c = Traits::descriptor_c(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->descriptor_c)::BaseType>
-        descriptor_c_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& descriptor_c_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
-        in_descriptor_c, descriptor_c_fragment, &descriptor_c_validate_params);
-    fragment->descriptor_c.Set(
-        descriptor_c_fragment.is_null() ? nullptr : descriptor_c_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->descriptor_c.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null descriptor_c in Descriptors struct");
-  }
-
-  static bool Deserialize(::side_panel::mojom::internal::Descriptors_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::side_panel::mojom::DescriptorsDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::side_panel::mojom::WallpaperSearchResultDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::side_panel::mojom::WallpaperSearchResultDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::side_panel::mojom::internal::WallpaperSearchResult_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::id(input)) in_id = Traits::id(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->id)::BaseType> id_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
-        in_id, id_fragment);
-    fragment->id.Set(
-        id_fragment.is_null() ? nullptr : id_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->id.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null id in WallpaperSearchResult struct");
-    decltype(Traits::image(input)) in_image = Traits::image(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->image)::BaseType> image_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_image, image_fragment);
-    fragment->image.Set(
-        image_fragment.is_null() ? nullptr : image_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->image.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null image in WallpaperSearchResult struct");
-  }
-
-  static bool Deserialize(::side_panel::mojom::internal::WallpaperSearchResult_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::side_panel::mojom::WallpaperSearchResultDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
 }  // namespace mojo
 
 
@@ -1391,6 +997,11 @@ inline void BackgroundImageDataView::GetSnapshotUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->snapshot_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void BackgroundImageDataView::GetLocalBackgroundIdDataView(
+    ::mojo_base::mojom::TokenDataView* output) {
+  auto pointer = data_->local_background_id.Get();
+  *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
 }
 inline void BackgroundImageDataView::GetTitleDataView(
     mojo::StringDataView* output) {
@@ -1495,59 +1106,6 @@ inline void ModuleSettingsDataView::GetIdDataView(
 inline void ModuleSettingsDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-inline void DescriptorADataView::GetCategoryDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->category.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void DescriptorADataView::GetLabelsDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
-  auto pointer = data_->labels.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
-}
-
-
-inline void DescriptorBDataView::GetLabelDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->label.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void DescriptorBDataView::GetImagePathDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->image_path.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-inline void DescriptorsDataView::GetDescriptorADataView(
-    mojo::ArrayDataView<DescriptorADataView>* output) {
-  auto pointer = data_->descriptor_a.Get();
-  *output = mojo::ArrayDataView<DescriptorADataView>(pointer, message_);
-}
-inline void DescriptorsDataView::GetDescriptorBDataView(
-    mojo::ArrayDataView<DescriptorBDataView>* output) {
-  auto pointer = data_->descriptor_b.Get();
-  *output = mojo::ArrayDataView<DescriptorBDataView>(pointer, message_);
-}
-inline void DescriptorsDataView::GetDescriptorCDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
-  auto pointer = data_->descriptor_c.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
-}
-
-
-inline void WallpaperSearchResultDataView::GetIdDataView(
-    ::mojo_base::mojom::TokenDataView* output) {
-  auto pointer = data_->id.Get();
-  *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
-}
-inline void WallpaperSearchResultDataView::GetImageDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->image.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

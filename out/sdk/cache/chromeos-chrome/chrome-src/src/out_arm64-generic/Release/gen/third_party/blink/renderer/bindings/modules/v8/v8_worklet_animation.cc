@@ -81,11 +81,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WorkletAnimation>::value,
     "WorkletAnimation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WorkletAnimation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WorkletAnimation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,10 +93,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.animatorName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->animatorName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->animatorName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -113,8 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.effect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->effect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -127,8 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.timeline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeline();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -141,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.playState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->playState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->playState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -156,8 +153,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.currentTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -170,8 +168,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.startTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -184,8 +183,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.playbackRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -200,12 +200,12 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.playbackRate.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WorkletAnimation";
@@ -296,8 +296,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.cancel");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->cancel();
 
 }
@@ -313,9 +314,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.pause");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkletAnimation";
 const char* const property_name = "pause";
@@ -338,9 +339,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimation.play");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkletAnimation* blink_receiver = V8WorkletAnimation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkletAnimation";
 const char* const property_name = "play";

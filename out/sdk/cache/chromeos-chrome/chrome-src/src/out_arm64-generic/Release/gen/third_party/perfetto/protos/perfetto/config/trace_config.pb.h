@@ -163,11 +163,12 @@ enum TraceConfig_TraceFilter_StringFilterPolicy : int {
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_REDACT_GROUPS = 1,
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
   TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK = 3,
-  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK = 4
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK = 4,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS = 5
 };
 bool TraceConfig_TraceFilter_StringFilterPolicy_IsValid(int value);
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
-constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
 constexpr int TraceConfig_TraceFilter_StringFilterPolicy_StringFilterPolicy_ARRAYSIZE = TraceConfig_TraceFilter_StringFilterPolicy_StringFilterPolicy_MAX + 1;
 
 const std::string& TraceConfig_TraceFilter_StringFilterPolicy_Name(TraceConfig_TraceFilter_StringFilterPolicy value);
@@ -2626,6 +2627,8 @@ class TraceConfig_TraceFilter final :
     TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK;
   static constexpr StringFilterPolicy SFP_ATRACE_MATCH_BREAK =
     TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+  static constexpr StringFilterPolicy SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS =
+    TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
   static inline bool StringFilterPolicy_IsValid(int value) {
     return TraceConfig_TraceFilter_StringFilterPolicy_IsValid(value);
   }

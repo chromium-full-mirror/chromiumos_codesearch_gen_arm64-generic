@@ -20,7 +20,7 @@ import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/he
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { IronSelectableBehavior } from 'chrome://resources/polymer/v3_0/iron-selector/iron-selectable.js';
 import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';

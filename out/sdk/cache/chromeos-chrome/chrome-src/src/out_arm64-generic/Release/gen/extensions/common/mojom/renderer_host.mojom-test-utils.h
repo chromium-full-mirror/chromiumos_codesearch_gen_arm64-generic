@@ -18,6 +18,8 @@ class  RendererHostInterceptorForTesting : public RendererHost {
   void AddAPIActionToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const std::string& extra) override;
   void AddEventToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const std::string& extra) override;
   void AddDOMActionToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const ::GURL& url, const ::std::u16string& url_title, int32_t call_type) override;
+  void WakeEventPage(const std::string& extension_id, WakeEventPageCallback callback) override;
+  void GetMessageBundle(const std::string& extension_id, GetMessageBundleCallback callback) override;
 };
 class  RendererHostAsyncWaiter {
  public:
@@ -27,6 +29,12 @@ class  RendererHostAsyncWaiter {
   RendererHostAsyncWaiter& operator=(const RendererHostAsyncWaiter&) = delete;
 
   ~RendererHostAsyncWaiter();
+  void WakeEventPage(
+      const std::string& extension_id, bool* out_success);
+  bool WakeEventPage(const std::string& extension_id);
+  void GetMessageBundle(
+      const std::string& extension_id, base::flat_map<std::string, std::string>* out_message_map);
+  base::flat_map<std::string, std::string> GetMessageBundle(const std::string& extension_id);
 
  private:
   RendererHost* const proxy_;

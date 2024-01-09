@@ -35,13 +35,13 @@ class BLINK_COMMON_EXPORT ServiceWorkerContainerHostAsyncWaiter {
 
   ~ServiceWorkerContainerHostAsyncWaiter();
   void Register(
-      const ::GURL& script_url, ::blink::mojom::ServiceWorkerRegistrationOptionsPtr options, ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr* out_registration);
+      const ::GURL& script_url, ::blink::mojom::ServiceWorkerRegistrationOptionsPtr options, ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr* out_registration);
   
   void GetRegistration(
-      const ::GURL& client_url, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr* out_registration);
+      const ::GURL& client_url, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg, ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr* out_registration);
   
   void GetRegistrations(
-      ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg, absl::optional<std::vector<::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos);
+      ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg, std::optional<std::vector<::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr>>* out_infos);
   
   void GetRegistrationForReady(
       ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr* out_registration);

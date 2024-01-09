@@ -31,7 +31,7 @@ bool MediaUrlParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -60,6 +60,17 @@ bool MediaUrlParams_Data::Validate(
   }
   if (!mojo::internal::ValidateStruct(object->top_frame_origin, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->headers, 7, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& headers_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  if (!mojo::internal::ValidateContainer(object->headers, validation_context,
+                                         &headers_validate_params)) {
+    return false;
+  }
 
   return true;
 }

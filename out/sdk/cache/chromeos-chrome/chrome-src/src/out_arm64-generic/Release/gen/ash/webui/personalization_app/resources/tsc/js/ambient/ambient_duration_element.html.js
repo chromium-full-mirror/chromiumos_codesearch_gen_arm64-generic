@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
+    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0;margin-inline-start:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
 <div class="ambient-toggle-row">
   <h3 class="ambient-subpage-element-title">
     $i18n{ambientModeDurationTitle}

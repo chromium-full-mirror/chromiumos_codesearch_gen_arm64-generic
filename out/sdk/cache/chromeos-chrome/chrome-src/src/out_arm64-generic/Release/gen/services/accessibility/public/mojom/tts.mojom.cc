@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,11 +52,11 @@ TtsVoice::TtsVoice()
       event_types() {}
 
 TtsVoice::TtsVoice(
-    const absl::optional<std::string>& voice_name_in,
-    const absl::optional<std::string>& lang_in,
+    const std::optional<std::string>& voice_name_in,
+    const std::optional<std::string>& lang_in,
     bool remote_in,
-    const absl::optional<std::string>& engine_id_in,
-    absl::optional<std::vector<TtsEventType>> event_types_in)
+    const std::optional<std::string>& engine_id_in,
+    std::optional<std::vector<TtsEventType>> event_types_in)
     : voice_name(std::move(voice_name_in)),
       lang(std::move(lang_in)),
       remote(std::move(remote_in)),
@@ -71,7 +72,7 @@ void TtsVoice::WriteIntoTrace(
     dict.AddItem(
       "voice_name"), this->voice_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -80,7 +81,7 @@ void TtsVoice::WriteIntoTrace(
     dict.AddItem(
       "lang"), this->lang,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -98,7 +99,7 @@ void TtsVoice::WriteIntoTrace(
     dict.AddItem(
       "engine_id"), this->engine_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -107,7 +108,7 @@ void TtsVoice::WriteIntoTrace(
     dict.AddItem(
       "event_types"), this->event_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<TtsEventType>>&>"
+      "<value of type const std::optional<std::vector<TtsEventType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -134,9 +135,9 @@ TtsOptions::TtsOptions(
     double rate_in,
     double volume_in,
     bool enqueue_in,
-    const absl::optional<std::string>& voice_name_in,
-    const absl::optional<std::string>& engine_id_in,
-    const absl::optional<std::string>& lang_in,
+    const std::optional<std::string>& voice_name_in,
+    const std::optional<std::string>& engine_id_in,
+    const std::optional<std::string>& lang_in,
     bool on_event_in)
     : pitch(std::move(pitch_in)),
       rate(std::move(rate_in)),
@@ -192,7 +193,7 @@ void TtsOptions::WriteIntoTrace(
     dict.AddItem(
       "voice_name"), this->voice_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -201,7 +202,7 @@ void TtsOptions::WriteIntoTrace(
     dict.AddItem(
       "engine_id"), this->engine_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -210,7 +211,7 @@ void TtsOptions::WriteIntoTrace(
     dict.AddItem(
       "lang"), this->lang,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -241,7 +242,7 @@ TtsEvent::TtsEvent()
 TtsEvent::TtsEvent(
     TtsEventType type_in,
     int32_t char_index_in,
-    const absl::optional<std::string>& error_message_in,
+    const std::optional<std::string>& error_message_in,
     int32_t length_in,
     bool is_final_in)
     : type(std::move(type_in)),
@@ -277,7 +278,7 @@ void TtsEvent::WriteIntoTrace(
     dict.AddItem(
       "error_message"), this->error_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -418,14 +419,17 @@ void TtsUtteranceClientProxy::OnEvent(
                         "<value of type TtsEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsUtteranceClient_OnEvent_Name, kFlags, 0, 0, nullptr);
@@ -504,10 +508,10 @@ bool TtsUtteranceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsUtteranceClientValidationInfo[] = {
-    {&internal::TtsUtteranceClient_OnEvent_Params_Data::Validate,
+    { &internal::TtsUtteranceClient_OnEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -738,14 +742,17 @@ void TtsProxy::Speak(
                         "<value of type TtsOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Speak_Name, kFlags, 0, 0, nullptr);
@@ -791,14 +798,17 @@ void TtsProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ax::mojom::Tts::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Stop_Name, kFlags, 0, 0, nullptr);
@@ -821,14 +831,17 @@ void TtsProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ax::mojom::Tts::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Pause_Name, kFlags, 0, 0, nullptr);
@@ -851,14 +864,17 @@ void TtsProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ax::mojom::Tts::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Resume_Name, kFlags, 0, 0, nullptr);
@@ -881,14 +897,17 @@ void TtsProxy::IsSpeaking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ax::mojom::Tts::IsSpeaking");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_IsSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -912,14 +931,17 @@ void TtsProxy::GetVoices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ax::mojom::Tts::GetVoices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_GetVoices_Name, kFlags, 0, 0, nullptr);
@@ -1029,7 +1051,8 @@ void Tts_Speak_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Speak_Name, kFlags, 0, 0, nullptr);
@@ -1157,7 +1180,8 @@ void Tts_IsSpeaking_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_IsSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -1275,7 +1299,8 @@ void Tts_GetVoices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_GetVoices_Name, kFlags, 0, 0, nullptr);
@@ -1502,20 +1527,20 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsValidationInfo[] = {
-    {&internal::Tts_Speak_Params_Data::Validate,
+    { &internal::Tts_Speak_Params_Data::Validate,
      &internal::Tts_Speak_ResponseParams_Data::Validate},
-    {&internal::Tts_Stop_Params_Data::Validate,
+    { &internal::Tts_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_Pause_Params_Data::Validate,
+    { &internal::Tts_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_Resume_Params_Data::Validate,
+    { &internal::Tts_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_IsSpeaking_Params_Data::Validate,
+    { &internal::Tts_IsSpeaking_Params_Data::Validate,
      &internal::Tts_IsSpeaking_ResponseParams_Data::Validate},
-    {&internal::Tts_GetVoices_Params_Data::Validate,
+    { &internal::Tts_GetVoices_Params_Data::Validate,
      &internal::Tts_GetVoices_ResponseParams_Data::Validate},
 };
 

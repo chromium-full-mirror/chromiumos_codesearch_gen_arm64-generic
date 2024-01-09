@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -191,7 +192,7 @@ ReportingApiEndpoint::ReportingApiEndpoint(
     const ::url::Origin& origin_in,
     const std::string& group_name_in,
     const ::net::NetworkAnonymizationKey& network_anonymization_key_in,
-    const absl::optional<::base::UnguessableToken>& reporting_source_in)
+    const std::optional<::base::UnguessableToken>& reporting_source_in)
     : url(std::move(url_in)),
       attempted_uploads(std::move(attempted_uploads_in)),
       successful_uploads(std::move(successful_uploads_in)),
@@ -303,7 +304,7 @@ void ReportingApiEndpoint::WriteIntoTrace(
     dict.AddItem(
       "reporting_source"), this->reporting_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -426,14 +427,17 @@ void ReportingApiObserverProxy::OnReportAdded(
                         "<value of type const ::net::ReportingReport&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingApiObserver_OnReportAdded_Name, kFlags, 0, 0, nullptr);
@@ -474,14 +478,17 @@ void ReportingApiObserverProxy::OnReportUpdated(
                         "<value of type const ::net::ReportingReport&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingApiObserver_OnReportUpdated_Name, kFlags, 0, 0, nullptr);
@@ -522,14 +529,17 @@ void ReportingApiObserverProxy::OnEndpointsUpdatedForOrigin(
                         "<value of type const std::vector<::net::ReportingEndpoint>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingApiObserver_OnEndpointsUpdatedForOrigin_Name, kFlags, 0, 0, nullptr);
@@ -668,14 +678,14 @@ bool ReportingApiObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kReportingApiObserverValidationInfo[] = {
-    {&internal::ReportingApiObserver_OnReportAdded_Params_Data::Validate,
+    { &internal::ReportingApiObserver_OnReportAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingApiObserver_OnReportUpdated_Params_Data::Validate,
+    { &internal::ReportingApiObserver_OnReportUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingApiObserver_OnEndpointsUpdatedForOrigin_Params_Data::Validate,
+    { &internal::ReportingApiObserver_OnEndpointsUpdatedForOrigin_Params_Data::Validate,
      nullptr /* no response */},
 };
 

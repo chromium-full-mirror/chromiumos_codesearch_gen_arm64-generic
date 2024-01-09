@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -162,7 +163,7 @@ XhrResponse::XhrResponse()
 XhrResponse::XhrResponse(
     const std::string& response_in,
     XhrResponseCode response_code_in,
-    absl::optional<JsNetErrorCode> net_error_code_in)
+    std::optional<JsNetErrorCode> net_error_code_in)
     : response(std::move(response_in)),
       response_code(std::move(response_code_in)),
       net_error_code(std::move(net_error_code_in)) {}
@@ -194,7 +195,7 @@ void XhrResponse::WriteIntoTrace(
     dict.AddItem(
       "net_error_code"), this->net_error_code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<JsNetErrorCode>>"
+      "<value of type std::optional<JsNetErrorCode>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

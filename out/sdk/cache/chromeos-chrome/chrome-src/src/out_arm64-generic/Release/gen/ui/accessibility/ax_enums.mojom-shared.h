@@ -257,6 +257,8 @@ enum class Role : int32_t {
   
   kDisclosureTriangle = 37,
   
+  kDisclosureTriangleGrouped = 210,
+  
   kDocAbstract = 38,
   
   kDocAcknowledgments = 39,
@@ -599,7 +601,7 @@ enum class Role : int32_t {
   
   kWindow = 184,
   kMinValue = 0,
-  kMaxValue = 209,
+  kMaxValue = 210,
   kDefaultValue = 181
 };
 

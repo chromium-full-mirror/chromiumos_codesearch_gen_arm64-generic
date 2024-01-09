@@ -22,10 +22,10 @@
 
 namespace blink {
 
-class AuthenticationExtensionsDevicePublicKeyInputs;
 class AuthenticationExtensionsLargeBlobInputs;
 class AuthenticationExtensionsPRFInputs;
 class AuthenticationExtensionsPaymentInputs;
+class AuthenticationExtensionsSupplementalPubKeysInputs;
 class CableAuthenticationData;
 class ExceptionState;
 class RemoteDesktopClientOverride;
@@ -121,25 +121,6 @@ String getCredentialProtectionPolicyOr(const String& fallback_value) const;
 String getCredentialProtectionPolicyOr(String&& fallback_value) const;
 void setCredentialProtectionPolicy(const String& value);
 void setCredentialProtectionPolicy(String&& value);
-
-bool hasDevicePubKey() const {
-  return has_device_pub_key_;
-}
-AuthenticationExtensionsDevicePublicKeyInputs* devicePubKey() const {
-  DCHECK(hasDevicePubKey());
-return member_device_pub_key_.Get();
-}
-AuthenticationExtensionsDevicePublicKeyInputs* getDevicePubKeyOr(AuthenticationExtensionsDevicePublicKeyInputs* fallback_value) const {
-  if (!hasDevicePubKey()) {
-  return fallback_value;
-}
-return member_device_pub_key_.Get();
-}
-void setDevicePubKey(AuthenticationExtensionsDevicePublicKeyInputs* value) {
-  member_device_pub_key_ = value;
-has_device_pub_key_ = true;
-DCHECK(member_device_pub_key_);
-}
 
 bool hasEnforceCredentialProtectionPolicy() const {
   return true;
@@ -281,6 +262,25 @@ has_remote_desktop_client_override_ = true;
 DCHECK(member_remote_desktop_client_override_);
 }
 
+bool hasSupplementalPubKeys() const {
+  return has_supplemental_pub_keys_;
+}
+AuthenticationExtensionsSupplementalPubKeysInputs* supplementalPubKeys() const {
+  DCHECK(hasSupplementalPubKeys());
+return member_supplemental_pub_keys_.Get();
+}
+AuthenticationExtensionsSupplementalPubKeysInputs* getSupplementalPubKeysOr(AuthenticationExtensionsSupplementalPubKeysInputs* fallback_value) const {
+  if (!hasSupplementalPubKeys()) {
+  return fallback_value;
+}
+return member_supplemental_pub_keys_.Get();
+}
+void setSupplementalPubKeys(AuthenticationExtensionsSupplementalPubKeysInputs* value) {
+  member_supplemental_pub_keys_ = value;
+has_supplemental_pub_keys_ = true;
+DCHECK(member_supplemental_pub_keys_);
+}
+
 bool hasUvm() const {
   return has_uvm_;
 }
@@ -319,7 +319,6 @@ bool has_appid_exclude_ = false;
 bool has_cable_authentication_ = false;
 bool has_cred_blob_ = false;
 bool has_credential_protection_policy_ = false;
-bool has_device_pub_key_ = false;
 bool has_get_cred_blob_ = false;
 bool has_hmac_create_secret_ = false;
 bool has_large_blob_ = false;
@@ -327,6 +326,7 @@ bool has_min_pin_length_ = false;
 bool has_payment_ = false;
 bool has_prf_ = false;
 bool has_remote_desktop_client_override_ = false;
+bool has_supplemental_pub_keys_ = false;
 bool has_uvm_ = false;
 
 String member_appid_;
@@ -335,7 +335,6 @@ HeapVector<Member<CableAuthenticationData>> member_cable_authentication_;
 Member<V8UnionArrayBufferOrArrayBufferView> member_cred_blob_;
 bool member_cred_props_{false};
 String member_credential_protection_policy_;
-Member<AuthenticationExtensionsDevicePublicKeyInputs> member_device_pub_key_;
 bool member_enforce_credential_protection_policy_{false};
 bool member_get_cred_blob_;
 bool member_hmac_create_secret_;
@@ -344,6 +343,7 @@ bool member_min_pin_length_;
 Member<AuthenticationExtensionsPaymentInputs> member_payment_;
 Member<AuthenticationExtensionsPRFInputs> member_prf_;
 Member<RemoteDesktopClientOverride> member_remote_desktop_client_override_;
+Member<AuthenticationExtensionsSupplementalPubKeysInputs> member_supplemental_pub_keys_;
 bool member_uvm_;
 
 

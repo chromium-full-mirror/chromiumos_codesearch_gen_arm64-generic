@@ -1,91 +1,55 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { MetadataParserLogger } from '../../../externs/metadata_worker_window.js';
 import { ByteReader } from './byte_reader.js';
-/**
- * @implements {MetadataParserLogger}
- */
+import { ParserMetadata } from './metadata_item.js';
 export class MetadataParser {
     /**
-     * @param {!MetadataParserLogger} parent Parent object.
-     * @param {string} type Parser type.
-     * @param {!RegExp} urlFilter RegExp to match URLs.
+     * @param parent_ Parent object.
+     * @param type_ Parser type.
+     * @param urlFilter_ RegExp to match URLs.
      */
-    constructor(parent, type, urlFilter) {
-        /** @private @const @type {!MetadataParserLogger} */
-        this.parent_ = parent;
-        /** @public @const @type {string} */
+    constructor(parent_, type, urlFilter) {
+        this.parent_ = parent_;
         this.type = type;
-        /** @public @const @type {!RegExp} */
         this.urlFilter = urlFilter;
-        /** @public @const @type {boolean} */
-        // @ts-ignore: error TS2339: Property 'verbose' does not exist on type
-        // 'MetadataParserLogger'.
-        this.verbose = parent.verbose;
-        /** @public @type {string} */
         this.mimeType = 'unknown';
+        this.verbose = parent_.verbose;
     }
     /**
      * Output an error message.
-     * @param {...(Object|string)} var_args Arguments.
      */
-    // @ts-ignore: error TS6133: 'var_args' is declared but its value is never
-    // read.
-    error(var_args) {
-        // @ts-ignore: error TS2345: Argument of type 'IArguments' is not assignable
-        // to parameter of type '[var_args: string | Object | undefined]'.
-        this.parent_.error.apply(this.parent_, arguments);
+    error(...args) {
+        this.parent_.error.apply(this.parent_, args);
     }
     /**
      * Output a log message.
-     * @param {...(Object|string)} var_args Arguments.
      */
-    // @ts-ignore: error TS6133: 'var_args' is declared but its value is never
-    // read.
-    log(var_args) {
-        // @ts-ignore: error TS2345: Argument of type 'IArguments' is not assignable
-        // to parameter of type '[var_args: string | Object | undefined]'.
-        this.parent_.log.apply(this.parent_, arguments);
+    log(...args) {
+        this.parent_.log.apply(this.parent_, args);
     }
     /**
      * Output a log message if |verbose| flag is on.
-     * @param {...(Object|string)} var_args Arguments.
      */
-    // @ts-ignore: error TS6133: 'var_args' is declared but its value is never
-    // read.
-    vlog(var_args) {
+    vlog(...args) {
         if (this.verbose) {
-            // @ts-ignore: error TS2345: Argument of type 'IArguments' is not
-            // assignable to parameter of type '[var_args: string | Object |
-            // undefined]'.
-            this.parent_.log.apply(this.parent_, arguments);
+            this.parent_.log.apply(this.parent_, args);
         }
     }
     /**
-     * @return {Object} Metadata object with the minimal set of properties.
+     * @return Metadata object with the minimal set of properties.
      */
     createDefaultMetadata() {
         return { type: this.type, mimeType: this.mimeType };
     }
     /**
-     * Utility function to read specified range of bytes from file
-     * @param {File} file The file to read.
-     * @param {number} begin Starting byte(included).
-     * @param {number} end Last byte(excluded).
-     * @param {function(File, ByteReader):void} callback Callback to invoke.
-     * @param {function(string):void} onError Error handler.
+     * Get a ByteReader for a range of bytes from file. Rejects on error.
+     * @param file The file to read.
+     * @param begin Starting byte (included).
+     * @param end Last byte (excluded).
      */
-    static readFileBytes(file, begin, end, callback, onError) {
-        const fileReader = new FileReader();
-        fileReader.onerror = event => {
-            onError(event.type);
-        };
-        fileReader.onloadend = () => {
-            callback(file, new ByteReader(
-            /** @type {ArrayBuffer} */ (fileReader.result)));
-        };
-        fileReader.readAsArrayBuffer(file.slice(begin, end));
+    static async readFileBytes(file, begin, end) {
+        return new ByteReader(await file.slice(begin, end).arrayBuffer());
     }
 }
 /**
@@ -93,9 +57,9 @@ export class MetadataParser {
  */
 export class ImageParser extends MetadataParser {
     /**
-     * @param {!MetadataParserLogger} parent Parent object.
-     * @param {string} type Image type.
-     * @param {!RegExp} urlFilter RegExp to match URLs.
+     * @param parent Parent object.
+     * @param type Image type.
+     * @param urlFilter RegExp to match URLs.
      */
     constructor(parent, type, urlFilter) {
         super(parent, type, urlFilter);

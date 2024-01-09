@@ -22,6 +22,7 @@ namespace protos {
 PROTOBUF_CONSTEXPR EtwTraceEvent::EtwTraceEvent(
     ::_pbi::ConstantInitialized)
   : timestamp_(uint64_t{0u})
+  , cpu_(0u)
   , _oneof_case_{}{}
 struct EtwTraceEventDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EtwTraceEventDefaultTypeInternal()
@@ -44,6 +45,9 @@ class EtwTraceEvent::_Internal {
   using HasBits = decltype(std::declval<EtwTraceEvent>()._has_bits_);
   static void set_has_timestamp(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
+  }
+  static void set_has_cpu(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
   static const ::perfetto::protos::CSwitchEtwEvent& c_switch(const EtwTraceEvent* msg);
   static const ::perfetto::protos::ReadyThreadEtwEvent& ready_thread(const EtwTraceEvent* msg);
@@ -115,7 +119,9 @@ EtwTraceEvent::EtwTraceEvent(const EtwTraceEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  timestamp_ = from.timestamp_;
+  ::memcpy(&timestamp_, &from.timestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&cpu_) -
+    reinterpret_cast<char*>(&timestamp_)) + sizeof(cpu_));
   clear_has_event();
   switch (from.event_case()) {
     case kCSwitch: {
@@ -134,7 +140,10 @@ EtwTraceEvent::EtwTraceEvent(const EtwTraceEvent& from)
 }
 
 inline void EtwTraceEvent::SharedCtor() {
-timestamp_ = uint64_t{0u};
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&timestamp_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&cpu_) -
+    reinterpret_cast<char*>(&timestamp_)) + sizeof(cpu_));
 clear_has_event();
 }
 
@@ -187,7 +196,12 @@ void EtwTraceEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  timestamp_ = uint64_t{0u};
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&timestamp_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&cpu_) -
+        reinterpret_cast<char*>(&timestamp_)) + sizeof(cpu_));
+  }
   clear_event();
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -221,6 +235,15 @@ const char* EtwTraceEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_ready_thread(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 cpu = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_cpu(&has_bits);
+          cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -277,6 +300,12 @@ uint8_t* EtwTraceEvent::_InternalSerialize(
     }
     default: ;
   }
+  // optional uint32 cpu = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_cpu(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -293,12 +322,19 @@ size_t EtwTraceEvent::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional uint64 timestamp = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint64 timestamp = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp());
+    }
 
+    // optional uint32 cpu = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+    }
+
+  }
   switch (event_case()) {
     // .perfetto.protos.CSwitchEtwEvent c_switch = 2;
     case kCSwitch: {
@@ -338,8 +374,15 @@ void EtwTraceEvent::MergeFrom(const EtwTraceEvent& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_timestamp()) {
-    _internal_set_timestamp(from._internal_timestamp());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      timestamp_ = from.timestamp_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      cpu_ = from.cpu_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   switch (from.event_case()) {
     case kCSwitch: {
@@ -372,7 +415,12 @@ void EtwTraceEvent::InternalSwap(EtwTraceEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(timestamp_, other->timestamp_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(EtwTraceEvent, cpu_)
+      + sizeof(EtwTraceEvent::cpu_)
+      - PROTOBUF_FIELD_OFFSET(EtwTraceEvent, timestamp_)>(
+          reinterpret_cast<char*>(&timestamp_),
+          reinterpret_cast<char*>(&other->timestamp_));
   swap(event_, other->event_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }

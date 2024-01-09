@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-forward.h"
 #include <string>
@@ -574,17 +575,17 @@ class  SensorUpdateInfo {
   // Construct an instance holding |lid_angle_update_info|.
   static SensorUpdateInfoPtr
   NewLidAngleUpdateInfo(
-      LidAngleUpdateInfoPtr lid_angle_update_info) {
+      LidAngleUpdateInfoPtr value) {
     auto result = SensorUpdateInfoPtr(absl::in_place);
-    result->set_lid_angle_update_info(std::move(lid_angle_update_info));
+    result->set_lid_angle_update_info(std::move(value));
     return result;
   }
   // Construct an instance holding |update_info|.
   static SensorUpdateInfoPtr
   NewUpdateInfo(
-      NonLidAngleUpdateInfoPtr update_info) {
+      NonLidAngleUpdateInfoPtr value) {
     auto result = SensorUpdateInfoPtr(absl::in_place);
-    result->set_update_info(std::move(update_info));
+    result->set_update_info(std::move(value));
     return result;
   }
 

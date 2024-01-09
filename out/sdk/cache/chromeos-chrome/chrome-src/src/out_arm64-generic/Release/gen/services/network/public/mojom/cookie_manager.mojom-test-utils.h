@@ -40,7 +40,7 @@ class  CookieManagerInterceptorForTesting : public CookieManager {
   void DeleteCanonicalCookie(const ::net::CanonicalCookie& cookie, DeleteCanonicalCookieCallback callback) override;
   void DeleteCookies(CookieDeletionFilterPtr filter, DeleteCookiesCallback callback) override;
   void DeleteSessionOnlyCookies(DeleteSessionOnlyCookiesCallback callback) override;
-  void AddCookieChangeListener(const ::GURL& url, const absl::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) override;
+  void AddCookieChangeListener(const ::GURL& url, const std::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) override;
   void AddGlobalChangeListener(::mojo::PendingRemote<CookieChangeListener> notification_pointer) override;
   void CloneInterface(::mojo::PendingReceiver<CookieManager> new_interface) override;
   void FlushCookieStore(FlushCookieStoreCallback callback) override;
@@ -50,6 +50,7 @@ class  CookieManagerInterceptorForTesting : public CookieManager {
   void BlockThirdPartyCookies(bool block) override;
   void BlockTruncatedCookies(bool block) override;
   void SetMitigationsEnabledFor3pcd(bool enable) override;
+  void SetTrackingProtectionEnabledFor3pcd(bool enable) override;
 };
 class  CookieManagerAsyncWaiter {
  public:

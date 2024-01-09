@@ -498,7 +498,7 @@
     this.keepalive = false;
     this.browsingTopics = false;
     this.adAuctionHeaders = false;
-    this.sharedStorageWritable = false;
+    this.sharedStorageWritableEligible = false;
     this.hasUserGesture = false;
     this.enableLoadTiming = false;
     this.enableUploadProgress = false;
@@ -510,6 +510,7 @@
     this.isFetchLaterApi = false;
     this.isFavicon = false;
     this.hasStorageAccess = false;
+    this.isAdTagged = false;
     this.sharedDictionaryWriterEnabled = false;
     this.referrerPolicy = 0;
     this.requestInitiator = null;
@@ -810,6 +811,7 @@
         return err;
 
 
+
     return validator.validationError.NONE;
   };
 
@@ -836,7 +838,7 @@
     val.browsingTopics = (packed >> 6) & 1 ? true : false;
     val.adAuctionHeaders = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.sharedStorageWritable = (packed >> 0) & 1 ? true : false;
+    val.sharedStorageWritableEligible = (packed >> 0) & 1 ? true : false;
     val.hasUserGesture = (packed >> 1) & 1 ? true : false;
     val.enableLoadTiming = (packed >> 2) & 1 ? true : false;
     val.enableUploadProgress = (packed >> 3) & 1 ? true : false;
@@ -849,7 +851,8 @@
     val.isFetchLaterApi = (packed >> 1) & 1 ? true : false;
     val.isFavicon = (packed >> 2) & 1 ? true : false;
     val.hasStorageAccess = (packed >> 3) & 1 ? true : false;
-    val.sharedDictionaryWriterEnabled = (packed >> 4) & 1 ? true : false;
+    val.isAdTagged = (packed >> 4) & 1 ? true : false;
+    val.sharedDictionaryWriterEnabled = (packed >> 5) & 1 ? true : false;
     decoder.skip(1);
     val.referrerPolicy =
         decoder.decodeStruct(new codec.Enum(referrer_policy$.URLRequestReferrerPolicy));
@@ -950,7 +953,7 @@
     packed |= (val.adAuctionHeaders & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.sharedStorageWritable & 1) << 0
+    packed |= (val.sharedStorageWritableEligible & 1) << 0
     packed |= (val.hasUserGesture & 1) << 1
     packed |= (val.enableLoadTiming & 1) << 2
     packed |= (val.enableUploadProgress & 1) << 3
@@ -964,7 +967,8 @@
     packed |= (val.isFetchLaterApi & 1) << 1
     packed |= (val.isFavicon & 1) << 2
     packed |= (val.hasStorageAccess & 1) << 3
-    packed |= (val.sharedDictionaryWriterEnabled & 1) << 4
+    packed |= (val.isAdTagged & 1) << 4
+    packed |= (val.sharedDictionaryWriterEnabled & 1) << 5
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.referrerPolicy);

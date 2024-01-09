@@ -34,7 +34,7 @@ class BLINK_PLATFORM_EXPORT ResolveHostHandleAsyncWaiter {
 
 class BLINK_PLATFORM_EXPORT ResolveHostClientInterceptorForTesting : public ResolveHostClient {
   virtual ResolveHostClient* GetForwardingInterface() = 0;
-  void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, absl::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) override;
+  void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, std::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) override;
   void OnTextResults(const WTF::Vector<WTF::String>& text_results) override;
   void OnHostnameResults(const WTF::Vector<::net::HostPortPair>& hosts) override;
 };

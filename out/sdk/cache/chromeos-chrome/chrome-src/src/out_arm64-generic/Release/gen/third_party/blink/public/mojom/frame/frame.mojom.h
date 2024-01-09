@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,11 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/frame/frame.mojom-features.h"
 #include "third_party/blink/public/mojom/frame/frame.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/frame.mojom-forward.h"
 #include "cc/mojom/browser_controls_state.mojom.h"
+#include "mojo/public/mojom/base/byte_string.mojom.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
 #include "mojo/public/mojom/base/text_direction.mojom.h"
@@ -81,7 +83,6 @@
 #include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-forward.h"
 #include "third_party/blink/public/mojom/opengraph/metadata.mojom-forward.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-forward.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-forward.h"
 #include "third_party/blink/public/mojom/scroll/scroll_into_view_params.mojom-forward.h"
 #include "third_party/blink/public/mojom/security_context/insecure_request_policy.mojom-forward.h"
 #include "third_party/blink/public/mojom/timing/resource_timing.mojom-forward.h"
@@ -93,6 +94,7 @@
 #include "ui/base/mojom/window_open_disposition.mojom.h"
 #include "ui/events/mojom/scroll_granularity.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
+#include "ui/gfx/image/mojom/image.mojom.h"
 #include "ui/gfx/range/mojom/range.mojom.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
@@ -131,12 +133,10 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    41, 
-    42, 
-    43, 
-    44, 
-    71, 
-    72
+    38, 
+    39, 
+    40, 
+    41
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -152,9 +152,6 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     kEnterFullscreenMinVersion = 0,
     kExitFullscreenMinVersion = 0,
     kFullscreenStateChangedMinVersion = 0,
-    kMaximizeMinVersion = 0,
-    kMinimizeMinVersion = 0,
-    kRestoreMinVersion = 0,
     kRegisterProtocolHandlerMinVersion = 0,
     kUnregisterProtocolHandlerMinVersion = 0,
     kDidDisplayInsecureContentMinVersion = 0,
@@ -220,8 +217,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     kSendLegacyTechEventMinVersion = 0,
     kSetFencedFrameAutomaticBeaconReportEventDataMinVersion = 0,
     kSendPrivateAggregationRequestsForFencedFrameEventMinVersion = 0,
-    kCreatePortalMinVersion = 0,
-    kAdoptPortalMinVersion = 0,
+    kSetAttributionReportingRuntimeFeaturesMinVersion = 0,
     kCreateFencedFrameMinVersion = 0,
     kOnViewTransitionOptInChangedMinVersion = 0,
     kStartDraggingMinVersion = 0,
@@ -237,15 +233,6 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FullscreenStateChanged_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct Maximize_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct Minimize_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct Restore_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RegisterProtocolHandler_Sym {
@@ -443,10 +430,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   struct SendPrivateAggregationRequestsForFencedFrameEvent_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct CreatePortal_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct AdoptPortal_Sym {
+  struct SetAttributionReportingRuntimeFeatures_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct CreateFencedFrame_Sym {
@@ -473,15 +457,6 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void FullscreenStateChanged(bool is_fullscreen, ::blink::mojom::FullscreenOptionsPtr options) = 0;
 
   
-  virtual void Maximize() = 0;
-
-  
-  virtual void Minimize() = 0;
-
-  
-  virtual void Restore() = 0;
-
-  
   virtual void RegisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) = 0;
 
   
@@ -506,7 +481,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void VisibilityChanged(::blink::mojom::FrameVisibility visibility) = 0;
 
   
-  virtual void DidChangeThemeColor(absl::optional<::SkColor> theme_color) = 0;
+  virtual void DidChangeThemeColor(std::optional<::SkColor> theme_color) = 0;
 
   
   virtual void DidChangeBackgroundColor(const ::SkColor4f& background_color, bool color_adjust) = 0;
@@ -554,16 +529,16 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void DispatchLoad() = 0;
 
   
-  virtual void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) = 0;
+  virtual void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) = 0;
 
   
-  virtual void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) = 0;
+  virtual void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) = 0;
 
   
   virtual void NavigateEventHandlerPresenceChanged(bool present) = 0;
 
   
-  virtual void UpdateTitle(const absl::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) = 0;
+  virtual void UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) = 0;
 
   
   virtual void UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) = 0;
@@ -650,7 +625,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void DidChangeFrameOwnerProperties(const ::blink::FrameToken& child_frame_token, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties) = 0;
 
   
-  virtual void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) = 0;
+  virtual void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) = 0;
 
   
   virtual void DidChangeFramePolicy(const ::blink::FrameToken& child_frame_token, const ::blink::FramePolicy& frame_policy) = 0;
@@ -671,7 +646,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void GetKeepAliveHandleFactory(::mojo::PendingReceiver<::blink::mojom::KeepAliveHandleFactory> factory) = 0;
 
   
-  virtual void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const absl::optional<::std::u16string>& source_id, const absl::optional<::std::u16string>& untrusted_stack_trace) = 0;
+  virtual void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const std::optional<::std::u16string>& source_id, const std::optional<::std::u16string>& untrusted_stack_trace) = 0;
 
   
   virtual void FrameSizeChanged(const ::gfx::Size& size) = 0;
@@ -686,37 +661,22 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   virtual void ReceivedDelegatedCapability(::blink::mojom::DelegatedCapability delegated_capability) = 0;
 
   
-  virtual void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) = 0;
+  virtual void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations) = 0;
 
   
-  virtual void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) = 0;
+  virtual void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) = 0;
 
   
   virtual void SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) = 0;
 
   
-  virtual void SetFencedFrameAutomaticBeaconReportEventData(const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features, bool once) = 0;
+  virtual void SetFencedFrameAutomaticBeaconReportEventData(::blink::mojom::AutomaticBeaconType event_type, const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, bool once, bool cross_origin_exposed) = 0;
 
   
   virtual void SendPrivateAggregationRequestsForFencedFrameEvent(const std::string& event_type) = 0;
 
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
   
-  virtual bool CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token);
-
-  using CreatePortalCallback = base::OnceCallback<void(::blink::mojom::FrameReplicationStatePtr, const ::blink::PortalToken&, const ::blink::RemoteFrameToken&, const ::base::UnguessableToken&)>;
-  
-  virtual void CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, CreatePortalCallback callback) = 0;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token);
-
-  using AdoptPortalCallback = base::OnceCallback<void(::blink::mojom::FrameReplicationStatePtr, const ::blink::RemoteFrameToken&, const ::base::UnguessableToken&)>;
-  
-  virtual void AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, AdoptPortalCallback callback) = 0;
+  virtual void SetAttributionReportingRuntimeFeatures(::network::AttributionReportingRuntimeFeatures features) = 0;
 
   
   virtual void CreateFencedFrame(::mojo::PendingAssociatedReceiver<::blink::mojom::FencedFrameOwnerHost> fenced_frame, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, const ::blink::RemoteFrameToken& frame_token, const ::base::UnguessableToken& devtools_frame_token) = 0;
@@ -809,7 +769,6 @@ class BLINK_COMMON_EXPORT LocalFrame
     kNotifyUserActivationMinVersion = 0,
     kNotifyVirtualKeyboardOverlayRectMinVersion = 0,
     kAddMessageToConsoleMinVersion = 0,
-    kAddInspectorIssueMinVersion = 0,
     kSwapInImmediatelyMinVersion = 0,
     kCheckCompletedMinVersion = 0,
     kStopLoadingMinVersion = 0,
@@ -823,6 +782,7 @@ class BLINK_COMMON_EXPORT LocalFrame
     kRenderFallbackContentMinVersion = 0,
     kBeforeUnloadMinVersion = 0,
     kMediaPlayerActionAtMinVersion = 0,
+    kRequestVideoFrameAtMinVersion = 0,
     kPluginActionAtMinVersion = 0,
     kAdvanceFocusInFrameMinVersion = 0,
     kAdvanceFocusForIMEMinVersion = 0,
@@ -844,6 +804,7 @@ class BLINK_COMMON_EXPORT LocalFrame
     kSetNavigationApiHistoryEntriesForRestoreMinVersion = 0,
     kNotifyNavigationApiOfDisposedEntriesMinVersion = 0,
     kTraverseCancelledMinVersion = 0,
+    kDispatchNavigateEventForCrossDocumentTraversalMinVersion = 0,
     kSnapshotDocumentForViewTransitionMinVersion = 0,
     kAddResourceTimingEntryForFailedSubframeNavigationMinVersion = 0,
     kRequestFullscreenDocumentElementMinVersion = 0,
@@ -868,9 +829,6 @@ class BLINK_COMMON_EXPORT LocalFrame
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddMessageToConsole_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct AddInspectorIssue_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SwapInImmediately_Sym {
@@ -910,6 +868,9 @@ class BLINK_COMMON_EXPORT LocalFrame
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MediaPlayerActionAt_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RequestVideoFrameAt_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct PluginActionAt_Sym {
@@ -975,6 +936,9 @@ class BLINK_COMMON_EXPORT LocalFrame
   struct TraverseCancelled_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct DispatchNavigateEventForCrossDocumentTraversal_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct SnapshotDocumentForViewTransition_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -1006,9 +970,6 @@ class BLINK_COMMON_EXPORT LocalFrame
 
   
   virtual void AddMessageToConsole(::blink::mojom::ConsoleMessageLevel level, const std::string& message, bool discard_duplicates) = 0;
-
-  
-  virtual void AddInspectorIssue(::blink::mojom::InspectorIssueInfoPtr info) = 0;
 
   
   virtual void SwapInImmediately() = 0;
@@ -1051,11 +1012,16 @@ class BLINK_COMMON_EXPORT LocalFrame
   
   virtual void MediaPlayerActionAt(const ::gfx::Point& location, ::blink::mojom::MediaPlayerActionPtr action) = 0;
 
+
+  using RequestVideoFrameAtCallback = base::OnceCallback<void(const ::gfx::ImageSkia&)>;
+  
+  virtual void RequestVideoFrameAt(const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, RequestVideoFrameAtCallback callback) = 0;
+
   
   virtual void PluginActionAt(const ::gfx::Point& location, PluginActionType action) = 0;
 
   
-  virtual void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const absl::optional<::blink::RemoteFrameToken>& source_frame_token) = 0;
+  virtual void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const std::optional<::blink::RemoteFrameToken>& source_frame_token) = 0;
 
   
   virtual void AdvanceFocusForIME(::blink::mojom::FocusType focus_type) = 0;
@@ -1067,7 +1033,7 @@ class BLINK_COMMON_EXPORT LocalFrame
   virtual void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) = 0;
 
   
-  virtual void PostMessageEvent(const absl::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) = 0;
+  virtual void PostMessageEvent(const std::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) = 0;
 
 
   using JavaScriptMethodExecuteRequestCallback = base::OnceCallback<void(::base::Value)>;
@@ -1093,7 +1059,7 @@ class BLINK_COMMON_EXPORT LocalFrame
   virtual void BindReportingObserver(::mojo::PendingReceiver<::blink::mojom::ReportingObserver> receiver) = 0;
 
   
-  virtual void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) = 0;
+  virtual void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) = 0;
 
 
   using GetSavableResourceLinksCallback = base::OnceCallback<void(GetSavableResourceLinksReplyPtr)>;
@@ -1110,7 +1076,7 @@ class BLINK_COMMON_EXPORT LocalFrame
   virtual void HandleRendererDebugURL(const ::GURL& url) = 0;
 
 
-  using GetCanonicalUrlForSharingCallback = base::OnceCallback<void(const absl::optional<::GURL>&)>;
+  using GetCanonicalUrlForSharingCallback = base::OnceCallback<void(const std::optional<::GURL>&)>;
   
   virtual void GetCanonicalUrlForSharing(GetCanonicalUrlForSharingCallback callback) = 0;
 
@@ -1120,7 +1086,7 @@ class BLINK_COMMON_EXPORT LocalFrame
   virtual void GetOpenGraphMetadata(GetOpenGraphMetadataCallback callback) = 0;
 
   
-  virtual void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays) = 0;
+  virtual void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays, NavigationApiEntryRestoreReason restore_reason) = 0;
 
   
   virtual void NotifyNavigationApiOfDisposedEntries(const std::vector<std::string>& keys) = 0;
@@ -1128,13 +1094,16 @@ class BLINK_COMMON_EXPORT LocalFrame
   
   virtual void TraverseCancelled(const std::string& navigation_api_key, TraverseCancelledReason reason) = 0;
 
+  
+  virtual void DispatchNavigateEventForCrossDocumentTraversal(const ::GURL& url, const std::string& page_state, bool is_browser_initiated) = 0;
+
 
   using SnapshotDocumentForViewTransitionCallback = base::OnceCallback<void(const ::blink::ViewTransitionState&)>;
   
   virtual void SnapshotDocumentForViewTransition(SnapshotDocumentForViewTransitionCallback callback) = 0;
 
   
-  virtual void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpResponseInfo::ConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) = 0;
+  virtual void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) = 0;
 
   
   virtual void RequestFullscreenDocumentElement() = 0;
@@ -1206,7 +1175,7 @@ class BLINK_COMMON_EXPORT LocalMainFrame
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = true;
+  static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = LocalMainFrameInterfaceBase;
@@ -1226,8 +1195,6 @@ class BLINK_COMMON_EXPORT LocalMainFrame
     kEnablePreferredSizeChangedModeMinVersion = 0,
     kZoomToFindInPageRectMinVersion = 0,
     kInstallCoopAccessMonitorMinVersion = 0,
-    kOnPortalActivatedMinVersion = 0,
-    kForwardMessageFromHostMinVersion = 0,
     kUpdateBrowserControlsStateMinVersion = 0,
     kSetV8CompileHintsMinVersion = 0,
   };
@@ -1257,12 +1224,6 @@ class BLINK_COMMON_EXPORT LocalMainFrame
     NOINLINE static uint32_t IPCStableHash();
   };
   struct InstallCoopAccessMonitor_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct OnPortalActivated_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ForwardMessageFromHost_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UpdateBrowserControlsState_Sym {
@@ -1301,14 +1262,6 @@ class BLINK_COMMON_EXPORT LocalMainFrame
 
   
   virtual void InstallCoopAccessMonitor(const ::blink::FrameToken& accessed_window, ::network::mojom::CrossOriginOpenerPolicyReporterParamsPtr coop_reporter_info, bool is_in_same_virtual_coop_related_group) = 0;
-
-
-  using OnPortalActivatedCallback = base::OnceCallback<void(::blink::mojom::PortalActivateResult)>;
-  
-  virtual void OnPortalActivated(const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, OnPortalActivatedCallback callback) = 0;
-
-  
-  virtual void ForwardMessageFromHost(::blink::TransferableMessage message, const ::url::Origin& source_origin) = 0;
 
   
   virtual void UpdateBrowserControlsState(::cc::BrowserControlsState constraints, ::cc::BrowserControlsState current, bool animate) = 0;
@@ -1358,6 +1311,9 @@ class BLINK_COMMON_EXPORT LocalMainFrameHost
     kSetWindowRectMinVersion = 0,
     kDidFirstVisuallyNonEmptyPaintMinVersion = 0,
     kDidAccessInitialMainDocumentMinVersion = 0,
+    kMaximizeMinVersion = 0,
+    kMinimizeMinVersion = 0,
+    kRestoreMinVersion = 0,
     kSetResizableMinVersion = 0,
   };
 
@@ -1395,6 +1351,15 @@ class BLINK_COMMON_EXPORT LocalMainFrameHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct DidAccessInitialMainDocument_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Maximize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Minimize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Restore_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetResizable_Sym {
@@ -1443,6 +1408,15 @@ class BLINK_COMMON_EXPORT LocalMainFrameHost
   virtual void DidAccessInitialMainDocument() = 0;
 
   
+  virtual void Maximize() = 0;
+
+  
+  virtual void Minimize() = 0;
+
+  
+  virtual void Restore() = 0;
+
+  
   virtual void SetResizable(bool resizable) = 0;
 };
 
@@ -1461,12 +1435,6 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void FullscreenStateChanged(bool is_fullscreen, ::blink::mojom::FullscreenOptionsPtr options) final;
   
-  void Maximize() final;
-  
-  void Minimize() final;
-  
-  void Restore() final;
-  
   void RegisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) final;
   
   void UnregisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) final;
@@ -1483,7 +1451,7 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void VisibilityChanged(::blink::mojom::FrameVisibility visibility) final;
   
-  void DidChangeThemeColor(absl::optional<::SkColor> theme_color) final;
+  void DidChangeThemeColor(std::optional<::SkColor> theme_color) final;
   
   void DidChangeBackgroundColor(const ::SkColor4f& background_color, bool color_adjust) final;
   
@@ -1515,13 +1483,13 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void DispatchLoad() final;
   
-  void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) final;
+  void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) final;
   
-  void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) final;
+  void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) final;
   
   void NavigateEventHandlerPresenceChanged(bool present) final;
   
-  void UpdateTitle(const absl::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) final;
+  void UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) final;
   
   void UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) final;
   
@@ -1571,7 +1539,7 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void DidChangeFrameOwnerProperties(const ::blink::FrameToken& child_frame_token, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties) final;
   
-  void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) final;
+  void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) final;
   
   void DidChangeFramePolicy(const ::blink::FrameToken& child_frame_token, const ::blink::FramePolicy& frame_policy) final;
   
@@ -1585,7 +1553,7 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void GetKeepAliveHandleFactory(::mojo::PendingReceiver<::blink::mojom::KeepAliveHandleFactory> factory) final;
   
-  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const absl::optional<::std::u16string>& source_id, const absl::optional<::std::u16string>& untrusted_stack_trace) final;
+  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const std::optional<::std::u16string>& source_id, const std::optional<::std::u16string>& untrusted_stack_trace) final;
   
   void FrameSizeChanged(const ::gfx::Size& size) final;
   
@@ -1595,23 +1563,17 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void ReceivedDelegatedCapability(::blink::mojom::DelegatedCapability delegated_capability) final;
   
-  void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) final;
+  void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations) final;
   
-  void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) final;
+  void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) final;
   
   void SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) final;
   
-  void SetFencedFrameAutomaticBeaconReportEventData(const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features, bool once) final;
+  void SetFencedFrameAutomaticBeaconReportEventData(::blink::mojom::AutomaticBeaconType event_type, const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, bool once, bool cross_origin_exposed) final;
   
   void SendPrivateAggregationRequestsForFencedFrameEvent(const std::string& event_type) final;
   
-  bool CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) final;
-  
-  void CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, CreatePortalCallback callback) final;
-  
-  bool AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) final;
-  
-  void AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, AdoptPortalCallback callback) final;
+  void SetAttributionReportingRuntimeFeatures(::network::AttributionReportingRuntimeFeatures features) final;
   
   void CreateFencedFrame(::mojo::PendingAssociatedReceiver<::blink::mojom::FencedFrameOwnerHost> fenced_frame, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, const ::blink::RemoteFrameToken& frame_token, const ::base::UnguessableToken& devtools_frame_token) final;
   
@@ -1659,8 +1621,6 @@ class BLINK_COMMON_EXPORT LocalFrameProxy
   
   void AddMessageToConsole(::blink::mojom::ConsoleMessageLevel level, const std::string& message, bool discard_duplicates) final;
   
-  void AddInspectorIssue(::blink::mojom::InspectorIssueInfoPtr info) final;
-  
   void SwapInImmediately() final;
   
   void CheckCompleted() final;
@@ -1687,9 +1647,11 @@ class BLINK_COMMON_EXPORT LocalFrameProxy
   
   void MediaPlayerActionAt(const ::gfx::Point& location, ::blink::mojom::MediaPlayerActionPtr action) final;
   
+  void RequestVideoFrameAt(const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, RequestVideoFrameAtCallback callback) final;
+  
   void PluginActionAt(const ::gfx::Point& location, PluginActionType action) final;
   
-  void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const absl::optional<::blink::RemoteFrameToken>& source_frame_token) final;
+  void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const std::optional<::blink::RemoteFrameToken>& source_frame_token) final;
   
   void AdvanceFocusForIME(::blink::mojom::FocusType focus_type) final;
   
@@ -1697,7 +1659,7 @@ class BLINK_COMMON_EXPORT LocalFrameProxy
   
   void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) final;
   
-  void PostMessageEvent(const absl::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) final;
+  void PostMessageEvent(const std::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) final;
   
   void JavaScriptMethodExecuteRequest(const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result, JavaScriptMethodExecuteRequestCallback callback) final;
   
@@ -1709,7 +1671,7 @@ class BLINK_COMMON_EXPORT LocalFrameProxy
   
   void BindReportingObserver(::mojo::PendingReceiver<::blink::mojom::ReportingObserver> receiver) final;
   
-  void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) final;
+  void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) final;
   
   void GetSavableResourceLinks(GetSavableResourceLinksCallback callback) final;
   
@@ -1723,15 +1685,17 @@ class BLINK_COMMON_EXPORT LocalFrameProxy
   
   void GetOpenGraphMetadata(GetOpenGraphMetadataCallback callback) final;
   
-  void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays) final;
+  void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays, NavigationApiEntryRestoreReason restore_reason) final;
   
   void NotifyNavigationApiOfDisposedEntries(const std::vector<std::string>& keys) final;
   
   void TraverseCancelled(const std::string& navigation_api_key, TraverseCancelledReason reason) final;
   
+  void DispatchNavigateEventForCrossDocumentTraversal(const ::GURL& url, const std::string& page_state, bool is_browser_initiated) final;
+  
   void SnapshotDocumentForViewTransition(SnapshotDocumentForViewTransitionCallback callback) final;
   
-  void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpResponseInfo::ConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) final;
+  void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) final;
   
   void RequestFullscreenDocumentElement() final;
 
@@ -1779,10 +1743,6 @@ class BLINK_COMMON_EXPORT LocalMainFrameProxy
   
   void InstallCoopAccessMonitor(const ::blink::FrameToken& accessed_window, ::network::mojom::CrossOriginOpenerPolicyReporterParamsPtr coop_reporter_info, bool is_in_same_virtual_coop_related_group) final;
   
-  void OnPortalActivated(const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, OnPortalActivatedCallback callback) final;
-  
-  void ForwardMessageFromHost(::blink::TransferableMessage message, const ::url::Origin& source_origin) final;
-  
   void UpdateBrowserControlsState(::cc::BrowserControlsState constraints, ::cc::BrowserControlsState current, bool animate) final;
   
   void SetV8CompileHints(::base::ReadOnlySharedMemoryRegion data) final;
@@ -1821,6 +1781,12 @@ class BLINK_COMMON_EXPORT LocalMainFrameHostProxy
   void DidFirstVisuallyNonEmptyPaint() final;
   
   void DidAccessInitialMainDocument() final;
+  
+  void Maximize() final;
+  
+  void Minimize() final;
+  
+  void Restore() final;
   
   void SetResizable(bool resizable) final;
 
@@ -2752,8 +2718,8 @@ class BLINK_COMMON_EXPORT DownloadURLParams {
   DownloadURLParams(
       const ::GURL& url,
       ::blink::mojom::ReferrerPtr referrer,
-      const absl::optional<::url::Origin>& initiator_origin,
-      const absl::optional<::std::u16string>& suggested_name,
+      const std::optional<::url::Origin>& initiator_origin,
+      const std::optional<::std::u16string>& suggested_name,
       ::network::mojom::RedirectMode cross_origin_redirects,
       ::mojo::PendingRemote<::blink::mojom::BlobURLToken> blob_url_token,
       ::mojo::PendingRemote<::blink::mojom::Blob> data_url_blob,
@@ -2837,9 +2803,9 @@ DownloadURLParams& operator=(const DownloadURLParams&) = delete;
   
   ::blink::mojom::ReferrerPtr referrer;
   
-  absl::optional<::url::Origin> initiator_origin;
+  std::optional<::url::Origin> initiator_origin;
   
-  absl::optional<::std::u16string> suggested_name;
+  std::optional<::std::u16string> suggested_name;
   
   ::network::mojom::RedirectMode cross_origin_redirects;
   
@@ -2914,10 +2880,11 @@ class BLINK_COMMON_EXPORT IframeAttributes {
       ::network::mojom::ContentSecurityPolicyPtr parsed_csp_attribute,
       bool credentialless,
       bool browsing_topics,
-      bool shared_storage_writable,
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& src);
+      bool ad_auction_headers,
+      bool shared_storage_writable_opted_in,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& src);
 
 IframeAttributes(const IframeAttributes&) = delete;
 IframeAttributes& operator=(const IframeAttributes&) = delete;
@@ -3003,13 +2970,15 @@ IframeAttributes& operator=(const IframeAttributes&) = delete;
   
   bool browsing_topics;
   
-  bool shared_storage_writable;
+  bool ad_auction_headers;
   
-  absl::optional<std::string> id;
+  bool shared_storage_writable_opted_in;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> src;
+  std::optional<std::string> name;
+  
+  std::optional<std::string> src;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3247,7 +3216,8 @@ IframeAttributesPtr IframeAttributes::Clone() const {
       mojo::Clone(parsed_csp_attribute),
       mojo::Clone(credentialless),
       mojo::Clone(browsing_topics),
-      mojo::Clone(shared_storage_writable),
+      mojo::Clone(ad_auction_headers),
+      mojo::Clone(shared_storage_writable_opted_in),
       mojo::Clone(id),
       mojo::Clone(name),
       mojo::Clone(src)
@@ -3262,7 +3232,9 @@ bool IframeAttributes::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->browsing_topics, other_struct.browsing_topics))
     return false;
-  if (!mojo::Equals(this->shared_storage_writable, other_struct.shared_storage_writable))
+  if (!mojo::Equals(this->ad_auction_headers, other_struct.ad_auction_headers))
+    return false;
+  if (!mojo::Equals(this->shared_storage_writable_opted_in, other_struct.shared_storage_writable_opted_in))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
@@ -3287,9 +3259,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.browsing_topics < lhs.browsing_topics)
     return false;
-  if (lhs.shared_storage_writable < rhs.shared_storage_writable)
+  if (lhs.ad_auction_headers < rhs.ad_auction_headers)
     return true;
-  if (rhs.shared_storage_writable < lhs.shared_storage_writable)
+  if (rhs.ad_auction_headers < lhs.ad_auction_headers)
+    return false;
+  if (lhs.shared_storage_writable_opted_in < rhs.shared_storage_writable_opted_in)
+    return true;
+  if (rhs.shared_storage_writable_opted_in < lhs.shared_storage_writable_opted_in)
     return false;
   if (lhs.id < rhs.id)
     return true;
@@ -3509,9 +3485,14 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::IframeAttributes::DataVi
     return input->browsing_topics;
   }
 
-  static decltype(::blink::mojom::IframeAttributes::shared_storage_writable) shared_storage_writable(
+  static decltype(::blink::mojom::IframeAttributes::ad_auction_headers) ad_auction_headers(
       const ::blink::mojom::IframeAttributesPtr& input) {
-    return input->shared_storage_writable;
+    return input->ad_auction_headers;
+  }
+
+  static decltype(::blink::mojom::IframeAttributes::shared_storage_writable_opted_in) shared_storage_writable_opted_in(
+      const ::blink::mojom::IframeAttributesPtr& input) {
+    return input->shared_storage_writable_opted_in;
   }
 
   static const decltype(::blink::mojom::IframeAttributes::id)& id(

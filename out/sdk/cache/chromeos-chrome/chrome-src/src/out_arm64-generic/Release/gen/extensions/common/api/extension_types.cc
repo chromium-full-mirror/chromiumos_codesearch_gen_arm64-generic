@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/extension_types.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -64,8 +65,8 @@ ImageDetails::ImageDetails()
 : format() {}
 
 ImageDetails::~ImageDetails() = default;
-ImageDetails::ImageDetails(ImageDetails&& rhs) = default;
-ImageDetails& ImageDetails::operator=(ImageDetails&& rhs) = default;
+ImageDetails::ImageDetails(ImageDetails&& rhs) noexcept = default;
+ImageDetails& ImageDetails::operator=(ImageDetails&& rhs) noexcept = default;
 ImageDetails ImageDetails::Clone() const {
   ImageDetails out;
   out.format = format;
@@ -98,7 +99,7 @@ bool ImageDetails::Populate(
     {
       auto temp = (*quality_value).GetIfInt();
       if (!temp.has_value()) {
-        out.quality = absl::nullopt;
+        out.quality = std::nullopt;
         return false;
       }
       out.quality = *temp;
@@ -118,34 +119,21 @@ bool ImageDetails::Populate(
 }
 
 // static
-std::unique_ptr<ImageDetails> ImageDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ImageDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ImageDetails> ImageDetails::FromValue(const base::Value::Dict& value) {
+  ImageDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ImageDetails> ImageDetails::FromValue(const base::Value::Dict& value) {
+std::optional<ImageDetails> ImageDetails::FromValue(const base::Value& value) {
   ImageDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ImageDetails> ImageDetails::FromValue(const base::Value& value) {
-  ImageDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -227,8 +215,8 @@ InjectDetails::InjectDetails()
 css_origin() {}
 
 InjectDetails::~InjectDetails() = default;
-InjectDetails::InjectDetails(InjectDetails&& rhs) = default;
-InjectDetails& InjectDetails::operator=(InjectDetails&& rhs) = default;
+InjectDetails::InjectDetails(InjectDetails&& rhs) noexcept = default;
+InjectDetails& InjectDetails::operator=(InjectDetails&& rhs) noexcept = default;
 InjectDetails InjectDetails::Clone() const {
   InjectDetails out;
   out.code = code;
@@ -251,7 +239,7 @@ bool InjectDetails::Populate(
     {
       auto* temp = (*code_value).GetIfString();
       if (!temp) {
-        out.code = absl::nullopt;
+        out.code = std::nullopt;
         return false;
       }
       out.code = *temp;
@@ -263,7 +251,7 @@ bool InjectDetails::Populate(
     {
       auto* temp = (*file_value).GetIfString();
       if (!temp) {
-        out.file = absl::nullopt;
+        out.file = std::nullopt;
         return false;
       }
       out.file = *temp;
@@ -275,7 +263,7 @@ bool InjectDetails::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -287,7 +275,7 @@ bool InjectDetails::Populate(
     {
       auto temp = (*frame_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_id = absl::nullopt;
+        out.frame_id = std::nullopt;
         return false;
       }
       out.frame_id = *temp;
@@ -299,7 +287,7 @@ bool InjectDetails::Populate(
     {
       auto temp = (*match_about_blank_value).GetIfBool();
       if (!temp.has_value()) {
-        out.match_about_blank = absl::nullopt;
+        out.match_about_blank = std::nullopt;
         return false;
       }
       out.match_about_blank = *temp;
@@ -351,34 +339,21 @@ bool InjectDetails::Populate(
 }
 
 // static
-std::unique_ptr<InjectDetails> InjectDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InjectDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InjectDetails> InjectDetails::FromValue(const base::Value::Dict& value) {
+  InjectDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InjectDetails> InjectDetails::FromValue(const base::Value::Dict& value) {
+std::optional<InjectDetails> InjectDetails::FromValue(const base::Value& value) {
   InjectDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InjectDetails> InjectDetails::FromValue(const base::Value& value) {
-  InjectDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -423,8 +398,8 @@ DeleteInjectionDetails::DeleteInjectionDetails()
 : css_origin() {}
 
 DeleteInjectionDetails::~DeleteInjectionDetails() = default;
-DeleteInjectionDetails::DeleteInjectionDetails(DeleteInjectionDetails&& rhs) = default;
-DeleteInjectionDetails& DeleteInjectionDetails::operator=(DeleteInjectionDetails&& rhs) = default;
+DeleteInjectionDetails::DeleteInjectionDetails(DeleteInjectionDetails&& rhs) noexcept = default;
+DeleteInjectionDetails& DeleteInjectionDetails::operator=(DeleteInjectionDetails&& rhs) noexcept = default;
 DeleteInjectionDetails DeleteInjectionDetails::Clone() const {
   DeleteInjectionDetails out;
   out.code = code;
@@ -445,7 +420,7 @@ bool DeleteInjectionDetails::Populate(
     {
       auto* temp = (*code_value).GetIfString();
       if (!temp) {
-        out.code = absl::nullopt;
+        out.code = std::nullopt;
         return false;
       }
       out.code = *temp;
@@ -457,7 +432,7 @@ bool DeleteInjectionDetails::Populate(
     {
       auto* temp = (*file_value).GetIfString();
       if (!temp) {
-        out.file = absl::nullopt;
+        out.file = std::nullopt;
         return false;
       }
       out.file = *temp;
@@ -469,7 +444,7 @@ bool DeleteInjectionDetails::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -481,7 +456,7 @@ bool DeleteInjectionDetails::Populate(
     {
       auto temp = (*frame_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_id = absl::nullopt;
+        out.frame_id = std::nullopt;
         return false;
       }
       out.frame_id = *temp;
@@ -493,7 +468,7 @@ bool DeleteInjectionDetails::Populate(
     {
       auto temp = (*match_about_blank_value).GetIfBool();
       if (!temp.has_value()) {
-        out.match_about_blank = absl::nullopt;
+        out.match_about_blank = std::nullopt;
         return false;
       }
       out.match_about_blank = *temp;
@@ -529,34 +504,21 @@ bool DeleteInjectionDetails::Populate(
 }
 
 // static
-std::unique_ptr<DeleteInjectionDetails> DeleteInjectionDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeleteInjectionDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeleteInjectionDetails> DeleteInjectionDetails::FromValue(const base::Value::Dict& value) {
+  DeleteInjectionDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeleteInjectionDetails> DeleteInjectionDetails::FromValue(const base::Value::Dict& value) {
+std::optional<DeleteInjectionDetails> DeleteInjectionDetails::FromValue(const base::Value& value) {
   DeleteInjectionDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeleteInjectionDetails> DeleteInjectionDetails::FromValue(const base::Value& value) {
-  DeleteInjectionDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

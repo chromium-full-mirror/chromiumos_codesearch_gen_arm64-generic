@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -410,7 +411,7 @@ AccessibilityActionInAndroid::AccessibilityActionInAndroid()
 
 AccessibilityActionInAndroid::AccessibilityActionInAndroid(
     int32_t id_in,
-    const absl::optional<std::string>& label_in)
+    const std::optional<std::string>& label_in)
     : id(std::move(id_in)),
       label(std::move(label_in)) {}
 
@@ -432,7 +433,7 @@ void AccessibilityActionInAndroid::WriteIntoTrace(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -482,10 +483,10 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
     : bounds_in_screen(std::move(bounds_in_screen_in)),
       id(std::move(id_in)),
       boolean_properties(std::move(boolean_properties_in)),
@@ -505,11 +506,11 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in)
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in)
     : bounds_in_screen(std::move(bounds_in_screen_in)),
       id(std::move(id_in)),
       boolean_properties(std::move(boolean_properties_in)),
@@ -529,12 +530,12 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
-    absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
+    std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
     AccessibilityCollectionInfoDataPtr collection_info_in,
     AccessibilityCollectionItemInfoDataPtr collection_item_info_in,
     AccessibilityRangeInfoDataPtr range_info_in)
@@ -557,12 +558,12 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
-    absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
+    std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
     AccessibilityCollectionInfoDataPtr collection_info_in,
     AccessibilityCollectionItemInfoDataPtr collection_item_info_in,
     AccessibilityRangeInfoDataPtr range_info_in,
@@ -586,12 +587,12 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
-    absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
+    std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
     AccessibilityCollectionInfoDataPtr collection_info_in,
     AccessibilityCollectionItemInfoDataPtr collection_item_info_in,
     AccessibilityRangeInfoDataPtr range_info_in,
@@ -616,19 +617,19 @@ AccessibilityNodeInfoData::AccessibilityNodeInfoData(
 AccessibilityNodeInfoData::AccessibilityNodeInfoData(
     const ::gfx::Rect& bounds_in_screen_in,
     int32_t id_in,
-    const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
-    const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
-    absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
+    const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties_in,
+    const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties_in,
+    std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties_in,
     AccessibilityCollectionInfoDataPtr collection_info_in,
     AccessibilityCollectionItemInfoDataPtr collection_item_info_in,
     AccessibilityRangeInfoDataPtr range_info_in,
     int32_t window_id_in,
     bool is_virtual_node_in,
-    absl::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions_in,
-    absl::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions_in)
+    std::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions_in,
+    std::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions_in)
     : bounds_in_screen(std::move(bounds_in_screen_in)),
       id(std::move(id_in)),
       boolean_properties(std::move(boolean_properties_in)),
@@ -672,7 +673,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "boolean_properties"), this->boolean_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -681,7 +682,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "string_properties"), this->string_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -690,7 +691,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "int_properties"), this->int_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -699,7 +700,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "int_list_properties"), this->int_list_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -708,7 +709,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "string_list_properties"), this->string_list_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -717,7 +718,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "spannable_string_properties"), this->spannable_string_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>>>"
+      "<value of type std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -771,7 +772,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "standard_actions"), this->standard_actions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<AccessibilityActionInAndroidPtr>>>"
+      "<value of type std::optional<std::vector<AccessibilityActionInAndroidPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -780,7 +781,7 @@ void AccessibilityNodeInfoData::WriteIntoTrace(
     dict.AddItem(
       "custom_actions"), this->custom_actions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<AccessibilityActionInAndroidPtr>>>"
+      "<value of type std::optional<std::vector<AccessibilityActionInAndroidPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -807,10 +808,10 @@ AccessibilityWindowInfoData::AccessibilityWindowInfoData(
     int32_t root_node_id_in,
     const ::gfx::Rect& bounds_in_screen_in,
     AccessibilityWindowType window_type_in,
-    const absl::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>& boolean_properties_in,
-    const absl::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
+    const std::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>& boolean_properties_in,
+    const std::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
     : window_id(std::move(window_id_in)),
       root_node_id(std::move(root_node_id_in)),
       bounds_in_screen(std::move(bounds_in_screen_in)),
@@ -865,7 +866,7 @@ void AccessibilityWindowInfoData::WriteIntoTrace(
     dict.AddItem(
       "boolean_properties"), this->boolean_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -874,7 +875,7 @@ void AccessibilityWindowInfoData::WriteIntoTrace(
     dict.AddItem(
       "string_properties"), this->string_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -883,7 +884,7 @@ void AccessibilityWindowInfoData::WriteIntoTrace(
     dict.AddItem(
       "int_properties"), this->int_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -892,7 +893,7 @@ void AccessibilityWindowInfoData::WriteIntoTrace(
     dict.AddItem(
       "int_list_properties"), this->int_list_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -939,7 +940,7 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
@@ -958,7 +959,7 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in)
     : event_type(std::move(event_type_in)),
@@ -978,10 +979,10 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in,
-    absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in)
+    std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
       node_data(std::move(node_data_in)),
@@ -999,10 +1000,10 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in,
-    absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
+    std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
     bool is_input_method_window_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
@@ -1021,12 +1022,12 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in,
-    absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
+    std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
     bool is_input_method_window_in,
-    absl::optional<std::vector<std::string>> event_text_in)
+    std::optional<std::vector<std::string>> event_text_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
       node_data(std::move(node_data_in)),
@@ -1044,14 +1045,14 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in,
-    absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
+    std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
     bool is_input_method_window_in,
-    absl::optional<std::vector<std::string>> event_text_in,
-    const absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties_in)
+    std::optional<std::vector<std::string>> event_text_in,
+    const std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
       node_data(std::move(node_data_in)),
@@ -1069,15 +1070,15 @@ AccessibilityEventData::AccessibilityEventData(
     AccessibilityEventType event_type_in,
     int32_t source_id_in,
     std::vector<AccessibilityNodeInfoDataPtr> node_data_in,
-    const absl::optional<std::string>& notification_key_in,
+    const std::optional<std::string>& notification_key_in,
     int32_t window_id_in,
     int32_t task_id_in,
-    absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
+    std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data_in,
     bool is_input_method_window_in,
-    absl::optional<std::vector<std::string>> event_text_in,
-    const absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties_in,
-    const absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties_in,
-    const absl::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
+    std::optional<std::vector<std::string>> event_text_in,
+    const std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties_in,
+    const std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties_in,
+    const std::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>& int_list_properties_in)
     : event_type(std::move(event_type_in)),
       source_id(std::move(source_id_in)),
       node_data(std::move(node_data_in)),
@@ -1127,7 +1128,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "notification_key"), this->notification_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1154,7 +1155,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "window_data"), this->window_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<AccessibilityWindowInfoDataPtr>>>"
+      "<value of type std::optional<std::vector<AccessibilityWindowInfoDataPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1172,7 +1173,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "event_text"), this->event_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1181,7 +1182,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "int_properties"), this->int_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1190,7 +1191,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "string_properties"), this->string_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1199,7 +1200,7 @@ void AccessibilityEventData::WriteIntoTrace(
     dict.AddItem(
       "int_list_properties"), this->int_list_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>&>"
+      "<value of type const std::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1275,9 +1276,9 @@ AccessibilityActionData::AccessibilityActionData(
     int32_t window_id_in,
     int32_t start_index_in,
     int32_t end_index_in,
-    const absl::optional<base::flat_map<ActionIntArgumentType, int32_t>>& int_parameters_in,
-    const absl::optional<base::flat_map<ActionStringArgumentType, std::string>>& string_parameters_in,
-    const absl::optional<base::flat_map<ActionFloatArgumentType, float>>& float_parameters_in)
+    const std::optional<base::flat_map<ActionIntArgumentType, int32_t>>& int_parameters_in,
+    const std::optional<base::flat_map<ActionStringArgumentType, std::string>>& string_parameters_in,
+    const std::optional<base::flat_map<ActionFloatArgumentType, float>>& float_parameters_in)
     : node_id(std::move(node_id_in)),
       action_type(std::move(action_type_in)),
       custom_action_id(std::move(custom_action_id_in)),
@@ -1351,7 +1352,7 @@ void AccessibilityActionData::WriteIntoTrace(
     dict.AddItem(
       "int_parameters"), this->int_parameters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<ActionIntArgumentType, int32_t>>&>"
+      "<value of type const std::optional<base::flat_map<ActionIntArgumentType, int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1360,7 +1361,7 @@ void AccessibilityActionData::WriteIntoTrace(
     dict.AddItem(
       "string_parameters"), this->string_parameters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<ActionStringArgumentType, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<ActionStringArgumentType, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1369,7 +1370,7 @@ void AccessibilityActionData::WriteIntoTrace(
     dict.AddItem(
       "float_parameters"), this->float_parameters,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<ActionFloatArgumentType, float>>&>"
+      "<value of type const std::optional<base::flat_map<ActionFloatArgumentType, float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1548,14 +1549,17 @@ void AccessibilityHelperHostProxy::OnAccessibilityEvent(
                         "<value of type AccessibilityEventDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperHost_OnAccessibilityEvent_Name, kFlags, 0, 0, nullptr);
@@ -1599,14 +1603,17 @@ void AccessibilityHelperHostProxy::OnNotificationStateChanged(
                         "<value of type AccessibilityNotificationStateType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperHost_OnNotificationStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1649,14 +1656,17 @@ void AccessibilityHelperHostProxy::OnToggleNativeChromeVoxArcSupport(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_Name, kFlags, 0, 0, nullptr);
@@ -1787,15 +1797,15 @@ bool AccessibilityHelperHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityHelperHostValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::AccessibilityHelperHost_OnAccessibilityEvent_Params_Data::Validate,
+    { &internal::AccessibilityHelperHost_OnAccessibilityEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityHelperHost_OnNotificationStateChanged_Params_Data::Validate,
+    { &internal::AccessibilityHelperHost_OnNotificationStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_Params_Data::Validate,
+    { &internal::AccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2059,14 +2069,17 @@ void AccessibilityHelperInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<AccessibilityHelperHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -2103,14 +2116,17 @@ void AccessibilityHelperInstanceProxy::SetFilter(
                         "<value of type AccessibilityFilterType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_SetFilter_Name, kFlags, 0, 0, nullptr);
@@ -2142,14 +2158,17 @@ void AccessibilityHelperInstanceProxy::PerformAction(
                         "<value of type AccessibilityActionDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_PerformAction_Name, kFlags, 0, 0, nullptr);
@@ -2191,14 +2210,17 @@ void AccessibilityHelperInstanceProxy::SetExploreByTouchEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_SetExploreByTouchEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2229,14 +2251,17 @@ void AccessibilityHelperInstanceProxy::RefreshWithExtraData(
                         "<value of type AccessibilityActionDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_RefreshWithExtraData_Name, kFlags, 0, 0, nullptr);
@@ -2278,14 +2303,17 @@ void AccessibilityHelperInstanceProxy::RequestSendAccessibilityTree(
                         "<value of type AccessibilityWindowKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_RequestSendAccessibilityTree_Name, kFlags, 0, 0, nullptr);
@@ -2324,14 +2352,17 @@ void AccessibilityHelperInstanceProxy::SetNativeChromeVoxArcSupportForFocusedWin
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Name, kFlags, 0, 0, nullptr);
@@ -2431,7 +2462,8 @@ void AccessibilityHelperInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -2548,7 +2580,8 @@ void AccessibilityHelperInstance_PerformAction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_PerformAction_Name, kFlags, 0, 0, nullptr);
@@ -2620,7 +2653,7 @@ class AccessibilityHelperInstance_RefreshWithExtraData_ProxyToResponder : public
 #endif
 
   void Run(
-      const absl::optional<::gfx::Rect>& in_text_location);
+      const std::optional<::gfx::Rect>& in_text_location);
 };
 
 bool AccessibilityHelperInstance_RefreshWithExtraData_ForwardToCallback::Accept(
@@ -2633,7 +2666,7 @@ bool AccessibilityHelperInstance_RefreshWithExtraData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::gfx::Rect> p_text_location{};
+  std::optional<::gfx::Rect> p_text_location{};
   AccessibilityHelperInstance_RefreshWithExtraData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTextLocation(&p_text_location))
@@ -2652,7 +2685,7 @@ std::move(p_text_location));
 }
 
 void AccessibilityHelperInstance_RefreshWithExtraData_ProxyToResponder::Run(
-    const absl::optional<::gfx::Rect>& in_text_location) {
+    const std::optional<::gfx::Rect>& in_text_location) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ax::android::mojom::AccessibilityHelperInstance::RefreshWithExtraData", "async_response_parameters",
@@ -2660,13 +2693,14 @@ void AccessibilityHelperInstance_RefreshWithExtraData_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text_location"), in_text_location,
-                        "<value of type const absl::optional<::gfx::Rect>&>");
+                        "<value of type const std::optional<::gfx::Rect>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_RefreshWithExtraData_Name, kFlags, 0, 0, nullptr);
@@ -2790,7 +2824,8 @@ void AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Pr
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Name, kFlags, 0, 0, nullptr);
@@ -3056,28 +3091,28 @@ std::move(p_enabled), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityHelperInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AccessibilityHelperInstance_SetFilter_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_SetFilter_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AccessibilityHelperInstance_PerformAction_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_PerformAction_Params_Data::Validate,
      &internal::AccessibilityHelperInstance_PerformAction_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AccessibilityHelperInstance_Init_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_Init_Params_Data::Validate,
      &internal::AccessibilityHelperInstance_Init_ResponseParams_Data::Validate},
-    {&internal::AccessibilityHelperInstance_SetExploreByTouchEnabled_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_SetExploreByTouchEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityHelperInstance_RefreshWithExtraData_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_RefreshWithExtraData_Params_Data::Validate,
      &internal::AccessibilityHelperInstance_RefreshWithExtraData_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AccessibilityHelperInstance_RequestSendAccessibilityTree_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_RequestSendAccessibilityTree_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Params_Data::Validate,
+    { &internal::AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Params_Data::Validate,
      &internal::AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_ResponseParams_Data::Validate},
 };
 
@@ -3465,14 +3500,14 @@ bool AccessibilityHelperInstanceAsyncWaiter::PerformAction(
 }
 
 void AccessibilityHelperInstanceAsyncWaiter::RefreshWithExtraData(
-    AccessibilityActionDataPtr refresh_data, absl::optional<::gfx::Rect>* out_text_location) {
+    AccessibilityActionDataPtr refresh_data, std::optional<::gfx::Rect>* out_text_location) {
   base::RunLoop loop;
   proxy_->RefreshWithExtraData(std::move(refresh_data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::gfx::Rect>* out_text_location
+             std::optional<::gfx::Rect>* out_text_location
 ,
-             const absl::optional<::gfx::Rect>& text_location) {*out_text_location = std::move(text_location);
+             const std::optional<::gfx::Rect>& text_location) {*out_text_location = std::move(text_location);
             loop->Quit();
           },
           &loop,
@@ -3480,9 +3515,9 @@ void AccessibilityHelperInstanceAsyncWaiter::RefreshWithExtraData(
   loop.Run();
 }
 
-absl::optional<::gfx::Rect> AccessibilityHelperInstanceAsyncWaiter::RefreshWithExtraData(
+std::optional<::gfx::Rect> AccessibilityHelperInstanceAsyncWaiter::RefreshWithExtraData(
     AccessibilityActionDataPtr refresh_data) {
-  absl::optional<::gfx::Rect> async_wait_result;
+  std::optional<::gfx::Rect> async_wait_result;
   RefreshWithExtraData(std::move(refresh_data),&async_wait_result);
   return async_wait_result;
 }

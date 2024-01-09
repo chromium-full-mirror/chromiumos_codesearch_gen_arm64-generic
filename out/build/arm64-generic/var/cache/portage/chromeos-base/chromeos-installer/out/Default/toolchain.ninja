@@ -34,16 +34,14 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/installer/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/installer/_cros_installer-install_config.stamp: stamp
 build obj/installer/_evwaitkey-install_config.stamp: stamp
 build obj/installer/_postinst_script_symlink-0-install_config.stamp: stamp
-build obj/installer/all.stamp: stamp ./cros_installer obj/installer/crx_import_script.stamp obj/installer/postinst_script_symlink.stamp obj/installer/sbin_scripts.stamp ./evwaitkey ./cros_installer_test obj/installer/init_confs.stamp
+build obj/installer/all.stamp: stamp ./cros_installer obj/installer/crx_import_script.stamp obj/installer/postinst_script_symlink.stamp obj/installer/sbin_scripts.stamp ./evwaitkey obj/installer/init_confs.stamp
 build gen/chromeos-install: copy ../../../../../../../../../mnt/host/source/src/platform2/installer/chromeos-install
 
 build obj/installer/chromeos_install_script.stamp: stamp gen/chromeos-install
 subninja obj/installer/cros_installer.ninja
-subninja obj/installer/cros_installer_test.ninja
 build obj/installer/crx_import_script.stamp: stamp
 subninja obj/installer/evwaitkey.ninja
 build obj/installer/init_confs.stamp: stamp

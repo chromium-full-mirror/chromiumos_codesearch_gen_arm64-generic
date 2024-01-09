@@ -2706,8 +2706,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kGamepadAxes";
     case WebFeature::kGamepadButtons:
       return "kGamepadButtons";
-    case WebFeature::kDispatchMouseEventOnDisabledFormControl:
-      return "kDispatchMouseEventOnDisabledFormControl";
+    case WebFeature::kOBSOLETE_DispatchMouseEventOnDisabledFormControl:
+      return "kOBSOLETE_DispatchMouseEventOnDisabledFormControl";
     case WebFeature::kElementNameDOMInvalidHTMLParserValid:
       return "kElementNameDOMInvalidHTMLParserValid";
     case WebFeature::kElementNameDOMValidHTMLParserInvalid:
@@ -3284,8 +3284,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kCSSSelectorWebkitUnknownPseudo";
     case WebFeature::kFilterAsContainingBlockMayChangeOutput:
       return "kFilterAsContainingBlockMayChangeOutput";
-    case WebFeature::kDispatchMouseUpDownEventOnDisabledFormControl:
-      return "kDispatchMouseUpDownEventOnDisabledFormControl";
+    case WebFeature::kOBSOLETE_DispatchMouseUpDownEventOnDisabledFormControl:
+      return "kOBSOLETE_DispatchMouseUpDownEventOnDisabledFormControl";
     case WebFeature::kCSSSelectorPseudoIs:
       return "kCSSSelectorPseudoIs";
     case WebFeature::kV8RTCRtpSender_ReplaceTrack_Method:
@@ -4138,8 +4138,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kCSSValueAppearanceTextarea";
     case WebFeature::kCSSValueAppearanceTextFieldForTemporalRendered:
       return "kCSSValueAppearanceTextFieldForTemporalRendered";
-    case WebFeature::kAdClickNavigation:
-      return "kAdClickNavigation";
+    case WebFeature::kOBSOLETE_AdClickNavigation:
+      return "kOBSOLETE_AdClickNavigation";
     case WebFeature::kRTCStatsRelativePacketArrivalDelay:
       return "kRTCStatsRelativePacketArrivalDelay";
     case WebFeature::kCSSSelectorHostContextInSnapshotProfile:
@@ -6330,10 +6330,10 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kSpeculationRulesPrerender";
     case WebFeature::kOBSOLETE_ExecCommandWithTrustedTypes:
       return "kOBSOLETE_ExecCommandWithTrustedTypes";
-    case WebFeature::kCSSSelectorPseudoHasInSnapshotProfile:
-      return "kCSSSelectorPseudoHasInSnapshotProfile";
-    case WebFeature::kCSSSelectorPseudoHasInLiveProfile:
-      return "kCSSSelectorPseudoHasInLiveProfile";
+    case WebFeature::kOBSOLETE_CSSSelectorPseudoHasInSnapshotProfile:
+      return "kOBSOLETE_CSSSelectorPseudoHasInSnapshotProfile";
+    case WebFeature::kOBSOLETE_CSSSelectorPseudoHasInLiveProfile:
+      return "kOBSOLETE_CSSSelectorPseudoHasInLiveProfile";
     case WebFeature::kNavigatorPdfViewerEnabled:
       return "kNavigatorPdfViewerEnabled";
     case WebFeature::kCanvasRenderingContext2DContextLostEvent:
@@ -6830,12 +6830,12 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kOBSOLETE_GestureScrollEnd";
     case WebFeature::kArrayBufferTooBigForWebAPI:
       return "kArrayBufferTooBigForWebAPI";
-    case WebFeature::kFedCmRevoke:
-      return "kFedCmRevoke";
-    case WebFeature::kFedCmLogout:
-      return "kFedCmLogout";
-    case WebFeature::kFedCmLogoutRps:
-      return "kFedCmLogoutRps";
+    case WebFeature::kFedCmDisconnect:
+      return "kFedCmDisconnect";
+    case WebFeature::kOBSOLETE_FedCmLogout:
+      return "kOBSOLETE_FedCmLogout";
+    case WebFeature::kOBSOLETE_FedCmLogoutRps:
+      return "kOBSOLETE_FedCmLogoutRps";
     case WebFeature::kV8Navigator_DeprecatedReplaceInURN_Method:
       return "kV8Navigator_DeprecatedReplaceInURN_Method";
     case WebFeature::kWebAppBorderless:
@@ -6986,8 +6986,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kCookieDomainNonASCII";
     case WebFeature::kClientHintsMetaEquivDelegateCH:
       return "kClientHintsMetaEquivDelegateCH";
-    case WebFeature::kExpectCTHeader:
-      return "kExpectCTHeader";
+    case WebFeature::kOBSOLETE_ExpectCTHeader:
+      return "kOBSOLETE_ExpectCTHeader";
     case WebFeature::kOBSOLETE_kNavigateEventTransitionWhile:
       return "kOBSOLETE_kNavigateEventTransitionWhile";
     case WebFeature::kOBSOLETE_kNavigateEventRestoreScroll:
@@ -7104,16 +7104,16 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kWebAuthnRkRequiredCreationSuccess";
     case WebFeature::kDestructiveDocumentWriteAfterModuleScript:
       return "kDestructiveDocumentWriteAfterModuleScript";
-    case WebFeature::kCSSAtSupportsDropInvalidWhileForgivingParsing:
-      return "kCSSAtSupportsDropInvalidWhileForgivingParsing";
+    case WebFeature::kOBSOLETE_CSSAtSupportsDropInvalidWhileForgivingParsing:
+      return "kOBSOLETE_CSSAtSupportsDropInvalidWhileForgivingParsing";
     case WebFeature::kPermissionsPolicyUnload:
       return "kPermissionsPolicyUnload";
     case WebFeature::kServiceWorkerSkippedForSubresourceLoad:
       return "kServiceWorkerSkippedForSubresourceLoad";
     case WebFeature::kClientHintsPrefersReducedMotion:
       return "kClientHintsPrefersReducedMotion";
-    case WebFeature::kWakeLockAcquireScreenLockWithoutActivation:
-      return "kWakeLockAcquireScreenLockWithoutActivation";
+    case WebFeature::kOBSOLETE_WakeLockAcquireScreenLockWithoutActivation:
+      return "kOBSOLETE_WakeLockAcquireScreenLockWithoutActivation";
     case WebFeature::kInteractiveWidgetOverlaysContent:
       return "kInteractiveWidgetOverlaysContent";
     case WebFeature::kInteractiveWidgetResizesContent:
@@ -7262,10 +7262,10 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kCSSBackgroundClipPadding";
     case WebFeature::kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning:
       return "kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning";
-    case WebFeature::kCSSPseudoHasContainsMixOfValidAndInvalid:
-      return "kCSSPseudoHasContainsMixOfValidAndInvalid";
-    case WebFeature::kCSSPseudoIsWhereContainsMixOfValidAndInvalid:
-      return "kCSSPseudoIsWhereContainsMixOfValidAndInvalid";
+    case WebFeature::kOBSOLETE_kCSSPseudoHasContainsMixOfValidAndInvalid:
+      return "kOBSOLETE_kCSSPseudoHasContainsMixOfValidAndInvalid";
+    case WebFeature::kOBSOLETE_kCSSPseudoIsWhereContainsMixOfValidAndInvalid:
+      return "kOBSOLETE_kCSSPseudoIsWhereContainsMixOfValidAndInvalid";
     case WebFeature::kPrivateNetworkAccessFetchedSubFrame:
       return "kPrivateNetworkAccessFetchedSubFrame";
     case WebFeature::kPrivateNetworkAccessFetchedTopFrame:
@@ -7294,8 +7294,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kOptionLabelInQuirksMode";
     case WebFeature::kParseFromStringIncludeShadows:
       return "kParseFromStringIncludeShadows";
-    case WebFeature::kWebAppEnableScopeExtensions:
-      return "kWebAppEnableScopeExtensions";
+    case WebFeature::kWebAppManifestScopeExtensions:
+      return "kWebAppManifestScopeExtensions";
     case WebFeature::kServiceWorkerBypassFetchHandlerForMainResourceByOriginTrial:
       return "kServiceWorkerBypassFetchHandlerForMainResourceByOriginTrial";
     case WebFeature::kOBSOLETE_V8RegExpUnicodeSetIncompatibilitiesWithUnicodeMode:
@@ -7304,8 +7304,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kFedCmAutoReauthn";
     case WebFeature::kTopicsAPIFetch:
       return "kTopicsAPIFetch";
-    case WebFeature::kTopicsAPIXhr:
-      return "kTopicsAPIXhr";
+    case WebFeature::kOBSOLETE_TopicsAPIXhr:
+      return "kOBSOLETE_TopicsAPIXhr";
     case WebFeature::kParseFromString:
       return "kParseFromString";
     case WebFeature::kOBSOLETE_HTMLPatternRegExpUnicodeSetIncompatibilitiesWithUnicodeMode:
@@ -7582,8 +7582,6 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kGetCoalescedEventsInInsecureContext";
     case WebFeature::kCSPEESameOriginBlanketEnforcement:
       return "kCSPEESameOriginBlanketEnforcement";
-    case WebFeature::kV8Navigator_GetEnvironmentIntegrity_Method:
-      return "kV8Navigator_GetEnvironmentIntegrity_Method";
     case WebFeature::kSharedDictionaryUsed:
       return "kSharedDictionaryUsed";
     case WebFeature::kSharedDictionaryUsedForNavigation:
@@ -7618,24 +7616,24 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kV8WasmMultiMemory";
     case WebFeature::kV8WasmGC:
       return "kV8WasmGC";
-    case WebFeature::kORBBlockWithoutAnyEventHandler:
-      return "kORBBlockWithoutAnyEventHandler";
-    case WebFeature::kORBBlockWithOnErrorButWithoutOnLoadEventHandler:
-      return "kORBBlockWithOnErrorButWithoutOnLoadEventHandler";
-    case WebFeature::kORBBlockWithOnLoadButWithoutOnErrorEventHandler:
-      return "kORBBlockWithOnLoadButWithoutOnErrorEventHandler";
-    case WebFeature::kORBBlockWithOnLoadAndOnErrorEventHandler:
-      return "kORBBlockWithOnLoadAndOnErrorEventHandler";
-    case WebFeature::kORBBlockWithAnyEventHandler:
-      return "kORBBlockWithAnyEventHandler";
+    case WebFeature::kOBSOLETE_ORBBlockWithoutAnyEventHandler:
+      return "kOBSOLETE_ORBBlockWithoutAnyEventHandler";
+    case WebFeature::kOBSOLETE_ORBBlockWithOnErrorButWithoutOnLoadEventHandler:
+      return "kOBSOLETE_ORBBlockWithOnErrorButWithoutOnLoadEventHandler";
+    case WebFeature::kOBSOLETE_ORBBlockWithOnLoadButWithoutOnErrorEventHandler:
+      return "kOBSOLETE_ORBBlockWithOnLoadButWithoutOnErrorEventHandler";
+    case WebFeature::kOBSOLETE_ORBBlockWithOnLoadAndOnErrorEventHandler:
+      return "kOBSOLETE_ORBBlockWithOnLoadAndOnErrorEventHandler";
+    case WebFeature::kOBSOLETE_ORBBlockWithAnyEventHandler:
+      return "kOBSOLETE_ORBBlockWithAnyEventHandler";
     case WebFeature::kV8RTCEncodedVideoFrame_SetMetadata_Method:
       return "kV8RTCEncodedVideoFrame_SetMetadata_Method";
     case WebFeature::kV8RTCEncodedVideoFrame_SetTimestamp_Method:
       return "kV8RTCEncodedVideoFrame_SetTimestamp_Method";
     case WebFeature::kV8RTCEncodedAudioFrame_SetTimestamp_Method:
       return "kV8RTCEncodedAudioFrame_SetTimestamp_Method";
-    case WebFeature::kCSSAtRuleViewTransitions:
-      return "kCSSAtRuleViewTransitions";
+    case WebFeature::kCSSAtRuleViewTransition:
+      return "kCSSAtRuleViewTransition";
     case WebFeature::kSharedDictionaryUsedWithSharedBrotli:
       return "kSharedDictionaryUsedWithSharedBrotli";
     case WebFeature::kSharedDictionaryUsedWithSharedZstd:
@@ -7698,8 +7696,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kPrivateAggregationApiEnableDebugMode";
     case WebFeature::kLineBreakPhrase:
       return "kLineBreakPhrase";
-    case WebFeature::kAttributionReportingUnderscorePrefixedFilterKey:
-      return "kAttributionReportingUnderscorePrefixedFilterKey";
+    case WebFeature::kOBSOLETE_AttributionReportingUnderscorePrefixedFilterKey:
+      return "kOBSOLETE_AttributionReportingUnderscorePrefixedFilterKey";
     case WebFeature::kPercentOrCalcStickyUsedOffset:
       return "kPercentOrCalcStickyUsedOffset";
     case WebFeature::kPercentOrCalcRelativeUsedOffset:
@@ -7770,6 +7768,140 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kV8ClipboardItem_Supports_Method";
     case WebFeature::kThirdPartyCookieAccessBlockByExperiment:
       return "kThirdPartyCookieAccessBlockByExperiment";
+    case WebFeature::kCspWouldBlockIfWildcardDoesNotMatchWs:
+      return "kCspWouldBlockIfWildcardDoesNotMatchWs";
+    case WebFeature::kCspWouldBlockIfWildcardDoesNotMatchFtp:
+      return "kCspWouldBlockIfWildcardDoesNotMatchFtp";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_all:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_all";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage_Use";
+    case WebFeature::kElementCheckVisibilityOptionCheckVisibilityCSS:
+      return "kElementCheckVisibilityOptionCheckVisibilityCSS";
+    case WebFeature::kElementCheckVisibilityOptionCheckOpacity:
+      return "kElementCheckVisibilityOptionCheckOpacity";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks_Use";
+    case WebFeature::kRubyElementWithDisplayBlockAndRt:
+      return "kRubyElementWithDisplayBlockAndRt";
+    case WebFeature::kCSSDeclarationAfterNestedRule:
+      return "kCSSDeclarationAfterNestedRule";
+    case WebFeature::kThirdPartyCookieAdAccessBlockByExperiment:
+      return "kThirdPartyCookieAdAccessBlockByExperiment";
+    case WebFeature::kServiceWorkerStaticRouter_AddRoutes:
+      return "kServiceWorkerStaticRouter_AddRoutes";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory_Use";
+    case WebFeature::kElementCheckVisibilityOptionContentVisibilityAuto:
+      return "kElementCheckVisibilityOptionContentVisibilityAuto";
+    case WebFeature::kElementCheckVisibilityOptionOpacityProperty:
+      return "kElementCheckVisibilityOptionOpacityProperty";
+    case WebFeature::kElementCheckVisibilityOptionVisibilityProperty:
+      return "kElementCheckVisibilityOptionVisibilityProperty";
+    case WebFeature::kAdClickMainFrameNavigation:
+      return "kAdClickMainFrameNavigation";
+    case WebFeature::kLinkRelPrivacyPolicy:
+      return "kLinkRelPrivacyPolicy";
+    case WebFeature::kLinkRelTermsOfService:
+      return "kLinkRelTermsOfService";
+    case WebFeature::kWebAppManifestIdField:
+      return "kWebAppManifestIdField";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL_Use";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel_Use:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel_Use";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowByExplicitSetting:
+      return "kThirdPartyCookieDeprecation_AllowByExplicitSetting";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowByGlobalSetting:
+      return "kThirdPartyCookieDeprecation_AllowByGlobalSetting";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowBy3PCDMetadata:
+      return "kThirdPartyCookieDeprecation_AllowBy3PCDMetadata";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowBy3PCD:
+      return "kThirdPartyCookieDeprecation_AllowBy3PCD";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowBy3PCDHeuristics:
+      return "kThirdPartyCookieDeprecation_AllowBy3PCDHeuristics";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowByStorageAccess:
+      return "kThirdPartyCookieDeprecation_AllowByStorageAccess";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowByTopLevelStorageAccess:
+      return "kThirdPartyCookieDeprecation_AllowByTopLevelStorageAccess";
+    case WebFeature::kIframeAdAuctionHeadersAttribute:
+      return "kIframeAdAuctionHeadersAttribute";
+    case WebFeature::kAutoSpeculationRulesOptedOut:
+      return "kAutoSpeculationRulesOptedOut";
+    case WebFeature::kOverrideFlashEmbedwithHTML:
+      return "kOverrideFlashEmbedwithHTML";
+    case WebFeature::kLinkRelOpener:
+      return "kLinkRelOpener";
+    case WebFeature::kLinkRelOpenerTargetingSameFrame:
+      return "kLinkRelOpenerTargetingSameFrame";
+    case WebFeature::kCSSSelectorPseudoHas:
+      return "kCSSSelectorPseudoHas";
+    case WebFeature::kWakeLockAcquireScreenLockWithoutStickyActivation:
+      return "kWakeLockAcquireScreenLockWithoutStickyActivation";
+    case WebFeature::kSubtleCryptoDeriveBitsZeroLength:
+      return "kSubtleCryptoDeriveBitsZeroLength";
+    case WebFeature::kSubtleCryptoDeriveBitsTruncation:
+      return "kSubtleCryptoDeriveBitsTruncation";
+    case WebFeature::kTextDirectiveInShadowDOM:
+      return "kTextDirectiveInShadowDOM";
+    case WebFeature::kPseudoFirstLetterOnRt:
+      return "kPseudoFirstLetterOnRt";
+    case WebFeature::kPseudoFirstLineOnRt:
+      return "kPseudoFirstLineOnRt";
+    case WebFeature::kAutoSizesLazy:
+      return "kAutoSizesLazy";
+    case WebFeature::kAutoSizesNonLazy:
+      return "kAutoSizesNonLazy";
+    case WebFeature::kTrustedTypesIntrospection:
+      return "kTrustedTypesIntrospection";
+    case WebFeature::kTrustedTypesIsCheck:
+      return "kTrustedTypesIsCheck";
+    case WebFeature::kMouseDragOnCancelledMouseMove:
+      return "kMouseDragOnCancelledMouseMove";
+    case WebFeature::kFedCmDomainHint:
+      return "kFedCmDomainHint";
+    case WebFeature::kLCPImageWasLazy:
+      return "kLCPImageWasLazy";
+    case WebFeature::kEventTargetOnObservable:
+      return "kEventTargetOnObservable";
+    case WebFeature::kCredentialManagerCrossOriginPublicKeyCreateRequest:
+      return "kCredentialManagerCrossOriginPublicKeyCreateRequest";
+    case WebFeature::kViewTransitionNameAuto:
+      return "kViewTransitionNameAuto";
+    case WebFeature::kV8WasmJavaScriptPromiseIntegration:
+      return "kV8WasmJavaScriptPromiseIntegration";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

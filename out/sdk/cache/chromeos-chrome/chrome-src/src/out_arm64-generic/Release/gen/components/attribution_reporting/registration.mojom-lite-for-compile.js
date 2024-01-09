@@ -24,14 +24,6 @@ goog.require('url.mojom.Url');
 
 
 
-goog.provide('attributionReporting.mojom.DebugKeySpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-attributionReporting.mojom.DebugKeySpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
 goog.provide('attributionReporting.mojom.SuitableOriginSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -96,12 +88,20 @@ goog.provide('attributionReporting.mojom.EventReportWindowsSpec');
 attributionReporting.mojom.EventReportWindowsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('attributionReporting.mojom.TriggerConfigSpec');
+goog.provide('attributionReporting.mojom.TriggerSpecSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-attributionReporting.mojom.TriggerConfigSpec =
+attributionReporting.mojom.TriggerSpecSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('attributionReporting.mojom.TriggerSpecsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+attributionReporting.mojom.TriggerSpecsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('attributionReporting.mojom.SourceRegistrationSpec');
@@ -110,14 +110,6 @@ goog.provide('attributionReporting.mojom.SourceRegistrationSpec');
  * @export
  */
 attributionReporting.mojom.SourceRegistrationSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-goog.provide('attributionReporting.mojom.TriggerDedupKeySpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-attributionReporting.mojom.TriggerDedupKeySpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('attributionReporting.mojom.EventTriggerDataSpec');
@@ -160,35 +152,6 @@ goog.provide('attributionReporting.mojom.OsRegistrationSpec');
 attributionReporting.mojom.OsRegistrationSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-
-
-
-mojo.internal.Struct(
-    attributionReporting.mojom.DebugKeySpec.$,
-    'DebugKey',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-goog.provide('attributionReporting.mojom.DebugKey');
-
-/** @record */
-attributionReporting.mojom.DebugKey = class {
-  constructor() {
-    /** @export { !bigint } */
-    this.value;
-  }
-};
 
 
 
@@ -475,14 +438,14 @@ attributionReporting.mojom.EventReportWindows = class {
 
 
 mojo.internal.Struct(
-    attributionReporting.mojom.TriggerConfigSpec.$,
-    'TriggerConfig',
+    attributionReporting.mojom.TriggerSpecSpec.$,
+    'TriggerSpec',
     [
       mojo.internal.StructField(
-        'triggerDataMatching', 0,
+        'eventReportWindows', 0,
         0,
-        attributionReporting.mojom.TriggerDataMatchingSpec.$,
-        0,
+        attributionReporting.mojom.EventReportWindowsSpec.$,
+        null,
         false, /* nullable */
         0 /* minVersion */,
       ),
@@ -491,13 +454,52 @@ mojo.internal.Struct(
 
 
 
-goog.provide('attributionReporting.mojom.TriggerConfig');
+goog.provide('attributionReporting.mojom.TriggerSpec');
 
 /** @record */
-attributionReporting.mojom.TriggerConfig = class {
+attributionReporting.mojom.TriggerSpec = class {
   constructor() {
-    /** @export { !attributionReporting.mojom.TriggerDataMatching } */
-    this.triggerDataMatching;
+    /** @export { !attributionReporting.mojom.EventReportWindows } */
+    this.eventReportWindows;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    attributionReporting.mojom.TriggerSpecsSpec.$,
+    'TriggerSpecs',
+    [
+      mojo.internal.StructField(
+        'specs', 0,
+        0,
+        mojo.internal.Array(attributionReporting.mojom.TriggerSpecSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'triggerDataIndices', 8,
+        0,
+        mojo.internal.Map(mojo.internal.Uint32, mojo.internal.Uint8, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('attributionReporting.mojom.TriggerSpecs');
+
+/** @record */
+attributionReporting.mojom.TriggerSpecs = class {
+  constructor() {
+    /** @export { !Array<!attributionReporting.mojom.TriggerSpec> } */
+    this.specs;
+    /** @export { !Object<!number, !number> } */
+    this.triggerDataIndices;
   }
 };
 
@@ -564,12 +566,29 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'debugKey', 56,
+        'debug_key_$flag', 44,
         0,
-        attributionReporting.mojom.DebugKeySpec.$,
-        null,
-        true, /* nullable */
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "debug_key_$value",
+          originalFieldName: "debugKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'debug_key_$value', 56,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "debugKey",
+        }
       ),
       mojo.internal.StructField(
         'filterData', 64,
@@ -589,22 +608,30 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'debugReporting', 44,
-        0,
+        1,
         mojo.internal.Bool,
         false,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'triggerConfig', 80,
+        'triggerDataMatching', 80,
         0,
-        attributionReporting.mojom.TriggerConfigSpec.$,
-        null,
+        attributionReporting.mojom.TriggerDataMatchingSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'eventLevelEpsilon', 88,
+        0,
+        mojo.internal.Double,
+        0,
         false, /* nullable */
         0 /* minVersion */,
       ),
     ],
-    [[0, 96],]);
+    [[0, 104],]);
 
 
 
@@ -627,7 +654,7 @@ attributionReporting.mojom.SourceRegistration = class {
     this.maxEventLevelReports;
     /** @export { !bigint } */
     this.priority;
-    /** @export { (attributionReporting.mojom.DebugKey|undefined) } */
+    /** @export { (bigint|undefined) } */
     this.debugKey;
     /** @export { !attributionReporting.mojom.FilterData } */
     this.filterData;
@@ -635,37 +662,10 @@ attributionReporting.mojom.SourceRegistration = class {
     this.aggregationKeys;
     /** @export { !boolean } */
     this.debugReporting;
-    /** @export { !attributionReporting.mojom.TriggerConfig } */
-    this.triggerConfig;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    attributionReporting.mojom.TriggerDedupKeySpec.$,
-    'TriggerDedupKey',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-goog.provide('attributionReporting.mojom.TriggerDedupKey');
-
-/** @record */
-attributionReporting.mojom.TriggerDedupKey = class {
-  constructor() {
-    /** @export { !bigint } */
-    this.value;
+    /** @export { !attributionReporting.mojom.TriggerDataMatching } */
+    this.triggerDataMatching;
+    /** @export { !number } */
+    this.eventLevelEpsilon;
   }
 };
 
@@ -692,15 +692,32 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'dedupKey', 16,
+        'dedup_key_$flag', 16,
         0,
-        attributionReporting.mojom.TriggerDedupKeySpec.$,
-        null,
-        true, /* nullable */
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "dedup_key_$value",
+          originalFieldName: "dedupKey",
+        }
       ),
       mojo.internal.StructField(
-        'filters', 24,
+        'dedup_key_$value', 24,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "dedupKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'filters', 32,
         0,
         attributionReporting.mojom.FilterPairSpec.$,
         null,
@@ -708,7 +725,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -721,7 +738,7 @@ attributionReporting.mojom.EventTriggerData = class {
     this.data;
     /** @export { !bigint } */
     this.priority;
-    /** @export { (attributionReporting.mojom.TriggerDedupKey|undefined) } */
+    /** @export { (bigint|undefined) } */
     this.dedupKey;
     /** @export { !attributionReporting.mojom.FilterPair } */
     this.filters;
@@ -735,15 +752,32 @@ mojo.internal.Struct(
     'AggregatableDedupKey',
     [
       mojo.internal.StructField(
-        'dedupKey', 0,
+        'dedup_key_$flag', 0,
         0,
-        attributionReporting.mojom.TriggerDedupKeySpec.$,
-        null,
-        true, /* nullable */
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "dedup_key_$value",
+          originalFieldName: "dedupKey",
+        }
       ),
       mojo.internal.StructField(
-        'filters', 8,
+        'dedup_key_$value', 8,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "dedupKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'filters', 16,
         0,
         attributionReporting.mojom.FilterPairSpec.$,
         null,
@@ -751,7 +785,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -760,7 +794,7 @@ goog.provide('attributionReporting.mojom.AggregatableDedupKey');
 /** @record */
 attributionReporting.mojom.AggregatableDedupKey = class {
   constructor() {
-    /** @export { (attributionReporting.mojom.TriggerDedupKey|undefined) } */
+    /** @export { (bigint|undefined) } */
     this.dedupKey;
     /** @export { !attributionReporting.mojom.FilterPair } */
     this.filters;
@@ -806,15 +840,32 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'debugKey', 32,
+        'debug_key_$flag', 32,
         0,
-        attributionReporting.mojom.DebugKeySpec.$,
-        null,
-        true, /* nullable */
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "debug_key_$value",
+          originalFieldName: "debugKey",
+        }
       ),
       mojo.internal.StructField(
-        'aggregatableDedupKeys', 40,
+        'debug_key_$value', 40,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "debugKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'aggregatableDedupKeys', 48,
         0,
         mojo.internal.Array(attributionReporting.mojom.AggregatableDedupKeySpec.$, false),
         null,
@@ -822,8 +873,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'debugReporting', 48,
-        0,
+        'debugReporting', 32,
+        1,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -838,15 +889,23 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sourceRegistrationTimeConfig', 52,
+        'sourceRegistrationTimeConfig', 36,
         0,
         attributionReporting.mojom.SourceRegistrationTimeConfigSpec.$,
         0,
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'triggerContextId', 64,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 72],]);
+    [[0, 80],]);
 
 
 
@@ -863,7 +922,7 @@ attributionReporting.mojom.TriggerRegistration = class {
     this.aggregatableTriggerData;
     /** @export { !Object<!string, !number> } */
     this.aggregatableValues;
-    /** @export { (attributionReporting.mojom.DebugKey|undefined) } */
+    /** @export { (bigint|undefined) } */
     this.debugKey;
     /** @export { !Array<!attributionReporting.mojom.AggregatableDedupKey> } */
     this.aggregatableDedupKeys;
@@ -873,6 +932,8 @@ attributionReporting.mojom.TriggerRegistration = class {
     this.aggregationCoordinatorOrigin;
     /** @export { !attributionReporting.mojom.SourceRegistrationTimeConfig } */
     this.sourceRegistrationTimeConfig;
+    /** @export { (string|undefined) } */
+    this.triggerContextId;
   }
 };
 

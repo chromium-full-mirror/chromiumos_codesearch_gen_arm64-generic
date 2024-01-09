@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -60,7 +61,7 @@ PermissionState::PermissionState(
 PermissionState::PermissionState(
     bool granted_in,
     bool managed_in,
-    const absl::optional<std::string>& details_in)
+    const std::optional<std::string>& details_in)
     : granted(std::move(granted_in)),
       managed(std::move(managed_in)),
       details(std::move(details_in)),
@@ -69,7 +70,7 @@ PermissionState::PermissionState(
 PermissionState::PermissionState(
     bool granted_in,
     bool managed_in,
-    const absl::optional<std::string>& details_in,
+    const std::optional<std::string>& details_in,
     bool one_time_in)
     : granted(std::move(granted_in)),
       managed(std::move(managed_in)),
@@ -103,7 +104,7 @@ void PermissionState::WriteIntoTrace(
     dict.AddItem(
       "details"), this->details,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -218,14 +219,17 @@ void AppPermissionsInstanceProxy::GrantPermission(
                         "<value of type AppPermission>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsInstance_GrantPermission_Name, kFlags, 0, 0, nullptr);
@@ -271,14 +275,17 @@ void AppPermissionsInstanceProxy::RevokePermission(
                         "<value of type AppPermission>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPermissionsInstance_RevokePermission_Name, kFlags, 0, 0, nullptr);
@@ -396,12 +403,12 @@ bool AppPermissionsInstanceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppPermissionsInstanceValidationInfo[] = {
-    {&internal::AppPermissionsInstance_GrantPermission_Params_Data::Validate,
+    { &internal::AppPermissionsInstance_GrantPermission_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppPermissionsInstance_RevokePermission_Params_Data::Validate,
+    { &internal::AppPermissionsInstance_RevokePermission_Params_Data::Validate,
      nullptr /* no response */},
 };
 

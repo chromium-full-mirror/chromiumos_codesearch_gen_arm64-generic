@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/interest_group/ad_auction_service.mojom-features.h"
 #include "third_party/blink/public/mojom/interest_group/ad_auction_service.mojom-shared.h"
 #include "third_party/blink/public/mojom/interest_group/ad_auction_service.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink.h"
@@ -46,30 +47,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AuctionAdConfigField>
-    : EnumHashTraits<::blink::mojom::AuctionAdConfigField, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AuctionAdConfigBuyerTimeoutField>
-    : EnumHashTraits<::blink::mojom::AuctionAdConfigBuyerTimeoutField, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -151,7 +128,7 @@ class PLATFORM_EXPORT AbortableAdAuction
   virtual void ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const WTF::String& json_value) = 0;
 
   
-  virtual void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) = 0;
+  virtual void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) = 0;
 
   
   virtual void ResolvedBuyerTimeoutsPromise(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigBuyerTimeoutField field, ::blink::mojom::blink::AuctionAdConfigBuyerTimeoutsPtr buyer_timeouts) = 0;
@@ -267,7 +244,7 @@ class PLATFORM_EXPORT AdAuctionService
   virtual void CreateAdRequest(::blink::mojom::blink::AdRequestConfigPtr config, CreateAdRequestCallback callback) = 0;
 
 
-  using FinalizeAdCallback = base::OnceCallback<void(const absl::optional<::blink::KURL>&)>;
+  using FinalizeAdCallback = base::OnceCallback<void(const std::optional<::blink::KURL>&)>;
   
   virtual void FinalizeAd(const WTF::String& ads_guid, ::blink::mojom::blink::AuctionAdConfigPtr config, FinalizeAdCallback callback) = 0;
 
@@ -277,7 +254,7 @@ class PLATFORM_EXPORT AdAuctionService
   virtual void CreateAuctionNonce(CreateAuctionNonceCallback callback) = 0;
 
 
-  using RunAdAuctionCallback = base::OnceCallback<void(bool, const absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
+  using RunAdAuctionCallback = base::OnceCallback<void(bool, const std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>&)>;
   
   virtual void RunAdAuction(::blink::mojom::blink::AuctionAdConfigPtr config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, RunAdAuctionCallback callback) = 0;
 
@@ -303,7 +280,7 @@ class PLATFORM_EXPORT AdAuctionService
   virtual void UpdateAdInterestGroups() = 0;
 
 
-  using DeprecatedGetURLFromURNCallback = base::OnceCallback<void(const absl::optional<::blink::KURL>&)>;
+  using DeprecatedGetURLFromURNCallback = base::OnceCallback<void(const std::optional<::blink::KURL>&)>;
   
   virtual void DeprecatedGetURLFromURN(const ::blink::KURL& uuid_url, bool send_reports, DeprecatedGetURLFromURNCallback callback) = 0;
 
@@ -313,7 +290,7 @@ class PLATFORM_EXPORT AdAuctionService
   virtual void DeprecatedReplaceInURN(const ::blink::KURL& uuid_url, WTF::Vector<AdKeywordReplacementPtr> replacements, DeprecatedReplaceInURNCallback callback) = 0;
 
 
-  using GetInterestGroupAdAuctionDataCallback = base::OnceCallback<void(::mojo_base::BigBuffer, const absl::optional<::base::Uuid>&, const WTF::String&)>;
+  using GetInterestGroupAdAuctionDataCallback = base::OnceCallback<void(::mojo_base::BigBuffer, const std::optional<::base::Uuid>&, const WTF::String&)>;
   
   virtual void GetInterestGroupAdAuctionData(const ::scoped_refptr<const ::blink::SecurityOrigin>& seller, const ::scoped_refptr<const ::blink::SecurityOrigin>& coordinator, GetInterestGroupAdAuctionDataCallback callback) = 0;
 };
@@ -329,7 +306,7 @@ class PLATFORM_EXPORT AbortableAdAuctionProxy
   
   void ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const WTF::String& json_value) final;
   
-  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) final;
+  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) final;
   
   void ResolvedBuyerTimeoutsPromise(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigBuyerTimeoutField field, ::blink::mojom::blink::AuctionAdConfigBuyerTimeoutsPtr buyer_timeouts) final;
   
@@ -647,17 +624,17 @@ class PLATFORM_EXPORT AuctionAdConfigAuctionId {
   // Construct an instance holding |main_auction|.
   static AuctionAdConfigAuctionIdPtr
   NewMainAuction(
-      uint32_t main_auction) {
+      uint32_t value) {
     auto result = AuctionAdConfigAuctionIdPtr(absl::in_place);
-    result->set_main_auction(std::move(main_auction));
+    result->set_main_auction(std::move(value));
     return result;
   }
   // Construct an instance holding |component_auction|.
   static AuctionAdConfigAuctionIdPtr
   NewComponentAuction(
-      uint32_t component_auction) {
+      uint32_t value) {
     auto result = AuctionAdConfigAuctionIdPtr(absl::in_place);
-    result->set_component_auction(std::move(component_auction));
+    result->set_component_auction(std::move(value));
     return result;
   }
 

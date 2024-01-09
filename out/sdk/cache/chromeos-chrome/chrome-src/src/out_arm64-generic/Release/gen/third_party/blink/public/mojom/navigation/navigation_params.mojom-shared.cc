@@ -435,7 +435,7 @@ bool CommitNavigationParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 296, validation_context)) {
+          data, 304, validation_context)) {
     return false;
   }
 
@@ -694,6 +694,13 @@ bool CommitNavigationParams_Data::Validate(
   }
   if (!mojo::internal::ValidateStruct(object->content_settings, validation_context))
     return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& cookie_deprecation_label_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->cookie_deprecation_label, validation_context,
+                                         &cookie_deprecation_label_validate_params)) {
+    return false;
+  }
 
   return true;
 }

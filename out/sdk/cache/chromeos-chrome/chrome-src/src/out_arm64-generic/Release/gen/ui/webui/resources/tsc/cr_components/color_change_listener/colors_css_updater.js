@@ -18,11 +18,12 @@ let documentInstance = null;
 export const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
 // 
 export class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
     // 
     constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
         assert(documentInstance === null || root !== document);
         this.root_ = root;
     }

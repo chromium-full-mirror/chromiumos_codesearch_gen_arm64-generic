@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,12 +30,12 @@ namespace wm_desks_private {
 // Types
 //
 
-enum  SavedDeskType {
-  SAVED_DESK_TYPE_NONE = 0,
-  SAVED_DESK_TYPE_KTEMPLATE,
-  SAVED_DESK_TYPE_KSAVEANDRECALL,
-  SAVED_DESK_TYPE_KUNKNOWN,
-  SAVED_DESK_TYPE_LAST = SAVED_DESK_TYPE_KUNKNOWN,
+enum class SavedDeskType {
+  kNone = 0,
+  kTemplate,
+  kSaveAndRecall,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -47,8 +48,8 @@ struct RemoveDeskOptions {
   ~RemoveDeskOptions();
   RemoveDeskOptions(const RemoveDeskOptions&) = delete;
   RemoveDeskOptions& operator=(const RemoveDeskOptions&) = delete;
-  RemoveDeskOptions(RemoveDeskOptions&& rhs);
-  RemoveDeskOptions& operator=(RemoveDeskOptions&& rhs);
+  RemoveDeskOptions(RemoveDeskOptions&& rhs) noexcept;
+  RemoveDeskOptions& operator=(RemoveDeskOptions&& rhs) noexcept;
 
   // Populates a RemoveDeskOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -61,16 +62,13 @@ struct RemoveDeskOptions {
   // Creates a deep copy of RemoveDeskOptions.
   RemoveDeskOptions Clone() const;
 
-  // Creates a RemoveDeskOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RemoveDeskOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RemoveDeskOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RemoveDeskOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RemoveDeskOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RemoveDeskOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RemoveDeskOptions> FromValue(const base::Value& value);
+  static std::optional<RemoveDeskOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemoveDeskOptions object.
@@ -81,7 +79,7 @@ struct RemoveDeskOptions {
   bool combine_desks;
 
   // Define whether removed desk is retrievable.
-  absl::optional<bool> allow_undo;
+  std::optional<bool> allow_undo;
 
 };
 
@@ -90,8 +88,8 @@ struct Desk {
   ~Desk();
   Desk(const Desk&) = delete;
   Desk& operator=(const Desk&) = delete;
-  Desk(Desk&& rhs);
-  Desk& operator=(Desk&& rhs);
+  Desk(Desk&& rhs) noexcept;
+  Desk& operator=(Desk&& rhs) noexcept;
 
   // Populates a Desk object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -104,14 +102,11 @@ struct Desk {
   // Creates a deep copy of Desk.
   Desk Clone() const;
 
-  // Creates a Desk object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Desk> FromValueDeprecated(const base::Value& value);
-
   // Creates a Desk object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Desk> FromValue(const base::Value::Dict& value);
+  static std::optional<Desk> FromValue(const base::Value::Dict& value);
 
   // Creates a Desk object from a base::Value, or nullopt on failure.
-  static absl::optional<Desk> FromValue(const base::Value& value);
+  static std::optional<Desk> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDesk object.
@@ -130,8 +125,8 @@ struct SavedDesk {
   ~SavedDesk();
   SavedDesk(const SavedDesk&) = delete;
   SavedDesk& operator=(const SavedDesk&) = delete;
-  SavedDesk(SavedDesk&& rhs);
-  SavedDesk& operator=(SavedDesk&& rhs);
+  SavedDesk(SavedDesk&& rhs) noexcept;
+  SavedDesk& operator=(SavedDesk&& rhs) noexcept;
 
   // Populates a SavedDesk object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -144,14 +139,11 @@ struct SavedDesk {
   // Creates a deep copy of SavedDesk.
   SavedDesk Clone() const;
 
-  // Creates a SavedDesk object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SavedDesk> FromValueDeprecated(const base::Value& value);
-
   // Creates a SavedDesk object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SavedDesk> FromValue(const base::Value::Dict& value);
+  static std::optional<SavedDesk> FromValue(const base::Value::Dict& value);
 
   // Creates a SavedDesk object from a base::Value, or nullopt on failure.
-  static absl::optional<SavedDesk> FromValue(const base::Value& value);
+  static std::optional<SavedDesk> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSavedDesk object.
@@ -173,8 +165,8 @@ struct LaunchOptions {
   ~LaunchOptions();
   LaunchOptions(const LaunchOptions&) = delete;
   LaunchOptions& operator=(const LaunchOptions&) = delete;
-  LaunchOptions(LaunchOptions&& rhs);
-  LaunchOptions& operator=(LaunchOptions&& rhs);
+  LaunchOptions(LaunchOptions&& rhs) noexcept;
+  LaunchOptions& operator=(LaunchOptions&& rhs) noexcept;
 
   // Populates a LaunchOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -187,22 +179,19 @@ struct LaunchOptions {
   // Creates a deep copy of LaunchOptions.
   LaunchOptions Clone() const;
 
-  // Creates a LaunchOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LaunchOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a LaunchOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LaunchOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<LaunchOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a LaunchOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<LaunchOptions> FromValue(const base::Value& value);
+  static std::optional<LaunchOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLaunchOptions object.
   base::Value::Dict ToValue() const;
 
   // User readable name of the desk.
-  absl::optional<std::string> desk_name;
+  std::optional<std::string> desk_name;
 
 };
 
@@ -211,8 +200,8 @@ struct WindowProperties {
   ~WindowProperties();
   WindowProperties(const WindowProperties&) = delete;
   WindowProperties& operator=(const WindowProperties&) = delete;
-  WindowProperties(WindowProperties&& rhs);
-  WindowProperties& operator=(WindowProperties&& rhs);
+  WindowProperties(WindowProperties&& rhs) noexcept;
+  WindowProperties& operator=(WindowProperties&& rhs) noexcept;
 
   // Populates a WindowProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -225,16 +214,13 @@ struct WindowProperties {
   // Creates a deep copy of WindowProperties.
   WindowProperties Clone() const;
 
-  // Creates a WindowProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<WindowProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a WindowProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<WindowProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<WindowProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a WindowProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<WindowProperties> FromValue(const base::Value& value);
+  static std::optional<WindowProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWindowProperties object.
@@ -262,11 +248,11 @@ base::Value::List Create(const std::vector<SavedDesk>& save_desks);
 namespace LaunchDesk {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   LaunchOptions launch_options;
@@ -286,11 +272,11 @@ base::Value::List Create(const std::string& desk_id);
 namespace GetDeskTemplateJson {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string template_uuid;
@@ -310,16 +296,16 @@ base::Value::List Create(const std::string& template_json);
 namespace RemoveDesk {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string desk_id;
 
-  absl::optional<RemoveDeskOptions> remove_desk_options;
+  std::optional<RemoveDeskOptions> remove_desk_options;
 
 
  private:
@@ -345,11 +331,11 @@ base::Value::List Create(const std::vector<Desk>& desks);
 namespace SetWindowProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int window_id;
@@ -380,11 +366,11 @@ base::Value::List Create(const SavedDesk& desk);
 namespace DeleteSavedDesk {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string saved_desk_uuid;
@@ -404,11 +390,11 @@ base::Value::List Create();
 namespace RecallSavedDesk {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string saved_desk_uuid;
@@ -437,11 +423,11 @@ base::Value::List Create(const std::string& desk_id);
 namespace SwitchDesk {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string desk_uuid;
@@ -461,11 +447,11 @@ base::Value::List Create();
 namespace GetDeskByID {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string desk_uuid;

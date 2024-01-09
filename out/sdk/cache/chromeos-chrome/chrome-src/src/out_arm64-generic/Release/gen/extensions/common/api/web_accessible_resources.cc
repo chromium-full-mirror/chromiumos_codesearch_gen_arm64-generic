@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/web_accessible_resources.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -41,8 +42,8 @@ WebAccessibleResource::WebAccessibleResource()
  {}
 
 WebAccessibleResource::~WebAccessibleResource() = default;
-WebAccessibleResource::WebAccessibleResource(WebAccessibleResource&& rhs) = default;
-WebAccessibleResource& WebAccessibleResource::operator=(WebAccessibleResource&& rhs) = default;
+WebAccessibleResource::WebAccessibleResource(WebAccessibleResource&& rhs) noexcept = default;
+WebAccessibleResource& WebAccessibleResource::operator=(WebAccessibleResource&& rhs) noexcept = default;
 // static
 constexpr char WebAccessibleResource::kResources[];
 // static
@@ -134,7 +135,7 @@ bool WebAccessibleResource::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'use_dynamic_url': expected use_dynamic_url, got " + UTF8ToUTF16(base::Value::GetTypeName((*use_dynamic_url_value).type()));
-        out.use_dynamic_url = absl::nullopt;
+        out.use_dynamic_url = std::nullopt;
         return false;
       }
       out.use_dynamic_url = *temp;
@@ -153,24 +154,6 @@ bool WebAccessibleResource::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<WebAccessibleResource> WebAccessibleResource::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<WebAccessibleResource>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -259,8 +242,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kWebAccessibleResources[];
 

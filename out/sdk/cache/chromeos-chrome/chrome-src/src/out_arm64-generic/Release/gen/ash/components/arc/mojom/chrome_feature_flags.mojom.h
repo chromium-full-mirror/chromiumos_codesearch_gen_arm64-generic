@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/chrome_feature_flags.mojom-features.h"
 #include "ash/components/arc/mojom/chrome_feature_flags.mojom-shared.h"
 #include "ash/components/arc/mojom/chrome_feature_flags.mojom-forward.h"
 #include <string>
@@ -177,41 +178,77 @@ class  FeatureFlags {
   FeatureFlags();
 
   FeatureFlags(
-      bool qs_revamp,
+      bool deprecated_qs_revamp,
       bool jelly_colors);
 
   FeatureFlags(
-      bool qs_revamp,
+      bool deprecated_qs_revamp,
       bool jelly_colors,
-      bool trackpad_scroll_touchscreen_emulation,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
       bool touchscreen_emulation);
 
   FeatureFlags(
-      bool qs_revamp,
+      bool deprecated_qs_revamp,
       bool jelly_colors,
-      bool trackpad_scroll_touchscreen_emulation,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
       bool touchscreen_emulation,
       RoundedWindowCompatStrategy rounded_window_compat_strategy,
       int32_t rounded_window_radius);
 
   FeatureFlags(
-      bool qs_revamp,
+      bool deprecated_qs_revamp,
       bool jelly_colors,
-      bool trackpad_scroll_touchscreen_emulation,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
       bool touchscreen_emulation,
       RoundedWindowCompatStrategy rounded_window_compat_strategy,
       int32_t rounded_window_radius,
       bool xdg_mode);
 
   FeatureFlags(
-      bool qs_revamp,
+      bool deprecated_qs_revamp,
       bool jelly_colors,
-      bool trackpad_scroll_touchscreen_emulation,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
       bool touchscreen_emulation,
       RoundedWindowCompatStrategy rounded_window_compat_strategy,
       int32_t rounded_window_radius,
       bool xdg_mode,
       bool enable_pip_double_tap);
+
+  FeatureFlags(
+      bool deprecated_qs_revamp,
+      bool jelly_colors,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
+      bool touchscreen_emulation,
+      RoundedWindowCompatStrategy rounded_window_compat_strategy,
+      int32_t rounded_window_radius,
+      bool xdg_mode,
+      bool enable_pip_double_tap,
+      bool render_arc_notifications_by_chrome);
+
+  FeatureFlags(
+      bool deprecated_qs_revamp,
+      bool jelly_colors,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
+      bool touchscreen_emulation,
+      RoundedWindowCompatStrategy rounded_window_compat_strategy,
+      int32_t rounded_window_radius,
+      bool xdg_mode,
+      bool enable_pip_double_tap,
+      bool render_arc_notifications_by_chrome,
+      bool game_dashboard);
+
+  FeatureFlags(
+      bool deprecated_qs_revamp,
+      bool jelly_colors,
+      bool deprecated_trackpad_scroll_touchscreen_emulation,
+      bool touchscreen_emulation,
+      RoundedWindowCompatStrategy rounded_window_compat_strategy,
+      int32_t rounded_window_radius,
+      bool xdg_mode,
+      bool enable_pip_double_tap,
+      bool render_arc_notifications_by_chrome,
+      bool game_dashboard,
+      bool resize_compat);
 
 
   ~FeatureFlags();
@@ -290,11 +327,11 @@ class  FeatureFlags {
   }
 
   
-  bool qs_revamp;
+  bool deprecated_qs_revamp;
   
   bool jelly_colors;
   
-  bool trackpad_scroll_touchscreen_emulation;
+  bool deprecated_trackpad_scroll_touchscreen_emulation;
   
   bool touchscreen_emulation;
   
@@ -305,6 +342,12 @@ class  FeatureFlags {
   bool xdg_mode;
   
   bool enable_pip_double_tap;
+  
+  bool render_arc_notifications_by_chrome;
+  
+  bool game_dashboard;
+  
+  bool resize_compat;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -338,24 +381,27 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 FeatureFlagsPtr FeatureFlags::Clone() const {
   return New(
-      mojo::Clone(qs_revamp),
+      mojo::Clone(deprecated_qs_revamp),
       mojo::Clone(jelly_colors),
-      mojo::Clone(trackpad_scroll_touchscreen_emulation),
+      mojo::Clone(deprecated_trackpad_scroll_touchscreen_emulation),
       mojo::Clone(touchscreen_emulation),
       mojo::Clone(rounded_window_compat_strategy),
       mojo::Clone(rounded_window_radius),
       mojo::Clone(xdg_mode),
-      mojo::Clone(enable_pip_double_tap)
+      mojo::Clone(enable_pip_double_tap),
+      mojo::Clone(render_arc_notifications_by_chrome),
+      mojo::Clone(game_dashboard),
+      mojo::Clone(resize_compat)
   );
 }
 
 template <typename T, FeatureFlags::EnableIfSame<T>*>
 bool FeatureFlags::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->qs_revamp, other_struct.qs_revamp))
+  if (!mojo::Equals(this->deprecated_qs_revamp, other_struct.deprecated_qs_revamp))
     return false;
   if (!mojo::Equals(this->jelly_colors, other_struct.jelly_colors))
     return false;
-  if (!mojo::Equals(this->trackpad_scroll_touchscreen_emulation, other_struct.trackpad_scroll_touchscreen_emulation))
+  if (!mojo::Equals(this->deprecated_trackpad_scroll_touchscreen_emulation, other_struct.deprecated_trackpad_scroll_touchscreen_emulation))
     return false;
   if (!mojo::Equals(this->touchscreen_emulation, other_struct.touchscreen_emulation))
     return false;
@@ -367,22 +413,28 @@ bool FeatureFlags::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->enable_pip_double_tap, other_struct.enable_pip_double_tap))
     return false;
+  if (!mojo::Equals(this->render_arc_notifications_by_chrome, other_struct.render_arc_notifications_by_chrome))
+    return false;
+  if (!mojo::Equals(this->game_dashboard, other_struct.game_dashboard))
+    return false;
+  if (!mojo::Equals(this->resize_compat, other_struct.resize_compat))
+    return false;
   return true;
 }
 
 template <typename T, FeatureFlags::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.qs_revamp < rhs.qs_revamp)
+  if (lhs.deprecated_qs_revamp < rhs.deprecated_qs_revamp)
     return true;
-  if (rhs.qs_revamp < lhs.qs_revamp)
+  if (rhs.deprecated_qs_revamp < lhs.deprecated_qs_revamp)
     return false;
   if (lhs.jelly_colors < rhs.jelly_colors)
     return true;
   if (rhs.jelly_colors < lhs.jelly_colors)
     return false;
-  if (lhs.trackpad_scroll_touchscreen_emulation < rhs.trackpad_scroll_touchscreen_emulation)
+  if (lhs.deprecated_trackpad_scroll_touchscreen_emulation < rhs.deprecated_trackpad_scroll_touchscreen_emulation)
     return true;
-  if (rhs.trackpad_scroll_touchscreen_emulation < lhs.trackpad_scroll_touchscreen_emulation)
+  if (rhs.deprecated_trackpad_scroll_touchscreen_emulation < lhs.deprecated_trackpad_scroll_touchscreen_emulation)
     return false;
   if (lhs.touchscreen_emulation < rhs.touchscreen_emulation)
     return true;
@@ -404,6 +456,18 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.enable_pip_double_tap < lhs.enable_pip_double_tap)
     return false;
+  if (lhs.render_arc_notifications_by_chrome < rhs.render_arc_notifications_by_chrome)
+    return true;
+  if (rhs.render_arc_notifications_by_chrome < lhs.render_arc_notifications_by_chrome)
+    return false;
+  if (lhs.game_dashboard < rhs.game_dashboard)
+    return true;
+  if (rhs.game_dashboard < lhs.game_dashboard)
+    return false;
+  if (lhs.resize_compat < rhs.resize_compat)
+    return true;
+  if (rhs.resize_compat < lhs.resize_compat)
+    return false;
   return false;
 }
 
@@ -419,9 +483,9 @@ struct  StructTraits<::arc::mojom::FeatureFlags::DataView,
   static bool IsNull(const ::arc::mojom::FeatureFlagsPtr& input) { return !input; }
   static void SetToNull(::arc::mojom::FeatureFlagsPtr* output) { output->reset(); }
 
-  static decltype(::arc::mojom::FeatureFlags::qs_revamp) qs_revamp(
+  static decltype(::arc::mojom::FeatureFlags::deprecated_qs_revamp) deprecated_qs_revamp(
       const ::arc::mojom::FeatureFlagsPtr& input) {
-    return input->qs_revamp;
+    return input->deprecated_qs_revamp;
   }
 
   static decltype(::arc::mojom::FeatureFlags::jelly_colors) jelly_colors(
@@ -429,9 +493,9 @@ struct  StructTraits<::arc::mojom::FeatureFlags::DataView,
     return input->jelly_colors;
   }
 
-  static decltype(::arc::mojom::FeatureFlags::trackpad_scroll_touchscreen_emulation) trackpad_scroll_touchscreen_emulation(
+  static decltype(::arc::mojom::FeatureFlags::deprecated_trackpad_scroll_touchscreen_emulation) deprecated_trackpad_scroll_touchscreen_emulation(
       const ::arc::mojom::FeatureFlagsPtr& input) {
-    return input->trackpad_scroll_touchscreen_emulation;
+    return input->deprecated_trackpad_scroll_touchscreen_emulation;
   }
 
   static decltype(::arc::mojom::FeatureFlags::touchscreen_emulation) touchscreen_emulation(
@@ -457,6 +521,21 @@ struct  StructTraits<::arc::mojom::FeatureFlags::DataView,
   static decltype(::arc::mojom::FeatureFlags::enable_pip_double_tap) enable_pip_double_tap(
       const ::arc::mojom::FeatureFlagsPtr& input) {
     return input->enable_pip_double_tap;
+  }
+
+  static decltype(::arc::mojom::FeatureFlags::render_arc_notifications_by_chrome) render_arc_notifications_by_chrome(
+      const ::arc::mojom::FeatureFlagsPtr& input) {
+    return input->render_arc_notifications_by_chrome;
+  }
+
+  static decltype(::arc::mojom::FeatureFlags::game_dashboard) game_dashboard(
+      const ::arc::mojom::FeatureFlagsPtr& input) {
+    return input->game_dashboard;
+  }
+
+  static decltype(::arc::mojom::FeatureFlags::resize_compat) resize_compat(
+      const ::arc::mojom::FeatureFlagsPtr& input) {
+    return input->resize_compat;
   }
 
   static bool Read(::arc::mojom::FeatureFlags::DataView input, ::arc::mojom::FeatureFlagsPtr* output);

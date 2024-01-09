@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,7 +48,7 @@ OpenGraphMetadata::OpenGraphMetadata()
     : image() {}
 
 OpenGraphMetadata::OpenGraphMetadata(
-    const absl::optional<::GURL>& image_in)
+    const std::optional<::GURL>& image_in)
     : image(std::move(image_in)) {}
 
 OpenGraphMetadata::~OpenGraphMetadata() = default;
@@ -59,7 +60,7 @@ void OpenGraphMetadata::WriteIntoTrace(
     dict.AddItem(
       "image"), this->image,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

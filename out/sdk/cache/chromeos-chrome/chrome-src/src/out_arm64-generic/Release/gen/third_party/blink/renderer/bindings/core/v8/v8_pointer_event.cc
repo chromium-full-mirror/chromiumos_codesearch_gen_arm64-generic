@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PointerEvent>::value,
     "PointerEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PointerEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PointerEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointerIdForBindings();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -152,7 +147,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pressure();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -171,7 +166,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tiltX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -190,7 +185,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tiltY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -209,7 +204,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->azimuthAngle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -228,7 +223,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altitudeAngle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -247,7 +242,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tangentialPressure();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -266,7 +261,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->twist();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -285,7 +280,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointerType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -304,7 +299,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPointerEventAttributeC
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isPrimary();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -323,7 +318,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PointerEvent_DeviceI
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -336,8 +331,9 @@ BLINK_BINDINGS_TRACE_EVENT("PointerEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -401,7 +397,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCoalescedEvents();
 if (!ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -430,7 +427,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(v8_receiver);
+PointerEvent* blink_receiver = V8PointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getPredictedEvents();
 if (!ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

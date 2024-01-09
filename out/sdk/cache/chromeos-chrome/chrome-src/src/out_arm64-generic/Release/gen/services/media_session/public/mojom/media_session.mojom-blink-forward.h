@@ -63,6 +63,9 @@ using MediaSessionInterfaceBase = MediaSessionInterfaceBase;
 class MediaImage;
 using MediaImagePtr = mojo::StructPtr<MediaImage>;
 
+class ChapterInformation;
+using ChapterInformationPtr = mojo::StructPtr<ChapterInformation>;
+
 class MediaMetadata;
 using MediaMetadataPtr = mojo::StructPtr<MediaMetadata>;
 

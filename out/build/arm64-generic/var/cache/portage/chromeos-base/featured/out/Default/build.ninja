@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r420/work/featured-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -27,15 +27,8 @@ build libfeatures_c: phony ./lib/libfeatures_c.so
 build libstore_impl: phony ./libstore_impl.a
 build libtmp_storage_impl: phony ./libtmp_storage_impl.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build featured$:all: phony obj/featured/all.stamp
-build featured$:c_fake_feature_check_example: phony ./c_fake_feature_check_example
-build featured$:c_feature_check_example: phony ./c_feature_check_example
-build featured$:cpp_feature_check_example: phony ./cpp_feature_check_example
-build featured$:feature_library_test: phony ./feature_library_test
 build featured$:featured: phony ./featured
 build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
 build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
@@ -45,17 +38,10 @@ build featured$:libfeatures: phony ./lib/libfeatures.so
 build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
 build featured$:libstore_impl: phony ./libstore_impl.a
 build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
-build featured$:service_test: phony ./service_test
-build featured$:store_impl_test: phony ./store_impl_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/featured/all.stamp $
-    ./c_fake_feature_check_example $
-    ./c_feature_check_example $
-    ./cpp_feature_check_example $
-    ./feature_library_test $
     ./featured $
     obj/featured/featured-adaptors.stamp $
     ./lib/libc_fake_feature_library.so $
@@ -64,8 +50,6 @@ build all: phony $
     ./lib/libfeatures.so $
     ./lib/libfeatures_c.so $
     ./libstore_impl.a $
-    ./libtmp_storage_impl.a $
-    ./service_test $
-    ./store_impl_test
+    ./libtmp_storage_impl.a
 
 default all

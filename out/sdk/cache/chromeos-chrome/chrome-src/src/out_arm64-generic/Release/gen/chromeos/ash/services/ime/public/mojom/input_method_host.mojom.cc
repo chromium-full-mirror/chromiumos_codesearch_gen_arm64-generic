@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -392,8 +393,8 @@ Candidate::Candidate()
 
 Candidate::Candidate(
     const std::string& text_in,
-    const absl::optional<std::string>& label_in,
-    const absl::optional<std::string>& annotation_in)
+    const std::optional<std::string>& label_in,
+    const std::optional<std::string>& annotation_in)
     : text(std::move(text_in)),
       label(std::move(label_in)),
       annotation(std::move(annotation_in)) {}
@@ -416,7 +417,7 @@ void Candidate::WriteIntoTrace(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -425,7 +426,7 @@ void Candidate::WriteIntoTrace(
     dict.AddItem(
       "annotation"), this->annotation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -486,7 +487,7 @@ CandidatesWindow::CandidatesWindow(
 CandidatesWindow::CandidatesWindow(
     std::vector<CandidatePtr> candidates_in,
     uint32_t DEPRECATED_highlighted_candidate_in,
-    const absl::optional<std::string>& auxiliary_text_in)
+    const std::optional<std::string>& auxiliary_text_in)
     : candidates(std::move(candidates_in)),
       DEPRECATED_highlighted_candidate(std::move(DEPRECATED_highlighted_candidate_in)),
       auxiliary_text(std::move(auxiliary_text_in)),
@@ -495,7 +496,7 @@ CandidatesWindow::CandidatesWindow(
 CandidatesWindow::CandidatesWindow(
     std::vector<CandidatePtr> candidates_in,
     uint32_t DEPRECATED_highlighted_candidate_in,
-    const absl::optional<std::string>& auxiliary_text_in,
+    const std::optional<std::string>& auxiliary_text_in,
     HighlightedCandidatePtr highlighted_candidate_in)
     : candidates(std::move(candidates_in)),
       DEPRECATED_highlighted_candidate(std::move(DEPRECATED_highlighted_candidate_in)),
@@ -529,7 +530,7 @@ void CandidatesWindow::WriteIntoTrace(
     dict.AddItem(
       "auxiliary_text"), this->auxiliary_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1083,14 +1084,17 @@ void InputMethodHostProxy::CommitText(
                         "<value of type CommitTextCursorBehavior>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_CommitText_Name, kFlags, 0, 0, nullptr);
@@ -1136,14 +1140,17 @@ void InputMethodHostProxy::DEPRECATED_SetComposition(
                         "<value of type std::vector<CompositionSpanPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DEPRECATED_SetComposition_Name, kFlags, 0, 0, nullptr);
@@ -1203,14 +1210,17 @@ void InputMethodHostProxy::SetComposition(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_SetComposition_Name, kFlags, 0, 0, nullptr);
@@ -1268,14 +1278,17 @@ void InputMethodHostProxy::SetCompositionRange(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_SetCompositionRange_Name, kFlags, 0, 0, nullptr);
@@ -1300,14 +1313,17 @@ void InputMethodHostProxy::FinishComposition(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::ime::mojom::InputMethodHost::FinishComposition");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_FinishComposition_Name, kFlags, 0, 0, nullptr);
@@ -1340,14 +1356,17 @@ void InputMethodHostProxy::DeleteSurroundingText(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DeleteSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -1385,14 +1404,17 @@ void InputMethodHostProxy::ReplaceSurroundingText(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_ReplaceSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -1435,14 +1457,17 @@ void InputMethodHostProxy::HandleAutocorrect(
                         "<value of type AutocorrectSpanPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_HandleAutocorrect_Name, kFlags, 0, 0, nullptr);
@@ -1472,7 +1497,7 @@ void InputMethodHostProxy::HandleAutocorrect(
 }
 
 void InputMethodHostProxy::DisplaySuggestions(
-    const std::vector<::ash::ime::AssistiveSuggestion>& in_suggestions, const absl::optional<::ash::ime::SuggestionsTextContext>& in_context) {
+    const std::vector<::ash::ime::AssistiveSuggestion>& in_suggestions, const std::optional<::ash::ime::SuggestionsTextContext>& in_context) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::ime::mojom::InputMethodHost::DisplaySuggestions", "input_parameters",
@@ -1483,17 +1508,20 @@ void InputMethodHostProxy::DisplaySuggestions(
                         "<value of type const std::vector<::ash::ime::AssistiveSuggestion>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("context"), in_context,
-                        "<value of type const absl::optional<::ash::ime::SuggestionsTextContext>&>");
+                        "<value of type const std::optional<::ash::ime::SuggestionsTextContext>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DisplaySuggestions_Name, kFlags, 0, 0, nullptr);
@@ -1543,14 +1571,17 @@ void InputMethodHostProxy::UpdateCandidatesWindow(
                         "<value of type CandidatesWindowPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_UpdateCandidatesWindow_Name, kFlags, 0, 0, nullptr);
@@ -1587,14 +1618,17 @@ void InputMethodHostProxy::RequestSuggestions(
                         "<value of type SuggestionsRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_RequestSuggestions_Name, kFlags, 0, 0, nullptr);
@@ -1636,14 +1670,17 @@ void InputMethodHostProxy::UpdateQuickSettings(
                         "<value of type ::ash::ime::mojom::InputMethodQuickSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_UpdateQuickSettings_Name, kFlags, 0, 0, nullptr);
@@ -1682,14 +1719,17 @@ void InputMethodHostProxy::RecordUkm(
                         "<value of type UkmEntryPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_RecordUkm_Name, kFlags, 0, 0, nullptr);
@@ -1728,14 +1768,17 @@ void InputMethodHostProxy::DEPRECATED_ReportKoreanAction(
                         "<value of type KoreanAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DEPRECATED_ReportKoreanAction_Name, kFlags, 0, 0, nullptr);
@@ -1767,14 +1810,17 @@ void InputMethodHostProxy::DEPRECATED_ReportKoreanSettings(
                         "<value of type ::ash::ime::mojom::KoreanSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DEPRECATED_ReportKoreanSettings_Name, kFlags, 0, 0, nullptr);
@@ -1815,14 +1861,17 @@ void InputMethodHostProxy::DEPRECATED_ReportSuggestionOpportunity(
                         "<value of type ::ash::ime::AssistiveSuggestionMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_DEPRECATED_ReportSuggestionOpportunity_Name, kFlags, 0, 0, nullptr);
@@ -1857,14 +1906,17 @@ void InputMethodHostProxy::ReportHistogramSample(
                         "<value of type uint16_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_ReportHistogramSample_Name, kFlags, 0, 0, nullptr);
@@ -1985,7 +2037,8 @@ void InputMethodHost_RequestSuggestions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethodHost_RequestSuggestions_Name, kFlags, 0, 0, nullptr);
@@ -2272,7 +2325,7 @@ std::move(p_autocorrect_span));
       
       bool success = true;
       std::vector<::ash::ime::AssistiveSuggestion> p_suggestions{};
-      absl::optional<::ash::ime::SuggestionsTextContext> p_context{};
+      std::optional<::ash::ime::SuggestionsTextContext> p_context{};
       InputMethodHost_DisplaySuggestions_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSuggestions(&p_suggestions))
@@ -2575,42 +2628,42 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputMethodHostValidationInfo[] = {
-    {&internal::InputMethodHost_CommitText_Params_Data::Validate,
+    { &internal::InputMethodHost_CommitText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DEPRECATED_SetComposition_Params_Data::Validate,
+    { &internal::InputMethodHost_DEPRECATED_SetComposition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_SetCompositionRange_Params_Data::Validate,
+    { &internal::InputMethodHost_SetCompositionRange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_FinishComposition_Params_Data::Validate,
+    { &internal::InputMethodHost_FinishComposition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DeleteSurroundingText_Params_Data::Validate,
+    { &internal::InputMethodHost_DeleteSurroundingText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_HandleAutocorrect_Params_Data::Validate,
+    { &internal::InputMethodHost_HandleAutocorrect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DisplaySuggestions_Params_Data::Validate,
+    { &internal::InputMethodHost_DisplaySuggestions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_RequestSuggestions_Params_Data::Validate,
+    { &internal::InputMethodHost_RequestSuggestions_Params_Data::Validate,
      &internal::InputMethodHost_RequestSuggestions_ResponseParams_Data::Validate},
-    {&internal::InputMethodHost_RecordUkm_Params_Data::Validate,
+    { &internal::InputMethodHost_RecordUkm_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_UpdateCandidatesWindow_Params_Data::Validate,
+    { &internal::InputMethodHost_UpdateCandidatesWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DEPRECATED_ReportKoreanAction_Params_Data::Validate,
+    { &internal::InputMethodHost_DEPRECATED_ReportKoreanAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DEPRECATED_ReportKoreanSettings_Params_Data::Validate,
+    { &internal::InputMethodHost_DEPRECATED_ReportKoreanSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_SetComposition_Params_Data::Validate,
+    { &internal::InputMethodHost_SetComposition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_UpdateQuickSettings_Params_Data::Validate,
+    { &internal::InputMethodHost_UpdateQuickSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_DEPRECATED_ReportSuggestionOpportunity_Params_Data::Validate,
+    { &internal::InputMethodHost_DEPRECATED_ReportSuggestionOpportunity_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_ReportHistogramSample_Params_Data::Validate,
+    { &internal::InputMethodHost_ReportHistogramSample_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethodHost_ReplaceSurroundingText_Params_Data::Validate,
+    { &internal::InputMethodHost_ReplaceSurroundingText_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2892,7 +2945,7 @@ void InputMethodHostInterceptorForTesting::ReplaceSurroundingText(uint32_t num_b
 void InputMethodHostInterceptorForTesting::HandleAutocorrect(AutocorrectSpanPtr autocorrect_span) {
   GetForwardingInterface()->HandleAutocorrect(std::move(autocorrect_span));
 }
-void InputMethodHostInterceptorForTesting::DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const absl::optional<::ash::ime::SuggestionsTextContext>& context) {
+void InputMethodHostInterceptorForTesting::DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const std::optional<::ash::ime::SuggestionsTextContext>& context) {
   GetForwardingInterface()->DisplaySuggestions(std::move(suggestions), std::move(context));
 }
 void InputMethodHostInterceptorForTesting::UpdateCandidatesWindow(CandidatesWindowPtr window) {

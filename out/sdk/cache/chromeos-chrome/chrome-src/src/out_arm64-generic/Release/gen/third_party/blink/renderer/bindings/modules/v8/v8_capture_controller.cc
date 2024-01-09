@@ -18,6 +18,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_target.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_capture_start_focus_behavior.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_captured_wheel_action.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/mediastream/capture_controller.h"
@@ -74,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CaptureController>::value,
     "CaptureController inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CaptureController::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CaptureController is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("CaptureController.oncapturedmousechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncapturedmousechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncapturedmousechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,9 +103,39 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(v8_receiver);
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncapturedmousechange(event_handler);
+}
+
+void OncapturedzoomlevelchangeAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_oncapturedzoomlevelchange_Getter");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.oncapturedzoomlevelchange.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncapturedzoomlevelchange();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OncapturedzoomlevelchangeAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_oncapturedzoomlevelchange_Setter");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.oncapturedzoomlevelchange.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOncapturedzoomlevelchange(event_handler);
 }
 
 void ConstructorCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -140,6 +166,112 @@ v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V
 bindings::V8SetReturnValue(info, v8_wrapper);
 }
 
+void GetMaxZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getMaxZoomLevel");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.getMaxZoomLevel");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getMaxZoomLevel();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
+}
+
+void GetMinZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getMinZoomLevel");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.getMinZoomLevel");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getMinZoomLevel();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
+}
+
+void GetZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getZoomLevel");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.getZoomLevel");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CaptureController";
+const char* const property_name = "getZoomLevel";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+
+
+
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->getZoomLevel(script_state);
+bindings::V8SetReturnValue(info, return_value);
+}
+
+void SendWheelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_sendWheel");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.sendWheel");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CaptureController";
+const char* const property_name = "sendWheel";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_action = NativeValueTraits<CapturedWheelAction>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->sendWheel(script_state, arg1_action);
+bindings::V8SetReturnValue(info, return_value);
+}
+
 void SetFocusBehaviorOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_setFocusBehavior");
 BLINK_BINDINGS_TRACE_EVENT("CaptureController.setFocusBehavior");
@@ -165,7 +297,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(v8_receiver);
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_focus_behavior = NativeValueTraits<V8CaptureStartFocusBehavior>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -175,6 +307,45 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 
+}
+
+void SetZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_setZoomLevel");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.setZoomLevel");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CaptureController";
+const char* const property_name = "setZoomLevel";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_zoom_level = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->setZoomLevel(script_state, arg1_zoom_level);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 
@@ -237,10 +408,30 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
+if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"oncapturedzoomlevelchange", OncapturedzoomlevelchangeAttributeGetCallback, OncapturedzoomlevelchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
 
 
 
 
+if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"getMaxZoomLevel", GetMaxZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getMinZoomLevel", GetMinZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getZoomLevel", GetZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"sendWheel", SendWheelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setZoomLevel", SetZoomLevelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
 
 
 }

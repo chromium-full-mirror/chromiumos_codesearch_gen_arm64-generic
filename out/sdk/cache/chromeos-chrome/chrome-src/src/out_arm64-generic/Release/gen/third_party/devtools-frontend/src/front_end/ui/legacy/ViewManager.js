@@ -4,14 +4,14 @@
 import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
+import * as IconButton from '../components/icon_button/icon_button.js';
 import * as ARIAUtils from './ARIAUtils.js';
-import { Icon } from './Icon.js';
 import { Events as TabbedPaneEvents, TabbedPane } from './TabbedPane.js';
 import { Toolbar, ToolbarMenuButton } from './Toolbar.js';
 import { createTextChild } from './UIUtils.js';
-import { getRegisteredLocationResolvers, getRegisteredViewExtensions, getLocalizedViewLocationCategory, maybeRemoveViewExtension, registerLocationResolver, registerViewExtension, ViewLocationCategory, resetViewRegistration, } from './ViewRegistration.js';
-import { VBox } from './Widget.js';
 import viewContainersStyles from './viewContainers.css.legacy.js';
+import { getLocalizedViewLocationCategory, getRegisteredLocationResolvers, getRegisteredViewExtensions, maybeRemoveViewExtension, registerLocationResolver, registerViewExtension, resetViewRegistration, ViewLocationCategory, } from './ViewRegistration.js';
+import { VBox } from './Widget.js';
 const UIStrings = {
     /**
      *@description Aria label for the tab panel view container
@@ -26,10 +26,10 @@ export const defaultOptionsForTabs = {
 };
 export class PreRegisteredView {
     viewRegistration;
-    widgetRequested;
+    widgetPromise;
     constructor(viewRegistration) {
         this.viewRegistration = viewRegistration;
-        this.widgetRequested = false;
+        this.widgetPromise = null;
     }
     title() {
         return this.viewRegistration.title();
@@ -69,20 +69,23 @@ export class PreRegisteredView {
         return this.viewRegistration.persistence;
     }
     async toolbarItems() {
-        if (this.viewRegistration.hasToolbar) {
-            return this.widget().then(widget => widget.toolbarItems());
+        if (!this.viewRegistration.hasToolbar) {
+            return [];
         }
-        return [];
+        const provider = await this.widget();
+        return provider.toolbarItems();
     }
-    async widget() {
-        this.widgetRequested = true;
-        return this.viewRegistration.loadView();
+    widget() {
+        if (this.widgetPromise === null) {
+            this.widgetPromise = this.viewRegistration.loadView();
+        }
+        return this.widgetPromise;
     }
     async disposeView() {
-        if (!this.widgetRequested) {
+        if (this.widgetPromise === null) {
             return;
         }
-        const widget = await this.widget();
+        const widget = await this.widgetPromise;
         await widget.ownerViewDisposed();
     }
     experiment() {
@@ -224,25 +227,18 @@ export class ViewManager {
         }
         return widgetForView.get(view) || null;
     }
-    showView(viewId, userGesture, omitFocus) {
+    async showView(viewId, userGesture, omitFocus) {
         const view = this.views.get(viewId);
         if (!view) {
             console.error('Could not find view for id: \'' + viewId + '\' ' + new Error().stack);
-            return Promise.resolve();
+            return;
         }
-        const locationName = this.locationNameByViewId.get(viewId);
-        const location = locationForView.get(view);
-        if (location) {
-            location.reveal();
-            return location.showView(view, undefined, userGesture, omitFocus);
+        const location = locationForView.get(view) ?? await this.resolveLocation(this.locationNameByViewId.get(viewId));
+        if (!location) {
+            throw new Error('Could not resolve location for view: ' + viewId);
         }
-        return this.resolveLocation(locationName).then(location => {
-            if (!location) {
-                throw new Error('Could not resolve location for view: ' + viewId);
-            }
-            location.reveal();
-            return location.showView(view, undefined, userGesture, omitFocus);
-        });
+        location.reveal();
+        await location.showView(view, undefined, userGesture, omitFocus);
     }
     async resolveLocation(location) {
         if (!location) {
@@ -341,7 +337,7 @@ class ExpandableContainerWidget extends VBox {
         this.titleElement = document.createElement('div');
         this.titleElement.classList.add('expandable-view-title');
         ARIAUtils.markAsTreeitem(this.titleElement);
-        this.titleExpandIcon = Icon.create('triangle-right', 'title-expand-icon');
+        this.titleExpandIcon = IconButton.Icon.create('triangle-right', 'title-expand-icon');
         this.titleElement.appendChild(this.titleExpandIcon);
         const titleText = view.title();
         createTextChild(this.titleElement, titleText);
@@ -390,7 +386,7 @@ class ExpandableContainerWidget extends VBox {
         }
         this.titleElement.classList.add('expanded');
         ARIAUtils.setExpanded(this.titleElement, true);
-        this.titleExpandIcon.setIconType('triangle-down');
+        this.titleExpandIcon.name = 'triangle-down';
         return this.materialize().then(() => {
             if (this.widget) {
                 this.widget.show(this.element);
@@ -403,7 +399,7 @@ class ExpandableContainerWidget extends VBox {
         }
         this.titleElement.classList.remove('expanded');
         ARIAUtils.setExpanded(this.titleElement, false);
-        this.titleExpandIcon.setIconType('triangle-right');
+        this.titleExpandIcon.name = 'triangle-right';
         void this.materialize().then(() => {
             if (this.widget) {
                 this.widget.detach();

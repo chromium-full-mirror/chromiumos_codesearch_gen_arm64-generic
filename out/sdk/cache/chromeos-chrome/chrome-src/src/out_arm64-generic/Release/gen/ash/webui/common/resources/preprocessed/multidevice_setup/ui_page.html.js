@@ -40,10 +40,10 @@ export function getTemplate() {
   }
 
   h1 {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
     font-size: 28px;
     font-weight: normal;
-    line-height: 28px;
+    line-height: 36px;
     margin: 0;
     padding-top: 40px;
     text-align: var(--multidevice-setup-text-alignment);
@@ -59,7 +59,7 @@ export function getTemplate() {
   }
 
   #message-container {
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     line-height: 18px;
     min-height: 32px;
     overflow-wrap: break-word;

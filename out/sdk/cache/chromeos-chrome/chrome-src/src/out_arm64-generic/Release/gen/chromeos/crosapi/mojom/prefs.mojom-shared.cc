@@ -92,8 +92,8 @@ NOINLINE static const char* PrefPathToStringHelper(PrefPath value) {
       return "kDnsOverHttpsTemplatesWithIdentifiers";
     case PrefPath::kDnsOverHttpsSalt:
       return "kDnsOverHttpsSalt";
-    case PrefPath::kGeolocationAllowed:
-      return "kGeolocationAllowed";
+    case PrefPath::kUserGeolocationAccessLevel:
+      return "kUserGeolocationAccessLevel";
     case PrefPath::kMultitaskMenuNudgeClamshellShownCount:
       return "kMultitaskMenuNudgeClamshellShownCount";
     case PrefPath::kMultitaskMenuNudgeClamshellLastShown:
@@ -110,6 +110,10 @@ NOINLINE static const char* PrefPathToStringHelper(PrefPath value) {
       return "kAccessibilityPdfOcrAlwaysActive";
     case PrefPath::kProxy:
       return "kProxy";
+    case PrefPath::kDefaultSearchProviderDataPrefName:
+      return "kDefaultSearchProviderDataPrefName";
+    case PrefPath::kIsolatedWebAppsEnabled:
+      return "kIsolatedWebAppsEnabled";
     default:
       return nullptr;
   }

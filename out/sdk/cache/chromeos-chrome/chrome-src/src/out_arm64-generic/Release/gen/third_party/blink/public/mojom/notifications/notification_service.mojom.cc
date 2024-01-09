@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -179,14 +180,17 @@ void NonPersistentNotificationListenerProxy::OnShow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::NonPersistentNotificationListener::OnShow");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonPersistentNotificationListener_OnShow_Name, kFlags, 0, 0, nullptr);
@@ -209,14 +213,17 @@ void NonPersistentNotificationListenerProxy::OnClick(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::NonPersistentNotificationListener::OnClick");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonPersistentNotificationListener_OnClick_Name, kFlags, 0, 0, nullptr);
@@ -240,14 +247,17 @@ void NonPersistentNotificationListenerProxy::OnClose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::NonPersistentNotificationListener::OnClose");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonPersistentNotificationListener_OnClose_Name, kFlags, 0, 0, nullptr);
@@ -346,7 +356,8 @@ void NonPersistentNotificationListener_OnClick_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonPersistentNotificationListener_OnClick_Name, kFlags, 0, 0, nullptr);
@@ -452,7 +463,8 @@ void NonPersistentNotificationListener_OnClose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonPersistentNotificationListener_OnClose_Name, kFlags, 0, 0, nullptr);
@@ -580,14 +592,14 @@ bool NonPersistentNotificationListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNonPersistentNotificationListenerValidationInfo[] = {
-    {&internal::NonPersistentNotificationListener_OnShow_Params_Data::Validate,
+    { &internal::NonPersistentNotificationListener_OnShow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NonPersistentNotificationListener_OnClick_Params_Data::Validate,
+    { &internal::NonPersistentNotificationListener_OnClick_Params_Data::Validate,
      &internal::NonPersistentNotificationListener_OnClick_ResponseParams_Data::Validate},
-    {&internal::NonPersistentNotificationListener_OnClose_Params_Data::Validate,
+    { &internal::NonPersistentNotificationListener_OnClose_Params_Data::Validate,
      &internal::NonPersistentNotificationListener_OnClose_ResponseParams_Data::Validate},
 };
 
@@ -833,15 +845,18 @@ bool NotificationServiceProxy::GetPermissionStatus(
 #else
   TRACE_EVENT0("mojom", "NotificationService::GetPermissionStatus");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_GetPermissionStatus_Name, kFlags, 0, 0, nullptr);
@@ -878,14 +893,17 @@ void NotificationServiceProxy::GetPermissionStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::NotificationService::GetPermissionStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_GetPermissionStatus_Name, kFlags, 0, 0, nullptr);
@@ -925,14 +943,17 @@ void NotificationServiceProxy::DisplayNonPersistentNotification(
                         "<value of type ::mojo::PendingRemote<NonPersistentNotificationListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_DisplayNonPersistentNotification_Name, kFlags, 0, 0, nullptr);
@@ -1001,14 +1022,17 @@ void NotificationServiceProxy::CloseNonPersistentNotification(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_CloseNonPersistentNotification_Name, kFlags, 0, 0, nullptr);
@@ -1055,14 +1079,17 @@ void NotificationServiceProxy::DisplayPersistentNotification(
                         "<value of type const ::blink::NotificationResources&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_DisplayPersistentNotification_Name, kFlags, 0, 0, nullptr);
@@ -1116,14 +1143,17 @@ void NotificationServiceProxy::ClosePersistentNotification(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_ClosePersistentNotification_Name, kFlags, 0, 0, nullptr);
@@ -1170,14 +1200,17 @@ void NotificationServiceProxy::GetNotifications(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_GetNotifications_Name, kFlags, 0, 0, nullptr);
@@ -1300,7 +1333,8 @@ void NotificationService_GetPermissionStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_GetPermissionStatus_Name, kFlags, 0, 0, nullptr);
@@ -1444,7 +1478,8 @@ void NotificationService_DisplayPersistentNotification_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_DisplayPersistentNotification_Name, kFlags, 0, 0, nullptr);
@@ -1570,7 +1605,8 @@ void NotificationService_GetNotifications_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationService_GetNotifications_Name, kFlags, 0, 0, nullptr);
@@ -1852,20 +1888,20 @@ std::move(p_include_triggered), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNotificationServiceValidationInfo[] = {
-    {&internal::NotificationService_GetPermissionStatus_Params_Data::Validate,
+    { &internal::NotificationService_GetPermissionStatus_Params_Data::Validate,
      &internal::NotificationService_GetPermissionStatus_ResponseParams_Data::Validate},
-    {&internal::NotificationService_DisplayNonPersistentNotification_Params_Data::Validate,
+    { &internal::NotificationService_DisplayNonPersistentNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationService_CloseNonPersistentNotification_Params_Data::Validate,
+    { &internal::NotificationService_CloseNonPersistentNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationService_DisplayPersistentNotification_Params_Data::Validate,
+    { &internal::NotificationService_DisplayPersistentNotification_Params_Data::Validate,
      &internal::NotificationService_DisplayPersistentNotification_ResponseParams_Data::Validate},
-    {&internal::NotificationService_ClosePersistentNotification_Params_Data::Validate,
+    { &internal::NotificationService_ClosePersistentNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationService_GetNotifications_Params_Data::Validate,
+    { &internal::NotificationService_GetNotifications_Params_Data::Validate,
      &internal::NotificationService_GetNotifications_ResponseParams_Data::Validate},
 };
 

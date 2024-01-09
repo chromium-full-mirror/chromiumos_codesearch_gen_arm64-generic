@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
@@ -84,9 +85,9 @@ class QuickStartDecoder
   virtual ~QuickStartDecoder() = default;
 
 
-  using DecodeQuickStartMessageCallback = base::OnceCallback<void(::ash::quick_start::mojom::QuickStartMessagePtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
+  using DecodeQuickStartMessageCallback = base::OnceCallback<void(::ash::quick_start::mojom::QuickStartMessagePtr, std::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
   
-  virtual void DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) = 0;
+  virtual void DecodeQuickStartMessage(const std::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) = 0;
 };
 
 
@@ -98,7 +99,7 @@ class  QuickStartDecoderProxy
 
   explicit QuickStartDecoderProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) final;
+  void DecodeQuickStartMessage(const std::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -74,7 +74,7 @@ class  DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data {
 };
 static_assert(sizeof(DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data) == 16,
               "Bad sizeof(DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data)");
-class  DriveIntegrationService_GetMountPointPath_Params_Data {
+class  DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -82,14 +82,14 @@ class  DriveIntegrationService_GetMountPointPath_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<DriveIntegrationService_GetMountPointPath_Params_Data>;
+  friend class mojo::internal::MessageFragment<DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data>;
 
-  DriveIntegrationService_GetMountPointPath_Params_Data();
-  ~DriveIntegrationService_GetMountPointPath_Params_Data() = delete;
+  DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data();
+  ~DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data() = delete;
 };
-static_assert(sizeof(DriveIntegrationService_GetMountPointPath_Params_Data) == 8,
-              "Bad sizeof(DriveIntegrationService_GetMountPointPath_Params_Data)");
-class  DriveIntegrationService_GetMountPointPath_ResponseParams_Data {
+static_assert(sizeof(DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data) == 8,
+              "Bad sizeof(DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data)");
+class  DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -98,13 +98,13 @@ class  DriveIntegrationService_GetMountPointPath_ResponseParams_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> drive_path;
 
  private:
-  friend class mojo::internal::MessageFragment<DriveIntegrationService_GetMountPointPath_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data>;
 
-  DriveIntegrationService_GetMountPointPath_ResponseParams_Data();
-  ~DriveIntegrationService_GetMountPointPath_ResponseParams_Data() = delete;
+  DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data();
+  ~DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(DriveIntegrationService_GetMountPointPath_ResponseParams_Data) == 16,
-              "Bad sizeof(DriveIntegrationService_GetMountPointPath_ResponseParams_Data)");
+static_assert(sizeof(DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data) == 16,
+              "Bad sizeof(DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data)");
 class  DriveIntegrationService_AddDriveIntegrationServiceObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -255,27 +255,27 @@ class DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParamsDataView {
 };
 
 
-class DriveIntegrationService_GetMountPointPath_ParamsDataView {
+class DriveIntegrationService_DeprecatedGetMountPointPath_ParamsDataView {
  public:
-  DriveIntegrationService_GetMountPointPath_ParamsDataView() = default;
+  DriveIntegrationService_DeprecatedGetMountPointPath_ParamsDataView() = default;
 
-  DriveIntegrationService_GetMountPointPath_ParamsDataView(
-      internal::DriveIntegrationService_GetMountPointPath_Params_Data* data,
+  DriveIntegrationService_DeprecatedGetMountPointPath_ParamsDataView(
+      internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::DriveIntegrationService_GetMountPointPath_Params_Data* data_ = nullptr;
+  internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data* data_ = nullptr;
 };
 
 
-class DriveIntegrationService_GetMountPointPath_ResponseParamsDataView {
+class DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView {
  public:
-  DriveIntegrationService_GetMountPointPath_ResponseParamsDataView() = default;
+  DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView() = default;
 
-  DriveIntegrationService_GetMountPointPath_ResponseParamsDataView(
-      internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data* data,
+  DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView(
+      internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -291,7 +291,7 @@ class DriveIntegrationService_GetMountPointPath_ResponseParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data* data_ = nullptr;
+  internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -407,7 +407,7 @@ inline void DriveFsNativeMessageHostBridge_ConnectToExtension_ParamsDataView::Ge
 
 
 
-inline void DriveIntegrationService_GetMountPointPath_ResponseParamsDataView::GetDrivePathDataView(
+inline void DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView::GetDrivePathDataView(
     ::mojo_base::mojom::FilePathDataView* output) {
   auto pointer = data_->drive_path.Get();
   *output = ::mojo_base::mojom::FilePathDataView(pointer, message_);

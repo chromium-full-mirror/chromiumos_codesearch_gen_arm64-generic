@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PaymentInstruments>::value,
     "PaymentInstruments inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PaymentInstruments::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PaymentInstruments is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,7 +102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PaymentInstruments_C
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -149,7 +144,7 @@ return;
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -195,7 +190,7 @@ return;
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -241,7 +236,7 @@ return;
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -283,7 +278,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PaymentInstruments_K
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -325,7 +320,7 @@ return;
 
 
 
-PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(v8_receiver);
+PaymentInstruments* blink_receiver = V8PaymentInstruments::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

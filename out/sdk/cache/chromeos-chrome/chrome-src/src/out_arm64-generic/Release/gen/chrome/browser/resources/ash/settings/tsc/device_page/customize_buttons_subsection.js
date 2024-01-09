@@ -16,7 +16,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './customize_buttons_subsection.html.js';
 import { DragAndDropManager } from './drag_and_drop_manager.js';
-const MAX_BUTTON_NAME_INPUT_LENGTH = 64;
+const MAX_BUTTON_NAME_INPUT_LENGTH = 32;
 const CustomizeButtonsSubsectionElementBase = I18nMixin(PolymerElement);
 export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElementBase {
     constructor() {
@@ -79,6 +79,13 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
                 type: Boolean,
                 value: false,
             },
+            duplicateButtonName_: {
+                type: Boolean,
+                value: false,
+            },
+            hasLauncherButton: {
+                type: Boolean,
+            },
         };
     }
     connectedCallback() {
@@ -96,6 +103,7 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         this.selectedButtonName_ = this.selectedButton_.name;
         this.buttonNameInvalid_ = false;
         this.isSaveButtonDisabled_ = false;
+        this.duplicateButtonName_ = false;
         this.shouldShowRenamingDialog_ = true;
     }
     /**
@@ -116,13 +124,18 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         this.shouldShowRenamingDialog_ = false;
     }
     saveRenamingDialogClicked_() {
-        if (!this.isSaveButtonDisabled_) {
-            this.updateButtonName_();
-            this.shouldShowRenamingDialog_ = false;
+        if (this.isSaveButtonDisabled_) {
+            return;
         }
+        if (this.sameButtonNameExists_()) {
+            this.buttonNameInvalid_ = true;
+            this.duplicateButtonName_ = true;
+            return;
+        }
+        this.updateButtonName_();
+        this.shouldShowRenamingDialog_ = false;
     }
     onKeyDownInRenamingDialog_(event) {
-        this.buttonNameInvalid_ = false;
         if (event.key === 'Enter') {
             this.saveRenamingDialogClicked_();
         }
@@ -133,10 +146,23 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         // truncated, and then this method was called one more time.
         this.buttonNameInvalid_ =
             !!oldValue && oldValue.length > MAX_BUTTON_NAME_INPUT_LENGTH;
+        this.duplicateButtonName_ = false;
         // Truncate the name to maxInputLength.
         this.selectedButtonName_ =
             this.selectedButtonName_.substring(0, MAX_BUTTON_NAME_INPUT_LENGTH);
         this.isSaveButtonDisabled_ = this.selectedButtonName_ === '';
+    }
+    /**
+     * Button names within one device should be unique.
+     */
+    sameButtonNameExists_() {
+        for (const button of this.buttonRemappingList) {
+            if (button.name !== this.selectedButton_.name &&
+                button.name === this.selectedButtonName_) {
+                return true;
+            }
+        }
+        return false;
     }
     updateButtonName_() {
         if (!!this.selectedButtonName_ &&

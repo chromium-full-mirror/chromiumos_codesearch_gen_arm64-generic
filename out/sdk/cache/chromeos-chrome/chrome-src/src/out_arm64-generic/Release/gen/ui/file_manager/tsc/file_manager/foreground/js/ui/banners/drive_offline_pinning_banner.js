@@ -1,13 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { str, strf } from '../../../../common/js/util.js';
-import { VolumeManagerCommon } from '../../../../common/js/volume_manager_types.js';
+import { str, strf } from '../../../../common/js/translations.js';
+import { RootType, VolumeType } from '../../../../common/js/volume_manager_types.js';
 import { getTemplate } from './drive_offline_pinning_banner.html.js';
 import { EducationalBanner } from './educational_banner.js';
 /**
@@ -46,8 +41,8 @@ export class DriveOfflinePinningBanner extends EducationalBanner {
      */
     allowedVolumes() {
         return [{
-                type: VolumeManagerCommon.VolumeType.DRIVE,
-                root: VolumeManagerCommon.RootType.DRIVE,
+                type: VolumeType.DRIVE,
+                root: RootType.DRIVE,
             }];
     }
 }

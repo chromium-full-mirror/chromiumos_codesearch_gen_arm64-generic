@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MIDIConnectionEvent>::value,
     "MIDIConnectionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MIDIConnectionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIConnectionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIConnectionEvent.port.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIConnectionEvent* blink_receiver = V8MIDIConnectionEvent::ToWrappableUnsafe(v8_receiver);
+MIDIConnectionEvent* blink_receiver = V8MIDIConnectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIConnectionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIConnectionEvent* blink_receiver = V8MIDIConnectionEvent::ToWrappableUnsafe(v8_receiver);
+MIDIConnectionEvent* blink_receiver = V8MIDIConnectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

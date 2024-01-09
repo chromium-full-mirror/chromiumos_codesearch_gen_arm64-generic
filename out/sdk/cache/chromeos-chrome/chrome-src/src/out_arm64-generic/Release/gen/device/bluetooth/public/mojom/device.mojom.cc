@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -86,7 +87,7 @@ DeviceInfo::DeviceInfo()
       service_data_map() {}
 
 DeviceInfo::DeviceInfo(
-    const absl::optional<std::string>& name_in,
+    const std::optional<std::string>& name_in,
     const std::string& name_for_display_in,
     const std::string& address_in,
     bool is_gatt_connected_in,
@@ -112,7 +113,7 @@ void DeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -707,14 +708,17 @@ void DeviceProxy::Disconnect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Device::Disconnect");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -737,14 +741,17 @@ void DeviceProxy::GetInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Device::GetInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetInfo_Name, kFlags, 0, 0, nullptr);
@@ -768,14 +775,17 @@ void DeviceProxy::GetServices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Device::GetServices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetServices_Name, kFlags, 0, 0, nullptr);
@@ -806,14 +816,17 @@ void DeviceProxy::GetCharacteristics(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -858,14 +871,17 @@ void DeviceProxy::ReadValueForCharacteristic(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_ReadValueForCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -924,14 +940,17 @@ void DeviceProxy::WriteValueForCharacteristic(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_WriteValueForCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -1000,14 +1019,17 @@ void DeviceProxy::GetDescriptors(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetDescriptors_Name, kFlags, 0, 0, nullptr);
@@ -1066,14 +1088,17 @@ void DeviceProxy::ReadValueForDescriptor(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_ReadValueForDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -1146,14 +1171,17 @@ void DeviceProxy::WriteValueForDescriptor(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_WriteValueForDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -1309,7 +1337,8 @@ void Device_GetInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetInfo_Name, kFlags, 0, 0, nullptr);
@@ -1433,7 +1462,8 @@ void Device_GetServices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetServices_Name, kFlags, 0, 0, nullptr);
@@ -1517,7 +1547,7 @@ class Device_GetCharacteristics_ProxyToResponder : public ::mojo::internal::Prox
 #endif
 
   void Run(
-      absl::optional<std::vector<CharacteristicInfoPtr>> in_characteristics);
+      std::optional<std::vector<CharacteristicInfoPtr>> in_characteristics);
 };
 
 bool Device_GetCharacteristics_ForwardToCallback::Accept(
@@ -1530,7 +1560,7 @@ bool Device_GetCharacteristics_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<CharacteristicInfoPtr>> p_characteristics{};
+  std::optional<std::vector<CharacteristicInfoPtr>> p_characteristics{};
   Device_GetCharacteristics_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCharacteristics(&p_characteristics))
@@ -1549,7 +1579,7 @@ std::move(p_characteristics));
 }
 
 void Device_GetCharacteristics_ProxyToResponder::Run(
-    absl::optional<std::vector<CharacteristicInfoPtr>> in_characteristics) {
+    std::optional<std::vector<CharacteristicInfoPtr>> in_characteristics) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply bluetooth::mojom::Device::GetCharacteristics", "async_response_parameters",
@@ -1557,13 +1587,14 @@ void Device_GetCharacteristics_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("characteristics"), in_characteristics,
-                        "<value of type absl::optional<std::vector<CharacteristicInfoPtr>>>");
+                        "<value of type std::optional<std::vector<CharacteristicInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -1643,7 +1674,7 @@ class Device_ReadValueForCharacteristic_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      GattResult in_result, const absl::optional<std::vector<uint8_t>>& in_value);
+      GattResult in_result, const std::optional<std::vector<uint8_t>>& in_value);
 };
 
 bool Device_ReadValueForCharacteristic_ForwardToCallback::Accept(
@@ -1657,7 +1688,7 @@ bool Device_ReadValueForCharacteristic_ForwardToCallback::Accept(
   
   bool success = true;
   GattResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_value{};
+  std::optional<std::vector<uint8_t>> p_value{};
   Device_ReadValueForCharacteristic_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1679,7 +1710,7 @@ std::move(p_value));
 }
 
 void Device_ReadValueForCharacteristic_ProxyToResponder::Run(
-    GattResult in_result, const absl::optional<std::vector<uint8_t>>& in_value) {
+    GattResult in_result, const std::optional<std::vector<uint8_t>>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply bluetooth::mojom::Device::ReadValueForCharacteristic", "async_response_parameters",
@@ -1690,13 +1721,14 @@ void Device_ReadValueForCharacteristic_ProxyToResponder::Run(
                         "<value of type GattResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_ReadValueForCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -1824,7 +1856,8 @@ void Device_WriteValueForCharacteristic_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_WriteValueForCharacteristic_Name, kFlags, 0, 0, nullptr);
@@ -1897,7 +1930,7 @@ class Device_GetDescriptors_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      absl::optional<std::vector<DescriptorInfoPtr>> in_descriptors);
+      std::optional<std::vector<DescriptorInfoPtr>> in_descriptors);
 };
 
 bool Device_GetDescriptors_ForwardToCallback::Accept(
@@ -1910,7 +1943,7 @@ bool Device_GetDescriptors_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<DescriptorInfoPtr>> p_descriptors{};
+  std::optional<std::vector<DescriptorInfoPtr>> p_descriptors{};
   Device_GetDescriptors_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDescriptors(&p_descriptors))
@@ -1929,7 +1962,7 @@ std::move(p_descriptors));
 }
 
 void Device_GetDescriptors_ProxyToResponder::Run(
-    absl::optional<std::vector<DescriptorInfoPtr>> in_descriptors) {
+    std::optional<std::vector<DescriptorInfoPtr>> in_descriptors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply bluetooth::mojom::Device::GetDescriptors", "async_response_parameters",
@@ -1937,13 +1970,14 @@ void Device_GetDescriptors_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("descriptors"), in_descriptors,
-                        "<value of type absl::optional<std::vector<DescriptorInfoPtr>>>");
+                        "<value of type std::optional<std::vector<DescriptorInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_GetDescriptors_Name, kFlags, 0, 0, nullptr);
@@ -2023,7 +2057,7 @@ class Device_ReadValueForDescriptor_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      GattResult in_result, const absl::optional<std::vector<uint8_t>>& in_value);
+      GattResult in_result, const std::optional<std::vector<uint8_t>>& in_value);
 };
 
 bool Device_ReadValueForDescriptor_ForwardToCallback::Accept(
@@ -2037,7 +2071,7 @@ bool Device_ReadValueForDescriptor_ForwardToCallback::Accept(
   
   bool success = true;
   GattResult p_result{};
-  absl::optional<std::vector<uint8_t>> p_value{};
+  std::optional<std::vector<uint8_t>> p_value{};
   Device_ReadValueForDescriptor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2059,7 +2093,7 @@ std::move(p_value));
 }
 
 void Device_ReadValueForDescriptor_ProxyToResponder::Run(
-    GattResult in_result, const absl::optional<std::vector<uint8_t>>& in_value) {
+    GattResult in_result, const std::optional<std::vector<uint8_t>>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply bluetooth::mojom::Device::ReadValueForDescriptor", "async_response_parameters",
@@ -2070,13 +2104,14 @@ void Device_ReadValueForDescriptor_ProxyToResponder::Run(
                         "<value of type GattResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_ReadValueForDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -2204,7 +2239,8 @@ void Device_WriteValueForDescriptor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevice_WriteValueForDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -2562,26 +2598,26 @@ std::move(p_value), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceValidationInfo[] = {
-    {&internal::Device_Disconnect_Params_Data::Validate,
+    { &internal::Device_Disconnect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Device_GetInfo_Params_Data::Validate,
+    { &internal::Device_GetInfo_Params_Data::Validate,
      &internal::Device_GetInfo_ResponseParams_Data::Validate},
-    {&internal::Device_GetServices_Params_Data::Validate,
+    { &internal::Device_GetServices_Params_Data::Validate,
      &internal::Device_GetServices_ResponseParams_Data::Validate},
-    {&internal::Device_GetCharacteristics_Params_Data::Validate,
+    { &internal::Device_GetCharacteristics_Params_Data::Validate,
      &internal::Device_GetCharacteristics_ResponseParams_Data::Validate},
-    {&internal::Device_ReadValueForCharacteristic_Params_Data::Validate,
+    { &internal::Device_ReadValueForCharacteristic_Params_Data::Validate,
      &internal::Device_ReadValueForCharacteristic_ResponseParams_Data::Validate},
-    {&internal::Device_WriteValueForCharacteristic_Params_Data::Validate,
+    { &internal::Device_WriteValueForCharacteristic_Params_Data::Validate,
      &internal::Device_WriteValueForCharacteristic_ResponseParams_Data::Validate},
-    {&internal::Device_GetDescriptors_Params_Data::Validate,
+    { &internal::Device_GetDescriptors_Params_Data::Validate,
      &internal::Device_GetDescriptors_ResponseParams_Data::Validate},
-    {&internal::Device_ReadValueForDescriptor_Params_Data::Validate,
+    { &internal::Device_ReadValueForDescriptor_Params_Data::Validate,
      &internal::Device_ReadValueForDescriptor_ResponseParams_Data::Validate},
-    {&internal::Device_WriteValueForDescriptor_Params_Data::Validate,
+    { &internal::Device_WriteValueForDescriptor_Params_Data::Validate,
      &internal::Device_WriteValueForDescriptor_ResponseParams_Data::Validate},
 };
 
@@ -2788,14 +2824,14 @@ std::vector<ServiceInfoPtr> DeviceAsyncWaiter::GetServices(
 }
 
 void DeviceAsyncWaiter::GetCharacteristics(
-    const std::string& service_id, absl::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics) {
+    const std::string& service_id, std::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics) {
   base::RunLoop loop;
   proxy_->GetCharacteristics(std::move(service_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics
+             std::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics
 ,
-             absl::optional<std::vector<CharacteristicInfoPtr>> characteristics) {*out_characteristics = std::move(characteristics);
+             std::optional<std::vector<CharacteristicInfoPtr>> characteristics) {*out_characteristics = std::move(characteristics);
             loop->Quit();
           },
           &loop,
@@ -2803,25 +2839,25 @@ void DeviceAsyncWaiter::GetCharacteristics(
   loop.Run();
 }
 
-absl::optional<std::vector<CharacteristicInfoPtr>> DeviceAsyncWaiter::GetCharacteristics(
+std::optional<std::vector<CharacteristicInfoPtr>> DeviceAsyncWaiter::GetCharacteristics(
     const std::string& service_id) {
-  absl::optional<std::vector<CharacteristicInfoPtr>> async_wait_result;
+  std::optional<std::vector<CharacteristicInfoPtr>> async_wait_result;
   GetCharacteristics(std::move(service_id),&async_wait_result);
   return async_wait_result;
 }
 
 void DeviceAsyncWaiter::ReadValueForCharacteristic(
-    const std::string& service_id, const std::string& characteristic_id, GattResult* out_result, absl::optional<std::vector<uint8_t>>* out_value) {
+    const std::string& service_id, const std::string& characteristic_id, GattResult* out_result, std::optional<std::vector<uint8_t>>* out_value) {
   base::RunLoop loop;
   proxy_->ReadValueForCharacteristic(std::move(service_id),std::move(characteristic_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              GattResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_value
+             std::optional<std::vector<uint8_t>>* out_value
 ,
              GattResult result,
-             const absl::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
+             const std::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
             loop->Quit();
           },
           &loop,
@@ -2856,14 +2892,14 @@ GattResult DeviceAsyncWaiter::WriteValueForCharacteristic(
 }
 
 void DeviceAsyncWaiter::GetDescriptors(
-    const std::string& service_id, const std::string& characteristic_id, absl::optional<std::vector<DescriptorInfoPtr>>* out_descriptors) {
+    const std::string& service_id, const std::string& characteristic_id, std::optional<std::vector<DescriptorInfoPtr>>* out_descriptors) {
   base::RunLoop loop;
   proxy_->GetDescriptors(std::move(service_id),std::move(characteristic_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<DescriptorInfoPtr>>* out_descriptors
+             std::optional<std::vector<DescriptorInfoPtr>>* out_descriptors
 ,
-             absl::optional<std::vector<DescriptorInfoPtr>> descriptors) {*out_descriptors = std::move(descriptors);
+             std::optional<std::vector<DescriptorInfoPtr>> descriptors) {*out_descriptors = std::move(descriptors);
             loop->Quit();
           },
           &loop,
@@ -2871,25 +2907,25 @@ void DeviceAsyncWaiter::GetDescriptors(
   loop.Run();
 }
 
-absl::optional<std::vector<DescriptorInfoPtr>> DeviceAsyncWaiter::GetDescriptors(
+std::optional<std::vector<DescriptorInfoPtr>> DeviceAsyncWaiter::GetDescriptors(
     const std::string& service_id, const std::string& characteristic_id) {
-  absl::optional<std::vector<DescriptorInfoPtr>> async_wait_result;
+  std::optional<std::vector<DescriptorInfoPtr>> async_wait_result;
   GetDescriptors(std::move(service_id),std::move(characteristic_id),&async_wait_result);
   return async_wait_result;
 }
 
 void DeviceAsyncWaiter::ReadValueForDescriptor(
-    const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, GattResult* out_result, absl::optional<std::vector<uint8_t>>* out_value) {
+    const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, GattResult* out_result, std::optional<std::vector<uint8_t>>* out_value) {
   base::RunLoop loop;
   proxy_->ReadValueForDescriptor(std::move(service_id),std::move(characteristic_id),std::move(descriptor_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              GattResult* out_result
 ,
-             absl::optional<std::vector<uint8_t>>* out_value
+             std::optional<std::vector<uint8_t>>* out_value
 ,
              GattResult result,
-             const absl::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
+             const std::optional<std::vector<uint8_t>>& value) {*out_result = std::move(result);*out_value = std::move(value);
             loop->Quit();
           },
           &loop,

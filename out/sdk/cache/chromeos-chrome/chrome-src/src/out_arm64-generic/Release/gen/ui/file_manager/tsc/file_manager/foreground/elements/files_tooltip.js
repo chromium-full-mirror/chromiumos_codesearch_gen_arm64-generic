@@ -65,7 +65,7 @@ export class FilesTooltip extends PolymerElement {
              */
             showTimeout: {
                 type: Number,
-                value: 500,
+                value: 500, // ms
                 readOnly: true,
             },
             /**
@@ -73,7 +73,7 @@ export class FilesTooltip extends PolymerElement {
              */
             hideTimeout: {
                 type: Number,
-                value: 500,
+                value: 500, // ms
                 readOnly: true,
             },
         };

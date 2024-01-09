@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -210,14 +211,17 @@ void ProcessMetadataProxy::SetPID(
                         "<value of type ::base::ProcessId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessMetadata_SetPID_Name, kFlags, 0, 0, nullptr);
@@ -296,10 +300,10 @@ bool ProcessMetadataStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProcessMetadataValidationInfo[] = {
-    {&internal::ProcessMetadata_SetPID_Params_Data::Validate,
+    { &internal::ProcessMetadata_SetPID_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -532,14 +536,17 @@ void ConnectorProxy::BindInterface(
                         "<value of type BindInterfacePriority>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_BindInterface_Name, kFlags, 0, 0, nullptr);
@@ -600,14 +607,17 @@ void ConnectorProxy::QueryService(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_QueryService_Name, kFlags, 0, 0, nullptr);
@@ -649,14 +659,17 @@ void ConnectorProxy::WarmService(
                         "<value of type const ::service_manager::ServiceFilter&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_WarmService_Name, kFlags, 0, 0, nullptr);
@@ -704,14 +717,17 @@ void ConnectorProxy::RegisterServiceInstance(
                         "<value of type ::mojo::PendingReceiver<ProcessMetadata>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_RegisterServiceInstance_Name, kFlags, 0, 0, nullptr);
@@ -761,14 +777,17 @@ void ConnectorProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<Connector>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_Clone_Name, kFlags, 0, 0, nullptr);
@@ -837,7 +856,7 @@ class Connector_BindInterface_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      ConnectResult in_result, const absl::optional<::service_manager::Identity>& in_identity);
+      ConnectResult in_result, const std::optional<::service_manager::Identity>& in_identity);
 };
 
 bool Connector_BindInterface_ForwardToCallback::Accept(
@@ -851,7 +870,7 @@ bool Connector_BindInterface_ForwardToCallback::Accept(
   
   bool success = true;
   ConnectResult p_result{};
-  absl::optional<::service_manager::Identity> p_identity{};
+  std::optional<::service_manager::Identity> p_identity{};
   Connector_BindInterface_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -873,7 +892,7 @@ std::move(p_identity));
 }
 
 void Connector_BindInterface_ProxyToResponder::Run(
-    ConnectResult in_result, const absl::optional<::service_manager::Identity>& in_identity) {
+    ConnectResult in_result, const std::optional<::service_manager::Identity>& in_identity) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply service_manager::mojom::Connector::BindInterface", "async_response_parameters",
@@ -884,13 +903,14 @@ void Connector_BindInterface_ProxyToResponder::Run(
                         "<value of type ConnectResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("identity"), in_identity,
-                        "<value of type const absl::optional<::service_manager::Identity>&>");
+                        "<value of type const std::optional<::service_manager::Identity>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_BindInterface_Name, kFlags, 0, 0, nullptr);
@@ -1016,7 +1036,8 @@ void Connector_QueryService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_QueryService_Name, kFlags, 0, 0, nullptr);
@@ -1094,7 +1115,7 @@ class Connector_WarmService_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      ConnectResult in_result, const absl::optional<::service_manager::Identity>& in_identity);
+      ConnectResult in_result, const std::optional<::service_manager::Identity>& in_identity);
 };
 
 bool Connector_WarmService_ForwardToCallback::Accept(
@@ -1108,7 +1129,7 @@ bool Connector_WarmService_ForwardToCallback::Accept(
   
   bool success = true;
   ConnectResult p_result{};
-  absl::optional<::service_manager::Identity> p_identity{};
+  std::optional<::service_manager::Identity> p_identity{};
   Connector_WarmService_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1130,7 +1151,7 @@ std::move(p_identity));
 }
 
 void Connector_WarmService_ProxyToResponder::Run(
-    ConnectResult in_result, const absl::optional<::service_manager::Identity>& in_identity) {
+    ConnectResult in_result, const std::optional<::service_manager::Identity>& in_identity) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply service_manager::mojom::Connector::WarmService", "async_response_parameters",
@@ -1141,13 +1162,14 @@ void Connector_WarmService_ProxyToResponder::Run(
                         "<value of type ConnectResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("identity"), in_identity,
-                        "<value of type const absl::optional<::service_manager::Identity>&>");
+                        "<value of type const std::optional<::service_manager::Identity>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_WarmService_Name, kFlags, 0, 0, nullptr);
@@ -1273,7 +1295,8 @@ void Connector_RegisterServiceInstance_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnector_RegisterServiceInstance_Name, kFlags, 0, 0, nullptr);
@@ -1503,18 +1526,18 @@ std::move(p_metadata_receiver), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConnectorValidationInfo[] = {
-    {&internal::Connector_BindInterface_Params_Data::Validate,
+    { &internal::Connector_BindInterface_Params_Data::Validate,
      &internal::Connector_BindInterface_ResponseParams_Data::Validate},
-    {&internal::Connector_QueryService_Params_Data::Validate,
+    { &internal::Connector_QueryService_Params_Data::Validate,
      &internal::Connector_QueryService_ResponseParams_Data::Validate},
-    {&internal::Connector_WarmService_Params_Data::Validate,
+    { &internal::Connector_WarmService_Params_Data::Validate,
      &internal::Connector_WarmService_ResponseParams_Data::Validate},
-    {&internal::Connector_RegisterServiceInstance_Params_Data::Validate,
+    { &internal::Connector_RegisterServiceInstance_Params_Data::Validate,
      &internal::Connector_RegisterServiceInstance_ResponseParams_Data::Validate},
-    {&internal::Connector_Clone_Params_Data::Validate,
+    { &internal::Connector_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1610,17 +1633,17 @@ ConnectorAsyncWaiter::ConnectorAsyncWaiter(
 ConnectorAsyncWaiter::~ConnectorAsyncWaiter() = default;
 
 void ConnectorAsyncWaiter::BindInterface(
-    const ::service_manager::ServiceFilter& filter, const std::string& interface_name, ::mojo::ScopedMessagePipeHandle interface_pipe, BindInterfacePriority priority, ConnectResult* out_result, absl::optional<::service_manager::Identity>* out_identity) {
+    const ::service_manager::ServiceFilter& filter, const std::string& interface_name, ::mojo::ScopedMessagePipeHandle interface_pipe, BindInterfacePriority priority, ConnectResult* out_result, std::optional<::service_manager::Identity>* out_identity) {
   base::RunLoop loop;
   proxy_->BindInterface(std::move(filter),std::move(interface_name),std::move(interface_pipe),std::move(priority),
       base::BindOnce(
           [](base::RunLoop* loop,
              ConnectResult* out_result
 ,
-             absl::optional<::service_manager::Identity>* out_identity
+             std::optional<::service_manager::Identity>* out_identity
 ,
              ConnectResult result,
-             const absl::optional<::service_manager::Identity>& identity) {*out_result = std::move(result);*out_identity = std::move(identity);
+             const std::optional<::service_manager::Identity>& identity) {*out_result = std::move(result);*out_identity = std::move(identity);
             loop->Quit();
           },
           &loop,
@@ -1655,17 +1678,17 @@ ServiceInfoPtr ConnectorAsyncWaiter::QueryService(
 }
 
 void ConnectorAsyncWaiter::WarmService(
-    const ::service_manager::ServiceFilter& filter, ConnectResult* out_result, absl::optional<::service_manager::Identity>* out_identity) {
+    const ::service_manager::ServiceFilter& filter, ConnectResult* out_result, std::optional<::service_manager::Identity>* out_identity) {
   base::RunLoop loop;
   proxy_->WarmService(std::move(filter),
       base::BindOnce(
           [](base::RunLoop* loop,
              ConnectResult* out_result
 ,
-             absl::optional<::service_manager::Identity>* out_identity
+             std::optional<::service_manager::Identity>* out_identity
 ,
              ConnectResult result,
-             const absl::optional<::service_manager::Identity>& identity) {*out_result = std::move(result);*out_identity = std::move(identity);
+             const std::optional<::service_manager::Identity>& identity) {*out_result = std::move(result);*out_identity = std::move(identity);
             loop->Quit();
           },
           &loop,

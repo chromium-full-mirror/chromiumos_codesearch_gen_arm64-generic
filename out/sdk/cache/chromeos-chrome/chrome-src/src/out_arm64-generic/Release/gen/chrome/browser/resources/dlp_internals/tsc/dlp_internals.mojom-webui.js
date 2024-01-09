@@ -40,6 +40,80 @@ export var Level;
     Level[Level["kBlock"] = 3] = "kBlock";
     Level[Level["kAllow"] = 4] = "kAllow";
 })(Level || (Level = {}));
+export class ReportingObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'dlp_internals.mojom.ReportingObserver', scope);
+    }
+}
+export class ReportingObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(ReportingObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onReportEvent(event) {
+        this.proxy.sendMessage(0, ReportingObserver_OnReportEvent_ParamsSpec.$, null, [
+            event
+        ]);
+    }
+}
+;
+/**
+ * An object which receives request messages for the ReportingObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class ReportingObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ReportingObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, ReportingObserver_OnReportEvent_ParamsSpec.$, null, impl.onReportEvent.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+export class ReportingObserver {
+    static get $interfaceName() {
+        return "dlp_internals.mojom.ReportingObserver";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new ReportingObserverRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the ReportingObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class ReportingObserverCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ReportingObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onReportEvent =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, ReportingObserver_OnReportEvent_ParamsSpec.$, null, this.onReportEvent.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
 export class PageHandlerPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -61,6 +135,19 @@ export class PageHandlerRemote {
     getContentRestrictionsInfo() {
         return this.proxy.sendMessage(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, []);
     }
+    observeReporting(observer) {
+        this.proxy.sendMessage(2, PageHandler_ObserveReporting_ParamsSpec.$, null, [
+            observer
+        ]);
+    }
+    getFilesDatabaseEntries() {
+        return this.proxy.sendMessage(3, PageHandler_GetFilesDatabaseEntries_ParamsSpec.$, PageHandler_GetFilesDatabaseEntries_ResponseParamsSpec.$, []);
+    }
+    getFileInode(fileName) {
+        return this.proxy.sendMessage(4, PageHandler_GetFileInode_ParamsSpec.$, PageHandler_GetFileInode_ResponseParamsSpec.$, [
+            fileName
+        ]);
+    }
 }
 ;
 /**
@@ -74,6 +161,9 @@ export class PageHandlerReceiver {
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_GetClipboardDataSource_ParamsSpec.$, PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, impl.getClipboardDataSource.bind(impl));
         this.helper_internal_.registerHandler(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, impl.getContentRestrictionsInfo.bind(impl));
+        this.helper_internal_.registerHandler(2, PageHandler_ObserveReporting_ParamsSpec.$, null, impl.observeReporting.bind(impl));
+        this.helper_internal_.registerHandler(3, PageHandler_GetFilesDatabaseEntries_ParamsSpec.$, PageHandler_GetFilesDatabaseEntries_ResponseParamsSpec.$, impl.getFilesDatabaseEntries.bind(impl));
+        this.helper_internal_.registerHandler(4, PageHandler_GetFileInode_ParamsSpec.$, PageHandler_GetFileInode_ResponseParamsSpec.$, impl.getFileInode.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -109,6 +199,15 @@ export class PageHandlerCallbackRouter {
         this.getContentRestrictionsInfo =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, this.getContentRestrictionsInfo.createReceiverHandler(true /* expectsResponse */));
+        this.observeReporting =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, PageHandler_ObserveReporting_ParamsSpec.$, null, this.observeReporting.createReceiverHandler(false /* expectsResponse */));
+        this.getFilesDatabaseEntries =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(3, PageHandler_GetFilesDatabaseEntries_ParamsSpec.$, PageHandler_GetFilesDatabaseEntries_ResponseParamsSpec.$, this.getFilesDatabaseEntries.createReceiverHandler(true /* expectsResponse */));
+        this.getFileInode =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, PageHandler_GetFileInode_ParamsSpec.$, PageHandler_GetFileInode_ResponseParamsSpec.$, this.getFileInode.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -123,10 +222,19 @@ export const DataTransferEndpointSpec = { $: {} };
 export const ContentRestrictionInfoSpec = { $: {} };
 export const RenderFrameHostInfoSpec = { $: {} };
 export const WebContentsInfoSpec = { $: {} };
+export const EventDestinationSpec = { $: {} };
+export const DlpEventSpec = { $: {} };
+export const FileDatabaseEntrySpec = { $: {} };
+export const ReportingObserver_OnReportEvent_ParamsSpec = { $: {} };
 export const PageHandler_GetClipboardDataSource_ParamsSpec = { $: {} };
 export const PageHandler_GetClipboardDataSource_ResponseParamsSpec = { $: {} };
 export const PageHandler_GetContentRestrictionsInfo_ParamsSpec = { $: {} };
 export const PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec = { $: {} };
+export const PageHandler_ObserveReporting_ParamsSpec = { $: {} };
+export const PageHandler_GetFilesDatabaseEntries_ParamsSpec = { $: {} };
+export const PageHandler_GetFilesDatabaseEntries_ResponseParamsSpec = { $: {} };
+export const PageHandler_GetFileInode_ParamsSpec = { $: {} };
+export const PageHandler_GetFileInode_ResponseParamsSpec = { $: {} };
 mojo.internal.Struct(DataTransferEndpointSpec.$, 'DataTransferEndpoint', [
     mojo.internal.StructField('type', 0, 0, EndpointTypeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('url', 8, 0, url_mojom_UrlSpec.$, null, true /* nullable */, 0),
@@ -145,6 +253,133 @@ mojo.internal.Struct(WebContentsInfoSpec.$, 'WebContentsInfo', [
     mojo.internal.StructField('restrictionsInfo', 8, 0, mojo.internal.Array(ContentRestrictionInfoSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('framesInfo', 16, 0, mojo.internal.Array(RenderFrameHostInfoSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 32],]);
+export const EventDestination_ComponentSpec = { $: mojo.internal.Enum() };
+export var EventDestination_Component;
+(function (EventDestination_Component) {
+    EventDestination_Component[EventDestination_Component["MIN_VALUE"] = 0] = "MIN_VALUE";
+    EventDestination_Component[EventDestination_Component["MAX_VALUE"] = 6] = "MAX_VALUE";
+    EventDestination_Component[EventDestination_Component["kUndefinedComponent"] = 0] = "kUndefinedComponent";
+    EventDestination_Component[EventDestination_Component["kArc"] = 1] = "kArc";
+    EventDestination_Component[EventDestination_Component["kCrostini"] = 2] = "kCrostini";
+    EventDestination_Component[EventDestination_Component["kPluginVm"] = 3] = "kPluginVm";
+    EventDestination_Component[EventDestination_Component["kUsb"] = 4] = "kUsb";
+    EventDestination_Component[EventDestination_Component["kDrive"] = 5] = "kDrive";
+    EventDestination_Component[EventDestination_Component["kOnedrive"] = 6] = "kOnedrive";
+})(EventDestination_Component || (EventDestination_Component = {}));
+mojo.internal.Struct(EventDestinationSpec.$, 'EventDestination', [
+    mojo.internal.StructField('urlPattern', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('component_$flag', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "component_$value",
+        originalFieldName: "component",
+    }),
+    mojo.internal.StructField('component_$value', 12, 0, EventDestination_ComponentSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "component",
+    }),
+], [[0, 24],]);
+export const DlpEvent_RestrictionSpec = { $: mojo.internal.Enum() };
+export var DlpEvent_Restriction;
+(function (DlpEvent_Restriction) {
+    DlpEvent_Restriction[DlpEvent_Restriction["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DlpEvent_Restriction[DlpEvent_Restriction["MAX_VALUE"] = 6] = "MAX_VALUE";
+    DlpEvent_Restriction[DlpEvent_Restriction["kUndefinedRestriction"] = 0] = "kUndefinedRestriction";
+    DlpEvent_Restriction[DlpEvent_Restriction["kClipboard"] = 1] = "kClipboard";
+    DlpEvent_Restriction[DlpEvent_Restriction["kScreenshot"] = 2] = "kScreenshot";
+    DlpEvent_Restriction[DlpEvent_Restriction["kScreencast"] = 3] = "kScreencast";
+    DlpEvent_Restriction[DlpEvent_Restriction["kPrinting"] = 4] = "kPrinting";
+    DlpEvent_Restriction[DlpEvent_Restriction["kEprivacy"] = 5] = "kEprivacy";
+    DlpEvent_Restriction[DlpEvent_Restriction["kFiles"] = 6] = "kFiles";
+})(DlpEvent_Restriction || (DlpEvent_Restriction = {}));
+export const DlpEvent_ModeSpec = { $: mojo.internal.Enum() };
+export var DlpEvent_Mode;
+(function (DlpEvent_Mode) {
+    DlpEvent_Mode[DlpEvent_Mode["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DlpEvent_Mode[DlpEvent_Mode["MAX_VALUE"] = 4] = "MAX_VALUE";
+    DlpEvent_Mode[DlpEvent_Mode["kUndefinedMode"] = 0] = "kUndefinedMode";
+    DlpEvent_Mode[DlpEvent_Mode["kBlock"] = 1] = "kBlock";
+    DlpEvent_Mode[DlpEvent_Mode["kReport"] = 2] = "kReport";
+    DlpEvent_Mode[DlpEvent_Mode["kWarn"] = 3] = "kWarn";
+    DlpEvent_Mode[DlpEvent_Mode["kWarnProceed"] = 4] = "kWarnProceed";
+})(DlpEvent_Mode || (DlpEvent_Mode = {}));
+export const DlpEvent_UserTypeSpec = { $: mojo.internal.Enum() };
+export var DlpEvent_UserType;
+(function (DlpEvent_UserType) {
+    DlpEvent_UserType[DlpEvent_UserType["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DlpEvent_UserType[DlpEvent_UserType["MAX_VALUE"] = 3] = "MAX_VALUE";
+    DlpEvent_UserType[DlpEvent_UserType["kUndefinedUserType"] = 0] = "kUndefinedUserType";
+    DlpEvent_UserType[DlpEvent_UserType["kRegular"] = 1] = "kRegular";
+    DlpEvent_UserType[DlpEvent_UserType["kManagedGuest"] = 2] = "kManagedGuest";
+    DlpEvent_UserType[DlpEvent_UserType["kKiosk"] = 3] = "kKiosk";
+})(DlpEvent_UserType || (DlpEvent_UserType = {}));
+mojo.internal.Struct(DlpEventSpec.$, 'DlpEvent', [
+    mojo.internal.StructField('sourcePattern', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('destination', 8, 0, EventDestinationSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('restriction_$flag', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "restriction_$value",
+        originalFieldName: "restriction",
+    }),
+    mojo.internal.StructField('restriction_$value', 20, 0, DlpEvent_RestrictionSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "restriction",
+    }),
+    mojo.internal.StructField('mode_$flag', 16, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "mode_$value",
+        originalFieldName: "mode",
+    }),
+    mojo.internal.StructField('mode_$value', 24, 0, DlpEvent_ModeSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "mode",
+    }),
+    mojo.internal.StructField('timestamp_micro_$flag', 16, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "timestamp_micro_$value",
+        originalFieldName: "timestampMicro",
+    }),
+    mojo.internal.StructField('timestamp_micro_$value', 32, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "timestampMicro",
+    }),
+    mojo.internal.StructField('user_type_$flag', 16, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "user_type_$value",
+        originalFieldName: "userType",
+    }),
+    mojo.internal.StructField('user_type_$value', 28, 0, DlpEvent_UserTypeSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "userType",
+    }),
+    mojo.internal.StructField('contentName', 40, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('triggeredRuleName', 48, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('triggeredRuleId', 56, 0, mojo.internal.String, null, true /* nullable */, 0),
+], [[0, 72],]);
+mojo.internal.Struct(FileDatabaseEntrySpec.$, 'FileDatabaseEntry', [
+    mojo.internal.StructField('inode_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "inode_$value",
+        originalFieldName: "inode",
+    }),
+    mojo.internal.StructField('inode_$value', 8, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "inode",
+    }),
+    mojo.internal.StructField('crtime_$flag', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "crtime_$value",
+        originalFieldName: "crtime",
+    }),
+    mojo.internal.StructField('crtime_$value', 16, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "crtime",
+    }),
+    mojo.internal.StructField('sourceUrl', 24, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('referrerUrl', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
+], [[0, 48],]);
+mojo.internal.Struct(ReportingObserver_OnReportEvent_ParamsSpec.$, 'ReportingObserver_OnReportEvent_Params', [
+    mojo.internal.StructField('event', 0, 0, DlpEventSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(PageHandler_GetClipboardDataSource_ParamsSpec.$, 'PageHandler_GetClipboardDataSource_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, 'PageHandler_GetClipboardDataSource_ResponseParams', [
     mojo.internal.StructField('source', 0, 0, DataTransferEndpointSpec.$, null, true /* nullable */, 0),
@@ -152,4 +387,17 @@ mojo.internal.Struct(PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, 'P
 mojo.internal.Struct(PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, 'PageHandler_GetContentRestrictionsInfo_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, 'PageHandler_GetContentRestrictionsInfo_ResponseParams', [
     mojo.internal.StructField('webContentsInfo', 0, 0, mojo.internal.Array(WebContentsInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_ObserveReporting_ParamsSpec.$, 'PageHandler_ObserveReporting_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(ReportingObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetFilesDatabaseEntries_ParamsSpec.$, 'PageHandler_GetFilesDatabaseEntries_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetFilesDatabaseEntries_ResponseParamsSpec.$, 'PageHandler_GetFilesDatabaseEntries_ResponseParams', [
+    mojo.internal.StructField('dbEntries', 0, 0, mojo.internal.Array(FileDatabaseEntrySpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetFileInode_ParamsSpec.$, 'PageHandler_GetFileInode_Params', [
+    mojo.internal.StructField('fileName', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetFileInode_ResponseParamsSpec.$, 'PageHandler_GetFileInode_ResponseParams', [
+    mojo.internal.StructField('inode', 0, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
 ], [[0, 16],]);

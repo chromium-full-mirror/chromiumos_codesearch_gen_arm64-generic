@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGCircleElement>::value,
     "SVGCircleElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGCircleElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGCircleElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(v8_receiver);
+SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cx();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(v8_receiver);
+SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(v8_receiver);
+SVGCircleElement* blink_receiver = V8SVGCircleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->r();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

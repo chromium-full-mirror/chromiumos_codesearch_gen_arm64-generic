@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-unshift-tq-csa.h"
 #include "torque-generated/src/builtins/array-reverse-tq-csa.h"
@@ -163,7 +164,7 @@ TNode<Number> GenericArrayUnshift_0(compiler::CodeAssemblerState* state_, TNode<
     tmp12 = CodeStubAssembler(state_).NumberAdd(TNode<Number>{phi_bb6_9}, TNode<Number>{tmp2});
     tmp13 = FromConstexpr_Number_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
     tmp14 = CodeStubAssembler(state_).NumberSub(TNode<Number>{tmp12}, TNode<Number>{tmp13});
-    tmp15 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, tmp0, tmp11);
+    tmp15 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, tmp0, tmp11);
     tmp16 = True_0(state_);
     tmp17 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp15}, TNode<HeapObject>{tmp16});
     ca_.Branch(tmp17, &block9, std::vector<compiler::Node*>{phi_bb6_9}, &block10, std::vector<compiler::Node*>{phi_bb6_9});
@@ -175,7 +176,7 @@ TNode<Number> GenericArrayUnshift_0(compiler::CodeAssemblerState* state_, TNode<
   if (block9.is_used()) {
     ca_.Bind(&block9, &phi_bb9_9);
     tmp18 = CodeStubAssembler(state_).GetProperty(TNode<Context>{p_context}, TNode<Object>{tmp0}, TNode<Object>{tmp11});
-    tmp19 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), p_context, tmp0, tmp14, tmp18);
+    tmp19 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp0, tmp14, tmp18);
     ca_.Goto(&block11, phi_bb9_9);
   }
 
@@ -185,7 +186,7 @@ TNode<Number> GenericArrayUnshift_0(compiler::CodeAssemblerState* state_, TNode<
   if (block10.is_used()) {
     ca_.Bind(&block10, &phi_bb10_9);
     tmp20 = FromConstexpr_LanguageModeSmi_constexpr_LanguageMode_0(state_, LanguageMode::kStrict);
-    tmp21 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kDeleteProperty), p_context, tmp0, tmp14, tmp20);
+    tmp21 = ca_.CallBuiltin<Boolean>(Builtin::kDeleteProperty, p_context, tmp0, tmp14, tmp20);
     ca_.Goto(&block11, phi_bb10_9);
   }
 
@@ -227,7 +228,7 @@ TNode<Number> GenericArrayUnshift_0(compiler::CodeAssemblerState* state_, TNode<
     ca_.Bind(&block12, &phi_bb12_9, &phi_bb12_10);
     tmp26 = Convert_intptr_Smi_0(state_, TNode<Smi>{phi_bb12_10});
     tmp27 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{p_arguments.frame}, TNode<RawPtrT>{p_arguments.base}, TNode<IntPtrT>{p_arguments.length}, TNode<IntPtrT>{p_arguments.actual_count}}, TNode<IntPtrT>{tmp26});
-    tmp28 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), p_context, tmp0, phi_bb12_10, tmp27);
+    tmp28 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp0, phi_bb12_10, tmp27);
     tmp29 = FromConstexpr_Smi_constexpr_int31_0(state_, 1);
     tmp30 = CodeStubAssembler(state_).SmiAdd(TNode<Smi>{phi_bb12_10}, TNode<Smi>{tmp29});
     ca_.Goto(&block14, phi_bb12_9, tmp30);
@@ -247,7 +248,7 @@ TNode<Number> GenericArrayUnshift_0(compiler::CodeAssemblerState* state_, TNode<
     ca_.Bind(&block3);
     tmp31 = CodeStubAssembler(state_).NumberAdd(TNode<Number>{tmp1}, TNode<Number>{tmp2});
     tmp32 = kLengthString_0(state_);
-    tmp33 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), p_context, tmp0, tmp32, tmp31);
+    tmp33 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp0, tmp32, tmp31);
     ca_.Goto(&block15);
   }
 

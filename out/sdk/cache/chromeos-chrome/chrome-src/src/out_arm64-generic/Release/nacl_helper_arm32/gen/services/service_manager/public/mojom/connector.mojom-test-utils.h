@@ -49,13 +49,13 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) ConnectorAsyncWaiter {
 
   ~ConnectorAsyncWaiter();
   void BindInterface(
-      const ::service_manager::ServiceFilter& filter, const std::string& interface_name, ::mojo::ScopedMessagePipeHandle interface_pipe, BindInterfacePriority priority, ConnectResult* out_result, absl::optional<::service_manager::Identity>* out_identity);
+      const ::service_manager::ServiceFilter& filter, const std::string& interface_name, ::mojo::ScopedMessagePipeHandle interface_pipe, BindInterfacePriority priority, ConnectResult* out_result, std::optional<::service_manager::Identity>* out_identity);
   
   void QueryService(
       const std::string& service_name, ServiceInfoPtr* out_info);
   ServiceInfoPtr QueryService(const std::string& service_name);
   void WarmService(
-      const ::service_manager::ServiceFilter& filter, ConnectResult* out_result, absl::optional<::service_manager::Identity>* out_identity);
+      const ::service_manager::ServiceFilter& filter, ConnectResult* out_result, std::optional<::service_manager::Identity>* out_identity);
   
   void RegisterServiceInstance(
       const ::service_manager::Identity& identity, ::mojo::ScopedMessagePipeHandle service, ::mojo::PendingReceiver<ProcessMetadata> metadata_receiver, ConnectResult* out_result);

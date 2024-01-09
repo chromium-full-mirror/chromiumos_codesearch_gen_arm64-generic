@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/accessibility_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -44,8 +45,8 @@ AlertInfo::AlertInfo()
  {}
 
 AlertInfo::~AlertInfo() = default;
-AlertInfo::AlertInfo(AlertInfo&& rhs) = default;
-AlertInfo& AlertInfo::operator=(AlertInfo&& rhs) = default;
+AlertInfo::AlertInfo(AlertInfo&& rhs) noexcept = default;
+AlertInfo& AlertInfo::operator=(AlertInfo&& rhs) noexcept = default;
 AlertInfo AlertInfo::Clone() const {
   AlertInfo out;
   out.message = message;
@@ -80,34 +81,21 @@ bool AlertInfo::Populate(
 }
 
 // static
-std::unique_ptr<AlertInfo> AlertInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AlertInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AlertInfo> AlertInfo::FromValue(const base::Value::Dict& value) {
+  AlertInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AlertInfo> AlertInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AlertInfo> AlertInfo::FromValue(const base::Value& value) {
   AlertInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AlertInfo> AlertInfo::FromValue(const base::Value& value) {
-  AlertInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -129,8 +117,8 @@ width(0),
 height(0) {}
 
 ScreenRect::~ScreenRect() = default;
-ScreenRect::ScreenRect(ScreenRect&& rhs) = default;
-ScreenRect& ScreenRect::operator=(ScreenRect&& rhs) = default;
+ScreenRect::ScreenRect(ScreenRect&& rhs) noexcept = default;
+ScreenRect& ScreenRect::operator=(ScreenRect&& rhs) noexcept = default;
 ScreenRect ScreenRect::Clone() const {
   ScreenRect out;
   out.left = left;
@@ -204,34 +192,21 @@ bool ScreenRect::Populate(
 }
 
 // static
-std::unique_ptr<ScreenRect> ScreenRect::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScreenRect>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScreenRect> ScreenRect::FromValue(const base::Value::Dict& value) {
+  ScreenRect out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScreenRect> ScreenRect::FromValue(const base::Value::Dict& value) {
+std::optional<ScreenRect> ScreenRect::FromValue(const base::Value& value) {
   ScreenRect out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScreenRect> ScreenRect::FromValue(const base::Value& value) {
-  ScreenRect out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -257,8 +232,8 @@ ScreenPoint::ScreenPoint()
 y(0) {}
 
 ScreenPoint::~ScreenPoint() = default;
-ScreenPoint::ScreenPoint(ScreenPoint&& rhs) = default;
-ScreenPoint& ScreenPoint::operator=(ScreenPoint&& rhs) = default;
+ScreenPoint::ScreenPoint(ScreenPoint&& rhs) noexcept = default;
+ScreenPoint& ScreenPoint::operator=(ScreenPoint&& rhs) noexcept = default;
 ScreenPoint ScreenPoint::Clone() const {
   ScreenPoint out;
   out.x = x;
@@ -306,34 +281,21 @@ bool ScreenPoint::Populate(
 }
 
 // static
-std::unique_ptr<ScreenPoint> ScreenPoint::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScreenPoint>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScreenPoint> ScreenPoint::FromValue(const base::Value::Dict& value) {
+  ScreenPoint out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScreenPoint> ScreenPoint::FromValue(const base::Value::Dict& value) {
+std::optional<ScreenPoint> ScreenPoint::FromValue(const base::Value& value) {
   ScreenPoint out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScreenPoint> ScreenPoint::FromValue(const base::Value& value) {
-  ScreenPoint out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -352,49 +314,49 @@ base::Value::Dict ScreenPoint::ToValue() const {
 
 const char* ToString(Gesture enum_param) {
   switch (enum_param) {
-    case GESTURE_CLICK:
+    case Gesture::kClick:
       return "click";
-    case GESTURE_SWIPELEFT1:
+    case Gesture::kSwipeLeft1:
       return "swipeLeft1";
-    case GESTURE_SWIPEUP1:
+    case Gesture::kSwipeUp1:
       return "swipeUp1";
-    case GESTURE_SWIPERIGHT1:
+    case Gesture::kSwipeRight1:
       return "swipeRight1";
-    case GESTURE_SWIPEDOWN1:
+    case Gesture::kSwipeDown1:
       return "swipeDown1";
-    case GESTURE_SWIPELEFT2:
+    case Gesture::kSwipeLeft2:
       return "swipeLeft2";
-    case GESTURE_SWIPEUP2:
+    case Gesture::kSwipeUp2:
       return "swipeUp2";
-    case GESTURE_SWIPERIGHT2:
+    case Gesture::kSwipeRight2:
       return "swipeRight2";
-    case GESTURE_SWIPEDOWN2:
+    case Gesture::kSwipeDown2:
       return "swipeDown2";
-    case GESTURE_SWIPELEFT3:
+    case Gesture::kSwipeLeft3:
       return "swipeLeft3";
-    case GESTURE_SWIPEUP3:
+    case Gesture::kSwipeUp3:
       return "swipeUp3";
-    case GESTURE_SWIPERIGHT3:
+    case Gesture::kSwipeRight3:
       return "swipeRight3";
-    case GESTURE_SWIPEDOWN3:
+    case Gesture::kSwipeDown3:
       return "swipeDown3";
-    case GESTURE_SWIPELEFT4:
+    case Gesture::kSwipeLeft4:
       return "swipeLeft4";
-    case GESTURE_SWIPEUP4:
+    case Gesture::kSwipeUp4:
       return "swipeUp4";
-    case GESTURE_SWIPERIGHT4:
+    case Gesture::kSwipeRight4:
       return "swipeRight4";
-    case GESTURE_SWIPEDOWN4:
+    case Gesture::kSwipeDown4:
       return "swipeDown4";
-    case GESTURE_TAP2:
+    case Gesture::kTap2:
       return "tap2";
-    case GESTURE_TAP3:
+    case Gesture::kTap3:
       return "tap3";
-    case GESTURE_TAP4:
+    case Gesture::kTap4:
       return "tap4";
-    case GESTURE_TOUCHEXPLORE:
+    case Gesture::kTouchExplore:
       return "touchExplore";
-    case GESTURE_NONE:
+    case Gesture::kNone:
       return "";
   }
   NOTREACHED();
@@ -403,48 +365,48 @@ const char* ToString(Gesture enum_param) {
 
 Gesture ParseGesture(base::StringPiece enum_string) {
   if (enum_string == "click")
-    return GESTURE_CLICK;
+    return Gesture::kClick;
   if (enum_string == "swipeLeft1")
-    return GESTURE_SWIPELEFT1;
+    return Gesture::kSwipeLeft1;
   if (enum_string == "swipeUp1")
-    return GESTURE_SWIPEUP1;
+    return Gesture::kSwipeUp1;
   if (enum_string == "swipeRight1")
-    return GESTURE_SWIPERIGHT1;
+    return Gesture::kSwipeRight1;
   if (enum_string == "swipeDown1")
-    return GESTURE_SWIPEDOWN1;
+    return Gesture::kSwipeDown1;
   if (enum_string == "swipeLeft2")
-    return GESTURE_SWIPELEFT2;
+    return Gesture::kSwipeLeft2;
   if (enum_string == "swipeUp2")
-    return GESTURE_SWIPEUP2;
+    return Gesture::kSwipeUp2;
   if (enum_string == "swipeRight2")
-    return GESTURE_SWIPERIGHT2;
+    return Gesture::kSwipeRight2;
   if (enum_string == "swipeDown2")
-    return GESTURE_SWIPEDOWN2;
+    return Gesture::kSwipeDown2;
   if (enum_string == "swipeLeft3")
-    return GESTURE_SWIPELEFT3;
+    return Gesture::kSwipeLeft3;
   if (enum_string == "swipeUp3")
-    return GESTURE_SWIPEUP3;
+    return Gesture::kSwipeUp3;
   if (enum_string == "swipeRight3")
-    return GESTURE_SWIPERIGHT3;
+    return Gesture::kSwipeRight3;
   if (enum_string == "swipeDown3")
-    return GESTURE_SWIPEDOWN3;
+    return Gesture::kSwipeDown3;
   if (enum_string == "swipeLeft4")
-    return GESTURE_SWIPELEFT4;
+    return Gesture::kSwipeLeft4;
   if (enum_string == "swipeUp4")
-    return GESTURE_SWIPEUP4;
+    return Gesture::kSwipeUp4;
   if (enum_string == "swipeRight4")
-    return GESTURE_SWIPERIGHT4;
+    return Gesture::kSwipeRight4;
   if (enum_string == "swipeDown4")
-    return GESTURE_SWIPEDOWN4;
+    return Gesture::kSwipeDown4;
   if (enum_string == "tap2")
-    return GESTURE_TAP2;
+    return Gesture::kTap2;
   if (enum_string == "tap3")
-    return GESTURE_TAP3;
+    return Gesture::kTap3;
   if (enum_string == "tap4")
-    return GESTURE_TAP4;
+    return Gesture::kTap4;
   if (enum_string == "touchExplore")
-    return GESTURE_TOUCHEXPLORE;
-  return GESTURE_NONE;
+    return Gesture::kTouchExplore;
+  return Gesture::kNone;
 }
 
 std::u16string GetGestureParseError(base::StringPiece enum_string) {
@@ -454,17 +416,17 @@ std::u16string GetGestureParseError(base::StringPiece enum_string) {
 
 const char* ToString(MagnifierCommand enum_param) {
   switch (enum_param) {
-    case MAGNIFIER_COMMAND_MOVESTOP:
+    case MagnifierCommand::kMoveStop:
       return "moveStop";
-    case MAGNIFIER_COMMAND_MOVEUP:
+    case MagnifierCommand::kMoveUp:
       return "moveUp";
-    case MAGNIFIER_COMMAND_MOVEDOWN:
+    case MagnifierCommand::kMoveDown:
       return "moveDown";
-    case MAGNIFIER_COMMAND_MOVELEFT:
+    case MagnifierCommand::kMoveLeft:
       return "moveLeft";
-    case MAGNIFIER_COMMAND_MOVERIGHT:
+    case MagnifierCommand::kMoveRight:
       return "moveRight";
-    case MAGNIFIER_COMMAND_NONE:
+    case MagnifierCommand::kNone:
       return "";
   }
   NOTREACHED();
@@ -473,16 +435,16 @@ const char* ToString(MagnifierCommand enum_param) {
 
 MagnifierCommand ParseMagnifierCommand(base::StringPiece enum_string) {
   if (enum_string == "moveStop")
-    return MAGNIFIER_COMMAND_MOVESTOP;
+    return MagnifierCommand::kMoveStop;
   if (enum_string == "moveUp")
-    return MAGNIFIER_COMMAND_MOVEUP;
+    return MagnifierCommand::kMoveUp;
   if (enum_string == "moveDown")
-    return MAGNIFIER_COMMAND_MOVEDOWN;
+    return MagnifierCommand::kMoveDown;
   if (enum_string == "moveLeft")
-    return MAGNIFIER_COMMAND_MOVELEFT;
+    return MagnifierCommand::kMoveLeft;
   if (enum_string == "moveRight")
-    return MAGNIFIER_COMMAND_MOVERIGHT;
-  return MAGNIFIER_COMMAND_NONE;
+    return MagnifierCommand::kMoveRight;
+  return MagnifierCommand::kNone;
 }
 
 std::u16string GetMagnifierCommandParseError(base::StringPiece enum_string) {
@@ -492,13 +454,13 @@ std::u16string GetMagnifierCommandParseError(base::StringPiece enum_string) {
 
 const char* ToString(SwitchAccessCommand enum_param) {
   switch (enum_param) {
-    case SWITCH_ACCESS_COMMAND_SELECT:
+    case SwitchAccessCommand::kSelect:
       return "select";
-    case SWITCH_ACCESS_COMMAND_NEXT:
+    case SwitchAccessCommand::kNext:
       return "next";
-    case SWITCH_ACCESS_COMMAND_PREVIOUS:
+    case SwitchAccessCommand::kPrevious:
       return "previous";
-    case SWITCH_ACCESS_COMMAND_NONE:
+    case SwitchAccessCommand::kNone:
       return "";
   }
   NOTREACHED();
@@ -507,12 +469,12 @@ const char* ToString(SwitchAccessCommand enum_param) {
 
 SwitchAccessCommand ParseSwitchAccessCommand(base::StringPiece enum_string) {
   if (enum_string == "select")
-    return SWITCH_ACCESS_COMMAND_SELECT;
+    return SwitchAccessCommand::kSelect;
   if (enum_string == "next")
-    return SWITCH_ACCESS_COMMAND_NEXT;
+    return SwitchAccessCommand::kNext;
   if (enum_string == "previous")
-    return SWITCH_ACCESS_COMMAND_PREVIOUS;
-  return SWITCH_ACCESS_COMMAND_NONE;
+    return SwitchAccessCommand::kPrevious;
+  return SwitchAccessCommand::kNone;
 }
 
 std::u16string GetSwitchAccessCommandParseError(base::StringPiece enum_string) {
@@ -522,11 +484,11 @@ std::u16string GetSwitchAccessCommandParseError(base::StringPiece enum_string) {
 
 const char* ToString(PointScanState enum_param) {
   switch (enum_param) {
-    case POINT_SCAN_STATE_START:
+    case PointScanState::kStart:
       return "start";
-    case POINT_SCAN_STATE_STOP:
+    case PointScanState::kStop:
       return "stop";
-    case POINT_SCAN_STATE_NONE:
+    case PointScanState::kNone:
       return "";
   }
   NOTREACHED();
@@ -535,10 +497,10 @@ const char* ToString(PointScanState enum_param) {
 
 PointScanState ParsePointScanState(base::StringPiece enum_string) {
   if (enum_string == "start")
-    return POINT_SCAN_STATE_START;
+    return PointScanState::kStart;
   if (enum_string == "stop")
-    return POINT_SCAN_STATE_STOP;
-  return POINT_SCAN_STATE_NONE;
+    return PointScanState::kStop;
+  return PointScanState::kNone;
 }
 
 std::u16string GetPointScanStateParseError(base::StringPiece enum_string) {
@@ -548,11 +510,11 @@ std::u16string GetPointScanStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(SwitchAccessBubble enum_param) {
   switch (enum_param) {
-    case SWITCH_ACCESS_BUBBLE_BACKBUTTON:
+    case SwitchAccessBubble::kBackButton:
       return "backButton";
-    case SWITCH_ACCESS_BUBBLE_MENU:
+    case SwitchAccessBubble::kMenu:
       return "menu";
-    case SWITCH_ACCESS_BUBBLE_NONE:
+    case SwitchAccessBubble::kNone:
       return "";
   }
   NOTREACHED();
@@ -561,10 +523,10 @@ const char* ToString(SwitchAccessBubble enum_param) {
 
 SwitchAccessBubble ParseSwitchAccessBubble(base::StringPiece enum_string) {
   if (enum_string == "backButton")
-    return SWITCH_ACCESS_BUBBLE_BACKBUTTON;
+    return SwitchAccessBubble::kBackButton;
   if (enum_string == "menu")
-    return SWITCH_ACCESS_BUBBLE_MENU;
-  return SWITCH_ACCESS_BUBBLE_NONE;
+    return SwitchAccessBubble::kMenu;
+  return SwitchAccessBubble::kNone;
 }
 
 std::u16string GetSwitchAccessBubbleParseError(base::StringPiece enum_string) {
@@ -577,8 +539,8 @@ PointScanPoint::PointScanPoint()
 y(0.0) {}
 
 PointScanPoint::~PointScanPoint() = default;
-PointScanPoint::PointScanPoint(PointScanPoint&& rhs) = default;
-PointScanPoint& PointScanPoint::operator=(PointScanPoint&& rhs) = default;
+PointScanPoint::PointScanPoint(PointScanPoint&& rhs) noexcept = default;
+PointScanPoint& PointScanPoint::operator=(PointScanPoint&& rhs) noexcept = default;
 PointScanPoint PointScanPoint::Clone() const {
   PointScanPoint out;
   out.x = x;
@@ -626,34 +588,21 @@ bool PointScanPoint::Populate(
 }
 
 // static
-std::unique_ptr<PointScanPoint> PointScanPoint::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PointScanPoint>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PointScanPoint> PointScanPoint::FromValue(const base::Value::Dict& value) {
+  PointScanPoint out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PointScanPoint> PointScanPoint::FromValue(const base::Value::Dict& value) {
+std::optional<PointScanPoint> PointScanPoint::FromValue(const base::Value& value) {
   PointScanPoint out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PointScanPoint> PointScanPoint::FromValue(const base::Value& value) {
-  PointScanPoint out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -672,63 +621,63 @@ base::Value::Dict PointScanPoint::ToValue() const {
 
 const char* ToString(SwitchAccessMenuAction enum_param) {
   switch (enum_param) {
-    case SWITCH_ACCESS_MENU_ACTION_COPY:
+    case SwitchAccessMenuAction::kCopy:
       return "copy";
-    case SWITCH_ACCESS_MENU_ACTION_CUT:
+    case SwitchAccessMenuAction::kCut:
       return "cut";
-    case SWITCH_ACCESS_MENU_ACTION_DECREMENT:
+    case SwitchAccessMenuAction::kDecrement:
       return "decrement";
-    case SWITCH_ACCESS_MENU_ACTION_DICTATION:
+    case SwitchAccessMenuAction::kDictation:
       return "dictation";
-    case SWITCH_ACCESS_MENU_ACTION_ENDTEXTSELECTION:
+    case SwitchAccessMenuAction::kEndTextSelection:
       return "endTextSelection";
-    case SWITCH_ACCESS_MENU_ACTION_INCREMENT:
+    case SwitchAccessMenuAction::kIncrement:
       return "increment";
-    case SWITCH_ACCESS_MENU_ACTION_ITEMSCAN:
+    case SwitchAccessMenuAction::kItemScan:
       return "itemScan";
-    case SWITCH_ACCESS_MENU_ACTION_JUMPTOBEGINNINGOFTEXT:
+    case SwitchAccessMenuAction::kJumpToBeginningOfText:
       return "jumpToBeginningOfText";
-    case SWITCH_ACCESS_MENU_ACTION_JUMPTOENDOFTEXT:
+    case SwitchAccessMenuAction::kJumpToEndOfText:
       return "jumpToEndOfText";
-    case SWITCH_ACCESS_MENU_ACTION_KEYBOARD:
+    case SwitchAccessMenuAction::kKeyboard:
       return "keyboard";
-    case SWITCH_ACCESS_MENU_ACTION_LEFTCLICK:
+    case SwitchAccessMenuAction::kLeftClick:
       return "leftClick";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONECHAROFTEXT:
+    case SwitchAccessMenuAction::kMoveBackwardOneCharOfText:
       return "moveBackwardOneCharOfText";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONEWORDOFTEXT:
+    case SwitchAccessMenuAction::kMoveBackwardOneWordOfText:
       return "moveBackwardOneWordOfText";
-    case SWITCH_ACCESS_MENU_ACTION_MOVECURSOR:
+    case SwitchAccessMenuAction::kMoveCursor:
       return "moveCursor";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEDOWNONELINEOFTEXT:
+    case SwitchAccessMenuAction::kMoveDownOneLineOfText:
       return "moveDownOneLineOfText";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONECHAROFTEXT:
+    case SwitchAccessMenuAction::kMoveForwardOneCharOfText:
       return "moveForwardOneCharOfText";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONEWORDOFTEXT:
+    case SwitchAccessMenuAction::kMoveForwardOneWordOfText:
       return "moveForwardOneWordOfText";
-    case SWITCH_ACCESS_MENU_ACTION_MOVEUPONELINEOFTEXT:
+    case SwitchAccessMenuAction::kMoveUpOneLineOfText:
       return "moveUpOneLineOfText";
-    case SWITCH_ACCESS_MENU_ACTION_PASTE:
+    case SwitchAccessMenuAction::kPaste:
       return "paste";
-    case SWITCH_ACCESS_MENU_ACTION_POINTSCAN:
+    case SwitchAccessMenuAction::kPointScan:
       return "pointScan";
-    case SWITCH_ACCESS_MENU_ACTION_RIGHTCLICK:
+    case SwitchAccessMenuAction::kRightClick:
       return "rightClick";
-    case SWITCH_ACCESS_MENU_ACTION_SCROLLDOWN:
+    case SwitchAccessMenuAction::kScrollDown:
       return "scrollDown";
-    case SWITCH_ACCESS_MENU_ACTION_SCROLLLEFT:
+    case SwitchAccessMenuAction::kScrollLeft:
       return "scrollLeft";
-    case SWITCH_ACCESS_MENU_ACTION_SCROLLRIGHT:
+    case SwitchAccessMenuAction::kScrollRight:
       return "scrollRight";
-    case SWITCH_ACCESS_MENU_ACTION_SCROLLUP:
+    case SwitchAccessMenuAction::kScrollUp:
       return "scrollUp";
-    case SWITCH_ACCESS_MENU_ACTION_SELECT:
+    case SwitchAccessMenuAction::kSelect:
       return "select";
-    case SWITCH_ACCESS_MENU_ACTION_SETTINGS:
+    case SwitchAccessMenuAction::kSettings:
       return "settings";
-    case SWITCH_ACCESS_MENU_ACTION_STARTTEXTSELECTION:
+    case SwitchAccessMenuAction::kStartTextSelection:
       return "startTextSelection";
-    case SWITCH_ACCESS_MENU_ACTION_NONE:
+    case SwitchAccessMenuAction::kNone:
       return "";
   }
   NOTREACHED();
@@ -737,62 +686,62 @@ const char* ToString(SwitchAccessMenuAction enum_param) {
 
 SwitchAccessMenuAction ParseSwitchAccessMenuAction(base::StringPiece enum_string) {
   if (enum_string == "copy")
-    return SWITCH_ACCESS_MENU_ACTION_COPY;
+    return SwitchAccessMenuAction::kCopy;
   if (enum_string == "cut")
-    return SWITCH_ACCESS_MENU_ACTION_CUT;
+    return SwitchAccessMenuAction::kCut;
   if (enum_string == "decrement")
-    return SWITCH_ACCESS_MENU_ACTION_DECREMENT;
+    return SwitchAccessMenuAction::kDecrement;
   if (enum_string == "dictation")
-    return SWITCH_ACCESS_MENU_ACTION_DICTATION;
+    return SwitchAccessMenuAction::kDictation;
   if (enum_string == "endTextSelection")
-    return SWITCH_ACCESS_MENU_ACTION_ENDTEXTSELECTION;
+    return SwitchAccessMenuAction::kEndTextSelection;
   if (enum_string == "increment")
-    return SWITCH_ACCESS_MENU_ACTION_INCREMENT;
+    return SwitchAccessMenuAction::kIncrement;
   if (enum_string == "itemScan")
-    return SWITCH_ACCESS_MENU_ACTION_ITEMSCAN;
+    return SwitchAccessMenuAction::kItemScan;
   if (enum_string == "jumpToBeginningOfText")
-    return SWITCH_ACCESS_MENU_ACTION_JUMPTOBEGINNINGOFTEXT;
+    return SwitchAccessMenuAction::kJumpToBeginningOfText;
   if (enum_string == "jumpToEndOfText")
-    return SWITCH_ACCESS_MENU_ACTION_JUMPTOENDOFTEXT;
+    return SwitchAccessMenuAction::kJumpToEndOfText;
   if (enum_string == "keyboard")
-    return SWITCH_ACCESS_MENU_ACTION_KEYBOARD;
+    return SwitchAccessMenuAction::kKeyboard;
   if (enum_string == "leftClick")
-    return SWITCH_ACCESS_MENU_ACTION_LEFTCLICK;
+    return SwitchAccessMenuAction::kLeftClick;
   if (enum_string == "moveBackwardOneCharOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONECHAROFTEXT;
+    return SwitchAccessMenuAction::kMoveBackwardOneCharOfText;
   if (enum_string == "moveBackwardOneWordOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEBACKWARDONEWORDOFTEXT;
+    return SwitchAccessMenuAction::kMoveBackwardOneWordOfText;
   if (enum_string == "moveCursor")
-    return SWITCH_ACCESS_MENU_ACTION_MOVECURSOR;
+    return SwitchAccessMenuAction::kMoveCursor;
   if (enum_string == "moveDownOneLineOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEDOWNONELINEOFTEXT;
+    return SwitchAccessMenuAction::kMoveDownOneLineOfText;
   if (enum_string == "moveForwardOneCharOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONECHAROFTEXT;
+    return SwitchAccessMenuAction::kMoveForwardOneCharOfText;
   if (enum_string == "moveForwardOneWordOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEFORWARDONEWORDOFTEXT;
+    return SwitchAccessMenuAction::kMoveForwardOneWordOfText;
   if (enum_string == "moveUpOneLineOfText")
-    return SWITCH_ACCESS_MENU_ACTION_MOVEUPONELINEOFTEXT;
+    return SwitchAccessMenuAction::kMoveUpOneLineOfText;
   if (enum_string == "paste")
-    return SWITCH_ACCESS_MENU_ACTION_PASTE;
+    return SwitchAccessMenuAction::kPaste;
   if (enum_string == "pointScan")
-    return SWITCH_ACCESS_MENU_ACTION_POINTSCAN;
+    return SwitchAccessMenuAction::kPointScan;
   if (enum_string == "rightClick")
-    return SWITCH_ACCESS_MENU_ACTION_RIGHTCLICK;
+    return SwitchAccessMenuAction::kRightClick;
   if (enum_string == "scrollDown")
-    return SWITCH_ACCESS_MENU_ACTION_SCROLLDOWN;
+    return SwitchAccessMenuAction::kScrollDown;
   if (enum_string == "scrollLeft")
-    return SWITCH_ACCESS_MENU_ACTION_SCROLLLEFT;
+    return SwitchAccessMenuAction::kScrollLeft;
   if (enum_string == "scrollRight")
-    return SWITCH_ACCESS_MENU_ACTION_SCROLLRIGHT;
+    return SwitchAccessMenuAction::kScrollRight;
   if (enum_string == "scrollUp")
-    return SWITCH_ACCESS_MENU_ACTION_SCROLLUP;
+    return SwitchAccessMenuAction::kScrollUp;
   if (enum_string == "select")
-    return SWITCH_ACCESS_MENU_ACTION_SELECT;
+    return SwitchAccessMenuAction::kSelect;
   if (enum_string == "settings")
-    return SWITCH_ACCESS_MENU_ACTION_SETTINGS;
+    return SwitchAccessMenuAction::kSettings;
   if (enum_string == "startTextSelection")
-    return SWITCH_ACCESS_MENU_ACTION_STARTTEXTSELECTION;
-  return SWITCH_ACCESS_MENU_ACTION_NONE;
+    return SwitchAccessMenuAction::kStartTextSelection;
+  return SwitchAccessMenuAction::kNone;
 }
 
 std::u16string GetSwitchAccessMenuActionParseError(base::StringPiece enum_string) {
@@ -802,11 +751,11 @@ std::u16string GetSwitchAccessMenuActionParseError(base::StringPiece enum_string
 
 const char* ToString(SyntheticKeyboardEventType enum_param) {
   switch (enum_param) {
-    case SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYUP:
+    case SyntheticKeyboardEventType::kKeyup:
       return "keyup";
-    case SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYDOWN:
+    case SyntheticKeyboardEventType::kKeydown:
       return "keydown";
-    case SYNTHETIC_KEYBOARD_EVENT_TYPE_NONE:
+    case SyntheticKeyboardEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -815,10 +764,10 @@ const char* ToString(SyntheticKeyboardEventType enum_param) {
 
 SyntheticKeyboardEventType ParseSyntheticKeyboardEventType(base::StringPiece enum_string) {
   if (enum_string == "keyup")
-    return SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYUP;
+    return SyntheticKeyboardEventType::kKeyup;
   if (enum_string == "keydown")
-    return SYNTHETIC_KEYBOARD_EVENT_TYPE_KEYDOWN;
-  return SYNTHETIC_KEYBOARD_EVENT_TYPE_NONE;
+    return SyntheticKeyboardEventType::kKeydown;
+  return SyntheticKeyboardEventType::kNone;
 }
 
 std::u16string GetSyntheticKeyboardEventTypeParseError(base::StringPiece enum_string) {
@@ -830,8 +779,8 @@ SyntheticKeyboardModifiers::SyntheticKeyboardModifiers()
  {}
 
 SyntheticKeyboardModifiers::~SyntheticKeyboardModifiers() = default;
-SyntheticKeyboardModifiers::SyntheticKeyboardModifiers(SyntheticKeyboardModifiers&& rhs) = default;
-SyntheticKeyboardModifiers& SyntheticKeyboardModifiers::operator=(SyntheticKeyboardModifiers&& rhs) = default;
+SyntheticKeyboardModifiers::SyntheticKeyboardModifiers(SyntheticKeyboardModifiers&& rhs) noexcept = default;
+SyntheticKeyboardModifiers& SyntheticKeyboardModifiers::operator=(SyntheticKeyboardModifiers&& rhs) noexcept = default;
 SyntheticKeyboardModifiers SyntheticKeyboardModifiers::Clone() const {
   SyntheticKeyboardModifiers out;
   out.ctrl = ctrl;
@@ -849,7 +798,7 @@ bool SyntheticKeyboardModifiers::Populate(
     {
       auto temp = (*ctrl_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ctrl = absl::nullopt;
+        out.ctrl = std::nullopt;
         return false;
       }
       out.ctrl = *temp;
@@ -861,7 +810,7 @@ bool SyntheticKeyboardModifiers::Populate(
     {
       auto temp = (*alt_value).GetIfBool();
       if (!temp.has_value()) {
-        out.alt = absl::nullopt;
+        out.alt = std::nullopt;
         return false;
       }
       out.alt = *temp;
@@ -873,7 +822,7 @@ bool SyntheticKeyboardModifiers::Populate(
     {
       auto temp = (*search_value).GetIfBool();
       if (!temp.has_value()) {
-        out.search = absl::nullopt;
+        out.search = std::nullopt;
         return false;
       }
       out.search = *temp;
@@ -885,7 +834,7 @@ bool SyntheticKeyboardModifiers::Populate(
     {
       auto temp = (*shift_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shift = absl::nullopt;
+        out.shift = std::nullopt;
         return false;
       }
       out.shift = *temp;
@@ -905,34 +854,21 @@ bool SyntheticKeyboardModifiers::Populate(
 }
 
 // static
-std::unique_ptr<SyntheticKeyboardModifiers> SyntheticKeyboardModifiers::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SyntheticKeyboardModifiers>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SyntheticKeyboardModifiers> SyntheticKeyboardModifiers::FromValue(const base::Value::Dict& value) {
+  SyntheticKeyboardModifiers out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SyntheticKeyboardModifiers> SyntheticKeyboardModifiers::FromValue(const base::Value::Dict& value) {
+std::optional<SyntheticKeyboardModifiers> SyntheticKeyboardModifiers::FromValue(const base::Value& value) {
   SyntheticKeyboardModifiers out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SyntheticKeyboardModifiers> SyntheticKeyboardModifiers::FromValue(const base::Value& value) {
-  SyntheticKeyboardModifiers out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -966,8 +902,8 @@ SyntheticKeyboardEvent::SyntheticKeyboardEvent()
 key_code(0) {}
 
 SyntheticKeyboardEvent::~SyntheticKeyboardEvent() = default;
-SyntheticKeyboardEvent::SyntheticKeyboardEvent(SyntheticKeyboardEvent&& rhs) = default;
-SyntheticKeyboardEvent& SyntheticKeyboardEvent::operator=(SyntheticKeyboardEvent&& rhs) = default;
+SyntheticKeyboardEvent::SyntheticKeyboardEvent(SyntheticKeyboardEvent&& rhs) noexcept = default;
+SyntheticKeyboardEvent& SyntheticKeyboardEvent::operator=(SyntheticKeyboardEvent&& rhs) noexcept = default;
 SyntheticKeyboardEvent SyntheticKeyboardEvent::Clone() const {
   SyntheticKeyboardEvent out;
   out.type = type;
@@ -1036,34 +972,21 @@ bool SyntheticKeyboardEvent::Populate(
 }
 
 // static
-std::unique_ptr<SyntheticKeyboardEvent> SyntheticKeyboardEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SyntheticKeyboardEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SyntheticKeyboardEvent> SyntheticKeyboardEvent::FromValue(const base::Value::Dict& value) {
+  SyntheticKeyboardEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SyntheticKeyboardEvent> SyntheticKeyboardEvent::FromValue(const base::Value::Dict& value) {
+std::optional<SyntheticKeyboardEvent> SyntheticKeyboardEvent::FromValue(const base::Value& value) {
   SyntheticKeyboardEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SyntheticKeyboardEvent> SyntheticKeyboardEvent::FromValue(const base::Value& value) {
-  SyntheticKeyboardEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1086,19 +1009,19 @@ base::Value::Dict SyntheticKeyboardEvent::ToValue() const {
 
 const char* ToString(SyntheticMouseEventType enum_param) {
   switch (enum_param) {
-    case SYNTHETIC_MOUSE_EVENT_TYPE_PRESS:
+    case SyntheticMouseEventType::kPress:
       return "press";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_RELEASE:
+    case SyntheticMouseEventType::kRelease:
       return "release";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_DRAG:
+    case SyntheticMouseEventType::kDrag:
       return "drag";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_MOVE:
+    case SyntheticMouseEventType::kMove:
       return "move";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_ENTER:
+    case SyntheticMouseEventType::kEnter:
       return "enter";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_EXIT:
+    case SyntheticMouseEventType::kExit:
       return "exit";
-    case SYNTHETIC_MOUSE_EVENT_TYPE_NONE:
+    case SyntheticMouseEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1107,18 +1030,18 @@ const char* ToString(SyntheticMouseEventType enum_param) {
 
 SyntheticMouseEventType ParseSyntheticMouseEventType(base::StringPiece enum_string) {
   if (enum_string == "press")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_PRESS;
+    return SyntheticMouseEventType::kPress;
   if (enum_string == "release")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_RELEASE;
+    return SyntheticMouseEventType::kRelease;
   if (enum_string == "drag")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_DRAG;
+    return SyntheticMouseEventType::kDrag;
   if (enum_string == "move")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_MOVE;
+    return SyntheticMouseEventType::kMove;
   if (enum_string == "enter")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_ENTER;
+    return SyntheticMouseEventType::kEnter;
   if (enum_string == "exit")
-    return SYNTHETIC_MOUSE_EVENT_TYPE_EXIT;
-  return SYNTHETIC_MOUSE_EVENT_TYPE_NONE;
+    return SyntheticMouseEventType::kExit;
+  return SyntheticMouseEventType::kNone;
 }
 
 std::u16string GetSyntheticMouseEventTypeParseError(base::StringPiece enum_string) {
@@ -1128,17 +1051,17 @@ std::u16string GetSyntheticMouseEventTypeParseError(base::StringPiece enum_strin
 
 const char* ToString(SyntheticMouseEventButton enum_param) {
   switch (enum_param) {
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_LEFT:
+    case SyntheticMouseEventButton::kLeft:
       return "left";
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_MIDDLE:
+    case SyntheticMouseEventButton::kMiddle:
       return "middle";
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_RIGHT:
+    case SyntheticMouseEventButton::kRight:
       return "right";
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_BACK:
+    case SyntheticMouseEventButton::kBack:
       return "back";
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_FOWARD:
+    case SyntheticMouseEventButton::kFoward:
       return "foward";
-    case SYNTHETIC_MOUSE_EVENT_BUTTON_NONE:
+    case SyntheticMouseEventButton::kNone:
       return "";
   }
   NOTREACHED();
@@ -1147,16 +1070,16 @@ const char* ToString(SyntheticMouseEventButton enum_param) {
 
 SyntheticMouseEventButton ParseSyntheticMouseEventButton(base::StringPiece enum_string) {
   if (enum_string == "left")
-    return SYNTHETIC_MOUSE_EVENT_BUTTON_LEFT;
+    return SyntheticMouseEventButton::kLeft;
   if (enum_string == "middle")
-    return SYNTHETIC_MOUSE_EVENT_BUTTON_MIDDLE;
+    return SyntheticMouseEventButton::kMiddle;
   if (enum_string == "right")
-    return SYNTHETIC_MOUSE_EVENT_BUTTON_RIGHT;
+    return SyntheticMouseEventButton::kRight;
   if (enum_string == "back")
-    return SYNTHETIC_MOUSE_EVENT_BUTTON_BACK;
+    return SyntheticMouseEventButton::kBack;
   if (enum_string == "foward")
-    return SYNTHETIC_MOUSE_EVENT_BUTTON_FOWARD;
-  return SYNTHETIC_MOUSE_EVENT_BUTTON_NONE;
+    return SyntheticMouseEventButton::kFoward;
+  return SyntheticMouseEventButton::kNone;
 }
 
 std::u16string GetSyntheticMouseEventButtonParseError(base::StringPiece enum_string) {
@@ -1171,8 +1094,8 @@ y(0),
 mouse_button() {}
 
 SyntheticMouseEvent::~SyntheticMouseEvent() = default;
-SyntheticMouseEvent::SyntheticMouseEvent(SyntheticMouseEvent&& rhs) = default;
-SyntheticMouseEvent& SyntheticMouseEvent::operator=(SyntheticMouseEvent&& rhs) = default;
+SyntheticMouseEvent::SyntheticMouseEvent(SyntheticMouseEvent&& rhs) noexcept = default;
+SyntheticMouseEvent& SyntheticMouseEvent::operator=(SyntheticMouseEvent&& rhs) noexcept = default;
 SyntheticMouseEvent SyntheticMouseEvent::Clone() const {
   SyntheticMouseEvent out;
   out.type = type;
@@ -1231,7 +1154,7 @@ bool SyntheticMouseEvent::Populate(
     {
       auto temp = (*touch_accessibility_value).GetIfBool();
       if (!temp.has_value()) {
-        out.touch_accessibility = absl::nullopt;
+        out.touch_accessibility = std::nullopt;
         return false;
       }
       out.touch_accessibility = *temp;
@@ -1267,34 +1190,21 @@ bool SyntheticMouseEvent::Populate(
 }
 
 // static
-std::unique_ptr<SyntheticMouseEvent> SyntheticMouseEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SyntheticMouseEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SyntheticMouseEvent> SyntheticMouseEvent::FromValue(const base::Value::Dict& value) {
+  SyntheticMouseEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SyntheticMouseEvent> SyntheticMouseEvent::FromValue(const base::Value::Dict& value) {
+std::optional<SyntheticMouseEvent> SyntheticMouseEvent::FromValue(const base::Value& value) {
   SyntheticMouseEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SyntheticMouseEvent> SyntheticMouseEvent::FromValue(const base::Value& value) {
-  SyntheticMouseEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1323,13 +1233,13 @@ base::Value::Dict SyntheticMouseEvent::ToValue() const {
 
 const char* ToString(SelectToSpeakState enum_param) {
   switch (enum_param) {
-    case SELECT_TO_SPEAK_STATE_SELECTING:
+    case SelectToSpeakState::kSelecting:
       return "selecting";
-    case SELECT_TO_SPEAK_STATE_SPEAKING:
+    case SelectToSpeakState::kSpeaking:
       return "speaking";
-    case SELECT_TO_SPEAK_STATE_INACTIVE:
+    case SelectToSpeakState::kInactive:
       return "inactive";
-    case SELECT_TO_SPEAK_STATE_NONE:
+    case SelectToSpeakState::kNone:
       return "";
   }
   NOTREACHED();
@@ -1338,12 +1248,12 @@ const char* ToString(SelectToSpeakState enum_param) {
 
 SelectToSpeakState ParseSelectToSpeakState(base::StringPiece enum_string) {
   if (enum_string == "selecting")
-    return SELECT_TO_SPEAK_STATE_SELECTING;
+    return SelectToSpeakState::kSelecting;
   if (enum_string == "speaking")
-    return SELECT_TO_SPEAK_STATE_SPEAKING;
+    return SelectToSpeakState::kSpeaking;
   if (enum_string == "inactive")
-    return SELECT_TO_SPEAK_STATE_INACTIVE;
-  return SELECT_TO_SPEAK_STATE_NONE;
+    return SelectToSpeakState::kInactive;
+  return SelectToSpeakState::kNone;
 }
 
 std::u16string GetSelectToSpeakStateParseError(base::StringPiece enum_string) {
@@ -1353,13 +1263,13 @@ std::u16string GetSelectToSpeakStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(FocusType enum_param) {
   switch (enum_param) {
-    case FOCUS_TYPE_GLOW:
+    case FocusType::kGlow:
       return "glow";
-    case FOCUS_TYPE_SOLID:
+    case FocusType::kSolid:
       return "solid";
-    case FOCUS_TYPE_DASHED:
+    case FocusType::kDashed:
       return "dashed";
-    case FOCUS_TYPE_NONE:
+    case FocusType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1368,12 +1278,12 @@ const char* ToString(FocusType enum_param) {
 
 FocusType ParseFocusType(base::StringPiece enum_string) {
   if (enum_string == "glow")
-    return FOCUS_TYPE_GLOW;
+    return FocusType::kGlow;
   if (enum_string == "solid")
-    return FOCUS_TYPE_SOLID;
+    return FocusType::kSolid;
   if (enum_string == "dashed")
-    return FOCUS_TYPE_DASHED;
-  return FOCUS_TYPE_NONE;
+    return FocusType::kDashed;
+  return FocusType::kNone;
 }
 
 std::u16string GetFocusTypeParseError(base::StringPiece enum_string) {
@@ -1383,11 +1293,11 @@ std::u16string GetFocusTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(FocusRingStackingOrder enum_param) {
   switch (enum_param) {
-    case FOCUS_RING_STACKING_ORDER_ABOVEACCESSIBILITYBUBBLES:
+    case FocusRingStackingOrder::kAboveAccessibilityBubbles:
       return "aboveAccessibilityBubbles";
-    case FOCUS_RING_STACKING_ORDER_BELOWACCESSIBILITYBUBBLES:
+    case FocusRingStackingOrder::kBelowAccessibilityBubbles:
       return "belowAccessibilityBubbles";
-    case FOCUS_RING_STACKING_ORDER_NONE:
+    case FocusRingStackingOrder::kNone:
       return "";
   }
   NOTREACHED();
@@ -1396,10 +1306,10 @@ const char* ToString(FocusRingStackingOrder enum_param) {
 
 FocusRingStackingOrder ParseFocusRingStackingOrder(base::StringPiece enum_string) {
   if (enum_string == "aboveAccessibilityBubbles")
-    return FOCUS_RING_STACKING_ORDER_ABOVEACCESSIBILITYBUBBLES;
+    return FocusRingStackingOrder::kAboveAccessibilityBubbles;
   if (enum_string == "belowAccessibilityBubbles")
-    return FOCUS_RING_STACKING_ORDER_BELOWACCESSIBILITYBUBBLES;
-  return FOCUS_RING_STACKING_ORDER_NONE;
+    return FocusRingStackingOrder::kBelowAccessibilityBubbles;
+  return FocusRingStackingOrder::kNone;
 }
 
 std::u16string GetFocusRingStackingOrderParseError(base::StringPiece enum_string) {
@@ -1409,19 +1319,19 @@ std::u16string GetFocusRingStackingOrderParseError(base::StringPiece enum_string
 
 const char* ToString(AssistiveTechnologyType enum_param) {
   switch (enum_param) {
-    case ASSISTIVE_TECHNOLOGY_TYPE_CHROMEVOX:
+    case AssistiveTechnologyType::kChromeVox:
       return "chromeVox";
-    case ASSISTIVE_TECHNOLOGY_TYPE_SELECTTOSPEAK:
+    case AssistiveTechnologyType::kSelectToSpeak:
       return "selectToSpeak";
-    case ASSISTIVE_TECHNOLOGY_TYPE_SWITCHACCESS:
+    case AssistiveTechnologyType::kSwitchAccess:
       return "switchAccess";
-    case ASSISTIVE_TECHNOLOGY_TYPE_AUTOCLICK:
+    case AssistiveTechnologyType::kAutoClick:
       return "autoClick";
-    case ASSISTIVE_TECHNOLOGY_TYPE_MAGNIFIER:
+    case AssistiveTechnologyType::kMagnifier:
       return "magnifier";
-    case ASSISTIVE_TECHNOLOGY_TYPE_DICTATION:
+    case AssistiveTechnologyType::kDictation:
       return "dictation";
-    case ASSISTIVE_TECHNOLOGY_TYPE_NONE:
+    case AssistiveTechnologyType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1430,18 +1340,18 @@ const char* ToString(AssistiveTechnologyType enum_param) {
 
 AssistiveTechnologyType ParseAssistiveTechnologyType(base::StringPiece enum_string) {
   if (enum_string == "chromeVox")
-    return ASSISTIVE_TECHNOLOGY_TYPE_CHROMEVOX;
+    return AssistiveTechnologyType::kChromeVox;
   if (enum_string == "selectToSpeak")
-    return ASSISTIVE_TECHNOLOGY_TYPE_SELECTTOSPEAK;
+    return AssistiveTechnologyType::kSelectToSpeak;
   if (enum_string == "switchAccess")
-    return ASSISTIVE_TECHNOLOGY_TYPE_SWITCHACCESS;
+    return AssistiveTechnologyType::kSwitchAccess;
   if (enum_string == "autoClick")
-    return ASSISTIVE_TECHNOLOGY_TYPE_AUTOCLICK;
+    return AssistiveTechnologyType::kAutoClick;
   if (enum_string == "magnifier")
-    return ASSISTIVE_TECHNOLOGY_TYPE_MAGNIFIER;
+    return AssistiveTechnologyType::kMagnifier;
   if (enum_string == "dictation")
-    return ASSISTIVE_TECHNOLOGY_TYPE_DICTATION;
-  return ASSISTIVE_TECHNOLOGY_TYPE_NONE;
+    return AssistiveTechnologyType::kDictation;
+  return AssistiveTechnologyType::kNone;
 }
 
 std::u16string GetAssistiveTechnologyTypeParseError(base::StringPiece enum_string) {
@@ -1454,8 +1364,8 @@ FocusRingInfo::FocusRingInfo()
 stacking_order() {}
 
 FocusRingInfo::~FocusRingInfo() = default;
-FocusRingInfo::FocusRingInfo(FocusRingInfo&& rhs) = default;
-FocusRingInfo& FocusRingInfo::operator=(FocusRingInfo&& rhs) = default;
+FocusRingInfo::FocusRingInfo(FocusRingInfo&& rhs) noexcept = default;
+FocusRingInfo& FocusRingInfo::operator=(FocusRingInfo&& rhs) noexcept = default;
 FocusRingInfo FocusRingInfo::Clone() const {
   FocusRingInfo out;
   out.rects.reserve(rects.size());
@@ -1522,7 +1432,7 @@ bool FocusRingInfo::Populate(
     {
       auto* temp = (*secondary_color_value).GetIfString();
       if (!temp) {
-        out.secondary_color = absl::nullopt;
+        out.secondary_color = std::nullopt;
         return false;
       }
       out.secondary_color = *temp;
@@ -1534,7 +1444,7 @@ bool FocusRingInfo::Populate(
     {
       auto* temp = (*background_color_value).GetIfString();
       if (!temp) {
-        out.background_color = absl::nullopt;
+        out.background_color = std::nullopt;
         return false;
       }
       out.background_color = *temp;
@@ -1562,7 +1472,7 @@ bool FocusRingInfo::Populate(
     {
       auto* temp = (*id_value).GetIfString();
       if (!temp) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -1582,34 +1492,21 @@ bool FocusRingInfo::Populate(
 }
 
 // static
-std::unique_ptr<FocusRingInfo> FocusRingInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FocusRingInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FocusRingInfo> FocusRingInfo::FromValue(const base::Value::Dict& value) {
+  FocusRingInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FocusRingInfo> FocusRingInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FocusRingInfo> FocusRingInfo::FromValue(const base::Value& value) {
   FocusRingInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FocusRingInfo> FocusRingInfo::FromValue(const base::Value& value) {
-  FocusRingInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1646,11 +1543,11 @@ base::Value::Dict FocusRingInfo::ToValue() const {
 
 const char* ToString(AcceleratorAction enum_param) {
   switch (enum_param) {
-    case ACCELERATOR_ACTION_FOCUSPREVIOUSPANE:
+    case AcceleratorAction::kFocusPreviousPane:
       return "focusPreviousPane";
-    case ACCELERATOR_ACTION_FOCUSNEXTPANE:
+    case AcceleratorAction::kFocusNextPane:
       return "focusNextPane";
-    case ACCELERATOR_ACTION_NONE:
+    case AcceleratorAction::kNone:
       return "";
   }
   NOTREACHED();
@@ -1659,10 +1556,10 @@ const char* ToString(AcceleratorAction enum_param) {
 
 AcceleratorAction ParseAcceleratorAction(base::StringPiece enum_string) {
   if (enum_string == "focusPreviousPane")
-    return ACCELERATOR_ACTION_FOCUSPREVIOUSPANE;
+    return AcceleratorAction::kFocusPreviousPane;
   if (enum_string == "focusNextPane")
-    return ACCELERATOR_ACTION_FOCUSNEXTPANE;
-  return ACCELERATOR_ACTION_NONE;
+    return AcceleratorAction::kFocusNextPane;
+  return AcceleratorAction::kNone;
 }
 
 std::u16string GetAcceleratorActionParseError(base::StringPiece enum_string) {
@@ -1672,15 +1569,15 @@ std::u16string GetAcceleratorActionParseError(base::StringPiece enum_string) {
 
 const char* ToString(AccessibilityFeature enum_param) {
   switch (enum_param) {
-    case ACCESSIBILITY_FEATURE_GOOGLETTSLANGUAGEPACKS:
+    case AccessibilityFeature::kGoogleTtsLanguagePacks:
       return "googleTtsLanguagePacks";
-    case ACCESSIBILITY_FEATURE_DICTATIONCONTEXTCHECKING:
+    case AccessibilityFeature::kDictationContextChecking:
       return "dictationContextChecking";
-    case ACCESSIBILITY_FEATURE_GAMEFACEINTEGRATION:
-      return "gameFaceIntegration";
-    case ACCESSIBILITY_FEATURE_GOOGLETTSHIGHQUALITYVOICES:
+    case AccessibilityFeature::kFaceGaze:
+      return "faceGaze";
+    case AccessibilityFeature::kGoogleTtsHighQualityVoices:
       return "googleTtsHighQualityVoices";
-    case ACCESSIBILITY_FEATURE_NONE:
+    case AccessibilityFeature::kNone:
       return "";
   }
   NOTREACHED();
@@ -1689,40 +1586,40 @@ const char* ToString(AccessibilityFeature enum_param) {
 
 AccessibilityFeature ParseAccessibilityFeature(base::StringPiece enum_string) {
   if (enum_string == "googleTtsLanguagePacks")
-    return ACCESSIBILITY_FEATURE_GOOGLETTSLANGUAGEPACKS;
+    return AccessibilityFeature::kGoogleTtsLanguagePacks;
   if (enum_string == "dictationContextChecking")
-    return ACCESSIBILITY_FEATURE_DICTATIONCONTEXTCHECKING;
-  if (enum_string == "gameFaceIntegration")
-    return ACCESSIBILITY_FEATURE_GAMEFACEINTEGRATION;
+    return AccessibilityFeature::kDictationContextChecking;
+  if (enum_string == "faceGaze")
+    return AccessibilityFeature::kFaceGaze;
   if (enum_string == "googleTtsHighQualityVoices")
-    return ACCESSIBILITY_FEATURE_GOOGLETTSHIGHQUALITYVOICES;
-  return ACCESSIBILITY_FEATURE_NONE;
+    return AccessibilityFeature::kGoogleTtsHighQualityVoices;
+  return AccessibilityFeature::kNone;
 }
 
 std::u16string GetAccessibilityFeatureParseError(base::StringPiece enum_string) {
-  return u"expected \"googleTtsLanguagePacks\" or \"dictationContextChecking\" or \"gameFaceIntegration\" or \"googleTtsHighQualityVoices\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"googleTtsLanguagePacks\" or \"dictationContextChecking\" or \"faceGaze\" or \"googleTtsHighQualityVoices\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
 const char* ToString(SelectToSpeakPanelAction enum_param) {
   switch (enum_param) {
-    case SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSPARAGRAPH:
+    case SelectToSpeakPanelAction::kPreviousParagraph:
       return "previousParagraph";
-    case SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSSENTENCE:
+    case SelectToSpeakPanelAction::kPreviousSentence:
       return "previousSentence";
-    case SELECT_TO_SPEAK_PANEL_ACTION_PAUSE:
+    case SelectToSpeakPanelAction::kPause:
       return "pause";
-    case SELECT_TO_SPEAK_PANEL_ACTION_RESUME:
+    case SelectToSpeakPanelAction::kResume:
       return "resume";
-    case SELECT_TO_SPEAK_PANEL_ACTION_NEXTSENTENCE:
+    case SelectToSpeakPanelAction::kNextSentence:
       return "nextSentence";
-    case SELECT_TO_SPEAK_PANEL_ACTION_NEXTPARAGRAPH:
+    case SelectToSpeakPanelAction::kNextParagraph:
       return "nextParagraph";
-    case SELECT_TO_SPEAK_PANEL_ACTION_EXIT:
+    case SelectToSpeakPanelAction::kExit:
       return "exit";
-    case SELECT_TO_SPEAK_PANEL_ACTION_CHANGESPEED:
+    case SelectToSpeakPanelAction::kChangeSpeed:
       return "changeSpeed";
-    case SELECT_TO_SPEAK_PANEL_ACTION_NONE:
+    case SelectToSpeakPanelAction::kNone:
       return "";
   }
   NOTREACHED();
@@ -1731,22 +1628,22 @@ const char* ToString(SelectToSpeakPanelAction enum_param) {
 
 SelectToSpeakPanelAction ParseSelectToSpeakPanelAction(base::StringPiece enum_string) {
   if (enum_string == "previousParagraph")
-    return SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSPARAGRAPH;
+    return SelectToSpeakPanelAction::kPreviousParagraph;
   if (enum_string == "previousSentence")
-    return SELECT_TO_SPEAK_PANEL_ACTION_PREVIOUSSENTENCE;
+    return SelectToSpeakPanelAction::kPreviousSentence;
   if (enum_string == "pause")
-    return SELECT_TO_SPEAK_PANEL_ACTION_PAUSE;
+    return SelectToSpeakPanelAction::kPause;
   if (enum_string == "resume")
-    return SELECT_TO_SPEAK_PANEL_ACTION_RESUME;
+    return SelectToSpeakPanelAction::kResume;
   if (enum_string == "nextSentence")
-    return SELECT_TO_SPEAK_PANEL_ACTION_NEXTSENTENCE;
+    return SelectToSpeakPanelAction::kNextSentence;
   if (enum_string == "nextParagraph")
-    return SELECT_TO_SPEAK_PANEL_ACTION_NEXTPARAGRAPH;
+    return SelectToSpeakPanelAction::kNextParagraph;
   if (enum_string == "exit")
-    return SELECT_TO_SPEAK_PANEL_ACTION_EXIT;
+    return SelectToSpeakPanelAction::kExit;
   if (enum_string == "changeSpeed")
-    return SELECT_TO_SPEAK_PANEL_ACTION_CHANGESPEED;
-  return SELECT_TO_SPEAK_PANEL_ACTION_NONE;
+    return SelectToSpeakPanelAction::kChangeSpeed;
+  return SelectToSpeakPanelAction::kNone;
 }
 
 std::u16string GetSelectToSpeakPanelActionParseError(base::StringPiece enum_string) {
@@ -1756,17 +1653,17 @@ std::u16string GetSelectToSpeakPanelActionParseError(base::StringPiece enum_stri
 
 const char* ToString(SetNativeChromeVoxResponse enum_param) {
   switch (enum_param) {
-    case SET_NATIVE_CHROME_VOX_RESPONSE_SUCCESS:
+    case SetNativeChromeVoxResponse::kSuccess:
       return "success";
-    case SET_NATIVE_CHROME_VOX_RESPONSE_TALKBACKNOTINSTALLED:
+    case SetNativeChromeVoxResponse::kTalkbackNotInstalled:
       return "talkbackNotInstalled";
-    case SET_NATIVE_CHROME_VOX_RESPONSE_WINDOWNOTFOUND:
+    case SetNativeChromeVoxResponse::kWindowNotFound:
       return "windowNotFound";
-    case SET_NATIVE_CHROME_VOX_RESPONSE_FAILURE:
+    case SetNativeChromeVoxResponse::kFailure:
       return "failure";
-    case SET_NATIVE_CHROME_VOX_RESPONSE_NEEDDEPRECATIONCONFIRMATION:
+    case SetNativeChromeVoxResponse::kNeedDeprecationConfirmation:
       return "needDeprecationConfirmation";
-    case SET_NATIVE_CHROME_VOX_RESPONSE_NONE:
+    case SetNativeChromeVoxResponse::kNone:
       return "";
   }
   NOTREACHED();
@@ -1775,16 +1672,16 @@ const char* ToString(SetNativeChromeVoxResponse enum_param) {
 
 SetNativeChromeVoxResponse ParseSetNativeChromeVoxResponse(base::StringPiece enum_string) {
   if (enum_string == "success")
-    return SET_NATIVE_CHROME_VOX_RESPONSE_SUCCESS;
+    return SetNativeChromeVoxResponse::kSuccess;
   if (enum_string == "talkbackNotInstalled")
-    return SET_NATIVE_CHROME_VOX_RESPONSE_TALKBACKNOTINSTALLED;
+    return SetNativeChromeVoxResponse::kTalkbackNotInstalled;
   if (enum_string == "windowNotFound")
-    return SET_NATIVE_CHROME_VOX_RESPONSE_WINDOWNOTFOUND;
+    return SetNativeChromeVoxResponse::kWindowNotFound;
   if (enum_string == "failure")
-    return SET_NATIVE_CHROME_VOX_RESPONSE_FAILURE;
+    return SetNativeChromeVoxResponse::kFailure;
   if (enum_string == "needDeprecationConfirmation")
-    return SET_NATIVE_CHROME_VOX_RESPONSE_NEEDDEPRECATIONCONFIRMATION;
-  return SET_NATIVE_CHROME_VOX_RESPONSE_NONE;
+    return SetNativeChromeVoxResponse::kNeedDeprecationConfirmation;
+  return SetNativeChromeVoxResponse::kNone;
 }
 
 std::u16string GetSetNativeChromeVoxResponseParseError(base::StringPiece enum_string) {
@@ -1794,15 +1691,15 @@ std::u16string GetSetNativeChromeVoxResponseParseError(base::StringPiece enum_st
 
 const char* ToString(DictationBubbleIconType enum_param) {
   switch (enum_param) {
-    case DICTATION_BUBBLE_ICON_TYPE_HIDDEN:
+    case DictationBubbleIconType::kHidden:
       return "hidden";
-    case DICTATION_BUBBLE_ICON_TYPE_STANDBY:
+    case DictationBubbleIconType::kStandby:
       return "standby";
-    case DICTATION_BUBBLE_ICON_TYPE_MACROSUCCESS:
+    case DictationBubbleIconType::kMacroSuccess:
       return "macroSuccess";
-    case DICTATION_BUBBLE_ICON_TYPE_MACROFAIL:
+    case DictationBubbleIconType::kMacroFail:
       return "macroFail";
-    case DICTATION_BUBBLE_ICON_TYPE_NONE:
+    case DictationBubbleIconType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1811,14 +1708,14 @@ const char* ToString(DictationBubbleIconType enum_param) {
 
 DictationBubbleIconType ParseDictationBubbleIconType(base::StringPiece enum_string) {
   if (enum_string == "hidden")
-    return DICTATION_BUBBLE_ICON_TYPE_HIDDEN;
+    return DictationBubbleIconType::kHidden;
   if (enum_string == "standby")
-    return DICTATION_BUBBLE_ICON_TYPE_STANDBY;
+    return DictationBubbleIconType::kStandby;
   if (enum_string == "macroSuccess")
-    return DICTATION_BUBBLE_ICON_TYPE_MACROSUCCESS;
+    return DictationBubbleIconType::kMacroSuccess;
   if (enum_string == "macroFail")
-    return DICTATION_BUBBLE_ICON_TYPE_MACROFAIL;
-  return DICTATION_BUBBLE_ICON_TYPE_NONE;
+    return DictationBubbleIconType::kMacroFail;
+  return DictationBubbleIconType::kNone;
 }
 
 std::u16string GetDictationBubbleIconTypeParseError(base::StringPiece enum_string) {
@@ -1828,23 +1725,23 @@ std::u16string GetDictationBubbleIconTypeParseError(base::StringPiece enum_strin
 
 const char* ToString(DictationBubbleHintType enum_param) {
   switch (enum_param) {
-    case DICTATION_BUBBLE_HINT_TYPE_TRYSAYING:
+    case DictationBubbleHintType::kTrySaying:
       return "trySaying";
-    case DICTATION_BUBBLE_HINT_TYPE_TYPE:
+    case DictationBubbleHintType::kType:
       return "type";
-    case DICTATION_BUBBLE_HINT_TYPE_DELETE:
+    case DictationBubbleHintType::kDelete:
       return "delete";
-    case DICTATION_BUBBLE_HINT_TYPE_SELECTALL:
+    case DictationBubbleHintType::kSelectAll:
       return "selectAll";
-    case DICTATION_BUBBLE_HINT_TYPE_UNDO:
+    case DictationBubbleHintType::kUndo:
       return "undo";
-    case DICTATION_BUBBLE_HINT_TYPE_HELP:
+    case DictationBubbleHintType::kHelp:
       return "help";
-    case DICTATION_BUBBLE_HINT_TYPE_UNSELECT:
+    case DictationBubbleHintType::kUnselect:
       return "unselect";
-    case DICTATION_BUBBLE_HINT_TYPE_COPY:
+    case DictationBubbleHintType::kCopy:
       return "copy";
-    case DICTATION_BUBBLE_HINT_TYPE_NONE:
+    case DictationBubbleHintType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1853,22 +1750,22 @@ const char* ToString(DictationBubbleHintType enum_param) {
 
 DictationBubbleHintType ParseDictationBubbleHintType(base::StringPiece enum_string) {
   if (enum_string == "trySaying")
-    return DICTATION_BUBBLE_HINT_TYPE_TRYSAYING;
+    return DictationBubbleHintType::kTrySaying;
   if (enum_string == "type")
-    return DICTATION_BUBBLE_HINT_TYPE_TYPE;
+    return DictationBubbleHintType::kType;
   if (enum_string == "delete")
-    return DICTATION_BUBBLE_HINT_TYPE_DELETE;
+    return DictationBubbleHintType::kDelete;
   if (enum_string == "selectAll")
-    return DICTATION_BUBBLE_HINT_TYPE_SELECTALL;
+    return DictationBubbleHintType::kSelectAll;
   if (enum_string == "undo")
-    return DICTATION_BUBBLE_HINT_TYPE_UNDO;
+    return DictationBubbleHintType::kUndo;
   if (enum_string == "help")
-    return DICTATION_BUBBLE_HINT_TYPE_HELP;
+    return DictationBubbleHintType::kHelp;
   if (enum_string == "unselect")
-    return DICTATION_BUBBLE_HINT_TYPE_UNSELECT;
+    return DictationBubbleHintType::kUnselect;
   if (enum_string == "copy")
-    return DICTATION_BUBBLE_HINT_TYPE_COPY;
-  return DICTATION_BUBBLE_HINT_TYPE_NONE;
+    return DictationBubbleHintType::kCopy;
+  return DictationBubbleHintType::kNone;
 }
 
 std::u16string GetDictationBubbleHintTypeParseError(base::StringPiece enum_string) {
@@ -1881,8 +1778,8 @@ DictationBubbleProperties::DictationBubbleProperties()
 icon() {}
 
 DictationBubbleProperties::~DictationBubbleProperties() = default;
-DictationBubbleProperties::DictationBubbleProperties(DictationBubbleProperties&& rhs) = default;
-DictationBubbleProperties& DictationBubbleProperties::operator=(DictationBubbleProperties&& rhs) = default;
+DictationBubbleProperties::DictationBubbleProperties(DictationBubbleProperties&& rhs) noexcept = default;
+DictationBubbleProperties& DictationBubbleProperties::operator=(DictationBubbleProperties&& rhs) noexcept = default;
 DictationBubbleProperties DictationBubbleProperties::Clone() const {
   DictationBubbleProperties out;
   out.visible = visible;
@@ -1927,7 +1824,7 @@ bool DictationBubbleProperties::Populate(
     {
       auto* temp = (*text_value).GetIfString();
       if (!temp) {
-        out.text = absl::nullopt;
+        out.text = std::nullopt;
         return false;
       }
       out.text = *temp;
@@ -1971,34 +1868,21 @@ bool DictationBubbleProperties::Populate(
 }
 
 // static
-std::unique_ptr<DictationBubbleProperties> DictationBubbleProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DictationBubbleProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DictationBubbleProperties> DictationBubbleProperties::FromValue(const base::Value::Dict& value) {
+  DictationBubbleProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DictationBubbleProperties> DictationBubbleProperties::FromValue(const base::Value::Dict& value) {
+std::optional<DictationBubbleProperties> DictationBubbleProperties::FromValue(const base::Value& value) {
   DictationBubbleProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DictationBubbleProperties> DictationBubbleProperties::FromValue(const base::Value& value) {
-  DictationBubbleProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2031,11 +1915,11 @@ base::Value::Dict DictationBubbleProperties::ToValue() const {
 
 const char* ToString(ToastType enum_param) {
   switch (enum_param) {
-    case TOAST_TYPE_DICTATIONNOFOCUSEDTEXTFIELD:
+    case ToastType::kDictationNoFocusedTextField:
       return "dictationNoFocusedTextField";
-    case TOAST_TYPE_DICTATIONMICMUTED:
+    case ToastType::kDictationMicMuted:
       return "dictationMicMuted";
-    case TOAST_TYPE_NONE:
+    case ToastType::kNone:
       return "";
   }
   NOTREACHED();
@@ -2044,10 +1928,10 @@ const char* ToString(ToastType enum_param) {
 
 ToastType ParseToastType(base::StringPiece enum_string) {
   if (enum_string == "dictationNoFocusedTextField")
-    return TOAST_TYPE_DICTATIONNOFOCUSEDTEXTFIELD;
+    return ToastType::kDictationNoFocusedTextField;
   if (enum_string == "dictationMicMuted")
-    return TOAST_TYPE_DICTATIONMICMUTED;
-  return TOAST_TYPE_NONE;
+    return ToastType::kDictationMicMuted;
+  return ToastType::kNone;
 }
 
 std::u16string GetToastTypeParseError(base::StringPiece enum_string) {
@@ -2057,73 +1941,75 @@ std::u16string GetToastTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DlcType enum_param) {
   switch (enum_param) {
-    case DLC_TYPE_TTSBNBD:
+    case DlcType::kTtsBnBd:
       return "ttsBnBd";
-    case DLC_TYPE_TTSCSCZ:
+    case DlcType::kTtsCsCz:
       return "ttsCsCz";
-    case DLC_TYPE_TTSDADK:
+    case DlcType::kTtsDaDk:
       return "ttsDaDk";
-    case DLC_TYPE_TTSDEDE:
+    case DlcType::kTtsDeDe:
       return "ttsDeDe";
-    case DLC_TYPE_TTSELGR:
+    case DlcType::kTtsElGr:
       return "ttsElGr";
-    case DLC_TYPE_TTSENAU:
+    case DlcType::kTtsEnAu:
       return "ttsEnAu";
-    case DLC_TYPE_TTSENGB:
+    case DlcType::kTtsEnGb:
       return "ttsEnGb";
-    case DLC_TYPE_TTSENUS:
+    case DlcType::kTtsEnUs:
       return "ttsEnUs";
-    case DLC_TYPE_TTSESES:
+    case DlcType::kTtsEsEs:
       return "ttsEsEs";
-    case DLC_TYPE_TTSESUS:
+    case DlcType::kTtsEsUs:
       return "ttsEsUs";
-    case DLC_TYPE_TTSFIFI:
+    case DlcType::kTtsFiFi:
       return "ttsFiFi";
-    case DLC_TYPE_TTSFILPH:
+    case DlcType::kTtsFilPh:
       return "ttsFilPh";
-    case DLC_TYPE_TTSFRFR:
+    case DlcType::kTtsFrFr:
       return "ttsFrFr";
-    case DLC_TYPE_TTSHIIN:
+    case DlcType::kTtsHiIn:
       return "ttsHiIn";
-    case DLC_TYPE_TTSHUHU:
+    case DlcType::kTtsHuHu:
       return "ttsHuHu";
-    case DLC_TYPE_TTSIDID:
+    case DlcType::kTtsIdId:
       return "ttsIdId";
-    case DLC_TYPE_TTSITIT:
+    case DlcType::kTtsItIt:
       return "ttsItIt";
-    case DLC_TYPE_TTSJAJP:
+    case DlcType::kTtsJaJp:
       return "ttsJaJp";
-    case DLC_TYPE_TTSKMKH:
+    case DlcType::kTtsKmKh:
       return "ttsKmKh";
-    case DLC_TYPE_TTSKOKR:
+    case DlcType::kTtsKoKr:
       return "ttsKoKr";
-    case DLC_TYPE_TTSNBNO:
+    case DlcType::kTtsNbNo:
       return "ttsNbNo";
-    case DLC_TYPE_TTSNENP:
+    case DlcType::kTtsNeNp:
       return "ttsNeNp";
-    case DLC_TYPE_TTSNLNL:
+    case DlcType::kTtsNlNl:
       return "ttsNlNl";
-    case DLC_TYPE_TTSPLPL:
+    case DlcType::kTtsPlPl:
       return "ttsPlPl";
-    case DLC_TYPE_TTSPTBR:
+    case DlcType::kTtsPtBr:
       return "ttsPtBr";
-    case DLC_TYPE_TTSSILK:
+    case DlcType::kTtsPtPt:
+      return "ttsPtPt";
+    case DlcType::kTtsSiLk:
       return "ttsSiLk";
-    case DLC_TYPE_TTSSKSK:
+    case DlcType::kTtsSkSk:
       return "ttsSkSk";
-    case DLC_TYPE_TTSSVSE:
+    case DlcType::kTtsSvSe:
       return "ttsSvSe";
-    case DLC_TYPE_TTSTHTH:
+    case DlcType::kTtsThTh:
       return "ttsThTh";
-    case DLC_TYPE_TTSTRTR:
+    case DlcType::kTtsTrTr:
       return "ttsTrTr";
-    case DLC_TYPE_TTSUKUA:
+    case DlcType::kTtsUkUa:
       return "ttsUkUa";
-    case DLC_TYPE_TTSVIVN:
+    case DlcType::kTtsViVn:
       return "ttsViVn";
-    case DLC_TYPE_TTSYUEHK:
+    case DlcType::kTtsYueHk:
       return "ttsYueHk";
-    case DLC_TYPE_NONE:
+    case DlcType::kNone:
       return "";
   }
   NOTREACHED();
@@ -2132,76 +2018,104 @@ const char* ToString(DlcType enum_param) {
 
 DlcType ParseDlcType(base::StringPiece enum_string) {
   if (enum_string == "ttsBnBd")
-    return DLC_TYPE_TTSBNBD;
+    return DlcType::kTtsBnBd;
   if (enum_string == "ttsCsCz")
-    return DLC_TYPE_TTSCSCZ;
+    return DlcType::kTtsCsCz;
   if (enum_string == "ttsDaDk")
-    return DLC_TYPE_TTSDADK;
+    return DlcType::kTtsDaDk;
   if (enum_string == "ttsDeDe")
-    return DLC_TYPE_TTSDEDE;
+    return DlcType::kTtsDeDe;
   if (enum_string == "ttsElGr")
-    return DLC_TYPE_TTSELGR;
+    return DlcType::kTtsElGr;
   if (enum_string == "ttsEnAu")
-    return DLC_TYPE_TTSENAU;
+    return DlcType::kTtsEnAu;
   if (enum_string == "ttsEnGb")
-    return DLC_TYPE_TTSENGB;
+    return DlcType::kTtsEnGb;
   if (enum_string == "ttsEnUs")
-    return DLC_TYPE_TTSENUS;
+    return DlcType::kTtsEnUs;
   if (enum_string == "ttsEsEs")
-    return DLC_TYPE_TTSESES;
+    return DlcType::kTtsEsEs;
   if (enum_string == "ttsEsUs")
-    return DLC_TYPE_TTSESUS;
+    return DlcType::kTtsEsUs;
   if (enum_string == "ttsFiFi")
-    return DLC_TYPE_TTSFIFI;
+    return DlcType::kTtsFiFi;
   if (enum_string == "ttsFilPh")
-    return DLC_TYPE_TTSFILPH;
+    return DlcType::kTtsFilPh;
   if (enum_string == "ttsFrFr")
-    return DLC_TYPE_TTSFRFR;
+    return DlcType::kTtsFrFr;
   if (enum_string == "ttsHiIn")
-    return DLC_TYPE_TTSHIIN;
+    return DlcType::kTtsHiIn;
   if (enum_string == "ttsHuHu")
-    return DLC_TYPE_TTSHUHU;
+    return DlcType::kTtsHuHu;
   if (enum_string == "ttsIdId")
-    return DLC_TYPE_TTSIDID;
+    return DlcType::kTtsIdId;
   if (enum_string == "ttsItIt")
-    return DLC_TYPE_TTSITIT;
+    return DlcType::kTtsItIt;
   if (enum_string == "ttsJaJp")
-    return DLC_TYPE_TTSJAJP;
+    return DlcType::kTtsJaJp;
   if (enum_string == "ttsKmKh")
-    return DLC_TYPE_TTSKMKH;
+    return DlcType::kTtsKmKh;
   if (enum_string == "ttsKoKr")
-    return DLC_TYPE_TTSKOKR;
+    return DlcType::kTtsKoKr;
   if (enum_string == "ttsNbNo")
-    return DLC_TYPE_TTSNBNO;
+    return DlcType::kTtsNbNo;
   if (enum_string == "ttsNeNp")
-    return DLC_TYPE_TTSNENP;
+    return DlcType::kTtsNeNp;
   if (enum_string == "ttsNlNl")
-    return DLC_TYPE_TTSNLNL;
+    return DlcType::kTtsNlNl;
   if (enum_string == "ttsPlPl")
-    return DLC_TYPE_TTSPLPL;
+    return DlcType::kTtsPlPl;
   if (enum_string == "ttsPtBr")
-    return DLC_TYPE_TTSPTBR;
+    return DlcType::kTtsPtBr;
+  if (enum_string == "ttsPtPt")
+    return DlcType::kTtsPtPt;
   if (enum_string == "ttsSiLk")
-    return DLC_TYPE_TTSSILK;
+    return DlcType::kTtsSiLk;
   if (enum_string == "ttsSkSk")
-    return DLC_TYPE_TTSSKSK;
+    return DlcType::kTtsSkSk;
   if (enum_string == "ttsSvSe")
-    return DLC_TYPE_TTSSVSE;
+    return DlcType::kTtsSvSe;
   if (enum_string == "ttsThTh")
-    return DLC_TYPE_TTSTHTH;
+    return DlcType::kTtsThTh;
   if (enum_string == "ttsTrTr")
-    return DLC_TYPE_TTSTRTR;
+    return DlcType::kTtsTrTr;
   if (enum_string == "ttsUkUa")
-    return DLC_TYPE_TTSUKUA;
+    return DlcType::kTtsUkUa;
   if (enum_string == "ttsViVn")
-    return DLC_TYPE_TTSVIVN;
+    return DlcType::kTtsViVn;
   if (enum_string == "ttsYueHk")
-    return DLC_TYPE_TTSYUEHK;
-  return DLC_TYPE_NONE;
+    return DlcType::kTtsYueHk;
+  return DlcType::kNone;
 }
 
 std::u16string GetDlcTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"ttsBnBd\" or \"ttsCsCz\" or \"ttsDaDk\" or \"ttsDeDe\" or \"ttsElGr\" or \"ttsEnAu\" or \"ttsEnGb\" or \"ttsEnUs\" or \"ttsEsEs\" or \"ttsEsUs\" or \"ttsFiFi\" or \"ttsFilPh\" or \"ttsFrFr\" or \"ttsHiIn\" or \"ttsHuHu\" or \"ttsIdId\" or \"ttsItIt\" or \"ttsJaJp\" or \"ttsKmKh\" or \"ttsKoKr\" or \"ttsNbNo\" or \"ttsNeNp\" or \"ttsNlNl\" or \"ttsPlPl\" or \"ttsPtBr\" or \"ttsSiLk\" or \"ttsSkSk\" or \"ttsSvSe\" or \"ttsThTh\" or \"ttsTrTr\" or \"ttsUkUa\" or \"ttsViVn\" or \"ttsYueHk\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"ttsBnBd\" or \"ttsCsCz\" or \"ttsDaDk\" or \"ttsDeDe\" or \"ttsElGr\" or \"ttsEnAu\" or \"ttsEnGb\" or \"ttsEnUs\" or \"ttsEsEs\" or \"ttsEsUs\" or \"ttsFiFi\" or \"ttsFilPh\" or \"ttsFrFr\" or \"ttsHiIn\" or \"ttsHuHu\" or \"ttsIdId\" or \"ttsItIt\" or \"ttsJaJp\" or \"ttsKmKh\" or \"ttsKoKr\" or \"ttsNbNo\" or \"ttsNeNp\" or \"ttsNlNl\" or \"ttsPlPl\" or \"ttsPtBr\" or \"ttsPtPt\" or \"ttsSiLk\" or \"ttsSkSk\" or \"ttsSvSe\" or \"ttsThTh\" or \"ttsTrTr\" or \"ttsUkUa\" or \"ttsViVn\" or \"ttsYueHk\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+}
+
+
+const char* ToString(TtsVariant enum_param) {
+  switch (enum_param) {
+    case TtsVariant::kLite:
+      return "lite";
+    case TtsVariant::kStandard:
+      return "standard";
+    case TtsVariant::kNone:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+TtsVariant ParseTtsVariant(base::StringPiece enum_string) {
+  if (enum_string == "lite")
+    return TtsVariant::kLite;
+  if (enum_string == "standard")
+    return TtsVariant::kStandard;
+  return TtsVariant::kNone;
+}
+
+std::u16string GetTtsVariantParseError(base::StringPiece enum_string) {
+  return u"expected \"lite\" or \"standard\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -2209,8 +2123,8 @@ PumpkinData::PumpkinData()
  {}
 
 PumpkinData::~PumpkinData() = default;
-PumpkinData::PumpkinData(PumpkinData&& rhs) = default;
-PumpkinData& PumpkinData::operator=(PumpkinData&& rhs) = default;
+PumpkinData::PumpkinData(PumpkinData&& rhs) noexcept = default;
+PumpkinData& PumpkinData::operator=(PumpkinData&& rhs) noexcept = default;
 PumpkinData PumpkinData::Clone() const {
   PumpkinData out;
   out.js_pumpkin_tagger_bin_js = js_pumpkin_tagger_bin_js;
@@ -2414,34 +2328,21 @@ bool PumpkinData::Populate(
 }
 
 // static
-std::unique_ptr<PumpkinData> PumpkinData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PumpkinData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PumpkinData> PumpkinData::FromValue(const base::Value::Dict& value) {
+  PumpkinData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PumpkinData> PumpkinData::FromValue(const base::Value::Dict& value) {
+std::optional<PumpkinData> PumpkinData::FromValue(const base::Value& value) {
   PumpkinData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PumpkinData> PumpkinData::FromValue(const base::Value& value) {
-  PumpkinData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2511,13 +2412,13 @@ namespace SetNativeAccessibilityEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2527,13 +2428,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2546,13 +2447,13 @@ namespace SetFocusRings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2561,17 +2462,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& focus_rings_value = args[0];
     {
       if (!focus_rings_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(focus_rings_value.GetList(), params.focus_rings)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2580,16 +2481,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* assistive_technology_type_as_string = at_type_value.GetIfString();
       if (!assistive_technology_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.at_type = ParseAssistiveTechnologyType(*assistive_technology_type_as_string);
       if (params.at_type == AssistiveTechnologyType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2602,13 +2503,13 @@ namespace SetHighlights {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2617,17 +2518,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rects_value = args[0];
     {
       if (!rects_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(rects_value.GetList(), params.rects)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2636,13 +2537,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = color_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.color = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2655,13 +2556,13 @@ namespace SetKeyboardListener {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2671,13 +2572,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2686,13 +2587,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = capture_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.capture = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2705,13 +2606,13 @@ namespace DarkenScreen {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2721,13 +2622,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = darken_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.darken = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2740,13 +2641,13 @@ namespace ForwardKeyEventsToSwitchAccess {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2756,13 +2657,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = should_forward_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.should_forward = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2775,13 +2676,13 @@ namespace UpdateSwitchAccessBubble {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2791,16 +2692,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* switch_access_bubble_as_string = bubble_value.GetIfString();
       if (!switch_access_bubble_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.bubble = ParseSwitchAccessBubble(*switch_access_bubble_as_string);
       if (params.bubble == SwitchAccessBubble()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2809,13 +2710,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = show_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.show = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -2823,12 +2724,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& anchor_value = args[2];
     {
       if (!anchor_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ScreenRect temp;
         if (!ScreenRect::Populate(anchor_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.anchor = std::move(temp);
       }
     }
@@ -2839,7 +2740,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& actions_value = args[3];
     {
       if (!actions_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.actions.emplace();
@@ -2847,11 +2748,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
           SwitchAccessMenuAction tmp;
           const std::string* switch_access_menu_action_as_string = (it).GetIfString();
           if (!switch_access_menu_action_as_string) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           tmp = ParseSwitchAccessMenuAction(*switch_access_menu_action_as_string);
           if (tmp == SwitchAccessMenuAction()) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           params.actions->push_back(tmp);
         }
@@ -2869,13 +2770,13 @@ namespace SetPointScanState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2885,16 +2786,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* point_scan_state_as_string = state_value.GetIfString();
       if (!point_scan_state_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.state = ParsePointScanState(*point_scan_state_as_string);
       if (params.state == PointScanState()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2907,13 +2808,13 @@ namespace SetNativeChromeVoxArcSupportForCurrentApp {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2923,13 +2824,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2949,13 +2850,13 @@ namespace SendSyntheticKeyEvent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2964,15 +2865,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& key_event_value = args[0];
     {
       if (!key_event_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SyntheticKeyboardEvent::Populate(key_event_value.GetDict(), params.key_event)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2981,8 +2882,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = use_rewriters_value.GetIfBool();
       if (!temp.has_value()) {
-        params.use_rewriters = absl::nullopt;
-        return absl::nullopt;
+        params.use_rewriters = std::nullopt;
+        return std::nullopt;
       }
       params.use_rewriters = *temp;
     }
@@ -2998,13 +2899,13 @@ namespace EnableMouseEvents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3014,13 +2915,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3029,17 +2930,53 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 
 }  // namespace EnableMouseEvents
 
+namespace SetCursorPosition {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& point_value = args[0];
+    {
+      if (!point_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!ScreenPoint::Populate(point_value.GetDict(), params.point)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+}  // namespace SetCursorPosition
+
 namespace SendSyntheticMouseEvent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3048,15 +2985,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& mouse_event_value = args[0];
     {
       if (!mouse_event_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SyntheticMouseEvent::Populate(mouse_event_value.GetDict(), params.mouse_event)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3069,13 +3006,13 @@ namespace SetSelectToSpeakState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3085,16 +3022,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* select_to_speak_state_as_string = state_value.GetIfString();
       if (!select_to_speak_state_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.state = ParseSelectToSpeakState(*select_to_speak_state_as_string);
       if (params.state == SelectToSpeakState()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3107,13 +3044,13 @@ namespace ClipboardCopyInActiveLacrosGoogleDoc {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3123,13 +3060,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3142,13 +3079,13 @@ namespace HandleScrollableBoundsForPointFound {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3157,15 +3094,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rect_value = args[0];
     {
       if (!rect_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ScreenRect::Populate(rect_value.GetDict(), params.rect)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3178,13 +3115,13 @@ namespace MoveMagnifierToRect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3193,15 +3130,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rect_value = args[0];
     {
       if (!rect_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ScreenRect::Populate(rect_value.GetDict(), params.rect)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3214,13 +3151,13 @@ namespace MagnifierCenterOnPoint {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3229,15 +3166,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& point_value = args[0];
     {
       if (!point_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ScreenPoint::Populate(point_value.GetDict(), params.point)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3254,13 +3191,13 @@ namespace SetVirtualKeyboardVisible {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3270,13 +3207,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = is_visible_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.is_visible = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3289,13 +3226,13 @@ namespace OpenSettingsSubpage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3305,13 +3242,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = subpage_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.subpage = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3324,13 +3261,13 @@ namespace PerformAcceleratorAction {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3340,16 +3277,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* accelerator_action_as_string = accelerator_action_value.GetIfString();
       if (!accelerator_action_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.accelerator_action = ParseAcceleratorAction(*accelerator_action_as_string);
       if (params.accelerator_action == AcceleratorAction()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3362,13 +3299,13 @@ namespace IsFeatureEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3378,16 +3315,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* accessibility_feature_as_string = feature_value.GetIfString();
       if (!accessibility_feature_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.feature = ParseAccessibilityFeature(*accessibility_feature_as_string);
       if (params.feature == AccessibilityFeature()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3407,13 +3344,13 @@ namespace UpdateSelectToSpeakPanel {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3423,13 +3360,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = show_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.show = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -3437,12 +3374,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& anchor_value = args[1];
     {
       if (!anchor_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ScreenRect temp;
         if (!ScreenRect::Populate(anchor_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.anchor = std::move(temp);
       }
     }
@@ -3454,8 +3391,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = is_paused_value.GetIfBool();
       if (!temp.has_value()) {
-        params.is_paused = absl::nullopt;
-        return absl::nullopt;
+        params.is_paused = std::nullopt;
+        return std::nullopt;
       }
       params.is_paused = *temp;
     }
@@ -3467,8 +3404,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = speed_value.GetIfDouble();
       if (!temp.has_value()) {
-        params.speed = absl::nullopt;
-        return absl::nullopt;
+        params.speed = std::nullopt;
+        return std::nullopt;
       }
       params.speed = *temp;
     }
@@ -3484,13 +3421,13 @@ namespace ShowConfirmationDialog {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3500,13 +3437,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = title_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.title = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -3515,13 +3452,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = description_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.description = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -3530,8 +3467,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = cancel_name_value.GetIfString();
       if (!temp) {
-        params.cancel_name = absl::nullopt;
-        return absl::nullopt;
+        params.cancel_name = std::nullopt;
+        return std::nullopt;
       }
       params.cancel_name = *temp;
     }
@@ -3554,13 +3491,13 @@ namespace GetLocalizedDomKeyStringForKeyCode {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3570,13 +3507,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = key_code_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.key_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3596,13 +3533,13 @@ namespace UpdateDictationBubble {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3611,15 +3548,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DictationBubbleProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3636,13 +3573,13 @@ namespace GetDlcContents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3652,16 +3589,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* dlc_type_as_string = dlc_value.GetIfString();
       if (!dlc_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.dlc = ParseDlcType(*dlc_type_as_string);
       if (params.dlc == DlcType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3676,6 +3613,80 @@ base::Value::List Results::Create(const std::vector<uint8_t>& contents) {
   return create_results;
 }
 }  // namespace GetDlcContents
+
+namespace GetTtsDlcContents {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& dlc_value = args[0];
+    {
+      const std::string* dlc_type_as_string = dlc_value.GetIfString();
+      if (!dlc_type_as_string) {
+        return std::nullopt;
+      }
+      params.dlc = ParseDlcType(*dlc_type_as_string);
+      if (params.dlc == DlcType()) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& variant_value = args[1];
+    {
+      const std::string* tts_variant_as_string = variant_value.GetIfString();
+      if (!tts_variant_as_string) {
+        return std::nullopt;
+      }
+      params.variant = ParseTtsVariant(*tts_variant_as_string);
+      if (params.variant == TtsVariant()) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const std::vector<uint8_t>& contents) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append(base::Value(contents));
+
+  return create_results;
+}
+}  // namespace GetTtsDlcContents
+
+namespace GetDisplayBounds {
+
+base::Value::List Results::Create(const std::vector<ScreenRect>& rects) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(rects));
+
+  return create_results;
+}
+}  // namespace GetDisplayBounds
 
 namespace IsLacrosPrimary {
 
@@ -3692,13 +3703,13 @@ namespace ShowToast {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3708,16 +3719,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* toast_type_as_string = type_value.GetIfString();
       if (!toast_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = ParseToastType(*toast_type_as_string);
       if (params.type == ToastType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

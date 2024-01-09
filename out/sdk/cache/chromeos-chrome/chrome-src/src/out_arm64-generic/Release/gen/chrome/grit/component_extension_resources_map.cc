@@ -49,9 +49,10 @@ const webui::ResourcePath kComponentExtensionResources[] = {
   {"side_panel/read_anything/images/read_anything_dark.png", IDS_READING_MODE_DARK_PNG},
   {"side_panel/read_anything/images/read_anything_yellow.png", IDS_READING_MODE_YELLOW_PNG},
   {"side_panel/read_anything/images/read_anything_blue.png", IDS_READING_MODE_BLUE_PNG},
-  {"chromeos/arc_input_overlay/onboarding_illustration_dark.json", IDS_ARC_INPUT_OVERLAY_ONBOARDING_ILLUSTRATION_DARK_JSON},
-  {"chromeos/arc_input_overlay/onboarding_illustration_light.json", IDS_ARC_INPUT_OVERLAY_ONBOARDING_ILLUSTRATION_LIGHT_JSON},
-  {"chromeos/arc_input_overlay/zero_state_illustration.json", IDS_ARC_INPUT_OVERLAY_ZERO_STATE_ILLUSTRATION_JSON},
+  {"chromeos/arc_input_overlay/onboarding_illustration_dark.json", IDR_ARC_INPUT_OVERLAY_ONBOARDING_ILLUSTRATION_DARK_JSON},
+  {"chromeos/arc_input_overlay/onboarding_illustration_light.json", IDR_ARC_INPUT_OVERLAY_ONBOARDING_ILLUSTRATION_LIGHT_JSON},
+  {"chromeos/arc_input_overlay/key_edit_nudge.json", IDR_ARC_INPUT_OVERLAY_KEY_EDIT_NUDGE_JSON},
+  {"chromeos/arc_input_overlay/button_placement_mode_nudge.json", IDR_ARC_INPUT_OVERLAY_BUTTON_PLACEMENT_MODE_NUDGE_JSON},
 };
 
 const size_t kComponentExtensionResourcesSize = std::size(kComponentExtensionResources);

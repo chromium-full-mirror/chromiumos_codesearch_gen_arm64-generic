@@ -286,6 +286,16 @@ class BidderWorkletNonSharedParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTrustedBiddingSignalsSlotSizeMode(UserType* output) const {
+    auto data_value = data_->trusted_bidding_signals_slot_size_mode;
+    return mojo::internal::Deserialize<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(
+        data_value, output);
+  }
+  ::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(data_->trusted_bidding_signals_slot_size_mode));
+  }
   bool enable_bidding_signals_prioritization() const {
     return data_->enable_bidding_signals_prioritization;
   }
@@ -461,6 +471,9 @@ class BiddingBrowserSignalsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::auction_worklet::mojom::PreviousWinDataView>>(
         pointer, output, message_);
   }
+  bool for_debugging_only_in_cooldown_or_lockout() const {
+    return data_->for_debugging_only_in_cooldown_or_lockout;
+  }
  private:
   internal::BiddingBrowserSignals_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -510,7 +523,7 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::AdCurrencyDataView>(
         pointer, output, message_);
   }
-  absl::optional<double> ad_cost() const {
+  std::optional<double> ad_cost() const {
 
     return data_->ad_cost_$flag
         ? absl::make_optional(data_->ad_cost_$value)
@@ -546,7 +559,7 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::AdDescriptorDataView>>(
         pointer, output, message_);
   }
-  absl::optional<uint16_t> modeling_signals() const {
+  std::optional<uint16_t> modeling_signals() const {
 
     return data_->modeling_signals_$flag
         ? absl::make_optional(data_->modeling_signals_$value)
@@ -931,6 +944,8 @@ struct Serializer<::auction_worklet::mojom::BidderWorkletNonSharedParamsDataView
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null name in BidderWorkletNonSharedParams struct");
+    mojo::internal::Serialize<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(
+        Traits::trusted_bidding_signals_slot_size_mode(input), &fragment->trusted_bidding_signals_slot_size_mode);
     fragment->enable_bidding_signals_prioritization = Traits::enable_bidding_signals_prioritization(input);
     decltype(Traits::priority_vector(input)) in_priority_vector = Traits::priority_vector(input);
     mojo::internal::MessageFragment<
@@ -1049,6 +1064,7 @@ struct Serializer<::auction_worklet::mojom::BiddingBrowserSignalsDataView, Maybe
         fragment->prev_wins.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null prev_wins in BiddingBrowserSignals struct");
+    fragment->for_debugging_only_in_cooldown_or_lockout = Traits::for_debugging_only_in_cooldown_or_lockout(input);
   }
 
   static bool Deserialize(::auction_worklet::mojom::internal::BiddingBrowserSignals_Data* input,

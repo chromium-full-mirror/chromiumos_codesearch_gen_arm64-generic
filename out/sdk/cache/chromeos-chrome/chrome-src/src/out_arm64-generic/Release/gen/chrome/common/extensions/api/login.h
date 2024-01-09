@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct SamlUserSessionProperties {
   ~SamlUserSessionProperties();
   SamlUserSessionProperties(const SamlUserSessionProperties&) = delete;
   SamlUserSessionProperties& operator=(const SamlUserSessionProperties&) = delete;
-  SamlUserSessionProperties(SamlUserSessionProperties&& rhs);
-  SamlUserSessionProperties& operator=(SamlUserSessionProperties&& rhs);
+  SamlUserSessionProperties(SamlUserSessionProperties&& rhs) noexcept;
+  SamlUserSessionProperties& operator=(SamlUserSessionProperties&& rhs) noexcept;
 
   // Populates a SamlUserSessionProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -46,17 +47,13 @@ struct SamlUserSessionProperties {
   // Creates a deep copy of SamlUserSessionProperties.
   SamlUserSessionProperties Clone() const;
 
-  // Creates a SamlUserSessionProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SamlUserSessionProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a SamlUserSessionProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SamlUserSessionProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<SamlUserSessionProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a SamlUserSessionProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SamlUserSessionProperties> FromValue(const base::Value& value);
+  static std::optional<SamlUserSessionProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSamlUserSessionProperties object.
@@ -84,17 +81,17 @@ struct SamlUserSessionProperties {
 namespace LaunchManagedGuestSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If provided, the launched managed guest session will be lockable, and can
   // only be unlocked by calling $(ref:unlockManagedGuestSession) with the same
   // password.
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
 
  private:
@@ -111,16 +108,16 @@ base::Value::List Create();
 namespace ExitCurrentSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If set, stores data which can be read by $(ref:fetchDataForNextLoginAttempt)
   // from the login screen. If unset, any currently stored data will be cleared.
-  absl::optional<std::string> data_for_next_login_attempt;
+  std::optional<std::string> data_for_next_login_attempt;
 
 
  private:
@@ -164,11 +161,11 @@ base::Value::List Create();
 namespace UnlockManagedGuestSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string password;
@@ -188,11 +185,11 @@ base::Value::List Create();
 namespace UnlockCurrentSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The password which will be used to unlock the session.
@@ -213,11 +210,11 @@ base::Value::List Create();
 namespace LaunchSamlUserSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // User's email address, gaia ID, password and oauth_code.
@@ -238,11 +235,11 @@ base::Value::List Create();
 namespace LaunchSharedManagedGuestSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The password which can be used to unlock the shared session.
@@ -263,11 +260,11 @@ base::Value::List Create();
 namespace EnterSharedSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The password which can be used to unlock the shared session.
@@ -288,11 +285,11 @@ base::Value::List Create();
 namespace UnlockSharedSession {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The password used to unlock the shared session.
@@ -322,11 +319,11 @@ base::Value::List Create();
 namespace SetDataForNextLoginAttempt {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The data to be set.

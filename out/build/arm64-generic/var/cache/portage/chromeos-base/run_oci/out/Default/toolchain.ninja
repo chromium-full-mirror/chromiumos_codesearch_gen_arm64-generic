@@ -34,10 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/run_oci/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/run_oci/_run_oci-install_config.stamp: stamp
-build obj/run_oci/all.stamp: stamp ./lib/libcontainer_config_parser.so ./run_oci ./container_config_parser_test ./run_oci_test
+build obj/run_oci/all.stamp: stamp ./lib/libcontainer_config_parser.so ./run_oci
 subninja obj/run_oci/container_config_parser.ninja
-subninja obj/run_oci/container_config_parser_test.ninja
 subninja obj/run_oci/run_oci.ninja
-subninja obj/run_oci/run_oci_test.ninja

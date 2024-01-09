@@ -24,6 +24,8 @@
 namespace drivefs::mojom {
 class DriveFsConfigurationDataView;
 
+class AccessTokenDataView;
+
 class DriveErrorDataView;
 
 class DialogReasonDataView;
@@ -72,6 +74,8 @@ class DocsOfflineStatsDataView;
 
 class FilePathOrErrorDataView;
 
+enum class DocsOfflineEnableStatus : int32_t;
+
 enum class CSESupport : int32_t;
 
 enum class AccessTokenStatus : int32_t;
@@ -119,6 +123,9 @@ enum class DriveFs_CancelUploadMode : int32_t;
 enum class DriveFsDelegate_CreateOrDelete : int32_t;
 class DriveFsConfiguration;
 using DriveFsConfigurationPtr = mojo::StructPtr<DriveFsConfiguration>;
+
+class AccessToken;
+using AccessTokenPtr = mojo::StructPtr<AccessToken>;
 
 class DriveError;
 using DriveErrorPtr = mojo::StructPtr<DriveError>;

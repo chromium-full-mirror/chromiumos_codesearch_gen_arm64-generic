@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/search/mojom/user_action_recorder.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/search/mojom/user_action_recorder.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/search/mojom/user_action_recorder.mojom-forward.h"
 #include "ash/webui/settings/public/constants/setting.mojom-forward.h"
@@ -221,25 +222,25 @@ class  SettingChangeValue {
   // Construct an instance holding |bool_value|.
   static SettingChangeValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = SettingChangeValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |int_value|.
   static SettingChangeValuePtr
   NewIntValue(
-      int32_t int_value) {
+      int32_t value) {
     auto result = SettingChangeValuePtr(absl::in_place);
-    result->set_int_value(std::move(int_value));
+    result->set_int_value(std::move(value));
     return result;
   }
   // Construct an instance holding |string_value|.
   static SettingChangeValuePtr
   NewStringValue(
-      const std::string& string_value) {
+      const std::string& value) {
     auto result = SettingChangeValuePtr(absl::in_place);
-    result->set_string_value(std::move(string_value));
+    result->set_string_value(std::move(value));
     return result;
   }
 

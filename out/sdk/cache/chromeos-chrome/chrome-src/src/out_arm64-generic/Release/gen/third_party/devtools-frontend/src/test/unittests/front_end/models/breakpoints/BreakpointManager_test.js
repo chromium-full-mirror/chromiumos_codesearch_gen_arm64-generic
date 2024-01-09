@@ -3,22 +3,22 @@
 // found in the LICENSE file.
 import * as Common from '../../../../../front_end/core/common/common.js';
 import * as Host from '../../../../../front_end/core/host/host.js';
+import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as Root from '../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../../front_end/models/bindings/bindings.js';
 import * as Breakpoints from '../../../../../front_end/models/breakpoints/breakpoints.js';
+import * as Persistence from '../../../../../front_end/models/persistence/persistence.js';
 import * as TextUtils from '../../../../../front_end/models/text_utils/text_utils.js';
 import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
-import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
-import * as Persistence from '../../../../../front_end/models/persistence/persistence.js';
 import { createTarget } from '../../helpers/EnvironmentHelpers.js';
 import { TestPlugin } from '../../helpers/LanguagePluginHelpers.js';
 import { clearMockConnectionResponseHandler, describeWithMockConnection, dispatchEvent, registerListenerOnOutgoingMessage, setMockConnectionResponseHandler, } from '../../helpers/MockConnection.js';
 import { MockProtocolBackend } from '../../helpers/MockScopeChain.js';
-import { setupPageResourceLoaderForSourceMap } from '../../helpers/SourceMapHelpers.js';
-import { createContentProviderUISourceCode } from '../../helpers/UISourceCodeHelpers.js';
 import { createFileSystemFileForPersistenceTests } from '../../helpers/PersistenceHelpers.js';
 import { encodeSourceMap } from '../../helpers/SourceMapEncoder.js';
+import { setupPageResourceLoaderForSourceMap } from '../../helpers/SourceMapHelpers.js';
+import { createContentProviderUISourceCode, createFakeScriptMapping } from '../../helpers/UISourceCodeHelpers.js';
 import { recordedMetricsContain, resetRecordedMetrics } from '../../helpers/UserMetricsHelpers.js';
 const { assert } = chai;
 describeWithMockConnection('BreakpointManager', () => {
@@ -1086,9 +1086,7 @@ describeWithMockConnection('BreakpointManager', () => {
             assert.strictEqual(9, reloadedBoundLocations[0].uiLocation.columnNumber);
         });
         it('can restore breakpoints in scripts with language plugins', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.WASM_DWARF_DEBUGGING);
-            const pluginManager = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance().initPluginManagerForTest();
-            assertNotNullOrUndefined(pluginManager);
+            const { pluginManager } = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance();
             const scriptInfo = { url: URL, content: '' };
             const script = await backend.addScript(target, scriptInfo, null);
             class Plugin extends TestPlugin {
@@ -1193,7 +1191,6 @@ describeWithMockConnection('BreakpointManager', () => {
             assert.strictEqual(1, reloadedBoundLocations.length);
             assert.strictEqual(0, reloadedBoundLocations[0].uiLocation.lineNumber);
             assert.strictEqual(0, reloadedBoundLocations[0].uiLocation.columnNumber);
-            Root.Runtime.experiments.disableForTest(Root.Runtime.ExperimentName.WASM_DWARF_DEBUGGING);
         });
         it('can move breakpoints to network files that are set in matching file system files', async () => {
             const workspace = Workspace.Workspace.WorkspaceImpl.instance();
@@ -1612,16 +1609,4 @@ describeWithMockConnection('BreakpointManager storage', () => {
         assert.isFalse(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.BreakpointsRestoredFromStorageCount, 2 /* Host.UserMetrics.BreakpointsRestoredFromStorageCount.LessThan1000 */));
     });
 });
-function createFakeScriptMapping(debuggerModel, uiSourceCode, uiLineNumber, scriptId) {
-    const sdkLocation = new SDK.DebuggerModel.Location(debuggerModel, scriptId, 13);
-    const uiLocation = new Workspace.UISourceCode.UILocation(uiSourceCode, uiLineNumber);
-    const mapping = {
-        rawLocationToUILocation: (_) => uiLocation,
-        uiLocationToRawLocations: (_uiSourceCode, _lineNumber, _columnNumber) => [sdkLocation],
-        uiLocationRangeToRawLocationRanges: (_uiSourceCode, _textRange) => {
-            throw new Error('Not implemented');
-        },
-    };
-    return mapping;
-}
 //# sourceMappingURL=BreakpointManager_test.js.map

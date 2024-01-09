@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import { CommerceInternalsHandlerFactory, CommerceInternalsHandlerRemote, CommerceInternalsPageCallbackRouter } from './commerce_internals.mojom-webui.js';
 export class CommerceInternalsApiProxy {
+    callbackRouter;
+    handler;
     constructor() {
         this.callbackRouter = new CommerceInternalsPageCallbackRouter();
         this.handler = new CommerceInternalsHandlerRemote();

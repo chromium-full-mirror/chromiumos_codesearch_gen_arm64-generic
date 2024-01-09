@@ -1,16 +1,12 @@
 import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
-  #multidevice-summary-message a {
-    display: inline-block;
-  }
-
   #singleDeviceName {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
   }
 
   .offline-device-name {
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
   }
 
   :host-context(body.jelly-enabled) #singleDeviceName,
@@ -54,11 +50,23 @@ export function getTemplate() {
     box-sizing: border-box;
     display: flex;
     min-height: 48px;
-    padding: 12px 0;
+    padding: 18px 0;
+    gap: 20px;
   }
 
   #feature-details-container-header {
     margin-bottom: 16px;
+  }
+
+  .feature-detail-text {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 60%;
+  }
+
+  .feature-detail-text > span:first-of-type {
+    font-weight: bold;
   }
 
   :host-context([orientation=horizontal]) #additional-content-container {
@@ -68,7 +76,7 @@ export function getTemplate() {
   }
 
   #feature-details-container {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
     padding-top: 40px;
   }
 
@@ -77,16 +85,15 @@ export function getTemplate() {
     font-family: var(--cros-font-family-google-sans);
   }
 
-  .feature-detail:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  .feature-detail:not(:last-of-type) {
+    border-bottom: 1px solid var(--cros-sys-separator);
   }
 
   .feature-detail iron-icon {
-    --iron-icon-fill-color: var(--cros-icon-color-prominent);
+    --iron-icon-fill-color: var(--cros-sys-primary);
     --iron-icon-height: 20px;
     --iron-icon-width: 20px;
     min-width: 20px;
-    padding: 0 20px;
   }
 
   /* Hide the animation when not enough space in vertical mode. */
@@ -107,9 +114,6 @@ export function getTemplate() {
 
 <ui-page header-text="[[i18nDynamic(locale, headerTextId)]]"
     icon-name="google-g">
-  <span slot="message" id="multidevice-summary-message" inner-h-t-m-l=
-      "[[i18nAdvancedDynamic_(locale, 'startSetupPageMessage')]]">
-  </span>
   <span slot="message">
     <div id="animation-container">
       <!-- TODO(b/279667779): Remove iron-media-query and dark mode check when
@@ -153,29 +157,45 @@ export function getTemplate() {
         <div id="feature-details-container-header">
           [[i18nDynamic(locale, 'startSetupPageFeatureListHeader')]]
         </div>
+        <!-- Feature: Phone Hub -->
+        <template is="dom-if" if="[[phoneHubEnabled_]]">
+          <div class="feature-detail">
+            <iron-icon icon="multidevice-setup-icons-20:phonehub">
+            </iron-icon>
+            <div class="feature-detail-text">
+              <span>[[i18nDynamic(locale, 'startSetupPageFeaturePhoneHubTitle')]]</span>
+              <span>[[i18nDynamic(locale, 'startSetupPageFeaturePhoneHubDescription')]]</span>
+            </div>
+          </div>
+        </template>
+        <!-- Feature: Smart Lock -->
+        <div class="feature-detail">
+          <iron-icon icon="multidevice-setup-icons-20:smart-lock">
+          </iron-icon>
+          <div class="feature-detail-text">
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureSmartLockTitle')]]</span>
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureSmartLockDescription')]]</span>
+          </div>
+        </div>
+        <!-- Feature: Wifi Sync -->
         <template is="dom-if" if="[[wifiSyncEnabled_]]">
           <div class="feature-detail">
-            <iron-icon icon="multidevice-setup-icons-20:wifi">
+            <iron-icon icon="multidevice-setup-icons-20:wifi-sync">
             </iron-icon>
-            <span>
-              [[i18nDynamic(locale, 'startSetupPageFeatureWifiSync')]]
-            </span>
+            <div class="feature-detail-text">
+              <span>[[i18nDynamic(locale, 'startSetupPageFeatureWifiSyncTitle')]]</span>
+              <span>[[i18nDynamic(locale, 'startSetupPageFeatureWifiSyncDescription')]]</span>
+            </div>
           </div>
         </template>
-        <template is="dom-if" if="[[phoneHubCameraRollEnabled_]]">
-          <div class="feature-detail">
-            <iron-icon icon="multidevice-setup-icons-20:image">
-            </iron-icon>
-            <span>
-              [[i18nDynamic(locale, 'startSetupPageFeatureCameraRoll')]]
-            </span>
-          </div>
-        </template>
+        <!-- Feature: Instant Tethering -->
         <div class="feature-detail">
-          <iron-icon icon="multidevice-setup-icons-20:features"></iron-icon>
-          <span>
-            [[i18nDynamic(locale, 'startSetupPageFeatureListAddFeatures')]]
-          </span>
+          <iron-icon icon="multidevice-setup-icons-20:instant-tethering">
+          </iron-icon>
+          <div class="feature-detail-text">
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureInstantTetheringTitle')]]</span>
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureInstantTetheringDescription')]]</span>
+          </div>
         </div>
       </div>
       <div class="footnote">

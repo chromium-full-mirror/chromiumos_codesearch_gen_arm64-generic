@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/private_computing-0.0.1-r171/work/private_computing-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -26,10 +26,7 @@ build install_service: phony obj/private_computing/install_service.stamp
 build install_systemd: phony obj/private_computing/install_systemd.stamp
 build private_computing_lib: phony ./libprivate_computing_lib.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build private_computing$:_private_computingd-install_config: phony obj/private_computing/_private_computingd-install_config.stamp
 build private_computing$:all: phony obj/private_computing/all.stamp
 build private_computing$:dbus_adaptors_generator: phony obj/private_computing/dbus_adaptors_generator.stamp
@@ -38,12 +35,10 @@ build private_computing$:install_minijail_conf: phony obj/private_computing/inst
 build private_computing$:install_service: phony obj/private_computing/install_service.stamp
 build private_computing$:install_systemd: phony obj/private_computing/install_systemd.stamp
 build private_computing$:private_computing_lib: phony ./libprivate_computing_lib.a
-build private_computing$:private_computing_test: phony ./private_computing_test
 build private_computing$:private_computingd: phony ./private_computingd
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/private_computing/_private_computingd-install_config.stamp $
     obj/private_computing/all.stamp $
     obj/private_computing/dbus_adaptors_generator.stamp $
@@ -52,7 +47,6 @@ build all: phony $
     obj/private_computing/install_service.stamp $
     obj/private_computing/install_systemd.stamp $
     ./libprivate_computing_lib.a $
-    ./private_computing_test $
     ./private_computingd
 
 default all

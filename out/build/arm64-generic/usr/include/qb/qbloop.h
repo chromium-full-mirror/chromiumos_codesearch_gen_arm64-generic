@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Red Hat, Inc.
+ * Copyright (C) 2010-2020 Red Hat, Inc.
  *
  * Author: Angus Salkeld <asalkeld@redhat.com>
  *
@@ -29,11 +29,32 @@ extern "C" {
 
 #include <signal.h>
 #include <stdint.h>
+#include <poll.h>  /* make POLLIN etc. readily available */
 
 /**
  * @file qbloop.h
  *
  * Main loop manages timers, jobs and polling sockets.
+ *
+ * Only a weaker sense of priorities is implemented, alluding to distinct
+ * set of pros and cons compared to the stronger, strict approach to them
+ * as widely applied in this problem space (since the latter gives the
+ * application more control as the effect of the former can still be
+ * achieved with some reductions, whereas it is not straightforward the
+ * other way around; cf. static priority task scheduling vs. relative
+ * fine-tuning within a single priority domain with nice(2)):
+ *
+ * + implicit mitigation for deadlock-prone priority arrangements
+ *
+ * - less predictable (proportional probability based, we can talk
+ *   about an advisory effect of the priorities) responses to the arrival
+ *   of the high-ranked events (i.e. in the process of the picking the next
+ *   event to handle from the priority queue when at least two different
+ *   priorities are eligible at the moment)
+ *
+ * One practical application for this module of libqb is in combination with
+ * IPC servers based on qbipcs.h published one (the #qb_ipcs_poll_handlers
+ * structure maps fittingly to the control functions published here).
  *
  * @example tcpserver.c
  */
@@ -114,7 +135,7 @@ int32_t qb_loop_job_add(qb_loop_t *l,
  * This will try to delete the job if it hasn't run yet.
  *
  * @note this will remove the first job that matches the
- * paramaters (priority, data, dispatch_fn).
+ * parameters (priority, data, dispatch_fn).
  *
  * @param l pointer to the loop instance
  * @param p the priority
@@ -166,15 +187,26 @@ int32_t qb_loop_timer_del(qb_loop_t *l, qb_loop_timer_handle th);
 int32_t qb_loop_timer_is_running(qb_loop_t *l, qb_loop_timer_handle th);
 
 /**
- * Get the time remaining before it expires.
+ * Get the expiration time of the timer, as set when the timer was created
  *
  * @note if the timer has already expired it will return 0
  *
  * @param l pointer to the loop instance
  * @param th timer handle.
- * @return nano seconds left
+ * @return nano seconds at which the timer will expire
  */
 uint64_t qb_loop_timer_expire_time_get(struct qb_loop *l, qb_loop_timer_handle th);
+
+/**
+ * Get the time remaining before the timer expires
+ *
+ * @note if the timer has already expired it will return 0
+ *
+ * @param l pointer to the loop instance
+ * @param th timer handle.
+ * @return nano seconds remaining until the timer expires
+ */
+uint64_t qb_loop_timer_expire_time_remaining(struct qb_loop *l, qb_loop_timer_handle th);
 
 /**
  * Set a callback to receive events on file descriptors
@@ -188,7 +220,7 @@ int32_t qb_loop_poll_low_fds_event_set(qb_loop_t *l,
 
 /**
  * Add a poll job to the mainloop.
- * @note it is a re-occuring job.
+ * @note it is a re-occurring job.
  *
  * @param l pointer to the loop instance
  * @param p the priority

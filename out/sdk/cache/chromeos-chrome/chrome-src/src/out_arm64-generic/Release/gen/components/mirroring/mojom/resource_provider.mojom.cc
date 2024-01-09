@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -120,14 +121,17 @@ void AudioStreamCreatorClientProxy::StreamCreated(
                         "<value of type ::media::mojom::ReadOnlyAudioDataPipePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioStreamCreatorClient_StreamCreated_Name, kFlags, 0, 0, nullptr);
@@ -230,10 +234,10 @@ bool AudioStreamCreatorClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioStreamCreatorClientValidationInfo[] = {
-    {&internal::AudioStreamCreatorClient_StreamCreated_Params_Data::Validate,
+    { &internal::AudioStreamCreatorClient_StreamCreated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -413,14 +417,17 @@ void ResourceProviderProxy::BindGpu(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::Gpu>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_BindGpu_Name, kFlags, 0, 0, nullptr);
@@ -456,14 +463,17 @@ void ResourceProviderProxy::GetVideoCaptureHost(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::VideoCaptureHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_GetVideoCaptureHost_Name, kFlags, 0, 0, nullptr);
@@ -499,14 +509,17 @@ void ResourceProviderProxy::GetVideoEncoderMetricsProvider(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::VideoEncoderMetricsProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_GetVideoEncoderMetricsProvider_Name, kFlags, 0, 0, nullptr);
@@ -542,14 +555,17 @@ void ResourceProviderProxy::GetNetworkContext(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::NetworkContext>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_GetNetworkContext_Name, kFlags, 0, 0, nullptr);
@@ -591,14 +607,17 @@ void ResourceProviderProxy::CreateAudioStream(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_CreateAudioStream_Name, kFlags, 0, 0, nullptr);
@@ -649,14 +668,17 @@ void ResourceProviderProxy::ConnectToRemotingSource(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::RemotingSource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceProvider_ConnectToRemotingSource_Name, kFlags, 0, 0, nullptr);
@@ -907,20 +929,20 @@ bool ResourceProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kResourceProviderValidationInfo[] = {
-    {&internal::ResourceProvider_BindGpu_Params_Data::Validate,
+    { &internal::ResourceProvider_BindGpu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceProvider_GetVideoCaptureHost_Params_Data::Validate,
+    { &internal::ResourceProvider_GetVideoCaptureHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceProvider_GetVideoEncoderMetricsProvider_Params_Data::Validate,
+    { &internal::ResourceProvider_GetVideoEncoderMetricsProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceProvider_GetNetworkContext_Params_Data::Validate,
+    { &internal::ResourceProvider_GetNetworkContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceProvider_CreateAudioStream_Params_Data::Validate,
+    { &internal::ResourceProvider_CreateAudioStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceProvider_ConnectToRemotingSource_Params_Data::Validate,
+    { &internal::ResourceProvider_ConnectToRemotingSource_Params_Data::Validate,
      nullptr /* no response */},
 };
 

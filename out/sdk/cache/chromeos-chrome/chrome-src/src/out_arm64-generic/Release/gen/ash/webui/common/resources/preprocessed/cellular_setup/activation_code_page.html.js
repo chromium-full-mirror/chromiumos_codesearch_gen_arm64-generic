@@ -2,11 +2,11 @@ import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
   return html`<!--_html_template_start_--><style include="iron-positioning">
   :host([expanded_]) #pageBody {
-    height: 340px;
+    overflow: auto;
     transition-duration: 200ms;
   }
   :host(:not([expanded_])) #pageBody {
-    height: 282px;
+    overflow: auto;
     transition-duration: 150ms;
   }
 
@@ -183,12 +183,34 @@ export function getTemplate() {
     text-align: center;
     width: auto;
   }
+
+  #carrierLockWarningContainer {
+    display: flex;
+    margin-bottom: 24px;
+    margin-top: 20px;
+  }
+
+  #carrierLockWarningIcon {
+    --iron-icon-fill-color: var(--cros-icon-color-alert);
+    --iron-icon-height: 24px;
+    --iron-icon-width: 24px;
+    margin-inline-end: 4px;
+  }
+
 </style>
 <base-page>
   <div slot="page-body" id="pageBody" class="animate">
     <span id="description" aria-live="polite">
       [[getDescription_(cameraCount_, qrCodeDetector_, showNoProfilesFound)]]
     </span>
+    <template is="dom-if"
+        if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
+      <div id="carrierLockWarningContainer">
+          <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
+          </iron-icon>
+        [[i18n('eSimCarrierLockedDevice')]]
+      </div>
+    </template>
     <template is="dom-if"
         if="[[isScanningAvailable_(cameraCount_, qrCodeDetector_.*)]]" restamp>
       <div id="esimQrCodeDetection" class="animate">

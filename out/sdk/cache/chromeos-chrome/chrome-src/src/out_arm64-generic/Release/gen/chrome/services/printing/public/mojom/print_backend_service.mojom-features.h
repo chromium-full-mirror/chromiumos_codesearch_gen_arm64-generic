@@ -8,6 +8,7 @@
 #define CHROME_SERVICES_PRINTING_PUBLIC_MOJOM_PRINT_BACKEND_SERVICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -8,6 +8,9 @@ export class CertificateProvisioningBrowserProxyImpl {
     triggerCertificateProvisioningProcessUpdate(certProfileId) {
         chrome.send('triggerCertificateProvisioningProcessUpdate', [certProfileId]);
     }
+    triggerCertificateProvisioningProcessReset(certProfileId) {
+        chrome.send('triggerCertificateProvisioningProcessReset', [certProfileId]);
+    }
     static getInstance() {
         return instance ||
             (instance = new CertificateProvisioningBrowserProxyImpl());

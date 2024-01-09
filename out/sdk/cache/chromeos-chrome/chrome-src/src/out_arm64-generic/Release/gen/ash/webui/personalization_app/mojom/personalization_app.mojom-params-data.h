@@ -780,6 +780,38 @@ class  WallpaperProvider_CancelPreviewWallpaper_Params_Data {
 };
 static_assert(sizeof(WallpaperProvider_CancelPreviewWallpaper_Params_Data) == 8,
               "Bad sizeof(WallpaperProvider_CancelPreviewWallpaper_Params_Data)");
+class  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data>;
+
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data();
+  ~WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data() = delete;
+};
+static_assert(sizeof(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data) == 8,
+              "Bad sizeof(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data)");
+class  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t should_show_dialog : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data>;
+
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data();
+  ~WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data) == 16,
+              "Bad sizeof(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data)");
 class  ThemeObserver_OnColorModeChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2979,6 +3011,39 @@ class WallpaperProvider_CancelPreviewWallpaper_ParamsDataView {
 };
 
 
+class WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsDataView {
+ public:
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsDataView() = default;
+
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsDataView(
+      internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data* data_ = nullptr;
+};
+
+
+class WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsDataView {
+ public:
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsDataView() = default;
+
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsDataView(
+      internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool should_show_dialog() const {
+    return data_->should_show_dialog;
+  }
+ private:
+  internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class ThemeObserver_OnColorModeChanged_ParamsDataView {
  public:
   ThemeObserver_OnColorModeChanged_ParamsDataView() = default;
@@ -4557,6 +4622,10 @@ inline void WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsDataView
   auto pointer = data_->collection_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
 
 
 

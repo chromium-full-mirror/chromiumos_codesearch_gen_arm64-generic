@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/service_worker.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-blink.h"
@@ -66,18 +67,6 @@
 #include "third_party/blink/renderer/core/core_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FetchHandlerExistence>
-    : EnumHashTraits<::blink::mojom::FetchHandlerExistence, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -124,6 +113,7 @@ class CORE_EXPORT ServiceWorkerHost
     kSkipWaitingMinVersion = 0,
     kClaimClientsMinVersion = 0,
     kRegisterRouterMinVersion = 0,
+    kAddRoutesMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -163,6 +153,9 @@ class CORE_EXPORT ServiceWorkerHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RegisterRouter_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct AddRoutes_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -221,6 +214,11 @@ class CORE_EXPORT ServiceWorkerHost
   using RegisterRouterCallback = base::OnceCallback<void()>;
   
   virtual void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) = 0;
+
+
+  using AddRoutesCallback = base::OnceCallback<void()>;
+  
+  virtual void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) = 0;
 };
 
 class ServiceWorkerProxy;
@@ -518,6 +516,8 @@ class CORE_EXPORT ServiceWorkerHostProxy
   void ClaimClients(ClaimClientsCallback callback) final;
   
   void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) final;
+  
+  void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

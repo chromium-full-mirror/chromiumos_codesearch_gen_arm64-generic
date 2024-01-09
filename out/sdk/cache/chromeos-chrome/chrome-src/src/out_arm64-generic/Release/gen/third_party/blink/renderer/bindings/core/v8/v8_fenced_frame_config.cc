@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FencedFrameConfig>::value,
     "FencedFrameConfig inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FencedFrameConfig::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FencedFrameConfig is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,7 +87,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 if (!ToV8Traits<IDLNullable<V8UnionOpaquePropertyOrUnsignedLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -113,7 +109,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 if (!ToV8Traits<IDLNullable<V8UnionOpaquePropertyOrUnsignedLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -163,9 +160,9 @@ BLINK_BINDINGS_TRACE_EVENT("FencedFrameConfig.setSharedStorageContext");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FencedFrameConfig";
 const char* const property_name = "setSharedStorageContext";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -176,13 +173,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(v8_receiver);
+FencedFrameConfig* blink_receiver = V8FencedFrameConfig::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_context_string;
 if (LIKELY(info[0]->IsString())) {
-  arg1_context_string.Init(info[0].As<v8::String>());
+  arg1_context_string.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FencedFrameConfig";
 const char* const property_name = "setSharedStorageContext";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

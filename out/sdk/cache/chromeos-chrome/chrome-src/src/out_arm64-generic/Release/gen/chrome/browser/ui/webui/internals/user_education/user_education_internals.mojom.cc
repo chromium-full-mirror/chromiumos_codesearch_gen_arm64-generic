@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,25 +49,28 @@ FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo()
       display_description(),
       internal_name(),
       type(),
-      added_timestamp_ms(),
+      added_milestone(),
       supported_platforms(),
-      instructions() {}
+      instructions(),
+      followed_by_internal_name() {}
 
 FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo(
     const std::string& display_title_in,
     const std::string& display_description_in,
     const std::string& internal_name_in,
     const std::string& type_in,
-    int64_t added_timestamp_ms_in,
+    int32_t added_milestone_in,
     std::vector<std::string> supported_platforms_in,
-    std::vector<std::string> instructions_in)
+    std::vector<std::string> instructions_in,
+    const std::string& followed_by_internal_name_in)
     : display_title(std::move(display_title_in)),
       display_description(std::move(display_description_in)),
       internal_name(std::move(internal_name_in)),
       type(std::move(type_in)),
-      added_timestamp_ms(std::move(added_timestamp_ms_in)),
+      added_milestone(std::move(added_milestone_in)),
       supported_platforms(std::move(supported_platforms_in)),
-      instructions(std::move(instructions_in)) {}
+      instructions(std::move(instructions_in)),
+      followed_by_internal_name(std::move(followed_by_internal_name_in)) {}
 
 FeaturePromoDemoPageInfo::~FeaturePromoDemoPageInfo() = default;
 
@@ -111,9 +115,9 @@ void FeaturePromoDemoPageInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "added_timestamp_ms"), this->added_timestamp_ms,
+      "added_milestone"), this->added_milestone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int64_t>"
+      "<value of type int32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,6 +136,15 @@ void FeaturePromoDemoPageInfo::WriteIntoTrace(
       "instructions"), this->instructions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "followed_by_internal_name"), this->followed_by_internal_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -331,14 +344,17 @@ void UserEducationInternalsPageHandlerProxy::GetTutorials(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::GetTutorials");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_GetTutorials_Name, kFlags, 0, 0, nullptr);
@@ -369,14 +385,17 @@ void UserEducationInternalsPageHandlerProxy::StartTutorial(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_StartTutorial_Name, kFlags, 0, 0, nullptr);
@@ -411,14 +430,17 @@ void UserEducationInternalsPageHandlerProxy::GetFeaturePromos(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::GetFeaturePromos");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name, kFlags, 0, 0, nullptr);
@@ -438,25 +460,28 @@ void UserEducationInternalsPageHandlerProxy::GetFeaturePromos(
 }
 
 void UserEducationInternalsPageHandlerProxy::ShowFeaturePromo(
-    const std::string& in_title, ShowFeaturePromoCallback callback) {
+    const std::string& in_feature_name, ShowFeaturePromoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::ShowFeaturePromo", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("title"), in_title,
+           dict.AddItem("feature_name"), in_feature_name,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name, kFlags, 0, 0, nullptr);
@@ -465,16 +490,16 @@ void UserEducationInternalsPageHandlerProxy::ShowFeaturePromo(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->title)::BaseType> title_fragment(
+      typename decltype(params->feature_name)::BaseType> feature_name_fragment(
           params.message());
   mojo::internal::Serialize<mojo::StringDataView>(
-      in_title, title_fragment);
-  params->title.Set(
-      title_fragment.is_null() ? nullptr : title_fragment.data());
+      in_feature_name, feature_name_fragment);
+  params->feature_name.Set(
+      feature_name_fragment.is_null() ? nullptr : feature_name_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->title.is_null(),
+      params->feature_name.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null title in UserEducationInternalsPageHandler.ShowFeaturePromo request");
+      "null feature_name in UserEducationInternalsPageHandler.ShowFeaturePromo request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(UserEducationInternalsPageHandler::Name_);
@@ -577,7 +602,8 @@ void UserEducationInternalsPageHandler_GetTutorials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_GetTutorials_Name, kFlags, 0, 0, nullptr);
@@ -707,7 +733,8 @@ void UserEducationInternalsPageHandler_StartTutorial_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_StartTutorial_Name, kFlags, 0, 0, nullptr);
@@ -835,7 +862,8 @@ void UserEducationInternalsPageHandler_GetFeaturePromos_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name, kFlags, 0, 0, nullptr);
@@ -965,7 +993,8 @@ void UserEducationInternalsPageHandler_ShowFeaturePromo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name, kFlags, 0, 0, nullptr);
@@ -1119,10 +1148,10 @@ std::move(p_tutorial_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_title{};
+      std::string p_feature_name{};
       UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadTitle(&p_title))
+      if (success && !input_data_view.ReadFeatureName(&p_feature_name))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1137,22 +1166,22 @@ std::move(p_tutorial_id), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->ShowFeaturePromo(
-std::move(p_title), std::move(callback));
+std::move(p_feature_name), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserEducationInternalsPageHandlerValidationInfo[] = {
-    {&internal::UserEducationInternalsPageHandler_GetTutorials_Params_Data::Validate,
+    { &internal::UserEducationInternalsPageHandler_GetTutorials_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_GetTutorials_ResponseParams_Data::Validate},
-    {&internal::UserEducationInternalsPageHandler_StartTutorial_Params_Data::Validate,
+    { &internal::UserEducationInternalsPageHandler_StartTutorial_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data::Validate},
-    {&internal::UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data::Validate,
+    { &internal::UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParams_Data::Validate},
-    {&internal::UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data::Validate,
+    { &internal::UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data::Validate},
 };
 
@@ -1189,10 +1218,12 @@ bool StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo::D
       if (success && !input.ReadType(&result->type))
         success = false;
       if (success)
-        result->added_timestamp_ms = input.added_timestamp_ms();
+        result->added_milestone = input.added_milestone();
       if (success && !input.ReadSupportedPlatforms(&result->supported_platforms))
         success = false;
       if (success && !input.ReadInstructions(&result->instructions))
+        success = false;
+      if (success && !input.ReadFollowedByInternalName(&result->followed_by_internal_name))
         success = false;
   *output = std::move(result);
   return success;
@@ -1217,8 +1248,8 @@ void UserEducationInternalsPageHandlerInterceptorForTesting::StartTutorial(const
 void UserEducationInternalsPageHandlerInterceptorForTesting::GetFeaturePromos(GetFeaturePromosCallback callback) {
   GetForwardingInterface()->GetFeaturePromos(std::move(callback));
 }
-void UserEducationInternalsPageHandlerInterceptorForTesting::ShowFeaturePromo(const std::string& title, ShowFeaturePromoCallback callback) {
-  GetForwardingInterface()->ShowFeaturePromo(std::move(title), std::move(callback));
+void UserEducationInternalsPageHandlerInterceptorForTesting::ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) {
+  GetForwardingInterface()->ShowFeaturePromo(std::move(feature_name), std::move(callback));
 }
 UserEducationInternalsPageHandlerAsyncWaiter::UserEducationInternalsPageHandlerAsyncWaiter(
     UserEducationInternalsPageHandler* proxy) : proxy_(proxy) {}
@@ -1295,9 +1326,9 @@ std::vector<FeaturePromoDemoPageInfoPtr> UserEducationInternalsPageHandlerAsyncW
 }
 
 void UserEducationInternalsPageHandlerAsyncWaiter::ShowFeaturePromo(
-    const std::string& title, std::string* out_error_message) {
+    const std::string& feature_name, std::string* out_error_message) {
   base::RunLoop loop;
-  proxy_->ShowFeaturePromo(std::move(title),
+  proxy_->ShowFeaturePromo(std::move(feature_name),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::string* out_error_message
@@ -1311,9 +1342,9 @@ void UserEducationInternalsPageHandlerAsyncWaiter::ShowFeaturePromo(
 }
 
 std::string UserEducationInternalsPageHandlerAsyncWaiter::ShowFeaturePromo(
-    const std::string& title) {
+    const std::string& feature_name) {
   std::string async_wait_result;
-  ShowFeaturePromo(std::move(title),&async_wait_result);
+  ShowFeaturePromo(std::move(feature_name),&async_wait_result);
   return async_wait_result;
 }
 

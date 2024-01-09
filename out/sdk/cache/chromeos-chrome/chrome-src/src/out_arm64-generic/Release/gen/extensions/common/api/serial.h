@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct DeviceInfo {
   ~DeviceInfo();
   DeviceInfo(const DeviceInfo&) = delete;
   DeviceInfo& operator=(const DeviceInfo&) = delete;
-  DeviceInfo(DeviceInfo&& rhs);
-  DeviceInfo& operator=(DeviceInfo&& rhs);
+  DeviceInfo(DeviceInfo&& rhs) noexcept;
+  DeviceInfo& operator=(DeviceInfo&& rhs) noexcept;
 
   // Populates a DeviceInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,15 +49,12 @@ struct DeviceInfo {
   // Creates a deep copy of DeviceInfo.
   DeviceInfo Clone() const;
 
-  // Creates a DeviceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceInfo> FromValue(const base::Value& value);
+  static std::optional<DeviceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceInfo object.
@@ -68,14 +66,14 @@ struct DeviceInfo {
   std::string path;
 
   // A PCI or USB vendor ID if one can be determined for the underlying device.
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
   // A USB product ID if one can be determined for the underlying device.
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // A human-readable display name for the underlying device if one can be queried
   // from the host driver.
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
 };
 
@@ -121,8 +119,8 @@ struct ConnectionOptions {
   ~ConnectionOptions();
   ConnectionOptions(const ConnectionOptions&) = delete;
   ConnectionOptions& operator=(const ConnectionOptions&) = delete;
-  ConnectionOptions(ConnectionOptions&& rhs);
-  ConnectionOptions& operator=(ConnectionOptions&& rhs);
+  ConnectionOptions(ConnectionOptions&& rhs) noexcept;
+  ConnectionOptions& operator=(ConnectionOptions&& rhs) noexcept;
 
   // Populates a ConnectionOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -135,16 +133,13 @@ struct ConnectionOptions {
   // Creates a deep copy of ConnectionOptions.
   ConnectionOptions Clone() const;
 
-  // Creates a ConnectionOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ConnectionOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConnectionOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ConnectionOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ConnectionOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ConnectionOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConnectionOptions> FromValue(const base::Value& value);
+  static std::optional<ConnectionOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConnectionOptions object.
@@ -156,13 +151,13 @@ struct ConnectionOptions {
   // Lifecycle</a>). The default value is "false." When the application is loaded,
   // any serial connections previously opened with persistent=true can be fetched
   // with <code>getConnections</code>.
-  absl::optional<bool> persistent;
+  std::optional<bool> persistent;
 
   // An application-defined string to associate with the connection.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // The size of the buffer used to receive data. The default value is 4096.
-  absl::optional<int> buffer_size;
+  std::optional<int> buffer_size;
 
   // The requested bitrate of the connection to be opened. For compatibility with
   // the widest range of hardware, this number should match one of
@@ -171,7 +166,7 @@ struct ConnectionOptions {
   // device connected to the serial port will support the requested bitrate, even
   // if the port itself supports that bitrate. <code>9600</code> will be passed by
   // default.
-  absl::optional<int> bitrate;
+  std::optional<int> bitrate;
 
   // <code>"eight"</code> will be passed by default.
   DataBits data_bits;
@@ -184,17 +179,17 @@ struct ConnectionOptions {
 
   // Flag indicating whether or not to enable RTS/CTS hardware flow control.
   // Defaults to false.
-  absl::optional<bool> cts_flow_control;
+  std::optional<bool> cts_flow_control;
 
   // The maximum amount of time (in milliseconds) to wait for new data before
   // raising an <code>onReceiveError</code> event with a "timeout" error. If zero,
   // receive timeout errors will not be raised for the connection. Defaults to 0.
-  absl::optional<int> receive_timeout;
+  std::optional<int> receive_timeout;
 
   // The maximum amount of time (in milliseconds) to wait for a <code>send</code>
   // operation to complete before calling the callback with a "timeout" error. If
   // zero, send timeout errors will not be triggered. Defaults to 0.
-  absl::optional<int> send_timeout;
+  std::optional<int> send_timeout;
 
 };
 
@@ -203,8 +198,8 @@ struct ConnectionInfo {
   ~ConnectionInfo();
   ConnectionInfo(const ConnectionInfo&) = delete;
   ConnectionInfo& operator=(const ConnectionInfo&) = delete;
-  ConnectionInfo(ConnectionInfo&& rhs);
-  ConnectionInfo& operator=(ConnectionInfo&& rhs);
+  ConnectionInfo(ConnectionInfo&& rhs) noexcept;
+  ConnectionInfo& operator=(ConnectionInfo&& rhs) noexcept;
 
   // Populates a ConnectionInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -217,15 +212,12 @@ struct ConnectionInfo {
   // Creates a deep copy of ConnectionInfo.
   ConnectionInfo Clone() const;
 
-  // Creates a ConnectionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ConnectionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConnectionInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ConnectionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ConnectionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ConnectionInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ConnectionInfo> FromValue(const base::Value& value);
+  static std::optional<ConnectionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConnectionInfo object.
@@ -256,7 +248,7 @@ struct ConnectionInfo {
   // See <code>ConnectionOptions.bitrate</code>. This field may be omitted or
   // inaccurate if a non-standard bitrate is in use, or if an error occurred while
   // querying the underlying device.
-  absl::optional<int> bitrate;
+  std::optional<int> bitrate;
 
   // See <code>ConnectionOptions.dataBits</code>. This field may be omitted if an
   // error occurred while querying the underlying device.
@@ -272,7 +264,7 @@ struct ConnectionInfo {
 
   // See <code>ConnectionOptions.ctsFlowControl</code>. This field may be omitted
   // if an error occurred while querying the underlying device.
-  absl::optional<bool> cts_flow_control;
+  std::optional<bool> cts_flow_control;
 
 };
 
@@ -295,8 +287,8 @@ struct SendInfo {
   ~SendInfo();
   SendInfo(const SendInfo&) = delete;
   SendInfo& operator=(const SendInfo&) = delete;
-  SendInfo(SendInfo&& rhs);
-  SendInfo& operator=(SendInfo&& rhs);
+  SendInfo(SendInfo&& rhs) noexcept;
+  SendInfo& operator=(SendInfo&& rhs) noexcept;
 
   // Populates a SendInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -309,14 +301,11 @@ struct SendInfo {
   // Creates a deep copy of SendInfo.
   SendInfo Clone() const;
 
-  // Creates a SendInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SendInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a SendInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SendInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<SendInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a SendInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<SendInfo> FromValue(const base::Value& value);
+  static std::optional<SendInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSendInfo object.
@@ -335,8 +324,8 @@ struct HostControlSignals {
   ~HostControlSignals();
   HostControlSignals(const HostControlSignals&) = delete;
   HostControlSignals& operator=(const HostControlSignals&) = delete;
-  HostControlSignals(HostControlSignals&& rhs);
-  HostControlSignals& operator=(HostControlSignals&& rhs);
+  HostControlSignals(HostControlSignals&& rhs) noexcept;
+  HostControlSignals& operator=(HostControlSignals&& rhs) noexcept;
 
   // Populates a HostControlSignals object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -349,26 +338,23 @@ struct HostControlSignals {
   // Creates a deep copy of HostControlSignals.
   HostControlSignals Clone() const;
 
-  // Creates a HostControlSignals object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HostControlSignals> FromValueDeprecated(const base::Value& value);
-
   // Creates a HostControlSignals object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HostControlSignals> FromValue(const base::Value::Dict& value);
+  static std::optional<HostControlSignals> FromValue(const base::Value::Dict& value);
 
   // Creates a HostControlSignals object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HostControlSignals> FromValue(const base::Value& value);
+  static std::optional<HostControlSignals> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHostControlSignals object.
   base::Value::Dict ToValue() const;
 
   // DTR (Data Terminal Ready).
-  absl::optional<bool> dtr;
+  std::optional<bool> dtr;
 
   // RTS (Request To Send).
-  absl::optional<bool> rts;
+  std::optional<bool> rts;
 
 };
 
@@ -377,8 +363,8 @@ struct DeviceControlSignals {
   ~DeviceControlSignals();
   DeviceControlSignals(const DeviceControlSignals&) = delete;
   DeviceControlSignals& operator=(const DeviceControlSignals&) = delete;
-  DeviceControlSignals(DeviceControlSignals&& rhs);
-  DeviceControlSignals& operator=(DeviceControlSignals&& rhs);
+  DeviceControlSignals(DeviceControlSignals&& rhs) noexcept;
+  DeviceControlSignals& operator=(DeviceControlSignals&& rhs) noexcept;
 
   // Populates a DeviceControlSignals object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -391,17 +377,13 @@ struct DeviceControlSignals {
   // Creates a deep copy of DeviceControlSignals.
   DeviceControlSignals Clone() const;
 
-  // Creates a DeviceControlSignals object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DeviceControlSignals> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceControlSignals object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DeviceControlSignals> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceControlSignals> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceControlSignals object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DeviceControlSignals> FromValue(const base::Value& value);
+  static std::optional<DeviceControlSignals> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceControlSignals object.
@@ -426,8 +408,8 @@ struct ReceiveInfo {
   ~ReceiveInfo();
   ReceiveInfo(const ReceiveInfo&) = delete;
   ReceiveInfo& operator=(const ReceiveInfo&) = delete;
-  ReceiveInfo(ReceiveInfo&& rhs);
-  ReceiveInfo& operator=(ReceiveInfo&& rhs);
+  ReceiveInfo(ReceiveInfo&& rhs) noexcept;
+  ReceiveInfo& operator=(ReceiveInfo&& rhs) noexcept;
 
   // Populates a ReceiveInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -440,15 +422,12 @@ struct ReceiveInfo {
   // Creates a deep copy of ReceiveInfo.
   ReceiveInfo Clone() const;
 
-  // Creates a ReceiveInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReceiveInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReceiveInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReceiveInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ReceiveInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ReceiveInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ReceiveInfo> FromValue(const base::Value& value);
+  static std::optional<ReceiveInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReceiveInfo object.
@@ -486,8 +465,8 @@ struct ReceiveErrorInfo {
   ~ReceiveErrorInfo();
   ReceiveErrorInfo(const ReceiveErrorInfo&) = delete;
   ReceiveErrorInfo& operator=(const ReceiveErrorInfo&) = delete;
-  ReceiveErrorInfo(ReceiveErrorInfo&& rhs);
-  ReceiveErrorInfo& operator=(ReceiveErrorInfo&& rhs);
+  ReceiveErrorInfo(ReceiveErrorInfo&& rhs) noexcept;
+  ReceiveErrorInfo& operator=(ReceiveErrorInfo&& rhs) noexcept;
 
   // Populates a ReceiveErrorInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -500,16 +479,13 @@ struct ReceiveErrorInfo {
   // Creates a deep copy of ReceiveErrorInfo.
   ReceiveErrorInfo Clone() const;
 
-  // Creates a ReceiveErrorInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReceiveErrorInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReceiveErrorInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReceiveErrorInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ReceiveErrorInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ReceiveErrorInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReceiveErrorInfo> FromValue(const base::Value& value);
+  static std::optional<ReceiveErrorInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReceiveErrorInfo object.
@@ -540,18 +516,18 @@ base::Value::List Create(const std::vector<DeviceInfo>& ports);
 namespace Connect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The system path of the serial port to open.
   std::string path;
 
   // Port configuration options.
-  absl::optional<ConnectionOptions> options;
+  std::optional<ConnectionOptions> options;
 
 
  private:
@@ -568,11 +544,11 @@ base::Value::List Create(const ConnectionInfo& connection_info);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the opened connection.
@@ -596,11 +572,11 @@ base::Value::List Create(bool result);
 namespace Disconnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the opened connection.
@@ -621,11 +597,11 @@ base::Value::List Create(bool result);
 namespace SetPaused {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the opened connection.
@@ -649,11 +625,11 @@ base::Value::List Create();
 namespace GetInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the opened connection.
@@ -683,11 +659,11 @@ base::Value::List Create(const std::vector<ConnectionInfo>& connection_infos);
 namespace Send {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the connection.
@@ -711,11 +687,11 @@ base::Value::List Create(const SendInfo& send_info);
 namespace Flush {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int connection_id;
@@ -735,11 +711,11 @@ base::Value::List Create(bool result);
 namespace GetControlSignals {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the connection.
@@ -760,11 +736,11 @@ base::Value::List Create(const DeviceControlSignals& signals);
 namespace SetControlSignals {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the connection.
@@ -788,11 +764,11 @@ base::Value::List Create(bool result);
 namespace SetBreak {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the connection.
@@ -813,11 +789,11 @@ base::Value::List Create(bool result);
 namespace ClearBreak {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the connection.

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CloseEvent>::value,
     "CloseEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CloseEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CloseEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseEvent.wasClean.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(v8_receiver);
+CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wasClean();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseEvent.code.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(v8_receiver);
+CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->code();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -115,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("CloseEvent.reason.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->reason();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->reason();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -130,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(v8_receiver);
+CloseEvent* blink_receiver = V8CloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/reporting_service.mojom-features.h"
 #include "services/network/public/mojom/reporting_service.mojom-shared.h"
 #include "services/network/public/mojom/reporting_service.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -44,18 +45,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ReportingApiReportStatus>
-    : EnumHashTraits<::network::mojom::ReportingApiReportStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -394,7 +383,7 @@ class BLINK_PLATFORM_EXPORT ReportingApiEndpoint {
       const ::scoped_refptr<const ::blink::SecurityOrigin>& origin,
       const WTF::String& group_name,
       ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key,
-      const absl::optional<::base::UnguessableToken>& reporting_source);
+      const std::optional<::base::UnguessableToken>& reporting_source);
 
 ReportingApiEndpoint(const ReportingApiEndpoint&) = delete;
 ReportingApiEndpoint& operator=(const ReportingApiEndpoint&) = delete;
@@ -494,7 +483,7 @@ ReportingApiEndpoint& operator=(const ReportingApiEndpoint&) = delete;
   
   ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key;
   
-  absl::optional<::base::UnguessableToken> reporting_source;
+  std::optional<::base::UnguessableToken> reporting_source;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

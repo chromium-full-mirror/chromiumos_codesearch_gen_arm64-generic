@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/telemetry_event_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/telemetry_event_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_event_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom.h"
@@ -1170,9 +1171,9 @@ class  TelemetryTouchscreenConnectedEventInfo {
   TelemetryTouchscreenConnectedEventInfo();
 
   TelemetryTouchscreenConnectedEventInfo(
-      absl::optional<uint32_t> max_x,
-      absl::optional<uint32_t> max_y,
-      absl::optional<uint32_t> max_pressure);
+      std::optional<uint32_t> max_x,
+      std::optional<uint32_t> max_y,
+      std::optional<uint32_t> max_pressure);
 
 
   ~TelemetryTouchscreenConnectedEventInfo();
@@ -1250,11 +1251,11 @@ class  TelemetryTouchscreenConnectedEventInfo {
   }
 
   
-  absl::optional<uint32_t> max_x;
+  std::optional<uint32_t> max_x;
   
-  absl::optional<uint32_t> max_y;
+  std::optional<uint32_t> max_y;
   
-  absl::optional<uint32_t> max_pressure;
+  std::optional<uint32_t> max_pressure;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1316,9 +1317,9 @@ class  TelemetryStylusTouchPointInfo {
   TelemetryStylusTouchPointInfo();
 
   TelemetryStylusTouchPointInfo(
-      absl::optional<uint32_t> x,
-      absl::optional<uint32_t> y,
-      absl::optional<uint32_t> pressure);
+      std::optional<uint32_t> x,
+      std::optional<uint32_t> y,
+      std::optional<uint32_t> pressure);
 
 
   ~TelemetryStylusTouchPointInfo();
@@ -1396,11 +1397,11 @@ class  TelemetryStylusTouchPointInfo {
   }
 
   
-  absl::optional<uint32_t> x;
+  std::optional<uint32_t> x;
   
-  absl::optional<uint32_t> y;
+  std::optional<uint32_t> y;
   
-  absl::optional<uint32_t> pressure;
+  std::optional<uint32_t> pressure;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1463,9 +1464,9 @@ class  TelemetryStylusConnectedEventInfo {
   TelemetryStylusConnectedEventInfo();
 
   TelemetryStylusConnectedEventInfo(
-      absl::optional<uint32_t> max_x,
-      absl::optional<uint32_t> max_y,
-      absl::optional<uint32_t> max_pressure);
+      std::optional<uint32_t> max_x,
+      std::optional<uint32_t> max_y,
+      std::optional<uint32_t> max_pressure);
 
 
   ~TelemetryStylusConnectedEventInfo();
@@ -1543,11 +1544,11 @@ class  TelemetryStylusConnectedEventInfo {
   }
 
   
-  absl::optional<uint32_t> max_x;
+  std::optional<uint32_t> max_x;
   
-  absl::optional<uint32_t> max_y;
+  std::optional<uint32_t> max_y;
   
-  absl::optional<uint32_t> max_pressure;
+  std::optional<uint32_t> max_pressure;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1601,129 +1602,129 @@ class  TelemetryEventInfo {
   // Construct an instance holding |default_type|.
   static TelemetryEventInfoPtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |audio_jack_event_info|.
   static TelemetryEventInfoPtr
   NewAudioJackEventInfo(
-      TelemetryAudioJackEventInfoPtr audio_jack_event_info) {
+      TelemetryAudioJackEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_audio_jack_event_info(std::move(audio_jack_event_info));
+    result->set_audio_jack_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |lid_event_info|.
   static TelemetryEventInfoPtr
   NewLidEventInfo(
-      TelemetryLidEventInfoPtr lid_event_info) {
+      TelemetryLidEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_lid_event_info(std::move(lid_event_info));
+    result->set_lid_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |usb_event_info|.
   static TelemetryEventInfoPtr
   NewUsbEventInfo(
-      TelemetryUsbEventInfoPtr usb_event_info) {
+      TelemetryUsbEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_usb_event_info(std::move(usb_event_info));
+    result->set_usb_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |sd_card_event_info|.
   static TelemetryEventInfoPtr
   NewSdCardEventInfo(
-      TelemetrySdCardEventInfoPtr sd_card_event_info) {
+      TelemetrySdCardEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_sd_card_event_info(std::move(sd_card_event_info));
+    result->set_sd_card_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |power_event_info|.
   static TelemetryEventInfoPtr
   NewPowerEventInfo(
-      TelemetryPowerEventInfoPtr power_event_info) {
+      TelemetryPowerEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_power_event_info(std::move(power_event_info));
+    result->set_power_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |keyboard_diagnostic_event_info|.
   static TelemetryEventInfoPtr
   NewKeyboardDiagnosticEventInfo(
-      ::crosapi::mojom::TelemetryKeyboardDiagnosticEventInfoPtr keyboard_diagnostic_event_info) {
+      ::crosapi::mojom::TelemetryKeyboardDiagnosticEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_keyboard_diagnostic_event_info(std::move(keyboard_diagnostic_event_info));
+    result->set_keyboard_diagnostic_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |stylus_garage_event_info|.
   static TelemetryEventInfoPtr
   NewStylusGarageEventInfo(
-      TelemetryStylusGarageEventInfoPtr stylus_garage_event_info) {
+      TelemetryStylusGarageEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_stylus_garage_event_info(std::move(stylus_garage_event_info));
+    result->set_stylus_garage_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchpad_button_event_info|.
   static TelemetryEventInfoPtr
   NewTouchpadButtonEventInfo(
-      TelemetryTouchpadButtonEventInfoPtr touchpad_button_event_info) {
+      TelemetryTouchpadButtonEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_touchpad_button_event_info(std::move(touchpad_button_event_info));
+    result->set_touchpad_button_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchpad_touch_event_info|.
   static TelemetryEventInfoPtr
   NewTouchpadTouchEventInfo(
-      TelemetryTouchpadTouchEventInfoPtr touchpad_touch_event_info) {
+      TelemetryTouchpadTouchEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_touchpad_touch_event_info(std::move(touchpad_touch_event_info));
+    result->set_touchpad_touch_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchpad_connected_event_info|.
   static TelemetryEventInfoPtr
   NewTouchpadConnectedEventInfo(
-      TelemetryTouchpadConnectedEventInfoPtr touchpad_connected_event_info) {
+      TelemetryTouchpadConnectedEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_touchpad_connected_event_info(std::move(touchpad_connected_event_info));
+    result->set_touchpad_connected_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |external_display_event_info|.
   static TelemetryEventInfoPtr
   NewExternalDisplayEventInfo(
-      TelemetryExternalDisplayEventInfoPtr external_display_event_info) {
+      TelemetryExternalDisplayEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_external_display_event_info(std::move(external_display_event_info));
+    result->set_external_display_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |stylus_touch_event_info|.
   static TelemetryEventInfoPtr
   NewStylusTouchEventInfo(
-      TelemetryStylusTouchEventInfoPtr stylus_touch_event_info) {
+      TelemetryStylusTouchEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_stylus_touch_event_info(std::move(stylus_touch_event_info));
+    result->set_stylus_touch_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |stylus_connected_event_info|.
   static TelemetryEventInfoPtr
   NewStylusConnectedEventInfo(
-      TelemetryStylusConnectedEventInfoPtr stylus_connected_event_info) {
+      TelemetryStylusConnectedEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_stylus_connected_event_info(std::move(stylus_connected_event_info));
+    result->set_stylus_connected_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchscreen_touch_event_info|.
   static TelemetryEventInfoPtr
   NewTouchscreenTouchEventInfo(
-      TelemetryTouchscreenTouchEventInfoPtr touchscreen_touch_event_info) {
+      TelemetryTouchscreenTouchEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_touchscreen_touch_event_info(std::move(touchscreen_touch_event_info));
+    result->set_touchscreen_touch_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchscreen_connected_event_info|.
   static TelemetryEventInfoPtr
   NewTouchscreenConnectedEventInfo(
-      TelemetryTouchscreenConnectedEventInfoPtr touchscreen_connected_event_info) {
+      TelemetryTouchscreenConnectedEventInfoPtr value) {
     auto result = TelemetryEventInfoPtr(absl::in_place);
-    result->set_touchscreen_connected_event_info(std::move(touchscreen_connected_event_info));
+    result->set_touchscreen_connected_event_info(std::move(value));
     return result;
   }
 

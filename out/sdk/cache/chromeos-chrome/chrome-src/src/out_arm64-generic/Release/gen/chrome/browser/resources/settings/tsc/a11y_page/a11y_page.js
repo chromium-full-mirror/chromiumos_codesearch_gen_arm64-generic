@@ -11,10 +11,10 @@ import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import '/shared/settings/controls/settings_toggle_button.js';
 import '../settings_page/settings_animated_pages.js';
 import '../settings_shared.css.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { BaseMixin } from '../base_mixin.js';
-import { loadTimeData } from '../i18n_setup.js';
 import { routes } from '../route.js';
 import { Router } from '../router.js';
 import { AccessibilityBrowserProxyImpl } from './a11y_browser_proxy.js';
@@ -22,11 +22,11 @@ import { getTemplate } from './a11y_page.html.js';
 // clang-format off
 // 
 // clang-format on
-const SettingsA11yPageElementBase = WebUiListenerMixin(BaseMixin(PolymerElement));
-class SettingsA11yPageElement extends SettingsA11yPageElementBase {
+const SettingsA11yPageElementBase = PrefsMixin(WebUiListenerMixin(BaseMixin(PolymerElement)));
+export class SettingsA11yPageElement extends SettingsA11yPageElementBase {
     constructor() {
         super(...arguments);
-        this.accessibilityBrowserProxy = AccessibilityBrowserProxyImpl.getInstance();
+        this.browserProxy_ = AccessibilityBrowserProxyImpl.getInstance();
         // 
         // 
     }
@@ -54,23 +54,14 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             },
             // 
             /**
-             * Whether to show accessibility labels settings.
+             * Indicate whether a screen reader is enabled. Also, determine whether
+             * to show accessibility labels settings.
              */
-            showAccessibilityLabelsSetting_: {
+            hasScreenReader_: {
                 type: Boolean,
                 value: false,
             },
-            /**
-             * Whether to show pdf ocr settings.
-             */
-            showPdfOcrToggle_: {
-                type: Boolean,
-                value: function () {
-                    let isPdfOcrEnabled = false;
-                    // 
-                    return isPdfOcrEnabled;
-                },
-            },
+            // 
             focusConfig_: {
                 type: Object,
                 value() {
@@ -106,19 +97,14 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             },
         };
     }
-    ready() {
-        super.ready();
-        this.addWebUiListener('screen-reader-state-changed', (hasScreenReader) => this.onScreenReaderStateChanged_(hasScreenReader));
-        // Enables javascript and gets the screen reader state.
-        chrome.send('a11yPageReady');
-    }
-    /**
-     * @param hasScreenReader Whether a screen reader is enabled.
-     */
-    onScreenReaderStateChanged_(hasScreenReader) {
-        this.showAccessibilityLabelsSetting_ = hasScreenReader;
-        this.showPdfOcrToggle_ =
-            hasScreenReader && loadTimeData.getBoolean('pdfOcrEnabled');
+    // 
+    connectedCallback() {
+        super.connectedCallback();
+        const updateScreenReaderState = (hasScreenReader) => {
+            this.hasScreenReader_ = hasScreenReader;
+        };
+        this.browserProxy_.getScreenReaderState().then(updateScreenReaderState);
+        this.addWebUiListener('screen-reader-state-changed', updateScreenReaderState);
     }
     onA11yCaretBrowsingChange_(event) {
         if (event.target.checked) {
@@ -134,12 +120,7 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
             chrome.send('confirmA11yImageLabels');
         }
     }
-    onPdfOcrChange_(event) {
-        const pdfOcrOn = event.target.checked;
-        if (pdfOcrOn) {
-            console.error('Need to check a pdf ocr model and download it if necessary');
-        }
-    }
+    // 
     // 
     // 
     onManageSystemAccessibilityFeaturesClick_() {

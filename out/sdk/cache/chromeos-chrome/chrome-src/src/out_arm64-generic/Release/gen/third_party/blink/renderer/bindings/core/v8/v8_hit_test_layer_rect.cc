@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HitTestLayerRect>::value,
     "HitTestLayerRect inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HitTestLayerRect::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HitTestLayerRect is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("HitTestLayerRect.layerRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HitTestLayerRect* blink_receiver = V8HitTestLayerRect::ToWrappableUnsafe(v8_receiver);
+HitTestLayerRect* blink_receiver = V8HitTestLayerRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->layerRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("HitTestLayerRect.hitTestRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HitTestLayerRect* blink_receiver = V8HitTestLayerRect::ToWrappableUnsafe(v8_receiver);
+HitTestLayerRect* blink_receiver = V8HitTestLayerRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hitTestRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

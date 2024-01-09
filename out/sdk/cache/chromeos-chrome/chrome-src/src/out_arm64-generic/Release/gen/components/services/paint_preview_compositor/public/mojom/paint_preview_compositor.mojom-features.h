@@ -8,6 +8,7 @@
 #define COMPONENTS_SERVICES_PAINT_PREVIEW_COMPOSITOR_PUBLIC_MOJOM_PAINT_PREVIEW_COMPOSITOR_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

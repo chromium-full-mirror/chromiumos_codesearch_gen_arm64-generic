@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -159,14 +160,17 @@ void BackgroundTracingAgentClientProxy::OnInitialized(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::BackgroundTracingAgentClient::OnInitialized");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundTracingAgentClient_OnInitialized_Name, kFlags, 0, 0, nullptr);
@@ -196,14 +200,17 @@ void BackgroundTracingAgentClientProxy::OnTriggerBackgroundTrace(
                         "<value of type BackgroundTracingRulePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundTracingAgentClient_OnTriggerBackgroundTrace_Name, kFlags, 0, 0, nullptr);
@@ -307,12 +314,12 @@ bool BackgroundTracingAgentClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundTracingAgentClientValidationInfo[] = {
-    {&internal::BackgroundTracingAgentClient_OnInitialized_Params_Data::Validate,
+    { &internal::BackgroundTracingAgentClient_OnInitialized_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BackgroundTracingAgentClient_OnTriggerBackgroundTrace_Params_Data::Validate,
+    { &internal::BackgroundTracingAgentClient_OnTriggerBackgroundTrace_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -421,14 +428,17 @@ void BackgroundTracingAgentProxy::SetUMACallback(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundTracingAgent_SetUMACallback_Name, kFlags, 0, 0, nullptr);
@@ -482,14 +492,17 @@ void BackgroundTracingAgentProxy::ClearUMACallback(
                         "<value of type BackgroundTracingRulePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundTracingAgent_ClearUMACallback_Name, kFlags, 0, 0, nullptr);
@@ -609,12 +622,12 @@ bool BackgroundTracingAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundTracingAgentValidationInfo[] = {
-    {&internal::BackgroundTracingAgent_SetUMACallback_Params_Data::Validate,
+    { &internal::BackgroundTracingAgent_SetUMACallback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BackgroundTracingAgent_ClearUMACallback_Params_Data::Validate,
+    { &internal::BackgroundTracingAgent_ClearUMACallback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -700,14 +713,17 @@ void BackgroundTracingAgentProviderProxy::Create(
                         "<value of type ::mojo::PendingReceiver<BackgroundTracingAgent>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundTracingAgentProvider_Create_Name, kFlags, 0, 0, nullptr);
@@ -800,10 +816,10 @@ bool BackgroundTracingAgentProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundTracingAgentProviderValidationInfo[] = {
-    {&internal::BackgroundTracingAgentProvider_Create_Params_Data::Validate,
+    { &internal::BackgroundTracingAgentProvider_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 

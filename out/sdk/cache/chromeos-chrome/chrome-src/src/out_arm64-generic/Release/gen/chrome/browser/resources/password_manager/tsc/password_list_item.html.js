@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#container:hover{background-color:var(--cr-hover-background-color);border-radius:inherit;cursor:pointer;--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}#borderPart{display:grid;flex:1;grid-template-columns:auto 1fr;min-height:var(--section-min-height)}#favicon{margin-inline-end:20px;margin-inline-start:20px}.label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#numberOfAccounts{margin-inline-start:8px}#seePasswordDetails{--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px;justify-self:end}span{color:var(--cr-secondary-text-color)}</style>
+    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#container:hover{background-color:var(--cr-hover-background-color);border-radius:inherit;cursor:pointer;--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}#borderPart{display:grid;flex:1;grid-template-columns:auto 1fr;min-height:var(--section-min-height)}#favicon{margin-inline-end:20px;margin-inline-start:20px}.label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#numberOfAccounts{margin-inline-start:8px}#endIcons{--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px;justify-self:end}paper-tooltip{overflow:hidden;white-space:nowrap}span{color:var(--cr-secondary-text-color)}</style>
 <div id="container" class="flex-centered">
   
   <site-favicon id="favicon" url="[[item.iconUrl]]" domain="[[item.name]]" aria-hidden="true">
@@ -12,9 +12,14 @@ export function getTemplate() {
         [[numberOfAccounts_]]
       </span>
     </div>
-    <cr-icon-button id="seePasswordDetails" class="subpage-arrow" aria-label="[[getAriaLabel_(item)]]">
-    </cr-icon-button>
+
+    <div id="endIcons">
+      <iron-icon id="localPasswordsIcon" icon="cr20:cloud-off" hidden="[[!shouldShowDeviceOnlyCredentialsIcon_()]]"></iron-icon>
+      <cr-icon-button id="seePasswordDetails" class="subpage-arrow" aria-label="[[getAriaLabel_(item)]]">
+      </cr-icon-button>
+    </div>
   </div>
 </div>
-<!--_html_template_end_-->`;
+
+<paper-tooltip position="top" for="localPasswordsIcon" offset="0">[[tooltipText_]]</paper-tooltip><!--_html_template_end_-->`;
 }

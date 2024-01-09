@@ -55,6 +55,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/values.mojom', '../../../mojo/public/mojom/base/values.mojom.js');
   }
+  var message_port$ =
+      mojo.internal.exposeNamespace('extensions.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'extensions/common/mojom/message_port.mojom', 'message_port.mojom.js');
+  }
   var url$ =
       mojo.internal.exposeNamespace('url.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -545,11 +551,330 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(uuid$.Uuid, val.requestUuid);
   };
+  function ServiceWorkerHost_OpenChannelToExtension_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ServiceWorkerHost_OpenChannelToExtension_Params.prototype.initDefaults_ = function() {
+    this.info = null;
+    this.channelType = 0;
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  ServiceWorkerHost_OpenChannelToExtension_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ServiceWorkerHost_OpenChannelToExtension_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 48}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.info
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, message_port$.ExternalConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 32, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToExtension_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 12, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ServiceWorkerHost_OpenChannelToExtension_Params.encodedSize = codec.kStructHeaderSize + 40;
+
+  ServiceWorkerHost_OpenChannelToExtension_Params.decode = function(decoder) {
+    var packed;
+    var val = new ServiceWorkerHost_OpenChannelToExtension_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.info =
+        decoder.decodeStructPointer(message_port$.ExternalConnectionInfo);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  ServiceWorkerHost_OpenChannelToExtension_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ServiceWorkerHost_OpenChannelToExtension_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(message_port$.ExternalConnectionInfo, val.info);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+  };
+  function ServiceWorkerHost_OpenChannelToNativeApp_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.prototype.initDefaults_ = function() {
+    this.nativeAppName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+  };
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 40}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToNativeApp_Params.nativeAppName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToNativeApp_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToNativeApp_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 16, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToNativeApp_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.encodedSize = codec.kStructHeaderSize + 32;
+
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.decode = function(decoder) {
+    var packed;
+    var val = new ServiceWorkerHost_OpenChannelToNativeApp_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.nativeAppName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  ServiceWorkerHost_OpenChannelToNativeApp_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ServiceWorkerHost_OpenChannelToNativeApp_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.nativeAppName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function ServiceWorkerHost_OpenChannelToTab_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ServiceWorkerHost_OpenChannelToTab_Params.prototype.initDefaults_ = function() {
+    this.tabId = 0;
+    this.frameId = 0;
+    this.documentId = null;
+    this.channelType = 0;
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  ServiceWorkerHost_OpenChannelToTab_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ServiceWorkerHost_OpenChannelToTab_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 56}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.documentId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 16, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 40, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorkerHost_OpenChannelToTab_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 20, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ServiceWorkerHost_OpenChannelToTab_Params.encodedSize = codec.kStructHeaderSize + 48;
+
+  ServiceWorkerHost_OpenChannelToTab_Params.decode = function(decoder) {
+    var packed;
+    var val = new ServiceWorkerHost_OpenChannelToTab_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.tabId =
+        decoder.decodeStruct(codec.Int32);
+    val.frameId =
+        decoder.decodeStruct(codec.Int32);
+    val.documentId =
+        decoder.decodeStruct(codec.NullableString);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  ServiceWorkerHost_OpenChannelToTab_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ServiceWorkerHost_OpenChannelToTab_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.tabId);
+    encoder.encodeStruct(codec.Int32, val.frameId);
+    encoder.encodeStruct(codec.NullableString, val.documentId);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+  };
   var kServiceWorkerHost_DidInitializeServiceWorkerContext_Name = 0;
   var kServiceWorkerHost_DidStartServiceWorkerContext_Name = 1;
   var kServiceWorkerHost_DidStopServiceWorkerContext_Name = 2;
   var kServiceWorkerHost_RequestWorker_Name = 3;
   var kServiceWorkerHost_WorkerResponseAck_Name = 4;
+  var kServiceWorkerHost_OpenChannelToExtension_Name = 5;
+  var kServiceWorkerHost_OpenChannelToNativeApp_Name = 6;
+  var kServiceWorkerHost_OpenChannelToTab_Name = 7;
 
   function ServiceWorkerHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(ServiceWorkerHost,
@@ -665,6 +990,66 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  ServiceWorkerHostPtr.prototype.openChannelToExtension = function() {
+    return ServiceWorkerHostProxy.prototype.openChannelToExtension
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  ServiceWorkerHostProxy.prototype.openChannelToExtension = function(info, channelType, channelName, portId, port, portHost) {
+    var params_ = new ServiceWorkerHost_OpenChannelToExtension_Params();
+    params_.info = info;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kServiceWorkerHost_OpenChannelToExtension_Name,
+        codec.align(ServiceWorkerHost_OpenChannelToExtension_Params.encodedSize));
+    builder.setPayload(ServiceWorkerHost_OpenChannelToExtension_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  ServiceWorkerHostPtr.prototype.openChannelToNativeApp = function() {
+    return ServiceWorkerHostProxy.prototype.openChannelToNativeApp
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  ServiceWorkerHostProxy.prototype.openChannelToNativeApp = function(nativeAppName, portId, port, portHost) {
+    var params_ = new ServiceWorkerHost_OpenChannelToNativeApp_Params();
+    params_.nativeAppName = nativeAppName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kServiceWorkerHost_OpenChannelToNativeApp_Name,
+        codec.align(ServiceWorkerHost_OpenChannelToNativeApp_Params.encodedSize));
+    builder.setPayload(ServiceWorkerHost_OpenChannelToNativeApp_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  ServiceWorkerHostPtr.prototype.openChannelToTab = function() {
+    return ServiceWorkerHostProxy.prototype.openChannelToTab
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  ServiceWorkerHostProxy.prototype.openChannelToTab = function(tabId, frameId, documentId, channelType, channelName, portId, port, portHost) {
+    var params_ = new ServiceWorkerHost_OpenChannelToTab_Params();
+    params_.tabId = tabId;
+    params_.frameId = frameId;
+    params_.documentId = documentId;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kServiceWorkerHost_OpenChannelToTab_Name,
+        codec.align(ServiceWorkerHost_OpenChannelToTab_Params.encodedSize));
+    builder.setPayload(ServiceWorkerHost_OpenChannelToTab_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function ServiceWorkerHostStub(delegate) {
     this.delegate_ = delegate;
@@ -683,6 +1068,15 @@
   }
   ServiceWorkerHostStub.prototype.workerResponseAck = function(requestUuid) {
     return this.delegate_ && this.delegate_.workerResponseAck && this.delegate_.workerResponseAck(requestUuid);
+  }
+  ServiceWorkerHostStub.prototype.openChannelToExtension = function(info, channelType, channelName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToExtension && this.delegate_.openChannelToExtension(info, channelType, channelName, portId, port, portHost);
+  }
+  ServiceWorkerHostStub.prototype.openChannelToNativeApp = function(nativeAppName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToNativeApp && this.delegate_.openChannelToNativeApp(nativeAppName, portId, port, portHost);
+  }
+  ServiceWorkerHostStub.prototype.openChannelToTab = function(tabId, frameId, documentId, channelType, channelName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToTab && this.delegate_.openChannelToTab(tabId, frameId, documentId, channelType, channelName, portId, port, portHost);
   }
 
   ServiceWorkerHostStub.prototype.accept = function(message) {
@@ -703,6 +1097,18 @@
     case kServiceWorkerHost_WorkerResponseAck_Name:
       var params = reader.decodeStruct(ServiceWorkerHost_WorkerResponseAck_Params);
       this.workerResponseAck(params.requestUuid);
+      return true;
+    case kServiceWorkerHost_OpenChannelToExtension_Name:
+      var params = reader.decodeStruct(ServiceWorkerHost_OpenChannelToExtension_Params);
+      this.openChannelToExtension(params.info, params.channelType, params.channelName, params.portId, params.port, params.portHost);
+      return true;
+    case kServiceWorkerHost_OpenChannelToNativeApp_Name:
+      var params = reader.decodeStruct(ServiceWorkerHost_OpenChannelToNativeApp_Params);
+      this.openChannelToNativeApp(params.nativeAppName, params.portId, params.port, params.portHost);
+      return true;
+    case kServiceWorkerHost_OpenChannelToTab_Name:
+      var params = reader.decodeStruct(ServiceWorkerHost_OpenChannelToTab_Params);
+      this.openChannelToTab(params.tabId, params.frameId, params.documentId, params.channelType, params.channelName, params.portId, params.port, params.portHost);
       return true;
     default:
       return false;
@@ -760,6 +1166,18 @@
       case kServiceWorkerHost_WorkerResponseAck_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = ServiceWorkerHost_WorkerResponseAck_Params;
+      break;
+      case kServiceWorkerHost_OpenChannelToExtension_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = ServiceWorkerHost_OpenChannelToExtension_Params;
+      break;
+      case kServiceWorkerHost_OpenChannelToNativeApp_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = ServiceWorkerHost_OpenChannelToNativeApp_Params;
+      break;
+      case kServiceWorkerHost_OpenChannelToTab_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = ServiceWorkerHost_OpenChannelToTab_Params;
       break;
     }
     if (paramsClass === null)

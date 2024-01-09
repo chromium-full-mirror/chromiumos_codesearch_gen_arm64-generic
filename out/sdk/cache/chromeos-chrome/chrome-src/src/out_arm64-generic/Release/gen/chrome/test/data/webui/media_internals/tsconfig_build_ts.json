@@ -1,0 +1,26 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "allowJs": true,
+    "paths": {
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/integration_test.js",
+    "preprocessed/manager_test.js",
+    "preprocessed/player_info_test.js"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    }
+  ]
+}

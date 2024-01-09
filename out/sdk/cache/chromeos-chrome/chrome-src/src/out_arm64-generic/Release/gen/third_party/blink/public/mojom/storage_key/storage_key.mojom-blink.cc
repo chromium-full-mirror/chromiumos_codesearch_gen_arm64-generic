@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ StorageKey::StorageKey()
 StorageKey::StorageKey(
     const ::scoped_refptr<const ::blink::SecurityOrigin>& origin_in,
     const ::blink::BlinkSchemefulSite& top_level_site_in,
-    const absl::optional<::base::UnguessableToken>& nonce_in,
+    const std::optional<::base::UnguessableToken>& nonce_in,
     ::blink::mojom::blink::AncestorChainBit ancestor_chain_bit_in,
     const ::blink::BlinkSchemefulSite& top_level_site_if_third_party_enabled_in,
     ::blink::mojom::blink::AncestorChainBit ancestor_chain_bit_if_third_party_enabled_in)
@@ -93,7 +94,7 @@ void StorageKey::WriteIntoTrace(
     dict.AddItem(
       "nonce"), this->nonce,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -57,11 +57,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DevToolsHost>::value,
     "DevToolsHost inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DevToolsHost::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DevToolsHost is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8DevToolsHost::InstallInterfaceTemplateFuncType V8DevToolsHost::install_interface_template_func_ = nullptr;

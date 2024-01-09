@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1650,14 +1651,17 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name, kFlags, 0, 0, nullptr);
@@ -1680,14 +1684,17 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1710,14 +1717,17 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name, kFlags, 0, 0, nullptr);
@@ -1740,14 +1750,17 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -1770,14 +1783,17 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1800,14 +1816,17 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name, kFlags, 0, 0, nullptr);
@@ -1996,20 +2015,20 @@ bool CrosHealthdBluetoothObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdBluetoothObserverValidationInfo[] = {
-    {&internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data::Validate,
+    { &internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2102,14 +2121,17 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdLidObserver_OnLidClosed_Name, kFlags, 0, 0, nullptr);
@@ -2132,14 +2154,17 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdLidObserver_OnLidOpened_Name, kFlags, 0, 0, nullptr);
@@ -2228,12 +2253,12 @@ bool CrosHealthdLidObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdLidObserverValidationInfo[] = {
-    {&internal::CrosHealthdLidObserver_OnLidClosed_Params_Data::Validate,
+    { &internal::CrosHealthdLidObserver_OnLidClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdLidObserver_OnLidOpened_Params_Data::Validate,
+    { &internal::CrosHealthdLidObserver_OnLidOpened_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2366,14 +2391,17 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnAcInserted_Name, kFlags, 0, 0, nullptr);
@@ -2396,14 +2424,17 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnAcRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2426,14 +2457,17 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnOsSuspend_Name, kFlags, 0, 0, nullptr);
@@ -2456,14 +2490,17 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnOsResume_Name, kFlags, 0, 0, nullptr);
@@ -2602,16 +2639,16 @@ bool CrosHealthdPowerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdPowerObserverValidationInfo[] = {
-    {&internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data::Validate,
+    { &internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data::Validate,
+    { &internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data::Validate,
+    { &internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdPowerObserver_OnOsResume_Params_Data::Validate,
+    { &internal::CrosHealthdPowerObserver_OnOsResume_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2704,14 +2741,17 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdAudioObserver_OnUnderrun_Name, kFlags, 0, 0, nullptr);
@@ -2734,14 +2774,17 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name, kFlags, 0, 0, nullptr);
@@ -2830,12 +2873,12 @@ bool CrosHealthdAudioObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdAudioObserverValidationInfo[] = {
-    {&internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data::Validate,
+    { &internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data::Validate,
+    { &internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2968,14 +3011,17 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
@@ -2998,14 +3044,17 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
@@ -3028,14 +3077,17 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name, kFlags, 0, 0, nullptr);
@@ -3058,14 +3110,17 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name, kFlags, 0, 0, nullptr);
@@ -3204,16 +3259,16 @@ bool CrosHealthdThunderboltObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdThunderboltObserverValidationInfo[] = {
-    {&internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data::Validate,
+    { &internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data::Validate,
+    { &internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data::Validate,
+    { &internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data::Validate,
+    { &internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3313,14 +3368,17 @@ void CrosHealthdUsbObserverProxy::OnAdd(
                         "<value of type UsbEventInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdUsbObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
@@ -3361,14 +3419,17 @@ void CrosHealthdUsbObserverProxy::OnRemove(
                         "<value of type UsbEventInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdUsbObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
@@ -3476,12 +3537,12 @@ bool CrosHealthdUsbObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdUsbObserverValidationInfo[] = {
-    {&internal::CrosHealthdUsbObserver_OnAdd_Params_Data::Validate,
+    { &internal::CrosHealthdUsbObserver_OnAdd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdUsbObserver_OnRemove_Params_Data::Validate,
+    { &internal::CrosHealthdUsbObserver_OnRemove_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3574,14 +3635,17 @@ void CrosHealthdSdCardObserverProxy::OnAdd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdSdCardObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
@@ -3604,14 +3668,17 @@ void CrosHealthdSdCardObserverProxy::OnRemove(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdSdCardObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
@@ -3700,12 +3767,12 @@ bool CrosHealthdSdCardObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdSdCardObserverValidationInfo[] = {
-    {&internal::CrosHealthdSdCardObserver_OnAdd_Params_Data::Validate,
+    { &internal::CrosHealthdSdCardObserver_OnAdd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdSdCardObserver_OnRemove_Params_Data::Validate,
+    { &internal::CrosHealthdSdCardObserver_OnRemove_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3785,14 +3852,17 @@ void EventObserverProxy::OnEvent(
                         "<value of type EventInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserver_OnEvent_Name, kFlags, 0, 0, nullptr);
@@ -3869,10 +3939,10 @@ bool EventObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEventObserverValidationInfo[] = {
-    {&internal::EventObserver_OnEvent_Params_Data::Validate,
+    { &internal::EventObserver_OnEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 

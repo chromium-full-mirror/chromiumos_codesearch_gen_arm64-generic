@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFormControlsCollection>::value,
     "HTMLFormControlsCollection inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFormControlsCollection::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFormControlsCollection is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8HTMLFormControlsCollection::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormControlsCollection_NamedPropertyGetter");
@@ -88,9 +83,10 @@ void V8HTMLFormControlsCollection::NamedPropertyGetterCallback(v8::Local<v8::Nam
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->namedGetter(blink_property_name);
 if (!return_value) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -127,7 +123,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "HTMLFormControlsCollection";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -147,10 +143,10 @@ void V8HTMLFormControlsCollection::NamedPropertyDeleterCallback(v8::Local<v8::Na
 //   is true, then:
 // step 2.1. If O does not implement an interface with a named property
 //   deleter, then return false.
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "HTMLFormControlsCollection";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -186,7 +182,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "HTMLFormControlsCollection";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -244,10 +240,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8HTMLFormControlsCollection::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormControlsCollection_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "HTMLFormControlsCollection";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -267,9 +263,9 @@ void V8HTMLFormControlsCollection::NamedPropertyEnumeratorCallback(const v8::Pro
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "HTMLFormControlsCollection";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);
@@ -286,8 +282,9 @@ bindings::V8SetReturnValue(
 void V8HTMLFormControlsCollection::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormControlsCollection_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -325,13 +322,13 @@ void V8HTMLFormControlsCollection::IndexedPropertyDeleterCallback(uint32_t index
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "HTMLFormControlsCollection";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -404,9 +401,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8HTMLFormControlsCollection::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFormControlsCollection_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -432,9 +429,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFormControlsCollection.namedItem");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLFormControlsCollection";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -449,13 +446,12 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(v8_receiver);
+HTMLFormControlsCollection* blink_receiver = V8HTMLFormControlsCollection::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLFormControlsCollection";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

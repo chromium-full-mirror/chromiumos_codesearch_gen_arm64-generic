@@ -6,51 +6,72 @@ import * as Root from '../../core/root/root.js';
 import * as UI from '../../ui/legacy/legacy.js';
 const UIStrings = {
     /**
-     *@description Title of an action to explain a console message.
+     *@description Message to offer insights for a console error message
      */
-    explainConsoleMessage: '✨ Explain console message',
+    explainThisError: 'Explain this error',
+    /**
+     *@description Message to offer insights for a console warning message
+     */
+    explainThisWarning: 'Explain this warning',
+    /**
+     *@description Message to offer insights for a console message
+     */
+    explainThisMessage: 'Explain this message',
 };
 const str_ = i18n.i18n.registerUIStrings('panels/explain/explain-meta.ts', UIStrings);
 const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
 if (Root.Runtime.Runtime.queryParam('enableAida') === 'true') {
-    const Workspace = await import('../../models/workspace/workspace.js');
-    class ExplainCodeContextProvider {
-        appendApplicableItems(_event, contextMenu, _target) {
-            contextMenu.debugSection().appendAction('explain.code');
-        }
-    }
-    UI.ContextMenu.registerProvider({
-        contextTypes() {
-            return [Workspace.UISourceCode.UISourceCode];
-        },
-        async loadProvider() {
-            return new ExplainCodeContextProvider();
-        },
-    });
     const Console = await import('../console/console.js');
     UI.ActionRegistration.registerActionExtension({
-        actionId: 'explain.consoleMessage',
-        category: UI.ActionRegistration.ActionCategory.EXPLAIN,
+        experiment: Root.Runtime.ExperimentName.CONSOLE_INSIGHTS,
+        actionId: 'explain.consoleMessage:hover',
+        category: UI.ActionRegistration.ActionCategory.CONSOLE,
         async loadActionDelegate() {
             const Explain = await import('./explain.js');
-            return Explain.ActionDelegate.instance();
+            return new Explain.ActionDelegate();
         },
-        title: i18nLazyString(UIStrings.explainConsoleMessage),
+        title: i18nLazyString(UIStrings.explainThisMessage),
         contextTypes() {
             return [Console.ConsoleViewMessage.ConsoleViewMessage];
         },
     });
-    class ExplainConsoleMessageContextProvider {
-        appendApplicableItems(_event, contextMenu, _target) {
-            contextMenu.debugSection().appendAction('explain.consoleMessage');
-        }
-    }
-    UI.ContextMenu.registerProvider({
-        contextTypes() {
-            return [Console.ConsoleViewMessage.ConsoleViewMessage];
+    UI.ActionRegistration.registerActionExtension({
+        experiment: Root.Runtime.ExperimentName.CONSOLE_INSIGHTS,
+        actionId: 'explain.consoleMessage:context:error',
+        category: UI.ActionRegistration.ActionCategory.CONSOLE,
+        async loadActionDelegate() {
+            const Explain = await import('./explain.js');
+            return new Explain.ActionDelegate();
         },
-        async loadProvider() {
-            return new ExplainConsoleMessageContextProvider();
+        title: i18nLazyString(UIStrings.explainThisError),
+        contextTypes() {
+            return [];
+        },
+    });
+    UI.ActionRegistration.registerActionExtension({
+        experiment: Root.Runtime.ExperimentName.CONSOLE_INSIGHTS,
+        actionId: 'explain.consoleMessage:context:warning',
+        category: UI.ActionRegistration.ActionCategory.CONSOLE,
+        async loadActionDelegate() {
+            const Explain = await import('./explain.js');
+            return new Explain.ActionDelegate();
+        },
+        title: i18nLazyString(UIStrings.explainThisWarning),
+        contextTypes() {
+            return [];
+        },
+    });
+    UI.ActionRegistration.registerActionExtension({
+        experiment: Root.Runtime.ExperimentName.CONSOLE_INSIGHTS,
+        actionId: 'explain.consoleMessage:context:other',
+        category: UI.ActionRegistration.ActionCategory.CONSOLE,
+        async loadActionDelegate() {
+            const Explain = await import('./explain.js');
+            return new Explain.ActionDelegate();
+        },
+        title: i18nLazyString(UIStrings.explainThisMessage),
+        contextTypes() {
+            return [];
         },
     });
 }

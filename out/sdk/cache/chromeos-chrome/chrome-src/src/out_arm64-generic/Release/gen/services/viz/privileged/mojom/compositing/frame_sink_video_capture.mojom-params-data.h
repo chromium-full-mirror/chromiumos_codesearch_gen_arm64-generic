@@ -336,6 +336,22 @@ class  FrameSinkVideoCaptureOverlay_SetBounds_Params_Data {
 };
 static_assert(sizeof(FrameSinkVideoCaptureOverlay_SetBounds_Params_Data) == 16,
               "Bad sizeof(FrameSinkVideoCaptureOverlay_SetBounds_Params_Data)");
+class  FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::Point_Data> coordinates;
+
+ private:
+  friend class mojo::internal::MessageFragment<FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data>;
+
+  FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data();
+  ~FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data() = delete;
+};
+static_assert(sizeof(FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data) == 16,
+              "Bad sizeof(FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data)");
 
 }  // namespace internal
 
@@ -838,6 +854,32 @@ class FrameSinkVideoCaptureOverlay_SetBounds_ParamsDataView {
 };
 
 
+class FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView {
+ public:
+  FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView() = default;
+
+  FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView(
+      internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCoordinatesDataView(
+      ::gfx::mojom::PointDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCoordinates(UserType* output) {
+    
+    auto* pointer = data_->coordinates.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void FrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_ParamsDataView::GetFeedbackDataView(
     ::media::mojom::VideoCaptureFeedbackDataView* output) {
@@ -937,6 +979,13 @@ inline void FrameSinkVideoCaptureOverlay_SetBounds_ParamsDataView::GetBoundsData
     ::gfx::mojom::RectFDataView* output) {
   auto pointer = data_->bounds.Get();
   *output = ::gfx::mojom::RectFDataView(pointer, message_);
+}
+
+
+inline void FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView::GetCoordinatesDataView(
+    ::gfx::mojom::PointDataView* output) {
+  auto pointer = data_->coordinates.Get();
+  *output = ::gfx::mojom::PointDataView(pointer, message_);
 }
 
 

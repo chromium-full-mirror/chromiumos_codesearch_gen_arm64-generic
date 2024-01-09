@@ -1,5 +1,6 @@
 {
   "deps": [
+    "xr_common.build_metadata",
     "../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
     "../../../../ui/gfx/mojom/mojom.build_metadata"
   ],

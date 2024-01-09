@@ -663,6 +663,39 @@ inline WaylandTimingEvent ToKnownEnumValue(WaylandTimingEvent value) {
   }
   return WaylandTimingEvent::kDefaultValue;
 }
+
+
+enum class ArcKeyMintError : int32_t {
+  
+  kOther = 0,
+  
+  kOk = 1,
+  
+  kUnknownError = 2,
+  
+  kInvalidKeyBlob = 3,
+  
+  kInvalidArgument = 4,
+  
+  kUnsupportedAlgorithm = 5,
+  
+  kUnimplemented = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, ArcKeyMintError value);
+inline bool IsKnownEnumValue(ArcKeyMintError value) {
+  return internal::ArcKeyMintError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline ArcKeyMintError ToKnownEnumValue(ArcKeyMintError value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ArcKeyMintError::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class MetricsHostInterfaceBase {};
 
@@ -870,6 +903,10 @@ struct hash<::arc::mojom::AndroidDataSubdirectory>
 template <>
 struct hash<::arc::mojom::WaylandTimingEvent>
     : public mojo::internal::EnumHashImpl<::arc::mojom::WaylandTimingEvent> {};
+
+template <>
+struct hash<::arc::mojom::ArcKeyMintError>
+    : public mojo::internal::EnumHashImpl<::arc::mojom::ArcKeyMintError> {};
 
 }  // namespace std
 
@@ -1239,6 +1276,26 @@ struct Serializer<::arc::mojom::WaylandTimingEvent, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::arc::mojom::ArcKeyMintError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::arc::mojom::ArcKeyMintError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::arc::mojom::ArcKeyMintError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::arc::mojom::BootProgressEventDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::arc::mojom::BootProgressEventDataView, UserType>;
@@ -1555,6 +1612,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::arc::mojom::WaylandTimingEvent> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::WaylandTimingEvent value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::arc::mojom::ArcKeyMintError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::ArcKeyMintError value);
 };
 
 } // namespace perfetto

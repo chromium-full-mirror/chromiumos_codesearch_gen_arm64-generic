@@ -25,29 +25,6 @@ namespace internal {
 
 
 // static
-bool DebugKey_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DebugKey_Data* object =
-      static_cast<const DebugKey_Data*>(data);
-
-  return true;
-}
-
-DebugKey_Data::DebugKey_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool SuitableOrigin_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -351,7 +328,7 @@ EventReportWindows_Data::EventReportWindows_Data()
 
 
 // static
-bool TriggerConfig_Data::Validate(
+bool TriggerSpec_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -363,18 +340,65 @@ bool TriggerConfig_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TriggerConfig_Data* object =
-      static_cast<const TriggerConfig_Data*>(data);
+  [[maybe_unused]] const TriggerSpec_Data* object =
+      static_cast<const TriggerSpec_Data*>(data);
 
-
-  if (!::attribution_reporting::mojom::internal::TriggerDataMatching_Data
-        ::Validate(object->trigger_data_matching, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->event_report_windows, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->event_report_windows, validation_context))
     return false;
 
   return true;
 }
 
-TriggerConfig_Data::TriggerConfig_Data()
+TriggerSpec_Data::TriggerSpec_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TriggerSpecs_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TriggerSpecs_Data* object =
+      static_cast<const TriggerSpecs_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->specs, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& specs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->specs, validation_context,
+                                         &specs_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->trigger_data_indices, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& trigger_data_indices_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->trigger_data_indices, validation_context,
+                                         &trigger_data_indices_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TriggerSpecs_Data::TriggerSpecs_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -385,7 +409,7 @@ bool SourceRegistration_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 96, validation_context)) {
+          data, 104, validation_context)) {
     return false;
   }
 
@@ -422,28 +446,23 @@ bool SourceRegistration_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->aggregatable_report_window, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->debug_key, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->filter_data, 9, validation_context)) {
+          object->filter_data, 10, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->filter_data, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aggregation_keys, 10, validation_context)) {
+          object->aggregation_keys, 11, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->aggregation_keys, validation_context))
     return false;
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->trigger_config, 12, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->trigger_config, validation_context))
+
+  if (!::attribution_reporting::mojom::internal::TriggerDataMatching_Data
+        ::Validate(object->trigger_data_matching, validation_context))
     return false;
 
   return true;
@@ -454,36 +473,13 @@ SourceRegistration_Data::SourceRegistration_Data()
 
 
 // static
-bool TriggerDedupKey_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const TriggerDedupKey_Data* object =
-      static_cast<const TriggerDedupKey_Data*>(data);
-
-  return true;
-}
-
-TriggerDedupKey_Data::TriggerDedupKey_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool EventTriggerData_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -492,11 +488,8 @@ bool EventTriggerData_Data::Validate(
   [[maybe_unused]] const EventTriggerData_Data* object =
       static_cast<const EventTriggerData_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->dedup_key, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->filters, 4, validation_context)) {
+          object->filters, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->filters, validation_context))
@@ -516,7 +509,7 @@ bool AggregatableDedupKey_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -525,11 +518,8 @@ bool AggregatableDedupKey_Data::Validate(
   [[maybe_unused]] const AggregatableDedupKey_Data* object =
       static_cast<const AggregatableDedupKey_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->dedup_key, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->filters, 2, validation_context)) {
+          object->filters, 3, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->filters, validation_context))
@@ -549,7 +539,7 @@ bool TriggerRegistration_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -598,11 +588,8 @@ bool TriggerRegistration_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidateStruct(object->debug_key, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aggregatable_dedup_keys, 6, validation_context)) {
+          object->aggregatable_dedup_keys, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& aggregatable_dedup_keys_validate_params =
@@ -619,6 +606,13 @@ bool TriggerRegistration_Data::Validate(
   if (!::attribution_reporting::mojom::internal::SourceRegistrationTimeConfig_Data
         ::Validate(object->source_registration_time_config, validation_context))
     return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& trigger_context_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->trigger_context_id, validation_context,
+                                         &trigger_context_id_validate_params)) {
+    return false;
+  }
 
   return true;
 }

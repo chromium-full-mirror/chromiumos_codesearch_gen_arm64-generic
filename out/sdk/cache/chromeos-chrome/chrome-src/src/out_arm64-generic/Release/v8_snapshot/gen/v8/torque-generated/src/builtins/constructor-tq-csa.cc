@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/constructor-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -433,7 +434,7 @@ USE(parameter3);
   TNode<JSReceiver> tmp15;
   if (block8.is_used()) {
     ca_.Bind(&block8);
-    tmp15 = ca_.CallStub<JSReceiver>(Builtins::CallableFor(ca_.isolate(), Builtin::kToObject), parameter0, tmp5);
+    tmp15 = ca_.CallBuiltin<JSReceiver>(Builtin::kToObject, parameter0, tmp5);
     arguments.PopAndReturn(tmp15);
   }
 
@@ -442,7 +443,7 @@ USE(parameter3);
   if (block2.is_used()) {
     ca_.Bind(&block2);
     tmp16 = UnsafeCast_JSReceiver_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter2});
-    tmp17 = ca_.CallStub<JSObject>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastNewObject), parameter0, parameter3, tmp16);
+    tmp17 = ca_.CallBuiltin<JSObject>(Builtin::kFastNewObject, parameter0, parameter3, tmp16);
     arguments.PopAndReturn(tmp17);
   }
 }
@@ -530,7 +531,7 @@ USE(parameter3);
     ca_.Bind(&block4);
     tmp8 = LoadTargetFromFrame_0(state_);
     tmp9 = UnsafeCast_JSReceiver_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter2});
-    tmp10 = ca_.CallStub<JSObject>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastNewObject), parameter0, tmp8, tmp9);
+    tmp10 = ca_.CallBuiltin<JSObject>(Builtin::kFastNewObject, parameter0, tmp8, tmp9);
     tmp11 = UnsafeCast_JSPrimitiveWrapper_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp10});
     tmp12 = FromConstexpr_intptr_constexpr_int31_0(state_, 12);
     CodeStubAssembler(state_).StoreReference<Object>(CodeStubAssembler::Reference{tmp11, tmp12}, phi_bb2_8);

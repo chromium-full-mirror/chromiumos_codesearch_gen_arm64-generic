@@ -96,7 +96,8 @@ class  VideoEncoderInfo_Data {
   uint8_t supports_simulcast : 1;
   uint8_t reports_average_qp : 1;
   uint8_t apply_alignment_to_all_simulcast_layers : 1;
-  uint8_t pad8_[3];
+  uint8_t supports_frame_size_change : 1;
+  uint8_t pad9_[2];
   int32_t frame_delay;
   int32_t input_capacity;
   uint32_t requested_resolution_alignment;

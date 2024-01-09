@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/login_screen_ui.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ ShowOptions::ShowOptions()
  {}
 
 ShowOptions::~ShowOptions() = default;
-ShowOptions::ShowOptions(ShowOptions&& rhs) = default;
-ShowOptions& ShowOptions::operator=(ShowOptions&& rhs) = default;
+ShowOptions::ShowOptions(ShowOptions&& rhs) noexcept = default;
+ShowOptions& ShowOptions::operator=(ShowOptions&& rhs) noexcept = default;
 ShowOptions ShowOptions::Clone() const {
   ShowOptions out;
   out.url = url;
@@ -65,7 +66,7 @@ bool ShowOptions::Populate(
     {
       auto temp = (*user_can_close_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_can_close = absl::nullopt;
+        out.user_can_close = std::nullopt;
         return false;
       }
       out.user_can_close = *temp;
@@ -85,34 +86,21 @@ bool ShowOptions::Populate(
 }
 
 // static
-std::unique_ptr<ShowOptions> ShowOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ShowOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ShowOptions> ShowOptions::FromValue(const base::Value::Dict& value) {
+  ShowOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ShowOptions> ShowOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ShowOptions> ShowOptions::FromValue(const base::Value& value) {
   ShowOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ShowOptions> ShowOptions::FromValue(const base::Value& value) {
-  ShowOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -140,13 +128,13 @@ namespace Show {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -155,15 +143,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ShowOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

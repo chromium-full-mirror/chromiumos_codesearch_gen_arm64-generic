@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -80,8 +81,8 @@ struct ChromeSetting {
   ~ChromeSetting();
   ChromeSetting(const ChromeSetting&) = delete;
   ChromeSetting& operator=(const ChromeSetting&) = delete;
-  ChromeSetting(ChromeSetting&& rhs);
-  ChromeSetting& operator=(ChromeSetting&& rhs);
+  ChromeSetting(ChromeSetting&& rhs) noexcept;
+  ChromeSetting& operator=(ChromeSetting&& rhs) noexcept;
 
   // Populates a ChromeSetting object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -94,15 +95,12 @@ struct ChromeSetting {
   // Creates a deep copy of ChromeSetting.
   ChromeSetting Clone() const;
 
-  // Creates a ChromeSetting object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ChromeSetting> FromValueDeprecated(const base::Value& value);
-
   // Creates a ChromeSetting object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ChromeSetting> FromValue(const base::Value::Dict& value);
+  static std::optional<ChromeSetting> FromValue(const base::Value::Dict& value);
 
   // Creates a ChromeSetting object from a base::Value, or nullopt on failure.
-  static absl::optional<ChromeSetting> FromValue(const base::Value& value);
+  static std::optional<ChromeSetting> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChromeSetting object.

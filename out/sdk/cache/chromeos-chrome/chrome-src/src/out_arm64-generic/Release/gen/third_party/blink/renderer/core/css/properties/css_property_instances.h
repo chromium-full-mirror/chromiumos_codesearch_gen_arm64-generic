@@ -41,6 +41,7 @@ namespace css_longhand { class FontVariationSettings; }
 namespace css_longhand { class FontWeight; }
 namespace css_longhand { class ForcedColorAdjust; }
 namespace css_longhand { class InternalVisitedColor; }
+namespace css_longhand { class Position; }
 namespace css_longhand { class TextOrientation; }
 namespace css_longhand { class TextRendering; }
 namespace css_longhand { class TextSpacingTrim; }
@@ -212,6 +213,7 @@ namespace css_longhand { class Inherits; }
 namespace css_longhand { class InitialLetter; }
 namespace css_longhand { class InitialValue; }
 namespace css_longhand { class InlineSize; }
+namespace css_longhand { class InsetArea; }
 namespace css_longhand { class InsetBlockEnd; }
 namespace css_longhand { class InsetBlockStart; }
 namespace css_longhand { class InsetInlineEnd; }
@@ -272,6 +274,7 @@ namespace css_longhand { class Mask; }
 namespace css_longhand { class MaskClip; }
 namespace css_longhand { class MaskComposite; }
 namespace css_longhand { class MaskImage; }
+namespace css_longhand { class MaskMode; }
 namespace css_longhand { class MaskOrigin; }
 namespace css_longhand { class MaskRepeat; }
 namespace css_longhand { class MaskSize; }
@@ -288,7 +291,7 @@ namespace css_longhand { class MinHeight; }
 namespace css_longhand { class MinInlineSize; }
 namespace css_longhand { class MinWidth; }
 namespace css_longhand { class MixBlendMode; }
-namespace css_longhand { class NavigationTrigger; }
+namespace css_longhand { class Navigation; }
 namespace css_longhand { class Negative; }
 namespace css_longhand { class ObjectFit; }
 namespace css_longhand { class ObjectPosition; }
@@ -336,7 +339,6 @@ namespace css_longhand { class PerspectiveOrigin; }
 namespace css_longhand { class PointerEvents; }
 namespace css_longhand { class PopoverHideDelay; }
 namespace css_longhand { class PopoverShowDelay; }
-namespace css_longhand { class Position; }
 namespace css_longhand { class PositionFallback; }
 namespace css_longhand { class PositionFallbackBounds; }
 namespace css_longhand { class Prefix; }
@@ -432,10 +434,6 @@ namespace css_longhand { class TextUnderlineOffset; }
 namespace css_longhand { class TextUnderlinePosition; }
 namespace css_longhand { class TextWrap; }
 namespace css_longhand { class TimelineScope; }
-namespace css_longhand { class ToggleGroup; }
-namespace css_longhand { class ToggleRoot; }
-namespace css_longhand { class ToggleTrigger; }
-namespace css_longhand { class ToggleVisibility; }
 namespace css_longhand { class Top; }
 namespace css_longhand { class TouchAction; }
 namespace css_longhand { class Transform; }
@@ -464,7 +462,6 @@ namespace css_longhand { class WebkitBorderVerticalSpacing; }
 namespace css_longhand { class WebkitBoxAlign; }
 namespace css_longhand { class WebkitBoxDecorationBreak; }
 namespace css_longhand { class WebkitBoxDirection; }
-namespace css_longhand { class WebkitBoxDirectionAlternative; }
 namespace css_longhand { class WebkitBoxFlex; }
 namespace css_longhand { class WebkitBoxOrdinalGroup; }
 namespace css_longhand { class WebkitBoxOrient; }
@@ -514,6 +511,7 @@ namespace css_longhand { class ZIndex; }
 namespace css_shorthand { class AlternativeAnimationDelay; }
 namespace css_shorthand { class AlternativeAnimationWithDelayStartEnd; }
 namespace css_shorthand { class AlternativeAnimationWithTimeline; }
+namespace css_shorthand { class AlternativeMask; }
 namespace css_shorthand { class AlternativeViewTimelineWithInset; }
 namespace css_shorthand { class Animation; }
 namespace css_shorthand { class AnimationRange; }
@@ -568,6 +566,7 @@ namespace css_shorthand { class Margin; }
 namespace css_shorthand { class MarginBlock; }
 namespace css_shorthand { class MarginInline; }
 namespace css_shorthand { class Marker; }
+namespace css_shorthand { class MaskPosition; }
 namespace css_shorthand { class Offset; }
 namespace css_shorthand { class Outline; }
 namespace css_shorthand { class Overflow; }
@@ -593,10 +592,8 @@ namespace css_shorthand { class ScrollTimeline; }
 namespace css_shorthand { class TextDecoration; }
 namespace css_shorthand { class TextEmphasis; }
 namespace css_shorthand { class TextSpacing; }
-namespace css_shorthand { class Toggle; }
 namespace css_shorthand { class Transition; }
 namespace css_shorthand { class ViewTimeline; }
-namespace css_shorthand { class WebkitAlternativeMask; }
 namespace css_shorthand { class WebkitColumnBreakAfter; }
 namespace css_shorthand { class WebkitColumnBreakBefore; }
 namespace css_shorthand { class WebkitColumnBreakInside; }
@@ -643,6 +640,8 @@ namespace css_shorthand { class WebkitBorderAfter; }
 namespace css_shorthand { class WebkitBorderBefore; }
 namespace css_shorthand { class WebkitBorderEnd; }
 namespace css_shorthand { class WebkitBorderStart; }
+namespace css_shorthand { class WebkitAlternativeMask; }
+namespace css_shorthand { class WebkitAlternativeMaskPosition; }
 namespace css_longhand { class EpubCaptionSide; }
 namespace css_longhand { class EpubTextCombine; }
 namespace css_shorthand { class EpubTextEmphasis; }
@@ -861,6 +860,11 @@ inline const css_longhand::InternalVisitedColor&
 GetCSSPropertyInternalVisitedColor() {
   return *reinterpret_cast<const css_longhand::InternalVisitedColor *>(
       GetPropertyInternal(CSSPropertyID::kInternalVisitedColor));
+}
+inline const css_longhand::Position&
+GetCSSPropertyPosition() {
+  return *reinterpret_cast<const css_longhand::Position *>(
+      GetPropertyInternal(CSSPropertyID::kPosition));
 }
 inline const css_longhand::TextOrientation&
 GetCSSPropertyTextOrientation() {
@@ -1717,6 +1721,11 @@ GetCSSPropertyInlineSize() {
   return *reinterpret_cast<const css_longhand::InlineSize *>(
       GetPropertyInternal(CSSPropertyID::kInlineSize));
 }
+inline const css_longhand::InsetArea&
+GetCSSPropertyInsetArea() {
+  return *reinterpret_cast<const css_longhand::InsetArea *>(
+      GetPropertyInternal(CSSPropertyID::kInsetArea));
+}
 inline const css_longhand::InsetBlockEnd&
 GetCSSPropertyInsetBlockEnd() {
   return *reinterpret_cast<const css_longhand::InsetBlockEnd *>(
@@ -2017,6 +2026,11 @@ GetCSSPropertyMaskImage() {
   return *reinterpret_cast<const css_longhand::MaskImage *>(
       GetPropertyInternal(CSSPropertyID::kMaskImage));
 }
+inline const css_longhand::MaskMode&
+GetCSSPropertyMaskMode() {
+  return *reinterpret_cast<const css_longhand::MaskMode *>(
+      GetPropertyInternal(CSSPropertyID::kMaskMode));
+}
 inline const css_longhand::MaskOrigin&
 GetCSSPropertyMaskOrigin() {
   return *reinterpret_cast<const css_longhand::MaskOrigin *>(
@@ -2097,10 +2111,10 @@ GetCSSPropertyMixBlendMode() {
   return *reinterpret_cast<const css_longhand::MixBlendMode *>(
       GetPropertyInternal(CSSPropertyID::kMixBlendMode));
 }
-inline const css_longhand::NavigationTrigger&
-GetCSSPropertyNavigationTrigger() {
-  return *reinterpret_cast<const css_longhand::NavigationTrigger *>(
-      GetPropertyInternal(CSSPropertyID::kNavigationTrigger));
+inline const css_longhand::Navigation&
+GetCSSPropertyNavigation() {
+  return *reinterpret_cast<const css_longhand::Navigation *>(
+      GetPropertyInternal(CSSPropertyID::kNavigation));
 }
 inline const css_longhand::Negative&
 GetCSSPropertyNegative() {
@@ -2336,11 +2350,6 @@ inline const css_longhand::PopoverShowDelay&
 GetCSSPropertyPopoverShowDelay() {
   return *reinterpret_cast<const css_longhand::PopoverShowDelay *>(
       GetPropertyInternal(CSSPropertyID::kPopoverShowDelay));
-}
-inline const css_longhand::Position&
-GetCSSPropertyPosition() {
-  return *reinterpret_cast<const css_longhand::Position *>(
-      GetPropertyInternal(CSSPropertyID::kPosition));
 }
 inline const css_longhand::PositionFallback&
 GetCSSPropertyPositionFallback() {
@@ -2817,26 +2826,6 @@ GetCSSPropertyTimelineScope() {
   return *reinterpret_cast<const css_longhand::TimelineScope *>(
       GetPropertyInternal(CSSPropertyID::kTimelineScope));
 }
-inline const css_longhand::ToggleGroup&
-GetCSSPropertyToggleGroup() {
-  return *reinterpret_cast<const css_longhand::ToggleGroup *>(
-      GetPropertyInternal(CSSPropertyID::kToggleGroup));
-}
-inline const css_longhand::ToggleRoot&
-GetCSSPropertyToggleRoot() {
-  return *reinterpret_cast<const css_longhand::ToggleRoot *>(
-      GetPropertyInternal(CSSPropertyID::kToggleRoot));
-}
-inline const css_longhand::ToggleTrigger&
-GetCSSPropertyToggleTrigger() {
-  return *reinterpret_cast<const css_longhand::ToggleTrigger *>(
-      GetPropertyInternal(CSSPropertyID::kToggleTrigger));
-}
-inline const css_longhand::ToggleVisibility&
-GetCSSPropertyToggleVisibility() {
-  return *reinterpret_cast<const css_longhand::ToggleVisibility *>(
-      GetPropertyInternal(CSSPropertyID::kToggleVisibility));
-}
 inline const css_longhand::Top&
 GetCSSPropertyTop() {
   return *reinterpret_cast<const css_longhand::Top *>(
@@ -2976,11 +2965,6 @@ inline const css_longhand::WebkitBoxDirection&
 GetCSSPropertyWebkitBoxDirection() {
   return *reinterpret_cast<const css_longhand::WebkitBoxDirection *>(
       GetPropertyInternal(CSSPropertyID::kWebkitBoxDirection));
-}
-inline const css_longhand::WebkitBoxDirectionAlternative&
-GetCSSPropertyWebkitBoxDirectionAlternative() {
-  return *reinterpret_cast<const css_longhand::WebkitBoxDirectionAlternative *>(
-      GetPropertyInternal(CSSPropertyID::kWebkitBoxDirectionAlternative));
 }
 inline const css_longhand::WebkitBoxFlex&
 GetCSSPropertyWebkitBoxFlex() {
@@ -3226,6 +3210,11 @@ inline const css_shorthand::AlternativeAnimationWithTimeline&
 GetCSSPropertyAlternativeAnimationWithTimeline() {
   return *reinterpret_cast<const css_shorthand::AlternativeAnimationWithTimeline *>(
       GetPropertyInternal(CSSPropertyID::kAlternativeAnimationWithTimeline));
+}
+inline const css_shorthand::AlternativeMask&
+GetCSSPropertyAlternativeMask() {
+  return *reinterpret_cast<const css_shorthand::AlternativeMask *>(
+      GetPropertyInternal(CSSPropertyID::kAlternativeMask));
 }
 inline const css_shorthand::AlternativeViewTimelineWithInset&
 GetCSSPropertyAlternativeViewTimelineWithInset() {
@@ -3497,6 +3486,11 @@ GetCSSPropertyMarker() {
   return *reinterpret_cast<const css_shorthand::Marker *>(
       GetPropertyInternal(CSSPropertyID::kMarker));
 }
+inline const css_shorthand::MaskPosition&
+GetCSSPropertyMaskPosition() {
+  return *reinterpret_cast<const css_shorthand::MaskPosition *>(
+      GetPropertyInternal(CSSPropertyID::kMaskPosition));
+}
 inline const css_shorthand::Offset&
 GetCSSPropertyOffset() {
   return *reinterpret_cast<const css_shorthand::Offset *>(
@@ -3622,11 +3616,6 @@ GetCSSPropertyTextSpacing() {
   return *reinterpret_cast<const css_shorthand::TextSpacing *>(
       GetPropertyInternal(CSSPropertyID::kTextSpacing));
 }
-inline const css_shorthand::Toggle&
-GetCSSPropertyToggle() {
-  return *reinterpret_cast<const css_shorthand::Toggle *>(
-      GetPropertyInternal(CSSPropertyID::kToggle));
-}
 inline const css_shorthand::Transition&
 GetCSSPropertyTransition() {
   return *reinterpret_cast<const css_shorthand::Transition *>(
@@ -3636,11 +3625,6 @@ inline const css_shorthand::ViewTimeline&
 GetCSSPropertyViewTimeline() {
   return *reinterpret_cast<const css_shorthand::ViewTimeline *>(
       GetPropertyInternal(CSSPropertyID::kViewTimeline));
-}
-inline const css_shorthand::WebkitAlternativeMask&
-GetCSSPropertyWebkitAlternativeMask() {
-  return *reinterpret_cast<const css_shorthand::WebkitAlternativeMask *>(
-      GetPropertyInternal(CSSPropertyID::kWebkitAlternativeMask));
 }
 inline const css_shorthand::WebkitColumnBreakAfter&
 GetCSSPropertyWebkitColumnBreakAfter() {

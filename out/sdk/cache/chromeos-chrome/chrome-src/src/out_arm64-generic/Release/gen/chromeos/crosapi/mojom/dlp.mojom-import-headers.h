@@ -10,5 +10,7 @@
 #include "mojo/public/mojom/base/string16.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
+#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_DLP_MOJOM_IMPORT_HEADERS_H_

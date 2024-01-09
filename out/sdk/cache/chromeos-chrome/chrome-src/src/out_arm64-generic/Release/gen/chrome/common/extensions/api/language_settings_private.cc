@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/language_settings_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,15 +37,15 @@ namespace language_settings_private {
 
 const char* ToString(MoveType enum_param) {
   switch (enum_param) {
-    case MOVE_TYPE_TOP:
+    case MoveType::kTop:
       return "TOP";
-    case MOVE_TYPE_UP:
+    case MoveType::kUp:
       return "UP";
-    case MOVE_TYPE_DOWN:
+    case MoveType::kDown:
       return "DOWN";
-    case MOVE_TYPE_UNKNOWN:
+    case MoveType::kUnknown:
       return "UNKNOWN";
-    case MOVE_TYPE_NONE:
+    case MoveType::kNone:
       return "";
   }
   NOTREACHED();
@@ -53,14 +54,14 @@ const char* ToString(MoveType enum_param) {
 
 MoveType ParseMoveType(base::StringPiece enum_string) {
   if (enum_string == "TOP")
-    return MOVE_TYPE_TOP;
+    return MoveType::kTop;
   if (enum_string == "UP")
-    return MOVE_TYPE_UP;
+    return MoveType::kUp;
   if (enum_string == "DOWN")
-    return MOVE_TYPE_DOWN;
+    return MoveType::kDown;
   if (enum_string == "UNKNOWN")
-    return MOVE_TYPE_UNKNOWN;
-  return MOVE_TYPE_NONE;
+    return MoveType::kUnknown;
+  return MoveType::kNone;
 }
 
 std::u16string GetMoveTypeParseError(base::StringPiece enum_string) {
@@ -72,8 +73,8 @@ Language::Language()
  {}
 
 Language::~Language() = default;
-Language::Language(Language&& rhs) = default;
-Language& Language::operator=(Language&& rhs) = default;
+Language::Language(Language&& rhs) noexcept = default;
+Language& Language::operator=(Language&& rhs) noexcept = default;
 Language Language::Clone() const {
   Language out;
   out.code = code;
@@ -130,7 +131,7 @@ bool Language::Populate(
     {
       auto temp = (*supports_ui_value).GetIfBool();
       if (!temp.has_value()) {
-        out.supports_ui = absl::nullopt;
+        out.supports_ui = std::nullopt;
         return false;
       }
       out.supports_ui = *temp;
@@ -142,7 +143,7 @@ bool Language::Populate(
     {
       auto temp = (*supports_spellcheck_value).GetIfBool();
       if (!temp.has_value()) {
-        out.supports_spellcheck = absl::nullopt;
+        out.supports_spellcheck = std::nullopt;
         return false;
       }
       out.supports_spellcheck = *temp;
@@ -154,7 +155,7 @@ bool Language::Populate(
     {
       auto temp = (*supports_translate_value).GetIfBool();
       if (!temp.has_value()) {
-        out.supports_translate = absl::nullopt;
+        out.supports_translate = std::nullopt;
         return false;
       }
       out.supports_translate = *temp;
@@ -166,7 +167,7 @@ bool Language::Populate(
     {
       auto temp = (*is_prohibited_language_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_prohibited_language = absl::nullopt;
+        out.is_prohibited_language = std::nullopt;
         return false;
       }
       out.is_prohibited_language = *temp;
@@ -186,34 +187,21 @@ bool Language::Populate(
 }
 
 // static
-std::unique_ptr<Language> Language::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Language>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Language> Language::FromValue(const base::Value::Dict& value) {
+  Language out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Language> Language::FromValue(const base::Value::Dict& value) {
+std::optional<Language> Language::FromValue(const base::Value& value) {
   Language out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Language> Language::FromValue(const base::Value& value) {
-  Language out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -252,8 +240,8 @@ SpellcheckDictionaryStatus::SpellcheckDictionaryStatus()
 : is_ready(false) {}
 
 SpellcheckDictionaryStatus::~SpellcheckDictionaryStatus() = default;
-SpellcheckDictionaryStatus::SpellcheckDictionaryStatus(SpellcheckDictionaryStatus&& rhs) = default;
-SpellcheckDictionaryStatus& SpellcheckDictionaryStatus::operator=(SpellcheckDictionaryStatus&& rhs) = default;
+SpellcheckDictionaryStatus::SpellcheckDictionaryStatus(SpellcheckDictionaryStatus&& rhs) noexcept = default;
+SpellcheckDictionaryStatus& SpellcheckDictionaryStatus::operator=(SpellcheckDictionaryStatus&& rhs) noexcept = default;
 SpellcheckDictionaryStatus SpellcheckDictionaryStatus::Clone() const {
   SpellcheckDictionaryStatus out;
   out.language_code = language_code;
@@ -295,7 +283,7 @@ bool SpellcheckDictionaryStatus::Populate(
     {
       auto temp = (*is_downloading_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_downloading = absl::nullopt;
+        out.is_downloading = std::nullopt;
         return false;
       }
       out.is_downloading = *temp;
@@ -307,7 +295,7 @@ bool SpellcheckDictionaryStatus::Populate(
     {
       auto temp = (*download_failed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.download_failed = absl::nullopt;
+        out.download_failed = std::nullopt;
         return false;
       }
       out.download_failed = *temp;
@@ -327,34 +315,21 @@ bool SpellcheckDictionaryStatus::Populate(
 }
 
 // static
-std::unique_ptr<SpellcheckDictionaryStatus> SpellcheckDictionaryStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SpellcheckDictionaryStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SpellcheckDictionaryStatus> SpellcheckDictionaryStatus::FromValue(const base::Value::Dict& value) {
+  SpellcheckDictionaryStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SpellcheckDictionaryStatus> SpellcheckDictionaryStatus::FromValue(const base::Value::Dict& value) {
+std::optional<SpellcheckDictionaryStatus> SpellcheckDictionaryStatus::FromValue(const base::Value& value) {
   SpellcheckDictionaryStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SpellcheckDictionaryStatus> SpellcheckDictionaryStatus::FromValue(const base::Value& value) {
-  SpellcheckDictionaryStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -383,8 +358,8 @@ InputMethod::InputMethod()
  {}
 
 InputMethod::~InputMethod() = default;
-InputMethod::InputMethod(InputMethod&& rhs) = default;
-InputMethod& InputMethod::operator=(InputMethod&& rhs) = default;
+InputMethod::InputMethod(InputMethod&& rhs) noexcept = default;
+InputMethod& InputMethod::operator=(InputMethod&& rhs) noexcept = default;
 InputMethod InputMethod::Clone() const {
   InputMethod out;
   out.id = id;
@@ -459,7 +434,7 @@ bool InputMethod::Populate(
     {
       auto temp = (*enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enabled = absl::nullopt;
+        out.enabled = std::nullopt;
         return false;
       }
       out.enabled = *temp;
@@ -471,7 +446,7 @@ bool InputMethod::Populate(
     {
       auto temp = (*has_options_page_value).GetIfBool();
       if (!temp.has_value()) {
-        out.has_options_page = absl::nullopt;
+        out.has_options_page = std::nullopt;
         return false;
       }
       out.has_options_page = *temp;
@@ -483,7 +458,7 @@ bool InputMethod::Populate(
     {
       auto temp = (*is_prohibited_by_policy_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_prohibited_by_policy = absl::nullopt;
+        out.is_prohibited_by_policy = std::nullopt;
         return false;
       }
       out.is_prohibited_by_policy = *temp;
@@ -503,34 +478,21 @@ bool InputMethod::Populate(
 }
 
 // static
-std::unique_ptr<InputMethod> InputMethod::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InputMethod>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InputMethod> InputMethod::FromValue(const base::Value::Dict& value) {
+  InputMethod out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InputMethod> InputMethod::FromValue(const base::Value::Dict& value) {
+std::optional<InputMethod> InputMethod::FromValue(const base::Value& value) {
   InputMethod out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InputMethod> InputMethod::FromValue(const base::Value& value) {
-  InputMethod out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -567,8 +529,8 @@ InputMethodLists::InputMethodLists()
  {}
 
 InputMethodLists::~InputMethodLists() = default;
-InputMethodLists::InputMethodLists(InputMethodLists&& rhs) = default;
-InputMethodLists& InputMethodLists::operator=(InputMethodLists&& rhs) = default;
+InputMethodLists::InputMethodLists(InputMethodLists&& rhs) noexcept = default;
+InputMethodLists& InputMethodLists::operator=(InputMethodLists&& rhs) noexcept = default;
 InputMethodLists InputMethodLists::Clone() const {
   InputMethodLists out;
   out.component_extension_imes.reserve(component_extension_imes.size());
@@ -628,34 +590,21 @@ bool InputMethodLists::Populate(
 }
 
 // static
-std::unique_ptr<InputMethodLists> InputMethodLists::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InputMethodLists>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InputMethodLists> InputMethodLists::FromValue(const base::Value::Dict& value) {
+  InputMethodLists out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InputMethodLists> InputMethodLists::FromValue(const base::Value::Dict& value) {
+std::optional<InputMethodLists> InputMethodLists::FromValue(const base::Value& value) {
   InputMethodLists out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InputMethodLists> InputMethodLists::FromValue(const base::Value& value) {
-  InputMethodLists out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -692,13 +641,13 @@ namespace EnableLanguage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -708,13 +657,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -727,13 +676,13 @@ namespace DisableLanguage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -743,13 +692,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -762,13 +711,13 @@ namespace SetEnableTranslationForLanguage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -778,13 +727,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -793,13 +742,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enable_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enable = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -812,13 +761,13 @@ namespace MoveLanguage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -828,13 +777,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -843,16 +792,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* move_type_as_string = move_type_value.GetIfString();
       if (!move_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.move_type = ParseMoveType(*move_type_as_string);
       if (params.move_type == MoveType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -876,13 +825,13 @@ namespace SetLanguageAlwaysTranslateState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -892,13 +841,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -907,13 +856,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = always_translate_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.always_translate = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -959,13 +908,13 @@ namespace AddSpellcheckWord {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -975,13 +924,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = word_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.word = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -994,13 +943,13 @@ namespace RemoveSpellcheckWord {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1010,13 +959,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = word_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.word = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1040,13 +989,13 @@ namespace SetTranslateTargetLanguage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1056,13 +1005,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1086,13 +1035,13 @@ namespace AddInputMethod {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1102,13 +1051,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = input_method_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.input_method_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1121,13 +1070,13 @@ namespace RemoveInputMethod {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1137,13 +1086,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = input_method_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.input_method_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1156,13 +1105,13 @@ namespace RetryDownloadDictionary {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1172,13 +1121,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = language_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.language_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/conversion-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -159,7 +160,7 @@ TF_BUILTIN(ToNumeric, CodeStubAssembler) {
   TNode<Numeric> tmp2;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp2 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), parameter0, ca_.UncheckedCast<HeapObject>(parameter1));
+    tmp2 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, parameter0, ca_.UncheckedCast<HeapObject>(parameter1));
     CodeStubAssembler(state_).Return(tmp2);
   }
 
@@ -542,7 +543,7 @@ TF_BUILTIN(ToName, CodeStubAssembler) {
   TNode<Object> tmp10;
   if (block19.is_used()) {
     ca_.Bind(&block19, &phi_bb19_2, &phi_bb19_3);
-    tmp10 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonPrimitiveToPrimitive_String), parameter0, ca_.UncheckedCast<JSReceiver>(phi_bb19_3));
+    tmp10 = ca_.CallBuiltin<Object>(Builtin::kNonPrimitiveToPrimitive_String, parameter0, ca_.UncheckedCast<JSReceiver>(phi_bb19_3));
     ca_.Goto(&block3, tmp10);
   }
 
@@ -794,7 +795,7 @@ TF_BUILTIN(NonPrimitiveToPrimitive_Default, CodeStubAssembler) {
   TNode<Object> tmp2;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp2 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kOrdinaryToPrimitive_Number_Inline), parameter0, parameter1);
+    tmp2 = ca_.CallBuiltin<Object>(Builtin::kOrdinaryToPrimitive_Number_Inline, parameter0, parameter1);
     CodeStubAssembler(state_).Return(tmp2);
   }
 
@@ -834,7 +835,7 @@ TF_BUILTIN(NonPrimitiveToPrimitive_Number, CodeStubAssembler) {
   TNode<Object> tmp2;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp2 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kOrdinaryToPrimitive_Number_Inline), parameter0, parameter1);
+    tmp2 = ca_.CallBuiltin<Object>(Builtin::kOrdinaryToPrimitive_Number_Inline, parameter0, parameter1);
     CodeStubAssembler(state_).Return(tmp2);
   }
 
@@ -991,7 +992,7 @@ TF_BUILTIN(OrdinaryToPrimitive_Number, CodeStubAssembler) {
   TNode<Object> tmp0;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kOrdinaryToPrimitive_Number_Inline), parameter0, parameter1);
+    tmp0 = ca_.CallBuiltin<Object>(Builtin::kOrdinaryToPrimitive_Number_Inline, parameter0, parameter1);
     CodeStubAssembler(state_).Return(tmp0);
   }
 }

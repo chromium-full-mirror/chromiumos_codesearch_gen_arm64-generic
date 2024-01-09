@@ -10,5 +10,7 @@
 #include "media/mojo/mojom/audio_parameters.mojom-import-headers.h"
 #include "services/audio/public/mojom/audio_device_description.mojom.h"
 #include "services/audio/public/mojom/audio_device_description.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 
 #endif  // SERVICES_AUDIO_PUBLIC_MOJOM_SYSTEM_INFO_MOJOM_IMPORT_HEADERS_H_

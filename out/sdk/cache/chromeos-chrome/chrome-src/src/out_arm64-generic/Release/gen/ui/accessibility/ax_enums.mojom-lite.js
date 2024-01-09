@@ -143,6 +143,7 @@ ax.mojom.Role = {
   kDialog: 35,
   kDirectory: 36,
   kDisclosureTriangle: 37,
+  kDisclosureTriangleGrouped: 210,
   kDocAbstract: 38,
   kDocAcknowledgments: 39,
   kDocAfterword: 40,
@@ -315,7 +316,7 @@ ax.mojom.Role = {
   kWebView: 183,
   kWindow: 184,
   MIN_VALUE: 0,
-  MAX_VALUE: 209,
+  MAX_VALUE: 210,
 };
 
 

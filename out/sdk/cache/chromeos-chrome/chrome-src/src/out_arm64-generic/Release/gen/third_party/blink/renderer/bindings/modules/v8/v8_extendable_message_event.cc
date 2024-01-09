@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ExtendableMessageEvent>::value,
     "ExtendableMessageEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ExtendableMessageEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ExtendableMessageEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ BLINK_BINDINGS_TRACE_EVENT("ExtendableMessageEvent.data.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -129,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("ExtendableMessageEvent.origin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->origin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->origin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -144,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("ExtendableMessageEvent.lastEventId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lastEventId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lastEventId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -164,7 +159,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->source();
 if (!ToV8Traits<IDLNullable<V8UnionClientOrMessagePortOrServiceWorker>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -185,7 +181,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ports();
 if (!ToV8Traits<IDLArray<MessagePort>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -201,8 +198,9 @@ BLINK_BINDINGS_TRACE_EVENT("ExtendableMessageEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(v8_receiver);
+ExtendableMessageEvent* blink_receiver = V8ExtendableMessageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

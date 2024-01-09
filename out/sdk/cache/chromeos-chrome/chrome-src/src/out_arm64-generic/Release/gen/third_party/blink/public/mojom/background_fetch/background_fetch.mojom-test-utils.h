@@ -69,7 +69,7 @@ class BLINK_COMMON_EXPORT BackgroundFetchServiceAsyncWaiter {
 
 class BLINK_COMMON_EXPORT BackgroundFetchRegistrationServiceInterceptorForTesting : public BackgroundFetchRegistrationService {
   virtual BackgroundFetchRegistrationService* GetForwardingInterface() = 0;
-  void UpdateUI(const absl::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) override;
+  void UpdateUI(const std::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) override;
   void Abort(AbortCallback callback) override;
   void MatchRequests(::blink::mojom::FetchAPIRequestPtr request_to_match, ::blink::mojom::CacheQueryOptionsPtr cache_query_options, bool match_all, MatchRequestsCallback callback) override;
   void AddRegistrationObserver(::mojo::PendingRemote<BackgroundFetchRegistrationObserver> observer) override;
@@ -83,8 +83,8 @@ class BLINK_COMMON_EXPORT BackgroundFetchRegistrationServiceAsyncWaiter {
 
   ~BackgroundFetchRegistrationServiceAsyncWaiter();
   void UpdateUI(
-      const absl::optional<std::string>& title, const ::SkBitmap& icon, BackgroundFetchError* out_error);
-  BackgroundFetchError UpdateUI(const absl::optional<std::string>& title, const ::SkBitmap& icon);
+      const std::optional<std::string>& title, const ::SkBitmap& icon, BackgroundFetchError* out_error);
+  BackgroundFetchError UpdateUI(const std::optional<std::string>& title, const ::SkBitmap& icon);
   void Abort(
       BackgroundFetchError* out_error);
   BackgroundFetchError Abort();

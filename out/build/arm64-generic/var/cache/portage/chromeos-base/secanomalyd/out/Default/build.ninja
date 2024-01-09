@@ -24,10 +24,7 @@ build install_upstart_config: phony obj/secanomalyd/install_upstart_config.stamp
 build landlock: phony obj/secanomalyd/landlock.stamp
 build libsecanomaly: phony ./libsecanomaly.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build secanomalyd$:_secanomalyd-install_config: phony obj/secanomalyd/_secanomalyd-install_config.stamp
 build secanomalyd$:all: phony obj/secanomalyd/all.stamp
 build secanomalyd$:install_minijail_conf: phony obj/secanomalyd/install_minijail_conf.stamp
@@ -35,18 +32,15 @@ build secanomalyd$:install_upstart_config: phony obj/secanomalyd/install_upstart
 build secanomalyd$:landlock: phony obj/secanomalyd/landlock.stamp
 build secanomalyd$:libsecanomaly: phony ./libsecanomaly.a
 build secanomalyd$:secanomalyd: phony ./secanomalyd
-build secanomalyd$:secanomalyd_testrunner: phony ./secanomalyd_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/secanomalyd/_secanomalyd-install_config.stamp $
     obj/secanomalyd/all.stamp $
     obj/secanomalyd/install_minijail_conf.stamp $
     obj/secanomalyd/install_upstart_config.stamp $
     obj/secanomalyd/landlock.stamp $
     ./libsecanomaly.a $
-    ./secanomalyd $
-    ./secanomalyd_testrunner
+    ./secanomalyd
 
 default all

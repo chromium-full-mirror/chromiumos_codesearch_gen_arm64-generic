@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/privileged/mojom/compositing/display_private.mojom-features.h"
 #include "services/viz/privileged/mojom/compositing/display_private.mojom-shared.h"
 #include "services/viz/privileged/mojom/compositing/display_private.mojom-forward.h"
 #include "gpu/ipc/common/context_result.mojom-forward.h"
@@ -163,7 +164,7 @@ class DisplayPrivate
   virtual void SetStandaloneBeginFrameObserver(::mojo::PendingRemote<::viz::mojom::BeginFrameObserver> observer) = 0;
 
   
-  virtual void SetMaxVrrInterval(absl::optional<::base::TimeDelta> max_vrr_interval) = 0;
+  virtual void SetMaxVrrInterval(std::optional<::base::TimeDelta> max_vrr_interval) = 0;
 };
 
 class DisplayClientProxy;
@@ -233,7 +234,7 @@ class  DisplayPrivateProxy
   
   void SetStandaloneBeginFrameObserver(::mojo::PendingRemote<::viz::mojom::BeginFrameObserver> observer) final;
   
-  void SetMaxVrrInterval(absl::optional<::base::TimeDelta> max_vrr_interval) final;
+  void SetMaxVrrInterval(std::optional<::base::TimeDelta> max_vrr_interval) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -21,7 +21,8 @@ constexpr uint32_t kPageHandler_ToggleVirtualKeyboardTray_Name = 3;
 constexpr uint32_t kPageHandler_ToggleDictationTray_Name = 4;
 constexpr uint32_t kPageHandler_ToggleVideoConferenceTray_Name = 5;
 constexpr uint32_t kPageHandler_ToggleProjectorTray_Name = 6;
-constexpr uint32_t kPageHandler_TriggerPrivacyIndicators_Name = 7;
+constexpr uint32_t kPageHandler_SetActiveDirectoryManaged_Name = 7;
+constexpr uint32_t kPageHandler_TriggerPrivacyIndicators_Name = 8;
 
 }  // namespace internal
 

@@ -23,7 +23,8 @@ from autotest_lib.client.cros.bluetooth.bluetooth_audio_test_data import (
         A2DP, HFP_NBS, HFP_NBS_MEDIUM, HFP_WBS, HFP_WBS_MEDIUM,
         AUDIO_DATA_TARBALL_PATH, VISQOL_BUFFER_LENGTH, DATA_DIR, VISQOL_PATH,
         VISQOL_SIMILARITY_MODEL, VISQOL_TEST_DIR, AUDIO_RECORD_DIR,
-        audio_test_data, get_audio_test_data, get_visqol_binary)
+        AUDIO_SERVER, PULSEAUDIO, PIPEWIRE, A2DP_CODEC, SBC, AAC, HFP_CODEC,
+        LC3, audio_test_data, get_audio_test_data, get_visqol_binary)
 from autotest_lib.server.cros.bluetooth.bluetooth_adapter_tests import (
     BluetoothAdapterTests, test_retry_and_log)
 from six.moves import range
@@ -58,6 +59,21 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
     CONNECTION_STATE_QUIET = 'BT_quiet'
     CONNECTION_STATE_SCANNING = 'BT_scanning'
     CONNECTION_STATE_QUIET_AGAIN = 'BT_quiet_again'
+
+    DEFAULT_AUDIO_CONFIG = {AUDIO_SERVER: PULSEAUDIO, A2DP_CODEC: SBC}
+
+    # This is temporary. All codecs will be served by PIPEWIRE eventually.
+    AUDIO_SERVER_CHOICE = {SBC: PULSEAUDIO, AAC: PIPEWIRE, LC3: PIPEWIRE}
+
+    # Regex to find ACL data event time for Bluetooth A2DP audio packets in
+    # btmon log, e.g.
+    # ACL Data RX: Handle 12 flags 0x02 dlen 612         #700 [hci0] 82.540952
+    #   Channel: 64 len 608 [PSM 25 mode Basic (0x00)] {chan 0}
+    # PSM with value 25 was taken from this reference:
+    # https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/
+    # Assigned%20Number%20Types/Assigned_Numbers.pdf
+    A2DP_NOTIFICATION_REGEX = (
+            r"ACL Data (?:RX|TX): Handle {} .*\[hci\d+\] (\d+\.\d+)\s.*PSM 25")
 
     # The real IP replacent when used in ssh tunneling environment
     real_ip = None
@@ -266,6 +282,12 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         logging.debug("get_supported_capabilities %s", capabilities)
         return err is None and bool(capabilities.get('wide band speech'))
 
+    def check_swb_capability(self):
+        """Check if the DUT supports SWB capability.
+
+        @returns True if supported, False otherwise
+        """
+        return self.bluetooth_facade.is_swb_supported()
 
     def collect_audio_diagnostics(self, filename='audio_diagnostics.txt'):
         """Collect the audio_diagnostics file for debugging.
@@ -285,24 +307,102 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         except:
             logging.warn('failed to call dump_diagnostics()')
 
+    def collect_audio_files(self):
+        """Collect the recoded audio files for debugging. """
+        compressed_file_name = 'audio_files.tar.gz'
+        remote_result_path = os.path.join(AUDIO_RECORD_DIR,
+                                          compressed_file_name)
 
-    def initialize_bluetooth_audio(self, device, test_profile):
+        if not self.bluetooth_facade.zip_audio_files(AUDIO_RECORD_DIR,
+                                                     remote_result_path):
+            logging.error('Failed to compress the audio files.')
+            return
+
+        try:
+            result_path = os.path.join(self.resultsdir, compressed_file_name)
+            self.host.get_file(remote_result_path, result_path)
+            logging.debug('Collected audio files in %s', result_path)
+        except Exception as e:
+            logging.error('Failed to collect audio files: %s', e)
+
+    def generate_audio_config(self, test_specific_audio_config):
+        """Generate the audio config.
+
+        Generate a default audio config. Update the config with any test
+        specific audio config.
+
+        @param test_specific_audio_config: the test specific audio config
+                that will be used to update the default one.
+        """
+        for profile in [A2DP_CODEC, HFP_CODEC]:
+            if profile in test_specific_audio_config:
+                codec = test_specific_audio_config[profile]
+                audio_server = self.AUDIO_SERVER_CHOICE.get(codec)
+                if audio_server:
+                    test_specific_audio_config[AUDIO_SERVER] = audio_server
+
+        self._audio_config = self.DEFAULT_AUDIO_CONFIG.copy()
+        self._audio_config.update(test_specific_audio_config)
+        logging.debug("audio_config: %s", self._audio_config)
+
+    def cleanup_audio_config(self):
+        """Clean up the audio config.
+
+        Clean up both self._audio_config.
+        """
+        self._audio_config = {}
+
+    def get_audio_server_name(self):
+        """Get the audio server name from the audio config.
+
+        @returns: the audio server name
+        """
+        return self._audio_config.get(AUDIO_SERVER)
+
+    def get_a2dp_codec_name(self):
+        """Get the audio a2dp codec from the audio config.
+
+        @returns: the a2dp codec
+        """
+        return self._audio_config.get(A2DP_CODEC)
+
+    def is_a2dp_profile(self, test_profile):
+        """Is the test_profile an A2DP profile?
+
+        @returns: True if the test_profile is an A2DP profile.
+        """
+        return test_profile.startswith(A2DP)
+
+    def initialize_bluetooth_audio(self,
+                                   device,
+                                   test_profile,
+                                   audio_config={}):
         """Initialize the Bluetooth audio task.
 
         Note: pulseaudio is not stable. Need to restart it in the beginning.
 
         @param device: the bluetooth peer device
         @param test_profile: the test profile used, A2DP, HFP_WBS or HFP_NBS
+        @param audio_config: the test specific audio config that will be used
+                to update the default one
 
         """
+        self.generate_audio_config(audio_config)
+
+        audio_server = self.get_audio_server_name()
+        if audio_server != PULSEAUDIO and audio_server != PIPEWIRE:
+            raise error.TestError('%s not supported' % audio_server)
+
         if not self.bluetooth_facade.create_audio_record_directory(
                 AUDIO_RECORD_DIR):
             raise error.TestError('Failed to create %s on the DUT' %
                                   AUDIO_RECORD_DIR)
 
-        if not device.StartPulseaudio(test_profile):
-            raise error.TestError('Failed to start pulseaudio.')
-        logging.debug('pulseaudio is started.')
+        device.SetAudioConfig(self._audio_config)
+
+        if not device.StartAudioServer(test_profile):
+            raise error.TestError('Failed to start %s.' % audio_server)
+        logging.info('%s is started.', audio_server)
 
         if test_profile in (HFP_WBS, HFP_NBS, HFP_NBS_MEDIUM, HFP_WBS_MEDIUM):
             if device.StartOfono():
@@ -325,10 +425,12 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         @param test_profile: the test profile used, A2DP, HFP_WBS or HFP_NBS
 
         """
-        if device.StopPulseaudio():
-            logging.debug('pulseaudio is stopped.')
+        self.cleanup_audio_config()
+
+        if device.StopAudioServer():
+            logging.debug('The audio serever is stopped.')
         else:
-            logging.warning('Failed to stop pulseaudio. Ignored.')
+            logging.warning('Failed to stop the audio server. Ignored.')
 
         if device.StopOfono():
             logging.debug('ofono is stopped.')
@@ -364,6 +466,26 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
     def stop_audio_stream_for_avrcp(self):
         """Stop playing audio on DUT"""
         self.test_dut_to_stop_playing_audio_subprocess()
+
+    def get_peer_a2dp_notif_timestamps(self, device):
+        """Gets peer A2DP notifications timestamp.
+
+        @param device: The Bluetooth device.
+
+        @return: List of peer notifications timestamp.
+        """
+        return self.get_peer_protocol_notif_timestamps(
+                self.A2DP_NOTIFICATION_REGEX, device)
+
+    def get_dut_a2dp_notif_timestamps(self, device):
+        """Gets DUT A2DP notifications timestamp.
+
+        @param device: The Bluetooth device.
+
+        @return: List of DUT notifications timestamp.
+        """
+        return self.get_dut_protocol_notif_timestamps(
+                self.A2DP_NOTIFICATION_REGEX, device)
 
     def initialize_bluetooth_player(self, device):
         """Initialize the Bluetooth media player.
@@ -668,7 +790,8 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
                           test_data,
                           duration,
                           check_legitimacy=True,
-                          check_frequencies=True):
+                          check_frequencies=True,
+                          start_index=0):
         """Check chunks of recorded streams and verify the primary frequencies.
 
         @param device: the bluetooth peer device
@@ -680,6 +803,9 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
                                 _check_audio_frames_legitimacy test
         @param check_frequencies: specify this to True to run
                                  _check_primary_frequencies test
+        @param start_index: The starting index of the audio file. This is used
+                            only to prevent audio files from being replaced
+                            when this function is called multiple times.
 
         @returns: True if all chunks pass the frequencies check.
         """
@@ -694,7 +820,8 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         for i in range(nchunks):
             logging.debug('Check chunk %d', i)
 
-            recorded_file = self.handle_one_chunk(device, chunk_in_secs, i,
+            recorded_file = self.handle_one_chunk(device, chunk_in_secs,
+                                                  start_index + i,
                                                   test_profile)
             if recorded_file is None:
                 raise error.TestError('Failed to handle chunk %d' % i)
@@ -740,8 +867,12 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
 
 
     @test_retry_and_log(False)
-    def test_check_empty_chunks(self, device, test_data, duration,
-                                test_profile):
+    def test_check_empty_chunks(self,
+                                device,
+                                test_data,
+                                duration,
+                                test_profile,
+                                start_index=0):
         """Check if all the chunks are empty.
 
         @param device: The Bluetooth peer device.
@@ -749,6 +880,9 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         @param duration: The duration of the audio file to test.
         @param test_profile: Which audio profile is used. Profiles are defined
                              in bluetooth_audio_test_data.py.
+        @param start_index: The starting index of the audio file. This is used
+                            only to prevent audio files from being replaced
+                            when this function is called multiple times.
 
         @returns: True if all the chunks are empty.
         """
@@ -762,7 +896,8 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         for i in range(nchunks):
             logging.info('Check chunk %d', i)
 
-            recorded_file = self.handle_one_chunk(device, chunk_in_secs, i,
+            recorded_file = self.handle_one_chunk(device, chunk_in_secs,
+                                                  start_index + i,
                                                   test_profile)
             if recorded_file is None:
                 raise error.TestError('Failed to handle chunk %d' % i)
@@ -874,6 +1009,19 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         return all(self.results.values())
 
     @test_retry_and_log(False)
+    def test_set_force_hfp_swb_enabled(self, enable):
+        """Sets the force hfp swb enabled status to `enabled`.
+
+        @param enable: A bool to be set as the force hfp swb enabled status.
+        """
+        self.audio_facade.set_force_hfp_swb_enabled(enable)
+        enabled = self.audio_facade.get_force_hfp_swb_enabled()
+
+        result_key = 'set_force_hfp_swb_enabled_to_%s' % enable
+        self.results = {result_key: enable == enabled}
+        return all(self.results.values())
+
+    @test_retry_and_log(False)
     def test_set_force_sr_bt_enabled(self, enable):
         """Sets the force sr bt enabled status to `enabled`.
 
@@ -881,9 +1029,9 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         """
         self.audio_facade.set_force_sr_bt_enabled(enable)
         enabled = self.audio_facade.get_force_sr_bt_enabled()
-        self.results = {
-                f'set_force_sr_bt_enabled_to_{enable}': enable == enabled
-        }
+
+        result_key = 'set_force_sr_bt_enabled_to_%s' % enable
+        self.results = {result_key: enable == enabled}
         return all(self.results.values())
 
     @test_retry_and_log(False)
@@ -1017,13 +1165,19 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         }
         return all(self.results.values())
 
-
     @test_retry_and_log(False)
     def test_device_a2dp_connected(self, device, timeout=15):
         """ Tests a2dp profile is connected on device. """
+        audio_server = self.get_audio_server_name()
+        if audio_server == PULSEAUDIO:
+            check_connection = lambda: self._get_pulseaudio_bluez_source_a2dp(
+                    device, A2DP)
+        elif audio_server == PIPEWIRE:
+            check_connection = lambda: device.GetPipewireBluezId() is not None
+        else:
+            raise error.TestError('%s not supported' % audio_server)
+
         self.results = {}
-        check_connection = lambda: self._get_pulseaudio_bluez_source_a2dp(
-                device, A2DP)
         is_connected = self._wait_for_condition(check_connection,
                                                 'test_device_a2dp_connected',
                                                 timeout=timeout)
@@ -1050,7 +1204,14 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
 
         @returns: True on success. False otherwise.
         """
-        check_connection = lambda: bluez_function(device, test_profile)
+        audio_server = self.get_audio_server_name()
+        if audio_server == PULSEAUDIO:
+            check_connection = lambda: bluez_function(device, test_profile)
+        elif audio_server == PIPEWIRE:
+            check_connection = lambda: device.GetPipewireBluezId() is not None
+        else:
+            raise error.TestError('%s not supported' % audio_server)
+
         is_connected = self._wait_for_condition(check_connection,
                                                 'test_hfp_connected',
                                                 timeout=timeout)
@@ -1495,7 +1656,10 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         self.test_device_a2dp_connected(device)
         self.test_select_audio_output_node_bluetooth()
 
-        for _ in range(3):
+        nchunks = (test_data['chunk_checking_duration'] //
+                   test_data['chunk_in_secs'])
+
+        for i in range(3):
             # TODO(b/208165757): In here if we record the audio stream before
             # playing that will cause an audio blank about 1~2 sec in the
             # beginning of the recorded file and make the chunks checking fail.
@@ -1503,16 +1667,22 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
             self.test_dut_to_start_playing_audio_subprocess(test_data)
             self.test_device_to_start_recording_audio_subprocess(
                     device, test_profile, test_data)
-            self.test_check_chunks(device, test_profile, test_data,
-                                   test_data['chunk_checking_duration'])
+
+            self.test_check_chunks(device,
+                                   test_profile,
+                                   test_data,
+                                   test_data['chunk_checking_duration'],
+                                   start_index=i * 2 * nchunks)
             self.test_dut_to_stop_playing_audio_subprocess()
             self.test_device_to_stop_recording_audio_subprocess(device)
 
             self.test_device_to_start_recording_audio_subprocess(
                     device, test_profile, test_data)
-            self.test_check_empty_chunks(device, test_data,
+            self.test_check_empty_chunks(device,
+                                         test_data,
                                          test_data['chunk_checking_duration'],
-                                         test_profile)
+                                         test_profile,
+                                         start_index=(i * 2 + 1) * nchunks)
             self.test_device_to_stop_recording_audio_subprocess(device)
 
         self.test_disconnection_by_adapter(device.address)
@@ -1751,7 +1921,7 @@ class BluetoothAdapterAudioTests(BluetoothAdapterTests):
         stop playing.
 
         @param device: the Bluetooth peer device.
-        @param test_profile: which test profile is used, HFP_WBS or HFP_NBS.
+        @param test_profile: which test profile is used, HFP_SWB, HFP_WBS or HFP_NBS.
         """
         hfp_test_data = audio_test_data[test_profile]
 

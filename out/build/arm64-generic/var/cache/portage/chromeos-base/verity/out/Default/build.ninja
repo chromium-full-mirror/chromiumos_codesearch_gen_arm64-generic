@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/verity-0.0.1-r501/work/verity-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -25,10 +25,7 @@ build install_headers: phony obj/verity/install_headers.stamp
 build install_pkg_config: phony obj/verity/install_pkg_config.stamp
 build libdm-bht: phony ./lib/libdm-bht.so
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build verity$:_libdm-bht-install_config: phony obj/verity/_libdm-bht-install_config.stamp
 build verity$:_verity-install_config: phony obj/verity/_verity-install_config.stamp
 build verity$:all: phony obj/verity/all.stamp
@@ -37,11 +34,9 @@ build verity$:install_headers: phony obj/verity/install_headers.stamp
 build verity$:install_pkg_config: phony obj/verity/install_pkg_config.stamp
 build verity$:libdm-bht: phony ./lib/libdm-bht.so
 build verity$:verity: phony ./verity
-build verity$:verity_tests: phony ./verity_tests
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/verity/_libdm-bht-install_config.stamp $
     obj/verity/_verity-install_config.stamp $
     obj/verity/all.stamp $
@@ -49,7 +44,6 @@ build all: phony $
     obj/verity/install_headers.stamp $
     obj/verity/install_pkg_config.stamp $
     ./lib/libdm-bht.so $
-    ./verity $
-    ./verity_tests
+    ./verity
 
 default all

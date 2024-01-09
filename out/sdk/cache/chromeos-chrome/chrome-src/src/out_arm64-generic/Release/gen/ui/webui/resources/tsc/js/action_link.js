@@ -27,12 +27,9 @@
 //
 // NOTE: <action-link> and document.createElement('action-link') don't work.
 class ActionLink extends HTMLAnchorElement {
-    constructor() {
-        super(...arguments);
-        this.boundOnKeyDown_ = null;
-        this.boundOnMouseDown_ = null;
-        this.boundOnBlur_ = null;
-    }
+    boundOnKeyDown_ = null;
+    boundOnMouseDown_ = null;
+    boundOnBlur_ = null;
     connectedCallback() {
         // Action links can start disabled (e.g. <a is="action-link" disabled>).
         this.tabIndex = this.disabled ? -1 : 0;

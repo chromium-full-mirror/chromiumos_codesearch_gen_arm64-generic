@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -83,7 +84,7 @@ ServiceWorkerRouterRequestCondition::ServiceWorkerRouterRequestCondition()
       destination() {}
 
 ServiceWorkerRouterRequestCondition::ServiceWorkerRouterRequestCondition(
-    const absl::optional<std::string>& method_in,
+    const std::optional<std::string>& method_in,
     bool has_mode_in,
     ::network::mojom::RequestMode mode_in,
     bool has_destination_in,
@@ -103,7 +104,7 @@ void ServiceWorkerRouterRequestCondition::WriteIntoTrace(
     dict.AddItem(
       "method"), this->method,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -151,16 +152,16 @@ bool ServiceWorkerRouterRequestCondition::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ServiceWorkerRouterConditionObject::ServiceWorkerRouterConditionObject()
+ServiceWorkerRouterOrCondition::ServiceWorkerRouterOrCondition()
     : conditions() {}
 
-ServiceWorkerRouterConditionObject::ServiceWorkerRouterConditionObject(
+ServiceWorkerRouterOrCondition::ServiceWorkerRouterOrCondition(
     std::vector<ServiceWorkerRouterConditionPtr> conditions_in)
     : conditions(std::move(conditions_in)) {}
 
-ServiceWorkerRouterConditionObject::~ServiceWorkerRouterConditionObject() = default;
+ServiceWorkerRouterOrCondition::~ServiceWorkerRouterOrCondition() = default;
 
-void ServiceWorkerRouterConditionObject::WriteIntoTrace(
+void ServiceWorkerRouterOrCondition::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -174,35 +175,71 @@ void ServiceWorkerRouterConditionObject::WriteIntoTrace(
     );
 }
 
-bool ServiceWorkerRouterConditionObject::Validate(
+bool ServiceWorkerRouterOrCondition::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ServiceWorkerRouterOrCondition::ServiceWorkerRouterOrCondition()
-    : objects() {}
+ServiceWorkerRouterCondition::ServiceWorkerRouterCondition()
+    : url_pattern(),
+      request(),
+      running_status(),
+      or_condition() {}
 
-ServiceWorkerRouterOrCondition::ServiceWorkerRouterOrCondition(
-    std::vector<ServiceWorkerRouterConditionObjectPtr> objects_in)
-    : objects(std::move(objects_in)) {}
+ServiceWorkerRouterCondition::ServiceWorkerRouterCondition(
+    const std::optional<::blink::SafeUrlPattern>& url_pattern_in,
+    ServiceWorkerRouterRequestConditionPtr request_in,
+    ServiceWorkerRouterRunningStatusConditionPtr running_status_in,
+    ServiceWorkerRouterOrConditionPtr or_condition_in)
+    : url_pattern(std::move(url_pattern_in)),
+      request(std::move(request_in)),
+      running_status(std::move(running_status_in)),
+      or_condition(std::move(or_condition_in)) {}
 
-ServiceWorkerRouterOrCondition::~ServiceWorkerRouterOrCondition() = default;
+ServiceWorkerRouterCondition::~ServiceWorkerRouterCondition() = default;
 
-void ServiceWorkerRouterOrCondition::WriteIntoTrace(
+void ServiceWorkerRouterCondition::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "objects"), this->objects,
+      "url_pattern"), this->url_pattern,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<ServiceWorkerRouterConditionObjectPtr>>"
+      "<value of type const std::optional<::blink::SafeUrlPattern>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "request"), this->request,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ServiceWorkerRouterRequestConditionPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "running_status"), this->running_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ServiceWorkerRouterRunningStatusConditionPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "or_condition"), this->or_condition,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ServiceWorkerRouterOrConditionPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool ServiceWorkerRouterOrCondition::Validate(
+bool ServiceWorkerRouterCondition::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -262,7 +299,7 @@ ServiceWorkerRouterCacheSource::ServiceWorkerRouterCacheSource()
     : cache_name() {}
 
 ServiceWorkerRouterCacheSource::ServiceWorkerRouterCacheSource(
-    const absl::optional<std::string>& cache_name_in)
+    const std::optional<std::string>& cache_name_in)
     : cache_name(std::move(cache_name_in)) {}
 
 ServiceWorkerRouterCacheSource::~ServiceWorkerRouterCacheSource() = default;
@@ -274,7 +311,7 @@ void ServiceWorkerRouterCacheSource::WriteIntoTrace(
     dict.AddItem(
       "cache_name"), this->cache_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -287,13 +324,13 @@ bool ServiceWorkerRouterCacheSource::Validate(
   return Data_::Validate(data, validation_context);
 }
 ServiceWorkerRouterRule::ServiceWorkerRouterRule()
-    : conditions(),
+    : condition(),
       sources() {}
 
 ServiceWorkerRouterRule::ServiceWorkerRouterRule(
-    std::vector<ServiceWorkerRouterConditionPtr> conditions_in,
+    ServiceWorkerRouterConditionPtr condition_in,
     std::vector<ServiceWorkerRouterSourcePtr> sources_in)
-    : conditions(std::move(conditions_in)),
+    : condition(std::move(condition_in)),
       sources(std::move(sources_in)) {}
 
 ServiceWorkerRouterRule::~ServiceWorkerRouterRule() = default;
@@ -303,9 +340,9 @@ void ServiceWorkerRouterRule::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "conditions"), this->conditions,
+      "condition"), this->condition,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<ServiceWorkerRouterConditionPtr>>"
+      "<value of type ServiceWorkerRouterConditionPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -353,87 +390,6 @@ bool ServiceWorkerRouterRules::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
-}
-ServiceWorkerRouterCondition::ServiceWorkerRouterCondition() : tag_(Tag::kUrlPattern) {
-  data_.url_pattern = new ::blink::SafeUrlPattern;
-}
-
-ServiceWorkerRouterCondition::~ServiceWorkerRouterCondition() {
-  DestroyActive();
-}
-
-
-void ServiceWorkerRouterCondition::set_url_pattern(
-    const ::blink::SafeUrlPattern& url_pattern) {
-  if (tag_ == Tag::kUrlPattern) {
-    *(data_.url_pattern) = std::move(url_pattern);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kUrlPattern;
-    data_.url_pattern = new ::blink::SafeUrlPattern(
-        std::move(url_pattern));
-  }
-}
-void ServiceWorkerRouterCondition::set_request(
-    ServiceWorkerRouterRequestConditionPtr request) {
-  if (tag_ == Tag::kRequest) {
-    *(data_.request) = std::move(request);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kRequest;
-    data_.request = new ServiceWorkerRouterRequestConditionPtr(
-        std::move(request));
-  }
-}
-void ServiceWorkerRouterCondition::set_running_status(
-    ServiceWorkerRouterRunningStatusConditionPtr running_status) {
-  if (tag_ == Tag::kRunningStatus) {
-    *(data_.running_status) = std::move(running_status);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kRunningStatus;
-    data_.running_status = new ServiceWorkerRouterRunningStatusConditionPtr(
-        std::move(running_status));
-  }
-}
-void ServiceWorkerRouterCondition::set_or_condition(
-    ServiceWorkerRouterOrConditionPtr or_condition) {
-  if (tag_ == Tag::kOrCondition) {
-    *(data_.or_condition) = std::move(or_condition);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kOrCondition;
-    data_.or_condition = new ServiceWorkerRouterOrConditionPtr(
-        std::move(or_condition));
-  }
-}
-
-void ServiceWorkerRouterCondition::DestroyActive() {
-  switch (tag_) {
-
-    case Tag::kUrlPattern:
-
-      delete data_.url_pattern;
-      break;
-    case Tag::kRequest:
-
-      delete data_.request;
-      break;
-    case Tag::kRunningStatus:
-
-      delete data_.running_status;
-      break;
-    case Tag::kOrCondition:
-
-      delete data_.or_condition;
-      break;
-  }
-}
-
-bool ServiceWorkerRouterCondition::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context, false);
 }
 ServiceWorkerRouterSource::ServiceWorkerRouterSource() : tag_(Tag::kNetworkSource) {
   data_.network_source = new ServiceWorkerRouterNetworkSourcePtr;
@@ -561,11 +517,11 @@ bool StructTraits<::blink::mojom::ServiceWorkerRouterRequestCondition::DataView,
 
 
 // static
-bool StructTraits<::blink::mojom::ServiceWorkerRouterConditionObject::DataView, ::blink::mojom::ServiceWorkerRouterConditionObjectPtr>::Read(
-    ::blink::mojom::ServiceWorkerRouterConditionObject::DataView input,
-    ::blink::mojom::ServiceWorkerRouterConditionObjectPtr* output) {
+bool StructTraits<::blink::mojom::ServiceWorkerRouterOrCondition::DataView, ::blink::mojom::ServiceWorkerRouterOrConditionPtr>::Read(
+    ::blink::mojom::ServiceWorkerRouterOrCondition::DataView input,
+    ::blink::mojom::ServiceWorkerRouterOrConditionPtr* output) {
   bool success = true;
-  ::blink::mojom::ServiceWorkerRouterConditionObjectPtr result(::blink::mojom::ServiceWorkerRouterConditionObject::New());
+  ::blink::mojom::ServiceWorkerRouterOrConditionPtr result(::blink::mojom::ServiceWorkerRouterOrCondition::New());
   
       if (success && !input.ReadConditions(&result->conditions))
         success = false;
@@ -575,13 +531,19 @@ bool StructTraits<::blink::mojom::ServiceWorkerRouterConditionObject::DataView, 
 
 
 // static
-bool StructTraits<::blink::mojom::ServiceWorkerRouterOrCondition::DataView, ::blink::mojom::ServiceWorkerRouterOrConditionPtr>::Read(
-    ::blink::mojom::ServiceWorkerRouterOrCondition::DataView input,
-    ::blink::mojom::ServiceWorkerRouterOrConditionPtr* output) {
+bool StructTraits<::blink::mojom::ServiceWorkerRouterCondition::DataView, ::blink::mojom::ServiceWorkerRouterConditionPtr>::Read(
+    ::blink::mojom::ServiceWorkerRouterCondition::DataView input,
+    ::blink::mojom::ServiceWorkerRouterConditionPtr* output) {
   bool success = true;
-  ::blink::mojom::ServiceWorkerRouterOrConditionPtr result(::blink::mojom::ServiceWorkerRouterOrCondition::New());
+  ::blink::mojom::ServiceWorkerRouterConditionPtr result(::blink::mojom::ServiceWorkerRouterCondition::New());
   
-      if (success && !input.ReadObjects(&result->objects))
+      if (success && !input.ReadUrlPattern(&result->url_pattern))
+        success = false;
+      if (success && !input.ReadRequest(&result->request))
+        success = false;
+      if (success && !input.ReadRunningStatus(&result->running_status))
+        success = false;
+      if (success && !input.ReadOrCondition(&result->or_condition))
         success = false;
   *output = std::move(result);
   return success;
@@ -645,7 +607,7 @@ bool StructTraits<::blink::mojom::ServiceWorkerRouterRule::DataView, ::blink::mo
   bool success = true;
   ::blink::mojom::ServiceWorkerRouterRulePtr result(::blink::mojom::ServiceWorkerRouterRule::New());
   
-      if (success && !input.ReadConditions(&result->conditions))
+      if (success && !input.ReadCondition(&result->condition))
         success = false;
       if (success && !input.ReadSources(&result->sources))
         success = false;
@@ -665,57 +627,6 @@ bool StructTraits<::blink::mojom::ServiceWorkerRouterRules::DataView, ::blink::m
         success = false;
   *output = std::move(result);
   return success;
-}
-
-// static
-bool UnionTraits<::blink::mojom::ServiceWorkerRouterCondition::DataView, ::blink::mojom::ServiceWorkerRouterConditionPtr>::Read(
-    ::blink::mojom::ServiceWorkerRouterCondition::DataView input,
-    ::blink::mojom::ServiceWorkerRouterConditionPtr* output) {
-  using UnionType = ::blink::mojom::ServiceWorkerRouterCondition;
-  using Tag = UnionType::Tag;
-
-  switch (input.tag()) {
-    case Tag::kUrlPattern: {
-      ::blink::SafeUrlPattern result_url_pattern;
-      if (!input.ReadUrlPattern(&result_url_pattern))
-        return false;
-
-      *output = UnionType::NewUrlPattern(
-          std::move(result_url_pattern));
-      break;
-    }
-    case Tag::kRequest: {
-      ::blink::mojom::ServiceWorkerRouterRequestConditionPtr result_request;
-      if (!input.ReadRequest(&result_request))
-        return false;
-
-      *output = UnionType::NewRequest(
-          std::move(result_request));
-      break;
-    }
-    case Tag::kRunningStatus: {
-      ::blink::mojom::ServiceWorkerRouterRunningStatusConditionPtr result_running_status;
-      if (!input.ReadRunningStatus(&result_running_status))
-        return false;
-
-      *output = UnionType::NewRunningStatus(
-          std::move(result_running_status));
-      break;
-    }
-    case Tag::kOrCondition: {
-      ::blink::mojom::ServiceWorkerRouterOrConditionPtr result_or_condition;
-      if (!input.ReadOrCondition(&result_or_condition))
-        return false;
-
-      *output = UnionType::NewOrCondition(
-          std::move(result_or_condition));
-      break;
-    }
-    default:
-
-      return false;
-  }
-  return true;
 }
 
 // static

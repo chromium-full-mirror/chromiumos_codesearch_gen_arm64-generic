@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -217,14 +218,17 @@ void KeyboardSettingsObserverProxy::OnKeyboardListUpdated(
                         "<value of type std::vector<::ash::mojom::KeyboardPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardSettingsObserver_OnKeyboardListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -267,14 +271,17 @@ void KeyboardSettingsObserverProxy::OnKeyboardPoliciesUpdated(
                         "<value of type ::ash::mojom::KeyboardPoliciesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardSettingsObserver_OnKeyboardPoliciesUpdated_Name, kFlags, 0, 0, nullptr);
@@ -382,12 +389,12 @@ bool KeyboardSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardSettingsObserverValidationInfo[] = {
-    {&internal::KeyboardSettingsObserver_OnKeyboardListUpdated_Params_Data::Validate,
+    { &internal::KeyboardSettingsObserver_OnKeyboardListUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardSettingsObserver_OnKeyboardPoliciesUpdated_Params_Data::Validate,
+    { &internal::KeyboardSettingsObserver_OnKeyboardPoliciesUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -467,14 +474,17 @@ void TouchpadSettingsObserverProxy::OnTouchpadListUpdated(
                         "<value of type std::vector<::ash::mojom::TouchpadPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTouchpadSettingsObserver_OnTouchpadListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -555,10 +565,10 @@ bool TouchpadSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTouchpadSettingsObserverValidationInfo[] = {
-    {&internal::TouchpadSettingsObserver_OnTouchpadListUpdated_Params_Data::Validate,
+    { &internal::TouchpadSettingsObserver_OnTouchpadListUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -638,14 +648,17 @@ void PointingStickSettingsObserverProxy::OnPointingStickListUpdated(
                         "<value of type std::vector<::ash::mojom::PointingStickPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPointingStickSettingsObserver_OnPointingStickListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -726,10 +739,10 @@ bool PointingStickSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPointingStickSettingsObserverValidationInfo[] = {
-    {&internal::PointingStickSettingsObserver_OnPointingStickListUpdated_Params_Data::Validate,
+    { &internal::PointingStickSettingsObserver_OnPointingStickListUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -829,14 +842,17 @@ void MouseSettingsObserverProxy::OnMouseListUpdated(
                         "<value of type std::vector<::ash::mojom::MousePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMouseSettingsObserver_OnMouseListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -879,14 +895,17 @@ void MouseSettingsObserverProxy::OnMousePoliciesUpdated(
                         "<value of type ::ash::mojom::MousePoliciesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMouseSettingsObserver_OnMousePoliciesUpdated_Name, kFlags, 0, 0, nullptr);
@@ -994,12 +1013,12 @@ bool MouseSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMouseSettingsObserverValidationInfo[] = {
-    {&internal::MouseSettingsObserver_OnMouseListUpdated_Params_Data::Validate,
+    { &internal::MouseSettingsObserver_OnMouseListUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MouseSettingsObserver_OnMousePoliciesUpdated_Params_Data::Validate,
+    { &internal::MouseSettingsObserver_OnMousePoliciesUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1079,14 +1098,17 @@ void ButtonPressObserverProxy::OnButtonPressed(
                         "<value of type ::ash::mojom::ButtonPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kButtonPressObserver_OnButtonPressed_Name, kFlags, 0, 0, nullptr);
@@ -1163,10 +1185,10 @@ bool ButtonPressObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kButtonPressObserverValidationInfo[] = {
-    {&internal::ButtonPressObserver_OnButtonPressed_Params_Data::Validate,
+    { &internal::ButtonPressObserver_OnButtonPressed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1246,14 +1268,17 @@ void GraphicsTabletSettingsObserverProxy::OnGraphicsTabletListUpdated(
                         "<value of type std::vector<::ash::mojom::GraphicsTabletPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphicsTabletSettingsObserver_OnGraphicsTabletListUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1334,10 +1359,10 @@ bool GraphicsTabletSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGraphicsTabletSettingsObserverValidationInfo[] = {
-    {&internal::GraphicsTabletSettingsObserver_OnGraphicsTabletListUpdated_Params_Data::Validate,
+    { &internal::GraphicsTabletSettingsObserver_OnGraphicsTabletListUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1399,6 +1424,9 @@ InputDeviceSettingsProvider::IPCStableHashFunction InputDeviceSettingsProvider::
     case internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name: {
       return &InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomization_Sym::IPCStableHash;
     }
+    case internal::kInputDeviceSettingsProvider_HasLauncherButton_Name: {
+      return &InputDeviceSettingsProvider::HasLauncherButton_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1442,6 +1470,8 @@ const char* InputDeviceSettingsProvider::MessageToMethodName_(mojo::Message& mes
             return "Receive ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForMouseButtonCustomization";
       case internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name:
             return "Receive ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomization";
+      case internal::kInputDeviceSettingsProvider_HasLauncherButton_Name:
+            return "Receive ash::settings::mojom::InputDeviceSettingsProvider::HasLauncherButton";
     }
   } else {
     switch (message.name()) {
@@ -1477,6 +1507,8 @@ const char* InputDeviceSettingsProvider::MessageToMethodName_(mojo::Message& mes
             return "Receive reply ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForMouseButtonCustomization";
       case internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name:
             return "Receive reply ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomization";
+      case internal::kInputDeviceSettingsProvider_HasLauncherButton_Name:
+            return "Receive reply ash::settings::mojom::InputDeviceSettingsProvider::HasLauncherButton";
     }
   }
   return "Receive unknown mojo message";
@@ -1699,6 +1731,19 @@ uint32_t InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomiza
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t InputDeviceSettingsProvider::HasLauncherButton_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::mojom::InputDeviceSettingsProvider::HasLauncherButton");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ForwardToCallback
@@ -1733,6 +1778,22 @@ class InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization
   InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomizationCallback callback_;
 };
 
+class InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback(
+      InputDeviceSettingsProvider::HasLauncherButtonCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback(const InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback&) = delete;
+  InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback& operator=(const InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  InputDeviceSettingsProvider::HasLauncherButtonCallback callback_;
+};
+
 InputDeviceSettingsProviderProxy::InputDeviceSettingsProviderProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1749,14 +1810,17 @@ void InputDeviceSettingsProviderProxy::ObserveKeyboardSettings(
                         "<value of type ::mojo::PendingRemote<KeyboardSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObserveKeyboardSettings_Name, kFlags, 0, 0, nullptr);
@@ -1792,14 +1856,17 @@ void InputDeviceSettingsProviderProxy::ObserveTouchpadSettings(
                         "<value of type ::mojo::PendingRemote<TouchpadSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObserveTouchpadSettings_Name, kFlags, 0, 0, nullptr);
@@ -1835,14 +1902,17 @@ void InputDeviceSettingsProviderProxy::ObservePointingStickSettings(
                         "<value of type ::mojo::PendingRemote<PointingStickSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObservePointingStickSettings_Name, kFlags, 0, 0, nullptr);
@@ -1878,14 +1948,17 @@ void InputDeviceSettingsProviderProxy::ObserveMouseSettings(
                         "<value of type ::mojo::PendingRemote<MouseSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObserveMouseSettings_Name, kFlags, 0, 0, nullptr);
@@ -1921,14 +1994,17 @@ void InputDeviceSettingsProviderProxy::ObserveGraphicsTabletSettings(
                         "<value of type ::mojo::PendingRemote<GraphicsTabletSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObserveGraphicsTabletSettings_Name, kFlags, 0, 0, nullptr);
@@ -1964,14 +2040,17 @@ void InputDeviceSettingsProviderProxy::ObserveButtonPresses(
                         "<value of type ::mojo::PendingRemote<ButtonPressObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_ObserveButtonPresses_Name, kFlags, 0, 0, nullptr);
@@ -2007,14 +2086,17 @@ void InputDeviceSettingsProviderProxy::RestoreDefaultKeyboardRemappings(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_Name, kFlags, 0, 0, nullptr);
@@ -2048,14 +2130,17 @@ void InputDeviceSettingsProviderProxy::SetKeyboardSettings(
                         "<value of type ::ash::mojom::KeyboardSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_SetKeyboardSettings_Name, kFlags, 0, 0, nullptr);
@@ -2100,14 +2185,17 @@ void InputDeviceSettingsProviderProxy::SetPointingStickSettings(
                         "<value of type ::ash::mojom::PointingStickSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_SetPointingStickSettings_Name, kFlags, 0, 0, nullptr);
@@ -2152,14 +2240,17 @@ void InputDeviceSettingsProviderProxy::SetMouseSettings(
                         "<value of type ::ash::mojom::MouseSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_SetMouseSettings_Name, kFlags, 0, 0, nullptr);
@@ -2204,14 +2295,17 @@ void InputDeviceSettingsProviderProxy::SetTouchpadSettings(
                         "<value of type ::ash::mojom::TouchpadSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_SetTouchpadSettings_Name, kFlags, 0, 0, nullptr);
@@ -2256,14 +2350,17 @@ void InputDeviceSettingsProviderProxy::SetGraphicsTabletSettings(
                         "<value of type ::ash::mojom::GraphicsTabletSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_SetGraphicsTabletSettings_Name, kFlags, 0, 0, nullptr);
@@ -2305,14 +2402,17 @@ void InputDeviceSettingsProviderProxy::StartObserving(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_StartObserving_Name, kFlags, 0, 0, nullptr);
@@ -2336,14 +2436,17 @@ void InputDeviceSettingsProviderProxy::StopObserving(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::mojom::InputDeviceSettingsProvider::StopObserving");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_StopObserving_Name, kFlags, 0, 0, nullptr);
@@ -2366,14 +2469,17 @@ void InputDeviceSettingsProviderProxy::GetActionsForMouseButtonCustomization(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForMouseButtonCustomization");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Name, kFlags, 0, 0, nullptr);
@@ -2397,14 +2503,17 @@ void InputDeviceSettingsProviderProxy::GetActionsForGraphicsTabletButtonCustomiz
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::mojom::InputDeviceSettingsProvider::GetActionsForGraphicsTabletButtonCustomization");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name, kFlags, 0, 0, nullptr);
@@ -2419,6 +2528,40 @@ void InputDeviceSettingsProviderProxy::GetActionsForGraphicsTabletButtonCustomiz
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void InputDeviceSettingsProviderProxy::HasLauncherButton(
+    HasLauncherButtonCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::settings::mojom::InputDeviceSettingsProvider::HasLauncherButton");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kInputDeviceSettingsProvider_HasLauncherButton_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::mojom::internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(InputDeviceSettingsProvider::Name_);
+  message.set_method_name("HasLauncherButton");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2514,7 +2657,8 @@ void InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ProxyToRe
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Name, kFlags, 0, 0, nullptr);
@@ -2644,7 +2788,8 @@ void InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name, kFlags, 0, 0, nullptr);
@@ -2669,6 +2814,125 @@ void InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(InputDeviceSettingsProvider::Name_);
   message.set_method_name("GetActionsForGraphicsTabletButtonCustomization");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static InputDeviceSettingsProvider::HasLauncherButtonCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder> proxy(
+        new InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "InputDeviceSettingsProvider::HasLauncherButtonCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_has_launcher_button);
+};
+
+bool InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_has_launcher_button{};
+  InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_has_launcher_button = input_data_view.has_launcher_button();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        InputDeviceSettingsProvider::Name_, 16, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_has_launcher_button));
+  return true;
+}
+
+void InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder::Run(
+    bool in_has_launcher_button) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::settings::mojom::InputDeviceSettingsProvider::HasLauncherButton", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("has_launcher_button"), in_has_launcher_button,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kInputDeviceSettingsProvider_HasLauncherButton_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::mojom::internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->has_launcher_button = in_has_launcher_button;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(InputDeviceSettingsProvider::Name_);
+  message.set_method_name("HasLauncherButton");
 #endif
 
   message.set_request_id(request_id_);
@@ -3086,6 +3350,9 @@ std::move(p_device_id));
     case internal::kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name: {
       break;
     }
+    case internal::kInputDeviceSettingsProvider_HasLauncherButton_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -3191,44 +3458,71 @@ bool InputDeviceSettingsProviderStubDispatch::AcceptWithResponder(
       impl->GetActionsForGraphicsTabletButtonCustomization(std::move(callback));
       return true;
     }
+    case internal::kInputDeviceSettingsProvider_HasLauncherButton_Name: {
+
+      internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data* params =
+          reinterpret_cast<
+              internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      InputDeviceSettingsProvider_HasLauncherButton_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            InputDeviceSettingsProvider::Name_, 16, false);
+        return false;
+      }
+      InputDeviceSettingsProvider::HasLauncherButtonCallback callback =
+          InputDeviceSettingsProvider_HasLauncherButton_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->HasLauncherButton(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputDeviceSettingsProviderValidationInfo[] = {
-    {&internal::InputDeviceSettingsProvider_ObserveKeyboardSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObserveKeyboardSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_ObserveTouchpadSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObserveTouchpadSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_ObservePointingStickSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObservePointingStickSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_ObserveMouseSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObserveMouseSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_ObserveGraphicsTabletSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObserveGraphicsTabletSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_ObserveButtonPresses_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_ObserveButtonPresses_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_SetKeyboardSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_SetKeyboardSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_SetPointingStickSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_SetPointingStickSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_SetMouseSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_SetMouseSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_SetTouchpadSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_SetTouchpadSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_SetGraphicsTabletSettings_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_SetGraphicsTabletSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_StartObserving_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_StartObserving_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_StopObserving_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_StopObserving_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Params_Data::Validate,
      &internal::InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ResponseParams_Data::Validate},
-    {&internal::InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Params_Data::Validate,
+    { &internal::InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Params_Data::Validate,
      &internal::InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParams_Data::Validate},
+    { &internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data::Validate,
+     &internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data::Validate},
 };
 
 bool InputDeviceSettingsProviderRequestValidator::Accept(mojo::Message* message) {
@@ -3424,6 +3718,9 @@ void InputDeviceSettingsProviderInterceptorForTesting::GetActionsForMouseButtonC
 void InputDeviceSettingsProviderInterceptorForTesting::GetActionsForGraphicsTabletButtonCustomization(GetActionsForGraphicsTabletButtonCustomizationCallback callback) {
   GetForwardingInterface()->GetActionsForGraphicsTabletButtonCustomization(std::move(callback));
 }
+void InputDeviceSettingsProviderInterceptorForTesting::HasLauncherButton(HasLauncherButtonCallback callback) {
+  GetForwardingInterface()->HasLauncherButton(std::move(callback));
+}
 InputDeviceSettingsProviderAsyncWaiter::InputDeviceSettingsProviderAsyncWaiter(
     InputDeviceSettingsProvider* proxy) : proxy_(proxy) {}
 
@@ -3472,6 +3769,29 @@ std::vector<ActionChoicePtr> InputDeviceSettingsProviderAsyncWaiter::GetActionsF
     ) {
   std::vector<ActionChoicePtr> async_wait_result;
   GetActionsForGraphicsTabletButtonCustomization(&async_wait_result);
+  return async_wait_result;
+}
+
+void InputDeviceSettingsProviderAsyncWaiter::HasLauncherButton(
+    bool* out_has_launcher_button) {
+  base::RunLoop loop;
+  proxy_->HasLauncherButton(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_has_launcher_button
+,
+             bool has_launcher_button) {*out_has_launcher_button = std::move(has_launcher_button);
+            loop->Quit();
+          },
+          &loop,
+          out_has_launcher_button));
+  loop.Run();
+}
+
+bool InputDeviceSettingsProviderAsyncWaiter::HasLauncherButton(
+    ) {
+  bool async_wait_result;
+  HasLauncherButton(&async_wait_result);
   return async_wait_result;
 }
 

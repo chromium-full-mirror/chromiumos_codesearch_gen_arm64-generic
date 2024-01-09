@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-misc", "name": "qlog", "version": "0.0.1", "revision": 2, "fullname": "net-misc/qlog", "fullnamerev": "net-misc/qlog-0.0.1-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/quectel-official/QLog"], "skip": false, "tainted": false, "ebuild_path": null}

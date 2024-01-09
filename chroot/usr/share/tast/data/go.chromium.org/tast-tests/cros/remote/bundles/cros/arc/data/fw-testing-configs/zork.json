@@ -31,6 +31,9 @@
   },
   "minios_enabled": false,
   "models": {
+    "berknip": {
+      "delay_reboot_to_ping": 70
+    },
     "dalboz": {
       "custom_usb_enable_pins": [
         {
@@ -43,6 +46,12 @@
         }
       ]
     },
+    "dirinboz": {
+      "delay_reboot_to_ping": 65
+    },
+    "gumboz": {
+      "delay_reboot_to_ping": 75
+    },
     "vilboz": {
       "custom_usb_enable_pins": [
         {
@@ -53,7 +62,8 @@
           "ioex": false,
           "name": "EN_USB_A1_5V"
         }
-      ]
+      ],
+      "delay_reboot_to_ping": 65
     },
     "vilboz14": {
       "custom_usb_enable_pins": [

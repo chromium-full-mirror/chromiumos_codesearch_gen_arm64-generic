@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -212,14 +213,17 @@ void P2PNetworkNotificationClientProxy::NetworkListChanged(
                         "<value of type const ::net::IPAddress&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PNetworkNotificationClient_NetworkListChanged_Name, kFlags, 0, 0, nullptr);
@@ -330,10 +334,10 @@ bool P2PNetworkNotificationClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PNetworkNotificationClientValidationInfo[] = {
-    {&internal::P2PNetworkNotificationClient_NetworkListChanged_Params_Data::Validate,
+    { &internal::P2PNetworkNotificationClient_NetworkListChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -505,14 +509,17 @@ void P2PSocketManagerProxy::StartNetworkNotifications(
                         "<value of type ::mojo::PendingRemote<P2PNetworkNotificationClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_StartNetworkNotifications_Name, kFlags, 0, 0, nullptr);
@@ -551,14 +558,17 @@ void P2PSocketManagerProxy::GetHostAddress(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_GetHostAddress_Name, kFlags, 0, 0, nullptr);
@@ -607,14 +617,17 @@ void P2PSocketManagerProxy::GetHostAddressWithFamily(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_GetHostAddressWithFamily_Name, kFlags, 0, 0, nullptr);
@@ -676,14 +689,17 @@ void P2PSocketManagerProxy::CreateSocket(
                         "<value of type ::mojo::PendingReceiver<P2PSocket>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_CreateSocket_Name, kFlags, 0, 0, nullptr);
@@ -850,7 +866,8 @@ void P2PSocketManager_GetHostAddress_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_GetHostAddress_Name, kFlags, 0, 0, nullptr);
@@ -980,7 +997,8 @@ void P2PSocketManager_GetHostAddressWithFamily_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketManager_GetHostAddressWithFamily_Name, kFlags, 0, 0, nullptr);
@@ -1204,16 +1222,16 @@ std::move(p_enable_mdns), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PSocketManagerValidationInfo[] = {
-    {&internal::P2PSocketManager_StartNetworkNotifications_Params_Data::Validate,
+    { &internal::P2PSocketManager_StartNetworkNotifications_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocketManager_GetHostAddress_Params_Data::Validate,
+    { &internal::P2PSocketManager_GetHostAddress_Params_Data::Validate,
      &internal::P2PSocketManager_GetHostAddress_ResponseParams_Data::Validate},
-    {&internal::P2PSocketManager_GetHostAddressWithFamily_Params_Data::Validate,
+    { &internal::P2PSocketManager_GetHostAddressWithFamily_Params_Data::Validate,
      &internal::P2PSocketManager_GetHostAddressWithFamily_ResponseParams_Data::Validate},
-    {&internal::P2PSocketManager_CreateSocket_Params_Data::Validate,
+    { &internal::P2PSocketManager_CreateSocket_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1340,14 +1358,17 @@ void P2PSocketProxy::Send(
                         "<value of type const ::network::P2PPacketInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocket_Send_Name, kFlags, 0, 0, nullptr);
@@ -1399,14 +1420,17 @@ void P2PSocketProxy::SendBatch(
                         "<value of type std::vector<P2PSendPacketPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocket_SendBatch_Name, kFlags, 0, 0, nullptr);
@@ -1452,14 +1476,17 @@ void P2PSocketProxy::SetOption(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocket_SetOption_Name, kFlags, 0, 0, nullptr);
@@ -1596,14 +1623,14 @@ bool P2PSocketStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PSocketValidationInfo[] = {
-    {&internal::P2PSocket_Send_Params_Data::Validate,
+    { &internal::P2PSocket_Send_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocket_SendBatch_Params_Data::Validate,
+    { &internal::P2PSocket_SendBatch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocket_SetOption_Params_Data::Validate,
+    { &internal::P2PSocket_SetOption_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1746,14 +1773,17 @@ void P2PSocketClientProxy::SocketCreated(
                         "<value of type const ::net::IPEndPoint&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketClient_SocketCreated_Name, kFlags, 0, 0, nullptr);
@@ -1805,14 +1835,17 @@ void P2PSocketClientProxy::SendComplete(
                         "<value of type const ::network::P2PSendPacketMetrics&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketClient_SendComplete_Name, kFlags, 0, 0, nullptr);
@@ -1853,14 +1886,17 @@ void P2PSocketClientProxy::SendBatchComplete(
                         "<value of type const std::vector<::network::P2PSendPacketMetrics>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketClient_SendBatchComplete_Name, kFlags, 0, 0, nullptr);
@@ -1903,14 +1939,17 @@ void P2PSocketClientProxy::DataReceived(
                         "<value of type std::vector<P2PReceivedPacketPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PSocketClient_DataReceived_Name, kFlags, 0, 0, nullptr);
@@ -2082,16 +2121,16 @@ bool P2PSocketClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PSocketClientValidationInfo[] = {
-    {&internal::P2PSocketClient_SocketCreated_Params_Data::Validate,
+    { &internal::P2PSocketClient_SocketCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocketClient_SendComplete_Params_Data::Validate,
+    { &internal::P2PSocketClient_SendComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocketClient_SendBatchComplete_Params_Data::Validate,
+    { &internal::P2PSocketClient_SendBatchComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PSocketClient_DataReceived_Params_Data::Validate,
+    { &internal::P2PSocketClient_DataReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 

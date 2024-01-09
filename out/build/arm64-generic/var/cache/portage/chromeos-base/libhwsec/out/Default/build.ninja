@@ -21,7 +21,6 @@ subninja toolchain.ninja
 build libhwsec: phony ./lib/libhwsec.so
 build _libhwsec-install_config: phony obj/libhwsec/_libhwsec-install_config.stamp
 build _libhwsec_client-install_config: phony obj/libhwsec/_libhwsec_client-install_config.stamp
-build _libhwsec_test-install_config: phony obj/libhwsec/_libhwsec_test-install_config.stamp
 build error_library: phony obj/libhwsec/error_library.stamp
 build flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
@@ -34,7 +33,6 @@ build install_headers_structures: phony obj/libhwsec/install_headers_structures.
 build install_tpm1_error_h: phony obj/libhwsec/install_tpm1_error_h.stamp
 build install_tpm1_headers: phony obj/libhwsec/install_tpm1_headers.stamp
 build install_tpm2_error_h: phony obj/libhwsec/install_tpm2_error_h.stamp
-build libhwsec_test: phony ./lib/libhwsec_test.so
 build oobe_config_encrypted_data_proto: phony ./liboobe_config_encrypted_data_proto.a
 build oobe_config_encrypted_data_proto_gen: phony obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp
 build overalls_library: phony ./liboveralls_library.a
@@ -48,20 +46,15 @@ build signature-sealed-data-flatbuffers-binding-binary: phony obj/libhwsec/signa
 build signature-sealed-data-flatbuffers-binding-binary_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary_gen.stamp
 build signature-sealed-data-flatbuffers-binding-generate: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
 build signature-sealed-data-flatbuffers_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers_gen.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libhwsec$:_libhwsec-install_config: phony obj/libhwsec/_libhwsec-install_config.stamp
 build libhwsec$:_libhwsec_client-install_config: phony obj/libhwsec/_libhwsec_client-install_config.stamp
-build libhwsec$:_libhwsec_test-install_config: phony obj/libhwsec/_libhwsec_test-install_config.stamp
 build libhwsec$:all: phony obj/libhwsec/all.stamp
 build libhwsec$:error_library: phony obj/libhwsec/error_library.stamp
 build libhwsec$:flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build libhwsec$:hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
 build libhwsec$:hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
 build libhwsec$:hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
-build libhwsec$:hwsec_testrunner: phony ./hwsec_testrunner
 build libhwsec$:install_error_h: phony obj/libhwsec/install_error_h.stamp
 build libhwsec$:install_headers: phony obj/libhwsec/install_headers.stamp
 build libhwsec$:install_headers_overalls: phony obj/libhwsec/install_headers_overalls.stamp
@@ -71,7 +64,6 @@ build libhwsec$:install_tpm1_headers: phony obj/libhwsec/install_tpm1_headers.st
 build libhwsec$:install_tpm2_error_h: phony obj/libhwsec/install_tpm2_error_h.stamp
 build libhwsec$:libhwsec: phony ./lib/libhwsec.so
 build libhwsec$:libhwsec_client: phony ./libhwsec_client
-build libhwsec$:libhwsec_test: phony ./lib/libhwsec_test.so
 build libhwsec$:oobe_config_encrypted_data_proto: phony ./liboobe_config_encrypted_data_proto.a
 build libhwsec$:oobe_config_encrypted_data_proto_gen: phony obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp
 build libhwsec$:overalls_library: phony ./liboveralls_library.a
@@ -87,17 +79,14 @@ build libhwsec$:signature-sealed-data-flatbuffers_gen: phony obj/libhwsec/signat
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libhwsec/_libhwsec-install_config.stamp $
     obj/libhwsec/_libhwsec_client-install_config.stamp $
-    obj/libhwsec/_libhwsec_test-install_config.stamp $
     obj/libhwsec/all.stamp $
     obj/libhwsec/error_library.stamp $
     obj/libhwsec/flatbuffers-binding-generator.stamp $
     obj/libhwsec/hardware_abstraction_external_library.stamp $
     obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp $
     obj/libhwsec/hardware_abstraction_internal_library.stamp $
-    ./hwsec_testrunner $
     obj/libhwsec/install_error_h.stamp $
     obj/libhwsec/install_headers.stamp $
     obj/libhwsec/install_headers_overalls.stamp $
@@ -107,7 +96,6 @@ build all: phony $
     obj/libhwsec/install_tpm2_error_h.stamp $
     ./lib/libhwsec.so $
     ./libhwsec_client $
-    ./lib/libhwsec_test.so $
     ./liboobe_config_encrypted_data_proto.a $
     obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp $
     ./liboveralls_library.a $

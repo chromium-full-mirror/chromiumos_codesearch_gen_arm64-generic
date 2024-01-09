@@ -30,6 +30,18 @@ struct FingerprintMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FingerprintMessageDefaultTypeInternal _FingerprintMessage_default_instance_;
+PROTOBUF_CONSTEXPR GetNonceReply::GetNonceReply(
+    ::_pbi::ConstantInitialized)
+  : nonce_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct GetNonceReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetNonceReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetNonceReplyDefaultTypeInternal() {}
+  union {
+    GetNonceReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetNonceReplyDefaultTypeInternal _GetNonceReply_default_instance_;
 PROTOBUF_CONSTEXPR EnrollScanDone::EnrollScanDone(
     ::_pbi::ConstantInitialized)
   : auth_nonce_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -58,6 +70,20 @@ struct AuthScanDoneDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthScanDoneDefaultTypeInternal _AuthScanDone_default_instance_;
+PROTOBUF_CONSTEXPR StartEnrollSessionRequest::StartEnrollSessionRequest(
+    ::_pbi::ConstantInitialized)
+  : gsc_nonce_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , encrypted_label_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , iv_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct StartEnrollSessionRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StartEnrollSessionRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StartEnrollSessionRequestDefaultTypeInternal() {}
+  union {
+    StartEnrollSessionRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartEnrollSessionRequestDefaultTypeInternal _StartEnrollSessionRequest_default_instance_;
 PROTOBUF_CONSTEXPR StartEnrollSessionReply::StartEnrollSessionReply(
     ::_pbi::ConstantInitialized)
   : error_(1)
@@ -71,6 +97,21 @@ struct StartEnrollSessionReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartEnrollSessionReplyDefaultTypeInternal _StartEnrollSessionReply_default_instance_;
+PROTOBUF_CONSTEXPR StartAuthSessionRequest::StartAuthSessionRequest(
+    ::_pbi::ConstantInitialized)
+  : user_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , gsc_nonce_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , encrypted_label_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , iv_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct StartAuthSessionRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StartAuthSessionRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StartAuthSessionRequestDefaultTypeInternal() {}
+  union {
+    StartAuthSessionRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartAuthSessionRequestDefaultTypeInternal _StartAuthSessionRequest_default_instance_;
 PROTOBUF_CONSTEXPR StartAuthSessionReply::StartAuthSessionReply(
     ::_pbi::ConstantInitialized)
   : error_(1)
@@ -126,6 +167,18 @@ struct CreateCredentialRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCredentialRequestDefaultTypeInternal _CreateCredentialRequest_default_instance_;
+PROTOBUF_CONSTEXPR CreateCredentialRequestV2::CreateCredentialRequestV2(
+    ::_pbi::ConstantInitialized)
+  : pub_(nullptr){}
+struct CreateCredentialRequestV2DefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CreateCredentialRequestV2DefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CreateCredentialRequestV2DefaultTypeInternal() {}
+  union {
+    CreateCredentialRequestV2 _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCredentialRequestV2DefaultTypeInternal _CreateCredentialRequestV2_default_instance_;
 PROTOBUF_CONSTEXPR CreateCredentialReply::CreateCredentialReply(
     ::_pbi::ConstantInitialized)
   : encrypted_secret_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -158,6 +211,18 @@ struct AuthenticateCredentialRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateCredentialRequestDefaultTypeInternal _AuthenticateCredentialRequest_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticateCredentialRequestV2::AuthenticateCredentialRequestV2(
+    ::_pbi::ConstantInitialized)
+  : pub_(nullptr){}
+struct AuthenticateCredentialRequestV2DefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticateCredentialRequestV2DefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticateCredentialRequestV2DefaultTypeInternal() {}
+  union {
+    AuthenticateCredentialRequestV2 _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateCredentialRequestV2DefaultTypeInternal _AuthenticateCredentialRequestV2_default_instance_;
 PROTOBUF_CONSTEXPR AuthenticateCredentialReply::AuthenticateCredentialReply(
     ::_pbi::ConstantInitialized)
   : encrypted_secret_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -213,42 +278,38 @@ bool CreateCredentialReply_CreateCredentialStatus_IsValid(int value) {
     case 3:
     case 4:
     case 5:
-    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CreateCredentialReply_CreateCredentialStatus_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CreateCredentialReply_CreateCredentialStatus_strings[6] = {};
 
 static const char CreateCredentialReply_CreateCredentialStatus_names[] =
   "CREATE_RECORD_FAILED"
   "INCORRECT_STATE"
   "NO_SECRET"
   "NO_TEMPLATE"
-  "SET_NONCE_FAILED"
   "SUCCESS"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CreateCredentialReply_CreateCredentialStatus_entries[] = {
-  { {CreateCredentialReply_CreateCredentialStatus_names + 0, 20}, 6 },
+  { {CreateCredentialReply_CreateCredentialStatus_names + 0, 20}, 5 },
   { {CreateCredentialReply_CreateCredentialStatus_names + 20, 15}, 2 },
-  { {CreateCredentialReply_CreateCredentialStatus_names + 35, 9}, 5 },
-  { {CreateCredentialReply_CreateCredentialStatus_names + 44, 11}, 4 },
-  { {CreateCredentialReply_CreateCredentialStatus_names + 55, 16}, 3 },
-  { {CreateCredentialReply_CreateCredentialStatus_names + 71, 7}, 1 },
-  { {CreateCredentialReply_CreateCredentialStatus_names + 78, 7}, 0 },
+  { {CreateCredentialReply_CreateCredentialStatus_names + 35, 9}, 4 },
+  { {CreateCredentialReply_CreateCredentialStatus_names + 44, 11}, 3 },
+  { {CreateCredentialReply_CreateCredentialStatus_names + 55, 7}, 1 },
+  { {CreateCredentialReply_CreateCredentialStatus_names + 62, 7}, 0 },
 };
 
 static const int CreateCredentialReply_CreateCredentialStatus_entries_by_number[] = {
-  6, // 0 -> UNKNOWN
-  5, // 1 -> SUCCESS
+  5, // 0 -> UNKNOWN
+  4, // 1 -> SUCCESS
   1, // 2 -> INCORRECT_STATE
-  4, // 3 -> SET_NONCE_FAILED
-  3, // 4 -> NO_TEMPLATE
-  2, // 5 -> NO_SECRET
-  0, // 6 -> CREATE_RECORD_FAILED
+  3, // 3 -> NO_TEMPLATE
+  2, // 4 -> NO_SECRET
+  0, // 5 -> CREATE_RECORD_FAILED
 };
 
 const std::string& CreateCredentialReply_CreateCredentialStatus_Name(
@@ -257,12 +318,12 @@ const std::string& CreateCredentialReply_CreateCredentialStatus_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CreateCredentialReply_CreateCredentialStatus_entries,
           CreateCredentialReply_CreateCredentialStatus_entries_by_number,
-          7, CreateCredentialReply_CreateCredentialStatus_strings);
+          6, CreateCredentialReply_CreateCredentialStatus_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CreateCredentialReply_CreateCredentialStatus_entries,
       CreateCredentialReply_CreateCredentialStatus_entries_by_number,
-      7, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CreateCredentialReply_CreateCredentialStatus_strings[idx].get();
 }
@@ -270,7 +331,7 @@ bool CreateCredentialReply_CreateCredentialStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CreateCredentialReply_CreateCredentialStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CreateCredentialReply_CreateCredentialStatus_entries, 7, name, &int_value);
+      CreateCredentialReply_CreateCredentialStatus_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<CreateCredentialReply_CreateCredentialStatus>(int_value);
   }
@@ -280,7 +341,6 @@ bool CreateCredentialReply_CreateCredentialStatus_Parse(
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::UNKNOWN;
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::SUCCESS;
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::INCORRECT_STATE;
-constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::SET_NONCE_FAILED;
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::NO_TEMPLATE;
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::NO_SECRET;
 constexpr CreateCredentialReply_CreateCredentialStatus CreateCredentialReply::CREATE_RECORD_FAILED;
@@ -705,6 +765,207 @@ void FingerprintMessage::InternalSwap(FingerprintMessage* other) {
 
 std::string FingerprintMessage::GetTypeName() const {
   return "biod.FingerprintMessage";
+}
+
+
+// ===================================================================
+
+class GetNonceReply::_Internal {
+ public:
+  using HasBits = decltype(std::declval<GetNonceReply>()._has_bits_);
+  static void set_has_nonce(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+GetNonceReply::GetNonceReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.GetNonceReply)
+}
+GetNonceReply::GetNonceReply(const GetNonceReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  nonce_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    nonce_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_nonce()) {
+    nonce_.Set(from._internal_nonce(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.GetNonceReply)
+}
+
+inline void GetNonceReply::SharedCtor() {
+nonce_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  nonce_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetNonceReply::~GetNonceReply() {
+  // @@protoc_insertion_point(destructor:biod.GetNonceReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetNonceReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  nonce_.Destroy();
+}
+
+void GetNonceReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetNonceReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.GetNonceReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    nonce_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetNonceReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bytes nonce = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_nonce();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetNonceReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.GetNonceReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bytes nonce = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_nonce(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.GetNonceReply)
+  return target;
+}
+
+size_t GetNonceReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.GetNonceReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bytes nonce = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_nonce());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetNonceReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetNonceReply*>(
+      &from));
+}
+
+void GetNonceReply::MergeFrom(const GetNonceReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.GetNonceReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_nonce()) {
+    _internal_set_nonce(from._internal_nonce());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetNonceReply::CopyFrom(const GetNonceReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.GetNonceReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetNonceReply::IsInitialized() const {
+  return true;
+}
+
+void GetNonceReply::InternalSwap(GetNonceReply* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &nonce_, lhs_arena,
+      &other->nonce_, rhs_arena
+  );
+}
+
+std::string GetNonceReply::GetTypeName() const {
+  return "biod.GetNonceReply";
 }
 
 
@@ -1220,6 +1481,310 @@ std::string AuthScanDone::GetTypeName() const {
 
 // ===================================================================
 
+class StartEnrollSessionRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<StartEnrollSessionRequest>()._has_bits_);
+  static void set_has_gsc_nonce(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_encrypted_label_seed(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_iv(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+StartEnrollSessionRequest::StartEnrollSessionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.StartEnrollSessionRequest)
+}
+StartEnrollSessionRequest::StartEnrollSessionRequest(const StartEnrollSessionRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  gsc_nonce_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    gsc_nonce_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_gsc_nonce()) {
+    gsc_nonce_.Set(from._internal_gsc_nonce(), 
+      GetArenaForAllocation());
+  }
+  encrypted_label_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    encrypted_label_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_encrypted_label_seed()) {
+    encrypted_label_seed_.Set(from._internal_encrypted_label_seed(), 
+      GetArenaForAllocation());
+  }
+  iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_iv()) {
+    iv_.Set(from._internal_iv(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.StartEnrollSessionRequest)
+}
+
+inline void StartEnrollSessionRequest::SharedCtor() {
+gsc_nonce_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  gsc_nonce_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+encrypted_label_seed_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  encrypted_label_seed_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+iv_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  iv_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+StartEnrollSessionRequest::~StartEnrollSessionRequest() {
+  // @@protoc_insertion_point(destructor:biod.StartEnrollSessionRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StartEnrollSessionRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  gsc_nonce_.Destroy();
+  encrypted_label_seed_.Destroy();
+  iv_.Destroy();
+}
+
+void StartEnrollSessionRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StartEnrollSessionRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.StartEnrollSessionRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      gsc_nonce_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      encrypted_label_seed_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      iv_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* StartEnrollSessionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bytes gsc_nonce = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_gsc_nonce();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes encrypted_label_seed = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_encrypted_label_seed();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes iv = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_iv();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StartEnrollSessionRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.StartEnrollSessionRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bytes gsc_nonce = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_gsc_nonce(), target);
+  }
+
+  // optional bytes encrypted_label_seed = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_encrypted_label_seed(), target);
+  }
+
+  // optional bytes iv = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_iv(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.StartEnrollSessionRequest)
+  return target;
+}
+
+size_t StartEnrollSessionRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.StartEnrollSessionRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional bytes gsc_nonce = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_gsc_nonce());
+    }
+
+    // optional bytes encrypted_label_seed = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_encrypted_label_seed());
+    }
+
+    // optional bytes iv = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_iv());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StartEnrollSessionRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StartEnrollSessionRequest*>(
+      &from));
+}
+
+void StartEnrollSessionRequest::MergeFrom(const StartEnrollSessionRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.StartEnrollSessionRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_gsc_nonce(from._internal_gsc_nonce());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_encrypted_label_seed(from._internal_encrypted_label_seed());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_iv(from._internal_iv());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StartEnrollSessionRequest::CopyFrom(const StartEnrollSessionRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.StartEnrollSessionRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StartEnrollSessionRequest::IsInitialized() const {
+  return true;
+}
+
+void StartEnrollSessionRequest::InternalSwap(StartEnrollSessionRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &gsc_nonce_, lhs_arena,
+      &other->gsc_nonce_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &encrypted_label_seed_, lhs_arena,
+      &other->encrypted_label_seed_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &iv_, lhs_arena,
+      &other->iv_, rhs_arena
+  );
+}
+
+std::string StartEnrollSessionRequest::GetTypeName() const {
+  return "biod.StartEnrollSessionRequest";
+}
+
+
+// ===================================================================
+
 class StartEnrollSessionReply::_Internal {
  public:
   using HasBits = decltype(std::declval<StartEnrollSessionReply>()._has_bits_);
@@ -1401,6 +1966,358 @@ void StartEnrollSessionReply::InternalSwap(StartEnrollSessionReply* other) {
 
 std::string StartEnrollSessionReply::GetTypeName() const {
   return "biod.StartEnrollSessionReply";
+}
+
+
+// ===================================================================
+
+class StartAuthSessionRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<StartAuthSessionRequest>()._has_bits_);
+  static void set_has_user_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_gsc_nonce(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_encrypted_label_seed(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_iv(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+};
+
+StartAuthSessionRequest::StartAuthSessionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.StartAuthSessionRequest)
+}
+StartAuthSessionRequest::StartAuthSessionRequest(const StartAuthSessionRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_id()) {
+    user_id_.Set(from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
+  gsc_nonce_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    gsc_nonce_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_gsc_nonce()) {
+    gsc_nonce_.Set(from._internal_gsc_nonce(), 
+      GetArenaForAllocation());
+  }
+  encrypted_label_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    encrypted_label_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_encrypted_label_seed()) {
+    encrypted_label_seed_.Set(from._internal_encrypted_label_seed(), 
+      GetArenaForAllocation());
+  }
+  iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_iv()) {
+    iv_.Set(from._internal_iv(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.StartAuthSessionRequest)
+}
+
+inline void StartAuthSessionRequest::SharedCtor() {
+user_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+gsc_nonce_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  gsc_nonce_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+encrypted_label_seed_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  encrypted_label_seed_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+iv_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  iv_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+StartAuthSessionRequest::~StartAuthSessionRequest() {
+  // @@protoc_insertion_point(destructor:biod.StartAuthSessionRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StartAuthSessionRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.Destroy();
+  gsc_nonce_.Destroy();
+  encrypted_label_seed_.Destroy();
+  iv_.Destroy();
+}
+
+void StartAuthSessionRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StartAuthSessionRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.StartAuthSessionRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      user_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      gsc_nonce_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      encrypted_label_seed_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      iv_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* StartAuthSessionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bytes user_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes gsc_nonce = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_gsc_nonce();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes encrypted_label_seed = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_encrypted_label_seed();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes iv = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_iv();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StartAuthSessionRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.StartAuthSessionRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bytes user_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // optional bytes gsc_nonce = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_gsc_nonce(), target);
+  }
+
+  // optional bytes encrypted_label_seed = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_encrypted_label_seed(), target);
+  }
+
+  // optional bytes iv = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_iv(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.StartAuthSessionRequest)
+  return target;
+}
+
+size_t StartAuthSessionRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.StartAuthSessionRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional bytes user_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_user_id());
+    }
+
+    // optional bytes gsc_nonce = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_gsc_nonce());
+    }
+
+    // optional bytes encrypted_label_seed = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_encrypted_label_seed());
+    }
+
+    // optional bytes iv = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_iv());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StartAuthSessionRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StartAuthSessionRequest*>(
+      &from));
+}
+
+void StartAuthSessionRequest::MergeFrom(const StartAuthSessionRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.StartAuthSessionRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_user_id(from._internal_user_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_gsc_nonce(from._internal_gsc_nonce());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_encrypted_label_seed(from._internal_encrypted_label_seed());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_set_iv(from._internal_iv());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StartAuthSessionRequest::CopyFrom(const StartAuthSessionRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.StartAuthSessionRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StartAuthSessionRequest::IsInitialized() const {
+  return true;
+}
+
+void StartAuthSessionRequest::InternalSwap(StartAuthSessionRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &gsc_nonce_, lhs_arena,
+      &other->gsc_nonce_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &encrypted_label_seed_, lhs_arena,
+      &other->encrypted_label_seed_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &iv_, lhs_arena,
+      &other->iv_, rhs_arena
+  );
+}
+
+std::string StartAuthSessionRequest::GetTypeName() const {
+  return "biod.StartAuthSessionRequest";
 }
 
 
@@ -2431,6 +3348,202 @@ std::string CreateCredentialRequest::GetTypeName() const {
 
 // ===================================================================
 
+class CreateCredentialRequestV2::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CreateCredentialRequestV2>()._has_bits_);
+  static const ::biod::FpPublicKey& pub(const CreateCredentialRequestV2* msg);
+  static void set_has_pub(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::biod::FpPublicKey&
+CreateCredentialRequestV2::_Internal::pub(const CreateCredentialRequestV2* msg) {
+  return *msg->pub_;
+}
+CreateCredentialRequestV2::CreateCredentialRequestV2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.CreateCredentialRequestV2)
+}
+CreateCredentialRequestV2::CreateCredentialRequestV2(const CreateCredentialRequestV2& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_pub()) {
+    pub_ = new ::biod::FpPublicKey(*from.pub_);
+  } else {
+    pub_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.CreateCredentialRequestV2)
+}
+
+inline void CreateCredentialRequestV2::SharedCtor() {
+pub_ = nullptr;
+}
+
+CreateCredentialRequestV2::~CreateCredentialRequestV2() {
+  // @@protoc_insertion_point(destructor:biod.CreateCredentialRequestV2)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CreateCredentialRequestV2::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete pub_;
+}
+
+void CreateCredentialRequestV2::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CreateCredentialRequestV2::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.CreateCredentialRequestV2)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(pub_ != nullptr);
+    pub_->Clear();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CreateCredentialRequestV2::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .biod.FpPublicKey pub = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_pub(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CreateCredentialRequestV2::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.CreateCredentialRequestV2)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .biod.FpPublicKey pub = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::pub(this),
+        _Internal::pub(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.CreateCredentialRequestV2)
+  return target;
+}
+
+size_t CreateCredentialRequestV2::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.CreateCredentialRequestV2)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .biod.FpPublicKey pub = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *pub_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CreateCredentialRequestV2::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CreateCredentialRequestV2*>(
+      &from));
+}
+
+void CreateCredentialRequestV2::MergeFrom(const CreateCredentialRequestV2& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.CreateCredentialRequestV2)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_pub()) {
+    _internal_mutable_pub()->::biod::FpPublicKey::MergeFrom(from._internal_pub());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CreateCredentialRequestV2::CopyFrom(const CreateCredentialRequestV2& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.CreateCredentialRequestV2)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreateCredentialRequestV2::IsInitialized() const {
+  return true;
+}
+
+void CreateCredentialRequestV2::InternalSwap(CreateCredentialRequestV2* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(pub_, other->pub_);
+}
+
+std::string CreateCredentialRequestV2::GetTypeName() const {
+  return "biod.CreateCredentialRequestV2";
+}
+
+
+// ===================================================================
+
 class CreateCredentialReply::_Internal {
  public:
   using HasBits = decltype(std::declval<CreateCredentialReply>()._has_bits_);
@@ -3167,6 +4280,202 @@ void AuthenticateCredentialRequest::InternalSwap(AuthenticateCredentialRequest* 
 
 std::string AuthenticateCredentialRequest::GetTypeName() const {
   return "biod.AuthenticateCredentialRequest";
+}
+
+
+// ===================================================================
+
+class AuthenticateCredentialRequestV2::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthenticateCredentialRequestV2>()._has_bits_);
+  static const ::biod::FpPublicKey& pub(const AuthenticateCredentialRequestV2* msg);
+  static void set_has_pub(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::biod::FpPublicKey&
+AuthenticateCredentialRequestV2::_Internal::pub(const AuthenticateCredentialRequestV2* msg) {
+  return *msg->pub_;
+}
+AuthenticateCredentialRequestV2::AuthenticateCredentialRequestV2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.AuthenticateCredentialRequestV2)
+}
+AuthenticateCredentialRequestV2::AuthenticateCredentialRequestV2(const AuthenticateCredentialRequestV2& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_pub()) {
+    pub_ = new ::biod::FpPublicKey(*from.pub_);
+  } else {
+    pub_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.AuthenticateCredentialRequestV2)
+}
+
+inline void AuthenticateCredentialRequestV2::SharedCtor() {
+pub_ = nullptr;
+}
+
+AuthenticateCredentialRequestV2::~AuthenticateCredentialRequestV2() {
+  // @@protoc_insertion_point(destructor:biod.AuthenticateCredentialRequestV2)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthenticateCredentialRequestV2::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete pub_;
+}
+
+void AuthenticateCredentialRequestV2::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AuthenticateCredentialRequestV2::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.AuthenticateCredentialRequestV2)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(pub_ != nullptr);
+    pub_->Clear();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthenticateCredentialRequestV2::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .biod.FpPublicKey pub = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_pub(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthenticateCredentialRequestV2::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.AuthenticateCredentialRequestV2)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .biod.FpPublicKey pub = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::pub(this),
+        _Internal::pub(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.AuthenticateCredentialRequestV2)
+  return target;
+}
+
+size_t AuthenticateCredentialRequestV2::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.AuthenticateCredentialRequestV2)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .biod.FpPublicKey pub = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *pub_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthenticateCredentialRequestV2::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthenticateCredentialRequestV2*>(
+      &from));
+}
+
+void AuthenticateCredentialRequestV2::MergeFrom(const AuthenticateCredentialRequestV2& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.AuthenticateCredentialRequestV2)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_pub()) {
+    _internal_mutable_pub()->::biod::FpPublicKey::MergeFrom(from._internal_pub());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthenticateCredentialRequestV2::CopyFrom(const AuthenticateCredentialRequestV2& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.AuthenticateCredentialRequestV2)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthenticateCredentialRequestV2::IsInitialized() const {
+  return true;
+}
+
+void AuthenticateCredentialRequestV2::InternalSwap(AuthenticateCredentialRequestV2* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(pub_, other->pub_);
+}
+
+std::string AuthenticateCredentialRequestV2::GetTypeName() const {
+  return "biod.AuthenticateCredentialRequestV2";
 }
 
 
@@ -4049,6 +5358,10 @@ template<> PROTOBUF_NOINLINE ::biod::FingerprintMessage*
 Arena::CreateMaybeMessage< ::biod::FingerprintMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::FingerprintMessage >(arena);
 }
+template<> PROTOBUF_NOINLINE ::biod::GetNonceReply*
+Arena::CreateMaybeMessage< ::biod::GetNonceReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::GetNonceReply >(arena);
+}
 template<> PROTOBUF_NOINLINE ::biod::EnrollScanDone*
 Arena::CreateMaybeMessage< ::biod::EnrollScanDone >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::EnrollScanDone >(arena);
@@ -4057,9 +5370,17 @@ template<> PROTOBUF_NOINLINE ::biod::AuthScanDone*
 Arena::CreateMaybeMessage< ::biod::AuthScanDone >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::AuthScanDone >(arena);
 }
+template<> PROTOBUF_NOINLINE ::biod::StartEnrollSessionRequest*
+Arena::CreateMaybeMessage< ::biod::StartEnrollSessionRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::StartEnrollSessionRequest >(arena);
+}
 template<> PROTOBUF_NOINLINE ::biod::StartEnrollSessionReply*
 Arena::CreateMaybeMessage< ::biod::StartEnrollSessionReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::StartEnrollSessionReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::StartAuthSessionRequest*
+Arena::CreateMaybeMessage< ::biod::StartAuthSessionRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::StartAuthSessionRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::biod::StartAuthSessionReply*
 Arena::CreateMaybeMessage< ::biod::StartAuthSessionReply >(Arena* arena) {
@@ -4077,6 +5398,10 @@ template<> PROTOBUF_NOINLINE ::biod::CreateCredentialRequest*
 Arena::CreateMaybeMessage< ::biod::CreateCredentialRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::CreateCredentialRequest >(arena);
 }
+template<> PROTOBUF_NOINLINE ::biod::CreateCredentialRequestV2*
+Arena::CreateMaybeMessage< ::biod::CreateCredentialRequestV2 >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::CreateCredentialRequestV2 >(arena);
+}
 template<> PROTOBUF_NOINLINE ::biod::CreateCredentialReply*
 Arena::CreateMaybeMessage< ::biod::CreateCredentialReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::CreateCredentialReply >(arena);
@@ -4084,6 +5409,10 @@ Arena::CreateMaybeMessage< ::biod::CreateCredentialReply >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::biod::AuthenticateCredentialRequest*
 Arena::CreateMaybeMessage< ::biod::AuthenticateCredentialRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::AuthenticateCredentialRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::AuthenticateCredentialRequestV2*
+Arena::CreateMaybeMessage< ::biod::AuthenticateCredentialRequestV2 >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::AuthenticateCredentialRequestV2 >(arena);
 }
 template<> PROTOBUF_NOINLINE ::biod::AuthenticateCredentialReply*
 Arena::CreateMaybeMessage< ::biod::AuthenticateCredentialReply >(Arena* arena) {

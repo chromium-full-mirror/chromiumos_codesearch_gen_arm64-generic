@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USBInterface>::value,
     "USBInterface inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USBInterface::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USBInterface is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBInterface.interfaceNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(v8_receiver);
+USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interfaceNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBInterface.alternate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(v8_receiver);
+USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alternate();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -123,7 +120,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alternates();
 if (!ToV8Traits<IDLArray<USBAlternateInterface>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -139,8 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBInterface.claimed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(v8_receiver);
+USBInterface* blink_receiver = V8USBInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->claimed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

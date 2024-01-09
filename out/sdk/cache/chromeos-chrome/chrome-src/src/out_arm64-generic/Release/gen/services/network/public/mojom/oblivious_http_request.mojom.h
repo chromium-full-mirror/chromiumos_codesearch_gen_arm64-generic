@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/oblivious_http_request.mojom-features.h"
 #include "services/network/public/mojom/oblivious_http_request.mojom-shared.h"
 #include "services/network/public/mojom/oblivious_http_request.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -467,25 +468,25 @@ class  ObliviousHttpCompletionResult {
   // Construct an instance holding |net_error|.
   static ObliviousHttpCompletionResultPtr
   NewNetError(
-      int32_t net_error) {
+      int32_t value) {
     auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
-    result->set_net_error(std::move(net_error));
+    result->set_net_error(std::move(value));
     return result;
   }
   // Construct an instance holding |outer_response_error_code|.
   static ObliviousHttpCompletionResultPtr
   NewOuterResponseErrorCode(
-      int32_t outer_response_error_code) {
+      int32_t value) {
     auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
-    result->set_outer_response_error_code(std::move(outer_response_error_code));
+    result->set_outer_response_error_code(std::move(value));
     return result;
   }
   // Construct an instance holding |inner_response|.
   static ObliviousHttpCompletionResultPtr
   NewInnerResponse(
-      ObliviousHttpResponsePtr inner_response) {
+      ObliviousHttpResponsePtr value) {
     auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
-    result->set_inner_response(std::move(inner_response));
+    result->set_inner_response(std::move(value));
     return result;
   }
 
@@ -778,7 +779,7 @@ class  ObliviousHttpRequest {
   ObliviousHttpRequest(
       const ::GURL& relay_url,
       const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation,
-      absl::optional<::base::TimeDelta> timeout_duration,
+      std::optional<::base::TimeDelta> timeout_duration,
       const std::string& key_config,
       const ::GURL& resource_url,
       const std::string& method,
@@ -868,7 +869,7 @@ ObliviousHttpRequest& operator=(const ObliviousHttpRequest&) = delete;
   
   ::net::MutableNetworkTrafficAnnotationTag traffic_annotation;
   
-  absl::optional<::base::TimeDelta> timeout_duration;
+  std::optional<::base::TimeDelta> timeout_duration;
   
   std::string key_config;
   

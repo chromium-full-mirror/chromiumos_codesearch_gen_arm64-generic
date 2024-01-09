@@ -34,6 +34,7 @@ bool DownloadStatus_Data::Validate(
     { 0, 24 },
     { 1, 48 },
     { 2, 56 },
+    { 3, 64 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -70,12 +71,17 @@ bool DownloadStatus_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->full_path, validation_context))
     return false;
+  if (object->header_.version < 3)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->status_text, validation_context))
+    return false;
 
   return true;
 }
 
 DownloadStatus_Data::DownloadStatus_Data()
-    : header_({sizeof(*this), 2}) {}
+    : header_({sizeof(*this), 3}) {}
 
 
 // static

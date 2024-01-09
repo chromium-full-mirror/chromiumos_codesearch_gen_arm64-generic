@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLContextEvent>::value,
     "WebGLContextEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLContextEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLContextEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLContextEvent.statusMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebGLContextEvent* blink_receiver = V8WebGLContextEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->statusMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebGLContextEvent* blink_receiver = V8WebGLContextEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->statusMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLContextEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLContextEvent* blink_receiver = V8WebGLContextEvent::ToWrappableUnsafe(v8_receiver);
+WebGLContextEvent* blink_receiver = V8WebGLContextEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

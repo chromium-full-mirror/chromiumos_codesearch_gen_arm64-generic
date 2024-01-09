@@ -74,7 +74,7 @@ describeWithEnvironment('TimingTrackAppender', function () {
                 // This file contains two rasterizer threads which should be
                 // nested inside the same header.
                 await initTrackAppender(this, 'lcp-images.json.gz');
-                const rasterTracks = tracksAppender.threadAppenders().filter(threadAppender => threadAppender.threadType === "RASTERIZER" /* Timeline.ThreadAppender.ThreadType.RASTERIZER */);
+                const rasterTracks = tracksAppender.threadAppenders().filter(threadAppender => threadAppender.threadType === "RASTERIZER" /* TraceModel.Handlers.Threads.ThreadType.RASTERIZER */);
                 assert.strictEqual(rasterTracks.length, 2);
                 const raster1Events = tracksAppender.eventsInTrack(rasterTracks[0]);
                 assert.strictEqual(raster1Events.length, 6);
@@ -114,6 +114,96 @@ describeWithEnvironment('TimingTrackAppender', function () {
                 }
                 assert.deepEqual(gpuGroupEvents, traceParsedData.GPU.mainGPUThreadTasks);
             });
+        });
+    });
+    describe('highlightedEntryInfo', () => {
+        it('shows the correct warning for a long task when hovered', async function () {
+            await initTrackAppender(this, 'simple-js-program.json.gz');
+            const events = traceParsedData.Renderer?.allTraceEntries;
+            if (!events) {
+                throw new Error('Could not find renderer events');
+            }
+            const longTask = events.find(e => (e.dur || 0) > 1_000_000);
+            if (!longTask) {
+                throw new Error('Could not find long task');
+            }
+            const info = tracksAppender.highlightedEntryInfo(longTask, 2);
+            assert.strictEqual(info.warningElements?.length, 1);
+            const warning = info.warningElements?.[0];
+            if (!(warning instanceof HTMLSpanElement)) {
+                throw new Error('Found unexpected warning');
+            }
+            assert.strictEqual(warning?.innerText, 'Long task took 1.30\u00A0s.');
+        });
+        it('shows the correct warning for a force recalc styles when hovered', async function () {
+            await initTrackAppender(this, 'large-recalc-style.json.gz');
+            const events = traceParsedData.Renderer?.allTraceEntries;
+            if (!events) {
+                throw new Error('Could not find renderer events');
+            }
+            const recalcStyles = events.find(event => {
+                return (event.name === "RecalculateStyles" /* TraceModel.Types.TraceEvents.KnownEventName.RecalculateStyles */ ||
+                    event.name === "UpdateLayoutTree" /* TraceModel.Types.TraceEvents.KnownEventName.UpdateLayoutTree */) &&
+                    (event.dur && event.dur >= TraceModel.Handlers.ModelHandlers.Warnings.FORCED_LAYOUT_AND_STYLES_THRESHOLD);
+            });
+            if (!recalcStyles) {
+                throw new Error('Could not find styles recalc');
+            }
+            const info = tracksAppender.highlightedEntryInfo(recalcStyles, 2);
+            assert.strictEqual(info.warningElements?.length, 1);
+            const warning = info.warningElements?.[0];
+            if (!(warning instanceof HTMLSpanElement)) {
+                throw new Error('Found unexpected warning');
+            }
+            assert.strictEqual(warning?.innerText, 'Forced reflow is a likely performance bottleneck.');
+        });
+        it('shows the correct warning for a force layout when hovered', async function () {
+            await initTrackAppender(this, 'large-recalc-style.json.gz');
+            const events = traceParsedData.Renderer?.allTraceEntries;
+            if (!events) {
+                throw new Error('Could not find renderer events');
+            }
+            const layout = events.find(event => {
+                return event.name === "Layout" /* TraceModel.Types.TraceEvents.KnownEventName.Layout */ && event.dur &&
+                    event.dur >= TraceModel.Handlers.ModelHandlers.Warnings.FORCED_LAYOUT_AND_STYLES_THRESHOLD;
+            });
+            if (!layout) {
+                throw new Error('Could not find layout');
+            }
+            const info = tracksAppender.highlightedEntryInfo(layout, 2);
+            assert.strictEqual(info.warningElements?.length, 1);
+            const warning = info.warningElements?.[0];
+            if (!(warning instanceof HTMLSpanElement)) {
+                throw new Error('Found unexpected warning');
+            }
+            assert.strictEqual(warning?.innerText, 'Forced reflow is a likely performance bottleneck.');
+        });
+        it('shows the correct warning for slow idle callbacks', async function () {
+            await initTrackAppender(this, 'idle-callback.json.gz');
+            const events = traceParsedData.Renderer?.allTraceEntries;
+            if (!events) {
+                throw new Error('Could not find renderer events');
+            }
+            const idleCallback = events.find(event => {
+                const { duration } = TraceModel.Helpers.Timing.eventTimingsMilliSeconds(event);
+                if (!TraceModel.Types.TraceEvents.isTraceEventFireIdleCallback(event)) {
+                    return false;
+                }
+                if (duration <= event.args.data.allottedMilliseconds) {
+                    false;
+                }
+                return true;
+            });
+            if (!idleCallback) {
+                throw new Error('Could not find idle callback');
+            }
+            const info = tracksAppender.highlightedEntryInfo(idleCallback, 2);
+            assert.strictEqual(info.warningElements?.length, 1);
+            const warning = info.warningElements?.[0];
+            if (!(warning instanceof HTMLSpanElement)) {
+                throw new Error('Found unexpected warning');
+            }
+            assert.strictEqual(warning?.innerText, 'Idle callback execution extended beyond deadline by 79.56\u00A0ms');
         });
     });
 });

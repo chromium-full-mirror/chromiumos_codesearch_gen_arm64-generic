@@ -1,8 +1,8 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_checkbox/cr_checkbox.js';
 import 'chrome://resources/cros_components/lottie_renderer/lottie-renderer.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { MetricsRecordedSetupPage, OperationType, UserAction } from './cloud_upload.mojom-webui.js';
@@ -19,9 +19,15 @@ export var CloudProvider;
  * to always move files.
  */
 export class MoveConfirmationPageElement extends HTMLElement {
+    proxy = CloudUploadBrowserProxy.getInstance();
+    cloudProvider;
+    animationPlayer;
+    playPauseButton;
+    // Save reference to listener so it can be removed from the document in
+    // disconnectedCallback().
+    boundKeyDownListener_;
     constructor() {
         super();
-        this.proxy = CloudUploadBrowserProxy.getInstance();
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = getTemplate();
         const actionButton = this.$('.action-button');
@@ -30,6 +36,13 @@ export class MoveConfirmationPageElement extends HTMLElement {
         actionButton.addEventListener('click', () => this.onActionButtonClick());
         cancelButton.addEventListener('click', () => this.onCancelButtonClick());
         this.playPauseButton.addEventListener('click', () => this.onPlayPauseButtonClick());
+        this.boundKeyDownListener_ = this.onKeyDown.bind(this);
+    }
+    connectedCallback() {
+        document.addEventListener('keydown', this.boundKeyDownListener_);
+    }
+    disconnectedCallback() {
+        document.removeEventListener('keydown', this.boundKeyDownListener_);
     }
     $(query) {
         return this.shadowRoot.querySelector(query);
@@ -155,6 +168,15 @@ export class MoveConfirmationPageElement extends HTMLElement {
             this.playPauseButton.className = 'play';
             this.playPauseButton.ariaLabel =
                 loadTimeData.getString('animationPlayText');
+        }
+    }
+    onKeyDown(e) {
+        if (e.key === 'Escape') {
+            // Handle Escape as a "cancel".
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            this.onCancelButtonClick();
+            return;
         }
     }
 }

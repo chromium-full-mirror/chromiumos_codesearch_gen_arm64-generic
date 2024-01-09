@@ -6,8 +6,6 @@
 
 #ifndef MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CROS_CAMERA_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #define MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CROS_CAMERA_SERVICE_MOJOM_IMPORT_HEADERS_H_
-#include "chromeos/components/sensors/mojom/cros_sensor_service.mojom.h"
-#include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-import-headers.h"
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom.h"
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-import-headers.h"
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom.h"

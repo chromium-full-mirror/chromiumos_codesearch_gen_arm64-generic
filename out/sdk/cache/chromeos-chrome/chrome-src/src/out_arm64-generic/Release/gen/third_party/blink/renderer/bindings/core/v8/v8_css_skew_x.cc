@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSSkewX>::value,
     "CSSSkewX inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSSkewX::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSSkewX is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSSkewX.ax.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSSkewX* blink_receiver = V8CSSSkewX::ToWrappableUnsafe(v8_receiver);
+CSSSkewX* blink_receiver = V8CSSSkewX::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ax();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSSkewX.ax.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSSkewX* blink_receiver = V8CSSSkewX::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSSkewX* blink_receiver = V8CSSSkewX::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSSkewX";

@@ -7,7 +7,7 @@ const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
-(0, mocha_extensions_js_1.describe)('Hide issues menu', async () => {
+(0, mocha_extensions_js_1.describe)('Hide issues menu', () => {
     (0, mocha_extensions_js_1.it)('should become visible on hovering over the issue header', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         frontend.evaluate(() => {
@@ -79,9 +79,9 @@ const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
         chai_1.assert.include(content, 'Hide issues like this');
     });
     (0, mocha_extensions_js_1.it)('should hide issue upon clicking the context menu entry', async () => {
-        await (0, helper_js_1.goToResource)('issues/cross-origin-portal-post.html');
+        await (0, helper_js_1.goToResource)('elements/quirks-mode.html');
         await (0, issues_helpers_js_1.navigateToIssuesTab)();
-        const issueTitle = 'Cross-origin portal post messages are blocked on your site';
+        const issueTitle = 'Page layout may be unexpected due to Quirks Mode';
         const issueHeader = await (0, issues_helpers_js_1.getIssueHeaderByTitle)(issueTitle);
         (0, helper_js_1.assertNotNullOrUndefined)(issueHeader);
         await issueHeader.hover();
@@ -94,9 +94,9 @@ const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
         await (0, helper_js_1.waitFor)('.hidden-issue');
     });
     (0, mocha_extensions_js_1.it)('should unhide all issues upon clicking unhide all issues button', async () => {
-        await (0, helper_js_1.goToResource)('issues/cross-origin-portal-post.html');
+        await (0, helper_js_1.goToResource)('elements/quirks-mode.html');
         await (0, issues_helpers_js_1.navigateToIssuesTab)();
-        const issueTitle = 'Cross-origin portal post messages are blocked on your site';
+        const issueTitle = 'Page layout may be unexpected due to Quirks Mode';
         const issueHeader = await (0, issues_helpers_js_1.getIssueHeaderByTitle)(issueTitle);
         (0, helper_js_1.assertNotNullOrUndefined)(issueHeader);
         await issueHeader.hover();
@@ -111,9 +111,9 @@ const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
         await (0, helper_js_1.waitFor)(issues_helpers_js_1.ISSUE);
     });
     (0, mocha_extensions_js_1.it)('should contain unhide issues like this entry while hovering over a hidden issue', async () => {
-        await (0, helper_js_1.goToResource)('issues/cross-origin-portal-post.html');
+        await (0, helper_js_1.goToResource)('elements/quirks-mode.html');
         await (0, issues_helpers_js_1.navigateToIssuesTab)();
-        const issueTitle = 'Cross-origin portal post messages are blocked on your site';
+        const issueTitle = 'Page layout may be unexpected due to Quirks Mode';
         const issueHeader = await (0, issues_helpers_js_1.getIssueHeaderByTitle)(issueTitle);
         (0, helper_js_1.assertNotNullOrUndefined)(issueHeader);
         await issueHeader.hover();
@@ -138,9 +138,9 @@ const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
         await (0, issues_helpers_js_1.getUnhideIssuesMenuItem)();
     });
     (0, mocha_extensions_js_1.it)('should unhide issue after clicking the unhide issues like this entry', async () => {
-        await (0, helper_js_1.goToResource)('issues/cross-origin-portal-post.html');
+        await (0, helper_js_1.goToResource)('elements/quirks-mode.html');
         await (0, issues_helpers_js_1.navigateToIssuesTab)();
-        const issueTitle = 'Cross-origin portal post messages are blocked on your site';
+        const issueTitle = 'Page layout may be unexpected due to Quirks Mode';
         const issueHeader = await (0, issues_helpers_js_1.getIssueHeaderByTitle)(issueTitle);
         (0, helper_js_1.assertNotNullOrUndefined)(issueHeader);
         await issueHeader.hover();

@@ -18,6 +18,7 @@ constexpr uint32_t kCertProvisioningObserver_OnStateChanged_Name = 0;
 constexpr uint32_t kCertProvisioning_AddObserver_Name = 0;
 constexpr uint32_t kCertProvisioning_GetStatus_Name = 1;
 constexpr uint32_t kCertProvisioning_UpdateOneProcess_Name = 2;
+constexpr uint32_t kCertProvisioning_ResetOneProcess_Name = 3;
 
 }  // namespace internal
 

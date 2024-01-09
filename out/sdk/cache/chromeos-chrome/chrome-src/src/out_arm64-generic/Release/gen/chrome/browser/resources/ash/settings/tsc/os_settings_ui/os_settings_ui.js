@@ -9,10 +9,10 @@
  *
  *    <settings-ui prefs="{{prefs}}"></settings-ui>
  */
-import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import 'chrome://resources/cr_elements/cr_drawer/cr_drawer.js';
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_page_host_style.css.js';
 import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
@@ -25,15 +25,15 @@ import { CrContainerShadowMixin } from 'chrome://resources/cr_elements/cr_contai
 import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { Debouncer, microTask, PolymerElement, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
 import { setGlobalScrollTarget } from '../common/global_scroll_target_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSettingChange } from '../metrics_recorder.js';
 import { convertPrefToSettingMetric } from '../metrics_utils.js';
 import { createPageAvailability } from '../os_page_availability.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { Router } from '../router.js';
 import { OsSettingsHatsBrowserProxyImpl } from './os_settings_hats_browser_proxy.js';
 import { getTemplate } from './os_settings_ui.html.js';
@@ -110,6 +110,7 @@ export class OsSettingsUiElement extends OsSettingsUiElementBase {
     }
     constructor() {
         super();
+        this.isRevampWayfindingEnabled_ = isRevampWayfindingEnabled();
         /**
          * The route of the selected element in os-settings-menu. Stored here to
          * defer navigation until drawer animation completes.
@@ -150,6 +151,8 @@ export class OsSettingsUiElement extends OsSettingsUiElementBase {
         }, 
         /*AddEventListenerOptions=*/ { once: true });
         this.listenForDrawerOpening_();
+        // By default, the shadow should show when the container is scrolled down.
+        this.enableShadowBehavior(true);
     }
     connectedCallback() {
         super.connectedCallback();
@@ -192,7 +195,7 @@ export class OsSettingsUiElement extends OsSettingsUiElementBase {
         // Clicks need to be captured because unlike focus/blur to the settings
         // window, a click's propagation can be stopped by child elements.
         window.addEventListener('click', recordClick, /*capture=*/ true);
-        if (isRevampWayfindingEnabled()) {
+        if (this.isRevampWayfindingEnabled_) {
             // Add class which activates styles for the wayfinding update
             document.body.classList.add('revamp-wayfinding-enabled');
         }
@@ -211,15 +214,20 @@ export class OsSettingsUiElement extends OsSettingsUiElementBase {
             // in attached() state which is extraneous for this metric.
             recordNavigation();
         }
-        if (newRoute.isSubpage()) {
-            // Sub-pages always show the top-container shadow.
-            this.enableShadowBehavior(false);
-            this.showDropShadows();
-        }
-        else {
-            // All other pages including the root page should show shadow depending
-            // on scroll position.
-            this.enableShadowBehavior(true);
+        // TODO(b/302374851) Under the revamp, the shadow behavior is consistent
+        // across all types of pages and subpages. When the revamp is cleaned up,
+        // remove this obsolete logic.
+        if (!this.isRevampWayfindingEnabled_) {
+            if (newRoute.isSubpage()) {
+                // Sub-pages always show the top-container shadow.
+                this.enableShadowBehavior(false);
+                this.showDropShadows();
+            }
+            else {
+                // All other pages including the root page should show shadow depending
+                // on scroll position.
+                this.enableShadowBehavior(true);
+            }
         }
     }
     // Override FindShortcutMixin methods.

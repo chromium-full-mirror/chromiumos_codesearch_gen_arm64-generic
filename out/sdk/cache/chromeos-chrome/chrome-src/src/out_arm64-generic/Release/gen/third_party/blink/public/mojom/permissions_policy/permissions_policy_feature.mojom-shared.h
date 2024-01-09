@@ -197,8 +197,18 @@ enum class PermissionsPolicyFeature : int32_t {
   kClientHintUAFormFactor = 111,
   
   kClientHintPrefersReducedTransparency = 112,
+  
+  kWebPrinting = 113,
+  
+  kUsbUnrestricted = 114,
+  
+  kCapturedSurfaceControl = 115,
+  
+  kSubApps = 116,
+  
+  kPublicKeyCredentialsCreate = 117,
   kMinValue = 0,
-  kMaxValue = 112,
+  kMaxValue = 117,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, PermissionsPolicyFeature value);

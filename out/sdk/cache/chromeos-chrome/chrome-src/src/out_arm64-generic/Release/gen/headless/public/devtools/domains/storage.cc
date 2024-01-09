@@ -66,6 +66,10 @@ void Domain::RegisterEventHandlersIfNeeded() {
       "Storage.attributionReportingSourceRegistered",
       base::BindRepeating(&Domain::DispatchAttributionReportingSourceRegisteredEvent,
                           base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.attributionReportingTriggerRegistered",
+      base::BindRepeating(&Domain::DispatchAttributionReportingTriggerRegisteredEvent,
+                          base::Unretained(this)));
 }
 
 void ExperimentalDomain::GetStorageKeyForFrame(std::unique_ptr<GetStorageKeyForFrameParams> params, base::OnceCallback<void(std::unique_ptr<GetStorageKeyForFrameResult>)> callback) {
@@ -724,6 +728,15 @@ void Domain::DispatchAttributionReportingSourceRegisteredEvent(const base::Value
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnAttributionReportingSourceRegistered(*parsed_params);
+  }
+}
+
+void Domain::DispatchAttributionReportingTriggerRegisteredEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingTriggerRegisteredParams> parsed_params(AttributionReportingTriggerRegisteredParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnAttributionReportingTriggerRegistered(*parsed_params);
   }
 }
 

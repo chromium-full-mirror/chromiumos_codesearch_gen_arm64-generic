@@ -28,7 +28,6 @@ const openSettingsTab = async (tabTitle) => {
     // Click on the Settings Gear toolbar icon.
     await (0, helper_js_1.click)(gearIconSelector);
     // Click on the Settings tab and wait for the panel to appear.
-    await (0, helper_js_1.waitFor)(settingsMenuSelector);
     await (0, helper_js_1.click)(settingsMenuSelector);
     await (0, helper_js_1.waitFor)(panelSelector);
 };

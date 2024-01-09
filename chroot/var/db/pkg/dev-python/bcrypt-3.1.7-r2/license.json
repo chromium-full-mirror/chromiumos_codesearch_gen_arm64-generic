@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-python", "name": "bcrypt", "version": "3.1.7", "revision": 2, "fullname": "dev-python/bcrypt", "fullnamerev": "dev-python/bcrypt-3.1.7-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/pyca/bcrypt/", "https://pypi.org/project/bcrypt/"], "skip": false, "tainted": false, "ebuild_path": null}

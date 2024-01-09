@@ -15,6 +15,14 @@ export class MetricsInternalsBrowserProxyImpl {
     isUsingMetricsServiceObserver() {
         return sendWithPromise('isUsingMetricsServiceObserver');
     }
+    // 
+    fetchStructuredMetricsEvents() {
+        return sendWithPromise('fetchStructuredMetricsEvents');
+    }
+    fetchStructuredMetricsSummary() {
+        return sendWithPromise('fetchStructuredMetricsSummary');
+    }
+    // 
     static getInstance() {
         return instance || (instance = new MetricsInternalsBrowserProxyImpl());
     }

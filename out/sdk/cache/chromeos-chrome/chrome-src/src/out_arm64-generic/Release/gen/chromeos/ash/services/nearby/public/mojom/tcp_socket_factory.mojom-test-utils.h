@@ -16,7 +16,7 @@ namespace sharing::mojom {
 class  TcpSocketFactoryInterceptorForTesting : public TcpSocketFactory {
   virtual TcpSocketFactory* GetForwardingInterface() = 0;
   void CreateTCPServerSocket(const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) override;
-  void CreateTCPConnectedSocket(::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) override;
+  void CreateTCPConnectedSocket(::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) override;
 };
 class  TcpSocketFactoryAsyncWaiter {
  public:
@@ -27,10 +27,10 @@ class  TcpSocketFactoryAsyncWaiter {
 
   ~TcpSocketFactoryAsyncWaiter();
   void CreateTCPServerSocket(
-      const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out);
+      const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out);
   
   void CreateTCPConnectedSocket(
-      ::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
+      ::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
   
 
  private:

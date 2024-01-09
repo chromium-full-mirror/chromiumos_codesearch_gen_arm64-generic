@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StorageBucketManager>::value,
     "StorageBucketManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StorageBucketManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StorageBucketManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -112,7 +107,7 @@ return;
 
 
 
-StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(v8_receiver);
+StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -154,7 +149,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8StorageBucketManager
 
 
 
-StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(v8_receiver);
+StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -196,7 +191,7 @@ return;
 
 
 
-StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(v8_receiver);
+StorageBucketManager* blink_receiver = V8StorageBucketManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

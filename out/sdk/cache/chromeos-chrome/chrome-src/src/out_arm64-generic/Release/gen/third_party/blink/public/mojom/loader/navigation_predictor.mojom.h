@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/loader/navigation_predictor.mojom-features.h"
 #include "third_party/blink/public/mojom/loader/navigation_predictor.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/navigation_predictor.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -49,6 +50,7 @@ template <typename ImplRefTraits>
 class AnchorElementMetricsHostStub;
 
 class AnchorElementMetricsHostRequestValidator;
+class AnchorElementMetricsHostResponseValidator;
 
 
 class BLINK_COMMON_EXPORT AnchorElementMetricsHost
@@ -70,7 +72,7 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHost
   using Stub_ = AnchorElementMetricsHostStub<ImplRefTraits>;
 
   using RequestValidator_ = AnchorElementMetricsHostRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = AnchorElementMetricsHostResponseValidator;
   enum MethodMinVersions : uint32_t {
     kReportAnchorElementClickMinVersion = 0,
     kReportNewAnchorElementsMinVersion = 0,
@@ -81,6 +83,7 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHost
     kReportAnchorElementPointerDownMinVersion = 0,
     kReportAnchorElementPointerDataOnHoverTimerFiredMinVersion = 0,
     kProcessPointerEventUsingMLModelMinVersion = 0,
+    kShouldSkipUpdateDelaysMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -113,6 +116,9 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHost
   struct ProcessPointerEventUsingMLModel_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct ShouldSkipUpdateDelays_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~AnchorElementMetricsHost() = default;
 
@@ -142,6 +148,11 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHost
 
   
   virtual void ProcessPointerEventUsingMLModel(AnchorElementPointerEventForMLModelPtr pointer_event) = 0;
+
+
+  using ShouldSkipUpdateDelaysCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void ShouldSkipUpdateDelays(ShouldSkipUpdateDelaysCallback callback) = 0;
 };
 
 
@@ -170,6 +181,8 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHostProxy
   void ReportAnchorElementPointerDataOnHoverTimerFired(AnchorElementPointerDataOnHoverTimerFiredPtr pointer_data) final;
   
   void ProcessPointerEventUsingMLModel(AnchorElementPointerEventForMLModelPtr pointer_event) final;
+  
+  void ShouldSkipUpdateDelays(ShouldSkipUpdateDelaysCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -216,6 +229,10 @@ class AnchorElementMetricsHostStub
   ImplPointerType sink_;
 };
 class BLINK_COMMON_EXPORT AnchorElementMetricsHostRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class BLINK_COMMON_EXPORT AnchorElementMetricsHostResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

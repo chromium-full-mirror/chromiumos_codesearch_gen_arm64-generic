@@ -47,6 +47,56 @@ namespace internal {
 
 
 namespace side_panel::mojom {
+
+
+enum class ResourceType : int32_t {
+  
+  kMemory = 0,
+  
+  kCPU = 1,
+  
+  kNetwork = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, ResourceType value);
+inline bool IsKnownEnumValue(ResourceType value) {
+  return internal::ResourceType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class HealthLevel : int32_t {
+  
+  kHealthy = 0,
+  
+  kMedium = 1,
+  
+  kUnhealthy = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, HealthLevel value);
+inline bool IsKnownEnumValue(HealthLevel value) {
+  return internal::HealthLevel_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class PerformanceSidePanelNotification : int32_t {
+  
+  kMemorySaverRevisitDiscardedTab = 0,
+  kMinValue = 0,
+  kMaxValue = 0,
+};
+
+ std::ostream& operator<<(std::ostream& os, PerformanceSidePanelNotification value);
+inline bool IsKnownEnumValue(PerformanceSidePanelNotification value) {
+  return internal::PerformanceSidePanelNotification_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class PerformancePageHandlerFactoryInterfaceBase {};
 
@@ -78,15 +128,147 @@ using PerformancePageAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<PerformancePageInterfaceBase>;
 using PerformancePageAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<PerformancePageInterfaceBase>;
+class BatterySaverCardHandlerFactoryInterfaceBase {};
+
+using BatterySaverCardHandlerFactoryPtrDataView =
+    mojo::InterfacePtrDataView<BatterySaverCardHandlerFactoryInterfaceBase>;
+using BatterySaverCardHandlerFactoryRequestDataView =
+    mojo::InterfaceRequestDataView<BatterySaverCardHandlerFactoryInterfaceBase>;
+using BatterySaverCardHandlerFactoryAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<BatterySaverCardHandlerFactoryInterfaceBase>;
+using BatterySaverCardHandlerFactoryAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<BatterySaverCardHandlerFactoryInterfaceBase>;
+class BatterySaverCardHandlerInterfaceBase {};
+
+using BatterySaverCardHandlerPtrDataView =
+    mojo::InterfacePtrDataView<BatterySaverCardHandlerInterfaceBase>;
+using BatterySaverCardHandlerRequestDataView =
+    mojo::InterfaceRequestDataView<BatterySaverCardHandlerInterfaceBase>;
+using BatterySaverCardHandlerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<BatterySaverCardHandlerInterfaceBase>;
+using BatterySaverCardHandlerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<BatterySaverCardHandlerInterfaceBase>;
+class BatterySaverCardInterfaceBase {};
+
+using BatterySaverCardPtrDataView =
+    mojo::InterfacePtrDataView<BatterySaverCardInterfaceBase>;
+using BatterySaverCardRequestDataView =
+    mojo::InterfaceRequestDataView<BatterySaverCardInterfaceBase>;
+using BatterySaverCardAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<BatterySaverCardInterfaceBase>;
+using BatterySaverCardAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<BatterySaverCardInterfaceBase>;
+class MemorySaverCardHandlerFactoryInterfaceBase {};
+
+using MemorySaverCardHandlerFactoryPtrDataView =
+    mojo::InterfacePtrDataView<MemorySaverCardHandlerFactoryInterfaceBase>;
+using MemorySaverCardHandlerFactoryRequestDataView =
+    mojo::InterfaceRequestDataView<MemorySaverCardHandlerFactoryInterfaceBase>;
+using MemorySaverCardHandlerFactoryAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<MemorySaverCardHandlerFactoryInterfaceBase>;
+using MemorySaverCardHandlerFactoryAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<MemorySaverCardHandlerFactoryInterfaceBase>;
+class MemorySaverCardHandlerInterfaceBase {};
+
+using MemorySaverCardHandlerPtrDataView =
+    mojo::InterfacePtrDataView<MemorySaverCardHandlerInterfaceBase>;
+using MemorySaverCardHandlerRequestDataView =
+    mojo::InterfaceRequestDataView<MemorySaverCardHandlerInterfaceBase>;
+using MemorySaverCardHandlerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<MemorySaverCardHandlerInterfaceBase>;
+using MemorySaverCardHandlerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<MemorySaverCardHandlerInterfaceBase>;
+class MemorySaverCardInterfaceBase {};
+
+using MemorySaverCardPtrDataView =
+    mojo::InterfacePtrDataView<MemorySaverCardInterfaceBase>;
+using MemorySaverCardRequestDataView =
+    mojo::InterfaceRequestDataView<MemorySaverCardInterfaceBase>;
+using MemorySaverCardAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<MemorySaverCardInterfaceBase>;
+using MemorySaverCardAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<MemorySaverCardInterfaceBase>;
 
 
 }  // side_panel::mojom
 
 namespace std {
 
+template <>
+struct hash<::side_panel::mojom::ResourceType>
+    : public mojo::internal::EnumHashImpl<::side_panel::mojom::ResourceType> {};
+
+template <>
+struct hash<::side_panel::mojom::HealthLevel>
+    : public mojo::internal::EnumHashImpl<::side_panel::mojom::HealthLevel> {};
+
+template <>
+struct hash<::side_panel::mojom::PerformanceSidePanelNotification>
+    : public mojo::internal::EnumHashImpl<::side_panel::mojom::PerformanceSidePanelNotification> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::mojom::ResourceType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::mojom::ResourceType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::mojom::ResourceType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::mojom::HealthLevel, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::mojom::HealthLevel, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::mojom::HealthLevel>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::mojom::PerformanceSidePanelNotification, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::mojom::PerformanceSidePanelNotification, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::mojom::PerformanceSidePanelNotification>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 }  // namespace mojo
 
@@ -98,5 +280,32 @@ namespace side_panel::mojom {
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::mojom::ResourceType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::ResourceType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::mojom::HealthLevel> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::HealthLevel value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::mojom::PerformanceSidePanelNotification> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::mojom::PerformanceSidePanelNotification value);
+};
+
+} // namespace perfetto
 
 #endif  // CHROME_BROWSER_UI_WEBUI_SIDE_PANEL_PERFORMANCE_CONTROLS_PERFORMANCE_MOJOM_SHARED_H_

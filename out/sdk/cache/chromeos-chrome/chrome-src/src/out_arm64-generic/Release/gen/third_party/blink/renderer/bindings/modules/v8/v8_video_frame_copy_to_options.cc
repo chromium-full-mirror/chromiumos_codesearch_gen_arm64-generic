@@ -50,6 +50,20 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 HeapVector<Member<PlaneLayout>> VideoFrameCopyToOptions::getLayoutOr(const HeapVector<Member<PlaneLayout>>& fallback_value) const {
   if (!hasLayout()) {
   return fallback_value;
@@ -85,7 +99,9 @@ has_layout_ = true;
 
 
 void VideoFrameCopyToOptions::Trace(Visitor* visitor) const {
-  TraceIfNeeded<HeapVector<Member<PlaneLayout>>>::Trace(visitor, member_layout_);
+  TraceIfNeeded<V8PredefinedColorSpace>::Trace(visitor, member_color_space_);
+TraceIfNeeded<V8VideoPixelFormat>::Trace(visitor, member_format_);
+TraceIfNeeded<HeapVector<Member<PlaneLayout>>>::Trace(visitor, member_layout_);
 TraceIfNeeded<Member<DOMRectInit>>::Trace(visitor, member_rect_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -96,11 +112,31 @@ v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
+if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
+  if (hasColorSpace()) {
+  if (!ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
+  if (hasFormat()) {
+  if (!ToV8Traits<V8VideoPixelFormat>::ToV8(script_state, member_format_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
 if (hasLayout()) {
   if (!ToV8Traits<IDLSequence<PlaneLayout>>::ToV8(script_state, member_layout_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -108,7 +144,7 @@ if (hasRect()) {
   if (!ToV8Traits<DOMRectInit>::ToV8(script_state, member_rect_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -118,22 +154,36 @@ return true;
 void VideoFrameCopyToOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "VideoFrameCopyToOptions";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("layout");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<PlaneLayout>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_layout_, member_layout_, try_block, exception_state)) {
+if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("colorSpace");
+if (!bindings::GetDictionaryMemberFromV8Object<V8PredefinedColorSpace, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_color_space_, member_color_space_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("format");
+if (!bindings::GetDictionaryMemberFromV8Object<V8VideoPixelFormat, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_format_, member_format_, try_block, exception_state)) {
+  return;
+}
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("layout");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<PlaneLayout>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_layout_, member_layout_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("rect");
-if (!bindings::GetDictionaryMemberFromV8Object<DOMRectInit, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_rect_, member_rect_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DOMRectInit, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_rect_, member_rect_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> VideoFrameCopyToOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"colorSpace",
+"format",
 "layout",
 "rect",
 };

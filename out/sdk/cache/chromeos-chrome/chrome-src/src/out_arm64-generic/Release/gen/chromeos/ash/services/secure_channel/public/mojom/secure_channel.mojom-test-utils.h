@@ -95,8 +95,8 @@ class  SecureChannelAsyncWaiter {
 
   ~SecureChannelAsyncWaiter();
   void GetLastSeenTimestamp(
-      const std::string& remote_device_id, absl::optional<::base::Time>* out_time);
-  absl::optional<::base::Time> GetLastSeenTimestamp(const std::string& remote_device_id);
+      const std::string& remote_device_id, std::optional<::base::Time>* out_time);
+  std::optional<::base::Time> GetLastSeenTimestamp(const std::string& remote_device_id);
 
  private:
   SecureChannel* const proxy_;

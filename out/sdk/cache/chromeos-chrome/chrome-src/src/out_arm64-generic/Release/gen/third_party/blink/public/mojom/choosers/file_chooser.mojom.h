@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/choosers/file_chooser.mojom-features.h"
 #include "third_party/blink/public/mojom/choosers/file_chooser.mojom-shared.h"
 #include "third_party/blink/public/mojom/choosers/file_chooser.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -193,17 +194,17 @@ class BLINK_COMMON_EXPORT FileChooserFileInfo {
   // Construct an instance holding |native_file|.
   static FileChooserFileInfoPtr
   NewNativeFile(
-      NativeFileInfoPtr native_file) {
+      NativeFileInfoPtr value) {
     auto result = FileChooserFileInfoPtr(absl::in_place);
-    result->set_native_file(std::move(native_file));
+    result->set_native_file(std::move(value));
     return result;
   }
   // Construct an instance holding |file_system|.
   static FileChooserFileInfoPtr
   NewFileSystem(
-      FileSystemFileInfoPtr file_system) {
+      FileSystemFileInfoPtr value) {
     auto result = FileChooserFileInfoPtr(absl::in_place);
-    result->set_file_system(std::move(file_system));
+    result->set_file_system(std::move(value));
     return result;
   }
 

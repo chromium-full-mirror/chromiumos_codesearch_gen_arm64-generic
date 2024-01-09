@@ -35,7 +35,7 @@ class BLINK_COMMON_EXPORT RendererAudioInputStreamFactoryAsyncWaiter {
 
 class BLINK_COMMON_EXPORT RendererAudioInputStreamFactoryClientInterceptorForTesting : public RendererAudioInputStreamFactoryClient {
   virtual RendererAudioInputStreamFactoryClient* GetForwardingInterface() = 0;
-  void StreamCreated(::mojo::PendingRemote<::media::mojom::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> client_request, ::media::mojom::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const absl::optional<::base::UnguessableToken>& stream_id) override;
+  void StreamCreated(::mojo::PendingRemote<::media::mojom::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> client_request, ::media::mojom::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const std::optional<::base::UnguessableToken>& stream_id) override;
 };
 class BLINK_COMMON_EXPORT RendererAudioInputStreamFactoryClientAsyncWaiter {
  public:

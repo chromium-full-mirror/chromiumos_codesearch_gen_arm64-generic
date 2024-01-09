@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/color/color_id.mojom-features.h"
 #include "ui/color/color_id.mojom-shared.h"
 #include "ui/color/color_id.mojom-forward.h"
 #include <string>

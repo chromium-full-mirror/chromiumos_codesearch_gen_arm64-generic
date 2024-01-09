@@ -113,8 +113,8 @@ class  SpeechRecognitionSurfaceAsyncWaiter {
 
   ~SpeechRecognitionSurfaceAsyncWaiter();
   void GetBounds(
-      absl::optional<::gfx::Rect>* out_bounds);
-  absl::optional<::gfx::Rect> GetBounds();
+      std::optional<::gfx::Rect>* out_bounds);
+  std::optional<::gfx::Rect> GetBounds();
 
  private:
   SpeechRecognitionSurface* const proxy_;

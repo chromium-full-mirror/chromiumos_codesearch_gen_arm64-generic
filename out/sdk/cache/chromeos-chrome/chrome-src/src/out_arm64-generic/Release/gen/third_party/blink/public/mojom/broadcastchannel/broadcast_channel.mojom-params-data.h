@@ -22,7 +22,7 @@ class ValidationContext;
 
 namespace blink::mojom {
 namespace internal {
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BroadcastChannelClient_OnMessage_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BroadcastChannelClient_OnMessage_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -38,7 +38,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BroadcastChannelClient_OnMes
 };
 static_assert(sizeof(BroadcastChannelClient_OnMessage_Params_Data) == 16,
               "Bad sizeof(BroadcastChannelClient_OnMessage_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BroadcastChannelProvider_ConnectToChannel_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BroadcastChannelProvider_ConnectToChannel_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);

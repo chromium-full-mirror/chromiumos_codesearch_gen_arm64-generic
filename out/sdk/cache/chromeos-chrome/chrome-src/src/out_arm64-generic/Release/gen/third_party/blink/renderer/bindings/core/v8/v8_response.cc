@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Response>::value,
     "Response inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Response::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Response is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("Response.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -108,10 +103,10 @@ BLINK_BINDINGS_TRACE_EVENT("Response.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -123,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("Response.redirected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->redirected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -137,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("Response.status.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->status();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -151,8 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("Response.ok.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ok();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -165,10 +163,10 @@ BLINK_BINDINGS_TRACE_EVENT("Response.statusText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->statusText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->statusText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -180,8 +178,9 @@ BLINK_BINDINGS_TRACE_EVENT("Response.headers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->headers();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -200,7 +199,7 @@ UseCounter::Count(current_execution_context, WebFeature::kFetchBodyStream);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -213,8 +212,9 @@ BLINK_BINDINGS_TRACE_EVENT("Response.bodyUsed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bodyUsed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -295,7 +295,7 @@ return;
 
 
 
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -329,7 +329,7 @@ return;
 
 
 
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -351,12 +351,12 @@ BLINK_BINDINGS_TRACE_EVENT("Response.clone");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Response";
 const char* const property_name = "clone";
@@ -391,7 +391,7 @@ return;
 
 
 
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -425,7 +425,7 @@ return;
 
 
 
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -459,7 +459,7 @@ return;
 
 
 
-Response* blink_receiver = V8Response::ToWrappableUnsafe(v8_receiver);
+Response* blink_receiver = V8Response::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

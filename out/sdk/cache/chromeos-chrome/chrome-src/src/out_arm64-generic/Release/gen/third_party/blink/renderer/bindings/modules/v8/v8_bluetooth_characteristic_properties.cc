@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BluetoothCharacteristicProperties>::value,
     "BluetoothCharacteristicProperties inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BluetoothCharacteristicProperties::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BluetoothCharacteristicProperties is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.broadcast.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->broadcast();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -99,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.read.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->read();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -113,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.writeWithoutRespon
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writeWithoutResponse();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -127,8 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.write.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->write();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -141,8 +140,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.notify.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->notify();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -155,8 +155,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.indicate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->indicate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -169,8 +170,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.authenticatedSigne
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->authenticatedSignedWrites();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -183,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.reliableWrite.get"
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reliableWrite();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -197,8 +200,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothCharacteristicProperties.writableAuxiliarie
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(v8_receiver);
+BluetoothCharacteristicProperties* blink_receiver = V8BluetoothCharacteristicProperties::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writableAuxiliaries();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

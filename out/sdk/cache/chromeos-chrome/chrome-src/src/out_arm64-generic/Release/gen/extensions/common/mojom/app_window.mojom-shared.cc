@@ -46,6 +46,29 @@ bool AppWindow_SetVisuallyDeemphasized_Params_Data::Validate(
 AppWindow_SetVisuallyDeemphasized_Params_Data::AppWindow_SetVisuallyDeemphasized_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool AppWindow_SetSupportsAppRegion_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppWindow_SetSupportsAppRegion_Params_Data* object =
+      static_cast<const AppWindow_SetSupportsAppRegion_Params_Data*>(data);
+
+  return true;
+}
+
+AppWindow_SetSupportsAppRegion_Params_Data::AppWindow_SetSupportsAppRegion_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace extensions

@@ -801,7 +801,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveFs_SetDocsOfflineEnabled_Respo
 
   mojo::internal::StructHeader header_;
   int32_t error;
-  uint8_t padfinal_[4];
+  int32_t status;
 
  private:
   friend class mojo::internal::MessageFragment<DriveFs_SetDocsOfflineEnabled_ResponseParams_Data>;
@@ -1353,6 +1353,42 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveFsDelegate_OnItemProgress_Para
 };
 static_assert(sizeof(DriveFsDelegate_OnItemProgress_Params_Data) == 16,
               "Bad sizeof(DriveFsDelegate_OnItemProgress_Params_Data)");
+class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> client_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> app_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> scopes;
+
+ private:
+  friend class mojo::internal::MessageFragment<DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data>;
+
+  DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data();
+  ~DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data() = delete;
+};
+static_assert(sizeof(DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data) == 32,
+              "Bad sizeof(DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data)");
+class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<internal::AccessToken_Data> access_token;
+
+ private:
+  friend class mojo::internal::MessageFragment<DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data>;
+
+  DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data();
+  ~DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data) == 24,
+              "Bad sizeof(DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data)");
 class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) SearchQuery_GetNextPage_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2682,6 +2718,16 @@ class DriveFs_SetDocsOfflineEnabled_ResponseParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::drivefs::mojom::FileError>(data_->error));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::drivefs::mojom::DocsOfflineEnableStatus>(
+        data_value, output);
+  }
+  DocsOfflineEnableStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::drivefs::mojom::DocsOfflineEnableStatus>(data_->status));
+  }
  private:
   internal::DriveFs_SetDocsOfflineEnabled_ResponseParams_Data* data_ = nullptr;
 };
@@ -3572,6 +3618,98 @@ class DriveFsDelegate_OnItemProgress_ParamsDataView {
 };
 
 
+class DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView {
+ public:
+  DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView() = default;
+
+  DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView(
+      internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetClientIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadClientId(UserType* output) {
+    
+    auto* pointer = data_->client_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) {
+    
+    auto* pointer = data_->app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetScopesDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScopes(UserType* output) {
+    
+    auto* pointer = data_->scopes.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParamsDataView {
+ public:
+  DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParamsDataView() = default;
+
+  DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParamsDataView(
+      internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::drivefs::mojom::AccessTokenStatus>(
+        data_value, output);
+  }
+  AccessTokenStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::drivefs::mojom::AccessTokenStatus>(data_->status));
+  }
+  inline void GetAccessTokenDataView(
+      AccessTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAccessToken(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::drivefs::mojom::AccessTokenDataView, UserType>(),
+    "Attempting to read the optional `access_token` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAccessToken` instead "
+    "of `ReadAccessToken if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->access_token.Get();
+    return mojo::internal::Deserialize<::drivefs::mojom::AccessTokenDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class SearchQuery_GetNextPage_ParamsDataView {
  public:
   SearchQuery_GetNextPage_ParamsDataView() = default;
@@ -4114,6 +4252,30 @@ inline void DriveFsDelegate_OnItemProgress_ParamsDataView::GetProgressEventDataV
     ProgressEventDataView* output) {
   auto pointer = data_->progress_event.Get();
   *output = ProgressEventDataView(pointer, message_);
+}
+
+
+inline void DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView::GetClientIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->client_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView::GetAppIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView::GetScopesDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->scopes.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+
+
+inline void DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParamsDataView::GetAccessTokenDataView(
+    AccessTokenDataView* output) {
+  auto pointer = data_->access_token.Get();
+  *output = AccessTokenDataView(pointer, message_);
 }
 
 

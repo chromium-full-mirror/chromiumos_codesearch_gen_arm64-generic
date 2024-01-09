@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/webid/federated_auth_request_automation.mojom-features.h"
 #include "third_party/blink/public/mojom/webid/federated_auth_request_automation.mojom-shared.h"
 #include "third_party/blink/public/mojom/webid/federated_auth_request_automation.mojom-forward.h"
 #include <string>
@@ -73,7 +74,7 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomation
     kGetFedCmDialogTitleMinVersion = 0,
     kSelectFedCmAccountMinVersion = 0,
     kDismissFedCmDialogMinVersion = 0,
-    kConfirmIdpLoginMinVersion = 0,
+    kClickFedCmDialogButtonMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -91,19 +92,19 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomation
   struct DismissFedCmDialog_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ConfirmIdpLogin_Sym {
+  struct ClickFedCmDialogButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~FederatedAuthRequestAutomation() = default;
 
 
-  using GetDialogTypeCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetDialogTypeCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetDialogType(GetDialogTypeCallback callback) = 0;
 
 
-  using GetFedCmDialogTitleCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetFedCmDialogTitleCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetFedCmDialogTitle(GetFedCmDialogTitleCallback callback) = 0;
 
@@ -118,9 +119,9 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomation
   virtual void DismissFedCmDialog(DismissFedCmDialogCallback callback) = 0;
 
 
-  using ConfirmIdpLoginCallback = base::OnceCallback<void(bool)>;
+  using ClickFedCmDialogButtonCallback = base::OnceCallback<void(bool)>;
   
-  virtual void ConfirmIdpLogin(ConfirmIdpLoginCallback callback) = 0;
+  virtual void ClickFedCmDialogButton(DialogButton dialog_button, ClickFedCmDialogButtonCallback callback) = 0;
 };
 
 
@@ -140,7 +141,7 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAutomationProxy
   
   void DismissFedCmDialog(DismissFedCmDialogCallback callback) final;
   
-  void ConfirmIdpLogin(ConfirmIdpLoginCallback callback) final;
+  void ClickFedCmDialogButton(DialogButton dialog_button, ClickFedCmDialogButtonCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

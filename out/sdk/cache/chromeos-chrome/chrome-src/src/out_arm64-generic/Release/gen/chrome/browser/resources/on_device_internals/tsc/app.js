@@ -5,10 +5,13 @@ import '//resources/cr_elements/cr_button/cr_button.js';
 import '//resources/cr_elements/cr_hidden_style.css.js';
 import '//resources/cr_elements/cr_input/cr_input.js';
 import '//resources/cr_elements/cr_shared_vars.css.js';
+import '//resources/cr_elements/cr_textarea/cr_textarea.js';
+import '//resources/cr_elements/cr_expand_button/cr_expand_button.js';
+import '//resources/polymer/v3_0/iron-collapse/iron-collapse.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';
 import { BrowserProxy } from './browser_proxy.js';
-import { PerformanceClass, StreamingResponderCallbackRouter } from './on_device_model.mojom-webui.js';
+import { LoadModelResult, OnDeviceModelRemote, PerformanceClass, ResponseStatus, SessionRemote, StreamingResponderCallbackRouter } from './on_device_model.mojom-webui.js';
 function getPerformanceClassText(performanceClass) {
     switch (performanceClass) {
         case PerformanceClass.kVeryLow:
@@ -21,6 +24,10 @@ function getPerformanceClassText(performanceClass) {
             return 'High';
         case PerformanceClass.kVeryHigh:
             return 'Very High';
+        case PerformanceClass.kGpuBlocked:
+            return 'GPU blocked';
+        case PerformanceClass.kFailedToLoadLibrary:
+            return 'Failed to load native library';
         default:
             return 'Error';
     }
@@ -28,7 +35,11 @@ function getPerformanceClassText(performanceClass) {
 class OnDeviceInternalsAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
+        this.contextExpanded_ = false;
+        this.contextLength_ = 0;
+        this.session_ = null;
         this.proxy_ = BrowserProxy.getInstance();
+        this.responseRouter_ = new StreamingResponderCallbackRouter();
     }
     static get is() {
         return 'on-device-internals-app';
@@ -64,6 +75,9 @@ class OnDeviceInternalsAppElement extends PolymerElement {
                 type: String,
                 value: 'Loading...',
             },
+            contextExpanded_: Boolean,
+            contextLength_: Number,
+            contextText_: String,
         };
     }
     static get observers() {
@@ -89,8 +103,22 @@ class OnDeviceInternalsAppElement extends PolymerElement {
     onLoadClick_() {
         this.onModelSelected_();
     }
+    onServiceCrashed_() {
+        if (this.currentResponse_) {
+            this.currentResponse_.error = true;
+            this.addResponse_();
+        }
+        this.error_ = 'Service crashed, please reload the model.';
+        this.model_ = null;
+        this.modelPath_ = '';
+        this.loadModelStart_ = 0;
+        this.$.modelInput.focus();
+    }
     async onModelSelected_() {
         this.error_ = '';
+        if (this.model_) {
+            this.model_.$.close();
+        }
         this.model_ = null;
         this.loadModelStart_ = new Date().getTime();
         const modelPath = this.$.modelInput.value;
@@ -98,36 +126,77 @@ class OnDeviceInternalsAppElement extends PolymerElement {
         // 
         const processedPath = modelPath;
         // 
-        const { result } = await this.proxy_.handler.loadModel({ path: processedPath });
-        if (result.error) {
-            this.error_ = result.error;
+        const newModel = new OnDeviceModelRemote();
+        const { result } = await this.proxy_.handler.loadModel({ path: processedPath }, newModel.$.bindNewPipeAndPassReceiver());
+        if (result !== LoadModelResult.kSuccess) {
+            this.error_ = 'Unable to load model';
         }
         else {
-            this.model_ = result.model || null;
+            this.model_ = newModel;
+            this.model_.onConnectionError.addListener(() => {
+                this.onServiceCrashed_();
+            });
+            this.startNewSession_();
             this.modelPath_ = modelPath;
         }
+    }
+    onAddContextClick_() {
+        if (this.session_ === null) {
+            return;
+        }
+        this.session_.addContext({ text: this.contextText_, ignoreContext: false }, null);
+        this.contextLength_ += this.contextText_.split(/(\s+)/).length;
+        this.contextText_ = '';
+    }
+    startNewSession_() {
+        if (this.model_ === null) {
+            return;
+        }
+        this.contextLength_ = 0;
+        this.session_ = new SessionRemote();
+        this.model_.startSession(this.session_.$.bindNewPipeAndPassReceiver());
+    }
+    onCancelClick_() {
+        this.responseRouter_.$.close();
+        this.responseRouter_ = new StreamingResponderCallbackRouter();
+        this.addResponse_();
     }
     onExecuteClick_() {
         this.onExecute_();
     }
+    addResponse_() {
+        this.unshift('responses_', this.currentResponse_);
+        this.currentResponse_ = null;
+        this.$.textInput.focus();
+    }
     onExecute_() {
-        if (this.model_ === null) {
+        if (this.session_ === null) {
             return;
         }
-        const router = new StreamingResponderCallbackRouter();
-        this.model_.execute(this.text_, router.$.bindNewPipeAndPassRemote());
-        const onResponseId = router.onResponse.addListener((text) => {
+        this.session_.execute({ text: this.text_, ignoreContext: false }, this.responseRouter_.$.bindNewPipeAndPassRemote());
+        const onResponseId = this.responseRouter_.onResponse.addListener((text) => {
             this.set('currentResponse_.response', (this.currentResponse_?.response + text).trimStart());
         });
-        const onCompleteId = router.onComplete.addListener(() => {
-            this.unshift('responses_', this.currentResponse_);
-            this.currentResponse_ = null;
-            this.$.textInput.focus();
-            router.removeListener(onResponseId);
-            router.removeListener(onCompleteId);
+        const onCompleteId = this.responseRouter_.onComplete.addListener((status) => {
+            if (status === ResponseStatus.kRetracted && this.currentResponse_) {
+                this.currentResponse_.retracted = true;
+            }
+            this.addResponse_();
+            this.responseRouter_.removeListener(onResponseId);
+            this.responseRouter_.removeListener(onCompleteId);
         });
-        this.currentResponse_ = { text: this.text_, response: '' };
+        this.currentResponse_ =
+            { text: this.text_, response: '', retracted: false, error: false };
         this.text_ = '';
+    }
+    responseClass_(response) {
+        if (response.retracted) {
+            return 'response retracted';
+        }
+        if (response.error) {
+            return 'response error';
+        }
+        return 'response';
     }
     canExecute_() {
         return !this.currentResponse_ && this.model_ !== null;

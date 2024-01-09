@@ -39,10 +39,10 @@ class  WallpaperProviderInterceptorForTesting : public WallpaperProvider {
   void MakeOpaque() override;
   void FetchCollections(FetchCollectionsCallback callback) override;
   void FetchImagesForCollection(const std::string& collection_id, FetchImagesForCollectionCallback callback) override;
-  void FetchGooglePhotosAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) override;
-  void FetchGooglePhotosSharedAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) override;
+  void FetchGooglePhotosAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) override;
+  void FetchGooglePhotosSharedAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) override;
   void FetchGooglePhotosEnabled(FetchGooglePhotosEnabledCallback callback) override;
-  void FetchGooglePhotosPhotos(const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) override;
+  void FetchGooglePhotosPhotos(const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) override;
   void GetLocalImages(GetLocalImagesCallback callback) override;
   void GetDefaultImageThumbnail(GetDefaultImageThumbnailCallback callback) override;
   void GetLocalImageThumbnail(const ::base::FilePath& file_path, GetLocalImageThumbnailCallback callback) override;
@@ -60,6 +60,7 @@ class  WallpaperProviderInterceptorForTesting : public WallpaperProvider {
   void IsInTabletMode(IsInTabletModeCallback callback) override;
   void ConfirmPreviewWallpaper() override;
   void CancelPreviewWallpaper() override;
+  void ShouldShowTimeOfDayWallpaperDialog(ShouldShowTimeOfDayWallpaperDialogCallback callback) override;
 };
 class  WallpaperProviderAsyncWaiter {
  public:
@@ -70,26 +71,26 @@ class  WallpaperProviderAsyncWaiter {
 
   ~WallpaperProviderAsyncWaiter();
   void FetchCollections(
-      absl::optional<std::vector<::backdrop::Collection>>* out_collections);
-  absl::optional<std::vector<::backdrop::Collection>> FetchCollections();
+      std::optional<std::vector<::backdrop::Collection>>* out_collections);
+  std::optional<std::vector<::backdrop::Collection>> FetchCollections();
   void FetchImagesForCollection(
-      const std::string& collection_id, absl::optional<std::vector<::backdrop::Image>>* out_images);
-  absl::optional<std::vector<::backdrop::Image>> FetchImagesForCollection(const std::string& collection_id);
+      const std::string& collection_id, std::optional<std::vector<::backdrop::Image>>* out_images);
+  std::optional<std::vector<::backdrop::Image>> FetchImagesForCollection(const std::string& collection_id);
   void FetchGooglePhotosAlbums(
-      const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response);
-  FetchGooglePhotosAlbumsResponsePtr FetchGooglePhotosAlbums(const absl::optional<std::string>& resume_token);
+      const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response);
+  FetchGooglePhotosAlbumsResponsePtr FetchGooglePhotosAlbums(const std::optional<std::string>& resume_token);
   void FetchGooglePhotosSharedAlbums(
-      const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response);
-  FetchGooglePhotosAlbumsResponsePtr FetchGooglePhotosSharedAlbums(const absl::optional<std::string>& resume_token);
+      const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response);
+  FetchGooglePhotosAlbumsResponsePtr FetchGooglePhotosSharedAlbums(const std::optional<std::string>& resume_token);
   void FetchGooglePhotosEnabled(
       GooglePhotosEnablementState* out_state);
   GooglePhotosEnablementState FetchGooglePhotosEnabled();
   void FetchGooglePhotosPhotos(
-      const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosResponsePtr* out_response);
-  FetchGooglePhotosPhotosResponsePtr FetchGooglePhotosPhotos(const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token);
+      const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosResponsePtr* out_response);
+  FetchGooglePhotosPhotosResponsePtr FetchGooglePhotosPhotos(const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token);
   void GetLocalImages(
-      absl::optional<std::vector<::base::FilePath>>* out_images);
-  absl::optional<std::vector<::base::FilePath>> GetLocalImages();
+      std::optional<std::vector<::base::FilePath>>* out_images);
+  std::optional<std::vector<::base::FilePath>> GetLocalImages();
   void GetDefaultImageThumbnail(
       ::GURL* out_data);
   ::GURL GetDefaultImageThumbnail();
@@ -126,6 +127,9 @@ class  WallpaperProviderAsyncWaiter {
   void IsInTabletMode(
       bool* out_tablet_mode);
   bool IsInTabletMode();
+  void ShouldShowTimeOfDayWallpaperDialog(
+      bool* out_should_show_dialog);
+  bool ShouldShowTimeOfDayWallpaperDialog();
 
  private:
   WallpaperProvider* const proxy_;
@@ -138,7 +142,7 @@ class  ThemeObserverInterceptorForTesting : public ThemeObserver {
   void OnColorModeAutoScheduleChanged(bool enabled) override;
   void OnColorSchemeChanged(::ash::style::mojom::ColorScheme color_scheme) override;
   void OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) override;
-  void OnStaticColorChanged(absl::optional<::SkColor> color) override;
+  void OnStaticColorChanged(std::optional<::SkColor> color) override;
 };
 class  ThemeObserverAsyncWaiter {
  public:
@@ -179,8 +183,8 @@ class  ThemeProviderAsyncWaiter {
       ::ash::style::mojom::ColorScheme* out_color_scheme);
   ::ash::style::mojom::ColorScheme GetColorScheme();
   void GetStaticColor(
-      absl::optional<::SkColor>* out_static_color);
-  absl::optional<::SkColor> GetStaticColor();
+      std::optional<::SkColor>* out_static_color);
+  std::optional<::SkColor> GetStaticColor();
   void GenerateSampleColorSchemes(
       std::vector<::ash::SampleColorScheme>* out_sample_color_schemes);
   std::vector<::ash::SampleColorScheme> GenerateSampleColorSchemes();

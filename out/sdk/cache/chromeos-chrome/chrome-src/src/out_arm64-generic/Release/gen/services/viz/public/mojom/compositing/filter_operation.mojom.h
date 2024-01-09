@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/filter_operation.mojom-features.h"
 #include "services/viz/public/mojom/compositing/filter_operation.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/filter_operation.mojom-forward.h"
 #include "services/viz/public/mojom/compositing/paint_filter.mojom.h"
@@ -81,10 +82,10 @@ class  FilterOperation {
       const ::gfx::Point& offset,
       const ::SkColor4f& drop_shadow_color,
       const ::sk_sp<::cc::PaintFilter>& image_filter,
-      absl::optional<std::vector<float>> matrix,
+      std::optional<std::vector<float>> matrix,
       int32_t zoom_inset,
       ::SkTileMode blur_tile_mode,
-      absl::optional<std::vector<::gfx::Rect>> shape);
+      std::optional<std::vector<::gfx::Rect>> shape);
 
 
   ~FilterOperation();
@@ -172,13 +173,13 @@ class  FilterOperation {
   
   ::sk_sp<::cc::PaintFilter> image_filter;
   
-  absl::optional<std::vector<float>> matrix;
+  std::optional<std::vector<float>> matrix;
   
   int32_t zoom_inset;
   
   ::SkTileMode blur_tile_mode;
   
-  absl::optional<std::vector<::gfx::Rect>> shape;
+  std::optional<std::vector<::gfx::Rect>> shape;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -340,6 +340,9 @@ class ResourceLoadInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::RedirectInfoDataView>>(
         pointer, output, message_);
   }
+  int32_t http_status_code() const {
+    return data_->http_status_code;
+  }
  private:
   internal::ResourceLoadInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -592,6 +595,7 @@ struct Serializer<::blink::mojom::ResourceLoadInfoDataView, MaybeConstUserType> 
         fragment->redirect_info_chain.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null redirect_info_chain in ResourceLoadInfo struct");
+    fragment->http_status_code = Traits::http_status_code(input);
   }
 
   static bool Deserialize(::blink::mojom::internal::ResourceLoadInfo_Data* input,

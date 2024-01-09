@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/string-indexof-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -135,7 +136,7 @@ TF_BUILTIN(StringPrototypeIndexOf, CodeStubAssembler) {
   TNode<Smi> tmp14;
   if (block2.is_used()) {
     ca_.Bind(&block2, &phi_bb2_10);
-    tmp14 = ca_.CallStub<Smi>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringIndexOf), TNode<Object>(), tmp5, tmp6, phi_bb2_10);
+    tmp14 = ca_.CallBuiltin<Smi>(Builtin::kStringIndexOf, TNode<Object>(), tmp5, tmp6, phi_bb2_10);
     arguments.PopAndReturn(tmp14);
   }
 }

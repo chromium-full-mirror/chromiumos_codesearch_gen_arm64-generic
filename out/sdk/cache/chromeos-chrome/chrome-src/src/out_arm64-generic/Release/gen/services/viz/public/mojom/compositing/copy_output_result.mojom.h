@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/copy_output_result.mojom-features.h"
 #include "services/viz/public/mojom/compositing/copy_output_result.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/copy_output_result.mojom-forward.h"
 #include "gpu/ipc/common/mailbox.mojom.h"
@@ -83,9 +84,9 @@ class  CopyOutputResult {
       CopyOutputResultDestination destination,
       const ::gfx::Rect& rect,
       ::viz::mojom::BitmapInSharedMemoryPtr bitmap,
-      const absl::optional<::gpu::Mailbox>& mailbox,
-      const absl::optional<::gpu::SyncToken>& sync_token,
-      const absl::optional<::gfx::ColorSpace>& color_space,
+      const std::optional<::gpu::Mailbox>& mailbox,
+      const std::optional<::gpu::SyncToken>& sync_token,
+      const std::optional<::gfx::ColorSpace>& color_space,
       ::mojo::PendingRemote<::viz::mojom::TextureReleaser> releaser);
 
 CopyOutputResult(const CopyOutputResult&) = delete;
@@ -169,11 +170,11 @@ CopyOutputResult& operator=(const CopyOutputResult&) = delete;
   
   ::viz::mojom::BitmapInSharedMemoryPtr bitmap;
   
-  absl::optional<::gpu::Mailbox> mailbox;
+  std::optional<::gpu::Mailbox> mailbox;
   
-  absl::optional<::gpu::SyncToken> sync_token;
+  std::optional<::gpu::SyncToken> sync_token;
   
-  absl::optional<::gfx::ColorSpace> color_space;
+  std::optional<::gfx::ColorSpace> color_space;
   
   ::mojo::PendingRemote<::viz::mojom::TextureReleaser> releaser;
 

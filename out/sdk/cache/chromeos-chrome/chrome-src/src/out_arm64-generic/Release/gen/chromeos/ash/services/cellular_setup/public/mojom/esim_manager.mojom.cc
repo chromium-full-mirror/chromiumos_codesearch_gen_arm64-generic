@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -352,14 +353,17 @@ void ESimManagerObserverProxy::OnAvailableEuiccListChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::ESimManagerObserver::OnAvailableEuiccListChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManagerObserver_OnAvailableEuiccListChanged_Name, kFlags, 0, 0, nullptr);
@@ -389,14 +393,17 @@ void ESimManagerObserverProxy::OnProfileListChanged(
                         "<value of type ::mojo::PendingRemote<Euicc>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManagerObserver_OnProfileListChanged_Name, kFlags, 0, 0, nullptr);
@@ -432,14 +439,17 @@ void ESimManagerObserverProxy::OnEuiccChanged(
                         "<value of type ::mojo::PendingRemote<Euicc>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManagerObserver_OnEuiccChanged_Name, kFlags, 0, 0, nullptr);
@@ -475,14 +485,17 @@ void ESimManagerObserverProxy::OnProfileChanged(
                         "<value of type ::mojo::PendingRemote<ESimProfile>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManagerObserver_OnProfileChanged_Name, kFlags, 0, 0, nullptr);
@@ -645,16 +658,16 @@ bool ESimManagerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kESimManagerObserverValidationInfo[] = {
-    {&internal::ESimManagerObserver_OnAvailableEuiccListChanged_Params_Data::Validate,
+    { &internal::ESimManagerObserver_OnAvailableEuiccListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ESimManagerObserver_OnProfileListChanged_Params_Data::Validate,
+    { &internal::ESimManagerObserver_OnProfileListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ESimManagerObserver_OnEuiccChanged_Params_Data::Validate,
+    { &internal::ESimManagerObserver_OnEuiccChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ESimManagerObserver_OnProfileChanged_Params_Data::Validate,
+    { &internal::ESimManagerObserver_OnProfileChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -770,14 +783,17 @@ void ESimManagerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<ESimManagerObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManager_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -806,14 +822,17 @@ void ESimManagerProxy::GetAvailableEuiccs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::ESimManager::GetAvailableEuiccs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManager_GetAvailableEuiccs_Name, kFlags, 0, 0, nullptr);
@@ -923,7 +942,8 @@ void ESimManager_GetAvailableEuiccs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimManager_GetAvailableEuiccs_Name, kFlags, 0, 0, nullptr);
@@ -1042,12 +1062,12 @@ bool ESimManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kESimManagerValidationInfo[] = {
-    {&internal::ESimManager_AddObserver_Params_Data::Validate,
+    { &internal::ESimManager_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ESimManager_GetAvailableEuiccs_Params_Data::Validate,
+    { &internal::ESimManager_GetAvailableEuiccs_Params_Data::Validate,
      &internal::ESimManager_GetAvailableEuiccs_ResponseParams_Data::Validate},
 };
 
@@ -1320,14 +1340,17 @@ void EuiccProxy::GetProperties(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::Euicc::GetProperties");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1351,14 +1374,17 @@ void EuiccProxy::GetProfileList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::Euicc::GetProfileList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetProfileList_Name, kFlags, 0, 0, nullptr);
@@ -1382,14 +1408,17 @@ void EuiccProxy::RequestAvailableProfiles(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::Euicc::RequestAvailableProfiles");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_RequestAvailableProfiles_Name, kFlags, 0, 0, nullptr);
@@ -1413,14 +1442,17 @@ void EuiccProxy::RequestPendingProfiles(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::Euicc::RequestPendingProfiles");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_RequestPendingProfiles_Name, kFlags, 0, 0, nullptr);
@@ -1457,14 +1489,17 @@ void EuiccProxy::InstallProfileFromActivationCode(
                         "<value of type ProfileInstallMethod>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_InstallProfileFromActivationCode_Name, kFlags, 0, 0, nullptr);
@@ -1512,14 +1547,17 @@ void EuiccProxy::GetEidQRCode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::Euicc::GetEidQRCode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetEidQRCode_Name, kFlags, 0, 0, nullptr);
@@ -1629,7 +1667,8 @@ void Euicc_GetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1757,7 +1796,8 @@ void Euicc_GetProfileList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetProfileList_Name, kFlags, 0, 0, nullptr);
@@ -1894,7 +1934,8 @@ void Euicc_RequestAvailableProfiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_RequestAvailableProfiles_Name, kFlags, 0, 0, nullptr);
@@ -2026,7 +2067,8 @@ void Euicc_RequestPendingProfiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_RequestPendingProfiles_Name, kFlags, 0, 0, nullptr);
@@ -2154,7 +2196,8 @@ void Euicc_InstallProfileFromActivationCode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_InstallProfileFromActivationCode_Name, kFlags, 0, 0, nullptr);
@@ -2275,7 +2318,8 @@ void Euicc_GetEidQRCode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEuicc_GetEidQRCode_Name, kFlags, 0, 0, nullptr);
@@ -2509,20 +2553,20 @@ std::move(p_install_method), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEuiccValidationInfo[] = {
-    {&internal::Euicc_GetProperties_Params_Data::Validate,
+    { &internal::Euicc_GetProperties_Params_Data::Validate,
      &internal::Euicc_GetProperties_ResponseParams_Data::Validate},
-    {&internal::Euicc_GetProfileList_Params_Data::Validate,
+    { &internal::Euicc_GetProfileList_Params_Data::Validate,
      &internal::Euicc_GetProfileList_ResponseParams_Data::Validate},
-    {&internal::Euicc_RequestAvailableProfiles_Params_Data::Validate,
+    { &internal::Euicc_RequestAvailableProfiles_Params_Data::Validate,
      &internal::Euicc_RequestAvailableProfiles_ResponseParams_Data::Validate},
-    {&internal::Euicc_RequestPendingProfiles_Params_Data::Validate,
+    { &internal::Euicc_RequestPendingProfiles_Params_Data::Validate,
      &internal::Euicc_RequestPendingProfiles_ResponseParams_Data::Validate},
-    {&internal::Euicc_InstallProfileFromActivationCode_Params_Data::Validate,
+    { &internal::Euicc_InstallProfileFromActivationCode_Params_Data::Validate,
      &internal::Euicc_InstallProfileFromActivationCode_ResponseParams_Data::Validate},
-    {&internal::Euicc_GetEidQRCode_Params_Data::Validate,
+    { &internal::Euicc_GetEidQRCode_Params_Data::Validate,
      &internal::Euicc_GetEidQRCode_ResponseParams_Data::Validate},
 };
 
@@ -2723,14 +2767,17 @@ void ESimProfileProxy::GetProperties(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::ESimProfile::GetProperties");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -2761,14 +2808,17 @@ void ESimProfileProxy::InstallProfile(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_InstallProfile_Name, kFlags, 0, 0, nullptr);
@@ -2803,14 +2853,17 @@ void ESimProfileProxy::UninstallProfile(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cellular_setup::mojom::ESimProfile::UninstallProfile");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_UninstallProfile_Name, kFlags, 0, 0, nullptr);
@@ -2841,14 +2894,17 @@ void ESimProfileProxy::SetProfileNickname(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_SetProfileNickname_Name, kFlags, 0, 0, nullptr);
@@ -2969,7 +3025,8 @@ void ESimProfile_GetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -3097,7 +3154,8 @@ void ESimProfile_InstallProfile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_InstallProfile_Name, kFlags, 0, 0, nullptr);
@@ -3216,7 +3274,8 @@ void ESimProfile_UninstallProfile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_UninstallProfile_Name, kFlags, 0, 0, nullptr);
@@ -3335,7 +3394,8 @@ void ESimProfile_SetProfileNickname_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kESimProfile_SetProfileNickname_Name, kFlags, 0, 0, nullptr);
@@ -3504,16 +3564,16 @@ std::move(p_nickname), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kESimProfileValidationInfo[] = {
-    {&internal::ESimProfile_GetProperties_Params_Data::Validate,
+    { &internal::ESimProfile_GetProperties_Params_Data::Validate,
      &internal::ESimProfile_GetProperties_ResponseParams_Data::Validate},
-    {&internal::ESimProfile_InstallProfile_Params_Data::Validate,
+    { &internal::ESimProfile_InstallProfile_Params_Data::Validate,
      &internal::ESimProfile_InstallProfile_ResponseParams_Data::Validate},
-    {&internal::ESimProfile_UninstallProfile_Params_Data::Validate,
+    { &internal::ESimProfile_UninstallProfile_Params_Data::Validate,
      &internal::ESimProfile_UninstallProfile_ResponseParams_Data::Validate},
-    {&internal::ESimProfile_SetProfileNickname_Params_Data::Validate,
+    { &internal::ESimProfile_SetProfileNickname_Params_Data::Validate,
      &internal::ESimProfile_SetProfileNickname_ResponseParams_Data::Validate},
 };
 

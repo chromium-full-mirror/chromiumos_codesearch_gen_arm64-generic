@@ -199,6 +199,34 @@ std::ostream& operator<<(std::ostream& os, PreferredDisplaySurface value) {
   return os << PreferredDisplaySurfaceToString(value);
 }
 
+NOINLINE static const char* CapturedSurfaceControlResultToStringHelper(CapturedSurfaceControlResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CapturedSurfaceControlResult::kSuccess:
+      return "kSuccess";
+    case CapturedSurfaceControlResult::kUnknownError:
+      return "kUnknownError";
+    case CapturedSurfaceControlResult::kNoPermissionError:
+      return "kNoPermissionError";
+    case CapturedSurfaceControlResult::kCapturedSurfaceNotFoundError:
+      return "kCapturedSurfaceNotFoundError";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CapturedSurfaceControlResultToString(CapturedSurfaceControlResult value) {
+  const char *str = CapturedSurfaceControlResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CapturedSurfaceControlResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CapturedSurfaceControlResult value) {
+  return os << CapturedSurfaceControlResultToString(value);
+}
+
 namespace internal {
 
 
@@ -434,6 +462,29 @@ bool GetOpenDeviceResponse_Data::Validate(
 }
 
 GetOpenDeviceResponse_Data::GetOpenDeviceResponse_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CapturedWheelAction_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CapturedWheelAction_Data* object =
+      static_cast<const CapturedWheelAction_Data*>(data);
+
+  return true;
+}
+
+CapturedWheelAction_Data::CapturedWheelAction_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1093,7 +1144,7 @@ bool MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::Validate(
     return false;
 
 
-  if (!::blink::mojom::internal::SubCaptureTargetType_Data
+  if (!::media::mojom::internal::SubCaptureTargetType_Data
         ::Validate(object->type, validation_context))
     return false;
 
@@ -1136,6 +1187,187 @@ bool MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::Valida
 }
 
 MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_SendWheel_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_SendWheel_Params_Data* object =
+      static_cast<const MediaStreamDispatcherHost_SendWheel_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->device_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->device_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->action, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->action, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_SendWheel_Params_Data::MediaStreamDispatcherHost_SendWheel_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_SendWheel_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_SendWheel_ResponseParams_Data* object =
+      static_cast<const MediaStreamDispatcherHost_SendWheel_ResponseParams_Data*>(data);
+
+
+  if (!::blink::mojom::internal::CapturedSurfaceControlResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_SendWheel_ResponseParams_Data::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_GetZoomLevel_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_GetZoomLevel_Params_Data* object =
+      static_cast<const MediaStreamDispatcherHost_GetZoomLevel_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->device_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->device_id, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_GetZoomLevel_Params_Data::MediaStreamDispatcherHost_GetZoomLevel_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* object =
+      static_cast<const MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data*>(data);
+
+
+  if (!::blink::mojom::internal::CapturedSurfaceControlResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_SetZoomLevel_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_SetZoomLevel_Params_Data* object =
+      static_cast<const MediaStreamDispatcherHost_SetZoomLevel_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->device_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->device_id, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_SetZoomLevel_Params_Data::MediaStreamDispatcherHost_SetZoomLevel_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data* object =
+      static_cast<const MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data*>(data);
+
+
+  if (!::blink::mojom::internal::CapturedSurfaceControlResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1362,6 +1594,16 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::PreferredDisplaySurface>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::PreferredDisplaySurface value) {
   return std::move(context).WriteString(::blink::mojom::PreferredDisplaySurfaceToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::CapturedSurfaceControlResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::CapturedSurfaceControlResult value) {
+  return std::move(context).WriteString(::blink::mojom::CapturedSurfaceControlResultToString(value));
 }
 
 } // namespace perfetto

@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_components_2fenterprise_2fcommon_2fproto_2flegacy_5ftech_5fevents_2eproto
@@ -42,15 +43,39 @@ struct TableStruct_components_2fenterprise_2fcommon_2fproto_2flegacy_5ftech_5fev
   static const uint32_t offsets[];
 };
 namespace enterprise_reporting {
+class CookieIssueDetails;
+struct CookieIssueDetailsDefaultTypeInternal;
+extern CookieIssueDetailsDefaultTypeInternal _CookieIssueDetails_default_instance_;
 class LegacyTechEvent;
 struct LegacyTechEventDefaultTypeInternal;
 extern LegacyTechEventDefaultTypeInternal _LegacyTechEvent_default_instance_;
 }  // namespace enterprise_reporting
 PROTOBUF_NAMESPACE_OPEN
+template<> ::enterprise_reporting::CookieIssueDetails* Arena::CreateMaybeMessage<::enterprise_reporting::CookieIssueDetails>(Arena*);
 template<> ::enterprise_reporting::LegacyTechEvent* Arena::CreateMaybeMessage<::enterprise_reporting::LegacyTechEvent>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace enterprise_reporting {
 
+enum CookieAccessOperation : int {
+  COOKIE_ACCESS_OPERATION_UNSPECIFIED = 0,
+  COOKIE_ACCESS_OPERATION_READ = 1,
+  COOKIE_ACCESS_OPERATION_WRITE = 2
+};
+bool CookieAccessOperation_IsValid(int value);
+constexpr CookieAccessOperation CookieAccessOperation_MIN = COOKIE_ACCESS_OPERATION_UNSPECIFIED;
+constexpr CookieAccessOperation CookieAccessOperation_MAX = COOKIE_ACCESS_OPERATION_WRITE;
+constexpr int CookieAccessOperation_ARRAYSIZE = CookieAccessOperation_MAX + 1;
+
+const std::string& CookieAccessOperation_Name(CookieAccessOperation value);
+template<typename T>
+inline const std::string& CookieAccessOperation_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CookieAccessOperation>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function CookieAccessOperation_Name.");
+  return CookieAccessOperation_Name(static_cast<CookieAccessOperation>(enum_t_value));
+}
+bool CookieAccessOperation_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CookieAccessOperation* value);
 // ===================================================================
 
 class LegacyTechEvent final :
@@ -167,6 +192,8 @@ class LegacyTechEvent final :
     kUrlFieldNumber = 3,
     kAllowlistedUrlMatchFieldNumber = 4,
     kFilenameFieldNumber = 5,
+    kFrameUrlFieldNumber = 9,
+    kCookieIssueDetailsFieldNumber = 8,
     kEventTimestampMillisFieldNumber = 2,
     kColumnFieldNumber = 6,
     kLineFieldNumber = 7,
@@ -243,6 +270,42 @@ class LegacyTechEvent final :
   std::string* _internal_mutable_filename();
   public:
 
+  // optional string frame_url = 9;
+  bool has_frame_url() const;
+  private:
+  bool _internal_has_frame_url() const;
+  public:
+  void clear_frame_url();
+  const std::string& frame_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_frame_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_frame_url();
+  PROTOBUF_NODISCARD std::string* release_frame_url();
+  void set_allocated_frame_url(std::string* frame_url);
+  private:
+  const std::string& _internal_frame_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_frame_url(const std::string& value);
+  std::string* _internal_mutable_frame_url();
+  public:
+
+  // optional .enterprise_reporting.CookieIssueDetails cookie_issue_details = 8;
+  bool has_cookie_issue_details() const;
+  private:
+  bool _internal_has_cookie_issue_details() const;
+  public:
+  void clear_cookie_issue_details();
+  const ::enterprise_reporting::CookieIssueDetails& cookie_issue_details() const;
+  PROTOBUF_NODISCARD ::enterprise_reporting::CookieIssueDetails* release_cookie_issue_details();
+  ::enterprise_reporting::CookieIssueDetails* mutable_cookie_issue_details();
+  void set_allocated_cookie_issue_details(::enterprise_reporting::CookieIssueDetails* cookie_issue_details);
+  private:
+  const ::enterprise_reporting::CookieIssueDetails& _internal_cookie_issue_details() const;
+  ::enterprise_reporting::CookieIssueDetails* _internal_mutable_cookie_issue_details();
+  public:
+  void unsafe_arena_set_allocated_cookie_issue_details(
+      ::enterprise_reporting::CookieIssueDetails* cookie_issue_details);
+  ::enterprise_reporting::CookieIssueDetails* unsafe_arena_release_cookie_issue_details();
+
   // optional int64 event_timestamp_millis = 2;
   bool has_event_timestamp_millis() const;
   private:
@@ -295,9 +358,230 @@ class LegacyTechEvent final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr url_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr allowlisted_url_match_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr frame_url_;
+  ::enterprise_reporting::CookieIssueDetails* cookie_issue_details_;
   int64_t event_timestamp_millis_;
   uint64_t column_;
   uint64_t line_;
+  friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2flegacy_5ftech_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CookieIssueDetails final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_reporting.CookieIssueDetails) */ {
+ public:
+  inline CookieIssueDetails() : CookieIssueDetails(nullptr) {}
+  ~CookieIssueDetails() override;
+  explicit PROTOBUF_CONSTEXPR CookieIssueDetails(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CookieIssueDetails(const CookieIssueDetails& from);
+  CookieIssueDetails(CookieIssueDetails&& from) noexcept
+    : CookieIssueDetails() {
+    *this = ::std::move(from);
+  }
+
+  inline CookieIssueDetails& operator=(const CookieIssueDetails& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CookieIssueDetails& operator=(CookieIssueDetails&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const CookieIssueDetails& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CookieIssueDetails* internal_default_instance() {
+    return reinterpret_cast<const CookieIssueDetails*>(
+               &_CookieIssueDetails_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(CookieIssueDetails& a, CookieIssueDetails& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(CookieIssueDetails* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CookieIssueDetails* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CookieIssueDetails* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CookieIssueDetails>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CookieIssueDetails& from);
+  void MergeFrom(const CookieIssueDetails& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CookieIssueDetails* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_reporting.CookieIssueDetails";
+  }
+  protected:
+  explicit CookieIssueDetails(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTransferOrScriptUrlFieldNumber = 1,
+    kNameFieldNumber = 2,
+    kDomainFieldNumber = 3,
+    kPathFieldNumber = 4,
+    kAccessOperationFieldNumber = 5,
+  };
+  // optional string transfer_or_script_url = 1;
+  bool has_transfer_or_script_url() const;
+  private:
+  bool _internal_has_transfer_or_script_url() const;
+  public:
+  void clear_transfer_or_script_url();
+  const std::string& transfer_or_script_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_transfer_or_script_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_transfer_or_script_url();
+  PROTOBUF_NODISCARD std::string* release_transfer_or_script_url();
+  void set_allocated_transfer_or_script_url(std::string* transfer_or_script_url);
+  private:
+  const std::string& _internal_transfer_or_script_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_transfer_or_script_url(const std::string& value);
+  std::string* _internal_mutable_transfer_or_script_url();
+  public:
+
+  // optional string name = 2;
+  bool has_name() const;
+  private:
+  bool _internal_has_name() const;
+  public:
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // optional string domain = 3;
+  bool has_domain() const;
+  private:
+  bool _internal_has_domain() const;
+  public:
+  void clear_domain();
+  const std::string& domain() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_domain(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_domain();
+  PROTOBUF_NODISCARD std::string* release_domain();
+  void set_allocated_domain(std::string* domain);
+  private:
+  const std::string& _internal_domain() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_domain(const std::string& value);
+  std::string* _internal_mutable_domain();
+  public:
+
+  // optional string path = 4;
+  bool has_path() const;
+  private:
+  bool _internal_has_path() const;
+  public:
+  void clear_path();
+  const std::string& path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_path();
+  PROTOBUF_NODISCARD std::string* release_path();
+  void set_allocated_path(std::string* path);
+  private:
+  const std::string& _internal_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_path(const std::string& value);
+  std::string* _internal_mutable_path();
+  public:
+
+  // optional .enterprise_reporting.CookieAccessOperation access_operation = 5;
+  bool has_access_operation() const;
+  private:
+  bool _internal_has_access_operation() const;
+  public:
+  void clear_access_operation();
+  ::enterprise_reporting::CookieAccessOperation access_operation() const;
+  void set_access_operation(::enterprise_reporting::CookieAccessOperation value);
+  private:
+  ::enterprise_reporting::CookieAccessOperation _internal_access_operation() const;
+  void _internal_set_access_operation(::enterprise_reporting::CookieAccessOperation value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_reporting.CookieIssueDetails)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr transfer_or_script_url_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr domain_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
+  int access_operation_;
   friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2flegacy_5ftech_5fevents_2eproto;
 };
 // ===================================================================
@@ -381,7 +665,7 @@ inline void LegacyTechEvent::set_allocated_feature_id(std::string* feature_id) {
 
 // optional int64 event_timestamp_millis = 2;
 inline bool LegacyTechEvent::_internal_has_event_timestamp_millis() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool LegacyTechEvent::has_event_timestamp_millis() const {
@@ -389,7 +673,7 @@ inline bool LegacyTechEvent::has_event_timestamp_millis() const {
 }
 inline void LegacyTechEvent::clear_event_timestamp_millis() {
   event_timestamp_millis_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline int64_t LegacyTechEvent::_internal_event_timestamp_millis() const {
   return event_timestamp_millis_;
@@ -399,7 +683,7 @@ inline int64_t LegacyTechEvent::event_timestamp_millis() const {
   return _internal_event_timestamp_millis();
 }
 inline void LegacyTechEvent::_internal_set_event_timestamp_millis(int64_t value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000040u;
   event_timestamp_millis_ = value;
 }
 inline void LegacyTechEvent::set_event_timestamp_millis(int64_t value) {
@@ -613,7 +897,7 @@ inline void LegacyTechEvent::set_allocated_filename(std::string* filename) {
 
 // optional uint64 column = 6;
 inline bool LegacyTechEvent::_internal_has_column() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool LegacyTechEvent::has_column() const {
@@ -621,7 +905,7 @@ inline bool LegacyTechEvent::has_column() const {
 }
 inline void LegacyTechEvent::clear_column() {
   column_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline uint64_t LegacyTechEvent::_internal_column() const {
   return column_;
@@ -631,7 +915,7 @@ inline uint64_t LegacyTechEvent::column() const {
   return _internal_column();
 }
 inline void LegacyTechEvent::_internal_set_column(uint64_t value) {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000080u;
   column_ = value;
 }
 inline void LegacyTechEvent::set_column(uint64_t value) {
@@ -641,7 +925,7 @@ inline void LegacyTechEvent::set_column(uint64_t value) {
 
 // optional uint64 line = 7;
 inline bool LegacyTechEvent::_internal_has_line() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool LegacyTechEvent::has_line() const {
@@ -649,7 +933,7 @@ inline bool LegacyTechEvent::has_line() const {
 }
 inline void LegacyTechEvent::clear_line() {
   line_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline uint64_t LegacyTechEvent::_internal_line() const {
   return line_;
@@ -659,7 +943,7 @@ inline uint64_t LegacyTechEvent::line() const {
   return _internal_line();
 }
 inline void LegacyTechEvent::_internal_set_line(uint64_t value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000100u;
   line_ = value;
 }
 inline void LegacyTechEvent::set_line(uint64_t value) {
@@ -667,13 +951,484 @@ inline void LegacyTechEvent::set_line(uint64_t value) {
   // @@protoc_insertion_point(field_set:enterprise_reporting.LegacyTechEvent.line)
 }
 
+// optional .enterprise_reporting.CookieIssueDetails cookie_issue_details = 8;
+inline bool LegacyTechEvent::_internal_has_cookie_issue_details() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  PROTOBUF_ASSUME(!value || cookie_issue_details_ != nullptr);
+  return value;
+}
+inline bool LegacyTechEvent::has_cookie_issue_details() const {
+  return _internal_has_cookie_issue_details();
+}
+inline void LegacyTechEvent::clear_cookie_issue_details() {
+  if (cookie_issue_details_ != nullptr) cookie_issue_details_->Clear();
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline const ::enterprise_reporting::CookieIssueDetails& LegacyTechEvent::_internal_cookie_issue_details() const {
+  const ::enterprise_reporting::CookieIssueDetails* p = cookie_issue_details_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_reporting::CookieIssueDetails&>(
+      ::enterprise_reporting::_CookieIssueDetails_default_instance_);
+}
+inline const ::enterprise_reporting::CookieIssueDetails& LegacyTechEvent::cookie_issue_details() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.LegacyTechEvent.cookie_issue_details)
+  return _internal_cookie_issue_details();
+}
+inline void LegacyTechEvent::unsafe_arena_set_allocated_cookie_issue_details(
+    ::enterprise_reporting::CookieIssueDetails* cookie_issue_details) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cookie_issue_details_);
+  }
+  cookie_issue_details_ = cookie_issue_details;
+  if (cookie_issue_details) {
+    _has_bits_[0] |= 0x00000020u;
+  } else {
+    _has_bits_[0] &= ~0x00000020u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_reporting.LegacyTechEvent.cookie_issue_details)
+}
+inline ::enterprise_reporting::CookieIssueDetails* LegacyTechEvent::release_cookie_issue_details() {
+  _has_bits_[0] &= ~0x00000020u;
+  ::enterprise_reporting::CookieIssueDetails* temp = cookie_issue_details_;
+  cookie_issue_details_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_reporting::CookieIssueDetails* LegacyTechEvent::unsafe_arena_release_cookie_issue_details() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.LegacyTechEvent.cookie_issue_details)
+  _has_bits_[0] &= ~0x00000020u;
+  ::enterprise_reporting::CookieIssueDetails* temp = cookie_issue_details_;
+  cookie_issue_details_ = nullptr;
+  return temp;
+}
+inline ::enterprise_reporting::CookieIssueDetails* LegacyTechEvent::_internal_mutable_cookie_issue_details() {
+  _has_bits_[0] |= 0x00000020u;
+  if (cookie_issue_details_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_reporting::CookieIssueDetails>(GetArenaForAllocation());
+    cookie_issue_details_ = p;
+  }
+  return cookie_issue_details_;
+}
+inline ::enterprise_reporting::CookieIssueDetails* LegacyTechEvent::mutable_cookie_issue_details() {
+  ::enterprise_reporting::CookieIssueDetails* _msg = _internal_mutable_cookie_issue_details();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.LegacyTechEvent.cookie_issue_details)
+  return _msg;
+}
+inline void LegacyTechEvent::set_allocated_cookie_issue_details(::enterprise_reporting::CookieIssueDetails* cookie_issue_details) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete cookie_issue_details_;
+  }
+  if (cookie_issue_details) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(cookie_issue_details);
+    if (message_arena != submessage_arena) {
+      cookie_issue_details = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cookie_issue_details, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000020u;
+  } else {
+    _has_bits_[0] &= ~0x00000020u;
+  }
+  cookie_issue_details_ = cookie_issue_details;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.LegacyTechEvent.cookie_issue_details)
+}
+
+// optional string frame_url = 9;
+inline bool LegacyTechEvent::_internal_has_frame_url() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool LegacyTechEvent::has_frame_url() const {
+  return _internal_has_frame_url();
+}
+inline void LegacyTechEvent::clear_frame_url() {
+  frame_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& LegacyTechEvent::frame_url() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.LegacyTechEvent.frame_url)
+  return _internal_frame_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void LegacyTechEvent::set_frame_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000010u;
+ frame_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_reporting.LegacyTechEvent.frame_url)
+}
+inline std::string* LegacyTechEvent::mutable_frame_url() {
+  std::string* _s = _internal_mutable_frame_url();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.LegacyTechEvent.frame_url)
+  return _s;
+}
+inline const std::string& LegacyTechEvent::_internal_frame_url() const {
+  return frame_url_.Get();
+}
+inline void LegacyTechEvent::_internal_set_frame_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000010u;
+  frame_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* LegacyTechEvent::_internal_mutable_frame_url() {
+  _has_bits_[0] |= 0x00000010u;
+  return frame_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* LegacyTechEvent::release_frame_url() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.LegacyTechEvent.frame_url)
+  if (!_internal_has_frame_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000010u;
+  auto* p = frame_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (frame_url_.IsDefault()) {
+    frame_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void LegacyTechEvent::set_allocated_frame_url(std::string* frame_url) {
+  if (frame_url != nullptr) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  frame_url_.SetAllocated(frame_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (frame_url_.IsDefault()) {
+    frame_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.LegacyTechEvent.frame_url)
+}
+
+// -------------------------------------------------------------------
+
+// CookieIssueDetails
+
+// optional string transfer_or_script_url = 1;
+inline bool CookieIssueDetails::_internal_has_transfer_or_script_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool CookieIssueDetails::has_transfer_or_script_url() const {
+  return _internal_has_transfer_or_script_url();
+}
+inline void CookieIssueDetails::clear_transfer_or_script_url() {
+  transfer_or_script_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& CookieIssueDetails::transfer_or_script_url() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.CookieIssueDetails.transfer_or_script_url)
+  return _internal_transfer_or_script_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CookieIssueDetails::set_transfer_or_script_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ transfer_or_script_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_reporting.CookieIssueDetails.transfer_or_script_url)
+}
+inline std::string* CookieIssueDetails::mutable_transfer_or_script_url() {
+  std::string* _s = _internal_mutable_transfer_or_script_url();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.CookieIssueDetails.transfer_or_script_url)
+  return _s;
+}
+inline const std::string& CookieIssueDetails::_internal_transfer_or_script_url() const {
+  return transfer_or_script_url_.Get();
+}
+inline void CookieIssueDetails::_internal_set_transfer_or_script_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  transfer_or_script_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::_internal_mutable_transfer_or_script_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return transfer_or_script_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::release_transfer_or_script_url() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.CookieIssueDetails.transfer_or_script_url)
+  if (!_internal_has_transfer_or_script_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = transfer_or_script_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (transfer_or_script_url_.IsDefault()) {
+    transfer_or_script_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CookieIssueDetails::set_allocated_transfer_or_script_url(std::string* transfer_or_script_url) {
+  if (transfer_or_script_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  transfer_or_script_url_.SetAllocated(transfer_or_script_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (transfer_or_script_url_.IsDefault()) {
+    transfer_or_script_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.CookieIssueDetails.transfer_or_script_url)
+}
+
+// optional string name = 2;
+inline bool CookieIssueDetails::_internal_has_name() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool CookieIssueDetails::has_name() const {
+  return _internal_has_name();
+}
+inline void CookieIssueDetails::clear_name() {
+  name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& CookieIssueDetails::name() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.CookieIssueDetails.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CookieIssueDetails::set_name(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_reporting.CookieIssueDetails.name)
+}
+inline std::string* CookieIssueDetails::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.CookieIssueDetails.name)
+  return _s;
+}
+inline const std::string& CookieIssueDetails::_internal_name() const {
+  return name_.Get();
+}
+inline void CookieIssueDetails::_internal_set_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::_internal_mutable_name() {
+  _has_bits_[0] |= 0x00000002u;
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::release_name() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.CookieIssueDetails.name)
+  if (!_internal_has_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CookieIssueDetails::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.CookieIssueDetails.name)
+}
+
+// optional string domain = 3;
+inline bool CookieIssueDetails::_internal_has_domain() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool CookieIssueDetails::has_domain() const {
+  return _internal_has_domain();
+}
+inline void CookieIssueDetails::clear_domain() {
+  domain_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& CookieIssueDetails::domain() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.CookieIssueDetails.domain)
+  return _internal_domain();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CookieIssueDetails::set_domain(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ domain_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_reporting.CookieIssueDetails.domain)
+}
+inline std::string* CookieIssueDetails::mutable_domain() {
+  std::string* _s = _internal_mutable_domain();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.CookieIssueDetails.domain)
+  return _s;
+}
+inline const std::string& CookieIssueDetails::_internal_domain() const {
+  return domain_.Get();
+}
+inline void CookieIssueDetails::_internal_set_domain(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  domain_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::_internal_mutable_domain() {
+  _has_bits_[0] |= 0x00000004u;
+  return domain_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::release_domain() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.CookieIssueDetails.domain)
+  if (!_internal_has_domain()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = domain_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (domain_.IsDefault()) {
+    domain_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CookieIssueDetails::set_allocated_domain(std::string* domain) {
+  if (domain != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  domain_.SetAllocated(domain, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (domain_.IsDefault()) {
+    domain_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.CookieIssueDetails.domain)
+}
+
+// optional string path = 4;
+inline bool CookieIssueDetails::_internal_has_path() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool CookieIssueDetails::has_path() const {
+  return _internal_has_path();
+}
+inline void CookieIssueDetails::clear_path() {
+  path_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& CookieIssueDetails::path() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.CookieIssueDetails.path)
+  return _internal_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CookieIssueDetails::set_path(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000008u;
+ path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_reporting.CookieIssueDetails.path)
+}
+inline std::string* CookieIssueDetails::mutable_path() {
+  std::string* _s = _internal_mutable_path();
+  // @@protoc_insertion_point(field_mutable:enterprise_reporting.CookieIssueDetails.path)
+  return _s;
+}
+inline const std::string& CookieIssueDetails::_internal_path() const {
+  return path_.Get();
+}
+inline void CookieIssueDetails::_internal_set_path(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::_internal_mutable_path() {
+  _has_bits_[0] |= 0x00000008u;
+  return path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CookieIssueDetails::release_path() {
+  // @@protoc_insertion_point(field_release:enterprise_reporting.CookieIssueDetails.path)
+  if (!_internal_has_path()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  auto* p = path_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (path_.IsDefault()) {
+    path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CookieIssueDetails::set_allocated_path(std::string* path) {
+  if (path != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  path_.SetAllocated(path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (path_.IsDefault()) {
+    path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_reporting.CookieIssueDetails.path)
+}
+
+// optional .enterprise_reporting.CookieAccessOperation access_operation = 5;
+inline bool CookieIssueDetails::_internal_has_access_operation() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool CookieIssueDetails::has_access_operation() const {
+  return _internal_has_access_operation();
+}
+inline void CookieIssueDetails::clear_access_operation() {
+  access_operation_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::enterprise_reporting::CookieAccessOperation CookieIssueDetails::_internal_access_operation() const {
+  return static_cast< ::enterprise_reporting::CookieAccessOperation >(access_operation_);
+}
+inline ::enterprise_reporting::CookieAccessOperation CookieIssueDetails::access_operation() const {
+  // @@protoc_insertion_point(field_get:enterprise_reporting.CookieIssueDetails.access_operation)
+  return _internal_access_operation();
+}
+inline void CookieIssueDetails::_internal_set_access_operation(::enterprise_reporting::CookieAccessOperation value) {
+  assert(::enterprise_reporting::CookieAccessOperation_IsValid(value));
+  _has_bits_[0] |= 0x00000010u;
+  access_operation_ = value;
+}
+inline void CookieIssueDetails::set_access_operation(::enterprise_reporting::CookieAccessOperation value) {
+  _internal_set_access_operation(value);
+  // @@protoc_insertion_point(field_set:enterprise_reporting.CookieIssueDetails.access_operation)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace enterprise_reporting
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::enterprise_reporting::CookieAccessOperation> : ::std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

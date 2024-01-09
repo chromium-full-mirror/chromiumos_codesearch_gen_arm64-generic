@@ -15,7 +15,7 @@ namespace cart::mojom {
 
 class  CommerceHintObserverInterceptorForTesting : public CommerceHintObserver {
   virtual CommerceHintObserver* GetForwardingInterface() = 0;
-  void OnAddToCart(const absl::optional<::GURL>& cart_url, const std::string& product_id) override;
+  void OnAddToCart(const std::optional<::GURL>& cart_url, const std::string& product_id) override;
   void OnVisitCart() override;
   void OnCartProductUpdated(std::vector<ProductPtr> products) override;
   void OnVisitCheckout() override;

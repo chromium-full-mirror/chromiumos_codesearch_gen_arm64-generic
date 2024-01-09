@@ -13,6 +13,7 @@
 
 #include "base/containers/span.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_device_preference.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_device_type.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_model_format.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_power_preference.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
@@ -47,6 +48,19 @@ void setDevicePreference(V8MLDevicePreference value) {
 }
 void setDevicePreference(V8MLDevicePreference::Enum value) {
   member_device_preference_ = V8MLDevicePreference(value);
+}
+
+bool hasDeviceType() const {
+  return true;
+}
+V8MLDeviceType deviceType() const {
+  return member_device_type_;
+}
+void setDeviceType(V8MLDeviceType value) {
+  member_device_type_ = value;
+}
+void setDeviceType(V8MLDeviceType::Enum value) {
+  member_device_type_ = V8MLDeviceType(value);
 }
 
 bool hasModelFormat() const {
@@ -90,6 +104,9 @@ void setPowerPreference(V8MLPowerPreference::Enum value) {
 void setDevicePreference(const String& value) {
   member_device_preference_ = V8MLDevicePreference::Create(value).value();
 }
+void setDeviceType(const String& value) {
+  member_device_type_ = V8MLDeviceType::Create(value).value();
+}
 void setModelFormat(const String& value) {
   member_model_format_ = V8MLModelFormat::Create(value).value();
 }
@@ -112,6 +129,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 
 V8MLDevicePreference member_device_preference_{V8MLDevicePreference::Enum::kAuto};
+V8MLDeviceType member_device_type_{V8MLDeviceType::Enum::kCpu};
 V8MLModelFormat member_model_format_{V8MLModelFormat::Enum::kTflite};
 uint32_t member_num_threads_{0};
 V8MLPowerPreference member_power_preference_{V8MLPowerPreference::Enum::kAuto};

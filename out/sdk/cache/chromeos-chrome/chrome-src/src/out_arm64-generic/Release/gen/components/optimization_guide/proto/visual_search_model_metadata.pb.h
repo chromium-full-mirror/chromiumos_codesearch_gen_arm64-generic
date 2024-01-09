@@ -93,11 +93,13 @@ enum FeatureLibrary_ImageLevelFeatureName : int {
   FeatureLibrary_ImageLevelFeatureName_IMAGE_FRACTION_VISIBLE = 6,
   FeatureLibrary_ImageLevelFeatureName_IMAGE_DISTANCE_TO_VIEWPORT_CENTER = 13,
   FeatureLibrary_ImageLevelFeatureName_SHOPPING_CLASSIFIER_SCORE = 7,
-  FeatureLibrary_ImageLevelFeatureName_SENS_CLASSIFIER_SCORE = 8
+  FeatureLibrary_ImageLevelFeatureName_SENS_CLASSIFIER_SCORE = 8,
+  FeatureLibrary_ImageLevelFeatureName_NAT_WORLD_CLASSIFIER_SCORE = 14,
+  FeatureLibrary_ImageLevelFeatureName_PUB_FIGURES_CLASSIFIER_SCORE = 15
 };
 bool FeatureLibrary_ImageLevelFeatureName_IsValid(int value);
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary_ImageLevelFeatureName_ImageLevelFeatureName_MIN = FeatureLibrary_ImageLevelFeatureName_IMAGE_LEVEL_UNSPECIFIED;
-constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary_ImageLevelFeatureName_ImageLevelFeatureName_MAX = FeatureLibrary_ImageLevelFeatureName_IMAGE_DISTANCE_TO_VIEWPORT_CENTER;
+constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary_ImageLevelFeatureName_ImageLevelFeatureName_MAX = FeatureLibrary_ImageLevelFeatureName_PUB_FIGURES_CLASSIFIER_SCORE;
 constexpr int FeatureLibrary_ImageLevelFeatureName_ImageLevelFeatureName_ARRAYSIZE = FeatureLibrary_ImageLevelFeatureName_ImageLevelFeatureName_MAX + 1;
 
 const std::string& FeatureLibrary_ImageLevelFeatureName_Name(FeatureLibrary_ImageLevelFeatureName value);
@@ -308,6 +310,10 @@ class FeatureLibrary final :
     FeatureLibrary_ImageLevelFeatureName_SHOPPING_CLASSIFIER_SCORE;
   static constexpr ImageLevelFeatureName SENS_CLASSIFIER_SCORE =
     FeatureLibrary_ImageLevelFeatureName_SENS_CLASSIFIER_SCORE;
+  static constexpr ImageLevelFeatureName NAT_WORLD_CLASSIFIER_SCORE =
+    FeatureLibrary_ImageLevelFeatureName_NAT_WORLD_CLASSIFIER_SCORE;
+  static constexpr ImageLevelFeatureName PUB_FIGURES_CLASSIFIER_SCORE =
+    FeatureLibrary_ImageLevelFeatureName_PUB_FIGURES_CLASSIFIER_SCORE;
   static inline bool ImageLevelFeatureName_IsValid(int value) {
     return FeatureLibrary_ImageLevelFeatureName_IsValid(value);
   }

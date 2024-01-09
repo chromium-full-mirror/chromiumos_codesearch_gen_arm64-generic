@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSPViolationReportBody>::value,
     "CSPViolationReportBody inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSPViolationReportBody::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSPViolationReportBody is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.documentURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->documentURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->documentURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,10 +94,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.referrer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->referrer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->referrer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.blockedURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->blockedURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->blockedURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -129,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.effectiveDirective.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->effectiveDirective();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->effectiveDirective();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -144,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.originalPolicy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->originalPolicy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->originalPolicy();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -159,10 +154,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.sourceFile.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sourceFile();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sourceFile();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -174,10 +169,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.sample.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sample();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sample();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -189,10 +184,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.disposition.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->disposition();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->disposition();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -204,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.statusCode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->statusCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -218,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.lineNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -232,8 +229,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.columnNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->columnNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -250,8 +248,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSPViolationReportBody.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(v8_receiver);
+CSPViolationReportBody* blink_receiver = V8CSPViolationReportBody::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/filesystem/file_system.mojom-features.h"
 #include "third_party/blink/public/mojom/filesystem/file_system.mojom-shared.h"
 #include "third_party/blink/public/mojom/filesystem/file_system.mojom-blink-forward.h"
 #include "components/services/filesystem/public/mojom/types.mojom-blink-forward.h"
@@ -47,18 +48,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FileSystemType>
-    : EnumHashTraits<::blink::mojom::FileSystemType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -468,11 +457,11 @@ class PLATFORM_EXPORT FileSystemManager
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob);
+  virtual bool RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob);
 
   using RegisterBlobCallback = base::OnceCallback<void(const ::scoped_refptr<::blink::BlobDataHandle>&)>;
   
-  virtual void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) = 0;
+  virtual void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) = 0;
 };
 
 
@@ -591,9 +580,9 @@ class PLATFORM_EXPORT FileSystemManagerProxy
   
   void GetPlatformPath(const ::blink::KURL& file_path, GetPlatformPathCallback callback) final;
   
-  bool RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob) final;
+  bool RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob) final;
   
-  void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) final;
+  void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

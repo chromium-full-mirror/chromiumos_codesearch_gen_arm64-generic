@@ -813,8 +813,9 @@
   AutocorrectSuggestionProvider.kUsEnglishPrebundled = 1;
   AutocorrectSuggestionProvider.kUsEnglishDownloaded = 2;
   AutocorrectSuggestionProvider.kUsEnglish840 = 3;
+  AutocorrectSuggestionProvider.kUsEnglish840V2 = 4;
   AutocorrectSuggestionProvider.MIN_VALUE = 0;
-  AutocorrectSuggestionProvider.MAX_VALUE = 3;
+  AutocorrectSuggestionProvider.MAX_VALUE = 4;
   AutocorrectSuggestionProvider.DEFAULT_VALUE = 0;
 
   AutocorrectSuggestionProvider.isKnownEnumValue = function(value) {
@@ -823,6 +824,7 @@
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     }
     return false;

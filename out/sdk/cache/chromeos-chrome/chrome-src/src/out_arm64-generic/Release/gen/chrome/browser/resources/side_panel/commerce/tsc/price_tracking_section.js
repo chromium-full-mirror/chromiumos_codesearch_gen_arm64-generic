@@ -4,7 +4,7 @@
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import '../strings.m.js';
 import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
-import { ShoppingListApiProxyImpl } from '//shopping-insights-side-panel.top-chrome/shared/commerce/shopping_list_api_proxy.js';
+import { ShoppingServiceApiProxyImpl } from '//shopping-insights-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
 import { PriceInsightsInfo_PriceBucket } from '//shopping-insights-side-panel.top-chrome/shared/shopping_list.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -16,7 +16,7 @@ export class PriceTrackingSection extends PolymerElement {
     constructor() {
         super(...arguments);
         this.listenerIds_ = [];
-        this.shoppingApi_ = ShoppingListApiProxyImpl.getInstance();
+        this.shoppingApi_ = ShoppingServiceApiProxyImpl.getInstance();
     }
     static get is() {
         return 'price-tracking-section';
@@ -44,7 +44,6 @@ export class PriceTrackingSection extends PolymerElement {
     async updatePriceTrackingSection_(tracked) {
         if (!tracked) {
             this.folderName_ = '';
-            // TODO(crbug.com/1456420): Update the string to include the period.
             this.toggleAnnotationText_ =
                 loadTimeData.getString('trackPriceDescription');
         }
@@ -52,9 +51,25 @@ export class PriceTrackingSection extends PolymerElement {
             const { name } = await this.shoppingApi_.getParentBookmarkFolderNameForCurrentUrl();
             this.folderName_ = decodeString16(name);
             this.toggleAnnotationText_ =
-                loadTimeData.getStringF('trackPriceDone', '');
+                loadTimeData.getString('trackPriceSaveDescription');
         }
+        this.updateSaveLocationText(this.folderName_);
         this.isProductTracked_ = tracked;
+    }
+    updateSaveLocationText(folderName) {
+        if (folderName.length === 0) {
+            this.showSaveLocationText_ = false;
+            this.saveLocationStartText_ = '';
+            this.saveLocationEndText_ = '';
+            return;
+        }
+        const fullText = loadTimeData.getStringF('trackPriceSaveLocation', folderName);
+        // TODO(1456420): Find a better way to dynamically add a link to a templated
+        //                string and possibly avoid using substring.
+        this.saveLocationStartText_ =
+            fullText.substring(0, fullText.lastIndexOf(folderName));
+        this.saveLocationEndText_ = fullText.substring(fullText.lastIndexOf(folderName) + folderName.length);
+        this.showSaveLocationText_ = true;
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -89,6 +104,7 @@ export class PriceTrackingSection extends PolymerElement {
         }
         this.toggleAnnotationText_ = loadTimeData.getString('trackPriceError');
         this.folderName_ = '';
+        this.updateSaveLocationText('');
         this.isProductTracked_ = !attemptedTrack;
     }
     async onProductBookmarkMoved(product) {

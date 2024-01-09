@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigateEvent>::value,
     "NavigateEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigateEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigateEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,10 +92,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.navigationType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->navigationType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->navigationType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,8 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.destination.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->destination();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -126,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.canTransition.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canIntercept();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -140,8 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.canIntercept.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canIntercept();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -154,8 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.userInitiated.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userInitiated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -168,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.hashChange.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hashChange();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -182,8 +182,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.signal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->signal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -196,8 +197,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.formData.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->formData();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -210,10 +212,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.downloadRequest.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->downloadRequest();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->downloadRequest();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -225,8 +227,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.info.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->info();
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -239,8 +242,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.hasUAVisualTransition.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasUAVisualTransition();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -253,8 +257,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.sourceElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sourceElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -267,8 +272,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -325,9 +331,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.commit");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "NavigateEvent";
 const char* const property_name = "commit";
@@ -350,10 +356,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.intercept");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<NavigationInterceptOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<NavigationInterceptOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "NavigateEvent";
 const char* const property_name = "intercept";
@@ -384,9 +390,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigateEvent.scroll");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigateEvent* blink_receiver = V8NavigateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "NavigateEvent";
 const char* const property_name = "scroll";

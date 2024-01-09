@@ -23,6 +23,7 @@ class AndroidPowerConfig;
 class AndroidSdkSyspropGuardConfig;
 class AndroidSystemPropertyConfig;
 class ChromeConfig;
+class EtwConfig;
 class FtraceConfig;
 class GpuCounterConfig;
 class HeapprofdConfig;
@@ -71,7 +72,7 @@ const char* DataSourceConfig_SessionInitiator_Name(::perfetto::protos::pbzero::D
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/124, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/125, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   DataSourceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit DataSourceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -140,6 +141,8 @@ class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIE
   ::protozero::ConstBytes surfaceflinger_transactions_config() const { return at<123>().as_bytes(); }
   bool has_android_sdk_sysprop_guard_config() const { return at<124>().valid(); }
   ::protozero::ConstBytes android_sdk_sysprop_guard_config() const { return at<124>().as_bytes(); }
+  bool has_etw_config() const { return at<125>().valid(); }
+  ::protozero::ConstBytes etw_config() const { return at<125>().as_bytes(); }
   // field legacy_config omitted because its id is too high
   // field for_testing omitted because its id is too high
 };
@@ -180,6 +183,7 @@ class DataSourceConfig : public ::protozero::Message {
     kSurfaceflingerLayersConfigFieldNumber = 121,
     kSurfaceflingerTransactionsConfigFieldNumber = 123,
     kAndroidSdkSyspropGuardConfigFieldNumber = 124,
+    kEtwConfigFieldNumber = 125,
     kLegacyConfigFieldNumber = 1000,
     kForTestingFieldNumber = 1001,
   };
@@ -760,6 +764,24 @@ class DataSourceConfig : public ::protozero::Message {
 
   void set_android_sdk_sysprop_guard_config_raw(const std::string& raw) {
     return AppendBytes(124, raw.data(), raw.size());
+  }
+
+
+  using FieldMetadata_EtwConfig =
+    ::protozero::proto_utils::FieldMetadata<
+      125,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EtwConfig,
+      DataSourceConfig>;
+
+  static constexpr FieldMetadata_EtwConfig kEtwConfig{};
+  template <typename T = EtwConfig> T* set_etw_config() {
+    return BeginNestedMessage<T>(125);
+  }
+
+  void set_etw_config_raw(const std::string& raw) {
+    return AppendBytes(125, raw.data(), raw.size());
   }
 
 

@@ -82,7 +82,7 @@ bool VideoEncoderInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->fps_allocation, 13, validation_context)) {
+          object->fps_allocation, 14, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& fps_allocation_validate_params =
@@ -93,7 +93,7 @@ bool VideoEncoderInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->resolution_bitrate_limits, 14, validation_context)) {
+          object->resolution_bitrate_limits, 15, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& resolution_bitrate_limits_validate_params =

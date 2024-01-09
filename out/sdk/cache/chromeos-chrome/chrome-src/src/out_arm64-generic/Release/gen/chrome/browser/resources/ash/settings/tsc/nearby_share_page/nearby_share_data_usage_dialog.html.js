@@ -12,7 +12,7 @@ export function getTemplate() {
           $i18n{nearbyShareDataUsageDataLabel}
           <iron-icon id="dataUsageDataIcon" icon="cr:info-outline" aria-hidden="true" tabindex="0">
           </iron-icon>
-          <paper-tooltip id="dataUsageDataTooltip" for="dataUsageDataIcon" offset="8" position="right" fit-to-visible-bounds>
+          <paper-tooltip id="dataUsageDataTooltip" for="dataUsageDataIcon" offset="8" position="bottom" fit-to-visible-bounds>
             <span id="dataUsageDataTooltipText">
               $i18n{nearbyShareDataUsageDataTooltip}
             </span>

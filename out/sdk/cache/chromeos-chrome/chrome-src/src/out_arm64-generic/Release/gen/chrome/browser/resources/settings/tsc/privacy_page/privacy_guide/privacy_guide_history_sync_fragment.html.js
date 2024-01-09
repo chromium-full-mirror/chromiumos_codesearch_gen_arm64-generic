@@ -17,9 +17,9 @@ export function getTemplate() {
   </div>
   <div class="settings-columned-section">
     <div class="column">
-      <div class="description-header">
+      <h3 class="description-header">
         $i18n{privacyGuideFeatureDescriptionHeader}
-      </div>
+      </h3>
       <div role="list">
         <privacy-guide-description-item role="listitem" icon="settings20:history" label="$i18n{privacyGuideHistorySyncFeatureDescription1}">
         </privacy-guide-description-item>
@@ -28,9 +28,7 @@ export function getTemplate() {
       </div>
     </div>
     <div class="column">
-      <div class="description-header">
-        $i18n{privacyGuideThingsToConsider}
-      </div>
+      <h3 class="description-header">$i18n{privacyGuideThingsToConsider}</h3>
       <div role="list">
         <privacy-guide-description-item role="listitem" icon="settings20:link" label="$i18n{privacyGuideHistorySyncPrivacyDescription1}">
         </privacy-guide-description-item>

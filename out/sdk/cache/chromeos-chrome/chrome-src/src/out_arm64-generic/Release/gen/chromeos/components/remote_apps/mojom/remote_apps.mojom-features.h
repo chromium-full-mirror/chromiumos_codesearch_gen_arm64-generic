@@ -8,6 +8,7 @@
 #define CHROMEOS_COMPONENTS_REMOTE_APPS_MOJOM_REMOTE_APPS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

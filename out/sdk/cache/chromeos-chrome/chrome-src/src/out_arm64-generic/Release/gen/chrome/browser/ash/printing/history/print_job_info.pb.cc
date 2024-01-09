@@ -283,32 +283,36 @@ bool PrintJobInfo_PrintJobSource_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrintJobInfo_PrintJobSource_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrintJobInfo_PrintJobSource_strings[5] = {};
 
 static const char PrintJobInfo_PrintJobSource_names[] =
   "ARC"
   "EXTENSION"
+  "ISOLATED_WEB_APP"
   "PRINT_PREVIEW"
   "PRINT_PREVIEW_INCOGNITO";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PrintJobInfo_PrintJobSource_entries[] = {
   { {PrintJobInfo_PrintJobSource_names + 0, 3}, 1 },
   { {PrintJobInfo_PrintJobSource_names + 3, 9}, 2 },
-  { {PrintJobInfo_PrintJobSource_names + 12, 13}, 0 },
-  { {PrintJobInfo_PrintJobSource_names + 25, 23}, 3 },
+  { {PrintJobInfo_PrintJobSource_names + 12, 16}, 4 },
+  { {PrintJobInfo_PrintJobSource_names + 28, 13}, 0 },
+  { {PrintJobInfo_PrintJobSource_names + 41, 23}, 3 },
 };
 
 static const int PrintJobInfo_PrintJobSource_entries_by_number[] = {
-  2, // 0 -> PRINT_PREVIEW
+  3, // 0 -> PRINT_PREVIEW
   0, // 1 -> ARC
   1, // 2 -> EXTENSION
-  3, // 3 -> PRINT_PREVIEW_INCOGNITO
+  4, // 3 -> PRINT_PREVIEW_INCOGNITO
+  2, // 4 -> ISOLATED_WEB_APP
 };
 
 const std::string& PrintJobInfo_PrintJobSource_Name(
@@ -317,12 +321,12 @@ const std::string& PrintJobInfo_PrintJobSource_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PrintJobInfo_PrintJobSource_entries,
           PrintJobInfo_PrintJobSource_entries_by_number,
-          4, PrintJobInfo_PrintJobSource_strings);
+          5, PrintJobInfo_PrintJobSource_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PrintJobInfo_PrintJobSource_entries,
       PrintJobInfo_PrintJobSource_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PrintJobInfo_PrintJobSource_strings[idx].get();
 }
@@ -330,7 +334,7 @@ bool PrintJobInfo_PrintJobSource_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrintJobInfo_PrintJobSource* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PrintJobInfo_PrintJobSource_entries, 4, name, &int_value);
+      PrintJobInfo_PrintJobSource_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<PrintJobInfo_PrintJobSource>(int_value);
   }
@@ -341,6 +345,7 @@ constexpr PrintJobInfo_PrintJobSource PrintJobInfo::PRINT_PREVIEW;
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo::ARC;
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo::EXTENSION;
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo::PRINT_PREVIEW_INCOGNITO;
+constexpr PrintJobInfo_PrintJobSource PrintJobInfo::ISOLATED_WEB_APP;
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo::PrintJobSource_MIN;
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo::PrintJobSource_MAX;
 constexpr int PrintJobInfo::PrintJobSource_ARRAYSIZE;

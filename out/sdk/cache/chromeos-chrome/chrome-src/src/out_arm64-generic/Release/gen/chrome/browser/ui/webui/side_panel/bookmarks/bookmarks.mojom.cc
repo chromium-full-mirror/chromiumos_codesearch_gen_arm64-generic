@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void BookmarksPageHandlerFactoryProxy::CreateBookmarksPageHandler(
                         "<value of type ::mojo::PendingReceiver<BookmarksPageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandlerFactory_CreateBookmarksPageHandler_Name, kFlags, 0, 0, nullptr);
@@ -197,10 +201,10 @@ bool BookmarksPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBookmarksPageHandlerFactoryValidationInfo[] = {
-    {&internal::BookmarksPageHandlerFactory_CreateBookmarksPageHandler_Params_Data::Validate,
+    { &internal::BookmarksPageHandlerFactory_CreateBookmarksPageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -520,14 +524,17 @@ void BookmarksPageHandlerProxy::BookmarkCurrentTabInFolder(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_BookmarkCurrentTabInFolder_Name, kFlags, 0, 0, nullptr);
@@ -561,14 +568,17 @@ void BookmarksPageHandlerProxy::ExecuteOpenInNewTabCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteOpenInNewTabCommand_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +626,17 @@ void BookmarksPageHandlerProxy::ExecuteOpenInNewWindowCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteOpenInNewWindowCommand_Name, kFlags, 0, 0, nullptr);
@@ -671,14 +684,17 @@ void BookmarksPageHandlerProxy::ExecuteOpenInIncognitoWindowCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteOpenInIncognitoWindowCommand_Name, kFlags, 0, 0, nullptr);
@@ -726,14 +742,17 @@ void BookmarksPageHandlerProxy::ExecuteOpenInNewTabGroupCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteOpenInNewTabGroupCommand_Name, kFlags, 0, 0, nullptr);
@@ -781,14 +800,17 @@ void BookmarksPageHandlerProxy::ExecuteAddToBookmarksBarCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteAddToBookmarksBarCommand_Name, kFlags, 0, 0, nullptr);
@@ -824,14 +846,17 @@ void BookmarksPageHandlerProxy::ExecuteRemoveFromBookmarksBarCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteRemoveFromBookmarksBarCommand_Name, kFlags, 0, 0, nullptr);
@@ -867,14 +892,17 @@ void BookmarksPageHandlerProxy::ExecuteDeleteCommand(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ExecuteDeleteCommand_Name, kFlags, 0, 0, nullptr);
@@ -928,14 +956,17 @@ void BookmarksPageHandlerProxy::OpenBookmark(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_OpenBookmark_Name, kFlags, 0, 0, nullptr);
@@ -980,14 +1011,17 @@ void BookmarksPageHandlerProxy::SetSortOrder(
                         "<value of type SortOrder>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_SetSortOrder_Name, kFlags, 0, 0, nullptr);
@@ -1019,14 +1053,17 @@ void BookmarksPageHandlerProxy::SetViewType(
                         "<value of type ViewType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_SetViewType_Name, kFlags, 0, 0, nullptr);
@@ -1064,14 +1101,17 @@ void BookmarksPageHandlerProxy::ShowContextMenu(
                         "<value of type ActionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ShowContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -1118,14 +1158,17 @@ void BookmarksPageHandlerProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::BookmarksPageHandler::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBookmarksPageHandler_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -1585,34 +1628,34 @@ bool BookmarksPageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBookmarksPageHandlerValidationInfo[] = {
-    {&internal::BookmarksPageHandler_BookmarkCurrentTabInFolder_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_BookmarkCurrentTabInFolder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteOpenInNewTabCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteOpenInNewTabCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteOpenInNewWindowCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteOpenInNewWindowCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteOpenInIncognitoWindowCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteOpenInIncognitoWindowCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteOpenInNewTabGroupCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteOpenInNewTabGroupCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteAddToBookmarksBarCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteAddToBookmarksBarCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteRemoveFromBookmarksBarCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteRemoveFromBookmarksBarCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ExecuteDeleteCommand_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ExecuteDeleteCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_OpenBookmark_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_OpenBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_SetSortOrder_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_SetSortOrder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_SetViewType_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_SetViewType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ShowContextMenu_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ShowContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BookmarksPageHandler_ShowUI_Params_Data::Validate,
+    { &internal::BookmarksPageHandler_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
 };
 

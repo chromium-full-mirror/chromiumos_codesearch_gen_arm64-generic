@@ -69,7 +69,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.clearSiteData),
     async loadActionDelegate() {
         const Resources = await loadResourcesModule();
-        return Resources.StorageView.ActionDelegate.instance();
+        return new Resources.StorageView.ActionDelegate();
     },
 });
 UI.ActionRegistration.registerActionExtension({
@@ -78,7 +78,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.clearSiteDataIncludingThirdparty),
     async loadActionDelegate() {
         const Resources = await loadResourcesModule();
-        return Resources.StorageView.ActionDelegate.instance();
+        return new Resources.StorageView.ActionDelegate();
     },
 });
 UI.ActionRegistration.registerActionExtension({
@@ -92,7 +92,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Resources = await loadResourcesModule();
-        return Resources.BackgroundServiceView.ActionDelegate.instance();
+        return new Resources.BackgroundServiceView.ActionDelegate();
     },
     category: UI.ActionRegistration.ActionCategory.BACKGROUND_SERVICES,
     options: [
@@ -125,7 +125,7 @@ Common.Revealer.registerRevealer({
     destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
     async loadRevealer() {
         const Resources = await loadResourcesModule();
-        return Resources.ResourcesPanel.ResourceRevealer.instance();
+        return new Resources.ResourcesPanel.ResourceRevealer();
     },
 });
 Common.Revealer.registerRevealer({
@@ -137,7 +137,7 @@ Common.Revealer.registerRevealer({
     destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
     async loadRevealer() {
         const Resources = await loadResourcesModule();
-        return Resources.ResourcesPanel.FrameDetailsRevealer.instance();
+        return new Resources.ResourcesPanel.FrameDetailsRevealer();
     },
 });
 Common.Revealer.registerRevealer({
@@ -147,7 +147,7 @@ Common.Revealer.registerRevealer({
     destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
     async loadRevealer() {
         const Resources = await loadResourcesModule();
-        return Resources.ResourcesPanel.RuleSetViewRevealer.instance();
+        return new Resources.ResourcesPanel.RuleSetViewRevealer();
     },
 });
 Common.Revealer.registerRevealer({
@@ -157,7 +157,7 @@ Common.Revealer.registerRevealer({
     destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
     async loadRevealer() {
         const Resources = await loadResourcesModule();
-        return Resources.ResourcesPanel.AttemptViewWithFilterRevealer.instance();
+        return new Resources.ResourcesPanel.AttemptViewWithFilterRevealer();
     },
 });
 //# sourceMappingURL=application-meta.prebundle.js.map

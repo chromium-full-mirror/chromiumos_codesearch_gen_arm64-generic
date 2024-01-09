@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -914,14 +915,17 @@ void DeskEventObserverProxy::OnDeskSwitched(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskEventObserver_OnDeskSwitched_Name, kFlags, 0, 0, nullptr);
@@ -976,14 +980,17 @@ void DeskEventObserverProxy::OnDeskAdded(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskEventObserver_OnDeskAdded_Name, kFlags, 0, 0, nullptr);
@@ -1025,14 +1032,17 @@ void DeskEventObserverProxy::OnDeskRemoved(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskEventObserver_OnDeskRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1177,14 +1187,14 @@ bool DeskEventObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeskEventObserverValidationInfo[] = {
-    {&internal::DeskEventObserver_OnDeskSwitched_Params_Data::Validate,
+    { &internal::DeskEventObserver_OnDeskSwitched_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeskEventObserver_OnDeskAdded_Params_Data::Validate,
+    { &internal::DeskEventObserver_OnDeskAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeskEventObserver_OnDeskRemoved_Params_Data::Validate,
+    { &internal::DeskEventObserver_OnDeskRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1697,14 +1707,17 @@ void DeskProxy::LaunchEmptyDesk(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_LaunchEmptyDesk_Name, kFlags, 0, 0, nullptr);
@@ -1735,7 +1748,7 @@ void DeskProxy::LaunchEmptyDesk(
 }
 
 void DeskProxy::RemoveDesk(
-    const ::base::Uuid& in_desk_uuid, bool in_combine_desk, absl::optional<bool> in_allow_undo, RemoveDeskCallback callback) {
+    const ::base::Uuid& in_desk_uuid, bool in_combine_desk, std::optional<bool> in_allow_undo, RemoveDeskCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::Desk::RemoveDesk", "input_parameters",
@@ -1749,17 +1762,20 @@ void DeskProxy::RemoveDesk(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("allow_undo"), in_allow_undo,
-                        "<value of type absl::optional<bool>>");
+                        "<value of type std::optional<bool>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_RemoveDesk_Name, kFlags, 0, 0, nullptr);
@@ -1806,14 +1822,17 @@ void DeskProxy::GetTemplateJson(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetTemplateJson_Name, kFlags, 0, 0, nullptr);
@@ -1848,14 +1867,17 @@ void DeskProxy::GetAllDesks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Desk::GetAllDesks");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetAllDesks_Name, kFlags, 0, 0, nullptr);
@@ -1879,14 +1901,17 @@ void DeskProxy::SaveActiveDesk(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Desk::SaveActiveDesk");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SaveActiveDesk_Name, kFlags, 0, 0, nullptr);
@@ -1917,14 +1942,17 @@ void DeskProxy::DeleteSavedDesk(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_DeleteSavedDesk_Name, kFlags, 0, 0, nullptr);
@@ -1966,14 +1994,17 @@ void DeskProxy::RecallSavedDesk(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_RecallSavedDesk_Name, kFlags, 0, 0, nullptr);
@@ -2018,14 +2049,17 @@ void DeskProxy::SetAllDesksProperty(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SetAllDesksProperty_Name, kFlags, 0, 0, nullptr);
@@ -2051,14 +2085,17 @@ void DeskProxy::GetSavedDesks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Desk::GetSavedDesks");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetSavedDesks_Name, kFlags, 0, 0, nullptr);
@@ -2082,14 +2119,17 @@ void DeskProxy::GetActiveDesk(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Desk::GetActiveDesk");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetActiveDesk_Name, kFlags, 0, 0, nullptr);
@@ -2120,14 +2160,17 @@ void DeskProxy::SwitchDesk(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SwitchDesk_Name, kFlags, 0, 0, nullptr);
@@ -2169,14 +2212,17 @@ void DeskProxy::GetDeskByID(
                         "<value of type const ::base::Uuid&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetDeskByID_Name, kFlags, 0, 0, nullptr);
@@ -2218,14 +2264,17 @@ void DeskProxy::AddDeskEventObserver(
                         "<value of type ::mojo::PendingRemote<DeskEventObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_AddDeskEventObserver_Name, kFlags, 0, 0, nullptr);
@@ -2340,7 +2389,8 @@ void Desk_LaunchEmptyDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_LaunchEmptyDesk_Name, kFlags, 0, 0, nullptr);
@@ -2466,7 +2516,8 @@ void Desk_RemoveDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_RemoveDesk_Name, kFlags, 0, 0, nullptr);
@@ -2592,7 +2643,8 @@ void Desk_GetTemplateJson_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetTemplateJson_Name, kFlags, 0, 0, nullptr);
@@ -2718,7 +2770,8 @@ void Desk_GetAllDesks_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetAllDesks_Name, kFlags, 0, 0, nullptr);
@@ -2844,7 +2897,8 @@ void Desk_SaveActiveDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SaveActiveDesk_Name, kFlags, 0, 0, nullptr);
@@ -2970,7 +3024,8 @@ void Desk_DeleteSavedDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_DeleteSavedDesk_Name, kFlags, 0, 0, nullptr);
@@ -3096,7 +3151,8 @@ void Desk_RecallSavedDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_RecallSavedDesk_Name, kFlags, 0, 0, nullptr);
@@ -3222,7 +3278,8 @@ void Desk_SetAllDesksProperty_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SetAllDesksProperty_Name, kFlags, 0, 0, nullptr);
@@ -3348,7 +3405,8 @@ void Desk_GetSavedDesks_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetSavedDesks_Name, kFlags, 0, 0, nullptr);
@@ -3474,7 +3532,8 @@ void Desk_GetActiveDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetActiveDesk_Name, kFlags, 0, 0, nullptr);
@@ -3600,7 +3659,8 @@ void Desk_SwitchDesk_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_SwitchDesk_Name, kFlags, 0, 0, nullptr);
@@ -3726,7 +3786,8 @@ void Desk_GetDeskByID_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDesk_GetDeskByID_Name, kFlags, 0, 0, nullptr);
@@ -3882,7 +3943,7 @@ std::move(p_desk_name), std::move(callback));
       bool success = true;
       ::base::Uuid p_desk_uuid{};
       bool p_combine_desk{};
-      absl::optional<bool> p_allow_undo{};
+      std::optional<bool> p_allow_undo{};
       Desk_RemoveDesk_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeskUuid(&p_desk_uuid))
@@ -4194,34 +4255,34 @@ std::move(p_desk_uuid), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeskValidationInfo[] = {
-    {&internal::Desk_LaunchEmptyDesk_Params_Data::Validate,
+    { &internal::Desk_LaunchEmptyDesk_Params_Data::Validate,
      &internal::Desk_LaunchEmptyDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_RemoveDesk_Params_Data::Validate,
+    { &internal::Desk_RemoveDesk_Params_Data::Validate,
      &internal::Desk_RemoveDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_GetTemplateJson_Params_Data::Validate,
+    { &internal::Desk_GetTemplateJson_Params_Data::Validate,
      &internal::Desk_GetTemplateJson_ResponseParams_Data::Validate},
-    {&internal::Desk_GetAllDesks_Params_Data::Validate,
+    { &internal::Desk_GetAllDesks_Params_Data::Validate,
      &internal::Desk_GetAllDesks_ResponseParams_Data::Validate},
-    {&internal::Desk_SaveActiveDesk_Params_Data::Validate,
+    { &internal::Desk_SaveActiveDesk_Params_Data::Validate,
      &internal::Desk_SaveActiveDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_DeleteSavedDesk_Params_Data::Validate,
+    { &internal::Desk_DeleteSavedDesk_Params_Data::Validate,
      &internal::Desk_DeleteSavedDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_RecallSavedDesk_Params_Data::Validate,
+    { &internal::Desk_RecallSavedDesk_Params_Data::Validate,
      &internal::Desk_RecallSavedDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_SetAllDesksProperty_Params_Data::Validate,
+    { &internal::Desk_SetAllDesksProperty_Params_Data::Validate,
      &internal::Desk_SetAllDesksProperty_ResponseParams_Data::Validate},
-    {&internal::Desk_GetSavedDesks_Params_Data::Validate,
+    { &internal::Desk_GetSavedDesks_Params_Data::Validate,
      &internal::Desk_GetSavedDesks_ResponseParams_Data::Validate},
-    {&internal::Desk_GetActiveDesk_Params_Data::Validate,
+    { &internal::Desk_GetActiveDesk_Params_Data::Validate,
      &internal::Desk_GetActiveDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_SwitchDesk_Params_Data::Validate,
+    { &internal::Desk_SwitchDesk_Params_Data::Validate,
      &internal::Desk_SwitchDesk_ResponseParams_Data::Validate},
-    {&internal::Desk_GetDeskByID_Params_Data::Validate,
+    { &internal::Desk_GetDeskByID_Params_Data::Validate,
      &internal::Desk_GetDeskByID_ResponseParams_Data::Validate},
-    {&internal::Desk_AddDeskEventObserver_Params_Data::Validate,
+    { &internal::Desk_AddDeskEventObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4683,7 +4744,7 @@ DeskEventObserverAsyncWaiter::~DeskEventObserverAsyncWaiter() = default;
 void DeskInterceptorForTesting::LaunchEmptyDesk(const std::string& desk_name, LaunchEmptyDeskCallback callback) {
   GetForwardingInterface()->LaunchEmptyDesk(std::move(desk_name), std::move(callback));
 }
-void DeskInterceptorForTesting::RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskCallback callback) {
+void DeskInterceptorForTesting::RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskCallback callback) {
   GetForwardingInterface()->RemoveDesk(std::move(desk_uuid), std::move(combine_desk), std::move(allow_undo), std::move(callback));
 }
 void DeskInterceptorForTesting::GetTemplateJson(const ::base::Uuid& desk_template_uuid, GetTemplateJsonCallback callback) {
@@ -4748,7 +4809,7 @@ LaunchEmptyDeskResultPtr DeskAsyncWaiter::LaunchEmptyDesk(
 }
 
 void DeskAsyncWaiter::RemoveDesk(
-    const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskResultPtr* out_result) {
+    const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->RemoveDesk(std::move(desk_uuid),std::move(combine_desk),std::move(allow_undo),
       base::BindOnce(
@@ -4764,7 +4825,7 @@ void DeskAsyncWaiter::RemoveDesk(
 }
 
 RemoveDeskResultPtr DeskAsyncWaiter::RemoveDesk(
-    const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo) {
+    const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo) {
   RemoveDeskResultPtr async_wait_result;
   RemoveDesk(std::move(desk_uuid),std::move(combine_desk),std::move(allow_undo),&async_wait_result);
   return async_wait_result;

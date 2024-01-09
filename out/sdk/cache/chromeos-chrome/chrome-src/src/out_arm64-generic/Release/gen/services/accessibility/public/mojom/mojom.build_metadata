@@ -1,6 +1,7 @@
 {
   "deps": [
     "automation.build_metadata",
+    "automation_client.build_metadata",
     "../../../../mojo/public/mojom/base/base.build_metadata",
     "../../../../sandbox/policy/mojom/mojom.build_metadata",
     "assistive_technology_type.build_metadata",

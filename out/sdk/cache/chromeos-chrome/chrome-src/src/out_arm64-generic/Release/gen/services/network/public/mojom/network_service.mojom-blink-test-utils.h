@@ -36,11 +36,10 @@ class BLINK_PLATFORM_EXPORT NetworkServiceInterceptorForTesting : public Network
   void SetEncryptionKey(const std::string& encryption_key) override;
   void OnMemoryPressure(::mojo_base::mojom::blink::MemoryPressureLevel memory_pressure_level) override;
   void OnPeerToPeerConnectionsCountChange(uint32_t count) override;
-  void SetEnvironment(WTF::Vector<EnvironmentVariablePtr> environment) override;
   void SetTrustTokenKeyCommitments(const WTF::String& raw_commitments, SetTrustTokenKeyCommitmentsCallback callback) override;
   void ClearSCTAuditingCache() override;
   void ConfigureSCTAuditing(SCTAuditingConfigurationPtr configuration) override;
-  void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) override;
+  void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, UpdateCtLogListCallback callback) override;
   void UpdateCtKnownPopularSCTs(const WTF::Vector<WTF::Vector<uint8_t>>& sct_hashes, UpdateCtKnownPopularSCTsCallback callback) override;
   void SetCtEnforcementEnabled(bool enabled, SetCtEnforcementEnabledCallback callback) override;
   void UpdateKeyPinsList(::network::mojom::blink::PinListPtr pin_list, ::base::Time update_time) override;
@@ -51,6 +50,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceInterceptorForTesting : public Network
   void ParseHeaders(const ::blink::KURL& url, ::network::mojom::blink::HttpResponseHeadersPtr headers, ParseHeadersCallback callback) override;
   void EnableDataUseUpdates(bool enable) override;
   void SetIPv6ReachabilityOverride(bool reachability_override) override;
+  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) override;
 };
 class BLINK_PLATFORM_EXPORT NetworkServiceAsyncWaiter {
  public:
@@ -61,13 +61,13 @@ class BLINK_PLATFORM_EXPORT NetworkServiceAsyncWaiter {
 
   ~NetworkServiceAsyncWaiter();
   void GetNetworkList(
-      uint32_t policy, absl::optional<WTF::Vector<::net::NetworkInterface>>* out_networks);
-  absl::optional<WTF::Vector<::net::NetworkInterface>> GetNetworkList(uint32_t policy);
+      uint32_t policy, std::optional<WTF::Vector<::net::NetworkInterface>>* out_networks);
+  std::optional<WTF::Vector<::net::NetworkInterface>> GetNetworkList(uint32_t policy);
   void SetTrustTokenKeyCommitments(
       const WTF::String& raw_commitments);
   
   void UpdateCtLogList(
-      WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, ::base::Time update_time);
+      WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list);
   
   void UpdateCtKnownPopularSCTs(
       const WTF::Vector<WTF::Vector<uint8_t>>& sct_hashes);

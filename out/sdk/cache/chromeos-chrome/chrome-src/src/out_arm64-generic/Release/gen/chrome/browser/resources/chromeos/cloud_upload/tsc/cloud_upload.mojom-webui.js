@@ -50,6 +50,7 @@ export var OperationType;
     OperationType[OperationType["kCopy"] = 1] = "kCopy";
 })(OperationType || (OperationType = {}));
 export class PageHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -58,6 +59,9 @@ export class PageHandlerFactoryPendingReceiver {
     }
 }
 export class PageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
@@ -77,6 +81,9 @@ export class PageHandlerFactoryRemote {
  * interface.
  */
 export class PageHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -106,6 +113,11 @@ export class PageHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createPageHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -124,6 +136,7 @@ export class PageHandlerFactoryCallbackRouter {
     }
 }
 export class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -132,6 +145,9 @@ export class PageHandlerPendingReceiver {
     }
 }
 export class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -201,6 +217,9 @@ export class PageHandlerRemote {
  * interface.
  */
 export class PageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -244,6 +263,25 @@ export class PageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getDialogArgs;
+    isOfficeWebAppInstalled;
+    installOfficeWebApp;
+    isODFSMounted;
+    signInToOneDrive;
+    respondWithUserActionAndClose;
+    respondWithLocalTaskAndClose;
+    setOfficeAsDefaultHandler;
+    getAlwaysMoveOfficeFilesToDrive;
+    setAlwaysMoveOfficeFilesToDrive;
+    getAlwaysMoveOfficeFilesToOneDrive;
+    setAlwaysMoveOfficeFilesToOneDrive;
+    getOfficeMoveConfirmationShownForDrive;
+    getOfficeMoveConfirmationShownForOneDrive;
+    recordCancel;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -304,6 +342,11 @@ export class PageHandlerCallbackRouter {
     }
 }
 export const DialogTaskSpec = { $: {} };
+export const OneDriveSetupDialogArgsSpec = { $: {} };
+export const MoveConfirmationOneDriveDialogArgsSpec = { $: {} };
+export const MoveConfirmationGoogleDriveDialogArgsSpec = { $: {} };
+export const ConnectToOneDriveDialogArgsSpec = { $: {} };
+export const FileHandlerDialogArgsSpec = { $: {} };
 export const DialogArgsSpec = { $: {} };
 export const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
 export const PageHandler_GetDialogArgs_ParamsSpec = { $: {} };
@@ -330,25 +373,38 @@ export const PageHandler_GetOfficeMoveConfirmationShownForDrive_ResponseParamsSp
 export const PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ParamsSpec = { $: {} };
 export const PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ResponseParamsSpec = { $: {} };
 export const PageHandler_RecordCancel_ParamsSpec = { $: {} };
+export const DialogSpecificArgsSpec = { $: {} };
 mojo.internal.Struct(DialogTaskSpec.$, 'DialogTask', [
     mojo.internal.StructField('position', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('title', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('appId', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('iconUrl', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 40],]);
+mojo.internal.Struct(OneDriveSetupDialogArgsSpec.$, 'OneDriveSetupDialogArgs', [
+    mojo.internal.StructField('setOfficeAsDefaultHandler', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(MoveConfirmationOneDriveDialogArgsSpec.$, 'MoveConfirmationOneDriveDialogArgs', [
+    mojo.internal.StructField('operationType', 0, 0, OperationTypeSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(MoveConfirmationGoogleDriveDialogArgsSpec.$, 'MoveConfirmationGoogleDriveDialogArgs', [
+    mojo.internal.StructField('operationType', 0, 0, OperationTypeSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(ConnectToOneDriveDialogArgsSpec.$, 'ConnectToOneDriveDialogArgs', [], [[0, 8],]);
+mojo.internal.Struct(FileHandlerDialogArgsSpec.$, 'FileHandlerDialogArgs', [
+    mojo.internal.StructField('localTasks', 0, 0, mojo.internal.Array(DialogTaskSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('showGoogleWorkspaceTask', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('showMicrosoftOfficeTask', 8, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(DialogArgsSpec.$, 'DialogArgs', [
     mojo.internal.StructField('fileNames', 0, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('dialogPage', 8, 0, DialogPageSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('localTasks', 16, 0, mojo.internal.Array(DialogTaskSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('setOfficeAsDefaultHandler', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('operationType', 24, 0, OperationTypeSpec.$, 0, false /* nullable */, 0),
-], [[0, 40],]);
+    mojo.internal.StructField('dialogSpecificArgs', 8, 0, DialogSpecificArgsSpec.$, null, false /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
     mojo.internal.StructField('handler', 0, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_GetDialogArgs_ParamsSpec.$, 'PageHandler_GetDialogArgs_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetDialogArgs_ResponseParamsSpec.$, 'PageHandler_GetDialogArgs_ResponseParams', [
-    mojo.internal.StructField('args', 0, 0, DialogArgsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('args', 0, 0, DialogArgsSpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_IsOfficeWebAppInstalled_ParamsSpec.$, 'PageHandler_IsOfficeWebAppInstalled_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_IsOfficeWebAppInstalled_ResponseParamsSpec.$, 'PageHandler_IsOfficeWebAppInstalled_ResponseParams', [
@@ -398,3 +454,25 @@ mojo.internal.Struct(PageHandler_GetOfficeMoveConfirmationShownForOneDrive_Respo
 mojo.internal.Struct(PageHandler_RecordCancel_ParamsSpec.$, 'PageHandler_RecordCancel_Params', [
     mojo.internal.StructField('page', 0, 0, MetricsRecordedSetupPageSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Union(DialogSpecificArgsSpec.$, 'DialogSpecificArgs', {
+    'fileHandlerDialogArgs': {
+        'ordinal': 0,
+        'type': FileHandlerDialogArgsSpec.$,
+    },
+    'oneDriveSetupDialogArgs': {
+        'ordinal': 1,
+        'type': OneDriveSetupDialogArgsSpec.$,
+    },
+    'moveConfirmationOneDriveDialogArgs': {
+        'ordinal': 2,
+        'type': MoveConfirmationOneDriveDialogArgsSpec.$,
+    },
+    'moveConfirmationGoogleDriveDialogArgs': {
+        'ordinal': 3,
+        'type': MoveConfirmationGoogleDriveDialogArgsSpec.$,
+    },
+    'connectToOneDriveDialogArgs': {
+        'ordinal': 4,
+        'type': ConnectToOneDriveDialogArgsSpec.$,
+    },
+});

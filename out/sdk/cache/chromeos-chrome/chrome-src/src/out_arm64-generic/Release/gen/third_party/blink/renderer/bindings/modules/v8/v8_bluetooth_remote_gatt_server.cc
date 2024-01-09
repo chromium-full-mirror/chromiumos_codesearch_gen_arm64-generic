@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BluetoothRemoteGATTServer>::value,
     "BluetoothRemoteGATTServer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BluetoothRemoteGATTServer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BluetoothRemoteGATTServer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothRemoteGATTServer.device.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->device();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothRemoteGATTServer.connected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->connected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -138,7 +135,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothRemoteServ
 
 
 
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -166,7 +163,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothRemoteServ
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -212,7 +209,7 @@ return;
 
 
 
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -257,7 +254,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothRemoteServ
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(v8_receiver);
+BluetoothRemoteGATTServer* blink_receiver = V8BluetoothRemoteGATTServer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

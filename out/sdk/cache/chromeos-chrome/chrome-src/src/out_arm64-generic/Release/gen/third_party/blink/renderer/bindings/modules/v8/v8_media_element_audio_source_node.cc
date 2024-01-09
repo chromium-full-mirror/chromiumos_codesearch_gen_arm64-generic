@@ -76,11 +76,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaElementAudioSourceNode>::value,
     "MediaElementAudioSourceNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaElementAudioSourceNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaElementAudioSourceNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaElementAudioSourceNode.mediaElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaElementAudioSourceNode* blink_receiver = V8MediaElementAudioSourceNode::ToWrappableUnsafe(v8_receiver);
+MediaElementAudioSourceNode* blink_receiver = V8MediaElementAudioSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mediaElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

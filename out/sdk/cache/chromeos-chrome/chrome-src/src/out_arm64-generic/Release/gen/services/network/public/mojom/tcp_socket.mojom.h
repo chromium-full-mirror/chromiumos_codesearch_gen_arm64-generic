@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/tcp_socket.mojom-features.h"
 #include "services/network/public/mojom/tcp_socket.mojom-shared.h"
 #include "services/network/public/mojom/tcp_socket.mojom-forward.h"
 #include "services/network/public/mojom/address_list.mojom.h"
@@ -98,7 +99,7 @@ class TCPBoundSocket
   virtual void Listen(uint32_t backlog, ::mojo::PendingReceiver<TCPServerSocket> socket, ListenCallback callback) = 0;
 
 
-  using ConnectCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using ConnectCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
   virtual void Connect(const ::net::AddressList& remote_addr_list, TCPConnectedSocketOptionsPtr tcp_connected_socket_options, ::mojo::PendingReceiver<TCPConnectedSocket> socket, ::mojo::PendingRemote<SocketObserver> observer, ConnectCallback callback) = 0;
 };
@@ -162,7 +163,7 @@ class TCPConnectedSocket
   virtual ~TCPConnectedSocket() = default;
 
 
-  using UpgradeToTLSCallback = base::OnceCallback<void(int32_t, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle, const absl::optional<::net::SSLInfo>&)>;
+  using UpgradeToTLSCallback = base::OnceCallback<void(int32_t, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle, const std::optional<::net::SSLInfo>&)>;
   
   virtual void UpgradeToTLS(const ::net::HostPortPair& host_port_pair, ::network::mojom::TLSClientSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TLSClientSocket> receiver, ::mojo::PendingRemote<SocketObserver> observer, UpgradeToTLSCallback callback) = 0;
 
@@ -282,7 +283,7 @@ class TCPServerSocket
   virtual ~TCPServerSocket() = default;
 
 
-  using AcceptCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, ::mojo::PendingRemote<TCPConnectedSocket>, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using AcceptCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, ::mojo::PendingRemote<TCPConnectedSocket>, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
   virtual void Accept(::mojo::PendingRemote<SocketObserver> observer, AcceptCallback callback) = 0;
 };

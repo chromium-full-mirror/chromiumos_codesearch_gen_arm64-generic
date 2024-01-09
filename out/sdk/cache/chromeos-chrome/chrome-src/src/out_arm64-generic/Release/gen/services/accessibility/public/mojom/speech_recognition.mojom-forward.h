@@ -24,16 +24,22 @@
 namespace ax::mojom {
 class SpeechRecognitionResultEventDataView;
 
+class SpeechRecognitionErrorEventDataView;
+
 class StartOptionsDataView;
 
 class StopOptionsDataView;
 
 class SpeechRecognitionStartInfoDataView;
 
+class ObserverOrErrorDataView;
 
 enum class SpeechRecognitionType : int32_t;
 class SpeechRecognitionResultEvent;
 using SpeechRecognitionResultEventPtr = mojo::InlinedStructPtr<SpeechRecognitionResultEvent>;
+
+class SpeechRecognitionErrorEvent;
+using SpeechRecognitionErrorEventPtr = mojo::InlinedStructPtr<SpeechRecognitionErrorEvent>;
 
 class StartOptions;
 using StartOptionsPtr = mojo::InlinedStructPtr<StartOptions>;
@@ -43,6 +49,10 @@ using StopOptionsPtr = mojo::InlinedStructPtr<StopOptions>;
 
 class SpeechRecognitionStartInfo;
 using SpeechRecognitionStartInfoPtr = mojo::StructPtr<SpeechRecognitionStartInfo>;
+
+class ObserverOrError;
+
+using ObserverOrErrorPtr = mojo::StructPtr<ObserverOrError>;
 
 class SpeechRecognitionEventObserver;
 

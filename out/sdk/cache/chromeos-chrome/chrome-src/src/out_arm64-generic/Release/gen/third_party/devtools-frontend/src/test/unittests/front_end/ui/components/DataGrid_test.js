@@ -9,7 +9,7 @@ import * as LitHtml from '../../../../../front_end/ui/lit-html/lit-html.js';
 import { assertElement, assertShadowRoot, dispatchClickEvent, dispatchFocusOutEvent, dispatchKeyDownEvent, getEventPromise, renderElementIntoDOM, stripLitHtmlCommentNodes, } from '../../helpers/DOMHelpers.js';
 import { describeWithLocale } from '../../helpers/EnvironmentHelpers.js';
 import { withMutations } from '../../helpers/MutationHelpers.js';
-import { assertCurrentFocusedCellIs, assertSelectedRowIs, emulateUserFocusingCellAt, emulateUserKeyboardNavigation, focusCurrentlyFocusableCell, getAllRows, getCellByIndexes, getFocusableCell, getHeaderCellForColumnId, getHeaderCells, getValuesOfAllBodyRows, getValuesOfBodyRowByAriaIndex, } from './DataGridHelpers.js';
+import { assertCurrentFocusedCellIs, assertSelectedRowIs, emulateUserFocusingCellAt, emulateUserKeyboardNavigation, focusCurrentlyFocusableCell, getAllRows, getBodyRowByAriaIndex, getCellByIndexes, getFocusableCell, getHeaderCellForColumnId, getHeaderCells, getValuesOfAllBodyRows, getValuesOfBodyRowByAriaIndex, } from './DataGridHelpers.js';
 const { assert } = chai;
 const coordinator = Coordinator.RenderCoordinator.RenderCoordinator.instance();
 const createColumns = () => {
@@ -207,7 +207,7 @@ describe('DataGrid', () => {
             assertShadowRoot(component.shadowRoot);
             await coordinator.done();
             const cell = getCellByIndexes(component.shadowRoot, { column: 0, row: 1 });
-            assert.deepEqual(stripLitHtmlCommentNodes(cell.innerHTML), '<div style="display: flex; justify-content: center;"><devtools-icon></devtools-icon></div>');
+            assert.deepEqual(stripLitHtmlCommentNodes(cell.innerHTML), '<div style="display: flex; justify-content: center;"><devtools-icon role="presentation" name="arrow-down" style="color: var(--icon-request); width: 16px; height: 16px;"></devtools-icon></div>');
         });
         it('accepts any custom renderer', async () => {
             const columns = [{ id: 'key', title: 'Key', widthWeighting: 1, visible: true, hideable: false }];
@@ -511,6 +511,20 @@ describe('DataGrid', () => {
             focusableCell.focus();
             const cellFocusedEvent = await bodyCellFocusedEvent;
             assert.deepEqual(cellFocusedEvent.data, { cell: rows[0].cells[0], row: rows[0] });
+        });
+        it('when the user hovers over a row', async () => {
+            const component = renderDataGrid({ rows, columns });
+            assertShadowRoot(component.shadowRoot);
+            await coordinator.done();
+            const rowHoveredEvent = getEventPromise(component, 'rowmouseenter');
+            const rowLeaveEvent = getEventPromise(component, 'rowmouseleave');
+            const row = getBodyRowByAriaIndex(component.shadowRoot, 1);
+            row.dispatchEvent(new MouseEvent('mouseenter'));
+            const hoverEvent = await rowHoveredEvent;
+            assert.deepEqual(hoverEvent.data, { row: rows[0] });
+            row.dispatchEvent(new MouseEvent('mouseleave'));
+            const leaveEvent = await rowLeaveEvent;
+            assert.deepEqual(leaveEvent.data, { row: rows[0] });
         });
     });
     describe('adding new rows', () => {

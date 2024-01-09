@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, URLSearchParams>::value,
     "URLSearchParams inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&URLSearchParams::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "URLSearchParams is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -153,7 +149,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -188,12 +184,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URLSearchParams";
 const char* const property_name = "delete";
@@ -236,7 +232,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -270,7 +266,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -305,12 +301,12 @@ return;
 bool return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URLSearchParams";
 const char* const property_name = "has";
@@ -353,7 +349,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -377,8 +373,9 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.sort");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->sort();
 
 }
@@ -394,10 +391,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -412,12 +409,12 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URLSearchParams";
 const char* const property_name = "entries";
@@ -450,7 +447,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -485,12 +482,12 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URLSearchParams";
 const char* const property_name = "keys";
@@ -513,12 +510,12 @@ BLINK_BINDINGS_TRACE_EVENT("URLSearchParams.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(v8_receiver);
+URLSearchParams* blink_receiver = V8URLSearchParams::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URLSearchParams";
 const char* const property_name = "values";

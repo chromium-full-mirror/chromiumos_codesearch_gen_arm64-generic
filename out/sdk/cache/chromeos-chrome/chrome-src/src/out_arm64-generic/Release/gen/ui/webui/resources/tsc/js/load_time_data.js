@@ -14,9 +14,7 @@
  */
 import { assert } from './assert.js';
 class LoadTimeData {
-    constructor() {
-        this.data_ = null;
-    }
+    data_ = null;
     /**
      * Sets the backing object.
      *

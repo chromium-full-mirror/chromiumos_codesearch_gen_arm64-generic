@@ -73,7 +73,6 @@
     this.hasOverscan = false;
     this.hasContentProtectionKey = false;
     this.hasColorCorrectionMatrix = false;
-    this.colorCorrectionInLinearSpace = false;
     this.hasCurrentMode = false;
     this.hasNativeMode = false;
     this.type = 0;
@@ -155,7 +154,6 @@
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 64, display_constants$.PrivacyScreenState);
     if (err !== validator.validationError.NONE)
         return err;
-
 
 
 
@@ -250,9 +248,8 @@
     val.hasOverscan = (packed >> 1) & 1 ? true : false;
     val.hasContentProtectionKey = (packed >> 2) & 1 ? true : false;
     val.hasColorCorrectionMatrix = (packed >> 3) & 1 ? true : false;
-    val.colorCorrectionInLinearSpace = (packed >> 4) & 1 ? true : false;
-    val.hasCurrentMode = (packed >> 5) & 1 ? true : false;
-    val.hasNativeMode = (packed >> 6) & 1 ? true : false;
+    val.hasCurrentMode = (packed >> 4) & 1 ? true : false;
+    val.hasNativeMode = (packed >> 5) & 1 ? true : false;
     decoder.skip(1);
     val.type =
         decoder.decodeStruct(new codec.Enum(display_constants$.DisplayConnectionType));
@@ -316,9 +313,8 @@
     packed |= (val.hasOverscan & 1) << 1
     packed |= (val.hasContentProtectionKey & 1) << 2
     packed |= (val.hasColorCorrectionMatrix & 1) << 3
-    packed |= (val.colorCorrectionInLinearSpace & 1) << 4
-    packed |= (val.hasCurrentMode & 1) << 5
-    packed |= (val.hasNativeMode & 1) << 6
+    packed |= (val.hasCurrentMode & 1) << 4
+    packed |= (val.hasNativeMode & 1) << 5
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.type);

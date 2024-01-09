@@ -72,7 +72,7 @@ bool CTLogInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -118,14 +118,14 @@ bool CTLogInfo_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->mmd, 6, validation_context)) {
+          object->mmd, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->mmd, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->current_operator, 7, validation_context)) {
+          object->current_operator, 6, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& current_operator_validate_params =
@@ -136,7 +136,7 @@ bool CTLogInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->previous_operators, 8, validation_context)) {
+          object->previous_operators, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& previous_operators_validate_params =

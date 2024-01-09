@@ -87,6 +87,266 @@ class  DocumentScan_ScanFirstPage_ResponseParams_Data {
 };
 static_assert(sizeof(DocumentScan_ScanFirstPage_ResponseParams_Data) == 24,
               "Bad sizeof(DocumentScan_ScanFirstPage_ResponseParams_Data)");
+class  DocumentScan_GetScannerList_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> client_id;
+  mojo::internal::Pointer<internal::ScannerEnumFilter_Data> filter;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_GetScannerList_Params_Data>;
+
+  DocumentScan_GetScannerList_Params_Data();
+  ~DocumentScan_GetScannerList_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_GetScannerList_Params_Data) == 24,
+              "Bad sizeof(DocumentScan_GetScannerList_Params_Data)");
+class  DocumentScan_GetScannerList_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::GetScannerListResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_GetScannerList_ResponseParams_Data>;
+
+  DocumentScan_GetScannerList_ResponseParams_Data();
+  ~DocumentScan_GetScannerList_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_GetScannerList_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_GetScannerList_ResponseParams_Data)");
+class  DocumentScan_OpenScanner_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> client_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> scanner_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_OpenScanner_Params_Data>;
+
+  DocumentScan_OpenScanner_Params_Data();
+  ~DocumentScan_OpenScanner_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_OpenScanner_Params_Data) == 24,
+              "Bad sizeof(DocumentScan_OpenScanner_Params_Data)");
+class  DocumentScan_OpenScanner_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::OpenScannerResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_OpenScanner_ResponseParams_Data>;
+
+  DocumentScan_OpenScanner_ResponseParams_Data();
+  ~DocumentScan_OpenScanner_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_OpenScanner_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_OpenScanner_ResponseParams_Data)");
+class  DocumentScan_CloseScanner_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> scanner_handle;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_CloseScanner_Params_Data>;
+
+  DocumentScan_CloseScanner_Params_Data();
+  ~DocumentScan_CloseScanner_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_CloseScanner_Params_Data) == 16,
+              "Bad sizeof(DocumentScan_CloseScanner_Params_Data)");
+class  DocumentScan_CloseScanner_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::CloseScannerResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_CloseScanner_ResponseParams_Data>;
+
+  DocumentScan_CloseScanner_ResponseParams_Data();
+  ~DocumentScan_CloseScanner_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_CloseScanner_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_CloseScanner_ResponseParams_Data)");
+class  DocumentScan_StartPreparedScan_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> scanner_handle;
+  mojo::internal::Pointer<internal::StartScanOptions_Data> options;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_StartPreparedScan_Params_Data>;
+
+  DocumentScan_StartPreparedScan_Params_Data();
+  ~DocumentScan_StartPreparedScan_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_StartPreparedScan_Params_Data) == 24,
+              "Bad sizeof(DocumentScan_StartPreparedScan_Params_Data)");
+class  DocumentScan_StartPreparedScan_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::StartPreparedScanResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_StartPreparedScan_ResponseParams_Data>;
+
+  DocumentScan_StartPreparedScan_ResponseParams_Data();
+  ~DocumentScan_StartPreparedScan_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_StartPreparedScan_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_StartPreparedScan_ResponseParams_Data)");
+class  DocumentScan_ReadScanData_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> job_handle;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_ReadScanData_Params_Data>;
+
+  DocumentScan_ReadScanData_Params_Data();
+  ~DocumentScan_ReadScanData_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_ReadScanData_Params_Data) == 16,
+              "Bad sizeof(DocumentScan_ReadScanData_Params_Data)");
+class  DocumentScan_ReadScanData_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ReadScanDataResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_ReadScanData_ResponseParams_Data>;
+
+  DocumentScan_ReadScanData_ResponseParams_Data();
+  ~DocumentScan_ReadScanData_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_ReadScanData_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_ReadScanData_ResponseParams_Data)");
+class  DocumentScan_SetOptions_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> scanner_handle;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::OptionSetting_Data>>> options;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_SetOptions_Params_Data>;
+
+  DocumentScan_SetOptions_Params_Data();
+  ~DocumentScan_SetOptions_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_SetOptions_Params_Data) == 24,
+              "Bad sizeof(DocumentScan_SetOptions_Params_Data)");
+class  DocumentScan_SetOptions_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SetOptionsResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_SetOptions_ResponseParams_Data>;
+
+  DocumentScan_SetOptions_ResponseParams_Data();
+  ~DocumentScan_SetOptions_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_SetOptions_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_SetOptions_ResponseParams_Data)");
+class  DocumentScan_GetOptionGroups_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> scanner_handle;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_GetOptionGroups_Params_Data>;
+
+  DocumentScan_GetOptionGroups_Params_Data();
+  ~DocumentScan_GetOptionGroups_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_GetOptionGroups_Params_Data) == 16,
+              "Bad sizeof(DocumentScan_GetOptionGroups_Params_Data)");
+class  DocumentScan_GetOptionGroups_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::GetOptionGroupsResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_GetOptionGroups_ResponseParams_Data>;
+
+  DocumentScan_GetOptionGroups_ResponseParams_Data();
+  ~DocumentScan_GetOptionGroups_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_GetOptionGroups_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_GetOptionGroups_ResponseParams_Data)");
+class  DocumentScan_CancelScan_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> job_handle;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_CancelScan_Params_Data>;
+
+  DocumentScan_CancelScan_Params_Data();
+  ~DocumentScan_CancelScan_Params_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_CancelScan_Params_Data) == 16,
+              "Bad sizeof(DocumentScan_CancelScan_Params_Data)");
+class  DocumentScan_CancelScan_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::CancelScanResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<DocumentScan_CancelScan_ResponseParams_Data>;
+
+  DocumentScan_CancelScan_ResponseParams_Data();
+  ~DocumentScan_CancelScan_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(DocumentScan_CancelScan_ResponseParams_Data) == 16,
+              "Bad sizeof(DocumentScan_CancelScan_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -204,6 +464,472 @@ static_assert(
 };
 
 
+class DocumentScan_GetScannerList_ParamsDataView {
+ public:
+  DocumentScan_GetScannerList_ParamsDataView() = default;
+
+  DocumentScan_GetScannerList_ParamsDataView(
+      internal::DocumentScan_GetScannerList_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetClientIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadClientId(UserType* output) {
+    
+    auto* pointer = data_->client_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetFilterDataView(
+      ScannerEnumFilterDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFilter(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::ScannerEnumFilterDataView, UserType>(),
+    "Attempting to read the optional `filter` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadFilter` instead "
+    "of `ReadFilter if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->filter.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::ScannerEnumFilterDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_GetScannerList_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_GetScannerList_ResponseParamsDataView {
+ public:
+  DocumentScan_GetScannerList_ResponseParamsDataView() = default;
+
+  DocumentScan_GetScannerList_ResponseParamsDataView(
+      internal::DocumentScan_GetScannerList_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      GetScannerListResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::GetScannerListResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_GetScannerList_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_OpenScanner_ParamsDataView {
+ public:
+  DocumentScan_OpenScanner_ParamsDataView() = default;
+
+  DocumentScan_OpenScanner_ParamsDataView(
+      internal::DocumentScan_OpenScanner_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetClientIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadClientId(UserType* output) {
+    
+    auto* pointer = data_->client_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetScannerIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScannerId(UserType* output) {
+    
+    auto* pointer = data_->scanner_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_OpenScanner_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_OpenScanner_ResponseParamsDataView {
+ public:
+  DocumentScan_OpenScanner_ResponseParamsDataView() = default;
+
+  DocumentScan_OpenScanner_ResponseParamsDataView(
+      internal::DocumentScan_OpenScanner_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      OpenScannerResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::OpenScannerResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_OpenScanner_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_CloseScanner_ParamsDataView {
+ public:
+  DocumentScan_CloseScanner_ParamsDataView() = default;
+
+  DocumentScan_CloseScanner_ParamsDataView(
+      internal::DocumentScan_CloseScanner_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetScannerHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScannerHandle(UserType* output) {
+    
+    auto* pointer = data_->scanner_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_CloseScanner_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_CloseScanner_ResponseParamsDataView {
+ public:
+  DocumentScan_CloseScanner_ResponseParamsDataView() = default;
+
+  DocumentScan_CloseScanner_ResponseParamsDataView(
+      internal::DocumentScan_CloseScanner_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      CloseScannerResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::CloseScannerResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_CloseScanner_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_StartPreparedScan_ParamsDataView {
+ public:
+  DocumentScan_StartPreparedScan_ParamsDataView() = default;
+
+  DocumentScan_StartPreparedScan_ParamsDataView(
+      internal::DocumentScan_StartPreparedScan_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetScannerHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScannerHandle(UserType* output) {
+    
+    auto* pointer = data_->scanner_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOptionsDataView(
+      StartScanOptionsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOptions(UserType* output) {
+    
+    auto* pointer = data_->options.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::StartScanOptionsDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_StartPreparedScan_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_StartPreparedScan_ResponseParamsDataView {
+ public:
+  DocumentScan_StartPreparedScan_ResponseParamsDataView() = default;
+
+  DocumentScan_StartPreparedScan_ResponseParamsDataView(
+      internal::DocumentScan_StartPreparedScan_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      StartPreparedScanResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::StartPreparedScanResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_StartPreparedScan_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_ReadScanData_ParamsDataView {
+ public:
+  DocumentScan_ReadScanData_ParamsDataView() = default;
+
+  DocumentScan_ReadScanData_ParamsDataView(
+      internal::DocumentScan_ReadScanData_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetJobHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadJobHandle(UserType* output) {
+    
+    auto* pointer = data_->job_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_ReadScanData_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_ReadScanData_ResponseParamsDataView {
+ public:
+  DocumentScan_ReadScanData_ResponseParamsDataView() = default;
+
+  DocumentScan_ReadScanData_ResponseParamsDataView(
+      internal::DocumentScan_ReadScanData_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ReadScanDataResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::ReadScanDataResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_ReadScanData_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_SetOptions_ParamsDataView {
+ public:
+  DocumentScan_SetOptions_ParamsDataView() = default;
+
+  DocumentScan_SetOptions_ParamsDataView(
+      internal::DocumentScan_SetOptions_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetScannerHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScannerHandle(UserType* output) {
+    
+    auto* pointer = data_->scanner_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOptionsDataView(
+      mojo::ArrayDataView<OptionSettingDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOptions(UserType* output) {
+    
+    auto* pointer = data_->options.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::OptionSettingDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_SetOptions_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_SetOptions_ResponseParamsDataView {
+ public:
+  DocumentScan_SetOptions_ResponseParamsDataView() = default;
+
+  DocumentScan_SetOptions_ResponseParamsDataView(
+      internal::DocumentScan_SetOptions_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      SetOptionsResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::SetOptionsResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_SetOptions_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_GetOptionGroups_ParamsDataView {
+ public:
+  DocumentScan_GetOptionGroups_ParamsDataView() = default;
+
+  DocumentScan_GetOptionGroups_ParamsDataView(
+      internal::DocumentScan_GetOptionGroups_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetScannerHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadScannerHandle(UserType* output) {
+    
+    auto* pointer = data_->scanner_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_GetOptionGroups_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_GetOptionGroups_ResponseParamsDataView {
+ public:
+  DocumentScan_GetOptionGroups_ResponseParamsDataView() = default;
+
+  DocumentScan_GetOptionGroups_ResponseParamsDataView(
+      internal::DocumentScan_GetOptionGroups_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      GetOptionGroupsResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::GetOptionGroupsResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_GetOptionGroups_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_CancelScan_ParamsDataView {
+ public:
+  DocumentScan_CancelScan_ParamsDataView() = default;
+
+  DocumentScan_CancelScan_ParamsDataView(
+      internal::DocumentScan_CancelScan_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetJobHandleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadJobHandle(UserType* output) {
+    
+    auto* pointer = data_->job_handle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_CancelScan_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DocumentScan_CancelScan_ResponseParamsDataView {
+ public:
+  DocumentScan_CancelScan_ResponseParamsDataView() = default;
+
+  DocumentScan_CancelScan_ResponseParamsDataView(
+      internal::DocumentScan_CancelScan_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      CancelScanResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::CancelScanResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DocumentScan_CancelScan_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void DocumentScan_GetScannerNames_ResponseParamsDataView::GetScannerNamesDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
@@ -223,6 +949,138 @@ inline void DocumentScan_ScanFirstPage_ResponseParamsDataView::GetScanDataDataVi
     mojo::StringDataView* output) {
   auto pointer = data_->scan_data.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_GetScannerList_ParamsDataView::GetClientIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->client_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DocumentScan_GetScannerList_ParamsDataView::GetFilterDataView(
+    ScannerEnumFilterDataView* output) {
+  auto pointer = data_->filter.Get();
+  *output = ScannerEnumFilterDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_GetScannerList_ResponseParamsDataView::GetResponseDataView(
+    GetScannerListResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = GetScannerListResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_OpenScanner_ParamsDataView::GetClientIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->client_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DocumentScan_OpenScanner_ParamsDataView::GetScannerIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->scanner_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_OpenScanner_ResponseParamsDataView::GetResponseDataView(
+    OpenScannerResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = OpenScannerResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_CloseScanner_ParamsDataView::GetScannerHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->scanner_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_CloseScanner_ResponseParamsDataView::GetResponseDataView(
+    CloseScannerResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = CloseScannerResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_StartPreparedScan_ParamsDataView::GetScannerHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->scanner_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DocumentScan_StartPreparedScan_ParamsDataView::GetOptionsDataView(
+    StartScanOptionsDataView* output) {
+  auto pointer = data_->options.Get();
+  *output = StartScanOptionsDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_StartPreparedScan_ResponseParamsDataView::GetResponseDataView(
+    StartPreparedScanResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = StartPreparedScanResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_ReadScanData_ParamsDataView::GetJobHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->job_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_ReadScanData_ResponseParamsDataView::GetResponseDataView(
+    ReadScanDataResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ReadScanDataResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_SetOptions_ParamsDataView::GetScannerHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->scanner_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DocumentScan_SetOptions_ParamsDataView::GetOptionsDataView(
+    mojo::ArrayDataView<OptionSettingDataView>* output) {
+  auto pointer = data_->options.Get();
+  *output = mojo::ArrayDataView<OptionSettingDataView>(pointer, message_);
+}
+
+
+inline void DocumentScan_SetOptions_ResponseParamsDataView::GetResponseDataView(
+    SetOptionsResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = SetOptionsResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_GetOptionGroups_ParamsDataView::GetScannerHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->scanner_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_GetOptionGroups_ResponseParamsDataView::GetResponseDataView(
+    GetOptionGroupsResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = GetOptionGroupsResponseDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_CancelScan_ParamsDataView::GetJobHandleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->job_handle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DocumentScan_CancelScan_ResponseParamsDataView::GetResponseDataView(
+    CancelScanResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = CancelScanResponseDataView(pointer, message_);
 }
 
 

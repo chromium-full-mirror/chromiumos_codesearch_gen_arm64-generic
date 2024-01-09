@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -91,7 +92,6 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus()
       ssl_info(),
       blocked_by_response_reason(),
       should_report_corb_blocking(false),
-      proxy_server(),
       resolve_error_info(),
       should_collapse_initiator(false) {}
 
@@ -110,7 +110,6 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus(
     ::network::mojom::blink::SSLInfoPtr ssl_info_in,
     BlockedByResponseReasonWrapperPtr blocked_by_response_reason_in,
     bool should_report_corb_blocking_in,
-    ::network::mojom::blink::ProxyServerPtr proxy_server_in,
     ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info_in,
     bool should_collapse_initiator_in)
     : error_code(std::move(error_code_in)),
@@ -127,7 +126,6 @@ URLLoaderCompletionStatus::URLLoaderCompletionStatus(
       ssl_info(std::move(ssl_info_in)),
       blocked_by_response_reason(std::move(blocked_by_response_reason_in)),
       should_report_corb_blocking(std::move(should_report_corb_blocking_in)),
-      proxy_server(std::move(proxy_server_in)),
       resolve_error_info(std::move(resolve_error_info_in)),
       should_collapse_initiator(std::move(should_collapse_initiator_in)) {}
 
@@ -264,15 +262,6 @@ void URLLoaderCompletionStatus::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "proxy_server"), this->proxy_server,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::network::mojom::blink::ProxyServerPtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "resolve_error_info"), this->resolve_error_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::network::mojom::blink::ResolveErrorInfoPtr>"
@@ -353,8 +342,6 @@ bool StructTraits<::network::mojom::blink::URLLoaderCompletionStatus::DataView, 
         success = false;
       if (success)
         result->should_report_corb_blocking = input.should_report_corb_blocking();
-      if (success && !input.ReadProxyServer(&result->proxy_server))
-        success = false;
       if (success && !input.ReadResolveErrorInfo(&result->resolve_error_info))
         success = false;
       if (success)

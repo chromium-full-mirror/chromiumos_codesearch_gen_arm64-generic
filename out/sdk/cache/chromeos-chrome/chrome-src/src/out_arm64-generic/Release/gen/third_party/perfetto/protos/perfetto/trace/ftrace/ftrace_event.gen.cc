@@ -34,6 +34,7 @@
 #include "protos/perfetto/trace/ftrace/raw_syscalls.gen.h"
 #include "protos/perfetto/trace/ftrace/printk.gen.h"
 #include "protos/perfetto/trace/ftrace/power.gen.h"
+#include "protos/perfetto/trace/ftrace/perf_trace_counters.gen.h"
 #include "protos/perfetto/trace/ftrace/panel.gen.h"
 #include "protos/perfetto/trace/ftrace/oom.gen.h"
 #include "protos/perfetto/trace/ftrace/net.gen.h"
@@ -552,7 +553,9 @@ bool FtraceEvent::operator==(const FtraceEvent& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(mali_mali_csf_interrupt_end_, other.mali_mali_csf_interrupt_end_)
    && ::protozero::internal::gen_helpers::EqualsField(samsung_tracing_mark_write_, other.samsung_tracing_mark_write_)
    && ::protozero::internal::gen_helpers::EqualsField(binder_command_, other.binder_command_)
-   && ::protozero::internal::gen_helpers::EqualsField(binder_return_, other.binder_return_);
+   && ::protozero::internal::gen_helpers::EqualsField(binder_return_, other.binder_return_)
+   && ::protozero::internal::gen_helpers::EqualsField(sched_switch_with_ctrs_, other.sched_switch_with_ctrs_)
+   && ::protozero::internal::gen_helpers::EqualsField(gpu_work_period_, other.gpu_work_period_);
 }
 
 bool FtraceEvent::ParseFromArray(const void* raw, size_t size) {
@@ -1968,6 +1971,12 @@ bool FtraceEvent::ParseFromArray(const void* raw, size_t size) {
         break;
       case 486 /* binder_return */:
         (*binder_return_).ParseFromArray(field.data(), field.size());
+        break;
+      case 487 /* sched_switch_with_ctrs */:
+        (*sched_switch_with_ctrs_).ParseFromArray(field.data(), field.size());
+        break;
+      case 488 /* gpu_work_period */:
+        (*gpu_work_period_).ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -4328,6 +4337,16 @@ void FtraceEvent::Serialize(::protozero::Message* msg) const {
   // Field 486: binder_return
   if (_has_field_[486]) {
     (*binder_return_).Serialize(msg->BeginNestedMessage<::protozero::Message>(486));
+  }
+
+  // Field 487: sched_switch_with_ctrs
+  if (_has_field_[487]) {
+    (*sched_switch_with_ctrs_).Serialize(msg->BeginNestedMessage<::protozero::Message>(487));
+  }
+
+  // Field 488: gpu_work_period
+  if (_has_field_[488]) {
+    (*gpu_work_period_).Serialize(msg->BeginNestedMessage<::protozero::Message>(488));
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,7 +55,7 @@ DocumentScannerConfig::DocumentScannerConfig(
 
 DocumentScannerConfig::DocumentScannerConfig(
     const std::string& deprecated_library_dlc_path_in,
-    const absl::optional<::base::FilePath>& library_dlc_path_in)
+    const std::optional<::base::FilePath>& library_dlc_path_in)
     : deprecated_library_dlc_path(std::move(deprecated_library_dlc_path_in)),
       library_dlc_path(std::move(library_dlc_path_in)) {}
 
@@ -76,7 +77,7 @@ void DocumentScannerConfig::WriteIntoTrace(
     dict.AddItem(
       "library_dlc_path"), this->library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -327,14 +328,17 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr);
@@ -376,14 +380,17 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr);
@@ -431,14 +438,17 @@ void DocumentScannerProxy::DoPostProcessing(
                         "<value of type ::chromeos::machine_learning::mojom::Rotation>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr);
@@ -574,7 +584,8 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DetectCornersFromNV12Image_Name, kFlags, 0, 0, nullptr);
@@ -702,7 +713,8 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DetectCornersFromJPEGImage_Name, kFlags, 0, 0, nullptr);
@@ -830,7 +842,8 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScanner_DoPostProcessing_Name, kFlags, 0, 0, nullptr);
@@ -992,14 +1005,14 @@ std::move(p_rotation), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDocumentScannerValidationInfo[] = {
-    {&internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data::Validate,
+    { &internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data::Validate,
      &internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data::Validate},
-    {&internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data::Validate,
+    { &internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data::Validate,
      &internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data::Validate},
-    {&internal::DocumentScanner_DoPostProcessing_Params_Data::Validate,
+    { &internal::DocumentScanner_DoPostProcessing_Params_Data::Validate,
      &internal::DocumentScanner_DoPostProcessing_ResponseParams_Data::Validate},
 };
 

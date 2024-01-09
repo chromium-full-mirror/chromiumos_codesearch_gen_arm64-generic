@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSMathMax>::value,
     "CSSMathMax inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSMathMax::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSMathMax is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSMathMax.values.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSMathMax* blink_receiver = V8CSSMathMax::ToWrappableUnsafe(v8_receiver);
+CSSMathMax* blink_receiver = V8CSSMathMax::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->values();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

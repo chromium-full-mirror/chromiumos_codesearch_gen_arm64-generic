@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -155,14 +156,17 @@ void AppPublisherProxy::OnApps(
                         "<value of type std::vector<::apps::AppPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPublisher_OnApps_Name, kFlags, 0, 0, nullptr);
@@ -205,14 +209,17 @@ void AppPublisherProxy::RegisterAppController(
                         "<value of type ::mojo::PendingRemote<AppController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPublisher_RegisterAppController_Name, kFlags, 0, 0, nullptr);
@@ -248,14 +255,17 @@ void AppPublisherProxy::OnCapabilityAccesses(
                         "<value of type std::vector<::apps::CapabilityAccessPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppPublisher_OnCapabilityAccesses_Name, kFlags, 0, 0, nullptr);
@@ -396,14 +406,14 @@ bool AppPublisherStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppPublisherValidationInfo[] = {
-    {&internal::AppPublisher_OnApps_Params_Data::Validate,
+    { &internal::AppPublisher_OnApps_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppPublisher_RegisterAppController_Params_Data::Validate,
+    { &internal::AppPublisher_RegisterAppController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppPublisher_OnCapabilityAccesses_Params_Data::Validate,
+    { &internal::AppPublisher_OnCapabilityAccesses_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -454,6 +464,9 @@ AppController::IPCStableHashFunction AppController::MessageToMethodInfo_(mojo::M
     case internal::kAppController_SetPermission_Name: {
       return &AppController::SetPermission_Sym::IPCStableHash;
     }
+    case internal::kAppController_UpdateAppSize_Name: {
+      return &AppController::UpdateAppSize_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -489,6 +502,8 @@ const char* AppController::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::AppController::StopApp";
       case internal::kAppController_SetPermission_Name:
             return "Receive crosapi::mojom::AppController::SetPermission";
+      case internal::kAppController_UpdateAppSize_Name:
+            return "Receive crosapi::mojom::AppController::UpdateAppSize";
     }
   } else {
     switch (message.name()) {
@@ -516,6 +531,8 @@ const char* AppController::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::AppController::StopApp";
       case internal::kAppController_SetPermission_Name:
             return "Receive reply crosapi::mojom::AppController::SetPermission";
+      case internal::kAppController_UpdateAppSize_Name:
+            return "Receive reply crosapi::mojom::AppController::UpdateAppSize";
     }
   }
   return "Receive unknown mojo message";
@@ -686,6 +703,19 @@ uint32_t AppController::SetPermission_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AppController::UpdateAppSize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppController::UpdateAppSize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AppController_GetMenuModel_ForwardToCallback
@@ -793,14 +823,17 @@ void AppControllerProxy::Uninstall(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_Uninstall_Name, kFlags, 0, 0, nullptr);
@@ -845,14 +878,17 @@ void AppControllerProxy::PauseApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_PauseApp_Name, kFlags, 0, 0, nullptr);
@@ -893,14 +929,17 @@ void AppControllerProxy::UnpauseApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_UnpauseApp_Name, kFlags, 0, 0, nullptr);
@@ -941,14 +980,17 @@ void AppControllerProxy::GetMenuModel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_GetMenuModel_Name, kFlags, 0, 0, nullptr);
@@ -999,14 +1041,17 @@ void AppControllerProxy::DEPRECATED_LoadIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_DEPRECATED_LoadIcon_Name, kFlags, 0, 0, nullptr);
@@ -1068,14 +1113,17 @@ void AppControllerProxy::GetCompressedIcon(
                         "<value of type ::ui::ResourceScaleFactor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_GetCompressedIcon_Name, kFlags, 0, 0, nullptr);
@@ -1120,14 +1168,17 @@ void AppControllerProxy::OpenNativeSettings(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_OpenNativeSettings_Name, kFlags, 0, 0, nullptr);
@@ -1171,14 +1222,17 @@ void AppControllerProxy::SetWindowMode(
                         "<value of type ::apps::WindowMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_SetWindowMode_Name, kFlags, 0, 0, nullptr);
@@ -1221,14 +1275,17 @@ void AppControllerProxy::Launch(
                         "<value of type ::crosapi::mojom::LaunchParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_Launch_Name, kFlags, 0, 0, nullptr);
@@ -1273,14 +1330,17 @@ void AppControllerProxy::ExecuteContextMenuCommand(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_ExecuteContextMenuCommand_Name, kFlags, 0, 0, nullptr);
@@ -1333,14 +1393,17 @@ void AppControllerProxy::StopApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_StopApp_Name, kFlags, 0, 0, nullptr);
@@ -1384,14 +1447,17 @@ void AppControllerProxy::SetPermission(
                         "<value of type ::apps::PermissionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_SetPermission_Name, kFlags, 0, 0, nullptr);
@@ -1425,6 +1491,57 @@ void AppControllerProxy::SetPermission(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AppController::Name_);
   message.set_method_name("SetPermission");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AppControllerProxy::UpdateAppSize(
+    const std::string& in_app_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppController::UpdateAppSize", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppController_UpdateAppSize_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppController_UpdateAppSize_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in AppController.UpdateAppSize request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppController::Name_);
+  message.set_method_name("UpdateAppSize");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1522,7 +1639,8 @@ void AppController_GetMenuModel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_GetMenuModel_Name, kFlags, 0, 0, nullptr);
@@ -1650,7 +1768,8 @@ void AppController_DEPRECATED_LoadIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_DEPRECATED_LoadIcon_Name, kFlags, 0, 0, nullptr);
@@ -1778,7 +1897,8 @@ void AppController_GetCompressedIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_GetCompressedIcon_Name, kFlags, 0, 0, nullptr);
@@ -1906,7 +2026,8 @@ void AppController_Launch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_Launch_Name, kFlags, 0, 0, nullptr);
@@ -2034,7 +2155,8 @@ void AppController_ExecuteContextMenuCommand_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppController_ExecuteContextMenuCommand_Name, kFlags, 0, 0, nullptr);
@@ -2293,6 +2415,32 @@ std::move(p_app_id),
 std::move(p_permission));
       return true;
     }
+    case internal::kAppController_UpdateAppSize_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppController_UpdateAppSize_Params_Data* params =
+          reinterpret_cast<internal::AppController_UpdateAppSize_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_app_id{};
+      AppController_UpdateAppSize_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppController::Name_, 21, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateAppSize(
+std::move(p_app_id));
+      return true;
+    }
   }
   return false;
 }
@@ -2496,34 +2644,37 @@ std::move(p_id), std::move(callback));
     case internal::kAppController_SetPermission_Name: {
       break;
     }
+    case internal::kAppController_UpdateAppSize_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppControllerValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppController_Uninstall_Params_Data::Validate,
+    { &internal::AppController_Uninstall_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_PauseApp_Params_Data::Validate,
+    { &internal::AppController_PauseApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_UnpauseApp_Params_Data::Validate,
+    { &internal::AppController_UnpauseApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_GetMenuModel_Params_Data::Validate,
+    { &internal::AppController_GetMenuModel_Params_Data::Validate,
      &internal::AppController_GetMenuModel_ResponseParams_Data::Validate},
-    {&internal::AppController_DEPRECATED_LoadIcon_Params_Data::Validate,
+    { &internal::AppController_DEPRECATED_LoadIcon_Params_Data::Validate,
      &internal::AppController_DEPRECATED_LoadIcon_ResponseParams_Data::Validate},
-    {&internal::AppController_OpenNativeSettings_Params_Data::Validate,
+    { &internal::AppController_OpenNativeSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_SetWindowMode_Params_Data::Validate,
+    { &internal::AppController_SetWindowMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_Launch_Params_Data::Validate,
+    { &internal::AppController_Launch_Params_Data::Validate,
      &internal::AppController_Launch_ResponseParams_Data::Validate},
-    {&internal::AppController_ExecuteContextMenuCommand_Params_Data::Validate,
+    { &internal::AppController_ExecuteContextMenuCommand_Params_Data::Validate,
      &internal::AppController_ExecuteContextMenuCommand_ResponseParams_Data::Validate},
-    {&internal::AppController_StopApp_Params_Data::Validate,
+    { &internal::AppController_StopApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppController_SetPermission_Params_Data::Validate,
+    { &internal::AppController_SetPermission_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
@@ -2533,8 +2684,10 @@ static const mojo::internal::GenericValidationInfo kAppControllerValidationInfo[
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppController_GetCompressedIcon_Params_Data::Validate,
+    { &internal::AppController_GetCompressedIcon_Params_Data::Validate,
      &internal::AppController_GetCompressedIcon_ResponseParams_Data::Validate},
+    { &internal::AppController_UpdateAppSize_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool AppControllerRequestValidator::Accept(mojo::Message* message) {
@@ -2576,6 +2729,9 @@ AppServiceProxy::IPCStableHashFunction AppServiceProxy::MessageToMethodInfo_(moj
     case internal::kAppServiceProxy_UninstallSilently_Name: {
       return &AppServiceProxy::UninstallSilently_Sym::IPCStableHash;
     }
+    case internal::kAppServiceProxy_InstallApp_Name: {
+      return &AppServiceProxy::InstallApp_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2603,6 +2759,8 @@ const char* AppServiceProxy::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::AppServiceProxy::SetSupportedLinksPreference";
       case internal::kAppServiceProxy_UninstallSilently_Name:
             return "Receive crosapi::mojom::AppServiceProxy::UninstallSilently";
+      case internal::kAppServiceProxy_InstallApp_Name:
+            return "Receive crosapi::mojom::AppServiceProxy::InstallApp";
     }
   } else {
     switch (message.name()) {
@@ -2622,6 +2780,8 @@ const char* AppServiceProxy::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::AppServiceProxy::SetSupportedLinksPreference";
       case internal::kAppServiceProxy_UninstallSilently_Name:
             return "Receive reply crosapi::mojom::AppServiceProxy::UninstallSilently";
+      case internal::kAppServiceProxy_InstallApp_Name:
+            return "Receive reply crosapi::mojom::AppServiceProxy::InstallApp";
     }
   }
   return "Receive unknown mojo message";
@@ -2740,6 +2900,19 @@ uint32_t AppServiceProxy::UninstallSilently_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AppServiceProxy::InstallApp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppServiceProxy::InstallApp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AppServiceProxy_LaunchWithResult_ForwardToCallback
@@ -2774,6 +2947,22 @@ class AppServiceProxy_LoadIcon_ForwardToCallback
   AppServiceProxy::LoadIconCallback callback_;
 };
 
+class AppServiceProxy_InstallApp_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppServiceProxy_InstallApp_ForwardToCallback(
+      AppServiceProxy::InstallAppCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppServiceProxy_InstallApp_ForwardToCallback(const AppServiceProxy_InstallApp_ForwardToCallback&) = delete;
+  AppServiceProxy_InstallApp_ForwardToCallback& operator=(const AppServiceProxy_InstallApp_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppServiceProxy::InstallAppCallback callback_;
+};
+
 AppServiceProxyProxy::AppServiceProxyProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -2790,14 +2979,17 @@ void AppServiceProxyProxy::RegisterAppServiceSubscriber(
                         "<value of type ::mojo::PendingRemote<AppServiceSubscriber>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_RegisterAppServiceSubscriber_Name, kFlags, 0, 0, nullptr);
@@ -2833,14 +3025,17 @@ void AppServiceProxyProxy::Launch(
                         "<value of type ::crosapi::mojom::LaunchParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_Launch_Name, kFlags, 0, 0, nullptr);
@@ -2881,14 +3076,17 @@ void AppServiceProxyProxy::LaunchWithResult(
                         "<value of type ::crosapi::mojom::LaunchParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_LaunchWithResult_Name, kFlags, 0, 0, nullptr);
@@ -2939,14 +3137,17 @@ void AppServiceProxyProxy::LoadIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_LoadIcon_Name, kFlags, 0, 0, nullptr);
@@ -3005,14 +3206,17 @@ void AppServiceProxyProxy::AddPreferredAppDeprecated(
                         "<value of type ::crosapi::mojom::IntentPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_AddPreferredAppDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -3064,14 +3268,17 @@ void AppServiceProxyProxy::ShowAppManagementPage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_ShowAppManagementPage_Name, kFlags, 0, 0, nullptr);
@@ -3112,14 +3319,17 @@ void AppServiceProxyProxy::SetSupportedLinksPreference(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_SetSupportedLinksPreference_Name, kFlags, 0, 0, nullptr);
@@ -3163,14 +3373,17 @@ void AppServiceProxyProxy::UninstallSilently(
                         "<value of type ::apps::UninstallSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_UninstallSilently_Name, kFlags, 0, 0, nullptr);
@@ -3199,6 +3412,58 @@ void AppServiceProxyProxy::UninstallSilently(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AppServiceProxyProxy::InstallApp(
+    ::crosapi::mojom::InstallAppParamsPtr in_params, InstallAppCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppServiceProxy::InstallApp", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("params"), in_params,
+                        "<value of type ::crosapi::mojom::InstallAppParamsPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppServiceProxy_InstallApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppServiceProxy_InstallApp_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->params)::BaseType> params_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::InstallAppParamsDataView>(
+      in_params, params_fragment);
+  params->params.Set(
+      params_fragment.is_null() ? nullptr : params_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->params.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null params in AppServiceProxy.InstallApp request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppServiceProxy::Name_);
+  message.set_method_name("InstallApp");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppServiceProxy_InstallApp_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class AppServiceProxy_LaunchWithResult_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -3292,7 +3557,8 @@ void AppServiceProxy_LaunchWithResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_LaunchWithResult_Name, kFlags, 0, 0, nullptr);
@@ -3420,7 +3686,8 @@ void AppServiceProxy_LoadIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceProxy_LoadIcon_Name, kFlags, 0, 0, nullptr);
@@ -3443,6 +3710,135 @@ void AppServiceProxy_LoadIcon_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AppServiceProxy::Name_);
   message.set_method_name("LoadIcon");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppServiceProxy_InstallApp_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppServiceProxy::InstallAppCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppServiceProxy_InstallApp_ProxyToResponder> proxy(
+        new AppServiceProxy_InstallApp_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppServiceProxy_InstallApp_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppServiceProxy_InstallApp_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppServiceProxy_InstallApp_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppServiceProxy::InstallAppCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::crosapi::mojom::AppInstallResultPtr in_result);
+};
+
+bool AppServiceProxy_InstallApp_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppServiceProxy_InstallApp_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppServiceProxy_InstallApp_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::crosapi::mojom::AppInstallResultPtr p_result{};
+  AppServiceProxy_InstallApp_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppServiceProxy::Name_, 8, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void AppServiceProxy_InstallApp_ProxyToResponder::Run(
+    ::crosapi::mojom::AppInstallResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::AppServiceProxy::InstallApp", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::crosapi::mojom::AppInstallResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppServiceProxy_InstallApp_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppServiceProxy_InstallApp_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::AppInstallResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppServiceProxy::Name_);
+  message.set_method_name("InstallApp");
 #endif
 
   message.set_request_id(request_id_);
@@ -3634,6 +4030,9 @@ std::move(p_app_id),
 std::move(p_uninstall_source));
       return true;
     }
+    case internal::kAppServiceProxy_InstallApp_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -3735,28 +4134,59 @@ std::move(p_size_hint_in_dip), std::move(callback));
     case internal::kAppServiceProxy_UninstallSilently_Name: {
       break;
     }
+    case internal::kAppServiceProxy_InstallApp_Name: {
+
+      internal::AppServiceProxy_InstallApp_Params_Data* params =
+          reinterpret_cast<
+              internal::AppServiceProxy_InstallApp_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::crosapi::mojom::InstallAppParamsPtr p_params{};
+      AppServiceProxy_InstallApp_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadParams(&p_params))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppServiceProxy::Name_, 8, false);
+        return false;
+      }
+      AppServiceProxy::InstallAppCallback callback =
+          AppServiceProxy_InstallApp_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->InstallApp(
+std::move(p_params), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppServiceProxyValidationInfo[] = {
-    {&internal::AppServiceProxy_RegisterAppServiceSubscriber_Params_Data::Validate,
+    { &internal::AppServiceProxy_RegisterAppServiceSubscriber_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_Launch_Params_Data::Validate,
+    { &internal::AppServiceProxy_Launch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_LoadIcon_Params_Data::Validate,
+    { &internal::AppServiceProxy_LoadIcon_Params_Data::Validate,
      &internal::AppServiceProxy_LoadIcon_ResponseParams_Data::Validate},
-    {&internal::AppServiceProxy_AddPreferredAppDeprecated_Params_Data::Validate,
+    { &internal::AppServiceProxy_AddPreferredAppDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_ShowAppManagementPage_Params_Data::Validate,
+    { &internal::AppServiceProxy_ShowAppManagementPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_SetSupportedLinksPreference_Params_Data::Validate,
+    { &internal::AppServiceProxy_SetSupportedLinksPreference_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_UninstallSilently_Params_Data::Validate,
+    { &internal::AppServiceProxy_UninstallSilently_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceProxy_LaunchWithResult_Params_Data::Validate,
+    { &internal::AppServiceProxy_LaunchWithResult_Params_Data::Validate,
      &internal::AppServiceProxy_LaunchWithResult_ResponseParams_Data::Validate},
+    { &internal::AppServiceProxy_InstallApp_Params_Data::Validate,
+     &internal::AppServiceProxy_InstallApp_ResponseParams_Data::Validate},
 };
 
 bool AppServiceProxyRequestValidator::Accept(mojo::Message* message) {
@@ -3886,14 +4316,17 @@ void AppServiceSubscriberProxy::OnApps(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceSubscriber_OnApps_Name, kFlags, 0, 0, nullptr);
@@ -3939,14 +4372,17 @@ void AppServiceSubscriberProxy::OnPreferredAppsChanged(
                         "<value of type ::apps::PreferredAppChangesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceSubscriber_OnPreferredAppsChanged_Name, kFlags, 0, 0, nullptr);
@@ -3987,14 +4423,17 @@ void AppServiceSubscriberProxy::InitializePreferredApps(
                         "<value of type std::vector<::apps::PreferredAppPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppServiceSubscriber_InitializePreferredApps_Name, kFlags, 0, 0, nullptr);
@@ -4141,14 +4580,14 @@ bool AppServiceSubscriberStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppServiceSubscriberValidationInfo[] = {
-    {&internal::AppServiceSubscriber_OnApps_Params_Data::Validate,
+    { &internal::AppServiceSubscriber_OnApps_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceSubscriber_OnPreferredAppsChanged_Params_Data::Validate,
+    { &internal::AppServiceSubscriber_OnPreferredAppsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppServiceSubscriber_InitializePreferredApps_Params_Data::Validate,
+    { &internal::AppServiceSubscriber_InitializePreferredApps_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4157,6 +4596,1652 @@ bool AppServiceSubscriberRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kAppServiceSubscriberValidationInfo);
 }
 
+const char AppShortcutPublisher::Name_[] = "crosapi.mojom.AppShortcutPublisher";
+constexpr base::Token AppShortcutPublisher::Uuid_;
+
+AppShortcutPublisher::IPCStableHashFunction AppShortcutPublisher::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kAppShortcutPublisher_PublishShortcuts_Name: {
+      return &AppShortcutPublisher::PublishShortcuts_Sym::IPCStableHash;
+    }
+    case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name: {
+      return &AppShortcutPublisher::RegisterAppShortcutController_Sym::IPCStableHash;
+    }
+    case internal::kAppShortcutPublisher_ShortcutRemoved_Name: {
+      return &AppShortcutPublisher::ShortcutRemoved_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* AppShortcutPublisher::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kAppShortcutPublisher_PublishShortcuts_Name:
+            return "Receive crosapi::mojom::AppShortcutPublisher::PublishShortcuts";
+      case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name:
+            return "Receive crosapi::mojom::AppShortcutPublisher::RegisterAppShortcutController";
+      case internal::kAppShortcutPublisher_ShortcutRemoved_Name:
+            return "Receive crosapi::mojom::AppShortcutPublisher::ShortcutRemoved";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kAppShortcutPublisher_PublishShortcuts_Name:
+            return "Receive reply crosapi::mojom::AppShortcutPublisher::PublishShortcuts";
+      case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name:
+            return "Receive reply crosapi::mojom::AppShortcutPublisher::RegisterAppShortcutController";
+      case internal::kAppShortcutPublisher_ShortcutRemoved_Name:
+            return "Receive reply crosapi::mojom::AppShortcutPublisher::ShortcutRemoved";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t AppShortcutPublisher::PublishShortcuts_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutPublisher::PublishShortcuts");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppShortcutPublisher::RegisterAppShortcutController_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutPublisher::RegisterAppShortcutController");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppShortcutPublisher::ShortcutRemoved_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutPublisher::ShortcutRemoved");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class AppShortcutPublisher_PublishShortcuts_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutPublisher_PublishShortcuts_ForwardToCallback(
+      AppShortcutPublisher::PublishShortcutsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutPublisher_PublishShortcuts_ForwardToCallback(const AppShortcutPublisher_PublishShortcuts_ForwardToCallback&) = delete;
+  AppShortcutPublisher_PublishShortcuts_ForwardToCallback& operator=(const AppShortcutPublisher_PublishShortcuts_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutPublisher::PublishShortcutsCallback callback_;
+};
+
+class AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback(
+      AppShortcutPublisher::RegisterAppShortcutControllerCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback(const AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback&) = delete;
+  AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback& operator=(const AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutPublisher::RegisterAppShortcutControllerCallback callback_;
+};
+
+class AppShortcutPublisher_ShortcutRemoved_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutPublisher_ShortcutRemoved_ForwardToCallback(
+      AppShortcutPublisher::ShortcutRemovedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutPublisher_ShortcutRemoved_ForwardToCallback(const AppShortcutPublisher_ShortcutRemoved_ForwardToCallback&) = delete;
+  AppShortcutPublisher_ShortcutRemoved_ForwardToCallback& operator=(const AppShortcutPublisher_ShortcutRemoved_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutPublisher::ShortcutRemovedCallback callback_;
+};
+
+AppShortcutPublisherProxy::AppShortcutPublisherProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void AppShortcutPublisherProxy::PublishShortcuts(
+    std::vector<::apps::ShortcutPtr> in_deltas, PublishShortcutsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutPublisher::PublishShortcuts", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("deltas"), in_deltas,
+                        "<value of type std::vector<::apps::ShortcutPtr>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_PublishShortcuts_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_PublishShortcuts_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->deltas)::BaseType>
+      deltas_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& deltas_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::AppShortcutDataView>>(
+      in_deltas, deltas_fragment, &deltas_validate_params);
+  params->deltas.Set(
+      deltas_fragment.is_null() ? nullptr : deltas_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->deltas.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null deltas in AppShortcutPublisher.PublishShortcuts request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("PublishShortcuts");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutPublisher_PublishShortcuts_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppShortcutPublisherProxy::RegisterAppShortcutController(
+    ::mojo::PendingRemote<AppShortcutController> in_controller, RegisterAppShortcutControllerCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutPublisher::RegisterAppShortcutController", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("controller"), in_controller,
+                        "<value of type ::mojo::PendingRemote<AppShortcutController>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_RegisterAppShortcutController_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_RegisterAppShortcutController_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::crosapi::mojom::AppShortcutControllerInterfaceBase>>(
+      in_controller, &params->controller, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->controller),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid controller in AppShortcutPublisher.RegisterAppShortcutController request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("RegisterAppShortcutController");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppShortcutPublisherProxy::ShortcutRemoved(
+    const std::string& in_shortcut_id, ShortcutRemovedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutPublisher::ShortcutRemoved", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("shortcut_id"), in_shortcut_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_ShortcutRemoved_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_ShortcutRemoved_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->shortcut_id)::BaseType> shortcut_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_shortcut_id, shortcut_id_fragment);
+  params->shortcut_id.Set(
+      shortcut_id_fragment.is_null() ? nullptr : shortcut_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->shortcut_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null shortcut_id in AppShortcutPublisher.ShortcutRemoved request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("ShortcutRemoved");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutPublisher_ShortcutRemoved_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class AppShortcutPublisher_PublishShortcuts_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutPublisher::PublishShortcutsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutPublisher_PublishShortcuts_ProxyToResponder> proxy(
+        new AppShortcutPublisher_PublishShortcuts_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutPublisher_PublishShortcuts_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutPublisher_PublishShortcuts_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutPublisher_PublishShortcuts_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutPublisher::PublishShortcutsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool AppShortcutPublisher_PublishShortcuts_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  AppShortcutPublisher_PublishShortcuts_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutPublisher::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void AppShortcutPublisher_PublishShortcuts_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::AppShortcutPublisher::PublishShortcuts");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_PublishShortcuts_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("PublishShortcuts");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutPublisher::RegisterAppShortcutControllerCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder> proxy(
+        new AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutPublisher::RegisterAppShortcutControllerCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::crosapi::mojom::ControllerRegistrationResult in_result);
+};
+
+bool AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::crosapi::mojom::ControllerRegistrationResult p_result{};
+  AppShortcutPublisher_RegisterAppShortcutController_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutPublisher::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder::Run(
+    ::crosapi::mojom::ControllerRegistrationResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::AppShortcutPublisher::RegisterAppShortcutController", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::crosapi::mojom::ControllerRegistrationResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_RegisterAppShortcutController_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::crosapi::mojom::ControllerRegistrationResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("RegisterAppShortcutController");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppShortcutPublisher_ShortcutRemoved_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutPublisher::ShortcutRemovedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutPublisher_ShortcutRemoved_ProxyToResponder> proxy(
+        new AppShortcutPublisher_ShortcutRemoved_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutPublisher_ShortcutRemoved_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutPublisher_ShortcutRemoved_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutPublisher_ShortcutRemoved_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutPublisher::ShortcutRemovedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool AppShortcutPublisher_ShortcutRemoved_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  AppShortcutPublisher_ShortcutRemoved_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutPublisher::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void AppShortcutPublisher_ShortcutRemoved_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::AppShortcutPublisher::ShortcutRemoved");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutPublisher_ShortcutRemoved_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutPublisher::Name_);
+  message.set_method_name("ShortcutRemoved");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool AppShortcutPublisherStubDispatch::Accept(
+    AppShortcutPublisher* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kAppShortcutPublisher_PublishShortcuts_Name: {
+      break;
+    }
+    case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name: {
+      break;
+    }
+    case internal::kAppShortcutPublisher_ShortcutRemoved_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+// static
+bool AppShortcutPublisherStubDispatch::AcceptWithResponder(
+    AppShortcutPublisher* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kAppShortcutPublisher_PublishShortcuts_Name: {
+
+      internal::AppShortcutPublisher_PublishShortcuts_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutPublisher_PublishShortcuts_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::vector<::apps::ShortcutPtr> p_deltas{};
+      AppShortcutPublisher_PublishShortcuts_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDeltas(&p_deltas))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutPublisher::Name_, 0, false);
+        return false;
+      }
+      AppShortcutPublisher::PublishShortcutsCallback callback =
+          AppShortcutPublisher_PublishShortcuts_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->PublishShortcuts(
+std::move(p_deltas), std::move(callback));
+      return true;
+    }
+    case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name: {
+
+      internal::AppShortcutPublisher_RegisterAppShortcutController_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutPublisher_RegisterAppShortcutController_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<AppShortcutController> p_controller{};
+      AppShortcutPublisher_RegisterAppShortcutController_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_controller =
+            input_data_view.TakeController<decltype(p_controller)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutPublisher::Name_, 1, false);
+        return false;
+      }
+      AppShortcutPublisher::RegisterAppShortcutControllerCallback callback =
+          AppShortcutPublisher_RegisterAppShortcutController_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RegisterAppShortcutController(
+std::move(p_controller), std::move(callback));
+      return true;
+    }
+    case internal::kAppShortcutPublisher_ShortcutRemoved_Name: {
+
+      internal::AppShortcutPublisher_ShortcutRemoved_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutPublisher_ShortcutRemoved_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_shortcut_id{};
+      AppShortcutPublisher_ShortcutRemoved_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadShortcutId(&p_shortcut_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutPublisher::Name_, 2, false);
+        return false;
+      }
+      AppShortcutPublisher::ShortcutRemovedCallback callback =
+          AppShortcutPublisher_ShortcutRemoved_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShortcutRemoved(
+std::move(p_shortcut_id), std::move(callback));
+      return true;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kAppShortcutPublisherValidationInfo[] = {
+    { &internal::AppShortcutPublisher_PublishShortcuts_Params_Data::Validate,
+     &internal::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data::Validate},
+    { &internal::AppShortcutPublisher_RegisterAppShortcutController_Params_Data::Validate,
+     &internal::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data::Validate},
+    { &internal::AppShortcutPublisher_ShortcutRemoved_Params_Data::Validate,
+     &internal::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data::Validate},
+};
+
+bool AppShortcutPublisherRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AppShortcutPublisher::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kAppShortcutPublisherValidationInfo);
+}
+
+bool AppShortcutPublisherResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AppShortcutPublisher::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kAppShortcutPublisherValidationInfo);
+}
+const char AppShortcutController::Name_[] = "crosapi.mojom.AppShortcutController";
+constexpr base::Token AppShortcutController::Uuid_;
+
+AppShortcutController::IPCStableHashFunction AppShortcutController::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kAppShortcutController_LaunchShortcut_Name: {
+      return &AppShortcutController::LaunchShortcut_Sym::IPCStableHash;
+    }
+    case internal::kAppShortcutController_GetCompressedIcon_Name: {
+      return &AppShortcutController::GetCompressedIcon_Sym::IPCStableHash;
+    }
+    case internal::kAppShortcutController_RemoveShortcut_Name: {
+      return &AppShortcutController::RemoveShortcut_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* AppShortcutController::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kAppShortcutController_LaunchShortcut_Name:
+            return "Receive crosapi::mojom::AppShortcutController::LaunchShortcut";
+      case internal::kAppShortcutController_GetCompressedIcon_Name:
+            return "Receive crosapi::mojom::AppShortcutController::GetCompressedIcon";
+      case internal::kAppShortcutController_RemoveShortcut_Name:
+            return "Receive crosapi::mojom::AppShortcutController::RemoveShortcut";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kAppShortcutController_LaunchShortcut_Name:
+            return "Receive reply crosapi::mojom::AppShortcutController::LaunchShortcut";
+      case internal::kAppShortcutController_GetCompressedIcon_Name:
+            return "Receive reply crosapi::mojom::AppShortcutController::GetCompressedIcon";
+      case internal::kAppShortcutController_RemoveShortcut_Name:
+            return "Receive reply crosapi::mojom::AppShortcutController::RemoveShortcut";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t AppShortcutController::LaunchShortcut_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutController::LaunchShortcut");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppShortcutController::GetCompressedIcon_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutController::GetCompressedIcon");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppShortcutController::RemoveShortcut_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::AppShortcutController::RemoveShortcut");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class AppShortcutController_LaunchShortcut_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutController_LaunchShortcut_ForwardToCallback(
+      AppShortcutController::LaunchShortcutCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutController_LaunchShortcut_ForwardToCallback(const AppShortcutController_LaunchShortcut_ForwardToCallback&) = delete;
+  AppShortcutController_LaunchShortcut_ForwardToCallback& operator=(const AppShortcutController_LaunchShortcut_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutController::LaunchShortcutCallback callback_;
+};
+
+class AppShortcutController_GetCompressedIcon_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutController_GetCompressedIcon_ForwardToCallback(
+      AppShortcutController::GetCompressedIconCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutController_GetCompressedIcon_ForwardToCallback(const AppShortcutController_GetCompressedIcon_ForwardToCallback&) = delete;
+  AppShortcutController_GetCompressedIcon_ForwardToCallback& operator=(const AppShortcutController_GetCompressedIcon_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutController::GetCompressedIconCallback callback_;
+};
+
+class AppShortcutController_RemoveShortcut_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppShortcutController_RemoveShortcut_ForwardToCallback(
+      AppShortcutController::RemoveShortcutCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppShortcutController_RemoveShortcut_ForwardToCallback(const AppShortcutController_RemoveShortcut_ForwardToCallback&) = delete;
+  AppShortcutController_RemoveShortcut_ForwardToCallback& operator=(const AppShortcutController_RemoveShortcut_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppShortcutController::RemoveShortcutCallback callback_;
+};
+
+AppShortcutControllerProxy::AppShortcutControllerProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void AppShortcutControllerProxy::LaunchShortcut(
+    const std::string& in_host_app_id, const std::string& in_local_shortcut_id, int64_t in_display_id, LaunchShortcutCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutController::LaunchShortcut", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("host_app_id"), in_host_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("local_shortcut_id"), in_local_shortcut_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("display_id"), in_display_id,
+                        "<value of type int64_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_LaunchShortcut_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_LaunchShortcut_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->host_app_id)::BaseType> host_app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_host_app_id, host_app_id_fragment);
+  params->host_app_id.Set(
+      host_app_id_fragment.is_null() ? nullptr : host_app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->host_app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null host_app_id in AppShortcutController.LaunchShortcut request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->local_shortcut_id)::BaseType> local_shortcut_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_local_shortcut_id, local_shortcut_id_fragment);
+  params->local_shortcut_id.Set(
+      local_shortcut_id_fragment.is_null() ? nullptr : local_shortcut_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->local_shortcut_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null local_shortcut_id in AppShortcutController.LaunchShortcut request");
+  params->display_id = in_display_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("LaunchShortcut");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutController_LaunchShortcut_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppShortcutControllerProxy::GetCompressedIcon(
+    const std::string& in_host_app_id, const std::string& in_local_shortcut_id, int32_t in_size_in_dip, ::ui::ResourceScaleFactor in_scale_factor, GetCompressedIconCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutController::GetCompressedIcon", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("host_app_id"), in_host_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("local_shortcut_id"), in_local_shortcut_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("size_in_dip"), in_size_in_dip,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scale_factor"), in_scale_factor,
+                        "<value of type ::ui::ResourceScaleFactor>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_GetCompressedIcon_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_GetCompressedIcon_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->host_app_id)::BaseType> host_app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_host_app_id, host_app_id_fragment);
+  params->host_app_id.Set(
+      host_app_id_fragment.is_null() ? nullptr : host_app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->host_app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null host_app_id in AppShortcutController.GetCompressedIcon request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->local_shortcut_id)::BaseType> local_shortcut_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_local_shortcut_id, local_shortcut_id_fragment);
+  params->local_shortcut_id.Set(
+      local_shortcut_id_fragment.is_null() ? nullptr : local_shortcut_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->local_shortcut_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null local_shortcut_id in AppShortcutController.GetCompressedIcon request");
+  params->size_in_dip = in_size_in_dip;
+  mojo::internal::Serialize<::crosapi::mojom::ResourceScaleFactor>(
+      in_scale_factor, &params->scale_factor);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("GetCompressedIcon");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutController_GetCompressedIcon_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppShortcutControllerProxy::RemoveShortcut(
+    const std::string& in_host_app_id, const std::string& in_local_shortcut_id, ::apps::UninstallSource in_uninstall_source, RemoveShortcutCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::AppShortcutController::RemoveShortcut", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("host_app_id"), in_host_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("local_shortcut_id"), in_local_shortcut_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("uninstall_source"), in_uninstall_source,
+                        "<value of type ::apps::UninstallSource>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_RemoveShortcut_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_RemoveShortcut_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->host_app_id)::BaseType> host_app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_host_app_id, host_app_id_fragment);
+  params->host_app_id.Set(
+      host_app_id_fragment.is_null() ? nullptr : host_app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->host_app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null host_app_id in AppShortcutController.RemoveShortcut request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->local_shortcut_id)::BaseType> local_shortcut_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_local_shortcut_id, local_shortcut_id_fragment);
+  params->local_shortcut_id.Set(
+      local_shortcut_id_fragment.is_null() ? nullptr : local_shortcut_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->local_shortcut_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null local_shortcut_id in AppShortcutController.RemoveShortcut request");
+  mojo::internal::Serialize<::crosapi::mojom::UninstallSource>(
+      in_uninstall_source, &params->uninstall_source);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("RemoveShortcut");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppShortcutController_RemoveShortcut_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class AppShortcutController_LaunchShortcut_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutController::LaunchShortcutCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutController_LaunchShortcut_ProxyToResponder> proxy(
+        new AppShortcutController_LaunchShortcut_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutController_LaunchShortcut_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutController_LaunchShortcut_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutController_LaunchShortcut_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutController::LaunchShortcutCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool AppShortcutController_LaunchShortcut_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutController_LaunchShortcut_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutController_LaunchShortcut_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  AppShortcutController_LaunchShortcut_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutController::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void AppShortcutController_LaunchShortcut_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::AppShortcutController::LaunchShortcut");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_LaunchShortcut_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_LaunchShortcut_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("LaunchShortcut");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppShortcutController_GetCompressedIcon_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutController::GetCompressedIconCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutController_GetCompressedIcon_ProxyToResponder> proxy(
+        new AppShortcutController_GetCompressedIcon_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutController_GetCompressedIcon_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutController_GetCompressedIcon_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutController_GetCompressedIcon_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutController::GetCompressedIconCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::apps::IconValuePtr in_icon_value);
+};
+
+bool AppShortcutController_GetCompressedIcon_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutController_GetCompressedIcon_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutController_GetCompressedIcon_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::apps::IconValuePtr p_icon_value{};
+  AppShortcutController_GetCompressedIcon_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadIconValue(&p_icon_value))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutController::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_icon_value));
+  return true;
+}
+
+void AppShortcutController_GetCompressedIcon_ProxyToResponder::Run(
+    ::apps::IconValuePtr in_icon_value) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::AppShortcutController::GetCompressedIcon", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("icon_value"), in_icon_value,
+                        "<value of type ::apps::IconValuePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_GetCompressedIcon_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_GetCompressedIcon_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->icon_value)::BaseType> icon_value_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::IconValueDataView>(
+      in_icon_value, icon_value_fragment);
+  params->icon_value.Set(
+      icon_value_fragment.is_null() ? nullptr : icon_value_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->icon_value.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null icon_value in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("GetCompressedIcon");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppShortcutController_RemoveShortcut_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppShortcutController::RemoveShortcutCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppShortcutController_RemoveShortcut_ProxyToResponder> proxy(
+        new AppShortcutController_RemoveShortcut_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppShortcutController_RemoveShortcut_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppShortcutController_RemoveShortcut_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppShortcutController_RemoveShortcut_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppShortcutController::RemoveShortcutCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool AppShortcutController_RemoveShortcut_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppShortcutController_RemoveShortcut_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppShortcutController_RemoveShortcut_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  AppShortcutController_RemoveShortcut_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppShortcutController::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void AppShortcutController_RemoveShortcut_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::AppShortcutController::RemoveShortcut");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppShortcutController_RemoveShortcut_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::AppShortcutController_RemoveShortcut_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppShortcutController::Name_);
+  message.set_method_name("RemoveShortcut");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool AppShortcutControllerStubDispatch::Accept(
+    AppShortcutController* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kAppShortcutController_LaunchShortcut_Name: {
+      break;
+    }
+    case internal::kAppShortcutController_GetCompressedIcon_Name: {
+      break;
+    }
+    case internal::kAppShortcutController_RemoveShortcut_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+// static
+bool AppShortcutControllerStubDispatch::AcceptWithResponder(
+    AppShortcutController* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kAppShortcutController_LaunchShortcut_Name: {
+
+      internal::AppShortcutController_LaunchShortcut_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutController_LaunchShortcut_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_host_app_id{};
+      std::string p_local_shortcut_id{};
+      int64_t p_display_id{};
+      AppShortcutController_LaunchShortcut_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadHostAppId(&p_host_app_id))
+        success = false;
+      if (success && !input_data_view.ReadLocalShortcutId(&p_local_shortcut_id))
+        success = false;
+      if (success)
+        p_display_id = input_data_view.display_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutController::Name_, 0, false);
+        return false;
+      }
+      AppShortcutController::LaunchShortcutCallback callback =
+          AppShortcutController_LaunchShortcut_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LaunchShortcut(
+std::move(p_host_app_id), 
+std::move(p_local_shortcut_id), 
+std::move(p_display_id), std::move(callback));
+      return true;
+    }
+    case internal::kAppShortcutController_GetCompressedIcon_Name: {
+
+      internal::AppShortcutController_GetCompressedIcon_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutController_GetCompressedIcon_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_host_app_id{};
+      std::string p_local_shortcut_id{};
+      int32_t p_size_in_dip{};
+      ::ui::ResourceScaleFactor p_scale_factor{};
+      AppShortcutController_GetCompressedIcon_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadHostAppId(&p_host_app_id))
+        success = false;
+      if (success && !input_data_view.ReadLocalShortcutId(&p_local_shortcut_id))
+        success = false;
+      if (success)
+        p_size_in_dip = input_data_view.size_in_dip();
+      if (success && !input_data_view.ReadScaleFactor(&p_scale_factor))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutController::Name_, 1, false);
+        return false;
+      }
+      AppShortcutController::GetCompressedIconCallback callback =
+          AppShortcutController_GetCompressedIcon_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetCompressedIcon(
+std::move(p_host_app_id), 
+std::move(p_local_shortcut_id), 
+std::move(p_size_in_dip), 
+std::move(p_scale_factor), std::move(callback));
+      return true;
+    }
+    case internal::kAppShortcutController_RemoveShortcut_Name: {
+
+      internal::AppShortcutController_RemoveShortcut_Params_Data* params =
+          reinterpret_cast<
+              internal::AppShortcutController_RemoveShortcut_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_host_app_id{};
+      std::string p_local_shortcut_id{};
+      ::apps::UninstallSource p_uninstall_source{};
+      AppShortcutController_RemoveShortcut_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadHostAppId(&p_host_app_id))
+        success = false;
+      if (success && !input_data_view.ReadLocalShortcutId(&p_local_shortcut_id))
+        success = false;
+      if (success && !input_data_view.ReadUninstallSource(&p_uninstall_source))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppShortcutController::Name_, 2, false);
+        return false;
+      }
+      AppShortcutController::RemoveShortcutCallback callback =
+          AppShortcutController_RemoveShortcut_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RemoveShortcut(
+std::move(p_host_app_id), 
+std::move(p_local_shortcut_id), 
+std::move(p_uninstall_source), std::move(callback));
+      return true;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kAppShortcutControllerValidationInfo[] = {
+    { &internal::AppShortcutController_LaunchShortcut_Params_Data::Validate,
+     &internal::AppShortcutController_LaunchShortcut_ResponseParams_Data::Validate},
+    { &internal::AppShortcutController_GetCompressedIcon_Params_Data::Validate,
+     &internal::AppShortcutController_GetCompressedIcon_ResponseParams_Data::Validate},
+    { &internal::AppShortcutController_RemoveShortcut_Params_Data::Validate,
+     &internal::AppShortcutController_RemoveShortcut_ResponseParams_Data::Validate},
+};
+
+bool AppShortcutControllerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AppShortcutController::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kAppShortcutControllerValidationInfo);
+}
+
+bool AppShortcutControllerResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AppShortcutController::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kAppShortcutControllerValidationInfo);
+}
 
 
 }  // crosapi::mojom
@@ -4226,6 +6311,9 @@ void AppControllerInterceptorForTesting::StopApp(const std::string& app_id) {
 }
 void AppControllerInterceptorForTesting::SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) {
   GetForwardingInterface()->SetPermission(std::move(app_id), std::move(permission));
+}
+void AppControllerInterceptorForTesting::UpdateAppSize(const std::string& app_id) {
+  GetForwardingInterface()->UpdateAppSize(std::move(app_id));
 }
 AppControllerAsyncWaiter::AppControllerAsyncWaiter(
     AppController* proxy) : proxy_(proxy) {}
@@ -4374,6 +6462,9 @@ void AppServiceProxyInterceptorForTesting::SetSupportedLinksPreference(const std
 void AppServiceProxyInterceptorForTesting::UninstallSilently(const std::string& app_id, ::apps::UninstallSource uninstall_source) {
   GetForwardingInterface()->UninstallSilently(std::move(app_id), std::move(uninstall_source));
 }
+void AppServiceProxyInterceptorForTesting::InstallApp(::crosapi::mojom::InstallAppParamsPtr params, InstallAppCallback callback) {
+  GetForwardingInterface()->InstallApp(std::move(params), std::move(callback));
+}
 AppServiceProxyAsyncWaiter::AppServiceProxyAsyncWaiter(
     AppServiceProxy* proxy) : proxy_(proxy) {}
 
@@ -4425,6 +6516,29 @@ void AppServiceProxyAsyncWaiter::LoadIcon(
   return async_wait_result;
 }
 
+void AppServiceProxyAsyncWaiter::InstallApp(
+    ::crosapi::mojom::InstallAppParamsPtr params, ::crosapi::mojom::AppInstallResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->InstallApp(std::move(params),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::crosapi::mojom::AppInstallResultPtr* out_result
+,
+             ::crosapi::mojom::AppInstallResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::crosapi::mojom::AppInstallResultPtr AppServiceProxyAsyncWaiter::InstallApp(
+    ::crosapi::mojom::InstallAppParamsPtr params) {
+  ::crosapi::mojom::AppInstallResultPtr async_wait_result;
+  InstallApp(std::move(params),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -4441,6 +6555,142 @@ AppServiceSubscriberAsyncWaiter::AppServiceSubscriberAsyncWaiter(
     AppServiceSubscriber* proxy) : proxy_(proxy) {}
 
 AppServiceSubscriberAsyncWaiter::~AppServiceSubscriberAsyncWaiter() = default;
+
+
+
+
+void AppShortcutPublisherInterceptorForTesting::PublishShortcuts(std::vector<::apps::ShortcutPtr> deltas, PublishShortcutsCallback callback) {
+  GetForwardingInterface()->PublishShortcuts(std::move(deltas), std::move(callback));
+}
+void AppShortcutPublisherInterceptorForTesting::RegisterAppShortcutController(::mojo::PendingRemote<AppShortcutController> controller, RegisterAppShortcutControllerCallback callback) {
+  GetForwardingInterface()->RegisterAppShortcutController(std::move(controller), std::move(callback));
+}
+void AppShortcutPublisherInterceptorForTesting::ShortcutRemoved(const std::string& shortcut_id, ShortcutRemovedCallback callback) {
+  GetForwardingInterface()->ShortcutRemoved(std::move(shortcut_id), std::move(callback));
+}
+AppShortcutPublisherAsyncWaiter::AppShortcutPublisherAsyncWaiter(
+    AppShortcutPublisher* proxy) : proxy_(proxy) {}
+
+AppShortcutPublisherAsyncWaiter::~AppShortcutPublisherAsyncWaiter() = default;
+
+void AppShortcutPublisherAsyncWaiter::PublishShortcuts(
+    std::vector<::apps::ShortcutPtr> deltas) {
+  base::RunLoop loop;
+  proxy_->PublishShortcuts(std::move(deltas),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void AppShortcutPublisherAsyncWaiter::RegisterAppShortcutController(
+    ::mojo::PendingRemote<AppShortcutController> controller, ::crosapi::mojom::ControllerRegistrationResult* out_result) {
+  base::RunLoop loop;
+  proxy_->RegisterAppShortcutController(std::move(controller),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::crosapi::mojom::ControllerRegistrationResult* out_result
+,
+             ::crosapi::mojom::ControllerRegistrationResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::crosapi::mojom::ControllerRegistrationResult AppShortcutPublisherAsyncWaiter::RegisterAppShortcutController(
+    ::mojo::PendingRemote<AppShortcutController> controller) {
+  ::crosapi::mojom::ControllerRegistrationResult async_wait_result;
+  RegisterAppShortcutController(std::move(controller),&async_wait_result);
+  return async_wait_result;
+}
+
+void AppShortcutPublisherAsyncWaiter::ShortcutRemoved(
+    const std::string& shortcut_id) {
+  base::RunLoop loop;
+  proxy_->ShortcutRemoved(std::move(shortcut_id),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+
+
+
+void AppShortcutControllerInterceptorForTesting::LaunchShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id, LaunchShortcutCallback callback) {
+  GetForwardingInterface()->LaunchShortcut(std::move(host_app_id), std::move(local_shortcut_id), std::move(display_id), std::move(callback));
+}
+void AppShortcutControllerInterceptorForTesting::GetCompressedIcon(const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, GetCompressedIconCallback callback) {
+  GetForwardingInterface()->GetCompressedIcon(std::move(host_app_id), std::move(local_shortcut_id), std::move(size_in_dip), std::move(scale_factor), std::move(callback));
+}
+void AppShortcutControllerInterceptorForTesting::RemoveShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source, RemoveShortcutCallback callback) {
+  GetForwardingInterface()->RemoveShortcut(std::move(host_app_id), std::move(local_shortcut_id), std::move(uninstall_source), std::move(callback));
+}
+AppShortcutControllerAsyncWaiter::AppShortcutControllerAsyncWaiter(
+    AppShortcutController* proxy) : proxy_(proxy) {}
+
+AppShortcutControllerAsyncWaiter::~AppShortcutControllerAsyncWaiter() = default;
+
+void AppShortcutControllerAsyncWaiter::LaunchShortcut(
+    const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id) {
+  base::RunLoop loop;
+  proxy_->LaunchShortcut(std::move(host_app_id),std::move(local_shortcut_id),std::move(display_id),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void AppShortcutControllerAsyncWaiter::GetCompressedIcon(
+    const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, ::apps::IconValuePtr* out_icon_value) {
+  base::RunLoop loop;
+  proxy_->GetCompressedIcon(std::move(host_app_id),std::move(local_shortcut_id),std::move(size_in_dip),std::move(scale_factor),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::apps::IconValuePtr* out_icon_value
+,
+             ::apps::IconValuePtr icon_value) {*out_icon_value = std::move(icon_value);
+            loop->Quit();
+          },
+          &loop,
+          out_icon_value));
+  loop.Run();
+}
+
+::apps::IconValuePtr AppShortcutControllerAsyncWaiter::GetCompressedIcon(
+    const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor) {
+  ::apps::IconValuePtr async_wait_result;
+  GetCompressedIcon(std::move(host_app_id),std::move(local_shortcut_id),std::move(size_in_dip),std::move(scale_factor),&async_wait_result);
+  return async_wait_result;
+}
+
+void AppShortcutControllerAsyncWaiter::RemoveShortcut(
+    const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source) {
+  base::RunLoop loop;
+  proxy_->RemoveShortcut(std::move(host_app_id),std::move(local_shortcut_id),std::move(uninstall_source),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
 
 
 

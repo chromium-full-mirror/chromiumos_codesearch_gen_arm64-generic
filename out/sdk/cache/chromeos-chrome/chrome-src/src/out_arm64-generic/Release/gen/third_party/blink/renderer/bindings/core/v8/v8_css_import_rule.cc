@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSImportRule>::value,
     "CSSImportRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSImportRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSImportRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSImportRule.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -104,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSImportRule.media.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(v8_receiver);
+CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->media();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -153,8 +149,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSImportRule.styleSheet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(v8_receiver);
+CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleSheet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -167,10 +164,25 @@ BLINK_BINDINGS_TRACE_EVENT("CSSImportRule.layerName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->layerName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->layerName();
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
+}
+
+
+void SupportsTextAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSImportRule_supportsText_Getter");
+BLINK_BINDINGS_TRACE_EVENT("CSSImportRule.supportsText.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSImportRule* blink_receiver = V8CSSImportRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->supportsText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -209,6 +221,7 @@ void V8CSSImportRule::InstallUnconditionalProperties(v8::Isolate* isolate, const
 {"media", MediaAttributeGetCallback, MediaAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"styleSheet", StyleSheetAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"layerName", LayerNameAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"supportsText", SupportsTextAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

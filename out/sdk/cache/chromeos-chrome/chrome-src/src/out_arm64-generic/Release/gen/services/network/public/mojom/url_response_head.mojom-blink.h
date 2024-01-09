@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_response_head.mojom-features.h"
 #include "services/network/public/mojom/url_response_head.mojom-shared.h"
 #include "services/network/public/mojom/url_response_head.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -38,6 +39,7 @@
 #include "services/network/public/mojom/network_param.mojom-blink.h"
 #include "services/network/public/mojom/network_types.mojom-blink.h"
 #include "services/network/public/mojom/parsed_headers.mojom-blink.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
 
@@ -54,18 +56,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::NavigationDeliveryType>
-    : EnumHashTraits<::network::mojom::NavigationDeliveryType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -109,7 +99,6 @@ class BLINK_PLATFORM_EXPORT URLResponseHead {
       ::network::mojom::blink::HttpResponseHeadersPtr headers,
       const WTF::String& mime_type,
       const WTF::String& charset,
-      ::network::mojom::blink::CTPolicyCompliance ct_policy_compliance,
       int64_t content_length,
       int64_t encoded_data_length,
       ::network::mojom::blink::EncodedBodyLengthPtr encoded_body_length,
@@ -119,7 +108,7 @@ class BLINK_PLATFORM_EXPORT URLResponseHead {
       bool was_fetched_via_spdy,
       bool was_alpn_negotiated,
       bool was_alternate_protocol_available,
-      ::net::HttpResponseInfo::ConnectionInfo connection_info,
+      ::net::HttpConnectionInfo connection_info,
       const WTF::String& alpn_negotiated_protocol,
       ::net::AlternateProtocolUsage alternate_protocol_usage,
       const ::net::IPEndPoint& remote_endpoint,
@@ -128,10 +117,11 @@ class BLINK_PLATFORM_EXPORT URLResponseHead {
       bool is_validated,
       bool was_fetched_via_cache,
       NavigationDeliveryType navigation_delivery_type,
-      ::network::mojom::blink::ProxyServerPtr proxy_server,
+      ::network::mojom::blink::ProxyChainPtr proxy_chain,
       bool was_fetched_via_service_worker,
       ::network::mojom::blink::FetchResponseSource service_worker_response_source,
       WTF::Vector<::blink::KURL> url_list_via_service_worker,
+      ::network::mojom::blink::ServiceWorkerRouterInfoPtr service_worker_router_info,
       ::network::mojom::blink::FetchResponseType response_type,
       int64_t padding,
       const WTF::String& cache_storage_cache_name,
@@ -142,20 +132,21 @@ class BLINK_PLATFORM_EXPORT URLResponseHead {
       bool async_revalidation_requested,
       bool did_mime_sniff,
       bool is_signed_exchange_inner_response,
+      bool is_web_bundle_inner_response,
       bool was_in_prefetch_cache,
       bool was_cookie_in_request,
       bool intercepted_by_plugin,
       bool has_range_requested,
       bool timing_allow_passed,
-      const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info,
+      const std::optional<::net::AuthChallengeInfo>& auth_challenge_info,
       ::base::TimeTicks request_start,
       ::base::TimeTicks response_start,
       ::network::mojom::blink::ParsedHeadersPtr parsed_headers,
-      const absl::optional<::base::UnguessableToken>& recursive_prefetch_token,
+      const std::optional<::base::UnguessableToken>& recursive_prefetch_token,
       WTF::Vector<WTF::String> dns_aliases,
-      const ::blink::KURL& web_bundle_url,
       bool has_authorization_covered_by_wildcard_on_preflight,
       bool request_include_credentials,
+      bool should_use_source_hash_for_js_code_cache,
       WTF::Vector<::network::TriggerVerification> trigger_verifications,
       ::network::mojom::blink::PrivateNetworkAccessPreflightResult private_network_access_preflight_result,
       bool did_use_shared_dictionary);
@@ -248,8 +239,6 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   WTF::String charset;
   
-  ::network::mojom::blink::CTPolicyCompliance ct_policy_compliance;
-  
   int64_t content_length;
   
   int64_t encoded_data_length;
@@ -268,7 +257,7 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   bool was_alternate_protocol_available;
   
-  ::net::HttpResponseInfo::ConnectionInfo connection_info;
+  ::net::HttpConnectionInfo connection_info;
   
   WTF::String alpn_negotiated_protocol;
   
@@ -286,13 +275,15 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   NavigationDeliveryType navigation_delivery_type;
   
-  ::network::mojom::blink::ProxyServerPtr proxy_server;
+  ::network::mojom::blink::ProxyChainPtr proxy_chain;
   
   bool was_fetched_via_service_worker;
   
   ::network::mojom::blink::FetchResponseSource service_worker_response_source;
   
   WTF::Vector<::blink::KURL> url_list_via_service_worker;
+  
+  ::network::mojom::blink::ServiceWorkerRouterInfoPtr service_worker_router_info;
   
   ::network::mojom::blink::FetchResponseType response_type;
   
@@ -314,6 +305,8 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   bool is_signed_exchange_inner_response;
   
+  bool is_web_bundle_inner_response;
+  
   bool was_in_prefetch_cache;
   
   bool was_cookie_in_request;
@@ -324,7 +317,7 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   bool timing_allow_passed;
   
-  absl::optional<::net::AuthChallengeInfo> auth_challenge_info;
+  std::optional<::net::AuthChallengeInfo> auth_challenge_info;
   
   ::base::TimeTicks request_start;
   
@@ -332,15 +325,15 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   ::network::mojom::blink::ParsedHeadersPtr parsed_headers;
   
-  absl::optional<::base::UnguessableToken> recursive_prefetch_token;
+  std::optional<::base::UnguessableToken> recursive_prefetch_token;
   
   WTF::Vector<WTF::String> dns_aliases;
-  
-  ::blink::KURL web_bundle_url;
   
   bool has_authorization_covered_by_wildcard_on_preflight;
   
   bool request_include_credentials;
+  
+  bool should_use_source_hash_for_js_code_cache;
   
   WTF::Vector<::network::TriggerVerification> trigger_verifications;
   
@@ -385,7 +378,6 @@ URLResponseHeadPtr URLResponseHead::Clone() const {
       mojo::Clone(headers),
       mojo::Clone(mime_type),
       mojo::Clone(charset),
-      mojo::Clone(ct_policy_compliance),
       mojo::Clone(content_length),
       mojo::Clone(encoded_data_length),
       mojo::Clone(encoded_body_length),
@@ -404,10 +396,11 @@ URLResponseHeadPtr URLResponseHead::Clone() const {
       mojo::Clone(is_validated),
       mojo::Clone(was_fetched_via_cache),
       mojo::Clone(navigation_delivery_type),
-      mojo::Clone(proxy_server),
+      mojo::Clone(proxy_chain),
       mojo::Clone(was_fetched_via_service_worker),
       mojo::Clone(service_worker_response_source),
       mojo::Clone(url_list_via_service_worker),
+      mojo::Clone(service_worker_router_info),
       mojo::Clone(response_type),
       mojo::Clone(padding),
       mojo::Clone(cache_storage_cache_name),
@@ -418,6 +411,7 @@ URLResponseHeadPtr URLResponseHead::Clone() const {
       mojo::Clone(async_revalidation_requested),
       mojo::Clone(did_mime_sniff),
       mojo::Clone(is_signed_exchange_inner_response),
+      mojo::Clone(is_web_bundle_inner_response),
       mojo::Clone(was_in_prefetch_cache),
       mojo::Clone(was_cookie_in_request),
       mojo::Clone(intercepted_by_plugin),
@@ -429,9 +423,9 @@ URLResponseHeadPtr URLResponseHead::Clone() const {
       mojo::Clone(parsed_headers),
       mojo::Clone(recursive_prefetch_token),
       mojo::Clone(dns_aliases),
-      mojo::Clone(web_bundle_url),
       mojo::Clone(has_authorization_covered_by_wildcard_on_preflight),
       mojo::Clone(request_include_credentials),
+      mojo::Clone(should_use_source_hash_for_js_code_cache),
       mojo::Clone(trigger_verifications),
       mojo::Clone(private_network_access_preflight_result),
       mojo::Clone(did_use_shared_dictionary)
@@ -449,8 +443,6 @@ bool URLResponseHead::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->mime_type, other_struct.mime_type))
     return false;
   if (!mojo::Equals(this->charset, other_struct.charset))
-    return false;
-  if (!mojo::Equals(this->ct_policy_compliance, other_struct.ct_policy_compliance))
     return false;
   if (!mojo::Equals(this->content_length, other_struct.content_length))
     return false;
@@ -488,13 +480,15 @@ bool URLResponseHead::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->navigation_delivery_type, other_struct.navigation_delivery_type))
     return false;
-  if (!mojo::Equals(this->proxy_server, other_struct.proxy_server))
+  if (!mojo::Equals(this->proxy_chain, other_struct.proxy_chain))
     return false;
   if (!mojo::Equals(this->was_fetched_via_service_worker, other_struct.was_fetched_via_service_worker))
     return false;
   if (!mojo::Equals(this->service_worker_response_source, other_struct.service_worker_response_source))
     return false;
   if (!mojo::Equals(this->url_list_via_service_worker, other_struct.url_list_via_service_worker))
+    return false;
+  if (!mojo::Equals(this->service_worker_router_info, other_struct.service_worker_router_info))
     return false;
   if (!mojo::Equals(this->response_type, other_struct.response_type))
     return false;
@@ -515,6 +509,8 @@ bool URLResponseHead::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->did_mime_sniff, other_struct.did_mime_sniff))
     return false;
   if (!mojo::Equals(this->is_signed_exchange_inner_response, other_struct.is_signed_exchange_inner_response))
+    return false;
+  if (!mojo::Equals(this->is_web_bundle_inner_response, other_struct.is_web_bundle_inner_response))
     return false;
   if (!mojo::Equals(this->was_in_prefetch_cache, other_struct.was_in_prefetch_cache))
     return false;
@@ -538,11 +534,11 @@ bool URLResponseHead::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->dns_aliases, other_struct.dns_aliases))
     return false;
-  if (!mojo::Equals(this->web_bundle_url, other_struct.web_bundle_url))
-    return false;
   if (!mojo::Equals(this->has_authorization_covered_by_wildcard_on_preflight, other_struct.has_authorization_covered_by_wildcard_on_preflight))
     return false;
   if (!mojo::Equals(this->request_include_credentials, other_struct.request_include_credentials))
+    return false;
+  if (!mojo::Equals(this->should_use_source_hash_for_js_code_cache, other_struct.should_use_source_hash_for_js_code_cache))
     return false;
   if (!mojo::Equals(this->trigger_verifications, other_struct.trigger_verifications))
     return false;
@@ -574,10 +570,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.charset < rhs.charset)
     return true;
   if (rhs.charset < lhs.charset)
-    return false;
-  if (lhs.ct_policy_compliance < rhs.ct_policy_compliance)
-    return true;
-  if (rhs.ct_policy_compliance < lhs.ct_policy_compliance)
     return false;
   if (lhs.content_length < rhs.content_length)
     return true;
@@ -651,9 +643,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.navigation_delivery_type < lhs.navigation_delivery_type)
     return false;
-  if (lhs.proxy_server < rhs.proxy_server)
+  if (lhs.proxy_chain < rhs.proxy_chain)
     return true;
-  if (rhs.proxy_server < lhs.proxy_server)
+  if (rhs.proxy_chain < lhs.proxy_chain)
     return false;
   if (lhs.was_fetched_via_service_worker < rhs.was_fetched_via_service_worker)
     return true;
@@ -666,6 +658,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.url_list_via_service_worker < rhs.url_list_via_service_worker)
     return true;
   if (rhs.url_list_via_service_worker < lhs.url_list_via_service_worker)
+    return false;
+  if (lhs.service_worker_router_info < rhs.service_worker_router_info)
+    return true;
+  if (rhs.service_worker_router_info < lhs.service_worker_router_info)
     return false;
   if (lhs.response_type < rhs.response_type)
     return true;
@@ -706,6 +702,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_signed_exchange_inner_response < rhs.is_signed_exchange_inner_response)
     return true;
   if (rhs.is_signed_exchange_inner_response < lhs.is_signed_exchange_inner_response)
+    return false;
+  if (lhs.is_web_bundle_inner_response < rhs.is_web_bundle_inner_response)
+    return true;
+  if (rhs.is_web_bundle_inner_response < lhs.is_web_bundle_inner_response)
     return false;
   if (lhs.was_in_prefetch_cache < rhs.was_in_prefetch_cache)
     return true;
@@ -751,10 +751,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.dns_aliases < lhs.dns_aliases)
     return false;
-  if (lhs.web_bundle_url < rhs.web_bundle_url)
-    return true;
-  if (rhs.web_bundle_url < lhs.web_bundle_url)
-    return false;
   if (lhs.has_authorization_covered_by_wildcard_on_preflight < rhs.has_authorization_covered_by_wildcard_on_preflight)
     return true;
   if (rhs.has_authorization_covered_by_wildcard_on_preflight < lhs.has_authorization_covered_by_wildcard_on_preflight)
@@ -762,6 +758,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.request_include_credentials < rhs.request_include_credentials)
     return true;
   if (rhs.request_include_credentials < lhs.request_include_credentials)
+    return false;
+  if (lhs.should_use_source_hash_for_js_code_cache < rhs.should_use_source_hash_for_js_code_cache)
+    return true;
+  if (rhs.should_use_source_hash_for_js_code_cache < lhs.should_use_source_hash_for_js_code_cache)
     return false;
   if (lhs.trigger_verifications < rhs.trigger_verifications)
     return true;
@@ -813,11 +813,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static const decltype(::network::mojom::blink::URLResponseHead::charset)& charset(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
     return input->charset;
-  }
-
-  static decltype(::network::mojom::blink::URLResponseHead::ct_policy_compliance) ct_policy_compliance(
-      const ::network::mojom::blink::URLResponseHeadPtr& input) {
-    return input->ct_policy_compliance;
   }
 
   static decltype(::network::mojom::blink::URLResponseHead::content_length) content_length(
@@ -910,9 +905,9 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
     return input->navigation_delivery_type;
   }
 
-  static const decltype(::network::mojom::blink::URLResponseHead::proxy_server)& proxy_server(
+  static const decltype(::network::mojom::blink::URLResponseHead::proxy_chain)& proxy_chain(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
-    return input->proxy_server;
+    return input->proxy_chain;
   }
 
   static decltype(::network::mojom::blink::URLResponseHead::was_fetched_via_service_worker) was_fetched_via_service_worker(
@@ -928,6 +923,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static const decltype(::network::mojom::blink::URLResponseHead::url_list_via_service_worker)& url_list_via_service_worker(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
     return input->url_list_via_service_worker;
+  }
+
+  static const decltype(::network::mojom::blink::URLResponseHead::service_worker_router_info)& service_worker_router_info(
+      const ::network::mojom::blink::URLResponseHeadPtr& input) {
+    return input->service_worker_router_info;
   }
 
   static decltype(::network::mojom::blink::URLResponseHead::response_type) response_type(
@@ -978,6 +978,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static decltype(::network::mojom::blink::URLResponseHead::is_signed_exchange_inner_response) is_signed_exchange_inner_response(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
     return input->is_signed_exchange_inner_response;
+  }
+
+  static decltype(::network::mojom::blink::URLResponseHead::is_web_bundle_inner_response) is_web_bundle_inner_response(
+      const ::network::mojom::blink::URLResponseHeadPtr& input) {
+    return input->is_web_bundle_inner_response;
   }
 
   static decltype(::network::mojom::blink::URLResponseHead::was_in_prefetch_cache) was_in_prefetch_cache(
@@ -1035,11 +1040,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
     return input->dns_aliases;
   }
 
-  static const decltype(::network::mojom::blink::URLResponseHead::web_bundle_url)& web_bundle_url(
-      const ::network::mojom::blink::URLResponseHeadPtr& input) {
-    return input->web_bundle_url;
-  }
-
   static decltype(::network::mojom::blink::URLResponseHead::has_authorization_covered_by_wildcard_on_preflight) has_authorization_covered_by_wildcard_on_preflight(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
     return input->has_authorization_covered_by_wildcard_on_preflight;
@@ -1048,6 +1048,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static decltype(::network::mojom::blink::URLResponseHead::request_include_credentials) request_include_credentials(
       const ::network::mojom::blink::URLResponseHeadPtr& input) {
     return input->request_include_credentials;
+  }
+
+  static decltype(::network::mojom::blink::URLResponseHead::should_use_source_hash_for_js_code_cache) should_use_source_hash_for_js_code_cache(
+      const ::network::mojom::blink::URLResponseHeadPtr& input) {
+    return input->should_use_source_hash_for_js_code_cache;
   }
 
   static const decltype(::network::mojom::blink::URLResponseHead::trigger_verifications)& trigger_verifications(

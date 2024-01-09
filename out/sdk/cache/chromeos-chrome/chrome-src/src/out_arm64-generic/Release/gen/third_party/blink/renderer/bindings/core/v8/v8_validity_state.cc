@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ValidityState>::value,
     "ValidityState inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ValidityState::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ValidityState is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.valueMissing.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valueMissing();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.typeMismatch.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->typeMismatch();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.patternMismatch.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->patternMismatch();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.tooLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tooLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -140,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.tooShort.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tooShort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -154,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.rangeUnderflow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeUnderflow();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -168,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.rangeOverflow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeOverflow();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -182,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.stepMismatch.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->stepMismatch();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -196,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.badInput.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->badInput();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -210,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.customError.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->customError();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -224,8 +229,9 @@ BLINK_BINDINGS_TRACE_EVENT("ValidityState.valid.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(v8_receiver);
+ValidityState* blink_receiver = V8ValidityState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valid();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

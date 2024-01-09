@@ -67,6 +67,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/unguessable_token.mojom', '../../../mojo/public/mojom/base/unguessable_token.mojom.js');
   }
+  var context$ =
+      mojo.internal.exposeNamespace('sandbox.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'sandbox/policy/mojom/context.mojom', '../../../sandbox/policy/mojom/context.mojom.js');
+  }
 
 
 

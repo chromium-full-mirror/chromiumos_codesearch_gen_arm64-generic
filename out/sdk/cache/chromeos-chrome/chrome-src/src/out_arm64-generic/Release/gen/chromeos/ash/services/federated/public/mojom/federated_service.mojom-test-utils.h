@@ -17,7 +17,7 @@ class  FederatedServiceInterceptorForTesting : public FederatedService {
   virtual FederatedService* GetForwardingInterface() = 0;
   void Clone(::mojo::PendingReceiver<FederatedService> receiver) override;
   void ReportExample(const std::string& client_name, ::chromeos::federated::mojom::ExamplePtr example) override;
-  void StartScheduling(const absl::optional<base::flat_map<std::string, std::string>>& client_launch_stage) override;
+  void StartScheduling(const std::optional<base::flat_map<std::string, std::string>>& client_launch_stage) override;
 };
 class  FederatedServiceAsyncWaiter {
  public:

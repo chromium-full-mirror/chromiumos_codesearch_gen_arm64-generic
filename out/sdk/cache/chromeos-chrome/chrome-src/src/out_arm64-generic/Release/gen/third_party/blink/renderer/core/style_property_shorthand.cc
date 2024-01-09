@@ -205,6 +205,43 @@ const StylePropertyShorthand& alternativeAnimationWithTimelineShorthand() {
   return shorthand;
 }
 
+static const StylePropertyShorthand* alternativeMaskShorthand1() {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled())
+    return nullptr;
+
+  static const CSSProperty* longhands[] = {
+    &GetCSSPropertyMaskImage(),
+    &GetCSSPropertyWebkitMaskPositionX(),
+    &GetCSSPropertyWebkitMaskPositionY(),
+    &GetCSSPropertyMaskSize(),
+    &GetCSSPropertyMaskRepeat(),
+    &GetCSSPropertyMaskOrigin(),
+    &GetCSSPropertyMaskClip(),
+    &GetCSSPropertyMaskComposite(),
+    &GetCSSPropertyMaskMode(),
+  };
+
+  static const StylePropertyShorthand shorthand(
+      CSSPropertyID::kAlternativeMask, longhands, std::size(longhands));
+  return &shorthand;
+}
+
+const StylePropertyShorthand& alternativeMaskShorthand() {
+  if (const auto* s = alternativeMaskShorthand1())
+    return *s;
+
+  DCHECK(!RuntimeEnabledFeatures::CSSMaskingInteropEnabled());
+
+  static const CSSProperty* longhands[] = {
+    &GetCSSPropertyWebkitMaskPositionX(),
+    &GetCSSPropertyWebkitMaskPositionY(),
+  };
+
+  static const StylePropertyShorthand shorthand(
+      CSSPropertyID::kAlternativeMask, longhands, std::size(longhands));
+  return shorthand;
+}
+
 static const StylePropertyShorthand* alternativeViewTimelineWithInsetShorthand1() {
   if (!RuntimeEnabledFeatures::ScrollTimelineEnabled())
     return nullptr;
@@ -1035,6 +1072,17 @@ const StylePropertyShorthand& markerShorthand() {
   return shorthand;
 }
 
+const StylePropertyShorthand& maskPositionShorthand() {
+  static const CSSProperty* longhands[] = {
+    &GetCSSPropertyWebkitMaskPositionX(),
+    &GetCSSPropertyWebkitMaskPositionY(),
+  };
+
+  static const StylePropertyShorthand shorthand(
+      CSSPropertyID::kMaskPosition, longhands, std::size(longhands));
+  return shorthand;
+}
+
 static const StylePropertyShorthand* offsetShorthand1() {
   if (!RuntimeEnabledFeatures::CSSOffsetPositionAnchorEnabled())
     return nullptr;
@@ -1428,30 +1476,6 @@ const StylePropertyShorthand& textSpacingShorthand() {
   return empty_shorthand;
 }
 
-static const StylePropertyShorthand* toggleShorthand1() {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled())
-    return nullptr;
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyToggleRoot(),
-    &GetCSSPropertyToggleTrigger(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kToggle, longhands, std::size(longhands));
-  return &shorthand;
-}
-
-const StylePropertyShorthand& toggleShorthand() {
-  if (const auto* s = toggleShorthand1())
-    return *s;
-
-  DCHECK(!RuntimeEnabledFeatures::CSSTogglesEnabled());
-
-  static StylePropertyShorthand empty_shorthand;
-  return empty_shorthand;
-}
-
 static const StylePropertyShorthand* transitionShorthand1() {
   if (!RuntimeEnabledFeatures::CSSTransitionDiscreteEnabled())
     return nullptr;
@@ -1509,41 +1533,6 @@ const StylePropertyShorthand& viewTimelineShorthand() {
 
   static StylePropertyShorthand empty_shorthand;
   return empty_shorthand;
-}
-
-static const StylePropertyShorthand* webkitAlternativeMaskShorthand1() {
-  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled())
-    return nullptr;
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyMaskImage(),
-    &GetCSSPropertyWebkitMaskPositionX(),
-    &GetCSSPropertyWebkitMaskPositionY(),
-    &GetCSSPropertyMaskSize(),
-    &GetCSSPropertyMaskRepeat(),
-    &GetCSSPropertyMaskOrigin(),
-    &GetCSSPropertyMaskClip(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kWebkitAlternativeMask, longhands, std::size(longhands));
-  return &shorthand;
-}
-
-const StylePropertyShorthand& webkitAlternativeMaskShorthand() {
-  if (const auto* s = webkitAlternativeMaskShorthand1())
-    return *s;
-
-  DCHECK(!RuntimeEnabledFeatures::CSSMaskingInteropEnabled());
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyWebkitMaskPositionX(),
-    &GetCSSPropertyWebkitMaskPositionY(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kWebkitAlternativeMask, longhands, std::size(longhands));
-  return shorthand;
 }
 
 const StylePropertyShorthand& webkitColumnBreakAfterShorthand() {
@@ -1651,6 +1640,8 @@ const StylePropertyShorthand& shorthandForProperty(CSSPropertyID propertyID) {
       return alternativeAnimationWithDelayStartEndShorthand();
     case CSSPropertyID::kAlternativeAnimationWithTimeline:
       return alternativeAnimationWithTimelineShorthand();
+    case CSSPropertyID::kAlternativeMask:
+      return alternativeMaskShorthand();
     case CSSPropertyID::kAlternativeViewTimelineWithInset:
       return alternativeViewTimelineWithInsetShorthand();
     case CSSPropertyID::kAnimation:
@@ -1759,6 +1750,8 @@ const StylePropertyShorthand& shorthandForProperty(CSSPropertyID propertyID) {
       return marginInlineShorthand();
     case CSSPropertyID::kMarker:
       return markerShorthand();
+    case CSSPropertyID::kMaskPosition:
+      return maskPositionShorthand();
     case CSSPropertyID::kOffset:
       return offsetShorthand();
     case CSSPropertyID::kOutline:
@@ -1809,14 +1802,10 @@ const StylePropertyShorthand& shorthandForProperty(CSSPropertyID propertyID) {
       return textEmphasisShorthand();
     case CSSPropertyID::kTextSpacing:
       return textSpacingShorthand();
-    case CSSPropertyID::kToggle:
-      return toggleShorthand();
     case CSSPropertyID::kTransition:
       return transitionShorthand();
     case CSSPropertyID::kViewTimeline:
       return viewTimelineShorthand();
-    case CSSPropertyID::kWebkitAlternativeMask:
-      return webkitAlternativeMaskShorthand();
     case CSSPropertyID::kWebkitColumnBreakAfter:
       return webkitColumnBreakAfterShorthand();
     case CSSPropertyID::kWebkitColumnBreakBefore:
@@ -1950,6 +1939,63 @@ void getMatchingShorthandsForLonghand(
         result->UncheckedAppend(alternativeAnimationWithTimelineShorthand());
       if (CSSProperty::Get(CSSPropertyID::kAnimation).IsWebExposed())
         result->UncheckedAppend(animationShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskImage: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kWebkitMaskPositionX: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
+        result->UncheckedAppend(webkitMaskShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kWebkitMaskPosition).IsWebExposed())
+        result->UncheckedAppend(webkitMaskPositionShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kMaskPosition).IsWebExposed())
+        result->UncheckedAppend(maskPositionShorthand());
+      break;
+    }
+    case CSSPropertyID::kWebkitMaskPositionY: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
+        result->UncheckedAppend(webkitMaskShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kWebkitMaskPosition).IsWebExposed())
+        result->UncheckedAppend(webkitMaskPositionShorthand());
+      if (CSSProperty::Get(CSSPropertyID::kMaskPosition).IsWebExposed())
+        result->UncheckedAppend(maskPositionShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskSize: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskRepeat: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskOrigin: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskClip: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskComposite: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kMaskMode: {
+      if (CSSProperty::Get(CSSPropertyID::kAlternativeMask).IsWebExposed())
+        result->UncheckedAppend(alternativeMaskShorthand());
       break;
     }
     case CSSPropertyID::kViewTimelineName: {
@@ -2976,16 +3022,6 @@ void getMatchingShorthandsForLonghand(
         result->UncheckedAppend(textSpacingShorthand());
       break;
     }
-    case CSSPropertyID::kToggleRoot: {
-      if (CSSProperty::Get(CSSPropertyID::kToggle).IsWebExposed())
-        result->UncheckedAppend(toggleShorthand());
-      break;
-    }
-    case CSSPropertyID::kToggleTrigger: {
-      if (CSSProperty::Get(CSSPropertyID::kToggle).IsWebExposed())
-        result->UncheckedAppend(toggleShorthand());
-      break;
-    }
     case CSSPropertyID::kTransitionProperty: {
       DCHECK(CSSProperty::Get(CSSPropertyID::kTransition).IsWebExposed());
       result->UncheckedAppend(transitionShorthand());
@@ -3009,49 +3045,6 @@ void getMatchingShorthandsForLonghand(
     case CSSPropertyID::kTransitionBehavior: {
       DCHECK(CSSProperty::Get(CSSPropertyID::kTransition).IsWebExposed());
       result->UncheckedAppend(transitionShorthand());
-      break;
-    }
-    case CSSPropertyID::kMaskImage: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      break;
-    }
-    case CSSPropertyID::kWebkitMaskPositionX: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
-        result->UncheckedAppend(webkitMaskShorthand());
-      DCHECK(CSSProperty::Get(CSSPropertyID::kWebkitMaskPosition).IsWebExposed());
-      result->UncheckedAppend(webkitMaskPositionShorthand());
-      break;
-    }
-    case CSSPropertyID::kWebkitMaskPositionY: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
-        result->UncheckedAppend(webkitMaskShorthand());
-      DCHECK(CSSProperty::Get(CSSPropertyID::kWebkitMaskPosition).IsWebExposed());
-      result->UncheckedAppend(webkitMaskPositionShorthand());
-      break;
-    }
-    case CSSPropertyID::kMaskSize: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      break;
-    }
-    case CSSPropertyID::kMaskRepeat: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      break;
-    }
-    case CSSPropertyID::kMaskOrigin: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      break;
-    }
-    case CSSPropertyID::kMaskClip: {
-      if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
-        result->UncheckedAppend(webkitAlternativeMaskShorthand());
       break;
     }
     case CSSPropertyID::kWebkitMaskImage: {

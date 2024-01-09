@@ -21,8 +21,9 @@ class BLINK_COMMON_EXPORT WidgetInputHandlerHostInterceptorForTesting : public W
   void DidOverscroll(DidOverscrollParamsPtr params) override;
   void DidStartScrollingViewport() override;
   void ImeCancelComposition() override;
-  void ImeCompositionRangeChanged(const ::gfx::Range& range, const absl::optional<std::vector<::gfx::Rect>>& character_bounds, const absl::optional<std::vector<::gfx::Rect>>& line_bounds) override;
+  void ImeCompositionRangeChanged(const ::gfx::Range& range, const std::optional<std::vector<::gfx::Rect>>& character_bounds, const std::optional<std::vector<::gfx::Rect>>& line_bounds) override;
   void SetMouseCapture(bool capture) override;
+  void SetAutoscrollSelectionActiveInMainFrame(bool autoscroll_selection) override;
   void RequestMouseLock(bool from_user_gesture, bool unadjusted_movement, RequestMouseLockCallback callback) override;
 };
 class BLINK_COMMON_EXPORT WidgetInputHandlerHostAsyncWaiter {
@@ -53,7 +54,7 @@ class BLINK_COMMON_EXPORT FrameWidgetInputHandlerInterceptorForTesting : public 
   void DeleteSurroundingTextInCodePoints(int32_t before, int32_t after) override;
   void SetEditableSelectionOffsets(int32_t start, int32_t end) override;
   void HandleStylusWritingGestureAction(::blink::mojom::StylusWritingGestureDataPtr gesture_data, HandleStylusWritingGestureActionCallback callback) override;
-  void ExecuteEditCommand(const std::string& command, const absl::optional<::std::u16string>& value) override;
+  void ExecuteEditCommand(const std::string& command, const std::optional<::std::u16string>& value) override;
   void Undo() override;
   void Redo() override;
   void Cut() override;
@@ -130,7 +131,7 @@ class BLINK_COMMON_EXPORT WidgetInputHandlerAsyncWaiter {
       const ::std::u16string& text, const std::vector<::ui::ImeTextSpan>& ime_text_spans, const ::gfx::Range& range, int32_t relative_cursor_position);
   
   void DispatchEvent(
-      ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action, ScrollResultDataPtr* out_scroll_result_data);
+      ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action);
   
   void WaitForInputProcessed(
       );

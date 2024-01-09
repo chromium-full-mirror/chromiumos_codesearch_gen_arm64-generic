@@ -101,6 +101,29 @@ bool PageHandler_HandleSearchEngineChoiceSelected_Params_Data::Validate(
 PageHandler_HandleSearchEngineChoiceSelected_Params_Data::PageHandler_HandleSearchEngineChoiceSelected_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool PageHandler_HandleLearnMoreLinkClicked_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_HandleLearnMoreLinkClicked_Params_Data* object =
+      static_cast<const PageHandler_HandleLearnMoreLinkClicked_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_HandleLearnMoreLinkClicked_Params_Data::PageHandler_HandleLearnMoreLinkClicked_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace search_engine_choice

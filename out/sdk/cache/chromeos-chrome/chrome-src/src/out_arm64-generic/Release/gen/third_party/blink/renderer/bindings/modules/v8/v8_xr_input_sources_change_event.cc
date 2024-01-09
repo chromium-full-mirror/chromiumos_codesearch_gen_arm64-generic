@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRInputSourcesChangeEvent>::value,
     "XRInputSourcesChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRInputSourcesChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRInputSourcesChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourcesChangeEvent.session.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->session();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -127,7 +123,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->added();
 if (!ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -166,7 +162,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->removed();
 if (!ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -184,8 +180,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourcesChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(v8_receiver);
+XRInputSourcesChangeEvent* blink_receiver = V8XRInputSourcesChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

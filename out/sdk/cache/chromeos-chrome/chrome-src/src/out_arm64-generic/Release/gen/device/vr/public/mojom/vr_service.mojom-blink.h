@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/vr/public/mojom/vr_service.mojom-features.h"
 #include "device/vr/public/mojom/vr_service.mojom-shared.h"
 #include "device/vr/public/mojom/vr_service.mojom-blink-forward.h"
 #include "device/gamepad/public/mojom/gamepad.mojom-blink.h"
@@ -49,198 +50,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRHandedness>
-    : EnumHashTraits<::device::mojom::XRHandedness, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRTargetRayMode>
-    : EnumHashTraits<::device::mojom::XRTargetRayMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRSessionFeatureRequestStatus>
-    : EnumHashTraits<::device::mojom::XRSessionFeatureRequestStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XREnvironmentBlendMode>
-    : EnumHashTraits<::device::mojom::XREnvironmentBlendMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRInteractionMode>
-    : EnumHashTraits<::device::mojom::XRInteractionMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRHandJoint>
-    : EnumHashTraits<::device::mojom::XRHandJoint, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XREye>
-    : EnumHashTraits<::device::mojom::XREye, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRPresentationTransportMethod>
-    : EnumHashTraits<::device::mojom::XRPresentationTransportMethod, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRReferenceSpaceType>
-    : EnumHashTraits<::device::mojom::XRReferenceSpaceType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRInputSourceSpaceType>
-    : EnumHashTraits<::device::mojom::XRInputSourceSpaceType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRPlaneOrientation>
-    : EnumHashTraits<::device::mojom::XRPlaneOrientation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XrCompatibleResult>
-    : EnumHashTraits<::device::mojom::XrCompatibleResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::CreateAnchorResult>
-    : EnumHashTraits<::device::mojom::CreateAnchorResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SubscribeToHitTestResult>
-    : EnumHashTraits<::device::mojom::SubscribeToHitTestResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::EntityTypeForHitTest>
-    : EnumHashTraits<::device::mojom::EntityTypeForHitTest, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::XRVisibilityState>
-    : EnumHashTraits<::device::mojom::XRVisibilityState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -2784,49 +2593,49 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   // Construct an instance holding |input_source_space_info|.
   static XRNativeOriginInformationPtr
   NewInputSourceSpaceInfo(
-      XRInputSourceSpaceInfoPtr input_source_space_info) {
+      XRInputSourceSpaceInfoPtr value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_input_source_space_info(std::move(input_source_space_info));
+    result->set_input_source_space_info(std::move(value));
     return result;
   }
   // Construct an instance holding |plane_id|.
   static XRNativeOriginInformationPtr
   NewPlaneId(
-      uint64_t plane_id) {
+      uint64_t value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_plane_id(std::move(plane_id));
+    result->set_plane_id(std::move(value));
     return result;
   }
   // Construct an instance holding |anchor_id|.
   static XRNativeOriginInformationPtr
   NewAnchorId(
-      uint64_t anchor_id) {
+      uint64_t value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_anchor_id(std::move(anchor_id));
+    result->set_anchor_id(std::move(value));
     return result;
   }
   // Construct an instance holding |reference_space_type|.
   static XRNativeOriginInformationPtr
   NewReferenceSpaceType(
-      XRReferenceSpaceType reference_space_type) {
+      XRReferenceSpaceType value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_reference_space_type(std::move(reference_space_type));
+    result->set_reference_space_type(std::move(value));
     return result;
   }
   // Construct an instance holding |hand_joint_space_info|.
   static XRNativeOriginInformationPtr
   NewHandJointSpaceInfo(
-      XRHandJointSpaceInfoPtr hand_joint_space_info) {
+      XRHandJointSpaceInfoPtr value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_hand_joint_space_info(std::move(hand_joint_space_info));
+    result->set_hand_joint_space_info(std::move(value));
     return result;
   }
   // Construct an instance holding |image_index|.
   static XRNativeOriginInformationPtr
   NewImageIndex(
-      uint32_t image_index) {
+      uint32_t value) {
     auto result = XRNativeOriginInformationPtr(absl::in_place);
-    result->set_image_index(std::move(image_index));
+    result->set_image_index(std::move(value));
     return result;
   }
 
@@ -2999,17 +2808,17 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthData {
   // Construct an instance holding |data_still_valid|.
   static XRDepthDataPtr
   NewDataStillValid(
-      XRDepthDataStillValidPtr data_still_valid) {
+      XRDepthDataStillValidPtr value) {
     auto result = XRDepthDataPtr(absl::in_place);
-    result->set_data_still_valid(std::move(data_still_valid));
+    result->set_data_still_valid(std::move(value));
     return result;
   }
   // Construct an instance holding |updated_depth_data|.
   static XRDepthDataPtr
   NewUpdatedDepthData(
-      XRDepthDataUpdatedPtr updated_depth_data) {
+      XRDepthDataUpdatedPtr value) {
     auto result = XRDepthDataPtr(absl::in_place);
-    result->set_updated_depth_data(std::move(updated_depth_data));
+    result->set_updated_depth_data(std::move(value));
     return result;
   }
 
@@ -3129,17 +2938,17 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RequestSessionResu
   // Construct an instance holding |success|.
   static RequestSessionResultPtr
   NewSuccess(
-      RequestSessionSuccessPtr success) {
+      RequestSessionSuccessPtr value) {
     auto result = RequestSessionResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |failure_reason|.
   static RequestSessionResultPtr
   NewFailureReason(
-      ::device::mojom::blink::RequestSessionError failure_reason) {
+      ::device::mojom::blink::RequestSessionError value) {
     auto result = RequestSessionResultPtr(absl::in_place);
-    result->set_failure_reason(std::move(failure_reason));
+    result->set_failure_reason(std::move(value));
     return result;
   }
 
@@ -3724,7 +3533,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceDescr
   XRInputSourceDescription(
       XRTargetRayMode target_ray_mode,
       XRHandedness handedness,
-      const absl::optional<::gfx::Transform>& input_from_pointer,
+      const std::optional<::gfx::Transform>& input_from_pointer,
       WTF::Vector<WTF::String> profiles);
 
 
@@ -3807,7 +3616,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceDescr
   
   XRHandedness handedness;
   
-  absl::optional<::gfx::Transform> input_from_pointer;
+  std::optional<::gfx::Transform> input_from_pointer;
   
   WTF::Vector<WTF::String> profiles;
 
@@ -3872,7 +3681,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHandJointData {
 
   XRHandJointData(
       XRHandJoint joint,
-      const absl::optional<::gfx::Transform>& mojo_from_joint,
+      const std::optional<::gfx::Transform>& mojo_from_joint,
       float radius);
 
 
@@ -3953,7 +3762,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHandJointData {
   
   XRHandJoint joint;
   
-  absl::optional<::gfx::Transform> mojo_from_joint;
+  std::optional<::gfx::Transform> mojo_from_joint;
   
   float radius;
 
@@ -4161,15 +3970,15 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceState
   XRInputSourceState(
       uint32_t source_id,
       XRInputSourceDescriptionPtr description,
-      const absl::optional<::gfx::Transform>& mojo_from_input,
+      const std::optional<::gfx::Transform>& mojo_from_input,
       bool emulated_position,
       bool is_auxiliary,
       bool primary_input_pressed,
       bool primary_input_clicked,
       bool primary_squeeze_pressed,
       bool primary_squeeze_clicked,
-      const absl::optional<::device::Gamepad>& gamepad,
-      const absl::optional<::gfx::PointF>& overlay_pointer_position,
+      const std::optional<::device::Gamepad>& gamepad,
+      const std::optional<::gfx::PointF>& overlay_pointer_position,
       XRHandTrackingDataPtr hand_tracking_data);
 
 XRInputSourceState(const XRInputSourceState&) = delete;
@@ -4254,7 +4063,7 @@ XRInputSourceState& operator=(const XRInputSourceState&) = delete;
   
   XRInputSourceDescriptionPtr description;
   
-  absl::optional<::gfx::Transform> mojo_from_input;
+  std::optional<::gfx::Transform> mojo_from_input;
   
   bool emulated_position;
   
@@ -4268,9 +4077,9 @@ XRInputSourceState& operator=(const XRInputSourceState&) = delete;
   
   bool primary_squeeze_clicked;
   
-  absl::optional<::device::Gamepad> gamepad;
+  std::optional<::device::Gamepad> gamepad;
   
-  absl::optional<::gfx::PointF> overlay_pointer_position;
+  std::optional<::gfx::PointF> overlay_pointer_position;
   
   XRHandTrackingDataPtr hand_tracking_data;
 
@@ -4335,8 +4144,8 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRPose {
   VRPose();
 
   VRPose(
-      const absl::optional<::gfx::Quaternion>& orientation,
-      const absl::optional<::gfx::Point3F>& position,
+      const std::optional<::gfx::Quaternion>& orientation,
+      const std::optional<::gfx::Point3F>& position,
       bool emulated_position);
 
 
@@ -4415,9 +4224,9 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRPose {
   }
 
   
-  absl::optional<::gfx::Quaternion> orientation;
+  std::optional<::gfx::Quaternion> orientation;
   
-  absl::optional<::gfx::Point3F> position;
+  std::optional<::gfx::Point3F> position;
   
   bool emulated_position;
 
@@ -5065,7 +4874,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRStageParameters 
 
   VRStageParameters(
       const ::gfx::Transform& mojo_from_floor,
-      absl::optional<WTF::Vector<::gfx::Point3F>> bounds);
+      std::optional<WTF::Vector<::gfx::Point3F>> bounds);
 
 
   ~VRStageParameters();
@@ -5145,7 +4954,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRStageParameters 
   
   ::gfx::Transform mojo_from_floor;
   
-  absl::optional<WTF::Vector<::gfx::Point3F>> bounds;
+  std::optional<WTF::Vector<::gfx::Point3F>> bounds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5213,7 +5022,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPlaneData {
   XRPlaneData(
       uint64_t id,
       XRPlaneOrientation orientation,
-      const absl::optional<::device::Pose>& mojo_from_plane,
+      const std::optional<::device::Pose>& mojo_from_plane,
       WTF::Vector<XRPlanePointDataPtr> polygon);
 
 XRPlaneData(const XRPlaneData&) = delete;
@@ -5298,7 +5107,7 @@ XRPlaneData& operator=(const XRPlaneData&) = delete;
   
   XRPlaneOrientation orientation;
   
-  absl::optional<::device::Pose> mojo_from_plane;
+  std::optional<::device::Pose> mojo_from_plane;
   
   WTF::Vector<XRPlanePointDataPtr> polygon;
 
@@ -5508,7 +5317,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRAnchorData {
 
   XRAnchorData(
       uint64_t id,
-      const absl::optional<::device::Pose>& mojo_from_anchor);
+      const std::optional<::device::Pose>& mojo_from_anchor);
 
 
   ~XRAnchorData();
@@ -5588,7 +5397,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRAnchorData {
   
   uint64_t id;
   
-  absl::optional<::device::Pose> mojo_from_anchor;
+  std::optional<::device::Pose> mojo_from_anchor;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -7267,7 +7076,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRTrackedImagesDat
 
   XRTrackedImagesData(
       WTF::Vector<XRTrackedImageDataPtr> images_data,
-      absl::optional<WTF::Vector<bool>> image_trackable_scores);
+      std::optional<WTF::Vector<bool>> image_trackable_scores);
 
 XRTrackedImagesData(const XRTrackedImagesData&) = delete;
 XRTrackedImagesData& operator=(const XRTrackedImagesData&) = delete;
@@ -7349,7 +7158,7 @@ XRTrackedImagesData& operator=(const XRTrackedImagesData&) = delete;
   
   WTF::Vector<XRTrackedImageDataPtr> images_data;
   
-  absl::optional<WTF::Vector<bool>> image_trackable_scores;
+  std::optional<WTF::Vector<bool>> image_trackable_scores;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -7413,14 +7222,14 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRFrameData {
   XRFrameData(
       VRPosePtr mojo_from_viewer,
       ::base::TimeDelta time_delta,
-      const absl::optional<::gpu::MailboxHolder>& buffer_holder,
-      const absl::optional<::gpu::MailboxHolder>& camera_image_buffer_holder,
-      const absl::optional<::gfx::Size>& camera_image_size,
+      const std::optional<::gpu::MailboxHolder>& buffer_holder,
+      const std::optional<::gpu::MailboxHolder>& camera_image_buffer_holder,
+      const std::optional<::gfx::Size>& camera_image_size,
       XRDepthDataPtr depth_data,
       bool mojo_space_reset,
       int16_t frame_id,
       WTF::Vector<XRViewPtr> views,
-      absl::optional<WTF::Vector<XRInputSourceStatePtr>> input_state,
+      std::optional<WTF::Vector<XRInputSourceStatePtr>> input_state,
       uint32_t stage_parameters_id,
       VRStageParametersPtr stage_parameters,
       XRPlaneDetectionDataPtr detected_planes_data,
@@ -7507,11 +7316,11 @@ XRFrameData& operator=(const XRFrameData&) = delete;
   
   ::base::TimeDelta time_delta;
   
-  absl::optional<::gpu::MailboxHolder> buffer_holder;
+  std::optional<::gpu::MailboxHolder> buffer_holder;
   
-  absl::optional<::gpu::MailboxHolder> camera_image_buffer_holder;
+  std::optional<::gpu::MailboxHolder> camera_image_buffer_holder;
   
-  absl::optional<::gfx::Size> camera_image_size;
+  std::optional<::gfx::Size> camera_image_size;
   
   XRDepthDataPtr depth_data;
   
@@ -7521,7 +7330,7 @@ XRFrameData& operator=(const XRFrameData&) = delete;
   
   WTF::Vector<XRViewPtr> views;
   
-  absl::optional<WTF::Vector<XRInputSourceStatePtr>> input_state;
+  std::optional<WTF::Vector<XRInputSourceStatePtr>> input_state;
   
   uint32_t stage_parameters_id;
   

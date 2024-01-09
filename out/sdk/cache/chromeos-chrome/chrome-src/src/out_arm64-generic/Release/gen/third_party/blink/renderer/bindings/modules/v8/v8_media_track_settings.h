@@ -265,6 +265,24 @@ void setExposureTime(double value) {
 has_exposure_time_ = true;
 }
 
+bool hasEyeGazeCorrection() const {
+  return has_eye_gaze_correction_;
+}
+bool eyeGazeCorrection() const {
+  DCHECK(hasEyeGazeCorrection());
+return member_eye_gaze_correction_;
+}
+bool getEyeGazeCorrectionOr(bool fallback_value) const {
+  if (!hasEyeGazeCorrection()) {
+  return fallback_value;
+}
+return member_eye_gaze_correction_;
+}
+void setEyeGazeCorrection(bool value) {
+  member_eye_gaze_correction_ = value;
+has_eye_gaze_correction_ = true;
+}
+
 bool hasFaceFraming() const {
   return has_face_framing_;
 }
@@ -690,6 +708,7 @@ bool has_echo_cancellation_ = false;
 bool has_exposure_compensation_ = false;
 bool has_exposure_mode_ = false;
 bool has_exposure_time_ = false;
+bool has_eye_gaze_correction_ = false;
 bool has_face_framing_ = false;
 bool has_facing_mode_ = false;
 bool has_focus_distance_ = false;
@@ -729,6 +748,7 @@ bool member_echo_cancellation_;
 double member_exposure_compensation_;
 String member_exposure_mode_;
 double member_exposure_time_;
+bool member_eye_gaze_correction_;
 bool member_face_framing_;
 String member_facing_mode_;
 double member_focus_distance_;

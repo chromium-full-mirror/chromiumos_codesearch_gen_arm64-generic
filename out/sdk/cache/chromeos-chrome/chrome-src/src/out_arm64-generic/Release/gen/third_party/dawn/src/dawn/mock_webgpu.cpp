@@ -96,6 +96,10 @@ namespace {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->BufferMapAsync(self, mode, offset, size, callback, userdata);
     }
+    WGPUFuture ForwardBufferMapAsyncF(WGPUBuffer self, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallbackInfo callbackInfo) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->BufferMapAsyncF(self, mode, offset, size, callbackInfo);
+    }
     void ForwardBufferSetLabel(WGPUBuffer self, char const * label) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->BufferSetLabel(self, label);
@@ -459,6 +463,14 @@ namespace {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->InstanceCreateSurface(self, descriptor);
     }
+    size_t ForwardInstanceEnumerateWGSLLanguageFeatures(WGPUInstance self, WGPUWGSLFeatureName * features) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->InstanceEnumerateWGSLLanguageFeatures(self, features);
+    }
+    WGPUBool ForwardInstanceHasWGSLLanguageFeature(WGPUInstance self, WGPUWGSLFeatureName feature) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->InstanceHasWGSLLanguageFeature(self, feature);
+    }
     void ForwardInstanceProcessEvents(WGPUInstance self) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->InstanceProcessEvents(self);
@@ -466,6 +478,10 @@ namespace {
     void ForwardInstanceRequestAdapter(WGPUInstance self, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallback callback, void * userdata) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->InstanceRequestAdapter(self, options, callback, userdata);
+    }
+    WGPUFuture ForwardInstanceRequestAdapterF(WGPUInstance self, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallbackInfo callbackInfo) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->InstanceRequestAdapterF(self, options, callbackInfo);
     }
     WGPUWaitStatus ForwardInstanceWaitAny(WGPUInstance self, size_t futureCount, WGPUFutureWaitInfo * futures, uint64_t timeoutNS) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
@@ -806,6 +822,10 @@ namespace {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->SharedTextureMemoryGetProperties(self, properties);
     }
+    WGPUBool ForwardSharedTextureMemoryIsDeviceLost(WGPUSharedTextureMemory self) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->SharedTextureMemoryIsDeviceLost(self);
+    }
     void ForwardSharedTextureMemorySetLabel(WGPUSharedTextureMemory self, char const * label) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->SharedTextureMemorySetLabel(self, label);
@@ -943,6 +963,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->bufferGetSize = reinterpret_cast<WGPUProcBufferGetSize>(ForwardBufferGetSize);
     table->bufferGetUsage = reinterpret_cast<WGPUProcBufferGetUsage>(ForwardBufferGetUsage);
     table->bufferMapAsync = reinterpret_cast<WGPUProcBufferMapAsync>(ForwardBufferMapAsync);
+    table->bufferMapAsyncF = reinterpret_cast<WGPUProcBufferMapAsyncF>(ForwardBufferMapAsyncF);
     table->bufferSetLabel = reinterpret_cast<WGPUProcBufferSetLabel>(ForwardBufferSetLabel);
     table->bufferUnmap = reinterpret_cast<WGPUProcBufferUnmap>(ForwardBufferUnmap);
     table->bufferReference = reinterpret_cast<WGPUProcBufferReference>(ForwardBufferReference);
@@ -1032,8 +1053,11 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->externalTextureReference = reinterpret_cast<WGPUProcExternalTextureReference>(ForwardExternalTextureReference);
     table->externalTextureRelease = reinterpret_cast<WGPUProcExternalTextureRelease>(ForwardExternalTextureRelease);
     table->instanceCreateSurface = reinterpret_cast<WGPUProcInstanceCreateSurface>(ForwardInstanceCreateSurface);
+    table->instanceEnumerateWGSLLanguageFeatures = reinterpret_cast<WGPUProcInstanceEnumerateWGSLLanguageFeatures>(ForwardInstanceEnumerateWGSLLanguageFeatures);
+    table->instanceHasWGSLLanguageFeature = reinterpret_cast<WGPUProcInstanceHasWGSLLanguageFeature>(ForwardInstanceHasWGSLLanguageFeature);
     table->instanceProcessEvents = reinterpret_cast<WGPUProcInstanceProcessEvents>(ForwardInstanceProcessEvents);
     table->instanceRequestAdapter = reinterpret_cast<WGPUProcInstanceRequestAdapter>(ForwardInstanceRequestAdapter);
+    table->instanceRequestAdapterF = reinterpret_cast<WGPUProcInstanceRequestAdapterF>(ForwardInstanceRequestAdapterF);
     table->instanceWaitAny = reinterpret_cast<WGPUProcInstanceWaitAny>(ForwardInstanceWaitAny);
     table->instanceReference = reinterpret_cast<WGPUProcInstanceReference>(ForwardInstanceReference);
     table->instanceRelease = reinterpret_cast<WGPUProcInstanceRelease>(ForwardInstanceRelease);
@@ -1116,6 +1140,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->sharedTextureMemoryCreateTexture = reinterpret_cast<WGPUProcSharedTextureMemoryCreateTexture>(ForwardSharedTextureMemoryCreateTexture);
     table->sharedTextureMemoryEndAccess = reinterpret_cast<WGPUProcSharedTextureMemoryEndAccess>(ForwardSharedTextureMemoryEndAccess);
     table->sharedTextureMemoryGetProperties = reinterpret_cast<WGPUProcSharedTextureMemoryGetProperties>(ForwardSharedTextureMemoryGetProperties);
+    table->sharedTextureMemoryIsDeviceLost = reinterpret_cast<WGPUProcSharedTextureMemoryIsDeviceLost>(ForwardSharedTextureMemoryIsDeviceLost);
     table->sharedTextureMemorySetLabel = reinterpret_cast<WGPUProcSharedTextureMemorySetLabel>(ForwardSharedTextureMemorySetLabel);
     table->sharedTextureMemoryReference = reinterpret_cast<WGPUProcSharedTextureMemoryReference>(ForwardSharedTextureMemoryReference);
     table->sharedTextureMemoryRelease = reinterpret_cast<WGPUProcSharedTextureMemoryRelease>(ForwardSharedTextureMemoryRelease);
@@ -1148,6 +1173,9 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     };
     table->sharedTextureMemoryEndAccessStateFreeMembers = [](WGPUSharedTextureMemoryEndAccessState sharedTextureMemoryEndAccessState) {
         dawn::WarningLog() << "No mock available for sharedTextureMemoryEndAccessStateFreeMembers";
+    };
+    table->adapterPropertiesMemoryHeapsFreeMembers = [](WGPUAdapterPropertiesMemoryHeaps adapterPropertiesMemoryHeaps) {
+        dawn::WarningLog() << "No mock available for adapterPropertiesMemoryHeapsFreeMembers";
     };
 }
 

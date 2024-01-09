@@ -8,6 +8,8 @@ const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
+const PRETTY_PRINT_BUTTON = '[aria-label="Pretty print"]';
+const PRETTY_PRINTED_TOGGLE = 'devtools-text-editor.pretty-printed';
 async function getIconComponents(className, root) {
     return await (0, helper_js_1.waitForFunction)(async () => {
         const icons = await (0, helper_js_1.$$)(`devtools-icon.${className}`, root);
@@ -62,10 +64,6 @@ async function waitForExpandedIssueTitle(issueIconComponent) {
     if (this.timeout()) {
         this.timeout(10000);
     }
-    // TODO(crbug.com/1382752): These tests currently don't interact well with pretty-printing.
-    beforeEach(async () => {
-        await (0, helper_js_1.disableExperiment)('sourcesPrettyPrint');
-    });
     // This test and the tests below require the use of unsafe hoverElement/clickElement helpers
     // because they return a list of elements and check each one of them. Perhaps, the tests
     // can be changed to check the elements one by one using the safer hover/click helpers.
@@ -85,7 +83,8 @@ async function waitForExpandedIssueTitle(issueIconComponent) {
         }
         chai_1.assert.deepEqual(messages, expectedMessages);
     });
-    (0, mocha_extensions_js_1.it)('should use the correct error icon', async () => {
+    // Flakily fails with finding an empty icon.
+    mocha_extensions_js_1.it.skip('[crbug.com/1508270] should use the correct error icon', async () => {
         await openFileInSourceTab('trusted-type-violations-report-only.rawresponse');
         const bucketIconComponents = await getIconComponents('cm-messageIcon-error');
         for (const bucketIconComponent of bucketIconComponents) {
@@ -100,6 +99,14 @@ async function waitForExpandedIssueTitle(issueIconComponent) {
     });
     (0, mocha_extensions_js_1.it)('should display issue messages', async () => {
         await openFileInSourceTab('trusted-type-violations-report-only.rawresponse');
+        // We need to disable the pretty printing, so that
+        // we can check whether the Sources panel correctly
+        // scrolls horizontally upon stopping.
+        await (0, helper_js_1.waitFor)(PRETTY_PRINTED_TOGGLE);
+        await Promise.all([
+            (0, helper_js_1.click)(PRETTY_PRINT_BUTTON),
+            (0, helper_js_1.waitForNone)(PRETTY_PRINTED_TOGGLE),
+        ]);
         const issueIconComponents = await getIconComponents('cm-messageIcon-issue');
         const issueMessages = [];
         const expectedIssueMessages = [
@@ -116,6 +123,14 @@ async function waitForExpandedIssueTitle(issueIconComponent) {
     });
     (0, mocha_extensions_js_1.it)('should also mark issues in inline event handlers in HTML documents', async () => {
         await openFileInSourceTab('trusted-type-violations-report-only-in-html.rawresponse');
+        // We need to disable the pretty printing, so that
+        // we can check whether the Sources panel correctly
+        // scrolls horizontally upon stopping.
+        await (0, helper_js_1.waitFor)(PRETTY_PRINTED_TOGGLE);
+        await Promise.all([
+            (0, helper_js_1.click)(PRETTY_PRINT_BUTTON),
+            (0, helper_js_1.waitForNone)(PRETTY_PRINTED_TOGGLE),
+        ]);
         const icons = await getIconComponents('cm-messageIcon-issue');
         chai_1.assert.strictEqual(icons.length, 1);
     });
@@ -138,6 +153,14 @@ async function waitForExpandedIssueTitle(issueIconComponent) {
         }
         await (0, issues_helpers_js_1.navigateToIssuesTab)();
         await openFileInSourceTab('trusted-type-violations-report-only.rawresponse');
+        // We need to disable the pretty printing, so that
+        // we can check whether the Sources panel correctly
+        // scrolls horizontally upon stopping.
+        await (0, helper_js_1.waitFor)(PRETTY_PRINTED_TOGGLE);
+        await Promise.all([
+            (0, helper_js_1.click)(PRETTY_PRINT_BUTTON),
+            (0, helper_js_1.waitForNone)(PRETTY_PRINTED_TOGGLE),
+        ]);
         const HIDE_DEBUGGER_SELECTOR = '[aria-label="Hide debugger"]';
         const HIDE_NAVIGATOR_SELECTOR = '[aria-label="Hide navigator"]';
         await (0, helper_js_1.click)(HIDE_DEBUGGER_SELECTOR);

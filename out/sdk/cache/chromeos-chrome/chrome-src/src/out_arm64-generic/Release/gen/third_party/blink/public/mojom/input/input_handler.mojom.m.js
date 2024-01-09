@@ -248,6 +248,12 @@ export class WidgetInputHandlerHostInterface {
   setMouseCapture(capture) {}
   
   /**
+   * @param { !boolean } autoscrollSelection
+   */
+
+  setAutoscrollSelectionActiveInMainFrame(autoscrollSelection) {}
+  
+  /**
    * @param { !boolean } fromUserGesture
    * @param { !boolean } unadjustedMovement
    * @return {!Promise<{
@@ -396,6 +402,22 @@ export class WidgetInputHandlerHostRemote {
 
   
   /**
+   * @param { !boolean } autoscrollSelection
+   */
+
+  setAutoscrollSelectionActiveInMainFrame(
+      autoscrollSelection) {
+    this.proxy.sendMessage(
+        7,
+        WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        [
+          autoscrollSelection
+        ]);
+  }
+
+  
+  /**
    * @param { !boolean } fromUserGesture
    * @param { !boolean } unadjustedMovement
    * @return {!Promise<{
@@ -408,7 +430,7 @@ export class WidgetInputHandlerHostRemote {
       fromUserGesture,
       unadjustedMovement) {
     return this.proxy.sendMessage(
-        7,
+        8,
         WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         [
@@ -475,6 +497,11 @@ export class WidgetInputHandlerHostReceiver {
         impl.setMouseCapture.bind(impl));
     this.helper_internal_.registerHandler(
         7,
+        WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        impl.setAutoscrollSelectionActiveInMainFrame.bind(impl));
+    this.helper_internal_.registerHandler(
+        8,
         WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         impl.requestMouseLock.bind(impl));
@@ -611,12 +638,24 @@ export class WidgetInputHandlerHostCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.requestMouseLock =
+    this.setAutoscrollSelectionActiveInMainFrame =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         7,
+        WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+        null,
+        this.setAutoscrollSelectionActiveInMainFrame.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.requestMouseLock =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        8,
         WidgetInputHandlerHost_RequestMouseLock_ParamsSpec.$,
         WidgetInputHandlerHost_RequestMouseLock_ResponseParamsSpec.$,
         this.requestMouseLock.createReceiverHandler(true /* expectsResponse */));
@@ -2057,7 +2096,6 @@ export class WidgetInputHandlerInterface {
         state: !blink_mojom_InputEventResultState,
         overscroll: ?DidOverscrollParams,
         touchAction: ?TouchActionOptional,
-        scrollResultData: ?ScrollResultData,
    *  }>}
    */
 
@@ -2286,7 +2324,6 @@ export class WidgetInputHandlerRemote {
         state: !blink_mojom_InputEventResultState,
         overscroll: ?DidOverscrollParams,
         touchAction: ?TouchActionOptional,
-        scrollResultData: ?ScrollResultData,
    *  }>}
    */
 
@@ -2810,12 +2847,6 @@ export const SelectAroundCaretResultSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const ScrollResultDataSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const WidgetInputHandlerHost_SetTouchActionFromMain_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2853,6 +2884,12 @@ export const WidgetInputHandlerHost_ImeCompositionRangeChanged_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const WidgetInputHandlerHost_SetMouseCapture_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -4617,35 +4654,6 @@ export class SelectAroundCaretResult {
 
 
 mojo.internal.Struct(
-    ScrollResultDataSpec.$,
-    'ScrollResultData',
-    [
-      mojo.internal.StructField(
-        'rootScrollOffset', 0,
-        0,
-        gfx_mojom_PointFSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class ScrollResultData {
-  constructor() {
-    /** @type { (gfx_mojom_PointF|undefined) } */
-    this.rootScrollOffset;
-  }
-}
-
-
-
-mojo.internal.Struct(
     WidgetInputHandlerHost_SetTouchActionFromMain_ParamsSpec.$,
     'WidgetInputHandlerHost_SetTouchActionFromMain_Params',
     [
@@ -4843,6 +4851,35 @@ export class WidgetInputHandlerHost_SetMouseCapture_Params {
   constructor() {
     /** @type { !boolean } */
     this.capture;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsSpec.$,
+    'WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params',
+    [
+      mojo.internal.StructField(
+        'autoscrollSelection', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params {
+  constructor() {
+    /** @type { !boolean } */
+    this.autoscrollSelection;
   }
 }
 
@@ -6355,16 +6392,8 @@ mojo.internal.Struct(
         true /* nullable */,
         0,
       ),
-      mojo.internal.StructField(
-        'scrollResultData', 32,
-        0,
-        ScrollResultDataSpec.$,
-        null,
-        true /* nullable */,
-        0,
-      ),
     ],
-    [[0, 48],]);
+    [[0, 40],]);
 
 
 
@@ -6383,8 +6412,6 @@ export class WidgetInputHandler_DispatchEvent_ResponseParams {
     this.overscroll;
     /** @type { (TouchActionOptional|undefined) } */
     this.touchAction;
-    /** @type { (ScrollResultData|undefined) } */
-    this.scrollResultData;
   }
 }
 

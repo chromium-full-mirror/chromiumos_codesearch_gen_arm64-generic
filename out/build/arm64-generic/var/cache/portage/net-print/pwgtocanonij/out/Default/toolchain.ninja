@@ -34,8 +34,6 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/pwgtocanonij/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/pwgtocanonij/all.stamp: stamp ./pwgtocanonij ./pwgtocanonij_unittest
+build obj/pwgtocanonij/all.stamp: stamp ./pwgtocanonij
 subninja obj/pwgtocanonij/libcanonij.ninja
 subninja obj/pwgtocanonij/pwgtocanonij.ninja
-subninja obj/pwgtocanonij/pwgtocanonij_unittest.ninja

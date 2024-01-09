@@ -2,6 +2,7 @@
 namespace {
 const char* const kNotUserTriggeredActions[] = {
   "Accel_Search_LWin",
+  "Accel_Search_RWin",
   "ActiveBrowserChanged",
   "ActiveTabChanged",
   "Android.DownloadManager.CheckForExternallyRemovedItems",
@@ -32,6 +33,7 @@ const char* const kNotUserTriggeredActions[] = {
   "CustomTabsRemoteViewsUpdated",
   "Discover.DiscoverTabNotification.Shown",
   "IOS.DefaultBrowserFullscreenPromo.Impression",
+  "IOS.Omnibox.Promo.Presented",
   "IOSMagicStackParcelTrackingFreshSignal",
   "IOSMagicStackSafetyCheckFreshSignal",
   "IOSMagicStackShortcutsFreshSignal",
@@ -70,6 +72,10 @@ const char* const kNotUserTriggeredActions[] = {
   "PageLoadSRP",
   "Precache.Fetch.Begin",
   "Precache.Fetch.IntentReceived",
+  "ResponsiveToolbar.OverflowButtonHidden",
+  "ResponsiveToolbar.OverflowButtonShown",
+  "ReviewAccountSettings_Impression_FromBookmarkManager",
+  "ReviewAccountSettings_Impression_FromReadingListManager",
   "SSL.RanInsecureContent",
   "SSL.RanInsecureContentGoogle",
   "SafeBrowsing.AccountIntegration.DisabledDialog.Shown",

@@ -35,8 +35,19 @@
 namespace ash::cloud_upload::mojom {
 class DialogTaskDataView;
 
+class OneDriveSetupDialogArgsDataView;
+
+class MoveConfirmationOneDriveDialogArgsDataView;
+
+class MoveConfirmationGoogleDriveDialogArgsDataView;
+
+class ConnectToOneDriveDialogArgsDataView;
+
+class FileHandlerDialogArgsDataView;
+
 class DialogArgsDataView;
 
+class DialogSpecificArgsDataView;
 
 
 }  // ash::cloud_upload::mojom
@@ -52,10 +63,52 @@ struct MojomTypeTraits<::ash::cloud_upload::mojom::DialogTaskDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::OneDriveSetupDialogArgs_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::MoveConfirmationOneDriveDialogArgs_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::MoveConfirmationGoogleDriveDialogArgs_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::ConnectToOneDriveDialogArgs_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::FileHandlerDialogArgs_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cloud_upload::mojom::DialogArgsDataView> {
   using Data = ::ash::cloud_upload::mojom::internal::DialogArgs_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cloud_upload::mojom::DialogSpecificArgsDataView> {
+  using Data = ::ash::cloud_upload::mojom::internal::DialogSpecificArgs_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 }  // namespace internal
@@ -227,6 +280,121 @@ class DialogTaskDataView {
 };
 
 
+class OneDriveSetupDialogArgsDataView {
+ public:
+  OneDriveSetupDialogArgsDataView() = default;
+
+  OneDriveSetupDialogArgsDataView(
+      internal::OneDriveSetupDialogArgs_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool set_office_as_default_handler() const {
+    return data_->set_office_as_default_handler;
+  }
+ private:
+  internal::OneDriveSetupDialogArgs_Data* data_ = nullptr;
+};
+
+
+class MoveConfirmationOneDriveDialogArgsDataView {
+ public:
+  MoveConfirmationOneDriveDialogArgsDataView() = default;
+
+  MoveConfirmationOneDriveDialogArgsDataView(
+      internal::MoveConfirmationOneDriveDialogArgs_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOperationType(UserType* output) const {
+    auto data_value = data_->operation_type;
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::OperationType>(
+        data_value, output);
+  }
+  OperationType operation_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cloud_upload::mojom::OperationType>(data_->operation_type));
+  }
+ private:
+  internal::MoveConfirmationOneDriveDialogArgs_Data* data_ = nullptr;
+};
+
+
+class MoveConfirmationGoogleDriveDialogArgsDataView {
+ public:
+  MoveConfirmationGoogleDriveDialogArgsDataView() = default;
+
+  MoveConfirmationGoogleDriveDialogArgsDataView(
+      internal::MoveConfirmationGoogleDriveDialogArgs_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOperationType(UserType* output) const {
+    auto data_value = data_->operation_type;
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::OperationType>(
+        data_value, output);
+  }
+  OperationType operation_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cloud_upload::mojom::OperationType>(data_->operation_type));
+  }
+ private:
+  internal::MoveConfirmationGoogleDriveDialogArgs_Data* data_ = nullptr;
+};
+
+
+class ConnectToOneDriveDialogArgsDataView {
+ public:
+  ConnectToOneDriveDialogArgsDataView() = default;
+
+  ConnectToOneDriveDialogArgsDataView(
+      internal::ConnectToOneDriveDialogArgs_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ConnectToOneDriveDialogArgs_Data* data_ = nullptr;
+};
+
+
+class FileHandlerDialogArgsDataView {
+ public:
+  FileHandlerDialogArgsDataView() = default;
+
+  FileHandlerDialogArgsDataView(
+      internal::FileHandlerDialogArgs_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocalTasksDataView(
+      mojo::ArrayDataView<DialogTaskDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalTasks(UserType* output) {
+    
+    auto* pointer = data_->local_tasks.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cloud_upload::mojom::DialogTaskDataView>>(
+        pointer, output, message_);
+  }
+  bool show_google_workspace_task() const {
+    return data_->show_google_workspace_task;
+  }
+  bool show_microsoft_office_task() const {
+    return data_->show_microsoft_office_task;
+  }
+ private:
+  internal::FileHandlerDialogArgs_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class DialogArgsDataView {
  public:
   DialogArgsDataView() = default;
@@ -247,43 +415,101 @@ class DialogArgsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  template <typename UserType>
-  [[nodiscard]] bool ReadDialogPage(UserType* output) const {
-    auto data_value = data_->dialog_page;
-    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::DialogPage>(
-        data_value, output);
-  }
-  DialogPage dialog_page() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cloud_upload::mojom::DialogPage>(data_->dialog_page));
-  }
-  inline void GetLocalTasksDataView(
-      mojo::ArrayDataView<DialogTaskDataView>* output);
+  inline void GetDialogSpecificArgsDataView(
+      DialogSpecificArgsDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadLocalTasks(UserType* output) {
+  [[nodiscard]] bool ReadDialogSpecificArgs(UserType* output) {
     
-    auto* pointer = data_->local_tasks.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cloud_upload::mojom::DialogTaskDataView>>(
+    auto* pointer = !data_->dialog_specific_args.is_null() ? &data_->dialog_specific_args : nullptr;
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::DialogSpecificArgsDataView>(
         pointer, output, message_);
-  }
-  bool set_office_as_default_handler() const {
-    return data_->set_office_as_default_handler;
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadOperationType(UserType* output) const {
-    auto data_value = data_->operation_type;
-    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::OperationType>(
-        data_value, output);
-  }
-  OperationType operation_type() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cloud_upload::mojom::OperationType>(data_->operation_type));
   }
  private:
   internal::DialogArgs_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class DialogSpecificArgsDataView {
+ public:
+  using Tag = internal::DialogSpecificArgs_Data::DialogSpecificArgs_Tag;
+
+  DialogSpecificArgsDataView() = default;
+
+  DialogSpecificArgsDataView(
+      internal::DialogSpecificArgs_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_file_handler_dialog_args() const { return data_->tag == Tag::kFileHandlerDialogArgs; }
+  inline void GetFileHandlerDialogArgsDataView(
+      FileHandlerDialogArgsDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileHandlerDialogArgs(UserType* output) const {
+    
+    CHECK(is_file_handler_dialog_args());
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView>(
+        data_->data.f_file_handler_dialog_args.Get(), output, message_);
+  }
+  bool is_one_drive_setup_dialog_args() const { return data_->tag == Tag::kOneDriveSetupDialogArgs; }
+  inline void GetOneDriveSetupDialogArgsDataView(
+      OneDriveSetupDialogArgsDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOneDriveSetupDialogArgs(UserType* output) const {
+    
+    CHECK(is_one_drive_setup_dialog_args());
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView>(
+        data_->data.f_one_drive_setup_dialog_args.Get(), output, message_);
+  }
+  bool is_move_confirmation_one_drive_dialog_args() const { return data_->tag == Tag::kMoveConfirmationOneDriveDialogArgs; }
+  inline void GetMoveConfirmationOneDriveDialogArgsDataView(
+      MoveConfirmationOneDriveDialogArgsDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMoveConfirmationOneDriveDialogArgs(UserType* output) const {
+    
+    CHECK(is_move_confirmation_one_drive_dialog_args());
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView>(
+        data_->data.f_move_confirmation_one_drive_dialog_args.Get(), output, message_);
+  }
+  bool is_move_confirmation_google_drive_dialog_args() const { return data_->tag == Tag::kMoveConfirmationGoogleDriveDialogArgs; }
+  inline void GetMoveConfirmationGoogleDriveDialogArgsDataView(
+      MoveConfirmationGoogleDriveDialogArgsDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMoveConfirmationGoogleDriveDialogArgs(UserType* output) const {
+    
+    CHECK(is_move_confirmation_google_drive_dialog_args());
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView>(
+        data_->data.f_move_confirmation_google_drive_dialog_args.Get(), output, message_);
+  }
+  bool is_connect_to_one_drive_dialog_args() const { return data_->tag == Tag::kConnectToOneDriveDialogArgs; }
+  inline void GetConnectToOneDriveDialogArgsDataView(
+      ConnectToOneDriveDialogArgsDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectToOneDriveDialogArgs(UserType* output) const {
+    
+    CHECK(is_connect_to_one_drive_dialog_args());
+    return mojo::internal::Deserialize<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView>(
+        data_->data.f_connect_to_one_drive_dialog_args.Get(), output, message_);
+  }
+
+ private:
+  internal::DialogSpecificArgs_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 }  // ash::cloud_upload::mojom
@@ -460,6 +686,172 @@ struct Serializer<::ash::cloud_upload::mojom::DialogTaskDataView, MaybeConstUser
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cloud_upload::mojom::internal::OneDriveSetupDialogArgs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->set_office_as_default_handler = Traits::set_office_as_default_handler(input);
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::OneDriveSetupDialogArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cloud_upload::mojom::internal::MoveConfirmationOneDriveDialogArgs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cloud_upload::mojom::OperationType>(
+        Traits::operation_type(input), &fragment->operation_type);
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::MoveConfirmationOneDriveDialogArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cloud_upload::mojom::internal::MoveConfirmationGoogleDriveDialogArgs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cloud_upload::mojom::OperationType>(
+        Traits::operation_type(input), &fragment->operation_type);
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::MoveConfirmationGoogleDriveDialogArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cloud_upload::mojom::internal::ConnectToOneDriveDialogArgs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::ConnectToOneDriveDialogArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cloud_upload::mojom::internal::FileHandlerDialogArgs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::local_tasks(input)) in_local_tasks = Traits::local_tasks(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->local_tasks)::BaseType>
+        local_tasks_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& local_tasks_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cloud_upload::mojom::DialogTaskDataView>>(
+        in_local_tasks, local_tasks_fragment, &local_tasks_validate_params);
+    fragment->local_tasks.Set(
+        local_tasks_fragment.is_null() ? nullptr : local_tasks_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->local_tasks.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null local_tasks in FileHandlerDialogArgs struct");
+    fragment->show_google_workspace_task = Traits::show_google_workspace_task(input);
+    fragment->show_microsoft_office_task = Traits::show_microsoft_office_task(input);
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::FileHandlerDialogArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cloud_upload::mojom::DialogArgsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cloud_upload::mojom::DialogArgsDataView, UserType>;
@@ -484,25 +876,16 @@ struct Serializer<::ash::cloud_upload::mojom::DialogArgsDataView, MaybeConstUser
         fragment->file_names.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null file_names in DialogArgs struct");
-    mojo::internal::Serialize<::ash::cloud_upload::mojom::DialogPage>(
-        Traits::dialog_page(input), &fragment->dialog_page);
-    decltype(Traits::local_tasks(input)) in_local_tasks = Traits::local_tasks(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->local_tasks)::BaseType>
-        local_tasks_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& local_tasks_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cloud_upload::mojom::DialogTaskDataView>>(
-        in_local_tasks, local_tasks_fragment, &local_tasks_validate_params);
-    fragment->local_tasks.Set(
-        local_tasks_fragment.is_null() ? nullptr : local_tasks_fragment.data());
+    decltype(Traits::dialog_specific_args(input)) in_dialog_specific_args = Traits::dialog_specific_args(input);
+    mojo::internal::MessageFragment<decltype(fragment->dialog_specific_args)>
+        dialog_specific_args_fragment(fragment.message());
+    dialog_specific_args_fragment.Claim(&fragment->dialog_specific_args);
+    mojo::internal::Serialize<::ash::cloud_upload::mojom::DialogSpecificArgsDataView>(
+        in_dialog_specific_args, dialog_specific_args_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->local_tasks.is_null(),
+        fragment->dialog_specific_args.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null local_tasks in DialogArgs struct");
-    fragment->set_office_as_default_handler = Traits::set_office_as_default_handler(input);
-    mojo::internal::Serialize<::ash::cloud_upload::mojom::OperationType>(
-        Traits::operation_type(input), &fragment->operation_type);
+        "null dialog_specific_args in DialogArgs struct");
   }
 
   static bool Deserialize(::ash::cloud_upload::mojom::internal::DialogArgs_Data* input,
@@ -512,6 +895,127 @@ struct Serializer<::ash::cloud_upload::mojom::DialogArgsDataView, MaybeConstUser
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cloud_upload::mojom::DialogArgsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cloud_upload::mojom::DialogSpecificArgsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cloud_upload::mojom::DialogSpecificArgsDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cloud_upload::mojom::internal::DialogSpecificArgs_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cloud_upload::mojom::DialogSpecificArgsDataView::Tag::kFileHandlerDialogArgs: {
+        decltype(Traits::file_handler_dialog_args(input))
+            in_file_handler_dialog_args = Traits::file_handler_dialog_args(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_file_handler_dialog_args)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cloud_upload::mojom::FileHandlerDialogArgsDataView>(
+            in_file_handler_dialog_args, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null file_handler_dialog_args in DialogSpecificArgs union");
+        fragment->data.f_file_handler_dialog_args.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cloud_upload::mojom::DialogSpecificArgsDataView::Tag::kOneDriveSetupDialogArgs: {
+        decltype(Traits::one_drive_setup_dialog_args(input))
+            in_one_drive_setup_dialog_args = Traits::one_drive_setup_dialog_args(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_one_drive_setup_dialog_args)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cloud_upload::mojom::OneDriveSetupDialogArgsDataView>(
+            in_one_drive_setup_dialog_args, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null one_drive_setup_dialog_args in DialogSpecificArgs union");
+        fragment->data.f_one_drive_setup_dialog_args.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cloud_upload::mojom::DialogSpecificArgsDataView::Tag::kMoveConfirmationOneDriveDialogArgs: {
+        decltype(Traits::move_confirmation_one_drive_dialog_args(input))
+            in_move_confirmation_one_drive_dialog_args = Traits::move_confirmation_one_drive_dialog_args(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_move_confirmation_one_drive_dialog_args)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsDataView>(
+            in_move_confirmation_one_drive_dialog_args, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null move_confirmation_one_drive_dialog_args in DialogSpecificArgs union");
+        fragment->data.f_move_confirmation_one_drive_dialog_args.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cloud_upload::mojom::DialogSpecificArgsDataView::Tag::kMoveConfirmationGoogleDriveDialogArgs: {
+        decltype(Traits::move_confirmation_google_drive_dialog_args(input))
+            in_move_confirmation_google_drive_dialog_args = Traits::move_confirmation_google_drive_dialog_args(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_move_confirmation_google_drive_dialog_args)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsDataView>(
+            in_move_confirmation_google_drive_dialog_args, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null move_confirmation_google_drive_dialog_args in DialogSpecificArgs union");
+        fragment->data.f_move_confirmation_google_drive_dialog_args.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cloud_upload::mojom::DialogSpecificArgsDataView::Tag::kConnectToOneDriveDialogArgs: {
+        decltype(Traits::connect_to_one_drive_dialog_args(input))
+            in_connect_to_one_drive_dialog_args = Traits::connect_to_one_drive_dialog_args(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_connect_to_one_drive_dialog_args)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsDataView>(
+            in_connect_to_one_drive_dialog_args, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null connect_to_one_drive_dialog_args in DialogSpecificArgs union");
+        fragment->data.f_connect_to_one_drive_dialog_args.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cloud_upload::mojom::internal::DialogSpecificArgs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cloud_upload::mojom::DialogSpecificArgsDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -540,17 +1044,58 @@ inline void DialogTaskDataView::GetIconUrlDataView(
 }
 
 
-inline void DialogArgsDataView::GetFileNamesDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
-  auto pointer = data_->file_names.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
-}
-inline void DialogArgsDataView::GetLocalTasksDataView(
+
+
+
+
+
+
+
+
+inline void FileHandlerDialogArgsDataView::GetLocalTasksDataView(
     mojo::ArrayDataView<DialogTaskDataView>* output) {
   auto pointer = data_->local_tasks.Get();
   *output = mojo::ArrayDataView<DialogTaskDataView>(pointer, message_);
 }
 
+
+inline void DialogArgsDataView::GetFileNamesDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->file_names.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void DialogArgsDataView::GetDialogSpecificArgsDataView(
+    DialogSpecificArgsDataView* output) {
+  auto pointer = &data_->dialog_specific_args;
+  *output = DialogSpecificArgsDataView(pointer, message_);
+}
+
+
+inline void DialogSpecificArgsDataView::GetFileHandlerDialogArgsDataView(
+    FileHandlerDialogArgsDataView* output) const {
+  CHECK(is_file_handler_dialog_args());
+  *output = FileHandlerDialogArgsDataView(data_->data.f_file_handler_dialog_args.Get(), message_);
+}
+inline void DialogSpecificArgsDataView::GetOneDriveSetupDialogArgsDataView(
+    OneDriveSetupDialogArgsDataView* output) const {
+  CHECK(is_one_drive_setup_dialog_args());
+  *output = OneDriveSetupDialogArgsDataView(data_->data.f_one_drive_setup_dialog_args.Get(), message_);
+}
+inline void DialogSpecificArgsDataView::GetMoveConfirmationOneDriveDialogArgsDataView(
+    MoveConfirmationOneDriveDialogArgsDataView* output) const {
+  CHECK(is_move_confirmation_one_drive_dialog_args());
+  *output = MoveConfirmationOneDriveDialogArgsDataView(data_->data.f_move_confirmation_one_drive_dialog_args.Get(), message_);
+}
+inline void DialogSpecificArgsDataView::GetMoveConfirmationGoogleDriveDialogArgsDataView(
+    MoveConfirmationGoogleDriveDialogArgsDataView* output) const {
+  CHECK(is_move_confirmation_google_drive_dialog_args());
+  *output = MoveConfirmationGoogleDriveDialogArgsDataView(data_->data.f_move_confirmation_google_drive_dialog_args.Get(), message_);
+}
+inline void DialogSpecificArgsDataView::GetConnectToOneDriveDialogArgsDataView(
+    ConnectToOneDriveDialogArgsDataView* output) const {
+  CHECK(is_connect_to_one_drive_dialog_args());
+  *output = ConnectToOneDriveDialogArgsDataView(data_->data.f_connect_to_one_drive_dialog_args.Get(), message_);
+}
 
 
 }  // ash::cloud_upload::mojom

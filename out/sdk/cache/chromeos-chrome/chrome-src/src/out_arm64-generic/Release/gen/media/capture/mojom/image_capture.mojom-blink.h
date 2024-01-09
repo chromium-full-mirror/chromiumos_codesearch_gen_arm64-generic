@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/mojom/image_capture.mojom-features.h"
 #include "media/capture/mojom/image_capture.mojom-shared.h"
 #include "media/capture/mojom/image_capture.mojom-blink-forward.h"
 
@@ -37,54 +38,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::BackgroundBlurMode>
-    : EnumHashTraits<::media::mojom::BackgroundBlurMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::MeteringMode>
-    : EnumHashTraits<::media::mojom::MeteringMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::RedEyeReduction>
-    : EnumHashTraits<::media::mojom::RedEyeReduction, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::FillLightMode>
-    : EnumHashTraits<::media::mojom::FillLightMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -606,7 +559,7 @@ class  PhotoState {
       RangePtr height,
       RangePtr width,
       WTF::Vector<FillLightMode> fill_light_mode,
-      absl::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes,
+      std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes,
       BackgroundBlurMode background_blur_mode);
 
   PhotoState(
@@ -635,10 +588,43 @@ class  PhotoState {
       RangePtr height,
       RangePtr width,
       WTF::Vector<FillLightMode> fill_light_mode,
-      absl::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes,
+      std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes,
       BackgroundBlurMode background_blur_mode,
-      absl::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes,
+      std::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes,
       MeteringMode current_face_framing_mode);
+
+  PhotoState(
+      WTF::Vector<MeteringMode> supported_white_balance_modes,
+      MeteringMode current_white_balance_mode,
+      WTF::Vector<MeteringMode> supported_exposure_modes,
+      MeteringMode current_exposure_mode,
+      WTF::Vector<MeteringMode> supported_focus_modes,
+      MeteringMode current_focus_mode,
+      WTF::Vector<Point2DPtr> points_of_interest,
+      RangePtr exposure_compensation,
+      RangePtr exposure_time,
+      RangePtr color_temperature,
+      RangePtr iso,
+      RangePtr brightness,
+      RangePtr contrast,
+      RangePtr saturation,
+      RangePtr sharpness,
+      RangePtr focus_distance,
+      RangePtr pan,
+      RangePtr tilt,
+      RangePtr zoom,
+      bool supports_torch,
+      bool torch,
+      RedEyeReduction red_eye_reduction,
+      RangePtr height,
+      RangePtr width,
+      WTF::Vector<FillLightMode> fill_light_mode,
+      std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes,
+      BackgroundBlurMode background_blur_mode,
+      std::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes,
+      MeteringMode current_face_framing_mode,
+      std::optional<WTF::Vector<EyeGazeCorrectionMode>> supported_eye_gaze_correction_modes,
+      EyeGazeCorrectionMode current_eye_gaze_correction_mode);
 
 PhotoState(const PhotoState&) = delete;
 PhotoState& operator=(const PhotoState&) = delete;
@@ -768,13 +754,17 @@ PhotoState& operator=(const PhotoState&) = delete;
   
   WTF::Vector<FillLightMode> fill_light_mode;
   
-  absl::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes;
+  std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes;
   
   BackgroundBlurMode background_blur_mode;
   
-  absl::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes;
+  std::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes;
   
   MeteringMode current_face_framing_mode;
+  
+  std::optional<WTF::Vector<EyeGazeCorrectionMode>> supported_eye_gaze_correction_modes;
+  
+  EyeGazeCorrectionMode current_eye_gaze_correction_mode;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -971,6 +961,54 @@ class  PhotoSettings {
       bool has_face_framing_mode,
       MeteringMode face_framing_mode);
 
+  PhotoSettings(
+      bool has_white_balance_mode,
+      MeteringMode white_balance_mode,
+      bool has_exposure_mode,
+      MeteringMode exposure_mode,
+      bool has_focus_mode,
+      MeteringMode focus_mode,
+      WTF::Vector<Point2DPtr> points_of_interest,
+      bool has_exposure_compensation,
+      double exposure_compensation,
+      bool has_exposure_time,
+      double exposure_time,
+      bool has_color_temperature,
+      double color_temperature,
+      bool has_iso,
+      double iso,
+      bool has_brightness,
+      double brightness,
+      bool has_contrast,
+      double contrast,
+      bool has_saturation,
+      double saturation,
+      bool has_sharpness,
+      double sharpness,
+      bool has_focus_distance,
+      double focus_distance,
+      bool has_pan,
+      double pan,
+      bool has_tilt,
+      double tilt,
+      bool has_zoom,
+      double zoom,
+      bool has_torch,
+      bool torch,
+      bool has_fill_light_mode,
+      FillLightMode fill_light_mode,
+      bool has_width,
+      double width,
+      bool has_height,
+      double height,
+      bool has_red_eye_reduction,
+      bool red_eye_reduction,
+      bool has_background_blur_mode,
+      BackgroundBlurMode background_blur_mode,
+      bool has_face_framing_mode,
+      MeteringMode face_framing_mode,
+      std::optional<EyeGazeCorrectionMode> eye_gaze_correction_mode);
+
 PhotoSettings(const PhotoSettings&) = delete;
 PhotoSettings& operator=(const PhotoSettings&) = delete;
 
@@ -1138,6 +1176,8 @@ PhotoSettings& operator=(const PhotoSettings&) = delete;
   bool has_face_framing_mode;
   
   MeteringMode face_framing_mode;
+  
+  std::optional<EyeGazeCorrectionMode> eye_gaze_correction_mode;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1385,7 +1425,9 @@ PhotoStatePtr PhotoState::Clone() const {
       mojo::Clone(supported_background_blur_modes),
       mojo::Clone(background_blur_mode),
       mojo::Clone(supported_face_framing_modes),
-      mojo::Clone(current_face_framing_mode)
+      mojo::Clone(current_face_framing_mode),
+      mojo::Clone(supported_eye_gaze_correction_modes),
+      mojo::Clone(current_eye_gaze_correction_mode)
   );
 }
 
@@ -1448,6 +1490,10 @@ bool PhotoState::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->supported_face_framing_modes, other_struct.supported_face_framing_modes))
     return false;
   if (!mojo::Equals(this->current_face_framing_mode, other_struct.current_face_framing_mode))
+    return false;
+  if (!mojo::Equals(this->supported_eye_gaze_correction_modes, other_struct.supported_eye_gaze_correction_modes))
+    return false;
+  if (!mojo::Equals(this->current_eye_gaze_correction_mode, other_struct.current_eye_gaze_correction_mode))
     return false;
   return true;
 }
@@ -1570,6 +1616,14 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.current_face_framing_mode < lhs.current_face_framing_mode)
     return false;
+  if (lhs.supported_eye_gaze_correction_modes < rhs.supported_eye_gaze_correction_modes)
+    return true;
+  if (rhs.supported_eye_gaze_correction_modes < lhs.supported_eye_gaze_correction_modes)
+    return false;
+  if (lhs.current_eye_gaze_correction_mode < rhs.current_eye_gaze_correction_mode)
+    return true;
+  if (rhs.current_eye_gaze_correction_mode < lhs.current_eye_gaze_correction_mode)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -1648,7 +1702,8 @@ PhotoSettingsPtr PhotoSettings::Clone() const {
       mojo::Clone(has_background_blur_mode),
       mojo::Clone(background_blur_mode),
       mojo::Clone(has_face_framing_mode),
-      mojo::Clone(face_framing_mode)
+      mojo::Clone(face_framing_mode),
+      mojo::Clone(eye_gaze_correction_mode)
   );
 }
 
@@ -1743,6 +1798,8 @@ bool PhotoSettings::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->has_face_framing_mode, other_struct.has_face_framing_mode))
     return false;
   if (!mojo::Equals(this->face_framing_mode, other_struct.face_framing_mode))
+    return false;
+  if (!mojo::Equals(this->eye_gaze_correction_mode, other_struct.eye_gaze_correction_mode))
     return false;
   return true;
 }
@@ -1928,6 +1985,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.face_framing_mode < rhs.face_framing_mode)
     return true;
   if (rhs.face_framing_mode < lhs.face_framing_mode)
+    return false;
+  if (lhs.eye_gaze_correction_mode < rhs.eye_gaze_correction_mode)
+    return true;
+  if (rhs.eye_gaze_correction_mode < lhs.eye_gaze_correction_mode)
     return false;
   return false;
 }
@@ -2146,6 +2207,16 @@ struct  StructTraits<::media::mojom::blink::PhotoState::DataView,
   static decltype(::media::mojom::blink::PhotoState::current_face_framing_mode) current_face_framing_mode(
       const ::media::mojom::blink::PhotoStatePtr& input) {
     return input->current_face_framing_mode;
+  }
+
+  static const decltype(::media::mojom::blink::PhotoState::supported_eye_gaze_correction_modes)& supported_eye_gaze_correction_modes(
+      const ::media::mojom::blink::PhotoStatePtr& input) {
+    return input->supported_eye_gaze_correction_modes;
+  }
+
+  static decltype(::media::mojom::blink::PhotoState::current_eye_gaze_correction_mode) current_eye_gaze_correction_mode(
+      const ::media::mojom::blink::PhotoStatePtr& input) {
+    return input->current_eye_gaze_correction_mode;
   }
 
   static bool Read(::media::mojom::blink::PhotoState::DataView input, ::media::mojom::blink::PhotoStatePtr* output);
@@ -2401,6 +2472,11 @@ struct  StructTraits<::media::mojom::blink::PhotoSettings::DataView,
   static decltype(::media::mojom::blink::PhotoSettings::face_framing_mode) face_framing_mode(
       const ::media::mojom::blink::PhotoSettingsPtr& input) {
     return input->face_framing_mode;
+  }
+
+  static decltype(::media::mojom::blink::PhotoSettings::eye_gaze_correction_mode) eye_gaze_correction_mode(
+      const ::media::mojom::blink::PhotoSettingsPtr& input) {
+    return input->eye_gaze_correction_mode;
   }
 
   static bool Read(::media::mojom::blink::PhotoSettings::DataView input, ::media::mojom::blink::PhotoSettingsPtr* output);

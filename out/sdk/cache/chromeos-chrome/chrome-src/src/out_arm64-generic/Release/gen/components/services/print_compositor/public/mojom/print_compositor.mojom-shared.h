@@ -69,6 +69,22 @@ inline bool IsKnownEnumValue(PrintCompositor_Status value) {
   return internal::PrintCompositor_Status_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class PrintCompositor_DocumentType : int32_t {
+  
+  kPDF = 0,
+  
+  kXPS = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, PrintCompositor_DocumentType value);
+inline bool IsKnownEnumValue(PrintCompositor_DocumentType value) {
+  return internal::PrintCompositor_DocumentType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class PrintCompositorInterfaceBase {};
 
@@ -89,6 +105,10 @@ namespace std {
 template <>
 struct hash<::printing::mojom::PrintCompositor_Status>
     : public mojo::internal::EnumHashImpl<::printing::mojom::PrintCompositor_Status> {};
+
+template <>
+struct hash<::printing::mojom::PrintCompositor_DocumentType>
+    : public mojo::internal::EnumHashImpl<::printing::mojom::PrintCompositor_DocumentType> {};
 
 }  // namespace std
 
@@ -114,6 +134,26 @@ struct Serializer<::printing::mojom::PrintCompositor_Status, MaybeConstUserType>
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::printing::mojom::PrintCompositor_DocumentType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::printing::mojom::PrintCompositor_DocumentType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::printing::mojom::PrintCompositor_DocumentType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -130,6 +170,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::printing::mojom::PrintCompositor_Status> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::printing::mojom::PrintCompositor_Status value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::printing::mojom::PrintCompositor_DocumentType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::printing::mojom::PrintCompositor_DocumentType value);
 };
 
 } // namespace perfetto

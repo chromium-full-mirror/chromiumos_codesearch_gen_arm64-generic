@@ -1,4 +1,0 @@
-gen/chrome/grit/web_app_install_resources.h
-gen/chrome/grit/web_app_install_resources_map.cc
-gen/chrome/grit/web_app_install_resources_map.h
-gen/chrome/web_app_install_resources.pak

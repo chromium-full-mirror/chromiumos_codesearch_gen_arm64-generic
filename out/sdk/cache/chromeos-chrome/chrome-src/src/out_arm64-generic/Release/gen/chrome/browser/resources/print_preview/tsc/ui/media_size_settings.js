@@ -19,14 +19,19 @@ export class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeS
     static get properties() {
         return {
             capability: Object,
+            disableBorderlessCheckbox_: {
+                type: Boolean,
+                computed: 'computeDisableBorderlessCheckbox_(disabled, ' +
+                    'settings.mediaSize.value.has_borderless_variant)',
+            },
             disabled: Boolean,
         };
     }
     static get observers() {
         return [
             'onMediaSizeSettingChange_(settings.mediaSize.*, capability.option)',
-            'updateBorderlessAvailabilityForSize_(settings.mediaSize.*)',
-            'onBorderlessSettingChange_(settings.borderless.*)',
+            'updateBorderlessAvailabilityForSize_(' +
+                'settings.mediaSize.*, settings.borderless.*)',
         ];
     }
     onMediaSizeSettingChange_() {
@@ -45,13 +50,15 @@ export class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeS
             this.capability.option[0];
         this.setSetting('mediaSize', defaultOption);
     }
+    computeDisableBorderlessCheckbox_(disabled, hasBorderlessVariant) {
+        return disabled || !hasBorderlessVariant;
+    }
     updateBorderlessAvailabilityForSize_() {
         if (!loadTimeData.getBoolean('isBorderlessPrintingEnabled')) {
             return;
         }
         const size = this.getSettingValue('mediaSize');
-        if (size?.has_borderless_variant) {
-            this.$.borderless.disabled = false;
+        if (size.has_borderless_variant) {
             this.$.borderless.checked = this.getSettingValue('borderless');
         }
         else {
@@ -62,7 +69,6 @@ export class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeS
             // a corner case, but printers are allowed to do it, so it's best to
             // handle it as well as possible. If a size only supports bordered and
             // not borderless, disable the checkbox and leave it unchecked.
-            this.$.borderless.disabled = true;
             this.$.borderless.checked =
                 (size?.imageable_area_left_microns === 0 &&
                     size?.imageable_area_bottom_microns === 0 &&
@@ -70,16 +76,7 @@ export class PrintPreviewMediaSizeSettingsElement extends PrintPreviewMediaSizeS
                     size?.imageable_area_top_microns === size.height_microns);
         }
     }
-    onBorderlessSettingChange_() {
-        if (!loadTimeData.getBoolean('isBorderlessPrintingEnabled')) {
-            return;
-        }
-        this.$.borderless.checked = this.getSettingValue('borderless');
-    }
     onBorderlessCheckboxChange_() {
-        if (!loadTimeData.getBoolean('isBorderlessPrintingEnabled')) {
-            return;
-        }
         this.setSetting('borderless', this.$.borderless.checked);
     }
 }

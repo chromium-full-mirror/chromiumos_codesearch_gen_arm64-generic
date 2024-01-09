@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,7 +54,7 @@ Advertisement::Advertisement(
     std::vector<uint8_t> salt_in,
     std::vector<uint8_t> encrypted_metadata_key_in,
     ::nearby_share::mojom::ShareTargetType device_type_in,
-    const absl::optional<std::string>& device_name_in)
+    const std::optional<std::string>& device_name_in)
     : salt(std::move(salt_in)),
       encrypted_metadata_key(std::move(encrypted_metadata_key_in)),
       device_type(std::move(device_type_in)),
@@ -95,7 +96,7 @@ void Advertisement::WriteIntoTrace(
     dict.AddItem(
       "device_name"), this->device_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -116,7 +117,7 @@ IntroductionFrame::IntroductionFrame()
 IntroductionFrame::IntroductionFrame(
     std::vector<FileMetadataPtr> file_metadata_in,
     std::vector<TextMetadataPtr> text_metadata_in,
-    const absl::optional<std::string>& required_package_in,
+    const std::optional<std::string>& required_package_in,
     std::vector<WifiCredentialsMetadataPtr> wifi_credentials_metadata_in)
     : file_metadata(std::move(file_metadata_in)),
       text_metadata(std::move(text_metadata_in)),
@@ -150,7 +151,7 @@ void IntroductionFrame::WriteIntoTrace(
     dict.AddItem(
       "required_package"), this->required_package,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -463,7 +464,7 @@ PairedKeyEncryptionFrame::PairedKeyEncryptionFrame()
 PairedKeyEncryptionFrame::PairedKeyEncryptionFrame(
     std::vector<uint8_t> signed_data_in,
     std::vector<uint8_t> secret_id_hash_in,
-    absl::optional<std::vector<uint8_t>> optional_signed_data_in)
+    std::optional<std::vector<uint8_t>> optional_signed_data_in)
     : signed_data(std::move(signed_data_in)),
       secret_id_hash(std::move(secret_id_hash_in)),
       optional_signed_data(std::move(optional_signed_data_in)) {}
@@ -495,7 +496,7 @@ void PairedKeyEncryptionFrame::WriteIntoTrace(
     dict.AddItem(
       "optional_signed_data"), this->optional_signed_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

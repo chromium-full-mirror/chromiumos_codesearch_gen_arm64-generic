@@ -28,10 +28,8 @@ class  GuestViewHost_AttachToEmbedderFrame_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t embedder_local_frame_routing_id;
   int32_t element_instance_id;
   int32_t guest_instance_id;
-  uint8_t pad2_[4];
   mojo::internal::Pointer<::mojo_base::mojom::internal::DictionaryValue_Data> params;
 
  private:
@@ -40,7 +38,7 @@ class  GuestViewHost_AttachToEmbedderFrame_Params_Data {
   GuestViewHost_AttachToEmbedderFrame_Params_Data();
   ~GuestViewHost_AttachToEmbedderFrame_Params_Data() = delete;
 };
-static_assert(sizeof(GuestViewHost_AttachToEmbedderFrame_Params_Data) == 32,
+static_assert(sizeof(GuestViewHost_AttachToEmbedderFrame_Params_Data) == 24,
               "Bad sizeof(GuestViewHost_AttachToEmbedderFrame_Params_Data)");
 class  GuestViewHost_AttachToEmbedderFrame_ResponseParams_Data {
  public:
@@ -64,7 +62,7 @@ class  GuestViewHost_ViewCreated_Params_Data {
 
   mojo::internal::StructHeader header_;
   int32_t view_instance_id;
-  uint8_t pad0_[4];
+  mojo::internal::Handle_Data keep_alive_handle_receiver;
   mojo::internal::Pointer<mojo::internal::String_Data> view_type;
 
  private:
@@ -75,23 +73,6 @@ class  GuestViewHost_ViewCreated_Params_Data {
 };
 static_assert(sizeof(GuestViewHost_ViewCreated_Params_Data) == 24,
               "Bad sizeof(GuestViewHost_ViewCreated_Params_Data)");
-class  GuestViewHost_ViewGarbageCollected_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t view_instance_id;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<GuestViewHost_ViewGarbageCollected_Params_Data>;
-
-  GuestViewHost_ViewGarbageCollected_Params_Data();
-  ~GuestViewHost_ViewGarbageCollected_Params_Data() = delete;
-};
-static_assert(sizeof(GuestViewHost_ViewGarbageCollected_Params_Data) == 16,
-              "Bad sizeof(GuestViewHost_ViewGarbageCollected_Params_Data)");
 
 }  // namespace internal
 
@@ -106,9 +87,6 @@ class GuestViewHost_AttachToEmbedderFrame_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t embedder_local_frame_routing_id() const {
-    return data_->embedder_local_frame_routing_id;
-  }
   int32_t element_instance_id() const {
     return data_->element_instance_id;
   }
@@ -169,27 +147,18 @@ class GuestViewHost_ViewCreated_ParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  UserType TakeKeepAliveHandleReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::guest_view::mojom::ViewHandleInterfaceBase>>(
+            &data_->keep_alive_handle_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
  private:
   internal::GuestViewHost_ViewCreated_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class GuestViewHost_ViewGarbageCollected_ParamsDataView {
- public:
-  GuestViewHost_ViewGarbageCollected_ParamsDataView() = default;
-
-  GuestViewHost_ViewGarbageCollected_ParamsDataView(
-      internal::GuestViewHost_ViewGarbageCollected_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  int32_t view_instance_id() const {
-    return data_->view_instance_id;
-  }
- private:
-  internal::GuestViewHost_ViewGarbageCollected_Params_Data* data_ = nullptr;
 };
 
 inline void GuestViewHost_AttachToEmbedderFrame_ParamsDataView::GetParamsDataView(
@@ -206,8 +175,6 @@ inline void GuestViewHost_ViewCreated_ParamsDataView::GetViewTypeDataView(
   auto pointer = data_->view_type.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-
-
 
 
 

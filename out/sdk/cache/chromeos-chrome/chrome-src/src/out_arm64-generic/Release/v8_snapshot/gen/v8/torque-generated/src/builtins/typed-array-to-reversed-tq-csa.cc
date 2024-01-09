@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-to-reversed-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -134,8 +135,8 @@ TF_BUILTIN(TypedArrayPrototypeToReversed, CodeStubAssembler) {
     tmp9 = CodeStubAssembler(state_).UintPtrSub(TNode<UintPtrT>{tmp0}, TNode<UintPtrT>{phi_bb1_12});
     tmp10 = FromConstexpr_uintptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
     tmp11 = CodeStubAssembler(state_).UintPtrSub(TNode<UintPtrT>{tmp9}, TNode<UintPtrT>{tmp10});
-tmp12 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(1)).descriptor(), tmp4, TNode<Object>(), tmp1, tmp11));
-tmp13 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(2)).descriptor(), tmp5, parameter0, tmp2, phi_bb1_12, tmp12));
+tmp12 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(1)), tmp4, TNode<Object>(), tmp1, tmp11));
+tmp13 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(2)), tmp5, parameter0, tmp2, phi_bb1_12, tmp12));
     tmp14 = FromConstexpr_uintptr_constexpr_int31_0(state_, 1);
     tmp15 = CodeStubAssembler(state_).UintPtrAdd(TNode<UintPtrT>{phi_bb1_12}, TNode<UintPtrT>{tmp14});
     ca_.Goto(&block3, tmp15);

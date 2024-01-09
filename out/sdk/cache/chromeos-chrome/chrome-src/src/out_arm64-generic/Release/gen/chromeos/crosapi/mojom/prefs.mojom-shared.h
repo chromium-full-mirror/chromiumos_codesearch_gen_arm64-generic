@@ -118,7 +118,7 @@ enum class PrefPath : int32_t {
   
   kDnsOverHttpsSalt = 33,
   
-  kGeolocationAllowed = 34,
+  kUserGeolocationAccessLevel = 34,
   
   kMultitaskMenuNudgeClamshellShownCount = 35,
   
@@ -135,8 +135,12 @@ enum class PrefPath : int32_t {
   kAccessibilityPdfOcrAlwaysActive = 41,
   
   kProxy = 42,
+  
+  kDefaultSearchProviderDataPrefName = 43,
+  
+  kIsolatedWebAppsEnabled = 44,
   kMinValue = 0,
-  kMaxValue = 42,
+  kMaxValue = 44,
   kDefaultValue = 0
 };
 

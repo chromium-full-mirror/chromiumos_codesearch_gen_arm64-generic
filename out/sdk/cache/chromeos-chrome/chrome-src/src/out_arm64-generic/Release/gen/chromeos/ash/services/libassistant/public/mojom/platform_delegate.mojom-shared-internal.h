@@ -14,6 +14,7 @@
 #include "chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-shared-internal.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-shared-internal.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared-internal.h"
+#include "sandbox/policy/mojom/context.mojom-shared-internal.h"
 #include "services/device/public/mojom/battery_monitor.mojom-shared-internal.h"
 #include "services/device/public/mojom/wake_lock_provider.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"

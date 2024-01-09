@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct ResponseHeader {
   ~ResponseHeader();
   ResponseHeader(const ResponseHeader&) = delete;
   ResponseHeader& operator=(const ResponseHeader&) = delete;
-  ResponseHeader(ResponseHeader&& rhs);
-  ResponseHeader& operator=(ResponseHeader&& rhs);
+  ResponseHeader(ResponseHeader&& rhs) noexcept;
+  ResponseHeader& operator=(ResponseHeader&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kValue[] = "value";
@@ -51,15 +52,12 @@ struct ResponseHeader {
   // Creates a deep copy of ResponseHeader.
   ResponseHeader Clone() const;
 
-  // Creates a ResponseHeader object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ResponseHeader> FromValueDeprecated(const base::Value& value);
-
   // Creates a ResponseHeader object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ResponseHeader> FromValue(const base::Value::Dict& value);
+  static std::optional<ResponseHeader> FromValue(const base::Value::Dict& value);
 
   // Creates a ResponseHeader object from a base::Value, or nullopt on failure.
-  static absl::optional<ResponseHeader> FromValue(const base::Value& value);
+  static std::optional<ResponseHeader> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResponseHeader object.
@@ -71,7 +69,7 @@ struct ResponseHeader {
   static bool ParseFromDictionary(const base::Value::Dict& root_dict, base::StringPiece key, ResponseHeader& out, std::u16string& error, std::vector<base::StringPiece>& error_path_reversed);
 
 
-  absl::optional<std::string> value;
+  std::optional<std::string> value;
 
 };
 
@@ -85,8 +83,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kCrossOriginEmbedderPolicy[] = "cross_origin_embedder_policy";
@@ -98,9 +96,9 @@ struct ManifestKeys {
   static bool ParseFromDictionary(const base::Value::Dict& root_dict, ManifestKeys& out, std::u16string& error);
 
 
-  absl::optional<ResponseHeader> cross_origin_embedder_policy;
+  std::optional<ResponseHeader> cross_origin_embedder_policy;
 
-  absl::optional<ResponseHeader> cross_origin_opener_policy;
+  std::optional<ResponseHeader> cross_origin_opener_policy;
 
 };
 

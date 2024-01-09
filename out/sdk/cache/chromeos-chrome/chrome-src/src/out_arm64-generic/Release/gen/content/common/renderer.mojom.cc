@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -182,7 +183,7 @@ UpdateSystemColorInfoParams::UpdateSystemColorInfoParams(
     bool is_dark_mode_in,
     bool forced_colors_in,
     const base::flat_map<::ui::NativeTheme::SystemThemeColor, uint32_t>& colors_in,
-    absl::optional<uint32_t> accent_color_in,
+    std::optional<uint32_t> accent_color_in,
     const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& light_colors_in,
     const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& dark_colors_in,
     const base::flat_map<::color::mojom::RendererColorId, ::SkColor>& forced_colors_map_in)
@@ -230,7 +231,7 @@ void UpdateSystemColorInfoParams::WriteIntoTrace(
     dict.AddItem(
       "accent_color"), this->accent_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint32_t>>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -307,6 +308,9 @@ Renderer::IPCStableHashFunction Renderer::MessageToMethodInfo_(mojo::Message& me
     case internal::kRenderer_SetProcessState_Name: {
       return &Renderer::SetProcessState_Sym::IPCStableHash;
     }
+    case internal::kRenderer_SetBatterySaverMode_Name: {
+      return &Renderer::SetBatterySaverMode_Sym::IPCStableHash;
+    }
     case internal::kRenderer_SetIsLockedToSite_Name: {
       return &Renderer::SetIsLockedToSite_Sym::IPCStableHash;
     }
@@ -321,9 +325,6 @@ Renderer::IPCStableHashFunction Renderer::MessageToMethodInfo_(mojo::Message& me
     }
     case internal::kRenderer_InitializeRenderer_Name: {
       return &Renderer::InitializeRenderer_Sym::IPCStableHash;
-    }
-    case internal::kRenderer_SetAttributionReportingSupport_Name: {
-      return &Renderer::SetAttributionReportingSupport_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -358,6 +359,8 @@ const char* Renderer::MessageToMethodName_(mojo::Message& message) {
             return "Receive content::mojom::Renderer::PurgeResourceCache";
       case internal::kRenderer_SetProcessState_Name:
             return "Receive content::mojom::Renderer::SetProcessState";
+      case internal::kRenderer_SetBatterySaverMode_Name:
+            return "Receive content::mojom::Renderer::SetBatterySaverMode";
       case internal::kRenderer_SetIsLockedToSite_Name:
             return "Receive content::mojom::Renderer::SetIsLockedToSite";
       case internal::kRenderer_SetIsCrossOriginIsolated_Name:
@@ -368,8 +371,6 @@ const char* Renderer::MessageToMethodName_(mojo::Message& message) {
             return "Receive content::mojom::Renderer::SetIsIsolatedContext";
       case internal::kRenderer_InitializeRenderer_Name:
             return "Receive content::mojom::Renderer::InitializeRenderer";
-      case internal::kRenderer_SetAttributionReportingSupport_Name:
-            return "Receive content::mojom::Renderer::SetAttributionReportingSupport";
     }
   } else {
     switch (message.name()) {
@@ -395,6 +396,8 @@ const char* Renderer::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply content::mojom::Renderer::PurgeResourceCache";
       case internal::kRenderer_SetProcessState_Name:
             return "Receive reply content::mojom::Renderer::SetProcessState";
+      case internal::kRenderer_SetBatterySaverMode_Name:
+            return "Receive reply content::mojom::Renderer::SetBatterySaverMode";
       case internal::kRenderer_SetIsLockedToSite_Name:
             return "Receive reply content::mojom::Renderer::SetIsLockedToSite";
       case internal::kRenderer_SetIsCrossOriginIsolated_Name:
@@ -405,8 +408,6 @@ const char* Renderer::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply content::mojom::Renderer::SetIsIsolatedContext";
       case internal::kRenderer_InitializeRenderer_Name:
             return "Receive reply content::mojom::Renderer::InitializeRenderer";
-      case internal::kRenderer_SetAttributionReportingSupport_Name:
-            return "Receive reply content::mojom::Renderer::SetAttributionReportingSupport";
     }
   }
   return "Receive unknown mojo message";
@@ -564,6 +565,19 @@ uint32_t Renderer::SetProcessState_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Renderer::SetBatterySaverMode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)content::mojom::Renderer::SetBatterySaverMode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Renderer::SetIsLockedToSite_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -629,19 +643,6 @@ uint32_t Renderer::InitializeRenderer_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Renderer::SetAttributionReportingSupport_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)content::mojom::Renderer::SetAttributionReportingSupport");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Renderer_PurgeResourceCache_ForwardToCallback
@@ -679,14 +680,17 @@ void RendererProxy::CreateAgentSchedulingGroup(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_CreateAgentSchedulingGroup_Name, kFlags, 0, 0, nullptr);
@@ -731,14 +735,17 @@ void RendererProxy::CreateAssociatedAgentSchedulingGroup(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_CreateAssociatedAgentSchedulingGroup_Name, kFlags, 0, 0, nullptr);
@@ -783,14 +790,17 @@ void RendererProxy::OnNetworkConnectionChanged(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_OnNetworkConnectionChanged_Name, kFlags, 0, 0, nullptr);
@@ -832,14 +842,17 @@ void RendererProxy::OnNetworkQualityChanged(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_OnNetworkQualityChanged_Name, kFlags, 0, 0, nullptr);
@@ -894,14 +907,17 @@ void RendererProxy::SetWebKitSharedTimersSuspended(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetWebKitSharedTimersSuspended_Name, kFlags, 0, 0, nullptr);
@@ -932,14 +948,17 @@ void RendererProxy::UpdateScrollbarTheme(
                         "<value of type UpdateScrollbarThemeParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateScrollbarTheme_Name, kFlags, 0, 0, nullptr);
@@ -980,14 +999,17 @@ void RendererProxy::OnSystemColorsChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_OnSystemColorsChanged_Name, kFlags, 0, 0, nullptr);
@@ -1018,14 +1040,17 @@ void RendererProxy::UpdateSystemColorInfo(
                         "<value of type UpdateSystemColorInfoParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateSystemColorInfo_Name, kFlags, 0, 0, nullptr);
@@ -1066,14 +1091,17 @@ void RendererProxy::PurgePluginListCache(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_PurgePluginListCache_Name, kFlags, 0, 0, nullptr);
@@ -1097,14 +1125,17 @@ void RendererProxy::PurgeResourceCache(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::Renderer::PurgeResourceCache");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_PurgeResourceCache_Name, kFlags, 0, 0, nullptr);
@@ -1138,14 +1169,17 @@ void RendererProxy::SetProcessState(
                         "<value of type RenderProcessVisibleState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetProcessState_Name, kFlags, 0, 0, nullptr);
@@ -1167,19 +1201,63 @@ void RendererProxy::SetProcessState(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void RendererProxy::SetBatterySaverMode(
+    bool in_battery_saver_mode_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send content::mojom::Renderer::SetBatterySaverMode", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("battery_saver_mode_enabled"), in_battery_saver_mode_enabled,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRenderer_SetBatterySaverMode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::content::mojom::internal::Renderer_SetBatterySaverMode_Params_Data> params(
+          message);
+  params.Allocate();
+  params->battery_saver_mode_enabled = in_battery_saver_mode_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Renderer::Name_);
+  message.set_method_name("SetBatterySaverMode");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void RendererProxy::SetIsLockedToSite(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::Renderer::SetIsLockedToSite");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetIsLockedToSite_Name, kFlags, 0, 0, nullptr);
@@ -1209,14 +1287,17 @@ void RendererProxy::SetIsCrossOriginIsolated(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetIsCrossOriginIsolated_Name, kFlags, 0, 0, nullptr);
@@ -1247,14 +1328,17 @@ void RendererProxy::SetIsWebSecurityDisabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetIsWebSecurityDisabled_Name, kFlags, 0, 0, nullptr);
@@ -1285,14 +1369,17 @@ void RendererProxy::SetIsIsolatedContext(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetIsIsolatedContext_Name, kFlags, 0, 0, nullptr);
@@ -1312,7 +1399,7 @@ void RendererProxy::SetIsIsolatedContext(
 }
 
 void RendererProxy::InitializeRenderer(
-    const std::string& in_user_agent, const ::blink::UserAgentMetadata& in_metadata, const std::vector<std::string>& in_cors_exempt_header_list, ::network::mojom::AttributionSupport in_attribution_support, ::blink::mojom::OriginTrialsSettingsPtr in_origin_trials_settings) {
+    const std::string& in_user_agent, const ::blink::UserAgentMetadata& in_metadata, const std::vector<std::string>& in_cors_exempt_header_list, ::blink::mojom::OriginTrialsSettingsPtr in_origin_trials_settings) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content::mojom::Renderer::InitializeRenderer", "input_parameters",
@@ -1328,21 +1415,21 @@ void RendererProxy::InitializeRenderer(
            dict.AddItem("cors_exempt_header_list"), in_cors_exempt_header_list,
                         "<value of type const std::vector<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attribution_support"), in_attribution_support,
-                        "<value of type ::network::mojom::AttributionSupport>");
-      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("origin_trials_settings"), in_origin_trials_settings,
                         "<value of type ::blink::mojom::OriginTrialsSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_InitializeRenderer_Name, kFlags, 0, 0, nullptr);
@@ -1385,8 +1472,6 @@ void RendererProxy::InitializeRenderer(
       params->cors_exempt_header_list.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null cors_exempt_header_list in Renderer.InitializeRenderer request");
-  mojo::internal::Serialize<::network::mojom::AttributionSupport>(
-      in_attribution_support, &params->attribution_support);
   mojo::internal::MessageFragment<
       typename decltype(params->origin_trials_settings)::BaseType> origin_trials_settings_fragment(
           params.message());
@@ -1398,45 +1483,6 @@ void RendererProxy::InitializeRenderer(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Renderer::Name_);
   message.set_method_name("InitializeRenderer");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void RendererProxy::SetAttributionReportingSupport(
-    ::network::mojom::AttributionSupport in_attribution_support) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send content::mojom::Renderer::SetAttributionReportingSupport", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attribution_support"), in_attribution_support,
-                        "<value of type ::network::mojom::AttributionSupport>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kRenderer_SetAttributionReportingSupport_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::Renderer_SetAttributionReportingSupport_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::network::mojom::AttributionSupport>(
-      in_attribution_support, &params->attribution_support);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Renderer::Name_);
-  message.set_method_name("SetAttributionReportingSupport");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1523,7 +1569,8 @@ void Renderer_PurgeResourceCache_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_PurgeResourceCache_Name, kFlags, 0, 0, nullptr);
@@ -1853,6 +1900,32 @@ std::move(p_background_state),
 std::move(p_visible_state));
       return true;
     }
+    case internal::kRenderer_SetBatterySaverMode_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Renderer_SetBatterySaverMode_Params_Data* params =
+          reinterpret_cast<internal::Renderer_SetBatterySaverMode_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_battery_saver_mode_enabled{};
+      Renderer_SetBatterySaverMode_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_battery_saver_mode_enabled = input_data_view.battery_saver_mode_enabled();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Renderer::Name_, 11, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetBatterySaverMode(
+std::move(p_battery_saver_mode_enabled));
+      return true;
+    }
     case internal::kRenderer_SetIsLockedToSite_Name: {
 
       DCHECK(message->is_serialized());
@@ -1867,7 +1940,7 @@ std::move(p_visible_state));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Renderer::Name_, 11, false);
+            Renderer::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1892,7 +1965,7 @@ std::move(p_visible_state));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Renderer::Name_, 12, false);
+            Renderer::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1918,7 +1991,7 @@ std::move(p_value));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Renderer::Name_, 13, false);
+            Renderer::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1944,7 +2017,7 @@ std::move(p_value));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Renderer::Name_, 14, false);
+            Renderer::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1964,7 +2037,6 @@ std::move(p_value));
       std::string p_user_agent{};
       ::blink::UserAgentMetadata p_metadata{};
       std::vector<std::string> p_cors_exempt_header_list{};
-      ::network::mojom::AttributionSupport p_attribution_support{};
       ::blink::mojom::OriginTrialsSettingsPtr p_origin_trials_settings{};
       Renderer_InitializeRenderer_ParamsDataView input_data_view(params, message);
       
@@ -1974,39 +2046,7 @@ std::move(p_value));
         success = false;
       if (success && !input_data_view.ReadCorsExemptHeaderList(&p_cors_exempt_header_list))
         success = false;
-      if (success && !input_data_view.ReadAttributionSupport(&p_attribution_support))
-        success = false;
       if (success && !input_data_view.ReadOriginTrialsSettings(&p_origin_trials_settings))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Renderer::Name_, 15, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->InitializeRenderer(
-std::move(p_user_agent), 
-std::move(p_metadata), 
-std::move(p_cors_exempt_header_list), 
-std::move(p_attribution_support), 
-std::move(p_origin_trials_settings));
-      return true;
-    }
-    case internal::kRenderer_SetAttributionReportingSupport_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::Renderer_SetAttributionReportingSupport_Params_Data* params =
-          reinterpret_cast<internal::Renderer_SetAttributionReportingSupport_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::network::mojom::AttributionSupport p_attribution_support{};
-      Renderer_SetAttributionReportingSupport_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadAttributionSupport(&p_attribution_support))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2017,8 +2057,11 @@ std::move(p_origin_trials_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAttributionReportingSupport(
-std::move(p_attribution_support));
+      impl->InitializeRenderer(
+std::move(p_user_agent), 
+std::move(p_metadata), 
+std::move(p_cors_exempt_header_list), 
+std::move(p_origin_trials_settings));
       return true;
     }
   }
@@ -2089,6 +2132,9 @@ bool RendererStubDispatch::AcceptWithResponder(
     case internal::kRenderer_SetProcessState_Name: {
       break;
     }
+    case internal::kRenderer_SetBatterySaverMode_Name: {
+      break;
+    }
     case internal::kRenderer_SetIsLockedToSite_Name: {
       break;
     }
@@ -2104,48 +2150,45 @@ bool RendererStubDispatch::AcceptWithResponder(
     case internal::kRenderer_InitializeRenderer_Name: {
       break;
     }
-    case internal::kRenderer_SetAttributionReportingSupport_Name: {
-      break;
-    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererValidationInfo[] = {
-    {&internal::Renderer_CreateAgentSchedulingGroup_Params_Data::Validate,
+    { &internal::Renderer_CreateAgentSchedulingGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_CreateAssociatedAgentSchedulingGroup_Params_Data::Validate,
+    { &internal::Renderer_CreateAssociatedAgentSchedulingGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_OnNetworkConnectionChanged_Params_Data::Validate,
+    { &internal::Renderer_OnNetworkConnectionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_OnNetworkQualityChanged_Params_Data::Validate,
+    { &internal::Renderer_OnNetworkQualityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetWebKitSharedTimersSuspended_Params_Data::Validate,
+    { &internal::Renderer_SetWebKitSharedTimersSuspended_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateScrollbarTheme_Params_Data::Validate,
+    { &internal::Renderer_UpdateScrollbarTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_OnSystemColorsChanged_Params_Data::Validate,
+    { &internal::Renderer_OnSystemColorsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateSystemColorInfo_Params_Data::Validate,
+    { &internal::Renderer_UpdateSystemColorInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_PurgePluginListCache_Params_Data::Validate,
+    { &internal::Renderer_PurgePluginListCache_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_PurgeResourceCache_Params_Data::Validate,
+    { &internal::Renderer_PurgeResourceCache_Params_Data::Validate,
      &internal::Renderer_PurgeResourceCache_ResponseParams_Data::Validate},
-    {&internal::Renderer_SetProcessState_Params_Data::Validate,
+    { &internal::Renderer_SetProcessState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetIsLockedToSite_Params_Data::Validate,
+    { &internal::Renderer_SetBatterySaverMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetIsCrossOriginIsolated_Params_Data::Validate,
+    { &internal::Renderer_SetIsLockedToSite_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetIsWebSecurityDisabled_Params_Data::Validate,
+    { &internal::Renderer_SetIsCrossOriginIsolated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetIsIsolatedContext_Params_Data::Validate,
+    { &internal::Renderer_SetIsWebSecurityDisabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_InitializeRenderer_Params_Data::Validate,
+    { &internal::Renderer_SetIsIsolatedContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetAttributionReportingSupport_Params_Data::Validate,
+    { &internal::Renderer_InitializeRenderer_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2263,6 +2306,9 @@ void RendererInterceptorForTesting::PurgeResourceCache(PurgeResourceCacheCallbac
 void RendererInterceptorForTesting::SetProcessState(RenderProcessBackgroundState background_state, RenderProcessVisibleState visible_state) {
   GetForwardingInterface()->SetProcessState(std::move(background_state), std::move(visible_state));
 }
+void RendererInterceptorForTesting::SetBatterySaverMode(bool battery_saver_mode_enabled) {
+  GetForwardingInterface()->SetBatterySaverMode(std::move(battery_saver_mode_enabled));
+}
 void RendererInterceptorForTesting::SetIsLockedToSite() {
   GetForwardingInterface()->SetIsLockedToSite();
 }
@@ -2275,11 +2321,8 @@ void RendererInterceptorForTesting::SetIsWebSecurityDisabled(bool value) {
 void RendererInterceptorForTesting::SetIsIsolatedContext(bool value) {
   GetForwardingInterface()->SetIsIsolatedContext(std::move(value));
 }
-void RendererInterceptorForTesting::InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::network::mojom::AttributionSupport attribution_support, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) {
-  GetForwardingInterface()->InitializeRenderer(std::move(user_agent), std::move(metadata), std::move(cors_exempt_header_list), std::move(attribution_support), std::move(origin_trials_settings));
-}
-void RendererInterceptorForTesting::SetAttributionReportingSupport(::network::mojom::AttributionSupport attribution_support) {
-  GetForwardingInterface()->SetAttributionReportingSupport(std::move(attribution_support));
+void RendererInterceptorForTesting::InitializeRenderer(const std::string& user_agent, const ::blink::UserAgentMetadata& metadata, const std::vector<std::string>& cors_exempt_header_list, ::blink::mojom::OriginTrialsSettingsPtr origin_trials_settings) {
+  GetForwardingInterface()->InitializeRenderer(std::move(user_agent), std::move(metadata), std::move(cors_exempt_header_list), std::move(origin_trials_settings));
 }
 RendererAsyncWaiter::RendererAsyncWaiter(
     Renderer* proxy) : proxy_(proxy) {}

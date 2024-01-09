@@ -249,9 +249,6 @@ void ExperimentalDomain::GetAppId(std::unique_ptr<GetAppIdParams> params, base::
 void ExperimentalDomain::GetAdScriptId(std::unique_ptr<GetAdScriptIdParams> params, base::OnceCallback<void(std::unique_ptr<GetAdScriptIdResult>)> callback) {
   dispatcher_->SendMessage("Page.getAdScriptId", params->Serialize(), base::BindOnce(&Domain::HandleGetAdScriptIdResponse, std::move(callback)));
 }
-void ExperimentalDomain::GetCookies(std::unique_ptr<GetCookiesParams> params, base::OnceCallback<void(std::unique_ptr<GetCookiesResult>)> callback) {
-  dispatcher_->SendMessage("Page.getCookies", params->Serialize(), base::BindOnce(&Domain::HandleGetCookiesResponse, std::move(callback)));
-}
 void Domain::GetFrameTree(std::unique_ptr<GetFrameTreeParams> params, base::OnceCallback<void(std::unique_ptr<GetFrameTreeResult>)> callback) {
   dispatcher_->SendMessage("Page.getFrameTree", params->Serialize(), base::BindOnce(&Domain::HandleGetFrameTreeResponse, std::move(callback)));
 }
@@ -742,21 +739,6 @@ void Domain::HandleGetAdScriptIdResponse(base::OnceCallback<void(std::unique_ptr
   }
   ErrorReporter errors;
   std::unique_ptr<GetAdScriptIdResult> result = GetAdScriptIdResult::Parse(response, &errors);
-  DCHECK(!errors.HasErrors()) << errors.ToString();
-  std::move(callback).Run(std::move(result));
-}
-
-// static
-void Domain::HandleGetCookiesResponse(base::OnceCallback<void(std::unique_ptr<GetCookiesResult>)> callback, const base::Value& response) {
-  if (callback.is_null())
-    return;
-  // This is an error response.
-  if (response.is_none()) {
-    std::move(callback).Run(nullptr);
-    return;
-  }
-  ErrorReporter errors;
-  std::unique_ptr<GetCookiesResult> result = GetCookiesResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

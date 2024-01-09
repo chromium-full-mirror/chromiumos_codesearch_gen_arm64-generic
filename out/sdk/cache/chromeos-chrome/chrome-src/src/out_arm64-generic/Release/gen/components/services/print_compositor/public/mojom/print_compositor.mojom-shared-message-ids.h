@@ -17,10 +17,10 @@ namespace internal {
 constexpr uint32_t kPrintCompositor_NotifyUnavailableSubframe_Name = 0;
 constexpr uint32_t kPrintCompositor_AddSubframeContent_Name = 1;
 constexpr uint32_t kPrintCompositor_SetAccessibilityTree_Name = 2;
-constexpr uint32_t kPrintCompositor_CompositePageToPdf_Name = 3;
-constexpr uint32_t kPrintCompositor_CompositeDocumentToPdf_Name = 4;
-constexpr uint32_t kPrintCompositor_PrepareForDocumentToPdf_Name = 5;
-constexpr uint32_t kPrintCompositor_CompleteDocumentToPdf_Name = 6;
+constexpr uint32_t kPrintCompositor_CompositePage_Name = 3;
+constexpr uint32_t kPrintCompositor_CompositeDocument_Name = 4;
+constexpr uint32_t kPrintCompositor_PrepareToCompositeDocument_Name = 5;
+constexpr uint32_t kPrintCompositor_FinishDocumentComposition_Name = 6;
 constexpr uint32_t kPrintCompositor_SetWebContentsURL_Name = 7;
 constexpr uint32_t kPrintCompositor_SetUserAgent_Name = 8;
 

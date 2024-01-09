@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaRecorder>::value,
     "MediaRecorder does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaRecorder::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaRecorder is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.stream.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->stream();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaRecorder_MimeType
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mimeType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -132,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -147,10 +143,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.onstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -163,8 +159,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstart(event_handler);
 }
 
@@ -175,10 +172,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.onstop.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstop();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstop();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -191,8 +188,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstop(event_handler);
 }
 
@@ -203,10 +201,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.ondataavailable.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondataavailable();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondataavailable();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -219,8 +217,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndataavailable(event_handler);
 }
 
@@ -231,10 +230,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.onpause.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpause();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpause();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -247,8 +246,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpause(event_handler);
 }
 
@@ -259,10 +259,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.onresume.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresume();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresume();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -275,8 +275,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresume(event_handler);
 }
 
@@ -287,10 +288,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -303,8 +304,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -323,7 +325,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaRecorder_VideoBit
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->videoBitsPerSecond();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -346,7 +348,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaRecorder_AudioBit
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->audioBitsPerSecond();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -361,10 +363,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.audioBitrateMode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->audioBitrateMode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->audioBitrateMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -428,9 +430,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.pause");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaRecorder";
 const char* const property_name = "pause";
@@ -453,9 +455,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.requestData");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaRecorder";
 const char* const property_name = "requestData";
@@ -478,9 +480,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.resume");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaRecorder";
 const char* const property_name = "resume";
@@ -515,7 +517,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->start(exception_state);
 break;
@@ -543,9 +545,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaRecorder.stop");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaRecorder* blink_receiver = V8MediaRecorder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaRecorder";
 const char* const property_name = "stop";
@@ -582,7 +584,7 @@ ExecutionContext* current_execution_context = ExecutionContext::From(current_con
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (LIKELY(info[0]->IsString())) {
-  arg1_type.Init(info[0].As<v8::String>());
+  arg1_type.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MediaRecorder";

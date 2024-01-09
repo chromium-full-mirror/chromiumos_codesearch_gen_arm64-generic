@@ -9,8 +9,8 @@
         display: none;
       }
     </style>
-    <template is="dom-if" if="[[showBasicPage_(
-        currentRoute_, inSearchMode, hasExpandedSection_)]]">
+    <template is="dom-if" if="[[showBasicPage_(currentRoute_, inSearchMode)]]"
+        restamp>
       <div id="basicPage">
         <template is="dom-if" if="[[showResetProfileBanner_]]" restamp>
           <settings-reset-profile-banner on-close="onResetProfileBannerClosed_">
@@ -22,6 +22,14 @@
             <settings-people-page prefs="{{prefs}}"
                 page-visibility="[[pageVisibility]]">
             </settings-people-page>
+          </settings-section>
+        </template>
+        <template is="dom-if"
+            if="[[showExperimentalAdvancedPage_(pageVisibility.ai)]]"
+            restamp>
+          <settings-section page-title="$i18n{experimentalAdvancedPageTitle}"
+              section="ai">
+            <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPage_(pageVisibility.autofill)]]"
@@ -48,8 +56,11 @@
             </settings-safety-check-page>
           </settings-section>
         </template>
+        <!--  TODO(crbug.com/1443466): Add a test to basic_page_test.ts
+        to check that settings-safety-hub-entry-point is not visible
+        in the guest mode. -->
         <template is="dom-if"
-            if="[[showSafetyHubEntryPointPage_(pageVisibility.privacy)]]"
+            if="[[showSafetyHubEntryPointPage_(pageVisibility.safetyHub)]]"
             restamp>
           <settings-section page-title="$i18n{safetyHub}"
               section="safetyHubEntryPoint" nest-under-section="privacy"
@@ -69,7 +80,7 @@
         <template is="dom-if"
             if="[[showPerformancePage_(pageVisibility.performance)]]"
             restamp>
-          <settings-section page-title="[[getPerformancePageTitle_()]]"
+          <settings-section page-title="$i18n{memoryPageTitle}"
 
               section="performance" id="performanceSettingsSection">
             <settings-performance-page prefs="{{prefs}}">
@@ -131,9 +142,7 @@
         if="[[showAdvancedSettings_(pageVisibility.advancedSettings)]]">
       <settings-idle-load id="advancedPageTemplate">
         <template>
-          <div id="advancedPage" hidden$="[[!showAdvancedPage_(
-              currentRoute_, inSearchMode, hasExpandedSection_,
-              advancedToggleExpanded)]]">
+          <div id="advancedPage">
             <template is="dom-if" if="[[showPage_(pageVisibility.languages)]]"
                 restamp>
 

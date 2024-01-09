@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -79,7 +80,7 @@ VisualProperties::VisualProperties(
     const ::gfx::Rect& compositor_viewport_pixel_rect_in,
     const ::cc::BrowserControlsParams& browser_controls_params_in,
     bool scroll_focused_node_into_view_in,
-    const absl::optional<::viz::LocalSurfaceId>& local_surface_id_in,
+    const std::optional<::viz::LocalSurfaceId>& local_surface_id_in,
     bool is_fullscreen_granted_in,
     ::blink::mojom::DisplayMode display_mode_in,
     ::ui::WindowShowState window_show_state_in,
@@ -215,7 +216,7 @@ void VisualProperties::WriteIntoTrace(
     dict.AddItem(
       "local_surface_id"), this->local_surface_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::viz::LocalSurfaceId>&>"
+      "<value of type const std::optional<::viz::LocalSurfaceId>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

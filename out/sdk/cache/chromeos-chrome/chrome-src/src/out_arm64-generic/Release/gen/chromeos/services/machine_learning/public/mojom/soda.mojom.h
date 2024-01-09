@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/soda.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -468,33 +469,33 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
   // Construct an instance holding |audio_event|.
   static SpeechRecognizerEventPtr
   NewAudioEvent(
-      AudioLevelEventPtr audio_event) {
+      AudioLevelEventPtr value) {
     auto result = SpeechRecognizerEventPtr(absl::in_place);
-    result->set_audio_event(std::move(audio_event));
+    result->set_audio_event(std::move(value));
     return result;
   }
   // Construct an instance holding |partial_result|.
   static SpeechRecognizerEventPtr
   NewPartialResult(
-      PartialResultPtr partial_result) {
+      PartialResultPtr value) {
     auto result = SpeechRecognizerEventPtr(absl::in_place);
-    result->set_partial_result(std::move(partial_result));
+    result->set_partial_result(std::move(value));
     return result;
   }
   // Construct an instance holding |endpointer_event|.
   static SpeechRecognizerEventPtr
   NewEndpointerEvent(
-      EndpointerEventPtr endpointer_event) {
+      EndpointerEventPtr value) {
     auto result = SpeechRecognizerEventPtr(absl::in_place);
-    result->set_endpointer_event(std::move(endpointer_event));
+    result->set_endpointer_event(std::move(value));
     return result;
   }
   // Construct an instance holding |final_result|.
   static SpeechRecognizerEventPtr
   NewFinalResult(
-      FinalResultPtr final_result) {
+      FinalResultPtr value) {
     auto result = SpeechRecognizerEventPtr(absl::in_place);
-    result->set_final_result(std::move(final_result));
+    result->set_final_result(std::move(value));
     return result;
   }
 
@@ -694,6 +695,18 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaConfig {
       bool mask_offensive_words,
       bool speaker_change_detection);
 
+  SodaConfig(
+      uint32_t channel_count,
+      uint32_t sample_rate,
+      const std::string& api_key,
+      const std::string& library_dlc_path,
+      const std::string& language_dlc_path,
+      OptionalBool enable_formatting,
+      SodaRecognitionMode recognition_mode,
+      bool mask_offensive_words,
+      bool speaker_change_detection,
+      bool include_logging_output);
+
 
   ~SodaConfig();
 
@@ -788,6 +801,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaConfig {
   bool mask_offensive_words;
   
   bool speaker_change_detection;
+  
+  bool include_logging_output;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1448,7 +1463,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) FinalResult {
       std::vector<std::string> final_hypotheses,
       EndpointReason endpoint_reason,
       TimingInfoPtr timing_event,
-      absl::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part);
+      std::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part);
 
 FinalResult(const FinalResult&) = delete;
 FinalResult& operator=(const FinalResult&) = delete;
@@ -1534,7 +1549,7 @@ FinalResult& operator=(const FinalResult&) = delete;
   
   TimingInfoPtr timing_event;
   
-  absl::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part;
+  std::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1616,7 +1631,8 @@ SodaConfigPtr SodaConfig::Clone() const {
       mojo::Clone(enable_formatting),
       mojo::Clone(recognition_mode),
       mojo::Clone(mask_offensive_words),
-      mojo::Clone(speaker_change_detection)
+      mojo::Clone(speaker_change_detection),
+      mojo::Clone(include_logging_output)
   );
 }
 
@@ -1639,6 +1655,8 @@ bool SodaConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->mask_offensive_words, other_struct.mask_offensive_words))
     return false;
   if (!mojo::Equals(this->speaker_change_detection, other_struct.speaker_change_detection))
+    return false;
+  if (!mojo::Equals(this->include_logging_output, other_struct.include_logging_output))
     return false;
   return true;
 }
@@ -1680,6 +1698,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.speaker_change_detection < rhs.speaker_change_detection)
     return true;
   if (rhs.speaker_change_detection < lhs.speaker_change_detection)
+    return false;
+  if (lhs.include_logging_output < rhs.include_logging_output)
+    return true;
+  if (rhs.include_logging_output < lhs.include_logging_output)
     return false;
   return false;
 }
@@ -1962,6 +1984,11 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learni
   static decltype(::chromeos::machine_learning::mojom::SodaConfig::speaker_change_detection) speaker_change_detection(
       const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
     return input->speaker_change_detection;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::SodaConfig::include_logging_output) include_logging_output(
+      const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
+    return input->include_logging_output;
   }
 
   static bool Read(::chromeos::machine_learning::mojom::SodaConfig::DataView input, ::chromeos::machine_learning::mojom::SodaConfigPtr* output);

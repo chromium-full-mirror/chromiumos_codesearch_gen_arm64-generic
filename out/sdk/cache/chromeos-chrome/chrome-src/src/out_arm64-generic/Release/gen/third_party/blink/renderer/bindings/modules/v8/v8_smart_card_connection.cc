@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SmartCardConnection>::value,
     "SmartCardConnection inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SmartCardConnection::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SmartCardConnection is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -111,7 +106,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -153,7 +148,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -198,7 +193,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -240,7 +235,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -286,7 +281,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -333,7 +328,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -371,7 +366,7 @@ return;
 
 
 
-SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(v8_receiver);
+SmartCardConnection* blink_receiver = V8SmartCardConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

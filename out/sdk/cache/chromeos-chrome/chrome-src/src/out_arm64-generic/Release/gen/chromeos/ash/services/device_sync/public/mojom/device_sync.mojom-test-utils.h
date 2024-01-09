@@ -72,11 +72,11 @@ class  DeviceSyncAsyncWaiter {
       ::ash::device_sync::BetterTogetherMetadataStatus* out_status);
   ::ash::device_sync::BetterTogetherMetadataStatus GetBetterTogetherMetadataStatus();
   void GetSyncedDevices(
-      absl::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices);
-  absl::optional<std::vector<::ash::multidevice::RemoteDevice>> GetSyncedDevices();
+      std::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices);
+  std::optional<std::vector<::ash::multidevice::RemoteDevice>> GetSyncedDevices();
   void GetLocalDeviceMetadata(
-      absl::optional<::ash::multidevice::RemoteDevice>* out_local_device);
-  absl::optional<::ash::multidevice::RemoteDevice> GetLocalDeviceMetadata();
+      std::optional<::ash::multidevice::RemoteDevice>* out_local_device);
+  std::optional<::ash::multidevice::RemoteDevice> GetLocalDeviceMetadata();
   void SetSoftwareFeatureState(
       const std::string& device_public_key, ::ash::multidevice::SoftwareFeature software_feature, bool enabled, bool is_exclusive, NetworkRequestResult* out_result_code);
   NetworkRequestResult SetSoftwareFeatureState(const std::string& device_public_key, ::ash::multidevice::SoftwareFeature software_feature, bool enabled, bool is_exclusive);
@@ -90,7 +90,7 @@ class  DeviceSyncAsyncWaiter {
       const std::vector<std::string>& device_instance_ids, ::cryptauthv2::TargetService cryptauth_service, ::ash::multidevice::SoftwareFeature feature, NetworkRequestResult* out_result_code);
   NetworkRequestResult NotifyDevices(const std::vector<std::string>& device_instance_ids, ::cryptauthv2::TargetService cryptauth_service, ::ash::multidevice::SoftwareFeature feature);
   void GetDevicesActivityStatus(
-      NetworkRequestResult* out_result_code, absl::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses);
+      NetworkRequestResult* out_result_code, std::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses);
   
   void GetDebugInfo(
       DebugInfoPtr* out_debug_info);

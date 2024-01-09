@@ -236,64 +236,13 @@ SensorInitParams_Data::SensorInitParams_Data()
 
 
 // static
-bool NullableDouble_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const NullableDouble_Data* object =
-      static_cast<const NullableDouble_Data*>(data);
-
-  return true;
-}
-
-NullableDouble_Data::NullableDouble_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool NullableReportingMode_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const NullableReportingMode_Data* object =
-      static_cast<const NullableReportingMode_Data*>(data);
-
-
-  if (!::device::mojom::internal::ReportingMode_Data
-        ::Validate(object->value, validation_context))
-    return false;
-
-  return true;
-}
-
-NullableReportingMode_Data::NullableReportingMode_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool VirtualSensorMetadata_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -302,13 +251,9 @@ bool VirtualSensorMetadata_Data::Validate(
   [[maybe_unused]] const VirtualSensorMetadata_Data* object =
       static_cast<const VirtualSensorMetadata_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->maximum_frequency, validation_context))
-    return false;
 
-  if (!mojo::internal::ValidateStruct(object->minimum_frequency, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateStruct(object->reporting_mode, validation_context))
+  if (!::device::mojom::internal::ReportingMode_Data
+        ::Validate(object->reporting_mode_$value, validation_context))
     return false;
 
   return true;

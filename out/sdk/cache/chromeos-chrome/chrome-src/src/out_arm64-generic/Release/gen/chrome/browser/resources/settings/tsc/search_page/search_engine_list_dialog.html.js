@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--icon-size:var(--search-engine-icon-size, 24px)}.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:16px}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--icon-size);--site-favicon-width:var(--icon-size)}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
 
 <cr-dialog id="dialog" on-cancel="onCancelClick_" show-on-attach>
   <div slot="title">
@@ -14,7 +14,7 @@ export function getTemplate() {
       <template is="dom-repeat" items="[[searchEngines]]">
         <cr-radio-button class="label-first" name="[[item.id]]">
           <div class="search-engine">
-            <site-favicon favicon-url="[[item.iconURL]]" url="[[item.url]]">
+            <site-favicon favicon-url="[[item.iconURL]]" url="[[item.url]]" icon-path="[[item.iconPath]]">
             </site-favicon>
             [[item.name]]
           </div>

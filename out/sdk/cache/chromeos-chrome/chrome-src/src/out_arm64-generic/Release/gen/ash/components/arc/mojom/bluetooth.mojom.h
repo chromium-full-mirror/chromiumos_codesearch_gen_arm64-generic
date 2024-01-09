@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/bluetooth.mojom-features.h"
 #include "ash/components/arc/mojom/bluetooth.mojom-shared.h"
 #include "ash/components/arc/mojom/bluetooth.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -1752,105 +1753,105 @@ class  BluetoothProperty {
   // Construct an instance holding |bdname|.
   static BluetoothPropertyPtr
   NewBdname(
-      const std::string& bdname) {
+      const std::string& value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_bdname(std::move(bdname));
+    result->set_bdname(std::move(value));
     return result;
   }
   // Construct an instance holding |bdaddr|.
   static BluetoothPropertyPtr
   NewBdaddr(
-      BluetoothAddressPtr bdaddr) {
+      BluetoothAddressPtr value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_bdaddr(std::move(bdaddr));
+    result->set_bdaddr(std::move(value));
     return result;
   }
   // Construct an instance holding |uuids|.
   static BluetoothPropertyPtr
   NewUuids(
-      std::vector<::device::BluetoothUUID> uuids) {
+      std::vector<::device::BluetoothUUID> value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_uuids(std::move(uuids));
+    result->set_uuids(std::move(value));
     return result;
   }
   // Construct an instance holding |device_class|.
   static BluetoothPropertyPtr
   NewDeviceClass(
-      uint32_t device_class) {
+      uint32_t value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_device_class(std::move(device_class));
+    result->set_device_class(std::move(value));
     return result;
   }
   // Construct an instance holding |device_type|.
   static BluetoothPropertyPtr
   NewDeviceType(
-      ::device::BluetoothTransport device_type) {
+      ::device::BluetoothTransport value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_device_type(std::move(device_type));
+    result->set_device_type(std::move(value));
     return result;
   }
   // Construct an instance holding |service_record|.
   static BluetoothPropertyPtr
   NewServiceRecord(
-      BluetoothServiceRecordPtr service_record) {
+      BluetoothServiceRecordPtr value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_service_record(std::move(service_record));
+    result->set_service_record(std::move(value));
     return result;
   }
   // Construct an instance holding |adapter_scan_mode|.
   static BluetoothPropertyPtr
   NewAdapterScanMode(
-      BluetoothScanMode adapter_scan_mode) {
+      BluetoothScanMode value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_adapter_scan_mode(std::move(adapter_scan_mode));
+    result->set_adapter_scan_mode(std::move(value));
     return result;
   }
   // Construct an instance holding |bonded_devices|.
   static BluetoothPropertyPtr
   NewBondedDevices(
-      std::vector<BluetoothAddressPtr> bonded_devices) {
+      std::vector<BluetoothAddressPtr> value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_bonded_devices(std::move(bonded_devices));
+    result->set_bonded_devices(std::move(value));
     return result;
   }
   // Construct an instance holding |discovery_timeout|.
   static BluetoothPropertyPtr
   NewDiscoveryTimeout(
-      uint32_t discovery_timeout) {
+      uint32_t value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_discovery_timeout(std::move(discovery_timeout));
+    result->set_discovery_timeout(std::move(value));
     return result;
   }
   // Construct an instance holding |remote_friendly_name|.
   static BluetoothPropertyPtr
   NewRemoteFriendlyName(
-      const std::string& remote_friendly_name) {
+      const std::string& value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_remote_friendly_name(std::move(remote_friendly_name));
+    result->set_remote_friendly_name(std::move(value));
     return result;
   }
   // Construct an instance holding |remote_rssi|.
   static BluetoothPropertyPtr
   NewRemoteRssi(
-      int32_t remote_rssi) {
+      int32_t value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_remote_rssi(std::move(remote_rssi));
+    result->set_remote_rssi(std::move(value));
     return result;
   }
   // Construct an instance holding |remote_version|.
   static BluetoothPropertyPtr
   NewRemoteVersion(
-      BluetoothRemoteVersionPtr remote_version) {
+      BluetoothRemoteVersionPtr value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_remote_version(std::move(remote_version));
+    result->set_remote_version(std::move(value));
     return result;
   }
   // Construct an instance holding |local_le_features|.
   static BluetoothPropertyPtr
   NewLocalLeFeatures(
-      BluetoothLocalLEFeaturesPtr local_le_features) {
+      BluetoothLocalLEFeaturesPtr value) {
     auto result = BluetoothPropertyPtr(absl::in_place);
-    result->set_local_le_features(std::move(local_le_features));
+    result->set_local_le_features(std::move(value));
     return result;
   }
 
@@ -2113,65 +2114,65 @@ class  BluetoothAdvertisingData {
   // Construct an instance holding |flags|.
   static BluetoothAdvertisingDataPtr
   NewFlags(
-      uint8_t flags) {
+      uint8_t value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_flags(std::move(flags));
+    result->set_flags(std::move(value));
     return result;
   }
   // Construct an instance holding |service_uuids_16|.
   static BluetoothAdvertisingDataPtr
   NewServiceUuids16(
-      std::vector<uint16_t> service_uuids_16) {
+      std::vector<uint16_t> value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_service_uuids_16(std::move(service_uuids_16));
+    result->set_service_uuids_16(std::move(value));
     return result;
   }
   // Construct an instance holding |service_uuids|.
   static BluetoothAdvertisingDataPtr
   NewServiceUuids(
-      std::vector<::device::BluetoothUUID> service_uuids) {
+      std::vector<::device::BluetoothUUID> value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_service_uuids(std::move(service_uuids));
+    result->set_service_uuids(std::move(value));
     return result;
   }
   // Construct an instance holding |local_name|.
   static BluetoothAdvertisingDataPtr
   NewLocalName(
-      const std::string& local_name) {
+      const std::string& value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_local_name(std::move(local_name));
+    result->set_local_name(std::move(value));
     return result;
   }
   // Construct an instance holding |tx_power_level|.
   static BluetoothAdvertisingDataPtr
   NewTxPowerLevel(
-      uint8_t tx_power_level) {
+      uint8_t value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_tx_power_level(std::move(tx_power_level));
+    result->set_tx_power_level(std::move(value));
     return result;
   }
   // Construct an instance holding |service_data|.
   static BluetoothAdvertisingDataPtr
   NewServiceData(
-      BluetoothServiceDataPtr service_data) {
+      BluetoothServiceDataPtr value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_service_data(std::move(service_data));
+    result->set_service_data(std::move(value));
     return result;
   }
   // Construct an instance holding |manufacturer_data|.
   static BluetoothAdvertisingDataPtr
   NewManufacturerData(
-      std::vector<uint8_t> manufacturer_data) {
+      std::vector<uint8_t> value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_manufacturer_data(std::move(manufacturer_data));
+    result->set_manufacturer_data(std::move(value));
     return result;
   }
   // Construct an instance holding |other_data|.
   static BluetoothAdvertisingDataPtr
   NewOtherData(
-      std::vector<uint8_t> other_data) {
+      std::vector<uint8_t> value) {
     auto result = BluetoothAdvertisingDataPtr(absl::in_place);
-    result->set_other_data(std::move(other_data));
+    result->set_other_data(std::move(value));
     return result;
   }
 
@@ -3879,14 +3880,14 @@ class  BluetoothSdpAttribute {
       ::bluez::BluetoothServiceAttributeValueBlueZ::Type type,
       uint32_t type_size,
       std::vector<BluetoothSdpAttributePtr> sequence,
-      const absl::optional<std::string>& deprecated_json_value);
+      const std::optional<std::string>& deprecated_json_value);
 
   BluetoothSdpAttribute(
       ::bluez::BluetoothServiceAttributeValueBlueZ::Type type,
       uint32_t type_size,
       std::vector<BluetoothSdpAttributePtr> sequence,
-      const absl::optional<std::string>& deprecated_json_value,
-      absl::optional<::base::Value> value);
+      const std::optional<std::string>& deprecated_json_value,
+      std::optional<::base::Value> value);
 
 BluetoothSdpAttribute(const BluetoothSdpAttribute&) = delete;
 BluetoothSdpAttribute& operator=(const BluetoothSdpAttribute&) = delete;
@@ -3972,9 +3973,9 @@ BluetoothSdpAttribute& operator=(const BluetoothSdpAttribute&) = delete;
   
   std::vector<BluetoothSdpAttributePtr> sequence;
   
-  absl::optional<std::string> deprecated_json_value;
+  std::optional<std::string> deprecated_json_value;
   
-  absl::optional<::base::Value> value;
+  std::optional<::base::Value> value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

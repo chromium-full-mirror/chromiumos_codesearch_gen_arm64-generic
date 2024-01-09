@@ -143,13 +143,13 @@ static_assert(
     return mojo::internal::Deserialize<::network::mojom::IPEndPointDataView>(
         pointer, output, message_);
   }
-  absl::optional<int32_t> send_buffer_size() const {
+  std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
         ? absl::make_optional(data_->send_buffer_size_$value)
         : absl::nullopt;
   }
-  absl::optional<int32_t> receive_buffer_size() const {
+  std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
         ? absl::make_optional(data_->receive_buffer_size_$value)
@@ -188,7 +188,7 @@ static_assert(
     return mojo::internal::Deserialize<::network::mojom::DnsQueryType>(
         data_->dns_query_type_$value, &output->emplace());
   }
-  absl::optional<::network::mojom::DnsQueryType> dns_query_type() const {
+  std::optional<::network::mojom::DnsQueryType> dns_query_type() const {
     if (!data_->dns_query_type_$flag) {
       return absl::nullopt;
     }
@@ -221,13 +221,13 @@ class DirectConnectedUDPSocketOptionsDataView {
     return mojo::internal::Deserialize<::network::mojom::HostPortPairDataView>(
         pointer, output, message_);
   }
-  absl::optional<int32_t> send_buffer_size() const {
+  std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
         ? absl::make_optional(data_->send_buffer_size_$value)
         : absl::nullopt;
   }
-  absl::optional<int32_t> receive_buffer_size() const {
+  std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
         ? absl::make_optional(data_->receive_buffer_size_$value)
@@ -243,7 +243,7 @@ class DirectConnectedUDPSocketOptionsDataView {
     return mojo::internal::Deserialize<::network::mojom::DnsQueryType>(
         data_->dns_query_type_$value, &output->emplace());
   }
-  absl::optional<::network::mojom::DnsQueryType> dns_query_type() const {
+  std::optional<::network::mojom::DnsQueryType> dns_query_type() const {
     if (!data_->dns_query_type_$flag) {
       return absl::nullopt;
     }
@@ -276,19 +276,19 @@ class DirectBoundUDPSocketOptionsDataView {
     return mojo::internal::Deserialize<::network::mojom::IPEndPointDataView>(
         pointer, output, message_);
   }
-  absl::optional<int32_t> send_buffer_size() const {
+  std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
         ? absl::make_optional(data_->send_buffer_size_$value)
         : absl::nullopt;
   }
-  absl::optional<int32_t> receive_buffer_size() const {
+  std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
         ? absl::make_optional(data_->receive_buffer_size_$value)
         : absl::nullopt;
   }
-  absl::optional<bool> ipv6_only() const {
+  std::optional<bool> ipv6_only() const {
 
     return data_->ipv6_only_$flag
         ? absl::make_optional(!!data_->ipv6_only_$value)
@@ -320,13 +320,13 @@ class DirectTCPServerSocketOptionsDataView {
     return mojo::internal::Deserialize<::network::mojom::IPEndPointDataView>(
         pointer, output, message_);
   }
-  absl::optional<bool> ipv6_only() const {
+  std::optional<bool> ipv6_only() const {
 
     return data_->ipv6_only_$flag
         ? absl::make_optional(!!data_->ipv6_only_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> backlog() const {
+  std::optional<uint32_t> backlog() const {
 
     return data_->backlog_$flag
         ? absl::make_optional(data_->backlog_$value)

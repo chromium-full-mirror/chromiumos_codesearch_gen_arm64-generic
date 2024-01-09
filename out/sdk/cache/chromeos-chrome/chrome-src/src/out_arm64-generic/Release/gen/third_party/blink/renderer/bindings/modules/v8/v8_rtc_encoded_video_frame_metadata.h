@@ -15,6 +15,7 @@
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
+#include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
 
 namespace blink {
 
@@ -33,24 +34,6 @@ static RTCEncodedVideoFrameMetadata* Create(v8::Isolate* isolate, v8::Local<v8::
 
 explicit  RTCEncodedVideoFrameMetadata();
 explicit  RTCEncodedVideoFrameMetadata(v8::Isolate* isolate);
-
-bool hasCaptureTimestamp() const {
-  return has_capture_timestamp_;
-}
-int64_t captureTimestamp() const {
-  DCHECK(hasCaptureTimestamp());
-return member_capture_timestamp_;
-}
-int64_t getCaptureTimestampOr(int64_t fallback_value) const {
-  if (!hasCaptureTimestamp()) {
-  return fallback_value;
-}
-return member_capture_timestamp_;
-}
-void setCaptureTimestamp(int64_t value) {
-  member_capture_timestamp_ = value;
-has_capture_timestamp_ = true;
-}
 
 bool hasContributingSources() const {
   return has_contributing_sources_;
@@ -111,6 +94,18 @@ void setHeight(uint16_t value) {
   member_height_ = value;
 has_height_ = true;
 }
+
+bool hasMimeType() const {
+  return has_mime_type_;
+}
+const String& mimeType() const {
+  DCHECK(hasMimeType());
+return member_mime_type_;
+}
+String getMimeTypeOr(const String& fallback_value) const;
+String getMimeTypeOr(String&& fallback_value) const;
+void setMimeType(const String& value);
+void setMimeType(String&& value);
 
 bool hasPayloadType() const {
   return has_payload_type_;
@@ -202,6 +197,24 @@ void setTemporalIndex(int32_t value) {
 has_temporal_index_ = true;
 }
 
+bool hasTimestamp() const {
+  return has_timestamp_;
+}
+int64_t timestamp() const {
+  DCHECK(hasTimestamp());
+return member_timestamp_;
+}
+int64_t getTimestampOr(int64_t fallback_value) const {
+  if (!hasTimestamp()) {
+  return fallback_value;
+}
+return member_timestamp_;
+}
+void setTimestamp(int64_t value) {
+  member_timestamp_ = value;
+has_timestamp_ = true;
+}
+
 bool hasWidth() const {
   return has_width_;
 }
@@ -235,28 +248,30 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-bool has_capture_timestamp_ = false;
 bool has_contributing_sources_ = false;
 bool has_dependencies_ = false;
 bool has_frame_id_ = false;
 bool has_height_ = false;
+bool has_mime_type_ = false;
 bool has_payload_type_ = false;
 bool has_rtp_timestamp_ = false;
 bool has_spatial_index_ = false;
 bool has_synchronization_source_ = false;
 bool has_temporal_index_ = false;
+bool has_timestamp_ = false;
 bool has_width_ = false;
 
-int64_t member_capture_timestamp_;
 Vector<uint32_t> member_contributing_sources_;
 Vector<int64_t> member_dependencies_;
 int64_t member_frame_id_;
 uint16_t member_height_;
+String member_mime_type_;
 uint8_t member_payload_type_;
 uint32_t member_rtp_timestamp_;
 int32_t member_spatial_index_;
 uint32_t member_synchronization_source_;
 int32_t member_temporal_index_;
+int64_t member_timestamp_;
 uint16_t member_width_;
 
 

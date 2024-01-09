@@ -49,6 +49,9 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
         [[model.lastUnsuccessfulMessage]]
       </div>
     </div>
+    <cr-button id="reset" role="button" on-click="onReset_">
+      [[i18n('certificateProvisioningReset')]]
+    </cr-button>
     <hr>
     <cr-expand-button expanded="{{advancedExpanded_}}" aria-expanded$="[[boolToString_(advancedOpened)]]">
       <div>[[i18n('certificateProvisioningAdvancedSectionTitle')]]</div>
@@ -72,5 +75,4 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
       </div>
     </iron-collapse>
   </div>
-</cr-dialog>
-<!--_html_template_end_-->`}
+</cr-dialog><!--_html_template_end_-->`}

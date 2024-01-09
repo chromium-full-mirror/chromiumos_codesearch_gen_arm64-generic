@@ -8,6 +8,7 @@
 #define UI_GFX_MOJOM_HDR_STATIC_METADATA_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

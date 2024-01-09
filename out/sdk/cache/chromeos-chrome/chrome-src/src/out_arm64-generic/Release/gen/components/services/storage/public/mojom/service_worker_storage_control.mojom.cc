@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -250,8 +251,8 @@ bool ServiceWorkerLiveVersionRefStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool ServiceWorkerLiveVersionRefRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::storage::mojom::ServiceWorkerLiveVersionRef::Name_;
@@ -410,14 +411,17 @@ void ServiceWorkerResourceReaderProxy::ReadResponseHead(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerResourceReader::ReadResponseHead");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_ReadResponseHead_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +452,17 @@ void ServiceWorkerResourceReaderProxy::PrepareReadData(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_PrepareReadData_Name, kFlags, 0, 0, nullptr);
@@ -480,14 +487,17 @@ void ServiceWorkerResourceReaderProxy::ReadData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerResourceReader::ReadData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_ReadData_Name, kFlags, 0, 0, nullptr);
@@ -551,7 +561,7 @@ class ServiceWorkerResourceReader_ReadResponseHead_ProxyToResponder : public ::m
 #endif
 
   void Run(
-      int32_t in_status, ::network::mojom::URLResponseHeadPtr in_response_head, absl::optional<::mojo_base::BigBuffer> in_metadata);
+      int32_t in_status, ::network::mojom::URLResponseHeadPtr in_response_head, std::optional<::mojo_base::BigBuffer> in_metadata);
 };
 
 bool ServiceWorkerResourceReader_ReadResponseHead_ForwardToCallback::Accept(
@@ -566,7 +576,7 @@ bool ServiceWorkerResourceReader_ReadResponseHead_ForwardToCallback::Accept(
   bool success = true;
   int32_t p_status{};
   ::network::mojom::URLResponseHeadPtr p_response_head{};
-  absl::optional<::mojo_base::BigBuffer> p_metadata{};
+  std::optional<::mojo_base::BigBuffer> p_metadata{};
   ServiceWorkerResourceReader_ReadResponseHead_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -591,7 +601,7 @@ std::move(p_metadata));
 }
 
 void ServiceWorkerResourceReader_ReadResponseHead_ProxyToResponder::Run(
-    int32_t in_status, ::network::mojom::URLResponseHeadPtr in_response_head, absl::optional<::mojo_base::BigBuffer> in_metadata) {
+    int32_t in_status, ::network::mojom::URLResponseHeadPtr in_response_head, std::optional<::mojo_base::BigBuffer> in_metadata) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::ServiceWorkerResourceReader::ReadResponseHead", "async_response_parameters",
@@ -605,13 +615,14 @@ void ServiceWorkerResourceReader_ReadResponseHead_ProxyToResponder::Run(
                         "<value of type ::network::mojom::URLResponseHeadPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("metadata"), in_metadata,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_ReadResponseHead_Name, kFlags, 0, 0, nullptr);
@@ -741,7 +752,8 @@ void ServiceWorkerResourceReader_PrepareReadData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_PrepareReadData_Name, kFlags, 0, 0, nullptr);
@@ -860,7 +872,8 @@ void ServiceWorkerResourceReader_ReadData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceReader_ReadData_Name, kFlags, 0, 0, nullptr);
@@ -996,14 +1009,14 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerResourceReaderValidationInfo[] = {
-    {&internal::ServiceWorkerResourceReader_ReadResponseHead_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceReader_ReadResponseHead_Params_Data::Validate,
      &internal::ServiceWorkerResourceReader_ReadResponseHead_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerResourceReader_PrepareReadData_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceReader_PrepareReadData_Params_Data::Validate,
      &internal::ServiceWorkerResourceReader_PrepareReadData_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerResourceReader_ReadData_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceReader_ReadData_Params_Data::Validate,
      &internal::ServiceWorkerResourceReader_ReadData_ResponseParams_Data::Validate},
 };
 
@@ -1139,14 +1152,17 @@ void ServiceWorkerResourceWriterProxy::WriteResponseHead(
                         "<value of type ::network::mojom::URLResponseHeadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceWriter_WriteResponseHead_Name, kFlags, 0, 0, nullptr);
@@ -1188,14 +1204,17 @@ void ServiceWorkerResourceWriterProxy::WriteData(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceWriter_WriteData_Name, kFlags, 0, 0, nullptr);
@@ -1314,7 +1333,8 @@ void ServiceWorkerResourceWriter_WriteResponseHead_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceWriter_WriteResponseHead_Name, kFlags, 0, 0, nullptr);
@@ -1432,7 +1452,8 @@ void ServiceWorkerResourceWriter_WriteData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceWriter_WriteData_Name, kFlags, 0, 0, nullptr);
@@ -1544,12 +1565,12 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerResourceWriterValidationInfo[] = {
-    {&internal::ServiceWorkerResourceWriter_WriteResponseHead_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceWriter_WriteResponseHead_Params_Data::Validate,
      &internal::ServiceWorkerResourceWriter_WriteResponseHead_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerResourceWriter_WriteData_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceWriter_WriteData_Params_Data::Validate,
      &internal::ServiceWorkerResourceWriter_WriteData_ResponseParams_Data::Validate},
 };
 
@@ -1649,14 +1670,17 @@ void ServiceWorkerResourceMetadataWriterProxy::WriteMetadata(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceMetadataWriter_WriteMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1775,7 +1799,8 @@ void ServiceWorkerResourceMetadataWriter_WriteMetadata_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerResourceMetadataWriter_WriteMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1855,10 +1880,10 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerResourceMetadataWriterValidationInfo[] = {
-    {&internal::ServiceWorkerResourceMetadataWriter_WriteMetadata_Params_Data::Validate,
+    { &internal::ServiceWorkerResourceMetadataWriter_WriteMetadata_Params_Data::Validate,
      &internal::ServiceWorkerResourceMetadataWriter_WriteMetadata_ResponseParams_Data::Validate},
 };
 
@@ -3379,14 +3404,17 @@ void ServiceWorkerStorageControlProxy::Disable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::Disable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Disable_Name, kFlags, 0, 0, nullptr);
@@ -3410,14 +3438,17 @@ void ServiceWorkerStorageControlProxy::Delete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::Delete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Delete_Name, kFlags, 0, 0, nullptr);
@@ -3448,14 +3479,17 @@ void ServiceWorkerStorageControlProxy::Recover(
                         "<value of type std::vector<ServiceWorkerLiveVersionInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Recover_Name, kFlags, 0, 0, nullptr);
@@ -3492,14 +3526,17 @@ void ServiceWorkerStorageControlProxy::GetRegisteredStorageKeys(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetRegisteredStorageKeys");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetRegisteredStorageKeys_Name, kFlags, 0, 0, nullptr);
@@ -3533,14 +3570,17 @@ void ServiceWorkerStorageControlProxy::FindRegistrationForClientUrl(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForClientUrl_Name, kFlags, 0, 0, nullptr);
@@ -3596,14 +3636,17 @@ void ServiceWorkerStorageControlProxy::FindRegistrationForScope(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForScope_Name, kFlags, 0, 0, nullptr);
@@ -3645,7 +3688,7 @@ void ServiceWorkerStorageControlProxy::FindRegistrationForScope(
 }
 
 void ServiceWorkerStorageControlProxy::FindRegistrationForId(
-    int64_t in_registration_id, const absl::optional<::blink::StorageKey>& in_key, FindRegistrationForIdCallback callback) {
+    int64_t in_registration_id, const std::optional<::blink::StorageKey>& in_key, FindRegistrationForIdCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send storage::mojom::ServiceWorkerStorageControl::FindRegistrationForId", "input_parameters",
@@ -3656,17 +3699,20 @@ void ServiceWorkerStorageControlProxy::FindRegistrationForId(
                         "<value of type int64_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("key"), in_key,
-                        "<value of type const absl::optional<::blink::StorageKey>&>");
+                        "<value of type const std::optional<::blink::StorageKey>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForId_Name, kFlags, 0, 0, nullptr);
@@ -3705,14 +3751,17 @@ void ServiceWorkerStorageControlProxy::GetRegistrationsForStorageKey(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetRegistrationsForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -3754,14 +3803,17 @@ void ServiceWorkerStorageControlProxy::GetUsageForStorageKey(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUsageForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -3796,14 +3848,17 @@ void ServiceWorkerStorageControlProxy::GetAllRegistrationsDeprecated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetAllRegistrationsDeprecated");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -3837,14 +3892,17 @@ void ServiceWorkerStorageControlProxy::StoreRegistration(
                         "<value of type std::vector<::storage::mojom::ServiceWorkerResourceRecordPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreRegistration_Name, kFlags, 0, 0, nullptr);
@@ -3902,14 +3960,17 @@ void ServiceWorkerStorageControlProxy::DeleteRegistration(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_DeleteRegistration_Name, kFlags, 0, 0, nullptr);
@@ -3955,14 +4016,17 @@ void ServiceWorkerStorageControlProxy::UpdateToActiveState(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateToActiveState_Name, kFlags, 0, 0, nullptr);
@@ -4011,14 +4075,17 @@ void ServiceWorkerStorageControlProxy::UpdateLastUpdateCheckTime(
                         "<value of type ::base::Time>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Name, kFlags, 0, 0, nullptr);
@@ -4078,14 +4145,17 @@ void ServiceWorkerStorageControlProxy::UpdateNavigationPreloadEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Name, kFlags, 0, 0, nullptr);
@@ -4135,14 +4205,17 @@ void ServiceWorkerStorageControlProxy::UpdateNavigationPreloadHeader(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -4202,14 +4275,17 @@ void ServiceWorkerStorageControlProxy::UpdateFetchHandlerType(
                         "<value of type ::blink::mojom::ServiceWorkerFetchHandlerType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateFetchHandlerType_Name, kFlags, 0, 0, nullptr);
@@ -4260,14 +4336,17 @@ void ServiceWorkerStorageControlProxy::UpdateResourceSha256Checksums(
                         "<value of type const base::flat_map<int64_t, std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateResourceSha256Checksums_Name, kFlags, 0, 0, nullptr);
@@ -4316,14 +4395,17 @@ void ServiceWorkerStorageControlProxy::GetNewRegistrationId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetNewRegistrationId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewRegistrationId_Name, kFlags, 0, 0, nullptr);
@@ -4347,14 +4429,17 @@ void ServiceWorkerStorageControlProxy::GetNewVersionId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetNewVersionId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewVersionId_Name, kFlags, 0, 0, nullptr);
@@ -4378,14 +4463,17 @@ void ServiceWorkerStorageControlProxy::GetNewResourceId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetNewResourceId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewResourceId_Name, kFlags, 0, 0, nullptr);
@@ -4419,14 +4507,17 @@ void ServiceWorkerStorageControlProxy::CreateResourceReader(
                         "<value of type ::mojo::PendingReceiver<ServiceWorkerResourceReader>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_CreateResourceReader_Name, kFlags, 0, 0, nullptr);
@@ -4466,14 +4557,17 @@ void ServiceWorkerStorageControlProxy::CreateResourceWriter(
                         "<value of type ::mojo::PendingReceiver<ServiceWorkerResourceWriter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_CreateResourceWriter_Name, kFlags, 0, 0, nullptr);
@@ -4513,14 +4607,17 @@ void ServiceWorkerStorageControlProxy::CreateResourceMetadataWriter(
                         "<value of type ::mojo::PendingReceiver<ServiceWorkerResourceMetadataWriter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_CreateResourceMetadataWriter_Name, kFlags, 0, 0, nullptr);
@@ -4557,14 +4654,17 @@ void ServiceWorkerStorageControlProxy::StoreUncommittedResourceId(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreUncommittedResourceId_Name, kFlags, 0, 0, nullptr);
@@ -4596,14 +4696,17 @@ void ServiceWorkerStorageControlProxy::DoomUncommittedResources(
                         "<value of type const std::vector<int64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_DoomUncommittedResources_Name, kFlags, 0, 0, nullptr);
@@ -4650,14 +4753,17 @@ void ServiceWorkerStorageControlProxy::GetUserData(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserData_Name, kFlags, 0, 0, nullptr);
@@ -4708,14 +4814,17 @@ void ServiceWorkerStorageControlProxy::StoreUserData(
                         "<value of type std::vector<ServiceWorkerUserDataPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreUserData_Name, kFlags, 0, 0, nullptr);
@@ -4774,14 +4883,17 @@ void ServiceWorkerStorageControlProxy::ClearUserData(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserData_Name, kFlags, 0, 0, nullptr);
@@ -4829,14 +4941,17 @@ void ServiceWorkerStorageControlProxy::GetUserDataByKeyPrefix(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -4882,14 +4997,17 @@ void ServiceWorkerStorageControlProxy::GetUserKeysAndDataByKeyPrefix(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -4935,14 +5053,17 @@ void ServiceWorkerStorageControlProxy::ClearUserDataByKeyPrefixes(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Name, kFlags, 0, 0, nullptr);
@@ -4987,14 +5108,17 @@ void ServiceWorkerStorageControlProxy::GetUserDataForAllRegistrations(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -5036,14 +5160,17 @@ void ServiceWorkerStorageControlProxy::GetUserDataForAllRegistrationsByKeyPrefix
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -5085,14 +5212,17 @@ void ServiceWorkerStorageControlProxy::ClearUserDataForAllRegistrationsByKeyPref
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -5127,14 +5257,17 @@ void ServiceWorkerStorageControlProxy::PerformStorageCleanup(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::PerformStorageCleanup");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_PerformStorageCleanup_Name, kFlags, 0, 0, nullptr);
@@ -5165,14 +5298,17 @@ void ServiceWorkerStorageControlProxy::ApplyPolicyUpdates(
                         "<value of type std::vector<::storage::mojom::StoragePolicyUpdatePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ApplyPolicyUpdates_Name, kFlags, 0, 0, nullptr);
@@ -5209,14 +5345,17 @@ void ServiceWorkerStorageControlProxy::GetPurgingResourceIdsForTest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetPurgingResourceIdsForTest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -5247,14 +5386,17 @@ void ServiceWorkerStorageControlProxy::GetPurgingResourceIdsForLiveVersionForTes
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Name, kFlags, 0, 0, nullptr);
@@ -5279,14 +5421,17 @@ void ServiceWorkerStorageControlProxy::GetPurgeableResourceIdsForTest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetPurgeableResourceIdsForTest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -5310,14 +5455,17 @@ void ServiceWorkerStorageControlProxy::GetUncommittedResourceIdsForTest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::GetUncommittedResourceIdsForTest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -5341,14 +5489,17 @@ void ServiceWorkerStorageControlProxy::SetPurgingCompleteCallbackForTest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::ServiceWorkerStorageControl::SetPurgingCompleteCallbackForTest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_Name, kFlags, 0, 0, nullptr);
@@ -5447,7 +5598,8 @@ void ServiceWorkerStorageControl_Disable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Disable_Name, kFlags, 0, 0, nullptr);
@@ -5564,7 +5716,8 @@ void ServiceWorkerStorageControl_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Delete_Name, kFlags, 0, 0, nullptr);
@@ -5672,7 +5825,8 @@ void ServiceWorkerStorageControl_Recover_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_Recover_Name, kFlags, 0, 0, nullptr);
@@ -5789,7 +5943,8 @@ void ServiceWorkerStorageControl_GetRegisteredStorageKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetRegisteredStorageKeys_Name, kFlags, 0, 0, nullptr);
@@ -5873,7 +6028,7 @@ class ServiceWorkerStorageControl_FindRegistrationForClientUrl_ProxyToResponder 
 #endif
 
   void Run(
-      ::storage::mojom::ServiceWorkerDatabaseStatus in_status, ServiceWorkerFindRegistrationResultPtr in_result, const absl::optional<std::vector<::GURL>>& in_scopes);
+      ::storage::mojom::ServiceWorkerDatabaseStatus in_status, ServiceWorkerFindRegistrationResultPtr in_result, const std::optional<std::vector<::GURL>>& in_scopes);
 };
 
 bool ServiceWorkerStorageControl_FindRegistrationForClientUrl_ForwardToCallback::Accept(
@@ -5888,7 +6043,7 @@ bool ServiceWorkerStorageControl_FindRegistrationForClientUrl_ForwardToCallback:
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerFindRegistrationResultPtr p_result{};
-  absl::optional<std::vector<::GURL>> p_scopes{};
+  std::optional<std::vector<::GURL>> p_scopes{};
   ServiceWorkerStorageControl_FindRegistrationForClientUrl_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -5913,7 +6068,7 @@ std::move(p_scopes));
 }
 
 void ServiceWorkerStorageControl_FindRegistrationForClientUrl_ProxyToResponder::Run(
-    ::storage::mojom::ServiceWorkerDatabaseStatus in_status, ServiceWorkerFindRegistrationResultPtr in_result, const absl::optional<std::vector<::GURL>>& in_scopes) {
+    ::storage::mojom::ServiceWorkerDatabaseStatus in_status, ServiceWorkerFindRegistrationResultPtr in_result, const std::optional<std::vector<::GURL>>& in_scopes) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::ServiceWorkerStorageControl::FindRegistrationForClientUrl", "async_response_parameters",
@@ -5927,13 +6082,14 @@ void ServiceWorkerStorageControl_FindRegistrationForClientUrl_ProxyToResponder::
                         "<value of type ServiceWorkerFindRegistrationResultPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("scopes"), in_scopes,
-                        "<value of type const absl::optional<std::vector<::GURL>>&>");
+                        "<value of type const std::optional<std::vector<::GURL>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForClientUrl_Name, kFlags, 0, 0, nullptr);
@@ -6075,7 +6231,8 @@ void ServiceWorkerStorageControl_FindRegistrationForScope_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForScope_Name, kFlags, 0, 0, nullptr);
@@ -6208,7 +6365,8 @@ void ServiceWorkerStorageControl_FindRegistrationForId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_FindRegistrationForId_Name, kFlags, 0, 0, nullptr);
@@ -6341,7 +6499,8 @@ void ServiceWorkerStorageControl_GetRegistrationsForStorageKey_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetRegistrationsForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -6480,7 +6639,8 @@ void ServiceWorkerStorageControl_GetUsageForStorageKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUsageForStorageKey_Name, kFlags, 0, 0, nullptr);
@@ -6607,7 +6767,8 @@ void ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -6746,7 +6907,8 @@ void ServiceWorkerStorageControl_StoreRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreRegistration_Name, kFlags, 0, 0, nullptr);
@@ -6880,7 +7042,8 @@ void ServiceWorkerStorageControl_DeleteRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_DeleteRegistration_Name, kFlags, 0, 0, nullptr);
@@ -7002,7 +7165,8 @@ void ServiceWorkerStorageControl_UpdateToActiveState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateToActiveState_Name, kFlags, 0, 0, nullptr);
@@ -7121,7 +7285,8 @@ void ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Name, kFlags, 0, 0, nullptr);
@@ -7240,7 +7405,8 @@ void ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Name, kFlags, 0, 0, nullptr);
@@ -7359,7 +7525,8 @@ void ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -7478,7 +7645,8 @@ void ServiceWorkerStorageControl_UpdateFetchHandlerType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateFetchHandlerType_Name, kFlags, 0, 0, nullptr);
@@ -7597,7 +7765,8 @@ void ServiceWorkerStorageControl_UpdateResourceSha256Checksums_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_UpdateResourceSha256Checksums_Name, kFlags, 0, 0, nullptr);
@@ -7716,7 +7885,8 @@ void ServiceWorkerStorageControl_GetNewRegistrationId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewRegistrationId_Name, kFlags, 0, 0, nullptr);
@@ -7843,7 +8013,8 @@ void ServiceWorkerStorageControl_GetNewVersionId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewVersionId_Name, kFlags, 0, 0, nullptr);
@@ -7963,7 +8134,8 @@ void ServiceWorkerStorageControl_GetNewResourceId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetNewResourceId_Name, kFlags, 0, 0, nullptr);
@@ -8081,7 +8253,8 @@ void ServiceWorkerStorageControl_StoreUncommittedResourceId_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreUncommittedResourceId_Name, kFlags, 0, 0, nullptr);
@@ -8200,7 +8373,8 @@ void ServiceWorkerStorageControl_DoomUncommittedResources_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_DoomUncommittedResources_Name, kFlags, 0, 0, nullptr);
@@ -8326,7 +8500,8 @@ void ServiceWorkerStorageControl_GetUserData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserData_Name, kFlags, 0, 0, nullptr);
@@ -8458,7 +8633,8 @@ void ServiceWorkerStorageControl_StoreUserData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_StoreUserData_Name, kFlags, 0, 0, nullptr);
@@ -8577,7 +8753,8 @@ void ServiceWorkerStorageControl_ClearUserData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserData_Name, kFlags, 0, 0, nullptr);
@@ -8703,7 +8880,8 @@ void ServiceWorkerStorageControl_GetUserDataByKeyPrefix_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -8842,7 +9020,8 @@ void ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -8974,7 +9153,8 @@ void ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Name, kFlags, 0, 0, nullptr);
@@ -9100,7 +9280,8 @@ void ServiceWorkerStorageControl_GetUserDataForAllRegistrations_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrations_Name, kFlags, 0, 0, nullptr);
@@ -9239,7 +9420,8 @@ void ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Proxy
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -9371,7 +9553,8 @@ void ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Pro
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Name, kFlags, 0, 0, nullptr);
@@ -9479,7 +9662,8 @@ void ServiceWorkerStorageControl_PerformStorageCleanup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_PerformStorageCleanup_Name, kFlags, 0, 0, nullptr);
@@ -9596,7 +9780,8 @@ void ServiceWorkerStorageControl_ApplyPolicyUpdates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_ApplyPolicyUpdates_Name, kFlags, 0, 0, nullptr);
@@ -9722,7 +9907,8 @@ void ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -9861,7 +10047,8 @@ void ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Prox
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Name, kFlags, 0, 0, nullptr);
@@ -10000,7 +10187,8 @@ void ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -10139,7 +10327,8 @@ void ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_ProxyToRespond
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_Name, kFlags, 0, 0, nullptr);
@@ -10260,7 +10449,8 @@ void ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_Name, kFlags, 0, 0, nullptr);
@@ -10696,7 +10886,7 @@ std::move(p_key), std::move(callback));
       
       bool success = true;
       int64_t p_registration_id{};
-      absl::optional<::blink::StorageKey> p_key{};
+      std::optional<::blink::StorageKey> p_key{};
       ServiceWorkerStorageControl_FindRegistrationForId_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -11704,92 +11894,92 @@ std::move(p_version_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerStorageControlValidationInfo[] = {
-    {&internal::ServiceWorkerStorageControl_Disable_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_Disable_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_Disable_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_Delete_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_Delete_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_Delete_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_Recover_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_Recover_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_Recover_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetRegisteredStorageKeys_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetRegisteredStorageKeys_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetRegisteredStorageKeys_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_FindRegistrationForClientUrl_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_FindRegistrationForClientUrl_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_FindRegistrationForClientUrl_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_FindRegistrationForScope_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_FindRegistrationForScope_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_FindRegistrationForScope_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_FindRegistrationForId_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_FindRegistrationForId_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_FindRegistrationForId_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetRegistrationsForStorageKey_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetRegistrationsForStorageKey_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetRegistrationsForStorageKey_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUsageForStorageKey_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUsageForStorageKey_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUsageForStorageKey_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_StoreRegistration_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_StoreRegistration_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_StoreRegistration_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_DeleteRegistration_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_DeleteRegistration_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_DeleteRegistration_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateToActiveState_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateToActiveState_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateToActiveState_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateFetchHandlerType_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateFetchHandlerType_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateFetchHandlerType_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_UpdateResourceSha256Checksums_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_UpdateResourceSha256Checksums_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_UpdateResourceSha256Checksums_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetNewRegistrationId_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetNewRegistrationId_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetNewRegistrationId_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetNewVersionId_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetNewVersionId_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetNewVersionId_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetNewResourceId_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetNewResourceId_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetNewResourceId_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_CreateResourceReader_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_CreateResourceReader_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerStorageControl_CreateResourceWriter_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_CreateResourceWriter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerStorageControl_CreateResourceMetadataWriter_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_CreateResourceMetadataWriter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerStorageControl_StoreUncommittedResourceId_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_StoreUncommittedResourceId_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_StoreUncommittedResourceId_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_DoomUncommittedResources_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_DoomUncommittedResources_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_DoomUncommittedResources_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUserData_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUserData_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUserData_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_StoreUserData_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_StoreUserData_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_StoreUserData_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_ClearUserData_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_ClearUserData_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_ClearUserData_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUserDataByKeyPrefix_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUserDataByKeyPrefix_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUserDataByKeyPrefix_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrations_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrations_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrations_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_PerformStorageCleanup_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_PerformStorageCleanup_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_PerformStorageCleanup_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_ApplyPolicyUpdates_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_ApplyPolicyUpdates_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_ApplyPolicyUpdates_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_Params_Data::Validate,
+    { &internal::ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_Params_Data::Validate,
      &internal::ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ResponseParams_Data::Validate},
 };
 
@@ -11900,7 +12090,7 @@ ServiceWorkerResourceReaderAsyncWaiter::ServiceWorkerResourceReaderAsyncWaiter(
 ServiceWorkerResourceReaderAsyncWaiter::~ServiceWorkerResourceReaderAsyncWaiter() = default;
 
 void ServiceWorkerResourceReaderAsyncWaiter::ReadResponseHead(
-    int32_t* out_status, ::network::mojom::URLResponseHeadPtr* out_response_head, absl::optional<::mojo_base::BigBuffer>* out_metadata) {
+    int32_t* out_status, ::network::mojom::URLResponseHeadPtr* out_response_head, std::optional<::mojo_base::BigBuffer>* out_metadata) {
   base::RunLoop loop;
   proxy_->ReadResponseHead(
       base::BindOnce(
@@ -11909,11 +12099,11 @@ void ServiceWorkerResourceReaderAsyncWaiter::ReadResponseHead(
 ,
              ::network::mojom::URLResponseHeadPtr* out_response_head
 ,
-             absl::optional<::mojo_base::BigBuffer>* out_metadata
+             std::optional<::mojo_base::BigBuffer>* out_metadata
 ,
              int32_t status,
              ::network::mojom::URLResponseHeadPtr response_head,
-             absl::optional<::mojo_base::BigBuffer> metadata) {*out_status = std::move(status);*out_response_head = std::move(response_head);*out_metadata = std::move(metadata);
+             std::optional<::mojo_base::BigBuffer> metadata) {*out_status = std::move(status);*out_response_head = std::move(response_head);*out_metadata = std::move(metadata);
             loop->Quit();
           },
           &loop,
@@ -12086,7 +12276,7 @@ void ServiceWorkerStorageControlInterceptorForTesting::FindRegistrationForClient
 void ServiceWorkerStorageControlInterceptorForTesting::FindRegistrationForScope(const ::GURL& scope, const ::blink::StorageKey& key, FindRegistrationForScopeCallback callback) {
   GetForwardingInterface()->FindRegistrationForScope(std::move(scope), std::move(key), std::move(callback));
 }
-void ServiceWorkerStorageControlInterceptorForTesting::FindRegistrationForId(int64_t registration_id, const absl::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) {
+void ServiceWorkerStorageControlInterceptorForTesting::FindRegistrationForId(int64_t registration_id, const std::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) {
   GetForwardingInterface()->FindRegistrationForId(std::move(registration_id), std::move(key), std::move(callback));
 }
 void ServiceWorkerStorageControlInterceptorForTesting::GetRegistrationsForStorageKey(const ::blink::StorageKey& key, GetRegistrationsForStorageKeyCallback callback) {
@@ -12274,7 +12464,7 @@ std::vector<::blink::StorageKey> ServiceWorkerStorageControlAsyncWaiter::GetRegi
 }
 
 void ServiceWorkerStorageControlAsyncWaiter::FindRegistrationForClientUrl(
-    const ::GURL& client_url, const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result, absl::optional<std::vector<::GURL>>* out_scopes) {
+    const ::GURL& client_url, const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result, std::optional<std::vector<::GURL>>* out_scopes) {
   base::RunLoop loop;
   proxy_->FindRegistrationForClientUrl(std::move(client_url),std::move(key),
       base::BindOnce(
@@ -12283,11 +12473,11 @@ void ServiceWorkerStorageControlAsyncWaiter::FindRegistrationForClientUrl(
 ,
              ServiceWorkerFindRegistrationResultPtr* out_result
 ,
-             absl::optional<std::vector<::GURL>>* out_scopes
+             std::optional<std::vector<::GURL>>* out_scopes
 ,
              ::storage::mojom::ServiceWorkerDatabaseStatus status,
              ServiceWorkerFindRegistrationResultPtr result,
-             const absl::optional<std::vector<::GURL>>& scopes) {*out_status = std::move(status);*out_result = std::move(result);*out_scopes = std::move(scopes);
+             const std::optional<std::vector<::GURL>>& scopes) {*out_status = std::move(status);*out_result = std::move(result);*out_scopes = std::move(scopes);
             loop->Quit();
           },
           &loop,
@@ -12322,7 +12512,7 @@ void ServiceWorkerStorageControlAsyncWaiter::FindRegistrationForScope(
 
 
 void ServiceWorkerStorageControlAsyncWaiter::FindRegistrationForId(
-    int64_t registration_id, const absl::optional<::blink::StorageKey>& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result) {
+    int64_t registration_id, const std::optional<::blink::StorageKey>& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->FindRegistrationForId(std::move(registration_id),std::move(key),
       base::BindOnce(

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/clipboard.mojom-features.h"
 #include "ash/components/arc/mojom/clipboard.mojom-shared.h"
 #include "ash/components/arc/mojom/clipboard.mojom-forward.h"
 #include <string>
@@ -305,17 +306,17 @@ class  ClipValue {
   // Construct an instance holding |blob|.
   static ClipValuePtr
   NewBlob(
-      std::vector<uint8_t> blob) {
+      std::vector<uint8_t> value) {
     auto result = ClipValuePtr(absl::in_place);
-    result->set_blob(std::move(blob));
+    result->set_blob(std::move(value));
     return result;
   }
   // Construct an instance holding |text|.
   static ClipValuePtr
   NewText(
-      const std::string& text) {
+      const std::string& value) {
     auto result = ClipValuePtr(absl::in_place);
-    result->set_text(std::move(text));
+    result->set_text(std::move(value));
     return result;
   }
 

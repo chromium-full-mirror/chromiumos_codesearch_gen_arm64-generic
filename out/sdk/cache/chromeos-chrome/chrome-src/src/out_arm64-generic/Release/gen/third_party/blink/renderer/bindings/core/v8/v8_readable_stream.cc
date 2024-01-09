@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ReadableStream>::value,
     "ReadableStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ReadableStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ReadableStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("ReadableStream.locked.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->locked();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -181,7 +177,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -229,7 +225,7 @@ const char* const property_name = "getReader";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->getReader(script_state, exception_state);
 break;
@@ -275,7 +271,7 @@ return;
 
 ReadableStream* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
@@ -335,7 +331,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -375,8 +371,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+ReadableStream* blink_receiver = V8ReadableStream::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "ReadableStream";
 const char* const property_name = "tee";

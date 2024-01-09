@@ -16,10 +16,11 @@ import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/pref
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './os_a11y_page.html.js';
 import { OsA11yPageBrowserProxyImpl } from './os_a11y_page_browser_proxy.js';
@@ -53,13 +54,6 @@ export class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
                 value: false,
             },
             /**
-             * Whether to show accessibility labels settings.
-             */
-            showAccessibilityLabelsSetting_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
              * Whether the user is in kiosk mode.
              */
             isKioskModeActive_: {
@@ -88,6 +82,33 @@ export class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
                     Setting.kLiveCaption,
                 ]),
             },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            imageDescription: 'os-settings:a11y-image-description',
+                            showInQuickSettings: 'os-settings:accessibility-revamp',
+                            textToSpeech: 'os-settings:text-to-speech',
+                            displayAndMagnification: 'os-settings:zoom-in',
+                            keyboardAndTextInput: 'os-settings:a11y-keyboard-and-text-input',
+                            cursorAndTouchpad: 'os-settings:cursor-click',
+                            audioAndCaptions: 'os-settings:a11y-hearing',
+                            findMore: 'os-settings:a11y-find-more',
+                        };
+                    }
+                    return {
+                        imageDescription: '',
+                        showInQuickSettings: '',
+                        textToSpeech: '',
+                        displayAndMagnification: '',
+                        keyboardAndTextInput: '',
+                        cursorAndTouchpad: '',
+                        audioAndCaptions: '',
+                        findMore: '',
+                    };
+                },
+            },
         };
     }
     constructor() {
@@ -113,19 +134,20 @@ export class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
         if (routes.A11Y_AUDIO_AND_CAPTIONS) {
             this.addFocusConfig(routes.A11Y_AUDIO_AND_CAPTIONS, '#audioAndCaptionsPageTrigger');
         }
-        this.addWebUiListener('screen-reader-state-changed', (hasScreenReader) => this.onScreenReaderStateChanged_(hasScreenReader));
-        // Enables javascript and gets the screen reader state.
-        this.browserProxy_.a11yPageReady();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const updateScreenReaderState = (hasScreenReader) => {
+            this.hasScreenReader_ = hasScreenReader;
+        };
+        this.browserProxy_.getScreenReaderState().then(updateScreenReaderState);
+        this.addWebUiListener('screen-reader-state-changed', updateScreenReaderState);
     }
     currentRouteChanged(newRoute, prevRoute) {
         super.currentRouteChanged(newRoute, prevRoute);
         if (newRoute === this.route) {
             this.attemptDeepLink();
         }
-    }
-    onScreenReaderStateChanged_(hasScreenReader) {
-        this.hasScreenReader_ = hasScreenReader;
-        this.showAccessibilityLabelsSetting_ = this.hasScreenReader_;
     }
     onToggleAccessibilityImageLabels_() {
         const a11yImageLabelsOn = this.$.a11yImageLabelsToggle.checked;

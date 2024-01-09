@@ -4,71 +4,79 @@
 #include "ranker_example.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace assist_ranker {
+template <typename>
 PROTOBUF_CONSTEXPR StringList::StringList(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.string_value_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StringListDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StringListDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StringListDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StringListDefaultTypeInternal() {}
   union {
     StringList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListDefaultTypeInternal _StringList_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListDefaultTypeInternal _StringList_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FloatList::FloatList(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.float_value_)*/{}
+    /*decltype(_impl_.float_value_)*/ {}
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FloatListDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FloatListDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FloatListDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FloatListDefaultTypeInternal() {}
   union {
     FloatList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FloatListDefaultTypeInternal _FloatList_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FloatListDefaultTypeInternal _FloatList_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Feature::Feature(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.feature_type_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct FeatureDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureDefaultTypeInternal() {}
   union {
     Feature _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureDefaultTypeInternal _Feature_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureDefaultTypeInternal _Feature_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RankerExample_FeaturesEntry_DoNotUse::RankerExample_FeaturesEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal() {}
   union {
     RankerExample_FeaturesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal _RankerExample_FeaturesEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExample_FeaturesEntry_DoNotUseDefaultTypeInternal _RankerExample_FeaturesEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RankerExample::RankerExample(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -76,27 +84,26 @@ PROTOBUF_CONSTEXPR RankerExample::RankerExample(
   , /*decltype(_impl_.features_)*/{}
   , /*decltype(_impl_.target_)*/nullptr} {}
 struct RankerExampleDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RankerExampleDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RankerExampleDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RankerExampleDefaultTypeInternal() {}
   union {
     RankerExample _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExampleDefaultTypeInternal _RankerExample_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RankerExampleDefaultTypeInternal _RankerExample_default_instance_;
 }  // namespace assist_ranker
 namespace assist_ranker {
-
 // ===================================================================
 
 class StringList::_Internal {
  public:
 };
 
-StringList::StringList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+StringList::StringList(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.StringList)
 }
 StringList::StringList(const StringList& from)
@@ -110,10 +117,8 @@ StringList::StringList(const StringList& from)
   // @@protoc_insertion_point(copy_constructor:assist_ranker.StringList)
 }
 
-inline void StringList::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void StringList::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.string_value_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -130,8 +135,8 @@ StringList::~StringList() {
 }
 
 inline void StringList::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.string_value_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_string_value()->~RepeatedPtrField();
 }
 
 void StringList::SetCachedSize(int size) const {
@@ -140,23 +145,23 @@ void StringList::SetCachedSize(int size) const {
 
 void StringList::Clear() {
 // @@protoc_insertion_point(message_clear_start:assist_ranker.StringList)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.string_value_.Clear();
+  _internal_mutable_string_value()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* StringList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated bytes string_value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -165,8 +170,9 @@ const char* StringList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -191,14 +197,14 @@ failure:
 #undef CHK_
 }
 
-uint8_t* StringList::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* StringList::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:assist_ranker.StringList)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated bytes string_value = 1;
-  for (int i = 0, n = this->_internal_string_value_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_string_value_size(); i < n; ++i) {
     const auto& s = this->_internal_string_value(i);
     target = stream->WriteBytes(1, s, target);
   }
@@ -211,20 +217,19 @@ uint8_t* StringList::_InternalSerialize(
   return target;
 }
 
-size_t StringList::ByteSizeLong() const {
+::size_t StringList::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:assist_ranker.StringList)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated bytes string_value = 1;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.string_value_.size());
-  for (int i = 0, n = _impl_.string_value_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_string_value().size());
+  for (int i = 0, n = _internal_string_value().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      _impl_.string_value_.Get(i));
+        _internal_string_value().Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -244,11 +249,11 @@ void StringList::CheckTypeAndMergeFrom(
 void StringList::MergeFrom(const StringList& from) {
   StringList* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.StringList)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.string_value_.MergeFrom(from._impl_.string_value_);
+  _this->_internal_mutable_string_value()->MergeFrom(from._internal_string_value());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -266,13 +271,13 @@ bool StringList::IsInitialized() const {
 void StringList::InternalSwap(StringList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.string_value_.InternalSwap(&other->_impl_.string_value_);
+  _internal_mutable_string_value()->InternalSwap(
+      other->_internal_mutable_string_value());
 }
 
 std::string StringList::GetTypeName() const {
   return "assist_ranker.StringList";
 }
-
 
 // ===================================================================
 
@@ -280,29 +285,28 @@ class FloatList::_Internal {
  public:
 };
 
-FloatList::FloatList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FloatList::FloatList(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.FloatList)
 }
 FloatList::FloatList(const FloatList& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   FloatList* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.float_value_){from._impl_.float_value_}
+      decltype(_impl_.float_value_) { from._impl_.float_value_ }
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:assist_ranker.FloatList)
 }
 
-inline void FloatList::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FloatList::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.float_value_){arena}
+      decltype(_impl_.float_value_) { arena }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -317,7 +321,7 @@ FloatList::~FloatList() {
 }
 
 inline void FloatList::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.float_value_.~RepeatedField();
 }
 
@@ -327,23 +331,23 @@ void FloatList::SetCachedSize(int size) const {
 
 void FloatList::Clear() {
 // @@protoc_insertion_point(message_clear_start:assist_ranker.FloatList)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.float_value_.Clear();
+  _internal_mutable_float_value()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* FloatList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated float float_value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 13)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -351,11 +355,12 @@ const char* FloatList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
             ptr += sizeof(float);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<13>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 10) {
+        } else if (static_cast<::uint8_t>(tag) == 10) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_float_value(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -380,16 +385,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FloatList::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FloatList::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:assist_ranker.FloatList)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated float float_value = 1;
-  for (int i = 0, n = this->_internal_float_value_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_float_value_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_float_value(i), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        1, this->_internal_float_value(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -400,21 +406,23 @@ uint8_t* FloatList::_InternalSerialize(
   return target;
 }
 
-size_t FloatList::ByteSizeLong() const {
+::size_t FloatList::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:assist_ranker.FloatList)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated float float_value = 1;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_float_value_size());
-    size_t data_size = 4UL * count;
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_float_value_size());
-    total_size += data_size;
+    std::size_t data_size = std::size_t{4} *
+        ::_pbi::FromIntSize(this->_internal_float_value_size())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_float_value_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -434,8 +442,8 @@ void FloatList::CheckTypeAndMergeFrom(
 void FloatList::MergeFrom(const FloatList& from) {
   FloatList* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.FloatList)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.float_value_.MergeFrom(from._impl_.float_value_);
@@ -463,11 +471,12 @@ std::string FloatList::GetTypeName() const {
   return "assist_ranker.FloatList";
 }
 
-
 // ===================================================================
 
 class Feature::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::assist_ranker::Feature, _impl_._oneof_case_);
   static const ::assist_ranker::StringList& string_list(const Feature* msg);
   static const ::assist_ranker::FloatList& float_list(const Feature* msg);
 };
@@ -510,10 +519,9 @@ void Feature::set_allocated_float_list(::assist_ranker::FloatList* float_list) {
   }
   // @@protoc_insertion_point(field_set_allocated:assist_ranker.Feature.float_list)
 }
-Feature::Feature(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Feature::Feature(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.Feature)
 }
 Feature::Feature(const Feature& from)
@@ -560,10 +568,8 @@ Feature::Feature(const Feature& from)
   // @@protoc_insertion_point(copy_constructor:assist_ranker.Feature)
 }
 
-inline void Feature::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Feature::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.feature_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -582,7 +588,7 @@ Feature::~Feature() {
 }
 
 inline void Feature::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_feature_type()) {
     clear_feature_type();
   }
@@ -633,7 +639,7 @@ void Feature::clear_feature_type() {
 
 void Feature::Clear() {
 // @@protoc_insertion_point(message_clear_start:assist_ranker.Feature)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -644,57 +650,63 @@ void Feature::Clear() {
 const char* Feature::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool bool_value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _internal_set_bool_value(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // float float_value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 21)) {
           _internal_set_float_value(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 int32_value = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _internal_set_int32_value(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes string_value = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_string_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .assist_ranker.StringList string_list = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_string_list(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .assist_ranker.FloatList float_list = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_float_list(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -719,31 +731,34 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Feature::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Feature::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:assist_ranker.Feature)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (feature_type_case()) {
     case kBoolValue: {
       target = stream->EnsureSpace(target);
-      target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_bool_value(), target);
+      target = ::_pbi::WireFormatLite::WriteBoolToArray(
+          1, this->_internal_bool_value(), target);
       break;
     }
     case kFloatValue: {
       target = stream->EnsureSpace(target);
-      target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_float_value(), target);
+      target = ::_pbi::WireFormatLite::WriteFloatToArray(
+          2, this->_internal_float_value(), target);
       break;
     }
     case kInt32Value: {
       target = stream->EnsureSpace(target);
-      target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_int32_value(), target);
+      target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+          3, this->_internal_int32_value(), target);
       break;
     }
     case kStringValue: {
-      target = stream->WriteBytesMaybeAliased(
-          4, this->_internal_string_value(), target);
+      const std::string& _s = this->_internal_string_value();
+      target = stream->WriteBytesMaybeAliased(4, _s, target);
       break;
     }
     case kStringList: {
@@ -768,35 +783,35 @@ uint8_t* Feature::_InternalSerialize(
   return target;
 }
 
-size_t Feature::ByteSizeLong() const {
+::size_t Feature::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:assist_ranker.Feature)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   switch (feature_type_case()) {
     // bool bool_value = 1;
     case kBoolValue: {
-      total_size += 1 + 1;
+      total_size += 2;
       break;
     }
     // float float_value = 2;
     case kFloatValue: {
-      total_size += 1 + 4;
+      total_size += 5;
       break;
     }
     // int32 int32_value = 3;
     case kInt32Value: {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_int32_value());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_int32_value());
       break;
     }
     // bytes string_value = 4;
     case kStringValue: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_string_value());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_string_value());
       break;
     }
     // .assist_ranker.StringList string_list = 5;
@@ -834,8 +849,8 @@ void Feature::CheckTypeAndMergeFrom(
 void Feature::MergeFrom(const Feature& from) {
   Feature* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.Feature)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.feature_type_case()) {
@@ -894,7 +909,6 @@ std::string Feature::GetTypeName() const {
   return "assist_ranker.Feature";
 }
 
-
 // ===================================================================
 
 RankerExample_FeaturesEntry_DoNotUse::RankerExample_FeaturesEntry_DoNotUse() {}
@@ -903,12 +917,13 @@ RankerExample_FeaturesEntry_DoNotUse::RankerExample_FeaturesEntry_DoNotUse(::PRO
 void RankerExample_FeaturesEntry_DoNotUse::MergeFrom(const RankerExample_FeaturesEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class RankerExample::_Internal {
  public:
   using HasBits = decltype(std::declval<RankerExample>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RankerExample, _impl_._has_bits_);
   static const ::assist_ranker::Feature& target(const RankerExample* msg);
   static void set_has_target(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -919,10 +934,9 @@ const ::assist_ranker::Feature&
 RankerExample::_Internal::target(const RankerExample* msg) {
   return *msg->_impl_.target_;
 }
-RankerExample::RankerExample(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RankerExample::RankerExample(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:assist_ranker.RankerExample)
 }
 RankerExample::RankerExample(const RankerExample& from)
@@ -936,16 +950,14 @@ RankerExample::RankerExample(const RankerExample& from)
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.features_.MergeFrom(from._impl_.features_);
-  if (from._internal_has_target()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.target_ = new ::assist_ranker::Feature(*from._impl_.target_);
   }
   // @@protoc_insertion_point(copy_constructor:assist_ranker.RankerExample)
 }
 
-inline void RankerExample::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RankerExample::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -964,8 +976,7 @@ RankerExample::~RankerExample() {
 }
 
 inline void RankerExample::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.features_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.features_.~MapFieldLite();
   if (this != internal_default_instance()) delete _impl_.target_;
 }
@@ -976,14 +987,14 @@ void RankerExample::SetCachedSize(int size) const {
 
 void RankerExample::Clear() {
 // @@protoc_insertion_point(message_clear_start:assist_ranker.RankerExample)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.features_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.target_ != nullptr);
+    ABSL_DCHECK(_impl_.target_ != nullptr);
     _impl_.target_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -994,12 +1005,12 @@ const char* RankerExample::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // map<string, .assist_ranker.Feature> features = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1007,16 +1018,18 @@ const char* RankerExample::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .assist_ranker.Feature target = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_target(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1042,10 +1055,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RankerExample::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RankerExample::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:assist_ranker.RankerExample)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // map<string, .assist_ranker.Feature> features = 1;
@@ -1086,11 +1099,11 @@ uint8_t* RankerExample::_InternalSerialize(
   return target;
 }
 
-size_t RankerExample::ByteSizeLong() const {
+::size_t RankerExample::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:assist_ranker.RankerExample)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1128,12 +1141,12 @@ void RankerExample::CheckTypeAndMergeFrom(
 void RankerExample::MergeFrom(const RankerExample& from) {
   RankerExample* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:assist_ranker.RankerExample)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.features_.MergeFrom(from._impl_.features_);
-  if (from._internal_has_target()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_target()->::assist_ranker::Feature::MergeFrom(
         from._internal_target());
   }
@@ -1163,7 +1176,6 @@ std::string RankerExample::GetTypeName() const {
   return "assist_ranker.RankerExample";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace assist_ranker
 PROTOBUF_NAMESPACE_OPEN
@@ -1188,6 +1200,5 @@ Arena::CreateMaybeMessage< ::assist_ranker::RankerExample >(Arena* arena) {
   return Arena::CreateMessageInternal< ::assist_ranker::RankerExample >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

@@ -6,7 +6,7 @@ export function getTemplate() {
   </cr-link-row>
 </template>
 <template is="dom-if" if="[[!isBatterySaverModeManagedByOS_]]">
-  <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.battery_saver_mode.state}}" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeDescription}" learn-more-url="$i18n{batterySaverLearnMoreUrl}" numeric-unchecked-value="[[batterySaverModeStateEnum_.DISABLED]]" numeric-checked-value="[[batterySaverModeStateEnum_.ENABLED_BELOW_THRESHOLD]]">
+  <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.battery_saver_mode.state}}" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeDescription}" learn-more-url="$i18n{batterySaverLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[batterySaverModeStateEnum_.ENABLED_BELOW_THRESHOLD]]">
   </settings-toggle-button>
   <iron-collapse id="radioGroupCollapse" opened="[[isBatterySaverModeEnabled_(prefs.performance_tuning.battery_saver_mode.state.value)]]">
     <div class="cr-row continuation battery-saver-radio-group">

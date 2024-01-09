@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/app.mojom-features.h"
 #include "ash/components/arc/mojom/app.mojom-shared.h"
 #include "ash/components/arc/mojom/app.mojom-forward.h"
 #include "ash/components/arc/mojom/app_permissions.mojom.h"
@@ -179,7 +180,7 @@ class AppHost
   virtual void OnPackageRemoved(const std::string& package_name) = 0;
 
   
-  virtual void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const absl::optional<std::string>& name, const absl::optional<std::string>& intent, int32_t session_id) = 0;
+  virtual void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const std::optional<std::string>& name, const std::optional<std::string>& intent, int32_t session_id) = 0;
 
   
   virtual void OnTaskDescriptionUpdated(int32_t task_id, const std::string& label, const std::vector<uint8_t>& icon_png_data) = 0;
@@ -200,7 +201,7 @@ class AppHost
   virtual void OnInstallShortcut(ShortcutInfoPtr shortcut) = 0;
 
   
-  virtual void OnInstallationStarted(const absl::optional<std::string>& package_name) = 0;
+  virtual void OnInstallationStarted(const std::optional<std::string>& package_name) = 0;
 
   
   virtual void OnInstallationFinished(InstallationResultPtr result) = 0;
@@ -232,7 +233,7 @@ class AppInstance
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 60;
+  static constexpr uint32_t Version_ = 63;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -275,6 +276,7 @@ class AppInstance
     kRequestAssistStructureMinVersion = 37,
     kIsInstallableMinVersion = 43,
     kGetAppCategoryMinVersion = 53,
+    kSetAppLocaleMinVersion = 63,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -368,6 +370,9 @@ class AppInstance
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetAppCategory_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetAppLocale_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -492,6 +497,9 @@ class AppInstance
   using GetAppCategoryCallback = base::OnceCallback<void(AppCategory)>;
   
   virtual void GetAppCategory(const std::string& package_name, GetAppCategoryCallback callback) = 0;
+
+  
+  virtual void SetAppLocale(const std::string& package_name, const std::string& locale_tag) = 0;
 };
 
 
@@ -517,7 +525,7 @@ class  AppHostProxy
   
   void OnPackageRemoved(const std::string& package_name) final;
   
-  void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const absl::optional<std::string>& name, const absl::optional<std::string>& intent, int32_t session_id) final;
+  void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const std::optional<std::string>& name, const std::optional<std::string>& intent, int32_t session_id) final;
   
   void OnTaskDescriptionUpdated(int32_t task_id, const std::string& label, const std::vector<uint8_t>& icon_png_data) final;
   
@@ -531,7 +539,7 @@ class  AppHostProxy
   
   void OnInstallShortcut(ShortcutInfoPtr shortcut) final;
   
-  void OnInstallationStarted(const absl::optional<std::string>& package_name) final;
+  void OnInstallationStarted(const std::optional<std::string>& package_name) final;
   
   void OnInstallationFinished(InstallationResultPtr result) final;
   
@@ -613,6 +621,8 @@ class  AppInstanceProxy
   void IsInstallable(const std::string& package_name, IsInstallableCallback callback) final;
   
   void GetAppCategory(const std::string& package_name, GetAppCategoryCallback callback) final;
+  
+  void SetAppLocale(const std::string& package_name, const std::string& locale_tag) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -746,6 +756,11 @@ class  InstallationResult {
       const std::string& package_name,
       bool success);
 
+  InstallationResult(
+      const std::string& package_name,
+      bool success,
+      bool is_launchable_app);
+
 
   ~InstallationResult();
 
@@ -826,6 +841,8 @@ class  InstallationResult {
   std::string package_name;
   
   bool success;
+  
+  bool is_launchable_app;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1247,7 +1264,7 @@ class  AppInfo {
       bool suspended,
       ::arc::mojom::ArcResizeLockState resize_lock_state,
       WindowLayoutPtr initial_layout,
-      const absl::optional<std::string>& version_name);
+      const std::optional<std::string>& version_name);
 
   AppInfo(
       const std::string& name,
@@ -1258,7 +1275,7 @@ class  AppInfo {
       bool suspended,
       ::arc::mojom::ArcResizeLockState resize_lock_state,
       WindowLayoutPtr initial_layout,
-      const absl::optional<std::string>& version_name,
+      const std::optional<std::string>& version_name,
       AppStoragePtr app_storage);
 
   AppInfo(
@@ -1270,7 +1287,7 @@ class  AppInfo {
       bool suspended,
       ::arc::mojom::ArcResizeLockState resize_lock_state,
       WindowLayoutPtr initial_layout,
-      const absl::optional<std::string>& version_name,
+      const std::optional<std::string>& version_name,
       AppStoragePtr app_storage,
       bool need_fixup);
 
@@ -1283,7 +1300,7 @@ class  AppInfo {
       bool suspended,
       ::arc::mojom::ArcResizeLockState resize_lock_state,
       WindowLayoutPtr initial_layout,
-      const absl::optional<std::string>& version_name,
+      const std::optional<std::string>& version_name,
       AppStoragePtr app_storage,
       bool need_fixup,
       AppCategory app_category);
@@ -1382,7 +1399,7 @@ AppInfo& operator=(const AppInfo&) = delete;
   
   WindowLayoutPtr initial_layout;
   
-  absl::optional<std::string> version_name;
+  std::optional<std::string> version_name;
   
   AppStoragePtr app_storage;
   
@@ -1468,7 +1485,7 @@ class  WebAppInfo {
       const std::string& scope_url,
       int64_t theme_color,
       bool is_web_only_twa,
-      const absl::optional<std::string>& certificate_sha256_fingerprint);
+      const std::optional<std::string>& certificate_sha256_fingerprint);
 
 
   ~WebAppInfo();
@@ -1556,7 +1573,7 @@ class  WebAppInfo {
   
   bool is_web_only_twa;
   
-  absl::optional<std::string> certificate_sha256_fingerprint;
+  std::optional<std::string> certificate_sha256_fingerprint;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1620,7 +1637,7 @@ class  WindowLayout {
   WindowLayout(
       WindowSizeType type,
       bool resizable,
-      const absl::optional<::gfx::Rect>& bounds);
+      const std::optional<::gfx::Rect>& bounds);
 
 
   ~WindowLayout();
@@ -1702,7 +1719,7 @@ class  WindowLayout {
   
   bool resizable;
   
-  absl::optional<::gfx::Rect> bounds;
+  std::optional<::gfx::Rect> bounds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1949,7 +1966,7 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions);
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions);
 
   ArcPackageInfo(
       const std::string& package_name,
@@ -1960,8 +1977,8 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
-      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states);
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states);
 
   ArcPackageInfo(
       const std::string& package_name,
@@ -1972,9 +1989,9 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
-      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
-      const absl::optional<std::string>& version_name);
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const std::optional<std::string>& version_name);
 
   ArcPackageInfo(
       const std::string& package_name,
@@ -1985,9 +2002,9 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
-      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
-      const absl::optional<std::string>& version_name,
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const std::optional<std::string>& version_name,
       bool preinstalled);
 
   ArcPackageInfo(
@@ -1999,9 +2016,9 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
-      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
-      const absl::optional<std::string>& version_name,
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const std::optional<std::string>& version_name,
       bool preinstalled,
       InstallPriority priority);
 
@@ -2014,12 +2031,29 @@ class  ArcPackageInfo {
       bool deprecated_system,
       bool vpn_provider,
       WebAppInfoPtr web_app_info,
-      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
-      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
-      const absl::optional<std::string>& version_name,
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const std::optional<std::string>& version_name,
       bool preinstalled,
       InstallPriority priority,
       PackageLocaleInfoPtr locale_info);
+
+  ArcPackageInfo(
+      const std::string& package_name,
+      int32_t package_version,
+      int64_t last_backup_android_id,
+      int64_t last_backup_time,
+      bool sync,
+      bool deprecated_system,
+      bool vpn_provider,
+      WebAppInfoPtr web_app_info,
+      const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const std::optional<std::string>& version_name,
+      bool preinstalled,
+      InstallPriority priority,
+      PackageLocaleInfoPtr locale_info,
+      bool game_controls_opt_out);
 
 ArcPackageInfo(const ArcPackageInfo&) = delete;
 ArcPackageInfo& operator=(const ArcPackageInfo&) = delete;
@@ -2115,17 +2149,19 @@ ArcPackageInfo& operator=(const ArcPackageInfo&) = delete;
   
   WebAppInfoPtr web_app_info;
   
-  absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>> deprecated_permissions;
+  std::optional<base::flat_map<::arc::mojom::AppPermission, bool>> deprecated_permissions;
   
-  absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states;
+  std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states;
   
-  absl::optional<std::string> version_name;
+  std::optional<std::string> version_name;
   
   bool preinstalled;
   
   InstallPriority priority;
   
   PackageLocaleInfoPtr locale_info;
+  
+  bool game_controls_opt_out;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2189,9 +2225,9 @@ class  RawIconPngData {
 
   RawIconPngData(
       bool is_adaptive_icon,
-      absl::optional<std::vector<uint8_t>> icon_png_data,
-      absl::optional<std::vector<uint8_t>> foreground_icon_png_data,
-      absl::optional<std::vector<uint8_t>> background_icon_png_data);
+      std::optional<std::vector<uint8_t>> icon_png_data,
+      std::optional<std::vector<uint8_t>> foreground_icon_png_data,
+      std::optional<std::vector<uint8_t>> background_icon_png_data);
 
 
   ~RawIconPngData();
@@ -2271,11 +2307,11 @@ class  RawIconPngData {
   
   bool is_adaptive_icon;
   
-  absl::optional<std::vector<uint8_t>> icon_png_data;
+  std::optional<std::vector<uint8_t>> icon_png_data;
   
-  absl::optional<std::vector<uint8_t>> foreground_icon_png_data;
+  std::optional<std::vector<uint8_t>> foreground_icon_png_data;
   
-  absl::optional<std::vector<uint8_t>> background_icon_png_data;
+  std::optional<std::vector<uint8_t>> background_icon_png_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2340,7 +2376,7 @@ class  WindowInfo {
       int32_t window_id,
       int32_t state,
       int64_t display_id,
-      const absl::optional<::gfx::Rect>& bounds);
+      const std::optional<::gfx::Rect>& bounds);
 
 
   ~WindowInfo();
@@ -2424,7 +2460,7 @@ class  WindowInfo {
   
   int64_t display_id;
   
-  absl::optional<::gfx::Rect> bounds;
+  std::optional<::gfx::Rect> bounds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2486,39 +2522,39 @@ class  AppDiscoveryResult {
   AppDiscoveryResult();
 
   AppDiscoveryResult(
-      const absl::optional<std::string>& launch_intent_uri,
-      const absl::optional<std::string>& install_intent_uri,
-      const absl::optional<std::string>& label,
+      const std::optional<std::string>& launch_intent_uri,
+      const std::optional<std::string>& install_intent_uri,
+      const std::optional<std::string>& label,
       bool is_instant_app,
       bool is_recent,
-      const absl::optional<std::string>& publisher_name,
-      const absl::optional<std::string>& formatted_price,
+      const std::optional<std::string>& publisher_name,
+      const std::optional<std::string>& formatted_price,
       float review_score,
       std::vector<uint8_t> icon_png_data);
 
   AppDiscoveryResult(
-      const absl::optional<std::string>& launch_intent_uri,
-      const absl::optional<std::string>& install_intent_uri,
-      const absl::optional<std::string>& label,
+      const std::optional<std::string>& launch_intent_uri,
+      const std::optional<std::string>& install_intent_uri,
+      const std::optional<std::string>& label,
       bool is_instant_app,
       bool is_recent,
-      const absl::optional<std::string>& publisher_name,
-      const absl::optional<std::string>& formatted_price,
+      const std::optional<std::string>& publisher_name,
+      const std::optional<std::string>& formatted_price,
       float review_score,
       std::vector<uint8_t> icon_png_data,
-      const absl::optional<std::string>& package_name);
+      const std::optional<std::string>& package_name);
 
   AppDiscoveryResult(
-      const absl::optional<std::string>& launch_intent_uri,
-      const absl::optional<std::string>& install_intent_uri,
-      const absl::optional<std::string>& label,
+      const std::optional<std::string>& launch_intent_uri,
+      const std::optional<std::string>& install_intent_uri,
+      const std::optional<std::string>& label,
       bool is_instant_app,
       bool is_recent,
-      const absl::optional<std::string>& publisher_name,
-      const absl::optional<std::string>& formatted_price,
+      const std::optional<std::string>& publisher_name,
+      const std::optional<std::string>& formatted_price,
       float review_score,
       std::vector<uint8_t> icon_png_data,
-      const absl::optional<std::string>& package_name,
+      const std::optional<std::string>& package_name,
       RawIconPngDataPtr icon);
 
 AppDiscoveryResult(const AppDiscoveryResult&) = delete;
@@ -2599,25 +2635,25 @@ AppDiscoveryResult& operator=(const AppDiscoveryResult&) = delete;
   }
 
   
-  absl::optional<std::string> launch_intent_uri;
+  std::optional<std::string> launch_intent_uri;
   
-  absl::optional<std::string> install_intent_uri;
+  std::optional<std::string> install_intent_uri;
   
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
   
   bool is_instant_app;
   
   bool is_recent;
   
-  absl::optional<std::string> publisher_name;
+  std::optional<std::string> publisher_name;
   
-  absl::optional<std::string> formatted_price;
+  std::optional<std::string> formatted_price;
   
   float review_score;
   
   std::vector<uint8_t> icon_png_data;
   
-  absl::optional<std::string> package_name;
+  std::optional<std::string> package_name;
   
   RawIconPngDataPtr icon;
 
@@ -2689,13 +2725,13 @@ class  AppShortcutItem {
       const std::string& shortcut_id,
       const std::string& short_label,
       std::vector<uint8_t> icon_png,
-      const absl::optional<std::string>& package_name);
+      const std::optional<std::string>& package_name);
 
   AppShortcutItem(
       const std::string& shortcut_id,
       const std::string& short_label,
       std::vector<uint8_t> icon_png,
-      const absl::optional<std::string>& package_name,
+      const std::optional<std::string>& package_name,
       AppShortcutItemType type,
       int32_t rank);
 
@@ -2703,7 +2739,7 @@ class  AppShortcutItem {
       const std::string& shortcut_id,
       const std::string& short_label,
       std::vector<uint8_t> icon_png,
-      const absl::optional<std::string>& package_name,
+      const std::optional<std::string>& package_name,
       AppShortcutItemType type,
       int32_t rank,
       RawIconPngDataPtr icon);
@@ -2792,7 +2828,7 @@ AppShortcutItem& operator=(const AppShortcutItem&) = delete;
   
   std::vector<uint8_t> icon_png;
   
-  absl::optional<std::string> package_name;
+  std::optional<std::string> package_name;
   
   AppShortcutItemType type;
   
@@ -2833,7 +2869,8 @@ template <typename StructPtrType>
 InstallationResultPtr InstallationResult::Clone() const {
   return New(
       mojo::Clone(package_name),
-      mojo::Clone(success)
+      mojo::Clone(success),
+      mojo::Clone(is_launchable_app)
   );
 }
 
@@ -2842,6 +2879,8 @@ bool InstallationResult::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->package_name, other_struct.package_name))
     return false;
   if (!mojo::Equals(this->success, other_struct.success))
+    return false;
+  if (!mojo::Equals(this->is_launchable_app, other_struct.is_launchable_app))
     return false;
   return true;
 }
@@ -2855,6 +2894,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.success < rhs.success)
     return true;
   if (rhs.success < lhs.success)
+    return false;
+  if (lhs.is_launchable_app < rhs.is_launchable_app)
+    return true;
+  if (rhs.is_launchable_app < lhs.is_launchable_app)
     return false;
   return false;
 }
@@ -3124,7 +3167,8 @@ ArcPackageInfoPtr ArcPackageInfo::Clone() const {
       mojo::Clone(version_name),
       mojo::Clone(preinstalled),
       mojo::Clone(priority),
-      mojo::Clone(locale_info)
+      mojo::Clone(locale_info),
+      mojo::Clone(game_controls_opt_out)
   );
 }
 
@@ -3157,6 +3201,8 @@ bool ArcPackageInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->priority, other_struct.priority))
     return false;
   if (!mojo::Equals(this->locale_info, other_struct.locale_info))
+    return false;
+  if (!mojo::Equals(this->game_controls_opt_out, other_struct.game_controls_opt_out))
     return false;
   return true;
 }
@@ -3218,6 +3264,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.locale_info < rhs.locale_info)
     return true;
   if (rhs.locale_info < lhs.locale_info)
+    return false;
+  if (lhs.game_controls_opt_out < rhs.game_controls_opt_out)
+    return true;
+  if (rhs.game_controls_opt_out < lhs.game_controls_opt_out)
     return false;
   return false;
 }
@@ -3529,6 +3579,11 @@ struct  StructTraits<::arc::mojom::InstallationResult::DataView,
     return input->success;
   }
 
+  static decltype(::arc::mojom::InstallationResult::is_launchable_app) is_launchable_app(
+      const ::arc::mojom::InstallationResultPtr& input) {
+    return input->is_launchable_app;
+  }
+
   static bool Read(::arc::mojom::InstallationResult::DataView input, ::arc::mojom::InstallationResultPtr* output);
 };
 
@@ -3782,6 +3837,11 @@ struct  StructTraits<::arc::mojom::ArcPackageInfo::DataView,
   static const decltype(::arc::mojom::ArcPackageInfo::locale_info)& locale_info(
       const ::arc::mojom::ArcPackageInfoPtr& input) {
     return input->locale_info;
+  }
+
+  static decltype(::arc::mojom::ArcPackageInfo::game_controls_opt_out) game_controls_opt_out(
+      const ::arc::mojom::ArcPackageInfoPtr& input) {
+    return input->game_controls_opt_out;
   }
 
   static bool Read(::arc::mojom::ArcPackageInfo::DataView input, ::arc::mojom::ArcPackageInfoPtr* output);

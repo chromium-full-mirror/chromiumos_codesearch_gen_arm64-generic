@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WorkerLocation>::value,
     "WorkerLocation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WorkerLocation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WorkerLocation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.origin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->origin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->origin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,10 +94,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.host.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->host();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->host();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.hostname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hostname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hostname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -144,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.port.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->port();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -159,10 +154,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.pathname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pathname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pathname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -174,10 +169,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.search.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->search();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->search();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -189,10 +184,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.hash.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hash();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hash();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -204,10 +199,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -219,10 +214,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerLocation.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerLocation* blink_receiver = V8WorkerLocation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

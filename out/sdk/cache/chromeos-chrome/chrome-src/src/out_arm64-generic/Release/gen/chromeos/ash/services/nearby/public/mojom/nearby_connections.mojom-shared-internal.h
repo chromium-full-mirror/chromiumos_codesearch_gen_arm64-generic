@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-shared-internal.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/read_only_file.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"

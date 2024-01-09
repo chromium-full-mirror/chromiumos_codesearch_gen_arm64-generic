@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/media_session.mojom-features.h"
 #include "services/media_session/public/mojom/media_session.mojom-shared.h"
 #include "services/media_session/public/mojom/media_session.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -104,7 +105,7 @@ class MediaSessionObserver
   virtual void MediaSessionInfoChanged(MediaSessionInfoPtr info) = 0;
 
   
-  virtual void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) = 0;
+  virtual void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) = 0;
 
   
   virtual void MediaSessionActionsChanged(const std::vector<MediaSessionAction>& action) = 0;
@@ -113,7 +114,7 @@ class MediaSessionObserver
   virtual void MediaSessionImagesChanged(const base::flat_map<MediaSessionImageType, std::vector<::media_session::MediaImage>>& images) = 0;
 
   
-  virtual void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) = 0;
+  virtual void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) = 0;
 };
 
 class MediaSessionProxy;
@@ -322,7 +323,7 @@ class MediaSession
   virtual void ExitPictureInPicture() = 0;
 
   
-  virtual void SetAudioSinkId(const absl::optional<std::string>& id) = 0;
+  virtual void SetAudioSinkId(const std::optional<std::string>& id) = 0;
 
   
   virtual void ToggleMicrophone() = 0;
@@ -363,13 +364,13 @@ class  MediaSessionObserverProxy
   
   void MediaSessionInfoChanged(MediaSessionInfoPtr info) final;
   
-  void MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) final;
+  void MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) final;
   
   void MediaSessionActionsChanged(const std::vector<MediaSessionAction>& action) final;
   
   void MediaSessionImagesChanged(const base::flat_map<MediaSessionImageType, std::vector<::media_session::MediaImage>>& images) final;
   
-  void MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) final;
+  void MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -418,7 +419,7 @@ class  MediaSessionProxy
   
   void ExitPictureInPicture() final;
   
-  void SetAudioSinkId(const absl::optional<std::string>& id) final;
+  void SetAudioSinkId(const std::optional<std::string>& id) final;
   
   void ToggleMicrophone() final;
   
@@ -535,6 +536,7 @@ class  MediaSessionResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+
 
 
 
@@ -833,6 +835,152 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, MediaImage::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ChapterInformation {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ChapterInformation, T>::value>;
+  using DataView = ChapterInformationDataView;
+  using Data_ = internal::ChapterInformation_Data;
+
+  template <typename... Args>
+  static ChapterInformationPtr New(Args&&... args) {
+    return ChapterInformationPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ChapterInformationPtr From(const U& u) {
+    return mojo::TypeConverter<ChapterInformationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ChapterInformation>::Convert(*this);
+  }
+
+
+  ChapterInformation();
+
+  ChapterInformation(
+      const ::std::u16string& title,
+      ::base::TimeDelta startTime,
+      std::vector<::media_session::MediaImage> artwork);
+
+
+  ~ChapterInformation();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ChapterInformationPtr>
+  ChapterInformationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ChapterInformation::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ChapterInformation::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ChapterInformation_UnserializedMessageContext<
+            UserType, ChapterInformation::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ChapterInformation::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ChapterInformation::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ChapterInformation_UnserializedMessageContext<
+            UserType, ChapterInformation::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ChapterInformation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::std::u16string title;
+  
+  ::base::TimeDelta startTime;
+  
+  std::vector<::media_session::MediaImage> artwork;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1338,14 +1486,14 @@ class  RemotePlaybackMetadata {
       const std::string& audio_codec,
       bool remote_playback_disabled,
       bool remote_playback_started,
-      const absl::optional<std::string>& unused_field);
+      const std::optional<std::string>& unused_field);
 
   RemotePlaybackMetadata(
       const std::string& video_codec,
       const std::string& audio_codec,
       bool remote_playback_disabled,
       bool remote_playback_started,
-      const absl::optional<std::string>& unused_field,
+      const std::optional<std::string>& unused_field,
       bool is_encrypted_media);
 
 
@@ -1432,7 +1580,7 @@ class  RemotePlaybackMetadata {
   
   bool remote_playback_started;
   
-  absl::optional<std::string> unused_field;
+  std::optional<std::string> unused_field;
   
   bool is_encrypted_media;
 
@@ -1554,7 +1702,7 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id);
+      const std::optional<std::string>& audio_sink_id);
 
   MediaSessionInfo(
       MediaSessionInfo::SessionState state,
@@ -1565,8 +1713,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states);
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states);
 
   MediaSessionInfo(
       MediaSessionInfo::SessionState state,
@@ -1577,8 +1725,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state);
 
@@ -1591,8 +1739,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted);
@@ -1606,8 +1754,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1622,8 +1770,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1639,8 +1787,8 @@ class  MediaSessionInfo {
       bool is_sensitive,
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
-      const absl::optional<std::string>& audio_sink_id,
-      absl::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1742,9 +1890,9 @@ MediaSessionInfo& operator=(const MediaSessionInfo&) = delete;
   
   MediaAudioVideoState deprecated_audio_video_state;
   
-  absl::optional<std::string> audio_sink_id;
+  std::optional<std::string> audio_sink_id;
   
-  absl::optional<std::vector<MediaAudioVideoState>> audio_video_states;
+  std::optional<std::vector<MediaAudioVideoState>> audio_video_states;
   
   MicrophoneState microphone_state;
   
@@ -1821,6 +1969,42 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sizes < rhs.sizes)
     return true;
   if (rhs.sizes < lhs.sizes)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ChapterInformationPtr ChapterInformation::Clone() const {
+  return New(
+      mojo::Clone(title),
+      mojo::Clone(startTime),
+      mojo::Clone(artwork)
+  );
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>*>
+bool ChapterInformation::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->title, other_struct.title))
+    return false;
+  if (!mojo::Equals(this->startTime, other_struct.startTime))
+    return false;
+  if (!mojo::Equals(this->artwork, other_struct.artwork))
+    return false;
+  return true;
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.title < rhs.title)
+    return true;
+  if (rhs.title < lhs.title)
+    return false;
+  if (lhs.startTime < rhs.startTime)
+    return true;
+  if (rhs.startTime < lhs.startTime)
+    return false;
+  if (lhs.artwork < rhs.artwork)
+    return true;
+  if (rhs.artwork < lhs.artwork)
     return false;
   return false;
 }
@@ -2209,6 +2393,31 @@ struct  StructTraits<::media_session::mojom::MediaImage::DataView,
   }
 
   static bool Read(::media_session::mojom::MediaImage::DataView input, ::media_session::mojom::MediaImagePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::media_session::mojom::ChapterInformation::DataView,
+                                         ::media_session::mojom::ChapterInformationPtr> {
+  static bool IsNull(const ::media_session::mojom::ChapterInformationPtr& input) { return !input; }
+  static void SetToNull(::media_session::mojom::ChapterInformationPtr* output) { output->reset(); }
+
+  static const decltype(::media_session::mojom::ChapterInformation::title)& title(
+      const ::media_session::mojom::ChapterInformationPtr& input) {
+    return input->title;
+  }
+
+  static const decltype(::media_session::mojom::ChapterInformation::startTime)& startTime(
+      const ::media_session::mojom::ChapterInformationPtr& input) {
+    return input->startTime;
+  }
+
+  static const decltype(::media_session::mojom::ChapterInformation::artwork)& artwork(
+      const ::media_session::mojom::ChapterInformationPtr& input) {
+    return input->artwork;
+  }
+
+  static bool Read(::media_session::mojom::ChapterInformation::DataView input, ::media_session::mojom::ChapterInformationPtr* output);
 };
 
 

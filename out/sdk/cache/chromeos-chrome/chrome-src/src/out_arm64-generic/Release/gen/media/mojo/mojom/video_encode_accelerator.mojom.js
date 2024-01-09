@@ -692,6 +692,7 @@
     this.hasStorageType = false;
     this.requireLowDelay = false;
     this.h264OutputLevel = 0;
+    this.dropFrameThreshPercentage = 0;
     this.gopLength = 0;
     this.storageType = 0;
     this.contentType = 0;
@@ -764,6 +765,7 @@
         return err;
 
 
+
     // validate VideoEncodeAcceleratorConfig.spatialLayers
     err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 56, 8, new codec.PointerTo(SpatialLayer), false, [0], 0);
     if (err !== validator.validationError.NONE)
@@ -811,7 +813,8 @@
     val.requireLowDelay = (packed >> 5) & 1 ? true : false;
     val.h264OutputLevel =
         decoder.decodeStruct(codec.Uint8);
-    decoder.skip(1);
+    val.dropFrameThreshPercentage =
+        decoder.decodeStruct(codec.Uint8);
     decoder.skip(1);
     val.gopLength =
         decoder.decodeStruct(codec.Uint32);
@@ -850,7 +853,7 @@
     packed |= (val.requireLowDelay & 1) << 5
     encoder.writeUint8(packed);
     encoder.encodeStruct(codec.Uint8, val.h264OutputLevel);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Uint8, val.dropFrameThreshPercentage);
     encoder.skip(1);
     encoder.encodeStruct(codec.Uint32, val.gopLength);
     encoder.encodeStruct(codec.Int32, val.storageType);
@@ -1996,6 +1999,7 @@
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.prototype.initDefaults_ = function() {
     this.bitrateAllocation = null;
     this.framerate = 0;
+    this.size = null;
   };
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2011,7 +2015,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -2024,10 +2028,16 @@
         return err;
 
 
+
+    // validate VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.size
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, geometry$.Size, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.encodedSize = codec.kStructHeaderSize + 16;
+  VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.encodedSize = codec.kStructHeaderSize + 24;
 
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.decode = function(decoder) {
     var packed;
@@ -2042,6 +2052,8 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
+    val.size =
+        decoder.decodeStructPointer(geometry$.Size);
     return val;
   };
 
@@ -2055,6 +2067,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
+    encoder.encodeStructPointer(geometry$.Size, val.size);
   };
   function VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params(values) {
     this.initDefaults_();
@@ -2065,6 +2078,7 @@
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.prototype.initDefaults_ = function() {
     this.bitrate = null;
     this.framerate = 0;
+    this.size = null;
   };
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2080,7 +2094,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -2093,10 +2107,16 @@
         return err;
 
 
+
+    // validate VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.size
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, geometry$.Size, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.encodedSize = codec.kStructHeaderSize + 24;
+  VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.encodedSize = codec.kStructHeaderSize + 32;
 
   VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.decode = function(decoder) {
     var packed;
@@ -2111,6 +2131,8 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
+    val.size =
+        decoder.decodeStructPointer(geometry$.Size);
     return val;
   };
 
@@ -2124,6 +2146,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
+    encoder.encodeStructPointer(geometry$.Size, val.size);
   };
   function VideoEncodeAccelerator_IsFlushSupported_Params(values) {
     this.initDefaults_();
@@ -3368,10 +3391,11 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  VideoEncodeAcceleratorProxy.prototype.requestEncodingParametersChangeWithLayers = function(bitrateAllocation, framerate) {
+  VideoEncodeAcceleratorProxy.prototype.requestEncodingParametersChangeWithLayers = function(bitrateAllocation, framerate, size) {
     var params_ = new VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params();
     params_.bitrateAllocation = bitrateAllocation;
     params_.framerate = framerate;
+    params_.size = size;
     var builder = new codec.MessageV0Builder(
         kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name,
         codec.align(VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params.encodedSize));
@@ -3384,10 +3408,11 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  VideoEncodeAcceleratorProxy.prototype.requestEncodingParametersChangeWithBitrate = function(bitrate, framerate) {
+  VideoEncodeAcceleratorProxy.prototype.requestEncodingParametersChangeWithBitrate = function(bitrate, framerate, size) {
     var params_ = new VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params();
     params_.bitrate = bitrate;
     params_.framerate = framerate;
+    params_.size = size;
     var builder = new codec.MessageV0Builder(
         kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name,
         codec.align(VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params.encodedSize));
@@ -3456,11 +3481,11 @@
   VideoEncodeAcceleratorStub.prototype.useOutputBitstreamBuffer = function(bitstreamBufferId, region) {
     return this.delegate_ && this.delegate_.useOutputBitstreamBuffer && this.delegate_.useOutputBitstreamBuffer(bitstreamBufferId, region);
   }
-  VideoEncodeAcceleratorStub.prototype.requestEncodingParametersChangeWithLayers = function(bitrateAllocation, framerate) {
-    return this.delegate_ && this.delegate_.requestEncodingParametersChangeWithLayers && this.delegate_.requestEncodingParametersChangeWithLayers(bitrateAllocation, framerate);
+  VideoEncodeAcceleratorStub.prototype.requestEncodingParametersChangeWithLayers = function(bitrateAllocation, framerate, size) {
+    return this.delegate_ && this.delegate_.requestEncodingParametersChangeWithLayers && this.delegate_.requestEncodingParametersChangeWithLayers(bitrateAllocation, framerate, size);
   }
-  VideoEncodeAcceleratorStub.prototype.requestEncodingParametersChangeWithBitrate = function(bitrate, framerate) {
-    return this.delegate_ && this.delegate_.requestEncodingParametersChangeWithBitrate && this.delegate_.requestEncodingParametersChangeWithBitrate(bitrate, framerate);
+  VideoEncodeAcceleratorStub.prototype.requestEncodingParametersChangeWithBitrate = function(bitrate, framerate, size) {
+    return this.delegate_ && this.delegate_.requestEncodingParametersChangeWithBitrate && this.delegate_.requestEncodingParametersChangeWithBitrate(bitrate, framerate, size);
   }
   VideoEncodeAcceleratorStub.prototype.isFlushSupported = function() {
     return this.delegate_ && this.delegate_.isFlushSupported && this.delegate_.isFlushSupported();
@@ -3478,11 +3503,11 @@
       return true;
     case kVideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Name:
       var params = reader.decodeStruct(VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params);
-      this.requestEncodingParametersChangeWithLayers(params.bitrateAllocation, params.framerate);
+      this.requestEncodingParametersChangeWithLayers(params.bitrateAllocation, params.framerate, params.size);
       return true;
     case kVideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Name:
       var params = reader.decodeStruct(VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params);
-      this.requestEncodingParametersChangeWithBitrate(params.bitrate, params.framerate);
+      this.requestEncodingParametersChangeWithBitrate(params.bitrate, params.framerate, params.size);
       return true;
     default:
       return false;

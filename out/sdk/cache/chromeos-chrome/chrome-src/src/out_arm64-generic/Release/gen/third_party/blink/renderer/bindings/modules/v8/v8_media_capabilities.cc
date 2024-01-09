@@ -18,6 +18,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_decoding_configuration.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_encoding_configuration.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
+#include "third_party/blink/renderer/core/frame/dactyloscoper.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/media_capabilities/media_capabilities.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
@@ -71,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaCapabilities>::value,
     "MediaCapabilities inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaCapabilities::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaCapabilities is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,6 +94,8 @@ if (!V8MediaCapabilities::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("MediaCapabilities.decodingInfo", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
 // [Measure], [MeasureAs]
@@ -112,7 +110,7 @@ return;
 
 
 
-MediaCapabilities* blink_receiver = V8MediaCapabilities::ToWrappableUnsafe(v8_receiver);
+MediaCapabilities* blink_receiver = V8MediaCapabilities::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -144,6 +142,8 @@ if (!V8MediaCapabilities::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("MediaCapabilities.encodingInfo", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
 // [Measure], [MeasureAs]
@@ -158,7 +158,7 @@ return;
 
 
 
-MediaCapabilities* blink_receiver = V8MediaCapabilities::ToWrappableUnsafe(v8_receiver);
+MediaCapabilities* blink_receiver = V8MediaCapabilities::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

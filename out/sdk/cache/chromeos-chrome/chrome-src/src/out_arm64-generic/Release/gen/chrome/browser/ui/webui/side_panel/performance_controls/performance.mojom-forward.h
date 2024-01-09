@@ -7,7 +7,7 @@
 #ifndef CHROME_BROWSER_UI_WEBUI_SIDE_PANEL_PERFORMANCE_CONTROLS_PERFORMANCE_MOJOM_FORWARD_H_
 #define CHROME_BROWSER_UI_WEBUI_SIDE_PANEL_PERFORMANCE_CONTROLS_PERFORMANCE_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 
 
@@ -21,11 +21,29 @@
 
 
 namespace side_panel::mojom {
+
+enum class ResourceType : int32_t;
+
+enum class HealthLevel : int32_t;
+
+enum class PerformanceSidePanelNotification : int32_t;
 class PerformancePageHandlerFactory;
 
 class PerformancePageHandler;
 
 class PerformancePage;
+
+class BatterySaverCardHandlerFactory;
+
+class BatterySaverCardHandler;
+
+class BatterySaverCard;
+
+class MemorySaverCardHandlerFactory;
+
+class MemorySaverCardHandler;
+
+class MemorySaverCard;
 
 
 

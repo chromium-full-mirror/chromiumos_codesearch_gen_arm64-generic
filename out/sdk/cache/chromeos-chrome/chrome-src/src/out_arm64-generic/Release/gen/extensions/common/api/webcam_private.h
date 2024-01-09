@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -83,8 +84,8 @@ struct ProtocolConfiguration {
   ~ProtocolConfiguration();
   ProtocolConfiguration(const ProtocolConfiguration&) = delete;
   ProtocolConfiguration& operator=(const ProtocolConfiguration&) = delete;
-  ProtocolConfiguration(ProtocolConfiguration&& rhs);
-  ProtocolConfiguration& operator=(ProtocolConfiguration&& rhs);
+  ProtocolConfiguration(ProtocolConfiguration&& rhs) noexcept;
+  ProtocolConfiguration& operator=(ProtocolConfiguration&& rhs) noexcept;
 
   // Populates a ProtocolConfiguration object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -97,17 +98,13 @@ struct ProtocolConfiguration {
   // Creates a deep copy of ProtocolConfiguration.
   ProtocolConfiguration Clone() const;
 
-  // Creates a ProtocolConfiguration object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ProtocolConfiguration> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProtocolConfiguration object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ProtocolConfiguration> FromValue(const base::Value::Dict& value);
+  static std::optional<ProtocolConfiguration> FromValue(const base::Value::Dict& value);
 
   // Creates a ProtocolConfiguration object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ProtocolConfiguration> FromValue(const base::Value& value);
+  static std::optional<ProtocolConfiguration> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProtocolConfiguration object.
@@ -122,8 +119,8 @@ struct WebcamConfiguration {
   ~WebcamConfiguration();
   WebcamConfiguration(const WebcamConfiguration&) = delete;
   WebcamConfiguration& operator=(const WebcamConfiguration&) = delete;
-  WebcamConfiguration(WebcamConfiguration&& rhs);
-  WebcamConfiguration& operator=(WebcamConfiguration&& rhs);
+  WebcamConfiguration(WebcamConfiguration&& rhs) noexcept;
+  WebcamConfiguration& operator=(WebcamConfiguration&& rhs) noexcept;
 
   // Populates a WebcamConfiguration object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -136,39 +133,35 @@ struct WebcamConfiguration {
   // Creates a deep copy of WebcamConfiguration.
   WebcamConfiguration Clone() const;
 
-  // Creates a WebcamConfiguration object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WebcamConfiguration> FromValueDeprecated(const base::Value& value);
-
   // Creates a WebcamConfiguration object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<WebcamConfiguration> FromValue(const base::Value::Dict& value);
+  static std::optional<WebcamConfiguration> FromValue(const base::Value::Dict& value);
 
   // Creates a WebcamConfiguration object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<WebcamConfiguration> FromValue(const base::Value& value);
+  static std::optional<WebcamConfiguration> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWebcamConfiguration object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<double> pan;
+  std::optional<double> pan;
 
-  absl::optional<double> pan_speed;
+  std::optional<double> pan_speed;
 
   PanDirection pan_direction;
 
-  absl::optional<double> tilt;
+  std::optional<double> tilt;
 
-  absl::optional<double> tilt_speed;
+  std::optional<double> tilt_speed;
 
   TiltDirection tilt_direction;
 
-  absl::optional<double> zoom;
+  std::optional<double> zoom;
 
   AutofocusState autofocus_state;
 
-  absl::optional<double> focus;
+  std::optional<double> focus;
 
 };
 
@@ -177,8 +170,8 @@ struct Range {
   ~Range();
   Range(const Range&) = delete;
   Range& operator=(const Range&) = delete;
-  Range(Range&& rhs);
-  Range& operator=(Range&& rhs);
+  Range(Range&& rhs) noexcept;
+  Range& operator=(Range&& rhs) noexcept;
 
   // Populates a Range object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -191,14 +184,11 @@ struct Range {
   // Creates a deep copy of Range.
   Range Clone() const;
 
-  // Creates a Range object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Range> FromValueDeprecated(const base::Value& value);
-
   // Creates a Range object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Range> FromValue(const base::Value::Dict& value);
+  static std::optional<Range> FromValue(const base::Value::Dict& value);
 
   // Creates a Range object from a base::Value, or nullopt on failure.
-  static absl::optional<Range> FromValue(const base::Value& value);
+  static std::optional<Range> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRange object.
@@ -215,8 +205,8 @@ struct WebcamCurrentConfiguration {
   ~WebcamCurrentConfiguration();
   WebcamCurrentConfiguration(const WebcamCurrentConfiguration&) = delete;
   WebcamCurrentConfiguration& operator=(const WebcamCurrentConfiguration&) = delete;
-  WebcamCurrentConfiguration(WebcamCurrentConfiguration&& rhs);
-  WebcamCurrentConfiguration& operator=(WebcamCurrentConfiguration&& rhs);
+  WebcamCurrentConfiguration(WebcamCurrentConfiguration&& rhs) noexcept;
+  WebcamCurrentConfiguration& operator=(WebcamCurrentConfiguration&& rhs) noexcept;
 
   // Populates a WebcamCurrentConfiguration object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -229,17 +219,13 @@ struct WebcamCurrentConfiguration {
   // Creates a deep copy of WebcamCurrentConfiguration.
   WebcamCurrentConfiguration Clone() const;
 
-  // Creates a WebcamCurrentConfiguration object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WebcamCurrentConfiguration> FromValueDeprecated(const base::Value& value);
-
   // Creates a WebcamCurrentConfiguration object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<WebcamCurrentConfiguration> FromValue(const base::Value::Dict& value);
+  static std::optional<WebcamCurrentConfiguration> FromValue(const base::Value::Dict& value);
 
   // Creates a WebcamCurrentConfiguration object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<WebcamCurrentConfiguration> FromValue(const base::Value& value);
+  static std::optional<WebcamCurrentConfiguration> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWebcamCurrentConfiguration object.
@@ -254,13 +240,13 @@ struct WebcamCurrentConfiguration {
   double focus;
 
   // Supported range of pan, tilt and zoom values.
-  absl::optional<Range> pan_range;
+  std::optional<Range> pan_range;
 
-  absl::optional<Range> tilt_range;
+  std::optional<Range> tilt_range;
 
-  absl::optional<Range> zoom_range;
+  std::optional<Range> zoom_range;
 
-  absl::optional<Range> focus_range;
+  std::optional<Range> focus_range;
 
 };
 
@@ -272,11 +258,11 @@ struct WebcamCurrentConfiguration {
 namespace OpenSerialWebcam {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string path;
@@ -298,11 +284,11 @@ base::Value::List Create(const std::string& webcam_id);
 namespace CloseWebcam {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -317,11 +303,11 @@ struct Params {
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -341,11 +327,11 @@ base::Value::List Create(const WebcamCurrentConfiguration& configuration);
 namespace Set {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -367,11 +353,11 @@ base::Value::List Create(const WebcamCurrentConfiguration& configuration);
 namespace Reset {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -393,11 +379,11 @@ base::Value::List Create(const WebcamCurrentConfiguration& configuration);
 namespace SetHome {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -417,11 +403,11 @@ base::Value::List Create(const WebcamCurrentConfiguration& configuration);
 namespace RestoreCameraPreset {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;
@@ -443,11 +429,11 @@ base::Value::List Create(const WebcamCurrentConfiguration& configuration);
 namespace SetCameraPreset {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string webcam_id;

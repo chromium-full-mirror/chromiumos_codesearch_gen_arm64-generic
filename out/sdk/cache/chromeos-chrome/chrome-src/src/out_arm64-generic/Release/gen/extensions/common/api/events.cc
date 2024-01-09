@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/events.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ Rule::Rule()
  {}
 
 Rule::~Rule() = default;
-Rule::Rule(Rule&& rhs) = default;
-Rule& Rule::operator=(Rule&& rhs) = default;
+Rule::Rule(Rule&& rhs) noexcept = default;
+Rule& Rule::operator=(Rule&& rhs) noexcept = default;
 Rule Rule::Clone() const {
   Rule out;
   out.id = id;
@@ -62,7 +63,7 @@ bool Rule::Populate(
     {
       auto* temp = (*id_value).GetIfString();
       if (!temp) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -114,7 +115,7 @@ bool Rule::Populate(
     {
       auto temp = (*priority_value).GetIfInt();
       if (!temp.has_value()) {
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -134,34 +135,21 @@ bool Rule::Populate(
 }
 
 // static
-std::unique_ptr<Rule> Rule::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Rule>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Rule> Rule::FromValue(const base::Value::Dict& value) {
+  Rule out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Rule> Rule::FromValue(const base::Value::Dict& value) {
+std::optional<Rule> Rule::FromValue(const base::Value& value) {
   Rule out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Rule> Rule::FromValue(const base::Value& value) {
-  Rule out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -196,13 +184,13 @@ namespace AddRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -212,13 +200,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = event_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.event_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -227,13 +215,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = web_view_instance_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.web_view_instance_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -241,17 +229,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rules_value = args[2];
     {
       if (!rules_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(rules_value.GetList(), params.rules)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -271,13 +259,13 @@ namespace GetRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -287,13 +275,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = event_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.event_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -302,13 +290,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = web_view_instance_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.web_view_instance_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -316,11 +304,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rule_identifiers_value = args[2];
     {
       if (!rule_identifiers_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateOptionalArrayFromList(rule_identifiers_value.GetList(), params.rule_identifiers)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
@@ -343,13 +331,13 @@ namespace RemoveRules {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -359,13 +347,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = event_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.event_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -374,13 +362,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = web_view_instance_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.web_view_instance_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -388,11 +376,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& rule_identifiers_value = args[2];
     {
       if (!rule_identifiers_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateOptionalArrayFromList(rule_identifiers_value.GetList(), params.rule_identifiers)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }

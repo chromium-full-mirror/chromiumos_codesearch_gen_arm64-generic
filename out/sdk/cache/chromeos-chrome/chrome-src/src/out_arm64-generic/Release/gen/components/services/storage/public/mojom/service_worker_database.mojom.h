@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/public/mojom/service_worker_database.mojom-features.h"
 #include "components/services/storage/public/mojom/service_worker_database.mojom-shared.h"
 #include "components/services/storage/public/mojom/service_worker_database.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -96,13 +97,13 @@ class  ServiceWorkerRegistrationData {
       ::blink::mojom::ServiceWorkerFetchHandlerType fetch_handler_type,
       ::base::Time last_update_check,
       ::base::Time script_response_time,
-      const absl::optional<base::flat_map<std::string, std::vector<std::string>>>& origin_trial_tokens,
+      const std::optional<base::flat_map<std::string, std::vector<std::string>>>& origin_trial_tokens,
       ::blink::mojom::NavigationPreloadStatePtr navigation_preload_state,
       std::vector<::blink::mojom::WebFeature> used_features,
       int64_t resources_total_size_bytes,
       ::blink::mojom::PolicyContainerPoliciesPtr policy_container_policies,
       ::blink::mojom::AncestorFrameType ancestor_frame_type,
-      const absl::optional<::blink::ServiceWorkerRouterRules>& router_rules,
+      const std::optional<::blink::ServiceWorkerRouterRules>& router_rules,
       bool has_hid_event_handlers,
       bool has_usb_event_handlers);
 
@@ -206,7 +207,7 @@ ServiceWorkerRegistrationData& operator=(const ServiceWorkerRegistrationData&) =
   
   ::base::Time script_response_time;
   
-  absl::optional<base::flat_map<std::string, std::vector<std::string>>> origin_trial_tokens;
+  std::optional<base::flat_map<std::string, std::vector<std::string>>> origin_trial_tokens;
   
   ::blink::mojom::NavigationPreloadStatePtr navigation_preload_state;
   
@@ -218,7 +219,7 @@ ServiceWorkerRegistrationData& operator=(const ServiceWorkerRegistrationData&) =
   
   ::blink::mojom::AncestorFrameType ancestor_frame_type;
   
-  absl::optional<::blink::ServiceWorkerRouterRules> router_rules;
+  std::optional<::blink::ServiceWorkerRouterRules> router_rules;
   
   bool has_hid_event_handlers;
   
@@ -287,7 +288,7 @@ class  ServiceWorkerResourceRecord {
       int64_t resource_id,
       const ::GURL& url,
       int64_t size_bytes,
-      const absl::optional<std::string>& sha256_checksum);
+      const std::optional<std::string>& sha256_checksum);
 
 
   ~ServiceWorkerResourceRecord();
@@ -371,7 +372,7 @@ class  ServiceWorkerResourceRecord {
   
   int64_t size_bytes;
   
-  absl::optional<std::string> sha256_checksum;
+  std::optional<std::string> sha256_checksum;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

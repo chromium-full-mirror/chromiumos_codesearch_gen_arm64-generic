@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import './files_metadata_entry.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import '../js/metadata/exif_constants.js';
+import { ExifTag } from '../js/metadata/exif_constants.js';
 import { getTemplate } from './files_metadata_box.html.js';
 export class FilesMetadataBox extends PolymerElement {
     static get is() {
@@ -156,7 +156,7 @@ export class FilesMetadataBox extends PolymerElement {
         if (ifd.raw) {
             return ifd.raw.cameraModel || '';
         }
-        const id = 272;
+        const id = ExifTag.MODEL;
         const model = (ifd.image && ifd.image[id] && ifd.image[id].value) || '';
         return model.replace(/\0+$/, '').trim();
     }

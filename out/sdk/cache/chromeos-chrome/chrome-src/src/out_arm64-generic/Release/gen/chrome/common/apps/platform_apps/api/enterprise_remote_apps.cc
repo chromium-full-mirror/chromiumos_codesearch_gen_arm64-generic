@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/apps/platform_apps/api/enterprise_remote_apps.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ AddFolderOptions::AddFolderOptions()
  {}
 
 AddFolderOptions::~AddFolderOptions() = default;
-AddFolderOptions::AddFolderOptions(AddFolderOptions&& rhs) = default;
-AddFolderOptions& AddFolderOptions::operator=(AddFolderOptions&& rhs) = default;
+AddFolderOptions::AddFolderOptions(AddFolderOptions&& rhs) noexcept = default;
+AddFolderOptions& AddFolderOptions::operator=(AddFolderOptions&& rhs) noexcept = default;
 AddFolderOptions AddFolderOptions::Clone() const {
   AddFolderOptions out;
   out.name = name;
@@ -67,7 +68,7 @@ bool AddFolderOptions::Populate(
     {
       auto temp = (*add_to_front_value).GetIfBool();
       if (!temp.has_value()) {
-        out.add_to_front = absl::nullopt;
+        out.add_to_front = std::nullopt;
         return false;
       }
       out.add_to_front = *temp;
@@ -87,34 +88,21 @@ bool AddFolderOptions::Populate(
 }
 
 // static
-std::unique_ptr<AddFolderOptions> AddFolderOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddFolderOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddFolderOptions> AddFolderOptions::FromValue(const base::Value::Dict& value) {
+  AddFolderOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddFolderOptions> AddFolderOptions::FromValue(const base::Value::Dict& value) {
+std::optional<AddFolderOptions> AddFolderOptions::FromValue(const base::Value& value) {
   AddFolderOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddFolderOptions> AddFolderOptions::FromValue(const base::Value& value) {
-  AddFolderOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -137,8 +125,8 @@ AddAppOptions::AddAppOptions()
  {}
 
 AddAppOptions::~AddAppOptions() = default;
-AddAppOptions::AddAppOptions(AddAppOptions&& rhs) = default;
-AddAppOptions& AddAppOptions::operator=(AddAppOptions&& rhs) = default;
+AddAppOptions::AddAppOptions(AddAppOptions&& rhs) noexcept = default;
+AddAppOptions& AddAppOptions::operator=(AddAppOptions&& rhs) noexcept = default;
 AddAppOptions AddAppOptions::Clone() const {
   AddAppOptions out;
   out.name = name;
@@ -168,7 +156,7 @@ bool AddAppOptions::Populate(
     {
       auto temp = (*add_to_front_value).GetIfBool();
       if (!temp.has_value()) {
-        out.add_to_front = absl::nullopt;
+        out.add_to_front = std::nullopt;
         return false;
       }
       out.add_to_front = *temp;
@@ -180,7 +168,7 @@ bool AddAppOptions::Populate(
     {
       auto* temp = (*folder_id_value).GetIfString();
       if (!temp) {
-        out.folder_id = absl::nullopt;
+        out.folder_id = std::nullopt;
         return false;
       }
       out.folder_id = *temp;
@@ -192,7 +180,7 @@ bool AddAppOptions::Populate(
     {
       auto* temp = (*icon_url_value).GetIfString();
       if (!temp) {
-        out.icon_url = absl::nullopt;
+        out.icon_url = std::nullopt;
         return false;
       }
       out.icon_url = *temp;
@@ -212,34 +200,21 @@ bool AddAppOptions::Populate(
 }
 
 // static
-std::unique_ptr<AddAppOptions> AddAppOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddAppOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddAppOptions> AddAppOptions::FromValue(const base::Value::Dict& value) {
+  AddAppOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddAppOptions> AddAppOptions::FromValue(const base::Value::Dict& value) {
+std::optional<AddAppOptions> AddAppOptions::FromValue(const base::Value& value) {
   AddAppOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddAppOptions> AddAppOptions::FromValue(const base::Value& value) {
-  AddAppOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -292,8 +267,8 @@ SortLauncherOptions::SortLauncherOptions()
 : position() {}
 
 SortLauncherOptions::~SortLauncherOptions() = default;
-SortLauncherOptions::SortLauncherOptions(SortLauncherOptions&& rhs) = default;
-SortLauncherOptions& SortLauncherOptions::operator=(SortLauncherOptions&& rhs) = default;
+SortLauncherOptions::SortLauncherOptions(SortLauncherOptions&& rhs) noexcept = default;
+SortLauncherOptions& SortLauncherOptions::operator=(SortLauncherOptions&& rhs) noexcept = default;
 SortLauncherOptions SortLauncherOptions::Clone() const {
   SortLauncherOptions out;
   out.position = position;
@@ -331,34 +306,21 @@ bool SortLauncherOptions::Populate(
 }
 
 // static
-std::unique_ptr<SortLauncherOptions> SortLauncherOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SortLauncherOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SortLauncherOptions> SortLauncherOptions::FromValue(const base::Value::Dict& value) {
+  SortLauncherOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SortLauncherOptions> SortLauncherOptions::FromValue(const base::Value::Dict& value) {
+std::optional<SortLauncherOptions> SortLauncherOptions::FromValue(const base::Value& value) {
   SortLauncherOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SortLauncherOptions> SortLauncherOptions::FromValue(const base::Value& value) {
-  SortLauncherOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -382,13 +344,13 @@ namespace AddFolder {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -397,15 +359,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AddFolderOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -425,13 +387,13 @@ namespace AddApp {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -440,15 +402,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AddAppOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -468,13 +430,13 @@ namespace DeleteApp {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -484,13 +446,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = app_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.app_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -508,13 +470,13 @@ namespace SortLauncher {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -523,15 +485,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SortLauncherOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -549,13 +511,13 @@ namespace SetPinnedApps {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -564,17 +526,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& app_ids_value = args[0];
     {
       if (!app_ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(app_ids_value.GetList(), params.app_ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

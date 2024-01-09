@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -469,14 +470,17 @@ void SessionStorageControlProxy::BindNamespace(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::SessionStorageNamespace>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_BindNamespace_Name, kFlags, 0, 0, nullptr);
@@ -530,14 +534,17 @@ void SessionStorageControlProxy::BindStorageArea(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::StorageArea>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_BindStorageArea_Name, kFlags, 0, 0, nullptr);
@@ -589,14 +596,17 @@ void SessionStorageControlProxy::GetUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::SessionStorageControl::GetUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_GetUsage_Name, kFlags, 0, 0, nullptr);
@@ -630,14 +640,17 @@ void SessionStorageControlProxy::DeleteStorage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_DeleteStorage_Name, kFlags, 0, 0, nullptr);
@@ -683,14 +696,17 @@ void SessionStorageControlProxy::CleanUpStorage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::SessionStorageControl::CleanUpStorage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_CleanUpStorage_Name, kFlags, 0, 0, nullptr);
@@ -714,14 +730,17 @@ void SessionStorageControlProxy::ScavengeUnusedNamespaces(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::SessionStorageControl::ScavengeUnusedNamespaces");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_ScavengeUnusedNamespaces_Name, kFlags, 0, 0, nullptr);
@@ -745,14 +764,17 @@ void SessionStorageControlProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::SessionStorageControl::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_Flush_Name, kFlags, 0, 0, nullptr);
@@ -776,14 +798,17 @@ void SessionStorageControlProxy::PurgeMemory(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::SessionStorageControl::PurgeMemory");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_PurgeMemory_Name, kFlags, 0, 0, nullptr);
@@ -813,14 +838,17 @@ void SessionStorageControlProxy::CreateNamespace(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_CreateNamespace_Name, kFlags, 0, 0, nullptr);
@@ -867,14 +895,17 @@ void SessionStorageControlProxy::CloneNamespace(
                         "<value of type SessionStorageCloneType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_CloneNamespace_Name, kFlags, 0, 0, nullptr);
@@ -931,14 +962,17 @@ void SessionStorageControlProxy::DeleteNamespace(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_DeleteNamespace_Name, kFlags, 0, 0, nullptr);
@@ -1059,7 +1093,8 @@ void SessionStorageControl_BindNamespace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_BindNamespace_Name, kFlags, 0, 0, nullptr);
@@ -1177,7 +1212,8 @@ void SessionStorageControl_BindStorageArea_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_BindStorageArea_Name, kFlags, 0, 0, nullptr);
@@ -1295,7 +1331,8 @@ void SessionStorageControl_GetUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_GetUsage_Name, kFlags, 0, 0, nullptr);
@@ -1414,7 +1451,8 @@ void SessionStorageControl_DeleteStorage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_DeleteStorage_Name, kFlags, 0, 0, nullptr);
@@ -1520,7 +1558,8 @@ void SessionStorageControl_CleanUpStorage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_CleanUpStorage_Name, kFlags, 0, 0, nullptr);
@@ -1626,7 +1665,8 @@ void SessionStorageControl_ScavengeUnusedNamespaces_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_ScavengeUnusedNamespaces_Name, kFlags, 0, 0, nullptr);
@@ -1732,7 +1772,8 @@ void SessionStorageControl_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionStorageControl_Flush_Name, kFlags, 0, 0, nullptr);
@@ -2131,30 +2172,30 @@ std::move(p_namespace_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSessionStorageControlValidationInfo[] = {
-    {&internal::SessionStorageControl_BindNamespace_Params_Data::Validate,
+    { &internal::SessionStorageControl_BindNamespace_Params_Data::Validate,
      &internal::SessionStorageControl_BindNamespace_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_BindStorageArea_Params_Data::Validate,
+    { &internal::SessionStorageControl_BindStorageArea_Params_Data::Validate,
      &internal::SessionStorageControl_BindStorageArea_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_GetUsage_Params_Data::Validate,
+    { &internal::SessionStorageControl_GetUsage_Params_Data::Validate,
      &internal::SessionStorageControl_GetUsage_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_DeleteStorage_Params_Data::Validate,
+    { &internal::SessionStorageControl_DeleteStorage_Params_Data::Validate,
      &internal::SessionStorageControl_DeleteStorage_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_CleanUpStorage_Params_Data::Validate,
+    { &internal::SessionStorageControl_CleanUpStorage_Params_Data::Validate,
      &internal::SessionStorageControl_CleanUpStorage_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_ScavengeUnusedNamespaces_Params_Data::Validate,
+    { &internal::SessionStorageControl_ScavengeUnusedNamespaces_Params_Data::Validate,
      &internal::SessionStorageControl_ScavengeUnusedNamespaces_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_Flush_Params_Data::Validate,
+    { &internal::SessionStorageControl_Flush_Params_Data::Validate,
      &internal::SessionStorageControl_Flush_ResponseParams_Data::Validate},
-    {&internal::SessionStorageControl_PurgeMemory_Params_Data::Validate,
+    { &internal::SessionStorageControl_PurgeMemory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionStorageControl_CreateNamespace_Params_Data::Validate,
+    { &internal::SessionStorageControl_CreateNamespace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionStorageControl_CloneNamespace_Params_Data::Validate,
+    { &internal::SessionStorageControl_CloneNamespace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionStorageControl_DeleteNamespace_Params_Data::Validate,
+    { &internal::SessionStorageControl_DeleteNamespace_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -463,14 +464,17 @@ void ShoppingListHandlerFactoryProxy::CreateShoppingListHandler(
                         "<value of type ::mojo::PendingReceiver<ShoppingListHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandlerFactory_CreateShoppingListHandler_Name, kFlags, 0, 0, nullptr);
@@ -558,10 +562,10 @@ bool ShoppingListHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kShoppingListHandlerFactoryValidationInfo[] = {
-    {&internal::ShoppingListHandlerFactory_CreateShoppingListHandler_Params_Data::Validate,
+    { &internal::ShoppingListHandlerFactory_CreateShoppingListHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1042,14 +1046,17 @@ void ShoppingListHandlerProxy::GetAllPriceTrackedBookmarkProductInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetAllPriceTrackedBookmarkProductInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_Name, kFlags, 0, 0, nullptr);
@@ -1073,14 +1080,17 @@ void ShoppingListHandlerProxy::GetAllShoppingBookmarkProductInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetAllShoppingBookmarkProductInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetAllShoppingBookmarkProductInfo_Name, kFlags, 0, 0, nullptr);
@@ -1111,14 +1121,17 @@ void ShoppingListHandlerProxy::TrackPriceForBookmark(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_TrackPriceForBookmark_Name, kFlags, 0, 0, nullptr);
@@ -1149,14 +1162,17 @@ void ShoppingListHandlerProxy::UntrackPriceForBookmark(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_UntrackPriceForBookmark_Name, kFlags, 0, 0, nullptr);
@@ -1180,14 +1196,17 @@ void ShoppingListHandlerProxy::GetProductInfoForCurrentUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetProductInfoForCurrentUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetProductInfoForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1211,14 +1230,17 @@ void ShoppingListHandlerProxy::GetPriceInsightsInfoForCurrentUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetPriceInsightsInfoForCurrentUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1242,14 +1264,17 @@ void ShoppingListHandlerProxy::ShowInsightsSidePanelUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::ShowInsightsSidePanelUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_ShowInsightsSidePanelUI_Name, kFlags, 0, 0, nullptr);
@@ -1272,14 +1297,17 @@ void ShoppingListHandlerProxy::IsShoppingListEligible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::IsShoppingListEligible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_IsShoppingListEligible_Name, kFlags, 0, 0, nullptr);
@@ -1303,14 +1331,17 @@ void ShoppingListHandlerProxy::GetShoppingCollectionBookmarkFolderId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetShoppingCollectionBookmarkFolderId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetShoppingCollectionBookmarkFolderId_Name, kFlags, 0, 0, nullptr);
@@ -1334,14 +1365,17 @@ void ShoppingListHandlerProxy::GetPriceTrackingStatusForCurrentUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetPriceTrackingStatusForCurrentUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1372,14 +1406,17 @@ void ShoppingListHandlerProxy::SetPriceTrackingStatusForCurrentUrl(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_SetPriceTrackingStatusForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1410,14 +1447,17 @@ void ShoppingListHandlerProxy::OpenUrlInNewTab(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_OpenUrlInNewTab_Name, kFlags, 0, 0, nullptr);
@@ -1451,14 +1491,17 @@ void ShoppingListHandlerProxy::GetParentBookmarkFolderNameForCurrentUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::GetParentBookmarkFolderNameForCurrentUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1482,14 +1525,17 @@ void ShoppingListHandlerProxy::ShowBookmarkEditorForCurrentUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::ShowBookmarkEditorForCurrentUrl");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_ShowBookmarkEditorForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -1512,14 +1558,17 @@ void ShoppingListHandlerProxy::ShowFeedback(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send shopping_list::mojom::ShoppingListHandler::ShowFeedback");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_ShowFeedback_Name, kFlags, 0, 0, nullptr);
@@ -1628,7 +1677,8 @@ void ShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_Name, kFlags, 0, 0, nullptr);
@@ -1758,7 +1808,8 @@ void ShoppingListHandler_GetAllShoppingBookmarkProductInfo_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetAllShoppingBookmarkProductInfo_Name, kFlags, 0, 0, nullptr);
@@ -1888,7 +1939,8 @@ void ShoppingListHandler_GetProductInfoForCurrentUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetProductInfoForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -2016,7 +2068,8 @@ void ShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -2144,7 +2197,8 @@ void ShoppingListHandler_IsShoppingListEligible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_IsShoppingListEligible_Name, kFlags, 0, 0, nullptr);
@@ -2262,7 +2316,8 @@ void ShoppingListHandler_GetShoppingCollectionBookmarkFolderId_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetShoppingCollectionBookmarkFolderId_Name, kFlags, 0, 0, nullptr);
@@ -2380,7 +2435,8 @@ void ShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -2498,7 +2554,8 @@ void ShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_ProxyToRespond
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_Name, kFlags, 0, 0, nullptr);
@@ -2971,38 +3028,38 @@ bool ShoppingListHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kShoppingListHandlerValidationInfo[] = {
-    {&internal::ShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_Params_Data::Validate,
      &internal::ShoppingListHandler_GetAllPriceTrackedBookmarkProductInfo_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_GetAllShoppingBookmarkProductInfo_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetAllShoppingBookmarkProductInfo_Params_Data::Validate,
      &internal::ShoppingListHandler_GetAllShoppingBookmarkProductInfo_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_TrackPriceForBookmark_Params_Data::Validate,
+    { &internal::ShoppingListHandler_TrackPriceForBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_UntrackPriceForBookmark_Params_Data::Validate,
+    { &internal::ShoppingListHandler_UntrackPriceForBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_GetProductInfoForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetProductInfoForCurrentUrl_Params_Data::Validate,
      &internal::ShoppingListHandler_GetProductInfoForCurrentUrl_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_Params_Data::Validate,
      &internal::ShoppingListHandler_GetPriceInsightsInfoForCurrentUrl_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_ShowInsightsSidePanelUI_Params_Data::Validate,
+    { &internal::ShoppingListHandler_ShowInsightsSidePanelUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_IsShoppingListEligible_Params_Data::Validate,
+    { &internal::ShoppingListHandler_IsShoppingListEligible_Params_Data::Validate,
      &internal::ShoppingListHandler_IsShoppingListEligible_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_GetShoppingCollectionBookmarkFolderId_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetShoppingCollectionBookmarkFolderId_Params_Data::Validate,
      &internal::ShoppingListHandler_GetShoppingCollectionBookmarkFolderId_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_Params_Data::Validate,
      &internal::ShoppingListHandler_GetPriceTrackingStatusForCurrentUrl_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_SetPriceTrackingStatusForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_SetPriceTrackingStatusForCurrentUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_OpenUrlInNewTab_Params_Data::Validate,
+    { &internal::ShoppingListHandler_OpenUrlInNewTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_Params_Data::Validate,
      &internal::ShoppingListHandler_GetParentBookmarkFolderNameForCurrentUrl_ResponseParams_Data::Validate},
-    {&internal::ShoppingListHandler_ShowBookmarkEditorForCurrentUrl_Params_Data::Validate,
+    { &internal::ShoppingListHandler_ShowBookmarkEditorForCurrentUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShoppingListHandler_ShowFeedback_Params_Data::Validate,
+    { &internal::ShoppingListHandler_ShowFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3146,14 +3203,17 @@ void PageProxy::PriceTrackedForBookmark(
                         "<value of type BookmarkProductInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_PriceTrackedForBookmark_Name, kFlags, 0, 0, nullptr);
@@ -3194,14 +3254,17 @@ void PageProxy::PriceUntrackedForBookmark(
                         "<value of type BookmarkProductInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_PriceUntrackedForBookmark_Name, kFlags, 0, 0, nullptr);
@@ -3245,14 +3308,17 @@ void PageProxy::OperationFailedForBookmark(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OperationFailedForBookmark_Name, kFlags, 0, 0, nullptr);
@@ -3294,14 +3360,17 @@ void PageProxy::OnProductBookmarkMoved(
                         "<value of type BookmarkProductInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnProductBookmarkMoved_Name, kFlags, 0, 0, nullptr);
@@ -3471,16 +3540,16 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_PriceTrackedForBookmark_Params_Data::Validate,
+    { &internal::Page_PriceTrackedForBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_PriceUntrackedForBookmark_Params_Data::Validate,
+    { &internal::Page_PriceUntrackedForBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OperationFailedForBookmark_Params_Data::Validate,
+    { &internal::Page_OperationFailedForBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnProductBookmarkMoved_Params_Data::Validate,
+    { &internal::Page_OnProductBookmarkMoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 

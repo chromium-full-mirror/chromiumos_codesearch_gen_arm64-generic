@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGPolygonElement>::value,
     "SVGPolygonElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGPolygonElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGPolygonElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGPolygonElement* blink_receiver = V8SVGPolygonElement::ToWrappableUnsafe(v8_receiver);
+SVGPolygonElement* blink_receiver = V8SVGPolygonElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointsFromJavascript();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGPolygonElement* blink_receiver = V8SVGPolygonElement::ToWrappableUnsafe(v8_receiver);
+SVGPolygonElement* blink_receiver = V8SVGPolygonElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animatedPoints();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

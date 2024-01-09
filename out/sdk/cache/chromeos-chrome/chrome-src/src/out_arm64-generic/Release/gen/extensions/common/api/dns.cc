@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/dns.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ ResolveCallbackResolveInfo::ResolveCallbackResolveInfo()
 : result_code(0) {}
 
 ResolveCallbackResolveInfo::~ResolveCallbackResolveInfo() = default;
-ResolveCallbackResolveInfo::ResolveCallbackResolveInfo(ResolveCallbackResolveInfo&& rhs) = default;
-ResolveCallbackResolveInfo& ResolveCallbackResolveInfo::operator=(ResolveCallbackResolveInfo&& rhs) = default;
+ResolveCallbackResolveInfo::ResolveCallbackResolveInfo(ResolveCallbackResolveInfo&& rhs) noexcept = default;
+ResolveCallbackResolveInfo& ResolveCallbackResolveInfo::operator=(ResolveCallbackResolveInfo&& rhs) noexcept = default;
 ResolveCallbackResolveInfo ResolveCallbackResolveInfo::Clone() const {
   ResolveCallbackResolveInfo out;
   out.result_code = result_code;
@@ -65,7 +66,7 @@ bool ResolveCallbackResolveInfo::Populate(
     {
       auto* temp = (*address_value).GetIfString();
       if (!temp) {
-        out.address = absl::nullopt;
+        out.address = std::nullopt;
         return false;
       }
       out.address = *temp;
@@ -85,34 +86,21 @@ bool ResolveCallbackResolveInfo::Populate(
 }
 
 // static
-std::unique_ptr<ResolveCallbackResolveInfo> ResolveCallbackResolveInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ResolveCallbackResolveInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ResolveCallbackResolveInfo> ResolveCallbackResolveInfo::FromValue(const base::Value::Dict& value) {
+  ResolveCallbackResolveInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ResolveCallbackResolveInfo> ResolveCallbackResolveInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ResolveCallbackResolveInfo> ResolveCallbackResolveInfo::FromValue(const base::Value& value) {
   ResolveCallbackResolveInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ResolveCallbackResolveInfo> ResolveCallbackResolveInfo::FromValue(const base::Value& value) {
-  ResolveCallbackResolveInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -140,13 +128,13 @@ namespace Resolve {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -156,13 +144,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = hostname_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.hostname = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

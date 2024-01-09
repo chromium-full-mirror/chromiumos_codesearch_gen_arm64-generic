@@ -155,12 +155,38 @@ struct ContentAnalysisResponse_Result_CustomMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContentAnalysisResponse_Result_CustomMessageDefaultTypeInternal _ContentAnalysisResponse_Result_CustomMessage_default_instance_;
+PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(
+    ::_pbi::ConstantInitialized)
+  : text_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , link_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal() {}
+  union {
+    ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal _ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment_default_instance_;
+PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(
+    ::_pbi::ConstantInitialized)
+  : message_segments_(){}
+struct ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal() {}
+  union {
+    ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal _ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage_default_instance_;
 PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule::ContentAnalysisResponse_Result_TriggeredRule(
     ::_pbi::ConstantInitialized)
   : rule_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , rule_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , url_category_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , custom_message_(nullptr)
+  , custom_rule_message_(nullptr)
   , action_(0)
 {}
 struct ContentAnalysisResponse_Result_TriggeredRuleDefaultTypeInternal {
@@ -181,6 +207,8 @@ PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result::ContentAnalysisResponse_Resul
   , evidence_locker_filepath_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , custom_message_(nullptr)
   , status_(0)
+
+  , status_error_message_(0)
 {}
 struct ContentAnalysisResponse_ResultDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ContentAnalysisResponse_ResultDefaultTypeInternal()
@@ -503,6 +531,64 @@ constexpr ContentAnalysisResponse_Result_Status ContentAnalysisResponse_Result::
 constexpr ContentAnalysisResponse_Result_Status ContentAnalysisResponse_Result::Status_MIN;
 constexpr ContentAnalysisResponse_Result_Status ContentAnalysisResponse_Result::Status_MAX;
 constexpr int ContentAnalysisResponse_Result::Status_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool ContentAnalysisResponse_Result_StatusErrorMessage_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ContentAnalysisResponse_Result_StatusErrorMessage_strings[2] = {};
+
+static const char ContentAnalysisResponse_Result_StatusErrorMessage_names[] =
+  "DECRYPTION_FAILED"
+  "STATUS_ERROR_MESSAGE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ContentAnalysisResponse_Result_StatusErrorMessage_entries[] = {
+  { {ContentAnalysisResponse_Result_StatusErrorMessage_names + 0, 17}, 1 },
+  { {ContentAnalysisResponse_Result_StatusErrorMessage_names + 17, 32}, 0 },
+};
+
+static const int ContentAnalysisResponse_Result_StatusErrorMessage_entries_by_number[] = {
+  1, // 0 -> STATUS_ERROR_MESSAGE_UNSPECIFIED
+  0, // 1 -> DECRYPTION_FAILED
+};
+
+const std::string& ContentAnalysisResponse_Result_StatusErrorMessage_Name(
+    ContentAnalysisResponse_Result_StatusErrorMessage value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ContentAnalysisResponse_Result_StatusErrorMessage_entries,
+          ContentAnalysisResponse_Result_StatusErrorMessage_entries_by_number,
+          2, ContentAnalysisResponse_Result_StatusErrorMessage_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ContentAnalysisResponse_Result_StatusErrorMessage_entries,
+      ContentAnalysisResponse_Result_StatusErrorMessage_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ContentAnalysisResponse_Result_StatusErrorMessage_strings[idx].get();
+}
+bool ContentAnalysisResponse_Result_StatusErrorMessage_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContentAnalysisResponse_Result_StatusErrorMessage* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ContentAnalysisResponse_Result_StatusErrorMessage_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<ContentAnalysisResponse_Result_StatusErrorMessage>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::STATUS_ERROR_MESSAGE_UNSPECIFIED;
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::DECRYPTION_FAILED;
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::StatusErrorMessage_MIN;
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::StatusErrorMessage_MAX;
+constexpr int ContentAnalysisResponse_Result::StatusErrorMessage_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ContentAnalysisAcknowledgement_Status_IsValid(int value) {
   switch (value) {
@@ -4162,11 +4248,442 @@ std::string ContentAnalysisResponse_Result_CustomMessage::GetTypeName() const {
 
 // ===================================================================
 
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment>()._has_bits_);
+  static void set_has_text(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_link(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+}
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_text()) {
+    text_.Set(from._internal_text(), 
+      GetArenaForAllocation());
+  }
+  link_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    link_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_link()) {
+    link_.Set(from._internal_link(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+}
+
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::SharedCtor() {
+text_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  text_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+link_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  link_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment() {
+  // @@protoc_insertion_point(destructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  text_.Destroy();
+  link_.Destroy();
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      text_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      link_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string text = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_text();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string link = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_link();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string text = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_text(), target);
+  }
+
+  // optional string link = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_link(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  return target;
+}
+
+size_t ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string text = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_text());
+    }
+
+    // optional string link = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_link());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment*>(
+      &from));
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::MergeFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_text(from._internal_text());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_link(from._internal_link());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::CopyFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::IsInitialized() const {
+  return true;
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::InternalSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &text_, lhs_arena,
+      &other->text_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &link_, lhs_arena,
+      &other->link_, rhs_arena
+  );
+}
+
+std::string ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::GetTypeName() const {
+  return "enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment";
+}
+
+
+// ===================================================================
+
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_Internal {
+ public:
+};
+
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  message_segments_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+}
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      message_segments_(from.message_segments_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+}
+
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::SharedCtor() {
+}
+
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage() {
+  // @@protoc_insertion_point(destructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  message_segments_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment message_segments = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_message_segments(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment message_segments = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_message_segments_size()); i < n; i++) {
+    const auto& repfield = this->_internal_message_segments(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  return target;
+}
+
+size_t ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment message_segments = 1;
+  total_size += 1UL * this->_internal_message_segments_size();
+  for (const auto& msg : this->message_segments_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage*>(
+      &from));
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::MergeFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  message_segments_.MergeFrom(from.message_segments_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::CopyFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::IsInitialized() const {
+  return true;
+}
+
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::InternalSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  message_segments_.InternalSwap(&other->message_segments_);
+}
+
+std::string ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::GetTypeName() const {
+  return "enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage";
+}
+
+
+// ===================================================================
+
 class ContentAnalysisResponse_Result_TriggeredRule::_Internal {
  public:
   using HasBits = decltype(std::declval<ContentAnalysisResponse_Result_TriggeredRule>()._has_bits_);
   static void set_has_action(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 32u;
   }
   static void set_has_rule_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -4181,11 +4698,19 @@ class ContentAnalysisResponse_Result_TriggeredRule::_Internal {
   static void set_has_url_category(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& custom_rule_message(const ContentAnalysisResponse_Result_TriggeredRule* msg);
+  static void set_has_custom_rule_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage&
 ContentAnalysisResponse_Result_TriggeredRule::_Internal::custom_message(const ContentAnalysisResponse_Result_TriggeredRule* msg) {
   return *msg->custom_message_;
+}
+const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage&
+ContentAnalysisResponse_Result_TriggeredRule::_Internal::custom_rule_message(const ContentAnalysisResponse_Result_TriggeredRule* msg) {
+  return *msg->custom_rule_message_;
 }
 ContentAnalysisResponse_Result_TriggeredRule::ContentAnalysisResponse_Result_TriggeredRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -4226,6 +4751,11 @@ ContentAnalysisResponse_Result_TriggeredRule::ContentAnalysisResponse_Result_Tri
   } else {
     custom_message_ = nullptr;
   }
+  if (from._internal_has_custom_rule_message()) {
+    custom_rule_message_ = new ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(*from.custom_rule_message_);
+  } else {
+    custom_rule_message_ = nullptr;
+  }
   action_ = from.action_;
   // @@protoc_insertion_point(copy_constructor:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule)
 }
@@ -4264,6 +4794,7 @@ inline void ContentAnalysisResponse_Result_TriggeredRule::SharedDtor() {
   rule_id_.Destroy();
   url_category_.Destroy();
   if (this != internal_default_instance()) delete custom_message_;
+  if (this != internal_default_instance()) delete custom_rule_message_;
 }
 
 void ContentAnalysisResponse_Result_TriggeredRule::SetCachedSize(int size) const {
@@ -4277,7 +4808,7 @@ void ContentAnalysisResponse_Result_TriggeredRule::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       rule_name_.ClearNonDefaultToEmpty();
     }
@@ -4290,6 +4821,10 @@ void ContentAnalysisResponse_Result_TriggeredRule::Clear() {
     if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(custom_message_ != nullptr);
       custom_message_->Clear();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(custom_rule_message_ != nullptr);
+      custom_rule_message_->Clear();
     }
   }
   action_ = 0;
@@ -4335,7 +4870,7 @@ const char* ContentAnalysisResponse_Result_TriggeredRule::_InternalParse(const c
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4;
+      // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4 [deprecated = true];
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_custom_message(), ptr);
@@ -4348,6 +4883,14 @@ const char* ContentAnalysisResponse_Result_TriggeredRule::_InternalParse(const c
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_url_category();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage custom_rule_message = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_custom_rule_message(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4384,7 +4927,7 @@ uint8_t* ContentAnalysisResponse_Result_TriggeredRule::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.Action action = 1;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_action(), target);
@@ -4402,7 +4945,7 @@ uint8_t* ContentAnalysisResponse_Result_TriggeredRule::_InternalSerialize(
         3, this->_internal_rule_id(), target);
   }
 
-  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4;
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4 [deprecated = true];
   if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::custom_message(this),
@@ -4413,6 +4956,13 @@ uint8_t* ContentAnalysisResponse_Result_TriggeredRule::_InternalSerialize(
   if (cached_has_bits & 0x00000004u) {
     target = stream->WriteStringMaybeAliased(
         5, this->_internal_url_category(), target);
+  }
+
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage custom_rule_message = 6;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::custom_rule_message(this),
+        _Internal::custom_rule_message(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4432,7 +4982,7 @@ size_t ContentAnalysisResponse_Result_TriggeredRule::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional string rule_name = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -4454,15 +5004,22 @@ size_t ContentAnalysisResponse_Result_TriggeredRule::ByteSizeLong() const {
           this->_internal_url_category());
     }
 
-    // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4;
+    // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4 [deprecated = true];
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *custom_message_);
     }
 
-    // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.Action action = 1;
+    // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage custom_rule_message = 6;
     if (cached_has_bits & 0x00000010u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *custom_rule_message_);
+    }
+
+    // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.Action action = 1;
+    if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_action());
     }
@@ -4489,7 +5046,7 @@ void ContentAnalysisResponse_Result_TriggeredRule::MergeFrom(const ContentAnalys
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_rule_name(from._internal_rule_name());
     }
@@ -4503,6 +5060,9 @@ void ContentAnalysisResponse_Result_TriggeredRule::MergeFrom(const ContentAnalys
       _internal_mutable_custom_message()->::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage::MergeFrom(from._internal_custom_message());
     }
     if (cached_has_bits & 0x00000010u) {
+      _internal_mutable_custom_rule_message()->::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::MergeFrom(from._internal_custom_rule_message());
+    }
+    if (cached_has_bits & 0x00000020u) {
       action_ = from.action_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -4563,10 +5123,6 @@ class ContentAnalysisResponse_Result::_Internal {
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message(const ContentAnalysisResponse_Result* msg);
-  static void set_has_custom_message(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
   static void set_has_malware_family(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -4575,6 +5131,13 @@ class ContentAnalysisResponse_Result::_Internal {
   }
   static void set_has_evidence_locker_filepath(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
+  }
+  static const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message(const ContentAnalysisResponse_Result* msg);
+  static void set_has_custom_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_status_error_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
   }
 };
 
@@ -4631,7 +5194,9 @@ ContentAnalysisResponse_Result::ContentAnalysisResponse_Result(const ContentAnal
   } else {
     custom_message_ = nullptr;
   }
-  status_ = from.status_;
+  ::memcpy(&status_, &from.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&status_error_message_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(status_error_message_));
   // @@protoc_insertion_point(copy_constructor:enterprise_connectors.ContentAnalysisResponse.Result)
 }
 
@@ -4654,8 +5219,8 @@ evidence_locker_filepath_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&custom_message_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&custom_message_)) + sizeof(status_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&status_error_message_) -
+    reinterpret_cast<char*>(&custom_message_)) + sizeof(status_error_message_));
 }
 
 ContentAnalysisResponse_Result::~ContentAnalysisResponse_Result() {
@@ -4706,7 +5271,11 @@ void ContentAnalysisResponse_Result::Clear() {
       custom_message_->Clear();
     }
   }
-  status_ = 0;
+  if (cached_has_bits & 0x00000060u) {
+    ::memset(&status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&status_error_message_) -
+        reinterpret_cast<char*>(&status_)) + sizeof(status_error_message_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4780,11 +5349,24 @@ const char* ContentAnalysisResponse_Result::_InternalParse(const char* ptr, ::_p
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7;
+      // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7 [deprecated = true];
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_custom_message(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_connectors.ContentAnalysisResponse.Result.StatusErrorMessage status_error_message = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage_IsValid(val))) {
+            _internal_set_status_error_message(static_cast<::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(8, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -4858,11 +5440,18 @@ uint8_t* ContentAnalysisResponse_Result::_InternalSerialize(
         6, this->_internal_evidence_locker_filepath(), target);
   }
 
-  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7;
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7 [deprecated = true];
   if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(7, _Internal::custom_message(this),
         _Internal::custom_message(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.StatusErrorMessage status_error_message = 8;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      8, this->_internal_status_error_message(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4889,7 +5478,7 @@ size_t ContentAnalysisResponse_Result::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional string tag = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -4918,7 +5507,7 @@ size_t ContentAnalysisResponse_Result::ByteSizeLong() const {
           this->_internal_evidence_locker_filepath());
     }
 
-    // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7;
+    // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7 [deprecated = true];
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -4929,6 +5518,12 @@ size_t ContentAnalysisResponse_Result::ByteSizeLong() const {
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
+    }
+
+    // optional .enterprise_connectors.ContentAnalysisResponse.Result.StatusErrorMessage status_error_message = 8;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_status_error_message());
     }
 
   }
@@ -4954,7 +5549,7 @@ void ContentAnalysisResponse_Result::MergeFrom(const ContentAnalysisResponse_Res
 
   triggered_rules_.MergeFrom(from.triggered_rules_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_tag(from._internal_tag());
     }
@@ -4972,6 +5567,9 @@ void ContentAnalysisResponse_Result::MergeFrom(const ContentAnalysisResponse_Res
     }
     if (cached_has_bits & 0x00000020u) {
       status_ = from.status_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      status_error_message_ = from.status_error_message_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -5013,8 +5611,8 @@ void ContentAnalysisResponse_Result::InternalSwap(ContentAnalysisResponse_Result
       &other->evidence_locker_filepath_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ContentAnalysisResponse_Result, status_)
-      + sizeof(ContentAnalysisResponse_Result::status_)
+      PROTOBUF_FIELD_OFFSET(ContentAnalysisResponse_Result, status_error_message_)
+      + sizeof(ContentAnalysisResponse_Result::status_error_message_)
       - PROTOBUF_FIELD_OFFSET(ContentAnalysisResponse_Result, custom_message_)>(
           reinterpret_cast<char*>(&custom_message_),
           reinterpret_cast<char*>(&other->custom_message_));
@@ -5575,6 +6173,14 @@ Arena::CreateMaybeMessage< ::enterprise_connectors::ContentAnalysisRequest >(Are
 template<> PROTOBUF_NOINLINE ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage*
 Arena::CreateMaybeMessage< ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment*
+Arena::CreateMaybeMessage< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage*
+Arena::CreateMaybeMessage< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule*
 Arena::CreateMaybeMessage< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule >(Arena* arena) {

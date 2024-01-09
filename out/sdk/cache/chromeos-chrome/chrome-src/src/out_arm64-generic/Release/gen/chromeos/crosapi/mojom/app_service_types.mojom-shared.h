@@ -70,8 +70,15 @@ class PreferredAppChangesDataView;
 
 class PreferredAppDataView;
 
-class ShortcutDataView;
+class AppShortcutDataView;
 
+class REMOVED_01DataView;
+
+class InstallAppParamsDataView;
+
+class AppInstallResultDataView;
+
+class IconUpdateVersionDataView;
 class PermissionValueDataView;
 
 
@@ -193,10 +200,38 @@ struct MojomTypeTraits<::crosapi::mojom::PreferredAppDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::crosapi::mojom::ShortcutDataView> {
-  using Data = ::crosapi::mojom::internal::Shortcut_Data;
+struct MojomTypeTraits<::crosapi::mojom::AppShortcutDataView> {
+  using Data = ::crosapi::mojom::internal::AppShortcut_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::REMOVED_01DataView> {
+  using Data = ::crosapi::mojom::internal::REMOVED_01_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::InstallAppParamsDataView> {
+  using Data = ::crosapi::mojom::internal::InstallAppParams_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::AppInstallResultDataView> {
+  using Data = ::crosapi::mojom::internal::AppInstallResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::IconUpdateVersionDataView> {
+  using Data = ::crosapi::mojom::internal::IconUpdateVersion_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
@@ -584,8 +619,10 @@ enum class LaunchSource : int32_t {
   kFromUrlHandler = 29,
   
   kFromSysTrayCalendar = 30,
+  
+  kFromInstaller = 31,
   kMinValue = 0,
-  kMaxValue = 30,
+  kMaxValue = 31,
   kDefaultValue = 0
 };
 
@@ -708,6 +745,52 @@ enum class TriState : int32_t {
 inline bool IsKnownEnumValue(TriState value) {
   return internal::TriState_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+
+
+enum class ControllerRegistrationResult : int32_t {
+  
+  kSuccess = 0,
+  
+  kFailed = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, ControllerRegistrationResult value);
+inline bool IsKnownEnumValue(ControllerRegistrationResult value) {
+  return internal::ControllerRegistrationResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline ControllerRegistrationResult ToKnownEnumValue(ControllerRegistrationResult value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ControllerRegistrationResult::kDefaultValue;
+}
+
+
+enum class InstallAppParams_Surface : int32_t {
+  
+  kUnknown = 0,
+  
+  kAppInstallNavigationThrottle = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, InstallAppParams_Surface value);
+inline bool IsKnownEnumValue(InstallAppParams_Surface value) {
+  return internal::InstallAppParams_Surface_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline InstallAppParams_Surface ToKnownEnumValue(InstallAppParams_Surface value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return InstallAppParams_Surface::kDefaultValue;
 }
 
 
@@ -1103,14 +1186,14 @@ static_assert(
           static_cast<::crosapi::mojom::OptionalBool>(data_->handles_intents));
   }
   inline void GetDeprecatedShortcutsDataView(
-      mojo::ArrayDataView<ShortcutDataView>* output);
+      mojo::ArrayDataView<REMOVED_01DataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDeprecatedShortcuts(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::crosapi::mojom::ShortcutDataView>, UserType>(),
+        mojo::ArrayDataView<::crosapi::mojom::REMOVED_01DataView>, UserType>(),
     "Attempting to read the optional `deprecated_shortcuts` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -1120,7 +1203,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 18
                     ? data_->deprecated_shortcuts.Get() : nullptr;
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::ShortcutDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::REMOVED_01DataView>>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -1157,6 +1240,37 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  std::optional<uint64_t> app_size_in_bytes() const {
+    if (data_->header_.version < 21) {
+      return absl::nullopt;
+    }
+
+    return data_->app_size_in_bytes_$flag
+        ? absl::make_optional(data_->app_size_in_bytes_$value)
+        : absl::nullopt;
+  }
+  std::optional<uint64_t> data_size_in_bytes() const {
+    if (data_->header_.version < 21) {
+      return absl::nullopt;
+    }
+
+    return data_->data_size_in_bytes_$flag
+        ? absl::make_optional(data_->data_size_in_bytes_$value)
+        : absl::nullopt;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAllowClose(UserType* output) const {
+    auto data_value = data_->header_.version >= 22
+                      ? data_->allow_close : 0;
+    return mojo::internal::Deserialize<::crosapi::mojom::OptionalBool>(
+        data_value, output);
+  }
+  OptionalBool allow_close() const {
+    if (data_->header_.version < 22)
+      return OptionalBool{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::OptionalBool>(data_->allow_close));
+  }
  private:
   internal::App_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1170,22 +1284,44 @@ class IconKeyDataView {
   IconKeyDataView(
       internal::IconKey_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  uint64_t timeline() const {
-    return data_->timeline;
+  uint64_t deprecated_timeline() const {
+    return data_->deprecated_timeline;
   }
   uint32_t icon_effects() const {
     return data_->icon_effects;
   }
-  bool raw_icon_updated() const {
+  bool deprecated_raw_icon_updated() const {
     if (data_->header_.version < 22)
       return bool{};
-    return data_->raw_icon_updated;
+    return data_->deprecated_raw_icon_updated;
+  }
+  inline void GetUpdateVersionDataView(
+      IconUpdateVersionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUpdateVersion(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::IconUpdateVersionDataView, UserType>(),
+    "Attempting to read the optional `update_version` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUpdateVersion` instead "
+    "of `ReadUpdateVersion if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 23 && !data_->update_version.is_null()
+                    ? &data_->update_version : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::IconUpdateVersionDataView>(
+        pointer, output, message_);
   }
  private:
   internal::IconKey_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1750,7 +1886,7 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  absl::optional<bool> ui_bypassed() const {
+  std::optional<bool> ui_bypassed() const {
     if (data_->header_.version < 15) {
       return absl::nullopt;
     }
@@ -2044,12 +2180,97 @@ class PreferredAppDataView {
 };
 
 
-class ShortcutDataView {
+class AppShortcutDataView {
  public:
-  ShortcutDataView() = default;
+  AppShortcutDataView() = default;
 
-  ShortcutDataView(
-      internal::Shortcut_Data* data,
+  AppShortcutDataView(
+      internal::AppShortcut_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetHostAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHostAppId(UserType* output) {
+    
+    auto* pointer = data_->host_app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLocalIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalId(UserType* output) {
+    
+    auto* pointer = data_->local_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadName` instead "
+    "of `ReadName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetIconKeyDataView(
+      IconKeyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadIconKey(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::IconKeyDataView, UserType>(),
+    "Attempting to read the optional `icon_key` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadIconKey` instead "
+    "of `ReadIconKey if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->icon_key.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::IconKeyDataView>(
+        pointer, output, message_);
+  }
+  std::optional<bool> allow_removal() const {
+    if (data_->header_.version < 1) {
+      return absl::nullopt;
+    }
+
+    return data_->allow_removal_$flag
+        ? absl::make_optional(!!data_->allow_removal_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::AppShortcut_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class REMOVED_01DataView {
+ public:
+  REMOVED_01DataView() = default;
+
+  REMOVED_01DataView(
+      internal::REMOVED_01_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2078,9 +2299,105 @@ class ShortcutDataView {
     return data_->position;
   }
  private:
-  internal::Shortcut_Data* data_ = nullptr;
+  internal::REMOVED_01_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class InstallAppParamsDataView {
+ public:
+  InstallAppParamsDataView() = default;
+
+  InstallAppParamsDataView(
+      internal::InstallAppParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSurface(UserType* output) const {
+    auto data_value = data_->surface;
+    return mojo::internal::Deserialize<::crosapi::mojom::InstallAppParams_Surface>(
+        data_value, output);
+  }
+  InstallAppParams_Surface surface() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::InstallAppParams_Surface>(data_->surface));
+  }
+  inline void GetPackageIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPackageId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `package_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPackageId` instead "
+    "of `ReadPackageId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->package_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::InstallAppParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class AppInstallResultDataView {
+ public:
+  AppInstallResultDataView() = default;
+
+  AppInstallResultDataView(
+      internal::AppInstallResult_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AppInstallResult_Data* data_ = nullptr;
+};
+
+
+class IconUpdateVersionDataView {
+ public:
+  using Tag = internal::IconUpdateVersion_Data::IconUpdateVersion_Tag;
+
+  IconUpdateVersionDataView() = default;
+
+  IconUpdateVersionDataView(
+      internal::IconUpdateVersion_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_raw_icon_updated() const { return data_->tag == Tag::kRawIconUpdated; }
+  bool raw_icon_updated() const {
+    CHECK(is_raw_icon_updated());
+    return data_->data.f_raw_icon_updated;
+  }
+  bool is_timeline() const { return data_->tag == Tag::kTimeline; }
+  int32_t timeline() const {
+    CHECK(is_timeline());
+    return data_->data.f_timeline;
+  }
+
+ private:
+  internal::IconUpdateVersion_Data* data_ = nullptr;
+};
+
 
 
 class PermissionValueDataView {
@@ -2189,6 +2506,14 @@ struct hash<::crosapi::mojom::PermissionType>
 template <>
 struct hash<::crosapi::mojom::TriState>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::TriState> {};
+
+template <>
+struct hash<::crosapi::mojom::ControllerRegistrationResult>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::ControllerRegistrationResult> {};
+
+template <>
+struct hash<::crosapi::mojom::InstallAppParams_Surface>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::InstallAppParams_Surface> {};
 
 }  // namespace std
 
@@ -2498,6 +2823,46 @@ struct Serializer<::crosapi::mojom::TriState, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::ControllerRegistrationResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::ControllerRegistrationResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::ControllerRegistrationResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::InstallAppParams_Surface, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::InstallAppParams_Surface, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::InstallAppParams_Surface>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::AppDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::AppDataView, UserType>;
@@ -2664,7 +3029,7 @@ struct Serializer<::crosapi::mojom::AppDataView, MaybeConstUserType> {
         deprecated_shortcuts_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& deprecated_shortcuts_validate_params =
         mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::ShortcutDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::REMOVED_01DataView>>(
         in_deprecated_shortcuts, deprecated_shortcuts_fragment, &deprecated_shortcuts_validate_params);
     fragment->deprecated_shortcuts.Set(
         deprecated_shortcuts_fragment.is_null() ? nullptr : deprecated_shortcuts_fragment.data());
@@ -2680,6 +3045,16 @@ struct Serializer<::crosapi::mojom::AppDataView, MaybeConstUserType> {
         in_policy_ids, policy_ids_fragment, &policy_ids_validate_params);
     fragment->policy_ids.Set(
         policy_ids_fragment.is_null() ? nullptr : policy_ids_fragment.data());
+    fragment->app_size_in_bytes_$flag = Traits::app_size_in_bytes(input).has_value();
+    if (Traits::app_size_in_bytes(input).has_value()) {
+      fragment->app_size_in_bytes_$value = Traits::app_size_in_bytes(input).value();
+    }
+    fragment->data_size_in_bytes_$flag = Traits::data_size_in_bytes(input).has_value();
+    if (Traits::data_size_in_bytes(input).has_value()) {
+      fragment->data_size_in_bytes_$value = Traits::data_size_in_bytes(input).value();
+    }
+    mojo::internal::Serialize<::crosapi::mojom::OptionalBool>(
+        Traits::allow_close(input), &fragment->allow_close);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::App_Data* input,
@@ -2709,9 +3084,15 @@ struct Serializer<::crosapi::mojom::IconKeyDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->timeline = Traits::timeline(input);
+    fragment->deprecated_timeline = Traits::deprecated_timeline(input);
     fragment->icon_effects = Traits::icon_effects(input);
-    fragment->raw_icon_updated = Traits::raw_icon_updated(input);
+    fragment->deprecated_raw_icon_updated = Traits::deprecated_raw_icon_updated(input);
+    decltype(Traits::update_version(input)) in_update_version = Traits::update_version(input);
+    mojo::internal::MessageFragment<decltype(fragment->update_version)>
+        update_version_fragment(fragment.message());
+    update_version_fragment.Claim(&fragment->update_version);
+    mojo::internal::Serialize<::crosapi::mojom::IconUpdateVersionDataView>(
+        in_update_version, update_version_fragment, true);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::IconKey_Data* input,
@@ -3497,13 +3878,86 @@ struct Serializer<::crosapi::mojom::PreferredAppDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::crosapi::mojom::ShortcutDataView, MaybeConstUserType> {
+struct Serializer<::crosapi::mojom::AppShortcutDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::crosapi::mojom::ShortcutDataView, UserType>;
+  using Traits = StructTraits<::crosapi::mojom::AppShortcutDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::crosapi::mojom::internal::Shortcut_Data>& fragment) {
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::AppShortcut_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::host_app_id(input)) in_host_app_id = Traits::host_app_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->host_app_id)::BaseType> host_app_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_host_app_id, host_app_id_fragment);
+    fragment->host_app_id.Set(
+        host_app_id_fragment.is_null() ? nullptr : host_app_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->host_app_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null host_app_id in AppShortcut struct");
+    decltype(Traits::local_id(input)) in_local_id = Traits::local_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->local_id)::BaseType> local_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_local_id, local_id_fragment);
+    fragment->local_id.Set(
+        local_id_fragment.is_null() ? nullptr : local_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->local_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null local_id in AppShortcut struct");
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    decltype(Traits::icon_key(input)) in_icon_key = Traits::icon_key(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->icon_key)::BaseType> icon_key_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::crosapi::mojom::IconKeyDataView>(
+        in_icon_key, icon_key_fragment);
+    fragment->icon_key.Set(
+        icon_key_fragment.is_null() ? nullptr : icon_key_fragment.data());
+    fragment->allow_removal_$flag = Traits::allow_removal(input).has_value();
+    if (Traits::allow_removal(input).has_value()) {
+      fragment->allow_removal_$value = Traits::allow_removal(input).value();
+    }
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::AppShortcut_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::AppShortcutDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::REMOVED_01DataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::REMOVED_01DataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::REMOVED_01_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -3518,7 +3972,7 @@ struct Serializer<::crosapi::mojom::ShortcutDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->shortcut_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null shortcut_id in Shortcut struct");
+        "null shortcut_id in REMOVED_01 struct");
     decltype(Traits::name(input)) in_name = Traits::name(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->name)::BaseType> name_fragment(
@@ -3530,17 +3984,138 @@ struct Serializer<::crosapi::mojom::ShortcutDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null name in Shortcut struct");
+        "null name in REMOVED_01 struct");
     fragment->position = Traits::position(input);
   }
 
-  static bool Deserialize(::crosapi::mojom::internal::Shortcut_Data* input,
+  static bool Deserialize(::crosapi::mojom::internal::REMOVED_01_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::crosapi::mojom::ShortcutDataView data_view(input, message);
+    ::crosapi::mojom::REMOVED_01DataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::InstallAppParamsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::InstallAppParamsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::InstallAppParams_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::crosapi::mojom::InstallAppParams_Surface>(
+        Traits::surface(input), &fragment->surface);
+    decltype(Traits::package_id(input)) in_package_id = Traits::package_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->package_id)::BaseType> package_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_package_id, package_id_fragment);
+    fragment->package_id.Set(
+        package_id_fragment.is_null() ? nullptr : package_id_fragment.data());
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::InstallAppParams_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::InstallAppParamsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::AppInstallResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::AppInstallResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::AppInstallResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::AppInstallResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::AppInstallResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::IconUpdateVersionDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::crosapi::mojom::IconUpdateVersionDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::crosapi::mojom::internal::IconUpdateVersion_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::crosapi::mojom::IconUpdateVersionDataView::Tag::kRawIconUpdated: {
+        decltype(Traits::raw_icon_updated(input))
+            in_raw_icon_updated = Traits::raw_icon_updated(input);
+        fragment->data.f_raw_icon_updated = in_raw_icon_updated;
+        break;
+      }
+      case ::crosapi::mojom::IconUpdateVersionDataView::Tag::kTimeline: {
+        decltype(Traits::timeline(input))
+            in_timeline = Traits::timeline(input);
+        fragment->data.f_timeline = in_timeline;
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::IconUpdateVersion_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::IconUpdateVersionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -3674,10 +4249,10 @@ inline void AppDataView::GetPermissionsDataView(
   *output = mojo::ArrayDataView<PermissionDataView>(pointer, message_);
 }
 inline void AppDataView::GetDeprecatedShortcutsDataView(
-    mojo::ArrayDataView<ShortcutDataView>* output) {
+    mojo::ArrayDataView<REMOVED_01DataView>* output) {
   auto pointer = data_->header_.version >= 18
                  ? data_->deprecated_shortcuts.Get() : nullptr;
-  *output = mojo::ArrayDataView<ShortcutDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<REMOVED_01DataView>(pointer, message_);
 }
 inline void AppDataView::GetPolicyIdsDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
@@ -3687,6 +4262,12 @@ inline void AppDataView::GetPolicyIdsDataView(
 }
 
 
+inline void IconKeyDataView::GetUpdateVersionDataView(
+    IconUpdateVersionDataView* output) {
+  auto pointer = data_->header_.version >= 23
+                 ? &data_->update_version : nullptr;
+  *output = IconUpdateVersionDataView(pointer, message_);
+}
 
 
 inline void ConditionValueDataView::GetValueDataView(
@@ -3884,16 +4465,48 @@ inline void PreferredAppDataView::GetAppIdDataView(
 }
 
 
-inline void ShortcutDataView::GetShortcutIdDataView(
+inline void AppShortcutDataView::GetHostAppIdDataView(
     mojo::StringDataView* output) {
-  auto pointer = data_->shortcut_id.Get();
+  auto pointer = data_->host_app_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void ShortcutDataView::GetNameDataView(
+inline void AppShortcutDataView::GetLocalIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->local_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AppShortcutDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void AppShortcutDataView::GetIconKeyDataView(
+    IconKeyDataView* output) {
+  auto pointer = data_->icon_key.Get();
+  *output = IconKeyDataView(pointer, message_);
+}
+
+
+inline void REMOVED_01DataView::GetShortcutIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->shortcut_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void REMOVED_01DataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void InstallAppParamsDataView::GetPackageIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->package_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
 
 
 
@@ -4034,6 +4647,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::crosapi::mojom::TriState> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::TriState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::ControllerRegistrationResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::ControllerRegistrationResult value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::InstallAppParams_Surface> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::InstallAppParams_Surface value);
 };
 
 } // namespace perfetto

@@ -132,6 +132,9 @@ class WorkletGlobalScopeCreationParamsDataView {
     DCHECK(ret);
     return result;
   }
+  bool wait_for_debugger() const {
+    return data_->wait_for_debugger;
+  }
  private:
   internal::WorkletGlobalScopeCreationParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -217,6 +220,7 @@ struct Serializer<::blink::mojom::WorkletGlobalScopeCreationParamsDataView, Mayb
         !mojo::internal::IsHandleOrInterfaceValid(fragment->devtools_host),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
         "invalid devtools_host in WorkletGlobalScopeCreationParams struct");
+    fragment->wait_for_debugger = Traits::wait_for_debugger(input);
   }
 
   static bool Deserialize(::blink::mojom::internal::WorkletGlobalScopeCreationParams_Data* input,

@@ -1,14 +1,14 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;padding:0 var(--cr-section-padding)}</style>
-<settings-safety-hub-module id="module" on-sh-module-item-button-click="onAllowAgainClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckUnusedSitePermissionsAllowAgainAriaLabel" button-icon="settings20:undo" button-tooltip-text="$i18n{safetyCheckUnusedSitePermissionsAllowAgainLabel}" sites="[[sites_]]">
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">paper-tooltip{--paper-tooltip-min-width:max-content}</style>
+<settings-safety-hub-module id="module" animated on-sh-module-item-button-click="onAllowAgainClick_" header="[[headerString_]]" subheader="[[subheaderString_]]" header-icon="[[headerIconString_]]" button-aria-label-id="safetyCheckUnusedSitePermissionsAllowAgainAriaLabel" button-icon="settings20:undo" button-tooltip-text="$i18n{safetyCheckUnusedSitePermissionsAllowAgainLabel}" sites="[[sites_]]">
   <div slot="button-container">
     <cr-button id="gotItButton" on-click="onGotItClick_" hidden$="[[shouldShowCompletionInfo_]]">
       $i18n{safetyCheckUnusedSitePermissionsGotItLabel}
     </cr-button>
     <cr-icon-button id="moreActionButton" class="icon-more-vert" on-click="onMoreActionClick_" hidden$="[[shouldShowCompletionInfo_]]" title="$i18n{moreActions}">
     </cr-icon-button>
-    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]">
+    <cr-icon-button id="bulkUndoButton" iron-icon="settings20:undo" on-click="onUndoClick_" hidden$="[[!shouldShowCompletionInfo_]]" on-focus="showUndoTooltip_" on-mouseenter="showUndoTooltip_" aria-label$="$i18n{safetyCheckUnusedSitePermissionsUndoLabel}">
     </cr-icon-button>
   </div>
 </settings-safety-hub-module>
@@ -23,5 +23,8 @@ export function getTemplate() {
     $i18n{safetyHubGoSiteSettingsItem}
   </button>
 </cr-action-menu>
+<paper-tooltip fit-to-visible-bounds manual-mode position="top" offset="3">
+  $i18n{safetyCheckUnusedSitePermissionsUndoLabel}
+</paper-tooltip>
 <!--_html_template_end_-->`;
 }

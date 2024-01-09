@@ -204,12 +204,14 @@ struct printToPDFParams : public crdtp::DeserializableProtocolObject<printToPDFP
     Maybe<bool> preferCSSPageSize;
     Maybe<String> transferMode;
     Maybe<bool> generateTaggedPDF;
+    Maybe<bool> generateDocumentOutline;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
 CRDTP_BEGIN_DESERIALIZER(printToPDFParams)
     CRDTP_DESERIALIZE_FIELD_OPT("displayHeaderFooter", displayHeaderFooter),
     CRDTP_DESERIALIZE_FIELD_OPT("footerTemplate", footerTemplate),
+    CRDTP_DESERIALIZE_FIELD_OPT("generateDocumentOutline", generateDocumentOutline),
     CRDTP_DESERIALIZE_FIELD_OPT("generateTaggedPDF", generateTaggedPDF),
     CRDTP_DESERIALIZE_FIELD_OPT("headerTemplate", headerTemplate),
     CRDTP_DESERIALIZE_FIELD_OPT("landscape", landscape),
@@ -238,7 +240,7 @@ void DomainDispatcherImpl::printToPDF(const crdtp::Dispatchable& dispatchable)
       return;
     }
 
-    m_backend->PrintToPDF(std::move(params.landscape), std::move(params.displayHeaderFooter), std::move(params.printBackground), std::move(params.scale), std::move(params.paperWidth), std::move(params.paperHeight), std::move(params.marginTop), std::move(params.marginBottom), std::move(params.marginLeft), std::move(params.marginRight), std::move(params.pageRanges), std::move(params.headerTemplate), std::move(params.footerTemplate), std::move(params.preferCSSPageSize), std::move(params.transferMode), std::move(params.generateTaggedPDF), std::make_unique<PrintToPDFCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+    m_backend->PrintToPDF(std::move(params.landscape), std::move(params.displayHeaderFooter), std::move(params.printBackground), std::move(params.scale), std::move(params.paperWidth), std::move(params.paperHeight), std::move(params.marginTop), std::move(params.marginBottom), std::move(params.marginLeft), std::move(params.marginRight), std::move(params.pageRanges), std::move(params.headerTemplate), std::move(params.footerTemplate), std::move(params.preferCSSPageSize), std::move(params.transferMode), std::move(params.generateTaggedPDF), std::move(params.generateDocumentOutline), std::make_unique<PrintToPDFCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {
@@ -251,7 +253,6 @@ const std::vector<std::pair<crdtp::span<uint8_t>, crdtp::span<uint8_t>>>& Sorted
           { crdtp::SpanFrom("Page.clearDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.clearDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.clearGeolocationOverride"), crdtp::SpanFrom("Emulation.clearGeolocationOverride") },
           { crdtp::SpanFrom("Page.deleteCookie"), crdtp::SpanFrom("Network.deleteCookie") },
-          { crdtp::SpanFrom("Page.getCookies"), crdtp::SpanFrom("Network.getCookies") },
           { crdtp::SpanFrom("Page.setDeviceMetricsOverride"), crdtp::SpanFrom("Emulation.setDeviceMetricsOverride") },
           { crdtp::SpanFrom("Page.setDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.setDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.setGeolocationOverride"), crdtp::SpanFrom("Emulation.setGeolocationOverride") },

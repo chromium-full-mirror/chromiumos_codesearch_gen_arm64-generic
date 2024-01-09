@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,7 +57,7 @@ StylusWritingGestureData::StylusWritingGestureData(
     StylusWritingGestureAction action_in,
     StylusWritingGestureGranularity granularity_in,
     const ::gfx::Rect& start_rect_in,
-    const absl::optional<::gfx::Rect>& end_rect_in,
+    const std::optional<::gfx::Rect>& end_rect_in,
     const ::WTF::String& text_alternative_in,
     const ::WTF::String& text_to_insert_in)
     : action(std::move(action_in)),
@@ -102,7 +103,7 @@ void StylusWritingGestureData::WriteIntoTrace(
     dict.AddItem(
       "end_rect"), this->end_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

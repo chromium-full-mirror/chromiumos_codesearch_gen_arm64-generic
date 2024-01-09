@@ -10,6 +10,8 @@
 #include "components/content_settings/core/common/content_settings.mojom-import-headers.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-import-headers.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom-import-headers.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/origin.mojom-import-headers.h"
 

@@ -624,27 +624,6 @@ RPC_CATEGORIES = [
                                 "store_result_as": "preamble_flags",
                         },
                         {
-                                "method_name":
-                                "set_preamble_flags",
-                                "passing_args": [
-                                        (
-                                                "a",
-                                                operator.itemgetter(
-                                                        "preamble_flags"),
-                                        ),
-                                ],
-                                "failing_args": [
-                                        NO_ARGS,
-                                        ONE_INT_ARG,
-                                        ONE_STR_ARG,
-                                        (
-                                                "c",
-                                                operator.itemgetter(
-                                                        "preamble_flags"),
-                                        ),
-                                ],
-                        },
-                        {
                                 "method_names": [
                                         "get_body_sha",
                                         "get_sig_sha",
@@ -1166,9 +1145,7 @@ RPC_CATEGORIES = [
                         },
                         {
                                 "method_names": [
-                                        "dump_rootfs_verity",
                                         "corrupt_rootfs_verity",
-                                        "restore_rootfs_verity",
                                 ],
                                 "passing_args": [
                                         ("A", ),

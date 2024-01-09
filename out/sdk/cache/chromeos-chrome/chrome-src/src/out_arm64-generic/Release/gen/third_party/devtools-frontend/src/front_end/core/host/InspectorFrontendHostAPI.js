@@ -128,5 +128,11 @@ export var EnumeratedHistogram;
     EnumeratedHistogram["BadgeActivated"] = "DevTools.BadgeActivated";
     EnumeratedHistogram["AnimationPlaybackRateChanged"] = "DevTools.AnimationPlaybackRateChanged";
     EnumeratedHistogram["AnimationPointDragged"] = "DevTools.AnimationPointDragged";
+    EnumeratedHistogram["LegacyResourceTypeFilterNumberOfSelectedChanged"] = "DevTools.LegacyResourceTypeFilterNumberOfSelectedChanged";
+    EnumeratedHistogram["LegacyResourceTypeFilterItemSelected"] = "DevTools.LegacyResourceTypeFilterItemSelected";
+    EnumeratedHistogram["ResourceTypeFilterNumberOfSelectedChanged"] = "DevTools.ResourceTypeFilterNumberOfSelectedChanged";
+    EnumeratedHistogram["ResourceTypeFilterItemSelected"] = "DevTools.ResourceTypeFilterItemSelected";
+    EnumeratedHistogram["NetworkPanelMoreFiltersNumberOfSelectedChanged"] = "DevTools.NetworkPanelMoreFiltersNumberOfSelectedChanged";
+    EnumeratedHistogram["NetworkPanelMoreFiltersItemSelected"] = "DevTools.NetworkPanelMoreFiltersItemSelected";
 })(EnumeratedHistogram || (EnumeratedHistogram = {}));
 //# sourceMappingURL=InspectorFrontendHostAPI.js.map

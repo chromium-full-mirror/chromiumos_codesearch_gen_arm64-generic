@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,10 +51,10 @@ IPConfigProperties::IPConfigProperties()
       ip_address() {}
 
 IPConfigProperties::IPConfigProperties(
-    absl::optional<std::vector<std::string>> name_servers_in,
+    std::optional<std::vector<std::string>> name_servers_in,
     int32_t routing_prefix_in,
-    const absl::optional<std::string>& gateway_in,
-    const absl::optional<std::string>& ip_address_in)
+    const std::optional<std::string>& gateway_in,
+    const std::optional<std::string>& ip_address_in)
     : name_servers(std::move(name_servers_in)),
       routing_prefix(std::move(routing_prefix_in)),
       gateway(std::move(gateway_in)),
@@ -68,7 +69,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "name_servers"), this->name_servers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "gateway"), this->gateway,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -95,7 +96,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "ip_address"), this->ip_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -349,7 +350,7 @@ Network::Network(
     NetworkTypePropertiesPtr type_properties_in,
     const std::string& observer_guid_in,
     const std::string& name_in,
-    const absl::optional<std::string>& mac_address_in,
+    const std::optional<std::string>& mac_address_in,
     IPConfigPropertiesPtr ip_config_in)
     : state(std::move(state_in)),
       type(std::move(type_in)),
@@ -413,7 +414,7 @@ void Network::WriteIntoTrace(
     dict.AddItem(
       "mac_address"), this->mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -574,14 +575,17 @@ void NetworkListObserverProxy::OnNetworkListChanged(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkListObserver_OnNetworkListChanged_Name, kFlags, 0, 0, nullptr);
@@ -677,10 +681,10 @@ bool NetworkListObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkListObserverValidationInfo[] = {
-    {&internal::NetworkListObserver_OnNetworkListChanged_Params_Data::Validate,
+    { &internal::NetworkListObserver_OnNetworkListChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -760,14 +764,17 @@ void NetworkStateObserverProxy::OnNetworkStateChanged(
                         "<value of type NetworkPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkStateObserver_OnNetworkStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -846,10 +853,10 @@ bool NetworkStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkStateObserverValidationInfo[] = {
-    {&internal::NetworkStateObserver_OnNetworkStateChanged_Params_Data::Validate,
+    { &internal::NetworkStateObserver_OnNetworkStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -949,14 +956,17 @@ void NetworkHealthProviderProxy::ObserveNetworkList(
                         "<value of type ::mojo::PendingRemote<NetworkListObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthProvider_ObserveNetworkList_Name, kFlags, 0, 0, nullptr);
@@ -995,14 +1005,17 @@ void NetworkHealthProviderProxy::ObserveNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthProvider_ObserveNetwork_Name, kFlags, 0, 0, nullptr);
@@ -1124,12 +1137,12 @@ bool NetworkHealthProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkHealthProviderValidationInfo[] = {
-    {&internal::NetworkHealthProvider_ObserveNetworkList_Params_Data::Validate,
+    { &internal::NetworkHealthProvider_ObserveNetworkList_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkHealthProvider_ObserveNetwork_Params_Data::Validate,
+    { &internal::NetworkHealthProvider_ObserveNetwork_Params_Data::Validate,
      nullptr /* no response */},
 };
 

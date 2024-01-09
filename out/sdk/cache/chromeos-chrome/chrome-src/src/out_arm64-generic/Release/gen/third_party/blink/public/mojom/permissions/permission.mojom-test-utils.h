@@ -35,6 +35,7 @@ class BLINK_COMMON_EXPORT PermissionObserverAsyncWaiter {
 class BLINK_COMMON_EXPORT PermissionServiceInterceptorForTesting : public PermissionService {
   virtual PermissionService* GetForwardingInterface() = 0;
   void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) override;
+  void RegisterPageEmbeddedPermissionControl(std::vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) override;
   void RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor, RequestPageEmbeddedPermissionCallback callback) override;
   void RequestPermission(PermissionDescriptorPtr permission, bool user_gesture, RequestPermissionCallback callback) override;
   void RequestPermissions(std::vector<PermissionDescriptorPtr> permission, bool user_gesture, RequestPermissionsCallback callback) override;
@@ -53,6 +54,9 @@ class BLINK_COMMON_EXPORT PermissionServiceAsyncWaiter {
   void HasPermission(
       PermissionDescriptorPtr permission, ::blink::mojom::PermissionStatus* out_status);
   ::blink::mojom::PermissionStatus HasPermission(PermissionDescriptorPtr permission);
+  void RegisterPageEmbeddedPermissionControl(
+      std::vector<PermissionDescriptorPtr> permissions, bool* out_allowed, std::optional<std::vector<::blink::mojom::PermissionStatus>>* out_statuses);
+  
   void RequestPageEmbeddedPermission(
       EmbeddedPermissionRequestDescriptorPtr descriptor, EmbeddedPermissionControlResult* out_status);
   EmbeddedPermissionControlResult RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor);

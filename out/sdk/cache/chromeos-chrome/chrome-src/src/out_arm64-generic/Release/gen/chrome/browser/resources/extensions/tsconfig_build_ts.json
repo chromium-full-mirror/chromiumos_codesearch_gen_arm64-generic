@@ -86,6 +86,7 @@
     "preprocessed/service.ts",
     "preprocessed/shortcut_util.ts",
     "preprocessed/site_settings_mixin.ts",
+    "preprocessed/extension_hats_browser_proxy.ts",
     "preprocessed/url_util.ts",
     "preprocessed/kiosk_browser_proxy.ts",
     "preprocessed/activity_log/activity_log.html.ts",

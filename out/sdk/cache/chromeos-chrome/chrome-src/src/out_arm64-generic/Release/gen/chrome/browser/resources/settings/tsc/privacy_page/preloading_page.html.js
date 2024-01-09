@@ -1,13 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared privacy-guide-fragment-shared">.settings-header{padding:0 var(--cr-section-padding)}.settings-title{padding-top:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}.bullet-line{margin:12px 0;padding-inline-end:12px}</style>
-<template is="dom-if" if="[[isEmbeddedOnPerformancePage_]]">
-  <div class="settings-title">$i18n{preloadingPageTitle}</div>
-  <div class="secondary">$i18n{preloadingPageSummary}</div>
-</template>
-<template is="dom-if" if="[[!isEmbeddedOnPerformancePage_]]">
-  <div class="settings-header secondary">$i18n{preloadingPageSummary}</div>
-</template>
+<div class="settings-title">$i18n{preloadingPageTitle}</div>
+<div class="secondary">$i18n{preloadingPageSummary}</div>
 <settings-radio-group id="preloadingRadioGroup" no-set-pref pref="{{prefs.net.network_prediction_options}}" selectable-elements="settings-collapse-radio-button" on-change="onPreloadingRadioChange_">
   <settings-collapse-radio-button id="preloadingDisabled" no-collapse name="[[networkPredictionOptionsEnum_.DISABLED]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageNoPreloadingTitle}" sub-label="$i18n{preloadingPageNoPreloadingSummary}">
   </settings-collapse-radio-button>

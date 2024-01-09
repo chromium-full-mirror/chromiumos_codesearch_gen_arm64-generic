@@ -70,17 +70,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AccessibleNodeList>::value,
     "AccessibleNodeList inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AccessibleNodeList::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AccessibleNodeList is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8AccessibleNodeList::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_AccessibleNodeList_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -101,9 +97,9 @@ void V8AccessibleNodeList::IndexedPropertySetterCallback(uint32_t index, v8::Loc
 if (info.Holder() == info.This()) {
   // step 1.1.1. Invoke the indexed property setter with P and V.
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertySetter;
 const char* const class_like_name = "AccessibleNodeList";
 const AtomicString& blink_property_index = AtomicString::Number(index);
@@ -132,13 +128,13 @@ void V8AccessibleNodeList::IndexedPropertyDeleterCallback(uint32_t index, const 
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "AccessibleNodeList";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -208,9 +204,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8AccessibleNodeList::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_AccessibleNodeList_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -235,8 +231,9 @@ BLINK_BINDINGS_TRACE_EVENT("AccessibleNodeList.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -248,9 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("AccessibleNodeList.length.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AccessibleNodeList";
@@ -320,7 +317,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<AccessibleNode>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -357,7 +354,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -387,7 +384,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(v8_receiver);
+AccessibleNodeList* blink_receiver = V8AccessibleNodeList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

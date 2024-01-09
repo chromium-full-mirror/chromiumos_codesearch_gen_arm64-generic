@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBVersionChangeEvent>::value,
     "IDBVersionChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBVersionChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBVersionChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBVersionChangeEvent.oldVersion.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(v8_receiver);
+IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->oldVersion();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBVersionChangeEvent.newVersion.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(v8_receiver);
+IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->newVersion();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -116,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBVersionChangeEvent.dataLoss.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dataLoss();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dataLoss();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBVersionChangeEvent.dataLossMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dataLossMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dataLossMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -146,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBVersionChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(v8_receiver);
+IDBVersionChangeEvent* blink_receiver = V8IDBVersionChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

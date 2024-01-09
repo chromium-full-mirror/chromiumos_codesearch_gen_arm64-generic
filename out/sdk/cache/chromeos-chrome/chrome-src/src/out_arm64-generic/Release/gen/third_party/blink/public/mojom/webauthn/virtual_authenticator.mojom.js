@@ -98,6 +98,8 @@
     this.hasCredBlob = false;
     this.hasMinPinLength = false;
     this.hasPrf = false;
+    this.defaultBackupEligibility = false;
+    this.defaultBackupState = false;
   };
   VirtualAuthenticatorOptions.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -150,6 +152,8 @@
 
 
 
+
+
     return validator.validationError.NONE;
   };
 
@@ -176,7 +180,9 @@
     val.hasCredBlob = (packed >> 4) & 1 ? true : false;
     val.hasMinPinLength = (packed >> 5) & 1 ? true : false;
     val.hasPrf = (packed >> 6) & 1 ? true : false;
-    decoder.skip(1);
+    val.defaultBackupEligibility = (packed >> 7) & 1 ? true : false;
+    packed = decoder.readUint8();
+    val.defaultBackupState = (packed >> 0) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -202,8 +208,11 @@
     packed |= (val.hasCredBlob & 1) << 4
     packed |= (val.hasMinPinLength & 1) << 5
     packed |= (val.hasPrf & 1) << 6
+    packed |= (val.defaultBackupEligibility & 1) << 7
     encoder.writeUint8(packed);
-    encoder.skip(1);
+    packed = 0;
+    packed |= (val.defaultBackupState & 1) << 0
+    encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);

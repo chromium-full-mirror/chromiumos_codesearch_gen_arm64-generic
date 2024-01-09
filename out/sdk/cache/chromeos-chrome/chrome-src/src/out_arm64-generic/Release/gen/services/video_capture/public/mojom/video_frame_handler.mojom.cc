@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -166,14 +167,17 @@ void VideoFrameAccessHandlerProxy::OnFinishedConsumingBuffer(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameAccessHandler_OnFinishedConsumingBuffer_Name, kFlags, 0, 0, nullptr);
@@ -242,10 +246,10 @@ bool VideoFrameAccessHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFrameAccessHandlerValidationInfo[] = {
-    {&internal::VideoFrameAccessHandler_OnFinishedConsumingBuffer_Params_Data::Validate,
+    { &internal::VideoFrameAccessHandler_OnFinishedConsumingBuffer_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -558,14 +562,17 @@ void VideoFrameHandlerProxy::OnCaptureConfigurationChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoFrameHandler::OnCaptureConfigurationChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnCaptureConfigurationChanged_Name, kFlags, 0, 0, nullptr);
@@ -598,14 +605,17 @@ void VideoFrameHandlerProxy::OnNewBuffer(
                         "<value of type ::media::mojom::VideoBufferHandlePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnNewBuffer_Name, kFlags, 0, 0, nullptr);
@@ -645,14 +655,17 @@ void VideoFrameHandlerProxy::OnFrameAccessHandlerReady(
                         "<value of type ::mojo::PendingRemote<VideoFrameAccessHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameAccessHandlerReady_Name, kFlags, 0, 0, nullptr);
@@ -688,14 +701,17 @@ void VideoFrameHandlerProxy::OnFrameReadyInBuffer(
                         "<value of type ReadyFrameInBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
@@ -736,14 +752,17 @@ void VideoFrameHandlerProxy::OnBufferRetired(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnBufferRetired_Name, kFlags, 0, 0, nullptr);
@@ -774,14 +793,17 @@ void VideoFrameHandlerProxy::OnError(
                         "<value of type ::media::VideoCaptureError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnError_Name, kFlags, 0, 0, nullptr);
@@ -813,14 +835,17 @@ void VideoFrameHandlerProxy::OnFrameDropped(
                         "<value of type ::media::VideoCaptureFrameDropReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameDropped_Name, kFlags, 0, 0, nullptr);
@@ -852,14 +877,17 @@ void VideoFrameHandlerProxy::OnNewSubCaptureTargetVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
@@ -883,14 +911,17 @@ void VideoFrameHandlerProxy::OnFrameWithEmptyRegionCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoFrameHandler::OnFrameWithEmptyRegionCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name, kFlags, 0, 0, nullptr);
@@ -920,14 +951,17 @@ void VideoFrameHandlerProxy::OnLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnLog_Name, kFlags, 0, 0, nullptr);
@@ -961,14 +995,17 @@ void VideoFrameHandlerProxy::OnStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoFrameHandler::OnStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStarted_Name, kFlags, 0, 0, nullptr);
@@ -991,14 +1028,17 @@ void VideoFrameHandlerProxy::OnStartedUsingGpuDecode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoFrameHandler::OnStartedUsingGpuDecode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStartedUsingGpuDecode_Name, kFlags, 0, 0, nullptr);
@@ -1021,14 +1061,17 @@ void VideoFrameHandlerProxy::OnStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoFrameHandler::OnStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -1430,34 +1473,34 @@ bool VideoFrameHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFrameHandlerValidationInfo[] = {
-    {&internal::VideoFrameHandler_OnCaptureConfigurationChanged_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnCaptureConfigurationChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnNewBuffer_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnNewBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameAccessHandlerReady_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameAccessHandlerReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnBufferRetired_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnBufferRetired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnError_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameDropped_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameDropped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnLog_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStarted_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStartedUsingGpuDecode_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStartedUsingGpuDecode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStopped_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
 };
 

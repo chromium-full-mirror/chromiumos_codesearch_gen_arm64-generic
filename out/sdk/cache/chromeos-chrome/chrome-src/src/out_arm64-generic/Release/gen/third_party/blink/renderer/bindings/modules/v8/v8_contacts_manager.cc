@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ContactsManager>::value,
     "ContactsManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ContactsManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ContactsManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -109,7 +104,7 @@ UseCounter::Count(current_execution_context, WebFeature::kContactsManagerGetProp
 
 
 
-ContactsManager* blink_receiver = V8ContactsManager::ToWrappableUnsafe(v8_receiver);
+ContactsManager* blink_receiver = V8ContactsManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -148,7 +143,7 @@ return;
 
 
 
-ContactsManager* blink_receiver = V8ContactsManager::ToWrappableUnsafe(v8_receiver);
+ContactsManager* blink_receiver = V8ContactsManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

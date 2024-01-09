@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/file_system.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ AcceptOption::AcceptOption()
  {}
 
 AcceptOption::~AcceptOption() = default;
-AcceptOption::AcceptOption(AcceptOption&& rhs) = default;
-AcceptOption& AcceptOption::operator=(AcceptOption&& rhs) = default;
+AcceptOption::AcceptOption(AcceptOption&& rhs) noexcept = default;
+AcceptOption& AcceptOption::operator=(AcceptOption&& rhs) noexcept = default;
 AcceptOption AcceptOption::Clone() const {
   AcceptOption out;
   out.description = description;
@@ -56,7 +57,7 @@ bool AcceptOption::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -104,34 +105,21 @@ bool AcceptOption::Populate(
 }
 
 // static
-std::unique_ptr<AcceptOption> AcceptOption::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AcceptOption>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AcceptOption> AcceptOption::FromValue(const base::Value::Dict& value) {
+  AcceptOption out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AcceptOption> AcceptOption::FromValue(const base::Value::Dict& value) {
+std::optional<AcceptOption> AcceptOption::FromValue(const base::Value& value) {
   AcceptOption out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AcceptOption> AcceptOption::FromValue(const base::Value& value) {
-  AcceptOption out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -194,8 +182,8 @@ ChooseEntryOptions::ChooseEntryOptions()
 : type() {}
 
 ChooseEntryOptions::~ChooseEntryOptions() = default;
-ChooseEntryOptions::ChooseEntryOptions(ChooseEntryOptions&& rhs) = default;
-ChooseEntryOptions& ChooseEntryOptions::operator=(ChooseEntryOptions&& rhs) = default;
+ChooseEntryOptions::ChooseEntryOptions(ChooseEntryOptions&& rhs) noexcept = default;
+ChooseEntryOptions& ChooseEntryOptions::operator=(ChooseEntryOptions&& rhs) noexcept = default;
 ChooseEntryOptions ChooseEntryOptions::Clone() const {
   ChooseEntryOptions out;
   out.type = type;
@@ -237,7 +225,7 @@ bool ChooseEntryOptions::Populate(
     {
       auto* temp = (*suggested_name_value).GetIfString();
       if (!temp) {
-        out.suggested_name = absl::nullopt;
+        out.suggested_name = std::nullopt;
         return false;
       }
       out.suggested_name = *temp;
@@ -263,7 +251,7 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_all_types_value).GetIfBool();
       if (!temp.has_value()) {
-        out.accepts_all_types = absl::nullopt;
+        out.accepts_all_types = std::nullopt;
         return false;
       }
       out.accepts_all_types = *temp;
@@ -275,7 +263,7 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_multiple_value).GetIfBool();
       if (!temp.has_value()) {
-        out.accepts_multiple = absl::nullopt;
+        out.accepts_multiple = std::nullopt;
         return false;
       }
       out.accepts_multiple = *temp;
@@ -295,34 +283,21 @@ bool ChooseEntryOptions::Populate(
 }
 
 // static
-std::unique_ptr<ChooseEntryOptions> ChooseEntryOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ChooseEntryOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value::Dict& value) {
+  ChooseEntryOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value& value) {
   ChooseEntryOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value& value) {
-  ChooseEntryOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -359,8 +334,8 @@ RequestFileSystemOptions::RequestFileSystemOptions()
  {}
 
 RequestFileSystemOptions::~RequestFileSystemOptions() = default;
-RequestFileSystemOptions::RequestFileSystemOptions(RequestFileSystemOptions&& rhs) = default;
-RequestFileSystemOptions& RequestFileSystemOptions::operator=(RequestFileSystemOptions&& rhs) = default;
+RequestFileSystemOptions::RequestFileSystemOptions(RequestFileSystemOptions&& rhs) noexcept = default;
+RequestFileSystemOptions& RequestFileSystemOptions::operator=(RequestFileSystemOptions&& rhs) noexcept = default;
 RequestFileSystemOptions RequestFileSystemOptions::Clone() const {
   RequestFileSystemOptions out;
   out.volume_id = volume_id;
@@ -388,7 +363,7 @@ bool RequestFileSystemOptions::Populate(
     {
       auto temp = (*writable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.writable = absl::nullopt;
+        out.writable = std::nullopt;
         return false;
       }
       out.writable = *temp;
@@ -408,34 +383,21 @@ bool RequestFileSystemOptions::Populate(
 }
 
 // static
-std::unique_ptr<RequestFileSystemOptions> RequestFileSystemOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestFileSystemOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value::Dict& value) {
+  RequestFileSystemOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value::Dict& value) {
+std::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value& value) {
   RequestFileSystemOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value& value) {
-  RequestFileSystemOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -458,8 +420,8 @@ Volume::Volume()
 : writable(false) {}
 
 Volume::~Volume() = default;
-Volume::Volume(Volume&& rhs) = default;
-Volume& Volume::operator=(Volume&& rhs) = default;
+Volume::Volume(Volume&& rhs) noexcept = default;
+Volume& Volume::operator=(Volume&& rhs) noexcept = default;
 Volume Volume::Clone() const {
   Volume out;
   out.volume_id = volume_id;
@@ -507,34 +469,21 @@ bool Volume::Populate(
 }
 
 // static
-std::unique_ptr<Volume> Volume::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Volume>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Volume> Volume::FromValue(const base::Value::Dict& value) {
+  Volume out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Volume> Volume::FromValue(const base::Value::Dict& value) {
+std::optional<Volume> Volume::FromValue(const base::Value& value) {
   Volume out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Volume> Volume::FromValue(const base::Value& value) {
-  Volume out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -555,8 +504,8 @@ VolumeListChangedEvent::VolumeListChangedEvent()
  {}
 
 VolumeListChangedEvent::~VolumeListChangedEvent() = default;
-VolumeListChangedEvent::VolumeListChangedEvent(VolumeListChangedEvent&& rhs) = default;
-VolumeListChangedEvent& VolumeListChangedEvent::operator=(VolumeListChangedEvent&& rhs) = default;
+VolumeListChangedEvent::VolumeListChangedEvent(VolumeListChangedEvent&& rhs) noexcept = default;
+VolumeListChangedEvent& VolumeListChangedEvent::operator=(VolumeListChangedEvent&& rhs) noexcept = default;
 VolumeListChangedEvent VolumeListChangedEvent::Clone() const {
   VolumeListChangedEvent out;
   out.volumes.reserve(volumes.size());
@@ -597,34 +546,21 @@ bool VolumeListChangedEvent::Populate(
 }
 
 // static
-std::unique_ptr<VolumeListChangedEvent> VolumeListChangedEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VolumeListChangedEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value::Dict& value) {
+  VolumeListChangedEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value::Dict& value) {
+std::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value& value) {
   VolumeListChangedEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value& value) {
-  VolumeListChangedEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -650,8 +586,8 @@ Params::Entry::Entry()
  {}
 
 Params::Entry::~Entry() = default;
-Params::Entry::Entry(Entry&& rhs) = default;
-Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry::Entry(Entry&& rhs) noexcept = default;
+Params::Entry& Params::Entry::operator=(Entry&& rhs) noexcept = default;
 Params::Entry Params::Entry::Clone() const {
   Entry out;
   return out;
@@ -674,21 +610,21 @@ bool Params::Entry::Populate(
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -696,13 +632,13 @@ absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value)
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -711,15 +647,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -741,8 +677,8 @@ Params::Entry::Entry()
  {}
 
 Params::Entry::~Entry() = default;
-Params::Entry::Entry(Entry&& rhs) = default;
-Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry::Entry(Entry&& rhs) noexcept = default;
+Params::Entry& Params::Entry::operator=(Entry&& rhs) noexcept = default;
 Params::Entry Params::Entry::Clone() const {
   Entry out;
   return out;
@@ -765,21 +701,21 @@ bool Params::Entry::Populate(
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -787,13 +723,13 @@ absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value)
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -802,15 +738,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -821,8 +757,8 @@ Results::Entry::Entry()
  {}
 
 Results::Entry::~Entry() = default;
-Results::Entry::Entry(Entry&& rhs) = default;
-Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
+Results::Entry::Entry(Entry&& rhs) noexcept = default;
+Results::Entry& Results::Entry::operator=(Entry&& rhs) noexcept = default;
 base::Value::Dict Results::Entry::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -847,8 +783,8 @@ Params::Entry::Entry()
  {}
 
 Params::Entry::~Entry() = default;
-Params::Entry::Entry(Entry&& rhs) = default;
-Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry::Entry(Entry&& rhs) noexcept = default;
+Params::Entry& Params::Entry::operator=(Entry&& rhs) noexcept = default;
 Params::Entry Params::Entry::Clone() const {
   Entry out;
   return out;
@@ -871,21 +807,21 @@ bool Params::Entry::Populate(
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -893,13 +829,13 @@ absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value)
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -908,15 +844,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -936,13 +872,13 @@ namespace ChooseEntry {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -951,12 +887,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ChooseEntryOptions temp;
         if (!ChooseEntryOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -970,8 +906,8 @@ Results::Entry::Entry()
  {}
 
 Results::Entry::~Entry() = default;
-Results::Entry::Entry(Entry&& rhs) = default;
-Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
+Results::Entry::Entry(Entry&& rhs) noexcept = default;
+Results::Entry& Results::Entry::operator=(Entry&& rhs) noexcept = default;
 base::Value::Dict Results::Entry::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -985,8 +921,8 @@ Results::FileEntriesType::FileEntriesType()
  {}
 
 Results::FileEntriesType::~FileEntriesType() = default;
-Results::FileEntriesType::FileEntriesType(FileEntriesType&& rhs) = default;
-Results::FileEntriesType& Results::FileEntriesType::operator=(FileEntriesType&& rhs) = default;
+Results::FileEntriesType::FileEntriesType(FileEntriesType&& rhs) noexcept = default;
+Results::FileEntriesType& Results::FileEntriesType::operator=(FileEntriesType&& rhs) noexcept = default;
 base::Value::Dict Results::FileEntriesType::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1012,13 +948,13 @@ namespace RestoreEntry {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1028,13 +964,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1045,8 +981,8 @@ Results::Entry::Entry()
  {}
 
 Results::Entry::~Entry() = default;
-Results::Entry::Entry(Entry&& rhs) = default;
-Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
+Results::Entry::Entry(Entry&& rhs) noexcept = default;
+Results::Entry& Results::Entry::operator=(Entry&& rhs) noexcept = default;
 base::Value::Dict Results::Entry::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1069,13 +1005,13 @@ namespace IsRestorable {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1085,13 +1021,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1113,8 +1049,8 @@ Params::Entry::Entry()
  {}
 
 Params::Entry::~Entry() = default;
-Params::Entry::Entry(Entry&& rhs) = default;
-Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry::Entry(Entry&& rhs) noexcept = default;
+Params::Entry& Params::Entry::operator=(Entry&& rhs) noexcept = default;
 Params::Entry Params::Entry::Clone() const {
   Entry out;
   return out;
@@ -1137,21 +1073,21 @@ bool Params::Entry::Populate(
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+std::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1159,13 +1095,13 @@ absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value)
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1174,15 +1110,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1195,13 +1131,13 @@ namespace RequestFileSystem {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1210,15 +1146,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestFileSystemOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1229,8 +1165,8 @@ Results::FileSystem::FileSystem()
  {}
 
 Results::FileSystem::~FileSystem() = default;
-Results::FileSystem::FileSystem(FileSystem&& rhs) = default;
-Results::FileSystem& Results::FileSystem::operator=(FileSystem&& rhs) = default;
+Results::FileSystem::FileSystem(FileSystem&& rhs) noexcept = default;
+Results::FileSystem& Results::FileSystem::operator=(FileSystem&& rhs) noexcept = default;
 base::Value::Dict Results::FileSystem::ToValue() const {
   base::Value::Dict to_value_result;
 

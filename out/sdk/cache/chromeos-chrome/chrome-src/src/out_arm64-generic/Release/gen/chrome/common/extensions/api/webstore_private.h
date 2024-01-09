@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,28 +31,28 @@ namespace webstore_private {
 //
 
 // Whether the API call succeeded, or the reason for failure.
-enum  Result {
-  RESULT_NONE = 0,
-  RESULT_EMPTY_STRING,
-  RESULT_SUCCESS,
-  RESULT_USER_GESTURE_REQUIRED,
-  RESULT_UNKNOWN_ERROR,
-  RESULT_FEATURE_DISABLED,
-  RESULT_UNSUPPORTED_EXTENSION_TYPE,
-  RESULT_MISSING_DEPENDENCIES,
-  RESULT_INSTALL_ERROR,
-  RESULT_USER_CANCELLED,
-  RESULT_INVALID_ID,
-  RESULT_BLACKLISTED,
-  RESULT_BLOCKED_BY_POLICY,
-  RESULT_INSTALL_IN_PROGRESS,
-  RESULT_LAUNCH_IN_PROGRESS,
-  RESULT_MANIFEST_ERROR,
-  RESULT_ICON_ERROR,
-  RESULT_INVALID_ICON_URL,
-  RESULT_ALREADY_INSTALLED,
-  RESULT_BLOCKED_FOR_CHILD_ACCOUNT,
-  RESULT_LAST = RESULT_BLOCKED_FOR_CHILD_ACCOUNT,
+enum class Result {
+  kNone = 0,
+  kEmptyString,
+  kSuccess,
+  kUserGestureRequired,
+  kUnknownError,
+  kFeatureDisabled,
+  kUnsupportedExtensionType,
+  kMissingDependencies,
+  kInstallError,
+  kUserCancelled,
+  kInvalidId,
+  kBlacklisted,
+  kBlockedByPolicy,
+  kInstallInProgress,
+  kLaunchInProgress,
+  kManifestError,
+  kIconError,
+  kInvalidIconUrl,
+  kAlreadyInstalled,
+  kBlockedForChildAccount,
+  kMaxValue = kBlockedForChildAccount,
 };
 
 
@@ -59,11 +60,11 @@ const char* ToString(Result as_enum);
 Result ParseResult(base::StringPiece as_string);
 std::u16string GetResultParseError(base::StringPiece as_string);
 
-enum  WebGlStatus {
-  WEB_GL_STATUS_NONE = 0,
-  WEB_GL_STATUS_WEBGL_ALLOWED,
-  WEB_GL_STATUS_WEBGL_BLOCKED,
-  WEB_GL_STATUS_LAST = WEB_GL_STATUS_WEBGL_BLOCKED,
+enum class WebGlStatus {
+  kNone = 0,
+  kWebglAllowed,
+  kWebglBlocked,
+  kMaxValue = kWebglBlocked,
 };
 
 
@@ -71,19 +72,19 @@ const char* ToString(WebGlStatus as_enum);
 WebGlStatus ParseWebGlStatus(base::StringPiece as_string);
 std::u16string GetWebGlStatusParseError(base::StringPiece as_string);
 
-enum  ExtensionInstallStatus {
-  EXTENSION_INSTALL_STATUS_NONE = 0,
-  EXTENSION_INSTALL_STATUS_CAN_REQUEST,
-  EXTENSION_INSTALL_STATUS_REQUEST_PENDING,
-  EXTENSION_INSTALL_STATUS_BLOCKED_BY_POLICY,
-  EXTENSION_INSTALL_STATUS_INSTALLABLE,
-  EXTENSION_INSTALL_STATUS_ENABLED,
-  EXTENSION_INSTALL_STATUS_DISABLED,
-  EXTENSION_INSTALL_STATUS_TERMINATED,
-  EXTENSION_INSTALL_STATUS_BLACKLISTED,
-  EXTENSION_INSTALL_STATUS_CUSTODIAN_APPROVAL_REQUIRED,
-  EXTENSION_INSTALL_STATUS_FORCE_INSTALLED,
-  EXTENSION_INSTALL_STATUS_LAST = EXTENSION_INSTALL_STATUS_FORCE_INSTALLED,
+enum class ExtensionInstallStatus {
+  kNone = 0,
+  kCanRequest,
+  kRequestPending,
+  kBlockedByPolicy,
+  kInstallable,
+  kEnabled,
+  kDisabled,
+  kTerminated,
+  kBlacklisted,
+  kCustodianApprovalRequired,
+  kForceInstalled,
+  kMaxValue = kForceInstalled,
 };
 
 
@@ -99,11 +100,11 @@ std::u16string GetExtensionInstallStatusParseError(base::StringPiece as_string);
 namespace BeginInstallWithManifest3 {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -111,8 +112,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -126,10 +127,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The id of the extension to be installed.
     std::string id;
@@ -139,32 +140,32 @@ struct Params {
     // manifest matches what was passed in here.
     std::string manifest;
 
-    absl::optional<std::string> icon_url;
+    std::optional<std::string> icon_url;
 
     // A string to use instead of the raw value of the 'name' key from
     // manifest.json.
-    absl::optional<std::string> localized_name;
+    std::optional<std::string> localized_name;
 
     // The name of the locale used for generating localizedName. This should be the
     // name of one of the directories in the _locales folder of the extension, or
     // the default_locale setting from the manifest.
-    absl::optional<std::string> locale;
+    std::optional<std::string> locale;
 
     // A flag to change the UI we show when an app is installed - a value of true
     // means to show a bubble pointing at the new tab button (instead of the default
     // behavior of opening the new tab page and animating the app icon).
-    absl::optional<bool> app_install_bubble;
+    std::optional<bool> app_install_bubble;
 
     // A flag to cause the app launcher to be installed before installing the
     // extension, if it isn't installed already.
-    absl::optional<bool> enable_launcher;
+    std::optional<bool> enable_launcher;
 
     // The authuser index to be included with CRX download requests in multi-login
     // sessions.
-    absl::optional<std::string> authuser;
+    std::optional<std::string> authuser;
 
     // A flag to specify if the extension is included in the ESB allowlist.
-    absl::optional<bool> esb_allowlist;
+    std::optional<bool> esb_allowlist;
 
     base::Value::Dict additional_properties;
   };
@@ -191,11 +192,11 @@ base::Value::List Create(const Result& result);
 namespace CompleteInstall {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to be installed. This should match a previous call to
@@ -232,8 +233,8 @@ struct Info {
   ~Info();
   Info(const Info&) = delete;
   Info& operator=(const Info&) = delete;
-  Info(Info&& rhs);
-  Info& operator=(Info&& rhs);
+  Info(Info&& rhs) noexcept;
+  Info& operator=(Info&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInfo object.
@@ -261,11 +262,11 @@ base::Value::List Create(const std::string& login);
 namespace SetStoreLogin {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string login;
@@ -312,11 +313,11 @@ base::Value::List Create(bool is_incognito);
 namespace IsPendingCustodianApproval {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The extension id of the extension to be checked.
@@ -346,18 +347,18 @@ base::Value::List Create(const std::string& referrer_chain);
 namespace GetExtensionStatus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension
   std::string id;
 
   // The manifest of the extension
-  absl::optional<std::string> manifest;
+  std::optional<std::string> manifest;
 
 
  private:

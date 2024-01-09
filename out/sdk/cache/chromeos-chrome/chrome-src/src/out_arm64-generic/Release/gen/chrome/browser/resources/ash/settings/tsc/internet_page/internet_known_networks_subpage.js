@@ -23,10 +23,10 @@ import { FilterType, NO_LIMIT } from 'chrome://resources/mojo/chromeos/services/
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { getTemplate } from './internet_known_networks_subpage.html.js';
 import { PasspointListenerMixin } from './passpoint_listener_mixin.js';

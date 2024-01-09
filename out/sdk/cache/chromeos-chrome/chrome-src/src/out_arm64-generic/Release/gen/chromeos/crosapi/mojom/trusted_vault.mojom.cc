@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -128,14 +129,17 @@ void TrustedVaultBackendObserverProxy::OnTrustedVaultKeysChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TrustedVaultBackendObserver::OnTrustedVaultKeysChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackendObserver_OnTrustedVaultKeysChanged_Name, kFlags, 0, 0, nullptr);
@@ -158,14 +162,17 @@ void TrustedVaultBackendObserverProxy::OnTrustedVaultRecoverabilityChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TrustedVaultBackendObserver::OnTrustedVaultRecoverabilityChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -254,12 +261,12 @@ bool TrustedVaultBackendObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrustedVaultBackendObserverValidationInfo[] = {
-    {&internal::TrustedVaultBackendObserver_OnTrustedVaultKeysChanged_Params_Data::Validate,
+    { &internal::TrustedVaultBackendObserver_OnTrustedVaultKeysChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_Params_Data::Validate,
+    { &internal::TrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -524,14 +531,17 @@ void TrustedVaultBackendProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<TrustedVaultBackendObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -567,14 +577,17 @@ void TrustedVaultBackendProxy::FetchKeys(
                         "<value of type ::crosapi::mojom::AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_FetchKeys_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +629,17 @@ void TrustedVaultBackendProxy::MarkLocalKeysAsStale(
                         "<value of type ::crosapi::mojom::AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_MarkLocalKeysAsStale_Name, kFlags, 0, 0, nullptr);
@@ -671,14 +687,17 @@ void TrustedVaultBackendProxy::StoreKeys(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_StoreKeys_Name, kFlags, 0, 0, nullptr);
@@ -733,14 +752,17 @@ void TrustedVaultBackendProxy::GetIsRecoverabilityDegraded(
                         "<value of type ::crosapi::mojom::AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_GetIsRecoverabilityDegraded_Name, kFlags, 0, 0, nullptr);
@@ -788,14 +810,17 @@ void TrustedVaultBackendProxy::AddTrustedRecoveryMethod(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_AddTrustedRecoveryMethod_Name, kFlags, 0, 0, nullptr);
@@ -851,14 +876,17 @@ void TrustedVaultBackendProxy::ClearLocalDataForAccount(
                         "<value of type ::crosapi::mojom::AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_ClearLocalDataForAccount_Name, kFlags, 0, 0, nullptr);
@@ -978,7 +1006,8 @@ void TrustedVaultBackend_FetchKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_FetchKeys_Name, kFlags, 0, 0, nullptr);
@@ -1108,7 +1137,8 @@ void TrustedVaultBackend_MarkLocalKeysAsStale_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_MarkLocalKeysAsStale_Name, kFlags, 0, 0, nullptr);
@@ -1226,7 +1256,8 @@ void TrustedVaultBackend_GetIsRecoverabilityDegraded_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_GetIsRecoverabilityDegraded_Name, kFlags, 0, 0, nullptr);
@@ -1333,7 +1364,8 @@ void TrustedVaultBackend_AddTrustedRecoveryMethod_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustedVaultBackend_AddTrustedRecoveryMethod_Name, kFlags, 0, 0, nullptr);
@@ -1613,22 +1645,22 @@ std::move(p_method_type_hint), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrustedVaultBackendValidationInfo[] = {
-    {&internal::TrustedVaultBackend_AddObserver_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrustedVaultBackend_FetchKeys_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_FetchKeys_Params_Data::Validate,
      &internal::TrustedVaultBackend_FetchKeys_ResponseParams_Data::Validate},
-    {&internal::TrustedVaultBackend_MarkLocalKeysAsStale_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_MarkLocalKeysAsStale_Params_Data::Validate,
      &internal::TrustedVaultBackend_MarkLocalKeysAsStale_ResponseParams_Data::Validate},
-    {&internal::TrustedVaultBackend_StoreKeys_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_StoreKeys_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrustedVaultBackend_GetIsRecoverabilityDegraded_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_GetIsRecoverabilityDegraded_Params_Data::Validate,
      &internal::TrustedVaultBackend_GetIsRecoverabilityDegraded_ResponseParams_Data::Validate},
-    {&internal::TrustedVaultBackend_AddTrustedRecoveryMethod_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_AddTrustedRecoveryMethod_Params_Data::Validate,
      &internal::TrustedVaultBackend_AddTrustedRecoveryMethod_ResponseParams_Data::Validate},
-    {&internal::TrustedVaultBackend_ClearLocalDataForAccount_Params_Data::Validate,
+    { &internal::TrustedVaultBackend_ClearLocalDataForAccount_Params_Data::Validate,
      nullptr /* no response */},
 };
 

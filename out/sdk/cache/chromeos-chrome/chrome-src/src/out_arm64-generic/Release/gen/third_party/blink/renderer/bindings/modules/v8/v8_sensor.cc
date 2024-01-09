@@ -72,11 +72,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, Sensor>::value,
     "Sensor does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&Sensor::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Sensor is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorActivated
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -108,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("Sensor.hasReading.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasReading();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -122,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("Sensor.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -145,7 +142,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnError);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -165,7 +162,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -182,7 +179,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnChange)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onreading();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -202,7 +199,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreading(event_handler);
 }
 
@@ -219,7 +216,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnActivat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onactivate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -239,7 +236,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnactivate(event_handler);
 }
 
@@ -260,7 +257,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorStart);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->start();
 
 }
@@ -282,7 +279,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGenericSensorStop);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(v8_receiver);
+Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stop();
 
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/desk.mojom-features.h"
 #include "chromeos/crosapi/mojom/desk.mojom-shared.h"
 #include "chromeos/crosapi/mojom/desk.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -49,6 +50,7 @@
 #include "components/services/app_service/public/cpp/capability_access.h"
 #include "components/services/app_service/public/cpp/icon_types.h"
 #include "components/services/app_service/public/cpp/preferred_app.h"
+#include "components/services/app_service/public/cpp/shortcut/shortcut.h"
 
 
 
@@ -214,7 +216,7 @@ class Desk
 
   using RemoveDeskCallback = base::OnceCallback<void(RemoveDeskResultPtr)>;
   
-  virtual void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskCallback callback) = 0;
+  virtual void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskCallback callback) = 0;
 
 
   using GetTemplateJsonCallback = base::OnceCallback<void(GetTemplateJsonResultPtr)>;
@@ -300,7 +302,7 @@ class  DeskProxy
   
   void LaunchEmptyDesk(const std::string& desk_name, LaunchEmptyDeskCallback callback) final;
   
-  void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, absl::optional<bool> allow_undo, RemoveDeskCallback callback) final;
+  void RemoveDesk(const ::base::Uuid& desk_uuid, bool combine_desk, std::optional<bool> allow_undo, RemoveDeskCallback callback) final;
   
   void GetTemplateJson(const ::base::Uuid& desk_template_uuid, GetTemplateJsonCallback callback) final;
   
@@ -876,17 +878,17 @@ class  LaunchEmptyDeskResult {
   // Construct an instance holding |error|.
   static LaunchEmptyDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = LaunchEmptyDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |desk_id|.
   static LaunchEmptyDeskResultPtr
   NewDeskId(
-      const ::base::Uuid& desk_id) {
+      const ::base::Uuid& value) {
     auto result = LaunchEmptyDeskResultPtr(absl::in_place);
-    result->set_desk_id(std::move(desk_id));
+    result->set_desk_id(std::move(value));
     return result;
   }
 
@@ -1006,17 +1008,17 @@ class  RemoveDeskResult {
   // Construct an instance holding |error|.
   static RemoveDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = RemoveDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |succeeded|.
   static RemoveDeskResultPtr
   NewSucceeded(
-      bool succeeded) {
+      bool value) {
     auto result = RemoveDeskResultPtr(absl::in_place);
-    result->set_succeeded(std::move(succeeded));
+    result->set_succeeded(std::move(value));
     return result;
   }
 
@@ -1133,17 +1135,17 @@ class  GetTemplateJsonResult {
   // Construct an instance holding |error|.
   static GetTemplateJsonResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = GetTemplateJsonResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |template_json|.
   static GetTemplateJsonResultPtr
   NewTemplateJson(
-      ::base::Value template_json) {
+      ::base::Value value) {
     auto result = GetTemplateJsonResultPtr(absl::in_place);
-    result->set_template_json(std::move(template_json));
+    result->set_template_json(std::move(value));
     return result;
   }
 
@@ -1263,17 +1265,17 @@ class  GetAllDesksResult {
   // Construct an instance holding |error|.
   static GetAllDesksResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = GetAllDesksResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |desks|.
   static GetAllDesksResultPtr
   NewDesks(
-      std::vector<DeskModelPtr> desks) {
+      std::vector<DeskModelPtr> value) {
     auto result = GetAllDesksResultPtr(absl::in_place);
-    result->set_desks(std::move(desks));
+    result->set_desks(std::move(value));
     return result;
   }
 
@@ -1393,17 +1395,17 @@ class  SaveActiveDeskResult {
   // Construct an instance holding |error|.
   static SaveActiveDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = SaveActiveDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |saved_desk|.
   static SaveActiveDeskResultPtr
   NewSavedDesk(
-      DeskModelPtr saved_desk) {
+      DeskModelPtr value) {
     auto result = SaveActiveDeskResultPtr(absl::in_place);
-    result->set_saved_desk(std::move(saved_desk));
+    result->set_saved_desk(std::move(value));
     return result;
   }
 
@@ -1524,17 +1526,17 @@ class  RecallSavedDeskResult {
   // Construct an instance holding |error|.
   static RecallSavedDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = RecallSavedDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |desk_id|.
   static RecallSavedDeskResultPtr
   NewDeskId(
-      const ::base::Uuid& desk_id) {
+      const ::base::Uuid& value) {
     auto result = RecallSavedDeskResultPtr(absl::in_place);
-    result->set_desk_id(std::move(desk_id));
+    result->set_desk_id(std::move(value));
     return result;
   }
 
@@ -1654,17 +1656,17 @@ class  DeleteSavedDeskResult {
   // Construct an instance holding |error|.
   static DeleteSavedDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = DeleteSavedDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |succeeded|.
   static DeleteSavedDeskResultPtr
   NewSucceeded(
-      bool succeeded) {
+      bool value) {
     auto result = DeleteSavedDeskResultPtr(absl::in_place);
-    result->set_succeeded(std::move(succeeded));
+    result->set_succeeded(std::move(value));
     return result;
   }
 
@@ -1781,17 +1783,17 @@ class  SetAllDesksPropertyResult {
   // Construct an instance holding |error|.
   static SetAllDesksPropertyResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = SetAllDesksPropertyResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |succeeded|.
   static SetAllDesksPropertyResultPtr
   NewSucceeded(
-      bool succeeded) {
+      bool value) {
     auto result = SetAllDesksPropertyResultPtr(absl::in_place);
-    result->set_succeeded(std::move(succeeded));
+    result->set_succeeded(std::move(value));
     return result;
   }
 
@@ -1908,17 +1910,17 @@ class  GetSavedDesksResult {
   // Construct an instance holding |error|.
   static GetSavedDesksResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = GetSavedDesksResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |saved_desks|.
   static GetSavedDesksResultPtr
   NewSavedDesks(
-      std::vector<SavedDeskModelPtr> saved_desks) {
+      std::vector<SavedDeskModelPtr> value) {
     auto result = GetSavedDesksResultPtr(absl::in_place);
-    result->set_saved_desks(std::move(saved_desks));
+    result->set_saved_desks(std::move(value));
     return result;
   }
 
@@ -2038,17 +2040,17 @@ class  GetActiveDeskResult {
   // Construct an instance holding |error|.
   static GetActiveDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = GetActiveDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |desk_id|.
   static GetActiveDeskResultPtr
   NewDeskId(
-      const ::base::Uuid& desk_id) {
+      const ::base::Uuid& value) {
     auto result = GetActiveDeskResultPtr(absl::in_place);
-    result->set_desk_id(std::move(desk_id));
+    result->set_desk_id(std::move(value));
     return result;
   }
 
@@ -2168,17 +2170,17 @@ class  SwitchDeskResult {
   // Construct an instance holding |error|.
   static SwitchDeskResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = SwitchDeskResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |succeeded|.
   static SwitchDeskResultPtr
   NewSucceeded(
-      bool succeeded) {
+      bool value) {
     auto result = SwitchDeskResultPtr(absl::in_place);
-    result->set_succeeded(std::move(succeeded));
+    result->set_succeeded(std::move(value));
     return result;
   }
 
@@ -2295,17 +2297,17 @@ class  GetDeskByIDResult {
   // Construct an instance holding |error|.
   static GetDeskByIDResultPtr
   NewError(
-      DeskCrosApiError error) {
+      DeskCrosApiError value) {
     auto result = GetDeskByIDResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |desk|.
   static GetDeskByIDResultPtr
   NewDesk(
-      DeskModelPtr desk) {
+      DeskModelPtr value) {
     auto result = GetDeskByIDResultPtr(absl::in_place);
-    result->set_desk(std::move(desk));
+    result->set_desk(std::move(value));
     return result;
   }
 

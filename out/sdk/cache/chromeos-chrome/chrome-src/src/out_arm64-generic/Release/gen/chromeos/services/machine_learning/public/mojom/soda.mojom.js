@@ -164,6 +164,7 @@
     this.recognitionMode = SodaRecognitionMode.kCaption;
     this.maskOffensiveWords = false;
     this.speakerChangeDetection = false;
+    this.includeLoggingOutput = false;
   };
   SodaConfig.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -183,7 +184,8 @@
       {version: 2, numBytes: 48},
       {version: 3, numBytes: 48},
       {version: 4, numBytes: 56},
-      {version: 5, numBytes: 56}
+      {version: 5, numBytes: 56},
+      {version: 6, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -231,6 +233,7 @@
 
 
 
+
     return validator.validationError.NONE;
   };
 
@@ -266,6 +269,7 @@
     packed = decoder.readUint8();
     val.maskOffensiveWords = (packed >> 0) & 1 ? true : false;
     val.speakerChangeDetection = (packed >> 1) & 1 ? true : false;
+    val.includeLoggingOutput = (packed >> 2) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -279,7 +283,7 @@
   SodaConfig.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(SodaConfig.encodedSize);
-    encoder.writeUint32(5);
+    encoder.writeUint32(6);
     encoder.encodeStruct(codec.Uint32, val.channelCount);
     encoder.encodeStruct(codec.Uint32, val.sampleRate);
     encoder.encodeStruct(codec.String, val.apiKey);
@@ -290,6 +294,7 @@
     packed = 0;
     packed |= (val.maskOffensiveWords & 1) << 0
     packed |= (val.speakerChangeDetection & 1) << 1
+    packed |= (val.includeLoggingOutput & 1) << 2
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

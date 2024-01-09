@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-features.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-shared.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging.mojom-forward.h"
 #include "third_party/blink/public/mojom/push_messaging/push_messaging_status.mojom-forward.h"
@@ -98,7 +99,7 @@ class BLINK_COMMON_EXPORT PushMessaging
   virtual void Subscribe(int64_t service_worker_registration_id, PushSubscriptionOptionsPtr options, bool user_gesture, SubscribeCallback callback) = 0;
 
 
-  using UnsubscribeCallback = base::OnceCallback<void(PushErrorType, bool, const absl::optional<std::string>&)>;
+  using UnsubscribeCallback = base::OnceCallback<void(PushErrorType, bool, const std::optional<std::string>&)>;
   
   virtual void Unsubscribe(int64_t service_worker_registration_id, UnsubscribeCallback callback) = 0;
 
@@ -355,7 +356,7 @@ class BLINK_COMMON_EXPORT PushSubscription {
 
   PushSubscription(
       const ::GURL& endpoint,
-      absl::optional<::base::Time> expirationTime,
+      std::optional<::base::Time> expirationTime,
       PushSubscriptionOptionsPtr options,
       std::vector<uint8_t> p256dh,
       std::vector<uint8_t> auth);
@@ -440,7 +441,7 @@ PushSubscription& operator=(const PushSubscription&) = delete;
   
   ::GURL endpoint;
   
-  absl::optional<::base::Time> expirationTime;
+  std::optional<::base::Time> expirationTime;
   
   PushSubscriptionOptionsPtr options;
   

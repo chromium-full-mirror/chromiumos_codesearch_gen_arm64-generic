@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-features.h"
 #include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-shared.h"
 #include "media/mojo/mojom/stable/stable_video_decoder_types.mojom-forward.h"
 #include "media/mojo/mojom/encryption_pattern.mojom.h"
@@ -382,7 +383,7 @@ class  DecryptConfig {
       const std::string& key_id,
       const std::string& iv,
       std::vector<::media::SubsampleEntry> subsamples,
-      const absl::optional<::media::EncryptionPattern>& encryption_pattern);
+      const std::optional<::media::EncryptionPattern>& encryption_pattern);
 
 
   ~DecryptConfig();
@@ -468,7 +469,7 @@ class  DecryptConfig {
   
   std::vector<::media::SubsampleEntry> subsamples;
   
-  absl::optional<::media::EncryptionPattern> encryption_pattern;
+  std::optional<::media::EncryptionPattern> encryption_pattern;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -841,7 +842,7 @@ class  VideoDecoderConfig {
       std::vector<uint8_t> extra_data,
       ::media::EncryptionScheme encryption_scheme,
       const ::gfx::ColorSpace& color_space_info,
-      const absl::optional<::gfx::HDRMetadata>& hdr_metadata);
+      const std::optional<::gfx::HDRMetadata>& hdr_metadata);
 
 
   ~VideoDecoderConfig();
@@ -939,7 +940,7 @@ class  VideoDecoderConfig {
   
   ::gfx::ColorSpace color_space_info;
   
-  absl::optional<::gfx::HDRMetadata> hdr_metadata;
+  std::optional<::gfx::HDRMetadata> hdr_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1160,7 +1161,7 @@ class  StatusData {
       StatusCode code,
       const std::string& message,
       std::vector<::base::Value> frames,
-      const absl::optional<::media::internal::StatusData>& cause,
+      const std::optional<::media::internal::StatusData>& cause,
       ::base::Value data);
 
 StatusData(const StatusData&) = delete;
@@ -1249,7 +1250,7 @@ StatusData& operator=(const StatusData&) = delete;
   
   std::vector<::base::Value> frames;
   
-  absl::optional<::media::internal::StatusData> cause;
+  std::optional<::media::internal::StatusData> cause;
   
   ::base::Value data;
 
@@ -1313,7 +1314,7 @@ class  Status {
   Status();
 
   explicit Status(
-      const absl::optional<::media::internal::StatusData>& internal);
+      const std::optional<::media::internal::StatusData>& internal);
 
 
   ~Status();
@@ -1391,7 +1392,7 @@ class  Status {
   }
 
   
-  absl::optional<::media::internal::StatusData> internal;
+  std::optional<::media::internal::StatusData> internal;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2083,7 +2084,7 @@ class  VideoFrame {
       ::gfx::GpuMemoryBufferHandle gpu_memory_buffer_handle,
       const ::media::VideoFrameMetadata& metadata,
       const ::gfx::ColorSpace& color_space,
-      const absl::optional<::gfx::HDRMetadata>& hdr_metadata);
+      const std::optional<::gfx::HDRMetadata>& hdr_metadata);
 
 VideoFrame(const VideoFrame&) = delete;
 VideoFrame& operator=(const VideoFrame&) = delete;
@@ -2174,7 +2175,7 @@ VideoFrame& operator=(const VideoFrame&) = delete;
   
   ::gfx::ColorSpace color_space;
   
-  absl::optional<::gfx::HDRMetadata> hdr_metadata;
+  std::optional<::gfx::HDRMetadata> hdr_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

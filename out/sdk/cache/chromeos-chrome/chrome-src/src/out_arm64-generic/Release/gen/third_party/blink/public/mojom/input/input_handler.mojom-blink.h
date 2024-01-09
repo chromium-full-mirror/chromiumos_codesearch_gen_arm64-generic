@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/input/input_handler.mojom-features.h"
 #include "third_party/blink/public/mojom/input/input_handler.mojom-shared.h"
 #include "third_party/blink/public/mojom/input/input_handler.mojom-blink-forward.h"
 #include "cc/mojom/browser_controls_state.mojom-blink.h"
@@ -65,42 +66,6 @@
 
 
 
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SelectionGranularity>
-    : EnumHashTraits<::blink::mojom::SelectionGranularity, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PanAction>
-    : EnumHashTraits<::blink::mojom::PanAction, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FocusState>
-    : EnumHashTraits<::blink::mojom::FocusState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
 namespace blink::mojom::blink {
 
 class WidgetInputHandlerHostProxy;
@@ -140,6 +105,7 @@ class PLATFORM_EXPORT WidgetInputHandlerHost
     kImeCancelCompositionMinVersion = 0,
     kImeCompositionRangeChangedMinVersion = 0,
     kSetMouseCaptureMinVersion = 0,
+    kSetAutoscrollSelectionActiveInMainFrameMinVersion = 0,
     kRequestMouseLockMinVersion = 0,
   };
 
@@ -167,6 +133,9 @@ class PLATFORM_EXPORT WidgetInputHandlerHost
   struct SetMouseCapture_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetAutoscrollSelectionActiveInMainFrame_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct RequestMouseLock_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -189,10 +158,13 @@ class PLATFORM_EXPORT WidgetInputHandlerHost
   virtual void ImeCancelComposition() = 0;
 
   
-  virtual void ImeCompositionRangeChanged(const ::gfx::Range& range, const absl::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const absl::optional<WTF::Vector<::gfx::Rect>>& line_bounds) = 0;
+  virtual void ImeCompositionRangeChanged(const ::gfx::Range& range, const std::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const std::optional<WTF::Vector<::gfx::Rect>>& line_bounds) = 0;
 
   
   virtual void SetMouseCapture(bool capture) = 0;
+
+  
+  virtual void SetAutoscrollSelectionActiveInMainFrame(bool autoscroll_selection) = 0;
 
 
   using RequestMouseLockCallback = base::OnceCallback<void(::blink::mojom::blink::PointerLockResult, ::mojo::PendingRemote<::blink::mojom::blink::PointerLockContext>)>;
@@ -581,7 +553,7 @@ class PLATFORM_EXPORT WidgetInputHandler
   virtual void RequestCompositionUpdates(bool immediate_request, bool monitor_request) = 0;
 
 
-  using DispatchEventCallback = base::OnceCallback<void(::blink::mojom::blink::InputEventResultSource, const ::ui::LatencyInfo&, ::blink::mojom::blink::InputEventResultState, DidOverscrollParamsPtr, TouchActionOptionalPtr, ScrollResultDataPtr)>;
+  using DispatchEventCallback = base::OnceCallback<void(::blink::mojom::blink::InputEventResultSource, const ::ui::LatencyInfo&, ::blink::mojom::blink::InputEventResultState, DidOverscrollParamsPtr, TouchActionOptionalPtr)>;
   
   virtual void DispatchEvent(::std::unique_ptr<::blink::WebCoalescedInputEvent> event, DispatchEventCallback callback) = 0;
 
@@ -619,9 +591,11 @@ class PLATFORM_EXPORT WidgetInputHandlerHostProxy
   
   void ImeCancelComposition() final;
   
-  void ImeCompositionRangeChanged(const ::gfx::Range& range, const absl::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const absl::optional<WTF::Vector<::gfx::Rect>>& line_bounds) final;
+  void ImeCompositionRangeChanged(const ::gfx::Range& range, const std::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const std::optional<WTF::Vector<::gfx::Rect>>& line_bounds) final;
   
   void SetMouseCapture(bool capture) final;
+  
+  void SetAutoscrollSelectionActiveInMainFrame(bool autoscroll_selection) final;
   
   void RequestMouseLock(bool from_user_gesture, bool unadjusted_movement, RequestMouseLockCallback callback) final;
 
@@ -2348,7 +2322,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
 class PLATFORM_EXPORT KeyData {
  public:
   template <typename T>
@@ -3217,7 +3190,7 @@ class PLATFORM_EXPORT GestureData {
       ::ui::EventPointerType primary_pointer_type,
       int32_t primary_unique_touch_event_id,
       int32_t unique_touch_event_id,
-      const absl::optional<::gfx::Size>& contact_size,
+      const std::optional<::gfx::Size>& contact_size,
       ScrollDataPtr scroll_data,
       PinchBeginDataPtr pinch_begin_data,
       PinchUpdateDataPtr pinch_update_data,
@@ -3318,7 +3291,7 @@ GestureData& operator=(const GestureData&) = delete;
   
   int32_t unique_touch_event_id;
   
-  absl::optional<::gfx::Size> contact_size;
+  std::optional<::gfx::Size> contact_size;
   
   ScrollDataPtr scroll_data;
   
@@ -3994,146 +3967,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-
-
-class PLATFORM_EXPORT ScrollResultData {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<ScrollResultData, T>::value>;
-  using DataView = ScrollResultDataDataView;
-  using Data_ = internal::ScrollResultData_Data;
-
-  template <typename... Args>
-  static ScrollResultDataPtr New(Args&&... args) {
-    return ScrollResultDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static ScrollResultDataPtr From(const U& u) {
-    return mojo::TypeConverter<ScrollResultDataPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, ScrollResultData>::Convert(*this);
-  }
-
-
-  ScrollResultData();
-
-  explicit ScrollResultData(
-      const absl::optional<::gfx::PointF>& root_scroll_offset);
-
-
-  ~ScrollResultData();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = ScrollResultDataPtr>
-  ScrollResultDataPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static WTF::Vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        ScrollResultData::DataView, WTF::Vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        ScrollResultData::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::ScrollResultData_UnserializedMessageContext<
-            UserType, ScrollResultData::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<ScrollResultData::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const WTF::Vector<uint8_t>& input,
-                          UserType* output) {
-    return ScrollResultData::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::ScrollResultData_UnserializedMessageContext<
-            UserType, ScrollResultData::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<ScrollResultData::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  absl::optional<::gfx::PointF> root_scroll_offset;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, ScrollResultData::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 template <typename StructPtrType>
 KeyDataPtr KeyData::Clone() const {
@@ -5177,28 +5010,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
-template <typename StructPtrType>
-ScrollResultDataPtr ScrollResultData::Clone() const {
-  return New(
-      mojo::Clone(root_scroll_offset)
-  );
-}
-
-template <typename T, ScrollResultData::EnableIfSame<T>*>
-bool ScrollResultData::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->root_scroll_offset, other_struct.root_scroll_offset))
-    return false;
-  return true;
-}
-
-template <typename T, ScrollResultData::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.root_scroll_offset < rhs.root_scroll_offset)
-    return true;
-  if (rhs.root_scroll_offset < lhs.root_scroll_offset)
-    return false;
-  return false;
-}
 
 
 }  // blink::mojom::blink
@@ -5933,21 +5744,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SelectAroundCaretResu
   }
 
   static bool Read(::blink::mojom::blink::SelectAroundCaretResult::DataView input, ::blink::mojom::blink::SelectAroundCaretResultPtr* output);
-};
-
-
-template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::ScrollResultData::DataView,
-                                         ::blink::mojom::blink::ScrollResultDataPtr> {
-  static bool IsNull(const ::blink::mojom::blink::ScrollResultDataPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::ScrollResultDataPtr* output) { output->reset(); }
-
-  static const decltype(::blink::mojom::blink::ScrollResultData::root_scroll_offset)& root_scroll_offset(
-      const ::blink::mojom::blink::ScrollResultDataPtr& input) {
-    return input->root_scroll_offset;
-  }
-
-  static bool Read(::blink::mojom::blink::ScrollResultData::DataView input, ::blink::mojom::blink::ScrollResultDataPtr* output);
 };
 
 }  // namespace mojo

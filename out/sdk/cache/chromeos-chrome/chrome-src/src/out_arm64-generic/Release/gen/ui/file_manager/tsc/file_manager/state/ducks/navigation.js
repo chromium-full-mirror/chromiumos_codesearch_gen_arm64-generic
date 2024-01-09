@@ -2,21 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { isOneDriveId } from '../../common/js/entry_utils.js';
-import '../../common/js/files_app_entry_types.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/files_app_entry_interfaces.js';
-import { NavigationSection, NavigationType } from '../../externs/ts/state.js';
+import { EntryList, VolumeEntry } from '../../common/js/files_app_entry_types.js';
+import { VolumeType } from '../../common/js/volume_manager_types.js';
+import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { AndroidApp, DialogType, NavigationKey, NavigationRoot, NavigationSection, NavigationType, State, Volume } from '../../externs/ts/state.js';
 import { Slice } from '../../lib/base_store.js';
 import { getMyFiles } from '../ducks/all_entries.js';
 import { driveRootEntryListKey, recentRootKey, trashRootKey } from '../ducks/volumes.js';
-import { getEntry, getFileData } from '../store.js';
+import { getEntry } from '../store.js';
 /**
  * @fileoverview Navigation slice of the store.
- * @suppress {checkTypes}
  */
 const slice = new Slice('navigation');
 export { slice as navigationSlice };
-const VolumeType = VolumeManagerCommon.VolumeType;
 const sections = new Map();
 // My Files.
 sections.set(VolumeType.DOWNLOADS, NavigationSection.MY_FILES);
@@ -109,8 +107,14 @@ function refreshNavigationRootsReducer(currentState) {
     });
     processedEntryKeys.add(myFilesEntry.toURL());
     // 4. Add Google Drive - the only Drive.
+    // When drive pref changes from enabled to disabled, we remove the drive root
+    // key from the `state.uiEntries` immediately, but the drive root entry itself
+    // is removed asynchronously, so here we need to check both, if the key
+    // doesn't exist any more, we shouldn't render Drive item even if the drive
+    // root entry is still available.
+    const driveEntryKeyExist = currentState.uiEntries.includes(driveRootEntryListKey);
     const driveEntry = getEntry(currentState, driveRootEntryListKey);
-    if (driveEntry) {
+    if (driveEntryKeyExist && driveEntry) {
         roots.push({
             key: driveEntry.toURL(),
             section: NavigationSection.GOOGLE_DRIVE,
@@ -121,11 +125,11 @@ function refreshNavigationRootsReducer(currentState) {
     }
     // 5/6/7/8 Other volumes.
     const volumesOrder = {
-        // ODFS is a PROVIDED volume type but is a special case to be directly below
-        // Drive.
+        // ODFS is a PROVIDED volume type but is a special case to be directly
+        // below Drive.
         // ODFS : 0
         [VolumeType.SMB]: 1,
-        [VolumeType.PROVIDED]: 2,
+        [VolumeType.PROVIDED]: 2, // FSP.
         [VolumeType.DOCUMENTS_PROVIDER]: 3,
         [VolumeType.REMOVABLE]: 4,
         [VolumeType.ARCHIVE]: 5,
@@ -194,8 +198,22 @@ function refreshNavigationRootsReducer(currentState) {
         processedEntryKeys.add(app.packageName);
     });
     // 10. Trash
+    // Trash should only show when Files app is open as a standalone app. The ARC
+    // file selector, however, opens Files app as a standalone app but passes a
+    // query parameter to indicate the mode. As Trash is a fake volume, it is
+    // not filtered out in the filtered volume manager so perform it here
+    // instead.
+    const { dialogType } = window.fileManager;
+    const shouldShowTrash = dialogType === DialogType.FULL_PAGE &&
+        !volumeManager.getMediaStoreFilesOnlyFilterEnabled();
+    // When trash pref changes from enabled to disabled, we remove the trash root
+    // key from the `state.uiEntries` immediately, but the trash entry itself is
+    // removed asynchronously, so here we need to check both, if the key doesn't
+    // exist any more, we shouldn't render Trash item even if the trash entry is
+    // still available.
+    const trashEntryKeyExist = currentState.uiEntries.includes(trashRootKey);
     const trashEntry = getEntry(currentState, trashRootKey);
-    if (trashEntry) {
+    if (shouldShowTrash && trashEntryKeyExist && trashEntry) {
         roots.push({
             key: trashRootKey,
             section: NavigationSection.TRASH,
@@ -210,18 +228,4 @@ function refreshNavigationRootsReducer(currentState) {
             roots,
         },
     };
-}
-/** Create action to update navigation data in FileData for a given entry. */
-export const updateNavigationEntry = slice.addReducer('update-entry', updateNavigationEntryReducer);
-function updateNavigationEntryReducer(currentState, payload) {
-    const { key, expanded } = payload;
-    const fileData = getFileData(currentState, key);
-    if (!fileData) {
-        return currentState;
-    }
-    currentState.allEntries[key] = {
-        ...fileData,
-        expanded,
-    };
-    return { ...currentState };
 }

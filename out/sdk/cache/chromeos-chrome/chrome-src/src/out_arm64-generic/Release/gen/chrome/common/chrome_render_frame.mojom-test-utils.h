@@ -22,6 +22,7 @@ class  ChromeRenderFrameInterceptorForTesting : public ChromeRenderFrame {
   void ExecuteWebUIJavaScript(const ::std::u16string& javascript) override;
   void GetMediaFeedURL(GetMediaFeedURLCallback callback) override;
   void LoadBlockedPlugins(const std::string& identifier) override;
+  void SetSupportsAppRegion(bool supports_app_region) override;
 };
 class  ChromeRenderFrameAsyncWaiter {
  public:
@@ -38,8 +39,8 @@ class  ChromeRenderFrameAsyncWaiter {
       int32_t image_min_area_pixels, const ::gfx::Size& image_max_size_pixels, ImageFormat image_format, int32_t quality, std::vector<uint8_t>* out_image_data, ::gfx::Size* out_original_size, ::gfx::Size* out_downscaled_size, std::string* out_encoded_extension, std::vector<::lens::mojom::LatencyLogPtr>* out_log_data);
   
   void GetMediaFeedURL(
-      absl::optional<::GURL>* out_url);
-  absl::optional<::GURL> GetMediaFeedURL();
+      std::optional<::GURL>* out_url);
+  std::optional<::GURL> GetMediaFeedURL();
 
  private:
   ChromeRenderFrame* const proxy_;

@@ -150,6 +150,10 @@ enum QueueName : int32_t;
 }  // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 enum ShouldSwapBrowsingInstance : int32_t;
+namespace perfetto_pbzero_enum_StartUp {
+enum LaunchCauseType : int32_t;
+}  // namespace perfetto_pbzero_enum_StartUp
+using StartUp_LaunchCauseType = perfetto_pbzero_enum_StartUp::LaunchCauseType;
 namespace perfetto_pbzero_enum_TabSwitchMeasurement {
 enum Result : int32_t;
 }  // namespace perfetto_pbzero_enum_TabSwitchMeasurement
@@ -158,6 +162,10 @@ namespace perfetto_pbzero_enum_TabSwitchMeasurement {
 enum TabState : int32_t;
 }  // namespace perfetto_pbzero_enum_TabSwitchMeasurement
 using TabSwitchMeasurement_TabState = perfetto_pbzero_enum_TabSwitchMeasurement::TabState;
+namespace perfetto_pbzero_enum_WebContentInteraction {
+enum Type : int32_t;
+}  // namespace perfetto_pbzero_enum_WebContentInteraction
+using WebContentInteraction_Type = perfetto_pbzero_enum_WebContentInteraction::Type;
 
 enum ChromeAppState : int32_t {
   APP_STATE_FOREGROUND = 1,
@@ -364,6 +372,132 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
 
   case ::perfetto::protos::pbzero::DeviceThermalState::DEVICE_THERMAL_STATE_CRITICAL:
     return "DEVICE_THERMAL_STATE_CRITICAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_WebContentInteraction {
+enum Type : int32_t {
+  INTERACTION_UNSPECIFIED = 0,
+  INTERACTION_KEYBOARD = 1,
+  INTERACTION_CLICK_TAP = 2,
+  INTERACTION_DRAG = 3,
+};
+} // namespace perfetto_pbzero_enum_WebContentInteraction
+using WebContentInteraction_Type = perfetto_pbzero_enum_WebContentInteraction::Type;
+
+
+constexpr WebContentInteraction_Type WebContentInteraction_Type_MIN = WebContentInteraction_Type::INTERACTION_UNSPECIFIED;
+constexpr WebContentInteraction_Type WebContentInteraction_Type_MAX = WebContentInteraction_Type::INTERACTION_DRAG;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* WebContentInteraction_Type_Name(::perfetto::protos::pbzero::WebContentInteraction_Type value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::WebContentInteraction_Type::INTERACTION_UNSPECIFIED:
+    return "INTERACTION_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::WebContentInteraction_Type::INTERACTION_KEYBOARD:
+    return "INTERACTION_KEYBOARD";
+
+  case ::perfetto::protos::pbzero::WebContentInteraction_Type::INTERACTION_CLICK_TAP:
+    return "INTERACTION_CLICK_TAP";
+
+  case ::perfetto::protos::pbzero::WebContentInteraction_Type::INTERACTION_DRAG:
+    return "INTERACTION_DRAG";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_StartUp {
+enum LaunchCauseType : int32_t {
+  OTHER = 0,
+  CUSTOM_TAB = 1,
+  TWA = 2,
+  RECENTS = 3,
+  RECENTS_OR_BACK = 4,
+  FOREGROUND_WHEN_LOCKED = 5,
+  MAIN_LAUNCHER_ICON = 6,
+  MAIN_LAUNCHER_ICON_SHORTCUT = 7,
+  HOME_SCREEN_WIDGET = 8,
+  OPEN_IN_BROWSER_FROM_MENU = 9,
+  EXTERNAL_SEARCH_ACTION_INTENT = 10,
+  NOTIFICATION = 11,
+  EXTERNAL_VIEW_INTENT = 12,
+  OTHER_CHROME = 13,
+  WEBAPK_CHROME_DISTRIBUTOR = 14,
+  WEBAPK_OTHER_DISTRIBUTOR = 15,
+  HOME_SCREEN_SHORTCUT = 16,
+  SHARE_INTENT = 17,
+  NFC = 18,
+};
+} // namespace perfetto_pbzero_enum_StartUp
+using StartUp_LaunchCauseType = perfetto_pbzero_enum_StartUp::LaunchCauseType;
+
+
+constexpr StartUp_LaunchCauseType StartUp_LaunchCauseType_MIN = StartUp_LaunchCauseType::OTHER;
+constexpr StartUp_LaunchCauseType StartUp_LaunchCauseType_MAX = StartUp_LaunchCauseType::NFC;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* StartUp_LaunchCauseType_Name(::perfetto::protos::pbzero::StartUp_LaunchCauseType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::OTHER:
+    return "OTHER";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::CUSTOM_TAB:
+    return "CUSTOM_TAB";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::TWA:
+    return "TWA";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::RECENTS:
+    return "RECENTS";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::RECENTS_OR_BACK:
+    return "RECENTS_OR_BACK";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::FOREGROUND_WHEN_LOCKED:
+    return "FOREGROUND_WHEN_LOCKED";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::MAIN_LAUNCHER_ICON:
+    return "MAIN_LAUNCHER_ICON";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::MAIN_LAUNCHER_ICON_SHORTCUT:
+    return "MAIN_LAUNCHER_ICON_SHORTCUT";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::HOME_SCREEN_WIDGET:
+    return "HOME_SCREEN_WIDGET";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::OPEN_IN_BROWSER_FROM_MENU:
+    return "OPEN_IN_BROWSER_FROM_MENU";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::EXTERNAL_SEARCH_ACTION_INTENT:
+    return "EXTERNAL_SEARCH_ACTION_INTENT";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::NOTIFICATION:
+    return "NOTIFICATION";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::EXTERNAL_VIEW_INTENT:
+    return "EXTERNAL_VIEW_INTENT";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::OTHER_CHROME:
+    return "OTHER_CHROME";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::WEBAPK_CHROME_DISTRIBUTOR:
+    return "WEBAPK_CHROME_DISTRIBUTOR";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::WEBAPK_OTHER_DISTRIBUTOR:
+    return "WEBAPK_OTHER_DISTRIBUTOR";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::HOME_SCREEN_SHORTCUT:
+    return "HOME_SCREEN_SHORTCUT";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::SHARE_INTENT:
+    return "SHARE_INTENT";
+
+  case ::perfetto::protos::pbzero::StartUp_LaunchCauseType::NFC:
+    return "NFC";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1634,13 +1768,14 @@ enum TaskType : int32_t {
   TASK_TYPE_STORAGE = 82,
   TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = 83,
   TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = 84,
+  TASK_TYPE_CLIPBOARD = 85,
 };
 } // namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution
 using RendererMainThreadTaskExecution_TaskType = perfetto_pbzero_enum_RendererMainThreadTaskExecution::TaskType;
 
 
 constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MIN = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_UNKNOWN;
-constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY;
+constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_CLIPBOARD;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1870,6 +2005,9 @@ const char* RendererMainThreadTaskExecution_TaskType_Name(::perfetto::protos::pb
 
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY:
     return "TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY";
+
+  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_CLIPBOARD:
+    return "TASK_TYPE_CLIPBOARD";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2480,6 +2618,155 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class WebContentInteraction_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  WebContentInteraction_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit WebContentInteraction_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit WebContentInteraction_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_total_duration_ms() const { return at<2>().valid(); }
+  int64_t total_duration_ms() const { return at<2>().as_int64(); }
+};
+
+class WebContentInteraction : public ::protozero::Message {
+ public:
+  using Decoder = WebContentInteraction_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kTotalDurationMsFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.WebContentInteraction"; }
+
+
+  using Type = ::perfetto::protos::pbzero::WebContentInteraction_Type;
+  static inline const char* Type_Name(Type value) {
+    return ::perfetto::protos::pbzero::WebContentInteraction_Type_Name(value);
+  }
+  static inline const Type INTERACTION_UNSPECIFIED = Type::INTERACTION_UNSPECIFIED;
+  static inline const Type INTERACTION_KEYBOARD = Type::INTERACTION_KEYBOARD;
+  static inline const Type INTERACTION_CLICK_TAP = Type::INTERACTION_CLICK_TAP;
+  static inline const Type INTERACTION_DRAG = Type::INTERACTION_DRAG;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::WebContentInteraction_Type,
+      WebContentInteraction>;
+
+  static constexpr FieldMetadata_Type kType{};
+  void set_type(::perfetto::protos::pbzero::WebContentInteraction_Type value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TotalDurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      WebContentInteraction>;
+
+  static constexpr FieldMetadata_TotalDurationMs kTotalDurationMs{};
+  void set_total_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TotalDurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class StartUp_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  StartUp_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit StartUp_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit StartUp_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_activity_id() const { return at<1>().valid(); }
+  int64_t activity_id() const { return at<1>().as_int64(); }
+  bool has_launch_cause() const { return at<3>().valid(); }
+  int32_t launch_cause() const { return at<3>().as_int32(); }
+};
+
+class StartUp : public ::protozero::Message {
+ public:
+  using Decoder = StartUp_Decoder;
+  enum : int32_t {
+    kActivityIdFieldNumber = 1,
+    kLaunchCauseFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.StartUp"; }
+
+
+  using LaunchCauseType = ::perfetto::protos::pbzero::StartUp_LaunchCauseType;
+  static inline const char* LaunchCauseType_Name(LaunchCauseType value) {
+    return ::perfetto::protos::pbzero::StartUp_LaunchCauseType_Name(value);
+  }
+  static inline const LaunchCauseType OTHER = LaunchCauseType::OTHER;
+  static inline const LaunchCauseType CUSTOM_TAB = LaunchCauseType::CUSTOM_TAB;
+  static inline const LaunchCauseType TWA = LaunchCauseType::TWA;
+  static inline const LaunchCauseType RECENTS = LaunchCauseType::RECENTS;
+  static inline const LaunchCauseType RECENTS_OR_BACK = LaunchCauseType::RECENTS_OR_BACK;
+  static inline const LaunchCauseType FOREGROUND_WHEN_LOCKED = LaunchCauseType::FOREGROUND_WHEN_LOCKED;
+  static inline const LaunchCauseType MAIN_LAUNCHER_ICON = LaunchCauseType::MAIN_LAUNCHER_ICON;
+  static inline const LaunchCauseType MAIN_LAUNCHER_ICON_SHORTCUT = LaunchCauseType::MAIN_LAUNCHER_ICON_SHORTCUT;
+  static inline const LaunchCauseType HOME_SCREEN_WIDGET = LaunchCauseType::HOME_SCREEN_WIDGET;
+  static inline const LaunchCauseType OPEN_IN_BROWSER_FROM_MENU = LaunchCauseType::OPEN_IN_BROWSER_FROM_MENU;
+  static inline const LaunchCauseType EXTERNAL_SEARCH_ACTION_INTENT = LaunchCauseType::EXTERNAL_SEARCH_ACTION_INTENT;
+  static inline const LaunchCauseType NOTIFICATION = LaunchCauseType::NOTIFICATION;
+  static inline const LaunchCauseType EXTERNAL_VIEW_INTENT = LaunchCauseType::EXTERNAL_VIEW_INTENT;
+  static inline const LaunchCauseType OTHER_CHROME = LaunchCauseType::OTHER_CHROME;
+  static inline const LaunchCauseType WEBAPK_CHROME_DISTRIBUTOR = LaunchCauseType::WEBAPK_CHROME_DISTRIBUTOR;
+  static inline const LaunchCauseType WEBAPK_OTHER_DISTRIBUTOR = LaunchCauseType::WEBAPK_OTHER_DISTRIBUTOR;
+  static inline const LaunchCauseType HOME_SCREEN_SHORTCUT = LaunchCauseType::HOME_SCREEN_SHORTCUT;
+  static inline const LaunchCauseType SHARE_INTENT = LaunchCauseType::SHARE_INTENT;
+  static inline const LaunchCauseType NFC = LaunchCauseType::NFC;
+
+  using FieldMetadata_ActivityId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      StartUp>;
+
+  static constexpr FieldMetadata_ActivityId kActivityId{};
+  void set_activity_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ActivityId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LaunchCause =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::StartUp_LaunchCauseType,
+      StartUp>;
+
+  static constexpr FieldMetadata_LaunchCause kLaunchCause{};
+  void set_launch_cause(::perfetto::protos::pbzero::StartUp_LaunchCauseType value) {
+    static constexpr uint32_t field_id = FieldMetadata_LaunchCause::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class PageLoad_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -6383,6 +6670,7 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static inline const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
   static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
   static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY;
+  static inline const TaskType TASK_TYPE_CLIPBOARD = TaskType::TASK_TYPE_CLIPBOARD;
   static inline const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
   static inline const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
   static inline const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;
@@ -11220,6 +11508,34 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_PageLoad kPageLoad{};
   template <typename T = PageLoad> T* set_page_load() {
     return BeginNestedMessage<T>(1056);
+  }
+
+
+  using FieldMetadata_Startup =
+    ::protozero::proto_utils::FieldMetadata<
+      1057,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      StartUp,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_Startup kStartup{};
+  template <typename T = StartUp> T* set_startup() {
+    return BeginNestedMessage<T>(1057);
+  }
+
+
+  using FieldMetadata_WebContentInteraction =
+    ::protozero::proto_utils::FieldMetadata<
+      1058,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      WebContentInteraction,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_WebContentInteraction kWebContentInteraction{};
+  template <typename T = WebContentInteraction> T* set_web_content_interaction() {
+    return BeginNestedMessage<T>(1058);
   }
 
 };

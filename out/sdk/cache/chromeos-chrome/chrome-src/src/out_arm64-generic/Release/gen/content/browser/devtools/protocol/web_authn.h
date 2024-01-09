@@ -108,6 +108,18 @@ public:
     }
     void SetIsUserVerified(bool value) { m_isUserVerified = value; }
 
+    bool HasDefaultBackupEligibility() { return m_defaultBackupEligibility.has_value(); }
+    bool GetDefaultBackupEligibility(bool defaultValue) const {
+       return m_defaultBackupEligibility.value_or(defaultValue);
+    }
+    void SetDefaultBackupEligibility(bool value) { m_defaultBackupEligibility = value; }
+
+    bool HasDefaultBackupState() { return m_defaultBackupState.has_value(); }
+    bool GetDefaultBackupState(bool defaultValue) const {
+       return m_defaultBackupState.value_or(defaultValue);
+    }
+    void SetDefaultBackupState(bool value) { m_defaultBackupState = value; }
+
     template<int STATE>
     class VirtualAuthenticatorOptionsBuilder {
     public:
@@ -186,6 +198,18 @@ public:
             return *this;
         }
 
+        VirtualAuthenticatorOptionsBuilder<STATE>& SetDefaultBackupEligibility(bool value)
+        {
+            m_result->SetDefaultBackupEligibility(value);
+            return *this;
+        }
+
+        VirtualAuthenticatorOptionsBuilder<STATE>& SetDefaultBackupState(bool value)
+        {
+            m_result->SetDefaultBackupState(value);
+            return *this;
+        }
+
         std::unique_ptr<VirtualAuthenticatorOptions> Build()
         {
             static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
@@ -227,6 +251,8 @@ private:
     Maybe<bool> m_hasPrf;
     Maybe<bool> m_automaticPresenceSimulation;
     Maybe<bool> m_isUserVerified;
+    Maybe<bool> m_defaultBackupEligibility;
+    Maybe<bool> m_defaultBackupState;
 };
 
 

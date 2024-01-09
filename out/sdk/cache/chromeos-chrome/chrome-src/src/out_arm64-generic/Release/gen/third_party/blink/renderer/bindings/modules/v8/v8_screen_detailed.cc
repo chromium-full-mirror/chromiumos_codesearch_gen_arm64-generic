@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ScreenDetailed>::value,
     "ScreenDetailed inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ScreenDetailed::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScreenDetailed is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Left_
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->left();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -120,7 +115,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Top_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->top();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -143,7 +138,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_IsPri
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isPrimary();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -166,7 +161,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_IsInt
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isInternal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -189,7 +184,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Devic
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->devicePixelRatio();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 // [HighEntropy=Direct]
@@ -212,7 +207,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Label
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -227,8 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.highDynamicRangeHeadroom.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->highDynamicRangeHeadroom();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -241,8 +237,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.redPrimaryX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->redPrimaryX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -255,8 +252,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.redPrimaryY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->redPrimaryY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -269,8 +267,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.greenPrimaryX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->greenPrimaryX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -283,8 +282,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.greenPrimaryY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->greenPrimaryY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -297,8 +297,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.bluePrimaryX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bluePrimaryX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -311,8 +312,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.bluePrimaryY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bluePrimaryY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -325,8 +327,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.whitePointX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->whitePointX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -339,8 +342,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.whitePointY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(v8_receiver);
+ScreenDetailed* blink_receiver = V8ScreenDetailed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->whitePointY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

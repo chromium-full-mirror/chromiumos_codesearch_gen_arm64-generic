@@ -58,13 +58,13 @@ class BLINK_PLATFORM_EXPORT WebBluetoothServiceAsyncWaiter {
       const ::blink::WebBluetoothDeviceId& device_id, ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> client, WebBluetoothResult* out_result);
   WebBluetoothResult RemoteServerConnect(const ::blink::WebBluetoothDeviceId& device_id, ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> client);
   void RemoteServerGetPrimaryServices(
-      const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& services_uuid, WebBluetoothResult* out_result, absl::optional<WTF::Vector<WebBluetoothRemoteGATTServicePtr>>* out_services);
+      const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& services_uuid, WebBluetoothResult* out_result, std::optional<WTF::Vector<WebBluetoothRemoteGATTServicePtr>>* out_services);
   
   void RemoteServiceGetCharacteristics(
-      const WTF::String& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& characteristics_uuid, WebBluetoothResult* out_result, absl::optional<WTF::Vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics);
+      const WTF::String& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& characteristics_uuid, WebBluetoothResult* out_result, std::optional<WTF::Vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics);
   
   void RemoteCharacteristicReadValue(
-      const WTF::String& characteristic_instance_id, WebBluetoothResult* out_result, absl::optional<WTF::Vector<uint8_t>>* out_value);
+      const WTF::String& characteristic_instance_id, WebBluetoothResult* out_result, std::optional<WTF::Vector<uint8_t>>* out_value);
   
   void RemoteCharacteristicWriteValue(
       const WTF::String& characteristic_instance_id, const WTF::Vector<uint8_t>& value, WebBluetoothWriteType write_type, WebBluetoothResult* out_result);
@@ -76,10 +76,10 @@ class BLINK_PLATFORM_EXPORT WebBluetoothServiceAsyncWaiter {
       const WTF::String& characteristic_instance_id);
   
   void RemoteCharacteristicGetDescriptors(
-      const WTF::String& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& descriptor_uuid, WebBluetoothResult* out_result, absl::optional<WTF::Vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors);
+      const WTF::String& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& descriptor_uuid, WebBluetoothResult* out_result, std::optional<WTF::Vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors);
   
   void RemoteDescriptorReadValue(
-      const WTF::String& descriptor_instance_id, WebBluetoothResult* out_result, absl::optional<WTF::Vector<uint8_t>>* out_value);
+      const WTF::String& descriptor_instance_id, WebBluetoothResult* out_result, std::optional<WTF::Vector<uint8_t>>* out_value);
   
   void RemoteDescriptorWriteValue(
       const WTF::String& descriptor_instance_id, const WTF::Vector<uint8_t>& value, WebBluetoothResult* out_result);

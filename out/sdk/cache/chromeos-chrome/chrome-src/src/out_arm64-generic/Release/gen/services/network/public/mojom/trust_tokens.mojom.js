@@ -33,30 +33,6 @@
   }
 
 
-  var TrustTokenMajorVersion = {};
-  TrustTokenMajorVersion.kPrivateStateTokenV1 = 0;
-  TrustTokenMajorVersion.MIN_VALUE = 0;
-  TrustTokenMajorVersion.MAX_VALUE = 0;
-
-  TrustTokenMajorVersion.isKnownEnumValue = function(value) {
-    switch (value) {
-    case 0:
-      return true;
-    }
-    return false;
-  };
-
-  TrustTokenMajorVersion.toKnownEnumValue = function(value) {
-    return value;
-  };
-
-  TrustTokenMajorVersion.validate = function(enumValue) {
-    const isExtensible = false;
-    if (isExtensible || this.isKnownEnumValue(enumValue))
-      return validator.validationError.NONE;
-
-    return validator.validationError.UNKNOWN_ENUM_VALUE;
-  };
   var TrustTokenProtocolVersion = {};
   TrustTokenProtocolVersion.kTrustTokenV3Pmb = 0;
   TrustTokenProtocolVersion.kTrustTokenV3Voprf = 1;
@@ -253,12 +229,11 @@
 
 
   TrustTokenParams.prototype.initDefaults_ = function() {
-    this.version = 0;
     this.operation = 0;
     this.refreshPolicy = TrustTokenRefreshPolicy.kUseCached;
-    this.signRequestData = TrustTokenSignRequestData.kOmit;
     this.customKeyCommitment = null;
     this.customIssuer = null;
+    this.signRequestData = TrustTokenSignRequestData.kOmit;
     this.includeTimestampHeader = false;
     this.issuers = null;
     this.additionalSignedHeaders = null;
@@ -278,95 +253,83 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate TrustTokenParams.version
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, TrustTokenMajorVersion);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate TrustTokenParams.operation
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, TrustTokenOperationType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, TrustTokenOperationType);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.refreshPolicy
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, TrustTokenRefreshPolicy);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, TrustTokenRefreshPolicy);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.customKeyCommitment
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.customIssuer
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, origin$.Origin, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, origin$.Origin, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.signRequestData
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 12, TrustTokenSignRequestData);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 24, TrustTokenSignRequestData);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate TrustTokenParams.issuers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, new codec.PointerTo(origin$.Origin), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, new codec.PointerTo(origin$.Origin), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.additionalSignedHeaders
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TrustTokenParams.possiblyUnsafeAdditionalSigningData
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 56, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 48, true)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  TrustTokenParams.encodedSize = codec.kStructHeaderSize + 64;
+  TrustTokenParams.encodedSize = codec.kStructHeaderSize + 56;
 
   TrustTokenParams.decode = function(decoder) {
     var packed;
     var val = new TrustTokenParams();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.version =
-        decoder.decodeStruct(new codec.Enum(TrustTokenMajorVersion));
     val.operation =
         decoder.decodeStruct(new codec.Enum(TrustTokenOperationType));
     val.refreshPolicy =
         decoder.decodeStruct(new codec.Enum(TrustTokenRefreshPolicy));
-    val.signRequestData =
-        decoder.decodeStruct(new codec.Enum(TrustTokenSignRequestData));
     val.customKeyCommitment =
         decoder.decodeStruct(codec.NullableString);
     val.customIssuer =
         decoder.decodeStructPointer(origin$.Origin);
+    val.signRequestData =
+        decoder.decodeStruct(new codec.Enum(TrustTokenSignRequestData));
     packed = decoder.readUint8();
     val.includeTimestampHeader = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -383,19 +346,14 @@
     var packed;
     encoder.writeUint32(TrustTokenParams.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.version);
     encoder.encodeStruct(codec.Int32, val.operation);
     encoder.encodeStruct(codec.Int32, val.refreshPolicy);
-    encoder.encodeStruct(codec.Int32, val.signRequestData);
     encoder.encodeStruct(codec.NullableString, val.customKeyCommitment);
     encoder.encodeStructPointer(origin$.Origin, val.customIssuer);
+    encoder.encodeStruct(codec.Int32, val.signRequestData);
     packed = 0;
     packed |= (val.includeTimestampHeader & 1) << 0
     encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -664,13 +622,12 @@
   };
 
   TrustTokenKeyCommitmentResult.prototype.initDefaults_ = function() {
-    this.version = 0;
     this.protocolVersion = 0;
     this.id = 0;
     this.batchSize = 0;
+    this.unavailableLocalOperationFallback = 0;
     this.keys = null;
     this.requestIssuanceLocallyOn = null;
-    this.unavailableLocalOperationFallback = 0;
   };
   TrustTokenKeyCommitmentResult.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -686,21 +643,15 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 48}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate TrustTokenKeyCommitmentResult.version
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, TrustTokenMajorVersion);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate TrustTokenKeyCommitmentResult.protocolVersion
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, TrustTokenProtocolVersion);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, TrustTokenProtocolVersion);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -720,38 +671,32 @@
 
 
     // validate TrustTokenKeyCommitmentResult.unavailableLocalOperationFallback
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, TrustTokenKeyCommitmentResult.UnavailableLocalOperationFallback);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 12, TrustTokenKeyCommitmentResult.UnavailableLocalOperationFallback);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  TrustTokenKeyCommitmentResult.encodedSize = codec.kStructHeaderSize + 40;
+  TrustTokenKeyCommitmentResult.encodedSize = codec.kStructHeaderSize + 32;
 
   TrustTokenKeyCommitmentResult.decode = function(decoder) {
     var packed;
     var val = new TrustTokenKeyCommitmentResult();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.version =
-        decoder.decodeStruct(new codec.Enum(TrustTokenMajorVersion));
     val.protocolVersion =
         decoder.decodeStruct(new codec.Enum(TrustTokenProtocolVersion));
     val.id =
         decoder.decodeStruct(codec.Int32);
     val.batchSize =
         decoder.decodeStruct(codec.Int32);
+    val.unavailableLocalOperationFallback =
+        decoder.decodeStruct(new codec.Enum(TrustTokenKeyCommitmentResult.UnavailableLocalOperationFallback));
     val.keys =
         decoder.decodeArrayPointer(new codec.PointerTo(TrustTokenVerificationKey));
     val.requestIssuanceLocallyOn =
         decoder.decodeArrayPointer(new codec.Enum(TrustTokenKeyCommitmentResult.Os));
-    val.unavailableLocalOperationFallback =
-        decoder.decodeStruct(new codec.Enum(TrustTokenKeyCommitmentResult.UnavailableLocalOperationFallback));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     return val;
   };
 
@@ -759,17 +704,12 @@
     var packed;
     encoder.writeUint32(TrustTokenKeyCommitmentResult.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.version);
     encoder.encodeStruct(codec.Int32, val.protocolVersion);
     encoder.encodeStruct(codec.Int32, val.id);
     encoder.encodeStruct(codec.Int32, val.batchSize);
+    encoder.encodeStruct(codec.Int32, val.unavailableLocalOperationFallback);
     encoder.encodeArrayPointer(new codec.PointerTo(TrustTokenVerificationKey), val.keys);
     encoder.encodeArrayPointer(new codec.Enum(TrustTokenKeyCommitmentResult.Os), val.requestIssuanceLocallyOn);
-    encoder.encodeStruct(codec.Int32, val.unavailableLocalOperationFallback);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
   };
   function FulfillTrustTokenIssuanceRequest(values) {
     this.initDefaults_();
@@ -1509,7 +1449,6 @@
   };
   TrustTokenQueryAnswererStub.prototype.validator = validateTrustTokenQueryAnswererRequest;
   TrustTokenQueryAnswererProxy.prototype.validator = validateTrustTokenQueryAnswererResponse;
-  exports.TrustTokenMajorVersion = TrustTokenMajorVersion;
   exports.TrustTokenProtocolVersion = TrustTokenProtocolVersion;
   exports.TrustTokenOperationStatus = TrustTokenOperationStatus;
   exports.TrustTokenOperationType = TrustTokenOperationType;

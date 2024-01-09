@@ -9,10 +9,12 @@ export function getTemplate() {
 
     <div id="hotspotPageTitle" class="middle settings-box-text">
       $i18n{hotspotPageTitle}
-      <div class="secondary" id="hotspotStateSublabel" hidden="[[shouldHideHotspotStateSublabel_(hotspotInfo.allowStatus)]]">
+      <div class="secondary" id="hotspotStateSublabel" hidden="[[shouldHideHotspotStateSublabel_(
+              hotspotInfo.allowStatus, hotspotInfo.state)]]">
         [[getHotspotStateSublabel_(hotspotInfo.state)]]
       </div>
-      <localized-link class="secondary" id="hotspotDisabledSublabelLink" hidden="[[!shouldHideHotspotStateSublabel_(hotspotInfo.allowStatus)]]" localized-string="[[getHotspotDisabledSublabelLink_(
+      <localized-link class="secondary" id="hotspotDisabledSublabelLink" hidden="[[!shouldHideHotspotStateSublabel_(
+              hotspotInfo.allowStatus, hotspotInfo.state)]]" localized-string="[[getHotspotDisabledSublabelLink_(
               hotspotInfo.allowStatus)]]">
       </localized-link>
     </div>
@@ -24,7 +26,7 @@ export function getTemplate() {
     </template>
 
     <template is="dom-if" if="[[shouldShowArrowButton_(
-        hotspotInfo.allowStatus)]]" restamp>
+        hotspotInfo.allowStatus, hotspotInfo.state)]]" restamp>
       <cr-icon-button id="hotspotSummaryItemRowArrowIcon" class="subpage-arrow layout end" aria-label="$i18n{hotspotPageTitle}" aria-description$="[[getHotspotStateSublabel_(hotspotInfo.state)]]" aria-roledescription="$i18n{subpageArrowRoleDescription}" on-click="navigateToDetailPage_">
       </cr-icon-button>
     </template>

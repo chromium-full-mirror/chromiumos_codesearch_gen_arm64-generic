@@ -13,9 +13,9 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_authentication_extensions_device_public_key_outputs.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_authentication_extensions_large_blob_outputs.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_authentication_extensions_prf_outputs.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_authentication_extensions_supplemental_pub_keys_outputs.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential_properties_output.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
@@ -139,11 +139,11 @@ void AuthenticationExtensionsClientOutputs::Trace(Visitor* visitor) const {
   TraceIfNeeded<bool>::Trace(visitor, member_appid_);
 TraceIfNeeded<bool>::Trace(visitor, member_cred_blob_);
 TraceIfNeeded<Member<CredentialPropertiesOutput>>::Trace(visitor, member_cred_props_);
-TraceIfNeeded<Member<AuthenticationExtensionsDevicePublicKeyOutputs>>::Trace(visitor, member_device_pub_key_);
 TraceIfNeeded<Member<DOMArrayBuffer>>::Trace(visitor, member_get_cred_blob_);
 TraceIfNeeded<bool>::Trace(visitor, member_hmac_create_secret_);
 TraceIfNeeded<Member<AuthenticationExtensionsLargeBlobOutputs>>::Trace(visitor, member_large_blob_);
 TraceIfNeeded<Member<AuthenticationExtensionsPRFOutputs>>::Trace(visitor, member_prf_);
+TraceIfNeeded<Member<AuthenticationExtensionsSupplementalPubKeysOutputs>>::Trace(visitor, member_supplemental_pub_keys_);
 TraceIfNeeded<Vector<Vector<uint32_t>>>::Trace(visitor, member_uvm_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -178,21 +178,11 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
   return false;
 }
 }
-if (RuntimeEnabledFeatures::WebAuthenticationDevicePublicKeyEnabled()) {
-  if (hasDevicePubKey()) {
-  if (!ToV8Traits<AuthenticationExtensionsDevicePublicKeyOutputs>::ToV8(script_state, member_device_pub_key_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
 if (hasGetCredBlob()) {
   if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, member_get_cred_blob_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -200,7 +190,7 @@ if (hasHmacCreateSecret()) {
   if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_hmac_create_secret_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -209,7 +199,7 @@ if (RuntimeEnabledFeatures::WebAuthenticationLargeBlobExtensionEnabled()) {
   if (!ToV8Traits<AuthenticationExtensionsLargeBlobOutputs>::ToV8(script_state, member_large_blob_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -217,6 +207,16 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].G
 if (RuntimeEnabledFeatures::WebAuthenticationPRFEnabled()) {
   if (hasPrf()) {
   if (!ToV8Traits<AuthenticationExtensionsPRFOutputs>::ToV8(script_state, member_prf_.Get()).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::WebAuthenticationSupplementalPubKeysEnabled()) {
+  if (hasSupplementalPubKeys()) {
+  if (!ToV8Traits<AuthenticationExtensionsSupplementalPubKeysOutputs>::ToV8(script_state, member_supplemental_pub_keys_.Get()).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
@@ -254,29 +254,29 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("credProps");
 if (!bindings::GetDictionaryMemberFromV8Object<CredentialPropertiesOutput, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_cred_props_, member_cred_props_, try_block, exception_state)) {
   return;
 }
-if (RuntimeEnabledFeatures::WebAuthenticationDevicePublicKeyEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("devicePubKey");
-if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsDevicePublicKeyOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_device_pub_key_, member_device_pub_key_, try_block, exception_state)) {
-  return;
-}
-}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("getCredBlob");
-if (!bindings::GetDictionaryMemberFromV8Object<DOMArrayBuffer, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_get_cred_blob_, member_get_cred_blob_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DOMArrayBuffer, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_get_cred_blob_, member_get_cred_blob_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("hmacCreateSecret");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_hmac_create_secret_, member_hmac_create_secret_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_hmac_create_secret_, member_hmac_create_secret_, try_block, exception_state)) {
   return;
 }
 if (RuntimeEnabledFeatures::WebAuthenticationLargeBlobExtensionEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("largeBlob");
-if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsLargeBlobOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_large_blob_, member_large_blob_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsLargeBlobOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_large_blob_, member_large_blob_, try_block, exception_state)) {
   return;
 }
 }
 if (RuntimeEnabledFeatures::WebAuthenticationPRFEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("prf");
-if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsPRFOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), has_prf_, member_prf_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsPRFOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_prf_, member_prf_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::WebAuthenticationSupplementalPubKeysEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("supplementalPubKeys");
+if (!bindings::GetDictionaryMemberFromV8Object<AuthenticationExtensionsSupplementalPubKeysOutputs, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), has_supplemental_pub_keys_, member_supplemental_pub_keys_, try_block, exception_state)) {
   return;
 }
 }
@@ -291,11 +291,11 @@ const base::span<const v8::Eternal<v8::Name>> AuthenticationExtensionsClientOutp
 "appid",
 "credBlob",
 "credProps",
-"devicePubKey",
 "getCredBlob",
 "hmacCreateSecret",
 "largeBlob",
 "prf",
+"supplementalPubKeys",
 "uvm",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

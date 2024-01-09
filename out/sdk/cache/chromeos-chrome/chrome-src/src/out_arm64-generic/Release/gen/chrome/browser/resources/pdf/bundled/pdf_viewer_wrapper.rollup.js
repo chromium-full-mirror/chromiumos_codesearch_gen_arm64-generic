@@ -1,6 +1,6 @@
-import { E as EventTracker, a as assertInstanceof, b as assert, h as hasKeyModifiers, i as isRTL, g as getDeepActiveElement, F as FocusOutlineManager, S as SaveRequestType, P as PromiseResolver, c as PluginController, d as PluginControllerEventType, r as record, U as UserAction, e as FittingType, f as recordPdfOcrUserSelection, j as PdfViewerBaseElement, s as shouldIgnoreKeyEvents, k as hasCtrlModifier, l as assertNotReached, m as listenOnce } from './shared.rollup.js';
-export { C as CrIconButtonElement, G as GestureDetector, O as OpenPdfParamsParser, t as PAGE_SHADOW, p as SwipeDetector, q as SwipeDirection, V as ViewMode, u as Viewport, v as ViewportScroller, Z as ZoomManager, n as recordFitTo, o as resetForTesting } from './shared.rollup.js';
-import { html, PolymerElement, FlattenedNodesObserver, Polymer } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { E as EventTracker, a as assertInstanceof, b as assert, h as hasKeyModifiers, i as isRTL, g as getDeepActiveElement, F as FocusOutlineManager, S as SaveRequestType, P as PromiseResolver, c as PluginController, d as PluginControllerEventType, r as record, U as UserAction, e as FittingType, f as recordPdfOcrUserSelection, j as PdfViewerBaseElement, s as shouldIgnoreKeyEvents, k as hasCtrlModifier, l as hasCtrlModifierOnly, m as assertNotReached, n as listenOnce } from './shared.rollup.js';
+export { C as CrIconButtonElement, G as GestureDetector, O as OpenPdfParamsParser, u as PAGE_SHADOW, q as SwipeDetector, t as SwipeDirection, V as ViewMode, v as Viewport, w as ViewportScroller, Z as ZoomManager, o as recordFitTo, p as resetForTesting } from './shared.rollup.js';
+import { html, PolymerElement, Polymer } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export { BrowserApi, ZoomBehavior } from './browser_api.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { LoadState, deserializeKeyEvent } from './pdf_scripting_api.js';
@@ -24,6 +24,10 @@ const ACTIVE_CLASS = 'focus-row-active';
  * any focus change deactivates the row.
  */
 class FocusRow {
+    root;
+    delegate;
+    eventTracker = new EventTracker();
+    boundary_;
     /**
      * @param root The root of this focus row. Focus classes are
      *     applied to |root| and all added elements must live within |root|.
@@ -31,7 +35,6 @@ class FocusRow {
      * @param delegate An optional event delegate.
      */
     constructor(root, boundary, delegate) {
-        this.eventTracker = new EventTracker();
         this.root = root;
         this.boundary_ = boundary || document.documentElement;
         this.delegate = delegate;
@@ -320,7 +323,7 @@ function getTemplate$e() {
             var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
     <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
       <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode"></slot>
+        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
       </div>
     </dialog>
 <!--_html_template_end_-->`;
@@ -392,7 +395,6 @@ class CrActionMenuElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.boundClose_ = null;
-        this.contentObserver_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
         this.anchorElement_ = null;
@@ -446,10 +448,6 @@ class CrActionMenuElement extends PolymerElement {
     removeListeners_() {
         window.removeEventListener('resize', this.boundClose_);
         window.removeEventListener('popstate', this.boundClose_);
-        if (this.contentObserver_) {
-            this.contentObserver_.disconnect();
-            this.contentObserver_ = null;
-        }
         if (this.resizeObserver_) {
             this.resizeObserver_.disconnect();
             this.resizeObserver_ = null;
@@ -663,6 +661,14 @@ class CrActionMenuElement extends PolymerElement {
         const menuTop = getStartPointWithAnchor(top, bottom, this.$.dialog.offsetHeight, c.anchorAlignmentY, c.minY, c.maxY);
         this.$.dialog.style.top = menuTop + 'px';
     }
+    onSlotchange_() {
+        for (const node of this.$.contentNode.assignedElements({ flatten: true })) {
+            if (node.classList.contains(DROPDOWN_ITEM_CLASS) &&
+                !node.getAttribute('role')) {
+                node.setAttribute('role', 'menuitem');
+            }
+        }
+    }
     addListeners_() {
         this.boundClose_ = this.boundClose_ || (() => {
             if (this.$.dialog.open) {
@@ -671,15 +677,6 @@ class CrActionMenuElement extends PolymerElement {
         });
         window.addEventListener('resize', this.boundClose_);
         window.addEventListener('popstate', this.boundClose_);
-        this.contentObserver_ = new FlattenedNodesObserver(this.$.contentNode, (info) => {
-            info.addedNodes.forEach(node => {
-                if (node.classList &&
-                    node.classList.contains(DROPDOWN_ITEM_CLASS) &&
-                    !node.getAttribute('role')) {
-                    node.setAttribute('role', 'menuitem');
-                }
-            });
-        });
         if (this.autoReposition) {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
@@ -1053,11 +1050,9 @@ class ViewerDownloadControlsElement extends PolymerElement {
 customElements.define(ViewerDownloadControlsElement.is, ViewerDownloadControlsElement);
 
 const template = html `
-<custom-style>
-  <style>
+<style>
 html{--iron-icon-height:20px;--iron-icon-width:20px;--viewer-icon-ink-color:rgb(189, 189, 189);--viewer-pdf-toolbar-background-color:rgb(50, 54, 57);--viewer-text-input-selection-color:rgba(255, 255, 255, 0.3)}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template.content);
 
@@ -1146,8 +1141,9 @@ styleMod.appendChild(html `
             var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
                 var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
             var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
-            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
-                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-label-color:var(--color-textfield-foreground-label,
+            var(--cr-fallback-color-on-surface-subtle));--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
             var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
@@ -3311,7 +3307,10 @@ class PdfViewerElement extends PdfViewerBaseElement {
         this.sidenavCollapsed_ = !showSidenav;
         this.navigator_ = new PdfNavigator(this.originalUrl, this.viewport, this.paramsParser, new NavigatorDelegateImpl(browserApi));
         // Listen for save commands from the browser.
-        if (chrome.mimeHandlerPrivate && chrome.mimeHandlerPrivate.onSave) {
+        if (this.pdfOopifEnabled) {
+            chrome.pdfViewerPrivate.onSave.addListener(this.onSave_.bind(this));
+        }
+        else {
             chrome.mimeHandlerPrivate.onSave.addListener(this.onSave_.bind(this));
         }
         this.embedded_ = this.browserApi.getStreamInfo().embedded;
@@ -3336,7 +3335,9 @@ class PdfViewerElement extends PdfViewerBaseElement {
         }
         switch (e.key) {
             case 'a':
-                if (hasCtrlModifier(e)) {
+                // Take over Ctrl+A (but not other combinations like Ctrl-Shift-A).
+                // Note that on macOS, "Ctrl" is Command.
+                if (hasCtrlModifierOnly(e)) {
                     this.pluginController_.selectAll();
                     // Since we do selection ourselves.
                     e.preventDefault();
@@ -3696,7 +3697,11 @@ class PdfViewerElement extends PdfViewerBaseElement {
                 writer.write(blob);
                 // Unblock closing the window now that the user has saved
                 // successfully.
-                chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                // TODO(crbug.com/1445746): Write an equivalent API call for
+                // chrome.pdfViewerPrivate.
+                if (!this.pdfOopifEnabled) {
+                    chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                }
             });
         });
     }
@@ -3804,7 +3809,11 @@ class PdfViewerElement extends PdfViewerBaseElement {
                 writer.write(blob);
                 // Unblock closing the window now that the user has saved
                 // successfully.
-                chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                // TODO(crbug.com/1445746): Write an equivalent API call for
+                // chrome.pdfViewerPrivate.
+                if (!this.pdfOopifEnabled) {
+                    chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                }
             });
         });
         // 

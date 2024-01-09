@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/internals/user_education/user_education_internals.mojom-features.h"
 #include "chrome/browser/ui/webui/internals/user_education/user_education_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/internals/user_education/user_education_internals.mojom-forward.h"
 #include <string>
@@ -110,7 +111,7 @@ class UserEducationInternalsPageHandler
 
   using ShowFeaturePromoCallback = base::OnceCallback<void(const std::string&)>;
   
-  virtual void ShowFeaturePromo(const std::string& title, ShowFeaturePromoCallback callback) = 0;
+  virtual void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) = 0;
 };
 
 
@@ -128,7 +129,7 @@ class  UserEducationInternalsPageHandlerProxy
   
   void GetFeaturePromos(GetFeaturePromosCallback callback) final;
   
-  void ShowFeaturePromo(const std::string& title, ShowFeaturePromoCallback callback) final;
+  void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -221,9 +222,10 @@ class  FeaturePromoDemoPageInfo {
       const std::string& display_description,
       const std::string& internal_name,
       const std::string& type,
-      int64_t added_timestamp_ms,
+      int32_t added_milestone,
       std::vector<std::string> supported_platforms,
-      std::vector<std::string> instructions);
+      std::vector<std::string> instructions,
+      const std::string& followed_by_internal_name);
 
 
   ~FeaturePromoDemoPageInfo();
@@ -309,11 +311,13 @@ class  FeaturePromoDemoPageInfo {
   
   std::string type;
   
-  int64_t added_timestamp_ms;
+  int32_t added_milestone;
   
   std::vector<std::string> supported_platforms;
   
   std::vector<std::string> instructions;
+  
+  std::string followed_by_internal_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -351,9 +355,10 @@ FeaturePromoDemoPageInfoPtr FeaturePromoDemoPageInfo::Clone() const {
       mojo::Clone(display_description),
       mojo::Clone(internal_name),
       mojo::Clone(type),
-      mojo::Clone(added_timestamp_ms),
+      mojo::Clone(added_milestone),
       mojo::Clone(supported_platforms),
-      mojo::Clone(instructions)
+      mojo::Clone(instructions),
+      mojo::Clone(followed_by_internal_name)
   );
 }
 
@@ -367,11 +372,13 @@ bool FeaturePromoDemoPageInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->type, other_struct.type))
     return false;
-  if (!mojo::Equals(this->added_timestamp_ms, other_struct.added_timestamp_ms))
+  if (!mojo::Equals(this->added_milestone, other_struct.added_milestone))
     return false;
   if (!mojo::Equals(this->supported_platforms, other_struct.supported_platforms))
     return false;
   if (!mojo::Equals(this->instructions, other_struct.instructions))
+    return false;
+  if (!mojo::Equals(this->followed_by_internal_name, other_struct.followed_by_internal_name))
     return false;
   return true;
 }
@@ -394,9 +401,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.type < lhs.type)
     return false;
-  if (lhs.added_timestamp_ms < rhs.added_timestamp_ms)
+  if (lhs.added_milestone < rhs.added_milestone)
     return true;
-  if (rhs.added_timestamp_ms < lhs.added_timestamp_ms)
+  if (rhs.added_milestone < lhs.added_milestone)
     return false;
   if (lhs.supported_platforms < rhs.supported_platforms)
     return true;
@@ -405,6 +412,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.instructions < rhs.instructions)
     return true;
   if (rhs.instructions < lhs.instructions)
+    return false;
+  if (lhs.followed_by_internal_name < rhs.followed_by_internal_name)
+    return true;
+  if (rhs.followed_by_internal_name < lhs.followed_by_internal_name)
     return false;
   return false;
 }
@@ -441,9 +452,9 @@ struct  StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo
     return input->type;
   }
 
-  static decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::added_timestamp_ms) added_timestamp_ms(
+  static decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::added_milestone) added_milestone(
       const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
-    return input->added_timestamp_ms;
+    return input->added_milestone;
   }
 
   static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::supported_platforms)& supported_platforms(
@@ -454,6 +465,11 @@ struct  StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo
   static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::instructions)& instructions(
       const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
     return input->instructions;
+  }
+
+  static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::followed_by_internal_name)& followed_by_internal_name(
+      const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
+    return input->followed_by_internal_name;
   }
 
   static bool Read(::mojom::user_education_internals::FeaturePromoDemoPageInfo::DataView input, ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr* output);

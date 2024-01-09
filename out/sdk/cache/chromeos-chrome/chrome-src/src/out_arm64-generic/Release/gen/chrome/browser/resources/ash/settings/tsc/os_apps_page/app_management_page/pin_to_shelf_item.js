@@ -2,13 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'chrome://resources/cr_components/app_management/toggle_row.js';
-import { AppManagementUserAction, OptionalBool } from 'chrome://resources/cr_components/app_management/constants.js';
-import { convertOptionalBoolToBool, recordAppManagementUserAction, toggleOptionalBool } from 'chrome://resources/cr_components/app_management/util.js';
-import { assert } from 'chrome://resources/js/assert.js';
+import { AppManagementUserAction } from 'chrome://resources/cr_components/app_management/constants.js';
+import { recordAppManagementUserAction } from 'chrome://resources/cr_components/app_management/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../../assert_extras.js';
+import { AppManagementBrowserProxy } from '../../common/app_management/browser_proxy.js';
 import { recordSettingChange } from '../../metrics_recorder.js';
-import { AppManagementBrowserProxy } from './browser_proxy.js';
 import { getTemplate } from './pin_to_shelf_item.html.js';
 export class AppManagementPinToShelfItemElement extends PolymerElement {
     static get is() {
@@ -38,21 +37,19 @@ export class AppManagementPinToShelfItemElement extends PolymerElement {
         this.addEventListener('change', this.toggleSetting_);
     }
     getValue_(app) {
-        return app.isPinned === OptionalBool.kTrue;
+        return !!app.isPinned;
     }
     isAvailable_(app) {
         return app.hidePinToShelf;
     }
     isManaged_(app) {
-        return app.isPolicyPinned === OptionalBool.kTrue;
+        return !!app.isPolicyPinned;
     }
     toggleSetting_() {
-        const newState = castExists(toggleOptionalBool(this.app.isPinned));
-        const newStateBool = convertOptionalBoolToBool(newState);
-        assert(newStateBool === this.getToggleRow_().isChecked());
+        const newState = this.getToggleRow_().isChecked();
         AppManagementBrowserProxy.getInstance().handler.setPinned(this.app.id, newState);
         recordSettingChange();
-        const userAction = newStateBool ?
+        const userAction = newState ?
             AppManagementUserAction.PIN_TO_SHELF_TURNED_ON :
             AppManagementUserAction.PIN_TO_SHELF_TURNED_OFF;
         recordAppManagementUserAction(this.app.type, userAction);

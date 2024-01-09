@@ -364,6 +364,85 @@ class HEADLESS_EXPORT PreloadingAttemptSource {
 };
 
 
+// Information of headers to be displayed when the header mismatch occurred.
+class HEADLESS_EXPORT PrerenderMismatchedHeaders {
+ public:
+  static std::unique_ptr<PrerenderMismatchedHeaders> Parse(const base::Value& value, ErrorReporter* errors);
+
+  PrerenderMismatchedHeaders(const PrerenderMismatchedHeaders&) = delete;
+  PrerenderMismatchedHeaders& operator=(const PrerenderMismatchedHeaders&) = delete;
+
+  ~PrerenderMismatchedHeaders() { }
+
+
+  std::string GetHeaderName() const { return header_name_; }
+  void SetHeaderName(const std::string& value) { header_name_ = value; }
+
+  bool HasInitialValue() const { return !!initial_value_; }
+  std::string GetInitialValue() const { DCHECK(HasInitialValue()); return initial_value_.value(); }
+  void SetInitialValue(const std::string& value) { initial_value_ = value; }
+
+  bool HasActivationValue() const { return !!activation_value_; }
+  std::string GetActivationValue() const { DCHECK(HasActivationValue()); return activation_value_.value(); }
+  void SetActivationValue(const std::string& value) { activation_value_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<PrerenderMismatchedHeaders> Clone() const;
+
+  template<int STATE>
+  class PrerenderMismatchedHeadersBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kHeaderNameSet = 1 << 1,
+      kAllRequiredFieldsSet = (kHeaderNameSet | 0)
+    };
+
+    PrerenderMismatchedHeadersBuilder<STATE | kHeaderNameSet>& SetHeaderName(const std::string& value) {
+      static_assert(!(STATE & kHeaderNameSet), "property headerName should not have already been set");
+      result_->SetHeaderName(value);
+      return CastState<kHeaderNameSet>();
+    }
+
+    PrerenderMismatchedHeadersBuilder<STATE>& SetInitialValue(const std::string& value) {
+      result_->SetInitialValue(value);
+      return *this;
+    }
+
+    PrerenderMismatchedHeadersBuilder<STATE>& SetActivationValue(const std::string& value) {
+      result_->SetActivationValue(value);
+      return *this;
+    }
+
+    std::unique_ptr<PrerenderMismatchedHeaders> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class PrerenderMismatchedHeaders;
+    PrerenderMismatchedHeadersBuilder() : result_(new PrerenderMismatchedHeaders()) { }
+
+    template<int STEP> PrerenderMismatchedHeadersBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<PrerenderMismatchedHeadersBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<PrerenderMismatchedHeaders> result_;
+  };
+
+  static PrerenderMismatchedHeadersBuilder<0> Builder() {
+    return PrerenderMismatchedHeadersBuilder<0>();
+  }
+
+ private:
+  PrerenderMismatchedHeaders() { }
+
+  std::string header_name_;
+  absl::optional<std::string> initial_value_;
+  absl::optional<std::string> activation_value_;
+};
+
+
 // Parameters for the Enable command.
 class HEADLESS_EXPORT EnableParams {
  public:
@@ -919,6 +998,10 @@ class HEADLESS_EXPORT PrerenderStatusUpdatedParams {
   std::string GetDisallowedMojoInterface() const { DCHECK(HasDisallowedMojoInterface()); return disallowed_mojo_interface_.value(); }
   void SetDisallowedMojoInterface(const std::string& value) { disallowed_mojo_interface_ = value; }
 
+  bool HasMismatchedHeaders() const { return !!mismatched_headers_; }
+  const std::vector<std::unique_ptr<::headless::preload::PrerenderMismatchedHeaders>>* GetMismatchedHeaders() const { DCHECK(HasMismatchedHeaders()); return &mismatched_headers_.value(); }
+  void SetMismatchedHeaders(std::vector<std::unique_ptr<::headless::preload::PrerenderMismatchedHeaders>> value) { mismatched_headers_ = std::move(value); }
+
   base::Value Serialize() const;
   std::unique_ptr<PrerenderStatusUpdatedParams> Clone() const;
 
@@ -954,6 +1037,11 @@ class HEADLESS_EXPORT PrerenderStatusUpdatedParams {
       return *this;
     }
 
+    PrerenderStatusUpdatedParamsBuilder<STATE>& SetMismatchedHeaders(std::vector<std::unique_ptr<::headless::preload::PrerenderMismatchedHeaders>> value) {
+      result_->SetMismatchedHeaders(std::move(value));
+      return *this;
+    }
+
     std::unique_ptr<PrerenderStatusUpdatedParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -981,6 +1069,7 @@ class HEADLESS_EXPORT PrerenderStatusUpdatedParams {
   ::headless::preload::PreloadingStatus status_;
   absl::optional<::headless::preload::PrerenderFinalStatus> prerender_status_;
   absl::optional<std::string> disallowed_mojo_interface_;
+  absl::optional<std::vector<std::unique_ptr<::headless::preload::PrerenderMismatchedHeaders>>> mismatched_headers_;
 };
 
 

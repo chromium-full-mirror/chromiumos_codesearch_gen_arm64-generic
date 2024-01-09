@@ -32,7 +32,8 @@ class  RestrictedCookieManager_GetAllForUrl_Params_Data {
   mojo::internal::Pointer<::network::mojom::internal::SiteForCookies_Data> site_for_cookies;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> top_frame_origin;
   uint8_t has_storage_access : 1;
-  uint8_t pad3_[7];
+  uint8_t is_ad_tagged : 1;
+  uint8_t pad4_[7];
   mojo::internal::Pointer<internal::CookieManagerGetOptions_Data> options;
 
  private:
@@ -182,6 +183,7 @@ class  RestrictedCookieManager_GetCookiesString_Params_Data {
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> top_frame_origin;
   uint8_t has_storage_access : 1;
   uint8_t get_version_shared_memory : 1;
+  uint8_t is_ad_tagged : 1;
   uint8_t padfinal_[7];
 
  private:
@@ -303,6 +305,9 @@ class RestrictedCookieManager_GetAllForUrl_ParamsDataView {
     auto* pointer = data_->options.Get();
     return mojo::internal::Deserialize<::network::mojom::CookieManagerGetOptionsDataView>(
         pointer, output, message_);
+  }
+  bool is_ad_tagged() const {
+    return data_->is_ad_tagged;
   }
  private:
   internal::RestrictedCookieManager_GetAllForUrl_Params_Data* data_ = nullptr;
@@ -615,6 +620,9 @@ class RestrictedCookieManager_GetCookiesString_ParamsDataView {
   }
   bool get_version_shared_memory() const {
     return data_->get_version_shared_memory;
+  }
+  bool is_ad_tagged() const {
+    return data_->is_ad_tagged;
   }
  private:
   internal::RestrictedCookieManager_GetCookiesString_Params_Data* data_ = nullptr;

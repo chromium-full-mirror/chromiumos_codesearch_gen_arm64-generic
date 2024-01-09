@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/networking_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -284,8 +285,8 @@ ManagedBoolean::ManagedBoolean()
  {}
 
 ManagedBoolean::~ManagedBoolean() = default;
-ManagedBoolean::ManagedBoolean(ManagedBoolean&& rhs) = default;
-ManagedBoolean& ManagedBoolean::operator=(ManagedBoolean&& rhs) = default;
+ManagedBoolean::ManagedBoolean(ManagedBoolean&& rhs) noexcept = default;
+ManagedBoolean& ManagedBoolean::operator=(ManagedBoolean&& rhs) noexcept = default;
 ManagedBoolean ManagedBoolean::Clone() const {
   ManagedBoolean out;
   out.active = active;
@@ -307,7 +308,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*active_value).GetIfBool();
       if (!temp.has_value()) {
-        out.active = absl::nullopt;
+        out.active = std::nullopt;
         return false;
       }
       out.active = *temp;
@@ -319,7 +320,7 @@ bool ManagedBoolean::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -331,7 +332,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*user_policy_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_policy = absl::nullopt;
+        out.user_policy = std::nullopt;
         return false;
       }
       out.user_policy = *temp;
@@ -343,7 +344,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*device_policy_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_policy = absl::nullopt;
+        out.device_policy = std::nullopt;
         return false;
       }
       out.device_policy = *temp;
@@ -355,7 +356,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*user_setting_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_setting = absl::nullopt;
+        out.user_setting = std::nullopt;
         return false;
       }
       out.user_setting = *temp;
@@ -367,7 +368,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*shared_setting_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shared_setting = absl::nullopt;
+        out.shared_setting = std::nullopt;
         return false;
       }
       out.shared_setting = *temp;
@@ -379,7 +380,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -391,7 +392,7 @@ bool ManagedBoolean::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -411,34 +412,21 @@ bool ManagedBoolean::Populate(
 }
 
 // static
-std::unique_ptr<ManagedBoolean> ManagedBoolean::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedBoolean>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedBoolean> ManagedBoolean::FromValue(const base::Value::Dict& value) {
+  ManagedBoolean out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedBoolean> ManagedBoolean::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedBoolean> ManagedBoolean::FromValue(const base::Value& value) {
   ManagedBoolean out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedBoolean> ManagedBoolean::FromValue(const base::Value& value) {
-  ManagedBoolean out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -487,8 +475,8 @@ ManagedLong::ManagedLong()
  {}
 
 ManagedLong::~ManagedLong() = default;
-ManagedLong::ManagedLong(ManagedLong&& rhs) = default;
-ManagedLong& ManagedLong::operator=(ManagedLong&& rhs) = default;
+ManagedLong::ManagedLong(ManagedLong&& rhs) noexcept = default;
+ManagedLong& ManagedLong::operator=(ManagedLong&& rhs) noexcept = default;
 ManagedLong ManagedLong::Clone() const {
   ManagedLong out;
   out.active = active;
@@ -510,7 +498,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*active_value).GetIfInt();
       if (!temp.has_value()) {
-        out.active = absl::nullopt;
+        out.active = std::nullopt;
         return false;
       }
       out.active = *temp;
@@ -522,7 +510,7 @@ bool ManagedLong::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -534,7 +522,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*user_policy_value).GetIfInt();
       if (!temp.has_value()) {
-        out.user_policy = absl::nullopt;
+        out.user_policy = std::nullopt;
         return false;
       }
       out.user_policy = *temp;
@@ -546,7 +534,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*device_policy_value).GetIfInt();
       if (!temp.has_value()) {
-        out.device_policy = absl::nullopt;
+        out.device_policy = std::nullopt;
         return false;
       }
       out.device_policy = *temp;
@@ -558,7 +546,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*user_setting_value).GetIfInt();
       if (!temp.has_value()) {
-        out.user_setting = absl::nullopt;
+        out.user_setting = std::nullopt;
         return false;
       }
       out.user_setting = *temp;
@@ -570,7 +558,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*shared_setting_value).GetIfInt();
       if (!temp.has_value()) {
-        out.shared_setting = absl::nullopt;
+        out.shared_setting = std::nullopt;
         return false;
       }
       out.shared_setting = *temp;
@@ -582,7 +570,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -594,7 +582,7 @@ bool ManagedLong::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -614,34 +602,21 @@ bool ManagedLong::Populate(
 }
 
 // static
-std::unique_ptr<ManagedLong> ManagedLong::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedLong>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedLong> ManagedLong::FromValue(const base::Value::Dict& value) {
+  ManagedLong out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedLong> ManagedLong::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedLong> ManagedLong::FromValue(const base::Value& value) {
   ManagedLong out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedLong> ManagedLong::FromValue(const base::Value& value) {
-  ManagedLong out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -690,8 +665,8 @@ ManagedDOMString::ManagedDOMString()
  {}
 
 ManagedDOMString::~ManagedDOMString() = default;
-ManagedDOMString::ManagedDOMString(ManagedDOMString&& rhs) = default;
-ManagedDOMString& ManagedDOMString::operator=(ManagedDOMString&& rhs) = default;
+ManagedDOMString::ManagedDOMString(ManagedDOMString&& rhs) noexcept = default;
+ManagedDOMString& ManagedDOMString::operator=(ManagedDOMString&& rhs) noexcept = default;
 ManagedDOMString ManagedDOMString::Clone() const {
   ManagedDOMString out;
   out.active = active;
@@ -713,7 +688,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*active_value).GetIfString();
       if (!temp) {
-        out.active = absl::nullopt;
+        out.active = std::nullopt;
         return false;
       }
       out.active = *temp;
@@ -725,7 +700,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -737,7 +712,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*user_policy_value).GetIfString();
       if (!temp) {
-        out.user_policy = absl::nullopt;
+        out.user_policy = std::nullopt;
         return false;
       }
       out.user_policy = *temp;
@@ -749,7 +724,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*device_policy_value).GetIfString();
       if (!temp) {
-        out.device_policy = absl::nullopt;
+        out.device_policy = std::nullopt;
         return false;
       }
       out.device_policy = *temp;
@@ -761,7 +736,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*user_setting_value).GetIfString();
       if (!temp) {
-        out.user_setting = absl::nullopt;
+        out.user_setting = std::nullopt;
         return false;
       }
       out.user_setting = *temp;
@@ -773,7 +748,7 @@ bool ManagedDOMString::Populate(
     {
       auto* temp = (*shared_setting_value).GetIfString();
       if (!temp) {
-        out.shared_setting = absl::nullopt;
+        out.shared_setting = std::nullopt;
         return false;
       }
       out.shared_setting = *temp;
@@ -785,7 +760,7 @@ bool ManagedDOMString::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -797,7 +772,7 @@ bool ManagedDOMString::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -817,34 +792,21 @@ bool ManagedDOMString::Populate(
 }
 
 // static
-std::unique_ptr<ManagedDOMString> ManagedDOMString::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedDOMString>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedDOMString> ManagedDOMString::FromValue(const base::Value::Dict& value) {
+  ManagedDOMString out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedDOMString> ManagedDOMString::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedDOMString> ManagedDOMString::FromValue(const base::Value& value) {
   ManagedDOMString out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedDOMString> ManagedDOMString::FromValue(const base::Value& value) {
-  ManagedDOMString out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -893,8 +855,8 @@ ManagedDOMStringList::ManagedDOMStringList()
  {}
 
 ManagedDOMStringList::~ManagedDOMStringList() = default;
-ManagedDOMStringList::ManagedDOMStringList(ManagedDOMStringList&& rhs) = default;
-ManagedDOMStringList& ManagedDOMStringList::operator=(ManagedDOMStringList&& rhs) = default;
+ManagedDOMStringList::ManagedDOMStringList(ManagedDOMStringList&& rhs) noexcept = default;
+ManagedDOMStringList& ManagedDOMStringList::operator=(ManagedDOMStringList&& rhs) noexcept = default;
 ManagedDOMStringList ManagedDOMStringList::Clone() const {
   ManagedDOMStringList out;
   out.active = active;
@@ -930,7 +892,7 @@ bool ManagedDOMStringList::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -998,7 +960,7 @@ bool ManagedDOMStringList::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -1010,7 +972,7 @@ bool ManagedDOMStringList::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -1030,34 +992,21 @@ bool ManagedDOMStringList::Populate(
 }
 
 // static
-std::unique_ptr<ManagedDOMStringList> ManagedDOMStringList::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedDOMStringList>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedDOMStringList> ManagedDOMStringList::FromValue(const base::Value::Dict& value) {
+  ManagedDOMStringList out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedDOMStringList> ManagedDOMStringList::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedDOMStringList> ManagedDOMStringList::FromValue(const base::Value& value) {
   ManagedDOMStringList out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedDOMStringList> ManagedDOMStringList::FromValue(const base::Value& value) {
-  ManagedDOMStringList out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1110,8 +1059,8 @@ user_setting(),
 shared_setting() {}
 
 ManagedIPConfigType::~ManagedIPConfigType() = default;
-ManagedIPConfigType::ManagedIPConfigType(ManagedIPConfigType&& rhs) = default;
-ManagedIPConfigType& ManagedIPConfigType::operator=(ManagedIPConfigType&& rhs) = default;
+ManagedIPConfigType::ManagedIPConfigType(ManagedIPConfigType&& rhs) noexcept = default;
+ManagedIPConfigType& ManagedIPConfigType::operator=(ManagedIPConfigType&& rhs) noexcept = default;
 ManagedIPConfigType ManagedIPConfigType::Clone() const {
   ManagedIPConfigType out;
   out.active = active;
@@ -1154,7 +1103,7 @@ bool ManagedIPConfigType::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -1230,7 +1179,7 @@ bool ManagedIPConfigType::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -1242,7 +1191,7 @@ bool ManagedIPConfigType::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -1262,34 +1211,21 @@ bool ManagedIPConfigType::Populate(
 }
 
 // static
-std::unique_ptr<ManagedIPConfigType> ManagedIPConfigType::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedIPConfigType>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedIPConfigType> ManagedIPConfigType::FromValue(const base::Value::Dict& value) {
+  ManagedIPConfigType out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedIPConfigType> ManagedIPConfigType::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedIPConfigType> ManagedIPConfigType::FromValue(const base::Value& value) {
   ManagedIPConfigType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedIPConfigType> ManagedIPConfigType::FromValue(const base::Value& value) {
-  ManagedIPConfigType out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1342,8 +1278,8 @@ user_setting(),
 shared_setting() {}
 
 ManagedProxySettingsType::~ManagedProxySettingsType() = default;
-ManagedProxySettingsType::ManagedProxySettingsType(ManagedProxySettingsType&& rhs) = default;
-ManagedProxySettingsType& ManagedProxySettingsType::operator=(ManagedProxySettingsType&& rhs) = default;
+ManagedProxySettingsType::ManagedProxySettingsType(ManagedProxySettingsType&& rhs) noexcept = default;
+ManagedProxySettingsType& ManagedProxySettingsType::operator=(ManagedProxySettingsType&& rhs) noexcept = default;
 ManagedProxySettingsType ManagedProxySettingsType::Clone() const {
   ManagedProxySettingsType out;
   out.active = active;
@@ -1386,7 +1322,7 @@ bool ManagedProxySettingsType::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -1462,7 +1398,7 @@ bool ManagedProxySettingsType::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -1474,7 +1410,7 @@ bool ManagedProxySettingsType::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -1494,34 +1430,21 @@ bool ManagedProxySettingsType::Populate(
 }
 
 // static
-std::unique_ptr<ManagedProxySettingsType> ManagedProxySettingsType::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedProxySettingsType>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedProxySettingsType> ManagedProxySettingsType::FromValue(const base::Value::Dict& value) {
+  ManagedProxySettingsType out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedProxySettingsType> ManagedProxySettingsType::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedProxySettingsType> ManagedProxySettingsType::FromValue(const base::Value& value) {
   ManagedProxySettingsType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedProxySettingsType> ManagedProxySettingsType::FromValue(const base::Value& value) {
-  ManagedProxySettingsType out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1570,8 +1493,8 @@ APNProperties::APNProperties()
  {}
 
 APNProperties::~APNProperties() = default;
-APNProperties::APNProperties(APNProperties&& rhs) = default;
-APNProperties& APNProperties::operator=(APNProperties&& rhs) = default;
+APNProperties::APNProperties(APNProperties&& rhs) noexcept = default;
+APNProperties& APNProperties::operator=(APNProperties&& rhs) noexcept = default;
 APNProperties APNProperties::Clone() const {
   APNProperties out;
   out.access_point_name = access_point_name;
@@ -1604,7 +1527,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*authentication_value).GetIfString();
       if (!temp) {
-        out.authentication = absl::nullopt;
+        out.authentication = std::nullopt;
         return false;
       }
       out.authentication = *temp;
@@ -1616,7 +1539,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*language_value).GetIfString();
       if (!temp) {
-        out.language = absl::nullopt;
+        out.language = std::nullopt;
         return false;
       }
       out.language = *temp;
@@ -1628,7 +1551,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*localized_name_value).GetIfString();
       if (!temp) {
-        out.localized_name = absl::nullopt;
+        out.localized_name = std::nullopt;
         return false;
       }
       out.localized_name = *temp;
@@ -1640,7 +1563,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -1652,7 +1575,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -1664,7 +1587,7 @@ bool APNProperties::Populate(
     {
       auto* temp = (*username_value).GetIfString();
       if (!temp) {
-        out.username = absl::nullopt;
+        out.username = std::nullopt;
         return false;
       }
       out.username = *temp;
@@ -1684,34 +1607,21 @@ bool APNProperties::Populate(
 }
 
 // static
-std::unique_ptr<APNProperties> APNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<APNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<APNProperties> APNProperties::FromValue(const base::Value::Dict& value) {
+  APNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<APNProperties> APNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<APNProperties> APNProperties::FromValue(const base::Value& value) {
   APNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<APNProperties> APNProperties::FromValue(const base::Value& value) {
-  APNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1754,8 +1664,8 @@ ManagedAPNProperties::ManagedAPNProperties()
  {}
 
 ManagedAPNProperties::~ManagedAPNProperties() = default;
-ManagedAPNProperties::ManagedAPNProperties(ManagedAPNProperties&& rhs) = default;
-ManagedAPNProperties& ManagedAPNProperties::operator=(ManagedAPNProperties&& rhs) = default;
+ManagedAPNProperties::ManagedAPNProperties(ManagedAPNProperties&& rhs) noexcept = default;
+ManagedAPNProperties& ManagedAPNProperties::operator=(ManagedAPNProperties&& rhs) noexcept = default;
 ManagedAPNProperties ManagedAPNProperties::Clone() const {
   ManagedAPNProperties out;
   out.access_point_name = access_point_name.Clone();
@@ -1899,34 +1809,21 @@ bool ManagedAPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedAPNProperties> ManagedAPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedAPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedAPNProperties> ManagedAPNProperties::FromValue(const base::Value::Dict& value) {
+  ManagedAPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedAPNProperties> ManagedAPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedAPNProperties> ManagedAPNProperties::FromValue(const base::Value& value) {
   ManagedAPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedAPNProperties> ManagedAPNProperties::FromValue(const base::Value& value) {
-  ManagedAPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1969,8 +1866,8 @@ ManagedAPNList::ManagedAPNList()
  {}
 
 ManagedAPNList::~ManagedAPNList() = default;
-ManagedAPNList::ManagedAPNList(ManagedAPNList&& rhs) = default;
-ManagedAPNList& ManagedAPNList::operator=(ManagedAPNList&& rhs) = default;
+ManagedAPNList::ManagedAPNList(ManagedAPNList&& rhs) noexcept = default;
+ManagedAPNList& ManagedAPNList::operator=(ManagedAPNList&& rhs) noexcept = default;
 ManagedAPNList ManagedAPNList::Clone() const {
   ManagedAPNList out;
   if (active) {
@@ -2036,7 +1933,7 @@ bool ManagedAPNList::Populate(
     {
       auto* temp = (*effective_value).GetIfString();
       if (!temp) {
-        out.effective = absl::nullopt;
+        out.effective = std::nullopt;
         return false;
       }
       out.effective = *temp;
@@ -2104,7 +2001,7 @@ bool ManagedAPNList::Populate(
     {
       auto temp = (*user_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_editable = absl::nullopt;
+        out.user_editable = std::nullopt;
         return false;
       }
       out.user_editable = *temp;
@@ -2116,7 +2013,7 @@ bool ManagedAPNList::Populate(
     {
       auto temp = (*device_editable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.device_editable = absl::nullopt;
+        out.device_editable = std::nullopt;
         return false;
       }
       out.device_editable = *temp;
@@ -2136,34 +2033,21 @@ bool ManagedAPNList::Populate(
 }
 
 // static
-std::unique_ptr<ManagedAPNList> ManagedAPNList::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedAPNList>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedAPNList> ManagedAPNList::FromValue(const base::Value::Dict& value) {
+  ManagedAPNList out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedAPNList> ManagedAPNList::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedAPNList> ManagedAPNList::FromValue(const base::Value& value) {
   ManagedAPNList out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedAPNList> ManagedAPNList::FromValue(const base::Value& value) {
-  ManagedAPNList out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2212,8 +2096,8 @@ CellularProviderProperties::CellularProviderProperties()
  {}
 
 CellularProviderProperties::~CellularProviderProperties() = default;
-CellularProviderProperties::CellularProviderProperties(CellularProviderProperties&& rhs) = default;
-CellularProviderProperties& CellularProviderProperties::operator=(CellularProviderProperties&& rhs) = default;
+CellularProviderProperties::CellularProviderProperties(CellularProviderProperties&& rhs) noexcept = default;
+CellularProviderProperties& CellularProviderProperties::operator=(CellularProviderProperties&& rhs) noexcept = default;
 CellularProviderProperties CellularProviderProperties::Clone() const {
   CellularProviderProperties out;
   out.name = name;
@@ -2254,7 +2138,7 @@ bool CellularProviderProperties::Populate(
     {
       auto* temp = (*country_value).GetIfString();
       if (!temp) {
-        out.country = absl::nullopt;
+        out.country = std::nullopt;
         return false;
       }
       out.country = *temp;
@@ -2274,34 +2158,21 @@ bool CellularProviderProperties::Populate(
 }
 
 // static
-std::unique_ptr<CellularProviderProperties> CellularProviderProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CellularProviderProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CellularProviderProperties> CellularProviderProperties::FromValue(const base::Value::Dict& value) {
+  CellularProviderProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CellularProviderProperties> CellularProviderProperties::FromValue(const base::Value::Dict& value) {
+std::optional<CellularProviderProperties> CellularProviderProperties::FromValue(const base::Value& value) {
   CellularProviderProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CellularProviderProperties> CellularProviderProperties::FromValue(const base::Value& value) {
-  CellularProviderProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2326,8 +2197,8 @@ CellularSimState::CellularSimState()
 : require_pin(false) {}
 
 CellularSimState::~CellularSimState() = default;
-CellularSimState::CellularSimState(CellularSimState&& rhs) = default;
-CellularSimState& CellularSimState::operator=(CellularSimState&& rhs) = default;
+CellularSimState::CellularSimState(CellularSimState&& rhs) noexcept = default;
+CellularSimState& CellularSimState::operator=(CellularSimState&& rhs) noexcept = default;
 CellularSimState CellularSimState::Clone() const {
   CellularSimState out;
   out.require_pin = require_pin;
@@ -2368,7 +2239,7 @@ bool CellularSimState::Populate(
     {
       auto* temp = (*new_pin_value).GetIfString();
       if (!temp) {
-        out.new_pin = absl::nullopt;
+        out.new_pin = std::nullopt;
         return false;
       }
       out.new_pin = *temp;
@@ -2388,34 +2259,21 @@ bool CellularSimState::Populate(
 }
 
 // static
-std::unique_ptr<CellularSimState> CellularSimState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CellularSimState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CellularSimState> CellularSimState::FromValue(const base::Value::Dict& value) {
+  CellularSimState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CellularSimState> CellularSimState::FromValue(const base::Value::Dict& value) {
+std::optional<CellularSimState> CellularSimState::FromValue(const base::Value& value) {
   CellularSimState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CellularSimState> CellularSimState::FromValue(const base::Value& value) {
-  CellularSimState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2440,8 +2298,8 @@ IssuerSubjectPattern::IssuerSubjectPattern()
  {}
 
 IssuerSubjectPattern::~IssuerSubjectPattern() = default;
-IssuerSubjectPattern::IssuerSubjectPattern(IssuerSubjectPattern&& rhs) = default;
-IssuerSubjectPattern& IssuerSubjectPattern::operator=(IssuerSubjectPattern&& rhs) = default;
+IssuerSubjectPattern::IssuerSubjectPattern(IssuerSubjectPattern&& rhs) noexcept = default;
+IssuerSubjectPattern& IssuerSubjectPattern::operator=(IssuerSubjectPattern&& rhs) noexcept = default;
 IssuerSubjectPattern IssuerSubjectPattern::Clone() const {
   IssuerSubjectPattern out;
   out.common_name = common_name;
@@ -2459,7 +2317,7 @@ bool IssuerSubjectPattern::Populate(
     {
       auto* temp = (*common_name_value).GetIfString();
       if (!temp) {
-        out.common_name = absl::nullopt;
+        out.common_name = std::nullopt;
         return false;
       }
       out.common_name = *temp;
@@ -2471,7 +2329,7 @@ bool IssuerSubjectPattern::Populate(
     {
       auto* temp = (*locality_value).GetIfString();
       if (!temp) {
-        out.locality = absl::nullopt;
+        out.locality = std::nullopt;
         return false;
       }
       out.locality = *temp;
@@ -2483,7 +2341,7 @@ bool IssuerSubjectPattern::Populate(
     {
       auto* temp = (*organization_value).GetIfString();
       if (!temp) {
-        out.organization = absl::nullopt;
+        out.organization = std::nullopt;
         return false;
       }
       out.organization = *temp;
@@ -2495,7 +2353,7 @@ bool IssuerSubjectPattern::Populate(
     {
       auto* temp = (*organizational_unit_value).GetIfString();
       if (!temp) {
-        out.organizational_unit = absl::nullopt;
+        out.organizational_unit = std::nullopt;
         return false;
       }
       out.organizational_unit = *temp;
@@ -2515,34 +2373,21 @@ bool IssuerSubjectPattern::Populate(
 }
 
 // static
-std::unique_ptr<IssuerSubjectPattern> IssuerSubjectPattern::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IssuerSubjectPattern>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IssuerSubjectPattern> IssuerSubjectPattern::FromValue(const base::Value::Dict& value) {
+  IssuerSubjectPattern out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IssuerSubjectPattern> IssuerSubjectPattern::FromValue(const base::Value::Dict& value) {
+std::optional<IssuerSubjectPattern> IssuerSubjectPattern::FromValue(const base::Value& value) {
   IssuerSubjectPattern out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IssuerSubjectPattern> IssuerSubjectPattern::FromValue(const base::Value& value) {
-  IssuerSubjectPattern out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2575,8 +2420,8 @@ ManagedIssuerSubjectPattern::ManagedIssuerSubjectPattern()
  {}
 
 ManagedIssuerSubjectPattern::~ManagedIssuerSubjectPattern() = default;
-ManagedIssuerSubjectPattern::ManagedIssuerSubjectPattern(ManagedIssuerSubjectPattern&& rhs) = default;
-ManagedIssuerSubjectPattern& ManagedIssuerSubjectPattern::operator=(ManagedIssuerSubjectPattern&& rhs) = default;
+ManagedIssuerSubjectPattern::ManagedIssuerSubjectPattern(ManagedIssuerSubjectPattern&& rhs) noexcept = default;
+ManagedIssuerSubjectPattern& ManagedIssuerSubjectPattern::operator=(ManagedIssuerSubjectPattern&& rhs) noexcept = default;
 ManagedIssuerSubjectPattern ManagedIssuerSubjectPattern::Clone() const {
   ManagedIssuerSubjectPattern out;
   if (common_name) {
@@ -2670,34 +2515,21 @@ bool ManagedIssuerSubjectPattern::Populate(
 }
 
 // static
-std::unique_ptr<ManagedIssuerSubjectPattern> ManagedIssuerSubjectPattern::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedIssuerSubjectPattern>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedIssuerSubjectPattern> ManagedIssuerSubjectPattern::FromValue(const base::Value::Dict& value) {
+  ManagedIssuerSubjectPattern out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedIssuerSubjectPattern> ManagedIssuerSubjectPattern::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedIssuerSubjectPattern> ManagedIssuerSubjectPattern::FromValue(const base::Value& value) {
   ManagedIssuerSubjectPattern out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedIssuerSubjectPattern> ManagedIssuerSubjectPattern::FromValue(const base::Value& value) {
-  ManagedIssuerSubjectPattern out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2730,8 +2562,8 @@ CertificatePattern::CertificatePattern()
  {}
 
 CertificatePattern::~CertificatePattern() = default;
-CertificatePattern::CertificatePattern(CertificatePattern&& rhs) = default;
-CertificatePattern& CertificatePattern::operator=(CertificatePattern&& rhs) = default;
+CertificatePattern::CertificatePattern(CertificatePattern&& rhs) noexcept = default;
+CertificatePattern& CertificatePattern::operator=(CertificatePattern&& rhs) noexcept = default;
 CertificatePattern CertificatePattern::Clone() const {
   CertificatePattern out;
   out.enrollment_uri = enrollment_uri;
@@ -2834,34 +2666,21 @@ bool CertificatePattern::Populate(
 }
 
 // static
-std::unique_ptr<CertificatePattern> CertificatePattern::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CertificatePattern>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CertificatePattern> CertificatePattern::FromValue(const base::Value::Dict& value) {
+  CertificatePattern out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CertificatePattern> CertificatePattern::FromValue(const base::Value::Dict& value) {
+std::optional<CertificatePattern> CertificatePattern::FromValue(const base::Value& value) {
   CertificatePattern out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CertificatePattern> CertificatePattern::FromValue(const base::Value& value) {
-  CertificatePattern out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2898,8 +2717,8 @@ ManagedCertificatePattern::ManagedCertificatePattern()
  {}
 
 ManagedCertificatePattern::~ManagedCertificatePattern() = default;
-ManagedCertificatePattern::ManagedCertificatePattern(ManagedCertificatePattern&& rhs) = default;
-ManagedCertificatePattern& ManagedCertificatePattern::operator=(ManagedCertificatePattern&& rhs) = default;
+ManagedCertificatePattern::ManagedCertificatePattern(ManagedCertificatePattern&& rhs) noexcept = default;
+ManagedCertificatePattern& ManagedCertificatePattern::operator=(ManagedCertificatePattern&& rhs) noexcept = default;
 ManagedCertificatePattern ManagedCertificatePattern::Clone() const {
   ManagedCertificatePattern out;
   if (enrollment_uri) {
@@ -2993,34 +2812,21 @@ bool ManagedCertificatePattern::Populate(
 }
 
 // static
-std::unique_ptr<ManagedCertificatePattern> ManagedCertificatePattern::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedCertificatePattern>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedCertificatePattern> ManagedCertificatePattern::FromValue(const base::Value::Dict& value) {
+  ManagedCertificatePattern out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedCertificatePattern> ManagedCertificatePattern::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedCertificatePattern> ManagedCertificatePattern::FromValue(const base::Value& value) {
   ManagedCertificatePattern out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedCertificatePattern> ManagedCertificatePattern::FromValue(const base::Value& value) {
-  ManagedCertificatePattern out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3053,8 +2859,8 @@ EAPProperties::EAPProperties()
  {}
 
 EAPProperties::~EAPProperties() = default;
-EAPProperties::EAPProperties(EAPProperties&& rhs) = default;
-EAPProperties& EAPProperties::operator=(EAPProperties&& rhs) = default;
+EAPProperties::EAPProperties(EAPProperties&& rhs) noexcept = default;
+EAPProperties& EAPProperties::operator=(EAPProperties&& rhs) noexcept = default;
 EAPProperties EAPProperties::Clone() const {
   EAPProperties out;
   out.anonymous_identity = anonymous_identity;
@@ -3087,7 +2893,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*anonymous_identity_value).GetIfString();
       if (!temp) {
-        out.anonymous_identity = absl::nullopt;
+        out.anonymous_identity = std::nullopt;
         return false;
       }
       out.anonymous_identity = *temp;
@@ -3114,7 +2920,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*client_cert_pkcs11_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_pkcs11_id = absl::nullopt;
+        out.client_cert_pkcs11_id = std::nullopt;
         return false;
       }
       out.client_cert_pkcs11_id = *temp;
@@ -3126,7 +2932,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*client_cert_provisioning_profile_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_provisioning_profile_id = absl::nullopt;
+        out.client_cert_provisioning_profile_id = std::nullopt;
         return false;
       }
       out.client_cert_provisioning_profile_id = *temp;
@@ -3138,7 +2944,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*client_cert_ref_value).GetIfString();
       if (!temp) {
-        out.client_cert_ref = absl::nullopt;
+        out.client_cert_ref = std::nullopt;
         return false;
       }
       out.client_cert_ref = *temp;
@@ -3150,7 +2956,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*client_cert_type_value).GetIfString();
       if (!temp) {
-        out.client_cert_type = absl::nullopt;
+        out.client_cert_type = std::nullopt;
         return false;
       }
       out.client_cert_type = *temp;
@@ -3162,7 +2968,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*identity_value).GetIfString();
       if (!temp) {
-        out.identity = absl::nullopt;
+        out.identity = std::nullopt;
         return false;
       }
       out.identity = *temp;
@@ -3174,7 +2980,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*inner_value).GetIfString();
       if (!temp) {
-        out.inner = absl::nullopt;
+        out.inner = std::nullopt;
         return false;
       }
       out.inner = *temp;
@@ -3186,7 +2992,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*outer_value).GetIfString();
       if (!temp) {
-        out.outer = absl::nullopt;
+        out.outer = std::nullopt;
         return false;
       }
       out.outer = *temp;
@@ -3198,7 +3004,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -3210,7 +3016,7 @@ bool EAPProperties::Populate(
     {
       auto temp = (*save_credentials_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_credentials = absl::nullopt;
+        out.save_credentials = std::nullopt;
         return false;
       }
       out.save_credentials = *temp;
@@ -3250,7 +3056,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*subject_match_value).GetIfString();
       if (!temp) {
-        out.subject_match = absl::nullopt;
+        out.subject_match = std::nullopt;
         return false;
       }
       out.subject_match = *temp;
@@ -3262,7 +3068,7 @@ bool EAPProperties::Populate(
     {
       auto* temp = (*tls_version_max_value).GetIfString();
       if (!temp) {
-        out.tls_version_max = absl::nullopt;
+        out.tls_version_max = std::nullopt;
         return false;
       }
       out.tls_version_max = *temp;
@@ -3274,7 +3080,7 @@ bool EAPProperties::Populate(
     {
       auto temp = (*use_proactive_key_caching_value).GetIfBool();
       if (!temp.has_value()) {
-        out.use_proactive_key_caching = absl::nullopt;
+        out.use_proactive_key_caching = std::nullopt;
         return false;
       }
       out.use_proactive_key_caching = *temp;
@@ -3286,7 +3092,7 @@ bool EAPProperties::Populate(
     {
       auto temp = (*use_system_c_as_value).GetIfBool();
       if (!temp.has_value()) {
-        out.use_system_c_as = absl::nullopt;
+        out.use_system_c_as = std::nullopt;
         return false;
       }
       out.use_system_c_as = *temp;
@@ -3306,34 +3112,21 @@ bool EAPProperties::Populate(
 }
 
 // static
-std::unique_ptr<EAPProperties> EAPProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EAPProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EAPProperties> EAPProperties::FromValue(const base::Value::Dict& value) {
+  EAPProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EAPProperties> EAPProperties::FromValue(const base::Value::Dict& value) {
+std::optional<EAPProperties> EAPProperties::FromValue(const base::Value& value) {
   EAPProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EAPProperties> EAPProperties::FromValue(const base::Value& value) {
-  EAPProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3418,8 +3211,8 @@ ManagedEAPProperties::ManagedEAPProperties()
  {}
 
 ManagedEAPProperties::~ManagedEAPProperties() = default;
-ManagedEAPProperties::ManagedEAPProperties(ManagedEAPProperties&& rhs) = default;
-ManagedEAPProperties& ManagedEAPProperties::operator=(ManagedEAPProperties&& rhs) = default;
+ManagedEAPProperties::ManagedEAPProperties(ManagedEAPProperties&& rhs) noexcept = default;
+ManagedEAPProperties& ManagedEAPProperties::operator=(ManagedEAPProperties&& rhs) noexcept = default;
 ManagedEAPProperties ManagedEAPProperties::Clone() const {
   ManagedEAPProperties out;
   if (anonymous_identity) {
@@ -3747,34 +3540,21 @@ bool ManagedEAPProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedEAPProperties> ManagedEAPProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedEAPProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedEAPProperties> ManagedEAPProperties::FromValue(const base::Value::Dict& value) {
+  ManagedEAPProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedEAPProperties> ManagedEAPProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedEAPProperties> ManagedEAPProperties::FromValue(const base::Value& value) {
   ManagedEAPProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedEAPProperties> ManagedEAPProperties::FromValue(const base::Value& value) {
-  ManagedEAPProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3859,8 +3639,8 @@ FoundNetworkProperties::FoundNetworkProperties()
  {}
 
 FoundNetworkProperties::~FoundNetworkProperties() = default;
-FoundNetworkProperties::FoundNetworkProperties(FoundNetworkProperties&& rhs) = default;
-FoundNetworkProperties& FoundNetworkProperties::operator=(FoundNetworkProperties&& rhs) = default;
+FoundNetworkProperties::FoundNetworkProperties(FoundNetworkProperties&& rhs) noexcept = default;
+FoundNetworkProperties& FoundNetworkProperties::operator=(FoundNetworkProperties&& rhs) noexcept = default;
 FoundNetworkProperties FoundNetworkProperties::Clone() const {
   FoundNetworkProperties out;
   out.status = status;
@@ -3915,7 +3695,7 @@ bool FoundNetworkProperties::Populate(
     {
       auto* temp = (*short_name_value).GetIfString();
       if (!temp) {
-        out.short_name = absl::nullopt;
+        out.short_name = std::nullopt;
         return false;
       }
       out.short_name = *temp;
@@ -3927,7 +3707,7 @@ bool FoundNetworkProperties::Populate(
     {
       auto* temp = (*long_name_value).GetIfString();
       if (!temp) {
-        out.long_name = absl::nullopt;
+        out.long_name = std::nullopt;
         return false;
       }
       out.long_name = *temp;
@@ -3947,34 +3727,21 @@ bool FoundNetworkProperties::Populate(
 }
 
 // static
-std::unique_ptr<FoundNetworkProperties> FoundNetworkProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FoundNetworkProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FoundNetworkProperties> FoundNetworkProperties::FromValue(const base::Value::Dict& value) {
+  FoundNetworkProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FoundNetworkProperties> FoundNetworkProperties::FromValue(const base::Value::Dict& value) {
+std::optional<FoundNetworkProperties> FoundNetworkProperties::FromValue(const base::Value& value) {
   FoundNetworkProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FoundNetworkProperties> FoundNetworkProperties::FromValue(const base::Value& value) {
-  FoundNetworkProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4005,8 +3772,8 @@ IPConfigProperties::IPConfigProperties()
  {}
 
 IPConfigProperties::~IPConfigProperties() = default;
-IPConfigProperties::IPConfigProperties(IPConfigProperties&& rhs) = default;
-IPConfigProperties& IPConfigProperties::operator=(IPConfigProperties&& rhs) = default;
+IPConfigProperties::IPConfigProperties(IPConfigProperties&& rhs) noexcept = default;
+IPConfigProperties& IPConfigProperties::operator=(IPConfigProperties&& rhs) noexcept = default;
 IPConfigProperties IPConfigProperties::Clone() const {
   IPConfigProperties out;
   out.gateway = gateway;
@@ -4029,7 +3796,7 @@ bool IPConfigProperties::Populate(
     {
       auto* temp = (*gateway_value).GetIfString();
       if (!temp) {
-        out.gateway = absl::nullopt;
+        out.gateway = std::nullopt;
         return false;
       }
       out.gateway = *temp;
@@ -4041,7 +3808,7 @@ bool IPConfigProperties::Populate(
     {
       auto* temp = (*ip_address_value).GetIfString();
       if (!temp) {
-        out.ip_address = absl::nullopt;
+        out.ip_address = std::nullopt;
         return false;
       }
       out.ip_address = *temp;
@@ -4109,7 +3876,7 @@ bool IPConfigProperties::Populate(
     {
       auto temp = (*routing_prefix_value).GetIfInt();
       if (!temp.has_value()) {
-        out.routing_prefix = absl::nullopt;
+        out.routing_prefix = std::nullopt;
         return false;
       }
       out.routing_prefix = *temp;
@@ -4121,7 +3888,7 @@ bool IPConfigProperties::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -4133,7 +3900,7 @@ bool IPConfigProperties::Populate(
     {
       auto* temp = (*web_proxy_auto_discovery_url_value).GetIfString();
       if (!temp) {
-        out.web_proxy_auto_discovery_url = absl::nullopt;
+        out.web_proxy_auto_discovery_url = std::nullopt;
         return false;
       }
       out.web_proxy_auto_discovery_url = *temp;
@@ -4153,34 +3920,21 @@ bool IPConfigProperties::Populate(
 }
 
 // static
-std::unique_ptr<IPConfigProperties> IPConfigProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IPConfigProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IPConfigProperties> IPConfigProperties::FromValue(const base::Value::Dict& value) {
+  IPConfigProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IPConfigProperties> IPConfigProperties::FromValue(const base::Value::Dict& value) {
+std::optional<IPConfigProperties> IPConfigProperties::FromValue(const base::Value& value) {
   IPConfigProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IPConfigProperties> IPConfigProperties::FromValue(const base::Value& value) {
-  IPConfigProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4233,8 +3987,8 @@ ManagedIPConfigProperties::ManagedIPConfigProperties()
  {}
 
 ManagedIPConfigProperties::~ManagedIPConfigProperties() = default;
-ManagedIPConfigProperties::ManagedIPConfigProperties(ManagedIPConfigProperties&& rhs) = default;
-ManagedIPConfigProperties& ManagedIPConfigProperties::operator=(ManagedIPConfigProperties&& rhs) = default;
+ManagedIPConfigProperties::ManagedIPConfigProperties(ManagedIPConfigProperties&& rhs) noexcept = default;
+ManagedIPConfigProperties& ManagedIPConfigProperties::operator=(ManagedIPConfigProperties&& rhs) noexcept = default;
 ManagedIPConfigProperties ManagedIPConfigProperties::Clone() const {
   ManagedIPConfigProperties out;
   if (gateway) {
@@ -4364,34 +4118,21 @@ bool ManagedIPConfigProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedIPConfigProperties> ManagedIPConfigProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedIPConfigProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedIPConfigProperties> ManagedIPConfigProperties::FromValue(const base::Value::Dict& value) {
+  ManagedIPConfigProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedIPConfigProperties> ManagedIPConfigProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedIPConfigProperties> ManagedIPConfigProperties::FromValue(const base::Value& value) {
   ManagedIPConfigProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedIPConfigProperties> ManagedIPConfigProperties::FromValue(const base::Value& value) {
-  ManagedIPConfigProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4432,8 +4173,8 @@ XAUTHProperties::XAUTHProperties()
  {}
 
 XAUTHProperties::~XAUTHProperties() = default;
-XAUTHProperties::XAUTHProperties(XAUTHProperties&& rhs) = default;
-XAUTHProperties& XAUTHProperties::operator=(XAUTHProperties&& rhs) = default;
+XAUTHProperties::XAUTHProperties(XAUTHProperties&& rhs) noexcept = default;
+XAUTHProperties& XAUTHProperties::operator=(XAUTHProperties&& rhs) noexcept = default;
 XAUTHProperties XAUTHProperties::Clone() const {
   XAUTHProperties out;
   out.password = password;
@@ -4450,7 +4191,7 @@ bool XAUTHProperties::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -4462,7 +4203,7 @@ bool XAUTHProperties::Populate(
     {
       auto temp = (*save_credentials_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_credentials = absl::nullopt;
+        out.save_credentials = std::nullopt;
         return false;
       }
       out.save_credentials = *temp;
@@ -4474,7 +4215,7 @@ bool XAUTHProperties::Populate(
     {
       auto* temp = (*username_value).GetIfString();
       if (!temp) {
-        out.username = absl::nullopt;
+        out.username = std::nullopt;
         return false;
       }
       out.username = *temp;
@@ -4494,34 +4235,21 @@ bool XAUTHProperties::Populate(
 }
 
 // static
-std::unique_ptr<XAUTHProperties> XAUTHProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<XAUTHProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<XAUTHProperties> XAUTHProperties::FromValue(const base::Value::Dict& value) {
+  XAUTHProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<XAUTHProperties> XAUTHProperties::FromValue(const base::Value::Dict& value) {
+std::optional<XAUTHProperties> XAUTHProperties::FromValue(const base::Value& value) {
   XAUTHProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<XAUTHProperties> XAUTHProperties::FromValue(const base::Value& value) {
-  XAUTHProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4550,8 +4278,8 @@ ManagedXAUTHProperties::ManagedXAUTHProperties()
  {}
 
 ManagedXAUTHProperties::~ManagedXAUTHProperties() = default;
-ManagedXAUTHProperties::ManagedXAUTHProperties(ManagedXAUTHProperties&& rhs) = default;
-ManagedXAUTHProperties& ManagedXAUTHProperties::operator=(ManagedXAUTHProperties&& rhs) = default;
+ManagedXAUTHProperties::ManagedXAUTHProperties(ManagedXAUTHProperties&& rhs) noexcept = default;
+ManagedXAUTHProperties& ManagedXAUTHProperties::operator=(ManagedXAUTHProperties&& rhs) noexcept = default;
 ManagedXAUTHProperties ManagedXAUTHProperties::Clone() const {
   ManagedXAUTHProperties out;
   if (password) {
@@ -4627,34 +4355,21 @@ bool ManagedXAUTHProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedXAUTHProperties> ManagedXAUTHProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedXAUTHProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedXAUTHProperties> ManagedXAUTHProperties::FromValue(const base::Value::Dict& value) {
+  ManagedXAUTHProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedXAUTHProperties> ManagedXAUTHProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedXAUTHProperties> ManagedXAUTHProperties::FromValue(const base::Value& value) {
   ManagedXAUTHProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedXAUTHProperties> ManagedXAUTHProperties::FromValue(const base::Value& value) {
-  ManagedXAUTHProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4683,8 +4398,8 @@ IPSecProperties::IPSecProperties()
  {}
 
 IPSecProperties::~IPSecProperties() = default;
-IPSecProperties::IPSecProperties(IPSecProperties&& rhs) = default;
-IPSecProperties& IPSecProperties::operator=(IPSecProperties&& rhs) = default;
+IPSecProperties::IPSecProperties(IPSecProperties&& rhs) noexcept = default;
+IPSecProperties& IPSecProperties::operator=(IPSecProperties&& rhs) noexcept = default;
 IPSecProperties IPSecProperties::Clone() const {
   IPSecProperties out;
   out.authentication_type = authentication_type;
@@ -4747,7 +4462,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*client_cert_pkcs11_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_pkcs11_id = absl::nullopt;
+        out.client_cert_pkcs11_id = std::nullopt;
         return false;
       }
       out.client_cert_pkcs11_id = *temp;
@@ -4759,7 +4474,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*client_cert_provisioning_profile_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_provisioning_profile_id = absl::nullopt;
+        out.client_cert_provisioning_profile_id = std::nullopt;
         return false;
       }
       out.client_cert_provisioning_profile_id = *temp;
@@ -4771,7 +4486,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*client_cert_ref_value).GetIfString();
       if (!temp) {
-        out.client_cert_ref = absl::nullopt;
+        out.client_cert_ref = std::nullopt;
         return false;
       }
       out.client_cert_ref = *temp;
@@ -4783,7 +4498,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*client_cert_type_value).GetIfString();
       if (!temp) {
-        out.client_cert_type = absl::nullopt;
+        out.client_cert_type = std::nullopt;
         return false;
       }
       out.client_cert_type = *temp;
@@ -4810,7 +4525,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*group_value).GetIfString();
       if (!temp) {
-        out.group = absl::nullopt;
+        out.group = std::nullopt;
         return false;
       }
       out.group = *temp;
@@ -4822,7 +4537,7 @@ bool IPSecProperties::Populate(
     {
       auto temp = (*ike_version_value).GetIfInt();
       if (!temp.has_value()) {
-        out.ike_version = absl::nullopt;
+        out.ike_version = std::nullopt;
         return false;
       }
       out.ike_version = *temp;
@@ -4834,7 +4549,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*local_identity_value).GetIfString();
       if (!temp) {
-        out.local_identity = absl::nullopt;
+        out.local_identity = std::nullopt;
         return false;
       }
       out.local_identity = *temp;
@@ -4846,7 +4561,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*psk_value).GetIfString();
       if (!temp) {
-        out.psk = absl::nullopt;
+        out.psk = std::nullopt;
         return false;
       }
       out.psk = *temp;
@@ -4858,7 +4573,7 @@ bool IPSecProperties::Populate(
     {
       auto* temp = (*remote_identity_value).GetIfString();
       if (!temp) {
-        out.remote_identity = absl::nullopt;
+        out.remote_identity = std::nullopt;
         return false;
       }
       out.remote_identity = *temp;
@@ -4870,7 +4585,7 @@ bool IPSecProperties::Populate(
     {
       auto temp = (*save_credentials_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_credentials = absl::nullopt;
+        out.save_credentials = std::nullopt;
         return false;
       }
       out.save_credentials = *temp;
@@ -4933,34 +4648,21 @@ bool IPSecProperties::Populate(
 }
 
 // static
-std::unique_ptr<IPSecProperties> IPSecProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IPSecProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IPSecProperties> IPSecProperties::FromValue(const base::Value::Dict& value) {
+  IPSecProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IPSecProperties> IPSecProperties::FromValue(const base::Value::Dict& value) {
+std::optional<IPSecProperties> IPSecProperties::FromValue(const base::Value& value) {
   IPSecProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IPSecProperties> IPSecProperties::FromValue(const base::Value& value) {
-  IPSecProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5039,8 +4741,8 @@ ManagedIPSecProperties::ManagedIPSecProperties()
  {}
 
 ManagedIPSecProperties::~ManagedIPSecProperties() = default;
-ManagedIPSecProperties::ManagedIPSecProperties(ManagedIPSecProperties&& rhs) = default;
-ManagedIPSecProperties& ManagedIPSecProperties::operator=(ManagedIPSecProperties&& rhs) = default;
+ManagedIPSecProperties::ManagedIPSecProperties(ManagedIPSecProperties&& rhs) noexcept = default;
+ManagedIPSecProperties& ManagedIPSecProperties::operator=(ManagedIPSecProperties&& rhs) noexcept = default;
 ManagedIPSecProperties ManagedIPSecProperties::Clone() const {
   ManagedIPSecProperties out;
   out.authentication_type = authentication_type.Clone();
@@ -5310,34 +5012,21 @@ bool ManagedIPSecProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedIPSecProperties> ManagedIPSecProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedIPSecProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedIPSecProperties> ManagedIPSecProperties::FromValue(const base::Value::Dict& value) {
+  ManagedIPSecProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedIPSecProperties> ManagedIPSecProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedIPSecProperties> ManagedIPSecProperties::FromValue(const base::Value& value) {
   ManagedIPSecProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedIPSecProperties> ManagedIPSecProperties::FromValue(const base::Value& value) {
-  ManagedIPSecProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5408,8 +5097,8 @@ L2TPProperties::L2TPProperties()
  {}
 
 L2TPProperties::~L2TPProperties() = default;
-L2TPProperties::L2TPProperties(L2TPProperties&& rhs) = default;
-L2TPProperties& L2TPProperties::operator=(L2TPProperties&& rhs) = default;
+L2TPProperties::L2TPProperties(L2TPProperties&& rhs) noexcept = default;
+L2TPProperties& L2TPProperties::operator=(L2TPProperties&& rhs) noexcept = default;
 L2TPProperties L2TPProperties::Clone() const {
   L2TPProperties out;
   out.lcp_echo_disabled = lcp_echo_disabled;
@@ -5427,7 +5116,7 @@ bool L2TPProperties::Populate(
     {
       auto temp = (*lcp_echo_disabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.lcp_echo_disabled = absl::nullopt;
+        out.lcp_echo_disabled = std::nullopt;
         return false;
       }
       out.lcp_echo_disabled = *temp;
@@ -5439,7 +5128,7 @@ bool L2TPProperties::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -5451,7 +5140,7 @@ bool L2TPProperties::Populate(
     {
       auto temp = (*save_credentials_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_credentials = absl::nullopt;
+        out.save_credentials = std::nullopt;
         return false;
       }
       out.save_credentials = *temp;
@@ -5463,7 +5152,7 @@ bool L2TPProperties::Populate(
     {
       auto* temp = (*username_value).GetIfString();
       if (!temp) {
-        out.username = absl::nullopt;
+        out.username = std::nullopt;
         return false;
       }
       out.username = *temp;
@@ -5483,34 +5172,21 @@ bool L2TPProperties::Populate(
 }
 
 // static
-std::unique_ptr<L2TPProperties> L2TPProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<L2TPProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<L2TPProperties> L2TPProperties::FromValue(const base::Value::Dict& value) {
+  L2TPProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<L2TPProperties> L2TPProperties::FromValue(const base::Value::Dict& value) {
+std::optional<L2TPProperties> L2TPProperties::FromValue(const base::Value& value) {
   L2TPProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<L2TPProperties> L2TPProperties::FromValue(const base::Value& value) {
-  L2TPProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5543,8 +5219,8 @@ ManagedL2TPProperties::ManagedL2TPProperties()
  {}
 
 ManagedL2TPProperties::~ManagedL2TPProperties() = default;
-ManagedL2TPProperties::ManagedL2TPProperties(ManagedL2TPProperties&& rhs) = default;
-ManagedL2TPProperties& ManagedL2TPProperties::operator=(ManagedL2TPProperties&& rhs) = default;
+ManagedL2TPProperties::ManagedL2TPProperties(ManagedL2TPProperties&& rhs) noexcept = default;
+ManagedL2TPProperties& ManagedL2TPProperties::operator=(ManagedL2TPProperties&& rhs) noexcept = default;
 ManagedL2TPProperties ManagedL2TPProperties::Clone() const {
   ManagedL2TPProperties out;
   if (lcp_echo_disabled) {
@@ -5638,34 +5314,21 @@ bool ManagedL2TPProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedL2TPProperties> ManagedL2TPProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedL2TPProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedL2TPProperties> ManagedL2TPProperties::FromValue(const base::Value::Dict& value) {
+  ManagedL2TPProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedL2TPProperties> ManagedL2TPProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedL2TPProperties> ManagedL2TPProperties::FromValue(const base::Value& value) {
   ManagedL2TPProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedL2TPProperties> ManagedL2TPProperties::FromValue(const base::Value& value) {
-  ManagedL2TPProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5698,8 +5361,8 @@ PaymentPortal::PaymentPortal()
  {}
 
 PaymentPortal::~PaymentPortal() = default;
-PaymentPortal::PaymentPortal(PaymentPortal&& rhs) = default;
-PaymentPortal& PaymentPortal::operator=(PaymentPortal&& rhs) = default;
+PaymentPortal::PaymentPortal(PaymentPortal&& rhs) noexcept = default;
+PaymentPortal& PaymentPortal::operator=(PaymentPortal&& rhs) noexcept = default;
 PaymentPortal PaymentPortal::Clone() const {
   PaymentPortal out;
   out.method = method;
@@ -5728,7 +5391,7 @@ bool PaymentPortal::Populate(
     {
       auto* temp = (*post_data_value).GetIfString();
       if (!temp) {
-        out.post_data = absl::nullopt;
+        out.post_data = std::nullopt;
         return false;
       }
       out.post_data = *temp;
@@ -5740,7 +5403,7 @@ bool PaymentPortal::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -5760,34 +5423,21 @@ bool PaymentPortal::Populate(
 }
 
 // static
-std::unique_ptr<PaymentPortal> PaymentPortal::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PaymentPortal>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PaymentPortal> PaymentPortal::FromValue(const base::Value::Dict& value) {
+  PaymentPortal out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PaymentPortal> PaymentPortal::FromValue(const base::Value::Dict& value) {
+std::optional<PaymentPortal> PaymentPortal::FromValue(const base::Value& value) {
   PaymentPortal out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PaymentPortal> PaymentPortal::FromValue(const base::Value& value) {
-  PaymentPortal out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5814,8 +5464,8 @@ ProxyLocation::ProxyLocation()
 : port(0) {}
 
 ProxyLocation::~ProxyLocation() = default;
-ProxyLocation::ProxyLocation(ProxyLocation&& rhs) = default;
-ProxyLocation& ProxyLocation::operator=(ProxyLocation&& rhs) = default;
+ProxyLocation::ProxyLocation(ProxyLocation&& rhs) noexcept = default;
+ProxyLocation& ProxyLocation::operator=(ProxyLocation&& rhs) noexcept = default;
 ProxyLocation ProxyLocation::Clone() const {
   ProxyLocation out;
   out.host = host;
@@ -5863,34 +5513,21 @@ bool ProxyLocation::Populate(
 }
 
 // static
-std::unique_ptr<ProxyLocation> ProxyLocation::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProxyLocation>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProxyLocation> ProxyLocation::FromValue(const base::Value::Dict& value) {
+  ProxyLocation out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProxyLocation> ProxyLocation::FromValue(const base::Value::Dict& value) {
+std::optional<ProxyLocation> ProxyLocation::FromValue(const base::Value& value) {
   ProxyLocation out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProxyLocation> ProxyLocation::FromValue(const base::Value& value) {
-  ProxyLocation out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5911,8 +5548,8 @@ ManagedProxyLocation::ManagedProxyLocation()
  {}
 
 ManagedProxyLocation::~ManagedProxyLocation() = default;
-ManagedProxyLocation::ManagedProxyLocation(ManagedProxyLocation&& rhs) = default;
-ManagedProxyLocation& ManagedProxyLocation::operator=(ManagedProxyLocation&& rhs) = default;
+ManagedProxyLocation::ManagedProxyLocation(ManagedProxyLocation&& rhs) noexcept = default;
+ManagedProxyLocation& ManagedProxyLocation::operator=(ManagedProxyLocation&& rhs) noexcept = default;
 ManagedProxyLocation ManagedProxyLocation::Clone() const {
   ManagedProxyLocation out;
   out.host = host.Clone();
@@ -5962,34 +5599,21 @@ bool ManagedProxyLocation::Populate(
 }
 
 // static
-std::unique_ptr<ManagedProxyLocation> ManagedProxyLocation::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedProxyLocation>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedProxyLocation> ManagedProxyLocation::FromValue(const base::Value::Dict& value) {
+  ManagedProxyLocation out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedProxyLocation> ManagedProxyLocation::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedProxyLocation> ManagedProxyLocation::FromValue(const base::Value& value) {
   ManagedProxyLocation out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedProxyLocation> ManagedProxyLocation::FromValue(const base::Value& value) {
-  ManagedProxyLocation out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6010,8 +5634,8 @@ ManualProxySettings::ManualProxySettings()
  {}
 
 ManualProxySettings::~ManualProxySettings() = default;
-ManualProxySettings::ManualProxySettings(ManualProxySettings&& rhs) = default;
-ManualProxySettings& ManualProxySettings::operator=(ManualProxySettings&& rhs) = default;
+ManualProxySettings::ManualProxySettings(ManualProxySettings&& rhs) noexcept = default;
+ManualProxySettings& ManualProxySettings::operator=(ManualProxySettings&& rhs) noexcept = default;
 ManualProxySettings ManualProxySettings::Clone() const {
   ManualProxySettings out;
   if (http_proxy) {
@@ -6105,34 +5729,21 @@ bool ManualProxySettings::Populate(
 }
 
 // static
-std::unique_ptr<ManualProxySettings> ManualProxySettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManualProxySettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManualProxySettings> ManualProxySettings::FromValue(const base::Value::Dict& value) {
+  ManualProxySettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManualProxySettings> ManualProxySettings::FromValue(const base::Value::Dict& value) {
+std::optional<ManualProxySettings> ManualProxySettings::FromValue(const base::Value& value) {
   ManualProxySettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManualProxySettings> ManualProxySettings::FromValue(const base::Value& value) {
-  ManualProxySettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6165,8 +5776,8 @@ ManagedManualProxySettings::ManagedManualProxySettings()
  {}
 
 ManagedManualProxySettings::~ManagedManualProxySettings() = default;
-ManagedManualProxySettings::ManagedManualProxySettings(ManagedManualProxySettings&& rhs) = default;
-ManagedManualProxySettings& ManagedManualProxySettings::operator=(ManagedManualProxySettings&& rhs) = default;
+ManagedManualProxySettings::ManagedManualProxySettings(ManagedManualProxySettings&& rhs) noexcept = default;
+ManagedManualProxySettings& ManagedManualProxySettings::operator=(ManagedManualProxySettings&& rhs) noexcept = default;
 ManagedManualProxySettings ManagedManualProxySettings::Clone() const {
   ManagedManualProxySettings out;
   if (http_proxy) {
@@ -6260,34 +5871,21 @@ bool ManagedManualProxySettings::Populate(
 }
 
 // static
-std::unique_ptr<ManagedManualProxySettings> ManagedManualProxySettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedManualProxySettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedManualProxySettings> ManagedManualProxySettings::FromValue(const base::Value::Dict& value) {
+  ManagedManualProxySettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedManualProxySettings> ManagedManualProxySettings::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedManualProxySettings> ManagedManualProxySettings::FromValue(const base::Value& value) {
   ManagedManualProxySettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedManualProxySettings> ManagedManualProxySettings::FromValue(const base::Value& value) {
-  ManagedManualProxySettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6320,8 +5918,8 @@ ProxySettings::ProxySettings()
 : type() {}
 
 ProxySettings::~ProxySettings() = default;
-ProxySettings::ProxySettings(ProxySettings&& rhs) = default;
-ProxySettings& ProxySettings::operator=(ProxySettings&& rhs) = default;
+ProxySettings::ProxySettings(ProxySettings&& rhs) noexcept = default;
+ProxySettings& ProxySettings::operator=(ProxySettings&& rhs) noexcept = default;
 ProxySettings ProxySettings::Clone() const {
   ProxySettings out;
   out.type = type;
@@ -6385,7 +5983,7 @@ bool ProxySettings::Populate(
     {
       auto* temp = (*pac_value).GetIfString();
       if (!temp) {
-        out.pac = absl::nullopt;
+        out.pac = std::nullopt;
         return false;
       }
       out.pac = *temp;
@@ -6405,34 +6003,21 @@ bool ProxySettings::Populate(
 }
 
 // static
-std::unique_ptr<ProxySettings> ProxySettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProxySettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProxySettings> ProxySettings::FromValue(const base::Value::Dict& value) {
+  ProxySettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProxySettings> ProxySettings::FromValue(const base::Value::Dict& value) {
+std::optional<ProxySettings> ProxySettings::FromValue(const base::Value& value) {
   ProxySettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProxySettings> ProxySettings::FromValue(const base::Value& value) {
-  ProxySettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6463,8 +6048,8 @@ ManagedProxySettings::ManagedProxySettings()
  {}
 
 ManagedProxySettings::~ManagedProxySettings() = default;
-ManagedProxySettings::ManagedProxySettings(ManagedProxySettings&& rhs) = default;
-ManagedProxySettings& ManagedProxySettings::operator=(ManagedProxySettings&& rhs) = default;
+ManagedProxySettings::ManagedProxySettings(ManagedProxySettings&& rhs) noexcept = default;
+ManagedProxySettings& ManagedProxySettings::operator=(ManagedProxySettings&& rhs) noexcept = default;
 ManagedProxySettings ManagedProxySettings::Clone() const {
   ManagedProxySettings out;
   out.type = type.Clone();
@@ -6554,34 +6139,21 @@ bool ManagedProxySettings::Populate(
 }
 
 // static
-std::unique_ptr<ManagedProxySettings> ManagedProxySettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedProxySettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedProxySettings> ManagedProxySettings::FromValue(const base::Value::Dict& value) {
+  ManagedProxySettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedProxySettings> ManagedProxySettings::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedProxySettings> ManagedProxySettings::FromValue(const base::Value& value) {
   ManagedProxySettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedProxySettings> ManagedProxySettings::FromValue(const base::Value& value) {
-  ManagedProxySettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6612,8 +6184,8 @@ VerifyX509::VerifyX509()
  {}
 
 VerifyX509::~VerifyX509() = default;
-VerifyX509::VerifyX509(VerifyX509&& rhs) = default;
-VerifyX509& VerifyX509::operator=(VerifyX509&& rhs) = default;
+VerifyX509::VerifyX509(VerifyX509&& rhs) noexcept = default;
+VerifyX509& VerifyX509::operator=(VerifyX509&& rhs) noexcept = default;
 VerifyX509 VerifyX509::Clone() const {
   VerifyX509 out;
   out.name = name;
@@ -6629,7 +6201,7 @@ bool VerifyX509::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -6641,7 +6213,7 @@ bool VerifyX509::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -6661,34 +6233,21 @@ bool VerifyX509::Populate(
 }
 
 // static
-std::unique_ptr<VerifyX509> VerifyX509::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VerifyX509>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VerifyX509> VerifyX509::FromValue(const base::Value::Dict& value) {
+  VerifyX509 out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VerifyX509> VerifyX509::FromValue(const base::Value::Dict& value) {
+std::optional<VerifyX509> VerifyX509::FromValue(const base::Value& value) {
   VerifyX509 out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VerifyX509> VerifyX509::FromValue(const base::Value& value) {
-  VerifyX509 out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6713,8 +6272,8 @@ ManagedVerifyX509::ManagedVerifyX509()
  {}
 
 ManagedVerifyX509::~ManagedVerifyX509() = default;
-ManagedVerifyX509::ManagedVerifyX509(ManagedVerifyX509&& rhs) = default;
-ManagedVerifyX509& ManagedVerifyX509::operator=(ManagedVerifyX509&& rhs) = default;
+ManagedVerifyX509::ManagedVerifyX509(ManagedVerifyX509&& rhs) noexcept = default;
+ManagedVerifyX509& ManagedVerifyX509::operator=(ManagedVerifyX509&& rhs) noexcept = default;
 ManagedVerifyX509 ManagedVerifyX509::Clone() const {
   ManagedVerifyX509 out;
   if (name) {
@@ -6772,34 +6331,21 @@ bool ManagedVerifyX509::Populate(
 }
 
 // static
-std::unique_ptr<ManagedVerifyX509> ManagedVerifyX509::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedVerifyX509>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedVerifyX509> ManagedVerifyX509::FromValue(const base::Value::Dict& value) {
+  ManagedVerifyX509 out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedVerifyX509> ManagedVerifyX509::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedVerifyX509> ManagedVerifyX509::FromValue(const base::Value& value) {
   ManagedVerifyX509 out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedVerifyX509> ManagedVerifyX509::FromValue(const base::Value& value) {
-  ManagedVerifyX509 out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6824,8 +6370,8 @@ OpenVPNProperties::OpenVPNProperties()
  {}
 
 OpenVPNProperties::~OpenVPNProperties() = default;
-OpenVPNProperties::OpenVPNProperties(OpenVPNProperties&& rhs) = default;
-OpenVPNProperties& OpenVPNProperties::operator=(OpenVPNProperties&& rhs) = default;
+OpenVPNProperties::OpenVPNProperties(OpenVPNProperties&& rhs) noexcept = default;
+OpenVPNProperties& OpenVPNProperties::operator=(OpenVPNProperties&& rhs) noexcept = default;
 OpenVPNProperties OpenVPNProperties::Clone() const {
   OpenVPNProperties out;
   out.auth = auth;
@@ -6882,7 +6428,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*auth_value).GetIfString();
       if (!temp) {
-        out.auth = absl::nullopt;
+        out.auth = std::nullopt;
         return false;
       }
       out.auth = *temp;
@@ -6894,7 +6440,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*auth_retry_value).GetIfString();
       if (!temp) {
-        out.auth_retry = absl::nullopt;
+        out.auth_retry = std::nullopt;
         return false;
       }
       out.auth_retry = *temp;
@@ -6906,7 +6452,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*auth_no_cache_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auth_no_cache = absl::nullopt;
+        out.auth_no_cache = std::nullopt;
         return false;
       }
       out.auth_no_cache = *temp;
@@ -6918,7 +6464,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*cipher_value).GetIfString();
       if (!temp) {
-        out.cipher = absl::nullopt;
+        out.cipher = std::nullopt;
         return false;
       }
       out.cipher = *temp;
@@ -6930,7 +6476,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*client_cert_pkcs11_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_pkcs11_id = absl::nullopt;
+        out.client_cert_pkcs11_id = std::nullopt;
         return false;
       }
       out.client_cert_pkcs11_id = *temp;
@@ -6957,7 +6503,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*client_cert_provisioning_profile_id_value).GetIfString();
       if (!temp) {
-        out.client_cert_provisioning_profile_id = absl::nullopt;
+        out.client_cert_provisioning_profile_id = std::nullopt;
         return false;
       }
       out.client_cert_provisioning_profile_id = *temp;
@@ -6969,7 +6515,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*client_cert_ref_value).GetIfString();
       if (!temp) {
-        out.client_cert_ref = absl::nullopt;
+        out.client_cert_ref = std::nullopt;
         return false;
       }
       out.client_cert_ref = *temp;
@@ -6981,7 +6527,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*client_cert_type_value).GetIfString();
       if (!temp) {
-        out.client_cert_type = absl::nullopt;
+        out.client_cert_type = std::nullopt;
         return false;
       }
       out.client_cert_type = *temp;
@@ -6993,7 +6539,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*comp_lzo_value).GetIfString();
       if (!temp) {
-        out.comp_lzo = absl::nullopt;
+        out.comp_lzo = std::nullopt;
         return false;
       }
       out.comp_lzo = *temp;
@@ -7005,7 +6551,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*comp_no_adapt_value).GetIfBool();
       if (!temp.has_value()) {
-        out.comp_no_adapt = absl::nullopt;
+        out.comp_no_adapt = std::nullopt;
         return false;
       }
       out.comp_no_adapt = *temp;
@@ -7031,7 +6577,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*ignore_default_route_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ignore_default_route = absl::nullopt;
+        out.ignore_default_route = std::nullopt;
         return false;
       }
       out.ignore_default_route = *temp;
@@ -7043,7 +6589,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*key_direction_value).GetIfString();
       if (!temp) {
-        out.key_direction = absl::nullopt;
+        out.key_direction = std::nullopt;
         return false;
       }
       out.key_direction = *temp;
@@ -7055,7 +6601,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*ns_cert_type_value).GetIfString();
       if (!temp) {
-        out.ns_cert_type = absl::nullopt;
+        out.ns_cert_type = std::nullopt;
         return false;
       }
       out.ns_cert_type = *temp;
@@ -7067,7 +6613,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*otp_value).GetIfString();
       if (!temp) {
-        out.otp = absl::nullopt;
+        out.otp = std::nullopt;
         return false;
       }
       out.otp = *temp;
@@ -7079,7 +6625,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -7091,7 +6637,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*port_value).GetIfInt();
       if (!temp.has_value()) {
-        out.port = absl::nullopt;
+        out.port = std::nullopt;
         return false;
       }
       out.port = *temp;
@@ -7103,7 +6649,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*proto_value).GetIfString();
       if (!temp) {
-        out.proto = absl::nullopt;
+        out.proto = std::nullopt;
         return false;
       }
       out.proto = *temp;
@@ -7115,7 +6661,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*push_peer_info_value).GetIfBool();
       if (!temp.has_value()) {
-        out.push_peer_info = absl::nullopt;
+        out.push_peer_info = std::nullopt;
         return false;
       }
       out.push_peer_info = *temp;
@@ -7127,7 +6673,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*remote_cert_eku_value).GetIfString();
       if (!temp) {
-        out.remote_cert_eku = absl::nullopt;
+        out.remote_cert_eku = std::nullopt;
         return false;
       }
       out.remote_cert_eku = *temp;
@@ -7153,7 +6699,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*remote_cert_tls_value).GetIfString();
       if (!temp) {
-        out.remote_cert_tls = absl::nullopt;
+        out.remote_cert_tls = std::nullopt;
         return false;
       }
       out.remote_cert_tls = *temp;
@@ -7165,7 +6711,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*reneg_sec_value).GetIfInt();
       if (!temp.has_value()) {
-        out.reneg_sec = absl::nullopt;
+        out.reneg_sec = std::nullopt;
         return false;
       }
       out.reneg_sec = *temp;
@@ -7177,7 +6723,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*save_credentials_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_credentials = absl::nullopt;
+        out.save_credentials = std::nullopt;
         return false;
       }
       out.save_credentials = *temp;
@@ -7217,7 +6763,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*server_cert_ref_value).GetIfString();
       if (!temp) {
-        out.server_cert_ref = absl::nullopt;
+        out.server_cert_ref = std::nullopt;
         return false;
       }
       out.server_cert_ref = *temp;
@@ -7229,7 +6775,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*server_poll_timeout_value).GetIfInt();
       if (!temp.has_value()) {
-        out.server_poll_timeout = absl::nullopt;
+        out.server_poll_timeout = std::nullopt;
         return false;
       }
       out.server_poll_timeout = *temp;
@@ -7241,7 +6787,7 @@ bool OpenVPNProperties::Populate(
     {
       auto temp = (*shaper_value).GetIfInt();
       if (!temp.has_value()) {
-        out.shaper = absl::nullopt;
+        out.shaper = std::nullopt;
         return false;
       }
       out.shaper = *temp;
@@ -7253,7 +6799,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*static_challenge_value).GetIfString();
       if (!temp) {
-        out.static_challenge = absl::nullopt;
+        out.static_challenge = std::nullopt;
         return false;
       }
       out.static_challenge = *temp;
@@ -7265,7 +6811,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*tls_auth_contents_value).GetIfString();
       if (!temp) {
-        out.tls_auth_contents = absl::nullopt;
+        out.tls_auth_contents = std::nullopt;
         return false;
       }
       out.tls_auth_contents = *temp;
@@ -7277,7 +6823,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*tls_remote_value).GetIfString();
       if (!temp) {
-        out.tls_remote = absl::nullopt;
+        out.tls_remote = std::nullopt;
         return false;
       }
       out.tls_remote = *temp;
@@ -7289,7 +6835,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*tls_version_min_value).GetIfString();
       if (!temp) {
-        out.tls_version_min = absl::nullopt;
+        out.tls_version_min = std::nullopt;
         return false;
       }
       out.tls_version_min = *temp;
@@ -7301,7 +6847,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*user_authentication_type_value).GetIfString();
       if (!temp) {
-        out.user_authentication_type = absl::nullopt;
+        out.user_authentication_type = std::nullopt;
         return false;
       }
       out.user_authentication_type = *temp;
@@ -7313,7 +6859,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*username_value).GetIfString();
       if (!temp) {
-        out.username = absl::nullopt;
+        out.username = std::nullopt;
         return false;
       }
       out.username = *temp;
@@ -7325,7 +6871,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*verb_value).GetIfString();
       if (!temp) {
-        out.verb = absl::nullopt;
+        out.verb = std::nullopt;
         return false;
       }
       out.verb = *temp;
@@ -7337,7 +6883,7 @@ bool OpenVPNProperties::Populate(
     {
       auto* temp = (*verify_hash_value).GetIfString();
       if (!temp) {
-        out.verify_hash = absl::nullopt;
+        out.verify_hash = std::nullopt;
         return false;
       }
       out.verify_hash = *temp;
@@ -7372,34 +6918,21 @@ bool OpenVPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<OpenVPNProperties> OpenVPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenVPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenVPNProperties> OpenVPNProperties::FromValue(const base::Value::Dict& value) {
+  OpenVPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenVPNProperties> OpenVPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<OpenVPNProperties> OpenVPNProperties::FromValue(const base::Value& value) {
   OpenVPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenVPNProperties> OpenVPNProperties::FromValue(const base::Value& value) {
-  OpenVPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7572,8 +7105,8 @@ ManagedOpenVPNProperties::ManagedOpenVPNProperties()
  {}
 
 ManagedOpenVPNProperties::~ManagedOpenVPNProperties() = default;
-ManagedOpenVPNProperties::ManagedOpenVPNProperties(ManagedOpenVPNProperties&& rhs) = default;
-ManagedOpenVPNProperties& ManagedOpenVPNProperties::operator=(ManagedOpenVPNProperties&& rhs) = default;
+ManagedOpenVPNProperties::ManagedOpenVPNProperties(ManagedOpenVPNProperties&& rhs) noexcept = default;
+ManagedOpenVPNProperties& ManagedOpenVPNProperties::operator=(ManagedOpenVPNProperties&& rhs) noexcept = default;
 ManagedOpenVPNProperties ManagedOpenVPNProperties::Clone() const {
   ManagedOpenVPNProperties out;
   if (auth) {
@@ -8297,34 +7830,21 @@ bool ManagedOpenVPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedOpenVPNProperties> ManagedOpenVPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedOpenVPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedOpenVPNProperties> ManagedOpenVPNProperties::FromValue(const base::Value::Dict& value) {
+  ManagedOpenVPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedOpenVPNProperties> ManagedOpenVPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedOpenVPNProperties> ManagedOpenVPNProperties::FromValue(const base::Value& value) {
   ManagedOpenVPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedOpenVPNProperties> ManagedOpenVPNProperties::FromValue(const base::Value& value) {
-  ManagedOpenVPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8497,8 +8017,8 @@ SIMLockStatus::SIMLockStatus()
 : lock_enabled(false) {}
 
 SIMLockStatus::~SIMLockStatus() = default;
-SIMLockStatus::SIMLockStatus(SIMLockStatus&& rhs) = default;
-SIMLockStatus& SIMLockStatus::operator=(SIMLockStatus&& rhs) = default;
+SIMLockStatus::SIMLockStatus(SIMLockStatus&& rhs) noexcept = default;
+SIMLockStatus& SIMLockStatus::operator=(SIMLockStatus&& rhs) noexcept = default;
 SIMLockStatus SIMLockStatus::Clone() const {
   SIMLockStatus out;
   out.lock_type = lock_type;
@@ -8539,7 +8059,7 @@ bool SIMLockStatus::Populate(
     {
       auto temp = (*retries_left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.retries_left = absl::nullopt;
+        out.retries_left = std::nullopt;
         return false;
       }
       out.retries_left = *temp;
@@ -8559,34 +8079,21 @@ bool SIMLockStatus::Populate(
 }
 
 // static
-std::unique_ptr<SIMLockStatus> SIMLockStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SIMLockStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SIMLockStatus> SIMLockStatus::FromValue(const base::Value::Dict& value) {
+  SIMLockStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SIMLockStatus> SIMLockStatus::FromValue(const base::Value::Dict& value) {
+std::optional<SIMLockStatus> SIMLockStatus::FromValue(const base::Value& value) {
   SIMLockStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SIMLockStatus> SIMLockStatus::FromValue(const base::Value& value) {
-  SIMLockStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8611,8 +8118,8 @@ ThirdPartyVPNProperties::ThirdPartyVPNProperties()
  {}
 
 ThirdPartyVPNProperties::~ThirdPartyVPNProperties() = default;
-ThirdPartyVPNProperties::ThirdPartyVPNProperties(ThirdPartyVPNProperties&& rhs) = default;
-ThirdPartyVPNProperties& ThirdPartyVPNProperties::operator=(ThirdPartyVPNProperties&& rhs) = default;
+ThirdPartyVPNProperties::ThirdPartyVPNProperties(ThirdPartyVPNProperties&& rhs) noexcept = default;
+ThirdPartyVPNProperties& ThirdPartyVPNProperties::operator=(ThirdPartyVPNProperties&& rhs) noexcept = default;
 ThirdPartyVPNProperties ThirdPartyVPNProperties::Clone() const {
   ThirdPartyVPNProperties out;
   out.extension_id = extension_id;
@@ -8640,7 +8147,7 @@ bool ThirdPartyVPNProperties::Populate(
     {
       auto* temp = (*provider_name_value).GetIfString();
       if (!temp) {
-        out.provider_name = absl::nullopt;
+        out.provider_name = std::nullopt;
         return false;
       }
       out.provider_name = *temp;
@@ -8660,34 +8167,21 @@ bool ThirdPartyVPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<ThirdPartyVPNProperties> ThirdPartyVPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ThirdPartyVPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ThirdPartyVPNProperties> ThirdPartyVPNProperties::FromValue(const base::Value::Dict& value) {
+  ThirdPartyVPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ThirdPartyVPNProperties> ThirdPartyVPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ThirdPartyVPNProperties> ThirdPartyVPNProperties::FromValue(const base::Value& value) {
   ThirdPartyVPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ThirdPartyVPNProperties> ThirdPartyVPNProperties::FromValue(const base::Value& value) {
-  ThirdPartyVPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8710,8 +8204,8 @@ ManagedThirdPartyVPNProperties::ManagedThirdPartyVPNProperties()
  {}
 
 ManagedThirdPartyVPNProperties::~ManagedThirdPartyVPNProperties() = default;
-ManagedThirdPartyVPNProperties::ManagedThirdPartyVPNProperties(ManagedThirdPartyVPNProperties&& rhs) = default;
-ManagedThirdPartyVPNProperties& ManagedThirdPartyVPNProperties::operator=(ManagedThirdPartyVPNProperties&& rhs) = default;
+ManagedThirdPartyVPNProperties::ManagedThirdPartyVPNProperties(ManagedThirdPartyVPNProperties&& rhs) noexcept = default;
+ManagedThirdPartyVPNProperties& ManagedThirdPartyVPNProperties::operator=(ManagedThirdPartyVPNProperties&& rhs) noexcept = default;
 ManagedThirdPartyVPNProperties ManagedThirdPartyVPNProperties::Clone() const {
   ManagedThirdPartyVPNProperties out;
   out.extension_id = extension_id.Clone();
@@ -8740,7 +8234,7 @@ bool ManagedThirdPartyVPNProperties::Populate(
     {
       auto* temp = (*provider_name_value).GetIfString();
       if (!temp) {
-        out.provider_name = absl::nullopt;
+        out.provider_name = std::nullopt;
         return false;
       }
       out.provider_name = *temp;
@@ -8760,34 +8254,21 @@ bool ManagedThirdPartyVPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedThirdPartyVPNProperties> ManagedThirdPartyVPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedThirdPartyVPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedThirdPartyVPNProperties> ManagedThirdPartyVPNProperties::FromValue(const base::Value::Dict& value) {
+  ManagedThirdPartyVPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedThirdPartyVPNProperties> ManagedThirdPartyVPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedThirdPartyVPNProperties> ManagedThirdPartyVPNProperties::FromValue(const base::Value& value) {
   ManagedThirdPartyVPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedThirdPartyVPNProperties> ManagedThirdPartyVPNProperties::FromValue(const base::Value& value) {
-  ManagedThirdPartyVPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8810,8 +8291,8 @@ CellularProperties::CellularProperties()
 : activation_state() {}
 
 CellularProperties::~CellularProperties() = default;
-CellularProperties::CellularProperties(CellularProperties&& rhs) = default;
-CellularProperties& CellularProperties::operator=(CellularProperties&& rhs) = default;
+CellularProperties::CellularProperties(CellularProperties&& rhs) noexcept = default;
+CellularProperties& CellularProperties::operator=(CellularProperties&& rhs) noexcept = default;
 CellularProperties CellularProperties::Clone() const {
   CellularProperties out;
   out.auto_connect = auto_connect;
@@ -8879,7 +8360,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*auto_connect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_connect = absl::nullopt;
+        out.auto_connect = std::nullopt;
         return false;
       }
       out.auto_connect = *temp;
@@ -8920,7 +8401,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*activation_type_value).GetIfString();
       if (!temp) {
-        out.activation_type = absl::nullopt;
+        out.activation_type = std::nullopt;
         return false;
       }
       out.activation_type = *temp;
@@ -8948,7 +8429,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*allow_roaming_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_roaming = absl::nullopt;
+        out.allow_roaming = std::nullopt;
         return false;
       }
       out.allow_roaming = *temp;
@@ -8960,7 +8441,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*esn_value).GetIfString();
       if (!temp) {
-        out.esn = absl::nullopt;
+        out.esn = std::nullopt;
         return false;
       }
       out.esn = *temp;
@@ -8972,7 +8453,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*family_value).GetIfString();
       if (!temp) {
-        out.family = absl::nullopt;
+        out.family = std::nullopt;
         return false;
       }
       out.family = *temp;
@@ -8984,7 +8465,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*firmware_revision_value).GetIfString();
       if (!temp) {
-        out.firmware_revision = absl::nullopt;
+        out.firmware_revision = std::nullopt;
         return false;
       }
       out.firmware_revision = *temp;
@@ -9010,7 +8491,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*hardware_revision_value).GetIfString();
       if (!temp) {
-        out.hardware_revision = absl::nullopt;
+        out.hardware_revision = std::nullopt;
         return false;
       }
       out.hardware_revision = *temp;
@@ -9037,7 +8518,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*iccid_value).GetIfString();
       if (!temp) {
-        out.iccid = absl::nullopt;
+        out.iccid = std::nullopt;
         return false;
       }
       out.iccid = *temp;
@@ -9049,7 +8530,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*imei_value).GetIfString();
       if (!temp) {
-        out.imei = absl::nullopt;
+        out.imei = std::nullopt;
         return false;
       }
       out.imei = *temp;
@@ -9076,7 +8557,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*manufacturer_value).GetIfString();
       if (!temp) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -9088,7 +8569,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*mdn_value).GetIfString();
       if (!temp) {
-        out.mdn = absl::nullopt;
+        out.mdn = std::nullopt;
         return false;
       }
       out.mdn = *temp;
@@ -9100,7 +8581,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*meid_value).GetIfString();
       if (!temp) {
-        out.meid = absl::nullopt;
+        out.meid = std::nullopt;
         return false;
       }
       out.meid = *temp;
@@ -9112,7 +8593,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*min_value).GetIfString();
       if (!temp) {
-        out.min = absl::nullopt;
+        out.min = std::nullopt;
         return false;
       }
       out.min = *temp;
@@ -9124,7 +8605,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*model_id_value).GetIfString();
       if (!temp) {
-        out.model_id = absl::nullopt;
+        out.model_id = std::nullopt;
         return false;
       }
       out.model_id = *temp;
@@ -9136,7 +8617,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*network_technology_value).GetIfString();
       if (!temp) {
-        out.network_technology = absl::nullopt;
+        out.network_technology = std::nullopt;
         return false;
       }
       out.network_technology = *temp;
@@ -9163,7 +8644,7 @@ bool CellularProperties::Populate(
     {
       auto* temp = (*roaming_state_value).GetIfString();
       if (!temp) {
-        out.roaming_state = absl::nullopt;
+        out.roaming_state = std::nullopt;
         return false;
       }
       out.roaming_state = *temp;
@@ -9175,7 +8656,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*scanning_value).GetIfBool();
       if (!temp.has_value()) {
-        out.scanning = absl::nullopt;
+        out.scanning = std::nullopt;
         return false;
       }
       out.scanning = *temp;
@@ -9217,7 +8698,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*sim_present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.sim_present = absl::nullopt;
+        out.sim_present = std::nullopt;
         return false;
       }
       out.sim_present = *temp;
@@ -9229,7 +8710,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -9241,7 +8722,7 @@ bool CellularProperties::Populate(
     {
       auto temp = (*support_network_scan_value).GetIfBool();
       if (!temp.has_value()) {
-        out.support_network_scan = absl::nullopt;
+        out.support_network_scan = std::nullopt;
         return false;
       }
       out.support_network_scan = *temp;
@@ -9261,34 +8742,21 @@ bool CellularProperties::Populate(
 }
 
 // static
-std::unique_ptr<CellularProperties> CellularProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CellularProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CellularProperties> CellularProperties::FromValue(const base::Value::Dict& value) {
+  CellularProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CellularProperties> CellularProperties::FromValue(const base::Value::Dict& value) {
+std::optional<CellularProperties> CellularProperties::FromValue(const base::Value& value) {
   CellularProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CellularProperties> CellularProperties::FromValue(const base::Value& value) {
-  CellularProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9421,8 +8889,8 @@ ManagedCellularProperties::ManagedCellularProperties()
 : activation_state() {}
 
 ManagedCellularProperties::~ManagedCellularProperties() = default;
-ManagedCellularProperties::ManagedCellularProperties(ManagedCellularProperties&& rhs) = default;
-ManagedCellularProperties& ManagedCellularProperties::operator=(ManagedCellularProperties&& rhs) = default;
+ManagedCellularProperties::ManagedCellularProperties(ManagedCellularProperties&& rhs) noexcept = default;
+ManagedCellularProperties& ManagedCellularProperties::operator=(ManagedCellularProperties&& rhs) noexcept = default;
 ManagedCellularProperties ManagedCellularProperties::Clone() const {
   ManagedCellularProperties out;
   if (auto_connect) {
@@ -9533,7 +9001,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*activation_type_value).GetIfString();
       if (!temp) {
-        out.activation_type = absl::nullopt;
+        out.activation_type = std::nullopt;
         return false;
       }
       out.activation_type = *temp;
@@ -9561,7 +9029,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto temp = (*allow_roaming_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_roaming = absl::nullopt;
+        out.allow_roaming = std::nullopt;
         return false;
       }
       out.allow_roaming = *temp;
@@ -9573,7 +9041,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*esn_value).GetIfString();
       if (!temp) {
-        out.esn = absl::nullopt;
+        out.esn = std::nullopt;
         return false;
       }
       out.esn = *temp;
@@ -9585,7 +9053,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*family_value).GetIfString();
       if (!temp) {
-        out.family = absl::nullopt;
+        out.family = std::nullopt;
         return false;
       }
       out.family = *temp;
@@ -9597,7 +9065,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*firmware_revision_value).GetIfString();
       if (!temp) {
-        out.firmware_revision = absl::nullopt;
+        out.firmware_revision = std::nullopt;
         return false;
       }
       out.firmware_revision = *temp;
@@ -9623,7 +9091,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*hardware_revision_value).GetIfString();
       if (!temp) {
-        out.hardware_revision = absl::nullopt;
+        out.hardware_revision = std::nullopt;
         return false;
       }
       out.hardware_revision = *temp;
@@ -9650,7 +9118,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*iccid_value).GetIfString();
       if (!temp) {
-        out.iccid = absl::nullopt;
+        out.iccid = std::nullopt;
         return false;
       }
       out.iccid = *temp;
@@ -9662,7 +9130,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*imei_value).GetIfString();
       if (!temp) {
-        out.imei = absl::nullopt;
+        out.imei = std::nullopt;
         return false;
       }
       out.imei = *temp;
@@ -9689,7 +9157,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*manufacturer_value).GetIfString();
       if (!temp) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -9701,7 +9169,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*mdn_value).GetIfString();
       if (!temp) {
-        out.mdn = absl::nullopt;
+        out.mdn = std::nullopt;
         return false;
       }
       out.mdn = *temp;
@@ -9713,7 +9181,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*meid_value).GetIfString();
       if (!temp) {
-        out.meid = absl::nullopt;
+        out.meid = std::nullopt;
         return false;
       }
       out.meid = *temp;
@@ -9725,7 +9193,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*min_value).GetIfString();
       if (!temp) {
-        out.min = absl::nullopt;
+        out.min = std::nullopt;
         return false;
       }
       out.min = *temp;
@@ -9737,7 +9205,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*model_id_value).GetIfString();
       if (!temp) {
-        out.model_id = absl::nullopt;
+        out.model_id = std::nullopt;
         return false;
       }
       out.model_id = *temp;
@@ -9749,7 +9217,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*network_technology_value).GetIfString();
       if (!temp) {
-        out.network_technology = absl::nullopt;
+        out.network_technology = std::nullopt;
         return false;
       }
       out.network_technology = *temp;
@@ -9776,7 +9244,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto* temp = (*roaming_state_value).GetIfString();
       if (!temp) {
-        out.roaming_state = absl::nullopt;
+        out.roaming_state = std::nullopt;
         return false;
       }
       out.roaming_state = *temp;
@@ -9788,7 +9256,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto temp = (*scanning_value).GetIfBool();
       if (!temp.has_value()) {
-        out.scanning = absl::nullopt;
+        out.scanning = std::nullopt;
         return false;
       }
       out.scanning = *temp;
@@ -9830,7 +9298,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto temp = (*sim_present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.sim_present = absl::nullopt;
+        out.sim_present = std::nullopt;
         return false;
       }
       out.sim_present = *temp;
@@ -9842,7 +9310,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -9854,7 +9322,7 @@ bool ManagedCellularProperties::Populate(
     {
       auto temp = (*support_network_scan_value).GetIfBool();
       if (!temp.has_value()) {
-        out.support_network_scan = absl::nullopt;
+        out.support_network_scan = std::nullopt;
         return false;
       }
       out.support_network_scan = *temp;
@@ -9874,34 +9342,21 @@ bool ManagedCellularProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedCellularProperties> ManagedCellularProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedCellularProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedCellularProperties> ManagedCellularProperties::FromValue(const base::Value::Dict& value) {
+  ManagedCellularProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedCellularProperties> ManagedCellularProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedCellularProperties> ManagedCellularProperties::FromValue(const base::Value& value) {
   ManagedCellularProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedCellularProperties> ManagedCellularProperties::FromValue(const base::Value& value) {
-  ManagedCellularProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10034,8 +9489,8 @@ CellularStateProperties::CellularStateProperties()
 : activation_state() {}
 
 CellularStateProperties::~CellularStateProperties() = default;
-CellularStateProperties::CellularStateProperties(CellularStateProperties&& rhs) = default;
-CellularStateProperties& CellularStateProperties::operator=(CellularStateProperties&& rhs) = default;
+CellularStateProperties::CellularStateProperties(CellularStateProperties&& rhs) noexcept = default;
+CellularStateProperties& CellularStateProperties::operator=(CellularStateProperties&& rhs) noexcept = default;
 CellularStateProperties CellularStateProperties::Clone() const {
   CellularStateProperties out;
   out.activation_state = activation_state;
@@ -10074,7 +9529,7 @@ bool CellularStateProperties::Populate(
     {
       auto* temp = (*eid_value).GetIfString();
       if (!temp) {
-        out.eid = absl::nullopt;
+        out.eid = std::nullopt;
         return false;
       }
       out.eid = *temp;
@@ -10086,7 +9541,7 @@ bool CellularStateProperties::Populate(
     {
       auto* temp = (*iccid_value).GetIfString();
       if (!temp) {
-        out.iccid = absl::nullopt;
+        out.iccid = std::nullopt;
         return false;
       }
       out.iccid = *temp;
@@ -10098,7 +9553,7 @@ bool CellularStateProperties::Populate(
     {
       auto* temp = (*network_technology_value).GetIfString();
       if (!temp) {
-        out.network_technology = absl::nullopt;
+        out.network_technology = std::nullopt;
         return false;
       }
       out.network_technology = *temp;
@@ -10110,7 +9565,7 @@ bool CellularStateProperties::Populate(
     {
       auto* temp = (*roaming_state_value).GetIfString();
       if (!temp) {
-        out.roaming_state = absl::nullopt;
+        out.roaming_state = std::nullopt;
         return false;
       }
       out.roaming_state = *temp;
@@ -10122,7 +9577,7 @@ bool CellularStateProperties::Populate(
     {
       auto temp = (*scanning_value).GetIfBool();
       if (!temp.has_value()) {
-        out.scanning = absl::nullopt;
+        out.scanning = std::nullopt;
         return false;
       }
       out.scanning = *temp;
@@ -10134,7 +9589,7 @@ bool CellularStateProperties::Populate(
     {
       auto temp = (*sim_present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.sim_present = absl::nullopt;
+        out.sim_present = std::nullopt;
         return false;
       }
       out.sim_present = *temp;
@@ -10146,7 +9601,7 @@ bool CellularStateProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -10166,34 +9621,21 @@ bool CellularStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<CellularStateProperties> CellularStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CellularStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CellularStateProperties> CellularStateProperties::FromValue(const base::Value::Dict& value) {
+  CellularStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CellularStateProperties> CellularStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<CellularStateProperties> CellularStateProperties::FromValue(const base::Value& value) {
   CellularStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CellularStateProperties> CellularStateProperties::FromValue(const base::Value& value) {
-  CellularStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10242,8 +9684,8 @@ EAPStateProperties::EAPStateProperties()
  {}
 
 EAPStateProperties::~EAPStateProperties() = default;
-EAPStateProperties::EAPStateProperties(EAPStateProperties&& rhs) = default;
-EAPStateProperties& EAPStateProperties::operator=(EAPStateProperties&& rhs) = default;
+EAPStateProperties::EAPStateProperties(EAPStateProperties&& rhs) noexcept = default;
+EAPStateProperties& EAPStateProperties::operator=(EAPStateProperties&& rhs) noexcept = default;
 EAPStateProperties EAPStateProperties::Clone() const {
   EAPStateProperties out;
   out.outer = outer;
@@ -10258,7 +9700,7 @@ bool EAPStateProperties::Populate(
     {
       auto* temp = (*outer_value).GetIfString();
       if (!temp) {
-        out.outer = absl::nullopt;
+        out.outer = std::nullopt;
         return false;
       }
       out.outer = *temp;
@@ -10278,34 +9720,21 @@ bool EAPStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<EAPStateProperties> EAPStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EAPStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EAPStateProperties> EAPStateProperties::FromValue(const base::Value::Dict& value) {
+  EAPStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EAPStateProperties> EAPStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<EAPStateProperties> EAPStateProperties::FromValue(const base::Value& value) {
   EAPStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EAPStateProperties> EAPStateProperties::FromValue(const base::Value& value) {
-  EAPStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10326,8 +9755,8 @@ EthernetProperties::EthernetProperties()
  {}
 
 EthernetProperties::~EthernetProperties() = default;
-EthernetProperties::EthernetProperties(EthernetProperties&& rhs) = default;
-EthernetProperties& EthernetProperties::operator=(EthernetProperties&& rhs) = default;
+EthernetProperties::EthernetProperties(EthernetProperties&& rhs) noexcept = default;
+EthernetProperties& EthernetProperties::operator=(EthernetProperties&& rhs) noexcept = default;
 EthernetProperties EthernetProperties::Clone() const {
   EthernetProperties out;
   out.auto_connect = auto_connect;
@@ -10346,7 +9775,7 @@ bool EthernetProperties::Populate(
     {
       auto temp = (*auto_connect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_connect = absl::nullopt;
+        out.auto_connect = std::nullopt;
         return false;
       }
       out.auto_connect = *temp;
@@ -10358,7 +9787,7 @@ bool EthernetProperties::Populate(
     {
       auto* temp = (*authentication_value).GetIfString();
       if (!temp) {
-        out.authentication = absl::nullopt;
+        out.authentication = std::nullopt;
         return false;
       }
       out.authentication = *temp;
@@ -10393,34 +9822,21 @@ bool EthernetProperties::Populate(
 }
 
 // static
-std::unique_ptr<EthernetProperties> EthernetProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EthernetProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EthernetProperties> EthernetProperties::FromValue(const base::Value::Dict& value) {
+  EthernetProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EthernetProperties> EthernetProperties::FromValue(const base::Value::Dict& value) {
+std::optional<EthernetProperties> EthernetProperties::FromValue(const base::Value& value) {
   EthernetProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EthernetProperties> EthernetProperties::FromValue(const base::Value& value) {
-  EthernetProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10449,8 +9865,8 @@ ManagedEthernetProperties::ManagedEthernetProperties()
  {}
 
 ManagedEthernetProperties::~ManagedEthernetProperties() = default;
-ManagedEthernetProperties::ManagedEthernetProperties(ManagedEthernetProperties&& rhs) = default;
-ManagedEthernetProperties& ManagedEthernetProperties::operator=(ManagedEthernetProperties&& rhs) = default;
+ManagedEthernetProperties::ManagedEthernetProperties(ManagedEthernetProperties&& rhs) noexcept = default;
+ManagedEthernetProperties& ManagedEthernetProperties::operator=(ManagedEthernetProperties&& rhs) noexcept = default;
 ManagedEthernetProperties ManagedEthernetProperties::Clone() const {
   ManagedEthernetProperties out;
   if (auto_connect) {
@@ -10526,34 +9942,21 @@ bool ManagedEthernetProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedEthernetProperties> ManagedEthernetProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedEthernetProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedEthernetProperties> ManagedEthernetProperties::FromValue(const base::Value::Dict& value) {
+  ManagedEthernetProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedEthernetProperties> ManagedEthernetProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedEthernetProperties> ManagedEthernetProperties::FromValue(const base::Value& value) {
   ManagedEthernetProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedEthernetProperties> ManagedEthernetProperties::FromValue(const base::Value& value) {
-  ManagedEthernetProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10582,8 +9985,8 @@ EthernetStateProperties::EthernetStateProperties()
  {}
 
 EthernetStateProperties::~EthernetStateProperties() = default;
-EthernetStateProperties::EthernetStateProperties(EthernetStateProperties&& rhs) = default;
-EthernetStateProperties& EthernetStateProperties::operator=(EthernetStateProperties&& rhs) = default;
+EthernetStateProperties::EthernetStateProperties(EthernetStateProperties&& rhs) noexcept = default;
+EthernetStateProperties& EthernetStateProperties::operator=(EthernetStateProperties&& rhs) noexcept = default;
 EthernetStateProperties EthernetStateProperties::Clone() const {
   EthernetStateProperties out;
   out.authentication = authentication;
@@ -10618,34 +10021,21 @@ bool EthernetStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<EthernetStateProperties> EthernetStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EthernetStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EthernetStateProperties> EthernetStateProperties::FromValue(const base::Value::Dict& value) {
+  EthernetStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EthernetStateProperties> EthernetStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<EthernetStateProperties> EthernetStateProperties::FromValue(const base::Value& value) {
   EthernetStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EthernetStateProperties> EthernetStateProperties::FromValue(const base::Value& value) {
-  EthernetStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10664,8 +10054,8 @@ TetherProperties::TetherProperties()
 : has_connected_to_host(false) {}
 
 TetherProperties::~TetherProperties() = default;
-TetherProperties::TetherProperties(TetherProperties&& rhs) = default;
-TetherProperties& TetherProperties::operator=(TetherProperties&& rhs) = default;
+TetherProperties::TetherProperties(TetherProperties&& rhs) noexcept = default;
+TetherProperties& TetherProperties::operator=(TetherProperties&& rhs) noexcept = default;
 TetherProperties TetherProperties::Clone() const {
   TetherProperties out;
   out.battery_percentage = battery_percentage;
@@ -10683,7 +10073,7 @@ bool TetherProperties::Populate(
     {
       auto temp = (*battery_percentage_value).GetIfInt();
       if (!temp.has_value()) {
-        out.battery_percentage = absl::nullopt;
+        out.battery_percentage = std::nullopt;
         return false;
       }
       out.battery_percentage = *temp;
@@ -10695,7 +10085,7 @@ bool TetherProperties::Populate(
     {
       auto* temp = (*carrier_value).GetIfString();
       if (!temp) {
-        out.carrier = absl::nullopt;
+        out.carrier = std::nullopt;
         return false;
       }
       out.carrier = *temp;
@@ -10719,7 +10109,7 @@ bool TetherProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -10739,34 +10129,21 @@ bool TetherProperties::Populate(
 }
 
 // static
-std::unique_ptr<TetherProperties> TetherProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TetherProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TetherProperties> TetherProperties::FromValue(const base::Value::Dict& value) {
+  TetherProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TetherProperties> TetherProperties::FromValue(const base::Value::Dict& value) {
+std::optional<TetherProperties> TetherProperties::FromValue(const base::Value& value) {
   TetherProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TetherProperties> TetherProperties::FromValue(const base::Value& value) {
-  TetherProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -10797,8 +10174,8 @@ VPNProperties::VPNProperties()
  {}
 
 VPNProperties::~VPNProperties() = default;
-VPNProperties::VPNProperties(VPNProperties&& rhs) = default;
-VPNProperties& VPNProperties::operator=(VPNProperties&& rhs) = default;
+VPNProperties::VPNProperties(VPNProperties&& rhs) noexcept = default;
+VPNProperties& VPNProperties::operator=(VPNProperties&& rhs) noexcept = default;
 VPNProperties VPNProperties::Clone() const {
   VPNProperties out;
   out.auto_connect = auto_connect;
@@ -10827,7 +10204,7 @@ bool VPNProperties::Populate(
     {
       auto temp = (*auto_connect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_connect = absl::nullopt;
+        out.auto_connect = std::nullopt;
         return false;
       }
       out.auto_connect = *temp;
@@ -10839,7 +10216,7 @@ bool VPNProperties::Populate(
     {
       auto* temp = (*host_value).GetIfString();
       if (!temp) {
-        out.host = absl::nullopt;
+        out.host = std::nullopt;
         return false;
       }
       out.host = *temp;
@@ -10911,7 +10288,7 @@ bool VPNProperties::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -10931,34 +10308,21 @@ bool VPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<VPNProperties> VPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VPNProperties> VPNProperties::FromValue(const base::Value::Dict& value) {
+  VPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VPNProperties> VPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<VPNProperties> VPNProperties::FromValue(const base::Value& value) {
   VPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VPNProperties> VPNProperties::FromValue(const base::Value& value) {
-  VPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -11003,8 +10367,8 @@ ManagedVPNProperties::ManagedVPNProperties()
  {}
 
 ManagedVPNProperties::~ManagedVPNProperties() = default;
-ManagedVPNProperties::ManagedVPNProperties(ManagedVPNProperties&& rhs) = default;
-ManagedVPNProperties& ManagedVPNProperties::operator=(ManagedVPNProperties&& rhs) = default;
+ManagedVPNProperties::ManagedVPNProperties(ManagedVPNProperties&& rhs) noexcept = default;
+ManagedVPNProperties& ManagedVPNProperties::operator=(ManagedVPNProperties&& rhs) noexcept = default;
 ManagedVPNProperties ManagedVPNProperties::Clone() const {
   ManagedVPNProperties out;
   if (auto_connect) {
@@ -11152,34 +10516,21 @@ bool ManagedVPNProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedVPNProperties> ManagedVPNProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedVPNProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedVPNProperties> ManagedVPNProperties::FromValue(const base::Value::Dict& value) {
+  ManagedVPNProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedVPNProperties> ManagedVPNProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedVPNProperties> ManagedVPNProperties::FromValue(const base::Value& value) {
   ManagedVPNProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedVPNProperties> ManagedVPNProperties::FromValue(const base::Value& value) {
-  ManagedVPNProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -11224,8 +10575,8 @@ VPNStateProperties::VPNStateProperties()
  {}
 
 VPNStateProperties::~VPNStateProperties() = default;
-VPNStateProperties::VPNStateProperties(VPNStateProperties&& rhs) = default;
-VPNStateProperties& VPNStateProperties::operator=(VPNStateProperties&& rhs) = default;
+VPNStateProperties::VPNStateProperties(VPNStateProperties&& rhs) noexcept = default;
+VPNStateProperties& VPNStateProperties::operator=(VPNStateProperties&& rhs) noexcept = default;
 VPNStateProperties VPNStateProperties::Clone() const {
   VPNStateProperties out;
   out.type = type;
@@ -11296,34 +10647,21 @@ bool VPNStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<VPNStateProperties> VPNStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VPNStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VPNStateProperties> VPNStateProperties::FromValue(const base::Value::Dict& value) {
+  VPNStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VPNStateProperties> VPNStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<VPNStateProperties> VPNStateProperties::FromValue(const base::Value& value) {
   VPNStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VPNStateProperties> VPNStateProperties::FromValue(const base::Value& value) {
-  VPNStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -11350,8 +10688,8 @@ WiFiProperties::WiFiProperties()
  {}
 
 WiFiProperties::~WiFiProperties() = default;
-WiFiProperties::WiFiProperties(WiFiProperties&& rhs) = default;
-WiFiProperties& WiFiProperties::operator=(WiFiProperties&& rhs) = default;
+WiFiProperties::WiFiProperties(WiFiProperties&& rhs) noexcept = default;
+WiFiProperties& WiFiProperties::operator=(WiFiProperties&& rhs) noexcept = default;
 WiFiProperties WiFiProperties::Clone() const {
   WiFiProperties out;
   out.allow_gateway_arp_polling = allow_gateway_arp_polling;
@@ -11379,7 +10717,7 @@ bool WiFiProperties::Populate(
     {
       auto temp = (*allow_gateway_arp_polling_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_gateway_arp_polling = absl::nullopt;
+        out.allow_gateway_arp_polling = std::nullopt;
         return false;
       }
       out.allow_gateway_arp_polling = *temp;
@@ -11391,7 +10729,7 @@ bool WiFiProperties::Populate(
     {
       auto temp = (*auto_connect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_connect = absl::nullopt;
+        out.auto_connect = std::nullopt;
         return false;
       }
       out.auto_connect = *temp;
@@ -11403,7 +10741,7 @@ bool WiFiProperties::Populate(
     {
       auto* temp = (*bssid_value).GetIfString();
       if (!temp) {
-        out.bssid = absl::nullopt;
+        out.bssid = std::nullopt;
         return false;
       }
       out.bssid = *temp;
@@ -11430,7 +10768,7 @@ bool WiFiProperties::Populate(
     {
       auto temp = (*frequency_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frequency = absl::nullopt;
+        out.frequency = std::nullopt;
         return false;
       }
       out.frequency = *temp;
@@ -11456,7 +10794,7 @@ bool WiFiProperties::Populate(
     {
       auto* temp = (*hex_ssid_value).GetIfString();
       if (!temp) {
-        out.hex_ssid = absl::nullopt;
+        out.hex_ssid = std::nullopt;
         return false;
       }
       out.hex_ssid = *temp;
@@ -11468,7 +10806,7 @@ bool WiFiProperties::Populate(
     {
       auto temp = (*hidden_ssid_value).GetIfBool();
       if (!temp.has_value()) {
-        out.hidden_ssid = absl::nullopt;
+        out.hidden_ssid = std::nullopt;
         return false;
       }
       out.hidden_ssid = *temp;
@@ -11480,7 +10818,7 @@ bool WiFiProperties::Populate(
     {
       auto* temp = (*passphrase_value).GetIfString();
       if (!temp) {
-        out.passphrase = absl::nullopt;
+        out.passphrase = std::nullopt;
         return false;
       }
       out.passphrase = *temp;
@@ -11492,7 +10830,7 @@ bool WiFiProperties::Populate(
     {
       auto* temp = (*ssid_value).GetIfString();
       if (!temp) {
-        out.ssid = absl::nullopt;
+        out.ssid = std::nullopt;
         return false;
       }
       out.ssid = *temp;
@@ -11504,7 +10842,7 @@ bool WiFiProperties::Populate(
     {
       auto* temp = (*security_value).GetIfString();
       if (!temp) {
-        out.security = absl::nullopt;
+        out.security = std::nullopt;
         return false;
       }
       out.security = *temp;
@@ -11516,7 +10854,7 @@ bool WiFiProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -11536,34 +10874,21 @@ bool WiFiProperties::Populate(
 }
 
 // static
-std::unique_ptr<WiFiProperties> WiFiProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WiFiProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WiFiProperties> WiFiProperties::FromValue(const base::Value::Dict& value) {
+  WiFiProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WiFiProperties> WiFiProperties::FromValue(const base::Value::Dict& value) {
+std::optional<WiFiProperties> WiFiProperties::FromValue(const base::Value& value) {
   WiFiProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WiFiProperties> WiFiProperties::FromValue(const base::Value& value) {
-  WiFiProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -11628,8 +10953,8 @@ ManagedWiFiProperties::ManagedWiFiProperties()
  {}
 
 ManagedWiFiProperties::~ManagedWiFiProperties() = default;
-ManagedWiFiProperties::ManagedWiFiProperties(ManagedWiFiProperties&& rhs) = default;
-ManagedWiFiProperties& ManagedWiFiProperties::operator=(ManagedWiFiProperties&& rhs) = default;
+ManagedWiFiProperties::ManagedWiFiProperties(ManagedWiFiProperties&& rhs) noexcept = default;
+ManagedWiFiProperties& ManagedWiFiProperties::operator=(ManagedWiFiProperties&& rhs) noexcept = default;
 ManagedWiFiProperties ManagedWiFiProperties::Clone() const {
   ManagedWiFiProperties out;
   if (allow_gateway_arp_polling) {
@@ -11699,7 +11024,7 @@ bool ManagedWiFiProperties::Populate(
     {
       auto* temp = (*bssid_value).GetIfString();
       if (!temp) {
-        out.bssid = absl::nullopt;
+        out.bssid = std::nullopt;
         return false;
       }
       out.bssid = *temp;
@@ -11726,7 +11051,7 @@ bool ManagedWiFiProperties::Populate(
     {
       auto temp = (*frequency_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frequency = absl::nullopt;
+        out.frequency = std::nullopt;
         return false;
       }
       out.frequency = *temp;
@@ -11825,7 +11150,7 @@ bool ManagedWiFiProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -11845,34 +11170,21 @@ bool ManagedWiFiProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedWiFiProperties> ManagedWiFiProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedWiFiProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedWiFiProperties> ManagedWiFiProperties::FromValue(const base::Value::Dict& value) {
+  ManagedWiFiProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedWiFiProperties> ManagedWiFiProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedWiFiProperties> ManagedWiFiProperties::FromValue(const base::Value& value) {
   ManagedWiFiProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedWiFiProperties> ManagedWiFiProperties::FromValue(const base::Value& value) {
-  ManagedWiFiProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -11935,8 +11247,8 @@ WiFiStateProperties::WiFiStateProperties()
  {}
 
 WiFiStateProperties::~WiFiStateProperties() = default;
-WiFiStateProperties::WiFiStateProperties(WiFiStateProperties&& rhs) = default;
-WiFiStateProperties& WiFiStateProperties::operator=(WiFiStateProperties&& rhs) = default;
+WiFiStateProperties::WiFiStateProperties(WiFiStateProperties&& rhs) noexcept = default;
+WiFiStateProperties& WiFiStateProperties::operator=(WiFiStateProperties&& rhs) noexcept = default;
 WiFiStateProperties WiFiStateProperties::Clone() const {
   WiFiStateProperties out;
   out.bssid = bssid;
@@ -11959,7 +11271,7 @@ bool WiFiStateProperties::Populate(
     {
       auto* temp = (*bssid_value).GetIfString();
       if (!temp) {
-        out.bssid = absl::nullopt;
+        out.bssid = std::nullopt;
         return false;
       }
       out.bssid = *temp;
@@ -11986,7 +11298,7 @@ bool WiFiStateProperties::Populate(
     {
       auto temp = (*frequency_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frequency = absl::nullopt;
+        out.frequency = std::nullopt;
         return false;
       }
       out.frequency = *temp;
@@ -11998,7 +11310,7 @@ bool WiFiStateProperties::Populate(
     {
       auto* temp = (*hex_ssid_value).GetIfString();
       if (!temp) {
-        out.hex_ssid = absl::nullopt;
+        out.hex_ssid = std::nullopt;
         return false;
       }
       out.hex_ssid = *temp;
@@ -12022,7 +11334,7 @@ bool WiFiStateProperties::Populate(
     {
       auto temp = (*signal_strength_value).GetIfInt();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -12034,7 +11346,7 @@ bool WiFiStateProperties::Populate(
     {
       auto* temp = (*ssid_value).GetIfString();
       if (!temp) {
-        out.ssid = absl::nullopt;
+        out.ssid = std::nullopt;
         return false;
       }
       out.ssid = *temp;
@@ -12054,34 +11366,21 @@ bool WiFiStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<WiFiStateProperties> WiFiStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WiFiStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WiFiStateProperties> WiFiStateProperties::FromValue(const base::Value::Dict& value) {
+  WiFiStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WiFiStateProperties> WiFiStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<WiFiStateProperties> WiFiStateProperties::FromValue(const base::Value& value) {
   WiFiStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WiFiStateProperties> WiFiStateProperties::FromValue(const base::Value& value) {
-  WiFiStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -12126,8 +11425,8 @@ name_servers_config_type(),
 type() {}
 
 NetworkConfigProperties::~NetworkConfigProperties() = default;
-NetworkConfigProperties::NetworkConfigProperties(NetworkConfigProperties&& rhs) = default;
-NetworkConfigProperties& NetworkConfigProperties::operator=(NetworkConfigProperties&& rhs) = default;
+NetworkConfigProperties::NetworkConfigProperties(NetworkConfigProperties&& rhs) noexcept = default;
+NetworkConfigProperties& NetworkConfigProperties::operator=(NetworkConfigProperties&& rhs) noexcept = default;
 NetworkConfigProperties NetworkConfigProperties::Clone() const {
   NetworkConfigProperties out;
   if (cellular) {
@@ -12198,7 +11497,7 @@ bool NetworkConfigProperties::Populate(
     {
       auto* temp = (*guid_value).GetIfString();
       if (!temp) {
-        out.guid = absl::nullopt;
+        out.guid = std::nullopt;
         return false;
       }
       out.guid = *temp;
@@ -12226,7 +11525,7 @@ bool NetworkConfigProperties::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -12254,7 +11553,7 @@ bool NetworkConfigProperties::Populate(
     {
       auto temp = (*priority_value).GetIfInt();
       if (!temp.has_value()) {
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -12350,34 +11649,21 @@ bool NetworkConfigProperties::Populate(
 }
 
 // static
-std::unique_ptr<NetworkConfigProperties> NetworkConfigProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkConfigProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkConfigProperties> NetworkConfigProperties::FromValue(const base::Value::Dict& value) {
+  NetworkConfigProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkConfigProperties> NetworkConfigProperties::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkConfigProperties> NetworkConfigProperties::FromValue(const base::Value& value) {
   NetworkConfigProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkConfigProperties> NetworkConfigProperties::FromValue(const base::Value& value) {
-  NetworkConfigProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -12445,8 +11731,8 @@ name_servers_config_type(),
 type() {}
 
 NetworkProperties::~NetworkProperties() = default;
-NetworkProperties::NetworkProperties(NetworkProperties&& rhs) = default;
-NetworkProperties& NetworkProperties::operator=(NetworkProperties&& rhs) = default;
+NetworkProperties::NetworkProperties(NetworkProperties&& rhs) noexcept = default;
+NetworkProperties& NetworkProperties::operator=(NetworkProperties&& rhs) noexcept = default;
 NetworkProperties NetworkProperties::Clone() const {
   NetworkProperties out;
   if (cellular) {
@@ -12522,7 +11808,7 @@ bool NetworkProperties::Populate(
     {
       auto temp = (*connectable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connectable = absl::nullopt;
+        out.connectable = std::nullopt;
         return false;
       }
       out.connectable = *temp;
@@ -12550,7 +11836,7 @@ bool NetworkProperties::Populate(
     {
       auto* temp = (*error_state_value).GetIfString();
       if (!temp) {
-        out.error_state = absl::nullopt;
+        out.error_state = std::nullopt;
         return false;
       }
       out.error_state = *temp;
@@ -12619,7 +11905,7 @@ bool NetworkProperties::Populate(
     {
       auto* temp = (*mac_address_value).GetIfString();
       if (!temp) {
-        out.mac_address = absl::nullopt;
+        out.mac_address = std::nullopt;
         return false;
       }
       out.mac_address = *temp;
@@ -12631,7 +11917,7 @@ bool NetworkProperties::Populate(
     {
       auto temp = (*metered_value).GetIfBool();
       if (!temp.has_value()) {
-        out.metered = absl::nullopt;
+        out.metered = std::nullopt;
         return false;
       }
       out.metered = *temp;
@@ -12643,7 +11929,7 @@ bool NetworkProperties::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -12671,7 +11957,7 @@ bool NetworkProperties::Populate(
     {
       auto temp = (*priority_value).GetIfInt();
       if (!temp.has_value()) {
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -12698,7 +11984,7 @@ bool NetworkProperties::Populate(
     {
       auto temp = (*restricted_connectivity_value).GetIfBool();
       if (!temp.has_value()) {
-        out.restricted_connectivity = absl::nullopt;
+        out.restricted_connectivity = std::nullopt;
         return false;
       }
       out.restricted_connectivity = *temp;
@@ -12740,7 +12026,7 @@ bool NetworkProperties::Populate(
     {
       auto* temp = (*source_value).GetIfString();
       if (!temp) {
-        out.source = absl::nullopt;
+        out.source = std::nullopt;
         return false;
       }
       out.source = *temp;
@@ -12820,34 +12106,21 @@ bool NetworkProperties::Populate(
 }
 
 // static
-std::unique_ptr<NetworkProperties> NetworkProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkProperties> NetworkProperties::FromValue(const base::Value::Dict& value) {
+  NetworkProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkProperties> NetworkProperties::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkProperties> NetworkProperties::FromValue(const base::Value& value) {
   NetworkProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkProperties> NetworkProperties::FromValue(const base::Value& value) {
-  NetworkProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -12949,8 +12222,8 @@ ManagedProperties::ManagedProperties()
 type() {}
 
 ManagedProperties::~ManagedProperties() = default;
-ManagedProperties::ManagedProperties(ManagedProperties&& rhs) = default;
-ManagedProperties& ManagedProperties::operator=(ManagedProperties&& rhs) = default;
+ManagedProperties::ManagedProperties(ManagedProperties&& rhs) noexcept = default;
+ManagedProperties& ManagedProperties::operator=(ManagedProperties&& rhs) noexcept = default;
 ManagedProperties ManagedProperties::Clone() const {
   ManagedProperties out;
   if (cellular) {
@@ -13034,7 +12307,7 @@ bool ManagedProperties::Populate(
     {
       auto temp = (*connectable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connectable = absl::nullopt;
+        out.connectable = std::nullopt;
         return false;
       }
       out.connectable = *temp;
@@ -13062,7 +12335,7 @@ bool ManagedProperties::Populate(
     {
       auto* temp = (*error_state_value).GetIfString();
       if (!temp) {
-        out.error_state = absl::nullopt;
+        out.error_state = std::nullopt;
         return false;
       }
       out.error_state = *temp;
@@ -13130,7 +12403,7 @@ bool ManagedProperties::Populate(
     {
       auto* temp = (*mac_address_value).GetIfString();
       if (!temp) {
-        out.mac_address = absl::nullopt;
+        out.mac_address = std::nullopt;
         return false;
       }
       out.mac_address = *temp;
@@ -13217,7 +12490,7 @@ bool ManagedProperties::Populate(
     {
       auto temp = (*restricted_connectivity_value).GetIfBool();
       if (!temp.has_value()) {
-        out.restricted_connectivity = absl::nullopt;
+        out.restricted_connectivity = std::nullopt;
         return false;
       }
       out.restricted_connectivity = *temp;
@@ -13259,7 +12532,7 @@ bool ManagedProperties::Populate(
     {
       auto* temp = (*source_value).GetIfString();
       if (!temp) {
-        out.source = absl::nullopt;
+        out.source = std::nullopt;
         return false;
       }
       out.source = *temp;
@@ -13339,34 +12612,21 @@ bool ManagedProperties::Populate(
 }
 
 // static
-std::unique_ptr<ManagedProperties> ManagedProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManagedProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManagedProperties> ManagedProperties::FromValue(const base::Value::Dict& value) {
+  ManagedProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManagedProperties> ManagedProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ManagedProperties> ManagedProperties::FromValue(const base::Value& value) {
   ManagedProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManagedProperties> ManagedProperties::FromValue(const base::Value& value) {
-  ManagedProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -13468,8 +12728,8 @@ NetworkStateProperties::NetworkStateProperties()
 type() {}
 
 NetworkStateProperties::~NetworkStateProperties() = default;
-NetworkStateProperties::NetworkStateProperties(NetworkStateProperties&& rhs) = default;
-NetworkStateProperties& NetworkStateProperties::operator=(NetworkStateProperties&& rhs) = default;
+NetworkStateProperties::NetworkStateProperties(NetworkStateProperties&& rhs) noexcept = default;
+NetworkStateProperties& NetworkStateProperties::operator=(NetworkStateProperties&& rhs) noexcept = default;
 NetworkStateProperties NetworkStateProperties::Clone() const {
   NetworkStateProperties out;
   if (cellular) {
@@ -13522,7 +12782,7 @@ bool NetworkStateProperties::Populate(
     {
       auto temp = (*connectable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connectable = absl::nullopt;
+        out.connectable = std::nullopt;
         return false;
       }
       out.connectable = *temp;
@@ -13565,7 +12825,7 @@ bool NetworkStateProperties::Populate(
     {
       auto* temp = (*error_state_value).GetIfString();
       if (!temp) {
-        out.error_state = absl::nullopt;
+        out.error_state = std::nullopt;
         return false;
       }
       out.error_state = *temp;
@@ -13589,7 +12849,7 @@ bool NetworkStateProperties::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -13601,7 +12861,7 @@ bool NetworkStateProperties::Populate(
     {
       auto temp = (*priority_value).GetIfInt();
       if (!temp.has_value()) {
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -13613,7 +12873,7 @@ bool NetworkStateProperties::Populate(
     {
       auto* temp = (*source_value).GetIfString();
       if (!temp) {
-        out.source = absl::nullopt;
+        out.source = std::nullopt;
         return false;
       }
       out.source = *temp;
@@ -13693,34 +12953,21 @@ bool NetworkStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<NetworkStateProperties> NetworkStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkStateProperties> NetworkStateProperties::FromValue(const base::Value::Dict& value) {
+  NetworkStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkStateProperties> NetworkStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkStateProperties> NetworkStateProperties::FromValue(const base::Value& value) {
   NetworkStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkStateProperties> NetworkStateProperties::FromValue(const base::Value& value) {
-  NetworkStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -13786,8 +13033,8 @@ DeviceStateProperties::DeviceStateProperties()
 type() {}
 
 DeviceStateProperties::~DeviceStateProperties() = default;
-DeviceStateProperties::DeviceStateProperties(DeviceStateProperties&& rhs) = default;
-DeviceStateProperties& DeviceStateProperties::operator=(DeviceStateProperties&& rhs) = default;
+DeviceStateProperties::DeviceStateProperties(DeviceStateProperties&& rhs) noexcept = default;
+DeviceStateProperties& DeviceStateProperties::operator=(DeviceStateProperties&& rhs) noexcept = default;
 DeviceStateProperties DeviceStateProperties::Clone() const {
   DeviceStateProperties out;
   out.scanning = scanning;
@@ -13809,7 +13056,7 @@ bool DeviceStateProperties::Populate(
     {
       auto temp = (*scanning_value).GetIfBool();
       if (!temp.has_value()) {
-        out.scanning = absl::nullopt;
+        out.scanning = std::nullopt;
         return false;
       }
       out.scanning = *temp;
@@ -13836,7 +13083,7 @@ bool DeviceStateProperties::Populate(
     {
       auto temp = (*sim_present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.sim_present = absl::nullopt;
+        out.sim_present = std::nullopt;
         return false;
       }
       out.sim_present = *temp;
@@ -13878,7 +13125,7 @@ bool DeviceStateProperties::Populate(
     {
       auto temp = (*managed_network_available_value).GetIfBool();
       if (!temp.has_value()) {
-        out.managed_network_available = absl::nullopt;
+        out.managed_network_available = std::nullopt;
         return false;
       }
       out.managed_network_available = *temp;
@@ -13898,34 +13145,21 @@ bool DeviceStateProperties::Populate(
 }
 
 // static
-std::unique_ptr<DeviceStateProperties> DeviceStateProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceStateProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceStateProperties> DeviceStateProperties::FromValue(const base::Value::Dict& value) {
+  DeviceStateProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceStateProperties> DeviceStateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceStateProperties> DeviceStateProperties::FromValue(const base::Value& value) {
   DeviceStateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceStateProperties> DeviceStateProperties::FromValue(const base::Value& value) {
-  DeviceStateProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -13962,8 +13196,8 @@ NetworkFilter::NetworkFilter()
 : network_type() {}
 
 NetworkFilter::~NetworkFilter() = default;
-NetworkFilter::NetworkFilter(NetworkFilter&& rhs) = default;
-NetworkFilter& NetworkFilter::operator=(NetworkFilter&& rhs) = default;
+NetworkFilter::NetworkFilter(NetworkFilter&& rhs) noexcept = default;
+NetworkFilter& NetworkFilter::operator=(NetworkFilter&& rhs) noexcept = default;
 NetworkFilter NetworkFilter::Clone() const {
   NetworkFilter out;
   out.network_type = network_type;
@@ -13996,7 +13230,7 @@ bool NetworkFilter::Populate(
     {
       auto temp = (*visible_value).GetIfBool();
       if (!temp.has_value()) {
-        out.visible = absl::nullopt;
+        out.visible = std::nullopt;
         return false;
       }
       out.visible = *temp;
@@ -14008,7 +13242,7 @@ bool NetworkFilter::Populate(
     {
       auto temp = (*configured_value).GetIfBool();
       if (!temp.has_value()) {
-        out.configured = absl::nullopt;
+        out.configured = std::nullopt;
         return false;
       }
       out.configured = *temp;
@@ -14020,7 +13254,7 @@ bool NetworkFilter::Populate(
     {
       auto temp = (*limit_value).GetIfInt();
       if (!temp.has_value()) {
-        out.limit = absl::nullopt;
+        out.limit = std::nullopt;
         return false;
       }
       out.limit = *temp;
@@ -14040,34 +13274,21 @@ bool NetworkFilter::Populate(
 }
 
 // static
-std::unique_ptr<NetworkFilter> NetworkFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkFilter> NetworkFilter::FromValue(const base::Value::Dict& value) {
+  NetworkFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkFilter> NetworkFilter::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkFilter> NetworkFilter::FromValue(const base::Value& value) {
   NetworkFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkFilter> NetworkFilter::FromValue(const base::Value& value) {
-  NetworkFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -14098,8 +13319,8 @@ GlobalPolicy::GlobalPolicy()
  {}
 
 GlobalPolicy::~GlobalPolicy() = default;
-GlobalPolicy::GlobalPolicy(GlobalPolicy&& rhs) = default;
-GlobalPolicy& GlobalPolicy::operator=(GlobalPolicy&& rhs) = default;
+GlobalPolicy::GlobalPolicy(GlobalPolicy&& rhs) noexcept = default;
+GlobalPolicy& GlobalPolicy::operator=(GlobalPolicy&& rhs) noexcept = default;
 GlobalPolicy GlobalPolicy::Clone() const {
   GlobalPolicy out;
   out.allow_only_policy_networks_to_autoconnect = allow_only_policy_networks_to_autoconnect;
@@ -14117,7 +13338,7 @@ bool GlobalPolicy::Populate(
     {
       auto temp = (*allow_only_policy_networks_to_autoconnect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_only_policy_networks_to_autoconnect = absl::nullopt;
+        out.allow_only_policy_networks_to_autoconnect = std::nullopt;
         return false;
       }
       out.allow_only_policy_networks_to_autoconnect = *temp;
@@ -14129,7 +13350,7 @@ bool GlobalPolicy::Populate(
     {
       auto temp = (*allow_only_policy_networks_to_connect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_only_policy_networks_to_connect = absl::nullopt;
+        out.allow_only_policy_networks_to_connect = std::nullopt;
         return false;
       }
       out.allow_only_policy_networks_to_connect = *temp;
@@ -14141,7 +13362,7 @@ bool GlobalPolicy::Populate(
     {
       auto temp = (*allow_only_policy_networks_to_connect_if_available_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_only_policy_networks_to_connect_if_available = absl::nullopt;
+        out.allow_only_policy_networks_to_connect_if_available = std::nullopt;
         return false;
       }
       out.allow_only_policy_networks_to_connect_if_available = *temp;
@@ -14175,34 +13396,21 @@ bool GlobalPolicy::Populate(
 }
 
 // static
-std::unique_ptr<GlobalPolicy> GlobalPolicy::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GlobalPolicy>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GlobalPolicy> GlobalPolicy::FromValue(const base::Value::Dict& value) {
+  GlobalPolicy out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GlobalPolicy> GlobalPolicy::FromValue(const base::Value::Dict& value) {
+std::optional<GlobalPolicy> GlobalPolicy::FromValue(const base::Value& value) {
   GlobalPolicy out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GlobalPolicy> GlobalPolicy::FromValue(const base::Value& value) {
-  GlobalPolicy out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -14236,8 +13444,8 @@ Certificate::Certificate()
 device_wide(false) {}
 
 Certificate::~Certificate() = default;
-Certificate::Certificate(Certificate&& rhs) = default;
-Certificate& Certificate::operator=(Certificate&& rhs) = default;
+Certificate::Certificate(Certificate&& rhs) noexcept = default;
+Certificate& Certificate::operator=(Certificate&& rhs) noexcept = default;
 Certificate Certificate::Clone() const {
   Certificate out;
   out.hash = hash;
@@ -14294,7 +13502,7 @@ bool Certificate::Populate(
     {
       auto* temp = (*pem_value).GetIfString();
       if (!temp) {
-        out.pem = absl::nullopt;
+        out.pem = std::nullopt;
         return false;
       }
       out.pem = *temp;
@@ -14306,7 +13514,7 @@ bool Certificate::Populate(
     {
       auto* temp = (*pkcs11_id_value).GetIfString();
       if (!temp) {
-        out.pkcs11_id = absl::nullopt;
+        out.pkcs11_id = std::nullopt;
         return false;
       }
       out.pkcs11_id = *temp;
@@ -14350,34 +13558,21 @@ bool Certificate::Populate(
 }
 
 // static
-std::unique_ptr<Certificate> Certificate::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Certificate>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Certificate> Certificate::FromValue(const base::Value::Dict& value) {
+  Certificate out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Certificate> Certificate::FromValue(const base::Value::Dict& value) {
+std::optional<Certificate> Certificate::FromValue(const base::Value& value) {
   Certificate out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Certificate> Certificate::FromValue(const base::Value& value) {
-  Certificate out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -14412,8 +13607,8 @@ CertificateLists::CertificateLists()
  {}
 
 CertificateLists::~CertificateLists() = default;
-CertificateLists::CertificateLists(CertificateLists&& rhs) = default;
-CertificateLists& CertificateLists::operator=(CertificateLists&& rhs) = default;
+CertificateLists::CertificateLists(CertificateLists&& rhs) noexcept = default;
+CertificateLists& CertificateLists::operator=(CertificateLists&& rhs) noexcept = default;
 CertificateLists CertificateLists::Clone() const {
   CertificateLists out;
   out.server_ca_certificates.reserve(server_ca_certificates.size());
@@ -14473,34 +13668,21 @@ bool CertificateLists::Populate(
 }
 
 // static
-std::unique_ptr<CertificateLists> CertificateLists::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CertificateLists>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CertificateLists> CertificateLists::FromValue(const base::Value::Dict& value) {
+  CertificateLists out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CertificateLists> CertificateLists::FromValue(const base::Value::Dict& value) {
+std::optional<CertificateLists> CertificateLists::FromValue(const base::Value& value) {
   CertificateLists out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CertificateLists> CertificateLists::FromValue(const base::Value& value) {
-  CertificateLists out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -14526,13 +13708,13 @@ namespace GetProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14542,13 +13724,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14568,13 +13750,13 @@ namespace GetManagedProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14584,13 +13766,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14610,13 +13792,13 @@ namespace GetState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14626,13 +13808,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14652,13 +13834,13 @@ namespace SetProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14668,13 +13850,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -14682,15 +13864,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NetworkConfigProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14708,13 +13890,13 @@ namespace CreateNetwork {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14724,13 +13906,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = shared_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.shared = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -14738,15 +13920,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NetworkConfigProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14766,13 +13948,13 @@ namespace ForgetNetwork {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14782,13 +13964,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14806,13 +13988,13 @@ namespace GetNetworks {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14821,15 +14003,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NetworkFilter::Populate(filter_value.GetDict(), params.filter)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14849,13 +14031,13 @@ namespace GetVisibleNetworks {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14865,16 +14047,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* network_type_as_string = network_type_value.GetIfString();
       if (!network_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_type = ParseNetworkType(*network_type_as_string);
       if (params.network_type == NetworkType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14922,13 +14104,13 @@ namespace EnableNetworkType {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14938,16 +14120,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* network_type_as_string = network_type_value.GetIfString();
       if (!network_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_type = ParseNetworkType(*network_type_as_string);
       if (params.network_type == NetworkType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14960,13 +14142,13 @@ namespace DisableNetworkType {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -14976,16 +14158,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* network_type_as_string = network_type_value.GetIfString();
       if (!network_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_type = ParseNetworkType(*network_type_as_string);
       if (params.network_type == NetworkType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -14998,13 +14180,13 @@ namespace RequestNetworkScan {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
   params.network_type = NetworkType();
@@ -15015,11 +14197,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* network_type_as_string = network_type_value.GetIfString();
       if (!network_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_type = ParseNetworkType(*network_type_as_string);
       if (params.network_type == NetworkType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
@@ -15034,13 +14216,13 @@ namespace StartConnect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15050,13 +14232,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -15074,13 +14256,13 @@ namespace StartDisconnect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15090,13 +14272,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -15114,13 +14296,13 @@ namespace StartActivate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15130,13 +14312,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -15145,8 +14327,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = carrier_value.GetIfString();
       if (!temp) {
-        params.carrier = absl::nullopt;
-        return absl::nullopt;
+        params.carrier = std::nullopt;
+        return std::nullopt;
       }
       params.carrier = *temp;
     }
@@ -15167,13 +14349,13 @@ namespace GetCaptivePortalStatus {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15183,13 +14365,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -15209,13 +14391,13 @@ namespace UnlockCellularSim {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15225,13 +14407,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -15240,13 +14422,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = pin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.pin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -15255,8 +14437,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = puk_value.GetIfString();
       if (!temp) {
-        params.puk = absl::nullopt;
-        return absl::nullopt;
+        params.puk = std::nullopt;
+        return std::nullopt;
       }
       params.puk = *temp;
     }
@@ -15277,13 +14459,13 @@ namespace SetCellularSimState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15293,13 +14475,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -15307,15 +14489,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& sim_state_value = args[1];
     {
       if (!sim_state_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CellularSimState::Populate(sim_state_value.GetDict(), params.sim_state)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -15333,13 +14515,13 @@ namespace SelectCellularMobileNetwork {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -15349,13 +14531,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -15364,13 +14546,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = network_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.network_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

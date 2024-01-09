@@ -23,6 +23,8 @@ import {
   MediaSessionActionSpec as mediaSession_mojom_MediaSessionActionSpec,
   MicrophoneState as mediaSession_mojom_MicrophoneState,
   MicrophoneStateSpec as mediaSession_mojom_MicrophoneStateSpec,
+  ChapterInformation as mediaSession_mojom_ChapterInformation,
+  ChapterInformationSpec as mediaSession_mojom_ChapterInformationSpec,
   MediaImage as mediaSession_mojom_MediaImage,
   MediaImageSpec as mediaSession_mojom_MediaImageSpec,
   MediaPosition as mediaSession_mojom_MediaPosition,
@@ -807,8 +809,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'chapterInfo', 32,
+        0,
+        mojo.internal.Array(mediaSession_mojom_ChapterInformationSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -825,6 +835,8 @@ export class SpecMediaMetadata {
     this.album;
     /** @type { !Array<!mediaSession_mojom_MediaImage> } */
     this.artwork;
+    /** @type { !Array<!mediaSession_mojom_ChapterInformation> } */
+    this.chapterInfo;
   }
 }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -44,34 +45,6 @@
 
 
 namespace attribution_reporting::mojom::blink {
-DebugKey::DebugKey()
-    : value() {}
-
-DebugKey::DebugKey(
-    uint64_t value_in)
-    : value(std::move(value_in)) {}
-
-DebugKey::~DebugKey() = default;
-
-void DebugKey::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "value"), this->value,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint64_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DebugKey::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 SuitableOrigin::SuitableOrigin()
     : origin() {}
 
@@ -133,7 +106,7 @@ FilterConfig::FilterConfig()
       filter_values() {}
 
 FilterConfig::FilterConfig(
-    absl::optional<::base::TimeDelta> lookback_window_in,
+    std::optional<::base::TimeDelta> lookback_window_in,
     const WTF::HashMap<WTF::String, WTF::Vector<WTF::String>>& filter_values_in)
     : lookback_window(std::move(lookback_window_in)),
       filter_values(std::move(filter_values_in)) {}
@@ -147,7 +120,7 @@ void FilterConfig::WriteIntoTrace(
     dict.AddItem(
       "lookback_window"), this->lookback_window,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -356,30 +329,70 @@ bool EventReportWindows::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-TriggerConfig::TriggerConfig()
-    : trigger_data_matching() {}
+TriggerSpec::TriggerSpec()
+    : event_report_windows() {}
 
-TriggerConfig::TriggerConfig(
-    ::attribution_reporting::mojom::blink::TriggerDataMatching trigger_data_matching_in)
-    : trigger_data_matching(std::move(trigger_data_matching_in)) {}
+TriggerSpec::TriggerSpec(
+    const ::attribution_reporting::EventReportWindows& event_report_windows_in)
+    : event_report_windows(std::move(event_report_windows_in)) {}
 
-TriggerConfig::~TriggerConfig() = default;
+TriggerSpec::~TriggerSpec() = default;
 
-void TriggerConfig::WriteIntoTrace(
+void TriggerSpec::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "trigger_data_matching"), this->trigger_data_matching,
+      "event_report_windows"), this->event_report_windows,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::attribution_reporting::mojom::blink::TriggerDataMatching>"
+      "<value of type const ::attribution_reporting::EventReportWindows&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool TriggerConfig::Validate(
+bool TriggerSpec::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TriggerSpecs::TriggerSpecs()
+    : specs(),
+      trigger_data_indices() {}
+
+TriggerSpecs::TriggerSpecs(
+    WTF::Vector<::attribution_reporting::TriggerSpec> specs_in,
+    const WTF::HashMap<uint32_t, uint8_t>& trigger_data_indices_in)
+    : specs(std::move(specs_in)),
+      trigger_data_indices(std::move(trigger_data_indices_in)) {}
+
+TriggerSpecs::~TriggerSpecs() = default;
+
+void TriggerSpecs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "specs"), this->specs,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<::attribution_reporting::TriggerSpec>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_data_indices"), this->trigger_data_indices,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::HashMap<uint32_t, uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TriggerSpecs::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -396,7 +409,8 @@ SourceRegistration::SourceRegistration()
       filter_data(),
       aggregation_keys(),
       debug_reporting(false),
-      trigger_config() {}
+      trigger_data_matching(),
+      event_level_epsilon() {}
 
 SourceRegistration::SourceRegistration(
     const ::attribution_reporting::DestinationSet& destinations_in,
@@ -406,11 +420,12 @@ SourceRegistration::SourceRegistration(
     ::base::TimeDelta aggregatable_report_window_in,
     int32_t max_event_level_reports_in,
     int64_t priority_in,
-    const absl::optional<uint64_t>& debug_key_in,
+    std::optional<uint64_t> debug_key_in,
     const ::attribution_reporting::FilterData& filter_data_in,
     const ::attribution_reporting::AggregationKeys& aggregation_keys_in,
     bool debug_reporting_in,
-    const ::attribution_reporting::TriggerConfig& trigger_config_in)
+    ::attribution_reporting::mojom::blink::TriggerDataMatching trigger_data_matching_in,
+    double event_level_epsilon_in)
     : destinations(std::move(destinations_in)),
       source_event_id(std::move(source_event_id_in)),
       expiry(std::move(expiry_in)),
@@ -422,7 +437,8 @@ SourceRegistration::SourceRegistration(
       filter_data(std::move(filter_data_in)),
       aggregation_keys(std::move(aggregation_keys_in)),
       debug_reporting(std::move(debug_reporting_in)),
-      trigger_config(std::move(trigger_config_in)) {}
+      trigger_data_matching(std::move(trigger_data_matching_in)),
+      event_level_epsilon(std::move(event_level_epsilon_in)) {}
 
 SourceRegistration::~SourceRegistration() = default;
 
@@ -496,7 +512,7 @@ void SourceRegistration::WriteIntoTrace(
     dict.AddItem(
       "debug_key"), this->debug_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -530,9 +546,18 @@ void SourceRegistration::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "trigger_config"), this->trigger_config,
+      "trigger_data_matching"), this->trigger_data_matching,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::attribution_reporting::TriggerConfig&>"
+      "<value of type ::attribution_reporting::mojom::blink::TriggerDataMatching>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "event_level_epsilon"), this->event_level_epsilon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -540,34 +565,6 @@ void SourceRegistration::WriteIntoTrace(
 }
 
 bool SourceRegistration::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-TriggerDedupKey::TriggerDedupKey()
-    : value() {}
-
-TriggerDedupKey::TriggerDedupKey(
-    uint64_t value_in)
-    : value(std::move(value_in)) {}
-
-TriggerDedupKey::~TriggerDedupKey() = default;
-
-void TriggerDedupKey::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "value"), this->value,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint64_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool TriggerDedupKey::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -581,7 +578,7 @@ EventTriggerData::EventTriggerData()
 EventTriggerData::EventTriggerData(
     uint64_t data_in,
     int64_t priority_in,
-    const absl::optional<uint64_t>& dedup_key_in,
+    std::optional<uint64_t> dedup_key_in,
     const ::attribution_reporting::FilterPair& filters_in)
     : data(std::move(data_in)),
       priority(std::move(priority_in)),
@@ -615,7 +612,7 @@ void EventTriggerData::WriteIntoTrace(
     dict.AddItem(
       "dedup_key"), this->dedup_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -641,7 +638,7 @@ AggregatableDedupKey::AggregatableDedupKey()
       filters() {}
 
 AggregatableDedupKey::AggregatableDedupKey(
-    const absl::optional<uint64_t>& dedup_key_in,
+    std::optional<uint64_t> dedup_key_in,
     const ::attribution_reporting::FilterPair& filters_in)
     : dedup_key(std::move(dedup_key_in)),
       filters(std::move(filters_in)) {}
@@ -655,7 +652,7 @@ void AggregatableDedupKey::WriteIntoTrace(
     dict.AddItem(
       "dedup_key"), this->dedup_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -685,18 +682,20 @@ TriggerRegistration::TriggerRegistration()
       aggregatable_dedup_keys(),
       debug_reporting(false),
       aggregation_coordinator_origin(),
-      source_registration_time_config() {}
+      source_registration_time_config(),
+      trigger_context_id() {}
 
 TriggerRegistration::TriggerRegistration(
     WTF::Vector<::attribution_reporting::EventTriggerData> event_triggers_in,
     const ::attribution_reporting::FilterPair& filters_in,
     WTF::Vector<::attribution_reporting::AggregatableTriggerData> aggregatable_trigger_data_in,
     const WTF::HashMap<WTF::String, uint32_t>& aggregatable_values_in,
-    const absl::optional<uint64_t>& debug_key_in,
+    std::optional<uint64_t> debug_key_in,
     WTF::Vector<::attribution_reporting::AggregatableDedupKey> aggregatable_dedup_keys_in,
     bool debug_reporting_in,
-    absl::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin_in,
-    ::attribution_reporting::mojom::blink::SourceRegistrationTimeConfig source_registration_time_config_in)
+    std::optional<::attribution_reporting::SuitableOrigin> aggregation_coordinator_origin_in,
+    ::attribution_reporting::mojom::blink::SourceRegistrationTimeConfig source_registration_time_config_in,
+    const WTF::String& trigger_context_id_in)
     : event_triggers(std::move(event_triggers_in)),
       filters(std::move(filters_in)),
       aggregatable_trigger_data(std::move(aggregatable_trigger_data_in)),
@@ -705,7 +704,8 @@ TriggerRegistration::TriggerRegistration(
       aggregatable_dedup_keys(std::move(aggregatable_dedup_keys_in)),
       debug_reporting(std::move(debug_reporting_in)),
       aggregation_coordinator_origin(std::move(aggregation_coordinator_origin_in)),
-      source_registration_time_config(std::move(source_registration_time_config_in)) {}
+      source_registration_time_config(std::move(source_registration_time_config_in)),
+      trigger_context_id(std::move(trigger_context_id_in)) {}
 
 TriggerRegistration::~TriggerRegistration() = default;
 
@@ -752,7 +752,7 @@ void TriggerRegistration::WriteIntoTrace(
     dict.AddItem(
       "debug_key"), this->debug_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<uint64_t>&>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -779,7 +779,7 @@ void TriggerRegistration::WriteIntoTrace(
     dict.AddItem(
       "aggregation_coordinator_origin"), this->aggregation_coordinator_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::attribution_reporting::SuitableOrigin>>"
+      "<value of type std::optional<::attribution_reporting::SuitableOrigin>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -789,6 +789,15 @@ void TriggerRegistration::WriteIntoTrace(
       "source_registration_time_config"), this->source_registration_time_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::attribution_reporting::mojom::blink::SourceRegistrationTimeConfig>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_context_id"), this->trigger_context_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -874,20 +883,6 @@ bool OsRegistration::Validate(
 
 
 namespace mojo {
-
-
-// static
-bool StructTraits<::attribution_reporting::mojom::blink::DebugKey::DataView, ::attribution_reporting::mojom::blink::DebugKeyPtr>::Read(
-    ::attribution_reporting::mojom::blink::DebugKey::DataView input,
-    ::attribution_reporting::mojom::blink::DebugKeyPtr* output) {
-  bool success = true;
-  ::attribution_reporting::mojom::blink::DebugKeyPtr result(::attribution_reporting::mojom::blink::DebugKey::New());
-  
-      if (success)
-        result->value = input.value();
-  *output = std::move(result);
-  return success;
-}
 
 
 // static
@@ -1013,13 +1008,29 @@ bool StructTraits<::attribution_reporting::mojom::blink::EventReportWindows::Dat
 
 
 // static
-bool StructTraits<::attribution_reporting::mojom::blink::TriggerConfig::DataView, ::attribution_reporting::mojom::blink::TriggerConfigPtr>::Read(
-    ::attribution_reporting::mojom::blink::TriggerConfig::DataView input,
-    ::attribution_reporting::mojom::blink::TriggerConfigPtr* output) {
+bool StructTraits<::attribution_reporting::mojom::blink::TriggerSpec::DataView, ::attribution_reporting::mojom::blink::TriggerSpecPtr>::Read(
+    ::attribution_reporting::mojom::blink::TriggerSpec::DataView input,
+    ::attribution_reporting::mojom::blink::TriggerSpecPtr* output) {
   bool success = true;
-  ::attribution_reporting::mojom::blink::TriggerConfigPtr result(::attribution_reporting::mojom::blink::TriggerConfig::New());
+  ::attribution_reporting::mojom::blink::TriggerSpecPtr result(::attribution_reporting::mojom::blink::TriggerSpec::New());
   
-      if (success && !input.ReadTriggerDataMatching(&result->trigger_data_matching))
+      if (success && !input.ReadEventReportWindows(&result->event_report_windows))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::attribution_reporting::mojom::blink::TriggerSpecs::DataView, ::attribution_reporting::mojom::blink::TriggerSpecsPtr>::Read(
+    ::attribution_reporting::mojom::blink::TriggerSpecs::DataView input,
+    ::attribution_reporting::mojom::blink::TriggerSpecsPtr* output) {
+  bool success = true;
+  ::attribution_reporting::mojom::blink::TriggerSpecsPtr result(::attribution_reporting::mojom::blink::TriggerSpecs::New());
+  
+      if (success && !input.ReadSpecs(&result->specs))
+        success = false;
+      if (success && !input.ReadTriggerDataIndices(&result->trigger_data_indices))
         success = false;
   *output = std::move(result);
   return success;
@@ -1047,30 +1058,19 @@ bool StructTraits<::attribution_reporting::mojom::blink::SourceRegistration::Dat
         result->max_event_level_reports = input.max_event_level_reports();
       if (success)
         result->priority = input.priority();
-      if (success && !input.ReadDebugKey(&result->debug_key))
-        success = false;
+      if (success) {
+        result->debug_key = input.debug_key();
+      }
       if (success && !input.ReadFilterData(&result->filter_data))
         success = false;
       if (success && !input.ReadAggregationKeys(&result->aggregation_keys))
         success = false;
       if (success)
         result->debug_reporting = input.debug_reporting();
-      if (success && !input.ReadTriggerConfig(&result->trigger_config))
+      if (success && !input.ReadTriggerDataMatching(&result->trigger_data_matching))
         success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::attribution_reporting::mojom::blink::TriggerDedupKey::DataView, ::attribution_reporting::mojom::blink::TriggerDedupKeyPtr>::Read(
-    ::attribution_reporting::mojom::blink::TriggerDedupKey::DataView input,
-    ::attribution_reporting::mojom::blink::TriggerDedupKeyPtr* output) {
-  bool success = true;
-  ::attribution_reporting::mojom::blink::TriggerDedupKeyPtr result(::attribution_reporting::mojom::blink::TriggerDedupKey::New());
-  
       if (success)
-        result->value = input.value();
+        result->event_level_epsilon = input.event_level_epsilon();
   *output = std::move(result);
   return success;
 }
@@ -1087,8 +1087,9 @@ bool StructTraits<::attribution_reporting::mojom::blink::EventTriggerData::DataV
         result->data = input.data();
       if (success)
         result->priority = input.priority();
-      if (success && !input.ReadDedupKey(&result->dedup_key))
-        success = false;
+      if (success) {
+        result->dedup_key = input.dedup_key();
+      }
       if (success && !input.ReadFilters(&result->filters))
         success = false;
   *output = std::move(result);
@@ -1103,8 +1104,9 @@ bool StructTraits<::attribution_reporting::mojom::blink::AggregatableDedupKey::D
   bool success = true;
   ::attribution_reporting::mojom::blink::AggregatableDedupKeyPtr result(::attribution_reporting::mojom::blink::AggregatableDedupKey::New());
   
-      if (success && !input.ReadDedupKey(&result->dedup_key))
-        success = false;
+      if (success) {
+        result->dedup_key = input.dedup_key();
+      }
       if (success && !input.ReadFilters(&result->filters))
         success = false;
   *output = std::move(result);
@@ -1127,8 +1129,9 @@ bool StructTraits<::attribution_reporting::mojom::blink::TriggerRegistration::Da
         success = false;
       if (success && !input.ReadAggregatableValues(&result->aggregatable_values))
         success = false;
-      if (success && !input.ReadDebugKey(&result->debug_key))
-        success = false;
+      if (success) {
+        result->debug_key = input.debug_key();
+      }
       if (success && !input.ReadAggregatableDedupKeys(&result->aggregatable_dedup_keys))
         success = false;
       if (success)
@@ -1136,6 +1139,8 @@ bool StructTraits<::attribution_reporting::mojom::blink::TriggerRegistration::Da
       if (success && !input.ReadAggregationCoordinatorOrigin(&result->aggregation_coordinator_origin))
         success = false;
       if (success && !input.ReadSourceRegistrationTimeConfig(&result->source_registration_time_config))
+        success = false;
+      if (success && !input.ReadTriggerContextId(&result->trigger_context_id))
         success = false;
   *output = std::move(result);
   return success;

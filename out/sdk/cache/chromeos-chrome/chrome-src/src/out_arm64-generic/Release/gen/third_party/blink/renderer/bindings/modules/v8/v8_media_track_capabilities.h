@@ -244,6 +244,18 @@ has_exposure_time_ = true;
 DCHECK(member_exposure_time_);
 }
 
+bool hasEyeGazeCorrection() const {
+  return has_eye_gaze_correction_;
+}
+const Vector<bool>& eyeGazeCorrection() const {
+  DCHECK(hasEyeGazeCorrection());
+return member_eye_gaze_correction_;
+}
+Vector<bool> getEyeGazeCorrectionOr(const Vector<bool>& fallback_value) const;
+Vector<bool> getEyeGazeCorrectionOr(Vector<bool>&& fallback_value) const;
+void setEyeGazeCorrection(const Vector<bool>& value);
+void setEyeGazeCorrection(Vector<bool>&& value);
+
 bool hasFaceFraming() const {
   return has_face_framing_;
 }
@@ -621,6 +633,7 @@ bool has_echo_cancellation_ = false;
 bool has_exposure_compensation_ = false;
 bool has_exposure_mode_ = false;
 bool has_exposure_time_ = false;
+bool has_eye_gaze_correction_ = false;
 bool has_face_framing_ = false;
 bool has_facing_mode_ = false;
 bool has_focus_distance_ = false;
@@ -656,6 +669,7 @@ Vector<bool> member_echo_cancellation_;
 Member<MediaSettingsRange> member_exposure_compensation_;
 Vector<String> member_exposure_mode_;
 Member<MediaSettingsRange> member_exposure_time_;
+Vector<bool> member_eye_gaze_correction_;
 Vector<bool> member_face_framing_;
 Vector<String> member_facing_mode_;
 Member<MediaSettingsRange> member_focus_distance_;

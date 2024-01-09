@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -200,8 +201,8 @@ FetchGooglePhotosAlbumsResponse::FetchGooglePhotosAlbumsResponse()
       resume_token() {}
 
 FetchGooglePhotosAlbumsResponse::FetchGooglePhotosAlbumsResponse(
-    absl::optional<std::vector<GooglePhotosAlbumPtr>> albums_in,
-    const absl::optional<std::string>& resume_token_in)
+    std::optional<std::vector<GooglePhotosAlbumPtr>> albums_in,
+    const std::optional<std::string>& resume_token_in)
     : albums(std::move(albums_in)),
       resume_token(std::move(resume_token_in)) {}
 
@@ -214,7 +215,7 @@ void FetchGooglePhotosAlbumsResponse::WriteIntoTrace(
     dict.AddItem(
       "albums"), this->albums,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<GooglePhotosAlbumPtr>>>"
+      "<value of type std::optional<std::vector<GooglePhotosAlbumPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -223,7 +224,7 @@ void FetchGooglePhotosAlbumsResponse::WriteIntoTrace(
     dict.AddItem(
       "resume_token"), this->resume_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -321,11 +322,11 @@ GooglePhotosPhoto::GooglePhotosPhoto()
 
 GooglePhotosPhoto::GooglePhotosPhoto(
     const std::string& id_in,
-    const absl::optional<std::string>& dedup_key_in,
+    const std::optional<std::string>& dedup_key_in,
     const std::string& name_in,
     const ::std::u16string& date_in,
     const ::GURL& url_in,
-    const absl::optional<std::string>& location_in)
+    const std::optional<std::string>& location_in)
     : id(std::move(id_in)),
       dedup_key(std::move(dedup_key_in)),
       name(std::move(name_in)),
@@ -351,7 +352,7 @@ void GooglePhotosPhoto::WriteIntoTrace(
     dict.AddItem(
       "dedup_key"), this->dedup_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -387,7 +388,7 @@ void GooglePhotosPhoto::WriteIntoTrace(
     dict.AddItem(
       "location"), this->location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -404,8 +405,8 @@ FetchGooglePhotosPhotosResponse::FetchGooglePhotosPhotosResponse()
       resume_token() {}
 
 FetchGooglePhotosPhotosResponse::FetchGooglePhotosPhotosResponse(
-    absl::optional<std::vector<GooglePhotosPhotoPtr>> photos_in,
-    const absl::optional<std::string>& resume_token_in)
+    std::optional<std::vector<GooglePhotosPhotoPtr>> photos_in,
+    const std::optional<std::string>& resume_token_in)
     : photos(std::move(photos_in)),
       resume_token(std::move(resume_token_in)) {}
 
@@ -418,7 +419,7 @@ void FetchGooglePhotosPhotosResponse::WriteIntoTrace(
     dict.AddItem(
       "photos"), this->photos,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<GooglePhotosPhotoPtr>>>"
+      "<value of type std::optional<std::vector<GooglePhotosPhotoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -427,7 +428,7 @@ void FetchGooglePhotosPhotosResponse::WriteIntoTrace(
     dict.AddItem(
       "resume_token"), this->resume_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -709,7 +710,7 @@ DefaultUserImage::DefaultUserImage(
     int32_t index_in,
     const ::std::u16string& title_in,
     const ::GURL& url_in,
-    absl::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info_in)
+    std::optional<::ash::default_user_image::DeprecatedSourceInfo> source_info_in)
     : index(std::move(index_in)),
       title(std::move(title_in)),
       url(std::move(url_in)),
@@ -751,7 +752,7 @@ void DefaultUserImage::WriteIntoTrace(
     dict.AddItem(
       "source_info"), this->source_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::ash::default_user_image::DeprecatedSourceInfo>>"
+      "<value of type std::optional<::ash::default_user_image::DeprecatedSourceInfo>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1129,14 +1130,17 @@ void WallpaperObserverProxy::OnWallpaperPreviewEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperObserver::OnWallpaperPreviewEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperObserver_OnWallpaperPreviewEnded_Name, kFlags, 0, 0, nullptr);
@@ -1166,14 +1170,17 @@ void WallpaperObserverProxy::OnAttributionChanged(
                         "<value of type CurrentAttributionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperObserver_OnAttributionChanged_Name, kFlags, 0, 0, nullptr);
@@ -1210,14 +1217,17 @@ void WallpaperObserverProxy::OnWallpaperChanged(
                         "<value of type CurrentWallpaperPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperObserver_OnWallpaperChanged_Name, kFlags, 0, 0, nullptr);
@@ -1346,14 +1356,14 @@ bool WallpaperObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWallpaperObserverValidationInfo[] = {
-    {&internal::WallpaperObserver_OnWallpaperPreviewEnded_Params_Data::Validate,
+    { &internal::WallpaperObserver_OnWallpaperPreviewEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperObserver_OnAttributionChanged_Params_Data::Validate,
+    { &internal::WallpaperObserver_OnAttributionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperObserver_OnWallpaperChanged_Params_Data::Validate,
+    { &internal::WallpaperObserver_OnWallpaperChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1442,6 +1452,9 @@ WallpaperProvider::IPCStableHashFunction WallpaperProvider::MessageToMethodInfo_
     case internal::kWallpaperProvider_CancelPreviewWallpaper_Name: {
       return &WallpaperProvider::CancelPreviewWallpaper_Sym::IPCStableHash;
     }
+    case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name: {
+      return &WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1503,6 +1516,8 @@ const char* WallpaperProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::WallpaperProvider::ConfirmPreviewWallpaper";
       case internal::kWallpaperProvider_CancelPreviewWallpaper_Name:
             return "Receive ash::personalization_app::mojom::WallpaperProvider::CancelPreviewWallpaper";
+      case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name:
+            return "Receive ash::personalization_app::mojom::WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog";
     }
   } else {
     switch (message.name()) {
@@ -1556,6 +1571,8 @@ const char* WallpaperProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::WallpaperProvider::ConfirmPreviewWallpaper";
       case internal::kWallpaperProvider_CancelPreviewWallpaper_Name:
             return "Receive reply ash::personalization_app::mojom::WallpaperProvider::CancelPreviewWallpaper";
+      case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name:
+            return "Receive reply ash::personalization_app::mojom::WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog";
     }
   }
   return "Receive unknown mojo message";
@@ -1895,6 +1912,19 @@ uint32_t WallpaperProvider::CancelPreviewWallpaper_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class WallpaperProvider_FetchCollections_ForwardToCallback
@@ -2201,6 +2231,22 @@ class WallpaperProvider_IsInTabletMode_ForwardToCallback
   WallpaperProvider::IsInTabletModeCallback callback_;
 };
 
+class WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback(
+      WallpaperProvider::ShouldShowTimeOfDayWallpaperDialogCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback(const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback&) = delete;
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback& operator=(const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  WallpaperProvider::ShouldShowTimeOfDayWallpaperDialogCallback callback_;
+};
+
 WallpaperProviderProxy::WallpaperProviderProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -2210,14 +2256,17 @@ void WallpaperProviderProxy::MakeTransparent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::MakeTransparent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_MakeTransparent_Name, kFlags, 0, 0, nullptr);
@@ -2240,14 +2289,17 @@ void WallpaperProviderProxy::MakeOpaque(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::MakeOpaque");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_MakeOpaque_Name, kFlags, 0, 0, nullptr);
@@ -2270,14 +2322,17 @@ void WallpaperProviderProxy::FetchCollections(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::FetchCollections");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchCollections_Name, kFlags, 0, 0, nullptr);
@@ -2308,14 +2363,17 @@ void WallpaperProviderProxy::FetchImagesForCollection(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchImagesForCollection_Name, kFlags, 0, 0, nullptr);
@@ -2346,7 +2404,7 @@ void WallpaperProviderProxy::FetchImagesForCollection(
 }
 
 void WallpaperProviderProxy::FetchGooglePhotosAlbums(
-    const absl::optional<std::string>& in_resume_token, FetchGooglePhotosAlbumsCallback callback) {
+    const std::optional<std::string>& in_resume_token, FetchGooglePhotosAlbumsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::personalization_app::mojom::WallpaperProvider::FetchGooglePhotosAlbums", "input_parameters",
@@ -2354,17 +2412,20 @@ void WallpaperProviderProxy::FetchGooglePhotosAlbums(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resume_token"), in_resume_token,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosAlbums_Name, kFlags, 0, 0, nullptr);
@@ -2391,7 +2452,7 @@ void WallpaperProviderProxy::FetchGooglePhotosAlbums(
 }
 
 void WallpaperProviderProxy::FetchGooglePhotosSharedAlbums(
-    const absl::optional<std::string>& in_resume_token, FetchGooglePhotosSharedAlbumsCallback callback) {
+    const std::optional<std::string>& in_resume_token, FetchGooglePhotosSharedAlbumsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::personalization_app::mojom::WallpaperProvider::FetchGooglePhotosSharedAlbums", "input_parameters",
@@ -2399,17 +2460,20 @@ void WallpaperProviderProxy::FetchGooglePhotosSharedAlbums(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resume_token"), in_resume_token,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosSharedAlbums_Name, kFlags, 0, 0, nullptr);
@@ -2440,14 +2504,17 @@ void WallpaperProviderProxy::FetchGooglePhotosEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::FetchGooglePhotosEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2467,7 +2534,7 @@ void WallpaperProviderProxy::FetchGooglePhotosEnabled(
 }
 
 void WallpaperProviderProxy::FetchGooglePhotosPhotos(
-    const absl::optional<std::string>& in_item_id, const absl::optional<std::string>& in_album_id, const absl::optional<std::string>& in_resume_token, FetchGooglePhotosPhotosCallback callback) {
+    const std::optional<std::string>& in_item_id, const std::optional<std::string>& in_album_id, const std::optional<std::string>& in_resume_token, FetchGooglePhotosPhotosCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::personalization_app::mojom::WallpaperProvider::FetchGooglePhotosPhotos", "input_parameters",
@@ -2475,23 +2542,26 @@ void WallpaperProviderProxy::FetchGooglePhotosPhotos(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("item_id"), in_item_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("album_id"), in_album_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resume_token"), in_resume_token,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosPhotos_Name, kFlags, 0, 0, nullptr);
@@ -2536,14 +2606,17 @@ void WallpaperProviderProxy::GetLocalImages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::GetLocalImages");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetLocalImages_Name, kFlags, 0, 0, nullptr);
@@ -2567,14 +2640,17 @@ void WallpaperProviderProxy::GetDefaultImageThumbnail(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::GetDefaultImageThumbnail");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetDefaultImageThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -2605,14 +2681,17 @@ void WallpaperProviderProxy::GetLocalImageThumbnail(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetLocalImageThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -2654,14 +2733,17 @@ void WallpaperProviderProxy::SetWallpaperObserver(
                         "<value of type ::mojo::PendingRemote<WallpaperObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SetWallpaperObserver_Name, kFlags, 0, 0, nullptr);
@@ -2700,14 +2782,17 @@ void WallpaperProviderProxy::SelectWallpaper(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -2733,14 +2818,17 @@ void WallpaperProviderProxy::SelectDefaultImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::SelectDefaultImage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectDefaultImage_Name, kFlags, 0, 0, nullptr);
@@ -2777,14 +2865,17 @@ void WallpaperProviderProxy::SelectLocalImage(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectLocalImage_Name, kFlags, 0, 0, nullptr);
@@ -2835,14 +2926,17 @@ void WallpaperProviderProxy::SelectGooglePhotosPhoto(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectGooglePhotosPhoto_Name, kFlags, 0, 0, nullptr);
@@ -2887,14 +2981,17 @@ void WallpaperProviderProxy::SelectGooglePhotosAlbum(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectGooglePhotosAlbum_Name, kFlags, 0, 0, nullptr);
@@ -2929,14 +3026,17 @@ void WallpaperProviderProxy::GetGooglePhotosDailyRefreshAlbumId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::GetGooglePhotosDailyRefreshAlbumId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Name, kFlags, 0, 0, nullptr);
@@ -2967,14 +3067,17 @@ void WallpaperProviderProxy::SetCurrentWallpaperLayout(
                         "<value of type ::ash::WallpaperLayout>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SetCurrentWallpaperLayout_Name, kFlags, 0, 0, nullptr);
@@ -3006,14 +3109,17 @@ void WallpaperProviderProxy::SetDailyRefreshCollectionId(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -3048,14 +3154,17 @@ void WallpaperProviderProxy::GetDailyRefreshCollectionId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::GetDailyRefreshCollectionId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -3079,14 +3188,17 @@ void WallpaperProviderProxy::UpdateDailyRefreshWallpaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::UpdateDailyRefreshWallpaper");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_UpdateDailyRefreshWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -3110,14 +3222,17 @@ void WallpaperProviderProxy::IsInTabletMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::IsInTabletMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_IsInTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -3141,14 +3256,17 @@ void WallpaperProviderProxy::ConfirmPreviewWallpaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::ConfirmPreviewWallpaper");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_ConfirmPreviewWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -3171,14 +3289,17 @@ void WallpaperProviderProxy::CancelPreviewWallpaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::CancelPreviewWallpaper");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_CancelPreviewWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -3194,6 +3315,40 @@ void WallpaperProviderProxy::CancelPreviewWallpaper(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void WallpaperProviderProxy::ShouldShowTimeOfDayWallpaperDialog(
+    ShouldShowTimeOfDayWallpaperDialogCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperProvider::Name_);
+  message.set_method_name("ShouldShowTimeOfDayWallpaperDialog");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class WallpaperProvider_FetchCollections_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -3241,7 +3396,7 @@ class WallpaperProvider_FetchCollections_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      const absl::optional<std::vector<::backdrop::Collection>>& in_collections);
+      const std::optional<std::vector<::backdrop::Collection>>& in_collections);
 };
 
 bool WallpaperProvider_FetchCollections_ForwardToCallback::Accept(
@@ -3254,7 +3409,7 @@ bool WallpaperProvider_FetchCollections_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::backdrop::Collection>> p_collections{};
+  std::optional<std::vector<::backdrop::Collection>> p_collections{};
   WallpaperProvider_FetchCollections_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCollections(&p_collections))
@@ -3273,7 +3428,7 @@ std::move(p_collections));
 }
 
 void WallpaperProvider_FetchCollections_ProxyToResponder::Run(
-    const absl::optional<std::vector<::backdrop::Collection>>& in_collections) {
+    const std::optional<std::vector<::backdrop::Collection>>& in_collections) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::WallpaperProvider::FetchCollections", "async_response_parameters",
@@ -3281,13 +3436,14 @@ void WallpaperProvider_FetchCollections_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("collections"), in_collections,
-                        "<value of type const absl::optional<std::vector<::backdrop::Collection>>&>");
+                        "<value of type const std::optional<std::vector<::backdrop::Collection>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchCollections_Name, kFlags, 0, 0, nullptr);
@@ -3367,7 +3523,7 @@ class WallpaperProvider_FetchImagesForCollection_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      const absl::optional<std::vector<::backdrop::Image>>& in_images);
+      const std::optional<std::vector<::backdrop::Image>>& in_images);
 };
 
 bool WallpaperProvider_FetchImagesForCollection_ForwardToCallback::Accept(
@@ -3380,7 +3536,7 @@ bool WallpaperProvider_FetchImagesForCollection_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::backdrop::Image>> p_images{};
+  std::optional<std::vector<::backdrop::Image>> p_images{};
   WallpaperProvider_FetchImagesForCollection_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadImages(&p_images))
@@ -3399,7 +3555,7 @@ std::move(p_images));
 }
 
 void WallpaperProvider_FetchImagesForCollection_ProxyToResponder::Run(
-    const absl::optional<std::vector<::backdrop::Image>>& in_images) {
+    const std::optional<std::vector<::backdrop::Image>>& in_images) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::WallpaperProvider::FetchImagesForCollection", "async_response_parameters",
@@ -3407,13 +3563,14 @@ void WallpaperProvider_FetchImagesForCollection_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("images"), in_images,
-                        "<value of type const absl::optional<std::vector<::backdrop::Image>>&>");
+                        "<value of type const std::optional<std::vector<::backdrop::Image>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchImagesForCollection_Name, kFlags, 0, 0, nullptr);
@@ -3539,7 +3696,8 @@ void WallpaperProvider_FetchGooglePhotosAlbums_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosAlbums_Name, kFlags, 0, 0, nullptr);
@@ -3667,7 +3825,8 @@ void WallpaperProvider_FetchGooglePhotosSharedAlbums_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosSharedAlbums_Name, kFlags, 0, 0, nullptr);
@@ -3795,7 +3954,8 @@ void WallpaperProvider_FetchGooglePhotosEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3914,7 +4074,8 @@ void WallpaperProvider_FetchGooglePhotosPhotos_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_FetchGooglePhotosPhotos_Name, kFlags, 0, 0, nullptr);
@@ -3996,7 +4157,7 @@ class WallpaperProvider_GetLocalImages_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      const absl::optional<std::vector<::base::FilePath>>& in_images);
+      const std::optional<std::vector<::base::FilePath>>& in_images);
 };
 
 bool WallpaperProvider_GetLocalImages_ForwardToCallback::Accept(
@@ -4009,7 +4170,7 @@ bool WallpaperProvider_GetLocalImages_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::base::FilePath>> p_images{};
+  std::optional<std::vector<::base::FilePath>> p_images{};
   WallpaperProvider_GetLocalImages_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadImages(&p_images))
@@ -4028,7 +4189,7 @@ std::move(p_images));
 }
 
 void WallpaperProvider_GetLocalImages_ProxyToResponder::Run(
-    const absl::optional<std::vector<::base::FilePath>>& in_images) {
+    const std::optional<std::vector<::base::FilePath>>& in_images) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::WallpaperProvider::GetLocalImages", "async_response_parameters",
@@ -4036,13 +4197,14 @@ void WallpaperProvider_GetLocalImages_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("images"), in_images,
-                        "<value of type const absl::optional<std::vector<::base::FilePath>>&>");
+                        "<value of type const std::optional<std::vector<::base::FilePath>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetLocalImages_Name, kFlags, 0, 0, nullptr);
@@ -4168,7 +4330,8 @@ void WallpaperProvider_GetDefaultImageThumbnail_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetDefaultImageThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -4296,7 +4459,8 @@ void WallpaperProvider_GetLocalImageThumbnail_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetLocalImageThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -4424,7 +4588,8 @@ void WallpaperProvider_SelectWallpaper_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -4542,7 +4707,8 @@ void WallpaperProvider_SelectDefaultImage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectDefaultImage_Name, kFlags, 0, 0, nullptr);
@@ -4660,7 +4826,8 @@ void WallpaperProvider_SelectLocalImage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectLocalImage_Name, kFlags, 0, 0, nullptr);
@@ -4778,7 +4945,8 @@ void WallpaperProvider_SelectGooglePhotosPhoto_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectGooglePhotosPhoto_Name, kFlags, 0, 0, nullptr);
@@ -4896,7 +5064,8 @@ void WallpaperProvider_SelectGooglePhotosAlbum_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SelectGooglePhotosAlbum_Name, kFlags, 0, 0, nullptr);
@@ -5014,7 +5183,8 @@ void WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Name, kFlags, 0, 0, nullptr);
@@ -5142,7 +5312,8 @@ void WallpaperProvider_SetDailyRefreshCollectionId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_SetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -5260,7 +5431,8 @@ void WallpaperProvider_GetDailyRefreshCollectionId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_GetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -5388,7 +5560,8 @@ void WallpaperProvider_UpdateDailyRefreshWallpaper_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_UpdateDailyRefreshWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -5506,7 +5679,8 @@ void WallpaperProvider_IsInTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperProvider_IsInTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -5519,6 +5693,125 @@ void WallpaperProvider_IsInTabletMode_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WallpaperProvider::Name_);
   message.set_method_name("IsInTabletMode");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static WallpaperProvider::ShouldShowTimeOfDayWallpaperDialogCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder> proxy(
+        new WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "WallpaperProvider::ShouldShowTimeOfDayWallpaperDialogCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_should_show_dialog);
+};
+
+bool WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_should_show_dialog{};
+  WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_should_show_dialog = input_data_view.should_show_dialog();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WallpaperProvider::Name_, 25, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_should_show_dialog));
+  return true;
+}
+
+void WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder::Run(
+    bool in_should_show_dialog) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::personalization_app::mojom::WallpaperProvider::ShouldShowTimeOfDayWallpaperDialog", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("should_show_dialog"), in_should_show_dialog,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->should_show_dialog = in_should_show_dialog;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperProvider::Name_);
+  message.set_method_name("ShouldShowTimeOfDayWallpaperDialog");
 #endif
 
   message.set_request_id(request_id_);
@@ -5737,6 +6030,9 @@ std::move(p_layout));
       impl->CancelPreviewWallpaper();
       return true;
     }
+    case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -5818,7 +6114,7 @@ std::move(p_collection_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_resume_token{};
+      std::optional<std::string> p_resume_token{};
       WallpaperProvider_FetchGooglePhotosAlbums_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadResumeToken(&p_resume_token))
@@ -5847,7 +6143,7 @@ std::move(p_resume_token), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_resume_token{};
+      std::optional<std::string> p_resume_token{};
       WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadResumeToken(&p_resume_token))
@@ -5901,9 +6197,9 @@ std::move(p_resume_token), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_item_id{};
-      absl::optional<std::string> p_album_id{};
-      absl::optional<std::string> p_resume_token{};
+      std::optional<std::string> p_item_id{};
+      std::optional<std::string> p_album_id{};
+      std::optional<std::string> p_resume_token{};
       WallpaperProvider_FetchGooglePhotosPhotos_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadItemId(&p_item_id))
@@ -6311,62 +6607,89 @@ std::move(p_collection_id), std::move(callback));
     case internal::kWallpaperProvider_CancelPreviewWallpaper_Name: {
       break;
     }
+    case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name: {
+
+      internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data* params =
+          reinterpret_cast<
+              internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WallpaperProvider::Name_, 25, false);
+        return false;
+      }
+      WallpaperProvider::ShouldShowTimeOfDayWallpaperDialogCallback callback =
+          WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShouldShowTimeOfDayWallpaperDialog(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWallpaperProviderValidationInfo[] = {
-    {&internal::WallpaperProvider_MakeTransparent_Params_Data::Validate,
+    { &internal::WallpaperProvider_MakeTransparent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperProvider_MakeOpaque_Params_Data::Validate,
+    { &internal::WallpaperProvider_MakeOpaque_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperProvider_FetchCollections_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchCollections_Params_Data::Validate,
      &internal::WallpaperProvider_FetchCollections_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_FetchImagesForCollection_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchImagesForCollection_Params_Data::Validate,
      &internal::WallpaperProvider_FetchImagesForCollection_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_FetchGooglePhotosAlbums_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchGooglePhotosAlbums_Params_Data::Validate,
      &internal::WallpaperProvider_FetchGooglePhotosAlbums_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_FetchGooglePhotosSharedAlbums_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchGooglePhotosSharedAlbums_Params_Data::Validate,
      &internal::WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_FetchGooglePhotosEnabled_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchGooglePhotosEnabled_Params_Data::Validate,
      &internal::WallpaperProvider_FetchGooglePhotosEnabled_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_FetchGooglePhotosPhotos_Params_Data::Validate,
+    { &internal::WallpaperProvider_FetchGooglePhotosPhotos_Params_Data::Validate,
      &internal::WallpaperProvider_FetchGooglePhotosPhotos_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_GetLocalImages_Params_Data::Validate,
+    { &internal::WallpaperProvider_GetLocalImages_Params_Data::Validate,
      &internal::WallpaperProvider_GetLocalImages_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_GetDefaultImageThumbnail_Params_Data::Validate,
+    { &internal::WallpaperProvider_GetDefaultImageThumbnail_Params_Data::Validate,
      &internal::WallpaperProvider_GetDefaultImageThumbnail_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_GetLocalImageThumbnail_Params_Data::Validate,
+    { &internal::WallpaperProvider_GetLocalImageThumbnail_Params_Data::Validate,
      &internal::WallpaperProvider_GetLocalImageThumbnail_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SetWallpaperObserver_Params_Data::Validate,
+    { &internal::WallpaperProvider_SetWallpaperObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperProvider_SelectWallpaper_Params_Data::Validate,
+    { &internal::WallpaperProvider_SelectWallpaper_Params_Data::Validate,
      &internal::WallpaperProvider_SelectWallpaper_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SelectDefaultImage_Params_Data::Validate,
+    { &internal::WallpaperProvider_SelectDefaultImage_Params_Data::Validate,
      &internal::WallpaperProvider_SelectDefaultImage_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SelectLocalImage_Params_Data::Validate,
+    { &internal::WallpaperProvider_SelectLocalImage_Params_Data::Validate,
      &internal::WallpaperProvider_SelectLocalImage_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SelectGooglePhotosPhoto_Params_Data::Validate,
+    { &internal::WallpaperProvider_SelectGooglePhotosPhoto_Params_Data::Validate,
      &internal::WallpaperProvider_SelectGooglePhotosPhoto_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SelectGooglePhotosAlbum_Params_Data::Validate,
+    { &internal::WallpaperProvider_SelectGooglePhotosAlbum_Params_Data::Validate,
      &internal::WallpaperProvider_SelectGooglePhotosAlbum_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Params_Data::Validate,
+    { &internal::WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Params_Data::Validate,
      &internal::WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_SetCurrentWallpaperLayout_Params_Data::Validate,
+    { &internal::WallpaperProvider_SetCurrentWallpaperLayout_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperProvider_SetDailyRefreshCollectionId_Params_Data::Validate,
+    { &internal::WallpaperProvider_SetDailyRefreshCollectionId_Params_Data::Validate,
      &internal::WallpaperProvider_SetDailyRefreshCollectionId_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_GetDailyRefreshCollectionId_Params_Data::Validate,
+    { &internal::WallpaperProvider_GetDailyRefreshCollectionId_Params_Data::Validate,
      &internal::WallpaperProvider_GetDailyRefreshCollectionId_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_UpdateDailyRefreshWallpaper_Params_Data::Validate,
+    { &internal::WallpaperProvider_UpdateDailyRefreshWallpaper_Params_Data::Validate,
      &internal::WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_IsInTabletMode_Params_Data::Validate,
+    { &internal::WallpaperProvider_IsInTabletMode_Params_Data::Validate,
      &internal::WallpaperProvider_IsInTabletMode_ResponseParams_Data::Validate},
-    {&internal::WallpaperProvider_ConfirmPreviewWallpaper_Params_Data::Validate,
+    { &internal::WallpaperProvider_ConfirmPreviewWallpaper_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperProvider_CancelPreviewWallpaper_Params_Data::Validate,
+    { &internal::WallpaperProvider_CancelPreviewWallpaper_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data::Validate,
+     &internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data::Validate},
 };
 
 bool WallpaperProviderRequestValidator::Accept(mojo::Message* message) {
@@ -6529,14 +6852,17 @@ void ThemeObserverProxy::OnColorModeChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeObserver_OnColorModeChanged_Name, kFlags, 0, 0, nullptr);
@@ -6567,14 +6893,17 @@ void ThemeObserverProxy::OnColorModeAutoScheduleChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeObserver_OnColorModeAutoScheduleChanged_Name, kFlags, 0, 0, nullptr);
@@ -6605,14 +6934,17 @@ void ThemeObserverProxy::OnColorSchemeChanged(
                         "<value of type ::ash::style::mojom::ColorScheme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeObserver_OnColorSchemeChanged_Name, kFlags, 0, 0, nullptr);
@@ -6644,14 +6976,17 @@ void ThemeObserverProxy::OnSampleColorSchemesChanged(
                         "<value of type const std::vector<::ash::SampleColorScheme>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeObserver_OnSampleColorSchemesChanged_Name, kFlags, 0, 0, nullptr);
@@ -6683,7 +7018,7 @@ void ThemeObserverProxy::OnSampleColorSchemesChanged(
 }
 
 void ThemeObserverProxy::OnStaticColorChanged(
-    absl::optional<::SkColor> in_color) {
+    std::optional<::SkColor> in_color) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::personalization_app::mojom::ThemeObserver::OnStaticColorChanged", "input_parameters",
@@ -6691,17 +7026,20 @@ void ThemeObserverProxy::OnStaticColorChanged(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
-                        "<value of type absl::optional<::SkColor>>");
+                        "<value of type std::optional<::SkColor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeObserver_OnStaticColorChanged_Name, kFlags, 0, 0, nullptr);
@@ -6843,7 +7181,7 @@ std::move(p_sample_color_schemes));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::SkColor> p_color{};
+      std::optional<::SkColor> p_color{};
       ThemeObserver_OnStaticColorChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadColor(&p_color))
@@ -6892,18 +7230,18 @@ bool ThemeObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThemeObserverValidationInfo[] = {
-    {&internal::ThemeObserver_OnColorModeChanged_Params_Data::Validate,
+    { &internal::ThemeObserver_OnColorModeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeObserver_OnColorModeAutoScheduleChanged_Params_Data::Validate,
+    { &internal::ThemeObserver_OnColorModeAutoScheduleChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeObserver_OnColorSchemeChanged_Params_Data::Validate,
+    { &internal::ThemeObserver_OnColorSchemeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeObserver_OnSampleColorSchemesChanged_Params_Data::Validate,
+    { &internal::ThemeObserver_OnSampleColorSchemesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeObserver_OnStaticColorChanged_Params_Data::Validate,
+    { &internal::ThemeObserver_OnStaticColorChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -7243,14 +7581,17 @@ void ThemeProviderProxy::SetThemeObserver(
                         "<value of type ::mojo::PendingRemote<ThemeObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_SetThemeObserver_Name, kFlags, 0, 0, nullptr);
@@ -7286,14 +7627,17 @@ void ThemeProviderProxy::SetColorModePref(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_SetColorModePref_Name, kFlags, 0, 0, nullptr);
@@ -7324,14 +7668,17 @@ void ThemeProviderProxy::SetColorModeAutoScheduleEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_SetColorModeAutoScheduleEnabled_Name, kFlags, 0, 0, nullptr);
@@ -7362,14 +7709,17 @@ void ThemeProviderProxy::SetColorScheme(
                         "<value of type ::ash::style::mojom::ColorScheme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_SetColorScheme_Name, kFlags, 0, 0, nullptr);
@@ -7401,14 +7751,17 @@ void ThemeProviderProxy::SetStaticColor(
                         "<value of type ::SkColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_SetStaticColor_Name, kFlags, 0, 0, nullptr);
@@ -7442,14 +7795,17 @@ void ThemeProviderProxy::GetColorScheme(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::GetColorScheme");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GetColorScheme_Name, kFlags, 0, 0, nullptr);
@@ -7473,14 +7829,17 @@ void ThemeProviderProxy::GetStaticColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::GetStaticColor");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GetStaticColor_Name, kFlags, 0, 0, nullptr);
@@ -7504,14 +7863,17 @@ void ThemeProviderProxy::GenerateSampleColorSchemes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::GenerateSampleColorSchemes");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GenerateSampleColorSchemes_Name, kFlags, 0, 0, nullptr);
@@ -7535,14 +7897,17 @@ void ThemeProviderProxy::IsColorModeAutoScheduleEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::IsColorModeAutoScheduleEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_IsColorModeAutoScheduleEnabled_Name, kFlags, 0, 0, nullptr);
@@ -7566,14 +7931,17 @@ void ThemeProviderProxy::IsDarkModeEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::IsDarkModeEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_IsDarkModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -7683,7 +8051,8 @@ void ThemeProvider_GetColorScheme_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GetColorScheme_Name, kFlags, 0, 0, nullptr);
@@ -7756,7 +8125,7 @@ class ThemeProvider_GetStaticColor_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      absl::optional<::SkColor> in_static_color);
+      std::optional<::SkColor> in_static_color);
 };
 
 bool ThemeProvider_GetStaticColor_ForwardToCallback::Accept(
@@ -7769,7 +8138,7 @@ bool ThemeProvider_GetStaticColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::SkColor> p_static_color{};
+  std::optional<::SkColor> p_static_color{};
   ThemeProvider_GetStaticColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStaticColor(&p_static_color))
@@ -7788,7 +8157,7 @@ std::move(p_static_color));
 }
 
 void ThemeProvider_GetStaticColor_ProxyToResponder::Run(
-    absl::optional<::SkColor> in_static_color) {
+    std::optional<::SkColor> in_static_color) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::ThemeProvider::GetStaticColor", "async_response_parameters",
@@ -7796,13 +8165,14 @@ void ThemeProvider_GetStaticColor_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("static_color"), in_static_color,
-                        "<value of type absl::optional<::SkColor>>");
+                        "<value of type std::optional<::SkColor>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GetStaticColor_Name, kFlags, 0, 0, nullptr);
@@ -7926,7 +8296,8 @@ void ThemeProvider_GenerateSampleColorSchemes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_GenerateSampleColorSchemes_Name, kFlags, 0, 0, nullptr);
@@ -8056,7 +8427,8 @@ void ThemeProvider_IsColorModeAutoScheduleEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_IsColorModeAutoScheduleEnabled_Name, kFlags, 0, 0, nullptr);
@@ -8174,7 +8546,8 @@ void ThemeProvider_IsDarkModeEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeProvider_IsDarkModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -8509,28 +8882,28 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThemeProviderValidationInfo[] = {
-    {&internal::ThemeProvider_SetThemeObserver_Params_Data::Validate,
+    { &internal::ThemeProvider_SetThemeObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeProvider_SetColorModePref_Params_Data::Validate,
+    { &internal::ThemeProvider_SetColorModePref_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeProvider_SetColorModeAutoScheduleEnabled_Params_Data::Validate,
+    { &internal::ThemeProvider_SetColorModeAutoScheduleEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeProvider_SetColorScheme_Params_Data::Validate,
+    { &internal::ThemeProvider_SetColorScheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeProvider_SetStaticColor_Params_Data::Validate,
+    { &internal::ThemeProvider_SetStaticColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeProvider_GetColorScheme_Params_Data::Validate,
+    { &internal::ThemeProvider_GetColorScheme_Params_Data::Validate,
      &internal::ThemeProvider_GetColorScheme_ResponseParams_Data::Validate},
-    {&internal::ThemeProvider_GetStaticColor_Params_Data::Validate,
+    { &internal::ThemeProvider_GetStaticColor_Params_Data::Validate,
      &internal::ThemeProvider_GetStaticColor_ResponseParams_Data::Validate},
-    {&internal::ThemeProvider_GenerateSampleColorSchemes_Params_Data::Validate,
+    { &internal::ThemeProvider_GenerateSampleColorSchemes_Params_Data::Validate,
      &internal::ThemeProvider_GenerateSampleColorSchemes_ResponseParams_Data::Validate},
-    {&internal::ThemeProvider_IsColorModeAutoScheduleEnabled_Params_Data::Validate,
+    { &internal::ThemeProvider_IsColorModeAutoScheduleEnabled_Params_Data::Validate,
      &internal::ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParams_Data::Validate},
-    {&internal::ThemeProvider_IsDarkModeEnabled_Params_Data::Validate,
+    { &internal::ThemeProvider_IsDarkModeEnabled_Params_Data::Validate,
      &internal::ThemeProvider_IsDarkModeEnabled_ResponseParams_Data::Validate},
 };
 
@@ -8674,14 +9047,17 @@ void UserImageObserverProxy::OnUserImageChanged(
                         "<value of type UserImagePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserImageObserver_OnUserImageChanged_Name, kFlags, 0, 0, nullptr);
@@ -8720,14 +9096,17 @@ void UserImageObserverProxy::OnUserProfileImageUpdated(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserImageObserver_OnUserProfileImageUpdated_Name, kFlags, 0, 0, nullptr);
@@ -8768,14 +9147,17 @@ void UserImageObserverProxy::OnCameraPresenceCheckDone(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserImageObserver_OnCameraPresenceCheckDone_Name, kFlags, 0, 0, nullptr);
@@ -8806,14 +9188,17 @@ void UserImageObserverProxy::OnIsEnterpriseManagedChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserImageObserver_OnIsEnterpriseManagedChanged_Name, kFlags, 0, 0, nullptr);
@@ -8969,16 +9354,16 @@ bool UserImageObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserImageObserverValidationInfo[] = {
-    {&internal::UserImageObserver_OnUserImageChanged_Params_Data::Validate,
+    { &internal::UserImageObserver_OnUserImageChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserImageObserver_OnUserProfileImageUpdated_Params_Data::Validate,
+    { &internal::UserImageObserver_OnUserProfileImageUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserImageObserver_OnCameraPresenceCheckDone_Params_Data::Validate,
+    { &internal::UserImageObserver_OnCameraPresenceCheckDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserImageObserver_OnIsEnterpriseManagedChanged_Params_Data::Validate,
+    { &internal::UserImageObserver_OnIsEnterpriseManagedChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -9230,14 +9615,17 @@ void UserProviderProxy::SetUserImageObserver(
                         "<value of type ::mojo::PendingRemote<UserImageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SetUserImageObserver_Name, kFlags, 0, 0, nullptr);
@@ -9266,14 +9654,17 @@ void UserProviderProxy::GetUserInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::UserProvider::GetUserInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_GetUserInfo_Name, kFlags, 0, 0, nullptr);
@@ -9297,14 +9688,17 @@ void UserProviderProxy::GetDefaultUserImages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::UserProvider::GetDefaultUserImages");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_GetDefaultUserImages_Name, kFlags, 0, 0, nullptr);
@@ -9335,14 +9729,17 @@ void UserProviderProxy::SelectDefaultImage(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SelectDefaultImage_Name, kFlags, 0, 0, nullptr);
@@ -9366,14 +9763,17 @@ void UserProviderProxy::SelectProfileImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::UserProvider::SelectProfileImage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SelectProfileImage_Name, kFlags, 0, 0, nullptr);
@@ -9403,14 +9803,17 @@ void UserProviderProxy::SelectCameraImage(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SelectCameraImage_Name, kFlags, 0, 0, nullptr);
@@ -9442,14 +9845,17 @@ void UserProviderProxy::SelectImageFromDisk(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::UserProvider::SelectImageFromDisk");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SelectImageFromDisk_Name, kFlags, 0, 0, nullptr);
@@ -9472,14 +9878,17 @@ void UserProviderProxy::SelectLastExternalUserImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::UserProvider::SelectLastExternalUserImage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_SelectLastExternalUserImage_Name, kFlags, 0, 0, nullptr);
@@ -9588,7 +9997,8 @@ void UserProvider_GetUserInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_GetUserInfo_Name, kFlags, 0, 0, nullptr);
@@ -9716,7 +10126,8 @@ void UserProvider_GetDefaultUserImages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUserProvider_GetDefaultUserImages_Name, kFlags, 0, 0, nullptr);
@@ -9996,24 +10407,24 @@ bool UserProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUserProviderValidationInfo[] = {
-    {&internal::UserProvider_SetUserImageObserver_Params_Data::Validate,
+    { &internal::UserProvider_SetUserImageObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserProvider_GetUserInfo_Params_Data::Validate,
+    { &internal::UserProvider_GetUserInfo_Params_Data::Validate,
      &internal::UserProvider_GetUserInfo_ResponseParams_Data::Validate},
-    {&internal::UserProvider_GetDefaultUserImages_Params_Data::Validate,
+    { &internal::UserProvider_GetDefaultUserImages_Params_Data::Validate,
      &internal::UserProvider_GetDefaultUserImages_ResponseParams_Data::Validate},
-    {&internal::UserProvider_SelectDefaultImage_Params_Data::Validate,
+    { &internal::UserProvider_SelectDefaultImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserProvider_SelectProfileImage_Params_Data::Validate,
+    { &internal::UserProvider_SelectProfileImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserProvider_SelectCameraImage_Params_Data::Validate,
+    { &internal::UserProvider_SelectCameraImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserProvider_SelectImageFromDisk_Params_Data::Validate,
+    { &internal::UserProvider_SelectImageFromDisk_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UserProvider_SelectLastExternalUserImage_Params_Data::Validate,
+    { &internal::UserProvider_SelectLastExternalUserImage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -10237,14 +10648,17 @@ void AmbientObserverProxy::OnAmbientModeEnabledChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnAmbientModeEnabledChanged_Name, kFlags, 0, 0, nullptr);
@@ -10275,14 +10689,17 @@ void AmbientObserverProxy::OnAmbientThemeChanged(
                         "<value of type AmbientTheme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnAmbientThemeChanged_Name, kFlags, 0, 0, nullptr);
@@ -10314,14 +10731,17 @@ void AmbientObserverProxy::OnTopicSourceChanged(
                         "<value of type TopicSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnTopicSourceChanged_Name, kFlags, 0, 0, nullptr);
@@ -10353,14 +10773,17 @@ void AmbientObserverProxy::OnScreenSaverDurationChanged(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnScreenSaverDurationChanged_Name, kFlags, 0, 0, nullptr);
@@ -10391,14 +10814,17 @@ void AmbientObserverProxy::OnTemperatureUnitChanged(
                         "<value of type ::ash::AmbientModeTemperatureUnit>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnTemperatureUnitChanged_Name, kFlags, 0, 0, nullptr);
@@ -10430,14 +10856,17 @@ void AmbientObserverProxy::OnAlbumsChanged(
                         "<value of type std::vector<AmbientModeAlbumPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnAlbumsChanged_Name, kFlags, 0, 0, nullptr);
@@ -10480,14 +10909,17 @@ void AmbientObserverProxy::OnPreviewsFetched(
                         "<value of type const std::vector<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnPreviewsFetched_Name, kFlags, 0, 0, nullptr);
@@ -10530,14 +10962,17 @@ void AmbientObserverProxy::OnAmbientUiVisibilityChanged(
                         "<value of type ::ash::AmbientUiVisibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -10810,24 +11245,24 @@ bool AmbientObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAmbientObserverValidationInfo[] = {
-    {&internal::AmbientObserver_OnAmbientModeEnabledChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnAmbientModeEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnAmbientThemeChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnAmbientThemeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnTopicSourceChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnTopicSourceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnScreenSaverDurationChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnScreenSaverDurationChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnTemperatureUnitChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnTemperatureUnitChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnAlbumsChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnAlbumsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnPreviewsFetched_Params_Data::Validate,
+    { &internal::AmbientObserver_OnPreviewsFetched_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data::Validate,
+    { &internal::AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -11172,14 +11607,17 @@ void AmbientProviderProxy::IsAmbientModeEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::IsAmbientModeEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_IsAmbientModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -11210,14 +11648,17 @@ void AmbientProviderProxy::SetAmbientModeEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetAmbientModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -11248,14 +11689,17 @@ void AmbientProviderProxy::SetAmbientObserver(
                         "<value of type ::mojo::PendingRemote<AmbientObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetAmbientObserver_Name, kFlags, 0, 0, nullptr);
@@ -11291,14 +11735,17 @@ void AmbientProviderProxy::SetAmbientTheme(
                         "<value of type AmbientTheme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetAmbientTheme_Name, kFlags, 0, 0, nullptr);
@@ -11330,14 +11777,17 @@ void AmbientProviderProxy::SetScreenSaverDuration(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetScreenSaverDuration_Name, kFlags, 0, 0, nullptr);
@@ -11368,14 +11818,17 @@ void AmbientProviderProxy::SetTopicSource(
                         "<value of type TopicSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetTopicSource_Name, kFlags, 0, 0, nullptr);
@@ -11407,14 +11860,17 @@ void AmbientProviderProxy::SetTemperatureUnit(
                         "<value of type ::ash::AmbientModeTemperatureUnit>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetTemperatureUnit_Name, kFlags, 0, 0, nullptr);
@@ -11452,14 +11908,17 @@ void AmbientProviderProxy::SetAlbumSelected(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetAlbumSelected_Name, kFlags, 0, 0, nullptr);
@@ -11496,14 +11955,17 @@ void AmbientProviderProxy::SetPageViewed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::SetPageViewed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_SetPageViewed_Name, kFlags, 0, 0, nullptr);
@@ -11526,14 +11988,17 @@ void AmbientProviderProxy::FetchSettingsAndAlbums(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::FetchSettingsAndAlbums");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_FetchSettingsAndAlbums_Name, kFlags, 0, 0, nullptr);
@@ -11556,14 +12021,17 @@ void AmbientProviderProxy::StartScreenSaverPreview(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::StartScreenSaverPreview");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_StartScreenSaverPreview_Name, kFlags, 0, 0, nullptr);
@@ -11586,14 +12054,17 @@ void AmbientProviderProxy::ShouldShowTimeOfDayBanner(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::ShouldShowTimeOfDayBanner");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_ShouldShowTimeOfDayBanner_Name, kFlags, 0, 0, nullptr);
@@ -11617,14 +12088,17 @@ void AmbientProviderProxy::HandleTimeOfDayBannerDismissed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::HandleTimeOfDayBannerDismissed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_HandleTimeOfDayBannerDismissed_Name, kFlags, 0, 0, nullptr);
@@ -11733,7 +12207,8 @@ void AmbientProvider_IsAmbientModeEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_IsAmbientModeEnabled_Name, kFlags, 0, 0, nullptr);
@@ -11851,7 +12326,8 @@ void AmbientProvider_ShouldShowTimeOfDayBanner_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAmbientProvider_ShouldShowTimeOfDayBanner_Name, kFlags, 0, 0, nullptr);
@@ -12268,34 +12744,34 @@ bool AmbientProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAmbientProviderValidationInfo[] = {
-    {&internal::AmbientProvider_IsAmbientModeEnabled_Params_Data::Validate,
+    { &internal::AmbientProvider_IsAmbientModeEnabled_Params_Data::Validate,
      &internal::AmbientProvider_IsAmbientModeEnabled_ResponseParams_Data::Validate},
-    {&internal::AmbientProvider_SetAmbientModeEnabled_Params_Data::Validate,
+    { &internal::AmbientProvider_SetAmbientModeEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetAmbientObserver_Params_Data::Validate,
+    { &internal::AmbientProvider_SetAmbientObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetAmbientTheme_Params_Data::Validate,
+    { &internal::AmbientProvider_SetAmbientTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetScreenSaverDuration_Params_Data::Validate,
+    { &internal::AmbientProvider_SetScreenSaverDuration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetTopicSource_Params_Data::Validate,
+    { &internal::AmbientProvider_SetTopicSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetTemperatureUnit_Params_Data::Validate,
+    { &internal::AmbientProvider_SetTemperatureUnit_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetAlbumSelected_Params_Data::Validate,
+    { &internal::AmbientProvider_SetAlbumSelected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_SetPageViewed_Params_Data::Validate,
+    { &internal::AmbientProvider_SetPageViewed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_FetchSettingsAndAlbums_Params_Data::Validate,
+    { &internal::AmbientProvider_FetchSettingsAndAlbums_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_StartScreenSaverPreview_Params_Data::Validate,
+    { &internal::AmbientProvider_StartScreenSaverPreview_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AmbientProvider_ShouldShowTimeOfDayBanner_Params_Data::Validate,
+    { &internal::AmbientProvider_ShouldShowTimeOfDayBanner_Params_Data::Validate,
      &internal::AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParams_Data::Validate},
-    {&internal::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data::Validate,
+    { &internal::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -12399,14 +12875,17 @@ void KeyboardBacklightObserverProxy::OnBacklightStateChanged(
                         "<value of type CurrentBacklightStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightObserver_OnBacklightStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -12445,14 +12924,17 @@ void KeyboardBacklightObserverProxy::OnWallpaperColorChanged(
                         "<value of type ::SkColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightObserver_OnWallpaperColorChanged_Name, kFlags, 0, 0, nullptr);
@@ -12560,12 +13042,12 @@ bool KeyboardBacklightObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardBacklightObserverValidationInfo[] = {
-    {&internal::KeyboardBacklightObserver_OnBacklightStateChanged_Params_Data::Validate,
+    { &internal::KeyboardBacklightObserver_OnBacklightStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardBacklightObserver_OnWallpaperColorChanged_Params_Data::Validate,
+    { &internal::KeyboardBacklightObserver_OnWallpaperColorChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -12741,14 +13223,17 @@ void KeyboardBacklightProviderProxy::SetKeyboardBacklightObserver(
                         "<value of type ::mojo::PendingRemote<KeyboardBacklightObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_SetKeyboardBacklightObserver_Name, kFlags, 0, 0, nullptr);
@@ -12784,14 +13269,17 @@ void KeyboardBacklightProviderProxy::SetBacklightColor(
                         "<value of type BacklightColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_SetBacklightColor_Name, kFlags, 0, 0, nullptr);
@@ -12826,14 +13314,17 @@ void KeyboardBacklightProviderProxy::SetBacklightZoneColor(
                         "<value of type BacklightColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_SetBacklightZoneColor_Name, kFlags, 0, 0, nullptr);
@@ -12859,14 +13350,17 @@ void KeyboardBacklightProviderProxy::ShouldShowNudge(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::KeyboardBacklightProvider::ShouldShowNudge");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_ShouldShowNudge_Name, kFlags, 0, 0, nullptr);
@@ -12890,14 +13384,17 @@ void KeyboardBacklightProviderProxy::HandleNudgeShown(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::KeyboardBacklightProvider::HandleNudgeShown");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_HandleNudgeShown_Name, kFlags, 0, 0, nullptr);
@@ -13006,7 +13503,8 @@ void KeyboardBacklightProvider_ShouldShowNudge_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardBacklightProvider_ShouldShowNudge_Name, kFlags, 0, 0, nullptr);
@@ -13200,18 +13698,18 @@ bool KeyboardBacklightProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardBacklightProviderValidationInfo[] = {
-    {&internal::KeyboardBacklightProvider_SetKeyboardBacklightObserver_Params_Data::Validate,
+    { &internal::KeyboardBacklightProvider_SetKeyboardBacklightObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardBacklightProvider_SetBacklightColor_Params_Data::Validate,
+    { &internal::KeyboardBacklightProvider_SetBacklightColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardBacklightProvider_SetBacklightZoneColor_Params_Data::Validate,
+    { &internal::KeyboardBacklightProvider_SetBacklightZoneColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardBacklightProvider_ShouldShowNudge_Params_Data::Validate,
+    { &internal::KeyboardBacklightProvider_ShouldShowNudge_Params_Data::Validate,
      &internal::KeyboardBacklightProvider_ShouldShowNudge_ResponseParams_Data::Validate},
-    {&internal::KeyboardBacklightProvider_HandleNudgeShown_Params_Data::Validate,
+    { &internal::KeyboardBacklightProvider_HandleNudgeShown_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -13635,16 +14133,16 @@ void WallpaperProviderInterceptorForTesting::FetchCollections(FetchCollectionsCa
 void WallpaperProviderInterceptorForTesting::FetchImagesForCollection(const std::string& collection_id, FetchImagesForCollectionCallback callback) {
   GetForwardingInterface()->FetchImagesForCollection(std::move(collection_id), std::move(callback));
 }
-void WallpaperProviderInterceptorForTesting::FetchGooglePhotosAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) {
+void WallpaperProviderInterceptorForTesting::FetchGooglePhotosAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsCallback callback) {
   GetForwardingInterface()->FetchGooglePhotosAlbums(std::move(resume_token), std::move(callback));
 }
-void WallpaperProviderInterceptorForTesting::FetchGooglePhotosSharedAlbums(const absl::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) {
+void WallpaperProviderInterceptorForTesting::FetchGooglePhotosSharedAlbums(const std::optional<std::string>& resume_token, FetchGooglePhotosSharedAlbumsCallback callback) {
   GetForwardingInterface()->FetchGooglePhotosSharedAlbums(std::move(resume_token), std::move(callback));
 }
 void WallpaperProviderInterceptorForTesting::FetchGooglePhotosEnabled(FetchGooglePhotosEnabledCallback callback) {
   GetForwardingInterface()->FetchGooglePhotosEnabled(std::move(callback));
 }
-void WallpaperProviderInterceptorForTesting::FetchGooglePhotosPhotos(const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) {
+void WallpaperProviderInterceptorForTesting::FetchGooglePhotosPhotos(const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosCallback callback) {
   GetForwardingInterface()->FetchGooglePhotosPhotos(std::move(item_id), std::move(album_id), std::move(resume_token), std::move(callback));
 }
 void WallpaperProviderInterceptorForTesting::GetLocalImages(GetLocalImagesCallback callback) {
@@ -13698,20 +14196,23 @@ void WallpaperProviderInterceptorForTesting::ConfirmPreviewWallpaper() {
 void WallpaperProviderInterceptorForTesting::CancelPreviewWallpaper() {
   GetForwardingInterface()->CancelPreviewWallpaper();
 }
+void WallpaperProviderInterceptorForTesting::ShouldShowTimeOfDayWallpaperDialog(ShouldShowTimeOfDayWallpaperDialogCallback callback) {
+  GetForwardingInterface()->ShouldShowTimeOfDayWallpaperDialog(std::move(callback));
+}
 WallpaperProviderAsyncWaiter::WallpaperProviderAsyncWaiter(
     WallpaperProvider* proxy) : proxy_(proxy) {}
 
 WallpaperProviderAsyncWaiter::~WallpaperProviderAsyncWaiter() = default;
 
 void WallpaperProviderAsyncWaiter::FetchCollections(
-    absl::optional<std::vector<::backdrop::Collection>>* out_collections) {
+    std::optional<std::vector<::backdrop::Collection>>* out_collections) {
   base::RunLoop loop;
   proxy_->FetchCollections(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::backdrop::Collection>>* out_collections
+             std::optional<std::vector<::backdrop::Collection>>* out_collections
 ,
-             const absl::optional<std::vector<::backdrop::Collection>>& collections) {*out_collections = std::move(collections);
+             const std::optional<std::vector<::backdrop::Collection>>& collections) {*out_collections = std::move(collections);
             loop->Quit();
           },
           &loop,
@@ -13719,22 +14220,22 @@ void WallpaperProviderAsyncWaiter::FetchCollections(
   loop.Run();
 }
 
-absl::optional<std::vector<::backdrop::Collection>> WallpaperProviderAsyncWaiter::FetchCollections(
+std::optional<std::vector<::backdrop::Collection>> WallpaperProviderAsyncWaiter::FetchCollections(
     ) {
-  absl::optional<std::vector<::backdrop::Collection>> async_wait_result;
+  std::optional<std::vector<::backdrop::Collection>> async_wait_result;
   FetchCollections(&async_wait_result);
   return async_wait_result;
 }
 
 void WallpaperProviderAsyncWaiter::FetchImagesForCollection(
-    const std::string& collection_id, absl::optional<std::vector<::backdrop::Image>>* out_images) {
+    const std::string& collection_id, std::optional<std::vector<::backdrop::Image>>* out_images) {
   base::RunLoop loop;
   proxy_->FetchImagesForCollection(std::move(collection_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::backdrop::Image>>* out_images
+             std::optional<std::vector<::backdrop::Image>>* out_images
 ,
-             const absl::optional<std::vector<::backdrop::Image>>& images) {*out_images = std::move(images);
+             const std::optional<std::vector<::backdrop::Image>>& images) {*out_images = std::move(images);
             loop->Quit();
           },
           &loop,
@@ -13742,15 +14243,15 @@ void WallpaperProviderAsyncWaiter::FetchImagesForCollection(
   loop.Run();
 }
 
-absl::optional<std::vector<::backdrop::Image>> WallpaperProviderAsyncWaiter::FetchImagesForCollection(
+std::optional<std::vector<::backdrop::Image>> WallpaperProviderAsyncWaiter::FetchImagesForCollection(
     const std::string& collection_id) {
-  absl::optional<std::vector<::backdrop::Image>> async_wait_result;
+  std::optional<std::vector<::backdrop::Image>> async_wait_result;
   FetchImagesForCollection(std::move(collection_id),&async_wait_result);
   return async_wait_result;
 }
 
 void WallpaperProviderAsyncWaiter::FetchGooglePhotosAlbums(
-    const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response) {
+    const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->FetchGooglePhotosAlbums(std::move(resume_token),
       base::BindOnce(
@@ -13766,14 +14267,14 @@ void WallpaperProviderAsyncWaiter::FetchGooglePhotosAlbums(
 }
 
 FetchGooglePhotosAlbumsResponsePtr WallpaperProviderAsyncWaiter::FetchGooglePhotosAlbums(
-    const absl::optional<std::string>& resume_token) {
+    const std::optional<std::string>& resume_token) {
   FetchGooglePhotosAlbumsResponsePtr async_wait_result;
   FetchGooglePhotosAlbums(std::move(resume_token),&async_wait_result);
   return async_wait_result;
 }
 
 void WallpaperProviderAsyncWaiter::FetchGooglePhotosSharedAlbums(
-    const absl::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response) {
+    const std::optional<std::string>& resume_token, FetchGooglePhotosAlbumsResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->FetchGooglePhotosSharedAlbums(std::move(resume_token),
       base::BindOnce(
@@ -13789,7 +14290,7 @@ void WallpaperProviderAsyncWaiter::FetchGooglePhotosSharedAlbums(
 }
 
 FetchGooglePhotosAlbumsResponsePtr WallpaperProviderAsyncWaiter::FetchGooglePhotosSharedAlbums(
-    const absl::optional<std::string>& resume_token) {
+    const std::optional<std::string>& resume_token) {
   FetchGooglePhotosAlbumsResponsePtr async_wait_result;
   FetchGooglePhotosSharedAlbums(std::move(resume_token),&async_wait_result);
   return async_wait_result;
@@ -13819,7 +14320,7 @@ GooglePhotosEnablementState WallpaperProviderAsyncWaiter::FetchGooglePhotosEnabl
 }
 
 void WallpaperProviderAsyncWaiter::FetchGooglePhotosPhotos(
-    const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token, FetchGooglePhotosPhotosResponsePtr* out_response) {
+    const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token, FetchGooglePhotosPhotosResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->FetchGooglePhotosPhotos(std::move(item_id),std::move(album_id),std::move(resume_token),
       base::BindOnce(
@@ -13835,21 +14336,21 @@ void WallpaperProviderAsyncWaiter::FetchGooglePhotosPhotos(
 }
 
 FetchGooglePhotosPhotosResponsePtr WallpaperProviderAsyncWaiter::FetchGooglePhotosPhotos(
-    const absl::optional<std::string>& item_id, const absl::optional<std::string>& album_id, const absl::optional<std::string>& resume_token) {
+    const std::optional<std::string>& item_id, const std::optional<std::string>& album_id, const std::optional<std::string>& resume_token) {
   FetchGooglePhotosPhotosResponsePtr async_wait_result;
   FetchGooglePhotosPhotos(std::move(item_id),std::move(album_id),std::move(resume_token),&async_wait_result);
   return async_wait_result;
 }
 
 void WallpaperProviderAsyncWaiter::GetLocalImages(
-    absl::optional<std::vector<::base::FilePath>>* out_images) {
+    std::optional<std::vector<::base::FilePath>>* out_images) {
   base::RunLoop loop;
   proxy_->GetLocalImages(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::base::FilePath>>* out_images
+             std::optional<std::vector<::base::FilePath>>* out_images
 ,
-             const absl::optional<std::vector<::base::FilePath>>& images) {*out_images = std::move(images);
+             const std::optional<std::vector<::base::FilePath>>& images) {*out_images = std::move(images);
             loop->Quit();
           },
           &loop,
@@ -13857,9 +14358,9 @@ void WallpaperProviderAsyncWaiter::GetLocalImages(
   loop.Run();
 }
 
-absl::optional<std::vector<::base::FilePath>> WallpaperProviderAsyncWaiter::GetLocalImages(
+std::optional<std::vector<::base::FilePath>> WallpaperProviderAsyncWaiter::GetLocalImages(
     ) {
-  absl::optional<std::vector<::base::FilePath>> async_wait_result;
+  std::optional<std::vector<::base::FilePath>> async_wait_result;
   GetLocalImages(&async_wait_result);
   return async_wait_result;
 }
@@ -14140,6 +14641,29 @@ bool WallpaperProviderAsyncWaiter::IsInTabletMode(
   return async_wait_result;
 }
 
+void WallpaperProviderAsyncWaiter::ShouldShowTimeOfDayWallpaperDialog(
+    bool* out_should_show_dialog) {
+  base::RunLoop loop;
+  proxy_->ShouldShowTimeOfDayWallpaperDialog(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_should_show_dialog
+,
+             bool should_show_dialog) {*out_should_show_dialog = std::move(should_show_dialog);
+            loop->Quit();
+          },
+          &loop,
+          out_should_show_dialog));
+  loop.Run();
+}
+
+bool WallpaperProviderAsyncWaiter::ShouldShowTimeOfDayWallpaperDialog(
+    ) {
+  bool async_wait_result;
+  ShouldShowTimeOfDayWallpaperDialog(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -14155,7 +14679,7 @@ void ThemeObserverInterceptorForTesting::OnColorSchemeChanged(::ash::style::mojo
 void ThemeObserverInterceptorForTesting::OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) {
   GetForwardingInterface()->OnSampleColorSchemesChanged(std::move(sample_color_schemes));
 }
-void ThemeObserverInterceptorForTesting::OnStaticColorChanged(absl::optional<::SkColor> color) {
+void ThemeObserverInterceptorForTesting::OnStaticColorChanged(std::optional<::SkColor> color) {
   GetForwardingInterface()->OnStaticColorChanged(std::move(color));
 }
 ThemeObserverAsyncWaiter::ThemeObserverAsyncWaiter(
@@ -14225,14 +14749,14 @@ void ThemeProviderAsyncWaiter::GetColorScheme(
 }
 
 void ThemeProviderAsyncWaiter::GetStaticColor(
-    absl::optional<::SkColor>* out_static_color) {
+    std::optional<::SkColor>* out_static_color) {
   base::RunLoop loop;
   proxy_->GetStaticColor(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::SkColor>* out_static_color
+             std::optional<::SkColor>* out_static_color
 ,
-             absl::optional<::SkColor> static_color) {*out_static_color = std::move(static_color);
+             std::optional<::SkColor> static_color) {*out_static_color = std::move(static_color);
             loop->Quit();
           },
           &loop,
@@ -14240,9 +14764,9 @@ void ThemeProviderAsyncWaiter::GetStaticColor(
   loop.Run();
 }
 
-absl::optional<::SkColor> ThemeProviderAsyncWaiter::GetStaticColor(
+std::optional<::SkColor> ThemeProviderAsyncWaiter::GetStaticColor(
     ) {
-  absl::optional<::SkColor> async_wait_result;
+  std::optional<::SkColor> async_wait_result;
   GetStaticColor(&async_wait_result);
   return async_wait_result;
 }

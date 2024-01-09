@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/system/diagnostics/mojom/input.mojom-features.h"
 #include "ash/system/diagnostics/mojom/input.mojom-shared.h"
 #include "ash/system/diagnostics/mojom/input.mojom-forward.h"
 #include <string>
@@ -77,7 +78,7 @@ class  KeyboardInfo {
       const std::string& name,
       PhysicalLayout physical_layout,
       MechanicalLayout mechanical_layout,
-      const absl::optional<std::string>& region_code,
+      const std::optional<std::string>& region_code,
       NumberPadPresence number_pad_present,
       std::vector<TopRowKey> top_row_keys,
       TopRightKey top_right_key,
@@ -169,7 +170,7 @@ class  KeyboardInfo {
   
   MechanicalLayout mechanical_layout;
   
-  absl::optional<std::string> region_code;
+  std::optional<std::string> region_code;
   
   NumberPadPresence number_pad_present;
   

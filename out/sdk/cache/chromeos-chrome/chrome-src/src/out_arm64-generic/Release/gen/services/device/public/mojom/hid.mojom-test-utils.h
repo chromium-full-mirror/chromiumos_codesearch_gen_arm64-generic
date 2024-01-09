@@ -79,13 +79,13 @@ class  HidConnectionAsyncWaiter {
 
   ~HidConnectionAsyncWaiter();
   void Read(
-      bool* out_success, uint8_t* out_report_id, absl::optional<std::vector<uint8_t>>* out_buffer);
+      bool* out_success, uint8_t* out_report_id, std::optional<std::vector<uint8_t>>* out_buffer);
   
   void Write(
       uint8_t report_id, const std::vector<uint8_t>& buffer, bool* out_success);
   bool Write(uint8_t report_id, const std::vector<uint8_t>& buffer);
   void GetFeatureReport(
-      uint8_t report_id, bool* out_success, absl::optional<std::vector<uint8_t>>* out_buffer);
+      uint8_t report_id, bool* out_success, std::optional<std::vector<uint8_t>>* out_buffer);
   
   void SendFeatureReport(
       uint8_t report_id, const std::vector<uint8_t>& buffer, bool* out_success);

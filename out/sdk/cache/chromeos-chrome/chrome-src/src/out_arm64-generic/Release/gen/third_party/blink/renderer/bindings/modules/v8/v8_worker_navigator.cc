@@ -75,8 +75,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.storageBuckets.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = StorageBucketManager::storageBuckets(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -89,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.hid.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HID::hid(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.locks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = LockManager::locks(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.mediaCapabilities.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = MediaCapabilities::mediaCapabilities(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.ml.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorML::ml(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -151,7 +156,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNetInfo);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NetworkInformation::connection(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -164,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.permissions.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Permissions::permissions(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -178,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.storage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorStorageQuota::storage(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -192,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.wakeLock.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = WakeLock::wakeLock(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -206,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.gpu.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = GPU::gpu(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -220,8 +229,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.usb.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = USB::usb(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -234,8 +244,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.serial.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = Serial::serial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -256,7 +267,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorHardwareConcu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hardwareConcurrency();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 // [HighEntropy=Direct]
@@ -279,7 +290,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorDeviceMemory)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceMemory();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 // [HighEntropy=Direct]
@@ -294,10 +305,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.appCodeName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->appCodeName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->appCodeName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -309,10 +320,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.appName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->appName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->appName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -332,7 +343,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorAppVersion);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->appVersion();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -355,7 +366,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorPlatform);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->platform();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -370,10 +381,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.product.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->product();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->product();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -393,7 +404,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorUserAgent);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userAgent();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -416,7 +427,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorLanguage);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->language();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -438,7 +449,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNavigatorLanguages);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -478,8 +489,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.onLine.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onLine();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -492,8 +504,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerNavigator.userAgentData.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userAgentData();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -529,7 +542,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBadgeClear);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = NavigatorBadge::clearAppBadge(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -570,7 +583,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(v8_receiver);
+WorkerNavigator* blink_receiver = V8WorkerNavigator::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = NavigatorBadge::setAppBadge(script_state, *blink_receiver, exception_state);
 break;

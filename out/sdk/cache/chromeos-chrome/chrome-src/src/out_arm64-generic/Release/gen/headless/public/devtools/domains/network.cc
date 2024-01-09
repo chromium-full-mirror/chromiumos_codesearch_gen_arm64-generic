@@ -365,7 +365,7 @@ void Domain::SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> para
   dispatcher_->SendMessage("Network.setExtraHTTPHeaders", params->Serialize(), base::BindOnce(&Domain::HandleSetExtraHTTPHeadersResponse, std::move(callback)));
 }
 
-void Domain::SetExtraHTTPHeaders(absl::optional<base::Value::Dict> headers, base::OnceClosure callback) {
+void Domain::SetExtraHTTPHeaders(std::optional<base::Value::Dict> headers, base::OnceClosure callback) {
   std::unique_ptr<SetExtraHTTPHeadersParams> params = SetExtraHTTPHeadersParams::Builder()
       .SetHeaders(std::move(headers))
       .Build();
@@ -392,6 +392,9 @@ void Domain::SetUserAgentOverride(const std::string& user_agent, base::OnceClosu
 }
 void Domain::SetUserAgentOverride(std::unique_ptr<SetUserAgentOverrideParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Network.setUserAgentOverride", params->Serialize(), std::move(callback));
+}
+void ExperimentalDomain::StreamResourceContent(std::unique_ptr<StreamResourceContentParams> params, base::OnceCallback<void(std::unique_ptr<StreamResourceContentResult>)> callback) {
+  dispatcher_->SendMessage("Network.streamResourceContent", params->Serialize(), base::BindOnce(&Domain::HandleStreamResourceContentResponse, std::move(callback)));
 }
 void ExperimentalDomain::GetSecurityIsolationStatus(std::unique_ptr<GetSecurityIsolationStatusParams> params, base::OnceCallback<void(std::unique_ptr<GetSecurityIsolationStatusResult>)> callback) {
   dispatcher_->SendMessage("Network.getSecurityIsolationStatus", params->Serialize(), base::BindOnce(&Domain::HandleGetSecurityIsolationStatusResponse, std::move(callback)));
@@ -850,6 +853,21 @@ void Domain::HandleSetUserAgentOverrideResponse(base::OnceCallback<void(std::uni
   }
   ErrorReporter errors;
   std::unique_ptr<SetUserAgentOverrideResult> result = SetUserAgentOverrideResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleStreamResourceContentResponse(base::OnceCallback<void(std::unique_ptr<StreamResourceContentResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<StreamResourceContentResult> result = StreamResourceContentResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

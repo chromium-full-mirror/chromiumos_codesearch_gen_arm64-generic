@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,7 +53,7 @@ DisplayConfigurationParams::DisplayConfigurationParams()
 DisplayConfigurationParams::DisplayConfigurationParams(
     int64_t id_in,
     const ::gfx::Point& origin_in,
-    absl::optional<::std::unique_ptr<::display::DisplayMode>> mode_in,
+    std::optional<::std::unique_ptr<::display::DisplayMode>> mode_in,
     bool enable_vrr_in)
     : id(std::move(id_in)),
       origin(std::move(origin_in)),
@@ -86,7 +87,7 @@ void DisplayConfigurationParams::WriteIntoTrace(
     dict.AddItem(
       "mode"), this->mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::std::unique_ptr<::display::DisplayMode>>>"
+      "<value of type std::optional<::std::unique_ptr<::display::DisplayMode>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

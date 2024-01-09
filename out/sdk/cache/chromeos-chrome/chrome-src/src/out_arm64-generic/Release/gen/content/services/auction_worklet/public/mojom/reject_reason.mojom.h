@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/services/auction_worklet/public/mojom/reject_reason.mojom-features.h"
 #include "content/services/auction_worklet/public/mojom/reject_reason.mojom-shared.h"
 #include "content/services/auction_worklet/public/mojom/reject_reason.mojom-forward.h"
 #include <string>

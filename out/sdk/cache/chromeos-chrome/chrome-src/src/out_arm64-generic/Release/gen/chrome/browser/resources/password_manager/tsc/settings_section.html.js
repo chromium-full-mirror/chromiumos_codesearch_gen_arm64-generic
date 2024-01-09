@@ -17,7 +17,7 @@ export function getTemplate() {
   </pref-toggle-button>
   
   <template is="dom-if" if="[[isEligibleForAccountStorage]]">
-    <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[accountEmail]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
+    <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
     </pref-toggle-button>
   </template>
   <cr-link-row id="trustedVaultBanner" class="cr-row" label="[[getTrustedVaultBannerTitle_(trustedVaultBannerState_)]]" sub-label="[[getTrustedVaultBannerDescription_(trustedVaultBannerState_)]]" hidden$="[[shouldHideTrustedVaultBanner_(trustedVaultBannerState_)]]" button-aria-description="$i18n{opensInNewTab}" on-click="onTrustedVaultBannerClick_" external>

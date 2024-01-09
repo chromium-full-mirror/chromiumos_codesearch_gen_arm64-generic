@@ -54,6 +54,31 @@ struct NtpBackgroundImageSource_Data {
       case 2:
       case 3:
       case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct IphFeature_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
         return true;
     }
     return false;
@@ -430,11 +455,12 @@ class  Theme_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> text_color;
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> background_color;
+  uint8_t is_baseline : 1;
   uint8_t is_custom_background : 1;
   uint8_t daily_refresh_enabled : 1;
   uint8_t is_dark : 1;
   uint8_t theme_realbox_icons : 1;
-  uint8_t pad5_[7];
+  uint8_t pad6_[7];
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> logo_color;
   mojo::internal::Pointer<mojo::internal::String_Data> background_image_collection_id;
   mojo::internal::Pointer<internal::BackgroundImage_Data> background_image;

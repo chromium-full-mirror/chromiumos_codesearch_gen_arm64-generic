@@ -16,6 +16,7 @@
 #include "extensions/common/mojom/extra_response_data.mojom-shared-internal.h"
 #include "extensions/common/mojom/frame.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/values.mojom-shared-internal.h"
+#include "extensions/common/mojom/message_port.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"

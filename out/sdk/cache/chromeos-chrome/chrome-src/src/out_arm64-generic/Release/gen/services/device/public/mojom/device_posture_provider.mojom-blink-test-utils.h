@@ -18,6 +18,8 @@ class BLINK_PLATFORM_EXPORT DevicePostureProviderInterceptorForTesting : public 
   virtual DevicePostureProvider* GetForwardingInterface() = 0;
   void AddListenerAndGetCurrentPosture(::mojo::PendingRemote<DevicePostureClient> client, AddListenerAndGetCurrentPostureCallback callback) override;
   void AddListenerAndGetCurrentViewportSegments(::mojo::PendingRemote<DeviceViewportSegmentsClient> client, AddListenerAndGetCurrentViewportSegmentsCallback callback) override;
+  void OverrideDevicePostureForEmulation(DevicePostureType posture) override;
+  void DisableDevicePostureOverrideForEmulation() override;
 };
 class BLINK_PLATFORM_EXPORT DevicePostureProviderAsyncWaiter {
  public:

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MIDIOutputMap>::value,
     "MIDIOutputMap inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MIDIOutputMap::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIOutputMap is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIOutputMap.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -105,12 +101,12 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIOutputMap.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MIDIOutputMap";
 const char* const property_name = "entries";
@@ -143,7 +139,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -188,7 +184,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -224,7 +220,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -250,12 +246,12 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIOutputMap.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MIDIOutputMap";
 const char* const property_name = "keys";
@@ -278,12 +274,12 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIOutputMap.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(v8_receiver);
+MIDIOutputMap* blink_receiver = V8MIDIOutputMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MIDIOutputMap";
 const char* const property_name = "values";

@@ -23,6 +23,7 @@
 #include "services/network/public/mojom/network_param.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_types.mojom-shared-internal.h"
 #include "services/network/public/mojom/parsed_headers.mojom-shared-internal.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-shared-internal.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -77,7 +78,9 @@ class  URLResponseHead_Data {
   mojo::internal::Pointer<::network::mojom::internal::HttpResponseHeaders_Data> headers;
   mojo::internal::Pointer<mojo::internal::String_Data> mime_type;
   mojo::internal::Pointer<mojo::internal::String_Data> charset;
-  int32_t ct_policy_compliance;
+  int64_t content_length;
+  int64_t encoded_data_length;
+  mojo::internal::Pointer<::network::mojom::internal::EncodedBodyLength_Data> encoded_body_length;
   uint8_t network_accessed : 1;
   uint8_t emitted_extra_info : 1;
   uint8_t was_fetched_via_spdy : 1;
@@ -90,6 +93,7 @@ class  URLResponseHead_Data {
   uint8_t async_revalidation_requested : 1;
   uint8_t did_mime_sniff : 1;
   uint8_t is_signed_exchange_inner_response : 1;
+  uint8_t is_web_bundle_inner_response : 1;
   uint8_t was_in_prefetch_cache : 1;
   uint8_t was_cookie_in_request : 1;
   uint8_t intercepted_by_plugin : 1;
@@ -97,26 +101,26 @@ class  URLResponseHead_Data {
   uint8_t timing_allow_passed : 1;
   uint8_t has_authorization_covered_by_wildcard_on_preflight : 1;
   uint8_t request_include_credentials : 1;
+  uint8_t should_use_source_hash_for_js_code_cache : 1;
   uint8_t did_use_shared_dictionary : 1;
-  uint8_t pad25_[1];
-  int64_t content_length;
-  int64_t encoded_data_length;
-  mojo::internal::Pointer<::network::mojom::internal::EncodedBodyLength_Data> encoded_body_length;
-  mojo::internal::Pointer<::network::mojom::internal::LoadTimingInfo_Data> load_timing;
+  uint8_t pad29_[1];
   int32_t connection_info;
-  int32_t alternate_protocol_usage;
+  mojo::internal::Pointer<::network::mojom::internal::LoadTimingInfo_Data> load_timing;
   mojo::internal::Pointer<mojo::internal::String_Data> alpn_negotiated_protocol;
-  mojo::internal::Pointer<::network::mojom::internal::IPEndPoint_Data> remote_endpoint;
+  int32_t alternate_protocol_usage;
   int32_t client_address_space;
+  mojo::internal::Pointer<::network::mojom::internal::IPEndPoint_Data> remote_endpoint;
   int32_t response_address_space;
   int32_t navigation_delivery_type;
+  mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data> proxy_chain;
   int32_t service_worker_response_source;
-  mojo::internal::Pointer<::network::mojom::internal::ProxyServer_Data> proxy_server;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> url_list_via_service_worker;
   int32_t response_type;
-  uint32_t cert_status;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> url_list_via_service_worker;
+  mojo::internal::Pointer<::network::mojom::internal::ServiceWorkerRouterInfo_Data> service_worker_router_info;
   int64_t padding;
   mojo::internal::Pointer<mojo::internal::String_Data> cache_storage_cache_name;
+  uint32_t cert_status;
+  int32_t private_network_access_preflight_result;
   mojo::internal::Pointer<::network::mojom::internal::SSLInfo_Data> ssl_info;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> cors_exposed_header_names;
   mojo::internal::Pointer<::network::mojom::internal::AuthChallengeInfo_Data> auth_challenge_info;
@@ -125,10 +129,7 @@ class  URLResponseHead_Data {
   mojo::internal::Pointer<::network::mojom::internal::ParsedHeaders_Data> parsed_headers;
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> recursive_prefetch_token;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> dns_aliases;
-  mojo::internal::Pointer<::url::mojom::internal::Url_Data> web_bundle_url;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::TriggerVerification_Data>>> trigger_verifications;
-  int32_t private_network_access_preflight_result;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<URLResponseHead_Data>;
@@ -136,7 +137,7 @@ class  URLResponseHead_Data {
   URLResponseHead_Data();
   ~URLResponseHead_Data() = delete;
 };
-static_assert(sizeof(URLResponseHead_Data) == 256,
+static_assert(sizeof(URLResponseHead_Data) == 248,
               "Bad sizeof(URLResponseHead_Data)");
 // Used by URLResponseHead::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

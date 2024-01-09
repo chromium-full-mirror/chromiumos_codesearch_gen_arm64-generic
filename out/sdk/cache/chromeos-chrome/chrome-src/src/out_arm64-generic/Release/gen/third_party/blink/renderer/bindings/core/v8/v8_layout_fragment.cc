@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomLayoutFragment>::value,
     "CustomLayoutFragment inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomLayoutFragment::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomLayoutFragment is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.inlineSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.blockSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.inlineOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -125,9 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.inlineOffset.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "LayoutFragment";
@@ -148,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.blockOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -161,9 +160,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.blockOffset.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "LayoutFragment";
@@ -184,8 +183,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.baseline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseline();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -198,8 +198,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutFragment.data.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(v8_receiver);
+CustomLayoutFragment* blink_receiver = V8LayoutFragment::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -18,6 +18,7 @@ class BLINK_PLATFORM_EXPORT FrameSinkBundleInterceptorForTesting : public FrameS
   virtual FrameSinkBundle* GetForwardingInterface() = 0;
   void InitializeCompositorFrameSinkType(uint32_t sink_id, ::viz::mojom::blink::CompositorFrameSinkType type) override;
   void SetNeedsBeginFrame(uint32_t sink_id, bool needs_begin_frame) override;
+  void SetWantsBeginFrameAcks(uint32_t sink_id) override;
   void Submit(WTF::Vector<BundledFrameSubmissionPtr> submissions) override;
   void DidAllocateSharedBitmap(uint32_t sink_id, ::base::ReadOnlySharedMemoryRegion region, const ::gpu::Mailbox& id) override;
 };

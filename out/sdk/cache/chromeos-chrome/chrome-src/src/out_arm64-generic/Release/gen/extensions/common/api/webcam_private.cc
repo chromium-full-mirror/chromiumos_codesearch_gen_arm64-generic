@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/webcam_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -146,8 +147,8 @@ ProtocolConfiguration::ProtocolConfiguration()
 : protocol() {}
 
 ProtocolConfiguration::~ProtocolConfiguration() = default;
-ProtocolConfiguration::ProtocolConfiguration(ProtocolConfiguration&& rhs) = default;
-ProtocolConfiguration& ProtocolConfiguration::operator=(ProtocolConfiguration&& rhs) = default;
+ProtocolConfiguration::ProtocolConfiguration(ProtocolConfiguration&& rhs) noexcept = default;
+ProtocolConfiguration& ProtocolConfiguration::operator=(ProtocolConfiguration&& rhs) noexcept = default;
 ProtocolConfiguration ProtocolConfiguration::Clone() const {
   ProtocolConfiguration out;
   out.protocol = protocol;
@@ -187,34 +188,21 @@ bool ProtocolConfiguration::Populate(
 }
 
 // static
-std::unique_ptr<ProtocolConfiguration> ProtocolConfiguration::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProtocolConfiguration>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProtocolConfiguration> ProtocolConfiguration::FromValue(const base::Value::Dict& value) {
+  ProtocolConfiguration out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProtocolConfiguration> ProtocolConfiguration::FromValue(const base::Value::Dict& value) {
+std::optional<ProtocolConfiguration> ProtocolConfiguration::FromValue(const base::Value& value) {
   ProtocolConfiguration out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProtocolConfiguration> ProtocolConfiguration::FromValue(const base::Value& value) {
-  ProtocolConfiguration out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -237,8 +225,8 @@ tilt_direction(),
 autofocus_state() {}
 
 WebcamConfiguration::~WebcamConfiguration() = default;
-WebcamConfiguration::WebcamConfiguration(WebcamConfiguration&& rhs) = default;
-WebcamConfiguration& WebcamConfiguration::operator=(WebcamConfiguration&& rhs) = default;
+WebcamConfiguration::WebcamConfiguration(WebcamConfiguration&& rhs) noexcept = default;
+WebcamConfiguration& WebcamConfiguration::operator=(WebcamConfiguration&& rhs) noexcept = default;
 WebcamConfiguration WebcamConfiguration::Clone() const {
   WebcamConfiguration out;
   out.pan = pan;
@@ -264,7 +252,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*pan_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.pan = absl::nullopt;
+        out.pan = std::nullopt;
         return false;
       }
       out.pan = *temp;
@@ -276,7 +264,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*pan_speed_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.pan_speed = absl::nullopt;
+        out.pan_speed = std::nullopt;
         return false;
       }
       out.pan_speed = *temp;
@@ -304,7 +292,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*tilt_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.tilt = absl::nullopt;
+        out.tilt = std::nullopt;
         return false;
       }
       out.tilt = *temp;
@@ -316,7 +304,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*tilt_speed_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.tilt_speed = absl::nullopt;
+        out.tilt_speed = std::nullopt;
         return false;
       }
       out.tilt_speed = *temp;
@@ -344,7 +332,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*zoom_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.zoom = absl::nullopt;
+        out.zoom = std::nullopt;
         return false;
       }
       out.zoom = *temp;
@@ -372,7 +360,7 @@ bool WebcamConfiguration::Populate(
     {
       auto temp = (*focus_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.focus = absl::nullopt;
+        out.focus = std::nullopt;
         return false;
       }
       out.focus = *temp;
@@ -392,34 +380,21 @@ bool WebcamConfiguration::Populate(
 }
 
 // static
-std::unique_ptr<WebcamConfiguration> WebcamConfiguration::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WebcamConfiguration>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WebcamConfiguration> WebcamConfiguration::FromValue(const base::Value::Dict& value) {
+  WebcamConfiguration out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WebcamConfiguration> WebcamConfiguration::FromValue(const base::Value::Dict& value) {
+std::optional<WebcamConfiguration> WebcamConfiguration::FromValue(const base::Value& value) {
   WebcamConfiguration out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WebcamConfiguration> WebcamConfiguration::FromValue(const base::Value& value) {
-  WebcamConfiguration out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -473,8 +448,8 @@ Range::Range()
 max(0.0) {}
 
 Range::~Range() = default;
-Range::Range(Range&& rhs) = default;
-Range& Range::operator=(Range&& rhs) = default;
+Range::Range(Range&& rhs) noexcept = default;
+Range& Range::operator=(Range&& rhs) noexcept = default;
 Range Range::Clone() const {
   Range out;
   out.min = min;
@@ -522,34 +497,21 @@ bool Range::Populate(
 }
 
 // static
-std::unique_ptr<Range> Range::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Range>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Range> Range::FromValue(const base::Value::Dict& value) {
+  Range out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Range> Range::FromValue(const base::Value::Dict& value) {
+std::optional<Range> Range::FromValue(const base::Value& value) {
   Range out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Range> Range::FromValue(const base::Value& value) {
-  Range out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -573,8 +535,8 @@ zoom(0.0),
 focus(0.0) {}
 
 WebcamCurrentConfiguration::~WebcamCurrentConfiguration() = default;
-WebcamCurrentConfiguration::WebcamCurrentConfiguration(WebcamCurrentConfiguration&& rhs) = default;
-WebcamCurrentConfiguration& WebcamCurrentConfiguration::operator=(WebcamCurrentConfiguration&& rhs) = default;
+WebcamCurrentConfiguration::WebcamCurrentConfiguration(WebcamCurrentConfiguration&& rhs) noexcept = default;
+WebcamCurrentConfiguration& WebcamCurrentConfiguration::operator=(WebcamCurrentConfiguration&& rhs) noexcept = default;
 WebcamCurrentConfiguration WebcamCurrentConfiguration::Clone() const {
   WebcamCurrentConfiguration out;
   out.pan = pan;
@@ -720,34 +682,21 @@ bool WebcamCurrentConfiguration::Populate(
 }
 
 // static
-std::unique_ptr<WebcamCurrentConfiguration> WebcamCurrentConfiguration::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WebcamCurrentConfiguration>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WebcamCurrentConfiguration> WebcamCurrentConfiguration::FromValue(const base::Value::Dict& value) {
+  WebcamCurrentConfiguration out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WebcamCurrentConfiguration> WebcamCurrentConfiguration::FromValue(const base::Value::Dict& value) {
+std::optional<WebcamCurrentConfiguration> WebcamCurrentConfiguration::FromValue(const base::Value& value) {
   WebcamCurrentConfiguration out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WebcamCurrentConfiguration> WebcamCurrentConfiguration::FromValue(const base::Value& value) {
-  WebcamCurrentConfiguration out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -793,13 +742,13 @@ namespace OpenSerialWebcam {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -809,13 +758,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = path_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -823,15 +772,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& protocol_value = args[1];
     {
       if (!protocol_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ProtocolConfiguration::Populate(protocol_value.GetDict(), params.protocol)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -851,13 +800,13 @@ namespace CloseWebcam {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -867,13 +816,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -886,13 +835,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -902,13 +851,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -928,13 +877,13 @@ namespace Set {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -944,13 +893,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -958,15 +907,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& config_value = args[1];
     {
       if (!config_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!WebcamConfiguration::Populate(config_value.GetDict(), params.config)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -986,13 +935,13 @@ namespace Reset {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1002,13 +951,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1016,15 +965,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& config_value = args[1];
     {
       if (!config_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!WebcamConfiguration::Populate(config_value.GetDict(), params.config)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1044,13 +993,13 @@ namespace SetHome {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1060,13 +1009,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1086,13 +1035,13 @@ namespace RestoreCameraPreset {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1102,13 +1051,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1117,13 +1066,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = preset_number_value.GetIfDouble();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.preset_number = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1143,13 +1092,13 @@ namespace SetCameraPreset {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1159,13 +1108,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = webcam_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.webcam_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1174,13 +1123,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = preset_number_value.GetIfDouble();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.preset_number = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -115,14 +116,17 @@ void MediaLogProxy::AddLogRecord(
                         "<value of type const ::media::MediaLogRecord&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaLog_AddLogRecord_Name, kFlags, 0, 0, nullptr);
@@ -201,10 +205,10 @@ bool MediaLogStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaLogValidationInfo[] = {
-    {&internal::MediaLog_AddLogRecord_Params_Data::Validate,
+    { &internal::MediaLog_AddLogRecord_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -285,14 +289,17 @@ void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr);
@@ -371,10 +378,10 @@ bool VideoFrameHandleReleaserStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFrameHandleReleaserValidationInfo[] = {
-    {&internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data::Validate,
+    { &internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -481,14 +488,17 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr);
@@ -541,14 +551,17 @@ void VideoDecoderClientProxy::OnWaiting(
                         "<value of type ::media::WaitingReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr);
@@ -655,12 +668,12 @@ bool VideoDecoderClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoDecoderClientValidationInfo[] = {
-    {&internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data::Validate,
+    { &internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoDecoderClient_OnWaiting_Params_Data::Validate,
+    { &internal::VideoDecoderClient_OnWaiting_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -741,14 +754,17 @@ void CdmContextEventCallbackProxy::EventCallback(
                         "<value of type ::media::CdmContext::Event>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmContextEventCallback_EventCallback_Name, kFlags, 0, 0, nullptr);
@@ -818,10 +834,10 @@ bool CdmContextEventCallbackStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCdmContextEventCallbackValidationInfo[] = {
-    {&internal::CdmContextEventCallback_EventCallback_Params_Data::Validate,
+    { &internal::CdmContextEventCallback_EventCallback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1049,14 +1065,17 @@ void StableCdmContextProxy::GetHwKeyData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1111,14 +1130,17 @@ void StableCdmContextProxy::RegisterEventCallback(
                         "<value of type ::mojo::PendingRemote<CdmContextEventCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_RegisterEventCallback_Name, kFlags, 0, 0, nullptr);
@@ -1147,14 +1169,17 @@ void StableCdmContextProxy::GetHwConfigData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::stable::mojom::StableCdmContext::GetHwConfigData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -1178,14 +1203,17 @@ void StableCdmContextProxy::GetScreenResolutions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::stable::mojom::StableCdmContext::GetScreenResolutions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetScreenResolutions_Name, kFlags, 0, 0, nullptr);
@@ -1216,14 +1244,17 @@ void StableCdmContextProxy::AllocateSecureBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1341,7 +1372,8 @@ void StableCdmContext_GetHwKeyData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1480,7 +1512,8 @@ void StableCdmContext_GetHwConfigData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -1611,7 +1644,8 @@ void StableCdmContext_GetScreenResolutions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_GetScreenResolutions_Name, kFlags, 0, 0, nullptr);
@@ -1741,7 +1775,8 @@ void StableCdmContext_AllocateSecureBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableCdmContext_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1945,18 +1980,18 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStableCdmContextValidationInfo[] = {
-    {&internal::StableCdmContext_GetHwKeyData_Params_Data::Validate,
+    { &internal::StableCdmContext_GetHwKeyData_Params_Data::Validate,
      &internal::StableCdmContext_GetHwKeyData_ResponseParams_Data::Validate},
-    {&internal::StableCdmContext_RegisterEventCallback_Params_Data::Validate,
+    { &internal::StableCdmContext_RegisterEventCallback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StableCdmContext_GetHwConfigData_Params_Data::Validate,
+    { &internal::StableCdmContext_GetHwConfigData_Params_Data::Validate,
      &internal::StableCdmContext_GetHwConfigData_ResponseParams_Data::Validate},
-    {&internal::StableCdmContext_GetScreenResolutions_Params_Data::Validate,
+    { &internal::StableCdmContext_GetScreenResolutions_Params_Data::Validate,
      &internal::StableCdmContext_GetScreenResolutions_ResponseParams_Data::Validate},
-    {&internal::StableCdmContext_AllocateSecureBuffer_Params_Data::Validate,
+    { &internal::StableCdmContext_AllocateSecureBuffer_Params_Data::Validate,
      &internal::StableCdmContext_AllocateSecureBuffer_ResponseParams_Data::Validate},
 };
 
@@ -2178,14 +2213,17 @@ void StableVideoDecoderProxy::GetSupportedConfigs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::stable::mojom::StableVideoDecoder::GetSupportedConfigs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
@@ -2228,14 +2266,17 @@ void StableVideoDecoderProxy::Construct(
                         "<value of type const ::gfx::ColorSpace&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Construct_Name, kFlags, 0, 0, nullptr);
@@ -2306,14 +2347,17 @@ void StableVideoDecoderProxy::Initialize(
                         "<value of type ::mojo::PendingRemote<StableCdmContext>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -2358,14 +2402,17 @@ void StableVideoDecoderProxy::Decode(
                         "<value of type const ::scoped_refptr<::media::DecoderBuffer>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -2400,14 +2447,17 @@ void StableVideoDecoderProxy::Reset(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::stable::mojom::StableVideoDecoder::Reset");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -2524,7 +2574,8 @@ void StableVideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
@@ -2684,7 +2735,8 @@ void StableVideoDecoder_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -2817,7 +2869,8 @@ void StableVideoDecoder_Decode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -2934,7 +2987,8 @@ void StableVideoDecoder_Reset_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -3162,18 +3216,18 @@ std::move(p_buffer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStableVideoDecoderValidationInfo[] = {
-    {&internal::StableVideoDecoder_GetSupportedConfigs_Params_Data::Validate,
+    { &internal::StableVideoDecoder_GetSupportedConfigs_Params_Data::Validate,
      &internal::StableVideoDecoder_GetSupportedConfigs_ResponseParams_Data::Validate},
-    {&internal::StableVideoDecoder_Construct_Params_Data::Validate,
+    { &internal::StableVideoDecoder_Construct_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StableVideoDecoder_Initialize_Params_Data::Validate,
+    { &internal::StableVideoDecoder_Initialize_Params_Data::Validate,
      &internal::StableVideoDecoder_Initialize_ResponseParams_Data::Validate},
-    {&internal::StableVideoDecoder_Decode_Params_Data::Validate,
+    { &internal::StableVideoDecoder_Decode_Params_Data::Validate,
      &internal::StableVideoDecoder_Decode_ResponseParams_Data::Validate},
-    {&internal::StableVideoDecoder_Reset_Params_Data::Validate,
+    { &internal::StableVideoDecoder_Reset_Params_Data::Validate,
      &internal::StableVideoDecoder_Reset_ResponseParams_Data::Validate},
 };
 
@@ -3230,8 +3284,8 @@ bool StableVideoDecoderTrackerStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool StableVideoDecoderTrackerRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::media::stable::mojom::StableVideoDecoderTracker::Name_;
@@ -3313,14 +3367,17 @@ void StableVideoDecoderFactoryProxy::CreateStableVideoDecoder(
                         "<value of type ::mojo::PendingRemote<StableVideoDecoderTracker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoderFactory_CreateStableVideoDecoder_Name, kFlags, 0, 0, nullptr);
@@ -3404,10 +3461,10 @@ bool StableVideoDecoderFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStableVideoDecoderFactoryValidationInfo[] = {
-    {&internal::StableVideoDecoderFactory_CreateStableVideoDecoder_Params_Data::Validate,
+    { &internal::StableVideoDecoderFactory_CreateStableVideoDecoder_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3493,14 +3550,17 @@ void StableVideoDecoderFactoryProcessProxy::InitializeStableVideoDecoderFactory(
                         "<value of type ::mojo::PendingReceiver<StableVideoDecoderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStableVideoDecoderFactoryProcess_InitializeStableVideoDecoderFactory_Name, kFlags, 0, 0, nullptr);
@@ -3596,10 +3656,10 @@ bool StableVideoDecoderFactoryProcessStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStableVideoDecoderFactoryProcessValidationInfo[] = {
-    {&internal::StableVideoDecoderFactoryProcess_InitializeStableVideoDecoderFactory_Params_Data::Validate,
+    { &internal::StableVideoDecoderFactoryProcess_InitializeStableVideoDecoderFactory_Params_Data::Validate,
      nullptr /* no response */},
 };
 

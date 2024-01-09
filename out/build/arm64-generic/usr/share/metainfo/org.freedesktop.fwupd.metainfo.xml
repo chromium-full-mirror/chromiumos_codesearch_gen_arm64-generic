@@ -32,6 +32,109 @@
     <binary>fwupdtool</binary>
   </provides>
   <releases>
+    <release version="1.9.9" date="2023-11-20">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add a new generic request for the device power cable</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Disable scanning for synaptics-mst cascade devices until it is more stable</li>
+          <li>Disable the mediatek-scaler plugin by default until we do VCP probing</li>
+          <li>Do not enforce additional requires on emulated devices</li>
+          <li>Fix a potential critical warning when listing the contents of the ESP</li>
+          <li>Fix 'fwupdmgr get-devices' with deeply nested devices</li>
+          <li>Make the Kinetic DP GUID specific to the customer</li>
+          <li>Only use the USB open-retry behaviour when required</li>
+          <li>Remove obsoleted HSI attributes earlier</li>
+          <li>Remove the timestamp from gzip to achieve a reproducible build</li>
+          <li>Support cabinet archives produced using 'makecab.exe'</li>
+          <li>Use metadata authentication when using 'fwupdtool refresh'</li>
+          <li>Use the generic ti-tps6598x GUID and instead enforce requriements</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>Lenovo X1 Yoga Gen7 530E</li>
+          <li>Advantech BMC devices</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.8" date="2023-11-14">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add a DP AUX device subclass and port the Synaptics MST plugin to it</li>
+          <li>Add a feature flag for non-generic requests where translations are required</li>
+          <li>Hide generic VID/PIDs to avoid accidental firmware matches</li>
+          <li>Optionally set the modem carrier configuration as the branch name</li>
+          <li>Rename 'fwupdmgr sync-bkc' to 'fwupdmgr sync' and also consider the branch</li>
+          <li>Require additional requirements for devices using non-OEM USB VIDs</li>
+          <li>Set the waiting-for-user status when sending a request</li>
+          <li>Support uSWID SBoM data with LZMA compressed payloads</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Accept any registry versions when parsing Redfish message IDs</li>
+          <li>Do not read the AMDGPU DM DPCD on broken firmware versions</li>
+          <li>Do not save obsoleted HSI attributes into the history database</li>
+          <li>Fix a crash when some DRM devices are hotplugged</li>
+          <li>Fix a possible crash in fu_io_channel_read_raw()</li>
+          <li>Fix parsing LZMA-compressed EFI sections</li>
+          <li>Only use the architecture-specific GUID for UEFI dbx quirk matching</li>
+          <li>Parse all the type 42 SMBIOS tables</li>
+          <li>Prompt the user to reboot after applying internal Wacom firmware</li>
+          <li>Respect no-serial-number flags when using GUID matches</li>
+          <li>Use the etag when patching Redfish resources</li>
+          <li>Use the username and password to get metadata when set</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>Kinetic SST/MST DisplayPort converters</li>
+          <li>Wacom Cintiq Pros (DTH172, DTH227)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.7" date="2023-11-01">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add support for child device requirements in metadata</li>
+          <li>Allow to have more than one host BKC</li>
+          <li>Delete BootNext as a post-reboot action to work around broken firmware</li>
+          <li>Parse cabinet archives internally without libgcab</li>
+          <li>Use close-ended mode for eMMC FFU to speed up firmware updates</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Do not abort 'fwupdmgr update' when one updatable device has a problem</li>
+          <li>Do not call unimplemented functions when running under Wine</li>
+          <li>Do not modify the BootOrder by default to work around broken firmware</li>
+          <li>Do not treat an immutable buffer as mutable in the vli plugin</li>
+          <li>Drop the concept of HSI:INVALID:missing-data and just show HSI-0</li>
+          <li>Fix a small memory leak in bulkcontroller when getting the device info</li>
+          <li>Inhibit the Nordic HID dongle when there are peripheral updates pending</li>
+          <li>Retry claiming the interface if the USB device returns BUSY</li>
+          <li>Send the Olson location to bulkcontroller rather than the timezone</li>
+          <li>Use a longer timeout for the post-erase STM32 GetStatus</li>
+          <li>Wait 60 seconds for the bulkcontroller device after writing firmware</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>Logitech Rally System devices</li>
+          <li>More PixartRF HPAC devices</li>
+          <li>More Synaptics Prometheus fingerprint readers</li>
+          <li>Some Western Digital eMMC devices</li>
+          <li>VIA VL830 and VL832</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.9.6" date="2023-10-06">
       <description>
         <p>
@@ -104,135 +207,6 @@
           <li>HP Rata/Remi BLE Mice</li>
           <li>Luxshare Quad USB4 Dock</li>
           <li>System76 Launch 3, Launch Heavy 3 and Thelio IO 2</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.9.4" date="2023-08-14">
-      <description>
-        <p>
-          This release adds the following features:
-        </p>
-        <ul>
-          <li>Add a new HSI attribute that detects any missing Intel GDS mitigation</li>
-          <li>Allow configuring the refresh interval per-remote rather than per-system</li>
-          <li>Remove the libsoup-2.4 compatibility code</li>
-          <li>Show the firmware release checksum in CLI tools</li>
-        </ul>
-        <p>This release fixes the following bugs:</p>
-        <ul>
-          <li>Correctly query the Steelseries Fizz version on reconnect</li>
-          <li>Correctly wait for USB replug on macOS</li>
-          <li>Do not add gl32xx disk partitions as extra devices</li>
-          <li>Do not assume the logical block size is always 0x200</li>
-          <li>Ensure the AppStream ID is set on historical releases</li>
-          <li>Enumerate Synaptics MST devices correctly</li>
-          <li>Fix a possible CFU crash when adding modules</li>
-          <li>Fix 'fwupdmgr get-history --json' output to only show one release</li>
-          <li>Fix 'fwupdmgr modify-remote' on ChromeOS</li>
-          <li>Fix incorrect OEM trusted reports flags being set when not matching</li>
-          <li>Fix regression in returning device history with libxmlb 0.3.12</li>
-          <li>Fix some Wacom hardware by only attempting retries for the busy error state</li>
-          <li>Fix transaction timed out issue for T99W373 QDU device</li>
-          <li>Handle cros-ec boards with '_v' in their name</li>
-          <li>Ignore the authentication when username and password are both empty</li>
-          <li>Load the effective size of a PE section instead of raw size</li>
-          <li>Set some feature flags when non-interactive</li>
-          <li>Set the HWIDs correctly when running macOS</li>
-          <li>Use a much larger USB timeout for STM32 erase operations</li>
-          <li>Use the correct offsets when checking Synaptics MST Spyder devices</li>
-          <li>Use the correct URI when downloading from authenticated remotes</li>
-          <li>Use /var/run when /run/lock does not exist</li>
-        </ul>
-        <p>This release adds support for the following hardware:</p>
-        <ul>
-          <li>Genesys GL352350 and GL3590</li>
-          <li>Logitech Huddle</li>
-          <li>Microsoft USB-C Travel Hub</li>
-          <li>PixArt BLE HPAC OTA</li>
-          <li>Quectel RM520</li>
-          <li>Synaptics Triton devices</li>
-          <li>VIA VL122, VL817S and VL822T</li>
-          <li>Wacom One 13 and One 12 Tablets</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.9.3" date="2023-07-11">
-      <description>
-        <p>
-          This release adds the following features:
-        </p>
-        <ul>
-          <li>Add the expected result to each HSI test attribute</li>
-          <li>Allow autodetection when using fwupdtool firmware-parse</li>
-          <li>Allow devices to only accept explicitly specified release versions</li>
-          <li>Allow filtering by release flags from fwupdtool and fwupdmgr</li>
-          <li>Allow filtering by remote when looking for trusted reports</li>
-          <li>Drop the libefiboot dependency and generate UEFI DPs directly</li>
-          <li>Ensure that BootService-only variables cannot be read in runtime mode</li>
-          <li>Parse the various SBAT sections from PE firmware</li>
-          <li>Record the NVRAM space used as report metadata</li>
-          <li>Show the user a warning when the ESP may not be valid</li>
-          <li>Speed up the daemon startup by 35% and reduce RSS by 12%</li>
-          <li>Support reading and writing EFI variables on Windows</li>
-        </ul>
-        <p>This release fixes the following bugs:</p>
-        <ul>
-          <li>Check only the EFI executables from the boot menu when using --force</li>
-          <li>Correctly obtain the Thunderbolt is_native controller attribute</li>
-          <li>Deduplicate the remotes as required</li>
-          <li>Do not accidentally depend on python 3.9</li>
-          <li>Do not misuse the offset as an address in the SREC parser</li>
-          <li>Do not truncate feature reports to fix Wacom ID6 update</li>
-          <li>Fix parsing of IGSC code firmware</li>
-          <li>Get the Jabra GNP device name from the device</li>
-          <li>Ignore small ESP block devices if there are multiple choices</li>
-          <li>Never install a shim too new for the system</li>
-          <li>Only add the little-used _REV instance IDs by request</li>
-          <li>Use a CapsuleOnDisk filename supported by InsydeH2O</li>
-        </ul>
-        <p>This release adds support for the following hardware:</p>
-        <ul>
-          <li>Belkin Thunderbolt 4 Core Hub dock</li>
-          <li>CE-LINK TB4 Docks</li>
-          <li>Genesys GL32XX SD readers</li>
-          <li>Genesys GL352350 USB 3.1 hub</li>
-          <li>Nordic HID devices without DFU support</li>
-          <li>TUXEDO InfinityBook Pro 13 v3</li>
-          <li>Wacom tablets with ID9 Bluetooth chipsets</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.9.2" date="2023-06-12">
-      <description>
-        <p>
-          This release adds the following features:
-        </p>
-        <ul>
-          <li>Beep the console when CLI programs are waiting for user input</li>
-          <li>Bump requirements of various dependencies to remove a lot of fallback code</li>
-          <li>Show devices with problems in fwupdmgr get-upgrades</li>
-        </ul>
-        <p>This release fixes the following bugs:</p>
-        <ul>
-          <li>Auto-detect the BCM57xx OEM PCI cards with double the expected EEPROM</li>
-          <li>Disable ThunderBolt retimer offline mode for some hardware</li>
-          <li>Do not assume a file descriptor of 0 is invalid when updating NVMe hardware</li>
-          <li>Fix discovery of Nordic peripherals connected via the dongle</li>
-          <li>Fix high memory usage when writing some EFI filesystem images</li>
-          <li>Fix USI dock devices with an incorrect factory-set firmware version</li>
-          <li>Ignore a client refresh on a non-download remote to fix old versions of KDE</li>
-          <li>Ignore the immutable flatpak config file file permission being incorrect</li>
-          <li>Limit the number of possible file objects in the EFI filesystem</li>
-          <li>Make the installed size smaller by deduping and filtering assets</li>
-          <li>Only expose --force for security attributes for unsupported builds</li>
-          <li>Require the user to manually replug the USI dock after update has completed</li>
-        </ul>
-        <p>This release adds support for the following hardware:</p>
-        <ul>
-          <li>AVer FONE540</li>
-          <li>Genesys GL3525 USB hubs</li>
-          <li>Goodix Touch controllers</li>
-          <li>Jabra Evolve 65e/t and SE, Evolve2, Speak2 and Link devices</li>
         </ul>
       </description>
     </release>

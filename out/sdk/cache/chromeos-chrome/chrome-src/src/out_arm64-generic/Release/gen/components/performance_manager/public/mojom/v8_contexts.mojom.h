@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/performance_manager/public/mojom/v8_contexts.mojom-features.h"
 #include "components/performance_manager/public/mojom/v8_contexts.mojom-shared.h"
 #include "components/performance_manager/public/mojom/v8_contexts.mojom-forward.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
@@ -70,8 +71,8 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) IframeAttributionData {
   IframeAttributionData();
 
   IframeAttributionData(
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& src);
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& src);
 
 
   ~IframeAttributionData();
@@ -149,9 +150,9 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) IframeAttributionData {
   }
 
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> src;
+  std::optional<std::string> src;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -219,8 +220,8 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) V8ContextDescription {
   V8ContextDescription(
       const ::blink::V8ContextToken& token,
       V8ContextWorldType world_type,
-      const absl::optional<std::string>& world_name,
-      const absl::optional<::blink::ExecutionContextToken>& execution_context_token);
+      const std::optional<std::string>& world_name,
+      const std::optional<::blink::ExecutionContextToken>& execution_context_token);
 
 
   ~V8ContextDescription();
@@ -302,9 +303,9 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM) V8ContextDescription {
   
   V8ContextWorldType world_type;
   
-  absl::optional<std::string> world_name;
+  std::optional<std::string> world_name;
   
-  absl::optional<::blink::ExecutionContextToken> execution_context_token;
+  std::optional<::blink::ExecutionContextToken> execution_context_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

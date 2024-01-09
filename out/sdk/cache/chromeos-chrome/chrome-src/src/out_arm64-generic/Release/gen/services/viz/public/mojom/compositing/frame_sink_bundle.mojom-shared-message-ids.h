@@ -16,8 +16,9 @@ namespace internal {
 
 constexpr uint32_t kFrameSinkBundle_InitializeCompositorFrameSinkType_Name = 0;
 constexpr uint32_t kFrameSinkBundle_SetNeedsBeginFrame_Name = 1;
-constexpr uint32_t kFrameSinkBundle_Submit_Name = 2;
-constexpr uint32_t kFrameSinkBundle_DidAllocateSharedBitmap_Name = 3;
+constexpr uint32_t kFrameSinkBundle_SetWantsBeginFrameAcks_Name = 2;
+constexpr uint32_t kFrameSinkBundle_Submit_Name = 3;
+constexpr uint32_t kFrameSinkBundle_DidAllocateSharedBitmap_Name = 4;
 constexpr uint32_t kFrameSinkBundleClient_FlushNotifications_Name = 0;
 constexpr uint32_t kFrameSinkBundleClient_OnBeginFramePausedChanged_Name = 1;
 constexpr uint32_t kFrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Name = 2;

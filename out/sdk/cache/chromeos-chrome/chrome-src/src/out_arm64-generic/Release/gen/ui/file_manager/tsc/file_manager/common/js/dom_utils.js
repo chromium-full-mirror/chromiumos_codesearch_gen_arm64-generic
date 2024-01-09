@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert, assertInstanceof } from 'chrome://resources/js/assert.js';
-import { isTree, isTreeItem } from '../../widgets/xf_tree_util.js';
-import { decorate } from './ui.js';
+import { isTreeItem, isXfTree } from '../../widgets/xf_tree_util.js';
+import { crInjectTypeAndInit } from './cr_ui.js';
 /**
  * Function to be used as event listener for `mouseenter`, it sets the `title`
  * attribute in the event's element target, when the text content is clipped due
@@ -100,7 +100,7 @@ export function queryRequiredElement(selectors, context) {
  */
 export function queryDecoratedElement(query, type) {
     const element = queryRequiredElement(query);
-    decorate(element, type);
+    crInjectTypeAndInit(element, type);
     return element;
 }
 /**
@@ -136,7 +136,6 @@ class UserDomError extends DOMError {
     /**
      * @param name Error name for the file error.
      * @param {string=} message Optional message for this error.
-     * @suppress {checkTypes} Closure externs for DOMError doesn't have
      * constructor with 1 arg.
      */
     constructor(name, message) {
@@ -188,7 +187,7 @@ export function getCrActionMenuTop(triggerElement, marginTop) {
  * TODO(b/285977941): Remove the old tree support.
  */
 export function isDirectoryTree(element) {
-    return element.typeName === 'directory_tree' || isTree(element);
+    return element.typeName === 'directory_tree' || isXfTree(element);
 }
 export function isDirectoryTreeItem(element) {
     return element.typeName === 'directory_item' || isTreeItem(element);
@@ -197,7 +196,7 @@ export function getFocusedTreeItem(tree) {
     if (tree.typeName === 'directory_tree') {
         return tree.selectedItem;
     }
-    if (isTree(tree)) {
+    if (isXfTree(tree)) {
         return tree.focusedItem;
     }
     return null;

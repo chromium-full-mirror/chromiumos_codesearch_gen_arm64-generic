@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Bluetooth>::value,
     "Bluetooth inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Bluetooth::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Bluetooth is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("Bluetooth.onadvertisementreceived.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onadvertisementreceived();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onadvertisementreceived();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,8 +102,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnadvertisementreceived(event_handler);
 }
 
@@ -139,7 +135,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothGetAvailab
 
 
 
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -177,7 +173,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothGetDevices
 
 
 
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -215,7 +211,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothRequestDev
 
 
 
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -262,7 +258,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothRequestSca
 
 
 
-Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(v8_receiver);
+Bluetooth* blink_receiver = V8Bluetooth::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

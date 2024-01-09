@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -509,14 +510,17 @@ void PageHandlerProxy::OpenHistoryCluster(
                         "<value of type ::ui::mojom::ClickModifiersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenHistoryCluster_Name, kFlags, 0, 0, nullptr);
@@ -568,14 +572,17 @@ void PageHandlerProxy::SetPage(
                         "<value of type ::mojo::PendingRemote<Page>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetPage_Name, kFlags, 0, 0, nullptr);
@@ -614,14 +621,17 @@ void PageHandlerProxy::ShowContextMenuForSearchbox(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowContextMenuForSearchbox_Name, kFlags, 0, 0, nullptr);
@@ -676,14 +686,17 @@ void PageHandlerProxy::ShowContextMenuForURL(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowContextMenuForURL_Name, kFlags, 0, 0, nullptr);
@@ -728,14 +741,17 @@ void PageHandlerProxy::ShowSidePanelUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send history_clusters::mojom::PageHandler::ShowSidePanelUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowSidePanelUI_Name, kFlags, 0, 0, nullptr);
@@ -765,14 +781,17 @@ void PageHandlerProxy::ToggleVisibility(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleVisibility_Name, kFlags, 0, 0, nullptr);
@@ -807,14 +826,17 @@ void PageHandlerProxy::StartQueryClusters(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_StartQueryClusters_Name, kFlags, 0, 0, nullptr);
@@ -856,14 +878,17 @@ void PageHandlerProxy::LoadMoreClusters(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_LoadMoreClusters_Name, kFlags, 0, 0, nullptr);
@@ -904,14 +929,17 @@ void PageHandlerProxy::HideVisits(
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_HideVisits_Name, kFlags, 0, 0, nullptr);
@@ -955,14 +983,17 @@ void PageHandlerProxy::RemoveVisits(
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RemoveVisits_Name, kFlags, 0, 0, nullptr);
@@ -995,7 +1026,7 @@ void PageHandlerProxy::RemoveVisits(
 }
 
 void PageHandlerProxy::OpenVisitUrlsInTabGroup(
-    std::vector<::history_clusters::mojom::URLVisitPtr> in_visits, const absl::optional<std::string>& in_tab_group_name) {
+    std::vector<::history_clusters::mojom::URLVisitPtr> in_visits, const std::optional<std::string>& in_tab_group_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send history_clusters::mojom::PageHandler::OpenVisitUrlsInTabGroup", "input_parameters",
@@ -1006,17 +1037,20 @@ void PageHandlerProxy::OpenVisitUrlsInTabGroup(
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("tab_group_name"), in_tab_group_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenVisitUrlsInTabGroup_Name, kFlags, 0, 0, nullptr);
@@ -1072,14 +1106,17 @@ void PageHandlerProxy::RecordVisitAction(
                         "<value of type VisitType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordVisitAction_Name, kFlags, 0, 0, nullptr);
@@ -1117,14 +1154,17 @@ void PageHandlerProxy::RecordRelatedSearchAction(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordRelatedSearchAction_Name, kFlags, 0, 0, nullptr);
@@ -1160,14 +1200,17 @@ void PageHandlerProxy::RecordClusterAction(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordClusterAction_Name, kFlags, 0, 0, nullptr);
@@ -1200,14 +1243,17 @@ void PageHandlerProxy::RecordToggledVisibility(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordToggledVisibility_Name, kFlags, 0, 0, nullptr);
@@ -1317,7 +1363,8 @@ void PageHandler_ToggleVisibility_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleVisibility_Name, kFlags, 0, 0, nullptr);
@@ -1435,7 +1482,8 @@ void PageHandler_HideVisits_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_HideVisits_Name, kFlags, 0, 0, nullptr);
@@ -1553,7 +1601,8 @@ void PageHandler_RemoveVisits_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RemoveVisits_Name, kFlags, 0, 0, nullptr);
@@ -1799,7 +1848,7 @@ std::move(p_query));
       
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
-      absl::optional<std::string> p_tab_group_name{};
+      std::optional<std::string> p_tab_group_name{};
       PageHandler_OpenVisitUrlsInTabGroup_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadVisits(&p_visits))
@@ -2079,38 +2128,38 @@ std::move(p_visits), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_OpenHistoryCluster_Params_Data::Validate,
+    { &internal::PageHandler_OpenHistoryCluster_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetPage_Params_Data::Validate,
+    { &internal::PageHandler_SetPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowContextMenuForSearchbox_Params_Data::Validate,
+    { &internal::PageHandler_ShowContextMenuForSearchbox_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowContextMenuForURL_Params_Data::Validate,
+    { &internal::PageHandler_ShowContextMenuForURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowSidePanelUI_Params_Data::Validate,
+    { &internal::PageHandler_ShowSidePanelUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleVisibility_Params_Data::Validate,
+    { &internal::PageHandler_ToggleVisibility_Params_Data::Validate,
      &internal::PageHandler_ToggleVisibility_ResponseParams_Data::Validate},
-    {&internal::PageHandler_StartQueryClusters_Params_Data::Validate,
+    { &internal::PageHandler_StartQueryClusters_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_LoadMoreClusters_Params_Data::Validate,
+    { &internal::PageHandler_LoadMoreClusters_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_HideVisits_Params_Data::Validate,
+    { &internal::PageHandler_HideVisits_Params_Data::Validate,
      &internal::PageHandler_HideVisits_ResponseParams_Data::Validate},
-    {&internal::PageHandler_RemoveVisits_Params_Data::Validate,
+    { &internal::PageHandler_RemoveVisits_Params_Data::Validate,
      &internal::PageHandler_RemoveVisits_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OpenVisitUrlsInTabGroup_Params_Data::Validate,
+    { &internal::PageHandler_OpenVisitUrlsInTabGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RecordVisitAction_Params_Data::Validate,
+    { &internal::PageHandler_RecordVisitAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RecordRelatedSearchAction_Params_Data::Validate,
+    { &internal::PageHandler_RecordRelatedSearchAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RecordClusterAction_Params_Data::Validate,
+    { &internal::PageHandler_RecordClusterAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RecordToggledVisibility_Params_Data::Validate,
+    { &internal::PageHandler_RecordToggledVisibility_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2294,14 +2343,17 @@ void PageProxy::OnClustersQueryResult(
                         "<value of type QueryResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnClustersQueryResult_Name, kFlags, 0, 0, nullptr);
@@ -2345,14 +2397,17 @@ void PageProxy::OnClusterImageUpdated(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnClusterImageUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2394,14 +2449,17 @@ void PageProxy::OnVisitsHidden(
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnVisitsHidden_Name, kFlags, 0, 0, nullptr);
@@ -2444,14 +2502,17 @@ void PageProxy::OnVisitsRemoved(
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnVisitsRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2487,14 +2548,17 @@ void PageProxy::OnHistoryDeleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send history_clusters::mojom::Page::OnHistoryDeleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnHistoryDeleted_Name, kFlags, 0, 0, nullptr);
@@ -2524,14 +2588,17 @@ void PageProxy::OnQueryChangedByUser(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnQueryChangedByUser_Name, kFlags, 0, 0, nullptr);
@@ -2755,20 +2822,20 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnClustersQueryResult_Params_Data::Validate,
+    { &internal::Page_OnClustersQueryResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnClusterImageUpdated_Params_Data::Validate,
+    { &internal::Page_OnClusterImageUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnVisitsHidden_Params_Data::Validate,
+    { &internal::Page_OnVisitsHidden_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnVisitsRemoved_Params_Data::Validate,
+    { &internal::Page_OnVisitsRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnHistoryDeleted_Params_Data::Validate,
+    { &internal::Page_OnHistoryDeleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnQueryChangedByUser_Params_Data::Validate,
+    { &internal::Page_OnQueryChangedByUser_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2844,7 +2911,7 @@ void PageHandlerInterceptorForTesting::HideVisits(std::vector<::history_clusters
 void PageHandlerInterceptorForTesting::RemoveVisits(std::vector<::history_clusters::mojom::URLVisitPtr> visits, RemoveVisitsCallback callback) {
   GetForwardingInterface()->RemoveVisits(std::move(visits), std::move(callback));
 }
-void PageHandlerInterceptorForTesting::OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const absl::optional<std::string>& tab_group_name) {
+void PageHandlerInterceptorForTesting::OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const std::optional<std::string>& tab_group_name) {
   GetForwardingInterface()->OpenVisitUrlsInTabGroup(std::move(visits), std::move(tab_group_name));
 }
 void PageHandlerInterceptorForTesting::RecordVisitAction(VisitAction visit_action, uint32_t visit_index, VisitType visit_type) {

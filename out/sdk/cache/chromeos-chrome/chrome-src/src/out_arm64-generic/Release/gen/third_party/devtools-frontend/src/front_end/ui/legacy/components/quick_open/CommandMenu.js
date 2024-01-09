@@ -206,9 +206,13 @@ export class CommandMenuProvider extends Provider {
             this.commands.push(CommandMenu.createActionCommand(options));
         }
         for (const command of allCommands) {
-            if (command.available()) {
-                this.commands.push(command);
+            if (!command.available()) {
+                continue;
             }
+            if (this.commands.find(({ title, category }) => title === command.title && category === command.category)) {
+                continue;
+            }
+            this.commands.push(command);
         }
         this.commands = this.commands.sort(commandComparator);
         function commandComparator(left, right) {
@@ -257,7 +261,7 @@ export class CommandMenuProvider extends Provider {
         }
         const index = Platform.StringUtilities.hashCode(command.category) % MaterialPaletteColors.length;
         tagElement.style.backgroundColor = MaterialPaletteColors[index];
-        tagElement.style.color = 'var(--sys-color-cdt-base-container)';
+        tagElement.style.color = '#fff';
         tagElement.textContent = command.category;
     }
     selectItem(itemIndex, _promptValue) {
@@ -316,15 +320,7 @@ export class Command {
         return this.#executeHandler(); // Tests might want to await the action in case it's async.
     }
 }
-let showActionDelegateInstance;
 export class ShowActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!showActionDelegateInstance || forceNew) {
-            showActionDelegateInstance = new ShowActionDelegate();
-        }
-        return showActionDelegateInstance;
-    }
     handleAction(_context, _actionId) {
         Host.InspectorFrontendHost.InspectorFrontendHostInstance.bringToFront();
         QuickOpenImpl.show('>');

@@ -27,6 +27,7 @@
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared.h"
 #include "mojo/public/mojom/base/big_string.mojom-shared.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
+#include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/frame_sink_id.mojom-shared.h"

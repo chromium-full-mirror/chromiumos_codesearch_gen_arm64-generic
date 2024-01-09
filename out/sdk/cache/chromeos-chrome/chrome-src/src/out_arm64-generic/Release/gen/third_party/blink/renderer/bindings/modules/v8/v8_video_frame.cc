@@ -94,11 +94,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VideoFrame>::value,
     "VideoFrame inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VideoFrame::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VideoFrame is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -111,10 +106,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.format.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->format();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->format();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -126,8 +121,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -140,8 +136,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -154,8 +151,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.codedWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->codedWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -168,8 +166,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.codedHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->codedHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -182,8 +181,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.codedRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->codedRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -196,8 +196,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.visibleRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibleRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -210,8 +211,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.displayWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->displayWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -224,8 +226,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.displayHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->displayHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -238,8 +241,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.colorSpace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorSpace();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -395,10 +399,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.allocationSize");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<VideoFrameCopyToOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<VideoFrameCopyToOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "VideoFrame";
 const char* const property_name = "allocationSize";
@@ -429,9 +433,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.clone");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "VideoFrame";
 const char* const property_name = "clone";
@@ -454,8 +458,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoFrame.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -487,7 +492,7 @@ return;
 
 
 
-VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(v8_receiver);
+VideoFrame* blink_receiver = V8VideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -52,8 +52,8 @@ export class ImageLoaderClient {
         chrome.metricsPrivate.recordValue({
             metricName: 'ImageLoader.Client.' + name,
             type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LINEAR,
-            min: 1,
-            max: 2,
+            min: 1, // According to histogram.h, this should be 1 for enums.
+            max: 2, // Maximum should be exclusive.
             buckets: 3,
         }, // Number of buckets: 0, 1 and overflowing 2.
         value ? 1 : 0);

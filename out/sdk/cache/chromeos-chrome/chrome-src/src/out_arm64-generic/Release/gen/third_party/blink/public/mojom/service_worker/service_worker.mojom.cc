@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -156,6 +157,9 @@ ServiceWorkerHost::IPCStableHashFunction ServiceWorkerHost::MessageToMethodInfo_
     case internal::kServiceWorkerHost_RegisterRouter_Name: {
       return &ServiceWorkerHost::RegisterRouter_Sym::IPCStableHash;
     }
+    case internal::kServiceWorkerHost_AddRoutes_Name: {
+      return &ServiceWorkerHost::AddRoutes_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -191,6 +195,8 @@ const char* ServiceWorkerHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::ServiceWorkerHost::ClaimClients";
       case internal::kServiceWorkerHost_RegisterRouter_Name:
             return "Receive blink::mojom::ServiceWorkerHost::RegisterRouter";
+      case internal::kServiceWorkerHost_AddRoutes_Name:
+            return "Receive blink::mojom::ServiceWorkerHost::AddRoutes";
     }
   } else {
     switch (message.name()) {
@@ -218,6 +224,8 @@ const char* ServiceWorkerHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::ServiceWorkerHost::ClaimClients";
       case internal::kServiceWorkerHost_RegisterRouter_Name:
             return "Receive reply blink::mojom::ServiceWorkerHost::RegisterRouter";
+      case internal::kServiceWorkerHost_AddRoutes_Name:
+            return "Receive reply blink::mojom::ServiceWorkerHost::AddRoutes";
     }
   }
   return "Receive unknown mojo message";
@@ -388,6 +396,19 @@ uint32_t ServiceWorkerHost::RegisterRouter_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t ServiceWorkerHost::AddRoutes_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::ServiceWorkerHost::AddRoutes");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ServiceWorkerHost_GetClients_ForwardToCallback
@@ -534,6 +555,22 @@ class ServiceWorkerHost_RegisterRouter_ForwardToCallback
   ServiceWorkerHost::RegisterRouterCallback callback_;
 };
 
+class ServiceWorkerHost_AddRoutes_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ServiceWorkerHost_AddRoutes_ForwardToCallback(
+      ServiceWorkerHost::AddRoutesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ServiceWorkerHost_AddRoutes_ForwardToCallback(const ServiceWorkerHost_AddRoutes_ForwardToCallback&) = delete;
+  ServiceWorkerHost_AddRoutes_ForwardToCallback& operator=(const ServiceWorkerHost_AddRoutes_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ServiceWorkerHost::AddRoutesCallback callback_;
+};
+
 ServiceWorkerHostProxy::ServiceWorkerHostProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -553,14 +590,17 @@ void ServiceWorkerHostProxy::SetCachedMetadata(
                         "<value of type ::base::span<const ::uint8_t>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_SetCachedMetadata_Name, kFlags, 0, 0, nullptr);
@@ -612,14 +652,17 @@ void ServiceWorkerHostProxy::ClearCachedMetadata(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_ClearCachedMetadata_Name, kFlags, 0, 0, nullptr);
@@ -660,14 +703,17 @@ void ServiceWorkerHostProxy::GetClients(
                         "<value of type ::blink::mojom::ServiceWorkerClientQueryOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_GetClients_Name, kFlags, 0, 0, nullptr);
@@ -709,14 +755,17 @@ void ServiceWorkerHostProxy::GetClient(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_GetClient_Name, kFlags, 0, 0, nullptr);
@@ -758,14 +807,17 @@ void ServiceWorkerHostProxy::OpenNewTab(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_OpenNewTab_Name, kFlags, 0, 0, nullptr);
@@ -807,14 +859,17 @@ void ServiceWorkerHostProxy::OpenPaymentHandlerWindow(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_OpenPaymentHandlerWindow_Name, kFlags, 0, 0, nullptr);
@@ -859,14 +914,17 @@ void ServiceWorkerHostProxy::PostMessageToClient(
                         "<value of type ::blink::TransferableMessage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_PostMessageToClient_Name, kFlags, 0, 0, nullptr);
@@ -918,14 +976,17 @@ void ServiceWorkerHostProxy::FocusClient(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_FocusClient_Name, kFlags, 0, 0, nullptr);
@@ -970,14 +1031,17 @@ void ServiceWorkerHostProxy::NavigateClient(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_NavigateClient_Name, kFlags, 0, 0, nullptr);
@@ -1023,14 +1087,17 @@ void ServiceWorkerHostProxy::SkipWaiting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerHost::SkipWaiting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_SkipWaiting_Name, kFlags, 0, 0, nullptr);
@@ -1054,14 +1121,17 @@ void ServiceWorkerHostProxy::ClaimClients(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerHost::ClaimClients");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_ClaimClients_Name, kFlags, 0, 0, nullptr);
@@ -1092,14 +1162,17 @@ void ServiceWorkerHostProxy::RegisterRouter(
                         "<value of type const ::blink::ServiceWorkerRouterRules&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_RegisterRouter_Name, kFlags, 0, 0, nullptr);
@@ -1125,6 +1198,58 @@ void ServiceWorkerHostProxy::RegisterRouter(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new ServiceWorkerHost_RegisterRouter_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ServiceWorkerHostProxy::AddRoutes(
+    const ::blink::ServiceWorkerRouterRules& in_rules, AddRoutesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::ServiceWorkerHost::AddRoutes", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("rules"), in_rules,
+                        "<value of type const ::blink::ServiceWorkerRouterRules&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kServiceWorkerHost_AddRoutes_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::ServiceWorkerHost_AddRoutes_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->rules)::BaseType> rules_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::ServiceWorkerRouterRulesDataView>(
+      in_rules, rules_fragment);
+  params->rules.Set(
+      rules_fragment.is_null() ? nullptr : rules_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->rules.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null rules in ServiceWorkerHost.AddRoutes request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ServiceWorkerHost::Name_);
+  message.set_method_name("AddRoutes");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ServiceWorkerHost_AddRoutes_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1220,7 +1345,8 @@ void ServiceWorkerHost_GetClients_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_GetClients_Name, kFlags, 0, 0, nullptr);
@@ -1350,7 +1476,8 @@ void ServiceWorkerHost_GetClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_GetClient_Name, kFlags, 0, 0, nullptr);
@@ -1428,7 +1555,7 @@ class ServiceWorkerHost_OpenNewTab_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg);
+      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerHost_OpenNewTab_ForwardToCallback::Accept(
@@ -1443,7 +1570,7 @@ bool ServiceWorkerHost_OpenNewTab_ForwardToCallback::Accept(
   bool success = true;
   bool p_success{};
   ::blink::mojom::ServiceWorkerClientInfoPtr p_client{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerHost_OpenNewTab_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1468,7 +1595,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerHost_OpenNewTab_ProxyToResponder::Run(
-    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg) {
+    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerHost::OpenNewTab", "async_response_parameters",
@@ -1482,13 +1609,14 @@ void ServiceWorkerHost_OpenNewTab_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerClientInfoPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_OpenNewTab_Name, kFlags, 0, 0, nullptr);
@@ -1574,7 +1702,7 @@ class ServiceWorkerHost_OpenPaymentHandlerWindow_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg);
+      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerHost_OpenPaymentHandlerWindow_ForwardToCallback::Accept(
@@ -1589,7 +1717,7 @@ bool ServiceWorkerHost_OpenPaymentHandlerWindow_ForwardToCallback::Accept(
   bool success = true;
   bool p_success{};
   ::blink::mojom::ServiceWorkerClientInfoPtr p_client{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerHost_OpenPaymentHandlerWindow_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1614,7 +1742,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerHost_OpenPaymentHandlerWindow_ProxyToResponder::Run(
-    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg) {
+    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerHost::OpenPaymentHandlerWindow", "async_response_parameters",
@@ -1628,13 +1756,14 @@ void ServiceWorkerHost_OpenPaymentHandlerWindow_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerClientInfoPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_OpenPaymentHandlerWindow_Name, kFlags, 0, 0, nullptr);
@@ -1766,7 +1895,8 @@ void ServiceWorkerHost_FocusClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_FocusClient_Name, kFlags, 0, 0, nullptr);
@@ -1844,7 +1974,7 @@ class ServiceWorkerHost_NavigateClient_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg);
+      bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerHost_NavigateClient_ForwardToCallback::Accept(
@@ -1859,7 +1989,7 @@ bool ServiceWorkerHost_NavigateClient_ForwardToCallback::Accept(
   bool success = true;
   bool p_success{};
   ::blink::mojom::ServiceWorkerClientInfoPtr p_client{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerHost_NavigateClient_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1884,7 +2014,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerHost_NavigateClient_ProxyToResponder::Run(
-    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const absl::optional<std::string>& in_error_msg) {
+    bool in_success, ::blink::mojom::ServiceWorkerClientInfoPtr in_client, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerHost::NavigateClient", "async_response_parameters",
@@ -1898,13 +2028,14 @@ void ServiceWorkerHost_NavigateClient_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerClientInfoPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_NavigateClient_Name, kFlags, 0, 0, nullptr);
@@ -2036,7 +2167,8 @@ void ServiceWorkerHost_SkipWaiting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_SkipWaiting_Name, kFlags, 0, 0, nullptr);
@@ -2108,7 +2240,7 @@ class ServiceWorkerHost_ClaimClients_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerHost_ClaimClients_ForwardToCallback::Accept(
@@ -2122,7 +2254,7 @@ bool ServiceWorkerHost_ClaimClients_ForwardToCallback::Accept(
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerHost_ClaimClients_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2144,7 +2276,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerHost_ClaimClients_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerHost::ClaimClients", "async_response_parameters",
@@ -2155,13 +2287,14 @@ void ServiceWorkerHost_ClaimClients_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_ClaimClients_Name, kFlags, 0, 0, nullptr);
@@ -2276,7 +2409,8 @@ void ServiceWorkerHost_RegisterRouter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerHost_RegisterRouter_Name, kFlags, 0, 0, nullptr);
@@ -2288,6 +2422,113 @@ void ServiceWorkerHost_RegisterRouter_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ServiceWorkerHost::Name_);
   message.set_method_name("RegisterRouter");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class ServiceWorkerHost_AddRoutes_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ServiceWorkerHost::AddRoutesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ServiceWorkerHost_AddRoutes_ProxyToResponder> proxy(
+        new ServiceWorkerHost_AddRoutes_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ServiceWorkerHost_AddRoutes_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ServiceWorkerHost_AddRoutes_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ServiceWorkerHost_AddRoutes_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ServiceWorkerHost::AddRoutesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool ServiceWorkerHost_AddRoutes_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ServiceWorkerHost_AddRoutes_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ServiceWorkerHost::Name_, 12, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void ServiceWorkerHost_AddRoutes_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply blink::mojom::ServiceWorkerHost::AddRoutes");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kServiceWorkerHost_AddRoutes_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ServiceWorkerHost::Name_);
+  message.set_method_name("AddRoutes");
 #endif
 
   message.set_request_id(request_id_);
@@ -2418,6 +2659,9 @@ std::move(p_message));
       break;
     }
     case internal::kServiceWorkerHost_RegisterRouter_Name: {
+      break;
+    }
+    case internal::kServiceWorkerHost_AddRoutes_Name: {
       break;
     }
   }
@@ -2699,36 +2943,67 @@ std::move(p_url), std::move(callback));
 std::move(p_rules), std::move(callback));
       return true;
     }
+    case internal::kServiceWorkerHost_AddRoutes_Name: {
+
+      internal::ServiceWorkerHost_AddRoutes_Params_Data* params =
+          reinterpret_cast<
+              internal::ServiceWorkerHost_AddRoutes_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::blink::ServiceWorkerRouterRules p_rules{};
+      ServiceWorkerHost_AddRoutes_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRules(&p_rules))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ServiceWorkerHost::Name_, 12, false);
+        return false;
+      }
+      ServiceWorkerHost::AddRoutesCallback callback =
+          ServiceWorkerHost_AddRoutes_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AddRoutes(
+std::move(p_rules), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerHostValidationInfo[] = {
-    {&internal::ServiceWorkerHost_SetCachedMetadata_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_SetCachedMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_ClearCachedMetadata_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_ClearCachedMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_GetClients_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_GetClients_Params_Data::Validate,
      &internal::ServiceWorkerHost_GetClients_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_GetClient_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_GetClient_Params_Data::Validate,
      &internal::ServiceWorkerHost_GetClient_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_OpenNewTab_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_OpenNewTab_Params_Data::Validate,
      &internal::ServiceWorkerHost_OpenNewTab_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_OpenPaymentHandlerWindow_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_OpenPaymentHandlerWindow_Params_Data::Validate,
      &internal::ServiceWorkerHost_OpenPaymentHandlerWindow_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_PostMessageToClient_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_PostMessageToClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerHost_FocusClient_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_FocusClient_Params_Data::Validate,
      &internal::ServiceWorkerHost_FocusClient_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_NavigateClient_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_NavigateClient_Params_Data::Validate,
      &internal::ServiceWorkerHost_NavigateClient_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_SkipWaiting_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_SkipWaiting_Params_Data::Validate,
      &internal::ServiceWorkerHost_SkipWaiting_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_ClaimClients_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_ClaimClients_Params_Data::Validate,
      &internal::ServiceWorkerHost_ClaimClients_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerHost_RegisterRouter_Params_Data::Validate,
+    { &internal::ServiceWorkerHost_RegisterRouter_Params_Data::Validate,
      &internal::ServiceWorkerHost_RegisterRouter_ResponseParams_Data::Validate},
+    { &internal::ServiceWorkerHost_AddRoutes_Params_Data::Validate,
+     &internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data::Validate},
 };
 
 bool ServiceWorkerHostRequestValidator::Accept(mojo::Message* message) {
@@ -3671,14 +3946,17 @@ void ServiceWorkerProxy::InitializeGlobalScope(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_InitializeGlobalScope_Name, kFlags, 0, 0, nullptr);
@@ -3758,14 +4036,17 @@ void ServiceWorkerProxy::DispatchInstallEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorker::DispatchInstallEvent");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchInstallEvent_Name, kFlags, 0, 0, nullptr);
@@ -3789,14 +4070,17 @@ void ServiceWorkerProxy::DispatchActivateEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorker::DispatchActivateEvent");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchActivateEvent_Name, kFlags, 0, 0, nullptr);
@@ -3827,14 +4111,17 @@ void ServiceWorkerProxy::DispatchBackgroundFetchAbortEvent(
                         "<value of type ::blink::mojom::BackgroundFetchRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchAbortEvent_Name, kFlags, 0, 0, nullptr);
@@ -3876,14 +4163,17 @@ void ServiceWorkerProxy::DispatchBackgroundFetchClickEvent(
                         "<value of type ::blink::mojom::BackgroundFetchRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchClickEvent_Name, kFlags, 0, 0, nullptr);
@@ -3925,14 +4215,17 @@ void ServiceWorkerProxy::DispatchBackgroundFetchFailEvent(
                         "<value of type ::blink::mojom::BackgroundFetchRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchFailEvent_Name, kFlags, 0, 0, nullptr);
@@ -3974,14 +4267,17 @@ void ServiceWorkerProxy::DispatchBackgroundFetchSuccessEvent(
                         "<value of type ::blink::mojom::BackgroundFetchRegistrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchSuccessEvent_Name, kFlags, 0, 0, nullptr);
@@ -4023,14 +4319,17 @@ void ServiceWorkerProxy::DispatchCookieChangeEvent(
                         "<value of type const ::net::CookieChangeInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchCookieChangeEvent_Name, kFlags, 0, 0, nullptr);
@@ -4075,14 +4374,17 @@ void ServiceWorkerProxy::DispatchFetchEventForMainResource(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchFetchEventForMainResource_Name, kFlags, 0, 0, nullptr);
@@ -4119,7 +4421,7 @@ void ServiceWorkerProxy::DispatchFetchEventForMainResource(
 }
 
 void ServiceWorkerProxy::DispatchNotificationClickEvent(
-    const std::string& in_notification_id, const ::blink::PlatformNotificationData& in_notification_data, int32_t in_action_index, const absl::optional<::std::u16string>& in_reply, DispatchNotificationClickEventCallback callback) {
+    const std::string& in_notification_id, const ::blink::PlatformNotificationData& in_notification_data, int32_t in_action_index, const std::optional<::std::u16string>& in_reply, DispatchNotificationClickEventCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ServiceWorker::DispatchNotificationClickEvent", "input_parameters",
@@ -4136,17 +4438,20 @@ void ServiceWorkerProxy::DispatchNotificationClickEvent(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("reply"), in_reply,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchNotificationClickEvent_Name, kFlags, 0, 0, nullptr);
@@ -4210,14 +4515,17 @@ void ServiceWorkerProxy::DispatchNotificationCloseEvent(
                         "<value of type const ::blink::PlatformNotificationData&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchNotificationCloseEvent_Name, kFlags, 0, 0, nullptr);
@@ -4259,7 +4567,7 @@ void ServiceWorkerProxy::DispatchNotificationCloseEvent(
 }
 
 void ServiceWorkerProxy::DispatchPushEvent(
-    const absl::optional<std::string>& in_payload, DispatchPushEventCallback callback) {
+    const std::optional<std::string>& in_payload, DispatchPushEventCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ServiceWorker::DispatchPushEvent", "input_parameters",
@@ -4267,17 +4575,20 @@ void ServiceWorkerProxy::DispatchPushEvent(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("payload"), in_payload,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPushEvent_Name, kFlags, 0, 0, nullptr);
@@ -4318,14 +4629,17 @@ void ServiceWorkerProxy::DispatchPushSubscriptionChangeEvent(
                         "<value of type ::blink::mojom::PushSubscriptionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPushSubscriptionChangeEvent_Name, kFlags, 0, 0, nullptr);
@@ -4376,14 +4690,17 @@ void ServiceWorkerProxy::DispatchSyncEvent(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchSyncEvent_Name, kFlags, 0, 0, nullptr);
@@ -4440,14 +4757,17 @@ void ServiceWorkerProxy::DispatchPeriodicSyncEvent(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPeriodicSyncEvent_Name, kFlags, 0, 0, nullptr);
@@ -4500,14 +4820,17 @@ void ServiceWorkerProxy::DispatchAbortPaymentEvent(
                         "<value of type ::mojo::PendingRemote<::payments::mojom::PaymentHandlerResponseCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchAbortPaymentEvent_Name, kFlags, 0, 0, nullptr);
@@ -4547,14 +4870,17 @@ void ServiceWorkerProxy::DispatchCanMakePaymentEvent(
                         "<value of type ::mojo::PendingRemote<::payments::mojom::PaymentHandlerResponseCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchCanMakePaymentEvent_Name, kFlags, 0, 0, nullptr);
@@ -4605,14 +4931,17 @@ void ServiceWorkerProxy::DispatchPaymentRequestEvent(
                         "<value of type ::mojo::PendingRemote<::payments::mojom::PaymentHandlerResponseCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPaymentRequestEvent_Name, kFlags, 0, 0, nullptr);
@@ -4660,14 +4989,17 @@ void ServiceWorkerProxy::DispatchExtendableMessageEvent(
                         "<value of type ExtendableMessageEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchExtendableMessageEvent_Name, kFlags, 0, 0, nullptr);
@@ -4709,14 +5041,17 @@ void ServiceWorkerProxy::DispatchContentDeleteEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchContentDeleteEvent_Name, kFlags, 0, 0, nullptr);
@@ -4751,14 +5086,17 @@ void ServiceWorkerProxy::Ping(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorker::Ping");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_Ping_Name, kFlags, 0, 0, nullptr);
@@ -4789,14 +5127,17 @@ void ServiceWorkerProxy::SetIdleDelay(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_SetIdleDelay_Name, kFlags, 0, 0, nullptr);
@@ -4830,14 +5171,17 @@ void ServiceWorkerProxy::AddKeepAlive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorker::AddKeepAlive");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_AddKeepAlive_Name, kFlags, 0, 0, nullptr);
@@ -4860,14 +5204,17 @@ void ServiceWorkerProxy::ClearKeepAlive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorker::ClearKeepAlive");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_ClearKeepAlive_Name, kFlags, 0, 0, nullptr);
@@ -4900,14 +5247,17 @@ void ServiceWorkerProxy::AddMessageToConsole(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_AddMessageToConsole_Name, kFlags, 0, 0, nullptr);
@@ -4953,14 +5303,17 @@ void ServiceWorkerProxy::ExecuteScriptForTest(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_ExecuteScriptForTest_Name, kFlags, 0, 0, nullptr);
@@ -5089,7 +5442,8 @@ void ServiceWorker_DispatchInstallEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchInstallEvent_Name, kFlags, 0, 0, nullptr);
@@ -5209,7 +5563,8 @@ void ServiceWorker_DispatchActivateEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchActivateEvent_Name, kFlags, 0, 0, nullptr);
@@ -5328,7 +5683,8 @@ void ServiceWorker_DispatchBackgroundFetchAbortEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchAbortEvent_Name, kFlags, 0, 0, nullptr);
@@ -5447,7 +5803,8 @@ void ServiceWorker_DispatchBackgroundFetchClickEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchClickEvent_Name, kFlags, 0, 0, nullptr);
@@ -5566,7 +5923,8 @@ void ServiceWorker_DispatchBackgroundFetchFailEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchFailEvent_Name, kFlags, 0, 0, nullptr);
@@ -5685,7 +6043,8 @@ void ServiceWorker_DispatchBackgroundFetchSuccessEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchBackgroundFetchSuccessEvent_Name, kFlags, 0, 0, nullptr);
@@ -5804,7 +6163,8 @@ void ServiceWorker_DispatchCookieChangeEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchCookieChangeEvent_Name, kFlags, 0, 0, nullptr);
@@ -5923,7 +6283,8 @@ void ServiceWorker_DispatchFetchEventForMainResource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchFetchEventForMainResource_Name, kFlags, 0, 0, nullptr);
@@ -6042,7 +6403,8 @@ void ServiceWorker_DispatchNotificationClickEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchNotificationClickEvent_Name, kFlags, 0, 0, nullptr);
@@ -6161,7 +6523,8 @@ void ServiceWorker_DispatchNotificationCloseEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchNotificationCloseEvent_Name, kFlags, 0, 0, nullptr);
@@ -6280,7 +6643,8 @@ void ServiceWorker_DispatchPushEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPushEvent_Name, kFlags, 0, 0, nullptr);
@@ -6399,7 +6763,8 @@ void ServiceWorker_DispatchPushSubscriptionChangeEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPushSubscriptionChangeEvent_Name, kFlags, 0, 0, nullptr);
@@ -6518,7 +6883,8 @@ void ServiceWorker_DispatchSyncEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchSyncEvent_Name, kFlags, 0, 0, nullptr);
@@ -6637,7 +7003,8 @@ void ServiceWorker_DispatchPeriodicSyncEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPeriodicSyncEvent_Name, kFlags, 0, 0, nullptr);
@@ -6756,7 +7123,8 @@ void ServiceWorker_DispatchAbortPaymentEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchAbortPaymentEvent_Name, kFlags, 0, 0, nullptr);
@@ -6875,7 +7243,8 @@ void ServiceWorker_DispatchCanMakePaymentEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchCanMakePaymentEvent_Name, kFlags, 0, 0, nullptr);
@@ -6994,7 +7363,8 @@ void ServiceWorker_DispatchPaymentRequestEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchPaymentRequestEvent_Name, kFlags, 0, 0, nullptr);
@@ -7113,7 +7483,8 @@ void ServiceWorker_DispatchExtendableMessageEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchExtendableMessageEvent_Name, kFlags, 0, 0, nullptr);
@@ -7232,7 +7603,8 @@ void ServiceWorker_DispatchContentDeleteEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_DispatchContentDeleteEvent_Name, kFlags, 0, 0, nullptr);
@@ -7340,7 +7712,8 @@ void ServiceWorker_Ping_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_Ping_Name, kFlags, 0, 0, nullptr);
@@ -7411,7 +7784,7 @@ class ServiceWorker_ExecuteScriptForTest_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      ::base::Value in_result, const absl::optional<std::string>& in_error);
+      ::base::Value in_result, const std::optional<std::string>& in_error);
 };
 
 bool ServiceWorker_ExecuteScriptForTest_ForwardToCallback::Accept(
@@ -7425,7 +7798,7 @@ bool ServiceWorker_ExecuteScriptForTest_ForwardToCallback::Accept(
   
   bool success = true;
   ::base::Value p_result{};
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   ServiceWorker_ExecuteScriptForTest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -7447,7 +7820,7 @@ std::move(p_error));
 }
 
 void ServiceWorker_ExecuteScriptForTest_ProxyToResponder::Run(
-    ::base::Value in_result, const absl::optional<std::string>& in_error) {
+    ::base::Value in_result, const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorker::ExecuteScriptForTest", "async_response_parameters",
@@ -7458,13 +7831,14 @@ void ServiceWorker_ExecuteScriptForTest_ProxyToResponder::Run(
                         "<value of type ::base::Value>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorker_ExecuteScriptForTest_Name, kFlags, 0, 0, nullptr);
@@ -7997,7 +8371,7 @@ std::move(p_response_callback), std::move(callback));
       std::string p_notification_id{};
       ::blink::PlatformNotificationData p_notification_data{};
       int32_t p_action_index{};
-      absl::optional<::std::u16string> p_reply{};
+      std::optional<::std::u16string> p_reply{};
       ServiceWorker_DispatchNotificationClickEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadNotificationId(&p_notification_id))
@@ -8068,7 +8442,7 @@ std::move(p_notification_data), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_payload{};
+      std::optional<std::string> p_payload{};
       ServiceWorker_DispatchPushEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPayload(&p_payload))
@@ -8424,60 +8798,60 @@ std::move(p_wants_result), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerValidationInfo[] = {
-    {&internal::ServiceWorker_InitializeGlobalScope_Params_Data::Validate,
+    { &internal::ServiceWorker_InitializeGlobalScope_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorker_DispatchInstallEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchInstallEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchInstallEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchActivateEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchActivateEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchActivateEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchBackgroundFetchAbortEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchBackgroundFetchAbortEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchBackgroundFetchAbortEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchBackgroundFetchClickEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchBackgroundFetchClickEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchBackgroundFetchClickEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchBackgroundFetchFailEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchBackgroundFetchFailEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchBackgroundFetchFailEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchBackgroundFetchSuccessEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchBackgroundFetchSuccessEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchBackgroundFetchSuccessEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchCookieChangeEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchCookieChangeEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchCookieChangeEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchFetchEventForMainResource_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchFetchEventForMainResource_Params_Data::Validate,
      &internal::ServiceWorker_DispatchFetchEventForMainResource_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchNotificationClickEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchNotificationClickEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchNotificationClickEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchNotificationCloseEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchNotificationCloseEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchNotificationCloseEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchPushEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchPushEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchPushEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchPushSubscriptionChangeEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchPushSubscriptionChangeEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchPushSubscriptionChangeEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchSyncEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchSyncEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchSyncEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchPeriodicSyncEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchPeriodicSyncEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchPeriodicSyncEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchAbortPaymentEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchAbortPaymentEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchAbortPaymentEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchCanMakePaymentEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchCanMakePaymentEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchCanMakePaymentEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchPaymentRequestEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchPaymentRequestEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchPaymentRequestEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchExtendableMessageEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchExtendableMessageEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchExtendableMessageEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_DispatchContentDeleteEvent_Params_Data::Validate,
+    { &internal::ServiceWorker_DispatchContentDeleteEvent_Params_Data::Validate,
      &internal::ServiceWorker_DispatchContentDeleteEvent_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_Ping_Params_Data::Validate,
+    { &internal::ServiceWorker_Ping_Params_Data::Validate,
      &internal::ServiceWorker_Ping_ResponseParams_Data::Validate},
-    {&internal::ServiceWorker_SetIdleDelay_Params_Data::Validate,
+    { &internal::ServiceWorker_SetIdleDelay_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorker_AddKeepAlive_Params_Data::Validate,
+    { &internal::ServiceWorker_AddKeepAlive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorker_ClearKeepAlive_Params_Data::Validate,
+    { &internal::ServiceWorker_ClearKeepAlive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorker_AddMessageToConsole_Params_Data::Validate,
+    { &internal::ServiceWorker_AddMessageToConsole_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorker_ExecuteScriptForTest_Params_Data::Validate,
+    { &internal::ServiceWorker_ExecuteScriptForTest_Params_Data::Validate,
      &internal::ServiceWorker_ExecuteScriptForTest_ResponseParams_Data::Validate},
 };
 
@@ -8563,6 +8937,9 @@ void ServiceWorkerHostInterceptorForTesting::ClaimClients(ClaimClientsCallback c
 void ServiceWorkerHostInterceptorForTesting::RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) {
   GetForwardingInterface()->RegisterRouter(std::move(rules), std::move(callback));
 }
+void ServiceWorkerHostInterceptorForTesting::AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) {
+  GetForwardingInterface()->AddRoutes(std::move(rules), std::move(callback));
+}
 ServiceWorkerHostAsyncWaiter::ServiceWorkerHostAsyncWaiter(
     ServiceWorkerHost* proxy) : proxy_(proxy) {}
 
@@ -8615,7 +8992,7 @@ void ServiceWorkerHostAsyncWaiter::GetClient(
 }
 
 void ServiceWorkerHostAsyncWaiter::OpenNewTab(
-    const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg) {
+    const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->OpenNewTab(std::move(url),
       base::BindOnce(
@@ -8624,11 +9001,11 @@ void ServiceWorkerHostAsyncWaiter::OpenNewTab(
 ,
              ::blink::mojom::ServiceWorkerClientInfoPtr* out_client
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              bool success,
              ::blink::mojom::ServiceWorkerClientInfoPtr client,
-             const absl::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -8641,7 +9018,7 @@ void ServiceWorkerHostAsyncWaiter::OpenNewTab(
 
 
 void ServiceWorkerHostAsyncWaiter::OpenPaymentHandlerWindow(
-    const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg) {
+    const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->OpenPaymentHandlerWindow(std::move(url),
       base::BindOnce(
@@ -8650,11 +9027,11 @@ void ServiceWorkerHostAsyncWaiter::OpenPaymentHandlerWindow(
 ,
              ::blink::mojom::ServiceWorkerClientInfoPtr* out_client
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              bool success,
              ::blink::mojom::ServiceWorkerClientInfoPtr client,
-             const absl::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -8690,7 +9067,7 @@ void ServiceWorkerHostAsyncWaiter::FocusClient(
 }
 
 void ServiceWorkerHostAsyncWaiter::NavigateClient(
-    const std::string& client_uuid, const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg) {
+    const std::string& client_uuid, const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->NavigateClient(std::move(client_uuid),std::move(url),
       base::BindOnce(
@@ -8699,11 +9076,11 @@ void ServiceWorkerHostAsyncWaiter::NavigateClient(
 ,
              ::blink::mojom::ServiceWorkerClientInfoPtr* out_client
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              bool success,
              ::blink::mojom::ServiceWorkerClientInfoPtr client,
-             const absl::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_success = std::move(success);*out_client = std::move(client);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -8739,17 +9116,17 @@ bool ServiceWorkerHostAsyncWaiter::SkipWaiting(
 }
 
 void ServiceWorkerHostAsyncWaiter::ClaimClients(
-    ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->ClaimClients(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -8764,6 +9141,20 @@ void ServiceWorkerHostAsyncWaiter::RegisterRouter(
     const ::blink::ServiceWorkerRouterRules& rules) {
   base::RunLoop loop;
   proxy_->RegisterRouter(std::move(rules),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void ServiceWorkerHostAsyncWaiter::AddRoutes(
+    const ::blink::ServiceWorkerRouterRules& rules) {
+  base::RunLoop loop;
+  proxy_->AddRoutes(std::move(rules),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();
@@ -8804,13 +9195,13 @@ void ServiceWorkerInterceptorForTesting::DispatchCookieChangeEvent(const ::net::
 void ServiceWorkerInterceptorForTesting::DispatchFetchEventForMainResource(::blink::mojom::DispatchFetchEventParamsPtr params, ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback> response_callback, DispatchFetchEventForMainResourceCallback callback) {
   GetForwardingInterface()->DispatchFetchEventForMainResource(std::move(params), std::move(response_callback), std::move(callback));
 }
-void ServiceWorkerInterceptorForTesting::DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) {
+void ServiceWorkerInterceptorForTesting::DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) {
   GetForwardingInterface()->DispatchNotificationClickEvent(std::move(notification_id), std::move(notification_data), std::move(action_index), std::move(reply), std::move(callback));
 }
 void ServiceWorkerInterceptorForTesting::DispatchNotificationCloseEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, DispatchNotificationCloseEventCallback callback) {
   GetForwardingInterface()->DispatchNotificationCloseEvent(std::move(notification_id), std::move(notification_data), std::move(callback));
 }
-void ServiceWorkerInterceptorForTesting::DispatchPushEvent(const absl::optional<std::string>& payload, DispatchPushEventCallback callback) {
+void ServiceWorkerInterceptorForTesting::DispatchPushEvent(const std::optional<std::string>& payload, DispatchPushEventCallback callback) {
   GetForwardingInterface()->DispatchPushEvent(std::move(payload), std::move(callback));
 }
 void ServiceWorkerInterceptorForTesting::DispatchPushSubscriptionChangeEvent(::blink::mojom::PushSubscriptionPtr old_subscription, ::blink::mojom::PushSubscriptionPtr new_subscription, DispatchPushSubscriptionChangeEventCallback callback) {
@@ -9044,7 +9435,7 @@ void ServiceWorkerAsyncWaiter::DispatchFetchEventForMainResource(
 }
 
 void ServiceWorkerAsyncWaiter::DispatchNotificationClickEvent(
-    const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, ::blink::mojom::ServiceWorkerEventStatus* out_status) {
+    const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, ::blink::mojom::ServiceWorkerEventStatus* out_status) {
   base::RunLoop loop;
   proxy_->DispatchNotificationClickEvent(std::move(notification_id),std::move(notification_data),std::move(action_index),std::move(reply),
       base::BindOnce(
@@ -9060,7 +9451,7 @@ void ServiceWorkerAsyncWaiter::DispatchNotificationClickEvent(
 }
 
 ::blink::mojom::ServiceWorkerEventStatus ServiceWorkerAsyncWaiter::DispatchNotificationClickEvent(
-    const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply) {
+    const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply) {
   ::blink::mojom::ServiceWorkerEventStatus async_wait_result;
   DispatchNotificationClickEvent(std::move(notification_id),std::move(notification_data),std::move(action_index),std::move(reply),&async_wait_result);
   return async_wait_result;
@@ -9090,7 +9481,7 @@ void ServiceWorkerAsyncWaiter::DispatchNotificationCloseEvent(
 }
 
 void ServiceWorkerAsyncWaiter::DispatchPushEvent(
-    const absl::optional<std::string>& payload, ::blink::mojom::ServiceWorkerEventStatus* out_status) {
+    const std::optional<std::string>& payload, ::blink::mojom::ServiceWorkerEventStatus* out_status) {
   base::RunLoop loop;
   proxy_->DispatchPushEvent(std::move(payload),
       base::BindOnce(
@@ -9106,7 +9497,7 @@ void ServiceWorkerAsyncWaiter::DispatchPushEvent(
 }
 
 ::blink::mojom::ServiceWorkerEventStatus ServiceWorkerAsyncWaiter::DispatchPushEvent(
-    const absl::optional<std::string>& payload) {
+    const std::optional<std::string>& payload) {
   ::blink::mojom::ServiceWorkerEventStatus async_wait_result;
   DispatchPushEvent(std::move(payload),&async_wait_result);
   return async_wait_result;
@@ -9311,17 +9702,17 @@ void ServiceWorkerAsyncWaiter::Ping(
 
 
 void ServiceWorkerAsyncWaiter::ExecuteScriptForTest(
-    const ::std::u16string& javascript, bool wants_result, ::base::Value* out_result, absl::optional<std::string>* out_error) {
+    const ::std::u16string& javascript, bool wants_result, ::base::Value* out_result, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->ExecuteScriptForTest(std::move(javascript),std::move(wants_result),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::base::Value* out_result
 ,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
              ::base::Value result,
-             const absl::optional<std::string>& error) {*out_result = std::move(result);*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_result = std::move(result);*out_error = std::move(error);
             loop->Quit();
           },
           &loop,

@@ -88,8 +88,8 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsAsyncWaiter {
       ::drive::FileError* out_error);
   ::drive::FileError ResetCache();
   void GetThumbnail(
-      const ::base::FilePath& path, bool crop_to_square, absl::optional<std::vector<uint8_t>>* out_thumbnail);
-  absl::optional<std::vector<uint8_t>> GetThumbnail(const ::base::FilePath& path, bool crop_to_square);
+      const ::base::FilePath& path, bool crop_to_square, std::optional<std::vector<uint8_t>>* out_thumbnail);
+  std::optional<std::vector<uint8_t>> GetThumbnail(const ::base::FilePath& path, bool crop_to_square);
   void CopyFile(
       const ::base::FilePath& source, const ::base::FilePath& target, ::drive::FileError* out_error);
   ::drive::FileError CopyFile(const ::base::FilePath& source, const ::base::FilePath& target);
@@ -103,8 +103,8 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsAsyncWaiter {
       std::string* out_arguments);
   std::string GetStartupArguments();
   void LocateFilesByItemIds(
-      const std::vector<std::string>& item_ids, absl::optional<std::vector<FilePathOrErrorPtr>>* out_response);
-  absl::optional<std::vector<FilePathOrErrorPtr>> LocateFilesByItemIds(const std::vector<std::string>& item_ids);
+      const std::vector<std::string>& item_ids, std::optional<std::vector<FilePathOrErrorPtr>>* out_response);
+  std::optional<std::vector<FilePathOrErrorPtr>> LocateFilesByItemIds(const std::vector<std::string>& item_ids);
   void GetQuotaUsage(
       ::drive::FileError* out_error, QuotaUsagePtr* out_quota);
   
@@ -127,8 +127,8 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsAsyncWaiter {
       int64_t stable_id, ::drive::FileError* out_error, FileMetadataPtr* out_metadata);
   
   void SetDocsOfflineEnabled(
-      bool enabled, ::drive::FileError* out_error);
-  ::drive::FileError SetDocsOfflineEnabled(bool enabled);
+      bool enabled, ::drive::FileError* out_error, DocsOfflineEnableStatus* out_status);
+  
   void GetOfflineFilesSpaceUsage(
       ::drive::FileError* out_error, int64_t* out_space_used);
   
@@ -157,8 +157,8 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateInterceptorForTesting : pub
   virtual DriveFsDelegate* GetForwardingInterface() = 0;
   void GetAccessToken(const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, GetAccessTokenCallback callback) override;
   void OnMounted() override;
-  void OnMountFailed(absl::optional<::base::TimeDelta> retry_delay) override;
-  void OnUnmounted(absl::optional<::base::TimeDelta> retry_delay) override;
+  void OnMountFailed(std::optional<::base::TimeDelta> retry_delay) override;
+  void OnUnmounted(std::optional<::base::TimeDelta> retry_delay) override;
   void OnSyncingStatusUpdate(SyncingStatusPtr status) override;
   void OnFilesChanged(std::vector<FileChangePtr> changes) override;
   void OnError(DriveErrorPtr error) override;
@@ -172,6 +172,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateInterceptorForTesting : pub
   void PersistMachineRootID(const std::string& doc_id) override;
   void OnMirrorSyncingStatusUpdate(SyncingStatusPtr status) override;
   void OnItemProgress(ProgressEventPtr progress_event) override;
+  void GetAccessTokenWithExpiry(const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, GetAccessTokenWithExpiryCallback callback) override;
 };
 class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateAsyncWaiter {
  public:
@@ -193,6 +194,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateAsyncWaiter {
   void GetMachineRootID(
       std::string* out_doc_id);
   std::string GetMachineRootID();
+  void GetAccessTokenWithExpiry(
+      const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, AccessTokenStatus* out_status, AccessTokenPtr* out_access_token);
+  
 
  private:
   DriveFsDelegate* const proxy_;
@@ -212,7 +216,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SearchQueryAsyncWaiter {
 
   ~SearchQueryAsyncWaiter();
   void GetNextPage(
-      ::drive::FileError* out_error, absl::optional<std::vector<QueryItemPtr>>* out_results);
+      ::drive::FileError* out_error, std::optional<std::vector<QueryItemPtr>>* out_results);
   
 
  private:

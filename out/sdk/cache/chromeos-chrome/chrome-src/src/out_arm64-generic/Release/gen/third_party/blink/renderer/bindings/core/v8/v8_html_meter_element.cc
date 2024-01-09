@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLMeterElement>::value,
     "HTMLMeterElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLMeterElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLMeterElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.value.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -112,7 +108,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -129,8 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.min.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->min();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -151,7 +148,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -168,8 +165,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.max.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->max();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -190,7 +188,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -207,8 +205,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.low.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->low();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -229,7 +228,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -246,8 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.high.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->high();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -268,7 +268,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -285,8 +285,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.optimum.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->optimum();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -307,7 +308,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -324,8 +325,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMeterElement.labels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(v8_receiver);
+HTMLMeterElement* blink_receiver = V8HTMLMeterElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->labels();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

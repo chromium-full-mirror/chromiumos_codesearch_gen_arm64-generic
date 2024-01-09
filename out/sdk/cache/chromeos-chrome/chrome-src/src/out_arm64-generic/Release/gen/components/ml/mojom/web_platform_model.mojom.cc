@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -280,14 +281,17 @@ void ModelLoaderProxy::Load(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kModelLoader_Load_Name, kFlags, 0, 0, nullptr);
@@ -422,7 +426,8 @@ void ModelLoader_Load_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kModelLoader_Load_Name, kFlags, 0, 0, nullptr);
@@ -512,10 +517,10 @@ std::move(p_model_content), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kModelLoaderValidationInfo[] = {
-    {&internal::ModelLoader_Load_Params_Data::Validate,
+    { &internal::ModelLoader_Load_Params_Data::Validate,
      &internal::ModelLoader_Load_ResponseParams_Data::Validate},
 };
 
@@ -615,14 +620,17 @@ void ModelProxy::Compute(
                         "<value of type const base::flat_map<std::string, std::vector<uint8_t>>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kModel_Compute_Name, kFlags, 0, 0, nullptr);
@@ -699,7 +707,7 @@ class Model_Compute_ProxyToResponder : public ::mojo::internal::ProxyToResponder
 #endif
 
   void Run(
-      ComputeResult in_result, const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>& in_output_tensors);
+      ComputeResult in_result, const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>& in_output_tensors);
 };
 
 bool Model_Compute_ForwardToCallback::Accept(
@@ -713,7 +721,7 @@ bool Model_Compute_ForwardToCallback::Accept(
   
   bool success = true;
   ComputeResult p_result{};
-  absl::optional<base::flat_map<std::string, std::vector<uint8_t>>> p_output_tensors{};
+  std::optional<base::flat_map<std::string, std::vector<uint8_t>>> p_output_tensors{};
   Model_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -735,7 +743,7 @@ std::move(p_output_tensors));
 }
 
 void Model_Compute_ProxyToResponder::Run(
-    ComputeResult in_result, const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>& in_output_tensors) {
+    ComputeResult in_result, const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>& in_output_tensors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ml::model_loader::mojom::Model::Compute", "async_response_parameters",
@@ -746,13 +754,14 @@ void Model_Compute_ProxyToResponder::Run(
                         "<value of type ComputeResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("output_tensors"), in_output_tensors,
-                        "<value of type const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>");
+                        "<value of type const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kModel_Compute_Name, kFlags, 0, 0, nullptr);
@@ -842,10 +851,10 @@ std::move(p_input_tensors), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kModelValidationInfo[] = {
-    {&internal::Model_Compute_Params_Data::Validate,
+    { &internal::Model_Compute_Params_Data::Validate,
      &internal::Model_Compute_ResponseParams_Data::Validate},
 };
 
@@ -973,17 +982,17 @@ ModelAsyncWaiter::ModelAsyncWaiter(
 ModelAsyncWaiter::~ModelAsyncWaiter() = default;
 
 void ModelAsyncWaiter::Compute(
-    const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeResult* out_result, absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors) {
+    const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeResult* out_result, std::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors) {
   base::RunLoop loop;
   proxy_->Compute(std::move(input_tensors),
       base::BindOnce(
           [](base::RunLoop* loop,
              ComputeResult* out_result
 ,
-             absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors
+             std::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors
 ,
              ComputeResult result,
-             const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>& output_tensors) {*out_result = std::move(result);*out_output_tensors = std::move(output_tensors);
+             const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>& output_tensors) {*out_result = std::move(result);*out_output_tensors = std::move(output_tensors);
             loop->Quit();
           },
           &loop,

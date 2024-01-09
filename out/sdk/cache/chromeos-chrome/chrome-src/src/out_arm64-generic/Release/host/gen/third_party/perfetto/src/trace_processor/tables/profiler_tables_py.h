@@ -582,7 +582,7 @@ class StackProfileFrameTable : public macros_internal::MacroTable {
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t mapping = ColumnType::mapping::default_flags();
     static constexpr uint32_t rel_pc = ColumnType::rel_pc::default_flags();
-    static constexpr uint32_t symbol_set_id = ColumnType::symbol_set_id::default_flags();
+    static constexpr uint32_t symbol_set_id = static_cast<uint32_t>(Column::Flag::kDense) | ColumnType::symbol_set_id::default_flags();
     static constexpr uint32_t deobfuscated_name = ColumnType::deobfuscated_name::default_flags();
   };
 
@@ -760,7 +760,7 @@ class StackProfileFrameTable : public macros_internal::MacroTable {
         name_(ColumnStorage<ColumnType::name::stored_type>::Create<false>()),
         mapping_(ColumnStorage<ColumnType::mapping::stored_type>::Create<false>()),
         rel_pc_(ColumnStorage<ColumnType::rel_pc::stored_type>::Create<false>()),
-        symbol_set_id_(ColumnStorage<ColumnType::symbol_set_id::stored_type>::Create<false>()),
+        symbol_set_id_(ColumnStorage<ColumnType::symbol_set_id::stored_type>::Create<true>()),
         deobfuscated_name_(ColumnStorage<ColumnType::deobfuscated_name::stored_type>::Create<false>()) {
     static_assert(
         Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(

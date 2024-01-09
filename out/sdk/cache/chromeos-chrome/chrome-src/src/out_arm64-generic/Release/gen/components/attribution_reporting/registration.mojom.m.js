@@ -46,12 +46,6 @@ import {
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const DebugKeySpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const SuitableOriginSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -100,19 +94,19 @@ export const EventReportWindowsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const TriggerConfigSpec =
+export const TriggerSpecSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const TriggerSpecsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const SourceRegistrationSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const TriggerDedupKeySpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -145,35 +139,6 @@ export const OsRegistrationItemSpec =
 export const OsRegistrationSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-
-
-
-mojo.internal.Struct(
-    DebugKeySpec.$,
-    'DebugKey',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class DebugKey {
-  constructor() {
-    /** @type { !bigint } */
-    this.value;
-  }
-}
 
 
 
@@ -460,14 +425,14 @@ export class EventReportWindows {
 
 
 mojo.internal.Struct(
-    TriggerConfigSpec.$,
-    'TriggerConfig',
+    TriggerSpecSpec.$,
+    'TriggerSpec',
     [
       mojo.internal.StructField(
-        'triggerDataMatching', 0,
+        'eventReportWindows', 0,
         0,
-        attributionReporting_mojom_TriggerDataMatchingSpec.$,
-        0,
+        EventReportWindowsSpec.$,
+        null,
         false /* nullable */,
         0,
       ),
@@ -479,10 +444,49 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class TriggerConfig {
+export class TriggerSpec {
   constructor() {
-    /** @type { !attributionReporting_mojom_TriggerDataMatching } */
-    this.triggerDataMatching;
+    /** @type { !EventReportWindows } */
+    this.eventReportWindows;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    TriggerSpecsSpec.$,
+    'TriggerSpecs',
+    [
+      mojo.internal.StructField(
+        'specs', 0,
+        0,
+        mojo.internal.Array(TriggerSpecSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'triggerDataIndices', 8,
+        0,
+        mojo.internal.Map(mojo.internal.Uint32, mojo.internal.Uint8, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class TriggerSpecs {
+  constructor() {
+    /** @type { !Array<!TriggerSpec> } */
+    this.specs;
+    /** @type { !Object<!number, !number> } */
+    this.triggerDataIndices;
   }
 }
 
@@ -549,12 +553,29 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'debugKey', 56,
+        'debug_key_$flag', 44,
         0,
-        DebugKeySpec.$,
-        null,
-        true /* nullable */,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "debug_key_$value",
+          originalFieldName: "debugKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'debug_key_$value', 56,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "debugKey",
+        }
       ),
       mojo.internal.StructField(
         'filterData', 64,
@@ -574,22 +595,30 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'debugReporting', 44,
-        0,
+        1,
         mojo.internal.Bool,
         false,
         false /* nullable */,
         0,
       ),
       mojo.internal.StructField(
-        'triggerConfig', 80,
+        'triggerDataMatching', 80,
         0,
-        TriggerConfigSpec.$,
-        null,
+        attributionReporting_mojom_TriggerDataMatchingSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'eventLevelEpsilon', 88,
+        0,
+        mojo.internal.Double,
+        0,
         false /* nullable */,
         0,
       ),
     ],
-    [[0, 96],]);
+    [[0, 104],]);
 
 
 
@@ -612,7 +641,7 @@ export class SourceRegistration {
     this.maxEventLevelReports;
     /** @type { !bigint } */
     this.priority;
-    /** @type { (DebugKey|undefined) } */
+    /** @type { (bigint|undefined) } */
     this.debugKey;
     /** @type { !FilterData } */
     this.filterData;
@@ -620,37 +649,10 @@ export class SourceRegistration {
     this.aggregationKeys;
     /** @type { !boolean } */
     this.debugReporting;
-    /** @type { !TriggerConfig } */
-    this.triggerConfig;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    TriggerDedupKeySpec.$,
-    'TriggerDedupKey',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class TriggerDedupKey {
-  constructor() {
-    /** @type { !bigint } */
-    this.value;
+    /** @type { !attributionReporting_mojom_TriggerDataMatching } */
+    this.triggerDataMatching;
+    /** @type { !number } */
+    this.eventLevelEpsilon;
   }
 }
 
@@ -677,15 +679,32 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'dedupKey', 16,
+        'dedup_key_$flag', 16,
         0,
-        TriggerDedupKeySpec.$,
-        null,
-        true /* nullable */,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "dedup_key_$value",
+          originalFieldName: "dedupKey",
+        }
       ),
       mojo.internal.StructField(
-        'filters', 24,
+        'dedup_key_$value', 24,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "dedupKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'filters', 32,
         0,
         FilterPairSpec.$,
         null,
@@ -693,7 +712,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -706,7 +725,7 @@ export class EventTriggerData {
     this.data;
     /** @type { !bigint } */
     this.priority;
-    /** @type { (TriggerDedupKey|undefined) } */
+    /** @type { (bigint|undefined) } */
     this.dedupKey;
     /** @type { !FilterPair } */
     this.filters;
@@ -720,15 +739,32 @@ mojo.internal.Struct(
     'AggregatableDedupKey',
     [
       mojo.internal.StructField(
-        'dedupKey', 0,
+        'dedup_key_$flag', 0,
         0,
-        TriggerDedupKeySpec.$,
-        null,
-        true /* nullable */,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "dedup_key_$value",
+          originalFieldName: "dedupKey",
+        }
       ),
       mojo.internal.StructField(
-        'filters', 8,
+        'dedup_key_$value', 8,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "dedupKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'filters', 16,
         0,
         FilterPairSpec.$,
         null,
@@ -736,7 +772,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -745,7 +781,7 @@ mojo.internal.Struct(
  */
 export class AggregatableDedupKey {
   constructor() {
-    /** @type { (TriggerDedupKey|undefined) } */
+    /** @type { (bigint|undefined) } */
     this.dedupKey;
     /** @type { !FilterPair } */
     this.filters;
@@ -791,15 +827,32 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'debugKey', 32,
+        'debug_key_$flag', 32,
         0,
-        DebugKeySpec.$,
-        null,
-        true /* nullable */,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
         0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "debug_key_$value",
+          originalFieldName: "debugKey",
+        }
       ),
       mojo.internal.StructField(
-        'aggregatableDedupKeys', 40,
+        'debug_key_$value', 40,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "debugKey",
+        }
+      ),
+      mojo.internal.StructField(
+        'aggregatableDedupKeys', 48,
         0,
         mojo.internal.Array(AggregatableDedupKeySpec.$, false),
         null,
@@ -807,8 +860,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'debugReporting', 48,
-        0,
+        'debugReporting', 32,
+        1,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -823,15 +876,23 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sourceRegistrationTimeConfig', 52,
+        'sourceRegistrationTimeConfig', 36,
         0,
         attributionReporting_mojom_SourceRegistrationTimeConfigSpec.$,
         0,
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'triggerContextId', 64,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
+        0,
+      ),
     ],
-    [[0, 72],]);
+    [[0, 80],]);
 
 
 
@@ -848,7 +909,7 @@ export class TriggerRegistration {
     this.aggregatableTriggerData;
     /** @type { !Object<!string, !number> } */
     this.aggregatableValues;
-    /** @type { (DebugKey|undefined) } */
+    /** @type { (bigint|undefined) } */
     this.debugKey;
     /** @type { !Array<!AggregatableDedupKey> } */
     this.aggregatableDedupKeys;
@@ -858,6 +919,8 @@ export class TriggerRegistration {
     this.aggregationCoordinatorOrigin;
     /** @type { !attributionReporting_mojom_SourceRegistrationTimeConfig } */
     this.sourceRegistrationTimeConfig;
+    /** @type { (string|undefined) } */
+    this.triggerContextId;
   }
 }
 

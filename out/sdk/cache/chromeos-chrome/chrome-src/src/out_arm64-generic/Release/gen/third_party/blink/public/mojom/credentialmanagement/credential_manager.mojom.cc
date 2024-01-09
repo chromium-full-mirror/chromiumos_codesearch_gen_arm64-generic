@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,10 +54,10 @@ CredentialInfo::CredentialInfo()
 
 CredentialInfo::CredentialInfo(
     ::password_manager::CredentialType type_in,
-    const absl::optional<::std::u16string>& id_in,
-    const absl::optional<::std::u16string>& name_in,
+    const std::optional<::std::u16string>& id_in,
+    const std::optional<::std::u16string>& name_in,
     const ::GURL& icon_in,
-    const absl::optional<::std::u16string>& password_in,
+    const std::optional<::std::u16string>& password_in,
     const ::url::Origin& federation_in)
     : type(std::move(type_in)),
       id(std::move(id_in)),
@@ -83,7 +84,7 @@ void CredentialInfo::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -92,7 +93,7 @@ void CredentialInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -110,7 +111,7 @@ void CredentialInfo::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -290,14 +291,17 @@ void CredentialManagerProxy::Store(
                         "<value of type const ::password_manager::CredentialInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_Store_Name, kFlags, 0, 0, nullptr);
@@ -332,14 +336,17 @@ void CredentialManagerProxy::PreventSilentAccess(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::CredentialManager::PreventSilentAccess");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_PreventSilentAccess_Name, kFlags, 0, 0, nullptr);
@@ -376,14 +383,17 @@ void CredentialManagerProxy::Get(
                         "<value of type const std::vector<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_Get_Name, kFlags, 0, 0, nullptr);
@@ -498,7 +508,8 @@ void CredentialManager_Store_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_Store_Name, kFlags, 0, 0, nullptr);
@@ -604,7 +615,8 @@ void CredentialManager_PreventSilentAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_PreventSilentAccess_Name, kFlags, 0, 0, nullptr);
@@ -675,7 +687,7 @@ class CredentialManager_Get_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      ::password_manager::CredentialManagerError in_error, const absl::optional<::password_manager::CredentialInfo>& in_credential);
+      ::password_manager::CredentialManagerError in_error, const std::optional<::password_manager::CredentialInfo>& in_credential);
 };
 
 bool CredentialManager_Get_ForwardToCallback::Accept(
@@ -689,7 +701,7 @@ bool CredentialManager_Get_ForwardToCallback::Accept(
   
   bool success = true;
   ::password_manager::CredentialManagerError p_error{};
-  absl::optional<::password_manager::CredentialInfo> p_credential{};
+  std::optional<::password_manager::CredentialInfo> p_credential{};
   CredentialManager_Get_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -711,7 +723,7 @@ std::move(p_credential));
 }
 
 void CredentialManager_Get_ProxyToResponder::Run(
-    ::password_manager::CredentialManagerError in_error, const absl::optional<::password_manager::CredentialInfo>& in_credential) {
+    ::password_manager::CredentialManagerError in_error, const std::optional<::password_manager::CredentialInfo>& in_credential) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::CredentialManager::Get", "async_response_parameters",
@@ -722,13 +734,14 @@ void CredentialManager_Get_ProxyToResponder::Run(
                         "<value of type ::password_manager::CredentialManagerError>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("credential"), in_credential,
-                        "<value of type const absl::optional<::password_manager::CredentialInfo>&>");
+                        "<value of type const std::optional<::password_manager::CredentialInfo>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCredentialManager_Get_Name, kFlags, 0, 0, nullptr);
@@ -884,14 +897,14 @@ std::move(p_federations), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCredentialManagerValidationInfo[] = {
-    {&internal::CredentialManager_Store_Params_Data::Validate,
+    { &internal::CredentialManager_Store_Params_Data::Validate,
      &internal::CredentialManager_Store_ResponseParams_Data::Validate},
-    {&internal::CredentialManager_PreventSilentAccess_Params_Data::Validate,
+    { &internal::CredentialManager_PreventSilentAccess_Params_Data::Validate,
      &internal::CredentialManager_PreventSilentAccess_ResponseParams_Data::Validate},
-    {&internal::CredentialManager_Get_Params_Data::Validate,
+    { &internal::CredentialManager_Get_Params_Data::Validate,
      &internal::CredentialManager_Get_ResponseParams_Data::Validate},
 };
 
@@ -988,17 +1001,17 @@ void CredentialManagerAsyncWaiter::PreventSilentAccess(
 
 
 void CredentialManagerAsyncWaiter::Get(
-    ::password_manager::CredentialMediationRequirement mediation, bool include_passwords, const std::vector<::GURL>& federations, ::password_manager::CredentialManagerError* out_error, absl::optional<::password_manager::CredentialInfo>* out_credential) {
+    ::password_manager::CredentialMediationRequirement mediation, bool include_passwords, const std::vector<::GURL>& federations, ::password_manager::CredentialManagerError* out_error, std::optional<::password_manager::CredentialInfo>* out_credential) {
   base::RunLoop loop;
   proxy_->Get(std::move(mediation),std::move(include_passwords),std::move(federations),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::password_manager::CredentialManagerError* out_error
 ,
-             absl::optional<::password_manager::CredentialInfo>* out_credential
+             std::optional<::password_manager::CredentialInfo>* out_credential
 ,
              ::password_manager::CredentialManagerError error,
-             const absl::optional<::password_manager::CredentialInfo>& credential) {*out_error = std::move(error);*out_credential = std::move(credential);
+             const std::optional<::password_manager::CredentialInfo>& credential) {*out_error = std::move(error);*out_credential = std::move(credential);
             loop->Quit();
           },
           &loop,

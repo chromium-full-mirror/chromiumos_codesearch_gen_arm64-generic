@@ -419,6 +419,10 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static constexpr uint64_t kLoadInterestGroupPhaseLatencyInMillisNameHash = UINT64_C(16310764380536414472);
   AdsInterestGroup_AuctionLatency_V2& SetLoadInterestGroupPhaseLatencyInMillis(int64_t value);
 
+  static const char kMaxAdditionalBidDecodeLatencyInMillisName[];
+  static constexpr uint64_t kMaxAdditionalBidDecodeLatencyInMillisNameHash = UINT64_C(7829694414471854301);
+  AdsInterestGroup_AuctionLatency_V2& SetMaxAdditionalBidDecodeLatencyInMillis(int64_t value);
+
   static const char kMaxBidForOneInterestGroupLatencyInMillisName[];
   static constexpr uint64_t kMaxBidForOneInterestGroupLatencyInMillisNameHash = UINT64_C(18054414652807126083);
   AdsInterestGroup_AuctionLatency_V2& SetMaxBidForOneInterestGroupLatencyInMillis(int64_t value);
@@ -426,6 +430,14 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static const char kMaxComponentAuctionLatencyInMillisName[];
   static constexpr uint64_t kMaxComponentAuctionLatencyInMillisNameHash = UINT64_C(4644322349357249496);
   AdsInterestGroup_AuctionLatency_V2& SetMaxComponentAuctionLatencyInMillis(int64_t value);
+
+  static const char kMaxConfigPromisesResolvedCriticalPathLatencyInMillisName[];
+  static constexpr uint64_t kMaxConfigPromisesResolvedCriticalPathLatencyInMillisNameHash = UINT64_C(13485229370252619718);
+  AdsInterestGroup_AuctionLatency_V2& SetMaxConfigPromisesResolvedCriticalPathLatencyInMillis(int64_t value);
+
+  static const char kMaxConfigPromisesResolvedLatencyInMillisName[];
+  static constexpr uint64_t kMaxConfigPromisesResolvedLatencyInMillisNameHash = UINT64_C(16955422112063150391);
+  AdsInterestGroup_AuctionLatency_V2& SetMaxConfigPromisesResolvedLatencyInMillis(int64_t value);
 
   static const char kMaxGenerateBidCodeReadyLatencyInMillisName[];
   static constexpr uint64_t kMaxGenerateBidCodeReadyLatencyInMillisNameHash = UINT64_C(14500581822229208940);
@@ -467,6 +479,10 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static constexpr uint64_t kMaxScoreAdTrustedScoringSignalsLatencyInMillisNameHash = UINT64_C(12946639724212918144);
   AdsInterestGroup_AuctionLatency_V2& SetMaxScoreAdTrustedScoringSignalsLatencyInMillis(int64_t value);
 
+  static const char kMeanAdditionalBidDecodeLatencyInMillisName[];
+  static constexpr uint64_t kMeanAdditionalBidDecodeLatencyInMillisNameHash = UINT64_C(4588215489204300532);
+  AdsInterestGroup_AuctionLatency_V2& SetMeanAdditionalBidDecodeLatencyInMillis(int64_t value);
+
   static const char kMeanBidForOneInterestGroupLatencyInMillisName[];
   static constexpr uint64_t kMeanBidForOneInterestGroupLatencyInMillisNameHash = UINT64_C(17164734754323952352);
   AdsInterestGroup_AuctionLatency_V2& SetMeanBidForOneInterestGroupLatencyInMillis(int64_t value);
@@ -474,6 +490,14 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static const char kMeanComponentAuctionLatencyInMillisName[];
   static constexpr uint64_t kMeanComponentAuctionLatencyInMillisNameHash = UINT64_C(1804242656888931003);
   AdsInterestGroup_AuctionLatency_V2& SetMeanComponentAuctionLatencyInMillis(int64_t value);
+
+  static const char kMeanConfigPromisesResolvedCriticalPathLatencyInMillisName[];
+  static constexpr uint64_t kMeanConfigPromisesResolvedCriticalPathLatencyInMillisNameHash = UINT64_C(4036660442576503708);
+  AdsInterestGroup_AuctionLatency_V2& SetMeanConfigPromisesResolvedCriticalPathLatencyInMillis(int64_t value);
+
+  static const char kMeanConfigPromisesResolvedLatencyInMillisName[];
+  static constexpr uint64_t kMeanConfigPromisesResolvedLatencyInMillisNameHash = UINT64_C(8345475484244353806);
+  AdsInterestGroup_AuctionLatency_V2& SetMeanConfigPromisesResolvedLatencyInMillis(int64_t value);
 
   static const char kMeanGenerateBidCodeReadyCriticalPathLatencyInMillisName[];
   static constexpr uint64_t kMeanGenerateBidCodeReadyCriticalPathLatencyInMillisNameHash = UINT64_C(12043165287237382169);
@@ -559,6 +583,46 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static constexpr uint64_t kMeanTimeTopLevelBidsQueuedWaitingForSellerWorkletInMillisNameHash = UINT64_C(1516506709992055162);
   AdsInterestGroup_AuctionLatency_V2& SetMeanTimeTopLevelBidsQueuedWaitingForSellerWorkletInMillis(int64_t value);
 
+  static const char kNumAdditionalBidsNegativeTargetedName[];
+  static constexpr uint64_t kNumAdditionalBidsNegativeTargetedNameHash = UINT64_C(9162155251528926063);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsNegativeTargeted(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToBuyerNotAllowedName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToBuyerNotAllowedNameHash = UINT64_C(640757380820919053);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToBuyerNotAllowed(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToCurrencyMismatchName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToCurrencyMismatchNameHash = UINT64_C(8661495814283069928);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToCurrencyMismatch(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToDecodeErrorName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToDecodeErrorNameHash = UINT64_C(13718415836108177823);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToDecodeError(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToInvalidBase64Name[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToInvalidBase64NameHash = UINT64_C(4311479814850552036);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToInvalidBase64(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToJsonParseErrorName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToJsonParseErrorNameHash = UINT64_C(15179798342096802676);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToJsonParseError(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorNameHash = UINT64_C(16465627994537635906);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToSignedBidDecodeError(int64_t value);
+
+  static const char kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorName[];
+  static constexpr uint64_t kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorNameHash = UINT64_C(6212091142362302211);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsRejectedDueToSignedBidJsonParseError(int64_t value);
+
+  static const char kNumAdditionalBidsSentForScoringName[];
+  static constexpr uint64_t kNumAdditionalBidsSentForScoringNameHash = UINT64_C(13543613007024271425);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAdditionalBidsSentForScoring(int64_t value);
+
+  static const char kNumAuctionsWithConfigPromisesName[];
+  static constexpr uint64_t kNumAuctionsWithConfigPromisesNameHash = UINT64_C(16147711769359182859);
+  AdsInterestGroup_AuctionLatency_V2& SetNumAuctionsWithConfigPromises(int64_t value);
+
   static const char kNumBidderWorkletsName[];
   static constexpr uint64_t kNumBidderWorkletsNameHash = UINT64_C(17795063688260201748);
   AdsInterestGroup_AuctionLatency_V2& SetNumBidderWorklets(int64_t value);
@@ -634,6 +698,18 @@ class AdsInterestGroup_AuctionLatency_V2 final : public ::ukm::internal::UkmEntr
   static const char kNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnonName[];
   static constexpr uint64_t kNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnonNameHash = UINT64_C(9442320933407350648);
   AdsInterestGroup_AuctionLatency_V2& SetNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnon(int64_t value);
+
+  static const char kNumNegativeInterestGroupsName[];
+  static constexpr uint64_t kNumNegativeInterestGroupsNameHash = UINT64_C(10297970658562756551);
+  AdsInterestGroup_AuctionLatency_V2& SetNumNegativeInterestGroups(int64_t value);
+
+  static const char kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureName[];
+  static constexpr uint64_t kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureNameHash = UINT64_C(18296054258285221026);
+  AdsInterestGroup_AuctionLatency_V2& SetNumNegativeInterestGroupsIgnoredDueToInvalidSignature(int64_t value);
+
+  static const char kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchName[];
+  static constexpr uint64_t kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchNameHash = UINT64_C(16440225141326239866);
+  AdsInterestGroup_AuctionLatency_V2& SetNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatch(int64_t value);
 
   static const char kNumOwnersWithInterestGroupsName[];
   static constexpr uint64_t kNumOwnersWithInterestGroupsNameHash = UINT64_C(3499866861198089544);
@@ -1799,6 +1875,10 @@ class Autofill2_FieldInfo final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kAutofillStatusVectorNameHash = UINT64_C(18187767980256995778);
   Autofill2_FieldInfo& SetAutofillStatusVector(int64_t value);
 
+  static const char kFieldLogEventCountName[];
+  static constexpr uint64_t kFieldLogEventCountNameHash = UINT64_C(9517498293485487802);
+  Autofill2_FieldInfo& SetFieldLogEventCount(int64_t value);
+
   static const char kFieldSessionIdentifierName[];
   static constexpr uint64_t kFieldSessionIdentifierNameHash = UINT64_C(5116166075644172513);
   Autofill2_FieldInfo& SetFieldSessionIdentifier(int64_t value);
@@ -1807,9 +1887,9 @@ class Autofill2_FieldInfo final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kFieldSignatureNameHash = UINT64_C(12548035803827306811);
   Autofill2_FieldInfo& SetFieldSignature(int64_t value);
 
-  static const char kFormControlTypeName[];
-  static constexpr uint64_t kFormControlTypeNameHash = UINT64_C(6971149463350434964);
-  Autofill2_FieldInfo& SetFormControlType(int64_t value);
+  static const char kFormControlType2Name[];
+  static constexpr uint64_t kFormControlType2NameHash = UINT64_C(7866066429830044389);
+  Autofill2_FieldInfo& SetFormControlType2(int64_t value);
 
   static const char kFormSessionIdentifierName[];
   static constexpr uint64_t kFormSessionIdentifierNameHash = UINT64_C(15947627667954168598);
@@ -2211,6 +2291,22 @@ class Blink_FedCm final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kAutoReauthn_TimeFromEmbargoWhenBlockedNameHash = UINT64_C(15395647531418374864);
   Blink_FedCm& SetAutoReauthn_TimeFromEmbargoWhenBlocked(int64_t value);
 
+  static const char kDisconnect_FrameTypeName[];
+  static constexpr uint64_t kDisconnect_FrameTypeNameHash = UINT64_C(4726648256216116531);
+  Blink_FedCm& SetDisconnect_FrameType(int64_t value);
+
+  static const char kError_ErrorDialogResultName[];
+  static constexpr uint64_t kError_ErrorDialogResultNameHash = UINT64_C(17866892561642102086);
+  Blink_FedCm& SetError_ErrorDialogResult(int64_t value);
+
+  static const char kError_ErrorDialogTypeName[];
+  static constexpr uint64_t kError_ErrorDialogTypeNameHash = UINT64_C(13354982294660434187);
+  Blink_FedCm& SetError_ErrorDialogType(int64_t value);
+
+  static const char kError_TokenResponseTypeName[];
+  static constexpr uint64_t kError_TokenResponseTypeNameHash = UINT64_C(14820302367530254781);
+  Blink_FedCm& SetError_TokenResponseType(int64_t value);
+
   static const char kFedCmSessionIDName[];
   static constexpr uint64_t kFedCmSessionIDNameHash = UINT64_C(3354861899115709952);
   Blink_FedCm& SetFedCmSessionID(int64_t value);
@@ -2227,6 +2323,10 @@ class Blink_FedCm final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kPreventSilentAccessFrameTypeNameHash = UINT64_C(12502871285731002683);
   Blink_FedCm& SetPreventSilentAccessFrameType(int64_t value);
 
+  static const char kStatus_DisconnectName[];
+  static constexpr uint64_t kStatus_DisconnectNameHash = UINT64_C(5102944309342693036);
+  Blink_FedCm& SetStatus_Disconnect(int64_t value);
+
   static const char kStatus_MediationRequirementName[];
   static constexpr uint64_t kStatus_MediationRequirementNameHash = UINT64_C(7341985771654146448);
   Blink_FedCm& SetStatus_MediationRequirement(int64_t value);
@@ -2234,6 +2334,10 @@ class Blink_FedCm final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kStatus_RequestIdTokenName[];
   static constexpr uint64_t kStatus_RequestIdTokenNameHash = UINT64_C(17280553313027361120);
   Blink_FedCm& SetStatus_RequestIdToken(int64_t value);
+
+  static const char kStatus_SignInStateMatchName[];
+  static constexpr uint64_t kStatus_SignInStateMatchNameHash = UINT64_C(15085451675015980083);
+  Blink_FedCm& SetStatus_SignInStateMatch(int64_t value);
 
   static const char kTiming_AccountsDialogShownDurationName[];
   static constexpr uint64_t kTiming_AccountsDialogShownDurationNameHash = UINT64_C(11571078471586947859);
@@ -2246,6 +2350,10 @@ class Blink_FedCm final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kTiming_ContinueOnDialogName[];
   static constexpr uint64_t kTiming_ContinueOnDialogNameHash = UINT64_C(5658920916221960950);
   Blink_FedCm& SetTiming_ContinueOnDialog(int64_t value);
+
+  static const char kTiming_DisconnectName[];
+  static constexpr uint64_t kTiming_DisconnectNameHash = UINT64_C(16164962436490374623);
+  Blink_FedCm& SetTiming_Disconnect(int64_t value);
 
   static const char kTiming_IdTokenResponseName[];
   static constexpr uint64_t kTiming_IdTokenResponseNameHash = UINT64_C(9815123395675115620);
@@ -2283,6 +2391,26 @@ class Blink_FedCmIdp final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kAccountsRequestSentNameHash = UINT64_C(2581000771776085137);
   Blink_FedCmIdp& SetAccountsRequestSent(int64_t value);
 
+  static const char kDisconnect_FrameTypeName[];
+  static constexpr uint64_t kDisconnect_FrameTypeNameHash = UINT64_C(4726648256216116531);
+  Blink_FedCmIdp& SetDisconnect_FrameType(int64_t value);
+
+  static const char kError_ErrorDialogResultName[];
+  static constexpr uint64_t kError_ErrorDialogResultNameHash = UINT64_C(17866892561642102086);
+  Blink_FedCmIdp& SetError_ErrorDialogResult(int64_t value);
+
+  static const char kError_ErrorDialogTypeName[];
+  static constexpr uint64_t kError_ErrorDialogTypeNameHash = UINT64_C(13354982294660434187);
+  Blink_FedCmIdp& SetError_ErrorDialogType(int64_t value);
+
+  static const char kError_ErrorUrlTypeName[];
+  static constexpr uint64_t kError_ErrorUrlTypeNameHash = UINT64_C(5492577319982193117);
+  Blink_FedCmIdp& SetError_ErrorUrlType(int64_t value);
+
+  static const char kError_TokenResponseTypeName[];
+  static constexpr uint64_t kError_TokenResponseTypeNameHash = UINT64_C(14820302367530254781);
+  Blink_FedCmIdp& SetError_TokenResponseType(int64_t value);
+
   static const char kFedCmSessionIDName[];
   static constexpr uint64_t kFedCmSessionIDNameHash = UINT64_C(3354861899115709952);
   Blink_FedCmIdp& SetFedCmSessionID(int64_t value);
@@ -2290,6 +2418,10 @@ class Blink_FedCmIdp final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kMismatchDialogShownName[];
   static constexpr uint64_t kMismatchDialogShownNameHash = UINT64_C(11485520766596316230);
   Blink_FedCmIdp& SetMismatchDialogShown(int64_t value);
+
+  static const char kStatus_DisconnectName[];
+  static constexpr uint64_t kStatus_DisconnectNameHash = UINT64_C(5102944309342693036);
+  Blink_FedCmIdp& SetStatus_Disconnect(int64_t value);
 
   static const char kStatus_MediationRequirementName[];
   static constexpr uint64_t kStatus_MediationRequirementNameHash = UINT64_C(7341985771654146448);
@@ -2314,6 +2446,10 @@ class Blink_FedCmIdp final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kTiming_ContinueOnDialogName[];
   static constexpr uint64_t kTiming_ContinueOnDialogNameHash = UINT64_C(5658920916221960950);
   Blink_FedCmIdp& SetTiming_ContinueOnDialog(int64_t value);
+
+  static const char kTiming_DisconnectName[];
+  static constexpr uint64_t kTiming_DisconnectNameHash = UINT64_C(16164962436490374623);
+  Blink_FedCmIdp& SetTiming_Disconnect(int64_t value);
 
   static const char kTiming_IdTokenResponseName[];
   static constexpr uint64_t kTiming_IdTokenResponseNameHash = UINT64_C(9815123395675115620);
@@ -2538,6 +2674,10 @@ class Blink_PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kParseStyleSheetName[];
   static constexpr uint64_t kParseStyleSheetNameHash = UINT64_C(894530995873833008);
   Blink_PageLoad& SetParseStyleSheet(int64_t value);
+
+  static const char kPossibleSynchronizedScrollCountName[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCountNameHash = UINT64_C(10186385537422100512);
+  Blink_PageLoad& SetPossibleSynchronizedScrollCount(int64_t value);
 
   static const char kPrePaintName[];
   static constexpr uint64_t kPrePaintNameHash = UINT64_C(4880392982914161630);
@@ -2790,6 +2930,14 @@ class Blink_UpdateTime final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kParseStyleSheetBeginMainFrameName[];
   static constexpr uint64_t kParseStyleSheetBeginMainFrameNameHash = UINT64_C(11811580094233179112);
   Blink_UpdateTime& SetParseStyleSheetBeginMainFrame(int64_t value);
+
+  static const char kPossibleSynchronizedScrollCountName[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCountNameHash = UINT64_C(10186385537422100512);
+  Blink_UpdateTime& SetPossibleSynchronizedScrollCount(int64_t value);
+
+  static const char kPossibleSynchronizedScrollCountBeginMainFrameName[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCountBeginMainFrameNameHash = UINT64_C(7244685015675640364);
+  Blink_UpdateTime& SetPossibleSynchronizedScrollCountBeginMainFrame(int64_t value);
 
   static const char kPrePaintName[];
   static constexpr uint64_t kPrePaintNameHash = UINT64_C(4880392982914161630);
@@ -3565,6 +3713,34 @@ class Companion_PageView final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
+class Compose_TextElementUsage final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Compose_TextElementUsage(ukm::SourceId source_id);
+  explicit Compose_TextElementUsage(ukm::SourceIdObj source_id);
+  ~Compose_TextElementUsage() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(2872551356235666049);
+
+
+  static const char kAutofillFormControlTypeName[];
+  static constexpr uint64_t kAutofillFormControlTypeNameHash = UINT64_C(14754706597094045245);
+  Compose_TextElementUsage& SetAutofillFormControlType(int64_t value);
+
+  static const char kIsAutofillFieldTypeName[];
+  static constexpr uint64_t kIsAutofillFieldTypeNameHash = UINT64_C(10153299123261752463);
+  Compose_TextElementUsage& SetIsAutofillFieldType(int64_t value);
+
+  static const char kTypedCharacterCountName[];
+  static constexpr uint64_t kTypedCharacterCountNameHash = UINT64_C(15472969950415499693);
+  Compose_TextElementUsage& SetTypedCharacterCount(int64_t value);
+
+  static const char kTypedWordCountName[];
+  static constexpr uint64_t kTypedWordCountNameHash = UINT64_C(5655773007007417109);
+  Compose_TextElementUsage& SetTypedWordCount(int64_t value);
+
+};
+
 class Compositor_Rendering final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Compositor_Rendering(ukm::SourceId source_id);
@@ -3913,6 +4089,22 @@ class DataReductionProxy final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
+class DevTools_Opened final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit DevTools_Opened(ukm::SourceId source_id);
+  explicit DevTools_Opened(ukm::SourceIdObj source_id);
+  ~DevTools_Opened() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(5460112050811125825);
+
+
+  static const char kHasOccurredName[];
+  static constexpr uint64_t kHasOccurredNameHash = UINT64_C(1401967873843414280);
+  DevTools_Opened& SetHasOccurred(int64_t value);
+
+};
+
 class DIPS_Deletion final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit DIPS_Deletion(ukm::SourceId source_id);
@@ -4166,6 +4358,42 @@ class Download_Started final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kIsSameHostDownloadName[];
   static constexpr uint64_t kIsSameHostDownloadNameHash = UINT64_C(11844668225816315716);
   Download_Started& SetIsSameHostDownload(int64_t value);
+
+};
+
+class Event_Scroll final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Event_Scroll(ukm::SourceId source_id);
+  explicit Event_Scroll(ukm::SourceIdObj source_id);
+  ~Event_Scroll() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(6161051744273924039);
+
+
+  static const char kFrameCountName[];
+  static constexpr uint64_t kFrameCountNameHash = UINT64_C(11025709895955198817);
+  Event_Scroll& SetFrameCount(int64_t value);
+
+  static const char kPredictorJankyFrameCountName[];
+  static constexpr uint64_t kPredictorJankyFrameCountNameHash = UINT64_C(14344891341046870340);
+  Event_Scroll& SetPredictorJankyFrameCount(int64_t value);
+
+  static const char kScrollJank_DelayedFrameCountName[];
+  static constexpr uint64_t kScrollJank_DelayedFrameCountNameHash = UINT64_C(14803884593954984455);
+  Event_Scroll& SetScrollJank_DelayedFrameCount(int64_t value);
+
+  static const char kScrollJank_MissedVsyncsMaxName[];
+  static constexpr uint64_t kScrollJank_MissedVsyncsMaxNameHash = UINT64_C(15559361880138868442);
+  Event_Scroll& SetScrollJank_MissedVsyncsMax(int64_t value);
+
+  static const char kScrollJank_MissedVsyncsSumName[];
+  static constexpr uint64_t kScrollJank_MissedVsyncsSumNameHash = UINT64_C(3253001738519110732);
+  Event_Scroll& SetScrollJank_MissedVsyncsSum(int64_t value);
+
+  static const char kVsyncCountName[];
+  static constexpr uint64_t kVsyncCountNameHash = UINT64_C(10723582144283515744);
+  Event_Scroll& SetVsyncCount(int64_t value);
 
 };
 
@@ -5725,6 +5953,22 @@ class MainFrameNavigation final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
+class MainFrameNavigation_ZstdContentEncoding final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit MainFrameNavigation_ZstdContentEncoding(ukm::SourceId source_id);
+  explicit MainFrameNavigation_ZstdContentEncoding(ukm::SourceIdObj source_id);
+  ~MainFrameNavigation_ZstdContentEncoding() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(12440808905277294625);
+
+
+  static const char kUsedZstdName[];
+  static constexpr uint64_t kUsedZstdNameHash = UINT64_C(2287008842715863406);
+  MainFrameNavigation_ZstdContentEncoding& SetUsedZstd(int64_t value);
+
+};
+
 class Media_Autoplay_Attempt final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Media_Autoplay_Attempt(ukm::SourceId source_id);
@@ -6390,6 +6634,10 @@ class Media_WebMediaPlayerState final : public ::ukm::internal::UkmEntryBuilderB
   static const char kFinalPipelineStatusName[];
   static constexpr uint64_t kFinalPipelineStatusNameHash = UINT64_C(10539654806699313254);
   Media_WebMediaPlayerState& SetFinalPipelineStatus(int64_t value);
+
+  static const char kHasWaitingForKeyName[];
+  static constexpr uint64_t kHasWaitingForKeyNameHash = UINT64_C(9578599779584082916);
+  Media_WebMediaPlayerState& SetHasWaitingForKey(int64_t value);
 
   static const char kIsEMEName[];
   static constexpr uint64_t kIsEMENameHash = UINT64_C(9603548586615616861);
@@ -7675,6 +7923,10 @@ class OpenerHeuristic_TopLevel final : public ::ukm::internal::UkmEntryBuilderBa
   static constexpr uint64_t kHasSameSiteIframeNameHash = UINT64_C(12121249819210153261);
   OpenerHeuristic_TopLevel& SetHasSameSiteIframe(int64_t value);
 
+  static const char kIsAdTaggedPopupClickName[];
+  static constexpr uint64_t kIsAdTaggedPopupClickNameHash = UINT64_C(11587559602844211076);
+  OpenerHeuristic_TopLevel& SetIsAdTaggedPopupClick(int64_t value);
+
   static const char kPopupIdName[];
   static constexpr uint64_t kPopupIdNameHash = UINT64_C(14441431756324727858);
   OpenerHeuristic_TopLevel& SetPopupId(int64_t value);
@@ -7847,6 +8099,14 @@ class PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kInteractiveTiming_FirstScrollTimestampNameHash = UINT64_C(9092590817606449334);
   PageLoad& SetInteractiveTiming_FirstScrollTimestamp(int64_t value);
 
+  static const char kInteractiveTiming_INPOffsetName[];
+  static constexpr uint64_t kInteractiveTiming_INPOffsetNameHash = UINT64_C(8979497468537936367);
+  PageLoad& SetInteractiveTiming_INPOffset(int64_t value);
+
+  static const char kInteractiveTiming_INPTimeName[];
+  static constexpr uint64_t kInteractiveTiming_INPTimeNameHash = UINT64_C(7682789371897203313);
+  PageLoad& SetInteractiveTiming_INPTime(int64_t value);
+
   static const char kInteractiveTiming_NumInteractionsName[];
   static constexpr uint64_t kInteractiveTiming_NumInteractionsNameHash = UINT64_C(11809849059952828483);
   PageLoad& SetInteractiveTiming_NumInteractions(int64_t value);
@@ -7862,6 +8122,14 @@ class PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kInteractiveTiming_WorstUserInteractionLatency_MaxEventDurationName[];
   static constexpr uint64_t kInteractiveTiming_WorstUserInteractionLatency_MaxEventDurationNameHash = UINT64_C(3538217577346865260);
   PageLoad& SetInteractiveTiming_WorstUserInteractionLatency_MaxEventDuration(int64_t value);
+
+  static const char kInteractiveTimingBeforeSoftNavigation_INPOffsetName[];
+  static constexpr uint64_t kInteractiveTimingBeforeSoftNavigation_INPOffsetNameHash = UINT64_C(5149361121909269848);
+  PageLoad& SetInteractiveTimingBeforeSoftNavigation_INPOffset(int64_t value);
+
+  static const char kInteractiveTimingBeforeSoftNavigation_INPTimeName[];
+  static constexpr uint64_t kInteractiveTimingBeforeSoftNavigation_INPTimeNameHash = UINT64_C(2553427409660474511);
+  PageLoad& SetInteractiveTimingBeforeSoftNavigation_INPTime(int64_t value);
 
   static const char kInteractiveTimingBeforeSoftNavigation_NumInteractionsName[];
   static constexpr uint64_t kInteractiveTimingBeforeSoftNavigation_NumInteractionsNameHash = UINT64_C(5049829433862574480);
@@ -8457,34 +8725,6 @@ class PasswordManager_LeakWarningDialog final : public ::ukm::internal::UkmEntry
 
 };
 
-class PasswordManager_PasswordChangeFlowDuration final : public ::ukm::internal::UkmEntryBuilderBase {
- public:
-  explicit PasswordManager_PasswordChangeFlowDuration(ukm::SourceId source_id);
-  explicit PasswordManager_PasswordChangeFlowDuration(ukm::SourceIdObj source_id);
-  ~PasswordManager_PasswordChangeFlowDuration() override;
-
-  static const char kEntryName[];
-  static constexpr uint64_t kEntryNameHash = UINT64_C(13449954988418736908);
-
-
-  static const char kDurationName[];
-  static constexpr uint64_t kDurationNameHash = UINT64_C(16153614581047612563);
-  PasswordManager_PasswordChangeFlowDuration& SetDuration(int64_t value);
-
-  static const char kEndEventName[];
-  static constexpr uint64_t kEndEventNameHash = UINT64_C(14549090249190426381);
-  PasswordManager_PasswordChangeFlowDuration& SetEndEvent(int64_t value);
-
-  static const char kEntryPointName[];
-  static constexpr uint64_t kEntryPointNameHash = UINT64_C(14367068064969258826);
-  PasswordManager_PasswordChangeFlowDuration& SetEntryPoint(int64_t value);
-
-  static const char kStartEventName[];
-  static constexpr uint64_t kStartEventNameHash = UINT64_C(7005368026760277168);
-  PasswordManager_PasswordChangeFlowDuration& SetStartEvent(int64_t value);
-
-};
-
 class PasswordManager_PasswordChangeTriggered final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit PasswordManager_PasswordChangeTriggered(ukm::SourceId source_id);
@@ -8771,6 +9011,10 @@ class PerformanceManager_PageResourceUsage2 final : public ::ukm::internal::UkmE
   static constexpr uint64_t kBackgroundStateNameHash = UINT64_C(16811821127666008107);
   PerformanceManager_PageResourceUsage2& SetBackgroundState(int64_t value);
 
+  static const char kMeasurementAlgorithmName[];
+  static constexpr uint64_t kMeasurementAlgorithmNameHash = UINT64_C(7071568143101297096);
+  PerformanceManager_PageResourceUsage2& SetMeasurementAlgorithm(int64_t value);
+
   static const char kPrivateFootprintEstimateName[];
   static constexpr uint64_t kPrivateFootprintEstimateNameHash = UINT64_C(2207187191511944491);
   PerformanceManager_PageResourceUsage2& SetPrivateFootprintEstimate(int64_t value);
@@ -8786,86 +9030,6 @@ class PerformanceManager_PageResourceUsage2 final : public ::ukm::internal::UkmE
   static const char kTotalRecentCPUUsageAllPagesName[];
   static constexpr uint64_t kTotalRecentCPUUsageAllPagesNameHash = UINT64_C(3522526693229877297);
   PerformanceManager_PageResourceUsage2& SetTotalRecentCPUUsageAllPages(int64_t value);
-
-};
-
-class PerformanceManager_PageTimelineState final : public ::ukm::internal::UkmEntryBuilderBase {
- public:
-  explicit PerformanceManager_PageTimelineState(ukm::SourceId source_id);
-  explicit PerformanceManager_PageTimelineState(ukm::SourceIdObj source_id);
-  ~PerformanceManager_PageTimelineState() override;
-
-  static const char kEntryName[];
-  static constexpr uint64_t kEntryNameHash = UINT64_C(10815494830717278009);
-
-
-  static const char kBatterySaverModeName[];
-  static constexpr uint64_t kBatterySaverModeNameHash = UINT64_C(4835275849196989472);
-  PerformanceManager_PageTimelineState& SetBatterySaverMode(int64_t value);
-
-  static const char kChangedFaviconOrTitleInBackgroundName[];
-  static constexpr uint64_t kChangedFaviconOrTitleInBackgroundNameHash = UINT64_C(7441275506531450210);
-  PerformanceManager_PageTimelineState& SetChangedFaviconOrTitleInBackground(int64_t value);
-
-  static const char kCurrentStateName[];
-  static constexpr uint64_t kCurrentStateNameHash = UINT64_C(527099266756017165);
-  PerformanceManager_PageTimelineState& SetCurrentState(int64_t value);
-
-  static const char kHasNotificationPermissionName[];
-  static constexpr uint64_t kHasNotificationPermissionNameHash = UINT64_C(11498493493267919317);
-  PerformanceManager_PageTimelineState& SetHasNotificationPermission(int64_t value);
-
-  static const char kHighEfficiencyModeName[];
-  static constexpr uint64_t kHighEfficiencyModeNameHash = UINT64_C(12896158833660953733);
-  PerformanceManager_PageTimelineState& SetHighEfficiencyMode(int64_t value);
-
-  static const char kIsActiveTabName[];
-  static constexpr uint64_t kIsActiveTabNameHash = UINT64_C(8605931901711618551);
-  PerformanceManager_PageTimelineState& SetIsActiveTab(int64_t value);
-
-  static const char kIsCapturingMediaName[];
-  static constexpr uint64_t kIsCapturingMediaNameHash = UINT64_C(17345863701808008090);
-  PerformanceManager_PageTimelineState& SetIsCapturingMedia(int64_t value);
-
-  static const char kIsConnectedToDeviceName[];
-  static constexpr uint64_t kIsConnectedToDeviceNameHash = UINT64_C(12914875295179305127);
-  PerformanceManager_PageTimelineState& SetIsConnectedToDevice(int64_t value);
-
-  static const char kIsPlayingAudioName[];
-  static constexpr uint64_t kIsPlayingAudioNameHash = UINT64_C(14717530477958097309);
-  PerformanceManager_PageTimelineState& SetIsPlayingAudio(int64_t value);
-
-  static const char kPrivateFootprintName[];
-  static constexpr uint64_t kPrivateFootprintNameHash = UINT64_C(9325460796324790258);
-  PerformanceManager_PageTimelineState& SetPrivateFootprint(int64_t value);
-
-  static const char kResidentSetSizeName[];
-  static constexpr uint64_t kResidentSetSizeNameHash = UINT64_C(4761819566938644729);
-  PerformanceManager_PageTimelineState& SetResidentSetSize(int64_t value);
-
-  static const char kSliceIdName[];
-  static constexpr uint64_t kSliceIdNameHash = UINT64_C(18238506199229680054);
-  PerformanceManager_PageTimelineState& SetSliceId(int64_t value);
-
-  static const char kTabIdName[];
-  static constexpr uint64_t kTabIdNameHash = UINT64_C(15614057277916905378);
-  PerformanceManager_PageTimelineState& SetTabId(int64_t value);
-
-  static const char kTimeInCurrentStateName[];
-  static constexpr uint64_t kTimeInCurrentStateNameHash = UINT64_C(7027200881693999772);
-  PerformanceManager_PageTimelineState& SetTimeInCurrentState(int64_t value);
-
-  static const char kTimeSinceCreationName[];
-  static constexpr uint64_t kTimeSinceCreationNameHash = UINT64_C(10770374959359321197);
-  PerformanceManager_PageTimelineState& SetTimeSinceCreation(int64_t value);
-
-  static const char kTimeSinceLastSliceName[];
-  static constexpr uint64_t kTimeSinceLastSliceNameHash = UINT64_C(8571966789508399599);
-  PerformanceManager_PageTimelineState& SetTimeSinceLastSlice(int64_t value);
-
-  static const char kTotalForegroundTimeName[];
-  static constexpr uint64_t kTotalForegroundTimeNameHash = UINT64_C(3979649716103100144);
-  PerformanceManager_PageTimelineState& SetTotalForegroundTime(int64_t value);
 
 };
 
@@ -11061,6 +11225,22 @@ class Shopping_MerchantTrust_RowSeen final : public ::ukm::internal::UkmEntryBui
 
 };
 
+class Shopping_PDPStateWithLocalInfo final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Shopping_PDPStateWithLocalInfo(ukm::SourceId source_id);
+  explicit Shopping_PDPStateWithLocalInfo(ukm::SourceIdObj source_id);
+  ~Shopping_PDPStateWithLocalInfo() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(9670390910407059784);
+
+
+  static const char kPDPStateName[];
+  static constexpr uint64_t kPDPStateNameHash = UINT64_C(11286918823362187842);
+  Shopping_PDPStateWithLocalInfo& SetPDPState(int64_t value);
+
+};
+
 class Shopping_WillSendRequest final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Shopping_WillSendRequest(ukm::SourceId source_id);
@@ -11166,6 +11346,22 @@ class Site_Quality final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kServiceWorkerScriptSizeName[];
   static constexpr uint64_t kServiceWorkerScriptSizeNameHash = UINT64_C(14432014646625439595);
   Site_Quality& SetServiceWorkerScriptSize(int64_t value);
+
+};
+
+class SiteInstance final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit SiteInstance(ukm::SourceId source_id);
+  explicit SiteInstance(ukm::SourceIdObj source_id);
+  ~SiteInstance() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(6253142163073541541);
+
+
+  static const char kNewProcessUsedForNavigationWhenSameSiteProcessExistsName[];
+  static constexpr uint64_t kNewProcessUsedForNavigationWhenSameSiteProcessExistsNameHash = UINT64_C(944207937901224415);
+  SiteInstance& SetNewProcessUsedForNavigationWhenSameSiteProcessExists(int64_t value);
 
 };
 
@@ -11323,6 +11519,14 @@ class SoftNavigation final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kEntryNameHash = UINT64_C(15372023901254491137);
 
 
+  static const char kInteractiveTiming_INPOffsetName[];
+  static constexpr uint64_t kInteractiveTiming_INPOffsetNameHash = UINT64_C(8979497468537936367);
+  SoftNavigation& SetInteractiveTiming_INPOffset(int64_t value);
+
+  static const char kInteractiveTiming_INPTimeName[];
+  static constexpr uint64_t kInteractiveTiming_INPTimeNameHash = UINT64_C(7682789371897203313);
+  SoftNavigation& SetInteractiveTiming_INPTime(int64_t value);
+
   static const char kInteractiveTiming_NumInteractionsName[];
   static constexpr uint64_t kInteractiveTiming_NumInteractionsNameHash = UINT64_C(11809849059952828483);
   SoftNavigation& SetInteractiveTiming_NumInteractions(int64_t value);
@@ -11394,6 +11598,22 @@ class SubresourceFilter final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kEnforcementRedirectPositionName[];
   static constexpr uint64_t kEnforcementRedirectPositionNameHash = UINT64_C(17469729262836585913);
   SubresourceFilter& SetEnforcementRedirectPosition(int64_t value);
+
+};
+
+class SubresourceLoad_ZstdContentEncoding final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit SubresourceLoad_ZstdContentEncoding(ukm::SourceId source_id);
+  explicit SubresourceLoad_ZstdContentEncoding(ukm::SourceIdObj source_id);
+  ~SubresourceLoad_ZstdContentEncoding() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(8817849481731339059);
+
+
+  static const char kUsedZstdName[];
+  static constexpr uint64_t kUsedZstdNameHash = UINT64_C(2287008842715863406);
+  SubresourceLoad_ZstdContentEncoding& SetUsedZstd(int64_t value);
 
 };
 
@@ -16886,6 +17106,22 @@ class VirtualKeyboard_Open final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kTextInputTypeName[];
   static constexpr uint64_t kTextInputTypeNameHash = UINT64_C(6049523454185107552);
   VirtualKeyboard_Open& SetTextInputType(int64_t value);
+
+};
+
+class Wallet_BoardingPassDetect final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Wallet_BoardingPassDetect(ukm::SourceId source_id);
+  explicit Wallet_BoardingPassDetect(ukm::SourceIdObj source_id);
+  ~Wallet_BoardingPassDetect() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(16867238133244431157);
+
+
+  static const char kDetectedName[];
+  static constexpr uint64_t kDetectedNameHash = UINT64_C(5286907366254680517);
+  Wallet_BoardingPassDetect& SetDetected(int64_t value);
 
 };
 

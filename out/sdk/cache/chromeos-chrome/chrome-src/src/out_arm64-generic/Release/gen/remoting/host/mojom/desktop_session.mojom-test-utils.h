@@ -88,11 +88,11 @@ class  FileWriterAsyncWaiter {
 
   ~FileWriterAsyncWaiter();
   void WriteChunk(
-      const std::vector<uint8_t>& data, absl::optional<::remoting::protocol::FileTransfer_Error>* out_error);
-  absl::optional<::remoting::protocol::FileTransfer_Error> WriteChunk(const std::vector<uint8_t>& data);
+      const std::vector<uint8_t>& data, std::optional<::remoting::protocol::FileTransfer_Error>* out_error);
+  std::optional<::remoting::protocol::FileTransfer_Error> WriteChunk(const std::vector<uint8_t>& data);
   void CloseFile(
-      absl::optional<::remoting::protocol::FileTransfer_Error>* out_error);
-  absl::optional<::remoting::protocol::FileTransfer_Error> CloseFile();
+      std::optional<::remoting::protocol::FileTransfer_Error>* out_error);
+  std::optional<::remoting::protocol::FileTransfer_Error> CloseFile();
 
  private:
   FileWriter* const proxy_;

@@ -73,7 +73,6 @@ class  PrintRenderFrameInterceptorForTesting : public PrintRenderFrame {
   void ConnectToPdfRenderer() override;
   void PrintingDone(bool success) override;
   void PrintNodeUnderContextMenu() override;
-  void SnapshotForContentAnalysis(SnapshotForContentAnalysisCallback callback) override;
 };
 class  PrintRenderFrameAsyncWaiter {
  public:
@@ -89,9 +88,6 @@ class  PrintRenderFrameAsyncWaiter {
   void PrintFrameContent(
       PrintFrameContentParamsPtr params, int32_t* out_document_cookie, DidPrintContentParamsPtr* out_params);
   
-  void SnapshotForContentAnalysis(
-      DidPrintDocumentParamsPtr* out_params);
-  DidPrintDocumentParamsPtr SnapshotForContentAnalysis();
 
  private:
   PrintRenderFrame* const proxy_;

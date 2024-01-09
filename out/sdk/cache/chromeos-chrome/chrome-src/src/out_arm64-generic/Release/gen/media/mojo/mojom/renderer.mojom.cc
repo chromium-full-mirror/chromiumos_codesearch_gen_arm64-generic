@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,7 +51,8 @@ MediaUrlParams::MediaUrlParams()
       top_frame_origin(),
       has_storage_access(),
       allow_credentials(),
-      is_hls() {}
+      is_hls(),
+      headers() {}
 
 MediaUrlParams::MediaUrlParams(
     const ::GURL& media_url_in,
@@ -58,13 +60,15 @@ MediaUrlParams::MediaUrlParams(
     const ::url::Origin& top_frame_origin_in,
     bool has_storage_access_in,
     bool allow_credentials_in,
-    bool is_hls_in)
+    bool is_hls_in,
+    const base::flat_map<std::string, std::string>& headers_in)
     : media_url(std::move(media_url_in)),
       site_for_cookies(std::move(site_for_cookies_in)),
       top_frame_origin(std::move(top_frame_origin_in)),
       has_storage_access(std::move(has_storage_access_in)),
       allow_credentials(std::move(allow_credentials_in)),
-      is_hls(std::move(is_hls_in)) {}
+      is_hls(std::move(is_hls_in)),
+      headers(std::move(headers_in)) {}
 
 MediaUrlParams::~MediaUrlParams() = default;
 
@@ -121,6 +125,15 @@ void MediaUrlParams::WriteIntoTrace(
       "is_hls"), this->is_hls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "headers"), this->headers,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<std::string, std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -340,7 +353,7 @@ RendererProxy::RendererProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void RendererProxy::Initialize(
-    ::mojo::PendingAssociatedRemote<RendererClient> in_client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> in_streams, MediaUrlParamsPtr in_media_url_params, InitializeCallback callback) {
+    ::mojo::PendingAssociatedRemote<RendererClient> in_client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> in_streams, MediaUrlParamsPtr in_media_url_params, InitializeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::Renderer::Initialize", "input_parameters",
@@ -351,20 +364,23 @@ void RendererProxy::Initialize(
                         "<value of type ::mojo::PendingAssociatedRemote<RendererClient>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("streams"), in_streams,
-                        "<value of type absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>>>");
+                        "<value of type std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("media_url_params"), in_media_url_params,
                         "<value of type MediaUrlParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -410,14 +426,17 @@ void RendererProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::Renderer::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_Flush_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +467,17 @@ void RendererProxy::StartPlayingFrom(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_StartPlayingFrom_Name, kFlags, 0, 0, nullptr);
@@ -496,14 +518,17 @@ void RendererProxy::SetPlaybackRate(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetPlaybackRate_Name, kFlags, 0, 0, nullptr);
@@ -534,14 +559,17 @@ void RendererProxy::SetVolume(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetVolume_Name, kFlags, 0, 0, nullptr);
@@ -561,7 +589,7 @@ void RendererProxy::SetVolume(
 }
 
 void RendererProxy::SetCdm(
-    const absl::optional<::base::UnguessableToken>& in_cdm_id, SetCdmCallback callback) {
+    const std::optional<::base::UnguessableToken>& in_cdm_id, SetCdmCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::Renderer::SetCdm", "input_parameters",
@@ -569,17 +597,20 @@ void RendererProxy::SetCdm(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cdm_id"), in_cdm_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetCdm_Name, kFlags, 0, 0, nullptr);
@@ -696,7 +727,8 @@ void Renderer_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -803,7 +835,8 @@ void Renderer_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_Flush_Name, kFlags, 0, 0, nullptr);
@@ -920,7 +953,8 @@ void Renderer_SetCdm_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetCdm_Name, kFlags, 0, 0, nullptr);
@@ -1061,7 +1095,7 @@ bool RendererStubDispatch::AcceptWithResponder(
       
       bool success = true;
       ::mojo::PendingAssociatedRemote<RendererClient> p_client{};
-      absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> p_streams{};
+      std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> p_streams{};
       MediaUrlParamsPtr p_media_url_params{};
       Renderer_Initialize_ParamsDataView input_data_view(params, message);
       
@@ -1133,7 +1167,7 @@ std::move(p_media_url_params), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_cdm_id{};
+      std::optional<::base::UnguessableToken> p_cdm_id{};
       Renderer_SetCdm_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCdmId(&p_cdm_id))
@@ -1157,20 +1191,20 @@ std::move(p_cdm_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererValidationInfo[] = {
-    {&internal::Renderer_Initialize_Params_Data::Validate,
+    { &internal::Renderer_Initialize_Params_Data::Validate,
      &internal::Renderer_Initialize_ResponseParams_Data::Validate},
-    {&internal::Renderer_Flush_Params_Data::Validate,
+    { &internal::Renderer_Flush_Params_Data::Validate,
      &internal::Renderer_Flush_ResponseParams_Data::Validate},
-    {&internal::Renderer_StartPlayingFrom_Params_Data::Validate,
+    { &internal::Renderer_StartPlayingFrom_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetPlaybackRate_Params_Data::Validate,
+    { &internal::Renderer_SetPlaybackRate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetVolume_Params_Data::Validate,
+    { &internal::Renderer_SetVolume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetCdm_Params_Data::Validate,
+    { &internal::Renderer_SetCdm_Params_Data::Validate,
      &internal::Renderer_SetCdm_ResponseParams_Data::Validate},
 };
 
@@ -1440,14 +1474,17 @@ void RendererClientProxy::OnTimeUpdate(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnTimeUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1513,14 +1550,17 @@ void RendererClientProxy::OnBufferingStateChange(
                         "<value of type ::media::BufferingStateChangeReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnBufferingStateChange_Name, kFlags, 0, 0, nullptr);
@@ -1547,14 +1587,17 @@ void RendererClientProxy::OnEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::RendererClient::OnEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnEnded_Name, kFlags, 0, 0, nullptr);
@@ -1584,14 +1627,17 @@ void RendererClientProxy::OnError(
                         "<value of type const ::media::PipelineStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnError_Name, kFlags, 0, 0, nullptr);
@@ -1632,14 +1678,17 @@ void RendererClientProxy::OnAudioConfigChange(
                         "<value of type const ::media::AudioDecoderConfig&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnAudioConfigChange_Name, kFlags, 0, 0, nullptr);
@@ -1680,14 +1729,17 @@ void RendererClientProxy::OnVideoConfigChange(
                         "<value of type const ::media::VideoDecoderConfig&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnVideoConfigChange_Name, kFlags, 0, 0, nullptr);
@@ -1728,14 +1780,17 @@ void RendererClientProxy::OnVideoNaturalSizeChange(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnVideoNaturalSizeChange_Name, kFlags, 0, 0, nullptr);
@@ -1776,14 +1831,17 @@ void RendererClientProxy::OnVideoOpacityChange(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnVideoOpacityChange_Name, kFlags, 0, 0, nullptr);
@@ -1814,14 +1872,17 @@ void RendererClientProxy::OnStatisticsUpdate(
                         "<value of type const ::media::PipelineStatistics&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnStatisticsUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1862,14 +1923,17 @@ void RendererClientProxy::OnWaiting(
                         "<value of type ::media::WaitingReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererClient_OnWaiting_Name, kFlags, 0, 0, nullptr);
@@ -2208,28 +2272,28 @@ bool RendererClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererClientValidationInfo[] = {
-    {&internal::RendererClient_OnTimeUpdate_Params_Data::Validate,
+    { &internal::RendererClient_OnTimeUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnBufferingStateChange_Params_Data::Validate,
+    { &internal::RendererClient_OnBufferingStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnEnded_Params_Data::Validate,
+    { &internal::RendererClient_OnEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnError_Params_Data::Validate,
+    { &internal::RendererClient_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnAudioConfigChange_Params_Data::Validate,
+    { &internal::RendererClient_OnAudioConfigChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnVideoConfigChange_Params_Data::Validate,
+    { &internal::RendererClient_OnVideoConfigChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnVideoNaturalSizeChange_Params_Data::Validate,
+    { &internal::RendererClient_OnVideoNaturalSizeChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnVideoOpacityChange_Params_Data::Validate,
+    { &internal::RendererClient_OnVideoOpacityChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnStatisticsUpdate_Params_Data::Validate,
+    { &internal::RendererClient_OnStatisticsUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererClient_OnWaiting_Params_Data::Validate,
+    { &internal::RendererClient_OnWaiting_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2265,6 +2329,8 @@ bool StructTraits<::media::mojom::MediaUrlParams::DataView, ::media::mojom::Medi
         result->allow_credentials = input.allow_credentials();
       if (success)
         result->is_hls = input.is_hls();
+      if (success && !input.ReadHeaders(&result->headers))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -2279,7 +2345,7 @@ bool StructTraits<::media::mojom::MediaUrlParams::DataView, ::media::mojom::Medi
 namespace media::mojom {
 
 
-void RendererInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) {
+void RendererInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) {
   GetForwardingInterface()->Initialize(std::move(client), std::move(streams), std::move(media_url_params), std::move(callback));
 }
 void RendererInterceptorForTesting::Flush(FlushCallback callback) {
@@ -2294,7 +2360,7 @@ void RendererInterceptorForTesting::SetPlaybackRate(double playback_rate) {
 void RendererInterceptorForTesting::SetVolume(float volume) {
   GetForwardingInterface()->SetVolume(std::move(volume));
 }
-void RendererInterceptorForTesting::SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) {
+void RendererInterceptorForTesting::SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) {
   GetForwardingInterface()->SetCdm(std::move(cdm_id), std::move(callback));
 }
 RendererAsyncWaiter::RendererAsyncWaiter(
@@ -2303,7 +2369,7 @@ RendererAsyncWaiter::RendererAsyncWaiter(
 RendererAsyncWaiter::~RendererAsyncWaiter() = default;
 
 void RendererAsyncWaiter::Initialize(
-    ::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, bool* out_success) {
+    ::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, bool* out_success) {
   base::RunLoop loop;
   proxy_->Initialize(std::move(client),std::move(streams),std::move(media_url_params),
       base::BindOnce(
@@ -2319,7 +2385,7 @@ void RendererAsyncWaiter::Initialize(
 }
 
 bool RendererAsyncWaiter::Initialize(
-    ::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params) {
+    ::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params) {
   bool async_wait_result;
   Initialize(std::move(client),std::move(streams),std::move(media_url_params),&async_wait_result);
   return async_wait_result;
@@ -2340,7 +2406,7 @@ void RendererAsyncWaiter::Flush(
 
 
 void RendererAsyncWaiter::SetCdm(
-    const absl::optional<::base::UnguessableToken>& cdm_id, bool* out_success) {
+    const std::optional<::base::UnguessableToken>& cdm_id, bool* out_success) {
   base::RunLoop loop;
   proxy_->SetCdm(std::move(cdm_id),
       base::BindOnce(
@@ -2356,7 +2422,7 @@ void RendererAsyncWaiter::SetCdm(
 }
 
 bool RendererAsyncWaiter::SetCdm(
-    const absl::optional<::base::UnguessableToken>& cdm_id) {
+    const std::optional<::base::UnguessableToken>& cdm_id) {
   bool async_wait_result;
   SetCdm(std::move(cdm_id),&async_wait_result);
   return async_wait_result;

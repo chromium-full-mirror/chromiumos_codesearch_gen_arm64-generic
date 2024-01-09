@@ -189,6 +189,9 @@ class  BootstrapConfigurations_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> instance_id;
+  uint8_t is_supervised_account : 1;
+  uint8_t pad1_[7];
+  mojo::internal::Pointer<mojo::internal::String_Data> email;
 
  private:
   friend class mojo::internal::MessageFragment<BootstrapConfigurations_Data>;
@@ -196,7 +199,7 @@ class  BootstrapConfigurations_Data {
   BootstrapConfigurations_Data();
   ~BootstrapConfigurations_Data() = delete;
 };
-static_assert(sizeof(BootstrapConfigurations_Data) == 16,
+static_assert(sizeof(BootstrapConfigurations_Data) == 32,
               "Bad sizeof(BootstrapConfigurations_Data)");
 // Used by BootstrapConfigurations::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

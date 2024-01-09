@@ -12,7 +12,7 @@
 #define THIRD_PARTY_BLINK_RENDERER_BINDINGS_MODULES_V8_V8_ML_OPERAND_DESCRIPTOR_H_
 
 #include "base/containers/span.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_type.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_data_type.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
@@ -35,6 +35,19 @@ static MLOperandDescriptor* Create(v8::Isolate* isolate, v8::Local<v8::Value> v8
 explicit  MLOperandDescriptor();
 explicit  MLOperandDescriptor(v8::Isolate* isolate);
 
+bool hasDataType() const {
+  return true;
+}
+V8MLOperandDataType dataType() const {
+  return member_data_type_;
+}
+void setDataType(V8MLOperandDataType value) {
+  member_data_type_ = value;
+}
+void setDataType(V8MLOperandDataType::Enum value) {
+  member_data_type_ = V8MLOperandDataType(value);
+}
+
 bool hasDimensions() const {
   return has_dimensions_;
 }
@@ -47,23 +60,10 @@ Vector<uint32_t> getDimensionsOr(Vector<uint32_t>&& fallback_value) const;
 void setDimensions(const Vector<uint32_t>& value);
 void setDimensions(Vector<uint32_t>&& value);
 
-bool hasType() const {
-  return true;
-}
-V8MLOperandType type() const {
-  return member_type_;
-}
-void setType(V8MLOperandType value) {
-  member_type_ = value;
-}
-void setType(V8MLOperandType::Enum value) {
-  member_type_ = V8MLOperandType(value);
-}
-
 
 // Obsolete accessor functions
-void setType(const String& value) {
-  member_type_ = V8MLOperandType::Create(value).value();
+void setDataType(const String& value) {
+  member_data_type_ = V8MLOperandDataType::Create(value).value();
 }
 
 void Trace(Visitor* visitor) const override;
@@ -80,8 +80,8 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool has_dimensions_ = false;
 
+V8MLOperandDataType member_data_type_{static_cast<V8MLOperandDataType::Enum>(0)};
 Vector<uint32_t> member_dimensions_;
-V8MLOperandType member_type_{static_cast<V8MLOperandType::Enum>(0)};
 
 
   

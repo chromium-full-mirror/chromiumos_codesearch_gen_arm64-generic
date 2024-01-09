@@ -42,7 +42,7 @@ class  ImeHostAsyncWaiter {
 class  ImeInstanceInterceptorForTesting : public ImeInstance {
   virtual ImeInstance* GetForwardingInterface() = 0;
   void Init(::mojo::PendingRemote<ImeHost> host_remote, InitCallback callback) override;
-  void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const absl::optional<::gfx::Range>& selection_range) override;
+  void SetCompositionText(const std::string& text, std::vector<CompositionSegmentPtr> segments, const std::optional<::gfx::Range>& selection_range) override;
   void SetSelectionText(const ::gfx::Range& selection) override;
   void ConfirmCompositionText() override;
   void InsertText(const std::string& text, int32_t new_cursor_position) override;

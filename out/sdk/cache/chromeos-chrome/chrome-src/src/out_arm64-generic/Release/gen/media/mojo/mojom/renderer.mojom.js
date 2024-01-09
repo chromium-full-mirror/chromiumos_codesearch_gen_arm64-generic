@@ -83,6 +83,7 @@
     this.hasStorageAccess = false;
     this.allowCredentials = false;
     this.isHls = false;
+    this.headers = null;
   };
   MediaUrlParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -98,7 +99,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -125,10 +126,16 @@
 
 
 
+
+    // validate MediaUrlParams.headers
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 32, false, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  MediaUrlParams.encodedSize = codec.kStructHeaderSize + 32;
+  MediaUrlParams.encodedSize = codec.kStructHeaderSize + 40;
 
   MediaUrlParams.decode = function(decoder) {
     var packed;
@@ -152,6 +159,8 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
+    val.headers =
+        decoder.decodeMapPointer(codec.String, codec.String);
     return val;
   };
 
@@ -174,6 +183,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
+    encoder.encodeMapPointer(codec.String, codec.String, val.headers);
   };
   function Renderer_Initialize_Params(values) {
     this.initDefaults_();

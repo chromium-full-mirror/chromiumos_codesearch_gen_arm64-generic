@@ -1,78 +1,46 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../../common/js/util.js';
+import { getFilesAppModalDialogInstance } from '../../../common/js/util.js';
 import { AlertDialog } from './dialogs.js';
 /**
  * Alert dialog.
  */
-// @ts-ignore: error TS2415: Class 'FilesAlertDialog' incorrectly extends base
-// class 'AlertDialog'.
 export class FilesAlertDialog extends AlertDialog {
     /**
-     * @param {!HTMLElement} parentNode
      */
     constructor(parentNode) {
         super(parentNode);
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.container.classList.add('files-ng');
     }
-    /**
-     * @protected
-     * @override
-     */
     initDom() {
         super.initDom();
-        super.hasModalContainer = true;
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+        this.hasModalContainer = true;
         this.frame.classList.add('files-alert-dialog');
     }
-    /**
-     * @override
-     * @suppress {accessControls}
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    show_(...args) {
-        this.parentNode_ = util.getFilesAppModalDialogInstance();
-        // @ts-ignore: error TS2556: A spread argument must either have a tuple type
-        // or be passed to a rest parameter.
-        super.show_(...args);
-        this.parentNode_.showModal();
+    get parentNode() {
+        this.parentNode_ = getFilesAppModalDialogInstance();
+        return this.parentNode_;
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    hide(...args) {
-        this.parentNode_.close();
-        super.hide(...args);
+    show_(title, onOk, onCancel, onShow) {
+        this.parentNode_ = getFilesAppModalDialogInstance();
+        super.show_(title, onOk, onCancel, onShow);
+        this.parentNode.showModal();
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showWithTitle(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+    hide(onHide) {
+        this.parentNode.close();
+        super.hide(onHide);
+    }
+    showWithTitle(title, message, onOk, onCancel, onShow) {
         this.frame.classList.toggle('no-title', !title);
-        super.showWithTitle(title, message, ...args);
+        super.showWithTitle(title, message, onOk, onCancel, onShow);
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showHtml(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+    showHtml(title, message, onOk, onCancel, onShow) {
         this.frame.classList.toggle('no-title', !title);
-        super.showHtml(title, message, ...args);
+        super.showHtml(title, message, onOk, onCancel, onShow);
     }
     /**
-     * Async version of show().
-     * @param {string} title
-     * @returns {!Promise<void>} Resolves when dismissed.
+     * Async version of show(). Resolves when the alert dialog is dismissed.
      */
     showAsync(title) {
         return new Promise(resolve => this.show(title, resolve));

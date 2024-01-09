@@ -9,11 +9,10 @@
 #include "remote_maintenance_curtain_resources.h"
 
 const webui::ResourcePath kRemoteMaintenanceCurtainResources[] = {
-  {"images/admin_control_dark.svg", IDR_REMOTE_MAINTENANCE_CURTAIN_IMAGES_ADMIN_CONTROL_DARK_SVG},
-  {"images/admin_control_light.svg", IDR_REMOTE_MAINTENANCE_CURTAIN_IMAGES_ADMIN_CONTROL_LIGHT_SVG},
   {"main.html", IDR_REMOTE_MAINTENANCE_CURTAIN_MAIN_HTML},
   {"curtain_screen.js", IDR_REMOTE_MAINTENANCE_CURTAIN_CURTAIN_SCREEN_JS},
   {"curtain_screen.html.js", IDR_REMOTE_MAINTENANCE_CURTAIN_CURTAIN_SCREEN_HTML_JS},
+  {"icons.html.js", IDR_REMOTE_MAINTENANCE_CURTAIN_ICONS_HTML_JS},
 };
 
 const size_t kRemoteMaintenanceCurtainResourcesSize = std::size(kRemoteMaintenanceCurtainResources);

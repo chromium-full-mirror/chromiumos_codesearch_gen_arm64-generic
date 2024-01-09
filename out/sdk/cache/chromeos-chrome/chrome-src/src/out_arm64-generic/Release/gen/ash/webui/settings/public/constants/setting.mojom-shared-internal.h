@@ -59,6 +59,7 @@ struct Setting_Data {
       case 29:
       case 30:
       case 31:
+      case 32:
       case 100:
       case 103:
       case 104:

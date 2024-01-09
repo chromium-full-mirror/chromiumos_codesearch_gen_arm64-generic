@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/process.mojom-features.h"
 #include "ash/components/arc/mojom/process.mojom-shared.h"
 #include "ash/components/arc/mojom/process.mojom-forward.h"
 #include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-forward.h"
@@ -400,7 +401,7 @@ class  RunningAppProcessInfo {
       const std::string& process_name,
       uint32_t pid,
       ProcessState process_state,
-      absl::optional<std::vector<std::string>> packages,
+      std::optional<std::vector<std::string>> packages,
       bool is_focused,
       int64_t last_activity_time);
 
@@ -486,7 +487,7 @@ class  RunningAppProcessInfo {
   
   ProcessState process_state;
   
-  absl::optional<std::vector<std::string>> packages;
+  std::optional<std::vector<std::string>> packages;
   
   bool is_focused;
   

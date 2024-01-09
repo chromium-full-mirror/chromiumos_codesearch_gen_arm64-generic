@@ -39,7 +39,7 @@ class  DirectoryAsyncWaiter {
 
   ~DirectoryAsyncWaiter();
   void Read(
-      ::base::File::Error* out_error, absl::optional<std::vector<::filesystem::mojom::DirectoryEntryPtr>>* out_directory_contents);
+      ::base::File::Error* out_error, std::optional<std::vector<::filesystem::mojom::DirectoryEntryPtr>>* out_directory_contents);
   
   void OpenFileHandle(
       const std::string& path, uint32_t open_flags, ::base::File::Error* out_error, ::base::File* out_file_handle);

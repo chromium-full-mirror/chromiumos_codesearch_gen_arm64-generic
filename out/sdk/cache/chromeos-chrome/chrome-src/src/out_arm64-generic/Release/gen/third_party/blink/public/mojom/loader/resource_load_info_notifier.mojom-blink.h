@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-features.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info_notifier.mojom-blink-forward.h"
 #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
@@ -114,7 +115,7 @@ class PLATFORM_EXPORT ResourceLoadInfoNotifier
   virtual void NotifyResourceRedirectReceived(::network::mojom::blink::URLRequestRedirectInfoPtr redirect_info, ::network::mojom::blink::URLResponseHeadPtr redirect_response) = 0;
 
   
-  virtual void NotifyResourceResponseReceived(int64_t request_id, ::url::mojom::blink::SchemeHostPortPtr final_response_url, ::network::mojom::blink::URLResponseHeadPtr head, ::network::mojom::blink::RequestDestination request_destination) = 0;
+  virtual void NotifyResourceResponseReceived(int64_t request_id, ::url::mojom::blink::SchemeHostPortPtr final_response_url, ::network::mojom::blink::URLResponseHeadPtr head, ::network::mojom::blink::RequestDestination request_destination, bool is_ad_resource) = 0;
 
   
   virtual void NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) = 0;
@@ -140,7 +141,7 @@ class PLATFORM_EXPORT ResourceLoadInfoNotifierProxy
   
   void NotifyResourceRedirectReceived(::network::mojom::blink::URLRequestRedirectInfoPtr redirect_info, ::network::mojom::blink::URLResponseHeadPtr redirect_response) final;
   
-  void NotifyResourceResponseReceived(int64_t request_id, ::url::mojom::blink::SchemeHostPortPtr final_response_url, ::network::mojom::blink::URLResponseHeadPtr head, ::network::mojom::blink::RequestDestination request_destination) final;
+  void NotifyResourceResponseReceived(int64_t request_id, ::url::mojom::blink::SchemeHostPortPtr final_response_url, ::network::mojom::blink::URLResponseHeadPtr head, ::network::mojom::blink::RequestDestination request_destination, bool is_ad_resource) final;
   
   void NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) final;
   

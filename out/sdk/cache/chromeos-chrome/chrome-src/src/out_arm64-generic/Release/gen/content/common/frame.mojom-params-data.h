@@ -385,19 +385,20 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) FrameHost_CreateChildFrame_P
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t child_routing_id;
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> child_frame_token;
   mojo::internal::AssociatedInterface_Data frame;
   mojo::internal::Handle_Data browser_interface_broker;
-  mojo::internal::Pointer<::blink::mojom::internal::PolicyContainerBindParams_Data> policy_container_bind_params;
   mojo::internal::AssociatedEndpointHandle_Data associated_interface_provider;
+  mojo::internal::Pointer<::blink::mojom::internal::PolicyContainerBindParams_Data> policy_container_bind_params;
   int32_t scope;
+  uint8_t is_created_by_script : 1;
+  uint8_t pad6_[3];
   mojo::internal::Pointer<mojo::internal::String_Data> frame_name;
   mojo::internal::Pointer<mojo::internal::String_Data> frame_unique_name;
-  uint8_t is_created_by_script : 1;
-  uint8_t pad8_[3];
-  int32_t child_frame_owner_element_type;
   mojo::internal::Pointer<::blink::mojom::internal::FramePolicy_Data> frame_policy;
   mojo::internal::Pointer<::blink::mojom::internal::FrameOwnerProperties_Data> frame_owner_properties;
+  int32_t child_frame_owner_element_type;
+  uint8_t pad11_[4];
   int64_t document_ukm_source_id;
 
  private:
@@ -406,7 +407,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) FrameHost_CreateChildFrame_P
   FrameHost_CreateChildFrame_Params_Data();
   ~FrameHost_CreateChildFrame_Params_Data() = delete;
 };
-static_assert(sizeof(FrameHost_CreateChildFrame_Params_Data) == 88,
+static_assert(sizeof(FrameHost_CreateChildFrame_Params_Data) == 96,
               "Bad sizeof(FrameHost_CreateChildFrame_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) FrameHost_DidCommitProvisionalLoad_Params_Data {
  public:
@@ -1259,8 +1260,15 @@ class FrameHost_CreateChildFrame_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t child_routing_id() const {
-    return data_->child_routing_id;
+  inline void GetChildFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChildFrameToken(UserType* output) {
+    
+    auto* pointer = data_->child_frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   UserType TakeFrame() {
@@ -1886,6 +1894,11 @@ inline void FrameHost_CreateNewWindow_ResponseParamsDataView::GetReplyDataView(
 }
 
 
+inline void FrameHost_CreateChildFrame_ParamsDataView::GetChildFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->child_frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 inline void FrameHost_CreateChildFrame_ParamsDataView::GetPolicyContainerBindParamsDataView(
     ::blink::mojom::PolicyContainerBindParamsDataView* output) {
   auto pointer = data_->policy_container_bind_params.Get();

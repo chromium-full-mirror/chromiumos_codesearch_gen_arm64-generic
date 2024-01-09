@@ -16,6 +16,7 @@ namespace internal {
 
 constexpr uint32_t kSpeechRecognitionEventObserver_OnStop_Name = 0;
 constexpr uint32_t kSpeechRecognitionEventObserver_OnResult_Name = 1;
+constexpr uint32_t kSpeechRecognitionEventObserver_OnError_Name = 2;
 constexpr uint32_t kSpeechRecognition_Start_Name = 0;
 constexpr uint32_t kSpeechRecognition_Stop_Name = 1;
 

@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaQueryList>::value,
     "MediaQueryList does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaQueryList::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaQueryList is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryList.media.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->media();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->media();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryList.matches.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->matches();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -116,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryList.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -132,8 +128,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -158,7 +155,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_listener = NativeValueTraits<IDLNullable<V8EventListener>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -188,7 +185,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(v8_receiver);
+MediaQueryList* blink_receiver = V8MediaQueryList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_listener = NativeValueTraits<IDLNullable<V8EventListener>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

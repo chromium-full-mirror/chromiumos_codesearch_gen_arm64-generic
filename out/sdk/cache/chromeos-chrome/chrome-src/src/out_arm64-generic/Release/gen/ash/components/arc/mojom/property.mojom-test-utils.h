@@ -27,8 +27,8 @@ class  PropertyInstanceAsyncWaiter {
 
   ~PropertyInstanceAsyncWaiter();
   void GetGcaMigrationProperty(
-      absl::optional<std::string>* out_value);
-  absl::optional<std::string> GetGcaMigrationProperty();
+      std::optional<std::string>* out_value);
+  std::optional<std::string> GetGcaMigrationProperty();
 
  private:
   PropertyInstance* const proxy_;

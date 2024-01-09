@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/echo_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Params::OfferInfo::OfferInfo()
  {}
 
 Params::OfferInfo::~OfferInfo() = default;
-Params::OfferInfo::OfferInfo(OfferInfo&& rhs) = default;
-Params::OfferInfo& Params::OfferInfo::operator=(OfferInfo&& rhs) = default;
+Params::OfferInfo::OfferInfo(OfferInfo&& rhs) noexcept = default;
+Params::OfferInfo& Params::OfferInfo::operator=(OfferInfo&& rhs) noexcept = default;
 Params::OfferInfo Params::OfferInfo::Clone() const {
   OfferInfo out;
   return out;
@@ -62,21 +63,21 @@ bool Params::OfferInfo::Populate(
 }
 
 // static
-absl::optional<Params::OfferInfo> Params::OfferInfo::FromValue(const base::Value::Dict& value) {
+std::optional<Params::OfferInfo> Params::OfferInfo::FromValue(const base::Value::Dict& value) {
   OfferInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::OfferInfo> Params::OfferInfo::FromValue(const base::Value& value) {
+std::optional<Params::OfferInfo> Params::OfferInfo::FromValue(const base::Value& value) {
   OfferInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -84,13 +85,13 @@ absl::optional<Params::OfferInfo> Params::OfferInfo::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -100,13 +101,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -114,15 +115,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& offer_info_value = args[1];
     {
       if (!offer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OfferInfo::Populate(offer_info_value.GetDict(), params.offer_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -135,13 +136,13 @@ namespace GetOfferInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -151,13 +152,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -168,8 +169,8 @@ Results::Result::Result()
  {}
 
 Results::Result::~Result() = default;
-Results::Result::Result(Result&& rhs) = default;
-Results::Result& Results::Result::operator=(Result&& rhs) = default;
+Results::Result::Result(Result&& rhs) noexcept = default;
+Results::Result& Results::Result::operator=(Result&& rhs) noexcept = default;
 base::Value::Dict Results::Result::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -192,13 +193,13 @@ namespace GetRegistrationCode {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -208,13 +209,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = type_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -247,8 +248,8 @@ Params::ConsentRequester::ConsentRequester()
  {}
 
 Params::ConsentRequester::~ConsentRequester() = default;
-Params::ConsentRequester::ConsentRequester(ConsentRequester&& rhs) = default;
-Params::ConsentRequester& Params::ConsentRequester::operator=(ConsentRequester&& rhs) = default;
+Params::ConsentRequester::ConsentRequester(ConsentRequester&& rhs) noexcept = default;
+Params::ConsentRequester& Params::ConsentRequester::operator=(ConsentRequester&& rhs) noexcept = default;
 Params::ConsentRequester Params::ConsentRequester::Clone() const {
   ConsentRequester out;
   out.service_name = service_name;
@@ -289,7 +290,7 @@ bool Params::ConsentRequester::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -309,21 +310,21 @@ bool Params::ConsentRequester::Populate(
 }
 
 // static
-absl::optional<Params::ConsentRequester> Params::ConsentRequester::FromValue(const base::Value::Dict& value) {
+std::optional<Params::ConsentRequester> Params::ConsentRequester::FromValue(const base::Value::Dict& value) {
   ConsentRequester out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::ConsentRequester> Params::ConsentRequester::FromValue(const base::Value& value) {
+std::optional<Params::ConsentRequester> Params::ConsentRequester::FromValue(const base::Value& value) {
   ConsentRequester out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -331,13 +332,13 @@ absl::optional<Params::ConsentRequester> Params::ConsentRequester::FromValue(con
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -346,15 +347,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& consent_requester_value = args[0];
     {
       if (!consent_requester_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConsentRequester::Populate(consent_requester_value.GetDict(), params.consent_requester)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

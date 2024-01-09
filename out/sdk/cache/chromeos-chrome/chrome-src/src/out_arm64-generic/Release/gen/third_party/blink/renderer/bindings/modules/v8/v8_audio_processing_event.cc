@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioProcessingEvent>::value,
     "AudioProcessingEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioProcessingEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioProcessingEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioProcessingEvent.playbackTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(v8_receiver);
+AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playbackTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioProcessingEvent.inputBuffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(v8_receiver);
+AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inputBuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioProcessingEvent.outputBuffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(v8_receiver);
+AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->outputBuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioProcessingEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(v8_receiver);
+AudioProcessingEvent* blink_receiver = V8AudioProcessingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

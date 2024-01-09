@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct ReadingListEntry {
   ~ReadingListEntry();
   ReadingListEntry(const ReadingListEntry&) = delete;
   ReadingListEntry& operator=(const ReadingListEntry&) = delete;
-  ReadingListEntry(ReadingListEntry&& rhs);
-  ReadingListEntry& operator=(ReadingListEntry&& rhs);
+  ReadingListEntry(ReadingListEntry&& rhs) noexcept;
+  ReadingListEntry& operator=(ReadingListEntry&& rhs) noexcept;
 
   // Populates a ReadingListEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,16 +47,13 @@ struct ReadingListEntry {
   // Creates a deep copy of ReadingListEntry.
   ReadingListEntry Clone() const;
 
-  // Creates a ReadingListEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReadingListEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReadingListEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReadingListEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<ReadingListEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a ReadingListEntry object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReadingListEntry> FromValue(const base::Value& value);
+  static std::optional<ReadingListEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadingListEntry object.
@@ -84,8 +82,8 @@ struct AddEntryOptions {
   ~AddEntryOptions();
   AddEntryOptions(const AddEntryOptions&) = delete;
   AddEntryOptions& operator=(const AddEntryOptions&) = delete;
-  AddEntryOptions(AddEntryOptions&& rhs);
-  AddEntryOptions& operator=(AddEntryOptions&& rhs);
+  AddEntryOptions(AddEntryOptions&& rhs) noexcept;
+  AddEntryOptions& operator=(AddEntryOptions&& rhs) noexcept;
 
   // Populates a AddEntryOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -98,15 +96,12 @@ struct AddEntryOptions {
   // Creates a deep copy of AddEntryOptions.
   AddEntryOptions Clone() const;
 
-  // Creates a AddEntryOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddEntryOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddEntryOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddEntryOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AddEntryOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AddEntryOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<AddEntryOptions> FromValue(const base::Value& value);
+  static std::optional<AddEntryOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddEntryOptions object.
@@ -128,8 +123,8 @@ struct RemoveOptions {
   ~RemoveOptions();
   RemoveOptions(const RemoveOptions&) = delete;
   RemoveOptions& operator=(const RemoveOptions&) = delete;
-  RemoveOptions(RemoveOptions&& rhs);
-  RemoveOptions& operator=(RemoveOptions&& rhs);
+  RemoveOptions(RemoveOptions&& rhs) noexcept;
+  RemoveOptions& operator=(RemoveOptions&& rhs) noexcept;
 
   // Populates a RemoveOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -142,15 +137,12 @@ struct RemoveOptions {
   // Creates a deep copy of RemoveOptions.
   RemoveOptions Clone() const;
 
-  // Creates a RemoveOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RemoveOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RemoveOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RemoveOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RemoveOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RemoveOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<RemoveOptions> FromValue(const base::Value& value);
+  static std::optional<RemoveOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemoveOptions object.
@@ -166,8 +158,8 @@ struct UpdateEntryOptions {
   ~UpdateEntryOptions();
   UpdateEntryOptions(const UpdateEntryOptions&) = delete;
   UpdateEntryOptions& operator=(const UpdateEntryOptions&) = delete;
-  UpdateEntryOptions(UpdateEntryOptions&& rhs);
-  UpdateEntryOptions& operator=(UpdateEntryOptions&& rhs);
+  UpdateEntryOptions(UpdateEntryOptions&& rhs) noexcept;
+  UpdateEntryOptions& operator=(UpdateEntryOptions&& rhs) noexcept;
 
   // Populates a UpdateEntryOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -180,16 +172,13 @@ struct UpdateEntryOptions {
   // Creates a deep copy of UpdateEntryOptions.
   UpdateEntryOptions Clone() const;
 
-  // Creates a UpdateEntryOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UpdateEntryOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UpdateEntryOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UpdateEntryOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UpdateEntryOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UpdateEntryOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UpdateEntryOptions> FromValue(const base::Value& value);
+  static std::optional<UpdateEntryOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUpdateEntryOptions object.
@@ -199,11 +188,11 @@ struct UpdateEntryOptions {
   std::string url;
 
   // The new title. The existing tile remains if a value isn't provided.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // The updated read status. The existing status remains if a value isn't
   // provided.
-  absl::optional<bool> has_been_read;
+  std::optional<bool> has_been_read;
 
 };
 
@@ -212,8 +201,8 @@ struct QueryInfo {
   ~QueryInfo();
   QueryInfo(const QueryInfo&) = delete;
   QueryInfo& operator=(const QueryInfo&) = delete;
-  QueryInfo(QueryInfo&& rhs);
-  QueryInfo& operator=(QueryInfo&& rhs);
+  QueryInfo(QueryInfo&& rhs) noexcept;
+  QueryInfo& operator=(QueryInfo&& rhs) noexcept;
 
   // Populates a QueryInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -226,28 +215,25 @@ struct QueryInfo {
   // Creates a deep copy of QueryInfo.
   QueryInfo Clone() const;
 
-  // Creates a QueryInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a QueryInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<QueryInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a QueryInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<QueryInfo> FromValue(const base::Value& value);
+  static std::optional<QueryInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisQueryInfo object.
   base::Value::Dict ToValue() const;
 
   // A url to search for.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // A title to search for.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // Indicates whether to search for read (<code>true</code>) or unread
   // (<code>false</code>) items.
-  absl::optional<bool> has_been_read;
+  std::optional<bool> has_been_read;
 
 };
 
@@ -259,11 +245,11 @@ struct QueryInfo {
 namespace AddEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The entry to add to the reading list.
@@ -284,11 +270,11 @@ base::Value::List Create();
 namespace RemoveEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The entry to remove from the reading list.
@@ -309,11 +295,11 @@ base::Value::List Create();
 namespace UpdateEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The entry to update.
@@ -334,11 +320,11 @@ base::Value::List Create();
 namespace Query {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The properties to search for.

@@ -1,31 +1,32 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" current-route="{{currentRoute}}" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{a11yPageTitle}">
-      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
+      <settings-toggle-button id="a11yImageLabelsToggle" icon="[[rowIcons_.imageDescription]]" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
-      <div class="hr" hidden="[[!showAccessibilityLabelsSetting_]]"></div>
-      <settings-toggle-button id="optionsInMenuToggle" label="$i18n{optionsInMenuLabel}" sub-label="$i18n{optionsInMenuDescription}" pref="{{prefs.settings.a11y.enable_menu}}" deep-link-focus-id$="[[Setting.kA11yQuickSettings]]">
+      <div class="hr" hidden="[[!hasScreenReader_]]"></div>
+      <settings-toggle-button id="optionsInMenuToggle" icon="[[rowIcons_.showInQuickSettings]]" label="$i18n{optionsInMenuLabel}" sub-label="$i18n{optionsInMenuDescription}" pref="{{prefs.settings.a11y.enable_menu}}" deep-link-focus-id$="[[Setting.kA11yQuickSettings]]">
       </settings-toggle-button>
       <div class="hr"></div>
-      <cr-link-row id="textToSpeechSubpageTrigger" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="textToSpeechSubpageTrigger" start-icon="[[rowIcons_.textToSpeech]]" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="displayAndMagnificationPageTrigger" label="$i18n{displayAndMagnificationLinkTitle}" on-click="onDisplayAndMagnificationClick_" sub-label="$i18n{displayAndMagnificationLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="displayAndMagnificationPageTrigger" start-icon="[[rowIcons_.displayAndMagnification]]" label="$i18n{displayAndMagnificationLinkTitle}" on-click="onDisplayAndMagnificationClick_" sub-label="$i18n{displayAndMagnificationLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="keyboardAndTextInputPageTrigger" label="$i18n{keyboardAndTextInputLinkTitle}" on-click="onKeyboardAndTextInputClick_" sub-label="$i18n{keyboardAndTextInputLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="keyboardAndTextInputPageTrigger" start-icon="[[rowIcons_.keyboardAndTextInput]]" label="$i18n{keyboardAndTextInputLinkTitle}" on-click="onKeyboardAndTextInputClick_" sub-label="$i18n{keyboardAndTextInputLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="cursorAndTouchpadPageTrigger" label="$i18n{cursorAndTouchpadLinkTitle}" on-click="onCursorAndTouchpadClick_" sub-label="$i18n{cursorAndTouchpadLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="cursorAndTouchpadPageTrigger" start-icon="[[rowIcons_.cursorAndTouchpad]]" label="$i18n{cursorAndTouchpadLinkTitle}" on-click="onCursorAndTouchpadClick_" sub-label="$i18n{cursorAndTouchpadLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="audioAndCaptionsPageTrigger" label="$i18n{audioAndCaptionsLinkTitle}" on-click="onAudioAndCaptionsClick_" sub-label="$i18n{audioAndCaptionsLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="audioAndCaptionsPageTrigger" start-icon="[[rowIcons_.audioAndCaptions]]" label="$i18n{audioAndCaptionsLinkTitle}" on-click="onAudioAndCaptionsClick_" sub-label="$i18n{audioAndCaptionsLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[!isGuest_]]">
-        <cr-link-row id="additionalFeaturesLink" class="hr" label="$i18n{additionalFeaturesTitle}" on-click="onAdditionalFeaturesClick_" external>
+        <cr-link-row id="additionalFeaturesLink" class="hr" start-icon="[[rowIcons_.findMore]]" label="$i18n{additionalFeaturesTitle}" on-click="onAdditionalFeaturesClick_" external>
         </cr-link-row>
       </template>
     </settings-card>
@@ -33,9 +34,9 @@ export function getTemplate() {
 
   <template is="dom-if" route-path="/manageAccessibility">
     <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-close-button>
-      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
+      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
-      <div class="hr" hidden="[[!showAccessibilityLabelsSetting_]]"></div>
+      <div class="hr" hidden="[[!hasScreenReader_]]"></div>
       <cr-link-row id="textToSpeechSubpageTrigger" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>

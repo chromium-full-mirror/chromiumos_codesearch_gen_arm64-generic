@@ -1,8 +1,8 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import { str, strf } from '../common/js/util.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import { str, strf } from '../common/js/translations.js';
 import { getTemplate } from './xf_dlp_restriction_details_dialog.html.js';
 /**
  * Dialog to show Data Leak Prevention (DLP) restriction details about a file.

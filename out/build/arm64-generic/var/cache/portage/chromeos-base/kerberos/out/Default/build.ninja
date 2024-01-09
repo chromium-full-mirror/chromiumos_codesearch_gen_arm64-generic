@@ -29,10 +29,7 @@ build install_config_init: phony obj/kerberos/install_config_init.stamp
 build install_seccomp_policy: phony obj/kerberos/install_seccomp_policy.stamp
 build libkerberos: phony ./libkerberos.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build kerberos$:_kerberosd-install_config: phony obj/kerberos/_kerberosd-install_config.stamp
 build kerberos$:all: phony obj/kerberos/all.stamp
 build kerberos$:container-protos: phony ./libcontainer-protos.a
@@ -43,13 +40,11 @@ build kerberos$:install_config_dbus_system-services: phony obj/kerberos/install_
 build kerberos$:install_config_dbus_systemd: phony obj/kerberos/install_config_dbus_systemd.stamp
 build kerberos$:install_config_init: phony obj/kerberos/install_config_init.stamp
 build kerberos$:install_seccomp_policy: phony obj/kerberos/install_seccomp_policy.stamp
-build kerberos$:kerberos_test: phony ./kerberos_test
 build kerberos$:kerberosd: phony ./kerberosd
 build kerberos$:libkerberos: phony ./libkerberos.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/kerberos/_kerberosd-install_config.stamp $
     obj/kerberos/all.stamp $
     ./libcontainer-protos.a $
@@ -60,7 +55,6 @@ build all: phony $
     obj/kerberos/install_config_dbus_systemd.stamp $
     obj/kerberos/install_config_init.stamp $
     obj/kerberos/install_seccomp_policy.stamp $
-    ./kerberos_test $
     ./kerberosd $
     ./libkerberos.a
 

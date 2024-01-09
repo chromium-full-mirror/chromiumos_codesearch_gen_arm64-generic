@@ -29,12 +29,9 @@ build install_tmpfiles_config: phony obj/vtpm/install_tmpfiles_config.stamp
 build interface_proto: phony ./libinterface_proto.a
 build interface_proto_gen: phony obj/vtpm/interface_proto_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build vtpm-adaptors: phony obj/vtpm/vtpm-adaptors.stamp
 build vtpm_server_library: phony obj/vtpm/vtpm_server_library.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build vtpm$:_vtpmd-install_config: phony obj/vtpm/_vtpmd-install_config.stamp
 build vtpm$:all: phony obj/vtpm/all.stamp
 build vtpm$:database_proto: phony ./libdatabase_proto.a
@@ -48,12 +45,10 @@ build vtpm$:interface_proto: phony ./libinterface_proto.a
 build vtpm$:interface_proto_gen: phony obj/vtpm/interface_proto_gen.stamp
 build vtpm$:vtpm-adaptors: phony obj/vtpm/vtpm-adaptors.stamp
 build vtpm$:vtpm_server_library: phony obj/vtpm/vtpm_server_library.stamp
-build vtpm$:vtpm_test: phony ./vtpm_test
 build vtpm$:vtpmd: phony ./vtpmd
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/vtpm/_vtpmd-install_config.stamp $
     obj/vtpm/all.stamp $
     ./libdatabase_proto.a $
@@ -67,7 +62,6 @@ build all: phony $
     obj/vtpm/interface_proto_gen.stamp $
     obj/vtpm/vtpm-adaptors.stamp $
     obj/vtpm/vtpm_server_library.stamp $
-    ./vtpm_test $
     ./vtpmd
 
 default all

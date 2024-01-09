@@ -1,0 +1,98 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://extensions/extensions.js": [
+        "./../../../../browser/resources/extensions/tsc/extensions.d.ts"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/toolbar_test.ts",
+    "preprocessed/activity_log_history_item_test.ts",
+    "preprocessed/activity_log_history_test.ts",
+    "preprocessed/activity_log_stream_item_test.ts",
+    "preprocessed/activity_log_stream_test.ts",
+    "preprocessed/activity_log_test.ts",
+    "preprocessed/code_section_test.ts",
+    "preprocessed/detail_view_test.ts",
+    "preprocessed/error_console_test.ts",
+    "preprocessed/error_page_test.ts",
+    "preprocessed/extension_options_dialog_test.ts",
+    "preprocessed/host_permissions_toggle_list_test.ts",
+    "preprocessed/item_list_test.ts",
+    "preprocessed/item_test.ts",
+    "preprocessed/keyboard_shortcuts_test.ts",
+    "preprocessed/load_error_test.ts",
+    "preprocessed/manager_test.ts",
+    "preprocessed/manager_test_with_activity_log_flag.ts",
+    "preprocessed/manager_test_with_id_query_param.ts",
+    "preprocessed/manager_unit_test.ts",
+    "preprocessed/manager_unit_test_with_activity_log_flag.ts",
+    "preprocessed/navigation_helper_test.ts",
+    "preprocessed/options_dialog_test.ts",
+    "preprocessed/pack_dialog_test.ts",
+    "preprocessed/review_panel_test.ts",
+    "preprocessed/runtime_host_permissions_test.ts",
+    "preprocessed/runtime_hosts_dialog_test.ts",
+    "preprocessed/shortcut_input_test.ts",
+    "preprocessed/sidebar_test.ts",
+    "preprocessed/site_permissions_by_site_test.ts",
+    "preprocessed/site_permissions_edit_permissions_dialog_test.ts",
+    "preprocessed/site_permissions_edit_url_dialog_test.ts",
+    "preprocessed/site_permissions_list_test.ts",
+    "preprocessed/site_permissions_site_group_test.ts",
+    "preprocessed/site_permissions_test.ts",
+    "preprocessed/test_service.ts",
+    "preprocessed/test_util.ts",
+    "preprocessed/toggle_row_test.ts",
+    "preprocessed/url_util_test.ts",
+    "preprocessed/test_extension_hats_browser_proxy.ts",
+    "preprocessed/kiosk_mode_manager_unit_test.ts",
+    "preprocessed/kiosk_mode_test.ts",
+    "preprocessed/test_kiosk_browser_proxy.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/activity_log_private.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/developer_private.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/extensions/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

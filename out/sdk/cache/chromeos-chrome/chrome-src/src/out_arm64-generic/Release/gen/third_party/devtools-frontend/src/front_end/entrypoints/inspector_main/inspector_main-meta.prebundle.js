@@ -120,7 +120,7 @@ UI.ViewManager.registerViewExtension({
     order: 50,
     async loadView() {
         const InspectorMain = await loadInspectorMainModule();
-        return InspectorMain.RenderingOptions.RenderingOptionsView.instance();
+        return new InspectorMain.RenderingOptions.RenderingOptionsView();
     },
     tags: [
         i18nLazyString(UIStrings.paint),
@@ -137,7 +137,7 @@ UI.ActionRegistration.registerActionExtension({
     actionId: 'inspector_main.reload',
     async loadActionDelegate() {
         const InspectorMain = await loadInspectorMainModule();
-        return InspectorMain.InspectorMain.ReloadActionDelegate.instance();
+        return new InspectorMain.InspectorMain.ReloadActionDelegate();
     },
     iconClass: "refresh" /* UI.ActionRegistration.IconClass.REFRESH */,
     title: i18nLazyString(UIStrings.reloadPage),
@@ -161,7 +161,7 @@ UI.ActionRegistration.registerActionExtension({
     actionId: 'inspector_main.hard-reload',
     async loadActionDelegate() {
         const InspectorMain = await loadInspectorMainModule();
-        return InspectorMain.InspectorMain.ReloadActionDelegate.instance();
+        return new InspectorMain.InspectorMain.ReloadActionDelegate();
     },
     title: i18nLazyString(UIStrings.hardReloadPage),
     bindings: [
@@ -193,7 +193,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.toggleCssPrefersColorSchemeMedia),
     async loadActionDelegate() {
         const InspectorMain = await loadInspectorMainModule();
-        return InspectorMain.RenderingOptions.ReloadActionDelegate.instance();
+        return new InspectorMain.RenderingOptions.ReloadActionDelegate();
     },
 });
 Common.Settings.registerSettingExtension({

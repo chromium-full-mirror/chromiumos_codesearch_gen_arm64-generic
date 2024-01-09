@@ -58,6 +58,8 @@ class ProcessStats;
 class ProcessTree;
 class ProfilePacket;
 class ProfiledFrameSymbols;
+class ShellHandlerMappings;
+class ShellTransition;
 class SmapsPacket;
 class StatsdAtom;
 class StreamingAllocation;
@@ -246,6 +248,10 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes surfaceflinger_layers_snapshot() const { return at<93>().as_bytes(); }
   bool has_surfaceflinger_transactions() const { return at<94>().valid(); }
   ::protozero::ConstBytes surfaceflinger_transactions() const { return at<94>().as_bytes(); }
+  bool has_shell_transition() const { return at<96>().valid(); }
+  ::protozero::ConstBytes shell_transition() const { return at<96>().as_bytes(); }
+  bool has_shell_handler_mappings() const { return at<97>().valid(); }
+  ::protozero::ConstBytes shell_handler_mappings() const { return at<97>().as_bytes(); }
   bool has_etw_events() const { return at<95>().valid(); }
   ::protozero::ConstBytes etw_events() const { return at<95>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
@@ -268,6 +274,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   bool previous_packet_dropped() const { return at<42>().as_bool(); }
   bool has_first_packet_on_sequence() const { return at<87>().valid(); }
   bool first_packet_on_sequence() const { return at<87>().as_bool(); }
+  bool has_machine_id() const { return at<98>().valid(); }
+  uint32_t machine_id() const { return at<98>().as_uint32(); }
 };
 
 class TracePacket : public ::protozero::Message {
@@ -339,6 +347,8 @@ class TracePacket : public ::protozero::Message {
     kTrackEventRangeOfInterestFieldNumber = 90,
     kSurfaceflingerLayersSnapshotFieldNumber = 93,
     kSurfaceflingerTransactionsFieldNumber = 94,
+    kShellTransitionFieldNumber = 96,
+    kShellHandlerMappingsFieldNumber = 97,
     kEtwEventsFieldNumber = 95,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
@@ -350,6 +360,7 @@ class TracePacket : public ::protozero::Message {
     kTracePacketDefaultsFieldNumber = 59,
     kPreviousPacketDroppedFieldNumber = 42,
     kFirstPacketOnSequenceFieldNumber = 87,
+    kMachineIdFieldNumber = 98,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TracePacket"; }
 
@@ -1300,6 +1311,34 @@ class TracePacket : public ::protozero::Message {
   }
 
 
+  using FieldMetadata_ShellTransition =
+    ::protozero::proto_utils::FieldMetadata<
+      96,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ShellTransition,
+      TracePacket>;
+
+  static constexpr FieldMetadata_ShellTransition kShellTransition{};
+  template <typename T = ShellTransition> T* set_shell_transition() {
+    return BeginNestedMessage<T>(96);
+  }
+
+
+  using FieldMetadata_ShellHandlerMappings =
+    ::protozero::proto_utils::FieldMetadata<
+      97,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ShellHandlerMappings,
+      TracePacket>;
+
+  static constexpr FieldMetadata_ShellHandlerMappings kShellHandlerMappings{};
+  template <typename T = ShellHandlerMappings> T* set_shell_handler_mappings() {
+    return BeginNestedMessage<T>(97);
+  }
+
+
   using FieldMetadata_EtwEvents =
     ::protozero::proto_utils::FieldMetadata<
       95,
@@ -1479,6 +1518,24 @@ class TracePacket : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_MachineId =
+    ::protozero::proto_utils::FieldMetadata<
+      98,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      TracePacket>;
+
+  static constexpr FieldMetadata_MachineId kMachineId{};
+  void set_machine_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_MachineId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
         ::Append(*this, field_id, value);
   }
 };

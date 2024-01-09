@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void FeedSidePanelHandlerFactoryProxy::CreateFeedSidePanelHandler(
                         "<value of type ::mojo::PendingRemote<FeedSidePanel>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedSidePanelHandlerFactory_CreateFeedSidePanelHandler_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool FeedSidePanelHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFeedSidePanelHandlerFactoryValidationInfo[] = {
-    {&internal::FeedSidePanelHandlerFactory_CreateFeedSidePanelHandler_Params_Data::Validate,
+    { &internal::FeedSidePanelHandlerFactory_CreateFeedSidePanelHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -288,14 +292,17 @@ void FeedSidePanelHandlerProxy::DoSomething(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send feed::mojom::FeedSidePanelHandler::DoSomething");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedSidePanelHandler_DoSomething_Name, kFlags, 0, 0, nullptr);
@@ -359,10 +366,10 @@ bool FeedSidePanelHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFeedSidePanelHandlerValidationInfo[] = {
-    {&internal::FeedSidePanelHandler_DoSomething_Params_Data::Validate,
+    { &internal::FeedSidePanelHandler_DoSomething_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -442,14 +449,17 @@ void FeedSidePanelProxy::OnEventOccurred(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeedSidePanel_OnEventOccurred_Name, kFlags, 0, 0, nullptr);
@@ -528,10 +538,10 @@ bool FeedSidePanelStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFeedSidePanelValidationInfo[] = {
-    {&internal::FeedSidePanel_OnEventOccurred_Params_Data::Validate,
+    { &internal::FeedSidePanel_OnEventOccurred_Params_Data::Validate,
      nullptr /* no response */},
 };
 

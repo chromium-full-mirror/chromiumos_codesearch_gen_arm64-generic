@@ -49,6 +49,42 @@ Vector<std::pair<String, String>> getParamsOr(Vector<std::pair<String, String>>&
 void setParams(const Vector<std::pair<String, String>>& value);
 void setParams(Vector<std::pair<String, String>>&& value);
 
+bool hasProtocol() const {
+  return has_protocol_;
+}
+const String& protocol() const {
+  DCHECK(hasProtocol());
+return member_protocol_;
+}
+String getProtocolOr(const String& fallback_value) const;
+String getProtocolOr(String&& fallback_value) const;
+void setProtocol(const String& value);
+void setProtocol(String&& value);
+
+bool hasPublicKey() const {
+  return has_public_key_;
+}
+const String& publicKey() const {
+  DCHECK(hasPublicKey());
+return member_public_key_;
+}
+String getPublicKeyOr(const String& fallback_value) const;
+String getPublicKeyOr(String&& fallback_value) const;
+void setPublicKey(const String& value);
+void setPublicKey(String&& value);
+
+bool hasRequest() const {
+  return has_request_;
+}
+const String& request() const {
+  DCHECK(hasRequest());
+return member_request_;
+}
+String getRequestOr(const String& fallback_value) const;
+String getRequestOr(String&& fallback_value) const;
+void setRequest(const String& value);
+void setRequest(String&& value);
+
 bool hasSelector() const {
   return has_selector_;
 }
@@ -84,9 +120,15 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
 bool has_params_ = false;
+bool has_protocol_ = false;
+bool has_public_key_ = false;
+bool has_request_ = false;
 bool has_selector_ = false;
 
 Vector<std::pair<String, String>> member_params_;
+String member_protocol_;
+String member_public_key_;
+String member_request_;
 Member<DigitalCredentialSelector> member_selector_;
 
 

@@ -13,7 +13,7 @@ import 'chrome://resources/cr_elements/cr_hidden_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { FittingType, SaveRequestType } from './constants.js';
 import { PluginController } from './controller.js';
 // 
@@ -25,7 +25,7 @@ import { NavigatorDelegateImpl, PdfNavigator, WindowOpenDisposition } from './na
 import { deserializeKeyEvent, LoadState } from './pdf_scripting_api.js';
 import { getTemplate } from './pdf_viewer.html.js';
 import { PdfViewerBaseElement } from './pdf_viewer_base.js';
-import { hasCtrlModifier, shouldIgnoreKeyEvents } from './pdf_viewer_utils.js';
+import { hasCtrlModifier, hasCtrlModifierOnly, shouldIgnoreKeyEvents } from './pdf_viewer_utils.js';
 /**
  * Return the filename component of a URL, percent decoded if possible.
  * Exported for tests.
@@ -200,7 +200,10 @@ export class PdfViewerElement extends PdfViewerBaseElement {
         this.sidenavCollapsed_ = !showSidenav;
         this.navigator_ = new PdfNavigator(this.originalUrl, this.viewport, this.paramsParser, new NavigatorDelegateImpl(browserApi));
         // Listen for save commands from the browser.
-        if (chrome.mimeHandlerPrivate && chrome.mimeHandlerPrivate.onSave) {
+        if (this.pdfOopifEnabled) {
+            chrome.pdfViewerPrivate.onSave.addListener(this.onSave_.bind(this));
+        }
+        else {
             chrome.mimeHandlerPrivate.onSave.addListener(this.onSave_.bind(this));
         }
         this.embedded_ = this.browserApi.getStreamInfo().embedded;
@@ -225,7 +228,9 @@ export class PdfViewerElement extends PdfViewerBaseElement {
         }
         switch (e.key) {
             case 'a':
-                if (hasCtrlModifier(e)) {
+                // Take over Ctrl+A (but not other combinations like Ctrl-Shift-A).
+                // Note that on macOS, "Ctrl" is Command.
+                if (hasCtrlModifierOnly(e)) {
                     this.pluginController_.selectAll();
                     // Since we do selection ourselves.
                     e.preventDefault();
@@ -585,7 +590,11 @@ export class PdfViewerElement extends PdfViewerBaseElement {
                 writer.write(blob);
                 // Unblock closing the window now that the user has saved
                 // successfully.
-                chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                // TODO(crbug.com/1445746): Write an equivalent API call for
+                // chrome.pdfViewerPrivate.
+                if (!this.pdfOopifEnabled) {
+                    chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                }
             });
         });
     }
@@ -696,7 +705,11 @@ export class PdfViewerElement extends PdfViewerBaseElement {
                 writer.write(blob);
                 // Unblock closing the window now that the user has saved
                 // successfully.
-                chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                // TODO(crbug.com/1445746): Write an equivalent API call for
+                // chrome.pdfViewerPrivate.
+                if (!this.pdfOopifEnabled) {
+                    chrome.mimeHandlerPrivate.setShowBeforeUnloadDialog(false);
+                }
             });
         });
         // 

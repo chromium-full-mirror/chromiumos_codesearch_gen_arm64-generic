@@ -13,11 +13,27 @@
 namespace guest_view::mojom {
 
 
+class  ViewHandleInterceptorForTesting : public ViewHandle {
+  virtual ViewHandle* GetForwardingInterface() = 0;
+};
+class  ViewHandleAsyncWaiter {
+ public:
+  explicit ViewHandleAsyncWaiter(ViewHandle* proxy);
+
+  ViewHandleAsyncWaiter(const ViewHandleAsyncWaiter&) = delete;
+  ViewHandleAsyncWaiter& operator=(const ViewHandleAsyncWaiter&) = delete;
+
+  ~ViewHandleAsyncWaiter();
+
+ private:
+  ViewHandle* const proxy_;
+};
+
+
 class  GuestViewHostInterceptorForTesting : public GuestViewHost {
   virtual GuestViewHost* GetForwardingInterface() = 0;
-  void AttachToEmbedderFrame(int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) override;
-  void ViewCreated(int32_t view_instance_id, const std::string& view_type) override;
-  void ViewGarbageCollected(int32_t view_instance_id) override;
+  void AttachToEmbedderFrame(int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) override;
+  void ViewCreated(int32_t view_instance_id, const std::string& view_type, ::mojo::PendingReceiver<ViewHandle> keep_alive_handle_receiver) override;
 };
 class  GuestViewHostAsyncWaiter {
  public:
@@ -28,7 +44,7 @@ class  GuestViewHostAsyncWaiter {
 
   ~GuestViewHostAsyncWaiter();
   void AttachToEmbedderFrame(
-      int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params);
+      int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params);
   
 
  private:

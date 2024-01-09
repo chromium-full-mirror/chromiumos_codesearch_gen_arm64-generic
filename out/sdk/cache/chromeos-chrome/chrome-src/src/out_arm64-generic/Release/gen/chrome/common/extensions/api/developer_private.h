@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,14 +31,14 @@ namespace developer_private {
 //
 
 // DEPRECATED: Prefer ExtensionType.
-enum  ItemType {
-  ITEM_TYPE_NONE = 0,
-  ITEM_TYPE_HOSTED_APP,
-  ITEM_TYPE_PACKAGED_APP,
-  ITEM_TYPE_LEGACY_PACKAGED_APP,
-  ITEM_TYPE_EXTENSION,
-  ITEM_TYPE_THEME,
-  ITEM_TYPE_LAST = ITEM_TYPE_THEME,
+enum class ItemType {
+  kNone = 0,
+  kHostedApp,
+  kPackagedApp,
+  kLegacyPackagedApp,
+  kExtension,
+  kTheme,
+  kMaxValue = kTheme,
 };
 
 
@@ -50,8 +51,8 @@ struct ItemInspectView {
   ~ItemInspectView();
   ItemInspectView(const ItemInspectView&) = delete;
   ItemInspectView& operator=(const ItemInspectView&) = delete;
-  ItemInspectView(ItemInspectView&& rhs);
-  ItemInspectView& operator=(ItemInspectView&& rhs);
+  ItemInspectView(ItemInspectView&& rhs) noexcept;
+  ItemInspectView& operator=(ItemInspectView&& rhs) noexcept;
 
   // Populates a ItemInspectView object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -64,15 +65,12 @@ struct ItemInspectView {
   // Creates a deep copy of ItemInspectView.
   ItemInspectView Clone() const;
 
-  // Creates a ItemInspectView object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ItemInspectView> FromValueDeprecated(const base::Value& value);
-
   // Creates a ItemInspectView object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ItemInspectView> FromValue(const base::Value::Dict& value);
+  static std::optional<ItemInspectView> FromValue(const base::Value::Dict& value);
 
   // Creates a ItemInspectView object from a base::Value, or nullopt on failure.
-  static absl::optional<ItemInspectView> FromValue(const base::Value& value);
+  static std::optional<ItemInspectView> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisItemInspectView object.
@@ -98,8 +96,8 @@ struct InspectOptions {
   ~InspectOptions();
   InspectOptions(const InspectOptions&) = delete;
   InspectOptions& operator=(const InspectOptions&) = delete;
-  InspectOptions(InspectOptions&& rhs);
-  InspectOptions& operator=(InspectOptions&& rhs);
+  InspectOptions(InspectOptions&& rhs) noexcept;
+  InspectOptions& operator=(InspectOptions&& rhs) noexcept;
 
   // Populates a InspectOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -112,15 +110,12 @@ struct InspectOptions {
   // Creates a deep copy of InspectOptions.
   InspectOptions Clone() const;
 
-  // Creates a InspectOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InspectOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a InspectOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InspectOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<InspectOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a InspectOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<InspectOptions> FromValue(const base::Value& value);
+  static std::optional<InspectOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInspectOptions object.
@@ -131,8 +126,8 @@ struct InspectOptions {
     ~RenderProcessId();
     RenderProcessId(const RenderProcessId&) = delete;
     RenderProcessId& operator=(const RenderProcessId&) = delete;
-    RenderProcessId(RenderProcessId&& rhs);
-    RenderProcessId& operator=(RenderProcessId&& rhs);
+    RenderProcessId(RenderProcessId&& rhs) noexcept;
+    RenderProcessId& operator=(RenderProcessId&& rhs) noexcept;
 
     // Populates a RenderProcessId object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -142,14 +137,14 @@ struct InspectOptions {
     RenderProcessId Clone() const;
 
     // Creates a RenderProcessId object from a base::Value, or nullopt on failure.
-    static absl::optional<RenderProcessId> FromValue(const base::Value& value);
+    static std::optional<RenderProcessId> FromValue(const base::Value& value);
 
     // Returns a new base::Value representing the serialized form of
     // thisRenderProcessId object.
     base::Value ToValue() const;
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<int> as_integer;
+    std::optional<std::string> as_string;
+    std::optional<int> as_integer;
   };
 
   struct RenderViewId {
@@ -157,8 +152,8 @@ struct InspectOptions {
     ~RenderViewId();
     RenderViewId(const RenderViewId&) = delete;
     RenderViewId& operator=(const RenderViewId&) = delete;
-    RenderViewId(RenderViewId&& rhs);
-    RenderViewId& operator=(RenderViewId&& rhs);
+    RenderViewId(RenderViewId&& rhs) noexcept;
+    RenderViewId& operator=(RenderViewId&& rhs) noexcept;
 
     // Populates a RenderViewId object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -168,14 +163,14 @@ struct InspectOptions {
     RenderViewId Clone() const;
 
     // Creates a RenderViewId object from a base::Value, or nullopt on failure.
-    static absl::optional<RenderViewId> FromValue(const base::Value& value);
+    static std::optional<RenderViewId> FromValue(const base::Value& value);
 
     // Returns a new base::Value representing the serialized form of
     // thisRenderViewId object.
     base::Value ToValue() const;
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<int> as_integer;
+    std::optional<std::string> as_string;
+    std::optional<int> as_integer;
   };
 
 
@@ -194,8 +189,8 @@ struct InstallWarning {
   ~InstallWarning();
   InstallWarning(const InstallWarning&) = delete;
   InstallWarning& operator=(const InstallWarning&) = delete;
-  InstallWarning(InstallWarning&& rhs);
-  InstallWarning& operator=(InstallWarning&& rhs);
+  InstallWarning(InstallWarning&& rhs) noexcept;
+  InstallWarning& operator=(InstallWarning&& rhs) noexcept;
 
   // Populates a InstallWarning object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -208,15 +203,12 @@ struct InstallWarning {
   // Creates a deep copy of InstallWarning.
   InstallWarning Clone() const;
 
-  // Creates a InstallWarning object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InstallWarning> FromValueDeprecated(const base::Value& value);
-
   // Creates a InstallWarning object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InstallWarning> FromValue(const base::Value::Dict& value);
+  static std::optional<InstallWarning> FromValue(const base::Value::Dict& value);
 
   // Creates a InstallWarning object from a base::Value, or nullopt on failure.
-  static absl::optional<InstallWarning> FromValue(const base::Value& value);
+  static std::optional<InstallWarning> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInstallWarning object.
@@ -226,15 +218,15 @@ struct InstallWarning {
 
 };
 
-enum  ExtensionType {
-  EXTENSION_TYPE_NONE = 0,
-  EXTENSION_TYPE_HOSTED_APP,
-  EXTENSION_TYPE_PLATFORM_APP,
-  EXTENSION_TYPE_LEGACY_PACKAGED_APP,
-  EXTENSION_TYPE_EXTENSION,
-  EXTENSION_TYPE_THEME,
-  EXTENSION_TYPE_SHARED_MODULE,
-  EXTENSION_TYPE_LAST = EXTENSION_TYPE_SHARED_MODULE,
+enum class ExtensionType {
+  kNone = 0,
+  kHostedApp,
+  kPlatformApp,
+  kLegacyPackagedApp,
+  kExtension,
+  kTheme,
+  kSharedModule,
+  kMaxValue = kSharedModule,
 };
 
 
@@ -242,14 +234,14 @@ const char* ToString(ExtensionType as_enum);
 ExtensionType ParseExtensionType(base::StringPiece as_string);
 std::u16string GetExtensionTypeParseError(base::StringPiece as_string);
 
-enum  Location {
-  LOCATION_NONE = 0,
-  LOCATION_FROM_STORE,
-  LOCATION_UNPACKED,
-  LOCATION_THIRD_PARTY,
-  LOCATION_INSTALLED_BY_DEFAULT,
-  LOCATION_UNKNOWN,
-  LOCATION_LAST = LOCATION_UNKNOWN,
+enum class Location {
+  kNone = 0,
+  kFromStore,
+  kUnpacked,
+  kThirdParty,
+  kInstalledByDefault,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -257,19 +249,19 @@ const char* ToString(Location as_enum);
 Location ParseLocation(base::StringPiece as_string);
 std::u16string GetLocationParseError(base::StringPiece as_string);
 
-enum  ViewType {
-  VIEW_TYPE_NONE = 0,
-  VIEW_TYPE_APP_WINDOW,
-  VIEW_TYPE_BACKGROUND_CONTENTS,
-  VIEW_TYPE_COMPONENT,
-  VIEW_TYPE_EXTENSION_BACKGROUND_PAGE,
-  VIEW_TYPE_EXTENSION_GUEST,
-  VIEW_TYPE_EXTENSION_POPUP,
-  VIEW_TYPE_EXTENSION_SERVICE_WORKER_BACKGROUND,
-  VIEW_TYPE_TAB_CONTENTS,
-  VIEW_TYPE_OFFSCREEN_DOCUMENT,
-  VIEW_TYPE_EXTENSION_SIDE_PANEL,
-  VIEW_TYPE_LAST = VIEW_TYPE_EXTENSION_SIDE_PANEL,
+enum class ViewType {
+  kNone = 0,
+  kAppWindow,
+  kBackgroundContents,
+  kComponent,
+  kExtensionBackgroundPage,
+  kExtensionGuest,
+  kExtensionPopup,
+  kExtensionServiceWorkerBackground,
+  kTabContents,
+  kOffscreenDocument,
+  kExtensionSidePanel,
+  kMaxValue = kExtensionSidePanel,
 };
 
 
@@ -277,11 +269,11 @@ const char* ToString(ViewType as_enum);
 ViewType ParseViewType(base::StringPiece as_string);
 std::u16string GetViewTypeParseError(base::StringPiece as_string);
 
-enum  ErrorType {
-  ERROR_TYPE_NONE = 0,
-  ERROR_TYPE_MANIFEST,
-  ERROR_TYPE_RUNTIME,
-  ERROR_TYPE_LAST = ERROR_TYPE_RUNTIME,
+enum class ErrorType {
+  kNone = 0,
+  kManifest,
+  kRuntime,
+  kMaxValue = kRuntime,
 };
 
 
@@ -289,12 +281,12 @@ const char* ToString(ErrorType as_enum);
 ErrorType ParseErrorType(base::StringPiece as_string);
 std::u16string GetErrorTypeParseError(base::StringPiece as_string);
 
-enum  ErrorLevel {
-  ERROR_LEVEL_NONE = 0,
-  ERROR_LEVEL_LOG,
-  ERROR_LEVEL_WARN,
-  ERROR_LEVEL_ERROR,
-  ERROR_LEVEL_LAST = ERROR_LEVEL_ERROR,
+enum class ErrorLevel {
+  kNone = 0,
+  kLog,
+  kWarn,
+  kError,
+  kMaxValue = kError,
 };
 
 
@@ -302,13 +294,13 @@ const char* ToString(ErrorLevel as_enum);
 ErrorLevel ParseErrorLevel(base::StringPiece as_string);
 std::u16string GetErrorLevelParseError(base::StringPiece as_string);
 
-enum  ExtensionState {
-  EXTENSION_STATE_NONE = 0,
-  EXTENSION_STATE_ENABLED,
-  EXTENSION_STATE_DISABLED,
-  EXTENSION_STATE_TERMINATED,
-  EXTENSION_STATE_BLACKLISTED,
-  EXTENSION_STATE_LAST = EXTENSION_STATE_BLACKLISTED,
+enum class ExtensionState {
+  kNone = 0,
+  kEnabled,
+  kDisabled,
+  kTerminated,
+  kBlacklisted,
+  kMaxValue = kBlacklisted,
 };
 
 
@@ -316,11 +308,11 @@ const char* ToString(ExtensionState as_enum);
 ExtensionState ParseExtensionState(base::StringPiece as_string);
 std::u16string GetExtensionStateParseError(base::StringPiece as_string);
 
-enum  CommandScope {
-  COMMAND_SCOPE_NONE = 0,
-  COMMAND_SCOPE_GLOBAL,
-  COMMAND_SCOPE_CHROME,
-  COMMAND_SCOPE_LAST = COMMAND_SCOPE_CHROME,
+enum class CommandScope {
+  kNone = 0,
+  kGlobal,
+  kChrome,
+  kMaxValue = kChrome,
 };
 
 
@@ -333,8 +325,8 @@ struct AccessModifier {
   ~AccessModifier();
   AccessModifier(const AccessModifier&) = delete;
   AccessModifier& operator=(const AccessModifier&) = delete;
-  AccessModifier(AccessModifier&& rhs);
-  AccessModifier& operator=(AccessModifier&& rhs);
+  AccessModifier(AccessModifier&& rhs) noexcept;
+  AccessModifier& operator=(AccessModifier&& rhs) noexcept;
 
   // Populates a AccessModifier object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -347,15 +339,12 @@ struct AccessModifier {
   // Creates a deep copy of AccessModifier.
   AccessModifier Clone() const;
 
-  // Creates a AccessModifier object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AccessModifier> FromValueDeprecated(const base::Value& value);
-
   // Creates a AccessModifier object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AccessModifier> FromValue(const base::Value::Dict& value);
+  static std::optional<AccessModifier> FromValue(const base::Value::Dict& value);
 
   // Creates a AccessModifier object from a base::Value, or nullopt on failure.
-  static absl::optional<AccessModifier> FromValue(const base::Value& value);
+  static std::optional<AccessModifier> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccessModifier object.
@@ -372,8 +361,8 @@ struct StackFrame {
   ~StackFrame();
   StackFrame(const StackFrame&) = delete;
   StackFrame& operator=(const StackFrame&) = delete;
-  StackFrame(StackFrame&& rhs);
-  StackFrame& operator=(StackFrame&& rhs);
+  StackFrame(StackFrame&& rhs) noexcept;
+  StackFrame& operator=(StackFrame&& rhs) noexcept;
 
   // Populates a StackFrame object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -386,15 +375,12 @@ struct StackFrame {
   // Creates a deep copy of StackFrame.
   StackFrame Clone() const;
 
-  // Creates a StackFrame object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StackFrame> FromValueDeprecated(const base::Value& value);
-
   // Creates a StackFrame object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StackFrame> FromValue(const base::Value::Dict& value);
+  static std::optional<StackFrame> FromValue(const base::Value::Dict& value);
 
   // Creates a StackFrame object from a base::Value, or nullopt on failure.
-  static absl::optional<StackFrame> FromValue(const base::Value& value);
+  static std::optional<StackFrame> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStackFrame object.
@@ -415,8 +401,8 @@ struct ManifestError {
   ~ManifestError();
   ManifestError(const ManifestError&) = delete;
   ManifestError& operator=(const ManifestError&) = delete;
-  ManifestError(ManifestError&& rhs);
-  ManifestError& operator=(ManifestError&& rhs);
+  ManifestError(ManifestError&& rhs) noexcept;
+  ManifestError& operator=(ManifestError&& rhs) noexcept;
 
   // Populates a ManifestError object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -429,15 +415,12 @@ struct ManifestError {
   // Creates a deep copy of ManifestError.
   ManifestError Clone() const;
 
-  // Creates a ManifestError object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManifestError> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManifestError object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManifestError> FromValue(const base::Value::Dict& value);
+  static std::optional<ManifestError> FromValue(const base::Value::Dict& value);
 
   // Creates a ManifestError object from a base::Value, or nullopt on failure.
-  static absl::optional<ManifestError> FromValue(const base::Value& value);
+  static std::optional<ManifestError> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManifestError object.
@@ -457,7 +440,7 @@ struct ManifestError {
 
   std::string manifest_key;
 
-  absl::optional<std::string> manifest_specific;
+  std::optional<std::string> manifest_specific;
 
 };
 
@@ -466,8 +449,8 @@ struct RuntimeError {
   ~RuntimeError();
   RuntimeError(const RuntimeError&) = delete;
   RuntimeError& operator=(const RuntimeError&) = delete;
-  RuntimeError(RuntimeError&& rhs);
-  RuntimeError& operator=(RuntimeError&& rhs);
+  RuntimeError(RuntimeError&& rhs) noexcept;
+  RuntimeError& operator=(RuntimeError&& rhs) noexcept;
 
   // Populates a RuntimeError object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -480,15 +463,12 @@ struct RuntimeError {
   // Creates a deep copy of RuntimeError.
   RuntimeError Clone() const;
 
-  // Creates a RuntimeError object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RuntimeError> FromValueDeprecated(const base::Value& value);
-
   // Creates a RuntimeError object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RuntimeError> FromValue(const base::Value::Dict& value);
+  static std::optional<RuntimeError> FromValue(const base::Value::Dict& value);
 
   // Creates a RuntimeError object from a base::Value, or nullopt on failure.
-  static absl::optional<RuntimeError> FromValue(const base::Value& value);
+  static std::optional<RuntimeError> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRuntimeError object.
@@ -527,8 +507,8 @@ struct DisableReasons {
   ~DisableReasons();
   DisableReasons(const DisableReasons&) = delete;
   DisableReasons& operator=(const DisableReasons&) = delete;
-  DisableReasons(DisableReasons&& rhs);
-  DisableReasons& operator=(DisableReasons&& rhs);
+  DisableReasons(DisableReasons&& rhs) noexcept;
+  DisableReasons& operator=(DisableReasons&& rhs) noexcept;
 
   // Populates a DisableReasons object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -541,15 +521,12 @@ struct DisableReasons {
   // Creates a deep copy of DisableReasons.
   DisableReasons Clone() const;
 
-  // Creates a DisableReasons object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisableReasons> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisableReasons object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisableReasons> FromValue(const base::Value::Dict& value);
+  static std::optional<DisableReasons> FromValue(const base::Value::Dict& value);
 
   // Creates a DisableReasons object from a base::Value, or nullopt on failure.
-  static absl::optional<DisableReasons> FromValue(const base::Value& value);
+  static std::optional<DisableReasons> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisableReasons object.
@@ -578,8 +555,8 @@ struct OptionsPage {
   ~OptionsPage();
   OptionsPage(const OptionsPage&) = delete;
   OptionsPage& operator=(const OptionsPage&) = delete;
-  OptionsPage(OptionsPage&& rhs);
-  OptionsPage& operator=(OptionsPage&& rhs);
+  OptionsPage(OptionsPage&& rhs) noexcept;
+  OptionsPage& operator=(OptionsPage&& rhs) noexcept;
 
   // Populates a OptionsPage object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -592,15 +569,12 @@ struct OptionsPage {
   // Creates a deep copy of OptionsPage.
   OptionsPage Clone() const;
 
-  // Creates a OptionsPage object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OptionsPage> FromValueDeprecated(const base::Value& value);
-
   // Creates a OptionsPage object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OptionsPage> FromValue(const base::Value::Dict& value);
+  static std::optional<OptionsPage> FromValue(const base::Value::Dict& value);
 
   // Creates a OptionsPage object from a base::Value, or nullopt on failure.
-  static absl::optional<OptionsPage> FromValue(const base::Value& value);
+  static std::optional<OptionsPage> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOptionsPage object.
@@ -617,8 +591,8 @@ struct HomePage {
   ~HomePage();
   HomePage(const HomePage&) = delete;
   HomePage& operator=(const HomePage&) = delete;
-  HomePage(HomePage&& rhs);
-  HomePage& operator=(HomePage&& rhs);
+  HomePage(HomePage&& rhs) noexcept;
+  HomePage& operator=(HomePage&& rhs) noexcept;
 
   // Populates a HomePage object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -631,14 +605,11 @@ struct HomePage {
   // Creates a deep copy of HomePage.
   HomePage Clone() const;
 
-  // Creates a HomePage object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HomePage> FromValueDeprecated(const base::Value& value);
-
   // Creates a HomePage object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<HomePage> FromValue(const base::Value::Dict& value);
+  static std::optional<HomePage> FromValue(const base::Value::Dict& value);
 
   // Creates a HomePage object from a base::Value, or nullopt on failure.
-  static absl::optional<HomePage> FromValue(const base::Value& value);
+  static std::optional<HomePage> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHomePage object.
@@ -655,8 +626,8 @@ struct ExtensionView {
   ~ExtensionView();
   ExtensionView(const ExtensionView&) = delete;
   ExtensionView& operator=(const ExtensionView&) = delete;
-  ExtensionView(ExtensionView&& rhs);
-  ExtensionView& operator=(ExtensionView&& rhs);
+  ExtensionView(ExtensionView&& rhs) noexcept;
+  ExtensionView& operator=(ExtensionView&& rhs) noexcept;
 
   // Populates a ExtensionView object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -669,15 +640,12 @@ struct ExtensionView {
   // Creates a deep copy of ExtensionView.
   ExtensionView Clone() const;
 
-  // Creates a ExtensionView object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionView> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionView object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionView> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionView> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionView object from a base::Value, or nullopt on failure.
-  static absl::optional<ExtensionView> FromValue(const base::Value& value);
+  static std::optional<ExtensionView> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionView object.
@@ -698,12 +666,12 @@ struct ExtensionView {
 
 };
 
-enum  HostAccess {
-  HOST_ACCESS_NONE = 0,
-  HOST_ACCESS_ON_CLICK,
-  HOST_ACCESS_ON_SPECIFIC_SITES,
-  HOST_ACCESS_ON_ALL_SITES,
-  HOST_ACCESS_LAST = HOST_ACCESS_ON_ALL_SITES,
+enum class HostAccess {
+  kNone = 0,
+  kOnClick,
+  kOnSpecificSites,
+  kOnAllSites,
+  kMaxValue = kOnAllSites,
 };
 
 
@@ -716,8 +684,8 @@ struct SafetyCheckStrings {
   ~SafetyCheckStrings();
   SafetyCheckStrings(const SafetyCheckStrings&) = delete;
   SafetyCheckStrings& operator=(const SafetyCheckStrings&) = delete;
-  SafetyCheckStrings(SafetyCheckStrings&& rhs);
-  SafetyCheckStrings& operator=(SafetyCheckStrings&& rhs);
+  SafetyCheckStrings(SafetyCheckStrings&& rhs) noexcept;
+  SafetyCheckStrings& operator=(SafetyCheckStrings&& rhs) noexcept;
 
   // Populates a SafetyCheckStrings object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -730,24 +698,21 @@ struct SafetyCheckStrings {
   // Creates a deep copy of SafetyCheckStrings.
   SafetyCheckStrings Clone() const;
 
-  // Creates a SafetyCheckStrings object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SafetyCheckStrings> FromValueDeprecated(const base::Value& value);
-
   // Creates a SafetyCheckStrings object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SafetyCheckStrings> FromValue(const base::Value::Dict& value);
+  static std::optional<SafetyCheckStrings> FromValue(const base::Value::Dict& value);
 
   // Creates a SafetyCheckStrings object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SafetyCheckStrings> FromValue(const base::Value& value);
+  static std::optional<SafetyCheckStrings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSafetyCheckStrings object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> panel_string;
+  std::optional<std::string> panel_string;
 
-  absl::optional<std::string> detail_string;
+  std::optional<std::string> detail_string;
 
 };
 
@@ -756,8 +721,8 @@ struct ControlledInfo {
   ~ControlledInfo();
   ControlledInfo(const ControlledInfo&) = delete;
   ControlledInfo& operator=(const ControlledInfo&) = delete;
-  ControlledInfo(ControlledInfo&& rhs);
-  ControlledInfo& operator=(ControlledInfo&& rhs);
+  ControlledInfo(ControlledInfo&& rhs) noexcept;
+  ControlledInfo& operator=(ControlledInfo&& rhs) noexcept;
 
   // Populates a ControlledInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -770,15 +735,12 @@ struct ControlledInfo {
   // Creates a deep copy of ControlledInfo.
   ControlledInfo Clone() const;
 
-  // Creates a ControlledInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ControlledInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ControlledInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ControlledInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ControlledInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ControlledInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ControlledInfo> FromValue(const base::Value& value);
+  static std::optional<ControlledInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisControlledInfo object.
@@ -793,8 +755,8 @@ struct Command {
   ~Command();
   Command(const Command&) = delete;
   Command& operator=(const Command&) = delete;
-  Command(Command&& rhs);
-  Command& operator=(Command&& rhs);
+  Command(Command&& rhs) noexcept;
+  Command& operator=(Command&& rhs) noexcept;
 
   // Populates a Command object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -807,14 +769,11 @@ struct Command {
   // Creates a deep copy of Command.
   Command Clone() const;
 
-  // Creates a Command object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Command> FromValueDeprecated(const base::Value& value);
-
   // Creates a Command object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Command> FromValue(const base::Value::Dict& value);
+  static std::optional<Command> FromValue(const base::Value::Dict& value);
 
   // Creates a Command object from a base::Value, or nullopt on failure.
-  static absl::optional<Command> FromValue(const base::Value& value);
+  static std::optional<Command> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCommand object.
@@ -839,8 +798,8 @@ struct DependentExtension {
   ~DependentExtension();
   DependentExtension(const DependentExtension&) = delete;
   DependentExtension& operator=(const DependentExtension&) = delete;
-  DependentExtension(DependentExtension&& rhs);
-  DependentExtension& operator=(DependentExtension&& rhs);
+  DependentExtension(DependentExtension&& rhs) noexcept;
+  DependentExtension& operator=(DependentExtension&& rhs) noexcept;
 
   // Populates a DependentExtension object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -853,16 +812,13 @@ struct DependentExtension {
   // Creates a deep copy of DependentExtension.
   DependentExtension Clone() const;
 
-  // Creates a DependentExtension object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DependentExtension> FromValueDeprecated(const base::Value& value);
-
   // Creates a DependentExtension object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DependentExtension> FromValue(const base::Value::Dict& value);
+  static std::optional<DependentExtension> FromValue(const base::Value::Dict& value);
 
   // Creates a DependentExtension object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DependentExtension> FromValue(const base::Value& value);
+  static std::optional<DependentExtension> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDependentExtension object.
@@ -879,8 +835,8 @@ struct Permission {
   ~Permission();
   Permission(const Permission&) = delete;
   Permission& operator=(const Permission&) = delete;
-  Permission(Permission&& rhs);
-  Permission& operator=(Permission&& rhs);
+  Permission(Permission&& rhs) noexcept;
+  Permission& operator=(Permission&& rhs) noexcept;
 
   // Populates a Permission object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -893,15 +849,12 @@ struct Permission {
   // Creates a deep copy of Permission.
   Permission Clone() const;
 
-  // Creates a Permission object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Permission> FromValueDeprecated(const base::Value& value);
-
   // Creates a Permission object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Permission> FromValue(const base::Value::Dict& value);
+  static std::optional<Permission> FromValue(const base::Value::Dict& value);
 
   // Creates a Permission object from a base::Value, or nullopt on failure.
-  static absl::optional<Permission> FromValue(const base::Value& value);
+  static std::optional<Permission> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPermission object.
@@ -918,8 +871,8 @@ struct SiteControl {
   ~SiteControl();
   SiteControl(const SiteControl&) = delete;
   SiteControl& operator=(const SiteControl&) = delete;
-  SiteControl(SiteControl&& rhs);
-  SiteControl& operator=(SiteControl&& rhs);
+  SiteControl(SiteControl&& rhs) noexcept;
+  SiteControl& operator=(SiteControl&& rhs) noexcept;
 
   // Populates a SiteControl object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -932,15 +885,12 @@ struct SiteControl {
   // Creates a deep copy of SiteControl.
   SiteControl Clone() const;
 
-  // Creates a SiteControl object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SiteControl> FromValueDeprecated(const base::Value& value);
-
   // Creates a SiteControl object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SiteControl> FromValue(const base::Value::Dict& value);
+  static std::optional<SiteControl> FromValue(const base::Value::Dict& value);
 
   // Creates a SiteControl object from a base::Value, or nullopt on failure.
-  static absl::optional<SiteControl> FromValue(const base::Value& value);
+  static std::optional<SiteControl> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSiteControl object.
@@ -959,8 +909,8 @@ struct RuntimeHostPermissions {
   ~RuntimeHostPermissions();
   RuntimeHostPermissions(const RuntimeHostPermissions&) = delete;
   RuntimeHostPermissions& operator=(const RuntimeHostPermissions&) = delete;
-  RuntimeHostPermissions(RuntimeHostPermissions&& rhs);
-  RuntimeHostPermissions& operator=(RuntimeHostPermissions&& rhs);
+  RuntimeHostPermissions(RuntimeHostPermissions&& rhs) noexcept;
+  RuntimeHostPermissions& operator=(RuntimeHostPermissions&& rhs) noexcept;
 
   // Populates a RuntimeHostPermissions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -973,17 +923,13 @@ struct RuntimeHostPermissions {
   // Creates a deep copy of RuntimeHostPermissions.
   RuntimeHostPermissions Clone() const;
 
-  // Creates a RuntimeHostPermissions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RuntimeHostPermissions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RuntimeHostPermissions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RuntimeHostPermissions> FromValue(const base::Value::Dict& value);
+  static std::optional<RuntimeHostPermissions> FromValue(const base::Value::Dict& value);
 
   // Creates a RuntimeHostPermissions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RuntimeHostPermissions> FromValue(const base::Value& value);
+  static std::optional<RuntimeHostPermissions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRuntimeHostPermissions object.
@@ -1005,8 +951,8 @@ struct Permissions {
   ~Permissions();
   Permissions(const Permissions&) = delete;
   Permissions& operator=(const Permissions&) = delete;
-  Permissions(Permissions&& rhs);
-  Permissions& operator=(Permissions&& rhs);
+  Permissions(Permissions&& rhs) noexcept;
+  Permissions& operator=(Permissions&& rhs) noexcept;
 
   // Populates a Permissions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1019,15 +965,12 @@ struct Permissions {
   // Creates a deep copy of Permissions.
   Permissions Clone() const;
 
-  // Creates a Permissions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Permissions> FromValueDeprecated(const base::Value& value);
-
   // Creates a Permissions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Permissions> FromValue(const base::Value::Dict& value);
+  static std::optional<Permissions> FromValue(const base::Value::Dict& value);
 
   // Creates a Permissions object from a base::Value, or nullopt on failure.
-  static absl::optional<Permissions> FromValue(const base::Value& value);
+  static std::optional<Permissions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPermissions object.
@@ -1037,7 +980,7 @@ struct Permissions {
 
   // Only populated for extensions that can be affected by the runtime host
   // permissions feature.
-  absl::optional<RuntimeHostPermissions> runtime_host_permissions;
+  std::optional<RuntimeHostPermissions> runtime_host_permissions;
 
   // True if the extension can access site data through host permissions or API
   // permissions such as activeTab.
@@ -1050,8 +993,8 @@ struct ExtensionInfo {
   ~ExtensionInfo();
   ExtensionInfo(const ExtensionInfo&) = delete;
   ExtensionInfo& operator=(const ExtensionInfo&) = delete;
-  ExtensionInfo(ExtensionInfo&& rhs);
-  ExtensionInfo& operator=(ExtensionInfo&& rhs);
+  ExtensionInfo(ExtensionInfo&& rhs) noexcept;
+  ExtensionInfo& operator=(ExtensionInfo&& rhs) noexcept;
 
   // Populates a ExtensionInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1064,27 +1007,24 @@ struct ExtensionInfo {
   // Creates a deep copy of ExtensionInfo.
   ExtensionInfo Clone() const;
 
-  // Creates a ExtensionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ExtensionInfo> FromValue(const base::Value& value);
+  static std::optional<ExtensionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> blacklist_text;
+  std::optional<std::string> blacklist_text;
 
-  absl::optional<SafetyCheckStrings> safety_check_text;
+  std::optional<SafetyCheckStrings> safety_check_text;
 
   std::vector<Command> commands;
 
-  absl::optional<ControlledInfo> controlled_info;
+  std::optional<ControlledInfo> controlled_info;
 
   std::vector<DependentExtension> dependent_extensions;
 
@@ -1106,11 +1046,11 @@ struct ExtensionInfo {
 
   std::vector<std::string> install_warnings;
 
-  absl::optional<std::string> launch_url;
+  std::optional<std::string> launch_url;
 
   Location location;
 
-  absl::optional<std::string> location_text;
+  std::optional<std::string> location_text;
 
   std::vector<ManifestError> manifest_errors;
 
@@ -1122,13 +1062,13 @@ struct ExtensionInfo {
 
   bool offline_enabled;
 
-  absl::optional<OptionsPage> options_page;
+  std::optional<OptionsPage> options_page;
 
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
 
   Permissions permissions;
 
-  absl::optional<std::string> prettified_path;
+  std::optional<std::string> prettified_path;
 
   std::vector<RuntimeError> runtime_errors;
 
@@ -1154,7 +1094,7 @@ struct ExtensionInfo {
 
   bool acknowledge_safety_check_warning;
 
-  absl::optional<bool> pinned_to_toolbar;
+  std::optional<bool> pinned_to_toolbar;
 
 };
 
@@ -1163,8 +1103,8 @@ struct ProfileInfo {
   ~ProfileInfo();
   ProfileInfo(const ProfileInfo&) = delete;
   ProfileInfo& operator=(const ProfileInfo&) = delete;
-  ProfileInfo(ProfileInfo&& rhs);
-  ProfileInfo& operator=(ProfileInfo&& rhs);
+  ProfileInfo(ProfileInfo&& rhs) noexcept;
+  ProfileInfo& operator=(ProfileInfo&& rhs) noexcept;
 
   // Populates a ProfileInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1177,15 +1117,12 @@ struct ProfileInfo {
   // Creates a deep copy of ProfileInfo.
   ProfileInfo Clone() const;
 
-  // Creates a ProfileInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProfileInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProfileInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProfileInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProfileInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProfileInfo> FromValue(const base::Value& value);
+  static std::optional<ProfileInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileInfo object.
@@ -1208,8 +1145,8 @@ struct ItemInfo {
   ~ItemInfo();
   ItemInfo(const ItemInfo&) = delete;
   ItemInfo& operator=(const ItemInfo&) = delete;
-  ItemInfo(ItemInfo&& rhs);
-  ItemInfo& operator=(ItemInfo&& rhs);
+  ItemInfo(ItemInfo&& rhs) noexcept;
+  ItemInfo& operator=(ItemInfo&& rhs) noexcept;
 
   // Populates a ItemInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1222,14 +1159,11 @@ struct ItemInfo {
   // Creates a deep copy of ItemInfo.
   ItemInfo Clone() const;
 
-  // Creates a ItemInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ItemInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ItemInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<ItemInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ItemInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ItemInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ItemInfo> FromValue(const base::Value& value);
+  static std::optional<ItemInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisItemInfo object.
@@ -1270,16 +1204,16 @@ struct ItemInfo {
   std::string icon_url;
 
   // Path of an unpacked extension.
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
 
   // Options settings page for the item.
-  absl::optional<std::string> options_url;
+  std::optional<std::string> options_url;
 
-  absl::optional<std::string> app_launch_url;
+  std::optional<std::string> app_launch_url;
 
-  absl::optional<std::string> homepage_url;
+  std::optional<std::string> homepage_url;
 
-  absl::optional<std::string> update_url;
+  std::optional<std::string> update_url;
 
   std::vector<InstallWarning> install_warnings;
 
@@ -1299,8 +1233,8 @@ struct GetExtensionsInfoOptions {
   ~GetExtensionsInfoOptions();
   GetExtensionsInfoOptions(const GetExtensionsInfoOptions&) = delete;
   GetExtensionsInfoOptions& operator=(const GetExtensionsInfoOptions&) = delete;
-  GetExtensionsInfoOptions(GetExtensionsInfoOptions&& rhs);
-  GetExtensionsInfoOptions& operator=(GetExtensionsInfoOptions&& rhs);
+  GetExtensionsInfoOptions(GetExtensionsInfoOptions&& rhs) noexcept;
+  GetExtensionsInfoOptions& operator=(GetExtensionsInfoOptions&& rhs) noexcept;
 
   // Populates a GetExtensionsInfoOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1313,25 +1247,21 @@ struct GetExtensionsInfoOptions {
   // Creates a deep copy of GetExtensionsInfoOptions.
   GetExtensionsInfoOptions Clone() const;
 
-  // Creates a GetExtensionsInfoOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetExtensionsInfoOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetExtensionsInfoOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetExtensionsInfoOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetExtensionsInfoOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetExtensionsInfoOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetExtensionsInfoOptions> FromValue(const base::Value& value);
+  static std::optional<GetExtensionsInfoOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetExtensionsInfoOptions object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> include_disabled;
+  std::optional<bool> include_disabled;
 
-  absl::optional<bool> include_terminated;
+  std::optional<bool> include_terminated;
 
 };
 
@@ -1340,8 +1270,8 @@ struct ExtensionConfigurationUpdate {
   ~ExtensionConfigurationUpdate();
   ExtensionConfigurationUpdate(const ExtensionConfigurationUpdate&) = delete;
   ExtensionConfigurationUpdate& operator=(const ExtensionConfigurationUpdate&) = delete;
-  ExtensionConfigurationUpdate(ExtensionConfigurationUpdate&& rhs);
-  ExtensionConfigurationUpdate& operator=(ExtensionConfigurationUpdate&& rhs);
+  ExtensionConfigurationUpdate(ExtensionConfigurationUpdate&& rhs) noexcept;
+  ExtensionConfigurationUpdate& operator=(ExtensionConfigurationUpdate&& rhs) noexcept;
 
   // Populates a ExtensionConfigurationUpdate object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -1354,17 +1284,13 @@ struct ExtensionConfigurationUpdate {
   // Creates a deep copy of ExtensionConfigurationUpdate.
   ExtensionConfigurationUpdate Clone() const;
 
-  // Creates a ExtensionConfigurationUpdate object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<ExtensionConfigurationUpdate> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionConfigurationUpdate object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ExtensionConfigurationUpdate> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionConfigurationUpdate> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionConfigurationUpdate object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ExtensionConfigurationUpdate> FromValue(const base::Value& value);
+  static std::optional<ExtensionConfigurationUpdate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionConfigurationUpdate object.
@@ -1372,19 +1298,19 @@ struct ExtensionConfigurationUpdate {
 
   std::string extension_id;
 
-  absl::optional<bool> file_access;
+  std::optional<bool> file_access;
 
-  absl::optional<bool> incognito_access;
+  std::optional<bool> incognito_access;
 
-  absl::optional<bool> error_collection;
+  std::optional<bool> error_collection;
 
   HostAccess host_access;
 
-  absl::optional<bool> show_access_requests_in_toolbar;
+  std::optional<bool> show_access_requests_in_toolbar;
 
-  absl::optional<bool> acknowledge_safety_check_warning;
+  std::optional<bool> acknowledge_safety_check_warning;
 
-  absl::optional<bool> pinned_to_toolbar;
+  std::optional<bool> pinned_to_toolbar;
 
 };
 
@@ -1393,8 +1319,8 @@ struct ProfileConfigurationUpdate {
   ~ProfileConfigurationUpdate();
   ProfileConfigurationUpdate(const ProfileConfigurationUpdate&) = delete;
   ProfileConfigurationUpdate& operator=(const ProfileConfigurationUpdate&) = delete;
-  ProfileConfigurationUpdate(ProfileConfigurationUpdate&& rhs);
-  ProfileConfigurationUpdate& operator=(ProfileConfigurationUpdate&& rhs);
+  ProfileConfigurationUpdate(ProfileConfigurationUpdate&& rhs) noexcept;
+  ProfileConfigurationUpdate& operator=(ProfileConfigurationUpdate&& rhs) noexcept;
 
   // Populates a ProfileConfigurationUpdate object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1407,23 +1333,19 @@ struct ProfileConfigurationUpdate {
   // Creates a deep copy of ProfileConfigurationUpdate.
   ProfileConfigurationUpdate Clone() const;
 
-  // Creates a ProfileConfigurationUpdate object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ProfileConfigurationUpdate> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProfileConfigurationUpdate object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ProfileConfigurationUpdate> FromValue(const base::Value::Dict& value);
+  static std::optional<ProfileConfigurationUpdate> FromValue(const base::Value::Dict& value);
 
   // Creates a ProfileConfigurationUpdate object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ProfileConfigurationUpdate> FromValue(const base::Value& value);
+  static std::optional<ProfileConfigurationUpdate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileConfigurationUpdate object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> in_developer_mode;
+  std::optional<bool> in_developer_mode;
 
 };
 
@@ -1432,8 +1354,8 @@ struct ExtensionCommandUpdate {
   ~ExtensionCommandUpdate();
   ExtensionCommandUpdate(const ExtensionCommandUpdate&) = delete;
   ExtensionCommandUpdate& operator=(const ExtensionCommandUpdate&) = delete;
-  ExtensionCommandUpdate(ExtensionCommandUpdate&& rhs);
-  ExtensionCommandUpdate& operator=(ExtensionCommandUpdate&& rhs);
+  ExtensionCommandUpdate(ExtensionCommandUpdate&& rhs) noexcept;
+  ExtensionCommandUpdate& operator=(ExtensionCommandUpdate&& rhs) noexcept;
 
   // Populates a ExtensionCommandUpdate object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1446,17 +1368,13 @@ struct ExtensionCommandUpdate {
   // Creates a deep copy of ExtensionCommandUpdate.
   ExtensionCommandUpdate Clone() const;
 
-  // Creates a ExtensionCommandUpdate object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExtensionCommandUpdate> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionCommandUpdate object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ExtensionCommandUpdate> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionCommandUpdate> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionCommandUpdate object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExtensionCommandUpdate> FromValue(const base::Value& value);
+  static std::optional<ExtensionCommandUpdate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionCommandUpdate object.
@@ -1468,7 +1386,7 @@ struct ExtensionCommandUpdate {
 
   CommandScope scope;
 
-  absl::optional<std::string> keybinding;
+  std::optional<std::string> keybinding;
 
 };
 
@@ -1477,8 +1395,8 @@ struct ReloadOptions {
   ~ReloadOptions();
   ReloadOptions(const ReloadOptions&) = delete;
   ReloadOptions& operator=(const ReloadOptions&) = delete;
-  ReloadOptions(ReloadOptions&& rhs);
-  ReloadOptions& operator=(ReloadOptions&& rhs);
+  ReloadOptions(ReloadOptions&& rhs) noexcept;
+  ReloadOptions& operator=(ReloadOptions&& rhs) noexcept;
 
   // Populates a ReloadOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1491,15 +1409,12 @@ struct ReloadOptions {
   // Creates a deep copy of ReloadOptions.
   ReloadOptions Clone() const;
 
-  // Creates a ReloadOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReloadOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReloadOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ReloadOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ReloadOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ReloadOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<ReloadOptions> FromValue(const base::Value& value);
+  static std::optional<ReloadOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReloadOptions object.
@@ -1507,12 +1422,12 @@ struct ReloadOptions {
 
   // If false, an alert dialog will show in the event of a reload error. Defaults
   // to false.
-  absl::optional<bool> fail_quietly;
+  std::optional<bool> fail_quietly;
 
   // If true, populates a LoadError for the response rather than setting
   // lastError. Only relevant for unpacked extensions; it will be ignored for any
   // other extension.
-  absl::optional<bool> populate_error_for_unpacked;
+  std::optional<bool> populate_error_for_unpacked;
 
 };
 
@@ -1521,8 +1436,8 @@ struct LoadUnpackedOptions {
   ~LoadUnpackedOptions();
   LoadUnpackedOptions(const LoadUnpackedOptions&) = delete;
   LoadUnpackedOptions& operator=(const LoadUnpackedOptions&) = delete;
-  LoadUnpackedOptions(LoadUnpackedOptions&& rhs);
-  LoadUnpackedOptions& operator=(LoadUnpackedOptions&& rhs);
+  LoadUnpackedOptions(LoadUnpackedOptions&& rhs) noexcept;
+  LoadUnpackedOptions& operator=(LoadUnpackedOptions&& rhs) noexcept;
 
   // Populates a LoadUnpackedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1535,17 +1450,13 @@ struct LoadUnpackedOptions {
   // Creates a deep copy of LoadUnpackedOptions.
   LoadUnpackedOptions Clone() const;
 
-  // Creates a LoadUnpackedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<LoadUnpackedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a LoadUnpackedOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<LoadUnpackedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<LoadUnpackedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a LoadUnpackedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LoadUnpackedOptions> FromValue(const base::Value& value);
+  static std::optional<LoadUnpackedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLoadUnpackedOptions object.
@@ -1553,32 +1464,32 @@ struct LoadUnpackedOptions {
 
   // If false, an alert dialog will show in the event of a reload error. Defaults
   // to false.
-  absl::optional<bool> fail_quietly;
+  std::optional<bool> fail_quietly;
 
   // If true, populates a LoadError for the response rather than setting
   // lastError.
-  absl::optional<bool> populate_error;
+  std::optional<bool> populate_error;
 
   // A unique identifier for retrying a previous failed load. This should be the
   // identifier returned in the LoadError. If specified, the path associated with
   // the identifier will be loaded, and the file chooser will be skipped.
-  absl::optional<std::string> retry_guid;
+  std::optional<std::string> retry_guid;
 
   // True if the function should try to load an extension from the drop data of
   // the page. notifyDragInstallInProgress() needs to be called prior to this
   // being used. This cannot be used with |retryGuid|.
-  absl::optional<bool> use_dragged_path;
+  std::optional<bool> use_dragged_path;
 
 };
 
 // Describes which set of sites a given url/string is associated with. Note that
 // a site can belong to multiple sets at the same time.
-enum  SiteSet {
-  SITE_SET_NONE = 0,
-  SITE_SET_USER_PERMITTED,
-  SITE_SET_USER_RESTRICTED,
-  SITE_SET_EXTENSION_SPECIFIED,
-  SITE_SET_LAST = SITE_SET_EXTENSION_SPECIFIED,
+enum class SiteSet {
+  kNone = 0,
+  kUserPermitted,
+  kUserRestricted,
+  kExtensionSpecified,
+  kMaxValue = kExtensionSpecified,
 };
 
 
@@ -1591,8 +1502,8 @@ struct UserSiteSettingsOptions {
   ~UserSiteSettingsOptions();
   UserSiteSettingsOptions(const UserSiteSettingsOptions&) = delete;
   UserSiteSettingsOptions& operator=(const UserSiteSettingsOptions&) = delete;
-  UserSiteSettingsOptions(UserSiteSettingsOptions&& rhs);
-  UserSiteSettingsOptions& operator=(UserSiteSettingsOptions&& rhs);
+  UserSiteSettingsOptions(UserSiteSettingsOptions&& rhs) noexcept;
+  UserSiteSettingsOptions& operator=(UserSiteSettingsOptions&& rhs) noexcept;
 
   // Populates a UserSiteSettingsOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1605,17 +1516,13 @@ struct UserSiteSettingsOptions {
   // Creates a deep copy of UserSiteSettingsOptions.
   UserSiteSettingsOptions Clone() const;
 
-  // Creates a UserSiteSettingsOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<UserSiteSettingsOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UserSiteSettingsOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<UserSiteSettingsOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UserSiteSettingsOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UserSiteSettingsOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UserSiteSettingsOptions> FromValue(const base::Value& value);
+  static std::optional<UserSiteSettingsOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUserSiteSettingsOptions object.
@@ -1635,8 +1542,8 @@ struct UserSiteSettings {
   ~UserSiteSettings();
   UserSiteSettings(const UserSiteSettings&) = delete;
   UserSiteSettings& operator=(const UserSiteSettings&) = delete;
-  UserSiteSettings(UserSiteSettings&& rhs);
-  UserSiteSettings& operator=(UserSiteSettings&& rhs);
+  UserSiteSettings(UserSiteSettings&& rhs) noexcept;
+  UserSiteSettings& operator=(UserSiteSettings&& rhs) noexcept;
 
   // Populates a UserSiteSettings object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1649,16 +1556,13 @@ struct UserSiteSettings {
   // Creates a deep copy of UserSiteSettings.
   UserSiteSettings Clone() const;
 
-  // Creates a UserSiteSettings object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UserSiteSettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a UserSiteSettings object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UserSiteSettings> FromValue(const base::Value::Dict& value);
+  static std::optional<UserSiteSettings> FromValue(const base::Value::Dict& value);
 
   // Creates a UserSiteSettings object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UserSiteSettings> FromValue(const base::Value& value);
+  static std::optional<UserSiteSettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUserSiteSettings object.
@@ -1678,8 +1582,8 @@ struct SiteInfo {
   ~SiteInfo();
   SiteInfo(const SiteInfo&) = delete;
   SiteInfo& operator=(const SiteInfo&) = delete;
-  SiteInfo(SiteInfo&& rhs);
-  SiteInfo& operator=(SiteInfo&& rhs);
+  SiteInfo(SiteInfo&& rhs) noexcept;
+  SiteInfo& operator=(SiteInfo&& rhs) noexcept;
 
   // Populates a SiteInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1692,14 +1596,11 @@ struct SiteInfo {
   // Creates a deep copy of SiteInfo.
   SiteInfo Clone() const;
 
-  // Creates a SiteInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SiteInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a SiteInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SiteInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<SiteInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a SiteInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<SiteInfo> FromValue(const base::Value& value);
+  static std::optional<SiteInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSiteInfo object.
@@ -1725,8 +1626,8 @@ struct SiteGroup {
   ~SiteGroup();
   SiteGroup(const SiteGroup&) = delete;
   SiteGroup& operator=(const SiteGroup&) = delete;
-  SiteGroup(SiteGroup&& rhs);
-  SiteGroup& operator=(SiteGroup&& rhs);
+  SiteGroup(SiteGroup&& rhs) noexcept;
+  SiteGroup& operator=(SiteGroup&& rhs) noexcept;
 
   // Populates a SiteGroup object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1739,14 +1640,11 @@ struct SiteGroup {
   // Creates a deep copy of SiteGroup.
   SiteGroup Clone() const;
 
-  // Creates a SiteGroup object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SiteGroup> FromValueDeprecated(const base::Value& value);
-
   // Creates a SiteGroup object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SiteGroup> FromValue(const base::Value::Dict& value);
+  static std::optional<SiteGroup> FromValue(const base::Value::Dict& value);
 
   // Creates a SiteGroup object from a base::Value, or nullopt on failure.
-  static absl::optional<SiteGroup> FromValue(const base::Value& value);
+  static std::optional<SiteGroup> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSiteGroup object.
@@ -1770,8 +1668,8 @@ struct MatchingExtensionInfo {
   ~MatchingExtensionInfo();
   MatchingExtensionInfo(const MatchingExtensionInfo&) = delete;
   MatchingExtensionInfo& operator=(const MatchingExtensionInfo&) = delete;
-  MatchingExtensionInfo(MatchingExtensionInfo&& rhs);
-  MatchingExtensionInfo& operator=(MatchingExtensionInfo&& rhs);
+  MatchingExtensionInfo(MatchingExtensionInfo&& rhs) noexcept;
+  MatchingExtensionInfo& operator=(MatchingExtensionInfo&& rhs) noexcept;
 
   // Populates a MatchingExtensionInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1784,17 +1682,13 @@ struct MatchingExtensionInfo {
   // Creates a deep copy of MatchingExtensionInfo.
   MatchingExtensionInfo Clone() const;
 
-  // Creates a MatchingExtensionInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MatchingExtensionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a MatchingExtensionInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MatchingExtensionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<MatchingExtensionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a MatchingExtensionInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MatchingExtensionInfo> FromValue(const base::Value& value);
+  static std::optional<MatchingExtensionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMatchingExtensionInfo object.
@@ -1824,8 +1718,8 @@ struct ExtensionSiteAccessUpdate {
   ~ExtensionSiteAccessUpdate();
   ExtensionSiteAccessUpdate(const ExtensionSiteAccessUpdate&) = delete;
   ExtensionSiteAccessUpdate& operator=(const ExtensionSiteAccessUpdate&) = delete;
-  ExtensionSiteAccessUpdate(ExtensionSiteAccessUpdate&& rhs);
-  ExtensionSiteAccessUpdate& operator=(ExtensionSiteAccessUpdate&& rhs);
+  ExtensionSiteAccessUpdate(ExtensionSiteAccessUpdate&& rhs) noexcept;
+  ExtensionSiteAccessUpdate& operator=(ExtensionSiteAccessUpdate&& rhs) noexcept;
 
   // Populates a ExtensionSiteAccessUpdate object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1838,17 +1732,13 @@ struct ExtensionSiteAccessUpdate {
   // Creates a deep copy of ExtensionSiteAccessUpdate.
   ExtensionSiteAccessUpdate Clone() const;
 
-  // Creates a ExtensionSiteAccessUpdate object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExtensionSiteAccessUpdate> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionSiteAccessUpdate object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ExtensionSiteAccessUpdate> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionSiteAccessUpdate> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionSiteAccessUpdate object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ExtensionSiteAccessUpdate> FromValue(const base::Value& value);
+  static std::optional<ExtensionSiteAccessUpdate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionSiteAccessUpdate object.
@@ -1867,12 +1757,12 @@ struct ExtensionSiteAccessUpdate {
 
 };
 
-enum  PackStatus {
-  PACK_STATUS_NONE = 0,
-  PACK_STATUS_SUCCESS,
-  PACK_STATUS_ERROR,
-  PACK_STATUS_WARNING,
-  PACK_STATUS_LAST = PACK_STATUS_WARNING,
+enum class PackStatus {
+  kNone = 0,
+  kSuccess,
+  kError,
+  kWarning,
+  kMaxValue = kWarning,
 };
 
 
@@ -1880,11 +1770,11 @@ const char* ToString(PackStatus as_enum);
 PackStatus ParsePackStatus(base::StringPiece as_string);
 std::u16string GetPackStatusParseError(base::StringPiece as_string);
 
-enum  FileType {
-  FILE_TYPE_NONE = 0,
-  FILE_TYPE_LOAD,
-  FILE_TYPE_PEM,
-  FILE_TYPE_LAST = FILE_TYPE_PEM,
+enum class FileType {
+  kNone = 0,
+  kLoad,
+  kPem,
+  kMaxValue = kPem,
 };
 
 
@@ -1892,11 +1782,11 @@ const char* ToString(FileType as_enum);
 FileType ParseFileType(base::StringPiece as_string);
 std::u16string GetFileTypeParseError(base::StringPiece as_string);
 
-enum  SelectType {
-  SELECT_TYPE_NONE = 0,
-  SELECT_TYPE_FILE,
-  SELECT_TYPE_FOLDER,
-  SELECT_TYPE_LAST = SELECT_TYPE_FOLDER,
+enum class SelectType {
+  kNone = 0,
+  kFile,
+  kFolder,
+  kMaxValue = kFolder,
 };
 
 
@@ -1904,26 +1794,26 @@ const char* ToString(SelectType as_enum);
 SelectType ParseSelectType(base::StringPiece as_string);
 std::u16string GetSelectTypeParseError(base::StringPiece as_string);
 
-enum  EventType {
-  EVENT_TYPE_NONE = 0,
-  EVENT_TYPE_INSTALLED,
-  EVENT_TYPE_UNINSTALLED,
-  EVENT_TYPE_LOADED,
-  EVENT_TYPE_UNLOADED,
-  EVENT_TYPE_VIEW_REGISTERED,
-  EVENT_TYPE_VIEW_UNREGISTERED,
-  EVENT_TYPE_ERROR_ADDED,
-  EVENT_TYPE_ERRORS_REMOVED,
-  EVENT_TYPE_PREFS_CHANGED,
-  EVENT_TYPE_WARNINGS_CHANGED,
-  EVENT_TYPE_COMMAND_ADDED,
-  EVENT_TYPE_COMMAND_REMOVED,
-  EVENT_TYPE_PERMISSIONS_CHANGED,
-  EVENT_TYPE_SERVICE_WORKER_STARTED,
-  EVENT_TYPE_SERVICE_WORKER_STOPPED,
-  EVENT_TYPE_CONFIGURATION_CHANGED,
-  EVENT_TYPE_PINNED_ACTIONS_CHANGED,
-  EVENT_TYPE_LAST = EVENT_TYPE_PINNED_ACTIONS_CHANGED,
+enum class EventType {
+  kNone = 0,
+  kInstalled,
+  kUninstalled,
+  kLoaded,
+  kUnloaded,
+  kViewRegistered,
+  kViewUnregistered,
+  kErrorAdded,
+  kErrorsRemoved,
+  kPrefsChanged,
+  kWarningsChanged,
+  kCommandAdded,
+  kCommandRemoved,
+  kPermissionsChanged,
+  kServiceWorkerStarted,
+  kServiceWorkerStopped,
+  kConfigurationChanged,
+  kPinnedActionsChanged,
+  kMaxValue = kPinnedActionsChanged,
 };
 
 
@@ -1936,8 +1826,8 @@ struct PackDirectoryResponse {
   ~PackDirectoryResponse();
   PackDirectoryResponse(const PackDirectoryResponse&) = delete;
   PackDirectoryResponse& operator=(const PackDirectoryResponse&) = delete;
-  PackDirectoryResponse(PackDirectoryResponse&& rhs);
-  PackDirectoryResponse& operator=(PackDirectoryResponse&& rhs);
+  PackDirectoryResponse(PackDirectoryResponse&& rhs) noexcept;
+  PackDirectoryResponse& operator=(PackDirectoryResponse&& rhs) noexcept;
 
   // Populates a PackDirectoryResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1950,17 +1840,13 @@ struct PackDirectoryResponse {
   // Creates a deep copy of PackDirectoryResponse.
   PackDirectoryResponse Clone() const;
 
-  // Creates a PackDirectoryResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PackDirectoryResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a PackDirectoryResponse object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<PackDirectoryResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<PackDirectoryResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a PackDirectoryResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PackDirectoryResponse> FromValue(const base::Value& value);
+  static std::optional<PackDirectoryResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPackDirectoryResponse object.
@@ -1986,8 +1872,8 @@ struct ProjectInfo {
   ~ProjectInfo();
   ProjectInfo(const ProjectInfo&) = delete;
   ProjectInfo& operator=(const ProjectInfo&) = delete;
-  ProjectInfo(ProjectInfo&& rhs);
-  ProjectInfo& operator=(ProjectInfo&& rhs);
+  ProjectInfo(ProjectInfo&& rhs) noexcept;
+  ProjectInfo& operator=(ProjectInfo&& rhs) noexcept;
 
   // Populates a ProjectInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2000,15 +1886,12 @@ struct ProjectInfo {
   // Creates a deep copy of ProjectInfo.
   ProjectInfo Clone() const;
 
-  // Creates a ProjectInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProjectInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProjectInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProjectInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProjectInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProjectInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProjectInfo> FromValue(const base::Value& value);
+  static std::optional<ProjectInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProjectInfo object.
@@ -2023,8 +1906,8 @@ struct EventData {
   ~EventData();
   EventData(const EventData&) = delete;
   EventData& operator=(const EventData&) = delete;
-  EventData(EventData&& rhs);
-  EventData& operator=(EventData&& rhs);
+  EventData(EventData&& rhs) noexcept;
+  EventData& operator=(EventData&& rhs) noexcept;
 
   // Populates a EventData object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -2037,14 +1920,11 @@ struct EventData {
   // Creates a deep copy of EventData.
   EventData Clone() const;
 
-  // Creates a EventData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EventData> FromValueDeprecated(const base::Value& value);
-
   // Creates a EventData object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<EventData> FromValue(const base::Value::Dict& value);
+  static std::optional<EventData> FromValue(const base::Value::Dict& value);
 
   // Creates a EventData object from a base::Value, or nullopt on failure.
-  static absl::optional<EventData> FromValue(const base::Value& value);
+  static std::optional<EventData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEventData object.
@@ -2054,7 +1934,7 @@ struct EventData {
 
   std::string item_id;
 
-  absl::optional<ExtensionInfo> extension_info;
+  std::optional<ExtensionInfo> extension_info;
 
 };
 
@@ -2063,8 +1943,8 @@ struct ErrorFileSource {
   ~ErrorFileSource();
   ErrorFileSource(const ErrorFileSource&) = delete;
   ErrorFileSource& operator=(const ErrorFileSource&) = delete;
-  ErrorFileSource(ErrorFileSource&& rhs);
-  ErrorFileSource& operator=(ErrorFileSource&& rhs);
+  ErrorFileSource(ErrorFileSource&& rhs) noexcept;
+  ErrorFileSource& operator=(ErrorFileSource&& rhs) noexcept;
 
   // Populates a ErrorFileSource object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2077,15 +1957,12 @@ struct ErrorFileSource {
   // Creates a deep copy of ErrorFileSource.
   ErrorFileSource Clone() const;
 
-  // Creates a ErrorFileSource object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ErrorFileSource> FromValueDeprecated(const base::Value& value);
-
   // Creates a ErrorFileSource object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ErrorFileSource> FromValue(const base::Value::Dict& value);
+  static std::optional<ErrorFileSource> FromValue(const base::Value::Dict& value);
 
   // Creates a ErrorFileSource object from a base::Value, or nullopt on failure.
-  static absl::optional<ErrorFileSource> FromValue(const base::Value& value);
+  static std::optional<ErrorFileSource> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisErrorFileSource object.
@@ -2109,8 +1986,8 @@ struct LoadError {
   ~LoadError();
   LoadError(const LoadError&) = delete;
   LoadError& operator=(const LoadError&) = delete;
-  LoadError(LoadError&& rhs);
-  LoadError& operator=(LoadError&& rhs);
+  LoadError(LoadError&& rhs) noexcept;
+  LoadError& operator=(LoadError&& rhs) noexcept;
 
   // Populates a LoadError object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -2123,14 +2000,11 @@ struct LoadError {
   // Creates a deep copy of LoadError.
   LoadError Clone() const;
 
-  // Creates a LoadError object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LoadError> FromValueDeprecated(const base::Value& value);
-
   // Creates a LoadError object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<LoadError> FromValue(const base::Value::Dict& value);
+  static std::optional<LoadError> FromValue(const base::Value::Dict& value);
 
   // Creates a LoadError object from a base::Value, or nullopt on failure.
-  static absl::optional<LoadError> FromValue(const base::Value& value);
+  static std::optional<LoadError> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLoadError object.
@@ -2143,7 +2017,7 @@ struct LoadError {
   std::string path;
 
   // The file source for the error, if it could be retrieved.
-  absl::optional<ErrorFileSource> source;
+  std::optional<ErrorFileSource> source;
 
   // A unique identifier to pass to developerPrivate.loadUnpacked to retry loading
   // the extension at the same path.
@@ -2156,8 +2030,8 @@ struct RequestFileSourceProperties {
   ~RequestFileSourceProperties();
   RequestFileSourceProperties(const RequestFileSourceProperties&) = delete;
   RequestFileSourceProperties& operator=(const RequestFileSourceProperties&) = delete;
-  RequestFileSourceProperties(RequestFileSourceProperties&& rhs);
-  RequestFileSourceProperties& operator=(RequestFileSourceProperties&& rhs);
+  RequestFileSourceProperties(RequestFileSourceProperties&& rhs) noexcept;
+  RequestFileSourceProperties& operator=(RequestFileSourceProperties&& rhs) noexcept;
 
   // Populates a RequestFileSourceProperties object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -2170,17 +2044,13 @@ struct RequestFileSourceProperties {
   // Creates a deep copy of RequestFileSourceProperties.
   RequestFileSourceProperties Clone() const;
 
-  // Creates a RequestFileSourceProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RequestFileSourceProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestFileSourceProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RequestFileSourceProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestFileSourceProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestFileSourceProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<RequestFileSourceProperties> FromValue(const base::Value& value);
+  static std::optional<RequestFileSourceProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFileSourceProperties object.
@@ -2198,14 +2068,14 @@ struct RequestFileSourceProperties {
 
   // The key in the manifest which caused the error (e.g., "permissions").
   // (Required for "manifest.json" files)
-  absl::optional<std::string> manifest_key;
+  std::optional<std::string> manifest_key;
 
   // The specific portion of the manifest key which caused the error (e.g., "foo"
   // in the "permissions" key). (Optional for "manifest.json" file).
-  absl::optional<std::string> manifest_specific;
+  std::optional<std::string> manifest_specific;
 
   // The line number which caused the error (optional for non-manifest files).
-  absl::optional<int> line_number;
+  std::optional<int> line_number;
 
 };
 
@@ -2214,8 +2084,8 @@ struct RequestFileSourceResponse {
   ~RequestFileSourceResponse();
   RequestFileSourceResponse(const RequestFileSourceResponse&) = delete;
   RequestFileSourceResponse& operator=(const RequestFileSourceResponse&) = delete;
-  RequestFileSourceResponse(RequestFileSourceResponse&& rhs);
-  RequestFileSourceResponse& operator=(RequestFileSourceResponse&& rhs);
+  RequestFileSourceResponse(RequestFileSourceResponse&& rhs) noexcept;
+  RequestFileSourceResponse& operator=(RequestFileSourceResponse&& rhs) noexcept;
 
   // Populates a RequestFileSourceResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2228,17 +2098,13 @@ struct RequestFileSourceResponse {
   // Creates a deep copy of RequestFileSourceResponse.
   RequestFileSourceResponse Clone() const;
 
-  // Creates a RequestFileSourceResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RequestFileSourceResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestFileSourceResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RequestFileSourceResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestFileSourceResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestFileSourceResponse object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<RequestFileSourceResponse> FromValue(const base::Value& value);
+  static std::optional<RequestFileSourceResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFileSourceResponse object.
@@ -2268,8 +2134,8 @@ struct OpenDevToolsProperties {
   ~OpenDevToolsProperties();
   OpenDevToolsProperties(const OpenDevToolsProperties&) = delete;
   OpenDevToolsProperties& operator=(const OpenDevToolsProperties&) = delete;
-  OpenDevToolsProperties(OpenDevToolsProperties&& rhs);
-  OpenDevToolsProperties& operator=(OpenDevToolsProperties&& rhs);
+  OpenDevToolsProperties(OpenDevToolsProperties&& rhs) noexcept;
+  OpenDevToolsProperties& operator=(OpenDevToolsProperties&& rhs) noexcept;
 
   // Populates a OpenDevToolsProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2282,17 +2148,13 @@ struct OpenDevToolsProperties {
   // Creates a deep copy of OpenDevToolsProperties.
   OpenDevToolsProperties Clone() const;
 
-  // Creates a OpenDevToolsProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<OpenDevToolsProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenDevToolsProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<OpenDevToolsProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenDevToolsProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenDevToolsProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<OpenDevToolsProperties> FromValue(const base::Value& value);
+  static std::optional<OpenDevToolsProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenDevToolsProperties object.
@@ -2301,7 +2163,7 @@ struct OpenDevToolsProperties {
   // The ID of the extension. This is only needed if opening its background page
   // or its background service worker (where renderViewId and renderProcessId are
   // -1).
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   // The ID of the render frame in which the error occurred. Despite being called
   // renderViewId, this refers to a render frame.
@@ -2311,18 +2173,18 @@ struct OpenDevToolsProperties {
   int render_process_id;
 
   // Whether or not the background is service worker based.
-  absl::optional<bool> is_service_worker;
+  std::optional<bool> is_service_worker;
 
-  absl::optional<bool> incognito;
+  std::optional<bool> incognito;
 
   // The URL in which the error occurred.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The line to focus the devtools at.
-  absl::optional<int> line_number;
+  std::optional<int> line_number;
 
   // The column to focus the devtools at.
-  absl::optional<int> column_number;
+  std::optional<int> column_number;
 
 };
 
@@ -2331,8 +2193,8 @@ struct DeleteExtensionErrorsProperties {
   ~DeleteExtensionErrorsProperties();
   DeleteExtensionErrorsProperties(const DeleteExtensionErrorsProperties&) = delete;
   DeleteExtensionErrorsProperties& operator=(const DeleteExtensionErrorsProperties&) = delete;
-  DeleteExtensionErrorsProperties(DeleteExtensionErrorsProperties&& rhs);
-  DeleteExtensionErrorsProperties& operator=(DeleteExtensionErrorsProperties&& rhs);
+  DeleteExtensionErrorsProperties(DeleteExtensionErrorsProperties&& rhs) noexcept;
+  DeleteExtensionErrorsProperties& operator=(DeleteExtensionErrorsProperties&& rhs) noexcept;
 
   // Populates a DeleteExtensionErrorsProperties object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -2345,17 +2207,13 @@ struct DeleteExtensionErrorsProperties {
   // Creates a deep copy of DeleteExtensionErrorsProperties.
   DeleteExtensionErrorsProperties Clone() const;
 
-  // Creates a DeleteExtensionErrorsProperties object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<DeleteExtensionErrorsProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeleteExtensionErrorsProperties object from a base::Value::Dict,
   // or nullopt on failure.
-  static absl::optional<DeleteExtensionErrorsProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<DeleteExtensionErrorsProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a DeleteExtensionErrorsProperties object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<DeleteExtensionErrorsProperties> FromValue(const base::Value& value);
+  static std::optional<DeleteExtensionErrorsProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeleteExtensionErrorsProperties object.
@@ -2363,7 +2221,7 @@ struct DeleteExtensionErrorsProperties {
 
   std::string extension_id;
 
-  absl::optional<std::vector<int>> error_ids;
+  std::optional<std::vector<int>> error_ids;
 
   ErrorType type;
 
@@ -2386,15 +2244,15 @@ base::Value::List Create();
 namespace GetExtensionsInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Options to restrict the items returned.
-  absl::optional<GetExtensionsInfoOptions> options;
+  std::optional<GetExtensionsInfoOptions> options;
 
 
  private:
@@ -2411,11 +2269,11 @@ base::Value::List Create(const std::vector<ExtensionInfo>& result);
 namespace GetExtensionInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension.
@@ -2436,11 +2294,11 @@ base::Value::List Create(const ExtensionInfo& result);
 namespace GetExtensionSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension.
@@ -2470,11 +2328,11 @@ base::Value::List Create(const ProfileInfo& info);
 namespace UpdateProfileConfiguration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The parameters for updating the profile's configuration.  Any     properties
@@ -2496,18 +2354,18 @@ base::Value::List Create();
 namespace Reload {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to reload.
   std::string extension_id;
 
   // Additional configuration parameters.
-  absl::optional<ReloadOptions> options;
+  std::optional<ReloadOptions> options;
 
 
  private:
@@ -2524,11 +2382,11 @@ base::Value::List Create(const LoadError& error);
 namespace UpdateExtensionConfiguration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The parameters for updating the extension's configuration.     Any properties
@@ -2550,15 +2408,15 @@ base::Value::List Create();
 namespace LoadUnpacked {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Additional configuration parameters.
-  absl::optional<LoadUnpackedOptions> options;
+  std::optional<LoadUnpackedOptions> options;
 
 
  private:
@@ -2588,11 +2446,11 @@ namespace NotifyDragInstallInProgress {
 namespace LoadDirectory {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The directory to load the extension from.
@@ -2601,8 +2459,8 @@ struct Params {
     ~Directory();
     Directory(const Directory&) = delete;
     Directory& operator=(const Directory&) = delete;
-    Directory(Directory&& rhs);
-    Directory& operator=(Directory&& rhs);
+    Directory(Directory&& rhs) noexcept;
+    Directory& operator=(Directory&& rhs) noexcept;
 
     // Populates a Directory object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -2616,10 +2474,10 @@ struct Params {
     Directory Clone() const;
 
     // Creates a Directory object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Directory> FromValue(const base::Value::Dict& value);
+    static std::optional<Directory> FromValue(const base::Value::Dict& value);
 
     // Creates a Directory object from a base::Value, or nullopt on failure.
-    static absl::optional<Directory> FromValue(const base::Value& value);
+    static std::optional<Directory> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -2643,11 +2501,11 @@ base::Value::List Create(const std::string& string);
 namespace ChoosePath {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Select a file or a folder.
@@ -2672,20 +2530,20 @@ base::Value::List Create(const std::string& string);
 namespace PackDirectory {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string path;
 
   // The path of the private key, if one is given.
-  absl::optional<std::string> private_key_path;
+  std::optional<std::string> private_key_path;
 
   // Special flags to apply to the loading process, if any.
-  absl::optional<int> flags;
+  std::optional<int> flags;
 
 
  private:
@@ -2711,11 +2569,11 @@ base::Value::List Create(bool result);
 namespace RequestFileSource {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestFileSourceProperties properties;
@@ -2735,11 +2593,11 @@ base::Value::List Create(const RequestFileSourceResponse& response);
 namespace OpenDevTools {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   OpenDevToolsProperties properties;
@@ -2759,11 +2617,11 @@ base::Value::List Create();
 namespace DeleteExtensionErrors {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The properties specifying the errors to remove.
@@ -2784,11 +2642,11 @@ base::Value::List Create();
 namespace RepairExtension {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to repair.
@@ -2809,11 +2667,11 @@ base::Value::List Create();
 namespace ShowOptions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to show the options page for.
@@ -2834,11 +2692,11 @@ base::Value::List Create();
 namespace ShowPath {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to show the path for.
@@ -2859,11 +2717,11 @@ base::Value::List Create();
 namespace SetShortcutHandlingSuspended {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Whether or not shortcut handling should be suspended.
@@ -2884,11 +2742,11 @@ base::Value::List Create();
 namespace UpdateExtensionCommand {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The parameters for updating the extension command.
@@ -2909,11 +2767,11 @@ base::Value::List Create();
 namespace AddHostPermission {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to modify.
@@ -2937,11 +2795,11 @@ base::Value::List Create();
 namespace RemoveHostPermission {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the extension to modify.
@@ -2974,11 +2832,11 @@ base::Value::List Create(const UserSiteSettings& settings);
 namespace AddUserSpecifiedSites {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UserSiteSettingsOptions options;
@@ -2998,11 +2856,11 @@ base::Value::List Create();
 namespace RemoveUserSpecifiedSites {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UserSiteSettingsOptions options;
@@ -3031,11 +2889,11 @@ base::Value::List Create(const std::vector<SiteGroup>& site_groups);
 namespace GetMatchingExtensionsForSite {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string site;
@@ -3055,11 +2913,11 @@ base::Value::List Create(const std::vector<MatchingExtensionInfo>& matching_exte
 namespace UpdateSiteAccess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string site;
@@ -3081,11 +2939,11 @@ base::Value::List Create();
 namespace RemoveMultipleExtensions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> extension_ids;

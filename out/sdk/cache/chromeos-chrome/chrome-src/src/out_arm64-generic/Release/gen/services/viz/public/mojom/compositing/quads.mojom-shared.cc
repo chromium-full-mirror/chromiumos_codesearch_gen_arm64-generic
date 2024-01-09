@@ -474,7 +474,7 @@ bool TextureQuadState_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->hdr_metadata, 14, validation_context)) {
+          object->hdr_metadata, 15, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->hdr_metadata, validation_context))
@@ -489,7 +489,7 @@ bool TextureQuadState_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->rounded_display_masks_info, 17, validation_context)) {
+          object->rounded_display_masks_info, 18, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->rounded_display_masks_info, validation_context))

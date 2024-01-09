@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/common/cart/commerce_hints.mojom-features.h"
 #include "chrome/common/cart/commerce_hints.mojom-shared.h"
 #include "chrome/common/cart/commerce_hints.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -114,7 +115,7 @@ class CommerceHintObserver
   virtual ~CommerceHintObserver() = default;
 
   
-  virtual void OnAddToCart(const absl::optional<::GURL>& cart_url, const std::string& product_id) = 0;
+  virtual void OnAddToCart(const std::optional<::GURL>& cart_url, const std::string& product_id) = 0;
 
   
   virtual void OnVisitCart() = 0;
@@ -154,7 +155,7 @@ class  CommerceHintObserverProxy
 
   explicit CommerceHintObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnAddToCart(const absl::optional<::GURL>& cart_url, const std::string& product_id) final;
+  void OnAddToCart(const std::optional<::GURL>& cart_url, const std::string& product_id) final;
   
   void OnVisitCart() final;
   

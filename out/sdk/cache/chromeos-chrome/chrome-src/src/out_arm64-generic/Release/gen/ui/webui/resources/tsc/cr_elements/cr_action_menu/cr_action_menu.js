@@ -7,8 +7,8 @@ import { FocusOutlineManager } from '//resources/js/focus_outline_manager.js';
 import { FocusRow } from '//resources/js/focus_row.js';
 import { focusWithoutInk } from '//resources/js/focus_without_ink.js';
 import { isMac, isWindows } from '//resources/js/platform.js';
-import { getDeepActiveElement } from '//resources/js/util_ts.js';
-import { FlattenedNodesObserver, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { getDeepActiveElement } from '//resources/js/util.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cr_action_menu.html.js';
 export var AnchorAlignment;
 (function (AnchorAlignment) {
@@ -73,7 +73,6 @@ export class CrActionMenuElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.boundClose_ = null;
-        this.contentObserver_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
         this.anchorElement_ = null;
@@ -127,10 +126,6 @@ export class CrActionMenuElement extends PolymerElement {
     removeListeners_() {
         window.removeEventListener('resize', this.boundClose_);
         window.removeEventListener('popstate', this.boundClose_);
-        if (this.contentObserver_) {
-            this.contentObserver_.disconnect();
-            this.contentObserver_ = null;
-        }
         if (this.resizeObserver_) {
             this.resizeObserver_.disconnect();
             this.resizeObserver_ = null;
@@ -344,6 +339,14 @@ export class CrActionMenuElement extends PolymerElement {
         const menuTop = getStartPointWithAnchor(top, bottom, this.$.dialog.offsetHeight, c.anchorAlignmentY, c.minY, c.maxY);
         this.$.dialog.style.top = menuTop + 'px';
     }
+    onSlotchange_() {
+        for (const node of this.$.contentNode.assignedElements({ flatten: true })) {
+            if (node.classList.contains(DROPDOWN_ITEM_CLASS) &&
+                !node.getAttribute('role')) {
+                node.setAttribute('role', 'menuitem');
+            }
+        }
+    }
     addListeners_() {
         this.boundClose_ = this.boundClose_ || (() => {
             if (this.$.dialog.open) {
@@ -352,15 +355,6 @@ export class CrActionMenuElement extends PolymerElement {
         });
         window.addEventListener('resize', this.boundClose_);
         window.addEventListener('popstate', this.boundClose_);
-        this.contentObserver_ = new FlattenedNodesObserver(this.$.contentNode, (info) => {
-            info.addedNodes.forEach(node => {
-                if (node.classList &&
-                    node.classList.contains(DROPDOWN_ITEM_CLASS) &&
-                    !node.getAttribute('role')) {
-                    node.setAttribute('role', 'menuitem');
-                }
-            });
-        });
         if (this.autoReposition) {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {

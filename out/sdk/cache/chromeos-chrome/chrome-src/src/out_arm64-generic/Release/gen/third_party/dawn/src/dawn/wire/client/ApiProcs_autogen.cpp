@@ -188,6 +188,12 @@ namespace dawn::wire::client {
         return self->MapAsync( mode,  offset,  size,  callback,  userdata);
     }
 
+    static
+    WGPUFuture ClientBufferMapAsyncF(WGPUBuffer cSelf, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallbackInfo callbackInfo) {
+        auto self = reinterpret_cast<Buffer*>(cSelf);
+        return self->MapAsyncF( mode,  offset,  size,  callbackInfo);
+    }
+
     void ClientBufferSetLabel(WGPUBuffer cSelf, char const * label) {
         auto self = reinterpret_cast<Buffer*>(cSelf);
         BufferSetLabelCmd cmd;
@@ -1466,6 +1472,18 @@ namespace dawn::wire::client {
     }
 
     static
+    size_t ClientInstanceEnumerateWGSLLanguageFeatures(WGPUInstance cSelf, WGPUWGSLFeatureName * features) {
+        auto self = reinterpret_cast<Instance*>(cSelf);
+        return self->EnumerateWGSLLanguageFeatures( features);
+    }
+
+    static
+    WGPUBool ClientInstanceHasWGSLLanguageFeature(WGPUInstance cSelf, WGPUWGSLFeatureName feature) {
+        auto self = reinterpret_cast<Instance*>(cSelf);
+        return self->HasWGSLLanguageFeature( feature);
+    }
+
+    static
     void ClientInstanceProcessEvents(WGPUInstance cSelf) {
         auto self = reinterpret_cast<Instance*>(cSelf);
         return self->ProcessEvents();
@@ -1475,6 +1493,12 @@ namespace dawn::wire::client {
     void ClientInstanceRequestAdapter(WGPUInstance cSelf, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallback callback, void * userdata) {
         auto self = reinterpret_cast<Instance*>(cSelf);
         return self->RequestAdapter( options,  callback,  userdata);
+    }
+
+    static
+    WGPUFuture ClientInstanceRequestAdapterF(WGPUInstance cSelf, WGPURequestAdapterOptions const * options, WGPURequestAdapterCallbackInfo callbackInfo) {
+        auto self = reinterpret_cast<Instance*>(cSelf);
+        return self->RequestAdapterF( options,  callbackInfo);
     }
 
     static
@@ -2766,6 +2790,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientBufferGetSize), "wgpuBufferGetSize" },
             { reinterpret_cast<WGPUProc>(ClientBufferGetUsage), "wgpuBufferGetUsage" },
             { reinterpret_cast<WGPUProc>(ClientBufferMapAsync), "wgpuBufferMapAsync" },
+            { reinterpret_cast<WGPUProc>(ClientBufferMapAsyncF), "wgpuBufferMapAsyncF" },
             { reinterpret_cast<WGPUProc>(ClientBufferReference), "wgpuBufferReference" },
             { reinterpret_cast<WGPUProc>(ClientBufferRelease), "wgpuBufferRelease" },
             { reinterpret_cast<WGPUProc>(ClientBufferSetLabel), "wgpuBufferSetLabel" },
@@ -2851,10 +2876,13 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientExternalTextureRelease), "wgpuExternalTextureRelease" },
             { reinterpret_cast<WGPUProc>(ClientExternalTextureSetLabel), "wgpuExternalTextureSetLabel" },
             { reinterpret_cast<WGPUProc>(ClientInstanceCreateSurface), "wgpuInstanceCreateSurface" },
+            { reinterpret_cast<WGPUProc>(ClientInstanceEnumerateWGSLLanguageFeatures), "wgpuInstanceEnumerateWGSLLanguageFeatures" },
+            { reinterpret_cast<WGPUProc>(ClientInstanceHasWGSLLanguageFeature), "wgpuInstanceHasWGSLLanguageFeature" },
             { reinterpret_cast<WGPUProc>(ClientInstanceProcessEvents), "wgpuInstanceProcessEvents" },
             { reinterpret_cast<WGPUProc>(ClientInstanceReference), "wgpuInstanceReference" },
             { reinterpret_cast<WGPUProc>(ClientInstanceRelease), "wgpuInstanceRelease" },
             { reinterpret_cast<WGPUProc>(ClientInstanceRequestAdapter), "wgpuInstanceRequestAdapter" },
+            { reinterpret_cast<WGPUProc>(ClientInstanceRequestAdapterF), "wgpuInstanceRequestAdapterF" },
             { reinterpret_cast<WGPUProc>(ClientInstanceWaitAny), "wgpuInstanceWaitAny" },
             { reinterpret_cast<WGPUProc>(ClientPipelineLayoutReference), "wgpuPipelineLayoutReference" },
             { reinterpret_cast<WGPUProc>(ClientPipelineLayoutRelease), "wgpuPipelineLayoutRelease" },
@@ -2976,6 +3004,10 @@ namespace dawn::wire::client {
             return reinterpret_cast<WGPUProc>(ClientAdapterPropertiesFreeMembers);
         }
 
+        if (strcmp(procName, "wgpuAdapterPropertiesMemoryHeapsFreeMembers") == 0) {
+            return reinterpret_cast<WGPUProc>(ClientAdapterPropertiesMemoryHeapsFreeMembers);
+        }
+
         if (strcmp(procName, "wgpuCreateInstance") == 0) {
             return reinterpret_cast<WGPUProc>(ClientCreateInstance);
         }
@@ -3013,6 +3045,7 @@ namespace dawn::wire::client {
     static DawnProcTable gProcTable = MakeProcTable(
         /* unused */ 0
         , std::make_pair(&DawnProcTable::adapterPropertiesFreeMembers, ClientAdapterPropertiesFreeMembers)
+        , std::make_pair(&DawnProcTable::adapterPropertiesMemoryHeapsFreeMembers, ClientAdapterPropertiesMemoryHeapsFreeMembers)
         , std::make_pair(&DawnProcTable::createInstance, ClientCreateInstance)
         , std::make_pair(&DawnProcTable::getInstanceFeatures, ClientGetInstanceFeatures)
         , std::make_pair(&DawnProcTable::getProcAddress, ClientGetProcAddress)
@@ -3038,6 +3071,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::bufferGetSize, ClientBufferGetSize)
         , std::make_pair(&DawnProcTable::bufferGetUsage, ClientBufferGetUsage)
         , std::make_pair(&DawnProcTable::bufferMapAsync, ClientBufferMapAsync)
+        , std::make_pair(&DawnProcTable::bufferMapAsyncF, ClientBufferMapAsyncF)
         , std::make_pair(&DawnProcTable::bufferSetLabel, ClientBufferSetLabel)
         , std::make_pair(&DawnProcTable::bufferUnmap, ClientBufferUnmap)
         , std::make_pair(&DawnProcTable::bufferReference, ClientBufferReference)
@@ -3123,8 +3157,11 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::externalTextureReference, ClientExternalTextureReference)
         , std::make_pair(&DawnProcTable::externalTextureRelease, ClientExternalTextureRelease)
         , std::make_pair(&DawnProcTable::instanceCreateSurface, ClientInstanceCreateSurface)
+        , std::make_pair(&DawnProcTable::instanceEnumerateWGSLLanguageFeatures, ClientInstanceEnumerateWGSLLanguageFeatures)
+        , std::make_pair(&DawnProcTable::instanceHasWGSLLanguageFeature, ClientInstanceHasWGSLLanguageFeature)
         , std::make_pair(&DawnProcTable::instanceProcessEvents, ClientInstanceProcessEvents)
         , std::make_pair(&DawnProcTable::instanceRequestAdapter, ClientInstanceRequestAdapter)
+        , std::make_pair(&DawnProcTable::instanceRequestAdapterF, ClientInstanceRequestAdapterF)
         , std::make_pair(&DawnProcTable::instanceWaitAny, ClientInstanceWaitAny)
         , std::make_pair(&DawnProcTable::instanceReference, ClientInstanceReference)
         , std::make_pair(&DawnProcTable::instanceRelease, ClientInstanceRelease)

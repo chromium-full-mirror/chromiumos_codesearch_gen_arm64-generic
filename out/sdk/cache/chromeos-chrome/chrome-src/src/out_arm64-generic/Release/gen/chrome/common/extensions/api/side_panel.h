@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct SidePanel {
   ~SidePanel();
   SidePanel(const SidePanel&) = delete;
   SidePanel& operator=(const SidePanel&) = delete;
-  SidePanel(SidePanel&& rhs);
-  SidePanel& operator=(SidePanel&& rhs);
+  SidePanel(SidePanel&& rhs) noexcept;
+  SidePanel& operator=(SidePanel&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kDefaultPath[] = "default_path";
@@ -51,14 +52,11 @@ struct SidePanel {
   // Creates a deep copy of SidePanel.
   SidePanel Clone() const;
 
-  // Creates a SidePanel object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SidePanel> FromValueDeprecated(const base::Value& value);
-
   // Creates a SidePanel object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SidePanel> FromValue(const base::Value::Dict& value);
+  static std::optional<SidePanel> FromValue(const base::Value::Dict& value);
 
   // Creates a SidePanel object from a base::Value, or nullopt on failure.
-  static absl::optional<SidePanel> FromValue(const base::Value& value);
+  static std::optional<SidePanel> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSidePanel object.
@@ -80,8 +78,8 @@ struct PanelOptions {
   ~PanelOptions();
   PanelOptions(const PanelOptions&) = delete;
   PanelOptions& operator=(const PanelOptions&) = delete;
-  PanelOptions(PanelOptions&& rhs);
-  PanelOptions& operator=(PanelOptions&& rhs);
+  PanelOptions(PanelOptions&& rhs) noexcept;
+  PanelOptions& operator=(PanelOptions&& rhs) noexcept;
 
   // Populates a PanelOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -94,15 +92,12 @@ struct PanelOptions {
   // Creates a deep copy of PanelOptions.
   PanelOptions Clone() const;
 
-  // Creates a PanelOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PanelOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a PanelOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PanelOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<PanelOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a PanelOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<PanelOptions> FromValue(const base::Value& value);
+  static std::optional<PanelOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPanelOptions object.
@@ -113,15 +108,15 @@ struct PanelOptions {
   // doesn't have specific settings). Note: if the same path is set for this tabId
   // and the default tabId, then the panel for this tabId will be a different
   // instance than the panel for the default tabId.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // The path to the side panel HTML file to use. This must be a local resource
   // within the extension package.
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
 
   // Whether the side panel should be enabled. This is optional. The default value
   // is true.
-  absl::optional<bool> enabled;
+  std::optional<bool> enabled;
 
 };
 
@@ -130,8 +125,8 @@ struct PanelBehavior {
   ~PanelBehavior();
   PanelBehavior(const PanelBehavior&) = delete;
   PanelBehavior& operator=(const PanelBehavior&) = delete;
-  PanelBehavior(PanelBehavior&& rhs);
-  PanelBehavior& operator=(PanelBehavior&& rhs);
+  PanelBehavior(PanelBehavior&& rhs) noexcept;
+  PanelBehavior& operator=(PanelBehavior&& rhs) noexcept;
 
   // Populates a PanelBehavior object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -144,15 +139,12 @@ struct PanelBehavior {
   // Creates a deep copy of PanelBehavior.
   PanelBehavior Clone() const;
 
-  // Creates a PanelBehavior object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PanelBehavior> FromValueDeprecated(const base::Value& value);
-
   // Creates a PanelBehavior object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PanelBehavior> FromValue(const base::Value::Dict& value);
+  static std::optional<PanelBehavior> FromValue(const base::Value::Dict& value);
 
   // Creates a PanelBehavior object from a base::Value, or nullopt on failure.
-  static absl::optional<PanelBehavior> FromValue(const base::Value& value);
+  static std::optional<PanelBehavior> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPanelBehavior object.
@@ -160,7 +152,7 @@ struct PanelBehavior {
 
   // Whether clicking the extension's icon will toggle showing the extension's
   // entry in the side panel. Defaults to false.
-  absl::optional<bool> open_panel_on_action_click;
+  std::optional<bool> open_panel_on_action_click;
 
 };
 
@@ -169,8 +161,8 @@ struct GetPanelOptions {
   ~GetPanelOptions();
   GetPanelOptions(const GetPanelOptions&) = delete;
   GetPanelOptions& operator=(const GetPanelOptions&) = delete;
-  GetPanelOptions(GetPanelOptions&& rhs);
-  GetPanelOptions& operator=(GetPanelOptions&& rhs);
+  GetPanelOptions(GetPanelOptions&& rhs) noexcept;
+  GetPanelOptions& operator=(GetPanelOptions&& rhs) noexcept;
 
   // Populates a GetPanelOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -183,15 +175,12 @@ struct GetPanelOptions {
   // Creates a deep copy of GetPanelOptions.
   GetPanelOptions Clone() const;
 
-  // Creates a GetPanelOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetPanelOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetPanelOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetPanelOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetPanelOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetPanelOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<GetPanelOptions> FromValue(const base::Value& value);
+  static std::optional<GetPanelOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetPanelOptions object.
@@ -200,7 +189,7 @@ struct GetPanelOptions {
   // If specified, the side panel options for the given tab will be returned.
   // Otherwise, returns the default side panel options (used for any tab that
   // doesn't have specific settings).
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 };
 
@@ -209,8 +198,8 @@ struct OpenOptions {
   ~OpenOptions();
   OpenOptions(const OpenOptions&) = delete;
   OpenOptions& operator=(const OpenOptions&) = delete;
-  OpenOptions(OpenOptions&& rhs);
-  OpenOptions& operator=(OpenOptions&& rhs);
+  OpenOptions(OpenOptions&& rhs) noexcept;
+  OpenOptions& operator=(OpenOptions&& rhs) noexcept;
 
   // Populates a OpenOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -223,15 +212,12 @@ struct OpenOptions {
   // Creates a deep copy of OpenOptions.
   OpenOptions Clone() const;
 
-  // Creates a OpenOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OpenOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OpenOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<OpenOptions> FromValue(const base::Value& value);
+  static std::optional<OpenOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenOptions object.
@@ -242,7 +228,7 @@ struct OpenOptions {
   // also specified. This will override any currently-active global side panel the
   // user has open in the given window. At least one of this or <code>tabId</code>
   // must be provided.
-  absl::optional<int> window_id;
+  std::optional<int> window_id;
 
   // The tab in which to open the side panel. If the corresponding tab has a
   // tab-specific side panel, the panel will only be open for that tab. If there
@@ -251,7 +237,7 @@ struct OpenOptions {
   // will override any currently-active side panel (global or tab-specific) in the
   // corresponding tab. At least one of this or <code>windowId</code> must be
   // provided.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 };
 
@@ -265,8 +251,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kSidePanel[] = "side_panel";
@@ -288,11 +274,11 @@ struct ManifestKeys {
 namespace SetOptions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The configuration options to apply to the panel.
@@ -313,11 +299,11 @@ base::Value::List Create();
 namespace GetOptions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Specifies the context to return the configuration for.
@@ -338,11 +324,11 @@ base::Value::List Create(const PanelOptions& options);
 namespace SetPanelBehavior {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The new behavior to be set.
@@ -372,11 +358,11 @@ base::Value::List Create(const PanelBehavior& behavior);
 namespace Open {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Specifies the context in which to open the side panel.

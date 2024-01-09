@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -45,11 +46,11 @@
 
 namespace proxy_resolver::mojom::blink {
 ProxyInfo::ProxyInfo()
-    : proxy_servers() {}
+    : proxy_chains() {}
 
 ProxyInfo::ProxyInfo(
-    WTF::Vector<::network::mojom::blink::ProxyServerPtr> proxy_servers_in)
-    : proxy_servers(std::move(proxy_servers_in)) {}
+    WTF::Vector<::network::mojom::blink::ProxyChainPtr> proxy_chains_in)
+    : proxy_chains(std::move(proxy_chains_in)) {}
 
 ProxyInfo::~ProxyInfo() = default;
 
@@ -58,9 +59,9 @@ void ProxyInfo::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "proxy_servers"), this->proxy_servers,
+      "proxy_chains"), this->proxy_chains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type WTF::Vector<::network::mojom::blink::ProxyServerPtr>>"
+      "<value of type WTF::Vector<::network::mojom::blink::ProxyChainPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -146,14 +147,17 @@ void HostResolverRequestClientProxy::ReportResult(
                         "<value of type const WTF::Vector<::net::IPAddress>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostResolverRequestClient_ReportResult_Name, kFlags, 0, 0, nullptr);
@@ -239,10 +243,10 @@ bool HostResolverRequestClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHostResolverRequestClientValidationInfo[] = {
-    {&internal::HostResolverRequestClient_ReportResult_Params_Data::Validate,
+    { &internal::HostResolverRequestClient_ReportResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -328,14 +332,17 @@ void ProxyResolverProxy::GetProxyForUrl(
                         "<value of type ::mojo::PendingRemote<ProxyResolverRequestClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolver_GetProxyForUrl_Name, kFlags, 0, 0, nullptr);
@@ -439,10 +446,10 @@ bool ProxyResolverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolverValidationInfo[] = {
-    {&internal::ProxyResolver_GetProxyForUrl_Params_Data::Validate,
+    { &internal::ProxyResolver_GetProxyForUrl_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -585,14 +592,17 @@ void ProxyResolverRequestClientProxy::ReportResult(
                         "<value of type ProxyInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverRequestClient_ReportResult_Name, kFlags, 0, 0, nullptr);
@@ -634,14 +644,17 @@ void ProxyResolverRequestClientProxy::Alert(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverRequestClient_Alert_Name, kFlags, 0, 0, nullptr);
@@ -685,14 +698,17 @@ void ProxyResolverRequestClientProxy::OnError(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverRequestClient_OnError_Name, kFlags, 0, 0, nullptr);
@@ -743,14 +759,17 @@ void ProxyResolverRequestClientProxy::ResolveDns(
                         "<value of type ::mojo::PendingRemote<HostResolverRequestClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverRequestClient_ResolveDns_Name, kFlags, 0, 0, nullptr);
@@ -955,16 +974,16 @@ bool ProxyResolverRequestClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolverRequestClientValidationInfo[] = {
-    {&internal::ProxyResolverRequestClient_ReportResult_Params_Data::Validate,
+    { &internal::ProxyResolverRequestClient_ReportResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverRequestClient_Alert_Params_Data::Validate,
+    { &internal::ProxyResolverRequestClient_Alert_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverRequestClient_OnError_Params_Data::Validate,
+    { &internal::ProxyResolverRequestClient_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverRequestClient_ResolveDns_Params_Data::Validate,
+    { &internal::ProxyResolverRequestClient_ResolveDns_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1050,14 +1069,17 @@ void ProxyResolverFactoryProxy::CreateResolver(
                         "<value of type ::mojo::PendingRemote<ProxyResolverFactoryRequestClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverFactory_CreateResolver_Name, kFlags, 0, 0, nullptr);
@@ -1160,10 +1182,10 @@ bool ProxyResolverFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolverFactoryValidationInfo[] = {
-    {&internal::ProxyResolverFactory_CreateResolver_Params_Data::Validate,
+    { &internal::ProxyResolverFactory_CreateResolver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1303,14 +1325,17 @@ void ProxyResolverFactoryRequestClientProxy::ReportResult(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverFactoryRequestClient_ReportResult_Name, kFlags, 0, 0, nullptr);
@@ -1341,14 +1366,17 @@ void ProxyResolverFactoryRequestClientProxy::Alert(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverFactoryRequestClient_Alert_Name, kFlags, 0, 0, nullptr);
@@ -1392,14 +1420,17 @@ void ProxyResolverFactoryRequestClientProxy::OnError(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverFactoryRequestClient_OnError_Name, kFlags, 0, 0, nullptr);
@@ -1450,14 +1481,17 @@ void ProxyResolverFactoryRequestClientProxy::ResolveDns(
                         "<value of type ::mojo::PendingRemote<HostResolverRequestClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolverFactoryRequestClient_ResolveDns_Name, kFlags, 0, 0, nullptr);
@@ -1658,16 +1692,16 @@ bool ProxyResolverFactoryRequestClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolverFactoryRequestClientValidationInfo[] = {
-    {&internal::ProxyResolverFactoryRequestClient_ReportResult_Params_Data::Validate,
+    { &internal::ProxyResolverFactoryRequestClient_ReportResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverFactoryRequestClient_Alert_Params_Data::Validate,
+    { &internal::ProxyResolverFactoryRequestClient_Alert_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverFactoryRequestClient_OnError_Params_Data::Validate,
+    { &internal::ProxyResolverFactoryRequestClient_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyResolverFactoryRequestClient_ResolveDns_Params_Data::Validate,
+    { &internal::ProxyResolverFactoryRequestClient_ResolveDns_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1691,7 +1725,7 @@ bool StructTraits<::proxy_resolver::mojom::blink::ProxyInfo::DataView, ::proxy_r
   bool success = true;
   ::proxy_resolver::mojom::blink::ProxyInfoPtr result(::proxy_resolver::mojom::blink::ProxyInfo::New());
   
-      if (success && !input.ReadProxyServers(&result->proxy_servers))
+      if (success && !input.ReadProxyChains(&result->proxy_chains))
         success = false;
   *output = std::move(result);
   return success;

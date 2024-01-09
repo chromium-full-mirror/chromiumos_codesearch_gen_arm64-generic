@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -408,8 +409,7 @@ FormFieldData::FormFieldData()
       id_attribute(),
       name_attribute(),
       value(),
-      selection_start(),
-      selection_end(),
+      selected_text(),
       form_control_type(),
       autocomplete_attribute(),
       parsed_autocomplete(),
@@ -422,6 +422,7 @@ FormFieldData::FormFieldData()
       properties_mask(),
       form_control_ax_id(),
       max_length(),
+      is_user_edited(),
       is_autofilled(),
       section(),
       check_status(),
@@ -445,8 +446,7 @@ FormFieldData::FormFieldData(
     const ::std::u16string& id_attribute_in,
     const ::std::u16string& name_attribute_in,
     const ::std::u16string& value_in,
-    uint32_t selection_start_in,
-    uint32_t selection_end_in,
+    const ::std::u16string& selected_text_in,
     FormControlType form_control_type_in,
     const std::string& autocomplete_attribute_in,
     AutocompleteParsingResultPtr parsed_autocomplete_in,
@@ -459,6 +459,7 @@ FormFieldData::FormFieldData(
     uint32_t properties_mask_in,
     int32_t form_control_ax_id_in,
     uint64_t max_length_in,
+    bool is_user_edited_in,
     bool is_autofilled_in,
     const ::autofill::Section& section_in,
     FormFieldData::CheckStatus check_status_in,
@@ -480,8 +481,7 @@ FormFieldData::FormFieldData(
       id_attribute(std::move(id_attribute_in)),
       name_attribute(std::move(name_attribute_in)),
       value(std::move(value_in)),
-      selection_start(std::move(selection_start_in)),
-      selection_end(std::move(selection_end_in)),
+      selected_text(std::move(selected_text_in)),
       form_control_type(std::move(form_control_type_in)),
       autocomplete_attribute(std::move(autocomplete_attribute_in)),
       parsed_autocomplete(std::move(parsed_autocomplete_in)),
@@ -494,6 +494,7 @@ FormFieldData::FormFieldData(
       properties_mask(std::move(properties_mask_in)),
       form_control_ax_id(std::move(form_control_ax_id_in)),
       max_length(std::move(max_length_in)),
+      is_user_edited(std::move(is_user_edited_in)),
       is_autofilled(std::move(is_autofilled_in)),
       section(std::move(section_in)),
       check_status(std::move(check_status_in)),
@@ -563,18 +564,9 @@ void FormFieldData::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "selection_start"), this->selection_start,
+      "selected_text"), this->selected_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint32_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "selection_end"), this->selection_end,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint32_t>"
+      "<value of type const ::std::u16string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -683,6 +675,15 @@ void FormFieldData::WriteIntoTrace(
       "max_length"), this->max_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_user_edited"), this->is_user_edited,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1055,6 +1056,7 @@ FormFieldDataPredictions::FormFieldDataPredictions()
       signature(),
       heuristic_type(),
       server_type(),
+      html_type(),
       overall_type(),
       parseable_name(),
       section(),
@@ -1068,6 +1070,7 @@ FormFieldDataPredictions::FormFieldDataPredictions(
     const std::string& signature_in,
     const std::string& heuristic_type_in,
     const std::string& server_type_in,
+    const std::string& html_type_in,
     const std::string& overall_type_in,
     const std::string& parseable_name_in,
     const std::string& section_in,
@@ -1079,6 +1082,7 @@ FormFieldDataPredictions::FormFieldDataPredictions(
       signature(std::move(signature_in)),
       heuristic_type(std::move(heuristic_type_in)),
       server_type(std::move(server_type_in)),
+      html_type(std::move(html_type_in)),
       overall_type(std::move(overall_type_in)),
       parseable_name(std::move(parseable_name_in)),
       section(std::move(section_in)),
@@ -1122,6 +1126,15 @@ void FormFieldDataPredictions::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "server_type"), this->server_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "html_type"), this->html_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -1485,7 +1498,8 @@ PasswordGenerationUIData::PasswordGenerationUIData()
       generation_element_id(),
       is_generation_element_password_type(),
       text_direction(),
-      form_data() {}
+      form_data(),
+      input_field_empty() {}
 
 PasswordGenerationUIData::PasswordGenerationUIData(
     const ::gfx::RectF& bounds_in,
@@ -1494,14 +1508,16 @@ PasswordGenerationUIData::PasswordGenerationUIData(
     ::autofill::FieldRendererId generation_element_id_in,
     bool is_generation_element_password_type_in,
     ::base::i18n::TextDirection text_direction_in,
-    const ::autofill::FormData& form_data_in)
+    const ::autofill::FormData& form_data_in,
+    bool input_field_empty_in)
     : bounds(std::move(bounds_in)),
       max_length(std::move(max_length_in)),
       generation_element(std::move(generation_element_in)),
       generation_element_id(std::move(generation_element_id_in)),
       is_generation_element_password_type(std::move(is_generation_element_password_type_in)),
       text_direction(std::move(text_direction_in)),
-      form_data(std::move(form_data_in)) {}
+      form_data(std::move(form_data_in)),
+      input_field_empty(std::move(input_field_empty_in)) {}
 
 PasswordGenerationUIData::~PasswordGenerationUIData() = default;
 
@@ -1567,6 +1583,15 @@ void PasswordGenerationUIData::WriteIntoTrace(
       "form_data"), this->form_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::autofill::FormData&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_field_empty"), this->input_field_empty,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1871,10 +1896,8 @@ bool StructTraits<::autofill::mojom::FormFieldData::DataView, ::autofill::mojom:
         success = false;
       if (success && !input.ReadValue(&result->value))
         success = false;
-      if (success)
-        result->selection_start = input.selection_start();
-      if (success)
-        result->selection_end = input.selection_end();
+      if (success && !input.ReadSelectedText(&result->selected_text))
+        success = false;
       if (success && !input.ReadFormControlType(&result->form_control_type))
         success = false;
       if (success && !input.ReadAutocompleteAttribute(&result->autocomplete_attribute))
@@ -1899,6 +1922,8 @@ bool StructTraits<::autofill::mojom::FormFieldData::DataView, ::autofill::mojom:
         result->form_control_ax_id = input.form_control_ax_id();
       if (success)
         result->max_length = input.max_length();
+      if (success)
+        result->is_user_edited = input.is_user_edited();
       if (success)
         result->is_autofilled = input.is_autofilled();
       if (success && !input.ReadSection(&result->section))
@@ -2004,6 +2029,8 @@ bool StructTraits<::autofill::mojom::FormFieldDataPredictions::DataView, ::autof
       if (success && !input.ReadHeuristicType(&result->heuristic_type))
         success = false;
       if (success && !input.ReadServerType(&result->server_type))
+        success = false;
+      if (success && !input.ReadHtmlType(&result->html_type))
         success = false;
       if (success && !input.ReadOverallType(&result->overall_type))
         success = false;
@@ -2129,6 +2156,8 @@ bool StructTraits<::autofill::mojom::PasswordGenerationUIData::DataView, ::autof
         success = false;
       if (success && !input.ReadFormData(&result->form_data))
         success = false;
+      if (success)
+        result->input_field_empty = input.input_field_empty();
   *output = std::move(result);
   return success;
 }

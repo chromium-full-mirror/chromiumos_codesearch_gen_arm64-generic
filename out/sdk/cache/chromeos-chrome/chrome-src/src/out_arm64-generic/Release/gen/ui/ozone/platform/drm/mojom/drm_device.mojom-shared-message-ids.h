@@ -27,10 +27,13 @@ constexpr uint32_t kDrmDevice_ConfigureNativeDisplays_Name = 9;
 constexpr uint32_t kDrmDevice_SetHdcpKeyProp_Name = 10;
 constexpr uint32_t kDrmDevice_GetHDCPState_Name = 11;
 constexpr uint32_t kDrmDevice_SetHDCPState_Name = 12;
-constexpr uint32_t kDrmDevice_SetColorMatrix_Name = 13;
-constexpr uint32_t kDrmDevice_SetGammaCorrection_Name = 14;
-constexpr uint32_t kDrmDevice_SetPrivacyScreen_Name = 15;
-constexpr uint32_t kDrmDevice_GetDeviceCursor_Name = 16;
+constexpr uint32_t kDrmDevice_SetColorTemperatureAdjustment_Name = 13;
+constexpr uint32_t kDrmDevice_SetColorCalibration_Name = 14;
+constexpr uint32_t kDrmDevice_SetGammaAdjustment_Name = 15;
+constexpr uint32_t kDrmDevice_SetColorMatrix_Name = 16;
+constexpr uint32_t kDrmDevice_SetGammaCorrection_Name = 17;
+constexpr uint32_t kDrmDevice_SetPrivacyScreen_Name = 18;
+constexpr uint32_t kDrmDevice_GetDeviceCursor_Name = 19;
 
 }  // namespace internal
 

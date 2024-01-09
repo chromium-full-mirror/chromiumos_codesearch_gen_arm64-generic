@@ -50,11 +50,14 @@ void setConstants(const Vector<std::pair<String, double>>& value);
 void setConstants(Vector<std::pair<String, double>>&& value);
 
 bool hasEntryPoint() const {
-  return true;
+  return has_entry_point_;
 }
 const String& entryPoint() const {
-  return member_entry_point_;
+  DCHECK(hasEntryPoint());
+return member_entry_point_;
 }
+String getEntryPointOr(const String& fallback_value) const;
+String getEntryPointOr(String&& fallback_value) const;
 void setEntryPoint(const String& value);
 void setEntryPoint(String&& value);
 
@@ -85,6 +88,7 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
 bool has_constants_ = false;
+bool has_entry_point_ = false;
 
 Vector<std::pair<String, double>> member_constants_;
 String member_entry_point_;

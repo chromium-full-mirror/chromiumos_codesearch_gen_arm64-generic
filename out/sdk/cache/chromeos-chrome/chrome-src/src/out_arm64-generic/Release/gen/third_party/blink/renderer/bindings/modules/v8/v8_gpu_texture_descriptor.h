@@ -15,6 +15,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_object_descriptor_base.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_texture_dimension.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_texture_format.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_texture_view_dimension.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
 #include "third_party/blink/renderer/platform/heap/member.h"
@@ -96,6 +97,28 @@ void setSize(V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence* value) {
 DCHECK(member_size_);
 }
 
+bool hasTextureBindingViewDimension() const {
+  return has_texture_binding_view_dimension_;
+}
+V8GPUTextureViewDimension textureBindingViewDimension() const {
+  DCHECK(hasTextureBindingViewDimension());
+return member_texture_binding_view_dimension_;
+}
+V8GPUTextureViewDimension getTextureBindingViewDimensionOr(V8GPUTextureViewDimension fallback_value) const {
+  if (!hasTextureBindingViewDimension()) {
+  return fallback_value;
+}
+return member_texture_binding_view_dimension_;
+}
+void setTextureBindingViewDimension(V8GPUTextureViewDimension value) {
+  member_texture_binding_view_dimension_ = value;
+has_texture_binding_view_dimension_ = true;
+}
+void setTextureBindingViewDimension(V8GPUTextureViewDimension::Enum value) {
+  member_texture_binding_view_dimension_ = V8GPUTextureViewDimension(value);
+has_texture_binding_view_dimension_ = true;
+}
+
 bool hasUsage() const {
   return true;
 }
@@ -123,6 +146,10 @@ void setDimension(const String& value) {
 void setFormat(const String& value) {
   member_format_ = V8GPUTextureFormat::Create(value).value();
 }
+void setTextureBindingViewDimension(const String& value) {
+  member_texture_binding_view_dimension_ = V8GPUTextureViewDimension::Create(value).value();
+has_texture_binding_view_dimension_ = true;
+}
 
 void Trace(Visitor* visitor) const override;
 
@@ -136,13 +163,14 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-
+bool has_texture_binding_view_dimension_ = false;
 
 V8GPUTextureDimension member_dimension_{V8GPUTextureDimension::Enum::k2D};
 V8GPUTextureFormat member_format_{static_cast<V8GPUTextureFormat::Enum>(0)};
 uint32_t member_mip_level_count_{1};
 uint32_t member_sample_count_{1};
 Member<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence> member_size_;
+V8GPUTextureViewDimension member_texture_binding_view_dimension_{static_cast<V8GPUTextureViewDimension::Enum>(0)};
 uint32_t member_usage_;
 Vector<V8GPUTextureFormat> member_view_formats_;
 

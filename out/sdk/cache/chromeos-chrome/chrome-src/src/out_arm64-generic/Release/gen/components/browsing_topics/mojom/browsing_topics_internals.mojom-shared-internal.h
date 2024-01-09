@@ -147,13 +147,11 @@ class  WebUIBrowsingTopicsConfiguration_Data {
   mojo::internal::StructHeader header_;
   uint8_t browsing_topics_enabled : 1;
   uint8_t privacy_sandbox_ads_apis_override_enabled : 1;
-  uint8_t privacy_sandbox_settings3_enabled : 1;
   uint8_t override_privacy_sandbox_settings_local_testing_enabled : 1;
   uint8_t browsing_topics_bypass_ip_is_publicly_routable_check_enabled : 1;
-  uint8_t browsing_topics_xhr_enabled : 1;
   uint8_t browsing_topics_document_api_enabled : 1;
   uint8_t browsing_topics_parameters_enabled : 1;
-  uint8_t pad7_[3];
+  uint8_t pad5_[3];
   int32_t config_version;
   int32_t number_of_epochs_to_expose;
   int32_t number_of_top_topics_per_epoch;

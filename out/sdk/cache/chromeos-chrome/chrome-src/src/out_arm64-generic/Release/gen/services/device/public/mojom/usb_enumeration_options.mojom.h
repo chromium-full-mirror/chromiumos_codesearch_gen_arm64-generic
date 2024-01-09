@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/usb_enumeration_options.mojom-features.h"
 #include "services/device/public/mojom/usb_enumeration_options.mojom-shared.h"
 #include "services/device/public/mojom/usb_enumeration_options.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -83,7 +84,7 @@ class  UsbDeviceFilter {
       uint8_t subclass_code,
       bool has_protocol_code,
       uint8_t protocol_code,
-      const absl::optional<::std::u16string>& serial_number);
+      const std::optional<::std::u16string>& serial_number);
 
 
   ~UsbDeviceFilter();
@@ -181,7 +182,7 @@ class  UsbDeviceFilter {
   
   uint8_t protocol_code;
   
-  absl::optional<::std::u16string> serial_number;
+  std::optional<::std::u16string> serial_number;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

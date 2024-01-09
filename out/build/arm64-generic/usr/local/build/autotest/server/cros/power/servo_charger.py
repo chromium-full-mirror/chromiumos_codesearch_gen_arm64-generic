@@ -19,11 +19,11 @@ from autotest_lib.client.common_lib.cros import retry
 # Base delay time in seconds for Servo role change and PD negotiation.
 _DELAY_SEC = 0.1
 # Total delay time in minutes for Servo role change and PD negotiation.
-_TIMEOUT_MIN = 0.3
+_TIMEOUT_MIN = 0.25
 # Exponential backoff for Servo role change and PD negotiation.
 _BACKOFF = 2
 # Number of attempts to recover Servo v4.
-_RETRYS = 3
+_RETRYS = 10
 # Seconds to wait after resetting the role on a recovery attempt
 # before trying to set it to the intended role again.
 _RECOVERY_WAIT_SEC = 1
@@ -36,7 +36,7 @@ _ROLE_SETTLING_DELAY_SEC = 1
 # implementation.
 _ETH_REENUMERATE_TIMEOUT_MIN = 1
 # Delay for whether the charger has been attached successfully.
-_CHARGER_STATE_DELAY_SEC = 1
+_CHARGER_STATE_DELAY_SEC = 3
 
 
 def _invert_role(role):
@@ -188,10 +188,10 @@ class ServoV4ChargeManager(object):
                         'control is not available on servod.',
                         'charger_attached')
                 return
-            # Wake from hibernate will need some delay time to wait EC to
-            # be able to handle the charge_state command.
-            time.sleep(_CHARGER_STATE_DELAY_SEC)
-            ec_opinion = self._servo.get('charger_attached')
+            try:
+                ec_opinion = self._servo.get('charger_attached')
+            except Exception as e:
+                raise error.TestError(e)
             if ec_opinion != connected:
                 str_lookup = {True: 'connected', False: 'disconnected'}
                 msg = ('EC thinks charger is %s but it should be %s.'
@@ -199,13 +199,21 @@ class ServoV4ChargeManager(object):
                           str_lookup[connected]))
                 raise error.TestError(msg)
 
+        # Wake from hibernate will need some delay time to wait EC to
+        # be able to handle the charge_state command.
+        time.sleep(_CHARGER_STATE_DELAY_SEC)
         check_ac_connected(connected)
 
         @retry.retry(error.TestError, timeout_min=_ETH_REENUMERATE_TIMEOUT_MIN,
                      delay_sec=_DELAY_SEC, backoff=_BACKOFF)
         def check_host_ac(connected):
             """Check if DUT AC power is as expected, if not, retry."""
-            if self._host.is_ac_connected() != connected:
+            try:
+                ac_check = self._host.is_ac_connected()
+            except Exception:
+                raise error.TestError(
+                        "Failed to read power_supply_info on DUT.")
+            if ac_check != connected:
                 intent = 'connect' if connected else 'disconnect'
                 raise error.TestError('DUT failed to %s AC power.'% intent)
 

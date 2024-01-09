@@ -215,7 +215,7 @@ SpellChecker_CustomDictionaryChanged_Params_Data::SpellChecker_CustomDictionaryC
 
 
 // static
-bool SpellCheckHost_RequestDictionary_Params_Data::Validate(
+bool SpellCheckInitializationHost_RequestDictionary_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -227,13 +227,13 @@ bool SpellCheckHost_RequestDictionary_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const SpellCheckHost_RequestDictionary_Params_Data* object =
-      static_cast<const SpellCheckHost_RequestDictionary_Params_Data*>(data);
+  [[maybe_unused]] const SpellCheckInitializationHost_RequestDictionary_Params_Data* object =
+      static_cast<const SpellCheckInitializationHost_RequestDictionary_Params_Data*>(data);
 
   return true;
 }
 
-SpellCheckHost_RequestDictionary_Params_Data::SpellCheckHost_RequestDictionary_Params_Data()
+SpellCheckInitializationHost_RequestDictionary_Params_Data::SpellCheckInitializationHost_RequestDictionary_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

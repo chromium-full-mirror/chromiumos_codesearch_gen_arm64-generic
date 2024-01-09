@@ -402,7 +402,7 @@ class CastMediaSinkDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  uint8_t capabilities() const {
+  uint64_t capabilities() const {
     return data_->capabilities;
   }
   int32_t cast_channel_id() const {

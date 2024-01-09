@@ -374,11 +374,6 @@ bool ContextCreationAttribs_Data::Validate(
         ::Validate(object->context_type, validation_context))
     return false;
 
-
-  if (!::gpu::mojom::internal::ContextColorSpace_Data
-        ::Validate(object->color_space, validation_context))
-    return false;
-
   return true;
 }
 
@@ -393,7 +388,7 @@ bool CreateCommandBufferParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -402,27 +397,20 @@ bool CreateCommandBufferParams_Data::Validate(
   [[maybe_unused]] const CreateCommandBufferParams_Data* object =
       static_cast<const CreateCommandBufferParams_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->surface_handle, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->surface_handle, validation_context))
-    return false;
-
 
   if (!::gpu::mojom::internal::SchedulingPriority_Data
         ::Validate(object->stream_priority, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->attribs, 5, validation_context)) {
+          object->attribs, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->attribs, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->active_url, 6, validation_context)) {
+          object->active_url, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->active_url, validation_context))

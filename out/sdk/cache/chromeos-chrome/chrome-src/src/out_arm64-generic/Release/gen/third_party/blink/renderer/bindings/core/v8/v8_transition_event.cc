@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TransitionEvent>::value,
     "TransitionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TransitionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TransitionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("TransitionEvent.propertyName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->propertyName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->propertyName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("TransitionEvent.elapsedTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(v8_receiver);
+TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->elapsedTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -116,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("TransitionEvent.pseudoElement.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pseudoElement();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pseudoElement();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -131,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("TransitionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(v8_receiver);
+TransitionEvent* blink_receiver = V8TransitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

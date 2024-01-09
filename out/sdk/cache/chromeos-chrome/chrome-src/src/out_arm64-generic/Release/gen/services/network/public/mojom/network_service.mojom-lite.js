@@ -410,22 +410,6 @@ network.mojom.NetworkServiceRemote = class {
 
   
   /**
-   * @param { !Array<!network.mojom.EnvironmentVariable> } environment
-   */
-
-  setEnvironment(
-      environment) {
-    this.proxy.sendMessage(
-        20,
-        network.mojom.NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        [
-          environment
-        ]);
-  }
-
-  
-  /**
    * @param { !string } rawCommitments
    * @return {!Promise}
    */
@@ -433,7 +417,7 @@ network.mojom.NetworkServiceRemote = class {
   setTrustTokenKeyCommitments(
       rawCommitments) {
     return this.proxy.sendMessage(
-        21,
+        20,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         [
@@ -447,7 +431,7 @@ network.mojom.NetworkServiceRemote = class {
 
   clearSCTAuditingCache() {
     this.proxy.sendMessage(
-        22,
+        21,
         network.mojom.NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         [
@@ -462,7 +446,7 @@ network.mojom.NetworkServiceRemote = class {
   configureSCTAuditing(
       configuration) {
     this.proxy.sendMessage(
-        23,
+        22,
         network.mojom.NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         [
@@ -473,20 +457,17 @@ network.mojom.NetworkServiceRemote = class {
   
   /**
    * @param { !Array<!network.mojom.CTLogInfo> } logList
-   * @param { !mojoBase.mojom.Time } updateTime
    * @return {!Promise}
    */
 
   updateCtLogList(
-      logList,
-      updateTime) {
+      logList) {
     return this.proxy.sendMessage(
-        24,
+        23,
         network.mojom.NetworkService_UpdateCtLogList_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         [
-          logList,
-          updateTime
+          logList
         ]);
   }
 
@@ -499,7 +480,7 @@ network.mojom.NetworkServiceRemote = class {
   updateCtKnownPopularSCTs(
       sctHashes) {
     return this.proxy.sendMessage(
-        25,
+        24,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         [
@@ -516,7 +497,7 @@ network.mojom.NetworkServiceRemote = class {
   setCtEnforcementEnabled(
       enabled) {
     return this.proxy.sendMessage(
-        26,
+        25,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         [
@@ -534,7 +515,7 @@ network.mojom.NetworkServiceRemote = class {
       pinList,
       updateTime) {
     this.proxy.sendMessage(
-        27,
+        26,
         network.mojom.NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         [
@@ -551,7 +532,7 @@ network.mojom.NetworkServiceRemote = class {
   bindTestInterfaceForTesting(
       receiver) {
     this.proxy.sendMessage(
-        28,
+        27,
         network.mojom.NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         [
@@ -567,7 +548,7 @@ network.mojom.NetworkServiceRemote = class {
   setFirstPartySets(
       sets) {
     this.proxy.sendMessage(
-        29,
+        28,
         network.mojom.NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         [
@@ -583,7 +564,7 @@ network.mojom.NetworkServiceRemote = class {
   setExplicitlyAllowedPorts(
       ports) {
     this.proxy.sendMessage(
-        30,
+        29,
         network.mojom.NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         [
@@ -599,7 +580,7 @@ network.mojom.NetworkServiceRemote = class {
   updateMaskedDomainList(
       rawMdl) {
     this.proxy.sendMessage(
-        31,
+        30,
         network.mojom.NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         [
@@ -620,7 +601,7 @@ network.mojom.NetworkServiceRemote = class {
       url,
       headers) {
     return this.proxy.sendMessage(
-        32,
+        31,
         network.mojom.NetworkService_ParseHeaders_ParamsSpec.$,
         network.mojom.NetworkService_ParseHeaders_ResponseParamsSpec.$,
         [
@@ -637,7 +618,7 @@ network.mojom.NetworkServiceRemote = class {
   enableDataUseUpdates(
       enable) {
     this.proxy.sendMessage(
-        33,
+        32,
         network.mojom.NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         [
@@ -653,11 +634,27 @@ network.mojom.NetworkServiceRemote = class {
   setIPv6ReachabilityOverride(
       reachabilityOverride) {
     this.proxy.sendMessage(
-        34,
+        33,
         network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         [
           reachabilityOverride
+        ]);
+  }
+
+  
+  /**
+   * @param { !network.mojom.CookieEncryptionProviderRemote } provider
+   */
+
+  setCookieEncryptionProvider(
+      provider) {
+    this.proxy.sendMessage(
+        34,
+        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        [
+          provider
         ]);
   }
 };
@@ -786,79 +783,79 @@ network.mojom.NetworkServiceReceiver = class {
         impl.onPeerToPeerConnectionsCountChange.bind(impl));
     this.helper_internal_.registerHandler(
         20,
-        network.mojom.NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        impl.setEnvironment.bind(impl));
-    this.helper_internal_.registerHandler(
-        21,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         impl.setTrustTokenKeyCommitments.bind(impl));
     this.helper_internal_.registerHandler(
-        22,
+        21,
         network.mojom.NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         impl.clearSCTAuditingCache.bind(impl));
     this.helper_internal_.registerHandler(
-        23,
+        22,
         network.mojom.NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         impl.configureSCTAuditing.bind(impl));
     this.helper_internal_.registerHandler(
-        24,
+        23,
         network.mojom.NetworkService_UpdateCtLogList_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         impl.updateCtLogList.bind(impl));
     this.helper_internal_.registerHandler(
-        25,
+        24,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         impl.updateCtKnownPopularSCTs.bind(impl));
     this.helper_internal_.registerHandler(
-        26,
+        25,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         impl.setCtEnforcementEnabled.bind(impl));
     this.helper_internal_.registerHandler(
-        27,
+        26,
         network.mojom.NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         impl.updateKeyPinsList.bind(impl));
     this.helper_internal_.registerHandler(
-        28,
+        27,
         network.mojom.NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         impl.bindTestInterfaceForTesting.bind(impl));
     this.helper_internal_.registerHandler(
-        29,
+        28,
         network.mojom.NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         impl.setFirstPartySets.bind(impl));
     this.helper_internal_.registerHandler(
-        30,
+        29,
         network.mojom.NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         impl.setExplicitlyAllowedPorts.bind(impl));
     this.helper_internal_.registerHandler(
-        31,
+        30,
         network.mojom.NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         impl.updateMaskedDomainList.bind(impl));
     this.helper_internal_.registerHandler(
-        32,
+        31,
         network.mojom.NetworkService_ParseHeaders_ParamsSpec.$,
         network.mojom.NetworkService_ParseHeaders_ResponseParamsSpec.$,
         impl.parseHeaders.bind(impl));
     this.helper_internal_.registerHandler(
-        33,
+        32,
         network.mojom.NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         impl.enableDataUseUpdates.bind(impl));
     this.helper_internal_.registerHandler(
-        34,
+        33,
         network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         impl.setIPv6ReachabilityOverride.bind(impl));
+    this.helper_internal_.registerHandler(
+        34,
+        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        impl.setCookieEncryptionProvider.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1154,24 +1151,12 @@ network.mojom.NetworkServiceCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setEnvironment =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        20,
-        network.mojom.NetworkService_SetEnvironment_ParamsSpec.$,
-        null,
-        this.setEnvironment.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setTrustTokenKeyCommitments =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        21,
+        20,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
         network.mojom.NetworkService_SetTrustTokenKeyCommitments_ResponseParamsSpec.$,
         this.setTrustTokenKeyCommitments.createReceiverHandler(true /* expectsResponse */));
@@ -1183,7 +1168,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        22,
+        21,
         network.mojom.NetworkService_ClearSCTAuditingCache_ParamsSpec.$,
         null,
         this.clearSCTAuditingCache.createReceiverHandler(false /* expectsResponse */));
@@ -1195,7 +1180,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        23,
+        22,
         network.mojom.NetworkService_ConfigureSCTAuditing_ParamsSpec.$,
         null,
         this.configureSCTAuditing.createReceiverHandler(false /* expectsResponse */));
@@ -1207,7 +1192,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        24,
+        23,
         network.mojom.NetworkService_UpdateCtLogList_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtLogList_ResponseParamsSpec.$,
         this.updateCtLogList.createReceiverHandler(true /* expectsResponse */));
@@ -1219,7 +1204,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        25,
+        24,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ParamsSpec.$,
         network.mojom.NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsSpec.$,
         this.updateCtKnownPopularSCTs.createReceiverHandler(true /* expectsResponse */));
@@ -1231,7 +1216,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        26,
+        25,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ParamsSpec.$,
         network.mojom.NetworkService_SetCtEnforcementEnabled_ResponseParamsSpec.$,
         this.setCtEnforcementEnabled.createReceiverHandler(true /* expectsResponse */));
@@ -1243,7 +1228,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        27,
+        26,
         network.mojom.NetworkService_UpdateKeyPinsList_ParamsSpec.$,
         null,
         this.updateKeyPinsList.createReceiverHandler(false /* expectsResponse */));
@@ -1255,7 +1240,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        28,
+        27,
         network.mojom.NetworkService_BindTestInterfaceForTesting_ParamsSpec.$,
         null,
         this.bindTestInterfaceForTesting.createReceiverHandler(false /* expectsResponse */));
@@ -1267,7 +1252,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        29,
+        28,
         network.mojom.NetworkService_SetFirstPartySets_ParamsSpec.$,
         null,
         this.setFirstPartySets.createReceiverHandler(false /* expectsResponse */));
@@ -1279,7 +1264,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        30,
+        29,
         network.mojom.NetworkService_SetExplicitlyAllowedPorts_ParamsSpec.$,
         null,
         this.setExplicitlyAllowedPorts.createReceiverHandler(false /* expectsResponse */));
@@ -1291,7 +1276,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        31,
+        30,
         network.mojom.NetworkService_UpdateMaskedDomainList_ParamsSpec.$,
         null,
         this.updateMaskedDomainList.createReceiverHandler(false /* expectsResponse */));
@@ -1303,7 +1288,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        32,
+        31,
         network.mojom.NetworkService_ParseHeaders_ParamsSpec.$,
         network.mojom.NetworkService_ParseHeaders_ResponseParamsSpec.$,
         this.parseHeaders.createReceiverHandler(true /* expectsResponse */));
@@ -1315,7 +1300,7 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        33,
+        32,
         network.mojom.NetworkService_EnableDataUseUpdates_ParamsSpec.$,
         null,
         this.enableDataUseUpdates.createReceiverHandler(false /* expectsResponse */));
@@ -1327,10 +1312,22 @@ network.mojom.NetworkServiceCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        34,
+        33,
         network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpec.$,
         null,
         this.setIPv6ReachabilityOverride.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setCookieEncryptionProvider =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        34,
+        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        null,
+        this.setCookieEncryptionProvider.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1559,14 +1556,6 @@ network.mojom.NetworkService_OnPeerToPeerConnectionsCountChange_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-network.mojom.NetworkService_SetEnvironment_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 network.mojom.NetworkService_SetTrustTokenKeyCommitments_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1712,6 +1701,14 @@ network.mojom.NetworkService_EnableDataUseUpdates_ParamsSpec =
  * @export
  */
 network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1966,6 +1963,14 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'ipProtectionProxyBypassPolicy', 36,
+        0,
+        network.mojom.IpProtectionProxyBypassPolicySpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 48],]);
 
@@ -1988,6 +1993,8 @@ network.mojom.NetworkServiceParams = class {
     this.firstPartySetsEnabled;
     /** @export { (network.mojom.SystemDnsResolverRemote|undefined) } */
     this.systemDnsResolver;
+    /** @export { !network.mojom.IpProtectionProxyBypassPolicy } */
+    this.ipProtectionProxyBypassPolicy;
   }
 };
 
@@ -2752,35 +2759,6 @@ network.mojom.NetworkService_OnPeerToPeerConnectionsCountChange_Params = class {
 
 
 mojo.internal.Struct(
-    network.mojom.NetworkService_SetEnvironment_ParamsSpec.$,
-    'NetworkService_SetEnvironment_Params',
-    [
-      mojo.internal.StructField(
-        'environment', 0,
-        0,
-        mojo.internal.Array(network.mojom.EnvironmentVariableSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-network.mojom.NetworkService_SetEnvironment_Params = class {
-  constructor() {
-    /** @export { !Array<!network.mojom.EnvironmentVariable> } */
-    this.environment;
-  }
-};
-
-
-
-mojo.internal.Struct(
     network.mojom.NetworkService_SetTrustTokenKeyCommitments_ParamsSpec.$,
     'NetworkService_SetTrustTokenKeyCommitments_Params',
     [
@@ -2888,16 +2866,8 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'updateTime', 8,
-        0,
-        mojoBase.mojom.TimeSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
@@ -2908,8 +2878,6 @@ network.mojom.NetworkService_UpdateCtLogList_Params = class {
   constructor() {
     /** @export { !Array<!network.mojom.CTLogInfo> } */
     this.logList;
-    /** @export { !mojoBase.mojom.Time } */
-    this.updateTime;
   }
 };
 
@@ -3306,6 +3274,35 @@ network.mojom.NetworkService_SetIPv6ReachabilityOverride_Params = class {
   constructor() {
     /** @export { !boolean } */
     this.reachabilityOverride;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+    'NetworkService_SetCookieEncryptionProvider_Params',
+    [
+      mojo.internal.StructField(
+        'provider', 0,
+        0,
+        mojo.internal.InterfaceProxy(network.mojom.CookieEncryptionProviderRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+network.mojom.NetworkService_SetCookieEncryptionProvider_Params = class {
+  constructor() {
+    /** @export { !network.mojom.CookieEncryptionProviderRemote } */
+    this.provider;
   }
 };
 

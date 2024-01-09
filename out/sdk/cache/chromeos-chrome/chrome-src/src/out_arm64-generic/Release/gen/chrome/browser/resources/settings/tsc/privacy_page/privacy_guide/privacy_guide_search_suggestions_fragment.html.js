@@ -17,20 +17,22 @@ export function getTemplate() {
   </div>
   <div class="settings-columned-section">
     <div class="column">
-      <div class="description-header">
+      <h3 class="description-header">
         $i18n{privacyGuideFeatureDescriptionHeader}
-      </div>
+      </h3>
       <div role="list">
         <privacy-guide-description-item role="listitem" icon="settings20:manage-search" label="$i18n{privacyGuideSearchSuggestionsFeatureDescription1}">
         </privacy-guide-description-item>
       </div>
     </div>
     <div class="column">
-      <div class="description-header">$i18n{privacyGuideThingsToConsider}</div>
+      <h3 class="description-header">$i18n{privacyGuideThingsToConsider}</h3>
       <div role="list">
         <privacy-guide-description-item role="listitem" icon="settings20:youtube-searched-for" label="$i18n{privacyGuideSearchSuggestionsPrivacyDescription1}">
         </privacy-guide-description-item>
         <privacy-guide-description-item role="listitem" icon="settings20:link" label="$i18n{privacyGuideSearchSuggestionsPrivacyDescription2}">
+        </privacy-guide-description-item>
+        <privacy-guide-description-item role="listitem" icon="settings20:lightbulb" label="$i18n{privacyGuideSearchSuggestionsPrivacyDescription3}">
         </privacy-guide-description-item>
       </div>
     </div>

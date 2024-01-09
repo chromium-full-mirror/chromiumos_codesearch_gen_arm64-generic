@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/webui/resources/cr_components/theme_color_picker/theme_color_picker.mojom-features.h"
 #include "ui/webui/resources/cr_components/theme_color_picker/theme_color_picker.mojom-shared.h"
 #include "ui/webui/resources/cr_components/theme_color_picker/theme_color_picker.mojom-forward.h"
 #include "skia/public/mojom/skcolor.mojom.h"
@@ -453,12 +454,12 @@ class  Theme {
   Theme(
       bool has_background_image,
       bool has_third_party_theme,
-      absl::optional<::SkColor> background_image_main_color,
+      std::optional<::SkColor> background_image_main_color,
       bool is_dark_mode,
       ::SkColor seed_color,
       float seed_color_hue,
       ::SkColor background_color,
-      absl::optional<::SkColor> foreground_color,
+      std::optional<::SkColor> foreground_color,
       ::SkColor color_picker_icon_color,
       bool colors_managed_by_policy,
       bool is_grey_baseline,
@@ -545,7 +546,7 @@ class  Theme {
   
   bool has_third_party_theme;
   
-  absl::optional<::SkColor> background_image_main_color;
+  std::optional<::SkColor> background_image_main_color;
   
   bool is_dark_mode;
   
@@ -555,7 +556,7 @@ class  Theme {
   
   ::SkColor background_color;
   
-  absl::optional<::SkColor> foreground_color;
+  std::optional<::SkColor> foreground_color;
   
   ::SkColor color_picker_icon_color;
   
@@ -631,7 +632,7 @@ class  ChromeColor {
       ::SkColor seed,
       ::SkColor background,
       ::SkColor foreground,
-      absl::optional<::SkColor> base,
+      std::optional<::SkColor> base,
       ::ui::mojom::BrowserColorVariant variant);
 
 
@@ -718,7 +719,7 @@ class  ChromeColor {
   
   ::SkColor foreground;
   
-  absl::optional<::SkColor> base;
+  std::optional<::SkColor> base;
   
   ::ui::mojom::BrowserColorVariant variant;
 

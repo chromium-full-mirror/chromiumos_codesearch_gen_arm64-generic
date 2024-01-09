@@ -77,7 +77,6 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES_SHARED) IdbInternalsHandler_Downloa
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> error;
-  uint64_t connection_count;
 
  private:
   friend class mojo::internal::MessageFragment<IdbInternalsHandler_DownloadBucketData_ResponseParams_Data>;
@@ -85,7 +84,7 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES_SHARED) IdbInternalsHandler_Downloa
   IdbInternalsHandler_DownloadBucketData_ResponseParams_Data();
   ~IdbInternalsHandler_DownloadBucketData_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(IdbInternalsHandler_DownloadBucketData_ResponseParams_Data) == 24,
+static_assert(sizeof(IdbInternalsHandler_DownloadBucketData_ResponseParams_Data) == 16,
               "Bad sizeof(IdbInternalsHandler_DownloadBucketData_ResponseParams_Data)");
 class COMPONENT_EXPORT(INDEXED_DB_INTERFACES_SHARED) IdbInternalsHandler_ForceClose_Params_Data {
  public:
@@ -110,7 +109,6 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES_SHARED) IdbInternalsHandler_ForceCl
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> error;
-  uint64_t connection_count;
 
  private:
   friend class mojo::internal::MessageFragment<IdbInternalsHandler_ForceClose_ResponseParams_Data>;
@@ -118,7 +116,7 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES_SHARED) IdbInternalsHandler_ForceCl
   IdbInternalsHandler_ForceClose_ResponseParams_Data();
   ~IdbInternalsHandler_ForceClose_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(IdbInternalsHandler_ForceClose_ResponseParams_Data) == 24,
+static_assert(sizeof(IdbInternalsHandler_ForceClose_ResponseParams_Data) == 16,
               "Bad sizeof(IdbInternalsHandler_ForceClose_ResponseParams_Data)");
 
 }  // namespace internal
@@ -241,9 +239,6 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  uint64_t connection_count() const {
-    return data_->connection_count;
-  }
  private:
   internal::IdbInternalsHandler_DownloadBucketData_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -305,9 +300,6 @@ static_assert(
     auto* pointer = data_->error.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
-  }
-  uint64_t connection_count() const {
-    return data_->connection_count;
   }
  private:
   internal::IdbInternalsHandler_ForceClose_ResponseParams_Data* data_ = nullptr;

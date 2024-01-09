@@ -34,11 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/iioservice/daemon/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/iioservice/daemon/_iioservice-install_config.stamp: stamp
-build obj/iioservice/daemon/all.stamp: stamp ./iioservice obj/iioservice/daemon/install_dbus_conf.stamp obj/iioservice/daemon/install_init_conf.stamp obj/iioservice/daemon/install_minijail_conf.stamp obj/iioservice/daemon/install_policy.stamp obj/iioservice/daemon/install_seccomp_policy.stamp ./iioservice_testrunner
+build obj/iioservice/daemon/all.stamp: stamp ./iioservice obj/iioservice/daemon/install_dbus_conf.stamp obj/iioservice/daemon/install_init_conf.stamp obj/iioservice/daemon/install_minijail_conf.stamp obj/iioservice/daemon/install_policy.stamp obj/iioservice/daemon/install_seccomp_policy.stamp
 subninja obj/iioservice/daemon/iioservice.ninja
-subninja obj/iioservice/daemon/iioservice_testrunner.ninja
 build obj/iioservice/daemon/install_dbus_conf.stamp: stamp
 build obj/iioservice/daemon/install_init_conf.stamp: stamp
 build obj/iioservice/daemon/install_minijail_conf.stamp: stamp

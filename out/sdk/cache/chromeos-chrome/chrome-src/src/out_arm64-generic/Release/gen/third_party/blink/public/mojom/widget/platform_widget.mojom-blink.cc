@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -124,14 +125,17 @@ void WidgetCompositorProxy::VisualStateRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetCompositor::VisualStateRequest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetCompositor_VisualStateRequest_Name, kFlags, 0, 0, nullptr);
@@ -230,7 +234,8 @@ void WidgetCompositor_VisualStateRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetCompositor_VisualStateRequest_Name, kFlags, 0, 0, nullptr);
@@ -305,10 +310,10 @@ bool WidgetCompositorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWidgetCompositorValidationInfo[] = {
-    {&internal::WidgetCompositor_VisualStateRequest_Params_Data::Validate,
+    { &internal::WidgetCompositor_VisualStateRequest_Params_Data::Validate,
      &internal::WidgetCompositor_VisualStateRequest_ResponseParams_Data::Validate},
 };
 
@@ -532,14 +537,17 @@ void WidgetHostProxy::SetCursor(
                         "<value of type const ::ui::Cursor&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_SetCursor_Name, kFlags, 0, 0, nullptr);
@@ -583,14 +591,17 @@ void WidgetHostProxy::UpdateTooltipUnderCursor(
                         "<value of type ::base::i18n::TextDirection>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_UpdateTooltipUnderCursor_Name, kFlags, 0, 0, nullptr);
@@ -639,14 +650,17 @@ void WidgetHostProxy::UpdateTooltipFromKeyboard(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_UpdateTooltipFromKeyboard_Name, kFlags, 0, 0, nullptr);
@@ -693,14 +707,17 @@ void WidgetHostProxy::ClearKeyboardTriggeredTooltip(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetHost::ClearKeyboardTriggeredTooltip");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_ClearKeyboardTriggeredTooltip_Name, kFlags, 0, 0, nullptr);
@@ -730,14 +747,17 @@ void WidgetHostProxy::TextInputStateChanged(
                         "<value of type ::ui::mojom::blink::TextInputStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_TextInputStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -793,14 +813,17 @@ void WidgetHostProxy::SelectionBoundsChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_SelectionBoundsChanged_Name, kFlags, 0, 0, nullptr);
@@ -871,14 +894,17 @@ void WidgetHostProxy::CreateFrameSink(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::blink::CompositorFrameSinkClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_CreateFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -923,14 +949,17 @@ void WidgetHostProxy::RegisterRenderFrameMetadataObserver(
                         "<value of type ::mojo::PendingRemote<::cc::mojom::blink::RenderFrameMetadataObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetHost_RegisterRenderFrameMetadataObserver_Name, kFlags, 0, 0, nullptr);
@@ -1257,24 +1286,24 @@ bool WidgetHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWidgetHostValidationInfo[] = {
-    {&internal::WidgetHost_SetCursor_Params_Data::Validate,
+    { &internal::WidgetHost_SetCursor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_UpdateTooltipUnderCursor_Params_Data::Validate,
+    { &internal::WidgetHost_UpdateTooltipUnderCursor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_UpdateTooltipFromKeyboard_Params_Data::Validate,
+    { &internal::WidgetHost_UpdateTooltipFromKeyboard_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_ClearKeyboardTriggeredTooltip_Params_Data::Validate,
+    { &internal::WidgetHost_ClearKeyboardTriggeredTooltip_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_TextInputStateChanged_Params_Data::Validate,
+    { &internal::WidgetHost_TextInputStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_SelectionBoundsChanged_Params_Data::Validate,
+    { &internal::WidgetHost_SelectionBoundsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_CreateFrameSink_Params_Data::Validate,
+    { &internal::WidgetHost_CreateFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetHost_RegisterRenderFrameMetadataObserver_Params_Data::Validate,
+    { &internal::WidgetHost_RegisterRenderFrameMetadataObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1519,14 +1548,17 @@ void WidgetProxy::ForceRedraw(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Widget::ForceRedraw");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_ForceRedraw_Name, kFlags, 0, 0, nullptr);
@@ -1560,14 +1592,17 @@ void WidgetProxy::GetWidgetInputHandler(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::blink::WidgetInputHandlerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_GetWidgetInputHandler_Name, kFlags, 0, 0, nullptr);
@@ -1609,14 +1644,17 @@ void WidgetProxy::UpdateVisualProperties(
                         "<value of type const ::blink::VisualProperties&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_UpdateVisualProperties_Name, kFlags, 0, 0, nullptr);
@@ -1660,14 +1698,17 @@ void WidgetProxy::UpdateScreenRects(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_UpdateScreenRects_Name, kFlags, 0, 0, nullptr);
@@ -1713,14 +1754,17 @@ void WidgetProxy::WasHidden(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Widget::WasHidden");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_WasHidden_Name, kFlags, 0, 0, nullptr);
@@ -1753,14 +1797,17 @@ void WidgetProxy::WasShown(
                         "<value of type ::blink::mojom::blink::RecordContentToVisibleTimeRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_WasShown_Name, kFlags, 0, 0, nullptr);
@@ -1798,14 +1845,17 @@ void WidgetProxy::RequestSuccessfulPresentationTimeForNextFrame(
                         "<value of type ::blink::mojom::blink::RecordContentToVisibleTimeRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_RequestSuccessfulPresentationTimeForNextFrame_Name, kFlags, 0, 0, nullptr);
@@ -1839,14 +1889,17 @@ void WidgetProxy::CancelSuccessfulPresentationTimeRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Widget::CancelSuccessfulPresentationTimeRequest");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_CancelSuccessfulPresentationTimeRequest_Name, kFlags, 0, 0, nullptr);
@@ -1944,7 +1997,8 @@ void Widget_ForceRedraw_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_ForceRedraw_Name, kFlags, 0, 0, nullptr);
@@ -2050,7 +2104,8 @@ void Widget_UpdateScreenRects_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidget_UpdateScreenRects_Name, kFlags, 0, 0, nullptr);
@@ -2339,24 +2394,24 @@ std::move(p_window_screen_rect), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWidgetValidationInfo[] = {
-    {&internal::Widget_ForceRedraw_Params_Data::Validate,
+    { &internal::Widget_ForceRedraw_Params_Data::Validate,
      &internal::Widget_ForceRedraw_ResponseParams_Data::Validate},
-    {&internal::Widget_GetWidgetInputHandler_Params_Data::Validate,
+    { &internal::Widget_GetWidgetInputHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Widget_UpdateVisualProperties_Params_Data::Validate,
+    { &internal::Widget_UpdateVisualProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Widget_UpdateScreenRects_Params_Data::Validate,
+    { &internal::Widget_UpdateScreenRects_Params_Data::Validate,
      &internal::Widget_UpdateScreenRects_ResponseParams_Data::Validate},
-    {&internal::Widget_WasHidden_Params_Data::Validate,
+    { &internal::Widget_WasHidden_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Widget_WasShown_Params_Data::Validate,
+    { &internal::Widget_WasShown_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Widget_RequestSuccessfulPresentationTimeForNextFrame_Params_Data::Validate,
+    { &internal::Widget_RequestSuccessfulPresentationTimeForNextFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Widget_CancelSuccessfulPresentationTimeRequest_Params_Data::Validate,
+    { &internal::Widget_CancelSuccessfulPresentationTimeRequest_Params_Data::Validate,
      nullptr /* no response */},
 };
 

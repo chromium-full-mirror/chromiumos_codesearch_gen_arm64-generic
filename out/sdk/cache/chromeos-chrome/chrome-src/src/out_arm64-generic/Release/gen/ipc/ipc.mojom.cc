@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ Message::Message()
 
 Message::Message(
     std::vector<uint8_t> bytes_in,
-    absl::optional<std::vector<::mojo::native::SerializedHandlePtr>> handles_in)
+    std::optional<std::vector<::mojo::native::SerializedHandlePtr>> handles_in)
     : bytes(std::move(bytes_in)),
       handles(std::move(handles_in)) {}
 
@@ -71,7 +72,7 @@ void Message::WriteIntoTrace(
     dict.AddItem(
       "handles"), this->handles,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::mojo::native::SerializedHandlePtr>>>"
+      "<value of type std::optional<std::vector<::mojo::native::SerializedHandlePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -194,14 +195,17 @@ void ChannelProxy::SetPeerPid(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_SetPeerPid_Name, kFlags, 0, 0, nullptr);
@@ -232,14 +236,17 @@ void ChannelProxy::Receive(
                         "<value of type ::IPC::MessageView>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_Receive_Name, kFlags, 0, 0,
@@ -281,14 +288,17 @@ void ChannelProxy::GetAssociatedInterface(
                         "<value of type ::mojo::GenericPendingAssociatedReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_GetAssociatedInterface_Name, kFlags, 0, 0, nullptr);
@@ -425,14 +435,14 @@ bool ChannelStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChannelValidationInfo[] = {
-    {&internal::Channel_SetPeerPid_Params_Data::Validate,
+    { &internal::Channel_SetPeerPid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Channel_Receive_Params_Data::Validate,
+    { &internal::Channel_Receive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Channel_GetAssociatedInterface_Params_Data::Validate,
+    { &internal::Channel_GetAssociatedInterface_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -484,8 +494,8 @@ bool ChannelBootstrapStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool ChannelBootstrapRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::IPC::mojom::ChannelBootstrap::Name_;

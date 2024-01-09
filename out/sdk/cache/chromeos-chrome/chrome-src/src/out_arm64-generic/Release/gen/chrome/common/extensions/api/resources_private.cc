@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/resources_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,11 +37,11 @@ namespace resources_private {
 
 const char* ToString(Component enum_param) {
   switch (enum_param) {
-    case COMPONENT_IDENTITY:
+    case Component::kIdentity:
       return "identity";
-    case COMPONENT_PDF:
+    case Component::kPdf:
       return "pdf";
-    case COMPONENT_NONE:
+    case Component::kNone:
       return "";
   }
   NOTREACHED();
@@ -49,10 +50,10 @@ const char* ToString(Component enum_param) {
 
 Component ParseComponent(base::StringPiece enum_string) {
   if (enum_string == "identity")
-    return COMPONENT_IDENTITY;
+    return Component::kIdentity;
   if (enum_string == "pdf")
-    return COMPONENT_PDF;
-  return COMPONENT_NONE;
+    return Component::kPdf;
+  return Component::kNone;
 }
 
 std::u16string GetComponentParseError(base::StringPiece enum_string) {
@@ -69,13 +70,13 @@ namespace GetStrings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -85,16 +86,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* component_as_string = component_value.GetIfString();
       if (!component_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.component = ParseComponent(*component_as_string);
       if (params.component == Component()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -105,8 +106,8 @@ Results::Result::Result()
  {}
 
 Results::Result::~Result() = default;
-Results::Result::Result(Result&& rhs) = default;
-Results::Result& Results::Result::operator=(Result&& rhs) = default;
+Results::Result::Result(Result&& rhs) noexcept = default;
+Results::Result& Results::Result::operator=(Result&& rhs) noexcept = default;
 base::Value::Dict Results::Result::ToValue() const {
   base::Value::Dict to_value_result;
 

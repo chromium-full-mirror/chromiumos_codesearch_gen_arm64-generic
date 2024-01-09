@@ -60,8 +60,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -82,7 +83,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -99,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kHeightAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -121,7 +123,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -138,8 +140,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.videoWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->videoWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -152,8 +155,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.videoHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->videoHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -172,7 +176,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Pos
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetURLAttribute(html_names::kPosterAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -205,7 +209,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitSupportsFullscreen();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -224,7 +228,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitDisplayingFullscreen();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -245,7 +249,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDecodedFr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitDecodedFrameCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -268,7 +272,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDroppedFr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitDroppedFrameCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -283,8 +287,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.playsInline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kPlaysinlineAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -306,10 +311,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.onenterpictureinpicture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = HTMLVideoElementPictureInPicture::onenterpictureinpicture(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = HTMLVideoElementPictureInPicture::onenterpictureinpicture(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -322,8 +327,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 HTMLVideoElementPictureInPicture::setOnenterpictureinpicture(*blink_receiver, event_handler);
 }
 
@@ -334,10 +340,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.onleavepictureinpicture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = HTMLVideoElementPictureInPicture::onleavepictureinpicture(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = HTMLVideoElementPictureInPicture::onleavepictureinpicture(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -350,8 +356,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 HTMLVideoElementPictureInPicture::setOnleavepictureinpicture(*blink_receiver, event_handler);
 }
 
@@ -368,7 +375,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Dis
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLVideoElementPictureInPicture::FastHasAttribute(*blink_receiver, html_names::kDisablepictureinpictureAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -437,7 +444,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handle = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -463,7 +470,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Get
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLVideoElementMediaSource::getVideoPlaybackQuality(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -498,7 +505,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Req
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLVideoElementPictureInPicture::requestPictureInPicture(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -531,7 +538,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8VideoFrameRequestCallback>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_callback;
 if (LIKELY(info[0]->IsFunction())) {
   arg1_callback = V8VideoFrameRequestCallback::Create(info[0].As<v8::Function>());
@@ -565,14 +572,14 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("HTMLVideoElement.webkitEnterFullScreen", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "HTMLVideoElement.webkitEnterFullScreen", info); }
 
 
 
 
 
 
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->webkitEnterFullscreen();
 
 }
@@ -593,14 +600,14 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("HTMLVideoElement.webkitEnterFullscreen", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "HTMLVideoElement.webkitEnterFullscreen", info); }
 
 
 
 
 
 
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->webkitEnterFullscreen();
 
 }
@@ -622,7 +629,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->webkitExitFullscreen();
 
 }
@@ -644,7 +651,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(v8_receiver);
+HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->webkitExitFullscreen();
 
 }

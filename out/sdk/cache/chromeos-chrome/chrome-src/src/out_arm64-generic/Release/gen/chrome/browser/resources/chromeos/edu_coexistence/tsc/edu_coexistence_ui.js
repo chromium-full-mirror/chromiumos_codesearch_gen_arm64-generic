@@ -43,7 +43,7 @@ export class EduCoexistenceUi extends EduCoexistenceUiBase {
     }
     ready() {
         super.ready();
-        this.addWebUiListener('load-auth-extension', (data) => this.loadAuthExtension(data));
+        this.addWebUiListener('load-authenticator', (data) => this.loadAuthenticator(data));
         this.webview = this.$.signinFrame;
         this.webview.addEventListener('loadabort', () => {
             this.loading = false;
@@ -70,9 +70,9 @@ export class EduCoexistenceUi extends EduCoexistenceUiBase {
     closeDialog() {
         EduCoexistenceBrowserProxyImpl.getInstance().dialogClose();
     }
-    loadAuthExtension(data) {
+    loadAuthenticator(data) {
         // Set up the controller.
-        this.controller.loadAuthExtension(data);
+        this.controller.loadAuthenticator(data);
         this.webview.addEventListener('contentload', () => {
             this.loading = false;
             this.configureUiForGaiaFlow();

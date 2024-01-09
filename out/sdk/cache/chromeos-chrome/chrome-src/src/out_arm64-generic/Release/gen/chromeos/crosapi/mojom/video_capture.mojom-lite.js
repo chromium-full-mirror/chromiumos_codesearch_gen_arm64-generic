@@ -286,16 +286,32 @@ crosapi.mojom.VideoFrameHandlerRemote = class {
    * @param { !Array<!crosapi.mojom.ReadyFrameInBuffer> } scaledBuffers
    */
 
-  onFrameReadyInBuffer(
+  dEPRECATEDOnFrameReadyInBuffer(
       buffer,
       scaledBuffers) {
     this.proxy.sendMessage(
         1,
-        crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         [
           buffer,
           scaledBuffers
+        ]);
+  }
+
+  
+  /**
+   * @param { !crosapi.mojom.ReadyFrameInBuffer } buffer
+   */
+
+  onFrameReadyInBuffer(
+      buffer) {
+    this.proxy.sendMessage(
+        13,
+        crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        [
+          buffer
         ]);
   }
 
@@ -482,6 +498,11 @@ crosapi.mojom.VideoFrameHandlerReceiver = class {
         impl.onNewBuffer.bind(impl));
     this.helper_internal_.registerHandler(
         1,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        impl.dEPRECATEDOnFrameReadyInBuffer.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
         crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         impl.onFrameReadyInBuffer.bind(impl));
@@ -614,12 +635,24 @@ crosapi.mojom.VideoFrameHandlerCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onFrameReadyInBuffer =
+    this.dEPRECATEDOnFrameReadyInBuffer =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         1,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        this.dEPRECATEDOnFrameReadyInBuffer.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onFrameReadyInBuffer =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
         crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         this.onFrameReadyInBuffer.createReceiverHandler(false /* expectsResponse */));
@@ -1424,6 +1457,14 @@ crosapi.mojom.VideoFrameHandler_OnNewBuffer_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1941,8 +1982,8 @@ crosapi.mojom.VideoFrameHandler_OnNewBuffer_Params = class {
 
 
 mojo.internal.Struct(
-    crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
-    'VideoFrameHandler_OnFrameReadyInBuffer_Params',
+    crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+    'VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params',
     [
       mojo.internal.StructField(
         'buffer', 0,
@@ -1968,12 +2009,41 @@ mojo.internal.Struct(
 
 
 /** @record */
-crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_Params = class {
+crosapi.mojom.VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params = class {
   constructor() {
     /** @export { !crosapi.mojom.ReadyFrameInBuffer } */
     this.buffer;
     /** @export { !Array<!crosapi.mojom.ReadyFrameInBuffer> } */
     this.scaledBuffers;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+    'VideoFrameHandler_OnFrameReadyInBuffer_Params',
+    [
+      mojo.internal.StructField(
+        'buffer', 0,
+        0,
+        crosapi.mojom.ReadyFrameInBufferSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+crosapi.mojom.VideoFrameHandler_OnFrameReadyInBuffer_Params = class {
+  constructor() {
+    /** @export { !crosapi.mojom.ReadyFrameInBuffer } */
+    this.buffer;
   }
 };
 

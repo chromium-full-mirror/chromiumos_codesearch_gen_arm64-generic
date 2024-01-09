@@ -22,7 +22,7 @@ import { getTemplate } from './address_edit_dialog.html.js';
 import * as uiComponents from './address_edit_dialog_components.js';
 const SANCTOINED_COUNTRY_CODES = Object.freeze(['CU', 'IR', 'KP', 'SD', 'SY']);
 const AddressSource = chrome.autofillPrivate.AddressSource;
-const ServerFieldType = chrome.autofillPrivate.ServerFieldType;
+const FieldType = chrome.autofillPrivate.FieldType;
 const SettingsAddressEditDialogElementBase = I18nMixin(PolymerElement);
 export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogElementBase {
     constructor() {
@@ -95,16 +95,16 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
             this.originalAddressFields_ =
                 isEditingExistingAddress ? new Map(this.addressFields_) : undefined;
             microTask.run(() => {
-                const countryField = this.addressFields_.get(ServerFieldType.ADDRESS_HOME_COUNTRY);
+                const countryField = this.addressFields_.get(FieldType.ADDRESS_HOME_COUNTRY);
                 if (!countryField) {
                     assert(countryList.length > 0);
                     // If the address is completely empty, the dialog is creating a new
                     // address. The first address in the country list is what we suspect
                     // the user's country is.
-                    this.addressFields_.set(ServerFieldType.ADDRESS_HOME_COUNTRY, countryList[0].countryCode);
+                    this.addressFields_.set(FieldType.ADDRESS_HOME_COUNTRY, countryList[0].countryCode);
                 }
                 this.countryCode_ =
-                    this.addressFields_.get(ServerFieldType.ADDRESS_HOME_COUNTRY);
+                    this.addressFields_.get(FieldType.ADDRESS_HOME_COUNTRY);
             });
         });
         // Open is called on the dialog after the address wrapper has been
@@ -128,17 +128,16 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
             this.components_ = [];
             for (const row of format.components) {
                 // If this is the name field, add a honorific title row before it.
-                if (row.row[0].field === ServerFieldType.NAME_FULL &&
-                    this.showHonorific_) {
-                    this.components_.push([new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.NAME_HONORIFIC_PREFIX, this.i18n('honorificLabel'), 'long')]);
+                if (row.row[0].field === FieldType.NAME_FULL && this.showHonorific_) {
+                    this.components_.push([new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.NAME_HONORIFIC_PREFIX, this.i18n('honorificLabel'), 'long')]);
                 }
-                this.components_.push(row.row.map(component => new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, component.field, component.fieldName, component.isLongField ? 'long' : '', component.field === ServerFieldType.ADDRESS_HOME_STREET_ADDRESS, skipValidation, component.isRequired)));
+                this.components_.push(row.row.map(component => new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, component.field, component.fieldName, component.isLongField ? 'long' : '', component.field === FieldType.ADDRESS_HOME_STREET_ADDRESS, skipValidation, component.isRequired)));
             }
             // Phone and email do not come in the address format as fields, but
             // should be editable and saveable in the resulting address.
             this.components_.push([
-                new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.PHONE_HOME_WHOLE_NUMBER, this.i18n('addressPhone'), 'last-row'),
-                new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, ServerFieldType.EMAIL_ADDRESS, this.i18n('addressEmail'), 'long last-row'),
+                new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.PHONE_HOME_WHOLE_NUMBER, this.i18n('addressPhone'), 'last-row'),
+                new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.EMAIL_ADDRESS, this.i18n('addressEmail'), 'long last-row'),
             ]);
             // Because of potentially added honorific field the resulting components
             // structure my be different from the original format, that is why
@@ -288,7 +287,7 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
      * components for the new location.
      */
     onCountryCodeSelectChange_() {
-        this.addressFields_.set(ServerFieldType.ADDRESS_HOME_COUNTRY, this.$.country.value);
+        this.addressFields_.set(FieldType.ADDRESS_HOME_COUNTRY, this.$.country.value);
         this.countryCode_ = this.$.country.value;
     }
 }

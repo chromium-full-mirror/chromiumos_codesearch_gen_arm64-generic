@@ -278,8 +278,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'waitForDebugger', 40,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 48],]);
+    [[0, 56],]);
 
 
 
@@ -298,6 +306,8 @@ blink.mojom.WorkletGlobalScopeCreationParams = class {
     this.devtoolsToken;
     /** @export { !blink.mojom.WorkletDevToolsHostRemote } */
     this.devtoolsHost;
+    /** @export { !boolean } */
+    this.waitForDebugger;
   }
 };
 

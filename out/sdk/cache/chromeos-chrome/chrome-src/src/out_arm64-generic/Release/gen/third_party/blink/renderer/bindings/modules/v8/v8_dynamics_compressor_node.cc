@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DynamicsCompressorNode>::value,
     "DynamicsCompressorNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DynamicsCompressorNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DynamicsCompressorNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.threshold.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->threshold();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.knee.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->knee();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -121,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.ratio.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ratio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.reduction.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reduction();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -149,8 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.attack.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->attack();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -163,8 +163,9 @@ BLINK_BINDINGS_TRACE_EVENT("DynamicsCompressorNode.release.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(v8_receiver);
+DynamicsCompressorNode* blink_receiver = V8DynamicsCompressorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->release();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

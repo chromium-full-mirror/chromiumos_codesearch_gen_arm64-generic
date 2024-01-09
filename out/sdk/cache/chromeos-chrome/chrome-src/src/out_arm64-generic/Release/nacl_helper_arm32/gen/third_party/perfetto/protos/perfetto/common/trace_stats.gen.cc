@@ -238,10 +238,12 @@ bool TraceStats_FilterStats::operator==(const TraceStats_FilterStats& other) con
    && ::protozero::internal::gen_helpers::EqualsField(input_bytes_, other.input_bytes_)
    && ::protozero::internal::gen_helpers::EqualsField(output_bytes_, other.output_bytes_)
    && ::protozero::internal::gen_helpers::EqualsField(errors_, other.errors_)
-   && ::protozero::internal::gen_helpers::EqualsField(time_taken_ns_, other.time_taken_ns_);
+   && ::protozero::internal::gen_helpers::EqualsField(time_taken_ns_, other.time_taken_ns_)
+   && ::protozero::internal::gen_helpers::EqualsField(bytes_discarded_per_buffer_, other.bytes_discarded_per_buffer_);
 }
 
 bool TraceStats_FilterStats::ParseFromArray(const void* raw, size_t size) {
+  bytes_discarded_per_buffer_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -265,6 +267,10 @@ bool TraceStats_FilterStats::ParseFromArray(const void* raw, size_t size) {
         break;
       case 5 /* time_taken_ns */:
         field.get(&time_taken_ns_);
+        break;
+      case 20 /* bytes_discarded_per_buffer */:
+        bytes_discarded_per_buffer_.emplace_back();
+        field.get(&bytes_discarded_per_buffer_.back());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -312,6 +318,11 @@ void TraceStats_FilterStats::Serialize(::protozero::Message* msg) const {
     ::protozero::internal::gen_helpers::SerializeVarInt(5, time_taken_ns_, msg);
   }
 
+  // Field 20: bytes_discarded_per_buffer
+  for (auto& it : bytes_discarded_per_buffer_) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(20, it, msg);
+  }
+
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
 }
 
@@ -326,6 +337,7 @@ TraceStats_WriterStats& TraceStats_WriterStats::operator=(TraceStats_WriterStats
 bool TraceStats_WriterStats::operator==(const TraceStats_WriterStats& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(sequence_id_, other.sequence_id_)
+   && ::protozero::internal::gen_helpers::EqualsField(buffer_, other.buffer_)
    && ::protozero::internal::gen_helpers::EqualsField(chunk_payload_histogram_counts_, other.chunk_payload_histogram_counts_)
    && ::protozero::internal::gen_helpers::EqualsField(chunk_payload_histogram_sum_, other.chunk_payload_histogram_sum_);
 }
@@ -344,6 +356,9 @@ bool TraceStats_WriterStats::ParseFromArray(const void* raw, size_t size) {
     switch (field.id()) {
       case 1 /* sequence_id */:
         field.get(&sequence_id_);
+        break;
+      case 4 /* buffer */:
+        field.get(&buffer_);
         break;
       case 2 /* chunk_payload_histogram_counts */:
         if (!::protozero::internal::gen_helpers::DeserializePackedRepeated<::protozero::proto_utils::ProtoWireType::kVarInt, uint64_t>(field, &chunk_payload_histogram_counts_)) {
@@ -377,6 +392,11 @@ void TraceStats_WriterStats::Serialize(::protozero::Message* msg) const {
   // Field 1: sequence_id
   if (_has_field_[1]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(1, sequence_id_, msg);
+  }
+
+  // Field 4: buffer
+  if (_has_field_[4]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(4, buffer_, msg);
   }
 
   // Field 2: chunk_payload_histogram_counts

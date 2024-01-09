@@ -4,30 +4,41 @@
 /**
  * @fileoverview This is a data model representin
  */
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { FilesEventTarget } from './files_event_target.js';
+/**
+ * Default compare function.
+ */
+function defaultValuesCompareFunction(a, b) {
+    // We could insert i18n comparisons here.
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+}
 /**
  * A data model that wraps a simple array and supports sorting by storing
  * initial indexes of elements for each position in sorted array.
  */
-export class ArrayDataModel extends EventTarget {
+export class ArrayDataModel extends FilesEventTarget {
     /**
-     * @param {!Array<*>} array The underlying array.
+     * @param array The underlying array.
      */
-    constructor(array) {
+    constructor(array_) {
         super();
-        this.array_ = array;
+        this.array_ = array_;
         this.indexes_ = [];
         this.compareFunctions_ = {};
-        /** @type {?Object} */
-        this.sortStatus_;
-        for (let i = 0; i < array.length; i++) {
+        this.sortStatus_ = { field: null, direction: null };
+        for (let i = 0; i < this.array_.length; i++) {
             this.indexes_.push(i);
         }
     }
     /**
      * The length of the data model.
-     * @type {number}
      */
     get length() {
         return this.array_.length;
@@ -36,59 +47,49 @@ export class ArrayDataModel extends EventTarget {
      * Returns the item at the given index.
      * This implementation returns the item at the given index in the sorted
      * array.
-     * @param {number} index The index of the element to get.
-     * @return {*} The element at the given index.
+     * @param index The index of the element to get.
+     * @return The element at the given index.
      */
     item(index) {
         if (index >= 0 && index < this.length) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             return this.array_[this.indexes_[index]];
         }
         return undefined;
     }
     /**
      * Returns compare function set for given field.
-     * @param {string} field The field to get compare function for.
-     * @return {function(*, *): number} Compare function set for given field.
+     * @param field The field to get compare function for.
+     * @return Compare function set for given field.
      */
     compareFunction(field) {
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         return this.compareFunctions_[field];
     }
     /**
      * Sets compare function for given field.
-     * @param {string} field The field to set compare function.
-     * @param {function(*, *): number} compareFunction Compare function to set
-     *     for given field.
+     * @param field The field to set compare function.
+     * @param compareFunction Compare function to set for given field.
      */
     setCompareFunction(field, compareFunction) {
         if (!this.compareFunctions_) {
             this.compareFunctions_ = {};
         }
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         this.compareFunctions_[field] = compareFunction;
     }
     /**
      * Returns true if the field has a compare function.
-     * @param {string} field The field to check.
-     * @return {boolean} True if the field is sortable.
+     * @param field The field to check.
+     * @return True if the field is sortable.
      */
     isSortable(field) {
         return this.compareFunctions_ && field in this.compareFunctions_;
     }
     /**
      * Returns current sort status.
-     * @return {!Object} Current sort status.
+     * @return Current sort status.
      */
     get sortStatus() {
         if (this.sortStatus_) {
-            return this.createSortStatus(
-            // @ts-ignore: error TS2339: Property 'direction' does not exist on
-            // type 'Object'.
-            this.sortStatus_.field, this.sortStatus_.direction);
+            return this.createSortStatus(this.sortStatus_.field, this.sortStatus_.direction);
         }
         else {
             return this.createSortStatus(null, null);
@@ -96,13 +97,12 @@ export class ArrayDataModel extends EventTarget {
     }
     /**
      * Returns the first matching item.
-     * @param {*} item The item to find.
-     * @param {number=} opt_fromIndex If provided, then the searching start at
-     *     the {@code opt_fromIndex}.
-     * @return {number} The index of the first found element or -1 if not found.
+     * @param item The item to find.
+     * @param fromIndex If provided, then the searching start at the fromIndex.
+     * @return The index of the first found element or -1 if not found.
      */
-    indexOf(item, opt_fromIndex) {
-        for (let i = opt_fromIndex || 0; i < this.indexes_.length; i++) {
+    indexOf(item, fromIndex) {
+        for (let i = fromIndex || 0; i < this.indexes_.length; i++) {
             if (item === this.item(i)) {
                 return i;
             }
@@ -111,13 +111,13 @@ export class ArrayDataModel extends EventTarget {
     }
     /**
      * Returns an array of elements in a selected range.
-     * @param {number=} opt_from The starting index of the selected range.
-     * @param {number=} opt_to The ending index of selected range.
-     * @return {!Array<*>} An array of elements in the selected range.
+     * @param from The starting index of the selected range.
+     * @param to The ending index of selected range.
+     * @return An array of elements in the selected range.
      */
-    slice(opt_from, opt_to) {
+    slice(from, to) {
         const arr = this.array_;
-        return this.indexes_.slice(opt_from, opt_to).map(function (index) {
+        return this.indexes_.slice(from, to).map(function (index) {
             return arr[index];
         });
     }
@@ -126,15 +126,13 @@ export class ArrayDataModel extends EventTarget {
      * This dispatches a splice event.
      * This implementation runs sort after splice and creates permutation for
      * the whole change.
-     * @param {number} index The index of the item to update.
-     * @param {number} deleteCount The number of items to remove.
-     * @param {...*} var_args The items to add.
-     * @return {!Array<*>} An array with the removed items.
+     * @param index The index of the item to update.
+     * @param deleteCount The number of items to remove.
+     * @param itemsToAdd The items to add.
+     * @return An array with the removed items.
      */
-    // @ts-ignore: error TS6133: 'var_args' is declared but its value is never
-    // read.
-    splice(index, deleteCount, ...var_args) {
-        const addCount = arguments.length - 2;
+    splice(index, deleteCount, ...itemsToAdd) {
+        const addCount = itemsToAdd.length;
         const newIndexes = [];
         const deletePermutation = [];
         const deletedItems = [];
@@ -146,15 +144,11 @@ export class ArrayDataModel extends EventTarget {
         for (i = 0; i < index; i++) {
             newIndexes.push(newArray.length);
             deletePermutation.push(i);
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             newArray.push(this.array_[this.indexes_[i]]);
         }
         // Delete items.
         for (; i < index + deleteCount; i++) {
             deletePermutation.push(-1);
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             deletedItems.push(this.array_[this.indexes_[i]]);
         }
         // Insert new items instead deleted ones.
@@ -166,51 +160,33 @@ export class ArrayDataModel extends EventTarget {
         for (; i < this.indexes_.length; i++) {
             newIndexes.push(newArray.length);
             deletePermutation.push(i - deleteCount + addCount);
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             newArray.push(this.array_[this.indexes_[i]]);
         }
         this.indexes_ = newIndexes;
         this.array_ = newArray;
         // TODO(arv): Maybe unify splice and change events?
-        const spliceEvent = new Event('splice');
-        // @ts-ignore: error TS2339: Property 'removed' does not exist on type
-        // 'Event'.
-        spliceEvent.removed = deletedItems;
-        // @ts-ignore: error TS2339: Property 'added' does not exist on type
-        // 'Event'.
-        spliceEvent.added = Array.prototype.slice.call(arguments, 2);
+        const spliceEventDetail = {
+            removed: deletedItems,
+            added: itemsToAdd,
+        };
         const status = this.sortStatus;
         // if sortStatus.field is null, this restores original order.
-        const sortPermutation = 
-        // @ts-ignore: error TS2339: Property 'direction' does not exist on type
-        // 'Object'.
-        this.doSort_(this.sortStatus.field, this.sortStatus.direction);
+        const sortPermutation = this.doSort_(this.sortStatus.field, this.sortStatus.direction);
         if (sortPermutation) {
             const splicePermutation = deletePermutation.map(function (element) {
                 return element !== -1 ? sortPermutation[element] : -1;
             });
             this.dispatchPermutedEvent_(splicePermutation);
-            // @ts-ignore: error TS2339: Property 'index' does not exist on type
-            // 'Event'.
-            spliceEvent.index = sortPermutation[index];
+            spliceEventDetail.index = sortPermutation[index];
         }
         else {
             this.dispatchPermutedEvent_(deletePermutation);
-            // @ts-ignore: error TS2339: Property 'index' does not exist on type
-            // 'Event'.
-            spliceEvent.index = index;
+            spliceEventDetail.index = index;
         }
-        this.dispatchEvent(spliceEvent);
-        // If real sorting is needed, we should first call prepareSort (data may
-        // change), and then sort again.
+        this.dispatchEvent(new CustomEvent('splice', { detail: spliceEventDetail }));
         // Still need to finish the sorting above (including events), so
         // list will not go to inconsistent state.
-        // @ts-ignore: error TS2339: Property 'field' does not exist on type
-        // 'Object'.
         if (status.field) {
-            // @ts-ignore: error TS2339: Property 'direction' does not exist on type
-            // 'Object'.
             this.delayedSort_(status.field, status.direction);
         }
         return deletedItems;
@@ -220,18 +196,11 @@ export class ArrayDataModel extends EventTarget {
      *
      * This dispatches a splice event.
      *
-     * @param {...*} var_args The items to append.
-     * @return {number} The new length of the model.
+     * @param itemsToAppend The items to append.
+     * @return The new length of the model.
      */
-    // @ts-ignore: error TS6133: 'var_args' is declared but its value is never
-    // read.
-    push(...var_args) {
-        const args = Array.prototype.slice.call(arguments);
-        args.unshift(this.length, 0);
-        // @ts-ignore: error TS2345: Argument of type 'any[]' is not assignable to
-        // parameter of type '[index: number, deleteCount: number, ...var_args:
-        // any[]]'.
-        this.splice.apply(this, args);
+    push(...itemsToAppend) {
+        this.splice(this.length, 0, ...itemsToAppend);
         return this.length;
     }
     /**
@@ -240,17 +209,15 @@ export class ArrayDataModel extends EventTarget {
      * The existing item and the new item are regarded as the same item and the
      * permutation tracks these indexes.
      *
-     * @param {*} oldItem Old item that is contained in the model. If the item
-     *     is not found in the model, the method call is just ignored.
-     * @param {*} newItem New item.
+     * @param oldItem Old item that is contained in the model. If the item is not
+     *     found in the model, the method call is just ignored.
+     * @param newItem New item.
      */
     replaceItem(oldItem, newItem) {
         const index = this.indexOf(oldItem);
         if (index < 0) {
             return;
         }
-        // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-        // type.
         this.array_[this.indexes_[index]] = newItem;
         this.updateIndex(index);
     }
@@ -259,7 +226,7 @@ export class ArrayDataModel extends EventTarget {
      * reinsert a new item.
      * This dispatches a change event.
      * This runs sort after updating.
-     * @param {number} index The index of the item to update.
+     * @param index The index of the item to update.
      */
     updateIndex(index) {
         this.updateIndexes([index]);
@@ -269,113 +236,75 @@ export class ArrayDataModel extends EventTarget {
      * reinsert new items.
      * This dispatches one or more change events.
      * This runs sort after updating.
-     * @param {Array<number>} indexes The index list of items to update.
+     * @param indexes The index list of items to update.
      */
     updateIndexes(indexes) {
-        indexes.forEach(function (index) {
-            // @ts-ignore: error TS2683: 'this' implicitly has type 'any' because it
-            // does not have a type annotation.
+        indexes.forEach(index => {
             assert(index >= 0 && index < this.length, 'Invalid index');
-        }, this);
-        for (let i = 0; i < indexes.length; i++) {
-            const e = new Event('change');
-            // @ts-ignore: error TS2339: Property 'index' does not exist on type
-            // 'Event'.
-            e.index = indexes[i];
+        });
+        for (const index of indexes) {
+            const e = new CustomEvent('change', { detail: { index } });
             this.dispatchEvent(e);
         }
-        // @ts-ignore: error TS2339: Property 'field' does not exist on type
-        // 'Object'.
-        if (this.sortStatus.field) {
-            const status = this.sortStatus;
-            const sortPermutation = 
-            // @ts-ignore: error TS2339: Property 'direction' does not exist on
-            // type 'Object'.
-            this.doSort_(this.sortStatus.field, this.sortStatus.direction);
-            if (sortPermutation) {
-                this.dispatchPermutedEvent_(sortPermutation);
-            }
-            // We should first call prepareSort (data may change), and then sort.
-            // Still need to finish the sorting above (including events), so
-            // list will not go to inconsistent state.
-            // @ts-ignore: error TS2339: Property 'direction' does not exist on type
-            // 'Object'.
-            this.delayedSort_(status.field, status.direction);
+        if (!this.sortStatus.field) {
+            return;
         }
+        const status = this.sortStatus;
+        const sortPermutation = this.doSort_(this.sortStatus.field, this.sortStatus.direction);
+        if (sortPermutation) {
+            this.dispatchPermutedEvent_(sortPermutation);
+        }
+        // Still need to finish the sorting above (including events), so
+        // list will not go to inconsistent state.
+        this.delayedSort_(status.field, status.direction);
     }
     /**
      * Creates sort status with given field and direction.
-     * @param {?string} field Sort field.
-     * @param {?string} direction Sort direction.
-     * @return {!Object} Created sort status.
+     * @param field Sort field.
+     * @param direction Sort direction.
+     * @return Created sort status.
      */
     createSortStatus(field, direction) {
         return { field: field, direction: direction };
     }
     /**
-     * Called before a sort happens so that you may fetch additional data
-     * required for the sort.
-     *
-     * @param {string} field Sort field.
-     * @param {function():void} callback The function to invoke when preparation
-     *     is complete.
-     */
-    // @ts-ignore: error TS6133: 'field' is declared but its value is never read.
-    prepareSort(field, callback) {
-        callback();
-    }
-    /**
      * Sorts data model according to given field and direction and dispatches
      * sorted event with delay. If no need to delay, use sort() instead.
-     * @param {string} field Sort field.
-     * @param {string} direction Sort direction.
-     * @private
+     * @param field Sort field.
+     * @param direction Sort direction.
      */
     delayedSort_(field, direction) {
-        const self = this;
-        setTimeout(function () {
+        setTimeout(() => {
             // If the sort status has been changed, sorting has already done
             // on the change event.
-            // @ts-ignore: error TS2339: Property 'field' does not exist on type
-            // 'Object'.
-            if (field === self.sortStatus.field &&
-                // @ts-ignore: error TS2339: Property 'direction' does not exist on
-                // type 'Object'.
-                direction === self.sortStatus.direction) {
-                self.sort(field, direction);
+            if (field === this.sortStatus.field &&
+                direction === this.sortStatus.direction) {
+                this.sort(field, direction);
             }
         }, 0);
     }
     /**
      * Sorts data model according to given field and direction and dispatches
      * sorted event.
-     * @param {string} field Sort field.
-     * @param {string} direction Sort direction.
+     * @param field Sort field.
+     * @param direction Sort direction.
      */
     sort(field, direction) {
-        const self = this;
-        this.prepareSort(field, function () {
-            const sortPermutation = self.doSort_(field, direction);
-            if (sortPermutation) {
-                self.dispatchPermutedEvent_(sortPermutation);
-            }
-            self.dispatchSortEvent_();
-        });
+        const sortPermutation = this.doSort_(field, direction);
+        if (sortPermutation) {
+            this.dispatchPermutedEvent_(sortPermutation);
+        }
+        this.dispatchSortEvent_();
     }
     /**
      * Sorts data model according to given field and direction.
-     * @param {string} field Sort field.
-     * @param {string} direction Sort direction.
-     * @private
+     * @param field Sort field.
+     * @param direction Sort direction.
      */
     doSort_(field, direction) {
         const compareFunction = this.sortFunction_(field, direction);
-        // @ts-ignore: error TS7034: Variable 'positions' implicitly has type
-        // 'any[]' in some locations where its type cannot be determined.
         const positions = [];
         for (let i = 0; i < this.length; i++) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             positions[this.indexes_[i]] = i;
         }
         const sorted = this.indexes_.every(function (element, index, array) {
@@ -388,13 +317,9 @@ export class ArrayDataModel extends EventTarget {
         const sortPermutation = [];
         let changed = false;
         for (let i = 0; i < this.length; i++) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             if (positions[this.indexes_[i]] !== i) {
                 changed = true;
             }
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
             sortPermutation[positions[this.indexes_[i]]] = i;
         }
         if (changed) {
@@ -406,92 +331,50 @@ export class ArrayDataModel extends EventTarget {
         const e = new Event('sorted');
         this.dispatchEvent(e);
     }
-    // @ts-ignore: error TS7006: Parameter 'permutation' implicitly has an 'any'
-    // type.
     dispatchPermutedEvent_(permutation) {
-        const e = new Event('permuted');
-        // @ts-ignore: error TS2339: Property 'permutation' does not exist on type
-        // 'Event'.
-        e.permutation = permutation;
-        // @ts-ignore: error TS2339: Property 'newLength' does not exist on type
-        // 'Event'.
-        e.newLength = this.length;
+        const e = new CustomEvent('permuted', { detail: { permutation, newLength: this.length } });
         this.dispatchEvent(e);
     }
     /**
      * Creates compare function for the field.
-     * Returns the function set as sortFunction for given field
-     * or default compare function
-     * @param {string} field Sort field.
-     * @return {function(*, *): number} Compare function.
-     * @private
+     * Returns the function set as sortFunction for given field or default compare
+     * function
+     * @param field Sort field.
+     * @return Compare function.
      */
     createCompareFunction_(field) {
-        const compareFunction = 
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-        // because expression of type 'string' can't be used to index type '{}'.
-        this.compareFunctions_ ? this.compareFunctions_[field] : null;
-        const defaultValuesCompareFunction = this.defaultValuesCompareFunction;
+        const compareFunction = this.compareFunctions_ ? this.compareFunctions_[field] : null;
         if (compareFunction) {
             return compareFunction;
         }
         else {
             return function (a, b) {
-                return defaultValuesCompareFunction.call(null, a[field], b[field]);
+                return defaultValuesCompareFunction(a[field], b[field]);
             };
         }
     }
     /**
      * Creates compare function for given field and direction.
-     * @param {string} field Sort field.
-     * @param {string} direction Sort direction.
-     * @private
+     * @param field Sort field.
+     * @param direction Sort direction.
      */
     sortFunction_(field, direction) {
-        // @ts-ignore: error TS7034: Variable 'compareFunction' implicitly has type
-        // 'any' in some locations where its type cannot be determined.
         let compareFunction = null;
         if (field !== null) {
             compareFunction = this.createCompareFunction_(field);
         }
         const dirMultiplier = direction === 'desc' ? -1 : 1;
-        // @ts-ignore: error TS7006: Parameter 'index2' implicitly has an 'any'
-        // type.
-        return function (index1, index2) {
-            // @ts-ignore: error TS2683: 'this' implicitly has type 'any' because it
-            // does not have a type annotation.
+        return (index1, index2) => {
             const item1 = this.array_[index1];
-            // @ts-ignore: error TS2683: 'this' implicitly has type 'any' because it
-            // does not have a type annotation.
             const item2 = this.array_[index2];
             let compareResult = 0;
-            // @ts-ignore: error TS7005: Variable 'compareFunction' implicitly has an
-            // 'any' type.
             if (typeof (compareFunction) === 'function') {
-                // @ts-ignore: error TS7005: Variable 'compareFunction' implicitly has
-                // an 'any' type.
-                compareResult = compareFunction.call(null, item1, item2);
+                compareResult = compareFunction(item1, item2);
             }
             if (compareResult !== 0) {
                 return dirMultiplier * compareResult;
             }
-            // @ts-ignore: error TS2683: 'this' implicitly has type 'any' because it
-            // does not have a type annotation.
-            return dirMultiplier * this.defaultValuesCompareFunction(index1, index2);
-        }.bind(this);
-    }
-    /**
-     * Default compare function.
-     */
-    // @ts-ignore: error TS7006: Parameter 'b' implicitly has an 'any' type.
-    defaultValuesCompareFunction(a, b) {
-        // We could insert i18n comparisons here.
-        if (a < b) {
-            return -1;
-        }
-        if (a > b) {
-            return 1;
-        }
-        return 0;
+            return dirMultiplier * defaultValuesCompareFunction(index1, index2);
+        };
     }
 }

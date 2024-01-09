@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/webapk.mojom-features.h"
 #include "ash/components/arc/mojom/webapk.mojom-shared.h"
 #include "ash/components/arc/mojom/webapk.mojom-forward.h"
 #include <string>
@@ -196,12 +197,12 @@ class  WebShareTargetInfo {
   WebShareTargetInfo();
 
   WebShareTargetInfo(
-      const absl::optional<std::string>& action,
-      const absl::optional<std::string>& method,
-      const absl::optional<std::string>& enctype,
-      const absl::optional<std::string>& param_title,
-      const absl::optional<std::string>& param_text,
-      const absl::optional<std::string>& param_url,
+      const std::optional<std::string>& action,
+      const std::optional<std::string>& method,
+      const std::optional<std::string>& enctype,
+      const std::optional<std::string>& param_title,
+      const std::optional<std::string>& param_text,
+      const std::optional<std::string>& param_url,
       std::vector<std::string> file_names,
       std::vector<std::vector<std::string>> file_accepts);
 
@@ -281,17 +282,17 @@ class  WebShareTargetInfo {
   }
 
   
-  absl::optional<std::string> action;
+  std::optional<std::string> action;
   
-  absl::optional<std::string> method;
+  std::optional<std::string> method;
   
-  absl::optional<std::string> enctype;
+  std::optional<std::string> enctype;
   
-  absl::optional<std::string> param_title;
+  std::optional<std::string> param_title;
   
-  absl::optional<std::string> param_text;
+  std::optional<std::string> param_text;
   
-  absl::optional<std::string> param_url;
+  std::optional<std::string> param_url;
   
   std::vector<std::string> file_names;
   

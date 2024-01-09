@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-fs", "name": "lvm2", "version": "2.03.21", "revision": 1, "fullname": "sys-fs/lvm2", "fullnamerev": "sys-fs/lvm2-2.03.21-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://sourceware.org/lvm2/"], "skip": false, "tainted": false, "ebuild_path": null}

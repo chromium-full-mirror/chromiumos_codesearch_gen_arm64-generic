@@ -3,17 +3,21 @@
 // found in the LICENSE file.
 import { assert, assertEnumVariant, assertExists, assertInstanceof, } from '../assert.js';
 import { queuedAsyncCallback } from '../async_job_queue.js';
+import * as barcodeChip from '../barcode_chip.js';
 import * as dom from '../dom.js';
 import { reportError } from '../error.js';
 import * as expert from '../expert.js';
 import { FaceOverlay } from '../face.js';
+import { Flag } from '../flag.js';
 import { Point } from '../geometry.js';
+import { BarcodeScanner } from '../models/barcode.js';
+import * as loadTimeData from '../models/load_time_data.js';
 import { DeviceOperator, parseMetadata } from '../mojo/device_operator.js';
 import { AndroidControlAeAntibandingMode, AndroidControlAeMode, AndroidControlAeState, AndroidControlAfMode, AndroidControlAfState, AndroidControlAwbMode, AndroidControlAwbState, AndroidStatisticsFaceDetectMode, CameraMetadataTag, StreamType, } from '../mojo/type.js';
 import { closeEndpoint, } from '../mojo/util.js';
 import * as nav from '../nav.js';
 import * as state from '../state.js';
-import { ErrorLevel, ErrorType, Facing, getVideoTrackSettings, PreviewVideo, Resolution, } from '../type.js';
+import { ErrorLevel, ErrorType, Facing, getVideoTrackSettings, Mode, PreviewVideo, Resolution, } from '../type.js';
 import * as util from '../util.js';
 import { WaitableEvent } from '../waitable_event.js';
 import { toMediaStreamConstraints, } from './stream_constraints.js';
@@ -30,6 +34,10 @@ export class Preview {
          * Video element to capture the stream.
          */
         this.video = dom.get('#preview-video', HTMLVideoElement);
+        /**
+         * A barcode scanner to detect barcodes. Only used in Photo mode.
+         */
+        this.barcodeScanner = null;
         /**
          * The observer endpoint for preview metadata.
          */
@@ -65,7 +73,15 @@ export class Preview {
         this.constraints = null;
         this.onPreviewExpired = null;
         this.enableFaceOverlay = false;
+        this.autoQRFlag = loadTimeData.getChromeFlag(Flag.AUTO_QR);
         expert.addObserver(expert.ExpertOption.SHOW_METADATA, queuedAsyncCallback('keepLatest', () => this.updateShowMetadata()));
+        // Reset the auto QR code scanner timer after taking a photo
+        state.addObserver(state.State.TAKING, (taking, _) => {
+            if (!state.get(Mode.PHOTO) || taking) {
+                return;
+            }
+            this.barcodeScanner?.resetTimer();
+        });
     }
     getVideo() {
         return new PreviewVideo(this.video, assertExists(this.onPreviewExpired));
@@ -278,6 +294,13 @@ export class Preview {
             assert(this.onPreviewExpired === null || this.onPreviewExpired.isSignaled());
             this.onPreviewExpired = new WaitableEvent();
             state.set(state.State.STREAMING, true);
+            // Enable auto QR code scanner in Photo mode preview
+            if (state.get(Mode.PHOTO) && this.autoQRFlag) {
+                this.barcodeScanner = new BarcodeScanner(this.video, (value) => {
+                    barcodeChip.show(value);
+                });
+                this.barcodeScanner?.resetTimer();
+            }
         }
         catch (e) {
             await this.close();
@@ -289,6 +312,8 @@ export class Preview {
      * Closes the preview.
      */
     async close() {
+        this.barcodeScanner?.stop();
+        this.barcodeScanner = null;
         this.clearWatchdog();
         // Pause video element to avoid black frames during transition.
         this.video.pause();
@@ -298,6 +323,7 @@ export class Preview {
             const track = this.getVideoTrack();
             const { deviceId } = getVideoTrackSettings(track);
             track.stop();
+            this.streamInternal.getAudioTracks()[0]?.stop();
             const deviceOperator = DeviceOperator.getInstance();
             await deviceOperator?.dropConnection(deviceId);
             assert(this.onPreviewExpired !== null);

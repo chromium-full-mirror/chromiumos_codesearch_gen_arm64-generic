@@ -28,17 +28,13 @@ build libcros_installer: phony ./libcros_installer.a
 build postinst_script_symlink: phony obj/installer/postinst_script_symlink.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build sbin_scripts: phony obj/installer/sbin_scripts.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build installer$:_cros_installer-install_config: phony obj/installer/_cros_installer-install_config.stamp
 build installer$:_evwaitkey-install_config: phony obj/installer/_evwaitkey-install_config.stamp
 build installer$:_postinst_script_symlink-0-install_config: phony obj/installer/_postinst_script_symlink-0-install_config.stamp
 build installer$:all: phony obj/installer/all.stamp
 build installer$:chromeos_install_script: phony obj/installer/chromeos_install_script.stamp
 build installer$:cros_installer: phony ./cros_installer
-build installer$:cros_installer_test: phony ./cros_installer_test
 build installer$:crx_import_script: phony obj/installer/crx_import_script.stamp
 build installer$:evwaitkey: phony ./evwaitkey
 build installer$:init_confs: phony obj/installer/init_confs.stamp
@@ -48,14 +44,12 @@ build installer$:sbin_scripts: phony obj/installer/sbin_scripts.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/installer/_cros_installer-install_config.stamp $
     obj/installer/_evwaitkey-install_config.stamp $
     obj/installer/_postinst_script_symlink-0-install_config.stamp $
     obj/installer/all.stamp $
     obj/installer/chromeos_install_script.stamp $
     ./cros_installer $
-    ./cros_installer_test $
     obj/installer/crx_import_script.stamp $
     ./evwaitkey $
     obj/installer/init_confs.stamp $

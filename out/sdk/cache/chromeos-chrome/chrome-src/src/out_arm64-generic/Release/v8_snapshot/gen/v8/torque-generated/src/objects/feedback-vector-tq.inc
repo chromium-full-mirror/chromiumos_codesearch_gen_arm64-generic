@@ -1,13 +1,13 @@
 class FeedbackVector;
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=35&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=36&c=1
 template <class D, class P>
 class TorqueGeneratedClosureFeedbackCellArrayAsserts {
   static constexpr int kStartOfStrongFieldsOffset = P::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=37&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=9
   static constexpr int kCapacityOffset = P::kHeaderSize;
   static constexpr int kCapacityOffsetEnd = kCapacityOffset + kTaggedSize - 1;
   static constexpr int kHeaderSize = kCapacityOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=39&c=3
   static constexpr int kObjectsOffset = kCapacityOffsetEnd + 1;
   static constexpr int kObjectsOffsetEnd = kObjectsOffset + 0 - 1;
   static constexpr int kEndOfStrongFieldsOffset = kObjectsOffsetEnd + 1;
@@ -21,10 +21,10 @@ class TorqueGeneratedClosureFeedbackCellArrayAsserts {
 };
 
 // Alias for IsFeedbackVector() that avoids inlining.
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
 V8_EXPORT_PRIVATE bool IsFeedbackVector_NonInline(Tagged<HeapObject> o);
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
 template <class D, class P>
 class TorqueGeneratedFeedbackVector : public P {
   static_assert(
@@ -38,20 +38,20 @@ class TorqueGeneratedFeedbackVector : public P {
   using Super = P;
   using TorqueGeneratedClass = TorqueGeneratedFeedbackVector<D,P>;
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=43&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=9
   inline int32_t length() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=43&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=9
   inline void set_length(int32_t value);
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=45&c=3
   inline int32_t invocation_count() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=45&c=3
   inline void set_invocation_count(int32_t value);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=47&c=3
-  inline uint8_t placeholder0() const;
+  inline uint8_t invocation_count_before_stable() const;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=47&c=3
-  inline void set_placeholder0(uint8_t value);
+  inline void set_invocation_count_before_stable(uint8_t value);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=48&c=3
   inline uint8_t osr_state() const;
@@ -100,9 +100,9 @@ class TorqueGeneratedFeedbackVector : public P {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=54&c=19
   inline void set_raw_feedback_slots(int i, MaybeObject value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
   V8_INLINE static Tagged<D> cast(Tagged<Object> object);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
   V8_INLINE static Tagged<D> unchecked_cast(Tagged<Object> object) {
     return Tagged<D>::unchecked_cast(object);
   }
@@ -110,21 +110,21 @@ class TorqueGeneratedFeedbackVector : public P {
   DECL_PRINTER(FeedbackVector)
 
 #ifdef VERIFY_HEAP
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
   V8_EXPORT_PRIVATE void FeedbackVectorVerify(Isolate* isolate);
 #endif  // VERIFY_HEAP
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=43&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=9
   static constexpr int kLengthOffset = P::kHeaderSize;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kInt32Size - 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=45&c=3
   static constexpr int kInvocationCountOffset = kLengthOffsetEnd + 1;
   static constexpr int kInvocationCountOffsetEnd = kInvocationCountOffset + kInt32Size - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=47&c=3
-  static constexpr int kPlaceholder0Offset = kInvocationCountOffsetEnd + 1;
-  static constexpr int kPlaceholder0OffsetEnd = kPlaceholder0Offset + kUInt8Size - 1;
+  static constexpr int kInvocationCountBeforeStableOffset = kInvocationCountOffsetEnd + 1;
+  static constexpr int kInvocationCountBeforeStableOffsetEnd = kInvocationCountBeforeStableOffset + kUInt8Size - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=48&c=3
-  static constexpr int kOsrStateOffset = kPlaceholder0OffsetEnd + 1;
+  static constexpr int kOsrStateOffset = kInvocationCountBeforeStableOffsetEnd + 1;
   static constexpr int kOsrStateOffsetEnd = kOsrStateOffset + kUInt8Size - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=49&c=3
   static constexpr int kFlagsOffset = kOsrStateOffsetEnd + 1;
@@ -150,14 +150,14 @@ class TorqueGeneratedFeedbackVector : public P {
   static constexpr int kRawFeedbackSlotsOffsetEnd = kRawFeedbackSlotsOffset + 0 - 1;
   static constexpr int kEndOfWeakFieldsOffset = kRawFeedbackSlotsOffsetEnd + 1;
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
   V8_INLINE static constexpr int32_t SizeFor(int length) {
     int32_t size = kHeaderSize;
     size += length * 4;
     return size;
   }
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
   V8_INLINE int32_t AllocatedSize() const {
     return SizeFor(this->length());
   }

@@ -400,6 +400,27 @@ chromeos.networkConfig.mojom.ApnType = {
   MAX_VALUE: 2,
 };
 
+goog.provide('chromeos.networkConfig.mojom.SuppressionType');
+goog.provide('chromeos.networkConfig.mojom.SuppressionTypeSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+chromeos.networkConfig.mojom.SuppressionTypeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+chromeos.networkConfig.mojom.SuppressionType = {
+  
+  kUnset: 0,
+  kAllow: 1,
+  kSuppress: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 goog.provide('chromeos.networkConfig.mojom.TrafficCounterSource');
 goog.provide('chromeos.networkConfig.mojom.TrafficCounterSourceSpec');
 /**
@@ -670,6 +691,9 @@ chromeos.networkConfig.mojom.CrosNetworkConfigInterface = class {
   /**
    * @param { !string } networkGuid
    * @param { !chromeos.networkConfig.mojom.ApnProperties } apn
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
    */
 
   createCustomApn(networkGuid, apn) {}
@@ -1162,15 +1186,18 @@ chromeos.networkConfig.mojom.CrosNetworkConfigRemote = class {
   /**
    * @param { !string } networkGuid
    * @param { !chromeos.networkConfig.mojom.ApnProperties } apn
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
    */
 
   createCustomApn(
       networkGuid,
       apn) {
-    this.proxy.sendMessage(
+    return this.proxy.sendMessage(
         24,
         chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ParamsSpec.$,
-        null,
+        chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$,
         [
           networkGuid,
           apn
@@ -1361,7 +1388,7 @@ chromeos.networkConfig.mojom.CrosNetworkConfigReceiver = class {
     this.helper_internal_.registerHandler(
         24,
         chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ParamsSpec.$,
-        null,
+        chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$,
         impl.createCustomApn.bind(impl));
     this.helper_internal_.registerHandler(
         25,
@@ -1723,8 +1750,8 @@ chromeos.networkConfig.mojom.CrosNetworkConfigCallbackRouter = class {
     this.helper_internal_.registerHandler(
         24,
         chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ParamsSpec.$,
-        null,
-        this.createCustomApn.createReceiverHandler(false /* expectsResponse */));
+        chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$,
+        this.createCustomApn.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -3073,6 +3100,14 @@ goog.provide('chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_Par
 chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('chromeos.networkConfig.mojom.CrosNetworkConfig_RemoveCustomApn_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -3912,6 +3947,14 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'isCarrierLocked', 32,
+        3,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 80],]);
 
@@ -3948,6 +3991,8 @@ chromeos.networkConfig.mojom.DeviceStateProperties = class {
     this.managedNetworkAvailable;
     /** @export { (string|undefined) } */
     this.serial;
+    /** @export { !boolean } */
+    this.isCarrierLocked;
   }
 };
 
@@ -8541,6 +8586,14 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'allowTextMessages', 4,
+        0,
+        chromeos.networkConfig.mojom.SuppressionTypeSpec.$,
+        chromeos.networkConfig.mojom.SuppressionType.kUnset,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 24],]);
 
@@ -8573,6 +8626,8 @@ chromeos.networkConfig.mojom.GlobalPolicy = class {
     this.recommendedValuesAreEphemeral;
     /** @export { !boolean } */
     this.userCreatedNetworkConfigurationsAreEphemeral;
+    /** @export { !chromeos.networkConfig.mojom.SuppressionType } */
+    this.allowTextMessages;
   }
 };
 
@@ -10155,6 +10210,35 @@ chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_Params = class {
     this.networkGuid;
     /** @export { !chromeos.networkConfig.mojom.ApnProperties } */
     this.apn;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$,
+    'CrosNetworkConfig_CreateCustomApn_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParams');
+
+/** @record */
+chromeos.networkConfig.mojom.CrosNetworkConfig_CreateCustomApn_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.success;
   }
 };
 

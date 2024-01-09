@@ -36,6 +36,8 @@ using SpellCheckResultPtr = mojo::StructPtr<SpellCheckResult>;
 
 class SpellChecker;
 
+class SpellCheckInitializationHost;
+
 class SpellCheckHost;
 
 

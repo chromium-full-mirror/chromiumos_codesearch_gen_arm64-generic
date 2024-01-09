@@ -28,6 +28,7 @@ export var ConnectResult;
     ConnectResult[ConnectResult["INVALID_ARGS"] = 15] = "INVALID_ARGS";
 })(ConnectResult || (ConnectResult = {}));
 export class AdvertisementPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -36,6 +37,9 @@ export class AdvertisementPendingReceiver {
     }
 }
 export class AdvertisementRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(AdvertisementPendingReceiver, handle);
@@ -53,6 +57,9 @@ export class AdvertisementRemote {
  * interface.
  */
 export class AdvertisementReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdvertisementRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -82,6 +89,11 @@ export class Advertisement {
  * receiver can have any number of listeners added to it.
  */
 export class AdvertisementCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    unregister;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdvertisementRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -100,6 +112,7 @@ export class AdvertisementCallbackRouter {
     }
 }
 export class DiscoverySessionPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -108,6 +121,9 @@ export class DiscoverySessionPendingReceiver {
     }
 }
 export class DiscoverySessionRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(DiscoverySessionPendingReceiver, handle);
@@ -128,6 +144,9 @@ export class DiscoverySessionRemote {
  * interface.
  */
 export class DiscoverySessionReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DiscoverySessionRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -158,6 +177,12 @@ export class DiscoverySession {
  * receiver can have any number of listeners added to it.
  */
 export class DiscoverySessionCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    isActive;
+    stop;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DiscoverySessionRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -179,6 +204,7 @@ export class DiscoverySessionCallbackRouter {
     }
 }
 export class SocketPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -187,6 +213,9 @@ export class SocketPendingReceiver {
     }
 }
 export class SocketRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(SocketPendingReceiver, handle);
@@ -204,6 +233,9 @@ export class SocketRemote {
  * interface.
  */
 export class SocketReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SocketRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -233,6 +265,11 @@ export class Socket {
  * receiver can have any number of listeners added to it.
  */
 export class SocketCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    disconnect;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SocketRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -251,6 +288,7 @@ export class SocketCallbackRouter {
     }
 }
 export class ServerSocketPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -259,6 +297,9 @@ export class ServerSocketPendingReceiver {
     }
 }
 export class ServerSocketRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(ServerSocketPendingReceiver, handle);
@@ -279,6 +320,9 @@ export class ServerSocketRemote {
  * interface.
  */
 export class ServerSocketReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ServerSocketRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -309,6 +353,12 @@ export class ServerSocket {
  * receiver can have any number of listeners added to it.
  */
 export class ServerSocketCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    accept;
+    disconnect;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ServerSocketRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -330,6 +380,7 @@ export class ServerSocketCallbackRouter {
     }
 }
 export class AdapterPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -338,6 +389,9 @@ export class AdapterPendingReceiver {
     }
 }
 export class AdapterRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(AdapterPendingReceiver, handle);
@@ -403,6 +457,9 @@ export class AdapterRemote {
  * interface.
  */
 export class AdapterReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdapterRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -441,6 +498,20 @@ export class Adapter {
  * receiver can have any number of listeners added to it.
  */
 export class AdapterCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    connectToDevice;
+    getDevices;
+    getInfo;
+    addObserver;
+    registerAdvertisement;
+    setDiscoverable;
+    setName;
+    startDiscoverySession;
+    connectToServiceInsecurely;
+    createRfcommServiceInsecurely;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdapterRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -486,6 +557,7 @@ export class AdapterCallbackRouter {
     }
 }
 export class AdapterObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -494,6 +566,9 @@ export class AdapterObserverPendingReceiver {
     }
 }
 export class AdapterObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(AdapterObserverPendingReceiver, handle);
@@ -543,6 +618,9 @@ export class AdapterObserverRemote {
  * interface.
  */
 export class AdapterObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdapterObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -578,6 +656,17 @@ export class AdapterObserver {
  * receiver can have any number of listeners added to it.
  */
 export class AdapterObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    presentChanged;
+    poweredChanged;
+    discoverableChanged;
+    discoveringChanged;
+    deviceAdded;
+    deviceChanged;
+    deviceRemoved;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AdapterObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

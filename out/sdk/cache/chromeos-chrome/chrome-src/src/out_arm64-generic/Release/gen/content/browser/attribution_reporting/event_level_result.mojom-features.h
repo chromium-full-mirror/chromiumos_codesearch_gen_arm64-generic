@@ -8,6 +8,7 @@
 #define CONTENT_BROWSER_ATTRIBUTION_REPORTING_EVENT_LEVEL_RESULT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

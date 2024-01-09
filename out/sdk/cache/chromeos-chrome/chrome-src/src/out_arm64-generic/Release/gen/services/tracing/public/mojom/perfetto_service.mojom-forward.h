@@ -33,6 +33,10 @@ class CommitDataRequestDataView;
 
 class ChromeConfigDataView;
 
+class ConsoleConfigDataView;
+
+class InterceptorConfigDataView;
+
 class DataSourceConfigDataView;
 
 class DataSourceRegistrationDataView;
@@ -47,6 +51,8 @@ class IncrementalStateConfigDataView;
 
 class TraceConfigDataView;
 
+
+enum class ConsoleOutput : int32_t;
 
 enum class BufferFillPolicy : int32_t;
 
@@ -85,6 +91,12 @@ using CommitDataRequestPtr = mojo::StructPtr<CommitDataRequest>;
 
 class ChromeConfig;
 using ChromeConfigPtr = mojo::InlinedStructPtr<ChromeConfig>;
+
+class ConsoleConfig;
+using ConsoleConfigPtr = mojo::InlinedStructPtr<ConsoleConfig>;
+
+class InterceptorConfig;
+using InterceptorConfigPtr = mojo::StructPtr<InterceptorConfig>;
 
 class DataSourceConfig;
 using DataSourceConfigPtr = mojo::StructPtr<DataSourceConfig>;

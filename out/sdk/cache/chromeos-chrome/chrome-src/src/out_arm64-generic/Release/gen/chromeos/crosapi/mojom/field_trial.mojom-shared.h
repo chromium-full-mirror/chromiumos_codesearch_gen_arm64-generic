@@ -107,6 +107,15 @@ class FieldTrialGroupInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  std::optional<bool> is_overridden() const {
+    if (data_->header_.version < 1) {
+      return absl::nullopt;
+    }
+
+    return data_->is_overridden_$flag
+        ? absl::make_optional(!!data_->is_overridden_$value)
+        : absl::nullopt;
+  }
  private:
   internal::FieldTrialGroupInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -159,6 +168,10 @@ struct Serializer<::crosapi::mojom::FieldTrialGroupInfoDataView, MaybeConstUserT
         fragment->group_name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null group_name in FieldTrialGroupInfo struct");
+    fragment->is_overridden_$flag = Traits::is_overridden(input).has_value();
+    if (Traits::is_overridden(input).has_value()) {
+      fragment->is_overridden_$value = Traits::is_overridden(input).value();
+    }
   }
 
   static bool Deserialize(::crosapi::mojom::internal::FieldTrialGroupInfo_Data* input,

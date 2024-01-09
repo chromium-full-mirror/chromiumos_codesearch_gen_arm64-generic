@@ -33,6 +33,7 @@ constexpr uint32_t kFrameSinkVideoCapturer_RequestRefreshFrame_Name = 8;
 constexpr uint32_t kFrameSinkVideoCapturer_CreateOverlay_Name = 9;
 constexpr uint32_t kFrameSinkVideoCaptureOverlay_SetImageAndBounds_Name = 0;
 constexpr uint32_t kFrameSinkVideoCaptureOverlay_SetBounds_Name = 1;
+constexpr uint32_t kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name = 2;
 
 }  // namespace internal
 

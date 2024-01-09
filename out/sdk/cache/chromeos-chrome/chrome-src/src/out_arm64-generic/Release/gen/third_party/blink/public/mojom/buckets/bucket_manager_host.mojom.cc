@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -59,7 +60,7 @@ BucketPolicies::BucketPolicies(
     bool has_durability_in,
     int64_t quota_in,
     bool has_quota_in,
-    absl::optional<::base::Time> expires_in)
+    std::optional<::base::Time> expires_in)
     : persisted(std::move(persisted_in)),
       has_persisted(std::move(has_persisted_in)),
       durability(std::move(durability_in)),
@@ -131,7 +132,7 @@ void BucketPolicies::WriteIntoTrace(
     dict.AddItem(
       "expires"), this->expires,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -499,14 +500,17 @@ void BucketHostProxy::Persist(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::Persist");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Persist_Name, kFlags, 0, 0, nullptr);
@@ -530,14 +534,17 @@ void BucketHostProxy::Persisted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::Persisted");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Persisted_Name, kFlags, 0, 0, nullptr);
@@ -561,14 +568,17 @@ void BucketHostProxy::Estimate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::Estimate");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Estimate_Name, kFlags, 0, 0, nullptr);
@@ -592,14 +602,17 @@ void BucketHostProxy::Durability(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::Durability");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Durability_Name, kFlags, 0, 0, nullptr);
@@ -630,14 +643,17 @@ void BucketHostProxy::SetExpires(
                         "<value of type ::base::Time>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_SetExpires_Name, kFlags, 0, 0, nullptr);
@@ -672,14 +688,17 @@ void BucketHostProxy::Expires(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::Expires");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Expires_Name, kFlags, 0, 0, nullptr);
@@ -710,14 +729,17 @@ void BucketHostProxy::GetIdbFactory(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::IDBFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_GetIdbFactory_Name, kFlags, 0, 0, nullptr);
@@ -753,14 +775,17 @@ void BucketHostProxy::GetLockManager(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::LockManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_GetLockManager_Name, kFlags, 0, 0, nullptr);
@@ -796,14 +821,17 @@ void BucketHostProxy::GetCaches(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::CacheStorage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_GetCaches_Name, kFlags, 0, 0, nullptr);
@@ -832,14 +860,17 @@ void BucketHostProxy::GetDirectory(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketHost::GetDirectory");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_GetDirectory_Name, kFlags, 0, 0, nullptr);
@@ -956,7 +987,8 @@ void BucketHost_Persist_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Persist_Name, kFlags, 0, 0, nullptr);
@@ -1082,7 +1114,8 @@ void BucketHost_Persisted_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Persisted_Name, kFlags, 0, 0, nullptr);
@@ -1215,7 +1248,8 @@ void BucketHost_Estimate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Estimate_Name, kFlags, 0, 0, nullptr);
@@ -1342,7 +1376,8 @@ void BucketHost_Durability_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Durability_Name, kFlags, 0, 0, nullptr);
@@ -1462,7 +1497,8 @@ void BucketHost_SetExpires_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_SetExpires_Name, kFlags, 0, 0, nullptr);
@@ -1534,7 +1570,7 @@ class BucketHost_Expires_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      absl::optional<::base::Time> in_expires, bool in_success);
+      std::optional<::base::Time> in_expires, bool in_success);
 };
 
 bool BucketHost_Expires_ForwardToCallback::Accept(
@@ -1547,7 +1583,7 @@ bool BucketHost_Expires_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Time> p_expires{};
+  std::optional<::base::Time> p_expires{};
   bool p_success{};
   BucketHost_Expires_ResponseParamsDataView input_data_view(params, message);
   
@@ -1570,7 +1606,7 @@ std::move(p_success));
 }
 
 void BucketHost_Expires_ProxyToResponder::Run(
-    absl::optional<::base::Time> in_expires, bool in_success) {
+    std::optional<::base::Time> in_expires, bool in_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::BucketHost::Expires", "async_response_parameters",
@@ -1578,7 +1614,7 @@ void BucketHost_Expires_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expires"), in_expires,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("success"), in_success,
                         "<value of type bool>");
@@ -1587,7 +1623,8 @@ void BucketHost_Expires_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_Expires_Name, kFlags, 0, 0, nullptr);
@@ -1721,7 +1758,8 @@ void BucketHost_GetDirectory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketHost_GetDirectory_Name, kFlags, 0, 0, nullptr);
@@ -2074,28 +2112,28 @@ std::move(p_expires), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBucketHostValidationInfo[] = {
-    {&internal::BucketHost_Persist_Params_Data::Validate,
+    { &internal::BucketHost_Persist_Params_Data::Validate,
      &internal::BucketHost_Persist_ResponseParams_Data::Validate},
-    {&internal::BucketHost_Persisted_Params_Data::Validate,
+    { &internal::BucketHost_Persisted_Params_Data::Validate,
      &internal::BucketHost_Persisted_ResponseParams_Data::Validate},
-    {&internal::BucketHost_Estimate_Params_Data::Validate,
+    { &internal::BucketHost_Estimate_Params_Data::Validate,
      &internal::BucketHost_Estimate_ResponseParams_Data::Validate},
-    {&internal::BucketHost_Durability_Params_Data::Validate,
+    { &internal::BucketHost_Durability_Params_Data::Validate,
      &internal::BucketHost_Durability_ResponseParams_Data::Validate},
-    {&internal::BucketHost_SetExpires_Params_Data::Validate,
+    { &internal::BucketHost_SetExpires_Params_Data::Validate,
      &internal::BucketHost_SetExpires_ResponseParams_Data::Validate},
-    {&internal::BucketHost_Expires_Params_Data::Validate,
+    { &internal::BucketHost_Expires_Params_Data::Validate,
      &internal::BucketHost_Expires_ResponseParams_Data::Validate},
-    {&internal::BucketHost_GetIdbFactory_Params_Data::Validate,
+    { &internal::BucketHost_GetIdbFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BucketHost_GetLockManager_Params_Data::Validate,
+    { &internal::BucketHost_GetLockManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BucketHost_GetCaches_Params_Data::Validate,
+    { &internal::BucketHost_GetCaches_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BucketHost_GetDirectory_Params_Data::Validate,
+    { &internal::BucketHost_GetDirectory_Params_Data::Validate,
      &internal::BucketHost_GetDirectory_ResponseParams_Data::Validate},
 };
 
@@ -2290,14 +2328,17 @@ void BucketManagerHostProxy::OpenBucket(
                         "<value of type BucketPoliciesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_OpenBucket_Name, kFlags, 0, 0, nullptr);
@@ -2353,14 +2394,17 @@ void BucketManagerHostProxy::GetBucketForDevtools(
                         "<value of type ::mojo::PendingReceiver<BucketHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_GetBucketForDevtools_Name, kFlags, 0, 0, nullptr);
@@ -2400,14 +2444,17 @@ void BucketManagerHostProxy::Keys(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BucketManagerHost::Keys");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_Keys_Name, kFlags, 0, 0, nullptr);
@@ -2438,14 +2485,17 @@ void BucketManagerHostProxy::DeleteBucket(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_DeleteBucket_Name, kFlags, 0, 0, nullptr);
@@ -2575,7 +2625,8 @@ void BucketManagerHost_OpenBucket_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_OpenBucket_Name, kFlags, 0, 0, nullptr);
@@ -2703,7 +2754,8 @@ void BucketManagerHost_Keys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_Keys_Name, kFlags, 0, 0, nullptr);
@@ -2834,7 +2886,8 @@ void BucketManagerHost_DeleteBucket_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBucketManagerHost_DeleteBucket_Name, kFlags, 0, 0, nullptr);
@@ -3013,16 +3066,16 @@ std::move(p_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBucketManagerHostValidationInfo[] = {
-    {&internal::BucketManagerHost_OpenBucket_Params_Data::Validate,
+    { &internal::BucketManagerHost_OpenBucket_Params_Data::Validate,
      &internal::BucketManagerHost_OpenBucket_ResponseParams_Data::Validate},
-    {&internal::BucketManagerHost_GetBucketForDevtools_Params_Data::Validate,
+    { &internal::BucketManagerHost_GetBucketForDevtools_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BucketManagerHost_Keys_Params_Data::Validate,
+    { &internal::BucketManagerHost_Keys_Params_Data::Validate,
      &internal::BucketManagerHost_Keys_ResponseParams_Data::Validate},
-    {&internal::BucketManagerHost_DeleteBucket_Params_Data::Validate,
+    { &internal::BucketManagerHost_DeleteBucket_Params_Data::Validate,
      &internal::BucketManagerHost_DeleteBucket_ResponseParams_Data::Validate},
 };
 
@@ -3229,16 +3282,16 @@ bool BucketHostAsyncWaiter::SetExpires(
 }
 
 void BucketHostAsyncWaiter::Expires(
-    absl::optional<::base::Time>* out_expires, bool* out_success) {
+    std::optional<::base::Time>* out_expires, bool* out_success) {
   base::RunLoop loop;
   proxy_->Expires(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Time>* out_expires
+             std::optional<::base::Time>* out_expires
 ,
              bool* out_success
 ,
-             absl::optional<::base::Time> expires,
+             std::optional<::base::Time> expires,
              bool success) {*out_expires = std::move(expires);*out_success = std::move(success);
             loop->Quit();
           },

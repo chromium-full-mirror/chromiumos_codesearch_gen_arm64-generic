@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, UIEvent>::value,
     "UIEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&UIEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "UIEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("UIEvent.view.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->view();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -107,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("UIEvent.detail.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->detail();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -121,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("UIEvent.sourceCapabilities.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sourceCapabilities();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("UIEvent.which.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->which();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -149,8 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("UIEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -223,7 +223,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(v8_receiver);
+UIEvent* blink_receiver = V8UIEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -13,11 +13,23 @@
 #include <iosfwd>
 #include <type_traits>
 #include <utility>
+#include "mojo/public/cpp/bindings/array_data_view.h"
+#include "mojo/public/cpp/bindings/enum_traits.h"
+#include "mojo/public/cpp/bindings/interface_data_view.h"
+#include "mojo/public/cpp/bindings/lib/bindings_internal.h"
+#include "mojo/public/cpp/bindings/lib/serialization.h"
+#include "mojo/public/cpp/bindings/map_data_view.h"
+#include "mojo/public/cpp/bindings/string_data_view.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "extensions/common/mojom/message_port.mojom-shared-internal.h"
-
+#include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
+#include "mojo/public/mojom/base/values.mojom-shared.h"
+#include "url/mojom/origin.mojom-shared.h"
+#include "url/mojom/url.mojom-shared.h"
+#include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 
@@ -25,12 +37,57 @@
 
 
 namespace extensions::mojom {
+class PortIdDataView;
+
+class MessagingEndpointDataView;
+
+class TabConnectionInfoDataView;
+
+class ExternalConnectionInfoDataView;
+
+class MessageDataView;
+
 
 
 }  // extensions::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::extensions::mojom::PortIdDataView> {
+  using Data = ::extensions::mojom::internal::PortId_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::extensions::mojom::MessagingEndpointDataView> {
+  using Data = ::extensions::mojom::internal::MessagingEndpoint_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::extensions::mojom::TabConnectionInfoDataView> {
+  using Data = ::extensions::mojom::internal::TabConnectionInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::extensions::mojom::ExternalConnectionInfoDataView> {
+  using Data = ::extensions::mojom::internal::ExternalConnectionInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::extensions::mojom::MessageDataView> {
+  using Data = ::extensions::mojom::internal::Message_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -95,6 +152,298 @@ inline bool IsKnownEnumValue(MessagingEndpointType value) {
   return internal::MessagingEndpointType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+// Interface base classes. They are used for type safety check.
+class MessagePortInterfaceBase {};
+
+using MessagePortPtrDataView =
+    mojo::InterfacePtrDataView<MessagePortInterfaceBase>;
+using MessagePortRequestDataView =
+    mojo::InterfaceRequestDataView<MessagePortInterfaceBase>;
+using MessagePortAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<MessagePortInterfaceBase>;
+using MessagePortAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<MessagePortInterfaceBase>;
+class MessagePortHostInterfaceBase {};
+
+using MessagePortHostPtrDataView =
+    mojo::InterfacePtrDataView<MessagePortHostInterfaceBase>;
+using MessagePortHostRequestDataView =
+    mojo::InterfaceRequestDataView<MessagePortHostInterfaceBase>;
+using MessagePortHostAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<MessagePortHostInterfaceBase>;
+using MessagePortHostAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<MessagePortHostInterfaceBase>;
+
+
+class PortIdDataView {
+ public:
+  PortIdDataView() = default;
+
+  PortIdDataView(
+      internal::PortId_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContextIdDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContextId(UserType* output) {
+    
+    auto* pointer = data_->context_id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
+  int32_t port_number() const {
+    return data_->port_number;
+  }
+  bool is_opener() const {
+    return data_->is_opener;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSerializationFormat(UserType* output) const {
+    auto data_value = data_->serialization_format;
+    return mojo::internal::Deserialize<::extensions::mojom::SerializationFormat>(
+        data_value, output);
+  }
+  SerializationFormat serialization_format() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::SerializationFormat>(data_->serialization_format));
+  }
+ private:
+  internal::PortId_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MessagingEndpointDataView {
+ public:
+  MessagingEndpointDataView() = default;
+
+  MessagingEndpointDataView(
+      internal::MessagingEndpoint_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::extensions::mojom::MessagingEndpointType>(
+        data_value, output);
+  }
+  MessagingEndpointType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::MessagingEndpointType>(data_->type));
+  }
+  inline void GetExtensionIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `extension_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExtensionId` instead "
+    "of `ReadExtensionId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->extension_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetNativeAppNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNativeAppName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `native_app_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadNativeAppName` instead "
+    "of `ReadNativeAppName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->native_app_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MessagingEndpoint_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TabConnectionInfoDataView {
+ public:
+  TabConnectionInfoDataView() = default;
+
+  TabConnectionInfoDataView(
+      internal::TabConnectionInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTabDataView(
+      ::mojo_base::mojom::DictionaryValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTab(UserType* output) {
+    
+    auto* pointer = data_->tab.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::DictionaryValueDataView>(
+        pointer, output, message_);
+  }
+  int32_t frame_id() const {
+    return data_->frame_id;
+  }
+  inline void GetDocumentIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentId(UserType* output) {
+    
+    auto* pointer = data_->document_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDocumentLifecycleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentLifecycle(UserType* output) {
+    
+    auto* pointer = data_->document_lifecycle.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TabConnectionInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ExternalConnectionInfoDataView {
+ public:
+  ExternalConnectionInfoDataView() = default;
+
+  ExternalConnectionInfoDataView(
+      internal::ExternalConnectionInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSourceEndpointDataView(
+      MessagingEndpointDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSourceEndpoint(UserType* output) {
+    
+    auto* pointer = data_->source_endpoint.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::MessagingEndpointDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTargetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTargetId(UserType* output) {
+    
+    auto* pointer = data_->target_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSourceUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSourceUrl(UserType* output) {
+    
+    auto* pointer = data_->source_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSourceOriginDataView(
+      ::url::mojom::OriginDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSourceOrigin(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::url::mojom::OriginDataView, UserType>(),
+    "Attempting to read the optional `source_origin` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSourceOrigin` instead "
+    "of `ReadSourceOrigin if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->source_origin.Get();
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+        pointer, output, message_);
+  }
+  int32_t guest_process_id() const {
+    return data_->guest_process_id;
+  }
+  int32_t guest_render_frame_routing_id() const {
+    return data_->guest_render_frame_routing_id;
+  }
+ private:
+  internal::ExternalConnectionInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MessageDataView {
+ public:
+  MessageDataView() = default;
+
+  MessageDataView(
+      internal::Message_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDataDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadData(UserType* output) {
+    
+    auto* pointer = data_->data.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFormat(UserType* output) const {
+    auto data_value = data_->format;
+    return mojo::internal::Deserialize<::extensions::mojom::SerializationFormat>(
+        data_value, output);
+  }
+  SerializationFormat format() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::SerializationFormat>(data_->format));
+  }
+  bool user_gesture() const {
+    return data_->user_gesture;
+  }
+  bool from_privileged_context() const {
+    return data_->from_privileged_context;
+  }
+ private:
+  internal::Message_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 }  // extensions::mojom
@@ -177,10 +526,353 @@ struct Serializer<::extensions::mojom::MessagingEndpointType, MaybeConstUserType
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::extensions::mojom::PortIdDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::extensions::mojom::PortIdDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::extensions::mojom::internal::PortId_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::context_id(input)) in_context_id = Traits::context_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->context_id)::BaseType> context_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        in_context_id, context_id_fragment);
+    fragment->context_id.Set(
+        context_id_fragment.is_null() ? nullptr : context_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->context_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null context_id in PortId struct");
+    fragment->port_number = Traits::port_number(input);
+    fragment->is_opener = Traits::is_opener(input);
+    mojo::internal::Serialize<::extensions::mojom::SerializationFormat>(
+        Traits::serialization_format(input), &fragment->serialization_format);
+  }
+
+  static bool Deserialize(::extensions::mojom::internal::PortId_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::extensions::mojom::PortIdDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::extensions::mojom::MessagingEndpointDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::extensions::mojom::MessagingEndpointDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::extensions::mojom::internal::MessagingEndpoint_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::extensions::mojom::MessagingEndpointType>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::extension_id(input)) in_extension_id = Traits::extension_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->extension_id)::BaseType> extension_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_extension_id, extension_id_fragment);
+    fragment->extension_id.Set(
+        extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+    decltype(Traits::native_app_name(input)) in_native_app_name = Traits::native_app_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->native_app_name)::BaseType> native_app_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_native_app_name, native_app_name_fragment);
+    fragment->native_app_name.Set(
+        native_app_name_fragment.is_null() ? nullptr : native_app_name_fragment.data());
+  }
+
+  static bool Deserialize(::extensions::mojom::internal::MessagingEndpoint_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::extensions::mojom::MessagingEndpointDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::extensions::mojom::TabConnectionInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::extensions::mojom::TabConnectionInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::extensions::mojom::internal::TabConnectionInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::tab(input)) in_tab = Traits::tab(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->tab)::BaseType> tab_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::DictionaryValueDataView>(
+        in_tab, tab_fragment);
+    fragment->tab.Set(
+        tab_fragment.is_null() ? nullptr : tab_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->tab.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null tab in TabConnectionInfo struct");
+    fragment->frame_id = Traits::frame_id(input);
+    decltype(Traits::document_id(input)) in_document_id = Traits::document_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->document_id)::BaseType> document_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_document_id, document_id_fragment);
+    fragment->document_id.Set(
+        document_id_fragment.is_null() ? nullptr : document_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->document_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null document_id in TabConnectionInfo struct");
+    decltype(Traits::document_lifecycle(input)) in_document_lifecycle = Traits::document_lifecycle(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->document_lifecycle)::BaseType> document_lifecycle_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_document_lifecycle, document_lifecycle_fragment);
+    fragment->document_lifecycle.Set(
+        document_lifecycle_fragment.is_null() ? nullptr : document_lifecycle_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->document_lifecycle.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null document_lifecycle in TabConnectionInfo struct");
+  }
+
+  static bool Deserialize(::extensions::mojom::internal::TabConnectionInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::extensions::mojom::TabConnectionInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::extensions::mojom::ExternalConnectionInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::extensions::mojom::ExternalConnectionInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::extensions::mojom::internal::ExternalConnectionInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::source_endpoint(input)) in_source_endpoint = Traits::source_endpoint(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source_endpoint)::BaseType> source_endpoint_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::extensions::mojom::MessagingEndpointDataView>(
+        in_source_endpoint, source_endpoint_fragment);
+    fragment->source_endpoint.Set(
+        source_endpoint_fragment.is_null() ? nullptr : source_endpoint_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->source_endpoint.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null source_endpoint in ExternalConnectionInfo struct");
+    decltype(Traits::target_id(input)) in_target_id = Traits::target_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->target_id)::BaseType> target_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_target_id, target_id_fragment);
+    fragment->target_id.Set(
+        target_id_fragment.is_null() ? nullptr : target_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->target_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null target_id in ExternalConnectionInfo struct");
+    decltype(Traits::source_url(input)) in_source_url = Traits::source_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source_url)::BaseType> source_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_source_url, source_url_fragment);
+    fragment->source_url.Set(
+        source_url_fragment.is_null() ? nullptr : source_url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->source_url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null source_url in ExternalConnectionInfo struct");
+    decltype(Traits::source_origin(input)) in_source_origin = Traits::source_origin(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source_origin)::BaseType> source_origin_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::OriginDataView>(
+        in_source_origin, source_origin_fragment);
+    fragment->source_origin.Set(
+        source_origin_fragment.is_null() ? nullptr : source_origin_fragment.data());
+    fragment->guest_process_id = Traits::guest_process_id(input);
+    fragment->guest_render_frame_routing_id = Traits::guest_render_frame_routing_id(input);
+  }
+
+  static bool Deserialize(::extensions::mojom::internal::ExternalConnectionInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::extensions::mojom::ExternalConnectionInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::extensions::mojom::MessageDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::extensions::mojom::MessageDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::extensions::mojom::internal::Message_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::data(input)) in_data = Traits::data(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->data)::BaseType> data_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_data, data_fragment);
+    fragment->data.Set(
+        data_fragment.is_null() ? nullptr : data_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->data.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null data in Message struct");
+    mojo::internal::Serialize<::extensions::mojom::SerializationFormat>(
+        Traits::format(input), &fragment->format);
+    fragment->user_gesture = Traits::user_gesture(input);
+    fragment->from_privileged_context = Traits::from_privileged_context(input);
+  }
+
+  static bool Deserialize(::extensions::mojom::internal::Message_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::extensions::mojom::MessageDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace extensions::mojom {
+
+inline void PortIdDataView::GetContextIdDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->context_id.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
+}
+
+
+inline void MessagingEndpointDataView::GetExtensionIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->extension_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void MessagingEndpointDataView::GetNativeAppNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->native_app_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void TabConnectionInfoDataView::GetTabDataView(
+    ::mojo_base::mojom::DictionaryValueDataView* output) {
+  auto pointer = data_->tab.Get();
+  *output = ::mojo_base::mojom::DictionaryValueDataView(pointer, message_);
+}
+inline void TabConnectionInfoDataView::GetDocumentIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->document_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void TabConnectionInfoDataView::GetDocumentLifecycleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->document_lifecycle.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void ExternalConnectionInfoDataView::GetSourceEndpointDataView(
+    MessagingEndpointDataView* output) {
+  auto pointer = data_->source_endpoint.Get();
+  *output = MessagingEndpointDataView(pointer, message_);
+}
+inline void ExternalConnectionInfoDataView::GetTargetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->target_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ExternalConnectionInfoDataView::GetSourceUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->source_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void ExternalConnectionInfoDataView::GetSourceOriginDataView(
+    ::url::mojom::OriginDataView* output) {
+  auto pointer = data_->source_origin.Get();
+  *output = ::url::mojom::OriginDataView(pointer, message_);
+}
+
+
+inline void MessageDataView::GetDataDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->data.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
 
 
 }  // extensions::mojom

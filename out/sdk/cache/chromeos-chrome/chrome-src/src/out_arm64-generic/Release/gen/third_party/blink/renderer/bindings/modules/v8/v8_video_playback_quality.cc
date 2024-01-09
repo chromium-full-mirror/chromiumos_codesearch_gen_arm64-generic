@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VideoPlaybackQuality>::value,
     "VideoPlaybackQuality inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VideoPlaybackQuality::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VideoPlaybackQuality is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoPlaybackQuality.creationTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(v8_receiver);
+VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->creationTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoPlaybackQuality.totalVideoFrames.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(v8_receiver);
+VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->totalVideoFrames();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -114,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoPlaybackQuality.droppedVideoFrames.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(v8_receiver);
+VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->droppedVideoFrames();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -134,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VideoPlaybackQuality
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(v8_receiver);
+VideoPlaybackQuality* blink_receiver = V8VideoPlaybackQuality::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->corruptedVideoFrames();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

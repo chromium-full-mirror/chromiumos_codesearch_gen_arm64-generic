@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMVisualViewport>::value,
     "DOMVisualViewport inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMVisualViewport::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMVisualViewport is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Offse
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offsetLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -122,7 +117,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Offse
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offsetTop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -145,7 +140,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_PageL
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -168,7 +163,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_PageT
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageTop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -191,7 +186,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Width
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -214,7 +209,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Heigh
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -237,7 +232,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Scale
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scale();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -257,7 +252,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->segments();
 if (!ToV8Traits<IDLNullable<IDLArray<DOMRect>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -273,10 +269,10 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.onresize.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresize();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresize();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -289,8 +285,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresize(event_handler);
 }
 
@@ -301,10 +298,10 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.onscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -317,8 +314,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(v8_receiver);
+DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscroll(event_handler);
 }
 

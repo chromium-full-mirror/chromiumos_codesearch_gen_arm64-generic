@@ -108,6 +108,7 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kFontVariationSettings:
     case CSSPropertyID::kFontWeight:
     case CSSPropertyID::kForcedColorAdjust:
+    case CSSPropertyID::kPosition:
     case CSSPropertyID::kTextOrientation:
     case CSSPropertyID::kTextRendering:
     case CSSPropertyID::kTextSpacingTrim:
@@ -232,6 +233,7 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kHyphens:
     case CSSPropertyID::kImageRendering:
     case CSSPropertyID::kInlineSize:
+    case CSSPropertyID::kInsetArea:
     case CSSPropertyID::kInsetBlockEnd:
     case CSSPropertyID::kInsetBlockStart:
     case CSSPropertyID::kInsetInlineEnd:
@@ -306,7 +308,6 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kPointerEvents:
     case CSSPropertyID::kPopoverHideDelay:
     case CSSPropertyID::kPopoverShowDelay:
-    case CSSPropertyID::kPosition:
     case CSSPropertyID::kPositionFallback:
     case CSSPropertyID::kPositionFallbackBounds:
     case CSSPropertyID::kQuotes:
@@ -377,10 +378,6 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kTextUnderlineOffset:
     case CSSPropertyID::kTextUnderlinePosition:
     case CSSPropertyID::kTextWrap:
-    case CSSPropertyID::kToggleGroup:
-    case CSSPropertyID::kToggleRoot:
-    case CSSPropertyID::kToggleTrigger:
-    case CSSPropertyID::kToggleVisibility:
     case CSSPropertyID::kTop:
     case CSSPropertyID::kTouchAction:
     case CSSPropertyID::kTransform:

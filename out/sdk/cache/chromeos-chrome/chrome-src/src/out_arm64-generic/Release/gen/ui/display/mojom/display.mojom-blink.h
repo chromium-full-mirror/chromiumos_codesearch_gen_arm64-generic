@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/display/mojom/display.mojom-features.h"
 #include "ui/display/mojom/display.mojom-shared.h"
 #include "ui/display/mojom/display.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
@@ -39,42 +40,6 @@
 #include "ui/display/mojom/display_mojom_traits.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::display::mojom::Rotation>
-    : EnumHashTraits<::display::mojom::Rotation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::display::mojom::TouchSupport>
-    : EnumHashTraits<::display::mojom::TouchSupport, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::display::mojom::AccelerometerSupport>
-    : EnumHashTraits<::display::mojom::AccelerometerSupport, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace display::mojom::blink {

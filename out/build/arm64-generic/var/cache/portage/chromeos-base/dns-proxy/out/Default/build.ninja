@@ -26,14 +26,10 @@ build install_init_config: phony obj/dns-proxy/install_init_config.stamp
 build install_seccomp_policy: phony obj/dns-proxy/install_seccomp_policy.stamp
 build libdnsproxy: phony ./libdnsproxy.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build tmpfiles.d: phony obj/dns-proxy/tmpfiles.d/tmpfiles.d.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build dns-proxy$:_dnsproxyd-install_config: phony obj/dns-proxy/_dnsproxyd-install_config.stamp
 build dns-proxy$:all: phony obj/dns-proxy/all.stamp
-build dns-proxy$:dns-proxy_test: phony ./dns-proxy_test
 build dns-proxy$:dnsproxy_ipc_protos: phony ./libdnsproxy_ipc_protos.a
 build dns-proxy$:dnsproxy_ipc_protos_gen: phony obj/dns-proxy/dnsproxy_ipc_protos_gen.stamp
 build dns-proxy$:dnsproxyd: phony ./dnsproxyd
@@ -46,10 +42,8 @@ build dns-proxy/tmpfiles.d: phony obj/dns-proxy/tmpfiles.d/tmpfiles.d.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/dns-proxy/_dnsproxyd-install_config.stamp $
     obj/dns-proxy/all.stamp $
-    ./dns-proxy_test $
     ./libdnsproxy_ipc_protos.a $
     obj/dns-proxy/dnsproxy_ipc_protos_gen.stamp $
     ./dnsproxyd $

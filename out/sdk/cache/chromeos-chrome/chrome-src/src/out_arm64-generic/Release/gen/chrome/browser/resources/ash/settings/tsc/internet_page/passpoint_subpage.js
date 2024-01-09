@@ -16,7 +16,7 @@ import { FilterType, NO_LIMIT } from 'chrome://resources/mojo/chromeos/services/
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { PasspointListenerMixin } from './passpoint_listener_mixin.js';
 import { getTemplate } from './passpoint_subpage.html.js';

@@ -2,15 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Host from '../../core/host/host.js';
+import { assertNotNullOrUndefined } from '../../core/platform/platform.js';
 import { getLoggingState } from './LoggingState.js';
-export async function logImpressions(elements) {
-    const impressions = await Promise.all(elements.map(async (element) => {
-        const loggingState = getLoggingState(element);
+export async function logImpressions(loggables) {
+    const impressions = await Promise.all(loggables.map(async (loggable) => {
+        const loggingState = getLoggingState(loggable);
+        assertNotNullOrUndefined(loggingState);
         const impression = { id: loggingState.veid, type: loggingState.config.ve };
         if (loggingState.parent) {
             impression.parent = loggingState.parent.veid;
         }
-        const context = await loggingState.context(element);
+        const context = await loggingState.context(loggable);
         if (context) {
             impression.context = context;
         }
@@ -20,11 +22,14 @@ export async function logImpressions(elements) {
         Host.InspectorFrontendHost.InspectorFrontendHostInstance.recordImpression({ impressions });
     }
 }
-export async function logClick(event, options) {
+export async function logClick(loggable, event, options) {
     if (!(event instanceof MouseEvent)) {
         return;
     }
-    const loggingState = getLoggingState(event.currentTarget);
+    const loggingState = getLoggingState(loggable);
+    if (!loggingState) {
+        return;
+    }
     const clickEvent = { veid: loggingState.veid, mouseButton: event.button, doubleClick: Boolean(options?.doubleClick) };
     const context = await loggingState.context(event);
     if (context) {
@@ -34,6 +39,7 @@ export async function logClick(event, options) {
 }
 export const logHover = (hoverLogThrottler) => async (event) => {
     const loggingState = getLoggingState(event.currentTarget);
+    assertNotNullOrUndefined(loggingState);
     const hoverEvent = { veid: loggingState.veid };
     const contextPromise = loggingState.context(event);
     await hoverLogThrottler.schedule(async () => {
@@ -46,6 +52,7 @@ export const logHover = (hoverLogThrottler) => async (event) => {
 };
 export const logDrag = (dragLogThrottler) => async (event) => {
     const loggingState = getLoggingState(event.currentTarget);
+    assertNotNullOrUndefined(loggingState);
     const dragEvent = { veid: loggingState.veid };
     const contextPromise = loggingState.context(event);
     await dragLogThrottler.schedule(async () => {
@@ -58,6 +65,7 @@ export const logDrag = (dragLogThrottler) => async (event) => {
 };
 export async function logChange(event) {
     const loggingState = getLoggingState(event.currentTarget);
+    assertNotNullOrUndefined(loggingState);
     const changeEvent = { veid: loggingState.veid };
     const context = await loggingState.context(event);
     if (context) {
@@ -73,6 +81,7 @@ export const logKeyDown = (codes, keyboardLogThrottler) => async (event) => {
         return;
     }
     const loggingState = getLoggingState(event.currentTarget);
+    assertNotNullOrUndefined(loggingState);
     const keyDownEvent = { veid: loggingState.veid };
     const context = await loggingState.context(event);
     if (context) {

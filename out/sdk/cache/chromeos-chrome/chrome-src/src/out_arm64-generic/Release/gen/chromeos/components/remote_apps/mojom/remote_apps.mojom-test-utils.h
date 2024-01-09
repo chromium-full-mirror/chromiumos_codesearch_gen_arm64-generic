@@ -36,14 +36,14 @@ class  RemoteAppsAsyncWaiter {
       const std::string& source_id, const std::string& name, const std::string& folder_id, const ::GURL& icon_url, bool add_to_front, AddAppResultPtr* out_result);
   AddAppResultPtr AddApp(const std::string& source_id, const std::string& name, const std::string& folder_id, const ::GURL& icon_url, bool add_to_front);
   void DeleteApp(
-      const std::string& app_id, absl::optional<std::string>* out_error);
-  absl::optional<std::string> DeleteApp(const std::string& app_id);
+      const std::string& app_id, std::optional<std::string>* out_error);
+  std::optional<std::string> DeleteApp(const std::string& app_id);
   void SortLauncherWithRemoteAppsFirst(
-      absl::optional<std::string>* out_error);
-  absl::optional<std::string> SortLauncherWithRemoteAppsFirst();
+      std::optional<std::string>* out_error);
+  std::optional<std::string> SortLauncherWithRemoteAppsFirst();
   void SetPinnedApps(
-      const std::vector<std::string>& app_ids, absl::optional<std::string>* out_error);
-  absl::optional<std::string> SetPinnedApps(const std::vector<std::string>& app_ids);
+      const std::vector<std::string>& app_ids, std::optional<std::string>* out_error);
+  std::optional<std::string> SetPinnedApps(const std::vector<std::string>& app_ids);
 
  private:
   RemoteApps* const proxy_;

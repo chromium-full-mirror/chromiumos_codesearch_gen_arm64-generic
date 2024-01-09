@@ -55,6 +55,7 @@
   EH(oncanplay) \
   EH(oncanplaythrough) \
   EH(oncapturedmousechange) \
+  EH(oncapturedzoomlevelchange) \
   EH(oncapturehandlechange) \
   EH(onchange) \
   EH(oncharacterboundsupdate) \
@@ -94,7 +95,7 @@
   EH(ondeviceorientationabsolute) \
   EH(ondischargingtimechange) \
   EH(ondisconnect) \
-  EH(ondismissed) \
+  EH(ondismiss) \
   EH(ondispose) \
   EH(ondrag) \
   EH(ondragend) \
@@ -136,6 +137,7 @@
   EH(oninstall) \
   EH(oninterfacerequest) \
   EH(oninvalid) \
+  EH(onjobstatechange) \
   EH(onkeydown) \
   EH(onkeypress) \
   EH(onkeystatuseschange) \
@@ -165,6 +167,7 @@
   EH(onmouseover) \
   EH(onmouseup) \
   EH(onmousewheel) \
+  EH(onmove) \
   EH(onmute) \
   EH(onnavigate) \
   EH(onnavigateerror) \
@@ -201,7 +204,6 @@
   EH(onpointerrawupdate) \
   EH(onpointerup) \
   EH(onpopstate) \
-  EH(onportalactivate) \
   EH(onprerenderingchange) \
   EH(onprioritychange) \
   EH(onprocessorerror) \
@@ -223,7 +225,7 @@
   EH(onrepeat) \
   EH(onreset) \
   EH(onresize) \
-  EH(onresolved) \
+  EH(onresolve) \
   EH(onresourcetimingbufferfull) \
   EH(onresult) \
   EH(onresume) \
@@ -246,6 +248,7 @@
   EH(onsinkchange) \
   EH(onslotchange) \
   EH(onsnapchanged) \
+  EH(onsnapchanging) \
   EH(onsoundend) \
   EH(onsoundstart) \
   EH(onsourceclose) \

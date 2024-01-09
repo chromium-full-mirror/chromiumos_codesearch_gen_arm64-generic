@@ -474,6 +474,9 @@ void RemovePolicies(enterprise_management::ChromeDeviceSettingsProto* policies,
       case 157:
         policies->clear_device_flex_hw_data_for_product_improvement_enabled();
         break;
+      case 1185:
+        policies->clear_devicehardwarevideodecodingenabled();
+        break;
     }
   }
 }

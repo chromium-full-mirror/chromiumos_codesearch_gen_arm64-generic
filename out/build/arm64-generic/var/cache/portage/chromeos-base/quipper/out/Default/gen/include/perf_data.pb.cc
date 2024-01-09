@@ -4,857 +4,1206 @@
 #include "perf_data.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace quipper {
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfEventAttr::PerfDataProto_PerfEventAttr(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.type_)*/0u
-  , /*decltype(_impl_.size_)*/0u
-  , /*decltype(_impl_.config_)*/uint64_t{0u}
-  , /*decltype(_impl_.sample_period_)*/uint64_t{0u}
-  , /*decltype(_impl_.sample_freq_)*/uint64_t{0u}
-  , /*decltype(_impl_.sample_type_)*/uint64_t{0u}
-  , /*decltype(_impl_.read_format_)*/uint64_t{0u}
-  , /*decltype(_impl_.disabled_)*/false
-  , /*decltype(_impl_.inherit_)*/false
-  , /*decltype(_impl_.pinned_)*/false
-  , /*decltype(_impl_.exclusive_)*/false
-  , /*decltype(_impl_.exclude_user_)*/false
-  , /*decltype(_impl_.exclude_kernel_)*/false
-  , /*decltype(_impl_.exclude_hv_)*/false
-  , /*decltype(_impl_.exclude_idle_)*/false
-  , /*decltype(_impl_.mmap_)*/false
-  , /*decltype(_impl_.comm_)*/false
-  , /*decltype(_impl_.freq_)*/false
-  , /*decltype(_impl_.inherit_stat_)*/false
-  , /*decltype(_impl_.enable_on_exec_)*/false
-  , /*decltype(_impl_.task_)*/false
-  , /*decltype(_impl_.watermark_)*/false
-  , /*decltype(_impl_.mmap_data_)*/false
-  , /*decltype(_impl_.precise_ip_)*/0u
-  , /*decltype(_impl_.wakeup_events_)*/0u
-  , /*decltype(_impl_.sample_id_all_)*/false
-  , /*decltype(_impl_.exclude_host_)*/false
-  , /*decltype(_impl_.exclude_guest_)*/false
-  , /*decltype(_impl_.exclude_callchain_kernel_)*/false
-  , /*decltype(_impl_.wakeup_watermark_)*/0u
-  , /*decltype(_impl_.bp_addr_)*/uint64_t{0u}
-  , /*decltype(_impl_.config1_)*/uint64_t{0u}
-  , /*decltype(_impl_.bp_len_)*/uint64_t{0u}
-  , /*decltype(_impl_.config2_)*/uint64_t{0u}
-  , /*decltype(_impl_.branch_sample_type_)*/uint64_t{0u}
-  , /*decltype(_impl_.bp_type_)*/0u
-  , /*decltype(_impl_.exclude_callchain_user_)*/false
-  , /*decltype(_impl_.mmap2_)*/false
-  , /*decltype(_impl_.comm_exec_)*/false
-  , /*decltype(_impl_.use_clockid_)*/false
-  , /*decltype(_impl_.sample_regs_user_)*/uint64_t{0u}
-  , /*decltype(_impl_.sample_stack_user_)*/0u
-  , /*decltype(_impl_.context_switch_)*/false
-  , /*decltype(_impl_.write_backward_)*/false
-  , /*decltype(_impl_.namespaces_)*/false
-  , /*decltype(_impl_.cgroup_)*/false} {}
+  , /*decltype(_impl_.type_)*/ 0u
+
+  , /*decltype(_impl_.size_)*/ 0u
+
+  , /*decltype(_impl_.config_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.sample_period_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.sample_freq_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.sample_type_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.read_format_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.disabled_)*/ false
+
+  , /*decltype(_impl_.inherit_)*/ false
+
+  , /*decltype(_impl_.pinned_)*/ false
+
+  , /*decltype(_impl_.exclusive_)*/ false
+
+  , /*decltype(_impl_.exclude_user_)*/ false
+
+  , /*decltype(_impl_.exclude_kernel_)*/ false
+
+  , /*decltype(_impl_.exclude_hv_)*/ false
+
+  , /*decltype(_impl_.exclude_idle_)*/ false
+
+  , /*decltype(_impl_.mmap_)*/ false
+
+  , /*decltype(_impl_.comm_)*/ false
+
+  , /*decltype(_impl_.freq_)*/ false
+
+  , /*decltype(_impl_.inherit_stat_)*/ false
+
+  , /*decltype(_impl_.enable_on_exec_)*/ false
+
+  , /*decltype(_impl_.task_)*/ false
+
+  , /*decltype(_impl_.watermark_)*/ false
+
+  , /*decltype(_impl_.mmap_data_)*/ false
+
+  , /*decltype(_impl_.precise_ip_)*/ 0u
+
+  , /*decltype(_impl_.wakeup_events_)*/ 0u
+
+  , /*decltype(_impl_.sample_id_all_)*/ false
+
+  , /*decltype(_impl_.exclude_host_)*/ false
+
+  , /*decltype(_impl_.exclude_guest_)*/ false
+
+  , /*decltype(_impl_.exclude_callchain_kernel_)*/ false
+
+  , /*decltype(_impl_.wakeup_watermark_)*/ 0u
+
+  , /*decltype(_impl_.bp_addr_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.config1_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.bp_len_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.config2_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.branch_sample_type_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.bp_type_)*/ 0u
+
+  , /*decltype(_impl_.exclude_callchain_user_)*/ false
+
+  , /*decltype(_impl_.mmap2_)*/ false
+
+  , /*decltype(_impl_.comm_exec_)*/ false
+
+  , /*decltype(_impl_.use_clockid_)*/ false
+
+  , /*decltype(_impl_.sample_regs_user_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.sample_stack_user_)*/ 0u
+
+  , /*decltype(_impl_.context_switch_)*/ false
+
+  , /*decltype(_impl_.write_backward_)*/ false
+
+  , /*decltype(_impl_.namespaces_)*/ false
+
+  , /*decltype(_impl_.cgroup_)*/ false
+} {}
 struct PerfDataProto_PerfEventAttrDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventAttrDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventAttrDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfEventAttrDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfEventAttr _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventAttrDefaultTypeInternal _PerfDataProto_PerfEventAttr_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventAttrDefaultTypeInternal _PerfDataProto_PerfEventAttr_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfFileAttr::PerfDataProto_PerfFileAttr(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.ids_)*/{}
+  , /*decltype(_impl_.ids_)*/ {}
+
   , /*decltype(_impl_.attr_)*/nullptr} {}
 struct PerfDataProto_PerfFileAttrDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfFileAttrDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfFileAttrDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfFileAttrDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfFileAttr _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfFileAttrDefaultTypeInternal _PerfDataProto_PerfFileAttr_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfFileAttrDefaultTypeInternal _PerfDataProto_PerfFileAttr_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfEventType::PerfDataProto_PerfEventType(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.name_md5_prefix_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.name_md5_prefix_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_PerfEventTypeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventTypeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventTypeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfEventTypeDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfEventType _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventTypeDefaultTypeInternal _PerfDataProto_PerfEventType_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventTypeDefaultTypeInternal _PerfDataProto_PerfEventType_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_SampleInfo::PerfDataProto_SampleInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.sample_time_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.stream_id_)*/uint64_t{0u}
-  , /*decltype(_impl_.cpu_)*/0u} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.sample_time_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.stream_id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cpu_)*/ 0u
+} {}
 struct PerfDataProto_SampleInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_SampleInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_SampleInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_SampleInfoDefaultTypeInternal() {}
   union {
     PerfDataProto_SampleInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_SampleInfoDefaultTypeInternal _PerfDataProto_SampleInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_SampleInfoDefaultTypeInternal _PerfDataProto_SampleInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_CommEvent::PerfDataProto_CommEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.comm_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.comm_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.comm_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.sample_time_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.comm_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.sample_time_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_CommEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_CommEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_CommEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_CommEventDefaultTypeInternal() {}
   union {
     PerfDataProto_CommEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_CommEventDefaultTypeInternal _PerfDataProto_CommEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_CommEventDefaultTypeInternal _PerfDataProto_CommEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_MMapEvent::PerfDataProto_MMapEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.filename_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.root_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.build_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.filename_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.root_path_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.build_id_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.start_)*/uint64_t{0u}
-  , /*decltype(_impl_.len_)*/uint64_t{0u}
-  , /*decltype(_impl_.pgoff_)*/uint64_t{0u}
-  , /*decltype(_impl_.filename_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.maj_)*/0u
-  , /*decltype(_impl_.min_)*/0u
-  , /*decltype(_impl_.ino_)*/uint64_t{0u}
-  , /*decltype(_impl_.ino_generation_)*/uint64_t{0u}
-  , /*decltype(_impl_.prot_)*/0u
-  , /*decltype(_impl_.flags_)*/0u
-  , /*decltype(_impl_.root_path_md5_prefix_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.start_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.len_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.pgoff_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.filename_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.maj_)*/ 0u
+
+  , /*decltype(_impl_.min_)*/ 0u
+
+  , /*decltype(_impl_.ino_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.ino_generation_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.prot_)*/ 0u
+
+  , /*decltype(_impl_.flags_)*/ 0u
+
+  , /*decltype(_impl_.root_path_md5_prefix_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_MMapEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_MMapEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_MMapEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_MMapEventDefaultTypeInternal() {}
   union {
     PerfDataProto_MMapEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_MMapEventDefaultTypeInternal _PerfDataProto_MMapEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_MMapEventDefaultTypeInternal _PerfDataProto_MMapEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ReadInfo_ReadValue::PerfDataProto_ReadInfo_ReadValue(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.value_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.value_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal() {}
   union {
     PerfDataProto_ReadInfo_ReadValue _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal _PerfDataProto_ReadInfo_ReadValue_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadInfo_ReadValueDefaultTypeInternal _PerfDataProto_ReadInfo_ReadValue_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ReadInfo::PerfDataProto_ReadInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.read_value_)*/{}
-  , /*decltype(_impl_.time_enabled_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_running_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.time_enabled_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_running_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ReadInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ReadInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ReadInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ReadInfoDefaultTypeInternal() {}
   union {
     PerfDataProto_ReadInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadInfoDefaultTypeInternal _PerfDataProto_ReadInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadInfoDefaultTypeInternal _PerfDataProto_ReadInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_BranchStackEntry::PerfDataProto_BranchStackEntry(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.from_ip_)*/uint64_t{0u}
-  , /*decltype(_impl_.to_ip_)*/uint64_t{0u}
-  , /*decltype(_impl_.mispredicted_)*/false
-  , /*decltype(_impl_.predicted_)*/false
-  , /*decltype(_impl_.in_transaction_)*/false
-  , /*decltype(_impl_.abort_)*/false
-  , /*decltype(_impl_.cycles_)*/0u
-  , /*decltype(_impl_.type_)*/0u
-  , /*decltype(_impl_.spec_)*/0u} {}
+  , /*decltype(_impl_.from_ip_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.to_ip_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.mispredicted_)*/ false
+
+  , /*decltype(_impl_.predicted_)*/ false
+
+  , /*decltype(_impl_.in_transaction_)*/ false
+
+  , /*decltype(_impl_.abort_)*/ false
+
+  , /*decltype(_impl_.cycles_)*/ 0u
+
+  , /*decltype(_impl_.type_)*/ 0u
+
+  , /*decltype(_impl_.spec_)*/ 0u
+} {}
 struct PerfDataProto_BranchStackEntryDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_BranchStackEntryDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_BranchStackEntryDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_BranchStackEntryDefaultTypeInternal() {}
   union {
     PerfDataProto_BranchStackEntry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_BranchStackEntryDefaultTypeInternal _PerfDataProto_BranchStackEntry_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_BranchStackEntryDefaultTypeInternal _PerfDataProto_BranchStackEntry_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_WeightStruct::PerfDataProto_WeightStruct(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.var1_dw_)*/0u
-  , /*decltype(_impl_.var2_w_)*/0u
-  , /*decltype(_impl_.var3_w_)*/0u} {}
+  , /*decltype(_impl_.var1_dw_)*/ 0u
+
+  , /*decltype(_impl_.var2_w_)*/ 0u
+
+  , /*decltype(_impl_.var3_w_)*/ 0u
+} {}
 struct PerfDataProto_WeightStructDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_WeightStructDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_WeightStructDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_WeightStructDefaultTypeInternal() {}
   union {
     PerfDataProto_WeightStruct _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_WeightStructDefaultTypeInternal _PerfDataProto_WeightStruct_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_WeightStructDefaultTypeInternal _PerfDataProto_WeightStruct_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_SampleEvent::PerfDataProto_SampleEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.callchain_)*/{}
+  , /*decltype(_impl_.callchain_)*/ {}
+
   , /*decltype(_impl_.branch_stack_)*/{}
-  , /*decltype(_impl_.raw_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.raw_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.read_info_)*/nullptr
   , /*decltype(_impl_.weight_struct_)*/nullptr
-  , /*decltype(_impl_.ip_)*/uint64_t{0u}
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.sample_time_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.addr_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.stream_id_)*/uint64_t{0u}
-  , /*decltype(_impl_.period_)*/uint64_t{0u}
-  , /*decltype(_impl_.cpu_)*/0u
-  , /*decltype(_impl_.raw_size_)*/0u
-  , /*decltype(_impl_.weight_)*/uint64_t{0u}
-  , /*decltype(_impl_.data_src_)*/uint64_t{0u}
-  , /*decltype(_impl_.transaction_)*/uint64_t{0u}
-  , /*decltype(_impl_.physical_addr_)*/uint64_t{0u}
-  , /*decltype(_impl_.cgroup_)*/uint64_t{0u}
-  , /*decltype(_impl_.data_page_size_)*/uint64_t{0u}
-  , /*decltype(_impl_.code_page_size_)*/uint64_t{0u}
-  , /*decltype(_impl_.branch_stack_hw_idx_)*/uint64_t{0u}
-  , /*decltype(_impl_.no_hw_idx_)*/false} {}
+  , /*decltype(_impl_.ip_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.sample_time_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.addr_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.stream_id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.period_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cpu_)*/ 0u
+
+  , /*decltype(_impl_.raw_size_)*/ 0u
+
+  , /*decltype(_impl_.weight_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.data_src_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.transaction_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.physical_addr_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cgroup_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.data_page_size_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.code_page_size_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.branch_stack_hw_idx_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.no_hw_idx_)*/ false
+} {}
 struct PerfDataProto_SampleEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_SampleEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_SampleEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_SampleEventDefaultTypeInternal() {}
   union {
     PerfDataProto_SampleEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_SampleEventDefaultTypeInternal _PerfDataProto_SampleEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_SampleEventDefaultTypeInternal _PerfDataProto_SampleEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ForkEvent::PerfDataProto_ForkEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.ppid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.ptid_)*/0u
-  , /*decltype(_impl_.fork_time_ns_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.ppid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.ptid_)*/ 0u
+
+  , /*decltype(_impl_.fork_time_ns_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ForkEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ForkEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ForkEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ForkEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ForkEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ForkEventDefaultTypeInternal _PerfDataProto_ForkEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ForkEventDefaultTypeInternal _PerfDataProto_ForkEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_LostEvent::PerfDataProto_LostEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.lost_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.lost_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_LostEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_LostEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_LostEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_LostEventDefaultTypeInternal() {}
   union {
     PerfDataProto_LostEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_LostEventDefaultTypeInternal _PerfDataProto_LostEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_LostEventDefaultTypeInternal _PerfDataProto_LostEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ThrottleEvent::PerfDataProto_ThrottleEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.time_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.stream_id_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.time_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.stream_id_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ThrottleEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ThrottleEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ThrottleEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ThrottleEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ThrottleEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThrottleEventDefaultTypeInternal _PerfDataProto_ThrottleEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThrottleEventDefaultTypeInternal _PerfDataProto_ThrottleEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ReadEvent::PerfDataProto_ReadEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.value_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_enabled_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_running_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.value_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_enabled_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_running_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ReadEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ReadEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ReadEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ReadEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ReadEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadEventDefaultTypeInternal _PerfDataProto_ReadEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ReadEventDefaultTypeInternal _PerfDataProto_ReadEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_AuxEvent::PerfDataProto_AuxEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.aux_offset_)*/uint64_t{0u}
-  , /*decltype(_impl_.aux_size_)*/uint64_t{0u}
-  , /*decltype(_impl_.is_truncated_)*/false
-  , /*decltype(_impl_.is_overwrite_)*/false
-  , /*decltype(_impl_.is_partial_)*/false} {}
+  , /*decltype(_impl_.aux_offset_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.aux_size_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.is_truncated_)*/ false
+
+  , /*decltype(_impl_.is_overwrite_)*/ false
+
+  , /*decltype(_impl_.is_partial_)*/ false
+} {}
 struct PerfDataProto_AuxEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_AuxEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_AuxEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_AuxEventDefaultTypeInternal() {}
   union {
     PerfDataProto_AuxEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxEventDefaultTypeInternal _PerfDataProto_AuxEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxEventDefaultTypeInternal _PerfDataProto_AuxEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceInfoEvent::PerfDataProto_AuxtraceInfoEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.unparsed_binary_blob_priv_data_)*/{}
-  , /*decltype(_impl_.type_)*/0u} {}
+  , /*decltype(_impl_.unparsed_binary_blob_priv_data_)*/ {}
+
+  , /*decltype(_impl_.type_)*/ 0u
+} {}
 struct PerfDataProto_AuxtraceInfoEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceInfoEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceInfoEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_AuxtraceInfoEventDefaultTypeInternal() {}
   union {
     PerfDataProto_AuxtraceInfoEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceInfoEventDefaultTypeInternal _PerfDataProto_AuxtraceInfoEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceInfoEventDefaultTypeInternal _PerfDataProto_AuxtraceInfoEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceEvent::PerfDataProto_AuxtraceEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.trace_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.size_)*/uint64_t{0u}
-  , /*decltype(_impl_.offset_)*/uint64_t{0u}
-  , /*decltype(_impl_.reference_)*/uint64_t{0u}
-  , /*decltype(_impl_.idx_)*/0u
-  , /*decltype(_impl_.tid_)*/0u
-  , /*decltype(_impl_.cpu_)*/0u} {}
+  , /*decltype(_impl_.trace_data_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.size_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.offset_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.reference_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.idx_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+
+  , /*decltype(_impl_.cpu_)*/ 0u
+} {}
 struct PerfDataProto_AuxtraceEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_AuxtraceEventDefaultTypeInternal() {}
   union {
     PerfDataProto_AuxtraceEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceEventDefaultTypeInternal _PerfDataProto_AuxtraceEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceEventDefaultTypeInternal _PerfDataProto_AuxtraceEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceErrorEvent::PerfDataProto_AuxtraceErrorEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.msg_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.type_)*/0u
-  , /*decltype(_impl_.code_)*/0u
-  , /*decltype(_impl_.cpu_)*/0u
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.ip_)*/uint64_t{0u}
-  , /*decltype(_impl_.msg_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.tid_)*/0u} {}
+  , /*decltype(_impl_.msg_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.type_)*/ 0u
+
+  , /*decltype(_impl_.code_)*/ 0u
+
+  , /*decltype(_impl_.cpu_)*/ 0u
+
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.ip_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.msg_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.tid_)*/ 0u
+} {}
 struct PerfDataProto_AuxtraceErrorEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceErrorEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_AuxtraceErrorEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_AuxtraceErrorEventDefaultTypeInternal() {}
   union {
     PerfDataProto_AuxtraceErrorEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceErrorEventDefaultTypeInternal _PerfDataProto_AuxtraceErrorEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_AuxtraceErrorEventDefaultTypeInternal _PerfDataProto_AuxtraceErrorEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ItraceStartEvent::PerfDataProto_ItraceStartEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+} {}
 struct PerfDataProto_ItraceStartEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ItraceStartEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ItraceStartEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ItraceStartEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ItraceStartEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ItraceStartEventDefaultTypeInternal _PerfDataProto_ItraceStartEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ItraceStartEventDefaultTypeInternal _PerfDataProto_ItraceStartEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_LostSamplesEvent::PerfDataProto_LostSamplesEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.num_lost_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.num_lost_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_LostSamplesEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_LostSamplesEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_LostSamplesEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_LostSamplesEventDefaultTypeInternal() {}
   union {
     PerfDataProto_LostSamplesEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_LostSamplesEventDefaultTypeInternal _PerfDataProto_LostSamplesEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_LostSamplesEventDefaultTypeInternal _PerfDataProto_LostSamplesEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ContextSwitchEvent::PerfDataProto_ContextSwitchEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.is_out_)*/false
-  , /*decltype(_impl_.next_prev_pid_)*/0u
-  , /*decltype(_impl_.next_prev_tid_)*/0u} {}
+  , /*decltype(_impl_.is_out_)*/ false
+
+  , /*decltype(_impl_.next_prev_pid_)*/ 0u
+
+  , /*decltype(_impl_.next_prev_tid_)*/ 0u
+} {}
 struct PerfDataProto_ContextSwitchEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ContextSwitchEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ContextSwitchEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ContextSwitchEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ContextSwitchEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ContextSwitchEventDefaultTypeInternal _PerfDataProto_ContextSwitchEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ContextSwitchEventDefaultTypeInternal _PerfDataProto_ContextSwitchEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfNamespacesLinkInfo::PerfDataProto_PerfNamespacesLinkInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.dev_)*/uint64_t{0u}
-  , /*decltype(_impl_.ino_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.dev_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.ino_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfNamespacesLinkInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal _PerfDataProto_PerfNamespacesLinkInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal _PerfDataProto_PerfNamespacesLinkInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_NamespacesEvent::PerfDataProto_NamespacesEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.link_info_)*/{}
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.tid_)*/0u} {}
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.tid_)*/ 0u
+} {}
 struct PerfDataProto_NamespacesEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_NamespacesEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_NamespacesEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_NamespacesEventDefaultTypeInternal() {}
   union {
     PerfDataProto_NamespacesEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_NamespacesEventDefaultTypeInternal _PerfDataProto_NamespacesEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_NamespacesEventDefaultTypeInternal _PerfDataProto_NamespacesEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEventEntry::PerfDataProto_ThreadMapEventEntry(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.comm_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.pid_)*/uint64_t{0u}
-  , /*decltype(_impl_.comm_md5_prefix_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.comm_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.pid_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.comm_md5_prefix_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_ThreadMapEventEntryDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEventEntryDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEventEntryDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ThreadMapEventEntryDefaultTypeInternal() {}
   union {
     PerfDataProto_ThreadMapEventEntry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThreadMapEventEntryDefaultTypeInternal _PerfDataProto_ThreadMapEventEntry_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThreadMapEventEntryDefaultTypeInternal _PerfDataProto_ThreadMapEventEntry_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEvent::PerfDataProto_ThreadMapEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.entries_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PerfDataProto_ThreadMapEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_ThreadMapEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_ThreadMapEventDefaultTypeInternal() {}
   union {
     PerfDataProto_ThreadMapEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThreadMapEventDefaultTypeInternal _PerfDataProto_ThreadMapEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_ThreadMapEventDefaultTypeInternal _PerfDataProto_ThreadMapEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEventEntry::PerfDataProto_StatConfigEventEntry(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.tag_)*/uint64_t{0u}
-  , /*decltype(_impl_.val_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.tag_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.val_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_StatConfigEventEntryDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEventEntryDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEventEntryDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StatConfigEventEntryDefaultTypeInternal() {}
   union {
     PerfDataProto_StatConfigEventEntry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatConfigEventEntryDefaultTypeInternal _PerfDataProto_StatConfigEventEntry_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatConfigEventEntryDefaultTypeInternal _PerfDataProto_StatConfigEventEntry_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEvent::PerfDataProto_StatConfigEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.data_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PerfDataProto_StatConfigEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StatConfigEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StatConfigEventDefaultTypeInternal() {}
   union {
     PerfDataProto_StatConfigEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatConfigEventDefaultTypeInternal _PerfDataProto_StatConfigEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatConfigEventDefaultTypeInternal _PerfDataProto_StatConfigEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StatEvent::PerfDataProto_StatEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.id_)*/uint64_t{0u}
-  , /*decltype(_impl_.cpu_)*/0u
-  , /*decltype(_impl_.thread_)*/0u
-  , /*decltype(_impl_.value_)*/uint64_t{0u}
-  , /*decltype(_impl_.enabled_)*/uint64_t{0u}
-  , /*decltype(_impl_.running_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cpu_)*/ 0u
+
+  , /*decltype(_impl_.thread_)*/ 0u
+
+  , /*decltype(_impl_.value_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.enabled_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.running_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_StatEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StatEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StatEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StatEventDefaultTypeInternal() {}
   union {
     PerfDataProto_StatEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatEventDefaultTypeInternal _PerfDataProto_StatEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatEventDefaultTypeInternal _PerfDataProto_StatEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StatRoundEvent::PerfDataProto_StatRoundEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.type_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.type_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_StatRoundEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StatRoundEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StatRoundEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StatRoundEventDefaultTypeInternal() {}
   union {
     PerfDataProto_StatRoundEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatRoundEventDefaultTypeInternal _PerfDataProto_StatRoundEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StatRoundEventDefaultTypeInternal _PerfDataProto_StatRoundEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_CgroupEvent::PerfDataProto_CgroupEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.path_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.sample_info_)*/nullptr
-  , /*decltype(_impl_.id_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.id_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_CgroupEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_CgroupEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_CgroupEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_CgroupEventDefaultTypeInternal() {}
   union {
     PerfDataProto_CgroupEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_CgroupEventDefaultTypeInternal _PerfDataProto_CgroupEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_CgroupEventDefaultTypeInternal _PerfDataProto_CgroupEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_TimeConvEvent::PerfDataProto_TimeConvEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.time_shift_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_mult_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_zero_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_cycles_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_mask_)*/uint64_t{0u}
-  , /*decltype(_impl_.cap_user_time_zero_)*/false
-  , /*decltype(_impl_.cap_user_time_short_)*/false} {}
+  , /*decltype(_impl_.time_shift_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_mult_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_zero_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_cycles_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_mask_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cap_user_time_zero_)*/ false
+
+  , /*decltype(_impl_.cap_user_time_short_)*/ false
+} {}
 struct PerfDataProto_TimeConvEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_TimeConvEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_TimeConvEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_TimeConvEventDefaultTypeInternal() {}
   union {
     PerfDataProto_TimeConvEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_TimeConvEventDefaultTypeInternal _PerfDataProto_TimeConvEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_TimeConvEventDefaultTypeInternal _PerfDataProto_TimeConvEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_EventHeader::PerfDataProto_EventHeader(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.type_)*/0u
-  , /*decltype(_impl_.misc_)*/0u
-  , /*decltype(_impl_.size_)*/0u} {}
+  , /*decltype(_impl_.type_)*/ 0u
+
+  , /*decltype(_impl_.misc_)*/ 0u
+
+  , /*decltype(_impl_.size_)*/ 0u
+} {}
 struct PerfDataProto_EventHeaderDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_EventHeaderDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_EventHeaderDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_EventHeaderDefaultTypeInternal() {}
   union {
     PerfDataProto_EventHeader _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_EventHeaderDefaultTypeInternal _PerfDataProto_EventHeader_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_EventHeaderDefaultTypeInternal _PerfDataProto_EventHeader_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.header_)*/nullptr
-  , /*decltype(_impl_.timestamp_)*/uint64_t{0u}
+  , /*decltype(_impl_.timestamp_)*/ ::uint64_t{0u}
+
   , /*decltype(_impl_.event_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct PerfDataProto_PerfEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfEventDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventDefaultTypeInternal _PerfDataProto_PerfEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventDefaultTypeInternal _PerfDataProto_PerfEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfEventStats::PerfDataProto_PerfEventStats(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.num_events_read_)*/0u
-  , /*decltype(_impl_.num_sample_events_)*/0u
-  , /*decltype(_impl_.num_mmap_events_)*/0u
-  , /*decltype(_impl_.num_fork_events_)*/0u
-  , /*decltype(_impl_.num_exit_events_)*/0u
-  , /*decltype(_impl_.num_sample_events_mapped_)*/0u
-  , /*decltype(_impl_.did_remap_)*/false} {}
+  , /*decltype(_impl_.num_events_read_)*/ 0u
+
+  , /*decltype(_impl_.num_sample_events_)*/ 0u
+
+  , /*decltype(_impl_.num_mmap_events_)*/ 0u
+
+  , /*decltype(_impl_.num_fork_events_)*/ 0u
+
+  , /*decltype(_impl_.num_exit_events_)*/ 0u
+
+  , /*decltype(_impl_.num_sample_events_mapped_)*/ 0u
+
+  , /*decltype(_impl_.did_remap_)*/ false
+} {}
 struct PerfDataProto_PerfEventStatsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventStatsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfEventStatsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfEventStatsDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfEventStats _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventStatsDefaultTypeInternal _PerfDataProto_PerfEventStats_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfEventStatsDefaultTypeInternal _PerfDataProto_PerfEventStats_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfUint32Metadata::PerfDataProto_PerfUint32Metadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.data_)*/{}
-  , /*decltype(_impl_.type_)*/0u} {}
+  , /*decltype(_impl_.data_)*/ {}
+
+  , /*decltype(_impl_.type_)*/ 0u
+} {}
 struct PerfDataProto_PerfUint32MetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfUint32MetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfUint32MetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfUint32MetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfUint32Metadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfUint32MetadataDefaultTypeInternal _PerfDataProto_PerfUint32Metadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfUint32MetadataDefaultTypeInternal _PerfDataProto_PerfUint32Metadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfUint64Metadata::PerfDataProto_PerfUint64Metadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.data_)*/{}
-  , /*decltype(_impl_.type_)*/0u} {}
+  , /*decltype(_impl_.data_)*/ {}
+
+  , /*decltype(_impl_.type_)*/ 0u
+} {}
 struct PerfDataProto_PerfUint64MetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfUint64MetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfUint64MetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfUint64MetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfUint64Metadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfUint64MetadataDefaultTypeInternal _PerfDataProto_PerfUint64Metadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfUint64MetadataDefaultTypeInternal _PerfDataProto_PerfUint64Metadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfTracingMetadata::PerfDataProto_PerfTracingMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.tracing_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.tracing_data_md5_prefix_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.tracing_data_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.tracing_data_md5_prefix_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_PerfTracingMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfTracingMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfTracingMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfTracingMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfTracingMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfTracingMetadataDefaultTypeInternal _PerfDataProto_PerfTracingMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfTracingMetadataDefaultTypeInternal _PerfDataProto_PerfTracingMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfBuildID::PerfDataProto_PerfBuildID(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.build_id_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.filename_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.misc_)*/0u
-  , /*decltype(_impl_.pid_)*/0u
-  , /*decltype(_impl_.filename_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.size_)*/0u
-  , /*decltype(_impl_.is_injected_)*/false} {}
+  , /*decltype(_impl_.build_id_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.filename_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.misc_)*/ 0u
+
+  , /*decltype(_impl_.pid_)*/ 0u
+
+  , /*decltype(_impl_.filename_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.size_)*/ 0u
+
+  , /*decltype(_impl_.is_injected_)*/ false
+} {}
 struct PerfDataProto_PerfBuildIDDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfBuildIDDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfBuildIDDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfBuildIDDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfBuildID _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfBuildIDDefaultTypeInternal _PerfDataProto_PerfBuildID_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfBuildIDDefaultTypeInternal _PerfDataProto_PerfBuildID_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadata_CPU::PerfDataProto_PerfCPUTopologyMetadata_CPU(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.core_id_)*/0u
-  , /*decltype(_impl_.socket_id_)*/0u} {}
+  , /*decltype(_impl_.core_id_)*/ 0u
+
+  , /*decltype(_impl_.socket_id_)*/ 0u
+} {}
 struct PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfCPUTopologyMetadata_CPU _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal _PerfDataProto_PerfCPUTopologyMetadata_CPU_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfCPUTopologyMetadata_CPUDefaultTypeInternal _PerfDataProto_PerfCPUTopologyMetadata_CPU_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.core_siblings_)*/{}
-  , /*decltype(_impl_.core_siblings_md5_prefix_)*/{}
+  , /*decltype(_impl_.core_siblings_md5_prefix_)*/ {}
+
   , /*decltype(_impl_.thread_siblings_)*/{}
-  , /*decltype(_impl_.thread_siblings_md5_prefix_)*/{}
+  , /*decltype(_impl_.thread_siblings_md5_prefix_)*/ {}
+
   , /*decltype(_impl_.available_cpus_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfCPUTopologyMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfCPUTopologyMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfCPUTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfCPUTopologyMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfNodeTopologyMetadata::PerfDataProto_PerfNodeTopologyMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.cpu_list_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.total_memory_)*/uint64_t{0u}
-  , /*decltype(_impl_.free_memory_)*/uint64_t{0u}
-  , /*decltype(_impl_.cpu_list_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.id_)*/0u} {}
+  , /*decltype(_impl_.cpu_list_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.total_memory_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.free_memory_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.cpu_list_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.id_)*/ 0u
+} {}
 struct PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfNodeTopologyMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfNodeTopologyMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfNodeTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfNodeTopologyMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfPMUMappingsMetadata::PerfDataProto_PerfPMUMappingsMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.name_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.type_)*/0u} {}
+  , /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.name_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.type_)*/ 0u
+} {}
 struct PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfPMUMappingsMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal _PerfDataProto_PerfPMUMappingsMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal _PerfDataProto_PerfPMUMappingsMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_PerfGroupDescMetadata::PerfDataProto_PerfGroupDescMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.name_md5_prefix_)*/uint64_t{0u}
-  , /*decltype(_impl_.leader_idx_)*/0u
-  , /*decltype(_impl_.num_members_)*/0u} {}
+  , /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.name_md5_prefix_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.leader_idx_)*/ 0u
+
+  , /*decltype(_impl_.num_members_)*/ 0u
+} {}
 struct PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_PerfGroupDescMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal _PerfDataProto_PerfGroupDescMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal _PerfDataProto_PerfGroupDescMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.value_md5_prefix_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.value_md5_prefix_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal() {}
   union {
     PerfDataProto_StringMetadata_StringAndMd5sumPrefix _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal _PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StringMetadata_StringAndMd5sumPrefixDefaultTypeInternal _PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -868,21 +1217,24 @@ PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(
   , /*decltype(_impl_.cpu_id_)*/nullptr
   , /*decltype(_impl_.perf_command_line_whole_)*/nullptr} {}
 struct PerfDataProto_StringMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProto_StringMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProto_StringMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProto_StringMetadataDefaultTypeInternal() {}
   union {
     PerfDataProto_StringMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StringMetadataDefaultTypeInternal _PerfDataProto_StringMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_StringMetadataDefaultTypeInternal _PerfDataProto_StringMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto::PerfDataProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.file_attrs_)*/{}
   , /*decltype(_impl_.events_)*/{}
-  , /*decltype(_impl_.metadata_mask_)*/{}
+  , /*decltype(_impl_.metadata_mask_)*/ {}
+
   , /*decltype(_impl_.build_ids_)*/{}
   , /*decltype(_impl_.uint32_metadata_)*/{}
   , /*decltype(_impl_.uint64_metadata_)*/{}
@@ -894,1247 +1246,1368 @@ PROTOBUF_CONSTEXPR PerfDataProto::PerfDataProto(
   , /*decltype(_impl_.cpu_topology_)*/nullptr
   , /*decltype(_impl_.string_metadata_)*/nullptr
   , /*decltype(_impl_.tracing_data_)*/nullptr
-  , /*decltype(_impl_.timestamp_sec_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.timestamp_sec_)*/ ::uint64_t{0u}
+} {}
 struct PerfDataProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfDataProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfDataProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfDataProtoDefaultTypeInternal() {}
   union {
     PerfDataProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProtoDefaultTypeInternal _PerfDataProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProtoDefaultTypeInternal _PerfDataProto_default_instance_;
 }  // namespace quipper
 static ::_pb::Metadata file_level_metadata_perf_5fdata_2eproto[47];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_perf_5fdata_2eproto = nullptr;
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_perf_5fdata_2eproto = nullptr;
-
-const uint32_t TableStruct_perf_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_period_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_freq_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.read_format_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.disabled_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.inherit_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.pinned_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclusive_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_user_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_kernel_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_hv_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_idle_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.comm_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.freq_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.inherit_stat_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.enable_on_exec_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.task_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.watermark_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.precise_ip_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap_data_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_id_all_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_host_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_guest_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_callchain_kernel_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_callchain_user_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap2_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.comm_exec_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.use_clockid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.context_switch_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.write_backward_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.namespaces_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.cgroup_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.wakeup_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.wakeup_watermark_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_addr_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config1_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_len_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config2_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.branch_sample_type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_regs_user_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_stack_user_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  23,
-  22,
-  25,
-  26,
-  27,
-  28,
-  36,
-  37,
-  38,
-  39,
-  42,
-  43,
-  44,
-  45,
-  24,
-  29,
-  35,
-  30,
-  31,
-  32,
-  33,
-  34,
-  40,
-  41,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_.attr_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_.ids_),
-  0,
-  ~0u,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.name_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.name_md5_prefix_),
-  1,
-  0,
-  2,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.sample_time_ns_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.cpu_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.stream_id_),
-  0,
-  1,
-  2,
-  3,
-  5,
-  4,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.comm_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.comm_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.sample_time_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.sample_info_),
-  2,
-  3,
-  0,
-  4,
-  5,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.start_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.len_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.pgoff_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.maj_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.min_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.ino_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.ino_generation_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.build_id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.prot_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.flags_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.filename_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.filename_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.root_path_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.root_path_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.sample_info_),
-  4,
-  5,
-  6,
-  7,
-  8,
-  10,
-  11,
-  12,
-  13,
-  2,
-  14,
-  15,
-  0,
-  9,
-  1,
-  16,
-  3,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_.id_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.time_enabled_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.time_running_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.read_value_),
-  0,
-  1,
-  ~0u,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.from_ip_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.to_ip_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.mispredicted_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.predicted_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.in_transaction_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.abort_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.cycles_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.spec_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var1_dw_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var2_w_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var3_w_),
-  0,
-  1,
-  2,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.ip_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.sample_time_ns_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.addr_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.stream_id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.period_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.cpu_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.raw_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.raw_size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.read_info_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.callchain_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.branch_stack_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.weight_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.data_src_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.transaction_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.physical_addr_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.cgroup_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.data_page_size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.code_page_size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.no_hw_idx_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.branch_stack_hw_idx_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.weight_struct_),
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  0,
-  12,
-  1,
-  ~0u,
-  ~0u,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  21,
-  20,
-  2,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.ppid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.ptid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.fork_time_ns_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.sample_info_),
-  1,
-  2,
-  3,
-  4,
-  5,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.lost_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.sample_info_),
-  1,
-  2,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.time_ns_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.stream_id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.sample_info_),
-  1,
-  2,
-  3,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.time_enabled_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.time_running_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.sample_info_),
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.aux_offset_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.aux_size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_truncated_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_overwrite_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_partial_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.sample_info_),
-  1,
-  2,
-  3,
-  4,
-  5,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_.unparsed_binary_blob_priv_data_),
-  0,
-  ~0u,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.offset_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.reference_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.idx_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.cpu_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.trace_data_),
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.code_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.cpu_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.ip_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.msg_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.msg_md5_prefix_),
-  1,
-  2,
-  3,
-  4,
-  7,
-  5,
-  0,
-  6,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.sample_info_),
-  1,
-  2,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_.num_lost_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_.sample_info_),
-  1,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.is_out_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.next_prev_pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.next_prev_tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.sample_info_),
-  1,
-  2,
-  3,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_.dev_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_.ino_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.tid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.link_info_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.sample_info_),
-  1,
-  2,
-  ~0u,
-  0,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.comm_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.comm_md5_prefix_),
-  1,
-  0,
-  2,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEvent, _impl_.entries_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_.tag_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_.val_),
-  0,
-  1,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEvent, _impl_.data_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.cpu_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.thread_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.enabled_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.running_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_.time_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.path_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.sample_info_),
-  2,
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_shift_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_mult_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_zero_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_cycles_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_mask_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.cap_user_time_zero_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.cap_user_time_short_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.misc_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.size_),
-  0,
-  1,
-  2,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_._oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.header_),
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.timestamp_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.event_type_),
-  0,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_events_read_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_sample_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_mmap_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_fork_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_exit_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_sample_events_mapped_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.did_remap_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_.data_),
-  0,
-  ~0u,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_.data_),
-  0,
-  ~0u,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_.tracing_data_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_.tracing_data_md5_prefix_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.misc_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.pid_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.build_id_hash_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.filename_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.filename_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.size_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.is_injected_),
-  2,
-  3,
-  0,
-  1,
-  4,
-  5,
-  6,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_.core_id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_.socket_id_),
-  0,
-  1,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.core_siblings_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.core_siblings_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.thread_siblings_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.thread_siblings_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.available_cpus_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.total_memory_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.free_memory_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.cpu_list_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.cpu_list_md5_prefix_),
-  4,
-  1,
-  2,
-  0,
-  3,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.name_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.name_md5_prefix_),
-  2,
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.name_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.name_md5_prefix_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.leader_idx_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.num_members_),
-  0,
-  1,
-  2,
-  3,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_.value_md5_prefix_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.hostname_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.kernel_version_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_version_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.architecture_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.cpu_description_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.cpu_id_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_command_line_token_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_command_line_whole_),
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  ~0u,
-  6,
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.file_attrs_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.event_types_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.timestamp_sec_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.stats_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.metadata_mask_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.tracing_data_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.build_ids_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.uint32_metadata_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.uint64_metadata_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.cpu_topology_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.numa_topology_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.pmu_mappings_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.group_desc_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.string_metadata_),
-  ~0u,
-  ~0u,
-  ~0u,
-  4,
-  0,
-  ~0u,
-  3,
-  ~0u,
-  ~0u,
-  ~0u,
-  1,
-  ~0u,
-  ~0u,
-  ~0u,
-  2,
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_perf_5fdata_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_perf_5fdata_2eproto = nullptr;
+const ::uint32_t TableStruct_perf_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_period_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_freq_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.read_format_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.disabled_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.inherit_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.pinned_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclusive_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_user_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_kernel_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_hv_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_idle_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.comm_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.freq_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.inherit_stat_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.enable_on_exec_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.task_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.watermark_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.precise_ip_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap_data_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_id_all_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_host_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_guest_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_callchain_kernel_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.exclude_callchain_user_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.mmap2_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.comm_exec_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.use_clockid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.context_switch_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.write_backward_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.namespaces_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.cgroup_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.wakeup_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.wakeup_watermark_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_addr_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config1_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.bp_len_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.config2_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.branch_sample_type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_regs_user_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventAttr, _impl_.sample_stack_user_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    22,
+    25,
+    26,
+    27,
+    28,
+    36,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    24,
+    29,
+    35,
+    30,
+    31,
+    32,
+    33,
+    34,
+    40,
+    41,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_.attr_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfFileAttr, _impl_.ids_),
+    0,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.name_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventType, _impl_.name_md5_prefix_),
+    1,
+    0,
+    2,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.sample_time_ns_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.cpu_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleInfo, _impl_.stream_id_),
+    0,
+    1,
+    2,
+    3,
+    5,
+    4,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.comm_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.comm_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.sample_time_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CommEvent, _impl_.sample_info_),
+    2,
+    3,
+    0,
+    4,
+    5,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.start_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.len_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.pgoff_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.maj_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.min_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.ino_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.ino_generation_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.build_id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.prot_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.flags_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.filename_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.filename_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.root_path_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.root_path_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_MMapEvent, _impl_.sample_info_),
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13,
+    2,
+    14,
+    15,
+    0,
+    9,
+    1,
+    16,
+    3,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_.value_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo_ReadValue, _impl_.id_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.time_enabled_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.time_running_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadInfo, _impl_.read_value_),
+    0,
+    1,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.from_ip_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.to_ip_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.mispredicted_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.predicted_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.in_transaction_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.abort_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.cycles_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_BranchStackEntry, _impl_.spec_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var1_dw_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var2_w_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_WeightStruct, _impl_.var3_w_),
+    0,
+    1,
+    2,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.ip_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.sample_time_ns_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.addr_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.stream_id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.period_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.cpu_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.raw_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.raw_size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.read_info_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.callchain_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.branch_stack_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.weight_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.data_src_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.transaction_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.physical_addr_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.cgroup_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.data_page_size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.code_page_size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.no_hw_idx_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.branch_stack_hw_idx_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_SampleEvent, _impl_.weight_struct_),
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    0,
+    12,
+    1,
+    ~0u,
+    ~0u,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    21,
+    20,
+    2,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.ppid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.ptid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.fork_time_ns_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ForkEvent, _impl_.sample_info_),
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.lost_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostEvent, _impl_.sample_info_),
+    1,
+    2,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.time_ns_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.stream_id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThrottleEvent, _impl_.sample_info_),
+    1,
+    2,
+    3,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.value_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.time_enabled_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.time_running_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ReadEvent, _impl_.sample_info_),
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.aux_offset_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.aux_size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_truncated_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_overwrite_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.is_partial_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxEvent, _impl_.sample_info_),
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceInfoEvent, _impl_.unparsed_binary_blob_priv_data_),
+    0,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.offset_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.reference_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.idx_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.cpu_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceEvent, _impl_.trace_data_),
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.code_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.cpu_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.ip_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.msg_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_AuxtraceErrorEvent, _impl_.msg_md5_prefix_),
+    1,
+    2,
+    3,
+    4,
+    7,
+    5,
+    0,
+    6,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ItraceStartEvent, _impl_.sample_info_),
+    1,
+    2,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_.num_lost_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_LostSamplesEvent, _impl_.sample_info_),
+    1,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.is_out_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.next_prev_pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.next_prev_tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ContextSwitchEvent, _impl_.sample_info_),
+    1,
+    2,
+    3,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_.dev_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNamespacesLinkInfo, _impl_.ino_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.tid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.link_info_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_NamespacesEvent, _impl_.sample_info_),
+    1,
+    2,
+    ~0u,
+    0,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.comm_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEventEntry, _impl_.comm_md5_prefix_),
+    1,
+    0,
+    2,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_ThreadMapEvent, _impl_.entries_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_.tag_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEventEntry, _impl_.val_),
+    0,
+    1,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatConfigEvent, _impl_.data_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.cpu_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.thread_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.value_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.enabled_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatEvent, _impl_.running_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StatRoundEvent, _impl_.time_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.path_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_CgroupEvent, _impl_.sample_info_),
+    2,
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_shift_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_mult_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_zero_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_cycles_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.time_mask_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.cap_user_time_zero_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_TimeConvEvent, _impl_.cap_user_time_short_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.misc_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_EventHeader, _impl_.size_),
+    0,
+    1,
+    2,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.header_),
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.timestamp_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_.event_type_),
+    0,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_events_read_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_sample_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_mmap_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_fork_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_exit_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.num_sample_events_mapped_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEventStats, _impl_.did_remap_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint32Metadata, _impl_.data_),
+    0,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfUint64Metadata, _impl_.data_),
+    0,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_.tracing_data_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfTracingMetadata, _impl_.tracing_data_md5_prefix_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.misc_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.pid_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.build_id_hash_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.filename_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.filename_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.size_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfBuildID, _impl_.is_injected_),
+    2,
+    3,
+    0,
+    1,
+    4,
+    5,
+    6,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_.core_id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_.socket_id_),
+    0,
+    1,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.core_siblings_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.core_siblings_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.thread_siblings_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.thread_siblings_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfCPUTopologyMetadata, _impl_.available_cpus_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.total_memory_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.free_memory_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.cpu_list_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfNodeTopologyMetadata, _impl_.cpu_list_md5_prefix_),
+    4,
+    1,
+    2,
+    0,
+    3,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.name_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfPMUMappingsMetadata, _impl_.name_md5_prefix_),
+    2,
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.name_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.name_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.leader_idx_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfGroupDescMetadata, _impl_.num_members_),
+    0,
+    1,
+    2,
+    3,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_.value_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_.value_md5_prefix_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.hostname_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.kernel_version_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_version_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.architecture_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.cpu_description_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.cpu_id_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_command_line_token_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata, _impl_.perf_command_line_whole_),
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    ~0u,
+    6,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.file_attrs_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.event_types_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.timestamp_sec_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.stats_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.metadata_mask_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.tracing_data_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.build_ids_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.uint32_metadata_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.uint64_metadata_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.cpu_topology_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.numa_topology_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.pmu_mappings_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.group_desc_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.string_metadata_),
+    ~0u,
+    ~0u,
+    ~0u,
+    4,
+    0,
+    ~0u,
+    3,
+    ~0u,
+    ~0u,
+    ~0u,
+    1,
+    ~0u,
+    ~0u,
+    ~0u,
+    2,
 };
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 52, -1, sizeof(::quipper::PerfDataProto_PerfEventAttr)},
-  { 98, 106, -1, sizeof(::quipper::PerfDataProto_PerfFileAttr)},
-  { 108, 117, -1, sizeof(::quipper::PerfDataProto_PerfEventType)},
-  { 120, 132, -1, sizeof(::quipper::PerfDataProto_SampleInfo)},
-  { 138, 150, -1, sizeof(::quipper::PerfDataProto_CommEvent)},
-  { 156, 179, -1, sizeof(::quipper::PerfDataProto_MMapEvent)},
-  { 196, 204, -1, sizeof(::quipper::PerfDataProto_ReadInfo_ReadValue)},
-  { 206, 215, -1, sizeof(::quipper::PerfDataProto_ReadInfo)},
-  { 218, 233, -1, sizeof(::quipper::PerfDataProto_BranchStackEntry)},
-  { 242, 251, -1, sizeof(::quipper::PerfDataProto_WeightStruct)},
-  { 254, 284, -1, sizeof(::quipper::PerfDataProto_SampleEvent)},
-  { 308, 320, -1, sizeof(::quipper::PerfDataProto_ForkEvent)},
-  { 326, 335, -1, sizeof(::quipper::PerfDataProto_LostEvent)},
-  { 338, 348, -1, sizeof(::quipper::PerfDataProto_ThrottleEvent)},
-  { 352, 365, -1, sizeof(::quipper::PerfDataProto_ReadEvent)},
-  { 372, 384, -1, sizeof(::quipper::PerfDataProto_AuxEvent)},
-  { 390, 398, -1, sizeof(::quipper::PerfDataProto_AuxtraceInfoEvent)},
-  { 400, 413, -1, sizeof(::quipper::PerfDataProto_AuxtraceEvent)},
-  { 420, 434, -1, sizeof(::quipper::PerfDataProto_AuxtraceErrorEvent)},
-  { 442, 451, -1, sizeof(::quipper::PerfDataProto_ItraceStartEvent)},
-  { 454, 462, -1, sizeof(::quipper::PerfDataProto_LostSamplesEvent)},
-  { 464, 474, -1, sizeof(::quipper::PerfDataProto_ContextSwitchEvent)},
-  { 478, 486, -1, sizeof(::quipper::PerfDataProto_PerfNamespacesLinkInfo)},
-  { 488, 498, -1, sizeof(::quipper::PerfDataProto_NamespacesEvent)},
-  { 502, 511, -1, sizeof(::quipper::PerfDataProto_ThreadMapEventEntry)},
-  { 514, -1, -1, sizeof(::quipper::PerfDataProto_ThreadMapEvent)},
-  { 521, 529, -1, sizeof(::quipper::PerfDataProto_StatConfigEventEntry)},
-  { 531, -1, -1, sizeof(::quipper::PerfDataProto_StatConfigEvent)},
-  { 538, 550, -1, sizeof(::quipper::PerfDataProto_StatEvent)},
-  { 556, 564, -1, sizeof(::quipper::PerfDataProto_StatRoundEvent)},
-  { 566, 575, -1, sizeof(::quipper::PerfDataProto_CgroupEvent)},
-  { 578, 591, -1, sizeof(::quipper::PerfDataProto_TimeConvEvent)},
-  { 598, 607, -1, sizeof(::quipper::PerfDataProto_EventHeader)},
-  { 610, 641, -1, sizeof(::quipper::PerfDataProto_PerfEvent)},
-  { 665, 678, -1, sizeof(::quipper::PerfDataProto_PerfEventStats)},
-  { 685, 693, -1, sizeof(::quipper::PerfDataProto_PerfUint32Metadata)},
-  { 695, 703, -1, sizeof(::quipper::PerfDataProto_PerfUint64Metadata)},
-  { 705, 713, -1, sizeof(::quipper::PerfDataProto_PerfTracingMetadata)},
-  { 715, 728, -1, sizeof(::quipper::PerfDataProto_PerfBuildID)},
-  { 735, 743, -1, sizeof(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU)},
-  { 745, -1, -1, sizeof(::quipper::PerfDataProto_PerfCPUTopologyMetadata)},
-  { 756, 767, -1, sizeof(::quipper::PerfDataProto_PerfNodeTopologyMetadata)},
-  { 772, 781, -1, sizeof(::quipper::PerfDataProto_PerfPMUMappingsMetadata)},
-  { 784, 794, -1, sizeof(::quipper::PerfDataProto_PerfGroupDescMetadata)},
-  { 798, 806, -1, sizeof(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix)},
-  { 808, 822, -1, sizeof(::quipper::PerfDataProto_StringMetadata)},
-  { 830, 851, -1, sizeof(::quipper::PerfDataProto)},
+
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, 54, -1, sizeof(::quipper::PerfDataProto_PerfEventAttr)},
+        { 100, 110, -1, sizeof(::quipper::PerfDataProto_PerfFileAttr)},
+        { 112, 123, -1, sizeof(::quipper::PerfDataProto_PerfEventType)},
+        { 126, 140, -1, sizeof(::quipper::PerfDataProto_SampleInfo)},
+        { 146, 160, -1, sizeof(::quipper::PerfDataProto_CommEvent)},
+        { 166, 191, -1, sizeof(::quipper::PerfDataProto_MMapEvent)},
+        { 208, 218, -1, sizeof(::quipper::PerfDataProto_ReadInfo_ReadValue)},
+        { 220, 231, -1, sizeof(::quipper::PerfDataProto_ReadInfo)},
+        { 234, 251, -1, sizeof(::quipper::PerfDataProto_BranchStackEntry)},
+        { 260, 271, -1, sizeof(::quipper::PerfDataProto_WeightStruct)},
+        { 274, 306, -1, sizeof(::quipper::PerfDataProto_SampleEvent)},
+        { 330, 344, -1, sizeof(::quipper::PerfDataProto_ForkEvent)},
+        { 350, 361, -1, sizeof(::quipper::PerfDataProto_LostEvent)},
+        { 364, 376, -1, sizeof(::quipper::PerfDataProto_ThrottleEvent)},
+        { 380, 395, -1, sizeof(::quipper::PerfDataProto_ReadEvent)},
+        { 402, 416, -1, sizeof(::quipper::PerfDataProto_AuxEvent)},
+        { 422, 432, -1, sizeof(::quipper::PerfDataProto_AuxtraceInfoEvent)},
+        { 434, 449, -1, sizeof(::quipper::PerfDataProto_AuxtraceEvent)},
+        { 456, 472, -1, sizeof(::quipper::PerfDataProto_AuxtraceErrorEvent)},
+        { 480, 491, -1, sizeof(::quipper::PerfDataProto_ItraceStartEvent)},
+        { 494, 504, -1, sizeof(::quipper::PerfDataProto_LostSamplesEvent)},
+        { 506, 518, -1, sizeof(::quipper::PerfDataProto_ContextSwitchEvent)},
+        { 522, 532, -1, sizeof(::quipper::PerfDataProto_PerfNamespacesLinkInfo)},
+        { 534, 546, -1, sizeof(::quipper::PerfDataProto_NamespacesEvent)},
+        { 550, 561, -1, sizeof(::quipper::PerfDataProto_ThreadMapEventEntry)},
+        { 564, -1, -1, sizeof(::quipper::PerfDataProto_ThreadMapEvent)},
+        { 573, 583, -1, sizeof(::quipper::PerfDataProto_StatConfigEventEntry)},
+        { 585, -1, -1, sizeof(::quipper::PerfDataProto_StatConfigEvent)},
+        { 594, 608, -1, sizeof(::quipper::PerfDataProto_StatEvent)},
+        { 614, 624, -1, sizeof(::quipper::PerfDataProto_StatRoundEvent)},
+        { 626, 637, -1, sizeof(::quipper::PerfDataProto_CgroupEvent)},
+        { 640, 655, -1, sizeof(::quipper::PerfDataProto_TimeConvEvent)},
+        { 662, 673, -1, sizeof(::quipper::PerfDataProto_EventHeader)},
+        { 676, 709, -1, sizeof(::quipper::PerfDataProto_PerfEvent)},
+        { 733, 748, -1, sizeof(::quipper::PerfDataProto_PerfEventStats)},
+        { 755, 765, -1, sizeof(::quipper::PerfDataProto_PerfUint32Metadata)},
+        { 767, 777, -1, sizeof(::quipper::PerfDataProto_PerfUint64Metadata)},
+        { 779, 789, -1, sizeof(::quipper::PerfDataProto_PerfTracingMetadata)},
+        { 791, 806, -1, sizeof(::quipper::PerfDataProto_PerfBuildID)},
+        { 813, 823, -1, sizeof(::quipper::PerfDataProto_PerfCPUTopologyMetadata_CPU)},
+        { 825, -1, -1, sizeof(::quipper::PerfDataProto_PerfCPUTopologyMetadata)},
+        { 838, 851, -1, sizeof(::quipper::PerfDataProto_PerfNodeTopologyMetadata)},
+        { 856, 867, -1, sizeof(::quipper::PerfDataProto_PerfPMUMappingsMetadata)},
+        { 870, 882, -1, sizeof(::quipper::PerfDataProto_PerfGroupDescMetadata)},
+        { 886, 896, -1, sizeof(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix)},
+        { 898, 914, -1, sizeof(::quipper::PerfDataProto_StringMetadata)},
+        { 922, 945, -1, sizeof(::quipper::PerfDataProto)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::quipper::_PerfDataProto_PerfEventAttr_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfFileAttr_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfEventType_default_instance_._instance,
-  &::quipper::_PerfDataProto_SampleInfo_default_instance_._instance,
-  &::quipper::_PerfDataProto_CommEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_MMapEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ReadInfo_ReadValue_default_instance_._instance,
-  &::quipper::_PerfDataProto_ReadInfo_default_instance_._instance,
-  &::quipper::_PerfDataProto_BranchStackEntry_default_instance_._instance,
-  &::quipper::_PerfDataProto_WeightStruct_default_instance_._instance,
-  &::quipper::_PerfDataProto_SampleEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ForkEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_LostEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ThrottleEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ReadEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_AuxEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_AuxtraceInfoEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_AuxtraceEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_AuxtraceErrorEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ItraceStartEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_LostSamplesEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ContextSwitchEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfNamespacesLinkInfo_default_instance_._instance,
-  &::quipper::_PerfDataProto_NamespacesEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_ThreadMapEventEntry_default_instance_._instance,
-  &::quipper::_PerfDataProto_ThreadMapEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_StatConfigEventEntry_default_instance_._instance,
-  &::quipper::_PerfDataProto_StatConfigEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_StatEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_StatRoundEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_CgroupEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_TimeConvEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_EventHeader_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfEvent_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfEventStats_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfUint32Metadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfUint64Metadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfTracingMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfBuildID_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfCPUTopologyMetadata_CPU_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfCPUTopologyMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfNodeTopologyMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfPMUMappingsMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_PerfGroupDescMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_._instance,
-  &::quipper::_PerfDataProto_StringMetadata_default_instance_._instance,
-  &::quipper::_PerfDataProto_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfEventAttr_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfFileAttr_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfEventType_default_instance_._instance,
+    &::quipper::_PerfDataProto_SampleInfo_default_instance_._instance,
+    &::quipper::_PerfDataProto_CommEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_MMapEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ReadInfo_ReadValue_default_instance_._instance,
+    &::quipper::_PerfDataProto_ReadInfo_default_instance_._instance,
+    &::quipper::_PerfDataProto_BranchStackEntry_default_instance_._instance,
+    &::quipper::_PerfDataProto_WeightStruct_default_instance_._instance,
+    &::quipper::_PerfDataProto_SampleEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ForkEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_LostEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ThrottleEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ReadEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_AuxEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_AuxtraceInfoEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_AuxtraceEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_AuxtraceErrorEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ItraceStartEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_LostSamplesEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ContextSwitchEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfNamespacesLinkInfo_default_instance_._instance,
+    &::quipper::_PerfDataProto_NamespacesEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_ThreadMapEventEntry_default_instance_._instance,
+    &::quipper::_PerfDataProto_ThreadMapEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_StatConfigEventEntry_default_instance_._instance,
+    &::quipper::_PerfDataProto_StatConfigEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_StatEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_StatRoundEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_CgroupEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_TimeConvEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_EventHeader_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfEvent_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfEventStats_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfUint32Metadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfUint64Metadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfTracingMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfBuildID_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfCPUTopologyMetadata_CPU_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfCPUTopologyMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfNodeTopologyMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfPMUMappingsMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfGroupDescMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_._instance,
+    &::quipper::_PerfDataProto_StringMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_default_instance_._instance,
 };
-
-const char descriptor_table_protodef_perf_5fdata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\017perf_data.proto\022\007quipper\"\320H\n\rPerfDataP"
-  "roto\0227\n\nfile_attrs\030\001 \003(\0132#.quipper.PerfD"
-  "ataProto.PerfFileAttr\0220\n\006events\030\002 \003(\0132 ."
-  "quipper.PerfDataProto.PerfEvent\0229\n\013event"
-  "_types\030\n \003(\0132$.quipper.PerfDataProto.Per"
-  "fEventType\022\025\n\rtimestamp_sec\030\003 \001(\004\0224\n\005sta"
-  "ts\030\004 \001(\0132%.quipper.PerfDataProto.PerfEve"
-  "ntStats\022\025\n\rmetadata_mask\030\005 \003(\004\022@\n\014tracin"
-  "g_data\030\016 \001(\0132*.quipper.PerfDataProto.Per"
-  "fTracingMetadata\0225\n\tbuild_ids\030\007 \003(\0132\".qu"
-  "ipper.PerfDataProto.PerfBuildID\022B\n\017uint3"
-  "2_metadata\030\010 \003(\0132).quipper.PerfDataProto"
-  ".PerfUint32Metadata\022B\n\017uint64_metadata\030\t"
-  " \003(\0132).quipper.PerfDataProto.PerfUint64M"
-  "etadata\022D\n\014cpu_topology\030\013 \001(\0132..quipper."
-  "PerfDataProto.PerfCPUTopologyMetadata\022F\n"
-  "\rnuma_topology\030\014 \003(\0132/.quipper.PerfDataP"
-  "roto.PerfNodeTopologyMetadata\022D\n\014pmu_map"
-  "pings\030\017 \003(\0132..quipper.PerfDataProto.Perf"
-  "PMUMappingsMetadata\022@\n\ngroup_desc\030\020 \003(\0132"
-  ",.quipper.PerfDataProto.PerfGroupDescMet"
-  "adata\022>\n\017string_metadata\030\r \001(\0132%.quipper"
-  ".PerfDataProto.StringMetadata\032\266\007\n\rPerfEv"
-  "entAttr\022\014\n\004type\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\016\n\006c"
-  "onfig\030\003 \001(\004\022\025\n\rsample_period\030\004 \001(\004\022\023\n\013sa"
-  "mple_freq\030\005 \001(\004\022\023\n\013sample_type\030\006 \001(\004\022\023\n\013"
-  "read_format\030\007 \001(\004\022\020\n\010disabled\030\010 \001(\010\022\017\n\007i"
-  "nherit\030\t \001(\010\022\016\n\006pinned\030\n \001(\010\022\021\n\texclusiv"
-  "e\030\013 \001(\010\022\024\n\014exclude_user\030\014 \001(\010\022\026\n\016exclude"
-  "_kernel\030\r \001(\010\022\022\n\nexclude_hv\030\016 \001(\010\022\024\n\014exc"
-  "lude_idle\030\017 \001(\010\022\014\n\004mmap\030\020 \001(\010\022\014\n\004comm\030\021 "
-  "\001(\010\022\014\n\004freq\030\022 \001(\010\022\024\n\014inherit_stat\030\023 \001(\010\022"
-  "\026\n\016enable_on_exec\030\024 \001(\010\022\014\n\004task\030\025 \001(\010\022\021\n"
-  "\twatermark\030\026 \001(\010\022\022\n\nprecise_ip\030\027 \001(\r\022\021\n\t"
-  "mmap_data\030\030 \001(\010\022\025\n\rsample_id_all\030\031 \001(\010\022\024"
-  "\n\014exclude_host\030\032 \001(\010\022\025\n\rexclude_guest\030\033 "
-  "\001(\010\022 \n\030exclude_callchain_kernel\030$ \001(\010\022\036\n"
-  "\026exclude_callchain_user\030% \001(\010\022\r\n\005mmap2\030&"
-  " \001(\010\022\021\n\tcomm_exec\030\' \001(\010\022\023\n\013use_clockid\030*"
-  " \001(\010\022\026\n\016context_switch\030+ \001(\010\022\026\n\016write_ba"
-  "ckward\030, \001(\010\022\022\n\nnamespaces\030- \001(\010\022\016\n\006cgro"
-  "up\030. \001(\010\022\025\n\rwakeup_events\030\034 \001(\r\022\030\n\020wakeu"
-  "p_watermark\030\035 \001(\r\022\017\n\007bp_type\030\036 \001(\r\022\017\n\007bp"
-  "_addr\030\037 \001(\004\022\017\n\007config1\030  \001(\004\022\016\n\006bp_len\030!"
-  " \001(\004\022\017\n\007config2\030\" \001(\004\022\032\n\022branch_sample_t"
-  "ype\030# \001(\004\022\030\n\020sample_regs_user\030( \001(\004\022\031\n\021s"
-  "ample_stack_user\030) \001(\r\032O\n\014PerfFileAttr\0222"
-  "\n\004attr\030\001 \001(\0132$.quipper.PerfDataProto.Per"
-  "fEventAttr\022\013\n\003ids\030\002 \003(\004\032B\n\rPerfEventType"
-  "\022\n\n\002id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md5_p"
-  "refix\030\003 \001(\004\032j\n\nSampleInfo\022\013\n\003pid\030\001 \001(\r\022\013"
-  "\n\003tid\030\002 \001(\r\022\026\n\016sample_time_ns\030\003 \001(\004\022\n\n\002i"
-  "d\030\004 \001(\004\022\013\n\003cpu\030\005 \001(\r\022\021\n\tstream_id\030\006 \001(\004\032"
-  "\235\001\n\tCommEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
-  "\014\n\004comm\030\003 \001(\t\022\027\n\017comm_md5_prefix\030\004 \001(\004\022\027"
-  "\n\013sample_time\030\005 \001(\004B\002\030\001\0226\n\013sample_info\030\006"
-  " \001(\0132!.quipper.PerfDataProto.SampleInfo\032"
-  "\326\002\n\tMMapEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
-  "\r\n\005start\030\003 \001(\004\022\013\n\003len\030\004 \001(\004\022\r\n\005pgoff\030\005 \001"
-  "(\004\022\013\n\003maj\030\t \001(\r\022\013\n\003min\030\n \001(\r\022\013\n\003ino\030\013 \001("
-  "\004\022\026\n\016ino_generation\030\014 \001(\004\022\020\n\010build_id\030\021 "
-  "\001(\t\022\014\n\004prot\030\r \001(\r\022\r\n\005flags\030\016 \001(\r\022\020\n\010file"
-  "name\030\006 \001(\t\022\033\n\023filename_md5_prefix\030\007 \001(\004\022"
-  "\021\n\troot_path\030\017 \001(\t\022\034\n\024root_path_md5_pref"
-  "ix\030\020 \001(\004\0226\n\013sample_info\030\010 \001(\0132!.quipper."
-  "PerfDataProto.SampleInfo\032\235\001\n\010ReadInfo\022\024\n"
-  "\014time_enabled\030\001 \001(\004\022\024\n\014time_running\030\002 \001("
-  "\004\022=\n\nread_value\030\003 \003(\0132).quipper.PerfData"
-  "Proto.ReadInfo.ReadValue\032&\n\tReadValue\022\r\n"
-  "\005value\030\001 \001(\004\022\n\n\002id\030\002 \001(\004\032\256\001\n\020BranchStack"
-  "Entry\022\017\n\007from_ip\030\001 \001(\004\022\r\n\005to_ip\030\002 \001(\004\022\024\n"
-  "\014mispredicted\030\003 \001(\010\022\021\n\tpredicted\030\004 \001(\010\022\026"
-  "\n\016in_transaction\030\005 \001(\010\022\r\n\005abort\030\006 \001(\010\022\016\n"
-  "\006cycles\030\007 \001(\r\022\014\n\004type\030\010 \001(\r\022\014\n\004spec\030\t \001("
-  "\r\032\?\n\014WeightStruct\022\017\n\007var1_dw\030\001 \001(\r\022\016\n\006va"
-  "r2_w\030\002 \001(\r\022\016\n\006var3_w\030\003 \001(\r\032\264\004\n\013SampleEve"
-  "nt\022\n\n\002ip\030\001 \001(\004\022\013\n\003pid\030\002 \001(\r\022\013\n\003tid\030\003 \001(\r"
-  "\022\026\n\016sample_time_ns\030\004 \001(\004\022\014\n\004addr\030\005 \001(\004\022\n"
-  "\n\002id\030\006 \001(\004\022\021\n\tstream_id\030\007 \001(\004\022\016\n\006period\030"
-  "\010 \001(\004\022\013\n\003cpu\030\t \001(\r\022\013\n\003raw\030\025 \001(\014\022\020\n\010raw_s"
-  "ize\030\n \001(\r\0222\n\tread_info\030\022 \001(\0132\037.quipper.P"
-  "erfDataProto.ReadInfo\022\021\n\tcallchain\030\013 \003(\004"
-  "\022=\n\014branch_stack\030\014 \003(\0132\'.quipper.PerfDat"
-  "aProto.BranchStackEntry\022\016\n\006weight\030\017 \001(\004\022"
-  "\020\n\010data_src\030\020 \001(\004\022\023\n\013transaction\030\021 \001(\004\022\025"
-  "\n\rphysical_addr\030\023 \001(\004\022\016\n\006cgroup\030\024 \001(\004\022\026\n"
-  "\016data_page_size\030\026 \001(\004\022\026\n\016code_page_size\030"
-  "\027 \001(\004\022\021\n\tno_hw_idx\030\030 \001(\010\022\033\n\023branch_stack"
-  "_hw_idx\030\031 \001(\004\022:\n\rweight_struct\030\032 \001(\0132#.q"
-  "uipper.PerfDataProto.WeightStruct\032\217\001\n\tFo"
-  "rkEvent\022\013\n\003pid\030\001 \001(\r\022\014\n\004ppid\030\002 \001(\r\022\013\n\003ti"
-  "d\030\003 \001(\r\022\014\n\004ptid\030\004 \001(\r\022\024\n\014fork_time_ns\030\005 "
-  "\001(\004\0226\n\013sample_info\030\013 \001(\0132!.quipper.PerfD"
-  "ataProto.SampleInfo\032]\n\tLostEvent\022\n\n\002id\030\001"
-  " \001(\004\022\014\n\004lost\030\002 \001(\004\0226\n\013sample_info\030\003 \001(\0132"
-  "!.quipper.PerfDataProto.SampleInfo\032w\n\rTh"
-  "rottleEvent\022\017\n\007time_ns\030\001 \001(\004\022\n\n\002id\030\002 \001(\004"
-  "\022\021\n\tstream_id\030\003 \001(\004\0226\n\013sample_info\030\004 \001(\013"
-  "2!.quipper.PerfDataProto.SampleInfo\032\250\001\n\t"
-  "ReadEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\r\n\005v"
-  "alue\030\003 \001(\004\022\024\n\014time_enabled\030\004 \001(\004\022\024\n\014time"
-  "_running\030\005 \001(\004\022\n\n\002id\030\006 \001(\004\0226\n\013sample_inf"
-  "o\030\007 \001(\0132!.quipper.PerfDataProto.SampleIn"
-  "fo:\002\030\001\032\250\001\n\010AuxEvent\022\022\n\naux_offset\030\001 \001(\004\022"
-  "\020\n\010aux_size\030\002 \001(\004\022\024\n\014is_truncated\030\003 \001(\010\022"
-  "\024\n\014is_overwrite\030\004 \001(\010\022\022\n\nis_partial\030\005 \001("
-  "\010\0226\n\013sample_info\030\006 \001(\0132!.quipper.PerfDat"
-  "aProto.SampleInfo\032I\n\021AuxtraceInfoEvent\022\014"
-  "\n\004type\030\001 \001(\r\022&\n\036unparsed_binary_blob_pri"
-  "v_data\030\002 \003(\004\032{\n\rAuxtraceEvent\022\014\n\004size\030\001 "
-  "\001(\004\022\016\n\006offset\030\002 \001(\004\022\021\n\treference\030\003 \001(\004\022\013"
-  "\n\003idx\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\013\n\003cpu\030\006 \001(\r\022\022\n"
-  "\ntrace_data\030\007 \001(\014\032\210\001\n\022AuxtraceErrorEvent"
-  "\022\014\n\004type\030\001 \001(\r\022\014\n\004code\030\002 \001(\r\022\013\n\003cpu\030\003 \001("
-  "\r\022\013\n\003pid\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\n\n\002ip\030\006 \001(\004\022"
-  "\013\n\003msg\030\007 \001(\t\022\026\n\016msg_md5_prefix\030\010 \001(\004\032d\n\020"
-  "ItraceStartEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001"
-  "(\r\0226\n\013sample_info\030\003 \001(\0132!.quipper.PerfDa"
-  "taProto.SampleInfo\032\\\n\020LostSamplesEvent\022\020"
-  "\n\010num_lost\030\001 \001(\004\0226\n\013sample_info\030\002 \001(\0132!."
-  "quipper.PerfDataProto.SampleInfo\032\212\001\n\022Con"
-  "textSwitchEvent\022\016\n\006is_out\030\001 \001(\010\022\025\n\rnext_"
-  "prev_pid\030\002 \001(\r\022\025\n\rnext_prev_tid\030\003 \001(\r\0226\n"
-  "\013sample_info\030\004 \001(\0132!.quipper.PerfDataPro"
-  "to.SampleInfo\0322\n\026PerfNamespacesLinkInfo\022"
-  "\013\n\003dev\030\001 \001(\004\022\013\n\003ino\030\002 \001(\004\032\245\001\n\017Namespaces"
-  "Event\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022@\n\tlink_"
-  "info\030\003 \003(\0132-.quipper.PerfDataProto.PerfN"
-  "amespacesLinkInfo\0226\n\013sample_info\030\004 \001(\0132!"
-  ".quipper.PerfDataProto.SampleInfo\032I\n\023Thr"
-  "eadMapEventEntry\022\013\n\003pid\030\001 \001(\004\022\014\n\004comm\030\002 "
-  "\001(\t\022\027\n\017comm_md5_prefix\030\003 \001(\004\032M\n\016ThreadMa"
-  "pEvent\022;\n\007entries\030\001 \003(\0132*.quipper.PerfDa"
-  "taProto.ThreadMapEventEntry\0320\n\024StatConfi"
-  "gEventEntry\022\013\n\003tag\030\001 \001(\004\022\013\n\003val\030\002 \001(\004\032L\n"
-  "\017StatConfigEvent\0229\n\004data\030\001 \003(\0132+.quipper"
-  ".PerfDataProto.StatConfigEventEntry\032e\n\tS"
-  "tatEvent\022\n\n\002id\030\001 \001(\004\022\013\n\003cpu\030\002 \001(\r\022\016\n\006thr"
-  "ead\030\003 \001(\r\022\r\n\005value\030\004 \001(\004\022\017\n\007enabled\030\005 \001("
-  "\004\022\017\n\007running\030\006 \001(\004\032,\n\016StatRoundEvent\022\014\n\004"
-  "type\030\001 \001(\004\022\014\n\004time\030\002 \001(\004\032_\n\013CgroupEvent\022"
-  "\n\n\002id\030\001 \001(\004\022\014\n\004path\030\002 \001(\t\0226\n\013sample_info"
-  "\030\003 \001(\0132!.quipper.PerfDataProto.SampleInf"
-  "o\032\252\001\n\rTimeConvEvent\022\022\n\ntime_shift\030\001 \001(\004\022"
-  "\021\n\ttime_mult\030\002 \001(\004\022\021\n\ttime_zero\030\003 \001(\004\022\023\n"
-  "\013time_cycles\030\004 \001(\004\022\021\n\ttime_mask\030\005 \001(\004\022\032\n"
-  "\022cap_user_time_zero\030\006 \001(\010\022\033\n\023cap_user_ti"
-  "me_short\030\007 \001(\010\0327\n\013EventHeader\022\014\n\004type\030\001 "
-  "\001(\r\022\014\n\004misc\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\032\327\013\n\tPerf"
-  "Event\0222\n\006header\030\001 \001(\0132\".quipper.PerfData"
-  "Proto.EventHeader\0226\n\nmmap_event\030\002 \001(\0132 ."
-  "quipper.PerfDataProto.MMapEventH\000\022:\n\014sam"
-  "ple_event\030\003 \001(\0132\".quipper.PerfDataProto."
-  "SampleEventH\000\0226\n\ncomm_event\030\004 \001(\0132 .quip"
-  "per.PerfDataProto.CommEventH\000\0226\n\nfork_ev"
-  "ent\030\005 \001(\0132 .quipper.PerfDataProto.ForkEv"
-  "entH\000\0226\n\nexit_event\030\t \001(\0132 .quipper.Perf"
-  "DataProto.ForkEventH\000\0226\n\nlost_event\030\006 \001("
-  "\0132 .quipper.PerfDataProto.LostEventH\000\022>\n"
-  "\016throttle_event\030\007 \001(\0132$.quipper.PerfData"
-  "Proto.ThrottleEventH\000\022:\n\nread_event\030\010 \001("
-  "\0132 .quipper.PerfDataProto.ReadEventB\002\030\001H"
-  "\000\0224\n\taux_event\030\013 \001(\0132\037.quipper.PerfDataP"
-  "roto.AuxEventH\000\022E\n\022itrace_start_event\030\r "
-  "\001(\0132\'.quipper.PerfDataProto.ItraceStartE"
-  "ventH\000\022E\n\022lost_samples_event\030\016 \001(\0132\'.qui"
-  "pper.PerfDataProto.LostSamplesEventH\000\022I\n"
-  "\024context_switch_event\030\017 \001(\0132).quipper.Pe"
-  "rfDataProto.ContextSwitchEventH\000\022B\n\020name"
-  "spaces_event\030\020 \001(\0132&.quipper.PerfDataPro"
-  "to.NamespacesEventH\000\022G\n\023auxtrace_info_ev"
-  "ent\030\022 \001(\0132(.quipper.PerfDataProto.Auxtra"
-  "ceInfoEventH\000\022>\n\016auxtrace_event\030\014 \001(\0132$."
-  "quipper.PerfDataProto.AuxtraceEventH\000\022I\n"
-  "\024auxtrace_error_event\030\023 \001(\0132).quipper.Pe"
-  "rfDataProto.AuxtraceErrorEventH\000\022A\n\020thre"
-  "ad_map_event\030\024 \001(\0132%.quipper.PerfDataPro"
-  "to.ThreadMapEventH\000\022\?\n\017time_conv_event\030\021"
-  " \001(\0132$.quipper.PerfDataProto.TimeConvEve"
-  "ntH\000\022C\n\021stat_config_event\030\025 \001(\0132&.quippe"
-  "r.PerfDataProto.StatConfigEventH\000\0226\n\nsta"
-  "t_event\030\026 \001(\0132 .quipper.PerfDataProto.St"
-  "atEventH\000\022A\n\020stat_round_event\030\027 \001(\0132%.qu"
-  "ipper.PerfDataProto.StatRoundEventH\000\022:\n\014"
-  "cgroup_event\030\030 \001(\0132\".quipper.PerfDataPro"
-  "to.CgroupEventH\000\022\021\n\ttimestamp\030\n \001(\004B\014\n\ne"
-  "vent_type\032\304\001\n\016PerfEventStats\022\027\n\017num_even"
-  "ts_read\030\001 \001(\r\022\031\n\021num_sample_events\030\002 \001(\r"
-  "\022\027\n\017num_mmap_events\030\003 \001(\r\022\027\n\017num_fork_ev"
-  "ents\030\004 \001(\r\022\027\n\017num_exit_events\030\005 \001(\r\022 \n\030n"
-  "um_sample_events_mapped\030\006 \001(\r\022\021\n\tdid_rem"
-  "ap\030\007 \001(\010\0320\n\022PerfUint32Metadata\022\014\n\004type\030\001"
-  " \001(\r\022\014\n\004data\030\002 \003(\r\0320\n\022PerfUint64Metadata"
-  "\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 \003(\004\032P\n\023PerfTrac"
-  "ingMetadata\022\024\n\014tracing_data\030\001 \001(\014\022#\n\027tra"
-  "cing_data_md5_prefix\030\002 \001(\004B\002\030\001\032\221\001\n\013PerfB"
-  "uildID\022\014\n\004misc\030\001 \001(\r\022\013\n\003pid\030\002 \001(\r\022\025\n\rbui"
-  "ld_id_hash\030\003 \001(\014\022\020\n\010filename\030\004 \001(\t\022\033\n\023fi"
-  "lename_md5_prefix\030\005 \001(\004\022\014\n\004size\030\006 \001(\r\022\023\n"
-  "\013is_injected\030\007 \001(\010\032\206\002\n\027PerfCPUTopologyMe"
-  "tadata\022\025\n\rcore_siblings\030\001 \003(\t\022 \n\030core_si"
-  "blings_md5_prefix\030\002 \003(\004\022\027\n\017thread_siblin"
-  "gs\030\003 \003(\t\022\"\n\032thread_siblings_md5_prefix\030\004"
-  " \003(\004\022J\n\016available_cpus\030\005 \003(\01322.quipper.P"
-  "erfDataProto.PerfCPUTopologyMetadata.CPU"
-  "\032)\n\003CPU\022\017\n\007core_id\030\001 \001(\r\022\021\n\tsocket_id\030\002 "
-  "\001(\r\032\200\001\n\030PerfNodeTopologyMetadata\022\n\n\002id\030\001"
-  " \001(\r\022\024\n\014total_memory\030\002 \001(\004\022\023\n\013free_memor"
-  "y\030\003 \001(\004\022\020\n\010cpu_list\030\004 \001(\t\022\033\n\023cpu_list_md"
-  "5_prefix\030\005 \001(\004\032N\n\027PerfPMUMappingsMetadat"
-  "a\022\014\n\004type\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md"
-  "5_prefix\030\003 \001(\004\032g\n\025PerfGroupDescMetadata\022"
-  "\014\n\004name\030\001 \001(\t\022\027\n\017name_md5_prefix\030\002 \001(\004\022\022"
-  "\n\nleader_idx\030\003 \001(\r\022\023\n\013num_members\030\004 \001(\r\032"
-  "\373\005\n\016StringMetadata\022M\n\010hostname\030\001 \001(\0132;.q"
-  "uipper.PerfDataProto.StringMetadata.Stri"
-  "ngAndMd5sumPrefix\022S\n\016kernel_version\030\002 \001("
-  "\0132;.quipper.PerfDataProto.StringMetadata"
-  ".StringAndMd5sumPrefix\022Q\n\014perf_version\030\003"
-  " \001(\0132;.quipper.PerfDataProto.StringMetad"
-  "ata.StringAndMd5sumPrefix\022Q\n\014architectur"
-  "e\030\004 \001(\0132;.quipper.PerfDataProto.StringMe"
-  "tadata.StringAndMd5sumPrefix\022T\n\017cpu_desc"
-  "ription\030\005 \001(\0132;.quipper.PerfDataProto.St"
-  "ringMetadata.StringAndMd5sumPrefix\022K\n\006cp"
-  "u_id\030\006 \001(\0132;.quipper.PerfDataProto.Strin"
-  "gMetadata.StringAndMd5sumPrefix\022\\\n\027perf_"
-  "command_line_token\030\007 \003(\0132;.quipper.PerfD"
-  "ataProto.StringMetadata.StringAndMd5sumP"
-  "refix\022\\\n\027perf_command_line_whole\030\010 \001(\0132;"
-  ".quipper.PerfDataProto.StringMetadata.St"
-  "ringAndMd5sumPrefix\032@\n\025StringAndMd5sumPr"
-  "efix\022\r\n\005value\030\001 \001(\t\022\030\n\020value_md5_prefix\030"
-  "\002 \001(\004B\003\370\001\001"
-  ;
-static ::_pbi::once_flag descriptor_table_perf_5fdata_2eproto_once;
+const char descriptor_table_protodef_perf_5fdata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\017perf_data.proto\022\007quipper\"\320H\n\rPerfDataP"
+    "roto\0227\n\nfile_attrs\030\001 \003(\0132#.quipper.PerfD"
+    "ataProto.PerfFileAttr\0220\n\006events\030\002 \003(\0132 ."
+    "quipper.PerfDataProto.PerfEvent\0229\n\013event"
+    "_types\030\n \003(\0132$.quipper.PerfDataProto.Per"
+    "fEventType\022\025\n\rtimestamp_sec\030\003 \001(\004\0224\n\005sta"
+    "ts\030\004 \001(\0132%.quipper.PerfDataProto.PerfEve"
+    "ntStats\022\025\n\rmetadata_mask\030\005 \003(\004\022@\n\014tracin"
+    "g_data\030\016 \001(\0132*.quipper.PerfDataProto.Per"
+    "fTracingMetadata\0225\n\tbuild_ids\030\007 \003(\0132\".qu"
+    "ipper.PerfDataProto.PerfBuildID\022B\n\017uint3"
+    "2_metadata\030\010 \003(\0132).quipper.PerfDataProto"
+    ".PerfUint32Metadata\022B\n\017uint64_metadata\030\t"
+    " \003(\0132).quipper.PerfDataProto.PerfUint64M"
+    "etadata\022D\n\014cpu_topology\030\013 \001(\0132..quipper."
+    "PerfDataProto.PerfCPUTopologyMetadata\022F\n"
+    "\rnuma_topology\030\014 \003(\0132/.quipper.PerfDataP"
+    "roto.PerfNodeTopologyMetadata\022D\n\014pmu_map"
+    "pings\030\017 \003(\0132..quipper.PerfDataProto.Perf"
+    "PMUMappingsMetadata\022@\n\ngroup_desc\030\020 \003(\0132"
+    ",.quipper.PerfDataProto.PerfGroupDescMet"
+    "adata\022>\n\017string_metadata\030\r \001(\0132%.quipper"
+    ".PerfDataProto.StringMetadata\032\266\007\n\rPerfEv"
+    "entAttr\022\014\n\004type\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\016\n\006c"
+    "onfig\030\003 \001(\004\022\025\n\rsample_period\030\004 \001(\004\022\023\n\013sa"
+    "mple_freq\030\005 \001(\004\022\023\n\013sample_type\030\006 \001(\004\022\023\n\013"
+    "read_format\030\007 \001(\004\022\020\n\010disabled\030\010 \001(\010\022\017\n\007i"
+    "nherit\030\t \001(\010\022\016\n\006pinned\030\n \001(\010\022\021\n\texclusiv"
+    "e\030\013 \001(\010\022\024\n\014exclude_user\030\014 \001(\010\022\026\n\016exclude"
+    "_kernel\030\r \001(\010\022\022\n\nexclude_hv\030\016 \001(\010\022\024\n\014exc"
+    "lude_idle\030\017 \001(\010\022\014\n\004mmap\030\020 \001(\010\022\014\n\004comm\030\021 "
+    "\001(\010\022\014\n\004freq\030\022 \001(\010\022\024\n\014inherit_stat\030\023 \001(\010\022"
+    "\026\n\016enable_on_exec\030\024 \001(\010\022\014\n\004task\030\025 \001(\010\022\021\n"
+    "\twatermark\030\026 \001(\010\022\022\n\nprecise_ip\030\027 \001(\r\022\021\n\t"
+    "mmap_data\030\030 \001(\010\022\025\n\rsample_id_all\030\031 \001(\010\022\024"
+    "\n\014exclude_host\030\032 \001(\010\022\025\n\rexclude_guest\030\033 "
+    "\001(\010\022 \n\030exclude_callchain_kernel\030$ \001(\010\022\036\n"
+    "\026exclude_callchain_user\030% \001(\010\022\r\n\005mmap2\030&"
+    " \001(\010\022\021\n\tcomm_exec\030\' \001(\010\022\023\n\013use_clockid\030*"
+    " \001(\010\022\026\n\016context_switch\030+ \001(\010\022\026\n\016write_ba"
+    "ckward\030, \001(\010\022\022\n\nnamespaces\030- \001(\010\022\016\n\006cgro"
+    "up\030. \001(\010\022\025\n\rwakeup_events\030\034 \001(\r\022\030\n\020wakeu"
+    "p_watermark\030\035 \001(\r\022\017\n\007bp_type\030\036 \001(\r\022\017\n\007bp"
+    "_addr\030\037 \001(\004\022\017\n\007config1\030  \001(\004\022\016\n\006bp_len\030!"
+    " \001(\004\022\017\n\007config2\030\" \001(\004\022\032\n\022branch_sample_t"
+    "ype\030# \001(\004\022\030\n\020sample_regs_user\030( \001(\004\022\031\n\021s"
+    "ample_stack_user\030) \001(\r\032O\n\014PerfFileAttr\0222"
+    "\n\004attr\030\001 \001(\0132$.quipper.PerfDataProto.Per"
+    "fEventAttr\022\013\n\003ids\030\002 \003(\004\032B\n\rPerfEventType"
+    "\022\n\n\002id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md5_p"
+    "refix\030\003 \001(\004\032j\n\nSampleInfo\022\013\n\003pid\030\001 \001(\r\022\013"
+    "\n\003tid\030\002 \001(\r\022\026\n\016sample_time_ns\030\003 \001(\004\022\n\n\002i"
+    "d\030\004 \001(\004\022\013\n\003cpu\030\005 \001(\r\022\021\n\tstream_id\030\006 \001(\004\032"
+    "\235\001\n\tCommEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
+    "\014\n\004comm\030\003 \001(\t\022\027\n\017comm_md5_prefix\030\004 \001(\004\022\027"
+    "\n\013sample_time\030\005 \001(\004B\002\030\001\0226\n\013sample_info\030\006"
+    " \001(\0132!.quipper.PerfDataProto.SampleInfo\032"
+    "\326\002\n\tMMapEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
+    "\r\n\005start\030\003 \001(\004\022\013\n\003len\030\004 \001(\004\022\r\n\005pgoff\030\005 \001"
+    "(\004\022\013\n\003maj\030\t \001(\r\022\013\n\003min\030\n \001(\r\022\013\n\003ino\030\013 \001("
+    "\004\022\026\n\016ino_generation\030\014 \001(\004\022\020\n\010build_id\030\021 "
+    "\001(\t\022\014\n\004prot\030\r \001(\r\022\r\n\005flags\030\016 \001(\r\022\020\n\010file"
+    "name\030\006 \001(\t\022\033\n\023filename_md5_prefix\030\007 \001(\004\022"
+    "\021\n\troot_path\030\017 \001(\t\022\034\n\024root_path_md5_pref"
+    "ix\030\020 \001(\004\0226\n\013sample_info\030\010 \001(\0132!.quipper."
+    "PerfDataProto.SampleInfo\032\235\001\n\010ReadInfo\022\024\n"
+    "\014time_enabled\030\001 \001(\004\022\024\n\014time_running\030\002 \001("
+    "\004\022=\n\nread_value\030\003 \003(\0132).quipper.PerfData"
+    "Proto.ReadInfo.ReadValue\032&\n\tReadValue\022\r\n"
+    "\005value\030\001 \001(\004\022\n\n\002id\030\002 \001(\004\032\256\001\n\020BranchStack"
+    "Entry\022\017\n\007from_ip\030\001 \001(\004\022\r\n\005to_ip\030\002 \001(\004\022\024\n"
+    "\014mispredicted\030\003 \001(\010\022\021\n\tpredicted\030\004 \001(\010\022\026"
+    "\n\016in_transaction\030\005 \001(\010\022\r\n\005abort\030\006 \001(\010\022\016\n"
+    "\006cycles\030\007 \001(\r\022\014\n\004type\030\010 \001(\r\022\014\n\004spec\030\t \001("
+    "\r\032\?\n\014WeightStruct\022\017\n\007var1_dw\030\001 \001(\r\022\016\n\006va"
+    "r2_w\030\002 \001(\r\022\016\n\006var3_w\030\003 \001(\r\032\264\004\n\013SampleEve"
+    "nt\022\n\n\002ip\030\001 \001(\004\022\013\n\003pid\030\002 \001(\r\022\013\n\003tid\030\003 \001(\r"
+    "\022\026\n\016sample_time_ns\030\004 \001(\004\022\014\n\004addr\030\005 \001(\004\022\n"
+    "\n\002id\030\006 \001(\004\022\021\n\tstream_id\030\007 \001(\004\022\016\n\006period\030"
+    "\010 \001(\004\022\013\n\003cpu\030\t \001(\r\022\013\n\003raw\030\025 \001(\014\022\020\n\010raw_s"
+    "ize\030\n \001(\r\0222\n\tread_info\030\022 \001(\0132\037.quipper.P"
+    "erfDataProto.ReadInfo\022\021\n\tcallchain\030\013 \003(\004"
+    "\022=\n\014branch_stack\030\014 \003(\0132\'.quipper.PerfDat"
+    "aProto.BranchStackEntry\022\016\n\006weight\030\017 \001(\004\022"
+    "\020\n\010data_src\030\020 \001(\004\022\023\n\013transaction\030\021 \001(\004\022\025"
+    "\n\rphysical_addr\030\023 \001(\004\022\016\n\006cgroup\030\024 \001(\004\022\026\n"
+    "\016data_page_size\030\026 \001(\004\022\026\n\016code_page_size\030"
+    "\027 \001(\004\022\021\n\tno_hw_idx\030\030 \001(\010\022\033\n\023branch_stack"
+    "_hw_idx\030\031 \001(\004\022:\n\rweight_struct\030\032 \001(\0132#.q"
+    "uipper.PerfDataProto.WeightStruct\032\217\001\n\tFo"
+    "rkEvent\022\013\n\003pid\030\001 \001(\r\022\014\n\004ppid\030\002 \001(\r\022\013\n\003ti"
+    "d\030\003 \001(\r\022\014\n\004ptid\030\004 \001(\r\022\024\n\014fork_time_ns\030\005 "
+    "\001(\004\0226\n\013sample_info\030\013 \001(\0132!.quipper.PerfD"
+    "ataProto.SampleInfo\032]\n\tLostEvent\022\n\n\002id\030\001"
+    " \001(\004\022\014\n\004lost\030\002 \001(\004\0226\n\013sample_info\030\003 \001(\0132"
+    "!.quipper.PerfDataProto.SampleInfo\032w\n\rTh"
+    "rottleEvent\022\017\n\007time_ns\030\001 \001(\004\022\n\n\002id\030\002 \001(\004"
+    "\022\021\n\tstream_id\030\003 \001(\004\0226\n\013sample_info\030\004 \001(\013"
+    "2!.quipper.PerfDataProto.SampleInfo\032\250\001\n\t"
+    "ReadEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\r\n\005v"
+    "alue\030\003 \001(\004\022\024\n\014time_enabled\030\004 \001(\004\022\024\n\014time"
+    "_running\030\005 \001(\004\022\n\n\002id\030\006 \001(\004\0226\n\013sample_inf"
+    "o\030\007 \001(\0132!.quipper.PerfDataProto.SampleIn"
+    "fo:\002\030\001\032\250\001\n\010AuxEvent\022\022\n\naux_offset\030\001 \001(\004\022"
+    "\020\n\010aux_size\030\002 \001(\004\022\024\n\014is_truncated\030\003 \001(\010\022"
+    "\024\n\014is_overwrite\030\004 \001(\010\022\022\n\nis_partial\030\005 \001("
+    "\010\0226\n\013sample_info\030\006 \001(\0132!.quipper.PerfDat"
+    "aProto.SampleInfo\032I\n\021AuxtraceInfoEvent\022\014"
+    "\n\004type\030\001 \001(\r\022&\n\036unparsed_binary_blob_pri"
+    "v_data\030\002 \003(\004\032{\n\rAuxtraceEvent\022\014\n\004size\030\001 "
+    "\001(\004\022\016\n\006offset\030\002 \001(\004\022\021\n\treference\030\003 \001(\004\022\013"
+    "\n\003idx\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\013\n\003cpu\030\006 \001(\r\022\022\n"
+    "\ntrace_data\030\007 \001(\014\032\210\001\n\022AuxtraceErrorEvent"
+    "\022\014\n\004type\030\001 \001(\r\022\014\n\004code\030\002 \001(\r\022\013\n\003cpu\030\003 \001("
+    "\r\022\013\n\003pid\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\n\n\002ip\030\006 \001(\004\022"
+    "\013\n\003msg\030\007 \001(\t\022\026\n\016msg_md5_prefix\030\010 \001(\004\032d\n\020"
+    "ItraceStartEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001"
+    "(\r\0226\n\013sample_info\030\003 \001(\0132!.quipper.PerfDa"
+    "taProto.SampleInfo\032\\\n\020LostSamplesEvent\022\020"
+    "\n\010num_lost\030\001 \001(\004\0226\n\013sample_info\030\002 \001(\0132!."
+    "quipper.PerfDataProto.SampleInfo\032\212\001\n\022Con"
+    "textSwitchEvent\022\016\n\006is_out\030\001 \001(\010\022\025\n\rnext_"
+    "prev_pid\030\002 \001(\r\022\025\n\rnext_prev_tid\030\003 \001(\r\0226\n"
+    "\013sample_info\030\004 \001(\0132!.quipper.PerfDataPro"
+    "to.SampleInfo\0322\n\026PerfNamespacesLinkInfo\022"
+    "\013\n\003dev\030\001 \001(\004\022\013\n\003ino\030\002 \001(\004\032\245\001\n\017Namespaces"
+    "Event\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022@\n\tlink_"
+    "info\030\003 \003(\0132-.quipper.PerfDataProto.PerfN"
+    "amespacesLinkInfo\0226\n\013sample_info\030\004 \001(\0132!"
+    ".quipper.PerfDataProto.SampleInfo\032I\n\023Thr"
+    "eadMapEventEntry\022\013\n\003pid\030\001 \001(\004\022\014\n\004comm\030\002 "
+    "\001(\t\022\027\n\017comm_md5_prefix\030\003 \001(\004\032M\n\016ThreadMa"
+    "pEvent\022;\n\007entries\030\001 \003(\0132*.quipper.PerfDa"
+    "taProto.ThreadMapEventEntry\0320\n\024StatConfi"
+    "gEventEntry\022\013\n\003tag\030\001 \001(\004\022\013\n\003val\030\002 \001(\004\032L\n"
+    "\017StatConfigEvent\0229\n\004data\030\001 \003(\0132+.quipper"
+    ".PerfDataProto.StatConfigEventEntry\032e\n\tS"
+    "tatEvent\022\n\n\002id\030\001 \001(\004\022\013\n\003cpu\030\002 \001(\r\022\016\n\006thr"
+    "ead\030\003 \001(\r\022\r\n\005value\030\004 \001(\004\022\017\n\007enabled\030\005 \001("
+    "\004\022\017\n\007running\030\006 \001(\004\032,\n\016StatRoundEvent\022\014\n\004"
+    "type\030\001 \001(\004\022\014\n\004time\030\002 \001(\004\032_\n\013CgroupEvent\022"
+    "\n\n\002id\030\001 \001(\004\022\014\n\004path\030\002 \001(\t\0226\n\013sample_info"
+    "\030\003 \001(\0132!.quipper.PerfDataProto.SampleInf"
+    "o\032\252\001\n\rTimeConvEvent\022\022\n\ntime_shift\030\001 \001(\004\022"
+    "\021\n\ttime_mult\030\002 \001(\004\022\021\n\ttime_zero\030\003 \001(\004\022\023\n"
+    "\013time_cycles\030\004 \001(\004\022\021\n\ttime_mask\030\005 \001(\004\022\032\n"
+    "\022cap_user_time_zero\030\006 \001(\010\022\033\n\023cap_user_ti"
+    "me_short\030\007 \001(\010\0327\n\013EventHeader\022\014\n\004type\030\001 "
+    "\001(\r\022\014\n\004misc\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\032\327\013\n\tPerf"
+    "Event\0222\n\006header\030\001 \001(\0132\".quipper.PerfData"
+    "Proto.EventHeader\0226\n\nmmap_event\030\002 \001(\0132 ."
+    "quipper.PerfDataProto.MMapEventH\000\022:\n\014sam"
+    "ple_event\030\003 \001(\0132\".quipper.PerfDataProto."
+    "SampleEventH\000\0226\n\ncomm_event\030\004 \001(\0132 .quip"
+    "per.PerfDataProto.CommEventH\000\0226\n\nfork_ev"
+    "ent\030\005 \001(\0132 .quipper.PerfDataProto.ForkEv"
+    "entH\000\0226\n\nexit_event\030\t \001(\0132 .quipper.Perf"
+    "DataProto.ForkEventH\000\0226\n\nlost_event\030\006 \001("
+    "\0132 .quipper.PerfDataProto.LostEventH\000\022>\n"
+    "\016throttle_event\030\007 \001(\0132$.quipper.PerfData"
+    "Proto.ThrottleEventH\000\022:\n\nread_event\030\010 \001("
+    "\0132 .quipper.PerfDataProto.ReadEventB\002\030\001H"
+    "\000\0224\n\taux_event\030\013 \001(\0132\037.quipper.PerfDataP"
+    "roto.AuxEventH\000\022E\n\022itrace_start_event\030\r "
+    "\001(\0132\'.quipper.PerfDataProto.ItraceStartE"
+    "ventH\000\022E\n\022lost_samples_event\030\016 \001(\0132\'.qui"
+    "pper.PerfDataProto.LostSamplesEventH\000\022I\n"
+    "\024context_switch_event\030\017 \001(\0132).quipper.Pe"
+    "rfDataProto.ContextSwitchEventH\000\022B\n\020name"
+    "spaces_event\030\020 \001(\0132&.quipper.PerfDataPro"
+    "to.NamespacesEventH\000\022G\n\023auxtrace_info_ev"
+    "ent\030\022 \001(\0132(.quipper.PerfDataProto.Auxtra"
+    "ceInfoEventH\000\022>\n\016auxtrace_event\030\014 \001(\0132$."
+    "quipper.PerfDataProto.AuxtraceEventH\000\022I\n"
+    "\024auxtrace_error_event\030\023 \001(\0132).quipper.Pe"
+    "rfDataProto.AuxtraceErrorEventH\000\022A\n\020thre"
+    "ad_map_event\030\024 \001(\0132%.quipper.PerfDataPro"
+    "to.ThreadMapEventH\000\022\?\n\017time_conv_event\030\021"
+    " \001(\0132$.quipper.PerfDataProto.TimeConvEve"
+    "ntH\000\022C\n\021stat_config_event\030\025 \001(\0132&.quippe"
+    "r.PerfDataProto.StatConfigEventH\000\0226\n\nsta"
+    "t_event\030\026 \001(\0132 .quipper.PerfDataProto.St"
+    "atEventH\000\022A\n\020stat_round_event\030\027 \001(\0132%.qu"
+    "ipper.PerfDataProto.StatRoundEventH\000\022:\n\014"
+    "cgroup_event\030\030 \001(\0132\".quipper.PerfDataPro"
+    "to.CgroupEventH\000\022\021\n\ttimestamp\030\n \001(\004B\014\n\ne"
+    "vent_type\032\304\001\n\016PerfEventStats\022\027\n\017num_even"
+    "ts_read\030\001 \001(\r\022\031\n\021num_sample_events\030\002 \001(\r"
+    "\022\027\n\017num_mmap_events\030\003 \001(\r\022\027\n\017num_fork_ev"
+    "ents\030\004 \001(\r\022\027\n\017num_exit_events\030\005 \001(\r\022 \n\030n"
+    "um_sample_events_mapped\030\006 \001(\r\022\021\n\tdid_rem"
+    "ap\030\007 \001(\010\0320\n\022PerfUint32Metadata\022\014\n\004type\030\001"
+    " \001(\r\022\014\n\004data\030\002 \003(\r\0320\n\022PerfUint64Metadata"
+    "\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 \003(\004\032P\n\023PerfTrac"
+    "ingMetadata\022\024\n\014tracing_data\030\001 \001(\014\022#\n\027tra"
+    "cing_data_md5_prefix\030\002 \001(\004B\002\030\001\032\221\001\n\013PerfB"
+    "uildID\022\014\n\004misc\030\001 \001(\r\022\013\n\003pid\030\002 \001(\r\022\025\n\rbui"
+    "ld_id_hash\030\003 \001(\014\022\020\n\010filename\030\004 \001(\t\022\033\n\023fi"
+    "lename_md5_prefix\030\005 \001(\004\022\014\n\004size\030\006 \001(\r\022\023\n"
+    "\013is_injected\030\007 \001(\010\032\206\002\n\027PerfCPUTopologyMe"
+    "tadata\022\025\n\rcore_siblings\030\001 \003(\t\022 \n\030core_si"
+    "blings_md5_prefix\030\002 \003(\004\022\027\n\017thread_siblin"
+    "gs\030\003 \003(\t\022\"\n\032thread_siblings_md5_prefix\030\004"
+    " \003(\004\022J\n\016available_cpus\030\005 \003(\01322.quipper.P"
+    "erfDataProto.PerfCPUTopologyMetadata.CPU"
+    "\032)\n\003CPU\022\017\n\007core_id\030\001 \001(\r\022\021\n\tsocket_id\030\002 "
+    "\001(\r\032\200\001\n\030PerfNodeTopologyMetadata\022\n\n\002id\030\001"
+    " \001(\r\022\024\n\014total_memory\030\002 \001(\004\022\023\n\013free_memor"
+    "y\030\003 \001(\004\022\020\n\010cpu_list\030\004 \001(\t\022\033\n\023cpu_list_md"
+    "5_prefix\030\005 \001(\004\032N\n\027PerfPMUMappingsMetadat"
+    "a\022\014\n\004type\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md"
+    "5_prefix\030\003 \001(\004\032g\n\025PerfGroupDescMetadata\022"
+    "\014\n\004name\030\001 \001(\t\022\027\n\017name_md5_prefix\030\002 \001(\004\022\022"
+    "\n\nleader_idx\030\003 \001(\r\022\023\n\013num_members\030\004 \001(\r\032"
+    "\373\005\n\016StringMetadata\022M\n\010hostname\030\001 \001(\0132;.q"
+    "uipper.PerfDataProto.StringMetadata.Stri"
+    "ngAndMd5sumPrefix\022S\n\016kernel_version\030\002 \001("
+    "\0132;.quipper.PerfDataProto.StringMetadata"
+    ".StringAndMd5sumPrefix\022Q\n\014perf_version\030\003"
+    " \001(\0132;.quipper.PerfDataProto.StringMetad"
+    "ata.StringAndMd5sumPrefix\022Q\n\014architectur"
+    "e\030\004 \001(\0132;.quipper.PerfDataProto.StringMe"
+    "tadata.StringAndMd5sumPrefix\022T\n\017cpu_desc"
+    "ription\030\005 \001(\0132;.quipper.PerfDataProto.St"
+    "ringMetadata.StringAndMd5sumPrefix\022K\n\006cp"
+    "u_id\030\006 \001(\0132;.quipper.PerfDataProto.Strin"
+    "gMetadata.StringAndMd5sumPrefix\022\\\n\027perf_"
+    "command_line_token\030\007 \003(\0132;.quipper.PerfD"
+    "ataProto.StringMetadata.StringAndMd5sumP"
+    "refix\022\\\n\027perf_command_line_whole\030\010 \001(\0132;"
+    ".quipper.PerfDataProto.StringMetadata.St"
+    "ringAndMd5sumPrefix\032@\n\025StringAndMd5sumPr"
+    "efix\022\r\n\005value\030\001 \001(\t\022\030\n\020value_md5_prefix\030"
+    "\002 \001(\004B\003\370\001\001"
+};
+static ::absl::once_flag descriptor_table_perf_5fdata_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_perf_5fdata_2eproto = {
-    false, false, 9330, descriptor_table_protodef_perf_5fdata_2eproto,
+    false,
+    false,
+    9330,
+    descriptor_table_protodef_perf_5fdata_2eproto,
     "perf_data.proto",
-    &descriptor_table_perf_5fdata_2eproto_once, nullptr, 0, 47,
-    schemas, file_default_instances, TableStruct_perf_5fdata_2eproto::offsets,
-    file_level_metadata_perf_5fdata_2eproto, file_level_enum_descriptors_perf_5fdata_2eproto,
+    &descriptor_table_perf_5fdata_2eproto_once,
+    nullptr,
+    0,
+    47,
+    schemas,
+    file_default_instances,
+    TableStruct_perf_5fdata_2eproto::offsets,
+    file_level_metadata_perf_5fdata_2eproto,
+    file_level_enum_descriptors_perf_5fdata_2eproto,
     file_level_service_descriptors_perf_5fdata_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_perf_5fdata_2eproto_getter() {
   return &descriptor_table_perf_5fdata_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fdata_2eproto(&descriptor_table_perf_5fdata_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fdata_2eproto(&descriptor_table_perf_5fdata_2eproto);
 namespace quipper {
-
 // ===================================================================
 
 class PerfDataProto_PerfEventAttr::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfEventAttr>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfEventAttr, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2275,125 +2748,115 @@ class PerfDataProto_PerfEventAttr::_Internal {
   }
 };
 
-PerfDataProto_PerfEventAttr::PerfDataProto_PerfEventAttr(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfEventAttr::PerfDataProto_PerfEventAttr(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfEventAttr)
 }
 PerfDataProto_PerfEventAttr::PerfDataProto_PerfEventAttr(const PerfDataProto_PerfEventAttr& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_PerfEventAttr* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.size_){}
-    , decltype(_impl_.config_){}
-    , decltype(_impl_.sample_period_){}
-    , decltype(_impl_.sample_freq_){}
-    , decltype(_impl_.sample_type_){}
-    , decltype(_impl_.read_format_){}
-    , decltype(_impl_.disabled_){}
-    , decltype(_impl_.inherit_){}
-    , decltype(_impl_.pinned_){}
-    , decltype(_impl_.exclusive_){}
-    , decltype(_impl_.exclude_user_){}
-    , decltype(_impl_.exclude_kernel_){}
-    , decltype(_impl_.exclude_hv_){}
-    , decltype(_impl_.exclude_idle_){}
-    , decltype(_impl_.mmap_){}
-    , decltype(_impl_.comm_){}
-    , decltype(_impl_.freq_){}
-    , decltype(_impl_.inherit_stat_){}
-    , decltype(_impl_.enable_on_exec_){}
-    , decltype(_impl_.task_){}
-    , decltype(_impl_.watermark_){}
-    , decltype(_impl_.mmap_data_){}
-    , decltype(_impl_.precise_ip_){}
-    , decltype(_impl_.wakeup_events_){}
-    , decltype(_impl_.sample_id_all_){}
-    , decltype(_impl_.exclude_host_){}
-    , decltype(_impl_.exclude_guest_){}
-    , decltype(_impl_.exclude_callchain_kernel_){}
-    , decltype(_impl_.wakeup_watermark_){}
-    , decltype(_impl_.bp_addr_){}
-    , decltype(_impl_.config1_){}
-    , decltype(_impl_.bp_len_){}
-    , decltype(_impl_.config2_){}
-    , decltype(_impl_.branch_sample_type_){}
-    , decltype(_impl_.bp_type_){}
-    , decltype(_impl_.exclude_callchain_user_){}
-    , decltype(_impl_.mmap2_){}
-    , decltype(_impl_.comm_exec_){}
-    , decltype(_impl_.use_clockid_){}
-    , decltype(_impl_.sample_regs_user_){}
-    , decltype(_impl_.sample_stack_user_){}
-    , decltype(_impl_.context_switch_){}
-    , decltype(_impl_.write_backward_){}
-    , decltype(_impl_.namespaces_){}
-    , decltype(_impl_.cgroup_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cgroup_) -
-    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.cgroup_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfEventAttr)
 }
 
-inline void PerfDataProto_PerfEventAttr::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfEventAttr::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){0u}
-    , decltype(_impl_.size_){0u}
-    , decltype(_impl_.config_){uint64_t{0u}}
-    , decltype(_impl_.sample_period_){uint64_t{0u}}
-    , decltype(_impl_.sample_freq_){uint64_t{0u}}
-    , decltype(_impl_.sample_type_){uint64_t{0u}}
-    , decltype(_impl_.read_format_){uint64_t{0u}}
-    , decltype(_impl_.disabled_){false}
-    , decltype(_impl_.inherit_){false}
-    , decltype(_impl_.pinned_){false}
-    , decltype(_impl_.exclusive_){false}
-    , decltype(_impl_.exclude_user_){false}
-    , decltype(_impl_.exclude_kernel_){false}
-    , decltype(_impl_.exclude_hv_){false}
-    , decltype(_impl_.exclude_idle_){false}
-    , decltype(_impl_.mmap_){false}
-    , decltype(_impl_.comm_){false}
-    , decltype(_impl_.freq_){false}
-    , decltype(_impl_.inherit_stat_){false}
-    , decltype(_impl_.enable_on_exec_){false}
-    , decltype(_impl_.task_){false}
-    , decltype(_impl_.watermark_){false}
-    , decltype(_impl_.mmap_data_){false}
-    , decltype(_impl_.precise_ip_){0u}
-    , decltype(_impl_.wakeup_events_){0u}
-    , decltype(_impl_.sample_id_all_){false}
-    , decltype(_impl_.exclude_host_){false}
-    , decltype(_impl_.exclude_guest_){false}
-    , decltype(_impl_.exclude_callchain_kernel_){false}
-    , decltype(_impl_.wakeup_watermark_){0u}
-    , decltype(_impl_.bp_addr_){uint64_t{0u}}
-    , decltype(_impl_.config1_){uint64_t{0u}}
-    , decltype(_impl_.bp_len_){uint64_t{0u}}
-    , decltype(_impl_.config2_){uint64_t{0u}}
-    , decltype(_impl_.branch_sample_type_){uint64_t{0u}}
-    , decltype(_impl_.bp_type_){0u}
-    , decltype(_impl_.exclude_callchain_user_){false}
-    , decltype(_impl_.mmap2_){false}
-    , decltype(_impl_.comm_exec_){false}
-    , decltype(_impl_.use_clockid_){false}
-    , decltype(_impl_.sample_regs_user_){uint64_t{0u}}
-    , decltype(_impl_.sample_stack_user_){0u}
-    , decltype(_impl_.context_switch_){false}
-    , decltype(_impl_.write_backward_){false}
-    , decltype(_impl_.namespaces_){false}
-    , decltype(_impl_.cgroup_){false}
+    , decltype(_impl_.type_) { 0u }
+
+    , decltype(_impl_.size_) { 0u }
+
+    , decltype(_impl_.config_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.sample_period_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.sample_freq_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.sample_type_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.read_format_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.disabled_) { false }
+
+    , decltype(_impl_.inherit_) { false }
+
+    , decltype(_impl_.pinned_) { false }
+
+    , decltype(_impl_.exclusive_) { false }
+
+    , decltype(_impl_.exclude_user_) { false }
+
+    , decltype(_impl_.exclude_kernel_) { false }
+
+    , decltype(_impl_.exclude_hv_) { false }
+
+    , decltype(_impl_.exclude_idle_) { false }
+
+    , decltype(_impl_.mmap_) { false }
+
+    , decltype(_impl_.comm_) { false }
+
+    , decltype(_impl_.freq_) { false }
+
+    , decltype(_impl_.inherit_stat_) { false }
+
+    , decltype(_impl_.enable_on_exec_) { false }
+
+    , decltype(_impl_.task_) { false }
+
+    , decltype(_impl_.watermark_) { false }
+
+    , decltype(_impl_.mmap_data_) { false }
+
+    , decltype(_impl_.precise_ip_) { 0u }
+
+    , decltype(_impl_.wakeup_events_) { 0u }
+
+    , decltype(_impl_.sample_id_all_) { false }
+
+    , decltype(_impl_.exclude_host_) { false }
+
+    , decltype(_impl_.exclude_guest_) { false }
+
+    , decltype(_impl_.exclude_callchain_kernel_) { false }
+
+    , decltype(_impl_.wakeup_watermark_) { 0u }
+
+    , decltype(_impl_.bp_addr_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.config1_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.bp_len_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.config2_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.branch_sample_type_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.bp_type_) { 0u }
+
+    , decltype(_impl_.exclude_callchain_user_) { false }
+
+    , decltype(_impl_.mmap2_) { false }
+
+    , decltype(_impl_.comm_exec_) { false }
+
+    , decltype(_impl_.use_clockid_) { false }
+
+    , decltype(_impl_.sample_regs_user_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.sample_stack_user_) { 0u }
+
+    , decltype(_impl_.context_switch_) { false }
+
+    , decltype(_impl_.write_backward_) { false }
+
+    , decltype(_impl_.namespaces_) { false }
+
+    , decltype(_impl_.cgroup_) { false }
+
   };
 }
 
@@ -2407,7 +2870,7 @@ PerfDataProto_PerfEventAttr::~PerfDataProto_PerfEventAttr() {
 }
 
 inline void PerfDataProto_PerfEventAttr::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_PerfEventAttr::SetCachedSize(int size) const {
@@ -2416,39 +2879,39 @@ void PerfDataProto_PerfEventAttr::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfEventAttr::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfEventAttr)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.disabled_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.disabled_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&_impl_.inherit_, 0, static_cast<size_t>(
+    ::memset(&_impl_.inherit_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.mmap_) -
         reinterpret_cast<char*>(&_impl_.inherit_)) + sizeof(_impl_.mmap_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&_impl_.comm_, 0, static_cast<size_t>(
+    ::memset(&_impl_.comm_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.precise_ip_) -
         reinterpret_cast<char*>(&_impl_.comm_)) + sizeof(_impl_.precise_ip_));
   }
   if (cached_has_bits & 0xff000000u) {
-    ::memset(&_impl_.wakeup_events_, 0, static_cast<size_t>(
+    ::memset(&_impl_.wakeup_events_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.config1_) -
         reinterpret_cast<char*>(&_impl_.wakeup_events_)) + sizeof(_impl_.config1_));
   }
   cached_has_bits = _impl_._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&_impl_.bp_len_, 0, static_cast<size_t>(
+    ::memset(&_impl_.bp_len_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.use_clockid_) -
         reinterpret_cast<char*>(&_impl_.bp_len_)) + sizeof(_impl_.use_clockid_));
   }
   if (cached_has_bits & 0x00003f00u) {
-    ::memset(&_impl_.sample_regs_user_, 0, static_cast<size_t>(
+    ::memset(&_impl_.sample_regs_user_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.cgroup_) -
         reinterpret_cast<char*>(&_impl_.sample_regs_user_)) + sizeof(_impl_.cgroup_));
   }
@@ -2459,422 +2922,468 @@ void PerfDataProto_PerfEventAttr::Clear() {
 const char* PerfDataProto_PerfEventAttr::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&_impl_._has_bits_);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 size = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_size(&_impl_._has_bits_);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 config = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_config(&_impl_._has_bits_);
           _impl_.config_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_period = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_sample_period(&_impl_._has_bits_);
           _impl_.sample_period_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_freq = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_sample_freq(&_impl_._has_bits_);
           _impl_.sample_freq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_type = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_sample_type(&_impl_._has_bits_);
           _impl_.sample_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 read_format = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_read_format(&_impl_._has_bits_);
           _impl_.read_format_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool disabled = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_disabled(&_impl_._has_bits_);
           _impl_.disabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool inherit = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_inherit(&_impl_._has_bits_);
           _impl_.inherit_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool pinned = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_pinned(&_impl_._has_bits_);
           _impl_.pinned_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclusive = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
           _Internal::set_has_exclusive(&_impl_._has_bits_);
           _impl_.exclusive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_user = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
           _Internal::set_has_exclude_user(&_impl_._has_bits_);
           _impl_.exclude_user_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_kernel = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 104)) {
           _Internal::set_has_exclude_kernel(&_impl_._has_bits_);
           _impl_.exclude_kernel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_hv = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
           _Internal::set_has_exclude_hv(&_impl_._has_bits_);
           _impl_.exclude_hv_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_idle = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 120)) {
           _Internal::set_has_exclude_idle(&_impl_._has_bits_);
           _impl_.exclude_idle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool mmap = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_mmap(&_impl_._has_bits_);
           _impl_.mmap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool comm = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 136)) {
           _Internal::set_has_comm(&_impl_._has_bits_);
           _impl_.comm_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool freq = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 144)) {
           _Internal::set_has_freq(&_impl_._has_bits_);
           _impl_.freq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool inherit_stat = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 152)) {
           _Internal::set_has_inherit_stat(&_impl_._has_bits_);
           _impl_.inherit_stat_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool enable_on_exec = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 160)) {
           _Internal::set_has_enable_on_exec(&_impl_._has_bits_);
           _impl_.enable_on_exec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool task = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 168)) {
           _Internal::set_has_task(&_impl_._has_bits_);
           _impl_.task_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool watermark = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 176)) {
           _Internal::set_has_watermark(&_impl_._has_bits_);
           _impl_.watermark_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 precise_ip = 23;
       case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 184)) {
           _Internal::set_has_precise_ip(&_impl_._has_bits_);
           _impl_.precise_ip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool mmap_data = 24;
       case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 192)) {
           _Internal::set_has_mmap_data(&_impl_._has_bits_);
           _impl_.mmap_data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool sample_id_all = 25;
       case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 200)) {
           _Internal::set_has_sample_id_all(&_impl_._has_bits_);
           _impl_.sample_id_all_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_host = 26;
       case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 208)) {
           _Internal::set_has_exclude_host(&_impl_._has_bits_);
           _impl_.exclude_host_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_guest = 27;
       case 27:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 216)) {
           _Internal::set_has_exclude_guest(&_impl_._has_bits_);
           _impl_.exclude_guest_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 wakeup_events = 28;
       case 28:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 224)) {
           _Internal::set_has_wakeup_events(&_impl_._has_bits_);
           _impl_.wakeup_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 wakeup_watermark = 29;
       case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 232)) {
           _Internal::set_has_wakeup_watermark(&_impl_._has_bits_);
           _impl_.wakeup_watermark_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 bp_type = 30;
       case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 240)) {
           _Internal::set_has_bp_type(&_impl_._has_bits_);
           _impl_.bp_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 bp_addr = 31;
       case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 248)) {
           _Internal::set_has_bp_addr(&_impl_._has_bits_);
           _impl_.bp_addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 config1 = 32;
       case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 0)) {
           _Internal::set_has_config1(&_impl_._has_bits_);
           _impl_.config1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 bp_len = 33;
       case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_bp_len(&_impl_._has_bits_);
           _impl_.bp_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 config2 = 34;
       case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_config2(&_impl_._has_bits_);
           _impl_.config2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 branch_sample_type = 35;
       case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_branch_sample_type(&_impl_._has_bits_);
           _impl_.branch_sample_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_callchain_kernel = 36;
       case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_exclude_callchain_kernel(&_impl_._has_bits_);
           _impl_.exclude_callchain_kernel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool exclude_callchain_user = 37;
       case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_exclude_callchain_user(&_impl_._has_bits_);
           _impl_.exclude_callchain_user_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool mmap2 = 38;
       case 38:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_mmap2(&_impl_._has_bits_);
           _impl_.mmap2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool comm_exec = 39;
       case 39:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_comm_exec(&_impl_._has_bits_);
           _impl_.comm_exec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_regs_user = 40;
       case 40:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_sample_regs_user(&_impl_._has_bits_);
           _impl_.sample_regs_user_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 sample_stack_user = 41;
       case 41:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_sample_stack_user(&_impl_._has_bits_);
           _impl_.sample_stack_user_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool use_clockid = 42;
       case 42:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_use_clockid(&_impl_._has_bits_);
           _impl_.use_clockid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool context_switch = 43;
       case 43:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
           _Internal::set_has_context_switch(&_impl_._has_bits_);
           _impl_.context_switch_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool write_backward = 44;
       case 44:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
           _Internal::set_has_write_backward(&_impl_._has_bits_);
           _impl_.write_backward_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool namespaces = 45;
       case 45:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 104)) {
           _Internal::set_has_namespaces(&_impl_._has_bits_);
           _impl_.namespaces_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool cgroup = 46;
       case 46:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
           _Internal::set_has_cgroup(&_impl_._has_bits_);
           _impl_.cgroup_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2899,292 +3408,338 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfEventAttr::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfEventAttr::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfEventAttr)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // optional uint32 size = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_size(), target);
   }
 
   // optional uint64 config = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_config(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_config(), target);
   }
 
   // optional uint64 sample_period = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_sample_period(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_sample_period(), target);
   }
 
   // optional uint64 sample_freq = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_sample_freq(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_sample_freq(), target);
   }
 
   // optional uint64 sample_type = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_sample_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_sample_type(), target);
   }
 
   // optional uint64 read_format = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_read_format(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_read_format(), target);
   }
 
   // optional bool disabled = 8;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_disabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        8, this->_internal_disabled(), target);
   }
 
   // optional bool inherit = 9;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_inherit(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        9, this->_internal_inherit(), target);
   }
 
   // optional bool pinned = 10;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_pinned(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        10, this->_internal_pinned(), target);
   }
 
   // optional bool exclusive = 11;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_exclusive(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        11, this->_internal_exclusive(), target);
   }
 
   // optional bool exclude_user = 12;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_exclude_user(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        12, this->_internal_exclude_user(), target);
   }
 
   // optional bool exclude_kernel = 13;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_exclude_kernel(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        13, this->_internal_exclude_kernel(), target);
   }
 
   // optional bool exclude_hv = 14;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_exclude_hv(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        14, this->_internal_exclude_hv(), target);
   }
 
   // optional bool exclude_idle = 15;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_exclude_idle(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        15, this->_internal_exclude_idle(), target);
   }
 
   // optional bool mmap = 16;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_mmap(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        16, this->_internal_mmap(), target);
   }
 
   // optional bool comm = 17;
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_comm(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        17, this->_internal_comm(), target);
   }
 
   // optional bool freq = 18;
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_freq(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        18, this->_internal_freq(), target);
   }
 
   // optional bool inherit_stat = 19;
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_inherit_stat(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        19, this->_internal_inherit_stat(), target);
   }
 
   // optional bool enable_on_exec = 20;
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(20, this->_internal_enable_on_exec(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        20, this->_internal_enable_on_exec(), target);
   }
 
   // optional bool task = 21;
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(21, this->_internal_task(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        21, this->_internal_task(), target);
   }
 
   // optional bool watermark = 22;
   if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_watermark(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        22, this->_internal_watermark(), target);
   }
 
   // optional uint32 precise_ip = 23;
   if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(23, this->_internal_precise_ip(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        23, this->_internal_precise_ip(), target);
   }
 
   // optional bool mmap_data = 24;
   if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_mmap_data(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        24, this->_internal_mmap_data(), target);
   }
 
   // optional bool sample_id_all = 25;
   if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(25, this->_internal_sample_id_all(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        25, this->_internal_sample_id_all(), target);
   }
 
   // optional bool exclude_host = 26;
   if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(26, this->_internal_exclude_host(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        26, this->_internal_exclude_host(), target);
   }
 
   // optional bool exclude_guest = 27;
   if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(27, this->_internal_exclude_guest(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        27, this->_internal_exclude_guest(), target);
   }
 
   // optional uint32 wakeup_events = 28;
   if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(28, this->_internal_wakeup_events(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        28, this->_internal_wakeup_events(), target);
   }
 
   // optional uint32 wakeup_watermark = 29;
   if (cached_has_bits & 0x20000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(29, this->_internal_wakeup_watermark(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        29, this->_internal_wakeup_watermark(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional uint32 bp_type = 30;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(30, this->_internal_bp_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        30, this->_internal_bp_type(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 bp_addr = 31;
   if (cached_has_bits & 0x40000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(31, this->_internal_bp_addr(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        31, this->_internal_bp_addr(), target);
   }
 
   // optional uint64 config1 = 32;
   if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(32, this->_internal_config1(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        32, this->_internal_config1(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional uint64 bp_len = 33;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(33, this->_internal_bp_len(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        33, this->_internal_bp_len(), target);
   }
 
   // optional uint64 config2 = 34;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(34, this->_internal_config2(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        34, this->_internal_config2(), target);
   }
 
   // optional uint64 branch_sample_type = 35;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(35, this->_internal_branch_sample_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        35, this->_internal_branch_sample_type(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool exclude_callchain_kernel = 36;
   if (cached_has_bits & 0x10000000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(36, this->_internal_exclude_callchain_kernel(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        36, this->_internal_exclude_callchain_kernel(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional bool exclude_callchain_user = 37;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_exclude_callchain_user(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        37, this->_internal_exclude_callchain_user(), target);
   }
 
   // optional bool mmap2 = 38;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(38, this->_internal_mmap2(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        38, this->_internal_mmap2(), target);
   }
 
   // optional bool comm_exec = 39;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(39, this->_internal_comm_exec(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        39, this->_internal_comm_exec(), target);
   }
 
   // optional uint64 sample_regs_user = 40;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(40, this->_internal_sample_regs_user(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        40, this->_internal_sample_regs_user(), target);
   }
 
   // optional uint32 sample_stack_user = 41;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(41, this->_internal_sample_stack_user(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        41, this->_internal_sample_stack_user(), target);
   }
 
   // optional bool use_clockid = 42;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(42, this->_internal_use_clockid(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        42, this->_internal_use_clockid(), target);
   }
 
   // optional bool context_switch = 43;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(43, this->_internal_context_switch(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        43, this->_internal_context_switch(), target);
   }
 
   // optional bool write_backward = 44;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(44, this->_internal_write_backward(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        44, this->_internal_write_backward(), target);
   }
 
   // optional bool namespaces = 45;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(45, this->_internal_namespaces(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        45, this->_internal_namespaces(), target);
   }
 
   // optional bool cgroup = 46;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(46, this->_internal_cgroup(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        46, this->_internal_cgroup(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3195,11 +3750,11 @@ uint8_t* PerfDataProto_PerfEventAttr::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfEventAttr::ByteSizeLong() const {
+::size_t PerfDataProto_PerfEventAttr::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfEventAttr)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3207,178 +3762,180 @@ size_t PerfDataProto_PerfEventAttr::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional uint32 type = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_type());
     }
 
     // optional uint32 size = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_size());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_size());
     }
 
     // optional uint64 config = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_config());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_config());
     }
 
     // optional uint64 sample_period = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_period());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_period());
     }
 
     // optional uint64 sample_freq = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_freq());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_freq());
     }
 
     // optional uint64 sample_type = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_type());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_type());
     }
 
     // optional uint64 read_format = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_read_format());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_read_format());
     }
 
     // optional bool disabled = 8;
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
     // optional bool inherit = 9;
     if (cached_has_bits & 0x00000100u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool pinned = 10;
     if (cached_has_bits & 0x00000200u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool exclusive = 11;
     if (cached_has_bits & 0x00000400u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool exclude_user = 12;
     if (cached_has_bits & 0x00000800u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool exclude_kernel = 13;
     if (cached_has_bits & 0x00001000u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool exclude_hv = 14;
     if (cached_has_bits & 0x00002000u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool exclude_idle = 15;
     if (cached_has_bits & 0x00004000u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool mmap = 16;
     if (cached_has_bits & 0x00008000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
   }
   if (cached_has_bits & 0x00ff0000u) {
     // optional bool comm = 17;
     if (cached_has_bits & 0x00010000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool freq = 18;
     if (cached_has_bits & 0x00020000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool inherit_stat = 19;
     if (cached_has_bits & 0x00040000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool enable_on_exec = 20;
     if (cached_has_bits & 0x00080000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool task = 21;
     if (cached_has_bits & 0x00100000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool watermark = 22;
     if (cached_has_bits & 0x00200000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool mmap_data = 24;
     if (cached_has_bits & 0x00400000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional uint32 precise_ip = 23;
     if (cached_has_bits & 0x00800000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_precise_ip());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_precise_ip());
     }
 
   }
   if (cached_has_bits & 0xff000000u) {
     // optional uint32 wakeup_events = 28;
     if (cached_has_bits & 0x01000000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_wakeup_events());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_wakeup_events());
     }
 
     // optional bool sample_id_all = 25;
     if (cached_has_bits & 0x02000000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool exclude_host = 26;
     if (cached_has_bits & 0x04000000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool exclude_guest = 27;
     if (cached_has_bits & 0x08000000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool exclude_callchain_kernel = 36;
     if (cached_has_bits & 0x10000000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional uint32 wakeup_watermark = 29;
     if (cached_has_bits & 0x20000000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_wakeup_watermark());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_wakeup_watermark());
     }
 
     // optional uint64 bp_addr = 31;
     if (cached_has_bits & 0x40000000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_bp_addr());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_bp_addr());
     }
 
     // optional uint64 config1 = 32;
     if (cached_has_bits & 0x80000000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_config1());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_config1());
     }
 
   }
@@ -3386,86 +3943,80 @@ size_t PerfDataProto_PerfEventAttr::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional uint64 bp_len = 33;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_bp_len());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_bp_len());
     }
 
     // optional uint64 config2 = 34;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_config2());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_config2());
     }
 
     // optional uint64 branch_sample_type = 35;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_branch_sample_type());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_branch_sample_type());
     }
 
     // optional uint32 bp_type = 30;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_bp_type());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_bp_type());
     }
 
     // optional bool exclude_callchain_user = 37;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool mmap2 = 38;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool comm_exec = 39;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool use_clockid = 42;
     if (cached_has_bits & 0x00000080u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
   }
   if (cached_has_bits & 0x00003f00u) {
     // optional uint64 sample_regs_user = 40;
     if (cached_has_bits & 0x00000100u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_sample_regs_user());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_sample_regs_user());
     }
 
     // optional uint32 sample_stack_user = 41;
     if (cached_has_bits & 0x00000200u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_sample_stack_user());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_sample_stack_user());
     }
 
     // optional bool context_switch = 43;
     if (cached_has_bits & 0x00000400u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool write_backward = 44;
     if (cached_has_bits & 0x00000800u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool namespaces = 45;
     if (cached_has_bits & 0x00001000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool cgroup = 46;
     if (cached_has_bits & 0x00002000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
   }
@@ -3483,8 +4034,8 @@ void PerfDataProto_PerfEventAttr::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   auto* const _this = static_cast<PerfDataProto_PerfEventAttr*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfEventAttr&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfEventAttr)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -3677,12 +4228,13 @@ void PerfDataProto_PerfEventAttr::InternalSwap(PerfDataProto_PerfEventAttr* othe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[0]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfFileAttr::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfFileAttr>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfFileAttr, _impl_._has_bits_);
   static const ::quipper::PerfDataProto_PerfEventAttr& attr(const PerfDataProto_PerfFileAttr* msg);
   static void set_has_attr(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3693,10 +4245,9 @@ const ::quipper::PerfDataProto_PerfEventAttr&
 PerfDataProto_PerfFileAttr::_Internal::attr(const PerfDataProto_PerfFileAttr* msg) {
   return *msg->_impl_.attr_;
 }
-PerfDataProto_PerfFileAttr::PerfDataProto_PerfFileAttr(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfFileAttr::PerfDataProto_PerfFileAttr(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfFileAttr)
 }
 PerfDataProto_PerfFileAttr::PerfDataProto_PerfFileAttr(const PerfDataProto_PerfFileAttr& from)
@@ -3705,24 +4256,24 @@ PerfDataProto_PerfFileAttr::PerfDataProto_PerfFileAttr(const PerfDataProto_PerfF
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ids_){from._impl_.ids_}
+    , decltype(_impl_.ids_) { from._impl_.ids_ }
+
     , decltype(_impl_.attr_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_attr()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.attr_ = new ::quipper::PerfDataProto_PerfEventAttr(*from._impl_.attr_);
   }
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfFileAttr)
 }
 
-inline void PerfDataProto_PerfFileAttr::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfFileAttr::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.ids_){arena}
+    , decltype(_impl_.ids_) { arena }
+
     , decltype(_impl_.attr_){nullptr}
   };
 }
@@ -3737,7 +4288,7 @@ PerfDataProto_PerfFileAttr::~PerfDataProto_PerfFileAttr() {
 }
 
 inline void PerfDataProto_PerfFileAttr::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.ids_.~RepeatedField();
   if (this != internal_default_instance()) delete _impl_.attr_;
 }
@@ -3748,14 +4299,14 @@ void PerfDataProto_PerfFileAttr::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfFileAttr::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfFileAttr)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.ids_.Clear();
+  _internal_mutable_ids()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.attr_ != nullptr);
+    ABSL_DCHECK(_impl_.attr_ != nullptr);
     _impl_.attr_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -3766,20 +4317,21 @@ const char* PerfDataProto_PerfFileAttr::_InternalParse(const char* ptr, ::_pbi::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .quipper.PerfDataProto.PerfEventAttr attr = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_attr(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 ids = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3787,11 +4339,12 @@ const char* PerfDataProto_PerfFileAttr::_InternalParse(const char* ptr, ::_pbi::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_ids(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3817,10 +4370,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfFileAttr::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfFileAttr::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfFileAttr)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -3832,9 +4385,10 @@ uint8_t* PerfDataProto_PerfFileAttr::_InternalSerialize(
   }
 
   // repeated uint64 ids = 2;
-  for (int i = 0, n = this->_internal_ids_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_ids_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_ids(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_ids(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3845,21 +4399,23 @@ uint8_t* PerfDataProto_PerfFileAttr::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfFileAttr::ByteSizeLong() const {
+::size_t PerfDataProto_PerfFileAttr::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfFileAttr)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint64 ids = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.ids_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_ids_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_ids())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_ids_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // optional .quipper.PerfDataProto.PerfEventAttr attr = 1;
@@ -3884,12 +4440,12 @@ void PerfDataProto_PerfFileAttr::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
   auto* const _this = static_cast<PerfDataProto_PerfFileAttr*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfFileAttr&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfFileAttr)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.ids_.MergeFrom(from._impl_.ids_);
-  if (from._internal_has_attr()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_attr()->::quipper::PerfDataProto_PerfEventAttr::MergeFrom(
         from._internal_attr());
   }
@@ -3920,12 +4476,13 @@ void PerfDataProto_PerfFileAttr::InternalSwap(PerfDataProto_PerfFileAttr* other)
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[1]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfEventType::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfEventType>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfEventType, _impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -3937,10 +4494,9 @@ class PerfDataProto_PerfEventType::_Internal {
   }
 };
 
-PerfDataProto_PerfEventType::PerfDataProto_PerfEventType(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfEventType::PerfDataProto_PerfEventType(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfEventType)
 }
 PerfDataProto_PerfEventType::PerfDataProto_PerfEventType(const PerfDataProto_PerfEventType& from)
@@ -3949,40 +4505,43 @@ PerfDataProto_PerfEventType::PerfDataProto_PerfEventType(const PerfDataProto_Per
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.name_md5_prefix_){}};
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.id_) {}
+
+    , decltype(_impl_.name_md5_prefix_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.id_, &from._impl_.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.name_md5_prefix_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.name_md5_prefix_) -
     reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.name_md5_prefix_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfEventType)
 }
 
-inline void PerfDataProto_PerfEventType::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfEventType::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.name_md5_prefix_){uint64_t{0u}}
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.name_md5_prefix_) { ::uint64_t{0u} }
+
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfEventType::~PerfDataProto_PerfEventType() {
@@ -3995,7 +4554,7 @@ PerfDataProto_PerfEventType::~PerfDataProto_PerfEventType() {
 }
 
 inline void PerfDataProto_PerfEventType::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -4005,7 +4564,7 @@ void PerfDataProto_PerfEventType::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfEventType::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfEventType)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4014,7 +4573,7 @@ void PerfDataProto_PerfEventType::Clear() {
     _impl_.name_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.name_md5_prefix_) -
         reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.name_md5_prefix_));
   }
@@ -4026,38 +4585,41 @@ const char* PerfDataProto_PerfEventType::_InternalParse(const char* ptr, ::_pbi:
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string name = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfEventType.name");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 name_md5_prefix = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_name_md5_prefix(&has_bits);
           _impl_.name_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4083,33 +4645,33 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfEventType::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfEventType::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfEventType)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_id(), target);
   }
 
   // optional string name = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfEventType.name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
+    const std::string& _s = this->_internal_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfEventType.name");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional uint64 name_md5_prefix = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_name_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_name_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4120,11 +4682,11 @@ uint8_t* PerfDataProto_PerfEventType::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfEventType::ByteSizeLong() const {
+::size_t PerfDataProto_PerfEventType::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfEventType)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4132,19 +4694,20 @@ size_t PerfDataProto_PerfEventType::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string name = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_name());
     }
 
     // optional uint64 id = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint64 name_md5_prefix = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_name_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_name_md5_prefix());
     }
 
   }
@@ -4162,8 +4725,8 @@ void PerfDataProto_PerfEventType::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   auto* const _this = static_cast<PerfDataProto_PerfEventType*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfEventType&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfEventType)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -4199,10 +4762,8 @@ void PerfDataProto_PerfEventType::InternalSwap(PerfDataProto_PerfEventType* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfEventType, _impl_.name_md5_prefix_)
       + sizeof(PerfDataProto_PerfEventType::_impl_.name_md5_prefix_)
@@ -4216,12 +4777,13 @@ void PerfDataProto_PerfEventType::InternalSwap(PerfDataProto_PerfEventType* othe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[2]);
 }
-
 // ===================================================================
 
 class PerfDataProto_SampleInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_SampleInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_SampleInfo, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -4242,45 +4804,35 @@ class PerfDataProto_SampleInfo::_Internal {
   }
 };
 
-PerfDataProto_SampleInfo::PerfDataProto_SampleInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_SampleInfo::PerfDataProto_SampleInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.SampleInfo)
 }
 PerfDataProto_SampleInfo::PerfDataProto_SampleInfo(const PerfDataProto_SampleInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_SampleInfo* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.sample_time_ns_){}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.stream_id_){}
-    , decltype(_impl_.cpu_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cpu_) -
-    reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.cpu_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.SampleInfo)
 }
 
-inline void PerfDataProto_SampleInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_SampleInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.sample_time_ns_){uint64_t{0u}}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.stream_id_){uint64_t{0u}}
-    , decltype(_impl_.cpu_){0u}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.sample_time_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.stream_id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cpu_) { 0u }
+
   };
 }
 
@@ -4294,7 +4846,7 @@ PerfDataProto_SampleInfo::~PerfDataProto_SampleInfo() {
 }
 
 inline void PerfDataProto_SampleInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_SampleInfo::SetCachedSize(int size) const {
@@ -4303,13 +4855,13 @@ void PerfDataProto_SampleInfo::SetCachedSize(int size) const {
 
 void PerfDataProto_SampleInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.SampleInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.cpu_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.cpu_));
   }
@@ -4321,62 +4873,68 @@ const char* PerfDataProto_SampleInfo::_InternalParse(const char* ptr, ::_pbi::Pa
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_time_ns = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_sample_time_ns(&has_bits);
           _impl_.sample_time_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 id = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cpu = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_cpu(&has_bits);
           _impl_.cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 stream_id = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_stream_id(&has_bits);
           _impl_.stream_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4402,47 +4960,53 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_SampleInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_SampleInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.SampleInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // optional uint64 sample_time_ns = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_sample_time_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_sample_time_ns(), target);
   }
 
   // optional uint64 id = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_id(), target);
   }
 
   // optional uint32 cpu = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_cpu(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        5, this->_internal_cpu(), target);
   }
 
   // optional uint64 stream_id = 6;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_stream_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_stream_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4453,11 +5017,11 @@ uint8_t* PerfDataProto_SampleInfo::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_SampleInfo::ByteSizeLong() const {
+::size_t PerfDataProto_SampleInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.SampleInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4465,32 +5029,38 @@ size_t PerfDataProto_SampleInfo::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint64 sample_time_ns = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_time_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_time_ns());
     }
 
     // optional uint64 id = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint64 stream_id = 6;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_stream_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_stream_id());
     }
 
     // optional uint32 cpu = 5;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cpu());
     }
 
   }
@@ -4508,8 +5078,8 @@ void PerfDataProto_SampleInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   auto* const _this = static_cast<PerfDataProto_SampleInfo*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_SampleInfo&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.SampleInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -4565,12 +5135,13 @@ void PerfDataProto_SampleInfo::InternalSwap(PerfDataProto_SampleInfo* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[3]);
 }
-
 // ===================================================================
 
 class PerfDataProto_CommEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_CommEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_CommEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -4596,10 +5167,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_CommEvent::_Internal::sample_info(const PerfDataProto_CommEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_CommEvent::PerfDataProto_CommEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_CommEvent::PerfDataProto_CommEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.CommEvent)
 }
 PerfDataProto_CommEvent::PerfDataProto_CommEvent(const PerfDataProto_CommEvent& from)
@@ -4608,49 +5178,56 @@ PerfDataProto_CommEvent::PerfDataProto_CommEvent(const PerfDataProto_CommEvent& 
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.comm_){}
+    , decltype(_impl_.comm_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.comm_md5_prefix_){}
-    , decltype(_impl_.sample_time_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.comm_md5_prefix_) {}
+
+    , decltype(_impl_.sample_time_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.comm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.comm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_comm()) {
-    _this->_impl_.comm_.Set(from._internal_comm(), 
-      _this->GetArenaForAllocation());
+        _impl_.comm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.comm_.Set(from._internal_comm(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.sample_time_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.sample_time_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.sample_time_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.CommEvent)
 }
 
-inline void PerfDataProto_CommEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_CommEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.comm_){}
+    , decltype(_impl_.comm_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.comm_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.sample_time_){uint64_t{0u}}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.comm_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.sample_time_) { ::uint64_t{0u} }
+
   };
   _impl_.comm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.comm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.comm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_CommEvent::~PerfDataProto_CommEvent() {
@@ -4663,7 +5240,7 @@ PerfDataProto_CommEvent::~PerfDataProto_CommEvent() {
 }
 
 inline void PerfDataProto_CommEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.comm_.Destroy();
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
@@ -4674,7 +5251,7 @@ void PerfDataProto_CommEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_CommEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.CommEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4684,12 +5261,12 @@ void PerfDataProto_CommEvent::Clear() {
       _impl_.comm_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+      ABSL_DCHECK(_impl_.sample_info_ != nullptr);
       _impl_.sample_info_->Clear();
     }
   }
   if (cached_has_bits & 0x0000003cu) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.sample_time_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.sample_time_));
   }
@@ -4701,64 +5278,70 @@ const char* PerfDataProto_CommEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string comm = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_comm();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.CommEvent.comm");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 comm_md5_prefix = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_comm_md5_prefix(&has_bits);
           _impl_.comm_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_time = 5 [deprecated = true];
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_sample_time(&has_bits);
           _impl_.sample_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4784,45 +5367,47 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_CommEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_CommEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.CommEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // optional string comm = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_comm().data(), static_cast<int>(this->_internal_comm().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.CommEvent.comm");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_comm(), target);
+    const std::string& _s = this->_internal_comm();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.CommEvent.comm");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional uint64 comm_md5_prefix = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_comm_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_comm_md5_prefix(), target);
   }
 
   // optional uint64 sample_time = 5 [deprecated = true];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_sample_time(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_sample_time(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 6;
@@ -4840,11 +5425,11 @@ uint8_t* PerfDataProto_CommEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_CommEvent::ByteSizeLong() const {
+::size_t PerfDataProto_CommEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.CommEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4852,9 +5437,8 @@ size_t PerfDataProto_CommEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional string comm = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_comm());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_comm());
     }
 
     // optional .quipper.PerfDataProto.SampleInfo sample_info = 6;
@@ -4866,22 +5450,26 @@ size_t PerfDataProto_CommEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint64 comm_md5_prefix = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_comm_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_comm_md5_prefix());
     }
 
     // optional uint64 sample_time = 5 [deprecated = true];
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_time());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_time());
     }
 
   }
@@ -4899,8 +5487,8 @@ void PerfDataProto_CommEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_CommEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_CommEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.CommEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -4946,10 +5534,8 @@ void PerfDataProto_CommEvent::InternalSwap(PerfDataProto_CommEvent* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.comm_, lhs_arena,
-      &other->_impl_.comm_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comm_, lhs_arena,
+                                       &other->_impl_.comm_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_CommEvent, _impl_.sample_time_)
       + sizeof(PerfDataProto_CommEvent::_impl_.sample_time_)
@@ -4963,12 +5549,13 @@ void PerfDataProto_CommEvent::InternalSwap(PerfDataProto_CommEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[4]);
 }
-
 // ===================================================================
 
 class PerfDataProto_MMapEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_MMapEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_MMapEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
@@ -5027,10 +5614,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_MMapEvent::_Internal::sample_info(const PerfDataProto_MMapEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_MMapEvent::PerfDataProto_MMapEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_MMapEvent::PerfDataProto_MMapEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.MMapEvent)
 }
 PerfDataProto_MMapEvent::PerfDataProto_MMapEvent(const PerfDataProto_MMapEvent& from)
@@ -5039,95 +5625,122 @@ PerfDataProto_MMapEvent::PerfDataProto_MMapEvent(const PerfDataProto_MMapEvent& 
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.root_path_){}
-    , decltype(_impl_.build_id_){}
+    , decltype(_impl_.filename_) {}
+
+    , decltype(_impl_.root_path_) {}
+
+    , decltype(_impl_.build_id_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.start_){}
-    , decltype(_impl_.len_){}
-    , decltype(_impl_.pgoff_){}
-    , decltype(_impl_.filename_md5_prefix_){}
-    , decltype(_impl_.maj_){}
-    , decltype(_impl_.min_){}
-    , decltype(_impl_.ino_){}
-    , decltype(_impl_.ino_generation_){}
-    , decltype(_impl_.prot_){}
-    , decltype(_impl_.flags_){}
-    , decltype(_impl_.root_path_md5_prefix_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.start_) {}
+
+    , decltype(_impl_.len_) {}
+
+    , decltype(_impl_.pgoff_) {}
+
+    , decltype(_impl_.filename_md5_prefix_) {}
+
+    , decltype(_impl_.maj_) {}
+
+    , decltype(_impl_.min_) {}
+
+    , decltype(_impl_.ino_) {}
+
+    , decltype(_impl_.ino_generation_) {}
+
+    , decltype(_impl_.prot_) {}
+
+    , decltype(_impl_.flags_) {}
+
+    , decltype(_impl_.root_path_md5_prefix_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.filename_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_filename()) {
-    _this->_impl_.filename_.Set(from._internal_filename(), 
-      _this->GetArenaForAllocation());
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.filename_.Set(from._internal_filename(), _this->GetArenaForAllocation());
   }
   _impl_.root_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.root_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_root_path()) {
-    _this->_impl_.root_path_.Set(from._internal_root_path(), 
-      _this->GetArenaForAllocation());
+        _impl_.root_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.root_path_.Set(from._internal_root_path(), _this->GetArenaForAllocation());
   }
   _impl_.build_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_build_id()) {
-    _this->_impl_.build_id_.Set(from._internal_build_id(), 
-      _this->GetArenaForAllocation());
+        _impl_.build_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.build_id_.Set(from._internal_build_id(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.root_path_md5_prefix_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.root_path_md5_prefix_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.root_path_md5_prefix_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.MMapEvent)
 }
 
-inline void PerfDataProto_MMapEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_MMapEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.root_path_){}
-    , decltype(_impl_.build_id_){}
+    , decltype(_impl_.filename_) {}
+
+    , decltype(_impl_.root_path_) {}
+
+    , decltype(_impl_.build_id_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.start_){uint64_t{0u}}
-    , decltype(_impl_.len_){uint64_t{0u}}
-    , decltype(_impl_.pgoff_){uint64_t{0u}}
-    , decltype(_impl_.filename_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.maj_){0u}
-    , decltype(_impl_.min_){0u}
-    , decltype(_impl_.ino_){uint64_t{0u}}
-    , decltype(_impl_.ino_generation_){uint64_t{0u}}
-    , decltype(_impl_.prot_){0u}
-    , decltype(_impl_.flags_){0u}
-    , decltype(_impl_.root_path_md5_prefix_){uint64_t{0u}}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.start_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.len_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.pgoff_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.filename_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.maj_) { 0u }
+
+    , decltype(_impl_.min_) { 0u }
+
+    , decltype(_impl_.ino_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.ino_generation_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.prot_) { 0u }
+
+    , decltype(_impl_.flags_) { 0u }
+
+    , decltype(_impl_.root_path_md5_prefix_) { ::uint64_t{0u} }
+
   };
   _impl_.filename_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.root_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.root_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.root_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.build_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.build_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_MMapEvent::~PerfDataProto_MMapEvent() {
@@ -5140,7 +5753,7 @@ PerfDataProto_MMapEvent::~PerfDataProto_MMapEvent() {
 }
 
 inline void PerfDataProto_MMapEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.filename_.Destroy();
   _impl_.root_path_.Destroy();
   _impl_.build_id_.Destroy();
@@ -5153,7 +5766,7 @@ void PerfDataProto_MMapEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_MMapEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.MMapEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5169,21 +5782,21 @@ void PerfDataProto_MMapEvent::Clear() {
       _impl_.build_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+      ABSL_DCHECK(_impl_.sample_info_ != nullptr);
       _impl_.sample_info_->Clear();
     }
   }
   if (cached_has_bits & 0x000000f0u) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.len_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.len_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&_impl_.pgoff_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pgoff_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.flags_) -
         reinterpret_cast<char*>(&_impl_.pgoff_)) + sizeof(_impl_.flags_));
   }
-  _impl_.root_path_md5_prefix_ = uint64_t{0u};
+  _impl_.root_path_md5_prefix_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -5192,169 +5805,186 @@ const char* PerfDataProto_MMapEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 start = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_start(&has_bits);
           _impl_.start_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 len = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_len(&has_bits);
           _impl_.len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 pgoff = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_pgoff(&has_bits);
           _impl_.pgoff_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string filename = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_filename();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.MMapEvent.filename");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 filename_md5_prefix = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_filename_md5_prefix(&has_bits);
           _impl_.filename_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 maj = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_maj(&has_bits);
           _impl_.maj_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 min = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_min(&has_bits);
           _impl_.min_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 ino = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
           _Internal::set_has_ino(&has_bits);
           _impl_.ino_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 ino_generation = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
           _Internal::set_has_ino_generation(&has_bits);
           _impl_.ino_generation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 prot = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 104)) {
           _Internal::set_has_prot(&has_bits);
           _impl_.prot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 flags = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
           _Internal::set_has_flags(&has_bits);
           _impl_.flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string root_path = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           auto str = _internal_mutable_root_path();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.MMapEvent.root_path");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 root_path_md5_prefix = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_root_path_md5_prefix(&has_bits);
           _impl_.root_path_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string build_id = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 138)) {
           auto str = _internal_mutable_build_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.MMapEvent.build_id");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -5380,57 +6010,61 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_MMapEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_MMapEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.MMapEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // optional uint64 start = 3;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_start(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_start(), target);
   }
 
   // optional uint64 len = 4;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_len(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_len(), target);
   }
 
   // optional uint64 pgoff = 5;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_pgoff(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_pgoff(), target);
   }
 
   // optional string filename = 6;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.MMapEvent.filename");
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_filename(), target);
+    const std::string& _s = this->_internal_filename();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.MMapEvent.filename");
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   // optional uint64 filename_md5_prefix = 7;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_filename_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_filename_md5_prefix(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 8;
@@ -5443,63 +6077,66 @@ uint8_t* PerfDataProto_MMapEvent::_InternalSerialize(
   // optional uint32 maj = 9;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_maj(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        9, this->_internal_maj(), target);
   }
 
   // optional uint32 min = 10;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(10, this->_internal_min(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        10, this->_internal_min(), target);
   }
 
   // optional uint64 ino = 11;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(11, this->_internal_ino(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        11, this->_internal_ino(), target);
   }
 
   // optional uint64 ino_generation = 12;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(12, this->_internal_ino_generation(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        12, this->_internal_ino_generation(), target);
   }
 
   // optional uint32 prot = 13;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(13, this->_internal_prot(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        13, this->_internal_prot(), target);
   }
 
   // optional uint32 flags = 14;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(14, this->_internal_flags(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        14, this->_internal_flags(), target);
   }
 
   // optional string root_path = 15;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_root_path().data(), static_cast<int>(this->_internal_root_path().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.MMapEvent.root_path");
-    target = stream->WriteStringMaybeAliased(
-        15, this->_internal_root_path(), target);
+    const std::string& _s = this->_internal_root_path();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.MMapEvent.root_path");
+    target = stream->WriteStringMaybeAliased(15, _s, target);
   }
 
   // optional uint64 root_path_md5_prefix = 16;
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(16, this->_internal_root_path_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        16, this->_internal_root_path_md5_prefix(), target);
   }
 
   // optional string build_id = 17;
   if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_build_id().data(), static_cast<int>(this->_internal_build_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.MMapEvent.build_id");
-    target = stream->WriteStringMaybeAliased(
-        17, this->_internal_build_id(), target);
+    const std::string& _s = this->_internal_build_id();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.MMapEvent.build_id");
+    target = stream->WriteStringMaybeAliased(17, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5510,11 +6147,11 @@ uint8_t* PerfDataProto_MMapEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_MMapEvent::ByteSizeLong() const {
+::size_t PerfDataProto_MMapEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.MMapEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5522,23 +6159,20 @@ size_t PerfDataProto_MMapEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional string filename = 6;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_filename());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_filename());
     }
 
     // optional string root_path = 15;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_root_path());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_root_path());
     }
 
     // optional string build_id = 17;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_build_id());
+      total_size += 2 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_build_id());
     }
 
     // optional .quipper.PerfDataProto.SampleInfo sample_info = 8;
@@ -5550,72 +6184,83 @@ size_t PerfDataProto_MMapEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint64 start = 3;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_start());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_start());
     }
 
     // optional uint64 len = 4;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_len());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_len());
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
     // optional uint64 pgoff = 5;
     if (cached_has_bits & 0x00000100u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_pgoff());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_pgoff());
     }
 
     // optional uint64 filename_md5_prefix = 7;
     if (cached_has_bits & 0x00000200u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_filename_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_filename_md5_prefix());
     }
 
     // optional uint32 maj = 9;
     if (cached_has_bits & 0x00000400u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_maj());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_maj());
     }
 
     // optional uint32 min = 10;
     if (cached_has_bits & 0x00000800u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_min());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_min());
     }
 
     // optional uint64 ino = 11;
     if (cached_has_bits & 0x00001000u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ino());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ino());
     }
 
     // optional uint64 ino_generation = 12;
     if (cached_has_bits & 0x00002000u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ino_generation());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ino_generation());
     }
 
     // optional uint32 prot = 13;
     if (cached_has_bits & 0x00004000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_prot());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_prot());
     }
 
     // optional uint32 flags = 14;
     if (cached_has_bits & 0x00008000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flags());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_flags());
     }
 
   }
   // optional uint64 root_path_md5_prefix = 16;
   if (cached_has_bits & 0x00010000u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::UInt64Size(
-        this->_internal_root_path_md5_prefix());
+    total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                    this->_internal_root_path_md5_prefix());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -5632,8 +6277,8 @@ void PerfDataProto_MMapEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_MMapEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_MMapEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.MMapEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -5715,18 +6360,12 @@ void PerfDataProto_MMapEvent::InternalSwap(PerfDataProto_MMapEvent* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.filename_, lhs_arena,
-      &other->_impl_.filename_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.root_path_, lhs_arena,
-      &other->_impl_.root_path_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.build_id_, lhs_arena,
-      &other->_impl_.build_id_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.filename_, lhs_arena,
+                                       &other->_impl_.filename_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.root_path_, lhs_arena,
+                                       &other->_impl_.root_path_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.build_id_, lhs_arena,
+                                       &other->_impl_.build_id_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_MMapEvent, _impl_.root_path_md5_prefix_)
       + sizeof(PerfDataProto_MMapEvent::_impl_.root_path_md5_prefix_)
@@ -5740,12 +6379,13 @@ void PerfDataProto_MMapEvent::InternalSwap(PerfDataProto_MMapEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[5]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ReadInfo_ReadValue::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ReadInfo_ReadValue>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ReadInfo_ReadValue, _impl_._has_bits_);
   static void set_has_value(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -5754,37 +6394,27 @@ class PerfDataProto_ReadInfo_ReadValue::_Internal {
   }
 };
 
-PerfDataProto_ReadInfo_ReadValue::PerfDataProto_ReadInfo_ReadValue(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ReadInfo_ReadValue::PerfDataProto_ReadInfo_ReadValue(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ReadInfo.ReadValue)
 }
 PerfDataProto_ReadInfo_ReadValue::PerfDataProto_ReadInfo_ReadValue(const PerfDataProto_ReadInfo_ReadValue& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_ReadInfo_ReadValue* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.value_){}
-    , decltype(_impl_.id_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.value_, &from._impl_.value_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.id_) -
-    reinterpret_cast<char*>(&_impl_.value_)) + sizeof(_impl_.id_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ReadInfo.ReadValue)
 }
 
-inline void PerfDataProto_ReadInfo_ReadValue::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ReadInfo_ReadValue::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.value_){uint64_t{0u}}
-    , decltype(_impl_.id_){uint64_t{0u}}
+    , decltype(_impl_.value_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -5798,7 +6428,7 @@ PerfDataProto_ReadInfo_ReadValue::~PerfDataProto_ReadInfo_ReadValue() {
 }
 
 inline void PerfDataProto_ReadInfo_ReadValue::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_ReadInfo_ReadValue::SetCachedSize(int size) const {
@@ -5807,13 +6437,13 @@ void PerfDataProto_ReadInfo_ReadValue::SetCachedSize(int size) const {
 
 void PerfDataProto_ReadInfo_ReadValue::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ReadInfo.ReadValue)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.value_, 0, static_cast<size_t>(
+    ::memset(&_impl_.value_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.id_) -
         reinterpret_cast<char*>(&_impl_.value_)) + sizeof(_impl_.id_));
   }
@@ -5825,26 +6455,28 @@ const char* PerfDataProto_ReadInfo_ReadValue::_InternalParse(const char* ptr, ::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_value(&has_bits);
           _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -5870,23 +6502,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ReadInfo_ReadValue::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ReadInfo_ReadValue::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ReadInfo.ReadValue)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 value = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_value(), target);
   }
 
   // optional uint64 id = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5897,11 +6531,11 @@ uint8_t* PerfDataProto_ReadInfo_ReadValue::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ReadInfo_ReadValue::ByteSizeLong() const {
+::size_t PerfDataProto_ReadInfo_ReadValue::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ReadInfo.ReadValue)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5909,12 +6543,14 @@ size_t PerfDataProto_ReadInfo_ReadValue::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 value = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_value());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_value());
     }
 
     // optional uint64 id = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
   }
@@ -5932,8 +6568,8 @@ void PerfDataProto_ReadInfo_ReadValue::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   auto* const _this = static_cast<PerfDataProto_ReadInfo_ReadValue*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ReadInfo_ReadValue&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ReadInfo.ReadValue)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -5977,12 +6613,13 @@ void PerfDataProto_ReadInfo_ReadValue::InternalSwap(PerfDataProto_ReadInfo_ReadV
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[6]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ReadInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ReadInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ReadInfo, _impl_._has_bits_);
   static void set_has_time_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -5991,10 +6628,9 @@ class PerfDataProto_ReadInfo::_Internal {
   }
 };
 
-PerfDataProto_ReadInfo::PerfDataProto_ReadInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ReadInfo::PerfDataProto_ReadInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ReadInfo)
 }
 PerfDataProto_ReadInfo::PerfDataProto_ReadInfo(const PerfDataProto_ReadInfo& from)
@@ -6004,26 +6640,28 @@ PerfDataProto_ReadInfo::PerfDataProto_ReadInfo(const PerfDataProto_ReadInfo& fro
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.read_value_){from._impl_.read_value_}
-    , decltype(_impl_.time_enabled_){}
-    , decltype(_impl_.time_running_){}};
+    , decltype(_impl_.time_enabled_) {}
+
+    , decltype(_impl_.time_running_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.time_enabled_, &from._impl_.time_enabled_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.time_running_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.time_running_) -
     reinterpret_cast<char*>(&_impl_.time_enabled_)) + sizeof(_impl_.time_running_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ReadInfo)
 }
 
-inline void PerfDataProto_ReadInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ReadInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.read_value_){arena}
-    , decltype(_impl_.time_enabled_){uint64_t{0u}}
-    , decltype(_impl_.time_running_){uint64_t{0u}}
+    , decltype(_impl_.time_enabled_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_running_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -6037,8 +6675,8 @@ PerfDataProto_ReadInfo::~PerfDataProto_ReadInfo() {
 }
 
 inline void PerfDataProto_ReadInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.read_value_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_read_value()->~RepeatedPtrField();
 }
 
 void PerfDataProto_ReadInfo::SetCachedSize(int size) const {
@@ -6047,14 +6685,14 @@ void PerfDataProto_ReadInfo::SetCachedSize(int size) const {
 
 void PerfDataProto_ReadInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ReadInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.read_value_.Clear();
+  _internal_mutable_read_value()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.time_enabled_, 0, static_cast<size_t>(
+    ::memset(&_impl_.time_enabled_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.time_running_) -
         reinterpret_cast<char*>(&_impl_.time_enabled_)) + sizeof(_impl_.time_running_));
   }
@@ -6066,30 +6704,32 @@ const char* PerfDataProto_ReadInfo::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 time_enabled = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_time_enabled(&has_bits);
           _impl_.time_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_running = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_time_running(&has_bits);
           _impl_.time_running_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.ReadInfo.ReadValue read_value = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -6097,8 +6737,9 @@ const char* PerfDataProto_ReadInfo::_InternalParse(const char* ptr, ::_pbi::Pars
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6124,23 +6765,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ReadInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ReadInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ReadInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 time_enabled = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_time_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_time_enabled(), target);
   }
 
   // optional uint64 time_running = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_time_running(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_time_running(), target);
   }
 
   // repeated .quipper.PerfDataProto.ReadInfo.ReadValue read_value = 3;
@@ -6159,17 +6802,17 @@ uint8_t* PerfDataProto_ReadInfo::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ReadInfo::ByteSizeLong() const {
+::size_t PerfDataProto_ReadInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ReadInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.ReadInfo.ReadValue read_value = 3;
   total_size += 1UL * this->_internal_read_value_size();
-  for (const auto& msg : this->_impl_.read_value_) {
+  for (const auto& msg : this->_internal_read_value()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -6178,12 +6821,14 @@ size_t PerfDataProto_ReadInfo::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 time_enabled = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_enabled());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_enabled());
     }
 
     // optional uint64 time_running = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_running());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_running());
     }
 
   }
@@ -6201,11 +6846,11 @@ void PerfDataProto_ReadInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   auto* const _this = static_cast<PerfDataProto_ReadInfo*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ReadInfo&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ReadInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.read_value_.MergeFrom(from._impl_.read_value_);
+  _this->_internal_mutable_read_value()->MergeFrom(from._internal_read_value());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -6234,7 +6879,7 @@ void PerfDataProto_ReadInfo::InternalSwap(PerfDataProto_ReadInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.read_value_.InternalSwap(&other->_impl_.read_value_);
+  _internal_mutable_read_value()->InternalSwap(other->_internal_mutable_read_value());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_ReadInfo, _impl_.time_running_)
       + sizeof(PerfDataProto_ReadInfo::_impl_.time_running_)
@@ -6248,12 +6893,13 @@ void PerfDataProto_ReadInfo::InternalSwap(PerfDataProto_ReadInfo* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[7]);
 }
-
 // ===================================================================
 
 class PerfDataProto_BranchStackEntry::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_BranchStackEntry>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_BranchStackEntry, _impl_._has_bits_);
   static void set_has_from_ip(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6283,51 +6929,41 @@ class PerfDataProto_BranchStackEntry::_Internal {
   }
 };
 
-PerfDataProto_BranchStackEntry::PerfDataProto_BranchStackEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_BranchStackEntry::PerfDataProto_BranchStackEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.BranchStackEntry)
 }
 PerfDataProto_BranchStackEntry::PerfDataProto_BranchStackEntry(const PerfDataProto_BranchStackEntry& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_BranchStackEntry* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.from_ip_){}
-    , decltype(_impl_.to_ip_){}
-    , decltype(_impl_.mispredicted_){}
-    , decltype(_impl_.predicted_){}
-    , decltype(_impl_.in_transaction_){}
-    , decltype(_impl_.abort_){}
-    , decltype(_impl_.cycles_){}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.spec_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.from_ip_, &from._impl_.from_ip_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.spec_) -
-    reinterpret_cast<char*>(&_impl_.from_ip_)) + sizeof(_impl_.spec_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.BranchStackEntry)
 }
 
-inline void PerfDataProto_BranchStackEntry::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_BranchStackEntry::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.from_ip_){uint64_t{0u}}
-    , decltype(_impl_.to_ip_){uint64_t{0u}}
-    , decltype(_impl_.mispredicted_){false}
-    , decltype(_impl_.predicted_){false}
-    , decltype(_impl_.in_transaction_){false}
-    , decltype(_impl_.abort_){false}
-    , decltype(_impl_.cycles_){0u}
-    , decltype(_impl_.type_){0u}
-    , decltype(_impl_.spec_){0u}
+    , decltype(_impl_.from_ip_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.to_ip_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.mispredicted_) { false }
+
+    , decltype(_impl_.predicted_) { false }
+
+    , decltype(_impl_.in_transaction_) { false }
+
+    , decltype(_impl_.abort_) { false }
+
+    , decltype(_impl_.cycles_) { 0u }
+
+    , decltype(_impl_.type_) { 0u }
+
+    , decltype(_impl_.spec_) { 0u }
+
   };
 }
 
@@ -6341,7 +6977,7 @@ PerfDataProto_BranchStackEntry::~PerfDataProto_BranchStackEntry() {
 }
 
 inline void PerfDataProto_BranchStackEntry::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_BranchStackEntry::SetCachedSize(int size) const {
@@ -6350,13 +6986,13 @@ void PerfDataProto_BranchStackEntry::SetCachedSize(int size) const {
 
 void PerfDataProto_BranchStackEntry::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.BranchStackEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&_impl_.from_ip_, 0, static_cast<size_t>(
+    ::memset(&_impl_.from_ip_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.type_) -
         reinterpret_cast<char*>(&_impl_.from_ip_)) + sizeof(_impl_.type_));
   }
@@ -6369,89 +7005,98 @@ const char* PerfDataProto_BranchStackEntry::_InternalParse(const char* ptr, ::_p
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 from_ip = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_from_ip(&has_bits);
           _impl_.from_ip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 to_ip = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_to_ip(&has_bits);
           _impl_.to_ip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool mispredicted = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_mispredicted(&has_bits);
           _impl_.mispredicted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool predicted = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_predicted(&has_bits);
           _impl_.predicted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool in_transaction = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_in_transaction(&has_bits);
           _impl_.in_transaction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool abort = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_abort(&has_bits);
           _impl_.abort_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cycles = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_cycles(&has_bits);
           _impl_.cycles_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 type = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 spec = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_spec(&has_bits);
           _impl_.spec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6477,65 +7122,74 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_BranchStackEntry::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_BranchStackEntry::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.BranchStackEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 from_ip = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_from_ip(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_from_ip(), target);
   }
 
   // optional uint64 to_ip = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_to_ip(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_to_ip(), target);
   }
 
   // optional bool mispredicted = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_mispredicted(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_mispredicted(), target);
   }
 
   // optional bool predicted = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_predicted(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_predicted(), target);
   }
 
   // optional bool in_transaction = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_in_transaction(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_in_transaction(), target);
   }
 
   // optional bool abort = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_abort(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        6, this->_internal_abort(), target);
   }
 
   // optional uint32 cycles = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_cycles(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        7, this->_internal_cycles(), target);
   }
 
   // optional uint32 type = 8;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        8, this->_internal_type(), target);
   }
 
   // optional uint32 spec = 9;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_spec(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        9, this->_internal_spec(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6546,11 +7200,11 @@ uint8_t* PerfDataProto_BranchStackEntry::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_BranchStackEntry::ByteSizeLong() const {
+::size_t PerfDataProto_BranchStackEntry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.BranchStackEntry)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -6558,48 +7212,53 @@ size_t PerfDataProto_BranchStackEntry::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional uint64 from_ip = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_from_ip());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_from_ip());
     }
 
     // optional uint64 to_ip = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_to_ip());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_to_ip());
     }
 
     // optional bool mispredicted = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool predicted = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool in_transaction = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool abort = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional uint32 cycles = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cycles());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cycles());
     }
 
     // optional uint32 type = 8;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_type());
     }
 
   }
   // optional uint32 spec = 9;
   if (cached_has_bits & 0x00000100u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_spec());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_spec());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -6616,8 +7275,8 @@ void PerfDataProto_BranchStackEntry::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message&
   auto* const _this = static_cast<PerfDataProto_BranchStackEntry*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_BranchStackEntry&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.BranchStackEntry)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -6682,12 +7341,13 @@ void PerfDataProto_BranchStackEntry::InternalSwap(PerfDataProto_BranchStackEntry
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[8]);
 }
-
 // ===================================================================
 
 class PerfDataProto_WeightStruct::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_WeightStruct>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_WeightStruct, _impl_._has_bits_);
   static void set_has_var1_dw(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6699,39 +7359,29 @@ class PerfDataProto_WeightStruct::_Internal {
   }
 };
 
-PerfDataProto_WeightStruct::PerfDataProto_WeightStruct(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_WeightStruct::PerfDataProto_WeightStruct(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.WeightStruct)
 }
 PerfDataProto_WeightStruct::PerfDataProto_WeightStruct(const PerfDataProto_WeightStruct& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_WeightStruct* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.var1_dw_){}
-    , decltype(_impl_.var2_w_){}
-    , decltype(_impl_.var3_w_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.var1_dw_, &from._impl_.var1_dw_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.var3_w_) -
-    reinterpret_cast<char*>(&_impl_.var1_dw_)) + sizeof(_impl_.var3_w_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.WeightStruct)
 }
 
-inline void PerfDataProto_WeightStruct::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_WeightStruct::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.var1_dw_){0u}
-    , decltype(_impl_.var2_w_){0u}
-    , decltype(_impl_.var3_w_){0u}
+    , decltype(_impl_.var1_dw_) { 0u }
+
+    , decltype(_impl_.var2_w_) { 0u }
+
+    , decltype(_impl_.var3_w_) { 0u }
+
   };
 }
 
@@ -6745,7 +7395,7 @@ PerfDataProto_WeightStruct::~PerfDataProto_WeightStruct() {
 }
 
 inline void PerfDataProto_WeightStruct::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_WeightStruct::SetCachedSize(int size) const {
@@ -6754,13 +7404,13 @@ void PerfDataProto_WeightStruct::SetCachedSize(int size) const {
 
 void PerfDataProto_WeightStruct::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.WeightStruct)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&_impl_.var1_dw_, 0, static_cast<size_t>(
+    ::memset(&_impl_.var1_dw_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.var3_w_) -
         reinterpret_cast<char*>(&_impl_.var1_dw_)) + sizeof(_impl_.var3_w_));
   }
@@ -6772,35 +7422,38 @@ const char* PerfDataProto_WeightStruct::_InternalParse(const char* ptr, ::_pbi::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 var1_dw = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_var1_dw(&has_bits);
           _impl_.var1_dw_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 var2_w = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_var2_w(&has_bits);
           _impl_.var2_w_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 var3_w = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_var3_w(&has_bits);
           _impl_.var3_w_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6826,29 +7479,32 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_WeightStruct::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_WeightStruct::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.WeightStruct)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 var1_dw = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_var1_dw(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_var1_dw(), target);
   }
 
   // optional uint32 var2_w = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_var2_w(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_var2_w(), target);
   }
 
   // optional uint32 var3_w = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_var3_w(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_var3_w(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6859,11 +7515,11 @@ uint8_t* PerfDataProto_WeightStruct::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_WeightStruct::ByteSizeLong() const {
+::size_t PerfDataProto_WeightStruct::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.WeightStruct)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -6871,17 +7527,20 @@ size_t PerfDataProto_WeightStruct::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional uint32 var1_dw = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_var1_dw());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_var1_dw());
     }
 
     // optional uint32 var2_w = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_var2_w());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_var2_w());
     }
 
     // optional uint32 var3_w = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_var3_w());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_var3_w());
     }
 
   }
@@ -6899,8 +7558,8 @@ void PerfDataProto_WeightStruct::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
   auto* const _this = static_cast<PerfDataProto_WeightStruct*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_WeightStruct&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.WeightStruct)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -6947,12 +7606,13 @@ void PerfDataProto_WeightStruct::InternalSwap(PerfDataProto_WeightStruct* other)
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[9]);
 }
-
 // ===================================================================
 
 class PerfDataProto_SampleEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_SampleEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_SampleEvent, _impl_._has_bits_);
   static void set_has_ip(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -7031,10 +7691,9 @@ const ::quipper::PerfDataProto_WeightStruct&
 PerfDataProto_SampleEvent::_Internal::weight_struct(const PerfDataProto_SampleEvent* msg) {
   return *msg->_impl_.weight_struct_;
 }
-PerfDataProto_SampleEvent::PerfDataProto_SampleEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_SampleEvent::PerfDataProto_SampleEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.SampleEvent)
 }
 PerfDataProto_SampleEvent::PerfDataProto_SampleEvent(const PerfDataProto_SampleEvent& from)
@@ -7043,88 +7702,127 @@ PerfDataProto_SampleEvent::PerfDataProto_SampleEvent(const PerfDataProto_SampleE
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.callchain_){from._impl_.callchain_}
+    , decltype(_impl_.callchain_) { from._impl_.callchain_ }
+
     , decltype(_impl_.branch_stack_){from._impl_.branch_stack_}
-    , decltype(_impl_.raw_){}
+    , decltype(_impl_.raw_) {}
+
     , decltype(_impl_.read_info_){nullptr}
     , decltype(_impl_.weight_struct_){nullptr}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.sample_time_ns_){}
-    , decltype(_impl_.addr_){}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.stream_id_){}
-    , decltype(_impl_.period_){}
-    , decltype(_impl_.cpu_){}
-    , decltype(_impl_.raw_size_){}
-    , decltype(_impl_.weight_){}
-    , decltype(_impl_.data_src_){}
-    , decltype(_impl_.transaction_){}
-    , decltype(_impl_.physical_addr_){}
-    , decltype(_impl_.cgroup_){}
-    , decltype(_impl_.data_page_size_){}
-    , decltype(_impl_.code_page_size_){}
-    , decltype(_impl_.branch_stack_hw_idx_){}
-    , decltype(_impl_.no_hw_idx_){}};
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.sample_time_ns_) {}
+
+    , decltype(_impl_.addr_) {}
+
+    , decltype(_impl_.id_) {}
+
+    , decltype(_impl_.stream_id_) {}
+
+    , decltype(_impl_.period_) {}
+
+    , decltype(_impl_.cpu_) {}
+
+    , decltype(_impl_.raw_size_) {}
+
+    , decltype(_impl_.weight_) {}
+
+    , decltype(_impl_.data_src_) {}
+
+    , decltype(_impl_.transaction_) {}
+
+    , decltype(_impl_.physical_addr_) {}
+
+    , decltype(_impl_.cgroup_) {}
+
+    , decltype(_impl_.data_page_size_) {}
+
+    , decltype(_impl_.code_page_size_) {}
+
+    , decltype(_impl_.branch_stack_hw_idx_) {}
+
+    , decltype(_impl_.no_hw_idx_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.raw_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.raw_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_raw()) {
-    _this->_impl_.raw_.Set(from._internal_raw(), 
-      _this->GetArenaForAllocation());
+        _impl_.raw_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.raw_.Set(from._internal_raw(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_read_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.read_info_ = new ::quipper::PerfDataProto_ReadInfo(*from._impl_.read_info_);
   }
-  if (from._internal_has_weight_struct()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.weight_struct_ = new ::quipper::PerfDataProto_WeightStruct(*from._impl_.weight_struct_);
   }
   ::memcpy(&_impl_.ip_, &from._impl_.ip_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.no_hw_idx_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.no_hw_idx_) -
     reinterpret_cast<char*>(&_impl_.ip_)) + sizeof(_impl_.no_hw_idx_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.SampleEvent)
 }
 
-inline void PerfDataProto_SampleEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_SampleEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.callchain_){arena}
+    , decltype(_impl_.callchain_) { arena }
+
     , decltype(_impl_.branch_stack_){arena}
-    , decltype(_impl_.raw_){}
+    , decltype(_impl_.raw_) {}
+
     , decltype(_impl_.read_info_){nullptr}
     , decltype(_impl_.weight_struct_){nullptr}
-    , decltype(_impl_.ip_){uint64_t{0u}}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.sample_time_ns_){uint64_t{0u}}
-    , decltype(_impl_.addr_){uint64_t{0u}}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.stream_id_){uint64_t{0u}}
-    , decltype(_impl_.period_){uint64_t{0u}}
-    , decltype(_impl_.cpu_){0u}
-    , decltype(_impl_.raw_size_){0u}
-    , decltype(_impl_.weight_){uint64_t{0u}}
-    , decltype(_impl_.data_src_){uint64_t{0u}}
-    , decltype(_impl_.transaction_){uint64_t{0u}}
-    , decltype(_impl_.physical_addr_){uint64_t{0u}}
-    , decltype(_impl_.cgroup_){uint64_t{0u}}
-    , decltype(_impl_.data_page_size_){uint64_t{0u}}
-    , decltype(_impl_.code_page_size_){uint64_t{0u}}
-    , decltype(_impl_.branch_stack_hw_idx_){uint64_t{0u}}
-    , decltype(_impl_.no_hw_idx_){false}
+    , decltype(_impl_.ip_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.sample_time_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.addr_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.stream_id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.period_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cpu_) { 0u }
+
+    , decltype(_impl_.raw_size_) { 0u }
+
+    , decltype(_impl_.weight_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.data_src_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.transaction_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.physical_addr_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cgroup_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.data_page_size_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.code_page_size_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.branch_stack_hw_idx_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.no_hw_idx_) { false }
+
   };
   _impl_.raw_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.raw_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.raw_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_SampleEvent::~PerfDataProto_SampleEvent() {
@@ -7137,9 +7835,9 @@ PerfDataProto_SampleEvent::~PerfDataProto_SampleEvent() {
 }
 
 inline void PerfDataProto_SampleEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.callchain_.~RepeatedField();
-  _impl_.branch_stack_.~RepeatedPtrField();
+  _internal_mutable_branch_stack()->~RepeatedPtrField();
   _impl_.raw_.Destroy();
   if (this != internal_default_instance()) delete _impl_.read_info_;
   if (this != internal_default_instance()) delete _impl_.weight_struct_;
@@ -7151,38 +7849,38 @@ void PerfDataProto_SampleEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_SampleEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.SampleEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.callchain_.Clear();
-  _impl_.branch_stack_.Clear();
+  _internal_mutable_callchain()->Clear();
+  _internal_mutable_branch_stack()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.raw_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.read_info_ != nullptr);
+      ABSL_DCHECK(_impl_.read_info_ != nullptr);
       _impl_.read_info_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.weight_struct_ != nullptr);
+      ABSL_DCHECK(_impl_.weight_struct_ != nullptr);
       _impl_.weight_struct_->Clear();
     }
   }
   if (cached_has_bits & 0x000000f8u) {
-    ::memset(&_impl_.ip_, 0, static_cast<size_t>(
+    ::memset(&_impl_.ip_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.addr_) -
         reinterpret_cast<char*>(&_impl_.ip_)) + sizeof(_impl_.addr_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&_impl_.id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.transaction_) -
         reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.transaction_));
   }
   if (cached_has_bits & 0x003f0000u) {
-    ::memset(&_impl_.physical_addr_, 0, static_cast<size_t>(
+    ::memset(&_impl_.physical_addr_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.no_hw_idx_) -
         reinterpret_cast<char*>(&_impl_.physical_addr_)) + sizeof(_impl_.no_hw_idx_));
   }
@@ -7194,102 +7892,112 @@ const char* PerfDataProto_SampleEvent::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 ip = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_ip(&has_bits);
           _impl_.ip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 pid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 sample_time_ns = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_sample_time_ns(&has_bits);
           _impl_.sample_time_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 addr = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_addr(&has_bits);
           _impl_.addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 id = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 stream_id = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_stream_id(&has_bits);
           _impl_.stream_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 period = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_period(&has_bits);
           _impl_.period_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cpu = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_cpu(&has_bits);
           _impl_.cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 raw_size = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_raw_size(&has_bits);
           _impl_.raw_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 callchain = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -7297,15 +8005,16 @@ const char* PerfDataProto_SampleEvent::_InternalParse(const char* ptr, ::_pbi::P
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<88>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 90) {
+        } else if (static_cast<::uint8_t>(tag) == 90) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_callchain(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.BranchStackEntry branch_stack = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -7313,114 +8022,127 @@ const char* PerfDataProto_SampleEvent::_InternalParse(const char* ptr, ::_pbi::P
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 weight = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 120)) {
           _Internal::set_has_weight(&has_bits);
           _impl_.weight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 data_src = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_data_src(&has_bits);
           _impl_.data_src_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 transaction = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 136)) {
           _Internal::set_has_transaction(&has_bits);
           _impl_.transaction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.ReadInfo read_info = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 146)) {
           ptr = ctx->ParseMessage(_internal_mutable_read_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 physical_addr = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 152)) {
           _Internal::set_has_physical_addr(&has_bits);
           _impl_.physical_addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 cgroup = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 160)) {
           _Internal::set_has_cgroup(&has_bits);
           _impl_.cgroup_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes raw = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 170)) {
           auto str = _internal_mutable_raw();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 data_page_size = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 176)) {
           _Internal::set_has_data_page_size(&has_bits);
           _impl_.data_page_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 code_page_size = 23;
       case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 184)) {
           _Internal::set_has_code_page_size(&has_bits);
           _impl_.code_page_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool no_hw_idx = 24;
       case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 192)) {
           _Internal::set_has_no_hw_idx(&has_bits);
           _impl_.no_hw_idx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 branch_stack_hw_idx = 25;
       case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 200)) {
           _Internal::set_has_branch_stack_hw_idx(&has_bits);
           _impl_.branch_stack_hw_idx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.WeightStruct weight_struct = 26;
       case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 210)) {
           ptr = ctx->ParseMessage(_internal_mutable_weight_struct(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -7446,77 +8168,88 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_SampleEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_SampleEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.SampleEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 ip = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_ip(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_ip(), target);
   }
 
   // optional uint32 pid = 2;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 3;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_tid(), target);
   }
 
   // optional uint64 sample_time_ns = 4;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_sample_time_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_sample_time_ns(), target);
   }
 
   // optional uint64 addr = 5;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_addr(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_addr(), target);
   }
 
   // optional uint64 id = 6;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_id(), target);
   }
 
   // optional uint64 stream_id = 7;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_stream_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_stream_id(), target);
   }
 
   // optional uint64 period = 8;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(8, this->_internal_period(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        8, this->_internal_period(), target);
   }
 
   // optional uint32 cpu = 9;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_cpu(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        9, this->_internal_cpu(), target);
   }
 
   // optional uint32 raw_size = 10;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(10, this->_internal_raw_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        10, this->_internal_raw_size(), target);
   }
 
   // repeated uint64 callchain = 11;
-  for (int i = 0, n = this->_internal_callchain_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_callchain_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(11, this->_internal_callchain(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        11, this->_internal_callchain(i), target);
   }
 
   // repeated .quipper.PerfDataProto.BranchStackEntry branch_stack = 12;
@@ -7530,19 +8263,22 @@ uint8_t* PerfDataProto_SampleEvent::_InternalSerialize(
   // optional uint64 weight = 15;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(15, this->_internal_weight(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        15, this->_internal_weight(), target);
   }
 
   // optional uint64 data_src = 16;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(16, this->_internal_data_src(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        16, this->_internal_data_src(), target);
   }
 
   // optional uint64 transaction = 17;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(17, this->_internal_transaction(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        17, this->_internal_transaction(), target);
   }
 
   // optional .quipper.PerfDataProto.ReadInfo read_info = 18;
@@ -7555,43 +8291,49 @@ uint8_t* PerfDataProto_SampleEvent::_InternalSerialize(
   // optional uint64 physical_addr = 19;
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(19, this->_internal_physical_addr(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        19, this->_internal_physical_addr(), target);
   }
 
   // optional uint64 cgroup = 20;
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(20, this->_internal_cgroup(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        20, this->_internal_cgroup(), target);
   }
 
   // optional bytes raw = 21;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        21, this->_internal_raw(), target);
+    const std::string& _s = this->_internal_raw();
+    target = stream->WriteBytesMaybeAliased(21, _s, target);
   }
 
   // optional uint64 data_page_size = 22;
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(22, this->_internal_data_page_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        22, this->_internal_data_page_size(), target);
   }
 
   // optional uint64 code_page_size = 23;
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(23, this->_internal_code_page_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        23, this->_internal_code_page_size(), target);
   }
 
   // optional bool no_hw_idx = 24;
   if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_no_hw_idx(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        24, this->_internal_no_hw_idx(), target);
   }
 
   // optional uint64 branch_stack_hw_idx = 25;
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(25, this->_internal_branch_stack_hw_idx(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        25, this->_internal_branch_stack_hw_idx(), target);
   }
 
   // optional .quipper.PerfDataProto.WeightStruct weight_struct = 26;
@@ -7609,26 +8351,28 @@ uint8_t* PerfDataProto_SampleEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_SampleEvent::ByteSizeLong() const {
+::size_t PerfDataProto_SampleEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.SampleEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint64 callchain = 11;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.callchain_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_callchain_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_callchain())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_callchain_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // repeated .quipper.PerfDataProto.BranchStackEntry branch_stack = 12;
   total_size += 1UL * this->_internal_branch_stack_size();
-  for (const auto& msg : this->_impl_.branch_stack_) {
+  for (const auto& msg : this->_internal_branch_stack()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -7637,9 +8381,8 @@ size_t PerfDataProto_SampleEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional bytes raw = 21;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_raw());
+      total_size += 2 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_raw());
     }
 
     // optional .quipper.PerfDataProto.ReadInfo read_info = 18;
@@ -7658,115 +8401,119 @@ size_t PerfDataProto_SampleEvent::ByteSizeLong() const {
 
     // optional uint64 ip = 1;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ip());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ip());
     }
 
     // optional uint32 pid = 2;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 3;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint64 sample_time_ns = 4;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sample_time_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_sample_time_ns());
     }
 
     // optional uint64 addr = 5;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_addr());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_addr());
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
     // optional uint64 id = 6;
     if (cached_has_bits & 0x00000100u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint64 stream_id = 7;
     if (cached_has_bits & 0x00000200u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_stream_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_stream_id());
     }
 
     // optional uint64 period = 8;
     if (cached_has_bits & 0x00000400u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_period());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_period());
     }
 
     // optional uint32 cpu = 9;
     if (cached_has_bits & 0x00000800u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cpu());
     }
 
     // optional uint32 raw_size = 10;
     if (cached_has_bits & 0x00001000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_raw_size());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_raw_size());
     }
 
     // optional uint64 weight = 15;
     if (cached_has_bits & 0x00002000u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_weight());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_weight());
     }
 
     // optional uint64 data_src = 16;
     if (cached_has_bits & 0x00004000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_data_src());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_data_src());
     }
 
     // optional uint64 transaction = 17;
     if (cached_has_bits & 0x00008000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_transaction());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_transaction());
     }
 
   }
   if (cached_has_bits & 0x003f0000u) {
     // optional uint64 physical_addr = 19;
     if (cached_has_bits & 0x00010000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_physical_addr());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_physical_addr());
     }
 
     // optional uint64 cgroup = 20;
     if (cached_has_bits & 0x00020000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_cgroup());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_cgroup());
     }
 
     // optional uint64 data_page_size = 22;
     if (cached_has_bits & 0x00040000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_data_page_size());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_data_page_size());
     }
 
     // optional uint64 code_page_size = 23;
     if (cached_has_bits & 0x00080000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_code_page_size());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_code_page_size());
     }
 
     // optional uint64 branch_stack_hw_idx = 25;
     if (cached_has_bits & 0x00100000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt64Size(
-          this->_internal_branch_stack_hw_idx());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt64Size(
+                                      this->_internal_branch_stack_hw_idx());
     }
 
     // optional bool no_hw_idx = 24;
     if (cached_has_bits & 0x00200000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
   }
@@ -7784,12 +8531,12 @@ void PerfDataProto_SampleEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   auto* const _this = static_cast<PerfDataProto_SampleEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_SampleEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.SampleEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.callchain_.MergeFrom(from._impl_.callchain_);
-  _this->_impl_.branch_stack_.MergeFrom(from._impl_.branch_stack_);
+  _this->_internal_mutable_branch_stack()->MergeFrom(from._internal_branch_stack());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -7889,11 +8636,9 @@ void PerfDataProto_SampleEvent::InternalSwap(PerfDataProto_SampleEvent* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.callchain_.InternalSwap(&other->_impl_.callchain_);
-  _impl_.branch_stack_.InternalSwap(&other->_impl_.branch_stack_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.raw_, lhs_arena,
-      &other->_impl_.raw_, rhs_arena
-  );
+  _internal_mutable_branch_stack()->InternalSwap(other->_internal_mutable_branch_stack());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.raw_, lhs_arena,
+                                       &other->_impl_.raw_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_SampleEvent, _impl_.no_hw_idx_)
       + sizeof(PerfDataProto_SampleEvent::_impl_.no_hw_idx_)
@@ -7907,12 +8652,13 @@ void PerfDataProto_SampleEvent::InternalSwap(PerfDataProto_SampleEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[10]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ForkEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ForkEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ForkEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -7938,10 +8684,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_ForkEvent::_Internal::sample_info(const PerfDataProto_ForkEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_ForkEvent::PerfDataProto_ForkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ForkEvent::PerfDataProto_ForkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ForkEvent)
 }
 PerfDataProto_ForkEvent::PerfDataProto_ForkEvent(const PerfDataProto_ForkEvent& from)
@@ -7951,35 +8696,43 @@ PerfDataProto_ForkEvent::PerfDataProto_ForkEvent(const PerfDataProto_ForkEvent& 
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.ppid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.ptid_){}
-    , decltype(_impl_.fork_time_ns_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.ppid_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.ptid_) {}
+
+    , decltype(_impl_.fork_time_ns_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fork_time_ns_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.fork_time_ns_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.fork_time_ns_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ForkEvent)
 }
 
-inline void PerfDataProto_ForkEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ForkEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.ppid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.ptid_){0u}
-    , decltype(_impl_.fork_time_ns_){uint64_t{0u}}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.ppid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.ptid_) { 0u }
+
+    , decltype(_impl_.fork_time_ns_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -7993,7 +8746,7 @@ PerfDataProto_ForkEvent::~PerfDataProto_ForkEvent() {
 }
 
 inline void PerfDataProto_ForkEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -8003,17 +8756,17 @@ void PerfDataProto_ForkEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ForkEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ForkEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x0000003eu) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.fork_time_ns_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.fork_time_ns_));
   }
@@ -8025,61 +8778,67 @@ const char* PerfDataProto_ForkEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 ppid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_ppid(&has_bits);
           _impl_.ppid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 ptid = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_ptid(&has_bits);
           _impl_.ptid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 fork_time_ns = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_fork_time_ns(&has_bits);
           _impl_.fork_time_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8105,41 +8864,46 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ForkEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ForkEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ForkEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 ppid = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_ppid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_ppid(), target);
   }
 
   // optional uint32 tid = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_tid(), target);
   }
 
   // optional uint32 ptid = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_ptid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_ptid(), target);
   }
 
   // optional uint64 fork_time_ns = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_fork_time_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_fork_time_ns(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 11;
@@ -8157,11 +8921,11 @@ uint8_t* PerfDataProto_ForkEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ForkEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ForkEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ForkEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -8176,27 +8940,32 @@ size_t PerfDataProto_ForkEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 ppid = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_ppid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_ppid());
     }
 
     // optional uint32 tid = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint32 ptid = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_ptid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_ptid());
     }
 
     // optional uint64 fork_time_ns = 5;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_fork_time_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_fork_time_ns());
     }
 
   }
@@ -8214,8 +8983,8 @@ void PerfDataProto_ForkEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_ForkEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ForkEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ForkEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -8272,12 +9041,13 @@ void PerfDataProto_ForkEvent::InternalSwap(PerfDataProto_ForkEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[11]);
 }
-
 // ===================================================================
 
 class PerfDataProto_LostEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_LostEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_LostEvent, _impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -8294,10 +9064,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_LostEvent::_Internal::sample_info(const PerfDataProto_LostEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_LostEvent::PerfDataProto_LostEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_LostEvent::PerfDataProto_LostEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.LostEvent)
 }
 PerfDataProto_LostEvent::PerfDataProto_LostEvent(const PerfDataProto_LostEvent& from)
@@ -8307,29 +9076,31 @@ PerfDataProto_LostEvent::PerfDataProto_LostEvent(const PerfDataProto_LostEvent& 
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.lost_){}};
+    , decltype(_impl_.id_) {}
+
+    , decltype(_impl_.lost_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.id_, &from._impl_.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.lost_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.lost_) -
     reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.lost_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.LostEvent)
 }
 
-inline void PerfDataProto_LostEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_LostEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.lost_){uint64_t{0u}}
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.lost_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -8343,7 +9114,7 @@ PerfDataProto_LostEvent::~PerfDataProto_LostEvent() {
 }
 
 inline void PerfDataProto_LostEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -8353,17 +9124,17 @@ void PerfDataProto_LostEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_LostEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.LostEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.lost_) -
         reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.lost_));
   }
@@ -8375,34 +9146,37 @@ const char* PerfDataProto_LostEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 lost = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_lost(&has_bits);
           _impl_.lost_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8428,23 +9202,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_LostEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_LostEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.LostEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_id(), target);
   }
 
   // optional uint64 lost = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_lost(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_lost(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
@@ -8462,11 +9238,11 @@ uint8_t* PerfDataProto_LostEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_LostEvent::ByteSizeLong() const {
+::size_t PerfDataProto_LostEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.LostEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -8481,12 +9257,14 @@ size_t PerfDataProto_LostEvent::ByteSizeLong() const {
 
     // optional uint64 id = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint64 lost = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_lost());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_lost());
     }
 
   }
@@ -8504,8 +9282,8 @@ void PerfDataProto_LostEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_LostEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_LostEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.LostEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -8553,12 +9331,13 @@ void PerfDataProto_LostEvent::InternalSwap(PerfDataProto_LostEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[12]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ThrottleEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ThrottleEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ThrottleEvent, _impl_._has_bits_);
   static void set_has_time_ns(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -8578,10 +9357,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_ThrottleEvent::_Internal::sample_info(const PerfDataProto_ThrottleEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_ThrottleEvent::PerfDataProto_ThrottleEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ThrottleEvent::PerfDataProto_ThrottleEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ThrottleEvent)
 }
 PerfDataProto_ThrottleEvent::PerfDataProto_ThrottleEvent(const PerfDataProto_ThrottleEvent& from)
@@ -8591,31 +9369,35 @@ PerfDataProto_ThrottleEvent::PerfDataProto_ThrottleEvent(const PerfDataProto_Thr
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.time_ns_){}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.stream_id_){}};
+    , decltype(_impl_.time_ns_) {}
+
+    , decltype(_impl_.id_) {}
+
+    , decltype(_impl_.stream_id_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.time_ns_, &from._impl_.time_ns_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.stream_id_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.stream_id_) -
     reinterpret_cast<char*>(&_impl_.time_ns_)) + sizeof(_impl_.stream_id_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ThrottleEvent)
 }
 
-inline void PerfDataProto_ThrottleEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ThrottleEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.time_ns_){uint64_t{0u}}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.stream_id_){uint64_t{0u}}
+    , decltype(_impl_.time_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.stream_id_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -8629,7 +9411,7 @@ PerfDataProto_ThrottleEvent::~PerfDataProto_ThrottleEvent() {
 }
 
 inline void PerfDataProto_ThrottleEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -8639,17 +9421,17 @@ void PerfDataProto_ThrottleEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ThrottleEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ThrottleEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&_impl_.time_ns_, 0, static_cast<size_t>(
+    ::memset(&_impl_.time_ns_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.stream_id_) -
         reinterpret_cast<char*>(&_impl_.time_ns_)) + sizeof(_impl_.stream_id_));
   }
@@ -8661,43 +9443,47 @@ const char* PerfDataProto_ThrottleEvent::_InternalParse(const char* ptr, ::_pbi:
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 time_ns = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_time_ns(&has_bits);
           _impl_.time_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 stream_id = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_stream_id(&has_bits);
           _impl_.stream_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8723,29 +9509,32 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ThrottleEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ThrottleEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ThrottleEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 time_ns = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_time_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_time_ns(), target);
   }
 
   // optional uint64 id = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_id(), target);
   }
 
   // optional uint64 stream_id = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_stream_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_stream_id(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 4;
@@ -8763,11 +9552,11 @@ uint8_t* PerfDataProto_ThrottleEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ThrottleEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ThrottleEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ThrottleEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -8782,17 +9571,20 @@ size_t PerfDataProto_ThrottleEvent::ByteSizeLong() const {
 
     // optional uint64 time_ns = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_ns());
     }
 
     // optional uint64 id = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint64 stream_id = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_stream_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_stream_id());
     }
 
   }
@@ -8810,8 +9602,8 @@ void PerfDataProto_ThrottleEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   auto* const _this = static_cast<PerfDataProto_ThrottleEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ThrottleEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ThrottleEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -8862,12 +9654,13 @@ void PerfDataProto_ThrottleEvent::InternalSwap(PerfDataProto_ThrottleEvent* othe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[13]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ReadEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ReadEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ReadEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -8896,10 +9689,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_ReadEvent::_Internal::sample_info(const PerfDataProto_ReadEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_ReadEvent::PerfDataProto_ReadEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ReadEvent::PerfDataProto_ReadEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ReadEvent)
 }
 PerfDataProto_ReadEvent::PerfDataProto_ReadEvent(const PerfDataProto_ReadEvent& from)
@@ -8909,37 +9701,47 @@ PerfDataProto_ReadEvent::PerfDataProto_ReadEvent(const PerfDataProto_ReadEvent& 
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.value_){}
-    , decltype(_impl_.time_enabled_){}
-    , decltype(_impl_.time_running_){}
-    , decltype(_impl_.id_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.value_) {}
+
+    , decltype(_impl_.time_enabled_) {}
+
+    , decltype(_impl_.time_running_) {}
+
+    , decltype(_impl_.id_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.id_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.id_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.id_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ReadEvent)
 }
 
-inline void PerfDataProto_ReadEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ReadEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.value_){uint64_t{0u}}
-    , decltype(_impl_.time_enabled_){uint64_t{0u}}
-    , decltype(_impl_.time_running_){uint64_t{0u}}
-    , decltype(_impl_.id_){uint64_t{0u}}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.value_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_enabled_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_running_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -8953,7 +9755,7 @@ PerfDataProto_ReadEvent::~PerfDataProto_ReadEvent() {
 }
 
 inline void PerfDataProto_ReadEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -8963,17 +9765,17 @@ void PerfDataProto_ReadEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ReadEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ReadEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x0000007eu) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.id_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.id_));
   }
@@ -8985,70 +9787,77 @@ const char* PerfDataProto_ReadEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 value = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_value(&has_bits);
           _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_enabled = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_time_enabled(&has_bits);
           _impl_.time_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_running = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_time_running(&has_bits);
           _impl_.time_running_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 id = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9074,47 +9883,53 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ReadEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ReadEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ReadEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // optional uint64 value = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_value(), target);
   }
 
   // optional uint64 time_enabled = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_time_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_time_enabled(), target);
   }
 
   // optional uint64 time_running = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_time_running(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_time_running(), target);
   }
 
   // optional uint64 id = 6;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_id(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 7;
@@ -9132,11 +9947,11 @@ uint8_t* PerfDataProto_ReadEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ReadEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ReadEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ReadEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -9151,32 +9966,38 @@ size_t PerfDataProto_ReadEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint64 value = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_value());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_value());
     }
 
     // optional uint64 time_enabled = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_enabled());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_enabled());
     }
 
     // optional uint64 time_running = 5;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_running());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_running());
     }
 
     // optional uint64 id = 6;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
   }
@@ -9194,8 +10015,8 @@ void PerfDataProto_ReadEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_ReadEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ReadEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ReadEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -9255,12 +10076,13 @@ void PerfDataProto_ReadEvent::InternalSwap(PerfDataProto_ReadEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[14]);
 }
-
 // ===================================================================
 
 class PerfDataProto_AuxEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_AuxEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxEvent, _impl_._has_bits_);
   static void set_has_aux_offset(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -9286,10 +10108,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_AuxEvent::_Internal::sample_info(const PerfDataProto_AuxEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_AuxEvent::PerfDataProto_AuxEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_AuxEvent::PerfDataProto_AuxEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.AuxEvent)
 }
 PerfDataProto_AuxEvent::PerfDataProto_AuxEvent(const PerfDataProto_AuxEvent& from)
@@ -9299,35 +10120,43 @@ PerfDataProto_AuxEvent::PerfDataProto_AuxEvent(const PerfDataProto_AuxEvent& fro
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.aux_offset_){}
-    , decltype(_impl_.aux_size_){}
-    , decltype(_impl_.is_truncated_){}
-    , decltype(_impl_.is_overwrite_){}
-    , decltype(_impl_.is_partial_){}};
+    , decltype(_impl_.aux_offset_) {}
+
+    , decltype(_impl_.aux_size_) {}
+
+    , decltype(_impl_.is_truncated_) {}
+
+    , decltype(_impl_.is_overwrite_) {}
+
+    , decltype(_impl_.is_partial_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.aux_offset_, &from._impl_.aux_offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_partial_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.is_partial_) -
     reinterpret_cast<char*>(&_impl_.aux_offset_)) + sizeof(_impl_.is_partial_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.AuxEvent)
 }
 
-inline void PerfDataProto_AuxEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_AuxEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.aux_offset_){uint64_t{0u}}
-    , decltype(_impl_.aux_size_){uint64_t{0u}}
-    , decltype(_impl_.is_truncated_){false}
-    , decltype(_impl_.is_overwrite_){false}
-    , decltype(_impl_.is_partial_){false}
+    , decltype(_impl_.aux_offset_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.aux_size_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.is_truncated_) { false }
+
+    , decltype(_impl_.is_overwrite_) { false }
+
+    , decltype(_impl_.is_partial_) { false }
+
   };
 }
 
@@ -9341,7 +10170,7 @@ PerfDataProto_AuxEvent::~PerfDataProto_AuxEvent() {
 }
 
 inline void PerfDataProto_AuxEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -9351,17 +10180,17 @@ void PerfDataProto_AuxEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_AuxEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.AuxEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x0000003eu) {
-    ::memset(&_impl_.aux_offset_, 0, static_cast<size_t>(
+    ::memset(&_impl_.aux_offset_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.is_partial_) -
         reinterpret_cast<char*>(&_impl_.aux_offset_)) + sizeof(_impl_.is_partial_));
   }
@@ -9373,61 +10202,67 @@ const char* PerfDataProto_AuxEvent::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 aux_offset = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_aux_offset(&has_bits);
           _impl_.aux_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 aux_size = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_aux_size(&has_bits);
           _impl_.aux_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool is_truncated = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_is_truncated(&has_bits);
           _impl_.is_truncated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool is_overwrite = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_is_overwrite(&has_bits);
           _impl_.is_overwrite_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool is_partial = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_is_partial(&has_bits);
           _impl_.is_partial_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9453,41 +10288,46 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_AuxEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_AuxEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.AuxEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 aux_offset = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_aux_offset(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_aux_offset(), target);
   }
 
   // optional uint64 aux_size = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_aux_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_aux_size(), target);
   }
 
   // optional bool is_truncated = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_is_truncated(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_is_truncated(), target);
   }
 
   // optional bool is_overwrite = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_is_overwrite(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_is_overwrite(), target);
   }
 
   // optional bool is_partial = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_is_partial(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_is_partial(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 6;
@@ -9505,11 +10345,11 @@ uint8_t* PerfDataProto_AuxEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_AuxEvent::ByteSizeLong() const {
+::size_t PerfDataProto_AuxEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.AuxEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -9524,27 +10364,29 @@ size_t PerfDataProto_AuxEvent::ByteSizeLong() const {
 
     // optional uint64 aux_offset = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_aux_offset());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_aux_offset());
     }
 
     // optional uint64 aux_size = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_aux_size());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_aux_size());
     }
 
     // optional bool is_truncated = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool is_overwrite = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool is_partial = 5;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -9562,8 +10404,8 @@ void PerfDataProto_AuxEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   auto* const _this = static_cast<PerfDataProto_AuxEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_AuxEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.AuxEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -9620,21 +10462,21 @@ void PerfDataProto_AuxEvent::InternalSwap(PerfDataProto_AuxEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[15]);
 }
-
 // ===================================================================
 
 class PerfDataProto_AuxtraceInfoEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_AuxtraceInfoEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxtraceInfoEvent, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-PerfDataProto_AuxtraceInfoEvent::PerfDataProto_AuxtraceInfoEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_AuxtraceInfoEvent::PerfDataProto_AuxtraceInfoEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.AuxtraceInfoEvent)
 }
 PerfDataProto_AuxtraceInfoEvent::PerfDataProto_AuxtraceInfoEvent(const PerfDataProto_AuxtraceInfoEvent& from)
@@ -9643,23 +10485,25 @@ PerfDataProto_AuxtraceInfoEvent::PerfDataProto_AuxtraceInfoEvent(const PerfDataP
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unparsed_binary_blob_priv_data_){from._impl_.unparsed_binary_blob_priv_data_}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.unparsed_binary_blob_priv_data_) { from._impl_.unparsed_binary_blob_priv_data_ }
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.AuxtraceInfoEvent)
 }
 
-inline void PerfDataProto_AuxtraceInfoEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_AuxtraceInfoEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unparsed_binary_blob_priv_data_){arena}
-    , decltype(_impl_.type_){0u}
+    , decltype(_impl_.unparsed_binary_blob_priv_data_) { arena }
+
+    , decltype(_impl_.type_) { 0u }
+
   };
 }
 
@@ -9673,7 +10517,7 @@ PerfDataProto_AuxtraceInfoEvent::~PerfDataProto_AuxtraceInfoEvent() {
 }
 
 inline void PerfDataProto_AuxtraceInfoEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.unparsed_binary_blob_priv_data_.~RepeatedField();
 }
 
@@ -9683,11 +10527,11 @@ void PerfDataProto_AuxtraceInfoEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_AuxtraceInfoEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.AuxtraceInfoEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.unparsed_binary_blob_priv_data_.Clear();
+  _internal_mutable_unparsed_binary_blob_priv_data()->Clear();
   _impl_.type_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -9697,21 +10541,22 @@ const char* PerfDataProto_AuxtraceInfoEvent::_InternalParse(const char* ptr, ::_
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 unparsed_binary_blob_priv_data = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -9719,11 +10564,12 @@ const char* PerfDataProto_AuxtraceInfoEvent::_InternalParse(const char* ptr, ::_
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_unparsed_binary_blob_priv_data(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9749,23 +10595,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_AuxtraceInfoEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_AuxtraceInfoEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.AuxtraceInfoEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // repeated uint64 unparsed_binary_blob_priv_data = 2;
-  for (int i = 0, n = this->_internal_unparsed_binary_blob_priv_data_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_unparsed_binary_blob_priv_data_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_unparsed_binary_blob_priv_data(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_unparsed_binary_blob_priv_data(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9776,27 +10624,30 @@ uint8_t* PerfDataProto_AuxtraceInfoEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_AuxtraceInfoEvent::ByteSizeLong() const {
+::size_t PerfDataProto_AuxtraceInfoEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.AuxtraceInfoEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint64 unparsed_binary_blob_priv_data = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.unparsed_binary_blob_priv_data_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_unparsed_binary_blob_priv_data_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_unparsed_binary_blob_priv_data())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_unparsed_binary_blob_priv_data_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // optional uint32 type = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_type());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -9813,12 +10664,12 @@ void PerfDataProto_AuxtraceInfoEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message
   auto* const _this = static_cast<PerfDataProto_AuxtraceInfoEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_AuxtraceInfoEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.AuxtraceInfoEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.unparsed_binary_blob_priv_data_.MergeFrom(from._impl_.unparsed_binary_blob_priv_data_);
-  if (from._internal_has_type()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_type(from._internal_type());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -9840,6 +10691,7 @@ void PerfDataProto_AuxtraceInfoEvent::InternalSwap(PerfDataProto_AuxtraceInfoEve
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.unparsed_binary_blob_priv_data_.InternalSwap(&other->_impl_.unparsed_binary_blob_priv_data_);
+
   swap(_impl_.type_, other->_impl_.type_);
 }
 
@@ -9848,12 +10700,13 @@ void PerfDataProto_AuxtraceInfoEvent::InternalSwap(PerfDataProto_AuxtraceInfoEve
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[16]);
 }
-
 // ===================================================================
 
 class PerfDataProto_AuxtraceEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_AuxtraceEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxtraceEvent, _impl_._has_bits_);
   static void set_has_size(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -9877,10 +10730,9 @@ class PerfDataProto_AuxtraceEvent::_Internal {
   }
 };
 
-PerfDataProto_AuxtraceEvent::PerfDataProto_AuxtraceEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_AuxtraceEvent::PerfDataProto_AuxtraceEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.AuxtraceEvent)
 }
 PerfDataProto_AuxtraceEvent::PerfDataProto_AuxtraceEvent(const PerfDataProto_AuxtraceEvent& from)
@@ -9889,48 +10741,59 @@ PerfDataProto_AuxtraceEvent::PerfDataProto_AuxtraceEvent(const PerfDataProto_Aux
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.trace_data_){}
-    , decltype(_impl_.size_){}
-    , decltype(_impl_.offset_){}
-    , decltype(_impl_.reference_){}
-    , decltype(_impl_.idx_){}
-    , decltype(_impl_.tid_){}
-    , decltype(_impl_.cpu_){}};
+    , decltype(_impl_.trace_data_) {}
+
+    , decltype(_impl_.size_) {}
+
+    , decltype(_impl_.offset_) {}
+
+    , decltype(_impl_.reference_) {}
+
+    , decltype(_impl_.idx_) {}
+
+    , decltype(_impl_.tid_) {}
+
+    , decltype(_impl_.cpu_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.trace_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.trace_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_trace_data()) {
-    _this->_impl_.trace_data_.Set(from._internal_trace_data(), 
-      _this->GetArenaForAllocation());
+        _impl_.trace_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.trace_data_.Set(from._internal_trace_data(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.size_, &from._impl_.size_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cpu_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.cpu_) -
     reinterpret_cast<char*>(&_impl_.size_)) + sizeof(_impl_.cpu_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.AuxtraceEvent)
 }
 
-inline void PerfDataProto_AuxtraceEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_AuxtraceEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.trace_data_){}
-    , decltype(_impl_.size_){uint64_t{0u}}
-    , decltype(_impl_.offset_){uint64_t{0u}}
-    , decltype(_impl_.reference_){uint64_t{0u}}
-    , decltype(_impl_.idx_){0u}
-    , decltype(_impl_.tid_){0u}
-    , decltype(_impl_.cpu_){0u}
+    , decltype(_impl_.trace_data_) {}
+
+    , decltype(_impl_.size_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.offset_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.reference_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.idx_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
+    , decltype(_impl_.cpu_) { 0u }
+
   };
   _impl_.trace_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.trace_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.trace_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_AuxtraceEvent::~PerfDataProto_AuxtraceEvent() {
@@ -9943,7 +10806,7 @@ PerfDataProto_AuxtraceEvent::~PerfDataProto_AuxtraceEvent() {
 }
 
 inline void PerfDataProto_AuxtraceEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.trace_data_.Destroy();
 }
 
@@ -9953,7 +10816,7 @@ void PerfDataProto_AuxtraceEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_AuxtraceEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.AuxtraceEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -9962,7 +10825,7 @@ void PerfDataProto_AuxtraceEvent::Clear() {
     _impl_.trace_data_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000007eu) {
-    ::memset(&_impl_.size_, 0, static_cast<size_t>(
+    ::memset(&_impl_.size_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.cpu_) -
         reinterpret_cast<char*>(&_impl_.size_)) + sizeof(_impl_.cpu_));
   }
@@ -9974,71 +10837,78 @@ const char* PerfDataProto_AuxtraceEvent::_InternalParse(const char* ptr, ::_pbi:
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 size = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_size(&has_bits);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 offset = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_offset(&has_bits);
           _impl_.offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 reference = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_reference(&has_bits);
           _impl_.reference_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 idx = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_idx(&has_bits);
           _impl_.idx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cpu = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_cpu(&has_bits);
           _impl_.cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes trace_data = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_trace_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -10064,53 +10934,59 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_AuxtraceEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_AuxtraceEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.AuxtraceEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 size = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_size(), target);
   }
 
   // optional uint64 offset = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_offset(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_offset(), target);
   }
 
   // optional uint64 reference = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_reference(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_reference(), target);
   }
 
   // optional uint32 idx = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_idx(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_idx(), target);
   }
 
   // optional uint32 tid = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        5, this->_internal_tid(), target);
   }
 
   // optional uint32 cpu = 6;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_cpu(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        6, this->_internal_cpu(), target);
   }
 
   // optional bytes trace_data = 7;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        7, this->_internal_trace_data(), target);
+    const std::string& _s = this->_internal_trace_data();
+    target = stream->WriteBytesMaybeAliased(7, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10121,11 +10997,11 @@ uint8_t* PerfDataProto_AuxtraceEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_AuxtraceEvent::ByteSizeLong() const {
+::size_t PerfDataProto_AuxtraceEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.AuxtraceEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -10133,39 +11009,44 @@ size_t PerfDataProto_AuxtraceEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional bytes trace_data = 7;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_trace_data());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_trace_data());
     }
 
     // optional uint64 size = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_size());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_size());
     }
 
     // optional uint64 offset = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_offset());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_offset());
     }
 
     // optional uint64 reference = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_reference());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_reference());
     }
 
     // optional uint32 idx = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_idx());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_idx());
     }
 
     // optional uint32 tid = 5;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
     // optional uint32 cpu = 6;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cpu());
     }
 
   }
@@ -10183,8 +11064,8 @@ void PerfDataProto_AuxtraceEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   auto* const _this = static_cast<PerfDataProto_AuxtraceEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_AuxtraceEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.AuxtraceEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -10232,10 +11113,8 @@ void PerfDataProto_AuxtraceEvent::InternalSwap(PerfDataProto_AuxtraceEvent* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.trace_data_, lhs_arena,
-      &other->_impl_.trace_data_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.trace_data_, lhs_arena,
+                                       &other->_impl_.trace_data_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxtraceEvent, _impl_.cpu_)
       + sizeof(PerfDataProto_AuxtraceEvent::_impl_.cpu_)
@@ -10249,12 +11128,13 @@ void PerfDataProto_AuxtraceEvent::InternalSwap(PerfDataProto_AuxtraceEvent* othe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[17]);
 }
-
 // ===================================================================
 
 class PerfDataProto_AuxtraceErrorEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_AuxtraceErrorEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxtraceErrorEvent, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -10281,10 +11161,9 @@ class PerfDataProto_AuxtraceErrorEvent::_Internal {
   }
 };
 
-PerfDataProto_AuxtraceErrorEvent::PerfDataProto_AuxtraceErrorEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_AuxtraceErrorEvent::PerfDataProto_AuxtraceErrorEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.AuxtraceErrorEvent)
 }
 PerfDataProto_AuxtraceErrorEvent::PerfDataProto_AuxtraceErrorEvent(const PerfDataProto_AuxtraceErrorEvent& from)
@@ -10293,50 +11172,63 @@ PerfDataProto_AuxtraceErrorEvent::PerfDataProto_AuxtraceErrorEvent(const PerfDat
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.msg_){}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.code_){}
-    , decltype(_impl_.cpu_){}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.ip_){}
-    , decltype(_impl_.msg_md5_prefix_){}
-    , decltype(_impl_.tid_){}};
+    , decltype(_impl_.msg_) {}
+
+    , decltype(_impl_.type_) {}
+
+    , decltype(_impl_.code_) {}
+
+    , decltype(_impl_.cpu_) {}
+
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.ip_) {}
+
+    , decltype(_impl_.msg_md5_prefix_) {}
+
+    , decltype(_impl_.tid_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.msg_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.msg_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_msg()) {
-    _this->_impl_.msg_.Set(from._internal_msg(), 
-      _this->GetArenaForAllocation());
+        _impl_.msg_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.msg_.Set(from._internal_msg(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
     reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.tid_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.AuxtraceErrorEvent)
 }
 
-inline void PerfDataProto_AuxtraceErrorEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_AuxtraceErrorEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.msg_){}
-    , decltype(_impl_.type_){0u}
-    , decltype(_impl_.code_){0u}
-    , decltype(_impl_.cpu_){0u}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.ip_){uint64_t{0u}}
-    , decltype(_impl_.msg_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.tid_){0u}
+    , decltype(_impl_.msg_) {}
+
+    , decltype(_impl_.type_) { 0u }
+
+    , decltype(_impl_.code_) { 0u }
+
+    , decltype(_impl_.cpu_) { 0u }
+
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.ip_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.msg_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.tid_) { 0u }
+
   };
   _impl_.msg_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.msg_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.msg_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_AuxtraceErrorEvent::~PerfDataProto_AuxtraceErrorEvent() {
@@ -10349,7 +11241,7 @@ PerfDataProto_AuxtraceErrorEvent::~PerfDataProto_AuxtraceErrorEvent() {
 }
 
 inline void PerfDataProto_AuxtraceErrorEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.msg_.Destroy();
 }
 
@@ -10359,7 +11251,7 @@ void PerfDataProto_AuxtraceErrorEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_AuxtraceErrorEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.AuxtraceErrorEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -10368,7 +11260,7 @@ void PerfDataProto_AuxtraceErrorEvent::Clear() {
     _impl_.msg_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x000000feu) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.tid_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.tid_));
   }
@@ -10380,83 +11272,91 @@ const char* PerfDataProto_AuxtraceErrorEvent::_InternalParse(const char* ptr, ::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 code = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_code(&has_bits);
           _impl_.code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cpu = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_cpu(&has_bits);
           _impl_.cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 pid = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 ip = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_ip(&has_bits);
           _impl_.ip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string msg = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_msg();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.AuxtraceErrorEvent.msg");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 msg_md5_prefix = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_msg_md5_prefix(&has_bits);
           _impl_.msg_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -10482,63 +11382,68 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_AuxtraceErrorEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_AuxtraceErrorEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.AuxtraceErrorEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // optional uint32 code = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_code(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_code(), target);
   }
 
   // optional uint32 cpu = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_cpu(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_cpu(), target);
   }
 
   // optional uint32 pid = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 5;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        5, this->_internal_tid(), target);
   }
 
   // optional uint64 ip = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_ip(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_ip(), target);
   }
 
   // optional string msg = 7;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.AuxtraceErrorEvent.msg");
-    target = stream->WriteStringMaybeAliased(
-        7, this->_internal_msg(), target);
+    const std::string& _s = this->_internal_msg();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.AuxtraceErrorEvent.msg");
+    target = stream->WriteStringMaybeAliased(7, _s, target);
   }
 
   // optional uint64 msg_md5_prefix = 8;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(8, this->_internal_msg_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        8, this->_internal_msg_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10549,11 +11454,11 @@ uint8_t* PerfDataProto_AuxtraceErrorEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_AuxtraceErrorEvent::ByteSizeLong() const {
+::size_t PerfDataProto_AuxtraceErrorEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.AuxtraceErrorEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -10561,44 +11466,50 @@ size_t PerfDataProto_AuxtraceErrorEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional string msg = 7;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_msg());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_msg());
     }
 
     // optional uint32 type = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_type());
     }
 
     // optional uint32 code = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_code());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_code());
     }
 
     // optional uint32 cpu = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cpu());
     }
 
     // optional uint32 pid = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint64 ip = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ip());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ip());
     }
 
     // optional uint64 msg_md5_prefix = 8;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_msg_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_msg_md5_prefix());
     }
 
     // optional uint32 tid = 5;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
   }
@@ -10616,8 +11527,8 @@ void PerfDataProto_AuxtraceErrorEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   auto* const _this = static_cast<PerfDataProto_AuxtraceErrorEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_AuxtraceErrorEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.AuxtraceErrorEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -10668,10 +11579,8 @@ void PerfDataProto_AuxtraceErrorEvent::InternalSwap(PerfDataProto_AuxtraceErrorE
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.msg_, lhs_arena,
-      &other->_impl_.msg_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.msg_, lhs_arena,
+                                       &other->_impl_.msg_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_AuxtraceErrorEvent, _impl_.tid_)
       + sizeof(PerfDataProto_AuxtraceErrorEvent::_impl_.tid_)
@@ -10685,12 +11594,13 @@ void PerfDataProto_AuxtraceErrorEvent::InternalSwap(PerfDataProto_AuxtraceErrorE
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[18]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ItraceStartEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ItraceStartEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ItraceStartEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -10707,10 +11617,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_ItraceStartEvent::_Internal::sample_info(const PerfDataProto_ItraceStartEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_ItraceStartEvent::PerfDataProto_ItraceStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ItraceStartEvent::PerfDataProto_ItraceStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ItraceStartEvent)
 }
 PerfDataProto_ItraceStartEvent::PerfDataProto_ItraceStartEvent(const PerfDataProto_ItraceStartEvent& from)
@@ -10720,29 +11629,31 @@ PerfDataProto_ItraceStartEvent::PerfDataProto_ItraceStartEvent(const PerfDataPro
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.tid_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ItraceStartEvent)
 }
 
-inline void PerfDataProto_ItraceStartEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ItraceStartEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
   };
 }
 
@@ -10756,7 +11667,7 @@ PerfDataProto_ItraceStartEvent::~PerfDataProto_ItraceStartEvent() {
 }
 
 inline void PerfDataProto_ItraceStartEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -10766,17 +11677,17 @@ void PerfDataProto_ItraceStartEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ItraceStartEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ItraceStartEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.tid_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.tid_));
   }
@@ -10788,34 +11699,37 @@ const char* PerfDataProto_ItraceStartEvent::_InternalParse(const char* ptr, ::_p
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -10841,23 +11755,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ItraceStartEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ItraceStartEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ItraceStartEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
@@ -10875,11 +11791,11 @@ uint8_t* PerfDataProto_ItraceStartEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ItraceStartEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ItraceStartEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ItraceStartEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -10894,12 +11810,14 @@ size_t PerfDataProto_ItraceStartEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
   }
@@ -10917,8 +11835,8 @@ void PerfDataProto_ItraceStartEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message&
   auto* const _this = static_cast<PerfDataProto_ItraceStartEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ItraceStartEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ItraceStartEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -10966,12 +11884,13 @@ void PerfDataProto_ItraceStartEvent::InternalSwap(PerfDataProto_ItraceStartEvent
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[19]);
 }
-
 // ===================================================================
 
 class PerfDataProto_LostSamplesEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_LostSamplesEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_LostSamplesEvent, _impl_._has_bits_);
   static void set_has_num_lost(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -10985,10 +11904,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_LostSamplesEvent::_Internal::sample_info(const PerfDataProto_LostSamplesEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_LostSamplesEvent::PerfDataProto_LostSamplesEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_LostSamplesEvent::PerfDataProto_LostSamplesEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.LostSamplesEvent)
 }
 PerfDataProto_LostSamplesEvent::PerfDataProto_LostSamplesEvent(const PerfDataProto_LostSamplesEvent& from)
@@ -10998,25 +11916,25 @@ PerfDataProto_LostSamplesEvent::PerfDataProto_LostSamplesEvent(const PerfDataPro
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.num_lost_){}};
+    , decltype(_impl_.num_lost_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   _this->_impl_.num_lost_ = from._impl_.num_lost_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.LostSamplesEvent)
 }
 
-inline void PerfDataProto_LostSamplesEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_LostSamplesEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.num_lost_){uint64_t{0u}}
+    , decltype(_impl_.num_lost_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -11030,7 +11948,7 @@ PerfDataProto_LostSamplesEvent::~PerfDataProto_LostSamplesEvent() {
 }
 
 inline void PerfDataProto_LostSamplesEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -11040,16 +11958,16 @@ void PerfDataProto_LostSamplesEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_LostSamplesEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.LostSamplesEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
-  _impl_.num_lost_ = uint64_t{0u};
+  _impl_.num_lost_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -11058,25 +11976,27 @@ const char* PerfDataProto_LostSamplesEvent::_InternalParse(const char* ptr, ::_p
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 num_lost = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_num_lost(&has_bits);
           _impl_.num_lost_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -11102,17 +12022,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_LostSamplesEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_LostSamplesEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.LostSamplesEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 num_lost = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_num_lost(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_num_lost(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 2;
@@ -11130,11 +12051,11 @@ uint8_t* PerfDataProto_LostSamplesEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_LostSamplesEvent::ByteSizeLong() const {
+::size_t PerfDataProto_LostSamplesEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.LostSamplesEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -11149,7 +12070,8 @@ size_t PerfDataProto_LostSamplesEvent::ByteSizeLong() const {
 
     // optional uint64 num_lost = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_num_lost());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_num_lost());
     }
 
   }
@@ -11167,8 +12089,8 @@ void PerfDataProto_LostSamplesEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message&
   auto* const _this = static_cast<PerfDataProto_LostSamplesEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_LostSamplesEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.LostSamplesEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -11213,12 +12135,13 @@ void PerfDataProto_LostSamplesEvent::InternalSwap(PerfDataProto_LostSamplesEvent
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[20]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ContextSwitchEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ContextSwitchEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ContextSwitchEvent, _impl_._has_bits_);
   static void set_has_is_out(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -11238,10 +12161,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_ContextSwitchEvent::_Internal::sample_info(const PerfDataProto_ContextSwitchEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_ContextSwitchEvent::PerfDataProto_ContextSwitchEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ContextSwitchEvent::PerfDataProto_ContextSwitchEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ContextSwitchEvent)
 }
 PerfDataProto_ContextSwitchEvent::PerfDataProto_ContextSwitchEvent(const PerfDataProto_ContextSwitchEvent& from)
@@ -11251,31 +12173,35 @@ PerfDataProto_ContextSwitchEvent::PerfDataProto_ContextSwitchEvent(const PerfDat
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.is_out_){}
-    , decltype(_impl_.next_prev_pid_){}
-    , decltype(_impl_.next_prev_tid_){}};
+    , decltype(_impl_.is_out_) {}
+
+    , decltype(_impl_.next_prev_pid_) {}
+
+    , decltype(_impl_.next_prev_tid_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.is_out_, &from._impl_.is_out_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.next_prev_tid_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.next_prev_tid_) -
     reinterpret_cast<char*>(&_impl_.is_out_)) + sizeof(_impl_.next_prev_tid_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ContextSwitchEvent)
 }
 
-inline void PerfDataProto_ContextSwitchEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ContextSwitchEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.is_out_){false}
-    , decltype(_impl_.next_prev_pid_){0u}
-    , decltype(_impl_.next_prev_tid_){0u}
+    , decltype(_impl_.is_out_) { false }
+
+    , decltype(_impl_.next_prev_pid_) { 0u }
+
+    , decltype(_impl_.next_prev_tid_) { 0u }
+
   };
 }
 
@@ -11289,7 +12215,7 @@ PerfDataProto_ContextSwitchEvent::~PerfDataProto_ContextSwitchEvent() {
 }
 
 inline void PerfDataProto_ContextSwitchEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -11299,17 +12225,17 @@ void PerfDataProto_ContextSwitchEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ContextSwitchEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ContextSwitchEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&_impl_.is_out_, 0, static_cast<size_t>(
+    ::memset(&_impl_.is_out_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.next_prev_tid_) -
         reinterpret_cast<char*>(&_impl_.is_out_)) + sizeof(_impl_.next_prev_tid_));
   }
@@ -11321,43 +12247,47 @@ const char* PerfDataProto_ContextSwitchEvent::_InternalParse(const char* ptr, ::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool is_out = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_is_out(&has_bits);
           _impl_.is_out_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 next_prev_pid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_next_prev_pid(&has_bits);
           _impl_.next_prev_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 next_prev_tid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_next_prev_tid(&has_bits);
           _impl_.next_prev_tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -11383,29 +12313,32 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ContextSwitchEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ContextSwitchEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ContextSwitchEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool is_out = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_out(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_is_out(), target);
   }
 
   // optional uint32 next_prev_pid = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_next_prev_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_next_prev_pid(), target);
   }
 
   // optional uint32 next_prev_tid = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_next_prev_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_next_prev_tid(), target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 4;
@@ -11423,11 +12356,11 @@ uint8_t* PerfDataProto_ContextSwitchEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ContextSwitchEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ContextSwitchEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ContextSwitchEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -11442,17 +12375,19 @@ size_t PerfDataProto_ContextSwitchEvent::ByteSizeLong() const {
 
     // optional bool is_out = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional uint32 next_prev_pid = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_next_prev_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_next_prev_pid());
     }
 
     // optional uint32 next_prev_tid = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_next_prev_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_next_prev_tid());
     }
 
   }
@@ -11470,8 +12405,8 @@ void PerfDataProto_ContextSwitchEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   auto* const _this = static_cast<PerfDataProto_ContextSwitchEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ContextSwitchEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ContextSwitchEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -11522,12 +12457,13 @@ void PerfDataProto_ContextSwitchEvent::InternalSwap(PerfDataProto_ContextSwitchE
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[21]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfNamespacesLinkInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfNamespacesLinkInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfNamespacesLinkInfo, _impl_._has_bits_);
   static void set_has_dev(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -11536,37 +12472,27 @@ class PerfDataProto_PerfNamespacesLinkInfo::_Internal {
   }
 };
 
-PerfDataProto_PerfNamespacesLinkInfo::PerfDataProto_PerfNamespacesLinkInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfNamespacesLinkInfo::PerfDataProto_PerfNamespacesLinkInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfNamespacesLinkInfo)
 }
 PerfDataProto_PerfNamespacesLinkInfo::PerfDataProto_PerfNamespacesLinkInfo(const PerfDataProto_PerfNamespacesLinkInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_PerfNamespacesLinkInfo* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dev_){}
-    , decltype(_impl_.ino_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.dev_, &from._impl_.dev_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ino_) -
-    reinterpret_cast<char*>(&_impl_.dev_)) + sizeof(_impl_.ino_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfNamespacesLinkInfo)
 }
 
-inline void PerfDataProto_PerfNamespacesLinkInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfNamespacesLinkInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dev_){uint64_t{0u}}
-    , decltype(_impl_.ino_){uint64_t{0u}}
+    , decltype(_impl_.dev_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.ino_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -11580,7 +12506,7 @@ PerfDataProto_PerfNamespacesLinkInfo::~PerfDataProto_PerfNamespacesLinkInfo() {
 }
 
 inline void PerfDataProto_PerfNamespacesLinkInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_PerfNamespacesLinkInfo::SetCachedSize(int size) const {
@@ -11589,13 +12515,13 @@ void PerfDataProto_PerfNamespacesLinkInfo::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfNamespacesLinkInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfNamespacesLinkInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.dev_, 0, static_cast<size_t>(
+    ::memset(&_impl_.dev_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.ino_) -
         reinterpret_cast<char*>(&_impl_.dev_)) + sizeof(_impl_.ino_));
   }
@@ -11607,26 +12533,28 @@ const char* PerfDataProto_PerfNamespacesLinkInfo::_InternalParse(const char* ptr
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 dev = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_dev(&has_bits);
           _impl_.dev_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 ino = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_ino(&has_bits);
           _impl_.ino_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -11652,23 +12580,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfNamespacesLinkInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfNamespacesLinkInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfNamespacesLinkInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 dev = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_dev(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_dev(), target);
   }
 
   // optional uint64 ino = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_ino(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_ino(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -11679,11 +12609,11 @@ uint8_t* PerfDataProto_PerfNamespacesLinkInfo::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfNamespacesLinkInfo::ByteSizeLong() const {
+::size_t PerfDataProto_PerfNamespacesLinkInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfNamespacesLinkInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -11691,12 +12621,14 @@ size_t PerfDataProto_PerfNamespacesLinkInfo::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 dev = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_dev());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_dev());
     }
 
     // optional uint64 ino = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ino());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ino());
     }
 
   }
@@ -11714,8 +12646,8 @@ void PerfDataProto_PerfNamespacesLinkInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Me
   auto* const _this = static_cast<PerfDataProto_PerfNamespacesLinkInfo*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfNamespacesLinkInfo&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfNamespacesLinkInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -11759,12 +12691,13 @@ void PerfDataProto_PerfNamespacesLinkInfo::InternalSwap(PerfDataProto_PerfNamesp
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[22]);
 }
-
 // ===================================================================
 
 class PerfDataProto_NamespacesEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_NamespacesEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_NamespacesEvent, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -11781,10 +12714,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_NamespacesEvent::_Internal::sample_info(const PerfDataProto_NamespacesEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_NamespacesEvent::PerfDataProto_NamespacesEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_NamespacesEvent::PerfDataProto_NamespacesEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.NamespacesEvent)
 }
 PerfDataProto_NamespacesEvent::PerfDataProto_NamespacesEvent(const PerfDataProto_NamespacesEvent& from)
@@ -11795,30 +12727,32 @@ PerfDataProto_NamespacesEvent::PerfDataProto_NamespacesEvent(const PerfDataProto
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.link_info_){from._impl_.link_info_}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.tid_){}};
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.tid_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.tid_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.tid_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.NamespacesEvent)
 }
 
-inline void PerfDataProto_NamespacesEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_NamespacesEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.link_info_){arena}
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.tid_){0u}
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.tid_) { 0u }
+
   };
 }
 
@@ -11832,8 +12766,8 @@ PerfDataProto_NamespacesEvent::~PerfDataProto_NamespacesEvent() {
 }
 
 inline void PerfDataProto_NamespacesEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.link_info_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_link_info()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
 
@@ -11843,18 +12777,18 @@ void PerfDataProto_NamespacesEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_NamespacesEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.NamespacesEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.link_info_.Clear();
+  _internal_mutable_link_info()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+    ABSL_DCHECK(_impl_.sample_info_ != nullptr);
     _impl_.sample_info_->Clear();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.tid_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.tid_));
   }
@@ -11866,30 +12800,32 @@ const char* PerfDataProto_NamespacesEvent::_InternalParse(const char* ptr, ::_pb
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 tid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tid(&has_bits);
           _impl_.tid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfNamespacesLinkInfo link_info = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -11897,16 +12833,18 @@ const char* PerfDataProto_NamespacesEvent::_InternalParse(const char* ptr, ::_pb
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -11932,23 +12870,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_NamespacesEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_NamespacesEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.NamespacesEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 pid = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional uint32 tid = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_tid(), target);
   }
 
   // repeated .quipper.PerfDataProto.PerfNamespacesLinkInfo link_info = 3;
@@ -11974,17 +12914,17 @@ uint8_t* PerfDataProto_NamespacesEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_NamespacesEvent::ByteSizeLong() const {
+::size_t PerfDataProto_NamespacesEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.NamespacesEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.PerfNamespacesLinkInfo link_info = 3;
   total_size += 1UL * this->_internal_link_info_size();
-  for (const auto& msg : this->_impl_.link_info_) {
+  for (const auto& msg : this->_internal_link_info()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -12000,12 +12940,14 @@ size_t PerfDataProto_NamespacesEvent::ByteSizeLong() const {
 
     // optional uint32 pid = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint32 tid = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_tid());
     }
 
   }
@@ -12023,11 +12965,11 @@ void PerfDataProto_NamespacesEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& 
   auto* const _this = static_cast<PerfDataProto_NamespacesEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_NamespacesEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.NamespacesEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.link_info_.MergeFrom(from._impl_.link_info_);
+  _this->_internal_mutable_link_info()->MergeFrom(from._internal_link_info());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
@@ -12060,7 +13002,7 @@ void PerfDataProto_NamespacesEvent::InternalSwap(PerfDataProto_NamespacesEvent* 
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.link_info_.InternalSwap(&other->_impl_.link_info_);
+  _internal_mutable_link_info()->InternalSwap(other->_internal_mutable_link_info());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_NamespacesEvent, _impl_.tid_)
       + sizeof(PerfDataProto_NamespacesEvent::_impl_.tid_)
@@ -12074,12 +13016,13 @@ void PerfDataProto_NamespacesEvent::InternalSwap(PerfDataProto_NamespacesEvent* 
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[23]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ThreadMapEventEntry::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_ThreadMapEventEntry>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_ThreadMapEventEntry, _impl_._has_bits_);
   static void set_has_pid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -12091,10 +13034,9 @@ class PerfDataProto_ThreadMapEventEntry::_Internal {
   }
 };
 
-PerfDataProto_ThreadMapEventEntry::PerfDataProto_ThreadMapEventEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ThreadMapEventEntry::PerfDataProto_ThreadMapEventEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ThreadMapEventEntry)
 }
 PerfDataProto_ThreadMapEventEntry::PerfDataProto_ThreadMapEventEntry(const PerfDataProto_ThreadMapEventEntry& from)
@@ -12103,40 +13045,43 @@ PerfDataProto_ThreadMapEventEntry::PerfDataProto_ThreadMapEventEntry(const PerfD
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.comm_){}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.comm_md5_prefix_){}};
+    , decltype(_impl_.comm_) {}
+
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.comm_md5_prefix_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.comm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.comm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_comm()) {
-    _this->_impl_.comm_.Set(from._internal_comm(), 
-      _this->GetArenaForAllocation());
+        _impl_.comm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.comm_.Set(from._internal_comm(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.comm_md5_prefix_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.comm_md5_prefix_) -
     reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.comm_md5_prefix_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ThreadMapEventEntry)
 }
 
-inline void PerfDataProto_ThreadMapEventEntry::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ThreadMapEventEntry::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.comm_){}
-    , decltype(_impl_.pid_){uint64_t{0u}}
-    , decltype(_impl_.comm_md5_prefix_){uint64_t{0u}}
+    , decltype(_impl_.comm_) {}
+
+    , decltype(_impl_.pid_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.comm_md5_prefix_) { ::uint64_t{0u} }
+
   };
   _impl_.comm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.comm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.comm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_ThreadMapEventEntry::~PerfDataProto_ThreadMapEventEntry() {
@@ -12149,7 +13094,7 @@ PerfDataProto_ThreadMapEventEntry::~PerfDataProto_ThreadMapEventEntry() {
 }
 
 inline void PerfDataProto_ThreadMapEventEntry::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.comm_.Destroy();
 }
 
@@ -12159,7 +13104,7 @@ void PerfDataProto_ThreadMapEventEntry::SetCachedSize(int size) const {
 
 void PerfDataProto_ThreadMapEventEntry::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ThreadMapEventEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -12168,7 +13113,7 @@ void PerfDataProto_ThreadMapEventEntry::Clear() {
     _impl_.comm_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.comm_md5_prefix_) -
         reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.comm_md5_prefix_));
   }
@@ -12180,38 +13125,41 @@ const char* PerfDataProto_ThreadMapEventEntry::_InternalParse(const char* ptr, :
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string comm = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_comm();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.ThreadMapEventEntry.comm");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 comm_md5_prefix = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_comm_md5_prefix(&has_bits);
           _impl_.comm_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -12237,33 +13185,33 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ThreadMapEventEntry::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ThreadMapEventEntry::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ThreadMapEventEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 pid = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // optional string comm = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_comm().data(), static_cast<int>(this->_internal_comm().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.ThreadMapEventEntry.comm");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_comm(), target);
+    const std::string& _s = this->_internal_comm();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.ThreadMapEventEntry.comm");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional uint64 comm_md5_prefix = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_comm_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_comm_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12274,11 +13222,11 @@ uint8_t* PerfDataProto_ThreadMapEventEntry::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ThreadMapEventEntry::ByteSizeLong() const {
+::size_t PerfDataProto_ThreadMapEventEntry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ThreadMapEventEntry)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -12286,19 +13234,20 @@ size_t PerfDataProto_ThreadMapEventEntry::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string comm = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_comm());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_comm());
     }
 
     // optional uint64 pid = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint64 comm_md5_prefix = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_comm_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_comm_md5_prefix());
     }
 
   }
@@ -12316,8 +13265,8 @@ void PerfDataProto_ThreadMapEventEntry::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messa
   auto* const _this = static_cast<PerfDataProto_ThreadMapEventEntry*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ThreadMapEventEntry&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ThreadMapEventEntry)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -12353,10 +13302,8 @@ void PerfDataProto_ThreadMapEventEntry::InternalSwap(PerfDataProto_ThreadMapEven
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.comm_, lhs_arena,
-      &other->_impl_.comm_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comm_, lhs_arena,
+                                       &other->_impl_.comm_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_ThreadMapEventEntry, _impl_.comm_md5_prefix_)
       + sizeof(PerfDataProto_ThreadMapEventEntry::_impl_.comm_md5_prefix_)
@@ -12370,17 +13317,15 @@ void PerfDataProto_ThreadMapEventEntry::InternalSwap(PerfDataProto_ThreadMapEven
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[24]);
 }
-
 // ===================================================================
 
 class PerfDataProto_ThreadMapEvent::_Internal {
  public:
 };
 
-PerfDataProto_ThreadMapEvent::PerfDataProto_ThreadMapEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_ThreadMapEvent::PerfDataProto_ThreadMapEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.ThreadMapEvent)
 }
 PerfDataProto_ThreadMapEvent::PerfDataProto_ThreadMapEvent(const PerfDataProto_ThreadMapEvent& from)
@@ -12394,10 +13339,8 @@ PerfDataProto_ThreadMapEvent::PerfDataProto_ThreadMapEvent(const PerfDataProto_T
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.ThreadMapEvent)
 }
 
-inline void PerfDataProto_ThreadMapEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_ThreadMapEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.entries_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -12414,8 +13357,8 @@ PerfDataProto_ThreadMapEvent::~PerfDataProto_ThreadMapEvent() {
 }
 
 inline void PerfDataProto_ThreadMapEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.entries_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_entries()->~RepeatedPtrField();
 }
 
 void PerfDataProto_ThreadMapEvent::SetCachedSize(int size) const {
@@ -12424,23 +13367,23 @@ void PerfDataProto_ThreadMapEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_ThreadMapEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.ThreadMapEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.entries_.Clear();
+  _internal_mutable_entries()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* PerfDataProto_ThreadMapEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .quipper.PerfDataProto.ThreadMapEventEntry entries = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -12448,8 +13391,9 @@ const char* PerfDataProto_ThreadMapEvent::_InternalParse(const char* ptr, ::_pbi
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -12474,10 +13418,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_ThreadMapEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_ThreadMapEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.ThreadMapEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.ThreadMapEventEntry entries = 1;
@@ -12496,17 +13440,17 @@ uint8_t* PerfDataProto_ThreadMapEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_ThreadMapEvent::ByteSizeLong() const {
+::size_t PerfDataProto_ThreadMapEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.ThreadMapEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.ThreadMapEventEntry entries = 1;
   total_size += 1UL * this->_internal_entries_size();
-  for (const auto& msg : this->_impl_.entries_) {
+  for (const auto& msg : this->_internal_entries()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -12525,11 +13469,11 @@ void PerfDataProto_ThreadMapEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   auto* const _this = static_cast<PerfDataProto_ThreadMapEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_ThreadMapEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.ThreadMapEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.entries_.MergeFrom(from._impl_.entries_);
+  _this->_internal_mutable_entries()->MergeFrom(from._internal_entries());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -12547,7 +13491,7 @@ bool PerfDataProto_ThreadMapEvent::IsInitialized() const {
 void PerfDataProto_ThreadMapEvent::InternalSwap(PerfDataProto_ThreadMapEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.entries_.InternalSwap(&other->_impl_.entries_);
+  _internal_mutable_entries()->InternalSwap(other->_internal_mutable_entries());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_ThreadMapEvent::GetMetadata() const {
@@ -12555,12 +13499,13 @@ void PerfDataProto_ThreadMapEvent::InternalSwap(PerfDataProto_ThreadMapEvent* ot
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[25]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StatConfigEventEntry::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StatConfigEventEntry>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_StatConfigEventEntry, _impl_._has_bits_);
   static void set_has_tag(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -12569,37 +13514,27 @@ class PerfDataProto_StatConfigEventEntry::_Internal {
   }
 };
 
-PerfDataProto_StatConfigEventEntry::PerfDataProto_StatConfigEventEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StatConfigEventEntry::PerfDataProto_StatConfigEventEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StatConfigEventEntry)
 }
 PerfDataProto_StatConfigEventEntry::PerfDataProto_StatConfigEventEntry(const PerfDataProto_StatConfigEventEntry& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_StatConfigEventEntry* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.tag_){}
-    , decltype(_impl_.val_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.tag_, &from._impl_.tag_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.val_) -
-    reinterpret_cast<char*>(&_impl_.tag_)) + sizeof(_impl_.val_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StatConfigEventEntry)
 }
 
-inline void PerfDataProto_StatConfigEventEntry::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StatConfigEventEntry::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.tag_){uint64_t{0u}}
-    , decltype(_impl_.val_){uint64_t{0u}}
+    , decltype(_impl_.tag_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.val_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -12613,7 +13548,7 @@ PerfDataProto_StatConfigEventEntry::~PerfDataProto_StatConfigEventEntry() {
 }
 
 inline void PerfDataProto_StatConfigEventEntry::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_StatConfigEventEntry::SetCachedSize(int size) const {
@@ -12622,13 +13557,13 @@ void PerfDataProto_StatConfigEventEntry::SetCachedSize(int size) const {
 
 void PerfDataProto_StatConfigEventEntry::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StatConfigEventEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.tag_, 0, static_cast<size_t>(
+    ::memset(&_impl_.tag_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.val_) -
         reinterpret_cast<char*>(&_impl_.tag_)) + sizeof(_impl_.val_));
   }
@@ -12640,26 +13575,28 @@ const char* PerfDataProto_StatConfigEventEntry::_InternalParse(const char* ptr, 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 tag = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_tag(&has_bits);
           _impl_.tag_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 val = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_val(&has_bits);
           _impl_.val_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -12685,23 +13622,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StatConfigEventEntry::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StatConfigEventEntry::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StatConfigEventEntry)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 tag = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_tag(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_tag(), target);
   }
 
   // optional uint64 val = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_val(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_val(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12712,11 +13651,11 @@ uint8_t* PerfDataProto_StatConfigEventEntry::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StatConfigEventEntry::ByteSizeLong() const {
+::size_t PerfDataProto_StatConfigEventEntry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StatConfigEventEntry)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -12724,12 +13663,14 @@ size_t PerfDataProto_StatConfigEventEntry::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 tag = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tag());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_tag());
     }
 
     // optional uint64 val = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_val());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_val());
     }
 
   }
@@ -12747,8 +13688,8 @@ void PerfDataProto_StatConfigEventEntry::MergeImpl(::PROTOBUF_NAMESPACE_ID::Mess
   auto* const _this = static_cast<PerfDataProto_StatConfigEventEntry*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StatConfigEventEntry&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StatConfigEventEntry)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -12792,17 +13733,15 @@ void PerfDataProto_StatConfigEventEntry::InternalSwap(PerfDataProto_StatConfigEv
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[26]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StatConfigEvent::_Internal {
  public:
 };
 
-PerfDataProto_StatConfigEvent::PerfDataProto_StatConfigEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StatConfigEvent::PerfDataProto_StatConfigEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StatConfigEvent)
 }
 PerfDataProto_StatConfigEvent::PerfDataProto_StatConfigEvent(const PerfDataProto_StatConfigEvent& from)
@@ -12816,10 +13755,8 @@ PerfDataProto_StatConfigEvent::PerfDataProto_StatConfigEvent(const PerfDataProto
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StatConfigEvent)
 }
 
-inline void PerfDataProto_StatConfigEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StatConfigEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.data_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -12836,8 +13773,8 @@ PerfDataProto_StatConfigEvent::~PerfDataProto_StatConfigEvent() {
 }
 
 inline void PerfDataProto_StatConfigEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.data_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_data()->~RepeatedPtrField();
 }
 
 void PerfDataProto_StatConfigEvent::SetCachedSize(int size) const {
@@ -12846,23 +13783,23 @@ void PerfDataProto_StatConfigEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_StatConfigEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StatConfigEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.data_.Clear();
+  _internal_mutable_data()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* PerfDataProto_StatConfigEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .quipper.PerfDataProto.StatConfigEventEntry data = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -12870,8 +13807,9 @@ const char* PerfDataProto_StatConfigEvent::_InternalParse(const char* ptr, ::_pb
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -12896,10 +13834,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StatConfigEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StatConfigEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StatConfigEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.StatConfigEventEntry data = 1;
@@ -12918,17 +13856,17 @@ uint8_t* PerfDataProto_StatConfigEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StatConfigEvent::ByteSizeLong() const {
+::size_t PerfDataProto_StatConfigEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StatConfigEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.StatConfigEventEntry data = 1;
   total_size += 1UL * this->_internal_data_size();
-  for (const auto& msg : this->_impl_.data_) {
+  for (const auto& msg : this->_internal_data()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -12947,11 +13885,11 @@ void PerfDataProto_StatConfigEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& 
   auto* const _this = static_cast<PerfDataProto_StatConfigEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StatConfigEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StatConfigEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.data_.MergeFrom(from._impl_.data_);
+  _this->_internal_mutable_data()->MergeFrom(from._internal_data());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -12969,7 +13907,7 @@ bool PerfDataProto_StatConfigEvent::IsInitialized() const {
 void PerfDataProto_StatConfigEvent::InternalSwap(PerfDataProto_StatConfigEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.data_.InternalSwap(&other->_impl_.data_);
+  _internal_mutable_data()->InternalSwap(other->_internal_mutable_data());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_StatConfigEvent::GetMetadata() const {
@@ -12977,12 +13915,13 @@ void PerfDataProto_StatConfigEvent::InternalSwap(PerfDataProto_StatConfigEvent* 
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[27]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StatEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StatEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_StatEvent, _impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13003,45 +13942,35 @@ class PerfDataProto_StatEvent::_Internal {
   }
 };
 
-PerfDataProto_StatEvent::PerfDataProto_StatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StatEvent::PerfDataProto_StatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StatEvent)
 }
 PerfDataProto_StatEvent::PerfDataProto_StatEvent(const PerfDataProto_StatEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_StatEvent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.id_){}
-    , decltype(_impl_.cpu_){}
-    , decltype(_impl_.thread_){}
-    , decltype(_impl_.value_){}
-    , decltype(_impl_.enabled_){}
-    , decltype(_impl_.running_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.id_, &from._impl_.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.running_) -
-    reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.running_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StatEvent)
 }
 
-inline void PerfDataProto_StatEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StatEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.id_){uint64_t{0u}}
-    , decltype(_impl_.cpu_){0u}
-    , decltype(_impl_.thread_){0u}
-    , decltype(_impl_.value_){uint64_t{0u}}
-    , decltype(_impl_.enabled_){uint64_t{0u}}
-    , decltype(_impl_.running_){uint64_t{0u}}
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cpu_) { 0u }
+
+    , decltype(_impl_.thread_) { 0u }
+
+    , decltype(_impl_.value_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.enabled_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.running_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -13055,7 +13984,7 @@ PerfDataProto_StatEvent::~PerfDataProto_StatEvent() {
 }
 
 inline void PerfDataProto_StatEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_StatEvent::SetCachedSize(int size) const {
@@ -13064,13 +13993,13 @@ void PerfDataProto_StatEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_StatEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StatEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
-    ::memset(&_impl_.id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.running_) -
         reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.running_));
   }
@@ -13082,62 +14011,68 @@ const char* PerfDataProto_StatEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 cpu = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_cpu(&has_bits);
           _impl_.cpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 thread = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_thread(&has_bits);
           _impl_.thread_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 value = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_value(&has_bits);
           _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 enabled = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_enabled(&has_bits);
           _impl_.enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 running = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_running(&has_bits);
           _impl_.running_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -13163,47 +14098,53 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StatEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StatEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StatEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_id(), target);
   }
 
   // optional uint32 cpu = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_cpu(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_cpu(), target);
   }
 
   // optional uint32 thread = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_thread(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_thread(), target);
   }
 
   // optional uint64 value = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_value(), target);
   }
 
   // optional uint64 enabled = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_enabled(), target);
   }
 
   // optional uint64 running = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_running(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_running(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -13214,11 +14155,11 @@ uint8_t* PerfDataProto_StatEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StatEvent::ByteSizeLong() const {
+::size_t PerfDataProto_StatEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StatEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -13226,32 +14167,38 @@ size_t PerfDataProto_StatEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional uint64 id = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
     // optional uint32 cpu = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cpu());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_cpu());
     }
 
     // optional uint32 thread = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_thread());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_thread());
     }
 
     // optional uint64 value = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_value());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_value());
     }
 
     // optional uint64 enabled = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_enabled());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_enabled());
     }
 
     // optional uint64 running = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_running());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_running());
     }
 
   }
@@ -13269,8 +14216,8 @@ void PerfDataProto_StatEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_StatEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StatEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StatEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -13326,12 +14273,13 @@ void PerfDataProto_StatEvent::InternalSwap(PerfDataProto_StatEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[28]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StatRoundEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StatRoundEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_StatRoundEvent, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13340,37 +14288,27 @@ class PerfDataProto_StatRoundEvent::_Internal {
   }
 };
 
-PerfDataProto_StatRoundEvent::PerfDataProto_StatRoundEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StatRoundEvent::PerfDataProto_StatRoundEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StatRoundEvent)
 }
 PerfDataProto_StatRoundEvent::PerfDataProto_StatRoundEvent(const PerfDataProto_StatRoundEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_StatRoundEvent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.time_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.time_) -
-    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.time_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StatRoundEvent)
 }
 
-inline void PerfDataProto_StatRoundEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StatRoundEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){uint64_t{0u}}
-    , decltype(_impl_.time_){uint64_t{0u}}
+    , decltype(_impl_.type_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -13384,7 +14322,7 @@ PerfDataProto_StatRoundEvent::~PerfDataProto_StatRoundEvent() {
 }
 
 inline void PerfDataProto_StatRoundEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_StatRoundEvent::SetCachedSize(int size) const {
@@ -13393,13 +14331,13 @@ void PerfDataProto_StatRoundEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_StatRoundEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StatRoundEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.time_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.time_));
   }
@@ -13411,26 +14349,28 @@ const char* PerfDataProto_StatRoundEvent::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_time(&has_bits);
           _impl_.time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -13456,23 +14396,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StatRoundEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StatRoundEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StatRoundEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_type(), target);
   }
 
   // optional uint64 time = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -13483,11 +14425,11 @@ uint8_t* PerfDataProto_StatRoundEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StatRoundEvent::ByteSizeLong() const {
+::size_t PerfDataProto_StatRoundEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StatRoundEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -13495,12 +14437,14 @@ size_t PerfDataProto_StatRoundEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 type = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_type());
     }
 
     // optional uint64 time = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time());
     }
 
   }
@@ -13518,8 +14462,8 @@ void PerfDataProto_StatRoundEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   auto* const _this = static_cast<PerfDataProto_StatRoundEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StatRoundEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StatRoundEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -13563,12 +14507,13 @@ void PerfDataProto_StatRoundEvent::InternalSwap(PerfDataProto_StatRoundEvent* ot
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[29]);
 }
-
 // ===================================================================
 
 class PerfDataProto_CgroupEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_CgroupEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_CgroupEvent, _impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -13585,10 +14530,9 @@ const ::quipper::PerfDataProto_SampleInfo&
 PerfDataProto_CgroupEvent::_Internal::sample_info(const PerfDataProto_CgroupEvent* msg) {
   return *msg->_impl_.sample_info_;
 }
-PerfDataProto_CgroupEvent::PerfDataProto_CgroupEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_CgroupEvent::PerfDataProto_CgroupEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.CgroupEvent)
 }
 PerfDataProto_CgroupEvent::PerfDataProto_CgroupEvent(const PerfDataProto_CgroupEvent& from)
@@ -13597,41 +14541,42 @@ PerfDataProto_CgroupEvent::PerfDataProto_CgroupEvent(const PerfDataProto_CgroupE
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.path_){}
+    , decltype(_impl_.path_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.id_){}};
+    , decltype(_impl_.id_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_path()) {
-    _this->_impl_.path_.Set(from._internal_path(), 
-      _this->GetArenaForAllocation());
+        _impl_.path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.path_.Set(from._internal_path(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_sample_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.sample_info_ = new ::quipper::PerfDataProto_SampleInfo(*from._impl_.sample_info_);
   }
   _this->_impl_.id_ = from._impl_.id_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.CgroupEvent)
 }
 
-inline void PerfDataProto_CgroupEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_CgroupEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.path_){}
+    , decltype(_impl_.path_) {}
+
     , decltype(_impl_.sample_info_){nullptr}
-    , decltype(_impl_.id_){uint64_t{0u}}
+    , decltype(_impl_.id_) { ::uint64_t{0u} }
+
   };
   _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_CgroupEvent::~PerfDataProto_CgroupEvent() {
@@ -13644,7 +14589,7 @@ PerfDataProto_CgroupEvent::~PerfDataProto_CgroupEvent() {
 }
 
 inline void PerfDataProto_CgroupEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.path_.Destroy();
   if (this != internal_default_instance()) delete _impl_.sample_info_;
 }
@@ -13655,7 +14600,7 @@ void PerfDataProto_CgroupEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_CgroupEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.CgroupEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -13665,11 +14610,11 @@ void PerfDataProto_CgroupEvent::Clear() {
       _impl_.path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.sample_info_ != nullptr);
+      ABSL_DCHECK(_impl_.sample_info_ != nullptr);
       _impl_.sample_info_->Clear();
     }
   }
-  _impl_.id_ = uint64_t{0u};
+  _impl_.id_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -13678,37 +14623,40 @@ const char* PerfDataProto_CgroupEvent::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string path = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_path();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.CgroupEvent.path");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -13734,27 +14682,26 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_CgroupEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_CgroupEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.CgroupEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 id = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_id(), target);
   }
 
   // optional string path = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_path().data(), static_cast<int>(this->_internal_path().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.CgroupEvent.path");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_path(), target);
+    const std::string& _s = this->_internal_path();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.CgroupEvent.path");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
@@ -13772,11 +14719,11 @@ uint8_t* PerfDataProto_CgroupEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_CgroupEvent::ByteSizeLong() const {
+::size_t PerfDataProto_CgroupEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.CgroupEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -13784,9 +14731,8 @@ size_t PerfDataProto_CgroupEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string path = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_path());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_path());
     }
 
     // optional .quipper.PerfDataProto.SampleInfo sample_info = 3;
@@ -13798,7 +14744,8 @@ size_t PerfDataProto_CgroupEvent::ByteSizeLong() const {
 
     // optional uint64 id = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_id());
     }
 
   }
@@ -13816,8 +14763,8 @@ void PerfDataProto_CgroupEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   auto* const _this = static_cast<PerfDataProto_CgroupEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_CgroupEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.CgroupEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -13854,10 +14801,8 @@ void PerfDataProto_CgroupEvent::InternalSwap(PerfDataProto_CgroupEvent* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.path_, lhs_arena,
-      &other->_impl_.path_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.path_, lhs_arena,
+                                       &other->_impl_.path_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_CgroupEvent, _impl_.id_)
       + sizeof(PerfDataProto_CgroupEvent::_impl_.id_)
@@ -13871,12 +14816,13 @@ void PerfDataProto_CgroupEvent::InternalSwap(PerfDataProto_CgroupEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[30]);
 }
-
 // ===================================================================
 
 class PerfDataProto_TimeConvEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_TimeConvEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_TimeConvEvent, _impl_._has_bits_);
   static void set_has_time_shift(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -13900,47 +14846,37 @@ class PerfDataProto_TimeConvEvent::_Internal {
   }
 };
 
-PerfDataProto_TimeConvEvent::PerfDataProto_TimeConvEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_TimeConvEvent::PerfDataProto_TimeConvEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.TimeConvEvent)
 }
 PerfDataProto_TimeConvEvent::PerfDataProto_TimeConvEvent(const PerfDataProto_TimeConvEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_TimeConvEvent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.time_shift_){}
-    , decltype(_impl_.time_mult_){}
-    , decltype(_impl_.time_zero_){}
-    , decltype(_impl_.time_cycles_){}
-    , decltype(_impl_.time_mask_){}
-    , decltype(_impl_.cap_user_time_zero_){}
-    , decltype(_impl_.cap_user_time_short_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.time_shift_, &from._impl_.time_shift_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cap_user_time_short_) -
-    reinterpret_cast<char*>(&_impl_.time_shift_)) + sizeof(_impl_.cap_user_time_short_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.TimeConvEvent)
 }
 
-inline void PerfDataProto_TimeConvEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_TimeConvEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.time_shift_){uint64_t{0u}}
-    , decltype(_impl_.time_mult_){uint64_t{0u}}
-    , decltype(_impl_.time_zero_){uint64_t{0u}}
-    , decltype(_impl_.time_cycles_){uint64_t{0u}}
-    , decltype(_impl_.time_mask_){uint64_t{0u}}
-    , decltype(_impl_.cap_user_time_zero_){false}
-    , decltype(_impl_.cap_user_time_short_){false}
+    , decltype(_impl_.time_shift_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_mult_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_zero_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_cycles_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_mask_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cap_user_time_zero_) { false }
+
+    , decltype(_impl_.cap_user_time_short_) { false }
+
   };
 }
 
@@ -13954,7 +14890,7 @@ PerfDataProto_TimeConvEvent::~PerfDataProto_TimeConvEvent() {
 }
 
 inline void PerfDataProto_TimeConvEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_TimeConvEvent::SetCachedSize(int size) const {
@@ -13963,13 +14899,13 @@ void PerfDataProto_TimeConvEvent::SetCachedSize(int size) const {
 
 void PerfDataProto_TimeConvEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.TimeConvEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    ::memset(&_impl_.time_shift_, 0, static_cast<size_t>(
+    ::memset(&_impl_.time_shift_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.cap_user_time_short_) -
         reinterpret_cast<char*>(&_impl_.time_shift_)) + sizeof(_impl_.cap_user_time_short_));
   }
@@ -13981,71 +14917,78 @@ const char* PerfDataProto_TimeConvEvent::_InternalParse(const char* ptr, ::_pbi:
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 time_shift = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_time_shift(&has_bits);
           _impl_.time_shift_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_mult = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_time_mult(&has_bits);
           _impl_.time_mult_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_zero = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_time_zero(&has_bits);
           _impl_.time_zero_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_cycles = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_time_cycles(&has_bits);
           _impl_.time_cycles_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 time_mask = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_time_mask(&has_bits);
           _impl_.time_mask_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool cap_user_time_zero = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_cap_user_time_zero(&has_bits);
           _impl_.cap_user_time_zero_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool cap_user_time_short = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_cap_user_time_short(&has_bits);
           _impl_.cap_user_time_short_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -14071,53 +15014,60 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_TimeConvEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_TimeConvEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.TimeConvEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 time_shift = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_time_shift(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_time_shift(), target);
   }
 
   // optional uint64 time_mult = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_time_mult(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_time_mult(), target);
   }
 
   // optional uint64 time_zero = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_time_zero(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_time_zero(), target);
   }
 
   // optional uint64 time_cycles = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_time_cycles(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_time_cycles(), target);
   }
 
   // optional uint64 time_mask = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_time_mask(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_time_mask(), target);
   }
 
   // optional bool cap_user_time_zero = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_cap_user_time_zero(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        6, this->_internal_cap_user_time_zero(), target);
   }
 
   // optional bool cap_user_time_short = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_cap_user_time_short(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_cap_user_time_short(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -14128,11 +15078,11 @@ uint8_t* PerfDataProto_TimeConvEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_TimeConvEvent::ByteSizeLong() const {
+::size_t PerfDataProto_TimeConvEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.TimeConvEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -14140,37 +15090,42 @@ size_t PerfDataProto_TimeConvEvent::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional uint64 time_shift = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_shift());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_shift());
     }
 
     // optional uint64 time_mult = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_mult());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_mult());
     }
 
     // optional uint64 time_zero = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_zero());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_zero());
     }
 
     // optional uint64 time_cycles = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_cycles());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_cycles());
     }
 
     // optional uint64 time_mask = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_time_mask());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_time_mask());
     }
 
     // optional bool cap_user_time_zero = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool cap_user_time_short = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -14188,8 +15143,8 @@ void PerfDataProto_TimeConvEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   auto* const _this = static_cast<PerfDataProto_TimeConvEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_TimeConvEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.TimeConvEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -14248,12 +15203,13 @@ void PerfDataProto_TimeConvEvent::InternalSwap(PerfDataProto_TimeConvEvent* othe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[31]);
 }
-
 // ===================================================================
 
 class PerfDataProto_EventHeader::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_EventHeader>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_EventHeader, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -14265,39 +15221,29 @@ class PerfDataProto_EventHeader::_Internal {
   }
 };
 
-PerfDataProto_EventHeader::PerfDataProto_EventHeader(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_EventHeader::PerfDataProto_EventHeader(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.EventHeader)
 }
 PerfDataProto_EventHeader::PerfDataProto_EventHeader(const PerfDataProto_EventHeader& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_EventHeader* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){}
-    , decltype(_impl_.misc_){}
-    , decltype(_impl_.size_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.type_, &from._impl_.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.size_) -
-    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.size_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.EventHeader)
 }
 
-inline void PerfDataProto_EventHeader::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_EventHeader::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.type_){0u}
-    , decltype(_impl_.misc_){0u}
-    , decltype(_impl_.size_){0u}
+    , decltype(_impl_.type_) { 0u }
+
+    , decltype(_impl_.misc_) { 0u }
+
+    , decltype(_impl_.size_) { 0u }
+
   };
 }
 
@@ -14311,7 +15257,7 @@ PerfDataProto_EventHeader::~PerfDataProto_EventHeader() {
 }
 
 inline void PerfDataProto_EventHeader::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_EventHeader::SetCachedSize(int size) const {
@@ -14320,13 +15266,13 @@ void PerfDataProto_EventHeader::SetCachedSize(int size) const {
 
 void PerfDataProto_EventHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.EventHeader)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+    ::memset(&_impl_.type_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.size_) -
         reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.size_));
   }
@@ -14338,35 +15284,38 @@ const char* PerfDataProto_EventHeader::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 misc = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_misc(&has_bits);
           _impl_.misc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 size = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_size(&has_bits);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -14392,29 +15341,32 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_EventHeader::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_EventHeader::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.EventHeader)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // optional uint32 misc = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_misc(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_misc(), target);
   }
 
   // optional uint32 size = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -14425,11 +15377,11 @@ uint8_t* PerfDataProto_EventHeader::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_EventHeader::ByteSizeLong() const {
+::size_t PerfDataProto_EventHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.EventHeader)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -14437,17 +15389,20 @@ size_t PerfDataProto_EventHeader::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional uint32 type = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_type());
     }
 
     // optional uint32 misc = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_misc());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_misc());
     }
 
     // optional uint32 size = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_size());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_size());
     }
 
   }
@@ -14465,8 +15420,8 @@ void PerfDataProto_EventHeader::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   auto* const _this = static_cast<PerfDataProto_EventHeader*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_EventHeader&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.EventHeader)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -14513,12 +15468,15 @@ void PerfDataProto_EventHeader::InternalSwap(PerfDataProto_EventHeader* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[32]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfEvent, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfEvent, _impl_._oneof_case_);
   static const ::quipper::PerfDataProto_EventHeader& header(const PerfDataProto_PerfEvent* msg);
   static void set_has_header(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -14972,10 +15930,9 @@ void PerfDataProto_PerfEvent::set_allocated_cgroup_event(::quipper::PerfDataProt
   }
   // @@protoc_insertion_point(field_set_allocated:quipper.PerfDataProto.PerfEvent.cgroup_event)
 }
-PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfEvent)
 }
 PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(const PerfDataProto_PerfEvent& from)
@@ -14985,12 +15942,13 @@ PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(const PerfDataProto_PerfEvent& 
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.header_){nullptr}
-    , decltype(_impl_.timestamp_){}
+    , decltype(_impl_.timestamp_) {}
+
     , decltype(_impl_.event_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_header()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.header_ = new ::quipper::PerfDataProto_EventHeader(*from._impl_.header_);
   }
   _this->_impl_.timestamp_ = from._impl_.timestamp_;
@@ -15113,15 +16071,14 @@ PerfDataProto_PerfEvent::PerfDataProto_PerfEvent(const PerfDataProto_PerfEvent& 
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfEvent)
 }
 
-inline void PerfDataProto_PerfEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.header_){nullptr}
-    , decltype(_impl_.timestamp_){uint64_t{0u}}
+    , decltype(_impl_.timestamp_) { ::uint64_t{0u} }
+
     , decltype(_impl_.event_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}
   };
@@ -15138,7 +16095,7 @@ PerfDataProto_PerfEvent::~PerfDataProto_PerfEvent() {
 }
 
 inline void PerfDataProto_PerfEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.header_;
   if (has_event_type()) {
     clear_event_type();
@@ -15294,16 +16251,16 @@ void PerfDataProto_PerfEvent::clear_event_type() {
 
 void PerfDataProto_PerfEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.header_ != nullptr);
+    ABSL_DCHECK(_impl_.header_ != nullptr);
     _impl_.header_->Clear();
   }
-  _impl_.timestamp_ = uint64_t{0u};
+  _impl_.timestamp_ = ::uint64_t{0u};
   clear_event_type();
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -15313,201 +16270,225 @@ const char* PerfDataProto_PerfEvent::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .quipper.PerfDataProto.EventHeader header = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_header(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.MMapEvent mmap_event = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_mmap_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.SampleEvent sample_event = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_sample_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.CommEvent comm_event = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_comm_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ForkEvent fork_event = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_fork_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.LostEvent lost_event = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_lost_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ThrottleEvent throttle_event = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_throttle_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ReadEvent read_event = 8 [deprecated = true];
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_read_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ForkEvent exit_event = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           ptr = ctx->ParseMessage(_internal_mutable_exit_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 timestamp = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_timestamp(&has_bits);
           _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.AuxEvent aux_event = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_aux_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.AuxtraceEvent auxtrace_event = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_auxtrace_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ItraceStartEvent itrace_start_event = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_itrace_start_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.LostSamplesEvent lost_samples_event = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 114)) {
           ptr = ctx->ParseMessage(_internal_mutable_lost_samples_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ContextSwitchEvent context_switch_event = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           ptr = ctx->ParseMessage(_internal_mutable_context_switch_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.NamespacesEvent namespaces_event = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 130)) {
           ptr = ctx->ParseMessage(_internal_mutable_namespaces_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.TimeConvEvent time_conv_event = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 138)) {
           ptr = ctx->ParseMessage(_internal_mutable_time_conv_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.AuxtraceInfoEvent auxtrace_info_event = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 146)) {
           ptr = ctx->ParseMessage(_internal_mutable_auxtrace_info_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.AuxtraceErrorEvent auxtrace_error_event = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 154)) {
           ptr = ctx->ParseMessage(_internal_mutable_auxtrace_error_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.ThreadMapEvent thread_map_event = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 162)) {
           ptr = ctx->ParseMessage(_internal_mutable_thread_map_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.StatConfigEvent stat_config_event = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 170)) {
           ptr = ctx->ParseMessage(_internal_mutable_stat_config_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.StatEvent stat_event = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 178)) {
           ptr = ctx->ParseMessage(_internal_mutable_stat_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.StatRoundEvent stat_round_event = 23;
       case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 186)) {
           ptr = ctx->ParseMessage(_internal_mutable_stat_round_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .quipper.PerfDataProto.CgroupEvent cgroup_event = 24;
       case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 194)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 194)) {
           ptr = ctx->ParseMessage(_internal_mutable_cgroup_event(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -15533,10 +16514,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -15601,7 +16582,8 @@ uint8_t* PerfDataProto_PerfEvent::_InternalSerialize(
   // optional uint64 timestamp = 10;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(10, this->_internal_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        10, this->_internal_timestamp(), target);
   }
 
   switch (event_type_case()) {
@@ -15699,11 +16681,11 @@ uint8_t* PerfDataProto_PerfEvent::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfEvent::ByteSizeLong() const {
+::size_t PerfDataProto_PerfEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -15718,7 +16700,8 @@ size_t PerfDataProto_PerfEvent::ByteSizeLong() const {
 
     // optional uint64 timestamp = 10;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_timestamp());
     }
 
   }
@@ -15895,8 +16878,8 @@ void PerfDataProto_PerfEvent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<PerfDataProto_PerfEvent*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfEvent&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -16058,12 +17041,13 @@ void PerfDataProto_PerfEvent::InternalSwap(PerfDataProto_PerfEvent* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[33]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfEventStats::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfEventStats>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfEventStats, _impl_._has_bits_);
   static void set_has_num_events_read(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -16087,47 +17071,37 @@ class PerfDataProto_PerfEventStats::_Internal {
   }
 };
 
-PerfDataProto_PerfEventStats::PerfDataProto_PerfEventStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfEventStats::PerfDataProto_PerfEventStats(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfEventStats)
 }
 PerfDataProto_PerfEventStats::PerfDataProto_PerfEventStats(const PerfDataProto_PerfEventStats& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_PerfEventStats* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.num_events_read_){}
-    , decltype(_impl_.num_sample_events_){}
-    , decltype(_impl_.num_mmap_events_){}
-    , decltype(_impl_.num_fork_events_){}
-    , decltype(_impl_.num_exit_events_){}
-    , decltype(_impl_.num_sample_events_mapped_){}
-    , decltype(_impl_.did_remap_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.num_events_read_, &from._impl_.num_events_read_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.did_remap_) -
-    reinterpret_cast<char*>(&_impl_.num_events_read_)) + sizeof(_impl_.did_remap_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfEventStats)
 }
 
-inline void PerfDataProto_PerfEventStats::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfEventStats::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.num_events_read_){0u}
-    , decltype(_impl_.num_sample_events_){0u}
-    , decltype(_impl_.num_mmap_events_){0u}
-    , decltype(_impl_.num_fork_events_){0u}
-    , decltype(_impl_.num_exit_events_){0u}
-    , decltype(_impl_.num_sample_events_mapped_){0u}
-    , decltype(_impl_.did_remap_){false}
+    , decltype(_impl_.num_events_read_) { 0u }
+
+    , decltype(_impl_.num_sample_events_) { 0u }
+
+    , decltype(_impl_.num_mmap_events_) { 0u }
+
+    , decltype(_impl_.num_fork_events_) { 0u }
+
+    , decltype(_impl_.num_exit_events_) { 0u }
+
+    , decltype(_impl_.num_sample_events_mapped_) { 0u }
+
+    , decltype(_impl_.did_remap_) { false }
+
   };
 }
 
@@ -16141,7 +17115,7 @@ PerfDataProto_PerfEventStats::~PerfDataProto_PerfEventStats() {
 }
 
 inline void PerfDataProto_PerfEventStats::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_PerfEventStats::SetCachedSize(int size) const {
@@ -16150,13 +17124,13 @@ void PerfDataProto_PerfEventStats::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfEventStats::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfEventStats)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    ::memset(&_impl_.num_events_read_, 0, static_cast<size_t>(
+    ::memset(&_impl_.num_events_read_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.did_remap_) -
         reinterpret_cast<char*>(&_impl_.num_events_read_)) + sizeof(_impl_.did_remap_));
   }
@@ -16168,71 +17142,78 @@ const char* PerfDataProto_PerfEventStats::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 num_events_read = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_num_events_read(&has_bits);
           _impl_.num_events_read_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_sample_events = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_num_sample_events(&has_bits);
           _impl_.num_sample_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_mmap_events = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_num_mmap_events(&has_bits);
           _impl_.num_mmap_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_fork_events = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_num_fork_events(&has_bits);
           _impl_.num_fork_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_exit_events = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_num_exit_events(&has_bits);
           _impl_.num_exit_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_sample_events_mapped = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_num_sample_events_mapped(&has_bits);
           _impl_.num_sample_events_mapped_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool did_remap = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_did_remap(&has_bits);
           _impl_.did_remap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -16258,53 +17239,60 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfEventStats::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfEventStats::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfEventStats)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 num_events_read = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_num_events_read(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_num_events_read(), target);
   }
 
   // optional uint32 num_sample_events = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_num_sample_events(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_num_sample_events(), target);
   }
 
   // optional uint32 num_mmap_events = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_num_mmap_events(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_num_mmap_events(), target);
   }
 
   // optional uint32 num_fork_events = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_num_fork_events(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_num_fork_events(), target);
   }
 
   // optional uint32 num_exit_events = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_num_exit_events(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        5, this->_internal_num_exit_events(), target);
   }
 
   // optional uint32 num_sample_events_mapped = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_num_sample_events_mapped(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        6, this->_internal_num_sample_events_mapped(), target);
   }
 
   // optional bool did_remap = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_did_remap(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_did_remap(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -16315,11 +17303,11 @@ uint8_t* PerfDataProto_PerfEventStats::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfEventStats::ByteSizeLong() const {
+::size_t PerfDataProto_PerfEventStats::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfEventStats)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -16327,37 +17315,43 @@ size_t PerfDataProto_PerfEventStats::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional uint32 num_events_read = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_events_read());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_events_read());
     }
 
     // optional uint32 num_sample_events = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_sample_events());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_sample_events());
     }
 
     // optional uint32 num_mmap_events = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_mmap_events());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_mmap_events());
     }
 
     // optional uint32 num_fork_events = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_fork_events());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_fork_events());
     }
 
     // optional uint32 num_exit_events = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_exit_events());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_exit_events());
     }
 
     // optional uint32 num_sample_events_mapped = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_sample_events_mapped());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_sample_events_mapped());
     }
 
     // optional bool did_remap = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -16375,8 +17369,8 @@ void PerfDataProto_PerfEventStats::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   auto* const _this = static_cast<PerfDataProto_PerfEventStats*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfEventStats&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfEventStats)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -16435,21 +17429,21 @@ void PerfDataProto_PerfEventStats::InternalSwap(PerfDataProto_PerfEventStats* ot
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[34]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfUint32Metadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfUint32Metadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfUint32Metadata, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-PerfDataProto_PerfUint32Metadata::PerfDataProto_PerfUint32Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfUint32Metadata::PerfDataProto_PerfUint32Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfUint32Metadata)
 }
 PerfDataProto_PerfUint32Metadata::PerfDataProto_PerfUint32Metadata(const PerfDataProto_PerfUint32Metadata& from)
@@ -16458,23 +17452,25 @@ PerfDataProto_PerfUint32Metadata::PerfDataProto_PerfUint32Metadata(const PerfDat
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){from._impl_.data_}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.data_) { from._impl_.data_ }
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfUint32Metadata)
 }
 
-inline void PerfDataProto_PerfUint32Metadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfUint32Metadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){arena}
-    , decltype(_impl_.type_){0u}
+    , decltype(_impl_.data_) { arena }
+
+    , decltype(_impl_.type_) { 0u }
+
   };
 }
 
@@ -16488,7 +17484,7 @@ PerfDataProto_PerfUint32Metadata::~PerfDataProto_PerfUint32Metadata() {
 }
 
 inline void PerfDataProto_PerfUint32Metadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.data_.~RepeatedField();
 }
 
@@ -16498,11 +17494,11 @@ void PerfDataProto_PerfUint32Metadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfUint32Metadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfUint32Metadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.data_.Clear();
+  _internal_mutable_data()->Clear();
   _impl_.type_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -16512,21 +17508,22 @@ const char* PerfDataProto_PerfUint32Metadata::_InternalParse(const char* ptr, ::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint32 data = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -16534,11 +17531,12 @@ const char* PerfDataProto_PerfUint32Metadata::_InternalParse(const char* ptr, ::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_data(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -16564,23 +17562,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfUint32Metadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfUint32Metadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfUint32Metadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // repeated uint32 data = 2;
-  for (int i = 0, n = this->_internal_data_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_data_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_data(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_data(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -16591,27 +17591,30 @@ uint8_t* PerfDataProto_PerfUint32Metadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfUint32Metadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfUint32Metadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfUint32Metadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint32 data = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt32Size(this->_impl_.data_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_data_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_data())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_data_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // optional uint32 type = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_type());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -16628,12 +17631,12 @@ void PerfDataProto_PerfUint32Metadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   auto* const _this = static_cast<PerfDataProto_PerfUint32Metadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfUint32Metadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfUint32Metadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.data_.MergeFrom(from._impl_.data_);
-  if (from._internal_has_type()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_type(from._internal_type());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -16655,6 +17658,7 @@ void PerfDataProto_PerfUint32Metadata::InternalSwap(PerfDataProto_PerfUint32Meta
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.data_.InternalSwap(&other->_impl_.data_);
+
   swap(_impl_.type_, other->_impl_.type_);
 }
 
@@ -16663,21 +17667,21 @@ void PerfDataProto_PerfUint32Metadata::InternalSwap(PerfDataProto_PerfUint32Meta
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[35]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfUint64Metadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfUint64Metadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfUint64Metadata, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-PerfDataProto_PerfUint64Metadata::PerfDataProto_PerfUint64Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfUint64Metadata::PerfDataProto_PerfUint64Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfUint64Metadata)
 }
 PerfDataProto_PerfUint64Metadata::PerfDataProto_PerfUint64Metadata(const PerfDataProto_PerfUint64Metadata& from)
@@ -16686,23 +17690,25 @@ PerfDataProto_PerfUint64Metadata::PerfDataProto_PerfUint64Metadata(const PerfDat
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){from._impl_.data_}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.data_) { from._impl_.data_ }
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfUint64Metadata)
 }
 
-inline void PerfDataProto_PerfUint64Metadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfUint64Metadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){arena}
-    , decltype(_impl_.type_){0u}
+    , decltype(_impl_.data_) { arena }
+
+    , decltype(_impl_.type_) { 0u }
+
   };
 }
 
@@ -16716,7 +17722,7 @@ PerfDataProto_PerfUint64Metadata::~PerfDataProto_PerfUint64Metadata() {
 }
 
 inline void PerfDataProto_PerfUint64Metadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.data_.~RepeatedField();
 }
 
@@ -16726,11 +17732,11 @@ void PerfDataProto_PerfUint64Metadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfUint64Metadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfUint64Metadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.data_.Clear();
+  _internal_mutable_data()->Clear();
   _impl_.type_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -16740,21 +17746,22 @@ const char* PerfDataProto_PerfUint64Metadata::_InternalParse(const char* ptr, ::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 data = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -16762,11 +17769,12 @@ const char* PerfDataProto_PerfUint64Metadata::_InternalParse(const char* ptr, ::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_data(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -16792,23 +17800,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfUint64Metadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfUint64Metadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfUint64Metadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // repeated uint64 data = 2;
-  for (int i = 0, n = this->_internal_data_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_data_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_data(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_data(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -16819,27 +17829,30 @@ uint8_t* PerfDataProto_PerfUint64Metadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfUint64Metadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfUint64Metadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfUint64Metadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint64 data = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.data_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_data_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_data())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_data_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // optional uint32 type = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_type());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -16856,12 +17869,12 @@ void PerfDataProto_PerfUint64Metadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   auto* const _this = static_cast<PerfDataProto_PerfUint64Metadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfUint64Metadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfUint64Metadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.data_.MergeFrom(from._impl_.data_);
-  if (from._internal_has_type()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_type(from._internal_type());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -16883,6 +17896,7 @@ void PerfDataProto_PerfUint64Metadata::InternalSwap(PerfDataProto_PerfUint64Meta
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.data_.InternalSwap(&other->_impl_.data_);
+
   swap(_impl_.type_, other->_impl_.type_);
 }
 
@@ -16891,12 +17905,13 @@ void PerfDataProto_PerfUint64Metadata::InternalSwap(PerfDataProto_PerfUint64Meta
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[36]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfTracingMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfTracingMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfTracingMetadata, _impl_._has_bits_);
   static void set_has_tracing_data(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -16905,10 +17920,9 @@ class PerfDataProto_PerfTracingMetadata::_Internal {
   }
 };
 
-PerfDataProto_PerfTracingMetadata::PerfDataProto_PerfTracingMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfTracingMetadata::PerfDataProto_PerfTracingMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfTracingMetadata)
 }
 PerfDataProto_PerfTracingMetadata::PerfDataProto_PerfTracingMetadata(const PerfDataProto_PerfTracingMetadata& from)
@@ -16917,36 +17931,37 @@ PerfDataProto_PerfTracingMetadata::PerfDataProto_PerfTracingMetadata(const PerfD
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.tracing_data_){}
-    , decltype(_impl_.tracing_data_md5_prefix_){}};
+    , decltype(_impl_.tracing_data_) {}
+
+    , decltype(_impl_.tracing_data_md5_prefix_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.tracing_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tracing_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_tracing_data()) {
-    _this->_impl_.tracing_data_.Set(from._internal_tracing_data(), 
-      _this->GetArenaForAllocation());
+        _impl_.tracing_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.tracing_data_.Set(from._internal_tracing_data(), _this->GetArenaForAllocation());
   }
   _this->_impl_.tracing_data_md5_prefix_ = from._impl_.tracing_data_md5_prefix_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfTracingMetadata)
 }
 
-inline void PerfDataProto_PerfTracingMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfTracingMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.tracing_data_){}
-    , decltype(_impl_.tracing_data_md5_prefix_){uint64_t{0u}}
+    , decltype(_impl_.tracing_data_) {}
+
+    , decltype(_impl_.tracing_data_md5_prefix_) { ::uint64_t{0u} }
+
   };
   _impl_.tracing_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tracing_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.tracing_data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfTracingMetadata::~PerfDataProto_PerfTracingMetadata() {
@@ -16959,7 +17974,7 @@ PerfDataProto_PerfTracingMetadata::~PerfDataProto_PerfTracingMetadata() {
 }
 
 inline void PerfDataProto_PerfTracingMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.tracing_data_.Destroy();
 }
 
@@ -16969,7 +17984,7 @@ void PerfDataProto_PerfTracingMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfTracingMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfTracingMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -16977,7 +17992,7 @@ void PerfDataProto_PerfTracingMetadata::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.tracing_data_.ClearNonDefaultToEmpty();
   }
-  _impl_.tracing_data_md5_prefix_ = uint64_t{0u};
+  _impl_.tracing_data_md5_prefix_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -16986,26 +18001,28 @@ const char* PerfDataProto_PerfTracingMetadata::_InternalParse(const char* ptr, :
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes tracing_data = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_tracing_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 tracing_data_md5_prefix = 2 [deprecated = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_tracing_data_md5_prefix(&has_bits);
           _impl_.tracing_data_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -17031,23 +18048,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfTracingMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfTracingMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfTracingMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes tracing_data = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_tracing_data(), target);
+    const std::string& _s = this->_internal_tracing_data();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional uint64 tracing_data_md5_prefix = 2 [deprecated = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_tracing_data_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_tracing_data_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -17058,11 +18076,11 @@ uint8_t* PerfDataProto_PerfTracingMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfTracingMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfTracingMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfTracingMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -17070,14 +18088,14 @@ size_t PerfDataProto_PerfTracingMetadata::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bytes tracing_data = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_tracing_data());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_tracing_data());
     }
 
     // optional uint64 tracing_data_md5_prefix = 2 [deprecated = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tracing_data_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_tracing_data_md5_prefix());
     }
 
   }
@@ -17095,8 +18113,8 @@ void PerfDataProto_PerfTracingMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messa
   auto* const _this = static_cast<PerfDataProto_PerfTracingMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfTracingMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfTracingMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -17129,10 +18147,9 @@ void PerfDataProto_PerfTracingMetadata::InternalSwap(PerfDataProto_PerfTracingMe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.tracing_data_, lhs_arena,
-      &other->_impl_.tracing_data_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.tracing_data_, lhs_arena,
+                                       &other->_impl_.tracing_data_, rhs_arena);
+
   swap(_impl_.tracing_data_md5_prefix_, other->_impl_.tracing_data_md5_prefix_);
 }
 
@@ -17141,12 +18158,13 @@ void PerfDataProto_PerfTracingMetadata::InternalSwap(PerfDataProto_PerfTracingMe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[37]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfBuildID::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfBuildID>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfBuildID, _impl_._has_bits_);
   static void set_has_misc(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -17170,10 +18188,9 @@ class PerfDataProto_PerfBuildID::_Internal {
   }
 };
 
-PerfDataProto_PerfBuildID::PerfDataProto_PerfBuildID(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfBuildID::PerfDataProto_PerfBuildID(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfBuildID)
 }
 PerfDataProto_PerfBuildID::PerfDataProto_PerfBuildID(const PerfDataProto_PerfBuildID& from)
@@ -17182,60 +18199,70 @@ PerfDataProto_PerfBuildID::PerfDataProto_PerfBuildID(const PerfDataProto_PerfBui
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.build_id_hash_){}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.misc_){}
-    , decltype(_impl_.pid_){}
-    , decltype(_impl_.filename_md5_prefix_){}
-    , decltype(_impl_.size_){}
-    , decltype(_impl_.is_injected_){}};
+    , decltype(_impl_.build_id_hash_) {}
+
+    , decltype(_impl_.filename_) {}
+
+    , decltype(_impl_.misc_) {}
+
+    , decltype(_impl_.pid_) {}
+
+    , decltype(_impl_.filename_md5_prefix_) {}
+
+    , decltype(_impl_.size_) {}
+
+    , decltype(_impl_.is_injected_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.build_id_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_id_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_build_id_hash()) {
-    _this->_impl_.build_id_hash_.Set(from._internal_build_id_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.build_id_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.build_id_hash_.Set(from._internal_build_id_hash(), _this->GetArenaForAllocation());
   }
   _impl_.filename_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_filename()) {
-    _this->_impl_.filename_.Set(from._internal_filename(), 
-      _this->GetArenaForAllocation());
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.filename_.Set(from._internal_filename(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.misc_, &from._impl_.misc_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_injected_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.is_injected_) -
     reinterpret_cast<char*>(&_impl_.misc_)) + sizeof(_impl_.is_injected_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfBuildID)
 }
 
-inline void PerfDataProto_PerfBuildID::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfBuildID::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.build_id_hash_){}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.misc_){0u}
-    , decltype(_impl_.pid_){0u}
-    , decltype(_impl_.filename_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.size_){0u}
-    , decltype(_impl_.is_injected_){false}
+    , decltype(_impl_.build_id_hash_) {}
+
+    , decltype(_impl_.filename_) {}
+
+    , decltype(_impl_.misc_) { 0u }
+
+    , decltype(_impl_.pid_) { 0u }
+
+    , decltype(_impl_.filename_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.size_) { 0u }
+
+    , decltype(_impl_.is_injected_) { false }
+
   };
   _impl_.build_id_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_id_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.build_id_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.filename_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.filename_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfBuildID::~PerfDataProto_PerfBuildID() {
@@ -17248,7 +18275,7 @@ PerfDataProto_PerfBuildID::~PerfDataProto_PerfBuildID() {
 }
 
 inline void PerfDataProto_PerfBuildID::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.build_id_hash_.Destroy();
   _impl_.filename_.Destroy();
 }
@@ -17259,7 +18286,7 @@ void PerfDataProto_PerfBuildID::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfBuildID::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfBuildID)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -17273,7 +18300,7 @@ void PerfDataProto_PerfBuildID::Clear() {
     }
   }
   if (cached_has_bits & 0x0000007cu) {
-    ::memset(&_impl_.misc_, 0, static_cast<size_t>(
+    ::memset(&_impl_.misc_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.is_injected_) -
         reinterpret_cast<char*>(&_impl_.misc_)) + sizeof(_impl_.is_injected_));
   }
@@ -17285,74 +18312,81 @@ const char* PerfDataProto_PerfBuildID::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 misc = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_misc(&has_bits);
           _impl_.misc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 pid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_pid(&has_bits);
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes build_id_hash = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_build_id_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string filename = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_filename();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfBuildID.filename");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 filename_md5_prefix = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_filename_md5_prefix(&has_bits);
           _impl_.filename_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 size = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_size(&has_bits);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool is_injected = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_is_injected(&has_bits);
           _impl_.is_injected_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -17378,57 +18412,60 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfBuildID::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfBuildID::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfBuildID)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 misc = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_misc(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_misc(), target);
   }
 
   // optional uint32 pid = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_pid(), target);
   }
 
   // optional bytes build_id_hash = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_build_id_hash(), target);
+    const std::string& _s = this->_internal_build_id_hash();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional string filename = 4;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfBuildID.filename");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_filename(), target);
+    const std::string& _s = this->_internal_filename();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfBuildID.filename");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional uint64 filename_md5_prefix = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_filename_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_filename_md5_prefix(), target);
   }
 
   // optional uint32 size = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        6, this->_internal_size(), target);
   }
 
   // optional bool is_injected = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_is_injected(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_is_injected(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -17439,11 +18476,11 @@ uint8_t* PerfDataProto_PerfBuildID::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfBuildID::ByteSizeLong() const {
+::size_t PerfDataProto_PerfBuildID::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfBuildID)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -17451,41 +18488,43 @@ size_t PerfDataProto_PerfBuildID::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional bytes build_id_hash = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_build_id_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_build_id_hash());
     }
 
     // optional string filename = 4;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_filename());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_filename());
     }
 
     // optional uint32 misc = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_misc());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_misc());
     }
 
     // optional uint32 pid = 2;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_pid());
     }
 
     // optional uint64 filename_md5_prefix = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_filename_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_filename_md5_prefix());
     }
 
     // optional uint32 size = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_size());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_size());
     }
 
     // optional bool is_injected = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -17503,8 +18542,8 @@ void PerfDataProto_PerfBuildID::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   auto* const _this = static_cast<PerfDataProto_PerfBuildID*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfBuildID&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfBuildID)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -17552,14 +18591,10 @@ void PerfDataProto_PerfBuildID::InternalSwap(PerfDataProto_PerfBuildID* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.build_id_hash_, lhs_arena,
-      &other->_impl_.build_id_hash_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.filename_, lhs_arena,
-      &other->_impl_.filename_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.build_id_hash_, lhs_arena,
+                                       &other->_impl_.build_id_hash_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.filename_, lhs_arena,
+                                       &other->_impl_.filename_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfBuildID, _impl_.is_injected_)
       + sizeof(PerfDataProto_PerfBuildID::_impl_.is_injected_)
@@ -17573,12 +18608,13 @@ void PerfDataProto_PerfBuildID::InternalSwap(PerfDataProto_PerfBuildID* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[38]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfCPUTopologyMetadata_CPU::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfCPUTopologyMetadata_CPU>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfCPUTopologyMetadata_CPU, _impl_._has_bits_);
   static void set_has_core_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -17587,37 +18623,27 @@ class PerfDataProto_PerfCPUTopologyMetadata_CPU::_Internal {
   }
 };
 
-PerfDataProto_PerfCPUTopologyMetadata_CPU::PerfDataProto_PerfCPUTopologyMetadata_CPU(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfCPUTopologyMetadata_CPU::PerfDataProto_PerfCPUTopologyMetadata_CPU(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
 }
 PerfDataProto_PerfCPUTopologyMetadata_CPU::PerfDataProto_PerfCPUTopologyMetadata_CPU(const PerfDataProto_PerfCPUTopologyMetadata_CPU& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfDataProto_PerfCPUTopologyMetadata_CPU* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.core_id_){}
-    , decltype(_impl_.socket_id_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.core_id_, &from._impl_.core_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.socket_id_) -
-    reinterpret_cast<char*>(&_impl_.core_id_)) + sizeof(_impl_.socket_id_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
 }
 
-inline void PerfDataProto_PerfCPUTopologyMetadata_CPU::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfCPUTopologyMetadata_CPU::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.core_id_){0u}
-    , decltype(_impl_.socket_id_){0u}
+    , decltype(_impl_.core_id_) { 0u }
+
+    , decltype(_impl_.socket_id_) { 0u }
+
   };
 }
 
@@ -17631,7 +18657,7 @@ PerfDataProto_PerfCPUTopologyMetadata_CPU::~PerfDataProto_PerfCPUTopologyMetadat
 }
 
 inline void PerfDataProto_PerfCPUTopologyMetadata_CPU::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfDataProto_PerfCPUTopologyMetadata_CPU::SetCachedSize(int size) const {
@@ -17640,13 +18666,13 @@ void PerfDataProto_PerfCPUTopologyMetadata_CPU::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfCPUTopologyMetadata_CPU::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.core_id_, 0, static_cast<size_t>(
+    ::memset(&_impl_.core_id_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.socket_id_) -
         reinterpret_cast<char*>(&_impl_.core_id_)) + sizeof(_impl_.socket_id_));
   }
@@ -17658,26 +18684,28 @@ const char* PerfDataProto_PerfCPUTopologyMetadata_CPU::_InternalParse(const char
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 core_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_core_id(&has_bits);
           _impl_.core_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 socket_id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_socket_id(&has_bits);
           _impl_.socket_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -17703,23 +18731,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfCPUTopologyMetadata_CPU::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfCPUTopologyMetadata_CPU::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 core_id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_core_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_core_id(), target);
   }
 
   // optional uint32 socket_id = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_socket_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_socket_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -17730,11 +18760,11 @@ uint8_t* PerfDataProto_PerfCPUTopologyMetadata_CPU::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfCPUTopologyMetadata_CPU::ByteSizeLong() const {
+::size_t PerfDataProto_PerfCPUTopologyMetadata_CPU::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -17742,12 +18772,14 @@ size_t PerfDataProto_PerfCPUTopologyMetadata_CPU::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint32 core_id = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_core_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_core_id());
     }
 
     // optional uint32 socket_id = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_socket_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_socket_id());
     }
 
   }
@@ -17765,8 +18797,8 @@ void PerfDataProto_PerfCPUTopologyMetadata_CPU::MergeImpl(::PROTOBUF_NAMESPACE_I
   auto* const _this = static_cast<PerfDataProto_PerfCPUTopologyMetadata_CPU*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfCPUTopologyMetadata_CPU&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -17810,17 +18842,15 @@ void PerfDataProto_PerfCPUTopologyMetadata_CPU::InternalSwap(PerfDataProto_PerfC
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[39]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfCPUTopologyMetadata::_Internal {
  public:
 };
 
-PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfCPUTopologyMetadata)
 }
 PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(const PerfDataProto_PerfCPUTopologyMetadata& from)
@@ -17828,9 +18858,11 @@ PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(con
   PerfDataProto_PerfCPUTopologyMetadata* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.core_siblings_){from._impl_.core_siblings_}
-    , decltype(_impl_.core_siblings_md5_prefix_){from._impl_.core_siblings_md5_prefix_}
+    , decltype(_impl_.core_siblings_md5_prefix_) { from._impl_.core_siblings_md5_prefix_ }
+
     , decltype(_impl_.thread_siblings_){from._impl_.thread_siblings_}
-    , decltype(_impl_.thread_siblings_md5_prefix_){from._impl_.thread_siblings_md5_prefix_}
+    , decltype(_impl_.thread_siblings_md5_prefix_) { from._impl_.thread_siblings_md5_prefix_ }
+
     , decltype(_impl_.available_cpus_){from._impl_.available_cpus_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -17838,15 +18870,15 @@ PerfDataProto_PerfCPUTopologyMetadata::PerfDataProto_PerfCPUTopologyMetadata(con
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfCPUTopologyMetadata)
 }
 
-inline void PerfDataProto_PerfCPUTopologyMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfCPUTopologyMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.core_siblings_){arena}
-    , decltype(_impl_.core_siblings_md5_prefix_){arena}
+    , decltype(_impl_.core_siblings_md5_prefix_) { arena }
+
     , decltype(_impl_.thread_siblings_){arena}
-    , decltype(_impl_.thread_siblings_md5_prefix_){arena}
+    , decltype(_impl_.thread_siblings_md5_prefix_) { arena }
+
     , decltype(_impl_.available_cpus_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -17862,12 +18894,12 @@ PerfDataProto_PerfCPUTopologyMetadata::~PerfDataProto_PerfCPUTopologyMetadata() 
 }
 
 inline void PerfDataProto_PerfCPUTopologyMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.core_siblings_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_core_siblings()->~RepeatedPtrField();
   _impl_.core_siblings_md5_prefix_.~RepeatedField();
-  _impl_.thread_siblings_.~RepeatedPtrField();
+  _internal_mutable_thread_siblings()->~RepeatedPtrField();
   _impl_.thread_siblings_md5_prefix_.~RepeatedField();
-  _impl_.available_cpus_.~RepeatedPtrField();
+  _internal_mutable_available_cpus()->~RepeatedPtrField();
 }
 
 void PerfDataProto_PerfCPUTopologyMetadata::SetCachedSize(int size) const {
@@ -17876,27 +18908,27 @@ void PerfDataProto_PerfCPUTopologyMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfCPUTopologyMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfCPUTopologyMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.core_siblings_.Clear();
-  _impl_.core_siblings_md5_prefix_.Clear();
-  _impl_.thread_siblings_.Clear();
-  _impl_.thread_siblings_md5_prefix_.Clear();
-  _impl_.available_cpus_.Clear();
+  _internal_mutable_core_siblings()->Clear();
+  _internal_mutable_core_siblings_md5_prefix()->Clear();
+  _internal_mutable_thread_siblings()->Clear();
+  _internal_mutable_thread_siblings_md5_prefix()->Clear();
+  _internal_mutable_available_cpus()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string core_siblings = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -17908,12 +18940,13 @@ const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* pt
             #endif  // !NDEBUG
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 core_siblings_md5_prefix = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -17921,15 +18954,16 @@ const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* pt
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<16>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 18) {
+        } else if (static_cast<::uint8_t>(tag) == 18) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_core_siblings_md5_prefix(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated string thread_siblings = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -17941,12 +18975,13 @@ const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* pt
             #endif  // !NDEBUG
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 thread_siblings_md5_prefix = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -17954,15 +18989,16 @@ const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* pt
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 34) {
+        } else if (static_cast<::uint8_t>(tag) == 34) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_thread_siblings_md5_prefix(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU available_cpus = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -17970,8 +19006,9 @@ const char* PerfDataProto_PerfCPUTopologyMetadata::_InternalParse(const char* pt
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -17996,42 +19033,40 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfCPUTopologyMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfCPUTopologyMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfCPUTopologyMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated string core_siblings = 1;
-  for (int i = 0, n = this->_internal_core_siblings_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_core_siblings_size(); i < n; ++i) {
     const auto& s = this->_internal_core_siblings(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfCPUTopologyMetadata.core_siblings");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(s.data(), static_cast<int>(s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfCPUTopologyMetadata.core_siblings");
     target = stream->WriteString(1, s, target);
   }
 
   // repeated uint64 core_siblings_md5_prefix = 2;
-  for (int i = 0, n = this->_internal_core_siblings_md5_prefix_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_core_siblings_md5_prefix_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_core_siblings_md5_prefix(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_core_siblings_md5_prefix(i), target);
   }
 
   // repeated string thread_siblings = 3;
-  for (int i = 0, n = this->_internal_thread_siblings_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_thread_siblings_size(); i < n; ++i) {
     const auto& s = this->_internal_thread_siblings(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfCPUTopologyMetadata.thread_siblings");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(s.data(), static_cast<int>(s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfCPUTopologyMetadata.thread_siblings");
     target = stream->WriteString(3, s, target);
   }
 
   // repeated uint64 thread_siblings_md5_prefix = 4;
-  for (int i = 0, n = this->_internal_thread_siblings_md5_prefix_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_thread_siblings_md5_prefix_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_thread_siblings_md5_prefix(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_thread_siblings_md5_prefix(i), target);
   }
 
   // repeated .quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU available_cpus = 5;
@@ -18050,51 +19085,53 @@ uint8_t* PerfDataProto_PerfCPUTopologyMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfCPUTopologyMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfCPUTopologyMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfCPUTopologyMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated string core_siblings = 1;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.core_siblings_.size());
-  for (int i = 0, n = _impl_.core_siblings_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_core_siblings().size());
+  for (int i = 0, n = _internal_core_siblings().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.core_siblings_.Get(i));
+        _internal_core_siblings().Get(i));
   }
 
   // repeated uint64 core_siblings_md5_prefix = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.core_siblings_md5_prefix_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_core_siblings_md5_prefix_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_core_siblings_md5_prefix())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_core_siblings_md5_prefix_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // repeated string thread_siblings = 3;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.thread_siblings_.size());
-  for (int i = 0, n = _impl_.thread_siblings_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_thread_siblings().size());
+  for (int i = 0, n = _internal_thread_siblings().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.thread_siblings_.Get(i));
+        _internal_thread_siblings().Get(i));
   }
 
   // repeated uint64 thread_siblings_md5_prefix = 4;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.thread_siblings_md5_prefix_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_thread_siblings_md5_prefix_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_thread_siblings_md5_prefix())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_thread_siblings_md5_prefix_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // repeated .quipper.PerfDataProto.PerfCPUTopologyMetadata.CPU available_cpus = 5;
   total_size += 1UL * this->_internal_available_cpus_size();
-  for (const auto& msg : this->_impl_.available_cpus_) {
+  for (const auto& msg : this->_internal_available_cpus()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -18113,15 +19150,15 @@ void PerfDataProto_PerfCPUTopologyMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::M
   auto* const _this = static_cast<PerfDataProto_PerfCPUTopologyMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfCPUTopologyMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfCPUTopologyMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.core_siblings_.MergeFrom(from._impl_.core_siblings_);
+  _this->_internal_mutable_core_siblings()->MergeFrom(from._internal_core_siblings());
   _this->_impl_.core_siblings_md5_prefix_.MergeFrom(from._impl_.core_siblings_md5_prefix_);
-  _this->_impl_.thread_siblings_.MergeFrom(from._impl_.thread_siblings_);
+  _this->_internal_mutable_thread_siblings()->MergeFrom(from._internal_thread_siblings());
   _this->_impl_.thread_siblings_md5_prefix_.MergeFrom(from._impl_.thread_siblings_md5_prefix_);
-  _this->_impl_.available_cpus_.MergeFrom(from._impl_.available_cpus_);
+  _this->_internal_mutable_available_cpus()->MergeFrom(from._internal_available_cpus());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -18139,11 +19176,13 @@ bool PerfDataProto_PerfCPUTopologyMetadata::IsInitialized() const {
 void PerfDataProto_PerfCPUTopologyMetadata::InternalSwap(PerfDataProto_PerfCPUTopologyMetadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.core_siblings_.InternalSwap(&other->_impl_.core_siblings_);
+  _internal_mutable_core_siblings()->InternalSwap(
+      other->_internal_mutable_core_siblings());
   _impl_.core_siblings_md5_prefix_.InternalSwap(&other->_impl_.core_siblings_md5_prefix_);
-  _impl_.thread_siblings_.InternalSwap(&other->_impl_.thread_siblings_);
+  _internal_mutable_thread_siblings()->InternalSwap(
+      other->_internal_mutable_thread_siblings());
   _impl_.thread_siblings_md5_prefix_.InternalSwap(&other->_impl_.thread_siblings_md5_prefix_);
-  _impl_.available_cpus_.InternalSwap(&other->_impl_.available_cpus_);
+  _internal_mutable_available_cpus()->InternalSwap(other->_internal_mutable_available_cpus());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_PerfCPUTopologyMetadata::GetMetadata() const {
@@ -18151,12 +19190,13 @@ void PerfDataProto_PerfCPUTopologyMetadata::InternalSwap(PerfDataProto_PerfCPUTo
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[40]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfNodeTopologyMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfNodeTopologyMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfNodeTopologyMetadata, _impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
@@ -18174,10 +19214,9 @@ class PerfDataProto_PerfNodeTopologyMetadata::_Internal {
   }
 };
 
-PerfDataProto_PerfNodeTopologyMetadata::PerfDataProto_PerfNodeTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfNodeTopologyMetadata::PerfDataProto_PerfNodeTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfNodeTopologyMetadata)
 }
 PerfDataProto_PerfNodeTopologyMetadata::PerfDataProto_PerfNodeTopologyMetadata(const PerfDataProto_PerfNodeTopologyMetadata& from)
@@ -18186,44 +19225,51 @@ PerfDataProto_PerfNodeTopologyMetadata::PerfDataProto_PerfNodeTopologyMetadata(c
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.cpu_list_){}
-    , decltype(_impl_.total_memory_){}
-    , decltype(_impl_.free_memory_){}
-    , decltype(_impl_.cpu_list_md5_prefix_){}
-    , decltype(_impl_.id_){}};
+    , decltype(_impl_.cpu_list_) {}
+
+    , decltype(_impl_.total_memory_) {}
+
+    , decltype(_impl_.free_memory_) {}
+
+    , decltype(_impl_.cpu_list_md5_prefix_) {}
+
+    , decltype(_impl_.id_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.cpu_list_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cpu_list_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_cpu_list()) {
-    _this->_impl_.cpu_list_.Set(from._internal_cpu_list(), 
-      _this->GetArenaForAllocation());
+        _impl_.cpu_list_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.cpu_list_.Set(from._internal_cpu_list(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.total_memory_, &from._impl_.total_memory_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.id_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.id_) -
     reinterpret_cast<char*>(&_impl_.total_memory_)) + sizeof(_impl_.id_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfNodeTopologyMetadata)
 }
 
-inline void PerfDataProto_PerfNodeTopologyMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfNodeTopologyMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.cpu_list_){}
-    , decltype(_impl_.total_memory_){uint64_t{0u}}
-    , decltype(_impl_.free_memory_){uint64_t{0u}}
-    , decltype(_impl_.cpu_list_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.id_){0u}
+    , decltype(_impl_.cpu_list_) {}
+
+    , decltype(_impl_.total_memory_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.free_memory_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.cpu_list_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.id_) { 0u }
+
   };
   _impl_.cpu_list_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cpu_list_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.cpu_list_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfNodeTopologyMetadata::~PerfDataProto_PerfNodeTopologyMetadata() {
@@ -18236,7 +19282,7 @@ PerfDataProto_PerfNodeTopologyMetadata::~PerfDataProto_PerfNodeTopologyMetadata(
 }
 
 inline void PerfDataProto_PerfNodeTopologyMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.cpu_list_.Destroy();
 }
 
@@ -18246,7 +19292,7 @@ void PerfDataProto_PerfNodeTopologyMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfNodeTopologyMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfNodeTopologyMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -18255,7 +19301,7 @@ void PerfDataProto_PerfNodeTopologyMetadata::Clear() {
     _impl_.cpu_list_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000001eu) {
-    ::memset(&_impl_.total_memory_, 0, static_cast<size_t>(
+    ::memset(&_impl_.total_memory_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.id_) -
         reinterpret_cast<char*>(&_impl_.total_memory_)) + sizeof(_impl_.id_));
   }
@@ -18267,56 +19313,61 @@ const char* PerfDataProto_PerfNodeTopologyMetadata::_InternalParse(const char* p
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 total_memory = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_total_memory(&has_bits);
           _impl_.total_memory_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 free_memory = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_free_memory(&has_bits);
           _impl_.free_memory_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string cpu_list = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_cpu_list();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfNodeTopologyMetadata.cpu_list");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 cpu_list_md5_prefix = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_cpu_list_md5_prefix(&has_bits);
           _impl_.cpu_list_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -18342,45 +19393,47 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfNodeTopologyMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfNodeTopologyMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfNodeTopologyMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 id = 1;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_id(), target);
   }
 
   // optional uint64 total_memory = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_total_memory(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_total_memory(), target);
   }
 
   // optional uint64 free_memory = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_free_memory(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_free_memory(), target);
   }
 
   // optional string cpu_list = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_cpu_list().data(), static_cast<int>(this->_internal_cpu_list().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfNodeTopologyMetadata.cpu_list");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_cpu_list(), target);
+    const std::string& _s = this->_internal_cpu_list();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfNodeTopologyMetadata.cpu_list");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional uint64 cpu_list_md5_prefix = 5;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_cpu_list_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_cpu_list_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -18391,11 +19444,11 @@ uint8_t* PerfDataProto_PerfNodeTopologyMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfNodeTopologyMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfNodeTopologyMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfNodeTopologyMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -18403,29 +19456,32 @@ size_t PerfDataProto_PerfNodeTopologyMetadata::ByteSizeLong() const {
   if (cached_has_bits & 0x0000001fu) {
     // optional string cpu_list = 4;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_cpu_list());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_cpu_list());
     }
 
     // optional uint64 total_memory = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_total_memory());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_total_memory());
     }
 
     // optional uint64 free_memory = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_free_memory());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_free_memory());
     }
 
     // optional uint64 cpu_list_md5_prefix = 5;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_cpu_list_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_cpu_list_md5_prefix());
     }
 
     // optional uint32 id = 1;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_id());
     }
 
   }
@@ -18443,8 +19499,8 @@ void PerfDataProto_PerfNodeTopologyMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::
   auto* const _this = static_cast<PerfDataProto_PerfNodeTopologyMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfNodeTopologyMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfNodeTopologyMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -18486,10 +19542,8 @@ void PerfDataProto_PerfNodeTopologyMetadata::InternalSwap(PerfDataProto_PerfNode
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.cpu_list_, lhs_arena,
-      &other->_impl_.cpu_list_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.cpu_list_, lhs_arena,
+                                       &other->_impl_.cpu_list_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfNodeTopologyMetadata, _impl_.id_)
       + sizeof(PerfDataProto_PerfNodeTopologyMetadata::_impl_.id_)
@@ -18503,12 +19557,13 @@ void PerfDataProto_PerfNodeTopologyMetadata::InternalSwap(PerfDataProto_PerfNode
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[41]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfPMUMappingsMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfPMUMappingsMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfPMUMappingsMetadata, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -18520,10 +19575,9 @@ class PerfDataProto_PerfPMUMappingsMetadata::_Internal {
   }
 };
 
-PerfDataProto_PerfPMUMappingsMetadata::PerfDataProto_PerfPMUMappingsMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfPMUMappingsMetadata::PerfDataProto_PerfPMUMappingsMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfPMUMappingsMetadata)
 }
 PerfDataProto_PerfPMUMappingsMetadata::PerfDataProto_PerfPMUMappingsMetadata(const PerfDataProto_PerfPMUMappingsMetadata& from)
@@ -18532,40 +19586,43 @@ PerfDataProto_PerfPMUMappingsMetadata::PerfDataProto_PerfPMUMappingsMetadata(con
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.name_md5_prefix_){}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.name_md5_prefix_) {}
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.name_md5_prefix_, &from._impl_.name_md5_prefix_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.type_) -
     reinterpret_cast<char*>(&_impl_.name_md5_prefix_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfPMUMappingsMetadata)
 }
 
-inline void PerfDataProto_PerfPMUMappingsMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfPMUMappingsMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.name_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.type_){0u}
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.name_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.type_) { 0u }
+
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfPMUMappingsMetadata::~PerfDataProto_PerfPMUMappingsMetadata() {
@@ -18578,7 +19635,7 @@ PerfDataProto_PerfPMUMappingsMetadata::~PerfDataProto_PerfPMUMappingsMetadata() 
 }
 
 inline void PerfDataProto_PerfPMUMappingsMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -18588,7 +19645,7 @@ void PerfDataProto_PerfPMUMappingsMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfPMUMappingsMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfPMUMappingsMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -18597,7 +19654,7 @@ void PerfDataProto_PerfPMUMappingsMetadata::Clear() {
     _impl_.name_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.name_md5_prefix_, 0, static_cast<size_t>(
+    ::memset(&_impl_.name_md5_prefix_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.type_) -
         reinterpret_cast<char*>(&_impl_.name_md5_prefix_)) + sizeof(_impl_.type_));
   }
@@ -18609,38 +19666,41 @@ const char* PerfDataProto_PerfPMUMappingsMetadata::_InternalParse(const char* pt
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
           _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string name = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfPMUMappingsMetadata.name");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 name_md5_prefix = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_name_md5_prefix(&has_bits);
           _impl_.name_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -18666,33 +19726,33 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfPMUMappingsMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfPMUMappingsMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfPMUMappingsMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 type = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_type(), target);
   }
 
   // optional string name = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfPMUMappingsMetadata.name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
+    const std::string& _s = this->_internal_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfPMUMappingsMetadata.name");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional uint64 name_md5_prefix = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_name_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_name_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -18703,11 +19763,11 @@ uint8_t* PerfDataProto_PerfPMUMappingsMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfPMUMappingsMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfPMUMappingsMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfPMUMappingsMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -18715,19 +19775,20 @@ size_t PerfDataProto_PerfPMUMappingsMetadata::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string name = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_name());
     }
 
     // optional uint64 name_md5_prefix = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_name_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_name_md5_prefix());
     }
 
     // optional uint32 type = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_type());
     }
 
   }
@@ -18745,8 +19806,8 @@ void PerfDataProto_PerfPMUMappingsMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::M
   auto* const _this = static_cast<PerfDataProto_PerfPMUMappingsMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfPMUMappingsMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfPMUMappingsMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -18782,10 +19843,8 @@ void PerfDataProto_PerfPMUMappingsMetadata::InternalSwap(PerfDataProto_PerfPMUMa
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfPMUMappingsMetadata, _impl_.type_)
       + sizeof(PerfDataProto_PerfPMUMappingsMetadata::_impl_.type_)
@@ -18799,12 +19858,13 @@ void PerfDataProto_PerfPMUMappingsMetadata::InternalSwap(PerfDataProto_PerfPMUMa
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[42]);
 }
-
 // ===================================================================
 
 class PerfDataProto_PerfGroupDescMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_PerfGroupDescMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfGroupDescMetadata, _impl_._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -18819,10 +19879,9 @@ class PerfDataProto_PerfGroupDescMetadata::_Internal {
   }
 };
 
-PerfDataProto_PerfGroupDescMetadata::PerfDataProto_PerfGroupDescMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_PerfGroupDescMetadata::PerfDataProto_PerfGroupDescMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfGroupDescMetadata)
 }
 PerfDataProto_PerfGroupDescMetadata::PerfDataProto_PerfGroupDescMetadata(const PerfDataProto_PerfGroupDescMetadata& from)
@@ -18831,42 +19890,47 @@ PerfDataProto_PerfGroupDescMetadata::PerfDataProto_PerfGroupDescMetadata(const P
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.name_md5_prefix_){}
-    , decltype(_impl_.leader_idx_){}
-    , decltype(_impl_.num_members_){}};
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.name_md5_prefix_) {}
+
+    , decltype(_impl_.leader_idx_) {}
+
+    , decltype(_impl_.num_members_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.name_md5_prefix_, &from._impl_.name_md5_prefix_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.num_members_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.num_members_) -
     reinterpret_cast<char*>(&_impl_.name_md5_prefix_)) + sizeof(_impl_.num_members_));
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfGroupDescMetadata)
 }
 
-inline void PerfDataProto_PerfGroupDescMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_PerfGroupDescMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.name_md5_prefix_){uint64_t{0u}}
-    , decltype(_impl_.leader_idx_){0u}
-    , decltype(_impl_.num_members_){0u}
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.name_md5_prefix_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.leader_idx_) { 0u }
+
+    , decltype(_impl_.num_members_) { 0u }
+
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_PerfGroupDescMetadata::~PerfDataProto_PerfGroupDescMetadata() {
@@ -18879,7 +19943,7 @@ PerfDataProto_PerfGroupDescMetadata::~PerfDataProto_PerfGroupDescMetadata() {
 }
 
 inline void PerfDataProto_PerfGroupDescMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -18889,7 +19953,7 @@ void PerfDataProto_PerfGroupDescMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_PerfGroupDescMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfGroupDescMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -18898,7 +19962,7 @@ void PerfDataProto_PerfGroupDescMetadata::Clear() {
     _impl_.name_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&_impl_.name_md5_prefix_, 0, static_cast<size_t>(
+    ::memset(&_impl_.name_md5_prefix_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.num_members_) -
         reinterpret_cast<char*>(&_impl_.name_md5_prefix_)) + sizeof(_impl_.num_members_));
   }
@@ -18910,47 +19974,51 @@ const char* PerfDataProto_PerfGroupDescMetadata::_InternalParse(const char* ptr,
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfGroupDescMetadata.name");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 name_md5_prefix = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_name_md5_prefix(&has_bits);
           _impl_.name_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 leader_idx = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_leader_idx(&has_bits);
           _impl_.leader_idx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 num_members = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_num_members(&has_bits);
           _impl_.num_members_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -18976,39 +20044,40 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_PerfGroupDescMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_PerfGroupDescMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfGroupDescMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string name = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.PerfGroupDescMetadata.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+    const std::string& _s = this->_internal_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfGroupDescMetadata.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional uint64 name_md5_prefix = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_name_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_name_md5_prefix(), target);
   }
 
   // optional uint32 leader_idx = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_leader_idx(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_leader_idx(), target);
   }
 
   // optional uint32 num_members = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_num_members(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_num_members(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -19019,11 +20088,11 @@ uint8_t* PerfDataProto_PerfGroupDescMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_PerfGroupDescMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_PerfGroupDescMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfGroupDescMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -19031,24 +20100,26 @@ size_t PerfDataProto_PerfGroupDescMetadata::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000fu) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_name());
     }
 
     // optional uint64 name_md5_prefix = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_name_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_name_md5_prefix());
     }
 
     // optional uint32 leader_idx = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_leader_idx());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_leader_idx());
     }
 
     // optional uint32 num_members = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_members());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_num_members());
     }
 
   }
@@ -19066,8 +20137,8 @@ void PerfDataProto_PerfGroupDescMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Mes
   auto* const _this = static_cast<PerfDataProto_PerfGroupDescMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_PerfGroupDescMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfGroupDescMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -19106,10 +20177,8 @@ void PerfDataProto_PerfGroupDescMetadata::InternalSwap(PerfDataProto_PerfGroupDe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfGroupDescMetadata, _impl_.num_members_)
       + sizeof(PerfDataProto_PerfGroupDescMetadata::_impl_.num_members_)
@@ -19123,12 +20192,13 @@ void PerfDataProto_PerfGroupDescMetadata::InternalSwap(PerfDataProto_PerfGroupDe
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[43]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StringMetadata_StringAndMd5sumPrefix>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_._has_bits_);
   static void set_has_value(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -19137,10 +20207,9 @@ class PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_Internal {
   }
 };
 
-PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
 }
 PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(const PerfDataProto_StringMetadata_StringAndMd5sumPrefix& from)
@@ -19149,36 +20218,37 @@ PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.value_){}
-    , decltype(_impl_.value_md5_prefix_){}};
+    , decltype(_impl_.value_) {}
+
+    , decltype(_impl_.value_md5_prefix_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_value()) {
-    _this->_impl_.value_.Set(from._internal_value(), 
-      _this->GetArenaForAllocation());
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.value_.Set(from._internal_value(), _this->GetArenaForAllocation());
   }
   _this->_impl_.value_md5_prefix_ = from._impl_.value_md5_prefix_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
 }
 
-inline void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.value_){}
-    , decltype(_impl_.value_md5_prefix_){uint64_t{0u}}
+    , decltype(_impl_.value_) {}
+
+    , decltype(_impl_.value_md5_prefix_) { ::uint64_t{0u} }
+
   };
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PerfDataProto_StringMetadata_StringAndMd5sumPrefix::~PerfDataProto_StringMetadata_StringAndMd5sumPrefix() {
@@ -19191,7 +20261,7 @@ PerfDataProto_StringMetadata_StringAndMd5sumPrefix::~PerfDataProto_StringMetadat
 }
 
 inline void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.value_.Destroy();
 }
 
@@ -19201,7 +20271,7 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::SetCachedSize(int size)
 
 void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -19209,7 +20279,7 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.value_.ClearNonDefaultToEmpty();
   }
-  _impl_.value_md5_prefix_ = uint64_t{0u};
+  _impl_.value_md5_prefix_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -19218,29 +20288,31 @@ const char* PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_InternalParse(c
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           #ifndef NDEBUG
           ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix.value");
           #endif  // !NDEBUG
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 value_md5_prefix = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_value_md5_prefix(&has_bits);
           _impl_.value_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -19266,27 +20338,26 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string value = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_value().data(), static_cast<int>(this->_internal_value().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix.value");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_value(), target);
+    const std::string& _s = this->_internal_value();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix.value");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional uint64 value_md5_prefix = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_value_md5_prefix(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_value_md5_prefix(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -19297,11 +20368,11 @@ uint8_t* PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StringMetadata_StringAndMd5sumPrefix::ByteSizeLong() const {
+::size_t PerfDataProto_StringMetadata_StringAndMd5sumPrefix::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -19309,14 +20380,14 @@ size_t PerfDataProto_StringMetadata_StringAndMd5sumPrefix::ByteSizeLong() const 
   if (cached_has_bits & 0x00000003u) {
     // optional string value = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_value());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_value());
     }
 
     // optional uint64 value_md5_prefix = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_value_md5_prefix());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_value_md5_prefix());
     }
 
   }
@@ -19334,8 +20405,8 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::MergeImpl(::PROTOBUF_NA
   auto* const _this = static_cast<PerfDataProto_StringMetadata_StringAndMd5sumPrefix*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StringMetadata_StringAndMd5sumPrefix&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -19368,10 +20439,9 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::InternalSwap(PerfDataPr
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.value_, lhs_arena,
-      &other->_impl_.value_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, lhs_arena,
+                                       &other->_impl_.value_, rhs_arena);
+
   swap(_impl_.value_md5_prefix_, other->_impl_.value_md5_prefix_);
 }
 
@@ -19380,12 +20450,13 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::InternalSwap(PerfDataPr
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[44]);
 }
-
 // ===================================================================
 
 class PerfDataProto_StringMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StringMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_StringMetadata, _impl_._has_bits_);
   static const ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix& hostname(const PerfDataProto_StringMetadata* msg);
   static void set_has_hostname(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -19444,10 +20515,9 @@ const ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix&
 PerfDataProto_StringMetadata::_Internal::perf_command_line_whole(const PerfDataProto_StringMetadata* msg) {
   return *msg->_impl_.perf_command_line_whole_;
 }
-PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.StringMetadata)
 }
 PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(const PerfDataProto_StringMetadata& from)
@@ -19466,34 +20536,32 @@ PerfDataProto_StringMetadata::PerfDataProto_StringMetadata(const PerfDataProto_S
     , decltype(_impl_.perf_command_line_whole_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_hostname()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.hostname_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.hostname_);
   }
-  if (from._internal_has_kernel_version()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.kernel_version_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.kernel_version_);
   }
-  if (from._internal_has_perf_version()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.perf_version_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.perf_version_);
   }
-  if (from._internal_has_architecture()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.architecture_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.architecture_);
   }
-  if (from._internal_has_cpu_description()) {
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
     _this->_impl_.cpu_description_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.cpu_description_);
   }
-  if (from._internal_has_cpu_id()) {
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
     _this->_impl_.cpu_id_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.cpu_id_);
   }
-  if (from._internal_has_perf_command_line_whole()) {
+  if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
     _this->_impl_.perf_command_line_whole_ = new ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(*from._impl_.perf_command_line_whole_);
   }
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.StringMetadata)
 }
 
-inline void PerfDataProto_StringMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto_StringMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -19518,8 +20586,8 @@ PerfDataProto_StringMetadata::~PerfDataProto_StringMetadata() {
 }
 
 inline void PerfDataProto_StringMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.perf_command_line_token_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_perf_command_line_token()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.hostname_;
   if (this != internal_default_instance()) delete _impl_.kernel_version_;
   if (this != internal_default_instance()) delete _impl_.perf_version_;
@@ -19535,39 +20603,39 @@ void PerfDataProto_StringMetadata::SetCachedSize(int size) const {
 
 void PerfDataProto_StringMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.StringMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.perf_command_line_token_.Clear();
+  _internal_mutable_perf_command_line_token()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.hostname_ != nullptr);
+      ABSL_DCHECK(_impl_.hostname_ != nullptr);
       _impl_.hostname_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.kernel_version_ != nullptr);
+      ABSL_DCHECK(_impl_.kernel_version_ != nullptr);
       _impl_.kernel_version_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.perf_version_ != nullptr);
+      ABSL_DCHECK(_impl_.perf_version_ != nullptr);
       _impl_.perf_version_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.architecture_ != nullptr);
+      ABSL_DCHECK(_impl_.architecture_ != nullptr);
       _impl_.architecture_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(_impl_.cpu_description_ != nullptr);
+      ABSL_DCHECK(_impl_.cpu_description_ != nullptr);
       _impl_.cpu_description_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(_impl_.cpu_id_ != nullptr);
+      ABSL_DCHECK(_impl_.cpu_id_ != nullptr);
       _impl_.cpu_id_->Clear();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(_impl_.perf_command_line_whole_ != nullptr);
+      ABSL_DCHECK(_impl_.perf_command_line_whole_ != nullptr);
       _impl_.perf_command_line_whole_->Clear();
     }
   }
@@ -19579,60 +20647,66 @@ const char* PerfDataProto_StringMetadata::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix hostname = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_hostname(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix kernel_version = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_kernel_version(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix perf_version = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_perf_version(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix architecture = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_architecture(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix cpu_description = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_cpu_description(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix cpu_id = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_cpu_id(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix perf_command_line_token = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -19640,16 +20714,18 @@ const char* PerfDataProto_StringMetadata::_InternalParse(const char* ptr, ::_pbi
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix perf_command_line_whole = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_perf_command_line_whole(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -19675,10 +20751,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto_StringMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto_StringMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.StringMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -19747,17 +20823,17 @@ uint8_t* PerfDataProto_StringMetadata::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto_StringMetadata::ByteSizeLong() const {
+::size_t PerfDataProto_StringMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.StringMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix perf_command_line_token = 7;
   total_size += 1UL * this->_internal_perf_command_line_token_size();
-  for (const auto& msg : this->_impl_.perf_command_line_token_) {
+  for (const auto& msg : this->_internal_perf_command_line_token()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -19828,11 +20904,11 @@ void PerfDataProto_StringMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   auto* const _this = static_cast<PerfDataProto_StringMetadata*>(&to_msg);
   auto& from = static_cast<const PerfDataProto_StringMetadata&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.StringMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.perf_command_line_token_.MergeFrom(from._impl_.perf_command_line_token_);
+  _this->_internal_mutable_perf_command_line_token()->MergeFrom(from._internal_perf_command_line_token());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -19882,7 +20958,7 @@ void PerfDataProto_StringMetadata::InternalSwap(PerfDataProto_StringMetadata* ot
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.perf_command_line_token_.InternalSwap(&other->_impl_.perf_command_line_token_);
+  _internal_mutable_perf_command_line_token()->InternalSwap(other->_internal_mutable_perf_command_line_token());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto_StringMetadata, _impl_.perf_command_line_whole_)
       + sizeof(PerfDataProto_StringMetadata::_impl_.perf_command_line_whole_)
@@ -19896,12 +20972,13 @@ void PerfDataProto_StringMetadata::InternalSwap(PerfDataProto_StringMetadata* ot
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[45]);
 }
-
 // ===================================================================
 
 class PerfDataProto::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto, _impl_._has_bits_);
   static void set_has_timestamp_sec(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
@@ -19939,10 +21016,9 @@ const ::quipper::PerfDataProto_StringMetadata&
 PerfDataProto::_Internal::string_metadata(const PerfDataProto* msg) {
   return *msg->_impl_.string_metadata_;
 }
-PerfDataProto::PerfDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfDataProto::PerfDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto)
 }
 PerfDataProto::PerfDataProto(const PerfDataProto& from)
@@ -19953,7 +21029,8 @@ PerfDataProto::PerfDataProto(const PerfDataProto& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.file_attrs_){from._impl_.file_attrs_}
     , decltype(_impl_.events_){from._impl_.events_}
-    , decltype(_impl_.metadata_mask_){from._impl_.metadata_mask_}
+    , decltype(_impl_.metadata_mask_) { from._impl_.metadata_mask_ }
+
     , decltype(_impl_.build_ids_){from._impl_.build_ids_}
     , decltype(_impl_.uint32_metadata_){from._impl_.uint32_metadata_}
     , decltype(_impl_.uint64_metadata_){from._impl_.uint64_metadata_}
@@ -19965,35 +21042,35 @@ PerfDataProto::PerfDataProto(const PerfDataProto& from)
     , decltype(_impl_.cpu_topology_){nullptr}
     , decltype(_impl_.string_metadata_){nullptr}
     , decltype(_impl_.tracing_data_){nullptr}
-    , decltype(_impl_.timestamp_sec_){}};
+    , decltype(_impl_.timestamp_sec_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_stats()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.stats_ = new ::quipper::PerfDataProto_PerfEventStats(*from._impl_.stats_);
   }
-  if (from._internal_has_cpu_topology()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.cpu_topology_ = new ::quipper::PerfDataProto_PerfCPUTopologyMetadata(*from._impl_.cpu_topology_);
   }
-  if (from._internal_has_string_metadata()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.string_metadata_ = new ::quipper::PerfDataProto_StringMetadata(*from._impl_.string_metadata_);
   }
-  if (from._internal_has_tracing_data()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.tracing_data_ = new ::quipper::PerfDataProto_PerfTracingMetadata(*from._impl_.tracing_data_);
   }
   _this->_impl_.timestamp_sec_ = from._impl_.timestamp_sec_;
   // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto)
 }
 
-inline void PerfDataProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfDataProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.file_attrs_){arena}
     , decltype(_impl_.events_){arena}
-    , decltype(_impl_.metadata_mask_){arena}
+    , decltype(_impl_.metadata_mask_) { arena }
+
     , decltype(_impl_.build_ids_){arena}
     , decltype(_impl_.uint32_metadata_){arena}
     , decltype(_impl_.uint64_metadata_){arena}
@@ -20005,7 +21082,8 @@ inline void PerfDataProto::SharedCtor(
     , decltype(_impl_.cpu_topology_){nullptr}
     , decltype(_impl_.string_metadata_){nullptr}
     , decltype(_impl_.tracing_data_){nullptr}
-    , decltype(_impl_.timestamp_sec_){uint64_t{0u}}
+    , decltype(_impl_.timestamp_sec_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -20019,17 +21097,17 @@ PerfDataProto::~PerfDataProto() {
 }
 
 inline void PerfDataProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.file_attrs_.~RepeatedPtrField();
-  _impl_.events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_file_attrs()->~RepeatedPtrField();
+  _internal_mutable_events()->~RepeatedPtrField();
   _impl_.metadata_mask_.~RepeatedField();
-  _impl_.build_ids_.~RepeatedPtrField();
-  _impl_.uint32_metadata_.~RepeatedPtrField();
-  _impl_.uint64_metadata_.~RepeatedPtrField();
-  _impl_.event_types_.~RepeatedPtrField();
-  _impl_.numa_topology_.~RepeatedPtrField();
-  _impl_.pmu_mappings_.~RepeatedPtrField();
-  _impl_.group_desc_.~RepeatedPtrField();
+  _internal_mutable_build_ids()->~RepeatedPtrField();
+  _internal_mutable_uint32_metadata()->~RepeatedPtrField();
+  _internal_mutable_uint64_metadata()->~RepeatedPtrField();
+  _internal_mutable_event_types()->~RepeatedPtrField();
+  _internal_mutable_numa_topology()->~RepeatedPtrField();
+  _internal_mutable_pmu_mappings()->~RepeatedPtrField();
+  _internal_mutable_group_desc()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.stats_;
   if (this != internal_default_instance()) delete _impl_.cpu_topology_;
   if (this != internal_default_instance()) delete _impl_.string_metadata_;
@@ -20042,40 +21120,40 @@ void PerfDataProto::SetCachedSize(int size) const {
 
 void PerfDataProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.file_attrs_.Clear();
-  _impl_.events_.Clear();
-  _impl_.metadata_mask_.Clear();
-  _impl_.build_ids_.Clear();
-  _impl_.uint32_metadata_.Clear();
-  _impl_.uint64_metadata_.Clear();
-  _impl_.event_types_.Clear();
-  _impl_.numa_topology_.Clear();
-  _impl_.pmu_mappings_.Clear();
-  _impl_.group_desc_.Clear();
+  _internal_mutable_file_attrs()->Clear();
+  _internal_mutable_events()->Clear();
+  _internal_mutable_metadata_mask()->Clear();
+  _internal_mutable_build_ids()->Clear();
+  _internal_mutable_uint32_metadata()->Clear();
+  _internal_mutable_uint64_metadata()->Clear();
+  _internal_mutable_event_types()->Clear();
+  _internal_mutable_numa_topology()->Clear();
+  _internal_mutable_pmu_mappings()->Clear();
+  _internal_mutable_group_desc()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.stats_ != nullptr);
+      ABSL_DCHECK(_impl_.stats_ != nullptr);
       _impl_.stats_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.cpu_topology_ != nullptr);
+      ABSL_DCHECK(_impl_.cpu_topology_ != nullptr);
       _impl_.cpu_topology_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.string_metadata_ != nullptr);
+      ABSL_DCHECK(_impl_.string_metadata_ != nullptr);
       _impl_.string_metadata_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.tracing_data_ != nullptr);
+      ABSL_DCHECK(_impl_.tracing_data_ != nullptr);
       _impl_.tracing_data_->Clear();
     }
   }
-  _impl_.timestamp_sec_ = uint64_t{0u};
+  _impl_.timestamp_sec_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -20084,12 +21162,12 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .quipper.PerfDataProto.PerfFileAttr file_attrs = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20097,12 +21175,13 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfEvent events = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20110,29 +21189,32 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 timestamp_sec = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_timestamp_sec(&has_bits);
           _impl_.timestamp_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.PerfEventStats stats = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_stats(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated uint64 metadata_mask = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20140,15 +21222,16 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<40>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 42) {
+        } else if (static_cast<::uint8_t>(tag) == 42) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_metadata_mask(), ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfBuildID build_ids = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20156,12 +21239,13 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfUint32Metadata uint32_metadata = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20169,12 +21253,13 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfUint64Metadata uint64_metadata = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20182,12 +21267,13 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfEventType event_types = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20195,20 +21281,22 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.PerfCPUTopologyMetadata cpu_topology = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_cpu_topology(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfNodeTopologyMetadata numa_topology = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20216,28 +21304,31 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.StringMetadata string_metadata = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_string_metadata(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .quipper.PerfDataProto.PerfTracingMetadata tracing_data = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 114)) {
           ptr = ctx->ParseMessage(_internal_mutable_tracing_data(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfPMUMappingsMetadata pmu_mappings = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -20245,12 +21336,13 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<122>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .quipper.PerfDataProto.PerfGroupDescMetadata group_desc = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 130)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -20258,8 +21350,9 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<130>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -20285,10 +21378,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfDataProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfDataProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.PerfFileAttr file_attrs = 1;
@@ -20311,7 +21404,8 @@ uint8_t* PerfDataProto::_InternalSerialize(
   // optional uint64 timestamp_sec = 3;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_timestamp_sec(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_timestamp_sec(), target);
   }
 
   // optional .quipper.PerfDataProto.PerfEventStats stats = 4;
@@ -20322,9 +21416,10 @@ uint8_t* PerfDataProto::_InternalSerialize(
   }
 
   // repeated uint64 metadata_mask = 5;
-  for (int i = 0, n = this->_internal_metadata_mask_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_metadata_mask_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_metadata_mask(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_metadata_mask(i), target);
   }
 
   // repeated .quipper.PerfDataProto.PerfBuildID build_ids = 7;
@@ -20412,82 +21507,84 @@ uint8_t* PerfDataProto::_InternalSerialize(
   return target;
 }
 
-size_t PerfDataProto::ByteSizeLong() const {
+::size_t PerfDataProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .quipper.PerfDataProto.PerfFileAttr file_attrs = 1;
   total_size += 1UL * this->_internal_file_attrs_size();
-  for (const auto& msg : this->_impl_.file_attrs_) {
+  for (const auto& msg : this->_internal_file_attrs()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfEvent events = 2;
   total_size += 1UL * this->_internal_events_size();
-  for (const auto& msg : this->_impl_.events_) {
+  for (const auto& msg : this->_internal_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated uint64 metadata_mask = 5;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.metadata_mask_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_metadata_mask_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_metadata_mask())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_metadata_mask_size());
+    ;
+    total_size += tag_size + data_size;
   }
 
   // repeated .quipper.PerfDataProto.PerfBuildID build_ids = 7;
   total_size += 1UL * this->_internal_build_ids_size();
-  for (const auto& msg : this->_impl_.build_ids_) {
+  for (const auto& msg : this->_internal_build_ids()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfUint32Metadata uint32_metadata = 8;
   total_size += 1UL * this->_internal_uint32_metadata_size();
-  for (const auto& msg : this->_impl_.uint32_metadata_) {
+  for (const auto& msg : this->_internal_uint32_metadata()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfUint64Metadata uint64_metadata = 9;
   total_size += 1UL * this->_internal_uint64_metadata_size();
-  for (const auto& msg : this->_impl_.uint64_metadata_) {
+  for (const auto& msg : this->_internal_uint64_metadata()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfEventType event_types = 10;
   total_size += 1UL * this->_internal_event_types_size();
-  for (const auto& msg : this->_impl_.event_types_) {
+  for (const auto& msg : this->_internal_event_types()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfNodeTopologyMetadata numa_topology = 12;
   total_size += 1UL * this->_internal_numa_topology_size();
-  for (const auto& msg : this->_impl_.numa_topology_) {
+  for (const auto& msg : this->_internal_numa_topology()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfPMUMappingsMetadata pmu_mappings = 15;
   total_size += 1UL * this->_internal_pmu_mappings_size();
-  for (const auto& msg : this->_impl_.pmu_mappings_) {
+  for (const auto& msg : this->_internal_pmu_mappings()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .quipper.PerfDataProto.PerfGroupDescMetadata group_desc = 16;
   total_size += 2UL * this->_internal_group_desc_size();
-  for (const auto& msg : this->_impl_.group_desc_) {
+  for (const auto& msg : this->_internal_group_desc()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -20524,7 +21621,8 @@ size_t PerfDataProto::ByteSizeLong() const {
 
     // optional uint64 timestamp_sec = 3;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp_sec());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_timestamp_sec());
     }
 
   }
@@ -20542,20 +21640,20 @@ void PerfDataProto::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   auto* const _this = static_cast<PerfDataProto*>(&to_msg);
   auto& from = static_cast<const PerfDataProto&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.file_attrs_.MergeFrom(from._impl_.file_attrs_);
-  _this->_impl_.events_.MergeFrom(from._impl_.events_);
+  _this->_internal_mutable_file_attrs()->MergeFrom(from._internal_file_attrs());
+  _this->_internal_mutable_events()->MergeFrom(from._internal_events());
   _this->_impl_.metadata_mask_.MergeFrom(from._impl_.metadata_mask_);
-  _this->_impl_.build_ids_.MergeFrom(from._impl_.build_ids_);
-  _this->_impl_.uint32_metadata_.MergeFrom(from._impl_.uint32_metadata_);
-  _this->_impl_.uint64_metadata_.MergeFrom(from._impl_.uint64_metadata_);
-  _this->_impl_.event_types_.MergeFrom(from._impl_.event_types_);
-  _this->_impl_.numa_topology_.MergeFrom(from._impl_.numa_topology_);
-  _this->_impl_.pmu_mappings_.MergeFrom(from._impl_.pmu_mappings_);
-  _this->_impl_.group_desc_.MergeFrom(from._impl_.group_desc_);
+  _this->_internal_mutable_build_ids()->MergeFrom(from._internal_build_ids());
+  _this->_internal_mutable_uint32_metadata()->MergeFrom(from._internal_uint32_metadata());
+  _this->_internal_mutable_uint64_metadata()->MergeFrom(from._internal_uint64_metadata());
+  _this->_internal_mutable_event_types()->MergeFrom(from._internal_event_types());
+  _this->_internal_mutable_numa_topology()->MergeFrom(from._internal_numa_topology());
+  _this->_internal_mutable_pmu_mappings()->MergeFrom(from._internal_pmu_mappings());
+  _this->_internal_mutable_group_desc()->MergeFrom(from._internal_group_desc());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -20597,16 +21695,16 @@ void PerfDataProto::InternalSwap(PerfDataProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.file_attrs_.InternalSwap(&other->_impl_.file_attrs_);
-  _impl_.events_.InternalSwap(&other->_impl_.events_);
+  _internal_mutable_file_attrs()->InternalSwap(other->_internal_mutable_file_attrs());
+  _internal_mutable_events()->InternalSwap(other->_internal_mutable_events());
   _impl_.metadata_mask_.InternalSwap(&other->_impl_.metadata_mask_);
-  _impl_.build_ids_.InternalSwap(&other->_impl_.build_ids_);
-  _impl_.uint32_metadata_.InternalSwap(&other->_impl_.uint32_metadata_);
-  _impl_.uint64_metadata_.InternalSwap(&other->_impl_.uint64_metadata_);
-  _impl_.event_types_.InternalSwap(&other->_impl_.event_types_);
-  _impl_.numa_topology_.InternalSwap(&other->_impl_.numa_topology_);
-  _impl_.pmu_mappings_.InternalSwap(&other->_impl_.pmu_mappings_);
-  _impl_.group_desc_.InternalSwap(&other->_impl_.group_desc_);
+  _internal_mutable_build_ids()->InternalSwap(other->_internal_mutable_build_ids());
+  _internal_mutable_uint32_metadata()->InternalSwap(other->_internal_mutable_uint32_metadata());
+  _internal_mutable_uint64_metadata()->InternalSwap(other->_internal_mutable_uint64_metadata());
+  _internal_mutable_event_types()->InternalSwap(other->_internal_mutable_event_types());
+  _internal_mutable_numa_topology()->InternalSwap(other->_internal_mutable_numa_topology());
+  _internal_mutable_pmu_mappings()->InternalSwap(other->_internal_mutable_pmu_mappings());
+  _internal_mutable_group_desc()->InternalSwap(other->_internal_mutable_group_desc());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto, _impl_.timestamp_sec_)
       + sizeof(PerfDataProto::_impl_.timestamp_sec_)
@@ -20620,7 +21718,6 @@ void PerfDataProto::InternalSwap(PerfDataProto* other) {
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
       file_level_metadata_perf_5fdata_2eproto[46]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace quipper
 PROTOBUF_NAMESPACE_OPEN
@@ -20813,6 +21910,5 @@ Arena::CreateMaybeMessage< ::quipper::PerfDataProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::quipper::PerfDataProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

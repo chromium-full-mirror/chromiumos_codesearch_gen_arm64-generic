@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StorageEvent>::value,
     "StorageEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StorageEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StorageEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.key.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->key();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->key();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -106,10 +101,10 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.oldValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oldValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oldValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -121,10 +116,10 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.newValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->newValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->newValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -136,10 +131,10 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -151,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.storageArea.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->storageArea();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -165,8 +161,9 @@ BLINK_BINDINGS_TRACE_EVENT("StorageEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -239,7 +236,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(v8_receiver);
+StorageEvent* blink_receiver = V8StorageEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

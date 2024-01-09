@@ -718,7 +718,7 @@ static_assert(
     return mojo::internal::Deserialize<::ash::bluetooth_config::mojom::FastPairableDevicePairingState>(
         data_->fast_pairable_device_pairing_state_$value, &output->emplace());
   }
-  absl::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state() const {
+  std::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state() const {
     if (!data_->fast_pairable_device_pairing_state_$flag) {
       return absl::nullopt;
     }

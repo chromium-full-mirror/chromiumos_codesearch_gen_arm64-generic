@@ -18,25 +18,6 @@ goog.require('mojoBase.mojom.Time');
 
 
 
-goog.provide('network.mojom.TrustTokenMajorVersion');
-goog.provide('network.mojom.TrustTokenMajorVersionSpec');
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
-network.mojom.TrustTokenMajorVersionSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-network.mojom.TrustTokenMajorVersion = {
-  
-  kPrivateStateTokenV1: 0,
-  MIN_VALUE: 0,
-  MAX_VALUE: 0,
-};
-
 goog.provide('network.mojom.TrustTokenProtocolVersion');
 goog.provide('network.mojom.TrustTokenProtocolVersionSpec');
 /**
@@ -525,15 +506,7 @@ mojo.internal.Struct(
     'TrustTokenParams',
     [
       mojo.internal.StructField(
-        'version', 0,
-        0,
-        network.mojom.TrustTokenMajorVersionSpec.$,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'operation', 4,
+        'operation', 0,
         0,
         network.mojom.TrustTokenOperationTypeSpec.$,
         0,
@@ -541,7 +514,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'refreshPolicy', 8,
+        'refreshPolicy', 4,
         0,
         network.mojom.TrustTokenRefreshPolicySpec.$,
         network.mojom.TrustTokenRefreshPolicy.kUseCached,
@@ -549,7 +522,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'customKeyCommitment', 16,
+        'customKeyCommitment', 8,
         0,
         mojo.internal.String,
         null,
@@ -557,7 +530,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'customIssuer', 24,
+        'customIssuer', 16,
         0,
         url.mojom.OriginSpec.$,
         null,
@@ -565,7 +538,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'signRequestData', 12,
+        'signRequestData', 24,
         0,
         network.mojom.TrustTokenSignRequestDataSpec.$,
         network.mojom.TrustTokenSignRequestData.kOmit,
@@ -573,7 +546,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'includeTimestampHeader', 32,
+        'includeTimestampHeader', 28,
         0,
         mojo.internal.Bool,
         false,
@@ -581,7 +554,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'issuers', 40,
+        'issuers', 32,
         0,
         mojo.internal.Array(url.mojom.OriginSpec.$, false),
         null,
@@ -589,7 +562,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'additionalSignedHeaders', 48,
+        'additionalSignedHeaders', 40,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -597,7 +570,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'possiblyUnsafeAdditionalSigningData', 56,
+        'possiblyUnsafeAdditionalSigningData', 48,
         0,
         mojo.internal.String,
         null,
@@ -605,7 +578,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 72],]);
+    [[0, 64],]);
 
 
 
@@ -614,8 +587,6 @@ goog.provide('network.mojom.TrustTokenParams');
 /** @record */
 network.mojom.TrustTokenParams = class {
   constructor() {
-    /** @export { !network.mojom.TrustTokenMajorVersion } */
-    this.version;
     /** @export { !network.mojom.TrustTokenOperationType } */
     this.operation;
     /** @export { !network.mojom.TrustTokenRefreshPolicy } */
@@ -800,15 +771,7 @@ mojo.internal.Struct(
     'TrustTokenKeyCommitmentResult',
     [
       mojo.internal.StructField(
-        'version', 0,
-        0,
-        network.mojom.TrustTokenMajorVersionSpec.$,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'protocolVersion', 4,
+        'protocolVersion', 0,
         0,
         network.mojom.TrustTokenProtocolVersionSpec.$,
         0,
@@ -816,7 +779,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'id', 8,
+        'id', 4,
         0,
         mojo.internal.Int32,
         0,
@@ -824,7 +787,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'batchSize', 12,
+        'batchSize', 8,
         0,
         mojo.internal.Int32,
         0,
@@ -848,7 +811,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'unavailableLocalOperationFallback', 32,
+        'unavailableLocalOperationFallback', 12,
         0,
         network.mojom.TrustTokenKeyCommitmentResultSpec.UnavailableLocalOperationFallbackSpec.$,
         0,
@@ -856,7 +819,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 48],]);
+    [[0, 40],]);
 
 
 
@@ -865,8 +828,6 @@ goog.provide('network.mojom.TrustTokenKeyCommitmentResult');
 /** @record */
 network.mojom.TrustTokenKeyCommitmentResult = class {
   constructor() {
-    /** @export { !network.mojom.TrustTokenMajorVersion } */
-    this.version;
     /** @export { !network.mojom.TrustTokenProtocolVersion } */
     this.protocolVersion;
     /** @export { !number } */

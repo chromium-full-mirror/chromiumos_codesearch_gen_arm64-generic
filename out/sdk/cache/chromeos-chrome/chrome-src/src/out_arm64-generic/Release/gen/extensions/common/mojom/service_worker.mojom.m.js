@@ -7,6 +7,21 @@
 import {mojo} from '../../../mojo/public/js/bindings.js';
 
 import {
+  ChannelType as extensions_mojom_ChannelType,
+  ChannelTypeSpec as extensions_mojom_ChannelTypeSpec,
+  MessagePortRemote as extensions_mojom_MessagePortRemote,
+  MessagePortPendingReceiver as extensions_mojom_MessagePortPendingReceiver,
+  MessagePortHostRemote as extensions_mojom_MessagePortHostRemote,
+  MessagePortHostPendingReceiver as extensions_mojom_MessagePortHostPendingReceiver,
+  ExternalConnectionInfo as extensions_mojom_ExternalConnectionInfo,
+  ExternalConnectionInfoSpec as extensions_mojom_ExternalConnectionInfoSpec,
+  PortId as extensions_mojom_PortId,
+  PortIdSpec as extensions_mojom_PortIdSpec,
+  TabConnectionInfo as extensions_mojom_TabConnectionInfo,
+  TabConnectionInfoSpec as extensions_mojom_TabConnectionInfoSpec
+} from './message_port.mojom.m.js';
+
+import {
   PermissionSet as extensions_mojom_PermissionSet,
   PermissionSetSpec as extensions_mojom_PermissionSetSpec
 } from './permission_set.mojom.m.js';
@@ -42,6 +57,21 @@ export class ServiceWorkerInterface {
    */
 
   updatePermissions(activePermissions, withheldPermissions) {}
+  
+  /**
+   * @param { !extensions_mojom_PortId } portId
+   * @param { !extensions_mojom_ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions_mojom_TabConnectionInfo } tabInfo
+   * @param { !extensions_mojom_ExternalConnectionInfo } externalConnectionInfo
+   * @param { !Object } port
+   * @param { !Object } portHost
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  dispatchOnConnect(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost) {}
 }
 
 /**
@@ -85,6 +115,43 @@ export class ServiceWorkerRemote {
           withheldPermissions
         ]);
   }
+
+  
+  /**
+   * @param { !extensions_mojom_PortId } portId
+   * @param { !extensions_mojom_ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions_mojom_TabConnectionInfo } tabInfo
+   * @param { !extensions_mojom_ExternalConnectionInfo } externalConnectionInfo
+   * @param { !Object } port
+   * @param { !Object } portHost
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  dispatchOnConnect(
+      portId,
+      channelType,
+      channelName,
+      tabInfo,
+      externalConnectionInfo,
+      port,
+      portHost) {
+    return this.proxy.sendMessage(
+        1,
+        ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        [
+          portId,
+          channelType,
+          channelName,
+          tabInfo,
+          externalConnectionInfo,
+          port,
+          portHost
+        ]);
+  }
 }
 
 /**
@@ -112,6 +179,11 @@ export class ServiceWorkerReceiver {
         ServiceWorker_UpdatePermissions_ParamsSpec.$,
         null,
         impl.updatePermissions.bind(impl));
+    this.helper_internal_.registerHandler(
+        1,
+        ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        impl.dispatchOnConnect.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -170,6 +242,18 @@ export class ServiceWorkerCallbackRouter {
         ServiceWorker_UpdatePermissions_ParamsSpec.$,
         null,
         this.updatePermissions.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.dispatchOnConnect =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        1,
+        ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        this.dispatchOnConnect.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -187,6 +271,18 @@ export class ServiceWorkerCallbackRouter {
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const ServiceWorker_UpdatePermissions_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const ServiceWorker_DispatchOnConnect_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const ServiceWorker_DispatchOnConnect_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -226,6 +322,124 @@ export class ServiceWorker_UpdatePermissions_Params {
     this.activePermissions;
     /** @type { !extensions_mojom_PermissionSet } */
     this.withheldPermissions;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+    'ServiceWorker_DispatchOnConnect_Params',
+    [
+      mojo.internal.StructField(
+        'portId', 0,
+        0,
+        extensions_mojom_PortIdSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'channelType', 8,
+        0,
+        extensions_mojom_ChannelTypeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'channelName', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'tabInfo', 24,
+        0,
+        extensions_mojom_TabConnectionInfoSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'externalConnectionInfo', 32,
+        0,
+        extensions_mojom_ExternalConnectionInfoSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'port', 12,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions_mojom_MessagePortPendingReceiver),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'portHost', 40,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions_mojom_MessagePortHostRemote),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 56],]);
+
+
+
+/**
+ * @record
+ */
+export class ServiceWorker_DispatchOnConnect_Params {
+  constructor() {
+    /** @type { !extensions_mojom_PortId } */
+    this.portId;
+    /** @type { !extensions_mojom_ChannelType } */
+    this.channelType;
+    /** @type { !string } */
+    this.channelName;
+    /** @type { !extensions_mojom_TabConnectionInfo } */
+    this.tabInfo;
+    /** @type { !extensions_mojom_ExternalConnectionInfo } */
+    this.externalConnectionInfo;
+    /** @type { !Object } */
+    this.port;
+    /** @type { !Object } */
+    this.portHost;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+    'ServiceWorker_DispatchOnConnect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class ServiceWorker_DispatchOnConnect_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.success;
   }
 }
 

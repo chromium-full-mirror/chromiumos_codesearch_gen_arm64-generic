@@ -31,7 +31,7 @@ enum class SpeculationTargetHint : int32_t;
 
 enum class SpeculationEagerness : int32_t;
 
-enum class SpeculationInjectionWorld : int32_t;
+enum class SpeculationInjectionType : int32_t;
 class SpeculationCandidate;
 using SpeculationCandidatePtr = mojo::StructPtr<SpeculationCandidate>;
 

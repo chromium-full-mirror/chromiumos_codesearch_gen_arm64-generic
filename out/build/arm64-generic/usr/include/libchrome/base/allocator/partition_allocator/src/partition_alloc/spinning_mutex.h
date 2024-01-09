@@ -8,13 +8,13 @@
 #include <algorithm>
 #include <atomic>
 
+#include "build/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/thread_annotations.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_check.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/yield_processor.h"
-#include "build/build_config.h"
 
 #if BUILDFLAG(IS_WIN)
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/win/windows_types.h"

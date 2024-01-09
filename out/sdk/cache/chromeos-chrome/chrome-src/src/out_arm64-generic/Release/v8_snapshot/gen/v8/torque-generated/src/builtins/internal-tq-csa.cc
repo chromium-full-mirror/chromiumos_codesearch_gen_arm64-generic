@@ -66,9 +66,10 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/internal-tq-csa.h"
-#include "torque-generated/src/builtins/array-isarray-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
@@ -215,7 +216,7 @@ TNode<Object> ForInNextSlow_0(compiler::CodeAssemblerState* state_, TNode<Contex
     tmp0 = FromConstexpr_ForInFeedback_constexpr_kAny_0(state_, ForInFeedback::kAny);
     tmp1 = SmiTag_ForInFeedback_0(state_, TNode<Uint32T>{tmp0});
     CodeStubAssembler(state_).UpdateFeedback(TNode<Smi>{tmp1}, TNode<HeapObject>{p_maybeFeedbackVector}, TNode<UintPtrT>{p_slot}, p_guaranteedFeedback);
-    tmp2 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kForInFilter), p_context, p_key, p_receiver);
+    tmp2 = ca_.CallBuiltin<Object>(Builtin::kForInFilter, p_context, p_key, p_receiver);
     ca_.Goto(&block6);
   }
 

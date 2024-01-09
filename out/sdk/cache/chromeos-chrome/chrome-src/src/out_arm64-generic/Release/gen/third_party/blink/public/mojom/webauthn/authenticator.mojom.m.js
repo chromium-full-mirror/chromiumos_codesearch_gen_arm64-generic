@@ -60,16 +60,21 @@ export const AuthenticatorStatus = {
   OPAQUE_DOMAIN: 14,
   INVALID_PROTOCOL: 15,
   BAD_RELYING_PARTY_ID: 16,
-  CANNOT_READ_AND_WRITE_LARGE_BLOB: 17,
-  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB: 18,
-  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION: 19,
-  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED: 20,
-  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED: 21,
-  CERTIFICATE_ERROR: 22,
-  ERROR_WITH_DOM_EXCEPTION_DETAILS: 23,
-  UNKNOWN_ERROR: 24,
+  BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH: 17,
+  BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE: 18,
+  BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR: 19,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH: 20,
+  BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS: 21,
+  CANNOT_READ_AND_WRITE_LARGE_BLOB: 22,
+  INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB: 23,
+  FAILED_TO_SAVE_CREDENTIAL_ID_FOR_PAYMENT_EXTENSION: 24,
+  REMOTE_DESKTOP_CLIENT_OVERRIDE_NOT_AUTHORIZED: 25,
+  DEVICE_PUBLIC_KEY_ATTESTATION_REJECTED: 26,
+  CERTIFICATE_ERROR: 27,
+  ERROR_WITH_DOM_EXCEPTION_DETAILS: 28,
+  UNKNOWN_ERROR: 29,
   MIN_VALUE: 0,
-  MAX_VALUE: 24,
+  MAX_VALUE: 29,
 };
 
 /**
@@ -89,6 +94,23 @@ export const AuthenticatorTransport = {
   INTERNAL: 4,
   MIN_VALUE: 0,
   MAX_VALUE: 4,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const HintSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const Hint = {
+  
+  SECURITY_KEY: 0,
+  CLIENT_DEVICE: 1,
+  HYBRID: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
 };
 
 /**
@@ -562,7 +584,7 @@ export const CommonCredentialInfoSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const DevicePublicKeyResponseSpec =
+export const SupplementalPubKeysResponseSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -634,7 +656,7 @@ export const RemoteDesktopClientOverrideSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const DevicePublicKeyRequestSpec =
+export const SupplementalPubKeysRequestSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -790,39 +812,29 @@ export class CommonCredentialInfo {
 
 
 mojo.internal.Struct(
-    DevicePublicKeyResponseSpec.$,
-    'DevicePublicKeyResponse',
+    SupplementalPubKeysResponseSpec.$,
+    'SupplementalPubKeysResponse',
     [
       mojo.internal.StructField(
-        'authenticatorOutput', 0,
+        'signatures', 0,
         0,
-        mojo.internal.Array(mojo.internal.Uint8, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'signature', 8,
-        0,
-        mojo.internal.Array(mojo.internal.Uint8, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false /* nullable */,
         0,
       ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
 /**
  * @record
  */
-export class DevicePublicKeyResponse {
+export class SupplementalPubKeysResponse {
   constructor() {
-    /** @type { !Array<!number> } */
-    this.authenticatorOutput;
-    /** @type { !Array<!number> } */
-    this.signature;
+    /** @type { !Array<!Array<!number>> } */
+    this.signatures;
   }
 }
 
@@ -977,9 +989,9 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 56,
+        'supplementalPubKeys', 56,
         0,
-        DevicePublicKeyResponseSpec.$,
+        SupplementalPubKeysResponseSpec.$,
         null,
         true /* nullable */,
         0,
@@ -1030,8 +1042,8 @@ export class MakeCredentialAuthenticatorResponse {
     this.echoLargeBlob;
     /** @type { !boolean } */
     this.supportsLargeBlob;
-    /** @type { (DevicePublicKeyResponse|undefined) } */
-    this.devicePublicKey;
+    /** @type { (SupplementalPubKeysResponse|undefined) } */
+    this.supplementalPubKeys;
   }
 }
 
@@ -1191,9 +1203,9 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 32,
+        'supplementalPubKeys', 32,
         0,
-        DevicePublicKeyResponseSpec.$,
+        SupplementalPubKeysResponseSpec.$,
         null,
         true /* nullable */,
         0,
@@ -1228,8 +1240,8 @@ export class AuthenticationExtensionsClientOutputs {
     this.largeBlobWritten;
     /** @type { (Array<!number>|undefined) } */
     this.getCredBlob;
-    /** @type { (DevicePublicKeyResponse|undefined) } */
-    this.devicePublicKey;
+    /** @type { (SupplementalPubKeysResponse|undefined) } */
+    this.supplementalPubKeys;
   }
 }
 
@@ -1638,11 +1650,27 @@ export class RemoteDesktopClientOverride {
 
 
 mojo.internal.Struct(
-    DevicePublicKeyRequestSpec.$,
-    'DevicePublicKeyRequest',
+    SupplementalPubKeysRequestSpec.$,
+    'SupplementalPubKeysRequest',
     [
       mojo.internal.StructField(
-        'attestation', 0,
+        'deviceScopeRequested', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'providerScopeRequested', 0,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'attestation', 4,
         0,
         AttestationConveyancePreferenceSpec.$,
         0,
@@ -1665,8 +1693,12 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class DevicePublicKeyRequest {
+export class SupplementalPubKeysRequest {
   constructor() {
+    /** @type { !boolean } */
+    this.deviceScopeRequested;
+    /** @type { !boolean } */
+    this.providerScopeRequested;
     /** @type { !AttestationConveyancePreference } */
     this.attestation;
     /** @type { !Array<!string> } */
@@ -1721,6 +1753,14 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
+        'hints', 40,
+        0,
+        mojo.internal.Array(HintSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
         'userVerification', 4,
         0,
         UserVerificationRequirementSpec.$,
@@ -1729,7 +1769,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'extensions', 40,
+        'extensions', 48,
         0,
         AuthenticationExtensionsClientInputsSpec.$,
         null,
@@ -1737,7 +1777,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 56],]);
+    [[0, 64],]);
 
 
 
@@ -1756,6 +1796,8 @@ export class PublicKeyCredentialRequestOptions {
     this.relyingPartyId;
     /** @type { !Array<!PublicKeyCredentialDescriptor> } */
     this.allowCredentials;
+    /** @type { !Array<!Hint> } */
+    this.hints;
     /** @type { !UserVerificationRequirement } */
     this.userVerification;
     /** @type { !AuthenticationExtensionsClientInputs } */
@@ -1842,9 +1884,9 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 48,
+        'supplementalPubKeys', 48,
         0,
-        DevicePublicKeyRequestSpec.$,
+        SupplementalPubKeysRequestSpec.$,
         null,
         true /* nullable */,
         0,
@@ -1877,8 +1919,8 @@ export class AuthenticationExtensionsClientInputs {
     this.getCredBlob;
     /** @type { (RemoteDesktopClientOverride|undefined) } */
     this.remoteDesktopClientOverride;
-    /** @type { (DevicePublicKeyRequest|undefined) } */
-    this.devicePublicKey;
+    /** @type { (SupplementalPubKeysRequest|undefined) } */
+    this.supplementalPubKeys;
   }
 }
 
@@ -1994,7 +2036,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'attestation', 56,
+        'hints', 56,
+        0,
+        mojo.internal.Array(HintSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'attestation', 64,
         0,
         AttestationConveyancePreferenceSpec.$,
         0,
@@ -2002,7 +2052,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hmacCreateSecret', 60,
+        'hmacCreateSecret', 68,
         0,
         mojo.internal.Bool,
         false,
@@ -2010,7 +2060,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'prfEnable', 60,
+        'prfEnable', 68,
         1,
         mojo.internal.Bool,
         false,
@@ -2018,7 +2068,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'prfInput', 64,
+        'prfInput', 72,
         0,
         PRFValuesSpec.$,
         null,
@@ -2026,7 +2076,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'protectionPolicy', 72,
+        'protectionPolicy', 80,
         0,
         ProtectionPolicySpec.$,
         0,
@@ -2034,7 +2084,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'enforceProtectionPolicy', 60,
+        'enforceProtectionPolicy', 68,
         2,
         mojo.internal.Bool,
         false,
@@ -2042,7 +2092,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'appidExclude', 80,
+        'appidExclude', 88,
         0,
         mojo.internal.String,
         null,
@@ -2050,7 +2100,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'credProps', 60,
+        'credProps', 68,
         3,
         mojo.internal.Bool,
         false,
@@ -2058,7 +2108,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'largeBlobEnable', 76,
+        'largeBlobEnable', 84,
         0,
         LargeBlobSupportSpec.$,
         0,
@@ -2066,7 +2116,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isPaymentCredentialCreation', 60,
+        'isPaymentCredentialCreation', 68,
         4,
         mojo.internal.Bool,
         false,
@@ -2074,7 +2124,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'credBlob', 88,
+        'credBlob', 96,
         0,
         mojo.internal.Array(mojo.internal.Uint8, false),
         null,
@@ -2082,7 +2132,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'minPinLengthRequested', 60,
+        'minPinLengthRequested', 68,
         5,
         mojo.internal.Bool,
         false,
@@ -2090,7 +2140,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'remoteDesktopClientOverride', 96,
+        'remoteDesktopClientOverride', 104,
         0,
         RemoteDesktopClientOverrideSpec.$,
         null,
@@ -2098,15 +2148,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'devicePublicKey', 104,
+        'supplementalPubKeys', 112,
         0,
-        DevicePublicKeyRequestSpec.$,
+        SupplementalPubKeysRequestSpec.$,
         null,
         true /* nullable */,
         0,
       ),
     ],
-    [[0, 120],]);
+    [[0, 128],]);
 
 
 
@@ -2129,6 +2179,8 @@ export class PublicKeyCredentialCreationOptions {
     this.excludeCredentials;
     /** @type { (AuthenticatorSelectionCriteria|undefined) } */
     this.authenticatorSelection;
+    /** @type { !Array<!Hint> } */
+    this.hints;
     /** @type { !AttestationConveyancePreference } */
     this.attestation;
     /** @type { !boolean } */
@@ -2155,8 +2207,8 @@ export class PublicKeyCredentialCreationOptions {
     this.minPinLengthRequested;
     /** @type { (RemoteDesktopClientOverride|undefined) } */
     this.remoteDesktopClientOverride;
-    /** @type { (DevicePublicKeyRequest|undefined) } */
-    this.devicePublicKey;
+    /** @type { (SupplementalPubKeysRequest|undefined) } */
+    this.supplementalPubKeys;
   }
 }
 

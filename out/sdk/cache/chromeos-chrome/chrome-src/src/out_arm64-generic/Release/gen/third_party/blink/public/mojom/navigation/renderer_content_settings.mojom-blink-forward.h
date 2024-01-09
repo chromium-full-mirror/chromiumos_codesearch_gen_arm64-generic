@@ -28,7 +28,7 @@ namespace blink::mojom {
 
 namespace blink::mojom::blink {
 class RendererContentSettings;
-using RendererContentSettingsPtr = mojo::StructPtr<RendererContentSettings>;
+using RendererContentSettingsPtr = mojo::InlinedStructPtr<RendererContentSettings>;
 
 
 

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRHand>::value,
     "XRHand inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRHand::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRHand is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRHand.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -118,7 +114,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key = NativeValueTraits<V8XRHandJoint>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -138,12 +134,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRHand.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRHand";
 const char* const property_name = "entries";
@@ -176,7 +172,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -211,12 +207,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRHand.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRHand";
 const char* const property_name = "keys";
@@ -239,12 +235,12 @@ BLINK_BINDINGS_TRACE_EVENT("XRHand.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(v8_receiver);
+XRHand* blink_receiver = V8XRHand::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRHand";
 const char* const property_name = "values";

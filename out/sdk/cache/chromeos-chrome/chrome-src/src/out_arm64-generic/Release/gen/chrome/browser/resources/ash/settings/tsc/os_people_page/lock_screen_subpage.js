@@ -34,10 +34,10 @@ import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy
 import { AuthFactor, ConfigureResult, FactorObserverReceiver, ManagementType } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { LockStateMixin } from '../lock_state_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { FingerprintBrowserProxyImpl } from './fingerprint_browser_proxy.js';
 import { getTemplate } from './lock_screen_subpage.html.js';
@@ -98,16 +98,6 @@ export class SettingsLockScreenElement extends SettingsLockScreenElementBase {
                 type: Boolean,
                 value() {
                     return loadTimeData.getBoolean('lockScreenHideSensitiveNotificationsSupported');
-                },
-                readOnly: true,
-            },
-            /**
-             * True if cryptohome recovery feature is enabled.
-             */
-            cryptohomeRecoveryEnabled_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('cryptohomeRecoveryEnabled');
                 },
                 readOnly: true,
             },
@@ -219,22 +209,19 @@ export class SettingsLockScreenElement extends SettingsLockScreenElementBase {
         focusWithoutInk(castExists(this.shadowRoot.querySelector('#recoveryToggle')));
     }
     recoveryToggleSubLabel_() {
-        if (!this.cryptohomeRecoveryEnabled_) {
-            return '';
-        }
         if (this.recovery_) {
             return this.i18n('recoveryToggleSubLabel');
         }
         return this.i18n('recoveryNotSupportedMessage');
     }
     recoveryToggleLearnMoreUrl_() {
-        if (!this.cryptohomeRecoveryEnabled_ || this.recovery_) {
+        if (this.recovery_) {
             return '';
         }
         return this.i18n('recoveryLearnMoreUrl');
     }
     recoveryToggleDisabled_() {
-        if (!this.cryptohomeRecoveryEnabled_ || !this.recovery_) {
+        if (!this.recovery_) {
             return true;
         }
         return this.recoveryChangeInProcess_;

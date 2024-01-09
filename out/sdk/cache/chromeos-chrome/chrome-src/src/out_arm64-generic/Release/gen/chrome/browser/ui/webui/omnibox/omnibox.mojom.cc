@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -160,30 +161,30 @@ Signals::Signals()
       allowed_to_be_default_match() {}
 
 Signals::Signals(
-    absl::optional<int32_t> typed_count_in,
-    absl::optional<int32_t> visit_count_in,
-    absl::optional<int64_t> elapsed_time_last_visit_secs_in,
-    absl::optional<int32_t> shortcut_visit_count_in,
-    absl::optional<int32_t> shortest_shortcut_len_in,
-    absl::optional<int64_t> elapsed_time_last_shortcut_visit_sec_in,
-    absl::optional<bool> is_host_only_in,
-    absl::optional<int32_t> num_bookmarks_of_url_in,
-    absl::optional<int32_t> first_bookmark_title_match_position_in,
-    absl::optional<int32_t> total_bookmark_title_match_length_in,
-    absl::optional<int32_t> num_input_terms_matched_by_bookmark_title_in,
-    absl::optional<int32_t> first_url_match_position_in,
-    absl::optional<int32_t> total_url_match_length_in,
-    absl::optional<bool> host_match_at_word_boundary_in,
-    absl::optional<int32_t> total_host_match_length_in,
-    absl::optional<int32_t> total_path_match_length_in,
-    absl::optional<int32_t> total_query_or_ref_match_length_in,
-    absl::optional<int32_t> total_title_match_length_in,
-    absl::optional<bool> has_non_scheme_www_match_in,
-    absl::optional<int32_t> num_input_terms_matched_by_title_in,
-    absl::optional<int32_t> num_input_terms_matched_by_url_in,
-    absl::optional<int32_t> length_of_url_in,
-    absl::optional<float> site_engagement_in,
-    absl::optional<bool> allowed_to_be_default_match_in)
+    std::optional<int32_t> typed_count_in,
+    std::optional<int32_t> visit_count_in,
+    std::optional<int64_t> elapsed_time_last_visit_secs_in,
+    std::optional<int32_t> shortcut_visit_count_in,
+    std::optional<int32_t> shortest_shortcut_len_in,
+    std::optional<int64_t> elapsed_time_last_shortcut_visit_sec_in,
+    std::optional<bool> is_host_only_in,
+    std::optional<int32_t> num_bookmarks_of_url_in,
+    std::optional<int32_t> first_bookmark_title_match_position_in,
+    std::optional<int32_t> total_bookmark_title_match_length_in,
+    std::optional<int32_t> num_input_terms_matched_by_bookmark_title_in,
+    std::optional<int32_t> first_url_match_position_in,
+    std::optional<int32_t> total_url_match_length_in,
+    std::optional<bool> host_match_at_word_boundary_in,
+    std::optional<int32_t> total_host_match_length_in,
+    std::optional<int32_t> total_path_match_length_in,
+    std::optional<int32_t> total_query_or_ref_match_length_in,
+    std::optional<int32_t> total_title_match_length_in,
+    std::optional<bool> has_non_scheme_www_match_in,
+    std::optional<int32_t> num_input_terms_matched_by_title_in,
+    std::optional<int32_t> num_input_terms_matched_by_url_in,
+    std::optional<int32_t> length_of_url_in,
+    std::optional<float> site_engagement_in,
+    std::optional<bool> allowed_to_be_default_match_in)
     : typed_count(std::move(typed_count_in)),
       visit_count(std::move(visit_count_in)),
       elapsed_time_last_visit_secs(std::move(elapsed_time_last_visit_secs_in)),
@@ -218,7 +219,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "typed_count"), this->typed_count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,7 +228,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "visit_count"), this->visit_count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -236,7 +237,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "elapsed_time_last_visit_secs"), this->elapsed_time_last_visit_secs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int64_t>>"
+      "<value of type std::optional<int64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -245,7 +246,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "shortcut_visit_count"), this->shortcut_visit_count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -254,7 +255,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "shortest_shortcut_len"), this->shortest_shortcut_len,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,7 +264,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "elapsed_time_last_shortcut_visit_sec"), this->elapsed_time_last_shortcut_visit_sec,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int64_t>>"
+      "<value of type std::optional<int64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -272,7 +273,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "is_host_only"), this->is_host_only,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -281,7 +282,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "num_bookmarks_of_url"), this->num_bookmarks_of_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -290,7 +291,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "first_bookmark_title_match_position"), this->first_bookmark_title_match_position,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -299,7 +300,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_bookmark_title_match_length"), this->total_bookmark_title_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -308,7 +309,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "num_input_terms_matched_by_bookmark_title"), this->num_input_terms_matched_by_bookmark_title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -317,7 +318,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "first_url_match_position"), this->first_url_match_position,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -326,7 +327,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_url_match_length"), this->total_url_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -335,7 +336,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "host_match_at_word_boundary"), this->host_match_at_word_boundary,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -344,7 +345,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_host_match_length"), this->total_host_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -353,7 +354,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_path_match_length"), this->total_path_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -362,7 +363,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_query_or_ref_match_length"), this->total_query_or_ref_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -371,7 +372,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "total_title_match_length"), this->total_title_match_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -380,7 +381,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "has_non_scheme_www_match"), this->has_non_scheme_www_match,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -389,7 +390,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "num_input_terms_matched_by_title"), this->num_input_terms_matched_by_title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -398,7 +399,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "num_input_terms_matched_by_url"), this->num_input_terms_matched_by_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -407,7 +408,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "length_of_url"), this->length_of_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -416,7 +417,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "site_engagement"), this->site_engagement,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<float>>"
+      "<value of type std::optional<float>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -425,7 +426,7 @@ void Signals::WriteIntoTrace(
     dict.AddItem(
       "allowed_to_be_default_match"), this->allowed_to_be_default_match,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1128,14 +1129,17 @@ void OmniboxPageHandlerProxy::SetClientPage(
                         "<value of type ::mojo::PendingRemote<OmniboxPage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_SetClientPage_Name, kFlags, 0, 0, nullptr);
@@ -1192,14 +1196,17 @@ void OmniboxPageHandlerProxy::StartOmniboxQuery(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_StartOmniboxQuery_Name, kFlags, 0, 0, nullptr);
@@ -1250,14 +1257,17 @@ void OmniboxPageHandlerProxy::GetMlModelVersion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::OmniboxPageHandler::GetMlModelVersion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_GetMlModelVersion_Name, kFlags, 0, 0, nullptr);
@@ -1288,14 +1298,17 @@ void OmniboxPageHandlerProxy::StartMl(
                         "<value of type SignalsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_StartMl_Name, kFlags, 0, 0, nullptr);
@@ -1416,7 +1429,8 @@ void OmniboxPageHandler_GetMlModelVersion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_GetMlModelVersion_Name, kFlags, 0, 0, nullptr);
@@ -1534,7 +1548,8 @@ void OmniboxPageHandler_StartMl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPageHandler_StartMl_Name, kFlags, 0, 0, nullptr);
@@ -1730,16 +1745,16 @@ std::move(p_signals), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOmniboxPageHandlerValidationInfo[] = {
-    {&internal::OmniboxPageHandler_SetClientPage_Params_Data::Validate,
+    { &internal::OmniboxPageHandler_SetClientPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OmniboxPageHandler_StartOmniboxQuery_Params_Data::Validate,
+    { &internal::OmniboxPageHandler_StartOmniboxQuery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OmniboxPageHandler_GetMlModelVersion_Params_Data::Validate,
+    { &internal::OmniboxPageHandler_GetMlModelVersion_Params_Data::Validate,
      &internal::OmniboxPageHandler_GetMlModelVersion_ResponseParams_Data::Validate},
-    {&internal::OmniboxPageHandler_StartMl_Params_Data::Validate,
+    { &internal::OmniboxPageHandler_StartMl_Params_Data::Validate,
      &internal::OmniboxPageHandler_StartMl_ResponseParams_Data::Validate},
 };
 
@@ -1886,14 +1901,17 @@ void OmniboxPageProxy::HandleNewAutocompleteQuery(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPage_HandleNewAutocompleteQuery_Name, kFlags, 0, 0, nullptr);
@@ -1939,14 +1957,17 @@ void OmniboxPageProxy::HandleNewAutocompleteResponse(
                         "<value of type OmniboxResponsePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPage_HandleNewAutocompleteResponse_Name, kFlags, 0, 0, nullptr);
@@ -1995,14 +2016,17 @@ void OmniboxPageProxy::HandleNewMlResponse(
                         "<value of type std::vector<AutocompleteMatchPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPage_HandleNewMlResponse_Name, kFlags, 0, 0, nullptr);
@@ -2064,14 +2088,17 @@ void OmniboxPageProxy::HandleAnswerImageData(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOmniboxPage_HandleAnswerImageData_Name, kFlags, 0, 0, nullptr);
@@ -2274,16 +2301,16 @@ bool OmniboxPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOmniboxPageValidationInfo[] = {
-    {&internal::OmniboxPage_HandleNewAutocompleteQuery_Params_Data::Validate,
+    { &internal::OmniboxPage_HandleNewAutocompleteQuery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OmniboxPage_HandleNewAutocompleteResponse_Params_Data::Validate,
+    { &internal::OmniboxPage_HandleNewAutocompleteResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OmniboxPage_HandleNewMlResponse_Params_Data::Validate,
+    { &internal::OmniboxPage_HandleNewMlResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::OmniboxPage_HandleAnswerImageData_Params_Data::Validate,
+    { &internal::OmniboxPage_HandleAnswerImageData_Params_Data::Validate,
      nullptr /* no response */},
 };
 

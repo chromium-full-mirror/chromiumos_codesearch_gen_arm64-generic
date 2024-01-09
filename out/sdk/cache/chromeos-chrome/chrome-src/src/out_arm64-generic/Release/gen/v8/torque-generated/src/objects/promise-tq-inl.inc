@@ -78,14 +78,14 @@ inline TorqueGeneratedPromiseCapability<D, P>::TorqueGeneratedPromiseCapability(
     : P(ptr) {
   SLOW_DCHECK(IsPromiseCapability_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=32&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=40&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::next() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReaction::next(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=32&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=40&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::next(PtrComprCageBase cage_base) const {
   Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kNextOffset);
@@ -93,7 +93,7 @@ Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::next(PtrComprCageBase cage_
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=32&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=40&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReaction<D, P>::set_next(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsZero(value) || IsPromiseReaction(value));
@@ -101,14 +101,14 @@ void TorqueGeneratedPromiseReaction<D, P>::set_next(Tagged<Object> value, WriteB
   CONDITIONAL_WRITE_BARRIER(*this, kNextOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=33&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=41&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::reject_handler() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReaction::reject_handler(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=33&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=41&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::reject_handler(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kRejectHandlerOffset);
@@ -116,7 +116,7 @@ Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::reject_handler(PtrCompr
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=33&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=41&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReaction<D, P>::set_reject_handler(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSFunction(value) || IsCallableApiObject(value) || IsCallableJSProxy(value) || IsJSBoundFunction(value) || IsJSWrappedFunction(value));
@@ -124,14 +124,14 @@ void TorqueGeneratedPromiseReaction<D, P>::set_reject_handler(Tagged<HeapObject>
   CONDITIONAL_WRITE_BARRIER(*this, kRejectHandlerOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=42&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::fulfill_handler() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReaction::fulfill_handler(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=42&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::fulfill_handler(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kFulfillHandlerOffset);
@@ -139,7 +139,7 @@ Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::fulfill_handler(PtrComp
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=42&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReaction<D, P>::set_fulfill_handler(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSFunction(value) || IsCallableApiObject(value) || IsCallableJSProxy(value) || IsJSBoundFunction(value) || IsJSWrappedFunction(value));
@@ -147,14 +147,14 @@ void TorqueGeneratedPromiseReaction<D, P>::set_fulfill_handler(Tagged<HeapObject
   CONDITIONAL_WRITE_BARRIER(*this, kFulfillHandlerOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=37&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=45&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::promise_or_capability() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReaction::promise_or_capability(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=37&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=45&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::promise_or_capability(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kPromiseOrCapabilityOffset);
@@ -162,7 +162,7 @@ Tagged<HeapObject> TorqueGeneratedPromiseReaction<D, P>::promise_or_capability(P
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=37&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=45&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReaction<D, P>::set_promise_or_capability(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSPromise(value) || IsPromiseCapability(value));
@@ -170,30 +170,53 @@ void TorqueGeneratedPromiseReaction<D, P>::set_promise_or_capability(Tagged<Heap
   CONDITIONAL_WRITE_BARRIER(*this, kPromiseOrCapabilityOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=38&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=47&c=3
 template<class D, class P>
-Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::continuation_preserved_embedder_data() const {
+Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::isolate_continuation_preserved_embedder_data() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
-  return TorqueGeneratedPromiseReaction::continuation_preserved_embedder_data(cage_base);
+  return TorqueGeneratedPromiseReaction::isolate_continuation_preserved_embedder_data(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=38&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=47&c=3
 template<class D, class P>
-Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
-  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kContinuationPreservedEmbedderDataOffset);
+Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::isolate_continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
+  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kIsolateContinuationPreservedEmbedderDataOffset);
   DCHECK(IsHeapObject(value) || IsSmi(value));
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=38&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=47&c=3
 template<class D, class P>
-void TorqueGeneratedPromiseReaction<D, P>::set_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
+void TorqueGeneratedPromiseReaction<D, P>::set_isolate_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
-  WRITE_FIELD(*this, kContinuationPreservedEmbedderDataOffset, value);
-  CONDITIONAL_WRITE_BARRIER(*this, kContinuationPreservedEmbedderDataOffset, value, mode);
+  WRITE_FIELD(*this, kIsolateContinuationPreservedEmbedderDataOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kIsolateContinuationPreservedEmbedderDataOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=31&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=49&c=3
+template<class D, class P>
+Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::context_continuation_preserved_embedder_data() const {
+  PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
+  return TorqueGeneratedPromiseReaction::context_continuation_preserved_embedder_data(cage_base);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=49&c=3
+template<class D, class P>
+Tagged<Object> TorqueGeneratedPromiseReaction<D, P>::context_continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
+  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kContextContinuationPreservedEmbedderDataOffset);
+  DCHECK(IsHeapObject(value) || IsSmi(value));
+  return value;
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=49&c=3
+template<class D, class P>
+void TorqueGeneratedPromiseReaction<D, P>::set_context_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
+  SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
+  WRITE_FIELD(*this, kContextContinuationPreservedEmbedderDataOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kContextContinuationPreservedEmbedderDataOffset, value, mode);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=39&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedPromiseReaction<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -204,14 +227,14 @@ inline TorqueGeneratedPromiseReaction<D, P>::TorqueGeneratedPromiseReaction(Addr
     : P(ptr) {
   SLOW_DCHECK(IsPromiseReaction_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=55&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::argument() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReactionJobTask::argument(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=55&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::argument(PtrComprCageBase cage_base) const {
   Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kArgumentOffset);
@@ -219,7 +242,7 @@ Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::argument(PtrComprCag
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=55&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReactionJobTask<D, P>::set_argument(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
@@ -227,14 +250,14 @@ void TorqueGeneratedPromiseReactionJobTask<D, P>::set_argument(Tagged<Object> va
   CONDITIONAL_WRITE_BARRIER(*this, kArgumentOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=56&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=73&c=3
 template<class D, class P>
 Tagged<Context> TorqueGeneratedPromiseReactionJobTask<D, P>::context() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReactionJobTask::context(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=56&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=73&c=3
 template<class D, class P>
 Tagged<Context> TorqueGeneratedPromiseReactionJobTask<D, P>::context(PtrComprCageBase cage_base) const {
   Tagged<Context> value = TaggedField<Tagged<Context>>::load(cage_base, *this, kContextOffset);
@@ -242,7 +265,7 @@ Tagged<Context> TorqueGeneratedPromiseReactionJobTask<D, P>::context(PtrComprCag
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=56&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=73&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReactionJobTask<D, P>::set_context(Tagged<Context> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsContext(value));
@@ -250,14 +273,14 @@ void TorqueGeneratedPromiseReactionJobTask<D, P>::set_context(Tagged<Context> va
   CONDITIONAL_WRITE_BARRIER(*this, kContextOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=74&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::handler() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReactionJobTask::handler(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=74&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::handler(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kHandlerOffset);
@@ -265,7 +288,7 @@ Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::handler(PtrCompr
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=74&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReactionJobTask<D, P>::set_handler(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSFunction(value) || IsCallableApiObject(value) || IsCallableJSProxy(value) || IsJSBoundFunction(value) || IsJSWrappedFunction(value));
@@ -273,14 +296,14 @@ void TorqueGeneratedPromiseReactionJobTask<D, P>::set_handler(Tagged<HeapObject>
   CONDITIONAL_WRITE_BARRIER(*this, kHandlerOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=60&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=77&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::promise_or_capability() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseReactionJobTask::promise_or_capability(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=60&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=77&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::promise_or_capability(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kPromiseOrCapabilityOffset);
@@ -288,7 +311,7 @@ Tagged<HeapObject> TorqueGeneratedPromiseReactionJobTask<D, P>::promise_or_capab
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=60&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=77&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseReactionJobTask<D, P>::set_promise_or_capability(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSPromise(value) || IsPromiseCapability(value));
@@ -296,30 +319,53 @@ void TorqueGeneratedPromiseReactionJobTask<D, P>::set_promise_or_capability(Tagg
   CONDITIONAL_WRITE_BARRIER(*this, kPromiseOrCapabilityOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=61&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=79&c=3
 template<class D, class P>
-Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::continuation_preserved_embedder_data() const {
+Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::isolate_continuation_preserved_embedder_data() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
-  return TorqueGeneratedPromiseReactionJobTask::continuation_preserved_embedder_data(cage_base);
+  return TorqueGeneratedPromiseReactionJobTask::isolate_continuation_preserved_embedder_data(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=61&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=79&c=3
 template<class D, class P>
-Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
-  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kContinuationPreservedEmbedderDataOffset);
+Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::isolate_continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
+  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kIsolateContinuationPreservedEmbedderDataOffset);
   DCHECK(IsHeapObject(value) || IsSmi(value));
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=61&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=79&c=3
 template<class D, class P>
-void TorqueGeneratedPromiseReactionJobTask<D, P>::set_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
+void TorqueGeneratedPromiseReactionJobTask<D, P>::set_isolate_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
-  WRITE_FIELD(*this, kContinuationPreservedEmbedderDataOffset, value);
-  CONDITIONAL_WRITE_BARRIER(*this, kContinuationPreservedEmbedderDataOffset, value, mode);
+  WRITE_FIELD(*this, kIsolateContinuationPreservedEmbedderDataOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kIsolateContinuationPreservedEmbedderDataOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=53&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=81&c=3
+template<class D, class P>
+Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::context_continuation_preserved_embedder_data() const {
+  PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
+  return TorqueGeneratedPromiseReactionJobTask::context_continuation_preserved_embedder_data(cage_base);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=81&c=3
+template<class D, class P>
+Tagged<Object> TorqueGeneratedPromiseReactionJobTask<D, P>::context_continuation_preserved_embedder_data(PtrComprCageBase cage_base) const {
+  Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kContextContinuationPreservedEmbedderDataOffset);
+  DCHECK(IsHeapObject(value) || IsSmi(value));
+  return value;
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=81&c=3
+template<class D, class P>
+void TorqueGeneratedPromiseReactionJobTask<D, P>::set_context_continuation_preserved_embedder_data(Tagged<Object> value, WriteBarrierMode mode) {
+  SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
+  WRITE_FIELD(*this, kContextContinuationPreservedEmbedderDataOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kContextContinuationPreservedEmbedderDataOffset, value, mode);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedPromiseReactionJobTask<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -330,7 +376,7 @@ inline TorqueGeneratedPromiseReactionJobTask<D, P>::TorqueGeneratedPromiseReacti
     : P(ptr) {
   SLOW_DCHECK(IsPromiseReactionJobTask_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=64&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=84&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedPromiseFulfillReactionJobTask<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -341,7 +387,7 @@ inline TorqueGeneratedPromiseFulfillReactionJobTask<D, P>::TorqueGeneratedPromis
     : P(ptr) {
   SLOW_DCHECK(IsPromiseFulfillReactionJobTask_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=66&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=86&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedPromiseRejectReactionJobTask<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -352,14 +398,14 @@ inline TorqueGeneratedPromiseRejectReactionJobTask<D, P>::TorqueGeneratedPromise
     : P(ptr) {
   SLOW_DCHECK(IsPromiseRejectReactionJobTask_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=69&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=89&c=3
 template<class D, class P>
 Tagged<Context> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::context() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseResolveThenableJobTask::context(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=69&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=89&c=3
 template<class D, class P>
 Tagged<Context> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::context(PtrComprCageBase cage_base) const {
   Tagged<Context> value = TaggedField<Tagged<Context>>::load(cage_base, *this, kContextOffset);
@@ -367,7 +413,7 @@ Tagged<Context> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::context(PtrC
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=69&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=89&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_context(Tagged<Context> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsContext(value));
@@ -375,14 +421,14 @@ void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_context(Tagged<Cont
   CONDITIONAL_WRITE_BARRIER(*this, kContextOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=90&c=3
 template<class D, class P>
 Tagged<JSPromise> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::promise_to_resolve() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseResolveThenableJobTask::promise_to_resolve(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=90&c=3
 template<class D, class P>
 Tagged<JSPromise> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::promise_to_resolve(PtrComprCageBase cage_base) const {
   Tagged<JSPromise> value = TaggedField<Tagged<JSPromise>>::load(cage_base, *this, kPromiseToResolveOffset);
@@ -390,7 +436,7 @@ Tagged<JSPromise> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::promise_to
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=70&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=90&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_promise_to_resolve(Tagged<JSPromise> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsJSPromise(value));
@@ -398,14 +444,14 @@ void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_promise_to_resolve(
   CONDITIONAL_WRITE_BARRIER(*this, kPromiseToResolveOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=71&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=91&c=3
 template<class D, class P>
 Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::thenable() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseResolveThenableJobTask::thenable(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=71&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=91&c=3
 template<class D, class P>
 Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::thenable(PtrComprCageBase cage_base) const {
   Tagged<JSReceiver> value = TaggedField<Tagged<JSReceiver>>::load(cage_base, *this, kThenableOffset);
@@ -413,7 +459,7 @@ Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::thenable(
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=71&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=91&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_thenable(Tagged<JSReceiver> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsJSReceiver(value));
@@ -421,14 +467,14 @@ void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_thenable(Tagged<JSR
   CONDITIONAL_WRITE_BARRIER(*this, kThenableOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=92&c=3
 template<class D, class P>
 Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::then() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedPromiseResolveThenableJobTask::then(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=92&c=3
 template<class D, class P>
 Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::then(PtrComprCageBase cage_base) const {
   Tagged<JSReceiver> value = TaggedField<Tagged<JSReceiver>>::load(cage_base, *this, kThenOffset);
@@ -436,7 +482,7 @@ Tagged<JSReceiver> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::then(PtrC
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=72&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=92&c=3
 template<class D, class P>
 void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_then(Tagged<JSReceiver> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsJSReceiver(value));
@@ -444,7 +490,7 @@ void TorqueGeneratedPromiseResolveThenableJobTask<D, P>::set_then(Tagged<JSRecei
   CONDITIONAL_WRITE_BARRIER(*this, kThenOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=68&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/promise.tq?l=88&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedPromiseResolveThenableJobTask<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));

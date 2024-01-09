@@ -4,94 +4,117 @@
 #include "ipc.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace imageloader {
+template <typename>
 PROTOBUF_CONSTEXPR ImageCommand::ImageCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.op_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ImageCommandDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ImageCommandDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ImageCommandDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ImageCommandDefaultTypeInternal() {}
   union {
     ImageCommand _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageCommandDefaultTypeInternal _ImageCommand_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageCommandDefaultTypeInternal _ImageCommand_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR MountCommand::MountCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.mount_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.table_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.fs_type_)*/1} {}
+  , /*decltype(_impl_.mount_path_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.table_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.fs_type_)*/ 1
+} {}
 struct MountCommandDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MountCommandDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MountCommandDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~MountCommandDefaultTypeInternal() {}
   union {
     MountCommand _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MountCommandDefaultTypeInternal _MountCommand_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MountCommandDefaultTypeInternal _MountCommand_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UnmountAllCommand::UnmountAllCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.unmount_rootpath_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.dry_run_)*/true} {}
+  , /*decltype(_impl_.unmount_rootpath_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.dry_run_)*/ true
+} {}
 struct UnmountAllCommandDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UnmountAllCommandDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UnmountAllCommandDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UnmountAllCommandDefaultTypeInternal() {}
   union {
     UnmountAllCommand _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountAllCommandDefaultTypeInternal _UnmountAllCommand_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountAllCommandDefaultTypeInternal _UnmountAllCommand_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UnmountCommand::UnmountCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.unmount_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.unmount_path_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct UnmountCommandDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UnmountCommandDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UnmountCommandDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UnmountCommandDefaultTypeInternal() {}
   union {
     UnmountCommand _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountCommandDefaultTypeInternal _UnmountCommand_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountCommandDefaultTypeInternal _UnmountCommand_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CommandResponse::CommandResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.paths_)*/{}
-  , /*decltype(_impl_.success_)*/false} {}
+  , /*decltype(_impl_.success_)*/ false
+} {}
 struct CommandResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CommandResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CommandResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CommandResponseDefaultTypeInternal() {}
   union {
     CommandResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommandResponseDefaultTypeInternal _CommandResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommandResponseDefaultTypeInternal _CommandResponse_default_instance_;
 }  // namespace imageloader
 namespace imageloader {
 bool MountCommand_FileSystem_IsValid(int value) {
@@ -103,40 +126,40 @@ bool MountCommand_FileSystem_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    MountCommand_FileSystem_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MountCommand_FileSystem_strings[2] = {};
+static const char MountCommand_FileSystem_names[] = {
+    "EXT4"
+    "SQUASH"
+};
 
-static const char MountCommand_FileSystem_names[] =
-  "EXT4"
-  "SQUASH";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MountCommand_FileSystem_entries[] = {
-  { {MountCommand_FileSystem_names + 0, 4}, 2 },
-  { {MountCommand_FileSystem_names + 4, 6}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MountCommand_FileSystem_entries[] =
+    {
+        {{&MountCommand_FileSystem_names[0], 4}, 2},
+        {{&MountCommand_FileSystem_names[4], 6}, 1},
 };
 
 static const int MountCommand_FileSystem_entries_by_number[] = {
-  1, // 1 -> SQUASH
-  0, // 2 -> EXT4
+    1,  // 1 -> SQUASH
+    0,  // 2 -> EXT4
 };
 
-const std::string& MountCommand_FileSystem_Name(
-    MountCommand_FileSystem value) {
-  static const bool dummy =
+const std::string& MountCommand_FileSystem_Name(MountCommand_FileSystem value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          MountCommand_FileSystem_entries,
-          MountCommand_FileSystem_entries_by_number,
+          MountCommand_FileSystem_entries, MountCommand_FileSystem_entries_by_number,
           2, MountCommand_FileSystem_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      MountCommand_FileSystem_entries,
-      MountCommand_FileSystem_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     MountCommand_FileSystem_strings[idx].get();
+      MountCommand_FileSystem_entries, MountCommand_FileSystem_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : MountCommand_FileSystem_strings[idx].get();
 }
-bool MountCommand_FileSystem_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MountCommand_FileSystem* value) {
+
+bool MountCommand_FileSystem_Parse(absl::string_view name, MountCommand_FileSystem* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       MountCommand_FileSystem_entries, 2, name, &int_value);
@@ -145,18 +168,23 @@ bool MountCommand_FileSystem_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr MountCommand_FileSystem MountCommand::SQUASH;
 constexpr MountCommand_FileSystem MountCommand::EXT4;
 constexpr MountCommand_FileSystem MountCommand::FileSystem_MIN;
 constexpr MountCommand_FileSystem MountCommand::FileSystem_MAX;
 constexpr int MountCommand::FileSystem_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class ImageCommand::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::imageloader::ImageCommand, _impl_._oneof_case_);
   static const ::imageloader::MountCommand& mount_command(const ImageCommand* msg);
   static const ::imageloader::UnmountAllCommand& unmount_all_command(const ImageCommand* msg);
   static const ::imageloader::UnmountCommand& unmount_command(const ImageCommand* msg);
@@ -219,10 +247,9 @@ void ImageCommand::set_allocated_unmount_command(::imageloader::UnmountCommand* 
   }
   // @@protoc_insertion_point(field_set_allocated:imageloader.ImageCommand.unmount_command)
 }
-ImageCommand::ImageCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ImageCommand::ImageCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:imageloader.ImageCommand)
 }
 ImageCommand::ImageCommand(const ImageCommand& from)
@@ -258,10 +285,8 @@ ImageCommand::ImageCommand(const ImageCommand& from)
   // @@protoc_insertion_point(copy_constructor:imageloader.ImageCommand)
 }
 
-inline void ImageCommand::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ImageCommand::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.op_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -280,7 +305,7 @@ ImageCommand::~ImageCommand() {
 }
 
 inline void ImageCommand::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_op()) {
     clear_op();
   }
@@ -321,7 +346,7 @@ void ImageCommand::clear_op() {
 
 void ImageCommand::Clear() {
 // @@protoc_insertion_point(message_clear_start:imageloader.ImageCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -332,32 +357,35 @@ void ImageCommand::Clear() {
 const char* ImageCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .imageloader.MountCommand mount_command = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_mount_command(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .imageloader.UnmountAllCommand unmount_all_command = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_unmount_all_command(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .imageloader.UnmountCommand unmount_command = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_unmount_command(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -382,10 +410,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ImageCommand::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ImageCommand::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:imageloader.ImageCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (op_case()) {
@@ -417,11 +445,11 @@ uint8_t* ImageCommand::_InternalSerialize(
   return target;
 }
 
-size_t ImageCommand::ByteSizeLong() const {
+::size_t ImageCommand::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:imageloader.ImageCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -468,8 +496,8 @@ void ImageCommand::CheckTypeAndMergeFrom(
 void ImageCommand::MergeFrom(const ImageCommand& from) {
   ImageCommand* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:imageloader.ImageCommand)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.op_case()) {
@@ -505,19 +533,19 @@ void ImageCommand::CopyFrom(const ImageCommand& from) {
 bool ImageCommand::IsInitialized() const {
   switch (op_case()) {
     case kMountCommand: {
-      if (_internal_has_mount_command()) {
+      if (op_case() == kMountCommand) {
         if (!_impl_.op_.mount_command_->IsInitialized()) return false;
       }
       break;
     }
     case kUnmountAllCommand: {
-      if (_internal_has_unmount_all_command()) {
+      if (op_case() == kUnmountAllCommand) {
         if (!_impl_.op_.unmount_all_command_->IsInitialized()) return false;
       }
       break;
     }
     case kUnmountCommand: {
-      if (_internal_has_unmount_command()) {
+      if (op_case() == kUnmountCommand) {
         if (!_impl_.op_.unmount_command_->IsInitialized()) return false;
       }
       break;
@@ -540,12 +568,13 @@ std::string ImageCommand::GetTypeName() const {
   return "imageloader.ImageCommand";
 }
 
-
 // ===================================================================
 
 class MountCommand::_Internal {
  public:
   using HasBits = decltype(std::declval<MountCommand>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(MountCommand, _impl_._has_bits_);
   static void set_has_mount_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -560,10 +589,9 @@ class MountCommand::_Internal {
   }
 };
 
-MountCommand::MountCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+MountCommand::MountCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:imageloader.MountCommand)
 }
 MountCommand::MountCommand(const MountCommand& from)
@@ -572,50 +600,52 @@ MountCommand::MountCommand(const MountCommand& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.mount_path_){}
-    , decltype(_impl_.table_){}
-    , decltype(_impl_.fs_type_){}};
+    , decltype(_impl_.mount_path_) {}
+
+    , decltype(_impl_.table_) {}
+
+    , decltype(_impl_.fs_type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.mount_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.mount_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_mount_path()) {
-    _this->_impl_.mount_path_.Set(from._internal_mount_path(), 
-      _this->GetArenaForAllocation());
+        _impl_.mount_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.mount_path_.Set(from._internal_mount_path(), _this->GetArenaForAllocation());
   }
   _impl_.table_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.table_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_table()) {
-    _this->_impl_.table_.Set(from._internal_table(), 
-      _this->GetArenaForAllocation());
+        _impl_.table_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.table_.Set(from._internal_table(), _this->GetArenaForAllocation());
   }
   _this->_impl_.fs_type_ = from._impl_.fs_type_;
   // @@protoc_insertion_point(copy_constructor:imageloader.MountCommand)
 }
 
-inline void MountCommand::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void MountCommand::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.mount_path_){}
-    , decltype(_impl_.table_){}
-    , decltype(_impl_.fs_type_){1}
+    , decltype(_impl_.mount_path_) {}
+
+    , decltype(_impl_.table_) {}
+
+    , decltype(_impl_.fs_type_) { 1 }
+
   };
   _impl_.mount_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.mount_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.mount_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.table_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.table_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.table_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MountCommand::~MountCommand() {
@@ -628,7 +658,7 @@ MountCommand::~MountCommand() {
 }
 
 inline void MountCommand::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.mount_path_.Destroy();
   _impl_.table_.Destroy();
 }
@@ -639,7 +669,7 @@ void MountCommand::SetCachedSize(int size) const {
 
 void MountCommand::Clear() {
 // @@protoc_insertion_point(message_clear_start:imageloader.MountCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -661,39 +691,42 @@ const char* MountCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string mount_path = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_mount_path();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required string table = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_table();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required .imageloader.MountCommand.FileSystem fs_type = 4 [default = SQUASH];
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::imageloader::MountCommand_FileSystem_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::imageloader::MountCommand_FileSystem_IsValid(static_cast<int>(val)))) {
             _internal_set_fs_type(static_cast<::imageloader::MountCommand_FileSystem>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -719,30 +752,30 @@ failure:
 #undef CHK_
 }
 
-uint8_t* MountCommand::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* MountCommand::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:imageloader.MountCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required string mount_path = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_mount_path(), target);
+    const std::string& _s = this->_internal_mount_path();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // required string table = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_table(), target);
+    const std::string& _s = this->_internal_table();
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // required .imageloader.MountCommand.FileSystem fs_type = 4 [default = SQUASH];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_fs_type(), target);
+        4, this->_internal_fs_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -753,55 +786,51 @@ uint8_t* MountCommand::_InternalSerialize(
   return target;
 }
 
-size_t MountCommand::RequiredFieldsByteSizeFallback() const {
+::size_t MountCommand::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:imageloader.MountCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_mount_path()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required string mount_path = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_mount_path());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_mount_path());
   }
 
-  if (_internal_has_table()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required string table = 3;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_table());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_table());
   }
 
-  if (_internal_has_fs_type()) {
+  if ((_impl_._has_bits_[0] & 0x00000004u) != 0) {
     // required .imageloader.MountCommand.FileSystem fs_type = 4 [default = SQUASH];
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_fs_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_fs_type());
   }
 
   return total_size;
 }
-size_t MountCommand::ByteSizeLong() const {
+::size_t MountCommand::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:imageloader.MountCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required string mount_path = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_mount_path());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_mount_path());
 
     // required string table = 3;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_table());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_table());
 
     // required .imageloader.MountCommand.FileSystem fs_type = 4 [default = SQUASH];
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_fs_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_fs_type());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -822,8 +851,8 @@ void MountCommand::CheckTypeAndMergeFrom(
 void MountCommand::MergeFrom(const MountCommand& from) {
   MountCommand* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:imageloader.MountCommand)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -860,14 +889,10 @@ void MountCommand::InternalSwap(MountCommand* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.mount_path_, lhs_arena,
-      &other->_impl_.mount_path_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.table_, lhs_arena,
-      &other->_impl_.table_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.mount_path_, lhs_arena,
+                                       &other->_impl_.mount_path_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.table_, lhs_arena,
+                                       &other->_impl_.table_, rhs_arena);
   swap(_impl_.fs_type_, other->_impl_.fs_type_);
 }
 
@@ -875,12 +900,13 @@ std::string MountCommand::GetTypeName() const {
   return "imageloader.MountCommand";
 }
 
-
 // ===================================================================
 
 class UnmountAllCommand::_Internal {
  public:
   using HasBits = decltype(std::declval<UnmountAllCommand>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UnmountAllCommand, _impl_._has_bits_);
   static void set_has_dry_run(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -892,10 +918,9 @@ class UnmountAllCommand::_Internal {
   }
 };
 
-UnmountAllCommand::UnmountAllCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UnmountAllCommand::UnmountAllCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:imageloader.UnmountAllCommand)
 }
 UnmountAllCommand::UnmountAllCommand(const UnmountAllCommand& from)
@@ -904,36 +929,37 @@ UnmountAllCommand::UnmountAllCommand(const UnmountAllCommand& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unmount_rootpath_){}
-    , decltype(_impl_.dry_run_){}};
+    , decltype(_impl_.unmount_rootpath_) {}
+
+    , decltype(_impl_.dry_run_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.unmount_rootpath_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.unmount_rootpath_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_unmount_rootpath()) {
-    _this->_impl_.unmount_rootpath_.Set(from._internal_unmount_rootpath(), 
-      _this->GetArenaForAllocation());
+        _impl_.unmount_rootpath_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.unmount_rootpath_.Set(from._internal_unmount_rootpath(), _this->GetArenaForAllocation());
   }
   _this->_impl_.dry_run_ = from._impl_.dry_run_;
   // @@protoc_insertion_point(copy_constructor:imageloader.UnmountAllCommand)
 }
 
-inline void UnmountAllCommand::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UnmountAllCommand::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unmount_rootpath_){}
-    , decltype(_impl_.dry_run_){true}
+    , decltype(_impl_.unmount_rootpath_) {}
+
+    , decltype(_impl_.dry_run_) { true }
+
   };
   _impl_.unmount_rootpath_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.unmount_rootpath_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.unmount_rootpath_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UnmountAllCommand::~UnmountAllCommand() {
@@ -946,7 +972,7 @@ UnmountAllCommand::~UnmountAllCommand() {
 }
 
 inline void UnmountAllCommand::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.unmount_rootpath_.Destroy();
 }
 
@@ -956,7 +982,7 @@ void UnmountAllCommand::SetCachedSize(int size) const {
 
 void UnmountAllCommand::Clear() {
 // @@protoc_insertion_point(message_clear_start:imageloader.UnmountAllCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -975,26 +1001,28 @@ const char* UnmountAllCommand::_InternalParse(const char* ptr, ::_pbi::ParseCont
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required bool dry_run = 5 [default = true];
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_dry_run(&has_bits);
           _impl_.dry_run_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required string unmount_rootpath = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_unmount_rootpath();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1020,23 +1048,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UnmountAllCommand::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UnmountAllCommand::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:imageloader.UnmountAllCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required bool dry_run = 5 [default = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_dry_run(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_dry_run(), target);
   }
 
   // required string unmount_rootpath = 6;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_unmount_rootpath(), target);
+    const std::string& _s = this->_internal_unmount_rootpath();
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1047,41 +1076,39 @@ uint8_t* UnmountAllCommand::_InternalSerialize(
   return target;
 }
 
-size_t UnmountAllCommand::RequiredFieldsByteSizeFallback() const {
+::size_t UnmountAllCommand::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:imageloader.UnmountAllCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (_internal_has_unmount_rootpath()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     // required string unmount_rootpath = 6;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_unmount_rootpath());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_unmount_rootpath());
   }
 
-  if (_internal_has_dry_run()) {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
     // required bool dry_run = 5 [default = true];
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   return total_size;
 }
-size_t UnmountAllCommand::ByteSizeLong() const {
+::size_t UnmountAllCommand::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:imageloader.UnmountAllCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required string unmount_rootpath = 6;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_unmount_rootpath());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_unmount_rootpath());
 
     // required bool dry_run = 5 [default = true];
-    total_size += 1 + 1;
+    total_size += 2;
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1102,8 +1129,8 @@ void UnmountAllCommand::CheckTypeAndMergeFrom(
 void UnmountAllCommand::MergeFrom(const UnmountAllCommand& from) {
   UnmountAllCommand* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:imageloader.UnmountAllCommand)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1137,10 +1164,9 @@ void UnmountAllCommand::InternalSwap(UnmountAllCommand* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.unmount_rootpath_, lhs_arena,
-      &other->_impl_.unmount_rootpath_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.unmount_rootpath_, lhs_arena,
+                                       &other->_impl_.unmount_rootpath_, rhs_arena);
+
   swap(_impl_.dry_run_, other->_impl_.dry_run_);
 }
 
@@ -1148,12 +1174,13 @@ std::string UnmountAllCommand::GetTypeName() const {
   return "imageloader.UnmountAllCommand";
 }
 
-
 // ===================================================================
 
 class UnmountCommand::_Internal {
  public:
   using HasBits = decltype(std::declval<UnmountCommand>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UnmountCommand, _impl_._has_bits_);
   static void set_has_unmount_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1162,10 +1189,9 @@ class UnmountCommand::_Internal {
   }
 };
 
-UnmountCommand::UnmountCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UnmountCommand::UnmountCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:imageloader.UnmountCommand)
 }
 UnmountCommand::UnmountCommand(const UnmountCommand& from)
@@ -1174,33 +1200,32 @@ UnmountCommand::UnmountCommand(const UnmountCommand& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unmount_path_){}};
+    , decltype(_impl_.unmount_path_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.unmount_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.unmount_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_unmount_path()) {
-    _this->_impl_.unmount_path_.Set(from._internal_unmount_path(), 
-      _this->GetArenaForAllocation());
+        _impl_.unmount_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.unmount_path_.Set(from._internal_unmount_path(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:imageloader.UnmountCommand)
 }
 
-inline void UnmountCommand::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UnmountCommand::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.unmount_path_){}
+    , decltype(_impl_.unmount_path_) {}
+
   };
   _impl_.unmount_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.unmount_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.unmount_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UnmountCommand::~UnmountCommand() {
@@ -1213,7 +1238,7 @@ UnmountCommand::~UnmountCommand() {
 }
 
 inline void UnmountCommand::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.unmount_path_.Destroy();
 }
 
@@ -1223,7 +1248,7 @@ void UnmountCommand::SetCachedSize(int size) const {
 
 void UnmountCommand::Clear() {
 // @@protoc_insertion_point(message_clear_start:imageloader.UnmountCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1239,17 +1264,18 @@ const char* UnmountCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string unmount_path = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_unmount_path();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1275,17 +1301,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UnmountCommand::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UnmountCommand::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:imageloader.UnmountCommand)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required string unmount_path = 7;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        7, this->_internal_unmount_path(), target);
+    const std::string& _s = this->_internal_unmount_path();
+    target = stream->WriteStringMaybeAliased(7, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1296,17 +1322,16 @@ uint8_t* UnmountCommand::_InternalSerialize(
   return target;
 }
 
-size_t UnmountCommand::ByteSizeLong() const {
+::size_t UnmountCommand::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:imageloader.UnmountCommand)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required string unmount_path = 7;
-  if (_internal_has_unmount_path()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_unmount_path());
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_unmount_path());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1327,11 +1352,11 @@ void UnmountCommand::CheckTypeAndMergeFrom(
 void UnmountCommand::MergeFrom(const UnmountCommand& from) {
   UnmountCommand* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:imageloader.UnmountCommand)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_unmount_path()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_unmount_path(from._internal_unmount_path());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1355,22 +1380,21 @@ void UnmountCommand::InternalSwap(UnmountCommand* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.unmount_path_, lhs_arena,
-      &other->_impl_.unmount_path_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.unmount_path_, lhs_arena,
+                                       &other->_impl_.unmount_path_, rhs_arena);
 }
 
 std::string UnmountCommand::GetTypeName() const {
   return "imageloader.UnmountCommand";
 }
 
-
 // ===================================================================
 
 class CommandResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<CommandResponse>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CommandResponse, _impl_._has_bits_);
   static void set_has_success(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1379,10 +1403,9 @@ class CommandResponse::_Internal {
   }
 };
 
-CommandResponse::CommandResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CommandResponse::CommandResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:imageloader.CommandResponse)
 }
 CommandResponse::CommandResponse(const CommandResponse& from)
@@ -1392,22 +1415,22 @@ CommandResponse::CommandResponse(const CommandResponse& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.paths_){from._impl_.paths_}
-    , decltype(_impl_.success_){}};
+    , decltype(_impl_.success_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
   // @@protoc_insertion_point(copy_constructor:imageloader.CommandResponse)
 }
 
-inline void CommandResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CommandResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.paths_){arena}
-    , decltype(_impl_.success_){false}
+    , decltype(_impl_.success_) { false }
+
   };
 }
 
@@ -1421,8 +1444,8 @@ CommandResponse::~CommandResponse() {
 }
 
 inline void CommandResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.paths_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_paths()->~RepeatedPtrField();
 }
 
 void CommandResponse::SetCachedSize(int size) const {
@@ -1431,11 +1454,11 @@ void CommandResponse::SetCachedSize(int size) const {
 
 void CommandResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:imageloader.CommandResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.paths_.Clear();
+  _internal_mutable_paths()->Clear();
   _impl_.success_ = false;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1445,21 +1468,22 @@ const char* CommandResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required bool success = 1 [default = false];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_success(&has_bits);
           _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated string paths = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1468,8 +1492,9 @@ const char* CommandResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1495,21 +1520,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CommandResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CommandResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:imageloader.CommandResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required bool success = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_success(), target);
   }
 
   // repeated string paths = 2;
-  for (int i = 0, n = this->_internal_paths_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_paths_size(); i < n; ++i) {
     const auto& s = this->_internal_paths(i);
     target = stream->WriteString(2, s, target);
   }
@@ -1522,24 +1548,23 @@ uint8_t* CommandResponse::_InternalSerialize(
   return target;
 }
 
-size_t CommandResponse::ByteSizeLong() const {
+::size_t CommandResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:imageloader.CommandResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required bool success = 1 [default = false];
-  if (_internal_has_success()) {
-    total_size += 1 + 1;
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
+    total_size += 2;
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated string paths = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.paths_.size());
-  for (int i = 0, n = _impl_.paths_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_paths().size());
+  for (int i = 0, n = _internal_paths().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.paths_.Get(i));
+        _internal_paths().Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1559,12 +1584,12 @@ void CommandResponse::CheckTypeAndMergeFrom(
 void CommandResponse::MergeFrom(const CommandResponse& from) {
   CommandResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:imageloader.CommandResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.paths_.MergeFrom(from._impl_.paths_);
-  if (from._internal_has_success()) {
+  _this->_internal_mutable_paths()->MergeFrom(from._internal_paths());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_success(from._internal_success());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1586,14 +1611,15 @@ void CommandResponse::InternalSwap(CommandResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.paths_.InternalSwap(&other->_impl_.paths_);
+  _internal_mutable_paths()->InternalSwap(
+      other->_internal_mutable_paths());
+
   swap(_impl_.success_, other->_impl_.success_);
 }
 
 std::string CommandResponse::GetTypeName() const {
   return "imageloader.CommandResponse";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace imageloader
@@ -1619,6 +1645,5 @@ Arena::CreateMaybeMessage< ::imageloader::CommandResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::imageloader::CommandResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

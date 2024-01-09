@@ -647,7 +647,7 @@ class Desk_RemoveDesk_ParamsDataView {
   bool combine_desk() const {
     return data_->combine_desk;
   }
-  absl::optional<bool> allow_undo() const {
+  std::optional<bool> allow_undo() const {
     if (data_->header_.version < 5) {
       return absl::nullopt;
     }

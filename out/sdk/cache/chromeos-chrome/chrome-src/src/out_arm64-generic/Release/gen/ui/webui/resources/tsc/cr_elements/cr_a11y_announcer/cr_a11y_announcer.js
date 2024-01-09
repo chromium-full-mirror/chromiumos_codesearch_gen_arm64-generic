@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from '//resources/js/assert.js';
-import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { CustomElement } from '//resources/js/custom_element.js';
 import { getTemplate } from './cr_a11y_announcer.html.js';
 /**
  * 150ms seems to be around the minimum time required for screen readers to
@@ -27,7 +27,7 @@ export function getInstance(container = document.body) {
     instances.set(container, instance);
     return instance;
 }
-export class CrA11yAnnouncerElement extends PolymerElement {
+export class CrA11yAnnouncerElement extends CustomElement {
     constructor() {
         super(...arguments);
         this.currentTimeout_ = null;
@@ -40,7 +40,6 @@ export class CrA11yAnnouncerElement extends PolymerElement {
         return getTemplate();
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
         if (this.currentTimeout_ !== null) {
             clearTimeout(this.currentTimeout_);
             this.currentTimeout_ = null;

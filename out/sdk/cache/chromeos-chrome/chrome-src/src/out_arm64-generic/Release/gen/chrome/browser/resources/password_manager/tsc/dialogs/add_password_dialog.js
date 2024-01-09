@@ -47,6 +47,25 @@ function recordAddCredentialInteraction(interaction) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AddCredentialFromSettings.UserAction2', interaction, AddCredentialFromSettingsUserInteractions.COUNT);
 }
 /**
+ * Should be kept in sync with
+ * |password_manager::metrics_util::PasswordNoteAction|.
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ */
+export var PasswordNoteAction;
+(function (PasswordNoteAction) {
+    PasswordNoteAction[PasswordNoteAction["NOTE_ADDED_IN_ADD_DIALOG"] = 0] = "NOTE_ADDED_IN_ADD_DIALOG";
+    PasswordNoteAction[PasswordNoteAction["NOTE_ADDED_IN_EDIT_DIALOG"] = 1] = "NOTE_ADDED_IN_EDIT_DIALOG";
+    PasswordNoteAction[PasswordNoteAction["NOTE_EDITED_IN_EDIT_DIALOG"] = 2] = "NOTE_EDITED_IN_EDIT_DIALOG";
+    PasswordNoteAction[PasswordNoteAction["NOTE_REMOVED_IN_EDIT_DIALOG"] = 3] = "NOTE_REMOVED_IN_EDIT_DIALOG";
+    PasswordNoteAction[PasswordNoteAction["NOTE_NOT_CHANGED"] = 4] = "NOTE_NOT_CHANGED";
+    // Must be last.
+    PasswordNoteAction[PasswordNoteAction["COUNT"] = 5] = "COUNT";
+})(PasswordNoteAction || (PasswordNoteAction = {}));
+export function recordPasswordNoteAction(action) {
+    chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PasswordNoteActionInSettings2', action, PasswordNoteAction.COUNT);
+}
+/**
  * When user enters more than or equal to 900 characters in the note field, a
  * footer will be displayed below the note to warn the user.
  */
@@ -254,6 +273,9 @@ export class AddPasswordDialogElement extends AddPasswordDialogElementBase {
             (this.$.storePicker.value === this.storeOptionAccountValue_);
         if (!this.$.storePicker.hidden) {
             chrome.metricsPrivate.recordBoolean('PasswordManager.AddCredentialFromSettings.AccountStoreUsed2', useAccountStore);
+        }
+        if (this.note_.trim()) {
+            recordPasswordNoteAction(PasswordNoteAction.NOTE_ADDED_IN_ADD_DIALOG);
         }
         PasswordManagerImpl.getInstance()
             .addPassword({

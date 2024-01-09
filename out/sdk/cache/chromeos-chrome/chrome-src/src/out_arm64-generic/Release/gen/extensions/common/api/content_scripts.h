@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -50,8 +51,8 @@ struct ContentScript {
   ~ContentScript();
   ContentScript(const ContentScript&) = delete;
   ContentScript& operator=(const ContentScript&) = delete;
-  ContentScript(ContentScript&& rhs);
-  ContentScript& operator=(ContentScript&& rhs);
+  ContentScript(ContentScript&& rhs) noexcept;
+  ContentScript& operator=(ContentScript&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kMatches[] = "matches";
@@ -76,9 +77,6 @@ struct ContentScript {
 
   // Creates a deep copy of ContentScript.
   ContentScript Clone() const;
-
-  // Creates a ContentScript object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ContentScript> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ContentScript object from a base::Value::Dict, or unexpected on
   // failure.
@@ -106,22 +104,22 @@ struct ContentScript {
   // Excludes pages that this content script would otherwise be injected into. See
   // <a href="match_patterns">Match Patterns</a> for more details on the syntax of
   // these strings.
-  absl::optional<std::vector<std::string>> exclude_matches;
+  std::optional<std::vector<std::string>> exclude_matches;
 
   // The list of CSS files to be injected into matching pages. These are injected
   // in the order they appear in this array, before any DOM is constructed or
   // displayed for the page.
-  absl::optional<std::vector<std::string>> css;
+  std::optional<std::vector<std::string>> css;
 
   // The list of JavaScript files to be injected into matching pages. These are
   // injected in the order they appear in this array.
-  absl::optional<std::vector<std::string>> js;
+  std::optional<std::vector<std::string>> js;
 
   // If specified true, it will inject into all frames, even if the frame is not
   // the top-most frame in the tab. Each frame is checked independently for URL
   // requirements; it will not inject into child frames if the URL requirements
   // are not met. Defaults to false, meaning that only the top frame is matched.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // Whether the script should inject into any frames where the URL belongs to a
   // scheme that would never match a specified Match Pattern, including about:,
@@ -131,24 +129,24 @@ struct ContentScript {
   // origin is used (i.e., the origin of the frame that created or navigated this
   // frame). Note that this may not be the parent frame, if the frame was
   // navigated by another frame in the document hierarchy.
-  absl::optional<bool> match_origin_as_fallback;
+  std::optional<bool> match_origin_as_fallback;
 
   // Whether the script should inject into an about:blank frame where the parent
   // or opener frame matches one of the patterns declared in matches. Defaults to
   // false.
-  absl::optional<bool> match_about_blank;
+  std::optional<bool> match_about_blank;
 
   // Applied after matches to include only those URLs that also match this glob.
   // Intended to emulate the <a
   // href="http://wiki.greasespot.net/Metadata_Block#.40include">@include </a>
   // Greasemonkey keyword.
-  absl::optional<std::vector<std::string>> include_globs;
+  std::optional<std::vector<std::string>> include_globs;
 
   // Applied after matches to exclude URLs that match this glob. Intended to
   // emulate the <a
   // href="https://wiki.greasespot.net/Metadata_Block#.40exclude">@exclude </a>
   // Greasemonkey keyword.
-  absl::optional<std::vector<std::string>> exclude_globs;
+  std::optional<std::vector<std::string>> exclude_globs;
 
   // Specifies when JavaScript files are injected into the web page. The preferred
   // and default value is <code>document_idle</code>.
@@ -170,8 +168,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kContentScripts[] = "content_scripts";

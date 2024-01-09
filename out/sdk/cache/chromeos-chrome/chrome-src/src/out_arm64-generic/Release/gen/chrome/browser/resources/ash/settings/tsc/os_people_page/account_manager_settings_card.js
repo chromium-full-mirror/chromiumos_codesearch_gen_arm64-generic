@@ -19,7 +19,6 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { assertExists } from '../assert_extras.js';
 import { isChild } from '../common/load_time_booleans.js';
 import { ParentalControlsBrowserProxyImpl } from '../parental_controls_page/parental_controls_browser_proxy.js';
-import { AccountManagerBrowserProxyImpl } from './account_manager_browser_proxy.js';
 import { getTemplate } from './account_manager_settings_card.html.js';
 const AccountManagerSettingsCardElementBase = WebUiListenerMixin(I18nMixin(PolymerElement));
 export class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElementBase {
@@ -34,7 +33,7 @@ export class AccountManagerSettingsCardElement extends AccountManagerSettingsCar
             /**
              * Primary / Device account.
              */
-            deviceAccount_: Object,
+            deviceAccount: Object,
             isChildUser_: {
                 type: Boolean,
                 value() {
@@ -59,29 +58,17 @@ export class AccountManagerSettingsCardElement extends AccountManagerSettingsCar
                 },
                 readOnly: true,
             },
+            /**
+             * The name of the icon to display in the management row.
+             * Should only be read if isDeviceAccountManaged_ is true.
+             */
+            managedByIcon_: {
+                type: String,
+                value() {
+                    return loadTimeData.getString('managedByIcon');
+                },
+            },
         };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = AccountManagerBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.addWebUiListener('accounts-changed', this.refreshAccounts_.bind(this));
-    }
-    ready() {
-        super.ready();
-        this.refreshAccounts_();
-    }
-    async refreshAccounts_() {
-        const accounts = await this.browserProxy_.getAccounts();
-        this.set('accounts_', accounts);
-        const deviceAccount = accounts.find(account => account.isDeviceAccount);
-        if (!deviceAccount) {
-            console.error('Cannot find device account.');
-            return;
-        }
-        this.deviceAccount_ = deviceAccount;
     }
     onManagedIconClick_() {
         if (this.isChildUser_) {
@@ -98,11 +85,11 @@ export class AccountManagerSettingsCardElement extends AccountManagerSettingsCar
         if (this.isChildUser_) {
             return this.i18nAdvanced('accountManagerManagementDescription');
         }
-        if (!this.deviceAccount_) {
+        if (!this.deviceAccount) {
             return '';
         }
-        assertExists(this.deviceAccount_.organization);
-        if (!this.deviceAccount_.organization) {
+        assertExists(this.deviceAccount.organization);
+        if (!this.deviceAccount.organization) {
             if (this.isDeviceAccountManaged_) {
                 console.error('The device account is managed, but the organization is not set.');
             }
@@ -113,7 +100,7 @@ export class AccountManagerSettingsCardElement extends AccountManagerSettingsCar
         // Where href will be set by <localized-link>.
         return this.i18nAdvanced('accountManagerManagementDescription', {
             substitutions: [
-                this.deviceAccount_.organization,
+                this.deviceAccount.organization,
             ],
         });
     }
@@ -127,8 +114,11 @@ export class AccountManagerSettingsCardElement extends AccountManagerSettingsCar
     /**
      * @return a CSS image-set for multiple scale factors.
      */
-    getIconImageSet_(iconUrl) {
-        return getImage(iconUrl);
+    getIconImageSet_() {
+        if (!this.deviceAccount) {
+            return '';
+        }
+        return getImage(this.deviceAccount.pic);
     }
 }
 customElements.define(AccountManagerSettingsCardElement.is, AccountManagerSettingsCardElement);

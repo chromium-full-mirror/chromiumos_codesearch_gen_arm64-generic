@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,7 +115,7 @@ PaymentParameters::PaymentParameters(
     const std::string& stringified_method_data_in,
     const std::string& top_level_origin_in,
     const std::string& payment_request_origin_in,
-    const absl::optional<std::string>& payment_request_id_in)
+    const std::optional<std::string>& payment_request_id_in)
     : package_name(std::move(package_name_in)),
       activity_or_service_name(std::move(activity_or_service_name_in)),
       stringified_method_data(std::move(stringified_method_data_in)),
@@ -130,8 +131,8 @@ PaymentParameters::PaymentParameters(
     const std::string& stringified_method_data_in,
     const std::string& top_level_origin_in,
     const std::string& payment_request_origin_in,
-    const absl::optional<std::string>& payment_request_id_in,
-    const absl::optional<std::string>& request_token_in)
+    const std::optional<std::string>& payment_request_id_in,
+    const std::optional<std::string>& request_token_in)
     : package_name(std::move(package_name_in)),
       activity_or_service_name(std::move(activity_or_service_name_in)),
       stringified_method_data(std::move(stringified_method_data_in)),
@@ -147,9 +148,9 @@ PaymentParameters::PaymentParameters(
     const std::string& stringified_method_data_in,
     const std::string& top_level_origin_in,
     const std::string& payment_request_origin_in,
-    const absl::optional<std::string>& payment_request_id_in,
-    const absl::optional<std::string>& request_token_in,
-    const absl::optional<::base::UnguessableToken>& twa_instance_identifier_in)
+    const std::optional<std::string>& payment_request_id_in,
+    const std::optional<std::string>& request_token_in,
+    const std::optional<::base::UnguessableToken>& twa_instance_identifier_in)
     : package_name(std::move(package_name_in)),
       activity_or_service_name(std::move(activity_or_service_name_in)),
       stringified_method_data(std::move(stringified_method_data_in)),
@@ -213,7 +214,7 @@ void PaymentParameters::WriteIntoTrace(
     dict.AddItem(
       "payment_request_id"), this->payment_request_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -222,7 +223,7 @@ void PaymentParameters::WriteIntoTrace(
     dict.AddItem(
       "request_token"), this->request_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -231,7 +232,7 @@ void PaymentParameters::WriteIntoTrace(
     dict.AddItem(
       "twa_instance_identifier"), this->twa_instance_identifier,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

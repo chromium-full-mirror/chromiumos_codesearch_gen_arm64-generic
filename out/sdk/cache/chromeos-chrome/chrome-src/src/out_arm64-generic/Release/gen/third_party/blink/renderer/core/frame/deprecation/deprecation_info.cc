@@ -108,11 +108,6 @@ const DeprecationInfo GetDeprecationInfo(WebFeature feature) {
         feature,
         "DOMMutationEvents",
         "DOM Mutation Events, including `DOMSubtreeModified`, `DOMNodeInserted`, `DOMNodeRemoved`, `DOMNodeRemovedFromDocument`, `DOMNodeInsertedIntoDocument`, and `DOMCharacterDataModified` are deprecated (https://w3c.github.io/uievents/#legacy-event-types) and will be removed. Please use `MutationObserver` instead.");
-    case WebFeature::kExpectCTHeader:
-      return DeprecationInfo::Create(
-        feature,
-        "ExpectCTHeader",
-        "The `Expect-CT` header is deprecated and will be removed. Chrome requires Certificate Transparency for all publicly trusted certificates issued after April 30, 2018.");
     case WebFeature::kGeolocationInsecureOrigin:
     case WebFeature::kGeolocationInsecureOriginIframe:
       return DeprecationInfo::Create(
@@ -305,6 +300,11 @@ const DeprecationInfo GetDeprecationInfo(WebFeature feature) {
         feature,
         "TextToSpeech_DisallowedByAutoplay",
         "`speechSynthesis.speak()` without user activation is deprecated and will be removed.");
+    case WebFeature::kDocumentUnloadRegistered:
+      return DeprecationInfo::Create(
+        feature,
+        "UnloadHandler",
+        "Unload event listeners are deprecated and will be removed.");
     case WebFeature::kV8SharedArrayBufferConstructedInExtensionWithoutIsolation:
       return DeprecationInfo::Create(
         feature,

@@ -37,32 +37,5 @@ R_ARC_TO, 2.5f, 2.5f, 0, 1, 0, 0, -5,
 R_ARC_TO, 2.5f, 2.5f, 0, 0, 0, 0, 5,
 CLOSE)
 VECTOR_ICON_TEMPLATE_CC(kAccessibilityRepList, kAccessibilityIcon, {kAccessibilityPath, std::size(kAccessibilityPath)})
-VECTOR_ICON_REP_TEMPLATE(kUsbSecurityKeyPath, CANVAS_DIMENSIONS, 4,
-MOVE_TO, 0.34f, 3.5f,
-R_H_LINE_TO, 3.03f,
-R_ARC_TO, 0.35f, 0.35f, 0, 0, 0, 0.34f, -0.35f,
-V_LINE_TO, 0.68f,
-R_ARC_TO, 0.35f, 0.35f, 0, 0, 0, -0.34f, -0.35f,
-H_LINE_TO, 0.34f,
-ARC_TO, 0.35f, 0.35f, 0, 0, 0, 0, 0.68f,
-R_V_LINE_TO, 2.47f,
-R_CUBIC_TO, 0, 0.19f, 0.15f, 0.35f, 0.34f, 0.35f,
-CLOSE,
-R_MOVE_TO, 1.52f, -0.93f,
-R_H_LINE_TO, 1.32f,
-R_V_LINE_TO, 0.4f,
-H_LINE_TO, 1.85f,
-CLOSE,
-R_MOVE_TO, 0, -0.79f,
-R_H_LINE_TO, 1.32f,
-R_V_LINE_TO, 0.4f,
-H_LINE_TO, 1.85f,
-CLOSE,
-R_MOVE_TO, 0, -0.93f,
-R_H_LINE_TO, 1.32f,
-R_V_LINE_TO, 0.4f,
-H_LINE_TO, 1.85f,
-CLOSE)
-VECTOR_ICON_TEMPLATE_CC(kUsbSecurityKeyRepList, kUsbSecurityKeyIcon, {kUsbSecurityKeyPath, std::size(kUsbSecurityKeyPath)})
 
 }  // namespace permissions

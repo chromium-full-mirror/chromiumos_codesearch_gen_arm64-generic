@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/latency/mojom/latency_info.mojom-features.h"
 #include "ui/latency/mojom/latency_info.mojom-shared.h"
 #include "ui/latency/mojom/latency_info.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -38,30 +39,6 @@
 #include "ui/latency/mojom/latency_info_mojom_traits.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::LatencyComponentType>
-    : EnumHashTraits<::ui::mojom::LatencyComponentType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::SourceEventType>
-    : EnumHashTraits<::ui::mojom::SourceEventType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace ui::mojom::blink {

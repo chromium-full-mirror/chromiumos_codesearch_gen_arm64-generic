@@ -9,7 +9,7 @@ export const DangerTypeSpec = { $: mojo.internal.Enum() };
 export var DangerType;
 (function (DangerType) {
     DangerType[DangerType["MIN_VALUE"] = 0] = "MIN_VALUE";
-    DangerType[DangerType["MAX_VALUE"] = 15] = "MAX_VALUE";
+    DangerType[DangerType["MAX_VALUE"] = 16] = "MAX_VALUE";
     DangerType[DangerType["kNoApplicableDangerType"] = 0] = "kNoApplicableDangerType";
     DangerType[DangerType["kDangerousFile"] = 1] = "kDangerousFile";
     DangerType[DangerType["kDangerousUrl"] = 2] = "kDangerousUrl";
@@ -18,20 +18,21 @@ export var DangerType;
     DangerType[DangerType["kDangerousHost"] = 5] = "kDangerousHost";
     DangerType[DangerType["kPotentiallyUnwanted"] = 6] = "kPotentiallyUnwanted";
     DangerType[DangerType["kAsyncScanning"] = 7] = "kAsyncScanning";
-    DangerType[DangerType["kBlockedPasswordProtected"] = 8] = "kBlockedPasswordProtected";
-    DangerType[DangerType["kBlockedTooLarge"] = 9] = "kBlockedTooLarge";
-    DangerType[DangerType["kSensitiveContentWarning"] = 10] = "kSensitiveContentWarning";
-    DangerType[DangerType["kSensitiveContentBlock"] = 11] = "kSensitiveContentBlock";
-    DangerType[DangerType["kDeepScannedFailed"] = 12] = "kDeepScannedFailed";
-    DangerType[DangerType["kDeepScannedSafe"] = 13] = "kDeepScannedSafe";
-    DangerType[DangerType["kDeepScannedOpenedDangerous"] = 14] = "kDeepScannedOpenedDangerous";
-    DangerType[DangerType["kBlockedUnsupportedFileType"] = 15] = "kBlockedUnsupportedFileType";
+    DangerType[DangerType["kAsyncLocalPasswordScanning"] = 8] = "kAsyncLocalPasswordScanning";
+    DangerType[DangerType["kBlockedPasswordProtected"] = 9] = "kBlockedPasswordProtected";
+    DangerType[DangerType["kBlockedTooLarge"] = 10] = "kBlockedTooLarge";
+    DangerType[DangerType["kSensitiveContentWarning"] = 11] = "kSensitiveContentWarning";
+    DangerType[DangerType["kSensitiveContentBlock"] = 12] = "kSensitiveContentBlock";
+    DangerType[DangerType["kDeepScannedFailed"] = 13] = "kDeepScannedFailed";
+    DangerType[DangerType["kDeepScannedSafe"] = 14] = "kDeepScannedSafe";
+    DangerType[DangerType["kDeepScannedOpenedDangerous"] = 15] = "kDeepScannedOpenedDangerous";
+    DangerType[DangerType["kBlockedUnsupportedFileType"] = 16] = "kBlockedUnsupportedFileType";
 })(DangerType || (DangerType = {}));
 export const StateSpec = { $: mojo.internal.Enum() };
 export var State;
 (function (State) {
     State[State["MIN_VALUE"] = 0] = "MIN_VALUE";
-    State[State["MAX_VALUE"] = 8] = "MAX_VALUE";
+    State[State["MAX_VALUE"] = 9] = "MAX_VALUE";
     State[State["kInProgress"] = 0] = "kInProgress";
     State[State["kCancelled"] = 1] = "kCancelled";
     State[State["kComplete"] = 2] = "kComplete";
@@ -41,6 +42,7 @@ export var State;
     State[State["kInsecure"] = 6] = "kInsecure";
     State[State["kAsyncScanning"] = 7] = "kAsyncScanning";
     State[State["kPromptForScanning"] = 8] = "kPromptForScanning";
+    State[State["kPromptForLocalPasswordScanning"] = 9] = "kPromptForLocalPasswordScanning";
 })(State || (State = {}));
 export const SafeBrowsingStateSpec = { $: mojo.internal.Enum() };
 export var SafeBrowsingState;
@@ -161,67 +163,87 @@ export class PageHandlerRemote {
             id
         ]);
     }
+    saveSuspiciousRequiringGesture(id) {
+        this.proxy.sendMessage(4, PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    recordOpenBypassWarningPrompt(id) {
+        this.proxy.sendMessage(5, PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    saveDangerousFromPromptRequiringGesture(id) {
+        this.proxy.sendMessage(6, PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, null, [
+            id
+        ]);
+    }
+    recordCancelBypassWarningPrompt(id) {
+        this.proxy.sendMessage(7, PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, null, [
+            id
+        ]);
+    }
     discardDangerous(id) {
-        this.proxy.sendMessage(4, PageHandler_DiscardDangerous_ParamsSpec.$, null, [
+        this.proxy.sendMessage(8, PageHandler_DiscardDangerous_ParamsSpec.$, null, [
             id
         ]);
     }
     retryDownload(id) {
-        this.proxy.sendMessage(5, PageHandler_RetryDownload_ParamsSpec.$, null, [
+        this.proxy.sendMessage(9, PageHandler_RetryDownload_ParamsSpec.$, null, [
             id
         ]);
     }
     show(id) {
-        this.proxy.sendMessage(6, PageHandler_Show_ParamsSpec.$, null, [
+        this.proxy.sendMessage(10, PageHandler_Show_ParamsSpec.$, null, [
             id
         ]);
     }
     pause(id) {
-        this.proxy.sendMessage(7, PageHandler_Pause_ParamsSpec.$, null, [
+        this.proxy.sendMessage(11, PageHandler_Pause_ParamsSpec.$, null, [
             id
         ]);
     }
     resume(id) {
-        this.proxy.sendMessage(8, PageHandler_Resume_ParamsSpec.$, null, [
+        this.proxy.sendMessage(12, PageHandler_Resume_ParamsSpec.$, null, [
             id
         ]);
     }
     remove(id) {
-        this.proxy.sendMessage(9, PageHandler_Remove_ParamsSpec.$, null, [
+        this.proxy.sendMessage(13, PageHandler_Remove_ParamsSpec.$, null, [
             id
         ]);
     }
     undo() {
-        this.proxy.sendMessage(10, PageHandler_Undo_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(14, PageHandler_Undo_ParamsSpec.$, null, []);
     }
     cancel(id) {
-        this.proxy.sendMessage(11, PageHandler_Cancel_ParamsSpec.$, null, [
+        this.proxy.sendMessage(15, PageHandler_Cancel_ParamsSpec.$, null, [
             id
         ]);
     }
     clearAll() {
-        this.proxy.sendMessage(12, PageHandler_ClearAll_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(16, PageHandler_ClearAll_ParamsSpec.$, null, []);
     }
     openDownloadsFolderRequiringGesture() {
-        this.proxy.sendMessage(13, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(17, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, []);
     }
     openDuringScanningRequiringGesture(id) {
-        this.proxy.sendMessage(14, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(18, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
     reviewDangerousRequiringGesture(id) {
-        this.proxy.sendMessage(15, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(19, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
     deepScan(id) {
-        this.proxy.sendMessage(16, PageHandler_DeepScan_ParamsSpec.$, null, [
+        this.proxy.sendMessage(20, PageHandler_DeepScan_ParamsSpec.$, null, [
             id
         ]);
     }
     bypassDeepScanRequiringGesture(id) {
-        this.proxy.sendMessage(17, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, [
+        this.proxy.sendMessage(21, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, [
             id
         ]);
     }
@@ -240,20 +262,24 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(1, PageHandler_OpenFileRequiringGesture_ParamsSpec.$, null, impl.openFileRequiringGesture.bind(impl));
         this.helper_internal_.registerHandler(2, PageHandler_Drag_ParamsSpec.$, null, impl.drag.bind(impl));
         this.helper_internal_.registerHandler(3, PageHandler_SaveDangerousRequiringGesture_ParamsSpec.$, null, impl.saveDangerousRequiringGesture.bind(impl));
-        this.helper_internal_.registerHandler(4, PageHandler_DiscardDangerous_ParamsSpec.$, null, impl.discardDangerous.bind(impl));
-        this.helper_internal_.registerHandler(5, PageHandler_RetryDownload_ParamsSpec.$, null, impl.retryDownload.bind(impl));
-        this.helper_internal_.registerHandler(6, PageHandler_Show_ParamsSpec.$, null, impl.show.bind(impl));
-        this.helper_internal_.registerHandler(7, PageHandler_Pause_ParamsSpec.$, null, impl.pause.bind(impl));
-        this.helper_internal_.registerHandler(8, PageHandler_Resume_ParamsSpec.$, null, impl.resume.bind(impl));
-        this.helper_internal_.registerHandler(9, PageHandler_Remove_ParamsSpec.$, null, impl.remove.bind(impl));
-        this.helper_internal_.registerHandler(10, PageHandler_Undo_ParamsSpec.$, null, impl.undo.bind(impl));
-        this.helper_internal_.registerHandler(11, PageHandler_Cancel_ParamsSpec.$, null, impl.cancel.bind(impl));
-        this.helper_internal_.registerHandler(12, PageHandler_ClearAll_ParamsSpec.$, null, impl.clearAll.bind(impl));
-        this.helper_internal_.registerHandler(13, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, impl.openDownloadsFolderRequiringGesture.bind(impl));
-        this.helper_internal_.registerHandler(14, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, impl.openDuringScanningRequiringGesture.bind(impl));
-        this.helper_internal_.registerHandler(15, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, impl.reviewDangerousRequiringGesture.bind(impl));
-        this.helper_internal_.registerHandler(16, PageHandler_DeepScan_ParamsSpec.$, null, impl.deepScan.bind(impl));
-        this.helper_internal_.registerHandler(17, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, impl.bypassDeepScanRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(4, PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, null, impl.saveSuspiciousRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(5, PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, null, impl.recordOpenBypassWarningPrompt.bind(impl));
+        this.helper_internal_.registerHandler(6, PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, null, impl.saveDangerousFromPromptRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(7, PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, null, impl.recordCancelBypassWarningPrompt.bind(impl));
+        this.helper_internal_.registerHandler(8, PageHandler_DiscardDangerous_ParamsSpec.$, null, impl.discardDangerous.bind(impl));
+        this.helper_internal_.registerHandler(9, PageHandler_RetryDownload_ParamsSpec.$, null, impl.retryDownload.bind(impl));
+        this.helper_internal_.registerHandler(10, PageHandler_Show_ParamsSpec.$, null, impl.show.bind(impl));
+        this.helper_internal_.registerHandler(11, PageHandler_Pause_ParamsSpec.$, null, impl.pause.bind(impl));
+        this.helper_internal_.registerHandler(12, PageHandler_Resume_ParamsSpec.$, null, impl.resume.bind(impl));
+        this.helper_internal_.registerHandler(13, PageHandler_Remove_ParamsSpec.$, null, impl.remove.bind(impl));
+        this.helper_internal_.registerHandler(14, PageHandler_Undo_ParamsSpec.$, null, impl.undo.bind(impl));
+        this.helper_internal_.registerHandler(15, PageHandler_Cancel_ParamsSpec.$, null, impl.cancel.bind(impl));
+        this.helper_internal_.registerHandler(16, PageHandler_ClearAll_ParamsSpec.$, null, impl.clearAll.bind(impl));
+        this.helper_internal_.registerHandler(17, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, impl.openDownloadsFolderRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(18, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, impl.openDuringScanningRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(19, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, impl.reviewDangerousRequiringGesture.bind(impl));
+        this.helper_internal_.registerHandler(20, PageHandler_DeepScan_ParamsSpec.$, null, impl.deepScan.bind(impl));
+        this.helper_internal_.registerHandler(21, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, impl.bypassDeepScanRequiringGesture.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -295,48 +321,60 @@ export class PageHandlerCallbackRouter {
         this.saveDangerousRequiringGesture =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(3, PageHandler_SaveDangerousRequiringGesture_ParamsSpec.$, null, this.saveDangerousRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.saveSuspiciousRequiringGesture =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, null, this.saveSuspiciousRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.recordOpenBypassWarningPrompt =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, null, this.recordOpenBypassWarningPrompt.createReceiverHandler(false /* expectsResponse */));
+        this.saveDangerousFromPromptRequiringGesture =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(6, PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, null, this.saveDangerousFromPromptRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.recordCancelBypassWarningPrompt =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(7, PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, null, this.recordCancelBypassWarningPrompt.createReceiverHandler(false /* expectsResponse */));
         this.discardDangerous =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(4, PageHandler_DiscardDangerous_ParamsSpec.$, null, this.discardDangerous.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(8, PageHandler_DiscardDangerous_ParamsSpec.$, null, this.discardDangerous.createReceiverHandler(false /* expectsResponse */));
         this.retryDownload =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, PageHandler_RetryDownload_ParamsSpec.$, null, this.retryDownload.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, PageHandler_RetryDownload_ParamsSpec.$, null, this.retryDownload.createReceiverHandler(false /* expectsResponse */));
         this.show =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(6, PageHandler_Show_ParamsSpec.$, null, this.show.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(10, PageHandler_Show_ParamsSpec.$, null, this.show.createReceiverHandler(false /* expectsResponse */));
         this.pause =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(7, PageHandler_Pause_ParamsSpec.$, null, this.pause.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(11, PageHandler_Pause_ParamsSpec.$, null, this.pause.createReceiverHandler(false /* expectsResponse */));
         this.resume =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(8, PageHandler_Resume_ParamsSpec.$, null, this.resume.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(12, PageHandler_Resume_ParamsSpec.$, null, this.resume.createReceiverHandler(false /* expectsResponse */));
         this.remove =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(9, PageHandler_Remove_ParamsSpec.$, null, this.remove.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(13, PageHandler_Remove_ParamsSpec.$, null, this.remove.createReceiverHandler(false /* expectsResponse */));
         this.undo =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(10, PageHandler_Undo_ParamsSpec.$, null, this.undo.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(14, PageHandler_Undo_ParamsSpec.$, null, this.undo.createReceiverHandler(false /* expectsResponse */));
         this.cancel =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(11, PageHandler_Cancel_ParamsSpec.$, null, this.cancel.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(15, PageHandler_Cancel_ParamsSpec.$, null, this.cancel.createReceiverHandler(false /* expectsResponse */));
         this.clearAll =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(12, PageHandler_ClearAll_ParamsSpec.$, null, this.clearAll.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(16, PageHandler_ClearAll_ParamsSpec.$, null, this.clearAll.createReceiverHandler(false /* expectsResponse */));
         this.openDownloadsFolderRequiringGesture =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(13, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, this.openDownloadsFolderRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(17, PageHandler_OpenDownloadsFolderRequiringGesture_ParamsSpec.$, null, this.openDownloadsFolderRequiringGesture.createReceiverHandler(false /* expectsResponse */));
         this.openDuringScanningRequiringGesture =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(14, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, this.openDuringScanningRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(18, PageHandler_OpenDuringScanningRequiringGesture_ParamsSpec.$, null, this.openDuringScanningRequiringGesture.createReceiverHandler(false /* expectsResponse */));
         this.reviewDangerousRequiringGesture =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(15, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, this.reviewDangerousRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(19, PageHandler_ReviewDangerousRequiringGesture_ParamsSpec.$, null, this.reviewDangerousRequiringGesture.createReceiverHandler(false /* expectsResponse */));
         this.deepScan =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(16, PageHandler_DeepScan_ParamsSpec.$, null, this.deepScan.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(20, PageHandler_DeepScan_ParamsSpec.$, null, this.deepScan.createReceiverHandler(false /* expectsResponse */));
         this.bypassDeepScanRequiringGesture =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(17, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, this.bypassDeepScanRequiringGesture.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(21, PageHandler_BypassDeepScanRequiringGesture_ParamsSpec.$, null, this.bypassDeepScanRequiringGesture.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -454,6 +492,10 @@ export const PageHandler_GetDownloads_ParamsSpec = { $: {} };
 export const PageHandler_OpenFileRequiringGesture_ParamsSpec = { $: {} };
 export const PageHandler_Drag_ParamsSpec = { $: {} };
 export const PageHandler_SaveDangerousRequiringGesture_ParamsSpec = { $: {} };
+export const PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec = { $: {} };
+export const PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec = { $: {} };
+export const PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec = { $: {} };
+export const PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec = { $: {} };
 export const PageHandler_DiscardDangerous_ParamsSpec = { $: {} };
 export const PageHandler_RetryDownload_ParamsSpec = { $: {} };
 export const PageHandler_Show_ParamsSpec = { $: {} };
@@ -515,6 +557,18 @@ mojo.internal.Struct(PageHandler_Drag_ParamsSpec.$, 'PageHandler_Drag_Params', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_SaveDangerousRequiringGesture_ParamsSpec.$, 'PageHandler_SaveDangerousRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SaveSuspiciousRequiringGesture_ParamsSpec.$, 'PageHandler_SaveSuspiciousRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RecordOpenBypassWarningPrompt_ParamsSpec.$, 'PageHandler_RecordOpenBypassWarningPrompt_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsSpec.$, 'PageHandler_SaveDangerousFromPromptRequiringGesture_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RecordCancelBypassWarningPrompt_ParamsSpec.$, 'PageHandler_RecordCancelBypassWarningPrompt_Params', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_DiscardDangerous_ParamsSpec.$, 'PageHandler_DiscardDangerous_Params', [

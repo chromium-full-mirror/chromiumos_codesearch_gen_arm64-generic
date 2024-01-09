@@ -97,6 +97,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/parsed_headers.mojom', 'parsed_headers.mojom.js');
   }
+  var service_worker_router_info$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/service_worker_router_info.mojom', 'service_worker_router_info.mojom.js');
+  }
   var proxy_resolver$ =
       mojo.internal.exposeNamespace('proxyResolver.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -150,7 +156,9 @@
     this.headers = null;
     this.mimeType = null;
     this.charset = null;
-    this.ctPolicyCompliance = 0;
+    this.contentLength = -1;
+    this.encodedDataLength = -1;
+    this.encodedBodyLength = null;
     this.networkAccessed = false;
     this.emittedExtraInfo = false;
     this.wasFetchedViaSpdy = false;
@@ -163,6 +171,7 @@
     this.asyncRevalidationRequested = false;
     this.didMimeSniff = false;
     this.isSignedExchangeInnerResponse = false;
+    this.isWebBundleInnerResponse = false;
     this.wasInPrefetchCache = false;
     this.wasCookieInRequest = false;
     this.interceptedByPlugin = false;
@@ -170,25 +179,25 @@
     this.timingAllowPassed = false;
     this.hasAuthorizationCoveredByWildcardOnPreflight = false;
     this.requestIncludeCredentials = true;
+    this.shouldUseSourceHashForJsCodeCache = false;
     this.didUseSharedDictionary = false;
-    this.contentLength = -1;
-    this.encodedDataLength = -1;
-    this.encodedBodyLength = null;
-    this.loadTiming = null;
     this.connectionInfo = 0;
-    this.alternateProtocolUsage = 0;
+    this.loadTiming = null;
     this.alpnNegotiatedProtocol = null;
-    this.remoteEndpoint = null;
+    this.alternateProtocolUsage = 0;
     this.clientAddressSpace = ip_address_space$.IPAddressSpace.kUnknown;
+    this.remoteEndpoint = null;
     this.responseAddressSpace = ip_address_space$.IPAddressSpace.kUnknown;
     this.navigationDeliveryType = NavigationDeliveryType.kDefault;
+    this.proxyChain = null;
     this.serviceWorkerResponseSource = fetch_api$.FetchResponseSource.kUnspecified;
-    this.proxyServer = null;
-    this.urlListViaServiceWorker = null;
     this.responseType = fetch_api$.FetchResponseType.kDefault;
-    this.certStatus = 0;
+    this.urlListViaServiceWorker = null;
+    this.serviceWorkerRouterInfo = null;
     this.padding = 0;
     this.cacheStorageCacheName = null;
+    this.certStatus = 0;
+    this.privateNetworkAccessPreflightResult = cors$.PrivateNetworkAccessPreflightResult.kNone;
     this.sslInfo = null;
     this.corsExposedHeaderNames = null;
     this.authChallengeInfo = null;
@@ -197,9 +206,7 @@
     this.parsedHeaders = null;
     this.recursivePrefetchToken = null;
     this.dnsAliases = null;
-    this.webBundleUrl = null;
     this.triggerVerifications = null;
-    this.privateNetworkAccessPreflightResult = cors$.PrivateNetworkAccessPreflightResult.kNone;
   };
   URLResponseHead.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -215,7 +222,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 256}
+      {version: 0, numBytes: 248}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -252,16 +259,10 @@
         return err;
 
 
-    // validate URLResponseHead.ctPolicyCompliance
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, network_types$.CTPolicyCompliance);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
 
 
     // validate URLResponseHead.encodedBodyLength
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, encoded_body_length$.EncodedBodyLength, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, encoded_body_length$.EncodedBodyLength, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -278,19 +279,19 @@
 
 
     // validate URLResponseHead.connectionInfo
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 80, network_types$.ConnectionInfo);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 68, network_types$.ConnectionInfo);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.alpnNegotiatedProtocol
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 88, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 80, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.alternateProtocolUsage
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 84, alternate_protocol_usage$.AlternateProtocolUsage);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 88, alternate_protocol_usage$.AlternateProtocolUsage);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -302,13 +303,13 @@
 
 
     // validate URLResponseHead.clientAddressSpace
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 104, ip_address_space$.IPAddressSpace);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 92, ip_address_space$.IPAddressSpace);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.responseAddressSpace
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 108, ip_address_space$.IPAddressSpace);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 104, ip_address_space$.IPAddressSpace);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -316,20 +317,20 @@
 
 
     // validate URLResponseHead.navigationDeliveryType
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 112, NavigationDeliveryType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 108, NavigationDeliveryType);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate URLResponseHead.proxyServer
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 120, network_param$.ProxyServer, false);
+    // validate URLResponseHead.proxyChain
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 112, network_param$.ProxyChain, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate URLResponseHead.serviceWorkerResponseSource
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 116, fetch_api$.FetchResponseSource);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 120, fetch_api$.FetchResponseSource);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -340,8 +341,14 @@
         return err;
 
 
+    // validate URLResponseHead.serviceWorkerRouterInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 136, service_worker_router_info$.ServiceWorkerRouterInfo, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate URLResponseHead.responseType
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 136, fetch_api$.FetchResponseType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 124, fetch_api$.FetchResponseType);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -355,15 +362,16 @@
 
 
     // validate URLResponseHead.sslInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 160, network_param$.SSLInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 168, network_param$.SSLInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.corsExposedHeaderNames
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 168, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 176, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
+
 
 
 
@@ -376,45 +384,40 @@
 
 
     // validate URLResponseHead.authChallengeInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 176, network_param$.AuthChallengeInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, network_param$.AuthChallengeInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.requestStart
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, time$.TimeTicks, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate URLResponseHead.responseStart
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, time$.TimeTicks, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
+    // validate URLResponseHead.responseStart
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 200, time$.TimeTicks, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate URLResponseHead.parsedHeaders
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 200, parsed_headers$.ParsedHeaders, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 208, parsed_headers$.ParsedHeaders, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.recursivePrefetchToken
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 208, unguessable_token$.UnguessableToken, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 216, unguessable_token$.UnguessableToken, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHead.dnsAliases
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 216, 8, codec.String, false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 224, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
-
-    // validate URLResponseHead.webBundleUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 224, url$.Url, false);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
 
@@ -426,7 +429,7 @@
 
 
     // validate URLResponseHead.privateNetworkAccessPreflightResult
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 240, cors$.PrivateNetworkAccessPreflightResult);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 164, cors$.PrivateNetworkAccessPreflightResult);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -434,7 +437,7 @@
     return validator.validationError.NONE;
   };
 
-  URLResponseHead.encodedSize = codec.kStructHeaderSize + 248;
+  URLResponseHead.encodedSize = codec.kStructHeaderSize + 240;
 
   URLResponseHead.decode = function(decoder) {
     var packed;
@@ -451,8 +454,12 @@
         decoder.decodeStruct(codec.String);
     val.charset =
         decoder.decodeStruct(codec.String);
-    val.ctPolicyCompliance =
-        decoder.decodeStruct(new codec.Enum(network_types$.CTPolicyCompliance));
+    val.contentLength =
+        decoder.decodeStruct(codec.Int64);
+    val.encodedDataLength =
+        decoder.decodeStruct(codec.Int64);
+    val.encodedBodyLength =
+        decoder.decodeStructPointer(encoded_body_length$.EncodedBodyLength);
     packed = decoder.readUint8();
     val.networkAccessed = (packed >> 0) & 1 ? true : false;
     val.emittedExtraInfo = (packed >> 1) & 1 ? true : false;
@@ -467,52 +474,52 @@
     val.asyncRevalidationRequested = (packed >> 1) & 1 ? true : false;
     val.didMimeSniff = (packed >> 2) & 1 ? true : false;
     val.isSignedExchangeInnerResponse = (packed >> 3) & 1 ? true : false;
-    val.wasInPrefetchCache = (packed >> 4) & 1 ? true : false;
-    val.wasCookieInRequest = (packed >> 5) & 1 ? true : false;
-    val.interceptedByPlugin = (packed >> 6) & 1 ? true : false;
-    val.hasRangeRequested = (packed >> 7) & 1 ? true : false;
+    val.isWebBundleInnerResponse = (packed >> 4) & 1 ? true : false;
+    val.wasInPrefetchCache = (packed >> 5) & 1 ? true : false;
+    val.wasCookieInRequest = (packed >> 6) & 1 ? true : false;
+    val.interceptedByPlugin = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.timingAllowPassed = (packed >> 0) & 1 ? true : false;
-    val.hasAuthorizationCoveredByWildcardOnPreflight = (packed >> 1) & 1 ? true : false;
-    val.requestIncludeCredentials = (packed >> 2) & 1 ? true : false;
-    val.didUseSharedDictionary = (packed >> 3) & 1 ? true : false;
+    val.hasRangeRequested = (packed >> 0) & 1 ? true : false;
+    val.timingAllowPassed = (packed >> 1) & 1 ? true : false;
+    val.hasAuthorizationCoveredByWildcardOnPreflight = (packed >> 2) & 1 ? true : false;
+    val.requestIncludeCredentials = (packed >> 3) & 1 ? true : false;
+    val.shouldUseSourceHashForJsCodeCache = (packed >> 4) & 1 ? true : false;
+    val.didUseSharedDictionary = (packed >> 5) & 1 ? true : false;
     decoder.skip(1);
-    val.contentLength =
-        decoder.decodeStruct(codec.Int64);
-    val.encodedDataLength =
-        decoder.decodeStruct(codec.Int64);
-    val.encodedBodyLength =
-        decoder.decodeStructPointer(encoded_body_length$.EncodedBodyLength);
-    val.loadTiming =
-        decoder.decodeStructPointer(load_timing_info$.LoadTimingInfo);
     val.connectionInfo =
         decoder.decodeStruct(new codec.Enum(network_types$.ConnectionInfo));
-    val.alternateProtocolUsage =
-        decoder.decodeStruct(new codec.Enum(alternate_protocol_usage$.AlternateProtocolUsage));
+    val.loadTiming =
+        decoder.decodeStructPointer(load_timing_info$.LoadTimingInfo);
     val.alpnNegotiatedProtocol =
         decoder.decodeStruct(codec.String);
-    val.remoteEndpoint =
-        decoder.decodeStructPointer(ip_endpoint$.IPEndPoint);
+    val.alternateProtocolUsage =
+        decoder.decodeStruct(new codec.Enum(alternate_protocol_usage$.AlternateProtocolUsage));
     val.clientAddressSpace =
         decoder.decodeStruct(new codec.Enum(ip_address_space$.IPAddressSpace));
+    val.remoteEndpoint =
+        decoder.decodeStructPointer(ip_endpoint$.IPEndPoint);
     val.responseAddressSpace =
         decoder.decodeStruct(new codec.Enum(ip_address_space$.IPAddressSpace));
     val.navigationDeliveryType =
         decoder.decodeStruct(new codec.Enum(NavigationDeliveryType));
+    val.proxyChain =
+        decoder.decodeStructPointer(network_param$.ProxyChain);
     val.serviceWorkerResponseSource =
         decoder.decodeStruct(new codec.Enum(fetch_api$.FetchResponseSource));
-    val.proxyServer =
-        decoder.decodeStructPointer(network_param$.ProxyServer);
-    val.urlListViaServiceWorker =
-        decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
     val.responseType =
         decoder.decodeStruct(new codec.Enum(fetch_api$.FetchResponseType));
-    val.certStatus =
-        decoder.decodeStruct(codec.Uint32);
+    val.urlListViaServiceWorker =
+        decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
+    val.serviceWorkerRouterInfo =
+        decoder.decodeStructPointer(service_worker_router_info$.ServiceWorkerRouterInfo);
     val.padding =
         decoder.decodeStruct(codec.Int64);
     val.cacheStorageCacheName =
         decoder.decodeStruct(codec.String);
+    val.certStatus =
+        decoder.decodeStruct(codec.Uint32);
+    val.privateNetworkAccessPreflightResult =
+        decoder.decodeStruct(new codec.Enum(cors$.PrivateNetworkAccessPreflightResult));
     val.sslInfo =
         decoder.decodeStructPointer(network_param$.SSLInfo);
     val.corsExposedHeaderNames =
@@ -529,16 +536,8 @@
         decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
     val.dnsAliases =
         decoder.decodeArrayPointer(codec.String);
-    val.webBundleUrl =
-        decoder.decodeStructPointer(url$.Url);
     val.triggerVerifications =
         decoder.decodeArrayPointer(new codec.PointerTo(attribution$.TriggerVerification));
-    val.privateNetworkAccessPreflightResult =
-        decoder.decodeStruct(new codec.Enum(cors$.PrivateNetworkAccessPreflightResult));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     return val;
   };
 
@@ -551,7 +550,9 @@
     encoder.encodeStructPointer(network_param$.HttpResponseHeaders, val.headers);
     encoder.encodeStruct(codec.String, val.mimeType);
     encoder.encodeStruct(codec.String, val.charset);
-    encoder.encodeStruct(codec.Int32, val.ctPolicyCompliance);
+    encoder.encodeStruct(codec.Int64, val.contentLength);
+    encoder.encodeStruct(codec.Int64, val.encodedDataLength);
+    encoder.encodeStructPointer(encoded_body_length$.EncodedBodyLength, val.encodedBodyLength);
     packed = 0;
     packed |= (val.networkAccessed & 1) << 0
     packed |= (val.emittedExtraInfo & 1) << 1
@@ -567,36 +568,37 @@
     packed |= (val.asyncRevalidationRequested & 1) << 1
     packed |= (val.didMimeSniff & 1) << 2
     packed |= (val.isSignedExchangeInnerResponse & 1) << 3
-    packed |= (val.wasInPrefetchCache & 1) << 4
-    packed |= (val.wasCookieInRequest & 1) << 5
-    packed |= (val.interceptedByPlugin & 1) << 6
-    packed |= (val.hasRangeRequested & 1) << 7
+    packed |= (val.isWebBundleInnerResponse & 1) << 4
+    packed |= (val.wasInPrefetchCache & 1) << 5
+    packed |= (val.wasCookieInRequest & 1) << 6
+    packed |= (val.interceptedByPlugin & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.timingAllowPassed & 1) << 0
-    packed |= (val.hasAuthorizationCoveredByWildcardOnPreflight & 1) << 1
-    packed |= (val.requestIncludeCredentials & 1) << 2
-    packed |= (val.didUseSharedDictionary & 1) << 3
+    packed |= (val.hasRangeRequested & 1) << 0
+    packed |= (val.timingAllowPassed & 1) << 1
+    packed |= (val.hasAuthorizationCoveredByWildcardOnPreflight & 1) << 2
+    packed |= (val.requestIncludeCredentials & 1) << 3
+    packed |= (val.shouldUseSourceHashForJsCodeCache & 1) << 4
+    packed |= (val.didUseSharedDictionary & 1) << 5
     encoder.writeUint8(packed);
     encoder.skip(1);
-    encoder.encodeStruct(codec.Int64, val.contentLength);
-    encoder.encodeStruct(codec.Int64, val.encodedDataLength);
-    encoder.encodeStructPointer(encoded_body_length$.EncodedBodyLength, val.encodedBodyLength);
-    encoder.encodeStructPointer(load_timing_info$.LoadTimingInfo, val.loadTiming);
     encoder.encodeStruct(codec.Int32, val.connectionInfo);
-    encoder.encodeStruct(codec.Int32, val.alternateProtocolUsage);
+    encoder.encodeStructPointer(load_timing_info$.LoadTimingInfo, val.loadTiming);
     encoder.encodeStruct(codec.String, val.alpnNegotiatedProtocol);
-    encoder.encodeStructPointer(ip_endpoint$.IPEndPoint, val.remoteEndpoint);
+    encoder.encodeStruct(codec.Int32, val.alternateProtocolUsage);
     encoder.encodeStruct(codec.Int32, val.clientAddressSpace);
+    encoder.encodeStructPointer(ip_endpoint$.IPEndPoint, val.remoteEndpoint);
     encoder.encodeStruct(codec.Int32, val.responseAddressSpace);
     encoder.encodeStruct(codec.Int32, val.navigationDeliveryType);
+    encoder.encodeStructPointer(network_param$.ProxyChain, val.proxyChain);
     encoder.encodeStruct(codec.Int32, val.serviceWorkerResponseSource);
-    encoder.encodeStructPointer(network_param$.ProxyServer, val.proxyServer);
-    encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.urlListViaServiceWorker);
     encoder.encodeStruct(codec.Int32, val.responseType);
-    encoder.encodeStruct(codec.Uint32, val.certStatus);
+    encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.urlListViaServiceWorker);
+    encoder.encodeStructPointer(service_worker_router_info$.ServiceWorkerRouterInfo, val.serviceWorkerRouterInfo);
     encoder.encodeStruct(codec.Int64, val.padding);
     encoder.encodeStruct(codec.String, val.cacheStorageCacheName);
+    encoder.encodeStruct(codec.Uint32, val.certStatus);
+    encoder.encodeStruct(codec.Int32, val.privateNetworkAccessPreflightResult);
     encoder.encodeStructPointer(network_param$.SSLInfo, val.sslInfo);
     encoder.encodeArrayPointer(codec.String, val.corsExposedHeaderNames);
     encoder.encodeStructPointer(network_param$.AuthChallengeInfo, val.authChallengeInfo);
@@ -605,13 +607,7 @@
     encoder.encodeStructPointer(parsed_headers$.ParsedHeaders, val.parsedHeaders);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.recursivePrefetchToken);
     encoder.encodeArrayPointer(codec.String, val.dnsAliases);
-    encoder.encodeStructPointer(url$.Url, val.webBundleUrl);
     encoder.encodeArrayPointer(new codec.PointerTo(attribution$.TriggerVerification), val.triggerVerifications);
-    encoder.encodeStruct(codec.Int32, val.privateNetworkAccessPreflightResult);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
   };
   exports.NavigationDeliveryType = NavigationDeliveryType;
   exports.URLResponseHead = URLResponseHead;

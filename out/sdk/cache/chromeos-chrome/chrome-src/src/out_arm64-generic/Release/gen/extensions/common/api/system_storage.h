@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -47,8 +48,8 @@ struct StorageUnitInfo {
   ~StorageUnitInfo();
   StorageUnitInfo(const StorageUnitInfo&) = delete;
   StorageUnitInfo& operator=(const StorageUnitInfo&) = delete;
-  StorageUnitInfo(StorageUnitInfo&& rhs);
-  StorageUnitInfo& operator=(StorageUnitInfo&& rhs);
+  StorageUnitInfo(StorageUnitInfo&& rhs) noexcept;
+  StorageUnitInfo& operator=(StorageUnitInfo&& rhs) noexcept;
 
   // Populates a StorageUnitInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -61,15 +62,12 @@ struct StorageUnitInfo {
   // Creates a deep copy of StorageUnitInfo.
   StorageUnitInfo Clone() const;
 
-  // Creates a StorageUnitInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StorageUnitInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StorageUnitInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StorageUnitInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StorageUnitInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StorageUnitInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<StorageUnitInfo> FromValue(const base::Value& value);
+  static std::optional<StorageUnitInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageUnitInfo object.
@@ -97,8 +95,8 @@ struct StorageAvailableCapacityInfo {
   ~StorageAvailableCapacityInfo();
   StorageAvailableCapacityInfo(const StorageAvailableCapacityInfo&) = delete;
   StorageAvailableCapacityInfo& operator=(const StorageAvailableCapacityInfo&) = delete;
-  StorageAvailableCapacityInfo(StorageAvailableCapacityInfo&& rhs);
-  StorageAvailableCapacityInfo& operator=(StorageAvailableCapacityInfo&& rhs);
+  StorageAvailableCapacityInfo(StorageAvailableCapacityInfo&& rhs) noexcept;
+  StorageAvailableCapacityInfo& operator=(StorageAvailableCapacityInfo&& rhs) noexcept;
 
   // Populates a StorageAvailableCapacityInfo object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -111,17 +109,13 @@ struct StorageAvailableCapacityInfo {
   // Creates a deep copy of StorageAvailableCapacityInfo.
   StorageAvailableCapacityInfo Clone() const;
 
-  // Creates a StorageAvailableCapacityInfo object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<StorageAvailableCapacityInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StorageAvailableCapacityInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<StorageAvailableCapacityInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StorageAvailableCapacityInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StorageAvailableCapacityInfo object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<StorageAvailableCapacityInfo> FromValue(const base::Value& value);
+  static std::optional<StorageAvailableCapacityInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageAvailableCapacityInfo object.
@@ -166,11 +160,11 @@ base::Value::List Create(const std::vector<StorageUnitInfo>& info);
 namespace EjectDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -190,11 +184,11 @@ base::Value::List Create(const EjectDeviceResultCode& result);
 namespace GetAvailableCapacity {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;

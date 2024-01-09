@@ -127,7 +127,7 @@ export class DOMBreakpointsSidebarPane extends UI.Widget.VBox {
     constructor() {
         super(true);
         this.elementToCheckboxes = new WeakMap();
-        this.contentElement.setAttribute('jslog', `${VisualLogging.domBreakpointsPane()}`);
+        this.contentElement.setAttribute('jslog', `${VisualLogging.pane().context('debugger-dom-breakpoints')}`);
         this.#emptyElement = this.contentElement.createChild('div', 'gray-info-message');
         this.#emptyElement.textContent = i18nString(UIStrings.noBreakpoints);
         this.#breakpoints = new UI.ListModel.ListModel();
@@ -338,17 +338,8 @@ const BreakpointTypeLabels = new Map([
     ["attribute-modified" /* Protocol.DOMDebugger.DOMBreakpointType.AttributeModified */, i18nLazyString(UIStrings.attributeModified)],
     ["node-removed" /* Protocol.DOMDebugger.DOMBreakpointType.NodeRemoved */, i18nLazyString(UIStrings.nodeRemoved)],
 ]);
-let contextMenuProviderInstance;
 export class ContextMenuProvider {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!contextMenuProviderInstance || forceNew) {
-            contextMenuProviderInstance = new ContextMenuProvider();
-        }
-        return contextMenuProviderInstance;
-    }
-    appendApplicableItems(event, contextMenu, object) {
-        const node = object;
+    appendApplicableItems(event, contextMenu, node) {
         if (node.pseudoType()) {
             return;
         }

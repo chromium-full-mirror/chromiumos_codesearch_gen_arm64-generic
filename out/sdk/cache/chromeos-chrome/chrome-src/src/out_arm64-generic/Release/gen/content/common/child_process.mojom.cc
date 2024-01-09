@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -183,14 +184,17 @@ void ChildProcessHostProxy::Ping(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::ChildProcessHost::Ping");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcessHost_Ping_Name, kFlags, 0, 0, nullptr);
@@ -221,14 +225,17 @@ void ChildProcessHostProxy::BindHostReceiver(
                         "<value of type ::mojo::GenericPendingReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcessHost_BindHostReceiver_Name, kFlags, 0, 0, nullptr);
@@ -337,7 +344,8 @@ void ChildProcessHost_Ping_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcessHost_Ping_Name, kFlags, 0, 0, nullptr);
@@ -441,12 +449,12 @@ bool ChildProcessHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChildProcessHostValidationInfo[] = {
-    {&internal::ChildProcessHost_Ping_Params_Data::Validate,
+    { &internal::ChildProcessHost_Ping_Params_Data::Validate,
      &internal::ChildProcessHost_Ping_ResponseParams_Data::Validate},
-    {&internal::ChildProcessHost_BindHostReceiver_Params_Data::Validate,
+    { &internal::ChildProcessHost_BindHostReceiver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -683,14 +691,17 @@ void ChildProcessProxy::ProcessShutdown(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::ChildProcess::ProcessShutdown");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_ProcessShutdown_Name, kFlags, 0, 0, nullptr);
@@ -720,14 +731,17 @@ void ChildProcessProxy::GetBackgroundTracingAgentProvider(
                         "<value of type ::mojo::PendingReceiver<::tracing::mojom::BackgroundTracingAgentProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_GetBackgroundTracingAgentProvider_Name, kFlags, 0, 0, nullptr);
@@ -763,14 +777,17 @@ void ChildProcessProxy::EnableSystemTracingService(
                         "<value of type ::mojo::PendingRemote<::tracing::mojom::SystemTracingService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_EnableSystemTracingService_Name, kFlags, 0, 0, nullptr);
@@ -799,14 +816,17 @@ void ChildProcessProxy::CrashHungProcess(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::ChildProcess::CrashHungProcess");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_CrashHungProcess_Name, kFlags, 0, 0, nullptr);
@@ -839,14 +859,17 @@ void ChildProcessProxy::RunServiceDeprecated(
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_RunServiceDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -893,14 +916,17 @@ void ChildProcessProxy::BindServiceInterface(
                         "<value of type ::mojo::GenericPendingReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_BindServiceInterface_Name, kFlags, 0, 0, nullptr);
@@ -941,14 +967,17 @@ void ChildProcessProxy::BindReceiver(
                         "<value of type ::mojo::GenericPendingReceiver>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_BindReceiver_Name, kFlags, 0, 0, nullptr);
@@ -989,14 +1018,17 @@ void ChildProcessProxy::SetPseudonymizationSalt(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_SetPseudonymizationSalt_Name, kFlags, 0, 0, nullptr);
@@ -1027,14 +1059,17 @@ void ChildProcessProxy::ReinitializeLogging(
                         "<value of type LoggingSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChildProcess_ReinitializeLogging_Name, kFlags, 0, 0, nullptr);
@@ -1345,26 +1380,26 @@ bool ChildProcessStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChildProcessValidationInfo[] = {
-    {&internal::ChildProcess_ProcessShutdown_Params_Data::Validate,
+    { &internal::ChildProcess_ProcessShutdown_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_GetBackgroundTracingAgentProvider_Params_Data::Validate,
+    { &internal::ChildProcess_GetBackgroundTracingAgentProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_EnableSystemTracingService_Params_Data::Validate,
+    { &internal::ChildProcess_EnableSystemTracingService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_CrashHungProcess_Params_Data::Validate,
+    { &internal::ChildProcess_CrashHungProcess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_RunServiceDeprecated_Params_Data::Validate,
+    { &internal::ChildProcess_RunServiceDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_BindServiceInterface_Params_Data::Validate,
+    { &internal::ChildProcess_BindServiceInterface_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_BindReceiver_Params_Data::Validate,
+    { &internal::ChildProcess_BindReceiver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_SetPseudonymizationSalt_Params_Data::Validate,
+    { &internal::ChildProcess_SetPseudonymizationSalt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChildProcess_ReinitializeLogging_Params_Data::Validate,
+    { &internal::ChildProcess_ReinitializeLogging_Params_Data::Validate,
      nullptr /* no response */},
 };
 

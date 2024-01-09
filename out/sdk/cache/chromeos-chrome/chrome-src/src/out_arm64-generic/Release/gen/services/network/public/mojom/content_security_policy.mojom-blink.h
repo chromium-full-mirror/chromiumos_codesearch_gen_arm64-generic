@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/content_security_policy.mojom-features.h"
 #include "services/network/public/mojom/content_security_policy.mojom-shared.h"
 #include "services/network/public/mojom/content_security_policy.mojom-blink-forward.h"
 #include "url/mojom/origin.mojom-blink.h"
@@ -41,78 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ContentSecurityPolicyType>
-    : EnumHashTraits<::network::mojom::ContentSecurityPolicyType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ContentSecurityPolicySource>
-    : EnumHashTraits<::network::mojom::ContentSecurityPolicySource, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CSPDisposition>
-    : EnumHashTraits<::network::mojom::CSPDisposition, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CSPHashAlgorithm>
-    : EnumHashTraits<::network::mojom::CSPHashAlgorithm, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CSPDirectiveName>
-    : EnumHashTraits<::network::mojom::CSPDirectiveName, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CSPRequireTrustedTypesFor>
-    : EnumHashTraits<::network::mojom::CSPRequireTrustedTypesFor, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -293,25 +222,25 @@ class BLINK_PLATFORM_EXPORT AllowCSPFromHeaderValue {
   // Construct an instance holding |allow_star|.
   static AllowCSPFromHeaderValuePtr
   NewAllowStar(
-      bool allow_star) {
+      bool value) {
     auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
-    result->set_allow_star(std::move(allow_star));
+    result->set_allow_star(std::move(value));
     return result;
   }
   // Construct an instance holding |origin|.
   static AllowCSPFromHeaderValuePtr
   NewOrigin(
-      const ::scoped_refptr<const ::blink::SecurityOrigin>& origin) {
+      const ::scoped_refptr<const ::blink::SecurityOrigin>& value) {
     auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
-    result->set_origin(std::move(origin));
+    result->set_origin(std::move(value));
     return result;
   }
   // Construct an instance holding |error_message|.
   static AllowCSPFromHeaderValuePtr
   NewErrorMessage(
-      const WTF::String& error_message) {
+      const WTF::String& value) {
     auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
 

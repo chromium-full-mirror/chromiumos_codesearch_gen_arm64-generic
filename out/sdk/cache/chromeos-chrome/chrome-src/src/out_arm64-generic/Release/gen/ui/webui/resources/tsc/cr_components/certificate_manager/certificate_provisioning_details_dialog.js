@@ -33,6 +33,10 @@ export class CertificateProvisioningDetailsDialogElement extends CertificateProv
         CertificateProvisioningBrowserProxyImpl.getInstance()
             .triggerCertificateProvisioningProcessUpdate(this.model.certProfileId);
     }
+    onReset_() {
+        CertificateProvisioningBrowserProxyImpl.getInstance()
+            .triggerCertificateProvisioningProcessReset(this.model.certProfileId);
+    }
     shouldHideLastFailedStatus_() {
         return this.model.lastUnsuccessfulMessage.length === 0;
     }

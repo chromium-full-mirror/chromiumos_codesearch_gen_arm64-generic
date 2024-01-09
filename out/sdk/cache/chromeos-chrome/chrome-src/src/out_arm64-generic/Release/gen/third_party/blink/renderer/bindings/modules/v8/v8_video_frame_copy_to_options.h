@@ -12,6 +12,8 @@
 #define THIRD_PARTY_BLINK_RENDERER_BINDINGS_MODULES_V8_V8_VIDEO_FRAME_COPY_TO_OPTIONS_H_
 
 #include "base/containers/span.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_predefined_color_space.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_video_pixel_format.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
@@ -36,6 +38,50 @@ static VideoFrameCopyToOptions* Create(v8::Isolate* isolate, v8::Local<v8::Value
 
 explicit  VideoFrameCopyToOptions();
 explicit  VideoFrameCopyToOptions(v8::Isolate* isolate);
+
+bool hasColorSpace() const {
+  return has_color_space_;
+}
+V8PredefinedColorSpace colorSpace() const {
+  DCHECK(hasColorSpace());
+return member_color_space_;
+}
+V8PredefinedColorSpace getColorSpaceOr(V8PredefinedColorSpace fallback_value) const {
+  if (!hasColorSpace()) {
+  return fallback_value;
+}
+return member_color_space_;
+}
+void setColorSpace(V8PredefinedColorSpace value) {
+  member_color_space_ = value;
+has_color_space_ = true;
+}
+void setColorSpace(V8PredefinedColorSpace::Enum value) {
+  member_color_space_ = V8PredefinedColorSpace(value);
+has_color_space_ = true;
+}
+
+bool hasFormat() const {
+  return has_format_;
+}
+V8VideoPixelFormat format() const {
+  DCHECK(hasFormat());
+return member_format_;
+}
+V8VideoPixelFormat getFormatOr(V8VideoPixelFormat fallback_value) const {
+  if (!hasFormat()) {
+  return fallback_value;
+}
+return member_format_;
+}
+void setFormat(V8VideoPixelFormat value) {
+  member_format_ = value;
+has_format_ = true;
+}
+void setFormat(V8VideoPixelFormat::Enum value) {
+  member_format_ = V8VideoPixelFormat(value);
+has_format_ = true;
+}
 
 bool hasLayout() const {
   return has_layout_;
@@ -69,7 +115,15 @@ DCHECK(member_rect_);
 }
 
 
-
+// Obsolete accessor functions
+void setColorSpace(const String& value) {
+  member_color_space_ = V8PredefinedColorSpace::Create(value).value();
+has_color_space_ = true;
+}
+void setFormat(const String& value) {
+  member_format_ = V8VideoPixelFormat::Create(value).value();
+has_format_ = true;
+}
 
 void Trace(Visitor* visitor) const override;
 
@@ -83,9 +137,13 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
+bool has_color_space_ = false;
+bool has_format_ = false;
 bool has_layout_ = false;
 bool has_rect_ = false;
 
+V8PredefinedColorSpace member_color_space_{static_cast<V8PredefinedColorSpace::Enum>(0)};
+V8VideoPixelFormat member_format_{static_cast<V8VideoPixelFormat::Enum>(0)};
 HeapVector<Member<PlaneLayout>> member_layout_;
 Member<DOMRectInit> member_rect_;
 

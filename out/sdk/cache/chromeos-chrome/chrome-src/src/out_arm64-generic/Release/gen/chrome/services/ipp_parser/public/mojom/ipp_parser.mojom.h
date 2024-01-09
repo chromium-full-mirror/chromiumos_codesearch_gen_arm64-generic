@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/services/ipp_parser/public/mojom/ipp_parser.mojom-features.h"
 #include "chrome/services/ipp_parser/public/mojom/ipp_parser.mojom-shared.h"
 #include "chrome/services/ipp_parser/public/mojom/ipp_parser.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
@@ -322,49 +323,49 @@ class  IppAttributeValue {
   // Construct an instance holding |bools|.
   static IppAttributeValuePtr
   NewBools(
-      std::vector<bool> bools) {
+      std::vector<bool> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_bools(std::move(bools));
+    result->set_bools(std::move(value));
     return result;
   }
   // Construct an instance holding |date|.
   static IppAttributeValuePtr
   NewDate(
-      std::vector<uint8_t> date) {
+      std::vector<uint8_t> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_date(std::move(date));
+    result->set_date(std::move(value));
     return result;
   }
   // Construct an instance holding |ints|.
   static IppAttributeValuePtr
   NewInts(
-      std::vector<int32_t> ints) {
+      std::vector<int32_t> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_ints(std::move(ints));
+    result->set_ints(std::move(value));
     return result;
   }
   // Construct an instance holding |strings|.
   static IppAttributeValuePtr
   NewStrings(
-      std::vector<std::string> strings) {
+      std::vector<std::string> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_strings(std::move(strings));
+    result->set_strings(std::move(value));
     return result;
   }
   // Construct an instance holding |octets|.
   static IppAttributeValuePtr
   NewOctets(
-      std::vector<std::vector<uint8_t>> octets) {
+      std::vector<std::vector<uint8_t>> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_octets(std::move(octets));
+    result->set_octets(std::move(value));
     return result;
   }
   // Construct an instance holding |resolutions|.
   static IppAttributeValuePtr
   NewResolutions(
-      std::vector<ResolutionPtr> resolutions) {
+      std::vector<ResolutionPtr> value) {
     auto result = IppAttributeValuePtr(absl::in_place);
-    result->set_resolutions(std::move(resolutions));
+    result->set_resolutions(std::move(value));
     return result;
   }
 

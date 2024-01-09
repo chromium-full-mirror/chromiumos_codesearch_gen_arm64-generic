@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/eche_app_ui/mojom/eche_app.mojom-features.h"
 #include "ash/webui/eche_app_ui/mojom/eche_app.mojom-shared.h"
 #include "ash/webui/eche_app_ui/mojom/eche_app.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -386,7 +387,7 @@ class AccessibilityObserver
   virtual void PerformAction(const std::vector<uint8_t>& serialized_proto, PerformActionCallback callback) = 0;
 
 
-  using RefreshWithExtraDataCallback = base::OnceCallback<void(const absl::optional<std::vector<uint8_t>>&)>;
+  using RefreshWithExtraDataCallback = base::OnceCallback<void(const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void RefreshWithExtraData(const std::vector<uint8_t>& refresh_data_proto, RefreshWithExtraDataCallback callback) = 0;
 };

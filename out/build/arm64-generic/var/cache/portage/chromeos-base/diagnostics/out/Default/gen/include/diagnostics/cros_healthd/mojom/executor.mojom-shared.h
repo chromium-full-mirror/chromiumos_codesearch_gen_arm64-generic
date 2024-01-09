@@ -29,7 +29,6 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

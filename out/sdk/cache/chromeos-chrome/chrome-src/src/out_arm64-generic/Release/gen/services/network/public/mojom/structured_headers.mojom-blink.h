@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/structured_headers.mojom-features.h"
 #include "services/network/public/mojom/structured_headers.mojom-shared.h"
 #include "services/network/public/mojom/structured_headers.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/byte_string.mojom-blink.h"
@@ -68,57 +69,57 @@ class BLINK_PLATFORM_EXPORT StructuredHeadersItem {
   // Construct an instance holding |null_value|.
   static StructuredHeadersItemPtr
   NewNullValue(
-      uint8_t null_value) {
+      uint8_t value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_null_value(std::move(null_value));
+    result->set_null_value(std::move(value));
     return result;
   }
   // Construct an instance holding |integer_value|.
   static StructuredHeadersItemPtr
   NewIntegerValue(
-      int64_t integer_value) {
+      int64_t value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_integer_value(std::move(integer_value));
+    result->set_integer_value(std::move(value));
     return result;
   }
   // Construct an instance holding |decimal_value|.
   static StructuredHeadersItemPtr
   NewDecimalValue(
-      double decimal_value) {
+      double value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_decimal_value(std::move(decimal_value));
+    result->set_decimal_value(std::move(value));
     return result;
   }
   // Construct an instance holding |string_value|.
   static StructuredHeadersItemPtr
   NewStringValue(
-      const WTF::String& string_value) {
+      const WTF::String& value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_string_value(std::move(string_value));
+    result->set_string_value(std::move(value));
     return result;
   }
   // Construct an instance holding |token_value|.
   static StructuredHeadersItemPtr
   NewTokenValue(
-      const WTF::String& token_value) {
+      const WTF::String& value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_token_value(std::move(token_value));
+    result->set_token_value(std::move(value));
     return result;
   }
   // Construct an instance holding |byte_sequence_value|.
   static StructuredHeadersItemPtr
   NewByteSequenceValue(
-      const std::string& byte_sequence_value) {
+      const std::string& value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_byte_sequence_value(std::move(byte_sequence_value));
+    result->set_byte_sequence_value(std::move(value));
     return result;
   }
   // Construct an instance holding |boolean_value|.
   static StructuredHeadersItemPtr
   NewBooleanValue(
-      bool boolean_value) {
+      bool value) {
     auto result = StructuredHeadersItemPtr(absl::in_place);
-    result->set_boolean_value(std::move(boolean_value));
+    result->set_boolean_value(std::move(value));
     return result;
   }
 

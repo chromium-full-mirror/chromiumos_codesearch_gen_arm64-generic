@@ -1,40 +1,32 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
 import { queryRequiredElement } from '../../common/js/dom_utils.js';
 import { getODFSMetadataQueryEntry, isInteractiveVolume, isOneDrive, isRecentRootType } from '../../common/js/entry_utils.js';
-import { str, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
+import { str } from '../../common/js/translations.js';
+import { FileErrorToDomError } from '../../common/js/util.js';
+import { RootType } from '../../common/js/volume_manager_types.js';
 import { FakeEntry } from '../../externs/files_app_entry_interfaces.js';
 import { updateIsInteractiveVolume } from '../../state/ducks/volumes.js';
 import { getStore } from '../../state/store.js';
-import { constants } from './constants.js';
+import { FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED } from './constants.js';
 import { DirectoryModel } from './directory_model.js';
 import { ProvidersModel } from './providers_model.js';
 /**
  * The empty state image for the Recents folder.
- * @type {string}
- * @const
  */
 const RECENTS_EMPTY_FOLDER = 'foreground/images/files/ui/empty_folder.svg#empty_folder';
 /**
  * The image shown when search returned no results.
- * @type {string}
- * @const
  */
 const SEARCH_EMPTY_RESULTS = 'foreground/images/files/ui/empty_search_results.svg#empty_search_results';
 /**
  * The empty state image for the Trash folder.
- * @type {string}
- * @const
  */
 const TRASH_EMPTY_FOLDER = 'foreground/images/files/ui/empty_trash_folder.svg#empty_trash_folder';
 /**
  * The reauthentication required image for ODFS. There are no files when
  * reauthentication is required (scan fails).
- * @type {string}
- * @const
  */
 const ODFS_REAUTHENTICATION_REQUIRED = 'foreground/images/files/ui/' +
     'odfs_reauthentication_required.svg#odfs_reauthentication_required';
@@ -43,72 +35,36 @@ const ODFS_REAUTHENTICATION_REQUIRED = 'foreground/images/files/ui/' +
  * the file list container.
  */
 export class EmptyFolderController {
-    /**
-     * @param {!HTMLElement} emptyFolder Empty folder element.
-     * @param {!DirectoryModel} directoryModel Directory model.
-     * @param {!ProvidersModel} providersModel Providers model.
-     * @param {!FakeEntry} recentEntry Entry represents Recent view.
-     */
-    constructor(emptyFolder, directoryModel, providersModel, recentEntry) {
-        /**
-         * @private @type {!HTMLElement}
-         */
-        this.emptyFolder_ = emptyFolder;
-        /**
-         * @private @type {!DirectoryModel}
-         */
-        this.directoryModel_ = directoryModel;
-        /**
-         * Model for providers (providing extensions).
-         * @private @type {!ProvidersModel}
-         */
-        this.providersModel_ = providersModel;
-        /**
-         * @private @type {!FakeEntry}
-         * @const
-         */
-        this.recentEntry_ = recentEntry;
-        /**
-         * @private @type {!HTMLElement}
-         */
-        this.label_ = queryRequiredElement('.label', emptyFolder);
-        /**
-         * @private @type {!HTMLElement}
-         */
-        this.image_ = queryRequiredElement('.image', emptyFolder);
-        /**
-         * @private @type {boolean}
-         */
+    constructor(emptyFolder_, directoryModel_, providersModel_, recentEntry_) {
+        this.emptyFolder_ = emptyFolder_;
+        this.directoryModel_ = directoryModel_;
+        this.providersModel_ = providersModel_;
+        this.recentEntry_ = recentEntry_;
         this.isScanning_ = false;
+        this.label_ = queryRequiredElement('.label', this.emptyFolder_);
+        this.image_ = queryRequiredElement('.image', this.emptyFolder_);
         this.directoryModel_.addEventListener('scan-started', this.onScanStarted_.bind(this));
         this.directoryModel_.addEventListener('scan-failed', this.onScanFailed_.bind(this));
-        this.directoryModel_.addEventListener('scan-cancelled', this.onScanFinished_.bind(this));
-        this.directoryModel_.addEventListener('scan-completed', this.onScanFinished_.bind(this));
-        this.directoryModel_.addEventListener('rescan-completed', this.onScanFinished_.bind(this));
+        this.directoryModel_.addEventListener('scan-cancelled', this.onScanFinished.bind(this));
+        this.directoryModel_.addEventListener('scan-completed', this.onScanFinished.bind(this));
+        this.directoryModel_.addEventListener('rescan-completed', this.onScanFinished.bind(this));
     }
     /**
      * Handles scan start.
-     * @private
      */
     onScanStarted_() {
         this.isScanning_ = true;
-        this.updateUI_();
+        this.updateUi_();
     }
     /**
      * Return true if reauthentication to OneDrive is required. Request the ODFS
      * volume metadata through the special root actions request to determine if re
      * authentication is required.
-     * @private
-     * @param {import("../../externs/volume_info.js").VolumeInfo} odfsVolumeInfo
-     * @return {Promise<boolean>}
      */
     async checkIfReauthenticationRequired_(odfsVolumeInfo) {
         // Request ODFS root actions to get ODFS metadata.
         return new Promise((fulfill) => {
-            chrome.fileManagerPrivate.getCustomActions(
-            // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
-            // not assignable to type 'FileSystemEntry'.
-            [getODFSMetadataQueryEntry(odfsVolumeInfo)], customActions => {
+            chrome.fileManagerPrivate.getCustomActions([getODFSMetadataQueryEntry(odfsVolumeInfo)], (customActions) => {
                 if (chrome.runtime.lastError) {
                     console.error('Unexpectedly failed to fetch custom actions for ODFS ' +
                         'root because of: ' + chrome.runtime.lastError.message);
@@ -118,8 +74,7 @@ export class EmptyFolderController {
                 // Find the reauthentication required action.
                 for (const action of customActions) {
                     if (action.id ===
-                        constants
-                            .FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED &&
+                        FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED &&
                         action.title === 'true') {
                         fulfill(true);
                         return;
@@ -133,30 +88,29 @@ export class EmptyFolderController {
      * Handles scan fail. If the scan failed for the ODFS volume due to
      * reauthenticaton being required, set the state of the volume as not
      * interactive.
-     * @private
      */
-    // @ts-ignore: error TS7006: Parameter 'event' implicitly has an 'any' type.
     onScanFailed_(event) {
         this.isScanning_ = false;
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
         if (!currentVolumeInfo) {
-            this.updateUI_();
+            this.updateUi_();
             return;
         }
         // If scan did not fail for ODFS, return.
         if (!isOneDrive(currentVolumeInfo)) {
-            this.updateUI_();
+            this.updateUi_();
             return;
         }
         // If the error is not NO_MODIFICATION_ALLOWED_ERR, return. This is
         // equivalent to the ACCESS_DENIED error thrown by ODFS.
-        if (event.error.name != util.FileError.NO_MODIFICATION_ALLOWED_ERR) {
-            this.updateUI_();
+        if (event.detail.error.name !=
+            FileErrorToDomError.NO_MODIFICATION_ALLOWED_ERR) {
+            this.updateUi_();
             return;
         }
         // If ODFS is already non-interactive, return.
         if (!isInteractiveVolume(currentVolumeInfo)) {
-            this.updateUI_();
+            this.updateUi_();
             return;
         }
         // Only set ODFS to non-interactive if the ACCESS_DENIED was due to
@@ -170,16 +124,15 @@ export class EmptyFolderController {
                     isInteractive: false,
                 }));
             }
-            this.updateUI_();
+            this.updateUi_();
         });
     }
     /**
      * Handles scan finish.
-     * @private
      */
-    onScanFinished_() {
+    onScanFinished() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (isOneDrive(currentVolumeInfo)) {
+        if (currentVolumeInfo && isOneDrive(currentVolumeInfo)) {
             if (!isInteractiveVolume(currentVolumeInfo)) {
                 // Set |isInteractive| to true for ODFS when in an authenticated state.
                 getStore().dispatch(updateIsInteractiveVolume({
@@ -189,16 +142,13 @@ export class EmptyFolderController {
             }
         }
         this.isScanning_ = false;
-        this.updateUI_();
+        this.updateUi_();
     }
     /**
      * Shows the given message. It may consist of just the `title`, or
      * `title` and `description`.
-     * @param {string} title
-     * @param {string=} description
-     * @private
      */
-    showMessage_(title, description = '') {
+    showMessage_(title, description) {
         if (!description) {
             this.label_.appendChild(document.createTextNode(title));
             return;
@@ -215,9 +165,8 @@ export class EmptyFolderController {
     /**
      * Shows the ODFS reauthentication required message. Include the "Sign in"
      * and "Settings" links and set the handlers.
-     * @private
      */
-    showODFSReauthenticationMessage_() {
+    showOdfsReauthenticationMessage_() {
         const titleSpan = document.createElement('span');
         titleSpan.id = 'empty-folder-title';
         titleSpan.innerText = str('ONEDRIVE_LOGGED_OUT_TITLE');
@@ -226,7 +175,7 @@ export class EmptyFolderController {
         const signInLink = document.createElement('a');
         signInLink.setAttribute('class', 'sign-in');
         signInLink.innerText = str('ONEDRIVE_SIGN_IN_LINK');
-        signInLink.addEventListener('click', this.onODFSSignIn_.bind(this));
+        signInLink.addEventListener('click', this.onOdfsSignIn_.bind(this));
         const descSpan = document.createElement('span');
         descSpan.id = 'empty-folder-desc';
         descSpan.appendChild(text);
@@ -240,30 +189,28 @@ export class EmptyFolderController {
      * Called when "Sign in" link for ODFS reauthentication is clicked. Request
      * a new ODFS mount. ODFS will unmount the old mount if the authentication is
      * successful in the new mount.
-     * @private
      */
-    onODFSSignIn_() {
+    onOdfsSignIn_() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (isOneDrive(currentVolumeInfo) &&
+        if (currentVolumeInfo && isOneDrive(currentVolumeInfo) &&
             currentVolumeInfo.providerId !== undefined) {
             this.providersModel_.requestMount(currentVolumeInfo.providerId);
         }
     }
     /**
      * Updates visibility of empty folder UI.
-     * @private
      */
-    updateUI_() {
+    updateUi_() {
         const currentRootType = this.directoryModel_.getCurrentRootType();
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
         let svgRef = null;
         if (isRecentRootType(currentRootType)) {
             svgRef = RECENTS_EMPTY_FOLDER;
         }
-        else if (currentRootType === VolumeManagerCommon.RootType.TRASH) {
+        else if (currentRootType === RootType.TRASH) {
             svgRef = TRASH_EMPTY_FOLDER;
         }
-        else if (isOneDrive(currentVolumeInfo) &&
+        else if (currentVolumeInfo && isOneDrive(currentVolumeInfo) &&
             !isInteractiveVolume(currentVolumeInfo)) {
             // Show ODFS reauthentication required empty state if is it
             // non-interactive.
@@ -275,14 +222,14 @@ export class EmptyFolderController {
                 svgRef = SEARCH_EMPTY_RESULTS;
             }
         }
-        const fileListModel = assert(this.directoryModel_.getFileList());
+        const fileListModel = this.directoryModel_.getFileList();
         this.label_.innerText = '';
-        if (svgRef === null || this.isScanning_ || fileListModel.length > 0) {
+        if (svgRef === null || this.isScanning_ ||
+            (fileListModel && fileListModel.length > 0)) {
             this.emptyFolder_.hidden = true;
             return;
         }
         const svgUseElement = this.image_.querySelector('.image > svg > use');
-        // @ts-ignore: error TS18047: 'svgUseElement' is possibly 'null'.
         svgUseElement.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', svgRef);
         this.emptyFolder_.hidden = false;
         if (svgRef === TRASH_EMPTY_FOLDER) {
@@ -290,7 +237,7 @@ export class EmptyFolderController {
             return;
         }
         if (svgRef == ODFS_REAUTHENTICATION_REQUIRED) {
-            this.showODFSReauthenticationMessage_();
+            this.showOdfsReauthenticationMessage_();
             return;
         }
         if (svgRef === SEARCH_EMPTY_RESULTS) {

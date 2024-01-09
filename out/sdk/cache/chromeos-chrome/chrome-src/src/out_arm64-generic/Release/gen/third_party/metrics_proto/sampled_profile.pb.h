@@ -33,6 +33,7 @@
 #include <google/protobuf/map_field_lite.h>
 #include <google/protobuf/generated_enum_util.h>
 #include "call_stack_profile.pb.h"
+#include "device_state.pb.h"
 #include "execution_context.pb.h"
 #include "perf_data.pb.h"
 #include "perf_stat.pb.h"
@@ -308,6 +309,8 @@ class SampledProfile final :
     kPsiCpuLast10SPctFieldNumber = 16,
     kPsiCpuLast60SPctFieldNumber = 17,
     kLacrosChannelFieldNumber = 20,
+    kThermalStateFieldNumber = 21,
+    kCpuSpeedLimitPercentFieldNumber = 22,
   };
   // map<uint32, .metrics.Process> process_types = 13;
   int process_types_size() const;
@@ -615,6 +618,32 @@ class SampledProfile final :
   void _internal_set_lacros_channel(::metrics::SystemProfileProto_Channel value);
   public:
 
+  // optional .metrics.ThermalState thermal_state = 21;
+  bool has_thermal_state() const;
+  private:
+  bool _internal_has_thermal_state() const;
+  public:
+  void clear_thermal_state();
+  ::metrics::ThermalState thermal_state() const;
+  void set_thermal_state(::metrics::ThermalState value);
+  private:
+  ::metrics::ThermalState _internal_thermal_state() const;
+  void _internal_set_thermal_state(::metrics::ThermalState value);
+  public:
+
+  // optional int32 cpu_speed_limit_percent = 22;
+  bool has_cpu_speed_limit_percent() const;
+  private:
+  bool _internal_has_cpu_speed_limit_percent() const;
+  public:
+  void clear_cpu_speed_limit_percent();
+  int32_t cpu_speed_limit_percent() const;
+  void set_cpu_speed_limit_percent(int32_t value);
+  private:
+  int32_t _internal_cpu_speed_limit_percent() const;
+  void _internal_set_cpu_speed_limit_percent(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.SampledProfile)
  private:
   class _Internal;
@@ -653,6 +682,8 @@ class SampledProfile final :
   float psi_cpu_last_10s_pct_;
   float psi_cpu_last_60s_pct_;
   int lacros_channel_;
+  int thermal_state_;
+  int32_t cpu_speed_limit_percent_;
   friend struct ::TableStruct_sampled_5fprofile_2eproto;
 };
 // ===================================================================
@@ -1489,6 +1520,63 @@ inline void SampledProfile::_internal_set_psi_cpu_last_60s_pct(float value) {
 inline void SampledProfile::set_psi_cpu_last_60s_pct(float value) {
   _internal_set_psi_cpu_last_60s_pct(value);
   // @@protoc_insertion_point(field_set:metrics.SampledProfile.psi_cpu_last_60s_pct)
+}
+
+// optional .metrics.ThermalState thermal_state = 21;
+inline bool SampledProfile::_internal_has_thermal_state() const {
+  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+  return value;
+}
+inline bool SampledProfile::has_thermal_state() const {
+  return _internal_has_thermal_state();
+}
+inline void SampledProfile::clear_thermal_state() {
+  thermal_state_ = 0;
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline ::metrics::ThermalState SampledProfile::_internal_thermal_state() const {
+  return static_cast< ::metrics::ThermalState >(thermal_state_);
+}
+inline ::metrics::ThermalState SampledProfile::thermal_state() const {
+  // @@protoc_insertion_point(field_get:metrics.SampledProfile.thermal_state)
+  return _internal_thermal_state();
+}
+inline void SampledProfile::_internal_set_thermal_state(::metrics::ThermalState value) {
+  assert(::metrics::ThermalState_IsValid(value));
+  _has_bits_[0] |= 0x00010000u;
+  thermal_state_ = value;
+}
+inline void SampledProfile::set_thermal_state(::metrics::ThermalState value) {
+  _internal_set_thermal_state(value);
+  // @@protoc_insertion_point(field_set:metrics.SampledProfile.thermal_state)
+}
+
+// optional int32 cpu_speed_limit_percent = 22;
+inline bool SampledProfile::_internal_has_cpu_speed_limit_percent() const {
+  bool value = (_has_bits_[0] & 0x00020000u) != 0;
+  return value;
+}
+inline bool SampledProfile::has_cpu_speed_limit_percent() const {
+  return _internal_has_cpu_speed_limit_percent();
+}
+inline void SampledProfile::clear_cpu_speed_limit_percent() {
+  cpu_speed_limit_percent_ = 0;
+  _has_bits_[0] &= ~0x00020000u;
+}
+inline int32_t SampledProfile::_internal_cpu_speed_limit_percent() const {
+  return cpu_speed_limit_percent_;
+}
+inline int32_t SampledProfile::cpu_speed_limit_percent() const {
+  // @@protoc_insertion_point(field_get:metrics.SampledProfile.cpu_speed_limit_percent)
+  return _internal_cpu_speed_limit_percent();
+}
+inline void SampledProfile::_internal_set_cpu_speed_limit_percent(int32_t value) {
+  _has_bits_[0] |= 0x00020000u;
+  cpu_speed_limit_percent_ = value;
+}
+inline void SampledProfile::set_cpu_speed_limit_percent(int32_t value) {
+  _internal_set_cpu_speed_limit_percent(value);
+  // @@protoc_insertion_point(field_set:metrics.SampledProfile.cpu_speed_limit_percent)
 }
 
 #ifdef __GNUC__

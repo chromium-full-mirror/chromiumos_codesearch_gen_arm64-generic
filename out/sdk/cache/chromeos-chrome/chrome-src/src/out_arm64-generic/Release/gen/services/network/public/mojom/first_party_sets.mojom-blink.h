@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/first_party_sets.mojom-features.h"
 #include "services/network/public/mojom/first_party_sets.mojom-shared.h"
 #include "services/network/public/mojom/first_party_sets.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/version.mojom-blink.h"
@@ -39,18 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SiteType>
-    : EnumHashTraits<::network::mojom::SiteType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -959,7 +948,8 @@ class BLINK_PLATFORM_EXPORT GlobalFirstPartySets {
       const ::base::Version& public_sets_version,
       WTF::HashMap<::blink::BlinkSchemefulSite, FirstPartySetEntryPtr> sets,
       const WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite>& aliases,
-      FirstPartySetsContextConfigPtr manual_config);
+      FirstPartySetsContextConfigPtr manual_config,
+      const WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite>& manual_aliases);
 
 GlobalFirstPartySets(const GlobalFirstPartySets&) = delete;
 GlobalFirstPartySets& operator=(const GlobalFirstPartySets&) = delete;
@@ -1046,6 +1036,8 @@ GlobalFirstPartySets& operator=(const GlobalFirstPartySets&) = delete;
   WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite> aliases;
   
   FirstPartySetsContextConfigPtr manual_config;
+  
+  WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite> manual_aliases;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1242,7 +1234,8 @@ GlobalFirstPartySetsPtr GlobalFirstPartySets::Clone() const {
       mojo::Clone(public_sets_version),
       mojo::Clone(sets),
       mojo::Clone(aliases),
-      mojo::Clone(manual_config)
+      mojo::Clone(manual_config),
+      mojo::Clone(manual_aliases)
   );
 }
 
@@ -1255,6 +1248,8 @@ bool GlobalFirstPartySets::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->aliases, other_struct.aliases))
     return false;
   if (!mojo::Equals(this->manual_config, other_struct.manual_config))
+    return false;
+  if (!mojo::Equals(this->manual_aliases, other_struct.manual_aliases))
     return false;
   return true;
 }
@@ -1276,6 +1271,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.manual_config < rhs.manual_config)
     return true;
   if (rhs.manual_config < lhs.manual_config)
+    return false;
+  if (lhs.manual_aliases < rhs.manual_aliases)
+    return true;
+  if (rhs.manual_aliases < lhs.manual_aliases)
     return false;
   return false;
 }
@@ -1420,6 +1419,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::GlobalFirstPa
   static const decltype(::network::mojom::blink::GlobalFirstPartySets::manual_config)& manual_config(
       const ::network::mojom::blink::GlobalFirstPartySetsPtr& input) {
     return input->manual_config;
+  }
+
+  static const decltype(::network::mojom::blink::GlobalFirstPartySets::manual_aliases)& manual_aliases(
+      const ::network::mojom::blink::GlobalFirstPartySetsPtr& input) {
+    return input->manual_aliases;
   }
 
   static bool Read(::network::mojom::blink::GlobalFirstPartySets::DataView input, ::network::mojom::blink::GlobalFirstPartySetsPtr* output);

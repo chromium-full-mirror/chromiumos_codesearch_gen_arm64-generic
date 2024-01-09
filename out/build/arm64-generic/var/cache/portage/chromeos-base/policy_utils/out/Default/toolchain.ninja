@@ -34,8 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/policy_utils/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/policy_utils/all.stamp: stamp ./policy ./libmgmt_test
+build obj/policy_utils/_policy-install_config.stamp: stamp
+build obj/policy_utils/all.stamp: stamp ./policy
 subninja obj/policy_utils/libmgmt.ninja
-subninja obj/policy_utils/libmgmt_test.ninja
 subninja obj/policy_utils/policy.ninja

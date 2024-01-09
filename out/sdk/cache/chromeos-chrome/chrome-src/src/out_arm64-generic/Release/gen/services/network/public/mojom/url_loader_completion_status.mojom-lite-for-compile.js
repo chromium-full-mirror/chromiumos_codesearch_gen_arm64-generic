@@ -15,7 +15,6 @@ goog.require('network.mojom.BlockedByResponseReason');
 goog.require('network.mojom.PrivateNetworkAccessPreflightResult');
 goog.require('network.mojom.TrustTokenOperationStatus');
 goog.require('network.mojom.CorsErrorStatus');
-goog.require('network.mojom.ProxyServer');
 goog.require('network.mojom.ResolveErrorInfo');
 goog.require('network.mojom.SSLInfo');
 goog.require('mojoBase.mojom.TimeTicks');
@@ -190,15 +189,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'proxyServer', 80,
-        0,
-        network.mojom.ProxyServerSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'resolveErrorInfo', 88,
+        'resolveErrorInfo', 80,
         0,
         network.mojom.ResolveErrorInfoSpec.$,
         null,
@@ -214,7 +205,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 104],]);
+    [[0, 96],]);
 
 
 
@@ -251,8 +242,6 @@ network.mojom.URLLoaderCompletionStatus = class {
     this.blockedByResponseReason;
     /** @export { !boolean } */
     this.shouldReportCorbBlocking;
-    /** @export { !network.mojom.ProxyServer } */
-    this.proxyServer;
     /** @export { !network.mojom.ResolveErrorInfo } */
     this.resolveErrorInfo;
     /** @export { !boolean } */

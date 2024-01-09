@@ -3888,6 +3888,767 @@ class GpuTrackTable : public macros_internal::MacroTable {
 };
   
 
+class UidTrackTable : public macros_internal::MacroTable {
+ public:
+  using Id = TrackTable::Id;
+    
+  struct ColumnIndex {
+    static constexpr uint32_t id = 0;
+    static constexpr uint32_t type = 1;
+    static constexpr uint32_t name = 2;
+    static constexpr uint32_t parent_id = 3;
+    static constexpr uint32_t source_arg_set_id = 4;
+    static constexpr uint32_t uid = 5;
+  };
+  struct ColumnType {
+    using id = IdColumn<UidTrackTable::Id>;
+    using type = TypedColumn<StringPool::Id>;
+    using name = TypedColumn<StringPool::Id>;
+    using parent_id = TypedColumn<std::optional<UidTrackTable::Id>>;
+    using source_arg_set_id = TypedColumn<std::optional<uint32_t>>;
+    using uid = TypedColumn<int32_t>;
+  };
+  struct Row : public TrackTable::Row {
+    Row(StringPool::Id in_name = {},
+        std::optional<UidTrackTable::Id> in_parent_id = {},
+        std::optional<uint32_t> in_source_arg_set_id = {},
+        int32_t in_uid = {},
+        std::nullptr_t = nullptr)
+        : TrackTable::Row(std::move(in_name), std::move(in_parent_id), std::move(in_source_arg_set_id)),
+          uid(std::move(in_uid)) {
+      type_ = "uid_track";
+    }
+    int32_t uid;
+
+    bool operator==(const UidTrackTable::Row& other) const {
+      return type() == other.type() && ColumnType::name::Equals(name, other.name) &&
+       ColumnType::parent_id::Equals(parent_id, other.parent_id) &&
+       ColumnType::source_arg_set_id::Equals(source_arg_set_id, other.source_arg_set_id) &&
+       ColumnType::uid::Equals(uid, other.uid);
+    }
+  };
+  struct ColumnFlag {
+    static constexpr uint32_t uid = ColumnType::uid::default_flags();
+  };
+
+  class RowNumber;
+  class ConstRowReference;
+  class RowReference;
+
+  class RowNumber : public macros_internal::AbstractRowNumber<
+      UidTrackTable, ConstRowReference, RowReference> {
+   public:
+    explicit RowNumber(uint32_t row_number)
+        : AbstractRowNumber(row_number) {}
+  };
+  static_assert(std::is_trivially_destructible<RowNumber>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstRowReference : public macros_internal::AbstractConstRowReference<
+    UidTrackTable, RowNumber> {
+   public:
+    ConstRowReference(const UidTrackTable* table, uint32_t row_number)
+        : AbstractConstRowReference(table, row_number) {}
+
+    ColumnType::id::type id() const {
+      return table_->id()[row_number_];
+    }
+    ColumnType::type::type type() const {
+      return table_->type()[row_number_];
+    }
+    ColumnType::name::type name() const {
+      return table_->name()[row_number_];
+    }
+    ColumnType::parent_id::type parent_id() const {
+      return table_->parent_id()[row_number_];
+    }
+    ColumnType::source_arg_set_id::type source_arg_set_id() const {
+      return table_->source_arg_set_id()[row_number_];
+    }
+    ColumnType::uid::type uid() const {
+      return table_->uid()[row_number_];
+    }
+  };
+  static_assert(std::is_trivially_destructible<ConstRowReference>::value,
+                "Inheritance used without trivial destruction");
+  class RowReference : public ConstRowReference {
+   public:
+    RowReference(const UidTrackTable* table, uint32_t row_number)
+        : ConstRowReference(table, row_number) {}
+
+    void set_name(
+        ColumnType::name::non_optional_type v) {
+      return mutable_table()->mutable_name()->Set(row_number_, v);
+    }
+    void set_parent_id(
+        ColumnType::parent_id::non_optional_type v) {
+      return mutable_table()->mutable_parent_id()->Set(row_number_, v);
+    }
+    void set_source_arg_set_id(
+        ColumnType::source_arg_set_id::non_optional_type v) {
+      return mutable_table()->mutable_source_arg_set_id()->Set(row_number_, v);
+    }
+    void set_uid(
+        ColumnType::uid::non_optional_type v) {
+      return mutable_table()->mutable_uid()->Set(row_number_, v);
+    }
+
+   private:
+    UidTrackTable* mutable_table() const {
+      return const_cast<UidTrackTable*>(table_);
+    }
+  };
+  static_assert(std::is_trivially_destructible<RowReference>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstIterator;
+  class ConstIterator : public macros_internal::AbstractConstIterator<
+    ConstIterator, UidTrackTable, RowNumber, ConstRowReference> {
+   public:
+    ColumnType::id::type id() const {
+      const auto& col = table_->id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::type::type type() const {
+      const auto& col = table_->type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::name::type name() const {
+      const auto& col = table_->name();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::parent_id::type parent_id() const {
+      const auto& col = table_->parent_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::source_arg_set_id::type source_arg_set_id() const {
+      const auto& col = table_->source_arg_set_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::uid::type uid() const {
+      const auto& col = table_->uid();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+
+   protected:
+    explicit ConstIterator(const UidTrackTable* table,
+                           std::vector<ColumnStorageOverlay> overlays)
+        : AbstractConstIterator(table, std::move(overlays)) {}
+
+    uint32_t CurrentRowNumber() const {
+      return its_.back().index();
+    }
+
+   private:
+    friend class UidTrackTable;
+    friend class macros_internal::AbstractConstIterator<
+      ConstIterator, UidTrackTable, RowNumber, ConstRowReference>;
+  };
+  class Iterator : public ConstIterator {
+    public:
+    void set_name(ColumnType::name::non_optional_type v) {
+        auto* col = mutable_table_->mutable_name();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_parent_id(ColumnType::parent_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_parent_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_source_arg_set_id(ColumnType::source_arg_set_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_source_arg_set_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_uid(ColumnType::uid::non_optional_type v) {
+        auto* col = mutable_table_->mutable_uid();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+
+    RowReference row_reference() const {
+      return RowReference(mutable_table_, CurrentRowNumber());
+    }
+
+    private:
+    friend class UidTrackTable;
+
+    explicit Iterator(UidTrackTable* table,
+                      std::vector<ColumnStorageOverlay> overlays)
+        : ConstIterator(table, std::move(overlays)),
+          mutable_table_(table) {}
+
+    UidTrackTable* mutable_table_ = nullptr;
+  };
+
+  struct IdAndRow {
+    Id id;
+    uint32_t row;
+    RowReference row_reference;
+    RowNumber row_number;
+  };
+
+  explicit UidTrackTable(StringPool* pool, TrackTable* parent)
+      : macros_internal::MacroTable(pool, parent),
+        parent_(parent), uid_(ColumnStorage<ColumnType::uid::stored_type>::Create<false>()) {
+    static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+          ColumnFlag::uid),
+        "Column type and flag combination is not valid");
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("uid", &uid_, ColumnFlag::uid,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  ~UidTrackTable() override;
+
+  static const char* Name() { return "uid_track"; }
+
+  static Table::Schema ComputeStaticSchema() {
+    Table::Schema schema;
+    schema.columns.emplace_back(Table::Schema::Column{
+        "id", SqlValue::Type::kLong, true, true, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "type", SqlValue::Type::kString, false, false, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "name", ColumnType::name::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "parent_id", ColumnType::parent_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "source_arg_set_id", ColumnType::source_arg_set_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "uid", ColumnType::uid::SqlValueType(), false,
+        false,
+        false,
+        false});
+    return schema;
+  }
+
+  ConstIterator IterateRows() const {
+    return ConstIterator(this, CopyOverlays());
+  }
+
+  Iterator IterateRows() { return Iterator(this, CopyOverlays()); }
+
+  ConstIterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) const {
+    return ConstIterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  Iterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) {
+    return Iterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  void ShrinkToFit() {
+    uid_.ShrinkToFit();
+  }
+
+  std::optional<ConstRowReference> FindById(Id find_id) const {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(ConstRowReference(this, *row))
+               : std::nullopt;
+  }
+
+  std::optional<RowReference> FindById(Id find_id) {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(RowReference(this, *row)) : std::nullopt;
+  }
+
+  IdAndRow Insert(const Row& row) {
+    uint32_t row_number = row_count();
+    Id id = Id{parent_->Insert(row).id};
+    UpdateOverlaysAfterParentInsert();
+    mutable_uid()->Append(std::move(row.uid));
+    UpdateSelfOverlayAfterInsert();
+    return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
+                     RowNumber(row_number)};
+  }
+
+  static std::unique_ptr<Table> ExtendParent(
+      const TrackTable& parent,
+      ColumnStorage<ColumnType::uid::stored_type> uid) {
+    return std::unique_ptr<Table>(new UidTrackTable(
+        parent.string_pool(), parent, RowMap(0, parent.row_count()),
+        std::move(uid)));
+  }
+
+  static std::unique_ptr<Table> SelectAndExtendParent(
+      const TrackTable& parent,
+      std::vector<TrackTable::RowNumber> parent_overlay,
+      ColumnStorage<ColumnType::uid::stored_type> uid) {
+    std::vector<uint32_t> prs_untyped(parent_overlay.size());
+    for (uint32_t i = 0; i < parent_overlay.size(); ++i) {
+      prs_untyped[i] = parent_overlay[i].row_number();
+    }
+    return std::unique_ptr<Table>(new UidTrackTable(
+        parent.string_pool(), parent, RowMap(std::move(prs_untyped)),
+        std::move(uid)));
+  }
+
+  const IdColumn<UidTrackTable::Id>& id() const {
+    return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
+  }
+  const TypedColumn<StringPool::Id>& type() const {
+    return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
+  }
+  const TypedColumn<StringPool::Id>& name() const {
+    return static_cast<const ColumnType::name&>(columns_[ColumnIndex::name]);
+  }
+  const TypedColumn<std::optional<UidTrackTable::Id>>& parent_id() const {
+    return static_cast<const ColumnType::parent_id&>(columns_[ColumnIndex::parent_id]);
+  }
+  const TypedColumn<std::optional<uint32_t>>& source_arg_set_id() const {
+    return static_cast<const ColumnType::source_arg_set_id&>(columns_[ColumnIndex::source_arg_set_id]);
+  }
+  const TypedColumn<int32_t>& uid() const {
+    return static_cast<const ColumnType::uid&>(columns_[ColumnIndex::uid]);
+  }
+
+  TypedColumn<StringPool::Id>* mutable_name() {
+    return static_cast<ColumnType::name*>(
+        &columns_[ColumnIndex::name]);
+  }
+  TypedColumn<std::optional<UidTrackTable::Id>>* mutable_parent_id() {
+    return static_cast<ColumnType::parent_id*>(
+        &columns_[ColumnIndex::parent_id]);
+  }
+  TypedColumn<std::optional<uint32_t>>* mutable_source_arg_set_id() {
+    return static_cast<ColumnType::source_arg_set_id*>(
+        &columns_[ColumnIndex::source_arg_set_id]);
+  }
+  TypedColumn<int32_t>* mutable_uid() {
+    return static_cast<ColumnType::uid*>(
+        &columns_[ColumnIndex::uid]);
+  }
+
+ private:
+  UidTrackTable(StringPool* pool,
+            const TrackTable& parent,
+            const RowMap& parent_overlay,
+            ColumnStorage<ColumnType::uid::stored_type> uid)
+      : macros_internal::MacroTable(pool, parent, parent_overlay) {
+    static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+          ColumnFlag::uid),
+        "Column type and flag combination is not valid");
+    PERFETTO_DCHECK(uid.size() == parent_overlay.size());
+    uid_ = std::move(uid);
+
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("uid", &uid_, ColumnFlag::uid,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  TrackTable* parent_ = nullptr;
+  ColumnStorage<ColumnType::uid::stored_type> uid_;
+};
+  
+
+class GpuWorkPeriodTrackTable : public macros_internal::MacroTable {
+ public:
+  using Id = UidTrackTable::Id;
+    
+  struct ColumnIndex {
+    static constexpr uint32_t id = 0;
+    static constexpr uint32_t type = 1;
+    static constexpr uint32_t name = 2;
+    static constexpr uint32_t parent_id = 3;
+    static constexpr uint32_t source_arg_set_id = 4;
+    static constexpr uint32_t uid = 5;
+    static constexpr uint32_t gpu_id = 6;
+  };
+  struct ColumnType {
+    using id = IdColumn<GpuWorkPeriodTrackTable::Id>;
+    using type = TypedColumn<StringPool::Id>;
+    using name = TypedColumn<StringPool::Id>;
+    using parent_id = TypedColumn<std::optional<GpuWorkPeriodTrackTable::Id>>;
+    using source_arg_set_id = TypedColumn<std::optional<uint32_t>>;
+    using uid = TypedColumn<int32_t>;
+    using gpu_id = TypedColumn<uint32_t>;
+  };
+  struct Row : public UidTrackTable::Row {
+    Row(StringPool::Id in_name = {},
+        std::optional<GpuWorkPeriodTrackTable::Id> in_parent_id = {},
+        std::optional<uint32_t> in_source_arg_set_id = {},
+        int32_t in_uid = {},
+        uint32_t in_gpu_id = {},
+        std::nullptr_t = nullptr)
+        : UidTrackTable::Row(std::move(in_name), std::move(in_parent_id), std::move(in_source_arg_set_id), std::move(in_uid)),
+          gpu_id(std::move(in_gpu_id)) {
+      type_ = "gpu_work_period_track";
+    }
+    uint32_t gpu_id;
+
+    bool operator==(const GpuWorkPeriodTrackTable::Row& other) const {
+      return type() == other.type() && ColumnType::name::Equals(name, other.name) &&
+       ColumnType::parent_id::Equals(parent_id, other.parent_id) &&
+       ColumnType::source_arg_set_id::Equals(source_arg_set_id, other.source_arg_set_id) &&
+       ColumnType::uid::Equals(uid, other.uid) &&
+       ColumnType::gpu_id::Equals(gpu_id, other.gpu_id);
+    }
+  };
+  struct ColumnFlag {
+    static constexpr uint32_t gpu_id = ColumnType::gpu_id::default_flags();
+  };
+
+  class RowNumber;
+  class ConstRowReference;
+  class RowReference;
+
+  class RowNumber : public macros_internal::AbstractRowNumber<
+      GpuWorkPeriodTrackTable, ConstRowReference, RowReference> {
+   public:
+    explicit RowNumber(uint32_t row_number)
+        : AbstractRowNumber(row_number) {}
+  };
+  static_assert(std::is_trivially_destructible<RowNumber>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstRowReference : public macros_internal::AbstractConstRowReference<
+    GpuWorkPeriodTrackTable, RowNumber> {
+   public:
+    ConstRowReference(const GpuWorkPeriodTrackTable* table, uint32_t row_number)
+        : AbstractConstRowReference(table, row_number) {}
+
+    ColumnType::id::type id() const {
+      return table_->id()[row_number_];
+    }
+    ColumnType::type::type type() const {
+      return table_->type()[row_number_];
+    }
+    ColumnType::name::type name() const {
+      return table_->name()[row_number_];
+    }
+    ColumnType::parent_id::type parent_id() const {
+      return table_->parent_id()[row_number_];
+    }
+    ColumnType::source_arg_set_id::type source_arg_set_id() const {
+      return table_->source_arg_set_id()[row_number_];
+    }
+    ColumnType::uid::type uid() const {
+      return table_->uid()[row_number_];
+    }
+    ColumnType::gpu_id::type gpu_id() const {
+      return table_->gpu_id()[row_number_];
+    }
+  };
+  static_assert(std::is_trivially_destructible<ConstRowReference>::value,
+                "Inheritance used without trivial destruction");
+  class RowReference : public ConstRowReference {
+   public:
+    RowReference(const GpuWorkPeriodTrackTable* table, uint32_t row_number)
+        : ConstRowReference(table, row_number) {}
+
+    void set_name(
+        ColumnType::name::non_optional_type v) {
+      return mutable_table()->mutable_name()->Set(row_number_, v);
+    }
+    void set_parent_id(
+        ColumnType::parent_id::non_optional_type v) {
+      return mutable_table()->mutable_parent_id()->Set(row_number_, v);
+    }
+    void set_source_arg_set_id(
+        ColumnType::source_arg_set_id::non_optional_type v) {
+      return mutable_table()->mutable_source_arg_set_id()->Set(row_number_, v);
+    }
+    void set_uid(
+        ColumnType::uid::non_optional_type v) {
+      return mutable_table()->mutable_uid()->Set(row_number_, v);
+    }
+    void set_gpu_id(
+        ColumnType::gpu_id::non_optional_type v) {
+      return mutable_table()->mutable_gpu_id()->Set(row_number_, v);
+    }
+
+   private:
+    GpuWorkPeriodTrackTable* mutable_table() const {
+      return const_cast<GpuWorkPeriodTrackTable*>(table_);
+    }
+  };
+  static_assert(std::is_trivially_destructible<RowReference>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstIterator;
+  class ConstIterator : public macros_internal::AbstractConstIterator<
+    ConstIterator, GpuWorkPeriodTrackTable, RowNumber, ConstRowReference> {
+   public:
+    ColumnType::id::type id() const {
+      const auto& col = table_->id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::type::type type() const {
+      const auto& col = table_->type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::name::type name() const {
+      const auto& col = table_->name();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::parent_id::type parent_id() const {
+      const auto& col = table_->parent_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::source_arg_set_id::type source_arg_set_id() const {
+      const auto& col = table_->source_arg_set_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::uid::type uid() const {
+      const auto& col = table_->uid();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::gpu_id::type gpu_id() const {
+      const auto& col = table_->gpu_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+
+   protected:
+    explicit ConstIterator(const GpuWorkPeriodTrackTable* table,
+                           std::vector<ColumnStorageOverlay> overlays)
+        : AbstractConstIterator(table, std::move(overlays)) {}
+
+    uint32_t CurrentRowNumber() const {
+      return its_.back().index();
+    }
+
+   private:
+    friend class GpuWorkPeriodTrackTable;
+    friend class macros_internal::AbstractConstIterator<
+      ConstIterator, GpuWorkPeriodTrackTable, RowNumber, ConstRowReference>;
+  };
+  class Iterator : public ConstIterator {
+    public:
+    void set_name(ColumnType::name::non_optional_type v) {
+        auto* col = mutable_table_->mutable_name();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_parent_id(ColumnType::parent_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_parent_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_source_arg_set_id(ColumnType::source_arg_set_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_source_arg_set_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_uid(ColumnType::uid::non_optional_type v) {
+        auto* col = mutable_table_->mutable_uid();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_gpu_id(ColumnType::gpu_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_gpu_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+
+    RowReference row_reference() const {
+      return RowReference(mutable_table_, CurrentRowNumber());
+    }
+
+    private:
+    friend class GpuWorkPeriodTrackTable;
+
+    explicit Iterator(GpuWorkPeriodTrackTable* table,
+                      std::vector<ColumnStorageOverlay> overlays)
+        : ConstIterator(table, std::move(overlays)),
+          mutable_table_(table) {}
+
+    GpuWorkPeriodTrackTable* mutable_table_ = nullptr;
+  };
+
+  struct IdAndRow {
+    Id id;
+    uint32_t row;
+    RowReference row_reference;
+    RowNumber row_number;
+  };
+
+  explicit GpuWorkPeriodTrackTable(StringPool* pool, UidTrackTable* parent)
+      : macros_internal::MacroTable(pool, parent),
+        parent_(parent), gpu_id_(ColumnStorage<ColumnType::gpu_id::stored_type>::Create<false>()) {
+    static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+          ColumnFlag::gpu_id),
+        "Column type and flag combination is not valid");
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("gpu_id", &gpu_id_, ColumnFlag::gpu_id,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  ~GpuWorkPeriodTrackTable() override;
+
+  static const char* Name() { return "gpu_work_period_track"; }
+
+  static Table::Schema ComputeStaticSchema() {
+    Table::Schema schema;
+    schema.columns.emplace_back(Table::Schema::Column{
+        "id", SqlValue::Type::kLong, true, true, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "type", SqlValue::Type::kString, false, false, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "name", ColumnType::name::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "parent_id", ColumnType::parent_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "source_arg_set_id", ColumnType::source_arg_set_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "uid", ColumnType::uid::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "gpu_id", ColumnType::gpu_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    return schema;
+  }
+
+  ConstIterator IterateRows() const {
+    return ConstIterator(this, CopyOverlays());
+  }
+
+  Iterator IterateRows() { return Iterator(this, CopyOverlays()); }
+
+  ConstIterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) const {
+    return ConstIterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  Iterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) {
+    return Iterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  void ShrinkToFit() {
+    gpu_id_.ShrinkToFit();
+  }
+
+  std::optional<ConstRowReference> FindById(Id find_id) const {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(ConstRowReference(this, *row))
+               : std::nullopt;
+  }
+
+  std::optional<RowReference> FindById(Id find_id) {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(RowReference(this, *row)) : std::nullopt;
+  }
+
+  IdAndRow Insert(const Row& row) {
+    uint32_t row_number = row_count();
+    Id id = Id{parent_->Insert(row).id};
+    UpdateOverlaysAfterParentInsert();
+    mutable_gpu_id()->Append(std::move(row.gpu_id));
+    UpdateSelfOverlayAfterInsert();
+    return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
+                     RowNumber(row_number)};
+  }
+
+  static std::unique_ptr<Table> ExtendParent(
+      const UidTrackTable& parent,
+      ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id) {
+    return std::unique_ptr<Table>(new GpuWorkPeriodTrackTable(
+        parent.string_pool(), parent, RowMap(0, parent.row_count()),
+        std::move(gpu_id)));
+  }
+
+  static std::unique_ptr<Table> SelectAndExtendParent(
+      const UidTrackTable& parent,
+      std::vector<UidTrackTable::RowNumber> parent_overlay,
+      ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id) {
+    std::vector<uint32_t> prs_untyped(parent_overlay.size());
+    for (uint32_t i = 0; i < parent_overlay.size(); ++i) {
+      prs_untyped[i] = parent_overlay[i].row_number();
+    }
+    return std::unique_ptr<Table>(new GpuWorkPeriodTrackTable(
+        parent.string_pool(), parent, RowMap(std::move(prs_untyped)),
+        std::move(gpu_id)));
+  }
+
+  const IdColumn<GpuWorkPeriodTrackTable::Id>& id() const {
+    return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
+  }
+  const TypedColumn<StringPool::Id>& type() const {
+    return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
+  }
+  const TypedColumn<StringPool::Id>& name() const {
+    return static_cast<const ColumnType::name&>(columns_[ColumnIndex::name]);
+  }
+  const TypedColumn<std::optional<GpuWorkPeriodTrackTable::Id>>& parent_id() const {
+    return static_cast<const ColumnType::parent_id&>(columns_[ColumnIndex::parent_id]);
+  }
+  const TypedColumn<std::optional<uint32_t>>& source_arg_set_id() const {
+    return static_cast<const ColumnType::source_arg_set_id&>(columns_[ColumnIndex::source_arg_set_id]);
+  }
+  const TypedColumn<int32_t>& uid() const {
+    return static_cast<const ColumnType::uid&>(columns_[ColumnIndex::uid]);
+  }
+  const TypedColumn<uint32_t>& gpu_id() const {
+    return static_cast<const ColumnType::gpu_id&>(columns_[ColumnIndex::gpu_id]);
+  }
+
+  TypedColumn<StringPool::Id>* mutable_name() {
+    return static_cast<ColumnType::name*>(
+        &columns_[ColumnIndex::name]);
+  }
+  TypedColumn<std::optional<GpuWorkPeriodTrackTable::Id>>* mutable_parent_id() {
+    return static_cast<ColumnType::parent_id*>(
+        &columns_[ColumnIndex::parent_id]);
+  }
+  TypedColumn<std::optional<uint32_t>>* mutable_source_arg_set_id() {
+    return static_cast<ColumnType::source_arg_set_id*>(
+        &columns_[ColumnIndex::source_arg_set_id]);
+  }
+  TypedColumn<int32_t>* mutable_uid() {
+    return static_cast<ColumnType::uid*>(
+        &columns_[ColumnIndex::uid]);
+  }
+  TypedColumn<uint32_t>* mutable_gpu_id() {
+    return static_cast<ColumnType::gpu_id*>(
+        &columns_[ColumnIndex::gpu_id]);
+  }
+
+ private:
+  GpuWorkPeriodTrackTable(StringPool* pool,
+            const UidTrackTable& parent,
+            const RowMap& parent_overlay,
+            ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id)
+      : macros_internal::MacroTable(pool, parent, parent_overlay) {
+    static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+          ColumnFlag::gpu_id),
+        "Column type and flag combination is not valid");
+    PERFETTO_DCHECK(gpu_id.size() == parent_overlay.size());
+    gpu_id_ = std::move(gpu_id);
+
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("gpu_id", &gpu_id_, ColumnFlag::gpu_id,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  UidTrackTable* parent_ = nullptr;
+  ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id_;
+};
+  
+
 class IrqCounterTrackTable : public macros_internal::MacroTable {
  public:
   using Id = CounterTrackTable::Id;

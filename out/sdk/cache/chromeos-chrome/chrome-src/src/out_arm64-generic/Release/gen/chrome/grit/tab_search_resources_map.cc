@@ -13,6 +13,8 @@ const webui::ResourcePath kTabSearchResources[] = {
   {"alert_indicators/tab_audio_muting_rounded.svg", IDR_TAB_SEARCH_ALERT_INDICATORS_TAB_AUDIO_MUTING_ROUNDED_SVG},
   {"alert_indicators/tab_audio_rounded.svg", IDR_TAB_SEARCH_ALERT_INDICATORS_TAB_AUDIO_ROUNDED_SVG},
   {"alert_indicators/tab_media_recording.svg", IDR_TAB_SEARCH_ALERT_INDICATORS_TAB_MEDIA_RECORDING_SVG},
+  {"images/auto_tab_groups.svg", IDR_TAB_SEARCH_IMAGES_AUTO_TAB_GROUPS_SVG},
+  {"images/tab_search.svg", IDR_TAB_SEARCH_IMAGES_TAB_SEARCH_SVG},
   {"tab_search.html", IDR_TAB_SEARCH_TAB_SEARCH_HTML},
   {"tab_search.js", IDR_TAB_SEARCH_TAB_SEARCH_ROLLUP_JS},
 };

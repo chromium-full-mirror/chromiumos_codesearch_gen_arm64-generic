@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SequenceTest>::value,
     "SequenceTest inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SequenceTest::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SequenceTest is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getElementSequence();
 if (!ToV8Traits<IDLSequence<Element>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -128,7 +124,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<IDLSequence<IDLByteString>>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -165,7 +161,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<IDLDouble>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -202,7 +198,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<V8FoodEnum>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -239,7 +235,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<IDLLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -276,7 +272,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLNullable<IDLSequence<IDLOctet>>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -309,7 +305,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<Element>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -339,7 +335,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(v8_receiver);
+SequenceTest* blink_receiver = V8SequenceTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionDoubleOrDoubleSequence>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

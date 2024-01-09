@@ -38,6 +38,8 @@ struct TabAlertState_Data {
       case 8:
       case 9:
       case 10:
+      case 11:
+      case 12:
         return true;
     }
     return false;

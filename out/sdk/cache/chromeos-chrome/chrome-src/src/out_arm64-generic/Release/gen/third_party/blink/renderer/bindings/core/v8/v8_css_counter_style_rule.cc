@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSCounterStyleRule>::value,
     "CSSCounterStyleRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSCounterStyleRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSCounterStyleRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,12 +94,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.name.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -125,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.system.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->system();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->system();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -139,12 +134,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.system.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -165,10 +160,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.symbols.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->symbols();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->symbols();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -179,12 +174,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.symbols.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -205,10 +200,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.additiveSymbols.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->additiveSymbols();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->additiveSymbols();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -219,12 +214,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.additiveSymbols.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -245,10 +240,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.negative.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->negative();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->negative();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -259,12 +254,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.negative.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -285,10 +280,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.prefix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->prefix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->prefix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -299,12 +294,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.prefix.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -325,10 +320,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.suffix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->suffix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->suffix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -339,12 +334,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.suffix.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -365,10 +360,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.range.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->range();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->range();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -379,12 +374,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.range.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -405,10 +400,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.pad.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pad();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pad();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -419,12 +414,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.pad.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -445,10 +440,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.speakAs.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->speakAs();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->speakAs();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -459,12 +454,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.speakAs.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";
@@ -485,10 +480,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.fallback.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fallback();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fallback();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -499,12 +494,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSCounterStyleRule.fallback.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSCounterStyleRule* blink_receiver = V8CSSCounterStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSCounterStyleRule";

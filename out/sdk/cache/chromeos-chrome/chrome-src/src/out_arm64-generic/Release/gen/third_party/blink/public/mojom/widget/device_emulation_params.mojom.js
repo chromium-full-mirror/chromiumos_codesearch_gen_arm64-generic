@@ -19,6 +19,12 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('blink.mojom');
+  var device_posture_provider$ =
+      mojo.internal.exposeNamespace('device.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/device/public/mojom/device_posture_provider.mojom', '../../../../../services/device/public/mojom/device_posture_provider.mojom.js');
+  }
   var geometry$ =
       mojo.internal.exposeNamespace('gfx.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -78,6 +84,7 @@
     this.screenOrientationType = 0;
     this.screenOrientationAngle = 0;
     this.windowSegments = null;
+    this.devicePosture = 0;
   };
   DeviceEmulationParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -93,7 +100,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 80}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -145,10 +152,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate DeviceEmulationParams.devicePosture
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 64, device_posture_provider$.DevicePostureType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  DeviceEmulationParams.encodedSize = codec.kStructHeaderSize + 64;
+  DeviceEmulationParams.encodedSize = codec.kStructHeaderSize + 72;
 
   DeviceEmulationParams.decode = function(decoder) {
     var packed;
@@ -177,6 +190,12 @@
         decoder.decodeStruct(codec.Uint32);
     val.windowSegments =
         decoder.decodeArrayPointer(new codec.PointerTo(geometry$.Rect));
+    val.devicePosture =
+        decoder.decodeStruct(new codec.Enum(device_posture_provider$.DevicePostureType));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -195,6 +214,11 @@
     encoder.encodeStruct(codec.Int32, val.screenOrientationType);
     encoder.encodeStruct(codec.Uint32, val.screenOrientationAngle);
     encoder.encodeArrayPointer(new codec.PointerTo(geometry$.Rect), val.windowSegments);
+    encoder.encodeStruct(codec.Int32, val.devicePosture);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   exports.EmulatedScreenType = EmulatedScreenType;
   exports.DeviceEmulationParams = DeviceEmulationParams;

@@ -3,8 +3,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.typeIntoQuickOpen = exports.getSelectedItemText = exports.closeDrawer = exports.getMenuItemTitleAtPosition = exports.getMenuItemAtPosition = exports.getAvailableSnippets = exports.showSnippetsAutocompletion = exports.openGoToLineQuickOpen = exports.openFileWithQuickOpen = exports.readQuickOpenResults = exports.openFileQuickOpen = exports.openCommandMenu = exports.QUICK_OPEN_SELECTOR = void 0;
+exports.typeIntoQuickOpen = exports.getSelectedItemText = exports.closeDrawer = exports.getMenuItemTitleAtPosition = exports.getMenuItemAtPosition = exports.getAvailableSnippets = exports.showSnippetsAutocompletion = exports.openGoToLineQuickOpen = exports.runCommandWithQuickOpen = exports.openFileWithQuickOpen = exports.readQuickOpenResults = exports.openFileQuickOpen = exports.openCommandMenu = exports.QUICK_OPEN_SELECTOR = void 0;
 const helper_js_1 = require("../../shared/helper.js");
+const sources_helpers_js_1 = require("./sources-helpers.js");
 exports.QUICK_OPEN_SELECTOR = '[aria-label="Quick open"]';
 const QUICK_OPEN_ITEMS_SELECTOR = '.filtered-list-widget-item-wrapper';
 const QUICK_OPEN_ITEM_TITLE_SELECTOR = '.filtered-list-widget-title';
@@ -51,13 +52,22 @@ async function readQuickOpenResults() {
     return await Promise.all(items.map(element => element.evaluate(el => el.textContent)));
 }
 exports.readQuickOpenResults = readQuickOpenResults;
-const openFileWithQuickOpen = async (filename, filePosition = 0) => {
-    await (0, exports.openFileQuickOpen)();
-    await typeIntoQuickOpen(filename);
-    const firstItem = await getMenuItemAtPosition(filePosition);
-    await firstItem.click();
+const openFileWithQuickOpen = async (sourceFile, filePosition = 0) => {
+    await (0, sources_helpers_js_1.waitForSourceFiles)("source-file-loaded" /* SourceFileEvents.SourceFileLoaded */, files => files.some(f => f.endsWith(sourceFile)), async () => {
+        await (0, exports.openFileQuickOpen)();
+        await typeIntoQuickOpen(sourceFile);
+        const firstItem = await getMenuItemAtPosition(filePosition);
+        await firstItem.click();
+    });
 };
 exports.openFileWithQuickOpen = openFileWithQuickOpen;
+async function runCommandWithQuickOpen(command) {
+    const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+    await (0, exports.openCommandMenu)();
+    await frontend.keyboard.type(command);
+    await frontend.keyboard.press('Enter');
+}
+exports.runCommandWithQuickOpen = runCommandWithQuickOpen;
 const openGoToLineQuickOpen = async () => {
     const { frontend } = (0, helper_js_1.getBrowserAndPages)();
     await frontend.keyboard.down('Control');
@@ -104,9 +114,7 @@ async function getMenuItemTitleAtPosition(position) {
 }
 exports.getMenuItemTitleAtPosition = getMenuItemTitleAtPosition;
 const closeDrawer = async () => {
-    const closeButtonSelector = '[aria-label="Close drawer"]';
-    await (0, helper_js_1.waitFor)(closeButtonSelector);
-    await (0, helper_js_1.click)(closeButtonSelector);
+    await (0, helper_js_1.click)('[aria-label="Close drawer"]');
 };
 exports.closeDrawer = closeDrawer;
 const getSelectedItemText = async () => {

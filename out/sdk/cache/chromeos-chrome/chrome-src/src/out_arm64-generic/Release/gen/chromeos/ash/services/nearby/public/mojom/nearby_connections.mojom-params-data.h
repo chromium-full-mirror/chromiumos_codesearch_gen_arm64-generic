@@ -174,6 +174,39 @@ class  PayloadListener_OnPayloadTransferUpdate_Params_Data {
 };
 static_assert(sizeof(PayloadListener_OnPayloadTransferUpdate_Params_Data) == 24,
               "Bad sizeof(PayloadListener_OnPayloadTransferUpdate_Params_Data)");
+class  ConnectionListenerV3_OnConnectionInitiated_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+  mojo::internal::Pointer<::nearby::connections::mojom::internal::InitialConnectionInfoV3_Data> info;
+
+ private:
+  friend class mojo::internal::MessageFragment<ConnectionListenerV3_OnConnectionInitiated_Params_Data>;
+
+  ConnectionListenerV3_OnConnectionInitiated_Params_Data();
+  ~ConnectionListenerV3_OnConnectionInitiated_Params_Data() = delete;
+};
+static_assert(sizeof(ConnectionListenerV3_OnConnectionInitiated_Params_Data) == 24,
+              "Bad sizeof(ConnectionListenerV3_OnConnectionInitiated_Params_Data)");
+class  ConnectionListenerV3_OnDisconnected_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+
+ private:
+  friend class mojo::internal::MessageFragment<ConnectionListenerV3_OnDisconnected_Params_Data>;
+
+  ConnectionListenerV3_OnDisconnected_Params_Data();
+  ~ConnectionListenerV3_OnDisconnected_Params_Data() = delete;
+};
+static_assert(sizeof(ConnectionListenerV3_OnDisconnected_Params_Data) == 16,
+              "Bad sizeof(ConnectionListenerV3_OnDisconnected_Params_Data)");
 class  NearbyConnections_StartAdvertising_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -659,6 +692,145 @@ class  NearbyConnections_RegisterPayloadFile_ResponseParams_Data {
 };
 static_assert(sizeof(NearbyConnections_RegisterPayloadFile_ResponseParams_Data) == 16,
               "Bad sizeof(NearbyConnections_RegisterPayloadFile_ResponseParams_Data)");
+class  NearbyConnections_RequestConnectionV3_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> service_id;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+  mojo::internal::Pointer<::nearby::connections::mojom::internal::ConnectionOptions_Data> connection_options;
+  mojo::internal::Interface_Data listener;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_RequestConnectionV3_Params_Data>;
+
+  NearbyConnections_RequestConnectionV3_Params_Data();
+  ~NearbyConnections_RequestConnectionV3_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_RequestConnectionV3_Params_Data) == 40,
+              "Bad sizeof(NearbyConnections_RequestConnectionV3_Params_Data)");
+class  NearbyConnections_RequestConnectionV3_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_RequestConnectionV3_ResponseParams_Data>;
+
+  NearbyConnections_RequestConnectionV3_ResponseParams_Data();
+  ~NearbyConnections_RequestConnectionV3_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_RequestConnectionV3_ResponseParams_Data) == 16,
+              "Bad sizeof(NearbyConnections_RequestConnectionV3_ResponseParams_Data)");
+class  NearbyConnections_AcceptConnectionV3_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> service_id;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+  mojo::internal::Interface_Data listener;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_AcceptConnectionV3_Params_Data>;
+
+  NearbyConnections_AcceptConnectionV3_Params_Data();
+  ~NearbyConnections_AcceptConnectionV3_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_AcceptConnectionV3_Params_Data) == 32,
+              "Bad sizeof(NearbyConnections_AcceptConnectionV3_Params_Data)");
+class  NearbyConnections_AcceptConnectionV3_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_AcceptConnectionV3_ResponseParams_Data>;
+
+  NearbyConnections_AcceptConnectionV3_ResponseParams_Data();
+  ~NearbyConnections_AcceptConnectionV3_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_AcceptConnectionV3_ResponseParams_Data) == 16,
+              "Bad sizeof(NearbyConnections_AcceptConnectionV3_ResponseParams_Data)");
+class  NearbyConnections_RejectConnectionV3_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> service_id;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_RejectConnectionV3_Params_Data>;
+
+  NearbyConnections_RejectConnectionV3_Params_Data();
+  ~NearbyConnections_RejectConnectionV3_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_RejectConnectionV3_Params_Data) == 24,
+              "Bad sizeof(NearbyConnections_RejectConnectionV3_Params_Data)");
+class  NearbyConnections_RejectConnectionV3_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_RejectConnectionV3_ResponseParams_Data>;
+
+  NearbyConnections_RejectConnectionV3_ResponseParams_Data();
+  ~NearbyConnections_RejectConnectionV3_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_RejectConnectionV3_ResponseParams_Data) == 16,
+              "Bad sizeof(NearbyConnections_RejectConnectionV3_ResponseParams_Data)");
+class  NearbyConnections_DisconnectFromDeviceV3_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> service_id;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::PresenceDevice_Data> remote_device;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_DisconnectFromDeviceV3_Params_Data>;
+
+  NearbyConnections_DisconnectFromDeviceV3_Params_Data();
+  ~NearbyConnections_DisconnectFromDeviceV3_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_DisconnectFromDeviceV3_Params_Data) == 24,
+              "Bad sizeof(NearbyConnections_DisconnectFromDeviceV3_Params_Data)");
+class  NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data>;
+
+  NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data();
+  ~NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data) == 16,
+              "Bad sizeof(NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -953,6 +1125,68 @@ class PayloadListener_OnPayloadTransferUpdate_ParamsDataView {
   }
  private:
   internal::PayloadListener_OnPayloadTransferUpdate_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ConnectionListenerV3_OnConnectionInitiated_ParamsDataView {
+ public:
+  ConnectionListenerV3_OnConnectionInitiated_ParamsDataView() = default;
+
+  ConnectionListenerV3_OnConnectionInitiated_ParamsDataView(
+      internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInfoDataView(
+      ::nearby::connections::mojom::InitialConnectionInfoV3DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+    auto* pointer = data_->info.Get();
+    return mojo::internal::Deserialize<::nearby::connections::mojom::InitialConnectionInfoV3DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ConnectionListenerV3_OnDisconnected_ParamsDataView {
+ public:
+  ConnectionListenerV3_OnDisconnected_ParamsDataView() = default;
+
+  ConnectionListenerV3_OnDisconnected_ParamsDataView(
+      internal::ConnectionListenerV3_OnDisconnected_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ConnectionListenerV3_OnDisconnected_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1882,6 +2116,278 @@ class NearbyConnections_RegisterPayloadFile_ResponseParamsDataView {
   internal::NearbyConnections_RegisterPayloadFile_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class NearbyConnections_RequestConnectionV3_ParamsDataView {
+ public:
+  NearbyConnections_RequestConnectionV3_ParamsDataView() = default;
+
+  NearbyConnections_RequestConnectionV3_ParamsDataView(
+      internal::NearbyConnections_RequestConnectionV3_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetServiceIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceId(UserType* output) {
+    
+    auto* pointer = data_->service_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+  inline void GetConnectionOptionsDataView(
+      ::nearby::connections::mojom::ConnectionOptionsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectionOptions(UserType* output) {
+    
+    auto* pointer = data_->connection_options.Get();
+    return mojo::internal::Deserialize<::nearby::connections::mojom::ConnectionOptionsDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeListener() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::nearby::connections::mojom::ConnectionListenerV3InterfaceBase>>(
+            &data_->listener, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::NearbyConnections_RequestConnectionV3_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NearbyConnections_RequestConnectionV3_ResponseParamsDataView {
+ public:
+  NearbyConnections_RequestConnectionV3_ResponseParamsDataView() = default;
+
+  NearbyConnections_RequestConnectionV3_ResponseParamsDataView(
+      internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::Status>(
+        data_value, output);
+  }
+  ::nearby::connections::mojom::Status status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::Status>(data_->status));
+  }
+ private:
+  internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class NearbyConnections_AcceptConnectionV3_ParamsDataView {
+ public:
+  NearbyConnections_AcceptConnectionV3_ParamsDataView() = default;
+
+  NearbyConnections_AcceptConnectionV3_ParamsDataView(
+      internal::NearbyConnections_AcceptConnectionV3_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetServiceIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceId(UserType* output) {
+    
+    auto* pointer = data_->service_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeListener() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::nearby::connections::mojom::PayloadListenerV3InterfaceBase>>(
+            &data_->listener, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::NearbyConnections_AcceptConnectionV3_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NearbyConnections_AcceptConnectionV3_ResponseParamsDataView {
+ public:
+  NearbyConnections_AcceptConnectionV3_ResponseParamsDataView() = default;
+
+  NearbyConnections_AcceptConnectionV3_ResponseParamsDataView(
+      internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::Status>(
+        data_value, output);
+  }
+  ::nearby::connections::mojom::Status status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::Status>(data_->status));
+  }
+ private:
+  internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class NearbyConnections_RejectConnectionV3_ParamsDataView {
+ public:
+  NearbyConnections_RejectConnectionV3_ParamsDataView() = default;
+
+  NearbyConnections_RejectConnectionV3_ParamsDataView(
+      internal::NearbyConnections_RejectConnectionV3_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetServiceIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceId(UserType* output) {
+    
+    auto* pointer = data_->service_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::NearbyConnections_RejectConnectionV3_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NearbyConnections_RejectConnectionV3_ResponseParamsDataView {
+ public:
+  NearbyConnections_RejectConnectionV3_ResponseParamsDataView() = default;
+
+  NearbyConnections_RejectConnectionV3_ResponseParamsDataView(
+      internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::Status>(
+        data_value, output);
+  }
+  ::nearby::connections::mojom::Status status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::Status>(data_->status));
+  }
+ private:
+  internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class NearbyConnections_DisconnectFromDeviceV3_ParamsDataView {
+ public:
+  NearbyConnections_DisconnectFromDeviceV3_ParamsDataView() = default;
+
+  NearbyConnections_DisconnectFromDeviceV3_ParamsDataView(
+      internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetServiceIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceId(UserType* output) {
+    
+    auto* pointer = data_->service_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRemoteDeviceDataView(
+      ::ash::nearby::presence::mojom::PresenceDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRemoteDevice(UserType* output) {
+    
+    auto* pointer = data_->remote_device.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NearbyConnections_DisconnectFromDeviceV3_ResponseParamsDataView {
+ public:
+  NearbyConnections_DisconnectFromDeviceV3_ResponseParamsDataView() = default;
+
+  NearbyConnections_DisconnectFromDeviceV3_ResponseParamsDataView(
+      internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::nearby::connections::mojom::Status>(
+        data_value, output);
+  }
+  ::nearby::connections::mojom::Status status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::nearby::connections::mojom::Status>(data_->status));
+  }
+ private:
+  internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void EndpointDiscoveryListener_OnEndpointFound_ParamsDataView::GetEndpointIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->endpoint_id.Get();
@@ -1962,6 +2468,25 @@ inline void PayloadListener_OnPayloadTransferUpdate_ParamsDataView::GetUpdateDat
     ::nearby::connections::mojom::PayloadTransferUpdateDataView* output) {
   auto pointer = data_->update.Get();
   *output = ::nearby::connections::mojom::PayloadTransferUpdateDataView(pointer, message_);
+}
+
+
+inline void ConnectionListenerV3_OnConnectionInitiated_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
+}
+inline void ConnectionListenerV3_OnConnectionInitiated_ParamsDataView::GetInfoDataView(
+    ::nearby::connections::mojom::InitialConnectionInfoV3DataView* output) {
+  auto pointer = data_->info.Get();
+  *output = ::nearby::connections::mojom::InitialConnectionInfoV3DataView(pointer, message_);
+}
+
+
+inline void ConnectionListenerV3_OnDisconnected_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
 }
 
 
@@ -2171,6 +2696,67 @@ inline void NearbyConnections_RegisterPayloadFile_ParamsDataView::GetOutputFileD
     ::mojo_base::mojom::FileDataView* output) {
   auto pointer = data_->output_file.Get();
   *output = ::mojo_base::mojom::FileDataView(pointer, message_);
+}
+
+
+
+
+inline void NearbyConnections_RequestConnectionV3_ParamsDataView::GetServiceIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->service_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void NearbyConnections_RequestConnectionV3_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
+}
+inline void NearbyConnections_RequestConnectionV3_ParamsDataView::GetConnectionOptionsDataView(
+    ::nearby::connections::mojom::ConnectionOptionsDataView* output) {
+  auto pointer = data_->connection_options.Get();
+  *output = ::nearby::connections::mojom::ConnectionOptionsDataView(pointer, message_);
+}
+
+
+
+
+inline void NearbyConnections_AcceptConnectionV3_ParamsDataView::GetServiceIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->service_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void NearbyConnections_AcceptConnectionV3_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
+}
+
+
+
+
+inline void NearbyConnections_RejectConnectionV3_ParamsDataView::GetServiceIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->service_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void NearbyConnections_RejectConnectionV3_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
+}
+
+
+
+
+inline void NearbyConnections_DisconnectFromDeviceV3_ParamsDataView::GetServiceIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->service_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void NearbyConnections_DisconnectFromDeviceV3_ParamsDataView::GetRemoteDeviceDataView(
+    ::ash::nearby::presence::mojom::PresenceDeviceDataView* output) {
+  auto pointer = data_->remote_device.Get();
+  *output = ::ash::nearby::presence::mojom::PresenceDeviceDataView(pointer, message_);
 }
 
 

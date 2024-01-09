@@ -443,6 +443,9 @@ static_assert(
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
+  bool has_custom_id() const {
+    return data_->has_custom_id;
+  }
   inline void GetStartUrlDataView(
       ::url::mojom::UrlDataView* output);
 
@@ -2060,6 +2063,7 @@ struct Serializer<::blink::mojom::ManifestDataView, MaybeConstUserType> {
         fragment->id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null id in Manifest struct");
+    fragment->has_custom_id = Traits::has_custom_id(input);
     decltype(Traits::start_url(input)) in_start_url = Traits::start_url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->start_url)::BaseType> start_url_fragment(

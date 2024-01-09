@@ -58,11 +58,11 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
         await (0, lighthouse_helpers_js_1.clickStartButton)();
         const { lhr, artifacts, reportEl } = await (0, lighthouse_helpers_js_1.waitForResult)();
         // 1 initial about:blank jump
-        // 1 about:blank jump + 1 navigation for the default pass
+        // 1 navigation for the actual page load
         // 2 navigations to go to chrome://terms and back testing bfcache
-        // 1 navigation after auditing to reset state
-        chai_1.assert.strictEqual(numNavigations, 6);
-        chai_1.assert.strictEqual(lhr.lighthouseVersion, '11.2.0');
+        // 1 refresh after auditing to reset state
+        chai_1.assert.strictEqual(numNavigations, 5);
+        chai_1.assert.strictEqual(lhr.lighthouseVersion, '11.4.0');
         chai_1.assert.match(lhr.finalUrl, /^https:\/\/localhost:[0-9]+\/test\/e2e\/resources\/lighthouse\/hello.html/);
         chai_1.assert.strictEqual(lhr.configSettings.throttlingMethod, 'simulate');
         chai_1.assert.strictEqual(lhr.configSettings.disableStorageReset, false);
@@ -79,7 +79,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
             devicePixelRatio: 1.75,
         });
         const { auditResults, erroredAudits, failedAudits } = (0, lighthouse_helpers_js_1.getAuditsBreakdown)(lhr, ['max-potential-fid']);
-        chai_1.assert.strictEqual(auditResults.length, 188);
+        chai_1.assert.strictEqual(auditResults.length, 190);
         chai_1.assert.deepStrictEqual(erroredAudits, []);
         chai_1.assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
             'installable-manifest',
@@ -141,7 +141,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
             'max-potential-fid',
         ];
         const { auditResults, erroredAudits, failedAudits } = (0, lighthouse_helpers_js_1.getAuditsBreakdown)(lhr, flakyAudits);
-        chai_1.assert.strictEqual(auditResults.length, 165);
+        chai_1.assert.strictEqual(auditResults.length, 167);
         chai_1.assert.deepStrictEqual(erroredAudits, []);
         chai_1.assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
             'installable-manifest',

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/tab_capture.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,15 +37,15 @@ namespace tab_capture {
 
 const char* ToString(TabCaptureState enum_param) {
   switch (enum_param) {
-    case TAB_CAPTURE_STATE_PENDING:
+    case TabCaptureState::kPending:
       return "pending";
-    case TAB_CAPTURE_STATE_ACTIVE:
+    case TabCaptureState::kActive:
       return "active";
-    case TAB_CAPTURE_STATE_STOPPED:
+    case TabCaptureState::kStopped:
       return "stopped";
-    case TAB_CAPTURE_STATE_ERROR:
+    case TabCaptureState::kError:
       return "error";
-    case TAB_CAPTURE_STATE_NONE:
+    case TabCaptureState::kNone:
       return "";
   }
   NOTREACHED();
@@ -53,14 +54,14 @@ const char* ToString(TabCaptureState enum_param) {
 
 TabCaptureState ParseTabCaptureState(base::StringPiece enum_string) {
   if (enum_string == "pending")
-    return TAB_CAPTURE_STATE_PENDING;
+    return TabCaptureState::kPending;
   if (enum_string == "active")
-    return TAB_CAPTURE_STATE_ACTIVE;
+    return TabCaptureState::kActive;
   if (enum_string == "stopped")
-    return TAB_CAPTURE_STATE_STOPPED;
+    return TabCaptureState::kStopped;
   if (enum_string == "error")
-    return TAB_CAPTURE_STATE_ERROR;
-  return TAB_CAPTURE_STATE_NONE;
+    return TabCaptureState::kError;
+  return TabCaptureState::kNone;
 }
 
 std::u16string GetTabCaptureStateParseError(base::StringPiece enum_string) {
@@ -74,8 +75,8 @@ status(),
 fullscreen(false) {}
 
 CaptureInfo::~CaptureInfo() = default;
-CaptureInfo::CaptureInfo(CaptureInfo&& rhs) = default;
-CaptureInfo& CaptureInfo::operator=(CaptureInfo&& rhs) = default;
+CaptureInfo::CaptureInfo(CaptureInfo&& rhs) noexcept = default;
+CaptureInfo& CaptureInfo::operator=(CaptureInfo&& rhs) noexcept = default;
 CaptureInfo CaptureInfo::Clone() const {
   CaptureInfo out;
   out.tab_id = tab_id;
@@ -139,34 +140,21 @@ bool CaptureInfo::Populate(
 }
 
 // static
-std::unique_ptr<CaptureInfo> CaptureInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CaptureInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CaptureInfo> CaptureInfo::FromValue(const base::Value::Dict& value) {
+  CaptureInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CaptureInfo> CaptureInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CaptureInfo> CaptureInfo::FromValue(const base::Value& value) {
   CaptureInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CaptureInfo> CaptureInfo::FromValue(const base::Value& value) {
-  CaptureInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -189,8 +177,8 @@ MediaStreamConstraint::Mandatory::Mandatory()
  {}
 
 MediaStreamConstraint::Mandatory::~Mandatory() = default;
-MediaStreamConstraint::Mandatory::Mandatory(Mandatory&& rhs) = default;
-MediaStreamConstraint::Mandatory& MediaStreamConstraint::Mandatory::operator=(Mandatory&& rhs) = default;
+MediaStreamConstraint::Mandatory::Mandatory(Mandatory&& rhs) noexcept = default;
+MediaStreamConstraint::Mandatory& MediaStreamConstraint::Mandatory::operator=(Mandatory&& rhs) noexcept = default;
 MediaStreamConstraint::Mandatory MediaStreamConstraint::Mandatory::Clone() const {
   Mandatory out;
   return out;
@@ -213,21 +201,21 @@ bool MediaStreamConstraint::Mandatory::Populate(
 }
 
 // static
-absl::optional<MediaStreamConstraint::Mandatory> MediaStreamConstraint::Mandatory::FromValue(const base::Value::Dict& value) {
+std::optional<MediaStreamConstraint::Mandatory> MediaStreamConstraint::Mandatory::FromValue(const base::Value::Dict& value) {
   Mandatory out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaStreamConstraint::Mandatory> MediaStreamConstraint::Mandatory::FromValue(const base::Value& value) {
+std::optional<MediaStreamConstraint::Mandatory> MediaStreamConstraint::Mandatory::FromValue(const base::Value& value) {
   Mandatory out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -245,8 +233,8 @@ MediaStreamConstraint::Optional::Optional()
  {}
 
 MediaStreamConstraint::Optional::~Optional() = default;
-MediaStreamConstraint::Optional::Optional(Optional&& rhs) = default;
-MediaStreamConstraint::Optional& MediaStreamConstraint::Optional::operator=(Optional&& rhs) = default;
+MediaStreamConstraint::Optional::Optional(Optional&& rhs) noexcept = default;
+MediaStreamConstraint::Optional& MediaStreamConstraint::Optional::operator=(Optional&& rhs) noexcept = default;
 MediaStreamConstraint::Optional MediaStreamConstraint::Optional::Clone() const {
   Optional out;
   return out;
@@ -269,21 +257,21 @@ bool MediaStreamConstraint::Optional::Populate(
 }
 
 // static
-absl::optional<MediaStreamConstraint::Optional> MediaStreamConstraint::Optional::FromValue(const base::Value::Dict& value) {
+std::optional<MediaStreamConstraint::Optional> MediaStreamConstraint::Optional::FromValue(const base::Value::Dict& value) {
   Optional out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaStreamConstraint::Optional> MediaStreamConstraint::Optional::FromValue(const base::Value& value) {
+std::optional<MediaStreamConstraint::Optional> MediaStreamConstraint::Optional::FromValue(const base::Value& value) {
   Optional out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -302,8 +290,8 @@ MediaStreamConstraint::MediaStreamConstraint()
  {}
 
 MediaStreamConstraint::~MediaStreamConstraint() = default;
-MediaStreamConstraint::MediaStreamConstraint(MediaStreamConstraint&& rhs) = default;
-MediaStreamConstraint& MediaStreamConstraint::operator=(MediaStreamConstraint&& rhs) = default;
+MediaStreamConstraint::MediaStreamConstraint(MediaStreamConstraint&& rhs) noexcept = default;
+MediaStreamConstraint& MediaStreamConstraint::operator=(MediaStreamConstraint&& rhs) noexcept = default;
 MediaStreamConstraint MediaStreamConstraint::Clone() const {
   MediaStreamConstraint out;
   out.mandatory = mandatory.Clone();
@@ -357,34 +345,21 @@ bool MediaStreamConstraint::Populate(
 }
 
 // static
-std::unique_ptr<MediaStreamConstraint> MediaStreamConstraint::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaStreamConstraint>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaStreamConstraint> MediaStreamConstraint::FromValue(const base::Value::Dict& value) {
+  MediaStreamConstraint out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaStreamConstraint> MediaStreamConstraint::FromValue(const base::Value::Dict& value) {
+std::optional<MediaStreamConstraint> MediaStreamConstraint::FromValue(const base::Value& value) {
   MediaStreamConstraint out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaStreamConstraint> MediaStreamConstraint::FromValue(const base::Value& value) {
-  MediaStreamConstraint out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -407,8 +382,8 @@ CaptureOptions::CaptureOptions()
  {}
 
 CaptureOptions::~CaptureOptions() = default;
-CaptureOptions::CaptureOptions(CaptureOptions&& rhs) = default;
-CaptureOptions& CaptureOptions::operator=(CaptureOptions&& rhs) = default;
+CaptureOptions::CaptureOptions(CaptureOptions&& rhs) noexcept = default;
+CaptureOptions& CaptureOptions::operator=(CaptureOptions&& rhs) noexcept = default;
 CaptureOptions CaptureOptions::Clone() const {
   CaptureOptions out;
   out.audio = audio;
@@ -431,7 +406,7 @@ bool CaptureOptions::Populate(
     {
       auto temp = (*audio_value).GetIfBool();
       if (!temp.has_value()) {
-        out.audio = absl::nullopt;
+        out.audio = std::nullopt;
         return false;
       }
       out.audio = *temp;
@@ -443,7 +418,7 @@ bool CaptureOptions::Populate(
     {
       auto temp = (*video_value).GetIfBool();
       if (!temp.has_value()) {
-        out.video = absl::nullopt;
+        out.video = std::nullopt;
         return false;
       }
       out.video = *temp;
@@ -485,7 +460,7 @@ bool CaptureOptions::Populate(
     {
       auto* temp = (*presentation_id_value).GetIfString();
       if (!temp) {
-        out.presentation_id = absl::nullopt;
+        out.presentation_id = std::nullopt;
         return false;
       }
       out.presentation_id = *temp;
@@ -505,34 +480,21 @@ bool CaptureOptions::Populate(
 }
 
 // static
-std::unique_ptr<CaptureOptions> CaptureOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CaptureOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CaptureOptions> CaptureOptions::FromValue(const base::Value::Dict& value) {
+  CaptureOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CaptureOptions> CaptureOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CaptureOptions> CaptureOptions::FromValue(const base::Value& value) {
   CaptureOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CaptureOptions> CaptureOptions::FromValue(const base::Value& value) {
-  CaptureOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -569,8 +531,8 @@ GetMediaStreamOptions::GetMediaStreamOptions()
  {}
 
 GetMediaStreamOptions::~GetMediaStreamOptions() = default;
-GetMediaStreamOptions::GetMediaStreamOptions(GetMediaStreamOptions&& rhs) = default;
-GetMediaStreamOptions& GetMediaStreamOptions::operator=(GetMediaStreamOptions&& rhs) = default;
+GetMediaStreamOptions::GetMediaStreamOptions(GetMediaStreamOptions&& rhs) noexcept = default;
+GetMediaStreamOptions& GetMediaStreamOptions::operator=(GetMediaStreamOptions&& rhs) noexcept = default;
 GetMediaStreamOptions GetMediaStreamOptions::Clone() const {
   GetMediaStreamOptions out;
   out.consumer_tab_id = consumer_tab_id;
@@ -586,7 +548,7 @@ bool GetMediaStreamOptions::Populate(
     {
       auto temp = (*consumer_tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.consumer_tab_id = absl::nullopt;
+        out.consumer_tab_id = std::nullopt;
         return false;
       }
       out.consumer_tab_id = *temp;
@@ -598,7 +560,7 @@ bool GetMediaStreamOptions::Populate(
     {
       auto temp = (*target_tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.target_tab_id = absl::nullopt;
+        out.target_tab_id = std::nullopt;
         return false;
       }
       out.target_tab_id = *temp;
@@ -618,34 +580,21 @@ bool GetMediaStreamOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetMediaStreamOptions> GetMediaStreamOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetMediaStreamOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetMediaStreamOptions> GetMediaStreamOptions::FromValue(const base::Value::Dict& value) {
+  GetMediaStreamOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetMediaStreamOptions> GetMediaStreamOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetMediaStreamOptions> GetMediaStreamOptions::FromValue(const base::Value& value) {
   GetMediaStreamOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetMediaStreamOptions> GetMediaStreamOptions::FromValue(const base::Value& value) {
-  GetMediaStreamOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -675,13 +624,13 @@ namespace Capture {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -690,15 +639,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CaptureOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -709,8 +658,8 @@ Results::Stream::Stream()
  {}
 
 Results::Stream::~Stream() = default;
-Results::Stream::Stream(Stream&& rhs) = default;
-Results::Stream& Results::Stream::operator=(Stream&& rhs) = default;
+Results::Stream::Stream(Stream&& rhs) noexcept = default;
+Results::Stream& Results::Stream::operator=(Stream&& rhs) noexcept = default;
 base::Value::Dict Results::Stream::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -744,13 +693,13 @@ namespace GetMediaStreamId {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -759,12 +708,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetMediaStreamOptions temp;
         if (!GetMediaStreamOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }

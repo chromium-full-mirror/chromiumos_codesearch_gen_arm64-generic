@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -85,7 +86,7 @@ CameraDeviceInfo::CameraDeviceInfo(
     uint32_t frames_to_skip_after_streamon_in,
     float horizontal_view_angle_16_9_in,
     float horizontal_view_angle_4_3_in,
-    absl::optional<std::vector<float>> lens_info_available_focal_lengths_in,
+    std::optional<std::vector<float>> lens_info_available_focal_lengths_in,
     float lens_info_minimum_focus_distance_in,
     float lens_info_optimal_focus_distance_in,
     float vertical_view_angle_16_9_in,
@@ -185,7 +186,7 @@ void CameraDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "lens_info_available_focal_lengths"), this->lens_info_available_focal_lengths,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -636,14 +637,17 @@ void CameraServiceProxy::Connect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_Connect_Name, kFlags, 0, 0, nullptr);
@@ -678,14 +682,17 @@ void CameraServiceProxy::Disconnect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CameraService::Disconnect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -725,14 +732,17 @@ void CameraServiceProxy::StreamOn(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_StreamOn_Name, kFlags, 0, 0, nullptr);
@@ -760,14 +770,17 @@ void CameraServiceProxy::StreamOff(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CameraService::StreamOff");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_StreamOff_Name, kFlags, 0, 0, nullptr);
@@ -791,14 +804,17 @@ void CameraServiceProxy::GetNextFrameBuffer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CameraService::GetNextFrameBuffer");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetNextFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -829,14 +845,17 @@ void CameraServiceProxy::ReuseFrameBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_ReuseFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -868,14 +887,17 @@ void CameraServiceProxy::GetDeviceSupportedFormats(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetDeviceSupportedFormats_Name, kFlags, 0, 0, nullptr);
@@ -910,14 +932,17 @@ void CameraServiceProxy::GetCameraDeviceInfos(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CameraService::GetCameraDeviceInfos");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetCameraDeviceInfos_Name, kFlags, 0, 0, nullptr);
@@ -1027,7 +1052,8 @@ void CameraService_Connect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1134,7 +1160,8 @@ void CameraService_Disconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1265,7 +1292,8 @@ void CameraService_StreamOn_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_StreamOn_Name, kFlags, 0, 0, nullptr);
@@ -1397,7 +1425,8 @@ void CameraService_StreamOff_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_StreamOff_Name, kFlags, 0, 0, nullptr);
@@ -1529,7 +1558,8 @@ void CameraService_GetNextFrameBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetNextFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1649,7 +1679,8 @@ void CameraService_ReuseFrameBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_ReuseFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1767,7 +1798,8 @@ void CameraService_GetDeviceSupportedFormats_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetDeviceSupportedFormats_Name, kFlags, 0, 0, nullptr);
@@ -1897,7 +1929,8 @@ void CameraService_GetCameraDeviceInfos_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraService_GetCameraDeviceInfos_Name, kFlags, 0, 0, nullptr);
@@ -2209,24 +2242,24 @@ std::move(p_device_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraServiceValidationInfo[] = {
-    {&internal::CameraService_Connect_Params_Data::Validate,
+    { &internal::CameraService_Connect_Params_Data::Validate,
      &internal::CameraService_Connect_ResponseParams_Data::Validate},
-    {&internal::CameraService_Disconnect_Params_Data::Validate,
+    { &internal::CameraService_Disconnect_Params_Data::Validate,
      &internal::CameraService_Disconnect_ResponseParams_Data::Validate},
-    {&internal::CameraService_StreamOn_Params_Data::Validate,
+    { &internal::CameraService_StreamOn_Params_Data::Validate,
      &internal::CameraService_StreamOn_ResponseParams_Data::Validate},
-    {&internal::CameraService_StreamOff_Params_Data::Validate,
+    { &internal::CameraService_StreamOff_Params_Data::Validate,
      &internal::CameraService_StreamOff_ResponseParams_Data::Validate},
-    {&internal::CameraService_GetNextFrameBuffer_Params_Data::Validate,
+    { &internal::CameraService_GetNextFrameBuffer_Params_Data::Validate,
      &internal::CameraService_GetNextFrameBuffer_ResponseParams_Data::Validate},
-    {&internal::CameraService_ReuseFrameBuffer_Params_Data::Validate,
+    { &internal::CameraService_ReuseFrameBuffer_Params_Data::Validate,
      &internal::CameraService_ReuseFrameBuffer_ResponseParams_Data::Validate},
-    {&internal::CameraService_GetDeviceSupportedFormats_Params_Data::Validate,
+    { &internal::CameraService_GetDeviceSupportedFormats_Params_Data::Validate,
      &internal::CameraService_GetDeviceSupportedFormats_ResponseParams_Data::Validate},
-    {&internal::CameraService_GetCameraDeviceInfos_Params_Data::Validate,
+    { &internal::CameraService_GetCameraDeviceInfos_Params_Data::Validate,
      &internal::CameraService_GetCameraDeviceInfos_ResponseParams_Data::Validate},
 };
 
@@ -2375,14 +2408,17 @@ void CameraHostProxy::StartCameraService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::CameraHost::StartCameraService");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHost_StartCameraService_Name, kFlags, 0, 0, nullptr);
@@ -2413,14 +2449,17 @@ void CameraHostProxy::RegisterCameraHalClientLegacy(
                         "<value of type ::mojo::PendingRemote<::cros::mojom::CameraHalClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHost_RegisterCameraHalClientLegacy_Name, kFlags, 0, 0, nullptr);
@@ -2456,14 +2495,17 @@ void CameraHostProxy::RegisterCameraHalClient(
                         "<value of type ::mojo::PendingRemote<::cros::mojom::CameraHalClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHost_RegisterCameraHalClient_Name, kFlags, 0, 0, nullptr);
@@ -2581,7 +2623,8 @@ void CameraHost_StartCameraService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHost_StartCameraService_Name, kFlags, 0, 0, nullptr);
@@ -2704,7 +2747,8 @@ void CameraHost_RegisterCameraHalClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHost_RegisterCameraHalClient_Name, kFlags, 0, 0, nullptr);
@@ -2845,14 +2889,14 @@ std::move(p_client), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraHostValidationInfo[] = {
-    {&internal::CameraHost_StartCameraService_Params_Data::Validate,
+    { &internal::CameraHost_StartCameraService_Params_Data::Validate,
      &internal::CameraHost_StartCameraService_ResponseParams_Data::Validate},
-    {&internal::CameraHost_RegisterCameraHalClientLegacy_Params_Data::Validate,
+    { &internal::CameraHost_RegisterCameraHalClientLegacy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraHost_RegisterCameraHalClient_Params_Data::Validate,
+    { &internal::CameraHost_RegisterCameraHalClient_Params_Data::Validate,
      &internal::CameraHost_RegisterCameraHalClient_ResponseParams_Data::Validate},
 };
 
@@ -2952,14 +2996,17 @@ void CameraInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<CameraHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -3064,7 +3111,8 @@ void CameraInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -3145,10 +3193,10 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraInstanceValidationInfo[] = {
-    {&internal::CameraInstance_Init_Params_Data::Validate,
+    { &internal::CameraInstance_Init_Params_Data::Validate,
      &internal::CameraInstance_Init_ResponseParams_Data::Validate},
 };
 

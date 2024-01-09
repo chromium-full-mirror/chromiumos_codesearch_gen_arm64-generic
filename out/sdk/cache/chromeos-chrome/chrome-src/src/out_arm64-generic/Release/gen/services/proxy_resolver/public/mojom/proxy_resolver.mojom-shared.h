@@ -142,14 +142,14 @@ class ProxyInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetProxyServersDataView(
-      mojo::ArrayDataView<::network::mojom::ProxyServerDataView>* output);
+  inline void GetProxyChainsDataView(
+      mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadProxyServers(UserType* output) {
+  [[nodiscard]] bool ReadProxyChains(UserType* output) {
     
-    auto* pointer = data_->proxy_servers.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyServerDataView>>(
+    auto* pointer = data_->proxy_chains.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
         pointer, output, message_);
   }
  private:
@@ -204,20 +204,20 @@ struct Serializer<::proxy_resolver::mojom::ProxyInfoDataView, MaybeConstUserType
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::proxy_servers(input)) in_proxy_servers = Traits::proxy_servers(input);
+    decltype(Traits::proxy_chains(input)) in_proxy_chains = Traits::proxy_chains(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->proxy_servers)::BaseType>
-        proxy_servers_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& proxy_servers_validate_params =
+        typename decltype(fragment->proxy_chains)::BaseType>
+        proxy_chains_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& proxy_chains_validate_params =
         mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::ProxyServerDataView>>(
-        in_proxy_servers, proxy_servers_fragment, &proxy_servers_validate_params);
-    fragment->proxy_servers.Set(
-        proxy_servers_fragment.is_null() ? nullptr : proxy_servers_fragment.data());
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
+        in_proxy_chains, proxy_chains_fragment, &proxy_chains_validate_params);
+    fragment->proxy_chains.Set(
+        proxy_chains_fragment.is_null() ? nullptr : proxy_chains_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->proxy_servers.is_null(),
+        fragment->proxy_chains.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null proxy_servers in ProxyInfo struct");
+        "null proxy_chains in ProxyInfo struct");
   }
 
   static bool Deserialize(::proxy_resolver::mojom::internal::ProxyInfo_Data* input,
@@ -238,10 +238,10 @@ struct Serializer<::proxy_resolver::mojom::ProxyInfoDataView, MaybeConstUserType
 
 namespace proxy_resolver::mojom {
 
-inline void ProxyInfoDataView::GetProxyServersDataView(
-    mojo::ArrayDataView<::network::mojom::ProxyServerDataView>* output) {
-  auto pointer = data_->proxy_servers.Get();
-  *output = mojo::ArrayDataView<::network::mojom::ProxyServerDataView>(pointer, message_);
+inline void ProxyInfoDataView::GetProxyChainsDataView(
+    mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output) {
+  auto pointer = data_->proxy_chains.Get();
+  *output = mojo::ArrayDataView<::network::mojom::ProxyChainDataView>(pointer, message_);
 }
 
 

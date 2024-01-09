@@ -28,6 +28,8 @@ enum class DeprecatedFencedFrameMode : int32_t;
 
 enum class Opaque : int32_t;
 
+enum class AutomaticBeaconType : int32_t;
+
 
 }  // blink::mojom
 
@@ -36,6 +38,7 @@ namespace blink::mojom::blink {
 using ReportingDestination = ReportingDestination;
 using DeprecatedFencedFrameMode = DeprecatedFencedFrameMode;
 using Opaque = Opaque;
+using AutomaticBeaconType = AutomaticBeaconType;
 class AdAuctionData;
 using AdAuctionDataPtr = mojo::StructPtr<AdAuctionData>;
 

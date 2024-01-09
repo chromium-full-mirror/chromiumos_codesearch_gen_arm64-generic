@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/privileged/mojom/indexed_db_control.mojom-features.h"
 #include "components/services/storage/privileged/mojom/indexed_db_control.mojom-shared.h"
 #include "components/services/storage/privileged/mojom/indexed_db_control.mojom-forward.h"
 #include "components/services/storage/privileged/mojom/indexed_db_bucket_types.mojom-forward.h"
@@ -133,10 +134,8 @@ class IndexedDBControl
   using ResponseValidator_ = IndexedDBControlResponseValidator;
   enum MethodMinVersions : uint32_t {
     kBindIndexedDBMinVersion = 0,
-    kGetUsageMinVersion = 0,
     kDeleteForStorageKeyMinVersion = 0,
     kForceCloseMinVersion = 0,
-    kGetConnectionCountMinVersion = 0,
     kDownloadBucketDataMinVersion = 0,
     kGetAllBucketsDetailsMinVersion = 0,
     kSetForceKeepSessionStateMinVersion = 0,
@@ -151,16 +150,10 @@ class IndexedDBControl
   struct BindIndexedDB_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct GetUsage_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct DeleteForStorageKey_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ForceClose_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetConnectionCount_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct DownloadBucketData_Sym {
@@ -188,11 +181,6 @@ class IndexedDBControl
   virtual void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) = 0;
 
 
-  using GetUsageCallback = base::OnceCallback<void(std::vector<::storage::mojom::StorageUsageInfoPtr>)>;
-  
-  virtual void GetUsage(GetUsageCallback callback) = 0;
-
-
   using DeleteForStorageKeyCallback = base::OnceCallback<void(bool)>;
   
   virtual void DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) = 0;
@@ -201,11 +189,6 @@ class IndexedDBControl
   using ForceCloseCallback = base::OnceCallback<void()>;
   
   virtual void ForceClose(::storage::BucketId bucket_id, ForceCloseReason reason, ForceCloseCallback callback) = 0;
-
-
-  using GetConnectionCountCallback = base::OnceCallback<void(uint64_t)>;
-  
-  virtual void GetConnectionCount(::storage::BucketId bucket_id, GetConnectionCountCallback callback) = 0;
 
 
   using DownloadBucketDataCallback = base::OnceCallback<void(bool, const ::base::FilePath&, const ::base::FilePath&)>;
@@ -258,13 +241,9 @@ class  IndexedDBControlProxy
   
   void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) final;
   
-  void GetUsage(GetUsageCallback callback) final;
-  
   void DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) final;
   
   void ForceClose(::storage::BucketId bucket_id, ForceCloseReason reason, ForceCloseCallback callback) final;
-  
-  void GetConnectionCount(::storage::BucketId bucket_id, GetConnectionCountCallback callback) final;
   
   void DownloadBucketData(::storage::BucketId bucket_id, DownloadBucketDataCallback callback) final;
   

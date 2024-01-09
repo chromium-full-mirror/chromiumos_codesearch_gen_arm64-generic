@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -217,15 +218,18 @@ bool FileLockProxy::Release(
 #else
   TRACE_EVENT0("mojom", "FileLock::Release");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileLock_Release_Name, kFlags, 0, 0, nullptr);
@@ -262,14 +266,17 @@ void FileLockProxy::Release(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::FileLock::Release");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileLock_Release_Name, kFlags, 0, 0, nullptr);
@@ -379,7 +386,8 @@ void FileLock_Release_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileLock_Release_Name, kFlags, 0, 0, nullptr);
@@ -481,10 +489,10 @@ bool FileLockStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileLockValidationInfo[] = {
-    {&internal::FileLock_Release_Params_Data::Validate,
+    { &internal::FileLock_Release_Params_Data::Validate,
      &internal::FileLock_Release_ResponseParams_Data::Validate},
 };
 
@@ -514,26 +522,17 @@ Directory::IPCStableHashFunction Directory::MessageToMethodInfo_(mojo::Message& 
     case internal::kDirectory_OpenFile_Name: {
       return &Directory::OpenFile_Sym::IPCStableHash;
     }
-    case internal::kDirectory_WriteFileAtomically_Name: {
-      return &Directory::WriteFileAtomically_Sym::IPCStableHash;
-    }
     case internal::kDirectory_CreateDirectory_Name: {
       return &Directory::CreateDirectory_Sym::IPCStableHash;
     }
     case internal::kDirectory_DeleteFile_Name: {
       return &Directory::DeleteFile_Sym::IPCStableHash;
     }
-    case internal::kDirectory_DeletePathRecursively_Name: {
-      return &Directory::DeletePathRecursively_Sym::IPCStableHash;
-    }
     case internal::kDirectory_GetFileInfo_Name: {
       return &Directory::GetFileInfo_Sym::IPCStableHash;
     }
     case internal::kDirectory_GetPathAccess_Name: {
       return &Directory::GetPathAccess_Sym::IPCStableHash;
-    }
-    case internal::kDirectory_GetMaximumPathComponentLength_Name: {
-      return &Directory::GetMaximumPathComponentLength_Sym::IPCStableHash;
     }
     case internal::kDirectory_RenameFile_Name: {
       return &Directory::RenameFile_Sym::IPCStableHash;
@@ -563,20 +562,14 @@ const char* Directory::MessageToMethodName_(mojo::Message& message) {
             return "Receive storage::mojom::Directory::GetEntries";
       case internal::kDirectory_OpenFile_Name:
             return "Receive storage::mojom::Directory::OpenFile";
-      case internal::kDirectory_WriteFileAtomically_Name:
-            return "Receive storage::mojom::Directory::WriteFileAtomically";
       case internal::kDirectory_CreateDirectory_Name:
             return "Receive storage::mojom::Directory::CreateDirectory";
       case internal::kDirectory_DeleteFile_Name:
             return "Receive storage::mojom::Directory::DeleteFile";
-      case internal::kDirectory_DeletePathRecursively_Name:
-            return "Receive storage::mojom::Directory::DeletePathRecursively";
       case internal::kDirectory_GetFileInfo_Name:
             return "Receive storage::mojom::Directory::GetFileInfo";
       case internal::kDirectory_GetPathAccess_Name:
             return "Receive storage::mojom::Directory::GetPathAccess";
-      case internal::kDirectory_GetMaximumPathComponentLength_Name:
-            return "Receive storage::mojom::Directory::GetMaximumPathComponentLength";
       case internal::kDirectory_RenameFile_Name:
             return "Receive storage::mojom::Directory::RenameFile";
       case internal::kDirectory_LockFile_Name:
@@ -594,20 +587,14 @@ const char* Directory::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply storage::mojom::Directory::GetEntries";
       case internal::kDirectory_OpenFile_Name:
             return "Receive reply storage::mojom::Directory::OpenFile";
-      case internal::kDirectory_WriteFileAtomically_Name:
-            return "Receive reply storage::mojom::Directory::WriteFileAtomically";
       case internal::kDirectory_CreateDirectory_Name:
             return "Receive reply storage::mojom::Directory::CreateDirectory";
       case internal::kDirectory_DeleteFile_Name:
             return "Receive reply storage::mojom::Directory::DeleteFile";
-      case internal::kDirectory_DeletePathRecursively_Name:
-            return "Receive reply storage::mojom::Directory::DeletePathRecursively";
       case internal::kDirectory_GetFileInfo_Name:
             return "Receive reply storage::mojom::Directory::GetFileInfo";
       case internal::kDirectory_GetPathAccess_Name:
             return "Receive reply storage::mojom::Directory::GetPathAccess";
-      case internal::kDirectory_GetMaximumPathComponentLength_Name:
-            return "Receive reply storage::mojom::Directory::GetMaximumPathComponentLength";
       case internal::kDirectory_RenameFile_Name:
             return "Receive reply storage::mojom::Directory::RenameFile";
       case internal::kDirectory_LockFile_Name:
@@ -680,19 +667,6 @@ uint32_t Directory::OpenFile_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Directory::WriteFileAtomically_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::Directory::WriteFileAtomically");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t Directory::CreateDirectory_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -719,19 +693,6 @@ uint32_t Directory::DeleteFile_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Directory::DeletePathRecursively_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::Directory::DeletePathRecursively");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t Directory::GetFileInfo_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -754,19 +715,6 @@ uint32_t Directory::GetPathAccess_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)storage::mojom::Directory::GetPathAccess");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t Directory::GetMaximumPathComponentLength_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)storage::mojom::Directory::GetMaximumPathComponentLength");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -823,10 +771,6 @@ bool Directory::OpenFile(const ::base::FilePath& path, FileOpenMode mode, FileRe
   NOTREACHED();
   return false;
 }
-bool Directory::WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, bool* out_success) {
-  NOTREACHED();
-  return false;
-}
 bool Directory::CreateDirectory(const ::base::FilePath& path, ::base::File::Error* out_error) {
   NOTREACHED();
   return false;
@@ -835,19 +779,11 @@ bool Directory::DeleteFile(const ::base::FilePath& path, bool* out_success) {
   NOTREACHED();
   return false;
 }
-bool Directory::DeletePathRecursively(const ::base::FilePath& path, bool* out_success) {
-  NOTREACHED();
-  return false;
-}
-bool Directory::GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) {
+bool Directory::GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) {
   NOTREACHED();
   return false;
 }
 bool Directory::GetPathAccess(const ::base::FilePath& path, PathAccessInfoPtr* out_info) {
-  NOTREACHED();
-  return false;
-}
-bool Directory::GetMaximumPathComponentLength(const ::base::FilePath& path, bool* out_success, int32_t* out_length) {
   NOTREACHED();
   return false;
 }
@@ -961,38 +897,6 @@ class Directory_OpenFile_ForwardToCallback
  private:
   Directory::OpenFileCallback callback_;
 };
-class Directory_WriteFileAtomically_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  Directory_WriteFileAtomically_HandleSyncResponse(
-      bool* result, bool* out_success)
-      : result_(result), out_success_(out_success) {
-    DCHECK(!*result_);
-  }
-
-  Directory_WriteFileAtomically_HandleSyncResponse(const Directory_WriteFileAtomically_HandleSyncResponse&) = delete;
-  Directory_WriteFileAtomically_HandleSyncResponse& operator=(const Directory_WriteFileAtomically_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_success_;};
-
-class Directory_WriteFileAtomically_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Directory_WriteFileAtomically_ForwardToCallback(
-      Directory::WriteFileAtomicallyCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Directory_WriteFileAtomically_ForwardToCallback(const Directory_WriteFileAtomically_ForwardToCallback&) = delete;
-  Directory_WriteFileAtomically_ForwardToCallback& operator=(const Directory_WriteFileAtomically_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Directory::WriteFileAtomicallyCallback callback_;
-};
 class Directory_CreateDirectory_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
@@ -1057,43 +961,11 @@ class Directory_DeleteFile_ForwardToCallback
  private:
   Directory::DeleteFileCallback callback_;
 };
-class Directory_DeletePathRecursively_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  Directory_DeletePathRecursively_HandleSyncResponse(
-      bool* result, bool* out_success)
-      : result_(result), out_success_(out_success) {
-    DCHECK(!*result_);
-  }
-
-  Directory_DeletePathRecursively_HandleSyncResponse(const Directory_DeletePathRecursively_HandleSyncResponse&) = delete;
-  Directory_DeletePathRecursively_HandleSyncResponse& operator=(const Directory_DeletePathRecursively_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_success_;};
-
-class Directory_DeletePathRecursively_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Directory_DeletePathRecursively_ForwardToCallback(
-      Directory::DeletePathRecursivelyCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Directory_DeletePathRecursively_ForwardToCallback(const Directory_DeletePathRecursively_ForwardToCallback&) = delete;
-  Directory_DeletePathRecursively_ForwardToCallback& operator=(const Directory_DeletePathRecursively_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Directory::DeletePathRecursivelyCallback callback_;
-};
 class Directory_GetFileInfo_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   Directory_GetFileInfo_HandleSyncResponse(
-      bool* result, absl::optional<::base::File::Info>* out_info)
+      bool* result, std::optional<::base::File::Info>* out_info)
       : result_(result), out_info_(out_info) {
     DCHECK(!*result_);
   }
@@ -1104,7 +976,7 @@ class Directory_GetFileInfo_HandleSyncResponse
   bool Accept(mojo::Message* message) override;
  private:
   bool* result_;
-  absl::optional<::base::File::Info>* out_info_;};
+  std::optional<::base::File::Info>* out_info_;};
 
 class Directory_GetFileInfo_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1152,39 +1024,6 @@ class Directory_GetPathAccess_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Directory::GetPathAccessCallback callback_;
-};
-class Directory_GetMaximumPathComponentLength_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  Directory_GetMaximumPathComponentLength_HandleSyncResponse(
-      bool* result, bool* out_success, int32_t* out_length)
-      : result_(result), out_success_(out_success), out_length_(out_length) {
-    DCHECK(!*result_);
-  }
-
-  Directory_GetMaximumPathComponentLength_HandleSyncResponse(const Directory_GetMaximumPathComponentLength_HandleSyncResponse&) = delete;
-  Directory_GetMaximumPathComponentLength_HandleSyncResponse& operator=(const Directory_GetMaximumPathComponentLength_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_success_;
-  int32_t* out_length_;};
-
-class Directory_GetMaximumPathComponentLength_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Directory_GetMaximumPathComponentLength_ForwardToCallback(
-      Directory::GetMaximumPathComponentLengthCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Directory_GetMaximumPathComponentLength_ForwardToCallback(const Directory_GetMaximumPathComponentLength_ForwardToCallback&) = delete;
-  Directory_GetMaximumPathComponentLength_ForwardToCallback& operator=(const Directory_GetMaximumPathComponentLength_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Directory::GetMaximumPathComponentLengthCallback callback_;
 };
 class Directory_RenameFile_HandleSyncResponse
     : public mojo::MessageReceiver {
@@ -1301,14 +1140,17 @@ void DirectoryProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<Directory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_Clone_Name, kFlags, 0, 0, nullptr);
@@ -1345,15 +1187,18 @@ bool DirectoryProxy::PathExists(
 #else
   TRACE_EVENT0("mojom", "Directory::PathExists");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -1408,14 +1253,17 @@ void DirectoryProxy::PathExists(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -1461,15 +1309,18 @@ bool DirectoryProxy::GetEntries(
 #else
   TRACE_EVENT0("mojom", "Directory::GetEntries");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetEntries_Name, kFlags, 0, 0, nullptr);
@@ -1532,14 +1383,17 @@ void DirectoryProxy::GetEntries(
                         "<value of type GetEntriesMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetEntries_Name, kFlags, 0, 0, nullptr);
@@ -1593,15 +1447,18 @@ bool DirectoryProxy::OpenFile(
 #else
   TRACE_EVENT0("mojom", "Directory::OpenFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -1674,14 +1531,17 @@ void DirectoryProxy::OpenFile(
                         "<value of type FileWriteAccess>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -1716,147 +1576,6 @@ void DirectoryProxy::OpenFile(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-bool DirectoryProxy::WriteFileAtomically(
-    const ::base::FilePath& param_path, const ::std::string& param_contents, bool* out_param_success) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call storage::mojom::Directory::WriteFileAtomically (sync)", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), param_path,
-                        "<value of type const ::base::FilePath&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("contents"), param_contents,
-                        "<value of type const ::std::string&>");
-   });
-#else
-  TRACE_EVENT0("mojom", "Directory::WriteFileAtomically");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_WriteFileAtomically_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_WriteFileAtomically_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      param_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.WriteFileAtomically request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->contents)::BaseType> contents_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::BigStringDataView>(
-      param_contents, contents_fragment);
-  params->contents.Set(
-      contents_fragment.is_null() ? nullptr : contents_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->contents.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null contents in Directory.WriteFileAtomically request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("WriteFileAtomically");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_WriteFileAtomically_HandleSyncResponse(
-          &result, out_param_success));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "Directory::WriteFileAtomically", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), out_param_success,
-                        "<value of type bool>");
-   });
-#endif
-  return result;
-}
-
-void DirectoryProxy::WriteFileAtomically(
-    const ::base::FilePath& in_path, const ::std::string& in_contents, WriteFileAtomicallyCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::Directory::WriteFileAtomically", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), in_path,
-                        "<value of type const ::base::FilePath&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("contents"), in_contents,
-                        "<value of type const ::std::string&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_WriteFileAtomically_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_WriteFileAtomically_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      in_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.WriteFileAtomically request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->contents)::BaseType> contents_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::BigStringDataView>(
-      in_contents, contents_fragment);
-  params->contents.Set(
-      contents_fragment.is_null() ? nullptr : contents_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->contents.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null contents in Directory.WriteFileAtomically request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("WriteFileAtomically");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_WriteFileAtomically_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 bool DirectoryProxy::CreateDirectory(
     const ::base::FilePath& param_path, ::base::File::Error* out_param_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1871,15 +1590,18 @@ bool DirectoryProxy::CreateDirectory(
 #else
   TRACE_EVENT0("mojom", "Directory::CreateDirectory");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1934,14 +1656,17 @@ void DirectoryProxy::CreateDirectory(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -1984,15 +1709,18 @@ bool DirectoryProxy::DeleteFile(
 #else
   TRACE_EVENT0("mojom", "Directory::DeleteFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -2047,14 +1775,17 @@ void DirectoryProxy::DeleteFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -2083,121 +1814,8 @@ void DirectoryProxy::DeleteFile(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-bool DirectoryProxy::DeletePathRecursively(
-    const ::base::FilePath& param_path, bool* out_param_success) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call storage::mojom::Directory::DeletePathRecursively (sync)", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), param_path,
-                        "<value of type const ::base::FilePath&>");
-   });
-#else
-  TRACE_EVENT0("mojom", "Directory::DeletePathRecursively");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_DeletePathRecursively_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_DeletePathRecursively_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      param_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.DeletePathRecursively request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("DeletePathRecursively");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_DeletePathRecursively_HandleSyncResponse(
-          &result, out_param_success));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "Directory::DeletePathRecursively", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), out_param_success,
-                        "<value of type bool>");
-   });
-#endif
-  return result;
-}
-
-void DirectoryProxy::DeletePathRecursively(
-    const ::base::FilePath& in_path, DeletePathRecursivelyCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::Directory::DeletePathRecursively", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), in_path,
-                        "<value of type const ::base::FilePath&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_DeletePathRecursively_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_DeletePathRecursively_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      in_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.DeletePathRecursively request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("DeletePathRecursively");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_DeletePathRecursively_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 bool DirectoryProxy::GetFileInfo(
-    const ::base::FilePath& param_path, absl::optional<::base::File::Info>* out_param_info) {
+    const ::base::FilePath& param_path, std::optional<::base::File::Info>* out_param_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call storage::mojom::Directory::GetFileInfo (sync)", "input_parameters",
@@ -2210,15 +1828,18 @@ bool DirectoryProxy::GetFileInfo(
 #else
   TRACE_EVENT0("mojom", "Directory::GetFileInfo");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -2255,7 +1876,7 @@ bool DirectoryProxy::GetFileInfo(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), out_param_info,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   return result;
@@ -2273,14 +1894,17 @@ void DirectoryProxy::GetFileInfo(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -2323,15 +1947,18 @@ bool DirectoryProxy::GetPathAccess(
 #else
   TRACE_EVENT0("mojom", "Directory::GetPathAccess");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetPathAccess_Name, kFlags, 0, 0, nullptr);
@@ -2386,14 +2013,17 @@ void DirectoryProxy::GetPathAccess(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetPathAccess_Name, kFlags, 0, 0, nullptr);
@@ -2422,122 +2052,6 @@ void DirectoryProxy::GetPathAccess(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-bool DirectoryProxy::GetMaximumPathComponentLength(
-    const ::base::FilePath& param_path, bool* out_param_success, int32_t* out_param_length) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call storage::mojom::Directory::GetMaximumPathComponentLength (sync)", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), param_path,
-                        "<value of type const ::base::FilePath&>");
-   });
-#else
-  TRACE_EVENT0("mojom", "Directory::GetMaximumPathComponentLength");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_GetMaximumPathComponentLength_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_GetMaximumPathComponentLength_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      param_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.GetMaximumPathComponentLength request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("GetMaximumPathComponentLength");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_GetMaximumPathComponentLength_HandleSyncResponse(
-          &result, out_param_success, out_param_length));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "Directory::GetMaximumPathComponentLength", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), out_param_success,
-                        "<value of type bool>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("length"), out_param_length,
-                        "<value of type int32_t>");
-   });
-#endif
-  return result;
-}
-
-void DirectoryProxy::GetMaximumPathComponentLength(
-    const ::base::FilePath& in_path, GetMaximumPathComponentLengthCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send storage::mojom::Directory::GetMaximumPathComponentLength", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), in_path,
-                        "<value of type const ::base::FilePath&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_GetMaximumPathComponentLength_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_GetMaximumPathComponentLength_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<::storage::mojom::StrictRelativePathDataView>(
-      in_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Directory.GetMaximumPathComponentLength request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("GetMaximumPathComponentLength");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Directory_GetMaximumPathComponentLength_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 bool DirectoryProxy::RenameFile(
     const ::base::FilePath& param_old_path, const ::base::FilePath& param_new_path, ::base::File::Error* out_param_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2555,15 +2069,18 @@ bool DirectoryProxy::RenameFile(
 #else
   TRACE_EVENT0("mojom", "Directory::RenameFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -2632,14 +2149,17 @@ void DirectoryProxy::RenameFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -2693,15 +2213,18 @@ bool DirectoryProxy::LockFile(
 #else
   TRACE_EVENT0("mojom", "Directory::LockFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_LockFile_Name, kFlags, 0, 0, nullptr);
@@ -2759,14 +2282,17 @@ void DirectoryProxy::LockFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_LockFile_Name, kFlags, 0, 0, nullptr);
@@ -2812,15 +2338,18 @@ bool DirectoryProxy::SetOpenedFileLength(
 #else
   TRACE_EVENT0("mojom", "Directory::SetOpenedFileLength");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_SetOpenedFileLength_Name, kFlags, 0, 0, nullptr);
@@ -2882,14 +2411,17 @@ void DirectoryProxy::SetOpenedFileLength(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_SetOpenedFileLength_Name, kFlags, 0, 0, nullptr);
@@ -3011,7 +2543,8 @@ void Directory_PathExists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_PathExists_Name, kFlags, 0, 0, nullptr);
@@ -3161,7 +2694,8 @@ void Directory_GetEntries_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetEntries_Name, kFlags, 0, 0, nullptr);
@@ -3329,7 +2863,8 @@ void Directory_OpenFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -3389,149 +2924,6 @@ bool Directory_OpenFile_HandleSyncResponse::Accept(
   }
   *out_error_ = std::move(p_error);
   *out_file_ = std::move(p_file);
-  *result_ = true;
-  return true;
-}
-class Directory_WriteFileAtomically_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Directory::WriteFileAtomicallyCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Directory_WriteFileAtomically_ProxyToResponder> proxy(
-        new Directory_WriteFileAtomically_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Directory_WriteFileAtomically_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Directory_WriteFileAtomically_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Directory_WriteFileAtomically_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Directory::WriteFileAtomicallyCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_success);
-};
-
-bool Directory_WriteFileAtomically_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_WriteFileAtomically_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Directory_WriteFileAtomically_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  Directory_WriteFileAtomically_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_success));
-  return true;
-}
-
-void Directory_WriteFileAtomically_ProxyToResponder::Run(
-    bool in_success) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::Directory::WriteFileAtomically", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), in_success,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_WriteFileAtomically_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_WriteFileAtomically_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->success = in_success;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("WriteFileAtomically");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool Directory_WriteFileAtomically_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_WriteFileAtomically_ResponseParams_Data* params =
-      reinterpret_cast<internal::Directory_WriteFileAtomically_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  Directory_WriteFileAtomically_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 4, true);
-    return false;
-  }
-  *out_success_ = std::move(p_success);
   *result_ = true;
   return true;
 }
@@ -3603,7 +2995,7 @@ bool Directory_CreateDirectory_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 5, true);
+        Directory::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3627,7 +3019,8 @@ void Directory_CreateDirectory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_CreateDirectory_Name, kFlags, 0, 0, nullptr);
@@ -3672,7 +3065,7 @@ bool Directory_CreateDirectory_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 5, true);
+        Directory::Name_, 4, true);
     return false;
   }
   *out_error_ = std::move(p_error);
@@ -3747,7 +3140,7 @@ bool Directory_DeleteFile_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 6, true);
+        Directory::Name_, 5, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3771,7 +3164,8 @@ void Directory_DeleteFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -3815,150 +3209,7 @@ bool Directory_DeleteFile_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 6, true);
-    return false;
-  }
-  *out_success_ = std::move(p_success);
-  *result_ = true;
-  return true;
-}
-class Directory_DeletePathRecursively_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Directory::DeletePathRecursivelyCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Directory_DeletePathRecursively_ProxyToResponder> proxy(
-        new Directory_DeletePathRecursively_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Directory_DeletePathRecursively_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Directory_DeletePathRecursively_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Directory_DeletePathRecursively_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Directory::DeletePathRecursivelyCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_success);
-};
-
-bool Directory_DeletePathRecursively_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_DeletePathRecursively_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Directory_DeletePathRecursively_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  Directory_DeletePathRecursively_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 7, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_success));
-  return true;
-}
-
-void Directory_DeletePathRecursively_ProxyToResponder::Run(
-    bool in_success) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::Directory::DeletePathRecursively", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), in_success,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_DeletePathRecursively_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_DeletePathRecursively_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->success = in_success;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("DeletePathRecursively");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool Directory_DeletePathRecursively_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_DeletePathRecursively_ResponseParams_Data* params =
-      reinterpret_cast<internal::Directory_DeletePathRecursively_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  Directory_DeletePathRecursively_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 7, true);
+        Directory::Name_, 5, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -4011,7 +3262,7 @@ class Directory_GetFileInfo_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      const absl::optional<::base::File::Info>& in_info);
+      const std::optional<::base::File::Info>& in_info);
 };
 
 bool Directory_GetFileInfo_ForwardToCallback::Accept(
@@ -4024,7 +3275,7 @@ bool Directory_GetFileInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_info{};
+  std::optional<::base::File::Info> p_info{};
   Directory_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInfo(&p_info))
@@ -4033,7 +3284,7 @@ bool Directory_GetFileInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 8, true);
+        Directory::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4043,7 +3294,7 @@ std::move(p_info));
 }
 
 void Directory_GetFileInfo_ProxyToResponder::Run(
-    const absl::optional<::base::File::Info>& in_info) {
+    const std::optional<::base::File::Info>& in_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply storage::mojom::Directory::GetFileInfo", "async_response_parameters",
@@ -4051,13 +3302,14 @@ void Directory_GetFileInfo_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), in_info,
-                        "<value of type const absl::optional<::base::File::Info>&>");
+                        "<value of type const std::optional<::base::File::Info>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetFileInfo_Name, kFlags, 0, 0, nullptr);
@@ -4098,7 +3350,7 @@ bool Directory_GetFileInfo_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::File::Info> p_info{};
+  std::optional<::base::File::Info> p_info{};
   Directory_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInfo(&p_info))
@@ -4107,7 +3359,7 @@ bool Directory_GetFileInfo_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 8, true);
+        Directory::Name_, 6, true);
     return false;
   }
   *out_info_ = std::move(p_info);
@@ -4182,7 +3434,7 @@ bool Directory_GetPathAccess_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 9, true);
+        Directory::Name_, 7, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4206,7 +3458,8 @@ void Directory_GetPathAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_GetPathAccess_Name, kFlags, 0, 0, nullptr);
@@ -4256,165 +3509,10 @@ bool Directory_GetPathAccess_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 9, true);
+        Directory::Name_, 7, true);
     return false;
   }
   *out_info_ = std::move(p_info);
-  *result_ = true;
-  return true;
-}
-class Directory_GetMaximumPathComponentLength_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Directory::GetMaximumPathComponentLengthCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Directory_GetMaximumPathComponentLength_ProxyToResponder> proxy(
-        new Directory_GetMaximumPathComponentLength_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Directory_GetMaximumPathComponentLength_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Directory_GetMaximumPathComponentLength_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Directory_GetMaximumPathComponentLength_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Directory::GetMaximumPathComponentLengthCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_success, int32_t in_length);
-};
-
-bool Directory_GetMaximumPathComponentLength_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  int32_t p_length{};
-  Directory_GetMaximumPathComponentLength_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (success)
-    p_length = input_data_view.length();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 10, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_success), 
-std::move(p_length));
-  return true;
-}
-
-void Directory_GetMaximumPathComponentLength_ProxyToResponder::Run(
-    bool in_success, int32_t in_length) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply storage::mojom::Directory::GetMaximumPathComponentLength", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), in_success,
-                        "<value of type bool>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("length"), in_length,
-                        "<value of type int32_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDirectory_GetMaximumPathComponentLength_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::storage::mojom::internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->success = in_success;
-  params->length = in_length;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Directory::Name_);
-  message.set_method_name("GetMaximumPathComponentLength");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool Directory_GetMaximumPathComponentLength_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data* params =
-      reinterpret_cast<internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  int32_t p_length{};
-  Directory_GetMaximumPathComponentLength_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (success)
-    p_length = input_data_view.length();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 10, true);
-    return false;
-  }
-  *out_success_ = std::move(p_success);
-  *out_length_ = std::move(p_length);
   *result_ = true;
   return true;
 }
@@ -4486,7 +3584,7 @@ bool Directory_RenameFile_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 11, true);
+        Directory::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4510,7 +3608,8 @@ void Directory_RenameFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_RenameFile_Name, kFlags, 0, 0, nullptr);
@@ -4555,7 +3654,7 @@ bool Directory_RenameFile_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 11, true);
+        Directory::Name_, 8, true);
     return false;
   }
   *out_error_ = std::move(p_error);
@@ -4635,7 +3734,7 @@ bool Directory_LockFile_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 12, true);
+        Directory::Name_, 9, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4663,7 +3762,8 @@ void Directory_LockFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_LockFile_Name, kFlags, 0, 0, nullptr);
@@ -4715,7 +3815,7 @@ bool Directory_LockFile_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 12, true);
+        Directory::Name_, 9, true);
     return false;
   }
   *out_error_ = std::move(p_error);
@@ -4794,7 +3894,7 @@ bool Directory_SetOpenedFileLength_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 13, true);
+        Directory::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4822,7 +3922,8 @@ void Directory_SetOpenedFileLength_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectory_SetOpenedFileLength_Name, kFlags, 0, 0, nullptr);
@@ -4880,7 +3981,7 @@ bool Directory_SetOpenedFileLength_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Directory::Name_, 13, true);
+        Directory::Name_, 10, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -4931,25 +4032,16 @@ std::move(p_receiver));
     case internal::kDirectory_OpenFile_Name: {
       break;
     }
-    case internal::kDirectory_WriteFileAtomically_Name: {
-      break;
-    }
     case internal::kDirectory_CreateDirectory_Name: {
       break;
     }
     case internal::kDirectory_DeleteFile_Name: {
       break;
     }
-    case internal::kDirectory_DeletePathRecursively_Name: {
-      break;
-    }
     case internal::kDirectory_GetFileInfo_Name: {
       break;
     }
     case internal::kDirectory_GetPathAccess_Name: {
-      break;
-    }
-    case internal::kDirectory_GetMaximumPathComponentLength_Name: {
       break;
     }
     case internal::kDirectory_RenameFile_Name: {
@@ -5080,39 +4172,6 @@ std::move(p_read_access),
 std::move(p_write_access), std::move(callback));
       return true;
     }
-    case internal::kDirectory_WriteFileAtomically_Name: {
-
-      internal::Directory_WriteFileAtomically_Params_Data* params =
-          reinterpret_cast<
-              internal::Directory_WriteFileAtomically_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::FilePath p_path{};
-      ::std::string p_contents{};
-      Directory_WriteFileAtomically_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPath(&p_path))
-        success = false;
-      if (success && !input_data_view.ReadContents(&p_contents))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 4, false);
-        return false;
-      }
-      Directory::WriteFileAtomicallyCallback callback =
-          Directory_WriteFileAtomically_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->WriteFileAtomically(
-std::move(p_path), 
-std::move(p_contents), std::move(callback));
-      return true;
-    }
     case internal::kDirectory_CreateDirectory_Name: {
 
       internal::Directory_CreateDirectory_Params_Data* params =
@@ -5130,7 +4189,7 @@ std::move(p_contents), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 5, false);
+            Directory::Name_, 4, false);
         return false;
       }
       Directory::CreateDirectoryCallback callback =
@@ -5159,7 +4218,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 6, false);
+            Directory::Name_, 5, false);
         return false;
       }
       Directory::DeleteFileCallback callback =
@@ -5168,35 +4227,6 @@ std::move(p_path), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->DeleteFile(
-std::move(p_path), std::move(callback));
-      return true;
-    }
-    case internal::kDirectory_DeletePathRecursively_Name: {
-
-      internal::Directory_DeletePathRecursively_Params_Data* params =
-          reinterpret_cast<
-              internal::Directory_DeletePathRecursively_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::FilePath p_path{};
-      Directory_DeletePathRecursively_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPath(&p_path))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 7, false);
-        return false;
-      }
-      Directory::DeletePathRecursivelyCallback callback =
-          Directory_DeletePathRecursively_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->DeletePathRecursively(
 std::move(p_path), std::move(callback));
       return true;
     }
@@ -5217,7 +4247,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 8, false);
+            Directory::Name_, 6, false);
         return false;
       }
       Directory::GetFileInfoCallback callback =
@@ -5246,7 +4276,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 9, false);
+            Directory::Name_, 7, false);
         return false;
       }
       Directory::GetPathAccessCallback callback =
@@ -5255,35 +4285,6 @@ std::move(p_path), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->GetPathAccess(
-std::move(p_path), std::move(callback));
-      return true;
-    }
-    case internal::kDirectory_GetMaximumPathComponentLength_Name: {
-
-      internal::Directory_GetMaximumPathComponentLength_Params_Data* params =
-          reinterpret_cast<
-              internal::Directory_GetMaximumPathComponentLength_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::FilePath p_path{};
-      Directory_GetMaximumPathComponentLength_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPath(&p_path))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 10, false);
-        return false;
-      }
-      Directory::GetMaximumPathComponentLengthCallback callback =
-          Directory_GetMaximumPathComponentLength_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetMaximumPathComponentLength(
 std::move(p_path), std::move(callback));
       return true;
     }
@@ -5307,7 +4308,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 11, false);
+            Directory::Name_, 8, false);
         return false;
       }
       Directory::RenameFileCallback callback =
@@ -5337,7 +4338,7 @@ std::move(p_new_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 12, false);
+            Directory::Name_, 9, false);
         return false;
       }
       Directory::LockFileCallback callback =
@@ -5369,7 +4370,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Directory::Name_, 13, false);
+            Directory::Name_, 10, false);
         return false;
       }
       Directory::SetOpenedFileLengthCallback callback =
@@ -5385,36 +4386,30 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDirectoryValidationInfo[] = {
-    {&internal::Directory_Clone_Params_Data::Validate,
+    { &internal::Directory_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Directory_PathExists_Params_Data::Validate,
+    { &internal::Directory_PathExists_Params_Data::Validate,
      &internal::Directory_PathExists_ResponseParams_Data::Validate},
-    {&internal::Directory_GetEntries_Params_Data::Validate,
+    { &internal::Directory_GetEntries_Params_Data::Validate,
      &internal::Directory_GetEntries_ResponseParams_Data::Validate},
-    {&internal::Directory_OpenFile_Params_Data::Validate,
+    { &internal::Directory_OpenFile_Params_Data::Validate,
      &internal::Directory_OpenFile_ResponseParams_Data::Validate},
-    {&internal::Directory_WriteFileAtomically_Params_Data::Validate,
-     &internal::Directory_WriteFileAtomically_ResponseParams_Data::Validate},
-    {&internal::Directory_CreateDirectory_Params_Data::Validate,
+    { &internal::Directory_CreateDirectory_Params_Data::Validate,
      &internal::Directory_CreateDirectory_ResponseParams_Data::Validate},
-    {&internal::Directory_DeleteFile_Params_Data::Validate,
+    { &internal::Directory_DeleteFile_Params_Data::Validate,
      &internal::Directory_DeleteFile_ResponseParams_Data::Validate},
-    {&internal::Directory_DeletePathRecursively_Params_Data::Validate,
-     &internal::Directory_DeletePathRecursively_ResponseParams_Data::Validate},
-    {&internal::Directory_GetFileInfo_Params_Data::Validate,
+    { &internal::Directory_GetFileInfo_Params_Data::Validate,
      &internal::Directory_GetFileInfo_ResponseParams_Data::Validate},
-    {&internal::Directory_GetPathAccess_Params_Data::Validate,
+    { &internal::Directory_GetPathAccess_Params_Data::Validate,
      &internal::Directory_GetPathAccess_ResponseParams_Data::Validate},
-    {&internal::Directory_GetMaximumPathComponentLength_Params_Data::Validate,
-     &internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data::Validate},
-    {&internal::Directory_RenameFile_Params_Data::Validate,
+    { &internal::Directory_RenameFile_Params_Data::Validate,
      &internal::Directory_RenameFile_ResponseParams_Data::Validate},
-    {&internal::Directory_LockFile_Params_Data::Validate,
+    { &internal::Directory_LockFile_Params_Data::Validate,
      &internal::Directory_LockFile_ResponseParams_Data::Validate},
-    {&internal::Directory_SetOpenedFileLength_Params_Data::Validate,
+    { &internal::Directory_SetOpenedFileLength_Params_Data::Validate,
      &internal::Directory_SetOpenedFileLength_ResponseParams_Data::Validate},
 };
 
@@ -5520,26 +4515,17 @@ void DirectoryInterceptorForTesting::GetEntries(const ::base::FilePath& path, Ge
 void DirectoryInterceptorForTesting::OpenFile(const ::base::FilePath& path, FileOpenMode mode, FileReadAccess read_access, FileWriteAccess write_access, OpenFileCallback callback) {
   GetForwardingInterface()->OpenFile(std::move(path), std::move(mode), std::move(read_access), std::move(write_access), std::move(callback));
 }
-void DirectoryInterceptorForTesting::WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, WriteFileAtomicallyCallback callback) {
-  GetForwardingInterface()->WriteFileAtomically(std::move(path), std::move(contents), std::move(callback));
-}
 void DirectoryInterceptorForTesting::CreateDirectory(const ::base::FilePath& path, CreateDirectoryCallback callback) {
   GetForwardingInterface()->CreateDirectory(std::move(path), std::move(callback));
 }
 void DirectoryInterceptorForTesting::DeleteFile(const ::base::FilePath& path, DeleteFileCallback callback) {
   GetForwardingInterface()->DeleteFile(std::move(path), std::move(callback));
 }
-void DirectoryInterceptorForTesting::DeletePathRecursively(const ::base::FilePath& path, DeletePathRecursivelyCallback callback) {
-  GetForwardingInterface()->DeletePathRecursively(std::move(path), std::move(callback));
-}
 void DirectoryInterceptorForTesting::GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) {
   GetForwardingInterface()->GetFileInfo(std::move(path), std::move(callback));
 }
 void DirectoryInterceptorForTesting::GetPathAccess(const ::base::FilePath& path, GetPathAccessCallback callback) {
   GetForwardingInterface()->GetPathAccess(std::move(path), std::move(callback));
-}
-void DirectoryInterceptorForTesting::GetMaximumPathComponentLength(const ::base::FilePath& path, GetMaximumPathComponentLengthCallback callback) {
-  GetForwardingInterface()->GetMaximumPathComponentLength(std::move(path), std::move(callback));
 }
 void DirectoryInterceptorForTesting::RenameFile(const ::base::FilePath& old_path, const ::base::FilePath& new_path, RenameFileCallback callback) {
   GetForwardingInterface()->RenameFile(std::move(old_path), std::move(new_path), std::move(callback));
@@ -5622,29 +4608,6 @@ void DirectoryAsyncWaiter::OpenFile(
 
 
 
-void DirectoryAsyncWaiter::WriteFileAtomically(
-    const ::base::FilePath& path, const ::std::string& contents, bool* out_success) {
-  base::RunLoop loop;
-  proxy_->WriteFileAtomically(std::move(path),std::move(contents),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_success
-,
-             bool success) {*out_success = std::move(success);
-            loop->Quit();
-          },
-          &loop,
-          out_success));
-  loop.Run();
-}
-
-bool DirectoryAsyncWaiter::WriteFileAtomically(
-    const ::base::FilePath& path, const ::std::string& contents) {
-  bool async_wait_result;
-  WriteFileAtomically(std::move(path),std::move(contents),&async_wait_result);
-  return async_wait_result;
-}
-
 void DirectoryAsyncWaiter::CreateDirectory(
     const ::base::FilePath& path, ::base::File::Error* out_error) {
   base::RunLoop loop;
@@ -5691,38 +4654,15 @@ bool DirectoryAsyncWaiter::DeleteFile(
   return async_wait_result;
 }
 
-void DirectoryAsyncWaiter::DeletePathRecursively(
-    const ::base::FilePath& path, bool* out_success) {
-  base::RunLoop loop;
-  proxy_->DeletePathRecursively(std::move(path),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_success
-,
-             bool success) {*out_success = std::move(success);
-            loop->Quit();
-          },
-          &loop,
-          out_success));
-  loop.Run();
-}
-
-bool DirectoryAsyncWaiter::DeletePathRecursively(
-    const ::base::FilePath& path) {
-  bool async_wait_result;
-  DeletePathRecursively(std::move(path),&async_wait_result);
-  return async_wait_result;
-}
-
 void DirectoryAsyncWaiter::GetFileInfo(
-    const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) {
+    const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) {
   base::RunLoop loop;
   proxy_->GetFileInfo(std::move(path),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::File::Info>* out_info
+             std::optional<::base::File::Info>* out_info
 ,
-             const absl::optional<::base::File::Info>& info) {*out_info = std::move(info);
+             const std::optional<::base::File::Info>& info) {*out_info = std::move(info);
             loop->Quit();
           },
           &loop,
@@ -5730,9 +4670,9 @@ void DirectoryAsyncWaiter::GetFileInfo(
   loop.Run();
 }
 
-absl::optional<::base::File::Info> DirectoryAsyncWaiter::GetFileInfo(
+std::optional<::base::File::Info> DirectoryAsyncWaiter::GetFileInfo(
     const ::base::FilePath& path) {
-  absl::optional<::base::File::Info> async_wait_result;
+  std::optional<::base::File::Info> async_wait_result;
   GetFileInfo(std::move(path),&async_wait_result);
   return async_wait_result;
 }
@@ -5759,28 +4699,6 @@ PathAccessInfoPtr DirectoryAsyncWaiter::GetPathAccess(
   GetPathAccess(std::move(path),&async_wait_result);
   return async_wait_result;
 }
-
-void DirectoryAsyncWaiter::GetMaximumPathComponentLength(
-    const ::base::FilePath& path, bool* out_success, int32_t* out_length) {
-  base::RunLoop loop;
-  proxy_->GetMaximumPathComponentLength(std::move(path),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_success
-,
-             int32_t* out_length
-,
-             bool success,
-             int32_t length) {*out_success = std::move(success);*out_length = std::move(length);
-            loop->Quit();
-          },
-          &loop,
-          out_success,
-          out_length));
-  loop.Run();
-}
-
-
 
 void DirectoryAsyncWaiter::RenameFile(
     const ::base::FilePath& old_path, const ::base::FilePath& new_path, ::base::File::Error* out_error) {

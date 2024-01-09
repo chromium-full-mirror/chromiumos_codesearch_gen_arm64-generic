@@ -91,7 +91,6 @@ namespace network::mojom {
 namespace internal {
 class CustomProxyConfig_Data;
 class CertVerifierServiceRemoteParams_Data;
-class AdditionalCertificates_Data;
 class HttpAuthStaticNetworkContextParams_Data;
 class CTPolicy_Data;
 class NetworkContextFilePaths_Data;
@@ -304,55 +303,6 @@ struct CertVerifierServiceRemoteParams_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CertVerifierServiceRemoteParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  AdditionalCertificates_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> all_certificates;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> trust_anchors;
-
- private:
-  friend class mojo::internal::MessageFragment<AdditionalCertificates_Data>;
-
-  AdditionalCertificates_Data();
-  ~AdditionalCertificates_Data() = delete;
-};
-static_assert(sizeof(AdditionalCertificates_Data) == 24,
-              "Bad sizeof(AdditionalCertificates_Data)");
-// Used by AdditionalCertificates::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct AdditionalCertificates_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  AdditionalCertificates_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~AdditionalCertificates_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<AdditionalCertificates_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    AdditionalCertificates_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  HttpAuthStaticNetworkContextParams_Data {
  public:
   static bool Validate(const void* data,
@@ -560,7 +510,6 @@ class  NetworkContextParams_Data {
   int32_t sct_auditing_mode;
   mojo::internal::Pointer<internal::CTPolicy_Data> ct_policy;
   mojo::internal::Pointer<internal::CertVerifierServiceRemoteParams_Data> cert_verifier_params;
-  mojo::internal::Pointer<internal::AdditionalCertificates_Data> initial_additional_certificates;
   mojo::internal::Pointer<::network::mojom::internal::CookieManagerParams_Data> cookie_manager_params;
   mojo::internal::Pointer<mojo::internal::String_Data> domain_reliability_upload_reporter;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> reporting_delivery_interval;
@@ -572,7 +521,7 @@ class  NetworkContextParams_Data {
   uint64_t shared_dictionary_cache_max_size;
   mojo::internal::Pointer<::network::mojom::internal::FirstPartySetsAccessDelegateParams_Data> first_party_sets_access_delegate_params;
   mojo::internal::Handle_Data first_party_sets_access_delegate_receiver;
-  uint8_t pad53_[4];
+  uint8_t pad52_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> cookie_deprecation_label;
 
  private:
@@ -581,7 +530,7 @@ class  NetworkContextParams_Data {
   NetworkContextParams_Data();
   ~NetworkContextParams_Data() = delete;
 };
-static_assert(sizeof(NetworkContextParams_Data) == 248,
+static_assert(sizeof(NetworkContextParams_Data) == 240,
               "Bad sizeof(NetworkContextParams_Data)");
 // Used by NetworkContextParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -15,7 +15,7 @@ namespace web_package::mojom {
 
 class  WebBundleParserFactoryInterceptorForTesting : public WebBundleParserFactory {
   virtual WebBundleParserFactory* GetForwardingInterface() = 0;
-  void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const absl::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) override;
+  void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const std::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) override;
   void BindFileDataSource(::mojo::PendingReceiver<BundleDataSource> data_source, ::base::File file) override;
 };
 class  WebBundleParserFactoryAsyncWaiter {
@@ -35,7 +35,7 @@ class  WebBundleParserFactoryAsyncWaiter {
 class  WebBundleParserInterceptorForTesting : public WebBundleParser {
   virtual WebBundleParser* GetForwardingInterface() = 0;
   void ParseIntegrityBlock(ParseIntegrityBlockCallback callback) override;
-  void ParseMetadata(absl::optional<uint64_t> offset, ParseMetadataCallback callback) override;
+  void ParseMetadata(std::optional<uint64_t> offset, ParseMetadataCallback callback) override;
   void ParseResponse(uint64_t response_offset, uint64_t response_length, ParseResponseCallback callback) override;
   void Close(CloseCallback callback) override;
 };
@@ -51,7 +51,7 @@ class  WebBundleParserAsyncWaiter {
       BundleIntegrityBlockPtr* out_Result, BundleIntegrityBlockParseErrorPtr* out_error);
   
   void ParseMetadata(
-      absl::optional<uint64_t> offset, BundleMetadataPtr* out_Result, BundleMetadataParseErrorPtr* out_error);
+      std::optional<uint64_t> offset, BundleMetadataPtr* out_Result, BundleMetadataParseErrorPtr* out_error);
   
   void ParseResponse(
       uint64_t response_offset, uint64_t response_length, BundleResponsePtr* out_Result, BundleResponseParseErrorPtr* out_error);
@@ -81,8 +81,8 @@ class  BundleDataSourceAsyncWaiter {
 
   ~BundleDataSourceAsyncWaiter();
   void Read(
-      uint64_t offset, uint64_t length, absl::optional<std::vector<uint8_t>>* out_buffer);
-  absl::optional<std::vector<uint8_t>> Read(uint64_t offset, uint64_t length);
+      uint64_t offset, uint64_t length, std::optional<std::vector<uint8_t>>* out_buffer);
+  std::optional<std::vector<uint8_t>> Read(uint64_t offset, uint64_t length);
   void Length(
       int64_t* out_length);
   int64_t Length();

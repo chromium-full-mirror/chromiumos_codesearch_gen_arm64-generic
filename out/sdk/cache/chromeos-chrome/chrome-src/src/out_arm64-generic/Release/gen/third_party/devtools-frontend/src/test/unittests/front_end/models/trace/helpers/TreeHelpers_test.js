@@ -257,7 +257,7 @@ describe('TreeHelpers', () => {
         });
     });
     describe('walking trees', () => {
-        it('walkTree walks the entire tree and visits all the roots as well as all children', async () => {
+        it('walkEntireTree walks the entire tree and visits all the roots as well as all children', async () => {
             /**
              * |------------- Task A -------------||-- Task E --|
              *  |-- Task B --||-- Task D --|
@@ -291,6 +291,41 @@ describe('TreeHelpers', () => {
                 { type: 'END', entryName: 'A' },
                 { type: 'START', entryName: 'E' },
                 { type: 'END', entryName: 'E' },
+            ]);
+        });
+        it('walkEntireTree can take a trace window and will only run for events in that window', async () => {
+            /**
+             *                | min: 5 - max 10| <<<< custom trace window
+             * |------------- Task A -------------||-- Task E --|
+             *  |-- Task B --||-- Task D --|
+             *   |- Task C -|
+             */
+            const data = [
+                makeCompleteEvent('A', 0, 10),
+                makeCompleteEvent('B', 1, 3),
+                makeCompleteEvent('D', 5, 3),
+                makeCompleteEvent('C', 2, 1),
+                makeCompleteEvent('E', 11, 3), // 11..14
+            ];
+            TraceModel.Helpers.Trace.sortTraceEventsInPlace(data);
+            const { tree, entryToNode } = TraceModel.Helpers.TreeHelpers.treify(data, { filter: { has: () => true } });
+            const callOrder = [];
+            function onEntryStart(entry) {
+                callOrder.push({ type: 'START', entryName: entry.name });
+            }
+            function onEntryEnd(entry) {
+                callOrder.push({ type: 'END', entryName: entry.name });
+            }
+            TraceModel.Helpers.TreeHelpers.walkEntireTree(entryToNode, tree, onEntryStart, onEntryEnd, {
+                min: TraceModel.Types.Timing.MicroSeconds(5),
+                max: TraceModel.Types.Timing.MicroSeconds(10),
+                range: TraceModel.Types.Timing.MicroSeconds(5),
+            });
+            assert.deepEqual(callOrder, [
+                { type: 'START', entryName: 'A' },
+                { type: 'START', entryName: 'D' },
+                { type: 'END', entryName: 'D' },
+                { type: 'END', entryName: 'A' },
             ]);
         });
         it('walkTreeFromEntry walks the tree down and then back up and calls onEntryStart and onEntryEnd', async () => {

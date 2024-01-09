@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,12 +31,12 @@ namespace passwords_private {
 //
 
 // Possible reasons why a plaintext password was requested.
-enum  PlaintextReason {
-  PLAINTEXT_REASON_NONE = 0,
-  PLAINTEXT_REASON_VIEW,
-  PLAINTEXT_REASON_COPY,
-  PLAINTEXT_REASON_EDIT,
-  PLAINTEXT_REASON_LAST = PLAINTEXT_REASON_EDIT,
+enum class PlaintextReason {
+  kNone = 0,
+  kView,
+  kCopy,
+  kEdit,
+  kMaxValue = kEdit,
 };
 
 
@@ -43,14 +44,14 @@ const char* ToString(PlaintextReason as_enum);
 PlaintextReason ParsePlaintextReason(base::StringPiece as_string);
 std::u16string GetPlaintextReasonParseError(base::StringPiece as_string);
 
-enum  ExportProgressStatus {
-  EXPORT_PROGRESS_STATUS_NONE = 0,
-  EXPORT_PROGRESS_STATUS_NOT_STARTED,
-  EXPORT_PROGRESS_STATUS_IN_PROGRESS,
-  EXPORT_PROGRESS_STATUS_SUCCEEDED,
-  EXPORT_PROGRESS_STATUS_FAILED_CANCELLED,
-  EXPORT_PROGRESS_STATUS_FAILED_WRITE_FAILED,
-  EXPORT_PROGRESS_STATUS_LAST = EXPORT_PROGRESS_STATUS_FAILED_WRITE_FAILED,
+enum class ExportProgressStatus {
+  kNone = 0,
+  kNotStarted,
+  kInProgress,
+  kSucceeded,
+  kFailedCancelled,
+  kFailedWriteFailed,
+  kMaxValue = kFailedWriteFailed,
 };
 
 
@@ -58,13 +59,13 @@ const char* ToString(ExportProgressStatus as_enum);
 ExportProgressStatus ParseExportProgressStatus(base::StringPiece as_string);
 std::u16string GetExportProgressStatusParseError(base::StringPiece as_string);
 
-enum  CompromiseType {
-  COMPROMISE_TYPE_NONE = 0,
-  COMPROMISE_TYPE_LEAKED,
-  COMPROMISE_TYPE_PHISHED,
-  COMPROMISE_TYPE_REUSED,
-  COMPROMISE_TYPE_WEAK,
-  COMPROMISE_TYPE_LAST = COMPROMISE_TYPE_WEAK,
+enum class CompromiseType {
+  kNone = 0,
+  kLeaked,
+  kPhished,
+  kReused,
+  kWeak,
+  kMaxValue = kWeak,
 };
 
 
@@ -72,12 +73,12 @@ const char* ToString(CompromiseType as_enum);
 CompromiseType ParseCompromiseType(base::StringPiece as_string);
 std::u16string GetCompromiseTypeParseError(base::StringPiece as_string);
 
-enum  PasswordStoreSet {
-  PASSWORD_STORE_SET_NONE = 0,
-  PASSWORD_STORE_SET_DEVICE,
-  PASSWORD_STORE_SET_ACCOUNT,
-  PASSWORD_STORE_SET_DEVICE_AND_ACCOUNT,
-  PASSWORD_STORE_SET_LAST = PASSWORD_STORE_SET_DEVICE_AND_ACCOUNT,
+enum class PasswordStoreSet {
+  kNone = 0,
+  kDevice,
+  kAccount,
+  kDeviceAndAccount,
+  kMaxValue = kDeviceAndAccount,
 };
 
 
@@ -85,17 +86,17 @@ const char* ToString(PasswordStoreSet as_enum);
 PasswordStoreSet ParsePasswordStoreSet(base::StringPiece as_string);
 std::u16string GetPasswordStoreSetParseError(base::StringPiece as_string);
 
-enum  PasswordCheckState {
-  PASSWORD_CHECK_STATE_NONE = 0,
-  PASSWORD_CHECK_STATE_IDLE,
-  PASSWORD_CHECK_STATE_RUNNING,
-  PASSWORD_CHECK_STATE_CANCELED,
-  PASSWORD_CHECK_STATE_OFFLINE,
-  PASSWORD_CHECK_STATE_SIGNED_OUT,
-  PASSWORD_CHECK_STATE_NO_PASSWORDS,
-  PASSWORD_CHECK_STATE_QUOTA_LIMIT,
-  PASSWORD_CHECK_STATE_OTHER_ERROR,
-  PASSWORD_CHECK_STATE_LAST = PASSWORD_CHECK_STATE_OTHER_ERROR,
+enum class PasswordCheckState {
+  kNone = 0,
+  kIdle,
+  kRunning,
+  kCanceled,
+  kOffline,
+  kSignedOut,
+  kNoPasswords,
+  kQuotaLimit,
+  kOtherError,
+  kMaxValue = kOtherError,
 };
 
 
@@ -103,18 +104,18 @@ const char* ToString(PasswordCheckState as_enum);
 PasswordCheckState ParsePasswordCheckState(base::StringPiece as_string);
 std::u16string GetPasswordCheckStateParseError(base::StringPiece as_string);
 
-enum  ImportResultsStatus {
-  IMPORT_RESULTS_STATUS_NONE = 0,
-  IMPORT_RESULTS_STATUS_UNKNOWN_ERROR,
-  IMPORT_RESULTS_STATUS_SUCCESS,
-  IMPORT_RESULTS_STATUS_IO_ERROR,
-  IMPORT_RESULTS_STATUS_BAD_FORMAT,
-  IMPORT_RESULTS_STATUS_DISMISSED,
-  IMPORT_RESULTS_STATUS_MAX_FILE_SIZE,
-  IMPORT_RESULTS_STATUS_IMPORT_ALREADY_ACTIVE,
-  IMPORT_RESULTS_STATUS_NUM_PASSWORDS_EXCEEDED,
-  IMPORT_RESULTS_STATUS_CONFLICTS,
-  IMPORT_RESULTS_STATUS_LAST = IMPORT_RESULTS_STATUS_CONFLICTS,
+enum class ImportResultsStatus {
+  kNone = 0,
+  kUnknownError,
+  kSuccess,
+  kIoError,
+  kBadFormat,
+  kDismissed,
+  kMaxFileSize,
+  kImportAlreadyActive,
+  kNumPasswordsExceeded,
+  kConflicts,
+  kMaxValue = kConflicts,
 };
 
 
@@ -122,22 +123,22 @@ const char* ToString(ImportResultsStatus as_enum);
 ImportResultsStatus ParseImportResultsStatus(base::StringPiece as_string);
 std::u16string GetImportResultsStatusParseError(base::StringPiece as_string);
 
-enum  ImportEntryStatus {
-  IMPORT_ENTRY_STATUS_NONE = 0,
-  IMPORT_ENTRY_STATUS_UNKNOWN_ERROR,
-  IMPORT_ENTRY_STATUS_MISSING_PASSWORD,
-  IMPORT_ENTRY_STATUS_MISSING_URL,
-  IMPORT_ENTRY_STATUS_INVALID_URL,
-  IMPORT_ENTRY_STATUS_NON_ASCII_URL,
-  IMPORT_ENTRY_STATUS_LONG_URL,
-  IMPORT_ENTRY_STATUS_LONG_PASSWORD,
-  IMPORT_ENTRY_STATUS_LONG_USERNAME,
-  IMPORT_ENTRY_STATUS_CONFLICT_PROFILE,
-  IMPORT_ENTRY_STATUS_CONFLICT_ACCOUNT,
-  IMPORT_ENTRY_STATUS_LONG_NOTE,
-  IMPORT_ENTRY_STATUS_LONG_CONCATENATED_NOTE,
-  IMPORT_ENTRY_STATUS_VALID,
-  IMPORT_ENTRY_STATUS_LAST = IMPORT_ENTRY_STATUS_VALID,
+enum class ImportEntryStatus {
+  kNone = 0,
+  kUnknownError,
+  kMissingPassword,
+  kMissingUrl,
+  kInvalidUrl,
+  kNonAsciiUrl,
+  kLongUrl,
+  kLongPassword,
+  kLongUsername,
+  kConflictProfile,
+  kConflictAccount,
+  kLongNote,
+  kLongConcatenatedNote,
+  kValid,
+  kMaxValue = kValid,
 };
 
 
@@ -145,12 +146,12 @@ const char* ToString(ImportEntryStatus as_enum);
 ImportEntryStatus ParseImportEntryStatus(base::StringPiece as_string);
 std::u16string GetImportEntryStatusParseError(base::StringPiece as_string);
 
-enum  FamilyFetchStatus {
-  FAMILY_FETCH_STATUS_NONE = 0,
-  FAMILY_FETCH_STATUS_UNKNOWN_ERROR,
-  FAMILY_FETCH_STATUS_NO_MEMBERS,
-  FAMILY_FETCH_STATUS_SUCCESS,
-  FAMILY_FETCH_STATUS_LAST = FAMILY_FETCH_STATUS_SUCCESS,
+enum class FamilyFetchStatus {
+  kNone = 0,
+  kUnknownError,
+  kNoMembers,
+  kSuccess,
+  kMaxValue = kSuccess,
 };
 
 
@@ -163,8 +164,8 @@ struct PublicKey {
   ~PublicKey();
   PublicKey(const PublicKey&) = delete;
   PublicKey& operator=(const PublicKey&) = delete;
-  PublicKey(PublicKey&& rhs);
-  PublicKey& operator=(PublicKey&& rhs);
+  PublicKey(PublicKey&& rhs) noexcept;
+  PublicKey& operator=(PublicKey&& rhs) noexcept;
 
   // Populates a PublicKey object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -177,14 +178,11 @@ struct PublicKey {
   // Creates a deep copy of PublicKey.
   PublicKey Clone() const;
 
-  // Creates a PublicKey object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PublicKey> FromValueDeprecated(const base::Value& value);
-
   // Creates a PublicKey object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<PublicKey> FromValue(const base::Value::Dict& value);
+  static std::optional<PublicKey> FromValue(const base::Value::Dict& value);
 
   // Creates a PublicKey object from a base::Value, or nullopt on failure.
-  static absl::optional<PublicKey> FromValue(const base::Value& value);
+  static std::optional<PublicKey> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPublicKey object.
@@ -203,8 +201,8 @@ struct RecipientInfo {
   ~RecipientInfo();
   RecipientInfo(const RecipientInfo&) = delete;
   RecipientInfo& operator=(const RecipientInfo&) = delete;
-  RecipientInfo(RecipientInfo&& rhs);
-  RecipientInfo& operator=(RecipientInfo&& rhs);
+  RecipientInfo(RecipientInfo&& rhs) noexcept;
+  RecipientInfo& operator=(RecipientInfo&& rhs) noexcept;
 
   // Populates a RecipientInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -217,15 +215,12 @@ struct RecipientInfo {
   // Creates a deep copy of RecipientInfo.
   RecipientInfo Clone() const;
 
-  // Creates a RecipientInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RecipientInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RecipientInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RecipientInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RecipientInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RecipientInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<RecipientInfo> FromValue(const base::Value& value);
+  static std::optional<RecipientInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRecipientInfo object.
@@ -247,7 +242,7 @@ struct RecipientInfo {
   bool is_eligible;
 
   // The public key of the recipient.
-  absl::optional<PublicKey> public_key;
+  std::optional<PublicKey> public_key;
 
 };
 
@@ -256,8 +251,8 @@ struct FamilyFetchResults {
   ~FamilyFetchResults();
   FamilyFetchResults(const FamilyFetchResults&) = delete;
   FamilyFetchResults& operator=(const FamilyFetchResults&) = delete;
-  FamilyFetchResults(FamilyFetchResults&& rhs);
-  FamilyFetchResults& operator=(FamilyFetchResults&& rhs);
+  FamilyFetchResults(FamilyFetchResults&& rhs) noexcept;
+  FamilyFetchResults& operator=(FamilyFetchResults&& rhs) noexcept;
 
   // Populates a FamilyFetchResults object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -270,16 +265,13 @@ struct FamilyFetchResults {
   // Creates a deep copy of FamilyFetchResults.
   FamilyFetchResults Clone() const;
 
-  // Creates a FamilyFetchResults object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FamilyFetchResults> FromValueDeprecated(const base::Value& value);
-
   // Creates a FamilyFetchResults object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FamilyFetchResults> FromValue(const base::Value::Dict& value);
+  static std::optional<FamilyFetchResults> FromValue(const base::Value::Dict& value);
 
   // Creates a FamilyFetchResults object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FamilyFetchResults> FromValue(const base::Value& value);
+  static std::optional<FamilyFetchResults> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFamilyFetchResults object.
@@ -298,8 +290,8 @@ struct ImportEntry {
   ~ImportEntry();
   ImportEntry(const ImportEntry&) = delete;
   ImportEntry& operator=(const ImportEntry&) = delete;
-  ImportEntry(ImportEntry&& rhs);
-  ImportEntry& operator=(ImportEntry&& rhs);
+  ImportEntry(ImportEntry&& rhs) noexcept;
+  ImportEntry& operator=(ImportEntry&& rhs) noexcept;
 
   // Populates a ImportEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -312,15 +304,12 @@ struct ImportEntry {
   // Creates a deep copy of ImportEntry.
   ImportEntry Clone() const;
 
-  // Creates a ImportEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ImportEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a ImportEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ImportEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<ImportEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a ImportEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<ImportEntry> FromValue(const base::Value& value);
+  static std::optional<ImportEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisImportEntry object.
@@ -349,8 +338,8 @@ struct ImportResults {
   ~ImportResults();
   ImportResults(const ImportResults&) = delete;
   ImportResults& operator=(const ImportResults&) = delete;
-  ImportResults(ImportResults&& rhs);
-  ImportResults& operator=(ImportResults&& rhs);
+  ImportResults(ImportResults&& rhs) noexcept;
+  ImportResults& operator=(ImportResults&& rhs) noexcept;
 
   // Populates a ImportResults object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -363,15 +352,12 @@ struct ImportResults {
   // Creates a deep copy of ImportResults.
   ImportResults Clone() const;
 
-  // Creates a ImportResults object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ImportResults> FromValueDeprecated(const base::Value& value);
-
   // Creates a ImportResults object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ImportResults> FromValue(const base::Value::Dict& value);
+  static std::optional<ImportResults> FromValue(const base::Value::Dict& value);
 
   // Creates a ImportResults object from a base::Value, or nullopt on failure.
-  static absl::optional<ImportResults> FromValue(const base::Value& value);
+  static std::optional<ImportResults> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisImportResults object.
@@ -396,8 +382,8 @@ struct UrlCollection {
   ~UrlCollection();
   UrlCollection(const UrlCollection&) = delete;
   UrlCollection& operator=(const UrlCollection&) = delete;
-  UrlCollection(UrlCollection&& rhs);
-  UrlCollection& operator=(UrlCollection&& rhs);
+  UrlCollection(UrlCollection&& rhs) noexcept;
+  UrlCollection& operator=(UrlCollection&& rhs) noexcept;
 
   // Populates a UrlCollection object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -410,15 +396,12 @@ struct UrlCollection {
   // Creates a deep copy of UrlCollection.
   UrlCollection Clone() const;
 
-  // Creates a UrlCollection object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UrlCollection> FromValueDeprecated(const base::Value& value);
-
   // Creates a UrlCollection object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UrlCollection> FromValue(const base::Value::Dict& value);
+  static std::optional<UrlCollection> FromValue(const base::Value::Dict& value);
 
   // Creates a UrlCollection object from a base::Value, or nullopt on failure.
-  static absl::optional<UrlCollection> FromValue(const base::Value& value);
+  static std::optional<UrlCollection> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUrlCollection object.
@@ -441,8 +424,8 @@ struct CompromisedInfo {
   ~CompromisedInfo();
   CompromisedInfo(const CompromisedInfo&) = delete;
   CompromisedInfo& operator=(const CompromisedInfo&) = delete;
-  CompromisedInfo(CompromisedInfo&& rhs);
-  CompromisedInfo& operator=(CompromisedInfo&& rhs);
+  CompromisedInfo(CompromisedInfo&& rhs) noexcept;
+  CompromisedInfo& operator=(CompromisedInfo&& rhs) noexcept;
 
   // Populates a CompromisedInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -455,15 +438,12 @@ struct CompromisedInfo {
   // Creates a deep copy of CompromisedInfo.
   CompromisedInfo Clone() const;
 
-  // Creates a CompromisedInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CompromisedInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a CompromisedInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CompromisedInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<CompromisedInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a CompromisedInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<CompromisedInfo> FromValue(const base::Value& value);
+  static std::optional<CompromisedInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCompromisedInfo object.
@@ -492,8 +472,8 @@ struct DomainInfo {
   ~DomainInfo();
   DomainInfo(const DomainInfo&) = delete;
   DomainInfo& operator=(const DomainInfo&) = delete;
-  DomainInfo(DomainInfo&& rhs);
-  DomainInfo& operator=(DomainInfo&& rhs);
+  DomainInfo(DomainInfo&& rhs) noexcept;
+  DomainInfo& operator=(DomainInfo&& rhs) noexcept;
 
   // Populates a DomainInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -506,15 +486,12 @@ struct DomainInfo {
   // Creates a deep copy of DomainInfo.
   DomainInfo Clone() const;
 
-  // Creates a DomainInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DomainInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DomainInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DomainInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DomainInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DomainInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DomainInfo> FromValue(const base::Value& value);
+  static std::optional<DomainInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDomainInfo object.
@@ -537,8 +514,8 @@ struct PasswordUiEntry {
   ~PasswordUiEntry();
   PasswordUiEntry(const PasswordUiEntry&) = delete;
   PasswordUiEntry& operator=(const PasswordUiEntry&) = delete;
-  PasswordUiEntry(PasswordUiEntry&& rhs);
-  PasswordUiEntry& operator=(PasswordUiEntry&& rhs);
+  PasswordUiEntry(PasswordUiEntry&& rhs) noexcept;
+  PasswordUiEntry& operator=(PasswordUiEntry&& rhs) noexcept;
 
   // Populates a PasswordUiEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -551,15 +528,12 @@ struct PasswordUiEntry {
   // Creates a deep copy of PasswordUiEntry.
   PasswordUiEntry Clone() const;
 
-  // Creates a PasswordUiEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PasswordUiEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a PasswordUiEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PasswordUiEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<PasswordUiEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a PasswordUiEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<PasswordUiEntry> FromValue(const base::Value& value);
+  static std::optional<PasswordUiEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPasswordUiEntry object.
@@ -572,14 +546,14 @@ struct PasswordUiEntry {
   std::string username;
 
   // If this is a passkey, the user's display name. Empty otherwise.
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // The password of the credential. Empty by default, only set if explicitly
   // requested.
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
   // Text shown if the password was obtained via a federated identity.
-  absl::optional<std::string> federation_text;
+  std::optional<std::string> federation_text;
 
   // An index to refer back to a unique password entry record.
   int id;
@@ -591,14 +565,14 @@ struct PasswordUiEntry {
   bool is_passkey;
 
   // The value of the attached note.
-  absl::optional<std::string> note;
+  std::optional<std::string> note;
 
   // The URL where the insecure password can be changed. Might be not set for
   // Android apps.
-  absl::optional<std::string> change_password_url;
+  std::optional<std::string> change_password_url;
 
   // Additional information in case a credential is compromised.
-  absl::optional<CompromisedInfo> compromised_info;
+  std::optional<CompromisedInfo> compromised_info;
 
 };
 
@@ -607,8 +581,8 @@ struct CredentialGroup {
   ~CredentialGroup();
   CredentialGroup(const CredentialGroup&) = delete;
   CredentialGroup& operator=(const CredentialGroup&) = delete;
-  CredentialGroup(CredentialGroup&& rhs);
-  CredentialGroup& operator=(CredentialGroup&& rhs);
+  CredentialGroup(CredentialGroup&& rhs) noexcept;
+  CredentialGroup& operator=(CredentialGroup&& rhs) noexcept;
 
   // Populates a CredentialGroup object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -621,15 +595,12 @@ struct CredentialGroup {
   // Creates a deep copy of CredentialGroup.
   CredentialGroup Clone() const;
 
-  // Creates a CredentialGroup object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CredentialGroup> FromValueDeprecated(const base::Value& value);
-
   // Creates a CredentialGroup object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CredentialGroup> FromValue(const base::Value::Dict& value);
+  static std::optional<CredentialGroup> FromValue(const base::Value::Dict& value);
 
   // Creates a CredentialGroup object from a base::Value, or nullopt on failure.
-  static absl::optional<CredentialGroup> FromValue(const base::Value& value);
+  static std::optional<CredentialGroup> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCredentialGroup object.
@@ -651,8 +622,8 @@ struct ExceptionEntry {
   ~ExceptionEntry();
   ExceptionEntry(const ExceptionEntry&) = delete;
   ExceptionEntry& operator=(const ExceptionEntry&) = delete;
-  ExceptionEntry(ExceptionEntry&& rhs);
-  ExceptionEntry& operator=(ExceptionEntry&& rhs);
+  ExceptionEntry(ExceptionEntry&& rhs) noexcept;
+  ExceptionEntry& operator=(ExceptionEntry&& rhs) noexcept;
 
   // Populates a ExceptionEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -665,15 +636,12 @@ struct ExceptionEntry {
   // Creates a deep copy of ExceptionEntry.
   ExceptionEntry Clone() const;
 
-  // Creates a ExceptionEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExceptionEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExceptionEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExceptionEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<ExceptionEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a ExceptionEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<ExceptionEntry> FromValue(const base::Value& value);
+  static std::optional<ExceptionEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExceptionEntry object.
@@ -692,8 +660,8 @@ struct PasswordExportProgress {
   ~PasswordExportProgress();
   PasswordExportProgress(const PasswordExportProgress&) = delete;
   PasswordExportProgress& operator=(const PasswordExportProgress&) = delete;
-  PasswordExportProgress(PasswordExportProgress&& rhs);
-  PasswordExportProgress& operator=(PasswordExportProgress&& rhs);
+  PasswordExportProgress(PasswordExportProgress&& rhs) noexcept;
+  PasswordExportProgress& operator=(PasswordExportProgress&& rhs) noexcept;
 
   // Populates a PasswordExportProgress object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -706,17 +674,13 @@ struct PasswordExportProgress {
   // Creates a deep copy of PasswordExportProgress.
   PasswordExportProgress Clone() const;
 
-  // Creates a PasswordExportProgress object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PasswordExportProgress> FromValueDeprecated(const base::Value& value);
-
   // Creates a PasswordExportProgress object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<PasswordExportProgress> FromValue(const base::Value::Dict& value);
+  static std::optional<PasswordExportProgress> FromValue(const base::Value::Dict& value);
 
   // Creates a PasswordExportProgress object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PasswordExportProgress> FromValue(const base::Value& value);
+  static std::optional<PasswordExportProgress> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPasswordExportProgress object.
@@ -727,11 +691,11 @@ struct PasswordExportProgress {
 
   // If |status| is $ref(ExportProgressStatus.SUCCEEDED), this will be the full
   // path of the written file.
-  absl::optional<std::string> file_path;
+  std::optional<std::string> file_path;
 
   // If |status| is $ref(ExportProgressStatus.FAILED_WRITE_FAILED), this will be
   // the name of the selected folder to export to.
-  absl::optional<std::string> folder_name;
+  std::optional<std::string> folder_name;
 
 };
 
@@ -740,8 +704,8 @@ struct PasswordCheckStatus {
   ~PasswordCheckStatus();
   PasswordCheckStatus(const PasswordCheckStatus&) = delete;
   PasswordCheckStatus& operator=(const PasswordCheckStatus&) = delete;
-  PasswordCheckStatus(PasswordCheckStatus&& rhs);
-  PasswordCheckStatus& operator=(PasswordCheckStatus&& rhs);
+  PasswordCheckStatus(PasswordCheckStatus&& rhs) noexcept;
+  PasswordCheckStatus& operator=(PasswordCheckStatus&& rhs) noexcept;
 
   // Populates a PasswordCheckStatus object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -754,17 +718,13 @@ struct PasswordCheckStatus {
   // Creates a deep copy of PasswordCheckStatus.
   PasswordCheckStatus Clone() const;
 
-  // Creates a PasswordCheckStatus object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PasswordCheckStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a PasswordCheckStatus object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<PasswordCheckStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<PasswordCheckStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a PasswordCheckStatus object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PasswordCheckStatus> FromValue(const base::Value& value);
+  static std::optional<PasswordCheckStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPasswordCheckStatus object.
@@ -774,20 +734,20 @@ struct PasswordCheckStatus {
   PasswordCheckState state;
 
   // Total number of saved passwords.
-  absl::optional<int> total_number_of_passwords;
+  std::optional<int> total_number_of_passwords;
 
   // How many passwords have already been processed. Populated if and only if the
   // password check is currently running.
-  absl::optional<int> already_processed;
+  std::optional<int> already_processed;
 
   // How many passwords are remaining in the queue. Populated if and only if the
   // password check is currently running.
-  absl::optional<int> remaining_in_queue;
+  std::optional<int> remaining_in_queue;
 
   // The elapsed time since the last full password check was performed. This is
   // passed as a string, since JavaScript lacks the required formatting APIs. If
   // no check has been performed yet this is not set.
-  absl::optional<std::string> elapsed_time_since_last_check;
+  std::optional<std::string> elapsed_time_since_last_check;
 
 };
 
@@ -796,8 +756,8 @@ struct AddPasswordOptions {
   ~AddPasswordOptions();
   AddPasswordOptions(const AddPasswordOptions&) = delete;
   AddPasswordOptions& operator=(const AddPasswordOptions&) = delete;
-  AddPasswordOptions(AddPasswordOptions&& rhs);
-  AddPasswordOptions& operator=(AddPasswordOptions&& rhs);
+  AddPasswordOptions(AddPasswordOptions&& rhs) noexcept;
+  AddPasswordOptions& operator=(AddPasswordOptions&& rhs) noexcept;
 
   // Populates a AddPasswordOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -810,16 +770,13 @@ struct AddPasswordOptions {
   // Creates a deep copy of AddPasswordOptions.
   AddPasswordOptions Clone() const;
 
-  // Creates a AddPasswordOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddPasswordOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddPasswordOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddPasswordOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AddPasswordOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AddPasswordOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddPasswordOptions> FromValue(const base::Value& value);
+  static std::optional<AddPasswordOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddPasswordOptions object.
@@ -847,8 +804,8 @@ struct PasswordUiEntryList {
   ~PasswordUiEntryList();
   PasswordUiEntryList(const PasswordUiEntryList&) = delete;
   PasswordUiEntryList& operator=(const PasswordUiEntryList&) = delete;
-  PasswordUiEntryList(PasswordUiEntryList&& rhs);
-  PasswordUiEntryList& operator=(PasswordUiEntryList&& rhs);
+  PasswordUiEntryList(PasswordUiEntryList&& rhs) noexcept;
+  PasswordUiEntryList& operator=(PasswordUiEntryList&& rhs) noexcept;
 
   // Populates a PasswordUiEntryList object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -861,17 +818,13 @@ struct PasswordUiEntryList {
   // Creates a deep copy of PasswordUiEntryList.
   PasswordUiEntryList Clone() const;
 
-  // Creates a PasswordUiEntryList object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PasswordUiEntryList> FromValueDeprecated(const base::Value& value);
-
   // Creates a PasswordUiEntryList object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<PasswordUiEntryList> FromValue(const base::Value::Dict& value);
+  static std::optional<PasswordUiEntryList> FromValue(const base::Value::Dict& value);
 
   // Creates a PasswordUiEntryList object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PasswordUiEntryList> FromValue(const base::Value& value);
+  static std::optional<PasswordUiEntryList> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPasswordUiEntryList object.
@@ -893,11 +846,11 @@ namespace RecordPasswordsPageAccessInSettings {
 namespace ChangeCredential {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The credential to update. This will be matched to the existing credential by
@@ -919,11 +872,11 @@ base::Value::List Create();
 namespace RemoveCredential {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id for the credential being removed.
@@ -942,11 +895,11 @@ struct Params {
 namespace RemovePasswordException {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id for the exception url entry is being removed.
@@ -966,11 +919,11 @@ namespace UndoRemoveSavedPasswordOrException {
 namespace RequestPlaintextPassword {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id for the password entry being being retrieved.
@@ -994,11 +947,11 @@ base::Value::List Create(const std::string& password);
 namespace RequestCredentialsDetails {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Ids for the password entries being retrieved.
@@ -1046,11 +999,11 @@ base::Value::List Create(const std::vector<ExceptionEntry>& exceptions);
 namespace MovePasswordsToAccount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ids for the password entries being moved.
@@ -1075,11 +1028,11 @@ base::Value::List Create(const FamilyFetchResults& results);
 namespace SharePassword {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The id of the password entry to be shared.
@@ -1103,11 +1056,11 @@ base::Value::List Create();
 namespace ImportPasswords {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   PasswordStoreSet to_store;
@@ -1127,11 +1080,11 @@ base::Value::List Create(const ImportResults& results);
 namespace ContinueImport {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ids of passwords that need to be replaced.
@@ -1152,11 +1105,11 @@ base::Value::List Create(const ImportResults& results);
 namespace ResetImporter {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Whether to trigger deletion of the last imported file.
@@ -1204,11 +1157,11 @@ base::Value::List Create(bool opted_in);
 namespace OptInForAccountStorage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool opt_in;
@@ -1241,11 +1194,11 @@ base::Value::List Create(const std::vector<PasswordUiEntryList>& entries);
 namespace MuteInsecureCredential {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   PasswordUiEntry credential;
@@ -1265,11 +1218,11 @@ base::Value::List Create();
 namespace UnmuteInsecureCredential {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   PasswordUiEntry credential;
@@ -1316,11 +1269,11 @@ base::Value::List Create(bool is_default);
 namespace GetUrlCollection {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -1340,11 +1293,11 @@ base::Value::List Create(const UrlCollection& url_collection);
 namespace AddPassword {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Details about a new password and storage to be used.
@@ -1382,11 +1335,11 @@ namespace ShowAddShortcutDialog {
 namespace ShowExportedFileInShell {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string file_path;

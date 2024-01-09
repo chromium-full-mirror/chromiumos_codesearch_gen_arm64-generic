@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, OfflineAudioContext>::value,
     "OfflineAudioContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&OfflineAudioContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OfflineAudioContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("OfflineAudioContext.oncomplete.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncomplete();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncomplete();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,8 +102,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncomplete(event_handler);
 }
 
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("OfflineAudioContext.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -257,7 +254,7 @@ UseCounter::Count(current_execution_context, WebFeature::kOfflineAudioContextRes
 
 
 
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -297,7 +294,7 @@ UseCounter::Count(current_execution_context, WebFeature::kOfflineAudioContextSta
 
 
 
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -339,7 +336,7 @@ return;
 
 
 
-OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(v8_receiver);
+OfflineAudioContext* blink_receiver = V8OfflineAudioContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

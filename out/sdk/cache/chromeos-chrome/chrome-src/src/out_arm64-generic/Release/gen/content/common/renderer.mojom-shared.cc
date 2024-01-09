@@ -528,6 +528,29 @@ Renderer_SetProcessState_Params_Data::Renderer_SetProcessState_Params_Data()
 
 
 // static
+bool Renderer_SetBatterySaverMode_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Renderer_SetBatterySaverMode_Params_Data* object =
+      static_cast<const Renderer_SetBatterySaverMode_Params_Data*>(data);
+
+  return true;
+}
+
+Renderer_SetBatterySaverMode_Params_Data::Renderer_SetBatterySaverMode_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Renderer_SetIsLockedToSite_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -626,7 +649,7 @@ bool Renderer_InitializeRenderer_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -664,11 +687,6 @@ bool Renderer_InitializeRenderer_Params_Data::Validate(
     return false;
   }
 
-
-  if (!::network::mojom::internal::AttributionSupport_Data
-        ::Validate(object->attribution_support, validation_context))
-    return false;
-
   if (!mojo::internal::ValidateStruct(object->origin_trials_settings, validation_context))
     return false;
 
@@ -676,34 +694,6 @@ bool Renderer_InitializeRenderer_Params_Data::Validate(
 }
 
 Renderer_InitializeRenderer_Params_Data::Renderer_InitializeRenderer_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Renderer_SetAttributionReportingSupport_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Renderer_SetAttributionReportingSupport_Params_Data* object =
-      static_cast<const Renderer_SetAttributionReportingSupport_Params_Data*>(data);
-
-
-  if (!::network::mojom::internal::AttributionSupport_Data
-        ::Validate(object->attribution_support, validation_context))
-    return false;
-
-  return true;
-}
-
-Renderer_SetAttributionReportingSupport_Params_Data::Renderer_SetAttributionReportingSupport_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

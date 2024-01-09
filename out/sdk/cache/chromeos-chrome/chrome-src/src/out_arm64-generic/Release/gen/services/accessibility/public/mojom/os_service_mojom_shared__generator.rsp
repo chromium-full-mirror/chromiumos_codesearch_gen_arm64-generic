@@ -2,4 +2,5 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/file_loader.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/speech_recognition.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/tts.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/user_input.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/user_interface.mojom

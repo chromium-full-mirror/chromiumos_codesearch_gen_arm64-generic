@@ -29,12 +29,9 @@ build install_services: phony obj/system-proxy/install_services.stamp
 build libsystemproxy: phony ./libsystemproxy.a
 build libsystemproxyworker: phony ./libsystemproxyworker.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build worker-protos: phony ./libworker-protos.a
 build worker-protos_gen: phony obj/system-proxy/worker-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build system-proxy$:_system_proxy-install_config: phony obj/system-proxy/_system_proxy-install_config.stamp
 build system-proxy$:_system_proxy_worker-install_config: phony obj/system-proxy/_system_proxy_worker-install_config.stamp
 build system-proxy$:all: phony obj/system-proxy/all.stamp
@@ -46,7 +43,6 @@ build system-proxy$:install_policy: phony obj/system-proxy/install_policy.stamp
 build system-proxy$:install_services: phony obj/system-proxy/install_services.stamp
 build system-proxy$:libsystemproxy: phony ./libsystemproxy.a
 build system-proxy$:libsystemproxyworker: phony ./libsystemproxyworker.a
-build system-proxy$:system-proxy_test: phony ./system-proxy_test
 build system-proxy$:system_proxy: phony ./system_proxy
 build system-proxy$:system_proxy_worker: phony ./system_proxy_worker
 build system-proxy$:worker-protos: phony ./libworker-protos.a
@@ -54,7 +50,6 @@ build system-proxy$:worker-protos_gen: phony obj/system-proxy/worker-protos_gen.
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/system-proxy/_system_proxy-install_config.stamp $
     obj/system-proxy/_system_proxy_worker-install_config.stamp $
     obj/system-proxy/all.stamp $
@@ -66,7 +61,6 @@ build all: phony $
     obj/system-proxy/install_services.stamp $
     ./libsystemproxy.a $
     ./libsystemproxyworker.a $
-    ./system-proxy_test $
     ./system_proxy $
     ./system_proxy_worker $
     ./libworker-protos.a $

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/public/mojom/user_interface.mojom-features.h"
 #include "services/accessibility/public/mojom/user_interface.mojom-shared.h"
 #include "services/accessibility/public/mojom/user_interface.mojom-forward.h"
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-forward.h"
@@ -47,6 +48,7 @@ template <typename ImplRefTraits>
 class UserInterfaceStub;
 
 class UserInterfaceRequestValidator;
+class UserInterfaceResponseValidator;
 
 
 class UserInterface
@@ -68,10 +70,11 @@ class UserInterface
   using Stub_ = UserInterfaceStub<ImplRefTraits>;
 
   using RequestValidator_ = UserInterfaceRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = UserInterfaceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kDarkenScreenMinVersion = 0,
     kOpenSettingsSubpageMinVersion = 0,
+    kShowConfirmationDialogMinVersion = 0,
     kSetFocusRingsMinVersion = 0,
     kSetHighlightsMinVersion = 0,
     kSetVirtualKeyboardVisibleMinVersion = 0,
@@ -84,6 +87,9 @@ class UserInterface
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OpenSettingsSubpage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ShowConfirmationDialog_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetFocusRings_Sym {
@@ -103,6 +109,11 @@ class UserInterface
 
   
   virtual void OpenSettingsSubpage(const std::string& subpage) = 0;
+
+
+  using ShowConfirmationDialogCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void ShowConfirmationDialog(const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, ShowConfirmationDialogCallback callback) = 0;
 
   
   virtual void SetFocusRings(std::vector<FocusRingInfoPtr> focus_rings, ::ax::mojom::AssistiveTechnologyType at_type) = 0;
@@ -126,6 +137,8 @@ class  UserInterfaceProxy
   void DarkenScreen(bool darken) final;
   
   void OpenSettingsSubpage(const std::string& subpage) final;
+  
+  void ShowConfirmationDialog(const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, ShowConfirmationDialogCallback callback) final;
   
   void SetFocusRings(std::vector<FocusRingInfoPtr> focus_rings, ::ax::mojom::AssistiveTechnologyType at_type) final;
   
@@ -181,6 +194,10 @@ class  UserInterfaceRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  UserInterfaceResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 
 
 
@@ -218,11 +235,11 @@ class  FocusRingInfo {
   FocusRingInfo(
       std::vector<::gfx::Rect> rects,
       FocusType type,
-      absl::optional<::SkColor> color,
-      absl::optional<::SkColor> secondary_color,
-      absl::optional<::SkColor> background_color,
-      absl::optional<FocusRingStackingOrder> stacking_order,
-      const absl::optional<std::string>& id);
+      std::optional<::SkColor> color,
+      std::optional<::SkColor> secondary_color,
+      std::optional<::SkColor> background_color,
+      std::optional<FocusRingStackingOrder> stacking_order,
+      const std::optional<std::string>& id);
 
 
   ~FocusRingInfo();
@@ -304,15 +321,15 @@ class  FocusRingInfo {
   
   FocusType type;
   
-  absl::optional<::SkColor> color;
+  std::optional<::SkColor> color;
   
-  absl::optional<::SkColor> secondary_color;
+  std::optional<::SkColor> secondary_color;
   
-  absl::optional<::SkColor> background_color;
+  std::optional<::SkColor> background_color;
   
-  absl::optional<FocusRingStackingOrder> stacking_order;
+  std::optional<FocusRingStackingOrder> stacking_order;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

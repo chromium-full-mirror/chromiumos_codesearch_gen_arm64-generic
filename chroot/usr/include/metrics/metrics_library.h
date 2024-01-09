@@ -11,15 +11,15 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 
 #include <base/compiler_specific.h>
 #include <base/files/file_path.h>
 #include <base/memory/scoped_refptr.h>
-#include <base/strings/string_piece.h>
 #include <base/time/time.h>
+#include <policy/libpolicy.h>
 
 #include "metrics/metrics_writer.h"
-#include "policy/libpolicy.h"
 
 class MetricsLibraryInterface {
  public:
@@ -155,12 +155,21 @@ class MetricsLibrary : public MetricsLibraryInterface {
   ~MetricsLibrary() override;
 
   // Returns whether or not the machine is running in guest mode.
+  // NOTE: If sandboxing, please also check that the necessary paths have the
+  // proper permissions:
+  // https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/metrics/README.md#required-paths-and-permissions-for-sandboxing.
   bool IsGuestMode() override;
 
   // Returns whether or not metrics collection is enabled.
+  // NOTE: If sandboxing, please also check that the necessary paths have the
+  // proper permissions:
+  // https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/metrics/README.md#required-paths-and-permissions-for-sandboxing.
   bool AreMetricsEnabled() override;
 
   // Returns where or not users have opted in to AppSync.
+  // NOTE: If sandboxing, please also check that the necessary paths have the
+  // proper permissions:
+  // https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/metrics/README.md#required-paths-and-permissions-for-sandboxing.
   bool IsAppSyncEnabled() override;
 
   // Chrome normally manages Enable/Disable state. These functions are
@@ -170,9 +179,15 @@ class MetricsLibrary : public MetricsLibraryInterface {
   // (e.g. cloud service or directly from a smart phone app).
   //
   // Enable metrics by creating and populating the Consent file.
+  // NOTE: If sandboxing, please also check that the necessary paths have the
+  // proper permissions:
+  // https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/metrics/README.md#required-paths-and-permissions-for-sandboxing.
   bool EnableMetrics();
 
   // Disable metrics by deleting the Consent file.
+  // NOTE: If sandboxing, please also check that the necessary paths have the
+  // proper permissions:
+  // https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/metrics/README.md#required-paths-and-permissions-for-sandboxing.
   bool DisableMetrics();
 
   // Look up the consent id for metrics reporting.

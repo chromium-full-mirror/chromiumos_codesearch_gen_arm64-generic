@@ -34,28 +34,20 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/init/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/init/all.stamp: stamp ./chromeos_startup ./clobber-state ./cros_sysrq_init ./file_attrs_cleaner_tool ./net_poll_tool ./periodic_scheduler ./process_killer ./static_node_tool ./usermode-helper obj/init/usr_share_cros_init_scripts.stamp ./chromeos_startup_test ./clobber_state_test ./file_attrs_cleaner_test ./periodic_scheduler_test ./process_killer_test ./usermode-helper_test ./utils_test
+build obj/init/all.stamp: stamp ./chromeos_startup ./clobber-state ./cros_sysrq_init ./file_attrs_cleaner_tool ./net_poll_tool ./periodic_scheduler ./process_killer ./static_node_tool ./usermode-helper obj/init/usr_share_cros_init_scripts.stamp
 subninja obj/init/chromeos_startup.ninja
-subninja obj/init/chromeos_startup_test.ninja
 subninja obj/init/clobber-state.ninja
-subninja obj/init/clobber_state_test.ninja
 subninja obj/init/cros_sysrq_init.ninja
 subninja obj/init/file_attrs_cleaner_lib.ninja
-subninja obj/init/file_attrs_cleaner_test.ninja
 subninja obj/init/file_attrs_cleaner_tool.ninja
 subninja obj/init/libclobber.ninja
 subninja obj/init/libcrosstartup.ninja
 subninja obj/init/net_poll_tool.ninja
 subninja obj/init/periodic_scheduler.ninja
-subninja obj/init/periodic_scheduler_test.ninja
 subninja obj/init/process_killer.ninja
 subninja obj/init/process_killer_lib.ninja
-subninja obj/init/process_killer_test.ninja
 subninja obj/init/static_node_tool.ninja
 subninja obj/init/usermode-helper.ninja
 subninja obj/init/usermode-helper_lib.ninja
-subninja obj/init/usermode-helper_test.ninja
 build obj/init/usr_share_cros_init_scripts.stamp: stamp
 subninja obj/init/utils.ninja
-subninja obj/init/utils_test.ninja

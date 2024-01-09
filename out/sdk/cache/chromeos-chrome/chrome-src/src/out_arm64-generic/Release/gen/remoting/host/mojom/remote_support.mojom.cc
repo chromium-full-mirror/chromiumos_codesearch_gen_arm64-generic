@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -128,7 +129,7 @@ SupportSessionParams::SupportSessionParams(
     bool suppress_notifications_in,
     bool terminate_upon_input_in,
     bool curtain_local_user_session_in,
-    const absl::optional<std::string>& authorized_helper_in)
+    const std::optional<std::string>& authorized_helper_in)
     : user_name(std::move(user_name_in)),
       oauth_access_token(std::move(oauth_access_token_in)),
       suppress_user_dialogs(std::move(suppress_user_dialogs_in)),
@@ -200,7 +201,7 @@ void SupportSessionParams::WriteIntoTrace(
     dict.AddItem(
       "authorized_helper"), this->authorized_helper,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -549,14 +550,17 @@ void SupportHostObserverProxy::OnHostStateStarting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::SupportHostObserver::OnHostStateStarting");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateStarting_Name, kFlags, 0, 0, nullptr);
@@ -579,14 +583,17 @@ void SupportHostObserverProxy::OnHostStateRequestedAccessCode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::SupportHostObserver::OnHostStateRequestedAccessCode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateRequestedAccessCode_Name, kFlags, 0, 0, nullptr);
@@ -619,14 +626,17 @@ void SupportHostObserverProxy::OnHostStateReceivedAccessCode(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateReceivedAccessCode_Name, kFlags, 0, 0, nullptr);
@@ -671,14 +681,17 @@ void SupportHostObserverProxy::OnHostStateConnecting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::SupportHostObserver::OnHostStateConnecting");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateConnecting_Name, kFlags, 0, 0, nullptr);
@@ -708,14 +721,17 @@ void SupportHostObserverProxy::OnHostStateConnected(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateConnected_Name, kFlags, 0, 0, nullptr);
@@ -745,7 +761,7 @@ void SupportHostObserverProxy::OnHostStateConnected(
 }
 
 void SupportHostObserverProxy::OnHostStateDisconnected(
-    const absl::optional<std::string>& in_disconnect_reason) {
+    const std::optional<std::string>& in_disconnect_reason) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send remoting::mojom::SupportHostObserver::OnHostStateDisconnected", "input_parameters",
@@ -753,17 +769,20 @@ void SupportHostObserverProxy::OnHostStateDisconnected(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("disconnect_reason"), in_disconnect_reason,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -800,14 +819,17 @@ void SupportHostObserverProxy::OnNatPolicyChanged(
                         "<value of type NatPolicyStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnNatPolicyChanged_Name, kFlags, 0, 0, nullptr);
@@ -848,14 +870,17 @@ void SupportHostObserverProxy::OnHostStateError(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnHostStateError_Name, kFlags, 0, 0, nullptr);
@@ -879,14 +904,17 @@ void SupportHostObserverProxy::OnPolicyError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::SupportHostObserver::OnPolicyError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnPolicyError_Name, kFlags, 0, 0, nullptr);
@@ -909,14 +937,17 @@ void SupportHostObserverProxy::OnInvalidDomainError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::SupportHostObserver::OnInvalidDomainError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSupportHostObserver_OnInvalidDomainError_Name, kFlags, 0, 0, nullptr);
@@ -1069,7 +1100,7 @@ std::move(p_remote_username));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_disconnect_reason{};
+      std::optional<std::string> p_disconnect_reason{};
       SupportHostObserver_OnHostStateDisconnected_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDisconnectReason(&p_disconnect_reason))
@@ -1229,29 +1260,29 @@ bool SupportHostObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSupportHostObserverValidationInfo[] = {
-    {&internal::SupportHostObserver_OnHostStateStarting_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateStarting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnHostStateRequestedAccessCode_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateRequestedAccessCode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnHostStateReceivedAccessCode_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateReceivedAccessCode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnHostStateConnecting_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateConnecting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnHostStateConnected_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateConnected_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::SupportHostObserver_OnHostStateDisconnected_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateDisconnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnNatPolicyChanged_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnNatPolicyChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnHostStateError_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnHostStateError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnPolicyError_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnPolicyError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SupportHostObserver_OnInvalidDomainError_Params_Data::Validate,
+    { &internal::SupportHostObserver_OnInvalidDomainError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1378,7 +1409,7 @@ void SupportHostObserverInterceptorForTesting::OnHostStateConnecting() {
 void SupportHostObserverInterceptorForTesting::OnHostStateConnected(const std::string& remote_username) {
   GetForwardingInterface()->OnHostStateConnected(std::move(remote_username));
 }
-void SupportHostObserverInterceptorForTesting::OnHostStateDisconnected(const absl::optional<std::string>& disconnect_reason) {
+void SupportHostObserverInterceptorForTesting::OnHostStateDisconnected(const std::optional<std::string>& disconnect_reason) {
   GetForwardingInterface()->OnHostStateDisconnected(std::move(disconnect_reason));
 }
 void SupportHostObserverInterceptorForTesting::OnNatPolicyChanged(NatPolicyStatePtr nat_policy_state) {

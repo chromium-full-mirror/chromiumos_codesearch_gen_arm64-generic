@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/desk_api/tsconfig_base.json",
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "tsc",

@@ -4,28 +4,9 @@
 /**
  * @fileoverview Helpers for APIs used within Files app.
  */
-import '../../externs/files_app_entry_interfaces.js';
+import { FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 import { unwrapEntry } from './entry_utils.js';
-/**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
- */
-export async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
-            }
-            else {
-                resolve(result);
-            }
-        };
-        fn(...args, callback);
-    });
-}
+import { promisify } from './util.js';
 /**
  * Opens a new window for Files SWA.
  */
@@ -205,4 +186,10 @@ export async function getDriveConnectionState() {
 }
 export async function grantAccess(entries) {
     return promisify(chrome.fileManagerPrivate.grantAccess, entries);
+}
+export async function getContentMimeType(fileEntry) {
+    return promisify(chrome.fileManagerPrivate.getContentMimeType, fileEntry);
+}
+export async function getContentMetadata(fileEntry, mimeType, includeImages) {
+    return promisify(chrome.fileManagerPrivate.getContentMetadata, fileEntry, mimeType, includeImages);
 }

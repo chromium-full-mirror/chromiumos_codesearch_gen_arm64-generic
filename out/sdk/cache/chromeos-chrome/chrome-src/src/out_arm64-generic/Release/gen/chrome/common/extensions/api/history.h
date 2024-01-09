@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -31,20 +32,20 @@ namespace history {
 
 // The <a href='#transition_types'>transition type</a> for this visit from its
 // referrer.
-enum  TransitionType {
-  TRANSITION_TYPE_NONE = 0,
-  TRANSITION_TYPE_LINK,
-  TRANSITION_TYPE_TYPED,
-  TRANSITION_TYPE_AUTO_BOOKMARK,
-  TRANSITION_TYPE_AUTO_SUBFRAME,
-  TRANSITION_TYPE_MANUAL_SUBFRAME,
-  TRANSITION_TYPE_GENERATED,
-  TRANSITION_TYPE_AUTO_TOPLEVEL,
-  TRANSITION_TYPE_FORM_SUBMIT,
-  TRANSITION_TYPE_RELOAD,
-  TRANSITION_TYPE_KEYWORD,
-  TRANSITION_TYPE_KEYWORD_GENERATED,
-  TRANSITION_TYPE_LAST = TRANSITION_TYPE_KEYWORD_GENERATED,
+enum class TransitionType {
+  kNone = 0,
+  kLink,
+  kTyped,
+  kAutoBookmark,
+  kAutoSubframe,
+  kManualSubframe,
+  kGenerated,
+  kAutoToplevel,
+  kFormSubmit,
+  kReload,
+  kKeyword,
+  kKeywordGenerated,
+  kMaxValue = kKeywordGenerated,
 };
 
 
@@ -58,8 +59,8 @@ struct HistoryItem {
   ~HistoryItem();
   HistoryItem(const HistoryItem&) = delete;
   HistoryItem& operator=(const HistoryItem&) = delete;
-  HistoryItem(HistoryItem&& rhs);
-  HistoryItem& operator=(HistoryItem&& rhs);
+  HistoryItem(HistoryItem&& rhs) noexcept;
+  HistoryItem& operator=(HistoryItem&& rhs) noexcept;
 
   // Populates a HistoryItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -72,15 +73,12 @@ struct HistoryItem {
   // Creates a deep copy of HistoryItem.
   HistoryItem Clone() const;
 
-  // Creates a HistoryItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HistoryItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a HistoryItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HistoryItem> FromValue(const base::Value::Dict& value);
+  static std::optional<HistoryItem> FromValue(const base::Value::Dict& value);
 
   // Creates a HistoryItem object from a base::Value, or nullopt on failure.
-  static absl::optional<HistoryItem> FromValue(const base::Value& value);
+  static std::optional<HistoryItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHistoryItem object.
@@ -90,20 +88,20 @@ struct HistoryItem {
   std::string id;
 
   // The URL navigated to by a user.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The title of the page when it was last loaded.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // When this page was last loaded, represented in milliseconds since the epoch.
-  absl::optional<double> last_visit_time;
+  std::optional<double> last_visit_time;
 
   // The number of times the user has navigated to this page.
-  absl::optional<int> visit_count;
+  std::optional<int> visit_count;
 
   // The number of times the user has navigated to this page by typing in the
   // address.
-  absl::optional<int> typed_count;
+  std::optional<int> typed_count;
 
 };
 
@@ -113,8 +111,8 @@ struct VisitItem {
   ~VisitItem();
   VisitItem(const VisitItem&) = delete;
   VisitItem& operator=(const VisitItem&) = delete;
-  VisitItem(VisitItem&& rhs);
-  VisitItem& operator=(VisitItem&& rhs);
+  VisitItem(VisitItem&& rhs) noexcept;
+  VisitItem& operator=(VisitItem&& rhs) noexcept;
 
   // Populates a VisitItem object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -127,14 +125,11 @@ struct VisitItem {
   // Creates a deep copy of VisitItem.
   VisitItem Clone() const;
 
-  // Creates a VisitItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VisitItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a VisitItem object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<VisitItem> FromValue(const base::Value::Dict& value);
+  static std::optional<VisitItem> FromValue(const base::Value::Dict& value);
 
   // Creates a VisitItem object from a base::Value, or nullopt on failure.
-  static absl::optional<VisitItem> FromValue(const base::Value& value);
+  static std::optional<VisitItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVisitItem object.
@@ -147,7 +142,7 @@ struct VisitItem {
   std::string visit_id;
 
   // When this visit occurred, represented in milliseconds since the epoch.
-  absl::optional<double> visit_time;
+  std::optional<double> visit_time;
 
   // The visit ID of the referrer.
   std::string referring_visit_id;
@@ -167,8 +162,8 @@ struct UrlDetails {
   ~UrlDetails();
   UrlDetails(const UrlDetails&) = delete;
   UrlDetails& operator=(const UrlDetails&) = delete;
-  UrlDetails(UrlDetails&& rhs);
-  UrlDetails& operator=(UrlDetails&& rhs);
+  UrlDetails(UrlDetails&& rhs) noexcept;
+  UrlDetails& operator=(UrlDetails&& rhs) noexcept;
 
   // Populates a UrlDetails object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -181,15 +176,12 @@ struct UrlDetails {
   // Creates a deep copy of UrlDetails.
   UrlDetails Clone() const;
 
-  // Creates a UrlDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UrlDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a UrlDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UrlDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<UrlDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a UrlDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<UrlDetails> FromValue(const base::Value& value);
+  static std::optional<UrlDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUrlDetails object.
@@ -209,11 +201,11 @@ struct UrlDetails {
 namespace Search {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Query {
@@ -221,8 +213,8 @@ struct Params {
     ~Query();
     Query(const Query&) = delete;
     Query& operator=(const Query&) = delete;
-    Query(Query&& rhs);
-    Query& operator=(Query&& rhs);
+    Query(Query&& rhs) noexcept;
+    Query& operator=(Query&& rhs) noexcept;
 
     // Populates a Query object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -236,24 +228,24 @@ struct Params {
     Query Clone() const;
 
     // Creates a Query object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Query> FromValue(const base::Value::Dict& value);
+    static std::optional<Query> FromValue(const base::Value::Dict& value);
 
     // Creates a Query object from a base::Value, or nullopt on failure.
-    static absl::optional<Query> FromValue(const base::Value& value);
+    static std::optional<Query> FromValue(const base::Value& value);
 
     // A free-text query to the history service.  Leave empty to retrieve all pages.
     std::string text;
 
     // Limit results to those visited after this date, represented in milliseconds
     // since the epoch. If not specified, this defaults to 24 hours in the past.
-    absl::optional<double> start_time;
+    std::optional<double> start_time;
 
     // Limit results to those visited before this date, represented in milliseconds
     // since the epoch.
-    absl::optional<double> end_time;
+    std::optional<double> end_time;
 
     // The maximum number of results to retrieve.  Defaults to 100.
-    absl::optional<int> max_results;
+    std::optional<int> max_results;
 
   };
 
@@ -275,11 +267,11 @@ base::Value::List Create(const std::vector<HistoryItem>& results);
 namespace GetVisits {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UrlDetails details;
@@ -299,11 +291,11 @@ base::Value::List Create(const std::vector<VisitItem>& results);
 namespace AddUrl {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UrlDetails details;
@@ -323,11 +315,11 @@ base::Value::List Create();
 namespace DeleteUrl {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UrlDetails details;
@@ -347,11 +339,11 @@ base::Value::List Create();
 namespace DeleteRange {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Range {
@@ -359,8 +351,8 @@ struct Params {
     ~Range();
     Range(const Range&) = delete;
     Range& operator=(const Range&) = delete;
-    Range(Range&& rhs);
-    Range& operator=(Range&& rhs);
+    Range(Range&& rhs) noexcept;
+    Range& operator=(Range&& rhs) noexcept;
 
     // Populates a Range object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -374,10 +366,10 @@ struct Params {
     Range Clone() const;
 
     // Creates a Range object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Range> FromValue(const base::Value::Dict& value);
+    static std::optional<Range> FromValue(const base::Value::Dict& value);
 
     // Creates a Range object from a base::Value, or nullopt on failure.
-    static absl::optional<Range> FromValue(const base::Value& value);
+    static std::optional<Range> FromValue(const base::Value& value);
 
     // Items added to history after this date, represented in milliseconds since the
     // epoch.
@@ -433,8 +425,8 @@ struct Removed {
   ~Removed();
   Removed(const Removed&) = delete;
   Removed& operator=(const Removed&) = delete;
-  Removed(Removed&& rhs);
-  Removed& operator=(Removed&& rhs);
+  Removed(Removed&& rhs) noexcept;
+  Removed& operator=(Removed&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemoved object.
@@ -443,7 +435,7 @@ struct Removed {
   // True if all history was removed.  If true, then urls will be empty.
   bool all_history;
 
-  absl::optional<std::vector<std::string>> urls;
+  std::optional<std::vector<std::string>> urls;
 
 };
 

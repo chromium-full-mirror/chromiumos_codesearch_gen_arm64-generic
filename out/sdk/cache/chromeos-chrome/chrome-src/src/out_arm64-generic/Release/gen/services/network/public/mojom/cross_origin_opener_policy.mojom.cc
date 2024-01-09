@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -116,9 +117,9 @@ CrossOriginOpenerPolicy::CrossOriginOpenerPolicy()
 
 CrossOriginOpenerPolicy::CrossOriginOpenerPolicy(
     CrossOriginOpenerPolicyValue value_in,
-    const absl::optional<std::string>& reporting_endpoint_in,
+    const std::optional<std::string>& reporting_endpoint_in,
     CrossOriginOpenerPolicyValue report_only_value_in,
-    const absl::optional<std::string>& report_only_reporting_endpoint_in,
+    const std::optional<std::string>& report_only_reporting_endpoint_in,
     CrossOriginOpenerPolicyValue soap_by_default_value_in)
     : value(std::move(value_in)),
       reporting_endpoint(std::move(reporting_endpoint_in)),
@@ -144,7 +145,7 @@ void CrossOriginOpenerPolicy::WriteIntoTrace(
     dict.AddItem(
       "reporting_endpoint"), this->reporting_endpoint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,7 +163,7 @@ void CrossOriginOpenerPolicy::WriteIntoTrace(
     dict.AddItem(
       "report_only_reporting_endpoint"), this->report_only_reporting_endpoint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,14 +264,17 @@ void CrossOriginOpenerPolicyReporterProxy::QueueAccessReport(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrossOriginOpenerPolicyReporter_QueueAccessReport_Name, kFlags, 0, 0, nullptr);
@@ -385,10 +389,10 @@ bool CrossOriginOpenerPolicyReporterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrossOriginOpenerPolicyReporterValidationInfo[] = {
-    {&internal::CrossOriginOpenerPolicyReporter_QueueAccessReport_Params_Data::Validate,
+    { &internal::CrossOriginOpenerPolicyReporter_QueueAccessReport_Params_Data::Validate,
      nullptr /* no response */},
 };
 

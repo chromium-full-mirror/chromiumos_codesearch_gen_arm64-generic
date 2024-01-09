@@ -27,8 +27,8 @@ class PLATFORM_EXPORT HandwritingRecognizerAsyncWaiter {
 
   ~HandwritingRecognizerAsyncWaiter();
   void GetPrediction(
-      WTF::Vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, absl::optional<WTF::Vector<HandwritingPredictionPtr>>* out_prediction);
-  absl::optional<WTF::Vector<HandwritingPredictionPtr>> GetPrediction(WTF::Vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints);
+      WTF::Vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, std::optional<WTF::Vector<HandwritingPredictionPtr>>* out_prediction);
+  std::optional<WTF::Vector<HandwritingPredictionPtr>> GetPrediction(WTF::Vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints);
 
  private:
   HandwritingRecognizer* const proxy_;

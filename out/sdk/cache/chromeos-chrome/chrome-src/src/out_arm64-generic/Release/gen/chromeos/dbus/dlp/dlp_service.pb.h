@@ -70,6 +70,9 @@ extern FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
 class FileRestriction;
 struct FileRestrictionDefaultTypeInternal;
 extern FileRestrictionDefaultTypeInternal _FileRestriction_default_instance_;
+class GetDatabaseEntriesResponse;
+struct GetDatabaseEntriesResponseDefaultTypeInternal;
+extern GetDatabaseEntriesResponseDefaultTypeInternal _GetDatabaseEntriesResponse_default_instance_;
 class GetFilesSourcesRequest;
 struct GetFilesSourcesRequestDefaultTypeInternal;
 extern GetFilesSourcesRequestDefaultTypeInternal _GetFilesSourcesRequest_default_instance_;
@@ -111,6 +114,7 @@ template<> ::dlp::CheckFilesTransferResponse* Arena::CreateMaybeMessage<::dlp::C
 template<> ::dlp::DlpFilesRule* Arena::CreateMaybeMessage<::dlp::DlpFilesRule>(Arena*);
 template<> ::dlp::FileMetadata* Arena::CreateMaybeMessage<::dlp::FileMetadata>(Arena*);
 template<> ::dlp::FileRestriction* Arena::CreateMaybeMessage<::dlp::FileRestriction>(Arena*);
+template<> ::dlp::GetDatabaseEntriesResponse* Arena::CreateMaybeMessage<::dlp::GetDatabaseEntriesResponse>(Arena*);
 template<> ::dlp::GetFilesSourcesRequest* Arena::CreateMaybeMessage<::dlp::GetFilesSourcesRequest>(Arena*);
 template<> ::dlp::GetFilesSourcesResponse* Arena::CreateMaybeMessage<::dlp::GetFilesSourcesResponse>(Arena*);
 template<> ::dlp::IsDlpPolicyMatchedRequest* Arena::CreateMaybeMessage<::dlp::IsDlpPolicyMatchedRequest>(Arena*);
@@ -3413,6 +3417,170 @@ class IsFilesTransferRestrictedResponse final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetDatabaseEntriesResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.GetDatabaseEntriesResponse) */ {
+ public:
+  inline GetDatabaseEntriesResponse() : GetDatabaseEntriesResponse(nullptr) {}
+  ~GetDatabaseEntriesResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetDatabaseEntriesResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetDatabaseEntriesResponse(const GetDatabaseEntriesResponse& from);
+  GetDatabaseEntriesResponse(GetDatabaseEntriesResponse&& from) noexcept
+    : GetDatabaseEntriesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetDatabaseEntriesResponse& operator=(const GetDatabaseEntriesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetDatabaseEntriesResponse& operator=(GetDatabaseEntriesResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GetDatabaseEntriesResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetDatabaseEntriesResponse* internal_default_instance() {
+    return reinterpret_cast<const GetDatabaseEntriesResponse*>(
+               &_GetDatabaseEntriesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  friend void swap(GetDatabaseEntriesResponse& a, GetDatabaseEntriesResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetDatabaseEntriesResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetDatabaseEntriesResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetDatabaseEntriesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetDatabaseEntriesResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetDatabaseEntriesResponse& from);
+  void MergeFrom(const GetDatabaseEntriesResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetDatabaseEntriesResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "dlp.GetDatabaseEntriesResponse";
+  }
+  protected:
+  explicit GetDatabaseEntriesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFilesEntriesFieldNumber = 2,
+    kErrorMessageFieldNumber = 1,
+  };
+  // repeated .dlp.FileMetadata files_entries = 2;
+  int files_entries_size() const;
+  private:
+  int _internal_files_entries_size() const;
+  public:
+  void clear_files_entries();
+  ::dlp::FileMetadata* mutable_files_entries(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
+      mutable_files_entries();
+  private:
+  const ::dlp::FileMetadata& _internal_files_entries(int index) const;
+  ::dlp::FileMetadata* _internal_add_files_entries();
+  public:
+  const ::dlp::FileMetadata& files_entries(int index) const;
+  ::dlp::FileMetadata* add_files_entries();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
+      files_entries() const;
+
+  // optional string error_message = 1;
+  bool has_error_message() const;
+  private:
+  bool _internal_has_error_message() const;
+  public:
+  void clear_error_message();
+  const std::string& error_message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_error_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_error_message();
+  PROTOBUF_NODISCARD std::string* release_error_message();
+  void set_allocated_error_message(std::string* error_message);
+  private:
+  const std::string& _internal_error_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_error_message(const std::string& value);
+  std::string* _internal_mutable_error_message();
+  public:
+
+  // @@protoc_insertion_point(class_scope:dlp.GetDatabaseEntriesResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata > files_entries_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
+  friend struct ::TableStruct_dlp_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -5858,9 +6026,123 @@ IsFilesTransferRestrictedResponse::files_restrictions() const {
   return files_restrictions_;
 }
 
+// -------------------------------------------------------------------
+
+// GetDatabaseEntriesResponse
+
+// optional string error_message = 1;
+inline bool GetDatabaseEntriesResponse::_internal_has_error_message() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool GetDatabaseEntriesResponse::has_error_message() const {
+  return _internal_has_error_message();
+}
+inline void GetDatabaseEntriesResponse::clear_error_message() {
+  error_message_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& GetDatabaseEntriesResponse::error_message() const {
+  // @@protoc_insertion_point(field_get:dlp.GetDatabaseEntriesResponse.error_message)
+  return _internal_error_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetDatabaseEntriesResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ error_message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:dlp.GetDatabaseEntriesResponse.error_message)
+}
+inline std::string* GetDatabaseEntriesResponse::mutable_error_message() {
+  std::string* _s = _internal_mutable_error_message();
+  // @@protoc_insertion_point(field_mutable:dlp.GetDatabaseEntriesResponse.error_message)
+  return _s;
+}
+inline const std::string& GetDatabaseEntriesResponse::_internal_error_message() const {
+  return error_message_.Get();
+}
+inline void GetDatabaseEntriesResponse::_internal_set_error_message(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  error_message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetDatabaseEntriesResponse::_internal_mutable_error_message() {
+  _has_bits_[0] |= 0x00000001u;
+  return error_message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetDatabaseEntriesResponse::release_error_message() {
+  // @@protoc_insertion_point(field_release:dlp.GetDatabaseEntriesResponse.error_message)
+  if (!_internal_has_error_message()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = error_message_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (error_message_.IsDefault()) {
+    error_message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void GetDatabaseEntriesResponse::set_allocated_error_message(std::string* error_message) {
+  if (error_message != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  error_message_.SetAllocated(error_message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (error_message_.IsDefault()) {
+    error_message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:dlp.GetDatabaseEntriesResponse.error_message)
+}
+
+// repeated .dlp.FileMetadata files_entries = 2;
+inline int GetDatabaseEntriesResponse::_internal_files_entries_size() const {
+  return files_entries_.size();
+}
+inline int GetDatabaseEntriesResponse::files_entries_size() const {
+  return _internal_files_entries_size();
+}
+inline void GetDatabaseEntriesResponse::clear_files_entries() {
+  files_entries_.Clear();
+}
+inline ::dlp::FileMetadata* GetDatabaseEntriesResponse::mutable_files_entries(int index) {
+  // @@protoc_insertion_point(field_mutable:dlp.GetDatabaseEntriesResponse.files_entries)
+  return files_entries_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
+GetDatabaseEntriesResponse::mutable_files_entries() {
+  // @@protoc_insertion_point(field_mutable_list:dlp.GetDatabaseEntriesResponse.files_entries)
+  return &files_entries_;
+}
+inline const ::dlp::FileMetadata& GetDatabaseEntriesResponse::_internal_files_entries(int index) const {
+  return files_entries_.Get(index);
+}
+inline const ::dlp::FileMetadata& GetDatabaseEntriesResponse::files_entries(int index) const {
+  // @@protoc_insertion_point(field_get:dlp.GetDatabaseEntriesResponse.files_entries)
+  return _internal_files_entries(index);
+}
+inline ::dlp::FileMetadata* GetDatabaseEntriesResponse::_internal_add_files_entries() {
+  return files_entries_.Add();
+}
+inline ::dlp::FileMetadata* GetDatabaseEntriesResponse::add_files_entries() {
+  ::dlp::FileMetadata* _add = _internal_add_files_entries();
+  // @@protoc_insertion_point(field_add:dlp.GetDatabaseEntriesResponse.files_entries)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
+GetDatabaseEntriesResponse::files_entries() const {
+  // @@protoc_insertion_point(field_list:dlp.GetDatabaseEntriesResponse.files_entries)
+  return files_entries_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

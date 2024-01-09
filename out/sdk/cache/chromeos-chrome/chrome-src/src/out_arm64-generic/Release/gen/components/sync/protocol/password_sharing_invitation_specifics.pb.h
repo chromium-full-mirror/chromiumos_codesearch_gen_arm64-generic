@@ -59,6 +59,12 @@ extern PasswordSharingInvitationDataDefaultTypeInternal _PasswordSharingInvitati
 class PasswordSharingInvitationData_PasswordData;
 struct PasswordSharingInvitationData_PasswordDataDefaultTypeInternal;
 extern PasswordSharingInvitationData_PasswordDataDefaultTypeInternal _PasswordSharingInvitationData_PasswordData_default_instance_;
+class PasswordSharingInvitationData_PasswordGroupData;
+struct PasswordSharingInvitationData_PasswordGroupDataDefaultTypeInternal;
+extern PasswordSharingInvitationData_PasswordGroupDataDefaultTypeInternal _PasswordSharingInvitationData_PasswordGroupData_default_instance_;
+class PasswordSharingInvitationData_PasswordGroupElementData;
+struct PasswordSharingInvitationData_PasswordGroupElementDataDefaultTypeInternal;
+extern PasswordSharingInvitationData_PasswordGroupElementDataDefaultTypeInternal _PasswordSharingInvitationData_PasswordGroupElementData_default_instance_;
 class UserDisplayInfo;
 struct UserDisplayInfoDefaultTypeInternal;
 extern UserDisplayInfoDefaultTypeInternal _UserDisplayInfo_default_instance_;
@@ -72,6 +78,8 @@ template<> ::sync_pb::OutgoingPasswordSharingInvitationCommitError* Arena::Creat
 template<> ::sync_pb::OutgoingPasswordSharingInvitationSpecifics* Arena::CreateMaybeMessage<::sync_pb::OutgoingPasswordSharingInvitationSpecifics>(Arena*);
 template<> ::sync_pb::PasswordSharingInvitationData* Arena::CreateMaybeMessage<::sync_pb::PasswordSharingInvitationData>(Arena*);
 template<> ::sync_pb::PasswordSharingInvitationData_PasswordData* Arena::CreateMaybeMessage<::sync_pb::PasswordSharingInvitationData_PasswordData>(Arena*);
+template<> ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* Arena::CreateMaybeMessage<::sync_pb::PasswordSharingInvitationData_PasswordGroupData>(Arena*);
+template<> ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* Arena::CreateMaybeMessage<::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData>(Arena*);
 template<> ::sync_pb::UserDisplayInfo* Arena::CreateMaybeMessage<::sync_pb::UserDisplayInfo>(Arena*);
 template<> ::sync_pb::UserInfo* Arena::CreateMaybeMessage<::sync_pb::UserInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -398,6 +406,449 @@ class PasswordSharingInvitationData_PasswordData final :
 };
 // -------------------------------------------------------------------
 
+class PasswordSharingInvitationData_PasswordGroupElementData final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData) */ {
+ public:
+  inline PasswordSharingInvitationData_PasswordGroupElementData() : PasswordSharingInvitationData_PasswordGroupElementData(nullptr) {}
+  ~PasswordSharingInvitationData_PasswordGroupElementData() override;
+  explicit PROTOBUF_CONSTEXPR PasswordSharingInvitationData_PasswordGroupElementData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PasswordSharingInvitationData_PasswordGroupElementData(const PasswordSharingInvitationData_PasswordGroupElementData& from);
+  PasswordSharingInvitationData_PasswordGroupElementData(PasswordSharingInvitationData_PasswordGroupElementData&& from) noexcept
+    : PasswordSharingInvitationData_PasswordGroupElementData() {
+    *this = ::std::move(from);
+  }
+
+  inline PasswordSharingInvitationData_PasswordGroupElementData& operator=(const PasswordSharingInvitationData_PasswordGroupElementData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PasswordSharingInvitationData_PasswordGroupElementData& operator=(PasswordSharingInvitationData_PasswordGroupElementData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PasswordSharingInvitationData_PasswordGroupElementData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PasswordSharingInvitationData_PasswordGroupElementData* internal_default_instance() {
+    return reinterpret_cast<const PasswordSharingInvitationData_PasswordGroupElementData*>(
+               &_PasswordSharingInvitationData_PasswordGroupElementData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(PasswordSharingInvitationData_PasswordGroupElementData& a, PasswordSharingInvitationData_PasswordGroupElementData& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(PasswordSharingInvitationData_PasswordGroupElementData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PasswordSharingInvitationData_PasswordGroupElementData* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PasswordSharingInvitationData_PasswordGroupElementData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PasswordSharingInvitationData_PasswordGroupElementData>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PasswordSharingInvitationData_PasswordGroupElementData& from);
+  void MergeFrom(const PasswordSharingInvitationData_PasswordGroupElementData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PasswordSharingInvitationData_PasswordGroupElementData* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "sync_pb.PasswordSharingInvitationData.PasswordGroupElementData";
+  }
+  protected:
+  explicit PasswordSharingInvitationData_PasswordGroupElementData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSignonRealmFieldNumber = 3,
+    kOriginFieldNumber = 4,
+    kUsernameElementFieldNumber = 5,
+    kPasswordElementFieldNumber = 7,
+    kDisplayNameFieldNumber = 8,
+    kAvatarUrlFieldNumber = 9,
+    kSchemeFieldNumber = 2,
+  };
+  // optional string signon_realm = 3;
+  bool has_signon_realm() const;
+  private:
+  bool _internal_has_signon_realm() const;
+  public:
+  void clear_signon_realm();
+  const std::string& signon_realm() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_signon_realm(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_signon_realm();
+  PROTOBUF_NODISCARD std::string* release_signon_realm();
+  void set_allocated_signon_realm(std::string* signon_realm);
+  private:
+  const std::string& _internal_signon_realm() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_signon_realm(const std::string& value);
+  std::string* _internal_mutable_signon_realm();
+  public:
+
+  // optional string origin = 4;
+  bool has_origin() const;
+  private:
+  bool _internal_has_origin() const;
+  public:
+  void clear_origin();
+  const std::string& origin() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_origin(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_origin();
+  PROTOBUF_NODISCARD std::string* release_origin();
+  void set_allocated_origin(std::string* origin);
+  private:
+  const std::string& _internal_origin() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_origin(const std::string& value);
+  std::string* _internal_mutable_origin();
+  public:
+
+  // optional string username_element = 5;
+  bool has_username_element() const;
+  private:
+  bool _internal_has_username_element() const;
+  public:
+  void clear_username_element();
+  const std::string& username_element() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username_element(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username_element();
+  PROTOBUF_NODISCARD std::string* release_username_element();
+  void set_allocated_username_element(std::string* username_element);
+  private:
+  const std::string& _internal_username_element() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username_element(const std::string& value);
+  std::string* _internal_mutable_username_element();
+  public:
+
+  // optional string password_element = 7;
+  bool has_password_element() const;
+  private:
+  bool _internal_has_password_element() const;
+  public:
+  void clear_password_element();
+  const std::string& password_element() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password_element(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password_element();
+  PROTOBUF_NODISCARD std::string* release_password_element();
+  void set_allocated_password_element(std::string* password_element);
+  private:
+  const std::string& _internal_password_element() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password_element(const std::string& value);
+  std::string* _internal_mutable_password_element();
+  public:
+
+  // optional string display_name = 8;
+  bool has_display_name() const;
+  private:
+  bool _internal_has_display_name() const;
+  public:
+  void clear_display_name();
+  const std::string& display_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_display_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_display_name();
+  PROTOBUF_NODISCARD std::string* release_display_name();
+  void set_allocated_display_name(std::string* display_name);
+  private:
+  const std::string& _internal_display_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_display_name(const std::string& value);
+  std::string* _internal_mutable_display_name();
+  public:
+
+  // optional string avatar_url = 9;
+  bool has_avatar_url() const;
+  private:
+  bool _internal_has_avatar_url() const;
+  public:
+  void clear_avatar_url();
+  const std::string& avatar_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_avatar_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_avatar_url();
+  PROTOBUF_NODISCARD std::string* release_avatar_url();
+  void set_allocated_avatar_url(std::string* avatar_url);
+  private:
+  const std::string& _internal_avatar_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_avatar_url(const std::string& value);
+  std::string* _internal_mutable_avatar_url();
+  public:
+
+  // optional int32 scheme = 2;
+  bool has_scheme() const;
+  private:
+  bool _internal_has_scheme() const;
+  public:
+  void clear_scheme();
+  int32_t scheme() const;
+  void set_scheme(int32_t value);
+  private:
+  int32_t _internal_scheme() const;
+  void _internal_set_scheme(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signon_realm_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr origin_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_element_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_element_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr avatar_url_;
+  int32_t scheme_;
+  friend struct ::TableStruct_components_2fsync_2fprotocol_2fpassword_5fsharing_5finvitation_5fspecifics_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PasswordSharingInvitationData_PasswordGroupData final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:sync_pb.PasswordSharingInvitationData.PasswordGroupData) */ {
+ public:
+  inline PasswordSharingInvitationData_PasswordGroupData() : PasswordSharingInvitationData_PasswordGroupData(nullptr) {}
+  ~PasswordSharingInvitationData_PasswordGroupData() override;
+  explicit PROTOBUF_CONSTEXPR PasswordSharingInvitationData_PasswordGroupData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PasswordSharingInvitationData_PasswordGroupData(const PasswordSharingInvitationData_PasswordGroupData& from);
+  PasswordSharingInvitationData_PasswordGroupData(PasswordSharingInvitationData_PasswordGroupData&& from) noexcept
+    : PasswordSharingInvitationData_PasswordGroupData() {
+    *this = ::std::move(from);
+  }
+
+  inline PasswordSharingInvitationData_PasswordGroupData& operator=(const PasswordSharingInvitationData_PasswordGroupData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PasswordSharingInvitationData_PasswordGroupData& operator=(PasswordSharingInvitationData_PasswordGroupData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PasswordSharingInvitationData_PasswordGroupData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PasswordSharingInvitationData_PasswordGroupData* internal_default_instance() {
+    return reinterpret_cast<const PasswordSharingInvitationData_PasswordGroupData*>(
+               &_PasswordSharingInvitationData_PasswordGroupData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(PasswordSharingInvitationData_PasswordGroupData& a, PasswordSharingInvitationData_PasswordGroupData& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(PasswordSharingInvitationData_PasswordGroupData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PasswordSharingInvitationData_PasswordGroupData* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PasswordSharingInvitationData_PasswordGroupData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PasswordSharingInvitationData_PasswordGroupData>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PasswordSharingInvitationData_PasswordGroupData& from);
+  void MergeFrom(const PasswordSharingInvitationData_PasswordGroupData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PasswordSharingInvitationData_PasswordGroupData* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "sync_pb.PasswordSharingInvitationData.PasswordGroupData";
+  }
+  protected:
+  explicit PasswordSharingInvitationData_PasswordGroupData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kElementDataFieldNumber = 3,
+    kUsernameValueFieldNumber = 1,
+    kPasswordValueFieldNumber = 2,
+  };
+  // repeated .sync_pb.PasswordSharingInvitationData.PasswordGroupElementData element_data = 3;
+  int element_data_size() const;
+  private:
+  int _internal_element_data_size() const;
+  public:
+  void clear_element_data();
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* mutable_element_data(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData >*
+      mutable_element_data();
+  private:
+  const ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData& _internal_element_data(int index) const;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* _internal_add_element_data();
+  public:
+  const ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData& element_data(int index) const;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* add_element_data();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData >&
+      element_data() const;
+
+  // optional string username_value = 1;
+  bool has_username_value() const;
+  private:
+  bool _internal_has_username_value() const;
+  public:
+  void clear_username_value();
+  const std::string& username_value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username_value();
+  PROTOBUF_NODISCARD std::string* release_username_value();
+  void set_allocated_username_value(std::string* username_value);
+  private:
+  const std::string& _internal_username_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username_value(const std::string& value);
+  std::string* _internal_mutable_username_value();
+  public:
+
+  // optional string password_value = 2;
+  bool has_password_value() const;
+  private:
+  bool _internal_has_password_value() const;
+  public:
+  void clear_password_value();
+  const std::string& password_value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password_value();
+  PROTOBUF_NODISCARD std::string* release_password_value();
+  void set_allocated_password_value(std::string* password_value);
+  private:
+  const std::string& _internal_password_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password_value(const std::string& value);
+  std::string* _internal_mutable_password_value();
+  public:
+
+  // @@protoc_insertion_point(class_scope:sync_pb.PasswordSharingInvitationData.PasswordGroupData)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData > element_data_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_value_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_value_;
+  friend struct ::TableStruct_components_2fsync_2fprotocol_2fpassword_5fsharing_5finvitation_5fspecifics_2eproto;
+};
+// -------------------------------------------------------------------
+
 class PasswordSharingInvitationData final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:sync_pb.PasswordSharingInvitationData) */ {
  public:
@@ -444,7 +895,7 @@ class PasswordSharingInvitationData final :
                &_PasswordSharingInvitationData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(PasswordSharingInvitationData& a, PasswordSharingInvitationData& b) {
     a.Swap(&b);
@@ -506,11 +957,14 @@ class PasswordSharingInvitationData final :
   // nested types ----------------------------------------------------
 
   typedef PasswordSharingInvitationData_PasswordData PasswordData;
+  typedef PasswordSharingInvitationData_PasswordGroupElementData PasswordGroupElementData;
+  typedef PasswordSharingInvitationData_PasswordGroupData PasswordGroupData;
 
   // accessors -------------------------------------------------------
 
   enum : int {
     kPasswordDataFieldNumber = 1,
+    kPasswordGroupDataFieldNumber = 2,
   };
   // optional .sync_pb.PasswordSharingInvitationData.PasswordData password_data = 1;
   bool has_password_data() const;
@@ -530,6 +984,24 @@ class PasswordSharingInvitationData final :
       ::sync_pb::PasswordSharingInvitationData_PasswordData* password_data);
   ::sync_pb::PasswordSharingInvitationData_PasswordData* unsafe_arena_release_password_data();
 
+  // optional .sync_pb.PasswordSharingInvitationData.PasswordGroupData password_group_data = 2;
+  bool has_password_group_data() const;
+  private:
+  bool _internal_has_password_group_data() const;
+  public:
+  void clear_password_group_data();
+  const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData& password_group_data() const;
+  PROTOBUF_NODISCARD ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* release_password_group_data();
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* mutable_password_group_data();
+  void set_allocated_password_group_data(::sync_pb::PasswordSharingInvitationData_PasswordGroupData* password_group_data);
+  private:
+  const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData& _internal_password_group_data() const;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* _internal_mutable_password_group_data();
+  public:
+  void unsafe_arena_set_allocated_password_group_data(
+      ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* password_group_data);
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* unsafe_arena_release_password_group_data();
+
   // @@protoc_insertion_point(class_scope:sync_pb.PasswordSharingInvitationData)
  private:
   class _Internal;
@@ -540,6 +1012,7 @@ class PasswordSharingInvitationData final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::sync_pb::PasswordSharingInvitationData_PasswordData* password_data_;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* password_group_data_;
   friend struct ::TableStruct_components_2fsync_2fprotocol_2fpassword_5fsharing_5finvitation_5fspecifics_2eproto;
 };
 // -------------------------------------------------------------------
@@ -590,7 +1063,7 @@ class UserDisplayInfo final :
                &_UserDisplayInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(UserDisplayInfo& a, UserDisplayInfo& b) {
     a.Swap(&b);
@@ -774,7 +1247,7 @@ class UserInfo final :
                &_UserInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(UserInfo& a, UserInfo& b) {
     a.Swap(&b);
@@ -958,7 +1431,7 @@ class IncomingPasswordSharingInvitationSpecifics final :
                &_IncomingPasswordSharingInvitationSpecifics_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(IncomingPasswordSharingInvitationSpecifics& a, IncomingPasswordSharingInvitationSpecifics& b) {
     a.Swap(&b);
@@ -1177,7 +1650,7 @@ class OutgoingPasswordSharingInvitationSpecifics final :
                &_OutgoingPasswordSharingInvitationSpecifics_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(OutgoingPasswordSharingInvitationSpecifics& a, OutgoingPasswordSharingInvitationSpecifics& b) {
     a.Swap(&b);
@@ -1411,7 +1884,7 @@ class OutgoingPasswordSharingInvitationCommitError final :
                &_OutgoingPasswordSharingInvitationCommitError_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(OutgoingPasswordSharingInvitationCommitError& a, OutgoingPasswordSharingInvitationCommitError& b) {
     a.Swap(&b);
@@ -2115,6 +2588,626 @@ inline void PasswordSharingInvitationData_PasswordData::set_allocated_avatar_url
 
 // -------------------------------------------------------------------
 
+// PasswordSharingInvitationData_PasswordGroupElementData
+
+// optional int32 scheme = 2;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_scheme() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_scheme() const {
+  return _internal_has_scheme();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_scheme() {
+  scheme_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline int32_t PasswordSharingInvitationData_PasswordGroupElementData::_internal_scheme() const {
+  return scheme_;
+}
+inline int32_t PasswordSharingInvitationData_PasswordGroupElementData::scheme() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.scheme)
+  return _internal_scheme();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_scheme(int32_t value) {
+  _has_bits_[0] |= 0x00000040u;
+  scheme_ = value;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_scheme(int32_t value) {
+  _internal_set_scheme(value);
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.scheme)
+}
+
+// optional string signon_realm = 3;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_signon_realm() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_signon_realm() const {
+  return _internal_has_signon_realm();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_signon_realm() {
+  signon_realm_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::signon_realm() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.signon_realm)
+  return _internal_signon_realm();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_signon_realm(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ signon_realm_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.signon_realm)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_signon_realm() {
+  std::string* _s = _internal_mutable_signon_realm();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.signon_realm)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_signon_realm() const {
+  return signon_realm_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_signon_realm(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  signon_realm_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_signon_realm() {
+  _has_bits_[0] |= 0x00000001u;
+  return signon_realm_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_signon_realm() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.signon_realm)
+  if (!_internal_has_signon_realm()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = signon_realm_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (signon_realm_.IsDefault()) {
+    signon_realm_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_signon_realm(std::string* signon_realm) {
+  if (signon_realm != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  signon_realm_.SetAllocated(signon_realm, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (signon_realm_.IsDefault()) {
+    signon_realm_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.signon_realm)
+}
+
+// optional string origin = 4;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_origin() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_origin() const {
+  return _internal_has_origin();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_origin() {
+  origin_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::origin() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.origin)
+  return _internal_origin();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_origin(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ origin_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.origin)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_origin() {
+  std::string* _s = _internal_mutable_origin();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.origin)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_origin() const {
+  return origin_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_origin(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  origin_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_origin() {
+  _has_bits_[0] |= 0x00000002u;
+  return origin_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_origin() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.origin)
+  if (!_internal_has_origin()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = origin_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (origin_.IsDefault()) {
+    origin_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_origin(std::string* origin) {
+  if (origin != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  origin_.SetAllocated(origin, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (origin_.IsDefault()) {
+    origin_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.origin)
+}
+
+// optional string username_element = 5;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_username_element() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_username_element() const {
+  return _internal_has_username_element();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_username_element() {
+  username_element_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::username_element() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.username_element)
+  return _internal_username_element();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_username_element(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ username_element_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.username_element)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_username_element() {
+  std::string* _s = _internal_mutable_username_element();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.username_element)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_username_element() const {
+  return username_element_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_username_element(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  username_element_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_username_element() {
+  _has_bits_[0] |= 0x00000004u;
+  return username_element_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_username_element() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.username_element)
+  if (!_internal_has_username_element()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = username_element_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_element_.IsDefault()) {
+    username_element_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_username_element(std::string* username_element) {
+  if (username_element != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  username_element_.SetAllocated(username_element, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_element_.IsDefault()) {
+    username_element_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.username_element)
+}
+
+// optional string password_element = 7;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_password_element() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_password_element() const {
+  return _internal_has_password_element();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_password_element() {
+  password_element_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::password_element() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.password_element)
+  return _internal_password_element();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_password_element(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000008u;
+ password_element_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.password_element)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_password_element() {
+  std::string* _s = _internal_mutable_password_element();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.password_element)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_password_element() const {
+  return password_element_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_password_element(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  password_element_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_password_element() {
+  _has_bits_[0] |= 0x00000008u;
+  return password_element_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_password_element() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.password_element)
+  if (!_internal_has_password_element()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  auto* p = password_element_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (password_element_.IsDefault()) {
+    password_element_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_password_element(std::string* password_element) {
+  if (password_element != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  password_element_.SetAllocated(password_element, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (password_element_.IsDefault()) {
+    password_element_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.password_element)
+}
+
+// optional string display_name = 8;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_display_name() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_display_name() const {
+  return _internal_has_display_name();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_display_name() {
+  display_name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::display_name() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.display_name)
+  return _internal_display_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_display_name(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000010u;
+ display_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.display_name)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_display_name() {
+  std::string* _s = _internal_mutable_display_name();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.display_name)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_display_name() const {
+  return display_name_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_display_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000010u;
+  display_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_display_name() {
+  _has_bits_[0] |= 0x00000010u;
+  return display_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_display_name() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.display_name)
+  if (!_internal_has_display_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000010u;
+  auto* p = display_name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (display_name_.IsDefault()) {
+    display_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_display_name(std::string* display_name) {
+  if (display_name != nullptr) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  display_name_.SetAllocated(display_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (display_name_.IsDefault()) {
+    display_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.display_name)
+}
+
+// optional string avatar_url = 9;
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::_internal_has_avatar_url() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupElementData::has_avatar_url() const {
+  return _internal_has_avatar_url();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::clear_avatar_url() {
+  avatar_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::avatar_url() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.avatar_url)
+  return _internal_avatar_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupElementData::set_avatar_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000020u;
+ avatar_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.avatar_url)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::mutable_avatar_url() {
+  std::string* _s = _internal_mutable_avatar_url();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.avatar_url)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupElementData::_internal_avatar_url() const {
+  return avatar_url_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::_internal_set_avatar_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000020u;
+  avatar_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::_internal_mutable_avatar_url() {
+  _has_bits_[0] |= 0x00000020u;
+  return avatar_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupElementData::release_avatar_url() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.avatar_url)
+  if (!_internal_has_avatar_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000020u;
+  auto* p = avatar_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (avatar_url_.IsDefault()) {
+    avatar_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupElementData::set_allocated_avatar_url(std::string* avatar_url) {
+  if (avatar_url != nullptr) {
+    _has_bits_[0] |= 0x00000020u;
+  } else {
+    _has_bits_[0] &= ~0x00000020u;
+  }
+  avatar_url_.SetAllocated(avatar_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (avatar_url_.IsDefault()) {
+    avatar_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupElementData.avatar_url)
+}
+
+// -------------------------------------------------------------------
+
+// PasswordSharingInvitationData_PasswordGroupData
+
+// optional string username_value = 1;
+inline bool PasswordSharingInvitationData_PasswordGroupData::_internal_has_username_value() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupData::has_username_value() const {
+  return _internal_has_username_value();
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::clear_username_value() {
+  username_value_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupData::username_value() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupData.username_value)
+  return _internal_username_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupData::set_username_value(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ username_value_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupData.username_value)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::mutable_username_value() {
+  std::string* _s = _internal_mutable_username_value();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupData.username_value)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupData::_internal_username_value() const {
+  return username_value_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::_internal_set_username_value(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  username_value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::_internal_mutable_username_value() {
+  _has_bits_[0] |= 0x00000001u;
+  return username_value_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::release_username_value() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupData.username_value)
+  if (!_internal_has_username_value()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = username_value_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_value_.IsDefault()) {
+    username_value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::set_allocated_username_value(std::string* username_value) {
+  if (username_value != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  username_value_.SetAllocated(username_value, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_value_.IsDefault()) {
+    username_value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupData.username_value)
+}
+
+// optional string password_value = 2;
+inline bool PasswordSharingInvitationData_PasswordGroupData::_internal_has_password_value() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool PasswordSharingInvitationData_PasswordGroupData::has_password_value() const {
+  return _internal_has_password_value();
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::clear_password_value() {
+  password_value_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupData::password_value() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupData.password_value)
+  return _internal_password_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PasswordSharingInvitationData_PasswordGroupData::set_password_value(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ password_value_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.PasswordSharingInvitationData.PasswordGroupData.password_value)
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::mutable_password_value() {
+  std::string* _s = _internal_mutable_password_value();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupData.password_value)
+  return _s;
+}
+inline const std::string& PasswordSharingInvitationData_PasswordGroupData::_internal_password_value() const {
+  return password_value_.Get();
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::_internal_set_password_value(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  password_value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::_internal_mutable_password_value() {
+  _has_bits_[0] |= 0x00000002u;
+  return password_value_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PasswordSharingInvitationData_PasswordGroupData::release_password_value() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.PasswordGroupData.password_value)
+  if (!_internal_has_password_value()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = password_value_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (password_value_.IsDefault()) {
+    password_value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::set_allocated_password_value(std::string* password_value) {
+  if (password_value != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  password_value_.SetAllocated(password_value, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (password_value_.IsDefault()) {
+    password_value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.PasswordGroupData.password_value)
+}
+
+// repeated .sync_pb.PasswordSharingInvitationData.PasswordGroupElementData element_data = 3;
+inline int PasswordSharingInvitationData_PasswordGroupData::_internal_element_data_size() const {
+  return element_data_.size();
+}
+inline int PasswordSharingInvitationData_PasswordGroupData::element_data_size() const {
+  return _internal_element_data_size();
+}
+inline void PasswordSharingInvitationData_PasswordGroupData::clear_element_data() {
+  element_data_.Clear();
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* PasswordSharingInvitationData_PasswordGroupData::mutable_element_data(int index) {
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.PasswordGroupData.element_data)
+  return element_data_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData >*
+PasswordSharingInvitationData_PasswordGroupData::mutable_element_data() {
+  // @@protoc_insertion_point(field_mutable_list:sync_pb.PasswordSharingInvitationData.PasswordGroupData.element_data)
+  return &element_data_;
+}
+inline const ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData& PasswordSharingInvitationData_PasswordGroupData::_internal_element_data(int index) const {
+  return element_data_.Get(index);
+}
+inline const ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData& PasswordSharingInvitationData_PasswordGroupData::element_data(int index) const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.PasswordGroupData.element_data)
+  return _internal_element_data(index);
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* PasswordSharingInvitationData_PasswordGroupData::_internal_add_element_data() {
+  return element_data_.Add();
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* PasswordSharingInvitationData_PasswordGroupData::add_element_data() {
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData* _add = _internal_add_element_data();
+  // @@protoc_insertion_point(field_add:sync_pb.PasswordSharingInvitationData.PasswordGroupData.element_data)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::PasswordSharingInvitationData_PasswordGroupElementData >&
+PasswordSharingInvitationData_PasswordGroupData::element_data() const {
+  // @@protoc_insertion_point(field_list:sync_pb.PasswordSharingInvitationData.PasswordGroupData.element_data)
+  return element_data_;
+}
+
+// -------------------------------------------------------------------
+
 // PasswordSharingInvitationData
 
 // optional .sync_pb.PasswordSharingInvitationData.PasswordData password_data = 1;
@@ -2205,6 +3298,96 @@ inline void PasswordSharingInvitationData::set_allocated_password_data(::sync_pb
   }
   password_data_ = password_data;
   // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.password_data)
+}
+
+// optional .sync_pb.PasswordSharingInvitationData.PasswordGroupData password_group_data = 2;
+inline bool PasswordSharingInvitationData::_internal_has_password_group_data() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || password_group_data_ != nullptr);
+  return value;
+}
+inline bool PasswordSharingInvitationData::has_password_group_data() const {
+  return _internal_has_password_group_data();
+}
+inline void PasswordSharingInvitationData::clear_password_group_data() {
+  if (password_group_data_ != nullptr) password_group_data_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData& PasswordSharingInvitationData::_internal_password_group_data() const {
+  const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* p = password_group_data_;
+  return p != nullptr ? *p : reinterpret_cast<const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData&>(
+      ::sync_pb::_PasswordSharingInvitationData_PasswordGroupData_default_instance_);
+}
+inline const ::sync_pb::PasswordSharingInvitationData_PasswordGroupData& PasswordSharingInvitationData::password_group_data() const {
+  // @@protoc_insertion_point(field_get:sync_pb.PasswordSharingInvitationData.password_group_data)
+  return _internal_password_group_data();
+}
+inline void PasswordSharingInvitationData::unsafe_arena_set_allocated_password_group_data(
+    ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* password_group_data) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(password_group_data_);
+  }
+  password_group_data_ = password_group_data;
+  if (password_group_data) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.PasswordSharingInvitationData.password_group_data)
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* PasswordSharingInvitationData::release_password_group_data() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* temp = password_group_data_;
+  password_group_data_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* PasswordSharingInvitationData::unsafe_arena_release_password_group_data() {
+  // @@protoc_insertion_point(field_release:sync_pb.PasswordSharingInvitationData.password_group_data)
+  _has_bits_[0] &= ~0x00000002u;
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* temp = password_group_data_;
+  password_group_data_ = nullptr;
+  return temp;
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* PasswordSharingInvitationData::_internal_mutable_password_group_data() {
+  _has_bits_[0] |= 0x00000002u;
+  if (password_group_data_ == nullptr) {
+    auto* p = CreateMaybeMessage<::sync_pb::PasswordSharingInvitationData_PasswordGroupData>(GetArenaForAllocation());
+    password_group_data_ = p;
+  }
+  return password_group_data_;
+}
+inline ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* PasswordSharingInvitationData::mutable_password_group_data() {
+  ::sync_pb::PasswordSharingInvitationData_PasswordGroupData* _msg = _internal_mutable_password_group_data();
+  // @@protoc_insertion_point(field_mutable:sync_pb.PasswordSharingInvitationData.password_group_data)
+  return _msg;
+}
+inline void PasswordSharingInvitationData::set_allocated_password_group_data(::sync_pb::PasswordSharingInvitationData_PasswordGroupData* password_group_data) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete password_group_data_;
+  }
+  if (password_group_data) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(password_group_data);
+    if (message_arena != submessage_arena) {
+      password_group_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, password_group_data, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  password_group_data_ = password_group_data;
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.PasswordSharingInvitationData.password_group_data)
 }
 
 // -------------------------------------------------------------------
@@ -3402,6 +4585,10 @@ inline void OutgoingPasswordSharingInvitationCommitError::set_error_code(::sync_
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

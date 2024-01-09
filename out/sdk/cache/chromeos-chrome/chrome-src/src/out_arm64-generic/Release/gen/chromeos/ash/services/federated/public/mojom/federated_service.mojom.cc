@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -154,14 +155,17 @@ void FederatedServiceProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<FederatedService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedService_Clone_Name, kFlags, 0, 0, nullptr);
@@ -200,14 +204,17 @@ void FederatedServiceProxy::ReportExample(
                         "<value of type ::chromeos::federated::mojom::ExamplePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedService_ReportExample_Name, kFlags, 0, 0, nullptr);
@@ -248,7 +255,7 @@ void FederatedServiceProxy::ReportExample(
 }
 
 void FederatedServiceProxy::StartScheduling(
-    const absl::optional<base::flat_map<std::string, std::string>>& in_client_launch_stage) {
+    const std::optional<base::flat_map<std::string, std::string>>& in_client_launch_stage) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::federated::mojom::FederatedService::StartScheduling", "input_parameters",
@@ -256,17 +263,20 @@ void FederatedServiceProxy::StartScheduling(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_launch_stage"), in_client_launch_stage,
-                        "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>");
+                        "<value of type const std::optional<base::flat_map<std::string, std::string>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedService_StartScheduling_Name, kFlags, 0, 0, nullptr);
@@ -364,7 +374,7 @@ std::move(p_example));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<base::flat_map<std::string, std::string>> p_client_launch_stage{};
+      std::optional<base::flat_map<std::string, std::string>> p_client_launch_stage{};
       FederatedService_StartScheduling_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadClientLaunchStage(&p_client_launch_stage))
@@ -407,14 +417,14 @@ bool FederatedServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFederatedServiceValidationInfo[] = {
-    {&internal::FederatedService_Clone_Params_Data::Validate,
+    { &internal::FederatedService_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FederatedService_ReportExample_Params_Data::Validate,
+    { &internal::FederatedService_ReportExample_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FederatedService_StartScheduling_Params_Data::Validate,
+    { &internal::FederatedService_StartScheduling_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -446,7 +456,7 @@ void FederatedServiceInterceptorForTesting::Clone(::mojo::PendingReceiver<Federa
 void FederatedServiceInterceptorForTesting::ReportExample(const std::string& client_name, ::chromeos::federated::mojom::ExamplePtr example) {
   GetForwardingInterface()->ReportExample(std::move(client_name), std::move(example));
 }
-void FederatedServiceInterceptorForTesting::StartScheduling(const absl::optional<base::flat_map<std::string, std::string>>& client_launch_stage) {
+void FederatedServiceInterceptorForTesting::StartScheduling(const std::optional<base::flat_map<std::string, std::string>>& client_launch_stage) {
   GetForwardingInterface()->StartScheduling(std::move(client_launch_stage));
 }
 FederatedServiceAsyncWaiter::FederatedServiceAsyncWaiter(

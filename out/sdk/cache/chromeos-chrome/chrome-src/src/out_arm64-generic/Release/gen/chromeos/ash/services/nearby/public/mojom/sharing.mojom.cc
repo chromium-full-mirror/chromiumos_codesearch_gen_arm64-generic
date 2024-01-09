@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -99,16 +100,19 @@ NearbyDependencies::NearbyDependencies()
     : bluetooth_adapter(),
       webrtc_dependencies(),
       wifilan_dependencies(),
+      nearby_presence_credential_storage(),
       min_log_severity(mojo::internal::ConvertEnumValue<::nearby::connections::mojom::LogSeverity, ::nearby::api::LogMessage::Severity>(::nearby::connections::mojom::LogSeverity::kInfo)) {}
 
 NearbyDependencies::NearbyDependencies(
     ::mojo::PendingRemote<::bluetooth::mojom::Adapter> bluetooth_adapter_in,
     ::sharing::mojom::WebRtcDependenciesPtr webrtc_dependencies_in,
     WifiLanDependenciesPtr wifilan_dependencies_in,
+    ::mojo::PendingRemote<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorage> nearby_presence_credential_storage_in,
     ::nearby::api::LogMessage::Severity min_log_severity_in)
     : bluetooth_adapter(std::move(bluetooth_adapter_in)),
       webrtc_dependencies(std::move(webrtc_dependencies_in)),
       wifilan_dependencies(std::move(wifilan_dependencies_in)),
+      nearby_presence_credential_storage(std::move(nearby_presence_credential_storage_in)),
       min_log_severity(std::move(min_log_severity_in)) {}
 
 NearbyDependencies::~NearbyDependencies() = default;
@@ -139,6 +143,15 @@ void NearbyDependencies::WriteIntoTrace(
       "wifilan_dependencies"), this->wifilan_dependencies,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type WifiLanDependenciesPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "nearby_presence_credential_storage"), this->nearby_presence_credential_storage,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo::PendingRemote<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorage>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -278,14 +291,17 @@ void SharingProxy::Connect(
                         "<value of type ::mojo::PendingReceiver<::ash::quick_start::mojom::QuickStartDecoder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharing_Connect_Name, kFlags, 0, 0, nullptr);
@@ -343,14 +359,17 @@ void SharingProxy::ShutDown(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send sharing::mojom::Sharing::ShutDown");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharing_ShutDown_Name, kFlags, 0, 0, nullptr);
@@ -449,7 +468,8 @@ void Sharing_ShutDown_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharing_ShutDown_Name, kFlags, 0, 0, nullptr);
@@ -577,12 +597,12 @@ bool SharingStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharingValidationInfo[] = {
-    {&internal::Sharing_Connect_Params_Data::Validate,
+    { &internal::Sharing_Connect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Sharing_ShutDown_Params_Data::Validate,
+    { &internal::Sharing_ShutDown_Params_Data::Validate,
      &internal::Sharing_ShutDown_ResponseParams_Data::Validate},
 };
 
@@ -642,6 +662,10 @@ bool StructTraits<::sharing::mojom::NearbyDependencies::DataView, ::sharing::moj
         success = false;
       if (success && !input.ReadWifilanDependencies(&result->wifilan_dependencies))
         success = false;
+      if (success) {
+        result->nearby_presence_credential_storage =
+            input.TakeNearbyPresenceCredentialStorage<decltype(result->nearby_presence_credential_storage)>();
+      }
       if (success && !input.ReadMinLogSeverity(&result->min_log_severity))
         success = false;
   *output = std::move(result);

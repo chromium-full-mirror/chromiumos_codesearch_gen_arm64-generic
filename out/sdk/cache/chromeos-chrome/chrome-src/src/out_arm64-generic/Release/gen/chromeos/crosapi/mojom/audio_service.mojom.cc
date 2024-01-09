@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -60,7 +61,7 @@ AudioDeviceInfo::AudioDeviceInfo(
     const std::string& id_in,
     bool isActive_in,
     int32_t level_in,
-    const absl::optional<std::string>& stableDeviceId_in,
+    const std::optional<std::string>& stableDeviceId_in,
     StreamType streamType_in)
     : deviceName(std::move(deviceName_in)),
       deviceType(std::move(deviceType_in)),
@@ -134,7 +135,7 @@ void AudioDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "stableDeviceId"), this->stableDeviceId,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -161,7 +162,7 @@ DeviceFilter::DeviceFilter()
 
 DeviceFilter::DeviceFilter(
     DeviceFilter::ActiveState includedActiveState_in,
-    absl::optional<std::vector<StreamType>> includedStreamTypes_in)
+    std::optional<std::vector<StreamType>> includedStreamTypes_in)
     : includedActiveState(std::move(includedActiveState_in)),
       includedStreamTypes(std::move(includedStreamTypes_in)) {}
 
@@ -183,7 +184,7 @@ void DeviceFilter::WriteIntoTrace(
     dict.AddItem(
       "includedStreamTypes"), this->includedStreamTypes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<StreamType>>&>"
+      "<value of type const std::optional<std::vector<StreamType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -379,14 +380,17 @@ void AudioChangeObserverProxy::OnDeviceListChanged(
                         "<value of type std::vector<AudioDeviceInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioChangeObserver_OnDeviceListChanged_Name, kFlags, 0, 0, nullptr);
@@ -432,14 +436,17 @@ void AudioChangeObserverProxy::OnLevelChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioChangeObserver_OnLevelChanged_Name, kFlags, 0, 0, nullptr);
@@ -484,14 +491,17 @@ void AudioChangeObserverProxy::OnMuteChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioChangeObserver_OnMuteChanged_Name, kFlags, 0, 0, nullptr);
@@ -627,14 +637,14 @@ bool AudioChangeObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioChangeObserverValidationInfo[] = {
-    {&internal::AudioChangeObserver_OnDeviceListChanged_Params_Data::Validate,
+    { &internal::AudioChangeObserver_OnDeviceListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioChangeObserver_OnLevelChanged_Params_Data::Validate,
+    { &internal::AudioChangeObserver_OnLevelChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioChangeObserver_OnMuteChanged_Params_Data::Validate,
+    { &internal::AudioChangeObserver_OnMuteChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -895,14 +905,17 @@ void AudioServiceProxy::GetDevices(
                         "<value of type DeviceFilterPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -944,14 +957,17 @@ void AudioServiceProxy::GetMute(
                         "<value of type StreamType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_GetMute_Name, kFlags, 0, 0, nullptr);
@@ -984,14 +1000,17 @@ void AudioServiceProxy::SetActiveDeviceLists(
                         "<value of type DeviceIdListsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetActiveDeviceLists_Name, kFlags, 0, 0, nullptr);
@@ -1036,14 +1055,17 @@ void AudioServiceProxy::SetMute(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetMute_Name, kFlags, 0, 0, nullptr);
@@ -1080,14 +1102,17 @@ void AudioServiceProxy::SetProperties(
                         "<value of type AudioDevicePropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1140,14 +1165,17 @@ void AudioServiceProxy::AddAudioChangeObserver(
                         "<value of type ::mojo::PendingRemote<AudioChangeObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_AddAudioChangeObserver_Name, kFlags, 0, 0, nullptr);
@@ -1216,7 +1244,7 @@ class AudioService_GetDevices_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      absl::optional<std::vector<AudioDeviceInfoPtr>> in_devices);
+      std::optional<std::vector<AudioDeviceInfoPtr>> in_devices);
 };
 
 bool AudioService_GetDevices_ForwardToCallback::Accept(
@@ -1229,7 +1257,7 @@ bool AudioService_GetDevices_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<AudioDeviceInfoPtr>> p_devices{};
+  std::optional<std::vector<AudioDeviceInfoPtr>> p_devices{};
   AudioService_GetDevices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDevices(&p_devices))
@@ -1248,7 +1276,7 @@ std::move(p_devices));
 }
 
 void AudioService_GetDevices_ProxyToResponder::Run(
-    absl::optional<std::vector<AudioDeviceInfoPtr>> in_devices) {
+    std::optional<std::vector<AudioDeviceInfoPtr>> in_devices) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::AudioService::GetDevices", "async_response_parameters",
@@ -1256,13 +1284,14 @@ void AudioService_GetDevices_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devices"), in_devices,
-                        "<value of type absl::optional<std::vector<AudioDeviceInfoPtr>>>");
+                        "<value of type std::optional<std::vector<AudioDeviceInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1395,7 +1424,8 @@ void AudioService_GetMute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_GetMute_Name, kFlags, 0, 0, nullptr);
@@ -1514,7 +1544,8 @@ void AudioService_SetActiveDeviceLists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetActiveDeviceLists_Name, kFlags, 0, 0, nullptr);
@@ -1632,7 +1663,8 @@ void AudioService_SetMute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetMute_Name, kFlags, 0, 0, nullptr);
@@ -1750,7 +1782,8 @@ void AudioService_SetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1997,20 +2030,20 @@ std::move(p_properties), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioServiceValidationInfo[] = {
-    {&internal::AudioService_GetDevices_Params_Data::Validate,
+    { &internal::AudioService_GetDevices_Params_Data::Validate,
      &internal::AudioService_GetDevices_ResponseParams_Data::Validate},
-    {&internal::AudioService_GetMute_Params_Data::Validate,
+    { &internal::AudioService_GetMute_Params_Data::Validate,
      &internal::AudioService_GetMute_ResponseParams_Data::Validate},
-    {&internal::AudioService_SetActiveDeviceLists_Params_Data::Validate,
+    { &internal::AudioService_SetActiveDeviceLists_Params_Data::Validate,
      &internal::AudioService_SetActiveDeviceLists_ResponseParams_Data::Validate},
-    {&internal::AudioService_SetMute_Params_Data::Validate,
+    { &internal::AudioService_SetMute_Params_Data::Validate,
      &internal::AudioService_SetMute_ResponseParams_Data::Validate},
-    {&internal::AudioService_SetProperties_Params_Data::Validate,
+    { &internal::AudioService_SetProperties_Params_Data::Validate,
      &internal::AudioService_SetProperties_ResponseParams_Data::Validate},
-    {&internal::AudioService_AddAudioChangeObserver_Params_Data::Validate,
+    { &internal::AudioService_AddAudioChangeObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2155,14 +2188,14 @@ AudioServiceAsyncWaiter::AudioServiceAsyncWaiter(
 AudioServiceAsyncWaiter::~AudioServiceAsyncWaiter() = default;
 
 void AudioServiceAsyncWaiter::GetDevices(
-    DeviceFilterPtr filter, absl::optional<std::vector<AudioDeviceInfoPtr>>* out_devices) {
+    DeviceFilterPtr filter, std::optional<std::vector<AudioDeviceInfoPtr>>* out_devices) {
   base::RunLoop loop;
   proxy_->GetDevices(std::move(filter),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<AudioDeviceInfoPtr>>* out_devices
+             std::optional<std::vector<AudioDeviceInfoPtr>>* out_devices
 ,
-             absl::optional<std::vector<AudioDeviceInfoPtr>> devices) {*out_devices = std::move(devices);
+             std::optional<std::vector<AudioDeviceInfoPtr>> devices) {*out_devices = std::move(devices);
             loop->Quit();
           },
           &loop,
@@ -2170,9 +2203,9 @@ void AudioServiceAsyncWaiter::GetDevices(
   loop.Run();
 }
 
-absl::optional<std::vector<AudioDeviceInfoPtr>> AudioServiceAsyncWaiter::GetDevices(
+std::optional<std::vector<AudioDeviceInfoPtr>> AudioServiceAsyncWaiter::GetDevices(
     DeviceFilterPtr filter) {
-  absl::optional<std::vector<AudioDeviceInfoPtr>> async_wait_result;
+  std::optional<std::vector<AudioDeviceInfoPtr>> async_wait_result;
   GetDevices(std::move(filter),&async_wait_result);
   return async_wait_result;
 }

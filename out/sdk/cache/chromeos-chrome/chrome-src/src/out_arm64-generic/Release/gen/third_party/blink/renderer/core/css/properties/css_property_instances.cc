@@ -153,6 +153,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyinternalvisitedcolor_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::Position property)
+    : csspropertyposition_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyposition_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::TextOrientation property)
     : csspropertytextorientation_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -1008,6 +1013,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyinlinesize_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::InsetArea property)
+    : csspropertyinsetarea_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyinsetarea_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::InsetBlockEnd property)
     : csspropertyinsetblockend_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -1308,6 +1318,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertymaskimage_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::MaskMode property)
+    : csspropertymaskmode_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertymaskmode_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::MaskOrigin property)
     : csspropertymaskorigin_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -1388,10 +1403,10 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertymixblendmode_));
   }
-  constexpr CSSPropertyUnion(::blink::css_longhand::NavigationTrigger property)
-    : csspropertynavigationtrigger_(std::move(property)) {
+  constexpr CSSPropertyUnion(::blink::css_longhand::Navigation property)
+    : csspropertynavigation_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertynavigationtrigger_));
+        static_cast<const CSSUnresolvedProperty *>(&csspropertynavigation_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::Negative property)
     : csspropertynegative_(std::move(property)) {
@@ -1627,11 +1642,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertypopovershowdelay_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertypopovershowdelay_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_longhand::Position property)
-    : csspropertyposition_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertyposition_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::PositionFallback property)
     : csspropertypositionfallback_(std::move(property)) {
@@ -2108,26 +2118,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertytimelinescope_));
   }
-  constexpr CSSPropertyUnion(::blink::css_longhand::ToggleGroup property)
-    : csspropertytogglegroup_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertytogglegroup_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_longhand::ToggleRoot property)
-    : csspropertytoggleroot_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertytoggleroot_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_longhand::ToggleTrigger property)
-    : csspropertytoggletrigger_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertytoggletrigger_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_longhand::ToggleVisibility property)
-    : csspropertytogglevisibility_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertytogglevisibility_));
-  }
   constexpr CSSPropertyUnion(::blink::css_longhand::Top property)
     : csspropertytop_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -2267,11 +2257,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertywebkitboxdirection_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertywebkitboxdirection_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_longhand::WebkitBoxDirectionAlternative property)
-    : csspropertywebkitboxdirectionalternative_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertywebkitboxdirectionalternative_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::WebkitBoxFlex property)
     : csspropertywebkitboxflex_(std::move(property)) {
@@ -2517,6 +2502,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertyalternativeanimationwithtimeline_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyalternativeanimationwithtimeline_));
+  }
+  constexpr CSSPropertyUnion(::blink::css_shorthand::AlternativeMask property)
+    : csspropertyalternativemask_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyalternativemask_));
   }
   constexpr CSSPropertyUnion(::blink::css_shorthand::AlternativeViewTimelineWithInset property)
     : csspropertyalternativeviewtimelinewithinset_(std::move(property)) {
@@ -2788,6 +2778,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertymarker_));
   }
+  constexpr CSSPropertyUnion(::blink::css_shorthand::MaskPosition property)
+    : csspropertymaskposition_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertymaskposition_));
+  }
   constexpr CSSPropertyUnion(::blink::css_shorthand::Offset property)
     : csspropertyoffset_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -2913,11 +2908,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertytextspacing_));
   }
-  constexpr CSSPropertyUnion(::blink::css_shorthand::Toggle property)
-    : csspropertytoggle_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertytoggle_));
-  }
   constexpr CSSPropertyUnion(::blink::css_shorthand::Transition property)
     : csspropertytransition_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -2927,11 +2917,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertyviewtimeline_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyviewtimeline_));
-  }
-  constexpr CSSPropertyUnion(::blink::css_shorthand::WebkitAlternativeMask property)
-    : csspropertywebkitalternativemask_(std::move(property)) {
-    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
-        static_cast<const CSSUnresolvedProperty *>(&csspropertywebkitalternativemask_));
   }
   constexpr CSSPropertyUnion(::blink::css_shorthand::WebkitColumnBreakAfter property)
     : csspropertywebkitcolumnbreakafter_(std::move(property)) {
@@ -3162,6 +3147,16 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertyaliaswebkitborderstart_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitborderstart_));
+  }
+  constexpr CSSPropertyUnion(::blink::css_shorthand::WebkitAlternativeMask property)
+    : csspropertyaliaswebkitalternativemask_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemask_));
+  }
+  constexpr CSSPropertyUnion(::blink::css_shorthand::WebkitAlternativeMaskPosition property)
+    : csspropertyaliaswebkitalternativemaskposition_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemaskposition_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::EpubCaptionSide property)
     : csspropertyaliasepubcaptionside_(std::move(property)) {
@@ -3579,6 +3574,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::FontWeight csspropertyfontweight_;
   ::blink::css_longhand::ForcedColorAdjust csspropertyforcedcoloradjust_;
   ::blink::css_longhand::InternalVisitedColor csspropertyinternalvisitedcolor_;
+  ::blink::css_longhand::Position csspropertyposition_;
   ::blink::css_longhand::TextOrientation csspropertytextorientation_;
   ::blink::css_longhand::TextRendering csspropertytextrendering_;
   ::blink::css_longhand::TextSpacingTrim csspropertytextspacingtrim_;
@@ -3750,6 +3746,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::InitialLetter csspropertyinitialletter_;
   ::blink::css_longhand::InitialValue csspropertyinitialvalue_;
   ::blink::css_longhand::InlineSize csspropertyinlinesize_;
+  ::blink::css_longhand::InsetArea csspropertyinsetarea_;
   ::blink::css_longhand::InsetBlockEnd csspropertyinsetblockend_;
   ::blink::css_longhand::InsetBlockStart csspropertyinsetblockstart_;
   ::blink::css_longhand::InsetInlineEnd csspropertyinsetinlineend_;
@@ -3810,6 +3807,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::MaskClip csspropertymaskclip_;
   ::blink::css_longhand::MaskComposite csspropertymaskcomposite_;
   ::blink::css_longhand::MaskImage csspropertymaskimage_;
+  ::blink::css_longhand::MaskMode csspropertymaskmode_;
   ::blink::css_longhand::MaskOrigin csspropertymaskorigin_;
   ::blink::css_longhand::MaskRepeat csspropertymaskrepeat_;
   ::blink::css_longhand::MaskSize csspropertymasksize_;
@@ -3826,7 +3824,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::MinInlineSize csspropertymininlinesize_;
   ::blink::css_longhand::MinWidth csspropertyminwidth_;
   ::blink::css_longhand::MixBlendMode csspropertymixblendmode_;
-  ::blink::css_longhand::NavigationTrigger csspropertynavigationtrigger_;
+  ::blink::css_longhand::Navigation csspropertynavigation_;
   ::blink::css_longhand::Negative csspropertynegative_;
   ::blink::css_longhand::ObjectFit csspropertyobjectfit_;
   ::blink::css_longhand::ObjectPosition csspropertyobjectposition_;
@@ -3874,7 +3872,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::PointerEvents csspropertypointerevents_;
   ::blink::css_longhand::PopoverHideDelay csspropertypopoverhidedelay_;
   ::blink::css_longhand::PopoverShowDelay csspropertypopovershowdelay_;
-  ::blink::css_longhand::Position csspropertyposition_;
   ::blink::css_longhand::PositionFallback csspropertypositionfallback_;
   ::blink::css_longhand::PositionFallbackBounds csspropertypositionfallbackbounds_;
   ::blink::css_longhand::Prefix csspropertyprefix_;
@@ -3970,10 +3967,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::TextUnderlinePosition csspropertytextunderlineposition_;
   ::blink::css_longhand::TextWrap csspropertytextwrap_;
   ::blink::css_longhand::TimelineScope csspropertytimelinescope_;
-  ::blink::css_longhand::ToggleGroup csspropertytogglegroup_;
-  ::blink::css_longhand::ToggleRoot csspropertytoggleroot_;
-  ::blink::css_longhand::ToggleTrigger csspropertytoggletrigger_;
-  ::blink::css_longhand::ToggleVisibility csspropertytogglevisibility_;
   ::blink::css_longhand::Top csspropertytop_;
   ::blink::css_longhand::TouchAction csspropertytouchaction_;
   ::blink::css_longhand::Transform csspropertytransform_;
@@ -4002,7 +3995,6 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::WebkitBoxAlign csspropertywebkitboxalign_;
   ::blink::css_longhand::WebkitBoxDecorationBreak csspropertywebkitboxdecorationbreak_;
   ::blink::css_longhand::WebkitBoxDirection csspropertywebkitboxdirection_;
-  ::blink::css_longhand::WebkitBoxDirectionAlternative csspropertywebkitboxdirectionalternative_;
   ::blink::css_longhand::WebkitBoxFlex csspropertywebkitboxflex_;
   ::blink::css_longhand::WebkitBoxOrdinalGroup csspropertywebkitboxordinalgroup_;
   ::blink::css_longhand::WebkitBoxOrient csspropertywebkitboxorient_;
@@ -4052,6 +4044,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_shorthand::AlternativeAnimationDelay csspropertyalternativeanimationdelay_;
   ::blink::css_shorthand::AlternativeAnimationWithDelayStartEnd csspropertyalternativeanimationwithdelaystartend_;
   ::blink::css_shorthand::AlternativeAnimationWithTimeline csspropertyalternativeanimationwithtimeline_;
+  ::blink::css_shorthand::AlternativeMask csspropertyalternativemask_;
   ::blink::css_shorthand::AlternativeViewTimelineWithInset csspropertyalternativeviewtimelinewithinset_;
   ::blink::css_shorthand::Animation csspropertyanimation_;
   ::blink::css_shorthand::AnimationRange csspropertyanimationrange_;
@@ -4106,6 +4099,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_shorthand::MarginBlock csspropertymarginblock_;
   ::blink::css_shorthand::MarginInline csspropertymargininline_;
   ::blink::css_shorthand::Marker csspropertymarker_;
+  ::blink::css_shorthand::MaskPosition csspropertymaskposition_;
   ::blink::css_shorthand::Offset csspropertyoffset_;
   ::blink::css_shorthand::Outline csspropertyoutline_;
   ::blink::css_shorthand::Overflow csspropertyoverflow_;
@@ -4131,10 +4125,8 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_shorthand::TextDecoration csspropertytextdecoration_;
   ::blink::css_shorthand::TextEmphasis csspropertytextemphasis_;
   ::blink::css_shorthand::TextSpacing csspropertytextspacing_;
-  ::blink::css_shorthand::Toggle csspropertytoggle_;
   ::blink::css_shorthand::Transition csspropertytransition_;
   ::blink::css_shorthand::ViewTimeline csspropertyviewtimeline_;
-  ::blink::css_shorthand::WebkitAlternativeMask csspropertywebkitalternativemask_;
   ::blink::css_shorthand::WebkitColumnBreakAfter csspropertywebkitcolumnbreakafter_;
   ::blink::css_shorthand::WebkitColumnBreakBefore csspropertywebkitcolumnbreakbefore_;
   ::blink::css_shorthand::WebkitColumnBreakInside csspropertywebkitcolumnbreakinside_;
@@ -4181,6 +4173,8 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_shorthand::WebkitBorderBefore csspropertyaliaswebkitborderbefore_;
   ::blink::css_shorthand::WebkitBorderEnd csspropertyaliaswebkitborderend_;
   ::blink::css_shorthand::WebkitBorderStart csspropertyaliaswebkitborderstart_;
+  ::blink::css_shorthand::WebkitAlternativeMask csspropertyaliaswebkitalternativemask_;
+  ::blink::css_shorthand::WebkitAlternativeMaskPosition csspropertyaliaswebkitalternativemaskposition_;
   ::blink::css_longhand::EpubCaptionSide csspropertyaliasepubcaptionside_;
   ::blink::css_longhand::EpubTextCombine csspropertyaliasepubtextcombine_;
   ::blink::css_shorthand::EpubTextEmphasis csspropertyaliasepubtextemphasis_;
@@ -4289,6 +4283,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::FontWeight(),
   ::blink::css_longhand::ForcedColorAdjust(),
   ::blink::css_longhand::InternalVisitedColor(),
+  ::blink::css_longhand::Position(),
   ::blink::css_longhand::TextOrientation(),
   ::blink::css_longhand::TextRendering(),
   ::blink::css_longhand::TextSpacingTrim(),
@@ -4460,6 +4455,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::InitialLetter(),
   ::blink::css_longhand::InitialValue(),
   ::blink::css_longhand::InlineSize(),
+  ::blink::css_longhand::InsetArea(),
   ::blink::css_longhand::InsetBlockEnd(),
   ::blink::css_longhand::InsetBlockStart(),
   ::blink::css_longhand::InsetInlineEnd(),
@@ -4520,6 +4516,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::MaskClip(),
   ::blink::css_longhand::MaskComposite(),
   ::blink::css_longhand::MaskImage(),
+  ::blink::css_longhand::MaskMode(),
   ::blink::css_longhand::MaskOrigin(),
   ::blink::css_longhand::MaskRepeat(),
   ::blink::css_longhand::MaskSize(),
@@ -4536,7 +4533,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::MinInlineSize(),
   ::blink::css_longhand::MinWidth(),
   ::blink::css_longhand::MixBlendMode(),
-  ::blink::css_longhand::NavigationTrigger(),
+  ::blink::css_longhand::Navigation(),
   ::blink::css_longhand::Negative(),
   ::blink::css_longhand::ObjectFit(),
   ::blink::css_longhand::ObjectPosition(),
@@ -4584,7 +4581,6 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::PointerEvents(),
   ::blink::css_longhand::PopoverHideDelay(),
   ::blink::css_longhand::PopoverShowDelay(),
-  ::blink::css_longhand::Position(),
   ::blink::css_longhand::PositionFallback(),
   ::blink::css_longhand::PositionFallbackBounds(),
   ::blink::css_longhand::Prefix(),
@@ -4680,10 +4676,6 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::TextUnderlinePosition(),
   ::blink::css_longhand::TextWrap(),
   ::blink::css_longhand::TimelineScope(),
-  ::blink::css_longhand::ToggleGroup(),
-  ::blink::css_longhand::ToggleRoot(),
-  ::blink::css_longhand::ToggleTrigger(),
-  ::blink::css_longhand::ToggleVisibility(),
   ::blink::css_longhand::Top(),
   ::blink::css_longhand::TouchAction(),
   ::blink::css_longhand::Transform(),
@@ -4712,7 +4704,6 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::WebkitBoxAlign(),
   ::blink::css_longhand::WebkitBoxDecorationBreak(),
   ::blink::css_longhand::WebkitBoxDirection(),
-  ::blink::css_longhand::WebkitBoxDirectionAlternative(),
   ::blink::css_longhand::WebkitBoxFlex(),
   ::blink::css_longhand::WebkitBoxOrdinalGroup(),
   ::blink::css_longhand::WebkitBoxOrient(),
@@ -4762,6 +4753,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_shorthand::AlternativeAnimationDelay(),
   ::blink::css_shorthand::AlternativeAnimationWithDelayStartEnd(),
   ::blink::css_shorthand::AlternativeAnimationWithTimeline(),
+  ::blink::css_shorthand::AlternativeMask(),
   ::blink::css_shorthand::AlternativeViewTimelineWithInset(),
   ::blink::css_shorthand::Animation(),
   ::blink::css_shorthand::AnimationRange(),
@@ -4816,6 +4808,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_shorthand::MarginBlock(),
   ::blink::css_shorthand::MarginInline(),
   ::blink::css_shorthand::Marker(),
+  ::blink::css_shorthand::MaskPosition(),
   ::blink::css_shorthand::Offset(),
   ::blink::css_shorthand::Outline(),
   ::blink::css_shorthand::Overflow(),
@@ -4841,10 +4834,8 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_shorthand::TextDecoration(),
   ::blink::css_shorthand::TextEmphasis(),
   ::blink::css_shorthand::TextSpacing(),
-  ::blink::css_shorthand::Toggle(),
   ::blink::css_shorthand::Transition(),
   ::blink::css_shorthand::ViewTimeline(),
-  ::blink::css_shorthand::WebkitAlternativeMask(),
   ::blink::css_shorthand::WebkitColumnBreakAfter(),
   ::blink::css_shorthand::WebkitColumnBreakBefore(),
   ::blink::css_shorthand::WebkitColumnBreakInside(),
@@ -4891,6 +4882,8 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_shorthand::WebkitBorderBefore(),
   ::blink::css_shorthand::WebkitBorderEnd(),
   ::blink::css_shorthand::WebkitBorderStart(),
+  ::blink::css_shorthand::WebkitAlternativeMask(),
+  ::blink::css_shorthand::WebkitAlternativeMaskPosition(),
   ::blink::css_longhand::EpubCaptionSide(),
   ::blink::css_longhand::EpubTextCombine(),
   ::blink::css_shorthand::EpubTextEmphasis(),
@@ -5000,6 +4993,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kFontWeight.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kForcedColorAdjust.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInternalVisitedColor.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPosition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextOrientation.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextRendering.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextSpacingTrim.
@@ -5171,6 +5165,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInitialLetter.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInitialValue.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInlineSize.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInsetArea.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInsetBlockEnd.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInsetBlockStart.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kInsetInlineEnd.
@@ -5231,6 +5226,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskClip.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskComposite.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskImage.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskMode.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskOrigin.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskRepeat.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskSize.
@@ -5247,7 +5243,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMinInlineSize.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMinWidth.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMixBlendMode.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kNavigationTrigger.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kNavigation.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kNegative.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kObjectFit.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kObjectPosition.
@@ -5295,7 +5291,6 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPointerEvents.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPopoverHideDelay.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPopoverShowDelay.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPosition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPositionFallback.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPositionFallbackBounds.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPrefix.
@@ -5391,10 +5386,6 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextUnderlinePosition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextWrap.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTimelineScope.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kToggleGroup.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kToggleRoot.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kToggleTrigger.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kToggleVisibility.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTop.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTouchAction.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTransform.
@@ -5423,7 +5414,6 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxAlign.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDecorationBreak.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDirection.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDirectionAlternative.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxFlex.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxOrdinalGroup.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBoxOrient.
@@ -5473,6 +5463,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationDelay.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationWithDelayStartEnd.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationWithTimeline.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAlternativeMask.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAlternativeViewTimelineWithInset.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAnimation.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAnimationRange.
@@ -5527,6 +5518,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMarginBlock.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMarginInline.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMarker.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskPosition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kOffset.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kOutline.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kOverflow.
@@ -5552,10 +5544,8 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextDecoration.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextEmphasis.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTextSpacing.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kToggle.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kTransition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTimeline.
-      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitAlternativeMask.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakAfter.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakBefore.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakInside.
@@ -5602,6 +5592,8 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderBefore.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderEnd.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderStart.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMask.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskPosition.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasEpubCaptionSide.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasEpubTextCombine.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasEpubTextEmphasis.
@@ -5744,6 +5736,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kFontWeight.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kForcedColorAdjust.
       static_cast<uint16_t>(CSSPropertyID::kColor),  // kInternalVisitedColor.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPosition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextOrientation.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextRendering.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextSpacingTrim.
@@ -5915,6 +5908,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInitialLetter.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInitialValue.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInlineSize.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInsetArea.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInsetBlockEnd.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInsetBlockStart.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kInsetInlineEnd.
@@ -5975,6 +5969,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskClip.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskComposite.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskImage.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskMode.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskOrigin.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskRepeat.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskSize.
@@ -5991,7 +5986,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMinInlineSize.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMinWidth.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMixBlendMode.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kNavigationTrigger.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kNavigation.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kNegative.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kObjectFit.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kObjectPosition.
@@ -6039,7 +6034,6 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPointerEvents.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPopoverHideDelay.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPopoverShowDelay.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPosition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPositionFallback.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPositionFallbackBounds.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPrefix.
@@ -6135,10 +6129,6 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextUnderlinePosition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextWrap.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTimelineScope.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kToggleGroup.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kToggleRoot.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kToggleTrigger.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kToggleVisibility.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTop.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTouchAction.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTransform.
@@ -6167,7 +6157,6 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxAlign.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDecorationBreak.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDirection.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxDirectionAlternative.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxFlex.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxOrdinalGroup.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBoxOrient.
@@ -6217,6 +6206,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationDelay.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationWithDelayStartEnd.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAlternativeAnimationWithTimeline.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAlternativeMask.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAlternativeViewTimelineWithInset.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAnimation.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAnimationRange.
@@ -6271,6 +6261,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMarginBlock.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMarginInline.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMarker.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskPosition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kOffset.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kOutline.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kOverflow.
@@ -6296,10 +6287,8 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextDecoration.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextEmphasis.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTextSpacing.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kToggle.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kTransition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTimeline.
-      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitAlternativeMask.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakAfter.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakBefore.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitColumnBreakInside.
@@ -6346,6 +6335,8 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderBefore.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderEnd.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderStart.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMask.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskPosition.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasEpubCaptionSide.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasEpubTextCombine.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasEpubTextEmphasis.

@@ -1,54 +1,44 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-ignore: error TS6133: 'MetadataModel' is declared but its value is never
-// read.
+import { assertNotReached } from 'chrome://resources/js/assert.js';
+import { FilesAppEntry } from '../../../externs/files_app_entry_interfaces.js';
+import { MetadataItem } from './metadata_item.js';
 import { MetadataModel } from './metadata_model.js';
+import { MetadataProvider } from './metadata_provider.js';
+import { MetadataRequest } from './metadata_request.js';
+/**
+ * Mock metadata provider that doesn't actually do anything just so
+ * MockMetadataModel has an object it can pass to MetadataModel's constructor.
+ */
+class MockMetadataProvider extends MetadataProvider {
+    get(_requests) {
+        assertNotReached('Method not implemented.');
+    }
+}
 /**
  * Returns a mock of metadata model.
- *
- * @extends {MetadataModel}
- * @final
  */
-export class MockMetadataModel {
-    /** @param {Object} initial_properties */
-    constructor(initial_properties) {
-        /**
-         * Dummy properties, which can be overwritten by a test.
-         * @public @const @type {Object}
-         */
-        this.properties = initial_properties;
+export class MockMetadataModel extends MetadataModel {
+    /**
+     * @param properties Default properties, which can be overwritten by a test.
+     */
+    constructor(properties) {
+        super(new MockMetadataProvider([]));
+        this.properties = properties;
         /**
          * Per entry properties, which can be set by a test.
-         * @private @const @type {Map<string, Object>}
          */
         this.propertiesMap_ = new Map();
     }
-    /** @override */
-    // @ts-ignore: error TS7006: Parameter 'entries' implicitly has an 'any' type.
-    get(entries) {
-        return Promise.resolve(this.getCache(entries));
+    get(entries, _names) {
+        return Promise.resolve(this.getCache(entries, []));
     }
-    /** @override */
-    // @ts-ignore: error TS7006: Parameter 'entries' implicitly has an 'any' type.
-    getCache(entries) {
-        return entries.map(
-        // @ts-ignore: error TS7006: Parameter 'entry' implicitly has an 'any'
-        // type.
-        entry => this.propertiesMap_.has(entry.toURL()) ?
-            this.propertiesMap_.get(entry.toURL()) :
-            this.properties);
+    getCache(entries, _names = []) {
+        return entries.map(entry => this.propertiesMap_.get(entry.toURL()) || this.properties);
     }
-    /**
-     * @param {Entry} entry
-     * @param {Object} properties
-     */
     set(entry, properties) {
         this.propertiesMap_.set(entry.toURL(), properties);
     }
-    /** @override */
-    // @ts-ignore: error TS4121: This member cannot have a JSDoc comment with an
-    // '@override' tag because its containing class 'MockMetadataModel' does not
-    // extend another class.
     notifyEntriesChanged() { }
 }

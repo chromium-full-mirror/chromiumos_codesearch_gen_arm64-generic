@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -471,7 +472,7 @@ class CORE_EXPORT ControllerServiceWorkerInfo {
       ServiceWorkerRouterDataPtr router_data,
       ::mojo::PendingRemote<ControllerServiceWorker> remote_controller,
       const WTF::String& client_id,
-      const absl::optional<::base::UnguessableToken>& fetch_request_window_id,
+      const std::optional<::base::UnguessableToken>& fetch_request_window_id,
       ::blink::mojom::blink::ServiceWorkerObjectInfoPtr object_info,
       WTF::Vector<::blink::mojom::blink::WebFeature> used_features);
 
@@ -564,7 +565,7 @@ ControllerServiceWorkerInfo& operator=(const ControllerServiceWorkerInfo&) = del
   
   WTF::String client_id;
   
-  absl::optional<::base::UnguessableToken> fetch_request_window_id;
+  std::optional<::base::UnguessableToken> fetch_request_window_id;
   
   ::blink::mojom::blink::ServiceWorkerObjectInfoPtr object_info;
   

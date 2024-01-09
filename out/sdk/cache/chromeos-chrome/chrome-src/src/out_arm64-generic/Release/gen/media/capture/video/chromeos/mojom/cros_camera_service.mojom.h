@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/video/chromeos/mojom/cros_camera_service.mojom-features.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_service.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_service.mojom-forward.h"
-#include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-forward.h"
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-forward.h"
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-forward.h"
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-forward.h"
@@ -62,7 +62,7 @@ class CameraHalDispatcher
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 10;
+  static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -75,120 +75,127 @@ class CameraHalDispatcher
   using RequestValidator_ = CameraHalDispatcherRequestValidator;
   using ResponseValidator_ = CameraHalDispatcherResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kRegisterServerMinVersion = 0,
-    kRegisterClientMinVersion = 0,
-    kGetMjpegDecodeAcceleratorMinVersion = 1,
-    kGetJpegEncodeAcceleratorMinVersion = 2,
-    kRegisterServerWithTokenMinVersion = 4,
     kRegisterClientWithTokenMinVersion = 4,
-    kRegisterSensorClientWithTokenMinVersion = 6,
-    kBindServiceToMojoServiceManagerMinVersion = 10,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct RegisterServer_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct RegisterClient_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetMjpegDecodeAccelerator_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetJpegEncodeAccelerator_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct RegisterServerWithToken_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct RegisterClientWithToken_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct RegisterSensorClientWithToken_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct BindServiceToMojoServiceManager_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraHalDispatcher() = default;
 
-  
-  virtual void RegisterServer(::mojo::PendingRemote<CameraHalServer> server) = 0;
-
-  
-  virtual void RegisterClient(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client) = 0;
-
-  
-  virtual void GetMjpegDecodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> jda_receiver) = 0;
-
-  
-  virtual void GetJpegEncodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> jea_receiver) = 0;
-
-
-  using RegisterServerWithTokenCallback = base::OnceCallback<void(int32_t, ::mojo::PendingRemote<CameraHalServerCallbacks>)>;
-  
-  virtual void RegisterServerWithToken(::mojo::PendingRemote<CameraHalServer> server, const ::base::UnguessableToken& auth_token, RegisterServerWithTokenCallback callback) = 0;
-
 
   using RegisterClientWithTokenCallback = base::OnceCallback<void(int32_t)>;
   
   virtual void RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) = 0;
-
-
-  using RegisterSensorClientWithTokenCallback = base::OnceCallback<void(int32_t)>;
-  
-  virtual void RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) = 0;
-
-  
-  virtual void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) = 0;
 };
 
-class CameraHalServerProxy;
+class CrosCameraServiceObserverProxy;
 
 template <typename ImplRefTraits>
-class CameraHalServerStub;
+class CrosCameraServiceObserverStub;
 
-class CameraHalServerRequestValidator;
-class CameraHalServerResponseValidator;
+class CrosCameraServiceObserverRequestValidator;
 
 
-class CameraHalServer
-    : public CameraHalServerInterfaceBase {
+class CrosCameraServiceObserver
+    : public CrosCameraServiceObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 10;
+  static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = CameraHalServerInterfaceBase;
-  using Proxy_ = CameraHalServerProxy;
+  using Base_ = CrosCameraServiceObserverInterfaceBase;
+  using Proxy_ = CrosCameraServiceObserverProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = CameraHalServerStub<ImplRefTraits>;
+  using Stub_ = CrosCameraServiceObserverStub<ImplRefTraits>;
 
-  using RequestValidator_ = CameraHalServerRequestValidator;
-  using ResponseValidator_ = CameraHalServerResponseValidator;
+  using RequestValidator_ = CrosCameraServiceObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kCreateChannelMinVersion = 0,
-    kSetTracingEnabledMinVersion = 3,
-    kSetAutoFramingStateMinVersion = 7,
-    kGetCameraSWPrivacySwitchStateMinVersion = 8,
-    kSetCameraSWPrivacySwitchStateMinVersion = 8,
-    kGetAutoFramingSupportedMinVersion = 9,
-    kSetCameraEffectMinVersion = 10,
+    kCameraDeviceActivityChangeMinVersion = 0,
+    kCameraPrivacySwitchStateChangeMinVersion = 0,
+    kCameraSWPrivacySwitchStateChangeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct CreateChannel_Sym {
+  struct CameraDeviceActivityChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CameraPrivacySwitchStateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CameraSWPrivacySwitchStateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~CrosCameraServiceObserver() = default;
+
+  
+  virtual void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) = 0;
+
+  
+  virtual void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) = 0;
+
+  
+  virtual void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) = 0;
+};
+
+class CrosCameraServiceProxy;
+
+template <typename ImplRefTraits>
+class CrosCameraServiceStub;
+
+class CrosCameraServiceRequestValidator;
+class CrosCameraServiceResponseValidator;
+
+
+class CrosCameraService
+    : public CrosCameraServiceInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = CrosCameraServiceInterfaceBase;
+  using Proxy_ = CrosCameraServiceProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = CrosCameraServiceStub<ImplRefTraits>;
+
+  using RequestValidator_ = CrosCameraServiceRequestValidator;
+  using ResponseValidator_ = CrosCameraServiceResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kGetCameraModuleMinVersion = 0,
+    kSetTracingEnabledMinVersion = 0,
+    kSetAutoFramingStateMinVersion = 0,
+    kGetCameraSWPrivacySwitchStateMinVersion = 0,
+    kSetCameraSWPrivacySwitchStateMinVersion = 0,
+    kGetAutoFramingSupportedMinVersion = 0,
+    kSetCameraEffectMinVersion = 0,
+    kAddCrosCameraServiceObserverMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetCameraModule_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetTracingEnabled_Sym {
@@ -209,11 +216,16 @@ class CameraHalServer
   struct SetCameraEffect_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct AddCrosCameraServiceObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~CameraHalServer() = default;
+  virtual ~CrosCameraService() = default;
 
+
+  using GetCameraModuleCallback = base::OnceCallback<void(::mojo::PendingRemote<::cros::mojom::CameraModule>)>;
   
-  virtual void CreateChannel(::mojo::PendingReceiver<::cros::mojom::CameraModule> camera_module_receiver, CameraClientType type) = 0;
+  virtual void GetCameraModule(CameraClientType type, GetCameraModuleCallback callback) = 0;
 
   
   virtual void SetTracingEnabled(bool enabled) = 0;
@@ -238,65 +250,9 @@ class CameraHalServer
   using SetCameraEffectCallback = base::OnceCallback<void(::cros::mojom::SetEffectResult)>;
   
   virtual void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) = 0;
-};
-
-class CameraHalServerCallbacksProxy;
-
-template <typename ImplRefTraits>
-class CameraHalServerCallbacksStub;
-
-class CameraHalServerCallbacksRequestValidator;
-
-
-class CameraHalServerCallbacks
-    : public CameraHalServerCallbacksInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 9;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = CameraHalServerCallbacksInterfaceBase;
-  using Proxy_ = CameraHalServerCallbacksProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = CameraHalServerCallbacksStub<ImplRefTraits>;
-
-  using RequestValidator_ = CameraHalServerCallbacksRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
-  enum MethodMinVersions : uint32_t {
-    kCameraDeviceActivityChangeMinVersion = 0,
-    kCameraPrivacySwitchStateChangeMinVersion = 5,
-    kCameraSWPrivacySwitchStateChangeMinVersion = 8,
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-  struct CameraDeviceActivityChange_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct CameraPrivacySwitchStateChange_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct CameraSWPrivacySwitchStateChange_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~CameraHalServerCallbacks() = default;
 
   
-  virtual void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) = 0;
-
-  
-  virtual void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) = 0;
-
-  
-  virtual void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) = 0;
+  virtual void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) = 0;
 };
 
 
@@ -308,21 +264,7 @@ class  CameraHalDispatcherProxy
 
   explicit CameraHalDispatcherProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void RegisterServer(::mojo::PendingRemote<CameraHalServer> server) final;
-  
-  void RegisterClient(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client) final;
-  
-  void GetMjpegDecodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> jda_receiver) final;
-  
-  void GetJpegEncodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> jea_receiver) final;
-  
-  void RegisterServerWithToken(::mojo::PendingRemote<CameraHalServer> server, const ::base::UnguessableToken& auth_token, RegisterServerWithTokenCallback callback) final;
-  
   void RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) final;
-  
-  void RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) final;
-  
-  void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -330,14 +272,33 @@ class  CameraHalDispatcherProxy
 
 
 
-class  CameraHalServerProxy
-    : public CameraHalServer {
+class  CrosCameraServiceObserverProxy
+    : public CrosCameraServiceObserver {
  public:
-  using InterfaceType = CameraHalServer;
+  using InterfaceType = CrosCameraServiceObserver;
 
-  explicit CameraHalServerProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit CrosCameraServiceObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateChannel(::mojo::PendingReceiver<::cros::mojom::CameraModule> camera_module_receiver, CameraClientType type) final;
+  void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) final;
+  
+  void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) final;
+  
+  void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  CrosCameraServiceProxy
+    : public CrosCameraService {
+ public:
+  using InterfaceType = CrosCameraService;
+
+  explicit CrosCameraServiceProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetCameraModule(CameraClientType type, GetCameraModuleCallback callback) final;
   
   void SetTracingEnabled(bool enabled) final;
   
@@ -350,25 +311,8 @@ class  CameraHalServerProxy
   void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) final;
   
   void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
-class  CameraHalServerCallbacksProxy
-    : public CameraHalServerCallbacks {
- public:
-  using InterfaceType = CameraHalServerCallbacks;
-
-  explicit CameraHalServerCallbacksProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) final;
-  
-  void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) final;
-  
-  void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) final;
+  void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -414,24 +358,24 @@ class CameraHalDispatcherStub
  private:
   ImplPointerType sink_;
 };
-class  CameraHalServerStubDispatch {
+class  CrosCameraServiceObserverStubDispatch {
  public:
-  static bool Accept(CameraHalServer* impl, mojo::Message* message);
+  static bool Accept(CrosCameraServiceObserver* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      CameraHalServer* impl,
+      CrosCameraServiceObserver* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<CameraHalServer>>
-class CameraHalServerStub
+              mojo::RawPtrImplRefTraits<CrosCameraServiceObserver>>
+class CrosCameraServiceObserverStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  CameraHalServerStub() = default;
-  ~CameraHalServerStub() override = default;
+  CrosCameraServiceObserverStub() = default;
+  ~CrosCameraServiceObserverStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -439,7 +383,7 @@ class CameraHalServerStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return CameraHalServerStubDispatch::Accept(
+    return CrosCameraServiceObserverStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -448,31 +392,31 @@ class CameraHalServerStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return CameraHalServerStubDispatch::AcceptWithResponder(
+    return CrosCameraServiceObserverStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
  private:
   ImplPointerType sink_;
 };
-class  CameraHalServerCallbacksStubDispatch {
+class  CrosCameraServiceStubDispatch {
  public:
-  static bool Accept(CameraHalServerCallbacks* impl, mojo::Message* message);
+  static bool Accept(CrosCameraService* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      CameraHalServerCallbacks* impl,
+      CrosCameraService* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<CameraHalServerCallbacks>>
-class CameraHalServerCallbacksStub
+              mojo::RawPtrImplRefTraits<CrosCameraService>>
+class CrosCameraServiceStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  CameraHalServerCallbacksStub() = default;
-  ~CameraHalServerCallbacksStub() override = default;
+  CrosCameraServiceStub() = default;
+  ~CrosCameraServiceStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -480,7 +424,7 @@ class CameraHalServerCallbacksStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return CameraHalServerCallbacksStubDispatch::Accept(
+    return CrosCameraServiceStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -489,7 +433,7 @@ class CameraHalServerCallbacksStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return CameraHalServerCallbacksStubDispatch::AcceptWithResponder(
+    return CrosCameraServiceStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -500,11 +444,11 @@ class  CameraHalDispatcherRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  CameraHalServerRequestValidator : public mojo::MessageReceiver {
+class  CrosCameraServiceObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  CameraHalServerCallbacksRequestValidator : public mojo::MessageReceiver {
+class  CrosCameraServiceRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -512,7 +456,7 @@ class  CameraHalDispatcherResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  CameraHalServerResponseValidator : public mojo::MessageReceiver {
+class  CrosCameraServiceResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

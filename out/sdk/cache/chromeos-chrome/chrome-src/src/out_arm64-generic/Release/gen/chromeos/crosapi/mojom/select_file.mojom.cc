@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -146,7 +147,7 @@ SelectFileOptions::SelectFileOptions(
     const ::base::FilePath& default_path_in,
     SelectFileTypeInfoPtr file_types_in,
     const std::string& owning_shell_window_id_in,
-    const absl::optional<::GURL>& caller_in)
+    const std::optional<::GURL>& caller_in)
     : type(std::move(type_in)),
       title(std::move(title_in)),
       default_path(std::move(default_path_in)),
@@ -208,7 +209,7 @@ void SelectFileOptions::WriteIntoTrace(
     dict.AddItem(
       "caller"), this->caller,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -230,7 +231,7 @@ SelectedFileInfo::SelectedFileInfo(
     const ::base::FilePath& file_path_in,
     const ::base::FilePath& local_path_in,
     const std::string& display_name_in,
-    const absl::optional<::GURL>& url_in)
+    const std::optional<::GURL>& url_in)
     : file_path(std::move(file_path_in)),
       local_path(std::move(local_path_in)),
       display_name(std::move(display_name_in)),
@@ -272,7 +273,7 @@ void SelectedFileInfo::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -372,14 +373,17 @@ void SelectFileProxy::Select(
                         "<value of type SelectFileOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSelectFile_Select_Name, kFlags, 0, 0, nullptr);
@@ -514,7 +518,8 @@ void SelectFile_Select_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSelectFile_Select_Name, kFlags, 0, 0, nullptr);
@@ -609,10 +614,10 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSelectFileValidationInfo[] = {
-    {&internal::SelectFile_Select_Params_Data::Validate,
+    { &internal::SelectFile_Select_Params_Data::Validate,
      &internal::SelectFile_Select_ResponseParams_Data::Validate},
 };
 

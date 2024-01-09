@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -852,14 +853,17 @@ void DetailsProviderProxy::GetTabDiscardsInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send discards::mojom::DetailsProvider::GetTabDiscardsInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_GetTabDiscardsInfo_Name, kFlags, 0, 0, nullptr);
@@ -893,14 +897,17 @@ void DetailsProviderProxy::SetAutoDiscardable(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_SetAutoDiscardable_Name, kFlags, 0, 0, nullptr);
@@ -936,14 +943,17 @@ void DetailsProviderProxy::DiscardById(
                         "<value of type ::mojom::LifecycleUnitDiscardReason>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_DiscardById_Name, kFlags, 0, 0, nullptr);
@@ -977,14 +987,17 @@ void DetailsProviderProxy::LoadById(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_LoadById_Name, kFlags, 0, 0, nullptr);
@@ -1008,14 +1021,17 @@ void DetailsProviderProxy::Discard(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send discards::mojom::DetailsProvider::Discard");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_Discard_Name, kFlags, 0, 0, nullptr);
@@ -1039,14 +1055,17 @@ void DetailsProviderProxy::ToggleBatterySaverMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send discards::mojom::DetailsProvider::ToggleBatterySaverMode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_ToggleBatterySaverMode_Name, kFlags, 0, 0, nullptr);
@@ -1155,7 +1174,8 @@ void DetailsProvider_GetTabDiscardsInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_GetTabDiscardsInfo_Name, kFlags, 0, 0, nullptr);
@@ -1274,7 +1294,8 @@ void DetailsProvider_SetAutoDiscardable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_SetAutoDiscardable_Name, kFlags, 0, 0, nullptr);
@@ -1380,7 +1401,8 @@ void DetailsProvider_DiscardById_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_DiscardById_Name, kFlags, 0, 0, nullptr);
@@ -1486,7 +1508,8 @@ void DetailsProvider_Discard_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDetailsProvider_Discard_Name, kFlags, 0, 0, nullptr);
@@ -1715,20 +1738,20 @@ std::move(p_reason), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDetailsProviderValidationInfo[] = {
-    {&internal::DetailsProvider_GetTabDiscardsInfo_Params_Data::Validate,
+    { &internal::DetailsProvider_GetTabDiscardsInfo_Params_Data::Validate,
      &internal::DetailsProvider_GetTabDiscardsInfo_ResponseParams_Data::Validate},
-    {&internal::DetailsProvider_SetAutoDiscardable_Params_Data::Validate,
+    { &internal::DetailsProvider_SetAutoDiscardable_Params_Data::Validate,
      &internal::DetailsProvider_SetAutoDiscardable_ResponseParams_Data::Validate},
-    {&internal::DetailsProvider_DiscardById_Params_Data::Validate,
+    { &internal::DetailsProvider_DiscardById_Params_Data::Validate,
      &internal::DetailsProvider_DiscardById_ResponseParams_Data::Validate},
-    {&internal::DetailsProvider_LoadById_Params_Data::Validate,
+    { &internal::DetailsProvider_LoadById_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DetailsProvider_Discard_Params_Data::Validate,
+    { &internal::DetailsProvider_Discard_Params_Data::Validate,
      &internal::DetailsProvider_Discard_ResponseParams_Data::Validate},
-    {&internal::DetailsProvider_ToggleBatterySaverMode_Params_Data::Validate,
+    { &internal::DetailsProvider_ToggleBatterySaverMode_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1992,14 +2015,17 @@ void GraphChangeStreamProxy::FrameCreated(
                         "<value of type FrameInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_FrameCreated_Name, kFlags, 0, 0, nullptr);
@@ -2040,14 +2066,17 @@ void GraphChangeStreamProxy::PageCreated(
                         "<value of type PageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_PageCreated_Name, kFlags, 0, 0, nullptr);
@@ -2088,14 +2117,17 @@ void GraphChangeStreamProxy::ProcessCreated(
                         "<value of type ProcessInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_ProcessCreated_Name, kFlags, 0, 0, nullptr);
@@ -2136,14 +2168,17 @@ void GraphChangeStreamProxy::WorkerCreated(
                         "<value of type WorkerInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_WorkerCreated_Name, kFlags, 0, 0, nullptr);
@@ -2184,14 +2219,17 @@ void GraphChangeStreamProxy::FrameChanged(
                         "<value of type FrameInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_FrameChanged_Name, kFlags, 0, 0, nullptr);
@@ -2232,14 +2270,17 @@ void GraphChangeStreamProxy::PageChanged(
                         "<value of type PageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_PageChanged_Name, kFlags, 0, 0, nullptr);
@@ -2280,14 +2321,17 @@ void GraphChangeStreamProxy::ProcessChanged(
                         "<value of type ProcessInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_ProcessChanged_Name, kFlags, 0, 0, nullptr);
@@ -2328,14 +2372,17 @@ void GraphChangeStreamProxy::WorkerChanged(
                         "<value of type WorkerInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_WorkerChanged_Name, kFlags, 0, 0, nullptr);
@@ -2376,14 +2423,17 @@ void GraphChangeStreamProxy::FavIconDataAvailable(
                         "<value of type FavIconInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_FavIconDataAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2424,14 +2474,17 @@ void GraphChangeStreamProxy::NodeDeleted(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphChangeStream_NodeDeleted_Name, kFlags, 0, 0, nullptr);
@@ -2761,28 +2814,28 @@ bool GraphChangeStreamStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGraphChangeStreamValidationInfo[] = {
-    {&internal::GraphChangeStream_FrameCreated_Params_Data::Validate,
+    { &internal::GraphChangeStream_FrameCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_PageCreated_Params_Data::Validate,
+    { &internal::GraphChangeStream_PageCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_ProcessCreated_Params_Data::Validate,
+    { &internal::GraphChangeStream_ProcessCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_WorkerCreated_Params_Data::Validate,
+    { &internal::GraphChangeStream_WorkerCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_FrameChanged_Params_Data::Validate,
+    { &internal::GraphChangeStream_FrameChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_PageChanged_Params_Data::Validate,
+    { &internal::GraphChangeStream_PageChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_ProcessChanged_Params_Data::Validate,
+    { &internal::GraphChangeStream_ProcessChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_WorkerChanged_Params_Data::Validate,
+    { &internal::GraphChangeStream_WorkerChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_FavIconDataAvailable_Params_Data::Validate,
+    { &internal::GraphChangeStream_FavIconDataAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphChangeStream_NodeDeleted_Params_Data::Validate,
+    { &internal::GraphChangeStream_NodeDeleted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2898,14 +2951,17 @@ void GraphDumpProxy::SubscribeToChanges(
                         "<value of type ::mojo::PendingRemote<GraphChangeStream>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphDump_SubscribeToChanges_Name, kFlags, 0, 0, nullptr);
@@ -2941,14 +2997,17 @@ void GraphDumpProxy::RequestNodeDescriptions(
                         "<value of type const std::vector<int64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphDump_RequestNodeDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -3071,7 +3130,8 @@ void GraphDump_RequestNodeDescriptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGraphDump_RequestNodeDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -3194,12 +3254,12 @@ std::move(p_node_ids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGraphDumpValidationInfo[] = {
-    {&internal::GraphDump_SubscribeToChanges_Params_Data::Validate,
+    { &internal::GraphDump_SubscribeToChanges_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GraphDump_RequestNodeDescriptions_Params_Data::Validate,
+    { &internal::GraphDump_RequestNodeDescriptions_Params_Data::Validate,
      &internal::GraphDump_RequestNodeDescriptions_ResponseParams_Data::Validate},
 };
 

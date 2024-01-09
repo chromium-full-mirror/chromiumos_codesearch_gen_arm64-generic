@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/navigation/navigation_params.mojom-features.h"
 #include "third_party/blink/public/mojom/navigation/navigation_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/navigation/navigation_params.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -79,42 +80,6 @@
 
 
 
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::NavigationType>
-    : EnumHashTraits<::blink::mojom::NavigationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ForceHistoryPush>
-    : EnumHashTraits<::blink::mojom::ForceHistoryPush, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ParentResourceTimingAccess>
-    : EnumHashTraits<::blink::mojom::ParentResourceTimingAccess, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
 namespace blink::mojom::blink {
 
 
@@ -155,7 +120,7 @@ class CORE_EXPORT BeginNavigationParams {
   BeginNavigationParams();
 
   BeginNavigationParams(
-      const absl::optional<::blink::LocalFrameToken>& initiator_frame_token,
+      const std::optional<::blink::LocalFrameToken>& initiator_frame_token,
       const WTF::String& headers,
       int32_t load_flags,
       bool skip_service_worker,
@@ -167,9 +132,9 @@ class CORE_EXPORT BeginNavigationParams {
       const ::blink::KURL& searchable_form_url,
       const WTF::String& searchable_form_encoding,
       const ::blink::KURL& client_side_redirect_url,
-      absl::optional<::base::Value::Dict> devtools_initiator,
+      std::optional<::base::Value::Dict> devtools_initiator,
       ::network::mojom::blink::TrustTokenParamsPtr trust_token_params,
-      const absl::optional<::blink::Impression>& impression,
+      const std::optional<::blink::Impression>& impression,
       ::base::TimeTicks before_unload_start,
       ::base::TimeTicks before_unload_end,
       ::blink::mojom::blink::NavigationInitiatorActivationAndAdStatus initiator_activation_and_ad_status,
@@ -255,7 +220,7 @@ BeginNavigationParams& operator=(const BeginNavigationParams&) = delete;
   }
 
   
-  absl::optional<::blink::LocalFrameToken> initiator_frame_token;
+  std::optional<::blink::LocalFrameToken> initiator_frame_token;
   
   WTF::String headers;
   
@@ -279,11 +244,11 @@ BeginNavigationParams& operator=(const BeginNavigationParams&) = delete;
   
   ::blink::KURL client_side_redirect_url;
   
-  absl::optional<::base::Value::Dict> devtools_initiator;
+  std::optional<::base::Value::Dict> devtools_initiator;
   
   ::network::mojom::blink::TrustTokenParamsPtr trust_token_params;
   
-  absl::optional<::blink::Impression> impression;
+  std::optional<::blink::Impression> impression;
   
   ::base::TimeTicks before_unload_start;
   
@@ -359,7 +324,7 @@ class CORE_EXPORT CommonNavigationParams {
   CommonNavigationParams(
       const ::blink::KURL& url,
       const ::scoped_refptr<const ::blink::SecurityOrigin>& initiator_origin,
-      const absl::optional<::blink::KURL>& initiator_base_url,
+      const std::optional<::blink::KURL>& initiator_base_url,
       ::blink::mojom::blink::ReferrerPtr referrer,
       int32_t transition,
       NavigationType navigation_type,
@@ -457,7 +422,7 @@ CommonNavigationParams& operator=(const CommonNavigationParams&) = delete;
   
   ::scoped_refptr<const ::blink::SecurityOrigin> initiator_origin;
   
-  absl::optional<::blink::KURL> initiator_base_url;
+  std::optional<::blink::KURL> initiator_base_url;
   
   ::blink::mojom::blink::ReferrerPtr referrer;
   
@@ -898,15 +863,16 @@ class CORE_EXPORT CommitNavigationParams {
       bool ancestor_or_self_has_cspee,
       const WTF::String& reduced_accept_language,
       ::network::mojom::blink::NavigationDeliveryType navigation_delivery_type,
-      const absl::optional<::blink::ViewTransitionState>& view_transition_state,
-      absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id,
+      const std::optional<::blink::ViewTransitionState>& view_transition_state,
+      std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id,
       const WTF::HashMap<::blink::mojom::blink::RuntimeFeature, bool>& modified_runtime_features,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperties>& fenced_frame_properties,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperties>& fenced_frame_properties,
       ::blink::mojom::blink::BackForwardCacheNotRestoredReasonsPtr not_restored_reasons,
       bool load_with_storage_access,
-      const absl::optional<::blink::BrowsingContextGroupInfo>& browsing_context_group_info,
+      const std::optional<::blink::BrowsingContextGroupInfo>& browsing_context_group_info,
       ::blink::mojom::blink::LCPCriticalPathPredictorNavigationTimeHintPtr lcpp_hint,
-      ::blink::mojom::blink::RendererContentSettingsPtr content_settings);
+      ::blink::mojom::blink::RendererContentSettingsPtr content_settings,
+      const WTF::String& cookie_deprecation_label);
 
 CommitNavigationParams(const CommitNavigationParams&) = delete;
 CommitNavigationParams& operator=(const CommitNavigationParams&) = delete;
@@ -1067,23 +1033,25 @@ CommitNavigationParams& operator=(const CommitNavigationParams&) = delete;
   
   ::network::mojom::blink::NavigationDeliveryType navigation_delivery_type;
   
-  absl::optional<::blink::ViewTransitionState> view_transition_state;
+  std::optional<::blink::ViewTransitionState> view_transition_state;
   
-  absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id;
+  std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id;
   
   WTF::HashMap<::blink::mojom::blink::RuntimeFeature, bool> modified_runtime_features;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperties> fenced_frame_properties;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperties> fenced_frame_properties;
   
   ::blink::mojom::blink::BackForwardCacheNotRestoredReasonsPtr not_restored_reasons;
   
   bool load_with_storage_access;
   
-  absl::optional<::blink::BrowsingContextGroupInfo> browsing_context_group_info;
+  std::optional<::blink::BrowsingContextGroupInfo> browsing_context_group_info;
   
   ::blink::mojom::blink::LCPCriticalPathPredictorNavigationTimeHintPtr lcpp_hint;
   
   ::blink::mojom::blink::RendererContentSettingsPtr content_settings;
+  
+  WTF::String cookie_deprecation_label;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1578,7 +1546,8 @@ CommitNavigationParamsPtr CommitNavigationParams::Clone() const {
       mojo::Clone(load_with_storage_access),
       mojo::Clone(browsing_context_group_info),
       mojo::Clone(lcpp_hint),
-      mojo::Clone(content_settings)
+      mojo::Clone(content_settings),
+      mojo::Clone(cookie_deprecation_label)
   );
 }
 
@@ -1687,6 +1656,8 @@ bool CommitNavigationParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->lcpp_hint, other_struct.lcpp_hint))
     return false;
   if (!mojo::Equals(this->content_settings, other_struct.content_settings))
+    return false;
+  if (!mojo::Equals(this->cookie_deprecation_label, other_struct.cookie_deprecation_label))
     return false;
   return true;
 }
@@ -1900,6 +1871,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.content_settings < rhs.content_settings)
     return true;
   if (rhs.content_settings < lhs.content_settings)
+    return false;
+  if (lhs.cookie_deprecation_label < rhs.cookie_deprecation_label)
+    return true;
+  if (rhs.cookie_deprecation_label < lhs.cookie_deprecation_label)
     return false;
   return false;
 }
@@ -2464,6 +2439,11 @@ struct CORE_EXPORT StructTraits<::blink::mojom::blink::CommitNavigationParams::D
   static const decltype(::blink::mojom::blink::CommitNavigationParams::content_settings)& content_settings(
       const ::blink::mojom::blink::CommitNavigationParamsPtr& input) {
     return input->content_settings;
+  }
+
+  static const decltype(::blink::mojom::blink::CommitNavigationParams::cookie_deprecation_label)& cookie_deprecation_label(
+      const ::blink::mojom::blink::CommitNavigationParamsPtr& input) {
+    return input->cookie_deprecation_label;
   }
 
   static bool Read(::blink::mojom::blink::CommitNavigationParams::DataView input, ::blink::mojom::blink::CommitNavigationParamsPtr* output);

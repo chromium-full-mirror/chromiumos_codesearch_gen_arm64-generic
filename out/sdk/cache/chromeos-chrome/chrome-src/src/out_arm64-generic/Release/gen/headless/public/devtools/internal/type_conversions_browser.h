@@ -80,6 +80,8 @@ struct FromValue<browser::PermissionType> {
       return browser::PermissionType::BACKGROUND_SYNC;
     if (value.GetString() == "backgroundFetch")
       return browser::PermissionType::BACKGROUND_FETCH;
+    if (value.GetString() == "capturedSurfaceControl")
+      return browser::PermissionType::CAPTURED_SURFACE_CONTROL;
     if (value.GetString() == "clipboardReadWrite")
       return browser::PermissionType::CLIPBOARD_READ_WRITE;
     if (value.GetString() == "clipboardSanitizedWrite")
@@ -142,6 +144,8 @@ inline base::Value ToValue(const browser::PermissionType& value) {
       return base::Value("backgroundSync");
     case browser::PermissionType::BACKGROUND_FETCH:
       return base::Value("backgroundFetch");
+    case browser::PermissionType::CAPTURED_SURFACE_CONTROL:
+      return base::Value("capturedSurfaceControl");
     case browser::PermissionType::CLIPBOARD_READ_WRITE:
       return base::Value("clipboardReadWrite");
     case browser::PermissionType::CLIPBOARD_SANITIZED_WRITE:

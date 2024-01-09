@@ -39,6 +39,45 @@ class  ServiceWorker_UpdatePermissions_Params_Data {
 };
 static_assert(sizeof(ServiceWorker_UpdatePermissions_Params_Data) == 24,
               "Bad sizeof(ServiceWorker_UpdatePermissions_Params_Data)");
+class  ServiceWorker_DispatchOnConnect_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::extensions::mojom::internal::PortId_Data> port_id;
+  int32_t channel_type;
+  mojo::internal::AssociatedEndpointHandle_Data port;
+  mojo::internal::Pointer<mojo::internal::String_Data> channel_name;
+  mojo::internal::Pointer<::extensions::mojom::internal::TabConnectionInfo_Data> tab_info;
+  mojo::internal::Pointer<::extensions::mojom::internal::ExternalConnectionInfo_Data> external_connection_info;
+  mojo::internal::AssociatedInterface_Data port_host;
+
+ private:
+  friend class mojo::internal::MessageFragment<ServiceWorker_DispatchOnConnect_Params_Data>;
+
+  ServiceWorker_DispatchOnConnect_Params_Data();
+  ~ServiceWorker_DispatchOnConnect_Params_Data() = delete;
+};
+static_assert(sizeof(ServiceWorker_DispatchOnConnect_Params_Data) == 56,
+              "Bad sizeof(ServiceWorker_DispatchOnConnect_Params_Data)");
+class  ServiceWorker_DispatchOnConnect_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ServiceWorker_DispatchOnConnect_ResponseParams_Data>;
+
+  ServiceWorker_DispatchOnConnect_ResponseParams_Data();
+  ~ServiceWorker_DispatchOnConnect_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ServiceWorker_DispatchOnConnect_ResponseParams_Data) == 16,
+              "Bad sizeof(ServiceWorker_DispatchOnConnect_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -78,6 +117,108 @@ class ServiceWorker_UpdatePermissions_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class ServiceWorker_DispatchOnConnect_ParamsDataView {
+ public:
+  ServiceWorker_DispatchOnConnect_ParamsDataView() = default;
+
+  ServiceWorker_DispatchOnConnect_ParamsDataView(
+      internal::ServiceWorker_DispatchOnConnect_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPortIdDataView(
+      ::extensions::mojom::PortIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortId(UserType* output) {
+    
+    auto* pointer = data_->port_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::PortIdDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelType(UserType* output) const {
+    auto data_value = data_->channel_type;
+    return mojo::internal::Deserialize<::extensions::mojom::ChannelType>(
+        data_value, output);
+  }
+  ::extensions::mojom::ChannelType channel_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::ChannelType>(data_->channel_type));
+  }
+  inline void GetChannelNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelName(UserType* output) {
+    
+    auto* pointer = data_->channel_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTabInfoDataView(
+      ::extensions::mojom::TabConnectionInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTabInfo(UserType* output) {
+    
+    auto* pointer = data_->tab_info.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::TabConnectionInfoDataView>(
+        pointer, output, message_);
+  }
+  inline void GetExternalConnectionInfoDataView(
+      ::extensions::mojom::ExternalConnectionInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExternalConnectionInfo(UserType* output) {
+    
+    auto* pointer = data_->external_connection_info.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakePort() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortAssociatedRequestDataView>(
+            &data_->port, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakePortHost() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortHostAssociatedPtrInfoDataView>(
+            &data_->port_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::ServiceWorker_DispatchOnConnect_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ServiceWorker_DispatchOnConnect_ResponseParamsDataView {
+ public:
+  ServiceWorker_DispatchOnConnect_ResponseParamsDataView() = default;
+
+  ServiceWorker_DispatchOnConnect_ResponseParamsDataView(
+      internal::ServiceWorker_DispatchOnConnect_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::ServiceWorker_DispatchOnConnect_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void ServiceWorker_UpdatePermissions_ParamsDataView::GetActivePermissionsDataView(
     ::extensions::mojom::PermissionSetDataView* output) {
   auto pointer = data_->active_permissions.Get();
@@ -88,6 +229,30 @@ inline void ServiceWorker_UpdatePermissions_ParamsDataView::GetWithheldPermissio
   auto pointer = data_->withheld_permissions.Get();
   *output = ::extensions::mojom::PermissionSetDataView(pointer, message_);
 }
+
+
+inline void ServiceWorker_DispatchOnConnect_ParamsDataView::GetPortIdDataView(
+    ::extensions::mojom::PortIdDataView* output) {
+  auto pointer = data_->port_id.Get();
+  *output = ::extensions::mojom::PortIdDataView(pointer, message_);
+}
+inline void ServiceWorker_DispatchOnConnect_ParamsDataView::GetChannelNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->channel_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ServiceWorker_DispatchOnConnect_ParamsDataView::GetTabInfoDataView(
+    ::extensions::mojom::TabConnectionInfoDataView* output) {
+  auto pointer = data_->tab_info.Get();
+  *output = ::extensions::mojom::TabConnectionInfoDataView(pointer, message_);
+}
+inline void ServiceWorker_DispatchOnConnect_ParamsDataView::GetExternalConnectionInfoDataView(
+    ::extensions::mojom::ExternalConnectionInfoDataView* output) {
+  auto pointer = data_->external_connection_info.Get();
+  *output = ::extensions::mojom::ExternalConnectionInfoDataView(pointer, message_);
+}
+
+
 
 
 

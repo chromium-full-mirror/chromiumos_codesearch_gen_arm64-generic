@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,19 +49,22 @@ WorkletGlobalScopeCreationParams::WorkletGlobalScopeCreationParams()
       starter_origin(),
       origin_trial_features(),
       devtools_token(),
-      devtools_host() {}
+      devtools_host(),
+      wait_for_debugger() {}
 
 WorkletGlobalScopeCreationParams::WorkletGlobalScopeCreationParams(
     const ::GURL& script_url_in,
     const ::url::Origin& starter_origin_in,
     std::vector<::blink::mojom::OriginTrialFeature> origin_trial_features_in,
     const ::base::UnguessableToken& devtools_token_in,
-    ::mojo::PendingRemote<WorkletDevToolsHost> devtools_host_in)
+    ::mojo::PendingRemote<WorkletDevToolsHost> devtools_host_in,
+    bool wait_for_debugger_in)
     : script_url(std::move(script_url_in)),
       starter_origin(std::move(starter_origin_in)),
       origin_trial_features(std::move(origin_trial_features_in)),
       devtools_token(std::move(devtools_token_in)),
-      devtools_host(std::move(devtools_host_in)) {}
+      devtools_host(std::move(devtools_host_in)),
+      wait_for_debugger(std::move(wait_for_debugger_in)) {}
 
 WorkletGlobalScopeCreationParams::~WorkletGlobalScopeCreationParams() = default;
 
@@ -108,6 +112,15 @@ void WorkletGlobalScopeCreationParams::WriteIntoTrace(
       "devtools_host"), this->devtools_host,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::mojo::PendingRemote<WorkletDevToolsHost>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "wait_for_debugger"), this->wait_for_debugger,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -193,14 +206,17 @@ void WorkletDevToolsHostProxy::OnReadyForInspection(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::DevToolsAgentHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWorkletDevToolsHost_OnReadyForInspection_Name, kFlags, 0, 0, nullptr);
@@ -288,10 +304,10 @@ bool WorkletDevToolsHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWorkletDevToolsHostValidationInfo[] = {
-    {&internal::WorkletDevToolsHost_OnReadyForInspection_Params_Data::Validate,
+    { &internal::WorkletDevToolsHost_OnReadyForInspection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -327,6 +343,8 @@ bool StructTraits<::blink::mojom::WorkletGlobalScopeCreationParams::DataView, ::
         result->devtools_host =
             input.TakeDevtoolsHost<decltype(result->devtools_host)>();
       }
+      if (success)
+        result->wait_for_debugger = input.wait_for_debugger();
   *output = std::move(result);
   return success;
 }

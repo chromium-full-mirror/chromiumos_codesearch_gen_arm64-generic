@@ -1252,55 +1252,6 @@ PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data::PrintRenderFrame_PrintNo
 
 
 // static
-bool PrintRenderFrame_SnapshotForContentAnalysis_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PrintRenderFrame_SnapshotForContentAnalysis_Params_Data* object =
-      static_cast<const PrintRenderFrame_SnapshotForContentAnalysis_Params_Data*>(data);
-
-  return true;
-}
-
-PrintRenderFrame_SnapshotForContentAnalysis_Params_Data::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data* object =
-      static_cast<const PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidateStruct(object->params, validation_context))
-    return false;
-
-  return true;
-}
-
-PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool PrintManagerHost_DidGetPrintedPagesCount_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

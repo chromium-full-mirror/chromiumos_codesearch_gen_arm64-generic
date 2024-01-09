@@ -85,6 +85,43 @@ extensions.mojom.ServiceWorkerRemote = class {
           withheldPermissions
         ]);
   }
+
+  
+  /**
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.TabConnectionInfo } tabInfo
+   * @param { !extensions.mojom.ExternalConnectionInfo } externalConnectionInfo
+   * @param { !Object } port
+   * @param { !Object } portHost
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  dispatchOnConnect(
+      portId,
+      channelType,
+      channelName,
+      tabInfo,
+      externalConnectionInfo,
+      port,
+      portHost) {
+    return this.proxy.sendMessage(
+        1,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        [
+          portId,
+          channelType,
+          channelName,
+          tabInfo,
+          externalConnectionInfo,
+          port,
+          portHost
+        ]);
+  }
 };
 
 /**
@@ -114,6 +151,11 @@ extensions.mojom.ServiceWorkerReceiver = class {
         extensions.mojom.ServiceWorker_UpdatePermissions_ParamsSpec.$,
         null,
         impl.updatePermissions.bind(impl));
+    this.helper_internal_.registerHandler(
+        1,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        impl.dispatchOnConnect.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -178,6 +220,18 @@ extensions.mojom.ServiceWorkerCallbackRouter = class {
         extensions.mojom.ServiceWorker_UpdatePermissions_ParamsSpec.$,
         null,
         this.updatePermissions.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.dispatchOnConnect =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        1,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+        extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+        this.dispatchOnConnect.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -199,6 +253,22 @@ extensions.mojom.ServiceWorkerCallbackRouter = class {
  * @export
  */
 extensions.mojom.ServiceWorker_UpdatePermissions_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.ServiceWorker_DispatchOnConnect_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -238,6 +308,124 @@ extensions.mojom.ServiceWorker_UpdatePermissions_Params = class {
     this.activePermissions;
     /** @export { !extensions.mojom.PermissionSet } */
     this.withheldPermissions;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.ServiceWorker_DispatchOnConnect_ParamsSpec.$,
+    'ServiceWorker_DispatchOnConnect_Params',
+    [
+      mojo.internal.StructField(
+        'portId', 0,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 8,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'tabInfo', 24,
+        0,
+        extensions.mojom.TabConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'externalConnectionInfo', 32,
+        0,
+        extensions.mojom.ExternalConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 12,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 40,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortHostRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 56],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.ServiceWorker_DispatchOnConnect_Params = class {
+  constructor() {
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.TabConnectionInfo } */
+    this.tabInfo;
+    /** @export { !extensions.mojom.ExternalConnectionInfo } */
+    this.externalConnectionInfo;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParamsSpec.$,
+    'ServiceWorker_DispatchOnConnect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.ServiceWorker_DispatchOnConnect_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.success;
   }
 };
 

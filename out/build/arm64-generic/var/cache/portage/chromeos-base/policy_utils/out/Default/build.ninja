@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/policy_utils-0.0.1-r515/work/policy_utils-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,23 +18,20 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _policy-install_config: phony obj/policy_utils/_policy-install_config.stamp
 build libmgmt: phony ./libmgmt.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build policy_utils$:_policy-install_config: phony obj/policy_utils/_policy-install_config.stamp
 build policy_utils$:all: phony obj/policy_utils/all.stamp
 build policy_utils$:libmgmt: phony ./libmgmt.a
-build policy_utils$:libmgmt_test: phony ./libmgmt_test
 build policy_utils$:policy: phony ./policy
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/policy_utils/_policy-install_config.stamp $
     obj/policy_utils/all.stamp $
     ./libmgmt.a $
-    ./libmgmt_test $
     ./policy
 
 default all

@@ -278,6 +278,19 @@ struct IsFilesTransferRestrictedResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsFilesTransferRestrictedResponseDefaultTypeInternal _IsFilesTransferRestrictedResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetDatabaseEntriesResponse::GetDatabaseEntriesResponse(
+    ::_pbi::ConstantInitialized)
+  : files_entries_()
+  , error_message_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct GetDatabaseEntriesResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetDatabaseEntriesResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetDatabaseEntriesResponseDefaultTypeInternal() {}
+  union {
+    GetDatabaseEntriesResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDatabaseEntriesResponseDefaultTypeInternal _GetDatabaseEntriesResponse_default_instance_;
 }  // namespace dlp
 namespace dlp {
 bool DlpRuleLevel_IsValid(int value) {
@@ -5218,6 +5231,240 @@ std::string IsFilesTransferRestrictedResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class GetDatabaseEntriesResponse::_Internal {
+ public:
+  using HasBits = decltype(std::declval<GetDatabaseEntriesResponse>()._has_bits_);
+  static void set_has_error_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+GetDatabaseEntriesResponse::GetDatabaseEntriesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  files_entries_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:dlp.GetDatabaseEntriesResponse)
+}
+GetDatabaseEntriesResponse::GetDatabaseEntriesResponse(const GetDatabaseEntriesResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      files_entries_(from.files_entries_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_error_message()) {
+    error_message_.Set(from._internal_error_message(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:dlp.GetDatabaseEntriesResponse)
+}
+
+inline void GetDatabaseEntriesResponse::SharedCtor() {
+error_message_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  error_message_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetDatabaseEntriesResponse::~GetDatabaseEntriesResponse() {
+  // @@protoc_insertion_point(destructor:dlp.GetDatabaseEntriesResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetDatabaseEntriesResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  error_message_.Destroy();
+}
+
+void GetDatabaseEntriesResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetDatabaseEntriesResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dlp.GetDatabaseEntriesResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  files_entries_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    error_message_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetDatabaseEntriesResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string error_message = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_error_message();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .dlp.FileMetadata files_entries = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_files_entries(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetDatabaseEntriesResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dlp.GetDatabaseEntriesResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string error_message = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_error_message(), target);
+  }
+
+  // repeated .dlp.FileMetadata files_entries = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_files_entries_size()); i < n; i++) {
+    const auto& repfield = this->_internal_files_entries(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:dlp.GetDatabaseEntriesResponse)
+  return target;
+}
+
+size_t GetDatabaseEntriesResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:dlp.GetDatabaseEntriesResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .dlp.FileMetadata files_entries = 2;
+  total_size += 1UL * this->_internal_files_entries_size();
+  for (const auto& msg : this->files_entries_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional string error_message = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_error_message());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetDatabaseEntriesResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetDatabaseEntriesResponse*>(
+      &from));
+}
+
+void GetDatabaseEntriesResponse::MergeFrom(const GetDatabaseEntriesResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dlp.GetDatabaseEntriesResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  files_entries_.MergeFrom(from.files_entries_);
+  if (from._internal_has_error_message()) {
+    _internal_set_error_message(from._internal_error_message());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetDatabaseEntriesResponse::CopyFrom(const GetDatabaseEntriesResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dlp.GetDatabaseEntriesResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetDatabaseEntriesResponse::IsInitialized() const {
+  return true;
+}
+
+void GetDatabaseEntriesResponse::InternalSwap(GetDatabaseEntriesResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  files_entries_.InternalSwap(&other->files_entries_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &error_message_, lhs_arena,
+      &other->error_message_, rhs_arena
+  );
+}
+
+std::string GetDatabaseEntriesResponse::GetTypeName() const {
+  return "dlp.GetDatabaseEntriesResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace dlp
 PROTOBUF_NAMESPACE_OPEN
@@ -5296,6 +5543,10 @@ Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedRequest >(Arena* aren
 template<> PROTOBUF_NOINLINE ::dlp::IsFilesTransferRestrictedResponse*
 Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsFilesTransferRestrictedResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::dlp::GetDatabaseEntriesResponse*
+Arena::CreateMaybeMessage< ::dlp::GetDatabaseEntriesResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::dlp::GetDatabaseEntriesResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

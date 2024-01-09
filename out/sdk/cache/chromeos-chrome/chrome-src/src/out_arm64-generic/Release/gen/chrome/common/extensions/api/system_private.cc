@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/system_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace system_private {
 
 const char* ToString(UpdateStatusState enum_param) {
   switch (enum_param) {
-    case UPDATE_STATUS_STATE_NOTAVAILABLE:
+    case UpdateStatusState::kNotAvailable:
       return "NotAvailable";
-    case UPDATE_STATUS_STATE_UPDATING:
+    case UpdateStatusState::kUpdating:
       return "Updating";
-    case UPDATE_STATUS_STATE_NEEDRESTART:
+    case UpdateStatusState::kNeedRestart:
       return "NeedRestart";
-    case UPDATE_STATUS_STATE_NONE:
+    case UpdateStatusState::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(UpdateStatusState enum_param) {
 
 UpdateStatusState ParseUpdateStatusState(base::StringPiece enum_string) {
   if (enum_string == "NotAvailable")
-    return UPDATE_STATUS_STATE_NOTAVAILABLE;
+    return UpdateStatusState::kNotAvailable;
   if (enum_string == "Updating")
-    return UPDATE_STATUS_STATE_UPDATING;
+    return UpdateStatusState::kUpdating;
   if (enum_string == "NeedRestart")
-    return UPDATE_STATUS_STATE_NEEDRESTART;
-  return UPDATE_STATUS_STATE_NONE;
+    return UpdateStatusState::kNeedRestart;
+  return UpdateStatusState::kNone;
 }
 
 std::u16string GetUpdateStatusStateParseError(base::StringPiece enum_string) {
@@ -66,13 +67,13 @@ std::u16string GetUpdateStatusStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(GetIncognitoModeAvailabilityValue enum_param) {
   switch (enum_param) {
-    case GET_INCOGNITO_MODE_AVAILABILITY_VALUE_ENABLED:
+    case GetIncognitoModeAvailabilityValue::kEnabled:
       return "enabled";
-    case GET_INCOGNITO_MODE_AVAILABILITY_VALUE_DISABLED:
+    case GetIncognitoModeAvailabilityValue::kDisabled:
       return "disabled";
-    case GET_INCOGNITO_MODE_AVAILABILITY_VALUE_FORCED:
+    case GetIncognitoModeAvailabilityValue::kForced:
       return "forced";
-    case GET_INCOGNITO_MODE_AVAILABILITY_VALUE_NONE:
+    case GetIncognitoModeAvailabilityValue::kNone:
       return "";
   }
   NOTREACHED();
@@ -81,12 +82,12 @@ const char* ToString(GetIncognitoModeAvailabilityValue enum_param) {
 
 GetIncognitoModeAvailabilityValue ParseGetIncognitoModeAvailabilityValue(base::StringPiece enum_string) {
   if (enum_string == "enabled")
-    return GET_INCOGNITO_MODE_AVAILABILITY_VALUE_ENABLED;
+    return GetIncognitoModeAvailabilityValue::kEnabled;
   if (enum_string == "disabled")
-    return GET_INCOGNITO_MODE_AVAILABILITY_VALUE_DISABLED;
+    return GetIncognitoModeAvailabilityValue::kDisabled;
   if (enum_string == "forced")
-    return GET_INCOGNITO_MODE_AVAILABILITY_VALUE_FORCED;
-  return GET_INCOGNITO_MODE_AVAILABILITY_VALUE_NONE;
+    return GetIncognitoModeAvailabilityValue::kForced;
+  return GetIncognitoModeAvailabilityValue::kNone;
 }
 
 std::u16string GetGetIncognitoModeAvailabilityValueParseError(base::StringPiece enum_string) {
@@ -99,8 +100,8 @@ UpdateStatus::UpdateStatus()
 download_progress(0.0) {}
 
 UpdateStatus::~UpdateStatus() = default;
-UpdateStatus::UpdateStatus(UpdateStatus&& rhs) = default;
-UpdateStatus& UpdateStatus::operator=(UpdateStatus&& rhs) = default;
+UpdateStatus::UpdateStatus(UpdateStatus&& rhs) noexcept = default;
+UpdateStatus& UpdateStatus::operator=(UpdateStatus&& rhs) noexcept = default;
 UpdateStatus UpdateStatus::Clone() const {
   UpdateStatus out;
   out.state = state;
@@ -151,34 +152,21 @@ bool UpdateStatus::Populate(
 }
 
 // static
-std::unique_ptr<UpdateStatus> UpdateStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UpdateStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UpdateStatus> UpdateStatus::FromValue(const base::Value::Dict& value) {
+  UpdateStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UpdateStatus> UpdateStatus::FromValue(const base::Value::Dict& value) {
+std::optional<UpdateStatus> UpdateStatus::FromValue(const base::Value& value) {
   UpdateStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UpdateStatus> UpdateStatus::FromValue(const base::Value& value) {
-  UpdateStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

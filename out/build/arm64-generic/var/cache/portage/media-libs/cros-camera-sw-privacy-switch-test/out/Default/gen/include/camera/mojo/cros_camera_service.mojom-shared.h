@@ -24,7 +24,6 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "camera/mojo/cros_camera_service.mojom-shared-internal.h"
-#include "iioservice/mojo/cros_sensor_service.mojom-shared.h"
 #include "camera/mojo/camera_common.mojom-shared.h"
 #include "camera/mojo/effects/effects_pipeline.mojom-shared.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared.h"
@@ -151,26 +150,6 @@ using CameraHalDispatcherAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CameraHalDispatcherInterfaceBase>;
 using CameraHalDispatcherAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraHalDispatcherInterfaceBase>;
-class CameraHalServerInterfaceBase {};
-
-using CameraHalServerPtrDataView =
-    mojo::InterfacePtrDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerRequestDataView =
-    mojo::InterfaceRequestDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CameraHalServerInterfaceBase>;
-class CameraHalServerCallbacksInterfaceBase {};
-
-using CameraHalServerCallbacksPtrDataView =
-    mojo::InterfacePtrDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksRequestDataView =
-    mojo::InterfaceRequestDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CameraHalServerCallbacksInterfaceBase>;
 class CameraHalClientInterfaceBase {};
 
 using CameraHalClientPtrDataView =

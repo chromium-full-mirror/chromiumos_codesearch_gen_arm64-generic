@@ -7,29 +7,10 @@
  * spinner invisible.
  */
 export class SpinnerController {
-    /** @param {!HTMLElement} element */
-    constructor(element) {
-        /**
-         * The container element of the file list.
-         * @type {!HTMLElement}
-         * @const
-         * @private
-         */
-        this.element_ = element;
-        /**
-         * @type {number}
-         * @private
-         */
+    constructor(element_) {
+        this.element_ = element_;
         this.activeSpinners_ = 0;
-        /**
-         * @type {!Object<number, boolean>}
-         * @private
-         */
-        this.pendingSpinnerTimerIds_ = {};
-        /**
-         * @type {number}
-         * @private
-         */
+        this.pendingSpinnerTimerIds_ = new Set();
         this.blinkDuration_ = 1000; // In milliseconds.
     }
     /**
@@ -41,7 +22,7 @@ export class SpinnerController {
     }
     /**
      * Shows the spinner immediately until the returned callback is called.
-     * @return {function()} Hide callback.
+     * @return Hide callback.
      */
     show() {
         return this.showWithDelay(0, () => { });
@@ -49,9 +30,9 @@ export class SpinnerController {
     /**
      * Shows the spinner until hide is called. The returned callback must be
      * called when the spinner is not necessary anymore.
-     * @param {number} delay Delay in milliseconds.
-     * @param {function():void} callback Show callback.
-     * @return {function()} Hide callback.
+     * @param delay Delay in milliseconds.
+     * @param callback Show callback.
+     * @return Hide callback.
      */
     showWithDelay(delay, callback) {
         const timerId = setTimeout(() => {
@@ -59,26 +40,23 @@ export class SpinnerController {
             if (this.activeSpinners_ === 1) {
                 this.element_.hidden = false;
             }
-            delete this.pendingSpinnerTimerIds_[timerId];
+            this.pendingSpinnerTimerIds_.delete(timerId);
             callback();
         }, delay);
-        this.pendingSpinnerTimerIds_[timerId] = true;
+        this.pendingSpinnerTimerIds_.add(timerId);
         return this.maybeHide_.bind(this, timerId);
     }
     /**
-     * @param {number} duration Duration in milliseconds.
+     * Sets blink duration to the given `duration` value that must
+     * be specified in milliseconds.
      */
     setBlinkDurationForTesting(duration) {
         this.blinkDuration_ = duration;
     }
-    /**
-     * @param {number} timerId
-     * @private
-     */
     maybeHide_(timerId) {
-        if (timerId in this.pendingSpinnerTimerIds_) {
+        if (this.pendingSpinnerTimerIds_.has(timerId)) {
             clearTimeout(timerId);
-            delete this.pendingSpinnerTimerIds_[timerId];
+            this.pendingSpinnerTimerIds_.delete(timerId);
             return;
         }
         this.activeSpinners_--;

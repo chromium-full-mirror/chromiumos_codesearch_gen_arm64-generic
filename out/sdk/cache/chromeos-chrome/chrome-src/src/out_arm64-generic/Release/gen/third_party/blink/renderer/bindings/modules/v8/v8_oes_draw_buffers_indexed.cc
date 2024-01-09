@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OESDrawBuffersIndexed>::value,
     "OESDrawBuffersIndexed inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OESDrawBuffersIndexed::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OESDrawBuffersIndexed is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buf = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -134,7 +129,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buf = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -168,7 +163,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buf = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -214,7 +209,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buf = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -252,7 +247,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buf = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -298,7 +293,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -332,7 +327,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(v8_receiver);
+OESDrawBuffersIndexed* blink_receiver = V8OESDrawBuffersIndexed::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

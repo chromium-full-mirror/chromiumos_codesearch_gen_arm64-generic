@@ -32,7 +32,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebSocketConnector_Conn
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> requested_protocols;
   mojo::internal::Pointer<::network::mojom::internal::SiteForCookies_Data> site_for_cookies;
   mojo::internal::Pointer<mojo::internal::String_Data> user_agent;
+  uint8_t has_storage_access : 1;
+  uint8_t pad4_[3];
   mojo::internal::Interface_Data handshake_client;
+  uint8_t pad5_[4];
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> throttling_profile_id;
 
  private:
@@ -41,7 +44,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebSocketConnector_Conn
   WebSocketConnector_Connect_Params_Data();
   ~WebSocketConnector_Connect_Params_Data() = delete;
 };
-static_assert(sizeof(WebSocketConnector_Connect_Params_Data) == 56,
+static_assert(sizeof(WebSocketConnector_Connect_Params_Data) == 64,
               "Bad sizeof(WebSocketConnector_Connect_Params_Data)");
 
 }  // namespace internal
@@ -106,6 +109,9 @@ static_assert(
     auto* pointer = data_->user_agent.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  bool has_storage_access() const {
+    return data_->has_storage_access;
   }
   template <typename UserType>
   UserType TakeHandshakeClient() {

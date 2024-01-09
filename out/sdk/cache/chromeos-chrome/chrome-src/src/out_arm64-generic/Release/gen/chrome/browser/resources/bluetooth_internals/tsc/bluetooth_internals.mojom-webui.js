@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { AdapterRemote as bluetooth_mojom_AdapterRemote } from './adapter.mojom-webui.js';
 export class DebugLogsChangeHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class DebugLogsChangeHandlerPendingReceiver {
     }
 }
 export class DebugLogsChangeHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(DebugLogsChangeHandlerPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class DebugLogsChangeHandlerRemote {
  * interface.
  */
 export class DebugLogsChangeHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DebugLogsChangeHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class DebugLogsChangeHandler {
  * receiver can have any number of listeners added to it.
  */
 export class DebugLogsChangeHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    changeDebugLogsState;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DebugLogsChangeHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +91,7 @@ export class DebugLogsChangeHandlerCallbackRouter {
     }
 }
 export class BluetoothInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -87,6 +100,9 @@ export class BluetoothInternalsHandlerPendingReceiver {
     }
 }
 export class BluetoothInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(BluetoothInternalsHandlerPendingReceiver, handle);
@@ -116,6 +132,9 @@ export class BluetoothInternalsHandlerRemote {
  * interface.
  */
 export class BluetoothInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(BluetoothInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -149,6 +168,15 @@ export class BluetoothInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class BluetoothInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getAdapter;
+    getDebugLogsChangeHandler;
+    checkSystemPermissions;
+    requestSystemPermissions;
+    requestLocationServices;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(BluetoothInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

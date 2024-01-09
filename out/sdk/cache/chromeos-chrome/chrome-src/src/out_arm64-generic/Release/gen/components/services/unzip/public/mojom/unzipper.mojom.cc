@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -267,15 +268,18 @@ bool UnzipFilterProxy::ShouldUnzipFile(
 #else
   TRACE_EVENT0("mojom", "UnzipFilter::ShouldUnzipFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipFilter_ShouldUnzipFile_Name, kFlags, 0, 0, nullptr);
@@ -330,14 +334,17 @@ void UnzipFilterProxy::ShouldUnzipFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipFilter_ShouldUnzipFile_Name, kFlags, 0, 0, nullptr);
@@ -458,7 +465,8 @@ void UnzipFilter_ShouldUnzipFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipFilter_ShouldUnzipFile_Name, kFlags, 0, 0, nullptr);
@@ -563,10 +571,10 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUnzipFilterValidationInfo[] = {
-    {&internal::UnzipFilter_ShouldUnzipFile_Params_Data::Validate,
+    { &internal::UnzipFilter_ShouldUnzipFile_Params_Data::Validate,
      &internal::UnzipFilter_ShouldUnzipFile_ResponseParams_Data::Validate},
 };
 
@@ -650,14 +658,17 @@ void UnzipListenerProxy::OnProgress(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipListener_OnProgress_Name, kFlags, 0, 0, nullptr);
@@ -726,10 +737,10 @@ bool UnzipListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUnzipListenerValidationInfo[] = {
-    {&internal::UnzipListener_OnProgress_Params_Data::Validate,
+    { &internal::UnzipListener_OnProgress_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -909,14 +920,17 @@ void UnzipperProxy::Unzip(
                         "<value of type ::mojo::PendingRemote<UnzipListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_Unzip_Name, kFlags, 0, 0, nullptr);
@@ -979,14 +993,17 @@ void UnzipperProxy::DetectEncoding(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_DetectEncoding_Name, kFlags, 0, 0, nullptr);
@@ -1028,14 +1045,17 @@ void UnzipperProxy::GetExtractedInfo(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_GetExtractedInfo_Name, kFlags, 0, 0, nullptr);
@@ -1156,7 +1176,8 @@ void Unzipper_Unzip_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_Unzip_Name, kFlags, 0, 0, nullptr);
@@ -1274,7 +1295,8 @@ void Unzipper_DetectEncoding_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_DetectEncoding_Name, kFlags, 0, 0, nullptr);
@@ -1392,7 +1414,8 @@ void Unzipper_GetExtractedInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnzipper_GetExtractedInfo_Name, kFlags, 0, 0, nullptr);
@@ -1568,14 +1591,14 @@ std::move(p_zip_file), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUnzipperValidationInfo[] = {
-    {&internal::Unzipper_Unzip_Params_Data::Validate,
+    { &internal::Unzipper_Unzip_Params_Data::Validate,
      &internal::Unzipper_Unzip_ResponseParams_Data::Validate},
-    {&internal::Unzipper_DetectEncoding_Params_Data::Validate,
+    { &internal::Unzipper_DetectEncoding_Params_Data::Validate,
      &internal::Unzipper_DetectEncoding_ResponseParams_Data::Validate},
-    {&internal::Unzipper_GetExtractedInfo_Params_Data::Validate,
+    { &internal::Unzipper_GetExtractedInfo_Params_Data::Validate,
      &internal::Unzipper_GetExtractedInfo_ResponseParams_Data::Validate},
 };
 

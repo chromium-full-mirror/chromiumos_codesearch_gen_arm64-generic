@@ -8,7 +8,7 @@ export function recordDuration(metricName, durationMs) {
         metricName,
         type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LOG,
         min: 1,
-        max: 60000,
+        max: 60000, // 60 seconds.
         buckets: 100,
     }, Math.floor(durationMs));
 }
@@ -27,8 +27,8 @@ export function recordPerdecage(metricName, value) {
     chrome.metricsPrivate.recordValue({
         metricName,
         type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LINEAR,
-        min: 1,
-        max: 11,
+        min: 1, // Choose 1 if real min is 0.
+        max: 11, // Exclusive.
         buckets: 12, // Numbers 0-10 and unused overflow bucket of 11.
     }, value);
 }

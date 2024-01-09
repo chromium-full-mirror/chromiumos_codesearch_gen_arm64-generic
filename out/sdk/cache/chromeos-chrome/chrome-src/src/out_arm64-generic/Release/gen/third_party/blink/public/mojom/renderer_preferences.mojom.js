@@ -65,7 +65,6 @@
     this.allowCrossOriginAuthPrompt = false;
     this.enableDoNotTrack = false;
     this.enableEncryptedMedia = true;
-    this.webrtcAllowLegacyTlsProtocols = false;
     this.sendSubresourceNotification = false;
     this.pluginFullscreenAllowed = true;
     this.caretBrowsingEnabled = false;
@@ -156,7 +155,6 @@
         return err;
 
 
-
     // validate RendererPreferences.userAgentOverride
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, user_agent_metadata$.UserAgentOverride, false);
     if (err !== validator.validationError.NONE)
@@ -207,11 +205,10 @@
     val.allowCrossOriginAuthPrompt = (packed >> 0) & 1 ? true : false;
     val.enableDoNotTrack = (packed >> 1) & 1 ? true : false;
     val.enableEncryptedMedia = (packed >> 2) & 1 ? true : false;
-    val.webrtcAllowLegacyTlsProtocols = (packed >> 3) & 1 ? true : false;
-    val.sendSubresourceNotification = (packed >> 4) & 1 ? true : false;
-    val.pluginFullscreenAllowed = (packed >> 5) & 1 ? true : false;
-    val.caretBrowsingEnabled = (packed >> 6) & 1 ? true : false;
-    val.selectionClipboardBufferAvailable = (packed >> 7) & 1 ? true : false;
+    val.sendSubresourceNotification = (packed >> 3) & 1 ? true : false;
+    val.pluginFullscreenAllowed = (packed >> 4) & 1 ? true : false;
+    val.caretBrowsingEnabled = (packed >> 5) & 1 ? true : false;
+    val.selectionClipboardBufferAvailable = (packed >> 6) & 1 ? true : false;
     val.webrtcUdpMinPort =
         decoder.decodeStruct(codec.Uint16);
     val.hinting =
@@ -271,11 +268,10 @@
     packed |= (val.allowCrossOriginAuthPrompt & 1) << 0
     packed |= (val.enableDoNotTrack & 1) << 1
     packed |= (val.enableEncryptedMedia & 1) << 2
-    packed |= (val.webrtcAllowLegacyTlsProtocols & 1) << 3
-    packed |= (val.sendSubresourceNotification & 1) << 4
-    packed |= (val.pluginFullscreenAllowed & 1) << 5
-    packed |= (val.caretBrowsingEnabled & 1) << 6
-    packed |= (val.selectionClipboardBufferAvailable & 1) << 7
+    packed |= (val.sendSubresourceNotification & 1) << 3
+    packed |= (val.pluginFullscreenAllowed & 1) << 4
+    packed |= (val.caretBrowsingEnabled & 1) << 5
+    packed |= (val.selectionClipboardBufferAvailable & 1) << 6
     encoder.writeUint8(packed);
     encoder.encodeStruct(codec.Uint16, val.webrtcUdpMinPort);
     encoder.encodeStruct(codec.Int32, val.hinting);

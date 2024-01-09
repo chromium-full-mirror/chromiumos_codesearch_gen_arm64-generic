@@ -28,21 +28,22 @@
   Sandbox.kAudio = 3;
   Sandbox.kCdm = 4;
   Sandbox.kNetwork = 5;
-  Sandbox.kNoSandbox = 6;
-  Sandbox.kGpu = 7;
-  Sandbox.kPrintCompositor = 8;
-  Sandbox.kRenderer = 9;
-  Sandbox.kSpeechRecognition = 10;
-  Sandbox.kScreenAI = 11;
-  Sandbox.kPpapi = 12;
-  Sandbox.kPrintBackend = 13;
-  Sandbox.kHardwareVideoDecoding = 14;
-  Sandbox.kHardwareVideoEncoding = 15;
-  Sandbox.kIme = 16;
-  Sandbox.kTts = 17;
-  Sandbox.kZygoteIntermediateSandbox = 18;
+  Sandbox.kOnDeviceModelExecution = 6;
+  Sandbox.kNoSandbox = 7;
+  Sandbox.kGpu = 8;
+  Sandbox.kPrintCompositor = 9;
+  Sandbox.kRenderer = 10;
+  Sandbox.kSpeechRecognition = 11;
+  Sandbox.kScreenAI = 12;
+  Sandbox.kPpapi = 13;
+  Sandbox.kPrintBackend = 14;
+  Sandbox.kHardwareVideoDecoding = 15;
+  Sandbox.kHardwareVideoEncoding = 16;
+  Sandbox.kIme = 17;
+  Sandbox.kTts = 18;
+  Sandbox.kZygoteIntermediateSandbox = 19;
   Sandbox.MIN_VALUE = 0;
-  Sandbox.MAX_VALUE = 18;
+  Sandbox.MAX_VALUE = 19;
 
   Sandbox.isKnownEnumValue = function(value) {
     switch (value) {
@@ -65,6 +66,7 @@
     case 16:
     case 17:
     case 18:
+    case 19:
       return true;
     }
     return false;

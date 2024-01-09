@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8FileSystemSyncAccessHandleMode::string_table_[] = {
-"readwrite", "read-only", "readwrite-unsafe"
+"readwrite", "read-only", "readwrite-unsafe", "in-place"
 };
 
 V8FileSystemSyncAccessHandleMode V8FileSystemSyncAccessHandleMode::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

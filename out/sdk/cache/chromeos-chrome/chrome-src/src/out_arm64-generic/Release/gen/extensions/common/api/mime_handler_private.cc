@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/mime_handler_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ StreamInfo::ResponseHeaders::ResponseHeaders()
  {}
 
 StreamInfo::ResponseHeaders::~ResponseHeaders() = default;
-StreamInfo::ResponseHeaders::ResponseHeaders(ResponseHeaders&& rhs) = default;
-StreamInfo::ResponseHeaders& StreamInfo::ResponseHeaders::operator=(ResponseHeaders&& rhs) = default;
+StreamInfo::ResponseHeaders::ResponseHeaders(ResponseHeaders&& rhs) noexcept = default;
+StreamInfo::ResponseHeaders& StreamInfo::ResponseHeaders::operator=(ResponseHeaders&& rhs) noexcept = default;
 StreamInfo::ResponseHeaders StreamInfo::ResponseHeaders::Clone() const {
   ResponseHeaders out;
   return out;
@@ -60,21 +61,21 @@ bool StreamInfo::ResponseHeaders::Populate(
 }
 
 // static
-absl::optional<StreamInfo::ResponseHeaders> StreamInfo::ResponseHeaders::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo::ResponseHeaders> StreamInfo::ResponseHeaders::FromValue(const base::Value::Dict& value) {
   ResponseHeaders out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo::ResponseHeaders> StreamInfo::ResponseHeaders::FromValue(const base::Value& value) {
+std::optional<StreamInfo::ResponseHeaders> StreamInfo::ResponseHeaders::FromValue(const base::Value& value) {
   ResponseHeaders out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -94,8 +95,8 @@ StreamInfo::StreamInfo()
 embedded(false) {}
 
 StreamInfo::~StreamInfo() = default;
-StreamInfo::StreamInfo(StreamInfo&& rhs) = default;
-StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) = default;
+StreamInfo::StreamInfo(StreamInfo&& rhs) noexcept = default;
+StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) noexcept = default;
 StreamInfo StreamInfo::Clone() const {
   StreamInfo out;
   out.mime_type = mime_type;
@@ -196,34 +197,21 @@ bool StreamInfo::Populate(
 }
 
 // static
-std::unique_ptr<StreamInfo> StreamInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StreamInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+  StreamInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
   StreamInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
-  StreamInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -253,8 +241,8 @@ PdfPluginAttributes::PdfPluginAttributes()
 allow_javascript(false) {}
 
 PdfPluginAttributes::~PdfPluginAttributes() = default;
-PdfPluginAttributes::PdfPluginAttributes(PdfPluginAttributes&& rhs) = default;
-PdfPluginAttributes& PdfPluginAttributes::operator=(PdfPluginAttributes&& rhs) = default;
+PdfPluginAttributes::PdfPluginAttributes(PdfPluginAttributes&& rhs) noexcept = default;
+PdfPluginAttributes& PdfPluginAttributes::operator=(PdfPluginAttributes&& rhs) noexcept = default;
 PdfPluginAttributes PdfPluginAttributes::Clone() const {
   PdfPluginAttributes out;
   out.background_color = background_color;
@@ -302,34 +290,21 @@ bool PdfPluginAttributes::Populate(
 }
 
 // static
-std::unique_ptr<PdfPluginAttributes> PdfPluginAttributes::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PdfPluginAttributes>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PdfPluginAttributes> PdfPluginAttributes::FromValue(const base::Value::Dict& value) {
+  PdfPluginAttributes out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PdfPluginAttributes> PdfPluginAttributes::FromValue(const base::Value::Dict& value) {
+std::optional<PdfPluginAttributes> PdfPluginAttributes::FromValue(const base::Value& value) {
   PdfPluginAttributes out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PdfPluginAttributes> PdfPluginAttributes::FromValue(const base::Value& value) {
-  PdfPluginAttributes out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

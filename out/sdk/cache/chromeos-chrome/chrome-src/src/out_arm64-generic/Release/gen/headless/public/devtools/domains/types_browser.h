@@ -136,7 +136,7 @@ class HEADLESS_EXPORT Bounds {
 
 
 // Definition of PermissionDescriptor defined in the Permissions API:
-// https://w3c.github.io/permissions/#dictdef-permissiondescriptor.
+// https://w3c.github.io/permissions/#dom-permissiondescriptor.
 class HEADLESS_EXPORT PermissionDescriptor {
  public:
   static std::unique_ptr<PermissionDescriptor> Parse(const base::Value& value, ErrorReporter* errors);

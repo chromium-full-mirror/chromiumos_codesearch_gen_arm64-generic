@@ -5,9 +5,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const elements_helpers_js_1 = require("../helpers/elements-helpers.js");
 const issues_helpers_js_1 = require("../helpers/issues-helpers.js");
-const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
 // TODO: Add a second node reveal test, where am issue is produced by an OOPIF
 (0, mocha_extensions_js_1.describe)('The Issues tab', async () => {
     (0, mocha_extensions_js_1.it)('should reveal an element in the Elements panel when the node icon is clicked', async () => {
@@ -21,7 +21,7 @@ const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
 (0, mocha_extensions_js_1.describe)('The Elements panel', async () => {
     (0, mocha_extensions_js_1.it)('has a context menu link from an iframe to the corresponding frame details view', async () => {
         await (0, helper_js_1.goToResource)('application/main-frame.html');
-        await (0, sources_helpers_js_1.clickOnContextMenu)('[aria-label="</iframe>"]', 'Show iframe details');
+        await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('[aria-label="</iframe>"]', 'Show iframe details');
         await (0, helper_js_1.step)('Frame details report with correct title is shown', async () => {
             await (0, helper_js_1.waitForFunction)(async () => {
                 const reportTitleNode = await (0, helper_js_1.waitFor)('.report-title');

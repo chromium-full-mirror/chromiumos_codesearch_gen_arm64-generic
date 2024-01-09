@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/proxy-get-property-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -160,7 +161,7 @@ TF_BUILTIN(ProxyGetProperty, CodeStubAssembler) {
   TNode<Object> tmp11;
   if (block24.is_used()) {
     ca_.Bind(&block24);
-    tmp11 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kGetPropertyWithReceiver), parameter0, tmp6, parameter2, parameter3, parameter4);
+    tmp11 = ca_.CallBuiltin<Object>(Builtin::kGetPropertyWithReceiver, parameter0, tmp6, parameter2, parameter3, parameter4);
     CodeStubAssembler(state_).Return(tmp11);
   }
 

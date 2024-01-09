@@ -15,7 +15,6 @@ import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-// 
 import { PasswordManagerImpl } from './password_manager_proxy.js';
 import { RouteObserverMixin, Router, UrlParam } from './router.js';
 import { getTemplate } from './settings_section.html.js';
@@ -68,6 +67,12 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
                 type: Boolean,
                 value() {
                     return loadTimeData.getBoolean('canAddShortcut');
+                },
+            },
+            enableButterOnDesktopFollowup_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
                 },
             },
         };
@@ -186,6 +191,12 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
         else {
             this.optInForAccountStorage();
         }
+    }
+    getToggleSubLabelForAccountStorageOptIn_(accountEmail) {
+        if (this.enableButterOnDesktopFollowup_) {
+            return this.i18n('accountStorageToggleSubLabel', accountEmail);
+        }
+        return accountEmail;
     }
     // 
     computePasswordManagerDisabled_() {

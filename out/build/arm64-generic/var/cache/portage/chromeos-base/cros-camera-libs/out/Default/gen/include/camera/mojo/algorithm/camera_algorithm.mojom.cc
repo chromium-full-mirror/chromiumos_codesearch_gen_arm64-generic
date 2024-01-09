@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -246,14 +247,17 @@ void CameraAlgorithmOpsProxy::Initialize(
                         "<value of type ::mojo::PendingRemote<CameraAlgorithmCallbackOps>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -290,14 +294,17 @@ void CameraAlgorithmOpsProxy::RegisterBuffer(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
@@ -340,14 +347,17 @@ void CameraAlgorithmOpsProxy::Request(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_Request_Name, kFlags, 0, 0, nullptr);
@@ -392,14 +402,17 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
                         "<value of type const std::vector<int32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_DeregisterBuffers_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +461,17 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_UpdateReturn_Name, kFlags, 0, 0, nullptr);
@@ -486,14 +502,17 @@ void CameraAlgorithmOpsProxy::Deinitialize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::CameraAlgorithmOps::Deinitialize");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_Deinitialize_Name, kFlags, 0, 0, nullptr);
@@ -602,7 +621,8 @@ void CameraAlgorithmOps_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -720,7 +740,8 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmOps_RegisterBuffer_Name, kFlags, 0, 0, nullptr);
@@ -962,20 +983,20 @@ std::move(p_buffer_fd), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraAlgorithmOpsValidationInfo[] = {
-    {&internal::CameraAlgorithmOps_Initialize_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_Initialize_Params_Data::Validate,
      &internal::CameraAlgorithmOps_Initialize_ResponseParams_Data::Validate},
-    {&internal::CameraAlgorithmOps_RegisterBuffer_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_RegisterBuffer_Params_Data::Validate,
      &internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data::Validate},
-    {&internal::CameraAlgorithmOps_Request_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_Request_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAlgorithmOps_UpdateReturn_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_UpdateReturn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAlgorithmOps_Deinitialize_Params_Data::Validate,
+    { &internal::CameraAlgorithmOps_Deinitialize_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1085,14 +1106,17 @@ void CameraAlgorithmCallbackOpsProxy::Return(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmCallbackOps_Return_Name, kFlags, 0, 0, nullptr);
@@ -1131,14 +1155,17 @@ void CameraAlgorithmCallbackOpsProxy::Update(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraAlgorithmCallbackOps_Update_Name, kFlags, 0, 0, nullptr);
@@ -1271,12 +1298,12 @@ bool CameraAlgorithmCallbackOpsStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCameraAlgorithmCallbackOpsValidationInfo[] = {
-    {&internal::CameraAlgorithmCallbackOps_Return_Params_Data::Validate,
+    { &internal::CameraAlgorithmCallbackOps_Return_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraAlgorithmCallbackOps_Update_Params_Data::Validate,
+    { &internal::CameraAlgorithmCallbackOps_Update_Params_Data::Validate,
      nullptr /* no response */},
 };
 

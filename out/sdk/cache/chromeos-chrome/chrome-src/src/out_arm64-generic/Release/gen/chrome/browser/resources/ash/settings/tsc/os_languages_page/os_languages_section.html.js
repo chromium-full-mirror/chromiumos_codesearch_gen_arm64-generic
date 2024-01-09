@@ -18,6 +18,14 @@ export function getTemplate() {
   </template>
 
   
+  <template is="dom-if" route-path="/osLanguages/languages/appLanguages">
+    <os-settings-subpage page-title="$i18n{appLanguagesTitle}">
+      <os-settings-app-languages-page prefs="{{prefs}}">
+      </os-settings-app-languages-page>
+    </os-settings-subpage>
+  </template>
+
+  
   <template is="dom-if" route-path="/osLanguages/input">
     <os-settings-subpage page-title="$i18n{inputPageTitle}">
       <os-settings-input-page language-helper="[[languageHelper]]" languages="[[languages]]" prefs="{{prefs}}">

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUQuerySet>::value,
     "GPUQuerySet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUQuerySet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUQuerySet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUQuerySet.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUQuerySet.count.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(v8_receiver);
+GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->count();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -115,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUQuerySet.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,9 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUQuerySet.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUQuerySet";
@@ -156,8 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUQuerySet.destroy");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(v8_receiver);
+GPUQuerySet* blink_receiver = V8GPUQuerySet::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy();
 
 }

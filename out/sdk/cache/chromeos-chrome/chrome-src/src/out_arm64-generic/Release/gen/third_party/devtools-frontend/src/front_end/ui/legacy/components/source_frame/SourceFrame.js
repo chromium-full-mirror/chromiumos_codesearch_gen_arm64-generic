@@ -28,6 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import * as Common from '../../../../core/common/common.js';
+import * as Host from '../../../../core/host/host.js';
 import * as i18n from '../../../../core/i18n/i18n.js';
 import * as Platform from '../../../../core/platform/platform.js';
 import * as Root from '../../../../core/root/root.js';
@@ -105,7 +106,7 @@ const UIStrings = {
      *@description Input box placeholder which instructs the user to type 'allow pasing' into the input box.
      *@example {allow pasting} PH1
      */
-    typeAllowPasting: 'Type  \'\'{PH1}\'\'',
+    typeAllowPasting: 'Type \'\'{PH1}\'\'',
 };
 const str_ = i18n.i18n.registerUIStrings('ui/legacy/components/source_frame/SourceFrame.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
@@ -245,6 +246,16 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
             this.wasmDisassemblyInternal ? markNonBreakableLines(this.wasmDisassemblyInternal) : nonBreakableLines,
             this.options.lineWrapping ? CodeMirror.EditorView.lineWrapping : [],
             this.options.lineNumbers !== false ? CodeMirror.lineNumbers() : [],
+            Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.INDENTATION_MARKERS_TEMP_DISABLE) ?
+                [] :
+                CodeMirror.indentationMarkers({
+                    colors: {
+                        light: 'var(--sys-color-divider)',
+                        activeLight: 'var(--sys-color-divider-prominent)',
+                        dark: 'var(--sys-color-divider)',
+                        activeDark: 'var(--sys-color-divider-prominent)',
+                    },
+                }),
         ];
     }
     onBlur() {
@@ -267,6 +278,7 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
         const allowPasting = await SelfXssWarningDialog.show();
         if (allowPasting) {
             this.selfXssWarningDisabledSetting.set(true);
+            Host.userMetrics.actionTaken(Host.UserMetrics.Action.SelfXssAllowPastingInDialog);
         }
     }
     get wasmDisassembly() {
@@ -340,7 +352,7 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
         if (this.options.lineNumbers === false) {
             return [];
         }
-        let formatNumber = null;
+        let formatNumber = undefined;
         if (this.wasmDisassemblyInternal) {
             const disassembly = this.wasmDisassemblyInternal;
             const lastBytecodeOffset = disassembly.lineNumberToBytecodeOffset(disassembly.lineNumbers - 1);
@@ -351,13 +363,16 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
             };
         }
         else if (this.prettyInternal) {
-            formatNumber = (lineNumber) => {
-                const line = this.prettyToRawLocation(lineNumber - 1, 0)[0] + 1;
-                if (lineNumber === 1) {
-                    return String(line);
+            formatNumber = (lineNumber, state) => {
+                // @codemirror/view passes a high number here to estimate the
+                // maximum width to allocate for the line number gutter.
+                if (lineNumber < 2 || lineNumber > state.doc.lines) {
+                    return String(lineNumber);
                 }
-                if (line !== this.prettyToRawLocation(lineNumber - 2, 0)[0] + 1) {
-                    return String(line);
+                const [currLine] = this.prettyToRawLocation(lineNumber - 1);
+                const [prevLine] = this.prettyToRawLocation(lineNumber - 2);
+                if (currLine !== prevLine) {
+                    return String(currLine + 1);
                 }
                 return '-';
             };
@@ -860,7 +875,7 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
     }
     onContextMenu(event) {
         event.consume(true); // Consume event now to prevent document from handling the async menu
-        const contextMenu = new UI.ContextMenu.ContextMenu(event);
+        const contextMenu = new UI.ContextMenu.ContextMenu(event, { jsLogContext: 'sources-text-area' });
         const { state } = this.textEditor;
         const pos = state.selection.main.from, line = state.doc.lineAt(pos);
         this.populateTextAreaContextMenu(contextMenu, line.number - 1, pos - line.from);
@@ -872,7 +887,7 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
     }
     onLineGutterContextMenu(position, event) {
         event.consume(true); // Consume event now to prevent document from handling the async menu
-        const contextMenu = new UI.ContextMenu.ContextMenu(event);
+        const contextMenu = new UI.ContextMenu.ContextMenu(event, { jsLogContext: 'sources-line-gutter' });
         const lineNumber = this.textEditor.state.doc.lineAt(position).number - 1;
         this.populateLineGutterContextMenu(contextMenu, lineNumber);
         contextMenu.appendApplicableItems(this);
@@ -949,6 +964,7 @@ export class SelfXssWarningDialog {
                 resolve(false);
             });
             dialog.show();
+            Host.userMetrics.actionTaken(Host.UserMetrics.Action.SelfXssWarningDialogShown);
         });
         dialog.hide();
         return result;

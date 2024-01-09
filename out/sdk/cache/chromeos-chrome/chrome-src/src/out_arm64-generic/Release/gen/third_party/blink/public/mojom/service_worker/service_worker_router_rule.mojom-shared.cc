@@ -47,83 +47,6 @@ std::ostream& operator<<(std::ostream& os, ServiceWorkerRouterRunningStatusEnum 
 
 namespace internal {
 // static
-bool ServiceWorkerRouterCondition_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context,
-    bool inlined) {
-  if (!data) {
-    DCHECK(!inlined);
-    return true;
-  }
-
-  // If it is inlined, the alignment is already enforced by its enclosing
-  // object. We don't have to validate that.
-  DCHECK(!inlined || mojo::internal::IsAligned(data));
-
-  if (!inlined &&
-      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
-          data, validation_context)) {
-    return false;
-  }
-
-  const ServiceWorkerRouterCondition_Data* object = static_cast<const ServiceWorkerRouterCondition_Data*>(data);
-
-  if (inlined && object->is_null())
-    return true;
-
-  switch (object->tag) {
-
-    case ServiceWorkerRouterCondition_Tag::kUrlPattern: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_url_pattern, 1, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_url_pattern, validation_context))
-        return false;
-      return true;
-    }
-    case ServiceWorkerRouterCondition_Tag::kRequest: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_request, 2, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_request, validation_context))
-        return false;
-      return true;
-    }
-    case ServiceWorkerRouterCondition_Tag::kRunningStatus: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_running_status, 3, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_running_status, validation_context))
-        return false;
-      return true;
-    }
-    case ServiceWorkerRouterCondition_Tag::kOrCondition: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_or_condition, 4, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_or_condition, validation_context))
-        return false;
-      return true;
-    }
-    default: {
-
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in ServiceWorkerRouterCondition");
-      return false;
-    }
-  }
-}
-// static
 bool ServiceWorkerRouterSource_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -271,40 +194,6 @@ ServiceWorkerRouterRequestCondition_Data::ServiceWorkerRouterRequestCondition_Da
 
 
 // static
-bool ServiceWorkerRouterConditionObject_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const ServiceWorkerRouterConditionObject_Data* object =
-      static_cast<const ServiceWorkerRouterConditionObject_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->conditions, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& conditions_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->conditions, validation_context,
-                                         &conditions_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-ServiceWorkerRouterConditionObject_Data::ServiceWorkerRouterConditionObject_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool ServiceWorkerRouterOrCondition_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -321,13 +210,13 @@ bool ServiceWorkerRouterOrCondition_Data::Validate(
       static_cast<const ServiceWorkerRouterOrCondition_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->objects, 1, validation_context)) {
+          object->conditions, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& objects_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& conditions_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->objects, validation_context,
-                                         &objects_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->conditions, validation_context,
+                                         &conditions_validate_params)) {
     return false;
   }
 
@@ -335,6 +224,41 @@ bool ServiceWorkerRouterOrCondition_Data::Validate(
 }
 
 ServiceWorkerRouterOrCondition_Data::ServiceWorkerRouterOrCondition_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ServiceWorkerRouterCondition_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ServiceWorkerRouterCondition_Data* object =
+      static_cast<const ServiceWorkerRouterCondition_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->url_pattern, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->request, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->running_status, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->or_condition, validation_context))
+    return false;
+
+  return true;
+}
+
+ServiceWorkerRouterCondition_Data::ServiceWorkerRouterCondition_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -454,15 +378,11 @@ bool ServiceWorkerRouterRule_Data::Validate(
       static_cast<const ServiceWorkerRouterRule_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->conditions, 1, validation_context)) {
+          object->condition, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& conditions_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->conditions, validation_context,
-                                         &conditions_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->condition, validation_context))
     return false;
-  }
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->sources, 2, validation_context)) {

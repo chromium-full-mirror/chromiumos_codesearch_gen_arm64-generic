@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDisplayedCSSDeclarations = exports.getComputedStyleProperties = exports.waitForStyleRule = exports.getStyleRuleSelector = exports.assertGutterDecorationForDomNodeExists = exports.waitForDomNodeToBeHidden = exports.waitForDomNodeToBeVisible = exports.toggleGroupComputedProperties = exports.toggleShowAllComputedProperties = exports.filterComputedProperties = exports.getComputedPanel = exports.waitForNumberOfComputedProperties = exports.getComputedStylesForDomNode = exports.removePseudoState = exports.forcePseudoState = exports.expandSelectedNodeRecursively = exports.waitForPropertyValueInComputedPane = exports.getPropertyFromComputedPane = exports.getAllPropertiesFromComputedPane = exports.waitForComputedPaneChange = exports.getContentOfComputedPane = exports.waitForElementsComputedSection = exports.waitForElementsStyleSection = exports.navigateToSidePane = exports.focusElementsTree = exports.clickNthChildOfSelectedElementNode = exports.clickTreeElementWithPartialText = exports.waitForElementWithPartialText = exports.waitForAndClickTreeElementWithPartialText = exports.waitForChildrenOfSelectedElementNode = exports.waitForSelectedTreeElementSelectorWhichIncludesText = exports.waitForSelectedTreeElementSelectorWithTextcontent = exports.assertSelectedElementsNodeTextIncludes = exports.waitForSelectedNodeChange = exports.getContentOfSelectedNode = exports.waitForPartialContentOfSelectedElementsNode = exports.waitForContentOfSelectedElementsNode = exports.waitForSomeGridsInLayoutPane = exports.getGridsInLayoutPane = exports.toggleElementCheckboxInLayoutPane = exports.waitForAdornerOnSelectedNode = exports.waitForSelectedNodeToBeExpanded = exports.waitForAdorners = exports.openLayoutPane = exports.SEARCH_BOX_SELECTOR = exports.STYLE_PROPERTIES_SELECTOR = exports.ACTIVE_GRID_ADORNER_SELECTOR = exports.INACTIVE_GRID_ADORNER_SELECTOR = exports.SECTION_SUBTITLE_SELECTOR = exports.ELEMENTS_PANEL_SELECTOR = void 0;
-exports.checkStyleAttributes = exports.goToResourceAndWaitForStyleSection = exports.assertSearchResultMatchesText = exports.summonAndWaitForSearchBox = exports.getPropertiesWithHints = exports.toggleAccessibilityTree = exports.toggleAccessibilityPane = exports.assertSelectedNodeClasses = exports.uncheckStylesPaneCheckbox = exports.toggleClassesPaneCheckbox = exports.typeInClassesPaneInput = exports.toggleClassesPane = exports.clickOnFirstLinkInStylesPanel = exports.navigateToElementsTab = exports.getSelectedBreadcrumbTextContent = exports.getBreadcrumbsTextContent = exports.waitForPropertyToHighlight = exports.waitForCSSPropertyValue = exports.editQueryRuleText = exports.editCSSProperty = exports.focusCSSPropertyValue = exports.getCSSPropertyInRule = exports.getStyleSectionSubtitles = exports.getHiddenFontEditorButtons = exports.getFontEditorButtons = exports.getElementStyleFontEditorButton = exports.shiftClickColorSwatch = exports.getColorSwatchColor = exports.getColorSwatch = exports.getStyleRuleWithSourcePosition = exports.getStyleRule = exports.getDisplayedCSSPropertyNames = exports.getDisplayedCSSPropertyData = exports.getDisplayedStyleRules = exports.getDisplayedStyleRulesCompact = void 0;
+exports.getComputedStyleProperties = exports.waitForStyleRule = exports.waitForExactStyleRule = exports.getStyleRuleSelector = exports.assertGutterDecorationForDomNodeExists = exports.waitForDomNodeToBeHidden = exports.waitForDomNodeToBeVisible = exports.toggleGroupComputedProperties = exports.toggleShowAllComputedProperties = exports.filterComputedProperties = exports.getComputedPanel = exports.waitForNumberOfComputedProperties = exports.getComputedStylesForDomNode = exports.removePseudoState = exports.forcePseudoState = exports.expandSelectedNodeRecursively = exports.waitForPropertyValueInComputedPane = exports.getPropertyFromComputedPane = exports.getAllPropertiesFromComputedPane = exports.waitForComputedPaneChange = exports.getContentOfComputedPane = exports.waitForElementsComputedSection = exports.waitForElementsStyleSection = exports.navigateToSidePane = exports.focusElementsTree = exports.clickNthChildOfSelectedElementNode = exports.clickTreeElementWithPartialText = exports.waitForElementWithPartialText = exports.waitForAndClickTreeElementWithPartialText = exports.waitForChildrenOfSelectedElementNode = exports.waitForSelectedTreeElementSelectorWhichIncludesText = exports.waitForSelectedTreeElementSelectorWithTextcontent = exports.assertSelectedElementsNodeTextIncludes = exports.waitForSelectedNodeChange = exports.getContentOfSelectedNode = exports.waitForPartialContentOfSelectedElementsNode = exports.waitForContentOfSelectedElementsNode = exports.waitForSomeGridsInLayoutPane = exports.getGridsInLayoutPane = exports.toggleElementCheckboxInLayoutPane = exports.waitForAdornerOnSelectedNode = exports.waitForSelectedNodeToBeExpanded = exports.waitForAdorners = exports.openLayoutPane = exports.SEARCH_BOX_SELECTOR = exports.STYLE_PROPERTIES_SELECTOR = exports.ACTIVE_GRID_ADORNER_SELECTOR = exports.INACTIVE_GRID_ADORNER_SELECTOR = exports.SECTION_SUBTITLE_SELECTOR = exports.ELEMENTS_PANEL_SELECTOR = void 0;
+exports.checkStyleAttributes = exports.goToResourceAndWaitForStyleSection = exports.assertSearchResultMatchesText = exports.summonAndWaitForSearchBox = exports.getPropertiesWithHints = exports.toggleAccessibilityTree = exports.toggleAccessibilityPane = exports.assertSelectedNodeClasses = exports.uncheckStylesPaneCheckbox = exports.toggleClassesPaneCheckbox = exports.typeInClassesPaneInput = exports.toggleClassesPane = exports.clickOnFirstLinkInStylesPanel = exports.navigateToElementsTab = exports.getSelectedBreadcrumbTextContent = exports.getBreadcrumbsTextContent = exports.waitForPropertyToHighlight = exports.waitForCSSPropertyValue = exports.editQueryRuleText = exports.editCSSProperty = exports.focusCSSPropertyValue = exports.getCSSPropertyInRule = exports.getStyleSectionSubtitles = exports.getHiddenFontEditorButtons = exports.getFontEditorButtons = exports.getElementStyleFontEditorButton = exports.shiftClickColorSwatch = exports.getColorSwatchColor = exports.getColorSwatch = exports.getStyleRuleWithSourcePosition = exports.getStyleRule = exports.getDisplayedCSSPropertyNames = exports.getDisplayedCSSPropertyData = exports.getDisplayedStyleRules = exports.getDisplayedStyleRulesCompact = exports.getDisplayedCSSDeclarations = void 0;
 // Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -39,7 +39,6 @@ exports.SEARCH_BOX_SELECTOR = '.search-bar';
 const SEARCH_RESULTS_MATCHES = '.search-results-matches';
 const openLayoutPane = async () => {
     await (0, helper_js_1.step)('Open Layout pane', async () => {
-        await (0, helper_js_1.waitFor)(LAYOUT_PANE_TAB_SELECTOR);
         await (0, helper_js_1.click)(LAYOUT_PANE_TAB_SELECTOR);
         const panel = await (0, helper_js_1.waitFor)(LAYOUT_PANE_TABPANEL_SELECTOR);
         await (0, helper_js_1.waitFor)('.elements', panel);
@@ -86,7 +85,6 @@ const waitForAdornerOnSelectedNode = async (expectedAdornerText) => {
 exports.waitForAdornerOnSelectedNode = waitForAdornerOnSelectedNode;
 const toggleElementCheckboxInLayoutPane = async () => {
     await (0, helper_js_1.step)('Click element checkbox in Layout pane', async () => {
-        await (0, helper_js_1.waitFor)(ELEMENT_CHECKBOX_IN_LAYOUT_PANE_SELECTOR);
         await (0, helper_js_1.click)(ELEMENT_CHECKBOX_IN_LAYOUT_PANE_SELECTOR);
     });
 };
@@ -186,8 +184,7 @@ const clickTreeElementWithPartialText = async (text) => {
 exports.clickTreeElementWithPartialText = clickTreeElementWithPartialText;
 const clickNthChildOfSelectedElementNode = async (childIndex) => {
     (0, chai_1.assert)(childIndex > 0, 'CSS :nth-child() selector indices are 1-based.');
-    const element = await (0, helper_js_1.waitFor)(`${SELECTED_TREE_ELEMENT_SELECTOR} + ol > li:nth-child(${childIndex})`);
-    await element.click();
+    await (0, helper_js_1.click)(`${SELECTED_TREE_ELEMENT_SELECTOR} + ol > li:nth-child(${childIndex})`);
 };
 exports.clickNthChildOfSelectedElementNode = clickNthChildOfSelectedElementNode;
 const focusElementsTree = async () => {
@@ -270,7 +267,6 @@ const expandSelectedNodeRecursively = async () => {
     // Find the selected node, right click.
     await (0, helper_js_1.click)(SELECTED_TREE_ELEMENT_SELECTOR, { clickOptions: { button: 'right' } });
     // Wait for the 'expand recursively' option, and click it.
-    await (0, helper_js_1.waitFor)(EXPAND_RECURSIVELY);
     await (0, helper_js_1.click)(EXPAND_RECURSIVELY);
 };
 exports.expandSelectedNodeRecursively = expandSelectedNodeRecursively;
@@ -356,6 +352,13 @@ const assertGutterDecorationForDomNodeExists = async () => {
 exports.assertGutterDecorationForDomNodeExists = assertGutterDecorationForDomNodeExists;
 const getStyleRuleSelector = (selector) => `[aria-label="${selector}, css selector"]`;
 exports.getStyleRuleSelector = getStyleRuleSelector;
+const waitForExactStyleRule = async (expectedSelector) => {
+    await (0, helper_js_1.waitForFunction)(async () => {
+        const rules = await (0, exports.getDisplayedStyleRules)();
+        return rules.find(rule => rule.selectorText === expectedSelector);
+    });
+};
+exports.waitForExactStyleRule = waitForExactStyleRule;
 const waitForStyleRule = async (expectedSelector) => {
     await (0, helper_js_1.waitForFunction)(async () => {
         const rules = await (0, exports.getDisplayedStyleRules)();

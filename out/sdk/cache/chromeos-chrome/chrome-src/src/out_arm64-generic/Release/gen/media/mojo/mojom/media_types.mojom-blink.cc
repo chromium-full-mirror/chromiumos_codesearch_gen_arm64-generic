@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -899,25 +900,26 @@ VideoFrameMetadata::VideoFrameMetadata()
       has_rtp_timestamp(),
       rtp_timestamp(),
       receive_time(),
-      wallclock_frame_duration() {}
+      wallclock_frame_duration(),
+      frame_sequence() {}
 
 VideoFrameMetadata::VideoFrameMetadata(
     bool allow_overlay_in,
-    absl::optional<::base::TimeTicks> capture_begin_time_in,
-    absl::optional<::base::TimeTicks> capture_end_time_in,
+    std::optional<::base::TimeTicks> capture_begin_time_in,
+    std::optional<::base::TimeTicks> capture_end_time_in,
     bool has_capture_counter_in,
     int32_t capture_counter_in,
-    const absl::optional<::gfx::Rect>& capture_update_rect_in,
-    const absl::optional<::gfx::Size>& source_size_in,
-    const absl::optional<::gfx::Rect>& region_capture_rect_in,
+    const std::optional<::gfx::Rect>& capture_update_rect_in,
+    const std::optional<::gfx::Size>& source_size_in,
+    const std::optional<::gfx::Rect>& region_capture_rect_in,
     uint32_t sub_capture_target_version_in,
     bool copy_required_in,
     bool end_of_stream_in,
-    absl::optional<::base::TimeDelta> frame_duration_in,
+    std::optional<::base::TimeDelta> frame_duration_in,
     bool has_frame_rate_in,
     double frame_rate_in,
     bool interactive_content_in,
-    absl::optional<::base::TimeTicks> reference_time_in,
+    std::optional<::base::TimeTicks> reference_time_in,
     bool read_lock_fences_enabled_in,
     VideoTransformationPtr transformation_in,
     bool texture_owner_in,
@@ -925,7 +927,7 @@ VideoFrameMetadata::VideoFrameMetadata(
     bool protected_video_in,
     bool hw_protected_in,
     bool is_webgpu_compatible_in,
-    const absl::optional<::base::UnguessableToken>& overlay_plane_id_in,
+    const std::optional<::base::UnguessableToken>& overlay_plane_id_in,
     bool power_efficient_in,
     bool texture_origin_is_top_left_in,
     bool has_device_scale_factor_in,
@@ -938,13 +940,14 @@ VideoFrameMetadata::VideoFrameMetadata(
     double root_scroll_offset_y_in,
     bool has_top_controls_visible_height_in,
     double top_controls_visible_height_in,
-    absl::optional<::base::TimeTicks> decode_begin_time_in,
-    absl::optional<::base::TimeTicks> decode_end_time_in,
-    absl::optional<::base::TimeDelta> processing_time_in,
+    std::optional<::base::TimeTicks> decode_begin_time_in,
+    std::optional<::base::TimeTicks> decode_end_time_in,
+    std::optional<::base::TimeDelta> processing_time_in,
     bool has_rtp_timestamp_in,
     double rtp_timestamp_in,
-    absl::optional<::base::TimeTicks> receive_time_in,
-    absl::optional<::base::TimeDelta> wallclock_frame_duration_in)
+    std::optional<::base::TimeTicks> receive_time_in,
+    std::optional<::base::TimeDelta> wallclock_frame_duration_in,
+    std::optional<uint64_t> frame_sequence_in)
     : allow_overlay(std::move(allow_overlay_in)),
       capture_begin_time(std::move(capture_begin_time_in)),
       capture_end_time(std::move(capture_end_time_in)),
@@ -987,7 +990,8 @@ VideoFrameMetadata::VideoFrameMetadata(
       has_rtp_timestamp(std::move(has_rtp_timestamp_in)),
       rtp_timestamp(std::move(rtp_timestamp_in)),
       receive_time(std::move(receive_time_in)),
-      wallclock_frame_duration(std::move(wallclock_frame_duration_in)) {}
+      wallclock_frame_duration(std::move(wallclock_frame_duration_in)),
+      frame_sequence(std::move(frame_sequence_in)) {}
 
 VideoFrameMetadata::~VideoFrameMetadata() = default;
 
@@ -1007,7 +1011,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "capture_begin_time"), this->capture_begin_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1016,7 +1020,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "capture_end_time"), this->capture_end_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1043,7 +1047,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "capture_update_rect"), this->capture_update_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1052,7 +1056,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "source_size"), this->source_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1061,7 +1065,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "region_capture_rect"), this->region_capture_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1097,7 +1101,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "frame_duration"), this->frame_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1133,7 +1137,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "reference_time"), this->reference_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1205,7 +1209,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "overlay_plane_id"), this->overlay_plane_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1322,7 +1326,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "decode_begin_time"), this->decode_begin_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1331,7 +1335,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "decode_end_time"), this->decode_end_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1340,7 +1344,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "processing_time"), this->processing_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1367,7 +1371,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "receive_time"), this->receive_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1376,7 +1380,16 @@ void VideoFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "wallclock_frame_duration"), this->wallclock_frame_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "frame_sequence"), this->frame_sequence,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2620,6 +2633,9 @@ bool StructTraits<::media::mojom::blink::VideoFrameMetadata::DataView, ::media::
         success = false;
       if (success && !input.ReadWallclockFrameDuration(&result->wallclock_frame_duration))
         success = false;
+      if (success) {
+        result->frame_sequence = input.frame_sequence();
+      }
   *output = std::move(result);
   return success;
 }

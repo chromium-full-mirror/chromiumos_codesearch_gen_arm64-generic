@@ -78,6 +78,14 @@ export function getTemplate() {
   </template>
 
   
+  <template is="dom-if" route-path="/osLanguages/languages/appLanguages">
+    <os-settings-subpage page-title="$i18n{appLanguagesTitle}">
+      <os-settings-app-languages-page prefs="{{prefs}}">
+      </os-settings-app-languages-page>
+    </os-settings-subpage>
+  </template>
+
+  
   <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
     <template is="dom-if" route-path="/osSearch/search">
       <os-settings-subpage page-title="$i18n{searchSubpageTitle}">

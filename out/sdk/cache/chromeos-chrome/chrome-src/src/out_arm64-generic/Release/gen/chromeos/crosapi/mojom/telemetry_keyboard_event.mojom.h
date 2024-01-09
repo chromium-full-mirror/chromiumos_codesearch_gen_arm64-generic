@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/telemetry_keyboard_event.mojom-features.h"
 #include "chromeos/crosapi/mojom/telemetry_keyboard_event.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_keyboard_event.mojom-forward.h"
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom.h"
@@ -75,12 +76,12 @@ class  TelemetryKeyboardInfo {
   TelemetryKeyboardInfo(
       ::crosapi::mojom::UInt32ValuePtr id,
       TelemetryKeyboardConnectionType connection_type,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       TelemetryKeyboardPhysicalLayout physical_layout,
       TelemetryKeyboardMechanicalLayout mechanical_layout,
-      const absl::optional<std::string>& region_code,
+      const std::optional<std::string>& region_code,
       TelemetryKeyboardNumberPadPresence number_pad_present,
-      absl::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys,
+      std::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys,
       TelemetryKeyboardTopRightKey top_right_key,
       ::crosapi::mojom::BoolValuePtr has_assistant_key);
 
@@ -166,17 +167,17 @@ TelemetryKeyboardInfo& operator=(const TelemetryKeyboardInfo&) = delete;
   
   TelemetryKeyboardConnectionType connection_type;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   TelemetryKeyboardPhysicalLayout physical_layout;
   
   TelemetryKeyboardMechanicalLayout mechanical_layout;
   
-  absl::optional<std::string> region_code;
+  std::optional<std::string> region_code;
   
   TelemetryKeyboardNumberPadPresence number_pad_present;
   
-  absl::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys;
+  std::optional<std::vector<TelemetryKeyboardTopRowKey>> top_row_keys;
   
   TelemetryKeyboardTopRightKey top_right_key;
   
@@ -243,8 +244,8 @@ class  TelemetryKeyboardDiagnosticEventInfo {
 
   TelemetryKeyboardDiagnosticEventInfo(
       TelemetryKeyboardInfoPtr keyboard_info,
-      absl::optional<std::vector<uint32_t>> tested_keys,
-      absl::optional<std::vector<uint32_t>> tested_top_row_keys);
+      std::optional<std::vector<uint32_t>> tested_keys,
+      std::optional<std::vector<uint32_t>> tested_top_row_keys);
 
 TelemetryKeyboardDiagnosticEventInfo(const TelemetryKeyboardDiagnosticEventInfo&) = delete;
 TelemetryKeyboardDiagnosticEventInfo& operator=(const TelemetryKeyboardDiagnosticEventInfo&) = delete;
@@ -326,9 +327,9 @@ TelemetryKeyboardDiagnosticEventInfo& operator=(const TelemetryKeyboardDiagnosti
   
   TelemetryKeyboardInfoPtr keyboard_info;
   
-  absl::optional<std::vector<uint32_t>> tested_keys;
+  std::optional<std::vector<uint32_t>> tested_keys;
   
-  absl::optional<std::vector<uint32_t>> tested_top_row_keys;
+  std::optional<std::vector<uint32_t>> tested_top_row_keys;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

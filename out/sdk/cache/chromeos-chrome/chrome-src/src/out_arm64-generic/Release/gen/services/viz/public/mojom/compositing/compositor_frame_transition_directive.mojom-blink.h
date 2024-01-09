@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/compositor_frame_transition_directive.mojom-features.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_transition_directive.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_transition_directive.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -40,18 +41,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::CompositorFrameTransitionDirectiveType>
-    : EnumHashTraits<::viz::mojom::CompositorFrameTransitionDirectiveType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {
@@ -237,7 +226,7 @@ class BLINK_PLATFORM_EXPORT CompositorFrameTransitionDirective {
   CompositorFrameTransitionDirective();
 
   CompositorFrameTransitionDirective(
-      const absl::optional<::base::UnguessableToken>& navigation_id,
+      const std::optional<::base::UnguessableToken>& navigation_id,
       uint32_t sequence_id,
       CompositorFrameTransitionDirectiveType type,
       WTF::Vector<CompositorFrameTransitionDirectiveSharedElementPtr> shared_elements);
@@ -320,7 +309,7 @@ CompositorFrameTransitionDirective& operator=(const CompositorFrameTransitionDir
   }
 
   
-  absl::optional<::base::UnguessableToken> navigation_id;
+  std::optional<::base::UnguessableToken> navigation_id;
   
   uint32_t sequence_id;
   

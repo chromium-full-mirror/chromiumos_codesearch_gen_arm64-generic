@@ -168,7 +168,7 @@ export class CSSStyleSheetHeader {
     }
     createPageResourceLoadInitiator() {
         return {
-            target: null,
+            target: this.#cssModelInternal.target(),
             frameId: this.frameId,
             initiatorUrl: this.hasSourceURL ? Platform.DevToolsPath.EmptyUrlString : this.sourceURL,
         };

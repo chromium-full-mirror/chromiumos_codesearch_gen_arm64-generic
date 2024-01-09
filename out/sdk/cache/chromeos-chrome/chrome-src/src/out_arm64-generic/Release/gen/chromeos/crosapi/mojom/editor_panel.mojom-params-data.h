@@ -147,6 +147,23 @@ class  EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data {
 };
 static_assert(sizeof(EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data) == 16,
               "Bad sizeof(EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data)");
+class  EditorPanelManager_LogEditorMode_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t mode;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<EditorPanelManager_LogEditorMode_Params_Data>;
+
+  EditorPanelManager_LogEditorMode_Params_Data();
+  ~EditorPanelManager_LogEditorMode_Params_Data() = delete;
+};
+static_assert(sizeof(EditorPanelManager_LogEditorMode_Params_Data) == 16,
+              "Bad sizeof(EditorPanelManager_LogEditorMode_Params_Data)");
 
 }  // namespace internal
 
@@ -307,6 +324,31 @@ class EditorPanelManager_OnEditorMenuVisibilityChanged_ParamsDataView {
 };
 
 
+class EditorPanelManager_LogEditorMode_ParamsDataView {
+ public:
+  EditorPanelManager_LogEditorMode_ParamsDataView() = default;
+
+  EditorPanelManager_LogEditorMode_ParamsDataView(
+      internal::EditorPanelManager_LogEditorMode_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadMode(UserType* output) const {
+    auto data_value = data_->mode;
+    return mojo::internal::Deserialize<::crosapi::mojom::EditorPanelMode>(
+        data_value, output);
+  }
+  EditorPanelMode mode() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::EditorPanelMode>(data_->mode));
+  }
+ private:
+  internal::EditorPanelManager_LogEditorMode_Params_Data* data_ = nullptr;
+};
+
+
 
 inline void EditorPanelManager_GetEditorPanelContext_ResponseParamsDataView::GetEditorPanelContextDataView(
     EditorPanelContextDataView* output) {
@@ -333,6 +375,8 @@ inline void EditorPanelManager_StartEditingFlowWithFreeform_ParamsDataView::GetT
   auto pointer = data_->text.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

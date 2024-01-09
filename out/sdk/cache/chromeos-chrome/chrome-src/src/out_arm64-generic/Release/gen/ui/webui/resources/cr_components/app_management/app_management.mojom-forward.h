@@ -26,6 +26,8 @@ class PermissionDataView;
 
 class RunOnOsLoginDataView;
 
+class LocaleDataView;
+
 class AppDataView;
 
 class ExtensionAppPermissionMessageDataView;
@@ -35,8 +37,6 @@ class FileHandlingStateDataView;
 class PermissionValueDataView;
 
 enum class AppType : int32_t;
-
-enum class OptionalBool : int32_t;
 
 enum class PermissionType : int32_t;
 
@@ -54,6 +54,9 @@ using PermissionPtr = mojo::StructPtr<Permission>;
 
 class RunOnOsLogin;
 using RunOnOsLoginPtr = mojo::InlinedStructPtr<RunOnOsLogin>;
+
+class Locale;
+using LocalePtr = mojo::InlinedStructPtr<Locale>;
 
 class App;
 using AppPtr = mojo::StructPtr<App>;

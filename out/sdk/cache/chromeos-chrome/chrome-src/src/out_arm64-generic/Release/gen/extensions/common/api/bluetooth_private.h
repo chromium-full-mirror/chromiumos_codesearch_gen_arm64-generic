@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -108,8 +109,8 @@ struct PairingEvent {
   ~PairingEvent();
   PairingEvent(const PairingEvent&) = delete;
   PairingEvent& operator=(const PairingEvent&) = delete;
-  PairingEvent(PairingEvent&& rhs);
-  PairingEvent& operator=(PairingEvent&& rhs);
+  PairingEvent(PairingEvent&& rhs) noexcept;
+  PairingEvent& operator=(PairingEvent&& rhs) noexcept;
 
   // Populates a PairingEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -122,15 +123,12 @@ struct PairingEvent {
   // Creates a deep copy of PairingEvent.
   PairingEvent Clone() const;
 
-  // Creates a PairingEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PairingEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a PairingEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PairingEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<PairingEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a PairingEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<PairingEvent> FromValue(const base::Value& value);
+  static std::optional<PairingEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPairingEvent object.
@@ -140,11 +138,11 @@ struct PairingEvent {
 
   extensions::api::bluetooth::Device device;
 
-  absl::optional<std::string> pincode;
+  std::optional<std::string> pincode;
 
-  absl::optional<int> passkey;
+  std::optional<int> passkey;
 
-  absl::optional<int> entered_key;
+  std::optional<int> entered_key;
 
 };
 
@@ -153,8 +151,8 @@ struct NewAdapterState {
   ~NewAdapterState();
   NewAdapterState(const NewAdapterState&) = delete;
   NewAdapterState& operator=(const NewAdapterState&) = delete;
-  NewAdapterState(NewAdapterState&& rhs);
-  NewAdapterState& operator=(NewAdapterState&& rhs);
+  NewAdapterState(NewAdapterState&& rhs) noexcept;
+  NewAdapterState& operator=(NewAdapterState&& rhs) noexcept;
 
   // Populates a NewAdapterState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -167,28 +165,25 @@ struct NewAdapterState {
   // Creates a deep copy of NewAdapterState.
   NewAdapterState Clone() const;
 
-  // Creates a NewAdapterState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NewAdapterState> FromValueDeprecated(const base::Value& value);
-
   // Creates a NewAdapterState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NewAdapterState> FromValue(const base::Value::Dict& value);
+  static std::optional<NewAdapterState> FromValue(const base::Value::Dict& value);
 
   // Creates a NewAdapterState object from a base::Value, or nullopt on failure.
-  static absl::optional<NewAdapterState> FromValue(const base::Value& value);
+  static std::optional<NewAdapterState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNewAdapterState object.
   base::Value::Dict ToValue() const;
 
   // The human-readable name of the adapter.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Whether or not the adapter has power.
-  absl::optional<bool> powered;
+  std::optional<bool> powered;
 
   // Whether the adapter is discoverable by other devices.
-  absl::optional<bool> discoverable;
+  std::optional<bool> discoverable;
 
 };
 
@@ -197,8 +192,8 @@ struct SetPairingResponseOptions {
   ~SetPairingResponseOptions();
   SetPairingResponseOptions(const SetPairingResponseOptions&) = delete;
   SetPairingResponseOptions& operator=(const SetPairingResponseOptions&) = delete;
-  SetPairingResponseOptions(SetPairingResponseOptions&& rhs);
-  SetPairingResponseOptions& operator=(SetPairingResponseOptions&& rhs);
+  SetPairingResponseOptions(SetPairingResponseOptions&& rhs) noexcept;
+  SetPairingResponseOptions& operator=(SetPairingResponseOptions&& rhs) noexcept;
 
   // Populates a SetPairingResponseOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -211,17 +206,13 @@ struct SetPairingResponseOptions {
   // Creates a deep copy of SetPairingResponseOptions.
   SetPairingResponseOptions Clone() const;
 
-  // Creates a SetPairingResponseOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SetPairingResponseOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetPairingResponseOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SetPairingResponseOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<SetPairingResponseOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a SetPairingResponseOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SetPairingResponseOptions> FromValue(const base::Value& value);
+  static std::optional<SetPairingResponseOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetPairingResponseOptions object.
@@ -234,10 +225,10 @@ struct SetPairingResponseOptions {
   PairingResponse response;
 
   // A 1-16 character alphanumeric set in response to <code>requestPincode</code>.
-  absl::optional<std::string> pincode;
+  std::optional<std::string> pincode;
 
   // An integer between 0-999999 set in response to <code>requestPasskey</code>.
-  absl::optional<int> passkey;
+  std::optional<int> passkey;
 
 };
 
@@ -246,8 +237,8 @@ struct DiscoveryFilter {
   ~DiscoveryFilter();
   DiscoveryFilter(const DiscoveryFilter&) = delete;
   DiscoveryFilter& operator=(const DiscoveryFilter&) = delete;
-  DiscoveryFilter(DiscoveryFilter&& rhs);
-  DiscoveryFilter& operator=(DiscoveryFilter&& rhs);
+  DiscoveryFilter(DiscoveryFilter&& rhs) noexcept;
+  DiscoveryFilter& operator=(DiscoveryFilter&& rhs) noexcept;
 
   // Populates a DiscoveryFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -260,15 +251,12 @@ struct DiscoveryFilter {
   // Creates a deep copy of DiscoveryFilter.
   DiscoveryFilter Clone() const;
 
-  // Creates a DiscoveryFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DiscoveryFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a DiscoveryFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DiscoveryFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<DiscoveryFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a DiscoveryFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<DiscoveryFilter> FromValue(const base::Value& value);
+  static std::optional<DiscoveryFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDiscoveryFilter object.
@@ -280,8 +268,8 @@ struct DiscoveryFilter {
     ~Uuids();
     Uuids(const Uuids&) = delete;
     Uuids& operator=(const Uuids&) = delete;
-    Uuids(Uuids&& rhs);
-    Uuids& operator=(Uuids&& rhs);
+    Uuids(Uuids&& rhs) noexcept;
+    Uuids& operator=(Uuids&& rhs) noexcept;
 
     // Populates a Uuids object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -291,14 +279,14 @@ struct DiscoveryFilter {
     Uuids Clone() const;
 
     // Creates a Uuids object from a base::Value, or nullopt on failure.
-    static absl::optional<Uuids> FromValue(const base::Value& value);
+    static std::optional<Uuids> FromValue(const base::Value& value);
 
     // Returns a new base::Value representing the serialized form of thisUuids
     // object.
     base::Value ToValue() const;
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<std::vector<std::string>> as_strings;
+    std::optional<std::string> as_string;
+    std::optional<std::vector<std::string>> as_strings;
   };
 
 
@@ -306,15 +294,15 @@ struct DiscoveryFilter {
   TransportType transport;
 
   // uuid of service or array of uuids
-  absl::optional<Uuids> uuids;
+  std::optional<Uuids> uuids;
 
   // RSSI ranging value. Only devices with RSSI higher than this value will be
   // reported.
-  absl::optional<int> rssi;
+  std::optional<int> rssi;
 
   // Pathloss ranging value. Only devices with pathloss lower than this value will
   // be reported.
-  absl::optional<int> pathloss;
+  std::optional<int> pathloss;
 
 };
 
@@ -326,11 +314,11 @@ struct DiscoveryFilter {
 namespace SetAdapterState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The new state of the adapter.
@@ -351,11 +339,11 @@ base::Value::List Create();
 namespace SetPairingResponse {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SetPairingResponseOptions options;
@@ -375,11 +363,11 @@ base::Value::List Create();
 namespace DisconnectAll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string device_address;
@@ -399,11 +387,11 @@ base::Value::List Create();
 namespace ForgetDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string device_address;
@@ -423,11 +411,11 @@ base::Value::List Create();
 namespace SetDiscoveryFilter {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   DiscoveryFilter discovery_filter;
@@ -447,11 +435,11 @@ base::Value::List Create();
 namespace Connect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string device_address;
@@ -471,11 +459,11 @@ base::Value::List Create(const ConnectResultType& result);
 namespace Pair {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string device_address;
@@ -495,11 +483,11 @@ base::Value::List Create();
 namespace RecordPairing {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::bluetooth::Transport transport;
@@ -518,11 +506,11 @@ struct Params {
 namespace RecordReconnection {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ConnectResultType result;
@@ -537,11 +525,11 @@ struct Params {
 namespace RecordDeviceSelection {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int selection_duration_ms;

@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared settings-columned-section">.settings-section-bottom-padding{padding-block-end:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
-<settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-value="[[networkPredictionOptionsEnum_.DISABLED]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
+<settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
 </settings-toggle-button>
 <iron-collapse opened="[[isPreloadingEnabled_(
         prefs.net.network_prediction_options.value)]]">
@@ -10,9 +10,9 @@ export function getTemplate() {
       <settings-collapse-radio-button id="preloadingExtended" name="[[networkPredictionOptionsEnum_.EXTENDED]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageExtendedPreloadingTitle}" sub-label="$i18n{preloadingPageExtendedPreloadingSummary}" no-automatic-collapse>
         <div slot="collapse" class="settings-columned-section">
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideFeatureDescriptionHeader}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageExtendedPreloadingWhenOnBulletOne}
@@ -23,9 +23,9 @@ export function getTemplate() {
             </ul>
           </div>
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideThingsToConsider}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageThingsToConsiderBulletOne}
@@ -40,9 +40,9 @@ export function getTemplate() {
       <settings-collapse-radio-button id="preloadingStandard" name="[[networkPredictionOptionsEnum_.STANDARD]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageStandardPreloadingTitle}" sub-label="$i18n{preloadingPageStandardPreloadingSummary}" info-opened="{{infoOpened_}}" no-automatic-collapse>
         <div slot="collapse" class="settings-columned-section">
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideFeatureDescriptionHeader}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageStandardPreloadingWhenOnBulletOne}
@@ -53,9 +53,9 @@ export function getTemplate() {
             </ul>
           </div>
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideThingsToConsider}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageThingsToConsiderBulletOne}
@@ -66,5 +66,6 @@ export function getTemplate() {
       </settings-collapse-radio-button>
     </settings-radio-group>
   </div>
-</iron-collapse><!--_html_template_end_-->`;
+</iron-collapse>
+<!--_html_template_end_-->`;
 }

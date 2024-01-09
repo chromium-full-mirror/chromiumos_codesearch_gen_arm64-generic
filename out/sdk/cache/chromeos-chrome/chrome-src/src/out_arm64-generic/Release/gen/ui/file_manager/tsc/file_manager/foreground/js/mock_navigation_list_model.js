@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
-import { VolumeManager } from '../../externs/volume_manager.js';
 import { NavigationModelItem, NavigationModelVolumeItem } from './navigation_list_model.js';
 /**
  * Container for a NavigationModelVolumeItem, allowing it to be reused for a
@@ -28,7 +27,8 @@ class MockNavigationListItem {
  */
 export class MockNavigationListModel extends EventTarget {
     /**
-     * @param {VolumeManager} volumeManager A volume manager.
+     * @param {import('../../externs/volume_manager.js').VolumeManager}
+     *     volumeManager A volume manager.
      */
     constructor(volumeManager) {
         super();

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -123,7 +124,7 @@ DeviceCursorProxy::DeviceCursorProxy(mojo::MessageReceiverWithResponder* receive
 }
 
 void DeviceCursorProxy::SetCursor(
-    ::gfx::AcceleratedWidget in_window, const std::vector<::SkBitmap>& in_bitmaps, const absl::optional<::gfx::Point>& in_point, ::base::TimeDelta in_frame_delay) {
+    ::gfx::AcceleratedWidget in_window, const std::vector<::SkBitmap>& in_bitmaps, const std::optional<::gfx::Point>& in_point, ::base::TimeDelta in_frame_delay) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ui::ozone::mojom::DeviceCursor::SetCursor", "input_parameters",
@@ -137,20 +138,23 @@ void DeviceCursorProxy::SetCursor(
                         "<value of type const std::vector<::SkBitmap>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("point"), in_point,
-                        "<value of type const absl::optional<::gfx::Point>&>");
+                        "<value of type const std::optional<::gfx::Point>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("frame_delay"), in_frame_delay,
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceCursor_SetCursor_Name, kFlags, 0, 0, nullptr);
@@ -225,14 +229,17 @@ void DeviceCursorProxy::MoveCursor(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceCursor_MoveCursor_Name, kFlags, 0, 0, nullptr);
@@ -287,7 +294,7 @@ bool DeviceCursorStubDispatch::Accept(
       bool success = true;
       ::gfx::AcceleratedWidget p_window{};
       std::vector<::SkBitmap> p_bitmaps{};
-      absl::optional<::gfx::Point> p_point{};
+      std::optional<::gfx::Point> p_point{};
       ::base::TimeDelta p_frame_delay{};
       DeviceCursor_SetCursor_ParamsDataView input_data_view(params, message);
       
@@ -367,12 +374,12 @@ bool DeviceCursorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceCursorValidationInfo[] = {
-    {&internal::DeviceCursor_SetCursor_Params_Data::Validate,
+    { &internal::DeviceCursor_SetCursor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceCursor_MoveCursor_Params_Data::Validate,
+    { &internal::DeviceCursor_MoveCursor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -398,7 +405,7 @@ namespace mojo {
 namespace ui::ozone::mojom {
 
 
-void DeviceCursorInterceptorForTesting::SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const absl::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) {
+void DeviceCursorInterceptorForTesting::SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const std::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) {
   GetForwardingInterface()->SetCursor(std::move(window), std::move(bitmaps), std::move(point), std::move(frame_delay));
 }
 void DeviceCursorInterceptorForTesting::MoveCursor(::gfx::AcceleratedWidget window, const ::gfx::Point& point) {

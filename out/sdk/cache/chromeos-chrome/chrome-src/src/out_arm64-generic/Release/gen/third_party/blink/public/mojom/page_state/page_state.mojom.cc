@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -229,7 +230,7 @@ HttpBody::HttpBody()
       contains_passwords(false) {}
 
 HttpBody::HttpBody(
-    const absl::optional<::std::u16string>& http_content_type_in,
+    const std::optional<::std::u16string>& http_content_type_in,
     RequestBodyPtr request_body_in,
     bool contains_passwords_in)
     : http_content_type(std::move(http_content_type_in)),
@@ -245,7 +246,7 @@ void HttpBody::WriteIntoTrace(
     dict.AddItem(
       "http_content_type"), this->http_content_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -298,8 +299,8 @@ ViewState::ViewState(
     const ::gfx::PointF& visual_viewport_scroll_offset_in,
     const ::gfx::Point& scroll_offset_in,
     double page_scale_factor_in,
-    const absl::optional<::std::u16string>& scroll_anchor_selector_in,
-    const absl::optional<::gfx::PointF>& scroll_anchor_offset_in,
+    const std::optional<::std::u16string>& scroll_anchor_selector_in,
+    const std::optional<::gfx::PointF>& scroll_anchor_offset_in,
     uint64_t scroll_anchor_simhash_in)
     : visual_viewport_scroll_offset(std::move(visual_viewport_scroll_offset_in)),
       scroll_offset(std::move(scroll_offset_in)),
@@ -344,7 +345,7 @@ void ViewState::WriteIntoTrace(
     dict.AddItem(
       "scroll_anchor_selector"), this->scroll_anchor_selector,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -353,7 +354,7 @@ void ViewState::WriteIntoTrace(
     dict.AddItem(
       "scroll_anchor_offset"), this->scroll_anchor_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::PointF>&>"
+      "<value of type const std::optional<::gfx::PointF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -395,11 +396,11 @@ FrameState::FrameState()
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -427,11 +428,11 @@ FrameState::FrameState(
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -439,7 +440,7 @@ FrameState::FrameState(
     ::network::mojom::ReferrerPolicy referrer_policy_in,
     HttpBodyPtr http_body_in,
     std::vector<FrameStatePtr> children_in,
-    const absl::optional<std::string>& initiator_origin_in)
+    const std::optional<std::string>& initiator_origin_in)
     : url_string(std::move(url_string_in)),
       referrer(std::move(referrer_in)),
       target(std::move(target_in)),
@@ -460,11 +461,11 @@ FrameState::FrameState(
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -472,9 +473,9 @@ FrameState::FrameState(
     ::network::mojom::ReferrerPolicy referrer_policy_in,
     HttpBodyPtr http_body_in,
     std::vector<FrameStatePtr> children_in,
-    const absl::optional<std::string>& initiator_origin_in,
-    const absl::optional<::std::u16string>& navigation_api_key_in,
-    const absl::optional<::std::u16string>& navigation_api_id_in)
+    const std::optional<std::string>& initiator_origin_in,
+    const std::optional<::std::u16string>& navigation_api_key_in,
+    const std::optional<::std::u16string>& navigation_api_id_in)
     : url_string(std::move(url_string_in)),
       referrer(std::move(referrer_in)),
       target(std::move(target_in)),
@@ -495,11 +496,11 @@ FrameState::FrameState(
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -507,10 +508,10 @@ FrameState::FrameState(
     ::network::mojom::ReferrerPolicy referrer_policy_in,
     HttpBodyPtr http_body_in,
     std::vector<FrameStatePtr> children_in,
-    const absl::optional<std::string>& initiator_origin_in,
-    const absl::optional<::std::u16string>& navigation_api_key_in,
-    const absl::optional<::std::u16string>& navigation_api_id_in,
-    const absl::optional<::std::u16string>& navigation_api_state_in)
+    const std::optional<std::string>& initiator_origin_in,
+    const std::optional<::std::u16string>& navigation_api_key_in,
+    const std::optional<::std::u16string>& navigation_api_id_in,
+    const std::optional<::std::u16string>& navigation_api_state_in)
     : url_string(std::move(url_string_in)),
       referrer(std::move(referrer_in)),
       target(std::move(target_in)),
@@ -531,11 +532,11 @@ FrameState::FrameState(
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -543,10 +544,10 @@ FrameState::FrameState(
     ::network::mojom::ReferrerPolicy referrer_policy_in,
     HttpBodyPtr http_body_in,
     std::vector<FrameStatePtr> children_in,
-    const absl::optional<std::string>& initiator_origin_in,
-    const absl::optional<::std::u16string>& navigation_api_key_in,
-    const absl::optional<::std::u16string>& navigation_api_id_in,
-    const absl::optional<::std::u16string>& navigation_api_state_in,
+    const std::optional<std::string>& initiator_origin_in,
+    const std::optional<::std::u16string>& navigation_api_key_in,
+    const std::optional<::std::u16string>& navigation_api_id_in,
+    const std::optional<::std::u16string>& navigation_api_state_in,
     bool protect_url_in_navigation_api_in)
     : url_string(std::move(url_string_in)),
       referrer(std::move(referrer_in)),
@@ -568,11 +569,11 @@ FrameState::FrameState(
       initiator_base_url_string() {}
 
 FrameState::FrameState(
-    const absl::optional<::std::u16string>& url_string_in,
-    const absl::optional<::std::u16string>& referrer_in,
-    const absl::optional<::std::u16string>& target_in,
-    const absl::optional<::std::u16string>& state_object_in,
-    std::vector<absl::optional<::std::u16string>> document_state_in,
+    const std::optional<::std::u16string>& url_string_in,
+    const std::optional<::std::u16string>& referrer_in,
+    const std::optional<::std::u16string>& target_in,
+    const std::optional<::std::u16string>& state_object_in,
+    std::vector<std::optional<::std::u16string>> document_state_in,
     ScrollRestorationType scroll_restoration_type_in,
     ViewStatePtr view_state_in,
     int64_t item_sequence_number_in,
@@ -580,12 +581,12 @@ FrameState::FrameState(
     ::network::mojom::ReferrerPolicy referrer_policy_in,
     HttpBodyPtr http_body_in,
     std::vector<FrameStatePtr> children_in,
-    const absl::optional<std::string>& initiator_origin_in,
-    const absl::optional<::std::u16string>& navigation_api_key_in,
-    const absl::optional<::std::u16string>& navigation_api_id_in,
-    const absl::optional<::std::u16string>& navigation_api_state_in,
+    const std::optional<std::string>& initiator_origin_in,
+    const std::optional<::std::u16string>& navigation_api_key_in,
+    const std::optional<::std::u16string>& navigation_api_id_in,
+    const std::optional<::std::u16string>& navigation_api_state_in,
     bool protect_url_in_navigation_api_in,
-    const absl::optional<::std::u16string>& initiator_base_url_string_in)
+    const std::optional<::std::u16string>& initiator_base_url_string_in)
     : url_string(std::move(url_string_in)),
       referrer(std::move(referrer_in)),
       target(std::move(target_in)),
@@ -614,7 +615,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "url_string"), this->url_string,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -623,7 +624,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "referrer"), this->referrer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -632,7 +633,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "target"), this->target,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -641,7 +642,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "state_object"), this->state_object,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -650,7 +651,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "document_state"), this->document_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<absl::optional<::std::u16string>>&>"
+      "<value of type const std::vector<std::optional<::std::u16string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -722,7 +723,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "initiator_origin"), this->initiator_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -731,7 +732,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "navigation_api_key"), this->navigation_api_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -740,7 +741,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "navigation_api_id"), this->navigation_api_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -749,7 +750,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "navigation_api_state"), this->navigation_api_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -767,7 +768,7 @@ void FrameState::WriteIntoTrace(
     dict.AddItem(
       "initiator_base_url_string"), this->initiator_base_url_string,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -784,7 +785,7 @@ PageState::PageState()
       top() {}
 
 PageState::PageState(
-    std::vector<absl::optional<::std::u16string>> referenced_files_in,
+    std::vector<std::optional<::std::u16string>> referenced_files_in,
     FrameStatePtr top_in)
     : referenced_files(std::move(referenced_files_in)),
       top(std::move(top_in)) {}
@@ -798,7 +799,7 @@ void PageState::WriteIntoTrace(
     dict.AddItem(
       "referenced_files"), this->referenced_files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<absl::optional<::std::u16string>>&>"
+      "<value of type const std::vector<std::optional<::std::u16string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

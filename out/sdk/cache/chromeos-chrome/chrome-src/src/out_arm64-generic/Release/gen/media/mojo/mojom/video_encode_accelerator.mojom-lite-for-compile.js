@@ -529,16 +529,18 @@ media.mojom.VideoEncodeAcceleratorInterface = class {
   /**
    * @param { !media.mojom.VideoBitrateAllocation } bitrateAllocation
    * @param { !number } framerate
+   * @param { ?gfx.mojom.Size } size
    */
 
-  requestEncodingParametersChangeWithLayers(bitrateAllocation, framerate) {}
+  requestEncodingParametersChangeWithLayers(bitrateAllocation, framerate, size) {}
   
   /**
    * @param { !media.mojom.Bitrate } bitrate
    * @param { !number } framerate
+   * @param { ?gfx.mojom.Size } size
    */
 
-  requestEncodingParametersChangeWithBitrate(bitrate, framerate) {}
+  requestEncodingParametersChangeWithBitrate(bitrate, framerate, size) {}
   
   /**
    * @return {!Promise<{
@@ -649,18 +651,21 @@ media.mojom.VideoEncodeAcceleratorRemote = class {
   /**
    * @param { !media.mojom.VideoBitrateAllocation } bitrateAllocation
    * @param { !number } framerate
+   * @param { ?gfx.mojom.Size } size
    */
 
   requestEncodingParametersChangeWithLayers(
       bitrateAllocation,
-      framerate) {
+      framerate,
+      size) {
     this.proxy.sendMessage(
         3,
         media.mojom.VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_ParamsSpec.$,
         null,
         [
           bitrateAllocation,
-          framerate
+          framerate,
+          size
         ]);
   }
 
@@ -668,18 +673,21 @@ media.mojom.VideoEncodeAcceleratorRemote = class {
   /**
    * @param { !media.mojom.Bitrate } bitrate
    * @param { !number } framerate
+   * @param { ?gfx.mojom.Size } size
    */
 
   requestEncodingParametersChangeWithBitrate(
       bitrate,
-      framerate) {
+      framerate,
+      size) {
     this.proxy.sendMessage(
         4,
         media.mojom.VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_ParamsSpec.$,
         null,
         [
           bitrate,
-          framerate
+          framerate,
+          size
         ]);
   }
 
@@ -2042,6 +2050,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'dropFrameThreshPercentage', 38,
+        0,
+        mojo.internal.Uint8,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'spatialLayers', 56,
         0,
         mojo.internal.Array(media.mojom.SpatialLayerSpec.$, false),
@@ -2111,6 +2127,8 @@ media.mojom.VideoEncodeAcceleratorConfig = class {
     this.hasStorageType;
     /** @export { !media.mojom.VideoEncodeAcceleratorConfig_ContentType } */
     this.contentType;
+    /** @export { !number } */
+    this.dropFrameThreshPercentage;
     /** @export { !Array<!media.mojom.SpatialLayer> } */
     this.spatialLayers;
     /** @export { !media.mojom.SVCInterLayerPredMode } */
@@ -2828,8 +2846,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'size', 16,
+        0,
+        gfx.mojom.SizeSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -2842,6 +2868,8 @@ media.mojom.VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Par
     this.bitrateAllocation;
     /** @export { !number } */
     this.framerate;
+    /** @export { (gfx.mojom.Size|undefined) } */
+    this.size;
   }
 };
 
@@ -2867,8 +2895,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'size', 24,
+        0,
+        gfx.mojom.SizeSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 40],]);
 
 
 
@@ -2881,6 +2917,8 @@ media.mojom.VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Pa
     this.bitrate;
     /** @export { !number } */
     this.framerate;
+    /** @export { (gfx.mojom.Size|undefined) } */
+    this.size;
   }
 };
 

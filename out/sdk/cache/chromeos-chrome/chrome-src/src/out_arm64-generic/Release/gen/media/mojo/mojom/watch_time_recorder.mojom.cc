@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -323,9 +324,6 @@ WatchTimeRecorder::IPCStableHashFunction WatchTimeRecorder::MessageToMethodInfo_
     case internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name: {
       return &WatchTimeRecorder::UpdateUnderflowDuration_Sym::IPCStableHash;
     }
-    case internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name: {
-      return &WatchTimeRecorder::OnCurrentTimestampChanged_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -355,8 +353,6 @@ const char* WatchTimeRecorder::MessageToMethodName_(mojo::Message& message) {
             return "Receive media::mojom::WatchTimeRecorder::UpdateUnderflowCount";
       case internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name:
             return "Receive media::mojom::WatchTimeRecorder::UpdateUnderflowDuration";
-      case internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name:
-            return "Receive media::mojom::WatchTimeRecorder::OnCurrentTimestampChanged";
     }
   } else {
     switch (message.name()) {
@@ -378,8 +374,6 @@ const char* WatchTimeRecorder::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media::mojom::WatchTimeRecorder::UpdateUnderflowCount";
       case internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name:
             return "Receive reply media::mojom::WatchTimeRecorder::UpdateUnderflowDuration";
-      case internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name:
-            return "Receive reply media::mojom::WatchTimeRecorder::OnCurrentTimestampChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -511,19 +505,6 @@ uint32_t WatchTimeRecorder::UpdateUnderflowDuration_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t WatchTimeRecorder::OnCurrentTimestampChanged_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)media::mojom::WatchTimeRecorder::OnCurrentTimestampChanged");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 WatchTimeRecorderProxy::WatchTimeRecorderProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -545,14 +526,17 @@ void WatchTimeRecorderProxy::RecordWatchTime(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_RecordWatchTime_Name, kFlags, 0, 0, nullptr);
@@ -595,14 +579,17 @@ void WatchTimeRecorderProxy::FinalizeWatchTime(
                         "<value of type const std::vector<::media::WatchTimeKey>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_FinalizeWatchTime_Name, kFlags, 0, 0, nullptr);
@@ -645,14 +632,17 @@ void WatchTimeRecorderProxy::OnError(
                         "<value of type const ::media::PipelineStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_OnError_Name, kFlags, 0, 0, nullptr);
@@ -693,14 +683,17 @@ void WatchTimeRecorderProxy::UpdateSecondaryProperties(
                         "<value of type SecondaryPlaybackPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_UpdateSecondaryProperties_Name, kFlags, 0, 0, nullptr);
@@ -741,14 +734,17 @@ void WatchTimeRecorderProxy::SetAutoplayInitiated(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_SetAutoplayInitiated_Name, kFlags, 0, 0, nullptr);
@@ -779,14 +775,17 @@ void WatchTimeRecorderProxy::OnDurationChanged(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_OnDurationChanged_Name, kFlags, 0, 0, nullptr);
@@ -830,14 +829,17 @@ void WatchTimeRecorderProxy::UpdateVideoDecodeStats(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_UpdateVideoDecodeStats_Name, kFlags, 0, 0, nullptr);
@@ -869,14 +871,17 @@ void WatchTimeRecorderProxy::UpdateUnderflowCount(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_UpdateUnderflowCount_Name, kFlags, 0, 0, nullptr);
@@ -910,14 +915,17 @@ void WatchTimeRecorderProxy::UpdateUnderflowDuration(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name, kFlags, 0, 0, nullptr);
@@ -941,54 +949,6 @@ void WatchTimeRecorderProxy::UpdateUnderflowDuration(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WatchTimeRecorder::Name_);
   message.set_method_name("UpdateUnderflowDuration");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void WatchTimeRecorderProxy::OnCurrentTimestampChanged(
-    ::base::TimeDelta in_last_timestamp) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send media::mojom::WatchTimeRecorder::OnCurrentTimestampChanged", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("last_timestamp"), in_last_timestamp,
-                        "<value of type ::base::TimeDelta>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::media::mojom::internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->last_timestamp)::BaseType> last_timestamp_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-      in_last_timestamp, last_timestamp_fragment);
-  params->last_timestamp.Set(
-      last_timestamp_fragment.is_null() ? nullptr : last_timestamp_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->last_timestamp.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null last_timestamp in WatchTimeRecorder.OnCurrentTimestampChanged request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(WatchTimeRecorder::Name_);
-  message.set_method_name("OnCurrentTimestampChanged");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1246,32 +1206,6 @@ std::move(p_total_completed_count),
 std::move(p_total_duration));
       return true;
     }
-    case internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data* params =
-          reinterpret_cast<internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::base::TimeDelta p_last_timestamp{};
-      WatchTimeRecorder_OnCurrentTimestampChanged_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadLastTimestamp(&p_last_timestamp))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WatchTimeRecorder::Name_, 9, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->OnCurrentTimestampChanged(
-std::move(p_last_timestamp));
-      return true;
-    }
   }
   return false;
 }
@@ -1312,34 +1246,29 @@ bool WatchTimeRecorderStubDispatch::AcceptWithResponder(
     case internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name: {
       break;
     }
-    case internal::kWatchTimeRecorder_OnCurrentTimestampChanged_Name: {
-      break;
-    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWatchTimeRecorderValidationInfo[] = {
-    {&internal::WatchTimeRecorder_RecordWatchTime_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_RecordWatchTime_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_FinalizeWatchTime_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_FinalizeWatchTime_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_OnError_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_UpdateSecondaryProperties_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_UpdateSecondaryProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_SetAutoplayInitiated_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_SetAutoplayInitiated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_OnDurationChanged_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_OnDurationChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_UpdateVideoDecodeStats_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_UpdateVideoDecodeStats_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_UpdateUnderflowCount_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_UpdateUnderflowCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WatchTimeRecorder_UpdateUnderflowDuration_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data::Validate,
+    { &internal::WatchTimeRecorder_UpdateUnderflowDuration_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1451,9 +1380,6 @@ void WatchTimeRecorderInterceptorForTesting::UpdateUnderflowCount(int32_t total_
 }
 void WatchTimeRecorderInterceptorForTesting::UpdateUnderflowDuration(int32_t total_completed_count, ::base::TimeDelta total_duration) {
   GetForwardingInterface()->UpdateUnderflowDuration(std::move(total_completed_count), std::move(total_duration));
-}
-void WatchTimeRecorderInterceptorForTesting::OnCurrentTimestampChanged(::base::TimeDelta last_timestamp) {
-  GetForwardingInterface()->OnCurrentTimestampChanged(std::move(last_timestamp));
 }
 WatchTimeRecorderAsyncWaiter::WatchTimeRecorderAsyncWaiter(
     WatchTimeRecorder* proxy) : proxy_(proxy) {}

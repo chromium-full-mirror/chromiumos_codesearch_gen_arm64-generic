@@ -8,6 +8,8 @@
 #define SERVICES_DEVICE_PUBLIC_MOJOM_DEVICE_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #include "services/device/public/mojom/battery_monitor.mojom.h"
 #include "services/device/public/mojom/battery_monitor.mojom-import-headers.h"
+#include "services/device/public/mojom/device_posture_provider.mojom.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-import-headers.h"
 #include "services/device/public/mojom/fingerprint.mojom.h"
 #include "services/device/public/mojom/fingerprint.mojom-import-headers.h"
 #include "services/device/public/mojom/geolocation_config.mojom.h"

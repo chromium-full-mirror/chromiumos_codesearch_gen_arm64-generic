@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_COMPONENTS_LANGUAGE_PACKS_PUBLIC_MOJOM_LANGUAGE_PACKS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

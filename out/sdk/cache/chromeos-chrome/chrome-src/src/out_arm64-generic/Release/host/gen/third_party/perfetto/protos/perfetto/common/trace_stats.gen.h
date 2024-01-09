@@ -192,6 +192,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_FilterStats : public ::protozero::Cpp
     kOutputBytesFieldNumber = 3,
     kErrorsFieldNumber = 4,
     kTimeTakenNsFieldNumber = 5,
+    kBytesDiscardedPerBufferFieldNumber = 20,
   };
 
   TraceStats_FilterStats();
@@ -228,18 +229,26 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_FilterStats : public ::protozero::Cpp
   uint64_t time_taken_ns() const { return time_taken_ns_; }
   void set_time_taken_ns(uint64_t value) { time_taken_ns_ = value; _has_field_.set(5); }
 
+  const std::vector<uint64_t>& bytes_discarded_per_buffer() const { return bytes_discarded_per_buffer_; }
+  std::vector<uint64_t>* mutable_bytes_discarded_per_buffer() { return &bytes_discarded_per_buffer_; }
+  int bytes_discarded_per_buffer_size() const { return static_cast<int>(bytes_discarded_per_buffer_.size()); }
+  void clear_bytes_discarded_per_buffer() { bytes_discarded_per_buffer_.clear(); }
+  void add_bytes_discarded_per_buffer(uint64_t value) { bytes_discarded_per_buffer_.emplace_back(value); }
+  uint64_t* add_bytes_discarded_per_buffer() { bytes_discarded_per_buffer_.emplace_back(); return &bytes_discarded_per_buffer_.back(); }
+
  private:
   uint64_t input_packets_{};
   uint64_t input_bytes_{};
   uint64_t output_bytes_{};
   uint64_t errors_{};
   uint64_t time_taken_ns_{};
+  std::vector<uint64_t> bytes_discarded_per_buffer_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<6> _has_field_{};
+  std::bitset<21> _has_field_{};
 };
 
 
@@ -247,6 +256,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_WriterStats : public ::protozero::Cpp
  public:
   enum FieldNumbers {
     kSequenceIdFieldNumber = 1,
+    kBufferFieldNumber = 4,
     kChunkPayloadHistogramCountsFieldNumber = 2,
     kChunkPayloadHistogramSumFieldNumber = 3,
   };
@@ -269,6 +279,10 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_WriterStats : public ::protozero::Cpp
   uint64_t sequence_id() const { return sequence_id_; }
   void set_sequence_id(uint64_t value) { sequence_id_ = value; _has_field_.set(1); }
 
+  bool has_buffer() const { return _has_field_[4]; }
+  uint32_t buffer() const { return buffer_; }
+  void set_buffer(uint32_t value) { buffer_ = value; _has_field_.set(4); }
+
   const std::vector<uint64_t>& chunk_payload_histogram_counts() const { return chunk_payload_histogram_counts_; }
   std::vector<uint64_t>* mutable_chunk_payload_histogram_counts() { return &chunk_payload_histogram_counts_; }
   int chunk_payload_histogram_counts_size() const { return static_cast<int>(chunk_payload_histogram_counts_.size()); }
@@ -285,6 +299,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_WriterStats : public ::protozero::Cpp
 
  private:
   uint64_t sequence_id_{};
+  uint32_t buffer_{};
   std::vector<uint64_t> chunk_payload_histogram_counts_;
   std::vector<int64_t> chunk_payload_histogram_sum_;
 
@@ -292,7 +307,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_WriterStats : public ::protozero::Cpp
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 

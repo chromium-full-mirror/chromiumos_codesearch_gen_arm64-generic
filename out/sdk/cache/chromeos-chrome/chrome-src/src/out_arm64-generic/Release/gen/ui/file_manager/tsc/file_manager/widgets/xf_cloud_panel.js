@@ -2,13 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 var XfCloudPanel_1;
-/**
- * @fileoverview xf-cloud-panel element.
- * Disable type checking for closure, as it is done by the typescript compiler.
- * @suppress {checkTypes}
- */
-import { str, strf, util } from '../common/js/util.js';
-import { constants } from '../foreground/js/constants.js';
+import { getCurrentLocaleOrDefault, secondsToRemainingTimeString, str, strf } from '../common/js/translations.js';
+import { ICON_TYPES } from '../foreground/js/constants.js';
 import { css, customElement, html, property, query, XfBase } from './xf_base.js';
 /**
  * These type indicate static states that the cloud panel can enter. If one of
@@ -34,7 +29,7 @@ let XfCloudPanel = XfCloudPanel_1 = class XfCloudPanel extends XfBase {
         /**
          * Provide a number formatter that matches the users locale.
          */
-        this.numberFormatter_ = new Intl.NumberFormat(util.getCurrentLocaleOrDefault());
+        this.numberFormatter_ = new Intl.NumberFormat(getCurrentLocaleOrDefault());
     }
     static get events() {
         return {
@@ -113,37 +108,36 @@ let XfCloudPanel = XfCloudPanel_1 = class XfCloudPanel extends XfBase {
           </progress>
           <div class="progress-description">
           ${this.seconds && this.seconds > 0 ?
-            util.secondsToRemainingTimeString(this.seconds) :
+            secondsToRemainingTimeString(this.seconds) :
             str('DRIVE_BULK_PINNING_CALCULATING')}
           </div>
         </div>
         <div class="static" id="progress-finished">
-          <xf-icon type="${constants.ICON_TYPES.CLOUD}" size="large"></xf-icon>
+          <xf-icon type="${ICON_TYPES.CLOUD}" size="large"></xf-icon>
           <div class="status-description">
             ${str('BULK_PINNING_FILE_SYNC_ON')}
           </div>
         </div>
         <div class="static" id="progress-offline">
-        <xf-icon type="${constants.ICON_TYPES.BULK_PINNING_OFFLINE}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.BULK_PINNING_OFFLINE}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_OFFLINE')}
           </div>
         </div>
         <div class="static" id="progress-battery-saver">
-        <xf-icon type="${constants.ICON_TYPES
-            .BULK_PINNING_BATTERY_SAVER}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.BULK_PINNING_BATTERY_SAVER}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_BATTERY_SAVER')}
           </div>
         </div>
         <div class="static" id="progress-not-enough-space">
-        <xf-icon type="${constants.ICON_TYPES.ERROR_BANNER}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.ERROR_BANNER}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_NOT_ENOUGH_SPACE')}
           </div>
         </div>
         <div class="static" id="progress-metered-network">
-          <xf-icon type="${constants.ICON_TYPES.CLOUD}" size="large"></xf-icon>
+          <xf-icon type="${ICON_TYPES.CLOUD}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_METERED_NETWORK')}
           </div>

@@ -11,9 +11,9 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { OsSyncBrowserProxyImpl } from './os_sync_browser_proxy.js';
 import { getTemplate } from './os_sync_controls_subpage.html.js';

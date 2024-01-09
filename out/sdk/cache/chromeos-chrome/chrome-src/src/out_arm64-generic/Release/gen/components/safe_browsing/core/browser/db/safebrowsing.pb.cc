@@ -628,8 +628,8 @@ static const char ThreatType_names[] =
   "API_ABUSE"
   "BILLING"
   "CLIENT_INCIDENT"
-  "CSD_DOWNLOAD_WHITELIST"
-  "CSD_WHITELIST"
+  "CSD_ALLOWLIST"
+  "CSD_DOWNLOAD_ALLOWLIST"
   "HIGH_CONFIDENCE_ALLOWLIST"
   "MALICIOUS_BINARY"
   "MALWARE_THREAT"
@@ -645,8 +645,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ThreatType_entries[] =
   { {ThreatType_names + 0, 9}, 6 },
   { {ThreatType_names + 9, 7}, 15 },
   { {ThreatType_names + 16, 15}, 10 },
-  { {ThreatType_names + 31, 22}, 9 },
-  { {ThreatType_names + 53, 13}, 8 },
+  { {ThreatType_names + 31, 13}, 8 },
+  { {ThreatType_names + 44, 22}, 9 },
   { {ThreatType_names + 66, 25}, 16 },
   { {ThreatType_names + 91, 16}, 7 },
   { {ThreatType_names + 107, 14}, 1 },
@@ -668,8 +668,8 @@ static const int ThreatType_entries_by_number[] = {
   9, // 5 -> SOCIAL_ENGINEERING
   0, // 6 -> API_ABUSE
   6, // 7 -> MALICIOUS_BINARY
-  4, // 8 -> CSD_WHITELIST
-  3, // 9 -> CSD_DOWNLOAD_WHITELIST
+  3, // 8 -> CSD_ALLOWLIST
+  4, // 9 -> CSD_DOWNLOAD_ALLOWLIST
   2, // 10 -> CLIENT_INCIDENT
   11, // 13 -> SUBRESOURCE_FILTER
   12, // 14 -> SUSPICIOUS

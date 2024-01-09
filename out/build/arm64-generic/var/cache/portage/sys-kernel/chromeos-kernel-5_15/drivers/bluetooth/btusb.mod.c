@@ -67,4 +67,4 @@ MODULE_ALIAS("usb:v413Cp*d*dc*dsc*dp*icFFisc01ip01in*");
 MODULE_ALIAS("usb:v0930p*d*dc*dsc*dp*icFFisc01ip01in*");
 MODULE_ALIAS("usb:v8087p0A5Ad*dc*dsc*dp*ic*isc*ip*in*");
 
-MODULE_INFO(srcversion, "0504DAE621357FA85C73FBD");
+MODULE_INFO(srcversion, "52DF649A4D9CB07CB9931CC");

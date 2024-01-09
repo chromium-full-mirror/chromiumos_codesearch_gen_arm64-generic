@@ -66,11 +66,12 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
-#include "torque-generated/src/builtins/array-slice-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
 #include "torque-generated/src/builtins/conversion-tq-csa.h"
@@ -361,7 +362,7 @@ TNode<Object> RegExpExec_0(compiler::CodeAssemblerState* state_, TNode<Context> 
   TNode<Object> tmp10;
   if (block10.is_used()) {
     ca_.Bind(&block10);
-    tmp10 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpPrototypeExecSlow), p_context, tmp4, p_string);
+    tmp10 = ca_.CallBuiltin<Object>(Builtin::kRegExpPrototypeExecSlow, p_context, tmp4, p_string);
     ca_.Goto(&block1, tmp10);
   }
 

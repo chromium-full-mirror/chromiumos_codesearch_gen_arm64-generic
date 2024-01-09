@@ -361,9 +361,9 @@ class  CastMediaSink_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::network::mojom::internal::IPEndPoint_Data> ip_endpoint;
   mojo::internal::Pointer<mojo::internal::String_Data> model_name;
-  uint8_t capabilities;
-  uint8_t pad2_[3];
+  uint64_t capabilities;
   int32_t cast_channel_id;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<CastMediaSink_Data>;
@@ -371,7 +371,7 @@ class  CastMediaSink_Data {
   CastMediaSink_Data();
   ~CastMediaSink_Data() = delete;
 };
-static_assert(sizeof(CastMediaSink_Data) == 32,
+static_assert(sizeof(CastMediaSink_Data) == 40,
               "Bad sizeof(CastMediaSink_Data)");
 // Used by CastMediaSink::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

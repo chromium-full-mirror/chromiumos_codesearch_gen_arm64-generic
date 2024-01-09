@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -152,12 +153,12 @@ ScreenShareArea::ScreenShareArea()
       snapshot_source_id(0ULL) {}
 
 ScreenShareArea::ScreenShareArea(
-    const absl::optional<std::string>& window_id_in)
+    const std::optional<std::string>& window_id_in)
     : window_id(std::move(window_id_in)),
       snapshot_source_id(0ULL) {}
 
 ScreenShareArea::ScreenShareArea(
-    const absl::optional<std::string>& window_id_in,
+    const std::optional<std::string>& window_id_in,
     uint64_t snapshot_source_id_in)
     : window_id(std::move(window_id_in)),
       snapshot_source_id(std::move(snapshot_source_id_in)) {}
@@ -171,7 +172,7 @@ void ScreenShareArea::WriteIntoTrace(
     dict.AddItem(
       "window_id"), this->window_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -296,14 +297,17 @@ void StateChangeDelegateProxy::OnPause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::StateChangeDelegate::OnPause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStateChangeDelegate_OnPause_Name, kFlags, 0, 0, nullptr);
@@ -326,14 +330,17 @@ void StateChangeDelegateProxy::OnResume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::StateChangeDelegate::OnResume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStateChangeDelegate_OnResume_Name, kFlags, 0, 0, nullptr);
@@ -356,14 +363,17 @@ void StateChangeDelegateProxy::OnStop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::StateChangeDelegate::OnStop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStateChangeDelegate_OnStop_Name, kFlags, 0, 0, nullptr);
@@ -477,14 +487,14 @@ bool StateChangeDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStateChangeDelegateValidationInfo[] = {
-    {&internal::StateChangeDelegate_OnPause_Params_Data::Validate,
+    { &internal::StateChangeDelegate_OnPause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StateChangeDelegate_OnResume_Params_Data::Validate,
+    { &internal::StateChangeDelegate_OnResume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StateChangeDelegate_OnStop_Params_Data::Validate,
+    { &internal::StateChangeDelegate_OnStop_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -511,6 +521,9 @@ Dlp::IPCStableHashFunction Dlp::MessageToMethodInfo_(mojo::Message& message) {
     case internal::kDlp_OnScreenShareStopped_Name: {
       return &Dlp::OnScreenShareStopped_Sym::IPCStableHash;
     }
+    case internal::kDlp_ShowBlockedFiles_Name: {
+      return &Dlp::ShowBlockedFiles_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -530,6 +543,8 @@ const char* Dlp::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Dlp::OnScreenShareStarted";
       case internal::kDlp_OnScreenShareStopped_Name:
             return "Receive crosapi::mojom::Dlp::OnScreenShareStopped";
+      case internal::kDlp_ShowBlockedFiles_Name:
+            return "Receive crosapi::mojom::Dlp::ShowBlockedFiles";
     }
   } else {
     switch (message.name()) {
@@ -541,6 +556,8 @@ const char* Dlp::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Dlp::OnScreenShareStarted";
       case internal::kDlp_OnScreenShareStopped_Name:
             return "Receive reply crosapi::mojom::Dlp::OnScreenShareStopped";
+      case internal::kDlp_ShowBlockedFiles_Name:
+            return "Receive reply crosapi::mojom::Dlp::ShowBlockedFiles";
     }
   }
   return "Receive unknown mojo message";
@@ -607,6 +624,19 @@ uint32_t Dlp::OnScreenShareStopped_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Dlp::ShowBlockedFiles_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Dlp::ShowBlockedFiles");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Dlp_CheckScreenShareRestriction_ForwardToCallback
@@ -644,14 +674,17 @@ void DlpProxy::DlpRestrictionsUpdated(
                         "<value of type DlpRestrictionSetPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDlp_DlpRestrictionsUpdated_Name, kFlags, 0, 0, nullptr);
@@ -706,14 +739,17 @@ void DlpProxy::CheckScreenShareRestriction(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDlp_CheckScreenShareRestriction_Name, kFlags, 0, 0, nullptr);
@@ -775,14 +811,17 @@ void DlpProxy::OnScreenShareStarted(
                         "<value of type ::mojo::PendingRemote<StateChangeDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDlp_OnScreenShareStarted_Name, kFlags, 0, 0, nullptr);
@@ -854,14 +893,17 @@ void DlpProxy::OnScreenShareStopped(
                         "<value of type ScreenShareAreaPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDlp_OnScreenShareStopped_Name, kFlags, 0, 0, nullptr);
@@ -895,6 +937,71 @@ void DlpProxy::OnScreenShareStopped(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Dlp::Name_);
   message.set_method_name("OnScreenShareStopped");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DlpProxy::ShowBlockedFiles(
+    std::optional<uint64_t> in_task_id, const std::vector<::base::FilePath>& in_files, FileAction in_action) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Dlp::ShowBlockedFiles", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("task_id"), in_task_id,
+                        "<value of type std::optional<uint64_t>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("files"), in_files,
+                        "<value of type const std::vector<::base::FilePath>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("action"), in_action,
+                        "<value of type FileAction>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDlp_ShowBlockedFiles_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Dlp_ShowBlockedFiles_Params_Data> params(
+          message);
+  params.Allocate();
+  params->task_id_$flag = in_task_id.has_value();
+  if (in_task_id.has_value()) {
+    params->task_id_$value = in_task_id.value();
+  }
+  mojo::internal::MessageFragment<
+      typename decltype(params->files)::BaseType>
+      files_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& files_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>>(
+      in_files, files_fragment, &files_validate_params);
+  params->files.Set(
+      files_fragment.is_null() ? nullptr : files_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->files.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null files in Dlp.ShowBlockedFiles request");
+  mojo::internal::Serialize<::crosapi::mojom::FileAction>(
+      in_action, &params->action);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Dlp::Name_);
+  message.set_method_name("ShowBlockedFiles");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -992,7 +1099,8 @@ void Dlp_CheckScreenShareRestriction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDlp_CheckScreenShareRestriction_Name, kFlags, 0, 0, nullptr);
@@ -1127,6 +1235,41 @@ std::move(p_label),
 std::move(p_area));
       return true;
     }
+    case internal::kDlp_ShowBlockedFiles_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Dlp_ShowBlockedFiles_Params_Data* params =
+          reinterpret_cast<internal::Dlp_ShowBlockedFiles_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::optional<uint64_t> p_task_id{};
+      std::vector<::base::FilePath> p_files{};
+      FileAction p_action{};
+      Dlp_ShowBlockedFiles_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_task_id = input_data_view.task_id();
+      }
+      if (success && !input_data_view.ReadFiles(&p_files))
+        success = false;
+      if (success && !input_data_view.ReadAction(&p_action))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Dlp::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShowBlockedFiles(
+std::move(p_task_id), 
+std::move(p_files), 
+std::move(p_action));
+      return true;
+    }
   }
   return false;
 }
@@ -1182,19 +1325,24 @@ std::move(p_application_title), std::move(callback));
     case internal::kDlp_OnScreenShareStopped_Name: {
       break;
     }
+    case internal::kDlp_ShowBlockedFiles_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDlpValidationInfo[] = {
-    {&internal::Dlp_DlpRestrictionsUpdated_Params_Data::Validate,
+    { &internal::Dlp_DlpRestrictionsUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Dlp_CheckScreenShareRestriction_Params_Data::Validate,
+    { &internal::Dlp_CheckScreenShareRestriction_Params_Data::Validate,
      &internal::Dlp_CheckScreenShareRestriction_ResponseParams_Data::Validate},
-    {&internal::Dlp_OnScreenShareStarted_Params_Data::Validate,
+    { &internal::Dlp_OnScreenShareStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Dlp_OnScreenShareStopped_Params_Data::Validate,
+    { &internal::Dlp_OnScreenShareStopped_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Dlp_ShowBlockedFiles_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1304,6 +1452,9 @@ void DlpInterceptorForTesting::OnScreenShareStarted(const std::string& label, Sc
 }
 void DlpInterceptorForTesting::OnScreenShareStopped(const std::string& label, ScreenShareAreaPtr area) {
   GetForwardingInterface()->OnScreenShareStopped(std::move(label), std::move(area));
+}
+void DlpInterceptorForTesting::ShowBlockedFiles(std::optional<uint64_t> task_id, const std::vector<::base::FilePath>& files, FileAction action) {
+  GetForwardingInterface()->ShowBlockedFiles(std::move(task_id), std::move(files), std::move(action));
 }
 DlpAsyncWaiter::DlpAsyncWaiter(
     Dlp* proxy) : proxy_(proxy) {}

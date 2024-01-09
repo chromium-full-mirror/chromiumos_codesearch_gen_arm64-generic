@@ -2062,7 +2062,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_dlc_predownload_list_(nullptr)
   , device_ephemeral_network_policies_enabled_(nullptr)
   , extended_fkeys_modifier_(nullptr)
-  , device_flex_hw_data_for_product_improvement_enabled_(nullptr){}
+  , device_flex_hw_data_for_product_improvement_enabled_(nullptr)
+  , devicehardwarevideodecodingenabled_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -36199,6 +36200,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_flex_hw_data_for_product_improvement_enabled(HasBits* has_bits) {
     (*has_bits)[4] |= 33554432u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& devicehardwarevideodecodingenabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_devicehardwarevideodecodingenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 67108864u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -36817,6 +36822,10 @@ const ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto
 ChromeDeviceSettingsProto::_Internal::device_flex_hw_data_for_product_improvement_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_flex_hw_data_for_product_improvement_enabled_;
 }
+const ::enterprise_management::BooleanPolicyProto&
+ChromeDeviceSettingsProto::_Internal::devicehardwarevideodecodingenabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->devicehardwarevideodecodingenabled_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
   _has_bits_[2] &= ~0x02000000u;
@@ -36892,6 +36901,10 @@ void ChromeDeviceSettingsProto::clear_device_dlc_predownload_list() {
 void ChromeDeviceSettingsProto::clear_device_ephemeral_network_policies_enabled() {
   if (device_ephemeral_network_policies_enabled_ != nullptr) device_ephemeral_network_policies_enabled_->Clear();
   _has_bits_[4] &= ~0x00800000u;
+}
+void ChromeDeviceSettingsProto::clear_devicehardwarevideodecodingenabled() {
+  if (devicehardwarevideodecodingenabled_ != nullptr) devicehardwarevideodecodingenabled_->Clear();
+  _has_bits_[4] &= ~0x04000000u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -37673,14 +37686,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_flex_hw_data_for_product_improvement_enabled_ = nullptr;
   }
+  if (from._internal_has_devicehardwarevideodecodingenabled()) {
+    devicehardwarevideodecodingenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.devicehardwarevideodecodingenabled_);
+  } else {
+    devicehardwarevideodecodingenabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_flex_hw_data_for_product_improvement_enabled_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_flex_hw_data_for_product_improvement_enabled_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&devicehardwarevideodecodingenabled_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(devicehardwarevideodecodingenabled_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -37848,6 +37866,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_ephemeral_network_policies_enabled_;
   if (this != internal_default_instance()) delete extended_fkeys_modifier_;
   if (this != internal_default_instance()) delete device_flex_hw_data_for_product_improvement_enabled_;
+  if (this != internal_default_instance()) delete devicehardwarevideodecodingenabled_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -38511,7 +38530,7 @@ void ChromeDeviceSettingsProto::Clear() {
       device_ephemeral_network_policies_enabled_->Clear();
     }
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(extended_fkeys_modifier_ != nullptr);
       extended_fkeys_modifier_->Clear();
@@ -38519,6 +38538,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x02000000u) {
       GOOGLE_DCHECK(device_flex_hw_data_for_product_improvement_enabled_ != nullptr);
       device_flex_hw_data_for_product_improvement_enabled_->Clear();
+    }
+    if (cached_has_bits & 0x04000000u) {
+      GOOGLE_DCHECK(devicehardwarevideodecodingenabled_ != nullptr);
+      devicehardwarevideodecodingenabled_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -39763,6 +39786,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto DeviceHardwareVideoDecodingEnabled = 1185;
+      case 1185:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_devicehardwarevideodecodingenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -40873,6 +40904,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(157, _Internal::device_flex_hw_data_for_product_improvement_enabled(this),
         _Internal::device_flex_hw_data_for_product_improvement_enabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto DeviceHardwareVideoDecodingEnabled = 1185;
+  if (cached_has_bits & 0x04000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1185, _Internal::devicehardwarevideodecodingenabled(this),
+        _Internal::devicehardwarevideodecodingenabled(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -41998,7 +42036,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -42011,6 +42049,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_flex_hw_data_for_product_improvement_enabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto DeviceHardwareVideoDecodingEnabled = 1185;
+    if (cached_has_bits & 0x04000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *devicehardwarevideodecodingenabled_);
     }
 
   }
@@ -42533,12 +42578,15 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_ephemeral_network_policies_enabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_device_ephemeral_network_policies_enabled());
     }
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     if (cached_has_bits & 0x01000000u) {
       _internal_mutable_extended_fkeys_modifier()->::enterprise_management::ExtendedFkeysModifierProto::MergeFrom(from._internal_extended_fkeys_modifier());
     }
     if (cached_has_bits & 0x02000000u) {
       _internal_mutable_device_flex_hw_data_for_product_improvement_enabled()->::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto::MergeFrom(from._internal_device_flex_hw_data_for_product_improvement_enabled());
+    }
+    if (cached_has_bits & 0x04000000u) {
+      _internal_mutable_devicehardwarevideodecodingenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_devicehardwarevideodecodingenabled());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -42564,8 +42612,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_flex_hw_data_for_product_improvement_enabled_)
-      + sizeof(ChromeDeviceSettingsProto::device_flex_hw_data_for_product_improvement_enabled_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, devicehardwarevideodecodingenabled_)
+      + sizeof(ChromeDeviceSettingsProto::devicehardwarevideodecodingenabled_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));

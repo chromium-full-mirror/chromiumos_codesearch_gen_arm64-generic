@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 export class PageHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -12,6 +13,9 @@ export class PageHandlerFactoryPendingReceiver {
     }
 }
 export class PageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class PageHandlerFactoryRemote {
  * interface.
  */
 export class PageHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class PageHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createPageHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +91,7 @@ export class PageHandlerFactoryCallbackRouter {
     }
 }
 export class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -87,14 +100,20 @@ export class PageHandlerPendingReceiver {
     }
 }
 export class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
-    getApiKey() {
-        return this.proxy.sendMessage(0, PageHandler_GetApiKey_ParamsSpec.$, PageHandler_GetApiKey_ResponseParamsSpec.$, []);
+    onSurveyLoaded() {
+        this.proxy.sendMessage(0, PageHandler_OnSurveyLoaded_ParamsSpec.$, null, []);
+    }
+    onSurveyClosed() {
+        this.proxy.sendMessage(1, PageHandler_OnSurveyClosed_ParamsSpec.$, null, []);
     }
 }
 ;
@@ -104,10 +123,14 @@ export class PageHandlerRemote {
  * interface.
  */
 export class PageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, PageHandler_GetApiKey_ParamsSpec.$, PageHandler_GetApiKey_ResponseParamsSpec.$, impl.getApiKey.bind(impl));
+        this.helper_internal_.registerHandler(0, PageHandler_OnSurveyLoaded_ParamsSpec.$, null, impl.onSurveyLoaded.bind(impl));
+        this.helper_internal_.registerHandler(1, PageHandler_OnSurveyClosed_ParamsSpec.$, null, impl.onSurveyClosed.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -133,13 +156,22 @@ export class PageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class PageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onSurveyLoaded;
+    onSurveyClosed;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.getApiKey =
+        this.onSurveyLoaded =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, PageHandler_GetApiKey_ParamsSpec.$, PageHandler_GetApiKey_ResponseParamsSpec.$, this.getApiKey.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(0, PageHandler_OnSurveyLoaded_ParamsSpec.$, null, this.onSurveyLoaded.createReceiverHandler(false /* expectsResponse */));
+        this.onSurveyClosed =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, PageHandler_OnSurveyClosed_ParamsSpec.$, null, this.onSurveyClosed.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -151,6 +183,7 @@ export class PageHandlerCallbackRouter {
     }
 }
 export class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -159,11 +192,23 @@ export class PagePendingReceiver {
     }
 }
 export class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    requestSurvey(apiKey, triggerId, enableTesting, languageList, productSpecificDataJson) {
+        this.proxy.sendMessage(0, Page_RequestSurvey_ParamsSpec.$, null, [
+            apiKey,
+            triggerId,
+            enableTesting,
+            languageList,
+            productSpecificDataJson
+        ]);
     }
 }
 ;
@@ -173,9 +218,13 @@ export class PageRemote {
  * interface.
  */
 export class PageReceiver {
-    constructor(_impl) {
+    helper_internal_;
+    $;
+    onConnectionError;
+    constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, Page_RequestSurvey_ParamsSpec.$, null, impl.requestSurvey.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -201,10 +250,18 @@ export class Page {
  * receiver can have any number of listeners added to it.
  */
 export class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    requestSurvey;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.requestSurvey =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, Page_RequestSurvey_ParamsSpec.$, null, this.requestSurvey.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -216,13 +273,19 @@ export class PageCallbackRouter {
     }
 }
 export const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
-export const PageHandler_GetApiKey_ParamsSpec = { $: {} };
-export const PageHandler_GetApiKey_ResponseParamsSpec = { $: {} };
+export const PageHandler_OnSurveyLoaded_ParamsSpec = { $: {} };
+export const PageHandler_OnSurveyClosed_ParamsSpec = { $: {} };
+export const Page_RequestSurvey_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
     mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
     mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(PageHandler_GetApiKey_ParamsSpec.$, 'PageHandler_GetApiKey_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetApiKey_ResponseParamsSpec.$, 'PageHandler_GetApiKey_ResponseParams', [
+mojo.internal.Struct(PageHandler_OnSurveyLoaded_ParamsSpec.$, 'PageHandler_OnSurveyLoaded_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_OnSurveyClosed_ParamsSpec.$, 'PageHandler_OnSurveyClosed_Params', [], [[0, 8],]);
+mojo.internal.Struct(Page_RequestSurvey_ParamsSpec.$, 'Page_RequestSurvey_Params', [
     mojo.internal.StructField('apiKey', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
+    mojo.internal.StructField('triggerId', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('enableTesting', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('languageList', 24, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('productSpecificDataJson', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 48],]);

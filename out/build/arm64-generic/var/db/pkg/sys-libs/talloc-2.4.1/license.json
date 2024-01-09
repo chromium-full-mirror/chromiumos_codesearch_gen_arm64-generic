@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-libs", "name": "talloc", "version": "2.4.1", "revision": 0, "fullname": "sys-libs/talloc", "fullnamerev": "sys-libs/talloc-2.4.1", "license_names": ["GPL-3", "LGPL-2", "LGPL-3+"], "license_text_scanned": [], "homepages": ["https://talloc.samba.org/"], "skip": false, "tainted": false, "ebuild_path": null}

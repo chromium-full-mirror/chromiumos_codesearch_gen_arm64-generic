@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMPlugin>::value,
     "DOMPlugin inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMPlugin::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMPlugin is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8Plugin::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMPlugin_NamedPropertyGetter");
@@ -85,9 +80,10 @@ void V8Plugin::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name,
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->namedItem(blink_property_name);
 if (!return_value) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -117,7 +113,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "Plugin";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -137,10 +133,10 @@ void V8Plugin::NamedPropertyDeleterCallback(v8::Local<v8::Name> v8_property_name
 //   is true, then:
 // step 2.1. If O does not implement an interface with a named property
 //   deleter, then return false.
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "Plugin";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -176,7 +172,7 @@ if (info.ShouldThrowOnError()) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "Plugin";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Named property setter is not supported.");
 }
@@ -234,10 +230,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8Plugin::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMPlugin_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "Plugin";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -257,9 +253,9 @@ void V8Plugin::NamedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "Plugin";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);
@@ -276,8 +272,9 @@ bindings::V8SetReturnValue(
 void V8Plugin::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMPlugin_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -315,13 +312,13 @@ void V8Plugin::IndexedPropertyDeleterCallback(uint32_t index, const v8::Property
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "Plugin";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -394,9 +391,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8Plugin::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMPlugin_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -429,7 +426,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPluginName);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -452,7 +449,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPluginFilename);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filename();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -475,7 +472,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPluginDescription);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->description();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -490,8 +487,9 @@ BLINK_BINDINGS_TRACE_EVENT("Plugin.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -518,7 +516,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -535,9 +533,9 @@ BLINK_BINDINGS_TRACE_EVENT("Plugin.namedItem");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Plugin";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -548,13 +546,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(v8_receiver);
+DOMPlugin* blink_receiver = V8Plugin::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Plugin";
 const char* const property_name = "namedItem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRViewport>::value,
     "XRViewport inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRViewport::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRViewport is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRViewport.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(v8_receiver);
+XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -99,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRViewport.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(v8_receiver);
+XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -113,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRViewport.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(v8_receiver);
+XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -127,8 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRViewport.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(v8_receiver);
+XRViewport* blink_receiver = V8XRViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }

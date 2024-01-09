@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/connectivity/public/mojom/passpoint.mojom-features.h"
 #include "chromeos/ash/services/connectivity/public/mojom/passpoint.mojom-shared.h"
 #include "chromeos/ash/services/connectivity/public/mojom/passpoint.mojom-forward.h"
 #include <string>
@@ -333,7 +334,7 @@ class  PasspointSubscription {
       std::vector<std::string> domains,
       const std::string& friendly_name,
       const std::string& provisioning_source,
-      const absl::optional<std::string>& trusted_ca,
+      const std::optional<std::string>& trusted_ca,
       int64_t expiration_epoch_ms);
 
 
@@ -420,7 +421,7 @@ class  PasspointSubscription {
   
   std::string provisioning_source;
   
-  absl::optional<std::string> trusted_ca;
+  std::optional<std::string> trusted_ca;
   
   int64_t expiration_epoch_ms;
 

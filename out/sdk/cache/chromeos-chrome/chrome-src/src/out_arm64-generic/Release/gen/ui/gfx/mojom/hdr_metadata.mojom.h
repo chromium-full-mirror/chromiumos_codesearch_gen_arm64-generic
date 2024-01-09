@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/hdr_metadata.mojom-features.h"
 #include "ui/gfx/mojom/hdr_metadata.mojom-shared.h"
 #include "ui/gfx/mojom/hdr_metadata.mojom-forward.h"
 #include "skia/public/mojom/skcolorspace_primaries.mojom.h"
@@ -649,10 +650,10 @@ class  HDRMetadata {
   HDRMetadata();
 
   HDRMetadata(
-      const absl::optional<::gfx::HdrMetadataSmpteSt2086>& smpte_st_2086,
-      const absl::optional<::gfx::HdrMetadataCta861_3>& cta_861_3,
-      const absl::optional<::gfx::HdrMetadataNdwl>& ndwl,
-      const absl::optional<::gfx::HdrMetadataExtendedRange>& extended_range);
+      const std::optional<::gfx::HdrMetadataSmpteSt2086>& smpte_st_2086,
+      const std::optional<::gfx::HdrMetadataCta861_3>& cta_861_3,
+      const std::optional<::gfx::HdrMetadataNdwl>& ndwl,
+      const std::optional<::gfx::HdrMetadataExtendedRange>& extended_range);
 
 
   ~HDRMetadata();
@@ -730,13 +731,13 @@ class  HDRMetadata {
   }
 
   
-  absl::optional<::gfx::HdrMetadataSmpteSt2086> smpte_st_2086;
+  std::optional<::gfx::HdrMetadataSmpteSt2086> smpte_st_2086;
   
-  absl::optional<::gfx::HdrMetadataCta861_3> cta_861_3;
+  std::optional<::gfx::HdrMetadataCta861_3> cta_861_3;
   
-  absl::optional<::gfx::HdrMetadataNdwl> ndwl;
+  std::optional<::gfx::HdrMetadataNdwl> ndwl;
   
-  absl::optional<::gfx::HdrMetadataExtendedRange> extended_range;
+  std::optional<::gfx::HdrMetadataExtendedRange> extended_range;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

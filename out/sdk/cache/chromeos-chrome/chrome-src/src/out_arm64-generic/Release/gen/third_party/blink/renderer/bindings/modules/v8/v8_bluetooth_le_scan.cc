@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BluetoothLEScan>::value,
     "BluetoothLEScan inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BluetoothLEScan::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BluetoothLEScan is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,7 +86,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filters();
 if (!ToV8Traits<IDLArray<BluetoothLEScanFilterInit>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -107,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothLEScan.keepRepeatedDevices.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(v8_receiver);
+BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->keepRepeatedDevices();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -121,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothLEScan.acceptAllAdvertisements.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(v8_receiver);
+BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->acceptAllAdvertisements();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -135,8 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothLEScan.active.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(v8_receiver);
+BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->active();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -153,8 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothLEScan.stop");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(v8_receiver);
+BluetoothLEScan* blink_receiver = V8BluetoothLEScan::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stop();
 
 }

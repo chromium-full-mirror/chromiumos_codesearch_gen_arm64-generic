@@ -39,6 +39,8 @@ class FirmwareUpdateDataView;
 
 class InstallationProgressDataView;
 
+class DeviceRequestDataView;
+
 
 
 }  // ash::firmware_update::mojom
@@ -56,6 +58,13 @@ struct MojomTypeTraits<::ash::firmware_update::mojom::FirmwareUpdateDataView> {
 template <>
 struct MojomTypeTraits<::ash::firmware_update::mojom::InstallationProgressDataView> {
   using Data = ::ash::firmware_update::mojom::internal::InstallationProgress_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::firmware_update::mojom::DeviceRequestDataView> {
+  using Data = ::ash::firmware_update::mojom::internal::DeviceRequest_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -100,13 +109,57 @@ enum class UpdateState : int32_t {
   kFailed = 4,
   
   kSuccess = 5,
+  
+  kWaitingForUser = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
  std::ostream& operator<<(std::ostream& os, UpdateState value);
 inline bool IsKnownEnumValue(UpdateState value) {
   return internal::UpdateState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DeviceRequestId : int32_t {
+  
+  kDoNotPowerOff = 0,
+  
+  kReplugInstall = 1,
+  
+  kInsertUSBCable = 2,
+  
+  kRemoveUSBCable = 3,
+  
+  kPressUnlock = 4,
+  
+  kRemoveReplug = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+};
+
+ std::ostream& operator<<(std::ostream& os, DeviceRequestId value);
+inline bool IsKnownEnumValue(DeviceRequestId value) {
+  return internal::DeviceRequestId_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DeviceRequestKind : int32_t {
+  
+  kUnknown = 0,
+  
+  kImmediate = 1,
+  
+  kPost = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, DeviceRequestKind value);
+inline bool IsKnownEnumValue(DeviceRequestKind value) {
+  return internal::DeviceRequestKind_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -120,6 +173,16 @@ using UpdateObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<UpdateObserverInterfaceBase>;
 using UpdateObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<UpdateObserverInterfaceBase>;
+class DeviceRequestObserverInterfaceBase {};
+
+using DeviceRequestObserverPtrDataView =
+    mojo::InterfacePtrDataView<DeviceRequestObserverInterfaceBase>;
+using DeviceRequestObserverRequestDataView =
+    mojo::InterfaceRequestDataView<DeviceRequestObserverInterfaceBase>;
+using DeviceRequestObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<DeviceRequestObserverInterfaceBase>;
+using DeviceRequestObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<DeviceRequestObserverInterfaceBase>;
 class UpdateProgressObserverInterfaceBase {};
 
 using UpdateProgressObserverPtrDataView =
@@ -266,6 +329,41 @@ class InstallationProgressDataView {
 };
 
 
+class DeviceRequestDataView {
+ public:
+  DeviceRequestDataView() = default;
+
+  DeviceRequestDataView(
+      internal::DeviceRequest_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) const {
+    auto data_value = data_->id;
+    return mojo::internal::Deserialize<::ash::firmware_update::mojom::DeviceRequestId>(
+        data_value, output);
+  }
+  DeviceRequestId id() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::firmware_update::mojom::DeviceRequestId>(data_->id));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadKind(UserType* output) const {
+    auto data_value = data_->kind;
+    return mojo::internal::Deserialize<::ash::firmware_update::mojom::DeviceRequestKind>(
+        data_value, output);
+  }
+  DeviceRequestKind kind() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::firmware_update::mojom::DeviceRequestKind>(data_->kind));
+  }
+ private:
+  internal::DeviceRequest_Data* data_ = nullptr;
+};
+
+
 }  // ash::firmware_update::mojom
 
 namespace std {
@@ -277,6 +375,14 @@ struct hash<::ash::firmware_update::mojom::UpdatePriority>
 template <>
 struct hash<::ash::firmware_update::mojom::UpdateState>
     : public mojo::internal::EnumHashImpl<::ash::firmware_update::mojom::UpdateState> {};
+
+template <>
+struct hash<::ash::firmware_update::mojom::DeviceRequestId>
+    : public mojo::internal::EnumHashImpl<::ash::firmware_update::mojom::DeviceRequestId> {};
+
+template <>
+struct hash<::ash::firmware_update::mojom::DeviceRequestKind>
+    : public mojo::internal::EnumHashImpl<::ash::firmware_update::mojom::DeviceRequestKind> {};
 
 }  // namespace std
 
@@ -317,6 +423,46 @@ struct Serializer<::ash::firmware_update::mojom::UpdateState, MaybeConstUserType
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::firmware_update::mojom::UpdateState>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::firmware_update::mojom::DeviceRequestId, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::firmware_update::mojom::DeviceRequestId, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::firmware_update::mojom::DeviceRequestId>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::firmware_update::mojom::DeviceRequestKind, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::firmware_update::mojom::DeviceRequestKind, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::firmware_update::mojom::DeviceRequestKind>(input)), output);
   }
 };
 
@@ -457,6 +603,39 @@ struct Serializer<::ash::firmware_update::mojom::InstallationProgressDataView, M
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::firmware_update::mojom::DeviceRequestDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::firmware_update::mojom::DeviceRequestDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::firmware_update::mojom::internal::DeviceRequest_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::firmware_update::mojom::DeviceRequestId>(
+        Traits::id(input), &fragment->id);
+    mojo::internal::Serialize<::ash::firmware_update::mojom::DeviceRequestKind>(
+        Traits::kind(input), &fragment->kind);
+  }
+
+  static bool Deserialize(::ash::firmware_update::mojom::internal::DeviceRequest_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::firmware_update::mojom::DeviceRequestDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -497,6 +676,8 @@ inline void FirmwareUpdateDataView::GetChecksumDataView(
 
 
 
+
+
 }  // ash::firmware_update::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
@@ -516,6 +697,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::firmware_update::mojom::UpdateState> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::firmware_update::mojom::UpdateState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::firmware_update::mojom::DeviceRequestId> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::firmware_update::mojom::DeviceRequestId value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::firmware_update::mojom::DeviceRequestKind> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::firmware_update::mojom::DeviceRequestKind value);
 };
 
 } // namespace perfetto

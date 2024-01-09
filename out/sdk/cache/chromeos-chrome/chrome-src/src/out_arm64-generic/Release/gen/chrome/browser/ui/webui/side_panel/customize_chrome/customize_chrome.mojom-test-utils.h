@@ -50,9 +50,6 @@ class  CustomizeChromePageHandlerInterceptorForTesting : public CustomizeChromeP
   void SetModulesVisible(bool visible) override;
   void SetModuleDisabled(const std::string& module_id, bool disabled) override;
   void UpdateScrollToSection() override;
-  void GetDescriptors(GetDescriptorsCallback callback) override;
-  void GetWallpaperSearchResults(const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, GetWallpaperSearchResultsCallback callback) override;
-  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id) override;
 };
 class  CustomizeChromePageHandlerAsyncWaiter {
  public:
@@ -71,12 +68,6 @@ class  CustomizeChromePageHandlerAsyncWaiter {
   void ChooseLocalCustomBackground(
       bool* out_success);
   bool ChooseLocalCustomBackground();
-  void GetDescriptors(
-      DescriptorsPtr* out_descriptors);
-  DescriptorsPtr GetDescriptors();
-  void GetWallpaperSearchResults(
-      const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, std::vector<WallpaperSearchResultPtr>* out_results);
-  std::vector<WallpaperSearchResultPtr> GetWallpaperSearchResults(const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d);
 
  private:
   CustomizeChromePageHandler* const proxy_;

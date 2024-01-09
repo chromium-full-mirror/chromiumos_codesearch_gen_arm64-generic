@@ -97,14 +97,14 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
-  var LogoutRpsStatus = {};
-  LogoutRpsStatus.kSuccess = 0;
-  LogoutRpsStatus.kErrorTooManyRequests = 1;
-  LogoutRpsStatus.kError = 2;
-  LogoutRpsStatus.MIN_VALUE = 0;
-  LogoutRpsStatus.MAX_VALUE = 2;
+  var DisconnectStatus = {};
+  DisconnectStatus.kSuccess = 0;
+  DisconnectStatus.kErrorTooManyRequests = 1;
+  DisconnectStatus.kError = 2;
+  DisconnectStatus.MIN_VALUE = 0;
+  DisconnectStatus.MAX_VALUE = 2;
 
-  LogoutRpsStatus.isKnownEnumValue = function(value) {
+  DisconnectStatus.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
@@ -114,11 +114,11 @@
     return false;
   };
 
-  LogoutRpsStatus.toKnownEnumValue = function(value) {
+  DisconnectStatus.toKnownEnumValue = function(value) {
     return value;
   };
 
-  LogoutRpsStatus.validate = function(enumValue) {
+  DisconnectStatus.validate = function(enumValue) {
     const isExtensible = false;
     if (isExtensible || this.isKnownEnumValue(enumValue))
       return validator.validationError.NONE;
@@ -208,72 +208,6 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
 
-  function LogoutRpsRequest(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  LogoutRpsRequest.prototype.initDefaults_ = function() {
-    this.url = null;
-    this.accountId = null;
-  };
-  LogoutRpsRequest.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  LogoutRpsRequest.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate LogoutRpsRequest.url
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, url$.Url, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate LogoutRpsRequest.accountId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  LogoutRpsRequest.encodedSize = codec.kStructHeaderSize + 16;
-
-  LogoutRpsRequest.decode = function(decoder) {
-    var packed;
-    var val = new LogoutRpsRequest();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.url =
-        decoder.decodeStructPointer(url$.Url);
-    val.accountId =
-        decoder.decodeStruct(codec.String);
-    return val;
-  };
-
-  LogoutRpsRequest.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(LogoutRpsRequest.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(url$.Url, val.url);
-    encoder.encodeStruct(codec.String, val.accountId);
-  };
   function DigitalCredentialProvider(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -283,6 +217,9 @@
   DigitalCredentialProvider.prototype.initDefaults_ = function() {
     this.params = null;
     this.selector = null;
+    this.protocol = null;
+    this.request = null;
+    this.publicKey = null;
   };
   DigitalCredentialProvider.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -298,7 +235,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -306,20 +243,38 @@
 
 
     // validate DigitalCredentialProvider.params
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, false, codec.String, codec.String, false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, true, codec.String, codec.String, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DigitalCredentialProvider.selector
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, DigitalCredentialSelector, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, DigitalCredentialSelector, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.protocol
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.request
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DigitalCredentialProvider.publicKey
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 32, true)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  DigitalCredentialProvider.encodedSize = codec.kStructHeaderSize + 16;
+  DigitalCredentialProvider.encodedSize = codec.kStructHeaderSize + 40;
 
   DigitalCredentialProvider.decode = function(decoder) {
     var packed;
@@ -330,6 +285,12 @@
         decoder.decodeMapPointer(codec.String, codec.String);
     val.selector =
         decoder.decodeStructPointer(DigitalCredentialSelector);
+    val.protocol =
+        decoder.decodeStruct(codec.NullableString);
+    val.request =
+        decoder.decodeStruct(codec.NullableString);
+    val.publicKey =
+        decoder.decodeStruct(codec.NullableString);
     return val;
   };
 
@@ -339,6 +300,9 @@
     encoder.writeUint32(0);
     encoder.encodeMapPointer(codec.String, codec.String, val.params);
     encoder.encodeStructPointer(DigitalCredentialSelector, val.selector);
+    encoder.encodeStruct(codec.NullableString, val.protocol);
+    encoder.encodeStruct(codec.NullableString, val.request);
+    encoder.encodeStruct(codec.NullableString, val.publicKey);
   };
   function DigitalCredentialSelector(values) {
     this.initDefaults_();
@@ -490,13 +454,8 @@
 
   IdentityProviderConfig.prototype.initDefaults_ = function() {
     this.configUrl = null;
+    this.useRegisteredConfigUrls = false;
     this.clientId = null;
-    this.nonce = null;
-    this.loginHint = null;
-    this.hostedDomain = null;
-    this.scope = null;
-    this.responseType = null;
-    this.params = null;
   };
   IdentityProviderConfig.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -512,7 +471,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -525,51 +484,16 @@
         return err;
 
 
+
     // validate IdentityProviderConfig.clientId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.nonce
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.loginHint
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.hostedDomain
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 32, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.scope
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, codec.String, false, [0, 0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.responseType
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 8, codec.String, false, [0, 0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate IdentityProviderConfig.params
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 56, false, codec.String, codec.String, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  IdentityProviderConfig.encodedSize = codec.kStructHeaderSize + 64;
+  IdentityProviderConfig.encodedSize = codec.kStructHeaderSize + 24;
 
   IdentityProviderConfig.decode = function(decoder) {
     var packed;
@@ -578,13 +502,131 @@
     var version = decoder.readUint32();
     val.configUrl =
         decoder.decodeStructPointer(url$.Url);
+    packed = decoder.readUint8();
+    val.useRegisteredConfigUrls = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.clientId =
         decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  IdentityProviderConfig.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(IdentityProviderConfig.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(url$.Url, val.configUrl);
+    packed = 0;
+    packed |= (val.useRegisteredConfigUrls & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.String, val.clientId);
+  };
+  function IdentityProviderRequestOptions(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  IdentityProviderRequestOptions.prototype.initDefaults_ = function() {
+    this.config = null;
+    this.nonce = null;
+    this.loginHint = null;
+    this.domainHint = null;
+    this.scope = null;
+    this.responseType = null;
+    this.params = null;
+  };
+  IdentityProviderRequestOptions.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  IdentityProviderRequestOptions.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 64}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.config
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, IdentityProviderConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.nonce
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.loginHint
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.domainHint
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.scope
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, codec.String, false, [0, 0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.responseType
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 40, 8, codec.String, false, [0, 0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityProviderRequestOptions.params
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 48, false, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  IdentityProviderRequestOptions.encodedSize = codec.kStructHeaderSize + 56;
+
+  IdentityProviderRequestOptions.decode = function(decoder) {
+    var packed;
+    var val = new IdentityProviderRequestOptions();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.config =
+        decoder.decodeStructPointer(IdentityProviderConfig);
     val.nonce =
         decoder.decodeStruct(codec.String);
     val.loginHint =
         decoder.decodeStruct(codec.String);
-    val.hostedDomain =
+    val.domainHint =
         decoder.decodeStruct(codec.String);
     val.scope =
         decoder.decodeArrayPointer(codec.String);
@@ -595,18 +637,83 @@
     return val;
   };
 
-  IdentityProviderConfig.encode = function(encoder, val) {
+  IdentityProviderRequestOptions.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(IdentityProviderConfig.encodedSize);
+    encoder.writeUint32(IdentityProviderRequestOptions.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(url$.Url, val.configUrl);
-    encoder.encodeStruct(codec.String, val.clientId);
+    encoder.encodeStructPointer(IdentityProviderConfig, val.config);
     encoder.encodeStruct(codec.String, val.nonce);
     encoder.encodeStruct(codec.String, val.loginHint);
-    encoder.encodeStruct(codec.String, val.hostedDomain);
+    encoder.encodeStruct(codec.String, val.domainHint);
     encoder.encodeArrayPointer(codec.String, val.scope);
     encoder.encodeArrayPointer(codec.String, val.responseType);
     encoder.encodeMapPointer(codec.String, codec.String, val.params);
+  };
+  function IdentityCredentialDisconnectOptions(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  IdentityCredentialDisconnectOptions.prototype.initDefaults_ = function() {
+    this.config = null;
+    this.accountHint = null;
+  };
+  IdentityCredentialDisconnectOptions.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  IdentityCredentialDisconnectOptions.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityCredentialDisconnectOptions.config
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, IdentityProviderConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate IdentityCredentialDisconnectOptions.accountHint
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  IdentityCredentialDisconnectOptions.encodedSize = codec.kStructHeaderSize + 16;
+
+  IdentityCredentialDisconnectOptions.decode = function(decoder) {
+    var packed;
+    var val = new IdentityCredentialDisconnectOptions();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.config =
+        decoder.decodeStructPointer(IdentityProviderConfig);
+    val.accountHint =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  IdentityCredentialDisconnectOptions.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(IdentityCredentialDisconnectOptions.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(IdentityProviderConfig, val.config);
+    encoder.encodeStruct(codec.String, val.accountHint);
   };
   function IdentityUserInfo(values) {
     this.initDefaults_();
@@ -1308,126 +1415,6 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function FederatedAuthRequest_LogoutRps_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  FederatedAuthRequest_LogoutRps_Params.prototype.initDefaults_ = function() {
-    this.rpLogoutRequests = null;
-  };
-  FederatedAuthRequest_LogoutRps_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  FederatedAuthRequest_LogoutRps_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate FederatedAuthRequest_LogoutRps_Params.rpLogoutRequests
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(LogoutRpsRequest), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  FederatedAuthRequest_LogoutRps_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  FederatedAuthRequest_LogoutRps_Params.decode = function(decoder) {
-    var packed;
-    var val = new FederatedAuthRequest_LogoutRps_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.rpLogoutRequests =
-        decoder.decodeArrayPointer(new codec.PointerTo(LogoutRpsRequest));
-    return val;
-  };
-
-  FederatedAuthRequest_LogoutRps_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(FederatedAuthRequest_LogoutRps_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(LogoutRpsRequest), val.rpLogoutRequests);
-  };
-  function FederatedAuthRequest_LogoutRps_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  FederatedAuthRequest_LogoutRps_ResponseParams.prototype.initDefaults_ = function() {
-    this.status = 0;
-  };
-  FederatedAuthRequest_LogoutRps_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  FederatedAuthRequest_LogoutRps_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate FederatedAuthRequest_LogoutRps_ResponseParams.status
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, LogoutRpsStatus);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  FederatedAuthRequest_LogoutRps_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  FederatedAuthRequest_LogoutRps_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new FederatedAuthRequest_LogoutRps_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.status =
-        decoder.decodeStruct(new codec.Enum(LogoutRpsStatus));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  FederatedAuthRequest_LogoutRps_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(FederatedAuthRequest_LogoutRps_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.status);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
   function FederatedAuthRequest_SetIdpSigninStatus_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1886,6 +1873,126 @@
     encoder.writeUint32(FederatedAuthRequest_PreventSilentAccess_ResponseParams.encodedSize);
     encoder.writeUint32(0);
   };
+  function FederatedAuthRequest_Disconnect_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  FederatedAuthRequest_Disconnect_Params.prototype.initDefaults_ = function() {
+    this.options = null;
+  };
+  FederatedAuthRequest_Disconnect_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  FederatedAuthRequest_Disconnect_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate FederatedAuthRequest_Disconnect_Params.options
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, IdentityCredentialDisconnectOptions, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  FederatedAuthRequest_Disconnect_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  FederatedAuthRequest_Disconnect_Params.decode = function(decoder) {
+    var packed;
+    var val = new FederatedAuthRequest_Disconnect_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.options =
+        decoder.decodeStructPointer(IdentityCredentialDisconnectOptions);
+    return val;
+  };
+
+  FederatedAuthRequest_Disconnect_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(FederatedAuthRequest_Disconnect_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(IdentityCredentialDisconnectOptions, val.options);
+  };
+  function FederatedAuthRequest_Disconnect_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  FederatedAuthRequest_Disconnect_ResponseParams.prototype.initDefaults_ = function() {
+    this.status = 0;
+  };
+  FederatedAuthRequest_Disconnect_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  FederatedAuthRequest_Disconnect_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate FederatedAuthRequest_Disconnect_ResponseParams.status
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, DisconnectStatus);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  FederatedAuthRequest_Disconnect_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  FederatedAuthRequest_Disconnect_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new FederatedAuthRequest_Disconnect_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.status =
+        decoder.decodeStruct(new codec.Enum(DisconnectStatus));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  FederatedAuthRequest_Disconnect_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(FederatedAuthRequest_Disconnect_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.status);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
 
   function IdentityProvider(value) {
     this.initDefault_();
@@ -1973,7 +2080,7 @@
       encoder.writeUint32(val.$tag);
       switch (val.$tag) {
         case IdentityProvider.Tags.federated:
-          encoder.encodeStructPointer(IdentityProviderConfig, val.federated);
+          encoder.encodeStructPointer(IdentityProviderRequestOptions, val.federated);
           break;
         case IdentityProvider.Tags.holder:
           encoder.encodeStructPointer(DigitalCredentialProvider, val.holder);
@@ -1995,7 +2102,7 @@
       var tag = decoder.readUint32();
       switch (tag) {
         case IdentityProvider.Tags.federated:
-          result.federated = decoder.decodeStructPointer(IdentityProviderConfig);
+          result.federated = decoder.decodeStructPointer(IdentityProviderRequestOptions);
           break;
         case IdentityProvider.Tags.holder:
           result.holder = decoder.decodeStructPointer(DigitalCredentialProvider);
@@ -2021,7 +2128,7 @@
           
 
     // validate IdentityProvider.federated
-    err = messageValidator.validateStructPointer(data_offset, IdentityProviderConfig, false);
+    err = messageValidator.validateStructPointer(data_offset, IdentityProviderRequestOptions, false);
     if (err !== validator.validationError.NONE)
         return err;
           break;
@@ -2043,12 +2150,12 @@
   var kFederatedAuthRequest_RequestUserInfo_Name = 1;
   var kFederatedAuthRequest_CancelTokenRequest_Name = 2;
   var kFederatedAuthRequest_ResolveTokenRequest_Name = 3;
-  var kFederatedAuthRequest_LogoutRps_Name = 4;
-  var kFederatedAuthRequest_SetIdpSigninStatus_Name = 5;
-  var kFederatedAuthRequest_RegisterIdP_Name = 6;
-  var kFederatedAuthRequest_UnregisterIdP_Name = 7;
-  var kFederatedAuthRequest_CloseModalDialogView_Name = 8;
-  var kFederatedAuthRequest_PreventSilentAccess_Name = 9;
+  var kFederatedAuthRequest_SetIdpSigninStatus_Name = 4;
+  var kFederatedAuthRequest_RegisterIdP_Name = 5;
+  var kFederatedAuthRequest_UnregisterIdP_Name = 6;
+  var kFederatedAuthRequest_CloseModalDialogView_Name = 7;
+  var kFederatedAuthRequest_PreventSilentAccess_Name = 8;
+  var kFederatedAuthRequest_Disconnect_Name = 9;
 
   function FederatedAuthRequestPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(FederatedAuthRequest,
@@ -2152,31 +2259,6 @@
         var reader = new codec.MessageReader(message);
         var responseParams =
             reader.decodeStruct(FederatedAuthRequest_ResolveTokenRequest_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
-  FederatedAuthRequestPtr.prototype.logoutRps = function() {
-    return FederatedAuthRequestProxy.prototype.logoutRps
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  FederatedAuthRequestProxy.prototype.logoutRps = function(rpLogoutRequests) {
-    var params_ = new FederatedAuthRequest_LogoutRps_Params();
-    params_.rpLogoutRequests = rpLogoutRequests;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kFederatedAuthRequest_LogoutRps_Name,
-          codec.align(FederatedAuthRequest_LogoutRps_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(FederatedAuthRequest_LogoutRps_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(FederatedAuthRequest_LogoutRps_ResponseParams);
         resolve(responseParams);
       }).catch(function(result) {
         reject(Error("Connection error: " + result));
@@ -2287,6 +2369,31 @@
       });
     }.bind(this));
   };
+  FederatedAuthRequestPtr.prototype.disconnect = function() {
+    return FederatedAuthRequestProxy.prototype.disconnect
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  FederatedAuthRequestProxy.prototype.disconnect = function(options) {
+    var params_ = new FederatedAuthRequest_Disconnect_Params();
+    params_.options = options;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kFederatedAuthRequest_Disconnect_Name,
+          codec.align(FederatedAuthRequest_Disconnect_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(FederatedAuthRequest_Disconnect_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(FederatedAuthRequest_Disconnect_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function FederatedAuthRequestStub(delegate) {
     this.delegate_ = delegate;
@@ -2303,9 +2410,6 @@
   FederatedAuthRequestStub.prototype.resolveTokenRequest = function(token) {
     return this.delegate_ && this.delegate_.resolveTokenRequest && this.delegate_.resolveTokenRequest(token);
   }
-  FederatedAuthRequestStub.prototype.logoutRps = function(rpLogoutRequests) {
-    return this.delegate_ && this.delegate_.logoutRps && this.delegate_.logoutRps(rpLogoutRequests);
-  }
   FederatedAuthRequestStub.prototype.setIdpSigninStatus = function(origin, status) {
     return this.delegate_ && this.delegate_.setIdpSigninStatus && this.delegate_.setIdpSigninStatus(origin, status);
   }
@@ -2320,6 +2424,9 @@
   }
   FederatedAuthRequestStub.prototype.preventSilentAccess = function() {
     return this.delegate_ && this.delegate_.preventSilentAccess && this.delegate_.preventSilentAccess();
+  }
+  FederatedAuthRequestStub.prototype.disconnect = function(options) {
+    return this.delegate_ && this.delegate_.disconnect && this.delegate_.disconnect(options);
   }
 
   FederatedAuthRequestStub.prototype.accept = function(message) {
@@ -2399,22 +2506,6 @@
         responder.accept(message);
       });
       return true;
-    case kFederatedAuthRequest_LogoutRps_Name:
-      var params = reader.decodeStruct(FederatedAuthRequest_LogoutRps_Params);
-      this.logoutRps(params.rpLogoutRequests).then(function(response) {
-        var responseParams =
-            new FederatedAuthRequest_LogoutRps_ResponseParams();
-        responseParams.status = response.status;
-        var builder = new codec.MessageV1Builder(
-            kFederatedAuthRequest_LogoutRps_Name,
-            codec.align(FederatedAuthRequest_LogoutRps_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(FederatedAuthRequest_LogoutRps_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
     case kFederatedAuthRequest_RegisterIdP_Name:
       var params = reader.decodeStruct(FederatedAuthRequest_RegisterIdP_Params);
       this.registerIdP(params.url).then(function(response) {
@@ -2462,6 +2553,22 @@
         responder.accept(message);
       });
       return true;
+    case kFederatedAuthRequest_Disconnect_Name:
+      var params = reader.decodeStruct(FederatedAuthRequest_Disconnect_Params);
+      this.disconnect(params.options).then(function(response) {
+        var responseParams =
+            new FederatedAuthRequest_Disconnect_ResponseParams();
+        responseParams.status = response.status;
+        var builder = new codec.MessageV1Builder(
+            kFederatedAuthRequest_Disconnect_Name,
+            codec.align(FederatedAuthRequest_Disconnect_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(FederatedAuthRequest_Disconnect_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -2487,10 +2594,6 @@
         if (message.expectsResponse())
           paramsClass = FederatedAuthRequest_ResolveTokenRequest_Params;
       break;
-      case kFederatedAuthRequest_LogoutRps_Name:
-        if (message.expectsResponse())
-          paramsClass = FederatedAuthRequest_LogoutRps_Params;
-      break;
       case kFederatedAuthRequest_SetIdpSigninStatus_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = FederatedAuthRequest_SetIdpSigninStatus_Params;
@@ -2510,6 +2613,10 @@
       case kFederatedAuthRequest_PreventSilentAccess_Name:
         if (message.expectsResponse())
           paramsClass = FederatedAuthRequest_PreventSilentAccess_Params;
+      break;
+      case kFederatedAuthRequest_Disconnect_Name:
+        if (message.expectsResponse())
+          paramsClass = FederatedAuthRequest_Disconnect_Params;
       break;
     }
     if (paramsClass === null)
@@ -2533,10 +2640,6 @@
         if (message.isResponse())
           paramsClass = FederatedAuthRequest_ResolveTokenRequest_ResponseParams;
         break;
-      case kFederatedAuthRequest_LogoutRps_Name:
-        if (message.isResponse())
-          paramsClass = FederatedAuthRequest_LogoutRps_ResponseParams;
-        break;
       case kFederatedAuthRequest_RegisterIdP_Name:
         if (message.isResponse())
           paramsClass = FederatedAuthRequest_RegisterIdP_ResponseParams;
@@ -2548,6 +2651,10 @@
       case kFederatedAuthRequest_PreventSilentAccess_Name:
         if (message.isResponse())
           paramsClass = FederatedAuthRequest_PreventSilentAccess_ResponseParams;
+        break;
+      case kFederatedAuthRequest_Disconnect_Name:
+        if (message.isResponse())
+          paramsClass = FederatedAuthRequest_Disconnect_ResponseParams;
         break;
     }
     if (paramsClass === null)
@@ -2568,15 +2675,16 @@
   FederatedAuthRequestProxy.prototype.validator = validateFederatedAuthRequestResponse;
   exports.RequestTokenStatus = RequestTokenStatus;
   exports.RequestUserInfoStatus = RequestUserInfoStatus;
-  exports.LogoutRpsStatus = LogoutRpsStatus;
+  exports.DisconnectStatus = DisconnectStatus;
   exports.IdpSigninStatus = IdpSigninStatus;
   exports.RpContext = RpContext;
   exports.RpMode = RpMode;
-  exports.LogoutRpsRequest = LogoutRpsRequest;
   exports.DigitalCredentialProvider = DigitalCredentialProvider;
   exports.DigitalCredentialSelector = DigitalCredentialSelector;
   exports.DigitalCredentialFieldRequirement = DigitalCredentialFieldRequirement;
   exports.IdentityProviderConfig = IdentityProviderConfig;
+  exports.IdentityProviderRequestOptions = IdentityProviderRequestOptions;
+  exports.IdentityCredentialDisconnectOptions = IdentityCredentialDisconnectOptions;
   exports.IdentityUserInfo = IdentityUserInfo;
   exports.IdentityProviderGetParameters = IdentityProviderGetParameters;
   exports.TokenError = TokenError;

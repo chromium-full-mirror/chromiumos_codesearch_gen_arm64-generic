@@ -19,17 +19,35 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build libbrillo: phony obj/libbrillo/libbrillo.stamp
-build cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
+build _libbrillo-compression-install_config: phony obj/libbrillo/_libbrillo-compression-install_config.stamp
+build _libbrillo-core-install_config: phony obj/libbrillo/_libbrillo-core-install_config.stamp
+build _libbrillo-cryptohome-install_config: phony obj/libbrillo/_libbrillo-cryptohome-install_config.stamp
+build _libbrillo-dbus-install_config: phony obj/libbrillo/_libbrillo-dbus-install_config.stamp
+build _libbrillo-grpc-install_config: phony obj/libbrillo/_libbrillo-grpc-install_config.stamp
+build _libbrillo-http-install_config: phony obj/libbrillo/_libbrillo-http-install_config.stamp
+build _libbrillo-minijail-install_config: phony obj/libbrillo/_libbrillo-minijail-install_config.stamp
+build _libbrillo-namespaces-install_config: phony obj/libbrillo/_libbrillo-namespaces-install_config.stamp
+build _libbrillo-protobuf-install_config: phony obj/libbrillo/_libbrillo-protobuf-install_config.stamp
+build _libbrillo-storage-install_config: phony obj/libbrillo/_libbrillo-storage-install_config.stamp
+build _libbrillo-streams-install_config: phony obj/libbrillo/_libbrillo-streams-install_config.stamp
+build _libbrillo-test-install_config: phony obj/libbrillo/_libbrillo-test-install_config.stamp
+build _libbrillo-test_pc-install_config: phony obj/libbrillo/_libbrillo-test_pc-install_config.stamp
+build _libbrillo-udev-install_config: phony obj/libbrillo/_libbrillo-udev-install_config.stamp
+build _libbrillo-usb-install_config: phony obj/libbrillo/_libbrillo-usb-install_config.stamp
+build _libbrillo-vboot-install_config: phony obj/libbrillo/_libbrillo-vboot-install_config.stamp
+build _libbrillo_pc-install_config: phony obj/libbrillo/_libbrillo_pc-install_config.stamp
+build _libinstallattributes-install_config: phony obj/libbrillo/_libinstallattributes-install_config.stamp
+build _libpolicy-install_config: phony obj/libbrillo/_libpolicy-install_config.stamp
 build dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
 build enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
-build grpc_test_rpcs_protolib: phony ./libgrpc_test_rpcs_protolib.a
-build grpc_test_rpcs_protolib_gen: phony obj/libbrillo/grpc_test_rpcs_protolib_gen.stamp
 build install_attributes-proto: phony ./libinstall_attributes-proto.a
 build install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
 build install_attributes_proto: phony ./libinstall_attributes_proto.a
 build install_attributes_proto_gen: phony obj/libbrillo/install_attributes_proto_gen.stamp
+build libbrillo-compression: phony ./lib/libbrillo-compression.so
 build libbrillo-core: phony ./lib/libbrillo-core.so
 build libbrillo-cryptohome: phony ./lib/libbrillo-cryptohome.so
+build libbrillo-dbus: phony ./lib/libbrillo-dbus.so
 build libbrillo-grpc: phony ./lib/libbrillo-grpc.so
 build libbrillo-http: phony ./lib/libbrillo-http.so
 build libbrillo-minijail: phony ./lib/libbrillo-minijail.so
@@ -37,15 +55,12 @@ build libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
 build libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
 build libbrillo-storage: phony ./lib/libbrillo-storage.so
 build libbrillo-streams: phony ./lib/libbrillo-streams.so
-build libbrillo-test: phony ./libbrillo-test.a
+build libbrillo-test: phony ./lib/libbrillo-test.so
 build libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
 build libbrillo-udev: phony ./lib/libbrillo-udev.so
 build libbrillo-usb: phony ./lib/libbrillo-usb.so
 build libbrillo-vboot: phony ./lib/libbrillo-vboot.so
 build libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
-build libbrillo_static: phony ./libbrillo_static.a
-build libbrillo_tests_proto: phony ./libbrillo_tests_proto.a
-build libbrillo_tests_proto_gen: phony obj/libbrillo/libbrillo_tests_proto_gen.stamp
 build libinstallattributes: phony ./lib/libinstallattributes.so
 build libinstallattributes-includes: phony obj/libbrillo/libinstallattributes-includes.stamp
 build libpolicy: phony ./lib/libpolicy.so
@@ -60,10 +75,8 @@ build private_membership_goprotos: phony obj/common-mk/external_dependencies/pri
 build private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
 build rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build user_policy-protos: phony ./libuser_policy-protos.a
 build user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
-build common-mk/external_dependencies$:cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
 build common-mk/external_dependencies$:dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
 build common-mk/external_dependencies$:enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
 build common-mk/external_dependencies$:install_attributes-proto: phony ./libinstall_attributes-proto.a
@@ -80,45 +93,52 @@ build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/extern
 build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
 build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build libbrillo$:_libbrillo-compression-install_config: phony obj/libbrillo/_libbrillo-compression-install_config.stamp
+build libbrillo$:_libbrillo-core-install_config: phony obj/libbrillo/_libbrillo-core-install_config.stamp
+build libbrillo$:_libbrillo-cryptohome-install_config: phony obj/libbrillo/_libbrillo-cryptohome-install_config.stamp
+build libbrillo$:_libbrillo-dbus-install_config: phony obj/libbrillo/_libbrillo-dbus-install_config.stamp
+build libbrillo$:_libbrillo-grpc-install_config: phony obj/libbrillo/_libbrillo-grpc-install_config.stamp
+build libbrillo$:_libbrillo-http-install_config: phony obj/libbrillo/_libbrillo-http-install_config.stamp
+build libbrillo$:_libbrillo-minijail-install_config: phony obj/libbrillo/_libbrillo-minijail-install_config.stamp
+build libbrillo$:_libbrillo-namespaces-install_config: phony obj/libbrillo/_libbrillo-namespaces-install_config.stamp
+build libbrillo$:_libbrillo-protobuf-install_config: phony obj/libbrillo/_libbrillo-protobuf-install_config.stamp
+build libbrillo$:_libbrillo-storage-install_config: phony obj/libbrillo/_libbrillo-storage-install_config.stamp
+build libbrillo$:_libbrillo-streams-install_config: phony obj/libbrillo/_libbrillo-streams-install_config.stamp
+build libbrillo$:_libbrillo-test-install_config: phony obj/libbrillo/_libbrillo-test-install_config.stamp
+build libbrillo$:_libbrillo-test_pc-install_config: phony obj/libbrillo/_libbrillo-test_pc-install_config.stamp
+build libbrillo$:_libbrillo-udev-install_config: phony obj/libbrillo/_libbrillo-udev-install_config.stamp
+build libbrillo$:_libbrillo-usb-install_config: phony obj/libbrillo/_libbrillo-usb-install_config.stamp
+build libbrillo$:_libbrillo-vboot-install_config: phony obj/libbrillo/_libbrillo-vboot-install_config.stamp
+build libbrillo$:_libbrillo_pc-install_config: phony obj/libbrillo/_libbrillo_pc-install_config.stamp
+build libbrillo$:_libinstallattributes-install_config: phony obj/libbrillo/_libinstallattributes-install_config.stamp
+build libbrillo$:_libpolicy-install_config: phony obj/libbrillo/_libpolicy-install_config.stamp
 build libbrillo$:all: phony obj/libbrillo/all.stamp
-build libbrillo$:grpc_test_rpcs_protolib: phony ./libgrpc_test_rpcs_protolib.a
-build libbrillo$:grpc_test_rpcs_protolib_gen: phony obj/libbrillo/grpc_test_rpcs_protolib_gen.stamp
 build libbrillo$:install_attributes_proto: phony ./libinstall_attributes_proto.a
 build libbrillo$:install_attributes_proto_gen: phony obj/libbrillo/install_attributes_proto_gen.stamp
 build libbrillo$:libbrillo: phony obj/libbrillo/libbrillo.stamp
+build libbrillo$:libbrillo-compression: phony ./lib/libbrillo-compression.so
 build libbrillo$:libbrillo-core: phony ./lib/libbrillo-core.so
 build libbrillo$:libbrillo-cryptohome: phony ./lib/libbrillo-cryptohome.so
+build libbrillo$:libbrillo-dbus: phony ./lib/libbrillo-dbus.so
 build libbrillo$:libbrillo-grpc: phony ./lib/libbrillo-grpc.so
-build libbrillo$:libbrillo-grpc_tests: phony ./libbrillo-grpc_tests
 build libbrillo$:libbrillo-http: phony ./lib/libbrillo-http.so
 build libbrillo$:libbrillo-minijail: phony ./lib/libbrillo-minijail.so
 build libbrillo$:libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
 build libbrillo$:libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
 build libbrillo$:libbrillo-storage: phony ./lib/libbrillo-storage.so
 build libbrillo$:libbrillo-streams: phony ./lib/libbrillo-streams.so
-build libbrillo$:libbrillo-test: phony ./libbrillo-test.a
+build libbrillo$:libbrillo-test: phony ./lib/libbrillo-test.so
 build libbrillo$:libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
 build libbrillo$:libbrillo-udev: phony ./lib/libbrillo-udev.so
 build libbrillo$:libbrillo-usb: phony ./lib/libbrillo-usb.so
 build libbrillo$:libbrillo-vboot: phony ./lib/libbrillo-vboot.so
 build libbrillo$:libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
-build libbrillo$:libbrillo_static: phony ./libbrillo_static.a
-build libbrillo$:libbrillo_tests: phony ./libbrillo_tests
-build libbrillo$:libbrillo_tests_proto: phony ./libbrillo_tests_proto.a
-build libbrillo$:libbrillo_tests_proto_gen: phony obj/libbrillo/libbrillo_tests_proto_gen.stamp
 build libbrillo$:libinstallattributes: phony ./lib/libinstallattributes.so
 build libbrillo$:libinstallattributes-includes: phony obj/libbrillo/libinstallattributes-includes.stamp
-build libbrillo$:libinstallattributes_tests: phony ./libinstallattributes_tests
 build libbrillo$:libpolicy: phony ./lib/libpolicy.so
 build libbrillo$:libpolicy-includes: phony obj/libbrillo/libpolicy-includes.stamp
-build libbrillo$:libpolicy_tests: phony ./libpolicy_tests
-build libbrillo$:secure_blob_test_helper: phony ./secure_blob_test_helper
-build libbrillo$:secure_blob_test_runner: phony ./secure_blob_test_runner
 
 build all: phony $
-    obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp $
     obj/common-mk/external_dependencies/dbus-proxies.stamp $
     obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp $
     ./libinstall_attributes-proto.a $
@@ -135,40 +155,49 @@ build all: phony $
     ./libuser_policy-protos.a $
     obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/libbrillo/_libbrillo-compression-install_config.stamp $
+    obj/libbrillo/_libbrillo-core-install_config.stamp $
+    obj/libbrillo/_libbrillo-cryptohome-install_config.stamp $
+    obj/libbrillo/_libbrillo-dbus-install_config.stamp $
+    obj/libbrillo/_libbrillo-grpc-install_config.stamp $
+    obj/libbrillo/_libbrillo-http-install_config.stamp $
+    obj/libbrillo/_libbrillo-minijail-install_config.stamp $
+    obj/libbrillo/_libbrillo-namespaces-install_config.stamp $
+    obj/libbrillo/_libbrillo-protobuf-install_config.stamp $
+    obj/libbrillo/_libbrillo-storage-install_config.stamp $
+    obj/libbrillo/_libbrillo-streams-install_config.stamp $
+    obj/libbrillo/_libbrillo-test-install_config.stamp $
+    obj/libbrillo/_libbrillo-test_pc-install_config.stamp $
+    obj/libbrillo/_libbrillo-udev-install_config.stamp $
+    obj/libbrillo/_libbrillo-usb-install_config.stamp $
+    obj/libbrillo/_libbrillo-vboot-install_config.stamp $
+    obj/libbrillo/_libbrillo_pc-install_config.stamp $
+    obj/libbrillo/_libinstallattributes-install_config.stamp $
+    obj/libbrillo/_libpolicy-install_config.stamp $
     obj/libbrillo/all.stamp $
-    ./libgrpc_test_rpcs_protolib.a $
-    obj/libbrillo/grpc_test_rpcs_protolib_gen.stamp $
     ./libinstall_attributes_proto.a $
     obj/libbrillo/install_attributes_proto_gen.stamp $
     obj/libbrillo/libbrillo.stamp $
+    ./lib/libbrillo-compression.so $
     ./lib/libbrillo-core.so $
     ./lib/libbrillo-cryptohome.so $
+    ./lib/libbrillo-dbus.so $
     ./lib/libbrillo-grpc.so $
-    ./libbrillo-grpc_tests $
     ./lib/libbrillo-http.so $
     ./lib/libbrillo-minijail.so $
     ./lib/libbrillo-namespaces.so $
     ./lib/libbrillo-protobuf.so $
     ./lib/libbrillo-storage.so $
     ./lib/libbrillo-streams.so $
-    ./libbrillo-test.a $
+    ./lib/libbrillo-test.so $
     obj/libbrillo/libbrillo-test_pc.stamp $
     ./lib/libbrillo-udev.so $
     ./lib/libbrillo-usb.so $
     ./lib/libbrillo-vboot.so $
     obj/libbrillo/libbrillo_pc.stamp $
-    ./libbrillo_static.a $
-    ./libbrillo_tests $
-    ./libbrillo_tests_proto.a $
-    obj/libbrillo/libbrillo_tests_proto_gen.stamp $
     ./lib/libinstallattributes.so $
     obj/libbrillo/libinstallattributes-includes.stamp $
-    ./libinstallattributes_tests $
     ./lib/libpolicy.so $
-    obj/libbrillo/libpolicy-includes.stamp $
-    ./libpolicy_tests $
-    ./secure_blob_test_helper $
-    ./secure_blob_test_runner
+    obj/libbrillo/libpolicy-includes.stamp
 
 default all

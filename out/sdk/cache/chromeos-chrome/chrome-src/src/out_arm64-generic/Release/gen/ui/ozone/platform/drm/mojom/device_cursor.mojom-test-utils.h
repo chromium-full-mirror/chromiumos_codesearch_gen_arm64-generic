@@ -15,7 +15,7 @@ namespace ui::ozone::mojom {
 
 class  DeviceCursorInterceptorForTesting : public DeviceCursor {
   virtual DeviceCursor* GetForwardingInterface() = 0;
-  void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const absl::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) override;
+  void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const std::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) override;
   void MoveCursor(::gfx::AcceleratedWidget window, const ::gfx::Point& point) override;
 };
 class  DeviceCursorAsyncWaiter {

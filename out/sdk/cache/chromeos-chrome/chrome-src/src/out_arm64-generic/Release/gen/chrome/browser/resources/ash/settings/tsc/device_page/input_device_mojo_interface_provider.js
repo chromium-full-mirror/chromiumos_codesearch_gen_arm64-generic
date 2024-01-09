@@ -25,6 +25,7 @@ export function setupFakeInputDeviceSettingsProvider() {
     provider.setFakeGraphicsTablets(fakeGraphicsTablets);
     provider.setFakeActionsForGraphicsTabletButtonCustomization(fakeGraphicsTabletButtonActions);
     provider.setFakeActionsForMouseButtonCustomization(fakeMouseButtonActions);
+    provider.setFakeHasLauncherButton(true);
     inputDeviceSettingsProvider = provider;
 }
 export function getInputDeviceSettingsProvider() {

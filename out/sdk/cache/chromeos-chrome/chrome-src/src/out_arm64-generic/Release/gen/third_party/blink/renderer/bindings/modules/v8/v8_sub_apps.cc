@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SubApps>::value,
     "SubApps inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SubApps::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SubApps is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,7 +102,7 @@ return;
 
 
 
-SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(v8_receiver);
+SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -145,7 +140,7 @@ return;
 
 
 
-SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(v8_receiver);
+SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -183,7 +178,7 @@ return;
 
 
 
-SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(v8_receiver);
+SubApps* blink_receiver = V8SubApps::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

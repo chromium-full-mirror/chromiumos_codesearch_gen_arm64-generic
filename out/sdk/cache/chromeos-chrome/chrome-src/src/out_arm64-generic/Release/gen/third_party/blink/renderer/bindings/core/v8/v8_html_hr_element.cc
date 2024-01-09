@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLHRElement>::value,
     "HTMLHRElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLHRElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLHRElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHRElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,10 +107,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHRElement.color.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kColorAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kColorAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -136,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHRElement.noShade.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(v8_receiver);
+HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kNoshadeAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -159,10 +155,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHRElement.size.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSizeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSizeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -183,10 +179,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHRElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLHRElement* blink_receiver = V8HTMLHRElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

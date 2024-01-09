@@ -58,6 +58,16 @@ describeWithEnvironment('NetworkLogView', () => {
         const marker = el.querySelector('.network-override-marker');
         assert.isNull(marker);
     });
+    it('does not add a marker to requests which are intercepted but not overridden', async () => {
+        const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'https://www.example.com', '', null, null, null);
+        request.statusCode = 200;
+        request.setWasIntercepted(true);
+        const networkRequestNode = new Network.NetworkDataGridNode.NetworkRequestNode({}, request);
+        const el = document.createElement('div');
+        networkRequestNode.renderCell(el, 'name');
+        const marker = el.querySelector('.network-override-marker');
+        assert.isNull(marker);
+    });
     it('adds an error red icon to the left of the failed requests', async () => {
         const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'https://www.example.com', '', null, null, null);
         request.statusCode = 404;

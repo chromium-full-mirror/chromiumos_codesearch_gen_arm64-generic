@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSMathValue>::value,
     "CSSMathValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSMathValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSMathValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSMathValue.operator.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSMathValue* blink_receiver = V8CSSMathValue::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->getOperator();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSMathValue* blink_receiver = V8CSSMathValue::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getOperator();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

@@ -41,6 +41,7 @@ export var PasswordComplexity;
     PasswordComplexity[PasswordComplexity["kTooShort"] = 1] = "kTooShort";
 })(PasswordComplexity || (PasswordComplexity = {}));
 export class FactorObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -49,6 +50,9 @@ export class FactorObserverPendingReceiver {
     }
 }
 export class FactorObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(FactorObserverPendingReceiver, handle);
@@ -68,6 +72,9 @@ export class FactorObserverRemote {
  * interface.
  */
 export class FactorObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FactorObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -97,6 +104,11 @@ export class FactorObserver {
  * receiver can have any number of listeners added to it.
  */
 export class FactorObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onFactorChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FactorObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -115,6 +127,7 @@ export class FactorObserverCallbackRouter {
     }
 }
 export class AuthFactorConfigPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -123,6 +136,9 @@ export class AuthFactorConfigPendingReceiver {
     }
 }
 export class AuthFactorConfigRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(AuthFactorConfigPendingReceiver, handle);
@@ -166,6 +182,9 @@ export class AuthFactorConfigRemote {
  * interface.
  */
 export class AuthFactorConfigReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AuthFactorConfigRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -199,6 +218,15 @@ export class AuthFactorConfig {
  * receiver can have any number of listeners added to it.
  */
 export class AuthFactorConfigCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    observeFactorChanges;
+    isSupported;
+    isConfigured;
+    getManagementType;
+    isEditable;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AuthFactorConfigRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -229,6 +257,7 @@ export class AuthFactorConfigCallbackRouter {
     }
 }
 export class RecoveryFactorEditorPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -237,6 +266,9 @@ export class RecoveryFactorEditorPendingReceiver {
     }
 }
 export class RecoveryFactorEditorRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(RecoveryFactorEditorPendingReceiver, handle);
@@ -257,6 +289,9 @@ export class RecoveryFactorEditorRemote {
  * interface.
  */
 export class RecoveryFactorEditorReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(RecoveryFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -286,6 +321,11 @@ export class RecoveryFactorEditor {
  * receiver can have any number of listeners added to it.
  */
 export class RecoveryFactorEditorCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    configure;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(RecoveryFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -304,6 +344,7 @@ export class RecoveryFactorEditorCallbackRouter {
     }
 }
 export class PinFactorEditorPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -312,6 +353,9 @@ export class PinFactorEditorPendingReceiver {
     }
 }
 export class PinFactorEditorRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PinFactorEditorPendingReceiver, handle);
@@ -337,6 +381,9 @@ export class PinFactorEditorRemote {
  * interface.
  */
 export class PinFactorEditorReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PinFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -367,6 +414,12 @@ export class PinFactorEditor {
  * receiver can have any number of listeners added to it.
  */
 export class PinFactorEditorCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    setPin;
+    removePin;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PinFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -388,6 +441,7 @@ export class PinFactorEditorCallbackRouter {
     }
 }
 export class PasswordFactorEditorPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -396,6 +450,9 @@ export class PasswordFactorEditorPendingReceiver {
     }
 }
 export class PasswordFactorEditorRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PasswordFactorEditorPendingReceiver, handle);
@@ -439,6 +496,9 @@ export class PasswordFactorEditorRemote {
  * interface.
  */
 export class PasswordFactorEditorReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasswordFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -472,6 +532,15 @@ export class PasswordFactorEditor {
  * receiver can have any number of listeners added to it.
  */
 export class PasswordFactorEditorCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    updateLocalPassword;
+    updateOnlinePassword;
+    setLocalPassword;
+    setOnlinePassword;
+    checkLocalPasswordComplexity;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PasswordFactorEditorRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

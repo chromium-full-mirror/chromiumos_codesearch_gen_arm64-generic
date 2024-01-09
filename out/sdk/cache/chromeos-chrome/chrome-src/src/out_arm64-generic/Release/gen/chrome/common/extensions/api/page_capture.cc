@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/page_capture.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Params::Details::Details()
 : tab_id(0) {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.tab_id = tab_id;
@@ -74,21 +75,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -96,13 +97,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -111,15 +112,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

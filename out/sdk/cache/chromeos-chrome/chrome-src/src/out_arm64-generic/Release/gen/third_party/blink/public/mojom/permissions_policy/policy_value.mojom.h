@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/permissions_policy/policy_value.mojom-features.h"
 #include "third_party/blink/public/mojom/permissions_policy/policy_value.mojom-shared.h"
 #include "third_party/blink/public/mojom/permissions_policy/policy_value.mojom-forward.h"
 #include <string>
@@ -62,33 +63,33 @@ class BLINK_COMMON_EXPORT PolicyValue {
   // Construct an instance holding |null_value|.
   static PolicyValuePtr
   NewNullValue(
-      bool null_value) {
+      bool value) {
     auto result = PolicyValuePtr(absl::in_place);
-    result->set_null_value(std::move(null_value));
+    result->set_null_value(std::move(value));
     return result;
   }
   // Construct an instance holding |bool_value|.
   static PolicyValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = PolicyValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |dec_double_value|.
   static PolicyValuePtr
   NewDecDoubleValue(
-      double dec_double_value) {
+      double value) {
     auto result = PolicyValuePtr(absl::in_place);
-    result->set_dec_double_value(std::move(dec_double_value));
+    result->set_dec_double_value(std::move(value));
     return result;
   }
   // Construct an instance holding |enum_value|.
   static PolicyValuePtr
   NewEnumValue(
-      int32_t enum_value) {
+      int32_t value) {
     auto result = PolicyValuePtr(absl::in_place);
-    result->set_enum_value(std::move(enum_value));
+    result->set_enum_value(std::move(value));
     return result;
   }
 

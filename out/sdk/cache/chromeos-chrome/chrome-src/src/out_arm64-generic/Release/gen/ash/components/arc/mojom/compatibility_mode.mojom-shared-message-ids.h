@@ -15,7 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kCompatibilityModeInstance_SetResizeLockState_Name = 0;
-constexpr uint32_t kCompatibilityModeInstance_IsGioApplicable_Name = 1;
+constexpr uint32_t kCompatibilityModeInstance_IsOptimizedForCrosApp_Name = 2;
 
 }  // namespace internal
 

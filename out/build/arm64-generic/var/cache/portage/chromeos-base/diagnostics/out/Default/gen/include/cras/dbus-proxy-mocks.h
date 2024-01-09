@@ -600,6 +600,33 @@ class ControlProxyMock : public ControlProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              SetForceHFPSwbEnabled,
+              (bool /*in_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetForceHFPSwbEnabledAsync,
+              (bool /*in_enabled*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetForceHFPSwbEnabled,
+              (bool* /*out_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetForceHFPSwbEnabledAsync,
+              (base::OnceCallback<void(bool /*enabled*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               SetForceSrBtEnabled,
               (bool /*in_enabled*/,
                brillo::ErrorPtr* /*error*/,
@@ -772,6 +799,32 @@ class ControlProxyMock : public ControlProxyInterface {
               SetForceBtHfpOffloadOnSupportAsync,
               (bool /*in_enabled*/,
                base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetBtHfpOffloadSupported,
+              (bool* /*out_supported*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetBtHfpOffloadSupportedAsync,
+              (base::OnceCallback<void(bool /*supported*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              DumpS2AsJSON,
+              (std::string* /*out_data*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DumpS2AsJSONAsync,
+              (base::OnceCallback<void(const std::string& /*data*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

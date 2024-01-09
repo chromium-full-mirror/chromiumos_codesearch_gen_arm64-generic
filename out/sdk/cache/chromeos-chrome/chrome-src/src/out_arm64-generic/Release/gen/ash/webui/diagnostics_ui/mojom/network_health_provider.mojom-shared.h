@@ -185,8 +185,10 @@ enum class LockType : int32_t {
   kSimPin = 1,
   
   kSimPuk = 2,
+  
+  kNetworkPin = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, LockType value);

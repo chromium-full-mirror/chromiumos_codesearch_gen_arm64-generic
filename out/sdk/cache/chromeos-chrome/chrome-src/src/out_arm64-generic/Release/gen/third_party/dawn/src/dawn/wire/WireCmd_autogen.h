@@ -1601,7 +1601,7 @@ namespace dawn::wire {
 
 
     ObjectId instanceId;
-    uint64_t requestSerial;
+    WGPUFuture future;
     ObjectHandle adapterObjectHandle;
     WGPURequestAdapterOptions const * options;
 };
@@ -2802,7 +2802,7 @@ namespace dawn::wire {
 
 
     ObjectHandle instance;
-    uint64_t requestSerial;
+    WGPUFuture future;
     WGPURequestAdapterStatus status;
     char const * message;
     WGPUAdapterProperties const * properties;

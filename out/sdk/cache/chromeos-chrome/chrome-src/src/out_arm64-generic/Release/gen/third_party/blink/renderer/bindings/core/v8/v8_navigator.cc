@@ -59,11 +59,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Navigator>::value,
     "Navigator inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Navigator::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Navigator is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8Navigator::InstallInterfaceTemplateFuncType V8Navigator::install_interface_template_func_ = nullptr;

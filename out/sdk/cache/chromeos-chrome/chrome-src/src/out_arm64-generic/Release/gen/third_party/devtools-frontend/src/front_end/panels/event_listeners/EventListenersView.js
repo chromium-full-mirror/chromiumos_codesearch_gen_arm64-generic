@@ -297,7 +297,7 @@ export class ObjectEventListenerBar extends UI.TreeOutline.TreeElement {
             if (object.subtype === 'node') {
                 menu.defaultSection().appendItem(i18nString(UIStrings.revealInElementsPanel), () => Common.Revealer.reveal(object));
             }
-            menu.defaultSection().appendItem(i18nString(UIStrings.deleteEventListener), this.removeListener.bind(this), !this.eventListenerInternal.canRemove());
+            menu.defaultSection().appendItem(i18nString(UIStrings.deleteEventListener), this.removeListener.bind(this), { disabled: !this.eventListenerInternal.canRemove() });
             menu.defaultSection().appendCheckboxItem(i18nString(UIStrings.passive), this.togglePassiveListener.bind(this), this.eventListenerInternal.passive(), !this.eventListenerInternal.canTogglePassive());
             void menu.show();
         });

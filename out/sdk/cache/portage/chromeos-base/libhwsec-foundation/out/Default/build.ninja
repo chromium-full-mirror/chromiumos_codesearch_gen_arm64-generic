@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r625/work/libhwsec-foundation-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,6 +21,7 @@ subninja toolchain.ninja
 build libhwsec-foundation: phony ./lib/libhwsec-foundation.so
 build _libhwsec-foundation-install_config: phony obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp
 build _libhwsec-profiling-install_config: phony obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp
+build _tpm_clear_request-install_config: phony obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp
 build _tpm_version_client-install_config: phony obj/libhwsec-foundation/_tpm_version_client-install_config.stamp
 build install_headers: phony obj/libhwsec-foundation/install_headers.stamp
 build install_hwsec_shutdown_signal: phony obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp
@@ -39,6 +40,7 @@ build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 build libhwsec-foundation$:_libhwsec-foundation-install_config: phony obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp
 build libhwsec-foundation$:_libhwsec-profiling-install_config: phony obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp
+build libhwsec-foundation$:_tpm_clear_request-install_config: phony obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp
 build libhwsec-foundation$:_tpm_version_client-install_config: phony obj/libhwsec-foundation/_tpm_version_client-install_config.stamp
 build libhwsec-foundation$:all: phony obj/libhwsec-foundation/all.stamp
 build libhwsec-foundation$:install_headers: phony obj/libhwsec-foundation/install_headers.stamp
@@ -55,12 +57,14 @@ build libhwsec-foundation$:install_utility_headers: phony obj/libhwsec-foundatio
 build libhwsec-foundation$:install_vpd_reader_headers: phony obj/libhwsec-foundation/install_vpd_reader_headers.stamp
 build libhwsec-foundation$:libhwsec-foundation: phony ./lib/libhwsec-foundation.so
 build libhwsec-foundation$:libhwsec-profiling: phony ./libhwsec-profiling.a
+build libhwsec-foundation$:tpm_clear_request: phony ./tpm_clear_request
 build libhwsec-foundation$:tpm_version_client: phony ./tpm_version_client
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
     obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp $
     obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp $
+    obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp $
     obj/libhwsec-foundation/_tpm_version_client-install_config.stamp $
     obj/libhwsec-foundation/all.stamp $
     obj/libhwsec-foundation/install_headers.stamp $
@@ -77,6 +81,7 @@ build all: phony $
     obj/libhwsec-foundation/install_vpd_reader_headers.stamp $
     ./lib/libhwsec-foundation.so $
     ./libhwsec-profiling.a $
+    ./tpm_clear_request $
     ./tpm_version_client
 
 default all

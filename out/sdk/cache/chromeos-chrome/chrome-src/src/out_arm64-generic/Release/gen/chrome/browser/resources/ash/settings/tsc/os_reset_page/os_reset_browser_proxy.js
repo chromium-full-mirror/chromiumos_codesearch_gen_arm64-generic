@@ -9,9 +9,6 @@ export class OsResetBrowserProxyImpl {
     static setInstanceForTesting(obj) {
         instance = obj;
     }
-    onPowerwashDialogShow() {
-        chrome.send('onPowerwashDialogShow');
-    }
     requestFactoryResetRestart() {
         chrome.send('requestFactoryResetRestart');
     }

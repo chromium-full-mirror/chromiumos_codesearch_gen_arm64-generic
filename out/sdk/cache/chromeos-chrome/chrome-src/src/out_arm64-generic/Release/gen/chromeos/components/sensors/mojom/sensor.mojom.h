@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/components/sensors/mojom/sensor.mojom-features.h"
 #include "chromeos/components/sensors/mojom/sensor.mojom-shared.h"
 #include "chromeos/components/sensors/mojom/sensor.mojom-forward.h"
 #include <string>
@@ -187,7 +188,7 @@ class SensorDevice
   virtual void SetTimeout(uint32_t timeout) = 0;
 
 
-  using GetAttributesCallback = base::OnceCallback<void(const std::vector<absl::optional<std::string>>&)>;
+  using GetAttributesCallback = base::OnceCallback<void(const std::vector<std::optional<std::string>>&)>;
   
   virtual void GetAttributes(const std::vector<std::string>& attr_names, GetAttributesCallback callback) = 0;
 
@@ -218,7 +219,7 @@ class SensorDevice
   virtual void GetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices, GetChannelsEnabledCallback callback) = 0;
 
 
-  using GetChannelsAttributesCallback = base::OnceCallback<void(const std::vector<absl::optional<std::string>>&)>;
+  using GetChannelsAttributesCallback = base::OnceCallback<void(const std::vector<std::optional<std::string>>&)>;
   
   virtual void GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, GetChannelsAttributesCallback callback) = 0;
 };

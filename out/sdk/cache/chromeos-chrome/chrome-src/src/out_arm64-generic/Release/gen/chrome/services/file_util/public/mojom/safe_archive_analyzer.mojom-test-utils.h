@@ -15,9 +15,9 @@ namespace chrome::mojom {
 
 class  SafeArchiveAnalyzerInterceptorForTesting : public SafeArchiveAnalyzer {
   virtual SafeArchiveAnalyzer* GetForwardingInterface() = 0;
-  void AnalyzeZipFile(::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) override;
+  void AnalyzeZipFile(::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) override;
   void AnalyzeDmgFile(::base::File dmg_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeDmgFileCallback callback) override;
-  void AnalyzeRarFile(::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) override;
+  void AnalyzeRarFile(::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) override;
   void AnalyzeSevenZipFile(::base::File seven_zip_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeSevenZipFileCallback callback) override;
 };
 class  SafeArchiveAnalyzerAsyncWaiter {
@@ -29,14 +29,14 @@ class  SafeArchiveAnalyzerAsyncWaiter {
 
   ~SafeArchiveAnalyzerAsyncWaiter();
   void AnalyzeZipFile(
-      ::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
-  ::safe_browsing::ArchiveAnalyzerResults AnalyzeZipFile(::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);
+      ::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
+  ::safe_browsing::ArchiveAnalyzerResults AnalyzeZipFile(::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);
   void AnalyzeDmgFile(
       ::base::File dmg_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
   ::safe_browsing::ArchiveAnalyzerResults AnalyzeDmgFile(::base::File dmg_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);
   void AnalyzeRarFile(
-      ::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
-  ::safe_browsing::ArchiveAnalyzerResults AnalyzeRarFile(::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);
+      ::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
+  ::safe_browsing::ArchiveAnalyzerResults AnalyzeRarFile(::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);
   void AnalyzeSevenZipFile(
       ::base::File seven_zip_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, ::safe_browsing::ArchiveAnalyzerResults* out_results);
   ::safe_browsing::ArchiveAnalyzerResults AnalyzeSevenZipFile(::base::File seven_zip_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter);

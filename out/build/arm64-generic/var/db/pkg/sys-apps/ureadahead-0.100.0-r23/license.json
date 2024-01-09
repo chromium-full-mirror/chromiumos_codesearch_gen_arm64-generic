@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "ureadahead", "version": "0.100.0", "revision": 23, "fullname": "sys-apps/ureadahead", "fullnamerev": "sys-apps/ureadahead-0.100.0-r23", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://launchpad.net/ureadahead"], "skip": false, "tainted": false, "ebuild_path": null}

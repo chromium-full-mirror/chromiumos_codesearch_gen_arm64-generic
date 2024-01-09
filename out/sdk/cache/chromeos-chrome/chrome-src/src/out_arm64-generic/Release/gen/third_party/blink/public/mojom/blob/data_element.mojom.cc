@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,7 +52,7 @@ DataElementBytes::DataElementBytes()
 
 DataElementBytes::DataElementBytes(
     uint64_t length_in,
-    absl::optional<std::vector<uint8_t>> embedded_data_in,
+    std::optional<std::vector<uint8_t>> embedded_data_in,
     ::mojo::PendingRemote<BytesProvider> data_in)
     : length(std::move(length_in)),
       embedded_data(std::move(embedded_data_in)),
@@ -75,7 +76,7 @@ void DataElementBytes::WriteIntoTrace(
     dict.AddItem(
       "embedded_data"), this->embedded_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -106,7 +107,7 @@ DataElementFile::DataElementFile(
     const ::base::FilePath& path_in,
     uint64_t offset_in,
     uint64_t length_in,
-    absl::optional<::base::Time> expected_modification_time_in)
+    std::optional<::base::Time> expected_modification_time_in)
     : path(std::move(path_in)),
       offset(std::move(offset_in)),
       length(std::move(length_in)),
@@ -148,7 +149,7 @@ void DataElementFile::WriteIntoTrace(
     dict.AddItem(
       "expected_modification_time"), this->expected_modification_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -414,14 +415,17 @@ void BytesProviderProxy::RequestAsReply(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BytesProvider::RequestAsReply");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBytesProvider_RequestAsReply_Name, kFlags, 0, 0, nullptr);
@@ -452,14 +456,17 @@ void BytesProviderProxy::RequestAsStream(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBytesProvider_RequestAsStream_Name, kFlags, 0, 0, nullptr);
@@ -504,14 +511,17 @@ void BytesProviderProxy::RequestAsFile(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBytesProvider_RequestAsFile_Name, kFlags, 0, 0, nullptr);
@@ -635,7 +645,8 @@ void BytesProvider_RequestAsReply_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBytesProvider_RequestAsReply_Name, kFlags, 0, 0, nullptr);
@@ -719,7 +730,7 @@ class BytesProvider_RequestAsFile_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      absl::optional<::base::Time> in_time_file_modified);
+      std::optional<::base::Time> in_time_file_modified);
 };
 
 bool BytesProvider_RequestAsFile_ForwardToCallback::Accept(
@@ -732,7 +743,7 @@ bool BytesProvider_RequestAsFile_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Time> p_time_file_modified{};
+  std::optional<::base::Time> p_time_file_modified{};
   BytesProvider_RequestAsFile_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTimeFileModified(&p_time_file_modified))
@@ -751,7 +762,7 @@ std::move(p_time_file_modified));
 }
 
 void BytesProvider_RequestAsFile_ProxyToResponder::Run(
-    absl::optional<::base::Time> in_time_file_modified) {
+    std::optional<::base::Time> in_time_file_modified) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::BytesProvider::RequestAsFile", "async_response_parameters",
@@ -759,13 +770,14 @@ void BytesProvider_RequestAsFile_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("time_file_modified"), in_time_file_modified,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBytesProvider_RequestAsFile_Name, kFlags, 0, 0, nullptr);
@@ -920,14 +932,14 @@ std::move(p_file_offset), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBytesProviderValidationInfo[] = {
-    {&internal::BytesProvider_RequestAsReply_Params_Data::Validate,
+    { &internal::BytesProvider_RequestAsReply_Params_Data::Validate,
      &internal::BytesProvider_RequestAsReply_ResponseParams_Data::Validate},
-    {&internal::BytesProvider_RequestAsStream_Params_Data::Validate,
+    { &internal::BytesProvider_RequestAsStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BytesProvider_RequestAsFile_Params_Data::Validate,
+    { &internal::BytesProvider_RequestAsFile_Params_Data::Validate,
      &internal::BytesProvider_RequestAsFile_ResponseParams_Data::Validate},
 };
 
@@ -1097,14 +1109,14 @@ std::vector<uint8_t> BytesProviderAsyncWaiter::RequestAsReply(
 }
 
 void BytesProviderAsyncWaiter::RequestAsFile(
-    uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset, absl::optional<::base::Time>* out_time_file_modified) {
+    uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset, std::optional<::base::Time>* out_time_file_modified) {
   base::RunLoop loop;
   proxy_->RequestAsFile(std::move(source_offset),std::move(source_size),std::move(file),std::move(file_offset),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Time>* out_time_file_modified
+             std::optional<::base::Time>* out_time_file_modified
 ,
-             absl::optional<::base::Time> time_file_modified) {*out_time_file_modified = std::move(time_file_modified);
+             std::optional<::base::Time> time_file_modified) {*out_time_file_modified = std::move(time_file_modified);
             loop->Quit();
           },
           &loop,
@@ -1112,9 +1124,9 @@ void BytesProviderAsyncWaiter::RequestAsFile(
   loop.Run();
 }
 
-absl::optional<::base::Time> BytesProviderAsyncWaiter::RequestAsFile(
+std::optional<::base::Time> BytesProviderAsyncWaiter::RequestAsFile(
     uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset) {
-  absl::optional<::base::Time> async_wait_result;
+  std::optional<::base::Time> async_wait_result;
   RequestAsFile(std::move(source_offset),std::move(source_size),std::move(file),std::move(file_offset),&async_wait_result);
   return async_wait_result;
 }

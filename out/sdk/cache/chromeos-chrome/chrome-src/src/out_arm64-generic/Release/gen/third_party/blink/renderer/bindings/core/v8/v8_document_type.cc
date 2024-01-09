@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentType>::value,
     "DocumentType inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentType::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentType is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentType.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentType.publicId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->publicId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->publicId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentType.systemId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->systemId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->systemId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,7 +143,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -180,7 +175,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -212,7 +207,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->remove(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -240,7 +235,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(v8_receiver);
+DocumentType* blink_receiver = V8DocumentType::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

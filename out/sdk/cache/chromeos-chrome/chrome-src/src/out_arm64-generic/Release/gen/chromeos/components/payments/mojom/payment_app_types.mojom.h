@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/components/payments/mojom/payment_app_types.mojom-features.h"
 #include "chromeos/components/payments/mojom/payment_app_types.mojom-shared.h"
 #include "chromeos/components/payments/mojom/payment_app_types.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -207,17 +208,17 @@ class  IsPaymentImplementedResult {
   // Construct an instance holding |valid|.
   static IsPaymentImplementedResultPtr
   NewValid(
-      IsPaymentImplementedValidResultPtr valid) {
+      IsPaymentImplementedValidResultPtr value) {
     auto result = IsPaymentImplementedResultPtr(absl::in_place);
-    result->set_valid(std::move(valid));
+    result->set_valid(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static IsPaymentImplementedResultPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = IsPaymentImplementedResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -337,17 +338,17 @@ class  IsReadyToPayResult {
   // Construct an instance holding |response|.
   static IsReadyToPayResultPtr
   NewResponse(
-      bool response) {
+      bool value) {
     auto result = IsReadyToPayResultPtr(absl::in_place);
-    result->set_response(std::move(response));
+    result->set_response(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static IsReadyToPayResultPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = IsReadyToPayResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -468,17 +469,17 @@ class  InvokePaymentAppResult {
   // Construct an instance holding |valid|.
   static InvokePaymentAppResultPtr
   NewValid(
-      InvokePaymentAppValidResultPtr valid) {
+      InvokePaymentAppValidResultPtr value) {
     auto result = InvokePaymentAppResultPtr(absl::in_place);
-    result->set_valid(std::move(valid));
+    result->set_valid(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static InvokePaymentAppResultPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = InvokePaymentAppResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -764,7 +765,7 @@ class  PaymentParameters {
       const std::string& stringified_method_data,
       const std::string& top_level_origin,
       const std::string& payment_request_origin,
-      const absl::optional<std::string>& payment_request_id);
+      const std::optional<std::string>& payment_request_id);
 
   PaymentParameters(
       const std::string& package_name,
@@ -772,8 +773,8 @@ class  PaymentParameters {
       const std::string& stringified_method_data,
       const std::string& top_level_origin,
       const std::string& payment_request_origin,
-      const absl::optional<std::string>& payment_request_id,
-      const absl::optional<std::string>& request_token);
+      const std::optional<std::string>& payment_request_id,
+      const std::optional<std::string>& request_token);
 
   PaymentParameters(
       const std::string& package_name,
@@ -781,9 +782,9 @@ class  PaymentParameters {
       const std::string& stringified_method_data,
       const std::string& top_level_origin,
       const std::string& payment_request_origin,
-      const absl::optional<std::string>& payment_request_id,
-      const absl::optional<std::string>& request_token,
-      const absl::optional<::base::UnguessableToken>& twa_instance_identifier);
+      const std::optional<std::string>& payment_request_id,
+      const std::optional<std::string>& request_token,
+      const std::optional<::base::UnguessableToken>& twa_instance_identifier);
 
 
   ~PaymentParameters();
@@ -871,11 +872,11 @@ class  PaymentParameters {
   
   std::string payment_request_origin;
   
-  absl::optional<std::string> payment_request_id;
+  std::optional<std::string> payment_request_id;
   
-  absl::optional<std::string> request_token;
+  std::optional<std::string> request_token;
   
-  absl::optional<::base::UnguessableToken> twa_instance_identifier;
+  std::optional<::base::UnguessableToken> twa_instance_identifier;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/launcher_search.mojom-features.h"
 #include "chromeos/crosapi/mojom/launcher_search.mojom-shared.h"
 #include "chromeos/crosapi/mojom/launcher_search.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -86,7 +87,7 @@ class SearchResultsPublisher
   virtual ~SearchResultsPublisher() = default;
 
   
-  virtual void OnSearchResultsReceived(SearchStatus status, absl::optional<std::vector<SearchResultPtr>> result) = 0;
+  virtual void OnSearchResultsReceived(SearchStatus status, std::optional<std::vector<SearchResultPtr>> result) = 0;
 };
 
 class SearchControllerProxy;
@@ -242,7 +243,7 @@ class  SearchResultsPublisherProxy
 
   explicit SearchResultsPublisherProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnSearchResultsReceived(SearchStatus status, absl::optional<std::vector<SearchResultPtr>> result) final;
+  void OnSearchResultsReceived(SearchStatus status, std::optional<std::vector<SearchResultPtr>> result) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -519,84 +520,84 @@ class  SearchResult {
   SearchResult(
       SearchResultType type,
       double relevance,
-      const absl::optional<::GURL>& destination_url,
+      const std::optional<::GURL>& destination_url,
       SearchResult::OptionalBool is_omnibox_search,
       SearchResult::OptionalBool is_answer,
       SearchResult::OmniboxType omnibox_type,
       SearchResult::AnswerType answer_type,
-      const absl::optional<::GURL>& image_url,
+      const std::optional<::GURL>& image_url,
       const ::gfx::ImageSkia& favicon,
-      const absl::optional<::std::u16string>& contents,
-      const absl::optional<::std::u16string>& additional_contents,
-      const absl::optional<::std::u16string>& description,
-      const absl::optional<::std::u16string>& additional_description,
+      const std::optional<::std::u16string>& contents,
+      const std::optional<::std::u16string>& additional_contents,
+      const std::optional<::std::u16string>& description,
+      const std::optional<::std::u16string>& additional_description,
       SearchResult::TextType additional_description_type);
 
   SearchResult(
       SearchResultType type,
       double relevance,
-      const absl::optional<::GURL>& destination_url,
-      const absl::optional<::GURL>& stripped_destination_url,
-      SearchResult::OptionalBool is_omnibox_search,
-      SearchResult::OptionalBool is_answer,
-      SearchResult::OmniboxType omnibox_type,
-      SearchResult::AnswerType answer_type,
-      SearchResult::PageTransition page_transition,
-      const absl::optional<::GURL>& image_url,
-      const ::gfx::ImageSkia& favicon,
-      const absl::optional<::std::u16string>& contents,
-      SearchResult::TextType contents_type,
-      const absl::optional<::std::u16string>& additional_contents,
-      SearchResult::TextType additional_contents_type,
-      const absl::optional<::std::u16string>& description,
-      SearchResult::TextType description_type,
-      const absl::optional<::std::u16string>& additional_description,
-      SearchResult::TextType additional_description_type);
-
-  SearchResult(
-      SearchResultType type,
-      double relevance,
-      const absl::optional<::GURL>& destination_url,
-      const absl::optional<::GURL>& stripped_destination_url,
+      const std::optional<::GURL>& destination_url,
+      const std::optional<::GURL>& stripped_destination_url,
       SearchResult::OptionalBool is_omnibox_search,
       SearchResult::OptionalBool is_answer,
       SearchResult::OmniboxType omnibox_type,
       SearchResult::AnswerType answer_type,
       SearchResult::PageTransition page_transition,
-      const absl::optional<::GURL>& image_url,
+      const std::optional<::GURL>& image_url,
       const ::gfx::ImageSkia& favicon,
-      const absl::optional<::std::u16string>& description_a11y_label,
-      const absl::optional<::std::u16string>& contents,
+      const std::optional<::std::u16string>& contents,
       SearchResult::TextType contents_type,
-      const absl::optional<::std::u16string>& additional_contents,
+      const std::optional<::std::u16string>& additional_contents,
       SearchResult::TextType additional_contents_type,
-      const absl::optional<::std::u16string>& description,
+      const std::optional<::std::u16string>& description,
       SearchResult::TextType description_type,
-      const absl::optional<::std::u16string>& additional_description,
+      const std::optional<::std::u16string>& additional_description,
       SearchResult::TextType additional_description_type);
 
   SearchResult(
       SearchResultType type,
       double relevance,
-      const absl::optional<::GURL>& destination_url,
-      const absl::optional<::GURL>& stripped_destination_url,
+      const std::optional<::GURL>& destination_url,
+      const std::optional<::GURL>& stripped_destination_url,
+      SearchResult::OptionalBool is_omnibox_search,
+      SearchResult::OptionalBool is_answer,
+      SearchResult::OmniboxType omnibox_type,
+      SearchResult::AnswerType answer_type,
+      SearchResult::PageTransition page_transition,
+      const std::optional<::GURL>& image_url,
+      const ::gfx::ImageSkia& favicon,
+      const std::optional<::std::u16string>& description_a11y_label,
+      const std::optional<::std::u16string>& contents,
+      SearchResult::TextType contents_type,
+      const std::optional<::std::u16string>& additional_contents,
+      SearchResult::TextType additional_contents_type,
+      const std::optional<::std::u16string>& description,
+      SearchResult::TextType description_type,
+      const std::optional<::std::u16string>& additional_description,
+      SearchResult::TextType additional_description_type);
+
+  SearchResult(
+      SearchResultType type,
+      double relevance,
+      const std::optional<::GURL>& destination_url,
+      const std::optional<::GURL>& stripped_destination_url,
       SearchResult::OptionalBool is_omnibox_search,
       SearchResult::OptionalBool is_answer,
       SearchResult::MetricsType metrics_type,
       SearchResult::OmniboxType omnibox_type,
       SearchResult::AnswerType answer_type,
       SearchResult::PageTransition page_transition,
-      const absl::optional<::GURL>& image_url,
+      const std::optional<::GURL>& image_url,
       const ::gfx::ImageSkia& favicon,
       ::mojo::PendingReceiver<SearchResultConsumer> receiver,
-      const absl::optional<::std::u16string>& description_a11y_label,
-      const absl::optional<::std::u16string>& contents,
+      const std::optional<::std::u16string>& description_a11y_label,
+      const std::optional<::std::u16string>& contents,
       SearchResult::TextType contents_type,
-      const absl::optional<::std::u16string>& additional_contents,
+      const std::optional<::std::u16string>& additional_contents,
       SearchResult::TextType additional_contents_type,
-      const absl::optional<::std::u16string>& description,
+      const std::optional<::std::u16string>& description,
       SearchResult::TextType description_type,
-      const absl::optional<::std::u16string>& additional_description,
+      const std::optional<::std::u16string>& additional_description,
       SearchResult::TextType additional_description_type);
 
 SearchResult(const SearchResult&) = delete;
@@ -676,9 +677,9 @@ SearchResult& operator=(const SearchResult&) = delete;
   
   double relevance;
   
-  absl::optional<::GURL> destination_url;
+  std::optional<::GURL> destination_url;
   
-  absl::optional<::GURL> stripped_destination_url;
+  std::optional<::GURL> stripped_destination_url;
   
   SearchResult::OptionalBool is_omnibox_search;
   
@@ -692,27 +693,27 @@ SearchResult& operator=(const SearchResult&) = delete;
   
   SearchResult::PageTransition page_transition;
   
-  absl::optional<::GURL> image_url;
+  std::optional<::GURL> image_url;
   
   ::gfx::ImageSkia favicon;
   
   ::mojo::PendingReceiver<SearchResultConsumer> receiver;
   
-  absl::optional<::std::u16string> description_a11y_label;
+  std::optional<::std::u16string> description_a11y_label;
   
-  absl::optional<::std::u16string> contents;
+  std::optional<::std::u16string> contents;
   
   SearchResult::TextType contents_type;
   
-  absl::optional<::std::u16string> additional_contents;
+  std::optional<::std::u16string> additional_contents;
   
   SearchResult::TextType additional_contents_type;
   
-  absl::optional<::std::u16string> description;
+  std::optional<::std::u16string> description;
   
   SearchResult::TextType description_type;
   
-  absl::optional<::std::u16string> additional_description;
+  std::optional<::std::u16string> additional_description;
   
   SearchResult::TextType additional_description_type;
 

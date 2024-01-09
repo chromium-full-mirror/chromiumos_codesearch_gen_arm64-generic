@@ -8,6 +8,7 @@
 #define CHROME_COMMON_OFFLINE_PAGE_AUTO_FETCHER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

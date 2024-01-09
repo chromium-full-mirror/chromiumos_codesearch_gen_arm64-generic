@@ -1070,6 +1070,7 @@ zcr_remote_surface_v2_add_listener(struct zcr_remote_surface_v2 *zcr_remote_surf
 #define ZCR_REMOTE_SURFACE_V2_SET_FLOAT 39
 #define ZCR_REMOTE_SURFACE_V2_SET_SCALE_FACTOR 40
 #define ZCR_REMOTE_SURFACE_V2_SET_WINDOW_CORNER_RADII 41
+#define ZCR_REMOTE_SURFACE_V2_SET_SHADOW_CORNER_RADII 42
 
 /**
  * @ingroup iface_zcr_remote_surface_v2
@@ -1272,6 +1273,10 @@ zcr_remote_surface_v2_add_listener(struct zcr_remote_surface_v2 *zcr_remote_surf
  * @ingroup iface_zcr_remote_surface_v2
  */
 #define ZCR_REMOTE_SURFACE_V2_SET_WINDOW_CORNER_RADII_SINCE_VERSION 5
+/**
+ * @ingroup iface_zcr_remote_surface_v2
+ */
+#define ZCR_REMOTE_SURFACE_V2_SET_SHADOW_CORNER_RADII_SINCE_VERSION 6
 
 /** @ingroup iface_zcr_remote_surface_v2 */
 static inline void
@@ -1949,6 +1954,22 @@ zcr_remote_surface_v2_set_window_corner_radii(struct zcr_remote_surface_v2 *zcr_
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) zcr_remote_surface_v2,
 			 ZCR_REMOTE_SURFACE_V2_SET_WINDOW_CORNER_RADII, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_remote_surface_v2), 0, upper_left_radius, upper_right_radius, lower_right_radius, lower_left_radius);
+}
+
+/**
+ * @ingroup iface_zcr_remote_surface_v2
+ *
+ * The client specifies the radius of each corner to be applied to the shadow
+ * associated with the aura toplevel surface in device independent pixels (DPs).
+ *
+ * The shadow radius is double buffered, and will be applied at the
+ * time wl_surface.commit of the corresponding wl_surface is called.
+ */
+static inline void
+zcr_remote_surface_v2_set_shadow_corner_radii(struct zcr_remote_surface_v2 *zcr_remote_surface_v2, uint32_t upper_left_radius, uint32_t upper_right_radius, uint32_t lower_right_radius, uint32_t lower_left_radius)
+{
+	wl_proxy_marshal_flags((struct wl_proxy *) zcr_remote_surface_v2,
+			 ZCR_REMOTE_SURFACE_V2_SET_SHADOW_CORNER_RADII, NULL, wl_proxy_get_version((struct wl_proxy *) zcr_remote_surface_v2), 0, upper_left_radius, upper_right_radius, lower_right_radius, lower_left_radius);
 }
 
 #define ZCR_NOTIFICATION_SURFACE_V2_DESTROY 0

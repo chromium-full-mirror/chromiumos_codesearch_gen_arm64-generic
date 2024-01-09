@@ -254,7 +254,7 @@ export const filterRegex = function (query) {
     }
     return new RegExp(regexString, 'i');
 };
-export const createSearchRegex = function (query, caseSensitive, isRegex) {
+export const createSearchRegex = function (query, caseSensitive, isRegex, matchWholeWord = false) {
     const regexFlags = caseSensitive ? 'g' : 'gi';
     let regexObject;
     if (isRegex) {
@@ -267,6 +267,9 @@ export const createSearchRegex = function (query, caseSensitive, isRegex) {
     }
     if (!regexObject) {
         regexObject = createPlainTextSearchRegex(query, regexFlags);
+    }
+    if (matchWholeWord && regexObject) {
+        regexObject = new RegExp(`\\b${regexObject.source}\\b`, regexFlags);
     }
     return regexObject;
 };
@@ -409,6 +412,18 @@ export const findUnclosedCssQuote = function (str) {
         }
     }
     return unmatchedQuote;
+};
+export const countUnmatchedLeftParentheses = (str) => {
+    let unmatchedCount = 0;
+    for (const c of str) {
+        if (c === '(') {
+            unmatchedCount++;
+        }
+        else if (c === ')' && unmatchedCount > 0) {
+            unmatchedCount--;
+        }
+    }
+    return unmatchedCount;
 };
 export const createPlainTextSearchRegex = function (query, flags) {
     // This should be kept the same as the one in StringUtil.cpp.

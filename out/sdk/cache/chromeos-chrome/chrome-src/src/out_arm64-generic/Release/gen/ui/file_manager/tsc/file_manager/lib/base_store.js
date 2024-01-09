@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { isDebugStoreEnabled } from '../common/js/util.js';
 import { ConcurrentActionInvalidatedError, isActionsProducer } from './actions_producer.js';
 import { SelectorEmitter, SelectorNode } from './selector.js';
 /**
@@ -60,10 +61,9 @@ export class Slice {
         }
         this.reducers.set(type, reducer);
         const actionFactory = (payload) => ({ type, payload });
-        // Include action type and payload typing so different slices can register
-        // reducers for the same action type.
+        // Include action type so different slices can register reducers for the
+        // same action type.
         actionFactory.type = type;
-        actionFactory.PAYLOAD = null;
         return actionFactory;
     }
 }
@@ -108,7 +108,7 @@ export class BaseStore {
                 [...sliceNames].join(', '));
         }
         // Connect the default root selector to the Selector Emitter.
-        const rootSelector = SelectorNode.createSourceNode(() => this.state_);
+        const rootSelector = SelectorNode.createSourceNode(() => this.state_, 'root');
         this.selectorEmitter_.addSource(rootSelector);
         this.selector = rootSelector;
         for (const slice of slices) {
@@ -137,7 +137,12 @@ export class BaseStore {
     init(initialState) {
         this.state_ = initialState;
         this.queuedActions_.forEach((action) => {
-            this.dispatchInternal_(action);
+            if (isActionsProducer(action)) {
+                this.consumeProducedActions_(action);
+            }
+            else {
+                this.dispatchInternal_(action);
+            }
         });
         this.initialized_ = true;
         this.selectorEmitter_.processChange();
@@ -193,15 +198,16 @@ export class BaseStore {
      * reducers during the initialization.
      */
     dispatch(action) {
-        if (isActionsProducer(action)) {
-            this.consumeProducedActions_(action);
-            return;
-        }
         if (!this.initialized_) {
             this.queuedActions_.push(action);
             return;
         }
-        this.dispatchInternal_(action);
+        if (isActionsProducer(action)) {
+            this.consumeProducedActions_(action);
+        }
+        else {
+            this.dispatchInternal_(action);
+        }
     }
     /** Synchronously call apply the `action` by calling the reducer.  */
     dispatchInternal_(action) {
@@ -237,7 +243,8 @@ export class BaseStore {
     }
     /** Apply the `action` to the Store by calling the reducer.  */
     reduce(action) {
-        if (window.DEBUG_STORE) {
+        const isDebugStore = isDebugStoreEnabled();
+        if (isDebugStore) {
             console.groupCollapsed(`Action: ${action.type}`);
             console.dir(action.payload);
         }
@@ -255,7 +262,7 @@ export class BaseStore {
         if (this.selector.get() !== this.state_) {
             this.selectorEmitter_.processChange();
         }
-        if (window.DEBUG_STORE) {
+        if (isDebugStore) {
             console.groupEnd();
         }
     }

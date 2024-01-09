@@ -137,46 +137,6 @@ std::ostream& operator<<(std::ostream& os, EventType value) {
   return os << EventTypeToString(value);
 }
 
-NOINLINE static const char* InteractionProfileTypeToStringHelper(InteractionProfileType value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case InteractionProfileType::kWMRMotion:
-      return "kWMRMotion";
-    case InteractionProfileType::kKHRSimple:
-      return "kKHRSimple";
-    case InteractionProfileType::kOculusTouch:
-      return "kOculusTouch";
-    case InteractionProfileType::kValveIndex:
-      return "kValveIndex";
-    case InteractionProfileType::kHTCVive:
-      return "kHTCVive";
-    case InteractionProfileType::kSamsungOdyssey:
-      return "kSamsungOdyssey";
-    case InteractionProfileType::kHPReverbG2:
-      return "kHPReverbG2";
-    case InteractionProfileType::kHandSelectGrasp:
-      return "kHandSelectGrasp";
-    case InteractionProfileType::kViveCosmos:
-      return "kViveCosmos";
-    case InteractionProfileType::kInvalid:
-      return "kInvalid";
-    default:
-      return nullptr;
-  }
-}
-
-std::string InteractionProfileTypeToString(InteractionProfileType value) {
-  const char *str = InteractionProfileTypeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown InteractionProfileType value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, InteractionProfileType value) {
-  return os << InteractionProfileTypeToString(value);
-}
-
 namespace internal {
 
 
@@ -422,7 +382,7 @@ bool EventData_Data::Validate(
     return false;
 
 
-  if (!::device_test::mojom::internal::InteractionProfileType_Data
+  if (!::device::mojom::internal::OpenXrInteractionProfileType_Data
         ::Validate(object->interaction_profile, validation_context))
     return false;
 
@@ -1039,16 +999,6 @@ namespace perfetto {
 void TraceFormatTraits<::device_test::mojom::EventType>::WriteIntoTrace(
    perfetto::TracedValue context, ::device_test::mojom::EventType value) {
   return std::move(context).WriteString(::device_test::mojom::EventTypeToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::device_test::mojom::InteractionProfileType>::WriteIntoTrace(
-   perfetto::TracedValue context, ::device_test::mojom::InteractionProfileType value) {
-  return std::move(context).WriteString(::device_test::mojom::InteractionProfileTypeToString(value));
 }
 
 } // namespace perfetto

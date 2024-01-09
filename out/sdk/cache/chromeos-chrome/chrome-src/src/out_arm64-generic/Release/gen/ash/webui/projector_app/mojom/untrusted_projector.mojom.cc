@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -483,14 +484,17 @@ void UntrustedProjectorPageHandlerProxy::GetNewScreencastPrecondition(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::GetNewScreencastPrecondition");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetNewScreencastPrecondition_Name, kFlags, 0, 0, nullptr);
@@ -514,14 +518,17 @@ void UntrustedProjectorPageHandlerProxy::ShouldDownloadSoda(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::ShouldDownloadSoda");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_ShouldDownloadSoda_Name, kFlags, 0, 0, nullptr);
@@ -545,14 +552,17 @@ void UntrustedProjectorPageHandlerProxy::InstallSoda(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::InstallSoda");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_InstallSoda_Name, kFlags, 0, 0, nullptr);
@@ -576,14 +586,17 @@ void UntrustedProjectorPageHandlerProxy::GetPendingScreencasts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::GetPendingScreencasts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetPendingScreencasts_Name, kFlags, 0, 0, nullptr);
@@ -614,14 +627,17 @@ void UntrustedProjectorPageHandlerProxy::GetUserPref(
                         "<value of type ::ash::projector::mojom::PrefsThatProjectorCanAskFor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetUserPref_Name, kFlags, 0, 0, nullptr);
@@ -657,14 +673,17 @@ void UntrustedProjectorPageHandlerProxy::SetUserPref(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_SetUserPref_Name, kFlags, 0, 0, nullptr);
@@ -699,14 +718,17 @@ void UntrustedProjectorPageHandlerProxy::OpenFeedbackDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::OpenFeedbackDialog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -737,14 +759,17 @@ void UntrustedProjectorPageHandlerProxy::StartProjectorSession(
                         "<value of type const ::base::SafeBaseName&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_StartProjectorSession_Name, kFlags, 0, 0, nullptr);
@@ -775,7 +800,7 @@ void UntrustedProjectorPageHandlerProxy::StartProjectorSession(
 }
 
 void UntrustedProjectorPageHandlerProxy::SendXhr(
-    const ::GURL& in_url, ::ash::projector::mojom::RequestType in_method, const absl::optional<std::string>& in_request_body, bool in_use_credentials, bool in_use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& in_headers, const absl::optional<std::string>& in_account_email, SendXhrCallback callback) {
+    const ::GURL& in_url, ::ash::projector::mojom::RequestType in_method, const std::optional<std::string>& in_request_body, bool in_use_credentials, bool in_use_api_key, const std::optional<base::flat_map<std::string, std::string>>& in_headers, const std::optional<std::string>& in_account_email, SendXhrCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::SendXhr", "input_parameters",
@@ -789,7 +814,7 @@ void UntrustedProjectorPageHandlerProxy::SendXhr(
                         "<value of type ::ash::projector::mojom::RequestType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_body"), in_request_body,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("use_credentials"), in_use_credentials,
                         "<value of type bool>");
@@ -798,20 +823,23 @@ void UntrustedProjectorPageHandlerProxy::SendXhr(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("headers"), in_headers,
-                        "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>");
+                        "<value of type const std::optional<base::flat_map<std::string, std::string>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("account_email"), in_account_email,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_SendXhr_Name, kFlags, 0, 0, nullptr);
@@ -873,14 +901,17 @@ void UntrustedProjectorPageHandlerProxy::GetAccounts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::GetAccounts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetAccounts_Name, kFlags, 0, 0, nullptr);
@@ -900,7 +931,7 @@ void UntrustedProjectorPageHandlerProxy::GetAccounts(
 }
 
 void UntrustedProjectorPageHandlerProxy::GetVideo(
-    const std::string& in_video_file_id, const absl::optional<std::string>& in_resource_key, GetVideoCallback callback) {
+    const std::string& in_video_file_id, const std::optional<std::string>& in_resource_key, GetVideoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::projector::mojom::UntrustedProjectorPageHandler::GetVideo", "input_parameters",
@@ -911,17 +942,20 @@ void UntrustedProjectorPageHandlerProxy::GetVideo(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resource_key"), in_resource_key,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetVideo_Name, kFlags, 0, 0, nullptr);
@@ -1049,7 +1083,8 @@ void UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetNewScreencastPrecondition_Name, kFlags, 0, 0, nullptr);
@@ -1177,7 +1212,8 @@ void UntrustedProjectorPageHandler_ShouldDownloadSoda_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_ShouldDownloadSoda_Name, kFlags, 0, 0, nullptr);
@@ -1295,7 +1331,8 @@ void UntrustedProjectorPageHandler_InstallSoda_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_InstallSoda_Name, kFlags, 0, 0, nullptr);
@@ -1413,7 +1450,8 @@ void UntrustedProjectorPageHandler_GetPendingScreencasts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetPendingScreencasts_Name, kFlags, 0, 0, nullptr);
@@ -1543,7 +1581,8 @@ void UntrustedProjectorPageHandler_GetUserPref_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetUserPref_Name, kFlags, 0, 0, nullptr);
@@ -1658,7 +1697,8 @@ void UntrustedProjectorPageHandler_SetUserPref_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_SetUserPref_Name, kFlags, 0, 0, nullptr);
@@ -1764,7 +1804,8 @@ void UntrustedProjectorPageHandler_OpenFeedbackDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -1881,7 +1922,8 @@ void UntrustedProjectorPageHandler_StartProjectorSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_StartProjectorSession_Name, kFlags, 0, 0, nullptr);
@@ -1999,7 +2041,8 @@ void UntrustedProjectorPageHandler_SendXhr_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_SendXhr_Name, kFlags, 0, 0, nullptr);
@@ -2127,7 +2170,8 @@ void UntrustedProjectorPageHandler_GetAccounts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetAccounts_Name, kFlags, 0, 0, nullptr);
@@ -2257,7 +2301,8 @@ void UntrustedProjectorPageHandler_GetVideo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandler_GetVideo_Name, kFlags, 0, 0, nullptr);
@@ -2569,11 +2614,11 @@ std::move(p_storage_dir_name), std::move(callback));
       bool success = true;
       ::GURL p_url{};
       ::ash::projector::mojom::RequestType p_method{};
-      absl::optional<std::string> p_request_body{};
+      std::optional<std::string> p_request_body{};
       bool p_use_credentials{};
       bool p_use_api_key{};
-      absl::optional<base::flat_map<std::string, std::string>> p_headers{};
-      absl::optional<std::string> p_account_email{};
+      std::optional<base::flat_map<std::string, std::string>> p_headers{};
+      std::optional<std::string> p_account_email{};
       UntrustedProjectorPageHandler_SendXhr_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -2646,7 +2691,7 @@ std::move(p_account_email), std::move(callback));
       
       bool success = true;
       std::string p_video_file_id{};
-      absl::optional<std::string> p_resource_key{};
+      std::optional<std::string> p_resource_key{};
       UntrustedProjectorPageHandler_GetVideo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadVideoFileId(&p_video_file_id))
@@ -2673,30 +2718,30 @@ std::move(p_resource_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedProjectorPageHandlerValidationInfo[] = {
-    {&internal::UntrustedProjectorPageHandler_GetNewScreencastPrecondition_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_GetNewScreencastPrecondition_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_ShouldDownloadSoda_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_ShouldDownloadSoda_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_ShouldDownloadSoda_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_InstallSoda_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_InstallSoda_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_InstallSoda_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_GetPendingScreencasts_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_GetPendingScreencasts_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_GetPendingScreencasts_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_GetUserPref_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_GetUserPref_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_GetUserPref_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_SetUserPref_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_SetUserPref_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_SetUserPref_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_OpenFeedbackDialog_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_OpenFeedbackDialog_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_OpenFeedbackDialog_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_StartProjectorSession_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_StartProjectorSession_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_StartProjectorSession_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_SendXhr_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_SendXhr_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_SendXhr_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_GetAccounts_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_GetAccounts_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_GetAccounts_ResponseParams_Data::Validate},
-    {&internal::UntrustedProjectorPageHandler_GetVideo_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandler_GetVideo_Params_Data::Validate,
      &internal::UntrustedProjectorPageHandler_GetVideo_ResponseParams_Data::Validate},
 };
 
@@ -2860,14 +2905,17 @@ void UntrustedProjectorPageProxy::OnNewScreencastPreconditionChanged(
                         "<value of type const ::ash::NewScreencastPrecondition&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPage_OnNewScreencastPreconditionChanged_Name, kFlags, 0, 0, nullptr);
@@ -2908,14 +2956,17 @@ void UntrustedProjectorPageProxy::OnSodaInstallProgressUpdated(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPage_OnSodaInstallProgressUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2939,14 +2990,17 @@ void UntrustedProjectorPageProxy::OnSodaInstalled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPage::OnSodaInstalled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPage_OnSodaInstalled_Name, kFlags, 0, 0, nullptr);
@@ -2969,14 +3023,17 @@ void UntrustedProjectorPageProxy::OnSodaInstallError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::projector::mojom::UntrustedProjectorPage::OnSodaInstallError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPage_OnSodaInstallError_Name, kFlags, 0, 0, nullptr);
@@ -3006,14 +3063,17 @@ void UntrustedProjectorPageProxy::OnScreencastsStateChange(
                         "<value of type std::vector<::ash::projector::mojom::PendingScreencastPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPage_OnScreencastsStateChange_Name, kFlags, 0, 0, nullptr);
@@ -3202,18 +3262,18 @@ bool UntrustedProjectorPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedProjectorPageValidationInfo[] = {
-    {&internal::UntrustedProjectorPage_OnNewScreencastPreconditionChanged_Params_Data::Validate,
+    { &internal::UntrustedProjectorPage_OnNewScreencastPreconditionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedProjectorPage_OnSodaInstallProgressUpdated_Params_Data::Validate,
+    { &internal::UntrustedProjectorPage_OnSodaInstallProgressUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedProjectorPage_OnSodaInstalled_Params_Data::Validate,
+    { &internal::UntrustedProjectorPage_OnSodaInstalled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedProjectorPage_OnSodaInstallError_Params_Data::Validate,
+    { &internal::UntrustedProjectorPage_OnSodaInstallError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedProjectorPage_OnScreencastsStateChange_Params_Data::Validate,
+    { &internal::UntrustedProjectorPage_OnScreencastsStateChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3296,14 +3356,17 @@ void UntrustedProjectorPageHandlerFactoryProxy::Create(
                         "<value of type ::mojo::PendingRemote<UntrustedProjectorPage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedProjectorPageHandlerFactory_Create_Name, kFlags, 0, 0, nullptr);
@@ -3391,10 +3454,10 @@ bool UntrustedProjectorPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedProjectorPageHandlerFactoryValidationInfo[] = {
-    {&internal::UntrustedProjectorPageHandlerFactory_Create_Params_Data::Validate,
+    { &internal::UntrustedProjectorPageHandlerFactory_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3444,13 +3507,13 @@ void UntrustedProjectorPageHandlerInterceptorForTesting::OpenFeedbackDialog(Open
 void UntrustedProjectorPageHandlerInterceptorForTesting::StartProjectorSession(const ::base::SafeBaseName& storage_dir_name, StartProjectorSessionCallback callback) {
   GetForwardingInterface()->StartProjectorSession(std::move(storage_dir_name), std::move(callback));
 }
-void UntrustedProjectorPageHandlerInterceptorForTesting::SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, SendXhrCallback callback) {
+void UntrustedProjectorPageHandlerInterceptorForTesting::SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, SendXhrCallback callback) {
   GetForwardingInterface()->SendXhr(std::move(url), std::move(method), std::move(request_body), std::move(use_credentials), std::move(use_api_key), std::move(headers), std::move(account_email), std::move(callback));
 }
 void UntrustedProjectorPageHandlerInterceptorForTesting::GetAccounts(GetAccountsCallback callback) {
   GetForwardingInterface()->GetAccounts(std::move(callback));
 }
-void UntrustedProjectorPageHandlerInterceptorForTesting::GetVideo(const std::string& video_file_id, const absl::optional<std::string>& resource_key, GetVideoCallback callback) {
+void UntrustedProjectorPageHandlerInterceptorForTesting::GetVideo(const std::string& video_file_id, const std::optional<std::string>& resource_key, GetVideoCallback callback) {
   GetForwardingInterface()->GetVideo(std::move(video_file_id), std::move(resource_key), std::move(callback));
 }
 UntrustedProjectorPageHandlerAsyncWaiter::UntrustedProjectorPageHandlerAsyncWaiter(
@@ -3625,7 +3688,7 @@ bool UntrustedProjectorPageHandlerAsyncWaiter::StartProjectorSession(
 }
 
 void UntrustedProjectorPageHandlerAsyncWaiter::SendXhr(
-    const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, ::ash::projector::mojom::XhrResponsePtr* out_response) {
+    const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, ::ash::projector::mojom::XhrResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->SendXhr(std::move(url),std::move(method),std::move(request_body),std::move(use_credentials),std::move(use_api_key),std::move(headers),std::move(account_email),
       base::BindOnce(
@@ -3641,7 +3704,7 @@ void UntrustedProjectorPageHandlerAsyncWaiter::SendXhr(
 }
 
 ::ash::projector::mojom::XhrResponsePtr UntrustedProjectorPageHandlerAsyncWaiter::SendXhr(
-    const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email) {
+    const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email) {
   ::ash::projector::mojom::XhrResponsePtr async_wait_result;
   SendXhr(std::move(url),std::move(method),std::move(request_body),std::move(use_credentials),std::move(use_api_key),std::move(headers),std::move(account_email),&async_wait_result);
   return async_wait_result;
@@ -3671,7 +3734,7 @@ std::vector<::ash::projector::mojom::AccountPtr> UntrustedProjectorPageHandlerAs
 }
 
 void UntrustedProjectorPageHandlerAsyncWaiter::GetVideo(
-    const std::string& video_file_id, const absl::optional<std::string>& resource_key, ::ash::projector::mojom::GetVideoResultPtr* out_result) {
+    const std::string& video_file_id, const std::optional<std::string>& resource_key, ::ash::projector::mojom::GetVideoResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->GetVideo(std::move(video_file_id),std::move(resource_key),
       base::BindOnce(
@@ -3687,7 +3750,7 @@ void UntrustedProjectorPageHandlerAsyncWaiter::GetVideo(
 }
 
 ::ash::projector::mojom::GetVideoResultPtr UntrustedProjectorPageHandlerAsyncWaiter::GetVideo(
-    const std::string& video_file_id, const absl::optional<std::string>& resource_key) {
+    const std::string& video_file_id, const std::optional<std::string>& resource_key) {
   ::ash::projector::mojom::GetVideoResultPtr async_wait_result;
   GetVideo(std::move(video_file_id),std::move(resource_key),&async_wait_result);
   return async_wait_result;

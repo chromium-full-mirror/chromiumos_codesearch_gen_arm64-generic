@@ -25,7 +25,7 @@
 namespace blink::mojom {
 class CommonCredentialInfoDataView;
 
-class DevicePublicKeyResponseDataView;
+class SupplementalPubKeysResponseDataView;
 
 class MakeCredentialAuthenticatorResponseDataView;
 
@@ -49,7 +49,7 @@ class PaymentCredentialInstrumentDataView;
 
 class RemoteDesktopClientOverrideDataView;
 
-class DevicePublicKeyRequestDataView;
+class SupplementalPubKeysRequestDataView;
 
 class PublicKeyCredentialRequestOptionsDataView;
 
@@ -67,6 +67,8 @@ class WebAuthnDOMExceptionDetailsDataView;
 enum class AuthenticatorStatus : int32_t;
 
 enum class AuthenticatorTransport : int32_t;
+
+enum class Hint : int32_t;
 
 enum class UserVerificationRequirement : int32_t;
 
@@ -86,8 +88,8 @@ constexpr uint32_t kPublicKeyCredentialDescriptorListMaxSize = 64U;
 class CommonCredentialInfo;
 using CommonCredentialInfoPtr = mojo::StructPtr<CommonCredentialInfo>;
 
-class DevicePublicKeyResponse;
-using DevicePublicKeyResponsePtr = mojo::StructPtr<DevicePublicKeyResponse>;
+class SupplementalPubKeysResponse;
+using SupplementalPubKeysResponsePtr = mojo::StructPtr<SupplementalPubKeysResponse>;
 
 class MakeCredentialAuthenticatorResponse;
 using MakeCredentialAuthenticatorResponsePtr = mojo::StructPtr<MakeCredentialAuthenticatorResponse>;
@@ -122,8 +124,8 @@ using PaymentCredentialInstrumentPtr = mojo::StructPtr<PaymentCredentialInstrume
 class RemoteDesktopClientOverride;
 using RemoteDesktopClientOverridePtr = mojo::StructPtr<RemoteDesktopClientOverride>;
 
-class DevicePublicKeyRequest;
-using DevicePublicKeyRequestPtr = mojo::StructPtr<DevicePublicKeyRequest>;
+class SupplementalPubKeysRequest;
+using SupplementalPubKeysRequestPtr = mojo::StructPtr<SupplementalPubKeysRequest>;
 
 class PublicKeyCredentialRequestOptions;
 using PublicKeyCredentialRequestOptionsPtr = mojo::StructPtr<PublicKeyCredentialRequestOptions>;

@@ -166,6 +166,38 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AnchorElementMetricsHos
 };
 static_assert(sizeof(AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params_Data) == 16,
               "Bad sizeof(AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data>;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data();
+  ~AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data() = delete;
+};
+static_assert(sizeof(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data) == 8,
+              "Bad sizeof(AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t should_skip_for_testing : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data>;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data();
+  ~AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data) == 16,
+              "Bad sizeof(AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -403,6 +435,39 @@ class AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsDataView {
+ public:
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsDataView() = default;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsDataView(
+      internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data* data_ = nullptr;
+};
+
+
+class AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsDataView {
+ public:
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsDataView() = default;
+
+  AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsDataView(
+      internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool should_skip_for_testing() const {
+    return data_->should_skip_for_testing;
+  }
+ private:
+  internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void AnchorElementMetricsHost_ReportAnchorElementClick_ParamsDataView::GetClickedDataView(
     AnchorElementClickDataView* output) {
   auto pointer = data_->clicked.Get();
@@ -464,6 +529,10 @@ inline void AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsDataV
   auto pointer = data_->pointer_event.Get();
   *output = AnchorElementPointerEventForMLModelDataView(pointer, message_);
 }
+
+
+
+
 
 
 

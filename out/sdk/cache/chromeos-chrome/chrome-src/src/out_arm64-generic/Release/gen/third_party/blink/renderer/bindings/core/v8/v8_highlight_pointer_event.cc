@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HighlightPointerEvent>::value,
     "HighlightPointerEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HighlightPointerEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HighlightPointerEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightPointerEvent.range.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightPointerEvent* blink_receiver = V8HighlightPointerEvent::ToWrappableUnsafe(v8_receiver);
+HighlightPointerEvent* blink_receiver = V8HighlightPointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->range();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightPointerEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightPointerEvent* blink_receiver = V8HighlightPointerEvent::ToWrappableUnsafe(v8_receiver);
+HighlightPointerEvent* blink_receiver = V8HighlightPointerEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

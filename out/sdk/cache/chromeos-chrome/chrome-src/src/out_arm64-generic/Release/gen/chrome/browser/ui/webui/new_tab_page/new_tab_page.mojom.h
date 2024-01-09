@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-features.h"
 #include "chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-shared.h"
 #include "chrome/browser/ui/webui/new_tab_page/new_tab_page.mojom-forward.h"
 #include "skia/public/mojom/skcolor.mojom.h"
@@ -136,6 +137,7 @@ class PageHandler
     kSetModuleDisabledMinVersion = 0,
     kUpdateDisabledModulesMinVersion = 0,
     kOnModulesLoadedWithDataMinVersion = 0,
+    kOnModuleUsedMinVersion = 0,
     kGetModulesIdNamesMinVersion = 0,
     kSetModulesOrderMinVersion = 0,
     kGetModulesOrderMinVersion = 0,
@@ -145,7 +147,7 @@ class PageHandler
     kLogModulesFreOptInStatusMinVersion = 0,
     kSetCustomizeChromeSidePanelVisibleMinVersion = 0,
     kIncrementCustomizeChromeButtonOpenCountMinVersion = 0,
-    kMaybeShowCustomizeChromeFeaturePromoMinVersion = 0,
+    kMaybeShowFeaturePromoMinVersion = 0,
     kOnOneGoogleBarRenderedMinVersion = 0,
     kOnPromoRenderedMinVersion = 0,
     kOnCustomizeDialogActionMinVersion = 0,
@@ -219,6 +221,9 @@ class PageHandler
   struct OnModulesLoadedWithData_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnModuleUsed_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetModulesIdNames_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -246,7 +251,7 @@ class PageHandler
   struct IncrementCustomizeChromeButtonOpenCount_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct MaybeShowCustomizeChromeFeaturePromo_Sym {
+  struct MaybeShowFeaturePromo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnOneGoogleBarRendered_Sym {
@@ -346,6 +351,9 @@ class PageHandler
   
   virtual void OnModulesLoadedWithData(const std::vector<std::string>& module_ids) = 0;
 
+  
+  virtual void OnModuleUsed(const std::string& module_id) = 0;
+
 
   using GetModulesIdNamesCallback = base::OnceCallback<void(std::vector<ModuleIdNamePtr>)>;
   
@@ -378,27 +386,27 @@ class PageHandler
   virtual void IncrementCustomizeChromeButtonOpenCount() = 0;
 
   
-  virtual void MaybeShowCustomizeChromeFeaturePromo() = 0;
+  virtual void MaybeShowFeaturePromo(IphFeature iph_feature) = 0;
 
   
   virtual void OnOneGoogleBarRendered(double time) = 0;
 
   
-  virtual void OnPromoRendered(double time, const absl::optional<::GURL>& log_url) = 0;
+  virtual void OnPromoRendered(double time, const std::optional<::GURL>& log_url) = 0;
 
   
   virtual void OnCustomizeDialogAction(CustomizeDialogAction action) = 0;
 
   
-  virtual void OnDoodleImageClicked(DoodleImageType type, const absl::optional<::GURL>& log_url) = 0;
+  virtual void OnDoodleImageClicked(DoodleImageType type, const std::optional<::GURL>& log_url) = 0;
 
 
-  using OnDoodleImageRenderedCallback = base::OnceCallback<void(const absl::optional<std::string>&, const absl::optional<::GURL>&, const absl::optional<std::string>&)>;
+  using OnDoodleImageRenderedCallback = base::OnceCallback<void(const std::optional<std::string>&, const std::optional<::GURL>&, const std::optional<std::string>&)>;
   
   virtual void OnDoodleImageRendered(DoodleImageType type, double time, const ::GURL& log_url, OnDoodleImageRenderedCallback callback) = 0;
 
   
-  virtual void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const absl::optional<std::string>& share_id) = 0;
+  virtual void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const std::optional<std::string>& share_id) = 0;
 
   
   virtual void OnPromoLinkClicked() = 0;
@@ -551,6 +559,8 @@ class  PageHandlerProxy
   
   void OnModulesLoadedWithData(const std::vector<std::string>& module_ids) final;
   
+  void OnModuleUsed(const std::string& module_id) final;
+  
   void GetModulesIdNames(GetModulesIdNamesCallback callback) final;
   
   void SetModulesOrder(const std::vector<std::string>& module_ids) final;
@@ -569,19 +579,19 @@ class  PageHandlerProxy
   
   void IncrementCustomizeChromeButtonOpenCount() final;
   
-  void MaybeShowCustomizeChromeFeaturePromo() final;
+  void MaybeShowFeaturePromo(IphFeature iph_feature) final;
   
   void OnOneGoogleBarRendered(double time) final;
   
-  void OnPromoRendered(double time, const absl::optional<::GURL>& log_url) final;
+  void OnPromoRendered(double time, const std::optional<::GURL>& log_url) final;
   
   void OnCustomizeDialogAction(CustomizeDialogAction action) final;
   
-  void OnDoodleImageClicked(DoodleImageType type, const absl::optional<::GURL>& log_url) final;
+  void OnDoodleImageClicked(DoodleImageType type, const std::optional<::GURL>& log_url) final;
   
   void OnDoodleImageRendered(DoodleImageType type, double time, const ::GURL& log_url, OnDoodleImageRenderedCallback callback) final;
   
-  void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const absl::optional<std::string>& share_id) final;
+  void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const std::optional<std::string>& share_id) final;
   
   void OnPromoLinkClicked() final;
   
@@ -1075,25 +1085,25 @@ class  PromoPart {
   // Construct an instance holding |image|.
   static PromoPartPtr
   NewImage(
-      PromoImagePartPtr image) {
+      PromoImagePartPtr value) {
     auto result = PromoPartPtr(absl::in_place);
-    result->set_image(std::move(image));
+    result->set_image(std::move(value));
     return result;
   }
   // Construct an instance holding |link|.
   static PromoPartPtr
   NewLink(
-      PromoLinkPartPtr link) {
+      PromoLinkPartPtr value) {
     auto result = PromoPartPtr(absl::in_place);
-    result->set_link(std::move(link));
+    result->set_link(std::move(value));
     return result;
   }
   // Construct an instance holding |text|.
   static PromoPartPtr
   NewText(
-      PromoTextPartPtr text) {
+      PromoTextPartPtr value) {
     auto result = PromoPartPtr(absl::in_place);
-    result->set_text(std::move(text));
+    result->set_text(std::move(value));
     return result;
   }
 
@@ -1538,13 +1548,13 @@ class  BackgroundImage {
 
   BackgroundImage(
       const ::GURL& url,
-      const absl::optional<::GURL>& url_2x,
-      const absl::optional<::GURL>& attribution_url,
-      const absl::optional<std::string>& size,
-      const absl::optional<std::string>& repeat_x,
-      const absl::optional<std::string>& repeat_y,
-      const absl::optional<std::string>& position_x,
-      const absl::optional<std::string>& position_y,
+      const std::optional<::GURL>& url_2x,
+      const std::optional<::GURL>& attribution_url,
+      const std::optional<std::string>& size,
+      const std::optional<std::string>& repeat_x,
+      const std::optional<std::string>& repeat_y,
+      const std::optional<std::string>& position_x,
+      const std::optional<std::string>& position_y,
       NtpBackgroundImageSource image_source);
 
 
@@ -1625,19 +1635,19 @@ class  BackgroundImage {
   
   ::GURL url;
   
-  absl::optional<::GURL> url_2x;
+  std::optional<::GURL> url_2x;
   
-  absl::optional<::GURL> attribution_url;
+  std::optional<::GURL> attribution_url;
   
-  absl::optional<std::string> size;
+  std::optional<std::string> size;
   
-  absl::optional<std::string> repeat_x;
+  std::optional<std::string> repeat_x;
   
-  absl::optional<std::string> repeat_y;
+  std::optional<std::string> repeat_y;
   
-  absl::optional<std::string> position_x;
+  std::optional<std::string> position_x;
   
-  absl::optional<std::string> position_y;
+  std::optional<std::string> position_y;
   
   NtpBackgroundImageSource image_source;
 
@@ -1703,16 +1713,17 @@ class  Theme {
   Theme(
       ::SkColor text_color,
       ::SkColor background_color,
+      bool is_baseline,
       bool is_custom_background,
       bool daily_refresh_enabled,
       bool is_dark,
       bool theme_realbox_icons,
-      absl::optional<::SkColor> logo_color,
-      const absl::optional<std::string>& background_image_collection_id,
+      std::optional<::SkColor> logo_color,
+      const std::optional<std::string>& background_image_collection_id,
       BackgroundImagePtr background_image,
-      const absl::optional<std::string>& background_image_attribution_1,
-      const absl::optional<std::string>& background_image_attribution_2,
-      const absl::optional<::GURL>& background_image_attribution_url,
+      const std::optional<std::string>& background_image_attribution_1,
+      const std::optional<std::string>& background_image_attribution_2,
+      const std::optional<::GURL>& background_image_attribution_url,
       ::most_visited::mojom::MostVisitedThemePtr most_visited);
 
 Theme(const Theme&) = delete;
@@ -1797,6 +1808,8 @@ Theme& operator=(const Theme&) = delete;
   
   ::SkColor background_color;
   
+  bool is_baseline;
+  
   bool is_custom_background;
   
   bool daily_refresh_enabled;
@@ -1805,17 +1818,17 @@ Theme& operator=(const Theme&) = delete;
   
   bool theme_realbox_icons;
   
-  absl::optional<::SkColor> logo_color;
+  std::optional<::SkColor> logo_color;
   
-  absl::optional<std::string> background_image_collection_id;
+  std::optional<std::string> background_image_collection_id;
   
   BackgroundImagePtr background_image;
   
-  absl::optional<std::string> background_image_attribution_1;
+  std::optional<std::string> background_image_attribution_1;
   
-  absl::optional<std::string> background_image_attribution_2;
+  std::optional<std::string> background_image_attribution_2;
   
-  absl::optional<::GURL> background_image_attribution_url;
+  std::optional<::GURL> background_image_attribution_url;
   
   ::most_visited::mojom::MostVisitedThemePtr most_visited;
 
@@ -2029,13 +2042,13 @@ class  ImageDoodle {
 
   ImageDoodle(
       const ::GURL& image_url,
-      const absl::optional<::GURL>& animation_url,
+      const std::optional<::GURL>& animation_url,
       uint32_t width,
       uint32_t height,
       ::SkColor background_color,
       DoodleShareButtonPtr share_button,
       const ::GURL& image_impression_log_url,
-      const absl::optional<::GURL>& animation_impression_log_url);
+      const std::optional<::GURL>& animation_impression_log_url);
 
 ImageDoodle(const ImageDoodle&) = delete;
 ImageDoodle& operator=(const ImageDoodle&) = delete;
@@ -2117,7 +2130,7 @@ ImageDoodle& operator=(const ImageDoodle&) = delete;
   
   ::GURL image_url;
   
-  absl::optional<::GURL> animation_url;
+  std::optional<::GURL> animation_url;
   
   uint32_t width;
   
@@ -2129,7 +2142,7 @@ ImageDoodle& operator=(const ImageDoodle&) = delete;
   
   ::GURL image_impression_log_url;
   
-  absl::optional<::GURL> animation_impression_log_url;
+  std::optional<::GURL> animation_impression_log_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2193,7 +2206,7 @@ class  AllModeImageDoodle {
   AllModeImageDoodle(
       ImageDoodlePtr light,
       ImageDoodlePtr dark,
-      const absl::optional<::GURL>& on_click_url,
+      const std::optional<::GURL>& on_click_url,
       const ::GURL& share_url);
 
 AllModeImageDoodle(const AllModeImageDoodle&) = delete;
@@ -2278,7 +2291,7 @@ AllModeImageDoodle& operator=(const AllModeImageDoodle&) = delete;
   
   ImageDoodlePtr dark;
   
-  absl::optional<::GURL> on_click_url;
+  std::optional<::GURL> on_click_url;
   
   ::GURL share_url;
 
@@ -2923,8 +2936,8 @@ class  Promo {
   Promo();
 
   Promo(
-      const absl::optional<std::string>& id,
-      const absl::optional<::GURL>& log_url,
+      const std::optional<std::string>& id,
+      const std::optional<::GURL>& log_url,
       std::vector<PromoPartPtr> middle_slot_parts);
 
 Promo(const Promo&) = delete;
@@ -3005,9 +3018,9 @@ Promo& operator=(const Promo&) = delete;
   }
 
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<::GURL> log_url;
+  std::optional<::GURL> log_url;
   
   std::vector<PromoPartPtr> middle_slot_parts;
 
@@ -3251,6 +3264,7 @@ ThemePtr Theme::Clone() const {
   return New(
       mojo::Clone(text_color),
       mojo::Clone(background_color),
+      mojo::Clone(is_baseline),
       mojo::Clone(is_custom_background),
       mojo::Clone(daily_refresh_enabled),
       mojo::Clone(is_dark),
@@ -3270,6 +3284,8 @@ bool Theme::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->text_color, other_struct.text_color))
     return false;
   if (!mojo::Equals(this->background_color, other_struct.background_color))
+    return false;
+  if (!mojo::Equals(this->is_baseline, other_struct.is_baseline))
     return false;
   if (!mojo::Equals(this->is_custom_background, other_struct.is_custom_background))
     return false;
@@ -3305,6 +3321,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.background_color < rhs.background_color)
     return true;
   if (rhs.background_color < lhs.background_color)
+    return false;
+  if (lhs.is_baseline < rhs.is_baseline)
+    return true;
+  if (rhs.is_baseline < lhs.is_baseline)
     return false;
   if (lhs.is_custom_background < rhs.is_custom_background)
     return true;
@@ -3867,6 +3887,11 @@ struct  StructTraits<::new_tab_page::mojom::Theme::DataView,
   static const decltype(::new_tab_page::mojom::Theme::background_color)& background_color(
       const ::new_tab_page::mojom::ThemePtr& input) {
     return input->background_color;
+  }
+
+  static decltype(::new_tab_page::mojom::Theme::is_baseline) is_baseline(
+      const ::new_tab_page::mojom::ThemePtr& input) {
+    return input->is_baseline;
   }
 
   static decltype(::new_tab_page::mojom::Theme::is_custom_background) is_custom_background(

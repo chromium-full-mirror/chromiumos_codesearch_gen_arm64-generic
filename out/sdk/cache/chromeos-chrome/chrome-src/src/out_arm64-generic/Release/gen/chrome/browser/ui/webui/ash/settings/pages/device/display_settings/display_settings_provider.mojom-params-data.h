@@ -39,6 +39,21 @@ class  TabletModeObserver_OnTabletModeChanged_Params_Data {
 };
 static_assert(sizeof(TabletModeObserver_OnTabletModeChanged_Params_Data) == 16,
               "Bad sizeof(TabletModeObserver_OnTabletModeChanged_Params_Data)");
+class  DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data>;
+
+  DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data();
+  ~DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data() = delete;
+};
+static_assert(sizeof(DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data) == 8,
+              "Bad sizeof(DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data)");
 class  DisplaySettingsProvider_ObserveTabletMode_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -72,6 +87,40 @@ class  DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data {
 };
 static_assert(sizeof(DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data) == 16,
               "Bad sizeof(DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data)");
+class  DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data>;
+
+  DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data();
+  ~DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data() = delete;
+};
+static_assert(sizeof(DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data) == 16,
+              "Bad sizeof(DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data)");
+class  DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<internal::DisplaySettingsValue_Data> value;
+
+ private:
+  friend class mojo::internal::MessageFragment<DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data>;
+
+  DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data();
+  ~DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data() = delete;
+};
+static_assert(sizeof(DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data) == 24,
+              "Bad sizeof(DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data)");
 
 }  // namespace internal
 
@@ -91,6 +140,21 @@ class TabletModeObserver_OnTabletModeChanged_ParamsDataView {
   }
  private:
   internal::TabletModeObserver_OnTabletModeChanged_Params_Data* data_ = nullptr;
+};
+
+
+class DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsDataView {
+ public:
+  DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsDataView() = default;
+
+  DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsDataView(
+      internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data* data_ = nullptr;
 };
 
 
@@ -137,9 +201,81 @@ class DisplaySettingsProvider_ObserveTabletMode_ResponseParamsDataView {
 };
 
 
+class DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsDataView {
+ public:
+  DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsDataView() = default;
+
+  DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsDataView(
+      internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::settings::mojom::DisplayConfigurationObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsDataView {
+ public:
+  DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsDataView() = default;
+
+  DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsDataView(
+      internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::settings::mojom::DisplaySettingsType>(
+        data_value, output);
+  }
+  DisplaySettingsType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::settings::mojom::DisplaySettingsType>(data_->type));
+  }
+  inline void GetValueDataView(
+      DisplaySettingsValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadValue(UserType* output) {
+    
+    auto* pointer = data_->value.Get();
+    return mojo::internal::Deserialize<::ash::settings::mojom::DisplaySettingsValueDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 
+
+
+
+
+
+
+
+
+inline void DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsDataView::GetValueDataView(
+    DisplaySettingsValueDataView* output) {
+  auto pointer = data_->value.Get();
+  *output = DisplaySettingsValueDataView(pointer, message_);
+}
 
 
 

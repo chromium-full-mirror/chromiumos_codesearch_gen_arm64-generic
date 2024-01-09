@@ -35,6 +35,9 @@ class  FieldTrialGroupInfo_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> trial_name;
   mojo::internal::Pointer<mojo::internal::String_Data> group_name;
+  uint8_t is_overridden_$flag : 1;
+  uint8_t is_overridden_$value : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<FieldTrialGroupInfo_Data>;
@@ -42,7 +45,7 @@ class  FieldTrialGroupInfo_Data {
   FieldTrialGroupInfo_Data();
   ~FieldTrialGroupInfo_Data() = delete;
 };
-static_assert(sizeof(FieldTrialGroupInfo_Data) == 24,
+static_assert(sizeof(FieldTrialGroupInfo_Data) == 32,
               "Bad sizeof(FieldTrialGroupInfo_Data)");
 // Used by FieldTrialGroupInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

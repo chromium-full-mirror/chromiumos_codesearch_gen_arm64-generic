@@ -1,31 +1,31 @@
 import './strings.m.js';
-import { a as assertNotReached, bY as listenOnce, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, bZ as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, aV as getInputDeviceSettingsProvider, $ as MultiDeviceBrowserProxyImpl, j as Router, b_ as isAdvancedRoute, b$ as NETWORK_SECTION_PATH, c0 as BLUETOOTH_SECTION_PATH, c1 as MULTI_DEVICE_SECTION_PATH, c2 as PEOPLE_SECTION_PATH, c3 as KERBEROS_SECTION_PATH, c4 as DEVICE_SECTION_PATH, c5 as PERSONALIZATION_SECTION_PATH, c6 as PRIVACY_AND_SECURITY_SECTION_PATH, c7 as APPS_SECTION_PATH, c8 as ACCESSIBILITY_SECTION_PATH, c9 as SYSTEM_PREFERENCES_SECTION_PATH, ca as SEARCH_AND_ASSISTANT_SECTION_PATH, cb as DATE_AND_TIME_SECTION_PATH, cc as LANGUAGES_AND_INPUT_SECTION_PATH, cd as FILES_SECTION_PATH, ce as PRINTING_SECTION_PATH, cf as CROSTINI_SECTION_PATH, cg as RESET_SECTION_PATH, au as MultiDeviceSettingsMode, am as AccountManagerBrowserProxyImpl, M as assertExists, h as castExists, ch as getDeviceName, aW as FakeInputDeviceSettingsProvider, ci as KeyboardSettingsObserverReceiver, cj as MouseSettingsObserverReceiver, ck as PointingStickSettingsObserverReceiver, cl as TouchpadSettingsObserverReceiver, cm as routesMojom, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, a$ as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cn as getDisplayApi, co as IronResizableBehavior, a8 as DevicePageBrowserProxyImpl, cp as PaperRippleBehavior, u as focusWithoutInk, cq as CrLinkRowElement, i as RouteOriginMixin, cr as isInputDeviceSettingsSplitEnabled, cs as getDeviceStateChangesToAnnounce, B as getInstance, ct as Fkey, cu as ExtendedFkeysModifier, cv as TopRowActionKey, cw as MetaKey, cx as ModifierKey$1, cy as SixPackShortcutModifier, cz as SixPackKey, cA as PolicyStatus, cB as isExternalStorageEnabled, k as isCrostiniSupported, cC as StorageSpaceState, C as CrPolicyIndicatorType, cD as NoteAppLockScreenSupport, r as recordSettingChange, n as Section$1, cE as GraphicsTabletSettingsObserverReceiver, aO as ACCESSIBILITY_COMMON_IME_ID, v as I18nBehavior, cF as Button, cG as ButtonState, ap as focusWithoutInk$1, x as assert$1, cH as assertNotReached$1, N as NetworkListenerBehavior, a0 as getEuicc, a2 as getPendingESimProfiles, cI as hasActiveCellularNetwork, Y as CellularSetupPageName, cJ as getESimProfile, O as OncMojo, E as CrPolicyNetworkBehaviorMojo, cK as NetworkConfigElementBehavior, cL as htmlEscape, _ as ESimManagerListenerBehavior, J as InternetPageBrowserProxyImpl, a1 as getSimSlotCount, cM as isConnectedToNonCellularNetwork, cN as getNumESimProfiles, at as MultiDeviceFeature, ar as LockStateMixin, aA as recordLockScreenProgress, aB as LockScreenProgress, cO as LockScreenUnlockType, aq as fireAuthTokenInvalidEvent, cP as PhoneHubPermissionsSetupFlowScreens, cQ as PhoneHubPermissionsSetupAction, cR as PhoneHubPermissionsSetupFeatureCombination, cS as getNearbyShareSettings, cT as observeNearbyShareSettings, as as MultiDeviceFeatureMixin, cU as PhoneHubFeatureAccessStatus, a3 as MultiDeviceFeatureState, cV as OsBluetoothDevicesSubpageBrowserProxyImpl, cW as ButtonState$1, cX as ButtonName, Q as FocusRowBehavior, cY as DeviceItemState, cZ as mojoString16ToString, Z as CrScrollableBehavior, c_ as PairingAuthType, c$ as recordBluetoothUiSurfaceMetrics, d0 as BluetoothUiSurface, al as isChild, an as ParentalControlsBrowserProxyImpl, a6 as getImage, ao as assertInstanceof, d1 as isAccountManagerEnabled, aD as SyncBrowserProxyImpl, d2 as AUTH_TOKEN_INVALID_EVENT_TYPE, d3 as PrivacyHubNavigationOrigin, d4 as shouldShowQuickAnswersSettings, d5 as isAssistantAllowed, d6 as isGuest, d7 as isPowerwashAllowed, d8 as shouldShowStartup, d9 as isAboutRoute, da as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, db as isBasicRoute, dc as CrSearchFieldMixin, dd as SectionSpec, de as SubpageSpec, df as SettingSpec, F as FocusRowMixin, s as sanitizeInnerHtml, dg as OpenWindowProxyImpl, dh as recordSearch, aN as FindShortcutMixin, di as CrContainerShadowMixin, dj as setGlobalScrollTarget, dk as recordPageFocus, dl as recordPageBlur, dm as recordClick, dn as recordNavigation, dp as getPrefPolicyFields, dq as settingsAreEqual, aC as PluralStringProxyImpl, dr as CustomizationRestriction, ds as SimulateRightClickModifier, dt as recordSavedDevicesUiEventMetrics, du as FastPairSavedDevicesUiEvent, dv as ColorChangeUpdater } from './shared.rollup.js';
-export { dG as ApnDetailDialog, ey as AppManagementBrowserProxy, a5 as AppManagementComponentBrowserProxy, dH as AppManagementFileHandlingItemElement, eC as AppManagementStore, eD as AppManagementStoreMixin, b3 as AppManagementSupportedLinksItemElement, dI as AppManagementToggleRowElement, ag as BrowserChannel, a9 as ChromeVoxSubpageBrowserProxyImpl, eM as ConfirmationDialogType, dC as ControlledButtonElement, dD as ControlledRadioButtonElement, az as CrActionMenuElement, aw as CrButtonElement, dN as CrCardRadioButtonElement, dM as CrCheckboxElement, ax as CrDialogElement, ay as CrIconButtonElement, av as CrInputElement, dU as CrPolicyIndicatorElement, dO as CrRadioButtonElement, dP as CrRadioGroupElement, dQ as CrSearchableDropDownElement, dL as CrSettingsPrefs, dR as CrSliderElement, dS as CrTextareaElement, dT as CrToastElement, a4 as CrToggleElement, dV as CrTooltipIconElement, ai as DeviceNameBrowserProxyImpl, ak as DeviceNameState, eG as FastPairSavedDevicesOptInStatus, eH as GoogleDriveBrowserProxy, eI as GoogleDrivePageCallbackRouter, eJ as GoogleDrivePageHandlerRemote, eK as GoogleDrivePageRemote, dZ as IdleBehavior, dX as LacrosExtensionControlBrowserProxyImpl, dY as LacrosExtensionControlledIndicatorElement, d_ as LidClosedBehavior, L as LifetimeBrowserProxyImpl, dJ as LocalizedLinkElement, eQ as MetricsConsentBrowserProxyImpl, el as NearbyAccountManagerBrowserProxyImpl, dz as NearbyProgressElement, em as NearbyShareConfirmPageElement, es as NearbyShareDataUsage, en as NearbyShareHighVisibilityPageElement, aK as OneDriveBrowserProxy, eN as OneDrivePageCallbackRouter, eO as OneDrivePageHandlerRemote, eP as OneDrivePageRemote, bW as OsResetBrowserProxyImpl, eF as OsSettingsAppsPageElement, aM as OsSettingsSubpageElement, aE as PageStatus, ej as PhoneHubFeatureAccessProhibitedReason, ek as PhoneHubPermissionsSetupMode, ez as PluginVmBrowserProxyImpl, aQ as PrivacyPageBrowserProxyImpl, eU as Route, eR as SearchEnginesBrowserProxyImpl, aR as SecureDnsMode, aS as SecureDnsUiManagementMode, ab as SelectToSpeakSubpageBrowserProxyImpl, aj as SetDeviceNameResult, eS as SettingsCardElement, dE as SettingsDropdownMenuElement, bQ as SettingsGoogleDriveSubpageElement, dK as SettingsPrefsElement, dF as SettingsSliderElement, a7 as SettingsToggleButtonElement, eL as Stage, aF as StatusAction, ad as SwitchAccessSubpageBrowserProxyImpl, ae as TextToSpeechSubpageBrowserProxyImpl, af as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, ee as Vkey, et as addApp, eg as appNotificationHandlerMojom, eu as changeApp, eT as createRouterForTesting, er as dataUsageStringToEnum, e0 as fakeGraphicsTabletButtonActions, e1 as fakeGraphicsTablets, e2 as fakeKeyboards, e3 as fakeKeyboards2, e4 as fakeMice, e5 as fakeMice2, e6 as fakeMouseButtonActions, e7 as fakePointingSticks, e8 as fakePointingSticks2, e9 as fakeStyluses, ea as fakeTouchpads, eb as fakeTouchpads2, dw as getContactManager, eo as getReceiveManager, dA as nearbyShareMojom, dx as observeContactManager, ep as observeReceiveManager, eA as reduceAction, ev as removeApp, dW as resetGlobalScrollTargetForTesting, eE as setAppNotificationProviderForTesting, dy as setContactManagerForTesting, d$ as setDisplayApiForTesting, ec as setInputDeviceSettingsProviderForTesting, dB as setNearbyShareSettingsForTesting, eq as setReceiveManagerForTesting, ef as setUserActionRecorderForTesting, eh as settingMojom, ed as setupFakeInputDeviceSettingsProvider, eB as updateApps, ew as updateSelectedAppId, ex as updateSubAppToParentAppId, ei as userActionRecorderMojom } from './shared.rollup.js';
-import { html, PolymerElement, dedupingMixin, mixinBehaviors, flush, microTask, Polymer, afterNextRender, beforeNextRender, templatize, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { a as assertNotReached, cf as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cg as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a5 as MultiDeviceBrowserProxyImpl, j as Router, ch as isAdvancedRoute, ci as NETWORK_SECTION_PATH, cj as BLUETOOTH_SECTION_PATH, ck as MULTI_DEVICE_SECTION_PATH, cl as PEOPLE_SECTION_PATH, cm as KERBEROS_SECTION_PATH, cn as DEVICE_SECTION_PATH, co as PERSONALIZATION_SECTION_PATH, cp as PRIVACY_AND_SECURITY_SECTION_PATH, cq as APPS_SECTION_PATH, cr as ACCESSIBILITY_SECTION_PATH, cs as SYSTEM_PREFERENCES_SECTION_PATH, ct as SEARCH_AND_ASSISTANT_SECTION_PATH, cu as DATE_AND_TIME_SECTION_PATH, cv as LANGUAGES_AND_INPUT_SECTION_PATH, cw as FILES_SECTION_PATH, cx as PRINTING_SECTION_PATH, cy as CROSTINI_SECTION_PATH, cz as RESET_SECTION_PATH, ar as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cA as getDeviceName, ay as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cB as KeyboardSettingsObserverReceiver, cC as MouseSettingsObserverReceiver, cD as PointingStickSettingsObserverReceiver, cE as TouchpadSettingsObserverReceiver, cF as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cG as getDisplayApi, cH as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cI as PaperRippleBehavior, G as GeolocationAccessLevel, u as focusWithoutInk, cJ as getDeviceStateChangesToAnnounce, K as getInstance, cK as CrLinkRowElement, cL as Fkey, cM as ExtendedFkeysModifier, cN as TopRowActionKey, cO as MetaKey, cP as ModifierKey, cQ as SixPackShortcutModifier, cR as SixPackKey, cS as PolicyStatus, i as RouteOriginMixin, n as Section$1, cT as isInputDeviceSettingsSplitEnabled, cU as isExternalStorageEnabled, cV as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, z as I18nBehavior, cW as Button, cX as ButtonState, a0 as focusWithoutInk$1, E as assert$1, cY as assertNotReached$1, a2 as mojoString16ToString, a6 as getEuicc, a8 as getPendingESimProfiles, cZ as hasActiveCellularNetwork, a3 as CellularSetupPageName, c_ as getESimProfile, c$ as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d0 as NetworkConfigElementBehavior, d1 as htmlEscape, r as recordSettingChange, a4 as ESimManagerListenerBehavior, Y as InternetPageBrowserProxyImpl, a7 as getSimSlotCount, d2 as isConnectedToNonCellularNetwork, d3 as getNumESimProfiles, ax as MultiDeviceFeature, av as LockStateMixin, aE as recordLockScreenProgress, aF as LockScreenProgress, d4 as LockScreenUnlockType, au as fireAuthTokenInvalidEvent, d5 as PhoneHubPermissionsSetupFlowScreens, d6 as PhoneHubPermissionsSetupAction, d7 as PhoneHubPermissionsSetupFeatureCombination, d8 as getNearbyShareSettings, d9 as observeNearbyShareSettings, aw as MultiDeviceFeatureMixin, da as PhoneHubFeatureAccessStatus, a9 as MultiDeviceFeatureState, db as OsBluetoothDevicesSubpageBrowserProxyImpl, dc as ButtonState$1, dd as ButtonName, F as FocusRowMixin, de as DeviceItemState, aK as CrScrollableMixin, df as PairingAuthType, dg as recordBluetoothUiSurfaceMetrics, dh as BluetoothUiSurface, y as isChild, as as ParentalControlsBrowserProxyImpl, ac as getImage, at as assertInstanceof, di as isAccountManagerEnabled, aH as SyncBrowserProxyImpl, dj as AUTH_TOKEN_INVALID_EVENT_TYPE, dk as PrivacyHubNavigationOrigin, dl as shouldShowQuickAnswersSettings, dm as isAssistantAllowed, dn as isGuest, dp as isPowerwashAllowed, dq as shouldShowStartup, dr as getTrustedScriptURL, ds as isAboutRoute, dt as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, du as isBasicRoute, dv as CrSearchFieldMixin, dw as SectionSpec, dx as SubpageSpec, dy as SettingSpec, s as sanitizeInnerHtml, dz as OpenWindowProxyImpl, dA as recordSearch, a$ as FindShortcutMixin, dB as CrContainerShadowMixin, dC as setGlobalScrollTarget, dD as recordPageFocus, dE as recordPageBlur, dF as recordClick, dG as recordNavigation, dH as getPrefPolicyFields, dI as settingsAreEqual, aG as PluralStringProxyImpl, dJ as CustomizationRestriction, dK as SimulateRightClickModifier, dL as recordSavedDevicesUiEventMetrics, dM as FastPairSavedDevicesUiEvent, dN as ColorChangeUpdater } from './shared.rollup.js';
+export { dY as ApnDetailDialog, aU as AppManagementBrowserProxy, ab as AppManagementComponentBrowserProxy, dZ as AppManagementFileHandlingItemElement, ek as AppManagementStore, aX as AppManagementStoreMixin, bh as AppManagementSupportedLinksItemElement, d_ as AppManagementToggleRowElement, am as BrowserChannel, af as ChromeVoxSubpageBrowserProxyImpl, f4 as ConfirmationDialogType, dU as ControlledButtonElement, dV as ControlledRadioButtonElement, aD as CrActionMenuElement, aA as CrButtonElement, e3 as CrCardRadioButtonElement, e2 as CrCheckboxElement, aB as CrDialogElement, aC as CrIconButtonElement, az as CrInputElement, eb as CrPolicyIndicatorElement, e4 as CrRadioButtonElement, e5 as CrRadioGroupElement, e6 as CrSearchFieldElement, e7 as CrSearchableDropDownElement, e1 as CrSettingsPrefs, e8 as CrSliderElement, e9 as CrTextareaElement, ea as CrToastElement, aa as CrToggleElement, ec as CrTooltipIconElement, ao as DeviceNameBrowserProxyImpl, aq as DeviceNameState, e_ as FastPairSavedDevicesOptInStatus, e$ as GoogleDriveBrowserProxy, f0 as GoogleDrivePageCallbackRouter, f1 as GoogleDrivePageHandlerRemote, f2 as GoogleDrivePageRemote, eo as IdleBehavior, em as LacrosExtensionControlBrowserProxyImpl, en as LacrosExtensionControlledIndicatorElement, ep as LidClosedBehavior, L as LifetimeBrowserProxyImpl, d$ as LocalizedLinkElement, f8 as MetricsConsentBrowserProxyImpl, eP as NearbyAccountManagerBrowserProxyImpl, dR as NearbyProgressElement, eQ as NearbyShareConfirmPageElement, eW as NearbyShareDataUsage, eR as NearbyShareHighVisibilityPageElement, eq as NoteAppLockScreenSupport, aW as OneDriveBrowserProxy, f5 as OneDrivePageCallbackRouter, f6 as OneDrivePageHandlerRemote, f7 as OneDrivePageRemote, cd as OsResetBrowserProxyImpl, eZ as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aI as PageStatus, eN as PhoneHubFeatureAccessProhibitedReason, eO as PhoneHubPermissionsSetupMode, eX as PluginVmBrowserProxyImpl, aR as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fe as Route, fb as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ah as SelectToSpeakSubpageBrowserProxyImpl, ap as SetDeviceNameResult, fc as SettingsCardElement, dW as SettingsDropdownMenuElement, c6 as SettingsGoogleDriveSubpageElement, e0 as SettingsPrefsElement, fa as SettingsPrivacyHubAppPermissionRow, dX as SettingsSliderElement, ad as SettingsToggleButtonElement, f3 as Stage, aJ as StatusAction, es as StorageSpaceState, aj as SwitchAccessSubpageBrowserProxyImpl, ak as TextToSpeechSubpageBrowserProxyImpl, al as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eH as Vkey, ed as addApp, eJ as appNotificationHandlerMojom, eK as appPermissionHandlerMojom, ee as changeApp, fd as createRouterForTesting, eV as dataUsageStringToEnum, et as fakeGraphicsTabletButtonActions, eu as fakeGraphicsTablets, ev as fakeKeyboards, ew as fakeKeyboards2, ex as fakeMice, ey as fakeMice2, ez as fakeMouseButtonActions, eA as fakePointingSticks, eB as fakePointingSticks2, eC as fakeStyluses, eD as fakeTouchpads, eE as fakeTouchpads2, dO as getContactManager, eS as getReceiveManager, bb as getShortcutInputProvider, dS as nearbyShareMojom, dP as observeContactManager, eT as observeReceiveManager, ei as reduceAction, ef as removeApp, el as resetGlobalScrollTargetForTesting, eY as setAppNotificationProviderForTesting, f9 as setAppPermissionProviderForTesting, dQ as setContactManagerForTesting, er as setDisplayApiForTesting, eF as setInputDeviceSettingsProviderForTesting, dT as setNearbyShareSettingsForTesting, eU as setReceiveManagerForTesting, eI as setUserActionRecorderForTesting, eL as settingMojom, eG as setupFakeInputDeviceSettingsProvider, ej as updateApps, eg as updateSelectedAppId, eh as updateSubAppToParentAppId, eM as userActionRecorderMojom } from './shared.rollup.js';
+import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
-import { SystemPropertiesObserverReceiver, DeviceConnectionState, BluetoothSystemState, DeviceType, BluetoothDiscoveryDelegateReceiver, DevicePairingDelegateReceiver, PairingResult, KeyEnteredHandlerReceiver } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
+import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
+import { SystemPropertiesObserverReceiver, BluetoothSystemState, DeviceConnectionState, DeviceType, BluetoothDiscoveryDelegateReceiver, DevicePairingDelegateReceiver, PairingResult, KeyEnteredHandlerReceiver } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
+import { FilterType, NO_LIMIT, HiddenSsidMode, VpnType, SecurityType, CertificateType, StartConnectResult } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
+import { NetworkType, ConnectionStateType, PolicySource, OncSource, IPConfigType, DeviceStateType, PortalState } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { ActivationResult, ActivationDelegateReceiver, CarrierPortalStatus } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-webui.js';
 import { getCellularSetupRemote, getESimManagerRemote } from 'chrome://resources/ash/common/cellular_setup/mojo_interface_provider.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { ProfileInstallResult, ESimOperationResult, ProfileState, ProfileInstallMethod } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
-import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
-import { FilterType, NO_LIMIT, HiddenSsidMode, VpnType, SecurityType, CertificateType, StartConnectResult } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
-import { NetworkType, ConnectionStateType, PolicySource, OncSource, IPConfigType, DeviceStateType, PortalState } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { WiFiBand, WiFiSecurityMode, SetHotspotConfigResult, HotspotState, HotspotAllowStatus, CrosHotspotConfigObserverReceiver } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import { FactorObserverReceiver, AuthFactorConfig, AuthFactor, PinFactorEditor, ConfigureResult } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
+import { Visibility } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import { String16Spec } from 'chrome://resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
 import 'chrome://resources/mwc/lit/index.js';
-import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
+import 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
-import 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 
-function getTemplate$1D() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{--drawer-width:256px;--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;bottom:0;left:calc(-1 * var(--drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
+function getTemplate$1x() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
     <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
       <div id="container" on-click="onContainerClick_">
         <div class="drawer-header">
@@ -51,7 +51,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$1D();
+        return getTemplate$1x();
     }
     static get properties() {
         return {
@@ -159,12 +159,12 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('cr-page-host-style');
 
-function getTemplate$1C() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--tap-target-padding:3px;--focus-border-width:2px;align-items:center;background:0 0;border-color:transparent;border-style:solid;border-width:var(--focus-border-width);color:var(--cros-text-color-primary);display:flex;flex-direction:row;text-decoration:none}:host-context(body:not(.revamp-wayfinding-enabled)):host{border-end-end-radius:20px;border-start-end-radius:20px;border-inline-start-width:0;min-height:32px;padding:var(--tap-target-padding) 0;padding-inline-start:20px}:host-context(body.revamp-wayfinding-enabled):host{border-radius:16px;box-sizing:border-box;height:60px;padding-inline-start:calc(12px - var(--focus-border-width));padding-inline-end:calc(12px - var(--focus-border-width))}:host-context(body:not(.jelly-enabled)):host{font-weight:500}:host-context(body.jelly-enabled):host{font:var(--cros-button-1-font)}:host-context(body:not(.jelly-enabled)):host(:not(.iron-selected):hover){background-color:var(--cros-ripple-color)!important}:host-context(body.jelly-enabled):host(:not(.iron-selected):hover){background-color:var(--cros-sys-hover_on_subtle)!important}:host-context(.focus-outline-visible):host(:focus){border-color:var(--cros-focus-ring-color)}:host-context(body:not(.jelly-enabled)):host(.iron-selected){background-color:var(--cros-highlight-color)!important;color:var(--cros-text-color-selection)}:host-context(body.jelly-enabled):host(.iron-selected){background-color:var(--cros-sys-primary)!important;color:var(--cros-sys-on_primary)}iron-icon{pointer-events:none}:host-context(body:not(.revamp-wayfinding-enabled)) iron-icon{margin-inline-end:16px}:host-context(body.revamp-wayfinding-enabled) iron-icon{margin-inline-end:12px}:host-context(body:not(.jelly-enabled)):host(.iron-selected)>iron-icon{fill:var(--cros-icon-color-selection)}:host-context(body.jelly-enabled):host(.iron-selected)>iron-icon{fill:var(--cros-sys-on_primary)}#labelWrapper{flex-grow:1}#sublabel{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}:host(.iron-selected) #sublabel{color:var(--cros-sys-surface_variant)}</style>
+function getTemplate$1w() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--tap-target-padding:3px;align-items:center;background:0 0;border-color:transparent;border-style:solid;border-width:var(--settings-menu-item-border-width);color:var(--cros-text-color-primary);display:flex;flex-direction:row;font:var(--cros-button-1-font);text-decoration:none}:host-context(body:not(.revamp-wayfinding-enabled)):host{border-end-end-radius:20px;border-start-end-radius:20px;border-inline-start-width:0;min-height:32px;padding:var(--tap-target-padding) 0;padding-inline-start:20px}:host-context(body.revamp-wayfinding-enabled):host{border-radius:16px;box-sizing:border-box;height:60px;padding-inline-start:calc(12px - var(--settings-menu-item-border-width));padding-inline-end:calc(12px - var(--settings-menu-item-border-width));width:var(--settings-menu-item-width)}#labelWrapper{flex-grow:1;max-width:200px}#label,#sublabel{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#sublabel{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}iron-icon{pointer-events:none}:host-context(body:not(.revamp-wayfinding-enabled)) iron-icon{margin-inline-end:16px}:host-context(body.revamp-wayfinding-enabled) iron-icon{margin-inline-end:12px}:host-context(body.revamp-wayfinding-enabled):host(:not(.iron-selected)) iron-icon{--iron-icon-fill-color:var(--cros-sys-primary)}:host(:not(.iron-selected):hover){background-color:var(--cros-sys-hover_on_subtle)!important}:host-context(.focus-outline-visible):host(:focus){border-color:var(--cros-focus-ring-color)}:host(.iron-selected){background-color:var(--cros-sys-primary)!important;color:var(--cros-sys-on_primary)}:host(.iron-selected)>iron-icon{--iron-icon-fill-color:var(--cros-sys-on_primary)}:host(.iron-selected) #sublabel{color:var(--cros-sys-surface_variant)}</style>
 
 <iron-icon icon="[[icon]]" hidden="[[!icon]]"></iron-icon>
 <div id="labelWrapper">
-  <slot></slot>
+  <slot id="label"></slot>
   <div id="sublabel">[[sublabel]]</div>
 </div>
 <!--_html_template_end_-->`;
@@ -183,7 +183,7 @@ class OsSettingsMenuItemElement extends PolymerElement {
         return 'os-settings-menu-item';
     }
     static get template() {
-        return getTemplate$1C();
+        return getTemplate$1w();
     }
     static get properties() {
         return {
@@ -228,8 +228,8 @@ class OsSettingsMenuItemElement extends PolymerElement {
 }
 customElements.define(OsSettingsMenuItemElement.is, OsSettingsMenuItemElement);
 
-function getTemplate$1B() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--focus-border-width:2px;box-sizing:border-box;display:block;padding-bottom:2px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled):host{padding-inline-end:8px;padding-inline-start:16px}:host *{-webkit-tap-highlight-color:transparent}[selectable]>:focus{background-color:transparent}#advancedButton{--ink-color:var(--cros-text-color-primary);align-items:center;background:0 0;border:none;border-radius:initial;box-shadow:none;color:var(--cros-text-color-primary);display:flex;height:unset;margin-inline-end:2px;margin-top:8px;padding-inline-end:0;padding-inline-start:20px;text-transform:none}:host-context(body:not(.jelly-enabled)) #advancedButton{font-weight:500}:host-context(body.jelly-enabled) #advancedButton{font:var(--cros-button-1-font)}#advancedButton:focus{outline:0}:host-context(.focus-outline-visible) #advancedButton:focus{border-radius:0 20px 20px 0;outline:var(--focus-border-width) solid var(--cros-focus-ring-color)}:host-context([dir=rtl]):host-context(.focus-outline-visible) #advancedButton:focus{border-radius:20px 0 0 20px}#advancedButton>span{flex:1}#advancedButton>iron-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}#menuSeparator{border-bottom:var(--cr-separator-line);margin-bottom:8px;margin-top:8px}#topMenu>os-settings-menu-item{margin-bottom:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #topMenu>os-settings-menu-item{margin-inline-end:2px}:host-context(body:not(.revamp-wayfinding-enabled)) #advancedSubmenu>os-settings-menu-item{margin-bottom:8px;margin-inline-end:2px}#topMenu>os-settings-menu-item:last-of-type{margin-bottom:calc(48px - calc(var(--tap-target-padding) + var(--focus-border-width)))}</style>
+function getTemplate$1v() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{box-sizing:border-box;display:block;padding-bottom:2px;padding-top:8px;width:var(--settings-menu-width)}:host-context(body.revamp-wayfinding-enabled):host{padding-inline-end:var(--settings-menu-padding-inline-end);padding-inline-start:var(--settings-menu-padding-inline-start);padding-top:var(--settings-menu-padding-top)}:host *{-webkit-tap-highlight-color:transparent}[selectable]>:focus{background-color:transparent}#advancedButton{--ink-color:var(--cros-text-color-primary);align-items:center;background:0 0;border:none;border-radius:initial;box-shadow:none;color:var(--cros-text-color-primary);display:flex;font:var(--cros-button-1-font);height:unset;margin-inline-end:2px;margin-top:8px;padding-inline-end:0;padding-inline-start:20px;text-transform:none}#advancedButton:focus{outline:0}:host-context(.focus-outline-visible) #advancedButton:focus{border-radius:0 20px 20px 0;outline:var(--settings-menu-item-border-width) solid var(--cros-focus-ring-color)}:host-context([dir=rtl]):host-context(.focus-outline-visible) #advancedButton:focus{border-radius:20px 0 0 20px}#advancedButton>span{flex:1}#advancedButton>iron-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}#menuSeparator{border-bottom:var(--cr-separator-line);margin-bottom:8px;margin-top:8px}#topMenu>os-settings-menu-item{margin-bottom:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #topMenu>os-settings-menu-item{margin-inline-end:2px}:host-context(body:not(.revamp-wayfinding-enabled)) #advancedSubmenu>os-settings-menu-item{margin-bottom:8px;margin-inline-end:2px}#topMenu>os-settings-menu-item:last-of-type{margin-bottom:calc(48px - calc(var(--tap-target-padding) + var(--settings-menu-item-border-width)))}</style>
 <iron-selector id="topMenu" role="navigation" selectable="os-settings-menu-item" attr-for-selected="path" selected="[[selectedItemPath_]]" on-iron-activate="onItemActivated_" on-iron-select="onItemSelected_" on-iron-deselect="onItemDeselected_">
   <template id="topMenuRepeat" is="dom-repeat" items="[[basicMenuItems_]]">
     <os-settings-menu-item path="[[item.path]]" icon="[[item.icon]]" sublabel="[[item.sublabel]]">
@@ -278,13 +278,39 @@ function capitalize(str) {
     const remainingStr = str.slice(1);
     return `${firstChar}${remainingStr}`;
 }
-const OsSettingsMenuElementBase = WebUiListenerMixin(RouteObserverMixin(I18nMixin(PolymerElement)));
+function getPrioritizedConnectedNetwork(networkStateList) {
+    // The priority of the network types. Both Cellular and Tether belongs to
+    // the Mobile Data.
+    const orderedNetworkTypes = [
+        NetworkType.kEthernet,
+        NetworkType.kWiFi,
+        NetworkType.kCellular,
+        NetworkType.kTether,
+        NetworkType.kVPN,
+    ];
+    const networkStates = {};
+    for (const networkType of orderedNetworkTypes) {
+        networkStates[networkType] = [];
+    }
+    for (const networkState of networkStateList) {
+        networkStates[networkState.type].push(networkState);
+    }
+    for (const type of orderedNetworkTypes) {
+        for (const networkState of networkStates[type]) {
+            if (OncMojo.connectionStateIsConnected(networkState.connectionState)) {
+                return networkState;
+            }
+        }
+    }
+    return null;
+}
+const OsSettingsMenuElementBase = mixinBehaviors([NetworkListenerBehavior], WebUiListenerMixin(RouteObserverMixin(I18nMixin(PolymerElement))));
 class OsSettingsMenuElement extends OsSettingsMenuElementBase {
     static get is() {
         return 'os-settings-menu';
     }
     static get template() {
-        return getTemplate$1B();
+        return getTemplate$1v();
     }
     static get properties() {
         return {
@@ -305,6 +331,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                     'accountsMenuItemDescription_,' +
                     'bluetoothMenuItemDescription_,' +
                     'deviceMenuItemDescription_,' +
+                    'internetMenuItemDescription_,' +
                     'multideviceMenuItemDescription_)',
                 readOnly: true,
             },
@@ -358,6 +385,10 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                 type: String,
                 value: '',
             },
+            internetMenuItemDescription_: {
+                type: String,
+                value: '',
+            },
         };
     }
     constructor() {
@@ -378,6 +409,12 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
             this.observeMouseSettings_();
             this.observePointingStickSettings_();
             this.observeTouchpadSettings_();
+            // Internet menu item.
+            this.networkConfig_ =
+                MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
+            this.computeIsDeviceCellularCapable_().then(() => {
+                this.updateInternetMenuItemDescription_();
+            });
             // Multidevice menu item.
             this.addWebUiListener('settings.updateMultidevicePageContentData', this.updateMultideviceMenuItemDescription_.bind(this));
         }
@@ -434,6 +471,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                     path: `/${NETWORK_SECTION_PATH}`,
                     icon: 'os-settings:network-wifi',
                     label: this.i18n('internetPageTitle'),
+                    sublabel: this.internetMenuItemDescription_,
                 },
                 {
                     section: Section.kBluetooth,
@@ -488,12 +526,14 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                     path: `/${APPS_SECTION_PATH}`,
                     icon: 'os-settings:apps',
                     label: this.i18n('appsPageTitle'),
+                    sublabel: this.i18n('appsMenuItemDescription'),
                 },
                 {
                     section: Section.kAccessibility,
                     path: `/${ACCESSIBILITY_SECTION_PATH}`,
                     icon: 'os-settings:accessibility-revamp',
                     label: this.i18n('a11yPageTitle'),
+                    sublabel: this.i18n('a11yMenuItemDescription'),
                 },
                 {
                     section: Section.kSystemPreferences,
@@ -592,7 +632,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
             {
                 section: Section.kDateAndTime,
                 path: `/${DATE_AND_TIME_SECTION_PATH}`,
-                icon: 'os-settings:access-time',
+                icon: 'os-settings:clock',
                 label: this.i18n('dateTimePageTitle'),
             },
             {
@@ -663,27 +703,6 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         return bool.toString();
     }
     /**
-     * Updates the "Multidevice" menu item description to one of the following:
-     * - If there is a phone connected, show "Connected to <phone name>".
-     * - If there is a phone connected but the device name is missing, show
-     *   "Connected to Android phone".
-     * - If there is no phone connected, show "Phone Hub, Nearby Share".
-     */
-    updateMultideviceMenuItemDescription_(pageContentData) {
-        if (pageContentData.mode === MultiDeviceSettingsMode.HOST_SET_VERIFIED) {
-            if (pageContentData.hostDeviceName) {
-                this.multideviceMenuItemDescription_ = this.i18n('multideviceMenuItemDescriptionPhoneConnected', pageContentData.hostDeviceName);
-            }
-            else {
-                this.multideviceMenuItemDescription_ =
-                    this.i18n('multideviceMenuItemDescriptionDeviceNameMissing');
-            }
-            return;
-        }
-        this.multideviceMenuItemDescription_ =
-            this.i18n('multideviceMenuItemDescription');
-    }
-    /**
      * Updates the "Accounts" menu item description to one of the following:
      * - If there are multiple accounts (> 1), show "N accounts".
      * - If there is only one account, show the account email.
@@ -706,19 +725,23 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
     }
     /** Implements SystemPropertiesObserverInterface */
     onPropertiesUpdated(properties) {
+        const isBluetoothOn = properties.systemState === BluetoothSystemState.kEnabled ||
+            properties.systemState === BluetoothSystemState.kEnabling;
         const connectedDevices = properties.pairedDevices.filter((device) => device.deviceProperties.connectionState ===
             DeviceConnectionState.kConnected);
-        this.updateBluetoothMenuItemDescription_(connectedDevices);
+        this.updateBluetoothMenuItemDescription_(isBluetoothOn, connectedDevices);
     }
     /**
      * Updates the "Bluetooth" menu item description to one of the following:
-     * - No description if no bluetooth devices are connected.
+     * - If bluetooth is off, show "Off".
+     * - If bluetooth is on but no bluetooth devices are connected, show "On".
      * - If one device is connected, show the name of the device.
      * - If there are multiple devices connected, show "N devices connected".
      */
-    updateBluetoothMenuItemDescription_(connectedDevices) {
+    updateBluetoothMenuItemDescription_(isBluetoothOn, connectedDevices) {
         if (connectedDevices.length === 0) {
-            this.bluetoothMenuItemDescription_ = '';
+            this.bluetoothMenuItemDescription_ =
+                isBluetoothOn ? this.i18n('deviceOn') : this.i18n('deviceOff');
             return;
         }
         if (connectedDevices.length === 1) {
@@ -727,6 +750,83 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
             return;
         }
         this.bluetoothMenuItemDescription_ = this.i18n('bluetoothMenuItemDescriptionMultipleDevicesConnected', connectedDevices.length);
+    }
+    /** NetworkListenerBehavior override */
+    onNetworkStateListChanged() {
+        this.updateInternetMenuItemDescription_();
+    }
+    /** NetworkListenerBehavior override */
+    onDeviceStateListChanged() {
+        this.updateInternetMenuItemDescription_();
+    }
+    /** NetworkListenerBehavior override */
+    onActiveNetworksChanged() {
+        this.updateInternetMenuItemDescription_();
+    }
+    async computeIsDeviceCellularCapable_() {
+        const { result: deviceStateList } = await this.networkConfig_.getDeviceStateList();
+        const cellularDeviceState = deviceStateList.find(deviceState => deviceState.type === NetworkType.kCellular);
+        this.isDeviceCellularCapable_ = !!cellularDeviceState;
+    }
+    /**
+     * Updates the "Internet" menu item description to one of the followings:
+     * - If there are networks connected, show the name of one connected network
+     *   with the priority: Ethernet, Wi-Fi, mobile(Cellular, Tether) and VPN.
+     * - If there is no networks connected and mobile data is not supported, show
+     * "Wi-Fi".
+     * - If there is no networks connected but mobile data is supported, show
+     * "Wi-Fi, mobile data".
+     */
+    async updateInternetMenuItemDescription_() {
+        // Return early if the feature revamp wayfinding is not enabled since
+        // `networkConfig_` is not defined and we don't need to show the description
+        // if the feature is disabled.
+        if (!this.isRevampWayfindingEnabled_) {
+            return;
+        }
+        const { result: networkStateList } = await this.networkConfig_.getNetworkStateList({
+            filter: FilterType.kVisible,
+            limit: NO_LIMIT,
+            networkType: NetworkType.kAll,
+        });
+        const prioritizedConnectedNetwork = getPrioritizedConnectedNetwork(networkStateList);
+        if (prioritizedConnectedNetwork) {
+            this.internetMenuItemDescription_ = prioritizedConnectedNetwork.name;
+            return;
+        }
+        // TODO(b/310253896): Check if there are available instant hotspot, if
+        // there're, show "Instant hotspot available".
+        if (this.isDeviceCellularCapable_) {
+            this.internetMenuItemDescription_ =
+                this.i18n('internetMenuItemDescriptionWifiAndMobileData');
+            return;
+        }
+        this.internetMenuItemDescription_ =
+            this.i18n('internetMenuItemDescriptionWifi');
+    }
+    /**
+     * Updates the "Multidevice" menu item description to one of the following:
+     * - If there is a phone connected, show "Connected to <phone name>".
+     * - If there is a phone connected but the device name is missing, show
+     *   "Connected to Android phone".
+     * - If there is no phone connected, show "Phone Hub, Nearby Share".
+     */
+    updateMultideviceMenuItemDescription_(pageContentData) {
+        if (!this.isRevampWayfindingEnabled_) {
+            return;
+        }
+        if (pageContentData.mode === MultiDeviceSettingsMode.HOST_SET_VERIFIED) {
+            if (pageContentData.hostDeviceName) {
+                this.multideviceMenuItemDescription_ = this.i18n('multideviceMenuItemDescriptionPhoneConnected', pageContentData.hostDeviceName);
+            }
+            else {
+                this.multideviceMenuItemDescription_ =
+                    this.i18n('multideviceMenuItemDescriptionDeviceNameMissing');
+            }
+            return;
+        }
+        this.multideviceMenuItemDescription_ =
+            this.i18n('multideviceMenuItemDescription');
     }
     observeKeyboardSettings_() {
         if (this.inputDeviceSettingsProvider_ instanceof
@@ -821,7 +921,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
 }
 customElements.define(OsSettingsMenuElement.is, OsSettingsMenuElement);
 
-function getTemplate$1A() {
+function getTemplate$1u() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -849,7 +949,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$1A();
+        return getTemplate$1u();
     }
     static get properties() {
         return {
@@ -1261,7 +1361,7 @@ var cros_audio_config_mojomWebui = /*#__PURE__*/Object.freeze({
     MuteStateSpec: MuteStateSpec
 });
 
-function getTemplate$1z() {
+function getTemplate$1t() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.audio-mute-button{margin-inline-end:8px}.audio-mute-button[disabled]{background-color:transparent;pointer-events:auto}.audio-options-container{align-items:center;display:flex;flex-direction:row}.audio-slider{margin-inline-end:16px;padding:0;width:142px}h2{padding-inline-start:var(--cr-section-padding)}.settings-box:first-of-type{border-top:none}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>.settings-box,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}:host([is-output-muted_]) #outputVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-output-muted_]) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-output-muted_])) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}:host([is-input-muted_]) #audioInputGainVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-input-muted_]) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-input-muted_])) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 
@@ -1345,7 +1445,7 @@ function getTemplate$1z() {
       <div id="audioInputNoiseCancellationLabel" class="settings-box-text start" aria-hidden="true">
         $i18n{audioInputNoiseCancellationTitle}
       </div>
-      <cr-toggle id="audioInputNoiseCancellationToggle" checked="{{isNoiseCancellationEnabled_}}" aria-labelledby="audioInputNoiseCancellationLabel">
+      <cr-toggle id="audioInputNoiseCancellationToggle" checked="{{isNoiseCancellationEnabled_}}" aria-labelledby="audioInputNoiseCancellationLabel" on-change="toggleNoiseCancellationEnabled_">
       </cr-toggle>
     </div>
     <div id="audioInputAllowAGCSubsection" class="settings-box" hidden="[[!showAllowAGC]]">
@@ -1647,7 +1747,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         return 'settings-audio';
     }
     static get template() {
-        return getTemplate$1z();
+        return getTemplate$1t();
     }
     static get properties() {
         return {
@@ -1667,7 +1767,6 @@ class SettingsAudioElement extends SettingsAudioElementBase {
             },
             isNoiseCancellationEnabled_: {
                 type: Boolean,
-                observer: SettingsAudioElement.prototype.onNoiseCancellationEnabledChanged,
             },
             isNoiseCancellationSupported_: {
                 type: Boolean,
@@ -1773,17 +1872,6 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         const inputDeviceSelect = this.shadowRoot.querySelector('#audioInputDeviceDropdown');
         assert(!!inputDeviceSelect);
         this.crosAudioConfig_.setActiveDevice(BigInt(inputDeviceSelect.value));
-    }
-    /** Handles updates to noise cancellation state. */
-    onNoiseCancellationEnabledChanged(enabled, previousEnabled) {
-        // Polymer triggers change event on all assignment to
-        // `isNoiseCancellationEnabled_` even if the value is logically unchanged.
-        // Check previous value before calling `setNoiseCancellationEnabled` to test
-        // if value actually updated.
-        if (previousEnabled === undefined || previousEnabled === enabled) {
-            return;
-        }
-        this.crosAudioConfig_.setNoiseCancellationEnabled(enabled);
     }
     /** Handles updates to force respect ui gains state. */
     onAllowAGCEnabledChanged(enabled, previousEnabled) {
@@ -1930,14 +2018,17 @@ class SettingsAudioElement extends SettingsAudioElementBase {
             this.i18n('audioOutputMuteButtonAriaLabelMuted') :
             this.i18n('audioOutputMuteButtonAriaLabelNotMuted');
     }
+    toggleNoiseCancellationEnabled_(e) {
+        this.crosAudioConfig_.setNoiseCancellationEnabled(e.detail);
+    }
     toggleStartupSoundEnabled_(e) {
         this.audioAndCaptionsBrowserProxy_.setStartupSoundEnabled(e.detail);
     }
 }
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);
 
-function getTemplate$1y() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:auto;height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:0;position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+function getTemplate$1s() {
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
@@ -1979,7 +2070,7 @@ class CrTabsElement extends PolymerElement {
         return 'cr-tabs';
     }
     static get template() {
-        return getTemplate$1y();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -2025,8 +2116,9 @@ class CrTabsElement extends PolymerElement {
     }
     onSelectedChanged_(newSelected, oldSelected) {
         const tabs = this.shadowRoot.querySelectorAll('.tab');
-        if (tabs.length === 0 || oldSelected === undefined) {
-            // Tabs are not rendered yet.
+        if (tabs.length === 0 || oldSelected === undefined ||
+            tabs.length <= newSelected || tabs.length <= oldSelected) {
+            // Tabs are not fully rendered yet.
             return;
         }
         const oldTabRect = tabs[oldSelected].getBoundingClientRect();
@@ -2164,7 +2256,7 @@ const template$1 = html`
 template$1.setAttribute('style', 'display: none;');
 document.head.appendChild(template$1.content);
 
-function getTemplate$1x() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="settings-shared">#displayArea{height:100%;overflow:hidden;position:relative;width:100%}.display{align-items:center;background:var(--cros-textfield-background-color);color:var(--cros-text-color-secondary);cursor:default;display:flex;font-size:100%;font-weight:500;justify-content:center;margin:4px;padding:3px;position:absolute;text-align:center}.display[selected]{border:var(--cros-icon-color-prominent) solid 1px}.display.mirror{border:var(--cros-icon-color-prominent) solid 1px}.highlight-left{border-left:var(--cros-icon-color-prominent) solid 1px}.highlight-right{border-right:var(--cros-icon-color-prominent) solid 1px}.highlight-top{border-top:var(--cros-icon-color-prominent) solid 1px}.highlight-bottom{border-bottom:var(--cros-icon-color-prominent) solid 1px}.display.elevate{box-shadow:var(--cr-elevation-3)}</style>
 <div id="displayArea" on-iron-resize="calculateVisualScale_">
   <template is="dom-repeat" items="[[mirroringDestinationIds_]]">
@@ -3039,7 +3131,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
         return 'display-layout';
     }
     static get template() {
-        return getTemplate$1x();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -3249,7 +3341,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
 }
 customElements.define(DisplayLayoutElement.is, DisplayLayoutElement);
 
-function getTemplate$1w() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.subtitle{color:var(--cros-text-color-secondary);margin-top:10px}.instructions{color:var(--cros-text-color-secondary);margin-top:4px}.details{margin:40px}.label{margin-top:15px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-primary);--iron-icon-height:18px;--iron-icon-width:18px;background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;margin:5px;padding:4px}#move{align-items:center;display:flex;flex-direction:row}#move>div{color:var(--cros-text-color-secondary);flex:0 0 auto}#move>div:not(:first-child){margin-inline-start:8px}#move>div:not(:last-child){margin-inline-end:8px}#move>div.shift{background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;color:var(--cros-text-color-primary);font-size:100%;padding:7px 8px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{displayOverscanPageTitle}</div>
@@ -3307,7 +3399,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
         return 'settings-display-overscan-dialog';
     }
     static get template() {
-        return getTemplate$1w();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -3418,7 +3510,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
         const delta = {
             left: x,
             top: y,
-            right: x ? -x : 0,
+            right: x ? -x : 0, // negating 0 will produce a double.
             bottom: y ? -y : 0,
         };
         getDisplayApi().overscanCalibrationAdjust(this.displayId, delta);
@@ -3435,7 +3527,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
 }
 customElements.define(SettingsDisplayOverscanDialogElement.is, SettingsDisplayOverscanDialogElement);
 
-function getTemplate$1v() {
+function getTemplate$1p() {
     return html `<!--_html_template_start_--><style>:host{cursor:default;font-weight:500;text-align:center;user-select:none}#sliderContainer{display:inline-block;position:relative;user-select:none;width:100%}#sliderBar{background-color:rgba(var(--cros-button-background-color-primary-rgb),.24);background-size:100%;display:inline-block;height:2px;position:relative;width:inherit}.knob{height:32px;margin-inline-start:-16px;margin-top:-15px;position:absolute;width:32px;z-index:3}.knob:focus{outline:0}.knob-inner{background:var(--cros-button-background-color-primary);border-radius:6px;height:10px;left:0;margin:11px;position:absolute;width:10px;z-index:3}.knob-inner:focus{outline:0}#progressContainer{height:100%;overflow:hidden;position:absolute;width:100%}.progress{background:var(--cros-button-background-color-primary);height:100%;position:absolute;z-index:1}#labelContainer{height:1.75em}.label{background:var(--cros-button-background-color-primary);border-radius:14px;color:var(--cros-bg-color);font-size:12px;left:0;line-height:1.5em;margin-inline-start:-2.5em;position:absolute;text-align:center;transition:margin-top .2s cubic-bezier(0,0,.2,1);vertical-align:middle;width:5em}.end-label-overlap{margin-top:-2em}#markersContainer{display:flex;height:100%;left:0;position:absolute;width:100%}.active-marker,.inactive-marker{border-radius:50%;display:block;height:100%;margin-inline-start:-1px;padding:0;position:absolute;width:2PX;z-index:2}.active-marker{background-color:rgba(var(--cros-bg-color-rgb),.6)}.inactive-marker{--background-color-opacity:0.6;background-color:rgba(var(--cros-button-background-color-primary-rgb),var(--background-color-opacity))}@media(prefers-color-scheme:dark){.inactive-marker{--background-color-opacity:1}}#legendContainer{height:10px;margin-bottom:40px;position:relative;width:inherit}#legendContainer>div{color:var(--cros-text-color-secondary);font-size:12px;margin-inline-start:-2.5em;position:absolute;text-align:center;top:5px;width:5em}paper-ripple{color:var(--cros-button-background-color-primary)}</style>
 <div id="sliderContainer">
   <div id="labelContainer">
@@ -3521,7 +3613,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
         return 'settings-scheduler-slider';
     }
     static get template() {
-        return getTemplate$1v();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -3592,7 +3684,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
     connectedCallback() {
         super.connectedCallback();
         this.isRTL_ = window.getComputedStyle(this).direction === 'rtl';
-        this.$.sliderContainer.addEventListener('contextmenu', function (e) {
+        this.$.sliderContainer.addEventListener('contextmenu', (e) => {
             // Prevent the context menu from interfering with dragging the knobs using
             // touch.
             e.preventDefault();
@@ -4064,145 +4156,27 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
 }
 customElements.define(SettingsSchedulerSliderElement.is, SettingsSchedulerSliderElement);
 
-function getTemplate$1u() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex
-  iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}iron-collapse{width:100%}</style>
-
-<settings-toggle-button id="nightLightToggleButton" class="settings-box first" label="$i18n{displayNightLightLabel}" pref="{{prefs.ash.night_light.enabled}}" sub-label="$i18n{displayNightLightText}" deep-link-focus-id$="[[Setting.kNightLight]]">
-</settings-toggle-button>
-
-<div id="nightLightSettingsDiv" class="settings-box continuation start layout vertical">
-  
-  <div id="nightLightTemperatureDiv" class="settings-box indented continuation" hidden$="[[!prefs.ash.night_light.enabled.value]]">
-    <div class="start text-area" id="colorTemperatureLabel">
-      $i18n{displayNightLightTemperatureLabel}
-    </div>
-    <settings-slider id="colorTemperatureSlider" aria-labelledby="colorTemperatureLabel" min="0" max="100" scale="100" label-min="$i18n{displayNightLightTempSliderMinLabel}" label-max="$i18n{displayNightLightTempSliderMaxLabel}" pref="{{prefs.ash.night_light.color_temperature}}" deep-link-focus-id$="[[Setting.kNightLightColorTemperature]]">
-    </settings-slider>
-  </div>
-  
-  <div class="settings-box indented">
-    <div class="start text-area" aria-hidden="true">
-      <div id="nightLightScheduleLabel" class="label">
-        $i18n{displayNightLightScheduleLabel}
-      </div>
-      <div id="nightLightScheduleSubLabel" class="secondary label" hidden$="[[!nightLightScheduleSubLabel_]]">
-        [[nightLightScheduleSubLabel_]]
-      </div>
-    </div>
-    <settings-dropdown-menu id="nightLightScheduleTypeDropDown" class="cr-row-gap" label="$i18n{displayNightLightScheduleLabel}" aria-describedby="nightLightScheduleSubLabel" pref="{{prefs.ash.night_light.schedule_type}}" menu-options="[[scheduleTypesList_]]">
-    </settings-dropdown-menu>
-  </div>
-  
-  <iron-collapse id="nightLightCustomScheduleCollapse" opened="[[shouldOpenCustomScheduleCollapse_]]">
-    <div class="settings-box indented continuation">
-      <div class="start text-area layout vertical">
-        <div class="settings-box continuation self-stretch">
-          <settings-scheduler-slider id="nightLightSlider" prefs="{{prefs}}" pref-start-time="{{prefs.ash.night_light.custom_start_time}}" pref-end-time="{{prefs.ash.night_light.custom_end_time}}">
-          </settings-scheduler-slider>
-        </div>
-      </div>
-    </div>
-  </iron-collapse>
-</div><!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-display-night-light' is the section on the display subpage
- * for display night light preferences' adjustments.
- */
-/**
- * The types of Night Light automatic schedule. The values of the enum values
- * are synced with the pref "prefs.ash.night_light.schedule_type".
- */
-var NightLightScheduleType;
-(function (NightLightScheduleType) {
-    NightLightScheduleType[NightLightScheduleType["NEVER"] = 0] = "NEVER";
-    NightLightScheduleType[NightLightScheduleType["SUNSET_TO_SUNRISE"] = 1] = "SUNSET_TO_SUNRISE";
-    NightLightScheduleType[NightLightScheduleType["CUSTOM"] = 2] = "CUSTOM";
-})(NightLightScheduleType || (NightLightScheduleType = {}));
-const SettingsDisplayNightLightElementBase = DeepLinkingMixin(PrefsMixin(I18nMixin(PolymerElement)));
-class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementBase {
-    static get is() {
-        return 'settings-display-night-light';
-    }
-    static get template() {
-        return getTemplate$1u();
-    }
-    static get properties() {
-        return {
-            scheduleTypesList_: {
-                type: Array,
-                value() {
-                    return [
-                        {
-                            name: loadTimeData.getString('displayNightLightScheduleNever'),
-                            value: NightLightScheduleType.NEVER,
-                        },
-                        {
-                            name: loadTimeData.getString('displayNightLightScheduleSunsetToSunRise'),
-                            value: NightLightScheduleType.SUNSET_TO_SUNRISE,
-                        },
-                        {
-                            name: loadTimeData.getString('displayNightLightScheduleCustom'),
-                            value: NightLightScheduleType.CUSTOM,
-                        },
-                    ];
-                },
-            },
-            shouldOpenCustomScheduleCollapse_: {
-                type: Boolean,
-                value: false,
-            },
-            nightLightScheduleSubLabel_: String,
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kNightLight,
-                    Setting.kNightLightColorTemperature,
-                ]),
-            },
-        };
-    }
-    static get observers() {
-        return [
-            'updateNightLightScheduleSettings_(prefs.ash.night_light.schedule_type.*,' +
-                ' prefs.ash.night_light.enabled.*)',
-        ];
-    }
-    /**
-     * Invoked when the status of Night Light or its schedule type are changed,
-     * in order to update the schedule settings, such as whether to show the
-     * custom schedule slider, and the schedule sub label.
-     */
-    updateNightLightScheduleSettings_() {
-        const scheduleType = this.getPref('ash.night_light.schedule_type').value;
-        this.shouldOpenCustomScheduleCollapse_ =
-            scheduleType === NightLightScheduleType.CUSTOM;
-        if (scheduleType === NightLightScheduleType.SUNSET_TO_SUNRISE) {
-            const nightLightStatus = this.getPref('ash.night_light.enabled').value;
-            this.nightLightScheduleSubLabel_ = nightLightStatus ?
-                this.i18n('displayNightLightOffAtSunrise') :
-                this.i18n('displayNightLightOnAtSunset');
-        }
-        else {
-            this.nightLightScheduleSubLabel_ = '';
-        }
-    }
-}
-customElements.define(SettingsDisplayNightLightElement.is, SettingsDisplayNightLightElement);
-
 // chrome/browser/ui/webui/ash/settings/pages/device/display_settings/display_settings_provider.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+const DisplaySettingsTypeSpec = { $: mojo.internal.Enum() };
+var DisplaySettingsType;
+(function (DisplaySettingsType) {
+    DisplaySettingsType[DisplaySettingsType["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsType[DisplaySettingsType["MAX_VALUE"] = 10] = "MAX_VALUE";
+    DisplaySettingsType[DisplaySettingsType["kResolution"] = 0] = "kResolution";
+    DisplaySettingsType[DisplaySettingsType["kRefreshRate"] = 1] = "kRefreshRate";
+    DisplaySettingsType[DisplaySettingsType["kScaling"] = 2] = "kScaling";
+    DisplaySettingsType[DisplaySettingsType["kOrientation"] = 3] = "kOrientation";
+    DisplaySettingsType[DisplaySettingsType["kOverscan"] = 4] = "kOverscan";
+    DisplaySettingsType[DisplaySettingsType["kNightLight"] = 5] = "kNightLight";
+    DisplaySettingsType[DisplaySettingsType["kNightLightSchedule"] = 6] = "kNightLightSchedule";
+    DisplaySettingsType[DisplaySettingsType["kDisplayPage"] = 7] = "kDisplayPage";
+    DisplaySettingsType[DisplaySettingsType["kMirrorMode"] = 8] = "kMirrorMode";
+    DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
+    DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
+})(DisplaySettingsType || (DisplaySettingsType = {}));
 class TabletModeObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -4276,6 +4250,77 @@ class TabletModeObserverCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+class DisplayConfigurationObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.mojom.DisplayConfigurationObserver', scope);
+    }
+}
+class DisplayConfigurationObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(DisplayConfigurationObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onDisplayConfigurationChanged() {
+        this.proxy.sendMessage(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, []);
+    }
+}
+/**
+ * An object which receives request messages for the DisplayConfigurationObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+class DisplayConfigurationObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplayConfigurationObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, impl.onDisplayConfigurationChanged.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+class DisplayConfigurationObserver {
+    static get $interfaceName() {
+        return "ash.settings.mojom.DisplayConfigurationObserver";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new DisplayConfigurationObserverRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the DisplayConfigurationObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+class DisplayConfigurationObserverCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplayConfigurationObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onDisplayConfigurationChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, this.onDisplayConfigurationChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
 class DisplaySettingsProviderPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -4296,6 +4341,17 @@ class DisplaySettingsProviderRemote {
             observer
         ]);
     }
+    observeDisplayConfiguration(observer) {
+        this.proxy.sendMessage(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, [
+            observer
+        ]);
+    }
+    recordChangingDisplaySettings(type, value) {
+        this.proxy.sendMessage(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, [
+            type,
+            value
+        ]);
+    }
 }
 /**
  * An object which receives request messages for the DisplaySettingsProvider
@@ -4307,6 +4363,8 @@ class DisplaySettingsProviderReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplaySettingsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, impl.observeTabletMode.bind(impl));
+        this.helper_internal_.registerHandler(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, impl.observeDisplayConfiguration.bind(impl));
+        this.helper_internal_.registerHandler(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, impl.recordChangingDisplaySettings.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -4339,6 +4397,12 @@ class DisplaySettingsProviderCallbackRouter {
         this.observeTabletMode =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, this.observeTabletMode.createReceiverHandler(true /* expectsResponse */));
+        this.observeDisplayConfiguration =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, this.observeDisplayConfiguration.createReceiverHandler(false /* expectsResponse */));
+        this.recordChangingDisplaySettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, this.recordChangingDisplaySettings.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -4349,28 +4413,71 @@ class DisplaySettingsProviderCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+const DisplaySettingsValueSpec = { $: {} };
 const TabletModeObserver_OnTabletModeChanged_ParamsSpec = { $: {} };
+const DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec = { $: {} };
 const DisplaySettingsProvider_ObserveTabletMode_ParamsSpec = { $: {} };
 const DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec = { $: {} };
+const DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec = { $: {} };
+const DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec = { $: {} };
+mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
+    mojo.internal.StructField('is_internal_display_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "is_internal_display_$value",
+        originalFieldName: "isInternalDisplay",
+    }),
+    mojo.internal.StructField('is_internal_display_$value', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "isInternalDisplay",
+    }),
+    mojo.internal.StructField('display_id_$flag', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "display_id_$value",
+        originalFieldName: "displayId",
+    }),
+    mojo.internal.StructField('display_id_$value', 8, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "displayId",
+    }),
+], [[0, 24],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, 'DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params', [], [[0, 8],]);
 mojo.internal.Struct(DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, 'DisplaySettingsProvider_ObserveTabletMode_Params', [
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(TabletModeObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, 'DisplaySettingsProvider_ObserveTabletMode_ResponseParams', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, 'DisplaySettingsProvider_ObserveDisplayConfiguration_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(DisplayConfigurationObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, 'DisplaySettingsProvider_RecordChangingDisplaySettings_Params', [
+    mojo.internal.StructField('type', 0, 0, DisplaySettingsTypeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 8, 0, DisplaySettingsValueSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
 
 var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
     __proto__: null,
+    DisplayConfigurationObserver: DisplayConfigurationObserver,
+    DisplayConfigurationObserverCallbackRouter: DisplayConfigurationObserverCallbackRouter,
+    DisplayConfigurationObserverPendingReceiver: DisplayConfigurationObserverPendingReceiver,
+    DisplayConfigurationObserverReceiver: DisplayConfigurationObserverReceiver,
+    DisplayConfigurationObserverRemote: DisplayConfigurationObserverRemote,
+    DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec: DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec,
     DisplaySettingsProvider: DisplaySettingsProvider,
     DisplaySettingsProviderCallbackRouter: DisplaySettingsProviderCallbackRouter,
     DisplaySettingsProviderPendingReceiver: DisplaySettingsProviderPendingReceiver,
     DisplaySettingsProviderReceiver: DisplaySettingsProviderReceiver,
     DisplaySettingsProviderRemote: DisplaySettingsProviderRemote,
+    DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec: DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec,
     DisplaySettingsProvider_ObserveTabletMode_ParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ParamsSpec,
     DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec,
+    DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec: DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec,
+    get DisplaySettingsType () { return DisplaySettingsType; },
+    DisplaySettingsTypeSpec: DisplaySettingsTypeSpec,
+    DisplaySettingsValueSpec: DisplaySettingsValueSpec,
     TabletModeObserver: TabletModeObserver,
     TabletModeObserverCallbackRouter: TabletModeObserverCallbackRouter,
     TabletModeObserverPendingReceiver: TabletModeObserverPendingReceiver,
@@ -4379,13 +4486,234 @@ var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
     TabletModeObserver_OnTabletModeChanged_ParamsSpec: TabletModeObserver_OnTabletModeChanged_ParamsSpec
 });
 
-function getTemplate$1t() {
+function getTemplate$1o() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex
+  iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}#NightLightLabelDiv{align-self:start}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}#nightLightDropDownDiv{width:200px;text-align:right;margin-top:8px}iron-collapse{width:100%}</style>
+
+<settings-toggle-button id="nightLightToggleButton" class="settings-box first" label="$i18n{displayNightLightLabel}" pref="{{prefs.ash.night_light.enabled}}" sub-label="$i18n{displayNightLightText}" deep-link-focus-id$="[[Setting.kNightLight]]">
+</settings-toggle-button>
+
+<div id="nightLightSettingsDiv" class="settings-box continuation start layout vertical">
+  
+  <div id="nightLightTemperatureDiv" class="settings-box indented continuation" hidden$="[[!prefs.ash.night_light.enabled.value]]">
+    <div class="start text-area" id="colorTemperatureLabel">
+      $i18n{displayNightLightTemperatureLabel}
+    </div>
+    <settings-slider id="colorTemperatureSlider" aria-labelledby="colorTemperatureLabel" min="0" max="100" scale="100" label-min="$i18n{displayNightLightTempSliderMinLabel}" label-max="$i18n{displayNightLightTempSliderMaxLabel}" pref="{{prefs.ash.night_light.color_temperature}}" deep-link-focus-id$="[[Setting.kNightLightColorTemperature]]">
+    </settings-slider>
+  </div>
+  
+  <div class="settings-box indented">
+    <div id="NightLightLabelDiv" class="start text-area" aria-hidden="true">
+      <div id="nightLightScheduleLabel" class="label">
+        $i18n{displayNightLightScheduleLabel}
+      </div>
+      <div id="nightLightScheduleSubLabel" class="secondary label" hidden$="[[!nightLightScheduleSubLabel_]]">
+        [[nightLightScheduleSubLabel_]]
+      </div>
+    </div>
+    <div id="nightLightDropDownDiv" class="cr-row-gap">
+      <settings-dropdown-menu id="nightLightScheduleTypeDropDown" label="$i18n{displayNightLightScheduleLabel}" aria-describedby="nightLightScheduleSubLabel" pref="{{prefs.ash.night_light.schedule_type}}" menu-options="[[scheduleTypesList_]]">
+      </settings-dropdown-menu>
+      <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
+        <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="$i18n{displayNightLightGeolocationWarningText}" on-link-clicked="openGeolocationDialog_">
+        </settings-privacy-hub-geolocation-warning-text>
+      </template>
+    </div>
+  </div>
+  
+  <iron-collapse id="nightLightCustomScheduleCollapse" opened="[[shouldOpenCustomScheduleCollapse_]]">
+    <div class="settings-box indented continuation">
+      <div class="start text-area layout vertical">
+        <div class="settings-box continuation self-stretch">
+          <settings-scheduler-slider id="nightLightSlider" prefs="{{prefs}}" pref-start-time="{{prefs.ash.night_light.custom_start_time}}" pref-end-time="{{prefs.ash.night_light.custom_end_time}}">
+          </settings-scheduler-slider>
+        </div>
+      </div>
+    </div>
+  </iron-collapse>
+</div>
+
+
+<template is="dom-if" if="[[shouldShowGeolocationDialog_]]" restamp>
+  <settings-privacy-hub-geolocation-dialog id="geolocationDialog" on-close="onGeolocationDialogClose_" prefs="{{prefs}}">
+  </settings-privacy-hub-geolocation-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * Provides singleton access to mojo interfaces with the ability
+ * to override them with test/fake implementations.
+ */
+let displaySettingsProvider;
+function getDisplaySettingsProvider() {
+    if (!displaySettingsProvider) {
+        displaySettingsProvider = DisplaySettingsProvider.getRemote();
+    }
+    assert(displaySettingsProvider);
+    return displaySettingsProvider;
+}
+function setDisplaySettingsProviderForTesting(testProvider) {
+    displaySettingsProvider = testProvider;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-display-night-light' is the section on the display subpage
+ * for display night light preferences' adjustments.
+ */
+/**
+ * The types of Night Light automatic schedule. The values of the enum values
+ * are synced with the pref "prefs.ash.night_light.schedule_type".
+ */
+var NightLightScheduleType;
+(function (NightLightScheduleType) {
+    NightLightScheduleType[NightLightScheduleType["NEVER"] = 0] = "NEVER";
+    NightLightScheduleType[NightLightScheduleType["SUNSET_TO_SUNRISE"] = 1] = "SUNSET_TO_SUNRISE";
+    NightLightScheduleType[NightLightScheduleType["CUSTOM"] = 2] = "CUSTOM";
+})(NightLightScheduleType || (NightLightScheduleType = {}));
+const SettingsDisplayNightLightElementBase = DeepLinkingMixin(PrefsMixin(I18nMixin(PolymerElement)));
+class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementBase {
+    constructor() {
+        super(...arguments);
+        this.displaySettingsProvider = getDisplaySettingsProvider();
+    }
+    static get is() {
+        return 'settings-display-night-light';
+    }
+    static get template() {
+        return getTemplate$1o();
+    }
+    static get properties() {
+        return {
+            scheduleTypesList_: {
+                type: Array,
+                value() {
+                    return [
+                        {
+                            name: loadTimeData.getString('displayNightLightScheduleNever'),
+                            value: NightLightScheduleType.NEVER,
+                        },
+                        {
+                            name: loadTimeData.getString('displayNightLightScheduleSunsetToSunRise'),
+                            value: NightLightScheduleType.SUNSET_TO_SUNRISE,
+                        },
+                        {
+                            name: loadTimeData.getString('displayNightLightScheduleCustom'),
+                            value: NightLightScheduleType.CUSTOM,
+                        },
+                    ];
+                },
+            },
+            shouldOpenCustomScheduleCollapse_: {
+                type: Boolean,
+                value: false,
+            },
+            nightLightScheduleSubLabel_: String,
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kNightLight,
+                    Setting.kNightLightColorTemperature,
+                ]),
+            },
+            shouldShowGeolocationWarningText_: {
+                type: Boolean,
+                computed: 'computeShouldShowGeolocationWarningText_(' +
+                    'prefs.ash.night_light.schedule_type.value, ' +
+                    'prefs.ash.user.geolocation_access_level.value),',
+            },
+            shouldShowEnableGeolocationDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            isInternalDisplay: Boolean,
+            /**
+             * Current status of night light setting.
+             */
+            currentNightLightStatus: Boolean,
+            /**
+             * Current selected night light schedule type.
+             */
+            currentScheduleType: NightLightScheduleType,
+        };
+    }
+    static get observers() {
+        return [
+            'updateNightLightScheduleSettings_(prefs.ash.night_light.schedule_type.*,' +
+                ' prefs.ash.night_light.enabled.*),',
+        ];
+    }
+    /**
+     * Invoked when the status of Night Light or its schedule type are changed,
+     * in order to update the schedule settings, such as whether to show the
+     * custom schedule slider, and the schedule sub label.
+     */
+    updateNightLightScheduleSettings_() {
+        const scheduleType = this.getPref('ash.night_light.schedule_type').value;
+        this.shouldOpenCustomScheduleCollapse_ =
+            scheduleType === NightLightScheduleType.CUSTOM;
+        const nightLightStatus = this.getPref('ash.night_light.enabled').value;
+        if (scheduleType === NightLightScheduleType.SUNSET_TO_SUNRISE) {
+            this.nightLightScheduleSubLabel_ = nightLightStatus ?
+                this.i18n('displayNightLightOffAtSunrise') :
+                this.i18n('displayNightLightOnAtSunset');
+        }
+        else {
+            this.nightLightScheduleSubLabel_ = '';
+        }
+        // Records metrics when schedule type or night light status have changed. Do
+        // not record when the page just loads and the current value is still
+        // undefined.
+        if (this.currentScheduleType !== scheduleType &&
+            this.currentScheduleType !== undefined) {
+            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLightSchedule, this.isInternalDisplay);
+        }
+        if (this.currentNightLightStatus !== nightLightStatus &&
+            this.currentNightLightStatus !== undefined) {
+            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLight, this.isInternalDisplay);
+        }
+        // Updates current schedule type and night light status.
+        this.currentScheduleType = scheduleType;
+        this.currentNightLightStatus = nightLightStatus;
+    }
+    // Records metrics when users change the night light settings.
+    recordNightLightSettingsMetrics(displaySettingsType, isInternalDisplay) {
+        this.displaySettingsProvider.recordChangingDisplaySettings(displaySettingsType, { isInternalDisplay });
+    }
+    computeShouldShowGeolocationWarningText_() {
+        const scheduleType = this.prefs.ash.night_light.schedule_type.value;
+        const geolocationAccessLevel = this.prefs.ash.user.geolocation_access_level.value;
+        return (scheduleType === NightLightScheduleType.SUNSET_TO_SUNRISE &&
+            geolocationAccessLevel === GeolocationAccessLevel.DISALLOWED);
+    }
+    openGeolocationDialog_() {
+        this.shouldShowGeolocationDialog_ = true;
+    }
+    onGeolocationDialogClose_() {
+        this.shouldShowGeolocationDialog_ = false;
+    }
+}
+customElements.define(SettingsDisplayNightLightElement.is, SettingsDisplayNightLightElement);
+
+function getTemplate$1n() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select iron-flex
   iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}.display-tabs{width:100%}display-layout{align-self:stretch;flex:1 1 auto;height:300px;margin:10px;min-height:300px}.text-area{margin:10px 0}.settings-box>cr-button:first-child{padding-inline-start:0}.settings-box>cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}.underbar{border-bottom:var(--cr-separator-line)}#controlsDiv>.settings-box:first-of-type{border-top:none}#mirrorDisplayToggleButton{display:flex;align-self:stretch;margin-bottom:20px}</style>
 
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]" restamp>
-  <settings-display-night-light prefs="{{prefs}}">
+  <settings-display-night-light prefs="{{prefs}}" is-internal-display="[[selectedDisplay.isInternal]]">
   </settings-display-night-light>
   <div class="hr"></div>
 </template>
@@ -4404,7 +4732,7 @@ function getTemplate$1t() {
 
     <template is="dom-if" if="[[showMirror(unifiedDesktopMode_, displays)]]" restamp>
       
-      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]" restamp>
+      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
         <div id="mirrorDisplayToggleButton" class="text-area">
           <div id="mirrorDisplayToggleLabel" class="start">
             [[getDisplayMirrorText_(displays)]]
@@ -4415,7 +4743,7 @@ function getTemplate$1t() {
       </template>
 
       
-      <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]" restamp>
+      <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
         <div class="secondary self-start">
           <cr-checkbox id="displayMirrorCheckbox" checked="[[isMirrored(displays)]]" on-click="onMirroredClick_" aria-label="[[getDisplayMirrorText_(displays)]]" deep-link-focus-id$="[[Setting.kDisplayMirroring]]">
             <div class="text-area">[[getDisplayMirrorText_(displays)]]</div>
@@ -4445,7 +4773,7 @@ function getTemplate$1t() {
           [[getUnifiedDesktopText_(unifiedDesktopMode_)]]
         </div>
       </div>
-      <cr-toggle checked="[[unifiedDesktopMode_]]" on-click="onUnifiedDesktopClick_" aria-labelledby="displayUnifiedDesktopCheckboxLabel" deep-link-focus-id$="[[Setting.kAllowWindowsToSpanDisplays]]">
+      <cr-toggle id="displayUnifiedDesktopToggle" checked="[[unifiedDesktopMode_]]" on-click="onUnifiedDesktopClick_" aria-labelledby="displayUnifiedDesktopCheckboxLabel" deep-link-focus-id$="[[Setting.kAllowWindowsToSpanDisplays]]">
       </cr-toggle>
     </div>
   </template>
@@ -4570,30 +4898,10 @@ function getTemplate$1t() {
 
 <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]" restamp>
   <div class="hr"></div>
-  <settings-display-night-light prefs="{{prefs}}">
+  <settings-display-night-light prefs="{{prefs}}" is-internal-display="[[selectedDisplay.isInternal]]">
   </settings-display-night-light>
 </template>
 <!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * Provides singleton access to mojo interfaces with the ability
- * to override them with test/fake implementations.
- */
-let displaySettingsProvider;
-function getDisplaySettingsProvider() {
-    if (!displaySettingsProvider) {
-        displaySettingsProvider = DisplaySettingsProvider.getRemote();
-    }
-    assert(displaySettingsProvider);
-    return displaySettingsProvider;
-}
-function setDisplaySettingsProviderForTesting(testProvider) {
-    displaySettingsProvider = testProvider;
 }
 
 // Copyright 2016 The Chromium Authors
@@ -4610,7 +4918,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         return 'settings-display';
     }
     static get template() {
-        return getTemplate$1t();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
@@ -4619,6 +4927,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
                 value: () => {
                     return isRevampWayfindingEnabled();
                 },
+                readOnly: true,
             },
             selectedModePref_: {
                 type: Object,
@@ -4791,6 +5100,10 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         this.$.displaySizeSlider.updateValueInstantly = false;
         const { isTabletMode } = await this.displaySettingsProvider.observeTabletMode(new TabletModeObserverReceiver(this).$.bindNewPipeAndPassRemote());
         this.isTabletMode_ = isTabletMode;
+        this.displaySettingsProvider.observeDisplayConfiguration(new DisplayConfigurationObserverReceiver(this)
+            .$.bindNewPipeAndPassRemote());
+        // Record metrics that user has opened the display settings page.
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kDisplayPage, /*value=*/ {});
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -4803,6 +5116,13 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
      */
     onTabletModeChanged(isTabletMode) {
         this.isTabletMode_ = isTabletMode;
+    }
+    /**
+     * Implements DisplayConfigurationObserver.OnDisplayConfigurationChanged.
+     */
+    onDisplayConfigurationChanged() {
+        // Sync active display settings to avoid UI inconsistency.
+        this.getDisplayInfo_();
     }
     beforeDeepLinkAttempt(_settingId) {
         if (!this.displays) {
@@ -5417,6 +5737,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kPrimaryDisplay, /*value=*/ {});
     }
     /**
      * Handles a change in the |selectedParentModePref| value triggered via the
@@ -5481,6 +5802,18 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        // Compare new mode and current mode to find out if user has changed the
+        // resolution or just the refresh rate.
+        const currentMode = this.selectedDisplay.modes[this.currentSelectedModeIndex_];
+        const newMode = this.selectedDisplay.modes[this.selectedModePref_.value];
+        const displaySettingsType = (currentMode.height === newMode.height &&
+            currentMode.width === newMode.width) ?
+            DisplaySettingsType.kRefreshRate :
+            DisplaySettingsType.kResolution;
+        this.displaySettingsProvider.recordChangingDisplaySettings(displaySettingsType, {
+            isInternalDisplay: this.selectedDisplay.isInternal,
+            displayId: BigInt(this.selectedDisplay.id),
+        });
     }
     /**
      * Triggerend when the display size slider changes its value. This only
@@ -5497,6 +5830,10 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kScaling, {
+            isInternalDisplay: this.selectedDisplay.isInternal,
+            displayId: BigInt(this.selectedDisplay.id),
+        });
     }
     /**
      * Returns whether the option "Auto-rotate" is one of the shown options in
@@ -5516,6 +5853,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal });
     }
     onMirroredClick_(event) {
         // Blur the control so that when the transition animation completes and
@@ -5530,6 +5868,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
                 console.error('setMirrorMode Error: ' + error.message);
             }
         });
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {});
     }
     onUnifiedDesktopClick_() {
         const properties = {
@@ -5538,11 +5877,14 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.primaryDisplayId, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, /*value=*/ {});
     }
     onOverscanClick_(e) {
         e.preventDefault();
+        assert(this.selectedDisplay);
         this.overscanDisplayId = this.selectedDisplay.id;
         this.showOverscanDialog_(true);
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOverscan, { isInternalDisplay: this.selectedDisplay.isInternal });
     }
     onCloseOverscanDialog_() {
         focusWithoutInk(castExists(this.shadowRoot.getElementById('overscan')));
@@ -5616,7 +5958,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
 }
 customElements.define(SettingsDisplayElement.is, SettingsDisplayElement);
 
-function getTemplate$1s() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;padding:12px 0}.subsection{margin-bottom:0;margin-top:8px}#description{color:var(--cr-secondary-text-color);margin-inline-start:20px}</style>
 <template is="dom-repeat" items="[[graphicsTablets]]" as="graphicsTablet" index-as="index" restamp>
     <div class="device" data-evdev-id$="[[graphicsTablet.id]]">
@@ -5648,12 +5990,17 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
         return 'settings-graphics-tablet-subpage';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             graphicsTablets: {
                 type: Array,
+                observer: 'onGraphicsTabletListUpdated',
             },
         };
     }
@@ -5661,6 +6008,15 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
         // Does not apply to this page.
         if (route !== routes.GRAPHICS_TABLET) {
             return;
+        }
+    }
+    onGraphicsTabletListUpdated(newGraphicsTabletList, oldGraphicsTabletList) {
+        if (!oldGraphicsTabletList) {
+            return;
+        }
+        const { msgId, deviceNames } = getDeviceStateChangesToAnnounce(newGraphicsTabletList, oldGraphicsTabletList);
+        for (const deviceName of deviceNames) {
+            getInstance().announce(this.i18n(msgId, deviceName));
         }
     }
     onCustomizeTabletButtonsClick(e) {
@@ -5683,309 +6039,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
 }
 customElements.define(SettingsGraphicsTabletSubpageElement.is, SettingsGraphicsTabletSubpageElement);
 
-function getTemplate$1r() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}</style>
-<template is="dom-if" if="[[hasLauncherKey_]]">
-  <div class="settings-box first" id="launcherKey">
-    <div class="start" aria-hidden="true">$i18n{keyboardKeySearch}</div>
-    <settings-dropdown-menu label="$i18n{keyboardKeySearch}" pref="{{prefs.settings.language.xkb_remap_search_key_to}}" menu-options="[[keyMapTargets_]]">
-    </settings-dropdown-menu>
-  </div>
-</template>
-<div class="settings-box">
-  <div class="start" aria-hidden="true">$i18n{keyboardKeyCtrl}</div>
-  <settings-dropdown-menu label="$i18n{keyboardKeyCtrl}" pref="{{prefs.settings.language.xkb_remap_control_key_to}}" menu-options="[[keyMapTargets_]]">
-  </settings-dropdown-menu>
-</div>
-<div class="settings-box">
-  <div class="start" aria-hidden="true">$i18n{keyboardKeyAlt}</div>
-  <settings-dropdown-menu label="$i18n{keyboardKeyAlt}" pref="{{prefs.settings.language.xkb_remap_alt_key_to}}" menu-options="[[keyMapTargets_]]">
-  </settings-dropdown-menu>
-</div>
-<div class="settings-box">
-  <div class="start" aria-hidden="true">$i18n{keyboardKeyEscape}</div>
-  <settings-dropdown-menu label="$i18n{keyboardKeyEscape}" pref="{{prefs.settings.language.remap_escape_key_to}}" menu-options="[[keyMapTargets_]]">
-  </settings-dropdown-menu>
-</div>
-<div class="settings-box">
-  <div class="start" aria-hidden="true">$i18n{keyboardKeyBackspace}</div>
-  <settings-dropdown-menu label="$i18n{keyboardKeyBackspace}" pref="{{prefs.settings.language.remap_backspace_key_to}}" menu-options="[[keyMapTargets_]]">
-  </settings-dropdown-menu>
-</div>
-<template is="dom-if" if="[[hasAssistantKey_]]">
-  <div class="settings-box" id="assistantKey">
-    <div class="start" aria-hidden="true">$i18n{keyboardKeyAssistant}</div>
-    <settings-dropdown-menu label="$i18n{keyboardKeyAssistant}" pref="{{prefs.settings.language.xkb_remap_assistant_key_to}}" menu-options="[[keyMapTargets_]]">
-    </settings-dropdown-menu>
-  </div>
-</template>
-<template is="dom-if" if="[[showCapsLock_]]">
-  <div class="settings-box" id="capsLockKey">
-    <div class="start" aria-hidden="true">$i18n{keyboardKeyCapsLock}</div>
-    <settings-dropdown-menu label="$i18n{keyboardKeyCapsLock}" pref="{{prefs.settings.language.remap_caps_lock_key_to}}" menu-options="[[keyMapTargets_]]">
-    </settings-dropdown-menu>
-  </div>
-</template>
-<template is="dom-if" if="[[showExternalMetaKey_]]">
-  <div class="settings-box" id="externalMetaKey">
-    <div class="start" aria-hidden="true">
-      [[getExternalMetaKeyLabel_(hasLauncherKey_)]]
-    </div>
-    <settings-dropdown-menu label="[[getExternalMetaKeyLabel_(hasLauncherKey_)]]" pref="{{prefs.settings.language.remap_external_meta_key_to}}" menu-options="[[keyMapTargets_]]">
-    </settings-dropdown-menu>
-  </div>
-</template>
-<template is="dom-if" if="[[showAppleCommandKey_]]">
-  <div class="settings-box" id="externalCommandKey">
-    <div class="start" aria-hidden="true">
-      [[getExternalCommandKeyLabel_(hasLauncherKey_)]]
-    </div>
-    <settings-dropdown-menu label="[[getExternalCommandKeyLabel_(hasLauncherKey_)]]" pref="{{prefs.settings.language.remap_external_command_key_to}}" menu-options="[[keyMapTargets_]]">
-    </settings-dropdown-menu>
-  </div>
-</template>
-<settings-toggle-button class="hr" pref="{{prefs.settings.language.send_function_keys}}" label="$i18n{keyboardSendFunctionKeys}" sub-label="$i18n{keyboardSendFunctionKeysDescription}" deep-link-focus-id$="[[Setting.kKeyboardFunctionKeys]]">
-</settings-toggle-button>
-<h2>$i18n{keyboardHoldingKeys}</h2>
-<div class="subsection">
-  <template is="dom-if" if="[[shouldShowDiacriticSetting_]]">
-    <settings-toggle-button class="hr continuation" pref="{{prefs.settings.language.physical_keyboard_enable_diacritics_on_longpress}}" label="$i18n{keyboardAccentMarks}" sub-label="$i18n{keyboardAccentMarksSubLabel}" deep-link-focus-id$="[[Setting.kShowDiacritic]]">
-    </settings-toggle-button>
-  </template>
-  <settings-toggle-button class="hr continuation" pref="{{prefs.settings.language.xkb_auto_repeat_enabled_r2}}" label="$i18n{keyboardEnableAutoRepeat}" sub-label="$i18n{keyboardEnableAutoRepeatSubLabel}" deep-link-focus-id$="[[Setting.kKeyboardAutoRepeat]]">
-  </settings-toggle-button>
-  <iron-collapse opened="[[prefs.settings.language.xkb_auto_repeat_enabled_r2.value]]">
-    <div class="settings-box continuation embedded">
-      <div class="start" id="repeatDelayLabel" aria-hidden="true">
-        $i18n{keyRepeatDelay}
-      </div>
-      <settings-slider id="delaySlider" pref="{{prefs.settings.language.xkb_auto_repeat_delay_r2}}" ticks="[[autoRepeatDelays_]]" disabled="[[
-              !prefs.settings.language.xkb_auto_repeat_enabled_r2.value]]" label-aria="$i18n{keyRepeatDelay}" label-min="$i18n{keyRepeatDelayLong}" label-max="$i18n{keyRepeatDelayShort}">
-      </settings-slider>
-    </div>
-    <div class="settings-box continuation embedded">
-      <div class="start" id="repeatRateLabel" aria-hidden="true">
-        $i18n{keyRepeatRate}
-      </div>
-      <settings-slider id="repeatRateSlider" pref="{{
-              prefs.settings.language.xkb_auto_repeat_interval_r2}}" ticks="[[autoRepeatIntervals_]]" disabled="[[
-              !prefs.settings.language.xkb_auto_repeat_enabled_r2.value]]" label-aria="$i18n{keyRepeatRate}" label-min="$i18n{keyRepeatRateSlow}" label-max="$i18n{keyRepeatRateFast}">
-      </settings-slider>
-    </div>
-  </iron-collapse>
-</div>
-<cr-link-row id="keyboardShortcutViewer" class="hr" on-click="onShowKeyboardShortcutViewerClick_" label="$i18n{showKeyboardShortcutViewer}" external deep-link-focus-id$="[[Setting.kKeyboardShortcuts]]">
-</cr-link-row>
-<cr-link-row id="inputRow" class="hr" on-click="onShowInputSettingsClick_" label="$i18n{keyboardShowInputSettings}" role-description="$i18n{subpageArrowRoleDescription}">
-</cr-link-row>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-keyboard' is the settings subpage for keyboard settings.
- */
-/**
- * Modifier key IDs corresponding to the ModifierKey enumerators in
- * /ui/base/ime/ash/ime_keyboard.h.
- */
-var ModifierKey;
-(function (ModifierKey) {
-    ModifierKey[ModifierKey["SEARCH_KEY"] = 0] = "SEARCH_KEY";
-    ModifierKey[ModifierKey["CONTROL_KEY"] = 1] = "CONTROL_KEY";
-    ModifierKey[ModifierKey["ALT_KEY"] = 2] = "ALT_KEY";
-    ModifierKey[ModifierKey["VOID_KEY"] = 3] = "VOID_KEY";
-    ModifierKey[ModifierKey["CAPS_LOCK_KEY"] = 4] = "CAPS_LOCK_KEY";
-    ModifierKey[ModifierKey["ESCAPE_KEY"] = 5] = "ESCAPE_KEY";
-    ModifierKey[ModifierKey["BACKSPACE_KEY"] = 6] = "BACKSPACE_KEY";
-    ModifierKey[ModifierKey["ASSISTANT_KEY"] = 7] = "ASSISTANT_KEY";
-})(ModifierKey || (ModifierKey = {}));
-const SettingsKeyboardElementBase = DeepLinkingMixin(RouteOriginMixin(WebUiListenerMixin(PolymerElement)));
-class SettingsKeyboardElement extends SettingsKeyboardElementBase {
-    static get is() {
-        return 'settings-keyboard';
-    }
-    static get template() {
-        return getTemplate$1r();
-    }
-    static get properties() {
-        return {
-            /** Preferences state. */
-            prefs: {
-                type: Object,
-                notify: true,
-            },
-            /** Whether to show Caps Lock options. */
-            showCapsLock_: Boolean,
-            /**
-             * Whether this device has a ChromeOS launcher key. Applies only to
-             * ChromeOS keyboards, internal or external.
-             */
-            hasLauncherKey_: Boolean,
-            /** Whether this device has an Assistant key on keyboard. */
-            hasAssistantKey_: Boolean,
-            /**
-             * Whether to show a remapping option for external keyboard's Meta key
-             * (Search/Windows keys). This is true only when there's an external
-             * keyboard connected that is a non-Apple keyboard.
-             */
-            showExternalMetaKey_: Boolean,
-            /**
-             * Whether to show a remapping option for the Command key. This is true
-             * when one of the connected keyboards is an Apple keyboard.
-             */
-            showAppleCommandKey_: Boolean,
-            /** Menu items for key mapping. */
-            keyMapTargets_: Object,
-            /**
-             * Auto-repeat delays (in ms) for the corresponding slider values, from
-             * long to short. The values were chosen to provide a large range while
-             * giving several options near the defaults.
-             */
-            autoRepeatDelays_: {
-                type: Array,
-                value: [2000, 1500, 1000, 500, 300, 200, 150],
-                readOnly: true,
-            },
-            /**
-             * Auto-repeat intervals (in ms) for the corresponding slider values, from
-             * long to short. The slider itself is labeled "rate", the inverse of
-             * interval, and goes from slow (long interval) to fast (short interval).
-             */
-            autoRepeatIntervals_: {
-                type: Array,
-                value: [2000, 1000, 500, 300, 200, 100, 50, 30, 20],
-                readOnly: true,
-            },
-            /**
-             * Whether the setting for long press diacritics should be shown
-             */
-            shouldShowDiacriticSetting_: Boolean,
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kKeyboardFunctionKeys,
-                    Setting.kKeyboardAutoRepeat,
-                    Setting.kKeyboardShortcuts,
-                    Setting.kShowDiacritic,
-                ]),
-            },
-            /**
-             * Whether settings should be split per device.
-             */
-            isDeviceSettingsSplitEnabled_: {
-                type: Boolean,
-                value() {
-                    return isInputDeviceSettingsSplitEnabled();
-                },
-                readOnly: true,
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.shouldShowDiacriticSetting_ = loadTimeData.getBoolean('allowDiacriticsOnPhysicalKeyboardLongpress');
-        /** RouteOriginMixin override */
-        this.route = routes.KEYBOARD;
-        this.browserProxy_ = DevicePageBrowserProxyImpl.getInstance();
-    }
-    ready() {
-        super.ready();
-        this.addWebUiListener('show-keys-changed', this.onShowKeysChange_.bind(this));
-        this.browserProxy_.initializeKeyboard();
-        this.setUpKeyMapTargets_();
-        this.addFocusConfig(routes.OS_LANGUAGES_INPUT, '#inputRow');
-    }
-    currentRouteChanged(newRoute, oldRoute) {
-        super.currentRouteChanged(newRoute, oldRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        if (Router.getInstance().currentRoute === this.route &&
-            this.isDeviceSettingsSplitEnabled_) {
-            // Call setCurrentRoute function to go to the per device keyboard subpage
-            // when the feature flag is turned on. We don't use navigateTo function
-            // since we don't want to navigate back to the previous keyboard subpage.
-            setTimeout(() => {
-                Router.getInstance().setCurrentRoute(routes.PER_DEVICE_KEYBOARD, new URLSearchParams(), false);
-            });
-        }
-        this.attemptDeepLink();
-    }
-    /**
-     * Initializes the dropdown menu options for remapping keys.
-     */
-    setUpKeyMapTargets_() {
-        // Ordering is according to UX, but values match ModifierKey.
-        this.keyMapTargets_ = [
-            {
-                value: ModifierKey.SEARCH_KEY,
-                name: loadTimeData.getString('keyboardKeySearch'),
-            },
-            {
-                value: ModifierKey.CONTROL_KEY,
-                name: loadTimeData.getString('keyboardKeyCtrl'),
-            },
-            {
-                value: ModifierKey.ALT_KEY,
-                name: loadTimeData.getString('keyboardKeyAlt'),
-            },
-            {
-                value: ModifierKey.CAPS_LOCK_KEY,
-                name: loadTimeData.getString('keyboardKeyCapsLock'),
-            },
-            {
-                value: ModifierKey.ESCAPE_KEY,
-                name: loadTimeData.getString('keyboardKeyEscape'),
-            },
-            {
-                value: ModifierKey.BACKSPACE_KEY,
-                name: loadTimeData.getString('keyboardKeyBackspace'),
-            },
-            {
-                value: ModifierKey.ASSISTANT_KEY,
-                name: loadTimeData.getString('keyboardKeyAssistant'),
-            },
-            {
-                value: ModifierKey.VOID_KEY,
-                name: loadTimeData.getString('keyboardKeyDisabled'),
-            },
-        ];
-    }
-    /**
-     * Handler for updating which keys to show.
-     */
-    onShowKeysChange_(keyboardParams) {
-        this.hasLauncherKey_ = keyboardParams['hasLauncherKey'];
-        this.hasAssistantKey_ = keyboardParams['hasAssistantKey'];
-        this.showCapsLock_ = keyboardParams['showCapsLock'];
-        this.showExternalMetaKey_ = keyboardParams['showExternalMetaKey'];
-        this.showAppleCommandKey_ = keyboardParams['showAppleCommandKey'];
-    }
-    onShowKeyboardShortcutViewerClick_() {
-        this.browserProxy_.showKeyboardShortcutViewer();
-    }
-    onShowInputSettingsClick_() {
-        Router.getInstance().navigateTo(routes.OS_LANGUAGES_INPUT, 
-        /*dynamicParams=*/ undefined, /*removeSearch=*/ true);
-    }
-    getExternalMetaKeyLabel_(hasLauncherKey) {
-        return loadTimeData.getString(hasLauncherKey ? 'keyboardKeyExternalMeta' : 'keyboardKeyMeta');
-    }
-    getExternalCommandKeyLabel_(hasLauncherKey) {
-        return loadTimeData.getString(hasLauncherKey ? 'keyboardKeyExternalCommand' : 'keyboardKeyCommand');
-    }
-}
-customElements.define(SettingsKeyboardElement.is, SettingsKeyboardElement);
-
-function getTemplate$1q() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <template is="dom-if" if="[[!hasKeyboards(keyboards.length)]]">
   <div id="noKeyboardsConnectedContainer" class="settings-box start first">
@@ -6076,7 +6130,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
         return 'settings-per-device-keyboard';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -6131,6 +6185,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
                 value: () => {
                     return isRevampWayfindingEnabled();
                 },
+                readOnly: true,
             },
             /**
              * Whether the setting for long press diacritics should be shown
@@ -6182,7 +6237,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
 }
 customElements.define(SettingsPerDeviceKeyboardElement.is, SettingsPerDeviceKeyboardElement);
 
-function getTemplate$1p() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 
 <div class="settings-box" id="fkeyRow">
@@ -6267,7 +6322,7 @@ class FkeyRowElement extends FkeyRowElementBase {
         return 'fkey-row';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -6335,8 +6390,8 @@ class FkeyRowElement extends FkeyRowElementBase {
 }
 customElements.define(FkeyRowElement.is, FkeyRowElement);
 
-function getTemplate$1o() {
-    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex}:host([key-state=default-remapping]) .key-container{background-color:var(--cros-bg-color-dropped-elevation-1);border:none;box-shadow:0 1px 1px var(--cros-bg-color-dropped-elevation-1)}:host([key-state=modifier-remapped]) .key-container{background-color:var(--cros-highlight-color);border:none;box-shadow:0 1px 1px var(--cros-highlight-color)}:host-context(body.jelly-enabled):host([key-state=modifier-remapped]) .key-container{background-color:var(--cros-sys-highlight_shape);border:none;box-shadow:0 1px 1px var(--cros-sys-highlight_shape)}.settings-box{justify-content:space-between;padding-inline-start:0}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:20px;--iron-icon-width:20px;align-self:center;justify-self:center}:host([remove-top-border]) .settings-box{border-top:none}</style>
+function getTemplate$1j() {
+    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex}:host([key-state=default-remapping]) .key-container{background-color:var(--cros-bg-color-dropped-elevation-1);border:none;box-shadow:0 1px 1px var(--cros-bg-color-dropped-elevation-1)}:host([key-state=modifier-remapped]) .key-container{background-color:var(--cros-sys-highlight_shape);border:none;box-shadow:0 1px 1px var(--cros-sys-highlight_shape)}.settings-box{justify-content:space-between;padding-inline-start:0}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:20px;--iron-icon-width:20px;align-self:center;justify-self:center}:host([remove-top-border]) .settings-box{border-top:none}</style>
 <div class="settings-box">
   <div>
     <div id="keyLabelContainer" class="start key-container">
@@ -6424,7 +6479,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
         this.setUpKeyMapTargets();
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1j();
     }
     /**
      * Whenever the key remapping is changed, update the keyState to change
@@ -6457,25 +6512,25 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
      */
     getKeyLabel() {
         switch (this.key) {
-            case ModifierKey$1.kAlt: {
+            case ModifierKey.kAlt: {
                 return this.i18n('perDeviceKeyboardKeyAlt');
             }
-            case ModifierKey$1.kAssistant: {
+            case ModifierKey.kAssistant: {
                 return this.i18n('perDeviceKeyboardKeyAssistant');
             }
-            case ModifierKey$1.kBackspace: {
+            case ModifierKey.kBackspace: {
                 return this.i18n('perDeviceKeyboardKeyBackspace');
             }
-            case ModifierKey$1.kCapsLock: {
+            case ModifierKey.kCapsLock: {
                 return this.i18n('perDeviceKeyboardKeyCapsLock');
             }
-            case ModifierKey$1.kControl: {
+            case ModifierKey.kControl: {
                 return this.i18n('perDeviceKeyboardKeyCtrl');
             }
-            case ModifierKey$1.kEscape: {
+            case ModifierKey.kEscape: {
                 return this.i18n('perDeviceKeyboardKeyEscape');
             }
-            case ModifierKey$1.kMeta: {
+            case ModifierKey.kMeta: {
                 return this.getMetaKeyLabel();
             }
             default:
@@ -6486,41 +6541,41 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
         // Ordering is according to UX, but values match ModifierKey.
         this.keyMapTargets = [
             {
-                value: ModifierKey$1.kMeta,
+                value: ModifierKey.kMeta,
                 name: this.i18n('perDeviceKeyboardKeySearch'),
             },
             {
-                value: ModifierKey$1.kControl,
+                value: ModifierKey.kControl,
                 name: this.i18n('perDeviceKeyboardKeyCtrl'),
             },
             {
-                value: ModifierKey$1.kAlt,
+                value: ModifierKey.kAlt,
                 name: this.i18n('perDeviceKeyboardKeyAlt'),
             },
             {
-                value: ModifierKey$1.kCapsLock,
+                value: ModifierKey.kCapsLock,
                 name: this.i18n('perDeviceKeyboardKeyCapsLock'),
             },
             {
-                value: ModifierKey$1.kEscape,
+                value: ModifierKey.kEscape,
                 name: this.i18n('perDeviceKeyboardKeyEscape'),
             },
             {
-                value: ModifierKey$1.kBackspace,
+                value: ModifierKey.kBackspace,
                 name: this.i18n('perDeviceKeyboardKeyBackspace'),
             },
             {
-                value: ModifierKey$1.kAssistant,
+                value: ModifierKey.kAssistant,
                 name: this.i18n('perDeviceKeyboardKeyAssistant'),
             },
             {
-                value: ModifierKey$1.kVoid,
+                value: ModifierKey.kVoid,
                 name: this.i18n('perDeviceKeyboardKeyDisabled'),
             },
         ];
     }
     getKeyIcon() {
-        if (this.key === ModifierKey$1.kMeta) {
+        if (this.key === ModifierKey.kMeta) {
             if (this.metaKey === MetaKey.kSearch) {
                 return 'cr:search';
             }
@@ -6528,7 +6583,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
                 return 'os-settings:launcher';
             }
         }
-        else if (this.key === ModifierKey$1.kAssistant) {
+        else if (this.key === ModifierKey.kAssistant) {
             return 'os-settings:assistant';
         }
         return '';
@@ -6536,7 +6591,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
 }
 customElements.define(KeyboardRemapModifierKeyRowElement.is, KeyboardRemapModifierKeyRowElement);
 
-function getTemplate$1n() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 <div class="settings-box" id="sixPackKeyRow">
   <div>
@@ -6649,7 +6704,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
         return 'keyboard-six-pack-key-row';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -6677,7 +6732,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
 }
 customElements.define(KeyboardSixPackKeyRowElement.is, KeyboardSixPackKeyRowElement);
 
-function getTemplate$1m() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;margin-top:12px}.subsection{margin-bottom:0}#description{color:var(--cr-secondary-text-color);font:var(--cros-button-2-font);margin-inline-start:20px}.subsection-header{color:var(--cr-secondary-text-color);font:var(--cros-body-2-font);height:24px;margin:12px 0;padding-inline-start:0}#modifierKeysHeader{margin-bottom:0}</style>
 <div id="header">
   <div id="description">[[computeKeyboardKeysDescription(keyboard.*)]]</div>
@@ -6784,13 +6839,13 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
     constructor() {
         super(...arguments);
         this.defaultRemappings = {
-            [ModifierKey$1.kMeta]: ModifierKey$1.kMeta,
-            [ModifierKey$1.kControl]: ModifierKey$1.kControl,
-            [ModifierKey$1.kAlt]: ModifierKey$1.kAlt,
-            [ModifierKey$1.kEscape]: ModifierKey$1.kEscape,
-            [ModifierKey$1.kBackspace]: ModifierKey$1.kBackspace,
-            [ModifierKey$1.kAssistant]: ModifierKey$1.kAssistant,
-            [ModifierKey$1.kCapsLock]: ModifierKey$1.kCapsLock,
+            [ModifierKey.kMeta]: ModifierKey.kMeta,
+            [ModifierKey.kControl]: ModifierKey.kControl,
+            [ModifierKey.kAlt]: ModifierKey.kAlt,
+            [ModifierKey.kEscape]: ModifierKey.kEscape,
+            [ModifierKey.kBackspace]: ModifierKey.kBackspace,
+            [ModifierKey.kAssistant]: ModifierKey.kAssistant,
+            [ModifierKey.kCapsLock]: ModifierKey.kCapsLock,
         };
         this.inputDeviceSettingsProvider = getInputDeviceSettingsProvider();
     }
@@ -6798,7 +6853,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         return 'settings-per-device-keyboard-remap-keys';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -6808,7 +6863,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeMetaKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kMeta,
+                        value: ModifierKey.kMeta,
                     };
                 },
             },
@@ -6818,7 +6873,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeCtrlKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kControl,
+                        value: ModifierKey.kControl,
                     };
                 },
             },
@@ -6828,7 +6883,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeAltKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kAlt,
+                        value: ModifierKey.kAlt,
                     };
                 },
             },
@@ -6838,7 +6893,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeEscKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kEscape,
+                        value: ModifierKey.kEscape,
                     };
                 },
             },
@@ -6848,7 +6903,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeBackspaceKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kBackspace,
+                        value: ModifierKey.kBackspace,
                     };
                 },
             },
@@ -6858,7 +6913,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeAssistantKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kAssistant,
+                        value: ModifierKey.kAssistant,
                     };
                 },
             },
@@ -6868,7 +6923,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
                     return {
                         key: 'fakeCapsLockKeyRemapPref',
                         type: chrome.settingsPrivate.PrefType.NUMBER,
-                        value: ModifierKey$1.kCapsLock,
+                        value: ModifierKey.kCapsLock,
                     };
                 },
             },
@@ -7030,7 +7085,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         ];
     }
     get modifierKey() {
-        return ModifierKey$1;
+        return ModifierKey;
     }
     currentRouteChanged(route) {
         // Does not apply to this page.
@@ -7071,9 +7126,9 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         // Assistant key and caps lock key are optional. Their values depend on
         // keyboard modifierKeys.
         this.hasAssistantKey =
-            searchedKeyboard.modifierKeys.includes(ModifierKey$1.kAssistant);
+            searchedKeyboard.modifierKeys.includes(ModifierKey.kAssistant);
         this.hasCapsLockKey =
-            searchedKeyboard.modifierKeys.includes(ModifierKey$1.kCapsLock);
+            searchedKeyboard.modifierKeys.includes(ModifierKey.kCapsLock);
         // Update Prefs according to keyboard modifierRemappings.
         Array.from(this.computeModifierRemappings().keys())
             .forEach((originalKey) => {
@@ -7117,13 +7172,13 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
      * values in the remappings map.
      */
     initializePrefsToIdentity() {
-        this.set('fakeAltPref.value', ModifierKey$1.kAlt);
-        this.set('fakeAssitantPref.value', ModifierKey$1.kAssistant);
-        this.set('fakeBackspacePref.value', ModifierKey$1.kBackspace);
-        this.set('fakeCtrlPref.value', ModifierKey$1.kControl);
-        this.set('fakeCapsLockPref.value', ModifierKey$1.kCapsLock);
-        this.set('fakeEscPref.value', ModifierKey$1.kEscape);
-        this.set('fakeMetaPref.value', ModifierKey$1.kMeta);
+        this.set('fakeAltPref.value', ModifierKey.kAlt);
+        this.set('fakeAssitantPref.value', ModifierKey.kAssistant);
+        this.set('fakeBackspacePref.value', ModifierKey.kBackspace);
+        this.set('fakeCtrlPref.value', ModifierKey.kControl);
+        this.set('fakeCapsLockPref.value', ModifierKey.kCapsLock);
+        this.set('fakeEscPref.value', ModifierKey.kEscape);
+        this.set('fakeMetaPref.value', ModifierKey.kMeta);
     }
     restoreDefaults() {
         this.inputDeviceSettingsProvider.restoreDefaultKeyboardRemappings(this.keyboardId);
@@ -7131,31 +7186,31 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
     setRemappedKey(originalKey) {
         const targetKey = this.computeModifierRemappings().get(originalKey);
         switch (originalKey) {
-            case ModifierKey$1.kAlt: {
+            case ModifierKey.kAlt: {
                 this.set('fakeAltPref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kAssistant: {
+            case ModifierKey.kAssistant: {
                 this.set('fakeAssistantPref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kBackspace: {
+            case ModifierKey.kBackspace: {
                 this.set('fakeBackspacePref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kCapsLock: {
+            case ModifierKey.kCapsLock: {
                 this.set('fakeCapsLockPref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kControl: {
+            case ModifierKey.kControl: {
                 this.set('fakeCtrlPref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kEscape: {
+            case ModifierKey.kEscape: {
                 this.set('fakeEscPref.value', targetKey);
                 break;
             }
-            case ModifierKey$1.kMeta: {
+            case ModifierKey.kMeta: {
                 this.set('fakeMetaPref.value', targetKey);
                 break;
             }
@@ -7192,36 +7247,36 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
      */
     getUpdatedRemappings() {
         const updatedRemappings = {};
-        if (ModifierKey$1.kAlt !== this.fakeAltPref.value) {
-            updatedRemappings[ModifierKey$1.kAlt] = this.fakeAltPref.value;
+        if (ModifierKey.kAlt !== this.fakeAltPref.value) {
+            updatedRemappings[ModifierKey.kAlt] = this.fakeAltPref.value;
         }
-        if (ModifierKey$1.kAssistant !== this.fakeAssistantPref.value) {
-            updatedRemappings[ModifierKey$1.kAssistant] = this.fakeAssistantPref.value;
+        if (ModifierKey.kAssistant !== this.fakeAssistantPref.value) {
+            updatedRemappings[ModifierKey.kAssistant] = this.fakeAssistantPref.value;
         }
-        if (ModifierKey$1.kBackspace !== this.fakeBackspacePref.value) {
-            updatedRemappings[ModifierKey$1.kBackspace] = this.fakeBackspacePref.value;
+        if (ModifierKey.kBackspace !== this.fakeBackspacePref.value) {
+            updatedRemappings[ModifierKey.kBackspace] = this.fakeBackspacePref.value;
         }
-        if (ModifierKey$1.kCapsLock !== this.fakeCapsLockPref.value) {
-            updatedRemappings[ModifierKey$1.kCapsLock] = this.fakeCapsLockPref.value;
+        if (ModifierKey.kCapsLock !== this.fakeCapsLockPref.value) {
+            updatedRemappings[ModifierKey.kCapsLock] = this.fakeCapsLockPref.value;
         }
-        if (ModifierKey$1.kControl !== this.fakeCtrlPref.value) {
-            updatedRemappings[ModifierKey$1.kControl] = this.fakeCtrlPref.value;
+        if (ModifierKey.kControl !== this.fakeCtrlPref.value) {
+            updatedRemappings[ModifierKey.kControl] = this.fakeCtrlPref.value;
         }
-        if (ModifierKey$1.kEscape !== this.fakeEscPref.value) {
-            updatedRemappings[ModifierKey$1.kEscape] = this.fakeEscPref.value;
+        if (ModifierKey.kEscape !== this.fakeEscPref.value) {
+            updatedRemappings[ModifierKey.kEscape] = this.fakeEscPref.value;
         }
-        if (ModifierKey$1.kMeta !== this.fakeMetaPref.value) {
-            updatedRemappings[ModifierKey$1.kMeta] = this.fakeMetaPref.value;
+        if (ModifierKey.kMeta !== this.fakeMetaPref.value) {
+            updatedRemappings[ModifierKey.kMeta] = this.fakeMetaPref.value;
         }
         return updatedRemappings;
     }
     updateDefaultRemapping() {
         this.defaultRemappings = {
             ...this.defaultRemappings,
-            [ModifierKey$1.kMeta]: this.keyboard.metaKey === MetaKey.kCommand ? ModifierKey$1.kControl :
-                ModifierKey$1.kMeta,
-            [ModifierKey$1.kControl]: this.keyboard.metaKey === MetaKey.kCommand ? ModifierKey$1.kMeta :
-                ModifierKey$1.kControl,
+            [ModifierKey.kMeta]: this.keyboard.metaKey === MetaKey.kCommand ? ModifierKey.kControl :
+                ModifierKey.kMeta,
+            [ModifierKey.kControl]: this.keyboard.metaKey === MetaKey.kCommand ? ModifierKey.kMeta :
+                ModifierKey.kControl,
         };
     }
     getKeyboardIdFromUrl() {
@@ -7298,7 +7353,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
 }
 customElements.define(SettingsPerDeviceKeyboardRemapKeysElement.is, SettingsPerDeviceKeyboardRemapKeysElement);
 
-function getTemplate$1l() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[mice]]" as="mouse" index-as="index" restamp>
   <settings-per-device-mouse-subsection mouse="[[mouse]]" mouse-policies="[[mousePolicies]]" mouse-index="[[index]]" is-last-device="[[computeIsLastDevice(index, mice.length)]]">
   </settings-per-device-mouse-subsection>
@@ -7320,7 +7375,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
         return 'settings-per-device-mouse';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -7354,7 +7409,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
 }
 customElements.define(SettingsPerDeviceMouseElement.is, SettingsPerDeviceMouseElement);
 
-function getTemplate$1k() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[pointingSticks]]" as="pointingStick" index-as="index" restamp>
   <settings-per-device-pointing-stick-subsection pointing-stick="[[pointingStick]]" pointing-stick-index="[[index]]" is-last-device="[[computeIsLastDevice(index, pointingSticks.length)]]">
   </settings-per-device-pointing-stick-subsection>
@@ -7376,7 +7431,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
         return 'settings-per-device-pointing-stick';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -7407,7 +7462,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
 }
 customElements.define(SettingsPerDevicePointingStickElement.is, SettingsPerDevicePointingStickElement);
 
-function getTemplate$1j() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[touchpads]]" as="touchpad" index-as="index" restamp>
   <settings-per-device-touchpad-subsection touchpad="[[touchpad]]" touchpad-index="[[index]]" is-last-device="[[computeIsLastDevice(index, touchpads.length)]]">
   </settings-per-device-touchpad-subsection>
@@ -7429,7 +7484,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
         return 'settings-per-device-touchpad';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -7460,1033 +7515,6 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
 }
 customElements.define(SettingsPerDeviceTouchpadElement.is, SettingsPerDeviceTouchpadElement);
 
-function getTemplate$1i() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>.settings-box,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}#enableReverseScrollingToggle{border-top:none;padding-inline-end:0}</style>
-<div id="mouse" hidden$="[[!hasMouse]]">
-  
-  <h2 hidden$="[[!showHeadings_]]">$i18n{mouseTitle}</h2>
-  <div class$="[[subsectionClass_]]">
-    <div class="settings-box">
-      <div class="start settings-box-text" id="mouseSwapButtonLabel">
-        $i18n{mouseSwapButtonsLabel}
-      </div>
-      <settings-dropdown-menu id="mouseSwapButtonDropdown" aria-labeledby="mouseSwapButtonLabel" pref="{{prefs.settings.mouse.primary_right}}" menu-options="[[swapPrimaryOptions]]" deep-link-focus-id$="[[Setting.kMouseSwapPrimaryButtons]]">
-      </settings-dropdown-menu>
-    </div>
-    <settings-toggle-button id="mouseAcceleration" class="hr" pref="{{prefs.settings.mouse.acceleration}}" label="[[getCursorAccelerationString()]]" deep-link-focus-id$="[[Setting.kMouseAcceleration]]">
-    </settings-toggle-button>
-    <div class="settings-box">
-      <div class="start" id="mouseSpeedLabel" aria-hidden="true">
-        [[getCursorSpeedString()]]
-      </div>
-      <settings-slider id="mouseSpeedSlider" pref="{{prefs.settings.mouse.sensitivity2}}" ticks="[[sensitivityValues_]]" label-aria="[[getCursorSpeedString()]]" label-min="$i18n{pointerSlow}" label-max="$i18n{pointerFast}" deep-link-focus-id$="[[Setting.kMouseSpeed]]">
-      </settings-slider>
-    </div>
-    <div class="settings-box" id="mouseReverseScrollRow" on-click="onMouseReverseScrollRowClicked_">
-      <div class="start settings-box-text">
-        <localized-link on-click="onLearnMoreLinkClicked_" id="enableMouseReverseScrollingLabel" localized-string="$i18n{mouseReverseScrollLabel}" link-url="$i18n{naturalScrollLearnMoreLink}">
-        </localized-link>
-      </div>
-      <cr-toggle id="mouseReverseScroll" checked="{{prefs.settings.mouse.reverse_scroll.value}}" aria-labelledby="enableMouseReverseScrollingLabel" deep-link-focus-id$="[[Setting.kMouseReverseScrolling]]">
-      </cr-toggle>
-    </div>
-  </div>
-</div>
-<div id="pointingStick" hidden$="[[!hasPointingStick]]">
-  
-  <h2 hidden$="[[!showHeadings_]]">$i18n{pointingStickTitle}</h2>
-  <div class$="[[subsectionClass_]]">
-    <div class="settings-box">
-      <div class="start settings-box-text" id="pointingStickSwapButtonLabel">
-        $i18n{pointingStickPrimaryButton}
-      </div>
-      <settings-dropdown-menu id="pointingStickSwapButtonDropdown" aria-labeledby="pointingStickSwapButtonLabel" pref="{{prefs.settings.pointing_stick.primary_right}}" menu-options="[[swapPrimaryOptions]]" deep-link-focus-id$="[[Setting.kPointingStickSwapPrimaryButtons]]">
-      </settings-dropdown-menu>
-    </div>
-    <settings-toggle-button id="pointingStickAcceleration" class="hr" pref="{{prefs.settings.pointing_stick.acceleration}}" label="$i18n{pointingStickAccelerationLabel}" deep-link-focus-id$="[[Setting.kPointingStickAcceleration]]">
-    </settings-toggle-button>
-    <div class="settings-box">
-      <div class="start" id="pointingStickSpeedLabel" aria-hidden="true">
-        $i18n{pointingStickSpeed}
-      </div>
-      <settings-slider id="pointingStickSpeedSlider" pref="{{prefs.settings.pointing_stick.sensitivity}}" ticks="[[sensitivityValues_]]" label-aria="$i18n{pointingStickSpeed}" label-min="$i18n{pointerSlow}" label-max="$i18n{pointerFast}" deep-link-focus-id$="[[Setting.kPointingStickSpeed]]">
-      </settings-slider>
-    </div>
-  </div>
-</div>
-<div id="touchpad" hidden$="[[!hasTouchpad]]">
-  
-  <h2 hidden$="[[!showHeadings_]]">$i18n{touchpadTitle}</h2>
-  <div class$="[[subsectionClass_]]">
-    <settings-toggle-button id="enableTapToClick" pref="{{prefs.settings.touchpad.enable_tap_to_click}}" label="$i18n{touchpadTapToClickEnabledLabel}" deep-link-focus-id$="[[Setting.kTouchpadTapToClick]]">
-    </settings-toggle-button>
-    <settings-toggle-button id="enableTapDragging" class="hr" pref="{{prefs.settings.touchpad.enable_tap_dragging}}" label="$i18n{tapDraggingLabel}" deep-link-focus-id$="[[Setting.kTouchpadTapDragging]]">
-    </settings-toggle-button>
-    <settings-toggle-button id="touchpadAcceleration" class="hr" pref="{{prefs.settings.touchpad.acceleration}}" label="$i18n{touchpadAccelerationLabel}" deep-link-focus-id$="[[Setting.kTouchpadAcceleration]]">
-    </settings-toggle-button>
-    <div class="settings-box">
-      <div class="start" id="touchpadSpeedLabel" aria-hidden="true">
-        $i18n{touchpadSpeed}
-      </div>
-        <settings-slider id="touchpadSensitivity" pref="{{prefs.settings.touchpad.sensitivity2}}" ticks="[[sensitivityValues_]]" label-aria="$i18n{touchpadSpeed}" label-min="$i18n{pointerSlow}" label-max="$i18n{pointerFast}" deep-link-focus-id$="[[Setting.kTouchpadSpeed]]">
-        </settings-slider>
-    </div>
-    <template is="dom-if" if="[[hasHapticTouchpad]]">
-      <div class="settings-box">
-        <div class="start" id="touchpadHapticClickSensitivityLabel" aria-hidden="true">
-          $i18n{touchpadHapticClickSensitivityLabel}
-        </div>
-        <settings-slider id="touchpadHapticClickSensitivity" pref="{{prefs.settings.touchpad.haptic_click_sensitivity}}" ticks="[[hapticClickSensitivityValues_]]" label-aria="$i18n{touchpadHapticClickSensitivityLabel}" label-min="$i18n{touchpadHapticLightClickLabel}" label-max="$i18n{touchpadHapticFirmClickLabel}" deep-link-focus-id$="[[Setting.kTouchpadHapticClickSensitivity]]">
-        </settings-slider>
-      </div>
-      <div class="settings-box two-line" id="touchpadHapticFeedbackRow" on-click="onTouchpadHapticFeedbackRowClicked_">
-        <div class="start settings-box-text">
-          <div>$i18n{touchpadHapticFeedbackTitle}</div>
-          <div class="secondary">
-            <localized-link on-click="onLearnMoreLinkClicked_" id="touchpadHapticFeedbackSecondary" localized-string="$i18n{touchpadHapticFeedbackSecondaryText}" link-url="$i18n{hapticFeedbackLearnMoreLink}">
-            </localized-link>
-          </div>
-        </div>
-        <cr-toggle id="touchpadHapticFeedbackToggle" checked="{{prefs.settings.touchpad.haptic_feedback.value}}" aria-labelledby="touchpadHapticFeedbackRow" deep-link-focus-id$="[[Setting.kTouchpadHapticFeedback]]">
-        </cr-toggle>
-      </div>
-    </template>
-    <div class="settings-box" id="reverseScrollRow" on-click="onTouchpadReverseScrollRowClicked_">
-      <div class="start settings-box-text">
-        <localized-link on-click="onLearnMoreLinkClicked_" id="enableReverseScrollingLabel" localized-string="$i18n{touchpadScrollLabel}" link-url="$i18n{naturalScrollLearnMoreLink}">
-        </localized-link>
-      </div>
-      <cr-toggle id="enableReverseScrollingToggle" checked="{{prefs.settings.touchpad.natural_scroll.value}}" aria-labelledby="enableReverseScrollingLabel" deep-link-focus-id$="[[Setting.kTouchpadReverseScrolling]]">
-      </cr-toggle>
-    </div>
-  </div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-pointers' is the settings subpage with mouse and touchpad settings.
- */
-const SettingsPointersElementBase = DeepLinkingMixin(RouteObserverMixin(PrefsMixin(I18nMixin(PolymerElement))));
-class SettingsPointersElement extends SettingsPointersElementBase {
-    static get is() {
-        return 'settings-pointers';
-    }
-    static get template() {
-        return getTemplate$1i();
-    }
-    static get properties() {
-        return {
-            hasMouse: Boolean,
-            hasPointingStick: Boolean,
-            hasTouchpad: Boolean,
-            hasHapticTouchpad: Boolean,
-            swapPrimaryOptions: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    return [
-                        {
-                            value: false,
-                            name: loadTimeData.getString('primaryMouseButtonLeft'),
-                        },
-                        {
-                            value: true,
-                            name: loadTimeData.getString('primaryMouseButtonRight'),
-                        },
-                    ];
-                },
-            },
-            showHeadings_: {
-                type: Boolean,
-                computed: 'computeShowHeadings_(hasMouse, hasPointingStick, hasTouchpad)',
-            },
-            subsectionClass_: {
-                type: String,
-                computed: 'computeSubsectionClass_(hasMouse, hasPointingStick, ' +
-                    'hasTouchpad)',
-            },
-            /**
-             * TODO(michaelpg): settings-slider should optionally take a min and max
-             * so we don't have to generate a simple range of natural numbers
-             * ourselves. These values match the TouchpadSensitivity enum in
-             * enums.xml.
-             */
-            sensitivityValues_: {
-                type: Array,
-                value: [1, 2, 3, 4, 5],
-                readOnly: true,
-            },
-            /**
-             * The click sensitivity values from prefs are [1,3,5] but ChromeVox needs
-             * to announce them as [1,2,3].
-             */
-            hapticClickSensitivityValues_: {
-                type: Array,
-                value() {
-                    return [
-                        { value: 1, ariaValue: 1 },
-                        { value: 3, ariaValue: 2 },
-                        { value: 5, ariaValue: 3 },
-                    ];
-                },
-                readOnly: true,
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kTouchpadTapToClick,
-                    Setting.kTouchpadTapDragging,
-                    Setting.kTouchpadReverseScrolling,
-                    Setting.kTouchpadAcceleration,
-                    Setting.kTouchpadSpeed,
-                    Setting.kTouchpadHapticFeedback,
-                    Setting.kTouchpadHapticClickSensitivity,
-                    Setting.kPointingStickAcceleration,
-                    Setting.kPointingStickSpeed,
-                    Setting.kPointingStickSwapPrimaryButtons,
-                    Setting.kMouseSwapPrimaryButtons,
-                    Setting.kMouseReverseScrolling,
-                    Setting.kMouseAcceleration,
-                    Setting.kMouseSpeed,
-                ]),
-            },
-            /**
-             * Whether settings should be split per device.
-             */
-            isDeviceSettingsSplitEnabled_: {
-                type: Boolean,
-                value() {
-                    return isInputDeviceSettingsSplitEnabled();
-                },
-                readOnly: true,
-            },
-        };
-    }
-    /**
-     * Headings should only be visible if more than one subsection is present.
-     */
-    computeShowHeadings_(hasMouse, hasPointingStick, hasTouchpad) {
-        const sectionVisibilities = [hasMouse, hasPointingStick, hasTouchpad];
-        // Count the number of true values in sectionVisibilities.
-        const numVisibleSections = sectionVisibilities.filter(x => x).length;
-        return numVisibleSections > 1;
-    }
-    /**
-     * Mouse, pointing stick, and touchpad sections are only subsections if more
-     * than one is present.
-     */
-    computeSubsectionClass_(hasMouse, hasPointingStick, hasTouchpad) {
-        const subsections = this.computeShowHeadings_(hasMouse, hasPointingStick, hasTouchpad);
-        return subsections ? 'subsection' : '';
-    }
-    getCursorSpeedString() {
-        return this.i18nAdvanced(loadTimeData.getBoolean('allowScrollSettings') ? 'cursorSpeed' :
-            'mouseSpeed');
-    }
-    getCursorAccelerationString() {
-        return this.i18nAdvanced(loadTimeData.getBoolean('allowScrollSettings') ?
-            'cursorAccelerationLabel' :
-            'mouseAccelerationLabel');
-    }
-    currentRouteChanged(route) {
-        // Does not apply to this page.
-        if (route !== routes.POINTERS) {
-            return;
-        }
-        if (Router.getInstance().currentRoute === routes.POINTERS &&
-            this.isDeviceSettingsSplitEnabled_) {
-            // Call setCurrentRoute function to go to the device page when
-            // the feature flag is turned on. We don't use navigateTo function since
-            // we don't want to navigate back to the previous point page.
-            setTimeout(() => {
-                Router.getInstance().setCurrentRoute(routes.DEVICE, new URLSearchParams(), false);
-            });
-        }
-        this.attemptDeepLink();
-    }
-    onLearnMoreLinkClicked_(event) {
-        const path = event.composedPath();
-        if (!Array.isArray(path) || !path.length) {
-            return;
-        }
-        if (path[0].tagName === 'A') {
-            // Do not toggle reverse scrolling if the contained link is clicked.
-            event.stopPropagation();
-        }
-    }
-    onMouseReverseScrollRowClicked_() {
-        this.setPrefValue('settings.mouse.reverse_scroll', !this.getPref('settings.mouse.reverse_scroll').value);
-    }
-    onTouchpadReverseScrollRowClicked_() {
-        this.setPrefValue('settings.touchpad.natural_scroll', !this.getPref('settings.touchpad.natural_scroll').value);
-    }
-    onTouchpadHapticFeedbackRowClicked_() {
-        this.setPrefValue('settings.touchpad.haptic_feedback', !this.getPref('settings.touchpad.haptic_feedback').value);
-    }
-}
-customElements.define(SettingsPointersElement.is, SettingsPointersElement);
-
-function getTemplate$1h() {
-    return html `<!--_html_template_start_--><style include="settings-shared">settings-toggle-button{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-indent-padding);padding-inline-end:0;padding-inline-start:0}</style>
-<settings-toggle-button class="hr" pref="{{visiblePref_}}" label="[[label]]" on-settings-boolean-control-change="onVisibleChange_">
-</settings-toggle-button>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'storage-external-entry' is the polymer element for showing a certain
- * external storage device with a toggle switch. When the switch is ON,
- * the storage's uuid will be saved to a preference.
- */
-const StorageExternalEntryElementBase = PrefsMixin(WebUiListenerMixin(PolymerElement));
-class StorageExternalEntryElement extends StorageExternalEntryElementBase {
-    static get is() {
-        return 'storage-external-entry';
-    }
-    static get template() {
-        return getTemplate$1h();
-    }
-    static get properties() {
-        return {
-            /**
-             * FileSystem UUID of an external storage.
-             */
-            uuid: String,
-            /**
-             * Label of an external storage.
-             */
-            label: String,
-            visiblePref_: {
-                type: Object,
-                value() {
-                    return {};
-                },
-            },
-        };
-    }
-    static get observers() {
-        return [
-            'updateVisible_(prefs.arc.visible_external_storages.*)',
-        ];
-    }
-    /**
-     * Handler for when the toggle button for this entry is clicked by a user.
-     */
-    onVisibleChange_(event) {
-        const isVisible = !!event.target.checked;
-        if (isVisible) {
-            this.appendPrefListItem('arc.visible_external_storages', this.uuid);
-        }
-        else {
-            this.deletePrefListItem('arc.visible_external_storages', this.uuid);
-        }
-    }
-    /**
-     * Updates |visiblePref_| by reading the preference and check if it contains
-     * UUID of this storage.
-     */
-    updateVisible_() {
-        const uuids = this.getPref('arc.visible_external_storages').value;
-        const isVisible = uuids.some((id) => id === this.uuid);
-        const pref = {
-            key: '',
-            type: chrome.settingsPrivate.PrefType.BOOLEAN,
-            value: isVisible,
-        };
-        this.visiblePref_ = pref;
-    }
-}
-customElements.define(StorageExternalEntryElement.is, StorageExternalEntryElement);
-
-function getTemplate$1g() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}</style>
-<div class="settings-box first">
-  <localized-link localized-string="[[i18nAdvanced('storageAndroidAppsExternalDrivesNote')]]">
-  </localized-link>
-</div>
-<h2>[[computeStorageListHeader_(externalStorages_)]]</h2>
-<iron-list id="removableDevices" preserve-focus items="[[externalStorages_]]">
-  <template>
-    <storage-external-entry uuid="[[item.uuid]]" label="[[item.label]]" prefs="{{prefs}}">
-    </storage-external-entry>
-  </template>
-</iron-list>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-storage-external' is the settings subpage for external storage
- * settings.
- */
-const SettingsStorageExternalElementBase = WebUiListenerMixin(I18nMixin(PolymerElement));
-class SettingsStorageExternalElement extends SettingsStorageExternalElementBase {
-    static get is() {
-        return 'settings-storage-external';
-    }
-    static get template() {
-        return getTemplate$1g();
-    }
-    static get properties() {
-        return {
-            prefs: {
-                type: Object,
-                notify: true,
-            },
-            /**
-             * List of the plugged-in external storages.
-             */
-            externalStorages_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = DevicePageBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.browserProxy_.setExternalStoragesUpdatedCallback(this.handleExternalStoragesUpdated_.bind(this));
-        this.browserProxy_.updateExternalStorages();
-    }
-    handleExternalStoragesUpdated_(storages) {
-        this.externalStorages_ = storages;
-    }
-    computeStorageListHeader_(externalStorages) {
-        return this.i18n(!externalStorages || externalStorages.length === 0 ?
-            'storageExternalStorageEmptyListHeader' :
-            'storageExternalStorageListHeader');
-    }
-}
-customElements.define(SettingsStorageExternalElement.is, SettingsStorageExternalElement);
-
-function getTemplate$1f() {
-    return html `<!--_html_template_start_--><style include="settings-shared">progress{-webkit-appearance:none;display:block;height:28px;width:100%}progress::-webkit-progress-bar{background-color:var(--cros-tab-slider-track-color);border-radius:2px}progress::-webkit-progress-value{background-color:var(--cros-icon-color-prominent);border-radius:2px}progress.space-low::-webkit-progress-value{background-color:var(--cros-icon-color-warning)}progress.space-critically-low::-webkit-progress-value{background-color:var(--cros-icon-color-alert)}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);--iron-icon-height:32px;--iron-icon-width:32px}#criticallyLowMessage iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}.storage-size{color:var(--cr-secondary-text-color)}.message-area{background-color:var(--cros-textfield-background-color);border-radius:2px;display:flex;margin:14px 0 16px;padding-bottom:12px;padding-inline-end:48px;padding-inline-start:16px;padding-top:16px;width:100%}.message-area>iron-icon{flex:none;padding-inline-end:16px}.message-title{color:var(--cros-text-color-primary);font-size:115%}.message-description{color:var(--cros-text-color-secondary);font-size:92%;line-height:1.6em;margin:1em 0}#barArea{display:flex;flex-direction:column;margin:24px 0 54px;width:100%}#barLabels{display:flex}.bar-label{display:flex;flex-direction:column}.bar-label .vertical-line{align-self:center;background-color:var(--cros-separator-color);height:8px;margin-bottom:4px;width:1px}.bar-label .wrapper{color:var(--cros-text-color-primary);text-align:center;white-space:nowrap}.end-aligned .wrapper{direction:rtl}:host-context([dir=rtl]) .end-aligned .wrapper{direction:ltr}.end-aligned .wrapper span{direction:initial;unicode-bidi:embed}</style>
-<template is="dom-if" if="[[isSpaceLow_(sizeStat_.spaceState)]]">
-  <div class="settings-box first">
-    <div id="lowMessage" class="message-area">
-      <iron-icon icon="cr:warning"></iron-icon>
-      <div class="message">
-        <div class="message-title">$i18n{storageSpaceLowMessageTitle}</div>
-        <div class="message-description">
-          <span>$i18n{storageSpaceLowMessageLine1}</span>
-          <span>&nbsp;$i18n{storageSpaceLowMessageLine2}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-<template is="dom-if" if="[[isSpaceCriticallyLow_(sizeStat_.spaceState)]]">
-  <div class="settings-box first">
-    <div id="criticallyLowMessage" class="message-area">
-      <iron-icon icon="cr:warning"></iron-icon>
-      <div class="message">
-        <div class="message-title">
-          $i18n{storageSpaceCriticallyLowMessageTitle}
-        </div>
-        <div class="message-description">
-          <span>$i18n{storageSpaceCriticallyLowMessageLine1}</span>
-          <span>&nbsp;$i18n{storageSpaceCriticallyLowMessageLine2}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-<div class="settings-box first">
-  <div id="barArea">
-    <progress id="bar" class$="[[getBarClass_(sizeStat_.spaceState)]]" value="[[sizeStat_.usedRatio]]" aria-label="$i18n{storageOverviewAriaLabel}" aria-describedby="barLabels">
-    </progress>
-    <div id="barLabels" aria-hidden="true">
-      <div id="inUseLabelArea" class="bar-label">
-        <div class="vertical-line"></div>
-        <div class="wrapper"><span>$i18n{storageItemInUse}</span></div>
-        <div class="wrapper">
-          <span class="storage-size">[[sizeStat_.usedSize]]</span>
-        </div>
-      </div>
-      <div id="availableLabelArea" class="bar-label end-aligned">
-        <div class="vertical-line"></div>
-        <div class="wrapper"><span>$i18n{storageItemAvailable}</span></div>
-        <div class="wrapper">
-          <span class="storage-size">[[sizeStat_.availableSize]]</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<cr-link-row id="myFilesSize" class="hr" on-click="onMyFilesClick_" label="$i18n{storageItemMyFiles}" sub-label="$i18n{storageSizeComputing}" external>
-</cr-link-row>
-<cr-link-row id="browsingDataSize" class="hr" on-click="onBrowsingDataClick_" label="$i18n{storageItemBrowsingData}" sub-label="$i18n{storageSizeComputing}" external>
-</cr-link-row>
-<cr-link-row id="appsSize" class="hr" on-click="onAppsClick_" label="$i18n{storageItemApps}" sub-label="$i18n{storageSizeComputing}" external>
-</cr-link-row>
-<template is="dom-if" if="[[shouldShowOfflineFilesRow_(isDriveEnabled_, isDriveFsBulkPinningEnabled_, showGoogleDriveSettingsPage_)]]">
-  <cr-link-row id="driveOfflineSize" class="hr" on-click="onDriveOfflineClick_" label="$i18n{storageItemOffline}" sub-label="$i18n{storageSizeComputing}" role-description="$i18n{subpageArrowRoleDescription}">
-  </cr-link-row>
-</template>
-<template is="dom-if" if="[[showCrostiniStorage_]]">
-  <cr-link-row id="crostiniSize" class="hr" on-click="onCrostiniClick_" label="$i18n{storageItemCrostini}" sub-label="$i18n{storageSizeComputing}" role-description="$i18n{subpageArrowRoleDescription}">
-  </cr-link-row>
-</template>
-<template is="dom-if" if="[[showOtherUsers_]]">
-  <cr-link-row id="otherUsersSize" class="hr" on-click="onOtherUsersClick_" label="$i18n{storageItemOtherUsers}" sub-label="$i18n{storageSizeComputing}" role-description="$i18n{subpageArrowRoleDescription}">
-  </cr-link-row>
-</template>
-<template is="dom-if" if="[[!isEphemeralUser_]]">
-  <div id="systemSize" class="settings-box two-line single-column stretch settings-box-text" aria-describedby="systemSizeLabel" aria-labelledby="systemSizeSubLabel">
-    <div id="systemSizeLabel" class="label" aria-hidden="true">
-      $i18n{storageItemSystem}
-    </div>
-    <div id="systemSizeSubLabel" class="secondary label" aria-hidden="true">
-      $i18n{storageSizeComputing}
-    </div>
-  </div>
-</template>
-<template is="dom-if" if="[[isExternalStorageEnabled_]]">
-  <cr-link-row id="externalStoragePreferences" class="hr" on-click="onExternalStoragePreferencesClick_" label="$i18n{storageExternal}" role-description="$i18n{subpageArrowRoleDescription}">
-  </cr-link-row>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const SettingsStorageElementBase = RouteOriginMixin(WebUiListenerMixin(PolymerElement));
-class SettingsStorageElement extends SettingsStorageElementBase {
-    static get is() {
-        return 'settings-storage';
-    }
-    static get template() {
-        return getTemplate$1f();
-    }
-    static get properties() {
-        return {
-            showCrostiniStorage_: {
-                type: Boolean,
-                value: false,
-            },
-            isDriveEnabled_: {
-                type: Boolean,
-                value: true,
-            },
-            showGoogleDriveSettingsPage_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('showGoogleDriveSettingsPage'),
-            },
-            isDriveFsBulkPinningEnabled_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('enableDriveFsBulkPinning'),
-            },
-            isEphemeralUser_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isCryptohomeDataEphemeral');
-                },
-            },
-            isExternalStorageEnabled_: {
-                type: Boolean,
-                value: () => {
-                    return isExternalStorageEnabled();
-                },
-            },
-            showOtherUsers_: {
-                type: Boolean,
-                // Initialize showOtherUsers_ to false if the user is ephemeral.
-                value() {
-                    return !loadTimeData.getBoolean('isCryptohomeDataEphemeral');
-                },
-            },
-            sizeStat_: Object,
-        };
-    }
-    static get observers() {
-        return [
-            'handleCrostiniEnabledChanged_(prefs.crostini.enabled.value)',
-            'handleDriveDisabledChanged_(prefs.gdata.disabled.value)',
-        ];
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route = routes.STORAGE;
-        /**
-         * Timer ID for periodic update.
-         */
-        this.updateTimerId_ = -1;
-        this.browserProxy_ = DevicePageBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.addWebUiListener('storage-size-stat-changed', (sizeStat) => this.handleSizeStatChanged_(sizeStat));
-        this.addWebUiListener('storage-my-files-size-changed', (size) => this.handleMyFilesSizeChanged_(size));
-        this.addWebUiListener('storage-browsing-data-size-changed', (size) => this.handleBrowsingDataSizeChanged_(size));
-        this.addWebUiListener('storage-apps-size-changed', (size) => this.handleAppsSizeChanged_(size));
-        this.addWebUiListener('storage-drive-offline-size-changed', (size) => this.handleDriveOfflineSizeChanged_(size));
-        this.addWebUiListener('storage-crostini-size-changed', (size) => this.handleCrostiniSizeChanged_(size));
-        if (this.showOtherUsers_) {
-            this.addWebUiListener('storage-other-users-size-changed', (size, noOtherUsers) => this.handleOtherUsersSizeChanged_(size, noOtherUsers));
-            this.addWebUiListener('storage-system-size-changed', (size) => this.handleSystemSizeChanged_(size));
-        }
-    }
-    ready() {
-        super.ready();
-        const r = routes;
-        this.addFocusConfig(r.CROSTINI_DETAILS, '#crostiniSize');
-        this.addFocusConfig(r.ACCOUNTS, '#otherUsersSize');
-        this.addFocusConfig(r.EXTERNAL_STORAGE_PREFERENCES, '#externalStoragePreferences');
-        this.addFocusConfig(r.APP_MANAGEMENT, '#appsSize');
-    }
-    currentRouteChanged(newRoute, oldRoute) {
-        super.currentRouteChanged(newRoute, oldRoute);
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.onPageShown_();
-    }
-    onPageShown_() {
-        // Updating storage information can be expensive (e.g. computing directory
-        // sizes recursively), so we delay this operation until the page is shown.
-        this.browserProxy_.updateStorageInfo();
-        // We update the storage usage periodically when the overlay is visible.
-        this.startPeriodicUpdate_();
-    }
-    /**
-     * Handler for tapping the "My files" item.
-     */
-    onMyFilesClick_() {
-        this.browserProxy_.openMyFiles();
-    }
-    /**
-     * Handler for tapping the "Browsing data" item.
-     */
-    onBrowsingDataClick_() {
-        this.browserProxy_.openBrowsingDataSettings();
-    }
-    /**
-     * Handler for tapping the "Apps and Extensions" item.
-     */
-    onAppsClick_() {
-        Router.getInstance().navigateTo(routes.APP_MANAGEMENT, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-    /**
-     * Handler for tapping the "Offline files" item.
-     */
-    onDriveOfflineClick_() {
-        Router.getInstance().navigateTo(routes.GOOGLE_DRIVE, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-    /**
-     * Handler for tapping the "Linux storage" item.
-     */
-    onCrostiniClick_() {
-        Router.getInstance().navigateTo(routes.CROSTINI_DETAILS, /* dynamicParams= */ undefined, 
-        /* removeSearch= */ true);
-    }
-    /**
-     * Handler for tapping the "Other users" item.
-     */
-    onOtherUsersClick_() {
-        Router.getInstance().navigateTo(routes.ACCOUNTS, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-    /**
-     * Handler for tapping the "External storage preferences" item.
-     */
-    onExternalStoragePreferencesClick_() {
-        Router.getInstance().navigateTo(routes.EXTERNAL_STORAGE_PREFERENCES);
-    }
-    handleSizeStatChanged_(sizeStat) {
-        this.sizeStat_ = sizeStat;
-        this.$.inUseLabelArea.style.width = (sizeStat.usedRatio * 100) + '%';
-        this.$.availableLabelArea.style.width =
-            ((1 - sizeStat.usedRatio) * 100) + '%';
-    }
-    /**
-     * @param size Formatted string representing the size of My files.
-     */
-    handleMyFilesSizeChanged_(size) {
-        this.$.myFilesSize.subLabel = size;
-    }
-    /**
-     * @param size Formatted string representing the size of Browsing data.
-     */
-    handleBrowsingDataSizeChanged_(size) {
-        this.$.browsingDataSize.subLabel = size;
-    }
-    /**
-     * @param size Formatted string representing the size of Apps and
-     *     extensions storage.
-     */
-    handleAppsSizeChanged_(size) {
-        this.shadowRoot.querySelector('#appsSize').subLabel =
-            size;
-    }
-    /**
-     * @param size Formatted string representing the size of pinned files in
-     *     Google Drive.
-     */
-    handleDriveOfflineSizeChanged_(size) {
-        if (!this.shouldShowOfflineFilesRow_()) {
-            return;
-        }
-        this.shadowRoot.querySelector('#driveOfflineSize').subLabel = size;
-    }
-    /**
-     * @param size Formatted string representing the size of Crostini storage.
-     */
-    handleCrostiniSizeChanged_(size) {
-        if (this.showCrostiniStorage_) {
-            this.shadowRoot.querySelector('#crostiniSize').subLabel = size;
-        }
-    }
-    /**
-     * @param size Formatted string representing the size of Other users.
-     * @param noOtherUsers True if there is no other registered users
-     *     on the device.
-     */
-    handleOtherUsersSizeChanged_(size, noOtherUsers) {
-        if (this.isEphemeralUser_ || noOtherUsers) {
-            this.showOtherUsers_ = false;
-            return;
-        }
-        this.showOtherUsers_ = true;
-        this.shadowRoot.querySelector('#otherUsersSize').subLabel = size;
-    }
-    /**
-     * @param size Formatted string representing the System size.
-     */
-    handleSystemSizeChanged_(size) {
-        this.shadowRoot.getElementById('systemSizeSubLabel').innerText = size;
-    }
-    /**
-     * @param enabled True if Crostini is enabled.
-     */
-    handleCrostiniEnabledChanged_(enabled) {
-        this.showCrostiniStorage_ = enabled && isCrostiniSupported();
-    }
-    /**
-     * Handles showing or hiding the Offline files row if Drive is disabled.
-     */
-    handleDriveDisabledChanged_(disabled) {
-        this.isDriveEnabled_ = !disabled;
-    }
-    /**
-     * Whether to show the Offline files row or not.
-     */
-    shouldShowOfflineFilesRow_() {
-        return this.isDriveEnabled_ &&
-            (this.isDriveFsBulkPinningEnabled_ ||
-                this.showGoogleDriveSettingsPage_);
-    }
-    /**
-     * Starts periodic update for storage usage.
-     */
-    startPeriodicUpdate_() {
-        // We update the storage usage every 5 seconds.
-        if (this.updateTimerId_ === -1) {
-            this.updateTimerId_ = window.setInterval(() => {
-                if (Router.getInstance().currentRoute !== routes.STORAGE) {
-                    this.stopPeriodicUpdate_();
-                    return;
-                }
-                this.browserProxy_.updateStorageInfo();
-            }, 5000);
-        }
-    }
-    /**
-     * Stops periodic update for storage usage.
-     */
-    stopPeriodicUpdate_() {
-        if (this.updateTimerId_ !== -1) {
-            window.clearInterval(this.updateTimerId_);
-            this.updateTimerId_ = -1;
-        }
-    }
-    /**
-     * Returns true if the remaining space is low, but not critically low.
-     * @param spaceState Status about the remaining space.
-     */
-    isSpaceLow_(spaceState) {
-        return spaceState === StorageSpaceState.LOW;
-    }
-    /**
-     * Returns true if the remaining space is critically low.
-     * @param spaceState Status about the remaining space.
-     */
-    isSpaceCriticallyLow_(spaceState) {
-        return spaceState === StorageSpaceState.CRITICALLY_LOW;
-    }
-    /**
-     * Computes class name of the bar based on the remaining space size.
-     * @param spaceState Status about the remaining space.
-     */
-    getBarClass_(spaceState) {
-        switch (spaceState) {
-            case StorageSpaceState.LOW:
-                return 'space-low';
-            case StorageSpaceState.CRITICALLY_LOW:
-                return 'space-critically-low';
-            default:
-                return '';
-        }
-    }
-}
-customElements.define(SettingsStorageElement.is, SettingsStorageElement);
-
-function getTemplate$1e() {
-    return html `<!--_html_template_start_--><style include="settings-shared md-select">.settings-box>.secondary{align-items:center;display:flex;margin-top:0}paper-spinner-lite{height:var(--cr-icon-size);margin-inline-start:12px;width:var(--cr-icon-size)}cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}#selectApp{width:400px}#note-taking-app-lock-screen-settings{padding:0 var(--cr-section-padding)}</style>
-
-<settings-toggle-button id="enableStylusToolsToggle" pref="{{prefs.settings.enable_stylus_tools}}" label="$i18n{stylusEnableStylusTools}" deep-link-focus-id$="[[Setting.kStylusToolsInShelf]]">
-</settings-toggle-button>
-
-<template is="dom-if" if="[[hasInternalStylus_]]">
-  <settings-toggle-button id="launchPaletteOnEjectEventToggle" class="hr" pref="{{prefs.settings.launch_palette_on_eject_event}}" label="$i18n{stylusAutoOpenStylusTools}" disabled="[[!prefs.settings.enable_stylus_tools.value]]">
-  </settings-toggle-button>
-</template>
-
-<div class="settings-box">
-  <div id="stylusNoteTakingAppLabel" class="start">
-    $i18n{stylusNoteTakingApp}
-  </div>
-
-  <div id="no-apps" class="secondary" hidden$="[[!showNoApps_(appChoices_, waitingForAndroid_)]]">
-    $i18n{stylusNoteTakingAppNoneAvailable}
-  </div>
-
-  <div id="waiting" class="secondary" hidden$="[[!waitingForAndroid_]]">
-    $i18n{stylusNoteTakingAppWaitingForAndroid}
-    <paper-spinner-lite active></paper-spinner-lite>
-  </div>
-
-  <select id="selectApp" class="md-select" on-change="onSelectedAppChanged_" aria-labelledby="stylusNoteTakingAppLabel" hidden$="[[!showApps_(appChoices_, waitingForAndroid_)]]" deep-link-focus-id$="[[Setting.kStylusNoteTakingApp]]">
-    <template is="dom-repeat" items="[[appChoices_]]">
-      <option value="[[item.value]]" selected="[[item.preferred]]">
-        [[item.name]]
-      </option>
-    </template>
-  </select>
-</div>
-
-<cr-link-row id="findMoreAppsLink" class="hr" on-click="onFindAppsClick_" hidden$="[[!prefs.arc.enabled.value]]" label="$i18n{stylusFindMoreAppsPrimary}" sub-label="$i18n{stylusFindMoreAppsSecondary}" external>
-</cr-link-row>
-
-<template is="dom-if" if="[[supportsLockScreen_(selectedApp_)]]">
-  <div id="note-taking-app-lock-screen-settings">
-    <h2>$i18n{stylusNoteTakingAppLockScreenSettingsHeader}</h2>
-
-    <div class="settings-box first">
-      <div id="lock-screen-toggle-label" class="start" actionable$="[[!disallowedOnLockScreenByPolicy_(selectedApp_)]]" on-click="toggleLockScreenSupport_">
-        $i18n{stylusNoteTakingAppEnabledOnLockScreen}
-      </div>
-      <template is="dom-if" if="[[disallowedOnLockScreenByPolicy_(selectedApp_)]]">
-        <cr-policy-indicator id="enable-app-on-lock-screen-policy-indicator" indicator-type="[[userPolicyIndicator_]]">
-        </cr-policy-indicator>
-      </template>
-      <cr-toggle id="enable-app-on-lock-screen-toggle" aria-labelledby="lock-screen-toggle-label" disabled="[[disallowedOnLockScreenByPolicy_(selectedApp_)]]" checked="[[lockScreenSupportEnabled_(selectedApp_)]]" on-change="toggleLockScreenSupport_" deep-link-focus-id$="[[Setting.kStylusNoteTakingFromLockScreen]]">
-      </cr-toggle>
-    </div>
-
-    <template is="dom-if" if="[[lockScreenSupportEnabled_(selectedApp_)]]">
-      <settings-toggle-button id="keep-last-note-on-lock-screen-toggle" class="hr" pref="{{prefs.settings.restore_last_lock_screen_note}}" label="$i18n{stylusNoteTakingAppKeepsLastNoteOnLockScreen}" deep-link-focus-id$="[[Setting.kStylusLatestNoteOnLockScreen]]">
-      </settings-toggle-button>
-    </template>
-  </div>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-stylus' is the settings subpage with stylus-specific settings.
- */
-const FIND_MORE_APPS_URL = 'https://play.google.com/store/apps/' +
-    'collection/promotion_30023cb_stylus_apps';
-const SettingsStylusElementBase = DeepLinkingMixin(RouteObserverMixin(PolymerElement));
-class SettingsStylusElement extends SettingsStylusElementBase {
-    static get is() {
-        return 'settings-stylus';
-    }
-    static get template() {
-        return getTemplate$1e();
-    }
-    static get properties() {
-        return {
-            /** Preferences state. */
-            prefs: {
-                type: Object,
-                notify: true,
-            },
-            /**
-             * Policy indicator type for user policy - used for policy indicator UI
-             * shown when an app that is not allowed to run on lock screen by policy
-             * is selected.
-             */
-            userPolicyIndicator_: {
-                type: String,
-                value: CrPolicyIndicatorType.USER_POLICY,
-            },
-            /**
-             * Note taking apps the user can pick between.
-             */
-            appChoices_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            /**
-             * True if the device has an internal stylus.
-             */
-            hasInternalStylus_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('hasInternalStylus');
-                },
-                readOnly: true,
-            },
-            /**
-             * Currently selected note taking app.
-             */
-            selectedApp_: {
-                type: Object,
-                value: null,
-            },
-            /**
-             * True if the ARC container has not finished starting yet.
-             */
-            waitingForAndroid_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kStylusToolsInShelf,
-                    Setting.kStylusNoteTakingApp,
-                    Setting.kStylusNoteTakingFromLockScreen,
-                    Setting.kStylusLatestNoteOnLockScreen,
-                ]),
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = DevicePageBrowserProxyImpl.getInstance();
-    }
-    ready() {
-        super.ready();
-        this.browserProxy_.setNoteTakingAppsUpdatedCallback(this.onNoteAppsUpdated_.bind(this));
-        this.browserProxy_.requestNoteTakingApps();
-    }
-    currentRouteChanged(route) {
-        // Does not apply to this page.
-        if (route !== routes.STYLUS) {
-            return;
-        }
-        this.attemptDeepLink();
-    }
-    /**
-     * @return Whether note taking from the lock screen is supported
-     *     by the selected note-taking app.
-     */
-    supportsLockScreen_() {
-        return !!this.selectedApp_ &&
-            this.selectedApp_.lockScreenSupport !==
-                NoteAppLockScreenSupport.NOT_SUPPORTED;
-    }
-    /**
-     * @return Whether the selected app is disallowed to handle note
-     *     actions from lock screen as a result of a user policy.
-     */
-    disallowedOnLockScreenByPolicy_() {
-        return !!this.selectedApp_ &&
-            this.selectedApp_.lockScreenSupport ===
-                NoteAppLockScreenSupport.NOT_ALLOWED_BY_POLICY;
-    }
-    /**
-     * @return Whether the selected app is enabled as a note action
-     *     handler on the lock screen.
-     */
-    lockScreenSupportEnabled_() {
-        return !!this.selectedApp_ &&
-            this.selectedApp_.lockScreenSupport ===
-                NoteAppLockScreenSupport.ENABLED;
-    }
-    /**
-     * Finds note app info with the provided app id.
-     */
-    findApp_(id) {
-        return this.appChoices_.find((app) => app.value === id) || null;
-    }
-    /**
-     * Toggles whether the selected app is enabled as a note action handler on
-     * the lock screen.
-     */
-    toggleLockScreenSupport_() {
-        assertExists(this.selectedApp_);
-        if (this.selectedApp_.lockScreenSupport !==
-            NoteAppLockScreenSupport.ENABLED &&
-            this.selectedApp_.lockScreenSupport !==
-                NoteAppLockScreenSupport.SUPPORTED) {
-            return;
-        }
-        this.browserProxy_.setPreferredNoteTakingAppEnabledOnLockScreen(this.selectedApp_.lockScreenSupport ===
-            NoteAppLockScreenSupport.SUPPORTED);
-        recordSettingChange();
-    }
-    onSelectedAppChanged_() {
-        const app = this.findApp_(this.$.selectApp.value);
-        this.selectedApp_ = app;
-        if (app && !app.preferred) {
-            this.browserProxy_.setPreferredNoteTakingApp(app.value);
-            recordSettingChange();
-        }
-    }
-    onNoteAppsUpdated_(apps, waitingForAndroid) {
-        this.waitingForAndroid_ = waitingForAndroid;
-        this.appChoices_ = apps;
-        // Wait until app selection UI is updated before setting the selected app.
-        microTask.run(this.onSelectedAppChanged_.bind(this));
-    }
-    showNoApps_(apps, waitingForAndroid) {
-        return apps.length === 0 && !waitingForAndroid;
-    }
-    showApps_(apps, waitingForAndroid) {
-        return apps.length > 0 && !waitingForAndroid;
-    }
-    onFindAppsClick_() {
-        this.browserProxy_.showPlayStore(FIND_MORE_APPS_URL);
-    }
-}
-customElements.define(SettingsStylusElement.is, SettingsStylusElement);
-
 function getTemplate$1d() {
     return html `<!--_html_template_start_--><style include="settings-shared">.restore-defaults-button{border-radius:16px;height:32px;margin-inline:16px}.restore-defaults-icon{--iron-icon-fill-color:currentColor;margin-inline-end:8px}</style>
 
@@ -8495,42 +7523,43 @@ function getTemplate$1d() {
     <settings-card header-text="$i18n{devicePageTitle}">
       <template is="dom-if" if="[[showPointersRow_(hasMouse_, hasPointingStick_,
                                 hasTouchpad_, isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row id="pointersRow" label="[[getPointersTitle_(hasMouse_, hasPointingStick_,
+        <cr-link-row id="pointersRow" start-icon="[[rowIcons_.pointingStick]]" label="[[getPointersTitle_(hasMouse_, hasPointingStick_,
                                       hasTouchpad_)]]" on-click="onPointersClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDeviceMouseRow_(mice,
                                       isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDeviceMouseRow" label="$i18n{mouseTitle}" on-click="onPerDeviceMouseClick_" aria-label="$i18n{mouseTitle}" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="perDeviceMouseRow" start-icon="[[rowIcons_.mouse]]" label="$i18n{mouseTitle}" on-click="onPerDeviceMouseClick_" aria-label="$i18n{mouseTitle}" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDeviceTouchpadRow_(touchpads,
                                           isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDeviceTouchpadRow" aria-label="$i18n{touchpadTitle}" label="$i18n{touchpadTitle}" on-click="onPerDeviceTouchpadClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="perDeviceTouchpadRow" start-icon="[[rowIcons_.touchpad]]" aria-label="$i18n{touchpadTitle}" label="$i18n{touchpadTitle}" on-click="onPerDeviceTouchpadClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDevicePointingStickRow_(pointingSticks,
                                               isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDevicePointingStickRow" aria-label="$i18n{pointingStickTitle}" label="$i18n{pointingStickTitle}" on-click="onPerDevicePointingStickClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="perDevicePointingStickRow" start-icon="[[rowIcons_.pointingStick]]" aria-label="$i18n{pointingStickTitle}" label="$i18n{pointingStickTitle}" on-click="onPerDevicePointingStickClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[isDeviceSettingsSplitEnabled_]]">
-        <cr-link-row id="perDeviceKeyboardRow" class="hr" label="$i18n{keyboardTitle}" aria-label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onPerDeviceKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="perDeviceKeyboardRow" class="hr" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" aria-label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onPerDeviceKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[!isDeviceSettingsSplitEnabled_]]">
-        <cr-link-row id="keyboardRow" class="hr" label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
+        <cr-link-row id="keyboardRow" class="hr" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
       </template>
       <template is="dom-if" if="[[hasStylus_]]">
-        <cr-link-row class="hr" id="stylusRow" label="$i18n{stylusTitle}" on-click="onStylusClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="stylusRow" start-icon="[[rowIcons_.stylus]]" label="$i18n{stylusTitle}" on-click="onStylusClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showGraphicsTabletRow_(graphicsTablets,
           isPeripheralCustomizationEnabled)]]">
-        <cr-link-row class="hr" id="tabletRow" label="$i18n{tabletTitle}" on-click="onGraphicsTabletClick" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="tabletRow" start-icon="[[rowIcons_.tablet]]" label="$i18n{tabletTitle}" on-click="onGraphicsTabletClick" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
-      <cr-link-row class="hr" id="displayRow" label="$i18n{displayTitle}" on-click="onDisplayClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
-      <cr-link-row class="hr" id="audioRow" label="$i18n{audioTitle}" on-click="onAudioClick_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row class="hr" id="displayRow" start-icon="[[rowIcons_.display]]" label="$i18n{displayTitle}" on-click="onDisplayClick_" role-description="$i18n{subpageArrowRoleDescription}">
+      </cr-link-row>
+      <cr-link-row class="hr" id="audioRow" start-icon="[[rowIcons_.audio]]" label="$i18n{audioTitle}" on-click="onAudioClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
         <template is="dom-if" if="[[!hideStorageInfo_]]">
@@ -8826,6 +7855,33 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
                 computed: 'computeInputMethodDisplayName_(' +
                     'languages.inputMethods.currentId, languageHelper)',
             },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            mouse: 'os-settings:device-mouse',
+                            touchpad: 'os-settings:device-touchpad',
+                            pointingStick: 'os-settings:device-pointing-stick',
+                            keyboardAndInputs: 'os-settings:device-keyboard',
+                            stylus: 'os-settings:device-stylus',
+                            tablet: 'os-settings:device-tablet',
+                            display: 'os-settings:device-display',
+                            audio: 'os-settings:device-audio',
+                        };
+                    }
+                    return {
+                        mouse: '',
+                        touchpad: '',
+                        pointingStick: '',
+                        keyboardAndInputs: '',
+                        stylus: '',
+                        tablet: '',
+                        display: '',
+                        audio: '',
+                    };
+                },
+            },
         };
     }
     static get observers() {
@@ -9083,6 +8139,7 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
     graphicsTabletChanged_() {
         if ((!this.graphicsTablets || this.graphicsTablets.length === 0) &&
             Router.getInstance().currentRoute === routes.GRAPHICS_TABLET) {
+            getInstance().announce(this.i18n('allGraphicsTabletsDisconnectedA11yLabel'));
             Router.getInstance().navigateTo(routes.DEVICE);
         }
     }
@@ -9227,37 +8284,48 @@ function getTemplate$1c() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$1c(),
-  is: 'button-bar',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ButtonBarElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [
-    I18nBehavior,
-  ],
+/** @polymer */
+class ButtonBarElement extends ButtonBarElementBase {
+  static get is() {
+    return 'button-bar';
+  }
 
-  properties: {
-    /**
-     * Sets the states of all buttons
-     * @type {!ButtonBarState}
-     */
-    buttonState: {
-      type: Object,
-      value: {},
-    },
+  static get template() {
+    return getTemplate$1c();
+  }
 
-    /**
-     * @type {!Button}
-     */
-    Button: {
-      type: Object,
-      value: Button,
-    },
+  static get properties() {
+    return {
+      /**
+       * Sets the states of all buttons
+       * @type {!ButtonBarState}
+       */
+      buttonState: {
+        type: Object,
+        value: {},
+      },
 
-    forwardButtonLabel: {
-      type: String,
-      value: '',
-    },
-  },
+      /**
+       * @type {!Button}
+       */
+      Button: {
+        type: Object,
+        value: Button,
+      },
+
+      forwardButtonLabel: {
+        type: String,
+        value: '',
+      },
+    };
+  }
 
   /**
    * @param {!Button} buttonName
@@ -9267,7 +8335,7 @@ Polymer({
   isButtonHidden_(buttonName) {
     const state = this.getButtonBarState_(buttonName);
     return state === ButtonState.HIDDEN;
-  },
+  }
 
   /**
    * @param {!Button} buttonName
@@ -9277,7 +8345,7 @@ Polymer({
   isButtonDisabled_(buttonName) {
     const state = this.getButtonBarState_(buttonName);
     return state === ButtonState.DISABLED;
-  },
+  }
 
   focusDefaultButton() {
     const buttons = this.shadowRoot.querySelectorAll('cr-button');
@@ -9289,22 +8357,31 @@ Polymer({
         return;
       }
     }
-  },
+  }
 
   /** @private */
   onBackwardButtonClicked_() {
-    this.fire('backward-nav-requested');
-  },
+    this.dispatchEvent(new CustomEvent('backward-nav-requested', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
 
   /** @private */
   onCancelButtonClicked_() {
-    this.fire('cancel-requested');
-  },
+    this.dispatchEvent(new CustomEvent('cancel-requested', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
 
   /** @private */
   onForwardButtonClicked_() {
-    this.fire('forward-nav-requested');
-  },
+    this.dispatchEvent(new CustomEvent('forward-nav-requested', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
 
   /**
    * @param {!Button} button
@@ -9324,8 +8401,10 @@ Polymer({
         assertNotReached$1();
         return ButtonState.ENABLED;
     }
-  },
-});
+  }
+}
+
+customElements.define(ButtonBarElement.is, ButtonBarElement);
 
 function getTemplate$1b() {
   return html`<!--_html_template_start_--><style include="iron-positioning cros-color-overrides">
@@ -9374,37 +8453,50 @@ function getTemplate$1b() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$1b(),
-  is: 'base-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const BasePageElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class BasePageElement extends BasePageElementBase {
+  static get is() {
+    return 'base-page';
+  }
 
-  properties: {
-    /**
-     * Main title for the page.
-     *
-     * @type {string}
-     */
-    title: String,
+  static get template() {
+    return getTemplate$1b();
+  }
 
-    /**
-     * Message displayed under the main title.
-     *
-     * @type {string}
-     */
-    message: String,
+  static get properties() {
+    return {
+      /**
+       * Main title for the page.
+       *
+       * @type {string}
+       */
+      title: String,
 
-    /**
-     * Name for the cellular-setup iconset iron-icon displayed beside message.
-     *
-     * @type {string}
-     */
-    messageIcon: {
-      type: String,
-      value: '',
-    },
-  },
+      /**
+       * Message displayed under the main title.
+       *
+       * @type {string}
+       */
+      message: String,
+
+      /**
+       * Name for the cellular-setup iconset iron-icon displayed beside message.
+       *
+       * @type {string}
+       */
+      messageIcon: {
+        type: String,
+        value: '',
+      },
+    };
+  }
 
   /**
    * @returns {string}
@@ -9412,7 +8504,7 @@ Polymer({
    */
   getTitle_() {
     return this.title;
-  },
+  }
 
   /**
    * @returns {boolean}
@@ -9420,7 +8512,7 @@ Polymer({
    */
   isTitleShown_() {
     return !!this.title;
-  },
+  }
 
   /**
    * @returns {boolean}
@@ -9428,8 +8520,10 @@ Polymer({
    */
   isMessageIconShown_() {
     return !!this.messageIcon;
-  },
-});
+  }
+}
+
+customElements.define(BasePageElement.is, BasePageElement);
 
 function getTemplate$1a() {
   return html`<!--_html_template_start_--><style include="iron-flex cr-hidden-style">
@@ -9472,7 +8566,7 @@ function getTemplate$1a() {
     height: 222px;
   }
 
-  cr-lottie {
+  cros-lottie-renderer {
     height: 85%;
   }
 
@@ -9509,40 +8603,55 @@ function getTemplate$1a() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$1a(),
-  is: 'setup-loading-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const SetupLoadingPageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class SetupLoadingPageElement extends SetupLoadingPageElementBase {
+  static get is() {
+    return 'setup-loading-page';
+  }
 
-  properties: {
-    /**
-     * Message displayed with spinner when in LOADING state.
-     */
-    loadingMessage: {
-      type: String,
-      value: '',
-    },
+  static get template() {
+    return getTemplate$1a();
+  }
 
-    /**
-     * Title for page if needed.
-     * @type {?string}
-     */
-    loadingTitle: {
-      type: Object,
-      value: '',
-    },
+  static get properties() {
+    return {
+      /**
+       * Message displayed with spinner when in LOADING state.
+       */
+      loadingMessage: {
+        type: String,
+        value: '',
+      },
 
-    /**
-     * Displays a sim detect error graphic if true.
-     */
-    isSimDetectError: {
-      type: Boolean,
-      value: false,
-    },
+      /**
+       * Title for page if needed.
+       * @type {?string}
+       */
+      loadingTitle: {
+        type: Object,
+        value: '',
+      },
 
-  },
-});
+      /**
+       * Displays a sim detect error graphic if true.
+       */
+      isSimDetectError: {
+        type: Boolean,
+        value: false,
+      },
+    };
+  }
+}
+
+customElements.define(SetupLoadingPageElement.is, SetupLoadingPageElement);
 
 function getTemplate$19() {
   return html`<!--_html_template_start_--><style include="iron-flex cr-hidden-style">
@@ -9716,55 +8825,70 @@ function postDeviceDataToWebview(webview, paymentUrl, postData) {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$19(),
-  is: 'provisioning-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProvisioningPageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProvisioningPageElement extends ProvisioningPageElementBase {
+  static get is() {
+    return 'provisioning-page';
+  }
 
-  properties: {
-    /** @type {!CellularSetupDelegate} */
-    delegate: Object,
+  static get template() {
+    return getTemplate$19();
+  }
 
-    /**
-     * Whether error state should be shown.
-     * @type {boolean}
-     */
-    showError: {
-      type: Boolean,
-      value: false,
-      notify: true,
-    },
+  static get properties() {
+    return {
+      /** @type {!CellularSetupDelegate} */
+      delegate: Object,
 
-    /**
-     * Metadata used to open carrier provisioning portal. Expected to start as
-     * null, then change to a valid object.
-     * @type {?CellularMetadata}
-     */
-    cellularMetadata: {
-      type: Object,
-      value: null,
-      observer: 'onCellularMetadataChanged_',
-    },
+      /**
+       * Whether error state should be shown.
+       * @type {boolean}
+       */
+      showError: {
+        type: Boolean,
+        value: false,
+        notify: true,
+      },
 
-    /**
-     * Whether the carrier portal has completed being loaded.
-     * @private {boolean}
-     */
-    hasCarrierPortalLoaded_: {
-      type: Boolean,
-      value: false,
-    },
+      /**
+       * Metadata used to open carrier provisioning portal. Expected to start as
+       * null, then change to a valid object.
+       * @type {?CellularMetadata}
+       */
+      cellularMetadata: {
+        type: Object,
+        value: null,
+        observer: 'onCellularMetadataChanged_',
+      },
 
-    /**
-     * The last carrier name provided via |cellularMetadata|.
-     * @private {string}
-     */
-    carrierName_: {
-      type: String,
-      value: '',
-    },
-  },
+      /**
+       * Whether the carrier portal has completed being loaded.
+       * @private {boolean}
+       */
+      hasCarrierPortalLoaded_: {
+        type: Boolean,
+        value: false,
+      },
+
+      /**
+       * The last carrier name provided via |cellularMetadata|.
+       * @private {string}
+       */
+      carrierName_: {
+        type: String,
+        value: '',
+      },
+
+    };
+  }
 
   /**
    * @return {?string}
@@ -9781,7 +8905,7 @@ Polymer({
       return this.i18n('provisioningPageActiveTitle');
     }
     return this.i18n('provisioningPageLoadingTitle', this.carrierName_);
-  },
+  }
 
   /**
    * @return {?string}
@@ -9792,7 +8916,7 @@ Polymer({
       return this.i18n('provisioningPageErrorMessage', this.carrierName_);
     }
     return null;
-  },
+  }
 
   /**
    * @return {boolean}
@@ -9800,7 +8924,7 @@ Polymer({
    */
   shouldShowSpinner_() {
     return !this.showError && !this.hasCarrierPortalLoaded_;
-  },
+  }
 
   /**
    * @return {boolean}
@@ -9808,15 +8932,15 @@ Polymer({
    */
   shouldShowPortal_() {
     return !this.showError && this.hasCarrierPortalLoaded_;
-  },
+  }
 
   /**
    * @return {?WebView}
    * @private
    */
   getPortalWebview() {
-    return /** @type {?WebView} */ (this.$$('webview'));
-  },
+    return /** @type {?WebView} */ (this.shadowRoot.querySelector('webview'));
+  }
 
   /** @private */
   onCellularMetadataChanged_() {
@@ -9830,7 +8954,7 @@ Polymer({
     // If |cellularMetadata| is now null, the page should be reset so that a new
     // attempt can begin.
     this.resetPage_();
-  },
+  }
 
   /** @private */
   loadPortal_() {
@@ -9859,7 +8983,7 @@ Polymer({
 
     // Otherwise, use a normal GET request by specifying the "src".
     portalWebview.src = this.cellularMetadata.paymentUrl.url;
-  },
+  }
 
   /** @private */
   resetPage_() {
@@ -9870,12 +8994,12 @@ Polymer({
     if (portalWebview) {
       portalWebview.remove();
     }
-  },
+  }
 
   /** @private */
   onPortalLoadAbort_(event) {
     this.showError = true;
-  },
+  }
 
   /** @private */
   onPortalLoadStop_() {
@@ -9884,13 +9008,14 @@ Polymer({
     }
 
     this.hasCarrierPortalLoaded_ = true;
-    this.fire('carrier-portal-loaded');
+    this.dispatchEvent(new CustomEvent(
+        'carrier-portal-loaded', {bubbles: true, composed: true}));
 
     // When the portal loads, it expects to receive a message from this frame
     // alerting it that loading has completed successfully.
     this.getPortalWebview().contentWindow.postMessage(
         {msg: 'loadedInWebview'}, this.cellularMetadata.paymentUrl.url);
-  },
+  }
 
   /**
    * @param {!Event} event
@@ -9917,11 +9042,15 @@ Polymer({
     // The <webview> provided an update on the status of the activation attempt.
     if (messageType === 'reportTransactionStatusMsg') {
       const success = status === 'ok';
-      this.fire('on-carrier-portal-result', success);
+      this.dispatchEvent(new CustomEvent(
+          'on-carrier-portal-result',
+          {bubbles: true, composed: true, detail: success}));
       return;
     }
-  },
-});
+  }
+}
+
+customElements.define(ProvisioningPageElement.is, ProvisioningPageElement);
 
 function getTemplate$18() {
   return html`<!--_html_template_start_--><style>
@@ -9979,28 +9108,42 @@ function getTemplate$18() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$18(),
-  is: 'final-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const FinalPageElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class FinalPageElement extends FinalPageElementBase {
+  static get is() {
+    return 'final-page';
+  }
 
-  properties: {
-    /** @type {!CellularSetupDelegate} */
-    delegate: Object,
+  static get template() {
+    return getTemplate$18();
+  }
 
-    /**
-     * Whether error state should be shown.
-     * @type {boolean}
-     */
-    showError: Boolean,
+  static get properties() {
+    return {
+      /** @type {!CellularSetupDelegate} */
+      delegate: Object,
 
-    /** @type {string} */
-    message: String,
+      /**
+       * Whether error state should be shown.
+       * @type {boolean}
+       */
+      showError: Boolean,
 
-    /** @type {string} */
-    errorMessage: String,
-  },
+      /** @type {string} */
+      message: String,
+
+      /** @type {string} */
+      errorMessage: String,
+
+    };
+  }
 
   /**
    * @param {boolean} showError
@@ -10013,7 +9156,7 @@ Polymer({
                          this.i18n('finalPageTitle');
     }
     return null;
-  },
+  }
 
   /**
    * @param {boolean} showError
@@ -10022,7 +9165,7 @@ Polymer({
    */
   getMessage_(showError) {
     return showError ? this.errorMessage : this.message;
-  },
+  }
 
   /**
    * @param {boolean} showError
@@ -10031,7 +9174,7 @@ Polymer({
    */
   getPageBodyClass_(showError) {
     return showError ? 'error' : '';
-  },
+  }
 
   /**
    * @param {boolean} showError
@@ -10041,8 +9184,10 @@ Polymer({
   getJellyIllustrationName_(showError) {
     return showError ? 'cellular-setup-illo:error' :
                        'cellular-setup-illo:final-page-success';
-  },
-});
+  }
+}
+
+customElements.define(FinalPageElement.is, FinalPageElement);
 
 function getTemplate$17() {
   return html`<!--_html_template_start_--><style>
@@ -10214,152 +9359,161 @@ const FAILED_PSIM_SETUP_DURATION_METRIC_NAME =
  * contains navigation buttons and sub-pages corresponding to each step of the
  * flow.
  */
-Polymer({
-  _template: getTemplate$17(),
-  is: 'psim-flow-ui',
 
-  behaviors: [
-    I18nBehavior,
-    SubflowBehavior,
-  ],
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const PsimFlowUiElementBase =
+    mixinBehaviors([I18nBehavior, SubflowBehavior], PolymerElement);
 
-  properties: {
-    /** @type {!CellularSetupDelegate} */
-    delegate: Object,
+/** @polymer */
+class PsimFlowUiElement extends PsimFlowUiElementBase {
+  static get is() {
+    return 'psim-flow-ui';
+  }
+
+  static get template() {
+    return getTemplate$17();
+  }
+
+  static get properties() {
+    return {
+      /** @type {!CellularSetupDelegate} */
+      delegate: Object,
+
+      /**
+       * Carrier name; used in dialog title to show the current carrier
+       * name being setup
+       * @type {string}
+       */
+      nameOfCarrierPendingSetup: {
+        type: String,
+        notify: true,
+        computed: 'getCarrierText(' +
+            'selectedPSimPageName_, cellularMetadata_.*)',
+      },
+
+      forwardButtonLabel: {
+        type: String,
+        notify: true,
+      },
+
+      /**
+       * @type {!PSimUIState}
+       * @private
+       */
+      state_: {
+        type: String,
+        value: PSimUIState.IDLE,
+        observer: 'handlePSimUIStateChange_',
+      },
+
+      /**
+       * Element name of the current selected sub-page.
+       * @type {!PSimPageName}
+       * @private
+       */
+      selectedPSimPageName_: {
+        type: String,
+        value: PSimPageName.SIM_DETECT,
+        notify: true,
+      },
+
+      /**
+       * DOM Element for the current selected sub-page.
+       * @private {!SetupLoadingPageElement|!ProvisioningPageElement|
+       *           !FinalPageElement}
+       */
+      selectedPage_: Object,
+
+      /**
+       * Whether error state should be shown for the current page.
+       * @private {boolean}
+       */
+      showError_: {type: Boolean, value: false},
+
+      /**
+       * Cellular metadata received via the onActivationStarted() callback. If
+       * that callback has not occurred, this field is null.
+       * @private {?CellularMetadata}
+       */
+      cellularMetadata_: {
+        type: Object,
+        value: null,
+      },
+
+      /**
+       * The current number of tries to detect the SIM.
+       * @private {number}
+       */
+      startActivationAttempts_: {
+        type: Number,
+        value: 0,
+      },
+
+    };
+  }
+
+  /** @override */
+  constructor() {
+    super();
 
     /**
-     * Carrier name; used in dialog title to show the current carrier
-     * name being setup
-     * @type {string}
+     * Provides an interface to the CellularSetup Mojo service.
+     * @private {?CellularSetupRemote}
      */
-    nameOfCarrierPendingSetup: {
-      type: String,
-      notify: true,
-      computed: 'getCarrierText(' +
-          'selectedPSimPageName_, cellularMetadata_.*)',
-    },
-
-    forwardButtonLabel: {
-      type: String,
-      notify: true,
-    },
+    this.cellularSetupRemote_ = getCellularSetupRemote();
 
     /**
-     * @type {!PSimUIState}
-     * @private
+     * Delegate responsible for routing activation started/finished events.
+     * @private {?ActivationDelegateReceiver}
      */
-    state_: {
-      type: String,
-      value: PSimUIState.IDLE,
-    },
+    this.activationDelegateReceiver_ = null;
 
     /**
-     * Element name of the current selected sub-page.
-     * @type {!PSimPageName}
-     * @private
+     * The timeout ID corresponding to a timeout for the current state. If no
+     * timeout is active, this value is null.
+     * @private {?number}
      */
-    selectedPSimPageName_: {
-      type: String,
-      value: PSimPageName.SIM_DETECT,
-      notify: true,
-    },
+    this.currentTimeoutId_ = null;
 
     /**
-     * DOM Element for the current selected sub-page.
-     * @private {!SetupLoadingPageElement|!ProvisioningPageElement|
-     *           !FinalPageElement}
+     * Handler used to communicate state updates back to the CellularSetup
+     * service.
+     * @private {?CarrierPortalHandlerRemote}
      */
-    selectedPage_: Object,
+    this.carrierPortalHandler_ = null;
 
     /**
-     * Whether error state should be shown for the current page.
+     * Whether there was a carrier portal error.
      * @private {boolean}
      */
-    showError_: {type: Boolean, value: false},
+    this.didCarrierPortalResultFail_ = false;
 
     /**
-     * Cellular metadata received via the onActivationStarted() callback. If
-     * that callback has not occurred, this field is null.
-     * @private {?CellularMetadata}
+     * The function used to initiate a timer. Can be overwritten in tests.
+     * @private {function(Function, number)}
      */
-    cellularMetadata_: {
-      type: Object,
-      value: null,
-    },
+    this.setTimeoutFunction_ = setTimeout.bind(window);
+  }
+
+  /** @override */
+  connectedCallback() {
+    super.connectedCallback();
 
     /**
-     * The current number of tries to detect the SIM.
-     * @private {number}
+     * The time at which the PSim flow is attached.
+     * @private {?Date}
      */
-    startActivationAttempts_: {
-      type: Number,
-      value: 0,
-    },
-  },
-
-  observers: [
-    'updateShowError_(state_)',
-    'updateSelectedPage_(state_)',
-    'handlePSimUIStateChange_(state_)',
-    'updateButtonBarState_(state_)',
-  ],
-
-  /**
-   * Provides an interface to the CellularSetup Mojo service.
-   * @private {?CellularSetupRemote}
-   */
-  cellularSetupRemote_: null,
-
-  /**
-   * Delegate responsible for routing activation started/finished events.
-   * @private {?ActivationDelegateReceiver}
-   */
-  activationDelegateReceiver_: null,
-
-  /**
-   * The timeout ID corresponding to a timeout for the current state. If no
-   * timeout is active, this value is null.
-   * @private {?number}
-   */
-  currentTimeoutId_: null,
-
-  /**
-   * Handler used to communicate state updates back to the CellularSetup
-   * service.
-   * @private {?CarrierPortalHandlerRemote}
-   */
-  carrierPortalHandler_: null,
-
-  /**
-   * Whether there was a carrier portal error.
-   * @private {boolean}
-   */
-  didCarrierPortalResultFail_: false,
-
-  /**
-   * The function used to initiate a timer. Can be overwritten in tests.
-   * @private {function(Function, number)}
-   */
-  setTimeoutFunction_: setTimeout.bind(window),
-
-  /**
-   * The time at which the PSim flow is attached.
-   * @private {?Date}
-   */
-  timeOnAttached_: null,
-
-  /** @override */
-  created() {
-    this.cellularSetupRemote_ = getCellularSetupRemote();
-  },
-
-  /** @override */
-  attached() {
     this.timeOnAttached_ = new Date();
-  },
+  }
 
   /** @override */
-  detached() {
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
     let resultCode = null;
     switch (this.state_) {
       case PSimUIState.IDLE:
@@ -10411,7 +9565,7 @@ Polymer({
 
     chrome.metricsPrivate.recordLongTime(
         FAILED_PSIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-  },
+  }
 
   /**
    * Overrides ActivationDelegateInterface.
@@ -10422,14 +9576,15 @@ Polymer({
     this.clearTimer_();
     this.cellularMetadata_ = metadata;
     this.state_ = PSimUIState.WAITING_FOR_PORTAL_TO_LOAD;
-  },
+  }
 
   initSubflow() {
     this.state_ = PSimUIState.STARTING_ACTIVATION;
     this.startActivationAttempts_ = 0;
     this.updateButtonBarState_();
-    this.fire('focus-default-button');
-  },
+    this.dispatchEvent(new CustomEvent(
+        'focus-default-button', {bubbles: true, composed: true}));
+  }
 
   navigateForward() {
     switch (this.state_) {
@@ -10443,7 +9598,8 @@ Polymer({
       case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
       case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
       case PSimUIState.ALREADY_ACTIVATED:
-        this.fire('exit-cellular-setup');
+        this.dispatchEvent(new CustomEvent(
+            'exit-cellular-setup', {bubbles: true, composed: true}));
         break;
       case PSimUIState.TIMEOUT_START_ACTIVATION:
         this.state_ = PSimUIState.STARTING_ACTIVATION;
@@ -10452,7 +9608,7 @@ Polymer({
         assertNotReached$1();
         break;
     }
-  },
+  }
 
   /**
    * Sets the function used to initiate a timer.
@@ -10461,7 +9617,7 @@ Polymer({
    */
   setTimerFunctionForTest(timerFunction) {
     this.setTimeoutFunction_ = timerFunction;
-  },
+  }
 
   /** @private */
   updateButtonBarState_() {
@@ -10519,7 +9675,7 @@ Polymer({
         assertNotReached$1();
     }
     this.set('buttonState', buttonState);
-  },
+  }
 
   /**
    * Overrides ActivationDelegateInterface.
@@ -10542,7 +9698,7 @@ Polymer({
       default:
         assertNotReached$1();
     }
-  },
+  }
 
   /** @private */
   getCarrierText() {
@@ -10551,7 +9707,7 @@ Polymer({
       return this.cellularMetadata_.carrier;
     }
     return '';
-  },
+  }
 
   /** @private */
   updateShowError_() {
@@ -10565,7 +9721,7 @@ Polymer({
         this.showError_ = false;
         return;
     }
-  },
+  }
 
   /** @private */
   updateSelectedPage_() {
@@ -10592,10 +9748,13 @@ Polymer({
       default:
         assertNotReached$1();
     }
-  },
+  }
 
   /** @private */
   handlePSimUIStateChange_() {
+    this.updateShowError_();
+    this.updateSelectedPage_();
+
     // Since the state has changed, the previous state did not time out, so
     // clear any active timeout.
     this.clearTimer_();
@@ -10609,9 +9768,10 @@ Polymer({
 
     if (this.state_ === PSimUIState.STARTING_ACTIVATION) {
       this.startActivation_();
-      return;
     }
-  },
+
+    this.updateButtonBarState_();
+  }
 
   /** @private */
   onTimeout_() {
@@ -10637,7 +9797,7 @@ Polymer({
         // Only the above states are expected to time out.
         assertNotReached$1();
     }
-  },
+  }
 
   /** @private */
   startActivation_() {
@@ -10658,7 +9818,7 @@ Polymer({
             (params) => {
               this.carrierPortalHandler_ = params.observer;
             });
-  },
+  }
 
   /** @private */
   closeActivationConnection_() {
@@ -10667,7 +9827,7 @@ Polymer({
     this.activationDelegateReceiver_ = null;
     this.carrierPortalHandler_ = null;
     this.cellularMetadata_ = null;
-  },
+  }
 
   /** @private */
   clearTimer_() {
@@ -10675,14 +9835,14 @@ Polymer({
       clearTimeout(this.currentTimeoutId_);
     }
     this.currentTimeoutId_ = null;
-  },
+  }
 
   /** @private */
   onCarrierPortalLoaded_() {
     this.state_ = PSimUIState.WAITING_FOR_USER_PAYMENT;
     this.carrierPortalHandler_.onCarrierPortalStatusChange(
         CarrierPortalStatus.kPortalLoadedWithoutPaidUser);
-  },
+  }
 
   /**
    * @param {!CustomEvent<boolean>} event
@@ -10693,7 +9853,7 @@ Polymer({
     this.didCarrierPortalResultFail_ = !success;
     this.state_ = success ? PSimUIState.ACTIVATION_SUCCESS :
                             PSimUIState.ACTIVATION_FAILURE;
-  },
+  }
 
   /** @return {string} */
   getLoadingMessage_() {
@@ -10703,13 +9863,13 @@ Polymer({
       return this.i18n('simDetectPageFinalErrorMessage');
     }
     return this.i18n('establishNetworkConnectionMessage');
-  },
+  }
 
   /** @return {boolean} */
   isSimDetectError_() {
     return this.state_ === PSimUIState.TIMEOUT_START_ACTIVATION ||
         this.state_ === PSimUIState.FINAL_TIMEOUT_START_ACTIVATION;
-  },
+  }
 
   /** @return {string} */
   getLoadingTitle_() {
@@ -10717,17 +9877,19 @@ Polymer({
       return this.i18n('simDetectPageErrorTitle');
     }
     return '';
-  },
-});
+  }
+}
+
+customElements.define(PsimFlowUiElement.is, PsimFlowUiElement);
 
 function getTemplate$16() {
   return html`<!--_html_template_start_--><style include="iron-positioning">
   :host([expanded_]) #pageBody {
-    height: 340px;
+    overflow: auto;
     transition-duration: 200ms;
   }
   :host(:not([expanded_])) #pageBody {
-    height: 282px;
+    overflow: auto;
     transition-duration: 150ms;
   }
 
@@ -10904,12 +10066,34 @@ function getTemplate$16() {
     text-align: center;
     width: auto;
   }
+
+  #carrierLockWarningContainer {
+    display: flex;
+    margin-bottom: 24px;
+    margin-top: 20px;
+  }
+
+  #carrierLockWarningIcon {
+    --iron-icon-fill-color: var(--cros-icon-color-alert);
+    --iron-icon-height: 24px;
+    --iron-icon-width: 24px;
+    margin-inline-end: 4px;
+  }
+
 </style>
 <base-page>
   <div slot="page-body" id="pageBody" class="animate">
     <span id="description" aria-live="polite">
       [[getDescription_(cameraCount_, qrCodeDetector_, showNoProfilesFound)]]
     </span>
+    <template is="dom-if"
+        if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
+      <div id="carrierLockWarningContainer">
+          <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
+          </iron-icon>
+        [[i18n('eSimCarrierLockedDevice')]]
+      </div>
+    </template>
     <template is="dom-if"
         if="[[isScanningAvailable_(cameraCount_, qrCodeDetector_.*)]]" restamp>
       <div id="esimQrCodeDetection" class="animate">
@@ -11063,194 +10247,251 @@ const QR_CODE_FORMAT = 'qr_code';
  */
 const ACTIVATION_CODE_PREFIX = 'LPA:1$';
 
-Polymer({
-  _template: getTemplate$16(),
-  is: 'activation-code-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ActivationCodePageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ActivationCodePageElement extends ActivationCodePageElementBase {
+  static get is() {
+    return 'activation-code-page';
+  }
 
-  properties: {
-    activationCode: {
-      type: String,
-      notify: true,
-      observer: 'onActivationCodeChanged_',
-    },
+  static get template() {
+    return getTemplate$16();
+  }
 
-    showError: {
-      type: Boolean,
-      notify: true,
-      observer: 'onShowErrorChanged_',
-    },
+  static get properties() {
+    return {
+      activationCode: {
+        type: String,
+        notify: true,
+        observer: 'onActivationCodeChanged_',
+      },
+
+      showError: {
+        type: Boolean,
+        notify: true,
+        observer: 'onShowErrorChanged_',
+      },
+
+      /**
+       * Readonly property indicating whether the current |activationCode|
+       * was scanned from QR code.
+       */
+      isFromQrCode: {
+        type: Boolean,
+        notify: true,
+        value: false,
+      },
+
+      /**
+       * Indicates the UI is busy with an operation and cannot be interacted
+       * with.
+       */
+      showBusy: {
+        type: Boolean,
+        value: false,
+      },
+
+      /**
+       * Indicates no profiles were found while scanning.
+       */
+      showNoProfilesFound: {
+        type: Boolean,
+        notify: true,
+      },
+
+      /**
+       * Enum used as an ID for specific UI elements.
+       * A UiElement is passed between html and JS for
+       * certain UI elements to determine their state.
+       *
+       * @type {!UiElement}
+       */
+      UiElement: {
+        type: Object,
+        value: UiElement,
+      },
+
+      /**
+       * @type {!PageState}
+       * @private
+       */
+      state_: {
+        type: Object,
+        value: PageState,
+        observer: 'onStateChanged_',
+      },
+
+      /** @private */
+      cameraCount_: {
+        type: Number,
+        value: 0,
+        observer: 'onHasCameraCountChanged_',
+      },
+
+      /**
+       *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
+       *  becomes available
+       *  @private {?Object}
+       */
+      qrCodeDetector_: {
+        type: Object,
+        value: null,
+      },
+
+      /**
+       * If true, video is expanded.
+       */
+      expanded_: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+      },
+
+      /**
+       * A11y string used to announce the current status of qr code camera
+       * detection. Used when device web cam is turned on and ready to scan,
+       * and also used after scan has been completed.
+       * @private
+       */
+      qrCodeCameraA11yString_: {
+        type: String,
+        value: '',
+      },
+
+      /**
+       * If true, device is locked to specific cellular operator.
+       */
+      isDeviceCarrierLocked_: {
+        type: Boolean,
+        value: false,
+      },
+
+      isCellularCarrierLockEnabled_: {
+        type: Boolean,
+        value() {
+          return loadTimeData$1.valueExists('isCellularCarrierLockEnabled') &&
+              loadTimeData$1.getBoolean('isCellularCarrierLockEnabled');
+        },
+      },
+
+      /**
+       * Indicates whether or not |activationCode| matches the correct
+       * activation code format. If there is a partial match (i.e. the code is
+       * incomplete but matches the format so far), this will be false.
+       * @private
+       */
+      isActivationCodeInvalidFormat_: {
+        type: Boolean,
+        value: false,
+      },
+    };
+  }
+
+  /** @override */
+  constructor() {
+    super();
 
     /**
-     * Readonly property indicating whether the current |activationCode|
-     * was scanned from QR code.
-     */
-    isFromQrCode: {
-      type: Boolean,
-      notify: true,
-      value: false,
-    },
-
-    /**
-     * Indicates the UI is busy with an operation and cannot be interacted with.
-     */
-    showBusy: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Indicates no profiles were found while scanning.
-     */
-    showNoProfilesFound: {
-      type: Boolean,
-      notify: true,
-    },
-
-    /**
-     * Enum used as an ID for specific UI elements.
-     * A UiElement is passed between html and JS for
-     * certain UI elements to determine their state.
-     *
-     * @type {!UiElement}
-     */
-    UiElement: {
-      type: Object,
-      value: UiElement,
-    },
-
-    /**
-     * @type {!PageState}
+     * @type {MediaDevices}
      * @private
      */
-    state_: {
-      type: Object,
-      value: PageState,
-      observer: 'onStateChanged_',
-    },
+    this.mediaDevices_ = null;
 
-    /** @private */
-    cameraCount_: {
-      type: Number,
-      value: 0,
-      observer: 'onHasCameraCountChanged_',
-    },
+    /**
+     * @type {?MediaStream}
+     * @private
+     */
+    this.stream_ = null;
+
+    /**
+     * @type {?number}
+     * @private
+     */
+    this.qrCodeDetectorTimer_ = null;
+
+    /**
+     * The function used to initiate a repeating timer. Can be overwritten in
+     * tests.
+     * @private {function(Function, number)}
+     */
+    this.setIntervalFunction_ = setInterval.bind(window);
 
     /**
      *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
      *  becomes available
-     *  @private {?Object}
+     *  @suppress {undefinedVars|missingProperties}
+     *  @private
      */
-    qrCodeDetector_: {
-      type: Object,
-      value: null,
-    },
+    this.barcodeDetectorClass_ = BarcodeDetector;
 
-    /**
-     * If true, video is expanded.
-     */
-    expanded_: {
-      type: Boolean,
-      value: false,
-      reflectToAttribute: true,
-    },
-
-    /**
-     * A11y string used to announce the current status of qr code camera
-     * detection. Used when device web cam is turned on and ready to scan,
-     * and also used after scan has been completed.
-     * @private
-     */
-    qrCodeCameraA11yString_: {
-      type: String,
-      value: '',
-    },
-
-    /**
-     * Indicates whether or not |activationCode| matches the correct activation
-     * code format. If there is a partial match (i.e. the code is incomplete but
-     * matches the format so far), this will be false.
-     * @private
-     */
-    isActivationCodeInvalidFormat_: {
-      type: Boolean,
-      value: false,
-    },
-  },
-
-  /**
-   * @type {MediaDevices}
-   * @private
-   */
-  mediaDevices_: null,
-
-  /**
-   * @type {?MediaStream}
-   * @private
-   */
-  stream_: null,
-
-  /**
-   * @type {?number}
-   * @private
-   */
-  qrCodeDetectorTimer_: null,
-
-
-  /**
-   * The function used to initiate a repeating timer. Can be overwritten in
-   * tests.
-   * @private {function(Function, number)}
-   */
-  setIntervalFunction_: setInterval.bind(window),
-
-  /**
-   *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
-   *  becomes available
-   *  @suppress {undefinedVars|missingProperties}
-   *  @private
-   */
-  barcodeDetectorClass_: BarcodeDetector,
-
-  /** @private {typeof ImageCapture} */
-  imageCaptureClass_: ImageCapture,
-
-  /**
-   * Function used to play the video. Can be overwritten by
-   * setFakesForTesting().
-   * @private {function()}
-   */
-  playVideo_: function() {
-    this.$$('#video').play();
-  },
-
-  /**
-   * Function used to stop a stream. Can be overwritten by setFakesForTesting().
-   * @private {function(MediaStream)}
-   */
-  stopStream_: function(stream) {
-    if (stream) {
-      stream.getTracks()[0].stop();
+    /** @private {typeof ImageCapture} */
+    this.imageCaptureClass_ = ImageCapture;
+    if (!this.isCellularCarrierLockEnabled_) {
+      return;
     }
-  },
+
+    this.networkConfig_ =
+        MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
+    this.networkConfig_.getDeviceStateList().then(response => {
+      const devices = response.result;
+      const deviceState =
+          devices.find(device => device.type == NetworkType.kCellular) || null;
+      if (deviceState) {
+        this.isDeviceCarrierLocked_ = deviceState.isCarrierLocked;
+      }
+    });
+  }
 
   /** @override */
   ready() {
+    super.ready();
+
     this.setMediaDevices(navigator.mediaDevices);
     this.initBarcodeDetector_();
     this.state_ = PageState.MANUAL_ENTRY;
-  },
+  }
 
   /** @override */
-  detached() {
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
     this.stopStream_(this.stream_);
     if (this.qrCodeDetectorTimer_) {
       this.clearQrCodeDetectorTimer_();
     }
     this.mediaDevices_.removeEventListener(
         'devicechange', this.updateCameraCount_.bind(this));
-  },
+  }
+
+  /**
+   * Function used to play the video. Can be overwritten by
+   * setFakesForTesting().
+   * @private
+   */
+  playVideo_() {
+    const videoElement = this.shadowRoot.querySelector('#video');
+    if (videoElement) {
+      videoElement.play();
+    }
+  }
+
+  /**
+   * Function used to stop a stream. Can be overwritten by setFakesForTesting().
+   * @param {MediaStream} stream
+   * @private
+   */
+  stopStream_(stream) {
+    if (stream) {
+      stream.getTracks()[0].stop();
+    }
+  }
 
   /**
    * @return {boolean}
@@ -11258,7 +10499,15 @@ Polymer({
    */
   isScanningAvailable_() {
     return this.cameraCount_ > 0 && !!this.qrCodeDetector_;
-  },
+  }
+
+  /**
+   * @return {boolean}
+   * @private
+   */
+  shouldShowCarrierLockWarning_() {
+    return this.isCellularCarrierLockEnabled_ && this.isDeviceCarrierLocked_;
+  }
 
   /**
    * TODO(crbug.com/1093185): Remove suppression when shape_detection extern
@@ -11279,7 +10528,7 @@ Polymer({
       this.qrCodeDetector_ =
           new this.barcodeDetectorClass_({formats: [QR_CODE_FORMAT]});
     }
-  },
+  }
 
   /**
    * @param {MediaDevices} mediaDevices
@@ -11289,7 +10538,7 @@ Polymer({
     this.updateCameraCount_();
     this.mediaDevices_.addEventListener(
         'devicechange', this.updateCameraCount_.bind(this));
-  },
+  }
 
   /**
    * TODO(crbug.com/1093185): Add barcodeDetectorClass type when BarcodeDetector
@@ -11309,14 +10558,14 @@ Polymer({
     this.setIntervalFunction_ = setIntervalFunction;
     this.playVideo_ = playVideoFunction;
     this.stopStream_ = stopStreamFunction;
-  },
+  }
 
   /**
    * @returns {?number}
    */
   getQrCodeDetectorTimerForTest() {
     return this.qrCodeDetectorTimer_;
-  },
+  }
 
   /**
    * @return {string}
@@ -11324,7 +10573,7 @@ Polymer({
    */
   computeActivationCodeClass_() {
     return this.isScanningAvailable_() ? 'relative' : 'center width-92';
-  },
+  }
 
   /** @private */
   updateCameraCount_() {
@@ -11341,7 +10590,7 @@ Polymer({
         .catch(e => {
           this.cameraCount_ = 0;
         });
-  },
+  }
 
   /** @private */
   onHasCameraCountChanged_() {
@@ -11352,7 +10601,7 @@ Polymer({
       this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
       this.startScanning_();
     }
-  },
+  }
 
   /** private */
   startScanning_() {
@@ -11375,9 +10624,11 @@ Polymer({
         .then(stream => {
           this.stream_ = stream;
           if (this.stream_) {
-            const video = this.$$('#video');
-            video.srcObject = stream;
-            this.playVideo_();
+            const video = this.shadowRoot.querySelector('#video');
+            if (video) {
+              video.srcObject = stream;
+              this.playVideo_();
+            }
           }
           this.stopStream_(oldStream);
 
@@ -11393,7 +10644,7 @@ Polymer({
         .catch(e => {
           this.state_ = PageState.SCANNING_FAILURE;
         });
-  },
+  }
 
   /**
    * Continuously checks stream if it contains a QR code. If a QR code is
@@ -11427,7 +10678,7 @@ Polymer({
     } catch (error) {
       this.state_ = PageState.SCANNING_FAILURE;
     }
-  },
+  }
 
   /**
    * @param {ImageBitmap} frame
@@ -11447,22 +10698,28 @@ Polymer({
       return qrCodes[0].rawValue;
     }
     return null;
-  },
+  }
 
   /** @private */
   onActivationCodeChanged_() {
-    this.fire('activation-code-updated', {
-      activationCode: this.validateActivationCode_(this.activationCode) ?
-          this.activationCode :
-          null,
+    const event = new CustomEvent('activation-code-updated', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        activationCode: this.validateActivationCode_(this.activationCode) ?
+            this.activationCode :
+            null,
+      },
     });
-  },
+
+    this.dispatchEvent(event);
+  }
 
   /** @private */
   clearQrCodeDetectorTimer_() {
     clearTimeout(this.qrCodeDetectorTimer_);
     this.qrCodeDetectorTimer_ = null;
-  },
+  }
 
   /**
    * Checks if |activationCode| matches or partially matches the correct format.
@@ -11497,7 +10754,7 @@ Polymer({
       return false;
     }
     return true;
-  },
+  }
 
   /** @private */
   onSwitchCameraButtonPressed_() {
@@ -11507,7 +10764,7 @@ Polymer({
       this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
     }
     this.startScanning_();
-  },
+  }
 
   /** @private */
   onShowErrorChanged_() {
@@ -11521,7 +10778,7 @@ Polymer({
         this.state_ = PageState.SCANNING_INSTALL_FAILURE;
       }
     }
-  },
+  }
 
   /** @private */
   onStateChanged_() {
@@ -11556,11 +10813,14 @@ Polymer({
     if (this.state_ === PageState.SCANNING_SUCCESS) {
       this.isFromQrCode = true;
       this.qrCodeCameraA11yString_ = this.i18n('qrCodeA11YCameraScanSuccess');
-      this.fire('focus-default-button');
+      this.dispatchEvent(new CustomEvent('focus-default-button', {
+        bubbles: true,
+        composed: true,
+      }));
     }
 
     this.expanded_ = false;
-  },
+  }
 
   /**
    * @param {KeyboardEvent} e
@@ -11568,7 +10828,10 @@ Polymer({
    */
   onKeyDown_(e) {
     if (e.key === 'Enter') {
-      this.fire('forward-navigation-requested');
+      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+        bubbles: true,
+        composed: true,
+      }));
     }
 
     // Prevents barcode detector video from closing if user tabs through
@@ -11580,7 +10843,7 @@ Polymer({
 
     this.state_ = PageState.MANUAL_ENTRY;
     e.stopPropagation();
-  },
+  }
 
   /**
    * @param {UiElement} uiElement
@@ -11614,7 +10877,7 @@ Polymer({
       case UiElement.SCAN_INSTALL_FAILURE:
         return state !== PageState.SCANNING_INSTALL_FAILURE;
     }
-  },
+  }
 
   /**
    * @param {UiElement} uiElement
@@ -11633,7 +10896,7 @@ Polymer({
       default:
         return false;
     }
-  },
+  }
 
   /**
    * @return {string}
@@ -11650,7 +10913,7 @@ Polymer({
       return this.i18n('scanQRCodeNoProfilesFound');
     }
     return this.i18n('scanQRCode');
-  },
+  }
 
   /**
    * @param {PageState} state
@@ -11662,7 +10925,7 @@ Polymer({
       return true;
     }
     return state === PageState.MANUAL_ENTRY_INSTALL_FAILURE;
-  },
+  }
 
   /**
    * @param {boolean} showBusy
@@ -11677,7 +10940,7 @@ Polymer({
     // Because this string contains '<' and '>' characters, we cannot use i18n
     // methods.
     return loadTimeData$1.getString('scanQrCodeInputSubtitle');
-  },
+  }
 
   /**
    * @return {string}
@@ -11687,8 +10950,10 @@ Polymer({
     // Because this string contains '<' and '>' characters, we cannot use i18n
     // methods.
     return loadTimeData$1.getString('scanQrCodeInputError');
-  },
-});
+  }
+}
+
+customElements.define(ActivationCodePageElement.is, ActivationCodePageElement);
 
 function getTemplate$15() {
   return html`<!--_html_template_start_--><style>
@@ -11705,7 +10970,7 @@ function getTemplate$15() {
     margin-top: 24px;
   }
 
-  cr-lottie {
+  cros-lottie-renderer {
     margin: auto;
   }
 </style>
@@ -11729,12 +10994,28 @@ function getTemplate$15() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$15(),
-  is: 'activation-verification-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ActivationVerificationPageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
-});
+/** @polymer */
+class ActivationVerificationPageElement extends
+    ActivationVerificationPageElementBase {
+  static get is() {
+    return 'activation-verification-page';
+  }
+
+  static get template() {
+    return getTemplate$15();
+  }
+}
+
+customElements.define(
+    ActivationVerificationPageElement.is, ActivationVerificationPageElement);
 
 function getTemplate$14() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -11770,18 +11051,34 @@ function getTemplate$14() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$14(),
-  is: 'profile-discovery-consent-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProfileDiscoveryConsentPageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProfileDiscoveryConsentPageElement extends
+    ProfileDiscoveryConsentPageElementBase {
+  static get is() {
+    return 'profile-discovery-consent-page';
+  }
 
-  properties: {
-    shouldSkipDiscovery: {
-      type: Boolean,
-      notify: true,
-    },
-  },
+  static get template() {
+    return getTemplate$14();
+  }
+
+  static get properties() {
+    return {
+      shouldSkipDiscovery: {
+        type: Boolean,
+        notify: true,
+      },
+
+    };
+  }
 
   shouldSkipDiscoveryClicked_(e) {
     // A place holder href with the value "#" is used to have a compliant link.
@@ -11789,9 +11086,15 @@ Polymer({
     e.detail.event.preventDefault();
     e.stopPropagation();
     this.shouldSkipDiscovery = true;
-    this.fire('forward-navigation-requested');
-  },
-});
+    this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+}
+
+customElements.define(
+    ProfileDiscoveryConsentPageElement.is, ProfileDiscoveryConsentPageElement);
 
 function getTemplate$13() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -11859,48 +11162,62 @@ function getTemplate$13() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$13(),
-  is: 'profile-discovery-list-item-legacy',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProfileDiscoveryListItemLegacyElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProfileDiscoveryListItemLegacyElement extends
+    ProfileDiscoveryListItemLegacyElementBase {
+  static get is() {
+    return 'profile-discovery-list-item-legacy';
+  }
 
-  properties: {
-    /** @type {?ESimProfileRemote} */
-    profile: {
-      type: Object,
-      value: null,
-      observer: 'onProfileChanged_',
-    },
+  static get template() {
+    return getTemplate$13();
+  }
 
-    selected: {
-      type: Boolean,
-      reflectToAttribute: true,
-    },
+  static get properties() {
+    return {
+      /** @type {?ESimProfileRemote} */
+      profile: {
+        type: Object,
+        value: null,
+        observer: 'onProfileChanged_',
+      },
 
-    showLoadingIndicator: {
-      type: Boolean,
-    },
+      selected: {
+        type: Boolean,
+        reflectToAttribute: true,
+      },
 
-    /**
-     * @type {?ESimProfileProperties}
-     * @private
-     */
-    profileProperties_: {
-      type: Object,
-      value: null,
-      notify: true,
-    },
+      showLoadingIndicator: Boolean,
 
-    /**
-     * @type {boolean}
-     * @private
-     */
-    isDarkModeActive_: {
-      type: Boolean,
-      value: false,
-    },
-  },
+      /**
+       * @type {?ESimProfileProperties}
+       * @private
+       */
+      profileProperties_: {
+        type: Object,
+        value: null,
+        notify: true,
+      },
+
+      /**
+       * @type {boolean}
+       * @private
+       */
+      isDarkModeActive_: {
+        type: Boolean,
+        value: false,
+      },
+
+    };
+  }
 
   /** @private */
   onProfileChanged_() {
@@ -11911,16 +11228,20 @@ Polymer({
     this.profile.getProperties().then(response => {
       this.profileProperties_ = response.properties;
     });
-  },
+  }
 
   /** @private */
   getProfileName_() {
     if (!this.profileProperties_) {
       return '';
     }
-    return String.fromCharCode(...this.profileProperties_.name.data);
-  },
-});
+    return mojoString16ToString(this.profileProperties_.name);
+  }
+}
+
+customElements.define(
+    ProfileDiscoveryListItemLegacyElement.is,
+    ProfileDiscoveryListItemLegacyElement);
 
 function getTemplate$12() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -11975,38 +11296,53 @@ function getTemplate$12() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$12(),
-  is: 'profile-discovery-list-page-legacy',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProfileDiscoveryListPageLegacyElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProfileDiscoveryListPageLegacyElement extends
+    ProfileDiscoveryListPageLegacyElementBase {
+  static get is() {
+    return 'profile-discovery-list-page-legacy';
+  }
 
-  properties: {
-    /**
-     * @type {Array<!ESimProfileRemote>}
-     * @private
-     */
-    pendingProfiles: {
-      type: Array,
-    },
+  static get template() {
+    return getTemplate$12();
+  }
 
-    /**
-     * @type {?ESimProfileRemote}
-     * @private
-     */
-    selectedProfile: {
-      type: Object,
-      notify: true,
-    },
+  static get properties() {
+    return {
+      /**
+       * @type {Array<!ESimProfileRemote>}
+       * @private
+       */
+      pendingProfiles: Array,
 
-    /**
-     * Indicates the UI is busy with an operation and cannot be interacted with.
-     */
-    showBusy: {
-      type: Boolean,
-      value: false,
-    },
-  },
+      /**
+       * @type {?ESimProfileRemote}
+       * @private
+       */
+      selectedProfile: {
+        type: Object,
+        notify: true,
+      },
+
+      /**
+       * Indicates the UI is busy with an operation and cannot be interacted
+       * with.
+       */
+      showBusy: {
+        type: Boolean,
+        value: false,
+      },
+
+    };
+  }
 
   /**
    * @param {ESimProfileRemote} profile
@@ -12014,8 +11350,12 @@ Polymer({
    */
   isProfileSelected_(profile) {
     return this.selectedProfile === profile;
-  },
-});
+  }
+}
+
+customElements.define(
+    ProfileDiscoveryListPageLegacyElement.is,
+    ProfileDiscoveryListPageLegacyElement);
 
 function getTemplate$11() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -12093,45 +11433,64 @@ function getTemplate$11() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$11(),
-  is: 'profile-discovery-list-item',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProfileDiscoveryListItemElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProfileDiscoveryListItemElement extends
+    ProfileDiscoveryListItemElementBase {
+  static get is() {
+    return 'profile-discovery-list-item';
+  }
 
-  properties: {
-    /**
-     * @type {?ESimProfileProperties}
-     */
-    profileProperties: {
-      type: Object,
-      value: null,
-      notify: true,
-    },
+  static get template() {
+    return getTemplate$11();
+  }
 
-    selected: {
-      type: Boolean,
-      reflectToAttribute: true,
-    },
+  static get properties() {
+    return {
+      /**
+       * @type {?ESimProfileProperties}
+       */
+      profileProperties: {
+        type: Object,
+        value: null,
+        notify: true,
+      },
 
-    /**
-     * @type {boolean}
-     * @private
-     */
-    isDarkModeActive_: {
-      type: Boolean,
-      value: false,
-    },
-  },
+      selected: {
+        type: Boolean,
+        reflectToAttribute: true,
+      },
+
+      /**
+       * @type {boolean}
+       * @private
+       */
+      isDarkModeActive_: {
+        type: Boolean,
+        value: false,
+      },
+
+    };
+  }
 
   /** @private */
   getProfileName_() {
     if (!this.profileProperties) {
       return '';
     }
-    return String.fromCharCode(...this.profileProperties.name.data);
-  },
-});
+    return mojoString16ToString(this.profileProperties.name);
+  }
+}
+
+customElements.define(
+    ProfileDiscoveryListItemElement.is, ProfileDiscoveryListItemElement);
 
 function getTemplate$10() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -12186,30 +11545,44 @@ function getTemplate$10() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$10(),
-  is: 'profile-discovery-list-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ProfileDiscoveryListPageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ProfileDiscoveryListPageElement extends
+    ProfileDiscoveryListPageElementBase {
+  static get is() {
+    return 'profile-discovery-list-page';
+  }
 
-  properties: {
-    /**
-     * @type {Array<!ESimProfileProperties>}
-     * @private
-     */
-    pendingProfileProperties: {
-      type: Array,
-    },
+  static get template() {
+    return getTemplate$10();
+  }
 
-    /**
-     * @type {?ESimProfileProperties}
-     * @private
-     */
-    selectedProfileProperties: {
-      type: Object,
-      notify: true,
-    },
-  },
+  static get properties() {
+    return {
+      /**
+       * @type {Array<!ESimProfileProperties>}
+       * @private
+       */
+      pendingProfileProperties: Array,
+
+      /**
+       * @type {?ESimProfileProperties}
+       * @private
+       */
+      selectedProfileProperties: {
+        type: Object,
+        notify: true,
+      },
+
+    };
+  }
 
   /**
    * @param {ESimProfileProperties} profileProperties
@@ -12217,7 +11590,7 @@ Polymer({
    */
   isProfilePropertiesSelected_(profileProperties) {
     return this.selectedProfileProperties === profileProperties;
-  },
+  }
 
   /**
    * @param {Event} e
@@ -12227,9 +11600,15 @@ Polymer({
     e.detail.event.preventDefault();
     e.stopPropagation();
     this.selectedProfileProperties = null;
-    this.fire('forward-navigation-requested');
-  },
-});
+    this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
+}
+
+customElements.define(
+    ProfileDiscoveryListPageElement.is, ProfileDiscoveryListPageElement);
 
 function getTemplate$$() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -12323,56 +11702,71 @@ function getTemplate$$() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$$(),
-  is: 'confirmation-code-page-legacy',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ConfirmationCodePageLegacyElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ConfirmationCodePageLegacyElement extends
+    ConfirmationCodePageLegacyElementBase {
+  static get is() {
+    return 'confirmation-code-page-legacy';
+  }
 
-  properties: {
-    /**
-     * @type {?ESimProfileRemote}
-     */
-    profile: {
-      type: Object,
-      observer: 'onProfileChanged_',
-    },
+  static get template() {
+    return getTemplate$$();
+  }
 
-    confirmationCode: {
-      type: String,
-      notify: true,
-    },
+  static get properties() {
+    return {
+      /**
+       * @type {?ESimProfileRemote}
+       */
+      profile: {
+        type: Object,
+        observer: 'onProfileChanged_',
+      },
 
-    showError: {
-      type: Boolean,
-    },
+      confirmationCode: {
+        type: String,
+        notify: true,
+      },
 
-    /**
-     * Indicates the UI is busy with an operation and cannot be interacted with.
-     */
-    showBusy: {
-      type: Boolean,
-      value: false,
-    },
+      showError: Boolean,
 
-    /**
-     * @type {?ESimProfileProperties}
-     * @private
-     */
-    profileProperties_: {
-      type: Object,
-      value: null,
-    },
+      /**
+       * Indicates the UI is busy with an operation and cannot be interacted
+       * with.
+       */
+      showBusy: {
+        type: Boolean,
+        value: false,
+      },
 
-    /**
-     * @type {boolean}
-     * @private
-     */
-    isDarkModeActive_: {
-      type: Boolean,
-      value: false,
-    },
-  },
+      /**
+       * @type {?ESimProfileProperties}
+       * @private
+       */
+      profileProperties_: {
+        type: Object,
+        value: null,
+      },
+
+      /**
+       * @type {boolean}
+       * @private
+       */
+      isDarkModeActive_: {
+        type: Boolean,
+        value: false,
+      },
+
+    };
+  }
 
   /** @private */
   onProfileChanged_() {
@@ -12383,7 +11777,7 @@ Polymer({
     this.profile.getProperties().then(response => {
       this.profileProperties_ = response.properties;
     });
-  },
+  }
 
   /**
    * @param {KeyboardEvent} e
@@ -12391,10 +11785,13 @@ Polymer({
    */
   onKeyDown_(e) {
     if (e.key === 'Enter') {
-      this.fire('forward-navigation-requested');
+      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+        bubbles: true,
+        composed: true,
+      }));
     }
     e.stopPropagation();
-  },
+  }
 
   /**
    * @return {boolean}
@@ -12402,7 +11799,7 @@ Polymer({
    */
   shouldShowProfileDetails_() {
     return !!this.profile;
-  },
+  }
 
   /**
    * @return {string}
@@ -12412,8 +11809,8 @@ Polymer({
     if (!this.profileProperties_) {
       return '';
     }
-    return String.fromCharCode(...this.profileProperties_.name.data);
-  },
+    return mojoString16ToString(this.profileProperties_.name);
+  }
 
   /**
    * @return {string}
@@ -12423,8 +11820,11 @@ Polymer({
     return this.isDarkModeActive_ ?
         'chrome://resources/ash/common/cellular_setup/default_esim_profile_dark.svg' :
         'chrome://resources/ash/common/cellular_setup/default_esim_profile.svg';
-  },
-});
+  }
+}
+
+customElements.define(
+    ConfirmationCodePageLegacyElement.is, ConfirmationCodePageLegacyElement);
 
 function getTemplate$_() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -12485,29 +11885,39 @@ function getTemplate$_() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$_(),
-  is: 'confirmation-code-page',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const ConfirmationCodePageElementBase =
+    mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
+  static get is() {
+    return 'confirmation-code-page';
+  }
 
-  properties: {
-    /**
-     * @type {?ESimProfileProperties}
-     */
-    profileProperties: {
-      type: Object,
-    },
+  static get template() {
+    return getTemplate$_();
+  }
 
-    confirmationCode: {
-      type: String,
-      notify: true,
-    },
+  static get properties() {
+    return {
+      /**
+       * @type {?ESimProfileProperties}
+       */
+      profileProperties: Object,
 
-    showError: {
-      type: Boolean,
-    },
-  },
+      confirmationCode: {
+        type: String,
+        notify: true,
+      },
+
+      showError: Boolean,
+    };
+  }
 
   /**
    * @param {KeyboardEvent} e
@@ -12515,10 +11925,13 @@ Polymer({
    */
   onKeyDown_(e) {
     if (e.key === 'Enter') {
-      this.fire('forward-navigation-requested');
+      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+        bubbles: true,
+        composed: true,
+      }));
     }
     e.stopPropagation();
-  },
+  }
 
   /**
    * @return {string}
@@ -12528,9 +11941,12 @@ Polymer({
     if (!this.profileProperties) {
       return '';
     }
-    return String.fromCharCode(...this.profileProperties.name.data);
-  },
-});
+    return mojoString16ToString(this.profileProperties.name);
+  }
+}
+
+customElements.define(
+    ConfirmationCodePageElement.is, ConfirmationCodePageElement);
 
 function getTemplate$Z() {
   return html`<!--_html_template_start_--><style include="iron-flex">
@@ -12658,197 +12074,190 @@ const FAILED_ESIM_SETUP_DURATION_METRIC_NAME =
  * Root element for the eSIM cellular setup flow. This element interacts with
  * the CellularSetup service to carry out the esim activation flow.
  */
-Polymer({
-  _template: getTemplate$Z(),
-  is: 'esim-flow-ui',
 
-  behaviors: [
-    I18nBehavior,
-    NetworkListenerBehavior,
-    SubflowBehavior,
-  ],
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ * @implements {NetworkListenerBehaviorInterface}
+ */
+const EsimFlowUiElementBase = mixinBehaviors(
+    [I18nBehavior, NetworkListenerBehavior, SubflowBehavior], PolymerElement);
 
-  properties: {
-    /** @type {!CellularSetupDelegate} */
-    delegate: Object,
+/** @polymer */
+class EsimFlowUiElement extends EsimFlowUiElementBase {
+  static get is() {
+    return 'esim-flow-ui';
+  }
 
-    /**
-     * Header shown at the top of the flow. No header shown if the string is
-     * empty.
-     */
-    header: {
-      type: String,
-      notify: true,
-      computed: 'computeHeader_(selectedESimPageName_, showError_)',
-    },
+  static get template() {
+    return getTemplate$Z();
+  }
 
-    forwardButtonLabel: {
-      type: String,
-      notify: true,
-    },
+  static get properties() {
+    return {
+      /** @type {!CellularSetupDelegate} */
+      delegate: Object,
 
-    /**
-     * @type {!ESimUiState}
-     * @private
-     */
-    state_: {
-      type: String,
-      value: function() {
-        if (loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
-            loadTimeData$1.getBoolean('isSmdsSupportEnabled')) {
-          return ESimUiState.PROFILE_SEARCH_CONSENT;
-        }
-        return ESimUiState.PROFILE_SEARCH;
+      /**
+       * Header shown at the top of the flow. No header shown if the string is
+       * empty.
+       */
+      header: {
+        type: String,
+        notify: true,
+        computed: 'computeHeader_(selectedESimPageName_, showError_)',
       },
-      observer: 'onStateChanged_',
-    },
 
-    /**
-     * Element name of the current selected sub-page.
-     * This is set in updateSelectedPage_ on initialization.
-     * @type {?ESimPageName}
-     * @private
-     */
-    selectedESimPageName_: String,
-
-    /**
-     * Whether the user has consented to a scan for profiles.
-     * @type {boolean}
-     */
-    hasConsentedForDiscovery_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Whether the user is setting up the eSIM profile manually.
-     * @type {boolean}
-     */
-    shouldSkipDiscovery_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Whether error state should be shown for the current page.
-     * @private {boolean}
-     */
-    showError_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Profiles fetched that have status kPending.
-     * @type {!Array<!ESimProfileRemote>}
-     * @private
-     */
-    pendingProfiles_: {
-      type: Array,
-    },
-
-    /**
-     * Profile selected to be installed.
-     * @type {?ESimProfileRemote}
-     * @private
-     */
-    selectedProfile_: {
-      type: Object,
-    },
-
-    /**
-     * Profile properties fetched from the latest SM-DS scan.
-     * @type {!Array<!ESimProfileProperties>}
-     * @private
-     */
-    pendingProfileProperties_: {
-      type: Array,
-    },
-
-    /**
-     * Profile properties selected to be installed.
-     * @type {?ESimProfileProperties}
-     * @private
-     */
-    selectedProfileProperties_: {
-      type: Object,
-    },
-
-    /** @private */
-    activationCode_: {
-      type: String,
-      value: '',
-    },
-
-    /** @private */
-    confirmationCode_: {
-      type: String,
-      value: '',
-      observer: 'onConfirmationCodeUpdated_',
-    },
-
-    /** @private */
-    hasHadActiveCellularNetwork_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /** @private */
-    isActivationCodeFromQrCode_: {
-      type: Boolean,
-    },
-
-    /**
-     * Return true if SmdsSupportEnabled feature flag is enabled.
-     */
-    smdsSupportEnabled_: {
-      type: Boolean,
-      value() {
-        return loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
-            loadTimeData$1.getBoolean('isSmdsSupportEnabled');
+      forwardButtonLabel: {
+        type: String,
+        notify: true,
       },
-    },
-  },
 
-  /**
-   * Provides an interface to the ESimManager Mojo service.
-   * @private {?ESimManagerRemote}
-   */
-  eSimManagerRemote_: null,
+      /**
+       * @type {!ESimUiState}
+       * @private
+       */
+      state_: {
+        type: String,
+        value: function() {
+          if (loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
+              loadTimeData$1.getBoolean('isSmdsSupportEnabled')) {
+            return ESimUiState.PROFILE_SEARCH_CONSENT;
+          }
+          return ESimUiState.PROFILE_SEARCH;
+        },
+        observer: 'onStateChanged_',
+      },
 
-  /** @private {?EuiccRemote} */
-  euicc_: null,
+      /**
+       * Element name of the current selected sub-page.
+       * This is set in updateSelectedPage_ on initialization.
+       * @type {?ESimPageName}
+       * @private
+       */
+      selectedESimPageName_: String,
 
-  /** @private {boolean} */
-  hasFailedFetchingProfiles_: false,
+      /**
+       * Whether the user has consented to a scan for profiles.
+       * @type {boolean}
+       */
+      hasConsentedForDiscovery_: {
+        type: Boolean,
+        value: false,
+      },
 
-  /** @private {?ProfileInstallResult} */
-  lastProfileInstallResult_: null,
+      /**
+       * Whether the user is setting up the eSIM profile manually.
+       * @type {boolean}
+       */
+      shouldSkipDiscovery_: {
+        type: Boolean,
+        value: false,
+      },
 
-  /**
-   * If there are no active network connections of any type.
-   * @private {boolean}
-   */
-  isOffline_: false,
+      /**
+       * Whether error state should be shown for the current page.
+       * @private {boolean}
+       */
+      showError_: {
+        type: Boolean,
+        value: false,
+      },
 
-  /**
-   * The time at which the ESim flow is attached.
-   * @private {?Date}
-   */
-  timeOnAttached_: null,
+      /**
+       * Profiles fetched that have status kPending.
+       * @type {!Array<!ESimProfileRemote>}
+       * @private
+       */
+      pendingProfiles_: Array,
 
-  listeners: {
-    'activation-code-updated': 'onActivationCodeUpdated_',
-    'forward-navigation-requested': 'onForwardNavigationRequested_',
-  },
+      /**
+       * Profile selected to be installed.
+       * @type {?ESimProfileRemote}
+       * @private
+       */
+      selectedProfile_: {
+        type: Object,
+        observer: 'onSelectedProfileChanged_',
+      },
 
-  observers: [
-    'onSelectedProfileChanged_(selectedProfile_)',
-    'onSelectedProfilePropertiesChanged_(selectedProfileProperties_)',
-  ],
+      /**
+       * Profile properties fetched from the latest SM-DS scan.
+       * @type {!Array<!ESimProfileProperties>}
+       * @private
+       */
+      pendingProfileProperties_: Array,
+
+      /**
+       * Profile properties selected to be installed.
+       * @type {?ESimProfileProperties}
+       * @private
+       */
+      selectedProfileProperties_: {
+        type: Object,
+        observer: 'onSelectedProfilePropertiesChanged_',
+      },
+
+      /** @private */
+      activationCode_: {
+        type: String,
+        value: '',
+      },
+
+      /** @private */
+      confirmationCode_: {
+        type: String,
+        value: '',
+        observer: 'onConfirmationCodeUpdated_',
+      },
+
+      /** @private */
+      hasHadActiveCellularNetwork_: {
+        type: Boolean,
+        value: false,
+      },
+
+      /** @private */
+      isActivationCodeFromQrCode_: Boolean,
+
+      /**
+       * Return true if SmdsSupportEnabled feature flag is enabled.
+       */
+      smdsSupportEnabled_: {
+        type: Boolean,
+        value() {
+          return loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
+              loadTimeData$1.getBoolean('isSmdsSupportEnabled');
+        },
+      },
+
+    };
+  }
 
   /** @override */
-  created() {
+  constructor() {
+    super();
+
+    /** @private {?EuiccRemote} */
+    this.euicc_ = null;
+
+    /** @private {boolean} */
+    this.hasFailedFetchingProfiles_ = false;
+
+    /** @private {?ProfileInstallResult} */
+    this.lastProfileInstallResult_ = null;
+
+    /**
+     * If there are no active network connections of any type.
+     * @private {boolean}
+     */
+    this.isOffline_ = false;
+
+    /**
+     * Provides an interface to the ESimManager Mojo service.
+     * @private {?ESimManagerRemote}
+     */
     this.eSimManagerRemote_ = getESimManagerRemote();
     const networkConfig =
         MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
@@ -12861,18 +12270,36 @@ Polymer({
     networkConfig.getNetworkStateList(filter).then(response => {
       this.onActiveNetworksChanged(response.result);
     });
-  },
+  }
 
   /** @override */
-  attached() {
+  connectedCallback() {
+    super.connectedCallback();
+
+    /**
+     * The time at which the ESim flow is attached.
+     * @private {?Date}
+     */
     this.timeOnAttached_ = new Date();
-  },
+  }
 
   /** @override */
-  detached() {
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
     let resultCode = null;
 
     switch (this.lastProfileInstallResult_) {
+      case null:
+        // Handles case when no profile installation was attempted.
+        if (this.hasFailedFetchingProfiles_) {
+          resultCode = ESimSetupFlowResult.ERROR_FETCHING_PROFILES;
+        } else if (this.noProfilesFound_()) {
+          resultCode = ESimSetupFlowResult.CANCELLED_NO_PROFILES;
+        } else {
+          resultCode = ESimSetupFlowResult.CANCELLED_WITHOUT_ERROR;
+        }
+        break;
       case ProfileInstallResult.kSuccess:
         resultCode = ESimSetupFlowResult.SUCCESS;
         break;
@@ -12884,16 +12311,6 @@ Polymer({
         break;
       case ProfileInstallResult.kErrorInvalidActivationCode:
         resultCode = ESimSetupFlowResult.CANCELLED_INVALID_ACTIVATION_CODE;
-        break;
-      default:
-        // Handles case when no profile installation was attempted.
-        if (this.hasFailedFetchingProfiles_) {
-          resultCode = ESimSetupFlowResult.ERROR_FETCHING_PROFILES;
-        } else if (this.noProfilesFound_()) {
-          resultCode = ESimSetupFlowResult.CANCELLED_NO_PROFILES;
-        } else {
-          resultCode = ESimSetupFlowResult.CANCELLED_WITHOUT_ERROR;
-        }
         break;
     }
 
@@ -12915,7 +12332,18 @@ Polymer({
 
     chrome.metricsPrivate.recordLongTime(
         FAILED_ESIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-  },
+  }
+
+  /** override */
+  ready() {
+    super.ready();
+
+    this.addEventListener('activation-code-updated', (event) => {
+      this.onActivationCodeUpdated_(event);
+    });
+    this.addEventListener(
+        'forward-navigation-requested', this.onForwardNavigationRequested_);
+  }
 
   /**
    * NetworkListenerBehavior override
@@ -12926,7 +12354,7 @@ Polymer({
   onActiveNetworksChanged(activeNetworks) {
     this.isOffline_ = !activeNetworks.some(
         (network) => network.connectionState === ConnectionStateType.kOnline);
-  },
+  }
 
   initSubflow() {
     if (!this.smdsSupportEnabled_) {
@@ -12935,7 +12363,7 @@ Polymer({
       this.getEuicc_();
     }
     this.onNetworkStateListChanged();
-  },
+  }
 
   /** @private */
   async fetchProfiles_() {
@@ -12954,7 +12382,7 @@ Polymer({
     } else {
       this.state_ = ESimUiState.PROFILE_SELECTION;
     }
-  },
+  }
 
   /** @private */
   async getEuicc_() {
@@ -12967,7 +12395,7 @@ Polymer({
       return;
     }
     this.euicc_ = euicc;
-  },
+  }
 
   /**
    * @private
@@ -12988,7 +12416,7 @@ Polymer({
           return properties.state === ProfileState.kPending &&
               properties.activationCode;
         });
-  },
+  }
 
   /**
    * @private
@@ -13005,7 +12433,7 @@ Polymer({
       this.pendingProfiles_ = [];
     }
     this.pendingProfiles_ = await getPendingESimProfiles(this.euicc_);
-  },
+  }
 
   /**
    * @private
@@ -13033,7 +12461,7 @@ Polymer({
         response.result === ProfileInstallResult.kFailure) {
       this.state_ = ESimUiState.SETUP_FINISH;
     }
-  },
+  }
 
   /** @private */
   onStateChanged_(newState, oldState) {
@@ -13044,7 +12472,7 @@ Polymer({
       this.fetchProfiles_();
     }
     this.initializePageState_(newState, oldState);
-  },
+  }
 
   /** @private */
   updateSelectedPage_() {
@@ -13101,9 +12529,12 @@ Polymer({
     }
     // If there is a page change, fire focus event.
     if (oldSelectedESimPageName !== this.selectedESimPageName_) {
-      this.fire('focus-default-button');
+      this.dispatchEvent(new CustomEvent('focus-default-button', {
+        bubbles: true,
+        composed: true,
+      }));
     }
-  },
+  }
 
   /**
    * @param {boolean} enableForwardBtn
@@ -13124,7 +12555,7 @@ Polymer({
       cancel: cancelButtonStateIfEnabled,
       forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
     };
-  },
+  }
 
   /**
    * @param {boolean} enableForwardBtn
@@ -13145,7 +12576,7 @@ Polymer({
       cancel: cancelButtonStateIfEnabled,
       forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
     };
-  },
+  }
 
   /** @private */
   updateButtonBarState_() {
@@ -13231,7 +12662,7 @@ Polymer({
         break;
     }
     this.set('buttonState', buttonState);
-  },
+  }
 
   /** @private */
   updateForwardButtonLabel_() {
@@ -13244,7 +12675,7 @@ Polymer({
           this.i18n('next') :
           this.i18n('skipDiscovery');
     }
-  },
+  }
 
   /** @private */
   initializePageState_(newState, oldState) {
@@ -13256,7 +12687,7 @@ Polymer({
         oldState !== ESimUiState.ACTIVATION_CODE_ENTRY_READY) {
       this.activationCode_ = '';
     }
-  },
+  }
 
   /** @private */
   onActivationCodeUpdated_(event) {
@@ -13270,7 +12701,7 @@ Polymer({
     this.state_ = event.detail.activationCode ?
         ESimUiState.ACTIVATION_CODE_ENTRY_READY :
         ESimUiState.ACTIVATION_CODE_ENTRY;
-  },
+  }
 
   /** @private */
   onSelectedProfileChanged_() {
@@ -13284,7 +12715,7 @@ Polymer({
       return;
     }
     this.updateForwardButtonLabel_();
-  },
+  }
 
   /** @private */
   onSelectedProfilePropertiesChanged_() {
@@ -13298,7 +12729,7 @@ Polymer({
       return;
     }
     this.updateForwardButtonLabel_();
-  },
+  }
 
   /** @private */
   onConfirmationCodeUpdated_() {
@@ -13312,7 +12743,7 @@ Polymer({
     this.state_ = this.confirmationCode_ ?
         ESimUiState.CONFIRMATION_CODE_ENTRY_READY :
         ESimUiState.CONFIRMATION_CODE_ENTRY;
-  },
+  }
 
   /** SubflowBehavior override */
   navigateForward() {
@@ -13393,13 +12824,16 @@ Polymer({
         }
         break;
       case ESimUiState.SETUP_FINISH:
-        this.fire('exit-cellular-setup');
+        this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
+          bubbles: true,
+          composed: true,
+        }));
         break;
       default:
         assertNotReached$1();
         break;
     }
-  },
+  }
 
   /** SubflowBehavior override */
   navigateBackward() {
@@ -13424,7 +12858,7 @@ Polymer({
         'Navigate backward faled for : ' + this.state_ +
         ' this state does not support backward navigation.');
     assertNotReached$1();
-  },
+  }
 
   /** @private */
   onForwardNavigationRequested_() {
@@ -13434,7 +12868,7 @@ Polymer({
         this.state_ === ESimUiState.PROFILE_SELECTION) {
       this.navigateForward();
     }
-  },
+  }
 
   /** NetworkListenerBehavior override */
   onNetworkStateListChanged() {
@@ -13446,14 +12880,14 @@ Polymer({
         this.hasHadActiveCellularNetwork_ = hasActive;
       }
     });
-  },
+  }
 
   /** @private */
   shouldShowSubpageBusy_() {
     return this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING ||
         this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING ||
         this.state_ === ESimUiState.PROFILE_SELECTION_INSTALLING;
-  },
+  }
 
   /** @private */
   getLoadingMessage_() {
@@ -13464,7 +12898,7 @@ Polymer({
     return this.hasHadActiveCellularNetwork_ ?
         this.i18n('eSimProfileDetectDuringActiveCellularConnectionMessage') :
         this.i18n('eSimProfileDetectMessage');
-  },
+  }
 
   /**
    * @return {string}
@@ -13493,7 +12927,7 @@ Polymer({
     }
 
     return '';
-  },
+  }
 
   /**
    * @return {ProfileInstallMethod}
@@ -13508,7 +12942,7 @@ Polymer({
     return this.hasConsentedForDiscovery_ ?
         ProfileInstallMethod.kViaActivationCodeAfterSmds :
         ProfileInstallMethod.kViaActivationCodeSkippedSmds;
-  },
+  }
 
   /**
    * Returns true if profiles have been received and none were found.
@@ -13523,7 +12957,7 @@ Polymer({
     } else {
       return (this.pendingProfiles_ && this.pendingProfiles_.length === 0);
     }
-  },
+  }
 
   /** @private*/
   profilesFound_() {
@@ -13534,8 +12968,10 @@ Polymer({
     } else {
       return (this.pendingProfiles_ && this.pendingProfiles_.length > 0);
     }
-  },
-});
+  }
+}
+
+customElements.define(EsimFlowUiElement.is, EsimFlowUiElement);
 
 function getTemplate$Y() {
   return html`<!--_html_template_start_--><iron-pages
@@ -13546,7 +12982,7 @@ function getTemplate$Y() {
       if="[[shouldShowPsimFlow_(currentPageName)]]" restamp>
     <psim-flow-ui
         button-state="{{buttonState_}}"
-        name-of-carrier-pending-setup="{{flowTitle}}"
+        name-of-carrier-pending-setup="{{flowPsimBanner}}"
         delegate="[[delegate]]"
         id="psim-flow-ui"
         forward-button-label="{{forwardButtonLabel_}}">
@@ -13576,127 +13012,149 @@ function getTemplate$Y() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$Y(),
-  is: 'cellular-setup',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const CellularSetupElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [I18nBehavior],
+/** @polymer */
+class CellularSetupElement extends CellularSetupElementBase {
+  static get is() {
+    return 'cellular-setup';
+  }
 
-  properties: {
-    /** @type {!CellularSetupDelegate} */
-    delegate: Object,
+  static get template() {
+    return getTemplate$Y();
+  }
 
-    /**
-     * Title of the flow, shown at the top of the dialog. No title shown if the
-     * string is empty.
-     */
-    flowTitle: {
-      type: String,
-      notify: true,
-      value: '',
-    },
+  static get properties() {
+    return {
+      /** @type {!CellularSetupDelegate} */
+      delegate: Object,
 
-    /**
-     * Header for the flow, shown below the title. No header shown if the string
-     * is empty.
-     */
-    flowHeader: {
-      type: String,
-      notify: true,
-      value: '',
-    },
+      /**
+       * Banner used in pSIM flow to show carrier network name. No banner
+       * shown if the string is empty.
+       */
+      flowPsimBanner: {
+        type: String,
+        notify: true,
+        value: '',
+      },
 
-    /**
-     * Name of the currently displayed sub-page.
-     * @private {!CellularSetupPageName|null}
-     */
-    currentPageName: String,
+      /**
+       * Header for the flow, shown below the title. No header shown if the
+       * string is empty.
+       */
+      flowHeader: {
+        type: String,
+        notify: true,
+        value: '',
+      },
 
-    /**
-     * Current user selected setup flow page name.
-     * @private {!CellularSetupPageName|null}
-     */
-    selectedFlow_: {
-      type: String,
-      value: null,
-    },
+      /**
+       * Name of the currently displayed sub-page.
+       * @private {!CellularSetupPageName|null}
+       */
+      currentPageName: String,
 
-    /**
-     * Button bar button state.
-     * @private {!ButtonBarState}
-     */
-    buttonState_: {
-      type: Object,
-      notify: true,
-    },
+      /**
+       * Current user selected setup flow page name.
+       * @private {!CellularSetupPageName|null}
+       */
+      selectedFlow_: {
+        type: String,
+        value: null,
+      },
 
-    /**
-     * DOM Element corresponding to the visible page.
-     *
-     * @private {!PsimFlowUiElement|!EsimFlowUiElement}
-     */
-    currentPage_: {
-      type: Object,
-      observer: 'onPageChange_',
-    },
+      /**
+       * Button bar button state.
+       * @private {!ButtonBarState}
+       */
+      buttonState_: {
+        type: Object,
+        notify: true,
+      },
 
-    /**
-     * Text for the button_bar's 'Forward' button.
-     * @private {string}
-     */
-    forwardButtonLabel_: {
-      type: String,
-    },
-  },
+      /**
+       * DOM Element corresponding to the visible page.
+       *
+       * @private {!PsimFlowUiElement|!EsimFlowUiElement}
+       */
+      currentPage_: {
+        type: Object,
+        observer: 'onPageChange_',
+      },
 
-  listeners: {
-    'backward-nav-requested': 'onBackwardNavRequested_',
-    'retry-requested': 'onRetryRequested_',
-    'forward-nav-requested': 'onForwardNavRequested_',
-    'cancel-requested': 'onCancelRequested_',
-    'focus-default-button': 'onFocusDefaultButton_',
-  },
+      /**
+       * Text for the button_bar's 'Forward' button.
+       * @private {string}
+       */
+      forwardButtonLabel_: {
+        type: String,
+      },
 
+    };
+  }
 
   /** @override */
-  attached() {
+  connectedCallback() {
+    super.connectedCallback();
+
     // By default eSIM flow is selected.
     if (!this.currentPageName) {
       this.currentPageName = CellularSetupPageName.ESIM_FLOW_UI;
     }
-  },
+  }
+
+  /** override */
+  ready() {
+    super.ready();
+
+    this.addEventListener(
+        'backward-nav-requested', this.onBackwardNavRequested_);
+    this.addEventListener('retry-requested', this.onRetryRequested_);
+    this.addEventListener('forward-nav-requested', this.onForwardNavRequested_);
+    this.addEventListener('cancel-requested', this.onCancelRequested_);
+    this.addEventListener('focus-default-button', this.onFocusDefaultButton_);
+  }
 
   /** @private */
   onPageChange_() {
     if (this.currentPage_) {
-      this.flowTitle = '';
+      this.flowPsimBanner = '';
       this.currentPage_.initSubflow();
     }
-  },
+  }
 
   /** @private */
   onBackwardNavRequested_() {
     this.currentPage_.navigateBackward();
-  },
+  }
 
   onCancelRequested_() {
-    this.fire('exit-cellular-setup');
-  },
+    this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
+      bubbles: true,
+      composed: true,
+    }));
+  }
 
   /** @private */
   onRetryRequested_() {
     // TODO(crbug.com/1093185): Add try again logic.
-  },
+  }
 
   /** @private */
   onForwardNavRequested_() {
     this.currentPage_.navigateForward();
-  },
+  }
 
   /** @private */
   onFocusDefaultButton_() {
     this.$.buttonBar.focusDefaultButton();
-  },
+  }
 
   /**
    * @param {string} currentPage
@@ -13704,7 +13162,7 @@ Polymer({
    */
   shouldShowPsimFlow_(currentPage) {
     return currentPage === CellularSetupPageName.PSIM_FLOW_UI;
-  },
+  }
 
   /**
    * @param {string} currentPage
@@ -13712,23 +13170,25 @@ Polymer({
    */
   shouldShowEsimFlow_(currentPage) {
     return currentPage === CellularSetupPageName.ESIM_FLOW_UI;
-  },
-});
+  }
+}
+
+customElements.define(CellularSetupElement.is, CellularSetupElement);
 
 function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="settings-shared">@media (min-width:640px){:host{--cr-dialog-width:512px}}@media (max-width:640px){:host{--cr-dialog-width:320px}}:host{--cr-dialog-body-padding-horizontal:24px;--cr-dialog-title-slot-padding-bottom:0;--cr-dialog-title-slot-padding-end:0;--cr-dialog-title-slot-padding-start:0;--cr-dialog-title-slot-padding-top:0}#header{padding-bottom:8px;padding-inline-end:24px;padding-inline-start:24px;padding-top:24px}#title{align-items:center;background-color:var(--cros-dialog-title-background-color);display:flex;font-size:x-small;height:32px;justify-content:center}</style>
 
 <cr-dialog id="dialog">
   <div slot="title">
-    <template is="dom-if" if="[[shouldShowDialogTitle_(dialogTitle_)]]" restamp>
-      <div id="title">
-        [[dialogTitle_]]
+    <template is="dom-if" if="[[shouldShowPsimBanner_(psimBanner_)]]" restamp>
+      <div id="psim-banner">
+        [[psimBanner_]]
       </div>
     </template>
     <div id="header">[[getDialogHeader_(dialogHeader_)]]</div>
   </div>
   <div slot="body">
-    <cellular-setup flow-title="{{dialogTitle_}}" flow-header="{{dialogHeader_}}" delegate="[[delegate_]]" current-page-name="[[pageName]]">
+    <cellular-setup flow-psim-banner="{{psimBanner_}}" flow-header="{{dialogHeader_}}" delegate="[[delegate_]]" current-page-name="[[pageName]]">
     </cellular-setup>
   </div>
 </cr-dialog>
@@ -13769,7 +13229,7 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
              */
             pageName: String,
             delegate_: Object,
-            dialogTitle_: {
+            psimBanner_: {
                 type: String,
             },
             dialogHeader_: {
@@ -13792,8 +13252,8 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
     onExitCellularSetup_() {
         this.$.dialog.close();
     }
-    shouldShowDialogTitle_() {
-        return !!this.dialogTitle_;
+    shouldShowPsimBanner_() {
+        return !!this.psimBanner_;
     }
     getDialogHeader_() {
         if (this.dialogHeader_) {
@@ -13936,9 +13396,7 @@ class EsimRenameDialogElement extends EsimRenameDialogElementBase {
         // The C++ layer uses std::u16string, which use 16 bit characters. JS
         // strings support either 8 or 16 bit characters, and must be converted
         // to an array of 16 bit character codes that match std::u16string.
-        const name = {
-            data: Array.from(this.esimProfileName_, c => c.charCodeAt(0)),
-        };
+        const name = stringToMojoString16(this.esimProfileName_);
         const response = await this.esimProfileRemote_.setProfileNickname(name);
         this.handleSetProfileNicknameResponse_(response.result);
     }
@@ -15439,15 +14897,6 @@ Polymer({
   /** @private {?CrosNetworkConfigInterface} */
   networkConfig_: null,
 
-  /*
-   * This value is used to avoid an edge case when configuring a network. We
-   * default to |true| since this is the more privacy-preserving option. This
-   * value is overridden with dialog arguments in specific situations where it
-   * ought be |false|. For more information see b/253247084.
-   * @private {boolean}
-   */
-  isLoggedIn_: true,
-
   /** @override */
   created() {
     this.networkConfig_ =
@@ -15471,14 +14920,6 @@ Polymer({
     this.cachedUserCerts_ = undefined;
     this.selectedServerCaHash_ = undefined;
     this.selectedUserCertHash_ = undefined;
-
-    const dialogArgs = chrome.getVariableValue('dialogArguments');
-    if (dialogArgs) {
-      const args = JSON.parse(dialogArgs);
-      if ('loggedIn' in args) {
-        this.isLoggedIn_ = args.loggedIn;
-      }
-    }
 
     this.networkConfig_.getSupportedVpnTypes().then(response => {
       this.updateVpnTypeItems_(response.vpnTypes);
@@ -15570,13 +15011,12 @@ Polymer({
     }
     const propertiesToSet = this.getPropertiesToSet_();
     if (this.managedProperties_.source === OncSource.kNone) {
-      if (this.isLoggedIn_) {
-        // Note: Set hidden SSID mode of new WiFi networks to disabled to avoid
-        // unintentionally marking networks as hidden if not in range or
-        // misspelled, etc.
-        if (this.mojoType_ === NetworkType.kWiFi) {
-          propertiesToSet.typeConfig.wifi.hiddenSsid = HiddenSsidMode.kDisabled;
-        }
+      // Explicitly set the hidden SSID mode of new WiFi networks disabled to
+      // avoid networks being unintentionally marked as hidden in some
+      // situations, e.g., when the network SSID is misspelled or the network is
+      // not within range.
+      if (this.mojoType_ === NetworkType.kWiFi) {
+        propertiesToSet.typeConfig.wifi.hiddenSsid = HiddenSsidMode.kDisabled;
       }
       if (!this.autoConnect_) {
         // Note: Do not set autoConnect to true, the connection manager will do
@@ -17847,10 +17287,12 @@ function getTemplate$O() {
 
     <div id="hotspotPageTitle" class="middle settings-box-text">
       $i18n{hotspotPageTitle}
-      <div class="secondary" id="hotspotStateSublabel" hidden="[[shouldHideHotspotStateSublabel_(hotspotInfo.allowStatus)]]">
+      <div class="secondary" id="hotspotStateSublabel" hidden="[[shouldHideHotspotStateSublabel_(
+              hotspotInfo.allowStatus, hotspotInfo.state)]]">
         [[getHotspotStateSublabel_(hotspotInfo.state)]]
       </div>
-      <localized-link class="secondary" id="hotspotDisabledSublabelLink" hidden="[[!shouldHideHotspotStateSublabel_(hotspotInfo.allowStatus)]]" localized-string="[[getHotspotDisabledSublabelLink_(
+      <localized-link class="secondary" id="hotspotDisabledSublabelLink" hidden="[[!shouldHideHotspotStateSublabel_(
+              hotspotInfo.allowStatus, hotspotInfo.state)]]" localized-string="[[getHotspotDisabledSublabelLink_(
               hotspotInfo.allowStatus)]]">
       </localized-link>
     </div>
@@ -17862,7 +17304,7 @@ function getTemplate$O() {
     </template>
 
     <template is="dom-if" if="[[shouldShowArrowButton_(
-        hotspotInfo.allowStatus)]]" restamp>
+        hotspotInfo.allowStatus, hotspotInfo.state)]]" restamp>
       <cr-icon-button id="hotspotSummaryItemRowArrowIcon" class="subpage-arrow layout end" aria-label="$i18n{hotspotPageTitle}" aria-description$="[[getHotspotStateSublabel_(hotspotInfo.state)]]" aria-roledescription="$i18n{subpageArrowRoleDescription}" on-click="navigateToDetailPage_">
       </cr-icon-button>
     </template>
@@ -17913,7 +17355,7 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
             newValue.state === HotspotState.kEnabling;
     }
     navigateToDetailPage_() {
-        if (!this.shouldShowArrowButton_(this.hotspotInfo.allowStatus)) {
+        if (!this.shouldShowArrowButton_()) {
             return;
         }
         Router.getInstance().navigateTo(routes.HOTSPOT_DETAIL);
@@ -17930,9 +17372,15 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
         }
         return this.i18n('hotspotSummaryStateOff');
     }
-    shouldHideHotspotStateSublabel_(allowStatus) {
-        return allowStatus === HotspotAllowStatus.kDisallowedReadinessCheckFail ||
-            allowStatus === HotspotAllowStatus.kDisallowedNoMobileData;
+    shouldHideHotspotStateSublabel_() {
+        if (this.hotspotInfo.state === HotspotState.kEnabling ||
+            this.hotspotInfo.state === HotspotState.kEnabled) {
+            return false;
+        }
+        return this.hotspotInfo.allowStatus ===
+            HotspotAllowStatus.kDisallowedReadinessCheckFail ||
+            this.hotspotInfo.allowStatus ===
+                HotspotAllowStatus.kDisallowedNoMobileData;
     }
     getHotspotDisabledSublabelLink_(allowStatus) {
         if (allowStatus === HotspotAllowStatus.kDisallowedNoMobileData) {
@@ -17953,13 +17401,19 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
         getHotspotConfig().disableHotspot();
     }
     isToggleDisabled_() {
-        if (!this.shouldShowArrowButton_(this.hotspotInfo.allowStatus)) {
+        if (this.hotspotInfo.state === HotspotState.kDisabling) {
             return true;
         }
-        return this.hotspotInfo.state === HotspotState.kDisabling;
+        if (this.hotspotInfo.state === HotspotState.kEnabling ||
+            this.hotspotInfo.state === HotspotState.kEnabled) {
+            return false;
+        }
+        return this.hotspotInfo.allowStatus !== HotspotAllowStatus.kAllowed;
     }
-    shouldShowArrowButton_(allowStatus) {
-        return allowStatus === HotspotAllowStatus.kAllowed;
+    shouldShowArrowButton_() {
+        return this.hotspotInfo.allowStatus === HotspotAllowStatus.kAllowed ||
+            this.hotspotInfo.state === HotspotState.kEnabling ||
+            this.hotspotInfo.state === HotspotState.kEnabled;
     }
     getIconClass_(isHotspotToggleOn) {
         if (isHotspotToggleOn) {
@@ -17982,7 +17436,7 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
 customElements.define(HotspotSummaryItemElement.is, HotspotSummaryItemElement);
 
 function getTemplate$N() {
-    return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#outerBox{padding:0 var(--cr-section-padding)}#details{align-items:center;display:flex;flex:auto}.network-state{color:var(--cr-secondary-text-color);font-size:inherit}.warning-message{color:var(--cros-text-color-warning);font-size:inherit}</style>
+    return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#outerBox{padding:0 var(--cr-section-padding)}#details{align-items:center;display:flex;flex:auto}.network-state{color:var(--cr-secondary-text-color);font-size:inherit}.warning-message{color:var(--cros-text-color-warning);font-size:inherit}:host-context(body.revamp-wayfinding-enabled) network-icon{padding-inline-end:16px;padding-inline-start:0;--network-icon-fill-color:var(--cros-sys-primary)}</style>
 <div class="settings-box two-line no-padding">
   <div id="networkSummaryItemRow" actionable$="[[isItemActionable_(activeNetworkState,
                         deviceState, networkStateList)]]" class="flex layout horizontal center link-wrapper" on-click="onShowDetailsClick_">
@@ -18116,7 +17570,7 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
                     this.i18n('networkListItemNoNetwork');
             }
             if (deviceState.deviceState === DeviceStateType.kEnabling) {
-                return this.i18n('internetDeviceEnabling');
+                return this.i18n('networkDeviceTurningOn');
             }
         }
         // No device or unknown device state, use 'off'.
@@ -18878,7 +18332,7 @@ function getTemplate$L() {
     <os-settings-subpage page-title="$i18n{internetApnPageTitle}">
       <div slot="subpage-title-extra">
         <div id="apnButtonTitle">
-          <cr-button id="createCustomApnButton" on-click="onCreateCustomApnClicked_" class="cancel-button" disabled="[[isCreateCustomApnButtonDisabled_]]">
+          <cr-button id="createCustomApnButton" on-click="onCreateCustomApnClicked_" class="cancel-button" deep-link-focus-id$="[[Setting.kCellularAddApn]]" disabled="[[isCreateCustomApnButtonDisabled_]]">
             <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
             $i18n{apnPageAddNewApn}
           </cr-button>
@@ -18899,6 +18353,15 @@ function getTemplate$L() {
     <os-settings-subpage page-title="[[getNetworksPageTitle_(subpageType_)]]" show-spinner="[[showSpinner_]]" spinner-title="$i18n{networkScanningLabel}">
       <settings-internet-subpage-menu slot="subpage-title-extra" device-state="[[getDeviceState_(subpageType_, deviceStates)]]">
       </settings-internet-subpage-menu>
+      <template is="dom-if" if="[[isProviderLocked_(subpageType_)]]">
+        
+        <div class="settings-box first">
+          <div class="settings-box-text">
+            <localized-link localized-string="[[i18nAdvanced('cellularSubpageSubtitle')]]">
+            </localized-link>
+          </div>
+        </div>
+      </template>
       <settings-internet-subpage default-network="[[defaultNetwork]]" device-state="[[getDeviceState_(subpageType_, deviceStates)]]" tether-device-state="[[getTetherDeviceState_(deviceStates)]]" global-policy="[[globalPolicy_]]" vpn-providers="[[vpnProviders_]]" show-spinner="{{showSpinner_}}" is-connected-to-non-cellular-network="[[isConnectedToNonCellularNetwork_]]" is-cellular-setup-active="[[showCellularSetupDialog_]]">
       </settings-internet-subpage>
     </os-settings-subpage>
@@ -19075,6 +18538,13 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
                         loadTimeData.getBoolean('isApnRevampEnabled');
                 },
             },
+            isCellularCarrierLockEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
+                        loadTimeData.getBoolean('isCellularCarrierLockEnabled');
+                },
+            },
             /**
              * Page name, if defined, indicating that the next deviceStates update
              * should call attemptShowCellularSetupDialog_().
@@ -19139,6 +18609,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
                 value: () => new Set([
                     Setting.kWifiOnOff,
                     Setting.kMobileOnOff,
+                    Setting.kCellularAddApn,
                 ]),
             },
             errorToastMessage_: {
@@ -19260,6 +18731,9 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
         else if (settingId === Setting.kMobileOnOff) {
             networkType = NetworkType.kCellular;
         }
+        else {
+            return true;
+        }
         afterNextRender(this, () => {
             const networkRow = this.shadowRoot.querySelector('network-summary').getNetworkRow(networkType);
             if (networkRow) {
@@ -19279,7 +18753,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
      */
     currentRouteChanged(newRoute, oldRoute) {
         super.currentRouteChanged(newRoute, oldRoute);
-        if (newRoute === this.route) {
+        if (newRoute === this.route || newRoute === routes.APN) {
             // Show deep links for the internet page.
             this.attemptDeepLink();
         }
@@ -19473,6 +18947,20 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
             return this.i18n('OncTypeMobile');
         }
         return this.i18n('OncType' + OncMojo.getNetworkTypeString(this.subpageType_));
+    }
+    isProviderLocked_() {
+        if (!this.isCellularCarrierLockEnabled_) {
+            return false;
+        }
+        if (this.subpageType_ !== NetworkType.kCellular) {
+            return false;
+        }
+        // Check carrier lock status reported by carrier lock manager.
+        const cellularDeviceState = this.getDeviceState_(NetworkType.kCellular, this.deviceStates);
+        if (!cellularDeviceState || !cellularDeviceState.isCarrierLocked) {
+            return false;
+        }
+        return true;
     }
     getDeviceState_(subpageType, deviceStates) {
         if (subpageType === undefined) {
@@ -21472,23 +20960,24 @@ const NearbyShareSettingsMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$E() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}:host-context(body.revamp-wayfinding-enabled) #betterTogetherSuiteIcon,:host-context(body.revamp-wayfinding-enabled) #nearbyShareIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{multidevicePageTitle}">
       <div id="multideviceItem" class="settings-box first two-line no-padding">
         <div class="link-wrapper" id="suiteLinkWrapper" actionable$="[[doesClickOpenSubpage_(pageContentData)]]" on-click="handleItemClick_">
-          <iron-icon icon="[[getIconName(MultiDeviceFeature.BETTER_TOGETHER_SUITE)]]" id="betterTogetherSuiteIcon">
+          <iron-icon id="betterTogetherSuiteIcon" icon="[[getIconName(MultiDeviceFeature.BETTER_TOGETHER_SUITE)]]">
           </iron-icon>
           <div class="middle settings-box-text" aria-hidden$="[[getTextAriaHidden_(pageContentData)]]">
-            <div id="multidevice-label">
+            <div id="multideviceLabel">
               [[getLabelText_(pageContentData)]]
             </div>
             <localized-link id="multideviceSubLabel" class="secondary" localized-string="[[getSubLabelInnerHtml_(pageContentData)]]">
             </localized-link>
           </div>
           <template is="dom-if" if="[[doesClickOpenSubpage_(pageContentData)]]" restamp>
-            <cr-icon-button class="subpage-arrow" aria-labelledby="multidevice-label" aria-describedby="multideviceSubLabel" aria-roledescription="$i18n{subpageArrowRoleDescription}">
+            <cr-icon-button class="subpage-arrow" aria-labelledby="multideviceLabel" aria-describedby="multideviceSubLabel" aria-roledescription="$i18n{subpageArrowRoleDescription}">
             </cr-icon-button>
           </template>
         </div>
@@ -21515,8 +21004,11 @@ function getTemplate$E() {
       <template is="dom-if" if="[[isNearbyShareSupported_]]" restamp>
         <div id="nearbyshare-item" class="settings-box two-line no-padding">
           <div class="link-wrapper" id="nearbyLinkWrapper" actionable$="[[!isNearbyShareDisallowedByPolicy_(pageContentData)]]" on-click="nearbyShareClick_">
-            <iron-icon icon="os-settings:nearby-share">
-            </iron-icon>
+            
+            
+              <iron-icon id="nearbyShareIcon" icon="os-settings:nearby-share">
+              </iron-icon>
+            
             <div class="middle settings-box-text">
               <div id="nearbyShareLabel" aria-hidden="true">
                 $i18n{nearbyShareTitle}
@@ -21524,12 +21016,20 @@ function getTemplate$E() {
               <template is="dom-if" if="[[showNearbyShareOnOffString_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
-                <div class="secondary" id="nearbyShareSecondary">
-                  [[getOnOffString_(prefs.nearby_sharing.enabled.value,
-                    '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]
-                </div>
+                <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+                  <div class="secondary" id="nearbyShareSecondary">
+                    [[getOnOffString_(prefs.nearby_sharing.enabled.value,
+                      '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]
+                  </div>
+                </template>
+                <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+                  <div class="secondary" id="nearbyShareSecondary">
+                    [[getNearbyShareDescription_(prefs.nearby_sharing.enabled.value,
+                      settings.visibility)]]
+                  </div>
+                </template>
               </template>
-              <template is="dom-if" if="[[showNearbyShareDescription_(
+              <template is="dom-if" if="[[showNearbyShareSetUpDescription_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
                 <div class="secondary" id="nearbyShareSecondary">
@@ -21617,7 +21117,8 @@ function getTemplate$E() {
     <settings-multidevice-forget-device-dialog on-close="closeForgetDeviceDialog_">
     </settings-multidevice-forget-device-dialog>
   </template>
-</template><!--_html_template_end_-->`;
+</template>
+<!--_html_template_end_-->`;
 }
 
 // Copyright 2017 The Chromium Authors
@@ -21691,6 +21192,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
                     Setting.kSetUpMultiDevice,
                     Setting.kVerifyMultiDeviceSetup,
                     Setting.kMultiDeviceOnOff,
+                    Setting.kNearbyShareDeviceVisibility,
                     Setting.kNearbyShareOnOff,
                 ]),
             },
@@ -21724,6 +21226,12 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
                 type: Boolean,
                 value: () => {
                     return isRevampWayfindingEnabled();
+                },
+            },
+            isNameEnabled_: {
+                type: Boolean,
+                value: () => {
+                    return loadTimeData.getBoolean('isNameEnabled');
                 },
             },
             shouldShowForgetDeviceDialog_: {
@@ -21771,9 +21279,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
         this.attemptDeepLink();
     }
     getLabelText_() {
-        if (this.isRevampWayfindingEnabled_ &&
-            this.pageContentData.mode ===
-                MultiDeviceSettingsMode.HOST_SET_VERIFIED) {
+        if (this.isRevampWayfindingEnabled_) {
             return this.i18n('multideviceSetupItemHeading');
         }
         return this.pageContentData.hostDeviceName ||
@@ -22024,6 +21530,27 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
         }
         return this.pageContentData.isNearbyShareDisallowedByPolicy;
     }
+    getNearbyShareDescription_(state, visibility) {
+        if (!state) {
+            return this.i18n('nearbyShareDescriptionOff');
+        }
+        if (visibility === undefined) {
+            return this.i18n('nearbyShareDescriptionHidden');
+        }
+        switch (visibility) {
+            case Visibility.kAllContacts:
+                return this.i18n('nearbyShareDescriptionVisibleToAllContacts');
+            case Visibility.kSelectedContacts:
+                return this.i18n('nearbyShareDescriptionVisibleToSelectedContacts');
+            case Visibility.kYourDevices:
+                return this.i18n('nearbyShareDescriptionVisibleToYourDevices');
+            case Visibility.kNoOne:
+            case Visibility.kUnknown:
+                return this.i18n('nearbyShareDescriptionHidden');
+            default:
+                assertNotReached();
+        }
+    }
     getOnOffString_(state, onstr, offstr) {
         return state ? onstr : offstr;
     }
@@ -22036,7 +21563,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
     showNearbyShareOnOffString_(isOnboardingComplete) {
         return isOnboardingComplete && !this.isNearbyShareDisallowedByPolicy_();
     }
-    showNearbyShareDescription_(isOnboardingComplete) {
+    showNearbyShareSetUpDescription_(isOnboardingComplete) {
         return !isOnboardingComplete || this.isNearbyShareDisallowedByPolicy_();
     }
     nearbyShareClick_() {
@@ -22162,32 +21689,33 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
 customElements.define(SettingsMultidevicePageElement.is, SettingsMultidevicePageElement);
 
 function getTemplate$D() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" current-route="{{currentRoute}}" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{a11yPageTitle}">
-      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
+      <settings-toggle-button id="a11yImageLabelsToggle" icon="[[rowIcons_.imageDescription]]" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
-      <div class="hr" hidden="[[!showAccessibilityLabelsSetting_]]"></div>
-      <settings-toggle-button id="optionsInMenuToggle" label="$i18n{optionsInMenuLabel}" sub-label="$i18n{optionsInMenuDescription}" pref="{{prefs.settings.a11y.enable_menu}}" deep-link-focus-id$="[[Setting.kA11yQuickSettings]]">
+      <div class="hr" hidden="[[!hasScreenReader_]]"></div>
+      <settings-toggle-button id="optionsInMenuToggle" icon="[[rowIcons_.showInQuickSettings]]" label="$i18n{optionsInMenuLabel}" sub-label="$i18n{optionsInMenuDescription}" pref="{{prefs.settings.a11y.enable_menu}}" deep-link-focus-id$="[[Setting.kA11yQuickSettings]]">
       </settings-toggle-button>
       <div class="hr"></div>
-      <cr-link-row id="textToSpeechSubpageTrigger" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="textToSpeechSubpageTrigger" start-icon="[[rowIcons_.textToSpeech]]" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="displayAndMagnificationPageTrigger" label="$i18n{displayAndMagnificationLinkTitle}" on-click="onDisplayAndMagnificationClick_" sub-label="$i18n{displayAndMagnificationLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="displayAndMagnificationPageTrigger" start-icon="[[rowIcons_.displayAndMagnification]]" label="$i18n{displayAndMagnificationLinkTitle}" on-click="onDisplayAndMagnificationClick_" sub-label="$i18n{displayAndMagnificationLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="keyboardAndTextInputPageTrigger" label="$i18n{keyboardAndTextInputLinkTitle}" on-click="onKeyboardAndTextInputClick_" sub-label="$i18n{keyboardAndTextInputLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="keyboardAndTextInputPageTrigger" start-icon="[[rowIcons_.keyboardAndTextInput]]" label="$i18n{keyboardAndTextInputLinkTitle}" on-click="onKeyboardAndTextInputClick_" sub-label="$i18n{keyboardAndTextInputLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="cursorAndTouchpadPageTrigger" label="$i18n{cursorAndTouchpadLinkTitle}" on-click="onCursorAndTouchpadClick_" sub-label="$i18n{cursorAndTouchpadLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="cursorAndTouchpadPageTrigger" start-icon="[[rowIcons_.cursorAndTouchpad]]" label="$i18n{cursorAndTouchpadLinkTitle}" on-click="onCursorAndTouchpadClick_" sub-label="$i18n{cursorAndTouchpadLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
-      <cr-link-row id="audioAndCaptionsPageTrigger" label="$i18n{audioAndCaptionsLinkTitle}" on-click="onAudioAndCaptionsClick_" sub-label="$i18n{audioAndCaptionsLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="audioAndCaptionsPageTrigger" start-icon="[[rowIcons_.audioAndCaptions]]" label="$i18n{audioAndCaptionsLinkTitle}" on-click="onAudioAndCaptionsClick_" sub-label="$i18n{audioAndCaptionsLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[!isGuest_]]">
-        <cr-link-row id="additionalFeaturesLink" class="hr" label="$i18n{additionalFeaturesTitle}" on-click="onAdditionalFeaturesClick_" external>
+        <cr-link-row id="additionalFeaturesLink" class="hr" start-icon="[[rowIcons_.findMore]]" label="$i18n{additionalFeaturesTitle}" on-click="onAdditionalFeaturesClick_" external>
         </cr-link-row>
       </template>
     </settings-card>
@@ -22195,9 +21723,9 @@ function getTemplate$D() {
 
   <template is="dom-if" route-path="/manageAccessibility">
     <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-close-button>
-      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!showAccessibilityLabelsSetting_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
+      <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
-      <div class="hr" hidden="[[!showAccessibilityLabelsSetting_]]"></div>
+      <div class="hr" hidden="[[!hasScreenReader_]]"></div>
       <cr-link-row id="textToSpeechSubpageTrigger" label="$i18n{textToSpeechLinkTitle}" on-click="onTextToSpeechClick_" sub-label="$i18n{textToSpeechLinkDescription}" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="hr"></div>
@@ -22288,11 +21816,11 @@ class OsA11yPageBrowserProxyImpl {
     static setInstanceForTesting(obj) {
         instance$5 = obj;
     }
-    a11yPageReady() {
-        chrome.send('a11yPageReady');
-    }
     confirmA11yImageLabels() {
         chrome.send('confirmA11yImageLabels');
+    }
+    getScreenReaderState() {
+        return sendWithPromise('getScreenReaderState');
     }
 }
 
@@ -22334,13 +21862,6 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
                 value: false,
             },
             /**
-             * Whether to show accessibility labels settings.
-             */
-            showAccessibilityLabelsSetting_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
              * Whether the user is in kiosk mode.
              */
             isKioskModeActive_: {
@@ -22369,6 +21890,33 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
                     Setting.kLiveCaption,
                 ]),
             },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            imageDescription: 'os-settings:a11y-image-description',
+                            showInQuickSettings: 'os-settings:accessibility-revamp',
+                            textToSpeech: 'os-settings:text-to-speech',
+                            displayAndMagnification: 'os-settings:zoom-in',
+                            keyboardAndTextInput: 'os-settings:a11y-keyboard-and-text-input',
+                            cursorAndTouchpad: 'os-settings:cursor-click',
+                            audioAndCaptions: 'os-settings:a11y-hearing',
+                            findMore: 'os-settings:a11y-find-more',
+                        };
+                    }
+                    return {
+                        imageDescription: '',
+                        showInQuickSettings: '',
+                        textToSpeech: '',
+                        displayAndMagnification: '',
+                        keyboardAndTextInput: '',
+                        cursorAndTouchpad: '',
+                        audioAndCaptions: '',
+                        findMore: '',
+                    };
+                },
+            },
         };
     }
     constructor() {
@@ -22394,19 +21942,20 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
         if (routes.A11Y_AUDIO_AND_CAPTIONS) {
             this.addFocusConfig(routes.A11Y_AUDIO_AND_CAPTIONS, '#audioAndCaptionsPageTrigger');
         }
-        this.addWebUiListener('screen-reader-state-changed', (hasScreenReader) => this.onScreenReaderStateChanged_(hasScreenReader));
-        // Enables javascript and gets the screen reader state.
-        this.browserProxy_.a11yPageReady();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const updateScreenReaderState = (hasScreenReader) => {
+            this.hasScreenReader_ = hasScreenReader;
+        };
+        this.browserProxy_.getScreenReaderState().then(updateScreenReaderState);
+        this.addWebUiListener('screen-reader-state-changed', updateScreenReaderState);
     }
     currentRouteChanged(newRoute, prevRoute) {
         super.currentRouteChanged(newRoute, prevRoute);
         if (newRoute === this.route) {
             this.attemptDeepLink();
         }
-    }
-    onScreenReaderStateChanged_(hasScreenReader) {
-        this.hasScreenReader_ = hasScreenReader;
-        this.showAccessibilityLabelsSetting_ = this.hasScreenReader_;
     }
     onToggleAccessibilityImageLabels_() {
         const a11yImageLabelsOn = this.$.a11yImageLabelsToggle.checked;
@@ -22436,7 +21985,7 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
 customElements.define(OsSettingsA11yPageElement.is, OsSettingsA11yPageElement);
 
 function getTemplate$C() {
-    return html `<!--_html_template_start_--><style include="settings-shared os-settings-icons">#pairNewDeviceBtn{margin-inline-end:20px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared os-settings-icons">#pairNewDeviceBtn{margin-inline-end:20px}:host-context(body.revamp-wayfinding-enabled) #statusIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <template is="dom-if" if="[[!isSecondaryUser_]]">
   <div id="bluetoothSummary" class="settings-box two-line first no-padding">
     <div class="link-wrapper" actionable on-click="onWrapperClick_">
@@ -23183,144 +22732,100 @@ function getTemplate$B() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @implements {I18nBehaviorInterface}
- * @extends {PolymerElement}
+ * @fileoverview
+ * Base template with elements common to all Bluetooth UI sub-pages.
  */
-const SettingsBluetoothBasePageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothBasePageElement extends
-    SettingsBluetoothBasePageElementBase {
-  static get is() {
-    return 'bluetooth-base-page';
-  }
-
-  static get template() {
-    return getTemplate$B();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * Object representing the states of each button in the button bar.
-       * @type {!ButtonBarState}
-       */
-      buttonBarState: {
-        type: Object,
-        value: {
-          cancel: ButtonState$1.ENABLED,
-          pair: ButtonState$1.HIDDEN,
-        },
-      },
-
-      /** @type {boolean} */
-      showScanProgress: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Used to access |ButtonName| type in HTML.
-       * @type {!ButtonName}
-       */
-      ButtonName: {
-        type: Object,
-        value: ButtonName,
-      },
-
-      /**
-       * If true, sets the default focus to the first enabled button from the
-       * end.
-       * @type {boolean}
-       */
-      focusDefault: {
-        type: Boolean,
-        value: false,
-      },
-    };
-  }
-
-  /** @override */
-  connectedCallback() {
-    super.connectedCallback();
-    afterNextRender(this, () => {
-      if (!this.focusDefault) {
-        return;
-      }
-
-      const buttons = this.shadowRoot.querySelectorAll('cr-button');
-      // Focus to the first non-disabled, from the end.
-      for (let i = buttons.length - 1; i >= 0; i--) {
-        const button = /** @type {!CrButtonElement}*/ (buttons.item(i));
-        if (!button.disabled) {
-          focusWithoutInk$1(button);
-          return;
-        }
-      }
-    });
-  }
-
-  /** @private */
-  onCancelClick_() {
-    this.dispatchEvent(new CustomEvent('cancel', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /** @private */
-  onPairClick_() {
-    this.dispatchEvent(new CustomEvent('pair', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /**
-   * @param {!ButtonName} buttonName
-   * @return {boolean}
-   * @private
-   */
-  shouldShowButton_(buttonName) {
-    const state = this.getButtonBarState_(buttonName);
-    return state !== ButtonState$1.HIDDEN;
-  }
-
-  /**
-   * @param {!ButtonName} buttonName
-   * @return {boolean}
-   * @private
-   */
-  isButtonDisabled_(buttonName) {
-    const state = this.getButtonBarState_(buttonName);
-    return state === ButtonState$1.DISABLED;
-  }
-
-  /**
-   * @param {!ButtonName} buttonName
-   * @return {!ButtonState}
-   * @private
-   */
-  getButtonBarState_(buttonName) {
-    switch (buttonName) {
-      case ButtonName.CANCEL:
-        return this.buttonBarState.cancel;
-      case ButtonName.PAIR:
-        return this.buttonBarState.pair;
-      default:
-        assertNotReached$1();
-        return ButtonState$1.ENABLED;
+const SettingsBluetoothBasePageElementBase = I18nMixin(PolymerElement);
+class SettingsBluetoothBasePageElement extends SettingsBluetoothBasePageElementBase {
+    static get is() {
+        return 'bluetooth-base-page';
     }
-  }
+    static get template() {
+        return getTemplate$B();
+    }
+    static get properties() {
+        return {
+            /**
+             * Object representing the states of each button in the button bar.
+             */
+            buttonBarState: {
+                type: Object,
+                value: {
+                    cancel: ButtonState$1.ENABLED,
+                    pair: ButtonState$1.HIDDEN,
+                },
+            },
+            showScanProgress: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Used to access |ButtonName| type in HTML.
+             */
+            ButtonName: {
+                type: Object,
+                value: ButtonName,
+            },
+            /**
+             * If true, sets the default focus to the first enabled button from the
+             * end.
+             */
+            focusDefault: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        afterNextRender(this, () => {
+            if (!this.focusDefault) {
+                return;
+            }
+            const buttons = this.shadowRoot.querySelectorAll('cr-button');
+            // Focus to the first non-disabled, from the end.
+            for (let i = buttons.length - 1; i >= 0; i--) {
+                const button = buttons.item(i);
+                if (!button.disabled) {
+                    focusWithoutInk(button);
+                    return;
+                }
+            }
+        });
+    }
+    onCancelClick_() {
+        this.dispatchEvent(new CustomEvent('cancel', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onPairClick_() {
+        this.dispatchEvent(new CustomEvent('pair', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    shouldShowButton_(buttonName) {
+        const state = this.getButtonBarState_(buttonName);
+        return state !== ButtonState$1.HIDDEN;
+    }
+    isButtonDisabled_(buttonName) {
+        const state = this.getButtonBarState_(buttonName);
+        return state === ButtonState$1.DISABLED;
+    }
+    getButtonBarState_(buttonName) {
+        switch (buttonName) {
+            case ButtonName.CANCEL:
+                return this.buttonBarState.cancel;
+            case ButtonName.PAIR:
+                return this.buttonBarState.pair;
+            default:
+                return ButtonState$1.ENABLED;
+        }
+    }
 }
-
-customElements.define(
-    SettingsBluetoothBasePageElement.is, SettingsBluetoothBasePageElement);
+customElements.define(SettingsBluetoothBasePageElement.is, SettingsBluetoothBasePageElement);
 
 function getTemplate$A() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
@@ -23396,211 +22901,139 @@ function getTemplate$A() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @implements {I18nBehaviorInterface}
- * @extends {PolymerElement}
+ * @fileoverview
+ * UI element to show a list of discovered Bluetooth devices and initiate
+ * pairing to a device.
  */
-const SettingsBluetoothPairingDeviceItemElementBase =
-    mixinBehaviors([I18nBehavior, FocusRowBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothPairingDeviceItemElement extends
-    SettingsBluetoothPairingDeviceItemElementBase {
-  static get is() {
-    return 'bluetooth-pairing-device-item';
-  }
-
-  static get template() {
-    return getTemplate$A();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {?BluetoothDeviceProperties}
-       */
-      device: Object,
-
-      /** @type {DeviceItemState} */
-      deviceItemState: {
-        type: Object,
-        value: DeviceItemState.DEFAULT,
-      },
-
-      /** The index of this item in its parent list, used for its a11y label. */
-      itemIndex: Number,
-
-      /**
-       * The total number of elements in this item's parent list, used for its
-       * a11y label.
-       */
-      listSize: Number,
-
-      /** @private {string} */
-      secondaryLabel_: {
-        type: String,
-        computed: 'computeSecondaryLabel_(deviceItemState)',
-      },
-
-      /** @private {boolean} */
-      pairingFailed_: {
-        reflectToAttribute: true,
-        type: Boolean,
-        computed: 'computePairingFailed_(deviceItemState)',
-      },
-    };
-  }
-
-  /** @override */
-  focus() {
-    // Prevent scroll stops iron list from trying to bring this element to view,
-    // if it is the |lastFocused| element and scrolled out of view. This can
-    // happen if this element is tabbed to or selected and then scrolled out of
-    // view.
-    // TODO(b/210743107) Add a test for this.
-    this.$.container.focus({preventScroll: true});
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  computePairingFailed_() {
-    return this.deviceItemState === DeviceItemState.FAILED;
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getDeviceName_() {
-    if (!this.device) {
-      return '';
+const SettingsBluetoothPairingDeviceItemElementBase = FocusRowMixin(I18nMixin(PolymerElement));
+class SettingsBluetoothPairingDeviceItemElement extends SettingsBluetoothPairingDeviceItemElementBase {
+    static get is() {
+        return 'bluetooth-pairing-device-item';
     }
-    return mojoString16ToString(this.device.publicName);
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onSelected_(event) {
-    this.dispatchPairDeviceEvent_();
-    event.stopPropagation();
-  }
-
-  /**
-   * @param {!KeyboardEvent} event
-   * @private
-   */
-  onKeydown_(event) {
-    if (event.key !== 'Enter' && event.key !== ' ') {
-      return;
+    static get template() {
+        return getTemplate$A();
     }
-
-    this.dispatchPairDeviceEvent_();
-    event.stopPropagation();
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  computeSecondaryLabel_() {
-    switch (this.deviceItemState) {
-      case DeviceItemState.FAILED:
-        return this.i18n('bluetoothPairingFailed');
-      case DeviceItemState.PAIRING:
-        return this.i18n('bluetoothPairing');
-      case DeviceItemState.DEFAULT:
-        return '';
-      default:
-        assertNotReached$1();
+    static get properties() {
+        return {
+            device: Object,
+            deviceItemState: {
+                type: Object,
+                value: DeviceItemState.DEFAULT,
+            },
+            /** The index of this item in its parent list, used for its a11y label. */
+            itemIndex: Number,
+            /**
+             * The total number of elements in this item's parent list, used for its
+             * a11y label.
+             */
+            listSize: Number,
+            secondaryLabel_: {
+                type: String,
+                computed: 'computeSecondaryLabel_(deviceItemState)',
+            },
+            pairingFailed_: {
+                reflectToAttribute: true,
+                type: Boolean,
+                computed: 'computePairingFailed_(deviceItemState)',
+            },
+        };
     }
-  }
-
-  /** @private */
-  dispatchPairDeviceEvent_() {
-    this.dispatchEvent(new CustomEvent('pair-device', {
-      bubbles: true,
-      composed: true,
-      detail: {device: this.device},
-    }));
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getAriaLabel_() {
-    if (!this.device) {
-      return '';
+    focus() {
+        // Prevent scroll stops iron list from trying to bring this element to view,
+        // if it is the |lastFocused| element and scrolled out of view. This can
+        // happen if this element is tabbed to or selected and then scrolled out of
+        // view.
+        // TODO(b/210743107) Add a test for this.
+        this.$.container.focus({ preventScroll: true });
     }
-
-    return this.i18n(
-               'bluetoothA11yDeviceName', this.itemIndex + 1, this.listSize,
-               this.getDeviceName_()) +
-        ' ' + this.i18n(this.getA11yDeviceTypeTextName_());
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getA11yDeviceTypeTextName_() {
-    switch (this.device.deviceType) {
-      case DeviceType.kUnknown:
-        return 'bluetoothA11yDeviceTypeUnknown';
-      case DeviceType.kComputer:
-        return 'bluetoothA11yDeviceTypeComputer';
-      case DeviceType.kPhone:
-        return 'bluetoothA11yDeviceTypePhone';
-      case DeviceType.kHeadset:
-        return 'bluetoothA11yDeviceTypeHeadset';
-      case DeviceType.kVideoCamera:
-        return 'bluetoothA11yDeviceTypeVideoCamera';
-      case DeviceType.kGameController:
-        return 'bluetoothA11yDeviceTypeGameController';
-      case DeviceType.kKeyboard:
-        return 'bluetoothA11yDeviceTypeKeyboard';
-      case DeviceType.kKeyboardMouseCombo:
-        return 'bluetoothA11yDeviceTypeKeyboardMouseCombo';
-      case DeviceType.kMouse:
-        return 'bluetoothA11yDeviceTypeMouse';
-      case DeviceType.kTablet:
-        return 'bluetoothA11yDeviceTypeTablet';
-      default:
-        assertNotReached$1();
+    computePairingFailed_() {
+        return this.deviceItemState === DeviceItemState.FAILED;
     }
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getSecondaryAriaLabel_() {
-    const deviceName = this.getDeviceName_();
-    switch (this.deviceItemState) {
-      case DeviceItemState.FAILED:
-        return this.i18n(
-            'bluetoothPairingDeviceItemSecondaryErrorA11YLabel', deviceName);
-      case DeviceItemState.PAIRING:
-        return this.i18n(
-            'bluetoothPairingDeviceItemSecondaryPairingA11YLabel', deviceName);
-      case DeviceItemState.DEFAULT:
-        return '';
-      default:
-        assertNotReached$1();
+    getDeviceName_() {
+        if (!this.device) {
+            return '';
+        }
+        return mojoString16ToString(this.device.publicName);
     }
-  }
+    onSelected_(event) {
+        this.dispatchPairDeviceEvent_();
+        event.stopPropagation();
+    }
+    onKeydown_(event) {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+        this.dispatchPairDeviceEvent_();
+        event.stopPropagation();
+    }
+    computeSecondaryLabel_() {
+        switch (this.deviceItemState) {
+            case DeviceItemState.FAILED:
+                return this.i18n('bluetoothPairingFailed');
+            case DeviceItemState.PAIRING:
+                return this.i18n('bluetoothPairing');
+            case DeviceItemState.DEFAULT:
+                return '';
+            default:
+                return '';
+        }
+    }
+    dispatchPairDeviceEvent_() {
+        this.dispatchEvent(new CustomEvent('pair-device', {
+            bubbles: true,
+            composed: true,
+            detail: { device: this.device },
+        }));
+    }
+    getAriaLabel_() {
+        if (!this.device) {
+            return '';
+        }
+        return this.i18n('bluetoothA11yDeviceName', this.itemIndex + 1, this.listSize, this.getDeviceName_()) +
+            ' ' + this.i18n(this.getA11yDeviceTypeTextName_());
+    }
+    getA11yDeviceTypeTextName_() {
+        switch (this.device.deviceType) {
+            case DeviceType.kUnknown:
+                return 'bluetoothA11yDeviceTypeUnknown';
+            case DeviceType.kComputer:
+                return 'bluetoothA11yDeviceTypeComputer';
+            case DeviceType.kPhone:
+                return 'bluetoothA11yDeviceTypePhone';
+            case DeviceType.kHeadset:
+                return 'bluetoothA11yDeviceTypeHeadset';
+            case DeviceType.kVideoCamera:
+                return 'bluetoothA11yDeviceTypeVideoCamera';
+            case DeviceType.kGameController:
+                return 'bluetoothA11yDeviceTypeGameController';
+            case DeviceType.kKeyboard:
+                return 'bluetoothA11yDeviceTypeKeyboard';
+            case DeviceType.kKeyboardMouseCombo:
+                return 'bluetoothA11yDeviceTypeKeyboardMouseCombo';
+            case DeviceType.kMouse:
+                return 'bluetoothA11yDeviceTypeMouse';
+            case DeviceType.kTablet:
+                return 'bluetoothA11yDeviceTypeTablet';
+            default:
+                return '';
+        }
+    }
+    getSecondaryAriaLabel_() {
+        const deviceName = this.getDeviceName_();
+        switch (this.deviceItemState) {
+            case DeviceItemState.FAILED:
+                return this.i18n('bluetoothPairingDeviceItemSecondaryErrorA11YLabel', deviceName);
+            case DeviceItemState.PAIRING:
+                return this.i18n('bluetoothPairingDeviceItemSecondaryPairingA11YLabel', deviceName);
+            case DeviceItemState.DEFAULT:
+                return '';
+            default:
+                assertNotReached();
+        }
+    }
 }
-
-customElements.define(
-    SettingsBluetoothPairingDeviceItemElement.is,
-    SettingsBluetoothPairingDeviceItemElement);
+customElements.define(SettingsBluetoothPairingDeviceItemElement.is, SettingsBluetoothPairingDeviceItemElement);
 
 function getTemplate$z() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
@@ -23669,217 +23102,151 @@ function getTemplate$z() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {CrScrollableBehaviorInterface}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * UI element to show a list of discovered Bluetooth devices and initiate
+ * pairing to a device.
  */
-const SettingsBluetoothPairingDeviceSelectionPageElementBase =
-    mixinBehaviors([CrScrollableBehavior, I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothPairingDeviceSelectionPageElement extends
-    SettingsBluetoothPairingDeviceSelectionPageElementBase {
-  static get is() {
-    return 'bluetooth-pairing-device-selection-page';
-  }
-
-  static get template() {
-    return getTemplate$z();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {!Array<!BluetoothDeviceProperties>}
-       */
-      devices: {
-        type: Array,
-        value: [],
-        observer: 'onDevicesChanged_',
-      },
-
-      /**
-       * Id of a device who's pairing attempt failed.
-       * @type {string}
-       */
-      failedPairingDeviceId: {
-        type: String,
-        value: '',
-      },
-
-      /**
-       * @type {?BluetoothDeviceProperties}
-       */
-      devicePendingPairing: {
-        type: Object,
-        value: null,
-        observer: 'onDevicePendingPairingChanged_',
-      },
-
-      /** @type {boolean} */
-      isBluetoothEnabled: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Flag indicating whether links should be displayed or not. In some
-       * cases, such as the user being in OOBE or the login screen, links will
-       * not work and should not be displayed.
-       */
-      shouldOmitLinks: {
-        type: Boolean,
-        value: false,
-      },
-
-      /** @private {!ButtonBarState} */
-      buttonBarState_: {
-        type: Object,
-        value: {
-          cancel: ButtonState$1.ENABLED,
-          pair: ButtonState$1.HIDDEN,
-        },
-      },
-
-      /**
-       * Used by FocusRowBehavior to track the last focused element on a row.
-       * @private
-       */
-      lastFocused_: Object,
-
-      /**
-       * Used by FocusRowBehavior to track if the list has been blurred.
-       * @private
-       */
-      listBlurred_: Boolean,
-    };
-  }
-
-  constructor() {
-    super();
-
+const SettingsBluetoothPairingDeviceSelectionPageElementBase = I18nMixin(CrScrollableMixin(PolymerElement));
+class SettingsBluetoothPairingDeviceSelectionPageElement extends SettingsBluetoothPairingDeviceSelectionPageElementBase {
+    static get is() {
+        return 'bluetooth-pairing-device-selection-page';
+    }
+    static get template() {
+        return getTemplate$z();
+    }
+    static get properties() {
+        return {
+            devices: {
+                type: Array,
+                value: [],
+                observer: 'onDevicesChanged_',
+            },
+            /**
+             * Id of a device who's pairing attempt failed.
+             */
+            failedPairingDeviceId: {
+                type: String,
+                value: '',
+            },
+            devicePendingPairing: {
+                type: Object,
+                value: null,
+                observer: 'onDevicePendingPairingChanged_',
+            },
+            isBluetoothEnabled: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Flag indicating whether links should be displayed or not. In some
+             * cases, such as the user being in OOBE or the login screen, links will
+             * not work and should not be displayed.
+             */
+            shouldOmitLinks: {
+                type: Boolean,
+                value: false,
+            },
+            buttonBarState_: {
+                type: Object,
+                value: {
+                    cancel: ButtonState$1.ENABLED,
+                    pair: ButtonState$1.HIDDEN,
+                },
+            },
+            /**
+             * Used by FocusRowBehavior to track the last focused element on a row.
+             */
+            lastFocused_: Object,
+            /**
+             * Used by FocusRowBehavior to track if the list has been blurred.
+             */
+            listBlurred_: Boolean,
+        };
+    }
+    constructor() {
+        super();
+        /**
+         * The last device that was selected for pairing
+         */
+        this.lastSelectedDevice_ = null;
+    }
     /**
-     * The last device that was selected for pairing.
-     * @private {?BluetoothDeviceProperties}
+     * Attempts to focus the item corresponding to |lastSelectedDevice_|.
      */
-    this.lastSelectedDevice_ = null;
-  }
-
-  /**
-   * Attempts to focus the item corresponding to |lastSelectedDevice_|.
-   */
-  attemptFocusLastSelectedItem() {
-    if (!this.lastSelectedDevice_) {
-      return;
+    attemptFocusLastSelectedItem() {
+        if (!this.lastSelectedDevice_) {
+            return;
+        }
+        const index = this.devices.findIndex(device => device.id === this.lastSelectedDevice_.id);
+        if (index < 0) {
+            return;
+        }
+        afterNextRender(this, () => {
+            const items = this.shadowRoot.querySelectorAll('bluetooth-pairing-device-item');
+            if (index >= items.length) {
+                return;
+            }
+            items[index].focus();
+        });
     }
-
-    const index = this.devices.findIndex(
-        device => device.id === this.lastSelectedDevice_.id);
-    if (index < 0) {
-      return;
+    onDevicesChanged_() {
+        // CrScrollableBehaviorInterface method required for list items to be
+        // properly rendered when devices updates. This is because iron-list size
+        // is not fixed, if this is not called iron-list container would not be
+        // properly sized.
+        this.updateScrollableContents();
     }
-
-    afterNextRender(this, function() {
-      const items =
-          this.shadowRoot.querySelectorAll('bluetooth-pairing-device-item');
-      if (index >= items.length) {
-        return;
-      }
-
-      items[index].focus();
-    });
-  }
-
-  /** @private */
-  onDevicesChanged_() {
-    // CrScrollableBehaviorInterface method required for list items to be
-    // properly rendered when devices updates. This is because iron-list size
-    // is not fixed, if this is not called iron-list container would not be
-    // properly sized.
-    this.updateScrollableContents();
-  }
-
-  /** @private */
-  onDevicePendingPairingChanged_() {
-    // If |devicePendingPairing_| has changed to a defined value, it was the
-    // last selected device. |devicePendingPairing_| gets reset to null whenever
-    // we move back to this page after a pairing attempt fails or cancels. In
-    // this case, do not reset |lastSelectedDevice_| because we want to hold
-    // onto the device that was last attempted to be paired with.
-    if (!this.devicePendingPairing) {
-      return;
+    onDevicePendingPairingChanged_() {
+        // If |devicePendingPairing_| has changed to a defined value, it was the
+        // last selected device. |devicePendingPairing_| gets reset to null whenever
+        // we move back to this page after a pairing attempt fails or cancels. In
+        // this case, do not reset |lastSelectedDevice_| because we want to hold
+        // onto the device that was last attempted to be paired with.
+        if (!this.devicePendingPairing) {
+            return;
+        }
+        this.lastSelectedDevice_ = this.devicePendingPairing;
     }
-
-    this.lastSelectedDevice_ = this.devicePendingPairing;
-  }
-
-  /**
-   * @private
-   * @return {boolean}
-   */
-  shouldShowDeviceList_() {
-    return this.isBluetoothEnabled && this.devices && this.devices.length > 0;
-  }
-
-  /**
-   * @private
-   * @return {string}
-   */
-  getDeviceListTitle_() {
-    if (!this.isBluetoothEnabled) {
-      return this.i18n('bluetoothDisabled');
+    shouldShowDeviceList_() {
+        return this.isBluetoothEnabled && this.devices && this.devices.length > 0;
     }
-
-    // Case where device list becomes empty (device is turned off)
-    // and then device pairing fails.
-    // Note: |devices| always updates before pairing result
-    // returns.
-    if (!this.devicePendingPairing && !this.shouldShowDeviceList_()) {
-      return this.i18n('bluetoothNoAvailableDevices');
+    getDeviceListTitle_() {
+        if (!this.isBluetoothEnabled) {
+            return this.i18n('bluetoothDisabled');
+        }
+        // Case where device list becomes empty (device is turned off)
+        // and then device pairing fails.
+        // Note: |devices| always updates before pairing result
+        // returns.
+        if (!this.devicePendingPairing && !this.shouldShowDeviceList_()) {
+            return this.i18n('bluetoothNoAvailableDevices');
+        }
+        // When pairing succeeds there is a brief moement where |devices| is empty
+        // (device is removed from discovered list) but because of b/216522777 we
+        // still want to show available devices header, we check for
+        // |devicePendingPairing| which will have a value since it is only reset
+        // after pairing fails.
+        if (this.shouldShowDeviceList_() || this.devicePendingPairing) {
+            return this.i18n('bluetoothAvailableDevices');
+        }
+        return this.i18n('bluetoothNoAvailableDevices');
     }
-
-    // When pairing succeeds there is a brief moement where |devices| is empty
-    // (device is removed from discovered list) but because of b/216522777 we
-    // still want to show available devices header, we check for
-    // |devicePendingPairing| which will have a value since it is only reset
-    // after pairing fails.
-    if (this.shouldShowDeviceList_() || this.devicePendingPairing) {
-      return this.i18n('bluetoothAvailableDevices');
+    getDeviceItemState_(device) {
+        if (!device) {
+            return DeviceItemState.DEFAULT;
+        }
+        if (device.id === this.failedPairingDeviceId) {
+            return DeviceItemState.FAILED;
+        }
+        if (this.devicePendingPairing &&
+            device.id === this.devicePendingPairing.id) {
+            return DeviceItemState.PAIRING;
+        }
+        return DeviceItemState.DEFAULT;
     }
-
-    return this.i18n('bluetoothNoAvailableDevices');
-  }
-
-  /**
-   * @param {?BluetoothDeviceProperties} device
-   * @return {!DeviceItemState}
-   * @private
-   */
-  getDeviceItemState_(device) {
-    if (!device) {
-      return DeviceItemState.DEFAULT;
-    }
-
-    if (device.id === this.failedPairingDeviceId) {
-      return DeviceItemState.FAILED;
-    }
-
-    if (this.devicePendingPairing &&
-        device.id === this.devicePendingPairing.id) {
-      return DeviceItemState.PAIRING;
-    }
-
-    return DeviceItemState.DEFAULT;
-  }
 }
-
-customElements.define(
-    SettingsBluetoothPairingDeviceSelectionPageElement.is,
-    SettingsBluetoothPairingDeviceSelectionPageElement);
+customElements.define(SettingsBluetoothPairingDeviceSelectionPageElement.is, SettingsBluetoothPairingDeviceSelectionPageElement);
 
 function getTemplate$y() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style iron-flex">
@@ -23962,141 +23329,86 @@ function getTemplate$y() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
+/**
+ * @fileoverview
+ * UI element shown when authentication via display passkey or PIN is required
+ * during Bluetooth device pairing.
+ */
 // Pairing passkey can be a maximum of 16 characters while pairing code a max
 // of  6 digits. This is used to check that the passed code is less than or
 // equal to the max possible value.
 const MAX_CODE_LENGTH = 16;
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const SettingsBluetoothPairingEnterCodeElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothPairingEnterCodeElement extends
-    SettingsBluetoothPairingEnterCodeElementBase {
-  static get is() {
-    return 'bluetooth-pairing-enter-code-page';
-  }
-
-  static get template() {
-    return getTemplate$y();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {string}
-       */
-      deviceName: {
-        type: String,
-        value: '',
-      },
-
-      /** @type {string} */
-      code: {
-        type: String,
-        value: '',
-      },
-
-      /** @type {number} */
-      numKeysEntered: {
-        type: Number,
-        value: 0,
-      },
-
-      /** @private {!ButtonBarState} */
-      buttonBarState_: {
-        type: Object,
-        value: {
-          cancel: ButtonState$1.ENABLED,
-          pair: ButtonState$1.HIDDEN,
-        },
-      },
-
-      /**
-       * Array representation of |code|.
-       * @private {!Array<string>}
-       */
-      keys_: {
-        type: Array,
-        computed: 'computeKeys_(code)',
-      },
-    };
-  }
-
-  /**
-   * @return {!Array<string>}
-   * @private
-   */
-  computeKeys_() {
-    if (!this.code) {
-      return [];
+const SettingsBluetoothPairingEnterCodeElementBase = I18nMixin(PolymerElement);
+class SettingsBluetoothPairingEnterCodeElement extends SettingsBluetoothPairingEnterCodeElementBase {
+    static get is() {
+        return 'bluetooth-pairing-enter-code-page';
     }
-
-    assert$1(this.code.length <= MAX_CODE_LENGTH);
-    return this.code.split('');
-  }
-
-  /**
-   * @param {number} index
-   * @return {string}
-   */
-  getKeyAt_(index) {
-    return this.keys_[index];
-  }
-
-  /**
-   * @param {number} index
-   * @return {string}
-   * @private
-   */
-  getKeyClass_(index) {
-    if (!this.keys_ || !this.numKeysEntered) {
-      return '';
+    static get template() {
+        return getTemplate$y();
     }
-
-    if (index === this.numKeysEntered) {
-      return 'next';
-    } else if (index < this.numKeysEntered) {
-      return 'typed';
+    static get properties() {
+        return {
+            deviceName: {
+                type: String,
+                value: '',
+            },
+            code: {
+                type: String,
+                value: '',
+            },
+            numKeysEntered: {
+                type: Number,
+                value: 0,
+            },
+            buttonBarState_: {
+                type: Object,
+                value: {
+                    cancel: ButtonState$1.ENABLED,
+                    pair: ButtonState$1.HIDDEN,
+                },
+            },
+            keys_: {
+                type: Array,
+                computed: 'computeKeys_(code)',
+            },
+        };
     }
-
-    return '';
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getEnterClass_() {
-    if (!this.keys_ || !this.numKeysEntered) {
-      return '';
+    computeKeys_() {
+        if (!this.code) {
+            return [];
+        }
+        assert(this.code.length <= MAX_CODE_LENGTH);
+        return this.code.split('');
     }
-
-    if (this.numKeysEntered >= this.keys_.length) {
-      return 'next';
+    getKeyAt_(index) {
+        return this.keys_[index];
     }
-
-    return '';
-  }
-
-  /**
-   * @private
-   * @return {string}
-   */
-  getMessage_() {
-    return this.i18n('bluetoothPairingEnterKeys', this.deviceName);
-  }
+    getKeyClass_(index) {
+        if (!this.keys_ || !this.numKeysEntered) {
+            return '';
+        }
+        if (index === this.numKeysEntered) {
+            return 'next';
+        }
+        else if (index < this.numKeysEntered) {
+            return 'typed';
+        }
+        return '';
+    }
+    getEnterClass_() {
+        if (!this.keys_ || !this.numKeysEntered) {
+            return '';
+        }
+        if (this.numKeysEntered >= this.keys_.length) {
+            return 'next';
+        }
+        return '';
+    }
+    getMessage_() {
+        return this.i18n('bluetoothPairingEnterKeys', this.deviceName);
+    }
 }
-
-customElements.define(
-    SettingsBluetoothPairingEnterCodeElement.is,
-    SettingsBluetoothPairingEnterCodeElement);
+customElements.define(SettingsBluetoothPairingEnterCodeElement.is, SettingsBluetoothPairingEnterCodeElement);
 
 function getTemplate$x() {
   return html`<!--_html_template_start_--><style>
@@ -24139,146 +23451,89 @@ function getTemplate$x() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
+/**
+ * @fileoverview
+ * UI element shown when authentication via PIN or PASSKEY is required
+ * during Bluetooth device pairing.
+ */
 /**
  * Maximum length of a PIN code, it can range from 1 to 6 digits.
- * @type {number}
  */
 const PIN_CODE_MAX_LENGTH = 6;
-
 /**
  * Maximum length of a passkey, it can range from 1 to 16 characters.
- * @type {number}
  */
 const PASSKEY_MAX_LENGTH = 16;
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const SettingsBluetoothPairingRequestCodePageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothRequestCodePageElement extends
-    SettingsBluetoothPairingRequestCodePageElementBase {
-  static get is() {
-    return 'bluetooth-pairing-request-code-page';
-  }
-
-  static get template() {
-    return getTemplate$x();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {?BluetoothDeviceProperties}
-       */
-      device: {
-        type: Object,
-        value: null,
-      },
-
-      /** @type {?PairingAuthType} */
-      authType: {
-        type: Object,
-        value: null,
-      },
-
-      /** @private {!ButtonBarState} */
-      buttonBarState_: {
-        type: Object,
-        computed: 'computeButtonBarState_(pinCode_)',
-      },
-
-      /** @private {string} */
-      pinCode_: {
-        type: String,
-        value: '',
-      },
-    };
-  }
-
-  /** @override */
-  connectedCallback() {
-    super.connectedCallback();
-    afterNextRender(this, () => {
-      this.$.pin.focus();
-    });
-  }
-
-  /**
-   * @private
-   * @return {string}
-   */
-  getMessage_() {
-    return this.i18n('bluetoothEnterPin', this.getDeviceName_());
-  }
-
-  /**
-   * @private
-   * @return {string}
-   */
-  getDeviceName_() {
-    if (!this.device) {
-      return '';
+const SettingsBluetoothPairingRequestCodePageElementBase = I18nMixin(PolymerElement);
+class SettingsBluetoothRequestCodePageElement extends SettingsBluetoothPairingRequestCodePageElementBase {
+    static get is() {
+        return 'bluetooth-pairing-request-code-page';
     }
-
-    return mojoString16ToString(this.device.publicName);
-  }
-
-  /**
-   * @return {!ButtonBarState}
-   * @private
-   */
-  computeButtonBarState_() {
-    const pairButtonState =
-        !this.pinCode_ ? ButtonState$1.DISABLED : ButtonState$1.ENABLED;
-
-    return {
-      cancel: ButtonState$1.ENABLED,
-      pair: pairButtonState,
-    };
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onPairClicked_(event) {
-    event.stopPropagation();
-
-    // TODO(crbug.com/1010321): Show spinner while pairing.
-    if (!this.pinCode_) {
-      return;
+    static get template() {
+        return getTemplate$x();
     }
-
-    this.dispatchEvent(new CustomEvent('request-code-entered', {
-      bubbles: true,
-      composed: true,
-      detail: {code: this.pinCode_},
-    }));
-  }
-
-  /**
-   * @private
-   * @return {number}
-   */
-  getMaxlength_() {
-    if (this.authType === PairingAuthType.REQUEST_PIN_CODE) {
-      return PIN_CODE_MAX_LENGTH;
+    static get properties() {
+        return {
+            device: {
+                type: Object,
+                value: null,
+            },
+            authType: {
+                type: Object,
+                value: null,
+            },
+            buttonBarState_: {
+                type: Object,
+                computed: 'computeButtonBarState_(pinCode_)',
+            },
+            pinCode_: {
+                type: String,
+                value: '',
+            },
+        };
     }
-
-    return PASSKEY_MAX_LENGTH;
-  }
+    connectedCallback() {
+        super.connectedCallback();
+        afterNextRender(this, () => {
+            this.$.pin.focus();
+        });
+    }
+    getMessage_() {
+        return this.i18n('bluetoothEnterPin', this.getDeviceName_());
+    }
+    getDeviceName_() {
+        if (!this.device) {
+            return '';
+        }
+        return mojoString16ToString(this.device.publicName);
+    }
+    computeButtonBarState_() {
+        const pairButtonState = !this.pinCode_ ? ButtonState$1.DISABLED : ButtonState$1.ENABLED;
+        return {
+            cancel: ButtonState$1.ENABLED,
+            pair: pairButtonState,
+        };
+    }
+    onPairClicked_(event) {
+        event.stopPropagation();
+        // TODO(crbug.com/1010321): Show spinner while pairing.
+        if (!this.pinCode_) {
+            return;
+        }
+        this.dispatchEvent(new CustomEvent('request-code-entered', {
+            bubbles: true,
+            composed: true,
+            detail: { code: this.pinCode_ },
+        }));
+    }
+    getMaxlength_() {
+        if (this.authType === PairingAuthType.REQUEST_PIN_CODE) {
+            return PIN_CODE_MAX_LENGTH;
+        }
+        return PASSKEY_MAX_LENGTH;
+    }
 }
-
-customElements.define(
-    SettingsBluetoothRequestCodePageElement.is,
-    SettingsBluetoothRequestCodePageElement);
+customElements.define(SettingsBluetoothRequestCodePageElement.is, SettingsBluetoothRequestCodePageElement);
 
 function getTemplate$w() {
   return html`<!--_html_template_start_--><style>
@@ -24310,62 +23565,43 @@ function getTemplate$w() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * UI element shown when authentication via confirm passkey is required
+ * during Bluetooth device pairing.
  */
-const SettingsBluetoothPairingConfirmCodePageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SettingsBluetoothPairingConfirmCodePageElement extends
-    SettingsBluetoothPairingConfirmCodePageElementBase {
-  static get is() {
-    return 'bluetooth-pairing-confirm-code-page';
-  }
-
-  static get template() {
-    return getTemplate$w();
-  }
-
-  static get properties() {
-    return {
-      /** @type {string} */
-      code: {
-        type: String,
-        value: '',
-      },
-
-      /** @private {!ButtonBarState} */
-      buttonBarState_: {
-        type: Object,
-        value: {
-          cancel: ButtonState$1.ENABLED,
-          pair: ButtonState$1.ENABLED,
-        },
-      },
-    };
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onPairClicked_(event) {
-    event.stopPropagation();
-    this.dispatchEvent(new CustomEvent('confirm-code', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
+const SettingsBluetoothPairingConfirmCodePageElementBase = I18nMixin(PolymerElement);
+class SettingsBluetoothPairingConfirmCodePageElement extends SettingsBluetoothPairingConfirmCodePageElementBase {
+    static get is() {
+        return 'bluetooth-pairing-confirm-code-page';
+    }
+    static get template() {
+        return getTemplate$w();
+    }
+    static get properties() {
+        return {
+            code: {
+                type: String,
+                value: '',
+            },
+            buttonBarState_: {
+                type: Object,
+                value: {
+                    cancel: ButtonState$1.ENABLED,
+                    pair: ButtonState$1.ENABLED,
+                },
+            },
+        };
+    }
+    onPairClicked_(event) {
+        event.stopPropagation();
+        this.dispatchEvent(new CustomEvent('confirm-code', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
 }
-
-customElements.define(
-    SettingsBluetoothPairingConfirmCodePageElement.is,
-    SettingsBluetoothPairingConfirmCodePageElement);
+customElements.define(SettingsBluetoothPairingConfirmCodePageElement.is, SettingsBluetoothPairingConfirmCodePageElement);
 
 function getTemplate$v() {
   return html`<!--_html_template_start_--><style>
@@ -24393,35 +23629,30 @@ function getTemplate$v() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @polymer */
+/**
+ * @fileoverview
+ * UI element which shows a loading spinner.
+ */
 class SettingsBluetoothSpinnerPageElement extends PolymerElement {
-  static get is() {
-    return 'bluetooth-spinner-page';
-  }
-
-  static get template() {
-    return getTemplate$v();
-  }
-
-  static get properties() {
-    return {
-      /** @private {!ButtonBarState} */
-      buttonBarState_: {
-        type: Object,
-        value: {
-          cancel: ButtonState$1.ENABLED,
-          pair: ButtonState$1.DISABLED,
-        },
-      },
-    };
-  }
+    static get is() {
+        return 'bluetooth-spinner-page';
+    }
+    static get template() {
+        return getTemplate$v();
+    }
+    static get properties() {
+        return {
+            buttonBarState_: {
+                type: Object,
+                value: {
+                    cancel: ButtonState$1.ENABLED,
+                    pair: ButtonState$1.DISABLED,
+                },
+            },
+        };
+    }
 }
-
-customElements.define(
-    SettingsBluetoothSpinnerPageElement.is,
-    SettingsBluetoothSpinnerPageElement);
+customElements.define(SettingsBluetoothSpinnerPageElement.is, SettingsBluetoothSpinnerPageElement);
 
 function getTemplate$u() {
   return html`<!--_html_template_start_--><style>
@@ -24485,670 +23716,446 @@ function getTemplate$u() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @implements {KeyEnteredHandlerInterface} */
-class KeyEnteredHandler {
-  /**
-   * @param {!SettingsBluetoothPairingUiElement} page
-   * @param {!KeyEnteredHandlerPendingReceiver}
-   *     keyEnteredHandlerReceiver
-   */
-  constructor(page, keyEnteredHandlerReceiver) {
-    /** @private {!SettingsBluetoothPairingUiElement} */
-    this.page_ = page;
-
-    /** @private {!KeyEnteredHandlerReceiver} */
-    this.keyEnteredHandlerReceiver_ = new KeyEnteredHandlerReceiver(this);
-    this.keyEnteredHandlerReceiver_.$.bindHandle(
-        keyEnteredHandlerReceiver.handle);
-  }
-
-  /** @override */
-  handleKeyEntered(numKeysEntered) {
-    this.page_.handleKeyEntered(numKeysEntered);
-  }
-
-  close() {
-    this.keyEnteredHandlerReceiver_.$.close();
-  }
-}
-
-/** @enum {string} */
-const BluetoothPairingSubpageId = {
-  DEVICE_SELECTION_PAGE: 'deviceSelectionPage',
-  DEVICE_ENTER_CODE_PAGE: 'deviceEnterCodePage',
-  DEVICE_REQUEST_CODE_PAGE: 'deviceRequestCodePage',
-  DEVICE_CONFIRM_CODE_PAGE: 'deviceConfirmCodePage',
-  SPINNER_PAGE: 'spinnerPage',
-};
-
 /**
- * @implements {SystemPropertiesObserverInterface}
- * @implements {BluetoothDiscoveryDelegateInterface}
- * @implements {DevicePairingDelegateInterface}
- * @implements {KeyEnteredHandlerInterface}
- * @polymer
+ * @fileoverview
+ * Root UI element for Bluetooth pairing dialog.
  */
-class SettingsBluetoothPairingUiElement extends PolymerElement {
-  static get is() {
-    return 'bluetooth-pairing-ui';
-  }
-
-  static get template() {
-    return getTemplate$u();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * The address, when set, of the specific device that will be attempted to
-       * be paired with by the pairing dialog. If null, no specific device will
-       * be paired with and the user will be allowed to select a device to pair
-       * with. This is set when the dialog is opened if the purpose of the
-       * dialog is to pair with a specific device.
-       * @type {?string}
-       */
-      pairingDeviceAddress: {
-        type: String,
-        value: null,
-      },
-
-      /**
-       * Flag indicating whether links should be displayed or not. In some
-       * cases, such as the user being in OOBE or the login screen, links will
-       * not work and should not be displayed.
-       */
-      shouldOmitLinks: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Id of the currently selected Bluetooth pairing subpage.
-       * @private {!BluetoothPairingSubpageId}
-       */
-      selectedPageId_: {
-        type: String,
-        value: BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE,
-        observer: 'onSelectedPageIdChanged_',
-      },
-
-      /**
-       * @private {Array<!BluetoothDeviceProperties>}
-       */
-      discoveredDevices_: {
-        type: Array,
-        value: [],
-      },
-
-      /**
-       * This can be null if no pairing attempt was started or a pairing attempt
-       * was cancelled by user.
-       * @private {?BluetoothDeviceProperties}
-       */
-      devicePendingPairing_: {
-        type: Object,
-        value: null,
-      },
-
-      /** @private {?PairingAuthType} */
-      pairingAuthType_: {
-        type: Object,
-        value: null,
-      },
-
-      /** @private {string} */
-      pairingCode_: {
-        type: String,
-        value: '',
-      },
-
-      /** @private {number} */
-      numKeysEntered_: {
-        type: Number,
-        value: 0,
-      },
-
-      /**
-       * Id of a device who's pairing attempt failed.
-       * @private {string}
-       */
-      lastFailedPairingDeviceId_: {
-        type: String,
-        value: '',
-      },
-
-      /** @private {boolean} */
-      isBluetoothEnabled_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Used to access |BluetoothPairingSubpageId| type in HTML.
-       * @private {!BluetoothPairingSubpageId}
-       */
-      SubpageId: {
-        type: Object,
-        value: BluetoothPairingSubpageId,
-      },
-    };
-  }
-
-  constructor() {
-    super();
-    /**
-     * @private {!SystemPropertiesObserverReceiver}
-     */
-    this.systemPropertiesObserverReceiver_ =
-        new SystemPropertiesObserverReceiver(
-            /**
-             * @type {!SystemPropertiesObserverInterface}
-             */
-            (this));
-
-    /**
-     * @private {!BluetoothDiscoveryDelegateReceiver}
-     */
-    this.bluetoothDiscoveryDelegateReceiver_ =
-        new BluetoothDiscoveryDelegateReceiver(this);
-
-    /**
-     * @private {?DevicePairingHandlerInterface}
-     */
-    this.devicePairingHandler_;
-
-    /**
-     * The device to be paired with after the current pairDevice_() request has
-     * finished.
-     * @private {?BluetoothDeviceProperties}
-     */
-    this.queuedDevicePendingPairing_;
-
-    /**
-     * The Mojo receiver of the current ongoing pairing. If null indicates no
-     * pairing is occurring.
-     * @private {?DevicePairingDelegateReceiver}
-     */
-    this.pairingDelegateReceiver_ = null;
-
-    /** @private {?RequestCodeCallback} */
-    this.requestCodeCallback_ = null;
-
-    /** @private {?KeyEnteredHandler} */
-    this.keyEnteredReceiver_ = null;
-
-    /** @private {?ConfirmCodeCallback} */
-    this.confirmCodeCallback_ = null;
-
-    /** @private {?function()} */
-    this.onBluetoothDiscoveryStartedCallbackForTest_ = null;
-
-    /** @private {?function()} */
-    this.handlePairDeviceResultCallbackForTest_ = null;
-  }
-
-  ready() {
-    super.ready();
-
-    // If there's a specific device to pair with, immediately go to the spinner
-    // page.
-    if (this.pairingDeviceAddress) {
-      this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
+class KeyEnteredHandler {
+    constructor(page, keyEnteredHandlerReceiver) {
+        this.page_ = page;
+        this.keyEnteredHandlerReceiver_ = new KeyEnteredHandlerReceiver(this);
+        this.keyEnteredHandlerReceiver_.$.bindHandle(keyEnteredHandlerReceiver.handle);
     }
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    getBluetoothConfig().observeSystemProperties(
-        this.systemPropertiesObserverReceiver_.$.bindNewPipeAndPassRemote());
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-
-    if (this.systemPropertiesObserverReceiver_) {
-      this.systemPropertiesObserverReceiver_.$.close();
+    handleKeyEntered(numKeysEntered) {
+        this.page_.handleKeyEntered(numKeysEntered);
     }
-    if (this.bluetoothDiscoveryDelegateReceiver_) {
-      this.bluetoothDiscoveryDelegateReceiver_.$.close();
+    close() {
+        this.keyEnteredHandlerReceiver_.$.close();
     }
-    if (this.pairingDelegateReceiver_) {
-      this.pairingDelegateReceiver_.$.close();
-    }
-    if (this.keyEnteredReceiver_) {
-      this.keyEnteredReceiver_.close();
-    }
-  }
-
-  /** @override */
-  onPropertiesUpdated(properties) {
-    const wasBluetoothEnabled = this.isBluetoothEnabled_;
-    this.isBluetoothEnabled_ =
-        properties.systemState === BluetoothSystemState.kEnabled;
-
-    if (!wasBluetoothEnabled && this.isBluetoothEnabled_) {
-      // If Bluetooth enables after being disabled, initialize the UI state.
-      this.lastFailedPairingDeviceId_ = '';
-
-      // Start discovery.
-      getBluetoothConfig().startDiscovery(
-          this.bluetoothDiscoveryDelegateReceiver_.$
-              .bindNewPipeAndPassRemote());
-    }
-  }
-
-  /** @override */
-  onDiscoveredDevicesListChanged(discoveredDevices) {
-    this.discoveredDevices_ = discoveredDevices;
-
-    this.updateLastFailedPairingDeviceId_(discoveredDevices);
-
-    // Check if this dialog needs to pair to a specific device.
-    if (!this.pairingDeviceAddress) {
-      return;
-    }
-
-    // Check if a pairing is already occurring.
-    if (this.pairingDelegateReceiver_) {
-      return;
-    }
-
-    // If |this.pairingDeviceAddress| exists and no ongoing pairing is
-    // occurring, search for the device with address |this.pairingDeviceAddress|
-    // and attempt to pair with it.
-    this.attemptPairDeviceByAddress_();
-  }
-
-  /**
-   * @param {Array<!BluetoothDeviceProperties>}
-   *     devices
-   * @private
-   */
-  updateLastFailedPairingDeviceId_(devices) {
-    if (devices.some(device => device.id === this.lastFailedPairingDeviceId_)) {
-      return;
-    }
-
-    this.lastFailedPairingDeviceId_ = '';
-  }
-
-  /** @override */
-  onBluetoothDiscoveryStarted(handler) {
-    this.devicePairingHandler_ = handler;
-
-    // Inform tests that onBluetoothDiscoveryStarted() has been called. This is
-    // to ensure tests don't progress until |devicePairingHandler_| has been
-    // set.
-    if (this.onBluetoothDiscoveryStartedCallbackForTest_) {
-      this.onBluetoothDiscoveryStartedCallbackForTest_();
-    }
-  }
-
-  /** @override */
-  onBluetoothDiscoveryStopped() {
-    // Discovery will stop if Bluetooth disables. Reset the UI back to the
-    // selection page.
-    this.bluetoothDiscoveryDelegateReceiver_.$.close();
-    this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE;
-    this.devicePairingHandler_ = null;
-  }
-
-  /**
-   * Returns a promise that will be resolved the next time
-   * onBluetoothDiscoveryStarted() is called.
-   * @return {Promise}
-   */
-  waitForOnBluetoothDiscoveryStartedForTest() {
-    return new Promise((resolve) => {
-      this.onBluetoothDiscoveryStartedCallbackForTest_ = resolve;
-    });
-  }
-
-  /**
-   * Returns a promise that will be resolved the next time
-   * handlePairDeviceResult_() is called.
-   * @return {Promise}
-   */
-  waitForHandlePairDeviceResultForTest() {
-    return new Promise((resolve) => {
-      this.handlePairDeviceResultCallbackForTest_ = resolve;
-    });
-  }
-
-  /**
-   * @param {!CustomEvent<!{device:
-   *     BluetoothDeviceProperties}>} event
-   * @private
-   */
-  onPairDevice_(event) {
-    if (!event.detail.device) {
-      return;
-    }
-    // If a pairing operation is currently underway, close it and queue
-    // the current device to be paired after pairDevice_() promise is
-    // returned.
-    if (this.pairingDelegateReceiver_) {
-      this.queuedDevicePendingPairing_ = event.detail.device;
-      this.pairingDelegateReceiver_.$.close();
-      return;
-    }
-    this.pairDevice_(event.detail.device);
-  }
-
-  /**
-   * Searches for the device with address |this.pairingDeviceAddress| in
-   * |this.discoveredDevices| and attempts to pair with it.
-   * @private
-   */
-  attemptPairDeviceByAddress_() {
-    assert$1(this.pairingDeviceAddress);
-    assert$1(!this.pairingDelegateReceiver_);
-
-    if (!this.devicePairingHandler_) {
-      console.error('Attempted pairing with no device pairing handler.');
-      return;
-    }
-
-    this.devicePairingHandler_.fetchDevice(this.pairingDeviceAddress)
-        .then(result => {
-          if (!result.device) {
-            console.warn(
-                'Attempted pairing with a device that was not found, address: ' +
-                this.pairingDeviceAddress);
-            return;
-          }
-
-          this.pairDevice_(result.device);
-        });
-  }
-
-  /**
-   * @param {!BluetoothDeviceProperties} device
-   * @private
-   */
-  pairDevice_(device) {
-    assert$1(
-        this.devicePairingHandler_, 'devicePairingHandler_ has not been set.');
-
-    this.pairingDelegateReceiver_ = new DevicePairingDelegateReceiver(this);
-
-    this.devicePendingPairing_ = device;
-    assert$1(this.devicePendingPairing_);
-
-    this.lastFailedPairingDeviceId_ = '';
-
-    this.devicePairingHandler_
-        .pairDevice(
-            this.devicePendingPairing_.id,
-            this.pairingDelegateReceiver_.$.bindNewPipeAndPassRemote())
-        .then(result => {
-          this.handlePairDeviceResult_(result.result);
-        })
-        .catch(() => {
-          // Pairing failed due to external issues, such as Mojo pipe
-          // disconnecting from Bluetooth disabling.
-          this.handlePairDeviceResult_(PairingResult.kNonAuthFailure);
-        });
-  }
-
-  /**
-   * @param {!PairingResult} result
-   * @private
-   */
-  handlePairDeviceResult_(result) {
-    if (this.pairingDelegateReceiver_) {
-      this.pairingDelegateReceiver_.$.close();
-    }
-    this.pairingAuthType_ = null;
-
-    if (this.keyEnteredReceiver_) {
-      this.keyEnteredReceiver_.close();
-      this.keyEnteredReceiver_ = null;
-    }
-
-    this.pairingDelegateReceiver_ = null;
-
-    if (result === PairingResult.kSuccess) {
-      this.closeDialog_();
-      return;
-    }
-
-    // If |pairingDeviceAddress| is defined, this was a device-specific pairing
-    // request that has failed. Clear |pairingDeviceAddress| so that we don't
-    // automatically attempt to re-pair with the same device again.
-    this.pairingDeviceAddress = null;
-
-    this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE;
-    if (this.devicePendingPairing_) {
-      this.lastFailedPairingDeviceId_ = this.devicePendingPairing_.id;
-    }
-
-    this.devicePendingPairing_ = null;
-
-    if (this.queuedDevicePendingPairing_ && this.devicePairingHandler_) {
-      this.pairDevice_(this.queuedDevicePendingPairing_);
-    }
-
-    this.queuedDevicePendingPairing_ = null;
-
-    // Inform tests that handlePairDeviceResult_() has been called. This is
-    // to ensure tests don't progress until the correct state has been
-    // set.
-    if (this.handlePairDeviceResultCallbackForTest_) {
-      this.handlePairDeviceResultCallbackForTest_();
-    }
-  }
-
-  /** @override */
-  requestPinCode() {
-    return this.requestCode_(PairingAuthType.REQUEST_PIN_CODE);
-  }
-
-  /** @override */
-  requestPasskey() {
-    return this.requestCode_(PairingAuthType.REQUEST_PASSKEY);
-  }
-
-  /**
-   * @param {!PairingAuthType} authType
-   * @return {!Promise<{pinCode: !string}> | !Promise<{passkey: !string}>}
-   * @private
-   */
-  requestCode_(authType) {
-    this.pairingAuthType_ = authType;
-    this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_REQUEST_CODE_PAGE;
-    this.requestCodeCallback_ = {
-      reject: null,
-      resolve: null,
-    };
-
-    const promise = new Promise((resolve, reject) => {
-      this.requestCodeCallback_.resolve = (code) => {
-        if (authType === PairingAuthType.REQUEST_PIN_CODE) {
-          resolve({'pinCode': code});
-          return;
-        }
-
-        if (authType === PairingAuthType.REQUEST_PASSKEY) {
-          resolve({'passkey': code});
-          return;
-        }
-
-        assertNotReached$1();
-      };
-      this.requestCodeCallback_.reject = reject;
-    });
-
-    return promise;
-  }
-
-  /**
-   * @param {!CustomEvent<!{code: string}>} event
-   * @private
-   */
-  onRequestCodeEntered_(event) {
-    this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
-    event.stopPropagation();
-    assert$1(this.pairingAuthType_);
-    assert$1(this.requestCodeCallback_.resolve);
-    this.requestCodeCallback_.resolve(event.detail.code);
-  }
-
-  /** @override */
-  displayPinCode(pinCode, handler) {
-    this.displayCode_(handler, pinCode);
-  }
-
-  /** @override */
-  displayPasskey(passkey, handler) {
-    this.displayCode_(handler, passkey);
-  }
-
-  /**s
-   * @param {!KeyEnteredHandlerPendingReceiver}
-   *     handler
-   * @param {string} code
-   * @private
-   */
-  displayCode_(handler, code) {
-    this.pairingCode_ = code;
-    this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_ENTER_CODE_PAGE;
-    this.keyEnteredReceiver_ = new KeyEnteredHandler(this, handler);
-  }
-
-  /**
-   * @param {number} numKeysEntered
-   */
-  handleKeyEntered(numKeysEntered) {
-    this.numKeysEntered_ = numKeysEntered;
-  }
-
-  /** @override */
-  confirmPasskey(passkey) {
-    this.pairingAuthType_ = PairingAuthType.CONFIRM_PASSKEY;
-    this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_CONFIRM_CODE_PAGE;
-    this.pairingCode_ = passkey;
-
-    this.confirmCodeCallback_ = {
-      resolve: null,
-      reject: null,
-    };
-
-    return new Promise((resolve, reject) => {
-      this.confirmCodeCallback_.resolve = () => {
-        resolve({'confirmed': true});
-      };
-      this.confirmCodeCallback_.reject = reject;
-    });
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onConfirmCode_(event) {
-    this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
-    event.stopPropagation();
-    assert$1(this.pairingAuthType_);
-    assert$1(this.confirmCodeCallback_);
-    this.confirmCodeCallback_.resolve();
-  }
-
-  /** @override */
-  authorizePairing() {
-    // TODO(crbug.com/1010321): Implement this function.
-  }
-
-  /**
-   * @param {!BluetoothPairingSubpageId} subpageId
-   * @return {boolean}
-   * @private
-   */
-  shouldShowSubpage_(subpageId) {
-    return this.selectedPageId_ === subpageId;
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onCancelClick_(event) {
-    event.stopPropagation();
-    this.devicePendingPairing_ = null;
-    if (this.pairingDelegateReceiver_) {
-      this.pairingDelegateReceiver_.$.close();
-      this.finishPendingCallbacksForTest_();
-      return;
-    }
-
-    // If there is no receiver, this means pairing was not initiated and we
-    // we are currently in DEVICE_SELECTION_PAGE or something went wrong and
-    // |pairingDelegateReceiver_| was not instantiated. (b/218368694)
-    this.closeDialog_();
-  }
-
-  /** @private */
-  closeDialog_() {
-    this.dispatchEvent(new CustomEvent('finished', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /** @private */
-  onSelectedPageIdChanged_() {
-    // If the current page changes to the device selection page, focus the item
-    // corresponding to the last device attempted to be paired with.
-    if (this.selectedPageId_ !==
-        BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE) {
-      return;
-    }
-
-    const deviceSelectionPage =
-        this.shadowRoot.querySelector('#deviceSelectionPage');
-    if (!deviceSelectionPage) {
-      return;
-    }
-
-    deviceSelectionPage.attemptFocusLastSelectedItem();
-  }
-
-  /** @private */
-  finishPendingCallbacksForTest_() {
-    if (this.requestCodeCallback_) {
-      // |requestCodeCallback_| promise is held by FakeDevicePairingHandler
-      // in test. This does not get resolved for the test case where user
-      // cancels request while in request code page. Calling reject is
-      // necessary here to make sure the promise is resolved.
-      this.requestCodeCallback_.reject();
-    }
-
-    if (this.confirmCodeCallback_) {
-      // |confirmCodeCallback_| promise is held by FakeDevicePairingHandler
-      // in test. This does not get resolved for the test case where user
-      // cancels request while in request code page. Calling reject is
-      // necessary here to make sure the promise is resolved.
-      this.confirmCodeCallback_.reject();
-    }
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getDeviceName_() {
-    if (!this.devicePendingPairing_) {
-      return '';
-    }
-    return mojoString16ToString(this.devicePendingPairing_.publicName);
-  }
 }
-
-customElements.define(
-    SettingsBluetoothPairingUiElement.is, SettingsBluetoothPairingUiElement);
+var BluetoothPairingSubpageId;
+(function (BluetoothPairingSubpageId) {
+    BluetoothPairingSubpageId["DEVICE_SELECTION_PAGE"] = "deviceSelectionPage";
+    BluetoothPairingSubpageId["DEVICE_ENTER_CODE_PAGE"] = "deviceEnterCodePage";
+    BluetoothPairingSubpageId["DEVICE_REQUEST_CODE_PAGE"] = "deviceRequestCodePage";
+    BluetoothPairingSubpageId["DEVICE_CONFIRM_CODE_PAGE"] = "deviceConfirmCodePage";
+    BluetoothPairingSubpageId["SPINNER_PAGE"] = "spinnerPage";
+})(BluetoothPairingSubpageId || (BluetoothPairingSubpageId = {}));
+class SettingsBluetoothPairingUiElement extends PolymerElement {
+    static get is() {
+        return 'bluetooth-pairing-ui';
+    }
+    static get template() {
+        return getTemplate$u();
+    }
+    static get properties() {
+        return {
+            /**
+             * The address, when set, of the specific device that will be attempted to
+             * be paired with by the pairing dialog. If null, no specific device will
+             * be paired with and the user will be allowed to select a device to pair
+             * with. This is set when the dialog is opened if the purpose of the
+             * dialog is to pair with a specific device.
+             */
+            pairingDeviceAddress: {
+                type: String,
+                value: null,
+            },
+            /**
+             * Flag indicating whether links should be displayed or not. In some
+             * cases, such as the user being in OOBE or the login screen, links will
+             * not work and should not be displayed.
+             */
+            shouldOmitLinks: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Id of the currently selected Bluetooth pairing subpage.
+             */
+            selectedPageId_: {
+                type: String,
+                value: BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE,
+                observer: 'onSelectedPageIdChanged_',
+            },
+            discoveredDevices_: {
+                type: Array,
+                value: [],
+            },
+            /**
+             * This can be null if no pairing attempt was started or a pairing attempt
+             * was cancelled by user.
+             */
+            devicePendingPairing_: {
+                type: Object,
+                value: null,
+            },
+            pairingAuthType_: {
+                type: Object,
+                value: null,
+            },
+            pairingCode_: {
+                type: String,
+                value: '',
+            },
+            numKeysEntered_: {
+                type: Number,
+                value: 0,
+            },
+            /**
+             * Id of a device who's pairing attempt failed.
+             */
+            lastFailedPairingDeviceId_: {
+                type: String,
+                value: '',
+            },
+            isBluetoothEnabled_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Used to access |BluetoothPairingSubpageId| type in HTML.
+             */
+            SubpageId: {
+                type: Object,
+                value: BluetoothPairingSubpageId,
+            },
+        };
+    }
+    constructor() {
+        super();
+        /**
+         * The Mojo receiver of the current ongoing pairing. If null indicates no
+         * pairing is occurring.
+         */
+        this.pairingDelegateReceiver_ = null;
+        this.requestCodeCallback_ = null;
+        this.keyEnteredReceiver_ = null;
+        this.confirmCodeCallback_ = null;
+        this.onBluetoothDiscoveryStartedCallbackForTest_ = null;
+        this.handlePairDeviceResultCallbackForTest_ = null;
+        this.systemPropertiesObserverReceiver_ =
+            new SystemPropertiesObserverReceiver(this);
+        this.bluetoothDiscoveryDelegateReceiver_ =
+            new BluetoothDiscoveryDelegateReceiver(this);
+    }
+    ready() {
+        super.ready();
+        // If there's a specific device to pair with, immediately go to the spinner
+        // page.
+        if (this.pairingDeviceAddress) {
+            this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
+        }
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        getBluetoothConfig().observeSystemProperties(this.systemPropertiesObserverReceiver_.$.bindNewPipeAndPassRemote());
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this.systemPropertiesObserverReceiver_) {
+            this.systemPropertiesObserverReceiver_.$.close();
+        }
+        if (this.bluetoothDiscoveryDelegateReceiver_) {
+            this.bluetoothDiscoveryDelegateReceiver_.$.close();
+        }
+        if (this.pairingDelegateReceiver_) {
+            this.pairingDelegateReceiver_.$.close();
+        }
+        if (this.keyEnteredReceiver_) {
+            this.keyEnteredReceiver_.close();
+        }
+    }
+    onPropertiesUpdated(properties) {
+        const wasBluetoothEnabled = this.isBluetoothEnabled_;
+        this.isBluetoothEnabled_ =
+            properties.systemState === BluetoothSystemState.kEnabled;
+        if (!wasBluetoothEnabled && this.isBluetoothEnabled_) {
+            // If Bluetooth enables after being disabled, initialize the UI state.
+            this.lastFailedPairingDeviceId_ = '';
+            // Start discovery.
+            getBluetoothConfig().startDiscovery(this.bluetoothDiscoveryDelegateReceiver_.$
+                .bindNewPipeAndPassRemote());
+        }
+    }
+    onDiscoveredDevicesListChanged(discoveredDevices) {
+        this.discoveredDevices_ = discoveredDevices;
+        this.updateLastFailedPairingDeviceId_(discoveredDevices);
+        // Check if this dialog needs to pair to a specific device.
+        if (!this.pairingDeviceAddress) {
+            return;
+        }
+        // Check if a pairing is already occurring.
+        if (this.pairingDelegateReceiver_) {
+            return;
+        }
+        // If |this.pairingDeviceAddress| exists and no ongoing pairing is
+        // occurring, search for the device with address |this.pairingDeviceAddress|
+        // and attempt to pair with it.
+        this.attemptPairDeviceByAddress_();
+    }
+    updateLastFailedPairingDeviceId_(devices) {
+        if (devices.some(device => device.id === this.lastFailedPairingDeviceId_)) {
+            return;
+        }
+        this.lastFailedPairingDeviceId_ = '';
+    }
+    onBluetoothDiscoveryStarted(handler) {
+        this.devicePairingHandler_ = handler;
+        // Inform tests that onBluetoothDiscoveryStarted() has been called. This is
+        // to ensure tests don't progress until |devicePairingHandler_| has been
+        // set.
+        if (this.onBluetoothDiscoveryStartedCallbackForTest_) {
+            this.onBluetoothDiscoveryStartedCallbackForTest_();
+        }
+    }
+    onBluetoothDiscoveryStopped() {
+        // Discovery will stop if Bluetooth disables. Reset the UI back to the
+        // selection page.
+        this.bluetoothDiscoveryDelegateReceiver_.$.close();
+        this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE;
+        this.devicePairingHandler_ = null;
+    }
+    /**
+     * Returns a promise that will be resolved the next time
+     * onBluetoothDiscoveryStarted() is called.
+     */
+    waitForOnBluetoothDiscoveryStartedForTest() {
+        return new Promise((resolve) => {
+            this.onBluetoothDiscoveryStartedCallbackForTest_ = resolve;
+        });
+    }
+    /**
+     * Returns a promise that will be resolved the next time
+     * handlePairDeviceResult_() is called.
+     */
+    waitForHandlePairDeviceResultForTest() {
+        return new Promise((resolve) => {
+            this.handlePairDeviceResultCallbackForTest_ = resolve;
+        });
+    }
+    onPairDevice_(event) {
+        if (!event.detail.device) {
+            return;
+        }
+        // If a pairing operation is currently underway, close it and queue
+        // the current device to be paired after pairDevice_() promise is
+        // returned.
+        if (this.pairingDelegateReceiver_) {
+            this.queuedDevicePendingPairing_ = event.detail.device;
+            this.pairingDelegateReceiver_.$.close();
+            return;
+        }
+        this.pairDevice_(event.detail.device);
+    }
+    /**
+     * Searches for the device with address |this.pairingDeviceAddress| in
+     * |this.discoveredDevices| and attempts to pair with it.
+     */
+    attemptPairDeviceByAddress_() {
+        assert(this.pairingDeviceAddress);
+        assert(!this.pairingDelegateReceiver_);
+        if (!this.devicePairingHandler_) {
+            console.error('Attempted pairing with no device pairing handler.');
+            return;
+        }
+        this.devicePairingHandler_.fetchDevice(this.pairingDeviceAddress)
+            .then(result => {
+            if (!result.device) {
+                console.warn('Attempted pairing with a device that was not found, address: ' +
+                    this.pairingDeviceAddress);
+                return;
+            }
+            this.pairDevice_(result.device);
+        });
+    }
+    pairDevice_(device) {
+        assert(this.devicePairingHandler_, 'devicePairingHandler_ has not been set.');
+        this.pairingDelegateReceiver_ = new DevicePairingDelegateReceiver(this);
+        this.devicePendingPairing_ = device;
+        assert(this.devicePendingPairing_);
+        this.lastFailedPairingDeviceId_ = '';
+        this.devicePairingHandler_
+            .pairDevice(this.devicePendingPairing_.id, this.pairingDelegateReceiver_.$.bindNewPipeAndPassRemote())
+            .then(result => {
+            this.handlePairDeviceResult_(result.result);
+        })
+            .catch(() => {
+            // Pairing failed due to external issues, such as Mojo pipe
+            // disconnecting from Bluetooth disabling.
+            this.handlePairDeviceResult_(PairingResult.kNonAuthFailure);
+        });
+    }
+    handlePairDeviceResult_(result) {
+        if (this.pairingDelegateReceiver_) {
+            this.pairingDelegateReceiver_.$.close();
+        }
+        this.pairingAuthType_ = null;
+        if (this.keyEnteredReceiver_) {
+            this.keyEnteredReceiver_.close();
+            this.keyEnteredReceiver_ = null;
+        }
+        this.pairingDelegateReceiver_ = null;
+        if (result === PairingResult.kSuccess) {
+            this.closeDialog_();
+            return;
+        }
+        // If |pairingDeviceAddress| is defined, this was a device-specific pairing
+        // request that has failed. Clear |pairingDeviceAddress| so that we don't
+        // automatically attempt to re-pair with the same device again.
+        this.pairingDeviceAddress = null;
+        this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE;
+        if (this.devicePendingPairing_) {
+            this.lastFailedPairingDeviceId_ = this.devicePendingPairing_.id;
+        }
+        this.devicePendingPairing_ = null;
+        if (this.queuedDevicePendingPairing_ && this.devicePairingHandler_) {
+            this.pairDevice_(this.queuedDevicePendingPairing_);
+        }
+        this.queuedDevicePendingPairing_ = null;
+        // Inform tests that handlePairDeviceResult_() has been called. This is
+        // to ensure tests don't progress until the correct state has been
+        // set.
+        if (this.handlePairDeviceResultCallbackForTest_) {
+            this.handlePairDeviceResultCallbackForTest_();
+        }
+    }
+    requestPinCode() {
+        return this.requestCode_(PairingAuthType.REQUEST_PIN_CODE);
+    }
+    requestPasskey() {
+        return this.requestCode_(PairingAuthType.REQUEST_PASSKEY);
+    }
+    requestCode_(authType) {
+        this.pairingAuthType_ = authType;
+        this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_REQUEST_CODE_PAGE;
+        this.requestCodeCallback_ = {
+            reject: null,
+            resolve: null,
+        };
+        const promise = new Promise((resolve, reject) => {
+            this.requestCodeCallback_.resolve = (code) => {
+                if (authType === PairingAuthType.REQUEST_PIN_CODE) {
+                    resolve({ 'pinCode': code });
+                    return;
+                }
+                if (authType === PairingAuthType.REQUEST_PASSKEY) {
+                    resolve({ 'passkey': code });
+                    return;
+                }
+                assertNotReached();
+            };
+            this.requestCodeCallback_.reject = reject;
+        });
+        return promise;
+    }
+    onRequestCodeEntered_(event) {
+        this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
+        event.stopPropagation();
+        assert(this.pairingAuthType_);
+        assert(this.requestCodeCallback_ && this.requestCodeCallback_.resolve);
+        this.requestCodeCallback_.resolve(event.detail.code);
+    }
+    displayPinCode(pinCode, handler) {
+        this.displayCode_(handler, pinCode);
+    }
+    displayPasskey(passkey, handler) {
+        this.displayCode_(handler, passkey);
+    }
+    displayCode_(handler, code) {
+        this.pairingCode_ = code;
+        this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_ENTER_CODE_PAGE;
+        this.keyEnteredReceiver_ = new KeyEnteredHandler(this, handler);
+    }
+    handleKeyEntered(numKeysEntered) {
+        this.numKeysEntered_ = numKeysEntered;
+    }
+    confirmPasskey(passkey) {
+        this.pairingAuthType_ = PairingAuthType.CONFIRM_PASSKEY;
+        this.selectedPageId_ = BluetoothPairingSubpageId.DEVICE_CONFIRM_CODE_PAGE;
+        this.pairingCode_ = passkey;
+        this.confirmCodeCallback_ = {
+            resolve: null,
+            reject: null,
+        };
+        return new Promise((resolve, reject) => {
+            this.confirmCodeCallback_.resolve = () => {
+                resolve({ 'confirmed': true });
+            };
+            this.confirmCodeCallback_.reject = reject;
+        });
+    }
+    onConfirmCode_(event) {
+        this.selectedPageId_ = BluetoothPairingSubpageId.SPINNER_PAGE;
+        event.stopPropagation();
+        assert(this.pairingAuthType_);
+        assert(this.confirmCodeCallback_ && this.confirmCodeCallback_.resolve);
+        this.confirmCodeCallback_.resolve();
+    }
+    authorizePairing() {
+        // TODO(crbug.com/1010321): Implement this function.
+        return new Promise(() => { });
+    }
+    shouldShowSubpage_(subpageId) {
+        return this.selectedPageId_ === subpageId;
+    }
+    onCancelClick_(event) {
+        event.stopPropagation();
+        this.devicePendingPairing_ = null;
+        if (this.pairingDelegateReceiver_) {
+            this.pairingDelegateReceiver_.$.close();
+            this.finishPendingCallbacksForTest_();
+            this.pairingDelegateReceiver_ = null;
+            return;
+        }
+        // If there is no receiver, this means pairing was not initiated and we
+        // we are currently in DEVICE_SELECTION_PAGE or something went wrong and
+        // |pairingDelegateReceiver_| was not instantiated. (b/218368694)
+        this.closeDialog_();
+    }
+    closeDialog_() {
+        this.dispatchEvent(new CustomEvent('finished', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onSelectedPageIdChanged_() {
+        // If the current page changes to the device selection page, focus the item
+        // corresponding to the last device attempted to be paired with.
+        if (this.selectedPageId_ !==
+            BluetoothPairingSubpageId.DEVICE_SELECTION_PAGE) {
+            return;
+        }
+        const deviceSelectionPage = this.shadowRoot.querySelector('#deviceSelectionPage');
+        if (!deviceSelectionPage) {
+            return;
+        }
+        deviceSelectionPage.attemptFocusLastSelectedItem();
+    }
+    finishPendingCallbacksForTest_() {
+        if (this.requestCodeCallback_ && this.requestCodeCallback_.reject) {
+            // |requestCodeCallback_| promise is held by FakeDevicePairingHandler
+            // in test. This does not get resolved for the test case where user
+            // cancels request while in request code page. Calling reject is
+            // necessary here to make sure the promise is resolved.
+            this.requestCodeCallback_.reject();
+        }
+        // |confirmCodeCallback_| promise is held by FakeDevicePairingHandler
+        // in test. This does not get resolved for the test case where user
+        // cancels request while in request code page. Calling reject is
+        // necessary here to make sure the promise is resolved.
+        if (this.confirmCodeCallback_ && this.confirmCodeCallback_.reject) {
+            this.confirmCodeCallback_.reject();
+        }
+    }
+    getDeviceName_() {
+        if (!this.devicePendingPairing_) {
+            return '';
+        }
+        return mojoString16ToString(this.devicePendingPairing_.publicName);
+    }
+}
+customElements.define(SettingsBluetoothPairingUiElement.is, SettingsBluetoothPairingUiElement);
 
 function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog{--cr-dialog-top-container-min-height:0}div[slot=body]{height:426px}</style>
@@ -25407,7 +24414,7 @@ class SettingsParentalControlsPageElement extends SettingsParentalControlsPageEl
 customElements.define(SettingsParentalControlsPageElement.is, SettingsParentalControlsPageElement);
 
 function getTemplate$q() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row{--cr-section-padding:0}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #parentalControlRowIcon{--iron-icon-fill-color:var(--cros-sys-primary)}cr-link-row{--cr-section-padding:0}</style>
 
 <settings-card header-text="$i18n{parentalControlsPageTitle}">
   <div id="parentalControlsItem" class="settings-box two-line">
@@ -25416,7 +24423,8 @@ function getTemplate$q() {
       </cr-link-row>
     </template>
     <template is="dom-if" if="[[!isChild_]]">
-      <iron-icon class="start-icon" icon="cr20:kite"></iron-icon>
+      <iron-icon id="parentalControlRowIcon" class="start-icon" icon="cr20:kite">
+      </iron-icon>
       <div class="middle settings-box-text">
         <div id="label" aria-hidden="true">
           $i18n{parentalControlsPageTitle}
@@ -25425,7 +24433,7 @@ function getTemplate$q() {
           [[getSetupLabelText_(online_)]]
         </div>
       </div>
-      <cr-button id="setupButton" on-click="handleSetupButtonClick_" disabled$="[[!online_]]" aria-labelledby="label" aria-describedby="subLabel" aria-roledescription="$i18n{parentalControlsSetUpButtonRole}">
+      <cr-button id="setupButton" on-click="handleSetupButtonClick_" disabled$="[[!online_]]" aria-labelledby="label" aria-describedby="subLabel" aria-roledescription="$i18n{parentalControlsSetUpButtonRole}" deep-link-focus-id$="[[Setting.kSetUpParentalControls]]">
         $i18n{parentalControlsSetUpButtonLabel}
       </cr-button>
     </template>
@@ -25442,7 +24450,7 @@ function getTemplate$q() {
  * 'parental-controls-settings-card' is the card element for managing Parental
  * Controls features
  */
-const ParentalControlsSettingsCardElementBase = I18nMixin(PolymerElement);
+const ParentalControlsSettingsCardElementBase = DeepLinkingMixin(RouteObserverMixin(I18nMixin(PolymerElement)));
 class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardElementBase {
     static get is() {
         return 'parental-controls-settings-card';
@@ -25452,6 +24460,13 @@ class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardEl
     }
     static get properties() {
         return {
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kSetUpParentalControls]),
+            },
             isChild_: {
                 type: Boolean,
                 value() {
@@ -25476,6 +24491,13 @@ class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardEl
         // Set up online/offline listeners.
         window.addEventListener('offline', this.onOffline_.bind(this));
         window.addEventListener('online', this.onOnline_.bind(this));
+    }
+    currentRouteChanged(newRoute, _oldRoute) {
+        // Does not apply to this page.
+        if (newRoute !== routes.OS_PEOPLE) {
+            return;
+        }
+        this.attemptDeepLink();
     }
     /**
      * Returns the setup parental controls CrButtonElement.
@@ -25518,7 +24540,7 @@ customElements.define(ParentalControlsSettingsCardElement.is, ParentalControlsSe
 
 function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="settings-shared">.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px;padding-top:8px;padding-bottom:8px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:8px}.device-account-container{align-items:center;display:flex;flex-direction:column;margin-bottom:16px}.device-account-container .primary{font-weight:500;margin-top:8px}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
-                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}</style>
+                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}:host-context(body.revamp-wayfinding-enabled) #managedUserIcon{--iron-icon-fill-color:var(--cros-sys-secondary)}</style>
 
 <settings-card header-text="$i18n{accountManagerPageTitle}">
   <div class="settings-box first account-manager-description full-width">
@@ -25530,20 +24552,20 @@ function getTemplate$p() {
    <template is="dom-if" if="[[isDeviceAccountManaged_]]">
     <div class="settings-box managed-message">
       <template is="dom-if" if="[[!isChildUser_]]">
-        <iron-icon icon="cr20:domain"></iron-icon>
+        <iron-icon id="managedUserIcon" icon="[[managedByIcon_]]"></iron-icon>
       </template>
       <template is="dom-if" if="[[isChildUser_]]">
         <cr-icon-button iron-icon="cr20:kite" on-click="onManagedIconClick_">
         </cr-icon-button>
       </template>
-      <localized-link localized-string="[[getManagementDescription_(isChildUser_, deviceAccount_)]]" link-url="$i18nRaw{accountManagerChromeUIManagementURL}">
+      <localized-link localized-string="[[getManagementDescription_(isChildUser_, deviceAccount)]]" link-url="$i18nRaw{accountManagerChromeUIManagementURL}">
       </localized-link>
     </div>
   </template>
 
   
   <div class="device-account-container hr" aria-labelledby="deviceAccountFullName" aria-describedby="deviceAccountEmail">
-    <div class="profile-icon device-account-icon" aria-hidden="true" style="background-image:[[getIconImageSet_(deviceAccount_.pic) ]]">
+    <div class="profile-icon device-account-icon" aria-hidden="true" style="background-image:[[getIconImageSet_(deviceAccount) ]]">
       <template is="dom-if" if="[[shouldShowManagedBadge_(isDeviceAccountManaged_,
                 isChildUser_)]]">
         <div class="managed-badge">
@@ -25552,10 +24574,10 @@ function getTemplate$p() {
       </template>
     </div>
     <span id="deviceAccountFullName" class="primary" aria-hidden="true">
-      [[deviceAccount_.fullName]]
+      [[deviceAccount.fullName]]
     </span>
     <span id="deviceAccountEmail" class="secondary" aria-hidden="true">
-      [[deviceAccount_.email]]
+      [[deviceAccount.email]]
     </span>
   </div>
 </settings-card>
@@ -25583,7 +24605,7 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
             /**
              * Primary / Device account.
              */
-            deviceAccount_: Object,
+            deviceAccount: Object,
             isChildUser_: {
                 type: Boolean,
                 value() {
@@ -25608,29 +24630,17 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
                 },
                 readOnly: true,
             },
+            /**
+             * The name of the icon to display in the management row.
+             * Should only be read if isDeviceAccountManaged_ is true.
+             */
+            managedByIcon_: {
+                type: String,
+                value() {
+                    return loadTimeData.getString('managedByIcon');
+                },
+            },
         };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = AccountManagerBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.addWebUiListener('accounts-changed', this.refreshAccounts_.bind(this));
-    }
-    ready() {
-        super.ready();
-        this.refreshAccounts_();
-    }
-    async refreshAccounts_() {
-        const accounts = await this.browserProxy_.getAccounts();
-        this.set('accounts_', accounts);
-        const deviceAccount = accounts.find(account => account.isDeviceAccount);
-        if (!deviceAccount) {
-            console.error('Cannot find device account.');
-            return;
-        }
-        this.deviceAccount_ = deviceAccount;
     }
     onManagedIconClick_() {
         if (this.isChildUser_) {
@@ -25647,11 +24657,11 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
         if (this.isChildUser_) {
             return this.i18nAdvanced('accountManagerManagementDescription');
         }
-        if (!this.deviceAccount_) {
+        if (!this.deviceAccount) {
             return '';
         }
-        assertExists(this.deviceAccount_.organization);
-        if (!this.deviceAccount_.organization) {
+        assertExists(this.deviceAccount.organization);
+        if (!this.deviceAccount.organization) {
             if (this.isDeviceAccountManaged_) {
                 console.error('The device account is managed, but the organization is not set.');
             }
@@ -25662,7 +24672,7 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
         // Where href will be set by <localized-link>.
         return this.i18nAdvanced('accountManagerManagementDescription', {
             substitutions: [
-                this.deviceAccount_.organization,
+                this.deviceAccount.organization,
             ],
         });
     }
@@ -25676,23 +24686,26 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
     /**
      * @return a CSS image-set for multiple scale factors.
      */
-    getIconImageSet_(iconUrl) {
-        return getImage(iconUrl);
+    getIconImageSet_() {
+        if (!this.deviceAccount) {
+            return '';
+        }
+        return getImage(this.deviceAccount.pic);
     }
 }
 customElements.define(AccountManagerSettingsCardElement.is, AccountManagerSettingsCardElement);
 
 function getTemplate$o() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}#addAccountButtonContainer{padding-top:8px;padding-bottom:8px}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#addAccountButton{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;margin-inline-end:.5em;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:rgba(var(--cros-color-alert-rgb), .9);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}:host-context(body.jelly-enabled) #removeConfirmationButton{--hover-bg-action:var(--cros-sys-hover_on_prominent)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.settings-box-text{padding-inline-start:var(--cr-section-padding)}#addAccountButtonContainer{padding-top:8px;padding-bottom:8px}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#addAccountButton{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:rgba(var(--cros-color-alert-rgb), .9);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}:host-context(body.jelly-enabled) #removeConfirmationButton{--hover-bg-action:var(--cros-sys-hover_on_prominent)}</style>
 
 <settings-card header-text="[[getAccountListHeader_(isChildUser_)]]">
   
-  <div class="settings-box first secondary">
+  <div class="settings-box-text first secondary">
     [[getAccountListDescription_(isChildUser_)]]
   </div>
 
   
-  <template is="dom-repeat" id="accountList" items="[[getSecondaryAccounts_(accounts_)]]">
+  <template is="dom-repeat" id="accountList" items="[[getSecondaryAccounts_(accounts)]]">
     <div class="settings-box" role="listitem">
       <div class="profile-icon" style="background-image:[[getIconImageSet_(item.pic) ]]">
         <template is="dom-if" if="[[!item.isSignedIn]]">
@@ -25753,7 +24766,7 @@ function getTemplate$o() {
       </cr-tooltip-icon>
     </template>
     <cr-button disabled="[[!isSecondaryGoogleAccountSigninAllowed_]]" id="addAccountButton" on-click="addAccount_" deep-link-focus-id$="[[Setting.kAddAccount]]">
-      <div id="addAccountIcon"></div>
+      <div id="addAccountIcon" slot="prefix-icon"></div>
       [[getAddAccountLabel_(isChildUser_,
           isSecondaryGoogleAccountSigninAllowed_)]]
     </cr-button>
@@ -25797,16 +24810,12 @@ class AdditionalAccountsSettingsCardElement extends AdditionalAccountsSettingsCa
     }
     static get properties() {
         return {
-            accounts_: {
+            accounts: {
                 type: Array,
                 value() {
                     return [];
                 },
             },
-            /**
-             * Primary / Device account.
-             */
-            deviceAccount_: Object,
             /**
              * The targeted account for menu operations.
              */
@@ -25863,29 +24872,11 @@ class AdditionalAccountsSettingsCardElement extends AdditionalAccountsSettingsCa
         super();
         this.browserProxy_ = AccountManagerBrowserProxyImpl.getInstance();
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.addWebUiListener('accounts-changed', this.refreshAccounts_.bind(this));
-    }
-    ready() {
-        super.ready();
-        this.refreshAccounts_();
-    }
     currentRouteChanged(newRoute) {
         if (newRoute !== routes.OS_PEOPLE) {
             return;
         }
         this.attemptDeepLink();
-    }
-    async refreshAccounts_() {
-        const accounts = await this.browserProxy_.getAccounts();
-        this.set('accounts_', accounts);
-        const deviceAccount = accounts.find(account => account.isDeviceAccount);
-        if (!deviceAccount) {
-            console.error('Cannot find device account.');
-            return;
-        }
-        this.deviceAccount_ = deviceAccount;
     }
     /**
      * @return accounts list header (e.g. 'Secondary accounts' for
@@ -25911,7 +24902,7 @@ class AdditionalAccountsSettingsCardElement extends AdditionalAccountsSettingsCa
         return getImage(iconUrl);
     }
     addAccount_() {
-        recordSettingChange(Setting.kAddAccount, { intValue: this.accounts_.length + 1 });
+        recordSettingChange(Setting.kAddAccount, { intValue: this.accounts.length + 1 });
         this.browserProxy_.addAccount();
     }
     shouldShowReauthenticationButton_(account) {
@@ -25947,11 +24938,10 @@ class AdditionalAccountsSettingsCardElement extends AdditionalAccountsSettingsCa
         return this.i18n('accountManagerMoreActionsTooltip', account.email);
     }
     shouldShowSecondaryAccountsList_() {
-        return this.accounts_.filter(account => !account.isDeviceAccount).length ===
-            0;
+        return this.getSecondaryAccounts_().length === 0;
     }
     getSecondaryAccounts_() {
-        return this.accounts_.filter(account => !account.isDeviceAccount);
+        return this.accounts.filter(account => !account.isDeviceAccount);
     }
     getAddAccountLabel_() {
         if (this.isChildUser_ && this.isSecondaryGoogleAccountSigninAllowed_) {
@@ -26567,12 +25557,11 @@ function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--icon-width:40px}.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#syncSetupRow{--cr-secondary-text-color:var(--cros-text-color-alert)}:host-context(body.jelly-enabled) #syncSetupRow{--cr-secondary-text-color:var(--cros-sys-error)}cr-link-row{--cr-link-row-icon-width:var(--icon-width);border-top:var(--cr-separator-line)}settings-parental-controls-page{--cr-link-row-icon-width:var(--icon-width)}parental-controls-settings-card{--cr-link-row-icon-width:var(--icon-width)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
-  
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
     <div route-path="default">
-      <account-manager-settings-card prefs="{{prefs}}">
+      <account-manager-settings-card prefs="{{prefs}}" device-account="[[deviceAccount_]]">
       </account-manager-settings-card>
-      <additional-accounts-settings-card prefs="{{prefs}}">
+      <additional-accounts-settings-card prefs="{{prefs}}" accounts="[[accounts_]]">
       </additional-accounts-settings-card>
       <template is="dom-if" if="[[showParentalControls_]]">
         <parental-controls-settings-card prefs="{{prefs}}">
@@ -26665,6 +25654,18 @@ class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase {
              * The current sync status, supplied by SyncBrowserProxy.
              */
             syncStatus: Object,
+            accounts_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            deviceAccount_: {
+                type: Object,
+                value() {
+                    return null;
+                },
+            },
             authTokenInfo_: {
                 type: Object,
                 observer: 'onAuthTokenChanged_',
@@ -26796,6 +25797,8 @@ class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase {
             this.showDeepLinkElement(deepLinkElement);
         });
     }
+    // TODO(b/302374851) The manual deep linking below can be removed once the
+    // Revamp feature is fully launched.
     beforeDeepLinkAttempt(settingId) {
         switch (settingId) {
             // Manually show the deep links for settings nested within elements.
@@ -26877,22 +25880,23 @@ class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase {
      */
     async updateAccounts_() {
         const accounts = await AccountManagerBrowserProxyImpl.getInstance().getAccounts();
+        this.accounts_ = accounts;
         // The user might not have any GAIA accounts (e.g. guest mode or Active
         // Directory). In these cases the profile row is hidden, so there's nothing
         // to do.
         if (accounts.length === 0) {
             return;
         }
-        this.profileName_ = accounts[0].fullName;
-        this.profileEmail_ = accounts[0].email;
-        this.profileIconUrl_ = accounts[0].pic;
-        await this.setProfileLabel(accounts);
-    }
-    async setProfileLabel(accounts) {
+        // First account is always the device account.
+        assert(accounts[0].isDeviceAccount, 'The device account should always be first.');
+        this.deviceAccount_ = accounts[0];
+        this.profileName_ = this.deviceAccount_.fullName;
+        this.profileEmail_ = this.deviceAccount_.email;
+        this.profileIconUrl_ = this.deviceAccount_.pic;
         // Template: "$1 Google accounts" with correct plural of "account".
-        const labelTemplate = await sendWithPromise('getPluralString', 'profileLabel', accounts.length);
+        const labelTemplate = await sendWithPromise('getPluralString', 'profileLabel', this.accounts_.length);
         // Final output: "X Google accounts"
-        this.profileLabel_ = loadTimeData.substituteString(labelTemplate, accounts[0].email, accounts.length);
+        this.profileLabel_ = loadTimeData.substituteString(labelTemplate, this.profileEmail_, this.accounts_.length);
     }
     /**
      * Handler for when the sync state is pushed from the browser.
@@ -27016,31 +26020,32 @@ class SettingsPeripheralDataAccessProtectionDialogElement extends SettingsPeriph
 customElements.define(SettingsPeripheralDataAccessProtectionDialogElement.is, SettingsPeripheralDataAccessProtectionDialogElement);
 
 function getTemplate$l() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host([is-user-configurable_]) .peripheral-data-access-protection{--cr-disabled-opacity:1;cursor:pointer;opacity:1}#dataAccessProtectionWrapper:focus{outline:0}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host([is-user-configurable_]) .peripheral-data-access-protection{--cr-disabled-opacity:1;cursor:pointer;opacity:1}#dataAccessProtectionWrapper:focus{outline:0}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{privacyPageTitle}">
       <template is="dom-if" if="[[showPrivacyHubPage_]]" restamp>
         <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-          <cr-link-row id="privacyHubSubpageTrigger" on-click="onPrivacyHubClick_" label="$i18n{privacyHubTitle}" sub-label="$i18n{privacyHubSubtext}" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="privacyHubSubpageTrigger" start-icon="[[rowIcons_.privacyHub]]" on-click="onPrivacyHubClick_" label="$i18n{privacyHubTitle}" sub-label="$i18n{privacyHubSubtext}" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
       </template>
       <template is="dom-if" if="[[!isGuestMode_]]" restamp>
         <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-          <cr-link-row id="syncSetupRow" start-icon="cr:sync" label="$i18n{syncAndNonPersonalizedServices}" sub-label="[[getSyncAndGoogleServicesSubtext_(syncStatus)]]" on-click="onSyncClick_" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="syncSetupRow" start-icon="[[rowIcons_.sync]]" label="$i18n{syncAndNonPersonalizedServices}" sub-label="[[getSyncAndGoogleServicesSubtext_(syncStatus)]]" on-click="onSyncClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
-        <cr-link-row id="lockScreenRow" on-click="onConfigureLockClick_" label="[[selectLockScreenTitleString_(hasPinLogin)]]" sub-label="[[getPasswordState_(hasPin,
+        <cr-link-row id="lockScreenRow" start-icon="[[rowIcons_.lockScreen]]" on-click="onConfigureLockClick_" label="[[selectLockScreenTitleString_(hasPinLogin)]]" sub-label="[[getPasswordState_(hasPin,
                 prefs.settings.enable_screen_lock.value)]]" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
-        <cr-link-row id="manageOtherPeopleRow" class="hr" label="$i18n{manageOtherPeople}" on-click="onManageOtherPeople_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="manageOtherPeopleRow" class="hr" start-icon="[[rowIcons_.manageOtherPeople]]" label="$i18n{manageOtherPeople}" on-click="onManageOtherPeople_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
         <div class="hr"></div>
         <template is="dom-if" if="[[isSmartPrivacyEnabled_]]" restamp>
-          <cr-link-row id="smartPrivacySubpageTrigger" on-click="onSmartPrivacy_" label="$i18n{smartPrivacyTitle}" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="smartPrivacySubpageTrigger" start-icon="[[rowIcons_.smartPrivacy]]" on-click="onSmartPrivacy_" label="$i18n{smartPrivacyTitle}" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
           <div class="hr"></div>
         </template>
@@ -27048,11 +26053,11 @@ function getTemplate$l() {
 
 
       <template is="dom-if" if="[[!showPrivacyHubPage_]]" restamp>
-        <settings-toggle-button id="contentRecommendationsToggle" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
+        <settings-toggle-button id="contentRecommendationsToggle" icon="[[rowIcons_.suggestedContent]]" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
         </settings-toggle-button>
         <div class="hr"></div>
       </template>
-      <settings-toggle-button id="verifiedAccessToggle" pref="{{
+      <settings-toggle-button id="verifiedAccessToggle" icon="[[rowIcons_.verifiedAccess]]" pref="{{
             prefs.cros.device.attestation_for_content_protection_enabled}}" label="$i18n{enableContentProtectionAttestation}" on-settings-boolean-control-change="onVerifiedAccessChange_" deep-link-focus-id$="[[Setting.kVerifiedAccess]]">
       </settings-toggle-button>
       <template is="dom-if" if="[[showPrivacyHubPage_]]" restamp>
@@ -27065,10 +26070,10 @@ function getTemplate$l() {
         <div class="hr"></div>
         
         <div id="dataAccessProtectionWrapper" tabindex="0" on-focus="onDataAccessToggleFocus_" on-keypress="onDataAccessToggleKeyPress_">
-          <settings-toggle-button id="crosSettingDataAccessToggle" class="peripheral-data-access-protection" pref="{{prefs.cros.device.peripheral_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isLocalStateDataAccessPref_(
+          <settings-toggle-button id="crosSettingDataAccessToggle" class="peripheral-data-access-protection" icon="[[rowIcons_.dataAccessProtection]]" pref="{{prefs.cros.device.peripheral_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isLocalStateDataAccessPref_(
                   dataAccessProtectionPrefName_)]]" disabled="disabled" inverted>
           </settings-toggle-button>
-          <settings-toggle-button id="localStateDataAccessToggle" class="peripheral-data-access-protection" pref="{{prefs.settings.local_state_device_pci_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isCrosSettingDataAccessPref_(
+          <settings-toggle-button id="localStateDataAccessToggle" class="peripheral-data-access-protection" icon="[[rowIcons_.dataAccessProtection]]" pref="{{prefs.settings.local_state_device_pci_data_access_enabled}}" label="$i18n{peripheralDataAccessProtectionToggleTitle}" sub-label="$i18n{peripheralDataAccessProtectionToggleDescription}" deep-link-focus-id$="[[Setting.kPeripheralDataAccessProtection]]" on-click="onPeripheralProtectionClick_" learn-more-url="$i18n{peripheralDataAccessLearnMoreURL}" hidden$="[[isCrosSettingDataAccessPref_(
                   dataAccessProtectionPrefName_)]]" disabled="disabled" inverted>
           </settings-toggle-button>
         </div>
@@ -27128,6 +26133,12 @@ function getTemplate$l() {
       <os-settings-subpage page-title="$i18n{microphoneToggleTitle}">
         <settings-privacy-hub-microphone-subpage prefs="{{prefs}}">
         </settings-privacy-hub-microphone-subpage>
+      </os-settings-subpage>
+    </template>
+    <template is="dom-if" route-path="/osPrivacy/privacyHub/camera">
+      <os-settings-subpage page-title="$i18n{cameraToggleTitle}">
+        <settings-privacy-hub-camera-subpage prefs="{{prefs}}">
+        </settings-privacy-hub-camera-subpage>
       </os-settings-subpage>
     </template>
     <template is="dom-if" route-path="/osPrivacy/privacyHub/geolocation">
@@ -27336,6 +26347,33 @@ class OsSettingsPrivacyPageElement extends OsSettingsPrivacyPageElementBase {
                 type: Boolean,
                 value: loadTimeData.getBoolean('showSyncSettingsRevamp'),
                 readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            privacyHub: 'os-settings:privacy-controls',
+                            sync: 'os-settings:sync-revamp',
+                            lockScreen: 'os-settings:lock-revamp',
+                            manageOtherPeople: 'os-settings:privacy-manage-people',
+                            smartPrivacy: 'os-settings:privacy-smart-privacy',
+                            suggestedContent: 'os-settings:content-recommend',
+                            verifiedAccess: 'os-settings:privacy-verified-access',
+                            dataAccessProtection: 'os-settings:privacy-data-access-protection',
+                        };
+                    }
+                    return {
+                        privacyHub: '',
+                        sync: '',
+                        lockScreen: '',
+                        manageOtherPeople: '',
+                        smartPrivacy: '',
+                        suggestedContent: '',
+                        verifiedAccess: '',
+                        dataAccessProtection: '',
+                    };
+                },
             },
         };
     }
@@ -27649,7 +26687,7 @@ class OsSettingsPrivacyPageElement extends OsSettingsPrivacyPageElementBase {
 customElements.define(OsSettingsPrivacyPageElement.is, OsSettingsPrivacyPageElement);
 
 function getTemplate$k() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="$i18n{osSearchPageTitle}">
   
@@ -27658,18 +26696,18 @@ function getTemplate$k() {
     </settings-search-engine>
   </template>
   <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
-    <cr-link-row id="searchRow" label="$i18n{searchSubpageTitle}" on-click="onSearchClick_" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="searchRow" start-icon="[[rowIcons_.searchEngine]]" label="$i18n{searchSubpageTitle}" on-click="onSearchClick_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
 
   
   <template is="dom-if" if="[[isAssistantAllowed_]]">
-    <cr-link-row id="assistantRow" class="hr" label="$i18n{searchGoogleAssistant}" sub-label="[[getAssistantEnabledDisabledLabel_(
+    <cr-link-row id="assistantRow" start-icon="[[rowIcons_.assistant]]" class="hr" label="$i18n{searchGoogleAssistant}" sub-label="[[getAssistantEnabledDisabledLabel_(
             prefs.settings.voice_interaction.enabled.value)]]" on-click="onGoogleAssistantClick_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-    <settings-toggle-button id="contentRecommendationsToggle" class="hr" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
+    <settings-toggle-button id="contentRecommendationsToggle" class="hr" icon="[[rowIcons_.contentRecommendations]]" pref="{{prefs.settings.suggested_content_enabled}}" label="$i18n{enableSuggestedContent}" sub-label="$i18n{enableSuggestedContentDesc}" learn-more-url="$i18n{suggestedContentLearnMoreURL}">
     </settings-toggle-button>
   </template>
 </settings-card>
@@ -27724,6 +26762,23 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
                     return isRevampWayfindingEnabled();
                 },
                 readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            searchEngine: 'os-settings:explore',
+                            assistant: 'os-settings:assistant',
+                            contentRecommendations: 'os-settings:content-recommend',
+                        };
+                    }
+                    return {
+                        searchEngine: 'os-settings:google-drive',
+                        assistant: '',
+                        contentRecommendations: '',
+                    };
+                },
             },
         };
     }
@@ -27854,7 +26909,7 @@ function getTemplate$i() {
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{personalizationPageTitle}">
-      <cr-link-row id="personalizationHubButton" label="$i18n{personalizationHubTitle}" sub-label="[[getSublabel_()]]" on-click="openPersonalizationHub_" external>
+      <cr-link-row id="personalizationHubButton" start-icon="[[getPersonalizationRowIcon_()]]" label="$i18n{personalizationHubTitle}" sub-label="$i18n{personalizationHubSubtitle}" on-click="openPersonalizationHub_" external>
       </cr-link-row>
     </settings-card>
   </div>
@@ -27899,10 +26954,10 @@ class SettingsPersonalizationPageElement extends SettingsPersonalizationPageElem
         this.personalizationHubBrowserProxy_ =
             PersonalizationHubBrowserProxyImpl.getInstance();
     }
-    getSublabel_() {
+    getPersonalizationRowIcon_() {
         return this.isRevampWayfindingEnabled_ ?
-            null :
-            this.i18n('personalizationHubSubtitle');
+            'os-settings:personalization-revamp' :
+            '';
     }
     openPersonalizationHub_() {
         this.personalizationHubBrowserProxy_.openPersonalizationHub();
@@ -27911,10 +26966,14 @@ class SettingsPersonalizationPageElement extends SettingsPersonalizationPageElem
 customElements.define(SettingsPersonalizationPageElement.is, SettingsPersonalizationPageElement);
 
 function getTemplate$h() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#restoreIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{onStartupSettingsCardTitle}">
-  <div class="settings-box">
+  <div class="settings-box first two-line">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="restoreIcon" icon="os-settings:restore-revamp">
+      </iron-icon>
+    </template>
     <div class="start settings-box-text" aria-hidden="true">
       $i18n{onStartupTitle}
       <div class="secondary">$i18n{onStartupDescription}</div>
@@ -27955,6 +27014,13 @@ class StartupSettingsCardElement extends StartupSettingsCardElementBase {
                 type: Object,
                 value: () => new Set([Setting.kRestoreAppsAndPages]),
             },
+            isRevampWayfindingEnabled_: {
+                type: Boolean,
+                value() {
+                    return isRevampWayfindingEnabled();
+                },
+                readOnly: true,
+            },
             /**
              * List of options for the on startup dropdown menu.
              */
@@ -27985,10 +27051,10 @@ function getTemplate$g() {
 
 <settings-card header-text="[[getHeaderText_()]]">
   <template is="dom-if" if="[[shouldShowStorageRow_]]">
-    <cr-link-row id="storageRow" label="$i18n{storageTitle}" on-click="showStorageSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="storageRow" start-icon="[[rowIcons_.storage]]" label="$i18n{storageTitle}" on-click="showStorageSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
-  <cr-link-row id="powerRow" class="hr" label="$i18n{powerTitle}" on-click="showPowerSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
+  <cr-link-row id="powerRow" start-icon="[[rowIcons_.power]]" class="hr" label="$i18n{powerTitle}" on-click="showPowerSubpage_" role-description="$i18n{subpageArrowRoleDescription}">
   </cr-link-row>
 </settings-card>
 <!--_html_template_end_-->`;
@@ -28019,6 +27085,21 @@ class StorageAndPowerSettingsCardElement extends StorageAndPowerSettingsCardElem
                     return !loadTimeData.getBoolean('isDemoSession');
                 },
                 readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            storage: 'os-settings:storage',
+                            power: 'os-settings:power',
+                        };
+                    }
+                    return {
+                        storage: '',
+                        power: '',
+                    };
+                },
             },
         };
     }
@@ -28122,6 +27203,14 @@ function getTemplate$f() {
     <os-settings-subpage page-title="$i18n{languagesPageTitle}">
       <os-settings-languages-page-v2 prefs="{{prefs}}" languages="[[languages]]" language-helper="[[languageHelper]]">
       </os-settings-languages-page-v2>
+    </os-settings-subpage>
+  </template>
+
+  
+  <template is="dom-if" route-path="/osLanguages/languages/appLanguages">
+    <os-settings-subpage page-title="$i18n{appLanguagesTitle}">
+      <os-settings-app-languages-page prefs="{{prefs}}">
+      </os-settings-app-languages-page>
     </os-settings-subpage>
   </template>
 
@@ -28274,58 +27363,6 @@ class SettingsSystemPreferencesPageElement extends SettingsSystemPreferencesPage
     }
 }
 customElements.define(SettingsSystemPreferencesPageElement.is, SettingsSystemPreferencesPageElement);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedScriptURL if the passed literal is static.
- */
-function getTrustedScriptURL(literal) {
-    return staticPolicy.createScriptURL('', literal);
-}
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -29347,7 +28384,7 @@ class MainPageContainerElement extends MainPageContainerElementBase {
 customElements.define(MainPageContainerElement.is, MainPageContainerElement);
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">#overscroll{margin-top:64px}.showing-subpage~#overscroll{display:none}#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);padding-bottom:16px;padding-top:12px;position:relative;z-index:1}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">#overscroll{margin-top:64px}.showing-subpage~#overscroll{display:none}#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;font:var(--cros-body-2-font);margin-bottom:calc(-21px - 8px);padding-bottom:14px;padding-top:14px;position:relative;z-index:1;--cr-link-color:var(--cros-sys-primary);--cr-secondary-text-color:var(--cros-sys-secondary);--iron-icon-fill-color:var(--cros-sys-secondary)}</style>
 <template is="dom-if" if="[[showManagedHeader_(isShowingSubpage_, isShowingAboutPage_)]]" restamp>
   <managed-footnote show-device-info></managed-footnote>
 </template>
@@ -29496,7 +28533,8 @@ class OsSettingsMainElement extends OsSettingsMainElementBase {
 customElements.define(OsSettingsMainElement.is, OsSettingsMainElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -29506,7 +28544,7 @@ function getTemplate$a() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){background:0 0;border-radius:100px;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--color-toolbar-search-field-background-hover,var(--cr-hover-background-color));z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -29655,7 +28693,7 @@ const SearchResultIconSpec = { $: mojo.internal.Enum() };
 var SearchResultIcon;
 (function (SearchResultIcon) {
     SearchResultIcon[SearchResultIcon["MIN_VALUE"] = 0] = "MIN_VALUE";
-    SearchResultIcon[SearchResultIcon["MAX_VALUE"] = 53] = "MAX_VALUE";
+    SearchResultIcon[SearchResultIcon["MAX_VALUE"] = 69] = "MAX_VALUE";
     SearchResultIcon[SearchResultIcon["kA11y"] = 0] = "kA11y";
     SearchResultIcon[SearchResultIcon["kAndroid"] = 1] = "kAndroid";
     SearchResultIcon[SearchResultIcon["kAppsGrid"] = 2] = "kAppsGrid";
@@ -29667,49 +28705,65 @@ var SearchResultIcon;
     SearchResultIcon[SearchResultIcon["kBluetooth"] = 8] = "kBluetooth";
     SearchResultIcon[SearchResultIcon["kCamera"] = 9] = "kCamera";
     SearchResultIcon[SearchResultIcon["kCellular"] = 10] = "kCellular";
-    SearchResultIcon[SearchResultIcon["kChrome"] = 11] = "kChrome";
-    SearchResultIcon[SearchResultIcon["kChromeVox"] = 12] = "kChromeVox";
+    SearchResultIcon[SearchResultIcon["kCheckForUpdate"] = 11] = "kCheckForUpdate";
+    SearchResultIcon[SearchResultIcon["kChrome"] = 12] = "kChrome";
     SearchResultIcon[SearchResultIcon["kClock"] = 13] = "kClock";
     SearchResultIcon[SearchResultIcon["kContrast"] = 14] = "kContrast";
-    SearchResultIcon[SearchResultIcon["kDeveloperTags"] = 15] = "kDeveloperTags";
-    SearchResultIcon[SearchResultIcon["kDictation"] = 16] = "kDictation";
-    SearchResultIcon[SearchResultIcon["kDisplay"] = 17] = "kDisplay";
-    SearchResultIcon[SearchResultIcon["kDockedMagnifier"] = 18] = "kDockedMagnifier";
-    SearchResultIcon[SearchResultIcon["kDrive"] = 19] = "kDrive";
-    SearchResultIcon[SearchResultIcon["kEthernet"] = 20] = "kEthernet";
-    SearchResultIcon[SearchResultIcon["kFingerprint"] = 21] = "kFingerprint";
-    SearchResultIcon[SearchResultIcon["kFolder"] = 22] = "kFolder";
-    SearchResultIcon[SearchResultIcon["kFullscreenMagnifier"] = 23] = "kFullscreenMagnifier";
-    SearchResultIcon[SearchResultIcon["kGeolocation"] = 24] = "kGeolocation";
-    SearchResultIcon[SearchResultIcon["kGlobe"] = 25] = "kGlobe";
-    SearchResultIcon[SearchResultIcon["kGooglePlay"] = 26] = "kGooglePlay";
-    SearchResultIcon[SearchResultIcon["kHardDrive"] = 27] = "kHardDrive";
-    SearchResultIcon[SearchResultIcon["kHotspot"] = 28] = "kHotspot";
-    SearchResultIcon[SearchResultIcon["kInstantTethering"] = 29] = "kInstantTethering";
-    SearchResultIcon[SearchResultIcon["kKeyboard"] = 30] = "kKeyboard";
-    SearchResultIcon[SearchResultIcon["kLaptop"] = 31] = "kLaptop";
-    SearchResultIcon[SearchResultIcon["kLock"] = 32] = "kLock";
-    SearchResultIcon[SearchResultIcon["kMagnifyingGlass"] = 33] = "kMagnifyingGlass";
-    SearchResultIcon[SearchResultIcon["kMicrophone"] = 34] = "kMicrophone";
-    SearchResultIcon[SearchResultIcon["kMouse"] = 35] = "kMouse";
-    SearchResultIcon[SearchResultIcon["kNearbyShare"] = 36] = "kNearbyShare";
-    SearchResultIcon[SearchResultIcon["kOnScreenKeyboard"] = 37] = "kOnScreenKeyboard";
-    SearchResultIcon[SearchResultIcon["kPaintbrush"] = 38] = "kPaintbrush";
-    SearchResultIcon[SearchResultIcon["kPenguin"] = 39] = "kPenguin";
-    SearchResultIcon[SearchResultIcon["kPhone"] = 40] = "kPhone";
-    SearchResultIcon[SearchResultIcon["kPluginVm"] = 41] = "kPluginVm";
-    SearchResultIcon[SearchResultIcon["kPower"] = 42] = "kPower";
-    SearchResultIcon[SearchResultIcon["kPrinter"] = 43] = "kPrinter";
-    SearchResultIcon[SearchResultIcon["kReset"] = 44] = "kReset";
-    SearchResultIcon[SearchResultIcon["kSelectToSpeak"] = 45] = "kSelectToSpeak";
-    SearchResultIcon[SearchResultIcon["kShield"] = 46] = "kShield";
-    SearchResultIcon[SearchResultIcon["kStartup"] = 47] = "kStartup";
-    SearchResultIcon[SearchResultIcon["kStylus"] = 48] = "kStylus";
-    SearchResultIcon[SearchResultIcon["kSwitchAccess"] = 49] = "kSwitchAccess";
-    SearchResultIcon[SearchResultIcon["kSync"] = 50] = "kSync";
-    SearchResultIcon[SearchResultIcon["kSystemPreferences"] = 51] = "kSystemPreferences";
-    SearchResultIcon[SearchResultIcon["kWallpaper"] = 52] = "kWallpaper";
-    SearchResultIcon[SearchResultIcon["kWifi"] = 53] = "kWifi";
+    SearchResultIcon[SearchResultIcon["kCursorClick"] = 15] = "kCursorClick";
+    SearchResultIcon[SearchResultIcon["kDetailedBuild"] = 16] = "kDetailedBuild";
+    SearchResultIcon[SearchResultIcon["kDeveloperTags"] = 17] = "kDeveloperTags";
+    SearchResultIcon[SearchResultIcon["kDiagnostics"] = 18] = "kDiagnostics";
+    SearchResultIcon[SearchResultIcon["kDictation"] = 19] = "kDictation";
+    SearchResultIcon[SearchResultIcon["kDisplay"] = 20] = "kDisplay";
+    SearchResultIcon[SearchResultIcon["kDockedMagnifier"] = 21] = "kDockedMagnifier";
+    SearchResultIcon[SearchResultIcon["kEthernet"] = 22] = "kEthernet";
+    SearchResultIcon[SearchResultIcon["kFingerprint"] = 23] = "kFingerprint";
+    SearchResultIcon[SearchResultIcon["kFirmwareUpdates"] = 24] = "kFirmwareUpdates";
+    SearchResultIcon[SearchResultIcon["kFolder"] = 25] = "kFolder";
+    SearchResultIcon[SearchResultIcon["kFolderShared"] = 26] = "kFolderShared";
+    SearchResultIcon[SearchResultIcon["kFullscreenMagnifier"] = 27] = "kFullscreenMagnifier";
+    SearchResultIcon[SearchResultIcon["kGeolocation"] = 28] = "kGeolocation";
+    SearchResultIcon[SearchResultIcon["kGoogleDrive"] = 29] = "kGoogleDrive";
+    SearchResultIcon[SearchResultIcon["kGooglePlay"] = 30] = "kGooglePlay";
+    SearchResultIcon[SearchResultIcon["kHearing"] = 31] = "kHearing";
+    SearchResultIcon[SearchResultIcon["kHelp"] = 32] = "kHelp";
+    SearchResultIcon[SearchResultIcon["kHotspot"] = 33] = "kHotspot";
+    SearchResultIcon[SearchResultIcon["kInstantTethering"] = 34] = "kInstantTethering";
+    SearchResultIcon[SearchResultIcon["kKeyboard"] = 35] = "kKeyboard";
+    SearchResultIcon[SearchResultIcon["kLanguage"] = 36] = "kLanguage";
+    SearchResultIcon[SearchResultIcon["kLaptop"] = 37] = "kLaptop";
+    SearchResultIcon[SearchResultIcon["kLock"] = 38] = "kLock";
+    SearchResultIcon[SearchResultIcon["kMicrophone"] = 39] = "kMicrophone";
+    SearchResultIcon[SearchResultIcon["kMouse"] = 40] = "kMouse";
+    SearchResultIcon[SearchResultIcon["kNearbyShare"] = 41] = "kNearbyShare";
+    SearchResultIcon[SearchResultIcon["kNotifications"] = 42] = "kNotifications";
+    SearchResultIcon[SearchResultIcon["kOneDrive"] = 43] = "kOneDrive";
+    SearchResultIcon[SearchResultIcon["kOnScreenKeyboard"] = 44] = "kOnScreenKeyboard";
+    SearchResultIcon[SearchResultIcon["kPaintbrush"] = 45] = "kPaintbrush";
+    SearchResultIcon[SearchResultIcon["kPenguin"] = 46] = "kPenguin";
+    SearchResultIcon[SearchResultIcon["kPhone"] = 47] = "kPhone";
+    SearchResultIcon[SearchResultIcon["kPluginVm"] = 48] = "kPluginVm";
+    SearchResultIcon[SearchResultIcon["kPointingStick"] = 49] = "kPointingStick";
+    SearchResultIcon[SearchResultIcon["kPower"] = 50] = "kPower";
+    SearchResultIcon[SearchResultIcon["kPrinter"] = 51] = "kPrinter";
+    SearchResultIcon[SearchResultIcon["kPrivacyControls"] = 52] = "kPrivacyControls";
+    SearchResultIcon[SearchResultIcon["kReleaseNotes"] = 53] = "kReleaseNotes";
+    SearchResultIcon[SearchResultIcon["kReset"] = 54] = "kReset";
+    SearchResultIcon[SearchResultIcon["kRestore"] = 55] = "kRestore";
+    SearchResultIcon[SearchResultIcon["kScanner"] = 56] = "kScanner";
+    SearchResultIcon[SearchResultIcon["kSearch"] = 57] = "kSearch";
+    SearchResultIcon[SearchResultIcon["kSelectToSpeak"] = 58] = "kSelectToSpeak";
+    SearchResultIcon[SearchResultIcon["kShield"] = 59] = "kShield";
+    SearchResultIcon[SearchResultIcon["kStorage"] = 60] = "kStorage";
+    SearchResultIcon[SearchResultIcon["kStylus"] = 61] = "kStylus";
+    SearchResultIcon[SearchResultIcon["kSwitchAccess"] = 62] = "kSwitchAccess";
+    SearchResultIcon[SearchResultIcon["kSync"] = 63] = "kSync";
+    SearchResultIcon[SearchResultIcon["kSystemPreferences"] = 64] = "kSystemPreferences";
+    SearchResultIcon[SearchResultIcon["kTextToSpeech"] = 65] = "kTextToSpeech";
+    SearchResultIcon[SearchResultIcon["kTouchpad"] = 66] = "kTouchpad";
+    SearchResultIcon[SearchResultIcon["kWallpaper"] = 67] = "kWallpaper";
+    SearchResultIcon[SearchResultIcon["kWifi"] = 68] = "kWifi";
+    SearchResultIcon[SearchResultIcon["kZoomIn"] = 69] = "kZoomIn";
 })(SearchResultIcon || (SearchResultIcon = {}));
 
 var search_result_icon_mojomWebui = /*#__PURE__*/Object.freeze({
@@ -29975,7 +29029,7 @@ var search_mojomWebui = /*#__PURE__*/Object.freeze({
 });
 
 function getTemplate$9() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{width:100%}:host([selected]) [focus-row-container]{background-color:var(--cros-highlight-color)}:host-context(body.jelly-enabled):host([selected]) [focus-row-container]{background-color:var(--cros-sys-highlight_shape)}:host(:not([selected])) [focus-row-container]:hover{background-color:var(--cros-highlight-color-hover)}:host-context(body.jelly-enabled):host(:not([selected])) [focus-row-container]:hover{background-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) [focus-row-control][selectable]:focus{background-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([dir=rtl]) #actionTypeIcon{transform:scaleX(-1)}[focus-row-container]{width:inherit}#searchResultContainer{align-items:center;display:flex;height:48px;justify-content:center}#resultText{flex-grow:1;margin:var(--cr-toolbar-search-field-term-margin)}iron-icon{margin:var(--cr-toolbar-icon-margin);width:var(--cr-toolbar-icon-container-size)}b{color:var(--cros-text-color-primary)}:host-context(body.jelly-enabled) b{color:var(--cros-sys-on_surface)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{width:100%}:host([selected]) [focus-row-container]{background-color:var(--cros-sys-highlight_shape)}:host(:not([selected])) [focus-row-container]:hover{background-color:var(--cros-sys-hover_on_subtle)}[focus-row-control][selectable]:focus{background-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([dir=rtl]) #actionTypeIcon{transform:scaleX(-1)}[focus-row-container]{width:inherit}#searchResultContainer{align-items:center;display:flex;height:48px;justify-content:center}#resultText{flex-grow:1;margin:var(--cr-toolbar-search-field-term-margin)}iron-icon{margin:var(--cr-toolbar-icon-margin);width:var(--cr-toolbar-icon-container-size)}b{color:var(--cros-sys-on_surface)}</style>
 <div focus-row-container>
   
   <div focus-row-control focus-type="rowWrapper" id="searchResultContainer" on-click="onSearchResultSelected" on-keypress="onKeyPress_" aria-disabled="true" selectable>
@@ -30146,7 +29200,7 @@ class OsSearchResultRowElement extends OsSearchResultRowElementBase {
     computeResultText_() {
         // The C++ layer stores the text result as an array of 16 bit char codes,
         // so it must be converted to a JS String.
-        return String.fromCharCode.apply(null, this.searchResult.text.data);
+        return mojoString16ToString(this.searchResult.text);
     }
     /**
      * Bolds individual characters in the result text that are characters in the
@@ -30508,13 +29562,16 @@ class OsSearchResultRowElement extends OsSearchResultRowElementBase {
      * @return The name of the icon to use.
      */
     getResultIcon_() {
+        const isRevampEnabled = isRevampWayfindingEnabled();
         if (isPersonalizationSearchResult(this.searchResult)) {
-            return 'os-settings:paint-brush';
+            return isRevampEnabled ? 'os-settings:personalization-revamp' :
+                'os-settings:paint-brush';
         }
         const settingsSearchResult = this.searchResult;
         switch (settingsSearchResult.icon) {
             case SearchResultIcon.kA11y:
-                return 'os-settings:accessibility';
+                return isRevampEnabled ? 'os-settings:accessibility-revamp' :
+                    'os-settings:accessibility';
             case SearchResultIcon.kAndroid:
                 return 'os-settings:android';
             case SearchResultIcon.kAppsGrid:
@@ -30522,7 +29579,8 @@ class OsSearchResultRowElement extends OsSearchResultRowElementBase {
             case SearchResultIcon.kAssistant:
                 return 'os-settings:assistant';
             case SearchResultIcon.kAudio:
-                return 'os-settings:audio';
+                return isRevampEnabled ? 'os-settings:device-audio' :
+                    'os-settings:audio';
             case SearchResultIcon.kAuthKey:
                 return 'os-settings:auth-key';
             case SearchResultIcon.kAutoclick:
@@ -30530,97 +29588,144 @@ class OsSearchResultRowElement extends OsSearchResultRowElementBase {
             case SearchResultIcon.kSwitchAccess:
                 return 'os-settings:switch-access';
             case SearchResultIcon.kAvatar:
-                return 'cr:person';
+                return isRevampEnabled ? 'os-settings:privacy-manage-people' :
+                    'cr:person';
             case SearchResultIcon.kBluetooth:
                 return 'cr:bluetooth';
             case SearchResultIcon.kCamera:
                 return 'os-settings:camera';
             case SearchResultIcon.kCellular:
                 return 'os-settings:cellular';
+            case SearchResultIcon.kCheckForUpdate:
+                return 'os-settings:about-update-complete';
             case SearchResultIcon.kChrome:
                 return 'os-settings:chrome';
-            case SearchResultIcon.kChromeVox:
-                return 'os-settings:chromevox';
             case SearchResultIcon.kClock:
-                return 'os-settings:access-time';
+                return 'os-settings:clock';
             case SearchResultIcon.kContrast:
                 return 'os-settings:contrast';
+            case SearchResultIcon.kCursorClick:
+                return 'os-settings:cursor-click';
+            case SearchResultIcon.kDetailedBuild:
+                return 'os-settings:about-additional-details';
             case SearchResultIcon.kDeveloperTags:
                 return 'os-settings:developer-tags';
+            case SearchResultIcon.kDiagnostics:
+                return 'os-settings:about-diagnostics';
             case SearchResultIcon.kDictation:
                 return 'os-settings:dictation';
             case SearchResultIcon.kDisplay:
-                return 'os-settings:display';
+                return isRevampEnabled ? 'os-settings:device-display' :
+                    'os-settings:display';
             case SearchResultIcon.kDockedMagnifier:
                 return 'os-settings:docked-magnifier';
-            case SearchResultIcon.kDrive:
-                return 'os-settings:google-drive';
             case SearchResultIcon.kEthernet:
                 return 'os-settings:settings-ethernet';
             case SearchResultIcon.kFingerprint:
                 return 'os-settings:fingerprint';
+            case SearchResultIcon.kFirmwareUpdates:
+                return 'os-settings:about-firmware-updates';
             case SearchResultIcon.kFolder:
                 return 'os-settings:folder-outline';
+            case SearchResultIcon.kFolderShared:
+                return 'os-settings:folder-shared';
             case SearchResultIcon.kFullscreenMagnifier:
                 return 'os-settings:fullscreen-magnifier';
             case SearchResultIcon.kGeolocation:
                 return 'os-settings:geolocation';
-            case SearchResultIcon.kGlobe:
-                return 'os-settings:language';
+            case SearchResultIcon.kGoogleDrive:
+                return isRevampEnabled ? 'os-settings:google-drive-revamp' :
+                    'os-settings:google-drive';
             case SearchResultIcon.kGooglePlay:
-                return 'os-settings:google-play';
-            case SearchResultIcon.kHardDrive:
-                return 'os-settings:hard-drive';
+                return isRevampEnabled ? 'os-settings:google-play-revamp' :
+                    'os-settings:google-play';
+            case SearchResultIcon.kHearing:
+                return 'os-settings:a11y-hearing';
+            case SearchResultIcon.kHelp:
+                return 'os-settings:about-help';
             case SearchResultIcon.kHotspot:
                 return 'os-settings:hotspot';
             case SearchResultIcon.kInstantTethering:
                 return 'os-settings:magic-tethering';
             case SearchResultIcon.kKeyboard:
-                return 'os-settings:keyboard';
+                return isRevampEnabled ? 'os-settings:device-keyboard' :
+                    'os-settings:keyboard';
+            case SearchResultIcon.kLanguage:
+                return isRevampEnabled ? 'os-settings:language-revamp' :
+                    'os-settings:language';
             case SearchResultIcon.kLaptop:
                 return 'os-settings:laptop-chromebook';
             case SearchResultIcon.kLock:
-                return 'os-settings:lock';
-            case SearchResultIcon.kMagnifyingGlass:
-                return 'cr:search';
+                return isRevampEnabled ? 'os-settings:lock-revamp' : 'os-settings:lock';
             case SearchResultIcon.kMicrophone:
                 return 'os-settings:microphone';
             case SearchResultIcon.kMouse:
-                return 'os-settings:mouse';
+                return isRevampEnabled ? 'os-settings:device-mouse' :
+                    'os-settings:mouse';
             case SearchResultIcon.kNearbyShare:
+                // 
                 return 'os-settings:nearby-share';
+            case SearchResultIcon.kNotifications:
+                return 'os-settings:apps-notifications';
+            case SearchResultIcon.kOneDrive:
+                return 'settings20:onedrive';
             case SearchResultIcon.kOnScreenKeyboard:
                 return 'os-settings:on-screen-keyboard';
             case SearchResultIcon.kPaintbrush:
-                return 'os-settings:paint-brush';
+                return isRevampEnabled ? 'os-settings:personalization-revamp' :
+                    'os-settings:paint-brush';
             case SearchResultIcon.kPenguin:
                 return 'os-settings:crostini-mascot';
             case SearchResultIcon.kPhone:
-                return 'os-settings:multidevice-better-together-suite';
+                return isRevampEnabled ?
+                    'os-settings:connected-devices-android-phone' :
+                    'os-settings:multidevice-better-together-suite';
             case SearchResultIcon.kPluginVm:
                 return 'os-settings:plugin-vm';
+            case SearchResultIcon.kPointingStick:
+                return 'os-settings:device-pointing-stick';
             case SearchResultIcon.kPower:
                 return 'os-settings:power';
             case SearchResultIcon.kPrinter:
-                return 'os-settings:print';
+                return isRevampEnabled ? 'os-settings:device-print' :
+                    'os-settings:print';
+            case SearchResultIcon.kPrivacyControls:
+                return 'os-settings:privacy-controls';
+            case SearchResultIcon.kReleaseNotes:
+                return 'os-settings:about-release-notes';
             case SearchResultIcon.kReset:
-                return 'os-settings:restore';
+                return isRevampEnabled ? 'os-settings:startup' : 'os-settings:restore';
+            case SearchResultIcon.kRestore:
+                return isRevampEnabled ? 'os-settings:restore-revamp' :
+                    'os-settings:startup';
+            case SearchResultIcon.kScanner:
+                return 'os-settings:device-scan';
+            case SearchResultIcon.kSearch:
+                return isRevampEnabled ? 'os-settings:explore' : 'cr:search';
             case SearchResultIcon.kSelectToSpeak:
                 return 'os-settings:select-to-speak';
             case SearchResultIcon.kShield:
                 return 'cr:security';
-            case SearchResultIcon.kStartup:
-                return 'os-settings:startup';
+            case SearchResultIcon.kStorage:
+                return isRevampEnabled ? 'os-settings:storage' :
+                    'os-settings:hard-drive';
             case SearchResultIcon.kStylus:
-                return 'os-settings:stylus';
+                return isRevampEnabled ? 'os-settings:device-stylus' :
+                    'os-settings:stylus';
             case SearchResultIcon.kSync:
-                return 'os-settings:sync';
+                return isRevampEnabled ? 'os-settings:sync-revamp' : 'os-settings:sync';
             case SearchResultIcon.kSystemPreferences:
                 return 'os-settings:system-preferences';
+            case SearchResultIcon.kTextToSpeech:
+                return 'os-settings:text-to-speech';
+            case SearchResultIcon.kTouchpad:
+                return 'os-settings:device-touchpad';
             case SearchResultIcon.kWallpaper:
                 return 'os-settings:wallpaper';
             case SearchResultIcon.kWifi:
                 return 'os-settings:network-wifi';
+            case SearchResultIcon.kZoomIn:
+                return 'os-settings:zoom-in';
             default:
                 return 'os-settings:settings-general';
         }
@@ -30926,7 +30031,7 @@ async function combinedSearch(query, maxNumResults, parentResultBehavior) {
 }
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toolbar-search-field-background:var(--cros-toolbar-search-bg-color);--cr-toolbar-focused-min-height:40px;--cr-toolbar-icon-container-size:32px;--cr-toolbar-icon-margin:8px 16px;--cr-toolbar-search-field-icon-opacity:1;--cr-toolbar-search-field-narrow-mode-prompt-opacity:1;--cr-toolbar-search-field-prompt-opacity:1;--cr-toolbar-search-icon-margin-inline-start:16px;--cr-toolbar-query-exists-min-height:var(--cr-toolbar-focused-min-height);--separator-height:8px;-webkit-tap-highlight-color:transparent;display:flex;flex-basis:var(--cr-toolbar-field-width);transition:width 150ms cubic-bezier(.4,0,.2,1);width:var(--cr-toolbar-field-width)}:host-context(body.jelly-enabled):host{--cr-toolbar-search-field-background:var(--cros-sys-input_field_on_shaded)}@media (prefers-color-scheme:dark){:host{--cr-toolbar-search-field-narrow-mode-prompt-opacity:1}}:host([narrow]:not([showing-search])){flex-direction:row;justify-content:flex-end}:host([narrow][showing-search]){justify-content:center}cr-toolbar-search-field{--cr-toolbar-search-field-term-margin:0;--cr-toolbar-search-field-border-radius:20px;--cr-toolbar-search-field-paper-spinner-margin:0 12px;--cr-toolbar-search-field-input-icon-color:var(--cros-icon-color-primary);--cr-toolbar-search-field-input-text-color:var(--cros-text-color-primary);--cr-toolbar-search-field-input-caret-color:currentColor;--cr-toolbar-search-field-prompt-color:var(--cros-text-color-secondary);--cr-toolbar-icon-button-focus-outline-color:var(--cros-focus-ring-color);font-size:13px}:host([narrow][showing-search]) cr-toolbar-search-field{background-color:var(--cr-toolbar-search-field-background)}:host([narrow]:not([showing-search])) cr-toolbar-search-field{padding-inline-end:10px}:host(:focus-within[showing-search]) cr-toolbar-search-field{--cr-toolbar-search-field-background:var(--cros-bg-color-elevation-3);box-shadow:var(--cr-elevation-1);min-height:var(--cr-toolbar-focused-min-height)}:host([has-search-query]) cr-toolbar-search-field{min-height:var(--cr-toolbar-query-exists-min-height)}:host(:not(:focus-within)) cr-toolbar-search-field{--cr-toolbar-search-field-cursor:pointer}:host(:focus-within[should-show-dropdown_]) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;box-shadow:var(--cr-elevation-3);height:56px;margin-top:var(--separator-height);padding-bottom:var(--separator-height)}iron-dropdown{margin-top:72px}iron-dropdown [slot=dropdown-content]{background-color:var(--cros-bg-color-elevation-3);border-radius:0 0 20px 20px;box-shadow:var(--cr-elevation-3);display:table;padding-bottom:8px;width:var(--cr-toolbar-field-width)}iron-list{max-height:50vh}.pill-button-with-icon{--border-color:transparent;--cr-button-height:24px;--hover-bg-color:var(--cros-highlight-color);--text-color:var(--cros-text-color-secondary);border-radius:24px;margin-inline-end:8px;padding:4px 8px}.pill-button-with-icon:hover{--text-color:var(--cros-text-color-prominent)}#noSearchResultsContainer{height:32px;line-height:32px;margin-inline-start:24px}#reportSearchResult{display:flex;justify-content:flex-end;margin-inline-start:8px}.separator{background-color:var(--cros-bg-color-elevation-3);border-bottom:none;border-inline-end:none;border-inline-start:none;border-top:1px solid var(--cros-separator-color);height:var(--separator-height);margin-inline-end:0;margin-inline-start:0;margin-top:-9px}:host-context(body.jelly-enabled) .separator{border-color:var(--cros-sys-separator)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toolbar-search-field-background:var(--cros-sys-input_field_on_shaded);--cr-toolbar-focused-min-height:40px;--cr-toolbar-icon-container-size:32px;--cr-toolbar-icon-margin:8px 16px;--cr-toolbar-search-field-icon-opacity:1;--cr-toolbar-search-field-narrow-mode-prompt-opacity:1;--cr-toolbar-search-field-prompt-opacity:1;--cr-toolbar-search-icon-margin-inline-start:16px;--cr-toolbar-query-exists-min-height:var(--cr-toolbar-focused-min-height);--separator-height:8px;-webkit-tap-highlight-color:transparent;display:flex;flex-basis:var(--cr-toolbar-field-width);transition:width 150ms cubic-bezier(.4,0,.2,1);width:var(--cr-toolbar-field-width)}@media (prefers-color-scheme:dark){:host{--cr-toolbar-search-field-narrow-mode-prompt-opacity:1}}:host([narrow]:not([showing-search])){flex-direction:row;justify-content:flex-end}:host([narrow][showing-search]){justify-content:center}cr-toolbar-search-field{--cr-toolbar-search-field-term-margin:0;--cr-toolbar-search-field-border-radius:var(--settings-toolbar-search-field-border-radius);--cr-toolbar-search-field-paper-spinner-margin:0 12px;--cr-toolbar-search-field-input-icon-color:var(--cros-icon-color-primary);--cr-toolbar-search-field-input-text-color:var(--cros-text-color-primary);--cr-toolbar-search-field-input-caret-color:currentColor;--cr-toolbar-search-field-prompt-color:var(--cros-text-color-secondary);--cr-toolbar-icon-button-focus-outline-color:var(--cros-focus-ring-color);--cr-toolbar-field-max-width:var(--cr-toolbar-field-width);height:var(--settings-toolbar-search-box-height);font-size:13px}:host([narrow][showing-search]) cr-toolbar-search-field{background-color:var(--cr-toolbar-search-field-background)}:host([narrow]:not([showing-search])) cr-toolbar-search-field{padding-inline-end:var(--settings-toolbar-padding-inline-end)}:host([showing-search]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-background:var(--cros-bg-color-elevation-3);box-shadow:var(--cr-elevation-1);min-height:var(--cr-toolbar-focused-min-height)}:host([has-search-query]) cr-toolbar-search-field{min-height:var(--cr-toolbar-query-exists-min-height)}:host(:not(:focus-within)) cr-toolbar-search-field{--cr-toolbar-search-field-cursor:pointer}:host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;box-shadow:var(--cr-elevation-3);height:56px;margin-top:var(--separator-height);padding-bottom:var(--separator-height)}:host-context([chrome-refresh-2023]):host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;outline:0}iron-dropdown{margin-top:72px}iron-dropdown [slot=dropdown-content]{background-color:var(--cros-bg-color-elevation-3);border-radius:0 0 20px 20px;box-shadow:var(--cr-elevation-3);display:table;padding-bottom:8px;width:var(--cr-toolbar-field-width)}iron-list{max-height:50vh}.pill-button-with-icon{--border-color:transparent;--cr-button-height:24px;--hover-bg-color:var(--cros-highlight-color);--text-color:var(--cros-text-color-secondary);border-radius:24px;margin-inline-end:8px;padding:4px 8px}.pill-button-with-icon:hover{--text-color:var(--cros-text-color-prominent)}#noSearchResultsContainer{height:32px;line-height:32px;margin-inline-start:24px}#reportSearchResult{display:flex;justify-content:flex-end;margin-inline-start:8px}.separator{background-color:var(--cros-bg-color-elevation-3);border-top:1px solid var(--cros-sys-separator);height:var(--separator-height);margin-inline-end:0;margin-inline-start:0;margin-top:-9px}</style>
 <cr-toolbar-search-field id="search" narrow="[[narrow]]" on-search-icon-clicked="onSearchIconClicked_" label="$i18n{searchPrompt}" clear-label="$i18n{clearSearch}" showing-search="{{showingSearch}}" spinner-active="[[spinnerActive]]">
 </cr-toolbar-search-field>
 <iron-dropdown id="searchResults" opened="[[shouldShowDropdown_]]" allow-outside-scroll no-cancel-on-outside-click>
@@ -31176,8 +30281,7 @@ class OsSettingsSearchBoxElement extends OsSettingsSearchBoxElementBase {
         // The C++ layer uses std::u16string, which use 16 bit characters. JS
         // strings support either 8 or 16 bit characters, and must be converted to
         // an array of 16 bit character codes that match std::u16string.
-        const charCodes = Array.from(query, (c) => c.charCodeAt(0));
-        const queryMojoString16 = { data: charCodes };
+        const queryMojoString16 = stringToMojoString16(query);
         const timeOfSearchRequest = Date.now();
         combinedSearch(queryMojoString16, MAX_NUM_SEARCH_RESULTS, ParentResultBehavior.kAllowParentResults)
             .then(response => {
@@ -31376,7 +30480,9 @@ class OsSettingsSearchBoxElement extends OsSettingsSearchBoxElementBase {
 customElements.define(OsSettingsSearchBoxElement.is, OsSettingsSearchBoxElement);
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cros-bg-color);color:var(--cros-text-color-secondary);display:flex;height:var(--cr-toolbar-height);padding-top:var(--cr-toolbar-padding-top)}:host-context(body.jelly-enabled):host{background-color:var(--cros-sys-app_base_shaded)}h1{flex:1;font-size:123%;font-weight:500;letter-spacing:.25px;line-height:normal;margin-inline-start:8px;padding-inline-end:12px}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:14px;width:var(--settings-menu-width)}:host([narrow]) #leftSpacer{width:20px}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;min-width:32px}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:8px}:host([narrow]) #centeredContent{position:absolute;width:100%;z-index:-1}:host([narrow]:not([showing-search_])) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #settingsTitle{display:none}:host([showing-search_][is-search-box-cutoff_]) os-settings-search-box{--cr-toolbar-field-width:80vw;margin-inline-start:48px}:host([showing-search_][narrow]:not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:680px}:host(:not([narrow]):not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:480px}:host(:not([narrow])) #leftContent{flex:1 1 0}:host(:not([narrow])) #centeredContent{flex-basis:var(--settings-main-basis)}:host([narrow][showing-search_]) #rightContent{display:none}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons cr-hidden-style settings-shared">:host{align-items:center;background-color:var(--cros-sys-app_base_shaded);color:var(--cros-text-color-secondary);display:flex;height:var(--settings-toolbar-height);padding-top:var(--settings-toolbar-padding-top)}h1{flex:1;font-size:123%;font-weight:500;letter-spacing:.25px;line-height:normal;margin-inline-start:8px;padding-inline-end:12px}:host-context(body.revamp-wayfinding-enabled) h1{color:var(--cros-sys-primary);font:var(--cros-title-1-font)}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:var(--settings-toolbar-padding-inline-start);width:var(--settings-menu-width)}:host([narrow]) #leftSpacer{width:20px;padding-inline-start:var(--settings-toolbar-padding-inline-start-narrow)}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;min-width:32px}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:8px}:host([narrow]) #centeredContent{position:absolute;width:100%;z-index:-1}:host([narrow]:not([showing-search_])) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #settingsTitle{display:none}:host([showing-search_][is-search-box-cutoff_]) os-settings-search-box{--cr-toolbar-field-width:min(80vw,
+      var(--settings-toolbar-search-box-width));margin-inline-start:48px}:host([showing-search_][is-search-box-cutoff_][narrow]) os-settings-search-box{--cr-toolbar-field-width:min(80vw,
+      var(--settings-toolbar-narrow-search-box-width))}:host([showing-search_][narrow]:not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:var(--settings-toolbar-narrow-search-box-width)}:host(:not([narrow]):not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:var(--settings-toolbar-search-box-width)}:host(:not([narrow])) #leftContent{flex:1 1 0}:host(:not([narrow])) #centeredContent{flex-basis:var(--settings-main-basis)}:host([narrow][showing-search_]) #rightContent{display:none}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}</style>
 <iron-media-query query="(max-width: 780px)" query-matches="{{isSearchBoxCutoff_}}">
 </iron-media-query>
 <div id="leftContent">
@@ -31602,8 +30708,8 @@ class OsSettingsHatsBrowserProxyImpl {
 }
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-menu-width:250px;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
-        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}:host-context(body.revamp-wayfinding-enabled):host{--settings-menu-width:280px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{max-height:100%;overflow:auto;overscroll-behavior:contain;width:var(--settings-menu-width)}:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface3);border-start-end-radius:20px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface2)}}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#left,#right{display:none}#main{min-width:auto;padding:0 3px}}#iconButton{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}</style>
+    return html `<!--_html_template_start_--><style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
+        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}:host-context(body.revamp-wayfinding-enabled) #container{padding-top:var(--settings-container-padding-top)}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{height:100%;overflow:auto;overscroll-behavior:contain}:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface3);border-start-end-radius:30px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface2)}}:host-context(body.revamp-wayfinding-enabled) #drawer{--cr-drawer-border-start-end-radius:12px;--cr-drawer-border-end-end-radius:12px;--cr-drawer-header-color:var(--cros-sys-primary);--cr-drawer-header-font:var(--cros-title-1-font);--cr-drawer-header-padding:22px;--cr-drawer-width:var(--settings-menu-width)}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#left,#right{display:none}#main{min-width:auto;padding:0 3px}}#drawerIcon{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}:host-context(body.revamp-wayfinding-enabled) #drawerIcon{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:6px}</style>
 <settings-prefs id="prefs" prefs="{{prefs}}"></settings-prefs>
 <iron-media-query query="(max-width: [[narrowThreshold_]]px)" query-matches="{{isNarrow}}">
 </iron-media-query>
@@ -31615,8 +30721,8 @@ function getTemplate$6() {
   <cr-drawer id="drawer" on-close="onMenuClose_" heading="$i18n{settings}" align="$i18n{textdirection}">
     <div slot="header-icon">
       
-      <iron-icon id="iconButton" icon="cr20:menu" on-click="onDrawerIconClick_" title="$i18n{close}" aria-hidden="true">
-      </iron-icon>
+      <cr-icon-button id="drawerIcon" iron-icon="cr20:menu" on-click="onDrawerIconClick_" title="$i18n{close}" aria-hidden="true">
+      </cr-icon-button>
     </div>
     <div slot="body">
       <template is="dom-if" id="drawerTemplate">
@@ -31725,6 +30831,7 @@ class OsSettingsUiElement extends OsSettingsUiElementBase {
     }
     constructor() {
         super();
+        this.isRevampWayfindingEnabled_ = isRevampWayfindingEnabled();
         /**
          * The route of the selected element in os-settings-menu. Stored here to
          * defer navigation until drawer animation completes.
@@ -31765,6 +30872,8 @@ class OsSettingsUiElement extends OsSettingsUiElementBase {
         }, 
         /*AddEventListenerOptions=*/ { once: true });
         this.listenForDrawerOpening_();
+        // By default, the shadow should show when the container is scrolled down.
+        this.enableShadowBehavior(true);
     }
     connectedCallback() {
         super.connectedCallback();
@@ -31807,7 +30916,7 @@ class OsSettingsUiElement extends OsSettingsUiElementBase {
         // Clicks need to be captured because unlike focus/blur to the settings
         // window, a click's propagation can be stopped by child elements.
         window.addEventListener('click', recordClick, /*capture=*/ true);
-        if (isRevampWayfindingEnabled()) {
+        if (this.isRevampWayfindingEnabled_) {
             // Add class which activates styles for the wayfinding update
             document.body.classList.add('revamp-wayfinding-enabled');
         }
@@ -31826,15 +30935,20 @@ class OsSettingsUiElement extends OsSettingsUiElementBase {
             // in attached() state which is extraneous for this metric.
             recordNavigation();
         }
-        if (newRoute.isSubpage()) {
-            // Sub-pages always show the top-container shadow.
-            this.enableShadowBehavior(false);
-            this.showDropShadows();
-        }
-        else {
-            // All other pages including the root page should show shadow depending
-            // on scroll position.
-            this.enableShadowBehavior(true);
+        // TODO(b/302374851) Under the revamp, the shadow behavior is consistent
+        // across all types of pages and subpages. When the revamp is cleaned up,
+        // remove this obsolete logic.
+        if (!this.isRevampWayfindingEnabled_) {
+            if (newRoute.isSubpage()) {
+                // Sub-pages always show the top-container shadow.
+                this.enableShadowBehavior(false);
+                this.showDropShadows();
+            }
+            else {
+                // All other pages including the root page should show shadow depending
+                // on scroll position.
+                this.enableShadowBehavior(true);
+            }
         }
     }
     // Override FindShortcutMixin methods.
@@ -33211,25 +32325,10 @@ customElements.define(SettingsBluetoothForgetDeviceDialogElement.is, SettingsBlu
  * imports all of the necessary modules and custom elements to load the page.
  */
 /** Necessary imports to load the app */
-// TODO(b/257329722) After the Jelly experiment is launched, add the CSS link
-// element directly to the HTML.
-const jellyEnabled = loadTimeData.getBoolean('isJellyEnabled');
-if (jellyEnabled) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'chrome://theme/colors.css?sets=legacy,sys';
-    document.head.appendChild(link);
-    document.body.classList.add('jelly-enabled');
-    const fontLink = document.createElement('link');
-    fontLink.rel = 'stylesheet';
-    fontLink.href = 'chrome://theme/typography.css';
-    document.head.appendChild(fontLink);
-}
 window.addEventListener('load', () => {
-    if (jellyEnabled) {
-        ColorChangeUpdater.forDocument().start();
-    }
+    // Listen for changes to Jelly dynamic colors.
+    ColorChangeUpdater.forDocument().start();
 });
 
-export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey$1 as ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NoteAppLockScreenSupport, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, StorageSpaceState, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
+export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
 //# sourceMappingURL=os_settings.rollup.js.map

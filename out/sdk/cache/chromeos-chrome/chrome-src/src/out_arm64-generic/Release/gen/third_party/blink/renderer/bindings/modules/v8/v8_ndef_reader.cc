@@ -79,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, NDEFReader>::value,
     "NDEFReader does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&NDEFReader::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NDEFReader is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("NDEFReader.onreading.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreading();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreading();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -112,8 +107,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreading(event_handler);
 }
 
@@ -124,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("NDEFReader.onreadingerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreadingerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreadingerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -140,8 +136,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreadingerror(event_handler);
 }
 
@@ -200,7 +197,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebNfcNdefMakeReadOnly
 
 
 
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -247,7 +244,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebNfcNdefReaderScan);
 
 
 
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -298,7 +295,7 @@ return;
 
 
 
-NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(v8_receiver);
+NDEFReader* blink_receiver = V8NDEFReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

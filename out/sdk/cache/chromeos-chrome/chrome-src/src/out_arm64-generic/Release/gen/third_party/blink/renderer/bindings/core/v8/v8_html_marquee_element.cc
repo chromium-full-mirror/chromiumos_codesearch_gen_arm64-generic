@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLMarqueeElement>::value,
     "HTMLMarqueeElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLMarqueeElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLMarqueeElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.behavior.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBehaviorAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBehaviorAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.behavior.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -125,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.bgColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBgcolorAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBgcolorAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -139,9 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.bgColor.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -162,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.direction.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kDirectionAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kDirectionAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -176,9 +171,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.direction.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -199,10 +194,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.height.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -213,9 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.height.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -236,8 +231,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.hspace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kHspaceAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -249,9 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.hspace.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -272,8 +268,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.loop.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -285,9 +282,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.loop.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -311,8 +308,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.scrollAmount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scrollAmount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -324,9 +322,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.scrollAmount.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -347,8 +345,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.scrollDelay.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scrollDelay();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -360,9 +359,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.scrollDelay.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -383,8 +382,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.trueSpeed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kTruespeedAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -396,9 +396,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.trueSpeed.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -419,8 +419,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.vspace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kVspaceAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -432,9 +433,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.vspace.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -455,10 +456,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -469,9 +470,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.width.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMarqueeElement";
@@ -520,8 +521,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.start");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->start();
 
 }
@@ -537,8 +539,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMarqueeElement.stop");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(v8_receiver);
+HTMLMarqueeElement* blink_receiver = V8HTMLMarqueeElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stop();
 
 }

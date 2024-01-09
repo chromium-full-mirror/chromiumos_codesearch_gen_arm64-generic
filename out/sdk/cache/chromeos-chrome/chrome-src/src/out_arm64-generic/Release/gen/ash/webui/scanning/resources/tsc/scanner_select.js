@@ -6,8 +6,8 @@ import 'chrome://resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/unguessable_token.mojom-webui.js';
 import './scan_settings_section.js';
 import './strings.m.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './scanner_select.html.js';
 import { alphabeticalCompare, getScannerDisplayName, tokenToString } from './scanning_app_util.js';
@@ -16,7 +16,7 @@ import { alphabeticalCompare, getScannerDisplayName, tokenToString } from './sca
  * 'scanner-select' displays the connected scanners in a dropdown.
  */
 const ScannerSelectElementBase = I18nMixin(PolymerElement);
-class ScannerSelectElement extends ScannerSelectElementBase {
+export class ScannerSelectElement extends ScannerSelectElementBase {
     static get is() {
         return 'scanner-select';
     }

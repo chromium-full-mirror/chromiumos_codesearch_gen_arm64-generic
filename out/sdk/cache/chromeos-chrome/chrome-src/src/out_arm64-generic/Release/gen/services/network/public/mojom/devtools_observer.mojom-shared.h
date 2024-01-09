@@ -38,6 +38,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-shared.h"
 #include "services/network/public/mojom/referrer_policy.mojom-shared.h"
 #include "services/network/public/mojom/request_priority.mojom-shared.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-shared.h"
 #include "services/network/public/mojom/trust_tokens.mojom-shared.h"
 #include "services/network/public/mojom/ip_endpoint.mojom-shared.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-shared.h"
@@ -295,6 +296,26 @@ class URLResponseHeadDevToolsInfoDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::FetchResponseSource>(data_->service_worker_response_source));
   }
+  inline void GetServiceWorkerRouterInfoDataView(
+      ::network::mojom::ServiceWorkerRouterInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceWorkerRouterInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::network::mojom::ServiceWorkerRouterInfoDataView, UserType>(),
+    "Attempting to read the optional `service_worker_router_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadServiceWorkerRouterInfo` instead "
+    "of `ReadServiceWorkerRouterInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->service_worker_router_info.Get();
+    return mojo::internal::Deserialize<::network::mojom::ServiceWorkerRouterInfoDataView>(
+        pointer, output, message_);
+  }
   inline void GetSslInfoDataView(
       ::network::mojom::SSLInfoDataView* output);
 
@@ -512,6 +533,14 @@ struct Serializer<::network::mojom::URLResponseHeadDevToolsInfoDataView, MaybeCo
     fragment->was_fetched_via_spdy = Traits::was_fetched_via_spdy(input);
     mojo::internal::Serialize<::network::mojom::FetchResponseSource>(
         Traits::service_worker_response_source(input), &fragment->service_worker_response_source);
+    decltype(Traits::service_worker_router_info(input)) in_service_worker_router_info = Traits::service_worker_router_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->service_worker_router_info)::BaseType> service_worker_router_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::network::mojom::ServiceWorkerRouterInfoDataView>(
+        in_service_worker_router_info, service_worker_router_info_fragment);
+    fragment->service_worker_router_info.Set(
+        service_worker_router_info_fragment.is_null() ? nullptr : service_worker_router_info_fragment.data());
     decltype(Traits::ssl_info(input)) in_ssl_info = Traits::ssl_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->ssl_info)::BaseType> ssl_info_fragment(
@@ -629,6 +658,11 @@ inline void URLResponseHeadDevToolsInfoDataView::GetAlpnNegotiatedProtocolDataVi
     mojo::StringDataView* output) {
   auto pointer = data_->alpn_negotiated_protocol.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void URLResponseHeadDevToolsInfoDataView::GetServiceWorkerRouterInfoDataView(
+    ::network::mojom::ServiceWorkerRouterInfoDataView* output) {
+  auto pointer = data_->service_worker_router_info.Get();
+  *output = ::network::mojom::ServiceWorkerRouterInfoDataView(pointer, message_);
 }
 inline void URLResponseHeadDevToolsInfoDataView::GetSslInfoDataView(
     ::network::mojom::SSLInfoDataView* output) {

@@ -5,16 +5,13 @@ import './strings.m.js';
 import './policy_precedence_row.js';
 import './policy_row.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { getTemplate } from './policy_table.html.js';
 export class PolicyTableElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.filterPattern = '';
-    }
     static get template() {
         return getTemplate();
     }
+    filterPattern = '';
     update(dataModel) {
         // Clear policies
         const mainContent = this.shadowRoot.querySelector('.main');

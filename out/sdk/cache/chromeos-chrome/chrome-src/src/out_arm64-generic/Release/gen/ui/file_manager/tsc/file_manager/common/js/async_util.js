@@ -7,34 +7,23 @@
  * concurrently. At most, |limit| jobs will be run at the same time.
  */
 export class ConcurrentQueue {
-    /**
-     * @param {number} limit The number of tasks to run at the same time.
-     */
-    constructor(limit) {
-        console.assert(limit > 0, '|limit| must be larger than 0');
-        this.limit_ = limit;
-        // @ts-ignore: error TS7008: Member 'added_' implicitly has an 'any[]' type.
+    /** @param limit_ The number of tasks to run at the same time. */
+    constructor(limit_) {
+        this.limit_ = limit_;
         this.added_ = [];
-        // @ts-ignore: error TS7008: Member 'running_' implicitly has an 'any[]'
-        // type.
         this.running_ = [];
         this.cancelled_ = false;
+        console.assert(this.limit_ > 0, 'limit_ must be larger than 0');
     }
-    /**
-     * @return {boolean} True when a task is running, otherwise false.
-     */
+    /** @return whether a task is running. */
     isRunning() {
         return this.running_.length !== 0;
     }
-    /**
-     * @return {number} Number of waiting tasks.
-     */
+    /** @return the number of waiting tasks. */
     getWaitingTasksCount() {
         return this.added_.length;
     }
-    /**
-     * @return {number} Number of running tasks.
-     */
+    /** @return the number of running tasks. */
     getRunningTasksCount() {
         return this.running_.length;
     }
@@ -42,12 +31,10 @@ export class ConcurrentQueue {
      * Enqueues a task for running as soon as possible. If there is already the
      * maximum number of tasks running, the run of this task is delayed until less
      * than the limit given at the construction time of tasks are running.
-     * @param {function(function():void):void} task The task to be enqueued for
-     *     execution.
      */
     run(task) {
         if (this.cancelled_) {
-            console.warn('Queue is cancelled. Cannot add a new task.');
+            console.warn('Cannot add a new task: Queue is cancelled');
         }
         else {
             this.added_.push(task);
@@ -60,12 +47,9 @@ export class ConcurrentQueue {
      */
     cancel() {
         this.cancelled_ = true;
-        this.added_ = [];
+        this.added_.length = 0;
     }
-    /**
-     * @return {boolean} True when the queue have been requested to cancel or is
-     *      already cancelled. Otherwise false.
-     */
+    /** @return whether the queue is cancelling or is already cancelled. */
     isCancelled() {
         return this.cancelled_;
     }
@@ -82,10 +66,8 @@ export class ConcurrentQueue {
         }
     }
     /**
-     * Executes the given task. The task is placed in the list of running tasks
+     * Executes the given `task`. The task is placed in the list of running tasks
      * and immediately executed.
-     * @param {function(function():void):void} task The task to be immediately
-     *     executed.
      */
     execute_(task) {
         this.running_.push(task);
@@ -95,30 +77,24 @@ export class ConcurrentQueue {
             // schedule a next run.
         }
         catch (e) {
-            console.warn('Failed to execute a task', e);
+            console.warn('Cannot execute a task', e);
             // If the task fails we call the callback explicitly.
             this.onTaskFinished_(task);
         }
     }
-    /**
-     * Handles a task being finished.
-     */
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
+    /** Handles a task being finished. */
     onTaskFinished_(task) {
         this.removeTask_(task);
         this.scheduleNext_();
     }
-    /**
-     * Attempts to remove the task that was running.
-     */
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
+    /** Attempts to remove the task that was running. */
     removeTask_(task) {
         const index = this.running_.indexOf(task);
         if (index >= 0) {
             this.running_.splice(index, 1);
         }
         else {
-            console.warn('Failed to find a finished task among running');
+            console.warn('Cannot find a finished task among the running ones');
         }
     }
     /**
@@ -129,11 +105,7 @@ export class ConcurrentQueue {
         // TODO(1350885): Use setTimeout(()=>{this.maybeExecute();});
         this.maybeExecute_();
     }
-    /**
-     * Returns string representation of current ConcurrentQueue
-     * instance.
-     * @return {string} String representation of the instance.
-     */
+    /** @return a string representation of the instance. */
     toString() {
         return 'ConcurrentQueue\n' +
             '- WaitingTasksCount: ' + this.getWaitingTasksCount() + '\n' +
@@ -161,32 +133,25 @@ export class AsyncQueue extends ConcurrentQueue {
      *     unlock();
      *   }
      *
-     * @return {!Promise<function()>} Completion callback to run when finished.
+     * @return Completion callback to run when finished.
      */
     async lock() {
         return new Promise(resolve => this.run(unlock => resolve(unlock)));
     }
 }
-/**
- * A task which is executed by Group.
- */
+/** A task which is executed by Group. */
 export class GroupTask {
     /**
-     * @param {!function(function():void):void} closure Closure with a completion
-  callback
-     *     to be executed.
-     * @param {!Array<string>} dependencies Array of dependencies.
-     * @param {!string} name Task identifier. Specify to use in dependencies.
+     * @param closure Closure with a completion callback to be executed.
+     * @param dependencies Array of dependencies.
+     * @param name Task identifier. Specify to use in dependencies.
      */
     constructor(closure, dependencies, name) {
         this.closure = closure;
         this.dependencies = dependencies;
         this.name = name;
     }
-    /**
-     * Returns string representation of GroupTask instance.
-     * @return {string} String representation of the instance.
-     */
+    /** @return a string representation of the instance. */
     toString() {
         return 'GroupTask\n' +
             '- name: ' + this.name + '\n' +
@@ -194,102 +159,73 @@ export class GroupTask {
     }
 }
 /**
- * Creates a class for executing several asynchronous closures in a group in
- * a dependency order.
+ * Creates a class for executing several asynchronous closures in a group in a
+ * dependency order.
  */
 export class Group {
     constructor() {
         this.addedTasks_ = {};
         this.pendingTasks_ = {};
         this.finishedTasks_ = {};
-        // @ts-ignore: error TS7008: Member 'completionCallbacks_' implicitly has an
-        // 'any[]' type.
         this.completionCallbacks_ = [];
     }
-    /**
-     * @return {!Record<string, GroupTask>} Pending tasks
-     */
+    /** @return the pending tasks. */
     get pendingTasks() {
         return this.pendingTasks_;
     }
     /**
      * Enqueues a closure to be executed after dependencies are completed.
      *
-     * @param {function(function():void):void} closure Closure with a completion
-     *     callback to be executed.
-     * @param {Array<string>=} opt_dependencies Array of dependencies. If no
-     *     dependencies, then the the closure will be executed immediately.
-     * @param {string=} opt_name Task identifier. Specify to use in dependencies.
+     * @param closure Closure with a completion callback to be executed.
+     * @param dependencies Array of dependencies. If no dependencies, then the
+     *     the closure will be executed immediately.
+     * @param maybeName Task identifier. Specify to use in dependencies.
      */
-    add(closure, opt_dependencies, opt_name) {
-        const length = Object.keys(this.addedTasks_).length;
-        const name = opt_name || ('(unnamed#' + (length + 1) + ')');
-        const task = new GroupTask(closure, opt_dependencies || [], name);
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
+    add(closure, dependencies = [], maybeName) {
+        const name = maybeName || (`(unnamed#${Object.keys(this.addedTasks_).length + 1})`);
+        const task = new GroupTask(closure, dependencies, name);
         this.addedTasks_[name] = task;
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         this.pendingTasks_[name] = task;
     }
     /**
-     * Runs the enqueued closured in order of dependencies.
-     *
-     * @param {function()=} opt_onCompletion Completion callback.
+     * Runs the enqueued closure in order of dependencies.
+     * @param onCompletion Completion callback.
      */
-    run(opt_onCompletion) {
-        if (opt_onCompletion) {
-            this.completionCallbacks_.push(opt_onCompletion);
+    run(onCompletion) {
+        if (onCompletion) {
+            this.completionCallbacks_.push(onCompletion);
         }
         this.continue_();
     }
-    /**
-     * Runs enqueued pending tasks whose dependencies are completed.
-     * @private
-     */
+    /** Runs enqueued pending tasks whose dependencies are completed. */
     continue_() {
         // If all of the added tasks have finished, then call completion callbacks.
         if (Object.keys(this.addedTasks_).length ==
             Object.keys(this.finishedTasks_).length) {
-            for (let index = 0; index < this.completionCallbacks_.length; index++) {
-                const callback = this.completionCallbacks_[index];
+            for (const callback of this.completionCallbacks_) {
                 callback();
             }
-            this.completionCallbacks_ = [];
+            this.completionCallbacks_.length = 0;
             return;
         }
         for (const name in this.pendingTasks_) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             const task = this.pendingTasks_[name];
             let dependencyMissing = false;
-            for (let index = 0; index < task.dependencies.length; index++) {
-                const dependency = task.dependencies[index];
+            for (const dependency of task.dependencies) {
                 // Check if the dependency has finished.
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{}'.
                 if (!this.finishedTasks_[dependency]) {
                     dependencyMissing = true;
                 }
             }
             // All dependences finished, therefore start the task.
             if (!dependencyMissing) {
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{}'.
                 delete this.pendingTasks_[task.name];
                 task.closure(this.finish_.bind(this, task));
             }
         }
     }
-    /**
-     * Finishes the passed task and continues executing enqueued closures.
-     *
-     * @param {Object} task Task object.
-     * @private
-     */
+    /** Finishes the passed task and continues executing enqueued closures. */
     finish_(task) {
-        // @ts-ignore: error TS2339: Property 'name' does not exist on type
-        // 'Object'.
         this.finishedTasks_[task.name] = task;
         this.continue_();
     }
@@ -302,30 +238,13 @@ export class Group {
  */
 export class Aggregator {
     /**
-     * @param {function():void} closure Closure to be aggregated.
-     * @param {number=} opt_delay Minimum aggregation time in milliseconds.
-     *     Default is 50 milliseconds.
+     * @param closure_ Closure to be aggregated.
+     * @param delay_ Minimum aggregation time in milliseconds.
      */
-    constructor(closure, opt_delay) {
-        /**
-         * @type {number}
-         * @private
-         */
-        this.delay_ = opt_delay || 50;
-        /**
-         * @type {function():void}
-         * @private
-         */
-        this.closure_ = closure;
-        /**
-         * @type {number?}
-         * @private
-         */
+    constructor(closure_, delay_ = 50) {
+        this.closure_ = closure_;
+        this.delay_ = delay_;
         this.scheduledRunsTimer_ = null;
-        /**
-         * @type {number}
-         * @private
-         */
         this.lastRunTime_ = 0;
     }
     /**
@@ -344,19 +263,13 @@ export class Aggregator {
         // Otherwise, run immediately.
         this.runImmediately_();
     }
-    /**
-     * Calls the schedule immediately and cancels any scheduled calls.
-     * @private
-     */
+    /** Calls the schedule immediately and cancels any scheduled calls. */
     runImmediately_() {
         this.cancelScheduledRuns_();
         this.closure_();
         this.lastRunTime_ = Date.now();
     }
-    /**
-     * Cancels all scheduled runs (if any).
-     * @private
-     */
+    /** Cancels all scheduled runs (if any). */
     cancelScheduledRuns_() {
         if (this.scheduledRunsTimer_) {
             clearTimeout(this.scheduledRunsTimer_);
@@ -365,43 +278,25 @@ export class Aggregator {
     }
 }
 /**
- * Samples calls so that they are not called too frequently.
- * The first call is always called immediately, and the following calls may
- * be skipped or delayed to keep each interval no less than |minInterval_|.
+ * Samples calls so that they are not called too frequently. The first call is
+ * always called immediately, and the following calls may be skipped or delayed
+ * to keep each interval no less than `minInterval_`.
  */
 export class RateLimiter {
     /**
-     * @param {function():void} closure Closure to be called.
-     * @param {number=} opt_minInterval Minimum interval between each call in
-     *     milliseconds. Default is 200 milliseconds.
+     * @param closure_ Closure to be called.
+     * @param minInterval_ Minimum interval between each call in milliseconds.
      */
-    constructor(closure, opt_minInterval) {
-        /**
-         * @type {function():void}
-         * @private
-         */
-        this.closure_ = closure;
-        /**
-         * @type {number}
-         * @private
-         */
-        this.minInterval_ = opt_minInterval || 200;
-        /**
-         * @type {number}
-         * @private
-         */
+    constructor(closure_, minInterval_ = 200) {
+        this.closure_ = closure_;
+        this.minInterval_ = minInterval_;
         this.scheduledRunsTimer_ = 0;
-        /**
-         * This variable remembers the last time the closure is called.
-         * @type {number}
-         * @private
-         */
+        /** Last time the closure is called. */
         this.lastRunTime_ = 0;
     }
     /**
-     * Requests to run the closure.
-     * Skips or delays calls so that the intervals between calls are no less than
-     * |minInterval_| milliseconds.
+     * Requests to run the closure. Skips or delays calls so that the intervals
+     * between calls are no less than `minInterval_` milliseconds.
      */
     run() {
         const now = Date.now();
@@ -418,18 +313,13 @@ export class RateLimiter {
         // Otherwise, run immediately
         this.runImmediately();
     }
-    /**
-     * Calls the scheduled run immediately and cancels any scheduled calls.
-     */
+    /** Calls the scheduled run immediately and cancels any scheduled calls. */
     runImmediately() {
         this.cancelScheduledRuns_();
         this.lastRunTime_ = Date.now();
         this.closure_();
     }
-    /**
-     * Cancels all scheduled runs (if any).
-     * @private
-     */
+    /** Cancels all scheduled runs (if any). */
     cancelScheduledRuns_() {
         if (this.scheduledRunsTimer_) {
             clearTimeout(this.scheduledRunsTimer_);

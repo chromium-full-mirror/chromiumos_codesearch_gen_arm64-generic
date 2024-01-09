@@ -102,23 +102,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_ActivateP
 };
 static_assert(sizeof(PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data) == 8,
               "Bad sizeof(PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_SetInsidePortal_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t is_inside_portal : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<PageBroadcast_SetInsidePortal_Params_Data>;
-
-  PageBroadcast_SetInsidePortal_Params_Data();
-  ~PageBroadcast_SetInsidePortal_Params_Data() = delete;
-};
-static_assert(sizeof(PageBroadcast_SetInsidePortal_Params_Data) == 16,
-              "Bad sizeof(PageBroadcast_SetInsidePortal_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_UpdateWebPreferences_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -223,6 +206,39 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_UpdatePag
 };
 static_assert(sizeof(PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data) == 16,
               "Bad sizeof(PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_SetPageAttributionSupport_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t support;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PageBroadcast_SetPageAttributionSupport_Params_Data>;
+
+  PageBroadcast_SetPageAttributionSupport_Params_Data();
+  ~PageBroadcast_SetPageAttributionSupport_Params_Data() = delete;
+};
+static_assert(sizeof(PageBroadcast_SetPageAttributionSupport_Params_Data) == 16,
+              "Bad sizeof(PageBroadcast_SetPageAttributionSupport_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PageBroadcast_UpdateColorProviders_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ColorProviderColorMaps_Data> color_provider_colors;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageBroadcast_UpdateColorProviders_Params_Data>;
+
+  PageBroadcast_UpdateColorProviders_Params_Data();
+  ~PageBroadcast_UpdateColorProviders_Params_Data() = delete;
+};
+static_assert(sizeof(PageBroadcast_UpdateColorProviders_Params_Data) == 16,
+              "Bad sizeof(PageBroadcast_UpdateColorProviders_Params_Data)");
 
 }  // namespace internal
 
@@ -344,24 +360,6 @@ class PageBroadcast_ActivatePrerenderedPage_ResponseParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class PageBroadcast_SetInsidePortal_ParamsDataView {
- public:
-  PageBroadcast_SetInsidePortal_ParamsDataView() = default;
-
-  PageBroadcast_SetInsidePortal_ParamsDataView(
-      internal::PageBroadcast_SetInsidePortal_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool is_inside_portal() const {
-    return data_->is_inside_portal;
-  }
- private:
-  internal::PageBroadcast_SetInsidePortal_Params_Data* data_ = nullptr;
 };
 
 
@@ -588,6 +586,57 @@ class PageBroadcast_UpdatePageBrowsingContextGroup_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class PageBroadcast_SetPageAttributionSupport_ParamsDataView {
+ public:
+  PageBroadcast_SetPageAttributionSupport_ParamsDataView() = default;
+
+  PageBroadcast_SetPageAttributionSupport_ParamsDataView(
+      internal::PageBroadcast_SetPageAttributionSupport_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSupport(UserType* output) const {
+    auto data_value = data_->support;
+    return mojo::internal::Deserialize<::network::mojom::AttributionSupport>(
+        data_value, output);
+  }
+  ::network::mojom::AttributionSupport support() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::network::mojom::AttributionSupport>(data_->support));
+  }
+ private:
+  internal::PageBroadcast_SetPageAttributionSupport_Params_Data* data_ = nullptr;
+};
+
+
+class PageBroadcast_UpdateColorProviders_ParamsDataView {
+ public:
+  PageBroadcast_UpdateColorProviders_ParamsDataView() = default;
+
+  PageBroadcast_UpdateColorProviders_ParamsDataView(
+      internal::PageBroadcast_UpdateColorProviders_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetColorProviderColorsDataView(
+      ColorProviderColorMapsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadColorProviderColors(UserType* output) {
+    
+    auto* pointer = data_->color_provider_colors.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ColorProviderColorMapsDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageBroadcast_UpdateColorProviders_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void PageBroadcast_SetPageLifecycleState_ParamsDataView::GetStateDataView(
     PageLifecycleStateDataView* output) {
   auto pointer = data_->state.Get();
@@ -609,8 +658,6 @@ inline void PageBroadcast_ActivatePrerenderedPage_ParamsDataView::GetPrerenderPa
   auto pointer = data_->prerender_page_activation_params.Get();
   *output = PrerenderPageActivationParamsDataView(pointer, message_);
 }
-
-
 
 
 
@@ -674,6 +721,15 @@ inline void PageBroadcast_UpdatePageBrowsingContextGroup_ParamsDataView::GetBrow
     ::blink::mojom::BrowsingContextGroupInfoDataView* output) {
   auto pointer = data_->browsing_context_group_info.Get();
   *output = ::blink::mojom::BrowsingContextGroupInfoDataView(pointer, message_);
+}
+
+
+
+
+inline void PageBroadcast_UpdateColorProviders_ParamsDataView::GetColorProviderColorsDataView(
+    ColorProviderColorMapsDataView* output) {
+  auto pointer = data_->color_provider_colors.Get();
+  *output = ColorProviderColorMapsDataView(pointer, message_);
 }
 
 

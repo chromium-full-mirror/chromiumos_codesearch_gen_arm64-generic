@@ -61,8 +61,8 @@ class  SensorDeviceAsyncWaiter {
 
   ~SensorDeviceAsyncWaiter();
   void GetAttributes(
-      const std::vector<std::string>& attr_names, std::vector<absl::optional<std::string>>* out_values);
-  std::vector<absl::optional<std::string>> GetAttributes(const std::vector<std::string>& attr_names);
+      const std::vector<std::string>& attr_names, std::vector<std::optional<std::string>>* out_values);
+  std::vector<std::optional<std::string>> GetAttributes(const std::vector<std::string>& attr_names);
   void SetFrequency(
       double frequency, double* out_result_freq);
   double SetFrequency(double frequency);
@@ -76,8 +76,8 @@ class  SensorDeviceAsyncWaiter {
       const std::vector<int32_t>& iio_chn_indices, std::vector<bool>* out_enabled);
   std::vector<bool> GetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices);
   void GetChannelsAttributes(
-      const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values);
-  std::vector<absl::optional<std::string>> GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name);
+      const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<std::optional<std::string>>* out_values);
+  std::vector<std::optional<std::string>> GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name);
 
  private:
   SensorDevice* const proxy_;

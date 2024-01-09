@@ -13,6 +13,7 @@
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
 #include "third_party/blink/renderer/bindings/core/v8/binding_security.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
+#include "third_party/blink/renderer/bindings/core/v8/local_window_proxy.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_document.h"
@@ -80,11 +81,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFrameElement>::value,
     "HTMLFrameElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFrameElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFrameElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,10 +93,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -121,10 +117,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.scrolling.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kScrollingAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kScrollingAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -145,10 +141,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -168,7 +164,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -185,10 +181,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.frameBorder.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kFrameborderAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kFrameborderAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -209,10 +205,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.longDesc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -232,7 +228,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -249,8 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.noResize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kNoresizeAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -276,7 +273,7 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.contentDocument.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentDocument();
 if (!BindingSecurity::ShouldAllowAccessTo(ToLocalDOMWindow(current_context), return_value)) {
   ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
@@ -288,14 +285,17 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-if (UNLIKELY(!blink_frame->IsAttached())) {
-  bindings::V8SetReturnValue(info, nullptr);
-return;
-}
-v8::Local<v8::Value> v8_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
+if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
+  // Don't wrap the return value if its frame is in the process of detaching and
+// has already invalidated its v8::Context, as it is not safe to
+// re-initialize the v8::Context in that state. Return null instead.
+bindings::V8SetReturnValue(info, nullptr);
+return;
+}
+v8::Local<v8::Value> v8_value;
 if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
   return;
 }
@@ -311,8 +311,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.contentWindow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentWindow();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -325,10 +326,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.marginHeight.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginheightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginheightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -349,10 +350,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameElement.marginWidth.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginwidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameElement* blink_receiver = V8HTMLFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginwidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

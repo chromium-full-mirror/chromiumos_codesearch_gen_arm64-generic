@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -88,25 +89,25 @@ bool InstallIsolatedWebAppResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-IwaDevProxyAppInfo::IwaDevProxyAppInfo()
+IwaDevModeAppInfo::IwaDevModeAppInfo()
     : app_id(),
       name(),
-      proxy_origin(),
+      location(),
       installed_version() {}
 
-IwaDevProxyAppInfo::IwaDevProxyAppInfo(
+IwaDevModeAppInfo::IwaDevModeAppInfo(
     const std::string& app_id_in,
     const std::string& name_in,
-    const ::url::Origin& proxy_origin_in,
+    IwaDevModeLocationPtr location_in,
     const std::string& installed_version_in)
     : app_id(std::move(app_id_in)),
       name(std::move(name_in)),
-      proxy_origin(std::move(proxy_origin_in)),
+      location(std::move(location_in)),
       installed_version(std::move(installed_version_in)) {}
 
-IwaDevProxyAppInfo::~IwaDevProxyAppInfo() = default;
+IwaDevModeAppInfo::~IwaDevModeAppInfo() = default;
 
-void IwaDevProxyAppInfo::WriteIntoTrace(
+void IwaDevModeAppInfo::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -129,9 +130,9 @@ void IwaDevProxyAppInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "proxy_origin"), this->proxy_origin,
+      "location"), this->location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::url::Origin&>"
+      "<value of type IwaDevModeLocationPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -147,10 +148,61 @@ void IwaDevProxyAppInfo::WriteIntoTrace(
     );
 }
 
-bool IwaDevProxyAppInfo::Validate(
+bool IwaDevModeAppInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
+}
+IwaDevModeLocation::IwaDevModeLocation() : tag_(Tag::kProxyOrigin) {
+  data_.proxy_origin = new ::url::Origin;
+}
+
+IwaDevModeLocation::~IwaDevModeLocation() {
+  DestroyActive();
+}
+
+
+void IwaDevModeLocation::set_proxy_origin(
+    const ::url::Origin& proxy_origin) {
+  if (tag_ == Tag::kProxyOrigin) {
+    *(data_.proxy_origin) = std::move(proxy_origin);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kProxyOrigin;
+    data_.proxy_origin = new ::url::Origin(
+        std::move(proxy_origin));
+  }
+}
+void IwaDevModeLocation::set_bundle_path(
+    const ::base::FilePath& bundle_path) {
+  if (tag_ == Tag::kBundlePath) {
+    *(data_.bundle_path) = std::move(bundle_path);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBundlePath;
+    data_.bundle_path = new ::base::FilePath(
+        std::move(bundle_path));
+  }
+}
+
+void IwaDevModeLocation::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kProxyOrigin:
+
+      delete data_.proxy_origin;
+      break;
+    case Tag::kBundlePath:
+
+      delete data_.bundle_path;
+      break;
+  }
+}
+
+bool IwaDevModeLocation::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
 }
 const char WebAppInternalsHandler::Name_[] = "mojom.WebAppInternalsHandler";
 
@@ -166,14 +218,17 @@ WebAppInternalsHandler::IPCStableHashFunction WebAppInternalsHandler::MessageToM
     case internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name: {
       return &WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundle_Sym::IPCStableHash;
     }
+    case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name: {
+      return &WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp_Sym::IPCStableHash;
+    }
+    case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name: {
+      return &WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle_Sym::IPCStableHash;
+    }
     case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name: {
       return &WebAppInternalsHandler::SearchForIsolatedWebAppUpdates_Sym::IPCStableHash;
     }
-    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name: {
-      return &WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo_Sym::IPCStableHash;
-    }
-    case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name: {
-      return &WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp_Sym::IPCStableHash;
+    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name: {
+      return &WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -192,12 +247,14 @@ const char* WebAppInternalsHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive mojom::WebAppInternalsHandler::InstallIsolatedWebAppFromDevProxy";
       case internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name:
             return "Receive mojom::WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundle";
-      case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name:
-            return "Receive mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates";
-      case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name:
-            return "Receive mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo";
       case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name:
             return "Receive mojom::WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp";
+      case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name:
+            return "Receive mojom::WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle";
+      case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name:
+            return "Receive mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates";
+      case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name:
+            return "Receive mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo";
     }
   } else {
     switch (message.name()) {
@@ -207,12 +264,14 @@ const char* WebAppInternalsHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive reply mojom::WebAppInternalsHandler::InstallIsolatedWebAppFromDevProxy";
       case internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name:
             return "Receive reply mojom::WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundle";
-      case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name:
-            return "Receive reply mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates";
-      case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name:
-            return "Receive reply mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo";
       case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name:
             return "Receive reply mojom::WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp";
+      case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name:
+            return "Receive reply mojom::WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle";
+      case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name:
+            return "Receive reply mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates";
+      case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name:
+            return "Receive reply mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -266,6 +325,32 @@ uint32_t WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundle
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t WebAppInternalsHandler::SearchForIsolatedWebAppUpdates_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -279,7 +364,7 @@ uint32_t WebAppInternalsHandler::SearchForIsolatedWebAppUpdates_Sym::IPCStableHa
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo_Sym::IPCStableHash() {
+uint32_t WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -287,20 +372,7 @@ uint32_t WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo_Sym::IPCSt
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)mojom::WebAppInternalsHandler::UpdateDevProxyIsolatedWebApp");
+          "(Impl)mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -355,38 +427,6 @@ class WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_For
   WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundleCallback callback_;
 };
 
-class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(
-      WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback&) = delete;
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback& operator=(const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback_;
-};
-
-class WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback(
-      WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfoCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback(const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback&) = delete;
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback& operator=(const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfoCallback callback_;
-};
-
 class WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -403,6 +443,54 @@ class WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ForwardToCallback
   WebAppInternalsHandler::UpdateDevProxyIsolatedWebAppCallback callback_;
 };
 
+class WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback(
+      WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback(const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback&) = delete;
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback& operator=(const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback_;
+};
+
+class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(
+      WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback&) = delete;
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback& operator=(const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback_;
+};
+
+class WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback(
+      WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback(const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback&) = delete;
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback& operator=(const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfoCallback callback_;
+};
+
 WebAppInternalsHandlerProxy::WebAppInternalsHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -412,14 +500,17 @@ void WebAppInternalsHandlerProxy::GetDebugInfoAsJsonString(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::GetDebugInfoAsJsonString");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_GetDebugInfoAsJsonString_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +541,17 @@ void WebAppInternalsHandlerProxy::InstallIsolatedWebAppFromDevProxy(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Name, kFlags, 0, 0, nullptr);
@@ -492,14 +586,17 @@ void WebAppInternalsHandlerProxy::SelectFileAndInstallIsolatedWebAppFromDevBundl
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::SelectFileAndInstallIsolatedWebAppFromDevBundle");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name, kFlags, 0, 0, nullptr);
@@ -518,68 +615,6 @@ void WebAppInternalsHandlerProxy::SelectFileAndInstallIsolatedWebAppFromDevBundl
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void WebAppInternalsHandlerProxy::SearchForIsolatedWebAppUpdates(
-    SearchForIsolatedWebAppUpdatesCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::mojom::internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(WebAppInternalsHandler::Name_);
-  message.set_method_name("SearchForIsolatedWebAppUpdates");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void WebAppInternalsHandlerProxy::GetIsolatedWebAppDevModeProxyAppInfo(
-    GetIsolatedWebAppDevModeProxyAppInfoCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::mojom::internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(WebAppInternalsHandler::Name_);
-  message.set_method_name("GetIsolatedWebAppDevModeProxyAppInfo");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void WebAppInternalsHandlerProxy::UpdateDevProxyIsolatedWebApp(
     const std::string& in_app_id, UpdateDevProxyIsolatedWebAppCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -592,14 +627,17 @@ void WebAppInternalsHandlerProxy::UpdateDevProxyIsolatedWebApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name, kFlags, 0, 0, nullptr);
@@ -625,6 +663,126 @@ void WebAppInternalsHandlerProxy::UpdateDevProxyIsolatedWebApp(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void WebAppInternalsHandlerProxy::SelectFileAndUpdateIsolatedWebAppFromDevBundle(
+    const std::string& in_app_id, SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send mojom::WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in WebAppInternalsHandler.SelectFileAndUpdateIsolatedWebAppFromDevBundle request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("SelectFileAndUpdateIsolatedWebAppFromDevBundle");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void WebAppInternalsHandlerProxy::SearchForIsolatedWebAppUpdates(
+    SearchForIsolatedWebAppUpdatesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("SearchForIsolatedWebAppUpdates");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void WebAppInternalsHandlerProxy::GetIsolatedWebAppDevModeAppInfo(
+    GetIsolatedWebAppDevModeAppInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("GetIsolatedWebAppDevModeAppInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -720,7 +878,8 @@ void WebAppInternalsHandler_GetDebugInfoAsJsonString_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_GetDebugInfoAsJsonString_Name, kFlags, 0, 0, nullptr);
@@ -848,7 +1007,8 @@ void WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Name, kFlags, 0, 0, nullptr);
@@ -976,7 +1136,8 @@ void WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Prox
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name, kFlags, 0, 0, nullptr);
@@ -999,264 +1160,6 @@ void WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Prox
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebAppInternalsHandler::Name_);
   message.set_method_name("SelectFileAndInstallIsolatedWebAppFromDevBundle");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder> proxy(
-        new WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      const std::string& in_result);
-};
-
-bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::string p_result{};
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        WebAppInternalsHandler::Name_, 3, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::Run(
-    const std::string& in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type const std::string&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::mojom::internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->result)::BaseType> result_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_result, result_fragment);
-  params->result.Set(
-      result_fragment.is_null() ? nullptr : result_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(WebAppInternalsHandler::Name_);
-  message.set_method_name("SearchForIsolatedWebAppUpdates");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfoCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder> proxy(
-        new WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfoCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      std::vector<IwaDevProxyAppInfoPtr> in_apps);
-};
-
-bool WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::vector<IwaDevProxyAppInfoPtr> p_apps{};
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadApps(&p_apps))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        WebAppInternalsHandler::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_apps));
-  return true;
-}
-
-void WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder::Run(
-    std::vector<IwaDevProxyAppInfoPtr> in_apps) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfo", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("apps"), in_apps,
-                        "<value of type std::vector<IwaDevProxyAppInfoPtr>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::mojom::internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->apps)::BaseType>
-      apps_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::mojom::IwaDevProxyAppInfoDataView>>(
-      in_apps, apps_fragment, &apps_validate_params);
-  params->apps.Set(
-      apps_fragment.is_null() ? nullptr : apps_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->apps.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null apps in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(WebAppInternalsHandler::Name_);
-  message.set_method_name("GetIsolatedWebAppDevModeProxyAppInfo");
 #endif
 
   message.set_request_id(request_id_);
@@ -1338,7 +1241,7 @@ bool WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ForwardToCallback::Acce
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        WebAppInternalsHandler::Name_, 5, true);
+        WebAppInternalsHandler::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1362,7 +1265,8 @@ void WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name, kFlags, 0, 0, nullptr);
@@ -1398,6 +1302,395 @@ void WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder> proxy(
+        new WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_result);
+};
+
+bool WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::string p_result{};
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WebAppInternalsHandler::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder::Run(
+    const std::string& in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundle", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("SelectFileAndUpdateIsolatedWebAppFromDevBundle");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder> proxy(
+        new WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_result);
+};
+
+bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::string p_result{};
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WebAppInternalsHandler::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::Run(
+    const std::string& in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::WebAppInternalsHandler::SearchForIsolatedWebAppUpdates", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("SearchForIsolatedWebAppUpdates");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder> proxy(
+        new WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<IwaDevModeAppInfoPtr> in_apps);
+};
+
+bool WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<IwaDevModeAppInfoPtr> p_apps{};
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadApps(&p_apps))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WebAppInternalsHandler::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_apps));
+  return true;
+}
+
+void WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder::Run(
+    std::vector<IwaDevModeAppInfoPtr> in_apps) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfo", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("apps"), in_apps,
+                        "<value of type std::vector<IwaDevModeAppInfoPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->apps)::BaseType>
+      apps_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::mojom::IwaDevModeAppInfoDataView>>(
+      in_apps, apps_fragment, &apps_validate_params);
+  params->apps.Set(
+      apps_fragment.is_null() ? nullptr : apps_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->apps.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null apps in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebAppInternalsHandler::Name_);
+  message.set_method_name("GetIsolatedWebAppDevModeAppInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool WebAppInternalsHandlerStubDispatch::Accept(
@@ -1413,13 +1706,16 @@ bool WebAppInternalsHandlerStubDispatch::Accept(
     case internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name: {
       break;
     }
+    case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name: {
+      break;
+    }
+    case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name: {
+      break;
+    }
     case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name: {
       break;
     }
-    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name: {
-      break;
-    }
-    case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name: {
+    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name: {
       break;
     }
   }
@@ -1514,56 +1810,6 @@ std::move(p_url), std::move(callback));
       impl->SelectFileAndInstallIsolatedWebAppFromDevBundle(std::move(callback));
       return true;
     }
-    case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name: {
-
-      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* params =
-          reinterpret_cast<
-              internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WebAppInternalsHandler::Name_, 3, false);
-        return false;
-      }
-      WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback =
-          WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SearchForIsolatedWebAppUpdates(std::move(callback));
-      return true;
-    }
-    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name: {
-
-      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data* params =
-          reinterpret_cast<
-              internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WebAppInternalsHandler::Name_, 4, false);
-        return false;
-      }
-      WebAppInternalsHandler::GetIsolatedWebAppDevModeProxyAppInfoCallback callback =
-          WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetIsolatedWebAppDevModeProxyAppInfo(std::move(callback));
-      return true;
-    }
     case internal::kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name: {
 
       internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data* params =
@@ -1581,7 +1827,7 @@ std::move(p_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WebAppInternalsHandler::Name_, 5, false);
+            WebAppInternalsHandler::Name_, 3, false);
         return false;
       }
       WebAppInternalsHandler::UpdateDevProxyIsolatedWebAppCallback callback =
@@ -1593,24 +1839,105 @@ std::move(p_url), std::move(callback));
 std::move(p_app_id), std::move(callback));
       return true;
     }
+    case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name: {
+
+      internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data* params =
+          reinterpret_cast<
+              internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_app_id{};
+      WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WebAppInternalsHandler::Name_, 4, false);
+        return false;
+      }
+      WebAppInternalsHandler::SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback =
+          WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SelectFileAndUpdateIsolatedWebAppFromDevBundle(
+std::move(p_app_id), std::move(callback));
+      return true;
+    }
+    case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name: {
+
+      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* params =
+          reinterpret_cast<
+              internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WebAppInternalsHandler::Name_, 5, false);
+        return false;
+      }
+      WebAppInternalsHandler::SearchForIsolatedWebAppUpdatesCallback callback =
+          WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SearchForIsolatedWebAppUpdates(std::move(callback));
+      return true;
+    }
+    case internal::kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name: {
+
+      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WebAppInternalsHandler::Name_, 6, false);
+        return false;
+      }
+      WebAppInternalsHandler::GetIsolatedWebAppDevModeAppInfoCallback callback =
+          WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetIsolatedWebAppDevModeAppInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebAppInternalsHandlerValidationInfo[] = {
-    {&internal::WebAppInternalsHandler_GetDebugInfoAsJsonString_Params_Data::Validate,
+    { &internal::WebAppInternalsHandler_GetDebugInfoAsJsonString_Params_Data::Validate,
      &internal::WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParams_Data::Validate},
-    {&internal::WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Params_Data::Validate,
+    { &internal::WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Params_Data::Validate,
      &internal::WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ResponseParams_Data::Validate},
-    {&internal::WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Params_Data::Validate,
+    { &internal::WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Params_Data::Validate,
      &internal::WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParams_Data::Validate},
-    {&internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::Validate,
-     &internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::Validate},
-    {&internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data::Validate,
-     &internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data::Validate},
-    {&internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data::Validate,
+    { &internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data::Validate,
      &internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data::Validate},
+    { &internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data::Validate,
+     &internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data::Validate},
+    { &internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::Validate,
+     &internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::Validate},
+    { &internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data::Validate,
+     &internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data::Validate},
 };
 
 bool WebAppInternalsHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -1647,22 +1974,55 @@ bool StructTraits<::mojom::InstallIsolatedWebAppResult::DataView, ::mojom::Insta
 
 
 // static
-bool StructTraits<::mojom::IwaDevProxyAppInfo::DataView, ::mojom::IwaDevProxyAppInfoPtr>::Read(
-    ::mojom::IwaDevProxyAppInfo::DataView input,
-    ::mojom::IwaDevProxyAppInfoPtr* output) {
+bool StructTraits<::mojom::IwaDevModeAppInfo::DataView, ::mojom::IwaDevModeAppInfoPtr>::Read(
+    ::mojom::IwaDevModeAppInfo::DataView input,
+    ::mojom::IwaDevModeAppInfoPtr* output) {
   bool success = true;
-  ::mojom::IwaDevProxyAppInfoPtr result(::mojom::IwaDevProxyAppInfo::New());
+  ::mojom::IwaDevModeAppInfoPtr result(::mojom::IwaDevModeAppInfo::New());
   
       if (success && !input.ReadAppId(&result->app_id))
         success = false;
       if (success && !input.ReadName(&result->name))
         success = false;
-      if (success && !input.ReadProxyOrigin(&result->proxy_origin))
+      if (success && !input.ReadLocation(&result->location))
         success = false;
       if (success && !input.ReadInstalledVersion(&result->installed_version))
         success = false;
   *output = std::move(result);
   return success;
+}
+
+// static
+bool UnionTraits<::mojom::IwaDevModeLocation::DataView, ::mojom::IwaDevModeLocationPtr>::Read(
+    ::mojom::IwaDevModeLocation::DataView input,
+    ::mojom::IwaDevModeLocationPtr* output) {
+  using UnionType = ::mojom::IwaDevModeLocation;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kProxyOrigin: {
+      ::url::Origin result_proxy_origin;
+      if (!input.ReadProxyOrigin(&result_proxy_origin))
+        return false;
+
+      *output = UnionType::NewProxyOrigin(
+          std::move(result_proxy_origin));
+      break;
+    }
+    case Tag::kBundlePath: {
+      ::base::FilePath result_bundle_path;
+      if (!input.ReadBundlePath(&result_bundle_path))
+        return false;
+
+      *output = UnionType::NewBundlePath(
+          std::move(result_bundle_path));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
 }
 
 }  // namespace mojo
@@ -1684,14 +2044,17 @@ void WebAppInternalsHandlerInterceptorForTesting::InstallIsolatedWebAppFromDevPr
 void WebAppInternalsHandlerInterceptorForTesting::SelectFileAndInstallIsolatedWebAppFromDevBundle(SelectFileAndInstallIsolatedWebAppFromDevBundleCallback callback) {
   GetForwardingInterface()->SelectFileAndInstallIsolatedWebAppFromDevBundle(std::move(callback));
 }
+void WebAppInternalsHandlerInterceptorForTesting::UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) {
+  GetForwardingInterface()->UpdateDevProxyIsolatedWebApp(std::move(app_id), std::move(callback));
+}
+void WebAppInternalsHandlerInterceptorForTesting::SelectFileAndUpdateIsolatedWebAppFromDevBundle(const std::string& app_id, SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback) {
+  GetForwardingInterface()->SelectFileAndUpdateIsolatedWebAppFromDevBundle(std::move(app_id), std::move(callback));
+}
 void WebAppInternalsHandlerInterceptorForTesting::SearchForIsolatedWebAppUpdates(SearchForIsolatedWebAppUpdatesCallback callback) {
   GetForwardingInterface()->SearchForIsolatedWebAppUpdates(std::move(callback));
 }
-void WebAppInternalsHandlerInterceptorForTesting::GetIsolatedWebAppDevModeProxyAppInfo(GetIsolatedWebAppDevModeProxyAppInfoCallback callback) {
-  GetForwardingInterface()->GetIsolatedWebAppDevModeProxyAppInfo(std::move(callback));
-}
-void WebAppInternalsHandlerInterceptorForTesting::UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) {
-  GetForwardingInterface()->UpdateDevProxyIsolatedWebApp(std::move(app_id), std::move(callback));
+void WebAppInternalsHandlerInterceptorForTesting::GetIsolatedWebAppDevModeAppInfo(GetIsolatedWebAppDevModeAppInfoCallback callback) {
+  GetForwardingInterface()->GetIsolatedWebAppDevModeAppInfo(std::move(callback));
 }
 WebAppInternalsHandlerAsyncWaiter::WebAppInternalsHandlerAsyncWaiter(
     WebAppInternalsHandler* proxy) : proxy_(proxy) {}
@@ -1767,6 +2130,52 @@ InstallIsolatedWebAppResultPtr WebAppInternalsHandlerAsyncWaiter::SelectFileAndI
   return async_wait_result;
 }
 
+void WebAppInternalsHandlerAsyncWaiter::UpdateDevProxyIsolatedWebApp(
+    const std::string& app_id, std::string* out_result) {
+  base::RunLoop loop;
+  proxy_->UpdateDevProxyIsolatedWebApp(std::move(app_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_result
+,
+             const std::string& result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+std::string WebAppInternalsHandlerAsyncWaiter::UpdateDevProxyIsolatedWebApp(
+    const std::string& app_id) {
+  std::string async_wait_result;
+  UpdateDevProxyIsolatedWebApp(std::move(app_id),&async_wait_result);
+  return async_wait_result;
+}
+
+void WebAppInternalsHandlerAsyncWaiter::SelectFileAndUpdateIsolatedWebAppFromDevBundle(
+    const std::string& app_id, std::string* out_result) {
+  base::RunLoop loop;
+  proxy_->SelectFileAndUpdateIsolatedWebAppFromDevBundle(std::move(app_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_result
+,
+             const std::string& result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+std::string WebAppInternalsHandlerAsyncWaiter::SelectFileAndUpdateIsolatedWebAppFromDevBundle(
+    const std::string& app_id) {
+  std::string async_wait_result;
+  SelectFileAndUpdateIsolatedWebAppFromDevBundle(std::move(app_id),&async_wait_result);
+  return async_wait_result;
+}
+
 void WebAppInternalsHandlerAsyncWaiter::SearchForIsolatedWebAppUpdates(
     std::string* out_result) {
   base::RunLoop loop;
@@ -1790,15 +2199,15 @@ std::string WebAppInternalsHandlerAsyncWaiter::SearchForIsolatedWebAppUpdates(
   return async_wait_result;
 }
 
-void WebAppInternalsHandlerAsyncWaiter::GetIsolatedWebAppDevModeProxyAppInfo(
-    std::vector<IwaDevProxyAppInfoPtr>* out_apps) {
+void WebAppInternalsHandlerAsyncWaiter::GetIsolatedWebAppDevModeAppInfo(
+    std::vector<IwaDevModeAppInfoPtr>* out_apps) {
   base::RunLoop loop;
-  proxy_->GetIsolatedWebAppDevModeProxyAppInfo(
+  proxy_->GetIsolatedWebAppDevModeAppInfo(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<IwaDevProxyAppInfoPtr>* out_apps
+             std::vector<IwaDevModeAppInfoPtr>* out_apps
 ,
-             std::vector<IwaDevProxyAppInfoPtr> apps) {*out_apps = std::move(apps);
+             std::vector<IwaDevModeAppInfoPtr> apps) {*out_apps = std::move(apps);
             loop->Quit();
           },
           &loop,
@@ -1806,33 +2215,10 @@ void WebAppInternalsHandlerAsyncWaiter::GetIsolatedWebAppDevModeProxyAppInfo(
   loop.Run();
 }
 
-std::vector<IwaDevProxyAppInfoPtr> WebAppInternalsHandlerAsyncWaiter::GetIsolatedWebAppDevModeProxyAppInfo(
+std::vector<IwaDevModeAppInfoPtr> WebAppInternalsHandlerAsyncWaiter::GetIsolatedWebAppDevModeAppInfo(
     ) {
-  std::vector<IwaDevProxyAppInfoPtr> async_wait_result;
-  GetIsolatedWebAppDevModeProxyAppInfo(&async_wait_result);
-  return async_wait_result;
-}
-
-void WebAppInternalsHandlerAsyncWaiter::UpdateDevProxyIsolatedWebApp(
-    const std::string& app_id, std::string* out_result) {
-  base::RunLoop loop;
-  proxy_->UpdateDevProxyIsolatedWebApp(std::move(app_id),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::string* out_result
-,
-             const std::string& result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-std::string WebAppInternalsHandlerAsyncWaiter::UpdateDevProxyIsolatedWebApp(
-    const std::string& app_id) {
-  std::string async_wait_result;
-  UpdateDevProxyIsolatedWebApp(std::move(app_id),&async_wait_result);
+  std::vector<IwaDevModeAppInfoPtr> async_wait_result;
+  GetIsolatedWebAppDevModeAppInfo(&async_wait_result);
   return async_wait_result;
 }
 

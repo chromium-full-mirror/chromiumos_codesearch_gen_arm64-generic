@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-features.h"
 #include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/webid/federated_auth_request.mojom-forward.h"
 #include "third_party/blink/public/mojom/credentialmanagement/credential_manager.mojom.h"
@@ -76,12 +77,12 @@ class BLINK_COMMON_EXPORT FederatedAuthRequest
     kRequestUserInfoMinVersion = 0,
     kCancelTokenRequestMinVersion = 0,
     kResolveTokenRequestMinVersion = 0,
-    kLogoutRpsMinVersion = 0,
     kSetIdpSigninStatusMinVersion = 0,
     kRegisterIdPMinVersion = 0,
     kUnregisterIdPMinVersion = 0,
     kCloseModalDialogViewMinVersion = 0,
     kPreventSilentAccessMinVersion = 0,
+    kDisconnectMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -99,9 +100,6 @@ class BLINK_COMMON_EXPORT FederatedAuthRequest
   struct ResolveTokenRequest_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct LogoutRps_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct SetIdpSigninStatus_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -117,16 +115,19 @@ class BLINK_COMMON_EXPORT FederatedAuthRequest
   struct PreventSilentAccess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct Disconnect_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~FederatedAuthRequest() = default;
 
 
-  using RequestTokenCallback = base::OnceCallback<void(RequestTokenStatus, const absl::optional<::GURL>&, const absl::optional<std::string>&, TokenErrorPtr, bool)>;
+  using RequestTokenCallback = base::OnceCallback<void(RequestTokenStatus, const std::optional<::GURL>&, const std::optional<std::string>&, TokenErrorPtr, bool)>;
   
   virtual void RequestToken(std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenCallback callback) = 0;
 
 
-  using RequestUserInfoCallback = base::OnceCallback<void(RequestUserInfoStatus, absl::optional<std::vector<IdentityUserInfoPtr>>)>;
+  using RequestUserInfoCallback = base::OnceCallback<void(RequestUserInfoStatus, std::optional<std::vector<IdentityUserInfoPtr>>)>;
   
   virtual void RequestUserInfo(IdentityProviderConfigPtr provider, RequestUserInfoCallback callback) = 0;
 
@@ -137,11 +138,6 @@ class BLINK_COMMON_EXPORT FederatedAuthRequest
   using ResolveTokenRequestCallback = base::OnceCallback<void(bool)>;
   
   virtual void ResolveTokenRequest(const std::string& token, ResolveTokenRequestCallback callback) = 0;
-
-
-  using LogoutRpsCallback = base::OnceCallback<void(LogoutRpsStatus)>;
-  
-  virtual void LogoutRps(std::vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsCallback callback) = 0;
 
   
   virtual void SetIdpSigninStatus(const ::url::Origin& origin, IdpSigninStatus status) = 0;
@@ -163,6 +159,11 @@ class BLINK_COMMON_EXPORT FederatedAuthRequest
   using PreventSilentAccessCallback = base::OnceCallback<void()>;
   
   virtual void PreventSilentAccess(PreventSilentAccessCallback callback) = 0;
+
+
+  using DisconnectCallback = base::OnceCallback<void(DisconnectStatus)>;
+  
+  virtual void Disconnect(IdentityCredentialDisconnectOptionsPtr options, DisconnectCallback callback) = 0;
 };
 
 
@@ -182,8 +183,6 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestProxy
   
   void ResolveTokenRequest(const std::string& token, ResolveTokenRequestCallback callback) final;
   
-  void LogoutRps(std::vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsCallback callback) final;
-  
   void SetIdpSigninStatus(const ::url::Origin& origin, IdpSigninStatus status) final;
   
   void RegisterIdP(const ::GURL& url, RegisterIdPCallback callback) final;
@@ -193,6 +192,8 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestProxy
   void CloseModalDialogView() final;
   
   void PreventSilentAccess(PreventSilentAccessCallback callback) final;
+  
+  void Disconnect(IdentityCredentialDisconnectOptionsPtr options, DisconnectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -253,7 +254,6 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestResponseValidator : public mojo::M
 
 
 
-
 class BLINK_COMMON_EXPORT DigitalCredentialFieldRequirement {
  public:
   template <typename T>
@@ -282,7 +282,7 @@ class BLINK_COMMON_EXPORT DigitalCredentialFieldRequirement {
 
   DigitalCredentialFieldRequirement(
       const std::string& name,
-      const absl::optional<std::string>& equals);
+      const std::optional<std::string>& equals);
 
 
   ~DigitalCredentialFieldRequirement();
@@ -362,7 +362,7 @@ class BLINK_COMMON_EXPORT DigitalCredentialFieldRequirement {
   
   std::string name;
   
-  absl::optional<std::string> equals;
+  std::optional<std::string> equals;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -392,6 +392,8 @@ template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = null
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
+
 
 
 
@@ -576,8 +578,8 @@ class BLINK_COMMON_EXPORT TokenError {
   TokenError();
 
   TokenError(
-      const absl::optional<std::string>& code,
-      const absl::optional<std::string>& url);
+      const std::optional<std::string>& code,
+      const std::optional<std::string>& url);
 
 
   ~TokenError();
@@ -655,9 +657,9 @@ class BLINK_COMMON_EXPORT TokenError {
   }
 
   
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -711,17 +713,17 @@ class BLINK_COMMON_EXPORT IdentityProvider {
   // Construct an instance holding |federated|.
   static IdentityProviderPtr
   NewFederated(
-      IdentityProviderConfigPtr federated) {
+      IdentityProviderRequestOptionsPtr value) {
     auto result = IdentityProviderPtr(absl::in_place);
-    result->set_federated(std::move(federated));
+    result->set_federated(std::move(value));
     return result;
   }
   // Construct an instance holding |holder|.
   static IdentityProviderPtr
   NewHolder(
-      DigitalCredentialProviderPtr holder) {
+      DigitalCredentialProviderPtr value) {
     auto result = IdentityProviderPtr(absl::in_place);
-    result->set_holder(std::move(holder));
+    result->set_holder(std::move(value));
     return result;
   }
 
@@ -770,14 +772,14 @@ class BLINK_COMMON_EXPORT IdentityProvider {
   bool is_federated() const { return tag_ == Tag::kFederated; }
 
   
-  IdentityProviderConfigPtr& get_federated() const {
+  IdentityProviderRequestOptionsPtr& get_federated() const {
     CHECK(tag_ == Tag::kFederated);
     return *(data_.federated);
   }
 
   
   void set_federated(
-      IdentityProviderConfigPtr federated);
+      IdentityProviderRequestOptionsPtr federated);
   
   bool is_holder() const { return tag_ == Tag::kHolder; }
 
@@ -808,7 +810,7 @@ class BLINK_COMMON_EXPORT IdentityProvider {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    IdentityProviderConfigPtr* federated;
+    IdentityProviderRequestOptionsPtr* federated;
     DigitalCredentialProviderPtr* holder;
   };
 
@@ -819,149 +821,6 @@ class BLINK_COMMON_EXPORT IdentityProvider {
   Tag tag_;
   Union_ data_;
 };
-
-
-
-
-
-class BLINK_COMMON_EXPORT LogoutRpsRequest {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<LogoutRpsRequest, T>::value>;
-  using DataView = LogoutRpsRequestDataView;
-  using Data_ = internal::LogoutRpsRequest_Data;
-
-  template <typename... Args>
-  static LogoutRpsRequestPtr New(Args&&... args) {
-    return LogoutRpsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static LogoutRpsRequestPtr From(const U& u) {
-    return mojo::TypeConverter<LogoutRpsRequestPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, LogoutRpsRequest>::Convert(*this);
-  }
-
-
-  LogoutRpsRequest();
-
-  LogoutRpsRequest(
-      const ::GURL& url,
-      const std::string& account_id);
-
-
-  ~LogoutRpsRequest();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = LogoutRpsRequestPtr>
-  LogoutRpsRequestPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        LogoutRpsRequest::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        LogoutRpsRequest::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::LogoutRpsRequest_UnserializedMessageContext<
-            UserType, LogoutRpsRequest::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<LogoutRpsRequest::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return LogoutRpsRequest::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::LogoutRpsRequest_UnserializedMessageContext<
-            UserType, LogoutRpsRequest::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<LogoutRpsRequest::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::GURL url;
-  
-  std::string account_id;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, LogoutRpsRequest::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -994,8 +853,11 @@ class BLINK_COMMON_EXPORT DigitalCredentialProvider {
   DigitalCredentialProvider();
 
   DigitalCredentialProvider(
-      const base::flat_map<std::string, std::string>& params,
-      DigitalCredentialSelectorPtr selector);
+      const std::optional<base::flat_map<std::string, std::string>>& params,
+      DigitalCredentialSelectorPtr selector,
+      const std::optional<std::string>& protocol,
+      const std::optional<std::string>& request,
+      const std::optional<std::string>& publicKey);
 
 DigitalCredentialProvider(const DigitalCredentialProvider&) = delete;
 DigitalCredentialProvider& operator=(const DigitalCredentialProvider&) = delete;
@@ -1075,9 +937,15 @@ DigitalCredentialProvider& operator=(const DigitalCredentialProvider&) = delete;
   }
 
   
-  base::flat_map<std::string, std::string> params;
+  std::optional<base::flat_map<std::string, std::string>> params;
   
   DigitalCredentialSelectorPtr selector;
+  
+  std::optional<std::string> protocol;
+  
+  std::optional<std::string> request;
+  
+  std::optional<std::string> publicKey;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1140,7 +1008,7 @@ class BLINK_COMMON_EXPORT DigitalCredentialSelector {
 
   DigitalCredentialSelector(
       std::vector<std::string> format,
-      const absl::optional<std::string>& doctype,
+      const std::optional<std::string>& doctype,
       std::vector<DigitalCredentialFieldRequirementPtr> fields);
 
 DigitalCredentialSelector(const DigitalCredentialSelector&) = delete;
@@ -1223,7 +1091,7 @@ DigitalCredentialSelector& operator=(const DigitalCredentialSelector&) = delete;
   
   std::vector<std::string> format;
   
-  absl::optional<std::string> doctype;
+  std::optional<std::string> doctype;
   
   std::vector<DigitalCredentialFieldRequirementPtr> fields;
 
@@ -1289,13 +1157,8 @@ class BLINK_COMMON_EXPORT IdentityProviderConfig {
 
   IdentityProviderConfig(
       const ::GURL& config_url,
-      const std::string& client_id,
-      const std::string& nonce,
-      const std::string& login_hint,
-      const std::string& hosted_domain,
-      std::vector<std::string> scope,
-      std::vector<std::string> responseType,
-      const base::flat_map<std::string, std::string>& params);
+      bool use_registered_config_urls,
+      const std::string& client_id);
 
 
   ~IdentityProviderConfig();
@@ -1375,19 +1238,9 @@ class BLINK_COMMON_EXPORT IdentityProviderConfig {
   
   ::GURL config_url;
   
+  bool use_registered_config_urls;
+  
   std::string client_id;
-  
-  std::string nonce;
-  
-  std::string login_hint;
-  
-  std::string hosted_domain;
-  
-  std::vector<std::string> scope;
-  
-  std::vector<std::string> responseType;
-  
-  base::flat_map<std::string, std::string> params;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1414,6 +1267,311 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, IdentityProviderConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class BLINK_COMMON_EXPORT IdentityProviderRequestOptions {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<IdentityProviderRequestOptions, T>::value>;
+  using DataView = IdentityProviderRequestOptionsDataView;
+  using Data_ = internal::IdentityProviderRequestOptions_Data;
+
+  template <typename... Args>
+  static IdentityProviderRequestOptionsPtr New(Args&&... args) {
+    return IdentityProviderRequestOptionsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static IdentityProviderRequestOptionsPtr From(const U& u) {
+    return mojo::TypeConverter<IdentityProviderRequestOptionsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IdentityProviderRequestOptions>::Convert(*this);
+  }
+
+
+  IdentityProviderRequestOptions();
+
+  IdentityProviderRequestOptions(
+      IdentityProviderConfigPtr config,
+      const std::string& nonce,
+      const std::string& login_hint,
+      const std::string& domain_hint,
+      std::vector<std::string> scope,
+      std::vector<std::string> responseType,
+      const base::flat_map<std::string, std::string>& params);
+
+IdentityProviderRequestOptions(const IdentityProviderRequestOptions&) = delete;
+IdentityProviderRequestOptions& operator=(const IdentityProviderRequestOptions&) = delete;
+
+  ~IdentityProviderRequestOptions();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = IdentityProviderRequestOptionsPtr>
+  IdentityProviderRequestOptionsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        IdentityProviderRequestOptions::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IdentityProviderRequestOptions::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::IdentityProviderRequestOptions_UnserializedMessageContext<
+            UserType, IdentityProviderRequestOptions::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<IdentityProviderRequestOptions::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return IdentityProviderRequestOptions::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::IdentityProviderRequestOptions_UnserializedMessageContext<
+            UserType, IdentityProviderRequestOptions::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<IdentityProviderRequestOptions::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  IdentityProviderConfigPtr config;
+  
+  std::string nonce;
+  
+  std::string login_hint;
+  
+  std::string domain_hint;
+  
+  std::vector<std::string> scope;
+  
+  std::vector<std::string> responseType;
+  
+  base::flat_map<std::string, std::string> params;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class BLINK_COMMON_EXPORT IdentityCredentialDisconnectOptions {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<IdentityCredentialDisconnectOptions, T>::value>;
+  using DataView = IdentityCredentialDisconnectOptionsDataView;
+  using Data_ = internal::IdentityCredentialDisconnectOptions_Data;
+
+  template <typename... Args>
+  static IdentityCredentialDisconnectOptionsPtr New(Args&&... args) {
+    return IdentityCredentialDisconnectOptionsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static IdentityCredentialDisconnectOptionsPtr From(const U& u) {
+    return mojo::TypeConverter<IdentityCredentialDisconnectOptionsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IdentityCredentialDisconnectOptions>::Convert(*this);
+  }
+
+
+  IdentityCredentialDisconnectOptions();
+
+  IdentityCredentialDisconnectOptions(
+      IdentityProviderConfigPtr config,
+      const std::string& account_hint);
+
+IdentityCredentialDisconnectOptions(const IdentityCredentialDisconnectOptions&) = delete;
+IdentityCredentialDisconnectOptions& operator=(const IdentityCredentialDisconnectOptions&) = delete;
+
+  ~IdentityCredentialDisconnectOptions();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = IdentityCredentialDisconnectOptionsPtr>
+  IdentityCredentialDisconnectOptionsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        IdentityCredentialDisconnectOptions::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IdentityCredentialDisconnectOptions::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::IdentityCredentialDisconnectOptions_UnserializedMessageContext<
+            UserType, IdentityCredentialDisconnectOptions::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<IdentityCredentialDisconnectOptions::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return IdentityCredentialDisconnectOptions::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::IdentityCredentialDisconnectOptions_UnserializedMessageContext<
+            UserType, IdentityCredentialDisconnectOptions::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<IdentityCredentialDisconnectOptions::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  IdentityProviderConfigPtr config;
+  
+  std::string account_hint;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1598,39 +1756,13 @@ bool IdentityProvider::Equals(const T& other) const {
   return false;
 }
 template <typename StructPtrType>
-LogoutRpsRequestPtr LogoutRpsRequest::Clone() const {
-  return New(
-      mojo::Clone(url),
-      mojo::Clone(account_id)
-  );
-}
-
-template <typename T, LogoutRpsRequest::EnableIfSame<T>*>
-bool LogoutRpsRequest::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->url, other_struct.url))
-    return false;
-  if (!mojo::Equals(this->account_id, other_struct.account_id))
-    return false;
-  return true;
-}
-
-template <typename T, LogoutRpsRequest::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.url < rhs.url)
-    return true;
-  if (rhs.url < lhs.url)
-    return false;
-  if (lhs.account_id < rhs.account_id)
-    return true;
-  if (rhs.account_id < lhs.account_id)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
 DigitalCredentialProviderPtr DigitalCredentialProvider::Clone() const {
   return New(
       mojo::Clone(params),
-      mojo::Clone(selector)
+      mojo::Clone(selector),
+      mojo::Clone(protocol),
+      mojo::Clone(request),
+      mojo::Clone(publicKey)
   );
 }
 
@@ -1639,6 +1771,12 @@ bool DigitalCredentialProvider::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->params, other_struct.params))
     return false;
   if (!mojo::Equals(this->selector, other_struct.selector))
+    return false;
+  if (!mojo::Equals(this->protocol, other_struct.protocol))
+    return false;
+  if (!mojo::Equals(this->request, other_struct.request))
+    return false;
+  if (!mojo::Equals(this->publicKey, other_struct.publicKey))
     return false;
   return true;
 }
@@ -1652,6 +1790,18 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.selector < rhs.selector)
     return true;
   if (rhs.selector < lhs.selector)
+    return false;
+  if (lhs.protocol < rhs.protocol)
+    return true;
+  if (rhs.protocol < lhs.protocol)
+    return false;
+  if (lhs.request < rhs.request)
+    return true;
+  if (rhs.request < lhs.request)
+    return false;
+  if (lhs.publicKey < rhs.publicKey)
+    return true;
+  if (rhs.publicKey < lhs.publicKey)
     return false;
   return false;
 }
@@ -1724,13 +1874,8 @@ template <typename StructPtrType>
 IdentityProviderConfigPtr IdentityProviderConfig::Clone() const {
   return New(
       mojo::Clone(config_url),
-      mojo::Clone(client_id),
-      mojo::Clone(nonce),
-      mojo::Clone(login_hint),
-      mojo::Clone(hosted_domain),
-      mojo::Clone(scope),
-      mojo::Clone(responseType),
-      mojo::Clone(params)
+      mojo::Clone(use_registered_config_urls),
+      mojo::Clone(client_id)
   );
 }
 
@@ -1738,19 +1883,9 @@ template <typename T, IdentityProviderConfig::EnableIfSame<T>*>
 bool IdentityProviderConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->config_url, other_struct.config_url))
     return false;
+  if (!mojo::Equals(this->use_registered_config_urls, other_struct.use_registered_config_urls))
+    return false;
   if (!mojo::Equals(this->client_id, other_struct.client_id))
-    return false;
-  if (!mojo::Equals(this->nonce, other_struct.nonce))
-    return false;
-  if (!mojo::Equals(this->login_hint, other_struct.login_hint))
-    return false;
-  if (!mojo::Equals(this->hosted_domain, other_struct.hosted_domain))
-    return false;
-  if (!mojo::Equals(this->scope, other_struct.scope))
-    return false;
-  if (!mojo::Equals(this->responseType, other_struct.responseType))
-    return false;
-  if (!mojo::Equals(this->params, other_struct.params))
     return false;
   return true;
 }
@@ -1761,9 +1896,53 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.config_url < lhs.config_url)
     return false;
+  if (lhs.use_registered_config_urls < rhs.use_registered_config_urls)
+    return true;
+  if (rhs.use_registered_config_urls < lhs.use_registered_config_urls)
+    return false;
   if (lhs.client_id < rhs.client_id)
     return true;
   if (rhs.client_id < lhs.client_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+IdentityProviderRequestOptionsPtr IdentityProviderRequestOptions::Clone() const {
+  return New(
+      mojo::Clone(config),
+      mojo::Clone(nonce),
+      mojo::Clone(login_hint),
+      mojo::Clone(domain_hint),
+      mojo::Clone(scope),
+      mojo::Clone(responseType),
+      mojo::Clone(params)
+  );
+}
+
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>*>
+bool IdentityProviderRequestOptions::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->config, other_struct.config))
+    return false;
+  if (!mojo::Equals(this->nonce, other_struct.nonce))
+    return false;
+  if (!mojo::Equals(this->login_hint, other_struct.login_hint))
+    return false;
+  if (!mojo::Equals(this->domain_hint, other_struct.domain_hint))
+    return false;
+  if (!mojo::Equals(this->scope, other_struct.scope))
+    return false;
+  if (!mojo::Equals(this->responseType, other_struct.responseType))
+    return false;
+  if (!mojo::Equals(this->params, other_struct.params))
+    return false;
+  return true;
+}
+
+template <typename T, IdentityProviderRequestOptions::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.config < rhs.config)
+    return true;
+  if (rhs.config < lhs.config)
     return false;
   if (lhs.nonce < rhs.nonce)
     return true;
@@ -1773,9 +1952,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.login_hint < lhs.login_hint)
     return false;
-  if (lhs.hosted_domain < rhs.hosted_domain)
+  if (lhs.domain_hint < rhs.domain_hint)
     return true;
-  if (rhs.hosted_domain < lhs.hosted_domain)
+  if (rhs.domain_hint < lhs.domain_hint)
     return false;
   if (lhs.scope < rhs.scope)
     return true;
@@ -1788,6 +1967,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.params < rhs.params)
     return true;
   if (rhs.params < lhs.params)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+IdentityCredentialDisconnectOptionsPtr IdentityCredentialDisconnectOptions::Clone() const {
+  return New(
+      mojo::Clone(config),
+      mojo::Clone(account_hint)
+  );
+}
+
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>*>
+bool IdentityCredentialDisconnectOptions::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->config, other_struct.config))
+    return false;
+  if (!mojo::Equals(this->account_hint, other_struct.account_hint))
+    return false;
+  return true;
+}
+
+template <typename T, IdentityCredentialDisconnectOptions::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.config < rhs.config)
+    return true;
+  if (rhs.config < lhs.config)
+    return false;
+  if (lhs.account_hint < rhs.account_hint)
+    return true;
+  if (rhs.account_hint < lhs.account_hint)
     return false;
   return false;
 }
@@ -1907,26 +2115,6 @@ namespace mojo {
 
 
 template <>
-struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::LogoutRpsRequest::DataView,
-                                         ::blink::mojom::LogoutRpsRequestPtr> {
-  static bool IsNull(const ::blink::mojom::LogoutRpsRequestPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::LogoutRpsRequestPtr* output) { output->reset(); }
-
-  static const decltype(::blink::mojom::LogoutRpsRequest::url)& url(
-      const ::blink::mojom::LogoutRpsRequestPtr& input) {
-    return input->url;
-  }
-
-  static const decltype(::blink::mojom::LogoutRpsRequest::account_id)& account_id(
-      const ::blink::mojom::LogoutRpsRequestPtr& input) {
-    return input->account_id;
-  }
-
-  static bool Read(::blink::mojom::LogoutRpsRequest::DataView input, ::blink::mojom::LogoutRpsRequestPtr* output);
-};
-
-
-template <>
 struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::DigitalCredentialProvider::DataView,
                                          ::blink::mojom::DigitalCredentialProviderPtr> {
   static bool IsNull(const ::blink::mojom::DigitalCredentialProviderPtr& input) { return !input; }
@@ -1940,6 +2128,21 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::DigitalCredentialProvide
   static const decltype(::blink::mojom::DigitalCredentialProvider::selector)& selector(
       const ::blink::mojom::DigitalCredentialProviderPtr& input) {
     return input->selector;
+  }
+
+  static const decltype(::blink::mojom::DigitalCredentialProvider::protocol)& protocol(
+      const ::blink::mojom::DigitalCredentialProviderPtr& input) {
+    return input->protocol;
+  }
+
+  static const decltype(::blink::mojom::DigitalCredentialProvider::request)& request(
+      const ::blink::mojom::DigitalCredentialProviderPtr& input) {
+    return input->request;
+  }
+
+  static const decltype(::blink::mojom::DigitalCredentialProvider::publicKey)& publicKey(
+      const ::blink::mojom::DigitalCredentialProviderPtr& input) {
+    return input->publicKey;
   }
 
   static bool Read(::blink::mojom::DigitalCredentialProvider::DataView input, ::blink::mojom::DigitalCredentialProviderPtr* output);
@@ -2002,42 +2205,82 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::IdentityProviderConfig::
     return input->config_url;
   }
 
+  static decltype(::blink::mojom::IdentityProviderConfig::use_registered_config_urls) use_registered_config_urls(
+      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+    return input->use_registered_config_urls;
+  }
+
   static const decltype(::blink::mojom::IdentityProviderConfig::client_id)& client_id(
       const ::blink::mojom::IdentityProviderConfigPtr& input) {
     return input->client_id;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::nonce)& nonce(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+  static bool Read(::blink::mojom::IdentityProviderConfig::DataView input, ::blink::mojom::IdentityProviderConfigPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::IdentityProviderRequestOptions::DataView,
+                                         ::blink::mojom::IdentityProviderRequestOptionsPtr> {
+  static bool IsNull(const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::IdentityProviderRequestOptionsPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::config)& config(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
+    return input->config;
+  }
+
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::nonce)& nonce(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
     return input->nonce;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::login_hint)& login_hint(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::login_hint)& login_hint(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
     return input->login_hint;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::hosted_domain)& hosted_domain(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
-    return input->hosted_domain;
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::domain_hint)& domain_hint(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
+    return input->domain_hint;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::scope)& scope(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::scope)& scope(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
     return input->scope;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::responseType)& responseType(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::responseType)& responseType(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
     return input->responseType;
   }
 
-  static const decltype(::blink::mojom::IdentityProviderConfig::params)& params(
-      const ::blink::mojom::IdentityProviderConfigPtr& input) {
+  static const decltype(::blink::mojom::IdentityProviderRequestOptions::params)& params(
+      const ::blink::mojom::IdentityProviderRequestOptionsPtr& input) {
     return input->params;
   }
 
-  static bool Read(::blink::mojom::IdentityProviderConfig::DataView input, ::blink::mojom::IdentityProviderConfigPtr* output);
+  static bool Read(::blink::mojom::IdentityProviderRequestOptions::DataView input, ::blink::mojom::IdentityProviderRequestOptionsPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::IdentityCredentialDisconnectOptions::DataView,
+                                         ::blink::mojom::IdentityCredentialDisconnectOptionsPtr> {
+  static bool IsNull(const ::blink::mojom::IdentityCredentialDisconnectOptionsPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::IdentityCredentialDisconnectOptionsPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::IdentityCredentialDisconnectOptions::config)& config(
+      const ::blink::mojom::IdentityCredentialDisconnectOptionsPtr& input) {
+    return input->config;
+  }
+
+  static const decltype(::blink::mojom::IdentityCredentialDisconnectOptions::account_hint)& account_hint(
+      const ::blink::mojom::IdentityCredentialDisconnectOptionsPtr& input) {
+    return input->account_hint;
+  }
+
+  static bool Read(::blink::mojom::IdentityCredentialDisconnectOptions::DataView input, ::blink::mojom::IdentityCredentialDisconnectOptionsPtr* output);
 };
 
 
@@ -2126,7 +2369,7 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::IdentityProvider::DataVie
     return input->which();
   }
 
-  static const ::blink::mojom::IdentityProviderConfigPtr& federated(const ::blink::mojom::IdentityProviderPtr& input) {
+  static const ::blink::mojom::IdentityProviderRequestOptionsPtr& federated(const ::blink::mojom::IdentityProviderPtr& input) {
     return input->get_federated();
   }
 

@@ -62,16 +62,6 @@ using AutomationAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<AutomationInterfaceBase>;
 using AutomationAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<AutomationInterfaceBase>;
-class AutomationClientInterfaceBase {};
-
-using AutomationClientPtrDataView =
-    mojo::InterfacePtrDataView<AutomationClientInterfaceBase>;
-using AutomationClientRequestDataView =
-    mojo::InterfaceRequestDataView<AutomationClientInterfaceBase>;
-using AutomationClientAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<AutomationClientInterfaceBase>;
-using AutomationClientAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<AutomationClientInterfaceBase>;
 
 
 }  // ax::mojom

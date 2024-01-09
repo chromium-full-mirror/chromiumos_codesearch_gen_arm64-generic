@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,29 +22,20 @@ build _libnet-base-install_config: phony obj/net-base/_libnet-base-install_confi
 build _libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
 build libnet-base: phony ./lib/libnet-base.so
 build libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
-build net_base_test_support: phony obj/net-base/net_base_test_support.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build net-base$:_libnet-base-install_config: phony obj/net-base/_libnet-base-install_config.stamp
 build net-base$:_libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
 build net-base$:all: phony obj/net-base/all.stamp
 build net-base$:libnet-base: phony ./lib/libnet-base.so
-build net-base$:libnet-base-testrunner: phony ./libnet-base-testrunner
 build net-base$:libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
-build net-base$:net_base_test_support: phony obj/net-base/net_base_test_support.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/net-base/_libnet-base-install_config.stamp $
     obj/net-base/_libnet-base_pc-install_config.stamp $
     obj/net-base/all.stamp $
     ./lib/libnet-base.so $
-    ./libnet-base-testrunner $
-    obj/net-base/libnet-base_pc.stamp $
-    obj/net-base/net_base_test_support.stamp
+    obj/net-base/libnet-base_pc.stamp
 
 default all

@@ -26,8 +26,8 @@ class  LacrosCleanupTriggeredObserverAsyncWaiter {
 
   ~LacrosCleanupTriggeredObserverAsyncWaiter();
   void OnLacrosCleanupTriggered(
-      absl::optional<std::string>* out_error);
-  absl::optional<std::string> OnLacrosCleanupTriggered();
+      std::optional<std::string>* out_error);
+  std::optional<std::string> OnLacrosCleanupTriggered();
 
  private:
   LacrosCleanupTriggeredObserver* const proxy_;
@@ -54,7 +54,7 @@ class  ExternalLogoutRequestObserverAsyncWaiter {
 
 class  LoginInterceptorForTesting : public Login {
   virtual Login* GetForwardingInterface() = 0;
-  void ExitCurrentSession(const absl::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) override;
+  void ExitCurrentSession(const std::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) override;
   void FetchDataForNextLoginAttempt(FetchDataForNextLoginAttemptCallback callback) override;
   void LockManagedGuestSession(LockManagedGuestSessionCallback callback) override;
   void EndSharedSession(EndSharedSessionCallback callback) override;
@@ -64,7 +64,7 @@ class  LoginInterceptorForTesting : public Login {
   void AddExternalLogoutRequestObserver(::mojo::PendingRemote<ExternalLogoutRequestObserver> observer) override;
   void NotifyOnExternalLogoutDone() override;
   void ShowGuestSessionConfirmationDialog() override;
-  void REMOVED_0(const absl::optional<std::string>& password, REMOVED_0Callback callback) override;
+  void REMOVED_0(const std::optional<std::string>& password, REMOVED_0Callback callback) override;
   void REMOVED_4(const std::string& password, REMOVED_4Callback callback) override;
   void REMOVED_5(const std::string& password, REMOVED_5Callback callback) override;
   void REMOVED_6(const std::string& password, REMOVED_6Callback callback) override;
@@ -81,44 +81,44 @@ class  LoginAsyncWaiter {
 
   ~LoginAsyncWaiter();
   void ExitCurrentSession(
-      const absl::optional<std::string>& data_for_next_login_attempt, absl::optional<std::string>* out_error);
-  absl::optional<std::string> ExitCurrentSession(const absl::optional<std::string>& data_for_next_login_attempt);
+      const std::optional<std::string>& data_for_next_login_attempt, std::optional<std::string>* out_error);
+  std::optional<std::string> ExitCurrentSession(const std::optional<std::string>& data_for_next_login_attempt);
   void FetchDataForNextLoginAttempt(
       std::string* out_data);
   std::string FetchDataForNextLoginAttempt();
   void LockManagedGuestSession(
-      absl::optional<std::string>* out_error);
-  absl::optional<std::string> LockManagedGuestSession();
+      std::optional<std::string>* out_error);
+  std::optional<std::string> LockManagedGuestSession();
   void EndSharedSession(
-      absl::optional<std::string>* out_error);
-  absl::optional<std::string> EndSharedSession();
+      std::optional<std::string>* out_error);
+  std::optional<std::string> EndSharedSession();
   void SetDataForNextLoginAttempt(
       const std::string& data_for_next_login_attempt);
   
   void LockCurrentSession(
-      absl::optional<std::string>* out_error);
-  absl::optional<std::string> LockCurrentSession();
+      std::optional<std::string>* out_error);
+  std::optional<std::string> LockCurrentSession();
   void REMOVED_0(
-      const absl::optional<std::string>& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_0(const absl::optional<std::string>& password);
+      const std::optional<std::string>& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_0(const std::optional<std::string>& password);
   void REMOVED_4(
-      const std::string& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_4(const std::string& password);
+      const std::string& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_4(const std::string& password);
   void REMOVED_5(
-      const std::string& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_5(const std::string& password);
+      const std::string& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_5(const std::string& password);
   void REMOVED_6(
-      const std::string& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_6(const std::string& password);
+      const std::string& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_6(const std::string& password);
   void REMOVED_7(
-      const std::string& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_7(const std::string& password);
+      const std::string& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_7(const std::string& password);
   void REMOVED_10(
-      SamlUserSessionPropertiesPtr properties, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_10(SamlUserSessionPropertiesPtr properties);
+      SamlUserSessionPropertiesPtr properties, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_10(SamlUserSessionPropertiesPtr properties);
   void REMOVED_12(
-      const std::string& password, absl::optional<std::string>* out_error);
-  absl::optional<std::string> REMOVED_12(const std::string& password);
+      const std::string& password, std::optional<std::string>* out_error);
+  std::optional<std::string> REMOVED_12(const std::string& password);
 
  private:
   Login* const proxy_;

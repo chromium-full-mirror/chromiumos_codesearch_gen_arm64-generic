@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/mirroring/mojom/session_parameters.mojom-features.h"
 #include "components/mirroring/mojom/session_parameters.mojom-shared.h"
 #include "components/mirroring/mojom/session_parameters.mojom-forward.h"
 #include "services/network/public/mojom/ip_address.mojom.h"
@@ -79,7 +80,7 @@ class  SessionParameters {
       const std::string& receiver_friendly_name,
       const std::string& source_id,
       const std::string& destination_id,
-      absl::optional<::base::TimeDelta> target_playout_delay,
+      std::optional<::base::TimeDelta> target_playout_delay,
       bool is_remote_playback,
       bool force_letterboxing,
       bool enable_rtcp_reporting);
@@ -172,7 +173,7 @@ class  SessionParameters {
   
   std::string destination_id;
   
-  absl::optional<::base::TimeDelta> target_playout_delay;
+  std::optional<::base::TimeDelta> target_playout_delay;
   
   bool is_remote_playback;
   

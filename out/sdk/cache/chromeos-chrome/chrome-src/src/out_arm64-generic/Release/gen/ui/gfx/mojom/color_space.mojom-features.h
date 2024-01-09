@@ -8,6 +8,7 @@
 #define UI_GFX_MOJOM_COLOR_SPACE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

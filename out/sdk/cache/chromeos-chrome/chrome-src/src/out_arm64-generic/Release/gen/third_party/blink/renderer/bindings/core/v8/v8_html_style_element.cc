@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLStyleElement>::value,
     "HTMLStyleElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLStyleElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLStyleElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLStyleElement_Dis
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->disabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -118,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLStyleElement_Dis
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLStyleElement";
@@ -139,10 +134,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLStyleElement.media.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMediaAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMediaAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -163,10 +158,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLStyleElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -187,8 +182,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLStyleElement.sheet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sheet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -201,8 +197,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLStyleElement.blocking.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(v8_receiver);
+HTMLStyleElement* blink_receiver = V8HTMLStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blocking();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

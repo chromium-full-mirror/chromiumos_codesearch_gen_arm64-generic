@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -37,8 +38,8 @@ struct Automation {
   ~Automation();
   Automation(const Automation&) = delete;
   Automation& operator=(const Automation&) = delete;
-  Automation(Automation&& rhs);
-  Automation& operator=(Automation&& rhs);
+  Automation(Automation&& rhs) noexcept;
+  Automation& operator=(Automation&& rhs) noexcept;
 
   // Populates a Automation object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,9 +47,6 @@ struct Automation {
 
   // Creates a deep copy of Automation.
   Automation Clone() const;
-
-  // Creates a Automation object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Automation> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Automation object from a base::Value, or unexpected on failure.
   static base::expected<Automation, std::u16string> FromValue(const base::Value& value);
@@ -61,8 +59,8 @@ struct Automation {
     ~Object();
     Object(const Object&) = delete;
     Object& operator=(const Object&) = delete;
-    Object(Object&& rhs);
-    Object& operator=(Object&& rhs);
+    Object(Object&& rhs) noexcept;
+    Object& operator=(Object&& rhs) noexcept;
 
     // Populates a Object object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -89,24 +87,24 @@ struct Automation {
     // gives the extension access to every aspect of the desktop, and every site and
     // app. If this permission is requested, all other permissions are implicitly
     // included and do not need to be requested separately.
-    absl::optional<bool> desktop;
+    std::optional<bool> desktop;
 
     // A list of URL patterns for which this extension may request an automation
     // tree. If not specified, automation permission will be granted for the sites
     // for which the extension has a <a
     // href='https://developer.chrome.com/extensions/declare_permissions#host-permissions'>host permission</a> or <a href='https://developer.chrome.com/extensions/declare_permissions#activeTab'>activeTab permission</a>).
-    absl::optional<std::vector<std::string>> matches;
+    std::optional<std::vector<std::string>> matches;
 
     // Whether the extension is allowed interactive access (true) or read-only
     // access (false; default) to the automation tree.
-    absl::optional<bool> interact;
+    std::optional<bool> interact;
 
   };
 
 
   // Choices:
-  absl::optional<bool> as_boolean;
-  absl::optional<Object> as_object;
+  std::optional<bool> as_boolean;
+  std::optional<Object> as_object;
 };
 
 // The <code>content_capabilities</code> manifest entry allows an extension to
@@ -117,8 +115,8 @@ struct ContentCapabilities {
   ~ContentCapabilities();
   ContentCapabilities(const ContentCapabilities&) = delete;
   ContentCapabilities& operator=(const ContentCapabilities&) = delete;
-  ContentCapabilities(ContentCapabilities&& rhs);
-  ContentCapabilities& operator=(ContentCapabilities&& rhs);
+  ContentCapabilities(ContentCapabilities&& rhs) noexcept;
+  ContentCapabilities& operator=(ContentCapabilities&& rhs) noexcept;
 
   // Populates a ContentCapabilities object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -130,10 +128,6 @@ struct ContentCapabilities {
 
   // Creates a deep copy of ContentCapabilities.
   ContentCapabilities Clone() const;
-
-  // Creates a ContentCapabilities object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ContentCapabilities> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ContentCapabilities object from a base::Value::Dict, or
   // unexpected on failure.
@@ -163,8 +157,8 @@ struct ExternallyConnectable {
   ~ExternallyConnectable();
   ExternallyConnectable(const ExternallyConnectable&) = delete;
   ExternallyConnectable& operator=(const ExternallyConnectable&) = delete;
-  ExternallyConnectable(ExternallyConnectable&& rhs);
-  ExternallyConnectable& operator=(ExternallyConnectable&& rhs);
+  ExternallyConnectable(ExternallyConnectable&& rhs) noexcept;
+  ExternallyConnectable& operator=(ExternallyConnectable&& rhs) noexcept;
 
   // Populates a ExternallyConnectable object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -176,10 +170,6 @@ struct ExternallyConnectable {
 
   // Creates a deep copy of ExternallyConnectable.
   ExternallyConnectable Clone() const;
-
-  // Creates a ExternallyConnectable object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExternallyConnectable> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ExternallyConnectable object from a base::Value::Dict, or
   // unexpected on failure.
@@ -196,7 +186,7 @@ struct ExternallyConnectable {
   // <p>The IDs of extensions or apps that are allowed to connect. If left empty
   // or unspecified, no extensions or apps can connect.</p><p>The wildcard
   // <code>"*"</code> will allow all extensions and apps to connect.</p>
-  absl::optional<std::vector<std::string>> ids;
+  std::optional<std::vector<std::string>> ids;
 
   // <p>The URL patterns for <em>web pages</em> that are allowed to connect.
   // <em>This does not affect content scripts.</em> If left empty or unspecified,
@@ -207,14 +197,14 @@ struct ExternallyConnectable {
   // <code>&lt;all_urls&gt;</code>, <code>http://*/*</code>,
   // <code>*://*.com/*</code>, and even <code>http://*.appspot.com/*</code> are
   // not.</p>
-  absl::optional<std::vector<std::string>> matches;
+  std::optional<std::vector<std::string>> matches;
 
   // If <code>true</code>, messages sent via $(ref:runtime.connect) or
   // $(ref:runtime.sendMessage) will set $(ref:runtime.MessageSender.tlsChannelId)
   // if those methods request it to be. If <code>false</code>,
   // $(ref:runtime.MessageSender.tlsChannelId) will never be set under any
   // circumstance.
-  absl::optional<bool> accepts_tls_channel_id;
+  std::optional<bool> accepts_tls_channel_id;
 
 };
 
@@ -225,8 +215,8 @@ struct OptionsUI {
   ~OptionsUI();
   OptionsUI(const OptionsUI&) = delete;
   OptionsUI& operator=(const OptionsUI&) = delete;
-  OptionsUI(OptionsUI&& rhs);
-  OptionsUI& operator=(OptionsUI&& rhs);
+  OptionsUI(OptionsUI&& rhs) noexcept;
+  OptionsUI& operator=(OptionsUI&& rhs) noexcept;
 
   // Populates a OptionsUI object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -238,9 +228,6 @@ struct OptionsUI {
 
   // Creates a deep copy of OptionsUI.
   OptionsUI Clone() const;
-
-  // Creates a OptionsUI object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OptionsUI> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a OptionsUI object from a base::Value::Dict, or unexpected on
   // failure.
@@ -260,7 +247,7 @@ struct OptionsUI {
   // options page. The default value is <code>false</code>. We do not recommend
   // you enable it as it no longer results in a consistent UI with Chrome. This
   // option will be removed in Manifest V3.
-  absl::optional<bool> chrome_style;
+  std::optional<bool> chrome_style;
 
   // <p>If <code>true</code>, your extension's options page will be opened in a
   // new tab rather than embedded in <em>chrome://extensions</em>. The default is
@@ -268,7 +255,7 @@ struct OptionsUI {
   // it.</p><p><strong>This is only useful to delay the inevitable deprecation of
   // the old options UI!</strong> It will be removed soon, so try not to use it.
   // It will break.</p>
-  absl::optional<bool> open_in_tab;
+  std::optional<bool> open_in_tab;
 
 };
 
@@ -278,8 +265,8 @@ struct SocketHostPatterns {
   ~SocketHostPatterns();
   SocketHostPatterns(const SocketHostPatterns&) = delete;
   SocketHostPatterns& operator=(const SocketHostPatterns&) = delete;
-  SocketHostPatterns(SocketHostPatterns&& rhs);
-  SocketHostPatterns& operator=(SocketHostPatterns&& rhs);
+  SocketHostPatterns(SocketHostPatterns&& rhs) noexcept;
+  SocketHostPatterns& operator=(SocketHostPatterns&& rhs) noexcept;
 
   // Populates a SocketHostPatterns object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -287,9 +274,6 @@ struct SocketHostPatterns {
 
   // Creates a deep copy of SocketHostPatterns.
   SocketHostPatterns Clone() const;
-
-  // Creates a SocketHostPatterns object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SocketHostPatterns> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a SocketHostPatterns object from a base::Value, or unexpected on
   // failure.
@@ -299,8 +283,8 @@ struct SocketHostPatterns {
   // thisSocketHostPatterns object.
   base::Value ToValue() const;
   // Choices:
-  absl::optional<std::string> as_string;
-  absl::optional<std::vector<std::string>> as_strings;
+  std::optional<std::string> as_string;
+  std::optional<std::vector<std::string>> as_strings;
 };
 
 // The <code>sockets</code> manifest property declares which sockets operations
@@ -310,8 +294,8 @@ struct Sockets {
   ~Sockets();
   Sockets(const Sockets&) = delete;
   Sockets& operator=(const Sockets&) = delete;
-  Sockets(Sockets&& rhs);
-  Sockets& operator=(Sockets&& rhs);
+  Sockets(Sockets&& rhs) noexcept;
+  Sockets& operator=(Sockets&& rhs) noexcept;
 
   // Populates a Sockets object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -323,9 +307,6 @@ struct Sockets {
 
   // Creates a deep copy of Sockets.
   Sockets Clone() const;
-
-  // Creates a Sockets object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Sockets> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Sockets object from a base::Value::Dict, or unexpected on
   // failure.
@@ -345,8 +326,8 @@ struct Sockets {
     ~Udp();
     Udp(const Udp&) = delete;
     Udp& operator=(const Udp&) = delete;
-    Udp(Udp&& rhs);
-    Udp& operator=(Udp&& rhs);
+    Udp(Udp&& rhs) noexcept;
+    Udp& operator=(Udp&& rhs) noexcept;
 
     // Populates a Udp object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -370,13 +351,13 @@ struct Sockets {
     base::Value::Dict ToValue() const;
 
     // <p>The host:port pattern for <code>bind</code> operations.</p>
-    absl::optional<SocketHostPatterns> bind;
+    std::optional<SocketHostPatterns> bind;
 
     // <p>The host:port pattern for <code>send</code> operations.</p>
-    absl::optional<SocketHostPatterns> send;
+    std::optional<SocketHostPatterns> send;
 
     // <p>The host:port pattern for <code>joinGroup</code> operations.</p>
-    absl::optional<SocketHostPatterns> multicast_membership;
+    std::optional<SocketHostPatterns> multicast_membership;
 
   };
 
@@ -387,8 +368,8 @@ struct Sockets {
     ~Tcp();
     Tcp(const Tcp&) = delete;
     Tcp& operator=(const Tcp&) = delete;
-    Tcp(Tcp&& rhs);
-    Tcp& operator=(Tcp&& rhs);
+    Tcp(Tcp&& rhs) noexcept;
+    Tcp& operator=(Tcp&& rhs) noexcept;
 
     // Populates a Tcp object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -412,7 +393,7 @@ struct Sockets {
     base::Value::Dict ToValue() const;
 
     // <p>The host:port pattern for <code>connect</code> operations.</p>
-    absl::optional<SocketHostPatterns> connect;
+    std::optional<SocketHostPatterns> connect;
 
   };
 
@@ -423,8 +404,8 @@ struct Sockets {
     ~TcpServer();
     TcpServer(const TcpServer&) = delete;
     TcpServer& operator=(const TcpServer&) = delete;
-    TcpServer(TcpServer&& rhs);
-    TcpServer& operator=(TcpServer&& rhs);
+    TcpServer(TcpServer&& rhs) noexcept;
+    TcpServer& operator=(TcpServer&& rhs) noexcept;
 
     // Populates a TcpServer object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -449,22 +430,22 @@ struct Sockets {
     base::Value::Dict ToValue() const;
 
     // <p>The host:port pattern for <code>listen</code> operations.</p>
-    absl::optional<SocketHostPatterns> listen;
+    std::optional<SocketHostPatterns> listen;
 
   };
 
 
   // The <code>udp</code> manifest property declares which sockets.udp operations
   // an app can issue.
-  absl::optional<Udp> udp;
+  std::optional<Udp> udp;
 
   // The <code>tcp</code> manifest property declares which sockets.tcp operations
   // an app can issue.
-  absl::optional<Tcp> tcp;
+  std::optional<Tcp> tcp;
 
   // The <code>tcpServer</code> manifest property declares which sockets.tcpServer
   // operations an app can issue.
-  absl::optional<TcpServer> tcp_server;
+  std::optional<TcpServer> tcp_server;
 
 };
 
@@ -476,8 +457,8 @@ struct Bluetooth {
   ~Bluetooth();
   Bluetooth(const Bluetooth&) = delete;
   Bluetooth& operator=(const Bluetooth&) = delete;
-  Bluetooth(Bluetooth&& rhs);
-  Bluetooth& operator=(Bluetooth&& rhs);
+  Bluetooth(Bluetooth&& rhs) noexcept;
+  Bluetooth& operator=(Bluetooth&& rhs) noexcept;
 
   // Populates a Bluetooth object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -489,9 +470,6 @@ struct Bluetooth {
 
   // Creates a deep copy of Bluetooth.
   Bluetooth Clone() const;
-
-  // Creates a Bluetooth object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bluetooth> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Bluetooth object from a base::Value::Dict, or unexpected on
   // failure.
@@ -506,19 +484,19 @@ struct Bluetooth {
 
   // The <code>uuids</code> manifest property declares the list of protocols,
   // profiles and services that an app can communicate using.
-  absl::optional<std::vector<std::string>> uuids;
+  std::optional<std::vector<std::string>> uuids;
 
   // If <code>true</code>, gives permission to an app to use the
   // $(ref:bluetoothSocket) API
-  absl::optional<bool> socket;
+  std::optional<bool> socket;
 
   // If <code>true</code>, gives permission to an app to use the
   // $(ref:bluetoothLowEnergy) API
-  absl::optional<bool> low_energy;
+  std::optional<bool> low_energy;
 
   // If <code>true</code>, gives permission to an app to use the advertisement
   // functions in the $(ref:bluetoothLowEnergy) API
-  absl::optional<bool> peripheral;
+  std::optional<bool> peripheral;
 
 };
 
@@ -529,8 +507,8 @@ struct UsbPrinters {
   ~UsbPrinters();
   UsbPrinters(const UsbPrinters&) = delete;
   UsbPrinters& operator=(const UsbPrinters&) = delete;
-  UsbPrinters(UsbPrinters&& rhs);
-  UsbPrinters& operator=(UsbPrinters&& rhs);
+  UsbPrinters(UsbPrinters&& rhs) noexcept;
+  UsbPrinters& operator=(UsbPrinters&& rhs) noexcept;
 
   // Populates a UsbPrinters object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -542,9 +520,6 @@ struct UsbPrinters {
 
   // Creates a deep copy of UsbPrinters.
   UsbPrinters Clone() const;
-
-  // Creates a UsbPrinters object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UsbPrinters> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a UsbPrinters object from a base::Value::Dict, or unexpected on
   // failure.
@@ -562,8 +537,8 @@ struct UsbPrinters {
     ~FiltersType();
     FiltersType(const FiltersType&) = delete;
     FiltersType& operator=(const FiltersType&) = delete;
-    FiltersType(FiltersType&& rhs);
-    FiltersType& operator=(FiltersType&& rhs);
+    FiltersType(FiltersType&& rhs) noexcept;
+    FiltersType& operator=(FiltersType&& rhs) noexcept;
 
     // Populates a FiltersType object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -591,18 +566,18 @@ struct UsbPrinters {
     int vendor_id;
 
     // USB product ID of matching devices
-    absl::optional<int> product_id;
+    std::optional<int> product_id;
 
     // USB interface class implemented by any interface of a matching device.
-    absl::optional<int> interface_class;
+    std::optional<int> interface_class;
 
     // USB interface sub-class implemented by the interface matching
     // $(ref:interfaceClass).
-    absl::optional<int> interface_subclass;
+    std::optional<int> interface_subclass;
 
     // USB interface protocol implemented by the interface matching
     // $(ref:interfaceClass) and $(ref:interfaceSubclass).
-    absl::optional<int> interface_protocol;
+    std::optional<int> interface_protocol;
 
   };
 
@@ -623,8 +598,8 @@ struct KioskSecondaryAppsType {
   ~KioskSecondaryAppsType();
   KioskSecondaryAppsType(const KioskSecondaryAppsType&) = delete;
   KioskSecondaryAppsType& operator=(const KioskSecondaryAppsType&) = delete;
-  KioskSecondaryAppsType(KioskSecondaryAppsType&& rhs);
-  KioskSecondaryAppsType& operator=(KioskSecondaryAppsType&& rhs);
+  KioskSecondaryAppsType(KioskSecondaryAppsType&& rhs) noexcept;
+  KioskSecondaryAppsType& operator=(KioskSecondaryAppsType&& rhs) noexcept;
 
   // Populates a KioskSecondaryAppsType object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -636,10 +611,6 @@ struct KioskSecondaryAppsType {
 
   // Creates a deep copy of KioskSecondaryAppsType.
   KioskSecondaryAppsType Clone() const;
-
-  // Creates a KioskSecondaryAppsType object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<KioskSecondaryAppsType> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a KioskSecondaryAppsType object from a base::Value::Dict, or
   // unexpected on failure.
@@ -661,7 +632,7 @@ struct KioskSecondaryAppsType {
   // will be disabled before the kiosk app launch; if not set, the app's enabled
   // state will not be changed during the kiosk app launch. The ${ref:management}
   // API can be used to later change the secondary app state.
-  absl::optional<bool> enabled_on_launch;
+  std::optional<bool> enabled_on_launch;
 
 };
 

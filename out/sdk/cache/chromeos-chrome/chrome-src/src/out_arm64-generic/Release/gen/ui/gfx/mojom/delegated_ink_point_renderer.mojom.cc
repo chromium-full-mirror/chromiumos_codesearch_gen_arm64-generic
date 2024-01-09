@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void DelegatedInkPointRendererProxy::StoreDelegatedInkPoint(
                         "<value of type const ::gfx::DelegatedInkPoint&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegatedInkPointRenderer_StoreDelegatedInkPoint_Name, kFlags, 0, 0, nullptr);
@@ -175,14 +179,17 @@ void DelegatedInkPointRendererProxy::ResetPrediction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send gfx::mojom::DelegatedInkPointRenderer::ResetPrediction");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegatedInkPointRenderer_ResetPrediction_Name, kFlags, 0, 0, nullptr);
@@ -275,12 +282,12 @@ bool DelegatedInkPointRendererStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDelegatedInkPointRendererValidationInfo[] = {
-    {&internal::DelegatedInkPointRenderer_StoreDelegatedInkPoint_Params_Data::Validate,
+    { &internal::DelegatedInkPointRenderer_StoreDelegatedInkPoint_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DelegatedInkPointRenderer_ResetPrediction_Params_Data::Validate,
+    { &internal::DelegatedInkPointRenderer_ResetPrediction_Params_Data::Validate,
      nullptr /* no response */},
 };
 

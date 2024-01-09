@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/cros_healthd/mojom/executor.mojom-features.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
 #include "diagnostics/mojom/external/time.mojom.h"
@@ -30,7 +31,6 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -554,6 +554,11 @@ class Executor
     kRemoveBtmonLogMinVersion = 0,
     kSetFanSpeedMinVersion = 0,
     kSetAllFanAutoControlMinVersion = 0,
+    kGetEcThermalSensorsMinVersion = 0,
+    kGetTouchpadDevicesMinVersion = 0,
+    kGetSmartBatteryManufactureDateMinVersion = 0,
+    kGetSmartBatteryTemperatureMinVersion = 0,
+    kRunUrandomMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -670,6 +675,21 @@ class Executor
   struct SetAllFanAutoControl_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetEcThermalSensors_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetTouchpadDevices_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSmartBatteryManufactureDate_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSmartBatteryTemperature_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunUrandom_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   
   using File = Executor_File;
@@ -678,14 +698,14 @@ class Executor
   virtual ~Executor() = default;
 
 
-  using ReadFileCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using ReadFileCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void ReadFile(Executor::File file_enum, ReadFileCallback callback) = 0;
 
 
-  using ReadFilePartCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using ReadFilePartCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
-  virtual void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) = 0;
+  virtual void ReadFilePart(Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size, ReadFilePartCallback callback) = 0;
 
 
   using GetFileInfoCallback = base::OnceCallback<void(FileInfoPtr)>;
@@ -693,7 +713,7 @@ class Executor
   virtual void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) = 0;
 
 
-  using GetAllFanSpeedCallback = base::OnceCallback<void(const std::vector<uint16_t>&, const absl::optional<std::string>&)>;
+  using GetAllFanSpeedCallback = base::OnceCallback<void(const std::vector<uint16_t>&, const std::optional<std::string>&)>;
   
   virtual void GetAllFanSpeed(GetAllFanSpeedCallback callback) = 0;
 
@@ -711,32 +731,32 @@ class Executor
   virtual void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) = 0;
 
 
-  using ReadMsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::NullableUint64Ptr)>;
+  using ReadMsrCallback = base::OnceCallback<void(std::optional<uint64_t>)>;
   
   virtual void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) = 0;
 
 
-  using GetLidAngleCallback = base::OnceCallback<void(absl::optional<uint16_t>)>;
+  using GetLidAngleCallback = base::OnceCallback<void(std::optional<uint16_t>)>;
   
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
 
 
-  using GetFingerprintFrameCallback = base::OnceCallback<void(FingerprintFrameResultPtr, const absl::optional<std::string>&)>;
+  using GetFingerprintFrameCallback = base::OnceCallback<void(FingerprintFrameResultPtr, const std::optional<std::string>&)>;
   
   virtual void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) = 0;
 
 
-  using GetFingerprintInfoCallback = base::OnceCallback<void(FingerprintInfoResultPtr, const absl::optional<std::string>&)>;
+  using GetFingerprintInfoCallback = base::OnceCallback<void(FingerprintInfoResultPtr, const std::optional<std::string>&)>;
   
   virtual void GetFingerprintInfo(GetFingerprintInfoCallback callback) = 0;
 
 
-  using SetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using SetLedColorCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) = 0;
 
 
-  using ResetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using ResetLedColorCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) = 0;
 
@@ -769,7 +789,7 @@ class Executor
   virtual void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 
 
-  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const absl::optional<std::string>&)>;
+  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const std::optional<std::string>&)>;
   
   virtual void GetPsr(GetPsrCallback callback) = 0;
 
@@ -782,12 +802,12 @@ class Executor
   virtual void RemoveFioTestFile(RemoveFioTestFileCallback callback) = 0;
 
 
-  using GetConnectedExternalDisplayConnectorsCallback = base::OnceCallback<void(base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>, const absl::optional<std::string>&)>;
+  using GetConnectedExternalDisplayConnectorsCallback = base::OnceCallback<void(base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>, const std::optional<std::string>&)>;
   
-  virtual void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) = 0;
+  virtual void GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) = 0;
 
 
-  using GetPrivacyScreenInfoCallback = base::OnceCallback<void(bool, bool, const absl::optional<std::string>&)>;
+  using GetPrivacyScreenInfoCallback = base::OnceCallback<void(bool, bool, const std::optional<std::string>&)>;
   
   virtual void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) = 0;
 
@@ -831,14 +851,39 @@ class Executor
   virtual void RemoveBtmonLog(RemoveBtmonLogCallback callback) = 0;
 
 
-  using SetFanSpeedCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using SetFanSpeedCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) = 0;
 
 
-  using SetAllFanAutoControlCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using SetAllFanAutoControlCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) = 0;
+
+
+  using GetEcThermalSensorsCallback = base::OnceCallback<void(std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>, const std::optional<std::string>&)>;
+  
+  virtual void GetEcThermalSensors(GetEcThermalSensorsCallback callback) = 0;
+
+
+  using GetTouchpadDevicesCallback = base::OnceCallback<void(std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>, const std::optional<std::string>&)>;
+  
+  virtual void GetTouchpadDevices(GetTouchpadDevicesCallback callback) = 0;
+
+
+  using GetSmartBatteryManufactureDateCallback = base::OnceCallback<void(std::optional<uint32_t>)>;
+  
+  virtual void GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) = 0;
+
+
+  using GetSmartBatteryTemperatureCallback = base::OnceCallback<void(std::optional<uint32_t>)>;
+  
+  virtual void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) = 0;
+
+
+  using RunUrandomCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) = 0;
 };
 
 
@@ -992,7 +1037,7 @@ class  ExecutorProxy
   
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) final;
   
-  void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) final;
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size, ReadFilePartCallback callback) final;
   
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) final;
   
@@ -1038,7 +1083,7 @@ class  ExecutorProxy
   
   void RemoveFioTestFile(RemoveFioTestFileCallback callback) final;
   
-  void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) final;
+  void GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) final;
   
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) final;
   
@@ -1063,6 +1108,16 @@ class  ExecutorProxy
   void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) final;
   
   void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) final;
+  
+  void GetEcThermalSensors(GetEcThermalSensorsCallback callback) final;
+  
+  void GetTouchpadDevices(GetTouchpadDevicesCallback callback) final;
+  
+  void GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) final;
+  
+  void GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) final;
+  
+  void RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1936,17 +1991,17 @@ class  FioJobArgument {
   // Construct an instance holding |prepare|.
   static FioJobArgumentPtr
   NewPrepare(
-      PrepareJobArgumentPtr prepare) {
+      PrepareJobArgumentPtr value) {
     auto result = FioJobArgumentPtr(absl::in_place);
-    result->set_prepare(std::move(prepare));
+    result->set_prepare(std::move(value));
     return result;
   }
   // Construct an instance holding |read|.
   static FioJobArgumentPtr
   NewRead(
-      ReadJobArgumentPtr read) {
+      ReadJobArgumentPtr value) {
     auto result = FioJobArgumentPtr(absl::in_place);
-    result->set_read(std::move(read));
+    result->set_read(std::move(value));
     return result;
   }
 

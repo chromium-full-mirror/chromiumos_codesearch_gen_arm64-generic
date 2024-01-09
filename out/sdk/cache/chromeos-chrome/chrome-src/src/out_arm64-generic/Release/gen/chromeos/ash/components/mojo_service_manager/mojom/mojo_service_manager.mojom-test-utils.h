@@ -17,7 +17,7 @@ namespace chromeos::mojo_service_manager::mojom {
 class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ServiceManagerInterceptorForTesting : public ServiceManager {
   virtual ServiceManager* GetForwardingInterface() = 0;
   void Register(const std::string& service_name, ::mojo::PendingRemote<ServiceProvider> service_provider) override;
-  void Request(const std::string& service_name, absl::optional<::base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) override;
+  void Request(const std::string& service_name, std::optional<::base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) override;
   void Query(const std::string& service_name, QueryCallback callback) override;
   void AddServiceObserver(::mojo::PendingRemote<ServiceObserver> observer) override;
 };

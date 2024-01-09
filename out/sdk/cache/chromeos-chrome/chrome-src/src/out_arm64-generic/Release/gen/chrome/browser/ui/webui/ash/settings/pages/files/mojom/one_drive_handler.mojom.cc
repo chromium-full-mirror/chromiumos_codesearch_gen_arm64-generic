@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -412,14 +416,17 @@ void PageHandlerProxy::GetUserEmailAddress(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::one_drive::mojom::PageHandler::GetUserEmailAddress");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetUserEmailAddress_Name, kFlags, 0, 0, nullptr);
@@ -443,14 +450,17 @@ void PageHandlerProxy::ConnectToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::one_drive::mojom::PageHandler::ConnectToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ConnectToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -474,14 +484,17 @@ void PageHandlerProxy::DisconnectFromOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::one_drive::mojom::PageHandler::DisconnectFromOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DisconnectFromOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -505,14 +518,17 @@ void PageHandlerProxy::OpenOneDriveFolder(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::one_drive::mojom::PageHandler::OpenOneDriveFolder");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenOneDriveFolder_Name, kFlags, 0, 0, nullptr);
@@ -576,7 +592,7 @@ class PageHandler_GetUserEmailAddress_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_email);
+      const std::optional<std::string>& in_email);
 };
 
 bool PageHandler_GetUserEmailAddress_ForwardToCallback::Accept(
@@ -589,7 +605,7 @@ bool PageHandler_GetUserEmailAddress_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_email{};
+  std::optional<std::string> p_email{};
   PageHandler_GetUserEmailAddress_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadEmail(&p_email))
@@ -608,7 +624,7 @@ std::move(p_email));
 }
 
 void PageHandler_GetUserEmailAddress_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_email) {
+    const std::optional<std::string>& in_email) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::settings::one_drive::mojom::PageHandler::GetUserEmailAddress", "async_response_parameters",
@@ -616,13 +632,14 @@ void PageHandler_GetUserEmailAddress_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("email"), in_email,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetUserEmailAddress_Name, kFlags, 0, 0, nullptr);
@@ -746,7 +763,8 @@ void PageHandler_ConnectToOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ConnectToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -864,7 +882,8 @@ void PageHandler_DisconnectFromOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DisconnectFromOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -982,7 +1001,8 @@ void PageHandler_OpenOneDriveFolder_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenOneDriveFolder_Name, kFlags, 0, 0, nullptr);
@@ -1142,16 +1162,16 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetUserEmailAddress_Params_Data::Validate,
+    { &internal::PageHandler_GetUserEmailAddress_Params_Data::Validate,
      &internal::PageHandler_GetUserEmailAddress_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ConnectToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_ConnectToOneDrive_Params_Data::Validate,
      &internal::PageHandler_ConnectToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_DisconnectFromOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_DisconnectFromOneDrive_Params_Data::Validate,
      &internal::PageHandler_DisconnectFromOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OpenOneDriveFolder_Params_Data::Validate,
+    { &internal::PageHandler_OpenOneDriveFolder_Params_Data::Validate,
      &internal::PageHandler_OpenOneDriveFolder_ResponseParams_Data::Validate},
 };
 
@@ -1228,14 +1248,17 @@ void PageProxy::OnODFSMountOrUnmount(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::one_drive::mojom::Page::OnODFSMountOrUnmount");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnODFSMountOrUnmount_Name, kFlags, 0, 0, nullptr);
@@ -1299,10 +1322,10 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnODFSMountOrUnmount_Params_Data::Validate,
+    { &internal::Page_OnODFSMountOrUnmount_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1357,14 +1380,14 @@ PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 
 void PageHandlerAsyncWaiter::GetUserEmailAddress(
-    absl::optional<std::string>* out_email) {
+    std::optional<std::string>* out_email) {
   base::RunLoop loop;
   proxy_->GetUserEmailAddress(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_email
+             std::optional<std::string>* out_email
 ,
-             const absl::optional<std::string>& email) {*out_email = std::move(email);
+             const std::optional<std::string>& email) {*out_email = std::move(email);
             loop->Quit();
           },
           &loop,
@@ -1372,9 +1395,9 @@ void PageHandlerAsyncWaiter::GetUserEmailAddress(
   loop.Run();
 }
 
-absl::optional<std::string> PageHandlerAsyncWaiter::GetUserEmailAddress(
+std::optional<std::string> PageHandlerAsyncWaiter::GetUserEmailAddress(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetUserEmailAddress(&async_wait_result);
   return async_wait_result;
 }

@@ -4,90 +4,113 @@
 #include "arcvm_data_migrator.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace arc {
 namespace data_migrator {
+template <typename>
 PROTOBUF_CONSTEXPR HasDataToMigrateRequest::HasDataToMigrateRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.username_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HasDataToMigrateRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR HasDataToMigrateRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HasDataToMigrateRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HasDataToMigrateRequestDefaultTypeInternal() {}
   union {
     HasDataToMigrateRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HasDataToMigrateRequestDefaultTypeInternal _HasDataToMigrateRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HasDataToMigrateRequestDefaultTypeInternal _HasDataToMigrateRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR GetAndroidDataInfoRequest::GetAndroidDataInfoRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.username_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetAndroidDataInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetAndroidDataInfoRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetAndroidDataInfoRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetAndroidDataInfoRequestDefaultTypeInternal() {}
   union {
     GetAndroidDataInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAndroidDataInfoRequestDefaultTypeInternal _GetAndroidDataInfoRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAndroidDataInfoRequestDefaultTypeInternal _GetAndroidDataInfoRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR GetAndroidDataInfoResponse::GetAndroidDataInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.total_allocated_space_src_)*/int64_t{0}
-  , /*decltype(_impl_.total_allocated_space_dest_)*/int64_t{0}
+    /*decltype(_impl_.total_allocated_space_src_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.total_allocated_space_dest_)*/ ::int64_t{0}
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetAndroidDataInfoResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetAndroidDataInfoResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetAndroidDataInfoResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetAndroidDataInfoResponseDefaultTypeInternal() {}
   union {
     GetAndroidDataInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAndroidDataInfoResponseDefaultTypeInternal _GetAndroidDataInfoResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAndroidDataInfoResponseDefaultTypeInternal _GetAndroidDataInfoResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR StartMigrationRequest::StartMigrationRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.destination_type_)*/0
+    /*decltype(_impl_.username_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.destination_type_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartMigrationRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StartMigrationRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartMigrationRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartMigrationRequestDefaultTypeInternal() {}
   union {
     StartMigrationRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartMigrationRequestDefaultTypeInternal _StartMigrationRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartMigrationRequestDefaultTypeInternal _StartMigrationRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DataMigrationProgress::DataMigrationProgress(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.current_bytes_)*/uint64_t{0u}
-  , /*decltype(_impl_.total_bytes_)*/uint64_t{0u}
-  , /*decltype(_impl_.status_)*/0
+    /*decltype(_impl_.current_bytes_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.total_bytes_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.status_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DataMigrationProgressDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DataMigrationProgressDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DataMigrationProgressDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DataMigrationProgressDefaultTypeInternal() {}
   union {
     DataMigrationProgress _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DataMigrationProgressDefaultTypeInternal _DataMigrationProgress_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DataMigrationProgressDefaultTypeInternal _DataMigrationProgress_default_instance_;
 }  // namespace data_migrator
 }  // namespace arc
 namespace arc {
@@ -101,40 +124,40 @@ bool DataMigrationDestinationType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    DataMigrationDestinationType_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DataMigrationDestinationType_strings[2] = {};
+static const char DataMigrationDestinationType_names[] = {
+    "CROSVM_DISK"
+    "LVM_DEVICE"
+};
 
-static const char DataMigrationDestinationType_names[] =
-  "CROSVM_DISK"
-  "LVM_DEVICE";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DataMigrationDestinationType_entries[] = {
-  { {DataMigrationDestinationType_names + 0, 11}, 0 },
-  { {DataMigrationDestinationType_names + 11, 10}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DataMigrationDestinationType_entries[] =
+    {
+        {{&DataMigrationDestinationType_names[0], 11}, 0},
+        {{&DataMigrationDestinationType_names[11], 10}, 1},
 };
 
 static const int DataMigrationDestinationType_entries_by_number[] = {
-  0, // 0 -> CROSVM_DISK
-  1, // 1 -> LVM_DEVICE
+    0,  // 0 -> CROSVM_DISK
+    1,  // 1 -> LVM_DEVICE
 };
 
-const std::string& DataMigrationDestinationType_Name(
-    DataMigrationDestinationType value) {
-  static const bool dummy =
+const std::string& DataMigrationDestinationType_Name(DataMigrationDestinationType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          DataMigrationDestinationType_entries,
-          DataMigrationDestinationType_entries_by_number,
+          DataMigrationDestinationType_entries, DataMigrationDestinationType_entries_by_number,
           2, DataMigrationDestinationType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      DataMigrationDestinationType_entries,
-      DataMigrationDestinationType_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     DataMigrationDestinationType_strings[idx].get();
+      DataMigrationDestinationType_entries, DataMigrationDestinationType_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : DataMigrationDestinationType_strings[idx].get();
 }
-bool DataMigrationDestinationType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataMigrationDestinationType* value) {
+
+bool DataMigrationDestinationType_Parse(absl::string_view name, DataMigrationDestinationType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       DataMigrationDestinationType_entries, 2, name, &int_value);
@@ -153,43 +176,43 @@ bool DataMigrationStatus_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    DataMigrationStatus_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DataMigrationStatus_strings[3] = {};
+static const char DataMigrationStatus_names[] = {
+    "DATA_MIGRATION_FAILED"
+    "DATA_MIGRATION_IN_PROGRESS"
+    "DATA_MIGRATION_SUCCESS"
+};
 
-static const char DataMigrationStatus_names[] =
-  "DATA_MIGRATION_FAILED"
-  "DATA_MIGRATION_IN_PROGRESS"
-  "DATA_MIGRATION_SUCCESS";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DataMigrationStatus_entries[] = {
-  { {DataMigrationStatus_names + 0, 21}, 1 },
-  { {DataMigrationStatus_names + 21, 26}, 2 },
-  { {DataMigrationStatus_names + 47, 22}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DataMigrationStatus_entries[] =
+    {
+        {{&DataMigrationStatus_names[0], 21}, 1},
+        {{&DataMigrationStatus_names[21], 26}, 2},
+        {{&DataMigrationStatus_names[47], 22}, 0},
 };
 
 static const int DataMigrationStatus_entries_by_number[] = {
-  2, // 0 -> DATA_MIGRATION_SUCCESS
-  0, // 1 -> DATA_MIGRATION_FAILED
-  1, // 2 -> DATA_MIGRATION_IN_PROGRESS
+    2,  // 0 -> DATA_MIGRATION_SUCCESS
+    0,  // 1 -> DATA_MIGRATION_FAILED
+    1,  // 2 -> DATA_MIGRATION_IN_PROGRESS
 };
 
-const std::string& DataMigrationStatus_Name(
-    DataMigrationStatus value) {
-  static const bool dummy =
+const std::string& DataMigrationStatus_Name(DataMigrationStatus value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          DataMigrationStatus_entries,
-          DataMigrationStatus_entries_by_number,
+          DataMigrationStatus_entries, DataMigrationStatus_entries_by_number,
           3, DataMigrationStatus_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      DataMigrationStatus_entries,
-      DataMigrationStatus_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     DataMigrationStatus_strings[idx].get();
+      DataMigrationStatus_entries, DataMigrationStatus_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : DataMigrationStatus_strings[idx].get();
 }
-bool DataMigrationStatus_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataMigrationStatus* value) {
+
+bool DataMigrationStatus_Parse(absl::string_view name, DataMigrationStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       DataMigrationStatus_entries, 3, name, &int_value);
@@ -198,50 +221,47 @@ bool DataMigrationStatus_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class HasDataToMigrateRequest::_Internal {
  public:
 };
 
-HasDataToMigrateRequest::HasDataToMigrateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+HasDataToMigrateRequest::HasDataToMigrateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.HasDataToMigrateRequest)
 }
 HasDataToMigrateRequest::HasDataToMigrateRequest(const HasDataToMigrateRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   HasDataToMigrateRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
+      decltype(_impl_.username_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
-    _this->_impl_.username_.Set(from._internal_username(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.HasDataToMigrateRequest)
 }
 
-inline void HasDataToMigrateRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void HasDataToMigrateRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
+      decltype(_impl_.username_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HasDataToMigrateRequest::~HasDataToMigrateRequest() {
@@ -254,7 +274,7 @@ HasDataToMigrateRequest::~HasDataToMigrateRequest() {
 }
 
 inline void HasDataToMigrateRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.username_.Destroy();
 }
 
@@ -264,7 +284,7 @@ void HasDataToMigrateRequest::SetCachedSize(int size) const {
 
 void HasDataToMigrateRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc.data_migrator.HasDataToMigrateRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -275,18 +295,19 @@ void HasDataToMigrateRequest::Clear() {
 const char* HasDataToMigrateRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string username = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_username();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -311,20 +332,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* HasDataToMigrateRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* HasDataToMigrateRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc.data_migrator.HasDataToMigrateRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
+    const std::string& _s = this->_internal_username();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "arc.data_migrator.HasDataToMigrateRequest.username");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_username(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "arc.data_migrator.HasDataToMigrateRequest.username");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -335,19 +354,18 @@ uint8_t* HasDataToMigrateRequest::_InternalSerialize(
   return target;
 }
 
-size_t HasDataToMigrateRequest::ByteSizeLong() const {
+::size_t HasDataToMigrateRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc.data_migrator.HasDataToMigrateRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_username());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_username());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -367,8 +385,8 @@ void HasDataToMigrateRequest::CheckTypeAndMergeFrom(
 void HasDataToMigrateRequest::MergeFrom(const HasDataToMigrateRequest& from) {
   HasDataToMigrateRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.HasDataToMigrateRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_username().empty()) {
@@ -393,16 +411,13 @@ void HasDataToMigrateRequest::InternalSwap(HasDataToMigrateRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.username_, lhs_arena,
-      &other->_impl_.username_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.username_, lhs_arena,
+                                       &other->_impl_.username_, rhs_arena);
 }
 
 std::string HasDataToMigrateRequest::GetTypeName() const {
   return "arc.data_migrator.HasDataToMigrateRequest";
 }
-
 
 // ===================================================================
 
@@ -410,43 +425,41 @@ class GetAndroidDataInfoRequest::_Internal {
  public:
 };
 
-GetAndroidDataInfoRequest::GetAndroidDataInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GetAndroidDataInfoRequest::GetAndroidDataInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.GetAndroidDataInfoRequest)
 }
 GetAndroidDataInfoRequest::GetAndroidDataInfoRequest(const GetAndroidDataInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   GetAndroidDataInfoRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
+      decltype(_impl_.username_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
-    _this->_impl_.username_.Set(from._internal_username(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.GetAndroidDataInfoRequest)
 }
 
-inline void GetAndroidDataInfoRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void GetAndroidDataInfoRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
+      decltype(_impl_.username_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetAndroidDataInfoRequest::~GetAndroidDataInfoRequest() {
@@ -459,7 +472,7 @@ GetAndroidDataInfoRequest::~GetAndroidDataInfoRequest() {
 }
 
 inline void GetAndroidDataInfoRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.username_.Destroy();
 }
 
@@ -469,7 +482,7 @@ void GetAndroidDataInfoRequest::SetCachedSize(int size) const {
 
 void GetAndroidDataInfoRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc.data_migrator.GetAndroidDataInfoRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -480,18 +493,19 @@ void GetAndroidDataInfoRequest::Clear() {
 const char* GetAndroidDataInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string username = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_username();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -516,20 +530,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetAndroidDataInfoRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* GetAndroidDataInfoRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc.data_migrator.GetAndroidDataInfoRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
+    const std::string& _s = this->_internal_username();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "arc.data_migrator.GetAndroidDataInfoRequest.username");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_username(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "arc.data_migrator.GetAndroidDataInfoRequest.username");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -540,19 +552,18 @@ uint8_t* GetAndroidDataInfoRequest::_InternalSerialize(
   return target;
 }
 
-size_t GetAndroidDataInfoRequest::ByteSizeLong() const {
+::size_t GetAndroidDataInfoRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc.data_migrator.GetAndroidDataInfoRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_username());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_username());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -572,8 +583,8 @@ void GetAndroidDataInfoRequest::CheckTypeAndMergeFrom(
 void GetAndroidDataInfoRequest::MergeFrom(const GetAndroidDataInfoRequest& from) {
   GetAndroidDataInfoRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.GetAndroidDataInfoRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_username().empty()) {
@@ -598,16 +609,13 @@ void GetAndroidDataInfoRequest::InternalSwap(GetAndroidDataInfoRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.username_, lhs_arena,
-      &other->_impl_.username_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.username_, lhs_arena,
+                                       &other->_impl_.username_, rhs_arena);
 }
 
 std::string GetAndroidDataInfoRequest::GetTypeName() const {
   return "arc.data_migrator.GetAndroidDataInfoRequest";
 }
-
 
 // ===================================================================
 
@@ -615,34 +623,25 @@ class GetAndroidDataInfoResponse::_Internal {
  public:
 };
 
-GetAndroidDataInfoResponse::GetAndroidDataInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GetAndroidDataInfoResponse::GetAndroidDataInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.GetAndroidDataInfoResponse)
 }
 GetAndroidDataInfoResponse::GetAndroidDataInfoResponse(const GetAndroidDataInfoResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GetAndroidDataInfoResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.total_allocated_space_src_){}
-    , decltype(_impl_.total_allocated_space_dest_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.total_allocated_space_src_, &from._impl_.total_allocated_space_src_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.total_allocated_space_dest_) -
-    reinterpret_cast<char*>(&_impl_.total_allocated_space_src_)) + sizeof(_impl_.total_allocated_space_dest_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.GetAndroidDataInfoResponse)
 }
 
-inline void GetAndroidDataInfoResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void GetAndroidDataInfoResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.total_allocated_space_src_){int64_t{0}}
-    , decltype(_impl_.total_allocated_space_dest_){int64_t{0}}
+      decltype(_impl_.total_allocated_space_src_) { ::int64_t{0} }
+
+    , decltype(_impl_.total_allocated_space_dest_) { ::int64_t{0} }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -657,7 +656,7 @@ GetAndroidDataInfoResponse::~GetAndroidDataInfoResponse() {
 }
 
 inline void GetAndroidDataInfoResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void GetAndroidDataInfoResponse::SetCachedSize(int size) const {
@@ -666,11 +665,11 @@ void GetAndroidDataInfoResponse::SetCachedSize(int size) const {
 
 void GetAndroidDataInfoResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc.data_migrator.GetAndroidDataInfoResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.total_allocated_space_src_, 0, static_cast<size_t>(
+  ::memset(&_impl_.total_allocated_space_src_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.total_allocated_space_dest_) -
       reinterpret_cast<char*>(&_impl_.total_allocated_space_src_)) + sizeof(_impl_.total_allocated_space_dest_));
   _internal_metadata_.Clear<std::string>();
@@ -679,24 +678,26 @@ void GetAndroidDataInfoResponse::Clear() {
 const char* GetAndroidDataInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int64 total_allocated_space_src = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.total_allocated_space_src_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int64 total_allocated_space_dest = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.total_allocated_space_dest_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -721,22 +722,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetAndroidDataInfoResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* GetAndroidDataInfoResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc.data_migrator.GetAndroidDataInfoResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 total_allocated_space_src = 1;
   if (this->_internal_total_allocated_space_src() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_total_allocated_space_src(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        1, this->_internal_total_allocated_space_src(), target);
   }
 
   // int64 total_allocated_space_dest = 2;
   if (this->_internal_total_allocated_space_dest() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_total_allocated_space_dest(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_total_allocated_space_dest(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -747,22 +750,24 @@ uint8_t* GetAndroidDataInfoResponse::_InternalSerialize(
   return target;
 }
 
-size_t GetAndroidDataInfoResponse::ByteSizeLong() const {
+::size_t GetAndroidDataInfoResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc.data_migrator.GetAndroidDataInfoResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 total_allocated_space_src = 1;
   if (this->_internal_total_allocated_space_src() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_total_allocated_space_src());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+        this->_internal_total_allocated_space_src());
   }
 
   // int64 total_allocated_space_dest = 2;
   if (this->_internal_total_allocated_space_dest() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_total_allocated_space_dest());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+        this->_internal_total_allocated_space_dest());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -782,8 +787,8 @@ void GetAndroidDataInfoResponse::CheckTypeAndMergeFrom(
 void GetAndroidDataInfoResponse::MergeFrom(const GetAndroidDataInfoResponse& from) {
   GetAndroidDataInfoResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.GetAndroidDataInfoResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_total_allocated_space_src() != 0) {
@@ -821,53 +826,52 @@ std::string GetAndroidDataInfoResponse::GetTypeName() const {
   return "arc.data_migrator.GetAndroidDataInfoResponse";
 }
 
-
 // ===================================================================
 
 class StartMigrationRequest::_Internal {
  public:
 };
 
-StartMigrationRequest::StartMigrationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+StartMigrationRequest::StartMigrationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.StartMigrationRequest)
 }
 StartMigrationRequest::StartMigrationRequest(const StartMigrationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   StartMigrationRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
-    , decltype(_impl_.destination_type_){}
+      decltype(_impl_.username_) {}
+
+    , decltype(_impl_.destination_type_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
-    _this->_impl_.username_.Set(from._internal_username(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), _this->GetArenaForAllocation());
   }
   _this->_impl_.destination_type_ = from._impl_.destination_type_;
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.StartMigrationRequest)
 }
 
-inline void StartMigrationRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void StartMigrationRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.username_){}
-    , decltype(_impl_.destination_type_){0}
+      decltype(_impl_.username_) {}
+
+    , decltype(_impl_.destination_type_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.username_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StartMigrationRequest::~StartMigrationRequest() {
@@ -880,7 +884,7 @@ StartMigrationRequest::~StartMigrationRequest() {
 }
 
 inline void StartMigrationRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.username_.Destroy();
 }
 
@@ -890,7 +894,7 @@ void StartMigrationRequest::SetCachedSize(int size) const {
 
 void StartMigrationRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc.data_migrator.StartMigrationRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -902,27 +906,29 @@ void StartMigrationRequest::Clear() {
 const char* StartMigrationRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string username = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_username();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_destination_type(static_cast<::arc::data_migrator::DataMigrationDestinationType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -947,27 +953,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* StartMigrationRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* StartMigrationRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc.data_migrator.StartMigrationRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
+    const std::string& _s = this->_internal_username();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "arc.data_migrator.StartMigrationRequest.username");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_username(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "arc.data_migrator.StartMigrationRequest.username");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
   if (this->_internal_destination_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_destination_type(), target);
+        2, this->_internal_destination_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -978,25 +982,24 @@ uint8_t* StartMigrationRequest::_InternalSerialize(
   return target;
 }
 
-size_t StartMigrationRequest::ByteSizeLong() const {
+::size_t StartMigrationRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc.data_migrator.StartMigrationRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string username = 1;
   if (!this->_internal_username().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_username());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_username());
   }
 
   // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
   if (this->_internal_destination_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1016,8 +1019,8 @@ void StartMigrationRequest::CheckTypeAndMergeFrom(
 void StartMigrationRequest::MergeFrom(const StartMigrationRequest& from) {
   StartMigrationRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.StartMigrationRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_username().empty()) {
@@ -1045,10 +1048,8 @@ void StartMigrationRequest::InternalSwap(StartMigrationRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.username_, lhs_arena,
-      &other->_impl_.username_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.username_, lhs_arena,
+                                       &other->_impl_.username_, rhs_arena);
   swap(_impl_.destination_type_, other->_impl_.destination_type_);
 }
 
@@ -1056,43 +1057,33 @@ std::string StartMigrationRequest::GetTypeName() const {
   return "arc.data_migrator.StartMigrationRequest";
 }
 
-
 // ===================================================================
 
 class DataMigrationProgress::_Internal {
  public:
 };
 
-DataMigrationProgress::DataMigrationProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DataMigrationProgress::DataMigrationProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.DataMigrationProgress)
 }
 DataMigrationProgress::DataMigrationProgress(const DataMigrationProgress& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  DataMigrationProgress* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.current_bytes_){}
-    , decltype(_impl_.total_bytes_){}
-    , decltype(_impl_.status_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.current_bytes_, &from._impl_.current_bytes_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.status_) -
-    reinterpret_cast<char*>(&_impl_.current_bytes_)) + sizeof(_impl_.status_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.DataMigrationProgress)
 }
 
-inline void DataMigrationProgress::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DataMigrationProgress::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.current_bytes_){uint64_t{0u}}
-    , decltype(_impl_.total_bytes_){uint64_t{0u}}
-    , decltype(_impl_.status_){0}
+      decltype(_impl_.current_bytes_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.total_bytes_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.status_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1107,7 +1098,7 @@ DataMigrationProgress::~DataMigrationProgress() {
 }
 
 inline void DataMigrationProgress::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void DataMigrationProgress::SetCachedSize(int size) const {
@@ -1116,11 +1107,11 @@ void DataMigrationProgress::SetCachedSize(int size) const {
 
 void DataMigrationProgress::Clear() {
 // @@protoc_insertion_point(message_clear_start:arc.data_migrator.DataMigrationProgress)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.current_bytes_, 0, static_cast<size_t>(
+  ::memset(&_impl_.current_bytes_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.status_) -
       reinterpret_cast<char*>(&_impl_.current_bytes_)) + sizeof(_impl_.status_));
   _internal_metadata_.Clear<std::string>();
@@ -1129,33 +1120,36 @@ void DataMigrationProgress::Clear() {
 const char* DataMigrationProgress::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .arc.data_migrator.DataMigrationStatus status = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_status(static_cast<::arc::data_migrator::DataMigrationStatus>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint64 current_bytes = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.current_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint64 total_bytes = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.total_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1180,29 +1174,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DataMigrationProgress::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DataMigrationProgress::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:arc.data_migrator.DataMigrationProgress)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .arc.data_migrator.DataMigrationStatus status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_status(), target);
+        1, this->_internal_status(), target);
   }
 
   // uint64 current_bytes = 2;
   if (this->_internal_current_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_current_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_current_bytes(), target);
   }
 
   // uint64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_total_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_total_bytes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1213,28 +1209,30 @@ uint8_t* DataMigrationProgress::_InternalSerialize(
   return target;
 }
 
-size_t DataMigrationProgress::ByteSizeLong() const {
+::size_t DataMigrationProgress::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:arc.data_migrator.DataMigrationProgress)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint64 current_bytes = 2;
   if (this->_internal_current_bytes() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_current_bytes());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_current_bytes());
   }
 
   // uint64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_total_bytes());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_total_bytes());
   }
 
   // .arc.data_migrator.DataMigrationStatus status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1254,8 +1252,8 @@ void DataMigrationProgress::CheckTypeAndMergeFrom(
 void DataMigrationProgress::MergeFrom(const DataMigrationProgress& from) {
   DataMigrationProgress* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.DataMigrationProgress)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_current_bytes() != 0) {
@@ -1296,7 +1294,6 @@ std::string DataMigrationProgress::GetTypeName() const {
   return "arc.data_migrator.DataMigrationProgress";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace data_migrator
 }  // namespace arc
@@ -1322,6 +1319,5 @@ Arena::CreateMaybeMessage< ::arc::data_migrator::DataMigrationProgress >(Arena* 
   return Arena::CreateMessageInternal< ::arc::data_migrator::DataMigrationProgress >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

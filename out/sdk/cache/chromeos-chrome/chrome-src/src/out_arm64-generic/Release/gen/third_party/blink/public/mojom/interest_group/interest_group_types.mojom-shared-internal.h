@@ -76,6 +76,31 @@ struct InterestGroup_ExecutionMode_Data {
   }
 };
 
+struct InterestGroup_TrustedBiddingSignalsSlotSizeMode_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct AuctionAdConfigNonSharedParams_BuyerReportType_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -369,7 +394,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) InterestGroupAd_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::url::mojom::internal::Url_Data> render_url;
+  mojo::internal::Pointer<mojo::internal::String_Data> render_url;
   mojo::internal::Pointer<mojo::internal::String_Data> size_group;
   mojo::internal::Pointer<mojo::internal::String_Data> buyer_reporting_id;
   mojo::internal::Pointer<mojo::internal::String_Data> buyer_and_seller_reporting_id;
@@ -534,6 +559,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) InterestGroup_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, double>> priority_signals_overrides;
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>, mojo::internal::Pointer<internal::SellerCapabilities_Data>>> seller_capabilities;
   mojo::internal::Pointer<internal::SellerCapabilities_Data> all_sellers_capabilities;
+  int32_t trusted_bidding_signals_slot_size_mode;
+  uint8_t pad10_[4];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> bidding_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> bidding_wasm_helper_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> update_url;
@@ -554,7 +581,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) InterestGroup_Data {
   InterestGroup_Data();
   ~InterestGroup_Data() = delete;
 };
-static_assert(sizeof(InterestGroup_Data) == 184,
+static_assert(sizeof(InterestGroup_Data) == 192,
               "Bad sizeof(InterestGroup_Data)");
 // Used by InterestGroup::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -955,6 +982,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfigNonShare
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<internal::AuctionReportBuyersConfig_Data>>> auction_report_buyers;
   mojo::internal::Pointer<internal::SellerCapabilities_Data> required_seller_capabilities;
   mojo::internal::Pointer<::blink::mojom::internal::AdSize_Data> requested_size;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::blink::mojom::internal::AdSize_Data>>> all_slots_requested_sizes;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Uuid_Data> auction_nonce;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::AuctionAdConfig_Data>>> component_auctions;
 
@@ -964,7 +992,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfigNonShare
   AuctionAdConfigNonSharedParams_Data();
   ~AuctionAdConfigNonSharedParams_Data() = delete;
 };
-static_assert(sizeof(AuctionAdConfigNonSharedParams_Data) == 208,
+static_assert(sizeof(AuctionAdConfigNonSharedParams_Data) == 216,
               "Bad sizeof(AuctionAdConfigNonSharedParams_Data)");
 // Used by AuctionAdConfigNonSharedParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

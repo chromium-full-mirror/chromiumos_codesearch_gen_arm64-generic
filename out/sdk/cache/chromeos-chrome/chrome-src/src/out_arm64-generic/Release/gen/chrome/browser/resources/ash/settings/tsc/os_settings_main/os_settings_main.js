@@ -17,7 +17,7 @@ import '../settings_vars.css.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists } from '../assert_extras.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { isAboutRoute } from '../router.js';
 import { getTemplate } from './os_settings_main.html.js';
 const OsSettingsMainElementBase = RouteObserverMixin(PolymerElement);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-features.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-shared.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -213,7 +214,7 @@ class NetworkDiagnosticsRoutines
 
   using RunVideoConferencingCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) = 0;
+  virtual void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) = 0;
 
 
   using RunArcHttpCallback = base::OnceCallback<void(RoutineResultPtr)>;
@@ -266,7 +267,7 @@ class  NetworkDiagnosticsRoutinesProxy
   
   void RunHttpsLatency(RunHttpsLatencyCallback callback) final;
   
-  void RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) final;
+  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) final;
   
   void RunArcHttp(RunArcHttpCallback callback) final;
   
@@ -352,121 +353,121 @@ class  RoutineProblems {
   // Construct an instance holding |lan_connectivity_problems|.
   static RoutineProblemsPtr
   NewLanConnectivityProblems(
-      std::vector<LanConnectivityProblem> lan_connectivity_problems) {
+      std::vector<LanConnectivityProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_lan_connectivity_problems(std::move(lan_connectivity_problems));
+    result->set_lan_connectivity_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |signal_strength_problems|.
   static RoutineProblemsPtr
   NewSignalStrengthProblems(
-      std::vector<SignalStrengthProblem> signal_strength_problems) {
+      std::vector<SignalStrengthProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_signal_strength_problems(std::move(signal_strength_problems));
+    result->set_signal_strength_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |gateway_can_be_pinged_problems|.
   static RoutineProblemsPtr
   NewGatewayCanBePingedProblems(
-      std::vector<GatewayCanBePingedProblem> gateway_can_be_pinged_problems) {
+      std::vector<GatewayCanBePingedProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_gateway_can_be_pinged_problems(std::move(gateway_can_be_pinged_problems));
+    result->set_gateway_can_be_pinged_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |has_secure_wifi_connection_problems|.
   static RoutineProblemsPtr
   NewHasSecureWifiConnectionProblems(
-      std::vector<HasSecureWiFiConnectionProblem> has_secure_wifi_connection_problems) {
+      std::vector<HasSecureWiFiConnectionProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_has_secure_wifi_connection_problems(std::move(has_secure_wifi_connection_problems));
+    result->set_has_secure_wifi_connection_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |dns_resolver_present_problems|.
   static RoutineProblemsPtr
   NewDnsResolverPresentProblems(
-      std::vector<DnsResolverPresentProblem> dns_resolver_present_problems) {
+      std::vector<DnsResolverPresentProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_dns_resolver_present_problems(std::move(dns_resolver_present_problems));
+    result->set_dns_resolver_present_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |dns_latency_problems|.
   static RoutineProblemsPtr
   NewDnsLatencyProblems(
-      std::vector<DnsLatencyProblem> dns_latency_problems) {
+      std::vector<DnsLatencyProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_dns_latency_problems(std::move(dns_latency_problems));
+    result->set_dns_latency_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |dns_resolution_problems|.
   static RoutineProblemsPtr
   NewDnsResolutionProblems(
-      std::vector<DnsResolutionProblem> dns_resolution_problems) {
+      std::vector<DnsResolutionProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_dns_resolution_problems(std::move(dns_resolution_problems));
+    result->set_dns_resolution_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |captive_portal_problems|.
   static RoutineProblemsPtr
   NewCaptivePortalProblems(
-      std::vector<CaptivePortalProblem> captive_portal_problems) {
+      std::vector<CaptivePortalProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_captive_portal_problems(std::move(captive_portal_problems));
+    result->set_captive_portal_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |http_firewall_problems|.
   static RoutineProblemsPtr
   NewHttpFirewallProblems(
-      std::vector<HttpFirewallProblem> http_firewall_problems) {
+      std::vector<HttpFirewallProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_http_firewall_problems(std::move(http_firewall_problems));
+    result->set_http_firewall_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |https_firewall_problems|.
   static RoutineProblemsPtr
   NewHttpsFirewallProblems(
-      std::vector<HttpsFirewallProblem> https_firewall_problems) {
+      std::vector<HttpsFirewallProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_https_firewall_problems(std::move(https_firewall_problems));
+    result->set_https_firewall_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |https_latency_problems|.
   static RoutineProblemsPtr
   NewHttpsLatencyProblems(
-      std::vector<HttpsLatencyProblem> https_latency_problems) {
+      std::vector<HttpsLatencyProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_https_latency_problems(std::move(https_latency_problems));
+    result->set_https_latency_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |video_conferencing_problems|.
   static RoutineProblemsPtr
   NewVideoConferencingProblems(
-      std::vector<VideoConferencingProblem> video_conferencing_problems) {
+      std::vector<VideoConferencingProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_video_conferencing_problems(std::move(video_conferencing_problems));
+    result->set_video_conferencing_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |arc_http_problems|.
   static RoutineProblemsPtr
   NewArcHttpProblems(
-      std::vector<ArcHttpProblem> arc_http_problems) {
+      std::vector<ArcHttpProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_arc_http_problems(std::move(arc_http_problems));
+    result->set_arc_http_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |arc_dns_resolution_problems|.
   static RoutineProblemsPtr
   NewArcDnsResolutionProblems(
-      std::vector<ArcDnsResolutionProblem> arc_dns_resolution_problems) {
+      std::vector<ArcDnsResolutionProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_arc_dns_resolution_problems(std::move(arc_dns_resolution_problems));
+    result->set_arc_dns_resolution_problems(std::move(value));
     return result;
   }
   // Construct an instance holding |arc_ping_problems|.
   static RoutineProblemsPtr
   NewArcPingProblems(
-      std::vector<ArcPingProblem> arc_ping_problems) {
+      std::vector<ArcPingProblem> value) {
     auto result = RoutineProblemsPtr(absl::in_place);
-    result->set_arc_ping_problems(std::move(arc_ping_problems));
+    result->set_arc_ping_problems(std::move(value));
     return result;
   }
 
@@ -755,9 +756,9 @@ class  RoutineResultValue {
   // Construct an instance holding |https_latency_result_value|.
   static RoutineResultValuePtr
   NewHttpsLatencyResultValue(
-      HttpsLatencyResultValuePtr https_latency_result_value) {
+      HttpsLatencyResultValuePtr value) {
     auto result = RoutineResultValuePtr(absl::in_place);
-    result->set_https_latency_result_value(std::move(https_latency_result_value));
+    result->set_https_latency_result_value(std::move(value));
     return result;
   }
 

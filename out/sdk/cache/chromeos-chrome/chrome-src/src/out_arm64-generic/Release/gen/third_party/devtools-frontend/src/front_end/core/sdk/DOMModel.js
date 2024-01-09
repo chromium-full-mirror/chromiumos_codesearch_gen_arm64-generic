@@ -213,6 +213,18 @@ export class DOMNode {
     isMediaNode() {
         return this.#nodeNameInternal === 'AUDIO' || this.#nodeNameInternal === 'VIDEO';
     }
+    isViewTransitionPseudoNode() {
+        if (!this.#pseudoTypeInternal) {
+            return false;
+        }
+        return [
+            "view-transition" /* Protocol.DOM.PseudoType.ViewTransition */,
+            "view-transition-group" /* Protocol.DOM.PseudoType.ViewTransitionGroup */,
+            "view-transition-image-pair" /* Protocol.DOM.PseudoType.ViewTransitionImagePair */,
+            "view-transition-old" /* Protocol.DOM.PseudoType.ViewTransitionOld */,
+            "view-transition-new" /* Protocol.DOM.PseudoType.ViewTransitionNew */,
+        ].includes(this.#pseudoTypeInternal);
+    }
     creationStackTrace() {
         if (this.#creationStackTraceInternal) {
             return this.#creationStackTraceInternal;
@@ -841,6 +853,9 @@ export class DOMNode {
             const classList = classes.trim().split(/\s+/g);
             return (lowerCaseName === 'div' ? '' : lowerCaseName) + '.' + classList.map(cls => CSS.escape(cls)).join('.');
         }
+        if (this.pseudoIdentifier()) {
+            return `${lowerCaseName}(${this.pseudoIdentifier()})`;
+        }
         return lowerCaseName;
     }
 }
@@ -1098,7 +1113,18 @@ export class DOMModel extends SDKModel {
         return nodeId ? this.idToDOMNode.get(nodeId) || null : null;
     }
     documentUpdated() {
+        // If this frame doesn't have a document now,
+        // it means that its document is not requested yet and
+        // it will be requested when needed. (ex: setChildNodes event is received for the frame owner node)
+        // So, we don't need to request the document if we don't
+        // already have a document.
+        const alreadyHasDocument = Boolean(this.#document);
         this.setDocument(null);
+        // If we have this.#pendingDocumentRequestPromise in flight,
+        // it will contain most recent result.
+        if (this.parentModel() && alreadyHasDocument && !this.#pendingDocumentRequestPromise) {
+            void this.requestDocument();
+        }
     }
     setDocument(payload) {
         this.idToDOMNode = new Map();
@@ -1112,6 +1138,9 @@ export class DOMModel extends SDKModel {
         if (!this.parentModel()) {
             this.dispatchEventToListeners(Events.DocumentUpdated, this);
         }
+    }
+    setDocumentForTest(document) {
+        this.setDocument(document);
     }
     setDetachedRoot(payload) {
         if (payload.nodeName === '#document') {

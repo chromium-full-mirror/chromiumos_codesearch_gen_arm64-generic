@@ -54,6 +54,15 @@ extern ClassifyUrlResponseDefaultTypeInternal _ClassifyUrlResponse_default_insta
 class CreatePermissionRequestResponse;
 struct CreatePermissionRequestResponseDefaultTypeInternal;
 extern CreatePermissionRequestResponseDefaultTypeInternal _CreatePermissionRequestResponse_default_instance_;
+class DefineChromeTestStateRequest;
+struct DefineChromeTestStateRequestDefaultTypeInternal;
+extern DefineChromeTestStateRequestDefaultTypeInternal _DefineChromeTestStateRequest_default_instance_;
+class DefineChromeTestStateRequest_UrlFilteringSettings;
+struct DefineChromeTestStateRequest_UrlFilteringSettingsDefaultTypeInternal;
+extern DefineChromeTestStateRequest_UrlFilteringSettingsDefaultTypeInternal _DefineChromeTestStateRequest_UrlFilteringSettings_default_instance_;
+class DefineChromeTestStateResponse;
+struct DefineChromeTestStateResponseDefaultTypeInternal;
+extern DefineChromeTestStateResponseDefaultTypeInternal _DefineChromeTestStateResponse_default_instance_;
 class ListFamilyMembersRequest;
 struct ListFamilyMembersRequestDefaultTypeInternal;
 extern ListFamilyMembersRequestDefaultTypeInternal _ListFamilyMembersRequest_default_instance_;
@@ -69,16 +78,23 @@ extern RequestRestrictedUrlAccessRequestDefaultTypeInternal _RequestRestrictedUr
 class RequestRestrictedUrlAccessResponse;
 struct RequestRestrictedUrlAccessResponseDefaultTypeInternal;
 extern RequestRestrictedUrlAccessResponseDefaultTypeInternal _RequestRestrictedUrlAccessResponse_default_instance_;
+class WebsiteException;
+struct WebsiteExceptionDefaultTypeInternal;
+extern WebsiteExceptionDefaultTypeInternal _WebsiteException_default_instance_;
 }  // namespace kids_chrome_management
 PROTOBUF_NAMESPACE_OPEN
 template<> ::kids_chrome_management::ClassifyUrlRequest* Arena::CreateMaybeMessage<::kids_chrome_management::ClassifyUrlRequest>(Arena*);
 template<> ::kids_chrome_management::ClassifyUrlResponse* Arena::CreateMaybeMessage<::kids_chrome_management::ClassifyUrlResponse>(Arena*);
 template<> ::kids_chrome_management::CreatePermissionRequestResponse* Arena::CreateMaybeMessage<::kids_chrome_management::CreatePermissionRequestResponse>(Arena*);
+template<> ::kids_chrome_management::DefineChromeTestStateRequest* Arena::CreateMaybeMessage<::kids_chrome_management::DefineChromeTestStateRequest>(Arena*);
+template<> ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* Arena::CreateMaybeMessage<::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings>(Arena*);
+template<> ::kids_chrome_management::DefineChromeTestStateResponse* Arena::CreateMaybeMessage<::kids_chrome_management::DefineChromeTestStateResponse>(Arena*);
 template<> ::kids_chrome_management::ListFamilyMembersRequest* Arena::CreateMaybeMessage<::kids_chrome_management::ListFamilyMembersRequest>(Arena*);
 template<> ::kids_chrome_management::ListFamilyMembersResponse* Arena::CreateMaybeMessage<::kids_chrome_management::ListFamilyMembersResponse>(Arena*);
 template<> ::kids_chrome_management::PermissionRequest* Arena::CreateMaybeMessage<::kids_chrome_management::PermissionRequest>(Arena*);
 template<> ::kids_chrome_management::RequestRestrictedUrlAccessRequest* Arena::CreateMaybeMessage<::kids_chrome_management::RequestRestrictedUrlAccessRequest>(Arena*);
 template<> ::kids_chrome_management::RequestRestrictedUrlAccessResponse* Arena::CreateMaybeMessage<::kids_chrome_management::RequestRestrictedUrlAccessResponse>(Arena*);
+template<> ::kids_chrome_management::WebsiteException* Arena::CreateMaybeMessage<::kids_chrome_management::WebsiteException>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace kids_chrome_management {
 
@@ -102,6 +118,47 @@ inline const std::string& ClassifyUrlResponse_DisplayClassification_Name(T enum_
 }
 bool ClassifyUrlResponse_DisplayClassification_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClassifyUrlResponse_DisplayClassification* value);
+enum ExceptionType : int {
+  EXCEPTION_TYPE_UNSPECIFIED = 0,
+  ALLOW = 1,
+  BLOCK = 2
+};
+bool ExceptionType_IsValid(int value);
+constexpr ExceptionType ExceptionType_MIN = EXCEPTION_TYPE_UNSPECIFIED;
+constexpr ExceptionType ExceptionType_MAX = BLOCK;
+constexpr int ExceptionType_ARRAYSIZE = ExceptionType_MAX + 1;
+
+const std::string& ExceptionType_Name(ExceptionType value);
+template<typename T>
+inline const std::string& ExceptionType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ExceptionType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ExceptionType_Name.");
+  return ExceptionType_Name(static_cast<ExceptionType>(enum_t_value));
+}
+bool ExceptionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ExceptionType* value);
+enum FilterLevel : int {
+  FILTER_LEVEL_UNSPECIFIED = 0,
+  ALLOW_BY_DEFAULT = 1,
+  SAFE_SITES = 2,
+  BLOCK_BY_DEFAULT = 3
+};
+bool FilterLevel_IsValid(int value);
+constexpr FilterLevel FilterLevel_MIN = FILTER_LEVEL_UNSPECIFIED;
+constexpr FilterLevel FilterLevel_MAX = BLOCK_BY_DEFAULT;
+constexpr int FilterLevel_ARRAYSIZE = FilterLevel_MAX + 1;
+
+const std::string& FilterLevel_Name(FilterLevel value);
+template<typename T>
+inline const std::string& FilterLevel_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, FilterLevel>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function FilterLevel_Name.");
+  return FilterLevel_Name(static_cast<FilterLevel>(enum_t_value));
+}
+bool FilterLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FilterLevel* value);
 // ===================================================================
 
 class ListFamilyMembersRequest final :
@@ -1363,6 +1420,631 @@ class PermissionRequest final :
   int event_type_;
   friend struct ::TableStruct_kidschromemanagement_5fmessages_2eproto;
 };
+// -------------------------------------------------------------------
+
+class WebsiteException final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:kids_chrome_management.WebsiteException) */ {
+ public:
+  inline WebsiteException() : WebsiteException(nullptr) {}
+  ~WebsiteException() override;
+  explicit PROTOBUF_CONSTEXPR WebsiteException(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  WebsiteException(const WebsiteException& from);
+  WebsiteException(WebsiteException&& from) noexcept
+    : WebsiteException() {
+    *this = ::std::move(from);
+  }
+
+  inline WebsiteException& operator=(const WebsiteException& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WebsiteException& operator=(WebsiteException&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const WebsiteException& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const WebsiteException* internal_default_instance() {
+    return reinterpret_cast<const WebsiteException*>(
+               &_WebsiteException_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(WebsiteException& a, WebsiteException& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(WebsiteException* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(WebsiteException* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  WebsiteException* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<WebsiteException>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const WebsiteException& from);
+  void MergeFrom(const WebsiteException& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(WebsiteException* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "kids_chrome_management.WebsiteException";
+  }
+  protected:
+  explicit WebsiteException(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPatternFieldNumber = 1,
+    kIconUrlFieldNumber = 3,
+    kExceptionTypeFieldNumber = 2,
+  };
+  // optional string pattern = 1;
+  bool has_pattern() const;
+  private:
+  bool _internal_has_pattern() const;
+  public:
+  void clear_pattern();
+  const std::string& pattern() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_pattern(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_pattern();
+  PROTOBUF_NODISCARD std::string* release_pattern();
+  void set_allocated_pattern(std::string* pattern);
+  private:
+  const std::string& _internal_pattern() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pattern(const std::string& value);
+  std::string* _internal_mutable_pattern();
+  public:
+
+  // optional string icon_url = 3;
+  bool has_icon_url() const;
+  private:
+  bool _internal_has_icon_url() const;
+  public:
+  void clear_icon_url();
+  const std::string& icon_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_icon_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_icon_url();
+  PROTOBUF_NODISCARD std::string* release_icon_url();
+  void set_allocated_icon_url(std::string* icon_url);
+  private:
+  const std::string& _internal_icon_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_icon_url(const std::string& value);
+  std::string* _internal_mutable_icon_url();
+  public:
+
+  // optional .kids_chrome_management.ExceptionType exception_type = 2;
+  bool has_exception_type() const;
+  private:
+  bool _internal_has_exception_type() const;
+  public:
+  void clear_exception_type();
+  ::kids_chrome_management::ExceptionType exception_type() const;
+  void set_exception_type(::kids_chrome_management::ExceptionType value);
+  private:
+  ::kids_chrome_management::ExceptionType _internal_exception_type() const;
+  void _internal_set_exception_type(::kids_chrome_management::ExceptionType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:kids_chrome_management.WebsiteException)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pattern_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr icon_url_;
+  int exception_type_;
+  friend struct ::TableStruct_kidschromemanagement_5fmessages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DefineChromeTestStateRequest_UrlFilteringSettings final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings) */ {
+ public:
+  inline DefineChromeTestStateRequest_UrlFilteringSettings() : DefineChromeTestStateRequest_UrlFilteringSettings(nullptr) {}
+  ~DefineChromeTestStateRequest_UrlFilteringSettings() override;
+  explicit PROTOBUF_CONSTEXPR DefineChromeTestStateRequest_UrlFilteringSettings(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DefineChromeTestStateRequest_UrlFilteringSettings(const DefineChromeTestStateRequest_UrlFilteringSettings& from);
+  DefineChromeTestStateRequest_UrlFilteringSettings(DefineChromeTestStateRequest_UrlFilteringSettings&& from) noexcept
+    : DefineChromeTestStateRequest_UrlFilteringSettings() {
+    *this = ::std::move(from);
+  }
+
+  inline DefineChromeTestStateRequest_UrlFilteringSettings& operator=(const DefineChromeTestStateRequest_UrlFilteringSettings& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DefineChromeTestStateRequest_UrlFilteringSettings& operator=(DefineChromeTestStateRequest_UrlFilteringSettings&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DefineChromeTestStateRequest_UrlFilteringSettings& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DefineChromeTestStateRequest_UrlFilteringSettings* internal_default_instance() {
+    return reinterpret_cast<const DefineChromeTestStateRequest_UrlFilteringSettings*>(
+               &_DefineChromeTestStateRequest_UrlFilteringSettings_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(DefineChromeTestStateRequest_UrlFilteringSettings& a, DefineChromeTestStateRequest_UrlFilteringSettings& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(DefineChromeTestStateRequest_UrlFilteringSettings* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DefineChromeTestStateRequest_UrlFilteringSettings* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DefineChromeTestStateRequest_UrlFilteringSettings* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DefineChromeTestStateRequest_UrlFilteringSettings>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DefineChromeTestStateRequest_UrlFilteringSettings& from);
+  void MergeFrom(const DefineChromeTestStateRequest_UrlFilteringSettings& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DefineChromeTestStateRequest_UrlFilteringSettings* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings";
+  }
+  protected:
+  explicit DefineChromeTestStateRequest_UrlFilteringSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kExceptionsFieldNumber = 2,
+    kFilterLevelFieldNumber = 1,
+  };
+  // repeated .kids_chrome_management.WebsiteException exceptions = 2;
+  int exceptions_size() const;
+  private:
+  int _internal_exceptions_size() const;
+  public:
+  void clear_exceptions();
+  ::kids_chrome_management::WebsiteException* mutable_exceptions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::kids_chrome_management::WebsiteException >*
+      mutable_exceptions();
+  private:
+  const ::kids_chrome_management::WebsiteException& _internal_exceptions(int index) const;
+  ::kids_chrome_management::WebsiteException* _internal_add_exceptions();
+  public:
+  const ::kids_chrome_management::WebsiteException& exceptions(int index) const;
+  ::kids_chrome_management::WebsiteException* add_exceptions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::kids_chrome_management::WebsiteException >&
+      exceptions() const;
+
+  // optional .kids_chrome_management.FilterLevel filter_level = 1;
+  bool has_filter_level() const;
+  private:
+  bool _internal_has_filter_level() const;
+  public:
+  void clear_filter_level();
+  ::kids_chrome_management::FilterLevel filter_level() const;
+  void set_filter_level(::kids_chrome_management::FilterLevel value);
+  private:
+  ::kids_chrome_management::FilterLevel _internal_filter_level() const;
+  void _internal_set_filter_level(::kids_chrome_management::FilterLevel value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::kids_chrome_management::WebsiteException > exceptions_;
+  int filter_level_;
+  friend struct ::TableStruct_kidschromemanagement_5fmessages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DefineChromeTestStateRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:kids_chrome_management.DefineChromeTestStateRequest) */ {
+ public:
+  inline DefineChromeTestStateRequest() : DefineChromeTestStateRequest(nullptr) {}
+  ~DefineChromeTestStateRequest() override;
+  explicit PROTOBUF_CONSTEXPR DefineChromeTestStateRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DefineChromeTestStateRequest(const DefineChromeTestStateRequest& from);
+  DefineChromeTestStateRequest(DefineChromeTestStateRequest&& from) noexcept
+    : DefineChromeTestStateRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DefineChromeTestStateRequest& operator=(const DefineChromeTestStateRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DefineChromeTestStateRequest& operator=(DefineChromeTestStateRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DefineChromeTestStateRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DefineChromeTestStateRequest* internal_default_instance() {
+    return reinterpret_cast<const DefineChromeTestStateRequest*>(
+               &_DefineChromeTestStateRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(DefineChromeTestStateRequest& a, DefineChromeTestStateRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(DefineChromeTestStateRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DefineChromeTestStateRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DefineChromeTestStateRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DefineChromeTestStateRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DefineChromeTestStateRequest& from);
+  void MergeFrom(const DefineChromeTestStateRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DefineChromeTestStateRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "kids_chrome_management.DefineChromeTestStateRequest";
+  }
+  protected:
+  explicit DefineChromeTestStateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef DefineChromeTestStateRequest_UrlFilteringSettings UrlFilteringSettings;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kChildIdFieldNumber = 1,
+    kUrlFilteringSettingsFieldNumber = 2,
+  };
+  // optional string child_id = 1;
+  bool has_child_id() const;
+  private:
+  bool _internal_has_child_id() const;
+  public:
+  void clear_child_id();
+  const std::string& child_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_child_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_child_id();
+  PROTOBUF_NODISCARD std::string* release_child_id();
+  void set_allocated_child_id(std::string* child_id);
+  private:
+  const std::string& _internal_child_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_child_id(const std::string& value);
+  std::string* _internal_mutable_child_id();
+  public:
+
+  // optional .kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings url_filtering_settings = 2;
+  bool has_url_filtering_settings() const;
+  private:
+  bool _internal_has_url_filtering_settings() const;
+  public:
+  void clear_url_filtering_settings();
+  const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings& url_filtering_settings() const;
+  PROTOBUF_NODISCARD ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* release_url_filtering_settings();
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* mutable_url_filtering_settings();
+  void set_allocated_url_filtering_settings(::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* url_filtering_settings);
+  private:
+  const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings& _internal_url_filtering_settings() const;
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* _internal_mutable_url_filtering_settings();
+  public:
+  void unsafe_arena_set_allocated_url_filtering_settings(
+      ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* url_filtering_settings);
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* unsafe_arena_release_url_filtering_settings();
+
+  // @@protoc_insertion_point(class_scope:kids_chrome_management.DefineChromeTestStateRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr child_id_;
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* url_filtering_settings_;
+  friend struct ::TableStruct_kidschromemanagement_5fmessages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DefineChromeTestStateResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:kids_chrome_management.DefineChromeTestStateResponse) */ {
+ public:
+  inline DefineChromeTestStateResponse() : DefineChromeTestStateResponse(nullptr) {}
+  ~DefineChromeTestStateResponse() override;
+  explicit PROTOBUF_CONSTEXPR DefineChromeTestStateResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DefineChromeTestStateResponse(const DefineChromeTestStateResponse& from);
+  DefineChromeTestStateResponse(DefineChromeTestStateResponse&& from) noexcept
+    : DefineChromeTestStateResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline DefineChromeTestStateResponse& operator=(const DefineChromeTestStateResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DefineChromeTestStateResponse& operator=(DefineChromeTestStateResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DefineChromeTestStateResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DefineChromeTestStateResponse* internal_default_instance() {
+    return reinterpret_cast<const DefineChromeTestStateResponse*>(
+               &_DefineChromeTestStateResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(DefineChromeTestStateResponse& a, DefineChromeTestStateResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(DefineChromeTestStateResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DefineChromeTestStateResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DefineChromeTestStateResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DefineChromeTestStateResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DefineChromeTestStateResponse& from);
+  void MergeFrom(const DefineChromeTestStateResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DefineChromeTestStateResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "kids_chrome_management.DefineChromeTestStateResponse";
+  }
+  protected:
+  explicit DefineChromeTestStateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:kids_chrome_management.DefineChromeTestStateResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_kidschromemanagement_5fmessages_2eproto;
+};
 // ===================================================================
 
 
@@ -2160,9 +2842,425 @@ inline void PermissionRequest::set_state(::kids_chrome_management::PermissionReq
   // @@protoc_insertion_point(field_set:kids_chrome_management.PermissionRequest.state)
 }
 
+// -------------------------------------------------------------------
+
+// WebsiteException
+
+// optional string pattern = 1;
+inline bool WebsiteException::_internal_has_pattern() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool WebsiteException::has_pattern() const {
+  return _internal_has_pattern();
+}
+inline void WebsiteException::clear_pattern() {
+  pattern_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& WebsiteException::pattern() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.WebsiteException.pattern)
+  return _internal_pattern();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void WebsiteException::set_pattern(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ pattern_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:kids_chrome_management.WebsiteException.pattern)
+}
+inline std::string* WebsiteException::mutable_pattern() {
+  std::string* _s = _internal_mutable_pattern();
+  // @@protoc_insertion_point(field_mutable:kids_chrome_management.WebsiteException.pattern)
+  return _s;
+}
+inline const std::string& WebsiteException::_internal_pattern() const {
+  return pattern_.Get();
+}
+inline void WebsiteException::_internal_set_pattern(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  pattern_.Set(value, GetArenaForAllocation());
+}
+inline std::string* WebsiteException::_internal_mutable_pattern() {
+  _has_bits_[0] |= 0x00000001u;
+  return pattern_.Mutable(GetArenaForAllocation());
+}
+inline std::string* WebsiteException::release_pattern() {
+  // @@protoc_insertion_point(field_release:kids_chrome_management.WebsiteException.pattern)
+  if (!_internal_has_pattern()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = pattern_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (pattern_.IsDefault()) {
+    pattern_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void WebsiteException::set_allocated_pattern(std::string* pattern) {
+  if (pattern != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  pattern_.SetAllocated(pattern, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (pattern_.IsDefault()) {
+    pattern_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:kids_chrome_management.WebsiteException.pattern)
+}
+
+// optional .kids_chrome_management.ExceptionType exception_type = 2;
+inline bool WebsiteException::_internal_has_exception_type() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool WebsiteException::has_exception_type() const {
+  return _internal_has_exception_type();
+}
+inline void WebsiteException::clear_exception_type() {
+  exception_type_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::kids_chrome_management::ExceptionType WebsiteException::_internal_exception_type() const {
+  return static_cast< ::kids_chrome_management::ExceptionType >(exception_type_);
+}
+inline ::kids_chrome_management::ExceptionType WebsiteException::exception_type() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.WebsiteException.exception_type)
+  return _internal_exception_type();
+}
+inline void WebsiteException::_internal_set_exception_type(::kids_chrome_management::ExceptionType value) {
+  assert(::kids_chrome_management::ExceptionType_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  exception_type_ = value;
+}
+inline void WebsiteException::set_exception_type(::kids_chrome_management::ExceptionType value) {
+  _internal_set_exception_type(value);
+  // @@protoc_insertion_point(field_set:kids_chrome_management.WebsiteException.exception_type)
+}
+
+// optional string icon_url = 3;
+inline bool WebsiteException::_internal_has_icon_url() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool WebsiteException::has_icon_url() const {
+  return _internal_has_icon_url();
+}
+inline void WebsiteException::clear_icon_url() {
+  icon_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& WebsiteException::icon_url() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.WebsiteException.icon_url)
+  return _internal_icon_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void WebsiteException::set_icon_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ icon_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:kids_chrome_management.WebsiteException.icon_url)
+}
+inline std::string* WebsiteException::mutable_icon_url() {
+  std::string* _s = _internal_mutable_icon_url();
+  // @@protoc_insertion_point(field_mutable:kids_chrome_management.WebsiteException.icon_url)
+  return _s;
+}
+inline const std::string& WebsiteException::_internal_icon_url() const {
+  return icon_url_.Get();
+}
+inline void WebsiteException::_internal_set_icon_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  icon_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* WebsiteException::_internal_mutable_icon_url() {
+  _has_bits_[0] |= 0x00000002u;
+  return icon_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* WebsiteException::release_icon_url() {
+  // @@protoc_insertion_point(field_release:kids_chrome_management.WebsiteException.icon_url)
+  if (!_internal_has_icon_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = icon_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (icon_url_.IsDefault()) {
+    icon_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void WebsiteException::set_allocated_icon_url(std::string* icon_url) {
+  if (icon_url != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  icon_url_.SetAllocated(icon_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (icon_url_.IsDefault()) {
+    icon_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:kids_chrome_management.WebsiteException.icon_url)
+}
+
+// -------------------------------------------------------------------
+
+// DefineChromeTestStateRequest_UrlFilteringSettings
+
+// optional .kids_chrome_management.FilterLevel filter_level = 1;
+inline bool DefineChromeTestStateRequest_UrlFilteringSettings::_internal_has_filter_level() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DefineChromeTestStateRequest_UrlFilteringSettings::has_filter_level() const {
+  return _internal_has_filter_level();
+}
+inline void DefineChromeTestStateRequest_UrlFilteringSettings::clear_filter_level() {
+  filter_level_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::kids_chrome_management::FilterLevel DefineChromeTestStateRequest_UrlFilteringSettings::_internal_filter_level() const {
+  return static_cast< ::kids_chrome_management::FilterLevel >(filter_level_);
+}
+inline ::kids_chrome_management::FilterLevel DefineChromeTestStateRequest_UrlFilteringSettings::filter_level() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.filter_level)
+  return _internal_filter_level();
+}
+inline void DefineChromeTestStateRequest_UrlFilteringSettings::_internal_set_filter_level(::kids_chrome_management::FilterLevel value) {
+  assert(::kids_chrome_management::FilterLevel_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  filter_level_ = value;
+}
+inline void DefineChromeTestStateRequest_UrlFilteringSettings::set_filter_level(::kids_chrome_management::FilterLevel value) {
+  _internal_set_filter_level(value);
+  // @@protoc_insertion_point(field_set:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.filter_level)
+}
+
+// repeated .kids_chrome_management.WebsiteException exceptions = 2;
+inline int DefineChromeTestStateRequest_UrlFilteringSettings::_internal_exceptions_size() const {
+  return exceptions_.size();
+}
+inline int DefineChromeTestStateRequest_UrlFilteringSettings::exceptions_size() const {
+  return _internal_exceptions_size();
+}
+inline void DefineChromeTestStateRequest_UrlFilteringSettings::clear_exceptions() {
+  exceptions_.Clear();
+}
+inline ::kids_chrome_management::WebsiteException* DefineChromeTestStateRequest_UrlFilteringSettings::mutable_exceptions(int index) {
+  // @@protoc_insertion_point(field_mutable:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.exceptions)
+  return exceptions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::kids_chrome_management::WebsiteException >*
+DefineChromeTestStateRequest_UrlFilteringSettings::mutable_exceptions() {
+  // @@protoc_insertion_point(field_mutable_list:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.exceptions)
+  return &exceptions_;
+}
+inline const ::kids_chrome_management::WebsiteException& DefineChromeTestStateRequest_UrlFilteringSettings::_internal_exceptions(int index) const {
+  return exceptions_.Get(index);
+}
+inline const ::kids_chrome_management::WebsiteException& DefineChromeTestStateRequest_UrlFilteringSettings::exceptions(int index) const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.exceptions)
+  return _internal_exceptions(index);
+}
+inline ::kids_chrome_management::WebsiteException* DefineChromeTestStateRequest_UrlFilteringSettings::_internal_add_exceptions() {
+  return exceptions_.Add();
+}
+inline ::kids_chrome_management::WebsiteException* DefineChromeTestStateRequest_UrlFilteringSettings::add_exceptions() {
+  ::kids_chrome_management::WebsiteException* _add = _internal_add_exceptions();
+  // @@protoc_insertion_point(field_add:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.exceptions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::kids_chrome_management::WebsiteException >&
+DefineChromeTestStateRequest_UrlFilteringSettings::exceptions() const {
+  // @@protoc_insertion_point(field_list:kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings.exceptions)
+  return exceptions_;
+}
+
+// -------------------------------------------------------------------
+
+// DefineChromeTestStateRequest
+
+// optional string child_id = 1;
+inline bool DefineChromeTestStateRequest::_internal_has_child_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DefineChromeTestStateRequest::has_child_id() const {
+  return _internal_has_child_id();
+}
+inline void DefineChromeTestStateRequest::clear_child_id() {
+  child_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& DefineChromeTestStateRequest::child_id() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.DefineChromeTestStateRequest.child_id)
+  return _internal_child_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DefineChromeTestStateRequest::set_child_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ child_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:kids_chrome_management.DefineChromeTestStateRequest.child_id)
+}
+inline std::string* DefineChromeTestStateRequest::mutable_child_id() {
+  std::string* _s = _internal_mutable_child_id();
+  // @@protoc_insertion_point(field_mutable:kids_chrome_management.DefineChromeTestStateRequest.child_id)
+  return _s;
+}
+inline const std::string& DefineChromeTestStateRequest::_internal_child_id() const {
+  return child_id_.Get();
+}
+inline void DefineChromeTestStateRequest::_internal_set_child_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  child_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DefineChromeTestStateRequest::_internal_mutable_child_id() {
+  _has_bits_[0] |= 0x00000001u;
+  return child_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DefineChromeTestStateRequest::release_child_id() {
+  // @@protoc_insertion_point(field_release:kids_chrome_management.DefineChromeTestStateRequest.child_id)
+  if (!_internal_has_child_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = child_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (child_id_.IsDefault()) {
+    child_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void DefineChromeTestStateRequest::set_allocated_child_id(std::string* child_id) {
+  if (child_id != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  child_id_.SetAllocated(child_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (child_id_.IsDefault()) {
+    child_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:kids_chrome_management.DefineChromeTestStateRequest.child_id)
+}
+
+// optional .kids_chrome_management.DefineChromeTestStateRequest.UrlFilteringSettings url_filtering_settings = 2;
+inline bool DefineChromeTestStateRequest::_internal_has_url_filtering_settings() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || url_filtering_settings_ != nullptr);
+  return value;
+}
+inline bool DefineChromeTestStateRequest::has_url_filtering_settings() const {
+  return _internal_has_url_filtering_settings();
+}
+inline void DefineChromeTestStateRequest::clear_url_filtering_settings() {
+  if (url_filtering_settings_ != nullptr) url_filtering_settings_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings& DefineChromeTestStateRequest::_internal_url_filtering_settings() const {
+  const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* p = url_filtering_settings_;
+  return p != nullptr ? *p : reinterpret_cast<const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings&>(
+      ::kids_chrome_management::_DefineChromeTestStateRequest_UrlFilteringSettings_default_instance_);
+}
+inline const ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings& DefineChromeTestStateRequest::url_filtering_settings() const {
+  // @@protoc_insertion_point(field_get:kids_chrome_management.DefineChromeTestStateRequest.url_filtering_settings)
+  return _internal_url_filtering_settings();
+}
+inline void DefineChromeTestStateRequest::unsafe_arena_set_allocated_url_filtering_settings(
+    ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* url_filtering_settings) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(url_filtering_settings_);
+  }
+  url_filtering_settings_ = url_filtering_settings;
+  if (url_filtering_settings) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:kids_chrome_management.DefineChromeTestStateRequest.url_filtering_settings)
+}
+inline ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* DefineChromeTestStateRequest::release_url_filtering_settings() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* temp = url_filtering_settings_;
+  url_filtering_settings_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* DefineChromeTestStateRequest::unsafe_arena_release_url_filtering_settings() {
+  // @@protoc_insertion_point(field_release:kids_chrome_management.DefineChromeTestStateRequest.url_filtering_settings)
+  _has_bits_[0] &= ~0x00000002u;
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* temp = url_filtering_settings_;
+  url_filtering_settings_ = nullptr;
+  return temp;
+}
+inline ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* DefineChromeTestStateRequest::_internal_mutable_url_filtering_settings() {
+  _has_bits_[0] |= 0x00000002u;
+  if (url_filtering_settings_ == nullptr) {
+    auto* p = CreateMaybeMessage<::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings>(GetArenaForAllocation());
+    url_filtering_settings_ = p;
+  }
+  return url_filtering_settings_;
+}
+inline ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* DefineChromeTestStateRequest::mutable_url_filtering_settings() {
+  ::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* _msg = _internal_mutable_url_filtering_settings();
+  // @@protoc_insertion_point(field_mutable:kids_chrome_management.DefineChromeTestStateRequest.url_filtering_settings)
+  return _msg;
+}
+inline void DefineChromeTestStateRequest::set_allocated_url_filtering_settings(::kids_chrome_management::DefineChromeTestStateRequest_UrlFilteringSettings* url_filtering_settings) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete url_filtering_settings_;
+  }
+  if (url_filtering_settings) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(url_filtering_settings);
+    if (message_arena != submessage_arena) {
+      url_filtering_settings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, url_filtering_settings, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  url_filtering_settings_ = url_filtering_settings;
+  // @@protoc_insertion_point(field_set_allocated:kids_chrome_management.DefineChromeTestStateRequest.url_filtering_settings)
+}
+
+// -------------------------------------------------------------------
+
+// DefineChromeTestStateResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -2185,6 +3283,8 @@ inline void PermissionRequest::set_state(::kids_chrome_management::PermissionReq
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::kids_chrome_management::ClassifyUrlResponse_DisplayClassification> : ::std::true_type {};
+template <> struct is_proto_enum< ::kids_chrome_management::ExceptionType> : ::std::true_type {};
+template <> struct is_proto_enum< ::kids_chrome_management::FilterLevel> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

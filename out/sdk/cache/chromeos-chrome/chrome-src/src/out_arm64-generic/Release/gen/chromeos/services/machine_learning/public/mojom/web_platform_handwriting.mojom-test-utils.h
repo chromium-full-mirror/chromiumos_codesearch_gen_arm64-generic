@@ -27,8 +27,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerAsyncWaiter {
 
   ~HandwritingRecognizerAsyncWaiter();
   void GetPrediction(
-      std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, absl::optional<std::vector<HandwritingPredictionPtr>>* out_prediction);
-  absl::optional<std::vector<HandwritingPredictionPtr>> GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints);
+      std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, std::optional<std::vector<HandwritingPredictionPtr>>* out_prediction);
+  std::optional<std::vector<HandwritingPredictionPtr>> GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints);
 
  private:
   HandwritingRecognizer* const proxy_;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -268,17 +269,20 @@ GlobalFirstPartySets::GlobalFirstPartySets()
     : public_sets_version(),
       sets(),
       aliases(),
-      manual_config() {}
+      manual_config(),
+      manual_aliases() {}
 
 GlobalFirstPartySets::GlobalFirstPartySets(
     const ::base::Version& public_sets_version_in,
     WTF::HashMap<::blink::BlinkSchemefulSite, FirstPartySetEntryPtr> sets_in,
     const WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite>& aliases_in,
-    FirstPartySetsContextConfigPtr manual_config_in)
+    FirstPartySetsContextConfigPtr manual_config_in,
+    const WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite>& manual_aliases_in)
     : public_sets_version(std::move(public_sets_version_in)),
       sets(std::move(sets_in)),
       aliases(std::move(aliases_in)),
-      manual_config(std::move(manual_config_in)) {}
+      manual_config(std::move(manual_config_in)),
+      manual_aliases(std::move(manual_aliases_in)) {}
 
 GlobalFirstPartySets::~GlobalFirstPartySets() = default;
 
@@ -317,6 +321,15 @@ void GlobalFirstPartySets::WriteIntoTrace(
       "manual_config"), this->manual_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type FirstPartySetsContextConfigPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "manual_aliases"), this->manual_aliases,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::HashMap<::blink::BlinkSchemefulSite, ::blink::BlinkSchemefulSite>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -442,6 +455,8 @@ bool StructTraits<::network::mojom::blink::GlobalFirstPartySets::DataView, ::net
       if (success && !input.ReadAliases(&result->aliases))
         success = false;
       if (success && !input.ReadManualConfig(&result->manual_config))
+        success = false;
+      if (success && !input.ReadManualAliases(&result->manual_aliases))
         success = false;
   *output = std::move(result);
   return success;

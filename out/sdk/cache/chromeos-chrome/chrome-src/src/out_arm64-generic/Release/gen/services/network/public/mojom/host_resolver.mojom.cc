@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -127,15 +128,15 @@ DnsConfigOverrides::DnsConfigOverrides()
       clear_hosts(false) {}
 
 DnsConfigOverrides::DnsConfigOverrides(
-    absl::optional<std::vector<::net::IPEndPoint>> nameservers_in,
-    absl::optional<std::vector<std::string>> search_in,
+    std::optional<std::vector<::net::IPEndPoint>> nameservers_in,
+    std::optional<std::vector<std::string>> search_in,
     DnsConfigOverrides::Tristate append_to_multi_label_name_in,
     int8_t ndots_in,
-    absl::optional<::base::TimeDelta> fallback_period_in,
+    std::optional<::base::TimeDelta> fallback_period_in,
     int32_t attempts_in,
     DnsConfigOverrides::Tristate rotate_in,
     DnsConfigOverrides::Tristate use_local_ipv6_in,
-    const absl::optional<::net::DnsOverHttpsConfig>& dns_over_https_config_in,
+    const std::optional<::net::DnsOverHttpsConfig>& dns_over_https_config_in,
     OptionalSecureDnsMode secure_dns_mode_in,
     DnsConfigOverrides::Tristate allow_dns_over_https_upgrade_in,
     bool clear_hosts_in)
@@ -161,7 +162,7 @@ void DnsConfigOverrides::WriteIntoTrace(
     dict.AddItem(
       "nameservers"), this->nameservers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::net::IPEndPoint>>&>"
+      "<value of type const std::optional<std::vector<::net::IPEndPoint>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -170,7 +171,7 @@ void DnsConfigOverrides::WriteIntoTrace(
     dict.AddItem(
       "search"), this->search,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -197,7 +198,7 @@ void DnsConfigOverrides::WriteIntoTrace(
     dict.AddItem(
       "fallback_period"), this->fallback_period,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -233,7 +234,7 @@ void DnsConfigOverrides::WriteIntoTrace(
     dict.AddItem(
       "dns_over_https_config"), this->dns_over_https_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::DnsOverHttpsConfig>&>"
+      "<value of type const std::optional<::net::DnsOverHttpsConfig>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -530,14 +531,17 @@ void ResolveHostHandleProxy::Cancel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResolveHostHandle_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -606,10 +610,10 @@ bool ResolveHostHandleStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kResolveHostHandleValidationInfo[] = {
-    {&internal::ResolveHostHandle_Cancel_Params_Data::Validate,
+    { &internal::ResolveHostHandle_Cancel_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -718,7 +722,7 @@ ResolveHostClientProxy::ResolveHostClientProxy(mojo::MessageReceiverWithResponde
 }
 
 void ResolveHostClientProxy::OnComplete(
-    int32_t in_result, const ::net::ResolveErrorInfo& in_resolve_error_info, const absl::optional<::net::AddressList>& in_resolved_addresses, const absl::optional<std::vector<::net::HostResolverEndpointResult>>& in_endpoint_results_with_metadata) {
+    int32_t in_result, const ::net::ResolveErrorInfo& in_resolve_error_info, const std::optional<::net::AddressList>& in_resolved_addresses, const std::optional<std::vector<::net::HostResolverEndpointResult>>& in_endpoint_results_with_metadata) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::ResolveHostClient::OnComplete", "input_parameters",
@@ -732,20 +736,23 @@ void ResolveHostClientProxy::OnComplete(
                         "<value of type const ::net::ResolveErrorInfo&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resolved_addresses"), in_resolved_addresses,
-                        "<value of type const absl::optional<::net::AddressList>&>");
+                        "<value of type const std::optional<::net::AddressList>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("endpoint_results_with_metadata"), in_endpoint_results_with_metadata,
-                        "<value of type const absl::optional<std::vector<::net::HostResolverEndpointResult>>&>");
+                        "<value of type const std::optional<std::vector<::net::HostResolverEndpointResult>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResolveHostClient_OnComplete_Name, kFlags, 0, 0, nullptr);
@@ -803,14 +810,17 @@ void ResolveHostClientProxy::OnTextResults(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResolveHostClient_OnTextResults_Name, kFlags, 0, 0, nullptr);
@@ -853,14 +863,17 @@ void ResolveHostClientProxy::OnHostnameResults(
                         "<value of type const std::vector<::net::HostPortPair>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResolveHostClient_OnHostnameResults_Name, kFlags, 0, 0, nullptr);
@@ -906,8 +919,8 @@ bool ResolveHostClientStubDispatch::Accept(
       bool success = true;
       int32_t p_result{};
       ::net::ResolveErrorInfo p_resolve_error_info{};
-      absl::optional<::net::AddressList> p_resolved_addresses{};
-      absl::optional<std::vector<::net::HostResolverEndpointResult>> p_endpoint_results_with_metadata{};
+      std::optional<::net::AddressList> p_resolved_addresses{};
+      std::optional<std::vector<::net::HostResolverEndpointResult>> p_endpoint_results_with_metadata{};
       ResolveHostClient_OnComplete_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1011,14 +1024,14 @@ bool ResolveHostClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kResolveHostClientValidationInfo[] = {
-    {&internal::ResolveHostClient_OnComplete_Params_Data::Validate,
+    { &internal::ResolveHostClient_OnComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResolveHostClient_OnTextResults_Params_Data::Validate,
+    { &internal::ResolveHostClient_OnTextResults_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResolveHostClient_OnHostnameResults_Params_Data::Validate,
+    { &internal::ResolveHostClient_OnHostnameResults_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1164,14 +1177,17 @@ void MdnsListenClientProxy::OnAddressResult(
                         "<value of type const ::net::IPEndPoint&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMdnsListenClient_OnAddressResult_Name, kFlags, 0, 0, nullptr);
@@ -1222,14 +1238,17 @@ void MdnsListenClientProxy::OnTextResult(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMdnsListenClient_OnTextResult_Name, kFlags, 0, 0, nullptr);
@@ -1282,14 +1301,17 @@ void MdnsListenClientProxy::OnHostnameResult(
                         "<value of type const ::net::HostPortPair&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMdnsListenClient_OnHostnameResult_Name, kFlags, 0, 0, nullptr);
@@ -1337,14 +1359,17 @@ void MdnsListenClientProxy::OnUnhandledResult(
                         "<value of type ::net::DnsQueryType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMdnsListenClient_OnUnhandledResult_Name, kFlags, 0, 0, nullptr);
@@ -1531,16 +1556,16 @@ bool MdnsListenClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMdnsListenClientValidationInfo[] = {
-    {&internal::MdnsListenClient_OnAddressResult_Params_Data::Validate,
+    { &internal::MdnsListenClient_OnAddressResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MdnsListenClient_OnTextResult_Params_Data::Validate,
+    { &internal::MdnsListenClient_OnTextResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MdnsListenClient_OnHostnameResult_Params_Data::Validate,
+    { &internal::MdnsListenClient_OnHostnameResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MdnsListenClient_OnUnhandledResult_Params_Data::Validate,
+    { &internal::MdnsListenClient_OnUnhandledResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1665,14 +1690,17 @@ void HostResolverProxy::ResolveHost(
                         "<value of type ::mojo::PendingRemote<ResolveHostClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostResolver_ResolveHost_Name, kFlags, 0, 0, nullptr);
@@ -1739,14 +1767,17 @@ void HostResolverProxy::MdnsListen(
                         "<value of type ::mojo::PendingRemote<MdnsListenClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostResolver_MdnsListen_Name, kFlags, 0, 0, nullptr);
@@ -1875,7 +1906,8 @@ void HostResolver_MdnsListen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostResolver_MdnsListen_Name, kFlags, 0, 0, nullptr);
@@ -2008,12 +2040,12 @@ std::move(p_response_client), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHostResolverValidationInfo[] = {
-    {&internal::HostResolver_ResolveHost_Params_Data::Validate,
+    { &internal::HostResolver_ResolveHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HostResolver_MdnsListen_Params_Data::Validate,
+    { &internal::HostResolver_MdnsListen_Params_Data::Validate,
      &internal::HostResolver_MdnsListen_ResponseParams_Data::Validate},
 };
 
@@ -2090,14 +2122,17 @@ void DnsConfigChangeManagerClientProxy::OnDnsConfigChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::DnsConfigChangeManagerClient::OnDnsConfigChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDnsConfigChangeManagerClient_OnDnsConfigChanged_Name, kFlags, 0, 0, nullptr);
@@ -2161,10 +2196,10 @@ bool DnsConfigChangeManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDnsConfigChangeManagerClientValidationInfo[] = {
-    {&internal::DnsConfigChangeManagerClient_OnDnsConfigChanged_Params_Data::Validate,
+    { &internal::DnsConfigChangeManagerClient_OnDnsConfigChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2244,14 +2279,17 @@ void DnsConfigChangeManagerProxy::RequestNotifications(
                         "<value of type ::mojo::PendingRemote<DnsConfigChangeManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDnsConfigChangeManager_RequestNotifications_Name, kFlags, 0, 0, nullptr);
@@ -2327,10 +2365,10 @@ bool DnsConfigChangeManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDnsConfigChangeManagerValidationInfo[] = {
-    {&internal::DnsConfigChangeManager_RequestNotifications_Params_Data::Validate,
+    { &internal::DnsConfigChangeManager_RequestNotifications_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2500,7 +2538,7 @@ ResolveHostHandleAsyncWaiter::~ResolveHostHandleAsyncWaiter() = default;
 
 
 
-void ResolveHostClientInterceptorForTesting::OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<::net::AddressList>& resolved_addresses, const absl::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) {
+void ResolveHostClientInterceptorForTesting::OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<::net::AddressList>& resolved_addresses, const std::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) {
   GetForwardingInterface()->OnComplete(std::move(result), std::move(resolve_error_info), std::move(resolved_addresses), std::move(endpoint_results_with_metadata));
 }
 void ResolveHostClientInterceptorForTesting::OnTextResults(const std::vector<std::string>& text_results) {

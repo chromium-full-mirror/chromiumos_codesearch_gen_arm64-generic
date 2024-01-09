@@ -8,6 +8,7 @@
 #define COMPONENTS_SUBRESOURCE_FILTER_CORE_MOJOM_SUBRESOURCE_FILTER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

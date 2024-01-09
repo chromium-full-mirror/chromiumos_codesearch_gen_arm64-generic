@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/webrtc_signaling_messenger.mojom-forward.h"
@@ -295,8 +296,8 @@ class  IceServer {
 
   IceServer(
       std::vector<::GURL> urls,
-      const absl::optional<std::string>& username,
-      const absl::optional<std::string>& credential);
+      const std::optional<std::string>& username,
+      const std::optional<std::string>& credential);
 
 
   ~IceServer();
@@ -376,9 +377,9 @@ class  IceServer {
   
   std::vector<::GURL> urls;
   
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
   
-  absl::optional<std::string> credential;
+  std::optional<std::string> credential;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

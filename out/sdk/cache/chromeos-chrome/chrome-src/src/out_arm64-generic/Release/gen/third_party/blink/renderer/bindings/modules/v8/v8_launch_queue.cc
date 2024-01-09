@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, LaunchQueue>::value,
     "LaunchQueue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&LaunchQueue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "LaunchQueue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,9 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("LaunchQueue.setConsumer");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "LaunchQueue";
 const char* const property_name = "setConsumer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -99,13 +94,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-LaunchQueue* blink_receiver = V8LaunchQueue::ToWrappableUnsafe(v8_receiver);
+LaunchQueue* blink_receiver = V8LaunchQueue::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8LaunchConsumer>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_consumer;
 if (LIKELY(info[0]->IsFunction())) {
   arg1_consumer = V8LaunchConsumer::Create(info[0].As<v8::Function>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "LaunchQueue";
 const char* const property_name = "setConsumer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

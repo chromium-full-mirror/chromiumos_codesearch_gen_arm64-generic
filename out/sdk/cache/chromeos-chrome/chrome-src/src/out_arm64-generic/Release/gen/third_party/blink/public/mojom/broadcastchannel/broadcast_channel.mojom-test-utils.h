@@ -8,17 +8,17 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_BROADCASTCHANNEL_BROADCAST_CHANNEL_MOJOM_TEST_UTILS_H_
 
 #include "third_party/blink/public/mojom/broadcastchannel/broadcast_channel.mojom.h"
-#include "content/common/content_export.h"
+#include "third_party/blink/public/common/common_export.h"
 
 
 namespace blink::mojom {
 
 
-class CONTENT_EXPORT BroadcastChannelClientInterceptorForTesting : public BroadcastChannelClient {
+class BLINK_COMMON_EXPORT BroadcastChannelClientInterceptorForTesting : public BroadcastChannelClient {
   virtual BroadcastChannelClient* GetForwardingInterface() = 0;
   void OnMessage(::blink::CloneableMessage message) override;
 };
-class CONTENT_EXPORT BroadcastChannelClientAsyncWaiter {
+class BLINK_COMMON_EXPORT BroadcastChannelClientAsyncWaiter {
  public:
   explicit BroadcastChannelClientAsyncWaiter(BroadcastChannelClient* proxy);
 
@@ -32,11 +32,11 @@ class CONTENT_EXPORT BroadcastChannelClientAsyncWaiter {
 };
 
 
-class CONTENT_EXPORT BroadcastChannelProviderInterceptorForTesting : public BroadcastChannelProvider {
+class BLINK_COMMON_EXPORT BroadcastChannelProviderInterceptorForTesting : public BroadcastChannelProvider {
   virtual BroadcastChannelProvider* GetForwardingInterface() = 0;
   void ConnectToChannel(const std::string& name, ::mojo::PendingAssociatedRemote<BroadcastChannelClient> client, ::mojo::PendingAssociatedReceiver<BroadcastChannelClient> connection) override;
 };
-class CONTENT_EXPORT BroadcastChannelProviderAsyncWaiter {
+class BLINK_COMMON_EXPORT BroadcastChannelProviderAsyncWaiter {
  public:
   explicit BroadcastChannelProviderAsyncWaiter(BroadcastChannelProvider* proxy);
 

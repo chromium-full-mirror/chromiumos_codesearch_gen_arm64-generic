@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/performance_manager/v8_detailed_memory_reporter.mojom-features.h"
 #include "third_party/blink/public/mojom/performance_manager/v8_detailed_memory_reporter.mojom-shared.h"
 #include "third_party/blink/public/mojom/performance_manager/v8_detailed_memory_reporter.mojom-forward.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
@@ -193,7 +194,7 @@ class BLINK_COMMON_EXPORT PerContextV8MemoryUsage {
   PerContextV8MemoryUsage(
       const ::blink::ExecutionContextToken& token,
       uint64_t bytes_used,
-      const absl::optional<std::string>& url);
+      const std::optional<std::string>& url);
 
 
   ~PerContextV8MemoryUsage();
@@ -275,7 +276,7 @@ class BLINK_COMMON_EXPORT PerContextV8MemoryUsage {
   
   uint64_t bytes_used;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -57,6 +57,18 @@ struct HostStatusChangeMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HostStatusChangeMessageDefaultTypeInternal _HostStatusChangeMessage_default_instance_;
+PROTOBUF_CONSTEXPR ReconnectSessionMessage::ReconnectSessionMessage(
+    ::_pbi::ConstantInitialized)
+  : support_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct ReconnectSessionMessageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ReconnectSessionMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ReconnectSessionMessageDefaultTypeInternal() {}
+  union {
+    ReconnectSessionMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReconnectSessionMessageDefaultTypeInternal _ReconnectSessionMessage_default_instance_;
 PROTOBUF_CONSTEXPR ChromotingEchoMessage::ChromotingEchoMessage(
     ::_pbi::ConstantInitialized)
   : message_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
@@ -140,11 +152,16 @@ class ChromotingMessage::_Internal {
   static void set_has_sequence_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::remoting::ftl::ChromotingEchoMessage& echo(const ChromotingMessage* msg);
   static const ::remoting::ftl::ChromotingXmppMessage& xmpp(const ChromotingMessage* msg);
   static const ::remoting::ftl::HostStatusChangeMessage& status(const ChromotingMessage* msg);
-  static const ::remoting::ftl::ChromotingEchoMessage& echo(const ChromotingMessage* msg);
+  static const ::remoting::ftl::ReconnectSessionMessage& reconnect(const ChromotingMessage* msg);
 };
 
+const ::remoting::ftl::ChromotingEchoMessage&
+ChromotingMessage::_Internal::echo(const ChromotingMessage* msg) {
+  return *msg->message_.echo_;
+}
 const ::remoting::ftl::ChromotingXmppMessage&
 ChromotingMessage::_Internal::xmpp(const ChromotingMessage* msg) {
   return *msg->message_.xmpp_;
@@ -153,9 +170,24 @@ const ::remoting::ftl::HostStatusChangeMessage&
 ChromotingMessage::_Internal::status(const ChromotingMessage* msg) {
   return *msg->message_.status_;
 }
-const ::remoting::ftl::ChromotingEchoMessage&
-ChromotingMessage::_Internal::echo(const ChromotingMessage* msg) {
-  return *msg->message_.echo_;
+const ::remoting::ftl::ReconnectSessionMessage&
+ChromotingMessage::_Internal::reconnect(const ChromotingMessage* msg) {
+  return *msg->message_.reconnect_;
+}
+void ChromotingMessage::set_allocated_echo(::remoting::ftl::ChromotingEchoMessage* echo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_message();
+  if (echo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(echo);
+    if (message_arena != submessage_arena) {
+      echo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, echo, submessage_arena);
+    }
+    set_has_echo();
+    message_.echo_ = echo;
+  }
+  // @@protoc_insertion_point(field_set_allocated:remoting.ftl.ChromotingMessage.echo)
 }
 void ChromotingMessage::set_allocated_xmpp(::remoting::ftl::ChromotingXmppMessage* xmpp) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -187,20 +219,20 @@ void ChromotingMessage::set_allocated_status(::remoting::ftl::HostStatusChangeMe
   }
   // @@protoc_insertion_point(field_set_allocated:remoting.ftl.ChromotingMessage.status)
 }
-void ChromotingMessage::set_allocated_echo(::remoting::ftl::ChromotingEchoMessage* echo) {
+void ChromotingMessage::set_allocated_reconnect(::remoting::ftl::ReconnectSessionMessage* reconnect) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_message();
-  if (echo) {
+  if (reconnect) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(echo);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(reconnect);
     if (message_arena != submessage_arena) {
-      echo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, echo, submessage_arena);
+      reconnect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, reconnect, submessage_arena);
     }
-    set_has_echo();
-    message_.echo_ = echo;
+    set_has_reconnect();
+    message_.reconnect_ = reconnect;
   }
-  // @@protoc_insertion_point(field_set_allocated:remoting.ftl.ChromotingMessage.echo)
+  // @@protoc_insertion_point(field_set_allocated:remoting.ftl.ChromotingMessage.reconnect)
 }
 ChromotingMessage::ChromotingMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -215,6 +247,10 @@ ChromotingMessage::ChromotingMessage(const ChromotingMessage& from)
   sequence_id_ = from.sequence_id_;
   clear_has_message();
   switch (from.message_case()) {
+    case kEcho: {
+      _internal_mutable_echo()->::remoting::ftl::ChromotingEchoMessage::MergeFrom(from._internal_echo());
+      break;
+    }
     case kXmpp: {
       _internal_mutable_xmpp()->::remoting::ftl::ChromotingXmppMessage::MergeFrom(from._internal_xmpp());
       break;
@@ -223,8 +259,8 @@ ChromotingMessage::ChromotingMessage(const ChromotingMessage& from)
       _internal_mutable_status()->::remoting::ftl::HostStatusChangeMessage::MergeFrom(from._internal_status());
       break;
     }
-    case kEcho: {
-      _internal_mutable_echo()->::remoting::ftl::ChromotingEchoMessage::MergeFrom(from._internal_echo());
+    case kReconnect: {
+      _internal_mutable_reconnect()->::remoting::ftl::ReconnectSessionMessage::MergeFrom(from._internal_reconnect());
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -262,6 +298,12 @@ void ChromotingMessage::SetCachedSize(int size) const {
 void ChromotingMessage::clear_message() {
 // @@protoc_insertion_point(one_of_clear_start:remoting.ftl.ChromotingMessage)
   switch (message_case()) {
+    case kEcho: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete message_.echo_;
+      }
+      break;
+    }
     case kXmpp: {
       if (GetArenaForAllocation() == nullptr) {
         delete message_.xmpp_;
@@ -274,9 +316,9 @@ void ChromotingMessage::clear_message() {
       }
       break;
     }
-    case kEcho: {
+    case kReconnect: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_.echo_;
+        delete message_.reconnect_;
       }
       break;
     }
@@ -340,6 +382,14 @@ const char* ChromotingMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // .remoting.ftl.ReconnectSessionMessage reconnect = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_reconnect(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -397,6 +447,12 @@ uint8_t* ChromotingMessage::_InternalSerialize(
           _Internal::echo(this).GetCachedSize(), target, stream);
       break;
     }
+    case kReconnect: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::reconnect(this),
+          _Internal::reconnect(this).GetCachedSize(), target, stream);
+      break;
+    }
     default: ;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -422,6 +478,13 @@ size_t ChromotingMessage::ByteSizeLong() const {
   }
 
   switch (message_case()) {
+    // .remoting.ftl.ChromotingEchoMessage echo = 4;
+    case kEcho: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *message_.echo_);
+      break;
+    }
     // .remoting.ftl.ChromotingXmppMessage xmpp = 1;
     case kXmpp: {
       total_size += 1 +
@@ -436,11 +499,11 @@ size_t ChromotingMessage::ByteSizeLong() const {
           *message_.status_);
       break;
     }
-    // .remoting.ftl.ChromotingEchoMessage echo = 4;
-    case kEcho: {
+    // .remoting.ftl.ReconnectSessionMessage reconnect = 5;
+    case kReconnect: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_.echo_);
+          *message_.reconnect_);
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -471,6 +534,10 @@ void ChromotingMessage::MergeFrom(const ChromotingMessage& from) {
     _internal_set_sequence_id(from._internal_sequence_id());
   }
   switch (from.message_case()) {
+    case kEcho: {
+      _internal_mutable_echo()->::remoting::ftl::ChromotingEchoMessage::MergeFrom(from._internal_echo());
+      break;
+    }
     case kXmpp: {
       _internal_mutable_xmpp()->::remoting::ftl::ChromotingXmppMessage::MergeFrom(from._internal_xmpp());
       break;
@@ -479,8 +546,8 @@ void ChromotingMessage::MergeFrom(const ChromotingMessage& from) {
       _internal_mutable_status()->::remoting::ftl::HostStatusChangeMessage::MergeFrom(from._internal_status());
       break;
     }
-    case kEcho: {
-      _internal_mutable_echo()->::remoting::ftl::ChromotingEchoMessage::MergeFrom(from._internal_echo());
+    case kReconnect: {
+      _internal_mutable_reconnect()->::remoting::ftl::ReconnectSessionMessage::MergeFrom(from._internal_reconnect());
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -904,6 +971,207 @@ std::string HostStatusChangeMessage::GetTypeName() const {
 
 // ===================================================================
 
+class ReconnectSessionMessage::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ReconnectSessionMessage>()._has_bits_);
+  static void set_has_support_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ReconnectSessionMessage::ReconnectSessionMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:remoting.ftl.ReconnectSessionMessage)
+}
+ReconnectSessionMessage::ReconnectSessionMessage(const ReconnectSessionMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  support_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    support_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_support_id()) {
+    support_id_.Set(from._internal_support_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:remoting.ftl.ReconnectSessionMessage)
+}
+
+inline void ReconnectSessionMessage::SharedCtor() {
+support_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  support_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ReconnectSessionMessage::~ReconnectSessionMessage() {
+  // @@protoc_insertion_point(destructor:remoting.ftl.ReconnectSessionMessage)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ReconnectSessionMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  support_id_.Destroy();
+}
+
+void ReconnectSessionMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ReconnectSessionMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:remoting.ftl.ReconnectSessionMessage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    support_id_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ReconnectSessionMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string support_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_support_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ReconnectSessionMessage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:remoting.ftl.ReconnectSessionMessage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string support_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_support_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:remoting.ftl.ReconnectSessionMessage)
+  return target;
+}
+
+size_t ReconnectSessionMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:remoting.ftl.ReconnectSessionMessage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional string support_id = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_support_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReconnectSessionMessage::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ReconnectSessionMessage*>(
+      &from));
+}
+
+void ReconnectSessionMessage::MergeFrom(const ReconnectSessionMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:remoting.ftl.ReconnectSessionMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_support_id()) {
+    _internal_set_support_id(from._internal_support_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ReconnectSessionMessage::CopyFrom(const ReconnectSessionMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:remoting.ftl.ReconnectSessionMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReconnectSessionMessage::IsInitialized() const {
+  return true;
+}
+
+void ReconnectSessionMessage::InternalSwap(ReconnectSessionMessage* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &support_id_, lhs_arena,
+      &other->support_id_, rhs_arena
+  );
+}
+
+std::string ReconnectSessionMessage::GetTypeName() const {
+  return "remoting.ftl.ReconnectSessionMessage";
+}
+
+
+// ===================================================================
+
 class ChromotingEchoMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromotingEchoMessage>()._has_bits_);
@@ -1118,6 +1386,10 @@ Arena::CreateMaybeMessage< ::remoting::ftl::ChromotingXmppMessage >(Arena* arena
 template<> PROTOBUF_NOINLINE ::remoting::ftl::HostStatusChangeMessage*
 Arena::CreateMaybeMessage< ::remoting::ftl::HostStatusChangeMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::remoting::ftl::HostStatusChangeMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::remoting::ftl::ReconnectSessionMessage*
+Arena::CreateMaybeMessage< ::remoting::ftl::ReconnectSessionMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::remoting::ftl::ReconnectSessionMessage >(arena);
 }
 template<> PROTOBUF_NOINLINE ::remoting::ftl::ChromotingEchoMessage*
 Arena::CreateMaybeMessage< ::remoting::ftl::ChromotingEchoMessage >(Arena* arena) {

@@ -42,6 +42,12 @@ class RenderFrameHostInfoDataView;
 
 class WebContentsInfoDataView;
 
+class EventDestinationDataView;
+
+class DlpEventDataView;
+
+class FileDatabaseEntryDataView;
+
 
 
 }  // dlp_internals::mojom
@@ -73,6 +79,27 @@ struct MojomTypeTraits<::dlp_internals::mojom::RenderFrameHostInfoDataView> {
 template <>
 struct MojomTypeTraits<::dlp_internals::mojom::WebContentsInfoDataView> {
   using Data = ::dlp_internals::mojom::internal::WebContentsInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::EventDestinationDataView> {
+  using Data = ::dlp_internals::mojom::internal::EventDestination_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::DlpEventDataView> {
+  using Data = ::dlp_internals::mojom::internal::DlpEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::FileDatabaseEntryDataView> {
+  using Data = ::dlp_internals::mojom::internal::FileDatabaseEntry_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -154,7 +181,111 @@ inline bool IsKnownEnumValue(Level value) {
   return internal::Level_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class EventDestination_Component : int32_t {
+  
+  kUndefinedComponent = 0,
+  
+  kArc = 1,
+  
+  kCrostini = 2,
+  
+  kPluginVm = 3,
+  
+  kUsb = 4,
+  
+  kDrive = 5,
+  
+  kOnedrive = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+};
+
+ std::ostream& operator<<(std::ostream& os, EventDestination_Component value);
+inline bool IsKnownEnumValue(EventDestination_Component value) {
+  return internal::EventDestination_Component_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DlpEvent_Restriction : int32_t {
+  
+  kUndefinedRestriction = 0,
+  
+  kClipboard = 1,
+  
+  kScreenshot = 2,
+  
+  kScreencast = 3,
+  
+  kPrinting = 4,
+  
+  kEprivacy = 5,
+  
+  kFiles = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+};
+
+ std::ostream& operator<<(std::ostream& os, DlpEvent_Restriction value);
+inline bool IsKnownEnumValue(DlpEvent_Restriction value) {
+  return internal::DlpEvent_Restriction_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DlpEvent_Mode : int32_t {
+  
+  kUndefinedMode = 0,
+  
+  kBlock = 1,
+  
+  kReport = 2,
+  
+  kWarn = 3,
+  
+  kWarnProceed = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, DlpEvent_Mode value);
+inline bool IsKnownEnumValue(DlpEvent_Mode value) {
+  return internal::DlpEvent_Mode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DlpEvent_UserType : int32_t {
+  
+  kUndefinedUserType = 0,
+  
+  kRegular = 1,
+  
+  kManagedGuest = 2,
+  
+  kKiosk = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, DlpEvent_UserType value);
+inline bool IsKnownEnumValue(DlpEvent_UserType value) {
+  return internal::DlpEvent_UserType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
+class ReportingObserverInterfaceBase {};
+
+using ReportingObserverPtrDataView =
+    mojo::InterfacePtrDataView<ReportingObserverInterfaceBase>;
+using ReportingObserverRequestDataView =
+    mojo::InterfaceRequestDataView<ReportingObserverInterfaceBase>;
+using ReportingObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<ReportingObserverInterfaceBase>;
+using ReportingObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<ReportingObserverInterfaceBase>;
 class PageHandlerInterfaceBase {};
 
 using PageHandlerPtrDataView =
@@ -341,6 +472,300 @@ class WebContentsInfoDataView {
 };
 
 
+class EventDestinationDataView {
+ public:
+  EventDestinationDataView() = default;
+
+  EventDestinationDataView(
+      internal::EventDestination_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlPatternDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrlPattern(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `url_pattern` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUrlPattern` instead "
+    "of `ReadUrlPattern if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->url_pattern.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadComponent(UserType* output) const {
+    if (!data_->component_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::dlp_internals::mojom::EventDestination_Component>(
+        data_->component_$value, &output->emplace());
+  }
+  std::optional<EventDestination_Component> component() const {
+    if (!data_->component_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::EventDestination_Component>(data_->component_$value));
+  }
+ private:
+  internal::EventDestination_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DlpEventDataView {
+ public:
+  DlpEventDataView() = default;
+
+  DlpEventDataView(
+      internal::DlpEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSourcePatternDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSourcePattern(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `source_pattern` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSourcePattern` instead "
+    "of `ReadSourcePattern if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->source_pattern.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDestinationDataView(
+      EventDestinationDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDestination(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::dlp_internals::mojom::EventDestinationDataView, UserType>(),
+    "Attempting to read the optional `destination` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDestination` instead "
+    "of `ReadDestination if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->destination.Get();
+    return mojo::internal::Deserialize<::dlp_internals::mojom::EventDestinationDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadRestriction(UserType* output) const {
+    if (!data_->restriction_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::dlp_internals::mojom::DlpEvent_Restriction>(
+        data_->restriction_$value, &output->emplace());
+  }
+  std::optional<DlpEvent_Restriction> restriction() const {
+    if (!data_->restriction_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::DlpEvent_Restriction>(data_->restriction_$value));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadMode(UserType* output) const {
+    if (!data_->mode_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::dlp_internals::mojom::DlpEvent_Mode>(
+        data_->mode_$value, &output->emplace());
+  }
+  std::optional<DlpEvent_Mode> mode() const {
+    if (!data_->mode_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::DlpEvent_Mode>(data_->mode_$value));
+  }
+  std::optional<int64_t> timestamp_micro() const {
+
+    return data_->timestamp_micro_$flag
+        ? absl::make_optional(data_->timestamp_micro_$value)
+        : absl::nullopt;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadUserType(UserType* output) const {
+    if (!data_->user_type_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::dlp_internals::mojom::DlpEvent_UserType>(
+        data_->user_type_$value, &output->emplace());
+  }
+  std::optional<DlpEvent_UserType> user_type() const {
+    if (!data_->user_type_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::DlpEvent_UserType>(data_->user_type_$value));
+  }
+  inline void GetContentNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContentName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `content_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadContentName` instead "
+    "of `ReadContentName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->content_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTriggeredRuleNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggeredRuleName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `triggered_rule_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTriggeredRuleName` instead "
+    "of `ReadTriggeredRuleName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->triggered_rule_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTriggeredRuleIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggeredRuleId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `triggered_rule_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTriggeredRuleId` instead "
+    "of `ReadTriggeredRuleId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->triggered_rule_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DlpEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class FileDatabaseEntryDataView {
+ public:
+  FileDatabaseEntryDataView() = default;
+
+  FileDatabaseEntryDataView(
+      internal::FileDatabaseEntry_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<uint64_t> inode() const {
+
+    return data_->inode_$flag
+        ? absl::make_optional(data_->inode_$value)
+        : absl::nullopt;
+  }
+  std::optional<uint64_t> crtime() const {
+
+    return data_->crtime_$flag
+        ? absl::make_optional(data_->crtime_$value)
+        : absl::nullopt;
+  }
+  inline void GetSourceUrlDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSourceUrl(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `source_url` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSourceUrl` instead "
+    "of `ReadSourceUrl if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->source_url.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetReferrerUrlDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadReferrerUrl(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `referrer_url` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadReferrerUrl` instead "
+    "of `ReadReferrerUrl if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->referrer_url.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FileDatabaseEntry_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // dlp_internals::mojom
 
 namespace std {
@@ -356,6 +781,22 @@ struct hash<::dlp_internals::mojom::ContentRestriction>
 template <>
 struct hash<::dlp_internals::mojom::Level>
     : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::Level> {};
+
+template <>
+struct hash<::dlp_internals::mojom::EventDestination_Component>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::EventDestination_Component> {};
+
+template <>
+struct hash<::dlp_internals::mojom::DlpEvent_Restriction>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::DlpEvent_Restriction> {};
+
+template <>
+struct hash<::dlp_internals::mojom::DlpEvent_Mode>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::DlpEvent_Mode> {};
+
+template <>
+struct hash<::dlp_internals::mojom::DlpEvent_UserType>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::DlpEvent_UserType> {};
 
 }  // namespace std
 
@@ -416,6 +857,86 @@ struct Serializer<::dlp_internals::mojom::Level, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::dlp_internals::mojom::Level>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::EventDestination_Component, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::EventDestination_Component, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::EventDestination_Component>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::DlpEvent_Restriction, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::DlpEvent_Restriction, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::DlpEvent_Restriction>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::DlpEvent_Mode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::DlpEvent_Mode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::DlpEvent_Mode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::DlpEvent_UserType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::DlpEvent_UserType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::DlpEvent_UserType>(input)), output);
   }
 };
 
@@ -629,6 +1150,201 @@ struct Serializer<::dlp_internals::mojom::WebContentsInfoDataView, MaybeConstUse
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::EventDestinationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::EventDestinationDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::EventDestination_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::url_pattern(input)) in_url_pattern = Traits::url_pattern(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->url_pattern)::BaseType> url_pattern_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_url_pattern, url_pattern_fragment);
+    fragment->url_pattern.Set(
+        url_pattern_fragment.is_null() ? nullptr : url_pattern_fragment.data());
+    fragment->component_$flag = Traits::component(input).has_value();
+    if (Traits::component(input).has_value()) {
+      mojo::internal::Serialize<::dlp_internals::mojom::EventDestination_Component>(
+          Traits::component(input).value(), &fragment->component_$value);
+    } else {
+      fragment->component_$value =
+          static_cast<int32_t>(::dlp_internals::mojom::EventDestination_Component::kMinValue);
+    }
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::EventDestination_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::EventDestinationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::DlpEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::DlpEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::DlpEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::source_pattern(input)) in_source_pattern = Traits::source_pattern(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source_pattern)::BaseType> source_pattern_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_source_pattern, source_pattern_fragment);
+    fragment->source_pattern.Set(
+        source_pattern_fragment.is_null() ? nullptr : source_pattern_fragment.data());
+    decltype(Traits::destination(input)) in_destination = Traits::destination(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->destination)::BaseType> destination_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::dlp_internals::mojom::EventDestinationDataView>(
+        in_destination, destination_fragment);
+    fragment->destination.Set(
+        destination_fragment.is_null() ? nullptr : destination_fragment.data());
+    fragment->restriction_$flag = Traits::restriction(input).has_value();
+    if (Traits::restriction(input).has_value()) {
+      mojo::internal::Serialize<::dlp_internals::mojom::DlpEvent_Restriction>(
+          Traits::restriction(input).value(), &fragment->restriction_$value);
+    } else {
+      fragment->restriction_$value =
+          static_cast<int32_t>(::dlp_internals::mojom::DlpEvent_Restriction::kMinValue);
+    }
+    fragment->mode_$flag = Traits::mode(input).has_value();
+    if (Traits::mode(input).has_value()) {
+      mojo::internal::Serialize<::dlp_internals::mojom::DlpEvent_Mode>(
+          Traits::mode(input).value(), &fragment->mode_$value);
+    } else {
+      fragment->mode_$value =
+          static_cast<int32_t>(::dlp_internals::mojom::DlpEvent_Mode::kMinValue);
+    }
+    fragment->timestamp_micro_$flag = Traits::timestamp_micro(input).has_value();
+    if (Traits::timestamp_micro(input).has_value()) {
+      fragment->timestamp_micro_$value = Traits::timestamp_micro(input).value();
+    }
+    fragment->user_type_$flag = Traits::user_type(input).has_value();
+    if (Traits::user_type(input).has_value()) {
+      mojo::internal::Serialize<::dlp_internals::mojom::DlpEvent_UserType>(
+          Traits::user_type(input).value(), &fragment->user_type_$value);
+    } else {
+      fragment->user_type_$value =
+          static_cast<int32_t>(::dlp_internals::mojom::DlpEvent_UserType::kMinValue);
+    }
+    decltype(Traits::content_name(input)) in_content_name = Traits::content_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->content_name)::BaseType> content_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_content_name, content_name_fragment);
+    fragment->content_name.Set(
+        content_name_fragment.is_null() ? nullptr : content_name_fragment.data());
+    decltype(Traits::triggered_rule_name(input)) in_triggered_rule_name = Traits::triggered_rule_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->triggered_rule_name)::BaseType> triggered_rule_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_triggered_rule_name, triggered_rule_name_fragment);
+    fragment->triggered_rule_name.Set(
+        triggered_rule_name_fragment.is_null() ? nullptr : triggered_rule_name_fragment.data());
+    decltype(Traits::triggered_rule_id(input)) in_triggered_rule_id = Traits::triggered_rule_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->triggered_rule_id)::BaseType> triggered_rule_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_triggered_rule_id, triggered_rule_id_fragment);
+    fragment->triggered_rule_id.Set(
+        triggered_rule_id_fragment.is_null() ? nullptr : triggered_rule_id_fragment.data());
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::DlpEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::DlpEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::FileDatabaseEntryDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::FileDatabaseEntryDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::FileDatabaseEntry_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->inode_$flag = Traits::inode(input).has_value();
+    if (Traits::inode(input).has_value()) {
+      fragment->inode_$value = Traits::inode(input).value();
+    }
+    fragment->crtime_$flag = Traits::crtime(input).has_value();
+    if (Traits::crtime(input).has_value()) {
+      fragment->crtime_$value = Traits::crtime(input).value();
+    }
+    decltype(Traits::source_url(input)) in_source_url = Traits::source_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->source_url)::BaseType> source_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_source_url, source_url_fragment);
+    fragment->source_url.Set(
+        source_url_fragment.is_null() ? nullptr : source_url_fragment.data());
+    decltype(Traits::referrer_url(input)) in_referrer_url = Traits::referrer_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->referrer_url)::BaseType> referrer_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_referrer_url, referrer_url_fragment);
+    fragment->referrer_url.Set(
+        referrer_url_fragment.is_null() ? nullptr : referrer_url_fragment.data());
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::FileDatabaseEntry_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::FileDatabaseEntryDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -677,6 +1393,52 @@ inline void WebContentsInfoDataView::GetFramesInfoDataView(
 }
 
 
+inline void EventDestinationDataView::GetUrlPatternDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->url_pattern.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void DlpEventDataView::GetSourcePatternDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->source_pattern.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DlpEventDataView::GetDestinationDataView(
+    EventDestinationDataView* output) {
+  auto pointer = data_->destination.Get();
+  *output = EventDestinationDataView(pointer, message_);
+}
+inline void DlpEventDataView::GetContentNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->content_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DlpEventDataView::GetTriggeredRuleNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->triggered_rule_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DlpEventDataView::GetTriggeredRuleIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->triggered_rule_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void FileDatabaseEntryDataView::GetSourceUrlDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->source_url.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void FileDatabaseEntryDataView::GetReferrerUrlDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->referrer_url.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 }  // dlp_internals::mojom
 
@@ -706,6 +1468,42 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::dlp_internals::mojom::Level> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::Level value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::EventDestination_Component> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::EventDestination_Component value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::DlpEvent_Restriction> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_Restriction value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::DlpEvent_Mode> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_Mode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::DlpEvent_UserType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_UserType value);
 };
 
 } // namespace perfetto

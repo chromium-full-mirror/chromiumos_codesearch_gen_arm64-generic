@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -56,8 +57,8 @@ struct KeyEvent {
   ~KeyEvent();
   KeyEvent(const KeyEvent&) = delete;
   KeyEvent& operator=(const KeyEvent&) = delete;
-  KeyEvent(KeyEvent&& rhs);
-  KeyEvent& operator=(KeyEvent&& rhs);
+  KeyEvent(KeyEvent&& rhs) noexcept;
+  KeyEvent& operator=(KeyEvent&& rhs) noexcept;
 
   // Populates a KeyEvent object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -70,14 +71,11 @@ struct KeyEvent {
   // Creates a deep copy of KeyEvent.
   KeyEvent Clone() const;
 
-  // Creates a KeyEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<KeyEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a KeyEvent object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<KeyEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<KeyEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a KeyEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<KeyEvent> FromValue(const base::Value& value);
+  static std::optional<KeyEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisKeyEvent object.
@@ -86,33 +84,33 @@ struct KeyEvent {
   KeyCommand command;
 
   // 0-based display position for commands that involve a routing key.
-  absl::optional<int> display_position;
+  std::optional<int> display_position;
 
   // Braille dot keys that were pressed, stored in the low-order bits. Dot 1 is
   // stored in bit 0, dot2 in bit 1, etc.
-  absl::optional<int> braille_dots;
+  std::optional<int> braille_dots;
 
   // DOM keyboard event code.  This is present when command is standard_key and
   // the braille display event represents a non-alphanumeric key such as an arrow
   // key or function key. The value is as defined by the |code| property in
   // http://www.w3.org/TR/uievents/#keyboard-event-interface
-  absl::optional<std::string> standard_key_code;
+  std::optional<std::string> standard_key_code;
 
   // DOM keyboard event character value.  This is present if the braille key event
   // corresponds to a character.
-  absl::optional<std::string> standard_key_char;
+  std::optional<std::string> standard_key_char;
 
   // Whether the space key was pressed.
-  absl::optional<bool> space_key;
+  std::optional<bool> space_key;
 
   // Whether the alt key was pressed.
-  absl::optional<bool> alt_key;
+  std::optional<bool> alt_key;
 
   // Whether the shift key was pressed.
-  absl::optional<bool> shift_key;
+  std::optional<bool> shift_key;
 
   // Whether the ctrl key was pressed.
-  absl::optional<bool> ctrl_key;
+  std::optional<bool> ctrl_key;
 
 };
 
@@ -121,8 +119,8 @@ struct DisplayState {
   ~DisplayState();
   DisplayState(const DisplayState&) = delete;
   DisplayState& operator=(const DisplayState&) = delete;
-  DisplayState(DisplayState&& rhs);
-  DisplayState& operator=(DisplayState&& rhs);
+  DisplayState(DisplayState&& rhs) noexcept;
+  DisplayState& operator=(DisplayState&& rhs) noexcept;
 
   // Populates a DisplayState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -135,15 +133,12 @@ struct DisplayState {
   // Creates a deep copy of DisplayState.
   DisplayState Clone() const;
 
-  // Creates a DisplayState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisplayState> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplayState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisplayState> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplayState> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplayState object from a base::Value, or nullopt on failure.
-  static absl::optional<DisplayState> FromValue(const base::Value& value);
+  static std::optional<DisplayState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplayState object.
@@ -153,13 +148,13 @@ struct DisplayState {
   bool available;
 
   // Number of rows of braille cells on the currently connected display.
-  absl::optional<int> text_row_count;
+  std::optional<int> text_row_count;
 
   // Number of columns of braille cells on the currently connected display.
-  absl::optional<int> text_column_count;
+  std::optional<int> text_column_count;
 
   // The number of dots in a braille cell on the currently connected display.
-  absl::optional<int> cell_size;
+  std::optional<int> cell_size;
 
 };
 
@@ -180,11 +175,11 @@ base::Value::List Create(const DisplayState& result);
 namespace WriteDots {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<uint8_t> cells;
@@ -203,11 +198,11 @@ struct Params {
 namespace UpdateBluetoothBrailleDisplayAddress {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string address;

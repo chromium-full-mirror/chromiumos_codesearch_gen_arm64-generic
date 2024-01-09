@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/users_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,8 +38,8 @@ User::User()
 is_child(false) {}
 
 User::~User() = default;
-User::User(User&& rhs) = default;
-User& User::operator=(User&& rhs) = default;
+User::User(User&& rhs) noexcept = default;
+User& User::operator=(User&& rhs) noexcept = default;
 User User::Clone() const {
   User out;
   out.email = email;
@@ -125,34 +126,21 @@ bool User::Populate(
 }
 
 // static
-std::unique_ptr<User> User::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<User>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<User> User::FromValue(const base::Value::Dict& value) {
+  User out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<User> User::FromValue(const base::Value::Dict& value) {
+std::optional<User> User::FromValue(const base::Value& value) {
   User out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<User> User::FromValue(const base::Value& value) {
-  User out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -180,8 +168,8 @@ LoginStatusDict::LoginStatusDict()
 is_screen_locked(false) {}
 
 LoginStatusDict::~LoginStatusDict() = default;
-LoginStatusDict::LoginStatusDict(LoginStatusDict&& rhs) = default;
-LoginStatusDict& LoginStatusDict::operator=(LoginStatusDict&& rhs) = default;
+LoginStatusDict::LoginStatusDict(LoginStatusDict&& rhs) noexcept = default;
+LoginStatusDict& LoginStatusDict::operator=(LoginStatusDict&& rhs) noexcept = default;
 LoginStatusDict LoginStatusDict::Clone() const {
   LoginStatusDict out;
   out.is_logged_in = is_logged_in;
@@ -229,34 +217,21 @@ bool LoginStatusDict::Populate(
 }
 
 // static
-std::unique_ptr<LoginStatusDict> LoginStatusDict::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LoginStatusDict>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LoginStatusDict> LoginStatusDict::FromValue(const base::Value::Dict& value) {
+  LoginStatusDict out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LoginStatusDict> LoginStatusDict::FromValue(const base::Value::Dict& value) {
+std::optional<LoginStatusDict> LoginStatusDict::FromValue(const base::Value& value) {
   LoginStatusDict out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LoginStatusDict> LoginStatusDict::FromValue(const base::Value& value) {
-  LoginStatusDict out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -293,13 +268,13 @@ namespace IsUserInList {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -309,13 +284,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = email_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.email = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -335,13 +310,13 @@ namespace AddUser {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -351,13 +326,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = email_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.email = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -377,13 +352,13 @@ namespace RemoveUser {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -393,13 +368,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = email_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.email = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

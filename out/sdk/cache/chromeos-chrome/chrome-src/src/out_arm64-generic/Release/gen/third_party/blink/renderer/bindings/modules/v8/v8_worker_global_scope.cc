@@ -100,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.self.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->self();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.location.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->location();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -128,10 +130,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -144,8 +146,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kOnErrorEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -156,10 +159,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.onlanguagechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onlanguagechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onlanguagechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -172,8 +175,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnlanguagechange(event_handler);
 }
 
@@ -184,10 +188,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.ontimezonechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontimezonechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontimezonechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -200,8 +204,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntimezonechange(event_handler);
 }
 
@@ -212,8 +217,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.navigator.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->navigator();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -226,10 +232,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.onrejectionhandled.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onrejectionhandled();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onrejectionhandled();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -242,8 +248,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnrejectionhandled(event_handler);
 }
 
@@ -254,10 +261,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.onunhandledrejection.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onunhandledrejection();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onunhandledrejection();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -270,8 +277,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnunhandledrejection(event_handler);
 }
 
@@ -282,8 +290,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.isSecureContext.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isSecureContextForBindings();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -296,10 +305,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.origin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->origin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->origin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -335,8 +344,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.trustedTypes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->trustedTypes();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -349,8 +359,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.performance.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = WorkerGlobalScopePerformance::performance(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -393,7 +404,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGlobalCacheStorage);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "caches";
@@ -413,8 +424,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.crypto.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = WorkerGlobalScopeCrypto::crypto(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -427,8 +439,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.indexedDB.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = GlobalIndexedDB::indexedDB(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -441,8 +454,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.crossOriginIsolated.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->crossOriginIsolated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -455,10 +469,10 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.crossOriginEmbedderPolicy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->crossOriginEmbedderPolicy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->crossOriginEmbedderPolicy();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -470,8 +484,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.scheduler.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DOMScheduler::scheduler(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -514,7 +529,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentFonts);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fonts();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -541,7 +556,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_atob = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -574,7 +589,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_btoa = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -597,12 +612,12 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.clearInterval");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_handle{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "clearInterval";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -626,12 +641,12 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.clearTimeout");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_handle{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "clearTimeout";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -671,7 +686,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -719,7 +734,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -820,7 +835,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<V8UnionRequestOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -852,9 +867,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.importScripts");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "importScripts";
@@ -876,9 +891,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.queueMicrotask");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "queueMicrotask";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -889,13 +904,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8VoidFunction>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_callback;
 if (LIKELY(info[0]->IsFunction())) {
   arg1_callback = V8VoidFunction::Create(info[0].As<v8::Function>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WorkerGlobalScope";
 const char* const property_name = "queueMicrotask";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -929,7 +943,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -962,7 +976,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1003,7 +1017,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_handler = NativeValueTraits<IDLStringStringContextTrustedScript>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1111,7 +1125,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1152,7 +1166,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_handler = NativeValueTraits<IDLStringStringContextTrustedScript>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1260,7 +1274,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -7,11 +7,11 @@
 import '../../../css/common.css.js';
 import '../../../css/wallpaper.css.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { PersonalizationRouterElement } from '../../personalization_router_element.js';
-import { WithPersonalizationStore } from '../../personalization_store.js';
-import { getSampleSeaPenTemplates } from '../utils.js';
+import { getSeaPenTemplates } from './constants.js';
+import { SeaPenRouterElement } from './sea_pen_router_element.js';
+import { WithSeaPenStore } from './sea_pen_store.js';
 import { getTemplate } from './sea_pen_templates_element.html.js';
-export class SeaPenTemplatesElement extends WithPersonalizationStore {
+export class SeaPenTemplatesElement extends WithSeaPenStore {
     static get is() {
         return 'sea-pen-templates';
     }
@@ -22,26 +22,22 @@ export class SeaPenTemplatesElement extends WithPersonalizationStore {
         return {
             seaPenTemplates_: {
                 type: Array,
-                computed: 'computeSeaPenTemplates_()',
+                value() {
+                    return getSeaPenTemplates();
+                },
             },
             selected_: Object,
         };
     }
-    computeSeaPenTemplates_() {
-        return getSampleSeaPenTemplates();
-    }
     getAriaIndex_(i) {
         return i + 1;
-    }
-    isTemplateSelected_(template, selected) {
-        return selected && selected.id === template.id;
     }
     onTemplateSelected_(e) {
         assert(e.model.template, 'no template selected');
         this.selected_ = e.model.template;
         const template = this.seaPenTemplates_.find(template => template.id === this.selected_.id);
         if (template) {
-            PersonalizationRouterElement.instance().selectSeaPenTemplate(template.id);
+            SeaPenRouterElement.instance().selectSeaPenTemplate(template.id);
         }
     }
 }

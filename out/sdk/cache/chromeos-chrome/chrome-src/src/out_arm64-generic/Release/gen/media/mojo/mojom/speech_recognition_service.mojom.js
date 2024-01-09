@@ -55,6 +55,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/file_path.mojom', '../../../mojo/public/mojom/base/file_path.mojom.js');
   }
+  var context$ =
+      mojo.internal.exposeNamespace('sandbox.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'sandbox/policy/mojom/context.mojom', '../../../sandbox/policy/mojom/context.mojom.js');
+  }
   var sandbox$ =
       mojo.internal.exposeNamespace('sandbox.mojom');
   if (mojo.config.autoLoadMojomDeps) {

@@ -905,8 +905,10 @@ enum class AutocorrectSuggestionProvider : int32_t {
   kUsEnglishDownloaded = 2,
   
   kUsEnglish840 = 3,
+  
+  kUsEnglish840V2 = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
   kDefaultValue = 0
 };
 

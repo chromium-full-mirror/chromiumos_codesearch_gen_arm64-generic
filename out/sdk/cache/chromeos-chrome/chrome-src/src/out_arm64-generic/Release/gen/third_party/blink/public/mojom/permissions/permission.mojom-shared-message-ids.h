@@ -16,12 +16,13 @@ namespace internal {
 
 constexpr uint32_t kPermissionObserver_OnPermissionStatusChange_Name = 0;
 constexpr uint32_t kPermissionService_HasPermission_Name = 0;
-constexpr uint32_t kPermissionService_RequestPageEmbeddedPermission_Name = 1;
-constexpr uint32_t kPermissionService_RequestPermission_Name = 2;
-constexpr uint32_t kPermissionService_RequestPermissions_Name = 3;
-constexpr uint32_t kPermissionService_RevokePermission_Name = 4;
-constexpr uint32_t kPermissionService_AddPermissionObserver_Name = 5;
-constexpr uint32_t kPermissionService_NotifyEventListener_Name = 6;
+constexpr uint32_t kPermissionService_RegisterPageEmbeddedPermissionControl_Name = 1;
+constexpr uint32_t kPermissionService_RequestPageEmbeddedPermission_Name = 2;
+constexpr uint32_t kPermissionService_RequestPermission_Name = 3;
+constexpr uint32_t kPermissionService_RequestPermissions_Name = 4;
+constexpr uint32_t kPermissionService_RevokePermission_Name = 5;
+constexpr uint32_t kPermissionService_AddPermissionObserver_Name = 6;
+constexpr uint32_t kPermissionService_NotifyEventListener_Name = 7;
 
 }  // namespace internal
 

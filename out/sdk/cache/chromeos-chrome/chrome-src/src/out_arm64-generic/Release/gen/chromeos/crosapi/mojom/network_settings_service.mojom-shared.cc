@@ -445,6 +445,29 @@ NetworkSettingsObserver_OnProxyChanged_Params_Data::NetworkSettingsObserver_OnPr
 
 
 // static
+bool NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data* object =
+      static_cast<const NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data*>(data);
+
+  return true;
+}
+
+NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool NetworkSettingsService_AddNetworkSettingsObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -579,6 +602,52 @@ bool NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data::
 }
 
 NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data::NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data* object =
+      static_cast<const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data*>(data);
+
+  return true;
+}
+
+NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data* object =
+      static_cast<const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

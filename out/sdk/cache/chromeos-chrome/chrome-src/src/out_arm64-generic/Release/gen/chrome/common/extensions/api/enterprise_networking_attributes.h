@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct NetworkDetails {
   ~NetworkDetails();
   NetworkDetails(const NetworkDetails&) = delete;
   NetworkDetails& operator=(const NetworkDetails&) = delete;
-  NetworkDetails(NetworkDetails&& rhs);
-  NetworkDetails& operator=(NetworkDetails&& rhs);
+  NetworkDetails(NetworkDetails&& rhs) noexcept;
+  NetworkDetails& operator=(NetworkDetails&& rhs) noexcept;
 
   // Populates a NetworkDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct NetworkDetails {
   // Creates a deep copy of NetworkDetails.
   NetworkDetails Clone() const;
 
-  // Creates a NetworkDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NetworkDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a NetworkDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NetworkDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<NetworkDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a NetworkDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<NetworkDetails> FromValue(const base::Value& value);
+  static std::optional<NetworkDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkDetails object.
@@ -64,10 +62,10 @@ struct NetworkDetails {
   std::string mac_address;
 
   // The device's local IPv4 address (undefined if not configured).
-  absl::optional<std::string> ipv4;
+  std::optional<std::string> ipv4;
 
   // The device's local IPv6 address (undefined if not configured).
-  absl::optional<std::string> ipv6;
+  std::optional<std::string> ipv6;
 
 };
 

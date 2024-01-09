@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/wm_desks_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace wm_desks_private {
 
 const char* ToString(SavedDeskType enum_param) {
   switch (enum_param) {
-    case SAVED_DESK_TYPE_KTEMPLATE:
+    case SavedDeskType::kTemplate:
       return "kTemplate";
-    case SAVED_DESK_TYPE_KSAVEANDRECALL:
+    case SavedDeskType::kSaveAndRecall:
       return "kSaveAndRecall";
-    case SAVED_DESK_TYPE_KUNKNOWN:
+    case SavedDeskType::kUnknown:
       return "kUnknown";
-    case SAVED_DESK_TYPE_NONE:
+    case SavedDeskType::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(SavedDeskType enum_param) {
 
 SavedDeskType ParseSavedDeskType(base::StringPiece enum_string) {
   if (enum_string == "kTemplate")
-    return SAVED_DESK_TYPE_KTEMPLATE;
+    return SavedDeskType::kTemplate;
   if (enum_string == "kSaveAndRecall")
-    return SAVED_DESK_TYPE_KSAVEANDRECALL;
+    return SavedDeskType::kSaveAndRecall;
   if (enum_string == "kUnknown")
-    return SAVED_DESK_TYPE_KUNKNOWN;
-  return SAVED_DESK_TYPE_NONE;
+    return SavedDeskType::kUnknown;
+  return SavedDeskType::kNone;
 }
 
 std::u16string GetSavedDeskTypeParseError(base::StringPiece enum_string) {
@@ -68,8 +69,8 @@ RemoveDeskOptions::RemoveDeskOptions()
 : combine_desks(false) {}
 
 RemoveDeskOptions::~RemoveDeskOptions() = default;
-RemoveDeskOptions::RemoveDeskOptions(RemoveDeskOptions&& rhs) = default;
-RemoveDeskOptions& RemoveDeskOptions::operator=(RemoveDeskOptions&& rhs) = default;
+RemoveDeskOptions::RemoveDeskOptions(RemoveDeskOptions&& rhs) noexcept = default;
+RemoveDeskOptions& RemoveDeskOptions::operator=(RemoveDeskOptions&& rhs) noexcept = default;
 RemoveDeskOptions RemoveDeskOptions::Clone() const {
   RemoveDeskOptions out;
   out.combine_desks = combine_desks;
@@ -97,7 +98,7 @@ bool RemoveDeskOptions::Populate(
     {
       auto temp = (*allow_undo_value).GetIfBool();
       if (!temp.has_value()) {
-        out.allow_undo = absl::nullopt;
+        out.allow_undo = std::nullopt;
         return false;
       }
       out.allow_undo = *temp;
@@ -117,34 +118,21 @@ bool RemoveDeskOptions::Populate(
 }
 
 // static
-std::unique_ptr<RemoveDeskOptions> RemoveDeskOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RemoveDeskOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RemoveDeskOptions> RemoveDeskOptions::FromValue(const base::Value::Dict& value) {
+  RemoveDeskOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RemoveDeskOptions> RemoveDeskOptions::FromValue(const base::Value::Dict& value) {
+std::optional<RemoveDeskOptions> RemoveDeskOptions::FromValue(const base::Value& value) {
   RemoveDeskOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RemoveDeskOptions> RemoveDeskOptions::FromValue(const base::Value& value) {
-  RemoveDeskOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -167,8 +155,8 @@ Desk::Desk()
  {}
 
 Desk::~Desk() = default;
-Desk::Desk(Desk&& rhs) = default;
-Desk& Desk::operator=(Desk&& rhs) = default;
+Desk::Desk(Desk&& rhs) noexcept = default;
+Desk& Desk::operator=(Desk&& rhs) noexcept = default;
 Desk Desk::Clone() const {
   Desk out;
   out.desk_uuid = desk_uuid;
@@ -216,34 +204,21 @@ bool Desk::Populate(
 }
 
 // static
-std::unique_ptr<Desk> Desk::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Desk>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Desk> Desk::FromValue(const base::Value::Dict& value) {
+  Desk out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Desk> Desk::FromValue(const base::Value::Dict& value) {
+std::optional<Desk> Desk::FromValue(const base::Value& value) {
   Desk out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Desk> Desk::FromValue(const base::Value& value) {
-  Desk out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -264,8 +239,8 @@ SavedDesk::SavedDesk()
 : saved_desk_type() {}
 
 SavedDesk::~SavedDesk() = default;
-SavedDesk::SavedDesk(SavedDesk&& rhs) = default;
-SavedDesk& SavedDesk::operator=(SavedDesk&& rhs) = default;
+SavedDesk::SavedDesk(SavedDesk&& rhs) noexcept = default;
+SavedDesk& SavedDesk::operator=(SavedDesk&& rhs) noexcept = default;
 SavedDesk SavedDesk::Clone() const {
   SavedDesk out;
   out.saved_desk_uuid = saved_desk_uuid;
@@ -329,34 +304,21 @@ bool SavedDesk::Populate(
 }
 
 // static
-std::unique_ptr<SavedDesk> SavedDesk::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SavedDesk>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SavedDesk> SavedDesk::FromValue(const base::Value::Dict& value) {
+  SavedDesk out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SavedDesk> SavedDesk::FromValue(const base::Value::Dict& value) {
+std::optional<SavedDesk> SavedDesk::FromValue(const base::Value& value) {
   SavedDesk out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SavedDesk> SavedDesk::FromValue(const base::Value& value) {
-  SavedDesk out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -379,8 +341,8 @@ LaunchOptions::LaunchOptions()
  {}
 
 LaunchOptions::~LaunchOptions() = default;
-LaunchOptions::LaunchOptions(LaunchOptions&& rhs) = default;
-LaunchOptions& LaunchOptions::operator=(LaunchOptions&& rhs) = default;
+LaunchOptions::LaunchOptions(LaunchOptions&& rhs) noexcept = default;
+LaunchOptions& LaunchOptions::operator=(LaunchOptions&& rhs) noexcept = default;
 LaunchOptions LaunchOptions::Clone() const {
   LaunchOptions out;
   out.desk_name = desk_name;
@@ -395,7 +357,7 @@ bool LaunchOptions::Populate(
     {
       auto* temp = (*desk_name_value).GetIfString();
       if (!temp) {
-        out.desk_name = absl::nullopt;
+        out.desk_name = std::nullopt;
         return false;
       }
       out.desk_name = *temp;
@@ -415,34 +377,21 @@ bool LaunchOptions::Populate(
 }
 
 // static
-std::unique_ptr<LaunchOptions> LaunchOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LaunchOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LaunchOptions> LaunchOptions::FromValue(const base::Value::Dict& value) {
+  LaunchOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LaunchOptions> LaunchOptions::FromValue(const base::Value::Dict& value) {
+std::optional<LaunchOptions> LaunchOptions::FromValue(const base::Value& value) {
   LaunchOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LaunchOptions> LaunchOptions::FromValue(const base::Value& value) {
-  LaunchOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -463,8 +412,8 @@ WindowProperties::WindowProperties()
 : all_desks(false) {}
 
 WindowProperties::~WindowProperties() = default;
-WindowProperties::WindowProperties(WindowProperties&& rhs) = default;
-WindowProperties& WindowProperties::operator=(WindowProperties&& rhs) = default;
+WindowProperties::WindowProperties(WindowProperties&& rhs) noexcept = default;
+WindowProperties& WindowProperties::operator=(WindowProperties&& rhs) noexcept = default;
 WindowProperties WindowProperties::Clone() const {
   WindowProperties out;
   out.all_desks = all_desks;
@@ -499,34 +448,21 @@ bool WindowProperties::Populate(
 }
 
 // static
-std::unique_ptr<WindowProperties> WindowProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WindowProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WindowProperties> WindowProperties::FromValue(const base::Value::Dict& value) {
+  WindowProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WindowProperties> WindowProperties::FromValue(const base::Value::Dict& value) {
+std::optional<WindowProperties> WindowProperties::FromValue(const base::Value& value) {
   WindowProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WindowProperties> WindowProperties::FromValue(const base::Value& value) {
-  WindowProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -561,13 +497,13 @@ namespace LaunchDesk {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -576,15 +512,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& launch_options_value = args[0];
     {
       if (!launch_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!LaunchOptions::Populate(launch_options_value.GetDict(), params.launch_options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -604,13 +540,13 @@ namespace GetDeskTemplateJson {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -620,13 +556,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = template_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.template_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -646,13 +582,13 @@ namespace RemoveDesk {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -662,13 +598,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = desk_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.desk_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -676,12 +612,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& remove_desk_options_value = args[1];
     {
       if (!remove_desk_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         RemoveDeskOptions temp;
         if (!RemoveDeskOptions::Populate(remove_desk_options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.remove_desk_options = std::move(temp);
       }
     }
@@ -713,13 +649,13 @@ namespace SetWindowProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -729,13 +665,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = window_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.window_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -743,15 +679,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& window_properties_value = args[1];
     {
       if (!window_properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!WindowProperties::Populate(window_properties_value.GetDict(), params.window_properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -780,13 +716,13 @@ namespace DeleteSavedDesk {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -796,13 +732,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = saved_desk_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.saved_desk_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -820,13 +756,13 @@ namespace RecallSavedDesk {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -836,13 +772,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = saved_desk_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.saved_desk_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -873,13 +809,13 @@ namespace SwitchDesk {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -889,13 +825,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = desk_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.desk_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -913,13 +849,13 @@ namespace GetDeskByID {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -929,13 +865,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = desk_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.desk_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

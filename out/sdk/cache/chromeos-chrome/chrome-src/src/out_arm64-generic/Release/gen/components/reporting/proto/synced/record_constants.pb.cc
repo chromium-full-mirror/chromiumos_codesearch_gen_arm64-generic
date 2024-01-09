@@ -49,17 +49,22 @@ bool Destination_IsValid(int value) {
     case 26:
     case 27:
     case 28:
+    case 29:
+    case 30:
+    case 31:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[28] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[31] = {};
 
 static const char Destination_names[] =
   "ADDED_REMOVED_EVENTS"
   "ARC_INSTALL"
+  "CHROME_BROWSER_ENTERPRISE"
+  "CRASH_EVENTS"
   "CRD_EVENTS"
   "CROS_SECURITY_AGENT"
   "CROS_SECURITY_NETWORK"
@@ -71,6 +76,7 @@ static const char Destination_names[] =
   "EXTENSION_INSTALL"
   "HEARTBEAT_EVENTS"
   "INFO_METRIC"
+  "KIOSK_HEARTBEAT_EVENTS"
   "LEGACY_TECH"
   "LOCK_UNLOCK_EVENTS"
   "LOGIN_LOGOUT_EVENTS"
@@ -90,63 +96,69 @@ static const char Destination_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Destination_entries[] = {
   { {Destination_names + 0, 20}, 17 },
   { {Destination_names + 20, 11}, 4 },
-  { {Destination_names + 31, 10}, 18 },
-  { {Destination_names + 41, 19}, 22 },
-  { {Destination_names + 60, 21}, 26 },
-  { {Destination_names + 81, 21}, 23 },
-  { {Destination_names + 102, 18}, 28 },
-  { {Destination_names + 120, 10}, 11 },
-  { {Destination_names + 130, 12}, 16 },
-  { {Destination_names + 142, 19}, 10 },
-  { {Destination_names + 161, 17}, 6 },
-  { {Destination_names + 178, 16}, 13 },
-  { {Destination_names + 194, 11}, 14 },
-  { {Destination_names + 205, 11}, 25 },
-  { {Destination_names + 216, 18}, 21 },
-  { {Destination_names + 234, 19}, 12 },
-  { {Destination_names + 253, 10}, 27 },
-  { {Destination_names + 263, 21}, 2 },
-  { {Destination_names + 284, 9}, 24 },
-  { {Destination_names + 293, 17}, 19 },
-  { {Destination_names + 310, 17}, 5 },
-  { {Destination_names + 327, 10}, 9 },
-  { {Destination_names + 337, 16}, 7 },
-  { {Destination_names + 353, 17}, 20 },
-  { {Destination_names + 370, 16}, 15 },
-  { {Destination_names + 386, 21}, 0 },
-  { {Destination_names + 407, 13}, 1 },
-  { {Destination_names + 420, 11}, 3 },
+  { {Destination_names + 31, 25}, 30 },
+  { {Destination_names + 56, 12}, 31 },
+  { {Destination_names + 68, 10}, 18 },
+  { {Destination_names + 78, 19}, 22 },
+  { {Destination_names + 97, 21}, 26 },
+  { {Destination_names + 118, 21}, 23 },
+  { {Destination_names + 139, 18}, 28 },
+  { {Destination_names + 157, 10}, 11 },
+  { {Destination_names + 167, 12}, 16 },
+  { {Destination_names + 179, 19}, 10 },
+  { {Destination_names + 198, 17}, 6 },
+  { {Destination_names + 215, 16}, 13 },
+  { {Destination_names + 231, 11}, 14 },
+  { {Destination_names + 242, 22}, 29 },
+  { {Destination_names + 264, 11}, 25 },
+  { {Destination_names + 275, 18}, 21 },
+  { {Destination_names + 293, 19}, 12 },
+  { {Destination_names + 312, 10}, 27 },
+  { {Destination_names + 322, 21}, 2 },
+  { {Destination_names + 343, 9}, 24 },
+  { {Destination_names + 352, 17}, 19 },
+  { {Destination_names + 369, 17}, 5 },
+  { {Destination_names + 386, 10}, 9 },
+  { {Destination_names + 396, 16}, 7 },
+  { {Destination_names + 412, 17}, 20 },
+  { {Destination_names + 429, 16}, 15 },
+  { {Destination_names + 445, 21}, 0 },
+  { {Destination_names + 466, 13}, 1 },
+  { {Destination_names + 479, 11}, 3 },
 };
 
 static const int Destination_entries_by_number[] = {
-  25, // 0 -> UNDEFINED_DESTINATION
-  26, // 1 -> UPLOAD_EVENTS
-  17, // 2 -> MEET_DEVICE_TELEMETRY
-  27, // 3 -> WEB_PROTECT
+  28, // 0 -> UNDEFINED_DESTINATION
+  29, // 1 -> UPLOAD_EVENTS
+  20, // 2 -> MEET_DEVICE_TELEMETRY
+  30, // 3 -> WEB_PROTECT
   1, // 4 -> ARC_INSTALL
-  20, // 5 -> POLICY_VALIDATION
-  10, // 6 -> EXTENSION_INSTALL
-  22, // 7 -> REPORTING_RECORD
-  21, // 9 -> PRINT_JOBS
-  9, // 10 -> EXTENSIONS_WORKFLOW
-  7, // 11 -> DLP_EVENTS
-  15, // 12 -> LOGIN_LOGOUT_EVENTS
-  11, // 13 -> HEARTBEAT_EVENTS
-  12, // 14 -> INFO_METRIC
-  24, // 15 -> TELEMETRY_METRIC
-  8, // 16 -> EVENT_METRIC
+  23, // 5 -> POLICY_VALIDATION
+  12, // 6 -> EXTENSION_INSTALL
+  25, // 7 -> REPORTING_RECORD
+  24, // 9 -> PRINT_JOBS
+  11, // 10 -> EXTENSIONS_WORKFLOW
+  9, // 11 -> DLP_EVENTS
+  18, // 12 -> LOGIN_LOGOUT_EVENTS
+  13, // 13 -> HEARTBEAT_EVENTS
+  14, // 14 -> INFO_METRIC
+  27, // 15 -> TELEMETRY_METRIC
+  10, // 16 -> EVENT_METRIC
   0, // 17 -> ADDED_REMOVED_EVENTS
-  2, // 18 -> CRD_EVENTS
-  19, // 19 -> PERIPHERAL_EVENTS
-  23, // 20 -> SUSPICIOUS_EVENTS
-  14, // 21 -> LOCK_UNLOCK_EVENTS
-  3, // 22 -> CROS_SECURITY_AGENT
-  5, // 23 -> CROS_SECURITY_PROCESS
-  18, // 24 -> OS_EVENTS
-  13, // 25 -> LEGACY_TECH
-  4, // 26 -> CROS_SECURITY_NETWORK
-  16, // 27 -> LOG_UPLOAD
-  6, // 28 -> CROS_SECURITY_USER
+  4, // 18 -> CRD_EVENTS
+  22, // 19 -> PERIPHERAL_EVENTS
+  26, // 20 -> SUSPICIOUS_EVENTS
+  17, // 21 -> LOCK_UNLOCK_EVENTS
+  5, // 22 -> CROS_SECURITY_AGENT
+  7, // 23 -> CROS_SECURITY_PROCESS
+  21, // 24 -> OS_EVENTS
+  16, // 25 -> LEGACY_TECH
+  6, // 26 -> CROS_SECURITY_NETWORK
+  19, // 27 -> LOG_UPLOAD
+  8, // 28 -> CROS_SECURITY_USER
+  15, // 29 -> KIOSK_HEARTBEAT_EVENTS
+  2, // 30 -> CHROME_BROWSER_ENTERPRISE
+  3, // 31 -> CRASH_EVENTS
 };
 
 const std::string& Destination_Name(
@@ -155,12 +167,12 @@ const std::string& Destination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Destination_entries,
           Destination_entries_by_number,
-          28, Destination_strings);
+          31, Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Destination_entries,
       Destination_entries_by_number,
-      28, value);
+      31, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Destination_strings[idx].get();
 }
@@ -168,7 +180,7 @@ bool Destination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Destination_entries, 28, name, &int_value);
+      Destination_entries, 31, name, &int_value);
   if (success) {
     *value = static_cast<Destination>(int_value);
   }

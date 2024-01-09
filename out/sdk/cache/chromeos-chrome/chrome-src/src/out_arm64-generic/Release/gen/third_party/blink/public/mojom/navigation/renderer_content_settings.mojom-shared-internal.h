@@ -38,7 +38,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) RendererContentSettings
   uint8_t allow_image : 1;
   uint8_t allow_popup : 1;
   uint8_t allow_mixed_content : 1;
-  uint8_t allow_auto_dark : 1;
   uint8_t padfinal_[7];
 
  private:

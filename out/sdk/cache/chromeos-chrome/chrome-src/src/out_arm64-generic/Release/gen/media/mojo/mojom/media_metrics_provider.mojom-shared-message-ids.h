@@ -25,16 +25,17 @@ constexpr uint32_t kMediaMetricsProvider_SetTimeToFirstFrame_Name = 7;
 constexpr uint32_t kMediaMetricsProvider_SetTimeToPlayReady_Name = 8;
 constexpr uint32_t kMediaMetricsProvider_SetRendererType_Name = 9;
 constexpr uint32_t kMediaMetricsProvider_SetKeySystem_Name = 10;
-constexpr uint32_t kMediaMetricsProvider_SetIsHardwareSecure_Name = 11;
-constexpr uint32_t kMediaMetricsProvider_SetContainerName_Name = 12;
-constexpr uint32_t kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 13;
-constexpr uint32_t kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 14;
-constexpr uint32_t kMediaMetricsProvider_AcquireLearningTaskController_Name = 15;
-constexpr uint32_t kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 16;
-constexpr uint32_t kMediaMetricsProvider_SetHasAudio_Name = 17;
-constexpr uint32_t kMediaMetricsProvider_SetHasVideo_Name = 18;
-constexpr uint32_t kMediaMetricsProvider_SetVideoPipelineInfo_Name = 19;
-constexpr uint32_t kMediaMetricsProvider_SetAudioPipelineInfo_Name = 20;
+constexpr uint32_t kMediaMetricsProvider_SetHasWaitingForKey_Name = 11;
+constexpr uint32_t kMediaMetricsProvider_SetIsHardwareSecure_Name = 12;
+constexpr uint32_t kMediaMetricsProvider_SetContainerName_Name = 13;
+constexpr uint32_t kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 14;
+constexpr uint32_t kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 15;
+constexpr uint32_t kMediaMetricsProvider_AcquireLearningTaskController_Name = 16;
+constexpr uint32_t kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 17;
+constexpr uint32_t kMediaMetricsProvider_SetHasAudio_Name = 18;
+constexpr uint32_t kMediaMetricsProvider_SetHasVideo_Name = 19;
+constexpr uint32_t kMediaMetricsProvider_SetVideoPipelineInfo_Name = 20;
+constexpr uint32_t kMediaMetricsProvider_SetAudioPipelineInfo_Name = 21;
 
 }  // namespace internal
 

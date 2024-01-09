@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -41,8 +42,8 @@ struct ResourceIdentifier {
   ~ResourceIdentifier();
   ResourceIdentifier(const ResourceIdentifier&) = delete;
   ResourceIdentifier& operator=(const ResourceIdentifier&) = delete;
-  ResourceIdentifier(ResourceIdentifier&& rhs);
-  ResourceIdentifier& operator=(ResourceIdentifier&& rhs);
+  ResourceIdentifier(ResourceIdentifier&& rhs) noexcept;
+  ResourceIdentifier& operator=(ResourceIdentifier&& rhs) noexcept;
 
   // Populates a ResourceIdentifier object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -55,16 +56,13 @@ struct ResourceIdentifier {
   // Creates a deep copy of ResourceIdentifier.
   ResourceIdentifier Clone() const;
 
-  // Creates a ResourceIdentifier object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ResourceIdentifier> FromValueDeprecated(const base::Value& value);
-
   // Creates a ResourceIdentifier object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ResourceIdentifier> FromValue(const base::Value::Dict& value);
+  static std::optional<ResourceIdentifier> FromValue(const base::Value::Dict& value);
 
   // Creates a ResourceIdentifier object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ResourceIdentifier> FromValue(const base::Value& value);
+  static std::optional<ResourceIdentifier> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResourceIdentifier object.
@@ -74,7 +72,7 @@ struct ResourceIdentifier {
   std::string id;
 
   // A human readable description of the resource.
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
 };
 
@@ -100,11 +98,11 @@ namespace ContentSetting {
 namespace Clear {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -112,8 +110,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -127,10 +125,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // Where to clear the setting (default: regular).
     Scope scope;
@@ -155,11 +153,11 @@ base::Value::List Create();
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -167,8 +165,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -182,10 +180,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The primary URL for which the content setting should be retrieved. Note that
     // the meaning of a primary URL depends on the content type.
@@ -194,15 +192,15 @@ struct Params {
     // The secondary URL for which the content setting should be retrieved. Defaults
     // to the primary URL. Note that the meaning of a secondary URL depends on the
     // content type, and not all content types use secondary URLs.
-    absl::optional<std::string> secondary_url;
+    std::optional<std::string> secondary_url;
 
     // A more specific identifier of the type of content for which the settings
     // should be retrieved.
-    absl::optional<ResourceIdentifier> resource_identifier;
+    std::optional<ResourceIdentifier> resource_identifier;
 
     // Whether to check the content settings for an incognito session. (default
     // false)
-    absl::optional<bool> incognito;
+    std::optional<bool> incognito;
 
   };
 
@@ -221,8 +219,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -243,11 +241,11 @@ base::Value::List Create(const Details& details);
 namespace Set {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -255,8 +253,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -270,10 +268,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The pattern for the primary URL. For details on the format of a pattern, see
     // <a href='contentSettings#patterns'>Content Setting Patterns</a>.
@@ -282,10 +280,10 @@ struct Params {
     // The pattern for the secondary URL. Defaults to matching all URLs. For details
     // on the format of a pattern, see <a href='contentSettings#patterns'>Content
     // Setting Patterns</a>.
-    absl::optional<std::string> secondary_pattern;
+    std::optional<std::string> secondary_pattern;
 
     // The resource identifier for the content type.
-    absl::optional<ResourceIdentifier> resource_identifier;
+    std::optional<ResourceIdentifier> resource_identifier;
 
     // The setting applied by this rule. See the description of the individual
     // ContentSetting objects for the possible values.
@@ -335,6 +333,19 @@ enum class AutoVerifyContentSetting {
 const char* ToString(AutoVerifyContentSetting as_enum);
 AutoVerifyContentSetting ParseAutoVerifyContentSetting(base::StringPiece as_string);
 std::u16string GetAutoVerifyContentSettingParseError(base::StringPiece as_string);
+
+enum class ClipboardContentSetting {
+  kNone = 0,
+  kAllow,
+  kBlock,
+  kAsk,
+  kMaxValue = kAsk,
+};
+
+
+const char* ToString(ClipboardContentSetting as_enum);
+ClipboardContentSetting ParseClipboardContentSetting(base::StringPiece as_string);
+std::u16string GetClipboardContentSettingParseError(base::StringPiece as_string);
 
 enum class CookiesContentSetting {
   kNone = 0,

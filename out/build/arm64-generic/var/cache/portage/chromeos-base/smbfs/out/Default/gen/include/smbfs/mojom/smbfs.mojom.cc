@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -189,7 +190,7 @@ MountOptions::MountOptions(
     ::smbfs::mojom::IPAddressPtr resolved_host_in,
     const std::string& username_in,
     const std::string& workgroup_in,
-    absl::optional<std::unique_ptr<password_provider::Password>> password_in,
+    std::optional<std::unique_ptr<password_provider::Password>> password_in,
     KerberosConfigPtr kerberos_config_in,
     bool allow_ntlm_in,
     bool skip_connect_in)
@@ -208,7 +209,7 @@ MountOptions::MountOptions(
     ::smbfs::mojom::IPAddressPtr resolved_host_in,
     const std::string& username_in,
     const std::string& workgroup_in,
-    absl::optional<std::unique_ptr<password_provider::Password>> password_in,
+    std::optional<std::unique_ptr<password_provider::Password>> password_in,
     KerberosConfigPtr kerberos_config_in,
     bool allow_ntlm_in,
     bool skip_connect_in,
@@ -268,7 +269,7 @@ void MountOptions::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::unique_ptr<password_provider::Password>>>"
+      "<value of type std::optional<std::unique_ptr<password_provider::Password>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -324,7 +325,7 @@ Credentials::Credentials()
 Credentials::Credentials(
     const std::string& username_in,
     const std::string& workgroup_in,
-    absl::optional<std::unique_ptr<password_provider::Password>> password_in)
+    std::optional<std::unique_ptr<password_provider::Password>> password_in)
     : username(std::move(username_in)),
       workgroup(std::move(workgroup_in)),
       password(std::move(password_in)) {}
@@ -356,7 +357,7 @@ void Credentials::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::unique_ptr<password_provider::Password>>>"
+      "<value of type std::optional<std::unique_ptr<password_provider::Password>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -458,14 +459,17 @@ void SmbFsBootstrapProxy::MountShare(
                         "<value of type ::mojo::PendingRemote<SmbFsDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFsBootstrap_MountShare_Name, kFlags, 0, 0, nullptr);
@@ -601,7 +605,8 @@ void SmbFsBootstrap_MountShare_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFsBootstrap_MountShare_Name, kFlags, 0, 0, nullptr);
@@ -690,10 +695,10 @@ std::move(p_delegate), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmbFsBootstrapValidationInfo[] = {
-    {&internal::SmbFsBootstrap_MountShare_Params_Data::Validate,
+    { &internal::SmbFsBootstrap_MountShare_Params_Data::Validate,
      &internal::SmbFsBootstrap_MountShare_ResponseParams_Data::Validate},
 };
 
@@ -822,14 +827,17 @@ void SmbFsProxy::RemoveSavedCredentials(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send smbfs::mojom::SmbFs::RemoveSavedCredentials");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFs_RemoveSavedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -860,14 +868,17 @@ void SmbFsProxy::DeleteRecursively(
                         "<value of type const base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFs_DeleteRecursively_Name, kFlags, 0, 0, nullptr);
@@ -988,7 +999,8 @@ void SmbFs_RemoveSavedCredentials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFs_RemoveSavedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1106,7 +1118,8 @@ void SmbFs_DeleteRecursively_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFs_DeleteRecursively_Name, kFlags, 0, 0, nullptr);
@@ -1215,12 +1228,12 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmbFsValidationInfo[] = {
-    {&internal::SmbFs_RemoveSavedCredentials_Params_Data::Validate,
+    { &internal::SmbFs_RemoveSavedCredentials_Params_Data::Validate,
      &internal::SmbFs_RemoveSavedCredentials_ResponseParams_Data::Validate},
-    {&internal::SmbFs_DeleteRecursively_Params_Data::Validate,
+    { &internal::SmbFs_DeleteRecursively_Params_Data::Validate,
      &internal::SmbFs_DeleteRecursively_ResponseParams_Data::Validate},
 };
 
@@ -1313,14 +1326,17 @@ void SmbFsDelegateProxy::RequestCredentials(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send smbfs::mojom::SmbFsDelegate::RequestCredentials");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFsDelegate_RequestCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1430,7 +1446,8 @@ void SmbFsDelegate_RequestCredentials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmbFsDelegate_RequestCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1512,10 +1529,10 @@ bool SmbFsDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmbFsDelegateValidationInfo[] = {
-    {&internal::SmbFsDelegate_RequestCredentials_Params_Data::Validate,
+    { &internal::SmbFsDelegate_RequestCredentials_Params_Data::Validate,
      &internal::SmbFsDelegate_RequestCredentials_ResponseParams_Data::Validate},
 };
 

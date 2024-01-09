@@ -7,6 +7,7 @@
  */
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
 import '/shared/settings/controls/extension_controlled_indicator.js';
 import './search_engine_entry.css.js';
 import '../settings_shared.css.js';
@@ -37,6 +38,10 @@ export class SettingsSearchEngineEntryElement extends PolymerElement {
                 type: Boolean,
                 computed: 'computeIsDefault_(engine)',
             },
+            showEditIcon_: {
+                type: Boolean,
+                computed: 'computeShowEditIcon_(engine)',
+            },
         };
     }
     closePopupMenu_() {
@@ -44,6 +49,9 @@ export class SettingsSearchEngineEntryElement extends PolymerElement {
     }
     computeIsDefault_() {
         return this.engine.default;
+    }
+    computeShowEditIcon_() {
+        return !this.engine.canBeActivated && !this.engine.isManaged;
     }
     onDeleteClick_(e) {
         e.preventDefault();
@@ -70,12 +78,12 @@ export class SettingsSearchEngineEntryElement extends PolymerElement {
             anchorAlignmentY: AnchorAlignment.AFTER_END,
         });
     }
-    onEditClick_(e) {
+    onViewOrEditClick_(e) {
         e.preventDefault();
         this.closePopupMenu_();
         const anchor = this.shadowRoot.querySelector('cr-icon-button');
         assert(anchor);
-        this.dispatchEvent(new CustomEvent('edit-search-engine', {
+        this.dispatchEvent(new CustomEvent('view-or-edit-search-engine', {
             bubbles: true,
             composed: true,
             detail: {

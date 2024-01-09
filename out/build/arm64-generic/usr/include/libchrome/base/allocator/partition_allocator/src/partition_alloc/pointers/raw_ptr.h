@@ -13,6 +13,8 @@
 #include <type_traits>
 #include <utility>
 
+#include "build/build_config.h"
+#include "build/buildflag.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/flags.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
@@ -23,8 +25,6 @@
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/pointers/raw_ptr_exclusion.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/raw_ptr_buildflags.h"
-#include "build/build_config.h"
-#include "build/buildflag.h"
 
 #if BUILDFLAG(IS_WIN)
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/win/win_handle_types.h"
@@ -65,6 +65,9 @@ class Scheduler;
 namespace base::internal {
 class DelayTimerBase;
 }
+namespace base::test {
+struct RawPtrCountingImplForTest;
+}
 namespace content::responsiveness {
 class Calculator;
 }
@@ -103,10 +106,10 @@ enum class RawPtrTraits : unsigned {
   // Don't use directly, use AllowPtrArithmetic instead.
   kAllowPtrArithmetic = (1 << 3),
 
-  // This pointer is evaluated by a separate, Ash-related experiment.
+  // This pointer has BRP disabled for Vector-related raw_ptrs.
   //
-  // Don't use directly, use ExperimentalAsh instead.
-  kExperimentalAsh = (1 << 4),
+  // Don't use directly, use VectorExperimental instead.
+  kVectorExperimental = (1 << 4),
 
   // Uninitialized pointers are discouraged and disabled by default.
   //
@@ -129,13 +132,14 @@ enum class RawPtrTraits : unsigned {
   kDummyForTest = (1 << 11),
 
   kAllMask = kMayDangle | kDisableHooks | kAllowPtrArithmetic |
-             kExperimentalAsh | kAllowUninitialized | kUseCountingImplForTest |
-             kDummyForTest,
+             kVectorExperimental | kAllowUninitialized |
+             kUseCountingImplForTest | kDummyForTest,
 };
 // Template specialization to use |PA_DEFINE_OPERATORS_FOR_FLAGS| without
 // |kMaxValue| declaration.
 template <>
 constexpr inline RawPtrTraits kAllFlags<RawPtrTraits> = RawPtrTraits::kAllMask;
+
 PA_DEFINE_OPERATORS_FOR_FLAGS(RawPtrTraits);
 
 }  // namespace partition_alloc::internal
@@ -220,19 +224,26 @@ struct IsSupportedType<T, std::enable_if_t<std::is_convertible_v<T*, id>>> {
 #if BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)
 template <RawPtrTraits Traits>
 using UnderlyingImplForTraits = internal::RawPtrBackupRefImpl<
-    /*AllowDangling=*/ContainsFlags(Traits, RawPtrTraits::kMayDangle),
-    /*ExperimentalAsh=*/ContainsFlags(Traits, RawPtrTraits::kExperimentalAsh)>;
+    /*AllowDangling=*/partition_alloc::internal::ContainsFlags(
+        Traits,
+        RawPtrTraits::kMayDangle),
+    /*VectorExperimental=*/partition_alloc::internal::ContainsFlags(
+        Traits,
+        RawPtrTraits::kVectorExperimental)>;
 
 #elif BUILDFLAG(USE_ASAN_UNOWNED_PTR)
 template <RawPtrTraits Traits>
 using UnderlyingImplForTraits = internal::RawPtrAsanUnownedImpl<
-    ContainsFlags(Traits, RawPtrTraits::kAllowPtrArithmetic),
-    ContainsFlags(Traits, RawPtrTraits::kMayDangle)>;
+    partition_alloc::internal::ContainsFlags(Traits,
+                                             RawPtrTraits::kAllowPtrArithmetic),
+    partition_alloc::internal::ContainsFlags(Traits, RawPtrTraits::kMayDangle)>;
 
 #elif BUILDFLAG(USE_HOOKABLE_RAW_PTR)
 template <RawPtrTraits Traits>
 using UnderlyingImplForTraits = internal::RawPtrHookableImpl<
-    /*EnableHooks=*/!ContainsFlags(Traits, RawPtrTraits::kDisableHooks)>;
+    /*EnableHooks=*/!partition_alloc::internal::ContainsFlags(
+        Traits,
+        RawPtrTraits::kDisableHooks)>;
 
 #else
 template <RawPtrTraits Traits>
@@ -241,21 +252,12 @@ using UnderlyingImplForTraits = internal::RawPtrNoOpImpl;
 
 constexpr bool IsPtrArithmeticAllowed(RawPtrTraits Traits) {
 #if BUILDFLAG(ENABLE_POINTER_ARITHMETIC_TRAIT_CHECK)
-  return ContainsFlags(Traits, RawPtrTraits::kAllowPtrArithmetic);
+  return partition_alloc::internal::ContainsFlags(
+      Traits, RawPtrTraits::kAllowPtrArithmetic);
 #else
   return true;
 #endif
 }
-
-}  // namespace raw_ptr_traits
-
-namespace test {
-
-struct RawPtrCountingImplForTest;
-
-}  // namespace test
-
-namespace raw_ptr_traits {
 
 // ImplForTraits is the struct that implements raw_ptr functions. Think of
 // raw_ptr as a thin wrapper, that directs calls to ImplForTraits. ImplForTraits
@@ -263,10 +265,20 @@ namespace raw_ptr_traits {
 // test impl instead.
 template <RawPtrTraits Traits>
 using ImplForTraits =
-    std::conditional_t<ContainsFlags(Traits,
-                                     RawPtrTraits::kUseCountingImplForTest),
+    std::conditional_t<partition_alloc::internal::ContainsFlags(
+                           Traits,
+                           RawPtrTraits::kUseCountingImplForTest),
                        test::RawPtrCountingImplForTest,
                        UnderlyingImplForTraits<Traits>>;
+
+// `kTypeTraits` is a customization interface to accosiate `T` with some
+// `RawPtrTraits`. Users may create specialization of this variable
+// to enable some traits by default.
+// Note that specialization must be declared before the first use that would
+// cause implicit instantiation of `raw_ptr` or `raw_ref`, in every translation
+// unit where such use occurs.
+template <typename T, typename SFINAE = void>
+constexpr inline auto kTypeTraits = RawPtrTraits::kEmpty;
 
 }  // namespace raw_ptr_traits
 
@@ -280,9 +292,12 @@ using ImplForTraits =
 // non-default move constructor/assignment. Thus, it's possible to get an error
 // where the pointer is not actually dangling, and have to work around the
 // compiler. We have not managed to construct such an example in Chromium yet.
-template <typename T, RawPtrTraits Traits = RawPtrTraits::kEmpty>
+template <typename T, RawPtrTraits PointerTraits = RawPtrTraits::kEmpty>
 class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
  public:
+  // Users may specify `RawPtrTraits` via raw_ptr's second template parameter
+  // `PointerTraits`, or specialization of `raw_ptr_traits::kTypeTraits<T>`.
+  constexpr static auto Traits = PointerTraits | raw_ptr_traits::kTypeTraits<T>;
   using Impl = typename raw_ptr_traits::ImplForTraits<Traits>;
   // Needed to make gtest Pointee matcher work with raw_ptr.
   using element_type = T;
@@ -293,14 +308,16 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
   static_assert(std::is_same_v<Impl, internal::RawPtrNoOpImpl>);
 #endif  // !BUILDFLAG(USE_PARTITION_ALLOC)
 
-  static_assert(AreValidFlags(Traits), "Unknown raw_ptr trait(s)");
+  static_assert(partition_alloc::internal::AreValidFlags(Traits),
+                "Unknown raw_ptr trait(s)");
   static_assert(raw_ptr_traits::IsSupportedType<T>::value,
                 "raw_ptr<T> doesn't work with this kind of pointee type T");
 
   static constexpr bool kZeroOnConstruct =
-      Impl::kMustZeroOnConstruct ||
-      (BUILDFLAG(RAW_PTR_ZERO_ON_CONSTRUCT) &&
-       !ContainsFlags(Traits, RawPtrTraits::kAllowUninitialized));
+      Impl::kMustZeroOnConstruct || (BUILDFLAG(RAW_PTR_ZERO_ON_CONSTRUCT) &&
+                                     !partition_alloc::internal::ContainsFlags(
+                                         Traits,
+                                         RawPtrTraits::kAllowUninitialized));
   static constexpr bool kZeroOnMove =
       Impl::kMustZeroOnMove || BUILDFLAG(RAW_PTR_ZERO_ON_MOVE);
   static constexpr bool kZeroOnDestruct =
@@ -411,14 +428,15 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
   PA_ALWAYS_INLINE constexpr explicit raw_ptr(
       const raw_ptr<T, PassedTraits>& p) noexcept
       : wrapped_ptr_(Impl::WrapRawPtrForDuplication(
-            raw_ptr_traits::ImplForTraits<PassedTraits>::
+            raw_ptr_traits::ImplForTraits<raw_ptr<T, PassedTraits>::Traits>::
                 UnsafelyUnwrapPtrForDuplication(p.wrapped_ptr_))) {
     // Limit cross-kind conversions only to cases where kMayDangle gets added,
     // because that's needed for Unretained(Ref)Wrapper. Use a static_assert,
     // instead of disabling via SFINAE, so that the compiler catches other
     // conversions. Otherwise implicit raw_ptr<T> -> T* -> raw_ptr<> route will
     // be taken.
-    static_assert(Traits == (PassedTraits | RawPtrTraits::kMayDangle));
+    static_assert(Traits == (raw_ptr<T, PassedTraits>::Traits |
+                             RawPtrTraits::kMayDangle));
   }
 
   // Cross-kind assignment.
@@ -433,12 +451,13 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
     // instead of disabling via SFINAE, so that the compiler catches other
     // conversions. Otherwise implicit raw_ptr<T> -> T* -> raw_ptr<> route will
     // be taken.
-    static_assert(Traits == (PassedTraits | RawPtrTraits::kMayDangle));
+    static_assert(Traits == (raw_ptr<T, PassedTraits>::Traits |
+                             RawPtrTraits::kMayDangle));
 
     Impl::ReleaseWrappedPtr(wrapped_ptr_);
     wrapped_ptr_ = Impl::WrapRawPtrForDuplication(
-        raw_ptr_traits::ImplForTraits<
-            PassedTraits>::UnsafelyUnwrapPtrForDuplication(p.wrapped_ptr_));
+        raw_ptr_traits::ImplForTraits<raw_ptr<T, PassedTraits>::Traits>::
+            UnsafelyUnwrapPtrForDuplication(p.wrapped_ptr_));
     return *this;
   }
 
@@ -633,22 +652,20 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
   PA_ALWAYS_INLINE constexpr raw_ptr& operator-=(Z delta_elems) {
     static_assert(
         raw_ptr_traits::IsPtrArithmeticAllowed(Traits),
-        "cannot increment raw_ptr unless AllowPtrArithmetic trait is present.");
+        "cannot decrement raw_ptr unless AllowPtrArithmetic trait is present.");
     wrapped_ptr_ = Impl::Retreat(wrapped_ptr_, delta_elems);
     return *this;
   }
 
   template <typename Z,
             typename U = T,
-            RawPtrTraits CopyTraits = Traits,
             typename Unused = std::enable_if_t<
                 !std::is_void_v<typename std::remove_cv<U>::type> &&
                 partition_alloc::internal::is_offset_type<Z>>>
   U& operator[](Z delta_elems) const {
-    static_assert(
-        raw_ptr_traits::IsPtrArithmeticAllowed(Traits),
-        "cannot index raw_ptr unless AllowPtrArithmetic trait is present.");
-    return wrapped_ptr_[delta_elems];
+    // Don't check for AllowPtrArithmetic here, as operator+ already does that,
+    // and we'd get double errors.
+    return *(*this + delta_elems).GetForDereference();
   }
 
   // Do not disable operator+() and operator-().
@@ -662,26 +679,44 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
   template <typename Z>
   PA_ALWAYS_INLINE friend constexpr raw_ptr operator+(const raw_ptr& p,
                                                       Z delta_elems) {
+    // Don't check for AllowPtrArithmetic here, as operator+= already does that,
+    // and we'd get double errors.
     raw_ptr result = p;
     return result += delta_elems;
   }
   template <typename Z>
+  PA_ALWAYS_INLINE friend constexpr raw_ptr operator+(Z delta_elems,
+                                                      const raw_ptr& p) {
+    return p + delta_elems;
+  }
+  template <typename Z>
   PA_ALWAYS_INLINE friend constexpr raw_ptr operator-(const raw_ptr& p,
                                                       Z delta_elems) {
+    // Don't check for AllowPtrArithmetic here, as operator-= already does that,
+    // and we'd get double errors.
     raw_ptr result = p;
     return result -= delta_elems;
   }
 
   PA_ALWAYS_INLINE friend constexpr ptrdiff_t operator-(const raw_ptr& p1,
                                                         const raw_ptr& p2) {
+    static_assert(
+        raw_ptr_traits::IsPtrArithmeticAllowed(Traits),
+        "cannot subtract raw_ptrs unless AllowPtrArithmetic trait is present.");
     return Impl::GetDeltaElems(p1.wrapped_ptr_, p2.wrapped_ptr_);
   }
   PA_ALWAYS_INLINE friend constexpr ptrdiff_t operator-(T* p1,
                                                         const raw_ptr& p2) {
+    static_assert(
+        raw_ptr_traits::IsPtrArithmeticAllowed(Traits),
+        "cannot subtract raw_ptrs unless AllowPtrArithmetic trait is present.");
     return Impl::GetDeltaElems(p1, p2.wrapped_ptr_);
   }
   PA_ALWAYS_INLINE friend constexpr ptrdiff_t operator-(const raw_ptr& p1,
                                                         T* p2) {
+    static_assert(
+        raw_ptr_traits::IsPtrArithmeticAllowed(Traits),
+        "cannot subtract raw_ptrs unless AllowPtrArithmetic trait is present.");
     return Impl::GetDeltaElems(p1.wrapped_ptr_, p2);
   }
 
@@ -909,7 +944,7 @@ inline constexpr bool IsRawPtrMayDangleV = false;
 
 template <typename T, RawPtrTraits Traits>
 inline constexpr bool IsRawPtrMayDangleV<raw_ptr<T, Traits>> =
-    ContainsFlags(Traits, RawPtrTraits::kMayDangle);
+    partition_alloc::internal::ContainsFlags(Traits, RawPtrTraits::kMayDangle);
 
 // Template helpers for working with T* or raw_ptr<T>.
 template <typename T>
@@ -941,14 +976,6 @@ struct RemovePointer<raw_ptr<T, Traits>> {
 
 template <typename T>
 using RemovePointerT = typename RemovePointer<T>::type;
-
-struct RawPtrGlobalSettings {
-  static void EnableExperimentalAsh() {
-#if BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)
-    internal::BackupRefPtrGlobalSettings::EnableExperimentalAsh();
-#endif
-  }
-};
 
 }  // namespace base
 
@@ -990,14 +1017,9 @@ constexpr auto AcrossTasksDanglingUntriaged = base::RawPtrTraits::kMayDangle;
 // instead of the raw_ptr.
 constexpr auto AllowPtrArithmetic = base::RawPtrTraits::kAllowPtrArithmetic;
 
-// Temporary flag for `raw_ptr` / `raw_ref`. This is used by finch experiments
-// to differentiate pointers added recently for the ChromeOS ash rewrite.
-//
-// See launch plan:
-// https://docs.google.com/document/d/105OVhNl-2lrfWElQSk5BXYv-nLynfxUrbC4l8cZ0CoU/edit
-//
-// This is not meant to be added manually. You can ignore this flag.
-constexpr auto ExperimentalAsh = base::RawPtrTraits::kExperimentalAsh;
+// Does nothing.
+// TODO(bartekn): Remove once no longer referenced.
+constexpr auto ExperimentalAsh = base::RawPtrTraits::kEmpty;
 
 // The use of uninitialized pointers is strongly discouraged. raw_ptrs will
 // be initialized to nullptr by default in all cases when building against
@@ -1026,6 +1048,21 @@ constexpr auto LeakedDanglingUntriaged = base::RawPtrTraits::kMayDangle;
 //
 // DO NOT ADD new occurrences of this.
 constexpr auto ExperimentalRenderer = base::RawPtrTraits::kMayDangle;
+
+// Temporary introduced alias in the context of rewriting std::vector<T*> into
+// std::vector<raw_ptr<T>> and in order to temporarily bypass the dangling ptr
+// checks on the CQ. This alias will be removed gradually after the cl lands and
+// will be replaced by DanglingUntriaged where necessary.
+// Update: The alias now temporarily disables BRP. This is due to performance
+// issues. BRP will be re-enabled once the issues are identified and handled.
+constexpr inline auto VectorExperimental =
+    base::RawPtrTraits::kVectorExperimental;
+
+// Temporary workaround needed when using vector<raw_ptr<T, VectorExperimental>
+// in Mocked method signatures as the macros don't allow commas within.
+template <typename T, base::RawPtrTraits Traits = base::RawPtrTraits::kEmpty>
+using vector_experimental_raw_ptr =
+    base::raw_ptr<T, Traits | VectorExperimental>;
 
 // Public verson used in callbacks arguments when it is known that they might
 // receive dangling pointers. In any other cases, please

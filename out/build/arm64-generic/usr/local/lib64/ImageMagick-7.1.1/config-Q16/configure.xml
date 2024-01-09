@@ -20,7 +20,7 @@
   <configure name="CXXFLAGS" value=" -Os -pipe  -march=armv8-a -g    -ffunction-sections -fdata-sections -pthread"/>
   <configure name="CXX" value="aarch64-cros-linux-gnu-clang++"/>
   <configure name="DEFS" value="-DHAVE_CONFIG_H"/>
-  <configure name="DELEGATES" value="bzlib cairo jng jpeg png rsvg tiff video xml zlib zstd"/>
+  <configure name="DELEGATES" value="bzlib cairo jng jpeg png rsvg tiff xml zlib zstd"/>
   <configure name="DISTCHECK_CONFIG_FLAGS" value="'CC=aarch64-cros-linux-gnu-clang' 'CFLAGS= -Os -pipe  -march=armv8-a -g    -ffunction-sections -fdata-sections' 'CXX=aarch64-cros-linux-gnu-clang++' 'LDFLAGS=-Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all'  --disable-deprecated  --with-quantum-depth=16  --with-jemalloc=no  --with-umem=no  --with-zip=no  --with-autotrace=no  --with-dps=no  --with-dejavu-font-dir=/usr/share/fonts/dejavu  --with-fftw=no  --with-flif=no  --with-fpx=no  --with-djvu=no  --with-fontconfig=no  --with-freetype=no  --with-gslib=no  --with-fontpath=  --with-gs-font-dir=/usr/share/fonts/urw-fonts  --with-gvc=no  --with-heic=no  --with-lcms=no  --with-openjp2=no  --with-lqr=no  --with-lzma=no  --with-openexr=no  --with-pango=no  --with-libraw=no  --with-webp=no  --with-windows-font-dir=no  --with-wmf=no  --with-perl=no "/>
   <configure name="DOCUMENTATION_PATH" value="/usr/share/doc/ImageMagick-7"/>
   <configure name="EXEC-PREFIX" value="/usr/local"/>

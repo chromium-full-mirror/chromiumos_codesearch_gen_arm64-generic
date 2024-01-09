@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/apps/platform_apps/api/sync_file_system.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -188,8 +189,8 @@ FileInfo::FileEntry::FileEntry()
  {}
 
 FileInfo::FileEntry::~FileEntry() = default;
-FileInfo::FileEntry::FileEntry(FileEntry&& rhs) = default;
-FileInfo::FileEntry& FileInfo::FileEntry::operator=(FileEntry&& rhs) = default;
+FileInfo::FileEntry::FileEntry(FileEntry&& rhs) noexcept = default;
+FileInfo::FileEntry& FileInfo::FileEntry::operator=(FileEntry&& rhs) noexcept = default;
 FileInfo::FileEntry FileInfo::FileEntry::Clone() const {
   FileEntry out;
   return out;
@@ -212,21 +213,21 @@ bool FileInfo::FileEntry::Populate(
 }
 
 // static
-absl::optional<FileInfo::FileEntry> FileInfo::FileEntry::FromValue(const base::Value::Dict& value) {
+std::optional<FileInfo::FileEntry> FileInfo::FileEntry::FromValue(const base::Value::Dict& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileInfo::FileEntry> FileInfo::FileEntry::FromValue(const base::Value& value) {
+std::optional<FileInfo::FileEntry> FileInfo::FileEntry::FromValue(const base::Value& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -247,8 +248,8 @@ action(),
 direction() {}
 
 FileInfo::~FileInfo() = default;
-FileInfo::FileInfo(FileInfo&& rhs) = default;
-FileInfo& FileInfo::operator=(FileInfo&& rhs) = default;
+FileInfo::FileInfo(FileInfo&& rhs) noexcept = default;
+FileInfo& FileInfo::operator=(FileInfo&& rhs) noexcept = default;
 FileInfo FileInfo::Clone() const {
   FileInfo out;
   out.file_entry = file_entry.Clone();
@@ -336,34 +337,21 @@ bool FileInfo::Populate(
 }
 
 // static
-std::unique_ptr<FileInfo> FileInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileInfo> FileInfo::FromValue(const base::Value::Dict& value) {
+  FileInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileInfo> FileInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FileInfo> FileInfo::FromValue(const base::Value& value) {
   FileInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileInfo> FileInfo::FromValue(const base::Value& value) {
-  FileInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -392,8 +380,8 @@ FileStatusInfo::FileEntry::FileEntry()
  {}
 
 FileStatusInfo::FileEntry::~FileEntry() = default;
-FileStatusInfo::FileEntry::FileEntry(FileEntry&& rhs) = default;
-FileStatusInfo::FileEntry& FileStatusInfo::FileEntry::operator=(FileEntry&& rhs) = default;
+FileStatusInfo::FileEntry::FileEntry(FileEntry&& rhs) noexcept = default;
+FileStatusInfo::FileEntry& FileStatusInfo::FileEntry::operator=(FileEntry&& rhs) noexcept = default;
 FileStatusInfo::FileEntry FileStatusInfo::FileEntry::Clone() const {
   FileEntry out;
   return out;
@@ -416,21 +404,21 @@ bool FileStatusInfo::FileEntry::Populate(
 }
 
 // static
-absl::optional<FileStatusInfo::FileEntry> FileStatusInfo::FileEntry::FromValue(const base::Value::Dict& value) {
+std::optional<FileStatusInfo::FileEntry> FileStatusInfo::FileEntry::FromValue(const base::Value::Dict& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileStatusInfo::FileEntry> FileStatusInfo::FileEntry::FromValue(const base::Value& value) {
+std::optional<FileStatusInfo::FileEntry> FileStatusInfo::FileEntry::FromValue(const base::Value& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -449,8 +437,8 @@ FileStatusInfo::FileStatusInfo()
 : status() {}
 
 FileStatusInfo::~FileStatusInfo() = default;
-FileStatusInfo::FileStatusInfo(FileStatusInfo&& rhs) = default;
-FileStatusInfo& FileStatusInfo::operator=(FileStatusInfo&& rhs) = default;
+FileStatusInfo::FileStatusInfo(FileStatusInfo&& rhs) noexcept = default;
+FileStatusInfo& FileStatusInfo::operator=(FileStatusInfo&& rhs) noexcept = default;
 FileStatusInfo FileStatusInfo::Clone() const {
   FileStatusInfo out;
   out.file_entry = file_entry.Clone();
@@ -495,7 +483,7 @@ bool FileStatusInfo::Populate(
     {
       auto* temp = (*error_value).GetIfString();
       if (!temp) {
-        out.error = absl::nullopt;
+        out.error = std::nullopt;
         return false;
       }
       out.error = *temp;
@@ -515,34 +503,21 @@ bool FileStatusInfo::Populate(
 }
 
 // static
-std::unique_ptr<FileStatusInfo> FileStatusInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileStatusInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileStatusInfo> FileStatusInfo::FromValue(const base::Value::Dict& value) {
+  FileStatusInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileStatusInfo> FileStatusInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FileStatusInfo> FileStatusInfo::FromValue(const base::Value& value) {
   FileStatusInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileStatusInfo> FileStatusInfo::FromValue(const base::Value& value) {
-  FileStatusInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -568,8 +543,8 @@ StorageInfo::StorageInfo()
 quota_bytes(0) {}
 
 StorageInfo::~StorageInfo() = default;
-StorageInfo::StorageInfo(StorageInfo&& rhs) = default;
-StorageInfo& StorageInfo::operator=(StorageInfo&& rhs) = default;
+StorageInfo::StorageInfo(StorageInfo&& rhs) noexcept = default;
+StorageInfo& StorageInfo::operator=(StorageInfo&& rhs) noexcept = default;
 StorageInfo StorageInfo::Clone() const {
   StorageInfo out;
   out.usage_bytes = usage_bytes;
@@ -617,34 +592,21 @@ bool StorageInfo::Populate(
 }
 
 // static
-std::unique_ptr<StorageInfo> StorageInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StorageInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StorageInfo> StorageInfo::FromValue(const base::Value::Dict& value) {
+  StorageInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StorageInfo> StorageInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StorageInfo> StorageInfo::FromValue(const base::Value& value) {
   StorageInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StorageInfo> StorageInfo::FromValue(const base::Value& value) {
-  StorageInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -665,8 +627,8 @@ ServiceInfo::ServiceInfo()
 : state() {}
 
 ServiceInfo::~ServiceInfo() = default;
-ServiceInfo::ServiceInfo(ServiceInfo&& rhs) = default;
-ServiceInfo& ServiceInfo::operator=(ServiceInfo&& rhs) = default;
+ServiceInfo::ServiceInfo(ServiceInfo&& rhs) noexcept = default;
+ServiceInfo& ServiceInfo::operator=(ServiceInfo&& rhs) noexcept = default;
 ServiceInfo ServiceInfo::Clone() const {
   ServiceInfo out;
   out.state = state;
@@ -717,34 +679,21 @@ bool ServiceInfo::Populate(
 }
 
 // static
-std::unique_ptr<ServiceInfo> ServiceInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ServiceInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ServiceInfo> ServiceInfo::FromValue(const base::Value::Dict& value) {
+  ServiceInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ServiceInfo> ServiceInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ServiceInfo> ServiceInfo::FromValue(const base::Value& value) {
   ServiceInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ServiceInfo> ServiceInfo::FromValue(const base::Value& value) {
-  ServiceInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -772,8 +721,8 @@ Results::FileSystem::FileSystem()
  {}
 
 Results::FileSystem::~FileSystem() = default;
-Results::FileSystem::FileSystem(FileSystem&& rhs) = default;
-Results::FileSystem& Results::FileSystem::operator=(FileSystem&& rhs) = default;
+Results::FileSystem::FileSystem(FileSystem&& rhs) noexcept = default;
+Results::FileSystem& Results::FileSystem::operator=(FileSystem&& rhs) noexcept = default;
 base::Value::Dict Results::FileSystem::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -796,13 +745,13 @@ namespace SetConflictResolutionPolicy {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -812,16 +761,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* conflict_resolution_policy_as_string = policy_value.GetIfString();
       if (!conflict_resolution_policy_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.policy = ParseConflictResolutionPolicy(*conflict_resolution_policy_as_string);
       if (params.policy == ConflictResolutionPolicy()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -852,8 +801,8 @@ Params::FileSystem::FileSystem()
  {}
 
 Params::FileSystem::~FileSystem() = default;
-Params::FileSystem::FileSystem(FileSystem&& rhs) = default;
-Params::FileSystem& Params::FileSystem::operator=(FileSystem&& rhs) = default;
+Params::FileSystem::FileSystem(FileSystem&& rhs) noexcept = default;
+Params::FileSystem& Params::FileSystem::operator=(FileSystem&& rhs) noexcept = default;
 Params::FileSystem Params::FileSystem::Clone() const {
   FileSystem out;
   return out;
@@ -876,21 +825,21 @@ bool Params::FileSystem::Populate(
 }
 
 // static
-absl::optional<Params::FileSystem> Params::FileSystem::FromValue(const base::Value::Dict& value) {
+std::optional<Params::FileSystem> Params::FileSystem::FromValue(const base::Value::Dict& value) {
   FileSystem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::FileSystem> Params::FileSystem::FromValue(const base::Value& value) {
+std::optional<Params::FileSystem> Params::FileSystem::FromValue(const base::Value& value) {
   FileSystem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -898,13 +847,13 @@ absl::optional<Params::FileSystem> Params::FileSystem::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -913,15 +862,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& file_system_value = args[0];
     {
       if (!file_system_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!FileSystem::Populate(file_system_value.GetDict(), params.file_system)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -943,8 +892,8 @@ Params::FileEntry::FileEntry()
  {}
 
 Params::FileEntry::~FileEntry() = default;
-Params::FileEntry::FileEntry(FileEntry&& rhs) = default;
-Params::FileEntry& Params::FileEntry::operator=(FileEntry&& rhs) = default;
+Params::FileEntry::FileEntry(FileEntry&& rhs) noexcept = default;
+Params::FileEntry& Params::FileEntry::operator=(FileEntry&& rhs) noexcept = default;
 Params::FileEntry Params::FileEntry::Clone() const {
   FileEntry out;
   return out;
@@ -967,21 +916,21 @@ bool Params::FileEntry::Populate(
 }
 
 // static
-absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value::Dict& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value& value) {
+std::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -989,13 +938,13 @@ absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1004,15 +953,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& file_entry_value = args[0];
     {
       if (!file_entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!FileEntry::Populate(file_entry_value.GetDict(), params.file_entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1034,8 +983,8 @@ Params::FileEntriesType::FileEntriesType()
  {}
 
 Params::FileEntriesType::~FileEntriesType() = default;
-Params::FileEntriesType::FileEntriesType(FileEntriesType&& rhs) = default;
-Params::FileEntriesType& Params::FileEntriesType::operator=(FileEntriesType&& rhs) = default;
+Params::FileEntriesType::FileEntriesType(FileEntriesType&& rhs) noexcept = default;
+Params::FileEntriesType& Params::FileEntriesType::operator=(FileEntriesType&& rhs) noexcept = default;
 Params::FileEntriesType Params::FileEntriesType::Clone() const {
   FileEntriesType out;
   return out;
@@ -1058,21 +1007,21 @@ bool Params::FileEntriesType::Populate(
 }
 
 // static
-absl::optional<Params::FileEntriesType> Params::FileEntriesType::FromValue(const base::Value::Dict& value) {
+std::optional<Params::FileEntriesType> Params::FileEntriesType::FromValue(const base::Value::Dict& value) {
   FileEntriesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::FileEntriesType> Params::FileEntriesType::FromValue(const base::Value& value) {
+std::optional<Params::FileEntriesType> Params::FileEntriesType::FromValue(const base::Value& value) {
   FileEntriesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1081,13 +1030,13 @@ absl::optional<Params::FileEntriesType> Params::FileEntriesType::FromValue(const
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1096,17 +1045,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& file_entries_value = args[0];
     {
       if (!file_entries_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(file_entries_value.GetList(), params.file_entries)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

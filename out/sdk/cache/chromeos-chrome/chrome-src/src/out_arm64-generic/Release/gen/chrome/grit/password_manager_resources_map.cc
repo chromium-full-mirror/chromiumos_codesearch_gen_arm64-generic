@@ -22,6 +22,8 @@ const webui::ResourcePath kPasswordManagerResources[] = {
   {"images/password_sharing_family_banner_dark.svg", IDR_PASSWORD_MANAGER_IMAGES_PASSWORD_SHARING_FAMILY_BANNER_DARK_SVG},
   {"images/password_sharing_secure_lock.svg", IDR_PASSWORD_MANAGER_IMAGES_PASSWORD_SHARING_SECURE_LOCK_SVG},
   {"images/password_sharing_progress_bar.svg", IDR_PASSWORD_MANAGER_IMAGES_PASSWORD_SHARING_PROGRESS_BAR_SVG},
+  {"images/relaunch_chrome_promo_non_branded.svg", IDR_PASSWORD_MANAGER_IMAGES_RELAUNCH_CHROME_PROMO_NON_BRANDED_SVG},
+  {"images/relaunch_chrome_promo_dark_non_branded.svg", IDR_PASSWORD_MANAGER_IMAGES_RELAUNCH_CHROME_PROMO_DARK_NON_BRANDED_SVG},
   {"password_manager.html", IDR_PASSWORD_MANAGER_PASSWORD_MANAGER_HTML},
   {"manifest.webmanifest", IDR_PASSWORD_MANAGER_MANIFEST_WEBMANIFEST},
   {"password_manager.js", IDR_PASSWORD_MANAGER_PASSWORD_MANAGER_ROLLUP_JS},

@@ -32,7 +32,7 @@ namespace blink {
 bool V8FetchLaterResult::IsExposed(ExecutionContext* execution_context) {
   
 const bool is_in_secure_context = execution_context->IsSecureContext();
-return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::FetchLaterAPIEnabled();
+return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::FetchLaterAPIEnabled(execution_context);
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FetchLaterResult>::value,
     "FetchLaterResult inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FetchLaterResult::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FetchLaterResult is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,7 +88,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FetchLaterResult_Act
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FetchLaterResult* blink_receiver = V8FetchLaterResult::ToWrappableUnsafe(v8_receiver);
+FetchLaterResult* blink_receiver = V8FetchLaterResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

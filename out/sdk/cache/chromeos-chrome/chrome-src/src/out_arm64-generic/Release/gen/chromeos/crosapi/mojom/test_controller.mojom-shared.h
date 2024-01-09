@@ -27,9 +27,11 @@
 #include "chromeos/crosapi/mojom/app_service_types.mojom-shared.h"
 #include "chromeos/crosapi/mojom/extension_keeplist.mojom-shared.h"
 #include "chromeos/crosapi/mojom/tts.mojom-shared.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "ui/gfx/range/mojom/range.mojom-shared.h"
+#include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -45,6 +47,8 @@ class KeyEventDataView;
 
 class InputMethodDataView;
 
+class IsolatedWebAppLocationDataView;
+class InstallWebAppResultDataView;
 
 
 }  // crosapi::mojom
@@ -71,6 +75,20 @@ struct MojomTypeTraits<::crosapi::mojom::InputMethodDataView> {
   using Data = ::crosapi::mojom::internal::InputMethod_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::IsolatedWebAppLocationDataView> {
+  using Data = ::crosapi::mojom::internal::IsolatedWebAppLocation_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::InstallWebAppResultDataView> {
+  using Data = ::crosapi::mojom::internal::InstallWebAppResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 }  // namespace internal
@@ -205,6 +223,16 @@ inline AssistiveTechnologyType ToKnownEnumValue(AssistiveTechnologyType value) {
   return AssistiveTechnologyType::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
+class DomMessageObserverInterfaceBase {};
+
+using DomMessageObserverPtrDataView =
+    mojo::InterfacePtrDataView<DomMessageObserverInterfaceBase>;
+using DomMessageObserverRequestDataView =
+    mojo::InterfaceRequestDataView<DomMessageObserverInterfaceBase>;
+using DomMessageObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<DomMessageObserverInterfaceBase>;
+using DomMessageObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<DomMessageObserverInterfaceBase>;
 class StandaloneBrowserTestControllerInterfaceBase {};
 
 using StandaloneBrowserTestControllerPtrDataView =
@@ -356,6 +384,102 @@ class InputMethodDataView {
   internal::InputMethod_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class IsolatedWebAppLocationDataView {
+ public:
+  using Tag = internal::IsolatedWebAppLocation_Data::IsolatedWebAppLocation_Tag;
+
+  IsolatedWebAppLocationDataView() = default;
+
+  IsolatedWebAppLocationDataView(
+      internal::IsolatedWebAppLocation_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_proxy_origin() const { return data_->tag == Tag::kProxyOrigin; }
+  inline void GetProxyOriginDataView(
+      ::url::mojom::UrlDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProxyOrigin(UserType* output) const {
+    
+    CHECK(is_proxy_origin());
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        data_->data.f_proxy_origin.Get(), output, message_);
+  }
+  bool is_bundle_path() const { return data_->tag == Tag::kBundlePath; }
+  inline void GetBundlePathDataView(
+      ::mojo_base::mojom::FilePathDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBundlePath(UserType* output) const {
+    
+    CHECK(is_bundle_path());
+    return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
+        data_->data.f_bundle_path.Get(), output, message_);
+  }
+
+ private:
+  internal::IsolatedWebAppLocation_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class InstallWebAppResultDataView {
+ public:
+  using Tag = internal::InstallWebAppResult_Data::InstallWebAppResult_Tag;
+
+  InstallWebAppResultDataView() = default;
+
+  InstallWebAppResultDataView(
+      internal::InstallWebAppResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_app_id() const { return data_->tag == Tag::kAppId; }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) const {
+    
+    CHECK(is_app_id());
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        data_->data.f_app_id.Get(), output, message_);
+  }
+  bool is_error_message() const { return data_->tag == Tag::kErrorMessage; }
+  inline void GetErrorMessageDataView(
+      mojo::StringDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErrorMessage(UserType* output) const {
+    
+    CHECK(is_error_message());
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        data_->data.f_error_message.Get(), output, message_);
+  }
+
+ private:
+  internal::InstallWebAppResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 }  // crosapi::mojom
@@ -615,6 +739,152 @@ struct Serializer<::crosapi::mojom::InputMethodDataView, MaybeConstUserType> {
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::IsolatedWebAppLocationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::crosapi::mojom::IsolatedWebAppLocationDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::crosapi::mojom::internal::IsolatedWebAppLocation_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::crosapi::mojom::IsolatedWebAppLocationDataView::Tag::kProxyOrigin: {
+        decltype(Traits::proxy_origin(input))
+            in_proxy_origin = Traits::proxy_origin(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_proxy_origin)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::url::mojom::UrlDataView>(
+            in_proxy_origin, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null proxy_origin in IsolatedWebAppLocation union");
+        fragment->data.f_proxy_origin.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::IsolatedWebAppLocationDataView::Tag::kBundlePath: {
+        decltype(Traits::bundle_path(input))
+            in_bundle_path = Traits::bundle_path(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bundle_path)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::mojo_base::mojom::FilePathDataView>(
+            in_bundle_path, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bundle_path in IsolatedWebAppLocation union");
+        fragment->data.f_bundle_path.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::IsolatedWebAppLocation_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::IsolatedWebAppLocationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::InstallWebAppResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::crosapi::mojom::InstallWebAppResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::crosapi::mojom::internal::InstallWebAppResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::crosapi::mojom::InstallWebAppResultDataView::Tag::kAppId: {
+        decltype(Traits::app_id(input))
+            in_app_id = Traits::app_id(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_app_id)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<mojo::StringDataView>(
+            in_app_id, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null app_id in InstallWebAppResult union");
+        fragment->data.f_app_id.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::InstallWebAppResultDataView::Tag::kErrorMessage: {
+        decltype(Traits::error_message(input))
+            in_error_message = Traits::error_message(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error_message)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<mojo::StringDataView>(
+            in_error_message, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error_message in InstallWebAppResult union");
+        fragment->data.f_error_message.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::InstallWebAppResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::InstallWebAppResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -640,6 +910,28 @@ inline void InputMethodDataView::GetXkbLayoutDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 
+
+inline void IsolatedWebAppLocationDataView::GetProxyOriginDataView(
+    ::url::mojom::UrlDataView* output) const {
+  CHECK(is_proxy_origin());
+  *output = ::url::mojom::UrlDataView(data_->data.f_proxy_origin.Get(), message_);
+}
+inline void IsolatedWebAppLocationDataView::GetBundlePathDataView(
+    ::mojo_base::mojom::FilePathDataView* output) const {
+  CHECK(is_bundle_path());
+  *output = ::mojo_base::mojom::FilePathDataView(data_->data.f_bundle_path.Get(), message_);
+}
+
+inline void InstallWebAppResultDataView::GetAppIdDataView(
+    mojo::StringDataView* output) const {
+  CHECK(is_app_id());
+  *output = mojo::StringDataView(data_->data.f_app_id.Get(), message_);
+}
+inline void InstallWebAppResultDataView::GetErrorMessageDataView(
+    mojo::StringDataView* output) const {
+  CHECK(is_error_message());
+  *output = mojo::StringDataView(data_->data.f_error_message.Get(), message_);
+}
 
 
 }  // crosapi::mojom

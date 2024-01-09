@@ -52,6 +52,24 @@ class BLINK_PLATFORM_EXPORT CertVerifierServiceAsyncWaiter {
 };
 
 
+class BLINK_PLATFORM_EXPORT CertVerifierServiceUpdaterInterceptorForTesting : public CertVerifierServiceUpdater {
+  virtual CertVerifierServiceUpdater* GetForwardingInterface() = 0;
+  void UpdateAdditionalCertificates(AdditionalCertificatesPtr certificates) override;
+};
+class BLINK_PLATFORM_EXPORT CertVerifierServiceUpdaterAsyncWaiter {
+ public:
+  explicit CertVerifierServiceUpdaterAsyncWaiter(CertVerifierServiceUpdater* proxy);
+
+  CertVerifierServiceUpdaterAsyncWaiter(const CertVerifierServiceUpdaterAsyncWaiter&) = delete;
+  CertVerifierServiceUpdaterAsyncWaiter& operator=(const CertVerifierServiceUpdaterAsyncWaiter&) = delete;
+
+  ~CertVerifierServiceUpdaterAsyncWaiter();
+
+ private:
+  CertVerifierServiceUpdater* const proxy_;
+};
+
+
 class BLINK_PLATFORM_EXPORT CertVerifierServiceClientInterceptorForTesting : public CertVerifierServiceClient {
   virtual CertVerifierServiceClient* GetForwardingInterface() = 0;
   void OnCertVerifierChanged() override;

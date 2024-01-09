@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/builtins-bigint-tq-csa.h"
 #include "torque-generated/src/builtins/array-findindex-tq-csa.h"
@@ -386,7 +387,7 @@ TNode<BigInt> MutableBigIntAbsoluteSub_0(compiler::CodeAssemblerState* state_, T
   TNode<BigInt> tmp8;
   if (block15.is_used()) {
     ca_.Bind(&block15);
-    tmp8 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kBigIntUnaryMinus), p_context, p_x);
+    tmp8 = ca_.CallBuiltin<BigInt>(Builtin::kBigIntUnaryMinus, p_context, p_x);
     ca_.Goto(&block16, tmp8);
   }
 
@@ -497,7 +498,7 @@ TNode<BigInt> MutableBigIntAbsoluteAdd_0(compiler::CodeAssemblerState* state_, T
   TNode<BigInt> tmp9;
   if (block14.is_used()) {
     ca_.Bind(&block14);
-    tmp9 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kBigIntUnaryMinus), p_context, phi_bb4_6);
+    tmp9 = ca_.CallBuiltin<BigInt>(Builtin::kBigIntUnaryMinus, p_context, phi_bb4_6);
     ca_.Goto(&block15, tmp9);
   }
 
@@ -1374,7 +1375,7 @@ TNode<BigInt> BigIntDivideImpl_0(compiler::CodeAssemblerState* state_, TNode<Con
   TNode<BigInt> tmp24;
   if (block18.is_used()) {
     ca_.Bind(&block18);
-    tmp24 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kBigIntUnaryMinus), p_context, p_x);
+    tmp24 = ca_.CallBuiltin<BigInt>(Builtin::kBigIntUnaryMinus, p_context, p_x);
     ca_.Goto(&block19, tmp24);
   }
 

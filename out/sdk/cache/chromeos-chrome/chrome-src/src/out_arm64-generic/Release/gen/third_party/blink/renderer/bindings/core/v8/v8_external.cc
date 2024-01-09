@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, External>::value,
     "External inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&External::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "External is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("External.AddSearchProvider");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-External* blink_receiver = V8External::ToWrappableUnsafe(v8_receiver);
+External* blink_receiver = V8External::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->AddSearchProvider();
 
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("External.IsSearchProviderInstalled");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-External* blink_receiver = V8External::ToWrappableUnsafe(v8_receiver);
+External* blink_receiver = V8External::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->IsSearchProviderInstalled();
 
 }

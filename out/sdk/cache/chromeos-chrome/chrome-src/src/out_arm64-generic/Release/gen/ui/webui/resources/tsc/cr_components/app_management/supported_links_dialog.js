@@ -20,5 +20,21 @@ export class AppManagementSupportedLinksDialogElement extends AppManagementSuppo
             app: Object,
         };
     }
+    ready() {
+        super.ready();
+        this.addEventListener('keydown', e => this.trapDialogFocus_(e));
+    }
+    // The close button is the only tabbable element in the dialog, so focus
+    // should stay on it.
+    trapDialogFocus_(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const dialogElement = this.shadowRoot?.getElementById('dialog');
+            const buttonElement = dialogElement?.shadowRoot?.querySelector('#close');
+            if (buttonElement) {
+                buttonElement.focus();
+            }
+        }
+    }
 }
 customElements.define(AppManagementSupportedLinksDialogElement.is, AppManagementSupportedLinksDialogElement);

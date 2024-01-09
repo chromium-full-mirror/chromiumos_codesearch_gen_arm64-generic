@@ -9,40 +9,40 @@ namespace internal {
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=18&c=1
 TNode<CallSiteInfo> Cast_CallSiteInfo_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=19&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=26
+TNode<IndirectPointerHandleT> LoadCallSiteInfoCodeObject_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=26
+void StoreCallSiteInfoCodeObject_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<IndirectPointerHandleT> p_v);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
 TNode<Object> LoadCallSiteInfoReceiverOrInstance_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=19&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
 void StoreCallSiteInfoReceiverOrInstance_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<Object> p_v);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=20&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
 TNode<Object> LoadCallSiteInfoFunction_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=20&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
 void StoreCallSiteInfoFunction_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<Object> p_v);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=3
-TNode<HeapObject> LoadCallSiteInfoCodeObject_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=21&c=3
-void StoreCallSiteInfoCodeObject_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<HeapObject> p_v);
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=22&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=25&c=3
 TNode<Smi> LoadCallSiteInfoCodeOffsetOrSourcePosition_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=22&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=25&c=3
 void StoreCallSiteInfoCodeOffsetOrSourcePosition_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<Smi> p_v);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=26&c=3
 TNode<Smi> LoadCallSiteInfoFlags_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=23&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=26&c=3
 void StoreCallSiteInfoFlags_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<Smi> p_v);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=27&c=3
 TNode<FixedArray> LoadCallSiteInfoParameters_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=24&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=27&c=3
 void StoreCallSiteInfoParameters_0(compiler::CodeAssemblerState* state_, TNode<CallSiteInfo> p_o, TNode<FixedArray> p_v);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/call-site-info.tq?l=18&c=1

@@ -536,6 +536,83 @@
     encoder.skip(1);
     encoder.encodeStructPointer(HostPortPair, val.hostAndPort);
   };
+  function ProxyChain(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ProxyChain.prototype.initDefaults_ = function() {
+    this.proxyServers = null;
+    this.isForIpProtection = false;
+  };
+  ProxyChain.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ProxyChain.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ProxyChain.proxyServers
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(ProxyServer), true, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  ProxyChain.encodedSize = codec.kStructHeaderSize + 16;
+
+  ProxyChain.decode = function(decoder) {
+    var packed;
+    var val = new ProxyChain();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.proxyServers =
+        decoder.decodeArrayPointer(new codec.PointerTo(ProxyServer));
+    packed = decoder.readUint8();
+    val.isForIpProtection = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  ProxyChain.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ProxyChain.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(ProxyServer), val.proxyServers);
+    packed = 0;
+    packed |= (val.isForIpProtection & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function ResolveErrorInfo(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -863,6 +940,7 @@
   exports.HttpVersion = HttpVersion;
   exports.HostPortPair = HostPortPair;
   exports.ProxyServer = ProxyServer;
+  exports.ProxyChain = ProxyChain;
   exports.ResolveErrorInfo = ResolveErrorInfo;
   exports.SSLCertRequestInfo = SSLCertRequestInfo;
   exports.SSLInfo = SSLInfo;

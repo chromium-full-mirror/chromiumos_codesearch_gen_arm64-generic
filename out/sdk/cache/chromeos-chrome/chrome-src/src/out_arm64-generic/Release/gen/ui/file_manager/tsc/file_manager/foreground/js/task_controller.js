@@ -1,34 +1,29 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import { assertInstanceof, assertNotReached } from 'chrome://resources/ash/common/assert.js';
 import { getMimeType, startIOTask } from '../../common/js/api.js';
+import { unwrapEntry } from '../../common/js/entry_utils.js';
 import { getDefaultTask } from '../../common/js/file_tasks.js';
-import { isJellyEnabled } from '../../common/js/flags.js';
 import { recordDirectoryListLoadWithTolerance, startInterval } from '../../common/js/metrics.js';
-import { str, strf, util } from '../../common/js/util.js';
-import '../../externs/background/crostini.js';
-import '../../externs/background/progress_center.js';
-import '../../externs/files_app_entry_interfaces.js';
-import { PropStatus } from '../../externs/ts/state.js';
-import '../../externs/volume_manager.js';
+import { str, strf } from '../../common/js/translations.js';
+import { checkAPIError } from '../../common/js/util.js';
+import { Crostini } from '../../externs/background/crostini.js';
+import { ProgressCenter } from '../../externs/background/progress_center.js';
+import { FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { FileData, FileKey, FileTasks as StoreFileTasks, PropStatus, State } from '../../externs/ts/state.js';
 import { fetchFileTasks } from '../../state/ducks/current_directory.js';
 import { getFilesData, getStore, waitForState } from '../../state/store.js';
-import '../../widgets/xf_password_dialog.js';
-import './directory_model.js';
-import './file_selection.js';
+import { XfPasswordDialog } from '../../widgets/xf_password_dialog.js';
+import { DirectoryModel } from './directory_model.js';
+import { FileSelection, FileSelectionHandler } from './file_selection.js';
 import { FileTasks, TaskPickerType } from './file_tasks.js';
-import './file_transfer_controller.js';
-import './metadata/metadata_model.js';
-import './metadata_update_controller.js';
-import { TaskHistory } from './task_history.js';
+import { FileTransferController } from './file_transfer_controller.js';
+import { MetadataModel } from './metadata/metadata_model.js';
+import { MetadataUpdateController } from './metadata_update_controller.js';
+import { EventType, TaskHistory } from './task_history.js';
 import { Command } from './ui/command.js';
-import './ui/file_manager_ui.js';
+import { FileManagerUI } from './ui/file_manager_ui.js';
 export class TaskController {
     constructor(volumeManager_, ui_, metadataModel_, directoryModel_, selectionHandler_, metadataUpdateController_, crostini_, progressCenter_) {
         this.volumeManager_ = volumeManager_;
@@ -59,9 +54,9 @@ export class TaskController {
             assertInstanceof(document.querySelector('#open-with'), Command);
         this.store_ = getStore();
         this.store_.subscribe(this);
-        ui_.taskMenuButton.addEventListener('select', this.onTaskItemClicked_.bind(this));
+        ui_.taskMenuButton.addEventListener('combobutton-select', this.onTaskItemClicked_.bind(this));
         // TODO: Move the following events to the Store.
-        this.taskHistory_.addEventListener(TaskHistory.EventType.UPDATE, this.updateTasks_.bind(this));
+        this.taskHistory_.addEventListener(EventType.UPDATE, this.updateTasks_.bind(this));
         chrome.fileManagerPrivate.onIOTaskProgressStatus.addListener(this.onIoTaskProgressStatus_.bind(this));
         chrome.fileManagerPrivate.onAppsUpdated.addListener(this.clearCacheAndUpdateTasks_.bind(this));
     }
@@ -113,9 +108,10 @@ export class TaskController {
         if (event.target && event.target.command) {
             return;
         }
-        // 'select' event from ComboButton has the item as event.item.
-        // 'activate' event from MenuButton has the item as event.target.data.
-        const item = event.item || event.target.data;
+        const item = event.detail;
+        if (!item) {
+            return;
+        }
         try {
             const tasks = await this.getFileTasks();
             switch (item.type) {
@@ -162,9 +158,9 @@ export class TaskController {
      * @param task Task to set as default.
      */
     async changeDefaultTask_(selection, task) {
-        const entries = selection.entries;
+        const entries = selection.entries.map(entry => unwrapEntry(entry));
         const mimeTypes = await Promise.all(entries.map(entry => this.getMimeType_(entry)));
-        chrome.fileManagerPrivate.setDefaultTask(task.descriptor, entries, mimeTypes, util.checkAPIError);
+        chrome.fileManagerPrivate.setDefaultTask(task.descriptor, entries, mimeTypes, checkAPIError);
         this.metadataUpdateController_.refreshCurrentDirectoryMetadata();
         // Update task menu button unless the task button was updated by other
         // selection.
@@ -248,13 +244,11 @@ export class TaskController {
     createItems(fileTasks) {
         const tasks = fileTasks.getAnnotatedTasks();
         const items = [];
-        // We don't bold default task item in refresh23 style.
-        const shouldBoldDefaultItem = !isJellyEnabled();
         // Create items.
         for (const task of tasks) {
             if (task === fileTasks.defaultTask) {
                 const title = task.title + ' ' + str('DEFAULT_TASK_LABEL');
-                items.push(createDropdownItem(task, title, /*bold=*/ shouldBoldDefaultItem, /*isDefault=*/ true, 
+                items.push(createDropdownItem(task, title, /*isDefault=*/ true, 
                 /*isPolicyDefault=*/
                 !!fileTasks.getPolicyDefaultHandlerStatus()));
             }
@@ -570,17 +564,15 @@ var TaskMenuItemType;
 })(TaskMenuItemType || (TaskMenuItemType = {}));
 /**
  * Creates dropdown item based on task.
- * @param bold Make a menu item bold.
  * @param isDefault Mark the item as default item.
  */
-function createDropdownItem(task, title, bold, isDefault, isPolicyDefault) {
+function createDropdownItem(task, title, isDefault, isPolicyDefault) {
     return {
         type: TaskMenuItemType.RUN_TASK,
         label: title || task.title,
         iconUrl: task.iconUrl || '',
         iconType: task.iconType || '',
         task: task,
-        bold: bold || false,
         isDefault: isDefault || false,
         isPolicyDefault: isPolicyDefault || false,
         isGenericFileHandler: task.isGenericFileHandler,

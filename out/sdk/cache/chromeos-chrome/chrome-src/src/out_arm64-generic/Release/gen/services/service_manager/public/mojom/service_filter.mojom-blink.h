@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/service_manager/public/mojom/service_filter.mojom-features.h"
 #include "services/service_manager/public/mojom/service_filter.mojom-shared.h"
 #include "services/service_manager/public/mojom/service_filter.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/token.mojom-blink.h"
@@ -77,9 +78,9 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_BLINK) ServiceFilter {
 
   ServiceFilter(
       const WTF::String& service_name,
-      const absl::optional<::base::Token>& instance_group,
-      const absl::optional<::base::Token>& instance_id,
-      const absl::optional<::base::Token>& globally_unique_id);
+      const std::optional<::base::Token>& instance_group,
+      const std::optional<::base::Token>& instance_id,
+      const std::optional<::base::Token>& globally_unique_id);
 
 
   ~ServiceFilter();
@@ -159,11 +160,11 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_BLINK) ServiceFilter {
   
   WTF::String service_name;
   
-  absl::optional<::base::Token> instance_group;
+  std::optional<::base::Token> instance_group;
   
-  absl::optional<::base::Token> instance_id;
+  std::optional<::base::Token> instance_id;
   
-  absl::optional<::base::Token> globally_unique_id;
+  std::optional<::base::Token> globally_unique_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

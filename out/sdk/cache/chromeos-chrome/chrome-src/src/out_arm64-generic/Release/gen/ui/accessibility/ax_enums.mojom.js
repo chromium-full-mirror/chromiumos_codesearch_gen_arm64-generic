@@ -204,6 +204,7 @@
   Role.kDialog = 35;
   Role.kDirectory = 36;
   Role.kDisclosureTriangle = 37;
+  Role.kDisclosureTriangleGrouped = 210;
   Role.kDocAbstract = 38;
   Role.kDocAcknowledgments = 39;
   Role.kDocAfterword = 40;
@@ -376,7 +377,7 @@
   Role.kWebView = 183;
   Role.kWindow = 184;
   Role.MIN_VALUE = 0;
-  Role.MAX_VALUE = 209;
+  Role.MAX_VALUE = 210;
   Role.DEFAULT_VALUE = 181;
 
   Role.isKnownEnumValue = function(value) {
@@ -591,6 +592,7 @@
     case 207:
     case 208:
     case 209:
+    case 210:
       return true;
     }
     return false;

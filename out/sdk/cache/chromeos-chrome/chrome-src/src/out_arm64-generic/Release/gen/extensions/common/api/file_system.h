@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct AcceptOption {
   ~AcceptOption();
   AcceptOption(const AcceptOption&) = delete;
   AcceptOption& operator=(const AcceptOption&) = delete;
-  AcceptOption(AcceptOption&& rhs);
-  AcceptOption& operator=(AcceptOption&& rhs);
+  AcceptOption(AcceptOption&& rhs) noexcept;
+  AcceptOption& operator=(AcceptOption&& rhs) noexcept;
 
   // Populates a AcceptOption object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,15 +49,12 @@ struct AcceptOption {
   // Creates a deep copy of AcceptOption.
   AcceptOption Clone() const;
 
-  // Creates a AcceptOption object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AcceptOption> FromValueDeprecated(const base::Value& value);
-
   // Creates a AcceptOption object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AcceptOption> FromValue(const base::Value::Dict& value);
+  static std::optional<AcceptOption> FromValue(const base::Value::Dict& value);
 
   // Creates a AcceptOption object from a base::Value, or nullopt on failure.
-  static absl::optional<AcceptOption> FromValue(const base::Value& value);
+  static std::optional<AcceptOption> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptOption object.
@@ -65,14 +63,14 @@ struct AcceptOption {
   // This is the optional text description for this option. If not present, a
   // description will be automatically generated; typically containing an expanded
   // list of valid extensions (e.g. "text/html" may expand to "*.html, *.htm").
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
   // Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or
   // extensions must contain at least one valid element.
-  absl::optional<std::vector<std::string>> mime_types;
+  std::optional<std::vector<std::string>> mime_types;
 
   // Extensions to accept, e.g. "jpg", "gif", "crx".
-  absl::optional<std::vector<std::string>> extensions;
+  std::optional<std::vector<std::string>> extensions;
 
 };
 
@@ -95,8 +93,8 @@ struct ChooseEntryOptions {
   ~ChooseEntryOptions();
   ChooseEntryOptions(const ChooseEntryOptions&) = delete;
   ChooseEntryOptions& operator=(const ChooseEntryOptions&) = delete;
-  ChooseEntryOptions(ChooseEntryOptions&& rhs);
-  ChooseEntryOptions& operator=(ChooseEntryOptions&& rhs);
+  ChooseEntryOptions(ChooseEntryOptions&& rhs) noexcept;
+  ChooseEntryOptions& operator=(ChooseEntryOptions&& rhs) noexcept;
 
   // Populates a ChooseEntryOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -109,16 +107,13 @@ struct ChooseEntryOptions {
   // Creates a deep copy of ChooseEntryOptions.
   ChooseEntryOptions Clone() const;
 
-  // Creates a ChooseEntryOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ChooseEntryOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ChooseEntryOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ChooseEntryOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ChooseEntryOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ChooseEntryOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ChooseEntryOptions> FromValue(const base::Value& value);
+  static std::optional<ChooseEntryOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChooseEntryOptions object.
@@ -129,22 +124,22 @@ struct ChooseEntryOptions {
 
   // The suggested file name that will be presented to the user as the default
   // name to read or write. This is optional.
-  absl::optional<std::string> suggested_name;
+  std::optional<std::string> suggested_name;
 
   // The optional list of accept options for this file opener. Each option will be
   // presented as a unique group to the end-user.
-  absl::optional<std::vector<AcceptOption>> accepts;
+  std::optional<std::vector<AcceptOption>> accepts;
 
   // Whether to accept all file types, in addition to the options specified in the
   // accepts argument. The default is true. If the accepts field is unset or
   // contains no valid entries, this will always be reset to true.
-  absl::optional<bool> accepts_all_types;
+  std::optional<bool> accepts_all_types;
 
   // Whether to accept multiple files. This is only supported for openFile and
   // openWritableFile. The callback to chooseEntry will be called with a list of
   // entries if this is set to true. Otherwise it will be called with a single
   // Entry.
-  absl::optional<bool> accepts_multiple;
+  std::optional<bool> accepts_multiple;
 
 };
 
@@ -153,8 +148,8 @@ struct RequestFileSystemOptions {
   ~RequestFileSystemOptions();
   RequestFileSystemOptions(const RequestFileSystemOptions&) = delete;
   RequestFileSystemOptions& operator=(const RequestFileSystemOptions&) = delete;
-  RequestFileSystemOptions(RequestFileSystemOptions&& rhs);
-  RequestFileSystemOptions& operator=(RequestFileSystemOptions&& rhs);
+  RequestFileSystemOptions(RequestFileSystemOptions&& rhs) noexcept;
+  RequestFileSystemOptions& operator=(RequestFileSystemOptions&& rhs) noexcept;
 
   // Populates a RequestFileSystemOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -167,17 +162,13 @@ struct RequestFileSystemOptions {
   // Creates a deep copy of RequestFileSystemOptions.
   RequestFileSystemOptions Clone() const;
 
-  // Creates a RequestFileSystemOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RequestFileSystemOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestFileSystemOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestFileSystemOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestFileSystemOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value& value);
+  static std::optional<RequestFileSystemOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFileSystemOptions object.
@@ -188,7 +179,7 @@ struct RequestFileSystemOptions {
 
   // Whether the requested file system should be writable. The default is
   // read-only.
-  absl::optional<bool> writable;
+  std::optional<bool> writable;
 
 };
 
@@ -197,8 +188,8 @@ struct Volume {
   ~Volume();
   Volume(const Volume&) = delete;
   Volume& operator=(const Volume&) = delete;
-  Volume(Volume&& rhs);
-  Volume& operator=(Volume&& rhs);
+  Volume(Volume&& rhs) noexcept;
+  Volume& operator=(Volume&& rhs) noexcept;
 
   // Populates a Volume object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -211,14 +202,11 @@ struct Volume {
   // Creates a deep copy of Volume.
   Volume Clone() const;
 
-  // Creates a Volume object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Volume> FromValueDeprecated(const base::Value& value);
-
   // Creates a Volume object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Volume> FromValue(const base::Value::Dict& value);
+  static std::optional<Volume> FromValue(const base::Value::Dict& value);
 
   // Creates a Volume object from a base::Value, or nullopt on failure.
-  static absl::optional<Volume> FromValue(const base::Value& value);
+  static std::optional<Volume> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolume object.
@@ -235,8 +223,8 @@ struct VolumeListChangedEvent {
   ~VolumeListChangedEvent();
   VolumeListChangedEvent(const VolumeListChangedEvent&) = delete;
   VolumeListChangedEvent& operator=(const VolumeListChangedEvent&) = delete;
-  VolumeListChangedEvent(VolumeListChangedEvent&& rhs);
-  VolumeListChangedEvent& operator=(VolumeListChangedEvent&& rhs);
+  VolumeListChangedEvent(VolumeListChangedEvent&& rhs) noexcept;
+  VolumeListChangedEvent& operator=(VolumeListChangedEvent&& rhs) noexcept;
 
   // Populates a VolumeListChangedEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -249,17 +237,13 @@ struct VolumeListChangedEvent {
   // Creates a deep copy of VolumeListChangedEvent.
   VolumeListChangedEvent Clone() const;
 
-  // Creates a VolumeListChangedEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<VolumeListChangedEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a VolumeListChangedEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<VolumeListChangedEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a VolumeListChangedEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value& value);
+  static std::optional<VolumeListChangedEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolumeListChangedEvent object.
@@ -277,11 +261,11 @@ struct VolumeListChangedEvent {
 namespace GetDisplayPath {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Entry {
@@ -289,8 +273,8 @@ struct Params {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -304,10 +288,10 @@ struct Params {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -330,11 +314,11 @@ base::Value::List Create(const std::string& display_path);
 namespace GetWritableEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Entry {
@@ -342,8 +326,8 @@ struct Params {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -357,10 +341,10 @@ struct Params {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -380,8 +364,8 @@ struct Entry {
   ~Entry();
   Entry(const Entry&) = delete;
   Entry& operator=(const Entry&) = delete;
-  Entry(Entry&& rhs);
-  Entry& operator=(Entry&& rhs);
+  Entry(Entry&& rhs) noexcept;
+  Entry& operator=(Entry&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntry object.
@@ -399,11 +383,11 @@ base::Value::List Create(const Entry& entry);
 namespace IsWritableEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Entry {
@@ -411,8 +395,8 @@ struct Params {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -426,10 +410,10 @@ struct Params {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -452,14 +436,14 @@ base::Value::List Create(bool is_writable);
 namespace ChooseEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<ChooseEntryOptions> options;
+  std::optional<ChooseEntryOptions> options;
 
 
  private:
@@ -473,8 +457,8 @@ struct Entry {
   ~Entry();
   Entry(const Entry&) = delete;
   Entry& operator=(const Entry&) = delete;
-  Entry(Entry&& rhs);
-  Entry& operator=(Entry&& rhs);
+  Entry(Entry&& rhs) noexcept;
+  Entry& operator=(Entry&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntry object.
@@ -488,8 +472,8 @@ struct FileEntriesType {
   ~FileEntriesType();
   FileEntriesType(const FileEntriesType&) = delete;
   FileEntriesType& operator=(const FileEntriesType&) = delete;
-  FileEntriesType(FileEntriesType&& rhs);
-  FileEntriesType& operator=(FileEntriesType&& rhs);
+  FileEntriesType(FileEntriesType&& rhs) noexcept;
+  FileEntriesType& operator=(FileEntriesType&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileEntriesType object.
@@ -508,11 +492,11 @@ base::Value::List Create(const Entry& entry, const std::vector<FileEntriesType>&
 namespace RestoreEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -529,8 +513,8 @@ struct Entry {
   ~Entry();
   Entry(const Entry&) = delete;
   Entry& operator=(const Entry&) = delete;
-  Entry(Entry&& rhs);
-  Entry& operator=(Entry&& rhs);
+  Entry(Entry&& rhs) noexcept;
+  Entry& operator=(Entry&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntry object.
@@ -548,11 +532,11 @@ base::Value::List Create(const Entry& entry);
 namespace IsRestorable {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string id;
@@ -572,11 +556,11 @@ base::Value::List Create(bool is_restorable);
 namespace RetainEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Entry {
@@ -584,8 +568,8 @@ struct Params {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -599,10 +583,10 @@ struct Params {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -620,11 +604,11 @@ struct Params {
 namespace RequestFileSystem {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestFileSystemOptions options;
@@ -641,8 +625,8 @@ struct FileSystem {
   ~FileSystem();
   FileSystem(const FileSystem&) = delete;
   FileSystem& operator=(const FileSystem&) = delete;
-  FileSystem(FileSystem&& rhs);
-  FileSystem& operator=(FileSystem&& rhs);
+  FileSystem(FileSystem&& rhs) noexcept;
+  FileSystem& operator=(FileSystem&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileSystem object.

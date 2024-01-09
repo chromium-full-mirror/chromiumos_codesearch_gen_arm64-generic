@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -104,8 +105,8 @@ DragItemString::DragItemString()
 DragItemString::DragItemString(
     const std::string& string_type_in,
     const ::std::u16string& string_data_in,
-    const absl::optional<::std::u16string>& title_in,
-    const absl::optional<::GURL>& base_url_in)
+    const std::optional<::std::u16string>& title_in,
+    const std::optional<::GURL>& base_url_in)
     : string_type(std::move(string_type_in)),
       string_data(std::move(string_data_in)),
       title(std::move(title_in)),
@@ -138,7 +139,7 @@ void DragItemString::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -147,7 +148,7 @@ void DragItemString::WriteIntoTrace(
     dict.AddItem(
       "base_url"), this->base_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -171,7 +172,7 @@ DragItemBinary::DragItemBinary(
     bool is_image_accessible_in,
     const ::GURL& source_url_in,
     const ::base::FilePath& filename_extension_in,
-    const absl::optional<std::string>& content_disposition_in)
+    const std::optional<std::string>& content_disposition_in)
     : data(std::move(data_in)),
       is_image_accessible(std::move(is_image_accessible_in)),
       source_url(std::move(source_url_in)),
@@ -223,7 +224,7 @@ void DragItemBinary::WriteIntoTrace(
     dict.AddItem(
       "content_disposition"), this->content_disposition,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -244,7 +245,7 @@ DragItemFileSystemFile::DragItemFileSystemFile()
 DragItemFileSystemFile::DragItemFileSystemFile(
     const ::GURL& url_in,
     int64_t size_in,
-    const absl::optional<std::string>& file_system_id_in,
+    const std::optional<std::string>& file_system_id_in,
     ::blink::mojom::SerializedBlobPtr serialized_blob_in)
     : url(std::move(url_in)),
       size(std::move(size_in)),
@@ -278,7 +279,7 @@ void DragItemFileSystemFile::WriteIntoTrace(
     dict.AddItem(
       "file_system_id"), this->file_system_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -307,7 +308,7 @@ DragData::DragData()
 
 DragData::DragData(
     std::vector<DragItemPtr> items_in,
-    const absl::optional<std::string>& file_system_id_in,
+    const std::optional<std::string>& file_system_id_in,
     bool force_default_action_in,
     ::network::mojom::ReferrerPolicy referrer_policy_in)
     : items(std::move(items_in)),
@@ -333,7 +334,7 @@ void DragData::WriteIntoTrace(
     dict.AddItem(
       "file_system_id"), this->file_system_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

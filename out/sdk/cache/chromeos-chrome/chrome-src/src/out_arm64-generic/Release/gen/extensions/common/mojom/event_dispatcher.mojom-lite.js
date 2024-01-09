@@ -71,15 +71,18 @@ extensions.mojom.EventDispatcherRemote = class {
   /**
    * @param { !extensions.mojom.DispatchEventParams } params
    * @param { !mojoBase.mojom.ListValue } eventArgs
+   * @return {!Promise<{
+        eventWillRunInLazyBackgroundPageScript: !boolean,
+   *  }>}
    */
 
   dispatchEvent(
       params,
       eventArgs) {
-    this.proxy.sendMessage(
+    return this.proxy.sendMessage(
         0,
         extensions.mojom.EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
+        extensions.mojom.EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
         [
           params,
           eventArgs
@@ -112,7 +115,7 @@ extensions.mojom.EventDispatcherReceiver = class {
     this.helper_internal_.registerHandler(
         0,
         extensions.mojom.EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
+        extensions.mojom.EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
         impl.dispatchEvent.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
@@ -176,8 +179,8 @@ extensions.mojom.EventDispatcherCallbackRouter = class {
     this.helper_internal_.registerHandler(
         0,
         extensions.mojom.EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
-        this.dispatchEvent.createReceiverHandler(false /* expectsResponse */));
+        extensions.mojom.EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
+        this.dispatchEvent.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -215,6 +218,14 @@ extensions.mojom.DispatchEventParamsSpec =
  * @export
  */
 extensions.mojom.EventDispatcher_DispatchEvent_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.EventDispatcher_DispatchEvent_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -422,6 +433,35 @@ extensions.mojom.EventDispatcher_DispatchEvent_Params = class {
     this.params;
     /** @export { !mojoBase.mojom.ListValue } */
     this.eventArgs;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
+    'EventDispatcher_DispatchEvent_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'eventWillRunInLazyBackgroundPageScript', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+extensions.mojom.EventDispatcher_DispatchEvent_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.eventWillRunInLazyBackgroundPageScript;
   }
 };
 

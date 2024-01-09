@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -110,6 +111,9 @@ LCPCriticalPathPredictorHost::IPCStableHashFunction LCPCriticalPathPredictorHost
     case internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name: {
       return &LCPCriticalPathPredictorHost::NotifyFetchedFont_Sym::IPCStableHash;
     }
+    case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name: {
+      return &LCPCriticalPathPredictorHost::NotifyFetchedSubresource_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -127,6 +131,8 @@ const char* LCPCriticalPathPredictorHost::MessageToMethodName_(mojo::Message& me
             return "Receive blink::mojom::LCPCriticalPathPredictorHost::SetLcpInfluencerScriptUrls";
       case internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
             return "Receive blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedFont";
+      case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name:
+            return "Receive blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedSubresource";
     }
   } else {
     switch (message.name()) {
@@ -136,6 +142,8 @@ const char* LCPCriticalPathPredictorHost::MessageToMethodName_(mojo::Message& me
             return "Receive reply blink::mojom::LCPCriticalPathPredictorHost::SetLcpInfluencerScriptUrls";
       case internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
             return "Receive reply blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedFont";
+      case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name:
+            return "Receive reply blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedSubresource";
     }
   }
   return "Receive unknown mojo message";
@@ -189,6 +197,19 @@ uint32_t LCPCriticalPathPredictorHost::NotifyFetchedFont_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LCPCriticalPathPredictorHost::NotifyFetchedSubresource_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedSubresource");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 LCPCriticalPathPredictorHostProxy::LCPCriticalPathPredictorHostProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -196,7 +217,7 @@ LCPCriticalPathPredictorHostProxy::LCPCriticalPathPredictorHostProxy(mojo::Messa
 }
 
 void LCPCriticalPathPredictorHostProxy::SetLcpElementLocator(
-    const std::string& in_lcp_element_locator) {
+    const std::string& in_lcp_element_locator, std::optional<uint32_t> in_predicted_lcp_index) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LCPCriticalPathPredictorHost::SetLcpElementLocator", "input_parameters",
@@ -205,16 +226,22 @@ void LCPCriticalPathPredictorHostProxy::SetLcpElementLocator(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("lcp_element_locator"), in_lcp_element_locator,
                         "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("predicted_lcp_index"), in_predicted_lcp_index,
+                        "<value of type std::optional<uint32_t>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name, kFlags, 0, 0, nullptr);
@@ -233,6 +260,10 @@ void LCPCriticalPathPredictorHostProxy::SetLcpElementLocator(
       params->lcp_element_locator.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null lcp_element_locator in LCPCriticalPathPredictorHost.SetLcpElementLocator request");
+  params->predicted_lcp_index_$flag = in_predicted_lcp_index.has_value();
+  if (in_predicted_lcp_index.has_value()) {
+    params->predicted_lcp_index_$value = in_predicted_lcp_index.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LCPCriticalPathPredictorHost::Name_);
@@ -255,14 +286,17 @@ void LCPCriticalPathPredictorHostProxy::SetLcpInfluencerScriptUrls(
                         "<value of type const WTF::Vector<::blink::KURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name, kFlags, 0, 0, nullptr);
@@ -305,14 +339,17 @@ void LCPCriticalPathPredictorHostProxy::NotifyFetchedFont(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name, kFlags, 0, 0, nullptr);
@@ -341,6 +378,71 @@ void LCPCriticalPathPredictorHostProxy::NotifyFetchedFont(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void LCPCriticalPathPredictorHostProxy::NotifyFetchedSubresource(
+    const ::blink::KURL& in_subresource_url, ::base::TimeDelta in_subresource_load_start) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::LCPCriticalPathPredictorHost::NotifyFetchedSubresource", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("subresource_url"), in_subresource_url,
+                        "<value of type const ::blink::KURL&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("subresource_load_start"), in_subresource_load_start,
+                        "<value of type ::base::TimeDelta>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->subresource_url)::BaseType> subresource_url_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::UrlDataView>(
+      in_subresource_url, subresource_url_fragment);
+  params->subresource_url.Set(
+      subresource_url_fragment.is_null() ? nullptr : subresource_url_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->subresource_url.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null subresource_url in LCPCriticalPathPredictorHost.NotifyFetchedSubresource request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->subresource_load_start)::BaseType> subresource_load_start_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+      in_subresource_load_start, subresource_load_start_fragment);
+  params->subresource_load_start.Set(
+      subresource_load_start_fragment.is_null() ? nullptr : subresource_load_start_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->subresource_load_start.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null subresource_load_start in LCPCriticalPathPredictorHost.NotifyFetchedSubresource request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LCPCriticalPathPredictorHost::Name_);
+  message.set_method_name("NotifyFetchedSubresource");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool LCPCriticalPathPredictorHostStubDispatch::Accept(
     LCPCriticalPathPredictorHost* impl,
@@ -355,10 +457,14 @@ bool LCPCriticalPathPredictorHostStubDispatch::Accept(
       
       bool success = true;
       std::string p_lcp_element_locator{};
+      std::optional<uint32_t> p_predicted_lcp_index{};
       LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLcpElementLocator(&p_lcp_element_locator))
         success = false;
+      if (success) {
+        p_predicted_lcp_index = input_data_view.predicted_lcp_index();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -369,7 +475,8 @@ bool LCPCriticalPathPredictorHostStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetLcpElementLocator(
-std::move(p_lcp_element_locator));
+std::move(p_lcp_element_locator), 
+std::move(p_predicted_lcp_index));
       return true;
     }
     case internal::kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name: {
@@ -424,6 +531,36 @@ std::move(p_lcp_influencer_scripts));
 std::move(p_font_url));
       return true;
     }
+    case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data* params =
+          reinterpret_cast<internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::blink::KURL p_subresource_url{};
+      ::base::TimeDelta p_subresource_load_start{};
+      LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadSubresourceUrl(&p_subresource_url))
+        success = false;
+      if (success && !input_data_view.ReadSubresourceLoadStart(&p_subresource_load_start))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LCPCriticalPathPredictorHost::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->NotifyFetchedSubresource(
+std::move(p_subresource_url), 
+std::move(p_subresource_load_start));
+      return true;
+    }
   }
   return false;
 }
@@ -446,17 +583,22 @@ bool LCPCriticalPathPredictorHostStubDispatch::AcceptWithResponder(
     case internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name: {
       break;
     }
+    case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLCPCriticalPathPredictorHostValidationInfo[] = {
-    {&internal::LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data::Validate,
+    { &internal::LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data::Validate,
+    { &internal::LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data::Validate,
+    { &internal::LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -500,14 +642,17 @@ bool StructTraits<::blink::mojom::blink::LCPCriticalPathPredictorNavigationTimeH
 namespace blink::mojom::blink {
 
 
-void LCPCriticalPathPredictorHostInterceptorForTesting::SetLcpElementLocator(const std::string& lcp_element_locator) {
-  GetForwardingInterface()->SetLcpElementLocator(std::move(lcp_element_locator));
+void LCPCriticalPathPredictorHostInterceptorForTesting::SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) {
+  GetForwardingInterface()->SetLcpElementLocator(std::move(lcp_element_locator), std::move(predicted_lcp_index));
 }
 void LCPCriticalPathPredictorHostInterceptorForTesting::SetLcpInfluencerScriptUrls(const WTF::Vector<::blink::KURL>& lcp_influencer_scripts) {
   GetForwardingInterface()->SetLcpInfluencerScriptUrls(std::move(lcp_influencer_scripts));
 }
 void LCPCriticalPathPredictorHostInterceptorForTesting::NotifyFetchedFont(const ::blink::KURL& font_url) {
   GetForwardingInterface()->NotifyFetchedFont(std::move(font_url));
+}
+void LCPCriticalPathPredictorHostInterceptorForTesting::NotifyFetchedSubresource(const ::blink::KURL& subresource_url, ::base::TimeDelta subresource_load_start) {
+  GetForwardingInterface()->NotifyFetchedSubresource(std::move(subresource_url), std::move(subresource_load_start));
 }
 LCPCriticalPathPredictorHostAsyncWaiter::LCPCriticalPathPredictorHostAsyncWaiter(
     LCPCriticalPathPredictorHost* proxy) : proxy_(proxy) {}

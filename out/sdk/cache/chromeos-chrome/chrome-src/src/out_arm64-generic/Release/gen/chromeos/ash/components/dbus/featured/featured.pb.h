@@ -519,7 +519,6 @@ class SeedDetails final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCompressedDataFieldNumber = 1,
     kLocaleFieldNumber = 4,
     kPermanentConsistencyCountryFieldNumber = 6,
     kSessionConsistencyCountryFieldNumber = 7,
@@ -529,20 +528,6 @@ class SeedDetails final :
     kFetchTimeFieldNumber = 10,
     kMilestoneFieldNumber = 5,
   };
-  // bytes compressed_data = 1;
-  void clear_compressed_data();
-  const std::string& compressed_data() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_compressed_data(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_compressed_data();
-  PROTOBUF_NODISCARD std::string* release_compressed_data();
-  void set_allocated_compressed_data(std::string* compressed_data);
-  private:
-  const std::string& _internal_compressed_data() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_compressed_data(const std::string& value);
-  std::string* _internal_mutable_compressed_data();
-  public:
-
   // string locale = 4;
   void clear_locale();
   const std::string& locale() const;
@@ -647,7 +632,6 @@ class SeedDetails final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr compressed_data_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr locale_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr permanent_consistency_country_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_consistency_country_;
@@ -1458,56 +1442,6 @@ inline void FeatureOverride::set_allocated_group_name(std::string* group_name) {
 // -------------------------------------------------------------------
 
 // SeedDetails
-
-// bytes compressed_data = 1;
-inline void SeedDetails::clear_compressed_data() {
-  compressed_data_.ClearToEmpty();
-}
-inline const std::string& SeedDetails::compressed_data() const {
-  // @@protoc_insertion_point(field_get:featured.SeedDetails.compressed_data)
-  return _internal_compressed_data();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SeedDetails::set_compressed_data(ArgT0&& arg0, ArgT... args) {
- 
- compressed_data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:featured.SeedDetails.compressed_data)
-}
-inline std::string* SeedDetails::mutable_compressed_data() {
-  std::string* _s = _internal_mutable_compressed_data();
-  // @@protoc_insertion_point(field_mutable:featured.SeedDetails.compressed_data)
-  return _s;
-}
-inline const std::string& SeedDetails::_internal_compressed_data() const {
-  return compressed_data_.Get();
-}
-inline void SeedDetails::_internal_set_compressed_data(const std::string& value) {
-  
-  compressed_data_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SeedDetails::_internal_mutable_compressed_data() {
-  
-  return compressed_data_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SeedDetails::release_compressed_data() {
-  // @@protoc_insertion_point(field_release:featured.SeedDetails.compressed_data)
-  return compressed_data_.Release();
-}
-inline void SeedDetails::set_allocated_compressed_data(std::string* compressed_data) {
-  if (compressed_data != nullptr) {
-    
-  } else {
-    
-  }
-  compressed_data_.SetAllocated(compressed_data, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (compressed_data_.IsDefault()) {
-    compressed_data_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.compressed_data)
-}
 
 // string locale = 4;
 inline void SeedDetails::clear_locale() {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/enhanced_network_tts/mojom/enhanced_network_tts.mojom-features.h"
 #include "chromeos/ash/components/enhanced_network_tts/mojom/enhanced_network_tts.mojom-shared.h"
 #include "chromeos/ash/components/enhanced_network_tts/mojom/enhanced_network_tts.mojom-forward.h"
 #include <string>
@@ -288,8 +289,8 @@ class  TtsRequest {
   TtsRequest(
       const std::string& utterance,
       float rate,
-      const absl::optional<std::string>& voice,
-      const absl::optional<std::string>& lang);
+      const std::optional<std::string>& voice,
+      const std::optional<std::string>& lang);
 
 
   ~TtsRequest();
@@ -371,9 +372,9 @@ class  TtsRequest {
   
   float rate;
   
-  absl::optional<std::string> voice;
+  std::optional<std::string> voice;
   
-  absl::optional<std::string> lang;
+  std::optional<std::string> lang;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -578,17 +579,17 @@ class  TtsResponse {
   // Construct an instance holding |error_code|.
   static TtsResponsePtr
   NewErrorCode(
-      TtsRequestError error_code) {
+      TtsRequestError value) {
     auto result = TtsResponsePtr(absl::in_place);
-    result->set_error_code(std::move(error_code));
+    result->set_error_code(std::move(value));
     return result;
   }
   // Construct an instance holding |data|.
   static TtsResponsePtr
   NewData(
-      TtsDataPtr data) {
+      TtsDataPtr value) {
     auto result = TtsResponsePtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
 

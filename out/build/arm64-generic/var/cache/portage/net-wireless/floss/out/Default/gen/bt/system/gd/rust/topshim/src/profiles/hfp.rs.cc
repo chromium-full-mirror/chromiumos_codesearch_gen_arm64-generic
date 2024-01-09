@@ -769,6 +769,7 @@ namespace bluetooth {
     namespace rust {
       struct TelephonyDeviceStatus;
       enum class CallState : ::std::uint8_t;
+      enum class CallSource : ::std::uint8_t;
       struct CallInfo;
       struct PhoneState;
       enum class CallHoldCommand : ::std::uint8_t;
@@ -804,11 +805,20 @@ enum class CallState : ::std::uint8_t {
 };
 #endif // CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallState
 
+#ifndef CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+#define CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+enum class CallSource : ::std::uint8_t {
+  CRAS = 0,
+  HID = 1,
+};
+#endif // CXXBRIDGE1_ENUM_bluetooth$topshim$rust$CallSource
+
 #ifndef CXXBRIDGE1_STRUCT_bluetooth$topshim$rust$CallInfo
 #define CXXBRIDGE1_STRUCT_bluetooth$topshim$rust$CallInfo
 struct CallInfo final {
   ::std::int32_t index;
   bool dir_incoming;
+  ::bluetooth::topshim::rust::CallSource source;
   ::bluetooth::topshim::rust::CallState state;
   ::rust::String number;
 
@@ -842,7 +852,7 @@ enum class CallHoldCommand : ::std::uint8_t {
 
 static_assert(
     ::rust::IsRelocatable<::bluetooth::topshim::rust::RawAddress>::value,
-    "type bluetooth::topshim::rust::RawAddress should be trivially move constructible and trivially destructible in C++ to be used as an argument of `connect`, `connect_audio`, `set_active_device` in Rust");
+    "type bluetooth::topshim::rust::RawAddress should be trivially move constructible and trivially destructible in C++ to be used as an argument of `interop_insert_call_when_sco_start`, `connect`, `connect_audio` in Rust");
 
 namespace bluetooth {
 namespace topshim {
@@ -851,6 +861,11 @@ extern "C" {
 ::bluetooth::topshim::rust::HfpIntf *bluetooth$topshim$rust$cxxbridge1$GetHfpProfile(::std::uint8_t const *btif) noexcept {
   ::std::unique_ptr<::bluetooth::topshim::rust::HfpIntf> (*GetHfpProfile$)(::std::uint8_t const *) = ::bluetooth::topshim::rust::GetHfpProfile;
   return GetHfpProfile$(btif).release();
+}
+
+bool bluetooth$topshim$rust$cxxbridge1$interop_insert_call_when_sco_start(::bluetooth::topshim::rust::RawAddress *bt_addr) noexcept {
+  bool (*interop_insert_call_when_sco_start$)(::bluetooth::topshim::rust::RawAddress) = ::bluetooth::topshim::rust::interop_insert_call_when_sco_start;
+  return interop_insert_call_when_sco_start$(::std::move(*bt_addr));
 }
 
 ::std::int32_t bluetooth$topshim$rust$cxxbridge1$HfpIntf$init(::bluetooth::topshim::rust::HfpIntf &self) noexcept {
@@ -876,6 +891,11 @@ extern "C" {
 ::std::int32_t bluetooth$topshim$rust$cxxbridge1$HfpIntf$set_volume(::bluetooth::topshim::rust::HfpIntf &self, ::std::int8_t volume, ::bluetooth::topshim::rust::RawAddress *bt_addr) noexcept {
   ::std::int32_t (::bluetooth::topshim::rust::HfpIntf::*set_volume$)(::std::int8_t, ::bluetooth::topshim::rust::RawAddress) = &::bluetooth::topshim::rust::HfpIntf::set_volume;
   return (self.*set_volume$)(volume, ::std::move(*bt_addr));
+}
+
+::std::uint32_t bluetooth$topshim$rust$cxxbridge1$HfpIntf$set_mic_volume(::bluetooth::topshim::rust::HfpIntf &self, ::std::int8_t volume, ::bluetooth::topshim::rust::RawAddress *bt_addr) noexcept {
+  ::std::uint32_t (::bluetooth::topshim::rust::HfpIntf::*set_mic_volume$)(::std::int8_t, ::bluetooth::topshim::rust::RawAddress) = &::bluetooth::topshim::rust::HfpIntf::set_mic_volume;
+  return (self.*set_mic_volume$)(volume, ::std::move(*bt_addr));
 }
 
 ::std::uint32_t bluetooth$topshim$rust$cxxbridge1$HfpIntf$disconnect(::bluetooth::topshim::rust::HfpIntf &self, ::bluetooth::topshim::rust::RawAddress *bt_addr) noexcept {
@@ -929,6 +949,8 @@ void bluetooth$topshim$rust$cxxbridge1$hfp_audio_state_callback(::std::uint32_t 
 
 void bluetooth$topshim$rust$cxxbridge1$hfp_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress *addr) noexcept;
 
+void bluetooth$topshim$rust$cxxbridge1$hfp_mic_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress *addr) noexcept;
+
 void bluetooth$topshim$rust$cxxbridge1$hfp_vendor_specific_at_command_callback(::rust::String *at_string, ::bluetooth::topshim::rust::RawAddress *addr) noexcept;
 
 void bluetooth$topshim$rust$cxxbridge1$hfp_battery_level_update_callback(::std::uint8_t battery_level, ::bluetooth::topshim::rust::RawAddress *addr) noexcept;
@@ -965,6 +987,11 @@ void hfp_audio_state_callback(::std::uint32_t state, ::bluetooth::topshim::rust:
 void hfp_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress addr) noexcept {
   ::rust::ManuallyDrop<::bluetooth::topshim::rust::RawAddress> addr$(::std::move(addr));
   bluetooth$topshim$rust$cxxbridge1$hfp_volume_update_callback(volume, &addr$.value);
+}
+
+void hfp_mic_volume_update_callback(::std::uint8_t volume, ::bluetooth::topshim::rust::RawAddress addr) noexcept {
+  ::rust::ManuallyDrop<::bluetooth::topshim::rust::RawAddress> addr$(::std::move(addr));
+  bluetooth$topshim$rust$cxxbridge1$hfp_mic_volume_update_callback(volume, &addr$.value);
 }
 
 void hfp_vendor_specific_at_command_callback(::rust::String at_string, ::bluetooth::topshim::rust::RawAddress addr) noexcept {

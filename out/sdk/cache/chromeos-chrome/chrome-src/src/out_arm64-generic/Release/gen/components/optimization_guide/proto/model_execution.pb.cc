@@ -35,7 +35,8 @@ struct ExecuteRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExecuteRequestDefaultTypeInternal _ExecuteRequest_default_instance_;
 PROTOBUF_CONSTEXPR ExecuteResponse::ExecuteResponse(
     ::_pbi::ConstantInitialized)
-  : model_version_(int64_t{0})
+  : server_execution_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , model_version_(int64_t{0})
   , _oneof_case_{}{}
 struct ExecuteResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ExecuteResponseDefaultTypeInternal()
@@ -46,11 +47,346 @@ struct ExecuteResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExecuteResponseDefaultTypeInternal _ExecuteResponse_default_instance_;
+PROTOBUF_CONSTEXPR ErrorResponse::ErrorResponse(
+    ::_pbi::ConstantInitialized)
+  : error_state_(0)
+{}
+struct ErrorResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ErrorResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ErrorResponseDefaultTypeInternal() {}
+  union {
+    ErrorResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ErrorResponseDefaultTypeInternal _ErrorResponse_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelExecutionConfig::OnDeviceModelExecutionConfig(
+    ::_pbi::ConstantInitialized)
+  : feature_configs_(){}
+struct OnDeviceModelExecutionConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelExecutionConfigDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelExecutionConfigDefaultTypeInternal() {}
+  union {
+    OnDeviceModelExecutionConfig _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelExecutionConfigDefaultTypeInternal _OnDeviceModelExecutionConfig_default_instance_;
+PROTOBUF_CONSTEXPR RedactRule::RedactRule(
+    ::_pbi::ConstantInitialized)
+  : regex_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , replacement_string_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , behavior_(0)
+{}
+struct RedactRuleDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RedactRuleDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RedactRuleDefaultTypeInternal() {}
+  union {
+    RedactRule _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RedactRuleDefaultTypeInternal _RedactRule_default_instance_;
+PROTOBUF_CONSTEXPR RedactRules::RedactRules(
+    ::_pbi::ConstantInitialized)
+  : fields_to_check_()
+  , rules_(){}
+struct RedactRulesDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RedactRulesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RedactRulesDefaultTypeInternal() {}
+  union {
+    RedactRules _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RedactRulesDefaultTypeInternal _RedactRules_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelExecutionFeatureConfig::OnDeviceModelExecutionFeatureConfig(
+    ::_pbi::ConstantInitialized)
+  : input_config_(nullptr)
+  , output_config_(nullptr)
+  , feature_(0)
+{}
+struct OnDeviceModelExecutionFeatureConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelExecutionFeatureConfigDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelExecutionFeatureConfigDefaultTypeInternal() {}
+  union {
+    OnDeviceModelExecutionFeatureConfig _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelExecutionFeatureConfigDefaultTypeInternal _OnDeviceModelExecutionFeatureConfig_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelExecutionInputConfig::OnDeviceModelExecutionInputConfig(
+    ::_pbi::ConstantInitialized)
+  : execute_substitutions_()
+  , input_context_substitutions_()
+  , request_base_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct OnDeviceModelExecutionInputConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelExecutionInputConfigDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelExecutionInputConfigDefaultTypeInternal() {}
+  union {
+    OnDeviceModelExecutionInputConfig _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelExecutionInputConfigDefaultTypeInternal _OnDeviceModelExecutionInputConfig_default_instance_;
+PROTOBUF_CONSTEXPR SubstitutedString::SubstitutedString(
+    ::_pbi::ConstantInitialized)
+  : substitutions_()
+  , string_template_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , conditions_(nullptr)
+  , should_ignore_input_context_(false){}
+struct SubstitutedStringDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SubstitutedStringDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SubstitutedStringDefaultTypeInternal() {}
+  union {
+    SubstitutedString _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubstitutedStringDefaultTypeInternal _SubstitutedString_default_instance_;
+PROTOBUF_CONSTEXPR StringSubstitution::StringSubstitution(
+    ::_pbi::ConstantInitialized)
+  : candidates_(){}
+struct StringSubstitutionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StringSubstitutionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StringSubstitutionDefaultTypeInternal() {}
+  union {
+    StringSubstitution _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringSubstitutionDefaultTypeInternal _StringSubstitution_default_instance_;
+PROTOBUF_CONSTEXPR StringArg::StringArg(
+    ::_pbi::ConstantInitialized)
+  : conditions_(nullptr)
+  , _oneof_case_{}{}
+struct StringArgDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StringArgDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StringArgDefaultTypeInternal() {}
+  union {
+    StringArg _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringArgDefaultTypeInternal _StringArg_default_instance_;
+PROTOBUF_CONSTEXPR ProtoDescriptor::ProtoDescriptor(
+    ::_pbi::ConstantInitialized)
+  : tag_number_(0){}
+struct ProtoDescriptorDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProtoDescriptorDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProtoDescriptorDefaultTypeInternal() {}
+  union {
+    ProtoDescriptor _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProtoDescriptorDefaultTypeInternal _ProtoDescriptor_default_instance_;
+PROTOBUF_CONSTEXPR ProtoField::ProtoField(
+    ::_pbi::ConstantInitialized)
+  : proto_descriptors_(){}
+struct ProtoFieldDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProtoFieldDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProtoFieldDefaultTypeInternal() {}
+  union {
+    ProtoField _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProtoFieldDefaultTypeInternal _ProtoField_default_instance_;
+PROTOBUF_CONSTEXPR Value::Value(
+    ::_pbi::ConstantInitialized)
+  : _oneof_case_{}{}
+struct ValueDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ValueDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ValueDefaultTypeInternal() {}
+  union {
+    Value _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ValueDefaultTypeInternal _Value_default_instance_;
+PROTOBUF_CONSTEXPR ConditionList::ConditionList(
+    ::_pbi::ConstantInitialized)
+  : conditions_()
+  , condition_evaluation_type_(0)
+{}
+struct ConditionListDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ConditionListDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ConditionListDefaultTypeInternal() {}
+  union {
+    ConditionList _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConditionListDefaultTypeInternal _ConditionList_default_instance_;
+PROTOBUF_CONSTEXPR Condition::Condition(
+    ::_pbi::ConstantInitialized)
+  : proto_field_(nullptr)
+  , value_(nullptr)
+  , operator_type_(0)
+{}
+struct ConditionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ConditionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ConditionDefaultTypeInternal() {}
+  union {
+    Condition _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConditionDefaultTypeInternal _Condition_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelExecutionOutputConfig::OnDeviceModelExecutionOutputConfig(
+    ::_pbi::ConstantInitialized)
+  : proto_type_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , proto_field_(nullptr)
+  , redact_rules_(nullptr){}
+struct OnDeviceModelExecutionOutputConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelExecutionOutputConfigDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelExecutionOutputConfigDefaultTypeInternal() {}
+  union {
+    OnDeviceModelExecutionOutputConfig _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelExecutionOutputConfigDefaultTypeInternal _OnDeviceModelExecutionOutputConfig_default_instance_;
 }  // namespace proto
 }  // namespace optimization_guide
 namespace optimization_guide {
 namespace proto {
+bool ErrorState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ErrorState_strings[7] = {};
+
+static const char ErrorState_names[] =
+  "ERROR_STATE_DISABLED"
+  "ERROR_STATE_FILTERED"
+  "ERROR_STATE_INTERNAL_SERVER_ERROR_NO_RETRY"
+  "ERROR_STATE_INTERNAL_SERVER_ERROR_RETRY"
+  "ERROR_STATE_REQUEST_THROTTLED"
+  "ERROR_STATE_UNSPECIFIED"
+  "ERROR_STATE_UNSUPPORTED_LANGUAGE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ErrorState_entries[] = {
+  { {ErrorState_names + 0, 20}, 6 },
+  { {ErrorState_names + 20, 20}, 4 },
+  { {ErrorState_names + 40, 42}, 2 },
+  { {ErrorState_names + 82, 39}, 1 },
+  { {ErrorState_names + 121, 29}, 5 },
+  { {ErrorState_names + 150, 23}, 0 },
+  { {ErrorState_names + 173, 32}, 3 },
+};
+
+static const int ErrorState_entries_by_number[] = {
+  5, // 0 -> ERROR_STATE_UNSPECIFIED
+  3, // 1 -> ERROR_STATE_INTERNAL_SERVER_ERROR_RETRY
+  2, // 2 -> ERROR_STATE_INTERNAL_SERVER_ERROR_NO_RETRY
+  6, // 3 -> ERROR_STATE_UNSUPPORTED_LANGUAGE
+  1, // 4 -> ERROR_STATE_FILTERED
+  4, // 5 -> ERROR_STATE_REQUEST_THROTTLED
+  0, // 6 -> ERROR_STATE_DISABLED
+};
+
+const std::string& ErrorState_Name(
+    ErrorState value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ErrorState_entries,
+          ErrorState_entries_by_number,
+          7, ErrorState_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ErrorState_entries,
+      ErrorState_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ErrorState_strings[idx].get();
+}
+bool ErrorState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ErrorState* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ErrorState_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<ErrorState>(int_value);
+  }
+  return success;
+}
 bool ModelExecutionFeature_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ModelExecutionFeature_strings[5] = {};
+
+static const char ModelExecutionFeature_names[] =
+  "MODEL_EXECUTION_FEATURE_COMPOSE"
+  "MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION"
+  "MODEL_EXECUTION_FEATURE_TEST"
+  "MODEL_EXECUTION_FEATURE_UNSPECIFIED"
+  "MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ModelExecutionFeature_entries[] = {
+  { {ModelExecutionFeature_names + 0, 31}, 1 },
+  { {ModelExecutionFeature_names + 31, 40}, 2 },
+  { {ModelExecutionFeature_names + 71, 28}, 4 },
+  { {ModelExecutionFeature_names + 99, 35}, 0 },
+  { {ModelExecutionFeature_names + 134, 40}, 3 },
+};
+
+static const int ModelExecutionFeature_entries_by_number[] = {
+  3, // 0 -> MODEL_EXECUTION_FEATURE_UNSPECIFIED
+  0, // 1 -> MODEL_EXECUTION_FEATURE_COMPOSE
+  1, // 2 -> MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION
+  4, // 3 -> MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH
+  2, // 4 -> MODEL_EXECUTION_FEATURE_TEST
+};
+
+const std::string& ModelExecutionFeature_Name(
+    ModelExecutionFeature value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ModelExecutionFeature_entries,
+          ModelExecutionFeature_entries_by_number,
+          5, ModelExecutionFeature_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ModelExecutionFeature_entries,
+      ModelExecutionFeature_entries_by_number,
+      5, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ModelExecutionFeature_strings[idx].get();
+}
+bool ModelExecutionFeature_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ModelExecutionFeature* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ModelExecutionFeature_entries, 5, name, &int_value);
+  if (success) {
+    *value = static_cast<ModelExecutionFeature>(int_value);
+  }
+  return success;
+}
+bool RedactBehavior_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -62,50 +398,160 @@ bool ModelExecutionFeature_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ModelExecutionFeature_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RedactBehavior_strings[4] = {};
 
-static const char ModelExecutionFeature_names[] =
-  "MODEL_EXECUTION_FEATURE_COMPOSE"
-  "MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION"
-  "MODEL_EXECUTION_FEATURE_UNSPECIFIED"
-  "MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH";
+static const char RedactBehavior_names[] =
+  "REDACT_ALWAYS"
+  "REDACT_BEHAVIOR_UNSPECIFIED"
+  "REDACT_IF_ONLY_IN_OUTPUT"
+  "REJECT";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ModelExecutionFeature_entries[] = {
-  { {ModelExecutionFeature_names + 0, 31}, 1 },
-  { {ModelExecutionFeature_names + 31, 40}, 2 },
-  { {ModelExecutionFeature_names + 71, 35}, 0 },
-  { {ModelExecutionFeature_names + 106, 40}, 3 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RedactBehavior_entries[] = {
+  { {RedactBehavior_names + 0, 13}, 3 },
+  { {RedactBehavior_names + 13, 27}, 0 },
+  { {RedactBehavior_names + 40, 24}, 2 },
+  { {RedactBehavior_names + 64, 6}, 1 },
 };
 
-static const int ModelExecutionFeature_entries_by_number[] = {
-  2, // 0 -> MODEL_EXECUTION_FEATURE_UNSPECIFIED
-  0, // 1 -> MODEL_EXECUTION_FEATURE_COMPOSE
-  1, // 2 -> MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION
-  3, // 3 -> MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH
+static const int RedactBehavior_entries_by_number[] = {
+  1, // 0 -> REDACT_BEHAVIOR_UNSPECIFIED
+  3, // 1 -> REJECT
+  2, // 2 -> REDACT_IF_ONLY_IN_OUTPUT
+  0, // 3 -> REDACT_ALWAYS
 };
 
-const std::string& ModelExecutionFeature_Name(
-    ModelExecutionFeature value) {
+const std::string& RedactBehavior_Name(
+    RedactBehavior value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ModelExecutionFeature_entries,
-          ModelExecutionFeature_entries_by_number,
-          4, ModelExecutionFeature_strings);
+          RedactBehavior_entries,
+          RedactBehavior_entries_by_number,
+          4, RedactBehavior_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ModelExecutionFeature_entries,
-      ModelExecutionFeature_entries_by_number,
+      RedactBehavior_entries,
+      RedactBehavior_entries_by_number,
       4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ModelExecutionFeature_strings[idx].get();
+                     RedactBehavior_strings[idx].get();
 }
-bool ModelExecutionFeature_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ModelExecutionFeature* value) {
+bool RedactBehavior_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RedactBehavior* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ModelExecutionFeature_entries, 4, name, &int_value);
+      RedactBehavior_entries, 4, name, &int_value);
   if (success) {
-    *value = static_cast<ModelExecutionFeature>(int_value);
+    *value = static_cast<RedactBehavior>(int_value);
+  }
+  return success;
+}
+bool OperatorType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OperatorType_strings[3] = {};
+
+static const char OperatorType_names[] =
+  "OPERATOR_TYPE_EQUAL_TO"
+  "OPERATOR_TYPE_NOT_EQUAL_TO"
+  "OPERATOR_TYPE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OperatorType_entries[] = {
+  { {OperatorType_names + 0, 22}, 1 },
+  { {OperatorType_names + 22, 26}, 2 },
+  { {OperatorType_names + 48, 25}, 0 },
+};
+
+static const int OperatorType_entries_by_number[] = {
+  2, // 0 -> OPERATOR_TYPE_UNSPECIFIED
+  0, // 1 -> OPERATOR_TYPE_EQUAL_TO
+  1, // 2 -> OPERATOR_TYPE_NOT_EQUAL_TO
+};
+
+const std::string& OperatorType_Name(
+    OperatorType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          OperatorType_entries,
+          OperatorType_entries_by_number,
+          3, OperatorType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      OperatorType_entries,
+      OperatorType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     OperatorType_strings[idx].get();
+}
+bool OperatorType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OperatorType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      OperatorType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<OperatorType>(int_value);
+  }
+  return success;
+}
+bool ConditionEvaluationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConditionEvaluationType_strings[3] = {};
+
+static const char ConditionEvaluationType_names[] =
+  "CONDITION_EVALUATION_TYPE_AND"
+  "CONDITION_EVALUATION_TYPE_OR"
+  "CONDITION_EVALUATION_TYPE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ConditionEvaluationType_entries[] = {
+  { {ConditionEvaluationType_names + 0, 29}, 1 },
+  { {ConditionEvaluationType_names + 29, 28}, 2 },
+  { {ConditionEvaluationType_names + 57, 37}, 0 },
+};
+
+static const int ConditionEvaluationType_entries_by_number[] = {
+  2, // 0 -> CONDITION_EVALUATION_TYPE_UNSPECIFIED
+  0, // 1 -> CONDITION_EVALUATION_TYPE_AND
+  1, // 2 -> CONDITION_EVALUATION_TYPE_OR
+};
+
+const std::string& ConditionEvaluationType_Name(
+    ConditionEvaluationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ConditionEvaluationType_entries,
+          ConditionEvaluationType_entries_by_number,
+          3, ConditionEvaluationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ConditionEvaluationType_entries,
+      ConditionEvaluationType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ConditionEvaluationType_strings[idx].get();
+}
+bool ConditionEvaluationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ConditionEvaluationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ConditionEvaluationType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<ConditionEvaluationType>(int_value);
   }
   return success;
 }
@@ -364,14 +810,22 @@ class ExecuteResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<ExecuteResponse>()._has_bits_);
   static void set_has_model_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 2u;
   }
   static const ::optimization_guide::proto::Any& response_metadata(const ExecuteResponse* msg);
+  static const ::optimization_guide::proto::ErrorResponse& error_response(const ExecuteResponse* msg);
+  static void set_has_server_execution_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::optimization_guide::proto::Any&
 ExecuteResponse::_Internal::response_metadata(const ExecuteResponse* msg) {
   return *msg->response_.response_metadata_;
+}
+const ::optimization_guide::proto::ErrorResponse&
+ExecuteResponse::_Internal::error_response(const ExecuteResponse* msg) {
+  return *msg->response_.error_response_;
 }
 void ExecuteResponse::set_allocated_response_metadata(::optimization_guide::proto::Any* response_metadata) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -397,6 +851,21 @@ void ExecuteResponse::clear_response_metadata() {
     clear_has_response();
   }
 }
+void ExecuteResponse::set_allocated_error_response(::optimization_guide::proto::ErrorResponse* error_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_response();
+  if (error_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_response);
+    if (message_arena != submessage_arena) {
+      error_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_response, submessage_arena);
+    }
+    set_has_error_response();
+    response_.error_response_ = error_response;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.ExecuteResponse.error_response)
+}
 ExecuteResponse::ExecuteResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -407,6 +876,14 @@ ExecuteResponse::ExecuteResponse(const ExecuteResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  server_execution_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    server_execution_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_server_execution_id()) {
+    server_execution_id_.Set(from._internal_server_execution_id(), 
+      GetArenaForAllocation());
+  }
   model_version_ = from.model_version_;
   clear_has_response();
   switch (from.response_case()) {
@@ -414,8 +891,8 @@ ExecuteResponse::ExecuteResponse(const ExecuteResponse& from)
       _internal_mutable_response_metadata()->::optimization_guide::proto::Any::MergeFrom(from._internal_response_metadata());
       break;
     }
-    case kErrorMessage: {
-      _internal_set_error_message(from._internal_error_message());
+    case kErrorResponse: {
+      _internal_mutable_error_response()->::optimization_guide::proto::ErrorResponse::MergeFrom(from._internal_error_response());
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -426,6 +903,10 @@ ExecuteResponse::ExecuteResponse(const ExecuteResponse& from)
 }
 
 inline void ExecuteResponse::SharedCtor() {
+server_execution_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  server_execution_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 model_version_ = int64_t{0};
 clear_has_response();
 }
@@ -441,6 +922,7 @@ ExecuteResponse::~ExecuteResponse() {
 
 inline void ExecuteResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  server_execution_id_.Destroy();
   if (has_response()) {
     clear_response();
   }
@@ -459,8 +941,10 @@ void ExecuteResponse::clear_response() {
       }
       break;
     }
-    case kErrorMessage: {
-      response_.error_message_.Destroy();
+    case kErrorResponse: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete response_.error_response_;
+      }
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -477,6 +961,10 @@ void ExecuteResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    server_execution_id_.ClearNonDefaultToEmpty();
+  }
   model_version_ = int64_t{0};
   clear_response();
   _has_bits_.Clear();
@@ -507,11 +995,19 @@ const char* ExecuteResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // string error_message = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_error_message();
+      // optional string server_execution_id = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_server_execution_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.ErrorResponse error_response = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_response(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -548,25 +1044,31 @@ uint8_t* ExecuteResponse::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional int64 model_version = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_model_version(), target);
   }
 
-  switch (response_case()) {
-    case kResponseMetadata: {
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(2, _Internal::response_metadata(this),
-          _Internal::response_metadata(this).GetCachedSize(), target, stream);
-      break;
-    }
-    case kErrorMessage: {
-      target = stream->WriteStringMaybeAliased(
-          3, this->_internal_error_message(), target);
-      break;
-    }
-    default: ;
+  // .optimization_guide.proto.Any response_metadata = 2;
+  if (_internal_has_response_metadata()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::response_metadata(this),
+        _Internal::response_metadata(this).GetCachedSize(), target, stream);
   }
+
+  // optional string server_execution_id = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_server_execution_id(), target);
+  }
+
+  // .optimization_guide.proto.ErrorResponse error_response = 5;
+  if (_internal_has_error_response()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::error_response(this),
+        _Internal::error_response(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -583,12 +1085,21 @@ size_t ExecuteResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional int64 model_version = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_model_version());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string server_execution_id = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_server_execution_id());
+    }
 
+    // optional int64 model_version = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_model_version());
+    }
+
+  }
   switch (response_case()) {
     // .optimization_guide.proto.Any response_metadata = 2;
     case kResponseMetadata: {
@@ -597,11 +1108,11 @@ size_t ExecuteResponse::ByteSizeLong() const {
           *response_.response_metadata_);
       break;
     }
-    // string error_message = 3;
-    case kErrorMessage: {
+    // .optimization_guide.proto.ErrorResponse error_response = 5;
+    case kErrorResponse: {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_error_message());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *response_.error_response_);
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -628,16 +1139,23 @@ void ExecuteResponse::MergeFrom(const ExecuteResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_model_version()) {
-    _internal_set_model_version(from._internal_model_version());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_server_execution_id(from._internal_server_execution_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      model_version_ = from.model_version_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   switch (from.response_case()) {
     case kResponseMetadata: {
       _internal_mutable_response_metadata()->::optimization_guide::proto::Any::MergeFrom(from._internal_response_metadata());
       break;
     }
-    case kErrorMessage: {
-      _internal_set_error_message(from._internal_error_message());
+    case kErrorResponse: {
+      _internal_mutable_error_response()->::optimization_guide::proto::ErrorResponse::MergeFrom(from._internal_error_response());
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -660,8 +1178,14 @@ bool ExecuteResponse::IsInitialized() const {
 
 void ExecuteResponse::InternalSwap(ExecuteResponse* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &server_execution_id_, lhs_arena,
+      &other->server_execution_id_, rhs_arena
+  );
   swap(model_version_, other->model_version_);
   swap(response_, other->response_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
@@ -669,6 +1193,3742 @@ void ExecuteResponse::InternalSwap(ExecuteResponse* other) {
 
 std::string ExecuteResponse::GetTypeName() const {
   return "optimization_guide.proto.ExecuteResponse";
+}
+
+
+// ===================================================================
+
+class ErrorResponse::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ErrorResponse>()._has_bits_);
+  static void set_has_error_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ErrorResponse::ErrorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.ErrorResponse)
+}
+ErrorResponse::ErrorResponse(const ErrorResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  error_state_ = from.error_state_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.ErrorResponse)
+}
+
+inline void ErrorResponse::SharedCtor() {
+error_state_ = 0;
+}
+
+ErrorResponse::~ErrorResponse() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.ErrorResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ErrorResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ErrorResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ErrorResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.ErrorResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  error_state_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ErrorResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .optimization_guide.proto.ErrorState error_state = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::optimization_guide::proto::ErrorState_IsValid(val))) {
+            _internal_set_error_state(static_cast<::optimization_guide::proto::ErrorState>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ErrorResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.ErrorResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.ErrorState error_state = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error_state(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.ErrorResponse)
+  return target;
+}
+
+size_t ErrorResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.ErrorResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .optimization_guide.proto.ErrorState error_state = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error_state());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ErrorResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ErrorResponse*>(
+      &from));
+}
+
+void ErrorResponse::MergeFrom(const ErrorResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.ErrorResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_error_state()) {
+    _internal_set_error_state(from._internal_error_state());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ErrorResponse::CopyFrom(const ErrorResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.ErrorResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ErrorResponse::IsInitialized() const {
+  return true;
+}
+
+void ErrorResponse::InternalSwap(ErrorResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(error_state_, other->error_state_);
+}
+
+std::string ErrorResponse::GetTypeName() const {
+  return "optimization_guide.proto.ErrorResponse";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelExecutionConfig::_Internal {
+ public:
+};
+
+OnDeviceModelExecutionConfig::OnDeviceModelExecutionConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  feature_configs_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelExecutionConfig)
+}
+OnDeviceModelExecutionConfig::OnDeviceModelExecutionConfig(const OnDeviceModelExecutionConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      feature_configs_(from.feature_configs_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelExecutionConfig)
+}
+
+inline void OnDeviceModelExecutionConfig::SharedCtor() {
+}
+
+OnDeviceModelExecutionConfig::~OnDeviceModelExecutionConfig() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelExecutionConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void OnDeviceModelExecutionConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelExecutionConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  feature_configs_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelExecutionConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_configs = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_feature_configs(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelExecutionConfig::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_configs = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_feature_configs_size()); i < n; i++) {
+    const auto& repfield = this->_internal_feature_configs(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  return target;
+}
+
+size_t OnDeviceModelExecutionConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_configs = 1;
+  total_size += 1UL * this->_internal_feature_configs_size();
+  for (const auto& msg : this->feature_configs_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelExecutionConfig::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelExecutionConfig*>(
+      &from));
+}
+
+void OnDeviceModelExecutionConfig::MergeFrom(const OnDeviceModelExecutionConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  feature_configs_.MergeFrom(from.feature_configs_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelExecutionConfig::CopyFrom(const OnDeviceModelExecutionConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelExecutionConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelExecutionConfig::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelExecutionConfig::InternalSwap(OnDeviceModelExecutionConfig* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  feature_configs_.InternalSwap(&other->feature_configs_);
+}
+
+std::string OnDeviceModelExecutionConfig::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelExecutionConfig";
+}
+
+
+// ===================================================================
+
+class RedactRule::_Internal {
+ public:
+  using HasBits = decltype(std::declval<RedactRule>()._has_bits_);
+  static void set_has_behavior(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_regex(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_replacement_string(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+RedactRule::RedactRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.RedactRule)
+}
+RedactRule::RedactRule(const RedactRule& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  regex_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    regex_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_regex()) {
+    regex_.Set(from._internal_regex(), 
+      GetArenaForAllocation());
+  }
+  replacement_string_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    replacement_string_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_replacement_string()) {
+    replacement_string_.Set(from._internal_replacement_string(), 
+      GetArenaForAllocation());
+  }
+  behavior_ = from.behavior_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.RedactRule)
+}
+
+inline void RedactRule::SharedCtor() {
+regex_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  regex_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+replacement_string_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  replacement_string_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+behavior_ = 0;
+}
+
+RedactRule::~RedactRule() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.RedactRule)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RedactRule::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  regex_.Destroy();
+  replacement_string_.Destroy();
+}
+
+void RedactRule::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void RedactRule::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.RedactRule)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      regex_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      replacement_string_.ClearNonDefaultToEmpty();
+    }
+  }
+  behavior_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* RedactRule::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .optimization_guide.proto.RedactBehavior behavior = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::optimization_guide::proto::RedactBehavior_IsValid(val))) {
+            _internal_set_behavior(static_cast<::optimization_guide::proto::RedactBehavior>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string regex = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_regex();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string replacement_string = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_replacement_string();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RedactRule::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.RedactRule)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.RedactBehavior behavior = 1;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_behavior(), target);
+  }
+
+  // optional string regex = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_regex(), target);
+  }
+
+  // optional string replacement_string = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_replacement_string(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.RedactRule)
+  return target;
+}
+
+size_t RedactRule::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.RedactRule)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string regex = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_regex());
+    }
+
+    // optional string replacement_string = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_replacement_string());
+    }
+
+    // optional .optimization_guide.proto.RedactBehavior behavior = 1;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_behavior());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RedactRule::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const RedactRule*>(
+      &from));
+}
+
+void RedactRule::MergeFrom(const RedactRule& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.RedactRule)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_regex(from._internal_regex());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_replacement_string(from._internal_replacement_string());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      behavior_ = from.behavior_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void RedactRule::CopyFrom(const RedactRule& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.RedactRule)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RedactRule::IsInitialized() const {
+  return true;
+}
+
+void RedactRule::InternalSwap(RedactRule* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &regex_, lhs_arena,
+      &other->regex_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &replacement_string_, lhs_arena,
+      &other->replacement_string_, rhs_arena
+  );
+  swap(behavior_, other->behavior_);
+}
+
+std::string RedactRule::GetTypeName() const {
+  return "optimization_guide.proto.RedactRule";
+}
+
+
+// ===================================================================
+
+class RedactRules::_Internal {
+ public:
+};
+
+RedactRules::RedactRules(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  fields_to_check_(arena),
+  rules_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.RedactRules)
+}
+RedactRules::RedactRules(const RedactRules& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      fields_to_check_(from.fields_to_check_),
+      rules_(from.rules_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.RedactRules)
+}
+
+inline void RedactRules::SharedCtor() {
+}
+
+RedactRules::~RedactRules() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.RedactRules)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RedactRules::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void RedactRules::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void RedactRules::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.RedactRules)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  fields_to_check_.Clear();
+  rules_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* RedactRules::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .optimization_guide.proto.ProtoField fields_to_check = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_fields_to_check(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .optimization_guide.proto.RedactRule rules = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_rules(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RedactRules::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.RedactRules)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.ProtoField fields_to_check = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_fields_to_check_size()); i < n; i++) {
+    const auto& repfield = this->_internal_fields_to_check(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .optimization_guide.proto.RedactRule rules = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_rules_size()); i < n; i++) {
+    const auto& repfield = this->_internal_rules(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.RedactRules)
+  return target;
+}
+
+size_t RedactRules::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.RedactRules)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.ProtoField fields_to_check = 1;
+  total_size += 1UL * this->_internal_fields_to_check_size();
+  for (const auto& msg : this->fields_to_check_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .optimization_guide.proto.RedactRule rules = 2;
+  total_size += 1UL * this->_internal_rules_size();
+  for (const auto& msg : this->rules_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RedactRules::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const RedactRules*>(
+      &from));
+}
+
+void RedactRules::MergeFrom(const RedactRules& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.RedactRules)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  fields_to_check_.MergeFrom(from.fields_to_check_);
+  rules_.MergeFrom(from.rules_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void RedactRules::CopyFrom(const RedactRules& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.RedactRules)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RedactRules::IsInitialized() const {
+  return true;
+}
+
+void RedactRules::InternalSwap(RedactRules* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  fields_to_check_.InternalSwap(&other->fields_to_check_);
+  rules_.InternalSwap(&other->rules_);
+}
+
+std::string RedactRules::GetTypeName() const {
+  return "optimization_guide.proto.RedactRules";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelExecutionFeatureConfig::_Internal {
+ public:
+  using HasBits = decltype(std::declval<OnDeviceModelExecutionFeatureConfig>()._has_bits_);
+  static void set_has_feature(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig& input_config(const OnDeviceModelExecutionFeatureConfig* msg);
+  static void set_has_input_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig& output_config(const OnDeviceModelExecutionFeatureConfig* msg);
+  static void set_has_output_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::optimization_guide::proto::OnDeviceModelExecutionInputConfig&
+OnDeviceModelExecutionFeatureConfig::_Internal::input_config(const OnDeviceModelExecutionFeatureConfig* msg) {
+  return *msg->input_config_;
+}
+const ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig&
+OnDeviceModelExecutionFeatureConfig::_Internal::output_config(const OnDeviceModelExecutionFeatureConfig* msg) {
+  return *msg->output_config_;
+}
+OnDeviceModelExecutionFeatureConfig::OnDeviceModelExecutionFeatureConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+}
+OnDeviceModelExecutionFeatureConfig::OnDeviceModelExecutionFeatureConfig(const OnDeviceModelExecutionFeatureConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_input_config()) {
+    input_config_ = new ::optimization_guide::proto::OnDeviceModelExecutionInputConfig(*from.input_config_);
+  } else {
+    input_config_ = nullptr;
+  }
+  if (from._internal_has_output_config()) {
+    output_config_ = new ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig(*from.output_config_);
+  } else {
+    output_config_ = nullptr;
+  }
+  feature_ = from.feature_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+}
+
+inline void OnDeviceModelExecutionFeatureConfig::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&input_config_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&feature_) -
+    reinterpret_cast<char*>(&input_config_)) + sizeof(feature_));
+}
+
+OnDeviceModelExecutionFeatureConfig::~OnDeviceModelExecutionFeatureConfig() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelExecutionFeatureConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete input_config_;
+  if (this != internal_default_instance()) delete output_config_;
+}
+
+void OnDeviceModelExecutionFeatureConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelExecutionFeatureConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(input_config_ != nullptr);
+      input_config_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(output_config_ != nullptr);
+      output_config_->Clear();
+    }
+  }
+  feature_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelExecutionFeatureConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::optimization_guide::proto::ModelExecutionFeature_IsValid(val))) {
+            _internal_set_feature(static_cast<::optimization_guide::proto::ModelExecutionFeature>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.OnDeviceModelExecutionInputConfig input_config = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_input_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.OnDeviceModelExecutionOutputConfig output_config = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_output_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelExecutionFeatureConfig::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_feature(), target);
+  }
+
+  // optional .optimization_guide.proto.OnDeviceModelExecutionInputConfig input_config = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::input_config(this),
+        _Internal::input_config(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .optimization_guide.proto.OnDeviceModelExecutionOutputConfig output_config = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::output_config(this),
+        _Internal::output_config(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  return target;
+}
+
+size_t OnDeviceModelExecutionFeatureConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional .optimization_guide.proto.OnDeviceModelExecutionInputConfig input_config = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *input_config_);
+    }
+
+    // optional .optimization_guide.proto.OnDeviceModelExecutionOutputConfig output_config = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *output_config_);
+    }
+
+    // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_feature());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelExecutionFeatureConfig::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelExecutionFeatureConfig*>(
+      &from));
+}
+
+void OnDeviceModelExecutionFeatureConfig::MergeFrom(const OnDeviceModelExecutionFeatureConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_input_config()->::optimization_guide::proto::OnDeviceModelExecutionInputConfig::MergeFrom(from._internal_input_config());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_output_config()->::optimization_guide::proto::OnDeviceModelExecutionOutputConfig::MergeFrom(from._internal_output_config());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      feature_ = from.feature_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelExecutionFeatureConfig::CopyFrom(const OnDeviceModelExecutionFeatureConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelExecutionFeatureConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelExecutionFeatureConfig::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelExecutionFeatureConfig::InternalSwap(OnDeviceModelExecutionFeatureConfig* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OnDeviceModelExecutionFeatureConfig, feature_)
+      + sizeof(OnDeviceModelExecutionFeatureConfig::feature_)
+      - PROTOBUF_FIELD_OFFSET(OnDeviceModelExecutionFeatureConfig, input_config_)>(
+          reinterpret_cast<char*>(&input_config_),
+          reinterpret_cast<char*>(&other->input_config_));
+}
+
+std::string OnDeviceModelExecutionFeatureConfig::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelExecutionFeatureConfig";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelExecutionInputConfig::_Internal {
+ public:
+  using HasBits = decltype(std::declval<OnDeviceModelExecutionInputConfig>()._has_bits_);
+  static void set_has_request_base_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+OnDeviceModelExecutionInputConfig::OnDeviceModelExecutionInputConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  execute_substitutions_(arena),
+  input_context_substitutions_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+}
+OnDeviceModelExecutionInputConfig::OnDeviceModelExecutionInputConfig(const OnDeviceModelExecutionInputConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      execute_substitutions_(from.execute_substitutions_),
+      input_context_substitutions_(from.input_context_substitutions_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  request_base_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    request_base_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_request_base_name()) {
+    request_base_name_.Set(from._internal_request_base_name(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+}
+
+inline void OnDeviceModelExecutionInputConfig::SharedCtor() {
+request_base_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  request_base_name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+OnDeviceModelExecutionInputConfig::~OnDeviceModelExecutionInputConfig() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelExecutionInputConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  request_base_name_.Destroy();
+}
+
+void OnDeviceModelExecutionInputConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelExecutionInputConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  execute_substitutions_.Clear();
+  input_context_substitutions_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    request_base_name_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelExecutionInputConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string request_base_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_request_base_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .optimization_guide.proto.SubstitutedString execute_substitutions = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_execute_substitutions(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .optimization_guide.proto.SubstitutedString input_context_substitutions = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_input_context_substitutions(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelExecutionInputConfig::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string request_base_name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_request_base_name(), target);
+  }
+
+  // repeated .optimization_guide.proto.SubstitutedString execute_substitutions = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_execute_substitutions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_execute_substitutions(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .optimization_guide.proto.SubstitutedString input_context_substitutions = 3;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_input_context_substitutions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_input_context_substitutions(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  return target;
+}
+
+size_t OnDeviceModelExecutionInputConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.SubstitutedString execute_substitutions = 2;
+  total_size += 1UL * this->_internal_execute_substitutions_size();
+  for (const auto& msg : this->execute_substitutions_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .optimization_guide.proto.SubstitutedString input_context_substitutions = 3;
+  total_size += 1UL * this->_internal_input_context_substitutions_size();
+  for (const auto& msg : this->input_context_substitutions_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional string request_base_name = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_request_base_name());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelExecutionInputConfig::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelExecutionInputConfig*>(
+      &from));
+}
+
+void OnDeviceModelExecutionInputConfig::MergeFrom(const OnDeviceModelExecutionInputConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  execute_substitutions_.MergeFrom(from.execute_substitutions_);
+  input_context_substitutions_.MergeFrom(from.input_context_substitutions_);
+  if (from._internal_has_request_base_name()) {
+    _internal_set_request_base_name(from._internal_request_base_name());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelExecutionInputConfig::CopyFrom(const OnDeviceModelExecutionInputConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelExecutionInputConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelExecutionInputConfig::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelExecutionInputConfig::InternalSwap(OnDeviceModelExecutionInputConfig* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  execute_substitutions_.InternalSwap(&other->execute_substitutions_);
+  input_context_substitutions_.InternalSwap(&other->input_context_substitutions_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &request_base_name_, lhs_arena,
+      &other->request_base_name_, rhs_arena
+  );
+}
+
+std::string OnDeviceModelExecutionInputConfig::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelExecutionInputConfig";
+}
+
+
+// ===================================================================
+
+class SubstitutedString::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SubstitutedString>()._has_bits_);
+  static void set_has_string_template(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::optimization_guide::proto::ConditionList& conditions(const SubstitutedString* msg);
+  static void set_has_conditions(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_should_ignore_input_context(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+const ::optimization_guide::proto::ConditionList&
+SubstitutedString::_Internal::conditions(const SubstitutedString* msg) {
+  return *msg->conditions_;
+}
+SubstitutedString::SubstitutedString(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  substitutions_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.SubstitutedString)
+}
+SubstitutedString::SubstitutedString(const SubstitutedString& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      substitutions_(from.substitutions_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  string_template_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    string_template_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_string_template()) {
+    string_template_.Set(from._internal_string_template(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_conditions()) {
+    conditions_ = new ::optimization_guide::proto::ConditionList(*from.conditions_);
+  } else {
+    conditions_ = nullptr;
+  }
+  should_ignore_input_context_ = from.should_ignore_input_context_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.SubstitutedString)
+}
+
+inline void SubstitutedString::SharedCtor() {
+string_template_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  string_template_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&conditions_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&should_ignore_input_context_) -
+    reinterpret_cast<char*>(&conditions_)) + sizeof(should_ignore_input_context_));
+}
+
+SubstitutedString::~SubstitutedString() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.SubstitutedString)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SubstitutedString::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  string_template_.Destroy();
+  if (this != internal_default_instance()) delete conditions_;
+}
+
+void SubstitutedString::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SubstitutedString::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.SubstitutedString)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  substitutions_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      string_template_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(conditions_ != nullptr);
+      conditions_->Clear();
+    }
+  }
+  should_ignore_input_context_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SubstitutedString::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string string_template = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_string_template();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.ConditionList conditions = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_conditions(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool should_ignore_input_context = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_should_ignore_input_context(&has_bits);
+          should_ignore_input_context_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .optimization_guide.proto.StringSubstitution substitutions = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_substitutions(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SubstitutedString::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.SubstitutedString)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string string_template = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_string_template(), target);
+  }
+
+  // optional .optimization_guide.proto.ConditionList conditions = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::conditions(this),
+        _Internal::conditions(this).GetCachedSize(), target, stream);
+  }
+
+  // optional bool should_ignore_input_context = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_should_ignore_input_context(), target);
+  }
+
+  // repeated .optimization_guide.proto.StringSubstitution substitutions = 6;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_substitutions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_substitutions(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.SubstitutedString)
+  return target;
+}
+
+size_t SubstitutedString::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.SubstitutedString)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.StringSubstitution substitutions = 6;
+  total_size += 1UL * this->_internal_substitutions_size();
+  for (const auto& msg : this->substitutions_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string string_template = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_string_template());
+    }
+
+    // optional .optimization_guide.proto.ConditionList conditions = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *conditions_);
+    }
+
+    // optional bool should_ignore_input_context = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SubstitutedString::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SubstitutedString*>(
+      &from));
+}
+
+void SubstitutedString::MergeFrom(const SubstitutedString& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.SubstitutedString)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  substitutions_.MergeFrom(from.substitutions_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_string_template(from._internal_string_template());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_conditions()->::optimization_guide::proto::ConditionList::MergeFrom(from._internal_conditions());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      should_ignore_input_context_ = from.should_ignore_input_context_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SubstitutedString::CopyFrom(const SubstitutedString& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.SubstitutedString)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubstitutedString::IsInitialized() const {
+  return true;
+}
+
+void SubstitutedString::InternalSwap(SubstitutedString* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  substitutions_.InternalSwap(&other->substitutions_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &string_template_, lhs_arena,
+      &other->string_template_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SubstitutedString, should_ignore_input_context_)
+      + sizeof(SubstitutedString::should_ignore_input_context_)
+      - PROTOBUF_FIELD_OFFSET(SubstitutedString, conditions_)>(
+          reinterpret_cast<char*>(&conditions_),
+          reinterpret_cast<char*>(&other->conditions_));
+}
+
+std::string SubstitutedString::GetTypeName() const {
+  return "optimization_guide.proto.SubstitutedString";
+}
+
+
+// ===================================================================
+
+class StringSubstitution::_Internal {
+ public:
+};
+
+StringSubstitution::StringSubstitution(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  candidates_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.StringSubstitution)
+}
+StringSubstitution::StringSubstitution(const StringSubstitution& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      candidates_(from.candidates_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.StringSubstitution)
+}
+
+inline void StringSubstitution::SharedCtor() {
+}
+
+StringSubstitution::~StringSubstitution() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.StringSubstitution)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StringSubstitution::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void StringSubstitution::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StringSubstitution::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.StringSubstitution)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  candidates_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* StringSubstitution::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .optimization_guide.proto.StringArg candidates = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_candidates(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StringSubstitution::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.StringSubstitution)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.StringArg candidates = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_candidates_size()); i < n; i++) {
+    const auto& repfield = this->_internal_candidates(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.StringSubstitution)
+  return target;
+}
+
+size_t StringSubstitution::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.StringSubstitution)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.StringArg candidates = 1;
+  total_size += 1UL * this->_internal_candidates_size();
+  for (const auto& msg : this->candidates_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StringSubstitution::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StringSubstitution*>(
+      &from));
+}
+
+void StringSubstitution::MergeFrom(const StringSubstitution& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.StringSubstitution)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  candidates_.MergeFrom(from.candidates_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StringSubstitution::CopyFrom(const StringSubstitution& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.StringSubstitution)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StringSubstitution::IsInitialized() const {
+  return true;
+}
+
+void StringSubstitution::InternalSwap(StringSubstitution* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  candidates_.InternalSwap(&other->candidates_);
+}
+
+std::string StringSubstitution::GetTypeName() const {
+  return "optimization_guide.proto.StringSubstitution";
+}
+
+
+// ===================================================================
+
+class StringArg::_Internal {
+ public:
+  using HasBits = decltype(std::declval<StringArg>()._has_bits_);
+  static const ::optimization_guide::proto::ProtoField& proto_field(const StringArg* msg);
+  static const ::optimization_guide::proto::ConditionList& conditions(const StringArg* msg);
+  static void set_has_conditions(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::optimization_guide::proto::ProtoField&
+StringArg::_Internal::proto_field(const StringArg* msg) {
+  return *msg->arg_.proto_field_;
+}
+const ::optimization_guide::proto::ConditionList&
+StringArg::_Internal::conditions(const StringArg* msg) {
+  return *msg->conditions_;
+}
+void StringArg::set_allocated_proto_field(::optimization_guide::proto::ProtoField* proto_field) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_arg();
+  if (proto_field) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(proto_field);
+    if (message_arena != submessage_arena) {
+      proto_field = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, proto_field, submessage_arena);
+    }
+    set_has_proto_field();
+    arg_.proto_field_ = proto_field;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.StringArg.proto_field)
+}
+StringArg::StringArg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.StringArg)
+}
+StringArg::StringArg(const StringArg& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_conditions()) {
+    conditions_ = new ::optimization_guide::proto::ConditionList(*from.conditions_);
+  } else {
+    conditions_ = nullptr;
+  }
+  clear_has_arg();
+  switch (from.arg_case()) {
+    case kRawString: {
+      _internal_set_raw_string(from._internal_raw_string());
+      break;
+    }
+    case kProtoField: {
+      _internal_mutable_proto_field()->::optimization_guide::proto::ProtoField::MergeFrom(from._internal_proto_field());
+      break;
+    }
+    case ARG_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.StringArg)
+}
+
+inline void StringArg::SharedCtor() {
+conditions_ = nullptr;
+clear_has_arg();
+}
+
+StringArg::~StringArg() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.StringArg)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StringArg::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete conditions_;
+  if (has_arg()) {
+    clear_arg();
+  }
+}
+
+void StringArg::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StringArg::clear_arg() {
+// @@protoc_insertion_point(one_of_clear_start:optimization_guide.proto.StringArg)
+  switch (arg_case()) {
+    case kRawString: {
+      arg_.raw_string_.Destroy();
+      break;
+    }
+    case kProtoField: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete arg_.proto_field_;
+      }
+      break;
+    }
+    case ARG_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = ARG_NOT_SET;
+}
+
+
+void StringArg::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.StringArg)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(conditions_ != nullptr);
+    conditions_->Clear();
+  }
+  clear_arg();
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* StringArg::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string raw_string = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_raw_string();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.ProtoField proto_field = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_proto_field(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.ConditionList conditions = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_conditions(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StringArg::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.StringArg)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (arg_case()) {
+    case kRawString: {
+      target = stream->WriteStringMaybeAliased(
+          1, this->_internal_raw_string(), target);
+      break;
+    }
+    case kProtoField: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::proto_field(this),
+          _Internal::proto_field(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
+  }
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.ConditionList conditions = 3;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::conditions(this),
+        _Internal::conditions(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.StringArg)
+  return target;
+}
+
+size_t StringArg::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.StringArg)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .optimization_guide.proto.ConditionList conditions = 3;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *conditions_);
+  }
+
+  switch (arg_case()) {
+    // string raw_string = 1;
+    case kRawString: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_raw_string());
+      break;
+    }
+    // .optimization_guide.proto.ProtoField proto_field = 2;
+    case kProtoField: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *arg_.proto_field_);
+      break;
+    }
+    case ARG_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StringArg::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StringArg*>(
+      &from));
+}
+
+void StringArg::MergeFrom(const StringArg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.StringArg)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_conditions()) {
+    _internal_mutable_conditions()->::optimization_guide::proto::ConditionList::MergeFrom(from._internal_conditions());
+  }
+  switch (from.arg_case()) {
+    case kRawString: {
+      _internal_set_raw_string(from._internal_raw_string());
+      break;
+    }
+    case kProtoField: {
+      _internal_mutable_proto_field()->::optimization_guide::proto::ProtoField::MergeFrom(from._internal_proto_field());
+      break;
+    }
+    case ARG_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StringArg::CopyFrom(const StringArg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.StringArg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StringArg::IsInitialized() const {
+  return true;
+}
+
+void StringArg::InternalSwap(StringArg* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(conditions_, other->conditions_);
+  swap(arg_, other->arg_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string StringArg::GetTypeName() const {
+  return "optimization_guide.proto.StringArg";
+}
+
+
+// ===================================================================
+
+class ProtoDescriptor::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ProtoDescriptor>()._has_bits_);
+  static void set_has_tag_number(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ProtoDescriptor::ProtoDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.ProtoDescriptor)
+}
+ProtoDescriptor::ProtoDescriptor(const ProtoDescriptor& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  tag_number_ = from.tag_number_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.ProtoDescriptor)
+}
+
+inline void ProtoDescriptor::SharedCtor() {
+tag_number_ = 0;
+}
+
+ProtoDescriptor::~ProtoDescriptor() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.ProtoDescriptor)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProtoDescriptor::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ProtoDescriptor::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ProtoDescriptor::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.ProtoDescriptor)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  tag_number_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProtoDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 tag_number = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_tag_number(&has_bits);
+          tag_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProtoDescriptor::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.ProtoDescriptor)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional int32 tag_number = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_tag_number(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.ProtoDescriptor)
+  return target;
+}
+
+size_t ProtoDescriptor::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.ProtoDescriptor)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional int32 tag_number = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_tag_number());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProtoDescriptor::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProtoDescriptor*>(
+      &from));
+}
+
+void ProtoDescriptor::MergeFrom(const ProtoDescriptor& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.ProtoDescriptor)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_tag_number()) {
+    _internal_set_tag_number(from._internal_tag_number());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProtoDescriptor::CopyFrom(const ProtoDescriptor& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.ProtoDescriptor)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProtoDescriptor::IsInitialized() const {
+  return true;
+}
+
+void ProtoDescriptor::InternalSwap(ProtoDescriptor* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(tag_number_, other->tag_number_);
+}
+
+std::string ProtoDescriptor::GetTypeName() const {
+  return "optimization_guide.proto.ProtoDescriptor";
+}
+
+
+// ===================================================================
+
+class ProtoField::_Internal {
+ public:
+};
+
+ProtoField::ProtoField(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  proto_descriptors_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.ProtoField)
+}
+ProtoField::ProtoField(const ProtoField& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      proto_descriptors_(from.proto_descriptors_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.ProtoField)
+}
+
+inline void ProtoField::SharedCtor() {
+}
+
+ProtoField::~ProtoField() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.ProtoField)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProtoField::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ProtoField::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ProtoField::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.ProtoField)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  proto_descriptors_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProtoField::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .optimization_guide.proto.ProtoDescriptor proto_descriptors = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_proto_descriptors(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProtoField::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.ProtoField)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.ProtoDescriptor proto_descriptors = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_proto_descriptors_size()); i < n; i++) {
+    const auto& repfield = this->_internal_proto_descriptors(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.ProtoField)
+  return target;
+}
+
+size_t ProtoField::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.ProtoField)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.ProtoDescriptor proto_descriptors = 1;
+  total_size += 1UL * this->_internal_proto_descriptors_size();
+  for (const auto& msg : this->proto_descriptors_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProtoField::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProtoField*>(
+      &from));
+}
+
+void ProtoField::MergeFrom(const ProtoField& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.ProtoField)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  proto_descriptors_.MergeFrom(from.proto_descriptors_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProtoField::CopyFrom(const ProtoField& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.ProtoField)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProtoField::IsInitialized() const {
+  return true;
+}
+
+void ProtoField::InternalSwap(ProtoField* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  proto_descriptors_.InternalSwap(&other->proto_descriptors_);
+}
+
+std::string ProtoField::GetTypeName() const {
+  return "optimization_guide.proto.ProtoField";
+}
+
+
+// ===================================================================
+
+class Value::_Internal {
+ public:
+};
+
+Value::Value(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.Value)
+}
+Value::Value(const Value& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  clear_has_type();
+  switch (from.type_case()) {
+    case kInt64Value: {
+      _internal_set_int64_value(from._internal_int64_value());
+      break;
+    }
+    case kInt32Value: {
+      _internal_set_int32_value(from._internal_int32_value());
+      break;
+    }
+    case kFloatValue: {
+      _internal_set_float_value(from._internal_float_value());
+      break;
+    }
+    case kStringValue: {
+      _internal_set_string_value(from._internal_string_value());
+      break;
+    }
+    case kBooleanValue: {
+      _internal_set_boolean_value(from._internal_boolean_value());
+      break;
+    }
+    case TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.Value)
+}
+
+inline void Value::SharedCtor() {
+clear_has_type();
+}
+
+Value::~Value() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.Value)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Value::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_type()) {
+    clear_type();
+  }
+}
+
+void Value::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Value::clear_type() {
+// @@protoc_insertion_point(one_of_clear_start:optimization_guide.proto.Value)
+  switch (type_case()) {
+    case kInt64Value: {
+      // No need to clear
+      break;
+    }
+    case kInt32Value: {
+      // No need to clear
+      break;
+    }
+    case kFloatValue: {
+      // No need to clear
+      break;
+    }
+    case kStringValue: {
+      type_.string_value_.Destroy();
+      break;
+    }
+    case kBooleanValue: {
+      // No need to clear
+      break;
+    }
+    case TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = TYPE_NOT_SET;
+}
+
+
+void Value::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.Value)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_type();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Value::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 int64_value = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _internal_set_int64_value(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 int32_value = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _internal_set_int32_value(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // double float_value = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          _internal_set_float_value(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // string string_value = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_string_value();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool boolean_value = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _internal_set_boolean_value(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Value::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.Value)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (type_case()) {
+    case kInt64Value: {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_int64_value(), target);
+      break;
+    }
+    case kInt32Value: {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_int32_value(), target);
+      break;
+    }
+    case kFloatValue: {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_float_value(), target);
+      break;
+    }
+    case kStringValue: {
+      target = stream->WriteStringMaybeAliased(
+          4, this->_internal_string_value(), target);
+      break;
+    }
+    case kBooleanValue: {
+      target = stream->EnsureSpace(target);
+      target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_boolean_value(), target);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.Value)
+  return target;
+}
+
+size_t Value::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.Value)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  switch (type_case()) {
+    // int64 int64_value = 1;
+    case kInt64Value: {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_int64_value());
+      break;
+    }
+    // int32 int32_value = 2;
+    case kInt32Value: {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_int32_value());
+      break;
+    }
+    // double float_value = 3;
+    case kFloatValue: {
+      total_size += 1 + 8;
+      break;
+    }
+    // string string_value = 4;
+    case kStringValue: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_string_value());
+      break;
+    }
+    // bool boolean_value = 5;
+    case kBooleanValue: {
+      total_size += 1 + 1;
+      break;
+    }
+    case TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Value::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Value*>(
+      &from));
+}
+
+void Value::MergeFrom(const Value& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.Value)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (from.type_case()) {
+    case kInt64Value: {
+      _internal_set_int64_value(from._internal_int64_value());
+      break;
+    }
+    case kInt32Value: {
+      _internal_set_int32_value(from._internal_int32_value());
+      break;
+    }
+    case kFloatValue: {
+      _internal_set_float_value(from._internal_float_value());
+      break;
+    }
+    case kStringValue: {
+      _internal_set_string_value(from._internal_string_value());
+      break;
+    }
+    case kBooleanValue: {
+      _internal_set_boolean_value(from._internal_boolean_value());
+      break;
+    }
+    case TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Value::CopyFrom(const Value& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.Value)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Value::IsInitialized() const {
+  return true;
+}
+
+void Value::InternalSwap(Value* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(type_, other->type_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string Value::GetTypeName() const {
+  return "optimization_guide.proto.Value";
+}
+
+
+// ===================================================================
+
+class ConditionList::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ConditionList>()._has_bits_);
+  static void set_has_condition_evaluation_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ConditionList::ConditionList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  conditions_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.ConditionList)
+}
+ConditionList::ConditionList(const ConditionList& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      conditions_(from.conditions_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  condition_evaluation_type_ = from.condition_evaluation_type_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.ConditionList)
+}
+
+inline void ConditionList::SharedCtor() {
+condition_evaluation_type_ = 0;
+}
+
+ConditionList::~ConditionList() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.ConditionList)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ConditionList::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ConditionList::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ConditionList::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.ConditionList)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  conditions_.Clear();
+  condition_evaluation_type_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ConditionList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .optimization_guide.proto.ConditionEvaluationType condition_evaluation_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::optimization_guide::proto::ConditionEvaluationType_IsValid(val))) {
+            _internal_set_condition_evaluation_type(static_cast<::optimization_guide::proto::ConditionEvaluationType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .optimization_guide.proto.Condition conditions = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_conditions(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ConditionList::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.ConditionList)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.ConditionEvaluationType condition_evaluation_type = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_condition_evaluation_type(), target);
+  }
+
+  // repeated .optimization_guide.proto.Condition conditions = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_conditions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_conditions(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.ConditionList)
+  return target;
+}
+
+size_t ConditionList::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.ConditionList)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .optimization_guide.proto.Condition conditions = 2;
+  total_size += 1UL * this->_internal_conditions_size();
+  for (const auto& msg : this->conditions_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional .optimization_guide.proto.ConditionEvaluationType condition_evaluation_type = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_condition_evaluation_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ConditionList::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ConditionList*>(
+      &from));
+}
+
+void ConditionList::MergeFrom(const ConditionList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.ConditionList)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  conditions_.MergeFrom(from.conditions_);
+  if (from._internal_has_condition_evaluation_type()) {
+    _internal_set_condition_evaluation_type(from._internal_condition_evaluation_type());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ConditionList::CopyFrom(const ConditionList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.ConditionList)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ConditionList::IsInitialized() const {
+  return true;
+}
+
+void ConditionList::InternalSwap(ConditionList* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  conditions_.InternalSwap(&other->conditions_);
+  swap(condition_evaluation_type_, other->condition_evaluation_type_);
+}
+
+std::string ConditionList::GetTypeName() const {
+  return "optimization_guide.proto.ConditionList";
+}
+
+
+// ===================================================================
+
+class Condition::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Condition>()._has_bits_);
+  static const ::optimization_guide::proto::ProtoField& proto_field(const Condition* msg);
+  static void set_has_proto_field(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_operator_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static const ::optimization_guide::proto::Value& value(const Condition* msg);
+  static void set_has_value(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::optimization_guide::proto::ProtoField&
+Condition::_Internal::proto_field(const Condition* msg) {
+  return *msg->proto_field_;
+}
+const ::optimization_guide::proto::Value&
+Condition::_Internal::value(const Condition* msg) {
+  return *msg->value_;
+}
+Condition::Condition(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.Condition)
+}
+Condition::Condition(const Condition& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_proto_field()) {
+    proto_field_ = new ::optimization_guide::proto::ProtoField(*from.proto_field_);
+  } else {
+    proto_field_ = nullptr;
+  }
+  if (from._internal_has_value()) {
+    value_ = new ::optimization_guide::proto::Value(*from.value_);
+  } else {
+    value_ = nullptr;
+  }
+  operator_type_ = from.operator_type_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.Condition)
+}
+
+inline void Condition::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&proto_field_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&operator_type_) -
+    reinterpret_cast<char*>(&proto_field_)) + sizeof(operator_type_));
+}
+
+Condition::~Condition() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.Condition)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Condition::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete proto_field_;
+  if (this != internal_default_instance()) delete value_;
+}
+
+void Condition::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Condition::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.Condition)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(proto_field_ != nullptr);
+      proto_field_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(value_ != nullptr);
+      value_->Clear();
+    }
+  }
+  operator_type_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Condition::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .optimization_guide.proto.ProtoField proto_field = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_proto_field(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.OperatorType operator_type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::optimization_guide::proto::OperatorType_IsValid(val))) {
+            _internal_set_operator_type(static_cast<::optimization_guide::proto::OperatorType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.Value value = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_value(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Condition::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.Condition)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .optimization_guide.proto.ProtoField proto_field = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::proto_field(this),
+        _Internal::proto_field(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .optimization_guide.proto.OperatorType operator_type = 2;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_operator_type(), target);
+  }
+
+  // optional .optimization_guide.proto.Value value = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::value(this),
+        _Internal::value(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.Condition)
+  return target;
+}
+
+size_t Condition::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.Condition)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional .optimization_guide.proto.ProtoField proto_field = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *proto_field_);
+    }
+
+    // optional .optimization_guide.proto.Value value = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *value_);
+    }
+
+    // optional .optimization_guide.proto.OperatorType operator_type = 2;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_operator_type());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Condition::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Condition*>(
+      &from));
+}
+
+void Condition::MergeFrom(const Condition& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.Condition)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_proto_field()->::optimization_guide::proto::ProtoField::MergeFrom(from._internal_proto_field());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_value()->::optimization_guide::proto::Value::MergeFrom(from._internal_value());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      operator_type_ = from.operator_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Condition::CopyFrom(const Condition& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.Condition)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Condition::IsInitialized() const {
+  return true;
+}
+
+void Condition::InternalSwap(Condition* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Condition, operator_type_)
+      + sizeof(Condition::operator_type_)
+      - PROTOBUF_FIELD_OFFSET(Condition, proto_field_)>(
+          reinterpret_cast<char*>(&proto_field_),
+          reinterpret_cast<char*>(&other->proto_field_));
+}
+
+std::string Condition::GetTypeName() const {
+  return "optimization_guide.proto.Condition";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelExecutionOutputConfig::_Internal {
+ public:
+  using HasBits = decltype(std::declval<OnDeviceModelExecutionOutputConfig>()._has_bits_);
+  static void set_has_proto_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::optimization_guide::proto::ProtoField& proto_field(const OnDeviceModelExecutionOutputConfig* msg);
+  static void set_has_proto_field(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static const ::optimization_guide::proto::RedactRules& redact_rules(const OnDeviceModelExecutionOutputConfig* msg);
+  static void set_has_redact_rules(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+const ::optimization_guide::proto::ProtoField&
+OnDeviceModelExecutionOutputConfig::_Internal::proto_field(const OnDeviceModelExecutionOutputConfig* msg) {
+  return *msg->proto_field_;
+}
+const ::optimization_guide::proto::RedactRules&
+OnDeviceModelExecutionOutputConfig::_Internal::redact_rules(const OnDeviceModelExecutionOutputConfig* msg) {
+  return *msg->redact_rules_;
+}
+OnDeviceModelExecutionOutputConfig::OnDeviceModelExecutionOutputConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+}
+OnDeviceModelExecutionOutputConfig::OnDeviceModelExecutionOutputConfig(const OnDeviceModelExecutionOutputConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  proto_type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    proto_type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_proto_type()) {
+    proto_type_.Set(from._internal_proto_type(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_proto_field()) {
+    proto_field_ = new ::optimization_guide::proto::ProtoField(*from.proto_field_);
+  } else {
+    proto_field_ = nullptr;
+  }
+  if (from._internal_has_redact_rules()) {
+    redact_rules_ = new ::optimization_guide::proto::RedactRules(*from.redact_rules_);
+  } else {
+    redact_rules_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+}
+
+inline void OnDeviceModelExecutionOutputConfig::SharedCtor() {
+proto_type_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  proto_type_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&proto_field_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&redact_rules_) -
+    reinterpret_cast<char*>(&proto_field_)) + sizeof(redact_rules_));
+}
+
+OnDeviceModelExecutionOutputConfig::~OnDeviceModelExecutionOutputConfig() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelExecutionOutputConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  proto_type_.Destroy();
+  if (this != internal_default_instance()) delete proto_field_;
+  if (this != internal_default_instance()) delete redact_rules_;
+}
+
+void OnDeviceModelExecutionOutputConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelExecutionOutputConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      proto_type_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(proto_field_ != nullptr);
+      proto_field_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(redact_rules_ != nullptr);
+      redact_rules_->Clear();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelExecutionOutputConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string proto_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_proto_type();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.ProtoField proto_field = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_proto_field(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .optimization_guide.proto.RedactRules redact_rules = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_redact_rules(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelExecutionOutputConfig::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string proto_type = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_proto_type(), target);
+  }
+
+  // optional .optimization_guide.proto.ProtoField proto_field = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::proto_field(this),
+        _Internal::proto_field(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .optimization_guide.proto.RedactRules redact_rules = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::redact_rules(this),
+        _Internal::redact_rules(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  return target;
+}
+
+size_t OnDeviceModelExecutionOutputConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string proto_type = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_proto_type());
+    }
+
+    // optional .optimization_guide.proto.ProtoField proto_field = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *proto_field_);
+    }
+
+    // optional .optimization_guide.proto.RedactRules redact_rules = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *redact_rules_);
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelExecutionOutputConfig::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelExecutionOutputConfig*>(
+      &from));
+}
+
+void OnDeviceModelExecutionOutputConfig::MergeFrom(const OnDeviceModelExecutionOutputConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_proto_type(from._internal_proto_type());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_proto_field()->::optimization_guide::proto::ProtoField::MergeFrom(from._internal_proto_field());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_mutable_redact_rules()->::optimization_guide::proto::RedactRules::MergeFrom(from._internal_redact_rules());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelExecutionOutputConfig::CopyFrom(const OnDeviceModelExecutionOutputConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelExecutionOutputConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelExecutionOutputConfig::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelExecutionOutputConfig::InternalSwap(OnDeviceModelExecutionOutputConfig* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &proto_type_, lhs_arena,
+      &other->proto_type_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OnDeviceModelExecutionOutputConfig, redact_rules_)
+      + sizeof(OnDeviceModelExecutionOutputConfig::redact_rules_)
+      - PROTOBUF_FIELD_OFFSET(OnDeviceModelExecutionOutputConfig, proto_field_)>(
+          reinterpret_cast<char*>(&proto_field_),
+          reinterpret_cast<char*>(&other->proto_field_));
+}
+
+std::string OnDeviceModelExecutionOutputConfig::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelExecutionOutputConfig";
 }
 
 
@@ -683,6 +4943,66 @@ Arena::CreateMaybeMessage< ::optimization_guide::proto::ExecuteRequest >(Arena* 
 template<> PROTOBUF_NOINLINE ::optimization_guide::proto::ExecuteResponse*
 Arena::CreateMaybeMessage< ::optimization_guide::proto::ExecuteResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::optimization_guide::proto::ExecuteResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::ErrorResponse*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::ErrorResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::ErrorResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelExecutionConfig*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelExecutionConfig >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelExecutionConfig >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::RedactRule*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::RedactRule >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::RedactRule >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::RedactRules*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::RedactRules >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::RedactRules >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelExecutionInputConfig*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelExecutionInputConfig >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelExecutionInputConfig >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::SubstitutedString*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::SubstitutedString >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::SubstitutedString >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::StringSubstitution*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::StringSubstitution >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::StringSubstitution >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::StringArg*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::StringArg >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::StringArg >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::ProtoDescriptor*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::ProtoDescriptor >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::ProtoDescriptor >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::ProtoField*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::ProtoField >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::ProtoField >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::Value*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::Value >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::Value >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::ConditionList*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::ConditionList >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::ConditionList >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::Condition*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::Condition >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::Condition >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelExecutionOutputConfig >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

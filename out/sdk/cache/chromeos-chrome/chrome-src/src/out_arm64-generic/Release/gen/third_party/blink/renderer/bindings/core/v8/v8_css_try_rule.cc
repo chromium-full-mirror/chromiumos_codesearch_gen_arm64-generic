@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSTryRule>::value,
     "CSSTryRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSTryRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSTryRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTryRule.style.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSTryRule* blink_receiver = V8CSSTryRule::ToWrappableUnsafe(v8_receiver);
+CSSTryRule* blink_receiver = V8CSSTryRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

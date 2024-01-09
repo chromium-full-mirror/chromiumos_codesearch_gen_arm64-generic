@@ -27,6 +27,9 @@ function bigintReplacer(_key, value) {
     return typeof value === 'bigint' ? value.toString() : value;
 }
 class ValueColumn {
+    header;
+    getValue;
+    compare;
     constructor(header, getValue, comparable = true) {
         this.header = header;
         this.getValue = getValue;
@@ -62,6 +65,8 @@ class CodeColumn extends ValueColumn {
     }
 }
 class ListColumn extends ValueColumn {
+    flatten;
+    renderItem;
     constructor(header, getValue, flatten = false, renderItem = (p) => `${p}`) {
         super(header, getValue, /*comparable=*/ false);
         this.flatten = flatten;
@@ -117,15 +122,19 @@ class ReportUrlColumn extends ValueColumn {
     }
 }
 class Selectable {
+    input;
     constructor() {
         this.input = document.createElement('input');
         this.input.type = 'checkbox';
     }
 }
 class SelectionColumn {
+    model;
+    selectAll;
+    listener;
+    selectionChangedListeners = new Set();
     constructor(model) {
         this.model = model;
-        this.selectionChangedListeners = new Set();
         this.selectAll = document.createElement('input');
         this.selectAll.type = 'checkbox';
         this.selectAll.addEventListener('input', () => {
@@ -175,6 +184,27 @@ class SelectionColumn {
     }
 }
 class Source {
+    sourceEventId;
+    sourceOrigin;
+    destinations;
+    reportingOrigin;
+    sourceTime;
+    expiryTime;
+    triggerSpecs;
+    aggregatableReportWindowTime;
+    maxEventLevelReports;
+    sourceType;
+    filterData;
+    aggregationKeys;
+    debugKey;
+    dedupKeys;
+    priority;
+    status;
+    aggregatableBudgetConsumed;
+    aggregatableDedupKeys;
+    triggerDataMatching;
+    eventLevelEpsilon;
+    debugCookieSet;
     constructor(mojo) {
         this.sourceEventId = mojo.sourceEventId;
         this.sourceOrigin = originToText(mojo.sourceOrigin);
@@ -183,38 +213,28 @@ class Source {
         this.reportingOrigin = originToText(mojo.reportingOrigin);
         this.sourceTime = new Date(mojo.sourceTime);
         this.expiryTime = new Date(mojo.expiryTime);
-        this.eventReportWindows =
-            windowsAbsoluteTime(mojo.eventReportWindows, this.sourceTime);
+        this.triggerSpecs = mojo.triggerSpecsJson;
         this.aggregatableReportWindowTime =
             new Date(mojo.aggregatableReportWindowTime);
         this.maxEventLevelReports = BigInt(mojo.maxEventLevelReports);
         this.sourceType = sourceTypeText[mojo.sourceType];
         this.priority = mojo.priority;
-        this.filterData = JSON.stringify(mojo.filterData, null, ' ');
+        this.filterData = JSON.stringify(mojo.filterData.filterValues, null, ' ');
         this.aggregationKeys =
             JSON.stringify(mojo.aggregationKeys, bigintReplacer, ' ');
-        this.debugKey = mojo.debugKey ? `${mojo.debugKey.value}` : '';
+        this.debugKey = mojo.debugKey ? `${mojo.debugKey}` : '';
         this.dedupKeys = mojo.dedupKeys;
         this.aggregatableBudgetConsumed = mojo.aggregatableBudgetConsumed;
         this.aggregatableDedupKeys = mojo.aggregatableDedupKeys;
         this.triggerDataMatching =
-            triggerDataMatchingText[mojo.triggerConfig.triggerDataMatching];
+            triggerDataMatchingText[mojo.triggerDataMatching];
+        this.eventLevelEpsilon = mojo.eventLevelEpsilon;
         this.status = attributabilityText[mojo.attributability];
-    }
-}
-const EVENT_REPORT_WINDOWS_COLS = [
-    new DateColumn('Start Time', e => e.eventReportWindows[0]),
-    new ListColumn('End Times', e => e.eventReportWindows.slice(1), /*flatten=*/ false, (v) => v.toLocaleString()),
-];
-class EventReportWindowsColumn {
-    renderHeader(th) {
-        th.innerText = 'Event Report Windows';
-    }
-    render(td, row) {
-        renderDL(td, row, EVENT_REPORT_WINDOWS_COLS);
+        this.debugCookieSet = mojo.debugCookieSet;
     }
 }
 class SourceTableModel extends TableModel {
+    storedSources = [];
     constructor() {
         super([
             new ValueColumn('Source Event ID', (e) => e.sourceEventId),
@@ -224,7 +244,7 @@ class SourceTableModel extends TableModel {
             new ValueColumn('Reporting Origin', (e) => e.reportingOrigin),
             new DateColumn('Source Registration Time', (e) => e.sourceTime),
             new DateColumn('Expiry Time', (e) => e.expiryTime),
-            new EventReportWindowsColumn(),
+            new CodeColumn('Trigger Specs', (e) => e.triggerSpecs),
             new DateColumn('Aggregatable Report Window Time', (e) => e.aggregatableReportWindowTime),
             new ValueColumn('Max Event Level Reports', (e) => e.maxEventLevelReports),
             new ValueColumn('Source Type', (e) => e.sourceType),
@@ -232,13 +252,14 @@ class SourceTableModel extends TableModel {
             new CodeColumn('Filter Data', (e) => e.filterData),
             new CodeColumn('Aggregation Keys', (e) => e.aggregationKeys),
             new ValueColumn('Trigger Data Matching', (e) => e.triggerDataMatching),
+            new ValueColumn('Event-Level Epsilon', (e) => e.eventLevelEpsilon),
             new ValueColumn('Aggregatable Budget Consumed', (e) => `${e.aggregatableBudgetConsumed} / ${BUDGET_PER_SOURCE}`),
             new ValueColumn('Debug Key', (e) => e.debugKey),
+            new ValueColumn('Debug Cookie Set', (e) => e.debugCookieSet),
             new ListColumn('Dedup Keys', (e) => e.dedupKeys),
             new ListColumn('Aggregatable Dedup Keys', (e) => e.aggregatableDedupKeys),
         ], 5, // Sort by source registration time by default.
         'No sources.');
-        this.storedSources = [];
     }
     getRows() {
         return this.storedSources;
@@ -253,13 +274,18 @@ class SourceTableModel extends TableModel {
     }
 }
 class Registration {
+    time;
+    contextOrigin;
+    reportingOrigin;
+    registrationJson;
+    clearedDebugKey;
     constructor(mojo) {
         this.time = new Date(mojo.time);
         this.contextOrigin = originToText(mojo.contextOrigin);
         this.reportingOrigin = originToText(mojo.reportingOrigin);
         this.registrationJson = mojo.registrationJson;
         this.clearedDebugKey =
-            mojo.clearedDebugKey ? `${mojo.clearedDebugKey.value}` : '';
+            mojo.clearedDebugKey ? `${mojo.clearedDebugKey}` : '';
     }
 }
 function registrationTableColumns(contextOriginTitle) {
@@ -272,10 +298,10 @@ function registrationTableColumns(contextOriginTitle) {
     ];
 }
 class RegistrationTableModel extends TableModel {
+    registrations = [];
     constructor(contextOriginTitle, cols) {
         super(registrationTableColumns(contextOriginTitle).concat(cols), 0, // Sort by time by default.
         'No registrations.');
-        this.registrations = [];
     }
     getRows() {
         return this.registrations;
@@ -295,6 +321,9 @@ class RegistrationTableModel extends TableModel {
     }
 }
 class Trigger extends Registration {
+    eventLevelResult;
+    aggregatableResult;
+    verifications;
     constructor(mojo) {
         super(mojo.registration);
         this.eventLevelResult = eventLevelResultText[mojo.eventLevelResult];
@@ -326,6 +355,8 @@ class TriggerTableModel extends RegistrationTableModel {
     }
 }
 class SourceRegistration extends Registration {
+    type;
+    status;
     constructor(mojo) {
         super(mojo.registration);
         this.type = sourceTypeText[mojo.type];
@@ -341,6 +372,14 @@ class SourceRegistrationTableModel extends RegistrationTableModel {
     }
 }
 class Report extends Selectable {
+    id;
+    reportBody;
+    reportUrl;
+    triggerTime;
+    reportTime;
+    isDebug;
+    status;
+    sendFailed;
     constructor(mojo) {
         super();
         this.id = mojo.id;
@@ -380,6 +419,8 @@ class Report extends Selectable {
     }
 }
 class EventLevelReport extends Report {
+    reportPriority;
+    attributedTruthfully;
     constructor(mojo) {
         super(mojo);
         this.reportPriority = mojo.data.eventLevelData.priority;
@@ -387,6 +428,10 @@ class EventLevelReport extends Report {
     }
 }
 class AggregatableAttributionReport extends Report {
+    contributions;
+    verificationToken;
+    aggregationCoordinator;
+    isNullReport;
     constructor(mojo) {
         super(mojo);
         this.contributions = JSON.stringify(mojo.data.aggregatableAttributionData.contributions, bigintReplacer, ' ');
@@ -411,15 +456,19 @@ function commonPostReportTableColumns() {
     ];
 }
 class ReportTableModel extends TableModel {
+    sendReportsButton;
+    handler;
+    showDebugReportsCheckbox;
+    hiddenDebugReportsSpan;
+    sentOrDroppedReports = [];
+    storedReports = [];
+    debugReports = [];
     constructor(cols, showDebugReportsContainer, sendReportsButton, handler) {
         super(commonPreReportTableColumns().concat(cols)
             .concat(commonPostReportTableColumns()), 4, // Sort by report time by default; the extra column is added below
         'No sent or pending reports.');
         this.sendReportsButton = sendReportsButton;
         this.handler = handler;
-        this.sentOrDroppedReports = [];
-        this.storedReports = [];
-        this.debugReports = [];
         // This can't be included in the super call above, as `this` can't be
         // accessed until after `super` returns.
         const selectionColumn = new SelectionColumn(this);
@@ -532,6 +581,13 @@ const osRegistrationResultText = {
     [OsRegistrationResult.kRejectedByOs]: 'Rejected by OS',
 };
 class OsRegistration {
+    timestamp;
+    registrationUrl;
+    topLevelOrigin;
+    registrationType;
+    debugKeyAllowed;
+    debugReporting;
+    result;
     constructor(mojo) {
         this.timestamp = new Date(mojo.time);
         this.registrationUrl = mojo.registrationUrl.url;
@@ -543,6 +599,7 @@ class OsRegistration {
     }
 }
 class OsRegistrationTableModel extends TableModel {
+    osRegistrations = [];
     constructor() {
         super([
             new DateColumn('Timestamp', (e) => e.timestamp),
@@ -553,7 +610,6 @@ class OsRegistrationTableModel extends TableModel {
             new ValueColumn('Debug Reporting', (e) => e.debugReporting),
             new ValueColumn('Result', (e) => e.result),
         ], 0, 'No OS Registrations');
-        this.osRegistrations = [];
     }
     getRows() {
         return this.osRegistrations;
@@ -573,6 +629,10 @@ class OsRegistrationTableModel extends TableModel {
     }
 }
 class DebugReport {
+    body;
+    url;
+    time;
+    status;
     constructor(mojo) {
         this.body = mojo.body;
         this.url = mojo.url.url;
@@ -589,6 +649,7 @@ class DebugReport {
     }
 }
 class DebugReportTableModel extends TableModel {
+    debugReports = [];
     constructor() {
         super([
             new DateColumn('Time', (e) => e.time),
@@ -597,7 +658,6 @@ class DebugReportTableModel extends TableModel {
             new CodeColumn('Body', (e) => e.body),
         ], 0, // Sort by report time by default.
         'No verbose debug reports.');
-        this.debugReports = [];
     }
     // TODO(apaseltiner): Style error rows like `ReportTableModel`
     getRows() {
@@ -631,14 +691,6 @@ function originToText(origin) {
         result += ':' + origin.port;
     }
     return result;
-}
-function windowsAbsoluteTime(eventReportWindows, sourceTime) {
-    const dates = [new Date(sourceTime.getTime() +
-            (Number(eventReportWindows.startTime.microseconds) / 1000))];
-    for (const endTime of eventReportWindows.endTimes) {
-        dates.push(new Date(sourceTime.getTime() + (Number(endTime.microseconds) / 1000)));
-    }
-    return dates;
 }
 const sourceTypeText = {
     [SourceType.kNavigation]: 'Navigation',
@@ -725,13 +777,15 @@ const attributionSupportText = {
     [AttributionSupport.kNone]: '',
 };
 class AttributionInternals {
+    sources = new SourceTableModel();
+    sourceRegistrations = new SourceRegistrationTableModel();
+    triggers = new TriggerTableModel();
+    debugReports = new DebugReportTableModel();
+    osRegistrations = new OsRegistrationTableModel();
+    eventLevelReports;
+    aggregatableReports;
+    handler = new HandlerRemote();
     constructor() {
-        this.sources = new SourceTableModel();
-        this.sourceRegistrations = new SourceRegistrationTableModel();
-        this.triggers = new TriggerTableModel();
-        this.debugReports = new DebugReportTableModel();
-        this.osRegistrations = new OsRegistrationTableModel();
-        this.handler = new HandlerRemote();
         this.eventLevelReports = new EventLevelReportTableModel(document.querySelector('#show-debug-event-reports'), document.querySelector('#send-reports'), this.handler);
         this.aggregatableReports = new AggregatableAttributionReportTableModel(document.querySelector('#show-debug-aggregatable-reports'), document.querySelector('#send-aggregatable-reports'), this.handler);
         installUnreadIndicator(this.sources, document.querySelector('#sources-tab'));

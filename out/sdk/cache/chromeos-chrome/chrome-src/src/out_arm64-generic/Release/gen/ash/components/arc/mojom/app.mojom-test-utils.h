@@ -22,14 +22,14 @@ class  AppHostInterceptorForTesting : public AppHost {
   void OnPackageListRefreshed(std::vector<ArcPackageInfoPtr> packages) override;
   void OnPackageModified(ArcPackageInfoPtr arcPackageInfo) override;
   void OnPackageRemoved(const std::string& package_name) override;
-  void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const absl::optional<std::string>& name, const absl::optional<std::string>& intent, int32_t session_id) override;
+  void OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const std::optional<std::string>& name, const std::optional<std::string>& intent, int32_t session_id) override;
   void OnTaskDescriptionUpdated(int32_t task_id, const std::string& label, const std::vector<uint8_t>& icon_png_data) override;
   void OnTaskDescriptionChanged(int32_t task_id, const std::string& label, RawIconPngDataPtr icon, uint32_t primary_color, uint32_t status_bar_color) override;
   void OnTaskDestroyed(int32_t task_id) override;
   void OnTaskSetActive(int32_t task_id) override;
   void OnNotificationsEnabledChanged(const std::string& package_name, bool enabled) override;
   void OnInstallShortcut(ShortcutInfoPtr shortcut) override;
-  void OnInstallationStarted(const absl::optional<std::string>& package_name) override;
+  void OnInstallationStarted(const std::optional<std::string>& package_name) override;
   void OnInstallationFinished(InstallationResultPtr result) override;
   void OnUninstallShortcut(const std::string& package_name, const std::string& intent_uri) override;
   void OnInstallationProgressChanged(const std::string& package_name, float progress) override;
@@ -81,6 +81,7 @@ class  AppInstanceInterceptorForTesting : public AppInstance {
   void RequestAssistStructure(RequestAssistStructureCallback callback) override;
   void IsInstallable(const std::string& package_name, IsInstallableCallback callback) override;
   void GetAppCategory(const std::string& package_name, GetAppCategoryCallback callback) override;
+  void SetAppLocale(const std::string& package_name, const std::string& locale_tag) override;
 };
 class  AppInstanceAsyncWaiter {
  public:

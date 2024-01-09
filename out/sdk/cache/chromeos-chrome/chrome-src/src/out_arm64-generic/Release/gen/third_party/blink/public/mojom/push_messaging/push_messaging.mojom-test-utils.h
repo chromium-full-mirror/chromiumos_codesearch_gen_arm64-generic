@@ -32,7 +32,7 @@ class BLINK_COMMON_EXPORT PushMessagingAsyncWaiter {
       int64_t service_worker_registration_id, PushSubscriptionOptionsPtr options, bool user_gesture, ::blink::mojom::PushRegistrationStatus* out_status, PushSubscriptionPtr* out_subscription);
   
   void Unsubscribe(
-      int64_t service_worker_registration_id, PushErrorType* out_error_type, bool* out_did_unsubscribe, absl::optional<std::string>* out_error_message);
+      int64_t service_worker_registration_id, PushErrorType* out_error_type, bool* out_did_unsubscribe, std::optional<std::string>* out_error_message);
   
   void GetSubscription(
       int64_t service_worker_registration_id, ::blink::mojom::PushGetRegistrationStatus* out_status, PushSubscriptionPtr* out_subscription);

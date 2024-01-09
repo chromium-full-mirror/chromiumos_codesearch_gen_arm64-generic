@@ -313,8 +313,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'httpStatusCode', 104,
+        0,
+        mojo.internal.Int32,
+        0,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 112],]);
+    [[0, 120],]);
 
 
 
@@ -355,6 +363,8 @@ export class ResourceLoadInfo {
     this.totalReceivedBytes;
     /** @type { !Array<!RedirectInfo> } */
     this.redirectInfoChain;
+    /** @type { !number } */
+    this.httpStatusCode;
   }
 }
 

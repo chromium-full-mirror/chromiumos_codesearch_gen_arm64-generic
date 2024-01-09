@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,13 +23,16 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/public/mojom/accessibility_service.mojom-features.h"
 #include "services/accessibility/public/mojom/accessibility_service.mojom-shared.h"
 #include "services/accessibility/public/mojom/accessibility_service.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include "services/accessibility/public/mojom/automation.mojom-forward.h"
+#include "services/accessibility/public/mojom/automation_client.mojom-forward.h"
 #include "services/accessibility/public/mojom/speech_recognition.mojom-forward.h"
 #include "services/accessibility/public/mojom/tts.mojom-forward.h"
 #include "third_party/blink/public/mojom/devtools/devtools_agent.mojom-forward.h"
+#include "services/accessibility/public/mojom/user_input.mojom-forward.h"
 #include "services/accessibility/public/mojom/user_interface.mojom-forward.h"
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-forward.h"
 #include "services/accessibility/public/mojom/file_loader.mojom-forward.h"
@@ -182,9 +185,11 @@ class AccessibilityServiceClient
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kBindAutomationMinVersion = 0,
+    kBindAutomationClientMinVersion = 0,
     kBindAutoclickClientMinVersion = 0,
     kBindSpeechRecognitionMinVersion = 0,
     kBindTtsMinVersion = 0,
+    kBindUserInputMinVersion = 0,
     kBindUserInterfaceMinVersion = 0,
     kBindAccessibilityFileLoaderMinVersion = 0,
   };
@@ -195,6 +200,9 @@ class AccessibilityServiceClient
   struct BindAutomation_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct BindAutomationClient_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct BindAutoclickClient_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -202,6 +210,9 @@ class AccessibilityServiceClient
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindTts_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindUserInput_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindUserInterface_Sym {
@@ -214,7 +225,10 @@ class AccessibilityServiceClient
   virtual ~AccessibilityServiceClient() = default;
 
   
-  virtual void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) = 0;
+  virtual void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation) = 0;
+
+  
+  virtual void BindAutomationClient(::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) = 0;
 
   
   virtual void BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) = 0;
@@ -224,6 +238,9 @@ class AccessibilityServiceClient
 
   
   virtual void BindTts(::mojo::PendingReceiver<::ax::mojom::Tts> tts_receiver) = 0;
+
+  
+  virtual void BindUserInput(::mojo::PendingReceiver<::ax::mojom::UserInput> user_input_receiver) = 0;
 
   
   virtual void BindUserInterface(::mojo::PendingReceiver<::ax::mojom::UserInterface> user_interface_receiver) = 0;
@@ -275,13 +292,17 @@ class  AccessibilityServiceClientProxy
 
   explicit AccessibilityServiceClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) final;
+  void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation) final;
+  
+  void BindAutomationClient(::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) final;
   
   void BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) final;
   
   void BindSpeechRecognition(::mojo::PendingReceiver<::ax::mojom::SpeechRecognition> sr_receiver) final;
   
   void BindTts(::mojo::PendingReceiver<::ax::mojom::Tts> tts_receiver) final;
+  
+  void BindUserInput(::mojo::PendingReceiver<::ax::mojom::UserInput> user_input_receiver) final;
   
   void BindUserInterface(::mojo::PendingReceiver<::ax::mojom::UserInterface> user_interface_receiver) final;
   

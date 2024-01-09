@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/federated/public/mojom/federated_service.mojom-features.h"
 #include "chromeos/ash/services/federated/public/mojom/federated_service.mojom-shared.h"
 #include "chromeos/ash/services/federated/public/mojom/federated_service.mojom-forward.h"
 #include "chromeos/ash/services/federated/public/mojom/example.mojom-forward.h"
@@ -95,7 +96,7 @@ class FederatedService
   virtual void ReportExample(const std::string& client_name, ::chromeos::federated::mojom::ExamplePtr example) = 0;
 
   
-  virtual void StartScheduling(const absl::optional<base::flat_map<std::string, std::string>>& client_launch_stage) = 0;
+  virtual void StartScheduling(const std::optional<base::flat_map<std::string, std::string>>& client_launch_stage) = 0;
 };
 
 
@@ -111,7 +112,7 @@ class  FederatedServiceProxy
   
   void ReportExample(const std::string& client_name, ::chromeos::federated::mojom::ExamplePtr example) final;
   
-  void StartScheduling(const absl::optional<base::flat_map<std::string, std::string>>& client_launch_stage) final;
+  void StartScheduling(const std::optional<base::flat_map<std::string, std::string>>& client_launch_stage) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

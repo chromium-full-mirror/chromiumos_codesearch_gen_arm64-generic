@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRCPUDepthInformation>::value,
     "XRCPUDepthInformation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRCPUDepthInformation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRCPUDepthInformation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -113,7 +108,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRCPUDepthInformation* blink_receiver = V8XRCPUDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRCPUDepthInformation* blink_receiver = V8XRCPUDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRCPUDepthInformation";
 const char* const property_name = "data";
@@ -156,7 +151,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCPUDepthInformation* blink_receiver = V8XRCPUDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRCPUDepthInformation* blink_receiver = V8XRCPUDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

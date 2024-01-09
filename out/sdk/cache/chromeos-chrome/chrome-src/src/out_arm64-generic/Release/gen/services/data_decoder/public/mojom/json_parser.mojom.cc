@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -133,14 +134,17 @@ void JsonParserProxy::Parse(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kJsonParser_Parse_Name, kFlags, 0, 0, nullptr);
@@ -216,7 +220,7 @@ class JsonParser_Parse_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 #endif
 
   void Run(
-      absl::optional<::base::Value> in_result, const absl::optional<std::string>& in_error);
+      std::optional<::base::Value> in_result, const std::optional<std::string>& in_error);
 };
 
 bool JsonParser_Parse_ForwardToCallback::Accept(
@@ -229,8 +233,8 @@ bool JsonParser_Parse_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Value> p_result{};
-  absl::optional<std::string> p_error{};
+  std::optional<::base::Value> p_result{};
+  std::optional<std::string> p_error{};
   JsonParser_Parse_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -252,7 +256,7 @@ std::move(p_error));
 }
 
 void JsonParser_Parse_ProxyToResponder::Run(
-    absl::optional<::base::Value> in_result, const absl::optional<std::string>& in_error) {
+    std::optional<::base::Value> in_result, const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::JsonParser::Parse", "async_response_parameters",
@@ -260,16 +264,17 @@ void JsonParser_Parse_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type absl::optional<::base::Value>>");
+                        "<value of type std::optional<::base::Value>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kJsonParser_Parse_Name, kFlags, 0, 0, nullptr);
@@ -364,10 +369,10 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kJsonParserValidationInfo[] = {
-    {&internal::JsonParser_Parse_Params_Data::Validate,
+    { &internal::JsonParser_Parse_Params_Data::Validate,
      &internal::JsonParser_Parse_ResponseParams_Data::Validate},
 };
 
@@ -406,17 +411,17 @@ JsonParserAsyncWaiter::JsonParserAsyncWaiter(
 JsonParserAsyncWaiter::~JsonParserAsyncWaiter() = default;
 
 void JsonParserAsyncWaiter::Parse(
-    const std::string& json, uint32_t options, absl::optional<::base::Value>* out_result, absl::optional<std::string>* out_error) {
+    const std::string& json, uint32_t options, std::optional<::base::Value>* out_result, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->Parse(std::move(json),std::move(options),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Value>* out_result
+             std::optional<::base::Value>* out_result
 ,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             absl::optional<::base::Value> result,
-             const absl::optional<std::string>& error) {*out_result = std::move(result);*out_error = std::move(error);
+             std::optional<::base::Value> result,
+             const std::optional<std::string>& error) {*out_result = std::move(result);*out_error = std::move(error);
             loop->Quit();
           },
           &loop,

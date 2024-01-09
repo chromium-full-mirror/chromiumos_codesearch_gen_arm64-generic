@@ -15,7 +15,7 @@ import './nearby_page_template.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { DeviceNameValidationResult } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { NearbyShareOnboardingFinalState, processOnboardingCancelledMetrics, processOnboardingInitiatedMetrics } from './nearby_metrics_logger.js';
+import { getOnboardingEntryPoint, NearbyShareOnboardingEntryPoint, NearbyShareOnboardingFinalState, processOnboardingCancelledMetrics, processOnboardingInitiatedMetrics } from './nearby_metrics_logger.js';
 import { getTemplate } from './nearby_onboarding_page.html.js';
 import { getNearbyShareSettings } from './nearby_share_settings.js';
 const ONBOARDING_SPLASH_LIGHT_ICON = 'nearby-images:nearby-onboarding-splash-light';
@@ -44,6 +44,13 @@ export class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase
                 type: Boolean,
                 value: false,
             },
+            /**
+             * Onboarding page entry point
+             */
+            entryPoint_: {
+                type: NearbyShareOnboardingEntryPoint,
+                value: NearbyShareOnboardingEntryPoint.MAX,
+            },
         };
     }
     ready() {
@@ -57,7 +64,7 @@ export class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase
         this.submitDeviceNameInput_();
     }
     onClose_() {
-        processOnboardingCancelledMetrics(NearbyShareOnboardingFinalState.DEVICE_NAME_PAGE);
+        processOnboardingCancelledMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.DEVICE_NAME_PAGE);
         const onboardingCancelledEvent = new CustomEvent('onboarding-cancelled', {
             bubbles: true,
             composed: true,
@@ -73,7 +80,9 @@ export class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase
     }
     onViewEnterStart_() {
         this.$.deviceName.focus();
-        processOnboardingInitiatedMetrics(new URL(document.URL));
+        const url = new URL(document.URL);
+        this.entryPoint_ = getOnboardingEntryPoint(url);
+        processOnboardingInitiatedMetrics(this.entryPoint_);
     }
     async onDeviceNameInput_() {
         const result = await getNearbyShareSettings().validateDeviceName(this.$.deviceName.value);

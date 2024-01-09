@@ -62,17 +62,10 @@ class SwapManagementInterface {
   virtual bool InitiateSwapZramWriteback(
       brillo::ErrorPtr* error,
       uint32_t in_mode) = 0;
-  // Initiate a zram recompression using the provided |mode|.
-  virtual bool InitiateSwapZramRecompression(
+  // Perform a memory reclaim for all processes.
+  virtual bool ReclaimAllProcesses(
       brillo::ErrorPtr* error,
-      uint32_t in_mode,
-      uint32_t in_threshold,
-      const std::string& in_algo) = 0;
-  // Set zram recompression algorithm in swap file. Change can be applied
-  // after SwapRestart or reboot, and persistently across reboot.
-  virtual bool SwapZramSetRecompAlgorithms(
-      brillo::ErrorPtr* error,
-      const std::vector<std::string>& in_algorithm) = 0;
+      uint8_t in_memory_types) = 0;
 };
 
 // Interface adaptor for org::chromium::SwapManagement.
@@ -131,13 +124,9 @@ class SwapManagementAdaptor {
         base::Unretained(interface_),
         &SwapManagementInterface::InitiateSwapZramWriteback);
     itf->AddSimpleMethodHandlerWithError(
-        "InitiateSwapZramRecompression",
+        "ReclaimAllProcesses",
         base::Unretained(interface_),
-        &SwapManagementInterface::InitiateSwapZramRecompression);
-    itf->AddSimpleMethodHandlerWithError(
-        "SwapZramSetRecompAlgorithms",
-        base::Unretained(interface_),
-        &SwapManagementInterface::SwapZramSetRecompAlgorithms);
+        &SwapManagementInterface::ReclaimAllProcesses);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -177,13 +166,8 @@ class SwapManagementAdaptor {
         "    <method name=\"InitiateSwapZramWriteback\">\n"
         "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
-        "    <method name=\"InitiateSwapZramRecompression\">\n"
-        "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"threshold\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"algo\" type=\"s\" direction=\"in\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SwapZramSetRecompAlgorithms\">\n"
-        "      <arg name=\"algorithm\" type=\"as\" direction=\"in\"/>\n"
+        "    <method name=\"ReclaimAllProcesses\">\n"
+        "      <arg name=\"memory_types\" type=\"y\" direction=\"in\"/>\n"
         "    </method>\n"
         "  </interface>\n";
   }

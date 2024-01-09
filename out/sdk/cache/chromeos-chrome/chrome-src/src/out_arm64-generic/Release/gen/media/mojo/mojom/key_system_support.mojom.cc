@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -152,8 +153,8 @@ KeySystemCapability::KeySystemCapability()
       hw_secure_capability() {}
 
 KeySystemCapability::KeySystemCapability(
-    const absl::optional<::media::CdmCapability>& sw_secure_capability_in,
-    const absl::optional<::media::CdmCapability>& hw_secure_capability_in)
+    const std::optional<::media::CdmCapability>& sw_secure_capability_in,
+    const std::optional<::media::CdmCapability>& hw_secure_capability_in)
     : sw_secure_capability(std::move(sw_secure_capability_in)),
       hw_secure_capability(std::move(hw_secure_capability_in)) {}
 
@@ -166,7 +167,7 @@ void KeySystemCapability::WriteIntoTrace(
     dict.AddItem(
       "sw_secure_capability"), this->sw_secure_capability,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::CdmCapability>&>"
+      "<value of type const std::optional<::media::CdmCapability>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -175,7 +176,7 @@ void KeySystemCapability::WriteIntoTrace(
     dict.AddItem(
       "hw_secure_capability"), this->hw_secure_capability,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::CdmCapability>&>"
+      "<value of type const std::optional<::media::CdmCapability>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -258,14 +259,17 @@ void KeySystemSupportObserverProxy::OnKeySystemSupportUpdated(
                         "<value of type base::flat_map<std::string, KeySystemCapabilityPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeySystemSupportObserver_OnKeySystemSupportUpdated_Name, kFlags, 0, 0, nullptr);
@@ -346,10 +350,10 @@ bool KeySystemSupportObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeySystemSupportObserverValidationInfo[] = {
-    {&internal::KeySystemSupportObserver_OnKeySystemSupportUpdated_Params_Data::Validate,
+    { &internal::KeySystemSupportObserver_OnKeySystemSupportUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -429,14 +433,17 @@ void KeySystemSupportProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<KeySystemSupportObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeySystemSupport_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -512,10 +519,10 @@ bool KeySystemSupportStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeySystemSupportValidationInfo[] = {
-    {&internal::KeySystemSupport_AddObserver_Params_Data::Validate,
+    { &internal::KeySystemSupport_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 

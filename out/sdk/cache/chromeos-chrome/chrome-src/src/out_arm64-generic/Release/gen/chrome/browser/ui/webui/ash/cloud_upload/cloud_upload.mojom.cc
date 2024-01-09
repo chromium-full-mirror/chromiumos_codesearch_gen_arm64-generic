@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,24 +115,180 @@ bool DialogTask::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+OneDriveSetupDialogArgs::OneDriveSetupDialogArgs()
+    : set_office_as_default_handler() {}
+
+OneDriveSetupDialogArgs::OneDriveSetupDialogArgs(
+    bool set_office_as_default_handler_in)
+    : set_office_as_default_handler(std::move(set_office_as_default_handler_in)) {}
+
+OneDriveSetupDialogArgs::~OneDriveSetupDialogArgs() = default;
+size_t OneDriveSetupDialogArgs::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->set_office_as_default_handler);
+  return seed;
+}
+
+void OneDriveSetupDialogArgs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "set_office_as_default_handler"), this->set_office_as_default_handler,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool OneDriveSetupDialogArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+MoveConfirmationOneDriveDialogArgs::MoveConfirmationOneDriveDialogArgs()
+    : operation_type() {}
+
+MoveConfirmationOneDriveDialogArgs::MoveConfirmationOneDriveDialogArgs(
+    OperationType operation_type_in)
+    : operation_type(std::move(operation_type_in)) {}
+
+MoveConfirmationOneDriveDialogArgs::~MoveConfirmationOneDriveDialogArgs() = default;
+size_t MoveConfirmationOneDriveDialogArgs::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->operation_type);
+  return seed;
+}
+
+void MoveConfirmationOneDriveDialogArgs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "operation_type"), this->operation_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OperationType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MoveConfirmationOneDriveDialogArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+MoveConfirmationGoogleDriveDialogArgs::MoveConfirmationGoogleDriveDialogArgs()
+    : operation_type() {}
+
+MoveConfirmationGoogleDriveDialogArgs::MoveConfirmationGoogleDriveDialogArgs(
+    OperationType operation_type_in)
+    : operation_type(std::move(operation_type_in)) {}
+
+MoveConfirmationGoogleDriveDialogArgs::~MoveConfirmationGoogleDriveDialogArgs() = default;
+size_t MoveConfirmationGoogleDriveDialogArgs::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->operation_type);
+  return seed;
+}
+
+void MoveConfirmationGoogleDriveDialogArgs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "operation_type"), this->operation_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OperationType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MoveConfirmationGoogleDriveDialogArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ConnectToOneDriveDialogArgs::ConnectToOneDriveDialogArgs() {}
+
+ConnectToOneDriveDialogArgs::~ConnectToOneDriveDialogArgs() = default;
+size_t ConnectToOneDriveDialogArgs::Hash(size_t seed) const {
+  return seed;
+}
+
+void ConnectToOneDriveDialogArgs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool ConnectToOneDriveDialogArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FileHandlerDialogArgs::FileHandlerDialogArgs()
+    : local_tasks(),
+      show_google_workspace_task(),
+      show_microsoft_office_task() {}
+
+FileHandlerDialogArgs::FileHandlerDialogArgs(
+    std::vector<DialogTaskPtr> local_tasks_in,
+    bool show_google_workspace_task_in,
+    bool show_microsoft_office_task_in)
+    : local_tasks(std::move(local_tasks_in)),
+      show_google_workspace_task(std::move(show_google_workspace_task_in)),
+      show_microsoft_office_task(std::move(show_microsoft_office_task_in)) {}
+
+FileHandlerDialogArgs::~FileHandlerDialogArgs() = default;
+
+void FileHandlerDialogArgs::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local_tasks"), this->local_tasks,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<DialogTaskPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "show_google_workspace_task"), this->show_google_workspace_task,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "show_microsoft_office_task"), this->show_microsoft_office_task,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FileHandlerDialogArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 DialogArgs::DialogArgs()
     : file_names(),
-      dialog_page(),
-      local_tasks(),
-      set_office_as_default_handler(),
-      operation_type() {}
+      dialog_specific_args() {}
 
 DialogArgs::DialogArgs(
     std::vector<std::string> file_names_in,
-    DialogPage dialog_page_in,
-    std::vector<DialogTaskPtr> local_tasks_in,
-    bool set_office_as_default_handler_in,
-    OperationType operation_type_in)
+    DialogSpecificArgsPtr dialog_specific_args_in)
     : file_names(std::move(file_names_in)),
-      dialog_page(std::move(dialog_page_in)),
-      local_tasks(std::move(local_tasks_in)),
-      set_office_as_default_handler(std::move(set_office_as_default_handler_in)),
-      operation_type(std::move(operation_type_in)) {}
+      dialog_specific_args(std::move(dialog_specific_args_in)) {}
 
 DialogArgs::~DialogArgs() = default;
 
@@ -149,36 +306,9 @@ void DialogArgs::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "dialog_page"), this->dialog_page,
+      "dialog_specific_args"), this->dialog_specific_args,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DialogPage>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "local_tasks"), this->local_tasks,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<DialogTaskPtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "set_office_as_default_handler"), this->set_office_as_default_handler,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "operation_type"), this->operation_type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type OperationType>"
+      "<value of type DialogSpecificArgsPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -189,6 +319,102 @@ bool DialogArgs::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
+}
+DialogSpecificArgs::DialogSpecificArgs() : tag_(Tag::kFileHandlerDialogArgs) {
+  data_.file_handler_dialog_args = new FileHandlerDialogArgsPtr;
+}
+
+DialogSpecificArgs::~DialogSpecificArgs() {
+  DestroyActive();
+}
+
+
+void DialogSpecificArgs::set_file_handler_dialog_args(
+    FileHandlerDialogArgsPtr file_handler_dialog_args) {
+  if (tag_ == Tag::kFileHandlerDialogArgs) {
+    *(data_.file_handler_dialog_args) = std::move(file_handler_dialog_args);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFileHandlerDialogArgs;
+    data_.file_handler_dialog_args = new FileHandlerDialogArgsPtr(
+        std::move(file_handler_dialog_args));
+  }
+}
+void DialogSpecificArgs::set_one_drive_setup_dialog_args(
+    OneDriveSetupDialogArgsPtr one_drive_setup_dialog_args) {
+  if (tag_ == Tag::kOneDriveSetupDialogArgs) {
+    *(data_.one_drive_setup_dialog_args) = std::move(one_drive_setup_dialog_args);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kOneDriveSetupDialogArgs;
+    data_.one_drive_setup_dialog_args = new OneDriveSetupDialogArgsPtr(
+        std::move(one_drive_setup_dialog_args));
+  }
+}
+void DialogSpecificArgs::set_move_confirmation_one_drive_dialog_args(
+    MoveConfirmationOneDriveDialogArgsPtr move_confirmation_one_drive_dialog_args) {
+  if (tag_ == Tag::kMoveConfirmationOneDriveDialogArgs) {
+    *(data_.move_confirmation_one_drive_dialog_args) = std::move(move_confirmation_one_drive_dialog_args);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kMoveConfirmationOneDriveDialogArgs;
+    data_.move_confirmation_one_drive_dialog_args = new MoveConfirmationOneDriveDialogArgsPtr(
+        std::move(move_confirmation_one_drive_dialog_args));
+  }
+}
+void DialogSpecificArgs::set_move_confirmation_google_drive_dialog_args(
+    MoveConfirmationGoogleDriveDialogArgsPtr move_confirmation_google_drive_dialog_args) {
+  if (tag_ == Tag::kMoveConfirmationGoogleDriveDialogArgs) {
+    *(data_.move_confirmation_google_drive_dialog_args) = std::move(move_confirmation_google_drive_dialog_args);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kMoveConfirmationGoogleDriveDialogArgs;
+    data_.move_confirmation_google_drive_dialog_args = new MoveConfirmationGoogleDriveDialogArgsPtr(
+        std::move(move_confirmation_google_drive_dialog_args));
+  }
+}
+void DialogSpecificArgs::set_connect_to_one_drive_dialog_args(
+    ConnectToOneDriveDialogArgsPtr connect_to_one_drive_dialog_args) {
+  if (tag_ == Tag::kConnectToOneDriveDialogArgs) {
+    *(data_.connect_to_one_drive_dialog_args) = std::move(connect_to_one_drive_dialog_args);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kConnectToOneDriveDialogArgs;
+    data_.connect_to_one_drive_dialog_args = new ConnectToOneDriveDialogArgsPtr(
+        std::move(connect_to_one_drive_dialog_args));
+  }
+}
+
+void DialogSpecificArgs::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kFileHandlerDialogArgs:
+
+      delete data_.file_handler_dialog_args;
+      break;
+    case Tag::kOneDriveSetupDialogArgs:
+
+      delete data_.one_drive_setup_dialog_args;
+      break;
+    case Tag::kMoveConfirmationOneDriveDialogArgs:
+
+      delete data_.move_confirmation_one_drive_dialog_args;
+      break;
+    case Tag::kMoveConfirmationGoogleDriveDialogArgs:
+
+      delete data_.move_confirmation_google_drive_dialog_args;
+      break;
+    case Tag::kConnectToOneDriveDialogArgs:
+
+      delete data_.connect_to_one_drive_dialog_args;
+      break;
+  }
+}
+
+bool DialogSpecificArgs::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
 }
 const char PageHandlerFactory::Name_[] = "ash.cloud_upload.mojom.PageHandlerFactory";
 
@@ -261,14 +487,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -344,10 +573,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -844,14 +1073,17 @@ void PageHandlerProxy::GetDialogArgs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::GetDialogArgs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDialogArgs_Name, kFlags, 0, 0, nullptr);
@@ -875,14 +1107,17 @@ void PageHandlerProxy::IsOfficeWebAppInstalled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::IsOfficeWebAppInstalled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsOfficeWebAppInstalled_Name, kFlags, 0, 0, nullptr);
@@ -906,14 +1141,17 @@ void PageHandlerProxy::InstallOfficeWebApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::InstallOfficeWebApp");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_InstallOfficeWebApp_Name, kFlags, 0, 0, nullptr);
@@ -937,14 +1175,17 @@ void PageHandlerProxy::IsODFSMounted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::IsODFSMounted");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsODFSMounted_Name, kFlags, 0, 0, nullptr);
@@ -968,14 +1209,17 @@ void PageHandlerProxy::SignInToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::SignInToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SignInToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1006,14 +1250,17 @@ void PageHandlerProxy::RespondWithUserActionAndClose(
                         "<value of type UserAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RespondWithUserActionAndClose_Name, kFlags, 0, 0, nullptr);
@@ -1045,14 +1292,17 @@ void PageHandlerProxy::RespondWithLocalTaskAndClose(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RespondWithLocalTaskAndClose_Name, kFlags, 0, 0, nullptr);
@@ -1076,14 +1326,17 @@ void PageHandlerProxy::SetOfficeAsDefaultHandler(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::SetOfficeAsDefaultHandler");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetOfficeAsDefaultHandler_Name, kFlags, 0, 0, nullptr);
@@ -1106,14 +1359,17 @@ void PageHandlerProxy::GetAlwaysMoveOfficeFilesToDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::GetAlwaysMoveOfficeFilesToDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -1144,14 +1400,17 @@ void PageHandlerProxy::SetAlwaysMoveOfficeFilesToDrive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -1175,14 +1434,17 @@ void PageHandlerProxy::GetAlwaysMoveOfficeFilesToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::GetAlwaysMoveOfficeFilesToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1213,14 +1475,17 @@ void PageHandlerProxy::SetAlwaysMoveOfficeFilesToOneDrive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1244,14 +1509,17 @@ void PageHandlerProxy::GetOfficeMoveConfirmationShownForDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::GetOfficeMoveConfirmationShownForDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeMoveConfirmationShownForDrive_Name, kFlags, 0, 0, nullptr);
@@ -1275,14 +1543,17 @@ void PageHandlerProxy::GetOfficeMoveConfirmationShownForOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cloud_upload::mojom::PageHandler::GetOfficeMoveConfirmationShownForOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeMoveConfirmationShownForOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1313,14 +1584,17 @@ void PageHandlerProxy::RecordCancel(
                         "<value of type MetricsRecordedSetupPage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RecordCancel_Name, kFlags, 0, 0, nullptr);
@@ -1431,7 +1705,8 @@ void PageHandler_GetDialogArgs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDialogArgs_Name, kFlags, 0, 0, nullptr);
@@ -1446,10 +1721,6 @@ void PageHandler_GetDialogArgs_ProxyToResponder::Run(
       in_args, args_fragment);
   params->args.Set(
       args_fragment.is_null() ? nullptr : args_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->args.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null args in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
@@ -1559,7 +1830,8 @@ void PageHandler_IsOfficeWebAppInstalled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsOfficeWebAppInstalled_Name, kFlags, 0, 0, nullptr);
@@ -1677,7 +1949,8 @@ void PageHandler_InstallOfficeWebApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_InstallOfficeWebApp_Name, kFlags, 0, 0, nullptr);
@@ -1795,7 +2068,8 @@ void PageHandler_IsODFSMounted_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsODFSMounted_Name, kFlags, 0, 0, nullptr);
@@ -1913,7 +2187,8 @@ void PageHandler_SignInToOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SignInToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -2031,7 +2306,8 @@ void PageHandler_GetAlwaysMoveOfficeFilesToDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -2149,7 +2425,8 @@ void PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -2267,7 +2544,8 @@ void PageHandler_GetOfficeMoveConfirmationShownForDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeMoveConfirmationShownForDrive_Name, kFlags, 0, 0, nullptr);
@@ -2385,7 +2663,8 @@ void PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeMoveConfirmationShownForOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -2855,38 +3134,38 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetDialogArgs_Params_Data::Validate,
+    { &internal::PageHandler_GetDialogArgs_Params_Data::Validate,
      &internal::PageHandler_GetDialogArgs_ResponseParams_Data::Validate},
-    {&internal::PageHandler_IsOfficeWebAppInstalled_Params_Data::Validate,
+    { &internal::PageHandler_IsOfficeWebAppInstalled_Params_Data::Validate,
      &internal::PageHandler_IsOfficeWebAppInstalled_ResponseParams_Data::Validate},
-    {&internal::PageHandler_InstallOfficeWebApp_Params_Data::Validate,
+    { &internal::PageHandler_InstallOfficeWebApp_Params_Data::Validate,
      &internal::PageHandler_InstallOfficeWebApp_ResponseParams_Data::Validate},
-    {&internal::PageHandler_IsODFSMounted_Params_Data::Validate,
+    { &internal::PageHandler_IsODFSMounted_Params_Data::Validate,
      &internal::PageHandler_IsODFSMounted_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SignInToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_SignInToOneDrive_Params_Data::Validate,
      &internal::PageHandler_SignInToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_RespondWithUserActionAndClose_Params_Data::Validate,
+    { &internal::PageHandler_RespondWithUserActionAndClose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RespondWithLocalTaskAndClose_Params_Data::Validate,
+    { &internal::PageHandler_RespondWithLocalTaskAndClose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetOfficeAsDefaultHandler_Params_Data::Validate,
+    { &internal::PageHandler_SetOfficeAsDefaultHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
      &internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
+    { &internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetOfficeMoveConfirmationShownForDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetOfficeMoveConfirmationShownForDrive_Params_Data::Validate,
      &internal::PageHandler_GetOfficeMoveConfirmationShownForDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetOfficeMoveConfirmationShownForOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetOfficeMoveConfirmationShownForOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_RecordCancel_Params_Data::Validate,
+    { &internal::PageHandler_RecordCancel_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2928,6 +3207,78 @@ bool StructTraits<::ash::cloud_upload::mojom::DialogTask::DataView, ::ash::cloud
 
 
 // static
+bool StructTraits<::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::DataView, ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::DataView input,
+    ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr* output) {
+  bool success = true;
+  ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr result(::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::New());
+  
+      if (success)
+        result->set_office_as_default_handler = input.set_office_as_default_handler();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::DataView, ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::DataView input,
+    ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr* output) {
+  bool success = true;
+  ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr result(::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::New());
+  
+      if (success && !input.ReadOperationType(&result->operation_type))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::DataView, ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::DataView input,
+    ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr* output) {
+  bool success = true;
+  ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr result(::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::New());
+  
+      if (success && !input.ReadOperationType(&result->operation_type))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgs::DataView, ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgs::DataView input,
+    ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr* output) {
+  bool success = true;
+  ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr result(::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgs::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cloud_upload::mojom::FileHandlerDialogArgs::DataView, ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::FileHandlerDialogArgs::DataView input,
+    ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr* output) {
+  bool success = true;
+  ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr result(::ash::cloud_upload::mojom::FileHandlerDialogArgs::New());
+  
+      if (success && !input.ReadLocalTasks(&result->local_tasks))
+        success = false;
+      if (success)
+        result->show_google_workspace_task = input.show_google_workspace_task();
+      if (success)
+        result->show_microsoft_office_task = input.show_microsoft_office_task();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cloud_upload::mojom::DialogArgs::DataView, ::ash::cloud_upload::mojom::DialogArgsPtr>::Read(
     ::ash::cloud_upload::mojom::DialogArgs::DataView input,
     ::ash::cloud_upload::mojom::DialogArgsPtr* output) {
@@ -2936,16 +3287,70 @@ bool StructTraits<::ash::cloud_upload::mojom::DialogArgs::DataView, ::ash::cloud
   
       if (success && !input.ReadFileNames(&result->file_names))
         success = false;
-      if (success && !input.ReadDialogPage(&result->dialog_page))
-        success = false;
-      if (success && !input.ReadLocalTasks(&result->local_tasks))
-        success = false;
-      if (success)
-        result->set_office_as_default_handler = input.set_office_as_default_handler();
-      if (success && !input.ReadOperationType(&result->operation_type))
+      if (success && !input.ReadDialogSpecificArgs(&result->dialog_specific_args))
         success = false;
   *output = std::move(result);
   return success;
+}
+
+// static
+bool UnionTraits<::ash::cloud_upload::mojom::DialogSpecificArgs::DataView, ::ash::cloud_upload::mojom::DialogSpecificArgsPtr>::Read(
+    ::ash::cloud_upload::mojom::DialogSpecificArgs::DataView input,
+    ::ash::cloud_upload::mojom::DialogSpecificArgsPtr* output) {
+  using UnionType = ::ash::cloud_upload::mojom::DialogSpecificArgs;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kFileHandlerDialogArgs: {
+      ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr result_file_handler_dialog_args;
+      if (!input.ReadFileHandlerDialogArgs(&result_file_handler_dialog_args))
+        return false;
+
+      *output = UnionType::NewFileHandlerDialogArgs(
+          std::move(result_file_handler_dialog_args));
+      break;
+    }
+    case Tag::kOneDriveSetupDialogArgs: {
+      ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr result_one_drive_setup_dialog_args;
+      if (!input.ReadOneDriveSetupDialogArgs(&result_one_drive_setup_dialog_args))
+        return false;
+
+      *output = UnionType::NewOneDriveSetupDialogArgs(
+          std::move(result_one_drive_setup_dialog_args));
+      break;
+    }
+    case Tag::kMoveConfirmationOneDriveDialogArgs: {
+      ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr result_move_confirmation_one_drive_dialog_args;
+      if (!input.ReadMoveConfirmationOneDriveDialogArgs(&result_move_confirmation_one_drive_dialog_args))
+        return false;
+
+      *output = UnionType::NewMoveConfirmationOneDriveDialogArgs(
+          std::move(result_move_confirmation_one_drive_dialog_args));
+      break;
+    }
+    case Tag::kMoveConfirmationGoogleDriveDialogArgs: {
+      ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr result_move_confirmation_google_drive_dialog_args;
+      if (!input.ReadMoveConfirmationGoogleDriveDialogArgs(&result_move_confirmation_google_drive_dialog_args))
+        return false;
+
+      *output = UnionType::NewMoveConfirmationGoogleDriveDialogArgs(
+          std::move(result_move_confirmation_google_drive_dialog_args));
+      break;
+    }
+    case Tag::kConnectToOneDriveDialogArgs: {
+      ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr result_connect_to_one_drive_dialog_args;
+      if (!input.ReadConnectToOneDriveDialogArgs(&result_connect_to_one_drive_dialog_args))
+        return false;
+
+      *output = UnionType::NewConnectToOneDriveDialogArgs(
+          std::move(result_connect_to_one_drive_dialog_args));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
 }
 
 }  // namespace mojo

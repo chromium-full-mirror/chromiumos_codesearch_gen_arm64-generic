@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -318,14 +319,17 @@ void PowerHostProxy::OnAcquireDisplayWakeLock(
                         "<value of type DisplayWakeLockType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnAcquireDisplayWakeLock_Name, kFlags, 0, 0, nullptr);
@@ -357,14 +361,17 @@ void PowerHostProxy::OnReleaseDisplayWakeLock(
                         "<value of type DisplayWakeLockType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnReleaseDisplayWakeLock_Name, kFlags, 0, 0, nullptr);
@@ -396,14 +403,17 @@ void PowerHostProxy::OnWakefulnessChanged(
                         "<value of type WakefulnessMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnWakefulnessChanged_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +438,17 @@ void PowerHostProxy::IsDisplayOn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerHost::IsDisplayOn");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_IsDisplayOn_Name, kFlags, 0, 0, nullptr);
@@ -466,14 +479,17 @@ void PowerHostProxy::OnScreenBrightnessUpdateRequest(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnScreenBrightnessUpdateRequest_Name, kFlags, 0, 0, nullptr);
@@ -504,14 +520,17 @@ void PowerHostProxy::OnPreAnr(
                         "<value of type ::arc::mojom::AnrType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnPreAnr_Name, kFlags, 0, 0, nullptr);
@@ -543,14 +562,17 @@ void PowerHostProxy::OnAnrRecoveryFailed(
                         "<value of type ::arc::mojom::AnrType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_OnAnrRecoveryFailed_Name, kFlags, 0, 0, nullptr);
@@ -575,14 +597,17 @@ void PowerHostProxy::GetBatterySaverModeState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerHost::GetBatterySaverModeState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_GetBatterySaverModeState_Name, kFlags, 0, 0, nullptr);
@@ -692,7 +717,8 @@ void PowerHost_IsDisplayOn_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_IsDisplayOn_Name, kFlags, 0, 0, nullptr);
@@ -810,7 +836,8 @@ void PowerHost_GetBatterySaverModeState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerHost_GetBatterySaverModeState_Name, kFlags, 0, 0, nullptr);
@@ -1098,25 +1125,25 @@ bool PowerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPowerHostValidationInfo[] = {
-    {&internal::PowerHost_OnAcquireDisplayWakeLock_Params_Data::Validate,
+    { &internal::PowerHost_OnAcquireDisplayWakeLock_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerHost_OnReleaseDisplayWakeLock_Params_Data::Validate,
+    { &internal::PowerHost_OnReleaseDisplayWakeLock_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerHost_IsDisplayOn_Params_Data::Validate,
+    { &internal::PowerHost_IsDisplayOn_Params_Data::Validate,
      &internal::PowerHost_IsDisplayOn_ResponseParams_Data::Validate},
-    {&internal::PowerHost_OnScreenBrightnessUpdateRequest_Params_Data::Validate,
+    { &internal::PowerHost_OnScreenBrightnessUpdateRequest_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::PowerHost_OnWakefulnessChanged_Params_Data::Validate,
+    { &internal::PowerHost_OnWakefulnessChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerHost_OnPreAnr_Params_Data::Validate,
+    { &internal::PowerHost_OnPreAnr_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerHost_OnAnrRecoveryFailed_Params_Data::Validate,
+    { &internal::PowerHost_OnAnrRecoveryFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerHost_GetBatterySaverModeState_Params_Data::Validate,
+    { &internal::PowerHost_GetBatterySaverModeState_Params_Data::Validate,
      &internal::PowerHost_GetBatterySaverModeState_ResponseParams_Data::Validate},
 };
 
@@ -1137,8 +1164,8 @@ PowerInstance::IPCStableHashFunction PowerInstance::MessageToMethodInfo_(mojo::M
     case internal::kPowerInstance_Init_Name: {
       return &PowerInstance::Init_Sym::IPCStableHash;
     }
-    case internal::kPowerInstance_SetInteractive_Name: {
-      return &PowerInstance::SetInteractive_Sym::IPCStableHash;
+    case internal::kPowerInstance_SetInteractiveDeprecated_Name: {
+      return &PowerInstance::SetInteractiveDeprecated_Sym::IPCStableHash;
     }
     case internal::kPowerInstance_Suspend_Name: {
       return &PowerInstance::Suspend_Sym::IPCStableHash;
@@ -1161,6 +1188,9 @@ PowerInstance::IPCStableHashFunction PowerInstance::MessageToMethodInfo_(mojo::M
     case internal::kPowerInstance_OnBatterySaverModeStateChanged_Name: {
       return &PowerInstance::OnBatterySaverModeStateChanged_Sym::IPCStableHash;
     }
+    case internal::kPowerInstance_SetIdleState_Name: {
+      return &PowerInstance::SetIdleState_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1174,8 +1204,8 @@ const char* PowerInstance::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPowerInstance_Init_Name:
             return "Receive arc::mojom::PowerInstance::Init";
-      case internal::kPowerInstance_SetInteractive_Name:
-            return "Receive arc::mojom::PowerInstance::SetInteractive";
+      case internal::kPowerInstance_SetInteractiveDeprecated_Name:
+            return "Receive arc::mojom::PowerInstance::SetInteractiveDeprecated";
       case internal::kPowerInstance_Suspend_Name:
             return "Receive arc::mojom::PowerInstance::Suspend";
       case internal::kPowerInstance_Resume_Name:
@@ -1190,13 +1220,15 @@ const char* PowerInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::PowerInstance::OnCpuRestrictionChanged";
       case internal::kPowerInstance_OnBatterySaverModeStateChanged_Name:
             return "Receive arc::mojom::PowerInstance::OnBatterySaverModeStateChanged";
+      case internal::kPowerInstance_SetIdleState_Name:
+            return "Receive arc::mojom::PowerInstance::SetIdleState";
     }
   } else {
     switch (message.name()) {
       case internal::kPowerInstance_Init_Name:
             return "Receive reply arc::mojom::PowerInstance::Init";
-      case internal::kPowerInstance_SetInteractive_Name:
-            return "Receive reply arc::mojom::PowerInstance::SetInteractive";
+      case internal::kPowerInstance_SetInteractiveDeprecated_Name:
+            return "Receive reply arc::mojom::PowerInstance::SetInteractiveDeprecated";
       case internal::kPowerInstance_Suspend_Name:
             return "Receive reply arc::mojom::PowerInstance::Suspend";
       case internal::kPowerInstance_Resume_Name:
@@ -1211,6 +1243,8 @@ const char* PowerInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::PowerInstance::OnCpuRestrictionChanged";
       case internal::kPowerInstance_OnBatterySaverModeStateChanged_Name:
             return "Receive reply arc::mojom::PowerInstance::OnBatterySaverModeStateChanged";
+      case internal::kPowerInstance_SetIdleState_Name:
+            return "Receive reply arc::mojom::PowerInstance::SetIdleState";
     }
   }
   return "Receive unknown mojo message";
@@ -1238,7 +1272,7 @@ uint32_t PowerInstance::Init_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PowerInstance::SetInteractive_Sym::IPCStableHash() {
+uint32_t PowerInstance::SetInteractiveDeprecated_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1246,7 +1280,7 @@ uint32_t PowerInstance::SetInteractive_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::PowerInstance::SetInteractive");
+          "(Impl)arc::mojom::PowerInstance::SetInteractiveDeprecated");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1342,6 +1376,19 @@ uint32_t PowerInstance::OnBatterySaverModeStateChanged_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PowerInstance::SetIdleState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::PowerInstance::SetIdleState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PowerInstance_Init_ForwardToCallback
@@ -1408,14 +1455,17 @@ void PowerInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<PowerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1440,11 +1490,11 @@ void PowerInstanceProxy::Init(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void PowerInstanceProxy::SetInteractive(
+void PowerInstanceProxy::SetInteractiveDeprecated(
     bool in_enabled) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send arc::mojom::PowerInstance::SetInteractive", "input_parameters",
+    "mojom", "Send arc::mojom::PowerInstance::SetInteractiveDeprecated", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1452,26 +1502,29 @@ void PowerInstanceProxy::SetInteractive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPowerInstance_SetInteractive_Name, kFlags, 0, 0, nullptr);
+      internal::kPowerInstance_SetInteractiveDeprecated_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::arc::mojom::internal::PowerInstance_SetInteractive_Params_Data> params(
+      ::arc::mojom::internal::PowerInstance_SetInteractiveDeprecated_Params_Data> params(
           message);
   params.Allocate();
   params->enabled = in_enabled;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PowerInstance::Name_);
-  message.set_method_name("SetInteractive");
+  message.set_method_name("SetInteractiveDeprecated");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1483,14 +1536,17 @@ void PowerInstanceProxy::Suspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerInstance::Suspend");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_Suspend_Name, kFlags, 0, 0, nullptr);
@@ -1514,14 +1570,17 @@ void PowerInstanceProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerInstance::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1551,14 +1610,17 @@ void PowerInstanceProxy::UpdateScreenBrightnessSettings(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_UpdateScreenBrightnessSettings_Name, kFlags, 0, 0, nullptr);
@@ -1582,14 +1644,17 @@ void PowerInstanceProxy::PowerSupplyInfoChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerInstance::PowerSupplyInfoChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_PowerSupplyInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -1612,14 +1677,17 @@ void PowerInstanceProxy::GetWakefulnessMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PowerInstance::GetWakefulnessMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_GetWakefulnessMode_Name, kFlags, 0, 0, nullptr);
@@ -1650,14 +1718,17 @@ void PowerInstanceProxy::OnCpuRestrictionChanged(
                         "<value of type CpuRestrictionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_OnCpuRestrictionChanged_Name, kFlags, 0, 0, nullptr);
@@ -1689,14 +1760,17 @@ void PowerInstanceProxy::OnBatterySaverModeStateChanged(
                         "<value of type BatterySaverModeStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_OnBatterySaverModeStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1719,6 +1793,48 @@ void PowerInstanceProxy::OnBatterySaverModeStateChanged(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PowerInstance::Name_);
   message.set_method_name("OnBatterySaverModeStateChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PowerInstanceProxy::SetIdleState(
+    IdleState in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::PowerInstance::SetIdleState", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type IdleState>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPowerInstance_SetIdleState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::PowerInstance_SetIdleState_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::arc::mojom::IdleState>(
+      in_state, &params->state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PowerInstance::Name_);
+  message.set_method_name("SetIdleState");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1805,7 +1921,8 @@ void PowerInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1911,7 +2028,8 @@ void PowerInstance_Suspend_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_Suspend_Name, kFlags, 0, 0, nullptr);
@@ -2028,7 +2146,8 @@ void PowerInstance_GetWakefulnessMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerInstance_GetWakefulnessMode_Name, kFlags, 0, 0, nullptr);
@@ -2064,16 +2183,16 @@ bool PowerInstanceStubDispatch::Accept(
     case internal::kPowerInstance_Init_Name: {
       break;
     }
-    case internal::kPowerInstance_SetInteractive_Name: {
+    case internal::kPowerInstance_SetInteractiveDeprecated_Name: {
 
       DCHECK(message->is_serialized());
-      internal::PowerInstance_SetInteractive_Params_Data* params =
-          reinterpret_cast<internal::PowerInstance_SetInteractive_Params_Data*>(
+      internal::PowerInstance_SetInteractiveDeprecated_Params_Data* params =
+          reinterpret_cast<internal::PowerInstance_SetInteractiveDeprecated_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       bool p_enabled{};
-      PowerInstance_SetInteractive_ParamsDataView input_data_view(params, message);
+      PowerInstance_SetInteractiveDeprecated_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_enabled = input_data_view.enabled();
@@ -2086,7 +2205,7 @@ bool PowerInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInteractive(
+      impl->SetInteractiveDeprecated(
 std::move(p_enabled));
       return true;
     }
@@ -2218,6 +2337,32 @@ std::move(p_state));
 std::move(p_state));
       return true;
     }
+    case internal::kPowerInstance_SetIdleState_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PowerInstance_SetIdleState_Params_Data* params =
+          reinterpret_cast<internal::PowerInstance_SetIdleState_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      IdleState p_state{};
+      PowerInstance_SetIdleState_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadState(&p_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PowerInstance::Name_, 10, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetIdleState(
+std::move(p_state));
+      return true;
+    }
   }
   return false;
 }
@@ -2262,7 +2407,7 @@ bool PowerInstanceStubDispatch::AcceptWithResponder(
 std::move(p_host_remote), std::move(callback));
       return true;
     }
-    case internal::kPowerInstance_SetInteractive_Name: {
+    case internal::kPowerInstance_SetInteractiveDeprecated_Name: {
       break;
     }
     case internal::kPowerInstance_Suspend_Name: {
@@ -2330,30 +2475,35 @@ std::move(p_host_remote), std::move(callback));
     case internal::kPowerInstance_OnBatterySaverModeStateChanged_Name: {
       break;
     }
+    case internal::kPowerInstance_SetIdleState_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPowerInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::PowerInstance_SetInteractive_Params_Data::Validate,
+    { &internal::PowerInstance_SetInteractiveDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerInstance_Suspend_Params_Data::Validate,
+    { &internal::PowerInstance_Suspend_Params_Data::Validate,
      &internal::PowerInstance_Suspend_ResponseParams_Data::Validate},
-    {&internal::PowerInstance_Resume_Params_Data::Validate,
+    { &internal::PowerInstance_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerInstance_UpdateScreenBrightnessSettings_Params_Data::Validate,
+    { &internal::PowerInstance_UpdateScreenBrightnessSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerInstance_Init_Params_Data::Validate,
+    { &internal::PowerInstance_Init_Params_Data::Validate,
      &internal::PowerInstance_Init_ResponseParams_Data::Validate},
-    {&internal::PowerInstance_PowerSupplyInfoChanged_Params_Data::Validate,
+    { &internal::PowerInstance_PowerSupplyInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerInstance_GetWakefulnessMode_Params_Data::Validate,
+    { &internal::PowerInstance_GetWakefulnessMode_Params_Data::Validate,
      &internal::PowerInstance_GetWakefulnessMode_ResponseParams_Data::Validate},
-    {&internal::PowerInstance_OnCpuRestrictionChanged_Params_Data::Validate,
+    { &internal::PowerInstance_OnCpuRestrictionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PowerInstance_OnBatterySaverModeStateChanged_Params_Data::Validate,
+    { &internal::PowerInstance_OnBatterySaverModeStateChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PowerInstance_SetIdleState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2478,8 +2628,8 @@ BatterySaverModeStatePtr PowerHostAsyncWaiter::GetBatterySaverModeState(
 void PowerInstanceInterceptorForTesting::Init(::mojo::PendingRemote<PowerHost> host_remote, InitCallback callback) {
   GetForwardingInterface()->Init(std::move(host_remote), std::move(callback));
 }
-void PowerInstanceInterceptorForTesting::SetInteractive(bool enabled) {
-  GetForwardingInterface()->SetInteractive(std::move(enabled));
+void PowerInstanceInterceptorForTesting::SetInteractiveDeprecated(bool enabled) {
+  GetForwardingInterface()->SetInteractiveDeprecated(std::move(enabled));
 }
 void PowerInstanceInterceptorForTesting::Suspend(SuspendCallback callback) {
   GetForwardingInterface()->Suspend(std::move(callback));
@@ -2501,6 +2651,9 @@ void PowerInstanceInterceptorForTesting::OnCpuRestrictionChanged(CpuRestrictionS
 }
 void PowerInstanceInterceptorForTesting::OnBatterySaverModeStateChanged(BatterySaverModeStatePtr state) {
   GetForwardingInterface()->OnBatterySaverModeStateChanged(std::move(state));
+}
+void PowerInstanceInterceptorForTesting::SetIdleState(IdleState state) {
+  GetForwardingInterface()->SetIdleState(std::move(state));
 }
 PowerInstanceAsyncWaiter::PowerInstanceAsyncWaiter(
     PowerInstance* proxy) : proxy_(proxy) {}

@@ -39,7 +39,7 @@ class  CrosNetworkConfigInterceptorForTesting : public CrosNetworkConfig {
   void RequestTrafficCounters(const std::string& guid, RequestTrafficCountersCallback callback) override;
   void ResetTrafficCounters(const std::string& guid) override;
   void SetTrafficCountersAutoReset(const std::string& guid, bool auto_reset, UInt32ValuePtr day, SetTrafficCountersAutoResetCallback callback) override;
-  void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn) override;
+  void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn, CreateCustomApnCallback callback) override;
   void RemoveCustomApn(const std::string& network_guid, const std::string& apn_id) override;
   void ModifyCustomApn(const std::string& network_guid, ApnPropertiesPtr apn) override;
 };
@@ -67,7 +67,7 @@ class  CrosNetworkConfigAsyncWaiter {
       const std::string& guid, ConfigPropertiesPtr properties, bool* out_success, std::string* out_error_message);
   
   void ConfigureNetwork(
-      ConfigPropertiesPtr properties, bool shared, absl::optional<std::string>* out_guid, std::string* out_error_message);
+      ConfigPropertiesPtr properties, bool shared, std::optional<std::string>* out_guid, std::string* out_error_message);
   
   void ForgetNetwork(
       const std::string& guid, bool* out_success);
@@ -108,6 +108,9 @@ class  CrosNetworkConfigAsyncWaiter {
   void SetTrafficCountersAutoReset(
       const std::string& guid, bool auto_reset, UInt32ValuePtr day, bool* out_success);
   bool SetTrafficCountersAutoReset(const std::string& guid, bool auto_reset, UInt32ValuePtr day);
+  void CreateCustomApn(
+      const std::string& network_guid, ApnPropertiesPtr apn, bool* out_success);
+  bool CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn);
 
  private:
   CrosNetworkConfig* const proxy_;

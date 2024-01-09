@@ -71,11 +71,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, PictureInPictureWindow>::value,
     "PictureInPictureWindow does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&PictureInPictureWindow::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PictureInPictureWindow is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PictureInPictureWind
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(v8_receiver);
+PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -113,7 +108,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PictureInPictureWind
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(v8_receiver);
+PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -126,10 +121,10 @@ BLINK_BINDINGS_TRACE_EVENT("PictureInPictureWindow.onresize.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresize();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresize();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -142,8 +137,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(v8_receiver);
+PictureInPictureWindow* blink_receiver = V8PictureInPictureWindow::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresize(event_handler);
 }
 

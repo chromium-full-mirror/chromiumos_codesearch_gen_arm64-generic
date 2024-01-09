@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -460,8 +461,8 @@ bool ScopedAccessPermissionStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool ScopedAccessPermissionRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::crosapi::mojom::ScopedAccessPermission::Name_;
@@ -479,6 +480,9 @@ VideoFrameHandler::IPCStableHashFunction VideoFrameHandler::MessageToMethodInfo_
     }
     case internal::kVideoFrameHandler_OnNewBuffer_Name: {
       return &VideoFrameHandler::OnNewBuffer_Sym::IPCStableHash;
+    }
+    case internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name: {
+      return &VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer_Sym::IPCStableHash;
     }
     case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name: {
       return &VideoFrameHandler::OnFrameReadyInBuffer_Sym::IPCStableHash;
@@ -528,6 +532,8 @@ const char* VideoFrameHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::VideoFrameHandler::OnCaptureConfigurationChanged";
       case internal::kVideoFrameHandler_OnNewBuffer_Name:
             return "Receive crosapi::mojom::VideoFrameHandler::OnNewBuffer";
+      case internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name:
+            return "Receive crosapi::mojom::VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer";
       case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name:
             return "Receive crosapi::mojom::VideoFrameHandler::OnFrameReadyInBuffer";
       case internal::kVideoFrameHandler_OnBufferRetired_Name:
@@ -557,6 +563,8 @@ const char* VideoFrameHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::VideoFrameHandler::OnCaptureConfigurationChanged";
       case internal::kVideoFrameHandler_OnNewBuffer_Name:
             return "Receive reply crosapi::mojom::VideoFrameHandler::OnNewBuffer";
+      case internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name:
+            return "Receive reply crosapi::mojom::VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer";
       case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name:
             return "Receive reply crosapi::mojom::VideoFrameHandler::OnFrameReadyInBuffer";
       case internal::kVideoFrameHandler_OnBufferRetired_Name:
@@ -615,6 +623,19 @@ uint32_t VideoFrameHandler::OnNewBuffer_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::VideoFrameHandler::OnNewBuffer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -773,14 +794,17 @@ void VideoFrameHandlerProxy::OnCaptureConfigurationChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoFrameHandler::OnCaptureConfigurationChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnCaptureConfigurationChanged_Name, kFlags, 0, 0, nullptr);
@@ -813,14 +837,17 @@ void VideoFrameHandlerProxy::OnNewBuffer(
                         "<value of type VideoBufferHandlePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnNewBuffer_Name, kFlags, 0, 0, nullptr);
@@ -848,11 +875,11 @@ void VideoFrameHandlerProxy::OnNewBuffer(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void VideoFrameHandlerProxy::OnFrameReadyInBuffer(
+void VideoFrameHandlerProxy::DEPRECATED_OnFrameReadyInBuffer(
     ReadyFrameInBufferPtr in_buffer, std::vector<ReadyFrameInBufferPtr> in_scaled_buffers) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send crosapi::mojom::VideoFrameHandler::OnFrameReadyInBuffer", "input_parameters",
+    "mojom", "Send crosapi::mojom::VideoFrameHandler::DEPRECATED_OnFrameReadyInBuffer", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -863,14 +890,81 @@ void VideoFrameHandlerProxy::OnFrameReadyInBuffer(
                         "<value of type std::vector<ReadyFrameInBufferPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->buffer)::BaseType> buffer_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::ReadyFrameInBufferDataView>(
+      in_buffer, buffer_fragment);
+  params->buffer.Set(
+      buffer_fragment.is_null() ? nullptr : buffer_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->buffer.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null buffer in VideoFrameHandler.DEPRECATED_OnFrameReadyInBuffer request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->scaled_buffers)::BaseType>
+      scaled_buffers_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& scaled_buffers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::ReadyFrameInBufferDataView>>(
+      in_scaled_buffers, scaled_buffers_fragment, &scaled_buffers_validate_params);
+  params->scaled_buffers.Set(
+      scaled_buffers_fragment.is_null() ? nullptr : scaled_buffers_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scaled_buffers.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scaled_buffers in VideoFrameHandler.DEPRECATED_OnFrameReadyInBuffer request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(VideoFrameHandler::Name_);
+  message.set_method_name("DEPRECATED_OnFrameReadyInBuffer");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void VideoFrameHandlerProxy::OnFrameReadyInBuffer(
+    ReadyFrameInBufferPtr in_buffer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::VideoFrameHandler::OnFrameReadyInBuffer", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("buffer"), in_buffer,
+                        "<value of type ReadyFrameInBufferPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
@@ -889,19 +983,6 @@ void VideoFrameHandlerProxy::OnFrameReadyInBuffer(
       params->buffer.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null buffer in VideoFrameHandler.OnFrameReadyInBuffer request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->scaled_buffers)::BaseType>
-      scaled_buffers_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& scaled_buffers_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::ReadyFrameInBufferDataView>>(
-      in_scaled_buffers, scaled_buffers_fragment, &scaled_buffers_validate_params);
-  params->scaled_buffers.Set(
-      scaled_buffers_fragment.is_null() ? nullptr : scaled_buffers_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->scaled_buffers.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null scaled_buffers in VideoFrameHandler.OnFrameReadyInBuffer request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(VideoFrameHandler::Name_);
@@ -924,14 +1005,17 @@ void VideoFrameHandlerProxy::OnBufferRetired(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnBufferRetired_Name, kFlags, 0, 0, nullptr);
@@ -962,14 +1046,17 @@ void VideoFrameHandlerProxy::OnError(
                         "<value of type ::media::VideoCaptureError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnError_Name, kFlags, 0, 0, nullptr);
@@ -1001,14 +1088,17 @@ void VideoFrameHandlerProxy::OnFrameDropped(
                         "<value of type ::media::VideoCaptureFrameDropReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameDropped_Name, kFlags, 0, 0, nullptr);
@@ -1040,14 +1130,17 @@ void VideoFrameHandlerProxy::DEPRECATED_OnNewCropVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_DEPRECATED_OnNewCropVersion_Name, kFlags, 0, 0, nullptr);
@@ -1078,14 +1171,17 @@ void VideoFrameHandlerProxy::OnNewSubCaptureTargetVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
@@ -1109,14 +1205,17 @@ void VideoFrameHandlerProxy::OnFrameWithEmptyRegionCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoFrameHandler::OnFrameWithEmptyRegionCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name, kFlags, 0, 0, nullptr);
@@ -1146,14 +1245,17 @@ void VideoFrameHandlerProxy::OnLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnLog_Name, kFlags, 0, 0, nullptr);
@@ -1187,14 +1289,17 @@ void VideoFrameHandlerProxy::OnStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoFrameHandler::OnStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStarted_Name, kFlags, 0, 0, nullptr);
@@ -1217,14 +1322,17 @@ void VideoFrameHandlerProxy::OnStartedUsingGpuDecode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoFrameHandler::OnStartedUsingGpuDecode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStartedUsingGpuDecode_Name, kFlags, 0, 0, nullptr);
@@ -1247,14 +1355,17 @@ void VideoFrameHandlerProxy::OnStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoFrameHandler::OnStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandler_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -1329,17 +1440,17 @@ std::move(p_buffer_id),
 std::move(p_buffer_handle));
       return true;
     }
-    case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name: {
+    case internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name: {
 
       DCHECK(message->is_serialized());
-      internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* params =
-          reinterpret_cast<internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data*>(
+      internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data* params =
+          reinterpret_cast<internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ReadyFrameInBufferPtr p_buffer{};
       std::vector<ReadyFrameInBufferPtr> p_scaled_buffers{};
-      VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView input_data_view(params, message);
+      VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBuffer(&p_buffer))
         success = false;
@@ -1354,9 +1465,35 @@ std::move(p_buffer_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameReadyInBuffer(
+      impl->DEPRECATED_OnFrameReadyInBuffer(
 std::move(p_buffer), 
 std::move(p_scaled_buffers));
+      return true;
+    }
+    case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* params =
+          reinterpret_cast<internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ReadyFrameInBufferPtr p_buffer{};
+      VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadBuffer(&p_buffer))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            VideoFrameHandler::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnFrameReadyInBuffer(
+std::move(p_buffer));
       return true;
     }
     case internal::kVideoFrameHandler_OnBufferRetired_Name: {
@@ -1622,6 +1759,9 @@ bool VideoFrameHandlerStubDispatch::AcceptWithResponder(
     case internal::kVideoFrameHandler_OnNewBuffer_Name: {
       break;
     }
+    case internal::kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name: {
+      break;
+    }
     case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name: {
       break;
     }
@@ -1658,34 +1798,36 @@ bool VideoFrameHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFrameHandlerValidationInfo[] = {
-    {&internal::VideoFrameHandler_OnNewBuffer_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnNewBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate,
+    { &internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnBufferRetired_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnBufferRetired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnError_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameDropped_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameDropped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnLog_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStarted_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStartedUsingGpuDecode_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStartedUsingGpuDecode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnStopped_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data::Validate,
+    { &internal::VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnCaptureConfigurationChanged_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnCaptureConfigurationChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data::Validate,
+    { &internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1957,14 +2099,17 @@ void VideoCaptureDeviceProxy::Start(
                         "<value of type ::mojo::PendingRemote<VideoFrameHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_Start_Name, kFlags, 0, 0, nullptr);
@@ -2004,14 +2149,17 @@ void VideoCaptureDeviceProxy::MaybeSuspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDevice::MaybeSuspend");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_MaybeSuspend_Name, kFlags, 0, 0, nullptr);
@@ -2034,14 +2182,17 @@ void VideoCaptureDeviceProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDevice::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_Resume_Name, kFlags, 0, 0, nullptr);
@@ -2064,14 +2215,17 @@ void VideoCaptureDeviceProxy::GetPhotoState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDevice::GetPhotoState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -2102,14 +2256,17 @@ void VideoCaptureDeviceProxy::SetPhotoOptions(
                         "<value of type ::media::mojom::PhotoSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -2144,14 +2301,17 @@ void VideoCaptureDeviceProxy::TakePhoto(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDevice::TakePhoto");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -2182,14 +2342,17 @@ void VideoCaptureDeviceProxy::ProcessFeedback(
                         "<value of type const ::media::VideoCaptureFeedback&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_ProcessFeedback_Name, kFlags, 0, 0, nullptr);
@@ -2223,14 +2386,17 @@ void VideoCaptureDeviceProxy::RequestRefreshFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDevice::RequestRefreshFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_RequestRefreshFrame_Name, kFlags, 0, 0, nullptr);
@@ -2339,7 +2505,8 @@ void VideoCaptureDevice_GetPhotoState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -2463,7 +2630,8 @@ void VideoCaptureDevice_SetPhotoOptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -2581,7 +2749,8 @@ void VideoCaptureDevice_TakePhoto_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDevice_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -2862,24 +3031,24 @@ std::move(p_settings), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoCaptureDeviceValidationInfo[] = {
-    {&internal::VideoCaptureDevice_Start_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureDevice_MaybeSuspend_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_MaybeSuspend_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureDevice_Resume_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureDevice_GetPhotoState_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_GetPhotoState_Params_Data::Validate,
      &internal::VideoCaptureDevice_GetPhotoState_ResponseParams_Data::Validate},
-    {&internal::VideoCaptureDevice_SetPhotoOptions_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_SetPhotoOptions_Params_Data::Validate,
      &internal::VideoCaptureDevice_SetPhotoOptions_ResponseParams_Data::Validate},
-    {&internal::VideoCaptureDevice_TakePhoto_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_TakePhoto_Params_Data::Validate,
      &internal::VideoCaptureDevice_TakePhoto_ResponseParams_Data::Validate},
-    {&internal::VideoCaptureDevice_ProcessFeedback_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_ProcessFeedback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureDevice_RequestRefreshFrame_Params_Data::Validate,
+    { &internal::VideoCaptureDevice_RequestRefreshFrame_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3009,14 +3178,17 @@ void VideoCaptureDeviceFactoryProxy::GetDeviceInfos(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoCaptureDeviceFactory::GetDeviceInfos");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDeviceFactory_GetDeviceInfos_Name, kFlags, 0, 0, nullptr);
@@ -3050,14 +3222,17 @@ void VideoCaptureDeviceFactoryProxy::CreateDevice(
                         "<value of type ::mojo::PendingReceiver<VideoCaptureDevice>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDeviceFactory_CreateDevice_Name, kFlags, 0, 0, nullptr);
@@ -3184,7 +3359,8 @@ void VideoCaptureDeviceFactory_GetDeviceInfos_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDeviceFactory_GetDeviceInfos_Name, kFlags, 0, 0, nullptr);
@@ -3314,7 +3490,8 @@ void VideoCaptureDeviceFactory_CreateDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureDeviceFactory_CreateDevice_Name, kFlags, 0, 0, nullptr);
@@ -3429,12 +3606,12 @@ std::move(p_device_receiver), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoCaptureDeviceFactoryValidationInfo[] = {
-    {&internal::VideoCaptureDeviceFactory_GetDeviceInfos_Params_Data::Validate,
+    { &internal::VideoCaptureDeviceFactory_GetDeviceInfos_Params_Data::Validate,
      &internal::VideoCaptureDeviceFactory_GetDeviceInfos_ResponseParams_Data::Validate},
-    {&internal::VideoCaptureDeviceFactory_CreateDevice_Params_Data::Validate,
+    { &internal::VideoCaptureDeviceFactory_CreateDevice_Params_Data::Validate,
      &internal::VideoCaptureDeviceFactory_CreateDevice_ResponseParams_Data::Validate},
 };
 
@@ -3631,8 +3808,11 @@ void VideoFrameHandlerInterceptorForTesting::OnCaptureConfigurationChanged() {
 void VideoFrameHandlerInterceptorForTesting::OnNewBuffer(int32_t buffer_id, VideoBufferHandlePtr buffer_handle) {
   GetForwardingInterface()->OnNewBuffer(std::move(buffer_id), std::move(buffer_handle));
 }
-void VideoFrameHandlerInterceptorForTesting::OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) {
-  GetForwardingInterface()->OnFrameReadyInBuffer(std::move(buffer), std::move(scaled_buffers));
+void VideoFrameHandlerInterceptorForTesting::DEPRECATED_OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) {
+  GetForwardingInterface()->DEPRECATED_OnFrameReadyInBuffer(std::move(buffer), std::move(scaled_buffers));
+}
+void VideoFrameHandlerInterceptorForTesting::OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer) {
+  GetForwardingInterface()->OnFrameReadyInBuffer(std::move(buffer));
 }
 void VideoFrameHandlerInterceptorForTesting::OnBufferRetired(int32_t buffer_id) {
   GetForwardingInterface()->OnBufferRetired(std::move(buffer_id));

@@ -72,11 +72,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, WebSocketStream>::value,
     "WebSocketStream does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&WebSocketStream::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebSocketStream is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,7 +111,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.opened.get");
 
 
 
-WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(v8_receiver);
+WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -144,7 +139,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.closed.get");
 
 
 
-WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(v8_receiver);
+WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -215,10 +210,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.close");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<WebSocketCloseInfo>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_close_info;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<WebSocketCloseInfo>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_close_info;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebSocketStream";
 const char* const property_name = "close";

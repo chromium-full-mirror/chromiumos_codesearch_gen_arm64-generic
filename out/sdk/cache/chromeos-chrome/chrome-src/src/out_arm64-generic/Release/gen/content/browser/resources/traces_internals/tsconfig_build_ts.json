@@ -48,6 +48,7 @@
     "preprocessed/trace_report_browser_proxy.ts",
     "preprocessed/trace_report_list.html.ts",
     "preprocessed/trace_report.html.ts",
+    "preprocessed/icons.html.ts",
     "preprocessed/trace_report.mojom-webui.ts"
   ],
   "references": [

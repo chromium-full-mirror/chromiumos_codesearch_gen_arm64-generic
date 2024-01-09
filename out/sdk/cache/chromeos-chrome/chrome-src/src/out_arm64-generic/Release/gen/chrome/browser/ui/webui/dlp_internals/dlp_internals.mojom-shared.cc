@@ -117,6 +117,132 @@ std::ostream& operator<<(std::ostream& os, Level value) {
   return os << LevelToString(value);
 }
 
+NOINLINE static const char* EventDestination_ComponentToStringHelper(EventDestination_Component value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case EventDestination_Component::kUndefinedComponent:
+      return "kUndefinedComponent";
+    case EventDestination_Component::kArc:
+      return "kArc";
+    case EventDestination_Component::kCrostini:
+      return "kCrostini";
+    case EventDestination_Component::kPluginVm:
+      return "kPluginVm";
+    case EventDestination_Component::kUsb:
+      return "kUsb";
+    case EventDestination_Component::kDrive:
+      return "kDrive";
+    case EventDestination_Component::kOnedrive:
+      return "kOnedrive";
+    default:
+      return nullptr;
+  }
+}
+
+std::string EventDestination_ComponentToString(EventDestination_Component value) {
+  const char *str = EventDestination_ComponentToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown EventDestination_Component value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, EventDestination_Component value) {
+  return os << EventDestination_ComponentToString(value);
+}
+
+NOINLINE static const char* DlpEvent_RestrictionToStringHelper(DlpEvent_Restriction value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DlpEvent_Restriction::kUndefinedRestriction:
+      return "kUndefinedRestriction";
+    case DlpEvent_Restriction::kClipboard:
+      return "kClipboard";
+    case DlpEvent_Restriction::kScreenshot:
+      return "kScreenshot";
+    case DlpEvent_Restriction::kScreencast:
+      return "kScreencast";
+    case DlpEvent_Restriction::kPrinting:
+      return "kPrinting";
+    case DlpEvent_Restriction::kEprivacy:
+      return "kEprivacy";
+    case DlpEvent_Restriction::kFiles:
+      return "kFiles";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DlpEvent_RestrictionToString(DlpEvent_Restriction value) {
+  const char *str = DlpEvent_RestrictionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DlpEvent_Restriction value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DlpEvent_Restriction value) {
+  return os << DlpEvent_RestrictionToString(value);
+}
+
+NOINLINE static const char* DlpEvent_ModeToStringHelper(DlpEvent_Mode value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DlpEvent_Mode::kUndefinedMode:
+      return "kUndefinedMode";
+    case DlpEvent_Mode::kBlock:
+      return "kBlock";
+    case DlpEvent_Mode::kReport:
+      return "kReport";
+    case DlpEvent_Mode::kWarn:
+      return "kWarn";
+    case DlpEvent_Mode::kWarnProceed:
+      return "kWarnProceed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DlpEvent_ModeToString(DlpEvent_Mode value) {
+  const char *str = DlpEvent_ModeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DlpEvent_Mode value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DlpEvent_Mode value) {
+  return os << DlpEvent_ModeToString(value);
+}
+
+NOINLINE static const char* DlpEvent_UserTypeToStringHelper(DlpEvent_UserType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DlpEvent_UserType::kUndefinedUserType:
+      return "kUndefinedUserType";
+    case DlpEvent_UserType::kRegular:
+      return "kRegular";
+    case DlpEvent_UserType::kManagedGuest:
+      return "kManagedGuest";
+    case DlpEvent_UserType::kKiosk:
+      return "kKiosk";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DlpEvent_UserTypeToString(DlpEvent_UserType value) {
+  const char *str = DlpEvent_UserTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DlpEvent_UserType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DlpEvent_UserType value) {
+  return os << DlpEvent_UserTypeToString(value);
+}
+
 namespace internal {
 
 
@@ -285,6 +411,177 @@ WebContentsInfo_Data::WebContentsInfo_Data()
 
 
 // static
+bool EventDestination_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EventDestination_Data* object =
+      static_cast<const EventDestination_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& url_pattern_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->url_pattern, validation_context,
+                                         &url_pattern_validate_params)) {
+    return false;
+  }
+
+
+  if (!::dlp_internals::mojom::internal::EventDestination_Component_Data
+        ::Validate(object->component_$value, validation_context))
+    return false;
+
+  return true;
+}
+
+EventDestination_Data::EventDestination_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DlpEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 72, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DlpEvent_Data* object =
+      static_cast<const DlpEvent_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& source_pattern_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->source_pattern, validation_context,
+                                         &source_pattern_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->destination, validation_context))
+    return false;
+
+
+  if (!::dlp_internals::mojom::internal::DlpEvent_Restriction_Data
+        ::Validate(object->restriction_$value, validation_context))
+    return false;
+
+
+  if (!::dlp_internals::mojom::internal::DlpEvent_Mode_Data
+        ::Validate(object->mode_$value, validation_context))
+    return false;
+
+
+  if (!::dlp_internals::mojom::internal::DlpEvent_UserType_Data
+        ::Validate(object->user_type_$value, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& content_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->content_name, validation_context,
+                                         &content_name_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& triggered_rule_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->triggered_rule_name, validation_context,
+                                         &triggered_rule_name_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& triggered_rule_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->triggered_rule_id, validation_context,
+                                         &triggered_rule_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DlpEvent_Data::DlpEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FileDatabaseEntry_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FileDatabaseEntry_Data* object =
+      static_cast<const FileDatabaseEntry_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& source_url_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->source_url, validation_context,
+                                         &source_url_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& referrer_url_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->referrer_url, validation_context,
+                                         &referrer_url_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+FileDatabaseEntry_Data::FileDatabaseEntry_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ReportingObserver_OnReportEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ReportingObserver_OnReportEvent_Params_Data* object =
+      static_cast<const ReportingObserver_OnReportEvent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->event, validation_context))
+    return false;
+
+  return true;
+}
+
+ReportingObserver_OnReportEvent_Params_Data::ReportingObserver_OnReportEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PageHandler_GetClipboardDataSource_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -389,6 +686,152 @@ bool PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::Validate(
 PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool PageHandler_ObserveReporting_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_ObserveReporting_Params_Data* object =
+      static_cast<const PageHandler_ObserveReporting_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_ObserveReporting_Params_Data::PageHandler_ObserveReporting_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetFilesDatabaseEntries_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetFilesDatabaseEntries_Params_Data* object =
+      static_cast<const PageHandler_GetFilesDatabaseEntries_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_GetFilesDatabaseEntries_Params_Data::PageHandler_GetFilesDatabaseEntries_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetFilesDatabaseEntries_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetFilesDatabaseEntries_ResponseParams_Data* object =
+      static_cast<const PageHandler_GetFilesDatabaseEntries_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->db_entries, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& db_entries_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->db_entries, validation_context,
+                                         &db_entries_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_GetFilesDatabaseEntries_ResponseParams_Data::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetFileInode_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetFileInode_Params_Data* object =
+      static_cast<const PageHandler_GetFileInode_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->file_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& file_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->file_name, validation_context,
+                                         &file_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_GetFileInode_Params_Data::PageHandler_GetFileInode_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetFileInode_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetFileInode_ResponseParams_Data* object =
+      static_cast<const PageHandler_GetFileInode_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+PageHandler_GetFileInode_ResponseParams_Data::PageHandler_GetFileInode_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace dlp_internals
@@ -419,6 +862,46 @@ namespace perfetto {
 void TraceFormatTraits<::dlp_internals::mojom::Level>::WriteIntoTrace(
    perfetto::TracedValue context, ::dlp_internals::mojom::Level value) {
   return std::move(context).WriteString(::dlp_internals::mojom::LevelToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::EventDestination_Component>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::EventDestination_Component value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::EventDestination_ComponentToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::DlpEvent_Restriction>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_Restriction value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::DlpEvent_RestrictionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::DlpEvent_Mode>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_Mode value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::DlpEvent_ModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::DlpEvent_UserType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::DlpEvent_UserType value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::DlpEvent_UserTypeToString(value));
 }
 
 } // namespace perfetto

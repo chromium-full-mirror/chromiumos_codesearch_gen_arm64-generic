@@ -394,6 +394,32 @@
     ]
   },
   {
+    "traits_deps": [
+      "//printing/mojom"
+    ],
+    "traits_headers": [
+      "chrome/browser/printing/web_api/web_printing_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//printing"
+    ],
+    "traits_sources": [
+      "//chrome/browser/printing/web_api/web_printing_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::std::unique_ptr<::printing::PrintSettings>",
+        "mojom": "blink.mojom.WebPrintJobTemplateAttributes",
+        "move_only": true,
+        "nullable_is_same_type": true
+      },
+      {
+        "cpp": "::printing::mojom::DuplexMode",
+        "mojom": "blink.mojom.WebPrintingSides"
+      }
+    ]
+  },
+  {
     "traits_headers": [
       "third_party/blink/public/common/page/drag_mojom_traits.h"
     ],
@@ -563,6 +589,20 @@
       {
         "cpp": "::blink::web_pref::WebPreferences",
         "mojom": "blink.mojom.WebPreferences"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
+      "third_party/blink/public/common/page/color_provider_color_maps_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ui/color"
+    ],
+    "types": [
+      {
+        "cpp": "::blink::ColorProviderColorMaps",
+        "mojom": "blink.mojom.ColorProviderColorMaps"
       }
     ]
   },

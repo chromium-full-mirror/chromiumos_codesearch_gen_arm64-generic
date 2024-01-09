@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -46,10 +47,8 @@ namespace browsing_topics::mojom {
 WebUIBrowsingTopicsConfiguration::WebUIBrowsingTopicsConfiguration()
     : browsing_topics_enabled(),
       privacy_sandbox_ads_apis_override_enabled(),
-      privacy_sandbox_settings3_enabled(),
       override_privacy_sandbox_settings_local_testing_enabled(),
       browsing_topics_bypass_ip_is_publicly_routable_check_enabled(),
-      browsing_topics_xhr_enabled(),
       browsing_topics_document_api_enabled(),
       config_version(),
       browsing_topics_parameters_enabled(),
@@ -68,10 +67,8 @@ WebUIBrowsingTopicsConfiguration::WebUIBrowsingTopicsConfiguration()
 WebUIBrowsingTopicsConfiguration::WebUIBrowsingTopicsConfiguration(
     bool browsing_topics_enabled_in,
     bool privacy_sandbox_ads_apis_override_enabled_in,
-    bool privacy_sandbox_settings3_enabled_in,
     bool override_privacy_sandbox_settings_local_testing_enabled_in,
     bool browsing_topics_bypass_ip_is_publicly_routable_check_enabled_in,
-    bool browsing_topics_xhr_enabled_in,
     bool browsing_topics_document_api_enabled_in,
     int32_t config_version_in,
     bool browsing_topics_parameters_enabled_in,
@@ -88,10 +85,8 @@ WebUIBrowsingTopicsConfiguration::WebUIBrowsingTopicsConfiguration(
     const std::string& disabled_topics_list_in)
     : browsing_topics_enabled(std::move(browsing_topics_enabled_in)),
       privacy_sandbox_ads_apis_override_enabled(std::move(privacy_sandbox_ads_apis_override_enabled_in)),
-      privacy_sandbox_settings3_enabled(std::move(privacy_sandbox_settings3_enabled_in)),
       override_privacy_sandbox_settings_local_testing_enabled(std::move(override_privacy_sandbox_settings_local_testing_enabled_in)),
       browsing_topics_bypass_ip_is_publicly_routable_check_enabled(std::move(browsing_topics_bypass_ip_is_publicly_routable_check_enabled_in)),
-      browsing_topics_xhr_enabled(std::move(browsing_topics_xhr_enabled_in)),
       browsing_topics_document_api_enabled(std::move(browsing_topics_document_api_enabled_in)),
       config_version(std::move(config_version_in)),
       browsing_topics_parameters_enabled(std::move(browsing_topics_parameters_enabled_in)),
@@ -132,15 +127,6 @@ void WebUIBrowsingTopicsConfiguration::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "privacy_sandbox_settings3_enabled"), this->privacy_sandbox_settings3_enabled,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "override_privacy_sandbox_settings_local_testing_enabled"), this->override_privacy_sandbox_settings_local_testing_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
@@ -151,15 +137,6 @@ void WebUIBrowsingTopicsConfiguration::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "browsing_topics_bypass_ip_is_publicly_routable_check_enabled"), this->browsing_topics_bypass_ip_is_publicly_routable_check_enabled,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "browsing_topics_xhr_enabled"), this->browsing_topics_xhr_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -815,14 +792,17 @@ void PageHandlerProxy::GetBrowsingTopicsConfiguration(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send browsing_topics::mojom::PageHandler::GetBrowsingTopicsConfiguration");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBrowsingTopicsConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -853,14 +833,17 @@ void PageHandlerProxy::GetBrowsingTopicsState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBrowsingTopicsState_Name, kFlags, 0, 0, nullptr);
@@ -885,14 +868,17 @@ void PageHandlerProxy::GetModelInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send browsing_topics::mojom::PageHandler::GetModelInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModelInfo_Name, kFlags, 0, 0, nullptr);
@@ -923,14 +909,17 @@ void PageHandlerProxy::ClassifyHosts(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClassifyHosts_Name, kFlags, 0, 0, nullptr);
@@ -1053,7 +1042,8 @@ void PageHandler_GetBrowsingTopicsConfiguration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBrowsingTopicsConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1181,7 +1171,8 @@ void PageHandler_GetBrowsingTopicsState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBrowsingTopicsState_Name, kFlags, 0, 0, nullptr);
@@ -1307,7 +1298,8 @@ void PageHandler_GetModelInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModelInfo_Name, kFlags, 0, 0, nullptr);
@@ -1433,7 +1425,8 @@ void PageHandler_ClassifyHosts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClassifyHosts_Name, kFlags, 0, 0, nullptr);
@@ -1613,16 +1606,16 @@ std::move(p_hosts), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetBrowsingTopicsConfiguration_Params_Data::Validate,
+    { &internal::PageHandler_GetBrowsingTopicsConfiguration_Params_Data::Validate,
      &internal::PageHandler_GetBrowsingTopicsConfiguration_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetBrowsingTopicsState_Params_Data::Validate,
+    { &internal::PageHandler_GetBrowsingTopicsState_Params_Data::Validate,
      &internal::PageHandler_GetBrowsingTopicsState_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetModelInfo_Params_Data::Validate,
+    { &internal::PageHandler_GetModelInfo_Params_Data::Validate,
      &internal::PageHandler_GetModelInfo_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ClassifyHosts_Params_Data::Validate,
+    { &internal::PageHandler_ClassifyHosts_Params_Data::Validate,
      &internal::PageHandler_ClassifyHosts_ResponseParams_Data::Validate},
 };
 
@@ -1655,13 +1648,9 @@ bool StructTraits<::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::Da
       if (success)
         result->privacy_sandbox_ads_apis_override_enabled = input.privacy_sandbox_ads_apis_override_enabled();
       if (success)
-        result->privacy_sandbox_settings3_enabled = input.privacy_sandbox_settings3_enabled();
-      if (success)
         result->override_privacy_sandbox_settings_local_testing_enabled = input.override_privacy_sandbox_settings_local_testing_enabled();
       if (success)
         result->browsing_topics_bypass_ip_is_publicly_routable_check_enabled = input.browsing_topics_bypass_ip_is_publicly_routable_check_enabled();
-      if (success)
-        result->browsing_topics_xhr_enabled = input.browsing_topics_xhr_enabled();
       if (success)
         result->browsing_topics_document_api_enabled = input.browsing_topics_document_api_enabled();
       if (success)

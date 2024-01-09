@@ -19,6 +19,12 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('network.mojom');
+  var origin$ =
+      mojo.internal.exposeNamespace('url.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'url/mojom/origin.mojom', '../../../../url/mojom/origin.mojom.js');
+  }
   var url$ =
       mojo.internal.exposeNamespace('url.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -36,6 +42,12 @@
   if (mojo.config.autoLoadMojomDeps) {
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/cookie_manager.mojom', 'cookie_manager.mojom.js');
+  }
+  var cookie_setting_overrides$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/cookie_setting_overrides.mojom', 'cookie_setting_overrides.mojom.js');
   }
 
 
@@ -76,9 +88,12 @@
     this.type = 0;
     this.count = 1;
     this.url = null;
+    this.topFrameOrigin = null;
     this.siteForCookies = null;
     this.cookieList = null;
     this.devtoolsRequestId = null;
+    this.isAdTagged = false;
+    this.cookieSettingOverrides = null;
   };
   CookieAccessDetails.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -94,7 +109,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 48}
+      {version: 0, numBytes: 72}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -113,28 +128,41 @@
         return err;
 
 
+    // validate CookieAccessDetails.topFrameOrigin
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, origin$.Origin, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate CookieAccessDetails.siteForCookies
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, site_for_cookies$.SiteForCookies, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, site_for_cookies$.SiteForCookies, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate CookieAccessDetails.cookieList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, new codec.PointerTo(cookie_manager$.CookieOrLineWithAccessResult), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, new codec.PointerTo(cookie_manager$.CookieOrLineWithAccessResult), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate CookieAccessDetails.devtoolsRequestId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 32, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 40, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
+
+
+    // validate CookieAccessDetails.cookieSettingOverrides
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, cookie_setting_overrides$.CookieSettingOverrides, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  CookieAccessDetails.encodedSize = codec.kStructHeaderSize + 40;
+  CookieAccessDetails.encodedSize = codec.kStructHeaderSize + 64;
 
   CookieAccessDetails.decode = function(decoder) {
     var packed;
@@ -147,12 +175,25 @@
         decoder.decodeStruct(codec.Uint32);
     val.url =
         decoder.decodeStructPointer(url$.Url);
+    val.topFrameOrigin =
+        decoder.decodeStructPointer(origin$.Origin);
     val.siteForCookies =
         decoder.decodeStructPointer(site_for_cookies$.SiteForCookies);
     val.cookieList =
         decoder.decodeArrayPointer(new codec.PointerTo(cookie_manager$.CookieOrLineWithAccessResult));
     val.devtoolsRequestId =
         decoder.decodeStruct(codec.NullableString);
+    packed = decoder.readUint8();
+    val.isAdTagged = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.cookieSettingOverrides =
+        decoder.decodeStructPointer(cookie_setting_overrides$.CookieSettingOverrides);
     return val;
   };
 
@@ -163,9 +204,21 @@
     encoder.encodeStruct(codec.Int32, val.type);
     encoder.encodeStruct(codec.Uint32, val.count);
     encoder.encodeStructPointer(url$.Url, val.url);
+    encoder.encodeStructPointer(origin$.Origin, val.topFrameOrigin);
     encoder.encodeStructPointer(site_for_cookies$.SiteForCookies, val.siteForCookies);
     encoder.encodeArrayPointer(new codec.PointerTo(cookie_manager$.CookieOrLineWithAccessResult), val.cookieList);
     encoder.encodeStruct(codec.NullableString, val.devtoolsRequestId);
+    packed = 0;
+    packed |= (val.isAdTagged & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStructPointer(cookie_setting_overrides$.CookieSettingOverrides, val.cookieSettingOverrides);
   };
   function CookieAccessObserver_OnCookiesAccessed_Params(values) {
     this.initDefaults_();

@@ -159,6 +159,9 @@ class LatencyLogDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
         pointer, output, message_);
   }
+  uint32_t encoded_bytes_size() const {
+    return data_->encoded_bytes_size;
+  }
  private:
   internal::LatencyLog_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -275,6 +278,7 @@ struct Serializer<::lens::mojom::LatencyLogDataView, MaybeConstUserType> {
         fragment->time.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null time in LatencyLog struct");
+    fragment->encoded_bytes_size = Traits::encoded_bytes_size(input);
   }
 
   static bool Deserialize(::lens::mojom::internal::LatencyLog_Data* input,

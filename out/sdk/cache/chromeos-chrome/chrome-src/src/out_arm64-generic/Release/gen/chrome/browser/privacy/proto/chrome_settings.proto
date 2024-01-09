@@ -785,6 +785,39 @@ message AlwaysAuthorizePluginsProto {
   optional bool AlwaysAuthorizePlugins = 2;
 }
 
+// Allow user browser access to a list of URLs while Always-on VPN is active in
+// strict mode with lockdown enabled and the VPN is not connected
+//
+// This policy only applies to browser traffic; the Play Store, Android apps web
+// navigation and other user traffic like Linux VM traffic or print jobs, still
+// honor the restrictions imposed by the Always-on VPN. This policy is only
+// enforced while the VPN is not connected and only for user browser traffic.
+// While this policy is enforced, system traffic can also bypass the Always-on
+// VPN to perform tasks like policy fetches and synchronizing the system clock.
+//
+// Use this policy to open exceptions to certain schemes, subdomains of other
+// domains, ports, or specific paths, using the format specified at
+// https://support.google.com/chrome/a?p=url_blocklist_filter_format. The most
+// specific filter determines if a URL is blocked or allowed.
+//
+// If the AlwaysOnVpnPreConnectUrlAllowlist is set, an Always-on VPN is
+// configured and the Always-on VPN is not connected, navigation to all hosts is
+// blocked, except for those allowed by the AlwaysOnVpnPreConnectUrlAllowlist
+// policy. In this device state, the URLBlocklist and URLAllowlist are ignored.
+// When the Always-on VPN connects, the URLBlocklist and URLAllowlist policies
+// are applied and the AlwaysOnVpnPreConnectUrlAllowlist policy is ignored.
+//
+// This policy is limited to 1,000 entries.
+//
+// Leaving the policy unset prevents any browser navigation while the Always-on
+// VPN with strict mode is active and the VPN is not connected.
+//
+// Supported on: chrome_os
+message AlwaysOnVpnPreConnectUrlAllowlistProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList AlwaysOnVpnPreConnectUrlAllowlist = 2;
+}
+
 // Always Open PDF files externally
 //
 // Setting the policy to Enabled turns the internal PDF viewer off in Google
@@ -1254,7 +1287,7 @@ message AssistantWebEnabledProto {
 //   True: Enable remote attestation for the user
 //   False: Disable remote attestation for the user
 //
-// Supported on: chrome_os
+// Supported on:
 message AttestationEnabledForUserProto {
   optional PolicyOptions policy_options = 1;
   optional bool AttestationEnabledForUser = 2;
@@ -1872,22 +1905,26 @@ message BasicAuthOverHttpEnabledProto {
 
 // Enable Battery Saver Mode
 //
-// This policy enables or disables the Battery Saver Mode setting. This setting
-// makes it so that frame rate is throttled to lower power consumption.
-// If this policy is unset, the end user can control this setting in
-// chrome://settings/performance.
+// This policy enables or disables the Battery Saver Mode setting.
+// On Chrome, this setting makes it so that frame rate is throttled to lower
+// power consumption. If this policy is unset, the end user can control this
+// setting in chrome://settings/performance.
+// On ChromeOS, this setting makes it so that frame rate and CPU frequency are
+// throttled, backlights are dimmed, and Android is put in Battery Saver Mode.
+// On devices with multiple CPUs, some CPUs will be turned off.
 // The different levels are:
 // Disabled (0): Battery Saver Mode will be disabled.
 // EnabledBelowThreshold (1): Battery Saver Mode will be enabled when the device
 // is on battery power and battery level is low.
-// EnabledOnBattery (2): Battery Saver Mode will be enabled when the device is
-// on battery power.
+// EnabledOnBattery (2): This value is deprecated as of M121. From M121 onwards,
+// values will be      treated as EnabledBelowThreshold.
 //
 // Valid values:
 //   0: Battery Saver Mode will be disabled.
 //   1: Battery Saver Mode will be enabled when the device is on battery power
 // and battery level is low.
-//   2: Battery Saver Mode will be enabled when the device is on battery power.
+//   2: This value is deprecated as of M121. In M121 and after, values will be
+// treated as EnabledBelowThreshold.
 //
 // Supported on: chrome_os, linux, mac, win
 message BatterySaverModeAvailabilityProto {
@@ -2796,6 +2833,48 @@ message CACertificateManagementAllowedProto {
   optional int64 CACertificateManagementAllowed = 2;
 }
 
+// TLS certificates that should be trusted by Google Chrome for server
+// authentication
+//
+// A list of TLS certificates that should be trusted by Google Chrome for server
+// authentication.
+// Certificates should be base64-encoded.
+//
+// Supported on: linux, mac, win
+message CACertificatesProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList CACertificates = 2;
+}
+
+// TLS certificates that should be distrusted by Google Chrome for server
+// authentication
+//
+// A list of certificate public keys that should be distrusted by Google Chrome
+// for TLS server
+// authentication.
+//
+// The policy value is a list of base64-encoded X.509 certificates. Any
+// certificate with a matching SPKI (SubjectPublicKeyInfo) will be distrusted.
+//
+// Supported on: linux, mac, win
+message CADistrustedCertificatesProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList CADistrustedCertificates = 2;
+}
+
+// TLS certificates that are not trusted or distrusted but can be used in path-
+// building for server authentication
+//
+// A list of certificates that are not trusted or distrusted in Google Chrome
+// but can be used as hints for path-building. Certificates should be
+// base64-encoded.
+//
+// Supported on: linux, mac, win
+message CAHintCertificatesProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList CAHintCertificates = 2;
+}
+
 // Enable ToS during first-run for CCT
 //
 // This policy is deprecated, please use the ToSDialogBehavior policy instead.
@@ -3153,7 +3232,7 @@ message ChromeAppsWebViewPermissiveBehaviorAllowedProto {
 //   False: Prevent Chrome Cleanup from periodically scanning the system and
 // disable manual scans
 //
-// Supported on: win
+// Supported on:
 message ChromeCleanupEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeCleanupEnabled = 2;
@@ -3188,7 +3267,7 @@ message ChromeCleanupEnabledProto {
 //   None: Users may choose to share results from a Chrome Cleanup cleanup with
 // Google
 //
-// Supported on: win
+// Supported on:
 message ChromeCleanupReportingEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeCleanupReportingEnabled = 2;
@@ -3317,16 +3396,13 @@ message ChromeOsMultiProfileUserBehaviorProto {
 // When this policy is not set, the Chrome Root Store or system provided roots
 // may be used.
 //
-// This policy is planned to be removed in
-// Google Chrome for
-// Android version 121,
-// when support for using the platform supplied roots is planned to be removed.
-//
-// This policy was removed in Google Chrome
-// for Microsoft® Windows® and macOS version 113,
+// This policy was removed in Google Chrome version 113
+// for Microsoft® Windows® and macOS,
 // Google ChromeOS version 120,
-// and Google Chrome for
-// Linux version 120 when support for using the
+// Google Chrome version 120 for
+// Linux, and
+// Google Chrome version 121 for
+// Android when support for using the
 // platform supplied certificate verifier and roots was removed.
 //
 // Valid values:
@@ -3334,7 +3410,7 @@ message ChromeOsMultiProfileUserBehaviorProto {
 //   False: Do not use the Chrome Root Store.
 //   None: Chrome Root Store may be used depending on feature launch process.
 //
-// Supported on: android, chrome_os, linux
+// Supported on:
 message ChromeRootStoreEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeRootStoreEnabled = 2;
@@ -3466,28 +3542,6 @@ message ClickToCallEnabledProto {
 message ClientCertificateManagementAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional int64 ClientCertificateManagementAllowed = 2;
-}
-
-// Allow Safe Browsing Client Side Phishing Protection
-//
-// When this policy is enabled or left unset, client side phishing protection
-// will be controlled by SafeBrowsingProtectionLevel for Google Chrome. If
-// SafeBrowsingProtectionLevel is set to Standard or Enhanced Protection, client
-// side phishing protection runs a local model to check if a page is phishing.
-// If the model believes the page is phishing, Google Chrome sends a request to
-// Google for a final verdict.
-// When this policy is disabled, client side phishing protection does not
-// perform any protection and does not send data to Google for verdicts.
-//
-// Valid values:
-//   True: Safe Browsing Client Side Phishing Protection is controlled by
-// SafeBrowsingProtectionLevel policy
-//   False: Disable Safe Browsing Client Side Phishing Protection
-//
-// Supported on: chrome_os
-message ClientSidePhishingProtectionAllowedProto {
-  optional PolicyOptions policy_options = 1;
-  optional bool ClientSidePhishingProtectionAllowed = 2;
 }
 
 // Allow clipboard on these sites
@@ -3999,7 +4053,7 @@ message CompressionDictionaryTransportEnabledProto {
 // For detailed information on valid URL patterns, please see
 // https://support.google.com/chrome/a?p=url_blocklist_filter_format.
 //
-// Supported on: chrome_os, fuchsia, linux, mac, win
+// Supported on: fuchsia
 message ContextAwareAccessSignalsAllowlistProto {
   optional PolicyOptions policy_options = 1;
   optional StringList ContextAwareAccessSignalsAllowlist = 2;
@@ -4270,6 +4324,40 @@ message CorsMitigationListProto {
 message CreatePasskeysInICloudKeychainProto {
   optional PolicyOptions policy_options = 1;
   optional bool CreatePasskeysInICloudKeychain = 2;
+}
+
+// Create themes with AI
+//
+// This policy allows you to control how your organization's data is handled
+// with Google Chrome's Create themes with AI. This policy will take precedence
+// over any future blanket policy.
+//
+// Setting the policy to "Allowed" will allow feature use for organization.
+//
+// Setting the policy to "Allow without data collection" will opt-out of
+// collecting enterprise data for model training. This setting also disables
+// data sharing via the in-feature Feedback dialog, and sending data for human
+// evaluation. As a result, Google does not use enterprise user content
+// (including prompts, inputs, outputs, and source materials) for model
+// training. This would ensure that Google does not use enterprise user data to
+// train or improve its AI models. Google does not save enterprise user content
+// including (prompts, sources, inputs or outputs). Note that these may be
+// stored up to 24 hours to keep situational context. This would ensure that
+// Google does not collect or store any data that is entered into or generated
+// by an AI feature. This includes user inputs, generated outputs, and user
+// feedback.
+//
+// Setting the policy to "Disabled" will fully disable feature.
+//
+// Valid values:
+//   0: Allow feature use for organization
+//   1: Allow without data collection
+//   2: Fully disable feature
+//
+// Supported on: chrome_os, linux, mac, win
+message CreateThemesSettingsProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 CreateThemesSettings = 2;
 }
 
 // Allows users to be shown the Credential Provider Extension promo
@@ -5868,16 +5956,35 @@ message DeletePrintJobHistoryAllowedProto {
   optional bool DeletePrintJobHistoryAllowed = 2;
 }
 
-// Enable Desk API for third-party ChromeOS control
+// Enable Save and Share API for third-party Google ChromeOS control.
 //
-// Setting the policy to Enabled allows third-party web applications to use Desk
-// API to control ChromeOS desks. If the policy is not set or disabled, the Desk
-// API will be unavailable. The policy will only take effect on enrolled
-// devices.
+// If the policy is set to Enabled allows third-party web applications to use
+// Desk API to save and share Google ChromeOS desks. If the policy is set to
+// Disabled the user will not be able to save and share desk data through the
+// Desk API. If the policy is unset the behavior will be the same as disabled.
+// The policy will only take effect on enrolled devices.
 //
 // Valid values:
-//   True: Enable Desk API for third-party ChromeOS control
-//   False: Do not enable Desk API for third-party ChromeOS control
+//   True: Enable Save and Share API for third-party Google ChromeOS control.
+//   False: Do not enable Save and Share API for third-party Google ChromeOS
+// control.
+//
+// Supported on: chrome_os
+message DeskAPIDeskSaveAndShareEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool DeskAPIDeskSaveAndShareEnabled = 2;
+}
+
+// Enable Desk API for third-party Google ChromeOS control
+//
+// Setting the policy to Enabled allows third-party web applications to use Desk
+// API to control Google ChromeOS desks. If the policy is not set or disabled,
+// the  Desk API will be unavailable. The policy will only take effect on
+// enrolled devices.
+//
+// Valid values:
+//   True: Enable Desk API for third-party Google ChromeOS control
+//   False: Do not enable Desk API for third-party Google ChromeOS control
 //
 // Supported on: chrome_os
 message DeskAPIThirdPartyAccessEnabledProto {
@@ -5888,9 +5995,9 @@ message DeskAPIThirdPartyAccessEnabledProto {
 // Enable Desk API for a list of third-party domains
 //
 // Specifies the list of third-party web application domains that are allowed to
-// use Desk API to control ChromeOS desks. These URL patterns should follow the
-// format defined for "matches" property in https://developer.chrome.com/docs/ex
-// tensions/mv3/manifest/externally_connectable/#reference
+// use Desk API to control Google ChromeOS desks. These URL patterns should
+// follow the format defined for "matches" property in https://developer.chrome.
+// com/docs/extensions/mv3/manifest/externally_connectable/#reference
 //
 // Supported on: chrome_os
 message DeskAPIThirdPartyAllowlistProto {
@@ -6567,7 +6674,7 @@ message DomainReliabilityAllowedProto {
 //   True: Enable download bubble UI
 //   False: Disable download bubble UI
 //
-// Supported on: chrome_os, fuchsia, linux, mac, win
+// Supported on: fuchsia
 message DownloadBubbleEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool DownloadBubbleEnabled = 2;
@@ -7798,6 +7905,22 @@ message ExtensionInstallSourcesProto {
   optional StringList ExtensionInstallSources = 2;
 }
 
+// Blocklist for install types of extensions
+//
+// The blocklist controls which extensions install types are disallowed.
+//
+// Setting "command_line" will block extension from being loaded from
+// command line.
+//
+// Valid values:
+//   command_line: Blocks extensions from being loaded from command line
+//
+// Supported on: linux, mac, win
+message ExtensionInstallTypeBlocklistProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList ExtensionInstallTypeBlocklist = 2;
+}
+
 // Configure extension installation allowlist
 //
 // This policy is deprecated and unsupported, please use the
@@ -8253,6 +8376,27 @@ message FastPairEnabledProto {
   optional bool FastPairEnabled = 2;
 }
 
+// Specifies whether in-product Google Chrome surveys are shown to users.
+//
+// Google Chrome in-product surveys collect user feedback for the browser.
+// Survey responses are not associated with user accounts.
+// When this policy is Enabled or not set, in-product surveys may be shown to
+// users.
+// When this policy is Disabled, in-product surveys are not shown to users.
+//
+// This policy has no effect if MetricsReportingEnabled is set to Disabled,
+// which disables in-product surveys as well.
+//
+// Valid values:
+//   True: Enable in-product surveys
+//   False: Disable in-product surveys
+//
+// Supported on: android, chrome_os, fuchsia, linux, mac, win
+message FeedbackSurveysEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool FeedbackSurveysEnabled = 2;
+}
+
 // Fetch keepalive duration on Shutdown
 //
 // Controls the duration (in seconds) allowed for keepalive requests on browser
@@ -8459,9 +8603,6 @@ message FileSystemWriteBlockedForUrlsProto {
 
 // Enable First-Party Sets.
 //
-// This policy is deprecated, please use the RelatedWebsiteSetsEnabled policy
-// instead.
-//
 // This policy is provided as a way to opt-out of the First-Party Sets feature.
 //
 // When this policy is unset or set to Enabled, the First-Party Sets feature is
@@ -8471,6 +8612,11 @@ message FileSystemWriteBlockedForUrlsProto {
 // disabled.
 //
 // It controls whether Chrome supports First-Party Sets related integrations.
+//
+// This is the equivalent of the RelatedWebsiteSetsEnabled policy.
+// Either policy may be used, but this one will be deprecated soon so the
+// RelatedWebsiteSetsEnabled policy is preferred.
+// They both have the same effect on the browser's behavior.
 //
 // Valid values:
 //   True: Enable First-Party Sets for all affected users
@@ -8483,9 +8629,6 @@ message FirstPartySetsEnabledProto {
 }
 
 // Override First-Party Sets.
-//
-// This policy is deprecated, please use the RelatedWebsiteSetsOverrides policy
-// instead.
 //
 // This policy provides a way to override the list of sets the browser uses for
 // First-Party Sets features.
@@ -8541,6 +8684,11 @@ message FirstPartySetsEnabledProto {
 // On macOS, this policy is only available on instances that are managed via
 // MDM, joined to a domain via MCX or enrolled in Chrome Browser Cloud
 // Management.
+//
+// This is the equivalent of the RelatedWebsiteSetsOverrides policy.
+// Either policy may be used, but this one will be deprecated soon so the
+// RelatedWebsiteSetsOverrides policy is preferred.
+// They both have the same effect on the browser's behavior.
 //
 // Value schema:
 // {
@@ -8871,7 +9019,7 @@ message ForceLogoutUnauthenticatedUserEnabledProto {
 //   2: The User-Agent string will freeze the major version as 99 and include
 // the browser's major version in the minor position.
 //
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
+// Supported on: fuchsia
 message ForceMajorVersionToMinorPositionInUserAgentProto {
   optional PolicyOptions policy_options = 1;
   optional int64 ForceMajorVersionToMinorPositionInUserAgent = 2;
@@ -9401,6 +9549,40 @@ message HardwareAccelerationModeEnabledProto {
 message HeadlessModeProto {
   optional PolicyOptions policy_options = 1;
   optional int64 HeadlessMode = 2;
+}
+
+// Allow help me write
+//
+// This policy allows you to control how your organization's data is handled
+// with Google Chrome’s Help me write. This policy will take precedence over any
+// future blanket policy.
+//
+// Setting the policy to "Allowed" will allow feature use for organization.
+//
+// Setting the policy to "Allow without data collection" will opt-out of
+// collecting enterprise data for model training. This setting also disables
+// data sharing via the in-feature Feedback dialog, and sending data for human
+// evaluation. As a result, Google does not use enterprise user content
+// (including prompts, inputs, outputs, and source materials) for model
+// training. This would ensure that Google does not use enterprise user data to
+// train or improve its AI models. Google does not save enterprise user content
+// including (prompts, sources, inputs or outputs). Note that these may be
+// stored up to 24 hours to keep situational context. This would ensure that
+// Google does not collect or store any data that is entered into or generated
+// by an AI feature. This includes user inputs, generated outputs, and user
+// feedback.
+//
+// Setting the policy to "Disabled" will fully disable feature.
+//
+// Valid values:
+//   0: Allow feature use for organization
+//   1: Allow without data collection
+//   2: Fully disable feature
+//
+// Supported on: chrome_os, linux, mac, win
+message HelpMeWriteSettingsProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 HelpMeWriteSettings = 2;
 }
 
 // Hide the web store from the New Tab Page and app launcher
@@ -10225,7 +10407,7 @@ message InsecureContentBlockedForUrlsProto {
 //   True: Show warnings and disable autofill on insecure forms
 //   False: Do not show warnings or disable autofill on insecure forms
 //
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
+// Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
 message InsecureFormsWarningsEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool InsecureFormsWarningsEnabled = 2;
@@ -11355,7 +11537,6 @@ message LegacySameSiteCookieBehaviorEnabledForDomainListProto {
 // exceptions below:
 // * No wildcard '*' support.
 // * Schema, port and query are ignored.
-// * subdomain must always be specified to be matched.
 // * At most 100 URLs can be added into the allowlist,
 //
 // For Google Chrome, this policy is only effective when the machine is enrolled
@@ -11444,6 +11625,25 @@ message LensRegionSearchEnabledProto {
 message LidCloseActionProto {
   optional PolicyOptions policy_options = 1;
   optional int64 LidCloseAction = 2;
+}
+
+// Enable read aloud (text distillation and text-to-speech synthesis) for web
+// pages
+//
+// Setting the policy to be true allows users to have eligible web
+// pages read aloud using text-to-speech. This is achieved by server
+// side content distillation and audio synthesis. Setting to false
+// disables this feature. If this policy is set to default or unset,
+// read aloud is enabled.
+//
+// Valid values:
+//   True: Always allow read aloud
+//   False: Never allow read aloud
+//
+// Supported on: android
+message ListenToThisPageEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool ListenToThisPageEnabled = 2;
 }
 
 // Load the CryptoToken component extension at startup
@@ -11926,15 +12126,14 @@ message MediaRouterCastAllowAllIPsProto {
 // Enable reporting of usage and crash-related data
 //
 // When this policy is Enabled, anonymous reporting of usage and crash-related
-// data about Chrome to Google is enabled by default. Users will still be able
-// to change this setting in the Chrome settings.
+// data about Google Chrome to Google is recommended to be enabled by default.
+// Users will still be able to change this setting.
 //
 // When this policy is Disabled, anonymous reporting is disabled and no usage or
 // crash data is sent to Google. Users won't be able to change this setting.
 //
 // When this policy is not set, users can choose the anonymous reporting
-// behavior at installation or first run, and can later change the setting in
-// the Chrome settings.
+// behavior at installation or first run, and can change this setting later.
 //
 // On Microsoft® Windows®, this policy is only available on instances that are
 // joined to a Microsoft® Active Directory® domain, joined to Microsoft® Azure®
@@ -12015,10 +12214,11 @@ message MicrosoftOfficeCloudUploadProto {
 // sign-in.
 //
 // If this policy is unset or only contains an empty value, it behaves as if
-// 'organizations' was specified.
+// 'common' was specified for regular users; for enterprise users it behaves as
+// if 'organizations' was specified.
 //
 // Changing the restriction might lead to users being signed out of their
-// Microsoft OneDrive account if it does not adhere to the new restriction.
+// Microsoft OneDrive account if it does not adhere to the new restrictions.
 //
 // Supported on: chrome_os
 message MicrosoftOneDriveAccountRestrictionsProto {
@@ -12267,10 +12467,35 @@ message NTPMiddleSlotAnnouncementVisibleProto {
 //   True: Allow Native Client to Run
 //   False: Use Default Behavior
 //
-// Supported on: chrome_os, linux, mac, win
+// Supported on: chrome_os
 message NativeClientForceAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional bool NativeClientForceAllowed = 2;
+}
+
+// Force Windows executable Native Messaging hosts to launch directly
+//
+// This policy controls whether native host executables launch directly on
+// Windows.
+//
+// Setting the policy to Enabled forces Google Chrome to launch native messaging
+// hosts implemented as executables directly.
+//
+// Setting the policy to Disabled will result in Google Chrome launching hosts
+// using cmd.exe as an intermediary process.
+//
+// Leaving the policy unset allows Google Chrome to decide which approach to
+// use.
+//
+// Valid values:
+//   True: Directly launch executable Native Messaging Hosts on Windows
+//   False: Force Windows Native Messaging Hosts to launch via cmd.exe
+//   None: Allows Google Chrome to decide which approach to use
+//
+// Supported on: win
+message NativeHostsExecutablesLaunchDirectlyProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool NativeHostsExecutablesLaunchDirectly = 2;
 }
 
 // Configure native messaging allowlist
@@ -12823,7 +13048,7 @@ message NtlmV2EnabledProto {
 //   False: Old offsetParent behavior will be used.
 //   None: New offsetParent behavior will be used by default.
 //
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
+// Supported on:
 message OffsetParentNewSpecBehaviorEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool OffsetParentNewSpecBehaviorEnabled = 2;
@@ -13883,6 +14108,33 @@ message OnSecurityEventEnterpriseConnectorProto {
   optional string OnSecurityEventEnterpriseConnector = 2;
 }
 
+// Out-of-process print drivers allowed
+//
+// Controls if Google Chrome interacts with printer drivers from a separate
+// service process. Platform printing calls to query available printers, get
+// print driver settings, and submit documents for printing to local printers
+// are made from a service process. Moving such calls out of the browser process
+// helps improve stability and reduce frozen UI behavior in Print Preview.
+//
+// When this policy is set to Enabled or not set, Google Chrome will use a
+// separate service process for platform printing tasks.
+//
+// When this policy is set to Disabled, Google Chrome will use the browser
+// process for platform printing tasks.
+//
+// This policy will be removed in the future, after the out-of-process print
+// drivers feature has fully rolled out.
+//
+// Valid values:
+//   True: Platform printing uses service process.
+//   False: Platform printing from browser process.
+//
+// Supported on: chrome_os, linux, mac, win
+message OopPrintDriversAllowedProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool OopPrintDriversAllowed = 2;
+}
+
 // User-level network configuration
 //
 // Setting the policy allows pushing network configuration per-user for each
@@ -14001,8 +14253,8 @@ message OutOfProcessSystemDnsResolutionEnabledProto {
   optional bool OutOfProcessSystemDnsResolutionEnabled = 2;
 }
 
-// Origins or hostname patterns for which restrictions on
-//       insecure origins should not apply
+// Origins or hostname patterns for which restrictions on insecure origins
+// should not apply
 //
 // Setting the policy specifies a list of origins (URLs) or hostname patterns
 // (such as *.example.com) for which security restrictions on insecure origins
@@ -14114,6 +14366,23 @@ message PPAPISharedImagesSwapChainAllowedProto {
 message PacHttpsUrlStrippingEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool PacHttpsUrlStrippingEnabled = 2;
+}
+
+// Allows users to track their packages on Chrome.
+//
+// When the policy is not set or set to Enabled, users will be able to track
+// their packages on Google Chrome through the New Tab Page.
+// When the policy is set to Disabled, users will not be able to track their
+// packages on Google Chrome through the New Tab Page.
+//
+// Valid values:
+//   True: Allow Parcel Tracking on Chrome
+//   False: Do not allow Parcel Tracking on Chrome
+//
+// Supported on: ios
+message ParcelTrackingEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool ParcelTrackingEnabled = 2;
 }
 
 // Parent Access Code Configuration
@@ -16561,7 +16830,7 @@ message ProfilePickerOnStartupAvailabilityProto {
 //   0: Do not prompt for reauth
 //   1: Prompt for reauth in a tab
 //
-// Supported on: fuchsia, linux, mac, win
+// Supported on: linux, mac, win
 message ProfileReauthPromptProto {
   optional PolicyOptions policy_options = 1;
   optional int64 ProfileReauthPrompt = 2;
@@ -16573,18 +16842,19 @@ message ProfileReauthPromptProto {
 // data into a managed profile created after a managed account signs into the
 // content area.
 //
-// If this policy is unset or set to UserOptInData, the user can choose whether
-// to bring existing browsing data into the managed profile. The checkbox in the
-// profile creation dialog will be visible and unchecked by default.
+// If this policy is unset or set to UserOptInData (value 1), the user can
+// choose whether to bring existing browsing data into the managed profile. The
+// checkbox in the profile creation dialog will be visible and unchecked by
+// default.
 //
-// If this policy is set to UserOptOutData, the user can choose whether to bring
-// existing browsing data into the managed profile. The checkbox in the profile
-// creation dialog will be visible and checked by default. This option is only
-// allowed on managed devices.
+// If this policy is set to UserOptOutData (value 2), the user can choose
+// whether to bring existing browsing data into the managed profile. The
+// checkbox in the profile creation dialog will be visible and checked by
+// default. This option is only allowed on managed devices.
 //
-// If this policy is set to AlwaysSeparateData, the user cannot bring any
-// existing browsing data into the managed profile. The checkbox in the profile
-// creation dialog will not be visible.
+// If this policy is set to AlwaysSeparateData (value 3), the user cannot bring
+// any existing browsing data into the managed profile. The checkbox in the
+// profile creation dialog will not be visible.
 //
 // Bringing existing browsing data into the managed profile means that the
 // current profile will become managed. No new profile will be created.
@@ -16594,14 +16864,11 @@ message ProfileReauthPromptProto {
 // unmanaged profile which will still be accessible to the user via the profile
 // picker.
 //
-// This policy requires the ProfileSeparationSettings policy to be set to take
-// effect.
-//
 // Valid values:
 //   1: Let users decide to bring existing browsing data into their managed
 // profile
 //   2: Suggest to users to bring their existing data in the managed profile and
-// give them a choice not too
+// give them a choice not to
 //   3: Users cannot bring existing browsing data in their managed profile
 //
 // Supported on: linux, mac, win
@@ -17254,30 +17521,6 @@ message RC4EnabledProto {
 message RSAKeyUsageForLocalAnchorsEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool RSAKeyUsageForLocalAnchorsEnabled = 2;
-}
-
-// Allow Real Time Safe Browsing Download Protection
-//
-// When this policy is enabled or left unset, download protection will be
-// controlled by SafeBrowsingProtectionLevel for Google Chrome. If
-// SafeBrowsingProtectionLevel is set to Standard or Enhanced Protection,
-// download protection checks whether a file or its distribution mechanism is
-// known to be unsafe by sending a request from Google Chrome to Google for a
-// verdict.
-// When this policy is disabled, download protection does not send data to
-// Google for verdicts. This policy does not affect hash based URL checking for
-// downloads and will not override any existing connector settings which take
-// precedence.
-//
-// Valid values:
-//   True: Real Time Download Protection is controlled by
-// SafeBrowsingProtectionLevel policy
-//   False: Disable Safe Browsing Real Time Download Protection
-//
-// Supported on: chrome_os
-message RealTimeDownloadProtectionRequestAllowedProto {
-  optional PolicyOptions policy_options = 1;
-  optional bool RealTimeDownloadProtectionRequestAllowed = 2;
 }
 
 // Account recovery
@@ -19046,7 +19289,8 @@ message SafeBrowsingAllowlistDomainsProto {
 // Allow download deep scanning for Safe Browsing-enabled users
 //
 // When this policy is enabled or left unset, Google Chrome can send suspicious
-// downloads from Safe Browsing-enabled users to Google to scan for malware.
+// downloads from Safe Browsing-enabled users to Google to scan for malware, or
+// prompt users to provide a password for encrypted archives.
 // When this policy is disabled, this scanning will not be performed.
 // This policy does not impact download content analysis configured by Chrome
 // Enterprise Connectors.
@@ -19143,33 +19387,6 @@ message SafeBrowsingExtendedReportingEnabledProto {
 message SafeBrowsingExtendedReportingOptInAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional bool SafeBrowsingExtendedReportingOptInAllowed = 2;
-}
-
-// Allow Safe Browsing Extension Protection
-//
-// When this policy is enabled or left unset, Safe Browsing extension protection
-// will be controlled by SafeBrowsingProtectionLevel for Google Chrome. If
-// SafeBrowsingProtectionLevel is set to Standard or Enhanced Protection,
-// malicious extensions will be disabled faster in Google Chrome. Google Chrome
-// sends a request to Google Safe Browsing server to check whether an extension
-// has been taken down from Chrome Web Store for being deemed problematic, i.e.,
-// malicious, vulnerable, unwanted software, or violating Chrome Web Store (CWS)
-// policies. If an extension has been taken down, Google Chrome will block users
-// from installing the extension and will disable the extension if it has
-// already been installed.
-// When this policy is disabled, Safe Browsing extension protection will be
-// disabled and malicious extensions will be checked and removed less regularly
-// through Google Update. No data is sent to Google Safe Browsing for verdicts.
-//
-// Valid values:
-//   True: Safe Browsing Extension Protection is controlled by
-// SafeBrowsingProtectionLevel policy
-//   False: Disable Safe Browsing Extension Protection
-//
-// Supported on: chrome_os
-message SafeBrowsingExtensionProtectionAllowedProto {
-  optional PolicyOptions policy_options = 1;
-  optional bool SafeBrowsingExtensionProtectionAllowed = 2;
 }
 
 // Enable Safe Browsing for trusted sources
@@ -20162,7 +20379,7 @@ message SelectToSpeakEnabledProto {
 //   None: New event dispatching on disabled form controls behavior will be used
 // by default.
 //
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
+// Supported on:
 message SendMouseEventsDisabledFormControlsEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool SendMouseEventsDisabledFormControlsEnabled = 2;
@@ -20924,19 +21141,22 @@ message SitePerProcessAndroidProto {
 
 // Site search settings
 //
-// This policy provides a list of site searches where the user can search on a
-// specific site. Users can initiate the search by typing the shortcut or
-// @shortcut (e.g. @work) in the address bar.
+// This policy provides a list of sites that users can quickly search using
+// shortcuts in the address bar. Users can initiate a search by typing the
+// shortcut or @shortcut (e.g. @work), followed by Space or Tab, in the address
+// bar.
 //
-// The following fields are required for each entry: name, shortcut, url.
-// Shortcuts in the list must be unique and must not contain spaces. Prepending
-// @ to a shortcut is optional, so the resulting shortcut is considered the same
-// as the shortcut without the @; for example "work" and "@work" are considered
-// the same shortcut.
+// The following fields are required for each site: name, shortcut, url.
+//
+// The name field corresponds to the site or search engine name to be shown to
+// the user in the address bar.
+//
+// The shortcut can include plain words and characters, but cannot include
+// spaces or start with the @ symbol. Shortcuts must also be unique.
 //
 // For each entry, the url field specifies the URL of the search engine used
 // during a search with the corresponding keyword. The URL must include the
-// string ‘{searchTerms}’, replaced in the query by the user's search terms.
+// string '{searchTerms}', replaced in the query by the user's search terms.
 // Invalid entries and entries with duplicate shortcuts are ignored.
 //
 // Site search entries configured as featured are displayed in the address bar
@@ -20944,14 +21164,23 @@ message SitePerProcessAndroidProto {
 //
 // Users cannot edit or disable site search entries set by policy, but they can
 // add new shortcuts for the same URL. In addition, users cannot create new site
-// search entries with a shortcut previously created via policy.
+// search entries with a shortcut previously created via this policy.
 //
-// In case of conflict with a shortcut previously created by the user, the user
-// setting is respected. However, users can still trigger the option created by
-// policy by typing "@" in the search bar. For example, if the user already
-// defined "work" as a shortcut to URL1 and the policy defines "work" as a
-// shortcut to URL2, then typing "work" in the search bar will trigger a search
-// to URL1, but typing "@work" in the search bar will trigger a search to URL2.
+// In case of a conflict with a shortcut previously created by the user, the
+// user setting takes precedence. However, users can still trigger the option
+// created by the policy by typing "@" in the search bar. For example, if the
+// user already defined "work" as a shortcut to URL1 and the policy defines
+// "work" as a shortcut to URL2, then typing "work" in the search bar will
+// trigger a search to URL1, but typing "@work" in the search bar will trigger a
+// search to URL2.
+//
+// On Microsoft® Windows®, this policy is only available on instances that are
+// joined to a Microsoft® Active Directory® domain, joined to Microsoft® Azure®
+// Active Directory® or enrolled in Chrome Browser Cloud Management.
+//
+// On macOS, this policy is only available on instances that are managed via
+// MDM, joined to a domain via MCX or enrolled in Chrome Browser Cloud
+// Management.
 //
 // Value schema:
 // {
@@ -21655,6 +21884,40 @@ message TabFreezingEnabledProto {
   optional bool TabFreezingEnabled = 2;
 }
 
+// Allow tab organizer
+//
+// This policy allows you to control how your organization's data is handled
+// with Google Chrome's Tab organizer. This policy will take precedence over any
+// future blanket policy.
+//
+// Setting the policy to "Allowed" will allow feature use for organization.
+//
+// Setting the policy to "Allow without data collection" will opt-out of
+// collecting enterprise data for model training. This setting also disables
+// data sharing via the in-feature Feedback dialog, and sending data for human
+// evaluation. As a result, Google does not use enterprise user content
+// (including prompts, inputs, outputs, and source materials) for model
+// training. This would ensure that Google does not use enterprise user data to
+// train or improve its AI models. Google does not save enterprise user content
+// including (prompts, sources, inputs or outputs). Note that these may be
+// stored up to 24 hours to keep situational context. This would ensure that
+// Google does not collect or store any data that is entered into or generated
+// by an AI feature. This includes user inputs, generated outputs, and user
+// feedback.
+//
+// Setting the policy to "Disabled" will fully disable feature.
+//
+// Valid values:
+//   0: Allow feature use for organization
+//   1: Allow without data collection
+//   2: Fully disable feature
+//
+// Supported on: chrome_os, linux, mac, win
+message TabOrganizerSettingsProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 TabOrganizerSettings = 2;
+}
+
 // Allow sites to simultaneously navigate and open pop-ups
 //
 // Deprecated in M68. Use DefaultPopupsSetting instead.
@@ -22129,11 +22392,10 @@ message UnmanagedDeviceSignalsConsentFlowEnabledProto {
   optional bool UnmanagedDeviceSignalsConsentFlowEnabled = 2;
 }
 
-// Origins or hostname patterns for which restrictions on
-//       insecure origins should not apply
+// Origins or hostname patterns for which restrictions on insecure origins
+// should not apply
 //
-// Deprecated in M69. Use
-// OverrideSecurityRestrictionsOnInsecureOrigin instead.
+// Deprecated in M69. Use OverrideSecurityRestrictionsOnInsecureOrigin instead.
 //
 // The policy specifies a list of origins (URLs) or hostname patterns (such as
 // "*.example.com") for which security restrictions on insecure origins will not
@@ -23796,14 +24058,14 @@ message WebHidBlockedForUrlsProto {
 // When this policy is disabled or not set, these TLS/DTLS versions are
 // disabled.
 //
-// This policy is deprecated and is planned to be removed in version M121
-// of Google Chrome.
+// This policy was removed in version M121 of
+// Google Chrome.
 //
 // Valid values:
 //   True: Allow WebRTC to use obsolete versions of the TLD/DTLS protocol
 //   False: Prevent WebRTC from using obsolete versions of TLS/DTLS
 //
-// Supported on: chrome_os, fuchsia, linux, mac, win
+// Supported on: fuchsia
 message WebRtcAllowLegacyTLSProtocolsProto {
   optional PolicyOptions policy_options = 1;
   optional bool WebRtcAllowLegacyTLSProtocols = 2;
@@ -24377,6 +24639,7 @@ message ChromeSettingsProto {
   optional AlternativeBrowserParametersProto AlternativeBrowserParameters = 497;
   optional AlternativeBrowserPathProto AlternativeBrowserPath = 496;
   optional AlwaysAuthorizePluginsProto AlwaysAuthorizePlugins = 88;
+  optional AlwaysOnVpnPreConnectUrlAllowlistProto AlwaysOnVpnPreConnectUrlAllowlist = 1192;
   optional AlwaysOpenPdfExternallyProto AlwaysOpenPdfExternally = 349;
   optional AmbientAuthenticationInPrivateModesEnabledProto AmbientAuthenticationInPrivateModesEnabled = 652;
   optional AppCacheForceEnabledProto AppCacheForceEnabled = 706;
@@ -24458,6 +24721,9 @@ message ChromeSettingsProto {
   optional BuiltInDnsClientEnabledProto BuiltInDnsClientEnabled = 167;
   optional BuiltinCertificateVerifierEnabledProto BuiltinCertificateVerifierEnabled = 577;
   optional CACertificateManagementAllowedProto CACertificateManagementAllowed = 581;
+  optional CACertificatesProto CACertificates = 1193;
+  optional CADistrustedCertificatesProto CADistrustedCertificates = 1194;
+  optional CAHintCertificatesProto CAHintCertificates = 1195;
   optional CCTToSDialogEnabledProto CCTToSDialogEnabled = 762;
   optional CECPQ2EnabledProto CECPQ2Enabled = 843;
   optional CORSNonWildcardRequestHeadersSupportProto CORSNonWildcardRequestHeadersSupport = 923;
@@ -24482,7 +24748,6 @@ message ChromeSettingsProto {
   optional ClearSiteDataOnExitProto ClearSiteDataOnExit = 67;
   optional ClickToCallEnabledProto ClickToCallEnabled = 647;
   optional ClientCertificateManagementAllowedProto ClientCertificateManagementAllowed = 520;
-  optional ClientSidePhishingProtectionAllowedProto ClientSidePhishingProtectionAllowed = 1090;
   optional ClipboardAllowedForUrlsProto ClipboardAllowedForUrls = 986;
   optional ClipboardBlockedForUrlsProto ClipboardBlockedForUrls = 987;
   optional CloudAPAuthEnabledProto CloudAPAuthEnabled = 1045;
@@ -24514,6 +24779,7 @@ message ChromeSettingsProto {
   optional CorsLegacyModeEnabledProto CorsLegacyModeEnabled = 632;
   optional CorsMitigationListProto CorsMitigationList = 631;
   optional CreatePasskeysInICloudKeychainProto CreatePasskeysInICloudKeychain = 1152;
+  optional CreateThemesSettingsProto CreateThemesSettings = 1190;
   optional CredentialProviderPromoEnabledProto CredentialProviderPromoEnabled = 1088;
   optional CrossOriginWebAssemblyModuleSharingEnabledProto CrossOriginWebAssemblyModuleSharingEnabled = 880;
   optional CrostiniAllowedProto CrostiniAllowed = 483;
@@ -24578,6 +24844,7 @@ message ChromeSettingsProto {
   optional DefaultWindowManagementSettingProto DefaultWindowManagementSetting = 1069;
   optional DefaultWindowPlacementSettingProto DefaultWindowPlacementSetting = 953;
   optional DeletePrintJobHistoryAllowedProto DeletePrintJobHistoryAllowed = 722;
+  optional DeskAPIDeskSaveAndShareEnabledProto DeskAPIDeskSaveAndShareEnabled = 1185;
   optional DeskAPIThirdPartyAccessEnabledProto DeskAPIThirdPartyAccessEnabled = 1021;
   optional DeskAPIThirdPartyAllowlistProto DeskAPIThirdPartyAllowlist = 1025;
   optional DeskTemplatesEnabledProto DeskTemplatesEnabled = 912;
@@ -24655,6 +24922,7 @@ message ChromeSettingsProto {
   optional ExtensionInstallEventLoggingEnabledProto ExtensionInstallEventLoggingEnabled = 729;
   optional ExtensionInstallForcelistProto ExtensionInstallForcelist = 36;
   optional ExtensionInstallSourcesProto ExtensionInstallSources = 150;
+  optional ExtensionInstallTypeBlocklistProto ExtensionInstallTypeBlocklist = 1181;
   optional ExtensionInstallWhitelistProto ExtensionInstallWhitelist = 35;
   optional ExtensionManifestV2AvailabilityProto ExtensionManifestV2Availability = 1032;
   optional ExtensionOAuthRedirectUrlsProto ExtensionOAuthRedirectUrls = 1151;
@@ -24667,6 +24935,7 @@ message ChromeSettingsProto {
   optional ExternalStorageDisabledProto ExternalStorageDisabled = 154;
   optional ExternalStorageReadOnlyProto ExternalStorageReadOnly = 345;
   optional FastPairEnabledProto FastPairEnabled = 914;
+  optional FeedbackSurveysEnabledProto FeedbackSurveysEnabled = 1184;
   optional FetchKeepaliveDurationSecondsOnShutdownProto FetchKeepaliveDurationSecondsOnShutdown = 829;
   optional FileHandlingAllowedForUrlsProto FileHandlingAllowedForUrls = 848;
   optional FileHandlingBlockedForUrlsProto FileHandlingBlockedForUrls = 849;
@@ -24712,6 +24981,7 @@ message ChromeSettingsProto {
   optional HSTSPolicyBypassListProto HSTSPolicyBypassList = 603;
   optional HardwareAccelerationModeEnabledProto HardwareAccelerationModeEnabled = 306;
   optional HeadlessModeProto HeadlessMode = 844;
+  optional HelpMeWriteSettingsProto HelpMeWriteSettings = 1189;
   optional HideWebStoreIconProto HideWebStoreIcon = 191;
   optional HideWebStorePromoProto HideWebStorePromo = 98;
   optional HighContrastEnabledProto HighContrastEnabled = 215;
@@ -24792,6 +25062,7 @@ message ChromeSettingsProto {
   optional LensDesktopNTPSearchEnabledProto LensDesktopNTPSearchEnabled = 1029;
   optional LensRegionSearchEnabledProto LensRegionSearchEnabled = 888;
   optional LidCloseActionProto LidCloseAction = 183;
+  optional ListenToThisPageEnabledProto ListenToThisPageEnabled = 1191;
   optional LoadCryptoTokenExtensionProto LoadCryptoTokenExtension = 1007;
   optional LocalDiscoveryEnabledProto LocalDiscoveryEnabled = 664;
   optional LocalFontsAllowedForUrlsProto LocalFontsAllowedForUrls = 980;
@@ -24826,6 +25097,7 @@ message ChromeSettingsProto {
   optional NTPCustomBackgroundEnabledProto NTPCustomBackgroundEnabled = 655;
   optional NTPMiddleSlotAnnouncementVisibleProto NTPMiddleSlotAnnouncementVisible = 943;
   optional NativeClientForceAllowedProto NativeClientForceAllowed = 1123;
+  optional NativeHostsExecutablesLaunchDirectlyProto NativeHostsExecutablesLaunchDirectly = 1183;
   optional NativeMessagingAllowlistProto NativeMessagingAllowlist = 747;
   optional NativeMessagingBlacklistProto NativeMessagingBlacklist = 253;
   optional NativeMessagingBlocklistProto NativeMessagingBlocklist = 746;
@@ -24858,6 +25130,7 @@ message ChromeSettingsProto {
   optional OnFileTransferEnterpriseConnectorProto OnFileTransferEnterpriseConnector = 993;
   optional OnPrintEnterpriseConnectorProto OnPrintEnterpriseConnector = 933;
   optional OnSecurityEventEnterpriseConnectorProto OnSecurityEventEnterpriseConnector = 701;
+  optional OopPrintDriversAllowedProto OopPrintDriversAllowed = 1186;
   optional OpenNetworkConfigurationProto OpenNetworkConfiguration = 109;
   optional OptimizationGuideFetchingEnabledProto OptimizationGuideFetchingEnabled = 965;
   optional OriginAgentClusterDefaultEnabledProto OriginAgentClusterDefaultEnabled = 935;
@@ -24867,6 +25140,7 @@ message ChromeSettingsProto {
   optional PPAPISharedImagesForVideoDecoderAllowedProto PPAPISharedImagesForVideoDecoderAllowed = 1165;
   optional PPAPISharedImagesSwapChainAllowedProto PPAPISharedImagesSwapChainAllowed = 1049;
   optional PacHttpsUrlStrippingEnabledProto PacHttpsUrlStrippingEnabled = 334;
+  optional ParcelTrackingEnabledProto ParcelTrackingEnabled = 1182;
   optional ParentAccessCodeConfigProto ParentAccessCodeConfig = 509;
   optional PasswordDismissCompromisedAlertEnabledProto PasswordDismissCompromisedAlertEnabled = 948;
   optional PasswordLeakDetectionEnabledProto PasswordLeakDetectionEnabled = 582;
@@ -24980,7 +25254,6 @@ message ChromeSettingsProto {
   optional QuickUnlockTimeoutProto QuickUnlockTimeout = 355;
   optional RC4EnabledProto RC4Enabled = 312;
   optional RSAKeyUsageForLocalAnchorsEnabledProto RSAKeyUsageForLocalAnchorsEnabled = 1112;
-  optional RealTimeDownloadProtectionRequestAllowedProto RealTimeDownloadProtectionRequestAllowed = 1086;
   optional RecoveryFactorBehaviorProto RecoveryFactorBehavior = 1016;
   optional RegisteredProtocolHandlersProto RegisteredProtocolHandlers = 270;
   optional RelatedWebsiteSetsEnabledProto RelatedWebsiteSetsEnabled = 1167;
@@ -25057,7 +25330,6 @@ message ChromeSettingsProto {
   optional SafeBrowsingEnabledProto SafeBrowsingEnabled = 16;
   optional SafeBrowsingExtendedReportingEnabledProto SafeBrowsingExtendedReportingEnabled = 431;
   optional SafeBrowsingExtendedReportingOptInAllowedProto SafeBrowsingExtendedReportingOptInAllowed = 301;
-  optional SafeBrowsingExtensionProtectionAllowedProto SafeBrowsingExtensionProtectionAllowed = 1100;
   optional SafeBrowsingForTrustedSourcesEnabledProto SafeBrowsingForTrustedSourcesEnabled = 377;
   optional SafeBrowsingProtectionLevelProto SafeBrowsingProtectionLevel = 686;
   optional SafeBrowsingProxiedRealTimeChecksAllowedProto SafeBrowsingProxiedRealTimeChecksAllowed = 1118;
@@ -25158,6 +25430,7 @@ message ChromeSettingsProto {
   optional TabCaptureAllowedByOriginsProto TabCaptureAllowedByOrigins = 885;
   optional TabDiscardingExceptionsProto TabDiscardingExceptions = 1012;
   optional TabFreezingEnabledProto TabFreezingEnabled = 462;
+  optional TabOrganizerSettingsProto TabOrganizerSettings = 1188;
   optional TabUnderAllowedProto TabUnderAllowed = 434;
   optional TargetBlankImpliesNoOpenerProto TargetBlankImpliesNoOpener = 804;
   optional TaskManagerEndProcessEnabledProto TaskManagerEndProcessEnabled = 329;

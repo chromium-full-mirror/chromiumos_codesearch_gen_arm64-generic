@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/tracing/public/mojom/perfetto_service.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/token.mojom-shared.h"
 #include "mojo/public/mojom/base/file.mojom-shared.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -45,6 +46,10 @@ class ChunksToPatchDataView;
 class CommitDataRequestDataView;
 
 class ChromeConfigDataView;
+
+class ConsoleConfigDataView;
+
+class InterceptorConfigDataView;
 
 class DataSourceConfigDataView;
 
@@ -103,6 +108,20 @@ struct MojomTypeTraits<::tracing::mojom::ChromeConfigDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::tracing::mojom::ConsoleConfigDataView> {
+  using Data = ::tracing::mojom::internal::ConsoleConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::tracing::mojom::InterceptorConfigDataView> {
+  using Data = ::tracing::mojom::internal::InterceptorConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::tracing::mojom::DataSourceConfigDataView> {
   using Data = ::tracing::mojom::internal::DataSourceConfig_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -156,6 +175,24 @@ struct MojomTypeTraits<::tracing::mojom::TraceConfigDataView> {
 
 
 namespace tracing::mojom {
+
+
+enum class ConsoleOutput : int32_t {
+  
+  kOutputUnspecified = 0,
+  
+  kOutputStdOut = 1,
+  
+  kOutputStdErr = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(TRACING_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, ConsoleOutput value);
+inline bool IsKnownEnumValue(ConsoleOutput value) {
+  return internal::ConsoleOutput_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 
 
 enum class BufferFillPolicy : int32_t {
@@ -427,6 +464,80 @@ class ChromeConfigDataView {
 };
 
 
+class ConsoleConfigDataView {
+ public:
+  ConsoleConfigDataView() = default;
+
+  ConsoleConfigDataView(
+      internal::ConsoleConfig_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOutput(UserType* output) const {
+    auto data_value = data_->output;
+    return mojo::internal::Deserialize<::tracing::mojom::ConsoleOutput>(
+        data_value, output);
+  }
+  ConsoleOutput output() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::tracing::mojom::ConsoleOutput>(data_->output));
+  }
+  bool enable_colors() const {
+    return data_->enable_colors;
+  }
+ private:
+  internal::ConsoleConfig_Data* data_ = nullptr;
+};
+
+
+class InterceptorConfigDataView {
+ public:
+  InterceptorConfigDataView() = default;
+
+  InterceptorConfigDataView(
+      internal::InterceptorConfig_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetConsoleConfigDataView(
+      ConsoleConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConsoleConfig(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::tracing::mojom::ConsoleConfigDataView, UserType>(),
+    "Attempting to read the optional `console_config` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadConsoleConfig` instead "
+    "of `ReadConsoleConfig if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->console_config.Get();
+    return mojo::internal::Deserialize<::tracing::mojom::ConsoleConfigDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::InterceptorConfig_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class DataSourceConfigDataView {
  public:
   DataSourceConfigDataView() = default;
@@ -464,6 +575,26 @@ class DataSourceConfigDataView {
     
     auto* pointer = data_->chrome_config.Get();
     return mojo::internal::Deserialize<::tracing::mojom::ChromeConfigDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInterceptorConfigDataView(
+      InterceptorConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInterceptorConfig(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::tracing::mojom::InterceptorConfigDataView, UserType>(),
+    "Attempting to read the optional `interceptor_config` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInterceptorConfig` instead "
+    "of `ReadInterceptorConfig if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->interceptor_config.Get();
+    return mojo::internal::Deserialize<::tracing::mojom::InterceptorConfigDataView>(
         pointer, output, message_);
   }
   inline void GetLegacyConfigDataView(
@@ -695,6 +826,26 @@ class TraceConfigDataView {
   bool write_into_file() const {
     return data_->write_into_file;
   }
+  inline void GetTraceUuidDataView(
+      ::mojo_base::mojom::TokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTraceUuid(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TokenDataView, UserType>(),
+    "Attempting to read the optional `trace_uuid` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTraceUuid` instead "
+    "of `ReadTraceUuid if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->trace_uuid.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::TraceConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -704,6 +855,10 @@ class TraceConfigDataView {
 }  // tracing::mojom
 
 namespace std {
+
+template <>
+struct hash<::tracing::mojom::ConsoleOutput>
+    : public mojo::internal::EnumHashImpl<::tracing::mojom::ConsoleOutput> {};
 
 template <>
 struct hash<::tracing::mojom::BufferFillPolicy>
@@ -716,6 +871,26 @@ struct hash<::tracing::mojom::TracingClientPriority>
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::tracing::mojom::ConsoleOutput, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::tracing::mojom::ConsoleOutput, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::tracing::mojom::ConsoleOutput>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -985,6 +1160,87 @@ struct Serializer<::tracing::mojom::ChromeConfigDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::tracing::mojom::ConsoleConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::tracing::mojom::ConsoleConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::tracing::mojom::internal::ConsoleConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::tracing::mojom::ConsoleOutput>(
+        Traits::output(input), &fragment->output);
+    fragment->enable_colors = Traits::enable_colors(input);
+  }
+
+  static bool Deserialize(::tracing::mojom::internal::ConsoleConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::tracing::mojom::ConsoleConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::tracing::mojom::InterceptorConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::tracing::mojom::InterceptorConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::tracing::mojom::internal::InterceptorConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in InterceptorConfig struct");
+    decltype(Traits::console_config(input)) in_console_config = Traits::console_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->console_config)::BaseType> console_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::tracing::mojom::ConsoleConfigDataView>(
+        in_console_config, console_config_fragment);
+    fragment->console_config.Set(
+        console_config_fragment.is_null() ? nullptr : console_config_fragment.data());
+  }
+
+  static bool Deserialize(::tracing::mojom::internal::InterceptorConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::tracing::mojom::InterceptorConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::tracing::mojom::DataSourceConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::tracing::mojom::DataSourceConfigDataView, UserType>;
@@ -1022,6 +1278,14 @@ struct Serializer<::tracing::mojom::DataSourceConfigDataView, MaybeConstUserType
         fragment->chrome_config.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null chrome_config in DataSourceConfig struct");
+    decltype(Traits::interceptor_config(input)) in_interceptor_config = Traits::interceptor_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->interceptor_config)::BaseType> interceptor_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::tracing::mojom::InterceptorConfigDataView>(
+        in_interceptor_config, interceptor_config_fragment);
+    fragment->interceptor_config.Set(
+        interceptor_config_fragment.is_null() ? nullptr : interceptor_config_fragment.data());
     decltype(Traits::legacy_config(input)) in_legacy_config = Traits::legacy_config(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->legacy_config)::BaseType> legacy_config_fragment(
@@ -1324,6 +1588,14 @@ struct Serializer<::tracing::mojom::TraceConfigDataView, MaybeConstUserType> {
         "null incremental_state_config in TraceConfig struct");
     fragment->duration_ms = Traits::duration_ms(input);
     fragment->write_into_file = Traits::write_into_file(input);
+    decltype(Traits::trace_uuid(input)) in_trace_uuid = Traits::trace_uuid(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trace_uuid)::BaseType> trace_uuid_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
+        in_trace_uuid, trace_uuid_fragment);
+    fragment->trace_uuid.Set(
+        trace_uuid_fragment.is_null() ? nullptr : trace_uuid_fragment.data());
   }
 
   static bool Deserialize(::tracing::mojom::internal::TraceConfig_Data* input,
@@ -1379,6 +1651,20 @@ inline void ChromeConfigDataView::GetTraceConfigDataView(
 }
 
 
+
+
+inline void InterceptorConfigDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void InterceptorConfigDataView::GetConsoleConfigDataView(
+    ConsoleConfigDataView* output) {
+  auto pointer = data_->console_config.Get();
+  *output = ConsoleConfigDataView(pointer, message_);
+}
+
+
 inline void DataSourceConfigDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
@@ -1388,6 +1674,11 @@ inline void DataSourceConfigDataView::GetChromeConfigDataView(
     ChromeConfigDataView* output) {
   auto pointer = data_->chrome_config.Get();
   *output = ChromeConfigDataView(pointer, message_);
+}
+inline void DataSourceConfigDataView::GetInterceptorConfigDataView(
+    InterceptorConfigDataView* output) {
+  auto pointer = data_->interceptor_config.Get();
+  *output = InterceptorConfigDataView(pointer, message_);
 }
 inline void DataSourceConfigDataView::GetLegacyConfigDataView(
     mojo::StringDataView* output) {
@@ -1446,6 +1737,11 @@ inline void TraceConfigDataView::GetIncrementalStateConfigDataView(
   auto pointer = data_->incremental_state_config.Get();
   *output = IncrementalStateConfigDataView(pointer, message_);
 }
+inline void TraceConfigDataView::GetTraceUuidDataView(
+    ::mojo_base::mojom::TokenDataView* output) {
+  auto pointer = data_->trace_uuid.Get();
+  *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
+}
 
 
 
@@ -1453,6 +1749,15 @@ inline void TraceConfigDataView::GetIncrementalStateConfigDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(TRACING_MOJOM_SHARED) TraceFormatTraits<::tracing::mojom::ConsoleOutput> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::tracing::mojom::ConsoleOutput value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -251,7 +252,7 @@ DecryptConfig::DecryptConfig(
     const std::string& key_id_in,
     const std::string& iv_in,
     std::vector<::media::SubsampleEntry> subsamples_in,
-    const absl::optional<::media::EncryptionPattern>& encryption_pattern_in)
+    const std::optional<::media::EncryptionPattern>& encryption_pattern_in)
     : encryption_scheme(std::move(encryption_scheme_in)),
       key_id(std::move(key_id_in)),
       iv(std::move(iv_in)),
@@ -303,7 +304,7 @@ void DecryptConfig::WriteIntoTrace(
     dict.AddItem(
       "encryption_pattern"), this->encryption_pattern,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::EncryptionPattern>&>"
+      "<value of type const std::optional<::media::EncryptionPattern>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -727,14 +728,17 @@ void ContentDecryptionModuleProxy::SetServerCertificate(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_SetServerCertificate_Name, kFlags, 0, 0, nullptr);
@@ -778,14 +782,17 @@ void ContentDecryptionModuleProxy::GetStatusForPolicy(
                         "<value of type ::media::HdcpVersion>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_GetStatusForPolicy_Name, kFlags, 0, 0, nullptr);
@@ -824,14 +831,17 @@ void ContentDecryptionModuleProxy::CreateSessionAndGenerateRequest(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_CreateSessionAndGenerateRequest_Name, kFlags, 0, 0, nullptr);
@@ -882,14 +892,17 @@ void ContentDecryptionModuleProxy::LoadSession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_LoadSession_Name, kFlags, 0, 0, nullptr);
@@ -936,14 +949,17 @@ void ContentDecryptionModuleProxy::UpdateSession(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_UpdateSession_Name, kFlags, 0, 0, nullptr);
@@ -998,14 +1014,17 @@ void ContentDecryptionModuleProxy::CloseSession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_CloseSession_Name, kFlags, 0, 0, nullptr);
@@ -1047,14 +1066,17 @@ void ContentDecryptionModuleProxy::RemoveSession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_RemoveSession_Name, kFlags, 0, 0, nullptr);
@@ -1099,14 +1121,17 @@ void ContentDecryptionModuleProxy::DecryptDeprecated(
                         "<value of type ::std::unique_ptr<::media::DecryptConfig>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_DecryptDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1164,14 +1189,17 @@ void ContentDecryptionModuleProxy::GetHwKeyData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_GetHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1235,14 +1263,17 @@ void ContentDecryptionModuleProxy::Decrypt(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_Decrypt_Name, kFlags, 0, 0, nullptr);
@@ -1374,7 +1405,8 @@ void ContentDecryptionModule_SetServerCertificate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_SetServerCertificate_Name, kFlags, 0, 0, nullptr);
@@ -1509,7 +1541,8 @@ void ContentDecryptionModule_GetStatusForPolicy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_GetStatusForPolicy_Name, kFlags, 0, 0, nullptr);
@@ -1646,7 +1679,8 @@ void ContentDecryptionModule_CreateSessionAndGenerateRequest_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_CreateSessionAndGenerateRequest_Name, kFlags, 0, 0, nullptr);
@@ -1792,7 +1826,8 @@ void ContentDecryptionModule_LoadSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_LoadSession_Name, kFlags, 0, 0, nullptr);
@@ -1931,7 +1966,8 @@ void ContentDecryptionModule_UpdateSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_UpdateSession_Name, kFlags, 0, 0, nullptr);
@@ -2059,7 +2095,8 @@ void ContentDecryptionModule_CloseSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_CloseSession_Name, kFlags, 0, 0, nullptr);
@@ -2187,7 +2224,8 @@ void ContentDecryptionModule_RemoveSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_RemoveSession_Name, kFlags, 0, 0, nullptr);
@@ -2322,7 +2360,8 @@ void ContentDecryptionModule_DecryptDeprecated_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_DecryptDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -2461,7 +2500,8 @@ void ContentDecryptionModule_GetHwKeyData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_GetHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -2607,7 +2647,8 @@ void ContentDecryptionModule_Decrypt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModule_Decrypt_Name, kFlags, 0, 0, nullptr);
@@ -3032,29 +3073,29 @@ std::move(p_secure_handle), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentDecryptionModuleValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::ContentDecryptionModule_SetServerCertificate_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_SetServerCertificate_Params_Data::Validate,
      &internal::ContentDecryptionModule_SetServerCertificate_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_GetStatusForPolicy_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_GetStatusForPolicy_Params_Data::Validate,
      &internal::ContentDecryptionModule_GetStatusForPolicy_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_CreateSessionAndGenerateRequest_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_CreateSessionAndGenerateRequest_Params_Data::Validate,
      &internal::ContentDecryptionModule_CreateSessionAndGenerateRequest_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_LoadSession_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_LoadSession_Params_Data::Validate,
      &internal::ContentDecryptionModule_LoadSession_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_UpdateSession_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_UpdateSession_Params_Data::Validate,
      &internal::ContentDecryptionModule_UpdateSession_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_CloseSession_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_CloseSession_Params_Data::Validate,
      &internal::ContentDecryptionModule_CloseSession_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_RemoveSession_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_RemoveSession_Params_Data::Validate,
      &internal::ContentDecryptionModule_RemoveSession_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_DecryptDeprecated_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_DecryptDeprecated_Params_Data::Validate,
      &internal::ContentDecryptionModule_DecryptDeprecated_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_GetHwKeyData_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_GetHwKeyData_Params_Data::Validate,
      &internal::ContentDecryptionModule_GetHwKeyData_ResponseParams_Data::Validate},
-    {&internal::ContentDecryptionModule_Decrypt_Params_Data::Validate,
+    { &internal::ContentDecryptionModule_Decrypt_Params_Data::Validate,
      &internal::ContentDecryptionModule_Decrypt_ResponseParams_Data::Validate},
 };
 
@@ -3205,14 +3246,17 @@ void ContentDecryptionModuleClientProxy::OnSessionMessage(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModuleClient_OnSessionMessage_Name, kFlags, 0, 0, nullptr);
@@ -3268,14 +3312,17 @@ void ContentDecryptionModuleClientProxy::OnSessionClosed(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModuleClient_OnSessionClosed_Name, kFlags, 0, 0, nullptr);
@@ -3322,14 +3369,17 @@ void ContentDecryptionModuleClientProxy::OnSessionKeysChange(
                         "<value of type std::vector<::std::unique_ptr<::media::CdmKeyInformation>>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModuleClient_OnSessionKeysChange_Name, kFlags, 0, 0, nullptr);
@@ -3387,14 +3437,17 @@ void ContentDecryptionModuleClientProxy::OnSessionExpirationUpdate(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentDecryptionModuleClient_OnSessionExpirationUpdate_Name, kFlags, 0, 0, nullptr);
@@ -3581,16 +3634,16 @@ bool ContentDecryptionModuleClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentDecryptionModuleClientValidationInfo[] = {
-    {&internal::ContentDecryptionModuleClient_OnSessionMessage_Params_Data::Validate,
+    { &internal::ContentDecryptionModuleClient_OnSessionMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentDecryptionModuleClient_OnSessionClosed_Params_Data::Validate,
+    { &internal::ContentDecryptionModuleClient_OnSessionClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentDecryptionModuleClient_OnSessionKeysChange_Params_Data::Validate,
+    { &internal::ContentDecryptionModuleClient_OnSessionKeysChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentDecryptionModuleClient_OnSessionExpirationUpdate_Params_Data::Validate,
+    { &internal::ContentDecryptionModuleClient_OnSessionExpirationUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 

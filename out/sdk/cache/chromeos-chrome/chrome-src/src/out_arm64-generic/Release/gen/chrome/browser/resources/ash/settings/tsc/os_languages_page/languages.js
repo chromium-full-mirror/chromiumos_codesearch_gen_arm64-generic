@@ -65,6 +65,10 @@ export class SettingsLanguagesElement extends SettingsLanguagesElementBase {
         this.boundOnInputMethodRemoved_ = null;
         this.boundOnInputMethodChanged_ = null;
         this.boundOnLanguagePackStatusChanged_ = null;
+        // loadTimeData flags.
+        // We do not expect this to change over the lifetime of this element, so this
+        // is not included in `properties()` above.
+        this.languagePacksInSettingsEnabled_ = loadTimeData.getBoolean('languagePacksInSettingsEnabled');
     }
     static get is() {
         return 'settings-languages';
@@ -228,7 +232,7 @@ export class SettingsLanguagesElement extends SettingsLanguagesElementBase {
                 this.onSpellcheckDictionariesChanged_.bind(this);
             this.languageSettingsPrivate_.onSpellcheckDictionariesChanged.addListener(this.boundOnSpellcheckDictionariesChanged_);
             this.languageSettingsPrivate_.getSpellcheckDictionaryStatuses().then(this.boundOnSpellcheckDictionariesChanged_);
-            if (loadTimeData.getBoolean('languagePacksInSettingsEnabled')) {
+            if (this.languagePacksInSettingsEnabled_) {
                 // Get the initial state of language pack statuses.
                 // Do so in the next microtask to prevent `connectedCallback()` from
                 // failing and stalling tests.
@@ -944,7 +948,9 @@ export class SettingsLanguagesElement extends SettingsLanguagesElementBase {
             this.set('languages.inputMethods.supported.' + i + '.enabled', enabledInputMethodSet.has(inputMethod));
         }
         this.set('languages.inputMethods.enabled', enabledInputMethods);
-        this.fetchMissingLanguagePackStatuses_();
+        if (this.languagePacksInSettingsEnabled_) {
+            this.fetchMissingLanguagePackStatuses_();
+        }
     }
     addInputMethod(id) {
         if (!this.supportedInputMethodMap_.has(id)) {

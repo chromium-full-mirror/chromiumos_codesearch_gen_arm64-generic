@@ -8,6 +8,7 @@
 #define UI_WEBUI_RESOURCES_JS_BROWSER_COMMAND_BROWSER_COMMAND_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

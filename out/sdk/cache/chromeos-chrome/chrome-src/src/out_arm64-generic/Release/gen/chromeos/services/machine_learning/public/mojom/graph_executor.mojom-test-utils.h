@@ -27,7 +27,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GraphExecutorAsyncWaiter {
 
   ~GraphExecutorAsyncWaiter();
   void Execute(
-      base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> inputs, const std::vector<std::string>& output_names, ExecuteResult* out_result, absl::optional<std::vector<::chromeos::machine_learning::mojom::TensorPtr>>* out_outputs);
+      base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> inputs, const std::vector<std::string>& output_names, ExecuteResult* out_result, std::optional<std::vector<::chromeos::machine_learning::mojom::TensorPtr>>* out_outputs);
   
 
  private:

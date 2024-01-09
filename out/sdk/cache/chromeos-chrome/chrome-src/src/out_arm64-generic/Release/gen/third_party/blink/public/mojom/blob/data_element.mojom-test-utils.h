@@ -32,8 +32,8 @@ class BLINK_COMMON_EXPORT BytesProviderAsyncWaiter {
       std::vector<uint8_t>* out_data);
   std::vector<uint8_t> RequestAsReply();
   void RequestAsFile(
-      uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset, absl::optional<::base::Time>* out_time_file_modified);
-  absl::optional<::base::Time> RequestAsFile(uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset);
+      uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset, std::optional<::base::Time>* out_time_file_modified);
+  std::optional<::base::Time> RequestAsFile(uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset);
 
  private:
   BytesProvider* const proxy_;

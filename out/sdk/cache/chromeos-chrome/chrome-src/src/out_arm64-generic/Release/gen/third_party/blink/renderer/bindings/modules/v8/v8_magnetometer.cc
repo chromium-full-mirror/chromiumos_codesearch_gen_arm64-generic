@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, Magnetometer>::value,
     "Magnetometer does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&Magnetometer::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Magnetometer is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("Magnetometer.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(v8_receiver);
+Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("Magnetometer.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(v8_receiver);
+Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("Magnetometer.z.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(v8_receiver);
+Magnetometer* blink_receiver = V8Magnetometer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->z();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

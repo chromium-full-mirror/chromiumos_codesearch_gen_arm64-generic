@@ -23,6 +23,7 @@ constexpr uint32_t kLocalFrame_MessageInvoke_Name = 5;
 constexpr uint32_t kLocalFrame_ExecuteCode_Name = 6;
 constexpr uint32_t kLocalFrame_ExecuteDeclarativeScript_Name = 7;
 constexpr uint32_t kLocalFrame_UpdateBrowserWindowId_Name = 8;
+constexpr uint32_t kLocalFrame_DispatchOnConnect_Name = 9;
 constexpr uint32_t kLocalFrameHost_RequestScriptInjectionPermission_Name = 0;
 constexpr uint32_t kLocalFrameHost_GetAppInstallState_Name = 1;
 constexpr uint32_t kLocalFrameHost_Request_Name = 2;
@@ -34,6 +35,9 @@ constexpr uint32_t kLocalFrameHost_IncrementLazyKeepaliveCount_Name = 7;
 constexpr uint32_t kLocalFrameHost_DecrementLazyKeepaliveCount_Name = 8;
 constexpr uint32_t kLocalFrameHost_UpdateDraggableRegions_Name = 9;
 constexpr uint32_t kLocalFrameHost_AppWindowReady_Name = 10;
+constexpr uint32_t kLocalFrameHost_OpenChannelToExtension_Name = 11;
+constexpr uint32_t kLocalFrameHost_OpenChannelToNativeApp_Name = 12;
+constexpr uint32_t kLocalFrameHost_OpenChannelToTab_Name = 13;
 
 }  // namespace internal
 

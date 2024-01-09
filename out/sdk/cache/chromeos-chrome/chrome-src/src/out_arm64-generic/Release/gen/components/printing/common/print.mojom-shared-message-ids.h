@@ -35,7 +35,6 @@ constexpr uint32_t kPrintRenderFrame_PrintFrameContent_Name = 7;
 constexpr uint32_t kPrintRenderFrame_ConnectToPdfRenderer_Name = 8;
 constexpr uint32_t kPrintRenderFrame_PrintingDone_Name = 9;
 constexpr uint32_t kPrintRenderFrame_PrintNodeUnderContextMenu_Name = 10;
-constexpr uint32_t kPrintRenderFrame_SnapshotForContentAnalysis_Name = 11;
 constexpr uint32_t kPrintManagerHost_DidGetPrintedPagesCount_Name = 0;
 constexpr uint32_t kPrintManagerHost_GetDefaultPrintSettings_Name = 1;
 constexpr uint32_t kPrintManagerHost_DidShowPrintDialog_Name = 2;

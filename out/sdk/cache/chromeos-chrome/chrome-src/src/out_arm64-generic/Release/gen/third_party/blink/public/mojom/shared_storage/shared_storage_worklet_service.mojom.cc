@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -167,14 +168,17 @@ void SharedStorageEntriesListenerProxy::DidReadEntries(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageEntriesListener_DidReadEntries_Name, kFlags, 0, 0, nullptr);
@@ -285,10 +289,10 @@ bool SharedStorageEntriesListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedStorageEntriesListenerValidationInfo[] = {
-    {&internal::SharedStorageEntriesListener_DidReadEntries_Params_Data::Validate,
+    { &internal::SharedStorageEntriesListener_DidReadEntries_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -686,14 +690,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageSet(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageSet_Name, kFlags, 0, 0, nullptr);
@@ -750,14 +757,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageAppend(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageAppend_Name, kFlags, 0, 0, nullptr);
@@ -810,14 +820,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageDelete(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageDelete_Name, kFlags, 0, 0, nullptr);
@@ -852,14 +865,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageClear(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SharedStorageWorkletServiceClient::SharedStorageClear");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageClear_Name, kFlags, 0, 0, nullptr);
@@ -890,14 +906,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageGet(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageGet_Name, kFlags, 0, 0, nullptr);
@@ -939,14 +958,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageKeys(
                         "<value of type ::mojo::PendingRemote<SharedStorageEntriesListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageKeys_Name, kFlags, 0, 0, nullptr);
@@ -982,14 +1004,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageEntries(
                         "<value of type ::mojo::PendingRemote<SharedStorageEntriesListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageEntries_Name, kFlags, 0, 0, nullptr);
@@ -1018,14 +1043,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageLength(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SharedStorageWorkletServiceClient::SharedStorageLength");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageLength_Name, kFlags, 0, 0, nullptr);
@@ -1049,14 +1077,17 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageRemainingBudget(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SharedStorageWorkletServiceClient::SharedStorageRemainingBudget");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name, kFlags, 0, 0, nullptr);
@@ -1087,14 +1118,17 @@ void SharedStorageWorkletServiceClientProxy::ConsoleLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name, kFlags, 0, 0, nullptr);
@@ -1135,14 +1169,17 @@ void SharedStorageWorkletServiceClientProxy::RecordUseCounters(
                         "<value of type const std::vector<::blink::mojom::WebFeature>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name, kFlags, 0, 0, nullptr);
@@ -1271,7 +1308,8 @@ void SharedStorageWorkletServiceClient_SharedStorageSet_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageSet_Name, kFlags, 0, 0, nullptr);
@@ -1407,7 +1445,8 @@ void SharedStorageWorkletServiceClient_SharedStorageAppend_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageAppend_Name, kFlags, 0, 0, nullptr);
@@ -1543,7 +1582,8 @@ void SharedStorageWorkletServiceClient_SharedStorageDelete_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageDelete_Name, kFlags, 0, 0, nullptr);
@@ -1679,7 +1719,8 @@ void SharedStorageWorkletServiceClient_SharedStorageClear_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageClear_Name, kFlags, 0, 0, nullptr);
@@ -1822,7 +1863,8 @@ void SharedStorageWorkletServiceClient_SharedStorageGet_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageGet_Name, kFlags, 0, 0, nullptr);
@@ -1977,7 +2019,8 @@ void SharedStorageWorkletServiceClient_SharedStorageLength_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageLength_Name, kFlags, 0, 0, nullptr);
@@ -2121,7 +2164,8 @@ void SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name, kFlags, 0, 0, nullptr);
@@ -2525,30 +2569,30 @@ std::move(p_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedStorageWorkletServiceClientValidationInfo[] = {
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageSet_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageSet_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageSet_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageAppend_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageAppend_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageAppend_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageDelete_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageDelete_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageDelete_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageClear_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageClear_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageClear_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageGet_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageGet_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageGet_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageKeys_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageKeys_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageEntries_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageEntries_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageLength_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageLength_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageLength_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedStorageWorkletServiceClient_RecordUseCounters_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_RecordUseCounters_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2729,7 +2773,7 @@ SharedStorageWorkletServiceProxy::SharedStorageWorkletServiceProxy(mojo::Message
 }
 
 void SharedStorageWorkletServiceProxy::Initialize(
-    ::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> in_client, bool in_private_aggregation_permissions_policy_allowed, const absl::optional<::std::u16string>& in_embedder_context) {
+    ::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> in_client, bool in_private_aggregation_permissions_policy_allowed, const std::optional<::std::u16string>& in_embedder_context) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::SharedStorageWorkletService::Initialize", "input_parameters",
@@ -2743,17 +2787,20 @@ void SharedStorageWorkletServiceProxy::Initialize(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("embedder_context"), in_embedder_context,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -2800,14 +2847,17 @@ void SharedStorageWorkletServiceProxy::AddModule(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_AddModule_Name, kFlags, 0, 0, nullptr);
@@ -2864,14 +2914,17 @@ void SharedStorageWorkletServiceProxy::RunURLSelectionOperation(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::PrivateAggregationHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_RunURLSelectionOperation_Name, kFlags, 0, 0, nullptr);
@@ -2945,14 +2998,17 @@ void SharedStorageWorkletServiceProxy::RunOperation(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::PrivateAggregationHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_RunOperation_Name, kFlags, 0, 0, nullptr);
@@ -3093,7 +3149,8 @@ void SharedStorageWorkletService_AddModule_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_AddModule_Name, kFlags, 0, 0, nullptr);
@@ -3236,7 +3293,8 @@ void SharedStorageWorkletService_RunURLSelectionOperation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_RunURLSelectionOperation_Name, kFlags, 0, 0, nullptr);
@@ -3373,7 +3431,8 @@ void SharedStorageWorkletService_RunOperation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedStorageWorkletService_RunOperation_Name, kFlags, 0, 0, nullptr);
@@ -3426,7 +3485,7 @@ bool SharedStorageWorkletServiceStubDispatch::Accept(
       bool success = true;
       ::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> p_client{};
       bool p_private_aggregation_permissions_policy_allowed{};
-      absl::optional<::std::u16string> p_embedder_context{};
+      std::optional<::std::u16string> p_embedder_context{};
       SharedStorageWorkletService_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3597,16 +3656,16 @@ std::move(p_pa_host), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedStorageWorkletServiceValidationInfo[] = {
-    {&internal::SharedStorageWorkletService_Initialize_Params_Data::Validate,
+    { &internal::SharedStorageWorkletService_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedStorageWorkletService_AddModule_Params_Data::Validate,
+    { &internal::SharedStorageWorkletService_AddModule_Params_Data::Validate,
      &internal::SharedStorageWorkletService_AddModule_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletService_RunURLSelectionOperation_Params_Data::Validate,
+    { &internal::SharedStorageWorkletService_RunURLSelectionOperation_Params_Data::Validate,
      &internal::SharedStorageWorkletService_RunURLSelectionOperation_ResponseParams_Data::Validate},
-    {&internal::SharedStorageWorkletService_RunOperation_Params_Data::Validate,
+    { &internal::SharedStorageWorkletService_RunOperation_Params_Data::Validate,
      &internal::SharedStorageWorkletService_RunOperation_ResponseParams_Data::Validate},
 };
 
@@ -3870,7 +3929,7 @@ void SharedStorageWorkletServiceClientAsyncWaiter::SharedStorageRemainingBudget(
 
 
 
-void SharedStorageWorkletServiceInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> client, bool private_aggregation_permissions_policy_allowed, const absl::optional<::std::u16string>& embedder_context) {
+void SharedStorageWorkletServiceInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> client, bool private_aggregation_permissions_policy_allowed, const std::optional<::std::u16string>& embedder_context) {
   GetForwardingInterface()->Initialize(std::move(client), std::move(private_aggregation_permissions_policy_allowed), std::move(embedder_context));
 }
 void SharedStorageWorkletServiceInterceptorForTesting::AddModule(::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, const ::GURL& script_source_url, AddModuleCallback callback) {
